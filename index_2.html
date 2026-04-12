@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mr. Bell – Der WhatsApp-Concierge für Ihr Hotel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --dark:#1a1a2e;--dark2:#12122a;
+  --gold:#c4a45a;--gold2:#e8d5a3;
+  --gold3:rgba(196,164,90,0.15);--gold4:rgba(196,164,90,0.06);
+  --creme:#f5f5f0;--white:#fff;--gray:#7a7a9a;--gray2:#aaaacc
+}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--dark)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+
+/* CURSOR */
+#cur{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s}
+#cur-ring{position:fixed;width:40px;height:40px;border:1px solid rgba(196,164,90,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s,height .4s,border-color .3s}
+#cur-ring.big{width:60px;height:60px;border-color:var(--gold)}
+
+/* NOISE OVERLAY */
+.noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:24px 72px;display:flex;align-items:center;justify-content:space-between;transition:all .5s cubic-bezier(.16,1,.3,1)}
+nav.scrolled{background:rgba(18,18,42,.97);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-bottom:1px solid rgba(196,164,90,.1);padding:15px 72px}
+.nav-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-logo{transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.nav-brand:hover .nav-logo{transform:rotate(-10deg) scale(1.1)}
+.nav-brand-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white)}
+.nav-links{display:flex;gap:44px;align-items:center}
+.nav-link{color:var(--gray2);text-decoration:none;font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;transition:color .3s;position:relative;padding-bottom:4px}
+.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .35s cubic-bezier(.16,1,.3,1)}
+.nav-link:hover{color:var(--gold)}
+.nav-link:hover::after{width:100%}
+.nav-cta{border:1px solid rgba(196,164,90,.5);color:var(--gold);padding:12px 32px;text-decoration:none;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;transition:all .4s;position:relative;overflow:hidden}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.16,1,.3,1);z-index:-1}
+.nav-cta:hover{color:var(--dark)}
+.nav-cta:hover::before{transform:scaleX(1)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 40px 100px;position:relative;overflow:hidden}
+canvas#c{position:absolute;inset:0;z-index:0}
+.hero-aura{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(196,164,90,.05) 0%,transparent 60%);animation:aura 10s ease-in-out infinite;pointer-events:none}
+@keyframes aura{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.2)}}
+.hero-content{position:relative;z-index:2;max-width:1000px}
+.hero-ey{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:36px;display:flex;align-items:center;justify-content:center;gap:20px;animation:fadeUp 1s .2s both;opacity:.9}
+.hero-ey::before,.hero-ey::after{content:'';width:48px;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
+.hero-ey::after{background:linear-gradient(to left,transparent,var(--gold))}
+.hero-bell{margin:0 auto 44px;display:inline-block;animation:fadeUp 1s .4s both}
+.bell-svg{filter:drop-shadow(0 0 32px rgba(196,164,90,.28));animation:bellFloat 6s ease-in-out infinite}
+@keyframes bellFloat{0%,100%{transform:translateY(0) rotate(0deg)}30%{transform:translateY(-14px) rotate(-2deg)}70%{transform:translateY(-8px) rotate(2deg)}}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(88px,14vw,172px);font-weight:700;color:var(--white);line-height:.82;letter-spacing:-5px;animation:fadeUp 1s .5s both;position:relative}
+.hero-title span{position:relative;display:inline-block}
+.hero-rule{display:flex;align-items:center;justify-content:center;gap:28px;margin:40px 0;animation:fadeUp 1s .65s both}
+.hrl{height:1px;width:140px}
+.hrl.l{background:linear-gradient(to right,transparent,var(--gold))}
+.hrl.r{background:linear-gradient(to left,transparent,var(--gold))}
+.hero-tagline{font-family:'Playfair Display',serif;font-size:clamp(20px,2.8vw,30px);font-style:italic;color:var(--gold2);margin-bottom:28px;animation:fadeUp 1s .75s both;font-weight:400;letter-spacing:.5px}
+.hero-sub{font-size:16px;color:var(--gray2);max-width:520px;margin:0 auto 72px;line-height:1.95;font-weight:300;animation:fadeUp 1s .85s both}
+.hero-btns{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;animation:fadeUp 1s .95s both}
+.btn-fill{background:var(--gold);color:var(--dark);padding:22px 64px;text-decoration:none;font-size:10px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;transition:all .4s;position:relative;overflow:hidden;display:inline-block}
+.btn-fill::before{content:'';position:absolute;inset:0;background:var(--gold2);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.btn-fill span{position:relative;z-index:1}
+.btn-fill:hover{transform:translateY(-4px);box-shadow:0 24px 48px rgba(196,164,90,.25)}
+.btn-fill:hover::before{transform:scaleX(1)}
+.btn-line{border:1px solid rgba(196,164,90,.4);color:var(--gold);padding:22px 64px;text-decoration:none;font-size:10px;letter-spacing:3.5px;text-transform:uppercase;transition:all .4s;position:relative;overflow:hidden}
+.btn-line::before{content:'';position:absolute;inset:0;background:rgba(196,164,90,.06);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.btn-line:hover{border-color:var(--gold);transform:translateY(-4px)}
+.btn-line:hover::before{transform:scaleX(1)}
+
+/* STATS */
+.stats{background:rgba(196,164,90,.04);border-top:1px solid rgba(196,164,90,.12);border-bottom:1px solid rgba(196,164,90,.12);padding:56px 72px}
+.stats-in{max-width:920px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+.stat-d{border-left:1px solid rgba(196,164,90,.15)}
+.stat-n{font-family:'Playfair Display',serif;font-size:60px;font-weight:700;color:var(--gold);line-height:1;text-shadow:0 0 40px rgba(196,164,90,.35)}
+.stat-l{font-size:9px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gray);margin-top:10px}
+
+/* SECTIONS */
+section{padding:136px 40px}
+.container{max-width:1140px;margin:0 auto}
+.ey{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;font-weight:500;display:flex;align-items:center;gap:14px}
+.ey::before{content:'';width:32px;height:1px;background:var(--gold);flex-shrink:0}
+.st{font-family:'Playfair Display',serif;font-size:clamp(42px,5vw,66px);font-weight:700;color:var(--white);line-height:1.02;margin-bottom:20px}
+.ss{font-size:16px;color:var(--gray2);max-width:560px;line-height:1.9;margin-bottom:76px;font-weight:300}
+.gr{display:flex;align-items:center;gap:14px;margin:20px 0 60px}
+.grl{height:1px;background:var(--gold);width:64px}
+.grd{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(196,164,90,.7);flex-shrink:0}
+
+/* PROBLEM */
+.prob-s{background:var(--creme)}
+.prob-s .ey{color:#aaa}.prob-s .ey::before{background:#ccc}
+.prob-s .st{color:var(--dark)}.prob-s .ss{color:#666}
+.prob-s .grl,.prob-s .grd{background:var(--gold)}
+.prob-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:60px;overflow:hidden}
+@media(max-width:900px){.prob-cards{grid-template-columns:1fr}}
+.prob-card{background:var(--white);overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);position:relative}
+.prob-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0;background:linear-gradient(to top,rgba(196,164,90,.05),transparent);transition:height .5s}
+.prob-card:hover{transform:translateY(-10px);box-shadow:0 40px 80px rgba(0,0,0,.12)}
+.prob-card:hover::after{height:100%}
+.prob-h{background:var(--dark);padding:24px 32px;display:flex;align-items:center;gap:16px;transition:background .4s}
+.prob-card:hover .prob-h{background:#0a0a1e}
+.prob-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(196,164,90,.9);flex-shrink:0;transition:transform .4s,box-shadow .4s}
+.prob-card:hover .prob-dot{transform:scale(1.6);box-shadow:0 0 20px rgba(196,164,90,1)}
+.prob-time{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--gold);letter-spacing:.3px}
+.prob-b{padding:30px 32px}
+.prob-b p{font-size:15px;color:#444;line-height:1.78}
+.prob-end{font-family:'Playfair Display',serif;font-size:26px;font-style:italic;color:var(--gold);font-weight:700}
+
+/* SOLUTION */
+.sol-quote{font-family:'Playfair Display',serif;font-size:clamp(20px,2.4vw,27px);font-style:italic;color:var(--gold2);max-width:820px;line-height:1.75;margin-bottom:84px;padding-left:36px;border-left:2px solid var(--gold)}
+.usp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+@media(max-width:640px){.usp-grid{grid-template-columns:1fr}}
+.usp-card{background:rgba(255,255,255,.025);padding:52px 44px;border:1px solid rgba(196,164,90,.07);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.usp-card::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:linear-gradient(to bottom,var(--gold),rgba(196,164,90,.3));transition:height .6s cubic-bezier(.16,1,.3,1)}
+.usp-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at top left,rgba(196,164,90,.07) 0%,transparent 55%);opacity:0;transition:opacity .5s}
+.usp-card:hover{background:rgba(196,164,90,.04);border-color:rgba(196,164,90,.18);transform:translateY(-6px)}
+.usp-card:hover::before{height:100%}
+.usp-card:hover::after{opacity:1}
+.usp-n{font-family:'Playfair Display',serif;font-size:88px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:22px;opacity:.15;transition:opacity .4s,text-shadow .4s;display:block}
+.usp-card:hover .usp-n{opacity:.45;text-shadow:0 0 40px rgba(196,164,90,.5)}
+.usp-t{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:var(--gold);margin-bottom:14px}
+.usp-card p{font-size:14px;color:var(--gray2);line-height:1.8;font-weight:300}
+
+/* HOW */
+.how-s{background:rgba(255,255,255,.012)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);margin-top:76px;position:relative}
+.steps::before{content:'';position:absolute;top:29px;left:16.5%;right:16.5%;height:1px;background:linear-gradient(to right,transparent,rgba(196,164,90,.6),transparent);z-index:0}
+@media(max-width:768px){.steps{grid-template-columns:1fr;gap:40px}.steps::before{display:none}}
+.step{padding:52px 36px;text-align:center;position:relative;z-index:1;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.step:hover{transform:translateY(-8px)}
+.step-c{width:58px;height:58px;border-radius:50%;border:1px solid rgba(196,164,90,.45);display:flex;align-items:center;justify-content:center;margin:0 auto 36px;background:var(--dark);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative}
+.step-c::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(196,164,90,.12);opacity:0;transition:opacity .4s;transform:scale(.8);transition:all .5s}
+.step:hover .step-c{border-color:var(--gold);background:rgba(196,164,90,.1);box-shadow:0 0 40px rgba(196,164,90,.18)}
+.step:hover .step-c::before{opacity:1;transform:scale(1)}
+.step-c span{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--gold)}
+.step-t{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--white);margin-bottom:14px}
+.step p{font-size:14px;color:var(--gray2);line-height:1.78;font-weight:300}
+
+/* DATENSCHUTZ */
+.ds-s{background:var(--creme)}
+.ds-s .ey{color:#aaa}.ds-s .ey::before{background:#ccc}
+.ds-s .st{color:var(--dark)}.ds-s .ss{color:#666}
+.ds-s .grl,.ds-s .grd{background:var(--gold)}
+.ds-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+@media(max-width:640px){.ds-grid{grid-template-columns:1fr}}
+.ds-card{background:var(--white);padding:44px 40px;border-left:3px solid rgba(196,164,90,.2);position:relative;overflow:hidden;transition:all .45s cubic-bezier(.16,1,.3,1)}
+.ds-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--gold),rgba(196,164,90,.4));transform:scaleY(0);transform-origin:top;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.ds-card::after{content:'';position:absolute;top:0;right:0;bottom:0;left:3px;background:linear-gradient(135deg,rgba(196,164,90,.04) 0%,transparent 60%);opacity:0;transition:opacity .4s}
+.ds-card:hover{transform:translateX(8px);box-shadow:8px 0 40px rgba(196,164,90,.07)}
+.ds-card:hover::before{transform:scaleY(1)}
+.ds-card:hover::after{opacity:1}
+.ds-ct{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--dark);margin-bottom:14px;transition:color .3s;position:relative;z-index:1}
+.ds-card:hover .ds-ct{color:#08081a}
+.ds-card p{font-size:14px;color:#555;line-height:1.78;position:relative;z-index:1}
+
+/* PIONEER */
+.pio-s{position:relative;overflow:hidden}
+.pio-glow{position:absolute;left:-300px;top:50%;transform:translateY(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(196,164,90,.055) 0%,transparent 60%);pointer-events:none}
+.pio-layout{display:grid;grid-template-columns:1fr 1.9fr;gap:110px;align-items:center}
+@media(max-width:900px){.pio-layout{grid-template-columns:1fr;gap:60px}}
+.pio-left{display:flex;justify-content:center}
+
+/* BADGE FIX */
+.pio-badge{
+  width:260px;height:260px;border-radius:50%;
+  border:1px solid var(--gold);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:6px;
+  position:relative;
+  transition:all .5s cubic-bezier(.16,1,.3,1);
+  cursor:default;
+  flex-shrink:0
+}
+.pio-badge::before{content:'';position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(196,164,90,.2);transition:all .5s}
+.pio-badge::after{content:'';position:absolute;inset:-28px;border-radius:50%;border:1px solid rgba(196,164,90,.08);transition:all .5s}
+.pio-badge:hover{border-color:var(--gold2);box-shadow:0 0 80px rgba(196,164,90,.18)}
+.pio-badge:hover::before{inset:-20px;border-color:rgba(196,164,90,.35)}
+.pio-badge:hover::after{inset:-40px;border-color:rgba(196,164,90,.12)}
+.pio-num{
+  font-family:'Playfair Display',serif;
+  font-size:96px;
+  font-weight:700;
+  color:var(--gold);
+  line-height:1;
+  display:block;
+  text-shadow:0 0 50px rgba(196,164,90,.45);
+  transition:text-shadow .4s
+}
+.pio-badge:hover .pio-num{text-shadow:0 0 80px rgba(196,164,90,.8)}
+.pio-txt{
+  font-size:10px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gray);display:block;line-height:1
+}
+
+.pio-list{list-style:none;margin-top:8px}
+.pio-item{display:flex;align-items:center;gap:20px;padding:18px 0;border-bottom:1px solid rgba(196,164,90,.07);transition:all .35s cubic-bezier(.16,1,.3,1);cursor:default}
+.pio-item:last-child{border-bottom:none}
+.pio-item:hover{padding-left:10px;border-bottom-color:rgba(196,164,90,.18)}
+.pio-chk{width:28px;height:28px;border-radius:50%;background:rgba(196,164,90,.07);border:1px solid rgba(196,164,90,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .35s cubic-bezier(.16,1,.3,1)}
+.pio-item:hover .pio-chk{background:rgba(196,164,90,.2);border-color:var(--gold);box-shadow:0 0 16px rgba(196,164,90,.25);transform:scale(1.1)}
+.pio-item p{font-size:14px;color:var(--gray2);line-height:1.6;font-weight:300;transition:color .3s}
+.pio-item:hover p{color:var(--white)}
+
+/* PRICING */
+.price-s{background:var(--creme)}
+.price-s .ey{color:#aaa}.price-s .ey::before{background:#ccc}
+.price-s .st{color:var(--dark)}.price-s .ss{color:#666;margin:0 auto 76px}
+.price-s .grl,.price-s .grd{background:var(--gold)}
+.price-wrap{display:grid;grid-template-columns:1fr 1fr;max-width:880px;margin:0 auto;box-shadow:0 48px 120px rgba(0,0,0,.14)}
+@media(max-width:640px){.price-wrap{grid-template-columns:1fr}}
+.pc-std{background:var(--white);transition:all .5s cubic-bezier(.16,1,.3,1)}
+.pc-pio{background:var(--dark);border:2px solid var(--gold);transition:all .5s cubic-bezier(.16,1,.3,1)}
+.price-wrap:hover .pc-std{transform:scale(.983)}
+.price-wrap:hover .pc-pio{transform:scale(1.017);box-shadow:0 0 80px rgba(196,164,90,.18)}
+.ph{padding:36px 44px;border-bottom:1px solid rgba(0,0,0,.05)}
+.pc-pio .ph{background:var(--gold);border-bottom:none}
+.pn{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#888}
+.pc-pio .ph .pn{color:var(--dark);letter-spacing:2.5px}
+.ps{font-size:10px;color:#ccc;margin-top:6px;letter-spacing:1.5px}
+.pc-pio .ph .ps{color:rgba(26,26,46,.5)}
+.pb{padding:12px 44px 36px}
+.pr{display:flex;justify-content:space-between;align-items:center;padding:17px 0;border-bottom:1px solid rgba(0,0,0,.04);transition:all .3s;cursor:default}
+.pc-pio .pr{border-bottom:1px solid rgba(255,255,255,.04)}
+.pr:last-child{border-bottom:none}
+.pr:hover{padding-left:8px}
+.pl{font-size:13px;color:#999;transition:color .3s}
+.pr:hover .pl{color:#555}
+.pc-pio .pl{color:var(--gray2)}
+.pc-pio .pr:hover .pl{color:var(--gray2)}
+.pp{font-size:15px;font-weight:600;color:var(--dark);transition:all .3s}
+.pc-pio .pp{color:var(--gold);text-shadow:0 0 24px rgba(196,164,90,.35)}
+.pc-pio .pr:hover .pp{color:var(--gold2);text-shadow:0 0 32px rgba(196,164,90,.6)}
+.pfoot{text-align:center;font-size:11px;color:var(--gray);padding:0 44px 28px;font-style:italic}
+
+/* PILOT */
+.pilot-s{position:relative}
+.pilot-in{max-width:840px;margin:0 auto;text-align:center}
+.pilot-box{border:1px solid rgba(196,164,90,.16);padding:96px 80px;position:relative;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1)}
+.pilot-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -10%,rgba(196,164,90,.07) 0%,transparent 60%);pointer-events:none}
+.pilot-box::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:.5}
+.pilot-box:hover{border-color:rgba(196,164,90,.3);box-shadow:0 0 100px rgba(196,164,90,.07)}
+.pilot-box h2{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,60px);font-weight:700;color:var(--white);margin-bottom:24px}
+.pilot-box>p{font-size:16px;color:var(--gray2);line-height:1.9;margin-bottom:64px;max-width:560px;margin-left:auto;margin-right:auto;font-weight:300}
+.psteps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:64px}
+@media(max-width:640px){.psteps{grid-template-columns:1fr}}
+.pstep{background:rgba(255,255,255,.03);padding:36px 28px;border:1px solid rgba(196,164,90,.07);transition:all .45s cubic-bezier(.16,1,.3,1);cursor:default;position:relative;overflow:hidden}
+.pstep::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.pstep:hover{background:rgba(196,164,90,.07);border-color:rgba(196,164,90,.2);transform:translateY(-6px);box-shadow:0 20px 40px rgba(196,164,90,.1)}
+.pstep:hover::before{transform:scaleX(1)}
+.pst{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--gold);margin-bottom:12px;letter-spacing:.5px}
+.pstep p{font-size:13px;color:var(--gray);line-height:1.75;font-weight:300;transition:color .3s}
+.pstep:hover p{color:var(--gray2)}
+
+/* CONTACT */
+.ct-s{background:var(--creme)}
+.ct-s .ey{color:#aaa}.ct-s .ey::before{background:#ccc}
+.ct-s .st{color:var(--dark)}.ct-s .ss{color:#666;margin:0 auto 64px}
+.ct-s .grl,.ct-s .grd{background:var(--gold)}
+.ct-form{max-width:620px;margin:0 auto}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:640px){.frow{grid-template-columns:1fr}}
+.fg{margin-bottom:24px}
+.fg label{display:block;font-size:9px;letter-spacing:3.5px;text-transform:uppercase;color:#bbb;margin-bottom:10px;font-weight:500}
+.fg input,.fg textarea{width:100%;padding:16px 20px;border:none;border-bottom:1.5px solid #ddd;background:var(--white);color:var(--dark);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .35s;-webkit-appearance:none}
+.fg input:focus,.fg textarea:focus{border-bottom-color:var(--gold)}
+.fg textarea{height:130px;resize:vertical;border:1px solid #eee;border-bottom:1.5px solid #ddd}
+.fsub{width:100%;background:var(--dark);color:var(--white);padding:22px;border:none;font-size:10px;letter-spacing:4px;text-transform:uppercase;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer;transition:all .4s;position:relative;overflow:hidden;margin-top:4px}
+.fsub::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.fsub span{position:relative;z-index:1;transition:color .4s}
+.fsub:hover::before{transform:scaleX(1)}
+.fsub:hover span{color:var(--dark)}
+
+/* IMPRESSUM */
+.imp-s{padding:0 40px;border-top:1px solid rgba(196,164,90,.07)}
+.imp-in{max-width:1140px;margin:0 auto}
+.imp-tog{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:32px 0;border-bottom:1px solid rgba(196,164,90,.06);transition:opacity .3s}
+.imp-tog:hover{opacity:.65}
+.imp-lbl{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gray)}
+.imp-ic{width:24px;height:24px;border-radius:50%;border:1px solid rgba(196,164,90,.22);display:flex;align-items:center;justify-content:center;transition:transform .4s,border-color .3s;flex-shrink:0}
+.imp-ic.open{transform:rotate(45deg);border-color:var(--gold)}
+.imp-cnt{max-height:0;overflow:hidden;transition:max-height .6s ease}
+.imp-cnt.open{max-height:2000px}
+.imp-body{padding:48px 0;display:grid;grid-template-columns:1fr 1fr;gap:64px}
+@media(max-width:640px){.imp-body{grid-template-columns:1fr}}
+.imp-body h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--gold);margin-bottom:10px;margin-top:28px}
+.imp-body h3:first-child{margin-top:0}
+.imp-body p{font-size:13px;color:var(--gray2);line-height:1.78;margin-bottom:6px;font-weight:300}
+.imp-body a{color:var(--gold);text-decoration:none}
+.imp-body hr{border:none;border-top:1px solid rgba(196,164,90,.08);margin:24px 0}
+
+/* FOOTER */
+footer{background:var(--dark2);border-top:1px solid rgba(196,164,90,.08);padding:42px 72px}
+.fi{max-width:1140px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.fb{display:flex;align-items:center;gap:12px;text-decoration:none}
+.fb span{font-family:'Playfair Display',serif;font-size:18px;color:var(--white)}
+.flinks{display:flex;gap:32px}
+.flinks a{color:var(--gray);text-decoration:none;font-size:12px;letter-spacing:.5px;transition:color .3s}
+.flinks a:hover{color:var(--gold)}
+.fc{font-size:11px;color:var(--gray);letter-spacing:.5px}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(44px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  nav{padding:16px 24px}nav.scrolled{padding:12px 24px}.nav-links{display:none}
+  section{padding:88px 24px}
+  .stats{padding:48px 24px}.stats-in{grid-template-columns:1fr;gap:40px}
+  .stat-d{border-left:none;border-top:1px solid rgba(196,164,90,.14);padding-top:36px}
+  .pilot-box{padding:56px 28px}
+  footer{padding:32px 24px}
+  #cur,#cur-ring{display:none}
+  body{cursor:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand">
+    <svg class="nav-logo" width="32" height="32" viewBox="0 0 60 60">
+      <ellipse cx="30" cy="12" rx="5" ry="4" fill="#c4a45a"/>
+      <rect x="26" y="12" width="8" height="9" fill="#c4a45a"/>
+      <path d="M30 21 C14 21 4 31 2 46 L58 46 C56 31 46 21 30 21 Z" fill="#c4a45a"/>
+      <ellipse cx="30" cy="30" rx="14" ry="6" fill="#e8d5a3" opacity="0.2"/>
+      <rect x="0" y="46" width="60" height="9" rx="4" fill="#c4a45a"/>
+      <rect x="8" y="54" width="44" height="5" rx="2" fill="#a8853e"/>
+    </svg>
+    <span class="nav-brand-name">Mr. Bell</span>
+  </div>
+  <div class="nav-links">
+    <a href="#problem" class="nav-link">Problem</a>
+    <a href="#loesung" class="nav-link">Lösung</a>
+    <a href="#pioneer" class="nav-link">Pioneer</a>
+    <a href="#preise" class="nav-link">Preise</a>
+    <a href="#kontakt" class="nav-cta">Pilot anfragen</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="c"></canvas>
+  <div class="hero-aura"></div>
+  <div class="hero-content">
+    <p class="hero-ey">WhatsApp-Concierge für Hotels</p>
+    <div class="hero-bell">
+      <svg class="bell-svg" width="112" height="112" viewBox="0 0 120 120">
+        <ellipse cx="60" cy="17" rx="8" ry="6" fill="#c4a45a"/>
+        <rect x="54" y="17" width="12" height="13" fill="#c4a45a"/>
+        <path d="M60 30 C27 30 5 50 3 84 L117 84 C115 50 93 30 60 30 Z" fill="#c4a45a"/>
+        <ellipse cx="60" cy="44" rx="22" ry="8" fill="#e8d5a3" opacity="0.2"/>
+        <rect x="0" y="84" width="120" height="17" rx="7" fill="#c4a45a"/>
+        <rect x="10" y="100" width="100" height="10" rx="5" fill="#a8853e"/>
+        <ellipse cx="60" cy="16" rx="5" ry="3" fill="#e8d5a3" opacity="0.4"/>
+      </svg>
+    </div>
+    <h1 class="hero-title">Mr. Bell</h1>
+    <div class="hero-rule">
+      <div class="hrl l"></div>
+      <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2.5" fill="#c4a45a"/><circle cx="8" cy="8" r="7" fill="none" stroke="#c4a45a" stroke-width="0.5" opacity="0.55"/></svg>
+      <div class="hrl r"></div>
+    </div>
+    <p class="hero-tagline">Service, der nie schläft.</p>
+    <p class="hero-sub">Der digitale Concierge für mittelständige, inhabergeführte Hotels. 24/7 verfügbar, jede Sprache, vollständig auf Ihr Hotel abgestimmt.</p>
+    <div class="hero-btns">
+      <a href="#kontakt" class="btn-fill"><span>Pilot anfragen</span></a>
+      <a href="#loesung" class="btn-line">Mehr erfahren</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats reveal">
+  <div class="stats-in">
+    <div><div class="stat-n">24/7</div><div class="stat-l">Immer erreichbar</div></div>
+    <div class="stat-d"><div class="stat-n">∞</div><div class="stat-l">Sprachen</div></div>
+    <div class="stat-d"><div class="stat-n">0</div><div class="stat-l">Downloads nötig</div></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="prob-s" id="problem">
+  <div class="container">
+    <p class="ey reveal">Das Problem</p>
+    <h2 class="st reveal">Kennen Sie das?</h2>
+    <div class="gr reveal"><div class="grl"></div><div class="grd"></div></div>
+    <div class="prob-cards reveal">
+      <div class="prob-card"><div class="prob-h"><div class="prob-dot"></div><span class="prob-time">22:47 Uhr</span></div><div class="prob-b"><p>Ein Gast fragt auf Englisch, wo der nächste Arzt ist. Niemand an der Rezeption.</p></div></div>
+      <div class="prob-card"><div class="prob-h"><div class="prob-dot"></div><span class="prob-time">Sonntag früh</span></div><div class="prob-b"><p>Eine niederländische Familie möchte wissen, ob das Frühstück heute länger geht. Keine Antwort.</p></div></div>
+      <div class="prob-card"><div class="prob-h"><div class="prob-dot"></div><span class="prob-time">Montagmorgen</span></div><div class="prob-b"><p>Drei neue Google-Bewertungen — zwei schlechte, weil sich Gäste alleingelassen fühlten.</p></div></div>
+    </div>
+    <p class="prob-end reveal">Das kostet Sie Bewertungen. Und Stammgäste.</p>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="loesung">
+  <div class="container">
+    <p class="ey reveal">Die Lösung</p>
+    <h2 class="st reveal">Was ist Mr. Bell?</h2>
+    <div class="gr reveal"><div class="grl"></div><div class="grd"></div></div>
+    <p class="sol-quote reveal">Ein digitaler Concierge, der über WhatsApp Gästeanfragen beantwortet — 24 Stunden am Tag, 7 Tage die Woche, in jeder Sprache. Vollständig auf Ihr Hotel abgestimmt.</p>
+    <div class="usp-grid">
+      <div class="usp-card reveal d1"><span class="usp-n">01</span><p class="usp-t">24/7 verfügbar</p><p>Kein Feierabend. Keine Krankentage. Mr. Bell ist immer da — auch wenn Ihre Rezeption schläft.</p></div>
+      <div class="usp-card reveal d2"><span class="usp-n">02</span><p class="usp-t">Jede Sprache</p><p>Deutsch, Englisch, Niederländisch, Spanisch — der Gast schreibt, Mr. Bell antwortet in seiner Sprache.</p></div>
+      <div class="usp-card reveal d3"><span class="usp-n">03</span><p class="usp-t">Kein Download</p><p>WhatsApp ist bereits installiert. QR-Code scannen — fertig. Keine App, keine Registrierung.</p></div>
+      <div class="usp-card reveal d4"><span class="usp-n">04</span><p class="usp-t">Individuell</p><p>Von den Frühstückszeiten bis zum Ton der Antworten — alles auf Ihr Hotel abgestimmt.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how-s" id="wie">
+  <div class="container">
+    <p class="ey reveal">Ablauf</p>
+    <h2 class="st reveal">In drei Schritten live</h2>
+    <div class="gr reveal"><div class="grl"></div><div class="grd"></div></div>
+    <div class="steps">
+      <div class="step reveal d1"><div class="step-c"><span>1</span></div><p class="step-t">Onboarding</p><p>Ich nehme mir Zeit für Ihr Hotel. Frühstückszeiten, lokale Tipps, Policies — Mr. Bell lernt Ihr Hotel kennen.</p></div>
+      <div class="step reveal d2"><div class="step-c"><span>2</span></div><p class="step-t">Einschulung</p><p>Ich schule Ihre Rezeption persönlich. Admin-Bereich, Eingriffe, Concierge pausieren — alles wird erklärt.</p></div>
+      <div class="step reveal d3"><div class="step-c"><span>3</span></div><p class="step-t">Live</p><p>QR-Code liegt im Zimmer. Gäste scannen, Mr. Bell antwortet sofort. Sie schlafen. Er nicht.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DATENSCHUTZ -->
+<section class="ds-s" id="datenschutz">
+  <div class="container">
+    <p class="ey reveal">Vertrauen</p>
+    <h2 class="st reveal">Datenschutz & Kontrolle</h2>
+    <div class="gr reveal"><div class="grl"></div><div class="grd"></div></div>
+    <p class="ss reveal">Ihre häufigste Frage — beantwortet, bevor Sie sie stellen.</p>
+    <div class="ds-grid">
+      <div class="ds-card reveal d1"><p class="ds-ct">DSGVO-konform</p><p>Wir arbeiten mit 360dialog — einem zertifizierten WhatsApp Business Solution Provider, der alle EU-Anforderungen erfüllt.</p></div>
+      <div class="ds-card reveal d2"><p class="ds-ct">Sie behalten die Kontrolle</p><p>Eigener Admin-Bereich. Alle Gespräche einsehbar. Manuell eingreifen möglich. Concierge jederzeit per Klick stoppbar.</p></div>
+      <div class="ds-card reveal d3"><p class="ds-ct">Einschulung inklusive</p><p>Ich schule Ihr Team persönlich — damit niemand das Gefühl hat, die Kontrolle abzugeben.</p></div>
+      <div class="ds-card reveal d4"><p class="ds-ct">Volle Anpassbarkeit</p><p>Bestimmte Themen ausschließen, Ton anpassen, immer auf die Rezeption verweisen — frei konfigurierbar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PIONEER -->
+<section class="pio-s" id="pioneer">
+  <div class="pio-glow"></div>
+  <div class="container">
+    <div class="pio-layout">
+      <div class="pio-left reveal">
+        <div class="pio-badge">
+          <span class="pio-num">3</span>
+          <span class="pio-txt">Plätze</span>
+        </div>
+      </div>
+      <div class="pio-right reveal">
+        <p class="ey">Exklusiv</p>
+        <h2 class="st">Das Pioneer-Programm</h2>
+        <div class="gr"><div class="grl"></div><div class="grd"></div></div>
+        <p class="ss">Ich suche drei Hotels in Bremen als Gründungspartner. Pioneer-Partner formen das Produkt mit — und profitieren als Erste.</p>
+        <ul class="pio-list">
+          <li class="pio-item"><div class="pio-chk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5 L4 7 L8 3" fill="none" stroke="#c4a45a" stroke-width="1.5" stroke-linecap="round"/></svg></div><p>Stark reduzierte Konditionen — dauerhaft, nicht nur im ersten Jahr</p></li>
+          <li class="pio-item"><div class="pio-chk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5 L4 7 L8 3" fill="none" stroke="#c4a45a" stroke-width="1.5" stroke-linecap="round"/></svg></div><p>Direkter Einfluss auf Features und Funktionen</p></li>
+          <li class="pio-item"><div class="pio-chk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5 L4 7 L8 3" fill="none" stroke="#c4a45a" stroke-width="1.5" stroke-linecap="round"/></svg></div><p>Persönliche Betreuung durch den Gründer bei der Einrichtung</p></li>
+          <li class="pio-item"><div class="pio-chk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5 L4 7 L8 3" fill="none" stroke="#c4a45a" stroke-width="1.5" stroke-linecap="round"/></svg></div><p>Namentliche Nennung als Gründungspartner</p></li>
+          <li class="pio-item"><div class="pio-chk"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5 L4 7 L8 3" fill="none" stroke="#c4a45a" stroke-width="1.5" stroke-linecap="round"/></svg></div><p>Keine Bindung während der Pilotphase</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="price-s" id="preise">
+  <div class="container" style="text-align:center">
+    <p class="ey reveal" style="justify-content:center">Transparent</p>
+    <h2 class="st reveal">Preise</h2>
+    <div class="gr reveal" style="justify-content:center"><div class="grl"></div><div class="grd"></div></div>
+    <p class="ss reveal">Kein verstecktes Kleingedrucktes. Kein Jahresvertrag beim Pilot.</p>
+    <div class="price-wrap reveal">
+      <div class="pc-std">
+        <div class="ph"><p class="pn">Standard</p><p class="ps">Reguläre Konditionen</p></div>
+        <div class="pb">
+          <div class="pr"><span class="pl">Setup (einmalig)</span><span class="pp">499 €</span></div>
+          <div class="pr"><span class="pl">Starter · 1–15 Zi.</span><span class="pp">269 €/Mo.</span></div>
+          <div class="pr"><span class="pl">Business · 16–35 Zi.</span><span class="pp">449 €/Mo.</span></div>
+          <div class="pr"><span class="pl">Premium · 36+ Zi.</span><span class="pp">699 €/Mo.</span></div>
+        </div>
+      </div>
+      <div class="pc-pio">
+        <div class="ph"><p class="pn">PIONEER</p><p class="ps">Nur für die ersten 3 Hotels</p></div>
+        <div class="pb">
+          <div class="pr"><span class="pl">Setup (einmalig)</span><span class="pp">0 €</span></div>
+          <div class="pr"><span class="pl">Starter · 1–15 Zi.</span><span class="pp">99 €/Mo.</span></div>
+          <div class="pr"><span class="pl">Business · 16–35 Zi.</span><span class="pp">175 €/Mo.</span></div>
+          <div class="pr"><span class="pl">Premium · 36+ Zi.</span><span class="pp">275 €/Mo.</span></div>
+        </div>
+        <p class="pfoot">ca. 50% Rabatt auf alle Tarife</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILOT -->
+<section class="pilot-s" id="pilot">
+  <div class="container">
+    <div class="pilot-in">
+      <div class="pilot-box reveal">
+        <h2>Zwei Wochen. Kein Risiko.</h2>
+        <p>Ich schalte Mr. Bell kostenlos für Ihr Hotel auf — für 14 Tage. Kein Vertrag. Keine Rechnung. Keine Verpflichtung. Wenn es nichts gebracht hat, trennen wir uns als Freunde.</p>
+        <div class="psteps">
+          <div class="pstep"><p class="pst">Woche 1</p><p>Einrichtung & Einschulung. Ich konfiguriere den Concierge und schule Ihr Team persönlich.</p></div>
+          <div class="pstep"><p class="pst">Woche 2</p><p>Live-Betrieb. Der Concierge antwortet für Ihre Gäste. Sie beobachten und geben Feedback.</p></div>
+          <div class="pstep"><p class="pst">Danach</p><p>Sie entscheiden. Weitermachen als Pioneer — oder nicht. Kein Druck.</p></div>
+        </div>
+        <a href="#kontakt" class="btn-fill"><span>Jetzt Pilot anfragen</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="ct-s" id="kontakt">
+  <div class="container" style="text-align:center">
+    <p class="ey reveal" style="justify-content:center">Kontakt</p>
+    <h2 class="st reveal">Pilot anfragen</h2>
+    <div class="gr reveal" style="justify-content:center"><div class="grl"></div><div class="grd"></div></div>
+    <p class="ss reveal">Schreiben Sie mir — ich melde mich innerhalb von 24 Stunden persönlich.</p>
+    <form class="ct-form reveal" onsubmit="handleSubmit(event)">
+      <div class="frow">
+        <div class="fg"><label>Ihr Name</label><input type="text" placeholder="Max Mustermann" required></div>
+        <div class="fg"><label>Hotel</label><input type="text" placeholder="Hotel Mustermann" required></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label>E-Mail</label><input type="email" placeholder="info@ihr-hotel.de" required></div>
+        <div class="fg"><label>Telefon</label><input type="tel" placeholder="+49 421 ..."></div>
+      </div>
+      <div class="fg"><label>Nachricht</label><textarea placeholder="Anzahl Zimmer, Fragen, Anmerkungen ..."></textarea></div>
+      <button type="submit" class="fsub"><span>Anfrage senden</span></button>
+    </form>
+  </div>
+</section>
+
+<!-- IMPRESSUM -->
+<section class="imp-s">
+  <div class="imp-in">
+    <div class="imp-tog" onclick="toggleImp()">
+      <span class="imp-lbl">Impressum & Rechtliches</span>
+      <div class="imp-ic" id="imp-ic"><svg width="10" height="10" viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9" stroke="#c4a45a" stroke-width="1.5"/><line x1="1" y1="5" x2="9" y2="5" stroke="#c4a45a" stroke-width="1.5"/></svg></div>
+    </div>
+    <div class="imp-cnt" id="imp-cnt">
+      <div class="imp-body">
+        <div>
+          <h3>Angaben gemäß § 5 TMG</h3>
+          <p>Ben Deschler</p><p>Scheibenstraße 2</p><p>76530 Baden-Baden</p>
+          <h3>Kontakt</h3>
+          <p>Telefon: <a href="tel:+4917620690319">+49 176 2069 0319</a></p>
+          <p>E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a></p>
+          <hr>
+          <h3>Verantwortlich nach § 55 Abs. 2 RStV</h3>
+          <p>Ben Deschler, Scheibenstraße 2, 76530 Baden-Baden</p>
+        </div>
+        <div>
+          <h3>Haftungsausschluss</h3>
+          <p>Die Inhalte wurden mit größtmöglicher Sorgfalt erstellt. Für Richtigkeit und Vollständigkeit kann keine Gewähr übernommen werden.</p>
+          <h3>Datenschutz</h3>
+          <p>Die Nutzung dieser Website ist ohne Angabe personenbezogener Daten möglich. Erhobene Daten werden ohne Zustimmung nicht an Dritte weitergegeben.</p>
+          <h3>Urheberrecht</h3>
+          <p>Die erstellten Inhalte unterliegen dem deutschen Urheberrecht. Vervielfältigung und Verbreitung bedürfen der schriftlichen Zustimmung.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fb">
+      <svg width="24" height="24" viewBox="0 0 60 60"><ellipse cx="30" cy="12" rx="5" ry="4" fill="#c4a45a"/><rect x="26" y="12" width="8" height="9" fill="#c4a45a"/><path d="M30 21 C14 21 4 31 2 46 L58 46 C56 31 46 21 30 21 Z" fill="#c4a45a"/><rect x="0" y="46" width="60" height="9" rx="4" fill="#c4a45a"/><rect x="8" y="54" width="44" height="5" rx="2" fill="#a8853e"/></svg>
+      <span>Mr. Bell</span>
+    </div>
+    <div class="flinks">
+      <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
+      <a href="tel:+4917620690319">+49 176 2069 0319</a>
+    </div>
+    <p class="fc">© 2026 Mr. Bell · Ben Deschler</p>
+  </div>
+</footer>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring')
+let mx=0,my=0,rx=0,ry=0
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'})
+;(function lerpRing(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lerpRing)})()
+document.querySelectorAll('a,button,.prob-card,.usp-card,.ds-card,.pio-item,.pstep,.pr,.pio-badge,.step').forEach(el=>{
+  el.addEventListener('mouseenter',()=>ring.classList.add('big'))
+  el.addEventListener('mouseleave',()=>ring.classList.remove('big'))
+})
+
+/* NAV */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60))
+
+/* REVEAL */
+document.querySelectorAll('.reveal').forEach(el=>{
+  new IntersectionObserver(([e],o)=>{if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target)}},{threshold:.07}).observe(el)
+})
+
+/* IMPRESSUM */
+function toggleImp(){
+  document.getElementById('imp-cnt').classList.toggle('open')
+  document.getElementById('imp-ic').classList.toggle('open')
+}
+
+/* FORM */
+function handleSubmit(e){
+  e.preventDefault()
+  const b=e.target.querySelector('.fsub')
+  b.querySelector('span').textContent='Gesendet ✓'
+  b.style.background='#1a4a2e'
+  setTimeout(()=>{b.querySelector('span').textContent='Anfrage senden';b.style.background='';e.target.reset()},3000)
+}
+
+/* COUNTER ANIMATION */
+function animateCounters(){
+  document.querySelectorAll('.stat-n[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target),dur=2000,step=dur/60
+    let cur2=0,t2=null
+    const update=()=>{cur2=Math.min(cur2+target/(dur/16),target);el.textContent=Math.round(cur2);if(cur2<target)t2=requestAnimationFrame(update)}
+    update()
+  })
+}
+
+/* PARTICLES */
+const canvas=document.getElementById('c'),ctx=canvas.getContext('2d')
+let W,H
+const resize=()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+resize();window.addEventListener('resize',resize)
+
+const pts=Array.from({length:80},()=>({
+  x:Math.random()*innerWidth,
+  y:Math.random()*innerHeight,
+  r:Math.random()*1.8+0.2,
+  dx:(Math.random()-.5)*.2,
+  dy:(Math.random()-.5)*.2,
+  o:Math.random()*.28+0.05,
+  ph:Math.random()*Math.PI*2,
+  spd:Math.random()*.006+.004
+}))
+
+// Mouse repel
+let mouseX=-999,mouseY=-999
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY})
+let t=0
+;(function draw(){
+  ctx.clearRect(0,0,W,H);t+=.01
+  pts.forEach(p=>{
+    const pulse=p.o*(0.65+0.35*Math.sin(t*2+p.ph))
+    // mouse repel
+    const dx=p.x-mouseX,dy=p.y-mouseY,dist=Math.sqrt(dx*dx+dy*dy)
+    if(dist<120){const force=(120-dist)/120;p.x+=dx/dist*force*1.5;p.y+=dy/dist*force*1.5}
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+    ctx.fillStyle=`rgba(196,164,90,${pulse})`;ctx.fill()
+    p.x+=p.dx;p.y+=p.dy
+    if(p.x<0||p.x>W)p.dx*=-1
+    if(p.y<0||p.y>H)p.dy*=-1
+  })
+
+  // Draw subtle connections between nearby particles
+  pts.forEach((p,i)=>{
+    pts.slice(i+1,i+4).forEach(q=>{
+      const dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy)
+      if(d<100){
+        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y)
+        ctx.strokeStyle=`rgba(196,164,90,${.05*(1-d/100)})`
+        ctx.lineWidth=.5;ctx.stroke()
+      }
+    })
+  })
+  requestAnimationFrame(draw)
+})()
+
+/* MAGNETIC BUTTONS */
+document.querySelectorAll('.btn-fill,.btn-line,.nav-cta').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect()
+    const x=(e.clientX-r.left-r.width/2)*.25
+    const y=(e.clientY-r.top-r.height/2)*.25
+    btn.style.transform=`translate(${x}px,${y}px)`
+  })
+  btn.addEventListener('mouseleave',()=>btn.style.transform='')
+})
+</script>
+</body>
+</html>
