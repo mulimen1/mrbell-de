@@ -3,7 +3,7 @@
   "framework": null,
   "buildCommand": null,
   "outputDirectory": ".",
-  "installCommand": null,
+  "installCommand": "npm install",
   "regions": ["fra1"],
   "cleanUrls": true,
   "trailingSlash": false,
@@ -26,6 +26,15 @@
         {
           "key": "Strict-Transport-Security",
           "value": "max-age=31536000; includeSubDomains"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
         }
       ]
     }
