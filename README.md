@@ -1,158 +1,84 @@
-# Mr. Bell — Onboarding-Website
+# DSGVO-Compliance-Paket — Mr. Bell
 
-WhatsApp AI-Assistent für deutsche kleine und mittlere Dienstleistungsunternehmen.
+**Stand:** 05.05.2026
 
-**Live:** https://mrbell.de
-**Stack:** Static HTML + Tailwind CDN · Vercel Serverless Functions · Stripe · Anthropic Claude · n8n Cloud · 360dialog
-
----
-
-## 📁 Repo-Struktur
-
-```
-mrbell-de/
-├── index.html              # Hauptseite (Welcome + Onboarding-Flow)
-├── erfolg.html             # Stripe Success Page
-├── abbruch.html            # Stripe Cancel Page
-├── api/
-│   ├── stripe-checkout.ts  # Erstellt Stripe Checkout Sessions
-│   ├── stripe-webhook.ts   # Verarbeitet Stripe Events
-│   └── test-chat.ts        # Demo-Chat-API (Claude Haiku 4.5)
-├── fonts/                  # Lokale WOFF2-Fonts (DSGVO-konform)
-├── dsgvo/                  # Datenschutz-Dokumentation
-├── vercel.json             # Vercel Config (EU-Region, Headers)
-├── package.json            # Stripe + Anthropic SDK Dependencies
-└── .gitignore
-```
+Dieses Paket enthält alle DSGVO-Pflichtdokumente die du für Mr. Bell brauchst, plus konkrete Action-Items.
 
 ---
 
-## 🚀 Erstes Deploy
+## 📋 Was hier drin ist
 
-### 1. Repo nach GitHub pushen
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin git@github.com:mulimen1/mrbell-de.git
-git push -u origin main
-```
-
-### 2. Vercel verbinden
-
-1. [vercel.com/new](https://vercel.com/new) → Import `mulimen1/mrbell-de`
-2. **Framework Preset:** "Other" (NICHT Next.js!)
-3. **Build Command:** leer lassen
-4. **Output Directory:** `.` (root)
-5. **Install Command:** `npm install`
-
-### 3. Environment Variables setzen
-
-In Vercel Project Settings → Environment Variables (für **Production + Preview + Development**):
-
-| Variable | Wert | Zweck |
-|----------|------|-------|
-| `STRIPE_SECRET_KEY` | `sk_test_...` (Sandbox) bzw. `sk_live_...` | Stripe-API |
-| `STRIPE_WEBHOOK_SECRET` | `whsec_...` | Webhook-Signatur |
-| `ANTHROPIC_API_KEY` | `sk-ant-...` (Key "websitekey") | Test-Chat-API |
-| `N8N_PROVISION_WEBHOOK_URL` | n8n Webhook | Auto-Provisioning nach Kauf |
-
-### 4. Stripe Webhook anlegen
-
-1. Stripe Dashboard → Developers → Webhooks → "Add endpoint"
-2. **URL:** `https://mrbell.de/api/stripe-webhook`
-3. **Events:**
-   - `checkout.session.completed`
-   - `customer.subscription.created`
-   - `customer.subscription.updated`
-   - `customer.subscription.deleted`
-   - `invoice.paid`
-   - `invoice.payment_failed`
-4. Signing Secret kopieren → in Vercel als `STRIPE_WEBHOOK_SECRET`
-
-### 5. Custom Domain verbinden
-
-In Vercel Project → Settings → Domains → `mrbell.de` hinzufügen.
+1. **`toms.md`** — Technisch-Organisatorische Maßnahmen (Art. 32 DSGVO)
+2. **`verarbeitungsverzeichnis.md`** — Verzeichnis von Verarbeitungstätigkeiten (Art. 30 DSGVO)
+3. **`datenpannen-plan.md`** — Reaktionsplan bei Datenleaks (Art. 33/34 DSGVO)
+4. **`anthropic-zdr-email-template.md`** — Vorlage für Zero-Data-Retention-Antrag bei Anthropic
+5. **`README.md`** — diese Datei
 
 ---
 
-## 💰 Pricing & Stripe Setup
+## ⚡ Sofort-To-Dos (in dieser Reihenfolge)
 
-### Aktive Stripe Products & Prices (Sandbox)
+### Diese Woche
 
-| Plan | Preis | Price-ID | Mindestlaufzeit |
-|------|-------|----------|-----------------|
-| Pioneer 6 Mo | 49,99€/Mo | `price_1TTjRbQ4E1Gs5uQEEwn0Um4o` | 6 Monate |
-| Pioneer 3 Mo | 59,99€/Mo | `price_1TTjSlQ4E1Gs5uQELqLHGRea` | 3 Monate |
-| Standard | 69,99€/Mo | `price_1TTjTbQ4E1Gs5uQEEASdLuhe` | 0 (monatlich) |
-| Geführtes Setup | 99€ einmalig | `price_1TTjWKQ4E1Gs5uQE5gZ8vWrQ` | — |
+- [ ] **Anthropic ZDR-Email rausschicken** — Template in `anthropic-zdr-email-template.md`. Vorher: Account-Email + Org-ID einsetzen.
+- [ ] **Google Fonts lokal hosten** — Anleitung in `google-fonts-anleitung.md`. Dauert 10 Min.
+- [ ] **TOMs als PDF abspeichern** — `toms.md` in Word/Google Doc kopieren, ein PDF generieren, im verschlüsselten Cloud-Speicher ablegen.
+- [ ] **Vercel auf EU-Region prüfen:** Vercel Dashboard → Project → Settings → Functions → Region. Falls nicht "Frankfurt fra1" oder "Dublin dub1" → umstellen.
 
-### 99€ Refund-Logik
+### Nächste Woche
 
-99€ Setup wird **erstattet**, wenn:
-- Kunde innerhalb **30 Tagen** nach Setup-Kauf einen **Pioneer-6-Plan** abschließt UND
-- die **6 Monate komplett erfüllt** wurden.
+- [ ] **AVVs holen:** Calendly, n8n Cloud, Airtable, Google Workspace
+- [ ] **eRecht24 Datenschutz-Lücken fixen** (Telefon, WhatsApp/360dialog, Resend, Google Sheets)
+- [ ] **Cookie-Banner aktivieren** — eRecht24 Premium hat ein fertiges Tool
+- [ ] **Verarbeitungsverzeichnis + Datenpannen-Plan ausdrucken** und im Ordner ablegen
 
-Refund wird **manuell** ausgelöst über Stripe Dashboard. Webhook trackt nur die Bedingungen in der Customer-Metadata.
+### Vor Pioneer #1 Live
 
----
-
-## 🔤 Lokale Fonts (DSGVO)
-
-`index.html` lädt Fonts via `@font-face` aus `/fonts/`. Die WOFF2-Files müssen **manuell** runtergeladen werden:
-
-1. [gwfh.mranftl.com](https://gwfh.mranftl.com) → "Playfair Display" + "Inter" auswählen
-2. Charset: latin · Format: WOFF2 · Folder Prefix: `/fonts/`
-3. ZIP entpacken → Files umbenennen nach Schema:
-   - `playfair-display-{400,500,600,700,800,900}.woff2`
-   - `playfair-display-{400,500}-italic.woff2`
-   - `inter-{300,400,500,600,700}.woff2`
-4. In `fonts/` ablegen → `git add fonts/ && git push`
-
-Vollständige Anleitung: `dsgvo/google-fonts-anleitung.md`
+- [ ] **Endkunden-Disclaimer in n8n-Workflow einbauen:** Beim Erstkontakt einer neuen Telefonnummer wird automatisch eine Nachricht gesendet wie:
+  ```
+  Hinweis: Diese Konversation wird mit einem KI-Assistenten beantwortet.
+  Datenschutz: [Link zu Pioneer-Datenschutzerklärung]
+  Anbieter: Mr. Bell · kontakt@mrbell.de
+  ```
+- [ ] **Telefonnummer-Pseudonymisierung** in n8n: Phone-Number → SHA-256 Hash vor Anthropic-Call
+- [ ] **Hiscox/exali IT-Versicherung neu abschließen** (war 04.05. widerrufen)
 
 ---
 
-## 🛡️ DSGVO-Compliance
+## ❓ Wann muss eine Datenpanne gemeldet werden?
 
-Siehe `dsgvo/` Ordner:
-- `README.md` — Übersicht + To-Do-Liste
-- `toms.md` — Technisch-Organisatorische Maßnahmen (Art. 32)
-- `verarbeitungsverzeichnis.md` — Art. 30 Verzeichnis
-- `datenpannen-plan.md` — Reaktionsplan Art. 33/34
-- `anthropic-zdr-email-template.md` — Anthropic ZDR-Antrag
-- `google-fonts-anleitung.md` — Lokale Font-Hosting
+Faustregel: **Wenn die Daten in falsche Hände geraten könnten und das den Betroffenen schaden kann.**
 
----
+- ✅ Meldepflicht: Endkunden-Telefonnummern + Konversationen geleakt → Behörde innerhalb 72h
+- ✅ Meldepflicht: Pioneer-Kunden-Stripe-Daten kompromittiert → Behörde + Pioneer informieren
+- ❌ Keine Meldepflicht: API-Test-Key kurz im Klartext geloggt, sofort revoked, niemand sah ihn
 
-## 🧪 Lokales Testen
-
-```bash
-# Vercel CLI installieren
-npm i -g vercel
-
-# Lokal starten (mit echten ENV-Vars von Vercel)
-vercel dev
-
-# Stripe CLI für Webhook-Tests
-stripe listen --forward-to localhost:3000/api/stripe-webhook
-```
-
-### Stripe Test-Cards
-
-- **Success:** `4242 4242 4242 4242` · CVC `123` · MM/YY beliebig in der Zukunft
-- **3D-Secure:** `4000 0027 6000 3184`
-- **Declined:** `4000 0000 0000 9995`
+Bei Unsicherheit: Lieber melden als nicht.
 
 ---
 
-## 📞 Kontakt & Support
+## 📞 Wichtige Kontakte
 
-- **Email:** kontakt@mrbell.de
-- **Telefon:** +49 176 20690319
-- **Verantwortlicher:** Trading Ben Deschler · Scheibenstr. 2, 76530 Baden-Baden
+**Datenschutzbehörde Baden-Württemberg** (deine zuständige Aufsichtsbehörde)
+- Web: baden-wuerttemberg.datenschutz.de
+- Email: poststelle@lfdi.bwl.de
+- Tel: 0711 / 615541-0
+- Adresse: Königstraße 10a, 70173 Stuttgart
+
+**Anthropic Privacy:** privacy@anthropic.com
+**Stripe DPA:** über stripe.com/legal/dpa
+**Anwalt für IT-Recht (zu suchen):** ab Pioneer #5
+
+---
+
+## 🔄 Wartung
+
+- TOMs jährlich überprüfen (oder bei wesentlichen Stack-Änderungen)
+- Verarbeitungsverzeichnis bei jedem neuen Tool/Service erweitern
+- Datenpannen-Plan jährlich auf Aktualität prüfen
+- Bei Mitarbeiteraufnahme: TOMs erweitern um Rollentrennung
 
 ---
 
 **Letzte Aktualisierung:** 05.05.2026
+**Verantwortlicher:** Ben Deschler · kontakt@mrbell.de
