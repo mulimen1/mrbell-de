@@ -1,9 +1,7 @@
 {
-  "version": 2,
-  "buildCommand": "",
-  "outputDirectory": ".",
-  "framework": null,
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "regions": ["fra1"],
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/(.*)",
