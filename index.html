@@ -2480,9 +2480,25 @@ video {
   }
 }
 </style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Local Fonts (DSGVO-konform, keine Google-Verbindung) -->
+<style>
+/* Playfair Display */
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/playfair-display-400.woff2') format('woff2'); }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/playfair-display-500.woff2') format('woff2'); }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/playfair-display-600.woff2') format('woff2'); }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/playfair-display-700.woff2') format('woff2'); }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 800; font-display: swap; src: url('/fonts/playfair-display-800.woff2') format('woff2'); }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 900; font-display: swap; src: url('/fonts/playfair-display-900.woff2') format('woff2'); }
+@font-face { font-family: 'Playfair Display'; font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/playfair-display-400-italic.woff2') format('woff2'); }
+@font-face { font-family: 'Playfair Display'; font-style: italic; font-weight: 500; font-display: swap; src: url('/fonts/playfair-display-500-italic.woff2') format('woff2'); }
+
+/* Inter */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/inter-300.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/inter-500.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/inter-600.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/inter-700.woff2') format('woff2'); }
+</style>
 
 <style>
   body { font-family: 'Inter', system-ui, sans-serif; background: linear-gradient(180deg, #fefefd 0%, #f5f5f0 100%); color: #1a1a2e; -webkit-font-smoothing: antialiased; }
@@ -3943,7 +3959,432 @@ video {
   display: none; /* Aktiviere falls Floating-Button gewünscht */
 }
 
+/* =====================================================
+   iPhone-Frame Override für Bell-Chat (gleicher Stil wie Test-Chat)
+   ===================================================== */
+
+/* Modal komplett unsichtbar machen — Frame übernimmt das Styling */
+.bellchat-modal {
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  max-width: 340px !important;
+  height: auto !important;
+  max-height: none !important;
+  border-radius: 0 !important;
+}
+.bellchat-modal::before { display: none !important; }
+
+@media (max-width: 480px) {
+  .bellchat-modal {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+/* iPhone Outer Frame — identisch zum Test-Chat (340 × 680) */
+.bellchat-phone-frame {
+  background: #1a1a2e;
+  border-radius: 58px;
+  padding: 11px;
+  position: relative;
+  height: 680px;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  box-shadow: 0 35px 90px rgba(26,26,46,0.45), 0 12px 30px rgba(26,26,46,0.3);
+}
+
+@media (max-width: 480px) {
+  .bellchat-phone-frame {
+    border-radius: 0;
+    padding: 0;
+    height: 100%;
+    max-width: 100%;
+    box-shadow: none;
+  }
+  .bellchat-phone-frame .bellchat-side-btn { display: none; }
+}
+
+.bellchat-side-btn {
+  position: absolute;
+  width: 3px;
+  background: #1a1a2e;
+}
+.bellchat-side-btn.left { left: -2px; border-radius: 2px 0 0 2px; }
+.bellchat-side-btn.right { right: -2px; border-radius: 0 2px 2px 0; }
+.bellchat-side-btn.top1 { top: 100px; height: 28px; }
+.bellchat-side-btn.top2 { top: 145px; height: 48px; }
+.bellchat-side-btn.top3 { top: 200px; height: 48px; }
+.bellchat-side-btn.right { top: 125px; height: 80px; }
+
+/* Inner phone screen */
+.bellchat-phone-screen {
+  background: white;
+  border-radius: 47px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (max-width: 480px) {
+  .bellchat-phone-screen {
+    border-radius: 0;
+  }
+}
+
+/* iOS Status Bar */
+.bellchat-statusbar {
+  background: white;
+  padding: 12px 28px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a2e;
+  position: relative;
+  flex-shrink: 0;
+}
+.bellchat-clock { z-index: 1; }
+.bellchat-island {
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 30px;
+  background: #000;
+  border-radius: 100px;
+}
+.bellchat-statusbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 1;
+}
+
+/* Header neu — Terracotta beibehalten (Brand) statt WhatsApp-Grün */
+.bellchat-phone-screen .bellchat-header {
+  background: #C2410C !important;
+  color: white;
+  padding: 10px 12px !important;
+  display: flex;
+  align-items: center;
+  gap: 8px !important;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bellchat-phone-screen .bellchat-close {
+  background: transparent !important;
+  border: none;
+  color: white;
+  width: auto !important;
+  height: auto !important;
+  padding: 4px;
+  border-radius: 0 !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bellchat-phone-screen .bellchat-avatar {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: none !important;
+  padding: 4px !important;
+  box-shadow: none !important;
+}
+
+.bellchat-phone-screen .bellchat-header-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px !important;
+  font-weight: 600;
+  line-height: 1.1 !important;
+  margin-bottom: 1px !important;
+}
+
+.bellchat-phone-screen .bellchat-header-status {
+  font-size: 11px !important;
+  opacity: 0.9;
+  line-height: 1.1;
+}
+
+.bellchat-header-icon {
+  flex-shrink: 0;
+  color: white;
+  opacity: 0.95;
+}
+
+/* Home indicator unten */
+.bellchat-home-indicator {
+  background: white;
+  padding: 6px 0 8px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.bellchat-home-indicator > div {
+  width: 120px;
+  height: 5px;
+  border-radius: 3px;
+  background: #1a1a2e;
+}
+
+/* Backdrop nicht ausblenden auf Mobile */
+.bellchat-phone-screen .bellchat-messages,
+.bellchat-phone-screen .bellchat-input-area {
+  position: relative;
+  z-index: 1;
+}
+
+/* WhatsApp-Hintergrund (gleiches Beige/Grau wie Test-Chat) */
+.bellchat-phone-screen .bellchat-messages {
+  background-color: #ECE5DD;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="1" fill="%23d1c7b9" opacity="0.4"/></svg>');
+}
+
   /* ============== END BELL-CHAT CSS ============== */
+
+  /* ============== TEST-CHAT iPhone Frame (same as Bell-Chat) ============== */
+  .testchat-phone-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  .testchat-phone-frame {
+    background: #1a1a2e;
+    border-radius: 54px;
+    padding: 11px;
+    position: relative;
+    height: 640px;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    box-shadow: 0 35px 90px rgba(26,26,46,0.28), 0 12px 30px rgba(26,26,46,0.18);
+  }
+  .testchat-side-btn {
+    position: absolute;
+    width: 3px;
+    background: #1a1a2e;
+  }
+  .testchat-side-btn.left { left: -2px; border-radius: 2px 0 0 2px; }
+  .testchat-side-btn.right { right: -2px; border-radius: 0 2px 2px 0; }
+  .testchat-side-btn.top1 { top: 95px; height: 26px; }
+  .testchat-side-btn.top2 { top: 135px; height: 44px; }
+  .testchat-side-btn.top3 { top: 188px; height: 44px; }
+  .testchat-side-btn.right { top: 118px; height: 76px; }
+
+  .testchat-phone-screen {
+    background: white;
+    border-radius: 44px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .testchat-statusbar {
+    background: white;
+    padding: 11px 26px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1a1a2e;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .testchat-statusbar-clock { z-index: 1; }
+  .testchat-statusbar-island {
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    transform: translateX(-50%);
+    width: 95px;
+    height: 28px;
+    background: #000;
+    border-radius: 100px;
+  }
+  .testchat-statusbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 1;
+  }
+
+  .testchat-wa-header {
+    background: #075E54;
+    color: white;
+    padding: 9px 11px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-shrink: 0;
+  }
+  .testchat-wa-back {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 0;
+    cursor: default;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+  .testchat-wa-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #DFE5E7;
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .testchat-wa-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .testchat-wa-name {
+    font-size: 14.5px;
+    font-weight: 600;
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .testchat-wa-status {
+    font-size: 11px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.15;
+  }
+  .testchat-wa-icon {
+    flex-shrink: 0;
+    color: white;
+    opacity: 0.95;
+  }
+
+  .testchat-chat-area {
+    background-color: #ECE5DD;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="1" fill="%23d1c7b9" opacity="0.4"/></svg>');
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 12px 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .testchat-input-bar {
+    background: #F0F0F0;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .testchat-input-pill {
+    flex: 1;
+    background: white;
+    border-radius: 999px;
+    padding: 7px 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .testchat-input-field {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #303030;
+  }
+  .testchat-input-field::placeholder { color: rgba(26,26,46,0.4); }
+  .testchat-send-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #075E54;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .testchat-send-btn:hover { background: #054C44; }
+
+  .testchat-home-indicator {
+    background: white;
+    padding: 5px 0 7px;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .testchat-home-indicator > div {
+    width: 110px;
+    height: 5px;
+    border-radius: 3px;
+    background: #1a1a2e;
+  }
+
+  .testchat-typing-dots {
+    display: inline-flex;
+    gap: 3px;
+    padding: 4px 2px;
+  }
+  .testchat-typing-dots span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #999;
+    display: inline-block;
+    animation: testchat-typing 1.2s infinite ease-in-out;
+  }
+  .testchat-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .testchat-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes testchat-typing {
+    0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-3px); }
+  }
+  .testchat-bubble {
+    animation: testchat-bubble-in 0.18s ease-out;
+  }
+  @keyframes testchat-bubble-in {
+    from { opacity: 0; transform: translateY(4px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .testchat-checkmark {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 3px;
+    transition: color 0.3s;
+  }
+  .testchat-checkmark.read { color: #4FC3F7; }
+  .testchat-checkmark.sent { color: rgba(0,0,0,0.45); }
+  /* ============== END TEST-CHAT ============== */
 
 </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -4259,43 +4700,62 @@ video {
         <div class="relative mx-auto" style="max-width: 320px;">
           <div class="absolute -inset-8 bg-gradient-to-br from-wa-200/30 via-transparent to-wa-100/20 blur-3xl rounded-[3rem] -z-10"></div>
 
-          <div class="relative bg-white rounded-[2.5rem] shadow-elevated border border-anthracite/8 overflow-hidden">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 z-10 mt-2">
-              <div class="w-24 h-5 bg-anthracite rounded-full"></div>
-            </div>
-            <div class="pt-3 pb-1 px-6 flex items-center justify-between text-[10px] font-medium text-anthracite/80">
-              <span>14:26</span>
-              <div class="flex items-center gap-1">
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><rect x="0" y="6" width="2" height="4" rx="0.5"/><rect x="3" y="4" width="2" height="6" rx="0.5"/><rect x="6" y="2" width="2" height="8" rx="0.5"/><rect x="9" y="0" width="2" height="10" rx="0.5"/></svg>
-                <svg width="22" height="10" viewBox="0 0 22 10" fill="none">
-                  <rect x="0.5" y="0.5" width="18" height="9" rx="2" stroke="currentColor" opacity="0.6"/>
-                  <rect x="2" y="2" width="14" height="6" rx="1" fill="currentColor"/>
-                  <rect x="20" y="3" width="1.5" height="4" rx="0.5" fill="currentColor" opacity="0.6"/>
-                </svg>
-              </div>
-            </div>
+          <!-- iPhone 16 Frame (matches test-chat) -->
+          <div style="background: #1a1a2e; border-radius: 54px; padding: 11px; height: 640px; box-shadow: 0 35px 90px rgba(26,26,46,0.28), 0 12px 30px rgba(26,26,46,0.18); position: relative;">
+            <!-- Side buttons -->
+            <div style="position: absolute; left: -2px; top: 95px; width: 3px; height: 26px; background: #1a1a2e; border-radius: 2px 0 0 2px;"></div>
+            <div style="position: absolute; left: -2px; top: 135px; width: 3px; height: 44px; background: #1a1a2e; border-radius: 2px 0 0 2px;"></div>
+            <div style="position: absolute; left: -2px; top: 188px; width: 3px; height: 44px; background: #1a1a2e; border-radius: 2px 0 0 2px;"></div>
+            <div style="position: absolute; right: -2px; top: 118px; width: 3px; height: 76px; background: #1a1a2e; border-radius: 0 2px 2px 0;"></div>
 
-            <div style="background: #25D366;" class="text-white px-4 py-3 flex items-center gap-3 mt-3">
-              <span class="text-white/90">‹</span>
-              <div style="background: rgba(37, 211, 102, 0.3);" class="w-9 h-9 rounded-full flex items-center justify-center ring-2 ring-white/20">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="font-semibold text-[15px] truncate">Friseur Mustermann</div>
-                <div class="text-[11px] text-white/80 flex items-center gap-1">
-                  <span style="background: #7cdba0;" class="w-1.5 h-1.5 rounded-full animate-pulse-slow"></span>
-                  online
+            <div style="background: white; border-radius: 44px; height: 100%; display: flex; flex-direction: column; overflow: hidden; position: relative;">
+
+              <!-- iOS Status Bar + Dynamic Island -->
+              <div style="background: white; padding: 11px 26px 5px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 600; color: #1a1a2e; position: relative; flex-shrink: 0;">
+                <span style="z-index: 1;">14:26</span>
+                <div style="position: absolute; left: 50%; top: 7px; transform: translateX(-50%); width: 95px; height: 28px; background: #000; border-radius: 100px;"></div>
+                <div style="display: flex; align-items: center; gap: 5px; z-index: 1;">
+                  <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+                  <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M7.5 1C4.5 1 1.8 2.2 0 4.1l1.4 1.4C2.9 4 5.1 3 7.5 3s4.6 1 6.1 2.5L15 4.1C13.2 2.2 10.5 1 7.5 1zm0 4C5.6 5 3.9 5.7 2.7 6.9l1.4 1.4C5 7.4 6.2 7 7.5 7s2.5.4 3.4 1.3l1.4-1.4C11.1 5.7 9.4 5 7.5 5zm0 4c-.7 0-1.3.3-1.8.7L7.5 11l1.8-1.3C8.8 9.3 8.2 9 7.5 9z"/></svg>
+                  <svg width="25" height="11" viewBox="0 0 25 11" fill="none"><rect x="0.5" y="0.5" width="22" height="10" rx="2.5" stroke="currentColor" stroke-opacity="0.4"/><rect x="2" y="2" width="19" height="7" rx="1" fill="currentColor"/><rect x="23" y="3.5" width="1.5" height="4" rx="0.7" fill="currentColor" opacity="0.4"/></svg>
                 </div>
               </div>
-            </div>
 
-            <div id="chatMessages" class="chat-scroll px-3 py-4 space-y-2" style="background-color: #e5ddd5;"></div>
+              <!-- WhatsApp Header -->
+              <div style="background: #075E54; color: white; padding: 9px 11px; display: flex; align-items: center; gap: 9px; flex-shrink: 0;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><polyline points="15 18 9 12 15 6"/></svg>
+                <div style="width: 35px; height: 35px; border-radius: 50%; background: #DFE5E7; flex-shrink: 0; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                  <svg width="35" height="35" viewBox="0 0 36 36" aria-hidden="true">
+                    <circle cx="18" cy="18" r="18" fill="#DFE5E7"/>
+                    <circle cx="18" cy="14" r="6" fill="#A0AEB2"/>
+                    <path d="M5 33 C5 24, 31 24, 31 33 L31 36 L5 36 Z" fill="#A0AEB2"/>
+                  </svg>
+                </div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font-size: 14.5px; font-weight: 600; line-height: 1.15;">Friseur Mustermann</div>
+                  <div style="font-size: 11px; color: rgba(255,255,255,0.85); line-height: 1.15;">online</div>
+                </div>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0; opacity: 0.95;"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0; opacity: 0.95;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <svg width="4" height="16" viewBox="0 0 4 16" fill="currentColor" style="flex-shrink: 0; opacity: 0.95;"><circle cx="2" cy="2" r="2"/><circle cx="2" cy="8" r="2"/><circle cx="2" cy="14" r="2"/></svg>
+              </div>
 
-            <div class="bg-[#f0f0f0] px-3 py-2 flex items-center gap-2">
-              <div class="flex-1 bg-white rounded-full px-4 py-2 text-xs text-anthracite/40">Nachricht</div>
-            </div>
-            <div class="flex justify-center pb-1.5 pt-1">
-              <div class="w-28 h-1 bg-anthracite rounded-full"></div>
+              <!-- Chat Area -->
+              <div id="chatMessages" style="background-color: #ECE5DD; background-image: url('data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;40&quot; height=&quot;40&quot; viewBox=&quot;0 0 40 40&quot;><circle cx=&quot;20&quot; cy=&quot;20&quot; r=&quot;1&quot; fill=&quot;%23d1c7b9&quot; opacity=&quot;0.4&quot;/></svg>'); flex: 1 1 0; min-height: 0; overflow-y: auto; padding: 12px 9px; display: flex; flex-direction: column; gap: 4px;"></div>
+
+              <!-- Input Bar -->
+              <div style="background: #F0F0F0; padding: 6px 8px; display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+                <div style="flex: 1; background: white; border-radius: 999px; padding: 7px 13px; font-size: 13px; color: rgba(26,26,46,0.4);">Nachricht</div>
+                <div style="width: 38px; height: 38px; border-radius: 50%; background: #075E54; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+                </div>
+              </div>
+
+              <!-- Home Indicator -->
+              <div style="background: white; padding: 5px 0 7px; display: flex; justify-content: center; flex-shrink: 0;">
+                <div style="width: 110px; height: 5px; border-radius: 3px; background: #1a1a2e;"></div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -4318,7 +4778,7 @@ video {
         <div class="relative group">
           <div class="absolute -inset-6 bg-gradient-to-tr from-wa-100/30 via-transparent to-wa-50/40 blur-3xl rounded-3xl -z-10 group-hover:from-wa-200/40 group-hover:to-wa-100/50 transition-all duration-500"></div>
           <div class="bg-white rounded-2xl shadow-elevated border border-anthracite/8 overflow-hidden transition-all duration-300 group-hover:shadow-premium group-hover:-translate-y-1 group-hover:border-wa-200">
-            <div style="background: #25D366;" class="text-white px-5 py-4 flex items-center justify-between">
+            <div style="background: #075E54;" class="text-white px-5 py-4 flex items-center justify-between">
               <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
@@ -4326,14 +4786,14 @@ video {
                 <div>
                   <div class="font-semibold text-[15px]">Friseur Mustermann — Kundenanfragen</div>
                   <div class="text-[11px] text-white/80 flex items-center gap-1.5">
-                    <span style="background: #7cdba0;" class="w-1.5 h-1.5 rounded-full animate-pulse"></span>
+                    <span style="background: #4ade80;" class="w-1.5 h-1.5 rounded-full animate-pulse"></span>
                     Live · synchronisiert
                   </div>
                 </div>
               </div>
             </div>
             <div class="border-b border-anthracite/8 px-4 flex gap-1 bg-cream/30">
-              <button style="color: #128C7E;" class="px-4 py-3 text-xs font-medium relative">Chat-Verlauf<span style="background: #25D366;" class="absolute bottom-0 left-0 right-0 h-0.5"></span></button>
+              <button style="color: #054C44;" class="px-4 py-3 text-xs font-medium relative">Chat-Verlauf<span style="background: #075E54;" class="absolute bottom-0 left-0 right-0 h-0.5"></span></button>
               <button class="px-4 py-3 text-xs font-medium text-anthracite/50">Übersicht</button>
               <button class="px-4 py-3 text-xs font-medium text-anthracite/50">Analytics</button>
             </div>
@@ -4789,10 +5249,20 @@ video {
       <h1 class="font-display text-4xl md:text-5xl font-semibold text-anthracite mb-3 leading-tight">Wie heißt Ihr Unternehmen?</h1>
       <p class="text-anthracite/60 text-lg font-light leading-relaxed">Der Name wird in automatischen Antworten von Mr. Bell verwendet.</p>
     </div>
-    <div class="mb-10">
+    <div class="mb-6">
       <input type="text" id="field-companyName" data-field="companyName" placeholder="z.B. Friseur Mustermann" class="w-full px-5 py-4 rounded-xl bg-white border-2 border-anthracite/10 focus:border-wa-500 text-anthracite placeholder:text-anthracite/30 transition-all font-medium outline-none">
       <div id="err-companyName" class="error-msg hidden"></div>
     </div>
+
+    <!-- Trust-Link: Was passiert mit den Daten? -->
+    <button type="button" onclick="openDataInfoModal()" class="inline-flex items-center gap-1.5 mb-10 text-xs text-anthracite/55 hover:text-anthracite transition-colors group">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      <span class="underline decoration-anthracite/20 underline-offset-2 group-hover:decoration-anthracite/50">Was passiert mit Ihren Daten auf dieser Website?</span>
+    </button>
+
     <div class="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
       <button onclick="switchView('step-bundle-pricing')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Zurück</span></button>
       <button onclick="validateAndNext('step-name', 'step-industry')" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-soft hover:shadow-premium"><span>Weiter</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
@@ -5947,6 +6417,167 @@ video {
   </div>
 </div>
 
+<!-- STEP 10: TEST-CHAT — Live-Test mit konfiguriertem Bot -->
+<div id="view-step-test-chat" class="view hidden">
+  <div class="max-w-5xl mx-auto px-6 py-12 lg:py-16">
+    <div class="mb-10" id="step-test-chat-progress">
+      <!-- dynamisch via renderStepHeader -->
+    </div>
+
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-wa-50 border border-wa-200 text-wa-700 text-xs font-semibold uppercase tracking-wider mb-4">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        Live-Vorschau
+      </div>
+      <h1 class="font-display text-4xl md:text-5xl font-semibold text-anthracite mb-4 leading-tight">Probieren Sie Ihren Mr. Bell jetzt</h1>
+      <p class="text-anthracite/65 text-lg font-light leading-relaxed max-w-2xl mx-auto">Schreiben Sie wie ein Kunde — Ihr Bot antwortet bereits mit Ihren Daten. So wird's später bei Ihren echten Kunden aussehen.</p>
+    </div>
+
+    <!-- Was nach dem Test passiert (Info-Karten) -->
+    <div class="max-w-3xl mx-auto mb-10 grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div class="bg-white rounded-2xl border border-anthracite/10 p-5 shadow-soft">
+        <div class="flex items-start gap-3 mb-2">
+          <div class="w-9 h-9 rounded-lg bg-wa-50 flex items-center justify-center flex-shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-10 5L2 7"/>
+            </svg>
+          </div>
+          <div class="text-sm font-semibold text-anthracite leading-tight">Mail-Anbindung</div>
+        </div>
+        <p class="text-xs text-anthracite/60 leading-relaxed">Der Bot leitet Anfragen automatisch an Ihre Business-Mail weiter. Sie verpassen nichts — auch wenn Sie offline sind.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-anthracite/10 p-5 shadow-soft">
+        <div class="flex items-start gap-3 mb-2">
+          <div class="w-9 h-9 rounded-lg bg-wa-50 flex items-center justify-center flex-shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <line x1="3" y1="9" x2="21" y2="9"/>
+              <line x1="9" y1="21" x2="9" y2="9"/>
+            </svg>
+          </div>
+          <div class="text-sm font-semibold text-anthracite leading-tight">Übersicht in Google Sheets</div>
+        </div>
+        <p class="text-xs text-anthracite/60 leading-relaxed">Alle Chats und Anfragen laufen in einem übersichtlichen Sheet zusammen. Sie haben jederzeit den vollen Überblick.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-anthracite/10 p-5 shadow-soft">
+        <div class="flex items-start gap-3 mb-2">
+          <div class="w-9 h-9 rounded-lg bg-wa-50 flex items-center justify-center flex-shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+              <path d="M21 3v5h-5"/>
+            </svg>
+          </div>
+          <div class="text-sm font-semibold text-anthracite leading-tight">Wöchentlich anpassbar</div>
+        </div>
+        <p class="text-xs text-anthracite/60 leading-relaxed">Sobald der Bot läuft, können Sie Daten, Stil und alles andere einmal pro Woche frei anpassen — kostenlos.</p>
+      </div>
+    </div>
+
+    <!-- Persönlicher Service Hinweis -->
+    <div class="max-w-3xl mx-auto mb-10 bg-cream/50 border border-anthracite/8 rounded-2xl p-5 flex items-start gap-4">
+      <div class="w-10 h-10 rounded-full bg-wa-100 flex items-center justify-center flex-shrink-0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div class="flex-1">
+        <div class="text-sm font-semibold text-anthracite mb-1">Nach Abschluss meldet sich jemand persönlich bei Ihnen</div>
+        <p class="text-sm text-anthracite/65 leading-relaxed">Wir prüfen, ob alles passt, klären eventuelle Rückfragen und nehmen letzte Anpassungen vor — für die bestmögliche Individualisierung Ihres Bots.</p>
+      </div>
+    </div>
+
+    <!-- iPhone 16 Mockup -->
+    <div class="testchat-phone-wrapper">
+      <div class="testchat-phone-frame">
+        <!-- Side buttons -->
+        <div class="testchat-side-btn left top1"></div>
+        <div class="testchat-side-btn left top2"></div>
+        <div class="testchat-side-btn left top3"></div>
+        <div class="testchat-side-btn right"></div>
+
+        <div class="testchat-phone-screen">
+          <!-- iOS Status Bar -->
+          <div class="testchat-statusbar">
+            <span id="testchat-clock" class="testchat-statusbar-clock">14:23</span>
+            <div class="testchat-statusbar-island"></div>
+            <div class="testchat-statusbar-icons">
+              <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+              <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M7.5 1C4.5 1 1.8 2.2 0 4.1l1.4 1.4C2.9 4 5.1 3 7.5 3s4.6 1 6.1 2.5L15 4.1C13.2 2.2 10.5 1 7.5 1zm0 4C5.6 5 3.9 5.7 2.7 6.9l1.4 1.4C5 7.4 6.2 7 7.5 7s2.5.4 3.4 1.3l1.4-1.4C11.1 5.7 9.4 5 7.5 5zm0 4c-.7 0-1.3.3-1.8.7L7.5 11l1.8-1.3C8.8 9.3 8.2 9 7.5 9z"/></svg>
+              <svg width="25" height="11" viewBox="0 0 25 11" fill="none"><rect x="0.5" y="0.5" width="22" height="10" rx="2.5" stroke="currentColor" stroke-opacity="0.4"/><rect x="2" y="2" width="19" height="7" rx="1" fill="currentColor"/><rect x="23" y="3.5" width="1.5" height="4" rx="0.7" fill="currentColor" opacity="0.4"/></svg>
+            </div>
+          </div>
+
+          <!-- WhatsApp Header -->
+          <div class="testchat-wa-header">
+            <button class="testchat-wa-back" type="button" tabindex="-1" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+            <div class="testchat-wa-avatar">
+              <svg width="35" height="35" viewBox="0 0 36 36" aria-hidden="true">
+                <circle cx="18" cy="18" r="18" fill="#DFE5E7"/>
+                <circle cx="18" cy="14" r="6" fill="#A0AEB2"/>
+                <path d="M5 33 C5 24, 31 24, 31 33 L31 36 L5 36 Z" fill="#A0AEB2"/>
+              </svg>
+            </div>
+            <div class="testchat-wa-info">
+              <div id="testchat-biz-name" class="testchat-wa-name">Firma</div>
+              <div id="testchat-status" class="testchat-wa-status">online</div>
+            </div>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="testchat-wa-icon"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="testchat-wa-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <svg width="4" height="16" viewBox="0 0 4 16" fill="currentColor" class="testchat-wa-icon"><circle cx="2" cy="2" r="2"/><circle cx="2" cy="8" r="2"/><circle cx="2" cy="14" r="2"/></svg>
+          </div>
+
+          <!-- Chat Area -->
+          <div id="testchat-messages" class="testchat-chat-area">
+            <!-- gefüllt via JS -->
+          </div>
+
+          <!-- Input Bar -->
+          <div class="testchat-input-bar">
+            <div class="testchat-input-pill">
+              <input id="testchat-input" type="text" placeholder="Nachricht" maxlength="500" class="testchat-input-field" />
+            </div>
+            <button id="testchat-send" onclick="sendTestChatMessage()" class="testchat-send-btn" type="button" aria-label="Senden">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+            </button>
+          </div>
+
+          <!-- Home Indicator -->
+          <div class="testchat-home-indicator">
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Counter -->
+      <div style="text-align: center; margin-top: 1rem; font-size: 0.75rem; color: rgba(26,26,46,0.5);">
+        <span id="testchat-counter">0</span> / 10 Test-Nachrichten verbraucht
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4 max-w-2xl mx-auto">
+      <button onclick="switchView('step-bot-prompt')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Zurück</span>
+      </button>
+      <button onclick="switchView('step-api')" class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-anthracite/15 text-anthracite/70 font-medium hover:border-anthracite/30 hover:text-anthracite transition-all">
+        Später testen
+      </button>
+      <button onclick="switchView('step-api')" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-soft hover:shadow-premium">
+        <span>Weiter</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- STEP 13: EMAIL VERIFY -->
 <div id="view-step-verify" class="view hidden">
   <div class="max-w-3xl mx-auto px-6 py-12 lg:py-20">
@@ -6053,43 +6684,25 @@ video {
         </div>
       </div>
 
-      <div class="space-y-3">
-        <div>
-          <label class="block text-xs font-medium text-anthracite/60 mb-1.5">Kartennummer</label>
-          <input type="text" id="field-cardNumber" data-field="cardNumber" placeholder="4242 4242 4242 4242" class="w-full px-4 py-3 rounded-lg bg-cream/30 border border-anthracite/10 focus:border-wa-500 outline-none text-sm font-mono transition-colors"/>
-          <div id="err-cardNumber" class="error-msg hidden"></div>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-medium text-anthracite/60 mb-1.5">Ablauf</label>
-            <input type="text" id="field-cardExpiry" data-field="cardExpiry" placeholder="MM / YY" maxlength="7" class="w-full px-4 py-3 rounded-lg bg-cream/30 border border-anthracite/10 focus:border-wa-500 outline-none text-sm font-mono transition-colors"/>
-            <div id="err-cardExpiry" class="error-msg hidden"></div>
+      <!-- Stripe-Hosted Checkout: Karteneingabe passiert auf gesicherter Stripe-Seite -->
+      <div class="rounded-xl bg-cream/40 border border-anthracite/10 p-5 mb-2">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center flex-shrink-0 border border-anthracite/8">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
-          <div>
-            <label class="block text-xs font-medium text-anthracite/60 mb-1.5">CVC</label>
-            <input type="text" id="field-cardCvc" data-field="cardCvc" placeholder="123" maxlength="4" class="w-full px-4 py-3 rounded-lg bg-cream/30 border border-anthracite/10 focus:border-wa-500 outline-none text-sm font-mono transition-colors"/>
-            <div id="err-cardCvc" class="error-msg hidden"></div>
+          <div class="flex-1">
+            <div class="font-semibold text-anthracite text-sm mb-1">Sichere Bezahlung über Stripe</div>
+            <p class="text-xs text-anthracite/65 leading-relaxed mb-3">Beim Klick auf "Sichere Zahlung" werden Sie auf eine verschlüsselte Stripe-Seite weitergeleitet. Dort geben Sie Ihre Zahlungsdaten ein. Wir speichern keine Kartendaten.</p>
+            <div class="flex flex-wrap gap-2 text-[11px]">
+              <span class="px-2 py-1 rounded bg-white border border-anthracite/8 text-anthracite/70 font-medium">Kreditkarte</span>
+              <span class="px-2 py-1 rounded bg-white border border-anthracite/8 text-anthracite/70 font-medium">SEPA</span>
+              <span class="px-2 py-1 rounded bg-white border border-anthracite/8 text-anthracite/70 font-medium">Apple Pay</span>
+              <span class="px-2 py-1 rounded bg-white border border-anthracite/8 text-anthracite/70 font-medium">Google Pay</span>
+              <span class="px-2 py-1 rounded bg-white border border-anthracite/8 text-anthracite/70 font-medium">Klarna</span>
+            </div>
           </div>
         </div>
-        <div>
-          <label class="block text-xs font-medium text-anthracite/60 mb-1.5">Karteninhaber</label>
-          <input type="text" id="field-cardName" data-field="cardName" placeholder="Max Mustermann" class="w-full px-4 py-3 rounded-lg bg-cream/30 border border-anthracite/10 focus:border-wa-500 outline-none text-sm transition-colors"/>
-          <div id="err-cardName" class="error-msg hidden"></div>
-        </div>
       </div>
-
-      <div class="my-5 flex items-center gap-3">
-        <div class="flex-1 h-px bg-anthracite/10"></div>
-        <span class="text-xs text-anthracite/40 uppercase tracking-wider">oder</span>
-        <div class="flex-1 h-px bg-anthracite/10"></div>
-      </div>
-
-      <div class="grid grid-cols-3 gap-3">
-        <button class="py-3 rounded-lg border border-anthracite/10 hover:border-wa-500 transition-colors flex items-center justify-center text-xs font-semibold">SEPA</button>
-        <button class="py-3 rounded-lg border border-anthracite/10 hover:border-wa-500 transition-colors flex items-center justify-center text-xs font-semibold">Apple Pay</button>
-        <button class="py-3 rounded-lg border border-anthracite/10 hover:border-wa-500 transition-colors flex items-center justify-center text-xs font-semibold">Google Pay</button>
-      </div>
-    </div>
 
     <div class="grid grid-cols-3 gap-3 mb-8">
       <div class="flex items-center gap-2 p-3 rounded-xl bg-white border border-anthracite/8">
@@ -6119,7 +6732,7 @@ video {
 
     <div class="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
       <button onclick="switchView('summary')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Zurück</span></button>
-      <button onclick="validateAndNext('payment', 'thanks')" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-soft hover:shadow-premium">
+      <button onclick="startStripeCheckoutSelfService()" id="payment-cta-btn" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-soft hover:shadow-premium">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <span id="payment-cta-label">Sichere Zahlung</span>
       </button>
@@ -6253,25 +6866,21 @@ video {
       <div class="text-xs text-white/60 mt-2">Nach 6 Monaten Pioneer 6 Monate → 99€ Rückerstattung per Überweisung = effektive Setup-Kosten 0€ (nur für Pioneer 6 Monate)</div>
     </div>
 
-    <!-- Stripe Mock Card -->
+    <!-- Stripe-Hosted Checkout Info -->
     <div class="rounded-2xl bg-white border border-anthracite/10 p-6 mb-6">
-      <div class="flex items-center justify-between mb-5">
-        <h3 class="font-semibold text-anthracite">Zahlungsmethode</h3>
-        <span class="text-xs text-anthracite/40">Powered by <strong class="text-anthracite/70">stripe</strong></span>
-      </div>
-      <div class="space-y-3">
-        <div>
-          <label class="text-xs text-anthracite/60 mb-1 block">Kartennummer</label>
-          <input type="text" placeholder="4242 4242 4242 4242" class="w-full px-4 py-3 rounded-lg border border-anthracite/10 focus:border-wa-500 outline-none font-mono text-sm"/>
+      <div class="flex items-start gap-4">
+        <div class="w-11 h-11 rounded-lg bg-cream/60 flex items-center justify-center flex-shrink-0 border border-anthracite/8">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="text-xs text-anthracite/60 mb-1 block">Ablauf</label>
-            <input type="text" placeholder="MM / YY" class="w-full px-4 py-3 rounded-lg border border-anthracite/10 focus:border-wa-500 outline-none font-mono text-sm"/>
-          </div>
-          <div>
-            <label class="text-xs text-anthracite/60 mb-1 block">CVC</label>
-            <input type="text" placeholder="123" class="w-full px-4 py-3 rounded-lg border border-anthracite/10 focus:border-wa-500 outline-none font-mono text-sm"/>
+        <div class="flex-1">
+          <div class="font-semibold text-anthracite mb-1">Sichere Bezahlung über Stripe</div>
+          <p class="text-sm text-anthracite/65 leading-relaxed mb-3">Beim Klick auf "99€ jetzt zahlen" werden Sie auf eine verschlüsselte Stripe-Seite weitergeleitet. Wir speichern keine Kartendaten.</p>
+          <div class="flex flex-wrap gap-2 text-[11px]">
+            <span class="px-2 py-1 rounded bg-cream/40 border border-anthracite/8 text-anthracite/70 font-medium">Kreditkarte</span>
+            <span class="px-2 py-1 rounded bg-cream/40 border border-anthracite/8 text-anthracite/70 font-medium">SEPA</span>
+            <span class="px-2 py-1 rounded bg-cream/40 border border-anthracite/8 text-anthracite/70 font-medium">Apple Pay</span>
+            <span class="px-2 py-1 rounded bg-cream/40 border border-anthracite/8 text-anthracite/70 font-medium">Google Pay</span>
+            <span class="px-2 py-1 rounded bg-cream/40 border border-anthracite/8 text-anthracite/70 font-medium">Klarna</span>
           </div>
         </div>
       </div>
@@ -6279,7 +6888,7 @@ video {
 
     <div class="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
       <button onclick="switchView('step-guided-calendly')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Zurück</span></button>
-      <button onclick="switchView('thanks-guided')" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-premium">
+      <button onclick="startStripeCheckoutGuided()" id="guided-pay-btn" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-premium">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <span>99€ jetzt zahlen</span>
       </button>
@@ -6868,6 +7477,9 @@ function switchView(viewName) {
     // counter zurücksetzen / aktualisieren
     setTimeout(() => updateBotPromptCounter(), 50);
   }
+  if (viewName === 'step-test-chat') {
+    setTimeout(() => initTestChat(), 50);
+  }
   if (viewName === 'step-guided-topics') renderGuidedTopicsHeader();
   if (viewName === 'step-guided-calendly') {
     renderGuidedCalendlyHeader();
@@ -7100,19 +7712,7 @@ function validateAndNext(currentStep, nextStep) {
   }
 
   if (currentStep === 'payment') {
-    const cardNum = document.getElementById('field-cardNumber').value.trim().replace(/\s/g, '');
-    const exp = document.getElementById('field-cardExpiry').value.trim();
-    const cvc = document.getElementById('field-cardCvc').value.trim();
-    const name = document.getElementById('field-cardName').value.trim();
-    if (cardNum !== '4242424242424242') { showError('cardNumber', 'Bitte Test-Karte 4242 4242 4242 4242 verwenden'); valid = false; }
-    else formData.cardNumber = cardNum;
-    if (!/^\d{2}\s*\/\s*\d{2}$/.test(exp)) { showError('cardExpiry', 'Format MM/YY'); valid = false; }
-    else formData.cardExpiry = exp;
-    if (!/^\d{3,4}$/.test(cvc)) { showError('cardCvc', 'CVC muss 3-4 Zahlen sein'); valid = false; }
-    else formData.cardCvc = cvc;
-    if (name.length < 3) { showError('cardName', 'Bitte vollständigen Namen eingeben'); valid = false; }
-    else formData.cardName = name;
-    // Pflicht-Checkbox: Auto-Abo + Mindestlaufzeit + Kündigungsfrist
+    // Karteneingabe macht Stripe — wir prüfen nur noch die AGB-Checkbox
     const termsCb = document.getElementById('field-paymentTerms');
     if (!termsCb || !termsCb.checked) {
       const errEl = document.getElementById('err-paymentTerms');
@@ -7136,6 +7736,123 @@ function validateAndNext(currentStep, nextStep) {
 // ============================================
 // INDUSTRY SELECTION
 // ============================================
+
+// ============================================
+// STRIPE CHECKOUT — Echte Bezahlung
+// ============================================
+
+async function startStripeCheckoutSelfService() {
+  // 1. AGB-Checkbox prüfen
+  const termsCb = document.getElementById('field-paymentTerms');
+  if (!termsCb || !termsCb.checked) {
+    const errEl = document.getElementById('err-paymentTerms');
+    if (errEl) { errEl.textContent = 'Bitte bestätigen Sie die Konditionen, um fortzufahren.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+
+  // 2. Welcher Plan wurde gewählt?
+  let planType;
+  if (typeof bundleState !== 'undefined') {
+    if (bundleState.pioneer6) planType = 'pioneer_6';
+    else if (bundleState.pioneer3) planType = 'pioneer_3';
+    else if (bundleState.standard) planType = 'standard';
+  }
+  if (!planType) {
+    alert('Bitte wählen Sie einen Plan aus (Pioneer 6 Mo, Pioneer 3 Mo oder Standard).');
+    return;
+  }
+
+  // 3. Email validieren (Backend verlangt das)
+  const email = (formData.bizMail || formData.companyEmail || '').trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Bitte gültige Email-Adresse hinterlegen (Schritt: Geschäfts-Email).');
+    return;
+  }
+
+  // 4. Setup-Add-On dabei?
+  const includeSetup = (typeof bundleState !== 'undefined' && bundleState.setup === true);
+
+  // 5. UI-Loading-State
+  const btn = document.getElementById('payment-cta-btn');
+  const lbl = document.getElementById('payment-cta-label');
+  const originalLabel = lbl ? lbl.textContent : '';
+  if (btn) btn.disabled = true;
+  if (lbl) lbl.textContent = 'Weiterleitung zu Stripe...';
+
+  // 6. API-Call
+  try {
+    const res = await fetch('/api/stripe-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        plan: planType,
+        includeSetup: includeSetup,
+        customerEmail: email,
+        companyName: formData.bizName || formData.companyName || '',
+        metadata: {
+          industry: formData.industry || '',
+          city: formData.city || ''
+        }
+      })
+    });
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.error || `HTTP ${res.status}`);
+    }
+    const data = await res.json();
+    if (!data.url) throw new Error('Keine Checkout-URL erhalten');
+
+    // 7. Redirect zu Stripe-Hosted-Checkout
+    window.location.href = data.url;
+  } catch (err) {
+    console.error('Stripe Checkout failed:', err);
+    if (btn) btn.disabled = false;
+    if (lbl) lbl.textContent = originalLabel;
+    alert('Fehler bei der Weiterleitung zu Stripe: ' + err.message + '\n\nBitte versuchen Sie es erneut oder kontaktieren Sie kontakt@mrbell.de');
+  }
+}
+
+async function startStripeCheckoutGuided() {
+  // 99€ Setup-only über geführten Pfad
+  const email = (formData.bizMail || formData.companyEmail || '').trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Bitte gültige Email-Adresse hinterlegen.');
+    return;
+  }
+
+  const btn = document.getElementById('guided-pay-btn');
+  if (btn) btn.disabled = true;
+
+  try {
+    const res = await fetch('/api/stripe-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        plan: 'setup_only',
+        customerEmail: email,
+        companyName: formData.bizName || formData.companyName || '',
+        metadata: {
+          guidedSlot: formData.guidedSlot || '',
+          guidedPlatform: formData.guidedPlatform || ''
+        }
+      })
+    });
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.error || `HTTP ${res.status}`);
+    }
+    const data = await res.json();
+    if (!data.url) throw new Error('Keine Checkout-URL erhalten');
+
+    window.location.href = data.url;
+  } catch (err) {
+    console.error('Stripe Checkout failed:', err);
+    if (btn) btn.disabled = false;
+    alert('Fehler bei der Weiterleitung zu Stripe: ' + err.message + '\n\nBitte versuchen Sie es erneut oder kontaktieren Sie kontakt@mrbell.de');
+  }
+}
 
 function selectIndustry(industry) {
   formData.industry = industry;
@@ -7706,13 +8423,14 @@ const CHAT_MESSAGES = [
 function chatBubble(msg) {
   const isBot = msg.from === 'bot';
   const wrap = document.createElement('div');
-  wrap.className = 'flex animate-message ' + (isBot ? 'justify-start' : 'justify-end');
+  wrap.className = 'animate-message';
+  wrap.style.cssText = `display: flex; ${isBot ? 'justify-content: flex-start;' : 'justify-content: flex-end;'}`;
   wrap.innerHTML = `
-    <div class="${isBot ? 'bg-white' : 'bg-[#dcf8c6]'} rounded-2xl px-3 py-2 max-w-[80%] shadow-sm">
-      <div class="text-[13px] text-anthracite leading-snug">${escapeHtml(msg.text)}</div>
-      <div class="text-[10px] text-anthracite/40 text-right mt-0.5 flex items-center justify-end gap-1">
+    <div class="${isBot ? 'bg-white' : 'bg-[#dcf8c6]'}" style="border-radius: 8px; ${isBot ? 'border-top-left-radius: 2px;' : 'border-top-right-radius: 2px;'} padding: 6px 9px 4px; max-width: 80%; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);">
+      <div style="font-size: 13.5px; color: #303030; line-height: 1.35; white-space: pre-wrap; word-break: break-word;">${escapeHtml(msg.text)}</div>
+      <div style="font-size: 10.5px; color: rgba(0,0,0,0.45); text-align: right; margin-top: 2px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
         ${msg.time}
-        ${!isBot ? '<svg width="14" height="10" viewBox="0 0 16 11" fill="none"><path d="M11.071.653a.5.5 0 01.073.703l-7 9a.5.5 0 01-.704.073l-3-2.5a.5.5 0 11.64-.768L4.36 9.448l6.708-8.722a.5.5 0 01.703-.073z" fill="#34B7F1"/><path d="M15.071.653a.5.5 0 01.073.703l-7 9a.5.5 0 01-.704.073l-1-.834a.5.5 0 11.64-.768l.609.508 6.708-8.722a.5.5 0 01.703-.073z" fill="#34B7F1"/></svg>' : ''}
+        ${!isBot ? '<svg width="14" height="10" viewBox="0 0 16 11" fill="none" style="margin-left: 3px;"><path d="M11.071.653a.5.5 0 01.073.703l-7 9a.5.5 0 01-.704.073l-3-2.5a.5.5 0 11.64-.768L4.36 9.448l6.708-8.722a.5.5 0 01.703-.073z" fill="#4FC3F7"/><path d="M15.071.653a.5.5 0 01.073.703l-7 9a.5.5 0 01-.704.073l-1-.834a.5.5 0 11.64-.768l.609.508 6.708-8.722a.5.5 0 01.703-.073z" fill="#4FC3F7"/></svg>' : ''}
       </div>
     </div>
   `;
@@ -7721,13 +8439,13 @@ function chatBubble(msg) {
 
 function typingBubble() {
   const wrap = document.createElement('div');
-  wrap.className = 'flex justify-start animate-message';
   wrap.id = 'typing-indicator';
+  wrap.style.cssText = 'display: flex; justify-content: flex-start;';
   wrap.innerHTML = `
-    <div class="bg-white rounded-2xl px-4 py-3 shadow-sm flex gap-1 items-center">
-      <span class="w-1.5 h-1.5 bg-anthracite/40 rounded-full bounce-dot" style="animation-delay:0s"></span>
-      <span class="w-1.5 h-1.5 bg-anthracite/40 rounded-full bounce-dot" style="animation-delay:.2s"></span>
-      <span class="w-1.5 h-1.5 bg-anthracite/40 rounded-full bounce-dot" style="animation-delay:.4s"></span>
+    <div style="background: white; border-radius: 8px; border-top-left-radius: 2px; padding: 8px 12px; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13); display: flex; gap: 3px; align-items: center;">
+      <span style="width: 7px; height: 7px; background: #999; border-radius: 50%;" class="bounce-dot"></span>
+      <span style="width: 7px; height: 7px; background: #999; border-radius: 50%; animation-delay: 0.2s;" class="bounce-dot"></span>
+      <span style="width: 7px; height: 7px; background: #999; border-radius: 50%; animation-delay: 0.4s;" class="bounce-dot"></span>
     </div>
   `;
   return wrap;
@@ -8001,6 +8719,29 @@ function closeCancelModal() {
   document.getElementById('cancel-modal').classList.add('hidden');
 }
 
+// DATA-INFO MODAL (Step 2 Trust-Link)
+function openDataInfoModal() {
+  const m = document.getElementById('data-info-modal');
+  if (!m) return;
+  m.classList.remove('hidden');
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeDataInfoModal() {
+  const m = document.getElementById('data-info-modal');
+  if (!m) return;
+  m.classList.add('hidden');
+  m.style.display = '';
+  document.body.style.overflow = '';
+}
+// Esc-Taste schließt
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const m = document.getElementById('data-info-modal');
+    if (m && !m.classList.contains('hidden')) closeDataInfoModal();
+  }
+});
+
 function copyEmailFromCancelModal(btn) {
   const email = 'kontakt@mrbell.de';
   const copyIcon = btn.querySelector('.copy-icon');
@@ -8146,8 +8887,346 @@ function renderGuidedTopicsHeader() {
 }
 
 // ============================================
-// SELF-SERVICE STEP ORDER (zentrale Tabelle für Progress-Header)
+// TEST-CHAT — Live-Demo mit konfiguriertem Bot (iPhone 16 / WhatsApp Style)
 // ============================================
+const TEST_CHAT_LIMIT = 10;
+const TEST_CHAT_IDLE_MS = 15000; // 15 Sekunden ohne Aktivität → CTA-Bubble
+let testChatHistory = [];
+let testChatCount = 0;
+let testChatBusy = false;
+let testChatIdleTimer = null;
+let testChatCTAShown = false;
+let testChatBotReplyCount = 0;
+
+function testChatTimeNow() {
+  const now = new Date();
+  return String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+}
+
+function initTestChat() {
+  // Reset state
+  testChatHistory = [];
+  testChatCount = 0;
+  testChatBusy = false;
+  testChatBotReplyCount = 0;
+  testChatCTAShown = false;
+  if (testChatIdleTimer) { clearTimeout(testChatIdleTimer); testChatIdleTimer = null; }
+
+  const counterEl = document.getElementById('testchat-counter');
+  if (counterEl) counterEl.textContent = '0';
+
+  // Status-Bar Uhr setzen
+  const clockEl = document.getElementById('testchat-clock');
+  if (clockEl) clockEl.textContent = testChatTimeNow();
+
+  // Firmenname oben einsetzen
+  const bizName = (formData.bizName || formData.companyName || 'Firma').trim();
+  const bizNameEl = document.getElementById('testchat-biz-name');
+  if (bizNameEl) bizNameEl.textContent = bizName.substring(0, 32);
+
+  // Status zurücksetzen auf "online"
+  const statusEl = document.getElementById('testchat-status');
+  if (statusEl) statusEl.textContent = 'online';
+
+  // Messages-Container leeren
+  const messagesEl = document.getElementById('testchat-messages');
+  if (messagesEl) messagesEl.innerHTML = '';
+
+  // Initial-Begrüßung: Bot startet aktiv mit Hinweis dass aktuell zu (digitaler Assistent hilft)
+  const anrede = formData.anrede === 'du' ? 'du' : 'sie';
+  const greetingDu = `Hi! 👋 Wir haben gerade leider geschlossen, aber ich bin der digitale Assistent von ${bizName}. Ich kann deine Anfrage entgegennehmen und an das Team weiterleiten — wie kann ich dir helfen?`;
+  const greetingSie = `Hallo! 👋 Wir haben aktuell leider geschlossen, aber ich bin der digitale Assistent von ${bizName}. Gerne nehme ich Ihre Anfrage entgegen und leite sie an das Team weiter — wie kann ich Ihnen helfen?`;
+  const greeting = anrede === 'du' ? greetingDu : greetingSie;
+
+  setTimeout(() => {
+    appendTestChatBubble('bot', greeting);
+    testChatHistory.push({ role: 'assistant', content: greeting });
+    testChatBotReplyCount = 1; // Begrüßung zählt als erste Bot-Antwort
+  }, 350);
+
+  // Input fokussieren + Enter-Binding
+  const input = document.getElementById('testchat-input');
+  if (input) {
+    setTimeout(() => input.focus(), 600);
+    if (!input.dataset.bound) {
+      input.dataset.bound = '1';
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendTestChatMessage();
+        }
+      });
+      // Beim Tippen Idle-Timer cancellen (User ist aktiv)
+      input.addEventListener('input', () => {
+        if (testChatIdleTimer) { clearTimeout(testChatIdleTimer); testChatIdleTimer = null; }
+      });
+    }
+  }
+}
+
+function resetTestChatIdleTimer() {
+  // Cancel laufenden Timer
+  if (testChatIdleTimer) {
+    clearTimeout(testChatIdleTimer);
+    testChatIdleTimer = null;
+  }
+  // Nicht starten wenn CTA schon gezeigt wurde, Limit erreicht oder zu früh
+  if (testChatCTAShown) return;
+  if (testChatCount >= TEST_CHAT_LIMIT) return;
+  if (testChatBotReplyCount < 2) return;
+  // 15s Idle → CTA-Bubble zeigen
+  testChatIdleTimer = setTimeout(() => {
+    if (!testChatCTAShown && !testChatBusy) {
+      showTestChatCTABubble();
+    }
+  }, TEST_CHAT_IDLE_MS);
+}
+
+function showTestChatCTABubble() {
+  if (testChatCTAShown) return;
+  testChatCTAShown = true;
+
+  const messagesEl = document.getElementById('testchat-messages');
+  if (!messagesEl) return;
+
+  // Status kurz auf "tippt …" setzen für Realismus
+  const statusEl = document.getElementById('testchat-status');
+  if (statusEl) statusEl.textContent = 'tippt …';
+
+  // Typing-Bubble anzeigen
+  const typingBubble = appendTypingBubble();
+
+  setTimeout(() => {
+    if (typingBubble && typingBubble.parentNode) typingBubble.parentNode.removeChild(typingBubble);
+    if (statusEl) statusEl.textContent = 'online';
+
+    // CTA-Bubble erstellen
+    const wrapper = document.createElement('div');
+    wrapper.className = 'testchat-bubble self-start';
+    wrapper.style.cssText = 'max-width: 90%; background-color: white; border-radius: 8px; border-top-left-radius: 2px; padding: 10px 11px 8px; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);';
+
+    const text = document.createElement('div');
+    text.style.cssText = 'font-size: 14.2px; color: #303030; line-height: 1.4; margin-bottom: 10px;';
+    text.textContent = 'Hat Ihnen mein Service gefallen? Dann schließen Sie jetzt die letzten Schritte Ihrer Konfiguration ab. 👇';
+    wrapper.appendChild(text);
+
+    // CTA-Button im Mr. Bell Style (Terracotta)
+    const cta = document.createElement('button');
+    cta.type = 'button';
+    cta.style.cssText = 'display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 9px 14px; border-radius: 10px; background: #C2410C; color: white; border: none; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background 0.15s; box-shadow: 0 1px 3px rgba(194,65,12,0.3);';
+    cta.innerHTML = 'Konfiguration abschließen <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+    cta.onmouseenter = () => { cta.style.background = '#9A340A'; };
+    cta.onmouseleave = () => { cta.style.background = '#C2410C'; };
+    cta.onclick = () => {
+      // Cleanup + Navigate
+      if (testChatIdleTimer) { clearTimeout(testChatIdleTimer); testChatIdleTimer = null; }
+      if (typeof switchView === 'function') {
+        // Nächster Schritt nach step-test-chat → step-api
+        switchView('step-api');
+        window.scrollTo(0, 0);
+      }
+    };
+    wrapper.appendChild(cta);
+
+    // Time-Stamp
+    const meta = document.createElement('div');
+    meta.style.cssText = 'font-size: 10.5px; color: rgba(0,0,0,0.45); margin-top: 4px; text-align: right;';
+    meta.textContent = testChatTimeNow();
+    wrapper.appendChild(meta);
+
+    messagesEl.appendChild(wrapper);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }, 1100);
+}
+
+
+  const bizName = formData.bizName || formData.companyName || 'das Unternehmen';
+  const branche = formData.industry || formData.branche || '';
+  const isDu = formData.anrede === 'du';
+  const anredeForm = isDu ? 'Du' : 'Sie';
+  const tonfall = formData.tonfall || 'professionell';
+  const adresse = (formData.street && formData.plz && formData.city)
+    ? `${formData.street}, ${formData.plz} ${formData.city}`
+    : '';
+  const services = (formData.services || []).filter(s => s && s.name).map(s => `• ${s.name}${s.price ? ` — ${s.price}` : ''}`).join('\n');
+  const faqs = (formData.faqs || []).filter(f => f && f.q && f.a).map(f => `Q: ${f.q}\nA: ${f.a}`).join('\n\n');
+  const hours = (formData.hours || []).filter(h => h && h.day).map(h => `${h.day}: ${h.times || 'geschlossen'}`).join('\n');
+  const customPrompt = formData.botPrompt || '';
+
+  return `Du bist der digitale WhatsApp-Assistent von ${bizName}${branche ? ` (Branche: ${branche})` : ''}.
+
+KONTEXT FÜR DIESEN TEST-CHAT:
+Tu so, als wäre das Unternehmen aktuell GESCHLOSSEN. Du bist der digitale Assistent der außerhalb der Öffnungszeiten Anfragen entgegennimmt. Deine Hauptaufgabe ist NICHT, sofort Termine zu vergeben oder verbindliche Auskünfte zu geben — sondern Anfragen aufzunehmen und an das Team weiterzuleiten.
+
+WICHTIGE REGELN:
+- Sprich den Kunden konsequent mit "${anredeForm}" an (${isDu ? 'du, dir, dein' : 'Sie, Ihnen, Ihr'}).
+- Tonfall: ${tonfall}.
+- Antworte SEHR KURZ (max. 2 Sätze pro Antwort), wie in einem echten WhatsApp-Chat.
+- Keine Markdown-Formatierung (kein **fett**, keine Listen).
+- Nutze maximal 1 passendes Emoji pro Antwort, sparsam.
+
+VORGEHEN BEI KUNDENANFRAGEN:
+1. Frage nach Wunsch-Datum/Wunsch-Zeit (nur falls noch nicht genannt).
+2. Frage nach dem Namen des Kunden (nur falls noch nicht genannt).
+3. Sobald du Datum/Zeit + Name hast: bestätige kurz, dass du die Anfrage an das Team weitergeleitet hast und sich jemand zeitnah meldet.
+4. Schließe mit dem Hinweis ab, dass ${isDu ? 'du gerne weitere Fragen' : 'der Kunde gerne weitere Fragen'} stellen ${isDu ? 'kannst und du sie beantwortest' : 'kann und Sie diese gerne beantworten'}.
+
+ZU DIENSTLEISTUNGEN/PREISEN: Wenn der Kunde nach Preisen fragt, kannst du die unten gelisteten Preise nennen. Bei Spezialfällen oder unklaren Anfragen weiterleiten.
+
+UNTERNEHMENSDATEN:
+${adresse ? `Adresse: ${adresse}\n` : ''}${hours ? `Öffnungszeiten:\n${hours}\n` : ''}
+${services ? `\nDIENSTLEISTUNGEN UND PREISE:\n${services}\n` : ''}
+${faqs ? `\nHÄUFIGE FRAGEN:\n${faqs}\n` : ''}
+${customPrompt ? `\nINDIVIDUELLE INFOS:\n${customPrompt}\n` : ''}
+WICHTIG: Antworte NIE im Namen des Inhabers. Sage immer "ich leite das ans Team weiter" oder "jemand wird sich bei ${isDu ? 'dir' : 'Ihnen'} melden".`;
+}
+
+function appendTestChatBubble(role, text, opts) {
+  opts = opts || {};
+  const messagesEl = document.getElementById('testchat-messages');
+  if (!messagesEl) return null;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'testchat-bubble';
+  if (role === 'user') {
+    wrapper.className += ' self-end';
+    wrapper.style.cssText = 'max-width: 80%; background-color: #DCF8C6; border-radius: 8px; border-top-right-radius: 2px; padding: 6px 9px 4px 9px; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13); position: relative;';
+  } else {
+    wrapper.className += ' self-start';
+    wrapper.style.cssText = 'max-width: 80%; background-color: white; border-radius: 8px; border-top-left-radius: 2px; padding: 6px 9px 4px 9px; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13); position: relative;';
+  }
+
+  const textEl = document.createElement('div');
+  textEl.style.cssText = 'font-size: 14.2px; color: #303030; line-height: 1.35; white-space: pre-wrap; word-break: break-word;';
+  textEl.textContent = text;
+  wrapper.appendChild(textEl);
+
+  if (!opts.noTime) {
+    const meta = document.createElement('div');
+    meta.style.cssText = 'font-size: 10.5px; color: rgba(0,0,0,0.45); margin-top: 2px; text-align: right; display: flex; align-items: center; justify-content: flex-end; gap: 2px;';
+    const timeSpan = document.createElement('span');
+    timeSpan.textContent = testChatTimeNow();
+    meta.appendChild(timeSpan);
+    if (role === 'user') {
+      // Doppel-Häkchen (initial grau = "gesendet")
+      const checks = document.createElement('span');
+      checks.className = 'testchat-checkmark sent';
+      checks.dataset.checks = '1';
+      checks.innerHTML = '<svg width="16" height="11" viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 6 4.5 9.5 10 3"/><polyline points="6 6 9.5 9.5 15 3"/></svg>';
+      meta.appendChild(checks);
+      wrapper.dataset.userBubble = '1';
+    }
+    wrapper.appendChild(meta);
+  }
+
+  messagesEl.appendChild(wrapper);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return wrapper;
+}
+
+function appendTypingBubble() {
+  const messagesEl = document.getElementById('testchat-messages');
+  if (!messagesEl) return null;
+  const wrapper = document.createElement('div');
+  wrapper.className = 'testchat-bubble self-start';
+  wrapper.style.cssText = 'background-color: white; border-radius: 8px; border-top-left-radius: 2px; padding: 8px 12px; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);';
+  wrapper.innerHTML = '<div class="testchat-typing-dots"><span></span><span></span><span></span></div>';
+  messagesEl.appendChild(wrapper);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return wrapper;
+}
+
+function markUserBubblesAs(state) {
+  // state: 'sent' (gesendet, grau) | 'delivered' (zugestellt, doppelt grau) | 'read' (blau)
+  const messagesEl = document.getElementById('testchat-messages');
+  if (!messagesEl) return;
+  const userBubbles = messagesEl.querySelectorAll('[data-user-bubble="1"] .testchat-checkmark');
+  userBubbles.forEach((el) => {
+    el.classList.remove('sent', 'read');
+    if (state === 'read') el.classList.add('read');
+    else el.classList.add('sent');
+  });
+}
+
+async function sendTestChatMessage() {
+  if (testChatBusy) return;
+  if (testChatCount >= TEST_CHAT_LIMIT) {
+    appendTestChatBubble('bot', 'Test-Limit erreicht. Schließe das Onboarding ab um deinen echten Bot zu nutzen.', { noTime: true });
+    return;
+  }
+
+  // User schreibt → Idle-Timer cancellen
+  if (testChatIdleTimer) { clearTimeout(testChatIdleTimer); testChatIdleTimer = null; }
+
+  const input = document.getElementById('testchat-input');
+  if (!input) return;
+  const userText = (input.value || '').trim();
+  if (!userText) return;
+  input.value = '';
+
+  // User-Bubble erscheint sofort
+  appendTestChatBubble('user', userText);
+  testChatHistory.push({ role: 'user', content: userText });
+  testChatCount++;
+  const counterEl = document.getElementById('testchat-counter');
+  if (counterEl) counterEl.textContent = String(testChatCount);
+
+  // Schritt 1: Bot-Status zeigt "online" → kurz später "tippt..."
+  const statusEl = document.getElementById('testchat-status');
+  if (statusEl) statusEl.textContent = 'online';
+
+  // Nach 400ms: User-Häkchen werden blau (gelesen) + Status wechselt zu "tippt..."
+  setTimeout(() => {
+    markUserBubblesAs('read');
+    if (statusEl) statusEl.textContent = 'tippt …';
+  }, 450);
+
+  testChatBusy = true;
+
+  // Typing-Bubble erscheint nach kurzer Verzögerung
+  let typingBubble;
+  setTimeout(() => {
+    typingBubble = appendTypingBubble();
+  }, 700);
+
+  try {
+    const res = await fetch('/api/test-chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        systemPrompt: buildTestChatSystemPrompt(),
+        history: testChatHistory.slice(-12),
+      }),
+    });
+
+    // Mindestens 1 Sekunde Typing-Animation für realistisches Gefühl
+    await new Promise(r => setTimeout(r, 800));
+
+    if (typingBubble && typingBubble.parentNode) typingBubble.parentNode.removeChild(typingBubble);
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      appendTestChatBubble('bot', errData.error || 'Verbindung fehlgeschlagen — bitte erneut versuchen.');
+    } else {
+      const data = await res.json();
+      const reply = (data.reply || '').trim() || 'Entschuldigung, ich habe gerade keine Antwort.';
+      appendTestChatBubble('bot', reply);
+      testChatHistory.push({ role: 'assistant', content: reply });
+      testChatBotReplyCount++;
+    }
+  } catch (err) {
+    if (typingBubble && typingBubble.parentNode) typingBubble.parentNode.removeChild(typingBubble);
+    appendTestChatBubble('bot', 'Verbindung zum Bot fehlgeschlagen. Prüfe deine Internetverbindung.');
+  } finally {
+    testChatBusy = false;
+    if (statusEl) statusEl.textContent = 'online';
+    if (input) input.focus();
+    // Idle-Timer (neu) starten — wenn 15s keine Aktivität, kommt CTA-Bubble
+    resetTestChatIdleTimer();
+  }
+}
+
+
 const SELF_SERVICE_STEP_ORDER = [
   'step-bundle-pricing', // 1 — NEU: Bundle-Auswahl + Ticket reservieren
   'step-name',          // 2
@@ -8158,20 +9237,21 @@ const SELF_SERVICE_STEP_ORDER = [
   'step-services',      // 7
   'step-faq',           // 8
   'step-bot-prompt',    // 9
-  'step-api',           // 10
-  'step-api-key',       // 10
-  'step-whatsapp',      // 11
-  'step-bizmail',       // 12
-  'step-phone',         // 13
-  'step-sheets',        // 14
-  'step-verify'         // 14
+  'step-test-chat',     // 10 — NEU: Live-Test mit konfiguriertem Bot
+  'step-api',           // 11
+  'step-api-key',       // 11
+  'step-whatsapp',      // 12
+  'step-bizmail',       // 13
+  'step-phone',         // 14
+  'step-sheets',        // 15
+  'step-verify'         // 15
 ];
-const SELF_SERVICE_TOTAL = 14; // 14 Schritte inkl. Bundle-Pricing als Step 1
+const SELF_SERVICE_TOTAL = 15; // 15 Schritte inkl. Bundle-Pricing als Step 1 + Test-Chat als Step 10
 
 function getStepInfo(viewName) {
   const idx = SELF_SERVICE_STEP_ORDER.indexOf(viewName);
   if (idx === -1) return null;
-  // Mapping auf "Schritt X von 14":
+  // Mapping auf "Schritt X von 15":
   const STEP_NUM_MAP = {
     'step-bundle-pricing': 1,
     'step-name': 2,
@@ -8182,13 +9262,14 @@ function getStepInfo(viewName) {
     'step-services': 7,
     'step-faq': 8,
     'step-bot-prompt': 9,
-    'step-api': 10,
-    'step-api-key': 10,    // gleiche Position
-    'step-whatsapp': 11,
-    'step-bizmail': 12,
-    'step-phone': 13,
-    'step-sheets': 14,
-    'step-verify': 14     // letzter Schritt
+    'step-test-chat': 10,
+    'step-api': 11,
+    'step-api-key': 11,    // gleiche Position
+    'step-whatsapp': 12,
+    'step-bizmail': 13,
+    'step-phone': 14,
+    'step-sheets': 15,
+    'step-verify': 15     // letzter Schritt
   };
   const num = STEP_NUM_MAP[viewName] || (idx + 1);
   const percent = Math.round((num / SELF_SERVICE_TOTAL) * 100);
@@ -8620,14 +9701,14 @@ function switchToGuidedFromApiKey() {
 }
 
 function saveBotPromptAndContinue() {
-  // Wird vom Bot-Prompt Step aufgerufen — geht in neuer Reihenfolge zur API-Auswahl
+  // Wird vom Bot-Prompt Step aufgerufen — geht in neuer Reihenfolge zum Test-Chat
   const ta = document.getElementById('field-botPrompt');
   formData.botPrompt = ta ? ta.value.trim() : '';
   if (editingFromSummary) {
     editingFromSummary = false;
     switchView('summary');
   } else {
-    switchView('step-api');
+    switchView('step-test-chat');
   }
 }
 
@@ -8791,64 +9872,201 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- ============================================================
      BELL-CHAT MODAL — Sales Concierge powered by Claude Haiku 4.5
      ============================================================ -->
+<!-- DATA-INFO MODAL: Was passiert mit den Daten? -->
+<div id="data-info-modal" class="hidden fixed inset-0 z-[100] items-center justify-center px-4 py-6" style="background: rgba(26,26,46,0.55); backdrop-filter: blur(6px);" onclick="if(event.target===this) closeDataInfoModal()">
+  <div class="relative w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col" style="animation: data-modal-in 0.22s cubic-bezier(0.16, 1, 0.3, 1); max-height: calc(100vh - 3rem);">
+
+    <!-- Header (fix oben, mehr Luft) -->
+    <div class="flex-shrink-0 px-7 pt-10 pb-6 border-b border-anthracite/8 relative bg-white">
+      <button onclick="closeDataInfoModal()" class="absolute top-5 right-5 text-anthracite/40 hover:text-anthracite transition-colors p-1" aria-label="Schließen">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="flex items-center gap-3.5 pr-10">
+        <div class="w-11 h-11 rounded-xl bg-wa-50 flex items-center justify-center flex-shrink-0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="font-display text-xl font-semibold text-anthracite leading-tight">Was passiert mit Ihren Daten?</h2>
+          <p class="text-xs text-anthracite/55 mt-1">Kurz und ehrlich erklärt</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrollbarer Content (luftiger) -->
+    <div class="flex-1 overflow-y-auto px-7 py-7 space-y-6" style="-webkit-overflow-scrolling: touch;">
+
+      <div class="flex items-start gap-3">
+        <div class="w-7 h-7 rounded-full bg-wa-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div>
+          <div class="font-semibold text-anthracite text-sm mb-1.5">Welche Daten wir speichern</div>
+          <p class="text-sm text-anthracite/70 leading-relaxed">Was Sie hier im Onboarding eintippen: Firmenname, Branche, Adresse, Öffnungszeiten, Dienstleistungen mit Preisen, FAQs, Email und Telefonnummer. Keine Tracker, kein Profiling.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-3">
+        <div class="w-7 h-7 rounded-full bg-wa-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div>
+          <div class="font-semibold text-anthracite text-sm mb-1.5">Wofür wir die Daten nutzen</div>
+          <p class="text-sm text-anthracite/70 leading-relaxed">Ausschließlich um Ihren Mr. Bell-Bot einzurichten und zu betreiben. Wenn ein Kunde Ihren Bot anschreibt, antwortet er mit Ihren Daten. Keine Weitergabe an Dritte für Werbezwecke.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-3">
+        <div class="w-7 h-7 rounded-full bg-wa-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div>
+          <div class="font-semibold text-anthracite text-sm mb-1.5">Wo die Daten verarbeitet werden</div>
+          <p class="text-sm text-anthracite/70 leading-relaxed">Im Hintergrund laufen mehrere Tools: <strong>n8n Cloud</strong> (Frankfurt), <strong>360dialog</strong> (Berlin) für die WhatsApp-Anbindung, <strong>Vercel</strong> für die Website (EU-Region) und <strong>Anthropic Claude</strong> für die KI-Antworten. Mit allen Anbietern bestehen DSGVO-Verträge inkl. EU-Standardvertragsklauseln für US-Übermittlungen.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-3">
+        <div class="w-7 h-7 rounded-full bg-wa-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div>
+          <div class="font-semibold text-anthracite text-sm mb-1.5">Sie behalten die Kontrolle</div>
+          <p class="text-sm text-anthracite/70 leading-relaxed">Jederzeit Auskunft, Löschung oder Export Ihrer Daten möglich — eine kurze Email an <a href="mailto:kontakt@mrbell.de" class="text-wa-700 underline">kontakt@mrbell.de</a> reicht.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-3">
+        <div class="w-7 h-7 rounded-full bg-wa-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div>
+          <div class="font-semibold text-anthracite text-sm mb-1.5">Wie lange wir speichern</div>
+          <p class="text-sm text-anthracite/70 leading-relaxed">Nach Vertragsende werden Ihre Daten innerhalb von 90 Tagen gelöscht. Ausnahme: Rechnungen unterliegen der gesetzlichen 10-Jahres-Aufbewahrungspflicht (§ 147 AO).</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-3">
+        <div class="w-7 h-7 rounded-full bg-wa-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div>
+          <div class="font-semibold text-anthracite text-sm mb-1.5">Sicherheit</div>
+          <p class="text-sm text-anthracite/70 leading-relaxed">Verschlüsselte Übertragung via TLS, alle Zugänge mit Zwei-Faktor-Authentifizierung gesichert. Datenpannen melden wir innerhalb von 72 Stunden an die zuständige Aufsichtsbehörde.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer (fix unten, mit Schatten-Trenner) -->
+    <div class="flex-shrink-0 px-7 py-5 bg-cream/50 border-t border-anthracite/8 flex flex-col sm:flex-row items-center gap-3 justify-between">
+      <a href="/datenschutz.html" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-anthracite/65 hover:text-anthracite transition-colors group">
+        <span class="underline decoration-anthracite/25 underline-offset-2 group-hover:decoration-anthracite/60">Vollständige Datenschutzerklärung</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+      <button onclick="closeDataInfoModal()" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold text-sm transition-all shadow-soft">
+        Verstanden
+      </button>
+    </div>
+  </div>
+</div>
+<style>
+@keyframes data-modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+</style>
+
 <div id="bellchat-backdrop" class="bellchat-backdrop" role="dialog" aria-modal="true" aria-labelledby="bellchat-title">
   <div class="bellchat-modal" role="document">
 
-    <!-- Header -->
-    <div class="bellchat-header">
-      <div class="bellchat-avatar" aria-hidden="true">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <use href="#bell-icon"/>
-        </svg>
-      </div>
-      <div class="bellchat-header-info">
-        <div id="bellchat-title" class="bellchat-header-name">Mr. Bell</div>
-        <div class="bellchat-header-status">
-          <span class="bellchat-status-dot" aria-hidden="true"></span>
-          <span>online · Ihr KI-Assistent</span>
+    <!-- Phone outer frame -->
+    <div class="bellchat-phone-frame">
+      <!-- Side buttons (cosmetic) -->
+      <div class="bellchat-side-btn left top1"></div>
+      <div class="bellchat-side-btn left top2"></div>
+      <div class="bellchat-side-btn left top3"></div>
+      <div class="bellchat-side-btn right"></div>
+
+      <div class="bellchat-phone-screen">
+
+        <!-- iOS Status Bar + Dynamic Island -->
+        <div class="bellchat-statusbar">
+          <span id="bellchat-clock" class="bellchat-clock">14:23</span>
+          <div class="bellchat-island"></div>
+          <div class="bellchat-statusbar-icons">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+            <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M7.5 1C4.5 1 1.8 2.2 0 4.1l1.4 1.4C2.9 4 5.1 3 7.5 3s4.6 1 6.1 2.5L15 4.1C13.2 2.2 10.5 1 7.5 1zm0 4C5.6 5 3.9 5.7 2.7 6.9l1.4 1.4C5 7.4 6.2 7 7.5 7s2.5.4 3.4 1.3l1.4-1.4C11.1 5.7 9.4 5 7.5 5zm0 4c-.7 0-1.3.3-1.8.7L7.5 11l1.8-1.3C8.8 9.3 8.2 9 7.5 9z"/></svg>
+            <svg width="25" height="11" viewBox="0 0 25 11" fill="none"><rect x="0.5" y="0.5" width="22" height="10" rx="2.5" stroke="currentColor" stroke-opacity="0.4"/><rect x="2" y="2" width="19" height="7" rx="1" fill="currentColor"/><rect x="23" y="3.5" width="1.5" height="4" rx="0.7" fill="currentColor" opacity="0.4"/></svg>
+          </div>
         </div>
+
+        <!-- WhatsApp Header -->
+        <div class="bellchat-header">
+          <button class="bellchat-close" onclick="closeBellChat()" aria-label="Schließen">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <div class="bellchat-avatar" aria-hidden="true">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <use href="#bell-icon"/>
+            </svg>
+          </div>
+          <div class="bellchat-header-info">
+            <div id="bellchat-title" class="bellchat-header-name">Mr. Bell</div>
+            <div class="bellchat-header-status">
+              <span>online · Ihr KI-Assistent</span>
+            </div>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="bellchat-progress" aria-hidden="true">
+          <div id="bellchat-progress-bar" class="bellchat-progress-bar"></div>
+        </div>
+
+        <!-- Messages Container -->
+        <div id="bellchat-messages" class="bellchat-messages" aria-live="polite" aria-atomic="false">
+          <!-- Messages werden hier dynamisch via JS eingefügt -->
+        </div>
+
+        <!-- CTA Container (sticky am unteren Rand, garantiert sichtbar) -->
+        <div id="bellchat-cta-container" class="bellchat-cta-container" style="display: none;"></div>
+
+        <!-- Typing Indicator (außerhalb messages für stabile Position) -->
+        <div id="bellchat-typing" class="bellchat-typing" style="margin: 0 12px 8px;" aria-hidden="true">
+          <span class="bellchat-typing-dot"></span>
+          <span class="bellchat-typing-dot"></span>
+          <span class="bellchat-typing-dot"></span>
+        </div>
+
+        <!-- Input Area -->
+        <div class="bellchat-input-area">
+          <textarea
+            id="bellchat-input"
+            class="bellchat-input"
+            placeholder="Antworte Mr. Bell..."
+            rows="1"
+            maxlength="500"
+            aria-label="Deine Nachricht an Mr. Bell"></textarea>
+          <button id="bellchat-send" class="bellchat-send" onclick="sendBellChatMessage()" aria-label="Senden">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="bellchat-home-indicator">
+          <div></div>
+        </div>
+
       </div>
-      <button class="bellchat-close" onclick="closeBellChat()" aria-label="Schließen">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M18 6L6 18M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Progress Bar -->
-    <div class="bellchat-progress" aria-hidden="true">
-      <div id="bellchat-progress-bar" class="bellchat-progress-bar"></div>
-    </div>
-
-    <!-- Messages Container -->
-    <div id="bellchat-messages" class="bellchat-messages" aria-live="polite" aria-atomic="false">
-      <!-- Messages werden hier dynamisch via JS eingefügt -->
-    </div>
-
-    <!-- CTA Container (sticky am unteren Rand, garantiert sichtbar) -->
-    <div id="bellchat-cta-container" class="bellchat-cta-container" style="display: none;"></div>
-
-    <!-- Typing Indicator (außerhalb messages für stabile Position) -->
-    <div id="bellchat-typing" class="bellchat-typing" style="margin: 0 12px 8px;" aria-hidden="true">
-      <span class="bellchat-typing-dot"></span>
-      <span class="bellchat-typing-dot"></span>
-      <span class="bellchat-typing-dot"></span>
-    </div>
-
-    <!-- Input Area -->
-    <div class="bellchat-input-area">
-      <textarea
-        id="bellchat-input"
-        class="bellchat-input"
-        placeholder="Antworte Mr. Bell..."
-        rows="1"
-        maxlength="500"
-        aria-label="Deine Nachricht an Mr. Bell"></textarea>
-      <button id="bellchat-send" class="bellchat-send" onclick="sendBellChatMessage()" aria-label="Senden">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-        </svg>
-      </button>
     </div>
 
   </div>
@@ -8897,6 +10115,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     backdrop.classList.add('visible');
     document.body.style.overflow = 'hidden';
+
+    // Status-Bar Uhr setzen
+    const clockEl = document.getElementById('bellchat-clock');
+    if (clockEl) {
+      const now = new Date();
+      clockEl.textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    }
 
     // Reset state nur wenn frischer Start
     if (bellchatState.messages.length === 0) {
