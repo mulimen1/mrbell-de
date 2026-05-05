@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Zahlung abgebrochen — Mr. Bell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --terracotta: #C2410C;
+      --terracotta-dark: #a3370a;
+      --terracotta-light: #fef3eb;
+      --cream: #f5f5f0;
+      --anthracite: #1a1a2e;
+    }
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--anthracite);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    header {
+      width: 100%;
+      border-bottom: 1px solid rgba(26, 26, 46, 0.05);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .header-inner { padding: 1.25rem 3rem; }
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .brand-svg { width: 36px; height: 36px; }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .brand-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--anthracite);
+    }
+    .brand-tagline {
+      font-size: 0.625rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(26, 26, 46, 0.5);
+      font-weight: 500;
+      margin-top: 0.25rem;
+    }
+
+    main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      min-height: calc(100vh - 80px);
+    }
+    .container {
+      max-width: 520px;
+      width: 100%;
+      background: white;
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      box-shadow: 0 8px 32px rgba(26, 26, 46, 0.08);
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 2.25rem 1.5rem; }
+    }
+
+    .info-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--terracotta-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+    }
+    .lead {
+      color: rgba(26, 26, 46, 0.7);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .btn-primary, .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--terracotta);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--terracotta-dark);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: white;
+      color: var(--anthracite);
+      border: 1px solid rgba(26, 26, 46, 0.15);
+    }
+    .btn-secondary:hover {
+      border-color: rgba(26, 26, 46, 0.3);
+    }
+
+    .footer-note {
+      margin-top: 1.75rem;
+      font-size: 0.85rem;
+      color: rgba(26, 26, 46, 0.5);
+    }
+    .footer-note a {
+      color: var(--terracotta);
+      text-decoration: none;
+    }
+    .footer-note a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- SVG Defs für die Mr. Bell Brand-Glocke -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="bellGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#C2410C"/>
+        <stop offset="100%" stop-color="#C2410C"/>
+      </linearGradient>
+      <linearGradient id="bellHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#f59e6e" stop-opacity="0.85"/>
+        <stop offset="100%" stop-color="#C2410C" stop-opacity="0.4"/>
+      </linearGradient>
+      <linearGradient id="bellBase" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#a3370a"/>
+        <stop offset="100%" stop-color="#a3370a"/>
+      </linearGradient>
+      <symbol id="bell-icon" viewBox="0 0 100 100">
+        <rect x="46" y="32" width="8" height="7" rx="1" fill="url(#bellGradient)"/>
+        <circle cx="50" cy="30" r="4" fill="url(#bellGradient)"/>
+        <path d="M 18 78 Q 18 38, 50 38 Q 82 38, 82 78 Z" fill="url(#bellGradient)"/>
+        <ellipse cx="50" cy="52" rx="16" ry="7" fill="url(#bellHighlight)"/>
+        <rect x="14" y="78" width="72" height="8" rx="3" fill="url(#bellBase)"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header>
+    <div class="header-inner">
+      <a href="https://mrbell.de" class="brand" title="Zurück zur Startseite">
+        <svg class="brand-svg" aria-hidden="true"><use href="#bell-icon"/></svg>
+        <div class="brand-text">
+          <span class="brand-name">Mr. Bell</span>
+          <span class="brand-tagline">Service, der auffällt</span>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Info-Icon: i im Kreis, Terracotta — robust gerendert -->
+      <div class="info-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+      </div>
+      <h1>Kein Problem</h1>
+      <p class="lead">
+        Ihre Zahlung wurde abgebrochen — es wurde nichts berechnet. Sie können Ihre Buchung jederzeit erneut starten oder uns mit Fragen kontaktieren.
+      </p>
+
+      <div class="actions">
+        <a href="https://mrbell.de" class="btn-primary">
+          Zurück zur Startseite
+        </a>
+        <a href="mailto:kontakt@mrbell.de?subject=Frage%20zur%20Buchung" class="btn-secondary">
+          Frage stellen
+        </a>
+      </div>
+
+      <p class="footer-note">
+        Brauchen Sie Hilfe? Schreiben Sie uns an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
+      </p>
+    </div>
+  </main>
+
+</body>
+</html>

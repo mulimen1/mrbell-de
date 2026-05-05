@@ -1,12 +1,13 @@
 {
   "name": "mrbell-de",
   "version": "1.0.0",
+  "description": "Mr. Bell — WhatsApp AI Assistant SaaS für deutsche SMB",
   "private": true,
-  "description": "Mr. Bell Marketing Site + Bell-Chat API",
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.1"
-  },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "stripe": "^17.5.0"
   }
 }
