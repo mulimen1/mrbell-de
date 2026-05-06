@@ -19,7 +19,7 @@ cp -r /pfad/zum/bundle/* .
 
 # Commit + Push
 git add .
-git commit -m "Clean reset: static + serverless setup"
+git commit -m "Clean reset: static + serverless setup" 
 git push origin main --force
 ```
 
