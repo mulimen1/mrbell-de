@@ -4532,7 +4532,7 @@ video {
       <div id="headerStep" class="hidden items-center gap-3 text-sm">
         <span class="text-anthracite/50 font-medium hidden sm:inline">Onboarding</span>
         <span class="text-anthracite/30 hidden sm:inline">·</span>
-        <span class="font-medium text-anthracite">Schritt <span id="currentStep">1</span> <span class="text-anthracite/40">von 14</span></span>
+        <span class="font-medium text-anthracite"><span id="currentStep" style="display:none">1</span><span style="display:none">von 14</span></span>
       </div>
 
       <!-- BURGER MENU -->
@@ -6815,7 +6815,7 @@ video {
     <div class="mb-12" id="guided-verify-progress">
       <div class="flex items-center justify-between mb-3">
         <span class="text-sm text-anthracite/50 font-medium">Geführtes Setup · <span class="text-anthracite font-semibold">Email bestätigen</span></span>
-        <span class="text-sm font-semibold text-wa-500">Schritt 3 von 3</span>
+        <span class="text-sm font-semibold text-wa-500"></span>
       </div>
       <div class="h-1 bg-anthracite/8 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-wa-400 to-wa-600 rounded-full relative" style="width: 100%;"><div class="absolute inset-0 animate-shimmer"></div></div></div>
     </div>
@@ -6878,7 +6878,7 @@ video {
     <div class="mb-12" id="guided-stripe-progress">
       <div class="flex items-center justify-between mb-3">
         <span class="text-sm text-anthracite/50 font-medium">Geführtes Setup · <span class="text-anthracite font-semibold">Zahlung</span></span>
-        <span class="text-sm font-semibold text-wa-500">Schritt 3 von 3</span>
+        <span class="text-sm font-semibold text-wa-500"></span>
       </div>
       <div class="h-1 bg-anthracite/8 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-wa-400 to-wa-600 rounded-full relative" style="width: 100%;"><div class="absolute inset-0 animate-shimmer"></div></div></div>
     </div>
@@ -9226,7 +9226,7 @@ function renderGuidedCalendlyHeader() {
     wrap.innerHTML = `
       <div class="flex items-center justify-between mb-3">
         <span class="text-sm text-anthracite/50 font-medium">Geführtes Setup · <span class="text-anthracite font-semibold">Termin wählen</span></span>
-        <span class="text-sm font-semibold text-wa-500">Schritt 2 von 3</span>
+        <span class="text-sm font-semibold text-wa-500"></span>
       </div>
       <div class="h-1 bg-anthracite/8 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-wa-400 to-wa-600 rounded-full relative" style="width: 66%;"><div class="absolute inset-0 animate-shimmer"></div></div></div>
     `;
@@ -9250,7 +9250,7 @@ function renderGuidedTopicsHeader() {
     wrap.innerHTML = `
       <div class="flex items-center justify-between mb-3">
         <span class="text-sm text-anthracite/50 font-medium">Geführtes Setup · <span class="text-anthracite font-semibold">Themen wählen</span></span>
-        <span class="text-sm font-semibold text-wa-500">Schritt 2 von 3</span>
+        <span class="text-sm font-semibold text-wa-500"></span>
       </div>
       <div class="h-1 bg-anthracite/8 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-wa-400 to-wa-600 rounded-full relative" style="width: 66%;"><div class="absolute inset-0 animate-shimmer"></div></div></div>
     `;
@@ -9676,7 +9676,7 @@ function renderStepHeader(viewName) {
   if (!wrap) return;
   wrap.innerHTML = `
     <div class="flex items-center justify-between mb-3">
-      <span class="text-sm text-anthracite/50 font-medium">Schritt <span class="text-anthracite font-semibold">${info.num}</span> von ${info.total}</span>
+      <span class="text-sm text-anthracite/50 font-medium" style="display:none">Schritt ${info.num} von ${info.total}</span>
       <span class="text-sm font-semibold text-wa-500">${info.percent}%</span>
     </div>
     <div class="h-1 bg-anthracite/8 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-wa-400 to-wa-600 rounded-full relative" style="width: ${info.percent}%;"><div class="absolute inset-0 animate-shimmer"></div></div></div>
@@ -9691,7 +9691,7 @@ function renderGuidedExplainerHeader() {
     wrap.innerHTML = `
       <div class="flex items-center justify-between mb-3">
         <span class="text-sm text-anthracite/50 font-medium">Geführtes Setup · <span class="text-anthracite font-semibold">Was Sie bekommen</span></span>
-        <span class="text-sm font-semibold text-wa-500">Schritt 1 von 3</span>
+        <span class="text-sm font-semibold text-wa-500"></span>
       </div>
       <div class="h-1 bg-anthracite/8 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-wa-400 to-wa-600 rounded-full relative" style="width: 33%;"><div class="absolute inset-0 animate-shimmer"></div></div></div>
     `;
@@ -9966,7 +9966,7 @@ function proceedFromGuidedExplainer() {
 }
 
 function goBackFromGuidedCalendly() {
-  // Bei 99€ Stand-Alone (kein Plan gewählt) → zurück zur Erklärung (Schritt 1 von 3)
+  // Bei 99€ Stand-Alone (kein Plan gewählt) → zurück zur Erklärung ()
   if (formData.apiPath === 'guided' && !formData.selectedPlan) {
     switchView('step-guided-explainer');
   } else {
@@ -10364,7 +10364,7 @@ document.addEventListener('DOMContentLoaded', () => {
      ============================================================ -->
 <!-- DATA-INFO MODAL: Was passiert mit den Daten? -->
 <div id="data-info-modal" class="hidden fixed inset-0 z-[100] items-center justify-center px-4 py-6" style="background: rgba(26,26,46,0.55); backdrop-filter: blur(6px);" onclick="if(event.target===this) closeDataInfoModal()">
-  <div class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden" style="animation: data-modal-in 0.22s cubic-bezier(0.16, 1, 0.3, 1); max-height: min(85vh, 680px); display: flex; flex-direction: column;">
+  <div class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden" style="animation: data-modal-in 0.22s cubic-bezier(0.16, 1, 0.3, 1); max-height: 80vh; display: flex; flex-direction: column;">
 
     <!-- Header (sticky innerhalb des Scroll-Containers via separater Bereich vor Scroll-Box) -->
     <div class="px-5 pt-4 pb-3 border-b border-anthracite/8 relative bg-white" style="flex: 0 0 auto;">
