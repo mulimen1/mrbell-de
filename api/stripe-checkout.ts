@@ -122,7 +122,7 @@ export default async function handler(req: any, res: any) {
     if (plan === "setup_only") {
       const session = await stripe.checkout.sessions.create({
         mode: "payment",
-        payment_method_types: ["card", "sepa_debit"],
+        payment_method_types: ["card"],
         line_items: [{ price: PRICE_IDS.setup_99, quantity: 1 }],
         customer_email: customerEmail,
         success_url: successUrl,
@@ -183,7 +183,7 @@ export default async function handler(req: any, res: any) {
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
-      payment_method_types: ["card", "sepa_debit"],
+      payment_method_types: ["card"],
       line_items: lineItems,
       customer_email: customerEmail,
       success_url: successUrl,
