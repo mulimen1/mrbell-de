@@ -10613,10 +10613,9 @@ document.addEventListener('DOMContentLoaded', () => {
       clockEl.textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
     }
 
-    // Reset state nur wenn frischer Start
-    if (bellchatState.messages.length === 0) {
-      startConversation();
-    }
+  // Restore or fresh start
+  if(bellchatState.messages.length===0){try{var _s=sessionStorage.getItem("bellchat_state");if(_s){var _p=JSON.parse(_s);if(_p.messages&&_p.messages.length>0){bellchatState.messages=_p.messages;bellchatState.step=_p.step||0;bellchatState.answers=_p.answers||{};var _c=document.getElementById("bellchat-messages");if(_c){_c.innerHTML="";_p.messages.forEach(function(m){if(m.role==="user")addUserMessage(m.content);else addBotMessage(m.content);});}}else{startConversation();}}else{startConversation();}}catch(e){startConversation();}}
+  if(sessionStorage.getItem("bellchat_locked")==="true"){bellchatState.locked=true;var _i2=document.getElementById("bellchat-input");if(_i2){_i2.disabled=true;_i2.placeholder="Chat beendet";}}
 
     // Focus auf Input nach Animation
     setTimeout(() => {
