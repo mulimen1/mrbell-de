@@ -10688,7 +10688,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // SEND MESSAGE
   // ============================================
   async function sendBellChatMessage() {
-    if (bellchatState.isLoading) return;
+    if (bellchatState.isLoading || bellchatState.locked) return;
 
     const input = document.getElementById('bellchat-input');
     if (!input) return;
