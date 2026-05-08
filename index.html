@@ -4650,7 +4650,7 @@ video {
       </p>
 
       <!-- HERO CTA — Statement-Piece -->
-      <button onclick="if(sessionStorage.getItem("bellchat_locked")=== "true"||sessionStorage.getItem("bellchat_proceeded")=== "true"){switchView("step-bundle-pricing");}else{openBellChat();}" class="hero-cta-button group relative inline-flex items-center justify-center gap-3 px-10 py-5 md:px-12 md:py-6 rounded-full bg-wa-500 text-white font-bold text-lg md:text-xl hover:bg-wa-400 transition-all hover:scale-[1.03]">
+      <button onclick="heroBellClick()" class="hero-cta-button group relative inline-flex items-center justify-center gap-3 px-10 py-5 md:px-12 md:py-6 rounded-full bg-wa-500 text-white font-bold text-lg md:text-xl hover:bg-wa-400 transition-all hover:scale-[1.03]">
         <span class="relative z-10">Probiere Mr. Bell aus</span>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="relative z-10 transition-transform group-hover:translate-x-1 flex-shrink-0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         <span class="hero-cta-pulse" aria-hidden="true"></span>
@@ -10608,6 +10608,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // PUBLIC API (auf window.* exponieren)
   // ============================================
   window.openBellChat = openBellChat;
+  window.heroBellClick = function(){ if(sessionStorage.getItem("bellchat_locked")==="true"||sessionStorage.getItem("bellchat_proceeded")==="true"){switchView("step-bundle-pricing");}else{openBellChat();} };
   window.closeBellChat = closeBellChat;
   window.sendBellChatMessage = sendBellChatMessage;
   window.bellChatProceed = bellChatProceed;
