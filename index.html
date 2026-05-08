@@ -10968,19 +10968,8 @@ document.addEventListener('DOMContentLoaded', () => {
       gtag('event', 'bellchat_decline', { event_category: 'conversion' });
     }
 
-    // Add charming goodbye
-    addBotMessage('Alles gut! Falls du es dir anders überlegst, ich bin hier. 👋');
-
-    // Disable everything
-    const input = document.getElementById('bellchat-input');
-    const send = document.getElementById('bellchat-send');
-    if (input) input.disabled = true;
-    if (send) send.disabled = true;
-
-    // Auto-close nach 2.5s
-    setTimeout(() => {
-      closeBellChat();
-    }, 2500);
+    // Sofort schliessen
+    closeBellChat();
   }
 
   // ============================================
