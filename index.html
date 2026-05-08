@@ -7316,6 +7316,7 @@ video {
         <h4 class="text-xs uppercase tracking-[0.18em] text-anthracite/50 font-semibold mb-4">Rechtliches</h4>
         <div class="space-y-2.5">
           <a href="/datenschutz.html" target="_blank" rel="noopener" class="block text-sm text-anthracite/70 hover:text-wa-500 transition-colors">Datenschutz</a>
+          <a href="/dsgvo.html" target="_blank" rel="noopener" class="block text-sm text-anthracite/70 hover:text-wa-500 transition-colors">DSGVO</a>
           <a href="/impressum.html" target="_blank" rel="noopener" class="block text-sm text-anthracite/70 hover:text-wa-500 transition-colors">Impressum</a>
           <a href="/agb.html" target="_blank" rel="noopener" class="block text-sm text-anthracite/70 hover:text-wa-500 transition-colors">AGB</a>
           <a href="/widerruf.html" target="_blank" rel="noopener" class="block text-sm text-anthracite/70 hover:text-wa-500 transition-colors">Widerrufsbelehrung</a>
@@ -8004,6 +8005,9 @@ async function preSaveOnboarding() {
 // ============================================
 
 async function startStripeCheckoutSelfService() {
+  if (window.__stripeInFlight) return;
+  window.__stripeInFlight = true;
+  const __resetFlight = () => { window.__stripeInFlight = false; };
   // 1. AGB-Checkbox prüfen
   const termsCb = document.getElementById('field-paymentTerms');
   if (!termsCb || !termsCb.checked) {
@@ -8079,6 +8083,7 @@ async function startStripeCheckoutSelfService() {
     console.error('Stripe Checkout failed:', err);
     if (btn) btn.disabled = false;
     if (lbl) lbl.textContent = originalLabel;
+    __resetFlight();
     alert('Fehler bei der Weiterleitung zu Stripe: ' + err.message + '\n\nBitte versuchen Sie es erneut oder kontaktieren Sie kontakt@mrbell.de');
   }
 }
@@ -9308,8 +9313,8 @@ function initTestChat() {
 
   // Initial-Begrüßung: Bot startet aktiv mit Hinweis dass aktuell zu (digitaler Assistent hilft)
   const anrede = formData.anrede === 'du' ? 'du' : 'sie';
-  const greetingDu = `Hi! 👋 Wir haben gerade leider geschlossen, aber ich bin der digitale Assistent von ${bizName}. Ich kann deine Anfrage entgegennehmen und an das Team weiterleiten — wie kann ich dir helfen?`;
-  const greetingSie = `Hallo! 👋 Wir haben aktuell leider geschlossen, aber ich bin der digitale Assistent von ${bizName}. Gerne nehme ich Ihre Anfrage entgegen und leite sie an das Team weiter — wie kann ich Ihnen helfen?`;
+  const greetingDu = `Hi! 👋 Ich bin der digitale Assistent von ${bizName}. Ich kann deine Anfrage entgegennehmen und an das Team weiterleiten — wie kann ich dir helfen?`;
+  const greetingSie = `Hallo! 👋 Ich bin der digitale Assistent von ${bizName}. Gerne nehme ich Ihre Anfrage entgegen und leite sie an das Team weiter — wie kann ich Ihnen helfen?`;
   const greeting = anrede === 'du' ? greetingDu : greetingSie;
 
   setTimeout(() => {
@@ -9430,7 +9435,7 @@ function buildTestChatSystemPrompt() {
   return `Du bist der digitale WhatsApp-Assistent von ${bizName}${branche ? ` (Branche: ${branche})` : ''}.
 
 KONTEXT FÜR DIESEN TEST-CHAT:
-Tu so, als wäre das Unternehmen aktuell GESCHLOSSEN. Du bist der digitale Assistent der außerhalb der Öffnungszeiten Anfragen entgegennimmt. Deine Hauptaufgabe ist NICHT, sofort Termine zu vergeben oder verbindliche Auskünfte zu geben — sondern Anfragen aufzunehmen und an das Team weiterzuleiten.
+Du bist der digitale Assistent des Unternehmens. Falls Öffnungszeiten konfiguriert sind, tu so als wäre gerade außerhalb der Öffnungszeiten. Falls keine Öffnungszeiten gesetzt sind, tu so als wärest du ein verfügbarer Assistent der Anfragen entgegennimmt. Deine Hauptaufgabe: Anfragen aufnehmen, nach Name und Wunschtermin fragen, und an das Team weiterleiten.
 
 WICHTIGE REGELN:
 - Sprich den Kunden konsequent mit "${anredeForm}" an (${isDu ? 'du, dir, dein' : 'Sie, Ihnen, Ihr'}).
@@ -10761,7 +10766,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (e) {
       console.error('BellChat send error:', e);
-      showError('Hoppla, kurz hat die Verbindung gehakt. Versuch es nochmal.');
+      addBotMessage('Verbindung fehlgeschlagen \u2014 bitte versuche es erneut oder schreibe uns direkt an kontakt@mrbell.de');
     } finally {
       showTyping(false);
       bellchatState.isLoading = false;
