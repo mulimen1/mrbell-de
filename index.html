@@ -10759,7 +10759,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (response.reply) {
         // Wenn CTA ready → spezielle CTA-Card statt normale Message
         if (response.ctaReady) {
-          addCTACard(response.reply);
+          addCTACard(response.reply); bellchatState.locked=true; var _i=document.getElementById("bellchat-input"); if(_i){_i.disabled=true;_i.placeholder="Chat beendet";} try{sessionStorage.setItem("bellchat_locked","true");}catch(e){}
         } else {
           addBotMessage(response.reply);
         }
@@ -10769,7 +10769,7 @@ document.addEventListener('DOMContentLoaded', () => {
       addBotMessage('Verbindung fehlgeschlagen \u2014 bitte versuche es erneut oder schreibe uns direkt an kontakt@mrbell.de');
     } finally {
       showTyping(false);
-      bellchatState.isLoading = false;
+      bellchatState.isLoading = false; try{sessionStorage.setItem("bellchat_state",JSON.stringify({messages:bellchatState.messages,step:bellchatState.step,answers:bellchatState.answers}));}catch(e){}
     }
   }
 
