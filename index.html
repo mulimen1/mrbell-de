@@ -9429,7 +9429,7 @@ function buildTestChatSystemPrompt() {
     : '';
   const services = (formData.services || []).filter(s => s && s.name).map(s => `• ${s.name}${s.price ? ` — ${s.price}` : ''}`).join('\n');
   const faqs = (formData.faqs || []).filter(f => f && f.q && f.a).map(f => `Q: ${f.q}\nA: ${f.a}`).join('\n\n');
-  const hours = (formData.hours || []).filter(h => h && h.day).map(h => `${h.day}: ${h.times || 'geschlossen'}`).join('\n');
+  const dayNames={mo:"Mo",di:"Di",mi:"Mi",do:"Do",fr:"Fr",sa:"Sa",so:"So"}; let hours=""; if(formData.hours){ if(Array.isArray(formData.hours)){hours=formData.hours.filter(function(h){return h&&h.day}).map(function(h){return h.day+": "+(h.times||"geschlossen")}).join("\n")} else if(typeof formData.hours==="object"){hours=Object.entries(formData.hours).filter(function(e){return e[1]}).map(function(e){return (dayNames[e[0]]||e[0])+": "+e[1]}).join("\n")} }
   const customPrompt = formData.botPrompt || '';
 
   return `Du bist der digitale WhatsApp-Assistent von ${bizName}${branche ? ` (Branche: ${branche})` : ''}.
