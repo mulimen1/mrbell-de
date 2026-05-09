@@ -10436,27 +10436,27 @@ function closeTestChatFullscreen() {
   if (_quiz) _quiz.style.display = '';
 }
 
-// Intercept clicks on phone input/send → go fullscreen
+// Intercept CLICKS on phone input/send → go fullscreen (NOT focus events)
 (function() {
-  // Prevent Safari from auto-scrolling to input on the inline page
-  var tcInput = document.getElementById('testchat-input');
-  if (tcInput) {
-    tcInput.addEventListener('focus', function() {
-      if (!_tcFullscreen) {
-        tcInput.blur();
-        openTestChatFullscreen();
-      }
-    });
-  }
   document.addEventListener('click', function(e) {
     if (_tcFullscreen) return;
-    var hit = e.target.closest('.testchat-send-btn');
+    // Only trigger on explicit user click on input pill or send button
+    var hit = e.target.closest('.testchat-input-pill, .testchat-send-btn');
     if (hit && e.target.closest('#view-step-test-chat')) {
       e.preventDefault();
       e.stopPropagation();
       openTestChatFullscreen();
     }
   }, true);
+  // Prevent inline input from getting focus (stops Safari scroll-jump)
+  var tcInput = document.getElementById('testchat-input');
+  if (tcInput) {
+    tcInput.addEventListener('focus', function() {
+      if (!_tcFullscreen) {
+        tcInput.blur();
+      }
+    });
+  }
 })();
 
 
@@ -11956,10 +11956,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ── Test-Chat ──
-  // The test-chat is inline, not a modal. When keyboard opens on iOS,
-  // Safari scrolls the page so the input is visible. We just need to
-  // ensure the chat area scrolls to bottom when new messages arrive.
+  // ── Test-Chat (fullscreen mode) ──
+  function updateTestChat() {
+    var wrapper = document.querySelector('.testchat-phone-wrapper.fullscreen');
+    if (!wrapper) return;
+    if (!isMobile()) return;
+    
+    var frame = wrapper.querySelector('.testchat-phone-frame');
+    if (!frame) return;
+
+    var h = vp ? vp.height : window.innerHeight;
+    // Frame max-height = viewport minus padding for back button
+    frame.style.maxHeight = (h - 70) + 'px';
+    
+    // Scroll messages to bottom
+    var msgs = document.getElementById('testchat-messages');
+    if (msgs) {
+      requestAnimationFrame(function() { msgs.scrollTop = msgs.scrollHeight; });
+    }
+  }
+
   function scrollTestChat() {
     var msgs = document.getElementById('testchat-messages');
     if (msgs) msgs.scrollTop = msgs.scrollHeight;
@@ -11979,6 +11995,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── visualViewport handler ──
   function onViewportChange() {
     updateBellChat();
+    updateTestChat();
   }
 
   // ── Input focus handlers ──
@@ -11993,12 +12010,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function onTestInputFocus() {
     if (!isMobile()) return;
     setTimeout(function() {
+      updateTestChat();
       scrollTestChat();
-      // Scroll the input into view
-      var ti = document.getElementById('testchat-input');
-      if (ti) {
-        try { ti.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch(e) {}
-      }
     }, 300);
   }
 
