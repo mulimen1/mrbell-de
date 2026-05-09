@@ -5017,10 +5017,15 @@ video {
 
 
   /* ─── CCM19 Cookie Banner ─── */
-  /* Hide the small settings icon that appears after consent */
+  /* Hide settings icon after consent */
   .ccm-settings-summoner { display: none !important; }
-  /* "Made by CCM19" — hidden */
+  /* Hide "Made by CCM19" */
   .ccm--powered-by { display: none !important; }
+  /* Hide the X close button — user MUST click accept or decline */
+  .ccm-modal--close { display: none !important; }
+  /* Hide the footer bar that appears after consent (Impressum | Datenschutz | Einstellungen) */
+  .ccm-modal--footer-only,
+  .ccm-root .ccm-modal--footer-only { display: none !important; }
   /* Terracotta button colors */
   .ccm-root button.ccm--ctrl-init--accept { background: #C2410C !important; border-color: #C2410C !important; color: white !important; border-radius: 8px !important; }
   .ccm-root button.ccm--ctrl-init--decline { background: transparent !important; border: 1.5px solid #C2410C !important; color: #C2410C !important; border-radius: 8px !important; }
@@ -5034,7 +5039,7 @@ video {
 </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-<script src="https://cloud.ccm19.de/app.js?apiKey=012352f20187c4c7913323abf4641c28a8626bcfd75df0a0&domain=69fe6b8c7191c8c56d0bb344" referrerpolicy="origin"></script>
+<script src="https://cloud.ccm19.de/app.js?apiKey=b3205f1420e0f0f3bb8f601b39a0592080e65e92c330b57b&domain=69ff3eef43772df1c203d642" referrerpolicy="origin"></script>
 <script>
 // Aggressively remove the CCM19 floating widget button from the DOM.
 // CSS alone can't reliably hide it because CCM19 injects inline styles.
@@ -11320,15 +11325,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const backdrop = document.getElementById('bellchat-backdrop');
     if (!backdrop) return;
 
-    // Lock body scroll — prevents iOS Safari from scrolling page behind chat
+    // Lock body scroll — no visual shift
     window._bellchatScrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + window._bellchatScrollY + 'px';
-    document.body.style.width = '100%';
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
-    // Hide header to prevent bleed-through
+    document.body.style.touchAction = 'none';
+    // Hide header to prevent bleed-through on iOS
     var _hdr = document.querySelector('header.sticky');
-    if (_hdr) _hdr.style.display = 'none';
+    if (_hdr) _hdr.style.visibility = 'hidden';
 
     backdrop.classList.add('visible');
 
@@ -11366,14 +11370,13 @@ document.addEventListener('DOMContentLoaded', () => {
     backdrop.classList.remove('visible');
 
     // Restore body scroll
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
+    document.body.style.touchAction = '';
     window.scrollTo(0, window._bellchatScrollY || 0);
     // Restore header
     var _hdr = document.querySelector('header.sticky');
-    if (_hdr) _hdr.style.display = '';
+    if (_hdr) _hdr.style.visibility = '';
 
     // Reset CTA-Mode (wird beim nächsten Open neu gesetzt)
     const modal = document.querySelector('.bellchat-modal');
