@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1136275322001482');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1136275322001482&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
 <meta name="description" content="Mr. Bell — Ihr KI-Assistent über WhatsApp für mittelständische und kleine deutsche Dienstleister. Beantwortet Kundenanfragen automatisch in über 100 Sprachen. 24/7 erreichbar.">
@@ -7513,6 +7529,17 @@ video {
       <p class="text-anthracite/60 text-lg font-light leading-relaxed">Letzte Kontrolle vor der Zahlung.</p>
     </div>
 
+    <!-- Testphasen-Info Banner -->
+    <div style="background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); border-radius: 16px; padding: 20px; margin-bottom: 16px; display:flex; align-items:start; gap:14px;">
+      <div style="width:40px; height:40px; border-radius:10px; background:rgba(34,197,94,0.1); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <div style="font-weight:600; color:#1a1a2e; margin-bottom:4px;">Sie zahlen heute: 0€</div>
+        <p style="font-size:0.85rem; color:rgba(26,26,46,0.6); line-height:1.5; margin:0;">Ihre 5-tägige Testphase beginnt erst, wenn Ihr Bot eingerichtet und aktiv geschaltet ist — nicht ab heute. Erst nach Ablauf der 5 Tage wird der gewählte Plan berechnet. Kündigen Sie innerhalb der Testphase, zahlen Sie nichts.</p>
+      </div>
+    </div>
+
     <!-- 24h Änderung Banner -->
     <div style="background: rgba(194,65,12,0.06); border: 1px solid rgba(194,65,12,0.15); border-radius: 16px; padding: 20px; margin-bottom: 24px; display:flex; align-items:start; gap:14px;">
       <div style="width:40px; height:40px; border-radius:10px; background:rgba(194,65,12,0.1); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
@@ -7530,7 +7557,7 @@ video {
 
     <div class="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
       <button onclick="switchView('step-verify')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Zurück</span></button>
-      <button onclick="switchView('payment')" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-soft hover:shadow-premium"><span>Alles korrekt — zur Zahlung</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      <button onclick="if(typeof fbq==='function')fbq('track','InitiateCheckout');switchView('payment')" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-soft hover:shadow-premium"><span>Alles korrekt — zur Zahlung</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>
   </div>
 </div>
@@ -8374,6 +8401,10 @@ function switchView(viewName) {
   window._navigatingBack = false;
   // Update animated background intensity based on view progress
   updateBackgroundProgress(viewName);
+  // Meta Pixel: Purchase event on thanks pages
+  if ((viewName === 'thanks' || viewName === 'thanks-guided') && typeof fbq === 'function') {
+    fbq('track', 'Purchase', { currency: 'EUR', value: 0 });
+  }
   // Update Quiz floating button visibility (hide on payment/stripe)
   if (typeof updateQuizFloatingVisibility === 'function') updateQuizFloatingVisibility(viewName);
   // Transparency-Section nur auf Welcome anzeigen (sie liegt außerhalb des View-Containers)
@@ -11922,6 +11953,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Merke dass CTA geklickt wurde
     sessionStorage.setItem("bellchat_proceeded", "true");
+
+    // Meta Pixel: Lead event
+    if (typeof fbq === 'function') fbq('track', 'Lead');
 
     // 1. Switch view IMMEDIATELY (underneath the chat overlay)
     if (typeof bundleState !== 'undefined') {
