@@ -19,6 +19,14 @@
   .back:hover { color: #C2410C; }
   .info-box { background: white; border-left: 3px solid #C2410C; padding: 16px 20px; margin: 24px 0; border-radius: 4px; }
   hr { border: none; border-top: 1px solid #e5e5e5; margin: 32px 0; }
+
+  @media (max-width: 768px) {
+    .container { padding: 32px 16px; }
+    h1 { font-size: clamp(1.5rem, 7vw, 2.5rem); word-wrap: break-word; overflow-wrap: break-word; }
+    h2 { font-size: 1.15rem; margin-top: 28px; }
+    p, li { font-size: 0.9rem; }
+    body { overflow-x: hidden; }
+  }
 </style>
 </head>
 <body>
