@@ -4314,6 +4314,62 @@ video {
     background: #1a1a2e;
   }
 
+  /* ─── TEST-CHAT MODAL (identical behavior to Bell-Chat modal) ─── */
+  .testchat-backdrop {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+  .testchat-backdrop.visible {
+    display: flex;
+    opacity: 1;
+  }
+  .testchat-modal-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 100%;
+  }
+  .testchat-modal-frame {
+    max-width: 300px;
+    width: 85vw;
+    border-radius: 48px;
+    animation: testchat-modal-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes testchat-modal-pop {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .testchat-modal-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 1rem;
+    padding: 10px 24px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+  }
+  .testchat-modal-back-btn:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
   .testchat-typing-dots {
     display: inline-flex;
     gap: 3px;
@@ -7279,6 +7335,23 @@ video {
     </div>
 
     <!-- Trust-Link: Was passiert mit den Daten? -->
+
+    <!-- TEST-CHAT MODAL (opens when user taps input on inline phone) -->
+    <div id="testchat-backdrop" class="testchat-backdrop">
+      <div class="testchat-modal-inner">
+        <div id="testchat-modal-phone" class="testchat-phone-frame testchat-modal-frame">
+          <!-- Phone content gets moved here when modal opens -->
+        </div>
+        <div style="text-align:center; margin-top:0.75rem;">
+          <span id="testchat-modal-counter" style="font-size:0.75rem; color:rgba(255,255,255,0.6);">0 / 10 Test-Nachrichten verbraucht</span>
+        </div>
+        <button onclick="closeTestChatModal()" class="testchat-modal-back-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Zurück zur Übersicht
+        </button>
+      </div>
+    </div>
+
     <div class="text-center mb-8">
       <button type="button" onclick="openDataInfoModal()" class="inline-flex items-center gap-1.5 text-xs text-anthracite/55 hover:text-anthracite transition-colors group">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -10299,19 +10372,138 @@ async function sendTestChatMessage() {
   }
 }
 
-// Test-Chat: when input is focused, scroll the phone frame to top of viewport
-(function() {
-  var tcInput = document.getElementById('testchat-input');
-  if (tcInput) {
-    tcInput.addEventListener('focus', function() {
-      var frame = document.querySelector('.testchat-phone-frame');
-      if (frame) {
-        setTimeout(function() {
-          frame.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 300);
-      }
-    });
+// ═══════════════════════════════════════════════════════════
+// TEST-CHAT MODAL — opens when user taps input on inline phone
+// Identical body-lock behavior to Bell-Chat
+// ═══════════════════════════════════════════════════════════
+var _testchatModalOpen = false;
+
+function openTestChatModal() {
+  if (_testchatModalOpen) return;
+  _testchatModalOpen = true;
+
+  var backdrop = document.getElementById('testchat-backdrop');
+  if (!backdrop) return;
+
+  // Move phone screen content into modal frame
+  var inlineFrame = document.querySelector('#view-step-test-chat .testchat-phone-frame');
+  var modalFrame = document.getElementById('testchat-modal-phone');
+  if (inlineFrame && modalFrame) {
+    // Copy all the phone internals (screen, side buttons) into modal frame
+    modalFrame.innerHTML = inlineFrame.innerHTML;
+    // Hide inline frame
+    inlineFrame.style.opacity = '0';
+    inlineFrame.style.pointerEvents = 'none';
   }
+
+  // Body lock — identical to Bell-Chat
+  window._testchatScrollY = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = '-' + window._testchatScrollY + 'px';
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.overflow = 'hidden';
+  var _hdr = document.querySelector('header.sticky');
+  if (_hdr) _hdr.style.display = 'none';
+  var _quiz = document.getElementById('quiz-floating-btn');
+  if (_quiz) _quiz.style.display = 'none';
+
+  // Show backdrop
+  backdrop.classList.add('visible');
+
+  // Update counter
+  var cnt = document.getElementById('testchat-counter');
+  var mCnt = document.getElementById('testchat-modal-counter');
+  if (cnt && mCnt) mCnt.textContent = cnt.parentElement.textContent;
+
+  // Rebind input + send button in modal
+  setTimeout(function() {
+    var modalInput = modalFrame.querySelector('#testchat-input, .testchat-input-field');
+    if (modalInput) {
+      modalInput.id = 'testchat-input';
+      modalInput.focus({ preventScroll: true });
+    }
+    var modalSend = modalFrame.querySelector('.testchat-send-btn');
+    if (modalSend) modalSend.onclick = sendTestChatMessage;
+    // Rebind enter key
+    if (modalInput) {
+      modalInput.onkeydown = function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); sendTestChatMessage(); }
+      };
+    }
+    // Copy messages container ID
+    var modalMessages = modalFrame.querySelector('.testchat-chat-area');
+    if (modalMessages) modalMessages.id = 'testchat-messages';
+    // Set clock
+    var clock = modalFrame.querySelector('.testchat-statusbar-clock');
+    if (clock) {
+      var now = new Date();
+      clock.textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    }
+  }, 100);
+}
+
+function closeTestChatModal() {
+  if (!_testchatModalOpen) return;
+  _testchatModalOpen = false;
+
+  var backdrop = document.getElementById('testchat-backdrop');
+  if (!backdrop) return;
+
+  // Copy messages back to inline frame
+  var inlineFrame = document.querySelector('#view-step-test-chat .testchat-phone-frame');
+  var modalFrame = document.getElementById('testchat-modal-phone');
+  if (inlineFrame && modalFrame) {
+    inlineFrame.innerHTML = modalFrame.innerHTML;
+    inlineFrame.style.opacity = '';
+    inlineFrame.style.pointerEvents = '';
+    // Restore IDs on inline frame
+    var inInput = inlineFrame.querySelector('.testchat-input-field');
+    if (inInput) inInput.id = 'testchat-input';
+    var inMessages = inlineFrame.querySelector('.testchat-chat-area');
+    if (inMessages) inMessages.id = 'testchat-messages';
+    var inSend = inlineFrame.querySelector('.testchat-send-btn');
+    if (inSend) inSend.onclick = function() { openTestChatModal(); };
+  }
+
+  // Update counter
+  var cnt = document.getElementById('testchat-counter');
+  if (cnt) cnt.textContent = testChatHistory.filter(function(m){return m.role==='user';}).length;
+
+  // Fade out
+  backdrop.style.transition = 'opacity 0.3s ease';
+  backdrop.style.opacity = '0';
+  setTimeout(function() {
+    backdrop.classList.remove('visible');
+    backdrop.style.opacity = '';
+    backdrop.style.transition = '';
+    modalFrame.innerHTML = '';
+  }, 300);
+
+  // Restore body
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.overflow = '';
+  window.scrollTo(0, window._testchatScrollY || 0);
+  var _hdr = document.querySelector('header.sticky');
+  if (_hdr) _hdr.style.display = '';
+  var _quiz = document.getElementById('quiz-floating-btn');
+  if (_quiz) _quiz.style.display = '';
+}
+
+// Intercept clicks on inline phone input → open modal instead
+(function() {
+  document.addEventListener('click', function(e) {
+    if (_testchatModalOpen) return;
+    var input = e.target.closest('#testchat-input, .testchat-input-field, .testchat-input-pill, .testchat-send-btn');
+    if (input && e.target.closest('#view-step-test-chat')) {
+      e.preventDefault();
+      e.stopPropagation();
+      openTestChatModal();
+    }
+  }, true);
 })();
 
 
