@@ -4315,21 +4315,7 @@ video {
   }
 
   /* ─── TEST-CHAT FULLSCREEN MODE ─── */
-  .testchat-fs-backdrop {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    z-index: 9998;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-  .testchat-fs-backdrop.visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .testchat-fs-backdrop { display: none !important; } /* not needed, wrapper is backdrop */
   .testchat-phone-wrapper.fullscreen {
     position: fixed !important;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -4337,10 +4323,15 @@ video {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     margin: 0 !important;
-    padding: 16px !important;
+    padding: 12px 16px !important;
+    padding-top: max(12px, env(safe-area-inset-top)) !important;
+    background: rgba(0,0,0,0.6) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    backdrop-filter: blur(8px) !important;
     animation: tc-fs-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden !important;
   }
   @keyframes tc-fs-in {
     from { opacity: 0; transform: scale(0.92); }
@@ -10375,11 +10366,12 @@ function openTestChatFullscreen() {
   _tcFullscreen = true;
 
   var wrapper = document.querySelector('#view-step-test-chat .testchat-phone-wrapper');
-  var backdrop = document.getElementById('testchat-fs-backdrop');
   if (!wrapper) return;
 
-  // Body lock — identical to Bell-Chat
+  // Save scroll BEFORE locking body
   window._testchatScrollY = window.scrollY;
+
+  // Body lock
   document.body.style.position = 'fixed';
   document.body.style.top = '-' + window._testchatScrollY + 'px';
   document.body.style.left = '0';
@@ -10390,15 +10382,14 @@ function openTestChatFullscreen() {
   var _quiz = document.getElementById('quiz-floating-btn');
   if (_quiz) _quiz.style.display = 'none';
 
-  // Show backdrop + make wrapper fullscreen
-  if (backdrop) backdrop.classList.add('visible');
+  // Make wrapper fullscreen
   wrapper.classList.add('fullscreen');
 
-  // Focus input
+  // Focus input without scroll
   setTimeout(function() {
     var input = document.getElementById('testchat-input');
     if (input) input.focus({ preventScroll: true });
-  }, 200);
+  }, 300);
 }
 
 function closeTestChatFullscreen() {
@@ -10406,23 +10397,25 @@ function closeTestChatFullscreen() {
   _tcFullscreen = false;
 
   var wrapper = document.querySelector('#view-step-test-chat .testchat-phone-wrapper');
-  var backdrop = document.getElementById('testchat-fs-backdrop');
 
-  // Remove fullscreen
-  if (wrapper) wrapper.classList.remove('fullscreen');
-  if (backdrop) backdrop.classList.remove('visible');
-
-  // Blur input
+  // Blur input first
   var input = document.getElementById('testchat-input');
   if (input) input.blur();
 
-  // Restore body
+  // Remove fullscreen class
+  if (wrapper) wrapper.classList.remove('fullscreen');
+
+  // Restore body — do this AFTER removing fullscreen
   document.body.style.position = '';
   document.body.style.top = '';
   document.body.style.left = '';
   document.body.style.right = '';
   document.body.style.overflow = '';
+
+  // Restore scroll position
   window.scrollTo(0, window._testchatScrollY || 0);
+
+  // Restore header + quiz
   var _hdr = document.querySelector('header.sticky');
   if (_hdr) _hdr.style.display = '';
   var _quiz = document.getElementById('quiz-floating-btn');
@@ -10431,9 +10424,19 @@ function closeTestChatFullscreen() {
 
 // Intercept clicks on phone input/send → go fullscreen
 (function() {
+  // Prevent Safari from auto-scrolling to input on the inline page
+  var tcInput = document.getElementById('testchat-input');
+  if (tcInput) {
+    tcInput.addEventListener('focus', function() {
+      if (!_tcFullscreen) {
+        tcInput.blur();
+        openTestChatFullscreen();
+      }
+    });
+  }
   document.addEventListener('click', function(e) {
     if (_tcFullscreen) return;
-    var hit = e.target.closest('.testchat-input-field, .testchat-input-pill, .testchat-send-btn');
+    var hit = e.target.closest('.testchat-send-btn');
     if (hit && e.target.closest('#view-step-test-chat')) {
       e.preventDefault();
       e.stopPropagation();
