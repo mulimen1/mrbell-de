@@ -4846,10 +4846,10 @@ video {
     }
     .testchat-phone-frame {
       max-width: 300px !important;
-      width: 82vw !important;
-      height: 540px !important;
-      border-radius: 40px !important;
-      padding: 9px !important;
+      width: 85vw !important;
+      height: 580px !important;
+      border-radius: 48px !important;
+      padding: 10px !important;
       box-shadow: 0 20px 60px rgba(26,26,46,0.2), 0 8px 20px rgba(26,26,46,0.12) !important;
     }
     .testchat-phone-screen {
@@ -10278,12 +10278,6 @@ async function sendTestChatMessage() {
       appendTestChatBubble('bot', reply);
       testChatHistory.push({ role: 'assistant', content: reply });
       
-      // Content filter — block offensive words from bot response
-      var offensiveWords = /\b(hure|huren|hurenleck|ficken|fick|sex|porn|porno|nackt|schwanz|muschi|fotze|wichser|nutte|titten|penis|vagina|anal|orgasm|geil|escort|prostitu|bordell|blowjob)\w*/gi;
-      if (offensiveWords.test(botReply)) {
-        botReply = 'Entschuldigung, ich kann diese Anfrage leider nicht beantworten. Kann ich Ihnen bei etwas anderem helfen?';
-      }
-      
       testChatBotReplyCount++;
     }
   } catch (err) {
@@ -11287,9 +11281,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
     document.body.style.touchAction = 'none';
-    // Hide header to prevent bleed-through on iOS
+    // Hide header AND quiz button to prevent bleed-through on iOS
     var _hdr = document.querySelector('header.sticky');
-    if (_hdr) _hdr.style.visibility = 'hidden';
+    if (_hdr) _hdr.style.display = 'none';
+    var _quiz = document.getElementById('quiz-floating-btn');
+    if (_quiz) _quiz.style.display = 'none';
 
     backdrop.classList.add('visible');
 
@@ -11331,9 +11327,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
     document.body.style.touchAction = '';
     window.scrollTo(0, window._bellchatScrollY || 0);
-    // Restore header
+    // Restore header + quiz button
     var _hdr = document.querySelector('header.sticky');
-    if (_hdr) _hdr.style.visibility = '';
+    if (_hdr) _hdr.style.display = '';
+    var _quiz = document.getElementById('quiz-floating-btn');
+    if (_quiz) _quiz.style.display = '';
 
     // Reset CTA-Mode (wird beim nächsten Open neu gesetzt)
     const modal = document.querySelector('.bellchat-modal');
