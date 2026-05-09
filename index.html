@@ -5021,11 +5021,6 @@ video {
   .ccm-settings-summoner { display: none !important; }
   /* Hide "Made by CCM19" */
   .ccm--powered-by { display: none !important; }
-  /* Hide the X close button — user MUST click accept or decline */
-  .ccm-modal--close { display: none !important; }
-  /* Hide the footer bar that appears after consent (Impressum | Datenschutz | Einstellungen) */
-  .ccm-modal--footer-only,
-  .ccm-root .ccm-modal--footer-only { display: none !important; }
   /* Terracotta button colors */
   .ccm-root button.ccm--ctrl-init--accept { background: #C2410C !important; border-color: #C2410C !important; color: white !important; border-radius: 8px !important; }
   .ccm-root button.ccm--ctrl-init--decline { background: transparent !important; border: 1.5px solid #C2410C !important; color: #C2410C !important; border-radius: 8px !important; }
@@ -5042,44 +5037,6 @@ video {
 <script src="https://cloud.ccm19.de/app.js?apiKey=b3205f1420e0f0f3bb8f601b39a0592080e65e92c330b57b&domain=69ff3eef43772df1c203d642" referrerpolicy="origin"></script>
 <script>
 // Aggressively remove the CCM19 floating widget button from the DOM.
-// CSS alone can't reliably hide it because CCM19 injects inline styles.
-(function() {
-  function nukeCCMWidget() {
-    // Target the small floating widget button that CCM19 shows after consent
-    document.querySelectorAll('[class*="ccm"]').forEach(function(el) {
-      var cls = (el.className || '').toLowerCase();
-      // Skip the consent modal itself
-      if (cls.indexOf('modal') !== -1 || cls.indexOf('overlay') !== -1 || cls.indexOf('backdrop') !== -1 || cls.indexOf('consent') !== -1) return;
-      if (el.querySelector('[class*="modal"]') || el.querySelector('[class*="consent"]')) return;
-      // Target: widget button (small, fixed positioned, typically < 80px wide)
-      var style = window.getComputedStyle(el);
-      var w = parseInt(style.width) || 0;
-      var h = parseInt(style.height) || 0;
-      if (style.position === 'fixed' && w < 150 && h < 150 && w > 0) {
-        el.style.display = 'none';
-        el.style.visibility = 'hidden';
-        el.style.opacity = '0';
-        el.style.pointerEvents = 'none';
-        el.style.width = '0';
-        el.style.height = '0';
-        el.style.overflow = 'hidden';
-      }
-      // Also catch by class name patterns
-      if (cls.indexOf('widget') !== -1 && cls.indexOf('modal') === -1) {
-        el.style.display = 'none';
-      }
-    });
-  }
-  // Run immediately and repeatedly
-  nukeCCMWidget();
-  setTimeout(nukeCCMWidget, 500);
-  setTimeout(nukeCCMWidget, 1000);
-  setTimeout(nukeCCMWidget, 2000);
-  setTimeout(nukeCCMWidget, 4000);
-  // Also observe for new elements
-  var obs = new MutationObserver(function() { setTimeout(nukeCCMWidget, 500); });
-  obs.observe(document.body, { childList: true, subtree: true });
-})();
 </script>
 </head>
 <body>
