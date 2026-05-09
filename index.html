@@ -6370,12 +6370,76 @@ video {
 
     <div class="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
       <button onclick="switchView('step-faq')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Zurück</span></button>
-      <button onclick="validateAndNext('step-whatsapp', 'step-bizmail')" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-soft hover:shadow-premium"><span>Weiter</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      <button onclick="validateAndNext('step-whatsapp', 'step-plan-select')" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-soft hover:shadow-premium"><span>Weiter</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>
   </div>
 </div>
 
-<!-- STEP 9: BUSINESS-EMAIL -->
+<!-- STEP: PLAN AUSWÄHLEN (nach WhatsApp) -->
+<div id="view-step-plan-select" class="view hidden">
+  <div class="max-w-5xl mx-auto px-6 py-12 lg:py-16">
+    <div class="mb-10" id="step-plan-select-progress"></div>
+
+    <div class="text-center mb-8">
+      <h1 class="font-display text-4xl md:text-5xl font-semibold text-anthracite mb-4 leading-tight">Wählen Sie Ihren Plan</h1>
+      <p class="text-anthracite/60 text-lg font-light leading-relaxed max-w-2xl mx-auto">Fast geschafft — wählen Sie den Plan, der am besten zu Ihnen passt.</p>
+    </div>
+
+    <div class="space-y-4 mb-10">
+      <div class="grid md:grid-cols-2 gap-4">
+        <!-- Pioneer 6 -->
+        <button onclick="selectPlan('pioneer6')" id="plan-card-pioneer6" class="group relative p-6 md:p-7 rounded-3xl border-2 border-anthracite/10 bg-white transition-all hover:border-wa-300 hover:shadow-premium text-left w-full">
+          <div class="absolute -top-3 left-6 px-3 py-1 rounded-full bg-anthracite text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6L12 2z"/></svg>
+            Beliebt
+          </div>
+          <div class="mt-3">
+            <h3 class="font-display text-xl font-semibold text-anthracite mb-1">Pioneer 6 Monate</h3>
+            <div class="flex items-baseline gap-1.5 mb-2">
+              <span class="font-display text-3xl font-bold text-anthracite">49,99€</span>
+              <span class="text-anthracite/40 text-sm">/Mtl.</span>
+            </div>
+            <p class="text-sm text-anthracite/60 leading-relaxed">Best Value: 6 Monate Bindung, dafür der niedrigste Preis.</p>
+          </div>
+        </button>
+
+        <!-- Pioneer 3 -->
+        <button onclick="selectPlan('pioneer3')" id="plan-card-pioneer3" class="group relative p-6 md:p-7 rounded-3xl border-2 border-anthracite/10 bg-white transition-all hover:border-wa-300 hover:shadow-premium text-left w-full">
+          <div class="mt-3">
+            <h3 class="font-display text-xl font-semibold text-anthracite mb-1">Pioneer 3 Monate</h3>
+            <div class="flex items-baseline gap-1.5 mb-2">
+              <span class="font-display text-3xl font-bold text-anthracite">69,99€</span>
+              <span class="text-anthracite/40 text-sm">/Mtl.</span>
+            </div>
+            <p class="text-sm text-anthracite/60 leading-relaxed">Pioneer-Status mit weniger Bindung.</p>
+          </div>
+        </button>
+      </div>
+
+      <!-- Standard -->
+      <div class="max-w-md mx-auto">
+        <button onclick="selectPlan('standard')" id="plan-card-standard" class="group p-6 md:p-7 rounded-3xl border-2 border-anthracite/10 bg-white transition-all hover:border-wa-300 hover:shadow-premium text-left w-full">
+          <div class="mt-3">
+            <h3 class="font-display text-xl font-semibold text-anthracite mb-1">Standard-Plan</h3>
+            <div class="flex items-baseline gap-1.5 mb-2">
+              <span class="font-display text-3xl font-bold text-anthracite">79,99€</span>
+              <span class="text-anthracite/40 text-sm">/Mtl.</span>
+            </div>
+            <p class="text-sm text-anthracite/60 leading-relaxed">Monatlich kündbar. Volle Flexibilität.</p>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div id="err-plan-select" class="error-msg hidden text-center mb-4"></div>
+
+    <div class="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
+      <button onclick="switchView('step-whatsapp')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Zurück</span></button>
+      <button onclick="validatePlanAndNext()" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-soft hover:shadow-premium"><span>Weiter</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+</div>
+
 <div id="view-step-bizmail" class="view hidden">
   <div class="max-w-3xl mx-auto px-6 py-12 lg:py-20">
     <div class="mb-12" id="step-bizmail-progress">
@@ -7433,8 +7497,19 @@ video {
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
         <span class="text-xs font-semibold tracking-wide text-wa-800">Onboarding abgeschlossen</span>
       </div>
-      <h1 class="font-display text-4xl md:text-5xl font-semibold text-anthracite mb-3 leading-tight">Bitte prüfen Sie Ihre Angaben</h1>
-      <p class="text-anthracite/60 text-lg font-light leading-relaxed">Letzte Kontrolle vor der Zahlung. Klicken Sie auf das Stift-Icon, um etwas zu ändern.</p>
+      <h1 class="font-display text-4xl md:text-5xl font-semibold text-anthracite mb-3 leading-tight">Ihre Angaben im Überblick</h1>
+      <p class="text-anthracite/60 text-lg font-light leading-relaxed">Letzte Kontrolle vor der Zahlung.</p>
+    </div>
+
+    <!-- 24h Änderung Banner -->
+    <div style="background: rgba(194,65,12,0.06); border: 1px solid rgba(194,65,12,0.15); border-radius: 16px; padding: 20px; margin-bottom: 24px; display:flex; align-items:start; gap:14px;">
+      <div style="width:40px; height:40px; border-radius:10px; background:rgba(194,65,12,0.1); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <div style="font-weight:600; color:#1a1a2e; margin-bottom:4px;">24 Stunden für Änderungen</div>
+        <p style="font-size:0.85rem; color:rgba(26,26,46,0.6); line-height:1.5; margin:0;">Ab dem Zeitpunkt der Buchung meldet sich jemand aus unserem Team persönlich bei Ihnen. Sie haben 24 Stunden Zeit, Änderungen an Prompts, Inhalten oder sonstigen Angaben vorzunehmen — einfach per <a href="mailto:kontakt@mrbell.de" style="color:#C2410C; font-weight:500;">E-Mail</a> oder WhatsApp.</p>
+      </div>
     </div>
 
     <div id="summary-content" class="space-y-4 mb-10">
@@ -7718,91 +7793,97 @@ video {
 
 <!-- THANKS GUIDED — eigener thanks für 99€ guided -->
 <div id="view-thanks-guided" class="view hidden">
-  <div class="max-w-2xl mx-auto px-6 py-20 text-center">
-    <div class="mb-8">
-      <svg width="130" height="130" class="mx-auto"><use href="#bell-icon"/></svg>
-    </div>
-    <h1 class="font-display text-5xl md:text-6xl font-semibold text-anthracite mb-4">Termin gebucht.</h1>
-    <p class="text-anthracite/60 text-lg font-light leading-relaxed mb-12 max-w-md mx-auto">Wir freuen uns auf unseren gemeinsamen Setup-Termin!</p>
-
-    <div class="space-y-3 mb-12 text-left">
-      <div class="flex items-center gap-5 p-5 rounded-2xl bg-white border border-anthracite/8">
-        <div class="font-display text-3xl font-semibold text-wa-600">01</div>
-        <div class="flex-1">
-          <div class="font-semibold text-anthracite">Bestätigungsmail unterwegs</div>
-          <div class="text-sm text-anthracite/50">Sie erhalten in den nächsten 5 Minuten eine E-Mail mit Termin-Details</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-5 p-5 rounded-2xl bg-white border border-anthracite/8">
-        <div class="font-display text-3xl font-semibold text-wa-600">02</div>
-        <div class="flex-1">
-          <div class="font-semibold text-anthracite">30 Min vor Meeting</div>
-          <div class="text-sm text-anthracite/50">Beitrittslink kommt automatisch per E-Mail</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-5 p-5 rounded-2xl bg-white border border-anthracite/8">
-        <div class="font-display text-3xl font-semibold text-wa-600">03</div>
-        <div class="flex-1">
-          <div class="font-semibold text-anthracite">Im Meeting</div>
-          <div class="text-sm text-anthracite/50">Wir richten Mr. Bell gemeinsam ein — in 30 Min sind Sie startklar</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-5 p-5 rounded-2xl bg-wa-50 border border-wa-200/60">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        <div class="flex-1">
-          <div class="font-semibold text-anthracite">Pioneer-Ticket aktiv — 30 Tage</div>
-          <div class="text-sm text-anthracite/60">Ihr Pioneer-Platz ist reserviert · 100% Refund nur bei Pioneer 6 Monate</div>
-        </div>
+  <div style="min-height:100vh; background: linear-gradient(180deg, #C2410C 0%, #C2410C 280px, #f5f5f0 280px);">
+    <!-- Header -->
+    <div style="padding: 24px 24px 0; display:flex; align-items:center; gap:12px;">
+      <svg width="36" height="36" viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="88" rx="38" ry="10" fill="rgba(255,255,255,0.15)"/><path d="M25 45 C25 25, 75 25, 75 45 L75 55 C75 58, 73 60, 70 60 L30 60 C27 60, 25 58, 25 55Z" fill="white"/><rect x="45" y="15" width="10" height="15" rx="5" fill="white"/><circle cx="50" cy="12" r="5" fill="white"/><rect x="20" y="58" width="60" height="5" rx="2.5" fill="rgba(255,255,255,0.7)"/><circle cx="50" cy="48" r="4" fill="#C2410C"/></svg>
+      <div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:white;">Mr. Bell</div>
+        <div style="font-size:0.7rem; color:rgba(255,255,255,0.7); letter-spacing:0.1em; text-transform:uppercase;">Service, der auffällt.</div>
       </div>
     </div>
-
-    <div class="text-xs text-anthracite/50 mb-6">
-      Fragen? <a href="mailto:kontakt@mrbell.de" class="text-wa-500 hover:underline">kontakt@mrbell.de</a>
+    <!-- Hero -->
+    <div style="padding: 40px 24px 48px; text-align:center;">
+      <div style="width:80px; height:80px; margin:0 auto 20px; background:rgba(255,255,255,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h1 style="font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:700; color:white; margin-bottom:8px;">Termin gebucht.</h1>
+      <p style="color:rgba(255,255,255,0.8); font-size:1rem; max-width:400px; margin:0 auto;">Wir freuen uns auf unseren gemeinsamen Setup-Termin!</p>
     </div>
-    <button onclick="resetAndStart()" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Zurück zur Startseite
-    </button>
+    <!-- Content -->
+    <div style="max-width:600px; margin:0 auto; padding:0 20px 40px;">
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:32px;">
+        <div style="display:flex; align-items:center; gap:16px; padding:20px; border-radius:16px; background:white; border:1px solid rgba(26,26,46,0.08);">
+          <div style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:600; color:#C2410C;">01</div>
+          <div><div style="font-weight:600; color:#1a1a2e;">Bestätigungsmail unterwegs</div><div style="font-size:0.85rem; color:rgba(26,26,46,0.5);">In 5 Minuten erhalten Sie Termin-Details per E-Mail</div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px; padding:20px; border-radius:16px; background:white; border:1px solid rgba(26,26,46,0.08);">
+          <div style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:600; color:#C2410C;">02</div>
+          <div><div style="font-weight:600; color:#1a1a2e;">30 Min vor Meeting</div><div style="font-size:0.85rem; color:rgba(26,26,46,0.5);">Beitrittslink kommt automatisch per E-Mail</div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px; padding:20px; border-radius:16px; background:white; border:1px solid rgba(26,26,46,0.08);">
+          <div style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:600; color:#C2410C;">03</div>
+          <div><div style="font-weight:600; color:#1a1a2e;">Im Meeting</div><div style="font-size:0.85rem; color:rgba(26,26,46,0.5);">Wir richten Mr. Bell gemeinsam ein — 30 Min und Sie sind startklar</div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px; padding:20px; border-radius:16px; background:rgba(194,65,12,0.05); border:1px solid rgba(194,65,12,0.15);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <div><div style="font-weight:600; color:#1a1a2e;">Pioneer-Ticket aktiv — 30 Tage</div><div style="font-size:0.85rem; color:rgba(26,26,46,0.5);">Ihr Platz ist reserviert · 100% Refund bei Pioneer 6 Monate</div></div>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <button onclick="resetAndStart()" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; border-radius:12px; background:#C2410C; color:white; font-weight:600; font-size:0.95rem; border:none; cursor:pointer; font-family:inherit; transition:background 0.2s;" onmouseover="this.style.background='#a33a0a'" onmouseout="this.style.background='#C2410C'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Zurück zur Homepage
+        </button>
+        <div style="margin-top:16px; font-size:0.8rem; color:rgba(26,26,46,0.4);">Fragen? <a href="mailto:kontakt@mrbell.de" style="color:#C2410C;">kontakt@mrbell.de</a></div>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- THANKS -->
 <div id="view-thanks" class="view hidden">
-  <div class="max-w-2xl mx-auto px-6 py-20 text-center">
-    <div class="mb-8">
-      <svg width="130" height="130" class="mx-auto"><use href="#bell-icon"/></svg>
-    </div>
-    <h1 class="font-display text-5xl md:text-6xl font-semibold text-anthracite mb-4">Geschafft.</h1>
-    <p class="text-anthracite/60 text-lg font-light leading-relaxed mb-12 max-w-md mx-auto">Vielen Dank für Ihr Vertrauen. Wir bereiten Mr. Bell jetzt für Sie vor.</p>
-
-    <div class="space-y-3 mb-12 text-left">
-      <div class="flex items-center gap-5 p-5 rounded-2xl bg-white border border-anthracite/8 hover:border-wa-200 transition-colors">
-        <div class="font-display text-3xl font-semibold text-wa-600">01</div>
-        <div class="flex-1">
-          <div class="font-semibold text-anthracite">Wir richten Mr. Bell ein</div>
-          <div class="text-sm text-anthracite/50">Dauer: 24-48 Stunden</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-5 p-5 rounded-2xl bg-white border border-anthracite/8 hover:border-wa-200 transition-colors">
-        <div class="font-display text-3xl font-semibold text-wa-600">02</div>
-        <div class="flex-1">
-          <div class="font-semibold text-anthracite">Sie erhalten Dashboard-Zugang</div>
-          <div class="text-sm text-anthracite/50">Per Email an <span id="thanks-email">Ihre Adresse</span></div>
-        </div>
-      </div>
-      <div class="flex items-center gap-5 p-5 rounded-2xl bg-white border border-anthracite/8 hover:border-wa-200 transition-colors">
-        <div class="font-display text-3xl font-semibold text-wa-600">03</div>
-        <div class="flex-1">
-          <div class="font-semibold text-anthracite">Mr. Bell geht live auf WhatsApp</div>
-          <div class="text-sm text-anthracite/50">Erste Antworten in Minuten</div>
-        </div>
+  <div style="min-height:100vh; background: linear-gradient(180deg, #C2410C 0%, #C2410C 280px, #f5f5f0 280px);">
+    <!-- Header -->
+    <div style="padding: 24px 24px 0; display:flex; align-items:center; gap:12px;">
+      <svg width="36" height="36" viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="88" rx="38" ry="10" fill="rgba(255,255,255,0.15)"/><path d="M25 45 C25 25, 75 25, 75 45 L75 55 C75 58, 73 60, 70 60 L30 60 C27 60, 25 58, 25 55Z" fill="white"/><rect x="45" y="15" width="10" height="15" rx="5" fill="white"/><circle cx="50" cy="12" r="5" fill="white"/><rect x="20" y="58" width="60" height="5" rx="2.5" fill="rgba(255,255,255,0.7)"/><circle cx="50" cy="48" r="4" fill="#C2410C"/></svg>
+      <div>
+        <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:white;">Mr. Bell</div>
+        <div style="font-size:0.7rem; color:rgba(255,255,255,0.7); letter-spacing:0.1em; text-transform:uppercase;">Service, der auffällt.</div>
       </div>
     </div>
-
-    <button onclick="resetAndStart()" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all mt-4">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Zurück zur Startseite
-    </button>
+    <!-- Hero -->
+    <div style="padding: 40px 24px 48px; text-align:center;">
+      <div style="width:80px; height:80px; margin:0 auto 20px; background:rgba(255,255,255,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h1 style="font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:700; color:white; margin-bottom:8px;">Geschafft.</h1>
+      <p style="color:rgba(255,255,255,0.8); font-size:1rem; max-width:400px; margin:0 auto;">Vielen Dank für Ihr Vertrauen. Wir bereiten Mr. Bell jetzt für Sie vor.</p>
+    </div>
+    <!-- Content -->
+    <div style="max-width:600px; margin:0 auto; padding:0 20px 40px;">
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:32px;">
+        <div style="display:flex; align-items:center; gap:16px; padding:20px; border-radius:16px; background:white; border:1px solid rgba(26,26,46,0.08);">
+          <div style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:600; color:#C2410C;">01</div>
+          <div><div style="font-weight:600; color:#1a1a2e;">Wir richten Mr. Bell ein</div><div style="font-size:0.85rem; color:rgba(26,26,46,0.5);">Dauer: 24–48 Stunden</div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px; padding:20px; border-radius:16px; background:white; border:1px solid rgba(26,26,46,0.08);">
+          <div style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:600; color:#C2410C;">02</div>
+          <div><div style="font-weight:600; color:#1a1a2e;">Sie erhalten Dashboard-Zugang</div><div style="font-size:0.85rem; color:rgba(26,26,46,0.5);">Per E-Mail an <span id="thanks-email" style="color:#C2410C;">Ihre Adresse</span></div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px; padding:20px; border-radius:16px; background:white; border:1px solid rgba(26,26,46,0.08);">
+          <div style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:600; color:#C2410C;">03</div>
+          <div><div style="font-weight:600; color:#1a1a2e;">Mr. Bell geht live auf WhatsApp</div><div style="font-size:0.85rem; color:rgba(26,26,46,0.5);">Erste Antworten in Minuten</div></div>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <button onclick="resetAndStart()" style="display:inline-flex; align-items:center; gap:8px; padding:14px 32px; border-radius:12px; background:#C2410C; color:white; font-weight:600; font-size:0.95rem; border:none; cursor:pointer; font-family:inherit; transition:background 0.2s;" onmouseover="this.style.background='#a33a0a'" onmouseout="this.style.background='#C2410C'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Zurück zur Homepage
+        </button>
+        <div style="margin-top:16px; font-size:0.8rem; color:rgba(26,26,46,0.4);">Fragen? <a href="mailto:kontakt@mrbell.de" style="color:#C2410C;">kontakt@mrbell.de</a></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -8498,6 +8579,40 @@ function clearError(fieldId) {
 function clearAllErrors() {
   document.querySelectorAll('.error-msg').forEach(e => e.classList.add('hidden'));
   document.querySelectorAll('.field-error').forEach(e => e.classList.remove('field-error'));
+}
+
+// Plan selection (step-plan-select)
+function selectPlan(plan) {
+  formData.selectedPlan = plan;
+  // Visual feedback
+  ['pioneer6','pioneer3','standard'].forEach(function(p) {
+    var card = document.getElementById('plan-card-' + p);
+    if (card) {
+      if (p === plan) {
+        card.style.borderColor = '#C2410C';
+        card.style.boxShadow = '0 0 0 2px rgba(194,65,12,0.3)';
+      } else {
+        card.style.borderColor = '';
+        card.style.boxShadow = '';
+      }
+    }
+  });
+  // Clear error
+  var err = document.getElementById('err-plan-select');
+  if (err) err.classList.add('hidden');
+}
+function validatePlanAndNext() {
+  if (!formData.selectedPlan) {
+    var err = document.getElementById('err-plan-select');
+    if (err) { err.textContent = 'Bitte wählen Sie einen Plan'; err.classList.remove('hidden'); }
+    return;
+  }
+  if (editingFromSummary) {
+    editingFromSummary = false;
+    switchView('summary');
+  } else {
+    switchView('step-bizmail');
+  }
 }
 
 function validateAndNext(currentStep, nextStep) {
@@ -9486,7 +9601,7 @@ function buildSummary() {
   `;
 
   const sections = [
-    { title: 'Plan & Konditionen', step: 'welcome', content: planContent },
+    { title: 'Plan & Konditionen', step: 'step-bundle-pricing', content: planContent },
     { title: 'Unternehmen', step: 'step-name', content: `<div class="font-medium">${escapeHtml(formData.companyName)}</div><div class="text-sm text-anthracite/60 mt-0.5">${INDUSTRY_LABELS[formData.industry] || formData.industry}</div>` },
     { title: 'Mr. Bell Persönlichkeit', step: 'step-personality', content: `<div class="text-sm"><span class="text-anthracite/60">Anrede:</span> <span class="font-medium">${formData.anrede === 'du' ? '„Du"' : '„Sie"'}</span></div><div class="text-sm"><span class="text-anthracite/60">Tonfall:</span> <span class="font-medium capitalize">${formData.tonfall}</span></div>` },
     { title: 'Öffnungszeiten', step: 'step-hours', content: `<div class="space-y-1">${hoursLines}</div>` },
@@ -9503,11 +9618,8 @@ function buildSummary() {
 
   wrap.innerHTML = sections.map(s => `
     <div class="bg-white rounded-2xl border border-anthracite/8 p-5">
-      <div class="flex items-start justify-between mb-3">
+      <div class="mb-3">
         <h3 class="font-display text-lg font-semibold text-anthracite">${s.title}</h3>
-        <button onclick="editFromSummary('${s.step}')" class="text-anthracite/40 hover:text-wa-500 transition-colors p-1" aria-label="Bearbeiten">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </button>
       </div>
       ${s.content}
     </div>
@@ -10468,7 +10580,7 @@ function closeTestChatFullscreen() {
 
 
 const SELF_SERVICE_STEP_ORDER = [
-  'step-bundle-pricing', // 1 — NEU: Bundle-Auswahl + Ticket reservieren
+  'step-bundle-pricing', // 1 — Preise ansehen
   'step-name',          // 2
   'step-industry',      // 3
   'step-personality',   // 4
@@ -10477,15 +10589,16 @@ const SELF_SERVICE_STEP_ORDER = [
   'step-services',      // 7
   'step-faq',           // 8
   'step-bot-prompt',    // 9
-  'step-test-chat',     // 10 — NEU: Live-Test mit konfiguriertem Bot
+  'step-test-chat',     // 10
   'step-api',           // 11
-  'step-api-key',       // 11
+  'step-api-key',       // 11b
   'step-whatsapp',      // 12
-  'step-bizmail',       // 13
-  'step-phone',         // 14
-  'step-verify'         // 14 (letzter Schritt)
+  'step-plan-select',   // 13 — Plan auswählen
+  'step-bizmail',       // 14
+  'step-phone',         // 15
+  'step-verify'         // 16
 ];
-const SELF_SERVICE_TOTAL = 14; // 14 Schritte (Sheets-Step entfernt)
+const SELF_SERVICE_TOTAL = 16;
 
 function getStepInfo(viewName) {
   const idx = SELF_SERVICE_STEP_ORDER.indexOf(viewName);
@@ -10791,7 +10904,7 @@ document.addEventListener('DOMContentLoaded', function() {
   try {
     // Restore view from URL hash
     const hash = (window.location.hash || '').replace(/^#/, '');
-    const validViews = ['step-bundle-pricing','step-name','step-industry','step-personality','step-hours','step-address','step-services','step-faq','step-bot-prompt','step-test-chat','step-api','step-api-key','step-api-explained','step-api-tutorial','step-guided-explainer','step-guided-topics','step-guided-calendly','step-guided-verify','step-stripe-guided','thanks-guided','step-whatsapp','step-bizmail','step-phone','step-sheets','step-verify','summary','payment','thanks','ueber-uns'];
+    const validViews = ['step-bundle-pricing','step-name','step-industry','step-personality','step-hours','step-address','step-services','step-faq','step-bot-prompt','step-test-chat','step-api','step-api-key','step-api-explained','step-api-tutorial','step-guided-explainer','step-guided-topics','step-guided-calendly','step-guided-verify','step-stripe-guided','thanks-guided','step-whatsapp','step-plan-select','step-bizmail','step-phone','step-sheets','step-verify','summary','payment','thanks','ueber-uns'];
     if (hash && validViews.indexOf(hash) !== -1 && typeof switchView === 'function') {
       // Direkt switchen (kein setTimeout damit's nicht von welcome-Handler überschrieben wird)
       switchView(hash);
@@ -11178,7 +11291,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ✅ Wenn URL-Hash auf einen Step zeigt → NICHT auf Welcome zurücksetzen.
   // Der Restore-Handler (weiter oben in DOMContentLoaded) wird die richtige View setzen.
   const hash = (window.location.hash || '').replace(/^#/, '');
-  const validViews = ['step-bundle-pricing','step-name','step-industry','step-personality','step-hours','step-address','step-services','step-faq','step-bot-prompt','step-test-chat','step-api','step-api-key','step-api-explained','step-api-tutorial','step-guided-explainer','step-guided-topics','step-guided-calendly','step-guided-verify','step-stripe-guided','thanks-guided','step-whatsapp','step-bizmail','step-phone','step-sheets','step-verify','summary','payment','thanks','ueber-uns'];
+  const validViews = ['step-bundle-pricing','step-name','step-industry','step-personality','step-hours','step-address','step-services','step-faq','step-bot-prompt','step-test-chat','step-api','step-api-key','step-api-explained','step-api-tutorial','step-guided-explainer','step-guided-topics','step-guided-calendly','step-guided-verify','step-stripe-guided','thanks-guided','step-whatsapp','step-plan-select','step-bizmail','step-phone','step-sheets','step-verify','summary','payment','thanks','ueber-uns'];
   if (!hash || validViews.indexOf(hash) === -1) {
     switchView('welcome');
   }
