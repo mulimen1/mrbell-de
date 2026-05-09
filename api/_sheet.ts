@@ -165,7 +165,7 @@ function flatten(form: OnboardingFormData): Record<string, string> {
     phone_country: form.phoneCountry || "",
     phone: form.phone || "",
     api_path: form.apiPath || "",
-    api_key_provided: form.apiKey ? "Ja" : "Nein",
+    api_key: form.apiKey || "",
     needs_wa_setup: form.needsWaSetup ? "Ja" : "Nein",
     bot_prompt: form.botPrompt || "",
     sheets_connected: form.sheetsConnected ? "Ja" : "Nein",
