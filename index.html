@@ -4387,6 +4387,570 @@ video {
   .testchat-checkmark.sent { color: rgba(0,0,0,0.45); }
   /* ============== END TEST-CHAT ============== */
 
+  /* ===========================================================
+     MOBILE-FIRST OVERRIDES (≤ 768px)
+     Desktop layout above 768px is intentionally untouched.
+     =========================================================== */
+  @media (max-width: 768px) {
+
+    /* Prevent iOS auto-zoom on focus + horizontal scroll */
+    html, body { max-width: 100vw; overflow-x: hidden; }
+    body { padding-bottom: env(safe-area-inset-bottom); }
+    input, select, textarea, .bellchat-input, .testchat-input-field {
+      font-size: 16px !important;
+    }
+
+    /* Ensure all touch targets reach ~44px */
+    button, a[role="button"], .quiz-option { min-height: 44px; }
+
+    /* ============ HERO ============ */
+    #view-welcome > section:first-child {
+      padding-top: 56px !important;
+      padding-bottom: 64px !important;
+      padding-left: 1.25rem !important;
+      padding-right: 1.25rem !important;
+    }
+    #view-welcome h1.font-display {
+      font-size: 2.125rem !important;
+      line-height: 1.12 !important;
+      margin-bottom: 20px !important;
+    }
+    #view-welcome h1.font-display .italic {
+      font-size: 1.25em !important;
+      margin: 0.05em 0 !important;
+    }
+    #view-welcome h1.font-display + p {
+      font-size: 0.95rem !important;
+      margin-bottom: 40px !important;
+    }
+    .hero-cta-button {
+      width: 100% !important;
+      max-width: 360px !important;
+      padding: 16px 24px !important;
+      font-size: 1.0625rem !important;
+      gap: 8px !important;
+    }
+    .hero-cta-pulse { inset: -4px !important; }
+    /* trust row tightens */
+    #view-welcome .text-anthracite\/50.flex-wrap { margin-top: 36px !important; gap: 0.75rem 0.5rem !important; }
+    #view-welcome .text-anthracite\/50.flex-wrap .text-anthracite\/20 { display: none; }
+
+    /* HOW IT WORKS section padding */
+    #view-welcome > section { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+    #view-welcome section h2.font-display { font-size: 1.75rem !important; line-height: 1.18 !important; }
+    #view-welcome section h3.font-display { font-size: 1.375rem !important; }
+    #view-welcome section p.text-lg { font-size: 0.95rem !important; }
+
+    /* ============ STICKY ONBOARDING BAR ============ */
+    .sticky-onboarding-bar {
+      padding: 0.5rem 0.625rem !important;
+      padding-top: max(0.5rem, env(safe-area-inset-top)) !important;
+    }
+    .sticky-onboarding-bar-inner { gap: 0.5rem !important; }
+    .sticky-onboarding-bar-name { font-size: 0.9rem !important; }
+    .sticky-onboarding-bar-cta {
+      padding: 0.5rem 0.875rem !important;
+      font-size: 0.8rem !important;
+      min-height: 38px;
+      flex-shrink: 0;
+    }
+    .sticky-onboarding-bar-logo { width: 26px; height: 26px; }
+
+    /* ============ BUNDLE SECTION ============ */
+    #bundle-section {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      padding-top: 3rem !important;
+      padding-bottom: 4rem !important;
+    }
+    #bundle-section .bundle-card {
+      padding: 1.25rem !important;
+      border-radius: 1.25rem !important;
+    }
+    #bundle-section h2.font-display, #bundle-section h1.font-display {
+      font-size: 1.75rem !important;
+      line-height: 1.15 !important;
+    }
+
+    /* ============ BUNDLE STICKY (bottom) ============ */
+    #bundle-sticky {
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom)) !important;
+    }
+    #bundle-sticky .max-w-5xl > div {
+      padding: 0.875rem 1rem !important;
+      border-radius: 1.125rem !important;
+    }
+    #bundle-sticky .text-xs.uppercase { font-size: 0.625rem !important; margin-bottom: 0.375rem !important; }
+    #bundle-sticky #bundle-summary { font-size: 0.8125rem !important; line-height: 1.4 !important; }
+    #bundle-sticky #bundle-total { font-size: 1.125rem !important; margin-top: 0.375rem !important; }
+    #bundle-sticky #bundle-cta {
+      width: 100% !important;
+      padding: 12px 18px !important;
+      font-size: 0.875rem !important;
+      gap: 0.5rem !important;
+    }
+    /* Trust badges row inside sticky bar — compact */
+    #bundle-sticky .border-t.border-white\/10 {
+      margin-top: 0.875rem !important;
+      padding-top: 0.625rem !important;
+      column-gap: 0.875rem !important;
+      row-gap: 0.375rem !important;
+      font-size: 0.6875rem !important;
+    }
+
+    /* ============ BURGER MENU dropdown ============ */
+    #burger-menu {
+      width: calc(100vw - 1.5rem) !important;
+      max-width: 320px !important;
+      right: -8px !important;
+    }
+
+    /* ============ HEADER (top sticky) ============ */
+    header.sticky.top-0 .max-w-7xl {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      padding-top: 0.875rem !important;
+      padding-bottom: 0.875rem !important;
+    }
+
+    /* ============ ONBOARDING-STEP CONTAINERS ============ */
+    div[id^="view-step-"] > .max-w-3xl,
+    div[id^="view-step-"] > .max-w-5xl,
+    div[id^="view-step-"] > .max-w-2xl,
+    div[id^="view-step-"] > .max-w-xl,
+    div[id^="view-step-"] > .max-w-lg,
+    div[id^="view-step-"] > div,
+    #view-summary > div,
+    #view-payment > div,
+    #view-thanks > div,
+    #view-thanks-guided > div,
+    #view-ueber-uns > div {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      padding-top: 1.5rem !important;
+      padding-bottom: 3rem !important;
+    }
+    div[id^="view-step-"] h1.font-display,
+    #view-summary h1.font-display,
+    #view-payment h1.font-display,
+    #view-thanks h1.font-display,
+    #view-thanks-guided h1.font-display,
+    #view-ueber-uns h1.font-display {
+      font-size: 1.75rem !important;
+      line-height: 1.18 !important;
+      margin-bottom: 0.625rem !important;
+    }
+    div[id^="view-step-"] p.text-lg,
+    #view-summary p.text-lg,
+    #view-payment p.text-lg,
+    #view-thanks p.text-lg {
+      font-size: 0.9375rem !important;
+      line-height: 1.5 !important;
+    }
+    /* Form fields */
+    div[id^="view-step-"] input[type="text"],
+    div[id^="view-step-"] input[type="tel"],
+    div[id^="view-step-"] input[type="email"],
+    div[id^="view-step-"] select,
+    div[id^="view-step-"] textarea {
+      padding: 12px 14px !important;
+      border-radius: 0.75rem !important;
+    }
+    /* Step navigation buttons – stack full width with primary on top via flex-col-reverse already in markup */
+    div[id^="view-step-"] .flex.flex-col-reverse,
+    div[id^="view-step-"] .flex.flex-col {
+      gap: 0.625rem !important;
+    }
+    div[id^="view-step-"] .flex.flex-col-reverse > button,
+    div[id^="view-step-"] .flex.flex-col > button.btn-premium,
+    #view-summary .flex.flex-col-reverse > button,
+    #view-payment .flex.flex-col > button {
+      width: 100% !important;
+      min-height: 48px !important;
+      padding: 14px 18px !important;
+      font-size: 0.9375rem !important;
+    }
+
+    /* ============ STEP: WhatsApp / Phone (country select + tel) ============ */
+    #view-step-whatsapp .flex.items-stretch,
+    #view-step-phone .flex.items-stretch {
+      flex-direction: column !important;
+      gap: 0.5rem !important;
+    }
+    #view-step-whatsapp #field-waCountry,
+    #view-step-phone #field-phoneCountry {
+      width: 100% !important;
+      min-width: 0 !important;
+    }
+
+    /* ============ STEP: Industry cards 2×N ============ */
+    #industry-cards { gap: 0.5rem !important; }
+    #industry-cards button { padding: 0.875rem 0.625rem !important; min-height: 88px; }
+
+    /* ============ STEP: Personality (anrede / tonfall) ============ */
+    #anrede-group, #tonfall-group { gap: 0.5rem !important; }
+
+    /* ============ STEP: Hours grid ============ */
+    #hours-rows > div {
+      flex-wrap: wrap !important;
+      gap: 0.5rem 0.625rem !important;
+      padding: 0.625rem 0.75rem !important;
+      align-items: center !important;
+    }
+    #hours-rows > div > span:first-child {
+      width: 100% !important;
+      flex-basis: 100% !important;
+      font-size: 0.95rem !important;
+      margin-bottom: 0.125rem;
+    }
+    #hours-rows > div > div.flex.items-center {
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+    }
+    #hours-rows input[type="time"] {
+      padding: 8px 8px !important;
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      max-width: 130px;
+    }
+    #hours-rows label.flex.items-center.gap-2.cursor-pointer {
+      flex-shrink: 0;
+      font-size: 0.85rem;
+    }
+
+    /* ============ STEP: Services (input + price + remove) ============ */
+    #services-list > div {
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 0.5rem !important;
+      padding: 0.625rem;
+      border-radius: 0.875rem;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(26,26,46,0.05);
+    }
+    #services-list > div > input[data-svc-field="name"] { width: 100% !important; }
+    #services-list > div > div.relative.w-32 { width: 100% !important; }
+    #services-list > div > button[aria-label="Entfernen"] {
+      align-self: flex-end !important;
+      padding: 0.375rem 0.875rem !important;
+      min-height: 40px;
+    }
+    #services-list > div > .w-12 { display: none !important; }
+
+    /* ============ STEP: FAQ ============ */
+    #faq-list > div { padding: 0.875rem !important; }
+
+    /* ============ STEP: Email verify code ============ */
+    #code-input, #guided-code-input {
+      gap: 0.375rem !important;
+      padding: 0 0.25rem !important;
+    }
+    #code-input .code-digit, #guided-code-input .code-digit {
+      width: 100% !important;
+      max-width: 48px !important;
+      height: 56px !important;
+      font-size: 1.5rem !important;
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+    }
+
+    /* ============ STEP: Payment ============ */
+    #payment-price-card { border-radius: 1.125rem !important; }
+    #payment-price-card .p-6 { padding: 1.125rem !important; }
+    #payment-plan-price { font-size: 2.25rem !important; }
+    #view-payment .grid.grid-cols-3 {
+      grid-template-columns: 1fr !important;
+      gap: 0.5rem !important;
+    }
+    #view-payment .grid.grid-cols-3 > div { padding: 0.75rem !important; }
+    #payment-terms-box {
+      padding: 0.875rem !important;
+      border-radius: 1rem !important;
+    }
+    #payment-terms-box label { gap: 0.625rem !important; align-items: flex-start !important; }
+    #payment-terms-box label > span#payment-terms-text {
+      font-size: 0.75rem !important;
+      line-height: 1.55 !important;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    /* ============ STEP: API Key inputs ============ */
+    #field-apiKey, #field-apiKeyConfirm { font-size: 13px !important; }
+
+    /* ============ DATA-INFO MODAL ============ */
+    #data-info-modal { padding: 0 !important; }
+    #data-info-modal > div {
+      max-width: 100% !important;
+      width: 100% !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      border-radius: 0 !important;
+      animation: data-modal-in-mobile 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    /* Header — close button gets out of headline */
+    #data-info-modal > div > div:first-child {
+      padding: 1rem 1rem 0.75rem !important;
+      padding-top: max(1rem, env(safe-area-inset-top)) !important;
+    }
+    #data-info-modal > div > div:first-child > button[aria-label="Schließen"] {
+      position: absolute !important;
+      top: max(0.625rem, env(safe-area-inset-top)) !important;
+      right: 0.5rem !important;
+      width: 40px !important;
+      height: 40px !important;
+      padding: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    #data-info-modal > div > div:first-child > .flex.items-center.gap-2\.5 {
+      padding-right: 3rem !important;
+    }
+    /* Footer with "Verstanden" — always visible, full width buttons */
+    #data-info-modal > div > div:last-child {
+      flex-direction: column !important;
+      gap: 0.625rem !important;
+      padding: 0.875rem 1rem !important;
+      padding-bottom: max(0.875rem, env(safe-area-inset-bottom)) !important;
+      align-items: stretch !important;
+    }
+    #data-info-modal > div > div:last-child > a {
+      justify-content: center;
+      padding: 0.625rem 0;
+    }
+    #data-info-modal > div > div:last-child > button {
+      width: 100%;
+      padding: 0.875rem 1.25rem !important;
+      min-height: 48px;
+    }
+
+    /* ============ QUIZ MODAL — near fullscreen ============ */
+    .quiz-modal-overlay { padding: 0 !important; align-items: stretch !important; }
+    .quiz-modal-card {
+      max-width: 100% !important;
+      width: 100% !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      border-radius: 0 !important;
+      padding: 1.25rem 1rem 1.5rem !important;
+      padding-top: max(1.25rem, env(safe-area-inset-top)) !important;
+      padding-bottom: max(1.5rem, env(safe-area-inset-bottom)) !important;
+    }
+    .quiz-modal-headline { font-size: 1.5rem !important; }
+    .quiz-modal-question { font-size: 0.9375rem !important; }
+    .quiz-option { padding: 0.875rem 1rem !important; }
+    .quiz-modal-actions { flex-direction: column !important; }
+    .quiz-btn-primary, .quiz-btn-secondary { width: 100%; }
+
+    /* Quiz floating button — kleiner */
+    .quiz-floating-btn {
+      right: 8px !important;
+      padding: 8px 7px !important;
+      min-width: 56px !important;
+    }
+    .quiz-floating-icon { width: 34px !important; height: 34px !important; }
+    .quiz-floating-icon svg { width: 28px !important; height: 28px !important; }
+    .quiz-floating-label { font-size: 11px !important; }
+    .quiz-floating-sub { font-size: 7.5px !important; }
+
+    /* ============ LEAVE / CANCEL MODAL ============ */
+    .leave-modal-overlay { padding: 0 !important; align-items: flex-end !important; }
+    .leave-modal-card {
+      width: 100% !important;
+      max-width: 100% !important;
+      border-radius: 24px 24px 0 0 !important;
+      padding: 1.5rem 1.25rem !important;
+      padding-bottom: max(1.5rem, env(safe-area-inset-bottom)) !important;
+    }
+    .leave-modal-headline { font-size: 1.5rem !important; }
+    .leave-modal-actions { flex-direction: column-reverse !important; gap: 0.625rem !important; }
+    .leave-modal-btn-secondary, .leave-modal-btn-primary { width: 100%; min-height: 48px; }
+
+    #cancel-modal { padding: 1rem !important; align-items: flex-end !important; }
+    #cancel-modal > div {
+      max-width: 100% !important;
+      padding: 1.5rem 1.25rem !important;
+      padding-bottom: max(1.5rem, env(safe-area-inset-bottom)) !important;
+      border-radius: 1.5rem 1.5rem 0 0 !important;
+    }
+
+    /* ============ BELL-CHAT — Fullscreen WhatsApp feel ============ */
+    .bellchat-backdrop {
+      padding: 0 !important;
+      align-items: stretch !important;
+      justify-content: stretch !important;
+    }
+    .bellchat-modal {
+      max-width: 100% !important;
+      width: 100% !important;
+      height: 100% !important;
+      max-height: 100% !important;
+      border-radius: 0 !important;
+      margin: 0 !important;
+    }
+    .bellchat-phone-frame {
+      background: transparent !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      height: 100% !important;
+      box-shadow: none !important;
+    }
+    .bellchat-phone-frame .bellchat-side-btn { display: none !important; }
+    .bellchat-statusbar { display: none !important; }
+    .bellchat-home-indicator { display: none !important; }
+    .bellchat-phone-screen {
+      border-radius: 0 !important;
+      height: 100% !important;
+      /* visualViewport-driven height set via JS as fallback */
+      height: var(--bellchat-vh, 100dvh) !important;
+    }
+    .bellchat-phone-screen .bellchat-header {
+      padding-top: max(10px, env(safe-area-inset-top)) !important;
+    }
+    .bellchat-message {
+      max-width: 85% !important;
+      font-size: 15px !important;
+      padding: 9px 13px !important;
+      line-height: 1.45 !important;
+      border-radius: 14px !important;
+    }
+    .bellchat-message.bot { border-bottom-left-radius: 4px !important; }
+    .bellchat-message.user { border-bottom-right-radius: 4px !important; }
+    .bellchat-messages {
+      padding: 12px 10px 16px !important;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+    .bellchat-input-area {
+      padding: 8px 10px !important;
+      padding-bottom: max(8px, env(safe-area-inset-bottom)) !important;
+      gap: 8px !important;
+    }
+    .bellchat-input {
+      font-size: 16px !important; /* prevent iOS zoom */
+      min-height: 44px;
+      padding: 10px 16px !important;
+    }
+    .bellchat-send {
+      width: 44px !important;
+      height: 44px !important;
+      flex-shrink: 0;
+    }
+    .bellchat-cta-card { margin: 4px 8px 12px !important; }
+
+    /* ============ TEST-CHAT (Step 10) — drop iPhone frame, fill width ============ */
+    .testchat-phone-wrapper {
+      width: 100% !important;
+      margin-bottom: 1.25rem !important;
+    }
+    .testchat-phone-frame {
+      background: white !important;
+      border: 1px solid rgba(26,26,46,0.08) !important;
+      border-radius: 16px !important;
+      padding: 0 !important;
+      height: 70vh !important;
+      min-height: 480px !important;
+      max-height: 640px !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      box-shadow: 0 8px 24px -8px rgba(26,26,46,0.12) !important;
+      overflow: hidden;
+    }
+    .testchat-phone-frame .testchat-side-btn { display: none !important; }
+    .testchat-statusbar { display: none !important; }
+    .testchat-home-indicator { display: none !important; }
+    .testchat-phone-screen {
+      border-radius: 16px !important;
+      height: 100% !important;
+    }
+    .testchat-wa-header { padding: 12px 14px !important; }
+    .testchat-wa-name { font-size: 15px !important; }
+    .testchat-wa-status { font-size: 11.5px !important; }
+    .testchat-chat-area {
+      padding: 12px 12px !important;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+    .testchat-bubble {
+      max-width: 85% !important;
+    }
+    .testchat-input-bar { padding: 8px 10px !important; }
+    .testchat-input-pill { padding: 8px 14px !important; }
+    .testchat-input-field { font-size: 16px !important; }
+    .testchat-send-btn {
+      width: 44px !important;
+      height: 44px !important;
+      flex-shrink: 0;
+    }
+
+    /* HOW-IT-WORKS phone — keep but smaller frame on mobile */
+    #view-welcome [style*="background: #1a1a2e"][style*="border-radius: 54px"] {
+      max-width: 280px !important;
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      margin-top: 2.5rem !important;
+    }
+    footer .max-w-7xl {
+      padding-left: 1.25rem !important;
+      padding-right: 1.25rem !important;
+      padding-top: 2rem !important;
+      padding-bottom: 1.25rem !important;
+    }
+    footer .grid.md\:grid-cols-3 { gap: 1.75rem !important; margin-bottom: 1.5rem !important; }
+    footer a, footer button {
+      display: flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 0.375rem 0;
+    }
+    footer .space-y-2\.5 > * + * { margin-top: 0.375rem !important; }
+    footer .text-xs { font-size: 0.75rem !important; line-height: 1.55 !important; }
+
+    /* ============ TRANSPARENCY SECTION ============ */
+    #transparency-section {
+      padding: 3rem 1.25rem !important;
+    }
+    #transparency-section h2 { font-size: 1.75rem !important; line-height: 1.18 !important; }
+
+    /* ============ SUMMARY edit cards ============ */
+    #summary-content > div { padding: 1rem !important; }
+
+    /* ============ Stripe-guided meeting info etc. — generic 2-col stack ============ */
+    div[id^="view-step-"] .grid.grid-cols-2,
+    div[id^="view-step-"] .grid.sm\:grid-cols-2 {
+      grid-template-columns: 1fr !important;
+      gap: 0.5rem !important;
+    }
+    /* …but keep Anrede & Industry 2-col explicit */
+    #anrede-group { grid-template-columns: 1fr 1fr !important; }
+    #industry-cards { grid-template-columns: 1fr 1fr !important; }
+
+    /* Bot-prompt textarea */
+    #field-botPrompt { font-size: 16px !important; }
+  }
+
+  /* iPhone X+ safe area fallback for very narrow viewports */
+  @supports (padding: max(0px)) {
+    @media (max-width: 768px) {
+      .sticky-onboarding-bar {
+        padding-left: max(0.625rem, env(safe-area-inset-left)) !important;
+        padding-right: max(0.625rem, env(safe-area-inset-right)) !important;
+      }
+    }
+  }
+
+  @keyframes data-modal-in-mobile {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
 </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
@@ -10639,6 +11203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const input = document.getElementById('bellchat-input');
       if (input) input.focus();
+      if (typeof window.__mrbellChatRefresh === 'function') window.__mrbellChatRefresh();
     }, 350);
 
     // Track Event (optional)
@@ -11067,6 +11632,116 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 
+<!-- ============================================================
+     MOBILE KEYBOARD-AWARE CHAT (visualViewport)
+     Keeps the chat input visible while the on-screen keyboard
+     is open and auto-scrolls messages to the latest line.
+     Affects bell-chat (fullscreen) and test-chat (in-flow).
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  var isMobile = function () { return window.matchMedia('(max-width: 768px)').matches; };
+
+  // ---------- Bell-Chat: fullscreen modal ----------
+  var bellModal = function () { return document.querySelector('.bellchat-modal'); };
+  var bellScreen = function () { return document.querySelector('.bellchat-phone-screen'); };
+  var bellMessages = function () { return document.getElementById('bellchat-messages'); };
+  var bellBackdrop = function () { return document.getElementById('bellchat-backdrop'); };
+
+  function setBellHeight() {
+    var screen = bellScreen();
+    if (!screen) return;
+    if (!isMobile()) { screen.style.removeProperty('--bellchat-vh'); screen.style.removeProperty('height'); return; }
+    var h = (window.visualViewport && window.visualViewport.height) ? window.visualViewport.height : window.innerHeight;
+    screen.style.setProperty('--bellchat-vh', h + 'px');
+    screen.style.height = h + 'px';
+  }
+
+  function bellScrollToBottom() {
+    var m = bellMessages();
+    if (m) m.scrollTop = m.scrollHeight;
+  }
+
+  // ---------- Test-Chat (in-flow on Step 10) ----------
+  var testMessages = function () { return document.getElementById('testchat-messages'); };
+  var testInput = function () { return document.getElementById('testchat-input'); };
+
+  function testScrollToBottom() {
+    var m = testMessages();
+    if (m) m.scrollTop = m.scrollHeight;
+  }
+
+  // ---------- Mutation observers: auto-scroll on new messages ----------
+  function attachAutoScroll(containerId, onChange) {
+    var el = document.getElementById(containerId);
+    if (!el) return;
+    var mo = new MutationObserver(function () {
+      // run twice — once now, once after layout settles
+      onChange();
+      requestAnimationFrame(onChange);
+      setTimeout(onChange, 80);
+    });
+    mo.observe(el, { childList: true, subtree: true, characterData: true });
+  }
+
+  // ---------- visualViewport listeners ----------
+  function onViewport() {
+    setBellHeight();
+    var bb = bellBackdrop();
+    if (bb && bb.classList.contains('visible')) {
+      bellScrollToBottom();
+    }
+    if (testMessages() && document.activeElement === testInput()) {
+      testScrollToBottom();
+      // ensure input stays visible by scrolling its container into view
+      try { testInput().scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
+    }
+  }
+
+  // ---------- focus / blur on inputs ----------
+  function onInputFocus(e) {
+    if (!isMobile()) return;
+    setTimeout(function () {
+      if (e.target && e.target.id === 'bellchat-input') {
+        bellScrollToBottom();
+      } else if (e.target && e.target.id === 'testchat-input') {
+        testScrollToBottom();
+        try { e.target.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (er) {}
+      }
+    }, 250);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    setBellHeight();
+    attachAutoScroll('bellchat-messages', bellScrollToBottom);
+    attachAutoScroll('testchat-messages', testScrollToBottom);
+
+    var bi = document.getElementById('bellchat-input');
+    if (bi) bi.addEventListener('focus', onInputFocus);
+    var ti = document.getElementById('testchat-input');
+    if (ti) ti.addEventListener('focus', onInputFocus);
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', onViewport);
+      window.visualViewport.addEventListener('scroll', onViewport);
+    } else {
+      window.addEventListener('resize', onViewport);
+    }
+
+    // When orientation changes
+    window.addEventListener('orientationchange', function () { setTimeout(onViewport, 200); });
+  });
+
+  // Expose for callers that open the modal so they can refresh height + scroll
+  window.__mrbellChatRefresh = function () {
+    setBellHeight();
+    bellScrollToBottom();
+    testScrollToBottom();
+  };
+})();
+</script>
 
 </body>
 </html>
