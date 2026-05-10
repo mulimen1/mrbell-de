@@ -294,9 +294,9 @@ export default async function handler(req: any, res: any) {
           plan: sub.metadata?.plan || "",
           companyName: sub.metadata?.companyName || "",
           onboardingId: sub.metadata?.onboardingId || "",
-          currentPeriodEnd: sub.current_period_end,
-          cancelAt: sub.cancel_at,
-          canceledAt: sub.canceled_at,
+          currentPeriodEnd: (sub as any).current_period_end,
+          cancelAt: (sub as any).cancel_at,
+          canceledAt: (sub as any).canceled_at,
         });
         break;
       }
@@ -310,8 +310,8 @@ export default async function handler(req: any, res: any) {
           event: "invoice_paid",
           customerId: typeof invoice.customer === "string" ? invoice.customer : "",
           invoiceId: invoice.id,
-          subscriptionId: typeof invoice.subscription === "string" ? invoice.subscription : "",
-          amountPaid: invoice.amount_paid,
+          subscriptionId: typeof (invoice as any).subscription === "string" ? (invoice as any).subscription : "",
+          amountPaid: (invoice as any).amount_paid,
         });
         break;
       }
