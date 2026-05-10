@@ -5118,8 +5118,64 @@ gtag('consent', 'default', {
   'ad_personalization': 'denied'
 });
 </script>
-<!-- GTM loads but respects Consent Mode (no data without consent) -->
+<!-- GTM -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MX9X2BC3');</script>
+<!-- Consent update: multiple listeners to catch CCM19 consent -->
+<script>
+(function(){
+  var granted = false;
+  function grantAll() {
+    if (granted) return;
+    granted = true;
+    gtag('consent', 'update', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted'
+    });
+    // Also load Meta Pixel
+    if (typeof fbq === 'undefined') {
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init','1136275322001482');
+      fbq('track','PageView');
+    }
+  }
+
+  // Method 1: CCM19 dataLayer event
+  var origPush = window.dataLayer.push;
+  window.dataLayer.push = function() {
+    origPush.apply(window.dataLayer, arguments);
+    for (var i = 0; i < arguments.length; i++) {
+      var arg = arguments[i];
+      if (arg && arg.event === 'CCM19.embeddingAccepted') grantAll();
+      if (arg && arg.event === 'CCM19.consentStateChanged') grantAll();
+    }
+  };
+
+  // Method 2: CCM19 custom events
+  window.addEventListener('ccm19EmbeddingAccepted', grantAll);
+  window.addEventListener('CCM19.embeddingAccepted', grantAll);
+
+  // Method 3: Click listener on accept button
+  document.addEventListener('click', function(e) {
+    var el = e.target;
+    while (el) {
+      if (el.className && typeof el.className === 'string' && el.className.indexOf('ccm--ctrl-init--accept') !== -1) {
+        setTimeout(grantAll, 500);
+        return;
+      }
+      el = el.parentElement;
+    }
+  });
+
+  // Method 4: Check on page load if consent was already given
+  setTimeout(function() {
+    if (typeof CCM !== 'undefined' && CCM.acceptedEmbeddings && CCM.acceptedEmbeddings.length > 0) {
+      grantAll();
+    }
+  }, 2000);
+})();
+</script>
 <script>
 // Aggressively remove the CCM19 floating widget button from the DOM.
 </script>
