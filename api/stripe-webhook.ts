@@ -106,7 +106,7 @@ export default async function handler(req: any, res: any) {
     return res.status(500).json({ error: "Konfiguration unvollständig" });
   }
 
-  const stripe = new Stripe(secretKey, { apiVersion: "2024-12-18.acacia" });
+  const stripe = new Stripe(secretKey, { apiVersion: "2026-04-22.dahlia" });
 
   let event: Stripe.Event;
   try {

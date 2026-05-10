@@ -81,7 +81,7 @@ export default async function handler(req: any, res: any) {
     console.error("STRIPE_SECRET_KEY fehlt");
     return res.status(500).json({ error: "Server-Konfiguration unvollständig" });
   }
-  const stripe = new Stripe(secretKey, { apiVersion: "2024-12-18.acacia" });
+  const stripe = new Stripe(secretKey, { apiVersion: "2026-04-22.dahlia" });
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
@@ -162,11 +162,11 @@ export default async function handler(req: any, res: any) {
     const subPriceId = PRICE_IDS[planKey];
     const minTermMonths = MIN_TERM_MONTHS[planKey];
 
-    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
+    const lineItems = [
       { price: subPriceId, quantity: 1 },
     ];
     if (includeSetup) {
-      lineItems.push({ price: PRICE_IDS.setup_99, quantity: 1 });
+      lineItems.push({ price: PRICE_IDS.setup_99 as string, quantity: 1 });
     }
 
     const planLabel =
