@@ -8965,6 +8965,25 @@ function validateAndNext(currentStep, nextStep) {
   }
 
   if (valid) {
+    // Track step completion ins Sheet (fire-and-forget)
+    try {
+      var stepData = {
+        onboardingId: ensureOnboardingId(),
+        step: currentStep,
+        companyName: formData.companyName || '',
+        industry: formData.industry || '',
+        anrede: formData.anrede || '',
+        tonfall: formData.tonfall || '',
+        city: formData.city || '',
+        timestamp: new Date().toISOString()
+      };
+      fetch(window.location.origin + '/api/sheet-step', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(stepData)
+      }).catch(function() {});
+    } catch(e) {}
+
     if (editingFromSummary) {
       editingFromSummary = false;
       switchView('summary');
