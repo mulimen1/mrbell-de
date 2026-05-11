@@ -5107,73 +5107,137 @@ video {
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <script src="https://cloud.ccm19.de/app.js?apiKey=b3205f1420e0f0f3bb8f601b39a0592080e65e92c330b57b&domain=69ff3eef43772df1c203d642" referrerpolicy="origin"></script>
-<!-- Google Consent Mode v2: default denied -->
+<!-- Google Consent Mode v2: default denied (must come BEFORE GTM) -->
 <script>
 window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('consent', 'default', {
+window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+window.gtag('consent', 'default', {
   'analytics_storage': 'denied',
   'ad_storage': 'denied',
   'ad_user_data': 'denied',
-  'ad_personalization': 'denied'
+  'ad_personalization': 'denied',
+  'functionality_storage': 'granted',
+  'security_storage': 'granted'
 });
 </script>
 <!-- GTM -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MX9X2BC3');</script>
-<!-- Consent update: multiple listeners to catch CCM19 consent -->
+<!--
+  CCM19 → Consent Mode v2 Bridge
+  Listens to the OFFICIAL CCM19 events (https://docs-en.ccm19.com/api/javascript-apis/):
+    • window event ccm19WidgetLoaded   — fired once CCM19 initialised
+    • window event ccm19WidgetClosed   — fired every time the banner closes (incl. "Accept all")
+    • window event ccm19EmbeddingAccepted — fired for each accepted embedding (also on every page view)
+    • dataLayer events CCM19.embeddingAccepted / CCM19.consentStateChanged
+    • global window.CCM.acceptedEmbeddings — list of currently accepted embeddings
+  When ANY non-essential embedding is accepted we flip Consent Mode to "granted" and load Meta Pixel.
+  Debug logs to console (prefix [ConsentBridge]) make verification trivial.
+-->
 <script>
 (function(){
+  var DEBUG = true;
   var granted = false;
-  function grantAll() {
-    if (granted) return;
+  var pixelLoaded = false;
+
+  function log(){
+    if (!DEBUG || !window.console) return;
+    var args = ['[ConsentBridge]'].concat(Array.prototype.slice.call(arguments));
+    try { console.log.apply(console, args); } catch(e){}
+  }
+
+  function loadMetaPixel(){
+    if (pixelLoaded || typeof window.fbq !== 'undefined') { pixelLoaded = true; return; }
+    pixelLoaded = true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init','1136275322001482');
+    window.fbq('track','PageView');
+    log('Meta Pixel initialised + PageView fired');
+  }
+
+  function grantAll(reason){
+    if (granted){ log('grantAll skipped (already granted) — trigger was', reason); return; }
     granted = true;
-    gtag('consent', 'update', {
+    log('grantAll triggered by', reason);
+    window.gtag('consent', 'update', {
       'analytics_storage': 'granted',
       'ad_storage': 'granted',
       'ad_user_data': 'granted',
       'ad_personalization': 'granted'
     });
-    // Also load Meta Pixel
-    if (typeof fbq === 'undefined') {
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init','1136275322001482');
-      fbq('track','PageView');
-    }
+    window.dataLayer.push({event: 'consent_granted_by_user', consent_source: reason});
+    loadMetaPixel();
   }
 
-  // Method 1: CCM19 dataLayer event
+  function hasStoredConsent(){
+    try {
+      if (window.CCM && Array.isArray(window.CCM.acceptedEmbeddings) && window.CCM.acceptedEmbeddings.length > 0){
+        log('CCM.acceptedEmbeddings →', window.CCM.acceptedEmbeddings.map(function(x){return x && x.name;}));
+        return true;
+      }
+    } catch(e){ log('hasStoredConsent error', e); }
+    return false;
+  }
+
+  // 1) Official CCM19 CustomEvents
+  window.addEventListener('ccm19WidgetLoaded', function(){
+    log('event ccm19WidgetLoaded — CCM:', !!window.CCM);
+    if (hasStoredConsent()) grantAll('ccm19WidgetLoaded+storedConsent');
+  });
+  window.addEventListener('ccm19WidgetClosed', function(){
+    log('event ccm19WidgetClosed');
+    // Give CCM19 a tick to populate acceptedEmbeddings before we re-read it.
+    setTimeout(function(){
+      if (hasStoredConsent()) grantAll('ccm19WidgetClosed');
+      else log('ccm19WidgetClosed but no non-essential embeddings accepted — staying denied');
+    }, 150);
+  });
+  window.addEventListener('ccm19EmbeddingAccepted', function(e){
+    log('event ccm19EmbeddingAccepted', e && e.detail);
+    grantAll('ccm19EmbeddingAccepted');
+  });
+
+  // 2) dataLayer hook — CCM19 also pushes GTM-style events
   var origPush = window.dataLayer.push;
-  window.dataLayer.push = function() {
-    origPush.apply(window.dataLayer, arguments);
-    for (var i = 0; i < arguments.length; i++) {
-      var arg = arguments[i];
-      if (arg && arg.event === 'CCM19.embeddingAccepted') grantAll();
-      if (arg && arg.event === 'CCM19.consentStateChanged') grantAll();
+  window.dataLayer.push = function(){
+    var result = origPush.apply(window.dataLayer, arguments);
+    for (var i = 0; i < arguments.length; i++){
+      var a = arguments[i];
+      if (a && a.event && (
+            a.event === 'CCM19.embeddingAccepted' ||
+            a.event === 'CCM19.consentStateChanged' ||
+            a.event === 'ccm19EmbeddingAccepted')){
+        log('dataLayer event', a.event, a);
+        grantAll('dataLayer:'+a.event);
+      }
     }
+    return result;
   };
 
-  // Method 2: CCM19 custom events
-  window.addEventListener('ccm19EmbeddingAccepted', grantAll);
-  window.addEventListener('CCM19.embeddingAccepted', grantAll);
+  // 3) Polling fallback: catches returning visitors with stored consent
+  //    and the rare case where neither event listener fired.
+  var tries = 0;
+  var poll = setInterval(function(){
+    tries++;
+    if (granted || tries > 40){ clearInterval(poll); return; }
+    if (hasStoredConsent()){ grantAll('poll'); clearInterval(poll); }
+  }, 500);
 
-  // Method 3: Click listener on accept button
-  document.addEventListener('click', function(e) {
+  // 4) Click fallback (kept from previous implementation, harmless)
+  document.addEventListener('click', function(e){
     var el = e.target;
-    while (el) {
-      if (el.className && typeof el.className === 'string' && el.className.indexOf('ccm--ctrl-init--accept') !== -1) {
-        setTimeout(grantAll, 500);
+    while (el){
+      if (el.className && typeof el.className === 'string' &&
+          (el.className.indexOf('ccm--ctrl-init--accept') !== -1 ||
+           el.className.indexOf('ccm19-button-accept') !== -1)){
+        log('click on CCM19 accept button detected');
+        setTimeout(function(){
+          if (hasStoredConsent()) grantAll('click-accept');
+        }, 400);
         return;
       }
       el = el.parentElement;
     }
   });
-
-  // Method 4: Check on page load if consent was already given
-  setTimeout(function() {
-    if (typeof CCM !== 'undefined' && CCM.acceptedEmbeddings && CCM.acceptedEmbeddings.length > 0) {
-      grantAll();
-    }
-  }, 2000);
 })();
 </script>
 <script>
