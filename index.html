@@ -12075,6 +12075,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Meta Pixel: Lead event
     if (typeof fbq === 'function') fbq('track', 'Lead');
 
+    // Sheet: Onboarding gestartet — früher Eintrag damit wir Drop-offs sehen
+    try {
+      const startId = ensureOnboardingId();
+      const sheetUrl = window.location.origin + '/api/sheet-started';
+      fetch(sheetUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ onboardingId: startId, startedAt: new Date().toISOString() })
+      }).catch(function() {});
+    } catch(e) {}
+
     // 1. Switch view IMMEDIATELY (underneath the chat overlay)
     if (typeof bundleState !== 'undefined') {
       bundleState.pioneer6 = false;
