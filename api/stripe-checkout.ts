@@ -162,11 +162,11 @@ export default async function handler(req: any, res: any) {
     const subPriceId = PRICE_IDS[planKey];
     const minTermMonths = MIN_TERM_MONTHS[planKey];
 
-    const lineItems = [
+    const lineItems: Array<{ price: string; quantity: number }> = [
       { price: subPriceId, quantity: 1 },
     ];
     if (includeSetup) {
-      lineItems.push({ price: PRICE_IDS.setup_99 as string, quantity: 1 });
+      lineItems.push({ price: PRICE_IDS.setup_99, quantity: 1 });
     }
 
     const planLabel =
