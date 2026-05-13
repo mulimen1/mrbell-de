@@ -5264,7 +5264,7 @@ window.gtag('consent', 'default', {
 <body>
 
 <!-- QUIZ FLOATING BUTTON — schwebt mittig rechts, dezent -->
-<button id="quiz-floating-btn" onclick="openQuizModal()" class="quiz-floating-btn" aria-label="Quiz öffnen">
+<button id="quiz-floating-btn" onclick="openQuizModal()" class="quiz-floating-btn" aria-label="Quiz öffnen" style="display:none !important;">
   <span class="quiz-floating-icon" aria-hidden="true">
     <svg width="40" height="40"><use href="#bell-icon"/></svg>
   </span>
@@ -5505,10 +5505,10 @@ window.gtag('consent', 'default', {
 
 <!-- WELCOME -->
 <div id="view-welcome" class="view">
-  <!-- HERO — Headline oben, Chat zentriert -->
-  <section class="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden" style="padding-top: 60px; padding-bottom: 60px;">
+  <!-- HERO -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden" style="padding-top: 60px; padding-bottom: 40px;">
 
-    <!-- Headline zentriert -->
+    <!-- Headline -->
     <div class="text-center animate-fade-up" style="margin-bottom: 32px;">
       <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-anthracite leading-[1.1] tracking-tight">
         Ihr eigener<br>
@@ -5517,24 +5517,20 @@ window.gtag('consent', 'default', {
       </h1>
     </div>
 
-    <!-- Chat zentriert -->
+    <!-- Quiz Phone zentriert -->
     <div class="flex justify-center">
-      <!-- Hero Quiz Phone -->
       <div class="flex justify-center animate-fade-up" style="animation-delay: 0.1s; position: relative;">
         <div style="position: absolute; inset: -20px; background: radial-gradient(circle at 50% 60%, rgba(194,65,12,0.10), transparent 70%); border-radius: 50%; z-index: 0; pointer-events: none;"></div>
 
         <div style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 20px;">
 
-          <!-- Phone Frame — identisch zu bellchat -->
+          <!-- Phone Frame -->
           <div class="bellchat-phone-frame">
             <div class="bellchat-side-btn left top1"></div>
             <div class="bellchat-side-btn left top2"></div>
             <div class="bellchat-side-btn left top3"></div>
             <div class="bellchat-side-btn right"></div>
-
             <div class="bellchat-phone-screen">
-
-              <!-- Status Bar -->
               <div class="bellchat-statusbar">
                 <span id="hq-clock" class="bellchat-clock">14:23</span>
                 <div class="bellchat-island"></div>
@@ -5544,8 +5540,6 @@ window.gtag('consent', 'default', {
                   <svg width="25" height="11" viewBox="0 0 25 11" fill="none"><rect x="0.5" y="0.5" width="22" height="10" rx="2.5" stroke="currentColor" stroke-opacity="0.4"/><rect x="2" y="2" width="19" height="7" rx="1" fill="currentColor"/><rect x="23" y="3.5" width="1.5" height="4" rx="0.7" fill="currentColor" opacity="0.4"/></svg>
                 </div>
               </div>
-
-              <!-- WA Header -->
               <div class="bellchat-header">
                 <div class="bellchat-avatar" style="background: white;">
                   <svg viewBox="0 0 100 100"><use href="#bell-icon"/></svg>
@@ -5557,16 +5551,9 @@ window.gtag('consent', 'default', {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </div>
-
-              <!-- Messages + Buttons -->
               <div id="hq-messages" class="bellchat-messages" style="padding-bottom: 8px;"></div>
-
-              <!-- Quick Reply Buttons -->
               <div id="hq-buttons" style="background: #ECE5DD; padding: 8px 10px 10px; display: flex; flex-wrap: wrap; gap: 8px; flex-shrink: 0; justify-content: center;"></div>
-
-              <!-- Home Indicator -->
               <div class="bellchat-home-indicator"><div></div></div>
-
             </div>
           </div>
 
@@ -5590,7 +5577,7 @@ window.gtag('consent', 'default', {
 
         </div>
       </div>
-    </div><!-- end flex justify-center -->
+    </div><!-- end flex -->
 
   </section>
 
@@ -6047,118 +6034,108 @@ window.gtag('consent', 'default', {
 <!-- ============================================================ -->
 <!-- STEP 1: PREISE (transparent, ohne Druck, ohne Verkaufsdruck) -->
 <!-- ============================================================ -->
-<div id="view-step-bundle-pricing" class="view hidden">
-  <div class="max-w-5xl mx-auto px-6 py-12 lg:py-16">
-    <div class="mb-10" id="step-bundle-pricing-progress">
-      <!-- dynamisch via renderStepHeader -->
-    </div>
+<!-- STEP INTRO — Zwischenschritt nach Quiz -->
+<div id="view-step-intro" class="view hidden">
+  <div class="max-w-2xl mx-auto px-6 py-12 lg:py-16">
 
     <!-- Header -->
-    <div class="text-center mb-8">
-      <h1 class="font-display text-4xl md:text-5xl font-semibold text-anthracite mb-4 leading-tight">Klare Preise, keine Tricks.</h1>
-      <p class="text-anthracite/60 text-lg font-light leading-relaxed max-w-2xl mx-auto">Schauen Sie sich unsere Preise unverbindlich an. Wenn sie für Sie fair klingen, konfigurieren Sie Ihren eigenen Mr. Bell.</p>
+    <div class="text-center mb-10">
+      <div id="intro-headline" class="font-display text-3xl md:text-4xl font-semibold text-anthracite leading-tight mb-3">
+        So arbeitet Mr. Bell für Ihr Unternehmen
+      </div>
+      <p class="text-anthracite/60 text-base font-light">In 48 Stunden einsatzbereit — hier ist was passiert:</p>
+    </div>
 
-      <!-- Risikofrei Badge -->
-      <div class="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-wa-50 border border-wa-200">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        </svg>
-        <span class="text-sm font-semibold text-wa-700">Risikofrei</span>
+    <!-- 3 Punkte -->
+    <div class="space-y-5 mb-10">
+      <div class="flex items-start gap-4 bg-white rounded-2xl p-5 shadow-sm border border-anthracite/5">
+        <div style="background:#075E54; border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div class="font-semibold text-anthracite mb-1">Anfragen automatisch beantworten</div>
+          <div class="text-anthracite/60 text-sm leading-relaxed" id="intro-punkt1">Öffnungszeiten, Preise, Terminanfragen — Mr. Bell antwortet sofort, auch nachts um 2 Uhr.</div>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-4 bg-white rounded-2xl p-5 shadow-sm border border-anthracite/5">
+        <div style="background:#075E54; border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="font-semibold text-anthracite mb-1">Direkt auf WhatsApp — wo Ihre Kunden sind</div>
+          <div class="text-anthracite/60 text-sm leading-relaxed">Kein App-Download, kein Login. Ihre Kunden schreiben einfach eine normale WhatsApp-Nachricht.</div>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-4 bg-white rounded-2xl p-5 shadow-sm border border-anthracite/5">
+        <div style="background:#075E54; border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="font-semibold text-anthracite mb-1">In 48 Stunden einsatzbereit</div>
+          <div class="text-anthracite/60 text-sm leading-relaxed">Sie konfigurieren Ihren Bot in wenigen Minuten — wir richten den Rest ein.</div>
+        </div>
       </div>
     </div>
 
-    <!-- 3 Bundle-Karten (gleiches Design wie Homepage) -->
-    <div class="space-y-4 mb-10">
-      <div class="grid md:grid-cols-2 gap-4">
-
-        <!-- Pioneer 6-Monate -->
-        <div class="group relative p-6 md:p-7 rounded-3xl border-2 border-anthracite/10 bg-white transition-all">
-          <div class="absolute -top-3 left-6 px-3 py-1 rounded-full bg-anthracite text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6L12 2z"/></svg>
-            Beliebt
-          </div>
-          <div class="mt-3">
-            <div class="trial-badge mb-3" style="display: inline-flex;">
-              <svg width="14" height="14"><use href="#bell-icon"/></svg>
-              <span class="trial-badge-text">5 Tage <strong>gratis testen</strong></span>
-            </div>
-            <h3 class="font-display text-xl font-semibold text-anthracite mb-1">Pioneer 6 Monate</h3>
-            <div class="flex items-baseline gap-1.5 mb-2">
-              <span class="font-display text-3xl font-bold text-anthracite">49,99€</span>
-              <span class="text-anthracite/40 text-sm">/Mtl.</span>
-            </div>
-            <p class="text-sm text-anthracite/60 leading-relaxed mb-3">Best Value: 6 Monate Bindung, dafür der niedrigste Preis. Volle Funktionen.</p>
-            <div class="text-xs text-wa-700 font-semibold flex items-center gap-1.5">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Aktion für die ersten 50 Kunden
-            </div>
-          </div>
-        </div>
-
-        <!-- Pioneer 3-Monate -->
-        <div class="group relative p-6 md:p-7 rounded-3xl border-2 border-anthracite/10 bg-white transition-all">
-          <div class="absolute -top-3 left-6 px-3 py-1 rounded-full bg-wa-100 text-wa-700 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            Pioneer · 3 Monate
-          </div>
-          <div class="mt-3">
-            <div class="trial-badge mb-3" style="display: inline-flex;">
-              <svg width="14" height="14"><use href="#bell-icon"/></svg>
-              <span class="trial-badge-text">5 Tage <strong>gratis testen</strong></span>
-            </div>
-            <h3 class="font-display text-xl font-semibold text-anthracite mb-1">Pioneer 3 Monate</h3>
-            <div class="flex items-baseline gap-1.5 mb-2">
-              <span class="font-display text-3xl font-bold text-anthracite">69,99€</span>
-              <span class="text-anthracite/40 text-sm">/Mtl.</span>
-            </div>
-            <p class="text-sm text-anthracite/60 leading-relaxed mb-3">Pioneer-Status mit weniger Bindung. Volle Funktionen.</p>
-            <div class="text-xs text-wa-700 font-semibold flex items-center gap-1.5">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Aktion für die ersten 50 Kunden
-            </div>
-          </div>
-        </div>
-
+    <!-- ROI Rechnung -->
+    <div id="intro-roi" style="background: #fafafa; border: 1.5px solid #e5e5e5; border-radius: 20px; padding: 20px 24px; margin-bottom: 32px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <div style="font-size: 12px; font-weight: 700; color: #1a1a2e; text-transform: uppercase; letter-spacing: 0.1em;">Ihr ROI mit Mr. Bell</div>
+        <!-- ROI Erklärung -->
+        <button onclick="document.getElementById('roi-erklaerung').style.display = document.getElementById('roi-erklaerung').style.display==='none' ? 'block' : 'none'" style="background:none; border:1.5px solid #e5e5e5; border-radius:20px; padding:3px 10px; font-size:11px; color:#1a1a2e; opacity:0.5; cursor:pointer; font-family:Inter,sans-serif;">Was ist ROI? ▾</button>
       </div>
 
-      <!-- Standard-Plan zentriert -->
-      <div class="max-w-md mx-auto">
-        <div class="group p-6 md:p-7 rounded-3xl border-2 border-anthracite/10 bg-white transition-all">
-          <div class="mt-3">
-            <div class="trial-badge mb-3" style="display: inline-flex;">
-              <svg width="14" height="14"><use href="#bell-icon"/></svg>
-              <span class="trial-badge-text">5 Tage <strong>gratis testen</strong></span>
-            </div>
-            <h3 class="font-display text-xl font-semibold text-anthracite mb-1">Standard-Plan</h3>
-            <div class="flex items-baseline gap-1.5 mb-2">
-              <span class="font-display text-3xl font-bold text-anthracite">79,99€</span>
-              <span class="text-anthracite/40 text-sm">/Mtl.</span>
-            </div>
-            <p class="text-sm text-anthracite/60 leading-relaxed mb-3">Monatlich kündbar. Volle Flexibilität.</p>
-            <div class="text-xs text-anthracite/40 flex items-center gap-1.5">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-              Immer verfügbar
-            </div>
-          </div>
+      <!-- ROI Erklärung ausklappbar -->
+      <div id="roi-erklaerung" style="display:none; background:#f5f5f0; border-radius:12px; padding:12px; margin-bottom:14px; font-size:12px; color:#1a1a2e; opacity:0.7; line-height:1.6;">
+        <strong style="opacity:1;">ROI = Return on Investment</strong><br>
+        Auf Deutsch: Was kommt zurück im Verhältnis zu dem was Sie investieren? Ein ROI von 10x bedeutet: für jeden Euro den Sie ausgeben, kommen 10€ zurück. Hier zeigen wir Ihnen wie viel Mehreinnahmen Mr. Bell für Ihr Business schätzungsweise generiert — nach Abzug der monatlichen Kosten.
+      </div>
+
+      <!-- Rechnung -->
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:12px; color:#1a1a2e; opacity:0.55;">Neue Kunden durch Mr. Bell/Monat</span>
+          <span id="roi-kunden" style="font-size:13px; font-weight:600; color:#1a1a2e;">~0</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:12px; color:#1a1a2e; opacity:0.55;">Ø Auftragswert</span>
+          <span id="roi-auftrag" style="font-size:13px; font-weight:600; color:#1a1a2e;">0€</span>
+        </div>
+        <div style="height:1px; background:#e5e5e5;"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:12px; color:#1a1a2e; opacity:0.55;">Geschätzte Mehreinnahmen</span>
+          <span id="roi-einnahmen" style="font-size:15px; font-weight:700; color:#C2410C;">+ 0€</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:12px; color:#1a1a2e; opacity:0.55;">Mr. Bell Kosten/Monat</span>
+          <span style="font-size:15px; font-weight:700; color:#C2410C;">− 49,99€</span>
+        </div>
+        <div style="height:2px; background:#1a1a2e; opacity:0.1; border-radius:2px;"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:13px; font-weight:700; color:#1a1a2e;">Ihr Mehrgewinn</span>
+          <span id="roi-gewinn" style="font-size:22px; font-weight:800; color:#075E54; font-family:Inter,sans-serif;">~ 0€</span>
         </div>
       </div>
 
+      <div style="font-size:10px; color:#1a1a2e; opacity:0.35;">Basierend auf Branchendurchschnittswerten · Konservative Schätzung</div>
     </div>
 
-    <!-- 2 Buttons: Primary "Eigenen Mr. Bell erstellen" + Secondary "Das ist mir zu teuer" -->
-    <div class="flex flex-col items-center gap-4 mt-10">
-      <button onclick="proceedToConfiguration()" class="btn-premium inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full bg-wa-500 hover:bg-wa-600 text-white font-bold text-lg transition-all hover:scale-[1.02] shadow-premium w-full md:w-auto">
-        <span>Eigenen Mr. Bell erstellen</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-      <button onclick="declineTooExpensive()" class="text-sm text-anthracite/40 hover:text-anthracite/60 font-medium transition-all underline-offset-4 hover:underline">
-        Das ist mir zu teuer
-      </button>
+    <!-- CTA -->
+    <button onclick="startOnboardingFromIntro()" class="w-full btn-premium inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl bg-wa-500 hover:bg-wa-600 text-white font-bold text-lg transition-all hover:scale-[1.01] shadow-soft mb-4">
+      <span>Eigenen Mr. Bell einrichten</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <p class="text-center text-xs text-anthracite/40">5 Tage kostenlos · Keine Kreditkarte nötig</p>
+
+    <!-- Preislink -->
+    <div class="text-center mt-4">
+      <button onclick="openPreiseModal()" style="background:none; border:none; color:#C2410C; font-size:13px; cursor:pointer; text-decoration:underline; font-family:Inter,sans-serif;">Preise ansehen →</button>
     </div>
 
   </div>
 </div>
-
 
 <div id="view-step-name" class="view hidden">
   <div class="max-w-3xl mx-auto px-6 py-12 lg:py-20">
@@ -6184,7 +6161,7 @@ window.gtag('consent', 'default', {
     </button>
 
     <div class="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
-      <button onclick="switchView('step-bundle-pricing')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Zurück</span></button>
+      <button onclick="switchView('step-intro')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-anthracite/10 text-anthracite font-medium hover:border-anthracite/30 transition-all"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Zurück</span></button>
       <button onclick="validateAndNext('step-name', 'step-industry')" class="btn-premium flex-1 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-wa-500 hover:bg-wa-600 text-white font-semibold transition-all hover:scale-[1.01] shadow-soft hover:shadow-premium"><span>Weiter</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>
   </div>
@@ -9580,7 +9557,7 @@ function renderPaymentScreen() {
     if (note)   note.textContent = 'Bitte zuerst einen Plan auswählen';
     setTimeout(function() {
       alert('Bitte wählen Sie zuerst einen Plan aus (Pioneer oder Standard).');
-      if (typeof switchView === 'function') switchView('step-bundle-pricing');
+      if (typeof switchView === 'function') openPreiseModal();
     }, 300);
     return;
   }
@@ -10157,7 +10134,7 @@ function startOnboardingWithBundle() {
     switchView('step-name');
   } else {
     // Sonst: zur neuen Bundle-Pricing-Step (Step 1)
-    switchView('step-bundle-pricing');
+    openPreiseModal();
   }
 }
 
@@ -10883,6 +10860,7 @@ function renderStepHeader(viewName) {
     <div class="flex items-center justify-between mb-3">
       <span class="text-sm text-anthracite/50 font-medium" style="display:none">Schritt ${info.num} von ${info.total}</span>
       <span class="text-sm font-semibold text-wa-500">${info.percent}%</span>
+      <button onclick="openPreiseModal()" style="background:none;border:none;color:#C2410C;font-size:12px;cursor:pointer;font-family:Inter,sans-serif;text-decoration:underline;padding:0;">Preise ansehen →</button>
     </div>
     <div class="h-1 bg-anthracite/8 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-wa-400 to-wa-600 rounded-full relative" style="width: ${info.percent}%;"><div class="absolute inset-0 animate-shimmer"></div></div></div>
   `;
@@ -11799,7 +11777,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.heroBellClick = function(){
     // Wenn bereits proceeded oder locked → direkt zum Bundle-Pricing
     if(sessionStorage.getItem("bellchat_locked")==="true"||sessionStorage.getItem("bellchat_proceeded")==="true"){
-      switchView("step-bundle-pricing");
+      openPreiseModal();
     } else {
       // Wenn vom Hero-CTA: direkt zum Bundle-Pricing ohne Bell-Chat Overlay
       if (typeof bundleState !== 'undefined') {
@@ -11820,7 +11798,7 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify({ onboardingId: startId, startedAt: new Date().toISOString() })
         }).catch(function() {});
       } catch(e) {}
-      switchView('step-bundle-pricing');
+      switchView('step-intro');
     }
   };
   window.closeBellChat = closeBellChat;
@@ -12206,7 +12184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (typeof switchView === 'function') {
       editingFromSummary = false;
-      switchView('step-bundle-pricing');
+      openPreiseModal();
     }
 
     // 2. Close the chat (restores body, header etc.)
@@ -12529,13 +12507,187 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 
-<!-- DANKE-SEITE -->
-<div id="hq-danke" style="display:none; position:fixed; inset:0; background:#f5f5f0; z-index:9999; flex-direction:column; align-items:center; justify-content:center; gap:32px;">
-  <svg width="80" height="80" style="opacity:0.7;"><use href="#bell-icon"/></svg>
+<!-- PREISE MODAL -->
+<div id="preise-modal" style="display:none; position:fixed; inset:0; z-index:9000; background:rgba(0,0,0,0.5); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:16px;">
+  <div style="background:white; border-radius:24px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; padding:28px 24px; position:relative; box-shadow:0 25px 60px rgba(0,0,0,0.25);">
+
+    <!-- Close -->
+    <button onclick="closePreiseModal()" style="position:absolute; top:16px; right:16px; background:#f5f5f0; border:none; border-radius:50%; width:32px; height:32px; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a1a2e" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <h2 style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:600; color:#1a1a2e; margin:0 0 4px;">Klare Preise, keine Tricks.</h2>
+    <p style="font-size:13px; color:#1a1a2e; opacity:0.5; margin:0 0 20px;">5 Tage kostenlos testen · Keine Kreditkarte nötig</p>
+
+    <!-- Trial Badge -->
+    <div style="background:#f0faf4; border:1.5px solid #075E54; border-radius:12px; padding:10px 14px; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#075E54" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+      <span style="font-size:13px; color:#075E54; font-weight:600;">5 Tage gratis testen — danach automatisch im gewählten Plan</span>
+    </div>
+
+    <!-- Plan 1: Pioneer 6 Mo -->
+    <div style="border:2px solid #1a1a2e; border-radius:16px; padding:18px; margin-bottom:12px; position:relative;">
+      <div style="position:absolute; top:-10px; left:16px; background:#1a1a2e; color:white; font-size:10px; font-weight:700; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.05em;">⭐ Beliebt</div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+        <div>
+          <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:#1a1a2e; margin-bottom:4px;">Pioneer 6 Monate</div>
+          <div style="font-size:12px; color:#1a1a2e; opacity:0.55; max-width:220px;">Best Value · 6 Monate Bindung, volle Funktionen. Aktion für die ersten 50 Kunden.</div>
+        </div>
+        <div style="text-align:right; flex-shrink:0;">
+          <div style="font-size:1.6rem; font-weight:800; color:#1a1a2e; font-family:Inter,sans-serif;">49,99€</div>
+          <div style="font-size:11px; color:#1a1a2e; opacity:0.45;">/Monat</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plan 2: Pioneer 3 Mo -->
+    <div style="border:1.5px solid #e5e5e5; border-radius:16px; padding:18px; margin-bottom:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+        <div>
+          <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:#1a1a2e; margin-bottom:4px;">Pioneer 3 Monate</div>
+          <div style="font-size:12px; color:#1a1a2e; opacity:0.55; max-width:220px;">3 Monate Mindestlaufzeit. Danach monatlich kündbar.</div>
+        </div>
+        <div style="text-align:right; flex-shrink:0;">
+          <div style="font-size:1.6rem; font-weight:800; color:#1a1a2e; font-family:Inter,sans-serif;">69,99€</div>
+          <div style="font-size:11px; color:#1a1a2e; opacity:0.45;">/Monat</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plan 3: Standard -->
+    <div style="border:1.5px solid #e5e5e5; border-radius:16px; padding:18px; margin-bottom:20px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+        <div>
+          <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:#1a1a2e; margin-bottom:4px;">Standard</div>
+          <div style="font-size:12px; color:#1a1a2e; opacity:0.55; max-width:220px;">Monatlich kündbar. Volle Flexibilität.</div>
+        </div>
+        <div style="text-align:right; flex-shrink:0;">
+          <div style="font-size:1.6rem; font-weight:800; color:#1a1a2e; font-family:Inter,sans-serif;">79,99€</div>
+          <div style="font-size:11px; color:#1a1a2e; opacity:0.45;">/Monat</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div style="font-size:12px; color:#1a1a2e; opacity:0.6; margin-bottom:20px;">
+      <div style="font-weight:600; margin-bottom:8px; opacity:1;">Alle Pläne beinhalten:</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+        <div style="display:flex; align-items:center; gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#075E54" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>Unbegrenzte Nachrichten</div>
+        <div style="display:flex; align-items:center; gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#075E54" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>100+ Sprachen</div>
+        <div style="display:flex; align-items:center; gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#075E54" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>24/7 verfügbar</div>
+        <div style="display:flex; align-items:center; gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#075E54" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>WhatsApp Business API</div>
+        <div style="display:flex; align-items:center; gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#075E54" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>DSGVO-konform</div>
+        <div style="display:flex; align-items:center; gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#075E54" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>Made in Germany</div>
+      </div>
+    </div>
+
+    <button onclick="closePreiseModal(); if(typeof startOnboardingFromIntro==='function') startOnboardingFromIntro();" style="width:100%; background:#C2410C; color:white; border:none; border-radius:50px; padding:14px; font-family:Inter,sans-serif; font-size:15px; font-weight:700; cursor:pointer;">
+      Eigenen Mr. Bell einrichten →
+    </button>
+
+  </div>
+</div>
+
+<div id="hq-danke" style="display:none; position:fixed; inset:0; background:#f5f5f0; z-index:9999; flex-direction:column; align-items:center; justify-content:center; gap:24px;">
+  <svg width="90" height="90" style="opacity:1; color:#C2410C;"><use href="#bell-icon"/></svg>
   <p style="font-family:'Playfair Display',serif; font-size:1.5rem; color:#1a1a2e; text-align:center; max-width:320px; line-height:1.5;">Wir wünschen Ihnen noch einen schönen Tag.</p>
+  <button onclick="document.getElementById('hq-danke').style.display='none'; switchView('welcome');" style="background:none; border:1.5px solid #C2410C; color:#C2410C; border-radius:50px; padding:10px 24px; font-family:Inter,sans-serif; font-size:13px; cursor:pointer; margin-top:8px;">← Ich habe es mir anders überlegt</button>
 </div>
 
 <script>
+// ============================================
+// STEP INTRO — ROI & Personalisierung
+// ============================================
+(function() {
+  var ROI = {
+    'Friseur / Beauty':    { preis: 40,  conv: 0.30, auto: 0.75, label: 'Ihren Friseur-Salon' },
+    'Restaurant / Café':   { preis: 28,  conv: 0.30, auto: 0.75, label: 'Ihr Restaurant' },
+    'Handwerk':            { preis: 150, conv: 0.08, auto: 0.60, label: 'Ihren Betrieb' },
+    'Wellness / Massage':  { preis: 50,  conv: 0.30, auto: 0.75, label: 'Ihr Wellness-Studio' },
+    'Andere':              { preis: 60,  conv: 0.25, auto: 0.70, label: 'Ihr Unternehmen' }
+  };
+
+  var MIDPOINTS = {
+    'Weniger als 10': 6,
+    '10 – 50': 20,
+    'Mehr als 50': 55
+  };
+
+  var MRBELL_COST = 49.99;
+
+  window.renderStepIntro = function(quizAnswers) {
+    var branche = (quizAnswers && quizAnswers.branche) || 'Andere';
+    var anfragenKey = (quizAnswers && quizAnswers.anfragen) || '10 – 50';
+    var r = ROI[branche] || ROI['Andere'];
+    var midpoint = MIDPOINTS[anfragenKey] || 20;
+
+    // Headline personalisieren
+    var headline = document.getElementById('intro-headline');
+    if (headline) headline.textContent = 'So arbeitet Mr. Bell für ' + r.label;
+
+    // ROI berechnen
+    var monatlich = midpoint * 4;
+    var automatisiert = Math.round(monatlich * r.auto);
+    var neueKunden = Math.round(automatisiert * r.conv);
+    var einnahmen = Math.round(neueKunden * r.preis);
+    var gewinn = Math.round(einnahmen - MRBELL_COST);
+
+    var elEin = document.getElementById('roi-einnahmen');
+    var elGew = document.getElementById('roi-gewinn');
+    var elKunden = document.getElementById('roi-kunden');
+    var elAuftrag = document.getElementById('roi-auftrag');
+    if (elEin) elEin.textContent = '+ ' + einnahmen.toLocaleString('de-DE') + '€';
+    if (elGew) elGew.textContent = '~ ' + Math.max(0, gewinn).toLocaleString('de-DE') + '€';
+    if (elKunden) elKunden.textContent = '~ ' + neueKunden;
+    if (elAuftrag) elAuftrag.textContent = r.preis + '€';
+
+    // Punkt 1 je Branche
+    var punkt1 = document.getElementById('intro-punkt1');
+    var texte = {
+      'Friseur / Beauty':   'Terminanfragen, Öffnungszeiten, Preislisten — Mr. Bell antwortet Ihren Kunden sofort, auch abends und am Wochenende.',
+      'Restaurant / Café':  'Reservierungen, Öffnungszeiten, Speisekarte — Mr. Bell beantwortet alles automatisch, auch nachts um 2 Uhr.',
+      'Handwerk':           'Kostenvoranfragen, Verfügbarkeit, Kontaktdaten — Mr. Bell filtert und beantwortet Anfragen rund um die Uhr.',
+      'Wellness / Massage': 'Terminbuchungen, Preise, Behandlungen — Mr. Bell antwortet Ihren Kunden sofort, auch wenn Sie gerade beschäftigt sind.',
+      'Andere':             'Öffnungszeiten, Preise, häufige Fragen — Mr. Bell beantwortet alles automatisch, 24/7 auf WhatsApp.'
+    };
+    if (punkt1) punkt1.textContent = texte[branche] || texte['Andere'];
+  };
+
+  window.openPreiseModal = function() {
+    var m = document.getElementById('preise-modal');
+    if (m) { m.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+  };
+  window.closePreiseModal = function() {
+    var m = document.getElementById('preise-modal');
+    if (m) { m.style.display = 'none'; document.body.style.overflow = ''; }
+  };
+  // Close on backdrop click
+  document.addEventListener('click', function(e) {
+    var m = document.getElementById('preise-modal');
+    if (m && e.target === m) closePreiseModal();
+  });
+
+  window.startOnboardingFromIntro = function() {
+    if (typeof ensureOnboardingId === 'function') ensureOnboardingId();
+    if (typeof fbq === 'function') fbq('track', 'Lead');
+    switchView('step-name');
+  };
+
+  // step-intro ohne Quiz — Standard-Werte
+  window.__quizAnswers = window.__quizAnswers || {};
+
+  // Wenn step-intro gezeigt wird, Personalisierung rendern
+  var origSwitchView = window.switchView;
+  window.switchView = function(view) {
+    origSwitchView(view);
+    if (view === 'step-intro') {
+      setTimeout(function() {
+        renderStepIntro(window.__quizAnswers);
+      }, 50);
+    }
+  };
+})();
+
 // ============================================
 // HERO QUIZ — Multiple Choice im Phone
 // ============================================
@@ -12561,14 +12713,18 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   var currentQ = 0;
-  var msgs = document.getElementById('hq-messages');
-  var btns = document.getElementById('hq-buttons');
+  var msgs, btns, clk;
 
-  // Uhr
-  var clk = document.getElementById('hq-clock');
-  if (clk) {
-    var n = new Date();
-    clk.textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+  function init() {
+    msgs = document.getElementById('hq-messages');
+    btns = document.getElementById('hq-buttons');
+    clk = document.getElementById('hq-clock');
+    if (!msgs || !btns) return;
+    if (clk) {
+      var n = new Date();
+      clk.textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+    }
+    startQuiz();
   }
 
   function addBotMsg(text) {
@@ -12619,10 +12775,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderButtons(options) {
     btns.innerHTML = '';
+    btns.style.flexDirection = 'row';
     options.forEach(function(opt) {
       var b = document.createElement('button');
       b.textContent = opt;
-      b.style.cssText = 'background:white; border:1.5px solid #075E54; color:#075E54; border-radius:20px; padding:7px 16px; font-size:13px; font-family:Inter,sans-serif; cursor:pointer; transition:all 0.15s; font-weight:500;';
+      b.style.cssText = 'background:white; border:1.5px solid #075E54; color:#075E54; border-radius:20px; padding:7px 16px; font-size:13px; font-family:Arial,sans-serif; cursor:pointer; transition:all 0.15s; font-weight:500;';
       b.onmouseover = function(){ this.style.background='#075E54'; this.style.color='white'; };
       b.onmouseout = function(){ this.style.background='white'; this.style.color='#075E54'; };
       b.onclick = function() { onAnswer(opt); };
@@ -12631,33 +12788,42 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showCTA() {
-    var branche = answers.branche || '';
+    var branche = answers.branche || 'Andere';
+    var anfragen = answers.anfragen || '';
     btns.innerHTML = '';
-    // Personalisierte Bot-Nachricht
-    var ctaMsg = 'Perfekt! 🎉 Mr. Bell kann für ' + branche + ' automatisch Kundenanfragen beantworten — 24/7, auf WhatsApp. Klingt das interessant?';
+    var nomen = {
+      'Friseur / Beauty': 'Ihren Friseur-Salon',
+      'Restaurant / Café': 'Ihr Restaurant',
+      'Handwerk': 'Ihren Betrieb',
+      'Wellness / Massage': 'Ihr Wellness-Studio',
+      'Andere': 'Ihr Unternehmen'
+    };
+    var label = nomen[branche] || 'Ihr Unternehmen';
+    var ctaMsg = 'Perfekt! 🎉 Für ' + label + ' mit ' + anfragen + ' Anfragen pro Woche ist Mr. Bell wie gemacht. Bereit für Ihren eigenen KI-Assistenten?';
     showTyping(function() {
       addBotMsg(ctaMsg);
-      // Zwei Buttons
       btns.style.flexDirection = 'column';
       btns.style.gap = '8px';
-
       var yes = document.createElement('button');
       yes.textContent = '✅ Klingt interessant';
-      yes.style.cssText = 'background:#075E54; color:white; border:none; border-radius:20px; padding:10px 20px; font-size:14px; font-family:Inter,sans-serif; cursor:pointer; font-weight:600; width:100%;';
+      yes.style.cssText = 'background:#075E54; color:white; border:none; border-radius:20px; padding:10px 20px; font-size:14px; font-family:Arial,sans-serif; cursor:pointer; font-weight:600; width:100%;';
       yes.onclick = function() {
+        window.__quizAnswers = answers;
         if (typeof heroBellClick === 'function') heroBellClick();
       };
-
       var no = document.createElement('button');
       no.textContent = 'Nicht interessiert';
-      no.style.cssText = 'background:transparent; color:#999; border:1.5px solid #ddd; border-radius:20px; padding:8px 20px; font-size:13px; font-family:Inter,sans-serif; cursor:pointer; width:100%;';
+      no.style.cssText = 'background:transparent; color:#999; border:1.5px solid #ddd; border-radius:20px; padding:8px 20px; font-size:13px; font-family:Arial,sans-serif; cursor:pointer; width:100%;';
       no.onclick = function() {
         var danke = document.getElementById('hq-danke');
-        if (danke) { danke.style.display = 'flex'; }
+        if (danke) danke.style.display = 'flex';
       };
-
       btns.appendChild(yes);
       btns.appendChild(no);
+      setTimeout(function() {
+        msgs.scrollTop = msgs.scrollHeight;
+        btns.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 100);
     });
   }
 
@@ -12667,11 +12833,9 @@ document.addEventListener('DOMContentLoaded', () => {
     addUserMsg(opt);
     btns.innerHTML = '';
     currentQ++;
-
     if (currentQ < QUESTIONS.length) {
       var next = QUESTIONS[currentQ];
       showTyping(function() {
-        // Frage 2: auf Antwort eingehen
         var botText = next.bot;
         if (currentQ === 1) {
           botText = answers.whatsapp === 'Ja, aktiv'
@@ -12686,7 +12850,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Start
   function startQuiz() {
     showTyping(function() {
       addBotMsg(QUESTIONS[0].bot);
@@ -12695,9 +12858,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startQuiz);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    setTimeout(startQuiz, 400);
+    setTimeout(init, 400);
   }
 })();
 </script>
