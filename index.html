@@ -3662,7 +3662,7 @@ video {
 }
 
 .bellchat-message.user {
-  background: #fce8d8; /* Helles Terracotta */
+  background: #DCF8C6; /* WhatsApp Grün */
   align-self: flex-end;
   border-bottom-right-radius: 4px;
   margin-left: auto;
@@ -3686,14 +3686,14 @@ video {
   text-align: right;
 }
 
-/* Read Marker (Doppelte blaue Häkchen — WA-Style) */
+/* Read Marker — WA-Style blaue Häkchen */
 .bellchat-message.user .bellchat-message-time::after {
   content: " ✓✓";
-  color: #34B7F1;
-  font-size: 12px;
-  font-weight: 600;
-  margin-left: 2px;
-  letter-spacing: -2px;
+  color: #1DA1F2;
+  font-size: 13px;
+  font-weight: 900;
+  margin-left: 1px;
+  letter-spacing: -3px;
 }
 
 /* Typing Indicator */
@@ -5091,26 +5091,23 @@ video {
 
   /* Hero Chat — CTA Button Breite passend zum Phone */
   #hero-chat-wrapper button.hero-cta-button {
-    width: 340px;
+    width: 300px;
   }
-  /* Hero Phone auf Mobile kleiner */
-  @media (max-width: 1024px) {
+  /* Hero Phone Größe — immer vollständig sichtbar */
+  #hero-chat-wrapper .bellchat-phone-frame {
+    height: 560px !important;
+    max-width: 300px !important;
+    border-radius: 52px !important;
+    width: 100% !important;
+  }
+  @media (max-width: 768px) {
     #hero-chat-wrapper .bellchat-phone-frame {
-      height: min(560px, 55vh) !important;
-      max-width: min(320px, 85vw) !important;
+      height: 460px !important;
+      max-width: 240px !important;
+      border-radius: 46px !important;
     }
     #hero-chat-wrapper button.hero-cta-button {
-      width: min(320px, 85vw) !important;
-    }
-  }
-  @media (max-width: 640px) {
-    #hero-chat-wrapper .bellchat-phone-frame {
-      height: min(480px, 52vh) !important;
-      max-width: min(290px, 82vw) !important;
-      border-radius: 50px !important;
-    }
-    #hero-chat-wrapper button.hero-cta-button {
-      width: min(290px, 82vw) !important;
+      width: 240px !important;
     }
   }
 
