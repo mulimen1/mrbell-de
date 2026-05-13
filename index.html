@@ -5541,13 +5541,7 @@ window.gtag('consent', 'default', {
           </div>
         </div>
 
-        <!-- CTA Button — für die die direkt ins Onboarding wollen -->
-        <button onclick="heroBellClick()" class="hero-cta-button group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-wa-500 text-white font-bold text-base hover:bg-wa-400 transition-all hover:scale-[1.03]">
-          <span class="relative z-10">Jetzt kostenlos testen</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="relative z-10 transition-transform group-hover:translate-x-1 flex-shrink-0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          <span class="hero-cta-pulse" aria-hidden="true"></span>
-        </button>
-        <p class="text-xs text-anthracite/40 mt-3">5 Tage kostenlos · Keine Kreditkarte nötig</p>
+
       </div>
 
       <!-- RIGHT: Embedded Bell Chat — 1:1 bellchat-phone-frame -->
@@ -5556,9 +5550,9 @@ window.gtag('consent', 'default', {
         <!-- Glow -->
         <div style="position: absolute; inset: -20px; background: radial-gradient(circle at 50% 60%, rgba(194,65,12,0.10), transparent 70%); border-radius: 50%; z-index: 0; pointer-events: none;"></div>
 
-        <div id="hero-chat-wrapper" style="position: relative; z-index: 1;">
+        <div id="hero-chat-wrapper" style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 20px;">
           <!-- Exakt gleicher Phone Frame wie bellchat-modal -->
-          <div class="bellchat-phone-frame" style="cursor: default; box-shadow: 0 35px 90px rgba(26,26,46,0.28), 0 12px 30px rgba(26,26,46,0.18);">
+          <div class="bellchat-phone-frame" style="cursor: default; height: 500px; max-width: 280px; border-radius: 48px; box-shadow: 0 25px 70px rgba(26,26,46,0.25), 0 8px 20px rgba(26,26,46,0.15);">
             <div class="bellchat-side-btn left top1"></div>
             <div class="bellchat-side-btn left top2"></div>
             <div class="bellchat-side-btn left top3"></div>
@@ -5634,6 +5628,15 @@ window.gtag('consent', 'default', {
 
             </div>
           </div>
+
+          <!-- CTA BUTTON UNTER DEM HANDY -->
+          <button onclick="heroBellClick()" class="hero-cta-button group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-wa-500 text-white font-bold text-base hover:bg-wa-400 transition-all hover:scale-[1.03]" style="width: 280px;">
+            <span class="relative z-10">Jetzt kostenlos testen</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="relative z-10 transition-transform group-hover:translate-x-1 flex-shrink-0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <span class="hero-cta-pulse" aria-hidden="true"></span>
+          </button>
+          <p class="text-xs text-anthracite/40" style="margin-top: -8px;">5 Tage kostenlos · Keine Kreditkarte nötig</p>
+
         </div>
       </div>
 
