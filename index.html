@@ -3884,7 +3884,7 @@ video {
 }
 
 .bellchat-send {
-  background: #C2410C;
+  background: #25D366;
   color: white;
   border: none;
   width: 44px;
@@ -3896,7 +3896,7 @@ video {
   justify-content: center;
   transition: all 0.2s;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(196, 65, 12, 0.3);
+  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.3);
 }
 
 .bellchat-send:hover:not(:disabled) {
@@ -4003,14 +4003,14 @@ video {
 
 /* iOS Status Bar */
 .bellchat-statusbar {
-  background: white;
+  background: #075E54;
   padding: 12px 28px 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 12px;
   font-weight: 600;
-  color: #1a1a2e;
+  color: white;
   position: relative;
   flex-shrink: 0;
 }
@@ -4034,7 +4034,7 @@ video {
 
 /* Header neu — Terracotta beibehalten (Brand) statt WhatsApp-Grün */
 .bellchat-phone-screen .bellchat-header {
-  background: #C2410C !important;
+  background: #075E54 !important;
   color: white;
   padding: 10px 12px !important;
   display: flex;
@@ -5519,8 +5519,10 @@ window.gtag('consent', 'default', {
 
     <!-- Headline zentriert -->
     <div class="text-center animate-fade-up" style="margin-bottom: 32px;">
-      <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-anthracite leading-[1.1] tracking-tight">
-        Ihr eigener <span class="italic font-normal" style="color: #C2410C;">KI-Assistent</span> über WhatsApp
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-anthracite leading-[1.1] tracking-tight">
+        Ihr eigener<br>
+        <span class="italic font-normal" style="color: #C2410C; font-size: 1.4em; display: inline-block; line-height: 1; margin: 0.1em 0;">KI-Assistent</span><br>
+        über WhatsApp
       </h1>
     </div>
 
@@ -12603,7 +12605,7 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          history: heroChatState.messages.slice(-8),
+          messages: heroChatState.messages.slice(-8),
           step: heroChatState.step
         })
       });
@@ -12666,7 +12668,7 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          history: [{ role: 'user', content: '__START__' }],
+          messages: [{ role: 'user', content: '__START__' }],
           step: 0
         })
       }).then(function(r){ return r.json(); }).then(function(data) {
