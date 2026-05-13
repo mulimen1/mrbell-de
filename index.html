@@ -12659,11 +12659,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (displayReply) addHeroMessage('bot', displayReply);
         heroChatState.step = data.step || heroChatState.step;
 
-        // CTA zeigen nur wenn Bot [CTA_READY] signalisiert
-        if (data.reply.includes('[CTA_READY]')) {
+        // CTA zeigen wenn API ctaReady: true zurückgibt
+        if (data.ctaReady) {
           if (!heroChatState.ctaShown) {
             heroChatState.ctaShown = true;
-            // Personalisierter CTA-Text mit Branche
             var industry = heroChatState.answers && heroChatState.answers.industry ? heroChatState.answers.industry : '';
             var ctaText = industry
               ? 'Jetzt für ' + industry + ' einrichten — 5 Tage gratis'
