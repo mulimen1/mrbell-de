@@ -3689,9 +3689,11 @@ video {
 /* Read Marker (Doppelte blaue Häkchen — WA-Style) */
 .bellchat-message.user .bellchat-message-time::after {
   content: " ✓✓";
-  color: #53BDEB;
-  font-size: 11px;
+  color: #34B7F1;
+  font-size: 12px;
+  font-weight: 600;
   margin-left: 2px;
+  letter-spacing: -2px;
 }
 
 /* Typing Indicator */
@@ -3884,7 +3886,7 @@ video {
 }
 
 .bellchat-send {
-  background: #25D366;
+  background: #075E54;
   color: white;
   border: none;
   width: 44px;
@@ -3896,7 +3898,7 @@ video {
   justify-content: center;
   transition: all 0.2s;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.3);
+  box-shadow: 0 2px 6px rgba(7, 94, 84, 0.3);
 }
 
 .bellchat-send:hover:not(:disabled) {
@@ -5092,24 +5094,23 @@ video {
     width: 340px;
   }
   /* Hero Phone auf Mobile kleiner */
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     #hero-chat-wrapper .bellchat-phone-frame {
-      height: 480px !important;
-      max-width: 300px !important;
+      height: min(560px, 55vh) !important;
+      max-width: min(320px, 85vw) !important;
+    }
+    #hero-chat-wrapper button.hero-cta-button {
+      width: min(320px, 85vw) !important;
+    }
+  }
+  @media (max-width: 640px) {
+    #hero-chat-wrapper .bellchat-phone-frame {
+      height: min(480px, 52vh) !important;
+      max-width: min(290px, 82vw) !important;
       border-radius: 50px !important;
     }
     #hero-chat-wrapper button.hero-cta-button {
-      width: 300px !important;
-    }
-  }
-  @media (max-width: 480px) {
-    #hero-chat-wrapper .bellchat-phone-frame {
-      height: 420px !important;
-      max-width: 270px !important;
-      border-radius: 46px !important;
-    }
-    #hero-chat-wrapper button.hero-cta-button {
-      width: 270px !important;
+      width: min(290px, 82vw) !important;
     }
   }
 
@@ -5600,9 +5601,10 @@ window.gtag('consent', 'default', {
                   placeholder="Antworte Mr. Bell..."
                   rows="1"
                   maxlength="500"
+                  disabled
                   aria-label="Deine Nachricht"
                   onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendHeroChatMessage();}"></textarea>
-                <button id="hero-chat-send" class="bellchat-send" onclick="sendHeroChatMessage()" aria-label="Senden">
+                <button id="hero-chat-send" class="bellchat-send" onclick="sendHeroChatMessage()" aria-label="Senden" disabled>
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
                 </button>
               </div>
