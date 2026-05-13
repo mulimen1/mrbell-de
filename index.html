@@ -12442,10 +12442,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }).observe(el, { childList: true, subtree: true, characterData: true });
   }
 
+  // ── Hero-Chat keyboard fix ──
+  function updateHeroChat() {
+    var wrapper = document.getElementById('hero-chat-wrapper');
+    if (!wrapper) return;
+    if (!isMobile()) return;
+
+    var input = document.getElementById('hero-chat-input');
+    var isKeyboardOpen = input && document.activeElement === input;
+    if (!isKeyboardOpen) return;
+
+    var h = vp ? vp.height : window.innerHeight;
+    var frame = wrapper.querySelector('.bellchat-phone-frame');
+    if (frame) {
+      // Keyboard offen: Phone kleiner machen damit man den Chat sieht
+      var headerH = 70; // Approx header height
+      frame.style.height = Math.max(300, h - headerH - 80) + 'px';
+    }
+
+    // Scroll messages to bottom
+    var msgs = document.getElementById('hero-chat-messages');
+    if (msgs) {
+      requestAnimationFrame(function() { msgs.scrollTop = msgs.scrollHeight; });
+    }
+  }
+
+  function resetHeroChat() {
+    var wrapper = document.getElementById('hero-chat-wrapper');
+    if (!wrapper || !isMobile()) return;
+    var frame = wrapper.querySelector('.bellchat-phone-frame');
+    if (frame) frame.style.height = ''; // Reset to CSS default
+  }
+
   // ── visualViewport handler ──
   function onViewportChange() {
     updateBellChat();
     updateTestChat();
+    updateHeroChat();
   }
 
   // ── Input focus handlers ──
@@ -12663,8 +12696,9 @@ document.addEventListener('DOMContentLoaded', () => {
     var text = input.value.trim();
     if (!text || heroChatState.waiting) return;
     input.value = '';
-    // Keyboard schließen
+    // Keyboard schließen + Phone-Frame zurücksetzen
     input.blur();
+    setTimeout(resetHeroChat, 100);
     addHeroMessage('user', text);
     // Speichere erste User-Antwort als Branche
     if (!heroChatState.answers) heroChatState.answers = {};
@@ -12711,9 +12745,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Start wenn DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHeroChat);
+    document.addEventListener('DOMContentLoaded', function() {
+      initHeroChat();
+      var input = document.getElementById('hero-chat-input');
+      if (input) {
+        input.addEventListener('focus', function() { setTimeout(updateHeroChat, 300); });
+        input.addEventListener('blur', function() { setTimeout(resetHeroChat, 100); });
+      }
+    });
   } else {
     setTimeout(initHeroChat, 100);
+    var _input = document.getElementById('hero-chat-input');
+    if (_input) {
+      _input.addEventListener('focus', function() { setTimeout(updateHeroChat, 300); });
+      _input.addEventListener('blur', function() { setTimeout(resetHeroChat, 100); });
+    }
   }
 })();
 </script>
