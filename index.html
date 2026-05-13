@@ -11166,7 +11166,7 @@ document.addEventListener('DOMContentLoaded', function() {
   try {
     // Restore view from URL hash
     const hash = (window.location.hash || '').replace(/^#/, '');
-    const validViews = ['step-bundle-pricing','step-name','step-industry','step-personality','step-hours','step-address','step-services','step-faq','step-bot-prompt','step-test-chat','step-api','step-api-key','step-api-explained','step-api-tutorial','step-guided-explainer','step-guided-topics','step-guided-calendly','step-guided-verify','step-stripe-guided','thanks-guided','step-whatsapp','step-plan-select','step-bizmail','step-phone','step-sheets','step-verify','summary','payment','thanks','ueber-uns'];
+    const validViews = ['step-intro','step-bundle-pricing','step-name','step-industry','step-personality','step-hours','step-address','step-services','step-faq','step-bot-prompt','step-test-chat','step-api','step-api-key','step-api-explained','step-api-tutorial','step-guided-explainer','step-guided-topics','step-guided-calendly','step-guided-verify','step-stripe-guided','thanks-guided','step-whatsapp','step-plan-select','step-bizmail','step-phone','step-sheets','step-verify','summary','payment','thanks','ueber-uns'];
     if (hash && validViews.indexOf(hash) !== -1 && typeof switchView === 'function') {
       // Direkt switchen (kein setTimeout damit's nicht von welcome-Handler überschrieben wird)
       switchView(hash);
@@ -12703,14 +12703,20 @@ document.addEventListener('DOMContentLoaded', () => {
     switchView('step-name');
   };
 
-  // step-intro ohne Quiz — Standard-Werte
+  // step-intro — Quiz-Antworten aus sessionStorage wiederherstellen
   window.__quizAnswers = window.__quizAnswers || {};
+  try {
+    var stored = sessionStorage.getItem('mrbell_quizAnswers');
+    if (stored) window.__quizAnswers = JSON.parse(stored);
+  } catch(e) {}
 
   // Wenn step-intro gezeigt wird, Personalisierung rendern
   var origSwitchView = window.switchView;
   window.switchView = function(view) {
     origSwitchView(view);
     if (view === 'step-intro') {
+      // Quiz-Antworten speichern
+      try { sessionStorage.setItem('mrbell_quizAnswers', JSON.stringify(window.__quizAnswers)); } catch(e) {}
       setTimeout(function() {
         renderStepIntro(window.__quizAnswers);
       }, 50);
