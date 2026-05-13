@@ -3686,11 +3686,11 @@ video {
   text-align: right;
 }
 
-/* Read Marker (Doppelte blaue Häkchen) */
+/* Read Marker (Doppelte blaue Häkchen — WA-Style) */
 .bellchat-message.user .bellchat-message-time::after {
   content: " ✓✓";
-  color: #C2410C;
-  font-weight: bold;
+  color: #53BDEB;
+  font-size: 11px;
   margin-left: 2px;
 }
 
@@ -5091,6 +5091,27 @@ video {
   #hero-chat-wrapper button.hero-cta-button {
     width: 340px;
   }
+  /* Hero Phone auf Mobile kleiner */
+  @media (max-width: 768px) {
+    #hero-chat-wrapper .bellchat-phone-frame {
+      height: 480px !important;
+      max-width: 300px !important;
+      border-radius: 50px !important;
+    }
+    #hero-chat-wrapper button.hero-cta-button {
+      width: 300px !important;
+    }
+  }
+  @media (max-width: 480px) {
+    #hero-chat-wrapper .bellchat-phone-frame {
+      height: 420px !important;
+      max-width: 270px !important;
+      border-radius: 46px !important;
+    }
+    #hero-chat-wrapper button.hero-cta-button {
+      width: 270px !important;
+    }
+  }
 
 
   /* ─── CCM19 Cookie Banner ─── */
@@ -5494,18 +5515,16 @@ window.gtag('consent', 'default', {
 <!-- WELCOME -->
 <div id="view-welcome" class="view">
   <!-- HERO — Headline oben, Chat zentriert -->
-  <section class="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden" style="padding-top: 80px; padding-bottom: 60px;">
+  <section class="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden" style="padding-top: 60px; padding-bottom: 60px;">
 
     <!-- Headline zentriert -->
-    <div class="text-center animate-fade-up" style="margin-bottom: 48px;">
-      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-anthracite leading-[1.1] tracking-tight">
-        Ihr eigener<br>
-        <span class="italic font-normal" style="color: #C2410C; font-size: 1.4em; display: inline-block; line-height: 1; margin: 0.1em 0;">KI-Assistent</span><br>
-        über WhatsApp
+    <div class="text-center animate-fade-up" style="margin-bottom: 32px;">
+      <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-anthracite leading-[1.1] tracking-tight">
+        Ihr eigener <span class="italic font-normal" style="color: #C2410C;">KI-Assistent</span> über WhatsApp
       </h1>
     </div>
 
-    <!-- Chat zentriert — original phone size -->
+    <!-- Chat zentriert -->
     <div class="flex justify-center">
       <!-- Embedded Bell Chat — original size, zentriert -->
       <div class="flex justify-center animate-fade-up" style="animation-delay: 0.1s; position: relative;">
@@ -5589,6 +5608,24 @@ window.gtag('consent', 'default', {
               <!-- Home Indicator -->
               <div class="bellchat-home-indicator"><div></div></div>
 
+            </div>
+          </div>
+
+          <!-- TRUST ICONS -->
+          <div class="flex items-center justify-center gap-5 text-sm text-anthracite/50 flex-wrap" style="margin-top: 4px;">
+            <div class="flex items-center gap-1.5">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Setup in 48h</span>
+            </div>
+            <span class="text-anthracite/20">·</span>
+            <div class="flex items-center gap-1.5">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+              <span>Jederzeit kündbar</span>
+            </div>
+            <span class="text-anthracite/20">·</span>
+            <div class="flex items-center gap-1.5">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Made in Germany</span>
             </div>
           </div>
 
