@@ -5519,15 +5519,14 @@ window.gtag('consent', 'default', {
 
     <!-- Chat zentriert -->
     <div class="flex justify-center">
-      <!-- Embedded Bell Chat — original size, zentriert -->
+      <!-- Hero Quiz Phone -->
       <div class="flex justify-center animate-fade-up" style="animation-delay: 0.1s; position: relative;">
-
-        <!-- Glow -->
         <div style="position: absolute; inset: -20px; background: radial-gradient(circle at 50% 60%, rgba(194,65,12,0.10), transparent 70%); border-radius: 50%; z-index: 0; pointer-events: none;"></div>
 
-        <div id="hero-chat-wrapper" style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 24px;">
-          <!-- Exakt gleicher Phone Frame wie bellchat-modal -->
-          <div class="bellchat-phone-frame" style="cursor: default;">
+        <div style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+
+          <!-- Phone Frame — identisch zu bellchat -->
+          <div class="bellchat-phone-frame">
             <div class="bellchat-side-btn left top1"></div>
             <div class="bellchat-side-btn left top2"></div>
             <div class="bellchat-side-btn left top3"></div>
@@ -5535,9 +5534,9 @@ window.gtag('consent', 'default', {
 
             <div class="bellchat-phone-screen">
 
-              <!-- iOS Status Bar — identisch zu bellchat -->
+              <!-- Status Bar -->
               <div class="bellchat-statusbar">
-                <span id="hero-chat-clock" class="bellchat-clock">14:23</span>
+                <span id="hq-clock" class="bellchat-clock">14:23</span>
                 <div class="bellchat-island"></div>
                 <div class="bellchat-statusbar-icons">
                   <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
@@ -5546,58 +5545,24 @@ window.gtag('consent', 'default', {
                 </div>
               </div>
 
-              <!-- WhatsApp Header — identisch, aber OHNE close button, Avatar mit weißem BG -->
-              <div class="bellchat-header" style="cursor: default;">
-                <div class="bellchat-avatar" aria-hidden="true" style="background: white;">
-                  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <use href="#bell-icon"/>
-                  </svg>
+              <!-- WA Header -->
+              <div class="bellchat-header">
+                <div class="bellchat-avatar" style="background: white;">
+                  <svg viewBox="0 0 100 100"><use href="#bell-icon"/></svg>
                 </div>
-                  <div class="bellchat-header-info">
+                <div class="bellchat-header-info">
                   <div class="bellchat-header-name">Mr. Bell</div>
-                  <div class="bellchat-header-status">
-                    <span>online</span>
-                  </div>
+                  <div class="bellchat-header-status"><span>online</span></div>
                 </div>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </div>
 
-              <!-- Messages -->
-              <div id="hero-chat-messages" class="bellchat-messages">
-                <!-- Dynamisch -->
-              </div>
+              <!-- Messages + Buttons -->
+              <div id="hq-messages" class="bellchat-messages" style="padding-bottom: 8px;"></div>
 
-              <!-- CTA (erscheint nach Conversation) -->
-              <div id="hero-chat-cta" style="display: none; padding: 10px 12px; background: #ECE5DD; border-top: 1px solid rgba(0,0,0,0.08); flex-shrink: 0;">
-                <button onclick="heroBellClick()" style="width: 100%; background: #C2410C; color: white; border: none; border-radius: 24px; padding: 12px; font-family: Inter, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
-                  <span>Jetzt einrichten — 5 Tage gratis</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </button>
-              </div>
-
-              <!-- Typing Indicator -->
-              <div id="hero-chat-typing" style="display: none; align-self: flex-start; background: white; padding: 10px 14px; border-radius: 18px; border-bottom-left-radius: 4px; gap: 5px; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.08); margin: 0 8px 6px; animation: bellchat-message-in 0.3s ease;" aria-hidden="true">
-                <span class="bellchat-typing-dot"></span>
-                <span class="bellchat-typing-dot"></span>
-                <span class="bellchat-typing-dot"></span>
-              </div>
-
-              <!-- Input Area — identisch zu bellchat -->
-              <div class="bellchat-input-area" id="hero-chat-input-area">
-                <textarea
-                  id="hero-chat-input"
-                  class="bellchat-input"
-                  placeholder="Schreib etwas..."
-                  rows="1"
-                  maxlength="500"
-                  disabled
-                  aria-label="Deine Nachricht"
-                  onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendHeroChatMessage();}"></textarea>
-                <button id="hero-chat-send" class="bellchat-send" onclick="sendHeroChatMessage()" aria-label="Senden" disabled>
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                </button>
-              </div>
+              <!-- Quick Reply Buttons -->
+              <div id="hq-buttons" style="background: #ECE5DD; padding: 8px 10px 10px; display: flex; flex-wrap: wrap; gap: 8px; flex-shrink: 0; justify-content: center;"></div>
 
               <!-- Home Indicator -->
               <div class="bellchat-home-indicator"><div></div></div>
@@ -5605,8 +5570,8 @@ window.gtag('consent', 'default', {
             </div>
           </div>
 
-          <!-- TRUST ICONS -->
-          <div class="flex items-center justify-center gap-5 text-sm text-anthracite/50 flex-wrap" style="margin-top: 16px;">
+          <!-- Trust Icons -->
+          <div class="flex items-center justify-center gap-5 text-sm text-anthracite/50 flex-wrap">
             <div class="flex items-center gap-1.5">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               <span>Setup in 48h</span>
@@ -5622,14 +5587,6 @@ window.gtag('consent', 'default', {
               <span>Made in Germany</span>
             </div>
           </div>
-
-          <!-- CTA BUTTON UNTER DEM HANDY -->
-          <button onclick="heroBellClick()" class="hero-cta-button group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-wa-500 text-white font-bold text-base hover:bg-wa-400 transition-all hover:scale-[1.03]">
-            <span class="relative z-10">Jetzt kostenlos testen</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="relative z-10 transition-transform group-hover:translate-x-1 flex-shrink-0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            <span class="hero-cta-pulse" aria-hidden="true"></span>
-          </button>
-          <p class="text-xs text-anthracite/40" style="margin-top: -8px;">5 Tage kostenlos · Keine Kreditkarte nötig</p>
 
         </div>
       </div>
@@ -5654,7 +5611,7 @@ window.gtag('consent', 'default', {
 
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative">
       <!-- Phone — auf Mobile versteckt -->
-      <div class="hidden lg:block space-y-6">
+      <div class="space-y-6">
         <div class="text-center lg:text-left max-w-md mx-auto lg:mx-0">
           <span class="text-xs font-mono text-wa-600 mb-2 block">KUNDE SCHREIBT</span>
           <h3 class="font-display text-2xl md:text-3xl font-semibold text-anthracite mb-3">So sieht ein Chat<br>für Ihre Kunden aus</h3>
@@ -12569,198 +12526,178 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateQuizBtn, 1000);
 })();
 
+})();
+</script>
+
+<!-- DANKE-SEITE -->
+<div id="hq-danke" style="display:none; position:fixed; inset:0; background:#f5f5f0; z-index:9999; flex-direction:column; align-items:center; justify-content:center; gap:32px;">
+  <svg width="80" height="80" style="opacity:0.7;"><use href="#bell-icon"/></svg>
+  <p style="font-family:'Playfair Display',serif; font-size:1.5rem; color:#1a1a2e; text-align:center; max-width:320px; line-height:1.5;">Wir wünschen Ihnen noch einen schönen Tag.</p>
+</div>
+
+<script>
 // ============================================
-// HERO EMBEDDED CHAT
+// HERO QUIZ — Multiple Choice im Phone
 // ============================================
 (function() {
-  var heroChatState = {
-    messages: [],
-    step: 0,
-    answers: {},
-    waiting: false,
-    ctaShown: false
-  };
+  var answers = {};
 
-  var SYSTEM_PROMPT = "Du bist Mr. Bell, ein freundlicher WhatsApp-KI-Assistent für deutsche Dienstleister. Du hilfst Friseuren, Restaurants, Handwerkern und ähnlichen Betrieben dabei, Kundenanfragen automatisch zu beantworten. Führe eine kurze, natürliche Demo-Unterhaltung auf Deutsch. Stelle maximal 2 kurze Fragen (z.B. Branche und einen typischen Kundenwunsch), dann zeige kurz wie du helfen kannst. Sei freundlich, professionell und sehr kurz (max 2 Sätze pro Nachricht). Antworte IMMER auf Deutsch. Kein Markdown, keine Listen.";
+  var QUESTIONS = [
+    {
+      id: 'whatsapp',
+      bot: 'Hallo! 👋 Nutzen Sie WhatsApp bereits für Ihr Business?',
+      options: ['Ja, aktiv', 'Nein, noch nicht']
+    },
+    {
+      id: 'branche',
+      bot: 'Super! Was ist Ihre Branche?',
+      options: ['Friseur / Beauty', 'Restaurant / Café', 'Handwerk', 'Wellness / Massage', 'Andere']
+    },
+    {
+      id: 'anfragen',
+      bot: 'Wie viele Kundenanfragen bekommen Sie pro Woche?',
+      options: ['Weniger als 10', '10 – 50', 'Mehr als 50']
+    }
+  ];
 
-  function addHeroMessage(role, text) {
-    var container = document.getElementById('hero-chat-messages');
-    if (!container) return;
+  var currentQ = 0;
+  var msgs = document.getElementById('hq-messages');
+  var btns = document.getElementById('hq-buttons');
 
-    var isBot = role === 'bot';
-    var msgDiv = document.createElement('div');
-    msgDiv.className = 'bellchat-message ' + (isBot ? 'bot' : 'user');
-    msgDiv.textContent = text;
+  // Uhr
+  var clk = document.getElementById('hq-clock');
+  if (clk) {
+    var n = new Date();
+    clk.textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+  }
 
-    // Timestamp
-    var ts = document.createElement('span');
+  function addBotMsg(text) {
+    var d = document.createElement('div');
+    d.className = 'bellchat-message bot';
+    d.style.cssText = 'font-size:13px;';
+    d.textContent = text;
+    var t = document.createElement('span');
+    t.className = 'bellchat-message-time';
     var now = new Date();
-    ts.className = 'bellchat-message-time';
-    ts.textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-    msgDiv.appendChild(ts);
-
-    container.appendChild(msgDiv);
-    container.scrollTop = container.scrollHeight;
-
-    heroChatState.messages.push({ role: isBot ? 'assistant' : 'user', content: text });
+    t.textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    d.appendChild(t);
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
   }
 
-  function showHeroTyping(show) {
-    var el = document.getElementById('hero-chat-typing');
-    if (!el) return;
-    el.style.display = show ? 'flex' : 'none';
-    if (show) {
-      var msgs = document.getElementById('hero-chat-messages');
-      if (msgs) setTimeout(function(){ msgs.scrollTop = msgs.scrollHeight; }, 50);
+  function addUserMsg(text) {
+    var d = document.createElement('div');
+    d.className = 'bellchat-message user read';
+    d.style.cssText = 'font-size:13px;';
+    d.textContent = text;
+    var t = document.createElement('span');
+    t.className = 'bellchat-message-time';
+    var now = new Date();
+    t.textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    d.appendChild(t);
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping(cb) {
+    var td = document.createElement('div');
+    td.id = 'hq-typing';
+    td.style.cssText = 'display:flex; align-self:flex-start; background:white; padding:10px 14px; border-radius:18px; border-bottom-left-radius:4px; gap:5px; align-items:center; box-shadow:0 1px 2px rgba(0,0,0,0.08); margin:0 0 4px 0;';
+    for (var i = 0; i < 3; i++) {
+      var dot = document.createElement('span');
+      dot.className = 'bellchat-typing-dot';
+      td.appendChild(dot);
     }
+    msgs.appendChild(td);
+    msgs.scrollTop = msgs.scrollHeight;
+    setTimeout(function() {
+      var el = document.getElementById('hq-typing');
+      if (el) el.remove();
+      cb();
+    }, 900);
   }
 
-  function markMessagesRead() {
-    // Mark all user messages as read (gray checkmarks → blue)
-    var msgs = document.getElementById('hero-chat-messages');
-    if (!msgs) return;
-    var userMsgs = msgs.querySelectorAll('.bellchat-message.user');
-    userMsgs.forEach(function(m) {
-      setTimeout(function() { m.classList.add('read'); }, 300);
+  function renderButtons(options) {
+    btns.innerHTML = '';
+    options.forEach(function(opt) {
+      var b = document.createElement('button');
+      b.textContent = opt;
+      b.style.cssText = 'background:white; border:1.5px solid #075E54; color:#075E54; border-radius:20px; padding:7px 16px; font-size:13px; font-family:Inter,sans-serif; cursor:pointer; transition:all 0.15s; font-weight:500;';
+      b.onmouseover = function(){ this.style.background='#075E54'; this.style.color='white'; };
+      b.onmouseout = function(){ this.style.background='white'; this.style.color='#075E54'; };
+      b.onclick = function() { onAnswer(opt); };
+      btns.appendChild(b);
     });
   }
 
-  function setHeroInputDisabled(disabled) {
-    var input = document.getElementById('hero-chat-input');
-    var btn = document.getElementById('hero-chat-send');
-    if (input) { input.disabled = disabled; if (!disabled) input.focus(); }
-    if (btn) btn.disabled = disabled;
+  function showCTA() {
+    var branche = answers.branche || '';
+    btns.innerHTML = '';
+    // Personalisierte Bot-Nachricht
+    var ctaMsg = 'Perfekt! 🎉 Mr. Bell kann für ' + branche + ' automatisch Kundenanfragen beantworten — 24/7, auf WhatsApp. Klingt das interessant?';
+    showTyping(function() {
+      addBotMsg(ctaMsg);
+      // Zwei Buttons
+      btns.style.flexDirection = 'column';
+      btns.style.gap = '8px';
+
+      var yes = document.createElement('button');
+      yes.textContent = '✅ Klingt interessant';
+      yes.style.cssText = 'background:#075E54; color:white; border:none; border-radius:20px; padding:10px 20px; font-size:14px; font-family:Inter,sans-serif; cursor:pointer; font-weight:600; width:100%;';
+      yes.onclick = function() {
+        if (typeof heroBellClick === 'function') heroBellClick();
+      };
+
+      var no = document.createElement('button');
+      no.textContent = 'Nicht interessiert';
+      no.style.cssText = 'background:transparent; color:#999; border:1.5px solid #ddd; border-radius:20px; padding:8px 20px; font-size:13px; font-family:Inter,sans-serif; cursor:pointer; width:100%;';
+      no.onclick = function() {
+        var danke = document.getElementById('hq-danke');
+        if (danke) { danke.style.display = 'flex'; }
+      };
+
+      btns.appendChild(yes);
+      btns.appendChild(no);
+    });
   }
 
-  async function sendHeroBotMessage(userText) {
-    if (heroChatState.waiting) return;
-    heroChatState.waiting = true;
-    setHeroInputDisabled(true);
-    showHeroTyping(true);
+  function onAnswer(opt) {
+    var q = QUESTIONS[currentQ];
+    answers[q.id] = opt;
+    addUserMsg(opt);
+    btns.innerHTML = '';
+    currentQ++;
 
-    var botMsgCount = heroChatState.messages.filter(function(m) { return m.role === 'assistant'; }).length;
-
-    try {
-      var res = await fetch('/api/bell-chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: heroChatState.messages.slice(-8),
-          step: heroChatState.step
-        })
-      });
-      var data = await res.json();
-      showHeroTyping(false);
-
-      if (data.reply) {
-        markMessagesRead(); // Haken werden blau
-        // [CTA_READY] aus der angezeigten Nachricht entfernen
-        var displayReply = data.reply.replace('[CTA_READY]', '').trim();
-        if (displayReply) addHeroMessage('bot', displayReply);
-        heroChatState.step = data.step || heroChatState.step;
-
-        // CTA zeigen wenn API ctaReady: true zurückgibt
-        if (data.ctaReady) {
-          if (!heroChatState.ctaShown) {
-            heroChatState.ctaShown = true;
-            var industry = heroChatState.answers && heroChatState.answers.industry ? heroChatState.answers.industry : '';
-            var ctaText = industry
-              ? 'Jetzt für ' + industry + ' einrichten — 5 Tage gratis'
-              : 'Jetzt einrichten — 5 Tage gratis';
-            setTimeout(function() {
-              var cta = document.getElementById('hero-chat-cta');
-              var ctaSpan = cta ? cta.querySelector('span') : null;
-              var inputArea = document.getElementById('hero-chat-input-area');
-              if (ctaSpan) ctaSpan.textContent = ctaText;
-              if (cta) cta.style.display = 'block';
-              if (inputArea) inputArea.style.display = 'none';
-            }, 800);
-          }
-        } else {
-          setHeroInputDisabled(false);
+    if (currentQ < QUESTIONS.length) {
+      var next = QUESTIONS[currentQ];
+      showTyping(function() {
+        // Frage 2: auf Antwort eingehen
+        var botText = next.bot;
+        if (currentQ === 1) {
+          botText = answers.whatsapp === 'Ja, aktiv'
+            ? 'Sehr gut! Dann können wir direkt loslegen. Was ist Ihre Branche?'
+            : 'Kein Problem — wir richten alles für Sie ein. Was ist Ihre Branche?';
         }
-      } else {
-        showHeroTyping(false);
-        setHeroInputDisabled(false);
-      }
-    } catch(e) {
-      showHeroTyping(false);
-      addHeroMessage('bot', 'Kurze Verbindungsstörung — bitte gleich nochmal versuchen.');
-      setHeroInputDisabled(false);
-    }
-    heroChatState.waiting = false;
-  }
-
-  window.sendHeroChatMessage = async function() {
-    var input = document.getElementById('hero-chat-input');
-    if (!input) return;
-    var text = input.value.trim();
-    if (!text || heroChatState.waiting) return;
-    input.value = '';
-    addHeroMessage('user', text);
-    // Speichere erste User-Antwort als Branche
-    if (!heroChatState.answers) heroChatState.answers = {};
-    if (!heroChatState.answers.industry && heroChatState.messages.filter(function(m){ return m.role==='user' && m.content !== '__START__'; }).length === 0) {
-      heroChatState.answers.industry = text;
-    }
-    await sendHeroBotMessage(text);
-    // Keyboard schließen NACH dem Senden
-    setTimeout(function() {
-      input.blur();
-      resetHeroChat();
-    }, 200);
-  };
-
-  // Hero Chat initialisieren
-  function initHeroChat() {
-    // Uhr setzen
-    var clock = document.getElementById('hero-chat-clock');
-    if (clock) {
-      var now = new Date();
-      clock.textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-    }
-
-    // Begrüßung via API — gleich wie echter Bell-Chat
-    setTimeout(function() {
-      showHeroTyping(true);
-      fetch('/api/bell-chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [{ role: 'user', content: '__START__' }],
-          step: 0
-        })
-      }).then(function(r){ return r.json(); }).then(function(data) {
-        showHeroTyping(false);
-        if (data.reply) {
-          addHeroMessage('bot', data.reply);
-        } else {
-          addHeroMessage('bot', 'Hallo! 👋 Ich könnte Ihr neuer digitaler Assistent für WhatsApp Business sein. Damit wir sehen ob wir zueinander passen, habe ich 3 Fragen an Sie. Aber bevor wir loslegen — haben Sie noch Fragen an mich?');
-        }
-        setHeroInputDisabled(false);
-      }).catch(function() {
-        showHeroTyping(false);
-        addHeroMessage('bot', 'Hallo! 👋 Ich könnte Ihr neuer digitaler Assistent für WhatsApp Business sein. Damit wir sehen ob wir zueinander passen, habe ich 3 Fragen an Sie. Aber bevor wir loslegen — haben Sie noch Fragen an mich?');
-        setHeroInputDisabled(false);
+        addBotMsg(botText);
+        renderButtons(next.options);
       });
-    }, 600);
+    } else {
+      showCTA();
+    }
   }
 
-  // Start wenn DOM ready
+  // Start
+  function startQuiz() {
+    showTyping(function() {
+      addBotMsg(QUESTIONS[0].bot);
+      renderButtons(QUESTIONS[0].options);
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      initHeroChat();
-      var input = document.getElementById('hero-chat-input');
-      if (input) {
-        input.addEventListener('focus', function() { setTimeout(updateHeroChat, 300); });
-      }
-    });
+    document.addEventListener('DOMContentLoaded', startQuiz);
   } else {
-    setTimeout(initHeroChat, 100);
-    var _input = document.getElementById('hero-chat-input');
-    if (_input) {
-      _input.addEventListener('focus', function() { setTimeout(updateHeroChat, 300); });
-    }
+    setTimeout(startQuiz, 400);
   }
 })();
 </script>
