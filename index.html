@@ -3686,14 +3686,18 @@ video {
   text-align: right;
 }
 
-/* Read Marker — WA-Style blaue Häkchen */
+/* Read Marker — WA-Style: grau gesendet, blau gelesen */
 .bellchat-message.user .bellchat-message-time::after {
   content: " ✓✓";
-  color: #1DA1F2;
+  color: rgba(0,0,0,0.35);
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 800;
   margin-left: 1px;
   letter-spacing: -3px;
+  transition: color 0.5s ease;
+}
+.bellchat-message.user.read .bellchat-message-time::after {
+  color: #34B7F1;
 }
 
 /* Typing Indicator */
@@ -5509,7 +5513,7 @@ window.gtag('consent', 'default', {
       <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-anthracite leading-[1.1] tracking-tight">
         Ihr eigener<br>
         <span class="italic font-normal" style="color: #C2410C; font-size: 1.4em; display: inline-block; line-height: 1; margin: 0.1em 0;">KI-Assistent</span><br>
-        über WhatsApp
+        über WhatsApp Business
       </h1>
     </div>
 
@@ -5573,7 +5577,7 @@ window.gtag('consent', 'default', {
               </div>
 
               <!-- Typing Indicator -->
-              <div id="hero-chat-typing" class="bellchat-typing" style="margin: 0 12px 8px; display: none;" aria-hidden="true">
+              <div id="hero-chat-typing" style="display: none; align-self: flex-start; background: white; padding: 10px 14px; border-radius: 18px; border-bottom-left-radius: 4px; gap: 5px; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.08); margin: 0 8px 6px; animation: bellchat-message-in 0.3s ease;" aria-hidden="true">
                 <span class="bellchat-typing-dot"></span>
                 <span class="bellchat-typing-dot"></span>
                 <span class="bellchat-typing-dot"></span>
@@ -12573,10 +12577,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!el) return;
     el.style.display = show ? 'flex' : 'none';
     if (show) {
-      // Scroll nach unten damit Typing sichtbar ist
       var msgs = document.getElementById('hero-chat-messages');
-      if (msgs) msgs.scrollTop = msgs.scrollHeight;
+      if (msgs) setTimeout(function(){ msgs.scrollTop = msgs.scrollHeight; }, 50);
     }
+  }
+
+  function markMessagesRead() {
+    // Mark all user messages as read (gray checkmarks → blue)
+    var msgs = document.getElementById('hero-chat-messages');
+    if (!msgs) return;
+    var userMsgs = msgs.querySelectorAll('.bellchat-message.user');
+    userMsgs.forEach(function(m) {
+      setTimeout(function() { m.classList.add('read'); }, 300);
+    });
   }
 
   function setHeroInputDisabled(disabled) {
@@ -12607,6 +12620,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showHeroTyping(false);
 
       if (data.reply) {
+        markMessagesRead(); // Haken werden blau
         addHeroMessage('bot', data.reply);
         heroChatState.step = data.step || heroChatState.step;
 
@@ -12649,6 +12663,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var text = input.value.trim();
     if (!text || heroChatState.waiting) return;
     input.value = '';
+    // Keyboard schließen
+    input.blur();
     addHeroMessage('user', text);
     // Speichere erste User-Antwort als Branche
     if (!heroChatState.answers) heroChatState.answers = {};
