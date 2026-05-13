@@ -5089,26 +5089,14 @@ video {
 
   } /* end @media (max-width: 768px) */
 
-  /* Hero Chat — CTA Button Breite passend zum Phone */
+  /* Hero Chat — phone frame identisch zu bellchat-modal, kein Size Override */
   #hero-chat-wrapper button.hero-cta-button {
-    width: 300px;
+    width: 340px;
   }
-  /* Hero Phone Größe — immer vollständig sichtbar */
-  #hero-chat-wrapper .bellchat-phone-frame {
-    height: 560px !important;
-    max-width: 300px !important;
-    border-radius: 52px !important;
-    width: 100% !important;
-  }
-  @media (max-width: 768px) {
-    #hero-chat-wrapper .bellchat-phone-frame {
-      height: 460px !important;
-      max-width: 240px !important;
-      border-radius: 46px !important;
-    }
-    #hero-chat-wrapper button.hero-cta-button {
-      width: 240px !important;
-    }
+  /* Hero: kleinere Schrift damit weniger Zeilenumbrüche */
+  #hero-chat-wrapper .bellchat-message {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
   }
 
 
@@ -5560,10 +5548,10 @@ window.gtag('consent', 'default', {
                     <use href="#bell-icon"/>
                   </svg>
                 </div>
-                <div class="bellchat-header-info">
+                  <div class="bellchat-header-info">
                   <div class="bellchat-header-name">Mr. Bell</div>
                   <div class="bellchat-header-status">
-                    <span>online · Ihr KI-Assistent</span>
+                    <span>online</span>
                   </div>
                 </div>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
@@ -5595,7 +5583,7 @@ window.gtag('consent', 'default', {
                 <textarea
                   id="hero-chat-input"
                   class="bellchat-input"
-                  placeholder="Antworte Mr. Bell..."
+                  placeholder="Schreib etwas..."
                   rows="1"
                   maxlength="500"
                   disabled
@@ -11795,7 +11783,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <textarea
             id="bellchat-input"
             class="bellchat-input"
-            placeholder="Antworte Mr. Bell..."
+            placeholder="Schreib etwas..."
             rows="1"
             maxlength="500"
             aria-label="Deine Nachricht an Mr. Bell"></textarea>
@@ -12581,7 +12569,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showHeroTyping(show) {
     var el = document.getElementById('hero-chat-typing');
-    if (el) el.style.display = show ? 'block' : 'none';
+    if (!el) return;
+    el.style.display = show ? 'flex' : 'none';
+    if (show) {
+      // Scroll nach unten damit Typing sichtbar ist
+      var msgs = document.getElementById('hero-chat-messages');
+      if (msgs) msgs.scrollTop = msgs.scrollHeight;
+    }
   }
 
   function setHeroInputDisabled(disabled) {
