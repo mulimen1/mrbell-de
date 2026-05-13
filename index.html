@@ -12696,9 +12696,6 @@ document.addEventListener('DOMContentLoaded', () => {
     var text = input.value.trim();
     if (!text || heroChatState.waiting) return;
     input.value = '';
-    // Keyboard schließen + Phone-Frame zurücksetzen
-    input.blur();
-    setTimeout(resetHeroChat, 100);
     addHeroMessage('user', text);
     // Speichere erste User-Antwort als Branche
     if (!heroChatState.answers) heroChatState.answers = {};
@@ -12706,6 +12703,11 @@ document.addEventListener('DOMContentLoaded', () => {
       heroChatState.answers.industry = text;
     }
     await sendHeroBotMessage(text);
+    // Keyboard schließen NACH dem Senden
+    setTimeout(function() {
+      input.blur();
+      resetHeroChat();
+    }, 200);
   };
 
   // Hero Chat initialisieren
@@ -12750,7 +12752,6 @@ document.addEventListener('DOMContentLoaded', () => {
       var input = document.getElementById('hero-chat-input');
       if (input) {
         input.addEventListener('focus', function() { setTimeout(updateHeroChat, 300); });
-        input.addEventListener('blur', function() { setTimeout(resetHeroChat, 100); });
       }
     });
   } else {
@@ -12758,7 +12759,6 @@ document.addEventListener('DOMContentLoaded', () => {
     var _input = document.getElementById('hero-chat-input');
     if (_input) {
       _input.addEventListener('focus', function() { setTimeout(updateHeroChat, 300); });
-      _input.addEventListener('blur', function() { setTimeout(resetHeroChat, 100); });
     }
   }
 })();
