@@ -3700,14 +3700,15 @@ video {
 .bellchat-typing {
   align-self: flex-start;
   background: white;
-  padding: 14px 18px;
+  padding: 10px 14px;
   border-radius: 18px;
   border-bottom-left-radius: 4px;
   display: none;
-  gap: 4px;
+  gap: 5px;
   align-items: center;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
   animation: bellchat-message-in 0.3s ease;
+  max-width: fit-content;
 }
 
 .bellchat-typing.visible {
@@ -3717,7 +3718,7 @@ video {
 .bellchat-typing-dot {
   width: 7px;
   height: 7px;
-  background: #C2410C;
+  background: #999;
   border-radius: 50%;
   opacity: 0.4;
   animation: bellchat-typing 1.4s ease-in-out infinite;
@@ -5520,7 +5521,7 @@ window.gtag('consent', 'default', {
         <!-- Glow -->
         <div style="position: absolute; inset: -20px; background: radial-gradient(circle at 50% 60%, rgba(194,65,12,0.10), transparent 70%); border-radius: 50%; z-index: 0; pointer-events: none;"></div>
 
-        <div id="hero-chat-wrapper" style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <div id="hero-chat-wrapper" style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 24px;">
           <!-- Exakt gleicher Phone Frame wie bellchat-modal -->
           <div class="bellchat-phone-frame" style="cursor: default;">
             <div class="bellchat-side-btn left top1"></div>
@@ -5601,7 +5602,7 @@ window.gtag('consent', 'default', {
           </div>
 
           <!-- TRUST ICONS -->
-          <div class="flex items-center justify-center gap-5 text-sm text-anthracite/50 flex-wrap" style="margin-top: 4px;">
+          <div class="flex items-center justify-center gap-5 text-sm text-anthracite/50 flex-wrap" style="margin-top: 16px;">
             <div class="flex items-center gap-1.5">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               <span>Setup in 48h</span>
@@ -5648,10 +5649,10 @@ window.gtag('consent', 'default', {
     </div>
 
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative">
-      <!-- Phone -->
-      <div class="space-y-6">
+      <!-- Phone — auf Mobile versteckt -->
+      <div class="hidden lg:block space-y-6">
         <div class="text-center lg:text-left max-w-md mx-auto lg:mx-0">
-          <span class="text-xs font-mono text-wa-600 mb-2 block">01 — KUNDE SCHREIBT</span>
+          <span class="text-xs font-mono text-wa-600 mb-2 block">KUNDE SCHREIBT</span>
           <h3 class="font-display text-2xl md:text-3xl font-semibold text-anthracite mb-3">So sieht ein Chat<br>für Ihre Kunden aus</h3>
           <p class="text-anthracite/60 leading-relaxed">Ihre Kunden bekommen sofort eine Antwort — auch um 3 Uhr nachts. Mr. Bell kennt Ihre Öffnungszeiten, Services und FAQ.</p>
         </div>
@@ -5729,7 +5730,7 @@ window.gtag('consent', 'default', {
       <!-- Sheets -->
       <div class="space-y-6">
         <div class="text-center lg:text-left max-w-md mx-auto lg:mx-0">
-          <span class="text-xs font-mono text-wa-600 mb-2 block">02 — SIE SEHEN ALLES</span>
+          <span class="text-xs font-mono text-wa-600 mb-2 block">SIE SEHEN ALLES</span>
           <h3 class="font-display text-2xl md:text-3xl font-semibold text-anthracite mb-3">Ihre Übersicht —<br>jede Anfrage gespeichert</h3>
           <p class="text-anthracite/60 leading-relaxed">Alle Kontakte, Wünsche und Buchungen automatisch in Google Sheets. Greifen Sie zu, wenn Sie Zeit haben.</p>
         </div>
@@ -12609,16 +12610,23 @@ document.addEventListener('DOMContentLoaded', () => {
         addHeroMessage('bot', data.reply);
         heroChatState.step = data.step || heroChatState.step;
 
-        // CTA zeigen wenn Bot CTA_READY signalisiert oder nach 2 Antworten
-        if ((data.reply && data.reply.includes('[CTA_READY]')) || botMsgCount >= 2) {
+        // CTA zeigen nur wenn Bot [CTA_READY] signalisiert
+        if (data.reply && data.reply.includes('[CTA_READY]')) {
           if (!heroChatState.ctaShown) {
             heroChatState.ctaShown = true;
+            // Personalisierter CTA-Text mit Branche
+            var industry = heroChatState.answers && heroChatState.answers.industry ? heroChatState.answers.industry : '';
+            var ctaText = industry
+              ? 'Jetzt für ' + industry + ' einrichten — 5 Tage gratis'
+              : 'Jetzt einrichten — 5 Tage gratis';
             setTimeout(function() {
               var cta = document.getElementById('hero-chat-cta');
+              var ctaSpan = cta ? cta.querySelector('span') : null;
               var inputArea = document.getElementById('hero-chat-input-area');
+              if (ctaSpan) ctaSpan.textContent = ctaText;
               if (cta) cta.style.display = 'block';
               if (inputArea) inputArea.style.display = 'none';
-            }, 600);
+            }, 800);
           }
         } else {
           setHeroInputDisabled(false);
@@ -12642,6 +12650,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!text || heroChatState.waiting) return;
     input.value = '';
     addHeroMessage('user', text);
+    // Speichere erste User-Antwort als Branche
+    if (!heroChatState.answers) heroChatState.answers = {};
+    if (!heroChatState.answers.industry && heroChatState.messages.filter(function(m){ return m.role==='user' && m.content !== '__START__'; }).length === 0) {
+      heroChatState.answers.industry = text;
+    }
     await sendHeroBotMessage(text);
   };
 
