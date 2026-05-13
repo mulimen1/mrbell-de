@@ -5105,7 +5105,12 @@ video {
   }
 
 
-  /* ─── CCM19 Cookie Banner ─── */
+  /* Hero Phone — scroll fix only */
+  #view-welcome .bellchat-phone-frame {
+    transform: translateZ(0);
+  }
+
+    /* ─── CCM19 Cookie Banner ─── */
   /* Hide settings icon after consent */
   .ccm-settings-summoner { display: none !important; }
   /* Hide "Made by CCM19" */
@@ -5551,8 +5556,8 @@ window.gtag('consent', 'default', {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </div>
-              <div id="hq-messages" class="bellchat-messages" style="padding-bottom: 8px;"></div>
-              <div id="hq-buttons" style="background: #ECE5DD; padding: 8px 10px 10px; display: flex; flex-wrap: wrap; gap: 8px; flex-shrink: 0; justify-content: center;"></div>
+              <div id="hq-messages" class="bellchat-messages" style="padding-bottom: 4px;"></div>
+              <div id="hq-buttons" style="background: #ECE5DD; padding: 4px 10px 10px; display: flex; flex-wrap: wrap; gap: 8px; flex-shrink: 0; justify-content: center;"></div>
               <div class="bellchat-home-indicator"><div></div></div>
             </div>
           </div>
@@ -5578,6 +5583,37 @@ window.gtag('consent', 'default', {
         </div>
       </div>
     </div><!-- end flex -->
+
+    <!-- Marketing Block + CTA -->
+    <div class="text-center max-w-2xl mx-auto animate-fade-up" style="padding-top: 72px; padding-bottom: 20px;">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-wa-600 mb-5">Ihr Assistent. Ihr Stil.</p>
+      <h2 class="font-display text-3xl md:text-4xl font-semibold text-anthracite leading-tight mb-8">
+        Konfigurieren Sie Ihren<br>
+        <span class="italic font-normal" style="color: #C2410C;">eigenen KI-Assistenten</span>
+      </h2>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 text-sm text-anthracite/70">
+        <div class="flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Antwortet 24/7 — auch nachts</span>
+        </div>
+        <span class="hidden sm:block text-anthracite/20">·</span>
+        <div class="flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Mit Ihrem Namen</span>
+        </div>
+        <span class="hidden sm:block text-anthracite/20">·</span>
+        <div class="flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Auf Ihr Unternehmen individualisiert</span>
+        </div>
+      </div>
+      <button onclick="switchView('step-intro')" class="hero-cta-button group relative inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full bg-wa-500 text-white font-bold text-lg hover:bg-wa-400 transition-all hover:scale-[1.03]">
+        <span class="relative z-10">Eigenen Mr. Bell konfigurieren</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="relative z-10 transition-transform group-hover:translate-x-1"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span class="hero-cta-pulse" aria-hidden="true"></span>
+      </button>
+      <p class="text-xs text-anthracite/40 mt-3">5 Tage kostenlos · Keine Kreditkarte nötig</p>
+    </div>
 
   </section>
 
@@ -11775,31 +11811,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================================
   window.openBellChat = openBellChat;
   window.heroBellClick = function(){
-    // Wenn bereits proceeded oder locked → direkt zum Bundle-Pricing
-    if(sessionStorage.getItem("bellchat_locked")==="true"||sessionStorage.getItem("bellchat_proceeded")==="true"){
-      openPreiseModal();
-    } else {
-      // Wenn vom Hero-CTA: direkt zum Bundle-Pricing ohne Bell-Chat Overlay
-      if (typeof bundleState !== 'undefined') {
-        bundleState.pioneer6 = false;
-        bundleState.pioneer3 = false;
-        bundleState.standard = false;
-      }
-      editingFromSummary = false;
-      sessionStorage.setItem("bellchat_proceeded", "true");
-      // Meta Pixel Lead event
-      if (typeof fbq === 'function') fbq('track', 'Lead');
-      // Sheet tracking
-      try {
-        var startId = ensureOnboardingId();
-        fetch(window.location.origin + '/api/sheet-started', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ onboardingId: startId, startedAt: new Date().toISOString() })
-        }).catch(function() {});
-      } catch(e) {}
-      switchView('step-intro');
+    // Immer zu step-intro — nie Preise-Modal öffnen
+    if (typeof bundleState !== 'undefined') {
+      bundleState.pioneer6 = false;
+      bundleState.pioneer3 = false;
+      bundleState.standard = false;
     }
+    editingFromSummary = false;
+    sessionStorage.setItem("bellchat_proceeded", "true");
+    if (typeof fbq === 'function') fbq('track', 'Lead');
+    try {
+      var startId = ensureOnboardingId();
+      fetch(window.location.origin + '/api/sheet-started', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ onboardingId: startId, startedAt: new Date().toISOString() })
+      }).catch(function() {});
+    } catch(e) {}
+    switchView('step-intro');
   };
   window.closeBellChat = closeBellChat;
   window.sendBellChatMessage = sendBellChatMessage;
