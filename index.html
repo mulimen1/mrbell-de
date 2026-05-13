@@ -12654,11 +12654,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (data.reply) {
         markMessagesRead(); // Haken werden blau
-        addHeroMessage('bot', data.reply);
+        // [CTA_READY] aus der angezeigten Nachricht entfernen
+        var displayReply = data.reply.replace('[CTA_READY]', '').trim();
+        if (displayReply) addHeroMessage('bot', displayReply);
         heroChatState.step = data.step || heroChatState.step;
 
         // CTA zeigen nur wenn Bot [CTA_READY] signalisiert
-        if (data.reply && data.reply.includes('[CTA_READY]')) {
+        if (data.reply.includes('[CTA_READY]')) {
           if (!heroChatState.ctaShown) {
             heroChatState.ctaShown = true;
             // Personalisierter CTA-Text mit Branche
