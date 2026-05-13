@@ -5087,6 +5087,26 @@ video {
 
   } /* end @media (max-width: 768px) */
 
+  /* Hero Chat Mobile */
+  @media (max-width: 1024px) {
+    #hero-chat-wrapper {
+      max-width: 340px !important;
+    }
+    #hero-chat-messages {
+      min-height: 220px !important;
+      max-height: 260px !important;
+    }
+  }
+  @media (max-width: 640px) {
+    #hero-chat-wrapper {
+      max-width: 300px !important;
+    }
+    #hero-chat-messages {
+      min-height: 180px !important;
+      max-height: 220px !important;
+    }
+  }
+
 
   /* ─── CCM19 Cookie Banner ─── */
   /* Hide settings icon after consent */
@@ -5488,46 +5508,139 @@ window.gtag('consent', 'default', {
 
 <!-- WELCOME -->
 <div id="view-welcome" class="view">
-  <section class="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden" style="padding-top: 120px; padding-bottom: 140px;">
+  <!-- HERO — Split Layout: Text links, Chat rechts -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-12 relative overflow-hidden" style="padding-top: 100px; padding-bottom: 80px;">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-    <div class="text-center max-w-4xl mx-auto animate-fade-up">
-      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-anthracite leading-[1.1] tracking-tight" style="margin-bottom: 32px;">
-        Ihr eigener<br>
-        <span class="italic font-normal" style="color: #C2410C; font-size: 1.4em; display: inline-block; line-height: 1; margin: 0.1em 0;">KI-Assistent</span><br>
-        über WhatsApp — individuell konfiguriert
-      </h1>
+      <!-- LEFT: Text + Trust -->
+      <div class="animate-fade-up text-center lg:text-left">
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-anthracite leading-[1.1] tracking-tight" style="margin-bottom: 24px;">
+          Ihr eigener<br>
+          <span class="italic font-normal" style="color: #C2410C; font-size: 1.4em; display: inline-block; line-height: 1; margin: 0.1em 0;">KI-Assistent</span><br>
+          über WhatsApp
+        </h1>
 
-      <p class="text-base md:text-lg text-anthracite/60 max-w-xl mx-auto leading-relaxed font-light" style="margin-bottom: 80px;">
-        In bis zu 48 Stunden einsatzbereit. Beantwortet Ihre Kundenanfragen automatisch — rund um die Uhr, in über 100 Sprachen, im Stil Ihres Unternehmens.
-      </p>
+        <p class="text-base md:text-lg text-anthracite/60 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light" style="margin-bottom: 32px;">
+          In bis zu 48 Stunden einsatzbereit. Beantwortet Ihre Kundenanfragen automatisch — rund um die Uhr, in über 100 Sprachen, im Stil Ihres Unternehmens.
+        </p>
 
-      <!-- HERO CTA — Statement-Piece -->
-      <button onclick="heroBellClick()" class="hero-cta-button group relative inline-flex items-center justify-center gap-3 px-10 py-5 md:px-12 md:py-6 rounded-full bg-wa-500 text-white font-bold text-lg md:text-xl hover:bg-wa-400 transition-all hover:scale-[1.03]">
-        <span class="relative z-10">Probiere Mr. Bell aus</span>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="relative z-10 transition-transform group-hover:translate-x-1 flex-shrink-0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        <span class="hero-cta-pulse" aria-hidden="true"></span>
-      </button>
-
-      <div class="flex items-center justify-center gap-5 lg:gap-7 text-sm text-anthracite/50 flex-wrap" style="margin-top: 64px;">
-        <div class="flex items-center gap-1.5">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span>Setup in bis zu 48h</span>
+        <div class="flex items-center justify-center lg:justify-start gap-5 text-sm text-anthracite/50 flex-wrap" style="margin-bottom: 32px;">
+          <div class="flex items-center gap-1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Setup in bis zu 48h</span>
+          </div>
+          <span class="text-anthracite/20">·</span>
+          <div class="flex items-center gap-1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            <span>Jederzeit kündbar</span>
+          </div>
+          <span class="text-anthracite/20">·</span>
+          <div class="flex items-center gap-1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Made in Germany</span>
+          </div>
         </div>
-        <span class="text-anthracite/20">·</span>
-        <div class="flex items-center gap-1.5">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-          <span>Jederzeit kündbar</span>
-        </div>
-        <span class="text-anthracite/20">·</span>
-        <div class="flex items-center gap-1.5">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>Made in Germany</span>
+
+        <!-- CTA Button — für die die direkt ins Onboarding wollen -->
+        <button onclick="heroBellClick()" class="hero-cta-button group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-wa-500 text-white font-bold text-base hover:bg-wa-400 transition-all hover:scale-[1.03]">
+          <span class="relative z-10">Jetzt kostenlos testen</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="relative z-10 transition-transform group-hover:translate-x-1 flex-shrink-0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span class="hero-cta-pulse" aria-hidden="true"></span>
+        </button>
+        <p class="text-xs text-anthracite/40 mt-3">5 Tage kostenlos · Keine Kreditkarte nötig</p>
+      </div>
+
+      <!-- RIGHT: Embedded Bell Chat — 1:1 bellchat-phone-frame -->
+      <div class="flex justify-center lg:justify-end animate-fade-up" style="animation-delay: 0.15s; position: relative;">
+
+        <!-- Glow -->
+        <div style="position: absolute; inset: -20px; background: radial-gradient(circle at 50% 60%, rgba(194,65,12,0.10), transparent 70%); border-radius: 50%; z-index: 0; pointer-events: none;"></div>
+
+        <div id="hero-chat-wrapper" style="position: relative; z-index: 1;">
+          <!-- Exakt gleicher Phone Frame wie bellchat-modal -->
+          <div class="bellchat-phone-frame" style="cursor: default; box-shadow: 0 35px 90px rgba(26,26,46,0.28), 0 12px 30px rgba(26,26,46,0.18);">
+            <div class="bellchat-side-btn left top1"></div>
+            <div class="bellchat-side-btn left top2"></div>
+            <div class="bellchat-side-btn left top3"></div>
+            <div class="bellchat-side-btn right"></div>
+
+            <div class="bellchat-phone-screen">
+
+              <!-- iOS Status Bar — identisch zu bellchat -->
+              <div class="bellchat-statusbar">
+                <span id="hero-chat-clock" class="bellchat-clock">14:23</span>
+                <div class="bellchat-island"></div>
+                <div class="bellchat-statusbar-icons">
+                  <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.5"/><rect x="4.5" y="5" width="3" height="6" rx="0.5"/><rect x="9" y="2.5" width="3" height="8.5" rx="0.5"/><rect x="13.5" y="0" width="3" height="11" rx="0.5"/></svg>
+                  <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M7.5 1C4.5 1 1.8 2.2 0 4.1l1.4 1.4C2.9 4 5.1 3 7.5 3s4.6 1 6.1 2.5L15 4.1C13.2 2.2 10.5 1 7.5 1zm0 4C5.6 5 3.9 5.7 2.7 6.9l1.4 1.4C5 7.4 6.2 7 7.5 7s2.5.4 3.4 1.3l1.4-1.4C11.1 5.7 9.4 5 7.5 5zm0 4c-.7 0-1.3.3-1.8.7L7.5 11l1.8-1.3C8.8 9.3 8.2 9 7.5 9z"/></svg>
+                  <svg width="25" height="11" viewBox="0 0 25 11" fill="none"><rect x="0.5" y="0.5" width="22" height="10" rx="2.5" stroke="currentColor" stroke-opacity="0.4"/><rect x="2" y="2" width="19" height="7" rx="1" fill="currentColor"/><rect x="23" y="3.5" width="1.5" height="4" rx="0.7" fill="currentColor" opacity="0.4"/></svg>
+                </div>
+              </div>
+
+              <!-- WhatsApp Header — identisch, aber OHNE close button, Avatar mit weißem BG -->
+              <div class="bellchat-header" style="cursor: default;">
+                <div class="bellchat-avatar" aria-hidden="true" style="background: white;">
+                  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#bell-icon"/>
+                  </svg>
+                </div>
+                <div class="bellchat-header-info">
+                  <div class="bellchat-header-name">Mr. Bell</div>
+                  <div class="bellchat-header-status">
+                    <span>online · Ihr KI-Assistent</span>
+                  </div>
+                </div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bellchat-header-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+
+              <!-- Messages -->
+              <div id="hero-chat-messages" class="bellchat-messages">
+                <!-- Dynamisch -->
+              </div>
+
+              <!-- CTA (erscheint nach Conversation) -->
+              <div id="hero-chat-cta" style="display: none; padding: 10px 12px; background: #ECE5DD; border-top: 1px solid rgba(0,0,0,0.08); flex-shrink: 0;">
+                <button onclick="heroBellClick()" style="width: 100%; background: #C2410C; color: white; border: none; border-radius: 24px; padding: 12px; font-family: Inter, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                  <span>Jetzt einrichten — 5 Tage gratis</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+
+              <!-- Typing Indicator -->
+              <div id="hero-chat-typing" class="bellchat-typing" style="margin: 0 12px 8px; display: none;" aria-hidden="true">
+                <span class="bellchat-typing-dot"></span>
+                <span class="bellchat-typing-dot"></span>
+                <span class="bellchat-typing-dot"></span>
+              </div>
+
+              <!-- Input Area — identisch zu bellchat -->
+              <div class="bellchat-input-area" id="hero-chat-input-area">
+                <textarea
+                  id="hero-chat-input"
+                  class="bellchat-input"
+                  placeholder="Antworte Mr. Bell..."
+                  rows="1"
+                  maxlength="500"
+                  aria-label="Deine Nachricht"
+                  onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendHeroChatMessage();}"></textarea>
+                <button id="hero-chat-send" class="bellchat-send" onclick="sendHeroChatMessage()" aria-label="Senden">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+              </div>
+
+              <!-- Home Indicator -->
+              <div class="bellchat-home-indicator"><div></div></div>
+
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   </section>
 
-  <div style="height: 40px;"></div>
+  <div style="height: 20px;"></div>
 
   <!-- HOW IT WORKS -->
   <section class="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
@@ -11729,7 +11842,33 @@ document.addEventListener('DOMContentLoaded', () => {
   // PUBLIC API (auf window.* exponieren)
   // ============================================
   window.openBellChat = openBellChat;
-  window.heroBellClick = function(){ if(sessionStorage.getItem("bellchat_locked")==="true"||sessionStorage.getItem("bellchat_proceeded")==="true"){switchView("step-bundle-pricing");}else{openBellChat();} };
+  window.heroBellClick = function(){
+    // Wenn bereits proceeded oder locked → direkt zum Bundle-Pricing
+    if(sessionStorage.getItem("bellchat_locked")==="true"||sessionStorage.getItem("bellchat_proceeded")==="true"){
+      switchView("step-bundle-pricing");
+    } else {
+      // Wenn vom Hero-CTA: direkt zum Bundle-Pricing ohne Bell-Chat Overlay
+      if (typeof bundleState !== 'undefined') {
+        bundleState.pioneer6 = false;
+        bundleState.pioneer3 = false;
+        bundleState.standard = false;
+      }
+      editingFromSummary = false;
+      sessionStorage.setItem("bellchat_proceeded", "true");
+      // Meta Pixel Lead event
+      if (typeof fbq === 'function') fbq('track', 'Lead');
+      // Sheet tracking
+      try {
+        var startId = ensureOnboardingId();
+        fetch(window.location.origin + '/api/sheet-started', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ onboardingId: startId, startedAt: new Date().toISOString() })
+        }).catch(function() {});
+      } catch(e) {}
+      switchView('step-bundle-pricing');
+    }
+  };
   window.closeBellChat = closeBellChat;
   window.sendBellChatMessage = sendBellChatMessage;
   window.bellChatProceed = bellChatProceed;
@@ -12398,6 +12537,157 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.addEventListener('scroll', updateQuizBtn, { passive: true });
   setInterval(updateQuizBtn, 1000);
+})();
+
+// ============================================
+// HERO EMBEDDED CHAT
+// ============================================
+(function() {
+  var heroChatState = {
+    messages: [],
+    step: 0,
+    answers: {},
+    waiting: false,
+    ctaShown: false
+  };
+
+  var SYSTEM_PROMPT = "Du bist Mr. Bell, ein freundlicher WhatsApp-KI-Assistent für deutsche Dienstleister. Du hilfst Friseuren, Restaurants, Handwerkern und ähnlichen Betrieben dabei, Kundenanfragen automatisch zu beantworten. Führe eine kurze, natürliche Demo-Unterhaltung auf Deutsch. Stelle maximal 2 kurze Fragen (z.B. Branche und einen typischen Kundenwunsch), dann zeige kurz wie du helfen kannst. Sei freundlich, professionell und sehr kurz (max 2 Sätze pro Nachricht). Antworte IMMER auf Deutsch. Kein Markdown, keine Listen.";
+
+  function addHeroMessage(role, text) {
+    var container = document.getElementById('hero-chat-messages');
+    if (!container) return;
+
+    var isBot = role === 'bot';
+    var msgDiv = document.createElement('div');
+    msgDiv.className = 'bellchat-message ' + (isBot ? 'bot' : 'user');
+    msgDiv.textContent = text;
+
+    // Timestamp
+    var ts = document.createElement('span');
+    var now = new Date();
+    ts.className = 'bellchat-message-time';
+    ts.textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    msgDiv.appendChild(ts);
+
+    container.appendChild(msgDiv);
+    container.scrollTop = container.scrollHeight;
+
+    heroChatState.messages.push({ role: isBot ? 'assistant' : 'user', content: text });
+  }
+
+  function showHeroTyping(show) {
+    var el = document.getElementById('hero-chat-typing');
+    if (el) el.style.display = show ? 'block' : 'none';
+  }
+
+  function setHeroInputDisabled(disabled) {
+    var input = document.getElementById('hero-chat-input');
+    var btn = document.getElementById('hero-chat-send');
+    if (input) { input.disabled = disabled; if (!disabled) input.focus(); }
+    if (btn) btn.disabled = disabled;
+  }
+
+  async function sendHeroBotMessage(userText) {
+    if (heroChatState.waiting) return;
+    heroChatState.waiting = true;
+    setHeroInputDisabled(true);
+    showHeroTyping(true);
+
+    var botMsgCount = heroChatState.messages.filter(function(m) { return m.role === 'assistant'; }).length;
+
+    try {
+      var res = await fetch('/api/bell-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          history: heroChatState.messages.slice(-8),
+          step: heroChatState.step
+        })
+      });
+      var data = await res.json();
+      showHeroTyping(false);
+
+      if (data.reply) {
+        addHeroMessage('bot', data.reply);
+        heroChatState.step = data.step || heroChatState.step;
+
+        // CTA zeigen wenn Bot CTA_READY signalisiert oder nach 2 Antworten
+        if ((data.reply && data.reply.includes('[CTA_READY]')) || botMsgCount >= 2) {
+          if (!heroChatState.ctaShown) {
+            heroChatState.ctaShown = true;
+            setTimeout(function() {
+              var cta = document.getElementById('hero-chat-cta');
+              var inputArea = document.getElementById('hero-chat-input-area');
+              if (cta) cta.style.display = 'block';
+              if (inputArea) inputArea.style.display = 'none';
+            }, 600);
+          }
+        } else {
+          setHeroInputDisabled(false);
+        }
+      } else {
+        showHeroTyping(false);
+        setHeroInputDisabled(false);
+      }
+    } catch(e) {
+      showHeroTyping(false);
+      addHeroMessage('bot', 'Kurze Verbindungsstörung — bitte gleich nochmal versuchen.');
+      setHeroInputDisabled(false);
+    }
+    heroChatState.waiting = false;
+  }
+
+  window.sendHeroChatMessage = async function() {
+    var input = document.getElementById('hero-chat-input');
+    if (!input) return;
+    var text = input.value.trim();
+    if (!text || heroChatState.waiting) return;
+    input.value = '';
+    addHeroMessage('user', text);
+    await sendHeroBotMessage(text);
+  };
+
+  // Hero Chat initialisieren
+  function initHeroChat() {
+    // Uhr setzen
+    var clock = document.getElementById('hero-chat-clock');
+    if (clock) {
+      var now = new Date();
+      clock.textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    }
+
+    // Begrüßung via API — gleich wie echter Bell-Chat
+    setTimeout(function() {
+      showHeroTyping(true);
+      fetch('/api/bell-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          history: [{ role: 'user', content: '__START__' }],
+          step: 0
+        })
+      }).then(function(r){ return r.json(); }).then(function(data) {
+        showHeroTyping(false);
+        if (data.reply) {
+          addHeroMessage('bot', data.reply);
+        } else {
+          addHeroMessage('bot', 'Hallo! 👋 Ich könnte Ihr neuer digitaler Assistent für WhatsApp Business sein. Damit wir sehen ob wir zueinander passen, habe ich 3 Fragen an Sie. Aber bevor wir loslegen — haben Sie noch Fragen an mich?');
+        }
+        setHeroInputDisabled(false);
+      }).catch(function() {
+        showHeroTyping(false);
+        addHeroMessage('bot', 'Hallo! 👋 Ich könnte Ihr neuer digitaler Assistent für WhatsApp Business sein. Damit wir sehen ob wir zueinander passen, habe ich 3 Fragen an Sie. Aber bevor wir loslegen — haben Sie noch Fragen an mich?');
+        setHeroInputDisabled(false);
+      });
+    }, 600);
+  }
+
+  // Start wenn DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroChat);
+  } else {
+    setTimeout(initHeroChat, 100);
+  }
 })();
 </script>
 </body>
