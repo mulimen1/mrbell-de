@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp Bot für Friseursalons — Automatisch antworten ab 49,99€/Mo | Mr. Bell</title>
+<meta name="description" content="WhatsApp Bot für Friseursalons: Kundenanfragen automatisch beantworten, Termine weiterleiten, 24/7 erreichbar. DSGVO-konform, ab 49,99€/Mo. Für deutsche Friseure gebaut.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mrbell.de/blog/whatsapp-bot-friseur.html">
+<meta property="og:title" content="WhatsApp Bot für Friseursalons — Mr. Bell">
+<meta property="og:description" content="Kundenanfragen auf WhatsApp automatisch beantworten. Speziell für deutsche Friseursalons. Ab 49,99€/Mo, DSGVO-konform.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://mrbell.de/blog/whatsapp-bot-friseur.html">
+
+<!-- FAQ Schema for AI/Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was kostet ein WhatsApp Bot für einen Friseursalon?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ein WhatsApp Bot für Friseursalons kostet je nach Anbieter zwischen 49,99€ und 2.500€ pro Monat. Mr. Bell bietet einen KI-gestützten WhatsApp-Assistenten speziell für deutsche Dienstleister ab 49,99€/Mo (Pioneer-Preis, brutto, Kleinunternehmer §19 UStG). Enterprise-Lösungen wie Chatarmin oder Superchat starten ab 500€/Mo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ist ein WhatsApp Bot für Friseure DSGVO-konform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, wenn der Bot über die offizielle WhatsApp Business API betrieben wird und der Anbieter Auftragsverarbeitungsverträge (AVV) mit allen Unterauftragsverarbeitern abgeschlossen hat. Mr. Bell nutzt die 360dialog WhatsApp Business API (Serverstandort Berlin), Anthropic Claude als KI-Provider (mit EU-Standardvertragsklauseln) und Vercel EU-Hosting (Frankfurt). Alle AVVs sind abgeschlossen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Brauche ich technische Kenntnisse für einen WhatsApp Bot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein. Bei Mr. Bell gibt es zwei Wege: Self-Service-Onboarding in 14 Schritten (ca. 30 Minuten) oder ein geführtes Setup per 60-Minuten-Videocall mit dem Gründer (149,99€ einmalig). Beim geführten Setup wird alles gemeinsam eingerichtet — Sie brauchen keinerlei technische Vorkenntnisse."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was passiert wenn der Bot meinen Kunden falsche Informationen gibt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mr. Bell nutzt eine Anti-Halluzinations-Schicht: Der Bot antwortet nur auf Basis der von Ihnen hinterlegten Informationen (Öffnungszeiten, Dienstleistungen, FAQ). Bei Fragen die er nicht sicher beantworten kann, leitet er an Sie weiter statt zu raten. Zusätzlich wird jede Konversation in Ihrem Google Sheet protokolliert — Sie behalten 100% Kontrolle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann der WhatsApp Bot Termine buchen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mr. Bell nimmt Terminanfragen entgegen, dokumentiert sie in Ihrem Google Sheet und leitet sie per E-Mail an Sie weiter. Der Bot bestätigt keine Termine eigenständig — die finale Bestätigung bleibt bei Ihnen. So behalten Sie die volle Kontrolle über Ihren Kalender."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie schnell antwortet der Bot auf Kundenanfragen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mr. Bell antwortet in der Regel innerhalb von 2-5 Sekunden auf eingehende WhatsApp-Nachrichten — 24 Stunden am Tag, 7 Tage die Woche, auch an Feiertagen. Ihre Kunden bekommen sofort eine freundliche, professionelle Antwort, auch wenn Sie gerade einen Kunden im Stuhl haben."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Article Schema (enhanced with image, wordCount, keywords per Video 1 best practices) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "WhatsApp Bot für Friseursalons: Automatisch antworten ab 49,99€/Mo",
+  "description": "Kompletter Guide zu WhatsApp Bots für Friseursalons in Deutschland. Kosten, DSGVO, Einrichtung, Vergleich mit Alternativen.",
+  "author": {
+    "@type": "Person",
+    "name": "Ben Deschler",
+    "jobTitle": "Gründer von Mr. Bell",
+    "url": "https://mrbell.de",
+    "sameAs": ["https://www.linkedin.com/in/bendeschler/"]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Mr. Bell",
+    "url": "https://mrbell.de",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mrbell.de/bell-logo.svg"
+    }
+  },
+  "datePublished": "2026-05-15",
+  "dateModified": "2026-05-15",
+  "mainEntityOfPage": "https://mrbell.de/blog/whatsapp-bot-friseur.html",
+  "wordCount": 1800,
+  "keywords": ["WhatsApp Bot Friseur", "WhatsApp Business Friseursalon", "WhatsApp automatisch antworten", "WhatsApp Bot DSGVO", "KI-Assistent Friseur", "WhatsApp Business API"],
+  "inLanguage": "de-DE",
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "Mr. Bell",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "49.99",
+      "priceCurrency": "EUR",
+      "priceValidUntil": "2026-12-31"
+    }
+  }
+}
+</script>
+
+<!-- Organization Schema (Video 1: establishes entity in knowledge graphs AI reference) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Mr. Bell",
+  "url": "https://mrbell.de",
+  "logo": "https://mrbell.de/bell-logo.svg",
+  "description": "Mr. Bell ist ein KI-gestützter WhatsApp-Assistent für deutsche kleine und mittelständische Dienstleister. Der Bot beantwortet Kundenanfragen automatisch, leitet Terminanfragen weiter und ist 24/7 erreichbar. Ab 49,99€/Mo, DSGVO-konform, Made in Germany.",
+  "foundingDate": "2026",
+  "founder": {
+    "@type": "Person",
+    "name": "Ben Deschler"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Scheibenstr. 2",
+    "addressLocality": "Baden-Baden",
+    "postalCode": "76530",
+    "addressCountry": "DE"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "kontakt@mrbell.de",
+    "contactType": "customer service",
+    "availableLanguage": ["German", "English"]
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/mrbell/"
+  ]
+}
+</script>
+
+<style>@font-face{font-family:"Inter";src:url("/fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap}@font-face{font-family:"Playfair Display";src:url("/fonts/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");font-weight:400 900;font-style:normal;font-display:swap}</style>
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; background: #f5f5f0; color: #1a1a2e; line-height: 1.75; margin: 0; padding: 0; }
+  .container { max-width: 760px; margin: 0 auto; padding: 60px 24px; }
+  h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.2rem; color: #C2410C; margin-bottom: 8px; line-height: 1.2; }
+  .subtitle { color: #666; margin-bottom: 40px; font-size: 0.95rem; }
+  h2 { font-family: 'Playfair Display', Georgia, serif; color: #1a1a2e; margin-top: 48px; margin-bottom: 16px; font-size: 1.4rem; }
+  h3 { font-family: 'Inter', system-ui, sans-serif; color: #1a1a2e; margin-top: 32px; margin-bottom: 12px; font-size: 1.1rem; font-weight: 600; }
+  p { color: #333; font-size: 0.95rem; margin-bottom: 16px; }
+  a { color: #C2410C; }
+  .back { display: inline-block; margin-bottom: 30px; color: #666; text-decoration: none; font-size: 0.9rem; }
+  .back:hover { color: #C2410C; }
+  hr { border: none; border-top: 1px solid #e5e5e5; margin: 40px 0; }
+  strong { color: #1a1a2e; }
+  ul { padding-left: 20px; margin: 12px 0 16px; }
+  li { color: #333; font-size: 0.95rem; margin-bottom: 6px; }
+
+  .info-box { background: white; border-left: 3px solid #C2410C; padding: 16px 20px; margin: 24px 0; border-radius: 4px; }
+  .info-box p { margin: 0; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.9rem; }
+  .compare-table th { background: #1a1a2e; color: white; padding: 12px 16px; text-align: left; font-weight: 500; }
+  .compare-table td { padding: 12px 16px; border-bottom: 1px solid #e5e5e5; }
+  .compare-table tr:nth-child(even) { background: white; }
+  .compare-table tr:nth-child(odd) { background: #fafaf7; }
+
+  .cta-box { background: #C2410C; color: white; padding: 32px; border-radius: 8px; margin: 40px 0; text-align: center; }
+  .cta-box h3 { color: white; margin-top: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 1.3rem; }
+  .cta-box p { color: rgba(255,255,255,0.9); }
+  .cta-box a { color: white; background: #1a1a2e; padding: 12px 28px; border-radius: 6px; text-decoration: none; display: inline-block; margin-top: 8px; font-weight: 500; font-size: 0.95rem; }
+  .cta-box a:hover { background: #2a2a3e; }
+
+  .faq-item { margin-bottom: 24px; }
+  .faq-item h3 { color: #C2410C; font-size: 1rem; margin-bottom: 4px; }
+  .faq-item p { margin-top: 4px; }
+
+  .reading-time { display: inline-block; background: #fef3eb; color: #C2410C; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; margin-bottom: 24px; }
+
+  @media (max-width: 768px) {
+    .container { padding: 32px 16px; }
+    h1 { font-size: clamp(1.5rem, 6vw, 2.2rem); word-wrap: break-word; overflow-wrap: break-word; }
+    h2 { font-size: 1.15rem; margin-top: 36px; }
+    p, li, td { font-size: 0.9rem; }
+    body { overflow-x: hidden; }
+    .compare-table { font-size: 0.8rem; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<a href="/" class="back">← Zurück zur Startseite</a>
+
+<h1>WhatsApp Bot für Friseursalons: Kundenanfragen automatisch beantworten</h1>
+<p class="subtitle">Von Ben Deschler · Aktualisiert: Mai 2026</p>
+<span class="reading-time">Lesezeit: 6 Minuten</span>
+
+<div class="info-box">
+<p><strong>Kurzfassung:</strong> Ein WhatsApp Bot beantwortet Kundenanfragen in Ihrem Friseursalon automatisch — 24/7, auch wenn Sie gerade einen Kunden im Stuhl haben. Kosten: ab 49,99€/Mo bei Mr. Bell, bis zu 2.500€/Mo bei Enterprise-Lösungen. Keine technischen Vorkenntnisse nötig.</p>
+</div>
+
+<h2>Warum verpassen Friseursalons so viele Kundenanfragen auf WhatsApp?</h2>
+
+<p>Es ist 19:43 Uhr. Ihr Salon ist seit einer Stunde geschlossen. Auf Ihrem Handy leuchten drei WhatsApp-Nachrichten: eine Terminanfrage für morgen, eine Frage zu Strähnchen-Preisen, eine Absage für übermorgen. Sie sitzen beim Abendessen mit der Familie.</p>
+
+<p>Das ist der Alltag von über 80.000 Friseursalons in Deutschland. Laut einer Erhebung des Zentralverbands des Deutschen Friseurhandwerks (2024) betreiben 73% aller Salons ihre Kundenkommunikation noch über private Smartphones. WhatsApp ist mit 60 Millionen täglichen Nutzern in Deutschland (Quelle: Statista, 2025) längst der wichtigste Kommunikationskanal — aber jede Nachricht, die Sie nicht beantworten, ist ein potenziell verlorener Kunde.</p>
+
+<p>Die Rechnung ist einfach: Wenn Sie 5 Anfragen pro Woche außerhalb der Öffnungszeiten verpassen und der durchschnittliche Ersttermin 35€ wert ist, verlieren Sie rund <strong>700€ Umsatz pro Monat</strong>. Bei einem Stammkunden mit einem Jahreswert von 180€ (ca. 5 Besuche à 36€) ist der langfristige Verlust noch deutlich höher.</p>
+
+<h2>Wie funktioniert ein WhatsApp Bot für Friseursalons?</h2>
+
+<p>Ein WhatsApp Bot ist ein KI-gestützter Assistent, der über die offizielle WhatsApp Business API automatisch auf eingehende Nachrichten antwortet. Er ersetzt nicht Ihre persönliche Beratung — er übernimmt die Erstreaktion, wenn Sie gerade nicht können.</p>
+
+<h3>Typischer Ablauf mit Mr. Bell</h3>
+
+<p>Eine Kundin schreibt um 20:14 Uhr: „Hallo, hätten Sie morgen um 15 Uhr noch einen Termin zum Schneiden frei?" Mr. Bell antwortet innerhalb von 3 Sekunden, begrüßt die Kundin freundlich, fragt nach dem Namen und leitet die Terminanfrage an Sie weiter — per E-Mail und als Eintrag in Ihrem Google Sheet. Am nächsten Morgen sehen Sie alle Anfragen auf einen Blick und können direkt bestätigen oder einen Alternativtermin vorschlagen.</p>
+
+<p>Der Bot beantwortet außerdem häufige Fragen zu Öffnungszeiten, Dienstleistungen und Preisen — basierend auf den Informationen, die Sie bei der Einrichtung hinterlegt haben. Bei Fragen, die er nicht sicher beantworten kann, leitet er an Sie weiter statt zu raten.</p>
+
+<h2>Was kostet ein WhatsApp Bot für einen Friseursalon in Deutschland?</h2>
+
+<p>Die Preisspanne ist groß — von unter 50€ bis über 2.000€ pro Monat. Hier ein Vergleich der relevanten Anbieter für den deutschen Markt (Stand Mai 2026):</p>
+
+<table class="compare-table">
+<thead>
+<tr>
+<th>Anbieter</th>
+<th>Preis/Monat</th>
+<th>Setup-Kosten</th>
+<th>Zielgruppe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mr. Bell</strong></td>
+<td>ab 49,99€</td>
+<td>149,99€ (geführt) oder kostenlos (Self-Service)</td>
+<td>Friseure, Restaurants, Handwerker</td>
+</tr>
+<tr>
+<td>Superchat</td>
+<td>ab 89€</td>
+<td>individuell</td>
+<td>E-Commerce, mittelständische Unternehmen</td>
+</tr>
+<tr>
+<td>Chatarmin</td>
+<td>ab 499€</td>
+<td>ab 2.000€</td>
+<td>E-Commerce-Brands, Konzerne</td>
+</tr>
+<tr>
+<td>Wati</td>
+<td>ab 39€ (USD)</td>
+<td>kostenlos</td>
+<td>internationale Unternehmen</td>
+</tr>
+<tr>
+<td>Userlike</td>
+<td>ab 90€</td>
+<td>kostenlos</td>
+<td>Kundensupport-Teams</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Zum Vergleich:</strong> Eine Aushilfe, die 2 Stunden pro Woche nur WhatsApp-Nachrichten beantwortet, kostet bei Mindestlohn (14,03€/h, Stand 2026) rund 121€ pro Monat — bei deutlich schlechterer Erreichbarkeit, da sie nicht um 22 Uhr und nicht am Wochenende arbeitet.</p>
+
+<h2>Ist ein WhatsApp Bot für Friseursalons DSGVO-konform?</h2>
+
+<p>Ja — wenn drei Voraussetzungen erfüllt sind:</p>
+
+<p><strong>1. Offizielle WhatsApp Business API.</strong> Der Bot muss über die offizielle API laufen, nicht über die normale WhatsApp-App oder inoffizielle Schnittstellen. Mr. Bell nutzt die 360dialog WhatsApp Business API mit Serverstandort Berlin.</p>
+
+<p><strong>2. Auftragsverarbeitungsverträge (AVV).</strong> Mit jedem Dienstleister, der personenbezogene Daten verarbeitet, muss ein AVV nach Art. 28 DSGVO abgeschlossen sein. Bei Mr. Bell sind AVVs mit allen Unterauftragsverarbeitern abgeschlossen: Anthropic (KI-Provider, USA, EU-Standardvertragsklauseln), 360dialog (WhatsApp API, Berlin), Vercel (Hosting, EU-Rechenzentrum Frankfurt), Stripe (Zahlungen).</p>
+
+<p><strong>3. Datenschutzerklärung.</strong> Ihre Datenschutzerklärung muss die Nutzung des WhatsApp Bots beschreiben — welche Daten erhoben werden, zu welchem Zweck, und auf welcher Rechtsgrundlage (in der Regel Art. 6 Abs. 1 lit. b DSGVO, Vertragsanbahnung).</p>
+
+<div class="info-box">
+<p><strong>Wichtig:</strong> KI-Anbieter wie Anthropic (Claude) oder OpenAI sitzen in den USA. Das ist DSGVO-konform, solange EU-Standardvertragsklauseln (SCCs) bestehen und ein AVV abgeschlossen ist. „Daten werden in Deutschland gespeichert" ist bei KI-gestützten Bots in der Regel nicht korrekt — achten Sie auf ehrliche Angaben Ihres Anbieters.</p>
+</div>
+
+<h2>Brauche ich einen IT-Experten um einen WhatsApp Bot einzurichten?</h2>
+
+<p>Nein. Bei Mr. Bell gibt es zwei Wege:</p>
+
+<p><strong>Self-Service:</strong> 14 geführte Schritte direkt auf der Website — Salonname, Branche, Öffnungszeiten, Dienstleistungen, FAQ eingeben. Dauert ca. 30 Minuten. Kostenlos im Abo enthalten.</p>
+
+<p><strong>Geführtes Setup:</strong> 60-Minuten-Videocall mit dem Gründer. Alles wird gemeinsam eingerichtet. Kostet 149,99€ einmalig, davon 50€ Gutschrift auf die erste Monatsrechnung wenn Sie nach der 5-tägigen Testphase Kunde bleiben.</p>
+
+<p>In beiden Fällen ist der Bot innerhalb von 48 Stunden live.</p>
+
+<h2>Was kann ein WhatsApp Bot für Friseure — und was nicht?</h2>
+
+<h3>Der Bot kann:</h3>
+<ul>
+<li>Terminanfragen rund um die Uhr entgegennehmen und an Sie weiterleiten</li>
+<li>Häufige Fragen beantworten (Öffnungszeiten, Preise, Dienstleistungen)</li>
+<li>In über 100 Sprachen antworten — automatisch in der Sprache des Kunden</li>
+<li>24/7 erreichbar sein, auch nachts, am Wochenende und im Urlaub</li>
+<li>Jede Konversation in Ihrem Google Sheet protokollieren</li>
+<li>Dringende Anfragen per E-Mail an Sie eskalieren</li>
+</ul>
+
+<h3>Der Bot kann nicht:</h3>
+<ul>
+<li>Termine eigenständig bestätigen oder in Ihren Kalender eintragen</li>
+<li>Zahlungen entgegennehmen</li>
+<li>Individuelle Beratung zu Haarfarben oder Styles ersetzen</li>
+<li>Fachliche Einschätzungen abgeben (z.B. „Passt Balayage zu meinem Haartyp?")</li>
+</ul>
+
+<p>Das ist Absicht: Der Bot nimmt Ihnen die Routine-Kommunikation ab, ersetzt aber nicht Ihre persönliche Expertise.</p>
+
+<h2>Kann ich einen WhatsApp Bot mit ChatGPT selbst bauen?</h2>
+
+<p>Ja, Sie könnten theoretisch einen eigenen Bot mit der OpenAI API oder einem No-Code-Tool bauen. In der Praxis scheitert das an drei Dingen:</p>
+
+<p><strong>WhatsApp Business API:</strong> Sie brauchen einen offiziellen API-Zugang über einen Business Solution Provider (wie 360dialog, Twilio oder MessageBird). Das allein kostet Zeit und oft monatliche Gebühren.</p>
+
+<p><strong>DSGVO-Compliance:</strong> Sie müssen selbst AVVs mit jedem Dienstleister abschließen, eine konforme Datenschutzerklärung erstellen und die technische Infrastruktur DSGVO-konform aufsetzen.</p>
+
+<p><strong>Wartung:</strong> Prompts anpassen, Fehler beheben, API-Änderungen nachziehen — das ist ein laufender Aufwand, den die wenigsten Salonbetreiber leisten können oder wollen.</p>
+
+<p>Mr. Bell bündelt all das in einem fertigen Produkt: API-Zugang, KI-Konfiguration, DSGVO-Compliance, laufende Wartung und persönlicher Support — ab 49,99€/Mo.</p>
+
+<div class="cta-box">
+<h3>Testen Sie Mr. Bell 5 Tage kostenlos</h3>
+<p>WhatsApp-Assistent für Ihren Friseursalon. Einrichtung in 48h, keine Kreditkarte nötig.</p>
+<a href="https://mrbell.de">Jetzt kostenlos testen →</a>
+</div>
+
+<h2>Häufige Fragen</h2>
+
+<div class="faq-item">
+<h3>Was kostet ein WhatsApp Bot für einen Friseursalon?</h3>
+<p>Zwischen 49,99€/Mo (Mr. Bell Pioneer-Preis) und 2.500€/Mo (Enterprise-Lösungen wie Chatarmin). Mr. Bell ist speziell für kleine und mittelständische Dienstleister gebaut und kostet einen Bruchteil der Konzern-Lösungen. Alle Preise bei Mr. Bell sind brutto (Kleinunternehmer §19 UStG).</p>
+</div>
+
+<div class="faq-item">
+<h3>Ist ein WhatsApp Bot für Friseure DSGVO-konform?</h3>
+<p>Ja, wenn der Bot über die offizielle WhatsApp Business API läuft und alle Auftragsverarbeitungsverträge abgeschlossen sind. Mr. Bell nutzt 360dialog (Berlin) für die WhatsApp API, Anthropic Claude als KI (mit EU-Standardvertragsklauseln) und Vercel EU-Hosting in Frankfurt.</p>
+</div>
+
+<div class="faq-item">
+<h3>Brauche ich technische Kenntnisse?</h3>
+<p>Nein. Mr. Bell bietet ein Self-Service-Onboarding in 14 Schritten (ca. 30 Minuten) oder ein geführtes Setup per 60-Minuten-Videocall mit dem Gründer (149,99€ einmalig).</p>
+</div>
+
+<div class="faq-item">
+<h3>Was wenn der Bot falsche Informationen gibt?</h3>
+<p>Mr. Bell antwortet nur auf Basis Ihrer hinterlegten Daten. Bei unsicheren Fragen leitet er an Sie weiter statt zu raten. Jede Konversation wird in Ihrem Google Sheet protokolliert — Sie behalten 100% Kontrolle und Transparenz.</p>
+</div>
+
+<div class="faq-item">
+<h3>Kann der Bot Termine direkt buchen?</h3>
+<p>Mr. Bell nimmt Terminanfragen entgegen und leitet sie an Sie weiter. Die finale Bestätigung bleibt bei Ihnen — so behalten Sie die volle Kontrolle über Ihren Kalender und vermeiden Doppelbuchungen.</p>
+</div>
+
+<div class="faq-item">
+<h3>Kann ich den Bot jederzeit kündigen?</h3>
+<p>Ja. Nach der Mindestlaufzeit (3 oder 6 Monate, je nach Plan) ist eine Kündigung mit 30 Tagen Frist zum Monatsende möglich. Eine E-Mail an kontakt@mrbell.de reicht.</p>
+</div>
+
+<hr>
+
+<div style="background: white; padding: 20px; border-radius: 6px; margin-top: 40px;">
+<p style="font-size: 0.9rem; color: #333; margin-bottom: 8px;"><strong>Über den Autor</strong></p>
+<p style="font-size: 0.85rem; color: #555; margin-bottom: 8px;">Ben Deschler ist Gründer von <a href="https://mrbell.de">Mr. Bell</a> und studiert International Finance & Accounting an der HSB Bremen. Er hat Mr. Bell als Self-Service SaaS-Produkt für deutsche Dienstleister entwickelt, nachdem er auf einer Asien-Reise gesehen hat, wie KMU dort WhatsApp-Automatisierung bereits als Standard nutzen. Der Tech-Stack von Mr. Bell basiert auf der 360dialog WhatsApp Business API, Anthropic Claude als KI und Vercel EU-Hosting.</p>
+<p style="font-size: 0.85rem; color: #555;">Kontakt: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> · Standorte: Bremen & Baden-Baden</p>
+</div>
+
+<p style="font-size: 0.85rem; color: #888; margin-top: 24px;">Weitere Artikel: <a href="/blog/whatsapp-business-automatisieren-handwerker.html">WhatsApp automatisieren für Handwerker</a> · <a href="/blog/whatsapp-bot-dsgvo-konform.html">DSGVO-konformer WhatsApp Bot</a> · <a href="/blog/">Alle Artikel</a></p>
+
+</div>
+</body>
+</html>
