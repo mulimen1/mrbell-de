@@ -5122,18 +5122,16 @@ video {
     transform: translateZ(0);
   }
 
-  /* Asien Bilder — garantiert gleiche Hoehe auf allen Geraeten */
+  /* Asien Bilder — aspect-ratio fuer saubere Proportionen auf allen Geraeten */
   .asien-image-wrapper {
-    height: 280px;
-  }
-  @media (min-width: 640px) {
-    .asien-image-wrapper { height: 340px; }
+    aspect-ratio: 4 / 5;
+    width: 100%;
   }
   @media (min-width: 768px) {
-    .asien-image-wrapper { height: 240px; }
+    .asien-image-wrapper { aspect-ratio: 1 / 1; }
   }
   @media (min-width: 1024px) {
-    .asien-image-wrapper { height: 300px; }
+    .asien-image-wrapper { aspect-ratio: 5 / 6; }
   }
   #view-step-quiz .bellchat-phone-screen {
     border-radius: 34px !important;
