@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geführtes Setup — Mr. Bell | WhatsApp-Assistent für Handwerksbetriebe</title>
+<meta name="description" content="Geführtes Setup für Ihren WhatsApp-Assistenten. 60-Min-Videocall mit dem Gründer. Kein technisches Know-how nötig. Individuell auf Ihren Betrieb konfiguriert.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mrbell.de/setup.html">
+<style>
+  @font-face { font-family: 'Inter'; src: url('/fonts/Inter-VariableFont_opsz_wght.ttf') format('truetype'); font-weight: 100 900; font-style: normal; font-display: swap; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #f5f5f0; color: #1a1a2e; line-height: 1.7; }
+  .container { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
+  a { color: #C2410C; text-decoration: none; }
+  .back { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 40px; color: #1a1a2e; opacity: 0.5; font-size: 14px; text-decoration: none; }
+  .back:hover { opacity: 0.8; }
+
+  /* Hero */
+  .hero { text-align: center; margin-bottom: 56px; }
+  .hero-badge { display: inline-block; background: #C2410C; color: white; font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; }
+  .hero h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 700; color: #1a1a2e; line-height: 1.15; margin-bottom: 16px; }
+  .hero h1 span { color: #C2410C; }
+  .hero p { font-size: 1.05rem; color: #1a1a2e; opacity: 0.65; max-width: 540px; margin: 0 auto; line-height: 1.6; }
+
+  /* Steps */
+  .steps { margin: 48px 0; }
+  .step { display: flex; gap: 20px; margin-bottom: 32px; }
+  .step-num { width: 44px; height: 44px; background: #C2410C; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+  .step-content h3 { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .step-content p { font-size: 0.9rem; color: #1a1a2e; opacity: 0.6; }
+
+  /* Checklist */
+  .checklist { list-style: none; margin: 40px 0; padding: 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid rgba(26,26,46,0.06); font-size: 0.95rem; color: #1a1a2e; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon { flex-shrink: 0; width: 22px; height: 22px; color: #C2410C; margin-top: 1px; }
+
+  /* Price card */
+  .price-card { background: white; border: 2px solid #C2410C; border-radius: 20px; padding: 40px; text-align: center; margin: 48px 0; }
+  .price-card .price { font-size: 3rem; font-weight: 800; color: #C2410C; }
+  .price-card .price-sub { font-size: 0.9rem; color: #1a1a2e; opacity: 0.5; margin-top: 4px; }
+  .price-card .price-note { display: inline-block; background: #fef3eb; color: #C2410C; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-top: 12px; }
+
+  /* CTA */
+  .cta-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #C2410C; color: white; font-size: 1.1rem; font-weight: 700; padding: 16px 40px; border-radius: 14px; border: none; cursor: pointer; transition: all 0.2s; width: 100%; text-decoration: none; }
+  .cta-btn:hover { background: #a3370a; transform: scale(1.01); }
+
+  /* Info box */
+  .info-box { background: white; border-left: 3px solid #C2410C; padding: 16px 20px; border-radius: 4px; margin: 24px 0; }
+  .info-box p { margin: 0; font-size: 0.9rem; color: #1a1a2e; opacity: 0.7; }
+  .info-box strong { opacity: 1; color: #1a1a2e; }
+
+  /* Trust strip */
+  .trust-strip { display: flex; gap: 20px; flex-wrap: wrap; margin: 40px 0; justify-content: center; }
+  .trust-item { background: white; padding: 20px 24px; border-radius: 12px; flex: 1; min-width: 160px; text-align: center; }
+  .trust-big { font-size: 2rem; font-weight: 800; color: #C2410C; }
+  .trust-label { font-size: 0.8rem; color: #1a1a2e; opacity: 0.5; margin-top: 2px; }
+
+  /* FAQ */
+  .faq-item { margin-bottom: 24px; }
+  .faq-item h3 { font-size: 1rem; font-weight: 700; color: #C2410C; margin-bottom: 4px; }
+  .faq-item p { font-size: 0.9rem; color: #1a1a2e; opacity: 0.7; }
+
+  /* Footer */
+  .footer-links { font-size: 0.8rem; color: #1a1a2e; opacity: 0.4; margin-top: 40px; }
+  .footer-links a { color: #C2410C; opacity: 0.7; }
+
+  @media (max-width: 640px) {
+    .container { padding: 32px 16px; }
+    .price-card { padding: 28px 20px; }
+    .trust-strip { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <a href="/" class="back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Zurück zur Startseite
+  </a>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-badge">Empfohlen</span>
+    <h1>Bauen Sie mit uns<br>die beste Version<br><span>Ihres KI-Assistenten.</span></h1>
+    <p>60-Minuten-Videocall mit dem Gründer. Wir konfigurieren Mr. Bell individuell auf Ihren Betrieb — gemeinsam, persönlich, stressfrei.</p>
+  </div>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-big">60 Min</div>
+      <div class="trust-label">Persönlicher Videocall</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-big">0</div>
+      <div class="trust-label">Technik-Kenntnisse nötig</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-big">48h</div>
+      <div class="trust-label">Bis Ihr Bot live ist</div>
+    </div>
+  </div>
+
+  <!-- WAS MACHEN WIR -->
+  <h2 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 8px;">Was wir gemeinsam einrichten</h2>
+  <p style="color: #1a1a2e; opacity: 0.6; margin-bottom: 32px;">Sie bringen 60 Minuten Zeit mit — wir bringen den Rest mit.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Termin buchen</h3>
+        <p>Sie wählen einen 60-Minuten-Slot der Ihnen passt. Morgens, abends, auch am Wochenende.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Videocall starten</h3>
+        <p>Wir treffen uns per Google Meet. Sie teilen Ihren Bildschirm, ich führe Sie durch jeden Klick.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>WhatsApp Business verbinden</h3>
+        <p>Gemeinsam richten wir Ihr Meta Business-Konto ein und verbinden Ihre WhatsApp-Nummer. Ich erkläre jeden Schritt.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>Mr. Bell individuell konfigurieren</h3>
+        <p>Wir tragen Ihre Betriebsdaten ein: Name, Branche, Dienstleistungen, häufige Fragen, Tonfall. Mr. Bell lernt Ihren Betrieb kennen — nicht von der Stange, sondern maßgeschneidert.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h3>Google Sheet aufsetzen</h3>
+        <p>Alle Kundenanfragen werden automatisch dokumentiert. Ein Klick, fertig.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h3>Testlauf mit echten Nachrichten</h3>
+        <p>Am Ende schicken wir dem Bot eine Testnachricht. Sie sehen live wie er antwortet. Wenn alles passt: fertig. Bot ist live.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WAS SIE BRAUCHEN / NICHT BRAUCHEN -->
+  <h2 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 24px;">Was Sie dafür brauchen</h2>
+  <ul class="checklist">
+    <li>
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+      Einen Laptop oder Computer mit Internetverbindung
+    </li>
+    <li>
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+      Eine Telefonnummer für WhatsApp Business (kann Ihre bestehende sein)
+    </li>
+    <li>
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+      Ein Google-Konto (für das Anfragen-Sheet)
+    </li>
+    <li>
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+      60 Minuten ungestörte Zeit
+    </li>
+  </ul>
+
+  <div class="info-box">
+    <p><strong>Was Sie NICHT brauchen:</strong> Programmierkenntnisse. IT-Erfahrung. Einen Webentwickler. Verständnis von APIs, Webhooks oder Meta Business Suite. Wenn Sie eine E-Mail schreiben können, können Sie das geführte Setup durchführen.</p>
+  </div>
+
+  <!-- PREIS -->
+  <div class="price-card">
+    <div class="price">199€</div>
+    <div class="price-sub">Einmalig · Brutto · Kein Abo</div>
+    <div class="price-note">Gemäß §19 UStG wird keine Umsatzsteuer berechnet</div>
+  </div>
+
+  <!-- CTA -->
+  <a href="https://mrbell.de" class="cta-btn">
+    Geführtes Setup buchen →
+  </a>
+  <p style="text-align: center; font-size: 0.8rem; color: #1a1a2e; opacity: 0.4; margin-top: 12px;">Danach startet Ihre 5-tägige kostenlose Testphase</p>
+
+  <div style="height: 40px;"></div>
+
+  <!-- WER MACHT DAS -->
+  <div class="info-box">
+    <p><strong>Wer macht das Setup?</strong> Ich. Ben Deschler, Gründer von Mr. Bell. Kein Support-Team, kein Callcenter. Sie sprechen direkt mit dem Menschen der den Bot gebaut hat.</p>
+  </div>
+
+  <!-- FAQ -->
+  <h2 style="font-size: 1.6rem; font-weight: 700; margin-top: 48px; margin-bottom: 24px;">Häufige Fragen</h2>
+
+  <div class="faq-item">
+    <h3>Kann ich den Termin auch abends oder am Wochenende buchen?</h3>
+    <p>Ja. Termine auch abends und am Samstag möglich. Ihre Kunden kommen tagsüber — Ihre Bot-Einrichtung muss nicht während der Arbeitszeit sein.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Was wenn die 60 Minuten nicht reichen?</h3>
+    <p>In 95% der Fälle reichen 60 Minuten. Falls die Meta-Verifizierung länger dauert, kümmere ich mich per E-Mail um den Rest — ohne Aufpreis.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Kann ich danach noch etwas am Bot ändern?</h3>
+    <p>Ja. Sie können jederzeit Dienstleistungen, Texte oder den Tonfall des Bots anpassen. Dafür brauchen Sie kein zweites Setup.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Was wenn ich nach dem Setup nicht zufrieden bin?</h3>
+    <p>Sie haben 5 Tage kostenlose Testphase. Wenn der Bot nicht passt, kündigen Sie ohne Kosten. Die 199€ Setup-Gebühr wird nicht erstattet, da die Dienstleistung bereits erbracht wurde.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Brauche ich vorher WhatsApp Business?</h3>
+    <p>Nein. Wir richten alles gemeinsam im Videocall ein — Meta Business-Konto, WhatsApp API, Nummernregistrierung. Das ist im Setup inbegriffen.</p>
+  </div>
+
+  <div style="height: 24px;"></div>
+
+  <!-- ZWEITER CTA -->
+  <a href="https://mrbell.de" class="cta-btn">
+    Jetzt Termin buchen — 199€ →
+  </a>
+
+  <p class="footer-links">
+    <a href="/">Zurück zur Startseite</a> · <a href="/blog/">Blog</a> · <a href="/faq.html">FAQ</a> · <a href="/agb.html">AGB</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/impressum.html">Impressum</a>
+  </p>
+
+</div>
+</body>
+</html>
