@@ -5302,11 +5302,7 @@ video {
     border-color: #a3370a;
   }
 
-  /* Phone mockups — dark shadow */
-  #view-welcome [style*="border-radius: 44px"],
-  #view-welcome [style*="border-radius: 38px"] { transition: transform 0.4s ease !important; }
-  #view-welcome [style*="border-radius: 44px"]:hover,
-  #view-welcome [style*="border-radius: 38px"]:hover { transform: translateY(-8px) !important; }
+  /* Phone mockups — no hover */
 
   /* Sheet mockup — stronger */
   #view-welcome .shadow-elevated {
@@ -5762,7 +5758,10 @@ window.gtag('consent', 'default', {
         kein Callcenter.
       </h1>
       <p class="mt-5 md:mt-6 text-sm md:text-lg text-anthracite/70 max-w-xl mx-auto font-light leading-relaxed px-2">
-        Wir wissen: Das ständige Klingeln nervt. <strong class="text-anthracite font-medium">Spam-Anrufe</strong> während der Arbeit, <strong class="text-anthracite font-medium">verpasste Anfragen</strong>, <strong class="text-anthracite font-medium">unzufriedene Erstkunden</strong> die sich ignoriert fühlen. <strong class="text-anthracite font-medium">Mr. Bell</strong> nimmt Ihnen genau das ab — damit Sie <strong class="text-anthracite font-medium">stressfrei</strong> das tun können, was Sie am besten können: <strong class="text-anthracite font-medium">Ihr Handwerk</strong>.
+        Wir wissen: Das ständige Klingeln nervt. <strong class="text-anthracite font-medium">Spam-Anrufe</strong> während der Arbeit, <strong class="text-anthracite font-medium">verpasste Anfragen nach Feierabend</strong>, <strong class="text-anthracite font-medium">unzufriedene Erstkunden</strong> die sich ignoriert fühlen.
+      </p>
+      <p class="mt-4 md:mt-5 text-sm md:text-lg text-anthracite max-w-xl mx-auto font-semibold leading-relaxed px-2">
+        Die Lösung ist Mr. Bell — gibt Ihnen täglich die Ruhe vor Anrufen die ins Nichts führen und nimmt Kundenanfragen für Sie an, auch wenn Sie Feierabend haben und nicht erreichbar sind.
       </p>
     </div>
 
@@ -5771,13 +5770,13 @@ window.gtag('consent', 'default', {
     <!-- Trust Icons direkt unter Hero -->
     <div class="flex items-center justify-center gap-5 text-sm text-anthracite/50 flex-wrap mt-8">
       <div class="flex items-center gap-1.5">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <span>Setup in 48h</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Hand in Hand</span>
       </div>
       <span class="text-anthracite/20">·</span>
       <div class="flex items-center gap-1.5">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-        <span>Jederzeit kündbar</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span>0% Tech-Skills nötig</span>
       </div>
       <span class="text-anthracite/20">·</span>
       <div class="flex items-center gap-1.5">
@@ -5787,9 +5786,9 @@ window.gtag('consent', 'default', {
     </div>
 
     <!-- Sanfter Scroll-Hint -->
-    <div class="text-center max-w-2xl mx-auto animate-fade-up" style="padding-top: 32px; padding-bottom: 20px;">
+    <div class="text-center mx-auto animate-fade-up" style="padding-top: 32px; padding-bottom: 20px; width: 100%;">
       <div class="flex justify-center">
-        <a href="#produkt-demo" class="inline-flex items-center gap-2 text-sm text-anthracite/60 hover:text-anthracite transition-colors">
+        <a href="#produkt-demo" onclick="event.preventDefault();document.getElementById('produkt-demo').scrollIntoView({behavior:'smooth',block:'start'})" class="inline-flex items-center gap-2 text-sm text-anthracite/60 hover:text-anthracite transition-colors">
           <span>So funktioniert's</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="animate-bounce"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
         </a>
@@ -6011,7 +6010,7 @@ window.gtag('consent', 'default', {
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="font-display text-3xl md:text-5xl font-bold text-anthracite leading-[1.15]">
         Nie wieder Spam-Anrufe.<br>
-        Nie wieder Verwähler.<br>
+        Nie wieder verlorene Anfragen nach Feierabend.<br>
         <span style="color: #C2410C;">Schützen Sie Ihre wertvolle Zeit</span> —<br>
         und nutzen Sie sie für das, was Sie am besten können:<br>
         <span style="color: #C2410C;">Ihr Handwerk.</span>
