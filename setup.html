@@ -71,16 +71,11 @@
 <!-- Calendly Embed -->
 <div id="calendly-wrap" style="opacity:0.3;pointer-events:none;transition:opacity 0.3s;border-radius:12px;overflow:hidden;position:relative;">
 <iframe src="https://calendly.com/mrbellconcierge/30min" width="100%" height="650" frameborder="0" style="border-radius:12px;"></iframe>
-<!-- Weiter Button — appears after booking -->
-<div id="post-booking-cta" style="display:none;text-align:center;padding:20px 0 8px;">
-<a href="/danke.html" style="display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:linear-gradient(135deg,#C2410C,#a3370a);color:white;font-weight:700;font-size:1rem;border-radius:12px;text-decoration:none;box-shadow:0 8px 24px rgba(194,65,12,0.3);transition:all 0.3s;animation:ctaPulse 2.5s ease-in-out infinite;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">Weiter <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-</div>
 </div>
 <script>
 window.addEventListener('message',function(e){
   if(e.data.event && e.data.event === 'calendly.event_scheduled'){
-    document.getElementById('post-booking-cta').style.display='block';
-    document.getElementById('post-booking-cta').scrollIntoView({behavior:'smooth',block:'center'});
+    window.location.href = '/danke.html';
   }
 });
 </script>
