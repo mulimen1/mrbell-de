@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vielen Dank — Mr. Bell</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--t:#C2410C;--a:#1a1a2e;--c:#f5f5f0;--w:#fff}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--c);color:var(--a);line-height:1.7;overflow-x:hidden}
+.bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(26,26,46,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(26,26,46,0.02) 1px,transparent 1px);background-size:60px 60px;animation:gm 20s linear infinite;pointer-events:none;z-index:0}
+@keyframes gm{to{background-position:60px 60px}}
+.pg{position:relative;z-index:1}
+.ct{max-width:600px;margin:0 auto;padding:48px 24px 80px}
+
+/* Views */
+.view{display:none}.view.active{display:block}
+
+/* Thank you header */
+.thx-icon{width:64px;height:64px;background:linear-gradient(135deg,#C2410C,#a3370a);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
+.thx h1{font-size:clamp(1.8rem,5vw,2.4rem);font-weight:800;color:var(--a);line-height:1.15;letter-spacing:-.02em;margin-bottom:12px}
+.thx p{font-size:1rem;color:var(--a);opacity:.55;max-width:440px;margin:0 auto;line-height:1.6}
+
+/* Form card */
+.fc{background:linear-gradient(135deg,#fef3eb 0%,#fff 100%);border:2px solid var(--t);border-radius:16px;padding:32px 28px;margin-top:40px}
+.fc h2{font-size:1.15rem;font-weight:800;margin-bottom:4px}
+.fc .sub{font-size:.82rem;opacity:.45;margin-bottom:24px}
+.fc label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;margin-top:16px}
+.fc label:first-of-type{margin-top:0}
+.fc input,.fc textarea,.fc select{width:100%;padding:12px 14px;border:1.5px solid rgba(26,26,46,.1);border-radius:10px;font-family:inherit;font-size:.9rem;background:white;transition:border-color .2s;outline:none}
+.fc input:focus,.fc textarea:focus,.fc select:focus{border-color:var(--t)}
+.fc textarea{resize:vertical;min-height:80px}
+
+/* Checkbox group */
+.cg{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.cg label{display:flex;align-items:center;gap:8px;padding:10px 16px;background:white;border:1.5px solid rgba(26,26,46,.08);border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:500;transition:all .2s;margin:0}
+.cg label:hover{border-color:rgba(194,65,12,.3)}
+.cg input:checked+span{color:var(--t);font-weight:700}
+.cg label:has(input:checked){border-color:var(--t);background:#fef3eb}
+.cg input{accent-color:var(--t);width:16px;height:16px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;border:none;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .3s;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,#C2410C,#a3370a);color:white;box-shadow:0 8px 24px rgba(194,65,12,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(194,65,12,.4)}
+.btn-ghost{background:none;color:var(--a);opacity:.4;font-size:.85rem;padding:10px 20px}
+.btn-ghost:hover{opacity:.7}
+.btn-row{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:28px}
+
+/* Final view */
+.final{text-align:center;padding-top:80px}
+.final-quote{font-size:1.1rem;color:var(--a);opacity:.6;line-height:1.7;max-width:420px;margin:24px auto 8px;font-style:italic}
+.final-name{font-size:.9rem;font-weight:700;color:var(--t);margin-bottom:40px}
+
+@media(max-width:640px){.ct{padding:32px 16px 60px}.fc{padding:24px 20px}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="pg"><div class="ct">
+
+<!-- VIEW 1: Form -->
+<div id="view-form" class="view active">
+  <div class="thx" style="text-align:center">
+    <div class="thx-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h1>Vielen Dank, dass Sie<br>Mr. Bell eine Chance geben.</h1>
+    <p>Wir freuen uns auf das Meeting mit Ihnen.</p>
+  </div>
+
+  <div class="fc">
+    <h2>Kurzes Kontaktformular <span style="font-weight:400;opacity:.4;font-size:.85rem;">(optional)</span></h2>
+    <p class="sub">Um das Meeting so sinnvoll wie möglich auf Ihren Betrieb bezogen zu planen, würden wir uns freuen, wenn Sie diese kurzen Fragen beantworten. Das ist rein optional.</p>
+
+    <form id="contact-form" onsubmit="submitForm(event)">
+      <label for="firma">Ihr Betrieb / Firmenname</label>
+      <input type="text" id="firma" name="firma" placeholder="z.B. Müller Haustechnik">
+
+      <label for="branche">Branche</label>
+      <input type="text" id="branche" name="branche" placeholder="z.B. Sanitär & Heizung, Elektro, Maler...">
+
+      <label>Was soll Mr. Bell hauptsächlich für Sie lösen?</label>
+      <div class="cg">
+        <label><input type="checkbox" name="ziel" value="entlastung"><span>Entlastung im Alltag</span></label>
+        <label><input type="checkbox" name="ziel" value="zeit"><span>Mehr Zeit für Handwerk</span></label>
+        <label><input type="checkbox" name="ziel" value="anfragen"><span>Keine Anfragen verpassen</span></label>
+        <label><input type="checkbox" name="ziel" value="spam"><span>Weniger Spam-Anrufe</span></label>
+        <label><input type="checkbox" name="ziel" value="sonstiges"><span>Sonstiges</span></label>
+      </div>
+
+      <label for="erwartung">Was erwarten Sie sich von Mr. Bell?</label>
+      <textarea id="erwartung" name="erwartung" placeholder="Optional — alles was Ihnen wichtig ist..."></textarea>
+
+      <div class="btn-row">
+        <button type="submit" class="btn btn-primary">Abschicken <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <button type="button" class="btn btn-ghost" onclick="showFinal()">Überspringen</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- VIEW 2: Final Thank You -->
+<div id="view-final" class="view">
+  <div class="final">
+    <div class="thx-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h1 style="font-size:clamp(1.8rem,5vw,2.4rem);font-weight:800;color:#1a1a2e;line-height:1.15;letter-spacing:-.02em;">Danke.</h1>
+    <p class="final-quote">"Ich bedanke mich dafür, dass Sie uns eine Chance für eine Partnerschaft mit Ihrem Betrieb geben."</p>
+    <p class="final-name">Ben Deschler — Gründer, Mr. Bell</p>
+    <a href="/" class="btn btn-primary">Zurück zur Startseite <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</div>
+
+</div></div>
+
+<script>
+function showFinal(){
+  document.getElementById('view-form').classList.remove('active');
+  document.getElementById('view-final').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function submitForm(e){
+  e.preventDefault();
+  var form = document.getElementById('contact-form');
+  var data = {
+    firma: form.firma.value,
+    branche: form.branche.value,
+    ziele: Array.from(form.querySelectorAll('input[name="ziel"]:checked')).map(function(cb){return cb.value}),
+    erwartung: form.erwartung.value
+  };
+  // TODO: Send to Google Sheet or email via webhook
+  console.log('Form data:', data);
+  showFinal();
+}
+</script>
+</body>
+</html>
