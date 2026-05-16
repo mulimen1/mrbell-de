@@ -5265,11 +5265,12 @@ video {
   /* Einwand boxes — dark border default + stronger hover */
   .einwand-hover {
     box-shadow: 0 8px 32px rgba(26,26,46,0.08), 0 2px 8px rgba(26,26,46,0.04) !important;
+    margin-bottom: 20px;
   }
   .einwand-hover:hover {
     transform: translateY(-8px) !important;
-    box-shadow: 0 28px 64px rgba(26,26,46,0.15), 0 8px 24px rgba(26,26,46,0.08) !important;
-    border-color: #1a1a2e !important;
+    box-shadow: 0 28px 64px rgba(194,65,12,0.14), 0 8px 24px rgba(26,26,46,0.06) !important;
+    border-color: #C2410C !important;
   }
 
   /* Trust icons, benefit cards */
@@ -5297,7 +5298,8 @@ video {
   }
   .interessiert-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 24px 64px rgba(194,65,12,0.14), 0 8px 24px rgba(26,26,46,0.06);
+    box-shadow: 0 32px 72px rgba(194,65,12,0.18), 0 12px 28px rgba(26,26,46,0.06);
+    border-color: #a3370a;
   }
 
   /* Phone mockups — dark shadow */
@@ -6038,6 +6040,17 @@ window.gtag('consent', 'default', {
           </p>
         </div>
       </div>
+
+      <!-- Einwand 3: Halluzination -->
+      <div class="rounded-3xl border-2 p-8 md:p-10 lg:p-12 einwand-hover" style="border-color: #C2410C; background: linear-gradient(135deg, #fef3eb 0%, #fff 100%); margin-top: 24px;">
+        <div>
+          <h3 class="font-display text-2xl md:text-3xl font-semibold text-anthracite mb-4 leading-tight">"Was wenn der Bot Quatsch erzählt?"</h3>
+          <p class="text-base md:text-lg text-anthracite/80 leading-relaxed">
+            <strong class="text-anthracite">Ist uns bisher nicht passiert.</strong> Aber KI zu 100% kontrollieren kann niemand — das wäre gelogen. Deshalb sehen Sie <strong class="text-anthracite">jede einzelne Nachricht</strong> Ihres Chatbots in Ihrem Google Sheet. Volle Kontrolle, volle Transparenz. Sollte es dennoch zu Problemen kommen, können wir den Bot <strong class="text-anthracite">innerhalb von 3 Stunden deaktivieren</strong> und eine automatische Nachricht einrichten, die Ihre Kunden direkt an Ihre Telefonnummer oder E-Mail weiterleitet. Keine Anfrage geht verloren. <strong class="text-anthracite">Ihre Kunden sind bei einer Partnerschaft mit uns auch unsere Kunden. Wir übernehmen Verantwortung.</strong>
+          </p>
+        </div>
+      </div>
+
     </div>
   </section>
 
