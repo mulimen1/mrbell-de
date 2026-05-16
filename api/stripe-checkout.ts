@@ -28,7 +28,8 @@ const PRICE_IDS = {
   pioneer_6: "price_1TUbTbLkREhQGDgQD5ziBqCJ",  // 49,99€/Mo, 6 Mo Mindestlaufzeit
   pioneer_3: "price_1TUbVeLkREhQGDgQFbuK3Tqu",  // 69,99€/Mo, 3 Mo Mindestlaufzeit
   standard:  "price_1TUbXCLkREhQGDgQ1hovRITX",  // 79,99€/Mo, monatlich kündbar
-  setup_99:  "price_1TUbY6LkREhQGDgQ8LsQgyOq",  // 99€ einmalig
+  setup_99:  "price_1TUbY6LkREhQGDgQ8LsQgyOq",  // 99€ einmalig (LEGACY — nicht mehr aktiv angeboten)
+  setup_199: "price_1TXhYhLkREhQGDgQi8elrMKP",  // 199€ einmalig — Geführtes Setup NEU
 } as const;
 
 type PlanKey = "pioneer_6" | "pioneer_3" | "standard";
@@ -48,11 +49,10 @@ const KLEINUNTERNEHMER_FOOTER =
   "Mr. Bell · Inhaber: Ben Deschler · Scheibenstr. 2, 76530 Baden-Baden · " +
   "kontakt@mrbell.de · mrbell.de";
 
-const SETUP_REFUND_FOOTER =
+const SETUP_FOOTER =
   KLEINUNTERNEHMER_FOOTER +
-  " · Refund-Anspruch: 99€ werden erstattet, wenn innerhalb von 30 Tagen nach diesem " +
-  "Kauf eine Pioneer-6-Monate-Mitgliedschaft abgeschlossen und die 6-monatige " +
-  "Mindestlaufzeit vollständig erfüllt wird.";
+  " · Geführtes Setup: 199€ einmalig — 60-Min-Videocall mit dem Gründer. " +
+  "WhatsApp Business, API-Zugang und Bot-Konfiguration werden gemeinsam eingerichtet.";
 
 const ALLOWED_ORIGINS = [
   "https://mrbell.de",
@@ -123,7 +123,7 @@ export default async function handler(req: any, res: any) {
       const session = await stripe.checkout.sessions.create({
         mode: "payment",
         payment_method_types: ["card"],
-        line_items: [{ price: PRICE_IDS.setup_99, quantity: 1 }],
+        line_items: [{ price: PRICE_IDS.setup_199, quantity: 1 }],
         customer_email: customerEmail,
         success_url: successUrl,
         cancel_url: cancelUrl,
@@ -133,8 +133,8 @@ export default async function handler(req: any, res: any) {
         invoice_creation: {
           enabled: true,
           invoice_data: {
-            description: "Mr. Bell — Geführtes Setup (30-min Video-Termin)",
-            footer: SETUP_REFUND_FOOTER,
+            description: "Mr. Bell — Geführtes Setup (60-Min-Videocall mit dem Gründer)",
+            footer: SETUP_FOOTER,
             metadata: baseMeta,
           },
         },
@@ -166,7 +166,7 @@ export default async function handler(req: any, res: any) {
       { price: subPriceId, quantity: 1 },
     ];
     if (includeSetup) {
-      lineItems.push({ price: PRICE_IDS.setup_99, quantity: 1 });
+      lineItems.push({ price: PRICE_IDS.setup_199, quantity: 1 });
     }
 
     const planLabel =
