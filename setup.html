@@ -63,15 +63,9 @@
 <div style="position:absolute;top:-12px;left:24px;background:#C2410C;color:white;font-size:12px;font-weight:700;padding:3px 14px;border-radius:9999px;">Empfohlen</div>
 <h3 style="font-size:1.1rem;font-weight:800;color:#1a1a2e;text-align:center;margin-bottom:4px;">Kostenlosen Ersttermin buchen</h3>
 <p style="font-size:0.82rem;color:#1a1a2e;opacity:0.45;text-align:center;margin-bottom:16px;">Wählen Sie einen Termin der Ihnen passt — 30 Minuten, unverbindlich.</p>
-<!-- AGB Checkbox -->
-<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;padding:12px 16px;background:white;border-radius:10px;border:1px solid rgba(26,26,46,0.08);">
-<input type="checkbox" id="agb-check" style="margin-top:3px;width:18px;height:18px;accent-color:#C2410C;cursor:pointer;flex-shrink:0;" onchange="document.getElementById('calendly-wrap').style.opacity=this.checked?'1':'0.3';document.getElementById('calendly-wrap').style.pointerEvents=this.checked?'auto':'none';document.getElementById('agb-hint').style.display=this.checked?'none':'block';">
-<label for="agb-check" style="font-size:0.82rem;color:#1a1a2e;opacity:0.7;cursor:pointer;line-height:1.5;">Ich akzeptiere die <a href="/agb.html" target="_blank" style="color:#C2410C;font-weight:600;text-decoration:underline;">AGB</a> und <a href="/datenschutz.html" target="_blank" style="color:#C2410C;font-weight:600;text-decoration:underline;">Datenschutzerklärung</a>.</label>
-</div>
-<p id="agb-hint" style="font-size:0.72rem;color:#C2410C;text-align:center;margin-bottom:12px;">Bitte akzeptieren Sie zuerst die AGB und Datenschutzerklärung.</p>
 <!-- Calendly Embed -->
-<div id="calendly-wrap" style="opacity:0.3;pointer-events:none;transition:opacity 0.3s;border-radius:12px;overflow:hidden;position:relative;">
-<div id="calendly-inline" style="min-height:650px;"></div>
+<div id="calendly-wrap" style="border-radius:12px;overflow:hidden;position:relative;">
+<div id="calendly-inline" style="min-height:700px;"></div>
 </div>
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
 <script>
@@ -102,7 +96,8 @@ window.addEventListener("message", function(e) {
 <div class="fq"><h3>Kann ich danach noch etwas am Bot ändern?</h3><p>Ja. Sie können jederzeit Dienstleistungen, Texte oder den Tonfall des Bots anpassen. Dafür brauchen Sie kein zweites Setup.</p></div>
 <div class="fq"><h3>Was wenn ich nach dem Setup nicht zufrieden bin?</h3><p>Sie haben 5 Tage kostenlose Testphase nach dem Setup. Wenn der Bot nicht passt, kündigen Sie ohne laufende Kosten. Die 199€ Setup-Gebühr wird nicht erstattet, da die Dienstleistung bereits erbracht wurde — aber Sie zahlen erst nachdem Sie im Erstgespräch überzeugt sind.</p></div>
 <div class="fq"><h3>Brauche ich vorher schon WhatsApp Business?</h3><p>Nein. Wir richten alles gemeinsam ein — Meta Business-Konto, WhatsApp API, Nummernregistrierung. Das ist im Setup inbegriffen.</p></div>
-<div class="fq"><h3>Welche laufenden Kosten kommen auf mich zu?</h3><p>Mr. Bell ab 49,99€/Mo plus die Kosten für den WhatsApp API-Provider 360dialog. Die genauen Provider-Kosten besprechen wir transparent im Erstgespräch — keine Überraschungen.</p></div></div>
+<div class="fq"><h3>Welche laufenden Kosten kommen auf mich zu?</h3><p>Mr. Bell ab 49,99€/Mo plus die Kosten für den WhatsApp API-Provider 360dialog. Die genauen Provider-Kosten besprechen wir transparent im Erstgespräch — keine Überraschungen.</p></div>
+<div class="fq"><h3>Was passiert wenn der Chatbot eine falsche Antwort gibt?</h3><p>Das ist uns bisher noch nicht passiert. Zu 100% lässt sich KI aber nie kontrollieren — das wäre gelogen. Deshalb sehen Sie jede einzelne Nachricht Ihres Chatbots in Ihrem Google Sheet. Volle Kontrolle, volle Transparenz. Sollte es dennoch zu Problemen kommen, können wir den Chatbot innerhalb von 3 Stunden deaktivieren und eine automatische Nachricht einrichten, die Ihre Kunden direkt an Ihre Telefonnummer, E-Mail oder ein anderes Kontaktmittel weiterleitet — keine Anfrage geht verloren. Ihre Kunden sind bei einer Partnerschaft mit uns auch unsere Kunden. Wir übernehmen Verantwortung.</p></div></div>
 <div style="position:relative;background:linear-gradient(135deg,#fef3eb 0%,#fff 100%);border:2px solid #C2410C;border-radius:16px;padding:28px 24px 20px;text-align:center;margin-top:40px;">
 <div style="position:absolute;top:-12px;left:24px;background:#C2410C;color:white;font-size:12px;font-weight:700;padding:3px 14px;border-radius:9999px;">Empfohlen</div>
 <a href="#calendly-wrap" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:linear-gradient(135deg,#C2410C,#a3370a);color:white;font-weight:700;font-size:0.95rem;border-radius:12px;text-decoration:none;box-shadow:0 8px 24px rgba(194,65,12,0.3);transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'" onclick="document.getElementById('calendly-wrap').scrollIntoView({behavior:'smooth'});return false;">Termin vereinbaren <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
