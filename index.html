@@ -6067,7 +6067,7 @@ window.gtag('consent', 'default', {
         Auf einer Reise durch Asien wurde uns klar: Dort kommuniziert
         jedes kleine und mittlere Unternehmen längst automatisiert über
         WhatsApp. Der Installateur in Seoul. Der Elektriker in Singapur. Der
-        Schreiner in Shanghai. Schnell, professionell, rund um die Uhr.
+        Schreiner in Hong Kong. Schnell, professionell, rund um die Uhr.
       </p>
     </div>
 
@@ -13794,72 +13794,6 @@ document.addEventListener('DOMContentLoaded', () => {
     answers = {};
     init();
   };
-})();
-</script>
-
-<!-- EXIT INTENT MODAL -->
-<div id="exit-intent-modal" style="display:none; position:fixed; inset:0; z-index:9100; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:16px;">
-  <div style="background:white; border-radius:24px; width:100%; max-width:420px; padding:36px 28px; position:relative; text-align:center; box-shadow:0 25px 60px rgba(0,0,0,0.3);">
-    <button onclick="closeExitIntent()" style="position:absolute; top:14px; right:14px; background:#f5f5f0; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; color:#1a1a2e;">×</button>
-    <div style="font-size:32px; margin-bottom:12px;">⏳</div>
-    <h3 style="font-family:'Inter',system-ui,sans-serif; font-size:1.5rem; font-weight:600; color:#1a1a2e; margin:0 0 8px;">Warten Sie kurz —</h3>
-    <p style="font-size:14px; color:#1a1a2e; opacity:0.6; margin:0 0 20px; line-height:1.5;">Noch nicht überzeugt? Kein Problem. Testen Sie Mr. Bell einfach 5 Tage — komplett kostenlos.</p>
-    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:24px; text-align:left;">
-      <div style="display:flex; align-items:center; gap:10px; font-size:14px; color:#1a1a2e;">
-        <span style="color:#075E54; font-size:16px;">✅</span> 5 Tage komplett kostenlos
-      </div>
-      <div style="display:flex; align-items:center; gap:10px; font-size:14px; color:#1a1a2e;">
-        <span style="color:#075E54; font-size:16px;">✅</span> Keine Kreditkarte nötig
-      </div>
-      <div style="display:flex; align-items:center; gap:10px; font-size:14px; color:#1a1a2e;">
-        <span style="color:#075E54; font-size:16px;">✅</span> In 48 Stunden einsatzbereit
-      </div>
-      <div style="display:flex; align-items:center; gap:10px; font-size:14px; color:#C2410C; font-weight:600;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <strong>Nur für die ersten 50 Unternehmen</strong>
-      </div>
-    </div>
-    <button onclick="closeExitIntent(); switchView('step-intro');" style="width:100%; background:#C2410C; color:white; border:none; border-radius:50px; padding:14px; font-family:Inter,sans-serif; font-size:15px; font-weight:700; cursor:pointer; margin-bottom:10px;">
-      Jetzt trotzdem testen →
-    </button>
-    <button onclick="closeExitIntent()" style="background:none; border:none; color:#1a1a2e; opacity:0.35; font-size:13px; cursor:pointer; font-family:Inter,sans-serif;">
-      Nein danke, ich verzichte
-    </button>
-  </div>
-</div>
-
-<script>
-// EXIT INTENT
-(function() {
-  var shown = false;
-  var activated = false;
-
-  // Nur aktivieren nach 10 Sekunden
-  setTimeout(function() { activated = true; }, 10000);
-
-  document.addEventListener('mouseleave', function(e) {
-    // Nur wenn Maus nach oben verlässt
-    if (!activated || shown || e.clientY > 10) return;
-    // Nur auf welcome view
-    var welcome = document.getElementById('view-welcome');
-    if (!welcome || welcome.classList.contains('hidden')) return;
-    // Nur einmal pro Session
-    if (sessionStorage.getItem('exit_intent_shown')) return;
-    shown = true;
-    sessionStorage.setItem('exit_intent_shown', '1');
-    var modal = document.getElementById('exit-intent-modal');
-    if (modal) modal.style.display = 'flex';
-  });
-
-  window.closeExitIntent = function() {
-    var modal = document.getElementById('exit-intent-modal');
-    if (modal) modal.style.display = 'none';
-  };
-
-  // Close on backdrop click
-  document.addEventListener('click', function(e) {
-    var modal = document.getElementById('exit-intent-modal');
-    if (modal && e.target === modal) closeExitIntent();
-  });
 })();
 </script>
 
