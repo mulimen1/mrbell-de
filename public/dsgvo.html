@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSGVO &amp; Datenschutz — Wie Mr. Bell Ihre Daten schützt</title>
+<meta name="description" content="Wie Mr. Bell die DSGVO einhält: EU-Hosting, AVV nach Art. 28 DSGVO, transparente Datenflüsse und alle Auftragsverarbeiter im Überblick.">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph -->
+<meta property="og:title" content="DSGVO &amp; Datenschutz bei Mr. Bell">
+<meta property="og:description" content="Made in Germany, EU-Hosting, AVV nach Art. 28 DSGVO. Transparenz auf Profi-Niveau.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mrbell.de/dsgvo.html">
+
+<!-- Schema.org for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Wer ist verantwortlich für Mr. Bell?","acceptedAnswer":{"@type":"Answer","text":"Mr. Bell wird betrieben von Ben Deschler als Einzelunternehmen mit Sitz in Baden-Baden, Deutschland."}},
+    {"@type":"Question","name":"Wo werden Daten gespeichert?","acceptedAnswer":{"@type":"Answer","text":"Bevorzugt in der EU: Vercel Frankfurt, n8n auf AWS Frankfurt, 360dialog Berlin, Resend Irland, Stripe Irland."}},
+    {"@type":"Question","name":"Werden Daten in die USA übertragen?","acceptedAnswer":{"@type":"Answer","text":"In einigen Fällen ja — abgesichert durch EU-U.S. Data Privacy Framework und EU-Standardvertragsklauseln nach Art. 46 DSGVO."}}
+  ]
+}
+</script>
+
+
+
+<style>@font-face{font-family:"Inter";src:url("/fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap}</style>
+
+<style>
+  /* ====== Reset & Base ====== */
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #f5f5f0;
+    color: #1a1a2e;
+    line-height: 1.65;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #C2410C; text-decoration: none; transition: color 0.15s; }
+  a:hover { text-decoration: underline; }
+  code { background: #fff; border: 1px solid #e0e0e0; padding: 1px 6px; border-radius: 3px; font-size: 0.85em; font-family: 'Menlo', 'Monaco', monospace; }
+
+  /* ====== Hero ====== */
+  .hero {
+    background: linear-gradient(135deg, #fef3eb 0%, #fde6d3 100%);
+    padding: 60px 24px 80px;
+    border-bottom: 1px solid rgba(196, 65, 12, 0.1);
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 24px; color: #666; text-decoration: none; font-size: 0.9rem;
+  }
+  .back:hover { color: #C2410C; }
+  .hero h1 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: #1a1a2e;
+    margin: 0 0 12px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 strong { color: #C2410C; }
+  .hero-sub {
+    color: #555;
+    font-size: 1.15rem;
+    max-width: 640px;
+    margin: 0 0 32px;
+    line-height: 1.5;
+  }
+  .meta-line { color: #888; font-size: 0.85rem; }
+
+  /* ====== Trust Pills ====== */
+  .pill-row {
+    display: flex; flex-wrap: wrap; gap: 10px; margin: 32px 0 0;
+  }
+  .pill {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    color: #333;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  .pill svg { flex-shrink: 0; }
+  .pill strong { color: #C2410C; font-weight: 600; }
+
+  /* ====== Layout ====== */
+  .layout {
+    max-width: 1100px;
+    margin: -40px auto 0;
+    padding: 0 24px 80px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    position: relative;
+  }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 24px; }
+    .sidebar { display: none; }
+  }
+
+  /* ====== Sidebar Nav ====== */
+  .sidebar {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    background: white;
+    border-radius: 12px;
+    padding: 24px 20px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+  }
+  .sidebar h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+  .sidebar ul { list-style: none; padding: 0; margin: 0; }
+  .sidebar li { margin-bottom: 6px; }
+  .sidebar a {
+    display: block; padding: 6px 10px;
+    color: #333; font-size: 0.88rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .sidebar a:hover {
+    background: #faf6ee;
+    border-left-color: #C2410C;
+    text-decoration: none;
+    color: #C2410C;
+  }
+
+  /* ====== Main Content ====== */
+  main { min-width: 0; }
+  .lead {
+    background: white;
+    border-left: 4px solid #C2410C;
+    padding: 24px 28px;
+    margin: 0 0 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+  .lead p { margin: 0; }
+  .lead p + p { margin-top: 12px; }
+  .lead strong { color: #C2410C; }
+
+  h2 {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #1a1a2e;
+    margin: 56px 0 16px;
+    font-size: 1.8rem;
+    line-height: 1.2;
+    border-bottom: 2px solid #C2410C;
+    padding-bottom: 10px;
+  }
+  h2:first-of-type { margin-top: 0; }
+  h3 { color: #1a1a2e; font-size: 1.05rem; margin-top: 24px; font-weight: 600; }
+  p, li { color: #333; font-size: 0.97rem; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+
+  /* ====== Status Banner ====== */
+  .status-banner {
+    background: #fffbe8;
+    border: 1px solid #f0d68a;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 24px 0;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .status-banner svg { flex-shrink: 0; margin-top: 2px; }
+  .status-banner strong { color: #8a6010; }
+  .status-banner p { margin: 0; font-size: 0.9rem; color: #553a00; }
+
+  /* ====== Accordion ====== */
+  details {
+    background: white;
+    border: 1px solid #e8e4dc;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+    overflow: hidden;
+  }
+  details[open] {
+    border-color: #C2410C;
+    box-shadow: 0 6px 20px rgba(196, 65, 12, 0.08);
+  }
+  summary {
+    cursor: pointer; padding: 18px 56px 18px 22px;
+    font-weight: 600; color: #1a1a2e; font-size: 1rem;
+    list-style: none; position: relative; user-select: none;
+    transition: background 0.15s;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: #faf6ee; }
+  summary::after {
+    content: ""; position: absolute; right: 22px; top: 50%; transform: translateY(-50%) rotate(0deg);
+    width: 14px; height: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C2410C' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E");
+    background-size: contain; background-repeat: no-repeat;
+    transition: transform 0.2s;
+  }
+  details[open] summary::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C2410C' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
+  }
+  details > div { padding: 0 22px 22px; animation: slide-down 0.25s ease-out; }
+  @keyframes slide-down {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  details p:first-child { margin-top: 0; }
+  details p:last-child { margin-bottom: 0; }
+
+  /* ====== Tabelle ====== */
+  .table-wrap { overflow-x: auto; margin: 16px 0; border-radius: 8px; border: 1px solid #e0dccd; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 560px; }
+  th, td { padding: 12px 14px; text-align: left; vertical-align: top; }
+  th {
+    background: #1a1a2e; color: white; font-weight: 600;
+    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em;
+    border-bottom: 1px solid #1a1a2e;
+  }
+  td { border-bottom: 1px solid #ececec; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #fafaf5; }
+  td .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 0.78rem; font-weight: 500;
+  }
+  .badge-eu { background: #e6f4ea; color: #1e7a3d; }
+  .badge-de { background: #ffeed8; color: #8a4a00; }
+  .badge-us { background: #f0f0f0; color: #555; }
+
+  /* ====== Datenfluss-Diagramm ====== */
+  .data-flow {
+    background: white;
+    border: 1px solid #e8e4dc;
+    border-radius: 12px;
+    padding: 28px;
+    margin: 24px 0;
+    overflow-x: auto;
+  }
+  .data-flow svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+
+  /* ====== CTA Box ====== */
+  .cta-box {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a2a44 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin: 48px 0;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  }
+  .cta-box h3 {
+    color: white;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1.5rem;
+    margin: 0 0 12px;
+  }
+  .cta-box p { color: rgba(255,255,255,0.8); margin: 0 0 16px; }
+  .cta-box p:last-child { margin-bottom: 0; }
+  .cta-box a {
+    color: #ffb480;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 180, 128, 0.3);
+  }
+  .cta-box a:hover { color: #ffd0b0; text-decoration: none; }
+  .cta-buttons {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;
+  }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem;
+    transition: all 0.15s;
+    border-bottom: none !important;
+  }
+  .cta-btn-primary {
+    background: #C2410C; color: white !important;
+    border-bottom: none !important;
+  }
+  .cta-btn-primary:hover { background: #a0350a; text-decoration: none !important; }
+  .cta-btn-secondary {
+    background: rgba(255,255,255,0.1); color: white !important;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .cta-btn-secondary:hover { background: rgba(255,255,255,0.15); text-decoration: none !important; }
+
+  /* ====== Footer ====== */
+  .footnote {
+    border-top: 1px solid #e0dccd;
+    padding-top: 24px;
+    margin-top: 48px;
+    font-size: 0.85rem;
+    color: #888;
+  }
+
+  /* ====== Print Styles ====== */
+  @media print {
+    .hero { background: white !important; padding: 20px 0; }
+    .sidebar { display: none; }
+    .layout { grid-template-columns: 1fr; padding: 0 20px; }
+    details { break-inside: avoid; border: 1px solid #ccc !important; box-shadow: none !important; }
+    details[open] summary::after, details summary::after { display: none; }
+    .cta-box { background: #f5f5f0 !important; color: #1a1a2e !important; }
+    .cta-box h3, .cta-box p { color: #1a1a2e !important; }
+    body { background: white; }
+  }
+
+  @media (max-width: 768px) {
+    body { overflow-x: hidden; }
+    h1 { font-size: clamp(1.5rem, 7vw, 2.5rem) !important; word-wrap: break-word; overflow-wrap: break-word; }
+    h2 { font-size: 1.15rem !important; }
+    h3 { font-size: 1rem !important; }
+    p, li, td, th { font-size: 0.9rem !important; }
+    table { font-size: 0.8rem !important; display: block; overflow-x: auto; }
+    .container, .main-content { padding: 32px 16px !important; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-inner">
+    <a href="/" class="back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Zurück zur Startseite
+    </a>
+    <h1>DSGVO &amp; <strong>Datenschutz</strong> bei Mr. Bell</h1>
+    <p class="hero-sub">Wie wir Ihre Daten schützen, wo wir hosten, mit welchen Dienstleistern wir arbeiten — und welche Rechte Sie haben.</p>
+    <p class="meta-line">Stand: 8. Mai 2026 &nbsp;·&nbsp; Lesezeit: ca. 4 Minuten</p>
+
+    <div class="pill-row">
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <strong>Sitz:</strong> Baden-Baden 🇩🇪
+      </span>
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        <strong>Hosting:</strong> Frankfurt
+      </span>
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        <strong>AVV nach:</strong> Art. 28 DSGVO
+      </span>
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+        <strong>Aufsicht:</strong> LfDI BW
+      </span>
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <strong>Drittland:</strong> DPF + EU-SCC
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LAYOUT ========== -->
+<div class="layout">
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <h4>Auf dieser Seite</h4>
+    <ul>
+      <li><a href="#kurz">Kurzfassung</a></li>
+      <li><a href="#datenfluss">Datenfluss</a></li>
+      <li><a href="#fragen">Häufige Fragen</a></li>
+      <li><a href="#avv">AVV mit Kunden</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </aside>
+
+  <!-- ===== Main ===== -->
+  <main>
+
+    <!-- Lead -->
+    <div class="lead" id="kurz">
+      <p><strong>Kurzfassung in einem Satz:</strong> Mr. Bell ist eine deutsche Einzelunternehmung mit Sitz in Baden-Baden, verarbeitet Daten ausschließlich zur Bot-Bereitstellung, hostet bevorzugt in der EU und schließt mit allen Dienstleistern Auftragsverarbeitungsverträge nach Art. 28 DSGVO ab.</p>
+      <p>Diese Seite ist eine User-freundliche Übersicht. Die rechtsverbindlichen Details finden Sie in unserer <a href="/datenschutz.html">Datenschutzerklärung</a>.</p>
+    </div>
+
+    <!-- Datenfluss-Diagramm -->
+    <h2 id="datenfluss">Wie Daten durch Mr. Bell fließen</h2>
+    <p>Vereinfacht dargestellt: Sie senden eine WhatsApp-Nachricht an einen Bot, dieser durchläuft folgenden Weg, bis Sie eine Antwort erhalten.</p>
+
+    <div class="data-flow">
+      <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Datenfluss-Diagramm">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#C2410C"/>
+          </marker>
+          <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff"/>
+            <stop offset="100%" stop-color="#faf6ee"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Endkunde -->
+        <g>
+          <rect x="20" y="140" width="130" height="70" rx="10" fill="url(#boxGrad)" stroke="#C2410C" stroke-width="2"/>
+          <text x="85" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1a1a2e">Endkunde</text>
+          <text x="85" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#666">via WhatsApp</text>
+        </g>
+
+        <!-- Arrow 1 -->
+        <line x1="155" y1="175" x2="195" y2="175" stroke="#C2410C" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- 360dialog -->
+        <g>
+          <rect x="200" y="140" width="130" height="70" rx="10" fill="url(#boxGrad)" stroke="#C2410C" stroke-width="2"/>
+          <text x="265" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1a1a2e">360dialog</text>
+          <text x="265" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#666">Berlin 🇩🇪</text>
+        </g>
+
+        <!-- Arrow 2 -->
+        <line x1="335" y1="175" x2="375" y2="175" stroke="#C2410C" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- n8n -->
+        <g>
+          <rect x="380" y="140" width="130" height="70" rx="10" fill="url(#boxGrad)" stroke="#C2410C" stroke-width="2"/>
+          <text x="445" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1a1a2e">n8n Workflow</text>
+          <text x="445" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#666">AWS Frankfurt 🇩🇪</text>
+        </g>
+
+        <!-- Arrow 3 -->
+        <line x1="515" y1="175" x2="555" y2="175" stroke="#C2410C" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Anthropic -->
+        <g>
+          <rect x="560" y="140" width="130" height="70" rx="10" fill="url(#boxGrad)" stroke="#C2410C" stroke-width="2"/>
+          <text x="625" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1a1a2e">Anthropic KI</text>
+          <text x="625" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#666">USA · DPF + SCC</text>
+        </g>
+
+        <!-- Return Arrow -->
+        <path d="M 625 220 Q 625 280 400 280 Q 175 280 85 280 Q 85 280 85 215" fill="none" stroke="#C2410C" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+        <text x="400" y="305" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#888" font-style="italic">Antwort zurück zum Endkunden</text>
+
+        <!-- Title -->
+        <text x="400" y="40" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="600" fill="#1a1a2e">Datenfluss einer einzelnen Bot-Anfrage</text>
+        <text x="400" y="62" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#888">Verschlüsselt via TLS · max. 30 Tage Speicherung bei Anthropic</text>
+
+        <!-- Side Note -->
+        <g transform="translate(20, 100)">
+          <rect x="0" y="0" width="760" height="22" rx="4" fill="#fffbe8" stroke="#f0d68a"/>
+          <text x="380" y="15" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#553a00">Verarbeitung erfolgt im Auftrag des Mr.-Bell-Kunden — er ist datenschutzrechtlich Verantwortlicher der Endkunden-Daten.</text>
+        </g>
+
+      </svg>
+    </div>
+
+    <!-- ============ FAQ ============ -->
+    <h2 id="fragen">Die wichtigsten Fragen</h2>
+
+    <details>
+      <summary>Wer ist verantwortlich für Mr. Bell?</summary>
+      <div>
+        <p>Mr. Bell wird betrieben von <strong>Ben Deschler als Einzelunternehmen</strong> mit Sitz in der Scheibenstr. 2, 76530 Baden-Baden, Deutschland. Wir unterliegen der deutschen DSGVO-Aufsicht durch den Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg (LfDI BW).</p>
+        <p>Vollständige Kontaktdaten finden Sie im <a href="/impressum.html">Impressum</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Welche Daten verarbeitet Mr. Bell überhaupt?</summary>
+      <div>
+        <p>Wir unterscheiden zwei Datenkategorien:</p>
+        <p><strong>1. Daten unserer Kunden (B2B-Auftraggeber):</strong></p>
+        <ul>
+          <li>Firmenname, Branche, Adresse</li>
+          <li>Kontaktperson (Name, E-Mail, Telefon)</li>
+          <li>Bot-Konfiguration (Tonfall, Sprachen, individueller Prompt)</li>
+          <li>Rechnungs- und Zahlungsdaten</li>
+        </ul>
+        <p><strong>2. Daten der Endkunden unserer Kunden (Bot-Nutzer):</strong></p>
+        <ul>
+          <li>Telefonnummer (für die WhatsApp-Konversation)</li>
+          <li>Inhalt der Nachrichten an den Bot</li>
+          <li>Zeitstempel und technische Metadaten</li>
+        </ul>
+        <p>Diese Endkunden-Daten verarbeiten wir <strong>im Auftrag</strong> des jeweiligen Mr.-Bell-Kunden — der Kunde ist datenschutzrechtlich verantwortlich, wir sind Auftragsverarbeiter.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wo werden meine Daten gespeichert?</summary>
+      <div>
+        <p>Wir hosten so weit wie möglich in der EU:</p>
+        <ul>
+          <li><strong>Website &amp; API</strong> — Vercel, Server-Region Frankfurt (<code>fra1</code>)</li>
+          <li><strong>Workflow-Engine</strong> — n8n auf AWS Frankfurt</li>
+          <li><strong>WhatsApp-Anbindung</strong> — 360dialog (Berlin)</li>
+          <li><strong>E-Mail-Versand</strong> — Resend, EU-Server (Irland)</li>
+          <li><strong>Zahlungsabwicklung</strong> — Stripe (Irland)</li>
+        </ul>
+        <p>Einige Verarbeitungen erfolgen aus technischen Gründen in den USA — etwa die KI-Antworten via Anthropic. Für diese Übermittlungen liegen Garantien nach Art. 45/46 DSGVO vor (siehe nächste Frage).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Werden Daten in die USA übertragen?</summary>
+      <div>
+        <p>Ja, in einigen Fällen. Konkret bei:</p>
+        <ul>
+          <li><strong>Anthropic (KI-Modell):</strong> für die Generierung von Bot-Antworten</li>
+          <li><strong>Vercel:</strong> Mutterunternehmen sitzt in den USA, Server stehen aber in Frankfurt</li>
+          <li><strong>Resend:</strong> Mutterunternehmen USA, Versand-Server in Irland</li>
+          <li><strong>Calendly &amp; Stripe:</strong> teilweise USA-Verarbeitung im Hintergrund</li>
+          <li><strong>Meta (Pixel + CAPI):</strong> nur nach Ihrer Einwilligung über das Cookie-Banner</li>
+        </ul>
+        <p>Für jede dieser Übertragungen liegen rechtliche Garantien vor:</p>
+        <ul>
+          <li>Entweder ein <strong>Angemessenheitsbeschluss</strong> der EU-Kommission über das EU-U.S. Data Privacy Framework (DPF)</li>
+          <li>Oder <strong>EU-Standardvertragsklauseln (SCC)</strong> nach Art. 46 DSGVO</li>
+          <li>In den meisten Fällen: <strong>beides als doppelte Absicherung</strong></li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wer sind eure Auftragsverarbeiter?</summary>
+      <div>
+        <p>Hier die vollständige Liste der Dienstleister, mit denen wir Auftragsverarbeitungsverträge nach Art. 28 DSGVO geschlossen haben:</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Dienstleister</th><th>Tätigkeit</th><th>Sitz</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Vercel Inc.</td><td>Website-Hosting</td><td><span class="badge badge-eu">USA / Server EU</span></td></tr>
+              <tr><td>Anthropic PBC</td><td>KI-Verarbeitung</td><td><span class="badge badge-us">USA</span></td></tr>
+              <tr><td>Resend Inc.</td><td>E-Mail-Versand</td><td><span class="badge badge-eu">USA / Server EU</span></td></tr>
+              <tr><td>Stripe Payments Europe</td><td>Zahlungsabwicklung</td><td><span class="badge badge-eu">Irland</span></td></tr>
+              <tr><td>Google Ireland Limited</td><td>Sheets &amp; Workspace</td><td><span class="badge badge-eu">Irland</span></td></tr>
+              <tr><td>Calendly LLC</td><td>Termin-Buchung</td><td><span class="badge badge-us">USA</span></td></tr>
+              <tr><td>n8n GmbH</td><td>Workflow-Automatisierung</td><td><span class="badge badge-de">Deutschland</span></td></tr>
+              <tr><td>360dialog GmbH</td><td>WhatsApp Business API</td><td><span class="badge badge-de">Deutschland</span></td></tr>
+              <tr><td>WhatsApp Ireland (Meta)</td><td>WhatsApp-Infrastruktur</td><td><span class="badge badge-eu">Irland / USA</span></td></tr>
+              <tr><td>Meta Platforms Ireland</td><td>Meta Pixel &amp; CAPI <em>(nach Einwilligung)</em></td><td><span class="badge badge-eu">Irland / USA</span></td></tr>
+              <tr><td>eRecht24 (Solmecke GbR)</td><td>Cookie-Banner / Consent</td><td><span class="badge badge-de">Deutschland</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Details zu jedem Dienstleister stehen in der <a href="/datenschutz.html">Datenschutzerklärung</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wie sieht es mit der KI (Anthropic Claude) aus?</summary>
+      <div>
+        <p>Mr. Bell nutzt <strong>Claude Haiku von Anthropic</strong> für die Bot-Antworten. Anthropic hat klare Datenschutz-Zusagen, die wir vertraglich abgesichert haben:</p>
+        <ul>
+          <li>Ihre Eingaben werden <strong>nicht zum Training</strong> der KI-Modelle verwendet (vertraglich ausgeschlossen über die Anthropic Commercial Terms of Service).</li>
+          <li>API-Daten werden bei Anthropic standardmäßig bis zu 30 Tage zur Missbrauchserkennung gespeichert und danach automatisch gelöscht.</li>
+          <li>Anthropic ist seit 2025 nach dem EU-U.S. Data Privacy Framework zertifiziert; ergänzend gelten EU-Standardvertragsklauseln.</li>
+          <li>Wir haben einen Auftragsverarbeitungsvertrag (AVV) nach Art. 28 DSGVO mit Anthropic geschlossen.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Ist die WhatsApp Business API DSGVO-konform?</summary>
+      <div>
+        <p>Wichtige Unterscheidung: Mr. Bell nutzt <strong>nicht</strong> die normale WhatsApp- oder WhatsApp-Business-App. Wir nutzen die offizielle <strong>WhatsApp Business API</strong>, die für den Unternehmenseinsatz konzipiert ist.</p>
+        <p>Konkret läuft das so:</p>
+        <ul>
+          <li>Die Anbindung erfolgt über den deutschen Business-Solution-Provider <strong>360dialog</strong> (Berlin).</li>
+          <li>Mit 360dialog besteht ein AVV nach Art. 28 DSGVO.</li>
+          <li>WhatsApp/Meta verarbeitet als weiterer Auftragsverarbeiter; entsprechende EU-Standardvertragsklauseln sind über 360dialog vereinbart.</li>
+          <li><strong>Inbound</strong> (Endkunde schreibt zuerst): Die Konversation wird durch die aktive Kontaktaufnahme als implizites Opt-In gewertet.</li>
+          <li><strong>Outbound</strong> (Bot kontaktiert Endkunden proaktiv): Hier erfordert WhatsApp ein dokumentiertes Opt-In, das der jeweilige Auftraggeber sicherstellt.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wie lange werden meine Daten gespeichert?</summary>
+      <div>
+        <p>Wir speichern nicht länger als nötig. Wichtigste Fristen:</p>
+        <ul>
+          <li><strong>Vertragsdaten:</strong> Vertragsdauer + 90 Tage</li>
+          <li><strong>Bot-Konversationen:</strong> standardmäßig 30 Tage (anpassbar im Kunden-AVV)</li>
+          <li><strong>E-Mail-Verifizierungscodes:</strong> 15 Minuten</li>
+          <li><strong>Server-Logs:</strong> 30 Tage</li>
+          <li><strong>Reine E-Mail-Anfragen ohne Vertrag:</strong> max. 2 Jahre</li>
+          <li><strong>Rechnungen:</strong> 10 Jahre (gesetzliche Pflicht nach § 147 AO)</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Werden Cookies oder Tracker gesetzt?</summary>
+      <div>
+        <p>Standardmäßig nein — Sie entscheiden selbst über das <strong>Cookie-Banner</strong> beim ersten Besuch:</p>
+        <ul>
+          <li><strong>Wenn Sie nichts akzeptieren:</strong> nur technisch notwendige Speicherung (Session, damit das Onboarding bei Reload nicht verloren geht).</li>
+          <li><strong>Wenn Sie zustimmen:</strong> wir setzen den Meta Pixel (Facebook/Instagram) und die Meta Conversion API ein, um die Wirksamkeit unserer Werbeanzeigen zu messen.</li>
+        </ul>
+        <p>Sie können Ihre Entscheidung jederzeit über den „Cookie-Einstellungen"-Link im Footer der Website widerrufen oder ändern.</p>
+        <p><strong>Was wir nicht einsetzen:</strong> Google Analytics, Google Ads, LinkedIn Insight Tag, TikTok Pixel, Heatmap-Tools, Hotjar.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wie funktioniert das Meta Pixel-Tracking konkret?</summary>
+      <div>
+        <p>Wenn Sie im Cookie-Banner zustimmen, setzt unsere Website das <strong>Meta Pixel</strong> der Meta Platforms Ireland Limited ein. Es funktioniert wie folgt:</p>
+        <ul>
+          <li>Bei Seitenaufrufen und Aktionen (z. B. Onboarding starten, Buchung abschließen) übermittelt das Pixel Events an Meta.</li>
+          <li>Übertragen werden: Zeitstempel, Seiten-URL, anonymisierte IP, Browser-Informationen und ein Pseudonym-Cookie (<code>_fbp</code>, 90 Tage gültig).</li>
+          <li>Personenbezogene Identifikatoren wie E-Mail oder Telefonnummer werden vorher lokal mittels <strong>SHA-256 gehashed</strong> übertragen (Advanced Matching).</li>
+        </ul>
+        <p>Zusätzlich nutzen wir die <strong>Meta Conversion API (CAPI)</strong> für serverseitige Übermittlung — das verbessert die Tracking-Genauigkeit speziell auf iOS-Geräten und unterstützt eine korrekte Werbe-Optimierung trotz Werbeblockern.</p>
+        <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Ihre Einwilligung über das Cookie-Banner).</p>
+        <p><strong>Drittland-USA:</strong> Meta kann Daten in die USA übermitteln. Abgesichert durch EU-U.S. Data Privacy Framework + EU-Standardvertragsklauseln. Gemeinsame Verantwortlichkeit nach Art. 26 DSGVO geregelt im <a href="https://www.facebook.com/legal/controller_addendum" target="_blank" rel="noopener">Meta Controller Addendum</a>.</p>
+        <p><strong>Widerruf:</strong> Cookie-Einstellungen-Link im Footer der Website.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Welche Rechte habe ich als betroffene Person?</summary>
+      <div>
+        <p>Sie haben gemäß DSGVO das Recht auf:</p>
+        <ul>
+          <li><strong>Auskunft</strong> (Art. 15) — welche Daten haben wir über Sie</li>
+          <li><strong>Berichtigung</strong> (Art. 16) — falsche Daten korrigieren</li>
+          <li><strong>Löschung</strong> (Art. 17) — „Recht auf Vergessenwerden"</li>
+          <li><strong>Einschränkung</strong> (Art. 18) — Verarbeitung pausieren</li>
+          <li><strong>Datenübertragbarkeit</strong> (Art. 20) — Ihre Daten als Datei erhalten</li>
+          <li><strong>Widerspruch</strong> (Art. 21) — gegen bestimmte Verarbeitungen</li>
+          <li><strong>Widerruf</strong> (Art. 7 Abs. 3) — erteilte Einwilligungen jederzeit zurücknehmen</li>
+          <li><strong>Beschwerde</strong> (Art. 77) — bei der zuständigen Aufsichtsbehörde</li>
+        </ul>
+        <p>So machen Sie diese Rechte geltend: kurze E-Mail an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>. Wir antworten innerhalb der gesetzlichen Frist von einem Monat — meist deutlich schneller.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wie sind meine Daten technisch geschützt?</summary>
+      <div>
+        <p>Wir setzen die in Art. 32 DSGVO geforderten technischen und organisatorischen Maßnahmen um, insbesondere:</p>
+        <ul>
+          <li>TLS-Verschlüsselung aller Datenübertragungen</li>
+          <li>Verschlüsselte Speicherung sensitiver Daten</li>
+          <li>Zwei-Faktor-Authentifizierung für alle administrativen Zugänge</li>
+          <li>Strenges Need-to-know-Prinzip beim Zugriff</li>
+          <li>Regelmäßige Updates der eingesetzten Systeme</li>
+          <li>Server-seitiger Inhalts-Filter im Bell-Chat (blockt missbräuchliche Eingaben vor Anthropic-Übermittlung)</li>
+        </ul>
+        <p>Datenschutzverletzungen melden wir innerhalb von 72 Stunden an die zuständige Aufsichtsbehörde — wie es Art. 33 DSGVO vorschreibt.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Macht der Bot Profiling oder automatische Entscheidungen?</summary>
+      <div>
+        <p>Nein. Mr. Bell trifft keine automatisierten Entscheidungen mit Rechtswirkung im Sinne des Art. 22 DSGVO. Der KI-Bot beantwortet Anfragen und ist explizit darauf trainiert, keine bindenden Zusagen, Preisversprechen oder Vertragsangebote zu machen.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>An wen kann ich mich bei Beschwerden wenden?</summary>
+      <div>
+        <p>Sie haben das Recht, sich direkt bei der zuständigen Aufsichtsbehörde zu beschweren:</p>
+        <p>
+        <strong>Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg (LfDI BW)</strong><br>
+        Lautenschlagerstraße 20, 70173 Stuttgart<br>
+        Telefon: +49 711 615541-0<br>
+        E-Mail: <a href="mailto:poststelle@lfdi.bwl.de">poststelle@lfdi.bwl.de</a><br>
+        <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel="noopener">baden-wuerttemberg.datenschutz.de</a>
+        </p>
+        <p>Sie können sich auch an die Aufsichtsbehörde Ihres üblichen Aufenthaltsorts oder Arbeitsplatzes wenden.</p>
+        <p>Vor einer Beschwerde freuen wir uns natürlich, wenn Sie uns zuerst direkt kontaktieren — wir kümmern uns um Ihr Anliegen schnell und unkompliziert.</p>
+      </div>
+    </details>
+
+    <!-- AVV Section -->
+    <h2 id="avv">Schließen wir AVVs mit unseren Kunden ab?</h2>
+    <p>Ja. Sobald Sie Mr. Bell als Geschäftskunde buchen, sind Sie datenschutzrechtlich Verantwortlicher für die Daten Ihrer Endkunden. Wir verarbeiten diese Daten in Ihrem Auftrag.</p>
+    <p>Die hierfür erforderliche Auftragsverarbeitungsvereinbarung (AVV) nach Art. 28 DSGVO stellen wir Ihnen beim Onboarding zur Verfügung und ist als Bestandteil des Vertrags zu akzeptieren. Eine PDF-Version der AVV können Sie zudem jederzeit anfordern unter <a href="mailto:kontakt@mrbell.de?subject=AVV-Anfrage">kontakt@mrbell.de</a>.</p>
+
+    <!-- CTA -->
+    <div class="cta-box" id="kontakt">
+      <h3>Noch Fragen? Wir kümmern uns persönlich.</h3>
+      <p>Schreiben Sie uns an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> — wir beantworten Datenschutz-Fragen in der Regel innerhalb von 24 Stunden.</p>
+      <p>Für die rechtsverbindlichen Details und die vollständige Auflistung aller Verarbeitungen siehe unsere Datenschutzerklärung.</p>
+      <div class="cta-buttons">
+        <a href="mailto:kontakt@mrbell.de?subject=Frage%20zum%20Datenschutz" class="cta-btn cta-btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+          E-Mail an Datenschutz
+        </a>
+        <a href="/datenschutz.html" class="cta-btn cta-btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Vollständige Datenschutzerklärung
+        </a>
+      </div>
+    </div>
+
+    <p class="footnote">Diese Übersichtsseite ist eine vereinfachte Darstellung zu Informationszwecken. Maßgeblich und rechtsverbindlich ist ausschließlich die <a href="/datenschutz.html">Datenschutzerklärung</a>. Stand: 8. Mai 2026.</p>
+
+  </main>
+</div>
+
+</body>
+</html>
