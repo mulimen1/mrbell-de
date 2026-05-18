@@ -3,461 +3,719 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Datenschutzerklärung — Mr. Bell</title>
+<title>DSGVO &amp; Datenschutz — Wie Mr. Bell Ihre Daten schützt</title>
+<meta name="description" content="Wie Mr. Bell die DSGVO einhält: EU-Hosting, AVV nach Art. 28 DSGVO, transparente Datenflüsse und alle Auftragsverarbeiter im Überblick.">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph -->
+<meta property="og:title" content="DSGVO &amp; Datenschutz bei Mr. Bell">
+<meta property="og:description" content="Made in Germany, EU-Hosting, AVV nach Art. 28 DSGVO. Transparenz auf Profi-Niveau.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mrbell.de/dsgvo.html">
+
+<!-- Schema.org for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Wer ist verantwortlich für Mr. Bell?","acceptedAnswer":{"@type":"Answer","text":"Mr. Bell wird betrieben von Ben Deschler als Einzelunternehmen mit Sitz in Baden-Baden, Deutschland."}},
+    {"@type":"Question","name":"Wo werden Daten gespeichert?","acceptedAnswer":{"@type":"Answer","text":"Bevorzugt in der EU: Vercel Frankfurt, n8n auf AWS Frankfurt, 360dialog Berlin, Google Workspace EU, Stripe Irland."}},
+    {"@type":"Question","name":"Werden Daten in die USA übertragen?","acceptedAnswer":{"@type":"Answer","text":"In einigen Fällen ja — abgesichert durch EU-U.S. Data Privacy Framework und EU-Standardvertragsklauseln nach Art. 46 DSGVO."}}
+  ]
+}
+</script>
+
 
 
 <style>@font-face{font-family:"Inter";src:url("/fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap}</style>
+
 <style>
-  body { font-family: 'Inter', system-ui, sans-serif; background: #f5f5f0; color: #1a1a2e; line-height: 1.6; margin: 0; padding: 0; }
-  .container { max-width: 820px; margin: 0 auto; padding: 60px 24px; }
-  h1 { font-family: 'Inter', system-ui, sans-serif; font-size: 2.5rem; color: #C2410C; margin-bottom: 8px; }
-  .subtitle { color: #666; margin-bottom: 32px; font-size: 0.95rem; }
-  h2 { font-family: 'Inter', system-ui, sans-serif; color: #1a1a2e; margin-top: 48px; font-size: 1.5rem; border-bottom: 2px solid #C2410C; padding-bottom: 8px; }
-  h3 { color: #1a1a2e; font-size: 1.1rem; margin-top: 28px; font-weight: 600; }
-  p, li { color: #333; font-size: 0.95rem; }
-  ul { padding-left: 22px; }
-  li { margin-bottom: 4px; }
-  a { color: #C2410C; }
+  /* ====== Reset & Base ====== */
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #f5f5f0;
+    color: #1a1a2e;
+    line-height: 1.65;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #C2410C; text-decoration: none; transition: color 0.15s; }
   a:hover { text-decoration: underline; }
-  .back { display: inline-block; margin-bottom: 30px; color: #666; text-decoration: none; font-size: 0.9rem; }
+  code { background: #fff; border: 1px solid #e0e0e0; padding: 1px 6px; border-radius: 3px; font-size: 0.85em; font-family: 'Menlo', 'Monaco', monospace; }
+
+  /* ====== Hero ====== */
+  .hero {
+    background: linear-gradient(135deg, #fef3eb 0%, #fde6d3 100%);
+    padding: 60px 24px 80px;
+    border-bottom: 1px solid rgba(196, 65, 12, 0.1);
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; }
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 24px; color: #666; text-decoration: none; font-size: 0.9rem;
+  }
   .back:hover { color: #C2410C; }
-  hr { border: none; border-top: 1px solid #e5e5e5; margin: 32px 0; }
-  .toc { background: white; border-left: 3px solid #C2410C; padding: 20px 24px; margin: 24px 0 40px; border-radius: 4px; }
-  .toc h3 { margin-top: 0; }
-  .toc ol { margin: 0; padding-left: 20px; }
-  .toc a { text-decoration: none; }
-  .info-box { background: white; border-left: 3px solid #C2410C; padding: 16px 20px; margin: 24px 0; border-radius: 4px; }
-  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem; }
-  table th, table td { border: 1px solid #ddd; padding: 10px 12px; text-align: left; vertical-align: top; }
-  table th { background: #1a1a2e; color: white; font-weight: 600; }
-  table tr:nth-child(even) { background: #fafaf5; }
-  .rights-box { background: white; border: 2px solid #C2410C; padding: 20px 24px; margin: 24px 0; border-radius: 4px; text-transform: none; }
-  code { background: #fff; border: 1px solid #ddd; padding: 1px 6px; border-radius: 3px; font-size: 0.85em; }
-  .pixel-highlight { background: #fef3ec; border-left: 3px solid #C2410C; padding: 14px 18px; border-radius: 4px; margin: 16px 0; }
+  .hero h1 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    color: #1a1a2e;
+    margin: 0 0 12px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 strong { color: #C2410C; }
+  .hero-sub {
+    color: #555;
+    font-size: 1.15rem;
+    max-width: 640px;
+    margin: 0 0 32px;
+    line-height: 1.5;
+  }
+  .meta-line { color: #888; font-size: 0.85rem; }
+
+  /* ====== Trust Pills ====== */
+  .pill-row {
+    display: flex; flex-wrap: wrap; gap: 10px; margin: 32px 0 0;
+  }
+  .pill {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    color: #333;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  .pill svg { flex-shrink: 0; }
+  .pill strong { color: #C2410C; font-weight: 600; }
+
+  /* ====== Layout ====== */
+  .layout {
+    max-width: 1100px;
+    margin: -40px auto 0;
+    padding: 0 24px 80px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    position: relative;
+  }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 24px; }
+    .sidebar { display: none; }
+  }
+
+  /* ====== Sidebar Nav ====== */
+  .sidebar {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    background: white;
+    border-radius: 12px;
+    padding: 24px 20px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+  }
+  .sidebar h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+  .sidebar ul { list-style: none; padding: 0; margin: 0; }
+  .sidebar li { margin-bottom: 6px; }
+  .sidebar a {
+    display: block; padding: 6px 10px;
+    color: #333; font-size: 0.88rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .sidebar a:hover {
+    background: #faf6ee;
+    border-left-color: #C2410C;
+    text-decoration: none;
+    color: #C2410C;
+  }
+
+  /* ====== Main Content ====== */
+  main { min-width: 0; }
+  .lead {
+    background: white;
+    border-left: 4px solid #C2410C;
+    padding: 24px 28px;
+    margin: 0 0 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+  .lead p { margin: 0; }
+  .lead p + p { margin-top: 12px; }
+  .lead strong { color: #C2410C; }
+
+  h2 {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #1a1a2e;
+    margin: 56px 0 16px;
+    font-size: 1.8rem;
+    line-height: 1.2;
+    border-bottom: 2px solid #C2410C;
+    padding-bottom: 10px;
+  }
+  h2:first-of-type { margin-top: 0; }
+  h3 { color: #1a1a2e; font-size: 1.05rem; margin-top: 24px; font-weight: 600; }
+  p, li { color: #333; font-size: 0.97rem; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+
+  /* ====== Status Banner ====== */
+  .status-banner {
+    background: #fffbe8;
+    border: 1px solid #f0d68a;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 24px 0;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .status-banner svg { flex-shrink: 0; margin-top: 2px; }
+  .status-banner strong { color: #8a6010; }
+  .status-banner p { margin: 0; font-size: 0.9rem; color: #553a00; }
+
+  /* ====== Accordion ====== */
+  details {
+    background: white;
+    border: 1px solid #e8e4dc;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+    overflow: hidden;
+  }
+  details[open] {
+    border-color: #C2410C;
+    box-shadow: 0 6px 20px rgba(196, 65, 12, 0.08);
+  }
+  summary {
+    cursor: pointer; padding: 18px 56px 18px 22px;
+    font-weight: 600; color: #1a1a2e; font-size: 1rem;
+    list-style: none; position: relative; user-select: none;
+    transition: background 0.15s;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: #faf6ee; }
+  summary::after {
+    content: ""; position: absolute; right: 22px; top: 50%; transform: translateY(-50%) rotate(0deg);
+    width: 14px; height: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C2410C' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E");
+    background-size: contain; background-repeat: no-repeat;
+    transition: transform 0.2s;
+  }
+  details[open] summary::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C2410C' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
+  }
+  details > div { padding: 0 22px 22px; animation: slide-down 0.25s ease-out; }
+  @keyframes slide-down {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  details p:first-child { margin-top: 0; }
+  details p:last-child { margin-bottom: 0; }
+
+  /* ====== Tabelle ====== */
+  .table-wrap { overflow-x: auto; margin: 16px 0; border-radius: 8px; border: 1px solid #e0dccd; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 560px; }
+  th, td { padding: 12px 14px; text-align: left; vertical-align: top; }
+  th {
+    background: #1a1a2e; color: white; font-weight: 600;
+    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em;
+    border-bottom: 1px solid #1a1a2e;
+  }
+  td { border-bottom: 1px solid #ececec; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #fafaf5; }
+  td .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 0.78rem; font-weight: 500;
+  }
+  .badge-eu { background: #e6f4ea; color: #1e7a3d; }
+  .badge-de { background: #ffeed8; color: #8a4a00; }
+  .badge-us { background: #f0f0f0; color: #555; }
+
+  /* ====== Datenfluss-Diagramm ====== */
+  .data-flow {
+    background: white;
+    border: 1px solid #e8e4dc;
+    border-radius: 12px;
+    padding: 28px;
+    margin: 24px 0;
+    overflow-x: auto;
+  }
+  .data-flow svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+
+  /* ====== CTA Box ====== */
+  .cta-box {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a2a44 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin: 48px 0;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  }
+  .cta-box h3 {
+    color: white;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1.5rem;
+    margin: 0 0 12px;
+  }
+  .cta-box p { color: rgba(255,255,255,0.8); margin: 0 0 16px; }
+  .cta-box p:last-child { margin-bottom: 0; }
+  .cta-box a {
+    color: #ffb480;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 180, 128, 0.3);
+  }
+  .cta-box a:hover { color: #ffd0b0; text-decoration: none; }
+  .cta-buttons {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;
+  }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem;
+    transition: all 0.15s;
+    border-bottom: none !important;
+  }
+  .cta-btn-primary {
+    background: #C2410C; color: white !important;
+    border-bottom: none !important;
+  }
+  .cta-btn-primary:hover { background: #a0350a; text-decoration: none !important; }
+  .cta-btn-secondary {
+    background: rgba(255,255,255,0.1); color: white !important;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .cta-btn-secondary:hover { background: rgba(255,255,255,0.15); text-decoration: none !important; }
+
+  /* ====== Footer ====== */
+  .footnote {
+    border-top: 1px solid #e0dccd;
+    padding-top: 24px;
+    margin-top: 48px;
+    font-size: 0.85rem;
+    color: #888;
+  }
+
+  /* ====== Print Styles ====== */
+  @media print {
+    .hero { background: white !important; padding: 20px 0; }
+    .sidebar { display: none; }
+    .layout { grid-template-columns: 1fr; padding: 0 20px; }
+    details { break-inside: avoid; border: 1px solid #ccc !important; box-shadow: none !important; }
+    details[open] summary::after, details summary::after { display: none; }
+    .cta-box { background: #f5f5f0 !important; color: #1a1a2e !important; }
+    .cta-box h3, .cta-box p { color: #1a1a2e !important; }
+    body { background: white; }
+  }
 
   @media (max-width: 768px) {
-    .container { padding: 32px 16px; }
-    h1 { font-size: clamp(1.5rem, 7vw, 2.5rem); word-wrap: break-word; overflow-wrap: break-word; }
-    h2 { font-size: 1.15rem; margin-top: 28px; }
-    h3 { font-size: 1rem; }
-    p, li { font-size: 0.9rem; }
     body { overflow-x: hidden; }
-    table { font-size: 0.8rem; display: block; overflow-x: auto; }
+    h1 { font-size: clamp(1.5rem, 7vw, 2.5rem) !important; word-wrap: break-word; overflow-wrap: break-word; }
+    h2 { font-size: 1.15rem !important; }
+    h3 { font-size: 1rem !important; }
+    p, li, td, th { font-size: 0.9rem !important; }
+    table { font-size: 0.8rem !important; display: block; overflow-x: auto; }
+    .container, .main-content { padding: 32px 16px !important; }
   }
 </style>
 </head>
+
 <body>
-<div class="container">
-<a href="/" class="back">← Zurück zur Startseite</a>
-<h1>Datenschutzerklärung</h1>
-<p class="subtitle">Stand: 18. Mai 2026</p>
 
-<div class="info-box">
-<p style="margin:0;"><strong>Hinweis zur Verschlüsselung:</strong> Diese Website nutzt eine TLS-Verschlüsselung („Transport Layer Security") zum Schutz der Datenübertragung. Sie erkennen dies am Schloss-Symbol in Ihrer Browserzeile sowie am Adress-Präfix <code>https://</code>.</p>
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-inner">
+    <a href="/" class="back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Zurück zur Startseite
+    </a>
+    <h1>DSGVO &amp; <strong>Datenschutz</strong> bei Mr. Bell</h1>
+    <p class="hero-sub">Wie wir Ihre Daten schützen, wo wir hosten, mit welchen Dienstleistern wir arbeiten — und welche Rechte Sie haben.</p>
+    <p class="meta-line">Stand: 8. Mai 2026 &nbsp;·&nbsp; Lesezeit: ca. 4 Minuten</p>
+
+    <div class="pill-row">
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <strong>Sitz:</strong> Baden-Baden 🇩🇪
+      </span>
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        <strong>Hosting:</strong> Frankfurt
+      </span>
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        <strong>AVV nach:</strong> Art. 28 DSGVO
+      </span>
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+        <strong>Aufsicht:</strong> LfDI BW
+      </span>
+      <span class="pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <strong>Drittland:</strong> DPF + EU-SCC
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LAYOUT ========== -->
+<div class="layout">
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <h4>Auf dieser Seite</h4>
+    <ul>
+      <li><a href="#kurz">Kurzfassung</a></li>
+      <li><a href="#datenfluss">Datenfluss</a></li>
+      <li><a href="#fragen">Häufige Fragen</a></li>
+      <li><a href="#avv">AVV mit Kunden</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </aside>
+
+  <!-- ===== Main ===== -->
+  <main>
+
+    <!-- Lead -->
+    <div class="lead" id="kurz">
+      <p><strong>Kurzfassung in einem Satz:</strong> Mr. Bell ist eine deutsche Einzelunternehmung mit Sitz in Baden-Baden, verarbeitet Daten ausschließlich zur Bot-Bereitstellung, hostet bevorzugt in der EU und schließt mit allen Dienstleistern Auftragsverarbeitungsverträge nach Art. 28 DSGVO ab.</p>
+      <p>Diese Seite ist eine User-freundliche Übersicht. Die rechtsverbindlichen Details finden Sie in unserer <a href="/datenschutz.html">Datenschutzerklärung</a>.</p>
+    </div>
+
+    <!-- Datenfluss-Diagramm -->
+    <h2 id="datenfluss">Wie Daten durch Mr. Bell fließen</h2>
+    <p>Vereinfacht dargestellt: Sie senden eine WhatsApp-Nachricht an einen Bot, dieser durchläuft folgenden Weg, bis Sie eine Antwort erhalten.</p>
+
+    <div class="data-flow">
+      <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Datenfluss-Diagramm">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#C2410C"/>
+          </marker>
+          <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff"/>
+            <stop offset="100%" stop-color="#faf6ee"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Endkunde -->
+        <g>
+          <rect x="20" y="140" width="130" height="70" rx="10" fill="url(#boxGrad)" stroke="#C2410C" stroke-width="2"/>
+          <text x="85" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1a1a2e">Endkunde</text>
+          <text x="85" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#666">via WhatsApp</text>
+        </g>
+
+        <!-- Arrow 1 -->
+        <line x1="155" y1="175" x2="195" y2="175" stroke="#C2410C" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- 360dialog -->
+        <g>
+          <rect x="200" y="140" width="130" height="70" rx="10" fill="url(#boxGrad)" stroke="#C2410C" stroke-width="2"/>
+          <text x="265" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1a1a2e">360dialog</text>
+          <text x="265" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#666">Berlin 🇩🇪</text>
+        </g>
+
+        <!-- Arrow 2 -->
+        <line x1="335" y1="175" x2="375" y2="175" stroke="#C2410C" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- n8n -->
+        <g>
+          <rect x="380" y="140" width="130" height="70" rx="10" fill="url(#boxGrad)" stroke="#C2410C" stroke-width="2"/>
+          <text x="445" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1a1a2e">n8n Workflow</text>
+          <text x="445" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#666">AWS Frankfurt 🇩🇪</text>
+        </g>
+
+        <!-- Arrow 3 -->
+        <line x1="515" y1="175" x2="555" y2="175" stroke="#C2410C" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Anthropic -->
+        <g>
+          <rect x="560" y="140" width="130" height="70" rx="10" fill="url(#boxGrad)" stroke="#C2410C" stroke-width="2"/>
+          <text x="625" y="170" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1a1a2e">Anthropic KI</text>
+          <text x="625" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#666">USA · DPF + SCC</text>
+        </g>
+
+        <!-- Return Arrow -->
+        <path d="M 625 220 Q 625 280 400 280 Q 175 280 85 280 Q 85 280 85 215" fill="none" stroke="#C2410C" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+        <text x="400" y="305" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#888" font-style="italic">Antwort zurück zum Endkunden</text>
+
+        <!-- Title -->
+        <text x="400" y="40" text-anchor="middle" font-family="Inter,sans-serif" font-size="18" font-weight="600" fill="#1a1a2e">Datenfluss einer einzelnen Bot-Anfrage</text>
+        <text x="400" y="62" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#888">Verschlüsselt via TLS · max. 30 Tage Speicherung bei Anthropic</text>
+
+        <!-- Side Note -->
+        <g transform="translate(20, 100)">
+          <rect x="0" y="0" width="760" height="22" rx="4" fill="#fffbe8" stroke="#f0d68a"/>
+          <text x="380" y="15" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#553a00">Verarbeitung erfolgt im Auftrag des Mr.-Bell-Kunden — er ist datenschutzrechtlich Verantwortlicher der Endkunden-Daten.</text>
+        </g>
+
+      </svg>
+    </div>
+
+    <!-- ============ FAQ ============ -->
+    <h2 id="fragen">Die wichtigsten Fragen</h2>
+
+    <details>
+      <summary>Wer ist verantwortlich für Mr. Bell?</summary>
+      <div>
+        <p>Mr. Bell wird betrieben von <strong>Ben Deschler als Einzelunternehmen</strong> mit Sitz in der Scheibenstr. 2, 76530 Baden-Baden, Deutschland. Wir unterliegen der deutschen DSGVO-Aufsicht durch den Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg (LfDI BW).</p>
+        <p>Vollständige Kontaktdaten finden Sie im <a href="/impressum.html">Impressum</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Welche Daten verarbeitet Mr. Bell überhaupt?</summary>
+      <div>
+        <p>Wir unterscheiden zwei Datenkategorien:</p>
+        <p><strong>1. Daten unserer Kunden (B2B-Auftraggeber):</strong></p>
+        <ul>
+          <li>Firmenname, Branche, Adresse</li>
+          <li>Kontaktperson (Name, E-Mail, Telefon)</li>
+          <li>Bot-Konfiguration (Tonfall, Sprachen, individueller Prompt)</li>
+          <li>Rechnungs- und Zahlungsdaten</li>
+        </ul>
+        <p><strong>2. Daten der Endkunden unserer Kunden (Bot-Nutzer):</strong></p>
+        <ul>
+          <li>Telefonnummer (für die WhatsApp-Konversation)</li>
+          <li>Inhalt der Nachrichten an den Bot</li>
+          <li>Zeitstempel und technische Metadaten</li>
+        </ul>
+        <p>Diese Endkunden-Daten verarbeiten wir <strong>im Auftrag</strong> des jeweiligen Mr.-Bell-Kunden — der Kunde ist datenschutzrechtlich verantwortlich, wir sind Auftragsverarbeiter.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wo werden meine Daten gespeichert?</summary>
+      <div>
+        <p>Wir hosten so weit wie möglich in der EU:</p>
+        <ul>
+          <li><strong>Website &amp; API</strong> — Vercel, Server-Region Frankfurt (<code>fra1</code>)</li>
+          <li><strong>Workflow-Engine</strong> — n8n auf AWS Frankfurt</li>
+          <li><strong>WhatsApp-Anbindung</strong> — 360dialog (Berlin)</li>
+          <li><strong>E-Mail-Versand</strong> — Google Workspace (Gmail), EU-Server</li>
+          <li><strong>Zahlungsabwicklung</strong> — Stripe (Irland)</li>
+        </ul>
+        <p>Einige Verarbeitungen erfolgen aus technischen Gründen in den USA — etwa die KI-Antworten via Anthropic. Für diese Übermittlungen liegen Garantien nach Art. 45/46 DSGVO vor (siehe nächste Frage).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Werden Daten in die USA übertragen?</summary>
+      <div>
+        <p>Ja, in einigen Fällen. Konkret bei:</p>
+        <ul>
+          <li><strong>Anthropic (KI-Modell):</strong> für die Generierung von Bot-Antworten</li>
+          <li><strong>Vercel:</strong> Mutterunternehmen sitzt in den USA, Server stehen aber in Frankfurt</li>
+          <li><strong>Google Workspace:</strong> Google Ireland Ltd., Server in der EU</li>
+          <li><strong>Calendly &amp; Stripe:</strong> teilweise USA-Verarbeitung im Hintergrund</li>
+          <li><strong>Meta (Pixel + CAPI):</strong> nur nach Ihrer Einwilligung über das Cookie-Banner</li>
+        </ul>
+        <p>Für jede dieser Übertragungen liegen rechtliche Garantien vor:</p>
+        <ul>
+          <li>Entweder ein <strong>Angemessenheitsbeschluss</strong> der EU-Kommission über das EU-U.S. Data Privacy Framework (DPF)</li>
+          <li>Oder <strong>EU-Standardvertragsklauseln (SCC)</strong> nach Art. 46 DSGVO</li>
+          <li>In den meisten Fällen: <strong>beides als doppelte Absicherung</strong></li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wer sind eure Auftragsverarbeiter?</summary>
+      <div>
+        <p>Hier die vollständige Liste der Dienstleister, mit denen wir Auftragsverarbeitungsverträge nach Art. 28 DSGVO geschlossen haben:</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Dienstleister</th><th>Tätigkeit</th><th>Sitz</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Vercel Inc.</td><td>Website-Hosting</td><td><span class="badge badge-eu">USA / Server EU</span></td></tr>
+              <tr><td>Anthropic PBC</td><td>KI-Verarbeitung</td><td><span class="badge badge-us">USA</span></td></tr>
+              <tr><td>Google Ireland Ltd.</td><td>E-Mail-Versand</td><td><span class="badge badge-eu">EU (Irland)</span></td></tr>
+              <tr><td>Stripe Payments Europe</td><td>Zahlungsabwicklung</td><td><span class="badge badge-eu">Irland</span></td></tr>
+              <tr><td>Google Ireland Limited</td><td>Sheets &amp; Workspace</td><td><span class="badge badge-eu">Irland</span></td></tr>
+              <tr><td>Calendly LLC</td><td>Termin-Buchung</td><td><span class="badge badge-us">USA</span></td></tr>
+              <tr><td>n8n GmbH</td><td>Workflow-Automatisierung</td><td><span class="badge badge-de">Deutschland</span></td></tr>
+              <tr><td>360dialog GmbH</td><td>WhatsApp Business API</td><td><span class="badge badge-de">Deutschland</span></td></tr>
+              <tr><td>WhatsApp Ireland (Meta)</td><td>WhatsApp-Infrastruktur</td><td><span class="badge badge-eu">Irland / USA</span></td></tr>
+              <tr><td>Meta Platforms Ireland</td><td>Meta Pixel &amp; CAPI <em>(nach Einwilligung)</em></td><td><span class="badge badge-eu">Irland / USA</span></td></tr>
+              <tr><td>eRecht24 (Solmecke GbR)</td><td>Cookie-Banner / Consent</td><td><span class="badge badge-de">Deutschland</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Details zu jedem Dienstleister stehen in der <a href="/datenschutz.html">Datenschutzerklärung</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wie sieht es mit der KI (Anthropic Claude) aus?</summary>
+      <div>
+        <p>Mr. Bell nutzt <strong>Claude Haiku von Anthropic</strong> für die Bot-Antworten. Anthropic hat klare Datenschutz-Zusagen, die wir vertraglich abgesichert haben:</p>
+        <ul>
+          <li>Ihre Eingaben werden <strong>nicht zum Training</strong> der KI-Modelle verwendet (vertraglich ausgeschlossen über die Anthropic Commercial Terms of Service).</li>
+          <li>API-Daten werden bei Anthropic standardmäßig bis zu 30 Tage zur Missbrauchserkennung gespeichert und danach automatisch gelöscht.</li>
+          <li>Anthropic ist seit 2025 nach dem EU-U.S. Data Privacy Framework zertifiziert; ergänzend gelten EU-Standardvertragsklauseln.</li>
+          <li>Wir haben einen Auftragsverarbeitungsvertrag (AVV) nach Art. 28 DSGVO mit Anthropic geschlossen.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Ist die WhatsApp Business API DSGVO-konform?</summary>
+      <div>
+        <p>Wichtige Unterscheidung: Mr. Bell nutzt <strong>nicht</strong> die normale WhatsApp- oder WhatsApp-Business-App. Wir nutzen die offizielle <strong>WhatsApp Business API</strong>, die für den Unternehmenseinsatz konzipiert ist.</p>
+        <p>Konkret läuft das so:</p>
+        <ul>
+          <li>Die Anbindung erfolgt über den deutschen Business-Solution-Provider <strong>360dialog</strong> (Berlin).</li>
+          <li>Mit 360dialog besteht ein AVV nach Art. 28 DSGVO.</li>
+          <li>WhatsApp/Meta verarbeitet als weiterer Auftragsverarbeiter; entsprechende EU-Standardvertragsklauseln sind über 360dialog vereinbart.</li>
+          <li><strong>Inbound</strong> (Endkunde schreibt zuerst): Die Konversation wird durch die aktive Kontaktaufnahme als implizites Opt-In gewertet.</li>
+          <li><strong>Outbound</strong> (Bot kontaktiert Endkunden proaktiv): Hier erfordert WhatsApp ein dokumentiertes Opt-In, das der jeweilige Auftraggeber sicherstellt.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wie lange werden meine Daten gespeichert?</summary>
+      <div>
+        <p>Wir speichern nicht länger als nötig. Wichtigste Fristen:</p>
+        <ul>
+          <li><strong>Vertragsdaten:</strong> Vertragsdauer + 90 Tage</li>
+          <li><strong>Bot-Konversationen:</strong> standardmäßig 30 Tage (anpassbar im Kunden-AVV)</li>
+          <li><strong>E-Mail-Verifizierungscodes:</strong> 15 Minuten</li>
+          <li><strong>Server-Logs:</strong> 30 Tage</li>
+          <li><strong>Reine E-Mail-Anfragen ohne Vertrag:</strong> max. 2 Jahre</li>
+          <li><strong>Rechnungen:</strong> 10 Jahre (gesetzliche Pflicht nach § 147 AO)</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Werden Cookies oder Tracker gesetzt?</summary>
+      <div>
+        <p>Standardmäßig nein — Sie entscheiden selbst über das <strong>Cookie-Banner</strong> beim ersten Besuch:</p>
+        <ul>
+          <li><strong>Wenn Sie nichts akzeptieren:</strong> nur technisch notwendige Speicherung (Session, damit das Onboarding bei Reload nicht verloren geht).</li>
+          <li><strong>Wenn Sie zustimmen:</strong> wir setzen den Meta Pixel (Facebook/Instagram) und die Meta Conversion API ein, um die Wirksamkeit unserer Werbeanzeigen zu messen.</li>
+        </ul>
+        <p>Sie können Ihre Entscheidung jederzeit über den „Cookie-Einstellungen"-Link im Footer der Website widerrufen oder ändern.</p>
+        <p><strong>Was wir nicht einsetzen:</strong> Google Analytics, Google Ads, LinkedIn Insight Tag, TikTok Pixel, Heatmap-Tools, Hotjar.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wie funktioniert das Meta Pixel-Tracking konkret?</summary>
+      <div>
+        <p>Wenn Sie im Cookie-Banner zustimmen, setzt unsere Website das <strong>Meta Pixel</strong> der Meta Platforms Ireland Limited ein. Es funktioniert wie folgt:</p>
+        <ul>
+          <li>Bei Seitenaufrufen und Aktionen (z. B. Onboarding starten, Buchung abschließen) übermittelt das Pixel Events an Meta.</li>
+          <li>Übertragen werden: Zeitstempel, Seiten-URL, anonymisierte IP, Browser-Informationen und ein Pseudonym-Cookie (<code>_fbp</code>, 90 Tage gültig).</li>
+          <li>Personenbezogene Identifikatoren wie E-Mail oder Telefonnummer werden vorher lokal mittels <strong>SHA-256 gehashed</strong> übertragen (Advanced Matching).</li>
+        </ul>
+        <p>Zusätzlich nutzen wir die <strong>Meta Conversion API (CAPI)</strong> für serverseitige Übermittlung — das verbessert die Tracking-Genauigkeit speziell auf iOS-Geräten und unterstützt eine korrekte Werbe-Optimierung trotz Werbeblockern.</p>
+        <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Ihre Einwilligung über das Cookie-Banner).</p>
+        <p><strong>Drittland-USA:</strong> Meta kann Daten in die USA übermitteln. Abgesichert durch EU-U.S. Data Privacy Framework + EU-Standardvertragsklauseln. Gemeinsame Verantwortlichkeit nach Art. 26 DSGVO geregelt im <a href="https://www.facebook.com/legal/controller_addendum" target="_blank" rel="noopener">Meta Controller Addendum</a>.</p>
+        <p><strong>Widerruf:</strong> Cookie-Einstellungen-Link im Footer der Website.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Welche Rechte habe ich als betroffene Person?</summary>
+      <div>
+        <p>Sie haben gemäß DSGVO das Recht auf:</p>
+        <ul>
+          <li><strong>Auskunft</strong> (Art. 15) — welche Daten haben wir über Sie</li>
+          <li><strong>Berichtigung</strong> (Art. 16) — falsche Daten korrigieren</li>
+          <li><strong>Löschung</strong> (Art. 17) — „Recht auf Vergessenwerden"</li>
+          <li><strong>Einschränkung</strong> (Art. 18) — Verarbeitung pausieren</li>
+          <li><strong>Datenübertragbarkeit</strong> (Art. 20) — Ihre Daten als Datei erhalten</li>
+          <li><strong>Widerspruch</strong> (Art. 21) — gegen bestimmte Verarbeitungen</li>
+          <li><strong>Widerruf</strong> (Art. 7 Abs. 3) — erteilte Einwilligungen jederzeit zurücknehmen</li>
+          <li><strong>Beschwerde</strong> (Art. 77) — bei der zuständigen Aufsichtsbehörde</li>
+        </ul>
+        <p>So machen Sie diese Rechte geltend: kurze E-Mail an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>. Wir antworten innerhalb der gesetzlichen Frist von einem Monat — meist deutlich schneller.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wie sind meine Daten technisch geschützt?</summary>
+      <div>
+        <p>Wir setzen die in Art. 32 DSGVO geforderten technischen und organisatorischen Maßnahmen um, insbesondere:</p>
+        <ul>
+          <li>TLS-Verschlüsselung aller Datenübertragungen</li>
+          <li>Verschlüsselte Speicherung sensitiver Daten</li>
+          <li>Zwei-Faktor-Authentifizierung für alle administrativen Zugänge</li>
+          <li>Strenges Need-to-know-Prinzip beim Zugriff</li>
+          <li>Regelmäßige Updates der eingesetzten Systeme</li>
+          <li>Server-seitiger Inhalts-Filter im Bell-Chat (blockt missbräuchliche Eingaben vor Anthropic-Übermittlung)</li>
+        </ul>
+        <p>Datenschutzverletzungen melden wir innerhalb von 72 Stunden an die zuständige Aufsichtsbehörde — wie es Art. 33 DSGVO vorschreibt.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Macht der Bot Profiling oder automatische Entscheidungen?</summary>
+      <div>
+        <p>Nein. Mr. Bell trifft keine automatisierten Entscheidungen mit Rechtswirkung im Sinne des Art. 22 DSGVO. Der KI-Bot beantwortet Anfragen und ist explizit darauf trainiert, keine bindenden Zusagen, Preisversprechen oder Vertragsangebote zu machen.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>An wen kann ich mich bei Beschwerden wenden?</summary>
+      <div>
+        <p>Sie haben das Recht, sich direkt bei der zuständigen Aufsichtsbehörde zu beschweren:</p>
+        <p>
+        <strong>Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg (LfDI BW)</strong><br>
+        Lautenschlagerstraße 20, 70173 Stuttgart<br>
+        Telefon: +49 711 615541-0<br>
+        E-Mail: <a href="mailto:poststelle@lfdi.bwl.de">poststelle@lfdi.bwl.de</a><br>
+        <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel="noopener">baden-wuerttemberg.datenschutz.de</a>
+        </p>
+        <p>Sie können sich auch an die Aufsichtsbehörde Ihres üblichen Aufenthaltsorts oder Arbeitsplatzes wenden.</p>
+        <p>Vor einer Beschwerde freuen wir uns natürlich, wenn Sie uns zuerst direkt kontaktieren — wir kümmern uns um Ihr Anliegen schnell und unkompliziert.</p>
+      </div>
+    </details>
+
+    <!-- AVV Section -->
+    <h2 id="avv">Schließen wir AVVs mit unseren Kunden ab?</h2>
+    <p>Ja. Sobald Sie Mr. Bell als Geschäftskunde buchen, sind Sie datenschutzrechtlich Verantwortlicher für die Daten Ihrer Endkunden. Wir verarbeiten diese Daten in Ihrem Auftrag.</p>
+    <p>Die hierfür erforderliche Auftragsverarbeitungsvereinbarung (AVV) nach Art. 28 DSGVO stellen wir Ihnen beim Onboarding zur Verfügung und ist als Bestandteil des Vertrags zu akzeptieren. Eine PDF-Version der AVV können Sie zudem jederzeit anfordern unter <a href="mailto:kontakt@mrbell.de?subject=AVV-Anfrage">kontakt@mrbell.de</a>.</p>
+
+    <!-- CTA -->
+    <div class="cta-box" id="kontakt">
+      <h3>Noch Fragen? Wir kümmern uns persönlich.</h3>
+      <p>Schreiben Sie uns an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> — wir beantworten Datenschutz-Fragen in der Regel innerhalb von 24 Stunden.</p>
+      <p>Für die rechtsverbindlichen Details und die vollständige Auflistung aller Verarbeitungen siehe unsere Datenschutzerklärung.</p>
+      <div class="cta-buttons">
+        <a href="mailto:kontakt@mrbell.de?subject=Frage%20zum%20Datenschutz" class="cta-btn cta-btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+          E-Mail an Datenschutz
+        </a>
+        <a href="/datenschutz.html" class="cta-btn cta-btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Vollständige Datenschutzerklärung
+        </a>
+      </div>
+    </div>
+
+    <p class="footnote">Diese Übersichtsseite ist eine vereinfachte Darstellung zu Informationszwecken. Maßgeblich und rechtsverbindlich ist ausschließlich die <a href="/datenschutz.html">Datenschutzerklärung</a>. Stand: 8. Mai 2026.</p>
+
+  </main>
 </div>
 
-<div class="toc">
-<h3>Inhaltsverzeichnis</h3>
-<ol>
-<li><a href="#s1">Verantwortlicher</a></li>
-<li><a href="#s2">Begriffe und allgemeine Hinweise</a></li>
-<li><a href="#s3">Server-Log-Dateien (Hosting via Vercel)</a></li>
-<li><a href="#s4">KI-Chat auf der Website (Bell-Chat &amp; Demo-Bot)</a></li>
-<li><a href="#s5">Onboarding und Vertragsabwicklung</a></li>
-<li><a href="#s6">E-Mail-Versand (Google Workspace / Gmail)</a></li>
-<li><a href="#s7">Zahlungsabwicklung (Stripe)</a></li>
-<li><a href="#s8">Interne Auftragsverwaltung (Google Sheets via Apps Script)</a></li>
-<li><a href="#s9">Termin-Buchung (Calendly)</a></li>
-<li><a href="#s10">Workflow-Automatisierung (n8n)</a></li>
-<li><a href="#s11">WhatsApp Business API (360dialog &amp; Meta)</a></li>
-<li><a href="#s12">E-Mail-Kommunikation (Google Workspace)</a></li>
-<li><a href="#s13">Schriftarten (Self-Hosted)</a></li>
-<li><a href="#s14">Cookies, Einwilligungs-Management und Tracking</a></li>
-<li><a href="#s15">Meta Pixel (Facebook Pixel) und Conversion API</a></li>
-<li><a href="#s16">Übersicht aller Auftragsverarbeiter</a></li>
-<li><a href="#s17">Speicherdauer</a></li>
-<li><a href="#s18">Datenübermittlung in Drittländer</a></li>
-<li><a href="#s19">Ihre Rechte als betroffene Person</a></li>
-<li><a href="#s20">Widerspruchsrecht</a></li>
-<li><a href="#s21">Beschwerderecht bei der Aufsichtsbehörde</a></li>
-<li><a href="#s22">Keine automatisierte Entscheidungsfindung</a></li>
-<li><a href="#s23">Sicherheit der Verarbeitung</a></li>
-<li><a href="#s24">Aktualität und Änderungen dieser Erklärung</a></li>
-</ol>
-</div>
-
-<h2 id="s1">1. Verantwortlicher</h2>
-<p>Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) und sonstiger nationaler Datenschutzgesetze ist:</p>
-<p>
-Ben Deschler<br>
-Mr. Bell (Einzelunternehmen)<br>
-Scheibenstr. 2<br>
-76530 Baden-Baden<br>
-Deutschland<br>
-E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a><br>
-Telefon: +49 176 20690319
-</p>
-
-<h2 id="s2">2. Begriffe und allgemeine Hinweise</h2>
-<p>Diese Datenschutzerklärung verwendet die Begriffe der DSGVO. „Personenbezogene Daten" sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen (Art. 4 Nr. 1 DSGVO).</p>
-<p>Mr. Bell richtet sich ausschließlich an Unternehmer im Sinne des § 14 BGB (B2B). Bei der Nutzung des Onboardings werden ausschließlich Daten zur unternehmerischen Tätigkeit der Kunden sowie deren Kontaktdaten verarbeitet — keine Daten der Endkunden des Auftraggebers.</p>
-<p>Soweit die Endkunden unserer Kunden mit dem WhatsApp-Bot interagieren, ist der jeweilige Kunde („Auftraggeber") als Verantwortlicher im Sinne der DSGVO einzustufen. Mr. Bell tritt insoweit als Auftragsverarbeiter auf. Die hierfür notwendige Auftragsverarbeitungsvereinbarung (AVV nach Art. 28 DSGVO) wird mit jedem Kunden separat abgeschlossen.</p>
-
-<h2 id="s3">3. Server-Log-Dateien (Hosting via Vercel)</h2>
-<p>Beim Aufruf dieser Website erhebt unser Hosting-Anbieter Vercel automatisch Server-Log-Daten, die Ihr Browser an den Server übermittelt. Dies sind:</p>
-<ul>
-<li>IP-Adresse</li>
-<li>Datum und Uhrzeit des Zugriffs</li>
-<li>Aufgerufene URL</li>
-<li>Übertragene Datenmenge</li>
-<li>Browser-Typ und -Version</li>
-<li>Betriebssystem</li>
-<li>Referrer-URL</li>
-</ul>
-<p><strong>Zweck:</strong> Gewährleistung eines reibungslosen Verbindungsaufbaus, Stabilität und Sicherheit der Website, Abwehr von Angriffen.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).</p>
-<p><strong>Speicherdauer:</strong> Logs werden in der Regel nach 30 Tagen automatisch gelöscht. Bei Sicherheitsvorfällen kann eine längere Aufbewahrung zur Beweissicherung erfolgen.</p>
-<p><strong>Auftragsverarbeiter:</strong> Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA. Die Server für mrbell.de sind in der Region <code>fra1</code> (Frankfurt) angesiedelt. Mit Vercel besteht ein AVV gem. Art. 28 DSGVO. Vercel ist nach dem EU-U.S. Data Privacy Framework zertifiziert (Angemessenheitsbeschluss gem. Art. 45 DSGVO); zusätzlich liegen ergänzende EU-Standardvertragsklauseln gem. Art. 46 DSGVO vor, die auch bei einem etwaigen Wegfall des Angemessenheitsbeschlusses fortgelten.</p>
-
-<h2 id="s4">4. KI-Chat auf der Website (Bell-Chat &amp; Demo-Bot)</h2>
-<p>Auf unserer Website setzen wir an zwei Stellen KI-gestützte Chats ein:</p>
-
-<h3>4.1 Bell-Chat (Sales-Assistent auf der Startseite)</h3>
-<p>Der Bell-Chat beantwortet Fragen zu unserem Produkt und führt Sie durch eine kurze Vor-Qualifizierung. Wenn Sie mit dem Chat interagieren, werden Ihre Eingaben (Texte, Frage-Antwort-Verlauf) an die Schnittstelle der Anthropic PBC weitergeleitet, dort durch ein KI-Modell („Claude Haiku") verarbeitet und die Antwort an Sie zurückgegeben.</p>
-<p>Verarbeitet werden ausschließlich Inhalte, die Sie aktiv eingeben. Wir empfehlen, im Chat keine sensiblen oder personenbezogenen Daten Dritter einzugeben.</p>
-
-<h3>4.2 Demo-Bot im Onboarding (Test-Chat in Schritt 10)</h3>
-<p>Während des Onboardings können Sie in Schritt 10 einen Demo-Bot mit Ihrem individuell konfigurierten System-Prompt testen. Auch hierbei werden Ihre Eingaben sowie der von Ihnen erstellte System-Prompt an Anthropic übermittelt, dort verarbeitet und die Antwort zurückgegeben.</p>
-
-<h3>4.3 Allgemeines zur KI-Verarbeitung</h3>
-<p><strong>Zweck:</strong> Bereitstellung der Sales-Konversation bzw. der Demo-Funktion; Beantwortung Ihrer Fragen.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) sowie Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer effizienten Kundeninteraktion).</p>
-<p><strong>Speicherdauer:</strong> Anthropic verarbeitet Ihre Eingaben zur Generierung der Antwort. Im Rahmen der Anthropic Commercial Terms of Service werden Ihre API-Inputs ausdrücklich <strong>nicht</strong> zu Trainingszwecken verwendet. API-Daten werden bei Anthropic standardmäßig für bis zu 30 Tage zur Erkennung und Abwehr von Missbrauch gespeichert und anschließend automatisch gelöscht. Eine separate Zero-Data-Retention-Vereinbarung mit Anthropic besteht derzeit nicht. Auf unserer Seite wird der Chatverlauf nur in Ihrer Browser-Session gehalten und nicht dauerhaft gespeichert.</p>
-<p><strong>Auftragsverarbeiter:</strong> Anthropic PBC, 548 Market St, PMB 90375, San Francisco, CA 94104, USA. Mit Anthropic besteht ein AVV gem. Art. 28 DSGVO. Anthropic ist seit Frühjahr 2025 nach dem EU-U.S. Data Privacy Framework zertifiziert; ergänzend gelten EU-Standardvertragsklauseln gem. Art. 46 Abs. 2 lit. c DSGVO als Auffanglösung.</p>
-<p><strong>Sicherheits-Filter:</strong> Beide Chats verfügen über einen serverseitigen Inhalts-Filter, der Eingaben mit illegalen, gewaltverherrlichenden oder hassbasierten Inhalten anhand vordefinierter Stichwortlisten blockiert, bevor sie an die KI weitergeleitet werden. Die durch den Filter abgewiesenen Eingaben werden nicht an Anthropic übermittelt und nicht dauerhaft gespeichert.</p>
-
-<h2 id="s5">5. Onboarding und Vertragsabwicklung</h2>
-<p>Im Rahmen des Onboarding-Prozesses (14 Schritte) erheben wir folgende Daten Ihres Unternehmens:</p>
-<ul>
-<li>Firmenname, Branche, Adresse</li>
-<li>Öffnungszeiten</li>
-<li>Dienstleistungen mit Preisen</li>
-<li>Häufige Fragen (FAQs) Ihrer Kunden</li>
-<li>Geplanten Tonfall des Bots, Anrede-Präferenz, Sprachen</li>
-<li><strong>Individueller Bot-Prompt</strong> (Persona-Beschreibung und Antwortregeln, von Ihnen verfasst oder mit Hilfe der KI generiert)</li>
-<li>Telefonnummer und WhatsApp-Business-Nummer (sofern vorhanden) zur Bot-Anbindung</li>
-<li>Vor- und Nachname der Kontaktperson</li>
-<li>E-Mail-Adresse</li>
-<li>Bei gebuchter Pioneer- oder Standard-Subscription: Rechnungsdaten</li>
-</ul>
-<p><strong>Zweck:</strong> Einrichtung, Konfiguration und Betrieb Ihres individuellen Mr.-Bell-Bots; Abrechnung und Vertragsabwicklung.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung und vorvertragliche Maßnahmen).</p>
-<p><strong>Speicherdauer:</strong> Für die Dauer des Vertrags. Nach Vertragsende werden personenbezogene Daten innerhalb von 90 Tagen gelöscht. Ausgenommen sind Rechnungs- und Zahlungsdaten, die der gesetzlichen Aufbewahrungspflicht von 10 Jahren unterliegen (§ 147 AO, § 257 HGB).</p>
-
-<h2 id="s6">6. E-Mail-Versand (Google Workspace / Gmail)</h2>
-<p>Wir versenden E-Mails (z. B. Bestellbestätigungen, Terminbestätigungen) über Google Workspace (Gmail) mit der Absenderadresse <code>kontakt@mrbell.de</code>.</p>
-<p>Verarbeitet werden:</p>
-<ul>
-<li>Ihre E-Mail-Adresse</li>
-<li>Inhalt der jeweiligen E-Mail</li>
-</ul>
-<p><strong>Zweck:</strong> Versand von Bestellbestätigungen und Kundenkommunikation.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragsabwicklung).</p>
-<p><strong>Auftragsverarbeiter:</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Mit Google besteht ein Auftragsverarbeitungsvertrag (Cloud Data Processing Addendum) gem. Art. 28 DSGVO. Die Datenverarbeitung erfolgt auf Servern in der EU.</p>
-
-<h2 id="s7">7. Zahlungsabwicklung (Stripe)</h2>
-<p>Die Zahlung Ihres gewählten Plans erfolgt über den Zahlungsdienstleister Stripe. Beim Klick auf „Jetzt buchen" werden Sie auf eine sichere Stripe-Hosted-Checkout-Seite weitergeleitet. Stripe erhebt und verarbeitet im Rahmen des Bezahlvorgangs:</p>
-<ul>
-<li>Ihre E-Mail-Adresse</li>
-<li>Rechnungsadresse</li>
-<li>Zahlungsmethode (Kreditkarten-, SEPA- oder Wallet-Daten)</li>
-<li>Transaktions-ID, Beträge, Zeitstempel</li>
-<li>Geräteinformationen zur Betrugsprävention</li>
-</ul>
-<p><strong>Wichtig:</strong> Wir selbst erhalten und speichern niemals Ihre vollständigen Zahlungsdaten (z. B. Kartennummer). Wir erhalten von Stripe lediglich Bestätigungen über erfolgte Zahlungen sowie nicht-sensitive Metadaten (z. B. Plan, Status).</p>
-<p><strong>Zweck:</strong> Vertragsabwicklung, Zahlungsabwicklung, Betrugsprävention.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).</p>
-<p><strong>Auftragsverarbeiter / Eigenverantwortlicher:</strong> Stripe Payments Europe, Limited, 1 Grand Canal Street Lower, Grand Canal Dock, Dublin, Irland. Stripe ist hinsichtlich der Zahlungsabwicklung selbst Verantwortlicher im Sinne der DSGVO. Weitere Informationen finden Sie unter <a href="https://stripe.com/de/privacy" target="_blank" rel="noopener">stripe.com/de/privacy</a>.</p>
-
-<h2 id="s8">8. Interne Auftragsverwaltung (Google Sheets via Apps Script)</h2>
-<p>Nach erfolgreicher Buchung über Stripe werden ausgewählte Auftragsdaten automatisch in eine interne Tabelle (Google Sheets) übertragen, die uns zur internen Auftragsverwaltung dient. Die Übertragung erfolgt verschlüsselt über einen Google-Apps-Script-Webhook.</p>
-<p>Übertragen werden:</p>
-<ul>
-<li>Zeitstempel</li>
-<li>Stripe-Session-ID</li>
-<li>Plan, Setup-Option, Gesamtbetrag</li>
-<li>E-Mail, Telefonnummer, Firma</li>
-<li>Branche, Adresse</li>
-<li>WhatsApp-Nummer, Anrede, Tonfall, Bot-Prompt, Sprachen</li>
-</ul>
-<p><strong>Zweck:</strong> Interne Auftragsverwaltung, Bot-Konfiguration, Buchhaltung.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).</p>
-<p><strong>Auftragsverarbeiter:</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland (Mutterunternehmen: Google LLC, USA). Mit Google besteht ein AVV gem. Art. 28 DSGVO (Standard-AVV von Google Workspace). Google LLC ist nach dem EU-U.S. Data Privacy Framework zertifiziert.</p>
-<p><strong>Hinweis zum früheren Einsatz von Airtable:</strong> Die zuvor zeitweise genutzte Datenbank Airtable wird seit Mai 2026 nicht mehr eingesetzt. Sämtliche internen Auftragsdaten werden ausschließlich in Google Sheets verarbeitet.</p>
-<p><strong>Speicherdauer:</strong> Für die Dauer des Vertrags zzgl. 90 Tage; rechnungsrelevante Felder unterliegen der 10-jährigen Aufbewahrungspflicht (§ 147 AO).</p>
-
-<h2 id="s9">9. Termin-Buchung (Calendly)</h2>
-<p>Für die Buchung des optional angebotenen geführten Setup-Termins (199 €) sowie für sonstige Beratungstermine setzen wir den Dienst Calendly ein. Beim Aufrufen einer Calendly-Buchungsseite werden folgende Daten verarbeitet:</p>
-<ul>
-<li>Vor- und Nachname</li>
-<li>E-Mail-Adresse</li>
-<li>Gewählter Termin / Zeitzone</li>
-<li>Optional: Telefonnummer und Anmerkungen zur Beratung</li>
-<li>IP-Adresse und Browser-Informationen (technisch durch Calendly erfasst)</li>
-</ul>
-<p><strong>Zweck:</strong> Vereinbarung und Verwaltung von Beratungs- und Setup-Terminen, automatische Kalender-Einladungen und Erinnerungen.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung / Setup-Vertragserfüllung).</p>
-<p><strong>Speicherdauer:</strong> Für die Dauer der Vertragsbeziehung; sofern kein Setup-Vertrag zustande kommt, werden die Daten innerhalb von 90 Tagen nach dem letzten Termin gelöscht. Rechnungsrelevante Felder unterliegen der 10-jährigen Aufbewahrungspflicht.</p>
-<p><strong>Auftragsverarbeiter:</strong> Calendly LLC, 271 17th Street NW, Suite 1000, Atlanta, GA 30363, USA. Mit Calendly besteht ein AVV gem. Art. 28 DSGVO (online unter <a href="https://calendly.com/dpa" target="_blank" rel="noopener">calendly.com/dpa</a>). Die Datenübermittlung in die USA erfolgt auf Basis der von Calendly bereitgestellten EU-Standardvertragsklauseln gem. Art. 46 Abs. 2 lit. c DSGVO. Weitere Informationen finden Sie in der <a href="https://calendly.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Calendly</a>.</p>
-
-<h2 id="s10">10. Workflow-Automatisierung (n8n)</h2>
-<p>Zur technischen Verbindung zwischen WhatsApp Business API, dem KI-Modell und unserer Datenbank setzen wir die Workflow-Automatisierungs-Plattform n8n Cloud ein. Verarbeitet werden hier insbesondere die ein- und ausgehenden Bot-Nachrichten Ihrer Endkunden sowie zugehörige Metadaten (Zeitstempel, Telefonnummer).</p>
-<p>Diese Verarbeitung erfolgt nach Vertragsabschluss im Rahmen der Bot-Bereitstellung und ist Bestandteil der mit Ihnen abgeschlossenen Auftragsverarbeitungsvereinbarung (AVV).</p>
-<p><strong>Zweck:</strong> Technische Verbindung zwischen WhatsApp, KI und Backend.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung gegenüber Ihnen als Auftraggeber).</p>
-<p><strong>Auftragsverarbeiter:</strong> n8n GmbH, Klosterstraße 64, 10179 Berlin, Deutschland. Hosting der n8n-Cloud-Instanz erfolgt auf AWS-Infrastruktur in Frankfurt (Deutschland, Region <code>eu-central-1</code>).</p>
-
-<h2 id="s11">11. WhatsApp Business API (360dialog &amp; Meta)</h2>
-<p>Der eigentliche WhatsApp-Bot kommuniziert über die offizielle WhatsApp Business API. Wir nutzen den deutschen Business-Solution-Provider 360dialog GmbH zur Anbindung. Dabei werden Telefonnummern und Nachrichten der Endkunden unserer Kunden verarbeitet.</p>
-<p><strong>Wichtig:</strong> Diese Verarbeitung erfolgt im Auftrag des jeweiligen Kunden (Auftraggeber) im Rahmen der mit ihm abgeschlossenen Auftragsverarbeitungsvereinbarung. Endkunden werden auf der Seite des Auftraggebers über diese Verarbeitung informiert.</p>
-<p><strong>Auftragsverarbeiter:</strong></p>
-<ul>
-<li>360dialog GmbH, Torstraße 61, 10119 Berlin, Deutschland</li>
-<li>WhatsApp Ireland Limited, 4 Grand Canal Square, Dublin 2, Irland (Mutter: Meta Platforms, Inc., USA)</li>
-</ul>
-<p>Mit 360dialog besteht ein AVV gem. Art. 28 DSGVO. WhatsApp / Meta verarbeitet die Daten als weiterer Auftragsverarbeiter; entsprechende Standardvertragsklauseln sind über 360dialog vereinbart.</p>
-
-<h2 id="s12">12. E-Mail-Kommunikation (Google Workspace)</h2>
-<p>Wenn Sie uns eine E-Mail an <code>kontakt@mrbell.de</code> oder eine andere Mr.-Bell-Adresse senden, wird diese über unsere Google-Workspace-Postfächer empfangen, gespeichert und beantwortet.</p>
-<p><strong>Zweck:</strong> Beantwortung Ihrer Anfragen, Vertragskommunikation, Support.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung/-erfüllung) bzw. Art. 6 Abs. 1 lit. f DSGVO (effiziente Kommunikation).</p>
-<p><strong>Speicherdauer:</strong> Geschäftliche Korrespondenz wird nach Abschluss des jeweiligen Vorgangs für die Dauer der gesetzlichen Aufbewahrungsfristen aufbewahrt (max. 10 Jahre, §§ 147 AO, 257 HGB), reine Anfragen ohne Vertragsbezug spätestens 2 Jahre nach letzter Antwort gelöscht.</p>
-<p><strong>Auftragsverarbeiter:</strong> Google Ireland Limited (siehe oben unter Punkt 8). Mit Google Workspace besteht ein AVV gem. Art. 28 DSGVO.</p>
-
-<h2 id="s13">13. Schriftarten (Self-Hosted)</h2>
-<p>Diese Website nutzt die Schriftarten „Inter". Die Schriftart wird lokal auf unserem eigenen Server gehostet (Self-Hosting). Beim Laden der Schriftart wird <strong>keine</strong> Verbindung zu externen Servern (z. B. Google) hergestellt und <strong>keine</strong> IP-Adresse an Dritte übermittelt.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einheitlicher Darstellung).</p>
-
-<h2 id="s14">14. Cookies, Einwilligungs-Management und Tracking</h2>
-<p>Diese Website unterscheidet zwischen <strong>technisch notwendigen Speichermechanismen</strong> (die ohne Einwilligung erforderlich sind) und <strong>einwilligungspflichtigen Cookies bzw. Pixeln</strong> (insbesondere Marketing- und Reichweitenmessung), die ausschließlich nach Ihrer aktiven Einwilligung über unser Cookie-Banner gesetzt werden.</p>
-
-<h3>14.1 Technisch notwendige Speicherung</h3>
-<p>Wir nutzen ausschließlich folgende, technisch erforderliche Browser-Speicher-Mechanismen:</p>
-<ul>
-<li><code>sessionStorage</code> — speichert Ihre Onboarding-Eingaben temporär in Ihrem Browser, damit ein versehentlicher Reload nicht Ihre bisherigen Eingaben verwirft.</li>
-<li>URL-Hash (z. B. <code>#step-name</code>) — merkt sich Ihre aktuelle Onboarding-Position für den Reload.</li>
-</ul>
-<p>Diese Daten verbleiben ausschließlich in Ihrem Browser und werden nicht an unsere Server übermittelt. Sie werden gelöscht, sobald Sie den Browser-Tab schließen.</p>
-<p><strong>Rechtsgrundlage:</strong> § 25 Abs. 2 Nr. 2 TDDDG (technisch erforderlich) bzw. Art. 6 Abs. 1 lit. f DSGVO.</p>
-
-<h3>14.2 Einwilligungs-Management (Consent-Banner)</h3>
-<p>Beim ersten Aufruf unserer Website erscheint ein Cookie-Banner unseres Anbieters <strong>CCM19</strong> (Papoo Software &amp; Media GmbH). Dort können Sie:</p>
-<ul>
-<li>einwilligungspflichtige Cookies und Pixel <strong>akzeptieren</strong>,</li>
-<li>diese vollständig <strong>ablehnen</strong>, oder</li>
-<li><strong>einzeln auswählen</strong>, welche Kategorien (z. B. „Marketing", „Statistiken") Sie zulassen möchten.</li>
-</ul>
-<p>Solange Sie keine Einwilligung erteilt haben, werden <strong>keine</strong> einwilligungspflichtigen Cookies, Tracking-Pixel oder Analyse-Tools gesetzt. Insbesondere werden der Google Tag Manager, Google Analytics 4 und der Meta Pixel erst nach Ihrer aktiven Einwilligung geladen.</p>
-<p>Ihre Einwilligung können Sie jederzeit widerrufen, indem Sie auf den Link „Cookie-Einstellungen" im Footer der Website klicken.</p>
-<p>Das Banner speichert Ihre Entscheidung in einem technisch notwendigen Cookie (<code>ccm_consent</code>), damit Sie nicht bei jedem Seitenaufruf erneut gefragt werden.</p>
-<p><strong>Rechtsgrundlage Banner-Cookie:</strong> § 25 Abs. 2 Nr. 2 TDDDG.</p>
-<p><strong>Rechtsgrundlage einwilligungspflichtiger Cookies:</strong> § 25 Abs. 1 TDDDG i. V. m. Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
-<p><strong>Anbieter Cookie-Banner:</strong> Papoo Software &amp; Media GmbH (CCM19), Auguststr. 4, 53229 Bonn, Deutschland.</p>
-
-<h3>14.3 Google Tag Manager (GTM)</h3>
-<p>Diese Website nutzt nach Ihrer Einwilligung den Google Tag Manager (Container-ID: <code>GTM-MX9X2BC3</code>). Der GTM ist ein technisches Verwaltungstool, das selbst keine personenbezogenen Daten erhebt — es handelt sich lediglich um einen „Container", der andere Tags (z. B. Google Analytics 4) erst nach Ihrer Einwilligung über das Cookie-Banner lädt.</p>
-<p><strong>Zweck:</strong> Zentrales, einwilligungsgesteuertes Management aller Tracking- und Analyse-Tags.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung über Cookie-Banner).</p>
-<p><strong>Anbieter:</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
-
-<h3>14.4 Webanalyse (Google Analytics 4)</h3>
-<p>Nach Ihrer Einwilligung über das Cookie-Banner laden wir über den Google Tag Manager das Webanalyse-Tool <strong>Google Analytics 4</strong> (Mess-ID: <code>G-NPECGJ646L</code>). Google Analytics 4 verwendet Cookies und ähnliche Technologien, um die Nutzung unserer Website statistisch auszuwerten.</p>
-
-<p><strong>Erfasste Daten:</strong></p>
-<ul>
-<li>IP-Adresse (standardmäßig anonymisiert durch GA4)</li>
-<li>Besuchte Seiten, Verweildauer, Scrolltiefe</li>
-<li>Geräte- und Browser-Informationen (User-Agent, Bildschirmauflösung, Sprache)</li>
-<li>Herkunft des Besuchs (Referrer, Kampagnen-Parameter)</li>
-<li>Interaktions-Events (z. B. Klicks auf Buttons)</li>
-</ul>
-
-<p><strong>Zweck:</strong> Statistische Auswertung der Website-Nutzung, Verbesserung des Nutzererlebnisses, Messung der Wirksamkeit von Marketingmaßnahmen.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG (Einwilligung über Cookie-Banner).</p>
-<p><strong>Speicherdauer:</strong> GA4-Cookies (<code>_ga</code>, <code>_ga_*</code>) werden standardmäßig für bis zu 2 Jahre gespeichert. Nutzungsdaten werden nach 14 Monaten automatisch gelöscht (Google-Standard).</p>
-<p><strong>Auftragsverarbeiter:</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland (Mutterunternehmen: Google LLC, USA). Die Datenverarbeitung erfolgt auf Grundlage des mit Google bestehenden AVV gem. Art. 28 DSGVO. Google LLC ist nach dem EU-U.S. Data Privacy Framework zertifiziert.</p>
-<p><strong>Opt-Out:</strong> Sie können Ihre Einwilligung jederzeit über die „Cookie-Einstellungen" im Footer widerrufen. Zusätzlich können Sie das <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Browser-Add-on von Google zur Deaktivierung von Google Analytics</a> installieren.</p>
-
-<h3>14.5 Andere Marketing-Tools, die wir nicht einsetzen</h3>
-<p>Außer dem unter Abschnitt 15 beschriebenen Meta Pixel (inkl. Conversion API) und dem unter 14.4 beschriebenen Google Analytics 4 setzen wir auf dieser Website <strong>keine weiteren</strong> Tracking- oder Reichweitenmess-Tools ein. Insbesondere nicht:</p>
-<ul>
-<li>Google Ads / Conversion-Tracking</li>
-<li>LinkedIn Insight Tag</li>
-<li>Microsoft Clarity oder ähnliche Heatmap-/Session-Recording-Tools</li>
-<li>TikTok Pixel</li>
-</ul>
-
-<h2 id="s15">15. Meta Pixel (Facebook Pixel) und Conversion API</h2>
-
-<div class="pixel-highlight">
-<p style="margin:0;"><strong>Wichtig:</strong> Der Meta Pixel wird ausschließlich nach Ihrer ausdrücklichen Einwilligung über unser Cookie-Banner geladen. Solange Sie keine Einwilligung erteilen oder diese ablehnen, findet <strong>keine</strong> Übermittlung an Meta statt.</p>
-</div>
-
-<p>Auf unserer Website setzen wir nach Ihrer Einwilligung den „Meta Pixel" (auch bekannt als Facebook Pixel) der <strong>Meta Platforms Ireland Limited</strong>, Merrion Road, Dublin 4, D04 X2K5, Irland („Meta") ein. Mutterunternehmen ist die Meta Platforms, Inc., 1601 Willow Road, Menlo Park, CA 94025, USA.</p>
-
-<h3>15.1 Welche Daten verarbeitet werden</h3>
-<ul>
-<li>Ihre IP-Adresse (von Meta gekürzt verarbeitet)</li>
-<li>Geräte- und Browser-Informationen (User-Agent, Bildschirmauflösung, Sprache)</li>
-<li>Besuchte Seiten auf mrbell.de und ausgelöste Events (z. B. „Lead", „Purchase")</li>
-<li>Pixel-spezifische Cookie-IDs (<code>_fbp</code>, ggf. <code>fr</code>)</li>
-<li>Sofern Sie zeitgleich bei Facebook oder Instagram eingeloggt sind: Verknüpfung des Besuchs mit Ihrem Meta-Konto</li>
-</ul>
-
-<h3>15.2 Conversion API (serverseitig)</h3>
-<p>Ergänzend zum browserbasierten Pixel können wir bei einem erfolgreichen Kaufabschluss ein gehashtes Conversion-Event direkt von unserem Server an Meta übertragen („Conversion API"). Dies dient der Messung von Conversions auch bei aktiven Ad-Blockern. Übermittelt werden ausschließlich gehashte (SHA-256) und nicht-rückführbare Werte wie:</p>
-<ul>
-<li>Gehashte E-Mail-Adresse</li>
-<li>Gehashte Telefonnummer (sofern vorhanden)</li>
-<li>Event-Typ und Wert (z. B. „Purchase, 49,99 €")</li>
-<li>Zeitstempel</li>
-</ul>
-
-<h3>15.3 Zweck</h3>
-<p>Reichweitenmessung, Conversion-Tracking, Optimierung unserer Werbekampagnen auf Facebook und Instagram, Re-Targeting (z. B. Wiederansprache von Personen, die das Onboarding abgebrochen haben), Erstellung von Custom und Lookalike Audiences.</p>
-
-<h3>15.4 Rechtsgrundlage</h3>
-<p>Einwilligung gem. Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG. Die Einwilligung erfolgt freiwillig über das Cookie-Banner und kann jederzeit für die Zukunft widerrufen werden.</p>
-
-<h3>15.5 Speicherdauer</h3>
-<ul>
-<li>Pixel-Cookie <code>_fbp</code>: bis zu 90 Tage</li>
-<li>Cookie <code>fr</code>: bis zu 90 Tage</li>
-<li>Aggregierte Conversion-Daten bei Meta: gemäß Meta-Richtlinien (in der Regel 2 Jahre)</li>
-</ul>
-
-<h3>15.6 Gemeinsame Verantwortlichkeit</h3>
-<p>Hinsichtlich der Erhebung und Übermittlung von Pixel-Daten an Meta sind wir und Meta <strong>gemeinsam Verantwortliche</strong> im Sinne des Art. 26 DSGVO. Eine entsprechende Vereinbarung haben wir mit Meta über die Business Tools Terms abgeschlossen. Die Vereinbarung ist abrufbar unter:<br>
-<a href="https://www.facebook.com/legal/controller_addendum" target="_blank" rel="noopener">facebook.com/legal/controller_addendum</a></p>
-<p>Für die Verarbeitung nach der Übermittlung an Meta (insbesondere Auswertung, Aggregation, Custom Audiences, Lookalikes) ist Meta eigenständig Verantwortlicher.</p>
-
-<h3>15.7 Datenübermittlung in die USA</h3>
-<p>Die Übermittlung in die USA erfolgt auf Grundlage:</p>
-<ul>
-<li>der Zertifizierung von Meta unter dem EU-U.S. Data Privacy Framework (Angemessenheitsbeschluss gem. Art. 45 DSGVO), und</li>
-<li>ergänzender EU-Standardvertragsklauseln gem. Art. 46 Abs. 2 lit. c DSGVO als Auffanglösung.</li>
-</ul>
-
-<h3>15.8 Widerrufs- und Opt-Out-Möglichkeiten</h3>
-<p>Sie können der Verwendung des Meta Pixels jederzeit widersprechen:</p>
-<ul>
-<li><strong>Über unser Cookie-Banner:</strong> Klicken Sie auf den Link „Cookie-Einstellungen" im Footer und deaktivieren Sie die Marketing-Kategorie.</li>
-<li><strong>Über Facebook-Einstellungen:</strong> <a href="https://www.facebook.com/settings/?tab=ads" target="_blank" rel="noopener">facebook.com/settings/?tab=ads</a></li>
-<li><strong>Über Instagram-Einstellungen:</strong> <a href="https://www.instagram.com/account/privacy_and_security/" target="_blank" rel="noopener">instagram.com/account/privacy_and_security/</a></li>
-<li><strong>Über die European Interactive Digital Advertising Alliance:</strong> <a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener">youronlinechoices.com</a></li>
-</ul>
-<p>Weitere Informationen finden Sie in der <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener">Datenrichtlinie von Meta</a>.</p>
-
-<h2 id="s16">16. Übersicht aller Auftragsverarbeiter</h2>
-<p>Folgende Dienstleister verarbeiten in unserem Auftrag personenbezogene Daten gem. Art. 28 DSGVO bzw. — bei Meta — als gemeinsam Verantwortliche gem. Art. 26 DSGVO:</p>
-<table>
-<thead>
-<tr><th>Dienstleister</th><th>Tätigkeit</th><th>Sitz / Verarbeitungsort</th><th>Drittland-Garantie</th></tr>
-</thead>
-<tbody>
-<tr><td>Vercel Inc.</td><td>Website-Hosting</td><td>USA / Server EU (Frankfurt)</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
-<tr><td>Anthropic PBC</td><td>KI-Verarbeitung (Bell-Chat &amp; Demo-Bot)</td><td>USA</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
-<tr><td>Google Ireland Ltd.</td><td>E-Mail-Versand, Google Sheets</td><td>EU (Irland)</td><td>Cloud Data Processing Addendum</td></tr>
-<tr><td>Stripe Payments Europe, Ltd.</td><td>Zahlungsabwicklung</td><td>Irland (EU)</td><td>—</td></tr>
-<tr><td>Google Ireland Limited</td><td>Google Sheets, Workspace, Fonts</td><td>Irland / USA</td><td>EU-U.S. Data Privacy Framework</td></tr>
-<tr><td>Calendly LLC</td><td>Termin-Buchung</td><td>USA</td><td>EU-Standardvertragsklauseln</td></tr>
-<tr><td>n8n GmbH</td><td>Workflow-Automatisierung</td><td>Deutschland (AWS Frankfurt)</td><td>—</td></tr>
-<tr><td>360dialog GmbH</td><td>WhatsApp Business API</td><td>Deutschland</td><td>—</td></tr>
-<tr><td>WhatsApp Ireland Limited (Meta)</td><td>WhatsApp Messaging-Infrastruktur</td><td>Irland / USA</td><td>EU-Standardvertragsklauseln (über 360dialog)</td></tr>
-<tr><td><strong>Meta Platforms Ireland Ltd.</strong></td><td><strong>Meta Pixel &amp; Conversion API</strong></td><td><strong>Irland / USA</strong></td><td><strong>DPF + EU-SCC (Art. 26 DSGVO Joint Controller)</strong></td></tr>
-<tr><td>Google Ireland Limited</td><td>Google Analytics 4 (via GTM)</td><td>Irland / USA</td><td>EU-U.S. Data Privacy Framework</td></tr>
-<tr><td>Papoo Software &amp; Media GmbH (CCM19)</td><td>Cookie-Consent-Banner</td><td>Deutschland</td><td>—</td></tr>
-</tbody>
-</table>
-<p>Mit allen oben genannten Dienstleistern bestehen Auftragsverarbeitungsverträge gem. Art. 28 DSGVO (mit Meta zusätzlich eine Vereinbarung gem. Art. 26 DSGVO) oder werden derzeit abgeschlossen. Auf Anfrage stellen wir Ihnen weitere Informationen zur Verfügung.</p>
-
-<h2 id="s17">17. Speicherdauer</h2>
-<p>Wir speichern personenbezogene Daten nur so lange, wie dies für die jeweils genannten Zwecke erforderlich ist:</p>
-<ul>
-<li><strong>Onboarding- und Vertragsdaten:</strong> Für die Dauer des Vertrags zzgl. 90 Tage; ausgenommen rechnungsrelevante Daten (§ 147 AO: 10 Jahre).</li>
-<li><strong>Verifizierungscodes:</strong> Verfall nach 15 Minuten, anschließend Löschung.</li>
-<li><strong>Bot-Konversationen mit Endkunden:</strong> Standardmäßig 30 Tage in der internen Verarbeitungs-Datenbank, danach Löschung. Abweichende Speicherfristen können im AVV mit dem Auftraggeber individuell vereinbart werden.</li>
-<li><strong>Termin-Daten (Calendly):</strong> Bis zur Vertragsbeendigung bzw. 90 Tage nach letztem Termin.</li>
-<li><strong>E-Mail-Korrespondenz ohne Vertragsbezug:</strong> Spätestens 2 Jahre nach letzter Antwort.</li>
-<li><strong>Server-Logs:</strong> 30 Tage, sofern nicht zur Beweissicherung erforderlich.</li>
-<li><strong>Meta-Pixel-Cookies:</strong> bis zu 90 Tage (siehe Abschnitt 15.5).</li>
-<li><strong>Google-Analytics-4-Cookies:</strong> bis zu 2 Jahre (<code>_ga</code>); Nutzungsdaten 14 Monate (siehe Abschnitt 14.4).</li>
-<li><strong>Cookie-Consent-Entscheidung (CCM19):</strong> 12 Monate, danach erneute Einwilligungsabfrage.</li>
-<li><strong>Rechnungs-/Buchhaltungsbelege:</strong> 10 Jahre (§ 147 AO, § 257 HGB).</li>
-</ul>
-
-<h2 id="s18">18. Datenübermittlung in Drittländer</h2>
-<p>Soweit personenbezogene Daten an Auftragsverarbeiter mit Sitz oder Verarbeitungsort außerhalb der EU/des EWR übermittelt werden (insbesondere USA), erfolgt dies auf Grundlage:</p>
-<ul>
-<li>eines Angemessenheitsbeschlusses gem. Art. 45 DSGVO (insbesondere EU-U.S. Data Privacy Framework — derzeit für Vercel, Anthropic, Google und Meta), oder</li>
-<li>geeigneter Garantien gem. Art. 46 DSGVO, insbesondere EU-Standardvertragsklauseln (derzeit für Calendly und ergänzend für Anthropic / Meta).</li>
-</ul>
-<p>Eine Kopie der Standardvertragsklauseln stellen wir Ihnen auf Anfrage zur Verfügung.</p>
-
-<h2 id="s19">19. Ihre Rechte als betroffene Person</h2>
-<div class="rights-box">
-<p>Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</p>
-<ul>
-<li><strong>Recht auf Auskunft</strong> (Art. 15 DSGVO) — welche Daten wir über Sie speichern</li>
-<li><strong>Recht auf Berichtigung</strong> (Art. 16 DSGVO) — bei unrichtigen Daten</li>
-<li><strong>Recht auf Löschung</strong> (Art. 17 DSGVO, „Recht auf Vergessenwerden")</li>
-<li><strong>Recht auf Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
-<li><strong>Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO) — Erhalt Ihrer Daten in maschinenlesbarem Format</li>
-<li><strong>Widerspruchsrecht</strong> (Art. 21 DSGVO — siehe nächster Abschnitt)</li>
-<li><strong>Recht auf Widerruf erteilter Einwilligungen</strong> (Art. 7 Abs. 3 DSGVO) — mit Wirkung für die Zukunft, insbesondere für die Meta-Pixel-Einwilligung</li>
-<li><strong>Beschwerderecht bei einer Aufsichtsbehörde</strong> (Art. 77 DSGVO)</li>
-</ul>
-<p>Eine kurze E-Mail an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> reicht aus. Wir antworten innerhalb der gesetzlichen Frist von einem Monat.</p>
-</div>
-
-<h2 id="s20">20. Widerspruchsrecht</h2>
-<p><strong>Sie haben das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung Sie betreffender personenbezogener Daten, die auf Grundlage von Art. 6 Abs. 1 lit. e oder f DSGVO erfolgt, Widerspruch einzulegen (Art. 21 Abs. 1 DSGVO).</strong> Wenn Sie Widerspruch einlegen, verarbeiten wir Ihre personenbezogenen Daten nicht mehr, es sei denn, wir können zwingende schutzwürdige Gründe für die Verarbeitung nachweisen, die Ihre Interessen, Rechte und Freiheiten überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen.</p>
-<p>Den Widerspruch können Sie formlos per E-Mail an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> richten.</p>
-
-<h2 id="s21">21. Beschwerderecht bei der Aufsichtsbehörde</h2>
-<p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über unsere Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Für uns zuständig ist:</p>
-<p>
-<strong>Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg (LfDI BW)</strong><br>
-Lautenschlagerstraße 20<br>
-70173 Stuttgart<br>
-Telefon: +49 711 615541-0<br>
-E-Mail: <a href="mailto:poststelle@lfdi.bwl.de">poststelle@lfdi.bwl.de</a><br>
-Web: <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel="noopener">www.baden-wuerttemberg.datenschutz.de</a>
-</p>
-<p>Sie können sich auch an die Aufsichtsbehörde Ihres üblichen Aufenthaltsortes oder Arbeitsplatzes wenden.</p>
-
-<h2 id="s22">22. Keine automatisierte Entscheidungsfindung</h2>
-<p>Wir nutzen keine automatisierte Entscheidungsfindung im Sinne des Art. 22 DSGVO und kein Profiling, das rechtliche Wirkung gegenüber Ihnen entfaltet oder Sie in ähnlicher Weise erheblich beeinträchtigt. Die in den Chats eingesetzten KI-Modelle dienen ausschließlich der Beantwortung Ihrer Eingaben und treffen keine Entscheidungen mit Rechtswirkung. Das Meta-Pixel-Tracking dient ausschließlich der Reichweitenmessung und Werbe-Optimierung, nicht der individuellen Bewertung Ihrer Person.</p>
-
-<h2 id="s23">23. Sicherheit der Verarbeitung</h2>
-<p>Wir treffen geeignete technische und organisatorische Maßnahmen gem. Art. 32 DSGVO zum Schutz Ihrer Daten, insbesondere:</p>
-<ul>
-<li>Verschlüsselte Datenübertragung via TLS</li>
-<li>Verschlüsselte Speicherung sensitiver Daten</li>
-<li>Zwei-Faktor-Authentifizierung für alle administrativen Zugänge</li>
-<li>Strenge Zugriffsbeschränkungen nach dem Need-to-know-Prinzip</li>
-<li>Regelmäßige Updates der eingesetzten Systeme</li>
-<li>Auswahl von Auftragsverarbeitern nach datenschutzrechtlichen und sicherheitstechnischen Kriterien</li>
-<li>Hashing personenbezogener Identifikatoren vor Übertragung an Meta Conversion API (SHA-256)</li>
-</ul>
-<p>Datenschutzverletzungen melden wir innerhalb von 72 Stunden an die zuständige Aufsichtsbehörde sowie ggf. an die betroffenen Personen (Art. 33, 34 DSGVO).</p>
-
-<h2 id="s24">24. Aktualität und Änderungen dieser Erklärung</h2>
-<p>Diese Datenschutzerklärung hat den Stand 10. Mai 2026. Durch die Weiterentwicklung unserer Website oder aufgrund geänderter gesetzlicher bzw. behördlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern. Die jeweils aktuelle Datenschutzerklärung kann jederzeit auf dieser Seite abgerufen werden.</p>
-<p>Im Übrigen gelten ergänzend unsere <a href="/agb.html">Allgemeinen Geschäftsbedingungen</a>.</p>
-
-<hr>
-<p style="font-size: 0.85rem; color: #888;">Bei Fragen zum Datenschutz erreichen Sie uns unter <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>. Diese Datenschutzerklärung wird regelmäßig überprüft und an gesetzliche bzw. technische Änderungen angepasst.</p>
-</div>
 </body>
 </html>
