@@ -176,11 +176,9 @@ function updateROI() {
 <p style="font-size:0.82rem;color:#1a1a2e;opacity:0.45;text-align:center;margin-bottom:16px;">Wählen Sie einen Termin der Ihnen passt — 30 Minuten, unverbindlich.</p>
 <!-- Calendly Embed -->
 <div id="calendly-wrap" style="border-radius:12px;overflow:hidden;position:relative;">
-<div class="calendly-inline-widget" data-url="https://calendly.com/mrbellconcierge/30min?hide_gdpr_banner=1" data-resize="true" style="min-width:320px;width:100%;height:700px;"></div>
+<iframe src="https://calendly.com/mrbellconcierge/30min?hide_gdpr_banner=1" width="100%" height="900" frameborder="0" scrolling="no" style="min-width:320px;border:none;background:#fff;"></iframe>
 </div>
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <script>
-// Redirect after scheduling
 window.addEventListener("message", function(e) {
   if (e.origin === "https://calendly.com" && e.data.event && e.data.event === "calendly.event_scheduled") {
     setTimeout(function(){ window.location.href = "/danke.html"; }, 1500);
