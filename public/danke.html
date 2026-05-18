@@ -203,16 +203,14 @@ function submitForm() {
   };
 
   // TODO: Replace with your Google Apps Script Webhook URL
-  var webhookUrl = 'YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL';
+  var webhookUrl = 'https://script.google.com/macros/s/AKfycbyBkqHsiI60DtFFfjLU0S2-fcCvvED6a7UW1okELR6qEyKaKBUgU1Ph2Bd3TSIxvejZ_w/exec';
 
-  if (webhookUrl !== 'YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL') {
-    fetch(webhookUrl, {
+  fetch(webhookUrl, {
       method: 'POST',
       mode: 'no-cors',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     }).catch(function(){});
-  }
 
   showView2();
 }
