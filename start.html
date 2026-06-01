@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mr. Bell jetzt testen</title>
+<meta name="description" content="Testen Sie Mr. Bell jetzt live auf WhatsApp — Ihr digitales Büro für Handwerksbetriebe.">
+<link rel="canonical" href="https://mrbell.de/start.html">
+<!-- Meta Pixel (consent-gated, laedt erst nach Einwilligung) -->
+<script>
+var MB_PIXEL_ID='2088253165454180';
+window.mbPixelLoaded=false;
+function mbLoadPixel(){
+  if(window.mbPixelLoaded)return;
+  window.mbPixelLoaded=true;
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init',MB_PIXEL_ID);
+  fbq('track','PageView');
+}
+</script>
+<style>@font-face{font-family:"Inter";src:url("/fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap}</style>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--t:#C2410C;--t2:#9a330a;--a:#1a1a2e;--c:#f5f5f0;--w:#fff;--wa:#25D366;--wa2:#1da851}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--c);color:var(--a);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* atmospheric background */
+.bg{position:fixed;inset:0;background-image:linear-gradient(rgba(26,26,46,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(26,26,46,0.02) 1px,transparent 1px);background-size:60px 60px;animation:gm 22s linear infinite;pointer-events:none;z-index:0}
+@keyframes gm{to{background-position:60px 60px}}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+.o1{width:520px;height:520px;top:-140px;right:-160px;background:radial-gradient(circle,rgba(194,65,12,.09),transparent 70%);animation:of 16s ease-in-out infinite}
+.o2{width:440px;height:440px;bottom:-120px;left:-120px;background:radial-gradient(circle,rgba(37,211,102,.06),transparent 70%);animation:of 21s ease-in-out infinite reverse}
+@keyframes of{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(34px,-22px) scale(1.05)}66%{transform:translate(-22px,16px) scale(.95)}}
+
+.pg{position:relative;z-index:1;min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 22px}
+.ct{max-width:540px;width:100%;text-align:center}
+
+@keyframes fd{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* badge */
+.badge{display:inline-flex;align-items:center;gap:7px;background:rgba(194,65,12,.1);color:var(--t);font-size:11px;font-weight:700;padding:7px 15px;border-radius:999px;margin-bottom:26px;letter-spacing:.07em;text-transform:uppercase;animation:fd .5s ease-out}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--wa);box-shadow:0 0 0 0 rgba(37,211,102,.5);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 8px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+
+/* bell mark */
+.mark{margin:0 auto 22px;display:flex;align-items:center;justify-content:center;animation:fd .5s ease-out .05s both}
+.mark svg{width:78px;height:auto;display:block;filter:drop-shadow(0 8px 20px rgba(194,65,12,.25))}
+
+h1{font-size:clamp(2rem,7vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-.035em;margin-bottom:18px;animation:fd .5s ease-out .1s both}
+h1 em{font-style:normal;color:var(--t)}
+.sub{font-size:1.02rem;opacity:.55;max-width:400px;margin:0 auto 38px;line-height:1.6;animation:fd .5s ease-out .18s both}
+
+/* WhatsApp hero button */
+.wa-btn{display:inline-flex;align-items:center;justify-content:center;gap:13px;width:100%;max-width:420px;background:linear-gradient(135deg,var(--wa),var(--wa2));color:#fff;font-size:1.12rem;font-weight:700;padding:21px 30px;border-radius:16px;text-decoration:none;box-shadow:0 10px 30px rgba(37,211,102,.32);transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;animation:fd .5s ease-out .26s both,float 3.5s ease-in-out 1s infinite;position:relative;overflow:hidden}
+.wa-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transition:left .6s}
+.wa-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 40px rgba(37,211,102,.42)}
+.wa-btn:hover::before{left:160%}
+.wa-btn:active{transform:translateY(-1px) scale(1)}
+.wa-btn svg{width:27px;height:27px;flex-shrink:0}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+.hint{font-size:.82rem;opacity:.45;margin-top:18px;animation:fd .5s ease-out .34s both}
+
+/* mini trust */
+.trust{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-top:42px;animation:fd .5s ease-out .42s both}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:.76rem;opacity:.48}
+.trust-item svg{flex-shrink:0;color:var(--t);width:14px;height:14px}
+
+.fo{margin-top:50px;font-size:.72rem;opacity:.4;animation:fd .5s ease-out .5s both}
+.fo a{color:var(--t);opacity:.7;text-decoration:none}
+.fo a:hover{opacity:1}
+
+/* consent banner */
+.cc{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:var(--w);border-top:1px solid rgba(26,26,46,.1);box-shadow:0 -4px 24px rgba(26,26,46,.08);padding:16px 20px;display:none}
+.cc.show{display:block;animation:ccup .35s ease-out}
+@keyframes ccup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.cc-in{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center}
+.cc-txt{font-size:.82rem;line-height:1.5;opacity:.75;flex:1;min-width:240px}
+.cc-txt a{color:var(--t);text-decoration:underline}
+.cc-btns{display:flex;gap:10px;flex-shrink:0}
+.cc-btn{font-family:inherit;font-size:.85rem;font-weight:700;padding:11px 22px;border-radius:10px;border:none;cursor:pointer;transition:transform .15s,opacity .15s}
+.cc-btn:active{transform:scale(.97)}
+.cc-acc{background:var(--t);color:#fff}
+.cc-acc:hover{opacity:.9}
+.cc-dec{background:rgba(26,26,46,.07);color:var(--a)}
+.cc-dec:hover{background:rgba(26,26,46,.12)}
+@media(max-width:560px){.cc-in{flex-direction:column;gap:12px}.cc-btns{width:100%}.cc-btn{flex:1}}
+
+@media(max-width:480px){
+  .pg{padding:32px 18px}
+  h1{font-size:2.1rem}
+  .sub{font-size:.95rem;margin-bottom:32px}
+  .wa-btn{font-size:1.05rem;padding:19px 24px}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="orb o1"></div><div class="orb o2"></div>
+
+<div class="pg"><div class="ct">
+
+  <div class="badge"><span class="dot"></span>Sie haben Mr. Bell gerade gesehen</div>
+
+  <div class="mark">
+    <svg viewBox="0 0 657 542" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mr. Bell">
+<path d="M 295 112 L 295 36 Q 295 6 331 6 Q 368 6 368 36 L 368 112 Z" fill="#c3410d"/>
+<path d="M 269 112 L 242 118 L 222 124 L 205 130 L 192 136 L 180 142 L 169 148 L 162 154 L 153 160 L 146 166 L 139 172 L 133 178 L 127 184 L 122 190 L 116 196 L 112 202 L 105 208 L 103 214 L 99 220 L 95 226 L 91 232 L 87 238 L 86 244 L 82 250 L 79 256 L 77 262 L 75 268 L 72 274 L 70 280 L 69 286 L 66 292 L 64 298 L 62 304 L 61 310 L 60 316 L 58 322 L 57 328 L 56 334 L 53 340 L 53 346 L 52 352 L 51 358 L 50 364 L 49 370 L 48 376 L 47 382 L 47 388 L 47 394 L 46 400 L 45 406 L 45 412 L 44 418 L 44 424 L 44 430 L 43 436 L 43 442 L 43 448 L 43 454 L 43 460 L 43 466 L 620 466 L 620 460 L 620 454 L 620 448 L 620 442 L 620 436 L 619 430 L 619 424 L 619 418 L 618 412 L 618 406 L 617 400 L 616 394 L 616 388 L 616 382 L 615 376 L 614 370 L 613 364 L 612 358 L 611 352 L 610 346 L 609 340 L 607 334 L 606 328 L 605 322 L 603 316 L 602 310 L 601 304 L 599 298 L 597 292 L 594 286 L 593 280 L 591 274 L 588 268 L 585 262 L 584 256 L 581 250 L 577 244 L 576 238 L 572 232 L 568 226 L 564 220 L 560 214 L 558 208 L 551 202 L 547 196 L 541 190 L 536 184 L 530 178 L 524 172 L 517 166 L 510 160 L 506 154 L 494 148 L 483 142 L 471 136 L 458 130 L 442 124 L 421 118 L 394 112 Z" fill="#c3410d"/>
+<ellipse cx="305" cy="215" rx="120" ry="52" fill="#dd6324" opacity="0.55"/>
+<rect x="7" y="467" width="649" height="70" rx="32" fill="#a33709"/>
+</svg>
+  </div>
+
+  <h1>Jetzt sind <em>Sie</em> dran.</h1>
+  <p class="sub">Schreiben Sie Mr. Bell selbst — genau wie Ihre Kunden es tun würden. Überzeugen Sie sich in 30 Sekunden.</p>
+
+  <a class="wa-btn" href="https://wa.me/4915142886513?text=Hallo%2C%20ich%20m%C3%B6chte%20Mr.%20Bell%20gerne%20testen." target="_blank" rel="noopener" onclick="if(window.mbPixelLoaded&&window.fbq){fbq('track','Lead');fbq('trackCustom','WhatsAppClick');}">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg>
+    Mr. Bell kostenlos testen
+  </a>
+
+  <p class="hint">Öffnet WhatsApp · Antwort in Sekunden · Kostenlos</p>
+
+  <div class="trust">
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>DSGVO-konform</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Made in Germany</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>24/7 erreichbar</div>
+  </div>
+
+  <p class="fo"><a href="/">Startseite</a> · <a href="/agb.html">AGB</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/impressum.html">Impressum</a></p>
+
+</div></div>
+
+<!-- Consent Banner -->
+<div class="cc" id="ccBanner">
+  <div class="cc-in">
+    <div class="cc-txt">Wir verwenden Cookies und den Meta-Pixel, um die Wirksamkeit unserer Werbung zu messen. Ihre Einwilligung ist freiwillig und jederzeit widerrufbar. Mehr dazu in der <a href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>.</div>
+    <div class="cc-btns">
+      <button class="cc-btn cc-dec" id="ccDecline" type="button">Ablehnen</button>
+      <button class="cc-btn cc-acc" id="ccAccept" type="button">Akzeptieren</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='mb_consent';
+  var banner=document.getElementById('ccBanner');
+  var stored=null;
+  try{stored=localStorage.getItem(KEY);}catch(e){stored=null;}
+  if(stored==='accept'){ mbLoadPixel(); }
+  else if(stored==='decline'){ /* nichts laden */ }
+  else { banner.classList.add('show'); }
+  document.getElementById('ccAccept').addEventListener('click',function(){
+    try{localStorage.setItem(KEY,'accept');}catch(e){}
+    banner.classList.remove('show');
+    mbLoadPixel();
+  });
+  document.getElementById('ccDecline').addEventListener('click',function(){
+    try{localStorage.setItem(KEY,'decline');}catch(e){}
+    banner.classList.remove('show');
+  });
+})();
+</script>
+
+</body>
+</html>
