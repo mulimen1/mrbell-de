@@ -6,7 +6,7 @@
 <title>Mr. Bell jetzt testen</title>
 <meta name="description" content="Testen Sie Mr. Bell jetzt live auf WhatsApp — Ihr digitales Büro für Handwerksbetriebe.">
 <link rel="canonical" href="https://mrbell.de/start.html">
-<script>function mbLoadPixel(){/* Meta Pixel entfernt */}</script>
+
 <style>@font-face{font-family:"Inter";src:url("/fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap}</style>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -121,35 +121,9 @@ h1 em{font-style:normal;color:var(--t)}
 </div></div>
 
 <!-- Consent Banner -->
-<div class="cc" id="ccBanner">
-  <div class="cc-in">
-    <div class="cc-txt">Wir verwenden Cookies und den Meta-Pixel, um die Wirksamkeit unserer Werbung zu messen. Ihre Einwilligung ist freiwillig und jederzeit widerrufbar. Mehr dazu in der <a href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>.</div>
-    <div class="cc-btns">
-      <button class="cc-btn cc-dec" id="ccDecline" type="button">Ablehnen</button>
-      <button class="cc-btn cc-acc" id="ccAccept" type="button">Akzeptieren</button>
-    </div>
-  </div>
+
 </div>
-<script>
-(function(){
-  var KEY='mb_consent';
-  var banner=document.getElementById('ccBanner');
-  var stored=null;
-  try{stored=localStorage.getItem(KEY);}catch(e){stored=null;}
-  if(stored==='accept'){ mbLoadPixel(); }
-  else if(stored==='decline'){ /* nichts laden */ }
-  else { banner.classList.add('show'); }
-  document.getElementById('ccAccept').addEventListener('click',function(){
-    try{localStorage.setItem(KEY,'accept');}catch(e){}
-    banner.classList.remove('show');
-    mbLoadPixel();
-  });
-  document.getElementById('ccDecline').addEventListener('click',function(){
-    try{localStorage.setItem(KEY,'decline');}catch(e){}
-    banner.classList.remove('show');
-  });
-})();
-</script>
+
 
 </body>
 </html>

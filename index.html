@@ -14,24 +14,7 @@
 <meta property="og:url" content="https://mrbell.de/">
 <link rel="icon" href="/mrbell_glocke_2.png" type="image/png">
 <style>@font-face{font-family:"Inter";src:url("/fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap}</style>
-<!-- DSGVO Consent + Tracking -->
-<script src="https://cloud.ccm19.de/app.js?apiKey=b3205f1420e0f0f3bb8f601b39a0592080e65e92c330b57b&domain=69ff3eef43772df1c203d642" referrerpolicy="origin"></script>
-<script>
-window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};
-window.gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','functionality_storage':'granted','security_storage':'granted'});
-</script>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MX9X2BC3');</script>
-<script>
-(function(){var granted=false,px=false;
-function loadPixel(){/* Meta Pixel entfernt */}
-function grant(r){if(granted)return;granted=true;window.gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});window.dataLayer.push({event:'consent_granted_by_user',consent_source:r});loadPixel();}
-function stored(){try{if(window.CCM&&Array.isArray(window.CCM.acceptedEmbeddings)&&window.CCM.acceptedEmbeddings.length>0)return true;}catch(e){}return false;}
-window.addEventListener('ccm19WidgetLoaded',function(){if(stored())grant('loaded');});
-window.addEventListener('ccm19WidgetClosed',function(){setTimeout(function(){if(stored())grant('closed');},150);});
-window.addEventListener('ccm19EmbeddingAccepted',function(){grant('embedding');});
-var op=window.dataLayer.push;window.dataLayer.push=function(){var r=op.apply(window.dataLayer,arguments);for(var i=0;i<arguments.length;i++){var a=arguments[i];if(a&&a.event&&(a.event==='CCM19.embeddingAccepted'||a.event==='CCM19.consentStateChanged'||a.event==='ccm19EmbeddingAccepted'))grant('dl');}return r;};
-var t=0,p=setInterval(function(){t++;if(granted||t>40){clearInterval(p);return;}if(stored()){grant('poll');clearInterval(p);}},500);})();
-</script>
+
 <style>
 :root{
   --ink:#221A16; --ink-70:rgba(34,26,22,.72); --ink-45:rgba(34,26,22,.45); --ink-55:rgba(34,26,22,.55);
@@ -166,7 +149,7 @@ body.done .skip{display:none}
 </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MX9X2BC3" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 
 <div class="navzone"></div>
@@ -306,7 +289,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
     <a href="/datenschutz.html" style="color:rgba(34,26,22,.65);text-decoration:none">Datenschutz</a>
     <a href="/agb.html" style="color:rgba(34,26,22,.65);text-decoration:none">AGB</a>
     <a href="/widerruf.html" style="color:rgba(34,26,22,.65);text-decoration:none">Widerruf</a>
-    <button onclick="if(typeof CCM!=='undefined'){CCM.openWidget()}else if(typeof ccm19!=='undefined'){ccm19.openWidget()}" style="color:rgba(34,26,22,.65);background:none;border:none;cursor:pointer;font:inherit;font-weight:600">Cookie-Einstellungen</button>
+    <a href="/avv.html" style="color:rgba(34,26,22,.65);text-decoration:none">AVV</a>
     <a href="mailto:kontakt@mrbell.de" style="color:rgba(34,26,22,.65);text-decoration:none">kontakt@mrbell.de</a>
   </div>
   <div style="margin-top:12px;font-size:.78rem;color:rgba(34,26,22,.42)">&copy; <span id="yr"></span> Mr. Bell &middot; Ben Deschler &middot; Baden-Baden</div>
