@@ -50,7 +50,7 @@
 <div class="container">
 <a href="/" class="back">← Zurück zur Startseite</a>
 <h1>Datenschutzerklärung</h1>
-<p class="subtitle">Stand: 18. Mai 2026</p>
+<p class="subtitle">Stand: 6. September 2026</p>
 
 <div class="info-box">
 <p style="margin:0;"><strong>Hinweis zur Verschlüsselung:</strong> Diese Website nutzt eine TLS-Verschlüsselung („Transport Layer Security") zum Schutz der Datenübertragung. Sie erkennen dies am Schloss-Symbol in Ihrer Browserzeile sowie am Adress-Präfix <code>https://</code>.</p>
@@ -62,18 +62,18 @@
 <li><a href="#s1">Verantwortlicher</a></li>
 <li><a href="#s2">Begriffe und allgemeine Hinweise</a></li>
 <li><a href="#s3">Server-Log-Dateien (Hosting via Vercel)</a></li>
-<li><a href="#s4">KI-Chat auf der Website (Bell-Chat &amp; Demo-Bot)</a></li>
-<li><a href="#s5">Onboarding und Vertragsabwicklung</a></li>
-<li><a href="#s6">E-Mail-Versand (Google Workspace / Gmail)</a></li>
-<li><a href="#s7">Zahlungsabwicklung (Stripe)</a></li>
-<li><a href="#s8">Interne Auftragsverwaltung (Google Sheets via Apps Script)</a></li>
-<li><a href="#s9">Termin-Buchung (Calendly)</a></li>
-<li><a href="#s10">Workflow-Automatisierung (n8n)</a></li>
-<li><a href="#s11">WhatsApp Business API (360dialog &amp; Meta)</a></li>
-<li><a href="#s12">E-Mail-Kommunikation (Google Workspace)</a></li>
-<li><a href="#s13">Schriftarten (Self-Hosted)</a></li>
-<li><a href="#s14">Cookies, Einwilligungs-Management und Tracking</a></li>
-<li><a href="#s15">Meta Pixel (Facebook Pixel) und Conversion API</a></li>
+<li><a href="#s4">Anbahnung und Vertragsabwicklung</a></li>
+<li><a href="#s5">E-Mail-Versand (Google Workspace / Gmail)</a></li>
+<li><a href="#s6">Zahlungsabwicklung (Stripe)</a></li>
+<li><a href="#s7">Interne Auftragsverwaltung (Google Sheets via Apps Script)</a></li>
+<li><a href="#s8">Termin-Buchung (Calendly)</a></li>
+<li><a href="#s9">Workflow-Automatisierung (n8n)</a></li>
+<li><a href="#s10">KI-Verarbeitung der Assistenten-Antworten (Anthropic)</a></li>
+<li><a href="#s11">Gäste-Kommunikation und Agenten-Oberfläche (Chatwoot, self-hosted)</a></li>
+<li><a href="#s12">WhatsApp Business API (360dialog &amp; Meta)</a></li>
+<li><a href="#s13">E-Mail-Kommunikation (Google Workspace)</a></li>
+<li><a href="#s14">Schriftarten (Self-Hosted)</a></li>
+<li><a href="#s15">Cookies, Einwilligungs-Management und Tracking</a></li>
 <li><a href="#s16">Übersicht aller Auftragsverarbeiter</a></li>
 <li><a href="#s17">Speicherdauer</a></li>
 <li><a href="#s18">Datenübermittlung in Drittländer</a></li>
@@ -91,17 +91,19 @@
 <p>
 Ben Deschler<br>
 Mr. Bell (Einzelunternehmen)<br>
-Scheibenstr. 2<br>
+Maria-Viktoria-Straße 11<br>
 76530 Baden-Baden<br>
 Deutschland<br>
 E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a><br>
 Telefon: +49 176 20690319
 </p>
 
+
 <h2 id="s2">2. Begriffe und allgemeine Hinweise</h2>
 <p>Diese Datenschutzerklärung verwendet die Begriffe der DSGVO. „Personenbezogene Daten" sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen (Art. 4 Nr. 1 DSGVO).</p>
 <p>Mr. Bell richtet sich ausschließlich an Unternehmer im Sinne des § 14 BGB (B2B). Bei der Nutzung des Onboardings werden ausschließlich Daten zur unternehmerischen Tätigkeit der Kunden sowie deren Kontaktdaten verarbeitet — keine Daten der Endkunden des Auftraggebers.</p>
 <p>Soweit die Endkunden unserer Kunden mit dem WhatsApp-Bot interagieren, ist der jeweilige Kunde („Auftraggeber") als Verantwortlicher im Sinne der DSGVO einzustufen. Mr. Bell tritt insoweit als Auftragsverarbeiter auf. Die hierfür notwendige Auftragsverarbeitungsvereinbarung (AVV nach Art. 28 DSGVO) wird mit jedem Kunden separat abgeschlossen.</p>
+
 
 <h2 id="s3">3. Server-Log-Dateien (Hosting via Vercel)</h2>
 <p>Beim Aufruf dieser Website erhebt unser Hosting-Anbieter Vercel automatisch Server-Log-Daten, die Ihr Browser an den Server übermittelt. Dies sind:</p>
@@ -119,42 +121,23 @@ Telefon: +49 176 20690319
 <p><strong>Speicherdauer:</strong> Logs werden in der Regel nach 30 Tagen automatisch gelöscht. Bei Sicherheitsvorfällen kann eine längere Aufbewahrung zur Beweissicherung erfolgen.</p>
 <p><strong>Auftragsverarbeiter:</strong> Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA. Die Server für mrbell.de sind in der Region <code>fra1</code> (Frankfurt) angesiedelt. Mit Vercel besteht ein AVV gem. Art. 28 DSGVO. Vercel ist nach dem EU-U.S. Data Privacy Framework zertifiziert (Angemessenheitsbeschluss gem. Art. 45 DSGVO); zusätzlich liegen ergänzende EU-Standardvertragsklauseln gem. Art. 46 DSGVO vor, die auch bei einem etwaigen Wegfall des Angemessenheitsbeschlusses fortgelten.</p>
 
-<h2 id="s4">4. KI-Chat auf der Website (Bell-Chat &amp; Demo-Bot)</h2>
-<p>Auf unserer Website setzen wir an zwei Stellen KI-gestützte Chats ein:</p>
 
-<h3>4.1 Bell-Chat (Sales-Assistent auf der Startseite)</h3>
-<p>Der Bell-Chat beantwortet Fragen zu unserem Produkt und führt Sie durch eine kurze Vor-Qualifizierung. Wenn Sie mit dem Chat interagieren, werden Ihre Eingaben (Texte, Frage-Antwort-Verlauf) an die Schnittstelle der Anthropic PBC weitergeleitet, dort durch ein KI-Modell („Claude Haiku") verarbeitet und die Antwort an Sie zurückgegeben.</p>
-<p>Verarbeitet werden ausschließlich Inhalte, die Sie aktiv eingeben. Wir empfehlen, im Chat keine sensiblen oder personenbezogenen Daten Dritter einzugeben.</p>
-
-<h3>4.2 Demo-Bot im Onboarding (Test-Chat in Schritt 10)</h3>
-<p>Während des Onboardings können Sie in Schritt 10 einen Demo-Bot mit Ihrem individuell konfigurierten System-Prompt testen. Auch hierbei werden Ihre Eingaben sowie der von Ihnen erstellte System-Prompt an Anthropic übermittelt, dort verarbeitet und die Antwort zurückgegeben.</p>
-
-<h3>4.3 Allgemeines zur KI-Verarbeitung</h3>
-<p><strong>Zweck:</strong> Bereitstellung der Sales-Konversation bzw. der Demo-Funktion; Beantwortung Ihrer Fragen.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) sowie Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer effizienten Kundeninteraktion).</p>
-<p><strong>Speicherdauer:</strong> Anthropic verarbeitet Ihre Eingaben zur Generierung der Antwort. Im Rahmen der Anthropic Commercial Terms of Service werden Ihre API-Inputs ausdrücklich <strong>nicht</strong> zu Trainingszwecken verwendet. API-Daten werden bei Anthropic standardmäßig für bis zu 30 Tage zur Erkennung und Abwehr von Missbrauch gespeichert und anschließend automatisch gelöscht. Eine separate Zero-Data-Retention-Vereinbarung mit Anthropic besteht derzeit nicht. Auf unserer Seite wird der Chatverlauf nur in Ihrer Browser-Session gehalten und nicht dauerhaft gespeichert.</p>
-<p><strong>Auftragsverarbeiter:</strong> Anthropic PBC, 548 Market St, PMB 90375, San Francisco, CA 94104, USA. Mit Anthropic besteht ein AVV gem. Art. 28 DSGVO. Anthropic ist seit Frühjahr 2025 nach dem EU-U.S. Data Privacy Framework zertifiziert; ergänzend gelten EU-Standardvertragsklauseln gem. Art. 46 Abs. 2 lit. c DSGVO als Auffanglösung.</p>
-<p><strong>Sicherheits-Filter:</strong> Beide Chats verfügen über einen serverseitigen Inhalts-Filter, der Eingaben mit illegalen, gewaltverherrlichenden oder hassbasierten Inhalten anhand vordefinierter Stichwortlisten blockiert, bevor sie an die KI weitergeleitet werden. Die durch den Filter abgewiesenen Eingaben werden nicht an Anthropic übermittelt und nicht dauerhaft gespeichert.</p>
-
-<h2 id="s5">5. Onboarding und Vertragsabwicklung</h2>
-<p>Im Rahmen des Onboarding-Prozesses (14 Schritte) erheben wir folgende Daten Ihres Unternehmens:</p>
+<h2 id="s4">4. Anbahnung und Vertragsabwicklung</h2>
+<p>Wenn Sie mit uns in Kontakt treten und einen Vertrag anbahnen oder abschließen, verarbeiten wir folgende Daten Ihres Unternehmens:</p>
 <ul>
-<li>Firmenname, Branche, Adresse</li>
-<li>Öffnungszeiten</li>
-<li>Dienstleistungen mit Preisen</li>
-<li>Häufige Fragen (FAQs) Ihrer Kunden</li>
-<li>Geplanten Tonfall des Bots, Anrede-Präferenz, Sprachen</li>
-<li><strong>Individueller Bot-Prompt</strong> (Persona-Beschreibung und Antwortregeln, von Ihnen verfasst oder mit Hilfe der KI generiert)</li>
-<li>Telefonnummer und WhatsApp-Business-Nummer (sofern vorhanden) zur Bot-Anbindung</li>
-<li>Vor- und Nachname der Kontaktperson</li>
-<li>E-Mail-Adresse</li>
-<li>Bei gebuchter Pioneer- oder Standard-Subscription: Rechnungsdaten</li>
+<li>Firmenname, Anschrift und Art des Betriebs</li>
+<li>Vor- und Nachname der Kontaktperson, E-Mail-Adresse, Telefonnummer</li>
+<li>Angaben zur Einrichtung des Assistenten: Öffnungszeiten, Leistungen, häufige Gästefragen, gewünschter Tonfall, Anrede-Präferenz, Sprachen</li>
+<li><strong>Individueller Bot-Prompt</strong> (Persona-Beschreibung und Antwortregeln)</li>
+<li>WhatsApp-Business-Nummer zur Anbindung des Assistenten</li>
+<li>bei Vertragsschluss: Rechnungs- und Zahlungsdaten</li>
 </ul>
-<p><strong>Zweck:</strong> Einrichtung, Konfiguration und Betrieb Ihres individuellen Mr.-Bell-Bots; Abrechnung und Vertragsabwicklung.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung und vorvertragliche Maßnahmen).</p>
-<p><strong>Speicherdauer:</strong> Für die Dauer des Vertrags. Nach Vertragsende werden personenbezogene Daten innerhalb von 90 Tagen gelöscht. Ausgenommen sind Rechnungs- und Zahlungsdaten, die der gesetzlichen Aufbewahrungspflicht von 10 Jahren unterliegen (§ 147 AO, § 257 HGB).</p>
+<p>Über ein optionales Formular auf unserer Seite <code>/danke.html</code> können Sie uns freiwillig weitere Angaben zur Vorbereitung des Erstgesprächs übermitteln (Betriebsname, Branche, Website, Erwartungen an Mr. Bell, Freitextnotiz). Die Angaben sind freiwillig; der Schritt kann übersprungen werden. Die Übermittlung erfolgt über einen Google-Apps-Script-Webhook in unsere interne Tabelle (siehe Abschnitt „Interne Auftragsverwaltung").</p>
+<p><strong>Zweck:</strong> Einrichtung, Konfiguration und Betrieb Ihres individuellen Mr.-Bell-Assistenten; Vorbereitung des Erstgesprächs; Abrechnung und Vertragsabwicklung.</p>
+<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung und vorvertragliche Maßnahmen); für die freiwilligen Zusatzangaben Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
+<p><strong>Speicherdauer:</strong> Für die Dauer des Vertrags. Nach Vertragsende werden personenbezogene Daten innerhalb von 90 Tagen gelöscht. Ausgenommen sind Rechnungs- und Zahlungsdaten, die der gesetzlichen Aufbewahrungspflicht von 10 Jahren unterliegen (§ 147 AO, § 257 HGB). Angaben aus dem Vorbereitungsformular, denen kein Vertragsschluss folgt, löschen wir innerhalb von 90 Tagen.</p>
 
-<h2 id="s6">6. E-Mail-Versand (Google Workspace / Gmail)</h2>
+<h2 id="s5">5. E-Mail-Versand (Google Workspace / Gmail)</h2>
 <p>Wir versenden E-Mails (z. B. Bestellbestätigungen, Terminbestätigungen) über Google Workspace (Gmail) mit der Absenderadresse <code>kontakt@mrbell.de</code>.</p>
 <p>Verarbeitet werden:</p>
 <ul>
@@ -165,7 +148,8 @@ Telefon: +49 176 20690319
 <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragsabwicklung).</p>
 <p><strong>Auftragsverarbeiter:</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Mit Google besteht ein Auftragsverarbeitungsvertrag (Cloud Data Processing Addendum) gem. Art. 28 DSGVO. Die Datenverarbeitung erfolgt auf Servern in der EU.</p>
 
-<h2 id="s7">7. Zahlungsabwicklung (Stripe)</h2>
+
+<h2 id="s6">6. Zahlungsabwicklung (Stripe)</h2>
 <p>Die Zahlung Ihres gewählten Plans erfolgt über den Zahlungsdienstleister Stripe. Beim Klick auf „Jetzt buchen" werden Sie auf eine sichere Stripe-Hosted-Checkout-Seite weitergeleitet. Stripe erhebt und verarbeitet im Rahmen des Bezahlvorgangs:</p>
 <ul>
 <li>Ihre E-Mail-Adresse</li>
@@ -179,7 +163,8 @@ Telefon: +49 176 20690319
 <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).</p>
 <p><strong>Auftragsverarbeiter / Eigenverantwortlicher:</strong> Stripe Payments Europe, Limited, 1 Grand Canal Street Lower, Grand Canal Dock, Dublin, Irland. Stripe ist hinsichtlich der Zahlungsabwicklung selbst Verantwortlicher im Sinne der DSGVO. Weitere Informationen finden Sie unter <a href="https://stripe.com/de/privacy" target="_blank" rel="noopener">stripe.com/de/privacy</a>.</p>
 
-<h2 id="s8">8. Interne Auftragsverwaltung (Google Sheets via Apps Script)</h2>
+
+<h2 id="s7">7. Interne Auftragsverwaltung (Google Sheets via Apps Script)</h2>
 <p>Nach erfolgreicher Buchung über Stripe werden ausgewählte Auftragsdaten automatisch in eine interne Tabelle (Google Sheets) übertragen, die uns zur internen Auftragsverwaltung dient. Die Übertragung erfolgt verschlüsselt über einen Google-Apps-Script-Webhook.</p>
 <p>Übertragen werden:</p>
 <ul>
@@ -193,11 +178,12 @@ Telefon: +49 176 20690319
 <p><strong>Zweck:</strong> Interne Auftragsverwaltung, Bot-Konfiguration, Buchhaltung.</p>
 <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).</p>
 <p><strong>Auftragsverarbeiter:</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland (Mutterunternehmen: Google LLC, USA). Mit Google besteht ein AVV gem. Art. 28 DSGVO (Standard-AVV von Google Workspace). Google LLC ist nach dem EU-U.S. Data Privacy Framework zertifiziert.</p>
-<p><strong>Hinweis zum früheren Einsatz von Airtable:</strong> Die zuvor zeitweise genutzte Datenbank Airtable wird seit Mai 2026 nicht mehr eingesetzt. Sämtliche internen Auftragsdaten werden ausschließlich in Google Sheets verarbeitet.</p>
+<p><strong>Bot-Konversationen:</strong> In einer getrennten Tabelle derselben Google-Sheets-Umgebung speichern wir zusätzlich den Nachrichtenverlauf der Assistenten-Konversationen (WhatsApp-Nummer bzw. WhatsApp-Kennung, Nachrichteninhalt, Rolle, Zeitstempel, Zuordnung zum Haus). Dies dient dazu, dem Assistenten den bisherigen Gesprächsverlauf zur Verfügung zu stellen. Die Verarbeitung erfolgt im Auftrag des jeweiligen Kunden auf Grundlage der mit ihm geschlossenen Auftragsverarbeitungsvereinbarung; die Einträge werden 30 Tage nach der letzten Nachricht gelöscht.</p>
 <p><strong>Speicherdauer:</strong> Für die Dauer des Vertrags zzgl. 90 Tage; rechnungsrelevante Felder unterliegen der 10-jährigen Aufbewahrungspflicht (§ 147 AO).</p>
 
-<h2 id="s9">9. Termin-Buchung (Calendly)</h2>
-<p>Für die Buchung des optional angebotenen geführten Setup-Termins (199 €) sowie für sonstige Beratungstermine setzen wir den Dienst Calendly ein. Beim Aufrufen einer Calendly-Buchungsseite werden folgende Daten verarbeitet:</p>
+
+<h2 id="s8">8. Termin-Buchung (Calendly)</h2>
+<p>Für die Buchung von Erstgesprächen und sonstigen Beratungsterminen setzen wir den Dienst Calendly ein. Beim Aufrufen einer Calendly-Buchungsseite werden folgende Daten verarbeitet:</p>
 <ul>
 <li>Vor- und Nachname</li>
 <li>E-Mail-Adresse</li>
@@ -210,14 +196,39 @@ Telefon: +49 176 20690319
 <p><strong>Speicherdauer:</strong> Für die Dauer der Vertragsbeziehung; sofern kein Setup-Vertrag zustande kommt, werden die Daten innerhalb von 90 Tagen nach dem letzten Termin gelöscht. Rechnungsrelevante Felder unterliegen der 10-jährigen Aufbewahrungspflicht.</p>
 <p><strong>Auftragsverarbeiter:</strong> Calendly LLC, 271 17th Street NW, Suite 1000, Atlanta, GA 30363, USA. Mit Calendly besteht ein AVV gem. Art. 28 DSGVO (online unter <a href="https://calendly.com/dpa" target="_blank" rel="noopener">calendly.com/dpa</a>). Die Datenübermittlung in die USA erfolgt auf Basis der von Calendly bereitgestellten EU-Standardvertragsklauseln gem. Art. 46 Abs. 2 lit. c DSGVO. Weitere Informationen finden Sie in der <a href="https://calendly.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Calendly</a>.</p>
 
-<h2 id="s10">10. Workflow-Automatisierung (n8n)</h2>
+
+<h2 id="s9">9. Workflow-Automatisierung (n8n)</h2>
 <p>Zur technischen Verbindung zwischen WhatsApp Business API, dem KI-Modell und unserer Datenbank setzen wir die Workflow-Automatisierungs-Plattform n8n Cloud ein. Verarbeitet werden hier insbesondere die ein- und ausgehenden Bot-Nachrichten Ihrer Endkunden sowie zugehörige Metadaten (Zeitstempel, Telefonnummer).</p>
 <p>Diese Verarbeitung erfolgt nach Vertragsabschluss im Rahmen der Bot-Bereitstellung und ist Bestandteil der mit Ihnen abgeschlossenen Auftragsverarbeitungsvereinbarung (AVV).</p>
 <p><strong>Zweck:</strong> Technische Verbindung zwischen WhatsApp, KI und Backend.</p>
 <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung gegenüber Ihnen als Auftraggeber).</p>
 <p><strong>Auftragsverarbeiter:</strong> n8n GmbH, Klosterstraße 64, 10179 Berlin, Deutschland. Hosting der n8n-Cloud-Instanz erfolgt auf AWS-Infrastruktur in Frankfurt (Deutschland, Region <code>eu-central-1</code>).</p>
 
-<h2 id="s11">11. WhatsApp Business API (360dialog &amp; Meta)</h2>
+
+<h2 id="s10">10. KI-Verarbeitung der Assistenten-Antworten (Anthropic)</h2>
+<p>Die Antworten des WhatsApp-Assistenten werden von einem KI-Sprachmodell der Anthropic PBC erzeugt. Dazu werden die Nachricht des Gastes sowie der bisherige Gesprächsverlauf und der vom Kunden hinterlegte Bot-Prompt über eine Programmierschnittstelle (API) an Anthropic übermittelt, dort verarbeitet und die erzeugte Antwort zurückgegeben.</p>
+<p><strong>Wichtig:</strong> Diese Verarbeitung erfolgt im Auftrag des jeweiligen Kunden (Auftraggeber) im Rahmen der mit ihm geschlossenen Auftragsverarbeitungsvereinbarung.</p>
+<p><strong>Zweck:</strong> Erzeugung der Antworten des Assistenten.</p>
+<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung gegenüber Ihnen als Auftraggeber).</p>
+<p><strong>Speicherdauer bei Anthropic:</strong> Nach den Anthropic Commercial Terms of Service werden API-Eingaben ausdrücklich <strong>nicht zu Trainingszwecken</strong> verwendet. API-Daten werden standardmäßig für bis zu 30 Tage zur Erkennung und Abwehr von Missbrauch gespeichert und anschließend automatisch gelöscht. Eine gesonderte Zero-Data-Retention-Vereinbarung besteht derzeit nicht.</p>
+<p><strong>Auftragsverarbeiter:</strong> Anthropic PBC, 548 Market St, PMB 90375, San Francisco, CA 94104, USA. Mit Anthropic besteht ein AVV gem. Art. 28 DSGVO. Anthropic ist nach dem EU-U.S. Data Privacy Framework zertifiziert; ergänzend gelten EU-Standardvertragsklauseln gem. Art. 46 Abs. 2 lit. c DSGVO als Auffanglösung.</p>
+
+<h2 id="s11">11. Gäste-Kommunikation und Agenten-Oberfläche (Chatwoot, self-hosted)</h2>
+<p>Zur Anzeige der laufenden Konversationen und zur Übernahme eines Chats durch einen menschlichen Mitarbeiter („Human Handover") setzen wir die Open-Source-Software <strong>Chatwoot</strong> ein. Chatwoot wird von uns <strong>selbst gehostet</strong> und läuft auf einem ausschließlich von uns genutzten Server unter <code>chat.mrbell.de</code>. Es besteht keine Verbindung zu einem Cloud-Dienst des Herstellers; an die Chatwoot Inc. werden keine Daten übermittelt.</p>
+<p><strong>Verarbeitete Daten:</strong></p>
+<ul>
+<li>WhatsApp-Telefonnummer bzw. WhatsApp-Kennung des Gastes</li>
+<li>vom Gast selbst angegebener Name, sofern vorhanden</li>
+<li>Inhalt der ein- und ausgehenden Nachrichten (Gast und Assistent)</li>
+<li>Zeitstempel, Konversationsstatus, Zuweisung und interne Notizen</li>
+</ul>
+<p><strong>Zweck:</strong> Einsicht in laufende Konversationen, Übergabe vom Assistenten an einen Menschen, Qualitätssicherung und Support.</p>
+<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung gegenüber Ihnen als Auftraggeber). Soweit Daten der Gäste unseres Kunden betroffen sind, erfolgt die Verarbeitung ausschließlich im Auftrag des Kunden auf Grundlage der mit ihm geschlossenen Auftragsverarbeitungsvereinbarung gem. Art. 28 DSGVO.</p>
+<p><strong>Speicherdauer:</strong> Konversationen werden <strong>30 Tage nach der letzten Nachricht automatisch und vollständig gelöscht</strong>. Bei Beendigung des Vertragsverhältnisses werden sämtliche Konversationen des betroffenen Auftraggebers innerhalb von 30 Tagen gelöscht. Abweichende Fristen können im AVV individuell vereinbart werden.</p>
+<p><strong>Serverstandort und Auftragsverarbeiter:</strong> Der Server wird von der OVH SAS, 2 rue Kellermann, 59100 Roubaix, Frankreich, bereitgestellt; der Verarbeitungsort liegt in einem Rechenzentrum in Frankreich und damit innerhalb der EU. <strong>Eine Übermittlung in ein Drittland findet nicht statt.</strong> Mit OVH besteht ein Auftragsverarbeitungsvertrag gem. Art. 28 DSGVO; OVH stellt als Infrastrukturanbieter ausschließlich die Serverkapazität bereit und greift nicht auf die Inhalte zu.</p>
+<p><strong>Zugriffsschutz:</strong> Der Zugang zur Chatwoot-Oberfläche ist passwortgeschützt und die Verbindung durchgehend TLS-verschlüsselt. Zugriff haben ausschließlich der Anbieter sowie die vom jeweiligen Auftraggeber benannten Nutzer.</p>
+
+<h2 id="s12">12. WhatsApp Business API (360dialog &amp; Meta)</h2>
 <p>Der eigentliche WhatsApp-Bot kommuniziert über die offizielle WhatsApp Business API. Wir nutzen den deutschen Business-Solution-Provider 360dialog GmbH zur Anbindung. Dabei werden Telefonnummern und Nachrichten der Endkunden unserer Kunden verarbeitet.</p>
 <p><strong>Wichtig:</strong> Diese Verarbeitung erfolgt im Auftrag des jeweiligen Kunden (Auftraggeber) im Rahmen der mit ihm abgeschlossenen Auftragsverarbeitungsvereinbarung. Endkunden werden auf der Seite des Auftraggebers über diese Verarbeitung informiert.</p>
 <p><strong>Auftragsverarbeiter:</strong></p>
@@ -227,21 +238,24 @@ Telefon: +49 176 20690319
 </ul>
 <p>Mit 360dialog besteht ein AVV gem. Art. 28 DSGVO. WhatsApp / Meta verarbeitet die Daten als weiterer Auftragsverarbeiter; entsprechende Standardvertragsklauseln sind über 360dialog vereinbart.</p>
 
-<h2 id="s12">12. E-Mail-Kommunikation (Google Workspace)</h2>
+
+<h2 id="s13">13. E-Mail-Kommunikation (Google Workspace)</h2>
 <p>Wenn Sie uns eine E-Mail an <code>kontakt@mrbell.de</code> oder eine andere Mr.-Bell-Adresse senden, wird diese über unsere Google-Workspace-Postfächer empfangen, gespeichert und beantwortet.</p>
 <p><strong>Zweck:</strong> Beantwortung Ihrer Anfragen, Vertragskommunikation, Support.</p>
 <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung/-erfüllung) bzw. Art. 6 Abs. 1 lit. f DSGVO (effiziente Kommunikation).</p>
 <p><strong>Speicherdauer:</strong> Geschäftliche Korrespondenz wird nach Abschluss des jeweiligen Vorgangs für die Dauer der gesetzlichen Aufbewahrungsfristen aufbewahrt (max. 10 Jahre, §§ 147 AO, 257 HGB), reine Anfragen ohne Vertragsbezug spätestens 2 Jahre nach letzter Antwort gelöscht.</p>
-<p><strong>Auftragsverarbeiter:</strong> Google Ireland Limited (siehe oben unter Punkt 8). Mit Google Workspace besteht ein AVV gem. Art. 28 DSGVO.</p>
+<p><strong>Auftragsverarbeiter:</strong> Google Ireland Limited (siehe oben unter Abschnitt 7). Mit Google Workspace besteht ein AVV gem. Art. 28 DSGVO.</p>
 
-<h2 id="s13">13. Schriftarten (Self-Hosted)</h2>
+
+<h2 id="s14">14. Schriftarten (Self-Hosted)</h2>
 <p>Diese Website nutzt die Schriftarten „Inter". Die Schriftart wird lokal auf unserem eigenen Server gehostet (Self-Hosting). Beim Laden der Schriftart wird <strong>keine</strong> Verbindung zu externen Servern (z. B. Google) hergestellt und <strong>keine</strong> IP-Adresse an Dritte übermittelt.</p>
 <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einheitlicher Darstellung).</p>
 
-<h2 id="s14">14. Cookies, Einwilligungs-Management und Tracking</h2>
+
+<h2 id="s15">15. Cookies, Einwilligungs-Management und Tracking</h2>
 <p>Diese Website unterscheidet zwischen <strong>technisch notwendigen Speichermechanismen</strong> (die ohne Einwilligung erforderlich sind) und <strong>einwilligungspflichtigen Cookies bzw. Pixeln</strong> (insbesondere Marketing- und Reichweitenmessung), die ausschließlich nach Ihrer aktiven Einwilligung über unser Cookie-Banner gesetzt werden.</p>
 
-<h3>14.1 Technisch notwendige Speicherung</h3>
+<h3>15.1 Technisch notwendige Speicherung</h3>
 <p>Wir nutzen ausschließlich folgende, technisch erforderliche Browser-Speicher-Mechanismen:</p>
 <ul>
 <li><code>sessionStorage</code> — speichert Ihre Onboarding-Eingaben temporär in Ihrem Browser, damit ein versehentlicher Reload nicht Ihre bisherigen Eingaben verwirft.</li>
@@ -250,27 +264,27 @@ Telefon: +49 176 20690319
 <p>Diese Daten verbleiben ausschließlich in Ihrem Browser und werden nicht an unsere Server übermittelt. Sie werden gelöscht, sobald Sie den Browser-Tab schließen.</p>
 <p><strong>Rechtsgrundlage:</strong> § 25 Abs. 2 Nr. 2 TDDDG (technisch erforderlich) bzw. Art. 6 Abs. 1 lit. f DSGVO.</p>
 
-<h3>14.2 Einwilligungs-Management (Consent-Banner)</h3>
+<h3>15.2 Einwilligungs-Management (Consent-Banner)</h3>
 <p>Beim ersten Aufruf unserer Website erscheint ein Cookie-Banner unseres Anbieters <strong>CCM19</strong> (Papoo Software &amp; Media GmbH). Dort können Sie:</p>
 <ul>
 <li>einwilligungspflichtige Cookies und Pixel <strong>akzeptieren</strong>,</li>
 <li>diese vollständig <strong>ablehnen</strong>, oder</li>
 <li><strong>einzeln auswählen</strong>, welche Kategorien (z. B. „Marketing", „Statistiken") Sie zulassen möchten.</li>
 </ul>
-<p>Solange Sie keine Einwilligung erteilt haben, werden <strong>keine</strong> einwilligungspflichtigen Cookies, Tracking-Pixel oder Analyse-Tools gesetzt. Insbesondere werden der Google Tag Manager, Google Analytics 4 und der Meta Pixel erst nach Ihrer aktiven Einwilligung geladen.</p>
+<p>Solange Sie keine Einwilligung erteilt haben, werden <strong>keine</strong> einwilligungspflichtigen Cookies, Tracking-Pixel oder Analyse-Tools gesetzt. Insbesondere werden der Google Tag Manager und Google Analytics 4 erst nach Ihrer aktiven Einwilligung geladen.</p>
 <p>Ihre Einwilligung können Sie jederzeit widerrufen, indem Sie auf den Link „Cookie-Einstellungen" im Footer der Website klicken.</p>
 <p>Das Banner speichert Ihre Entscheidung in einem technisch notwendigen Cookie (<code>ccm_consent</code>), damit Sie nicht bei jedem Seitenaufruf erneut gefragt werden.</p>
 <p><strong>Rechtsgrundlage Banner-Cookie:</strong> § 25 Abs. 2 Nr. 2 TDDDG.</p>
 <p><strong>Rechtsgrundlage einwilligungspflichtiger Cookies:</strong> § 25 Abs. 1 TDDDG i. V. m. Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
 <p><strong>Anbieter Cookie-Banner:</strong> Papoo Software &amp; Media GmbH (CCM19), Auguststr. 4, 53229 Bonn, Deutschland.</p>
 
-<h3>14.3 Google Tag Manager (GTM)</h3>
+<h3>15.3 Google Tag Manager (GTM)</h3>
 <p>Diese Website nutzt nach Ihrer Einwilligung den Google Tag Manager (Container-ID: <code>GTM-MX9X2BC3</code>). Der GTM ist ein technisches Verwaltungstool, das selbst keine personenbezogenen Daten erhebt — es handelt sich lediglich um einen „Container", der andere Tags (z. B. Google Analytics 4) erst nach Ihrer Einwilligung über das Cookie-Banner lädt.</p>
 <p><strong>Zweck:</strong> Zentrales, einwilligungsgesteuertes Management aller Tracking- und Analyse-Tags.</p>
 <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung über Cookie-Banner).</p>
 <p><strong>Anbieter:</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
 
-<h3>14.4 Webanalyse (Google Analytics 4)</h3>
+<h3>15.4 Webanalyse (Google Analytics 4)</h3>
 <p>Nach Ihrer Einwilligung über das Cookie-Banner laden wir über den Google Tag Manager das Webanalyse-Tool <strong>Google Analytics 4</strong> (Mess-ID: <code>G-NPECGJ646L</code>). Google Analytics 4 verwendet Cookies und ähnliche Technologien, um die Nutzung unserer Website statistisch auszuwerten.</p>
 
 <p><strong>Erfasste Daten:</strong></p>
@@ -288,110 +302,48 @@ Telefon: +49 176 20690319
 <p><strong>Auftragsverarbeiter:</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland (Mutterunternehmen: Google LLC, USA). Die Datenverarbeitung erfolgt auf Grundlage des mit Google bestehenden AVV gem. Art. 28 DSGVO. Google LLC ist nach dem EU-U.S. Data Privacy Framework zertifiziert.</p>
 <p><strong>Opt-Out:</strong> Sie können Ihre Einwilligung jederzeit über die „Cookie-Einstellungen" im Footer widerrufen. Zusätzlich können Sie das <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Browser-Add-on von Google zur Deaktivierung von Google Analytics</a> installieren.</p>
 
-<h3>14.5 Andere Marketing-Tools, die wir nicht einsetzen</h3>
-<p>Außer dem unter Abschnitt 15 beschriebenen Meta Pixel (inkl. Conversion API) und dem unter 14.4 beschriebenen Google Analytics 4 setzen wir auf dieser Website <strong>keine weiteren</strong> Tracking- oder Reichweitenmess-Tools ein. Insbesondere nicht:</p>
+<h3>15.5 Andere Marketing-Tools, die wir nicht einsetzen</h3>
+<p>Außer dem unter Abschnitt 15.4 beschriebenen Google Analytics 4 setzen wir auf dieser Website <strong>keine weiteren</strong> Tracking- oder Reichweitenmess-Tools ein. Insbesondere nicht:</p>
 <ul>
 <li>Google Ads / Conversion-Tracking</li>
 <li>LinkedIn Insight Tag</li>
 <li>Microsoft Clarity oder ähnliche Heatmap-/Session-Recording-Tools</li>
 <li>TikTok Pixel</li>
+<li>Meta Pixel (Facebook Pixel) und Meta Conversion API</li>
 </ul>
 
-<h2 id="s15">15. Meta Pixel (Facebook Pixel) und Conversion API</h2>
-
-<div class="pixel-highlight">
-<p style="margin:0;"><strong>Wichtig:</strong> Der Meta Pixel wird ausschließlich nach Ihrer ausdrücklichen Einwilligung über unser Cookie-Banner geladen. Solange Sie keine Einwilligung erteilen oder diese ablehnen, findet <strong>keine</strong> Übermittlung an Meta statt.</p>
-</div>
-
-<p>Auf unserer Website setzen wir nach Ihrer Einwilligung den „Meta Pixel" (auch bekannt als Facebook Pixel) der <strong>Meta Platforms Ireland Limited</strong>, Merrion Road, Dublin 4, D04 X2K5, Irland („Meta") ein. Mutterunternehmen ist die Meta Platforms, Inc., 1601 Willow Road, Menlo Park, CA 94025, USA.</p>
-
-<h3>15.1 Welche Daten verarbeitet werden</h3>
-<ul>
-<li>Ihre IP-Adresse (von Meta gekürzt verarbeitet)</li>
-<li>Geräte- und Browser-Informationen (User-Agent, Bildschirmauflösung, Sprache)</li>
-<li>Besuchte Seiten auf mrbell.de und ausgelöste Events (z. B. „Lead", „Purchase")</li>
-<li>Pixel-spezifische Cookie-IDs (<code>_fbp</code>, ggf. <code>fr</code>)</li>
-<li>Sofern Sie zeitgleich bei Facebook oder Instagram eingeloggt sind: Verknüpfung des Besuchs mit Ihrem Meta-Konto</li>
-</ul>
-
-<h3>15.2 Conversion API (serverseitig)</h3>
-<p>Ergänzend zum browserbasierten Pixel können wir bei einem erfolgreichen Kaufabschluss ein gehashtes Conversion-Event direkt von unserem Server an Meta übertragen („Conversion API"). Dies dient der Messung von Conversions auch bei aktiven Ad-Blockern. Übermittelt werden ausschließlich gehashte (SHA-256) und nicht-rückführbare Werte wie:</p>
-<ul>
-<li>Gehashte E-Mail-Adresse</li>
-<li>Gehashte Telefonnummer (sofern vorhanden)</li>
-<li>Event-Typ und Wert (z. B. „Purchase, 49,99 €")</li>
-<li>Zeitstempel</li>
-</ul>
-
-<h3>15.3 Zweck</h3>
-<p>Reichweitenmessung, Conversion-Tracking, Optimierung unserer Werbekampagnen auf Facebook und Instagram, Re-Targeting (z. B. Wiederansprache von Personen, die das Onboarding abgebrochen haben), Erstellung von Custom und Lookalike Audiences.</p>
-
-<h3>15.4 Rechtsgrundlage</h3>
-<p>Einwilligung gem. Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG. Die Einwilligung erfolgt freiwillig über das Cookie-Banner und kann jederzeit für die Zukunft widerrufen werden.</p>
-
-<h3>15.5 Speicherdauer</h3>
-<ul>
-<li>Pixel-Cookie <code>_fbp</code>: bis zu 90 Tage</li>
-<li>Cookie <code>fr</code>: bis zu 90 Tage</li>
-<li>Aggregierte Conversion-Daten bei Meta: gemäß Meta-Richtlinien (in der Regel 2 Jahre)</li>
-</ul>
-
-<h3>15.6 Gemeinsame Verantwortlichkeit</h3>
-<p>Hinsichtlich der Erhebung und Übermittlung von Pixel-Daten an Meta sind wir und Meta <strong>gemeinsam Verantwortliche</strong> im Sinne des Art. 26 DSGVO. Eine entsprechende Vereinbarung haben wir mit Meta über die Business Tools Terms abgeschlossen. Die Vereinbarung ist abrufbar unter:<br>
-<a href="https://www.facebook.com/legal/controller_addendum" target="_blank" rel="noopener">facebook.com/legal/controller_addendum</a></p>
-<p>Für die Verarbeitung nach der Übermittlung an Meta (insbesondere Auswertung, Aggregation, Custom Audiences, Lookalikes) ist Meta eigenständig Verantwortlicher.</p>
-
-<h3>15.7 Datenübermittlung in die USA</h3>
-<p>Die Übermittlung in die USA erfolgt auf Grundlage:</p>
-<ul>
-<li>der Zertifizierung von Meta unter dem EU-U.S. Data Privacy Framework (Angemessenheitsbeschluss gem. Art. 45 DSGVO), und</li>
-<li>ergänzender EU-Standardvertragsklauseln gem. Art. 46 Abs. 2 lit. c DSGVO als Auffanglösung.</li>
-</ul>
-
-<h3>15.8 Widerrufs- und Opt-Out-Möglichkeiten</h3>
-<p>Sie können der Verwendung des Meta Pixels jederzeit widersprechen:</p>
-<ul>
-<li><strong>Über unser Cookie-Banner:</strong> Klicken Sie auf den Link „Cookie-Einstellungen" im Footer und deaktivieren Sie die Marketing-Kategorie.</li>
-<li><strong>Über Facebook-Einstellungen:</strong> <a href="https://www.facebook.com/settings/?tab=ads" target="_blank" rel="noopener">facebook.com/settings/?tab=ads</a></li>
-<li><strong>Über Instagram-Einstellungen:</strong> <a href="https://www.instagram.com/account/privacy_and_security/" target="_blank" rel="noopener">instagram.com/account/privacy_and_security/</a></li>
-<li><strong>Über die European Interactive Digital Advertising Alliance:</strong> <a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener">youronlinechoices.com</a></li>
-</ul>
-<p>Weitere Informationen finden Sie in der <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener">Datenrichtlinie von Meta</a>.</p>
 
 <h2 id="s16">16. Übersicht aller Auftragsverarbeiter</h2>
-<p>Folgende Dienstleister verarbeiten in unserem Auftrag personenbezogene Daten gem. Art. 28 DSGVO bzw. — bei Meta — als gemeinsam Verantwortliche gem. Art. 26 DSGVO:</p>
+<p>Folgende Dienstleister verarbeiten in unserem Auftrag personenbezogene Daten gem. Art. 28 DSGVO:</p>
 <table>
 <thead>
 <tr><th>Dienstleister</th><th>Tätigkeit</th><th>Sitz / Verarbeitungsort</th><th>Drittland-Garantie</th></tr>
 </thead>
 <tbody>
 <tr><td>Vercel Inc.</td><td>Website-Hosting</td><td>USA / Server EU (Frankfurt)</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
-<tr><td>Anthropic PBC</td><td>KI-Verarbeitung (Bell-Chat &amp; Demo-Bot)</td><td>USA</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
-<tr><td>Google Ireland Ltd.</td><td>E-Mail-Versand, Google Sheets</td><td>EU (Irland)</td><td>Cloud Data Processing Addendum</td></tr>
+<tr><td>Google Ireland Ltd.</td><td>E-Mail (Workspace), Google Sheets, Apps Script, Google Analytics 4 via Tag Manager</td><td>Irland (EU), Konzernmutter USA</td><td>Cloud Data Processing Addendum + EU-U.S. Data Privacy Framework</td></tr>
 <tr><td>Stripe Payments Europe, Ltd.</td><td>Zahlungsabwicklung</td><td>Irland (EU)</td><td>—</td></tr>
-<tr><td>Google Ireland Limited</td><td>Google Sheets, Workspace, Fonts</td><td>Irland / USA</td><td>EU-U.S. Data Privacy Framework</td></tr>
 <tr><td>Calendly LLC</td><td>Termin-Buchung</td><td>USA</td><td>EU-Standardvertragsklauseln</td></tr>
 <tr><td>n8n GmbH</td><td>Workflow-Automatisierung</td><td>Deutschland (AWS Frankfurt)</td><td>—</td></tr>
+<tr><td>Anthropic PBC</td><td>KI-Antworten des Assistenten</td><td>USA</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
+<tr><td>OVH SAS</td><td>Server-Hosting der selbst betriebenen Chatwoot-Instanz</td><td>Frankreich (EU)</td><td>—</td></tr>
 <tr><td>360dialog GmbH</td><td>WhatsApp Business API</td><td>Deutschland</td><td>—</td></tr>
 <tr><td>WhatsApp Ireland Limited (Meta)</td><td>WhatsApp Messaging-Infrastruktur</td><td>Irland / USA</td><td>EU-Standardvertragsklauseln (über 360dialog)</td></tr>
-<tr><td><strong>Meta Platforms Ireland Ltd.</strong></td><td><strong>Meta Pixel &amp; Conversion API</strong></td><td><strong>Irland / USA</strong></td><td><strong>DPF + EU-SCC (Art. 26 DSGVO Joint Controller)</strong></td></tr>
-<tr><td>Google Ireland Limited</td><td>Google Analytics 4 (via GTM)</td><td>Irland / USA</td><td>EU-U.S. Data Privacy Framework</td></tr>
 <tr><td>Papoo Software &amp; Media GmbH (CCM19)</td><td>Cookie-Consent-Banner</td><td>Deutschland</td><td>—</td></tr>
 </tbody>
 </table>
-<p>Mit allen oben genannten Dienstleistern bestehen Auftragsverarbeitungsverträge gem. Art. 28 DSGVO (mit Meta zusätzlich eine Vereinbarung gem. Art. 26 DSGVO) oder werden derzeit abgeschlossen. Auf Anfrage stellen wir Ihnen weitere Informationen zur Verfügung.</p>
+<p>Mit allen oben genannten Dienstleistern bestehen Auftragsverarbeitungsverträge gem. Art. 28 DSGVO. Auf Anfrage stellen wir Ihnen weitere Informationen zur Verfügung.</p>
 
 <h2 id="s17">17. Speicherdauer</h2>
 <p>Wir speichern personenbezogene Daten nur so lange, wie dies für die jeweils genannten Zwecke erforderlich ist:</p>
 <ul>
-<li><strong>Onboarding- und Vertragsdaten:</strong> Für die Dauer des Vertrags zzgl. 90 Tage; ausgenommen rechnungsrelevante Daten (§ 147 AO: 10 Jahre).</li>
-<li><strong>Verifizierungscodes:</strong> Verfall nach 15 Minuten, anschließend Löschung.</li>
-<li><strong>Bot-Konversationen mit Endkunden:</strong> Standardmäßig 30 Tage in der internen Verarbeitungs-Datenbank, danach Löschung. Abweichende Speicherfristen können im AVV mit dem Auftraggeber individuell vereinbart werden.</li>
+<li><strong>Anbahnungs- und Vertragsdaten:</strong> Für die Dauer des Vertrags zzgl. 90 Tage; ausgenommen rechnungsrelevante Daten (§ 147 AO: 10 Jahre).</li>
+<li><strong>Angaben aus dem Vorbereitungsformular ohne Vertragsschluss:</strong> 90 Tage.</li>
+<li><strong>Konversationen mit Gästen:</strong> 30 Tage nach der letzten Nachricht, danach automatische Löschung — sowohl in der internen Verarbeitungs-Datenbank (Google Sheets) als auch in der selbst gehosteten Chatwoot-Instanz. Abweichende Speicherfristen können im AVV mit dem Auftraggeber individuell vereinbart werden.</li>
 <li><strong>Termin-Daten (Calendly):</strong> Bis zur Vertragsbeendigung bzw. 90 Tage nach letztem Termin.</li>
 <li><strong>E-Mail-Korrespondenz ohne Vertragsbezug:</strong> Spätestens 2 Jahre nach letzter Antwort.</li>
 <li><strong>Server-Logs:</strong> 30 Tage, sofern nicht zur Beweissicherung erforderlich.</li>
-<li><strong>Meta-Pixel-Cookies:</strong> bis zu 90 Tage (siehe Abschnitt 15.5).</li>
-<li><strong>Google-Analytics-4-Cookies:</strong> bis zu 2 Jahre (<code>_ga</code>); Nutzungsdaten 14 Monate (siehe Abschnitt 14.4).</li>
+<li><strong>Google-Analytics-4-Cookies:</strong> bis zu 2 Jahre (<code>_ga</code>); Nutzungsdaten 14 Monate (siehe Abschnitt 15.4).</li>
 <li><strong>Cookie-Consent-Entscheidung (CCM19):</strong> 12 Monate, danach erneute Einwilligungsabfrage.</li>
 <li><strong>Rechnungs-/Buchhaltungsbelege:</strong> 10 Jahre (§ 147 AO, § 257 HGB).</li>
 </ul>
@@ -399,9 +351,10 @@ Telefon: +49 176 20690319
 <h2 id="s18">18. Datenübermittlung in Drittländer</h2>
 <p>Soweit personenbezogene Daten an Auftragsverarbeiter mit Sitz oder Verarbeitungsort außerhalb der EU/des EWR übermittelt werden (insbesondere USA), erfolgt dies auf Grundlage:</p>
 <ul>
-<li>eines Angemessenheitsbeschlusses gem. Art. 45 DSGVO (insbesondere EU-U.S. Data Privacy Framework — derzeit für Vercel, Anthropic, Google und Meta), oder</li>
-<li>geeigneter Garantien gem. Art. 46 DSGVO, insbesondere EU-Standardvertragsklauseln (derzeit für Calendly und ergänzend für Anthropic / Meta).</li>
+<li>eines Angemessenheitsbeschlusses gem. Art. 45 DSGVO (EU-U.S. Data Privacy Framework — derzeit für Vercel, Anthropic und Google), oder</li>
+<li>geeigneter Garantien gem. Art. 46 DSGVO, insbesondere EU-Standardvertragsklauseln (derzeit für Calendly, ergänzend für Anthropic sowie — über 360dialog — für WhatsApp / Meta).</li>
 </ul>
+<p>Die selbst betriebene Chatwoot-Instanz sowie die dort gespeicherten Konversationen der Gäste liegen ausschließlich auf Servern innerhalb der EU (Frankreich). Eine Drittlandübermittlung findet insoweit nicht statt.</p>
 <p>Eine Kopie der Standardvertragsklauseln stellen wir Ihnen auf Anfrage zur Verfügung.</p>
 
 <h2 id="s19">19. Ihre Rechte als betroffene Person</h2>
@@ -420,9 +373,11 @@ Telefon: +49 176 20690319
 <p>Eine kurze E-Mail an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> reicht aus. Wir antworten innerhalb der gesetzlichen Frist von einem Monat.</p>
 </div>
 
+
 <h2 id="s20">20. Widerspruchsrecht</h2>
 <p><strong>Sie haben das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung Sie betreffender personenbezogener Daten, die auf Grundlage von Art. 6 Abs. 1 lit. e oder f DSGVO erfolgt, Widerspruch einzulegen (Art. 21 Abs. 1 DSGVO).</strong> Wenn Sie Widerspruch einlegen, verarbeiten wir Ihre personenbezogenen Daten nicht mehr, es sei denn, wir können zwingende schutzwürdige Gründe für die Verarbeitung nachweisen, die Ihre Interessen, Rechte und Freiheiten überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen.</p>
 <p>Den Widerspruch können Sie formlos per E-Mail an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> richten.</p>
+
 
 <h2 id="s21">21. Beschwerderecht bei der Aufsichtsbehörde</h2>
 <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über unsere Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Für uns zuständig ist:</p>
@@ -436,8 +391,10 @@ Web: <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel
 </p>
 <p>Sie können sich auch an die Aufsichtsbehörde Ihres üblichen Aufenthaltsortes oder Arbeitsplatzes wenden.</p>
 
+
 <h2 id="s22">22. Keine automatisierte Entscheidungsfindung</h2>
 <p>Wir nutzen keine automatisierte Entscheidungsfindung im Sinne des Art. 22 DSGVO und kein Profiling, das rechtliche Wirkung gegenüber Ihnen entfaltet oder Sie in ähnlicher Weise erheblich beeinträchtigt. Die in den Chats eingesetzten KI-Modelle dienen ausschließlich der Beantwortung Ihrer Eingaben und treffen keine Entscheidungen mit Rechtswirkung. Das Meta-Pixel-Tracking dient ausschließlich der Reichweitenmessung und Werbe-Optimierung, nicht der individuellen Bewertung Ihrer Person.</p>
+
 
 <h2 id="s23">23. Sicherheit der Verarbeitung</h2>
 <p>Wir treffen geeignete technische und organisatorische Maßnahmen gem. Art. 32 DSGVO zum Schutz Ihrer Daten, insbesondere:</p>
@@ -452,9 +409,12 @@ Web: <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel
 </ul>
 <p>Datenschutzverletzungen melden wir innerhalb von 72 Stunden an die zuständige Aufsichtsbehörde sowie ggf. an die betroffenen Personen (Art. 33, 34 DSGVO).</p>
 
+
 <h2 id="s24">24. Aktualität und Änderungen dieser Erklärung</h2>
 <p>Diese Datenschutzerklärung hat den Stand 10. Mai 2026. Durch die Weiterentwicklung unserer Website oder aufgrund geänderter gesetzlicher bzw. behördlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern. Die jeweils aktuelle Datenschutzerklärung kann jederzeit auf dieser Seite abgerufen werden.</p>
 <p>Im Übrigen gelten ergänzend unsere <a href="/agb.html">Allgemeinen Geschäftsbedingungen</a>.</p>
+
+
 
 <hr>
 <p style="font-size: 0.85rem; color: #888;">Bei Fragen zum Datenschutz erreichen Sie uns unter <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>. Diese Datenschutzerklärung wird regelmäßig überprüft und an gesetzliche bzw. technische Änderungen angepasst.</p>
