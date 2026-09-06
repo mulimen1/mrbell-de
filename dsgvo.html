@@ -472,7 +472,7 @@
     <details>
       <summary>Wer ist verantwortlich für Mr. Bell?</summary>
       <div>
-        <p>Mr. Bell wird betrieben von <strong>Ben Deschler als Einzelunternehmen</strong> mit Sitz in der Scheibenstr. 2, 76530 Baden-Baden, Deutschland. Wir unterliegen der deutschen DSGVO-Aufsicht durch den Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg (LfDI BW).</p>
+        <p>Mr. Bell wird betrieben von <strong>Ben Deschler als Einzelunternehmen</strong> mit Sitz in der Maria-Viktoria-Straße 11, 76530 Baden-Baden, Deutschland. Wir unterliegen der deutschen DSGVO-Aufsicht durch den Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg (LfDI BW).</p>
         <p>Vollständige Kontaktdaten finden Sie im <a href="/impressum.html">Impressum</a>.</p>
       </div>
     </details>
@@ -536,7 +536,7 @@
     <details>
       <summary>Wer sind eure Auftragsverarbeiter?</summary>
       <div>
-        <p>Hier die vollständige Liste der Dienstleister, mit denen wir Auftragsverarbeitungsverträge nach Art. 28 DSGVO geschlossen haben:</p>
+        <p>Hier die vollständige Liste der Dienstleister, mit denen wir Auftragsverarbeitungsverträge nach Art. 28 DSGVO geschlossen haben. Die verbindliche Fassung steht in <a href="/avv.html">Anlage 2 unseres Auftragsverarbeitungsvertrags</a>:</p>
         <div class="table-wrap">
           <table>
             <thead>
@@ -552,8 +552,10 @@
               <tr><td>n8n GmbH</td><td>Workflow-Automatisierung</td><td><span class="badge badge-de">Deutschland</span></td></tr>
               <tr><td>360dialog GmbH</td><td>WhatsApp Business API</td><td><span class="badge badge-de">Deutschland</span></td></tr>
               <tr><td>WhatsApp Ireland (Meta)</td><td>WhatsApp-Infrastruktur</td><td><span class="badge badge-eu">Irland / USA</span></td></tr>
-              <tr><td>Meta Platforms Ireland</td><td>Meta Pixel &amp; CAPI <em>(nach Einwilligung)</em></td><td><span class="badge badge-eu">Irland / USA</span></td></tr>
-              <tr><td>eRecht24 (Solmecke GbR)</td><td>Cookie-Banner / Consent</td><td><span class="badge badge-de">Deutschland</span></td></tr>
+              
+              <tr><td>OVH SAS</td><td>Server der selbst gehosteten Agenten-Oberfläche (Chatwoot)</td><td><span class="badge badge-eu">Frankreich</span></td></tr>
+              <tr><td>Papoo Software &amp; Media GmbH (CCM19)</td><td>Cookie-Banner / Consent</td><td><span class="badge badge-de">Deutschland</span></td></tr>
+              <tr><td>Google Ireland Limited</td><td>Google Analytics 4 <em>(nach Einwilligung)</em></td><td><span class="badge badge-eu">Irland / USA</span></td></tr>
             </tbody>
           </table>
         </div>
@@ -595,7 +597,7 @@
         <p>Wir speichern nicht länger als nötig. Wichtigste Fristen:</p>
         <ul>
           <li><strong>Vertragsdaten:</strong> Vertragsdauer + 90 Tage</li>
-          <li><strong>Bot-Konversationen:</strong> standardmäßig 30 Tage (anpassbar im Kunden-AVV)</li>
+          <li><strong>Bot-Konversationen:</strong> 60 Tage nach der letzten Nachricht, danach automatische Löschung — in der Verarbeitungs-Datenbank und in der Agenten-Oberfläche inklusive der Telefonnummer (abweichende Fristen im Kunden-AVV vereinbar)</li>
           <li><strong>E-Mail-Verifizierungscodes:</strong> 15 Minuten</li>
           <li><strong>Server-Logs:</strong> 30 Tage</li>
           <li><strong>Reine E-Mail-Anfragen ohne Vertrag:</strong> max. 2 Jahre</li>
@@ -610,26 +612,24 @@
         <p>Standardmäßig nein — Sie entscheiden selbst über das <strong>Cookie-Banner</strong> beim ersten Besuch:</p>
         <ul>
           <li><strong>Wenn Sie nichts akzeptieren:</strong> nur technisch notwendige Speicherung (Session, damit das Onboarding bei Reload nicht verloren geht).</li>
-          <li><strong>Wenn Sie zustimmen:</strong> wir setzen den Meta Pixel (Facebook/Instagram) und die Meta Conversion API ein, um die Wirksamkeit unserer Werbeanzeigen zu messen.</li>
+          <li><strong>Wenn Sie zustimmen:</strong> wir laden über den Google Tag Manager das Webanalyse-Tool Google Analytics 4, um die Nutzung der Website statistisch auszuwerten.</li>
         </ul>
         <p>Sie können Ihre Entscheidung jederzeit über den „Cookie-Einstellungen"-Link im Footer der Website widerrufen oder ändern.</p>
-        <p><strong>Was wir nicht einsetzen:</strong> Google Analytics, Google Ads, LinkedIn Insight Tag, TikTok Pixel, Heatmap-Tools, Hotjar.</p>
+        <p><strong>Was wir nicht einsetzen:</strong> Meta Pixel und Meta Conversion API, Google Ads, LinkedIn Insight Tag, TikTok Pixel, Heatmap-Tools, Hotjar.</p>
       </div>
     </details>
 
     <details>
-      <summary>Wie funktioniert das Meta Pixel-Tracking konkret?</summary>
+      <summary>Wie funktioniert die Webanalyse konkret?</summary>
       <div>
-        <p>Wenn Sie im Cookie-Banner zustimmen, setzt unsere Website das <strong>Meta Pixel</strong> der Meta Platforms Ireland Limited ein. Es funktioniert wie folgt:</p>
+        <p>Wenn Sie im Cookie-Banner zustimmen, laden wir über den <strong>Google Tag Manager</strong> das Analyse-Tool <strong>Google Analytics 4</strong> der Google Ireland Limited. Ohne Ihre Einwilligung wird nichts davon geladen — der Consent Mode steht bis dahin auf „denied".</p>
         <ul>
-          <li>Bei Seitenaufrufen und Aktionen (z. B. Onboarding starten, Buchung abschließen) übermittelt das Pixel Events an Meta.</li>
-          <li>Übertragen werden: Zeitstempel, Seiten-URL, anonymisierte IP, Browser-Informationen und ein Pseudonym-Cookie (<code>_fbp</code>, 90 Tage gültig).</li>
-          <li>Personenbezogene Identifikatoren wie E-Mail oder Telefonnummer werden vorher lokal mittels <strong>SHA-256 gehashed</strong> übertragen (Advanced Matching).</li>
+          <li>Erfasst werden Seitenaufrufe, Verweildauer, ungefähre Herkunftsregion und technische Browser-Angaben.</li>
+          <li>Die IP-Adresse wird von Google gekürzt, bevor sie gespeichert wird.</li>
+          <li>Wir verknüpfen diese Daten mit keinem Kundenkonto und mit keiner Bot-Konversation.</li>
+          <li>Sie können Ihre Einwilligung jederzeit über „Cookie-Einstellungen" im Footer widerrufen.</li>
         </ul>
-        <p>Zusätzlich nutzen wir die <strong>Meta Conversion API (CAPI)</strong> für serverseitige Übermittlung — das verbessert die Tracking-Genauigkeit speziell auf iOS-Geräten und unterstützt eine korrekte Werbe-Optimierung trotz Werbeblockern.</p>
-        <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Ihre Einwilligung über das Cookie-Banner).</p>
-        <p><strong>Drittland-USA:</strong> Meta kann Daten in die USA übermitteln. Abgesichert durch EU-U.S. Data Privacy Framework + EU-Standardvertragsklauseln. Gemeinsame Verantwortlichkeit nach Art. 26 DSGVO geregelt im <a href="https://www.facebook.com/legal/controller_addendum" target="_blank" rel="noopener">Meta Controller Addendum</a>.</p>
-        <p><strong>Widerruf:</strong> Cookie-Einstellungen-Link im Footer der Website.</p>
+        <p><strong>Wir setzen keinen Meta Pixel und keine Meta Conversion API mehr ein.</strong> Beides wurde im September 2026 vollständig von der Website entfernt.</p>
       </div>
     </details>
 
@@ -661,7 +661,7 @@
           <li>Zwei-Faktor-Authentifizierung für alle administrativen Zugänge</li>
           <li>Strenges Need-to-know-Prinzip beim Zugriff</li>
           <li>Regelmäßige Updates der eingesetzten Systeme</li>
-          <li>Server-seitiger Inhalts-Filter im Bell-Chat (blockt missbräuchliche Eingaben vor Anthropic-Übermittlung)</li>
+          <li>Server-seitiger Inhalts-Filter, der missbräuchliche Eingaben blockt, bevor sie an das KI-Modell gehen</li>
         </ul>
         <p>Datenschutzverletzungen melden wir innerhalb von 72 Stunden an die zuständige Aufsichtsbehörde — wie es Art. 33 DSGVO vorschreibt.</p>
       </div>
