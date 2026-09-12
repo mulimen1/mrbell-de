@@ -162,3 +162,8 @@ footer a:hover{color:var(--accent)}
 .codebox:hover{border-color:var(--accent)}
 .codebox:hover .pfx{color:var(--accent)}
 .btn.wa:hover{background:#0d6e63;border-color:#0d6e63;color:#fff}
+
+/* Jedes einzelne Wort faerbt sich beim Hover - nur Farbe, nichts bewegt sich */
+.w{transition:color .1s ease-out}
+.w:hover{color:var(--accent)}
+.card .w:hover, .label .w:hover, footer .w:hover{color:var(--accent)}

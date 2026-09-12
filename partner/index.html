@@ -197,6 +197,42 @@
 </div>
 
 <script>
+/* Jedes Wort einzeln anfassbar: faerbt sich beim Hover terracotta.
+   Nur Farbe - keine Groessen-, Gewichts- oder Abstandsaenderung, also kein Springen.
+   Links und Buttons bleiben aussen vor, die faerben sich als Ganzes. */
+(function(){
+  var SKIP={SCRIPT:1,STYLE:1,NOSCRIPT:1,TEXTAREA:1,INPUT:1,BUTTON:1,SELECT:1,OPTION:1,A:1,svg:1,SVG:1,TITLE:1};
+  function wrap(root){
+    if(!root) return;
+    var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+      if(!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      var p=n.parentNode;
+      while(p && p.nodeType===1){
+        if(SKIP[p.nodeName]) return NodeFilter.FILTER_REJECT;
+        if(p.classList && (p.classList.contains("w")||p.classList.contains("btn"))) return NodeFilter.FILTER_REJECT;
+        if(p===root) break;
+        p=p.parentNode;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    }});
+    var nodes=[],n;
+    while((n=walker.nextNode())) nodes.push(n);
+    for(var i=0;i<nodes.length;i++){
+      var node=nodes[i], parts=node.nodeValue.split(/(\s+)/), frag=document.createDocumentFragment();
+      for(var j=0;j<parts.length;j++){
+        var t=parts[j]; if(!t) continue;
+        if(/^\s+$/.test(t)){ frag.appendChild(document.createTextNode(t)); }
+        else { var s=document.createElement("span"); s.className="w"; s.appendChild(document.createTextNode(t)); frag.appendChild(s); }
+      }
+      node.parentNode.replaceChild(frag,node);
+    }
+  }
+  window.mbWrapWords=wrap;
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",function(){wrap(document.body);});
+  else wrap(document.body);
+})();
+</script>
+<script>
 const WA="4915142886513", MAIL="kontakt@mrbell.de";
 // >>> HIER den Calendly-Link eintragen, sonst nichts aendern:
 const CAL="https://calendly.com/mrbellconcierge/mr-bell-fur-ihr-hotel";
@@ -245,6 +281,7 @@ function render(r){
   links();
   $("#gate").classList.add("hidden");
   $("#content").classList.remove("hidden");
+  if(window.mbWrapWords) window.mbWrapWords($("#content"));
   window.scrollTo(0,0);
   const st=$("#sticky");
   const onScroll=()=>{ st.hidden = window.scrollY < 320; };
