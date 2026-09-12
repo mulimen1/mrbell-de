@@ -12,12 +12,17 @@
 <link rel="stylesheet" href="/_shared.css">
 <style>
   .gate{padding-block:64px 80px}
-  .codefield{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .codefield{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;align-items:stretch}
+  .codebox{display:flex;align-items:stretch;width:min(270px,100%);
+    border:1px solid var(--line);background:#fff;border-radius:2px}
+  .codebox:focus-within{border-color:var(--ink)}
+  .codebox .pfx{display:flex;align-items:center;padding:14px 0 14px 16px;
+    font-family:var(--sans);font-size:19px;font-weight:600;letter-spacing:.09em;
+    color:var(--muted);user-select:none;-webkit-user-select:none}
   .codefield input{
     font-family:var(--sans);font-size:19px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
-    padding:14px 16px;border:1px solid var(--line);background:#fff;color:var(--ink);
-    border-radius:2px;width:min(260px,100%);outline:none}
-  .codefield input:focus{border-color:var(--ink)}
+    padding:14px 16px 14px 3px;border:0;background:transparent;color:var(--ink);
+    width:100%;min-width:0;outline:none}
   .msg{margin-top:16px;font-size:16px;color:var(--accent);min-height:1.4em}
   .msg.wait{color:var(--muted)}
   .card{background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:22px 24px;margin-top:22px}
@@ -39,8 +44,10 @@
 <div class="wrap">
 
   <header class="head">
-    <img src="/mrbell-glocke.png" alt="">
-    <div><div class="name">Mr. Bell</div><div class="kicker">Digitaler Concierge</div></div>
+    <a class="brand" href="/" aria-label="Zur Startseite">
+      <img src="/mrbell-glocke.png" alt="">
+      <div><div class="name">Mr. Bell</div><div class="kicker">Digitaler Concierge</div></div>
+    </a>
     <div class="right" id="headRight">Zugang</div>
   </header>
   <div class="rule"></div>
@@ -50,10 +57,14 @@
     <h1 class="measure" style="margin-top:0">Diese Seite gibt es nur für Ihr Hotel.</h1>
     <div class="measure stack">
       <p class="lede">Bitte geben Sie den Zugang ein, der in Ihrem Brief steht.
-      Er sieht so aus: <em class="a">MB-XXX00</em></p>
+      Er beginnt immer mit <em class="a">MB-</em> — Sie tippen nur den Rest.</p>
     </div>
     <form class="codefield" id="form" autocomplete="off">
-      <input id="code" name="code" placeholder="MB-" aria-label="Zugangscode" spellcheck="false" enterkeyhint="go">
+      <div class="codebox">
+        <span class="pfx" aria-hidden="true">MB-</span>
+        <input id="code" name="code" placeholder="GRO2" aria-label="Zugangscode, die Zeichen nach MB-"
+               spellcheck="false" enterkeyhint="go" maxlength="8" autocapitalize="characters">
+      </div>
       <button class="btn" type="submit" id="go">Öffnen</button>
     </form>
     <div class="msg" id="msg" role="status" aria-live="polite"></div>
@@ -61,6 +72,7 @@
       Code verlegt? Schreiben Sie kurz an
       <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> — ich schicke ihn Ihnen noch einmal.
     </div>
+    <div class="btns"><a class="btn ghost" href="/">Zurück zur Startseite</a></div>
   </div>
 
   <!-- ===== Inhalt nach dem Öffnen ===== -->
@@ -158,7 +170,10 @@
         <p>Der Zugang unten ist mit Ihrem Hotel verbunden. Mr. Bell antwortet Ihnen als
         <strong id="hausName2"></strong>.</p>
       </div>
-      <div class="btns"><a class="btn" id="testBtn" href="#">Mr. Bell jetzt testen</a></div>
+      <div class="btns">
+        <a class="btn" id="testBtn" href="#">Mr. Bell jetzt testen</a>
+        <a class="btn ghost" href="/">Zurück zur Startseite</a>
+      </div>
     </section>
 
   </main>
@@ -190,7 +205,8 @@ const enc=new TextEncoder(), dec=new TextDecoder();
 const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 let DB=null, CODE="", REC=null;
 
-const norm=s=>s.toUpperCase().replace(/[^A-Z0-9-]/g,"").replace(/^MB(?!-)/,"MB-");
+const suf=s=>s.toUpperCase().replace(/[^A-Z0-9]/g,"").replace(/^MB/,"");
+const full=s=>"MB-"+suf(s);
 
 async function lookupId(code,idsalt){
   const h=await crypto.subtle.digest("SHA-256",enc.encode(idsalt+code));
@@ -237,8 +253,8 @@ function render(r){
 
 $("#form").addEventListener("submit",async e=>{
   e.preventDefault();
-  const code=norm($("#code").value);
-  if(code.length<4){ $("#msg").className="msg"; $("#msg").textContent="Bitte den Zugang aus dem Brief eingeben."; return; }
+  const rest=suf($("#code").value), code="MB-"+rest;
+  if(rest.length<3){ $("#msg").className="msg"; $("#msg").textContent="Bitte den Zugang aus dem Brief eingeben."; return; }
   $("#msg").className="msg wait"; $("#msg").textContent="Einen Moment …";
   $("#go").disabled=true;
   try{
@@ -251,9 +267,9 @@ $("#form").addEventListener("submit",async e=>{
   }
   $("#go").disabled=false;
 });
-$("#code").addEventListener("input",e=>{ e.target.value=norm(e.target.value); });
+$("#code").addEventListener("input",e=>{ e.target.value=suf(e.target.value); });
 const pre=new URLSearchParams(location.search).get("code");
-if(pre){ $("#code").value=norm(pre); $("#form").requestSubmit(); }
+if(pre){ $("#code").value=suf(pre); $("#form").requestSubmit(); }
 </script>
 </body>
 </html>
