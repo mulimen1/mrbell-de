@@ -69,6 +69,8 @@
     </form>
     <div class="msg" id="msg" role="status" aria-live="polite"></div>
     <div class="measure" style="margin-top:40px;font-size:16px;color:var(--muted)">
+      Ihr Browser merkt sich den Zugang, Sie müssen ihn nicht jedes Mal eingeben.
+      Unten auf der Seite können Sie ihn wieder schließen.<br><br>
       Code verlegt? Schreiben Sie kurz an
       <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> — ich schicke ihn Ihnen noch einmal.
     </div>
@@ -141,8 +143,8 @@
           <li>Sie bekommen den AVV vor dem Start zur Prüfung, nicht danach.</li>
         </ul>
         <div class="btns">
-          <a class="btn ghost" href="/avv.html">Auftragsverarbeitungsvertrag ansehen</a>
-          <a class="btn ghost" href="/datenschutz.html">Datenschutzerklärung</a>
+          <a class="btn ghost" href="/avv.html" target="_blank" rel="noopener">Auftragsverarbeitungsvertrag ansehen</a>
+          <a class="btn ghost" href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>
         </div>
       </div>
     </section>
@@ -164,6 +166,61 @@
     </section>
 
     <section>
+      <div class="label">Ihre Aufsteller</div>
+      <div class="measure stack">
+        <h2>Für jedes Zimmer einer, auf Ihren Namen gesetzt.</h2>
+        <p>Die Aufsteller stehen auf den Nachttischen, einer steht an der Rezeption — für die
+        Stunden, in denen dort niemand sitzt. Gestaltet im Design Ihres Hauses, nicht nach
+        Schablone. Ich bringe sie zum Einrichtungstermin mit,
+        <em class="a">Gestaltung und Druck sind im Preis enthalten</em>.
+        Ihr Gast muss nichts installieren: Kamera drauf, WhatsApp öffnet sich.</p>
+      </div>
+      <div class="stage3d">
+        <div class="tent3d" id="tent3d" tabindex="0" role="img"
+             aria-label="Dreidimensionales Modell des Aufstellers, mit Pfeiltasten drehbar">
+          <div class="t-face t-front">
+            <div class="t-haus tentHaus"></div>
+            <div class="t-rule"></div>
+            <img class="t-qr" src="/aufsteller-qr.png" alt="">
+            <div class="t-head">Your personal<br>concierge</div>
+            <div class="t-sub">scan to chat, any language, 24/7</div>
+            <div class="t-foot">powered by Mr. Bell</div>
+          </div>
+          <div class="t-face t-back">
+            <div class="t-haus tentHaus"></div>
+            <div class="t-rule"></div>
+            <img class="t-qr" src="/aufsteller-qr.png" alt="">
+            <div class="t-head t-head-de">Fragen?<br>Empfehlungen?</div>
+            <div class="t-sub">Scannen Sie und chatten Sie mit uns<br>24/7 · jede Sprache · kein Download</div>
+            <div class="t-foot">powered by Mr. Bell</div>
+          </div>
+          <div class="t-side t-left"></div>
+          <div class="t-side t-right"></div>
+        </div>
+        <div class="t-shadow"></div>
+      </div>
+      <p class="t-hint">Ziehen zum Drehen</p>
+
+      <div class="specs">
+        <div><span class="sv">15 cm</span><span class="sl">Höhe</span></div>
+        <div><span class="sv">12 cm</span><span class="sl">Breite</span></div>
+        <div><span class="sv">5 cm</span><span class="sl">Tiefe</span></div>
+      </div>
+      <ul class="plain measure" style="margin-top:24px">
+        <li>Komplett individualisierbar — Ihr Name, Ihre Farben, Ihr Motiv.</li>
+        <li>Als Motiv Ihre eigenen Hausbilder oder ein Motiv aus Ihrer Stadt —
+        <em class="a">der Gast erkennt sofort, dass die Karte zu Ihrem Haus gehört</em>.</li>
+        <li>Leicht gewölbt, damit sie von selbst steht und aus jedem Winkel lesbar bleibt.</li>
+        <li>Modernes Design, das sich an den Raum anpasst statt ihn zu stören.</li>
+        <li>Hochwertiges Material, das sich in der Hand gut anfühlt.</li>
+        <li>Handlich: passt auf jeden Nachttisch und jeden Schreibtisch —
+        gut erkennbar, aber nicht sperrig.</li>
+      </ul>
+      <p class="note measure">Modell des echten Aufstellers, mit Ihrem Hausnamen.
+      Motiv und Farben stimmen wir beim Einrichtungstermin auf Ihr Haus ab.</p>
+</section>
+
+    <section>
       <div class="label">Vorher ausprobieren</div>
       <div class="measure stack">
         <h2>Schreiben Sie ihm, was Ihre Gäste fragen würden.</h2>
@@ -173,6 +230,7 @@
       <div class="btns">
         <a class="btn" id="testBtn" href="#">Mr. Bell jetzt testen</a>
         <a class="btn ghost" href="/">Zurück zur Startseite</a>
+        <button class="btn ghost" type="button" id="logoutBtn">Zugang schließen</button>
       </div>
     </section>
 
@@ -187,9 +245,9 @@
     <div>Mr. Bell · Ben Deschler · Maria-Viktoria-Straße 11 · 76530 Baden-Baden</div>
     <nav>
       <a href="/">Startseite</a>
-      <a href="/impressum.html">Impressum</a>
-      <a href="/datenschutz.html">Datenschutz</a>
-      <a href="/avv.html">AVV</a>
+      <a href="/impressum.html" target="_blank" rel="noopener">Impressum</a>
+      <a href="/datenschutz.html" target="_blank" rel="noopener">Datenschutz</a>
+      <a href="/avv.html" target="_blank" rel="noopener">AVV</a>
       <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
     </nav>
   </footer>
@@ -230,6 +288,25 @@
   window.mbWrapWords=wrap;
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",function(){wrap(document.body);});
   else wrap(document.body);
+})();
+</script>
+<script>
+/* Aufsteller drehen: ziehen, wischen, Pfeiltasten */
+(function(){
+  var el=document.getElementById("tent3d"); if(!el) return;
+  var ry=-26, drag=false, x0=0, r0=0;
+  function set(v){ ry=v; el.style.setProperty("--ry", v.toFixed(1)+"deg"); }
+  set(ry);
+  el.addEventListener("pointerdown",function(e){
+    drag=true; x0=e.clientX; r0=ry; el.setPointerCapture(e.pointerId); e.preventDefault();
+  });
+  el.addEventListener("pointermove",function(e){ if(drag) set(r0+(e.clientX-x0)*0.55); });
+  function end(){ drag=false; }
+  el.addEventListener("pointerup",end); el.addEventListener("pointercancel",end);
+  el.addEventListener("keydown",function(e){
+    if(e.key==="ArrowLeft"){ set(ry-15); e.preventDefault(); }
+    if(e.key==="ArrowRight"){ set(ry+15); e.preventDefault(); }
+  });
 })();
 </script>
 <script>
@@ -276,9 +353,11 @@ function render(r){
   $("#hotelAdr").textContent=`${r.strasse} · ${r.ort}`;
   $("#recherche").textContent=r.recherche;
   $("#hausName2").textContent=r.hotel;
+  document.querySelectorAll(".tentHaus").forEach(function(e){e.textContent=r.hotel;});
   $("#headRight").textContent=r.hotel;
   document.title=r.hotel+" — Mr. Bell";
   links();
+  try{ localStorage.setItem("mb_zugang", CODE); }catch(e){}
   $("#gate").classList.add("hidden");
   $("#content").classList.remove("hidden");
   if(window.mbWrapWords) window.mbWrapWords($("#content"));
@@ -305,7 +384,14 @@ $("#form").addEventListener("submit",async e=>{
   $("#go").disabled=false;
 });
 $("#code").addEventListener("input",e=>{ e.target.value=suf(e.target.value); });
-const pre=new URLSearchParams(location.search).get("code");
+$("#logoutBtn").addEventListener("click",function(){
+  try{ localStorage.removeItem("mb_zugang"); }catch(e){}
+  location.replace(location.pathname);
+});
+
+let gemerkt=null;
+try{ gemerkt=localStorage.getItem("mb_zugang"); }catch(e){}
+const pre=new URLSearchParams(location.search).get("code") || gemerkt;
 if(pre){ $("#code").value=suf(pre); $("#form").requestSubmit(); }
 </script>
 </body>
