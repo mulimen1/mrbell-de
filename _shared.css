@@ -108,9 +108,9 @@ body.home .hero{flex:1;align-content:center}
 .hero{border-top:0;padding-block:clamp(48px,9vh,104px) clamp(56px,11vh,120px)}
 .hero h1{margin:0;max-width:none}
 @media (min-width:980px){
-  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:0 72px;align-items:start}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:0 72px;align-items:center}
   .hero h1{grid-column:1;grid-row:1}
-  .hero-right{grid-column:2;grid-row:1;padding-top:.5em;max-width:32rem}
+  .hero-right{grid-column:2;grid-row:1;max-width:32rem}
   .hero .lede{margin-top:0}
   .hero .actions{grid-column:1/-1;grid-row:2;margin-top:48px}
 }
