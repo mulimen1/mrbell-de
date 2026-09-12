@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zugang — Mr. Bell</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/mrbell-glocke.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/_shared.css">
+<style>
+  .gate{padding-block:64px 80px}
+  .codefield{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .codefield input{
+    font-family:var(--sans);font-size:19px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    padding:14px 16px;border:1px solid var(--line);background:#fff;color:var(--ink);
+    border-radius:2px;width:min(260px,100%);outline:none}
+  .codefield input:focus{border-color:var(--ink)}
+  .msg{margin-top:16px;font-size:16px;color:var(--accent);min-height:1.4em}
+  .msg.wait{color:var(--muted)}
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:22px 24px;margin-top:22px}
+  .card .t{font-family:var(--sans);font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:22px 0 0}
+  .steps li{counter-increment:s;position:relative;padding-left:40px;margin-top:18px}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:.06em;width:25px;height:25px;
+    border:1px solid var(--accent);color:var(--accent);border-radius:50%;
+    font-family:var(--sans);font-size:12px;font-weight:600;display:grid;place-items:center}
+  .slots{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+  .slot{font-family:var(--sans);font-size:14px;padding:10px 13px;border:1px solid var(--line);
+    background:#fff;border-radius:2px;cursor:pointer;color:var(--ink);transition:.12s}
+  .slot:hover{border-color:var(--ink)}
+  .slot[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <img src="/mrbell-glocke.png" alt="">
+    <div><div class="name">Mr. Bell</div><div class="kicker">Digitaler Concierge</div></div>
+    <div class="right" id="headRight">Zugang</div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- ===== Schloss ===== -->
+  <div id="gate" class="gate">
+    <h1 class="measure" style="margin-top:0">Diese Seite gibt es nur für Ihr Hotel.</h1>
+    <div class="measure stack">
+      <p class="lede">Bitte geben Sie den Zugang ein, der in Ihrem Brief steht.
+      Er sieht so aus: <em class="a">MB-XXX00</em></p>
+    </div>
+    <form class="codefield" id="form" autocomplete="off">
+      <input id="code" name="code" placeholder="MB-" aria-label="Zugangscode" spellcheck="false" enterkeyhint="go">
+      <button class="btn" type="submit" id="go">Öffnen</button>
+    </form>
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+    <div class="measure" style="margin-top:40px;font-size:16px;color:var(--muted)">
+      Code verlegt? Schreiben Sie kurz an
+      <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> — ich schicke ihn Ihnen noch einmal.
+    </div>
+  </div>
+
+  <!-- ===== Inhalt nach dem Öffnen ===== -->
+  <main id="content" class="hidden">
+
+    <section style="border-top:0">
+      <h1 id="anrede" style="margin-top:24px"></h1>
+      <div class="measure stack">
+        <p class="lede">schön, dass Sie den Zugang benutzt haben. Auf dieser Seite steht alles,
+        was ich Ihnen im Brief versprochen habe — und ganz unten suchen Sie sich einen Termin aus.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="label">Was ich für Ihr Hotel hinterlegt habe</div>
+      <div class="measure stack">
+        <h2 id="hotelName"></h2>
+        <p id="hotelAdr" style="color:var(--muted)"></p>
+        <div class="card">
+          <div class="t">Recherche zu Ihrem Hotel</div>
+          <p id="recherche"></p>
+        </div>
+        <p>Das stammt ausschließlich aus öffentlichen Quellen — Ihrer Website und Ihrem
+        Google-Profil. Beim Einrichtungstermin gehen wir es gemeinsam durch, korrigieren,
+        was nicht stimmt, und ergänzen alles, was ein Gast sonst noch fragt:
+        <em class="a">Frühstückszeiten, Check-out, WLAN, Parken, Ihre Empfehlungen im Viertel</em>.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="label">Die Bewertungsmechanik am Abreisetag</div>
+      <div class="measure">
+        <h2>So funktioniert es, Schritt für Schritt.</h2>
+        <ol class="steps">
+          <li><strong>Der Gast schreibt Mr. Bell an</strong> — über den QR-Code auf dem Aufsteller
+          im Zimmer oder an der Rezeption. Damit beginnt der Kontakt, nicht vorher.</li>
+          <li><strong>Am Abend vor der Abreise</strong> fragt Mr. Bell einmal nach, ob etwas
+          nicht gepasst hat. Eine Nachricht, keine Umfrage.</li>
+          <li><strong>Antwortet der Gast kritisch</strong>, liegt das noch am selben Abend bei Ihnen.
+          Der Gast ist dann noch im Haus, und Sie können es geradebiegen.</li>
+          <li><strong>Am Abreisetag</strong> verabschiedet sich Mr. Bell und lädt zur
+          Google-Bewertung ein — mit einem direkten Link auf Ihr Profil.</li>
+          <li><strong>Jeder Gast wird eingeladen</strong>, unabhängig davon, wie er geantwortet hat.
+          Es wird niemand gefiltert und niemandem etwas versprochen.</li>
+        </ol>
+        <div class="card">
+          <div class="t">Wichtig, damit es sauber bleibt</div>
+          <p>Mr. Bell kauft keine Bewertungen, belohnt sie nicht und hält niemanden davon ab,
+          negativ zu bewerten. Er fragt früher als die anderen — das ist der ganze Trick.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="label">Datenschutz</div>
+      <div class="measure stack">
+        <h2>Sie bleiben verantwortlich, ich bin Auftragsverarbeiter.</h2>
+        <p>Ihre Gäste schreiben Mr. Bell über WhatsApp. Dabei werden Nachrichten und Rufnummer
+        verarbeitet — im Auftrag Ihres Hotels. Dafür schließen wir einen
+        <strong>Auftragsverarbeitungsvertrag nach Art. 28 DSGVO</strong>, bevor der erste Gast schreibt.</p>
+        <ul class="plain">
+          <li>Der Gast startet den Kontakt selbst. Ohne seine erste Nachricht passiert nichts.</li>
+          <li>Er kann jederzeit „Stopp“ schreiben, dann endet die Kommunikation.</li>
+          <li>Die Gespräche liegen auf einem Server in <em class="a">Frankreich</em>, nicht in den USA.</li>
+          <li>Nach <em class="a">60 Tagen</em> werden sie automatisch gelöscht — täglich, nicht auf Zuruf.</li>
+          <li>Sie bekommen den AVV vor dem Start zur Prüfung, nicht danach.</li>
+        </ul>
+        <div class="btns">
+          <a class="btn ghost" href="/avv.html">Auftragsverarbeitungsvertrag ansehen</a>
+          <a class="btn ghost" href="/datenschutz.html">Datenschutzerklärung</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="termin">
+      <div class="label">Termin</div>
+      <div class="measure">
+        <h2>Suchen Sie sich aus, wann es Ihnen passt.</h2>
+        <p style="margin-top:18px">Zwanzig Minuten am Telefon. Ich zeige Ihnen Mr. Bell live und
+        beantworte, was offen ist. Wenn es nichts für Sie ist, sagen Sie ab —
+        <em class="a">das kostet Sie nichts und mich nicht mehr als diesen Brief</em>.</p>
+        <div class="btns">
+          <a class="btn" id="calBtn" href="#" target="_blank" rel="noopener">Gespräch vereinbaren</a>
+          <a class="btn ghost" id="waBtn" href="#">Lieber kurz über WhatsApp</a>
+        </div>
+        <p style="margin-top:18px;font-size:15px;color:var(--muted)">
+          Sie sehen meinen Kalender und wählen selbst. Ihr Hotel ist dabei schon eingetragen.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="label">Vorher ausprobieren</div>
+      <div class="measure stack">
+        <h2>Schreiben Sie ihm, was Ihre Gäste fragen würden.</h2>
+        <p>Der Zugang unten ist mit Ihrem Hotel verbunden. Mr. Bell antwortet Ihnen als
+        <strong id="hausName2"></strong>.</p>
+      </div>
+      <div class="btns"><a class="btn" id="testBtn" href="#">Mr. Bell jetzt testen</a></div>
+    </section>
+
+  </main>
+
+  <div class="sticky" id="sticky" hidden>
+    <span class="sticky-t">Mr. Bell für Ihr Hotel</span>
+    <a class="btn" id="calBtn2" href="#" target="_blank" rel="noopener">Gespräch vereinbaren</a>
+  </div>
+
+  <footer>
+    <div>Mr. Bell · Ben Deschler · Maria-Viktoria-Straße 11 · 76530 Baden-Baden</div>
+    <nav>
+      <a href="/">Startseite</a>
+      <a href="/impressum.html">Impressum</a>
+      <a href="/datenschutz.html">Datenschutz</a>
+      <a href="/avv.html">AVV</a>
+      <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
+    </nav>
+  </footer>
+
+</div>
+
+<script>
+const WA="4915142886513", MAIL="kontakt@mrbell.de";
+// >>> HIER den Calendly-Link eintragen, sonst nichts aendern:
+const CAL="https://calendly.com/mrbellconcierge/mr-bell-fur-ihr-hotel";
+const $=s=>document.querySelector(s);
+const enc=new TextEncoder(), dec=new TextDecoder();
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+let DB=null, CODE="", REC=null;
+
+const norm=s=>s.toUpperCase().replace(/[^A-Z0-9-]/g,"").replace(/^MB(?!-)/,"MB-");
+
+async function lookupId(code,idsalt){
+  const h=await crypto.subtle.digest("SHA-256",enc.encode(idsalt+code));
+  return [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("").slice(0,12);
+}
+async function open_(code){
+  if(!DB) DB=await (await fetch("/hotels.enc.json",{cache:"no-store"})).json();
+  const id=await lookupId(code,DB.idsalt), blob=DB.data[id];
+  if(!blob) return null;
+  const base=await crypto.subtle.importKey("raw",enc.encode(code),"PBKDF2",false,["deriveKey"]);
+  const key=await crypto.subtle.deriveKey(
+    {name:"PBKDF2",salt:b64(blob.s),iterations:DB.iter,hash:"SHA-256"},
+    base,{name:"AES-GCM",length:256},false,["decrypt"]);
+  const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(blob.i)},key,b64(blob.c));
+  return JSON.parse(dec.decode(pt));
+}
+
+function links(){
+  const haus=REC?REC.hotel:"";
+  // Hotel + Code vorbefuellen, damit Ben sofort sieht, wer bucht
+  const cal=CAL+"?a1="+encodeURIComponent(haus+" ("+CODE+")")+"&hide_gdpr_banner=1";
+  $("#calBtn").href=cal; $("#calBtn2").href=cal;
+  const txt=`Guten Tag Herr Deschler, hier ist ${haus}. Ich melde mich wegen eines Termins.`;
+  $("#waBtn").href=`https://wa.me/${WA}?text=${encodeURIComponent(txt)}`;
+  $("#testBtn").href=`https://wa.me/${WA}?text=${encodeURIComponent("Start "+CODE)}`;
+}
+function render(r){
+  REC=r;
+  $("#anrede").textContent=r.anrede+",";
+  $("#hotelName").textContent=r.hotel;
+  $("#hotelAdr").textContent=`${r.strasse} · ${r.ort}`;
+  $("#recherche").textContent=r.recherche;
+  $("#hausName2").textContent=r.hotel;
+  $("#headRight").textContent=r.hotel;
+  document.title=r.hotel+" — Mr. Bell";
+  links();
+  $("#gate").classList.add("hidden");
+  $("#content").classList.remove("hidden");
+  window.scrollTo(0,0);
+  const st=$("#sticky");
+  const onScroll=()=>{ st.hidden = window.scrollY < 320; };
+  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+}
+
+$("#form").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const code=norm($("#code").value);
+  if(code.length<4){ $("#msg").className="msg"; $("#msg").textContent="Bitte den Zugang aus dem Brief eingeben."; return; }
+  $("#msg").className="msg wait"; $("#msg").textContent="Einen Moment …";
+  $("#go").disabled=true;
+  try{
+    const rec=await open_(code);
+    if(!rec){ $("#msg").className="msg"; $("#msg").textContent="Dieser Zugang passt nicht. Bitte prüfen Sie die Schreibweise — oder schreiben Sie mir kurz."; }
+    else { CODE=code; render(rec); }
+  }catch(err){
+    $("#msg").className="msg";
+    $("#msg").textContent="Dieser Zugang passt nicht. Bitte prüfen Sie die Schreibweise — oder schreiben Sie mir kurz.";
+  }
+  $("#go").disabled=false;
+});
+$("#code").addEventListener("input",e=>{ e.target.value=norm(e.target.value); });
+const pre=new URLSearchParams(location.search).get("code");
+if(pre){ $("#code").value=norm(pre); $("#form").requestSubmit(); }
+</script>
+</body>
+</html>
