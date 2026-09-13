@@ -3,8 +3,8 @@
   --ink:#17171b; --muted:#73737d; --accent:#b84708; --accent-soft:#f0e2d6;
   --paper:#fcfcfb; --paper-2:#f4f4f2; --line:#e3e3df;
   --measure:38rem;
-  --serif:"Source Serif 4",Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
-  --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --serif:Charter,"Bitstream Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -179,39 +179,33 @@ footer a:hover{color:var(--accent)}
 .tent3d:focus-visible{outline:2px solid var(--accent);outline-offset:26px;border-radius:4px}
 
 .t-face{position:absolute;inset:0;transform-origin:50% 0%;backface-visibility:hidden;
-  background:linear-gradient(180deg,rgba(20,27,51,.80),rgba(13,18,38,.94)), url("/aufsteller-motiv.jpg");
-  background-size:cover;background-position:50% 30%;
-  border-radius:2px;padding:15px 14px 12px;text-align:center;color:#fff;
+  background:var(--c-bg);
+  border-radius:2px;padding:15px 14px 12px;text-align:center;color:var(--c-ink);
   display:flex;flex-direction:column;align-items:center;
-  box-shadow:inset 0 0 40px rgba(0,0,0,.45);
-  border-radius:2px/7px;overflow:hidden}
-.t-face::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
-  background:linear-gradient(90deg,
-    rgba(0,0,0,.34) 0%, rgba(0,0,0,.10) 14%, rgba(255,255,255,.07) 42%,
-    rgba(255,255,255,.09) 56%, rgba(0,0,0,.12) 86%, rgba(0,0,0,.36) 100%)}
+  border-radius:2px;overflow:hidden}
 .t-face>*{position:relative;z-index:1}
 .t-front{transform:rotateX(9.46deg)}
 .t-back {transform:rotateY(180deg) rotateX(9.46deg)}
 
-.t-haus{font-family:var(--serif);font-size:13px;font-weight:600;letter-spacing:.07em;
+.t-haus{font-family:var(--tent-font, var(--serif));font-size:13px;font-weight:600;letter-spacing:.07em;
   text-transform:uppercase;line-height:1.2;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,.55)}
-.t-rule{width:58%;height:1px;background:var(--gold);margin:7px 0 11px;opacity:.9}
-.t-qr{width:84px;height:84px;display:block;border-radius:2px;image-rendering:pixelated;
-  box-shadow:0 2px 10px rgba(0,0,0,.45)}
-.t-head{font-family:var(--serif);font-size:15px;line-height:1.22;letter-spacing:.05em;
+.t-rule{width:58%;height:1px;background:var(--c-acc);margin:7px 0 11px;opacity:.95}
+.t-qr{width:82px;height:82px;display:block;border-radius:2px;image-rendering:pixelated;
+  background:#fff;padding:4px;box-shadow:0 2px 10px rgba(0,0,0,.30)}
+.t-head{font-family:var(--tent-font, var(--serif));font-size:15px;line-height:1.22;letter-spacing:.05em;
   text-transform:uppercase;margin-top:11px;text-shadow:0 1px 4px rgba(0,0,0,.6)}
 .t-head-de{text-transform:none;letter-spacing:0;font-size:16px}
-.t-sub{font-family:var(--serif);font-size:9px;line-height:1.45;color:var(--gold);margin-top:7px}
-.t-foot{font-family:var(--serif);font-size:8px;color:rgba(255,255,255,.72);margin-top:auto;letter-spacing:.03em}
+.t-sub{font-family:var(--tent-font, var(--serif));font-size:9px;line-height:1.45;color:var(--c-acc);margin-top:7px}
+.t-foot{font-family:var(--tent-font, var(--serif));font-size:8px;opacity:.68;margin-top:auto;letter-spacing:.03em}
 
 .t-side{position:absolute;top:0;left:50%;width:85px;height:258px;margin-left:-42.5px;
-  background:linear-gradient(90deg,#e6e6e2,#fbfbfa 42%,#f0f0ec 62%,#dededa);
+  background:#f7f7f4;
   -webkit-clip-path:polygon(50% 0%, 48.74% 10%, 46.19% 20%, 42.68% 30%, 38.26% 40%, 33.50% 50%, 27.92% 60%, 21.74% 70%, 15.01% 80%, 7.76% 90%, 0% 100%, 100% 100%, 92.24% 90%, 84.99% 80%, 78.26% 70%, 72.08% 60%, 66.50% 50%, 61.74% 40%, 57.32% 30%, 53.81% 20%, 51.26% 10%);clip-path:polygon(50% 0%, 48.74% 10%, 46.19% 20%, 42.68% 30%, 38.26% 40%, 33.50% 50%, 27.92% 60%, 21.74% 70%, 15.01% 80%, 7.76% 90%, 0% 100%, 100% 100%, 92.24% 90%, 84.99% 80%, 78.26% 70%, 72.08% 60%, 66.50% 50%, 61.74% 40%, 57.32% 30%, 53.81% 20%, 51.26% 10%)}
 .t-left {transform:translateX(-102px) rotateY(90deg)}
 .t-right{transform:translateX(102px)  rotateY(90deg)}
 
-.t-shadow{position:absolute;width:210px;height:26px;border-radius:50%;
-  background:radial-gradient(ellipse at center,rgba(23,23,27,.30),rgba(23,23,27,0) 70%);
+.t-shadow{position:absolute;width:200px;height:22px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(23,23,27,.22),rgba(23,23,27,0) 72%);
   transform:translateY(146px);pointer-events:none}
 .t-hint{font-family:var(--sans);font-size:10px;letter-spacing:.17em;text-transform:uppercase;
   color:var(--muted);text-align:center;margin-top:4px;max-width:30rem}
@@ -234,3 +228,10 @@ footer a:hover{color:var(--accent)}
   .t-right{transform:translateX(88px) rotateY(90deg)}
   .t-qr{width:72px;height:72px}
 }
+
+/* Hausfarben je Hotel */
+.tent3d{--c-bg:#141b33;--c-ink:#ffffff;--c-acc:#d9b96a}
+.tent3d.font-sans{--tent-font:var(--sans)}
+.tent3d.font-serif{--tent-font:var(--serif)}
+.t-quelle{max-width:30rem;margin-top:14px;font-size:15px;color:var(--muted);text-align:center}
+.t-quelle b{font-weight:600;color:var(--ink)}
