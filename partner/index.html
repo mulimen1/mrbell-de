@@ -37,6 +37,49 @@
   .hidden{display:none!important}
 
   /* Aufsteller-Fotos */
+  /* ===== Kopfleiste beim Scrollen + Ueberblick-Menue ===== */
+  html{scroll-behavior:smooth}
+  section[id]{scroll-margin-top:76px}
+  .topbar{position:fixed;inset:0 0 auto 0;z-index:40;
+          background:rgba(252,252,251,.93);backdrop-filter:saturate(150%) blur(8px);
+          border-bottom:1px solid var(--line);
+          transform:translateY(-102%);transition:transform .22s ease}
+  .topbar.show{transform:none}
+  .topbar .in{max-width:80rem;margin:0 auto;padding:9px 48px;
+              display:flex;align-items:center;gap:14px}
+  .tb-name{font-family:var(--sans);font-weight:700;font-size:16px;letter-spacing:-.01em}
+  .tb-haus{font-family:var(--sans);font-size:13px;color:var(--muted);
+           white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:22rem}
+  .tb-sp{margin-left:auto}
+  .menubtn{display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+           font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);
+           background:none;border:1px solid var(--line);border-radius:2px;padding:8px 13px}
+  .menubtn:hover{border-color:var(--ink)}
+  .menubtn .bars{display:inline-block;width:15px;height:11px;position:relative}
+  .menubtn .bars i{position:absolute;left:0;right:0;height:1.5px;background:currentColor;
+                   transition:transform .18s ease,opacity .18s ease}
+  .menubtn .bars i:nth-child(1){top:0}
+  .menubtn .bars i:nth-child(2){top:5px}
+  .menubtn .bars i:nth-child(3){top:10px}
+  .menubtn[aria-expanded="true"] .bars i:nth-child(1){transform:translateY(5px) rotate(45deg)}
+  .menubtn[aria-expanded="true"] .bars i:nth-child(2){opacity:0}
+  .menubtn[aria-expanded="true"] .bars i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+  .menupanel{position:absolute;right:48px;top:calc(100% + 8px);min-width:16rem;display:none;
+             background:var(--paper);border:1px solid var(--line);padding:7px;
+             box-shadow:0 18px 44px -26px rgba(20,27,51,.5)}
+  .menupanel.open{display:block}
+  .menupanel a{display:block;padding:9px 12px;text-decoration:none;color:var(--ink);
+               font-family:var(--sans);font-size:14px;border-radius:2px}
+  .menupanel a:hover,.menupanel a:focus-visible{background:var(--paper-2)}
+  @media (max-width:640px){
+    .topbar .in{padding:9px 20px}
+    .menupanel{right:20px;left:20px}
+    .tb-haus{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .topbar,.menubtn .bars i{transition:none}
+  }
   .shots{margin:30px 0 0;padding:0;max-width:34rem}
   .shots img{width:100%;height:auto;display:block;background:transparent}
   .shots figcaption{margin-top:12px;font-size:13px;line-height:1.5;color:var(--muted)}
@@ -54,6 +97,26 @@
 </style>
 </head>
 <body>
+
+<div class="topbar" id="topbar" hidden>
+  <div class="in">
+    <span class="tb-name">Mr. Bell</span>
+    <span class="tb-haus" id="tbHaus"></span>
+    <span class="tb-sp"></span>
+    <button class="menubtn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menuPanel">
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>&Uuml;berblick
+    </button>
+    <nav class="menupanel" id="menuPanel" aria-label="&Uuml;berblick">
+      <a href="#concierge">Ihr Concierge</a>
+      <a href="#haus">Ihr Haus in Mr. Bell</a>
+      <a href="#bewertung">Bewertungen am Abreisetag</a>
+      <a href="#aufsteller">Ihre Aufsteller</a>
+      <a href="#datenschutz">Datenschutz</a>
+      <a href="#termin">Termin</a>
+    </nav>
+  </div>
+</div>
+
 <div class="wrap">
 
   <header class="head">
@@ -102,7 +165,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="concierge">
       <div class="label">Ihr Concierge</div>
       <div class="measure stack">
         <h2>Schreiben Sie ihm, was Ihre Gäste fragen würden.</h2>
@@ -116,7 +179,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="haus">
       <div class="label">Ihr Haus in Mr. Bell</div>
       <div class="measure stack">
         <h2 id="hotelName"></h2>
@@ -128,7 +191,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="bewertung">
       <div class="label">Die Bewertungsmechanik am Abreisetag</div>
       <div class="measure wide">
         <h2>So funktioniert es, Schritt für Schritt.</h2>
@@ -155,7 +218,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="aufsteller">
       <div class="label">Ihre Aufsteller</div>
       <div class="measure stack">
         <h2>Für jedes Zimmer einer, auf Ihren Namen gesetzt.</h2>
@@ -167,7 +230,7 @@
 
       <div class="aufsteller">
         <figure class="shots">
-          <img src="/aufsteller-masse.png" width="1200" height="1304"
+          <img src="/aufsteller-masse.png" width="1400" height="1522"
                loading="lazy" decoding="async"
                alt="Aufsteller im Format 15 cm hoch, 12 cm breit, 5 cm tief: Hotelname oben,
                     Stadtmotiv, QR-Code, Hinweis &bdquo;scan to chat, any language, 24/7&ldquo;">
@@ -202,7 +265,7 @@
       in keinem nach Werbung aus. Hat Ihr Haus eigene Farben, drucken wir in Ihren.</p>
 </section>
 
-    <section>
+    <section id="datenschutz">
       <div class="label">Datenschutz</div>
       <div class="measure stack wide">
         <h2>Ihre G&auml;stedaten bleiben Ihre.</h2>
@@ -237,9 +300,12 @@
         <div class="btns">
           <a class="btn" id="calBtn" href="#" target="_blank" rel="noopener">Gespräch vereinbaren</a>
           <a class="btn ghost" id="waBtn" href="#">Lieber kurz über WhatsApp</a>
+          <a class="btn ghost" id="mailBtn" href="#">Klassisch per E-Mail</a>
         </div>
         <p style="margin-top:18px;font-size:15px;color:var(--muted)">
-          Sie sehen meinen Kalender und wählen selbst. Ihr Hotel ist dabei schon eingetragen.</p>
+          Im Kalender wählen Sie selbst, Ihr Hotel ist schon eingetragen. Über WhatsApp
+          oder E-Mail schreiben Sie mir einfach, wann es Ihnen passt — beides landet
+          direkt bei mir, nicht in einem Ticketsystem.</p>
       </div>
     </section>
 
@@ -254,7 +320,7 @@
 
   <div class="sticky" id="sticky" hidden>
     <span class="sticky-t">Mr. Bell für Ihr Hotel</span>
-    <a class="btn" id="calBtn2" href="#" target="_blank" rel="noopener">Gespräch vereinbaren</a>
+    <a class="btn" href="#termin">Termin vereinbaren</a>
   </div>
 
   <footer>
@@ -364,10 +430,15 @@ function links(){
   const haus=REC?REC.hotel:"";
   // Hotel + Code vorbefuellen, damit Ben sofort sieht, wer bucht
   const cal=CAL+"?a1="+encodeURIComponent(haus+" ("+CODE+")")+"&hide_gdpr_banner=1";
-  $("#calBtn").href=cal; $("#calBtn2").href=cal;
+  $("#calBtn").href=cal;
   const txt=`Guten Tag Herr Deschler, hier ist ${haus}. Ich melde mich wegen eines Termins.`;
   $("#waBtn").href=`https://wa.me/${WA_BEN}?text=${encodeURIComponent(txt)}`;
   $("#testBtn").href=`https://wa.me/${WA}?text=${encodeURIComponent("Start "+CODE)}`;
+  const subj=`Mr. Bell — ${haus} (${CODE})`;
+  const body=`Guten Tag Herr Deschler,\n\nich habe Ihren Brief erhalten und melde mich wegen `
+            +`eines Termins.\n\nMir passt es am besten:\n\nViele Grüße\n${haus}`;
+  $("#mailBtn").href=`mailto:${MAIL}?subject=${encodeURIComponent(subj)}`
+                    +`&body=${encodeURIComponent(body)}`;
 }
 function render(r){
   REC=r;
@@ -380,6 +451,7 @@ function render(r){
   // zeigt echte Fotos mit dem Beispielnamen "Hotel Mustermann" - es wird also
   // kein Hausfarben-Versprechen gemacht, das die Seite nicht einloesen kann.
   $("#headRight").textContent=r.hotel;
+  $("#tbHaus").textContent=r.hotel;
   document.title=r.hotel+" — Mr. Bell";
   links();
   try{ localStorage.setItem("mb_zugang", JSON.stringify(
@@ -388,9 +460,47 @@ function render(r){
   $("#content").classList.remove("hidden");
   if(window.mbWrapWords) window.mbWrapWords($("#content"));
   window.scrollTo(0,0);
-  const st=$("#sticky");
-  const onScroll=()=>{ st.hidden = window.scrollY < 320; };
-  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+  initChrome();
+}
+
+/* Kopfleiste, Ueberblick-Menue und die untere Terminleiste.
+   Die untere Leiste verschwindet, sobald der Termin-Abschnitt selbst
+   sichtbar ist - sonst deckt sie genau die Schaltflaechen zu, zu denen
+   sie fuehren soll. */
+function initChrome(){
+  const st=$("#sticky"), tb=$("#topbar"), btn=$("#menuBtn"), panel=$("#menuPanel");
+  tb.hidden=false;
+
+  let terminSichtbar=false;
+  const termin=document.getElementById("termin");
+  if(termin && "IntersectionObserver" in window){
+    new IntersectionObserver(function(es){
+      terminSichtbar = es[0].isIntersecting;
+      onScroll();
+    }, {rootMargin:"-30% 0px -20% 0px"}).observe(termin);
+  }
+
+  function onScroll(){
+    const y=window.scrollY;
+    tb.classList.toggle("show", y > 260);
+    st.hidden = (y < 320) || terminSichtbar;
+    if(y <= 260) closeMenu();
+  }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  function openMenu(){ panel.classList.add("open"); btn.setAttribute("aria-expanded","true"); }
+  function closeMenu(){ panel.classList.remove("open"); btn.setAttribute("aria-expanded","false"); }
+  btn.addEventListener("click", function(e){
+    e.stopPropagation();
+    panel.classList.contains("open") ? closeMenu() : openMenu();
+  });
+  panel.addEventListener("click", function(e){ if(e.target.tagName==="A") closeMenu(); });
+  document.addEventListener("click", function(e){
+    if(!panel.contains(e.target) && e.target!==btn) closeMenu();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key==="Escape"){ closeMenu(); btn.focus(); }
+  });
 }
 
 $("#form").addEventListener("submit",async e=>{
