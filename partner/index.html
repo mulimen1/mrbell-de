@@ -145,8 +145,9 @@
     </form>
     <div class="msg" id="msg" role="status" aria-live="polite"></div>
     <div class="measure" style="margin-top:40px;font-size:16px;color:var(--muted)">
-      Ihr Browser merkt sich den Zugang für zwölf Stunden, damit Sie ihn nicht jedes Mal
-      eingeben müssen. Unten auf der Seite können Sie ihn sofort wieder schließen.<br><br>
+      Ihr Browser merkt sich den Zugang für 24 Stunden — auch wenn Sie den Tab
+      zwischendurch schließen. Sie müssen ihn also nicht jedes Mal neu eingeben.
+      Unten auf der Seite können Sie ihn jederzeit sofort wieder schließen.<br><br>
       Code verlegt? Schreiben Sie kurz an
       <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> — ich schicke ihn Ihnen noch einmal.
     </div>
@@ -455,7 +456,10 @@ function render(r){
   document.title=r.hotel+" — Mr. Bell";
   links();
   try{ localStorage.setItem("mb_zugang", JSON.stringify(
-    {c:CODE, exp:Date.now()+12*60*60*1000})); }catch(e){}   // 12 Stunden
+    {c:CODE, exp:Date.now()+24*60*60*1000})); }catch(e){}   // 24 Stunden
+  // localStorage, nicht sessionStorage: der Zugang ueberlebt damit auch das
+  // Schliessen des Tabs und des Browsers - bis die 24 Stunden abgelaufen sind
+  // oder der Gastgeber unten selbst auf "Zugang schliessen" geht.
   $("#gate").classList.add("hidden");
   $("#content").classList.remove("hidden");
   if(window.mbWrapWords) window.mbWrapWords($("#content"));
