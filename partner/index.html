@@ -155,8 +155,8 @@
       <div class="measure stack">
         <h2>Für jedes Zimmer einer, auf Ihren Namen gesetzt.</h2>
         <p>Die Aufsteller stehen auf den Nachttischen, einer steht an der Rezeption — für die
-        Stunden, in denen dort niemand sitzt. Gestaltet im Design Ihres Hauses, nicht nach
-        Schablone. Ich bringe sie zum Einrichtungstermin mit,
+        Stunden, in denen dort niemand sitzt. Dunkelblau, matt, mit Ihrem Hausnamen im Druck &mdash;
+        ein Format, das auf jedem Nachttisch funktioniert. Ich bringe sie zum Einrichtungstermin mit,
         <em class="a">Gestaltung und Druck sind im Preis enthalten</em>.
         Ihr Gast muss nichts installieren: Kamera drauf, WhatsApp öffnet sich.</p>
       </div>
@@ -177,15 +177,15 @@
         <div><span class="sv">5 cm</span><span class="sl">Tiefe</span></div>
       </div>
       <ul class="plain measure" style="margin-top:24px">
-        <li>Ihr Name steht drauf. Farben und Motiv stimmen wir beim Einrichtungstermin ab.</li>
-        <li>Als Motiv Ihre eigenen Hausbilder oder ein Motiv aus Ihrer Stadt —
+        <li>Ihr Hausname steht oben drauf, gesetzt und gedruckt.</li>
+        <li>Das Motiv nehmen wir aus Ihrer Stadt oder aus Ihren eigenen Hausbildern —
         <em class="a">der Gast erkennt sofort, dass die Karte zu Ihrem Haus gehört</em>.</li>
         <li>Leicht gewölbt, damit sie von selbst steht und aus jedem Winkel lesbar bleibt.</li>
         <li>Fester Karton, matt kaschiert — fasst sich nicht nach Werbeflyer an.</li>
       </ul>
-      <p class="note measure">So sieht die Grundform aus. Farbe, Motiv, Feinlayout und Papier
-      stimmen wir beim Einrichtungstermin gemeinsam auf Ihr Haus ab — Gestaltung und Druck
-      sind im Preis enthalten.</p>
+      <p class="note measure">Nachtblau ist der Standard — er passt in jedes Zimmer und
+      sieht in keinem nach Werbung aus. Motiv und Feinlayout sehen wir uns beim
+      Einrichtungstermin gemeinsam an; Gestaltung und Druck sind im Preis enthalten.</p>
 </section>
 
     <section>
@@ -362,11 +362,9 @@ function render(r){
   $("#hotelName").textContent=r.hotel;
   $("#hotelAdr").textContent=`${r.strasse} · ${r.ort}`;
   $("#hausName2").textContent=r.hotel;
-  document.querySelectorAll(".tentHaus").forEach(function(e){e.textContent=r.hotel;});
-  // Aufsteller: Nachtblau ist der feste Standard fuer jedes Haus.
-  // Nur der Name wird gesetzt (siehe .tentHaus oben), die Farben nicht mehr
-  // pro Hotel ueberschrieben - das Hausfarben-Versprechen stand sonst auf der
-  // Seite, ohne eingeloest zu werden.
+  // Aufsteller: Nachtblau ist der feste Standard fuer jedes Haus. Die Galerie
+  // zeigt echte Fotos mit dem Beispielnamen "Hotel Mustermann" - es wird also
+  // kein Hausfarben-Versprechen gemacht, das die Seite nicht einloesen kann.
   $("#headRight").textContent=r.hotel;
   document.title=r.hotel+" — Mr. Bell";
   links();
