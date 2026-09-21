@@ -12,12 +12,17 @@
       "permanent": true
     },
     {
+      "source": "/faq",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/faq.html",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/faq",
+      "source": "/start",
       "destination": "/",
       "permanent": true
     },
@@ -27,12 +32,17 @@
       "permanent": true
     },
     {
+      "source": "/ueber-uns",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/ueber-uns.html",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/ueber-uns",
+      "source": "/danke",
       "destination": "/",
       "permanent": true
     },
@@ -42,7 +52,17 @@
       "permanent": true
     },
     {
+      "source": "/erfolg",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/erfolg.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/abbruch",
       "destination": "/",
       "permanent": true
     },
@@ -52,14 +72,36 @@
       "permanent": true
     },
     {
-      "source": "/dsgvo.html",
+      "source": "/dsgvo",
       "destination": "/datenschutz.html",
       "permanent": true
     },
     {
-      "source": "/dsgvo",
+      "source": "/dsgvo.html",
       "destination": "/datenschutz.html",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/agb",
+      "destination": "/agb.html"
+    },
+    {
+      "source": "/avv",
+      "destination": "/avv.html"
+    },
+    {
+      "source": "/datenschutz",
+      "destination": "/datenschutz.html"
+    },
+    {
+      "source": "/impressum",
+      "destination": "/impressum.html"
+    },
+    {
+      "source": "/widerruf",
+      "destination": "/widerruf.html"
     }
   ],
   "headers": [
