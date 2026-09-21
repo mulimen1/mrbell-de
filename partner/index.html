@@ -37,10 +37,21 @@
   .hidden{display:none!important}
 
   /* Aufsteller-Fotos */
-  .shots{margin:30px 0 0;padding:0;max-width:44rem}
+  .shots{margin:30px 0 0;padding:0;max-width:30rem}
   .shots img{width:100%;height:auto;display:block;border-radius:3px;
              background:#f2f1ec;box-shadow:0 1px 2px rgba(20,27,51,.06),0 10px 26px -16px rgba(20,27,51,.30)}
-  .shots figcaption{margin-top:10px;font-size:13px;color:var(--muted)}
+  .shots figcaption{margin-top:12px;font-size:13px;line-height:1.5;color:var(--muted)}
+  /* Ausstattungspunkte: fetter Einstieg, dann der Satz dazu */
+  ul.feat{list-style:none;padding:0;margin:30px 0 0}
+  ul.feat li{padding-left:22px;position:relative;margin-top:16px}
+  ul.feat li::before{content:"";position:absolute;left:2px;top:.72em;
+                     width:7px;height:1px;background:var(--accent)}
+  ul.feat b{font-weight:600}
+  @media (min-width:900px){
+    .aufsteller{display:grid;grid-template-columns:30rem 1fr;gap:48px;align-items:start}
+    .aufsteller .shots{margin-top:0}
+    .aufsteller ul.feat{margin-top:-4px}
+  }
 </style>
 </head>
 <body>
@@ -149,30 +160,47 @@
       <div class="label">Ihre Aufsteller</div>
       <div class="measure stack">
         <h2>Für jedes Zimmer einer, auf Ihren Namen gesetzt.</h2>
-        <p>Die Aufsteller stehen auf den Nachttischen, einer steht an der Rezeption — für die
-        Stunden, in denen dort niemand sitzt. Dunkelblau, matt, mit Ihrem Hausnamen im Druck &mdash;
-        ein Format, das auf jedem Nachttisch funktioniert. Ich bringe sie zum Einrichtungstermin mit,
-        <em class="a">Gestaltung und Druck sind im Preis enthalten</em>.
-        Ihr Gast muss nichts installieren: Kamera drauf, WhatsApp öffnet sich.</p>
+        <p>Die Aufsteller stehen auf den Nachttischen, einer an der Rezeption — für die
+        Stunden, in denen dort niemand sitzt. Ihr Gast muss nichts installieren:
+        Kamera drauf, WhatsApp öffnet sich. Ich bringe sie zum Einrichtungstermin mit,
+        <em class="a">Gestaltung und Druck sind im Preis enthalten</em>.</p>
       </div>
-      <figure class="shots">
-        <img id="shotImg" src="/aufsteller-masse.jpg" width="1200" height="980"
-             loading="lazy" decoding="async"
-             alt="Der Aufsteller mit Ma&szlig;angaben: 15 cm hoch, 12 cm breit, 5 cm tief">
-        <figcaption>Der gedruckte Aufsteller &mdash; hier mit dem Beispielnamen
-        &bdquo;Hotel Mustermann&ldquo;.</figcaption>
-      </figure>
 
-      <ul class="plain measure" style="margin-top:24px">
-        <li>Ihr Hausname steht oben drauf, gesetzt und gedruckt.</li>
-        <li>Das Motiv nehmen wir aus Ihrer Stadt oder aus Ihren eigenen Hausbildern —
-        <em class="a">der Gast erkennt sofort, dass die Karte zu Ihrem Haus gehört</em>.</li>
-        <li>Leicht gewölbt, damit sie von selbst steht und aus jedem Winkel lesbar bleibt.</li>
-        <li>Fester Karton, matt kaschiert — fasst sich nicht nach Werbeflyer an.</li>
-      </ul>
-      <p class="note measure">Nachtblau ist der Standard — er passt in jedes Zimmer und
-      sieht in keinem nach Werbung aus. Motiv und Feinlayout sehen wir uns beim
-      Einrichtungstermin gemeinsam an; Gestaltung und Druck sind im Preis enthalten.</p>
+      <div class="aufsteller">
+        <figure class="shots">
+          <img src="/aufsteller-masse.jpg" width="1200" height="1486"
+               loading="lazy" decoding="async"
+               alt="Aufsteller im Format 15 cm hoch, 12 cm breit, 5 cm tief: Hotelname oben,
+                    Stadtmotiv, QR-Code, Hinweis &bdquo;scan to chat, any language, 24/7&ldquo;">
+          <figcaption>Beispiel mit dem Namen &bdquo;Hotel Mustermann&ldquo;.
+          Gedruckt wird Ihr Hausname.</figcaption>
+        </figure>
+
+        <ul class="feat">
+          <li><b>Das Bild zeigt den Aufbau, nicht Ihren Aufsteller.</b>
+          Name, Motiv, Farbe und Feinlayout legen wir beim Einrichtungstermin für Ihr
+          Haus fest &mdash; <em class="a">das Muster geht erst in den Druck, wenn Sie es
+          abgenommen haben</em>.</li>
+
+          <li><b>Ihr Name steht oben, nicht meiner.</b>
+          Mr. Bell steht klein am Fuß. Auf dem Nachttisch Ihres Gastes liegt die Karte
+          Ihres Hauses, keine Fremdwerbung.</li>
+
+          <li><b>Als Motiv Ihr Haus oder Ihre Stadt.</b>
+          Eigene Aufnahmen, wenn Sie welche haben; sonst ein Motiv aus Ihrem Ort.
+          Der Gast erkennt sofort, wozu die Karte gehört.</li>
+
+          <li><b>Fester Karton, matt kaschiert.</b>
+          Fasst sich nicht nach Werbeflyer an und spiegelt nicht unter der Nachttischlampe.</li>
+
+          <li><b>15 × 12 × 5 cm, steht von selbst.</b>
+          Kein Ständer, kein Fuß, nichts zum Zusammenbauen. Leicht gewölbt, damit sie
+          aus jedem Winkel im Zimmer lesbar bleibt.</li>
+        </ul>
+      </div>
+
+      <p class="note measure">Nachtblau ist der Standard — er passt in jedes Zimmer und sieht
+      in keinem nach Werbung aus. Hat Ihr Haus eigene Farben, drucken wir in Ihren.</p>
 </section>
 
     <section>
