@@ -80,13 +80,28 @@
     <section style="border-top:0">
       <h1 id="anrede" style="margin-top:24px"></h1>
       <div class="measure stack">
-        <p class="lede">schön, dass Sie den Zugang benutzt haben. Auf dieser Seite steht alles,
-        was ich Ihnen im Brief versprochen habe — und ganz unten suchen Sie sich einen Termin aus.</p>
+        <p class="lede">Ihr Concierge steht. Er kennt Ihr Haus, und Sie können ihm sofort
+        schreiben — er antwortet Ihnen so, wie er später Ihren Gästen antwortet.
+        <em class="a">Danach erkläre ich, was dahintersteckt.</em></p>
       </div>
     </section>
 
     <section>
-      <div class="label">Was ich für Ihr Hotel hinterlegt habe</div>
+      <div class="label">Ihr Concierge</div>
+      <div class="measure stack">
+        <h2>Schreiben Sie ihm, was Ihre Gäste fragen würden.</h2>
+        <p>Der Knopf öffnet WhatsApp mit einem Zugang, der mit Ihrem Haus verbunden ist.
+        Mr. Bell antwortet Ihnen als <strong id="hausName2"></strong> — Frühstück, Check-out,
+        eine Empfehlung fürs Viertel. <em class="a">Fragen Sie ihn etwas, das nur Ihre Gäste
+        fragen würden.</em></p>
+      </div>
+      <div class="btns">
+        <a class="btn" id="testBtn" href="#">Mr. Bell jetzt testen</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="label">Ihr Haus in Mr. Bell</div>
       <div class="measure stack">
         <h2 id="hotelName"></h2>
         <p id="hotelAdr" style="color:var(--muted)"></p>
@@ -118,45 +133,6 @@
           <p>Mr. Bell kauft keine Bewertungen, belohnt sie nicht und hält niemanden davon ab,
           negativ zu bewerten. Er fragt früher als die anderen — das ist der ganze Trick.</p>
         </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="label">Datenschutz</div>
-      <div class="measure stack wide">
-        <h2>Sie bleiben verantwortlich, ich bin Auftragsverarbeiter.</h2>
-        <p>Ihre Gäste schreiben Mr. Bell über WhatsApp. Dabei werden Nachrichten und Rufnummer
-        verarbeitet — im Auftrag Ihres Hotels. Dafür schließen wir einen
-        <strong>Auftragsverarbeitungsvertrag nach Art. 28 DSGVO</strong>, bevor der erste Gast schreibt.</p>
-        <ul class="plain">
-          <li>Der Gast startet den Kontakt selbst. Ohne seine erste Nachricht passiert nichts.</li>
-          <li>Er kann jederzeit „Stopp“ schreiben, dann endet die Kommunikation.</li>
-          <li>Die Gespräche werden auf einem Server in <em class="a">Frankreich</em> gespeichert.
-          Für das Formulieren der Antwort geht der Nachrichtentext an unseren KI-Dienstleister;
-          welche Dienstleister das sind und wo sie sitzen, steht vollständig im AVV.</li>
-          <li>Nach <em class="a">60 Tagen</em> werden sie automatisch gelöscht — täglich, nicht auf Zuruf.</li>
-          <li>Sie bekommen den AVV vor dem Start zur Prüfung, nicht danach.</li>
-        </ul>
-        <div class="btns">
-          <a class="btn ghost" href="/avv.html" target="_blank" rel="noopener">Auftragsverarbeitungsvertrag ansehen</a>
-          <a class="btn ghost" href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="termin">
-      <div class="label">Termin</div>
-      <div class="measure">
-        <h2>Suchen Sie sich aus, wann es Ihnen passt.</h2>
-        <p style="margin-top:18px">Zwanzig Minuten am Telefon. Ich zeige Ihnen Mr. Bell live und
-        beantworte, was offen ist. Wenn es nichts für Sie ist, sagen Sie ab —
-        <em class="a">das kostet Sie nichts und mich nicht mehr als diesen Brief</em>.</p>
-        <div class="btns">
-          <a class="btn" id="calBtn" href="#" target="_blank" rel="noopener">Gespräch vereinbaren</a>
-          <a class="btn ghost" id="waBtn" href="#">Lieber kurz über WhatsApp</a>
-        </div>
-        <p style="margin-top:18px;font-size:15px;color:var(--muted)">
-          Sie sehen meinen Kalender und wählen selbst. Ihr Hotel ist dabei schon eingetragen.</p>
       </div>
     </section>
 
@@ -218,14 +194,46 @@
 </section>
 
     <section>
-      <div class="label">Vorher ausprobieren</div>
-      <div class="measure stack">
-        <h2>Schreiben Sie ihm, was Ihre Gäste fragen würden.</h2>
-        <p>Der Zugang unten ist mit Ihrem Hotel verbunden. Mr. Bell antwortet Ihnen als
-        <strong id="hausName2"></strong>.</p>
+      <div class="label">Datenschutz</div>
+      <div class="measure stack wide">
+        <h2>Sie bleiben verantwortlich, ich bin Auftragsverarbeiter.</h2>
+        <p>Ihre Gäste schreiben Mr. Bell über WhatsApp. Dabei werden Nachrichten und Rufnummer
+        verarbeitet — im Auftrag Ihres Hotels. Dafür schließen wir einen
+        <strong>Auftragsverarbeitungsvertrag nach Art. 28 DSGVO</strong>, bevor der erste Gast schreibt.</p>
+        <ul class="plain">
+          <li>Der Gast startet den Kontakt selbst. Ohne seine erste Nachricht passiert nichts.</li>
+          <li>Er kann jederzeit „Stopp“ schreiben, dann endet die Kommunikation.</li>
+          <li>Die Gespräche werden auf einem Server in <em class="a">Frankreich</em> gespeichert.
+          Für das Formulieren der Antwort geht der Nachrichtentext an unseren KI-Dienstleister;
+          welche Dienstleister das sind und wo sie sitzen, steht vollständig im AVV.</li>
+          <li>Nach <em class="a">60 Tagen</em> werden sie automatisch gelöscht — täglich, nicht auf Zuruf.</li>
+          <li>Sie bekommen den AVV vor dem Start zur Prüfung, nicht danach.</li>
+        </ul>
+        <div class="btns">
+          <a class="btn ghost" href="/avv.html" target="_blank" rel="noopener">Auftragsverarbeitungsvertrag ansehen</a>
+          <a class="btn ghost" href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>
+        </div>
       </div>
+    </section>
+
+    <section id="termin">
+      <div class="label">Termin</div>
+      <div class="measure">
+        <h2>Suchen Sie sich aus, wann es Ihnen passt.</h2>
+        <p style="margin-top:18px">Zwanzig Minuten am Telefon. Ich zeige Ihnen Mr. Bell live und
+        beantworte, was offen ist. Wenn es nichts für Sie ist, sagen Sie ab —
+        <em class="a">das kostet Sie nichts und mich nicht mehr als diesen Brief</em>.</p>
+        <div class="btns">
+          <a class="btn" id="calBtn" href="#" target="_blank" rel="noopener">Gespräch vereinbaren</a>
+          <a class="btn ghost" id="waBtn" href="#">Lieber kurz über WhatsApp</a>
+        </div>
+        <p style="margin-top:18px;font-size:15px;color:var(--muted)">
+          Sie sehen meinen Kalender und wählen selbst. Ihr Hotel ist dabei schon eingetragen.</p>
+      </div>
+    </section>
+
+    <section style="padding-top:28px">
       <div class="btns">
-        <a class="btn" id="testBtn" href="#">Mr. Bell jetzt testen</a>
         <a class="btn ghost" href="/">Zurück zur Startseite</a>
         <button class="btn ghost" type="button" id="logoutBtn">Zugang schließen</button>
       </div>
@@ -308,6 +316,26 @@
 </script>
 <script>
 const WA="4915142886513", WA_BEN="4917620690319", MAIL="kontakt@mrbell.de";
+
+// ---- Zugangs-Ping ----------------------------------------------------------
+// Meldet ausschliesslich, DASS ein Zugang benutzt wurde: Code und Hausname.
+// Keine IP, kein Geraet, kein Verhalten, kein Cookie. Pro Sitzung einmal.
+// Content-Type bewusst text/plain: CORS-safelisted, also kein Preflight noetig.
+const PING_URL="https://mrbell.app.n8n.cloud/webhook/partner-zugang";
+function pingZugang(code, hotel){
+  try{
+    const k="mb_ping_"+code;
+    if(sessionStorage.getItem(k)) return;      // nicht bei jedem Neuladen
+    sessionStorage.setItem(k,"1");
+    const body=JSON.stringify({code:code, hotel:hotel});
+    if(navigator.sendBeacon){
+      navigator.sendBeacon(PING_URL, new Blob([body],{type:"text/plain;charset=UTF-8"}));
+    }else{
+      fetch(PING_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=UTF-8"},
+                      body:body,keepalive:true}).catch(function(){});
+    }
+  }catch(e){ /* Ping darf die Seite nie stoeren */ }
+}
 // WA     = Demo-Nummer des Concierge (Testbutton)
 // WA_BEN = Bens eigene Nummer fuer Terminanfragen
 // >>> HIER den Calendly-Link eintragen, sonst nichts aendern:
@@ -351,6 +379,7 @@ function links(){
 }
 function render(r){
   REC=r;
+  pingZugang(CODE, r.hotel);
   $("#anrede").textContent=r.anrede+",";
   $("#hotelName").textContent=r.hotel;
   $("#hotelAdr").textContent=`${r.strasse} · ${r.ort}`;
