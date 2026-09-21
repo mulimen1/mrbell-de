@@ -37,7 +37,7 @@
   .hidden{display:none!important}
 
   /* Aufsteller-Fotos */
-  .shots{margin:30px 0 0;padding:0;max-width:30rem}
+  .shots{margin:30px 0 0;padding:0;max-width:34rem}
   .shots img{width:100%;height:auto;display:block;background:transparent}
   .shots figcaption{margin-top:12px;font-size:13px;line-height:1.5;color:var(--muted)}
   /* Ausstattungspunkte: fetter Einstieg, dann der Satz dazu */
@@ -47,7 +47,7 @@
                      width:7px;height:1px;background:var(--accent)}
   ul.feat b{font-weight:600}
   @media (min-width:900px){
-    .aufsteller{display:grid;grid-template-columns:30rem 1fr;gap:48px;align-items:start}
+    .aufsteller{display:grid;grid-template-columns:minmax(0,34rem) minmax(0,1fr);gap:46px;align-items:start}
     .aufsteller .shots{margin-top:0}
     .aufsteller ul.feat{margin-top:-4px}
   }
@@ -167,7 +167,7 @@
 
       <div class="aufsteller">
         <figure class="shots">
-          <img src="/aufsteller-masse.png" width="1200" height="1395"
+          <img src="/aufsteller-masse.png" width="1200" height="1304"
                loading="lazy" decoding="async"
                alt="Aufsteller im Format 15 cm hoch, 12 cm breit, 5 cm tief: Hotelname oben,
                     Stadtmotiv, QR-Code, Hinweis &bdquo;scan to chat, any language, 24/7&ldquo;">
