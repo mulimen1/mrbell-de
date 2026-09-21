@@ -1,6 +1,67 @@
 {
-  "buildCommand": "npm install",
   "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/blog",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/faq.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/faq",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/start.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ueber-uns.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ueber-uns",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/danke.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/erfolg.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/abbruch.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/dsgvo.html",
+      "destination": "/datenschutz.html",
+      "permanent": true
+    },
+    {
+      "source": "/dsgvo",
+      "destination": "/datenschutz.html",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

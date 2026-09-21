@@ -27,3 +27,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Reste des alten Next.js-Onboarding-Flows (Handwerker-Zeit, Sept. 2026 stillgelegt)
+# Lagen als Live-Serverless-Functions unter /api/ auf den Anthropic- und Stripe-Live-Keys.
+api/
+app/
+components/
+next.config.js
+package.json
+package-lock.json
+postcss.config.cjs
+tailwind.config.js
+tsconfig.json
+*.bak
