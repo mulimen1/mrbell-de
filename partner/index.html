@@ -90,13 +90,9 @@
       <div class="measure stack">
         <h2 id="hotelName"></h2>
         <p id="hotelAdr" style="color:var(--muted)"></p>
-        <div class="card">
-          <div class="t">Recherche zu Ihrem Hotel</div>
-          <p id="recherche"></p>
-        </div>
-        <p>Das stammt ausschließlich aus öffentlichen Quellen — Ihrer Website und Ihrem
-        Google-Profil. Beim Einrichtungstermin gehen wir es gemeinsam durch, korrigieren,
-        was nicht stimmt, und ergänzen alles, was ein Gast sonst noch fragt:
+        <p>Was ich hinterlegt habe, stammt ausschließlich aus öffentlichen Quellen — Ihrer
+        Website und Ihrem Google-Profil. Beim Einrichtungstermin gehen wir es gemeinsam durch,
+        korrigieren, was nicht stimmt, und ergänzen alles, was ein Gast sonst noch fragt:
         <em class="a">Frühstückszeiten, Check-out, WLAN, Parken, Ihre Empfehlungen im Viertel</em>.</p>
       </div>
     </section>
@@ -311,7 +307,9 @@
 })();
 </script>
 <script>
-const WA="4915142886513", MAIL="kontakt@mrbell.de";
+const WA="4915142886513", WA_BEN="4917620690319", MAIL="kontakt@mrbell.de";
+// WA     = Demo-Nummer des Concierge (Testbutton)
+// WA_BEN = Bens eigene Nummer fuer Terminanfragen
 // >>> HIER den Calendly-Link eintragen, sonst nichts aendern:
 const CAL="https://calendly.com/mrbellconcierge/mr-bell-fur-ihr-hotel";
 const $=s=>document.querySelector(s);
@@ -348,7 +346,7 @@ function links(){
   const cal=CAL+"?a1="+encodeURIComponent(haus+" ("+CODE+")")+"&hide_gdpr_banner=1";
   $("#calBtn").href=cal; $("#calBtn2").href=cal;
   const txt=`Guten Tag Herr Deschler, hier ist ${haus}. Ich melde mich wegen eines Termins.`;
-  $("#waBtn").href=`https://wa.me/${WA}?text=${encodeURIComponent(txt)}`;
+  $("#waBtn").href=`https://wa.me/${WA_BEN}?text=${encodeURIComponent(txt)}`;
   $("#testBtn").href=`https://wa.me/${WA}?text=${encodeURIComponent("Start "+CODE)}`;
 }
 function render(r){
@@ -356,7 +354,6 @@ function render(r){
   $("#anrede").textContent=r.anrede+",";
   $("#hotelName").textContent=r.hotel;
   $("#hotelAdr").textContent=`${r.strasse} · ${r.ort}`;
-  $("#recherche").textContent=r.recherche;
   $("#hausName2").textContent=r.hotel;
   document.querySelectorAll(".tentHaus").forEach(function(e){e.textContent=r.hotel;});
   var d=r.design, t=document.getElementById("tent3d");
