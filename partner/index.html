@@ -131,7 +131,10 @@
         <div class="card">
           <div class="t">Wichtig, damit es sauber bleibt</div>
           <p>Mr. Bell kauft keine Bewertungen, belohnt sie nicht und hält niemanden davon ab,
-          negativ zu bewerten. Er fragt früher als die anderen — das ist der ganze Trick.</p>
+          negativ zu bewerten. Der Unterschied liegt im Zeitpunkt: Kritik erreicht Sie,
+          solange der Gast noch im Haus ist und Sie etwas ändern können. Und die Einladung
+          zur Bewertung bekommt am Abreisetag <em class="a">jeder</em> — unabhängig davon,
+          was er am Vorabend geschrieben hat.</p>
         </div>
       </div>
     </section>
@@ -171,7 +174,6 @@
         <div class="t-shadow"></div>
       </div>
       <p class="t-hint">Ziehen zum Drehen</p>
-      <p class="t-quelle" id="designQuelle"></p>
 
       <div class="specs">
         <div><span class="sv">15 cm</span><span class="sl">Höhe</span></div>
@@ -179,7 +181,7 @@
         <div><span class="sv">5 cm</span><span class="sl">Tiefe</span></div>
       </div>
       <ul class="plain measure" style="margin-top:24px">
-        <li>Komplett individualisierbar — Ihr Name, Ihre Farben, Ihr Motiv.</li>
+        <li>Ihr Name steht drauf. Farben und Motiv stimmen wir beim Einrichtungstermin ab.</li>
         <li>Als Motiv Ihre eigenen Hausbilder oder ein Motiv aus Ihrer Stadt —
         <em class="a">der Gast erkennt sofort, dass die Karte zu Ihrem Haus gehört</em>.</li>
         <li>Leicht gewölbt, damit sie von selbst steht und aus jedem Winkel lesbar bleibt.</li>
@@ -188,18 +190,20 @@
         <li>Handlich: passt auf jeden Nachttisch und jeden Schreibtisch —
         gut erkennbar, aber nicht sperrig.</li>
       </ul>
-      <p class="note measure">Entwurf in Ihren Hausfarben, abgenommen von Ihrer eigenen Website —
-      kein Vorschlag von der Stange. Motiv, Feinlayout und Papier stimmen wir beim
-      Einrichtungstermin gemeinsam ab.</p>
+      <p class="note measure">So sieht die Grundform aus. Farbe, Motiv, Feinlayout und Papier
+      stimmen wir beim Einrichtungstermin gemeinsam auf Ihr Haus ab — Gestaltung und Druck
+      sind im Preis enthalten.</p>
 </section>
 
     <section>
       <div class="label">Datenschutz</div>
       <div class="measure stack wide">
-        <h2>Sie bleiben verantwortlich, ich bin Auftragsverarbeiter.</h2>
-        <p>Ihre Gäste schreiben Mr. Bell über WhatsApp. Dabei werden Nachrichten und Rufnummer
-        verarbeitet — im Auftrag Ihres Hotels. Dafür schließen wir einen
-        <strong>Auftragsverarbeitungsvertrag nach Art. 28 DSGVO</strong>, bevor der erste Gast schreibt.</p>
+        <h2>Ihre G&auml;stedaten bleiben Ihre.</h2>
+        <p>Ihre Gäste schreiben Mr. Bell über WhatsApp. Was dabei verarbeitet wird — Nachrichten
+        und Rufnummer — gehört Ihnen und wird ausschließlich in Ihrem Auftrag verarbeitet.
+        Geregelt ist das in einem <strong>Auftragsverarbeitungsvertrag nach Art. 28 DSGVO</strong>,
+        den Sie bekommen, bevor der erste Gast schreibt. Damit ist die Frage geklärt, bevor
+        Sie sie stellen müssen.</p>
         <ul class="plain">
           <li>Der Gast startet den Kontakt selbst. Ohne seine erste Nachricht passiert nichts.</li>
           <li>Er kann jederzeit „Stopp“ schreiben, dann endet die Kommunikation.</li>
@@ -385,17 +389,10 @@ function render(r){
   $("#hotelAdr").textContent=`${r.strasse} · ${r.ort}`;
   $("#hausName2").textContent=r.hotel;
   document.querySelectorAll(".tentHaus").forEach(function(e){e.textContent=r.hotel;});
-  var d=r.design, t=document.getElementById("tent3d");
-  if(d && t){
-    t.style.setProperty("--c-bg", d.bg);
-    t.style.setProperty("--c-ink", d.ink);
-    t.style.setProperty("--c-acc", d.accent);
-    t.classList.toggle("is-light", d.mode==="light");
-    t.classList.add(d.serif ? "font-serif" : "font-sans");
-    var q=document.getElementById("designQuelle");
-    if(q) q.innerHTML = "<b>Von Ihrer Website abgenommen:</b> " + d.quelle +
-      " Die kräftigste davon trägt die Karte.";
-  }
+  // Aufsteller: Nachtblau ist der feste Standard fuer jedes Haus.
+  // Nur der Name wird gesetzt (siehe .tentHaus oben), die Farben nicht mehr
+  // pro Hotel ueberschrieben - das Hausfarben-Versprechen stand sonst auf der
+  // Seite, ohne eingeloest zu werden.
   $("#headRight").textContent=r.hotel;
   document.title=r.hotel+" — Mr. Bell";
   links();
