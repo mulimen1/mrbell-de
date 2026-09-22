@@ -39,18 +39,27 @@
   /* Aufsteller-Fotos */
   /* ===== Kopfleiste beim Scrollen + Ueberblick-Menue ===== */
   html{scroll-behavior:smooth}
-  section[id]{scroll-margin-top:76px}
+  section[id]{scroll-margin-top:112px}
   .topbar{position:fixed;inset:0 0 auto 0;z-index:40;
           background:rgba(252,252,251,.93);backdrop-filter:saturate(150%) blur(8px);
           border-bottom:1px solid var(--line);
           transform:translateY(-102%);transition:transform .22s ease}
   .topbar.show{transform:none}
-  .topbar .in{max-width:80rem;margin:0 auto;padding:9px 48px;
-              display:flex;align-items:center;gap:14px}
-  .tb-bell{width:28px;height:28px;object-fit:contain;display:block}
-  .tb-name{font-family:var(--sans);font-weight:700;font-size:16px;letter-spacing:-.01em}
-  .tb-haus{font-family:var(--sans);font-size:13px;color:var(--muted);
-           white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:22rem}
+  /* genauso hoch und genauso aufgebaut wie der Briefkopf oben auf der Seite */
+  .topbar .in{max-width:80rem;margin:0 auto;padding:0 48px;min-height:95px;
+              display:flex;align-items:center;gap:18px}
+  .tb-brand{display:flex;align-items:flex-end;gap:14px;text-decoration:none;color:inherit}
+  .tb-bell{width:42px;height:42px;object-fit:contain;display:block}
+  .tb-name{display:block;font-family:var(--sans);font-weight:700;font-size:21px;
+           letter-spacing:-.01em;line-height:1}
+  .tb-kicker{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.17em;
+             text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .tb-brand:hover .tb-name,.tb-brand:hover .tb-kicker,
+  .tb-brand:focus-visible .tb-name{color:var(--accent)}
+  .tb-haus{font-family:var(--sans);font-size:15px;color:var(--muted);
+           white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:26rem;
+           transition:color .1s ease-out}
+  .tb-haus:hover{color:var(--accent)}
   .tb-sp{margin-left:auto}
   .menubtn{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
            color:var(--ink);background:none;border:1px solid var(--line);
@@ -74,25 +83,10 @@
                font-family:var(--sans);font-size:14px;border-radius:2px}
   .menupanel a:hover,.menupanel a:focus-visible{color:var(--accent);background:var(--paper-2)}
   @media (max-width:640px){
-    .topbar .in{padding:9px 20px}
+    .topbar .in{padding:0 20px;min-height:91px}
     .menupanel{right:20px;left:20px}
     .tb-haus{display:none}
   }
-  /* Mr. Bell immer erreichbar: fuehrt in den echten WhatsApp-Concierge,
-     nicht in einen zweiten Chat auf der Seite - der Gastgeber soll genau das
-     ausprobieren, was er spaeter kauft. */
-  .ask{position:fixed;z-index:30;bottom:24px;
-       right:max(20px, calc((100vw - 80rem)/2 + 48px));
-       display:inline-flex;align-items:center;gap:10px;text-decoration:none;
-       font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);
-       background:var(--paper);border:1px solid var(--line);border-radius:999px;
-       padding:9px 16px 9px 10px;box-shadow:0 10px 30px -18px rgba(20,27,51,.55);
-       transition:bottom .2s ease,color .15s,border-color .15s}
-  .ask:hover,.ask:focus-visible{color:var(--accent);border-color:var(--accent)}
-  .ask img{width:26px;height:26px;object-fit:contain;display:block}
-  body.has-bar .ask{bottom:84px}
-  @media (max-width:520px){ .ask span{display:none} .ask{padding:10px;border-radius:999px} }
-
   /* Auf dem Laptop stehen Kalender, WhatsApp und E-Mail nebeneinander.
      Der Textsatz bleibt bei 38rem, nur die Schaltflaechenreihe darf breiter
      werden; reicht die Spalte nicht, bricht sie von selbst um. */
@@ -129,10 +123,15 @@
 
 <div class="topbar" id="topbar" hidden>
   <div class="in">
-    <img class="tb-bell" src="/mrbell-glocke.png" alt="" width="28" height="28">
-    <span class="tb-name">Mr. Bell</span>
-    <span class="tb-haus" id="tbHaus"></span>
+    <a class="tb-brand" href="#top" aria-label="Nach oben">
+      <img class="tb-bell" src="/mrbell-glocke.png" alt="" width="42" height="42">
+      <span>
+        <span class="tb-name">Mr. Bell</span>
+        <span class="tb-kicker">Digitaler Concierge</span>
+      </span>
+    </a>
     <span class="tb-sp"></span>
+    <span class="tb-haus" id="tbHaus"></span>
     <button class="menubtn" type="button" id="menuBtn" aria-expanded="false"
             aria-controls="menuPanel" aria-label="&Uuml;berblick">
       <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -150,7 +149,7 @@
 
 <div class="wrap">
 
-  <header class="head">
+  <header class="head" id="top">
     <a class="brand" href="/" aria-label="Zur Startseite">
       <img src="/mrbell-glocke.png" alt="">
       <div><div class="name">Mr. Bell</div><div class="kicker">Digitaler Concierge</div></div>
@@ -176,9 +175,9 @@
     </form>
     <div class="msg" id="msg" role="status" aria-live="polite"></div>
     <div class="measure" style="margin-top:40px;font-size:16px;color:var(--muted)">
-      Ihr Browser merkt sich den Zugang für 24 Stunden — auch wenn Sie den Tab
-      zwischendurch schließen. Sie müssen ihn also nicht jedes Mal neu eingeben.
-      Unten auf der Seite können Sie ihn jederzeit sofort wieder schließen.<br><br>
+      Ihr Browser merkt sich den Zugang für 48 Stunden — auch wenn Sie den Tab
+      oder den Browser zwischendurch schließen. Sie müssen ihn also nicht jedes Mal
+      neu eingeben. Unten auf der Seite können Sie ihn jederzeit sofort wieder schließen.<br><br>
       Code verlegt? Schreiben Sie kurz an
       <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> — ich schicke ihn Ihnen noch einmal.
     </div>
@@ -315,6 +314,17 @@
           <li>Nach <em class="a">60 Tagen</em> werden sie automatisch gelöscht — täglich, nicht auf Zuruf.</li>
           <li>Sie bekommen den AVV vor dem Start zur Prüfung, nicht danach.</li>
         </ul>
+        <p class="note" style="margin-top:26px">
+        <strong>Und was passiert auf dieser Seite?</strong> Sie ist nur über Ihren Zugang
+        erreichbar, deshalb weiß ich, wer sie öffnet. Ich bekomme eine kurze Meldung,
+        <em class="a">dass</em> Ihr Zugang benutzt wurde, dass Sie den Terminabschnitt
+        erreicht haben und welchen der drei Wege Sie angetippt haben — mehr nicht:
+        kein Bewegungsprofil, keine IP-Speicherung, keine Cookies, keine Werbenetzwerke.
+        Das hilft mir nur, Sie nicht zur Unzeit zu behelligen. Rechtsgrundlage ist mein
+        berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO; Sie können dem jederzeit
+        formlos widersprechen (Art. 21 DSGVO), eine Nachricht an
+        <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> genügt.</p>
+
         <div class="btns">
           <a class="btn ghost" href="/avv.html" target="_blank" rel="noopener">Auftragsverarbeitungsvertrag ansehen</a>
           <a class="btn ghost" href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>
@@ -349,11 +359,6 @@
     </section>
 
   </main>
-
-  <a class="ask" id="askBtn" href="#" hidden
-     aria-label="Mr. Bell auf WhatsApp eine Frage stellen">
-    <img src="/mrbell-glocke.png" alt=""><span>Mr. Bell fragen</span>
-  </a>
 
   <div class="sticky" id="sticky" hidden>
     <span class="sticky-t">Mr. Bell für Ihr Hotel</span>
@@ -417,19 +422,22 @@ const WA="4915142886513", WA_BEN="4917620690319", MAIL="kontakt@mrbell.de";
 // Keine IP, kein Geraet, kein Verhalten, kein Cookie. Pro Sitzung einmal.
 // Content-Type bewusst text/plain: CORS-safelisted, also kein Preflight noetig.
 const PING_URL="https://mrbell.app.n8n.cloud/webhook/partner-zugang";
-function pingZugang(code, hotel){
+// Doppelte Meldungen werden nur im Arbeitsspeicher unterdrueckt, nicht im
+// Browserspeicher: damit wird nichts auf dem Geraet abgelegt oder ausgelesen,
+// § 25 TDDG ist also gar nicht erst beruehrt.
+const GEMELDET=new Set();
+function ping(ereignis, code, hotel){
   try{
-    const k="mb_ping_"+code;
-    if(sessionStorage.getItem(k)) return;      // nicht bei jedem Neuladen
-    sessionStorage.setItem(k,"1");
-    const body=JSON.stringify({code:code, hotel:hotel});
+    if(GEMELDET.has(ereignis)) return;
+    GEMELDET.add(ereignis);
+    const body=JSON.stringify({event:ereignis, code:code, hotel:hotel});
     if(navigator.sendBeacon){
       navigator.sendBeacon(PING_URL, new Blob([body],{type:"text/plain;charset=UTF-8"}));
     }else{
       fetch(PING_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=UTF-8"},
                       body:body,keepalive:true}).catch(function(){});
     }
-  }catch(e){ /* Ping darf die Seite nie stoeren */ }
+  }catch(e){ /* Eine Meldung darf die Seite nie stoeren */ }
 }
 // WA     = Demo-Nummer des Concierge (Testbutton)
 // WA_BEN = Bens eigene Nummer fuer Terminanfragen
@@ -470,9 +478,7 @@ function links(){
   $("#calBtn").href=cal;
   const txt=`Guten Tag Herr Deschler, hier ist ${haus}. Ich melde mich wegen eines Termins.`;
   $("#waBtn").href=`https://wa.me/${WA_BEN}?text=${encodeURIComponent(txt)}`;
-  const test=`https://wa.me/${WA}?text=${encodeURIComponent("Start "+CODE)}`;
-  $("#testBtn").href=test;
-  $("#askBtn").href=test;   // derselbe Concierge, nur immer in Reichweite
+  $("#testBtn").href=`https://wa.me/${WA}?text=${encodeURIComponent("Start "+CODE)}`;
   const subj=`Mr. Bell — ${haus} (${CODE})`;
   const body=`Guten Tag Herr Deschler,\n\nich habe Ihren Brief erhalten und melde mich wegen `
             +`eines Termins.\n\nMir passt es am besten:\n\nViele Grüße\n${haus}`;
@@ -481,7 +487,7 @@ function links(){
 }
 function render(r){
   REC=r;
-  pingZugang(CODE, r.hotel);
+  ping("zugang", CODE, r.hotel);
   $("#anrede").textContent=r.anrede+",";
   $("#hotelName").textContent=r.hotel;
   $("#hotelAdr").textContent=`${r.strasse} · ${r.ort}`;
@@ -494,9 +500,9 @@ function render(r){
   document.title=r.hotel+" — Mr. Bell";
   links();
   try{ localStorage.setItem("mb_zugang", JSON.stringify(
-    {c:CODE, exp:Date.now()+24*60*60*1000})); }catch(e){}   // 24 Stunden
+    {c:CODE, exp:Date.now()+48*60*60*1000})); }catch(e){}   // 48 Stunden
   // localStorage, nicht sessionStorage: der Zugang ueberlebt damit auch das
-  // Schliessen des Tabs und des Browsers - bis die 24 Stunden abgelaufen sind
+  // Schliessen des Tabs und des Browsers - bis die 48 Stunden abgelaufen sind
   // oder der Gastgeber unten selbst auf "Zugang schliessen" geht.
   $("#gate").classList.add("hidden");
   $("#content").classList.remove("hidden");
@@ -510,24 +516,31 @@ function render(r){
    sichtbar ist - sonst deckt sie genau die Schaltflaechen zu, zu denen
    sie fuehren soll. */
 function initChrome(){
-  const st=$("#sticky"), tb=$("#topbar"), btn=$("#menuBtn"), panel=$("#menuPanel"),
-        ask=$("#askBtn");
-  tb.hidden=false; ask.hidden=false;
+  const st=$("#sticky"), tb=$("#topbar"), btn=$("#menuBtn"), panel=$("#menuPanel");
+  tb.hidden=false;
 
   let terminSichtbar=false;
   const termin=document.getElementById("termin");
   if(termin && "IntersectionObserver" in window){
     new IntersectionObserver(function(es){
       terminSichtbar = es[0].isIntersecting;
+      if(terminSichtbar) ping("termin-gelesen", CODE, REC?REC.hotel:"");
       onScroll();
     }, {rootMargin:"-30% 0px -20% 0px"}).observe(termin);
   }
+
+  // Welchen Weg der Gastgeber waehlt, ist fuer die Nachfassung entscheidend:
+  // ueber WhatsApp oder E-Mail kommt die Antwort spaeter, ueber den Kalender
+  // steht der Termin sofort. Gemeldet wird nur, welcher Knopf es war.
+  [["calBtn","kalender"],["waBtn","whatsapp"],["mailBtn","mail"]].forEach(function(x){
+    const el=$("#"+x[0]); if(!el) return;
+    el.addEventListener("click", function(){ ping("termin-"+x[1], CODE, REC?REC.hotel:""); });
+  });
 
   function onScroll(){
     const y=window.scrollY;
     tb.classList.toggle("show", y > 260);
     st.hidden = (y < 320) || terminSichtbar;
-    document.body.classList.toggle("has-bar", !st.hidden);
     if(y <= 260) closeMenu();
   }
   window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
