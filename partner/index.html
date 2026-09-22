@@ -64,13 +64,18 @@
   .head .menuwrap{margin-left:auto}
   #headMenu{display:none}
   .tb-haus{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-           font-family:var(--display);font-size:24px;font-weight:500;color:var(--accent);
-           letter-spacing:.005em;text-align:center;
+           display:flex;flex-direction:column;align-items:center;gap:8px;
+           font-family:var(--display);font-size:26px;font-weight:500;color:var(--accent);
+           letter-spacing:.01em;line-height:1.1;text-align:center;
            white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
            max-width:calc(100% - 26rem);
            transition:color .1s ease-out}
   .tb-haus:hover{color:var(--accent)}
-  .head .tb-haus{top:auto;bottom:2px;transform:translateX(-50%)}
+  /* Die feine Linie darunter ist dieselbe Geste wie auf dem gedruckten
+     Aufsteller: Hausname, darunter ein Strich auf gut der halben Satzbreite. */
+  .tb-haus::after{content:"";display:block;width:52%;min-width:64px;height:1px;
+                  background:currentColor;opacity:.45}
+  .head .tb-haus{top:50%;transform:translate(-50%,-42%)}
   .tb-sp{margin-left:auto}
   .menubtn{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
            color:var(--ink);background:none;border:1px solid var(--line);
