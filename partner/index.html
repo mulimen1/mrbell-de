@@ -58,17 +58,22 @@
   .tb-brand:focus-visible .tb-name{color:var(--accent)}
   /* Der Hausname steht immer genau in der Mitte der Leiste, unabhaengig
      davon, wie breit Marke und Menueknopf gerade sind. */
-  .head{position:relative}
+  /* Marke, Hausname und Menueknopf liegen auf derselben Mittellinie */
+  .head{position:relative;align-items:center}
   .head .menuwrap{margin-left:auto}
   #headMenu{display:none}
   .tb-haus{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-           font-family:Arial,Helvetica,var(--sans);font-size:24px;font-weight:600;color:var(--ink);
-           letter-spacing:.01em;line-height:1.1;text-align:center;
+           font-family:var(--serif);font-size:24px;font-weight:400;color:var(--ink);
+           line-height:1.1;text-align:center;
            white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
            max-width:calc(100% - 26rem);
            transition:color .1s ease-out}
   .tb-haus:hover{color:var(--accent)}
-  .head .tb-haus{top:50%;transform:translate(-50%,-50%)}
+  /* Der Briefkopf hat 30 px Innenabstand nach oben und keinen nach unten.
+     Absolute Lagen rechnen vom Polsterrand, nicht vom Textkasten - deshalb
+     die halbe Polsterhoehe dazu, damit der Name genau auf der Mittellinie
+     von Marke und Menueknopf sitzt. */
+  .head .tb-haus{top:calc(50% + 15px)}
   .tb-sp{margin-left:auto}
   .menubtn{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
            color:var(--ink);background:none;border:1px solid var(--line);
@@ -94,6 +99,7 @@
   .menupanel a:hover,.menupanel a:focus-visible{color:var(--accent);background:var(--paper-2)}
   @media (max-width:640px){
     .topbar .in{padding:0 20px;min-height:91px}
+    .head .tb-haus{top:calc(50% + 13px)}
     .menupanel{right:0;min-width:15rem}
     .topbar .tb-haus{display:none}
   }
