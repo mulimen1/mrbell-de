@@ -6,8 +6,6 @@
 <title>Zugang — Mr. Bell</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="/mrbell-glocke.png" type="image/png">
-<link rel="preload" href="/fonts/playfair-subset.woff2" as="font"
-      type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/_shared.css">
 <style>
   .gate{padding-block:64px 80px}
@@ -64,19 +62,13 @@
   .head .menuwrap{margin-left:auto}
   #headMenu{display:none}
   .tb-haus{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-           display:flex;flex-direction:column;align-items:center;gap:8px;
-           font-family:var(--display);font-size:26px;font-weight:500;color:var(--ink);
+           font-family:Arial,Helvetica,var(--sans);font-size:24px;font-weight:600;color:var(--ink);
            letter-spacing:.01em;line-height:1.1;text-align:center;
            white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
            max-width:calc(100% - 26rem);
            transition:color .1s ease-out}
   .tb-haus:hover{color:var(--accent)}
-  .tb-haus:hover::after{opacity:1}
-  /* Die feine Linie darunter ist dieselbe Geste wie auf dem gedruckten
-     Aufsteller: Hausname, darunter ein Strich auf gut der halben Satzbreite. */
-  .tb-haus::after{content:"";display:block;width:52%;min-width:64px;height:1px;
-                  background:var(--accent);opacity:.75}
-  .head .tb-haus{top:50%;transform:translate(-50%,-42%)}
+  .head .tb-haus{top:50%;transform:translate(-50%,-50%)}
   .tb-sp{margin-left:auto}
   .menubtn{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
            color:var(--ink);background:none;border:1px solid var(--line);
