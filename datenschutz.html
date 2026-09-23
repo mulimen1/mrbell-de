@@ -50,7 +50,7 @@
 <div class="container">
 <a href="/" class="back">← Zurück zur Startseite</a>
 <h1>Datenschutzerklärung</h1>
-<p class="subtitle">Stand: 22. September 2026</p>
+<p class="subtitle">Stand: 23. September 2026</p>
 
 <div class="info-box">
 <p style="margin:0;"><strong>Hinweis zur Verschlüsselung:</strong> Diese Website nutzt eine TLS-Verschlüsselung („Transport Layer Security") zum Schutz der Datenübertragung. Sie erkennen dies am Schloss-Symbol in Ihrer Browserzeile sowie am Adress-Präfix <code>https://</code>.</p>
@@ -68,7 +68,7 @@
 <li><a href="#s7">Interne Auftragsverwaltung (Google Sheets via Apps Script)</a></li>
 <li><a href="#s8">Termin-Buchung (Calendly)</a></li>
 <li><a href="#s9">Workflow-Automatisierung (n8n)</a></li>
-<li><a href="#s10">KI-Verarbeitung der Assistenten-Antworten (Anthropic)</a></li>
+<li><a href="#s10">KI-Verarbeitung der Assistenten-Antworten (Anthropic) und Transkription von Sprachnachrichten (OpenAI)</a></li>
 <li><a href="#s11">Gäste-Kommunikation und Agenten-Oberfläche (Chatwoot, self-hosted)</a></li>
 <li><a href="#s12">WhatsApp Business API (360dialog &amp; Meta)</a></li>
 <li><a href="#s13">E-Mail-Kommunikation (Google Workspace)</a></li>
@@ -205,13 +205,23 @@ E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
 <p><strong>Auftragsverarbeiter:</strong> n8n GmbH, Klosterstraße 64, 10179 Berlin, Deutschland. Die n8n-Cloud wird nach Angaben des Anbieters auf Microsoft-Azure-Infrastruktur innerhalb der Europäischen Union betrieben.</p>
 
 
-<h2 id="s10">10. KI-Verarbeitung der Assistenten-Antworten (Anthropic)</h2>
+<h2 id="s10">10. KI-Verarbeitung der Assistenten-Antworten (Anthropic) und Transkription von Sprachnachrichten (OpenAI)</h2>
 <p>Die Antworten des WhatsApp-Assistenten werden von einem KI-Sprachmodell der Anthropic PBC erzeugt. Dazu werden die Nachricht des Gastes sowie der bisherige Gesprächsverlauf und der vom Kunden hinterlegte Bot-Prompt über eine Programmierschnittstelle (API) an Anthropic übermittelt, dort verarbeitet und die erzeugte Antwort zurückgegeben.</p>
 <p><strong>Wichtig:</strong> Diese Verarbeitung erfolgt im Auftrag des jeweiligen Kunden (Auftraggeber) im Rahmen der mit ihm geschlossenen Auftragsverarbeitungsvereinbarung.</p>
 <p><strong>Zweck:</strong> Erzeugung der Antworten des Assistenten.</p>
 <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung gegenüber Ihnen als Auftraggeber).</p>
 <p><strong>Speicherdauer bei Anthropic:</strong> Nach den Anthropic Commercial Terms of Service werden API-Eingaben ausdrücklich <strong>nicht zu Trainingszwecken</strong> verwendet. API-Daten werden standardmäßig für bis zu 30 Tage zur Erkennung und Abwehr von Missbrauch gespeichert und anschließend automatisch gelöscht. Eine gesonderte Zero-Data-Retention-Vereinbarung besteht derzeit nicht.</p>
 <p><strong>Auftragsverarbeiter:</strong> Anthropic PBC, 548 Market St, PMB 90375, San Francisco, CA 94104, USA. Mit Anthropic besteht ein AVV gem. Art. 28 DSGVO. Anthropic ist nach dem EU-U.S. Data Privacy Framework zertifiziert; ergänzend gelten EU-Standardvertragsklauseln gem. Art. 46 Abs. 2 lit. c DSGVO als Auffanglösung.</p>
+
+<h3>Transkription von Sprachnachrichten (OpenAI)</h3>
+<p>G&auml;ste k&ouml;nnen dem Assistenten auch eine Sprachnachricht senden. Damit der Assistent darauf antworten kann, wird die Audiodatei &uuml;ber eine Programmierschnittstelle an die OpenAI Ireland Limited &uuml;bermittelt und dort mit dem Spracherkennungsmodell &bdquo;Whisper&ldquo; in Text umgewandelt. Der so entstandene Text durchl&auml;uft anschlie&szlig;end denselben Ablauf wie eine geschriebene Nachricht (Abschnitt 10 oben).</p>
+<p><strong>Verarbeitete Daten:</strong> ausschlie&szlig;lich die Audiodatei der Sprachnachricht und der daraus erzeugte Text. Die Rufnummer des Gastes, der Gespr&auml;chsverlauf und die Zuordnung zum Haus werden <strong>nicht</strong> an OpenAI &uuml;bermittelt.</p>
+<p><strong>Zweck:</strong> Umwandlung gesprochener Nachrichten in Text, damit auch Sprachnachrichten beantwortet werden k&ouml;nnen.</p>
+<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserf&uuml;llung gegen&uuml;ber Ihnen als Auftraggeber). Die Verarbeitung erfolgt im Auftrag des jeweiligen Kunden im Rahmen der mit ihm geschlossenen Auftragsverarbeitungsvereinbarung.</p>
+<p><strong>Speicherung bei uns:</strong> Die Audiodatei wird nur fl&uuml;chtig zur Umwandlung verarbeitet und von uns nicht dauerhaft gespeichert. Gespeichert wird allein der Text der Nachricht &mdash; wie bei einer geschriebenen Nachricht und mit derselben Frist (Abschnitt 17).</p>
+<p><strong>Speicherdauer bei OpenAI:</strong> Nach den Gesch&auml;ftsbedingungen f&uuml;r die Programmierschnittstelle werden API-Eingaben <strong>nicht zu Trainingszwecken</strong> verwendet. Sie werden standardm&auml;&szlig;ig f&uuml;r bis zu 30 Tage zur Erkennung und Abwehr von Missbrauch gespeichert und anschlie&szlig;end gel&ouml;scht. Eine gesonderte Zero-Data-Retention-Vereinbarung besteht derzeit nicht.</p>
+<p><strong>Auftragsverarbeiter:</strong> OpenAI Ireland Limited, 1st Floor, The Liffey Trust Centre, 117&ndash;126 Sheriff Street Upper, Dublin 1, D01 YC43, Irland. Es gilt das Data Processing Addendum von OpenAI gem. Art. 28 DSGVO. Soweit Daten au&szlig;erhalb des EWR verarbeitet werden, gelten die dort einbezogenen EU-Standardvertragsklauseln gem. Art. 46 Abs. 2 lit. c DSGVO.</p>
+<p><strong>Hinweis:</strong> Eine Spracherkennung arbeitet nicht fehlerfrei. Der Assistent behandelt das Transkript daher wie eine gew&ouml;hnliche Nachricht und fragt im Zweifel nach. Eine Stimmanalyse, eine Sprechererkennung oder eine Ableitung biometrischer Merkmale findet <strong>nicht</strong> statt.</p>
 
 <h2 id="s11">11. Gäste-Kommunikation und Agenten-Oberfläche (Chatwoot, self-hosted)</h2>
 <p>Zur Anzeige der laufenden Konversationen und zur Übernahme eines Chats durch einen menschlichen Mitarbeiter („Human Handover") setzen wir die Open-Source-Software <strong>Chatwoot</strong> ein. Chatwoot wird von uns <strong>selbst gehostet</strong> und läuft auf einem ausschließlich von uns genutzten Server unter <code>chat.mrbell.de</code>. Es besteht keine Verbindung zu einem Cloud-Dienst des Herstellers; an die Chatwoot Inc. werden keine Daten übermittelt.</p>
@@ -278,6 +288,7 @@ E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
 <tr><td>Calendly LLC</td><td>Termin-Buchung</td><td>USA</td><td>EU-Standardvertragsklauseln</td></tr>
 <tr><td>n8n GmbH</td><td>Workflow-Automatisierung</td><td>EU (Microsoft Azure)</td><td>—</td></tr>
 <tr><td>Anthropic PBC</td><td>KI-Antworten des Assistenten</td><td>USA</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
+<tr><td>OpenAI Ireland Ltd.</td><td>Transkription von Sprachnachrichten (Whisper)</td><td>Irland (EU), Verarbeitung auch USA</td><td>EU-Standardvertragsklauseln (OpenAI DPA)</td></tr>
 <tr><td>OVH SAS</td><td>Server-Hosting der selbst betriebenen Chatwoot-Instanz</td><td>Frankreich (EU)</td><td>—</td></tr>
 <tr><td>360dialog GmbH</td><td>WhatsApp Business API</td><td>Deutschland</td><td>—</td></tr>
 <tr><td>WhatsApp Ireland Limited (Meta)</td><td>WhatsApp Messaging-Infrastruktur</td><td>Irland / USA</td><td>EU-Standardvertragsklauseln (über 360dialog)</td></tr>
@@ -292,6 +303,7 @@ E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
 <li><strong>Angaben aus dem Vorbereitungsformular ohne Vertragsschluss:</strong> 90 Tage.</li>
 <li><strong>Konversationen mit Gästen des Kunden:</strong> 60 Tage nach der letzten Nachricht, danach automatische Löschung — sowohl in der internen Verarbeitungs-Datenbank (Google Sheets) als auch in der selbst gehosteten Chatwoot-Instanz. Abweichende Speicherfristen können im AVV mit dem Auftraggeber individuell vereinbart werden.</li>
 <li><strong>Gästekonversationen nach Vertragsende:</strong> Löschung innerhalb von 30 Tagen nach Beendigung des Vertragsverhältnisses, unabhängig von der laufenden 60-Tage-Frist.</li>
+<li><strong>Sprachnachrichten von Gästen:</strong> Die Audiodatei wird nicht gespeichert; sie wird ausschließlich zur Umwandlung in Text verarbeitet. Der Text unterliegt derselben Frist wie jede andere Gästenachricht (60 Tage).</li>
 <li><strong>Termin-Daten (Calendly):</strong> Bis zur Vertragsbeendigung bzw. 90 Tage nach letztem Termin.</li>
 <li><strong>E-Mail-Korrespondenz ohne Vertragsbezug:</strong> Spätestens 2 Jahre nach letzter Antwort.</li>
 <li><strong>Server-Logs:</strong> 30 Tage, sofern nicht zur Beweissicherung erforderlich.</li>
