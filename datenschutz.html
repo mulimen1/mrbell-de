@@ -82,7 +82,7 @@
 <li><a href="#s21">Beschwerderecht bei der Aufsichtsbehörde</a></li>
 <li><a href="#s22">Keine automatisierte Entscheidungsfindung</a></li>
 <li><a href="#s23">Sicherheit der Verarbeitung</a></li>
-<li><a href="#s24">Aktualität und Änderungen dieser Erklärung</a></li><li><a href="#s25">Postalische Direktwerbung an Hotels (Art. 14 DSGVO)</a></li><li><a href="#s26">Ihre pers&ouml;nliche Partnerseite (mrbell.de/partner)</a></li><li><a href="#s27">Telefonanrufe des Assistenten (Weckruf, Erinnerung, Reservierung)</a></li>
+<li><a href="#s24">Aktualität und Änderungen dieser Erklärung</a></li><li><a href="#s25">Postalische Direktwerbung an Hotels (Art. 14 DSGVO)</a></li><li><a href="#s26">Ihre pers&ouml;nliche Partnerseite (mrbell.de/partner)</a></li><li><a href="#s27">Telefonanrufe des Assistenten (Weckruf, Erinnerung, Reservierung)</a></li><li><a href="#s28">Fotos, Umgebungssuche und Websuche</a></li>
 </ol>
 </div>
 
@@ -283,11 +283,11 @@ E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
 </thead>
 <tbody>
 <tr><td>Vercel Inc.</td><td>Website-Hosting</td><td>USA / Server EU (Frankfurt)</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
-<tr><td>Google Ireland Ltd.</td><td>E-Mail (Workspace), Google Sheets, Apps Script</td><td>Irland (EU), Konzernmutter USA</td><td>Cloud Data Processing Addendum + EU-U.S. Data Privacy Framework</td></tr>
+<tr><td>Google Ireland Ltd.</td><td>E-Mail (Workspace), Google Sheets, Apps Script, Umgebungssuche und Wegzeiten (Places, Routes)</td><td>Irland (EU), Konzernmutter USA</td><td>Cloud Data Processing Addendum + EU-U.S. Data Privacy Framework</td></tr>
 <tr><td>Stripe Payments Europe, Ltd.</td><td>Zahlungsabwicklung</td><td>Irland (EU)</td><td>—</td></tr>
 <tr><td>Calendly LLC</td><td>Termin-Buchung</td><td>USA</td><td>EU-Standardvertragsklauseln</td></tr>
 <tr><td>n8n GmbH</td><td>Workflow-Automatisierung</td><td>EU (Microsoft Azure)</td><td>—</td></tr>
-<tr><td>Anthropic PBC</td><td>KI-Antworten des Assistenten</td><td>USA</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
+<tr><td>Anthropic PBC</td><td>KI-Antworten des Assistenten, Auslesen von Fotos, Websuche</td><td>USA</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
 <tr><td>OpenAI Ireland Ltd.</td><td>Transkription von Sprachnachrichten (Whisper)</td><td>Irland (EU), Verarbeitung auch USA</td><td>EU-Standardvertragsklauseln (OpenAI DPA)</td></tr>
 <tr><td>Eleven Labs Inc.</td><td>Sprachliche Führung der Telefonanrufe des Assistenten</td><td>USA</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
 <tr><td>Twilio Ireland Limited</td><td>Aufbau der Telefonverbindung</td><td>Irland (EU), Verarbeitung auch USA</td><td>EU-Standardvertragsklauseln (Twilio DPA)</td></tr>
@@ -393,6 +393,19 @@ Web: <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel
 <p><strong>Auftragsverarbeiter:</strong> Eleven Labs Inc., 169 Madison Ave #2484, New York, NY 10016, USA, für die sprachliche Führung des Gesprächs, und Twilio Ireland Limited, 3 Dublin Landings, North Wall Quay, Dublin 1, Irland, für den Aufbau der Telefonverbindung. Das für die Gesprächsführung eingesetzte Sprachmodell wird von ElevenLabs im eigenen Namen beigezogen und ist insoweit Unterauftragsverarbeiter von ElevenLabs.</p>
 <p><strong>Drittlandübermittlung:</strong> Eleven Labs Inc. verarbeitet in den USA. Das Unternehmen ist nach dem EU-U.S. Data Privacy Framework zertifiziert (Art. 45 DSGVO); ergänzend gelten die im Data Processing Addendum einbezogenen EU-Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO). Für Twilio gelten die im Data Protection Addendum einbezogenen EU-Standardvertragsklauseln.</p>
 <p><strong>Speicherdauer:</strong> Das Ergebnis des Anrufs wird wie jede andere Nachricht im Gesprächsverlauf gespeichert und unterliegt den in Abschnitt 17 genannten Fristen.</p>
+<h2 id="s28">28. Fotos, Umgebungssuche und Websuche</h2>
+<h3>Vom Gast gesendete Fotos</h3>
+<p>Gäste können dem Assistenten ein Foto senden, etwa eine Speisekarte, ein Schild oder ein Gerät im Zimmer. Damit der Assistent darauf antworten kann, wird die Bilddatei zusammen mit einem etwaigen Bildtext über eine Programmierschnittstelle an Anthropic übermittelt und dort beschrieben und ausgelesen. Der so entstandene Text durchläuft anschließend denselben Ablauf wie eine geschriebene Nachricht (Abschnitt 10).</p>
+<p><strong>Verarbeitete Daten:</strong> ausschließlich die Bilddatei, ein etwaiger Bildtext und die daraus erzeugte Textbeschreibung. Die Rufnummer des Gastes, der Gesprächsverlauf und die Zuordnung zum Haus werden <strong>nicht</strong> übermittelt.</p>
+<p><strong>Was nicht stattfindet:</strong> keine Gesichtserkennung, kein biometrischer Abgleich und keine Identifizierung abgebildeter Personen. Der Assistent ist ausdrücklich angewiesen, Personen auf Fotos nicht zu benennen. Besondere Kategorien personenbezogener Daten nach Art. 9 DSGVO werden nicht gezielt verarbeitet.</p>
+<p><strong>Speicherung:</strong> Gespeichert wird allein die Textbeschreibung im Gesprächsverlauf, nicht die Bilddatei.</p>
+<h3>Umgebungssuche (Google Places und Google Routes)</h3>
+<p>Fragt ein Gast nach Restaurants, Geschäften oder anderen Orten in der Umgebung, werden der Suchbegriff und die Koordinaten des Hauses an die Programmierschnittstellen Google Places und Google Routes der Google Ireland Limited übermittelt. Zurück kommen Name, Anschrift, Bewertung, Preisniveau, Öffnungszeiten sowie Geh- und Fahrzeiten.</p>
+<p><strong>Kein Standort des Gastes:</strong> Bezugspunkt jeder Suche ist ausschließlich die Anschrift des Hauses. Der Standort des Gastes wird weder erhoben noch übermittelt. Rufnummer und Gesprächsverlauf werden ebenfalls nicht übermittelt.</p>
+<h3>Websuche</h3>
+<p>Reichen die vorliegenden Angaben für eine Antwort nicht aus, kann der Assistent über Anthropic eine Websuche auslösen. Übermittelt werden dabei der Suchbegriff sowie eine ungefähre Ortsangabe, die aus Land, Zeitzone und der Stadt des Hauses besteht — nicht aus dem Standort des Gastes. Die Suche wird von Anthropic ausgeführt und kann dort weitere Dienstleister einbeziehen. Rufnummer und Gesprächsverlauf werden nicht übermittelt.</p>
+<p><strong>Rechtsgrundlage für alle drei Verarbeitungen:</strong> Art. 6 Abs. 1 lit. b DSGVO für die Beantwortung der vom Gast gestellten Anfrage, ergänzend Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt darin, Gästeanfragen zutreffend und vollständig beantworten zu können.</p>
+<p><strong>Auftragsverarbeiter und Drittland:</strong> Anthropic PBC verarbeitet in den USA auf Grundlage des EU-U.S. Data Privacy Framework, ergänzend nach EU-Standardvertragsklauseln. Google Ireland Limited verarbeitet in der EU; Näheres in Abschnitt 16 und 18.</p>
 </div>
 <script src="/besuch.js" defer></script>
 </body>
