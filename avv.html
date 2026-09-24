@@ -175,7 +175,7 @@
 
 <dl class="doc-meta">
   <div><dt>Dokument</dt><dd>AVV&nbsp;&ndash;&nbsp;Mr.&nbsp;Bell</dd></div>
-  <div><dt>Version</dt><dd>1.1</dd></div>
+  <div><dt>Version</dt><dd>1.2</dd></div>
   <div><dt>Stand</dt><dd>23.&nbsp;September&nbsp;2026</dd></div>
   <div><dt>N&auml;chste Pr&uuml;fung</dt><dd>September&nbsp;2027</dd></div>
   <div><dt>Rechtsgrundlage</dt><dd>Art.&nbsp;28 Abs.&nbsp;3 DSGVO</dd></div>
@@ -235,7 +235,7 @@
 <p>Der Verantwortliche bleibt für die Rechtmäßigkeit der Verarbeitung sowie für die Erfüllung der Informationspflichten nach Art. 13, 14 DSGVO gegenüber seinen Gästen verantwortlich. Der Auftragsverarbeiter stellt hierfür auf Anfrage geeignete Textbausteine zur Verfügung.</p>
 
 <h2 id="p2">2. Art, Zweck und Dauer der Verarbeitung</h2>
-<p><strong>Art der Verarbeitung:</strong> Erheben, Erfassen, Speichern, Auslesen, Verwenden, Übermitteln und Löschen von Nachrichteninhalten und Kontaktdaten im Rahmen der automatisierten und teilautomatisierten Beantwortung von Gästeanfragen über WhatsApp.</p>
+<p><strong>Art der Verarbeitung:</strong> Erheben, Erfassen, Speichern, Auslesen, Verwenden, Übermitteln und Löschen von Nachrichteninhalten und Kontaktdaten im Rahmen der automatisierten und teilautomatisierten Beantwortung von Gästeanfragen über WhatsApp sowie — auf ausdrüklichen Wunsch des jeweiligen Gastes — die Durchführung einzelner Telefonanrufe durch den Assistenten (Weckruf, Erinnerungsanruf, Reservierungsanruf).</p>
 <p><strong>Zweck:</strong> Betrieb des Assistenten, Beantwortung von Gästeanfragen, Übergabe einzelner Konversationen an Mitarbeitende des Verantwortlichen, Versand vom Verantwortlichen veranlasster Nachrichtenvorlagen sowie Support und Fehlerbehebung.</p>
 <p><strong>Dauer:</strong> Die Verarbeitung erfolgt für die Laufzeit des Hauptvertrags. Diese Vereinbarung ist an den Hauptvertrag gebunden und kann nicht isoliert gekündigt werden.</p>
 
@@ -251,6 +251,7 @@
 <li>vom Gast selbst angegebener Name, sofern vorhanden</li>
 <li>Inhalt der ein- und ausgehenden Nachrichten, einschließlich der Antworten des Assistenten</li>
 <li>Zeitstempel, Konversationsstatus, Zuweisung und interne Notizen</li>
+<li>bei einem vom Gast gewünschten Telefonanruf: die anzurufende Rufnummer, der Anlass des Anrufs sowie Datum und Uhrzeit; bei einem Reservierungsanruf zusätzlich Restaurant, Personenzahl und Wunschzeit</li>
 <li>Angaben, die der Gast von sich aus im Gesprächsverlauf mitteilt (z. B. Anreisedatum, Zimmerwunsch, Ernährungshinweise)</li>
 </ul>
 <p><strong>Datenarten der Mitarbeitenden:</strong> Name, dienstliche E-Mail-Adresse, Zugangsdaten und Nutzungsprotokolle der Agenten-Oberfläche.</p>
@@ -362,7 +363,7 @@
 <hr>
 
 <h2 id="a2" class="pagebreak">Anlage 2 — Unterauftragsverarbeiter</h2>
-<p class="subtitle">Version 1.1 · Stand: 23. September 2026</p>
+<p class="subtitle">Version 1.2 · Stand: 24. September 2026</p>
 <p>Die nachfolgend genannten Unternehmen verarbeiten personenbezogene Daten der Gäste des Verantwortlichen im Auftrag des Auftragsverarbeiters. Änderungen werden nach Ziffer 8 dieser Vereinbarung mit einer Frist von 14 Tagen mitgeteilt.</p>
 <div class="tablewrap">
 <table>
@@ -375,6 +376,8 @@
 <tr><td data-label="Unternehmen">n8n GmbH<br>Klosterstraße 64, 10179 Berlin, Deutschland</td><td data-label="Leistung">Workflow-Automatisierung</td><td data-label="Verarbeitungsort">EU (Microsoft Azure)</td><td data-label="Drittland-Grundlage">—</td></tr>
 <tr><td data-label="Unternehmen">Anthropic PBC<br>548 Market St, PMB 90375, San Francisco, CA 94104, USA</td><td data-label="Leistung">KI-Sprachmodell zur Erzeugung der Antworten</td><td data-label="Verarbeitungsort">USA</td><td data-label="Drittland-Grundlage">EU-U.S. Data Privacy Framework, ergänzend EU-Standardvertragsklauseln</td></tr>
 <tr><td data-label="Unternehmen">OpenAI Ireland Limited<br>1st Floor, The Liffey Trust Centre, 117–126 Sheriff Street Upper, Dublin 1, D01 YC43, Irland</td><td data-label="Leistung">Umwandlung von Sprachnachrichten der Gäste in Text (Modell &bdquo;Whisper&ldquo;)</td><td data-label="Verarbeitungsort">Irland (EU), Verarbeitung auch USA</td><td data-label="Drittland-Grundlage">EU-Standardvertragsklauseln nach dem Data Processing Addendum von OpenAI</td></tr>
+<tr><td data-label="Unternehmen">Eleven Labs Inc.<br>169 Madison Ave #2484, New York, NY 10016, USA</td><td data-label="Leistung">Sprachliche Führung der Telefonanrufe des Assistenten: Spracherkennung, Antwortlogik und Sprachausgabe während des Gesprächs</td><td data-label="Verarbeitungsort">USA</td><td data-label="Drittland-Grundlage">EU-U.S. Data Privacy Framework, ergänzend EU-Standardvertragsklauseln nach dem Data Processing Addendum von ElevenLabs</td></tr>
+<tr><td data-label="Unternehmen">Twilio Ireland Limited<br>3 Dublin Landings, North Wall Quay, Dublin 1, Irland</td><td data-label="Leistung">Aufbau und Übertragung der Telefonverbindung</td><td data-label="Verarbeitungsort">Irland (EU), Verarbeitung auch USA</td><td data-label="Drittland-Grundlage">EU-Standardvertragsklauseln nach dem Data Protection Addendum von Twilio</td></tr>
 <tr><td data-label="Unternehmen">Google Ireland Limited<br>Gordon House, Barrow Street, Dublin 4, Irland</td><td data-label="Leistung">Verarbeitungs-Datenbank (Google Sheets), E-Mail</td><td data-label="Verarbeitungsort">Irland (EU)</td><td data-label="Drittland-Grundlage">Cloud Data Processing Addendum; Konzernmutter DPF-zertifiziert</td></tr>
 <tr><td data-label="Unternehmen">OVH SAS<br>2 rue Kellermann, 59100 Roubaix, Frankreich</td><td data-label="Leistung">Server-Hosting der selbst betriebenen Agenten-Oberfläche (Chatwoot)</td><td data-label="Verarbeitungsort">Frankreich (EU)</td><td data-label="Drittland-Grundlage">—</td></tr>
 </tbody>
@@ -383,6 +386,7 @@
 <p><strong>Hinweis zur Agenten-Oberfläche:</strong> Die eingesetzte Software Chatwoot wird vom Auftragsverarbeiter selbst auf einem ausschließlich von ihm genutzten Server betrieben. Es besteht keine Verbindung zu einem Cloud-Dienst des Herstellers; an die Chatwoot Inc. werden keine Daten übermittelt. Unterauftragsverarbeiter ist insoweit ausschließlich der Serverbetreiber OVH SAS.</p>
 <p><strong>Hinweis zur Sprachnachricht:</strong> Sendet ein Gast eine Sprachnachricht, wird ausschlie&szlig;lich die Audiodatei an OpenAI &uuml;bermittelt und dort in Text umgewandelt. Rufnummer, Gespr&auml;chsverlauf und Betriebszuordnung werden nicht mit&uuml;bergeben. Die Audiodatei wird vom Auftragsverarbeiter nicht dauerhaft gespeichert; gespeichert wird allein der Text. Nach den Gesch&auml;ftsbedingungen f&uuml;r die Programmierschnittstelle verwendet OpenAI die &uuml;bermittelten Daten nicht zum Training von Modellen und l&ouml;scht sie nach bis zu 30 Tagen. Eine Sprechererkennung oder eine Verarbeitung biometrischer Daten findet nicht statt.</p>
 <p><strong>Hinweis zum KI-Anbieter:</strong> Nach den Commercial Terms of Service von Anthropic werden über die Programmierschnittstelle übermittelte Eingaben ausdrücklich nicht zum Training von Modellen verwendet. Sie werden standardmäßig für bis zu 30 Tage zur Erkennung und Abwehr von Missbrauch gespeichert und anschließend automatisch gelöscht.</p>
+<p><strong>Hinweis zu Telefonanrufen:</strong> Auf ausdrüklichen Wunsch eines Gastes kann der Assistent ein Telefongespräch führen — als Weckruf oder Erinnerungsanruf beim Gast selbst oder als Reservierungsanruf. Übermittelt werden dabei ausschließlich die anzurufende Rufnummer, der Vorname oder die Anrede des Gastes, der Name des Hauses sowie der Anlass des Anrufs mit Datum und Uhrzeit. Der bisherige Gesprächsverlauf aus dem Chat wird nicht mitübergeben. Bei Weckrufen und Erinnerungsanrufen ist die Zielrufnummer technisch fest auf diejenige Nummer gesetzt, von der der Gast schreibt; eine andere Nummer kann nicht gewählt werden. Eine Tonaufzeichnung des Gesprächs findet nicht statt und ist in der Konfiguration abgeschaltet; eine Sprechererkennung oder eine sonstige Verarbeitung biometrischer Daten erfolgt nicht. Beim Auftragsverarbeiter entsteht während des Gesprächs ein Textprotokoll, aus dem der Assistent allein das Ergebnis des Anrufs übernimmt. Zu Beginn jedes Gesprächs gibt sich der Assistent als digitaler Assistent des Hauses zu erkennen (Art. 50 Abs. 1 der Verordnung (EU) 2024/1689 — KI-Verordnung, anwendbar seit dem 2. August 2026). Das für die Gesprächsführung eingesetzte Sprachmodell wird von ElevenLabs im eigenen Namen beigezogen und ist insoweit Unterauftragsverarbeiter von ElevenLabs.</p>
 
 
 <div class="sig">

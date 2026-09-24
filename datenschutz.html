@@ -50,7 +50,7 @@
 <div class="container">
 <a href="/" class="back">← Zurück zur Startseite</a>
 <h1>Datenschutzerklärung</h1>
-<p class="subtitle">Stand: 23. September 2026</p>
+<p class="subtitle">Stand: 24. September 2026</p>
 
 <div class="info-box">
 <p style="margin:0;"><strong>Hinweis zur Verschlüsselung:</strong> Diese Website nutzt eine TLS-Verschlüsselung („Transport Layer Security") zum Schutz der Datenübertragung. Sie erkennen dies am Schloss-Symbol in Ihrer Browserzeile sowie am Adress-Präfix <code>https://</code>.</p>
@@ -82,7 +82,7 @@
 <li><a href="#s21">Beschwerderecht bei der Aufsichtsbehörde</a></li>
 <li><a href="#s22">Keine automatisierte Entscheidungsfindung</a></li>
 <li><a href="#s23">Sicherheit der Verarbeitung</a></li>
-<li><a href="#s24">Aktualität und Änderungen dieser Erklärung</a></li><li><a href="#s25">Postalische Direktwerbung an Hotels (Art. 14 DSGVO)</a></li><li><a href="#s26">Ihre pers&ouml;nliche Partnerseite (mrbell.de/partner)</a></li>
+<li><a href="#s24">Aktualität und Änderungen dieser Erklärung</a></li><li><a href="#s25">Postalische Direktwerbung an Hotels (Art. 14 DSGVO)</a></li><li><a href="#s26">Ihre pers&ouml;nliche Partnerseite (mrbell.de/partner)</a></li><li><a href="#s27">Telefonanrufe des Assistenten (Weckruf, Erinnerung, Reservierung)</a></li>
 </ol>
 </div>
 
@@ -289,6 +289,8 @@ E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
 <tr><td>n8n GmbH</td><td>Workflow-Automatisierung</td><td>EU (Microsoft Azure)</td><td>—</td></tr>
 <tr><td>Anthropic PBC</td><td>KI-Antworten des Assistenten</td><td>USA</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
 <tr><td>OpenAI Ireland Ltd.</td><td>Transkription von Sprachnachrichten (Whisper)</td><td>Irland (EU), Verarbeitung auch USA</td><td>EU-Standardvertragsklauseln (OpenAI DPA)</td></tr>
+<tr><td>Eleven Labs Inc.</td><td>Sprachliche Führung der Telefonanrufe des Assistenten</td><td>USA</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
+<tr><td>Twilio Ireland Limited</td><td>Aufbau der Telefonverbindung</td><td>Irland (EU), Verarbeitung auch USA</td><td>EU-Standardvertragsklauseln (Twilio DPA)</td></tr>
 <tr><td>OVH SAS</td><td>Server-Hosting der selbst betriebenen Chatwoot-Instanz</td><td>Frankreich (EU)</td><td>—</td></tr>
 <tr><td>360dialog GmbH</td><td>WhatsApp Business API</td><td>Deutschland</td><td>—</td></tr>
 <tr><td>WhatsApp Ireland Limited (Meta)</td><td>WhatsApp Messaging-Infrastruktur</td><td>Irland / USA</td><td>EU-Standardvertragsklauseln (über 360dialog)</td></tr>
@@ -313,8 +315,8 @@ E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
 <h2 id="s18">18. Datenübermittlung in Drittländer</h2>
 <p>Soweit personenbezogene Daten an Auftragsverarbeiter mit Sitz oder Verarbeitungsort außerhalb der EU/des EWR übermittelt werden (insbesondere USA), erfolgt dies auf Grundlage:</p>
 <ul>
-<li>eines Angemessenheitsbeschlusses gem. Art. 45 DSGVO (EU-U.S. Data Privacy Framework — derzeit für Vercel, Anthropic und Google), oder</li>
-<li>geeigneter Garantien gem. Art. 46 DSGVO, insbesondere EU-Standardvertragsklauseln (derzeit für Calendly, ergänzend für Anthropic sowie — über 360dialog — für WhatsApp / Meta).</li>
+<li>eines Angemessenheitsbeschlusses gem. Art. 45 DSGVO (EU-U.S. Data Privacy Framework — derzeit für Vercel, Anthropic, Google und ElevenLabs), oder</li>
+<li>geeigneter Garantien gem. Art. 46 DSGVO, insbesondere EU-Standardvertragsklauseln (derzeit für Calendly und Twilio, ergänzend für Anthropic und ElevenLabs sowie — über 360dialog — für WhatsApp / Meta).</li>
 </ul>
 <p>Die selbst betriebene Chatwoot-Instanz sowie die dort gespeicherten Konversationen der Gäste liegen ausschließlich auf Servern innerhalb der EU (Frankreich). Eine Drittlandübermittlung findet insoweit nicht statt.</p>
 <p>Eine Kopie der Standardvertragsklauseln stellen wir Ihnen auf Anfrage zur Verfügung.</p>
@@ -380,6 +382,17 @@ Web: <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel
 
 <hr>
 <p style="font-size: 0.85rem; color: #888;">Bei Fragen zum Datenschutz erreichen Sie uns unter <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>. Diese Datenschutzerklärung wird regelmäßig überprüft und an gesetzliche bzw. technische Änderungen angepasst.</p>
+<h2 id="s27">27. Telefonanrufe des Assistenten (Weckruf, Erinnerung, Reservierung)</h2>
+<p>Auf ausdrücklichen Wunsch eines Gastes kann der Assistent ein Telefongespräch führen: als Weckruf oder Erinnerungsanruf beim Gast selbst oder als Reservierungsanruf. Ein Anruf findet ausschließlich statt, nachdem der Gast im Chat zugestimmt hat. Ohne diese Zustimmung wird nicht gewählt.</p>
+<p><strong>Verarbeitete Daten:</strong> die anzurufende Rufnummer, der Vorname oder die Anrede des Gastes, der Name des Hauses sowie der Anlass des Anrufs mit Datum und Uhrzeit. Bei einem Reservierungsanruf zusätzlich Restaurant, Personenzahl und Wunschzeit. Der bisherige Gesprächsverlauf aus dem Chat wird <strong>nicht</strong> mitübergeben.</p>
+<p><strong>Rufnummer:</strong> Bei Weckrufen und Erinnerungsanrufen ist die Zielrufnummer technisch fest auf diejenige Nummer gesetzt, von der der Gast dem Assistenten schreibt. Eine andere Nummer kann nicht gewählt werden. Vor der Buchung liest der Assistent die Nummer vor und holt eine ausdrückliche Bestätigung ein.</p>
+<p><strong>Keine Tonaufzeichnung:</strong> Das Gespräch wird nicht als Tonaufnahme aufgezeichnet oder gespeichert; die entsprechende Funktion ist in der Konfiguration abgeschaltet. Eine Stimmanalyse, eine Sprechererkennung oder eine sonstige Verarbeitung biometrischer Daten findet nicht statt.</p>
+<p><strong>Gesprächsprotokoll:</strong> Während des Gesprächs entsteht beim Auftragsverarbeiter ein Textprotokoll. Der Assistent übernimmt daraus allein das Ergebnis des Anrufs — etwa ob eine Reservierung zustande gekommen ist — und speichert dieses im Gesprächsverlauf des Gastes. Das Protokoll beim Auftragsverarbeiter unterliegt dessen Löschfristen.</p>
+<p><strong>Hinweis auf den KI-Einsatz:</strong> Zu Beginn jedes Gesprächs gibt sich der Assistent als digitaler Assistent des Hauses zu erkennen. Damit wird der Transparenzpflicht aus Art. 50 Abs. 1 der Verordnung (EU) 2024/1689 (KI-Verordnung) entsprochen, die seit dem 2. August 2026 anwendbar ist.</p>
+<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO für die Erbringung der vom Gast ausdrücklich gewünschten Leistung, ergänzend Art. 6 Abs. 1 lit. a DSGVO auf Grundlage der im Chat erteilten Einwilligung. Die Einwilligung kann jederzeit mit Wirkung für die Zukunft widerrufen werden, formlos im Chat oder per E-Mail an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>.</p>
+<p><strong>Auftragsverarbeiter:</strong> Eleven Labs Inc., 169 Madison Ave #2484, New York, NY 10016, USA, für die sprachliche Führung des Gesprächs, und Twilio Ireland Limited, 3 Dublin Landings, North Wall Quay, Dublin 1, Irland, für den Aufbau der Telefonverbindung. Das für die Gesprächsführung eingesetzte Sprachmodell wird von ElevenLabs im eigenen Namen beigezogen und ist insoweit Unterauftragsverarbeiter von ElevenLabs.</p>
+<p><strong>Drittlandübermittlung:</strong> Eleven Labs Inc. verarbeitet in den USA. Das Unternehmen ist nach dem EU-U.S. Data Privacy Framework zertifiziert (Art. 45 DSGVO); ergänzend gelten die im Data Processing Addendum einbezogenen EU-Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO). Für Twilio gelten die im Data Protection Addendum einbezogenen EU-Standardvertragsklauseln.</p>
+<p><strong>Speicherdauer:</strong> Das Ergebnis des Anrufs wird wie jede andere Nachricht im Gesprächsverlauf gespeichert und unterliegt den in Abschnitt 17 genannten Fristen.</p>
 </div>
 <script src="/besuch.js" defer></script>
 </body>
