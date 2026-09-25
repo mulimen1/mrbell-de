@@ -176,7 +176,7 @@
 <dl class="doc-meta">
   <div><dt>Dokument</dt><dd>AVV&nbsp;&ndash;&nbsp;Mr.&nbsp;Bell</dd></div>
   <div><dt>Version</dt><dd>1.2</dd></div>
-  <div><dt>Stand</dt><dd>23.&nbsp;September&nbsp;2026</dd></div>
+  <div><dt>Stand</dt><dd>25.&nbsp;September&nbsp;2026</dd></div>
   <div><dt>N&auml;chste Pr&uuml;fung</dt><dd>September&nbsp;2027</dd></div>
   <div><dt>Rechtsgrundlage</dt><dd>Art.&nbsp;28 Abs.&nbsp;3 DSGVO</dd></div>
 </dl>
@@ -311,7 +311,7 @@
 <p>Kontrollen erfolgen ohne vermeidbare Störung des Betriebsablaufs. Der Auftragsverarbeiter kann für einen über die Auskunftserteilung hinausgehenden Aufwand eine angemessene Vergütung verlangen, sofern die Kontrolle nicht durch einen Vorfall in seinem Verantwortungsbereich veranlasst ist.</p>
 
 <h2 id="p12">12. Löschung und Rückgabe nach Vertragsende</h2>
-<p><strong>Laufende Löschung:</strong> Konversationen mit Gästen werden <strong>60 Tage nach der letzten Nachricht automatisch und vollständig gelöscht</strong>. Die Löschung erfolgt durch eine täglich laufende automatisierte Routine und umfasst sowohl die interne Verarbeitungs-Datenbank als auch die Agenten-Oberfläche einschließlich der dort gespeicherten Telefonnummer. Die Ausführung wird protokolliert; die Protokolle werden dem Verantwortlichen auf Anfrage vorgelegt.</p>
+<p><strong>Laufende Löschung:</strong> Konversationen mit Gästen werden <strong>30 Tage nach der letzten Nachricht automatisch und vollständig gelöscht</strong>. Die Löschung erfolgt durch eine täglich laufende automatisierte Routine und umfasst sowohl die interne Verarbeitungs-Datenbank als auch die Agenten-Oberfläche einschließlich der dort gespeicherten Telefonnummer. Die Ausführung wird protokolliert; die Protokolle werden dem Verantwortlichen auf Anfrage vorgelegt.</p>
 <p><strong>Nach Vertragsende:</strong> Nach Beendigung des Hauptvertrags löscht der Auftragsverarbeiter sämtliche im Auftrag verarbeiteten personenbezogenen Daten innerhalb von 30 Tagen oder gibt sie nach Wahl des Verantwortlichen heraus. Der Verantwortliche teilt seine Wahl innerhalb von 14 Tagen nach Vertragsende mit; ohne Mitteilung erfolgt die Löschung.</p>
 <p>Über die vollständige Löschung stellt der Auftragsverarbeiter unaufgefordert eine Bestätigung in Textform aus.</p>
 <p>Ausgenommen sind Daten, die gesetzlichen Aufbewahrungspflichten unterliegen, insbesondere Rechnungsbelege nach § 147 AO und § 257 HGB. Diese werden für die Dauer der Aufbewahrungsfrist in der Verarbeitung eingeschränkt und anschließend gelöscht.</p>
@@ -334,7 +334,7 @@
 <hr>
 
 <h2 id="a1" class="pagebreak">Anlage 1 — Technische und organisatorische Maßnahmen (Art. 32 DSGVO)</h2>
-<p class="subtitle">Version 1.0 · Stand: 22. September 2026 · nächste Überprüfung: September 2027</p>
+<p class="subtitle">Version 1.1 · Stand: 25. September 2026 · nächste Überprüfung: September 2027</p>
 <p>Mr. Bell wird als Einzelunternehmen ohne eigene Serverinfrastruktur betrieben. Die Verarbeitung erfolgt vollständig auf der Infrastruktur der in Anlage 2 genannten Dienstleister. Die nachfolgenden Maßnahmen beschreiben, was der Auftragsverarbeiter selbst umsetzt, und benennen offen, wo er sich auf die Maßnahmen seiner Dienstleister stützt.</p>
 
 <h3>1. Vertraulichkeit</h3>
@@ -352,7 +352,7 @@
 <p>Die eingesetzten Dienste verfügen über redundante Infrastruktur und regelmäßige Sicherungen auf Ebene des jeweiligen Anbieters. Die Verarbeitungs-Datenbank wird durch den Anbieter versioniert vorgehalten, sodass ein Rückgriff auf frühere Stände möglich ist. Der Auftragsverarbeiter überwacht die Ausführung der automatisierten Abläufe über die Ausführungshistorie der Automatisierungsplattform und erhält bei Fehlläufen eine Benachrichtigung.</p>
 
 <h3>4. Verfahren zur Löschung</h3>
-<p>Der Auftragsverarbeiter betreibt eine <strong>automatisierte Löschroutine, die täglich läuft</strong>. Sie ermittelt für jede Gästekonversation den Zeitpunkt der letzten Nachricht und löscht nach Ablauf von 60 Tagen sämtliche zugehörigen Datensätze — sowohl in der internen Verarbeitungs-Datenbank als auch in der Agenten-Oberfläche einschließlich des dort gespeicherten Kontakts mit der Telefonnummer.</p>
+<p>Der Auftragsverarbeiter betreibt eine <strong>automatisierte Löschroutine, die täglich läuft</strong>. Sie ermittelt für jede Gästekonversation den Zeitpunkt der letzten Nachricht und löscht nach Ablauf von 30 Tagen sämtliche zugehörigen Datensätze — sowohl in der internen Verarbeitungs-Datenbank als auch in der Agenten-Oberfläche einschließlich des dort gespeicherten Kontakts mit der Telefonnummer.</p>
 <p>Die Routine ist mit Sicherungen gegen Fehlläufe ausgestattet: Datensätze ohne verwertbaren Zeitstempel werden nicht gelöscht, und ein Lauf bricht ab, statt zu löschen, wenn die Zahl der betroffenen Datensätze eine definierte Obergrenze überschreitet. Jeder Lauf wird protokolliert und ist nachträglich einsehbar.</p>
 
 <h3>5. Verfahren zur regelmäßigen Überprüfung</h3>
@@ -364,7 +364,7 @@
 <hr>
 
 <h2 id="a2" class="pagebreak">Anlage 2 — Unterauftragsverarbeiter</h2>
-<p class="subtitle">Version 1.2 · Stand: 24. September 2026</p>
+<p class="subtitle">Version 1.3 · Stand: 25. September 2026</p>
 <p>Die nachfolgend genannten Unternehmen verarbeiten personenbezogene Daten der Gäste des Verantwortlichen im Auftrag des Auftragsverarbeiters. Änderungen werden nach Ziffer 8 dieser Vereinbarung mit einer Frist von 14 Tagen mitgeteilt.</p>
 <div class="tablewrap">
 <table>
