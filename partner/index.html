@@ -476,11 +476,15 @@ const PING_URL="https://mrbell.app.n8n.cloud/webhook/partner-zugang";
 // Browserspeicher: damit wird nichts auf dem Geraet abgelegt oder ausgelesen,
 // § 25 TDDG ist also gar nicht erst beruehrt.
 const GEMELDET=new Set();
+// Eigene Tests ausblenden: mrbell.de/partner?intern=1 aufrufen.
+// Bewusst ueber die Adresszeile und nicht ueber Browserspeicher, damit auch
+// hier nichts auf dem Geraet abgelegt oder ausgelesen wird.
+const INTERN=/[?&]intern=1/.test(location.search);
 function ping(ereignis, code, hotel){
   try{
     if(GEMELDET.has(ereignis)) return;
     GEMELDET.add(ereignis);
-    const body=JSON.stringify({event:ereignis, code:code, hotel:hotel});
+    const body=JSON.stringify({event:ereignis, code:code, hotel:hotel, intern:INTERN});
     if(navigator.sendBeacon){
       navigator.sendBeacon(PING_URL, new Blob([body],{type:"text/plain;charset=UTF-8"}));
     }else{
