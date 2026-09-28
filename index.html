@@ -364,7 +364,7 @@ footer a{color:var(--muted)}
               <path id="sKreuz" d="M19.7 8.3l-1.4-1.4L16 9.2l-2.3-2.3-1.4 1.4 2.3 2.3-2.3 2.3 1.4 1.4 2.3-2.3 2.3 2.3 1.4-1.4-2.3-2.3z" style="display:none"/>
             </svg>
           </button>
-          <input class="regler" id="vol" type="range" min="0" max="100" step="1" value="100"
+          <input class="regler" id="vol" type="range" min="0" max="100" step="1" value="75"
                  aria-label="Lautstärke">
         </div>
       </div>
@@ -507,8 +507,11 @@ footer a{color:var(--muted)}
     leiste.hidden = on;
     if(text) cap.textContent = text;
   }
+  var STARTPEGEL = .75;      // beim ersten Start nicht voll aufgerissen
+  var pegelGesetzt = false;
   function start(){
     if(v.ended || (v.duration && v.currentTime >= v.duration - .05)) v.currentTime=0;
+    if(!pegelGesetzt){ v.volume = STARTPEGEL; pegelGesetzt = true; }
     v.muted=false; zeigeTon();
     var p=v.play();
     if(p && p.catch) p.catch(function(){ v.muted=true; zeigeTon(); v.play(); });
@@ -561,7 +564,7 @@ footer a{color:var(--muted)}
     regler.value = proz;
     regler.style.setProperty('--fuell', proz + '%');
   }
-  var letzteLautstaerke = 1;
+  var letzteLautstaerke = .75;
   snd.addEventListener('click', function(e){
     e.stopPropagation();
     if(v.muted || v.volume === 0){
