@@ -103,13 +103,26 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(24px,2.6vw,36px);l
   background:rgba(255,255,255,.22)}
 .fortschritt i{display:block;height:100%;width:0;background:var(--accent);
   transition:width .2s linear}
-.ctrl{position:absolute;right:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:7px;
-  font-family:var(--sans);font-size:13px;font-weight:600;padding:8px 13px;border-radius:999px;
-  border:1px solid rgba(239,233,226,.26);background:rgba(20,17,14,.62);color:var(--night-ink);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:pointer}
-.ctrl:hover{background:rgba(20,17,14,.84)}
-.ctrl:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.ctrl svg{width:15px;height:15px;fill:currentColor}
+.tonLeiste{position:absolute;right:12px;bottom:12px;z-index:2;
+  display:flex;align-items:center;gap:9px;padding:7px 13px 7px 10px;border-radius:999px;
+  border:1px solid rgba(239,233,226,.26);background:rgba(20,17,14,.62);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.tonKnopf{display:grid;place-items:center;width:22px;height:22px;padding:0;
+  border:0;background:transparent;color:var(--night-ink);cursor:pointer}
+.tonKnopf svg{width:17px;height:17px;fill:currentColor}
+.tonKnopf:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:4px}
+.regler{-webkit-appearance:none;appearance:none;width:76px;height:14px;background:transparent;cursor:pointer}
+.regler::-webkit-slider-runnable-track{height:3px;border-radius:999px;
+  background:linear-gradient(to right,var(--night-ink) var(--fuell,100%),rgba(239,233,226,.3) var(--fuell,100%))}
+.regler::-moz-range-track{height:3px;border-radius:999px;background:rgba(239,233,226,.3)}
+.regler::-moz-range-progress{height:3px;border-radius:999px;background:var(--night-ink)}
+.regler::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+  width:11px;height:11px;border-radius:50%;background:#fff;margin-top:-4px;
+  box-shadow:0 1px 3px rgba(0,0,0,.45)}
+.regler::-moz-range-thumb{width:11px;height:11px;border:0;border-radius:50%;background:#fff;
+  box-shadow:0 1px 3px rgba(0,0,0,.45)}
+.regler:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:999px}
+@media(max-width:520px){.regler{width:58px}}
 #badge[data-show="0"]{opacity:0;visibility:hidden;transform:translateY(-4px);pointer-events:none}
 .iBadge{position:absolute;top:11px;right:11px;z-index:4;height:24px;border-radius:999px;
   display:flex;align-items:center;gap:5px;padding:0 9px 0 7px;cursor:pointer;
@@ -342,10 +355,18 @@ footer a{color:var(--muted)}
         </div>
         <div class="zeit" id="zeit" hidden><span id="zeitT">0:00</span> / 0:56</div>
         <div class="fortschritt" id="fortschritt" hidden><i id="fortI"></i></div>
-        <button class="ctrl" id="sound" aria-pressed="true" hidden>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.47 4.47 0 0 0 16.5 12z"/></svg>
-          <span id="sLabel">Ton aus</span>
-        </button>
+        <div class="tonLeiste" id="tonLeiste" hidden>
+          <button class="tonKnopf" id="sound" aria-pressed="true" aria-label="Ton ausschalten">
+            <svg id="sIkon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+              <path id="sWelle1" d="M16.5 12a4.5 4.5 0 0 0-2.5-4.03v8.05A4.47 4.47 0 0 0 16.5 12z"/>
+              <path id="sWelle2" d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+              <path id="sKreuz" d="M19.7 8.3l-1.4-1.4L16 9.2l-2.3-2.3-1.4 1.4 2.3 2.3-2.3 2.3 1.4 1.4 2.3-2.3 2.3 2.3 1.4-1.4-2.3-2.3z" style="display:none"/>
+            </svg>
+          </button>
+          <input class="regler" id="vol" type="range" min="0" max="100" step="1" value="100"
+                 aria-label="Lautstärke">
+        </div>
       </div>
     </div>
   </section>
@@ -471,7 +492,8 @@ footer a{color:var(--muted)}
 (function(){
   var v=document.getElementById('film'), tap=document.getElementById('tap'),
       big=document.getElementById('bigPlay'), cap=document.getElementById('playCap'),
-      snd=document.getElementById('sound'), lbl=document.getElementById('sLabel'),
+      snd=document.getElementById('sound'), leiste=document.getElementById('tonLeiste'),
+      regler=document.getElementById('vol'),
       ov=document.getElementById('kiOv'), ovX=document.getElementById('kiClose'),
       badge=document.getElementById('badge');
   if(!v) return;
@@ -482,14 +504,14 @@ footer a{color:var(--muted)}
 
   function zeigePlay(on, text){
     big.setAttribute('data-on', on?'1':'0');
-    snd.hidden = on;
+    leiste.hidden = on;
     if(text) cap.textContent = text;
   }
   function start(){
     if(v.ended || (v.duration && v.currentTime >= v.duration - .05)) v.currentTime=0;
-    v.muted=false; snd.setAttribute('aria-pressed','true'); lbl.textContent='Ton aus';
+    v.muted=false; zeigeTon();
     var p=v.play();
-    if(p && p.catch) p.catch(function(){ v.muted=true; lbl.textContent='Ton an'; v.play(); });
+    if(p && p.catch) p.catch(function(){ v.muted=true; zeigeTon(); v.play(); });
   }
 
   // Beim Laden: Standbild mit Abspielknopf. Kein Autoplay.
@@ -527,12 +549,40 @@ footer a{color:var(--muted)}
     else v.pause();
   });
 
+  // Ton: Stummschalter und Lautstaerkeregler
+  function zeigeTon(){
+    var stumm = v.muted || v.volume === 0;
+    document.getElementById('sWelle1').style.display = stumm ? 'none' : '';
+    document.getElementById('sWelle2').style.display = (stumm || v.volume < .55) ? 'none' : '';
+    document.getElementById('sKreuz').style.display  = stumm ? '' : 'none';
+    snd.setAttribute('aria-pressed', String(!stumm));
+    snd.setAttribute('aria-label', stumm ? 'Ton einschalten' : 'Ton ausschalten');
+    var proz = stumm ? 0 : Math.round(v.volume*100);
+    regler.value = proz;
+    regler.style.setProperty('--fuell', proz + '%');
+  }
+  var letzteLautstaerke = 1;
   snd.addEventListener('click', function(e){
     e.stopPropagation();
-    v.muted=!v.muted;
-    snd.setAttribute('aria-pressed', String(!v.muted));
-    lbl.textContent = v.muted ? 'Ton an' : 'Ton aus';
+    if(v.muted || v.volume === 0){
+      v.muted = false;
+      v.volume = letzteLautstaerke > 0 ? letzteLautstaerke : 1;
+    } else {
+      letzteLautstaerke = v.volume;
+      v.muted = true;
+    }
+    zeigeTon();
   });
+  regler.addEventListener('input', function(e){
+    e.stopPropagation();
+    v.volume = regler.value/100;
+    v.muted = (v.volume === 0);
+    if(v.volume > 0) letzteLautstaerke = v.volume;
+    zeigeTon();
+  });
+  regler.addEventListener('click', function(e){ e.stopPropagation(); });
+  v.addEventListener('volumechange', zeigeTon);
+  zeigeTon();
 
   // KI-Hinweis
   function setOv(open){
@@ -560,7 +610,7 @@ footer a{color:var(--muted)}
     var AUS={SCRIPT:1,STYLE:1,NOSCRIPT:1,TEXTAREA:1,INPUT:1,SELECT:1,OPTION:1,TITLE:1,svg:1,SVG:1,BUTTON:1};
     // Knoepfe und die Bedienelemente am Film bleiben aussen vor - die haben
     // ihre eigene Hover-Farbe, zwei gleichzeitig sehen kaputt aus.
-    var AUSKLASSE=['btn','ctrl','iBadge','playWrap','playCap','playTitel','zeit'];
+    var AUSKLASSE=['btn','tonLeiste','iBadge','playWrap','playCap','playTitel','zeit'];
     var lauf=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
       if(!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
       var p=n.parentNode;
