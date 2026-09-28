@@ -557,12 +557,20 @@ footer a{color:var(--muted)}
   // Nur Farbe - keine Groessen- oder Abstandsaenderung, also kein Springen.
   (function(){
     var AUS={SCRIPT:1,STYLE:1,NOSCRIPT:1,TEXTAREA:1,INPUT:1,SELECT:1,OPTION:1,TITLE:1,svg:1,SVG:1,BUTTON:1};
+    // Knoepfe und die Bedienelemente am Film bleiben aussen vor - die haben
+    // ihre eigene Hover-Farbe, zwei gleichzeitig sehen kaputt aus.
+    var AUSKLASSE=['btn','ctrl','iBadge','playWrap','playCap','playTitel','zeit'];
     var lauf=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
       if(!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
       var p=n.parentNode;
       while(p && p.nodeType===1){
         if(AUS[p.nodeName]) return NodeFilter.FILTER_REJECT;
-        if(p.classList && p.classList.contains('w')) return NodeFilter.FILTER_REJECT;
+        if(p.classList){
+          if(p.classList.contains('w')) return NodeFilter.FILTER_REJECT;
+          for(var a=0;a<AUSKLASSE.length;a++){
+            if(p.classList.contains(AUSKLASSE[a])) return NodeFilter.FILTER_REJECT;
+          }
+        }
         p=p.parentNode;
       }
       return NodeFilter.FILTER_ACCEPT;
