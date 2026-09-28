@@ -438,8 +438,8 @@ footer a{color:var(--muted)}
       </div>
       <div class="zeegBox" id="zeegBox" hidden>
         <div class="zeeg-inline-widget" id="zeegSlot" style="min-width:320px;height:760px"></div>
-        <p class="zeegFall" id="zeegFall" hidden>Der Kalender lädt gerade nicht.
-          <a href="https://zeeg.me/kontakt6231/gespraech-ueber-mr-bell" target="_blank" rel="noopener">Hier direkt öffnen</a>.</p>
+        <p class="zeegFall" id="zeegFall" hidden>Kalender wird geöffnet …
+          <a href="https://zeeg.me/kontakt6231/gespraech-ueber-mr-bell">Falls nichts passiert, hier entlang</a>.</p>
       </div>
       <p class="zeegNote" id="zeegNote">Der Kalender wird erst geladen, wenn Sie darauf klicken —
         vorher geht kein Aufruf an Dritte hinaus. Anbieter: Zeeg GmbH, Berlin.</p>
@@ -535,10 +535,14 @@ footer a{color:var(--muted)}
         slot=document.getElementById('zeegSlot'), fall=document.getElementById('zeegFall'),
         note=document.getElementById('zeegNote'), geladen=false;
     if(!knopf||!box) return;
-    function zeigeFallback(){
-      if(slot) slot.style.height='0';          // leeren Kasten nicht stehen lassen
+    var umgeleitet=false;
+    function zumKalender(){
+      // Laedt die eingebettete Maske nicht, bringen wir den Besucher direkt
+      // zum Kalender, statt ihm eine Fehlermeldung hinzustellen.
+      if(umgeleitet) return; umgeleitet=true;
+      if(slot) slot.style.height='0';
       if(fall) fall.hidden=false;
-      knopf.disabled=false;
+      window.location.href='https://zeeg.me/kontakt6231/gespraech-ueber-mr-bell';
     }
     knopf.addEventListener('click', function(){
       if(geladen){ box.scrollIntoView({behavior:'smooth',block:'start'}); return; }
@@ -553,12 +557,13 @@ footer a{color:var(--muted)}
       sc.setAttribute('data-user','kontakt6231');
       sc.setAttribute('data-event-type','gespraech-ueber-mr-bell');
       sc.setAttribute('data-redirect-parent','true');
-      sc.onerror=function(){ zeigeFallback(); };
+      sc.onerror=function(){ zumKalender(); };
       document.body.appendChild(sc);
       // Falls nach 4 Sekunden nichts gerendert ist: Direktlink zeigen.
+      // Grosszuegig: langsames Netz soll niemanden von der Seite werfen.
       setTimeout(function(){
-        if(slot && slot.childElementCount===0) zeigeFallback();
-      },4000);
+        if(slot && slot.childElementCount===0) zumKalender();
+      },6000);
       box.scrollIntoView({behavior:'smooth',block:'start'});
     });
   })();
