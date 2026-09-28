@@ -64,6 +64,8 @@ a:hover{color:var(--accent)}
 .head .right{margin-left:auto;font-size:15px;color:var(--muted)}
 @media(max-width:620px){.head .right{display:none}}
 .rule{height:1px;background:var(--line);margin-top:22px;transition:opacity .18s ease}
+.w{transition:color .12s ease}
+.w:hover{color:var(--accent)}
 
 section{padding-block:clamp(38px,5vw,62px);border-top:1px solid var(--line)}
 .hero{border-top:0;padding-block:clamp(38px,5.5vw,70px)}
@@ -549,6 +551,33 @@ footer a{color:var(--muted)}
     function pruefe(){ kh.setAttribute('data-fest', window.scrollY > 4 ? '1' : '0'); }
     pruefe();
     window.addEventListener('scroll', pruefe, {passive:true});
+  })();
+
+  // Jedes Wort einzeln anfassbar: faerbt sich beim Hover terracotta.
+  // Nur Farbe - keine Groessen- oder Abstandsaenderung, also kein Springen.
+  (function(){
+    var AUS={SCRIPT:1,STYLE:1,NOSCRIPT:1,TEXTAREA:1,INPUT:1,SELECT:1,OPTION:1,TITLE:1,svg:1,SVG:1,BUTTON:1};
+    var lauf=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+      if(!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      var p=n.parentNode;
+      while(p && p.nodeType===1){
+        if(AUS[p.nodeName]) return NodeFilter.FILTER_REJECT;
+        if(p.classList && p.classList.contains('w')) return NodeFilter.FILTER_REJECT;
+        p=p.parentNode;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    }});
+    var kn=[],n;
+    while((n=lauf.nextNode())) kn.push(n);
+    for(var i=0;i<kn.length;i++){
+      var k=kn[i], teile=k.nodeValue.split(/(\s+)/), frag=document.createDocumentFragment();
+      for(var j=0;j<teile.length;j++){
+        var t=teile[j]; if(!t) continue;
+        if(/^\s+$/.test(t)){ frag.appendChild(document.createTextNode(t)); }
+        else { var sp=document.createElement('span'); sp.className='w'; sp.appendChild(document.createTextNode(t)); frag.appendChild(sp); }
+      }
+      k.parentNode.replaceChild(frag,k);
+    }
   })();
 
   // Aus dem Bild gescrollt: anhalten. Niemals von selbst starten.
