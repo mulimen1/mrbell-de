@@ -159,6 +159,8 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(24px,2.6vw,36px);l
   letter-spacing:.24em;text-transform:uppercase;color:#fff;
   text-shadow:0 1px 14px rgba(20,17,14,.55)}
 .playCap{
+  position:absolute;bottom:7%;left:50%;transform:translateX(-50%);
+  white-space:nowrap;
   font-family:var(--sans);font-size:11.5px;font-weight:600;
   letter-spacing:.13em;text-transform:uppercase;color:#fff;
   padding:7px 14px;border-radius:999px;
@@ -310,8 +312,7 @@ footer a{color:var(--muted)}
     <div class="film">
       <div class="stage">
         <video id="film" playsinline preload="metadata"
-               poster="mrbell-film-poster.jpg" aria-label="Mr. Bell im Hotelzimmer, 20 Sekunden">
-          <source src="mrbell-film.webm" type="video/webm">
+               poster="mrbell-film-poster.jpg" aria-label="Mr. Bell Demofilm, 56 Sekunden">
           <source src="mrbell-film.mp4" type="video/mp4">
         </video>
         <button class="iBadge" id="badge" data-show="0" aria-expanded="false" aria-controls="kiOv"
@@ -320,12 +321,12 @@ footer a{color:var(--muted)}
           <span>KI-DEMOFILM</span>
         </button>
         <button class="tap" id="tap" aria-label="Film anhalten oder weiterlaufen lassen"></button>
-        <button class="playWrap" id="bigPlay" data-on="1" aria-label="Demofilm abspielen, 20 Sekunden">
+        <button class="playWrap" id="bigPlay" data-on="1" aria-label="Demofilm abspielen, 56 Sekunden">
           <span class="playTitel" aria-hidden="true">Demofilm</span>
           <span class="playDisc" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </span>
-          <span class="playCap" id="playCap">Film ansehen · 20 Sek.</span>
+          <span class="playCap" id="playCap">Film ansehen · 1 Min.</span>
         </button>
         <div class="kiOv" id="kiOv" hidden>
           <button class="x" id="kiClose" aria-label="Hinweis schließen">
@@ -339,7 +340,7 @@ footer a{color:var(--muted)}
           Der Chatverlauf ist ein <strong>Beispieldialog</strong> und zeigt, wie Mr. Bell
           tatsächlich antwortet.</p>
         </div>
-        <div class="zeit" id="zeit" hidden><span id="zeitT">0:00</span> / 0:20</div>
+        <div class="zeit" id="zeit" hidden><span id="zeitT">0:00</span> / 0:56</div>
         <div class="fortschritt" id="fortschritt" hidden><i id="fortI"></i></div>
         <button class="ctrl" id="sound" aria-pressed="true" hidden>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.47 4.47 0 0 0 16.5 12z"/></svg>
@@ -492,7 +493,7 @@ footer a{color:var(--muted)}
   }
 
   // Beim Laden: Standbild mit Abspielknopf. Kein Autoplay.
-  zeigePlay(true, 'Film ansehen · 20 Sek.');
+  zeigePlay(true, 'Film ansehen · 1 Min.');
 
   big.addEventListener('click', function(e){ e.stopPropagation(); start(); });
   v.addEventListener('play',  function(){
