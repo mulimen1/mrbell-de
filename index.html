@@ -287,9 +287,27 @@ span.skIc > svg{
 .briefzeile{margin:14px 0 0;font-family:var(--sans);font-size:13px;color:var(--muted)}
 .briefzeile a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
 .briefzeile a:hover{color:var(--accent)}
-.preis{margin:34px 0 0;font-family:var(--sans);font-size:15px}
-.preis b{font-weight:600}
-.preis .staffel{display:block;color:var(--muted);font-size:14px;margin-top:5px}
+/* Preis */
+.pIntro{margin:0;font-family:var(--sans);font-size:16px;color:var(--muted);max-width:40rem}
+.stf{margin:30px 0 0;border-top:1px solid var(--line);max-width:44rem}
+.stufe{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  padding-block:16px 15px;border-bottom:1px solid var(--line)}
+.stufe .zi{margin:0;font-family:var(--sans);font-size:15.5px;font-weight:700;
+  letter-spacing:-.008em;color:var(--ink)}
+.stufe .pr{margin:0;display:flex;align-items:baseline;gap:9px;white-space:nowrap}
+.stufe .eur{font-family:var(--display);font-weight:700;line-height:1;
+  font-size:clamp(25px,2.5vw,33px);letter-spacing:-.015em;color:var(--accent);
+  font-variant-numeric:tabular-nums}
+.stufe .mo{font-family:var(--sans);font-size:13px;color:var(--muted)}
+@media(max-width:400px){.stufe{gap:12px}.stufe .zi{font-size:14.5px}}
+.gratis{margin:22px 0 0;font-family:var(--sans);font-size:16.5px;max-width:44rem;line-height:1.5}
+.gratis b{font-weight:700;color:var(--accent)}
+.imPreis{margin:30px 0 14px;font-family:var(--sans);font-size:11px;font-weight:700;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
+.pFuss{margin:22px 0 0;font-family:var(--sans);font-size:14px;color:var(--muted);max-width:52rem}
+.pFuss + .pFuss{margin-top:9px}
+.pFuss a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.pFuss a:hover{color:var(--accent)}
 
 /* Datenschutz */
 .ktrl{list-style:none;margin:0;padding:0;display:grid;gap:26px;max-width:62rem}
@@ -491,9 +509,6 @@ footer a{color:var(--muted)}
 
     </div>
 
-    <p class="preis"><b>Ihr eigener Concierge: die ersten vier Wochen kostenlos.</b>
-      <span class="staffel">Danach 149 € im Monat bis 20 Zimmer · 249 € bis 40 Zimmer · 399 € darüber. Monatlich kündbar.</span>
-      <span class="staffel">Mr. Bell lässt sich an Ihr PMS anbinden — nötig ist es nicht. Er läuft auch völlig ohne, dann pflegen wir Ihr Haus einmal ein und Sie ändern es jederzeit selbst.</span></p>
   </section>
 
   <section>
@@ -522,6 +537,48 @@ footer a{color:var(--muted)}
     <p class="avv">Der <a href="/avv.html">Auftragsverarbeitungsvertrag nach Art. 28 DSGVO</a> liegt offen auf dieser Website,
     samt Anlage 1 (technische und organisatorische Maßnahmen) und Anlage 2 (Unterauftragsverarbeiter).
     Er gilt mit Vertragsschluss automatisch — Sie müssen ihn nicht anfordern. <strong>Wer an der Verarbeitung beteiligt ist, steht vollständig in Anlage 2</strong> — nachlesbar, bevor Sie irgendetwas unterschreiben.</p>
+  </section>
+
+  <section id="preise">
+    <p class="label">Preis</p>
+    <h2>Was Mr. Bell kostet.</h2>
+    <p class="pIntro">Ein Preis pro Haus, gestaffelt nach Zimmerzahl. Keine Einrichtungsgebühr,
+    keine Mindestlaufzeit, keine Abrechnung nach Nachrichten oder Gästen.</p>
+
+    <div class="stf">
+      <div class="stufe">
+        <p class="zi">bis 20 Zimmer</p>
+        <p class="pr"><span class="eur">149&#8239;€</span><span class="mo">im Monat</span></p>
+      </div>
+      <div class="stufe">
+        <p class="zi">21 bis 40 Zimmer</p>
+        <p class="pr"><span class="eur">249&#8239;€</span><span class="mo">im Monat</span></p>
+      </div>
+      <div class="stufe">
+        <p class="zi">ab 41 Zimmern</p>
+        <p class="pr"><span class="eur">399&#8239;€</span><span class="mo">im Monat</span></p>
+      </div>
+    </div>
+
+    <p class="gratis"><b>Der erste Monat ist kostenfrei.</b> Die Zahlungspflicht beginnt erst im
+    zweiten — wenn Sie vorher kündigen, entstehen Ihnen keine Kosten.</p>
+
+    <p class="imPreis">Im Preis enthalten</p>
+    <ul class="plain">
+      <li><strong>Einrichtung vor Ort.</strong> Ich komme selbst in Ihr Haus, bringe die Aufsteller mit
+      und schalte Mr. Bell live. Sie installieren nichts und schulen niemanden.</li>
+      <li><strong>Aufsteller für Nachttisch und Rezeption</strong>, auf Ihr Haus gestaltet.</li>
+      <li><strong>Eine eigene WhatsApp-Nummer für Ihr Haus</strong> — nicht geteilt mit anderen Häusern.</li>
+      <li><strong>Ihr Dashboard:</strong> jeder Chat einsehbar, jederzeit übernehmen, Wissen selbst ändern.</li>
+      <li><strong>Alles, was oben steht</strong> — jede Sprache, Sprachnachrichten, Fotos, Weckrufe,
+      Bewertungseinladungen. Keine Zusatzpakete, keine Nachrichtenkontingente.</li>
+    </ul>
+
+    <p class="pFuss">Mr. Bell lässt sich an Ihr PMS anbinden — nötig ist es nicht. Er läuft auch
+    völlig ohne: dann pflegen wir Ihr Haus einmal ein, und Sie ändern es jederzeit selbst.</p>
+    <p class="pFuss">Endpreise, monatlich im Voraus. Umsatzsteuer wird nach §&#8239;19 UStG nicht berechnet.
+    Kündbar zum Ende des laufenden Vertragsmonats, in Textform, ohne Frist.
+    Es gelten die <a href="/agb.html">AGB</a>.</p>
   </section>
 
   <section class="cta">
