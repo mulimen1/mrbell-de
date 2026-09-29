@@ -314,6 +314,29 @@ span.skIc > svg{
 .briefzeile{margin:14px 0 0;font-family:var(--sans);font-size:13px;color:var(--muted)}
 .briefzeile a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
 .briefzeile a:hover{color:var(--accent)}
+/* Bewertungen */
+.bewText p{margin:0 0 15px;max-width:35rem}
+.bew{display:grid;gap:0;max-width:62rem;margin-top:34px}
+@media(min-width:860px){.bew{grid-template-columns:1fr 1fr}}
+.bewStufe{border-top:1px solid var(--line);padding:20px 0 0}
+.bewStufe + .bewStufe{margin-top:26px}
+@media(min-width:860px){
+  .bewStufe + .bewStufe{margin-top:0;margin-left:clamp(28px,3vw,46px);
+    padding-left:clamp(28px,3vw,46px);border-left:1px solid var(--line)}
+}
+.bewStufe .bewZeit{margin:0 0 7px;font-family:var(--sans);font-size:10.5px;font-weight:700;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--accent);line-height:1.4}
+.bewStufe h3{margin:0 0 9px;font-family:var(--display);font-weight:700;
+  font-size:clamp(19px,1.7vw,23px);line-height:1.2;letter-spacing:-.012em}
+.bewStufe p{margin:0;font-family:var(--sans);font-size:15px;line-height:1.55;color:var(--muted)}
+.beleg{margin:36px 0 0;max-width:46rem;border-top:1px solid var(--line);padding-top:22px}
+.belegSatz{margin:0;font-size:20.5px;line-height:1.45;text-wrap:pretty}
+.belegSatz b{font-weight:700;color:var(--accent)}
+.belegQuelle{display:block;margin-top:13px;font-family:var(--sans);font-size:13px;
+  color:var(--muted);line-height:1.5}
+.belegKlein{margin:18px 0 0;font-family:var(--sans);font-size:14px;line-height:1.6;
+  color:var(--muted);max-width:46rem}
+
 /* Preis */
 .preisRaum{display:grid;gap:32px;align-items:start}
 @media(min-width:900px){.preisRaum{grid-template-columns:minmax(0,1fr) 296px;gap:0 clamp(40px,4vw,72px)}}
@@ -387,6 +410,7 @@ footer a{color:var(--muted)}
   <nav class="menue" id="menue" hidden aria-label="Bereiche dieser Seite">
     <a href="#testen">Mr. Bell testen</a>
     <a href="#koennen">Was kann Mr. Bell</a>
+    <a href="#bewertungen">Bewertungen</a>
     <a href="#kontrolle">Ihre Kontrolle</a>
     <a href="#datenschutz">Datenschutz</a>
     <a href="#preise">Preise</a>
@@ -543,13 +567,55 @@ footer a{color:var(--muted)}
           </li>
           <li class="sk">
             <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3.6 2.6 5.3 5.8.85-4.2 4.1 1 5.8L12 16.9l-5.2 2.75 1-5.8-4.2-4.1 5.8-.85L12 3.6z"/></svg></span>
-            <div><b>Steigert Google-Bewertungen</b><span>Am Abreisetag bekommt jeder Gast per WhatsApp dieselbe Einladung zur Google-Bewertung. Jeder — niemand wird vorher herausgefiltert, das wäre Review-Gating.</span></div>
+            <div><b>Fragt jeden Gast nach einer Bewertung</b><span>Am Abreisetag, per WhatsApp, mit demselben Google-Link für alle. Wie das zusammenspielt, steht weiter unten.</span></div>
           </li>
         </ul>
       </div>
 
     </div>
 
+  </section>
+
+  <section id="bewertungen">
+    <p class="label">Bewertungen</p>
+    <h2>Kritik gehört an die Rezeption, nicht zu Google.</h2>
+    <div class="bewText">
+      <p>Der Gast, der sich ärgert, sagt es an der Rezeption selten. Er sagt es, wenn er
+      längst zu Hause ist, öffentlich, und dann kann niemand mehr etwas daran ändern. Und der
+      Gast, der zufrieden war, schreibt meistens gar nichts — weil ihn niemand im richtigen
+      Moment gefragt hat.</p>
+      <p>Beide erreicht Mr. Bell dort, wo sie ohnehin sind: in WhatsApp. Keine Anmeldung, keine
+      App, kein Formular, keine Bitte-bewerten-Sie-uns-Mail drei Tage später zwischen den
+      Newslettern. Eine Nachricht — und der Gast antwortet, indem er zurückschreibt.</p>
+    </div>
+
+    <div class="bew">
+      <div class="bewStufe">
+        <p class="bewZeit">Abend vor der Abreise</p>
+        <h3>Gab es etwas, das nicht gepasst hat?</h3>
+        <p>Die Antwort landet bei Ihrer Rezeption, während der Gast noch im Haus ist. Ein kaltes
+        Zimmer, ein vergessener Weckruf, ein fehlendes Handtuch: Was heute Abend gelöst wird,
+        steht morgen nicht bei Google.</p>
+      </div>
+      <div class="bewStufe">
+        <p class="bewZeit">Morgen der Abreise</p>
+        <h3>Die Einladung zur Bewertung.</h3>
+        <p>Jeder Gast bekommt dieselbe Nachricht mit demselben Google-Link. Jeder — auch der,
+        der am Vorabend Kritik hatte. Alles andere wäre Review-Gating, und Google geht dagegen
+        vor.</p>
+      </div>
+    </div>
+
+    <div class="beleg">
+      <p class="belegSatz">Was eine bessere Bewertung wert ist, hat Cornell ausgerechnet: Steigt
+      die Bewertung eines Hauses um einen Punkt auf einer Fünf-Punkte-Skala, kann es den
+      Zimmerpreis um <b>11,2 Prozent</b> anheben — bei gleicher Auslastung.
+      <span class="belegQuelle">Chris K. Anderson, Cornell University, School of Hotel
+      Administration: „The Impact of Social Media on Lodging Performance“, 2012.</span></p>
+      <p class="belegKlein">Das ist die Rechnung für bessere Bewertungen — kein Versprechen.
+      Mr. Bell macht Ihr Haus nicht um einen Punkt besser. Er sorgt dafür, dass gefragt wird:
+      bei jedem Gast, an beiden Tagen, ohne dass Ihre Rezeption daran denken muss.</p>
+    </div>
   </section>
 
   <section id="kontrolle">
