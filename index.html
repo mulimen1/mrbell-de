@@ -629,6 +629,17 @@ footer a{color:var(--muted)}
   .testen .film{grid-column:2;grid-row:1;justify-self:stretch;max-width:none}
   .testen .waCol{grid-column:3;grid-row:1;justify-self:start}
 }
+
+/* ===== Menue in zwei Spalten: 5 + 4 Eintraege nebeneinander ===== */
+.menue:not([hidden]){display:grid;grid-auto-flow:column;grid-template-rows:repeat(5,auto);
+  grid-template-columns:repeat(2,auto);justify-content:start;column-gap:clamp(22px,4vw,72px)}
+.menue a{font-size:clamp(18px,2vw,23px);padding-block:6px}
+@media(min-width:760px){.menue:not([hidden]){justify-content:end;text-align:left}}
+/* ===== Einblenden: von oben kommend, wenn man zurueckscrollt ===== */
+.rvJs .rv.rvOben{transform:translate3d(0,-28px,0)}
+.rvJs .rv.rvAn{opacity:1;transform:none}
+.cdPfeile{transition:opacity .5s ease}
+.cdPfeile.rvAus{opacity:0}
 </style>
 
 <div class="kopfhalter" id="kopfhalter">
@@ -924,12 +935,13 @@ footer a{color:var(--muted)}
       <aside class="karte" aria-label="Preisübersicht">
         <p class="kTitel">Preise je Haus</p>
         <dl class="kListe">
-          <div><dt>bis 20 Zimmer</dt><dd>149&#8239;€</dd></div>
-          <div><dt>21 bis 40 Zimmer</dt><dd>249&#8239;€</dd></div>
-          <div><dt>ab 41 Zimmern</dt><dd>399&#8239;€</dd></div>
+          <div><dt>bis 20 Zimmer</dt><dd>199&#8239;€</dd></div>
+          <div><dt>21 bis 40 Zimmer</dt><dd>299&#8239;€</dd></div>
+          <div><dt>ab 41 Zimmern</dt><dd>449&#8239;€</dd></div>
         </dl>
         <p class="kFuss">je Monat · monatlich kündbar<br>
-        <span class="kFrei">Der erste Monat ist kostenfrei.</span></p>
+        <span class="kFrei">Der erste Monat ist kostenfrei.</span><br>
+        Haben Sie einen Brief von mir erhalten, gilt der Preis aus dem Brief.</p>
       </aside>
     </div>
   </section>
@@ -1444,20 +1456,32 @@ footer a{color:var(--muted)}
   void H.offsetHeight;
   H.classList.add('rvBereit');
 
-  function fertig(el){
-    el.classList.remove('rv','rvAn'); el.style.transitionDelay='';
-    if(el.closest('.testen')) window.dispatchEvent(new Event('rvfertig'));
+  // Pfeile zwischen Chat und QR-Code nur zeigen, wenn beide gerade zu sehen sind
+  var pf=document.getElementById('cdPfeile'), chatEl=document.querySelector('.heroChat'), waEl=document.querySelector('.testen .waCol');
+  function pfeile(){
+    if(!pf) return;
+    var an=(!chatEl||chatEl.classList.contains('rvAn')) && (!waEl||getComputedStyle(waEl).display==='none'||waEl.classList.contains('rvAn'));
+    pf.classList.toggle('rvAus',!an);
   }
   var io=new IntersectionObserver(function(es){
-    var neu=es.filter(function(e){return e.isIntersecting}).map(function(e){return e.target})
-              .sort(function(a,b){return ziele.indexOf(a)-ziele.indexOf(b)});
-    neu.forEach(function(el,i){
-      io.unobserve(el);
+    var rein=[];
+    es.forEach(function(e){
+      var el=e.target;
+      if(e.isIntersecting){ rein.push(el); return; }
+      // raus aus dem Bild: wieder ausblenden; oben raus = spaeter von oben wieder herein
+      el.style.transitionDelay='0ms';
+      el.classList.toggle('rvOben', e.boundingClientRect.top < 0);
+      el.classList.remove('rvAn');
+    });
+    rein.sort(function(a,b){return ziele.indexOf(a)-ziele.indexOf(b)});
+    rein.forEach(function(el,i){
       var ms=Math.min(i,6)*110;
       el.style.transitionDelay=ms+'ms';
       el.classList.add('rvAn');
-      setTimeout(function(){ fertig(el); }, ms+1200);   // danach alles wie vorher, keine Reste
+      if(el===chatEl || el.closest('.testen'))
+        setTimeout(function(){ if(el.classList.contains('rvAn')) window.dispatchEvent(new Event('rvfertig')); }, ms+1200);
     });
+    pfeile();
   },{rootMargin:'0px 0px -8% 0px',threshold:0});
   requestAnimationFrame(function(){
     H.classList.remove('rvOhne'); void H.offsetHeight;
