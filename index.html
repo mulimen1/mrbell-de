@@ -1016,6 +1016,24 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
 .dB{align-self:flex-end;background:#d9fdd3}
 .dUeb{align-self:flex-end;margin-top:4px;padding:9px 14px;border-radius:10px;background:var(--accent);color:#fff;font-family:var(--sans);font-size:13px;font-weight:600}
 .dash figcaption{margin-top:12px;font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--muted)}
+
+/* ===== r49 ===== */
+/* Das kann Mr. Bell: auch am Laptop eine Einkerbung je Gruppe */
+@media(min-width:1000px){
+  #koennen .grp ul{padding:clamp(26px,2.4vw,36px);border-radius:26px;background:var(--paper);box-shadow:inset 0 0 0 1px rgba(70,51,32,.12),inset 0 1px 0 rgba(70,51,32,.20),inset 1px 0 1px rgba(70,51,32,.08),inset -1px 0 1px rgba(70,51,32,.08),inset 0 2px 4px rgba(70,51,32,.16),inset 0 9px 14px -2px rgba(70,51,32,.14),inset 0 20px 32px -8px rgba(70,51,32,.11),inset 0 0 16px rgba(70,51,32,.06),inset 0 -1px 0 #fff,0 1px 0 #fff;gap:34px 36px}
+  #koennen .sk,#koennen .sk.stark{padding:0;border-radius:0;background:none;box-shadow:none}
+}
+/* Was er bewusst nicht tut: ohne Kasten */
+.nicht{padding:0;border-radius:0;background:none;box-shadow:none}
+/* Aufsteller-Bild */
+.aufstellerBild{margin:22px 0 30px;max-width:28rem}
+.aufstellerBild img{display:block;width:100%;height:auto}
+.aufstellerBild figcaption{margin-top:6px;font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--muted)}
+/* Dashboard: Antwortfeld statt Knopf */
+.dEingabe{margin-top:6px;padding:10px 14px;border-radius:20px;background:#fff;box-shadow:0 1px .5px rgba(11,20,26,.13);
+  font-family:var(--sans);font-size:14px;color:#8696a0}
+.dHinweis{margin:0;max-width:none!important;padding:0!important;background:none!important;box-shadow:none!important;
+  font-family:var(--sans);font-size:12.5px!important;color:#667781!important;text-align:right}
 </style>
 
 <div class="kopfhalter" id="kopfhalter">
@@ -1292,7 +1310,7 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
       <li><span class="n">01</span><div><b>Jeder Chat liegt offen vor Ihnen</b>
         <span class="t">In Ihrem Dashboard sehen Sie jede Frage und jede Antwort, während sie passiert — nicht als Wochenbericht hinterher.</span></div></li>
       <li><span class="n">02</span><div><b>Sie können jederzeit übernehmen</b>
-        <span class="t">Ein Klick, und Sie schreiben selbst weiter. Mr. Bell hält sich aus diesem Gespräch dann heraus, bis Sie ihn wieder übernehmen lassen.</span></div></li>
+        <span class="t">Sie antworten selbst im Gespräch, und Mr. Bell hält sich dann heraus, bis Sie es wieder freigeben.</span></div></li>
       <li><span class="n">03</span><div><b>Was er über Ihr Haus sagt, bestimmen Sie</b>
         <span class="t">Frühstückszeiten, Hausregeln, Ihre Empfehlungen. Sie ändern es, und es gilt ab der nächsten Nachricht — ohne Ticket, ohne Wartezeit.</span></div></li>
       <li><span class="n">04</span><div><b>Was automatisch hinausgeht, schalten Sie frei</b>
@@ -1310,11 +1328,12 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
           <div class="dChat">
             <p class="dG">¡Hola! ¿A qué hora es el desayuno mañana?<small>Übersetzung: Ab wann gibt es morgen Frühstück?</small></p>
             <p class="dB">¡Buenas noches! 🛎️ Mañana el desayuno es de 7:30 a 11:00.<small>Mr. Bell · automatisch beantwortet</small></p>
-            <span class="dUeb">Gespräch übernehmen</span>
+            <div class="dEingabe"><span>Antwort schreiben …</span></div>
+            <p class="dHinweis">Sobald Sie hier antworten, pausiert Mr. Bell in diesem Gespräch.</p>
           </div>
         </div>
       </div>
-      <figcaption>Vereinfachte Beispielansicht mit Demo-Daten: links alle Gespräche, rechts der Verlauf. Ein Klick, und Sie schreiben selbst.</figcaption>
+      <figcaption>Vereinfachte Beispielansicht mit Demo-Daten: links alle Gespräche, rechts der Verlauf. Antworten Sie selbst, pausiert Mr. Bell in diesem Gespräch, bis Sie es wieder freigeben.</figcaption>
     </figure>
   </section>
 
@@ -1346,15 +1365,10 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
         <p>Einrichtung und Aufsteller sind enthalten. Ich komme selbst in Ihr Haus, bringe die
         Aufsteller für Nachttisch und Rezeption mit und schalte Mr. Bell live. Sie installieren
         nichts, schulen niemanden und zahlen keine Einrichtungsgebühr.</p>
-        <figure class="aufsteller" aria-label="Beispielentwurf eines Aufstellers für den Nachttisch">
-          <div class="auKarte">
-            <img class="auGlocke" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIxMS41IDI0Mi41IDYwMCA0OTEiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDkxIj48ZGVmcz48Y2xpcFBhdGggaWQ9ImMiPjxwYXRoIGQ9Ik00NzUuNSAyNzguNUEzNiAzNiAwIDAgMSA1NDcuNSAyNzguNUw1NDcuNSAzMzZDNTQ3LjUgMzQzIDU1NSAzNDYuNSA1NjcgMzQ3LjhBMjY0LjUgMjQ4LjcgMCAwIDEgNzc2IDU5MUw3NzYgNjgwTDI0NyA2ODBMMjQ3IDU5MUEyNjQuNSAyNDguNyAwIDAgMSA0NTYgMzQ3LjhDNDY4IDM0Ni41IDQ3NS41IDM0MyA0NzUuNSAzMzZaIi8+PC9jbGlwUGF0aD48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTExLjUgNDM4KSBzY2FsZSgyMTYgNzIpIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkYzhmNWYiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMC4xNSIgc3RvcC1jb2xvcj0iI2RjOGY1ZiIgc3RvcC1vcGFjaXR5PSIwLjkiLz48c3RvcCBvZmZzZXQ9IjAuMyIgc3RvcC1jb2xvcj0iI2RjOGY1ZiIgc3RvcC1vcGFjaXR5PSIwLjY2NyIvPjxzdG9wIG9mZnNldD0iMC40NSIgc3RvcC1jb2xvcj0iI2RjOGY1ZiIgc3RvcC1vcGFjaXR5PSIwLjQiLz48c3RvcCBvZmZzZXQ9IjAuNiIgc3RvcC1jb2xvcj0iI2RjOGY1ZiIgc3RvcC1vcGFjaXR5PSIwLjE5OCIvPjxzdG9wIG9mZnNldD0iMC43NSIgc3RvcC1jb2xvcj0iI2RjOGY1ZiIgc3RvcC1vcGFjaXR5PSIwLjA4Ii8+PHN0b3Agb2Zmc2V0PSIwLjkiIHN0b3AtY29sb3I9IiNkYzhmNWYiIHN0b3Atb3BhY2l0eT0iMC4wMjYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkYzhmNWYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGZpbGw9IiM5ZjQyMjAiIGQ9Ik00NzUuNSAyNzguNUEzNiAzNiAwIDAgMSA1NDcuNSAyNzguNUw1NDcuNSAzMzZDNTQ3LjUgMzQzIDU1NSAzNDYuNSA1NjcgMzQ3LjhBMjY0LjUgMjQ4LjcgMCAwIDEgNzc2IDU5MUw3NzYgNjgwTDI0NyA2ODBMMjQ3IDU5MUEyNjQuNSAyNDguNyAwIDAgMSA0NTYgMzQ3LjhDNDY4IDM0Ni41IDQ3NS41IDM0MyA0NzUuNSAzMzZaIi8+PGVsbGlwc2UgY3g9IjUxMS41IiBjeT0iNDM4IiByeD0iMjE2IiByeT0iNzIiIGZpbGw9InVybCgjZykiIGNsaXAtcGF0aD0idXJsKCNjKSIvPjxyZWN0IHg9IjIxMS41IiB5PSI2NjguNSIgd2lkdGg9IjYwMCIgaGVpZ2h0PSI2NSIgcng9IjI0IiBmaWxsPSIjODEzNjE4Ii8+PC9zdmc+" alt="">
-            <p class="auHaus">Hotel Mustermann</p>
-            <p class="auFrage">Fragen? · Questions? · ¿Preguntas?</p>
-            <img class="auQr" data-qr alt="">
-            <p class="auHinweis">Scannen und auf WhatsApp schreiben.<br>Rund um die Uhr, in jeder Sprache.</p>
-          </div>
-          <figcaption>Beispielentwurf für den Nachttisch: Ihr Hotelname, Ihr QR-Code. Steht ab dem ersten Tag in jedem Zimmer.</figcaption>
+        <figure class="aufstellerBild">
+          <img src="/aufsteller-masse.png" width="1200" height="1304" loading="lazy" decoding="async"
+               alt="Aufsteller im Format 15 cm hoch, 12 cm breit, 5 cm tief: Hotelname oben, Stadtmotiv, QR-Code, Hinweis „scan to chat, any language, 24/7“">
+          <figcaption>Beispiel mit dem Namen „Hotel Mustermann“. Gedruckt wird Ihr Hausname.</figcaption>
         </figure>
         <p>Abgerechnet wird nicht nach Nachrichten, nicht nach Gästen und nicht nach Funktionen:
         alles, was oben steht, ist im Monatspreis enthalten.</p>
@@ -1645,7 +1659,7 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
     var AUS={SCRIPT:1,STYLE:1,NOSCRIPT:1,TEXTAREA:1,INPUT:1,SELECT:1,OPTION:1,TITLE:1,svg:1,SVG:1,BUTTON:1};
     // Knoepfe und die Bedienelemente am Film bleiben aussen vor - die haben
     // ihre eigene Hover-Farbe, zwei gleichzeitig sehen kaputt aus.
-    var AUSKLASSE=['btn','tonLeiste','iBadge','playWrap','playCap','playTitel','zeit',
+    var AUSKLASSE=['dash','aufstellerBild','btn','tonLeiste','iBadge','playWrap','playCap','playTitel','zeit',
                    'endeOv','endeBtn','endeSpaeter','endeX','menue','burger'];
     var lauf=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
       if(!n.nodeValue || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
@@ -1964,5 +1978,5 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
 })();
 </script>
 <script defer src="/mb-mess.js"></script>
-<script>(function(){var q=document.querySelector(".waQr img"),z=document.querySelectorAll("img[data-qr]");if(q)z.forEach(function(i){i.src=q.src})})();</script></body>
+</body>
 </html>
