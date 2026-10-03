@@ -711,6 +711,87 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
   #koennen .sk,#koennen .sk.stark{align-self:stretch}
   #koennen .grp ul:has(> li:nth-child(4):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
 }
+
+/* ===== Kopfzeile: "Beratung vereinbaren" ist immer erreichbar ===== */
+.kopfKnopf{margin-left:auto;transform:translateY(-10px);flex:0 0 auto;gap:8px;white-space:nowrap;
+  font-size:14.5px;padding:10px 17px;border-radius:11px}
+.kopfKnopf svg{width:17px;height:17px;flex:0 0 17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.kopfKnopf .kkKurz{display:none}
+.kopfKnopf + .burger{margin-left:8px}
+@media(max-width:759px){
+  .head{gap:8px}
+  .kopfKnopf{transform:translateY(-9px);font-size:13.5px;padding:9px 13px;border-radius:10px}
+  .kopfKnopf svg{display:none}
+  .kopfKnopf .kkLang{display:none}
+  .kopfKnopf .kkKurz{display:inline}
+  .kopfKnopf + .burger{margin-left:0}
+  /* Beim Scrollen: Marke weg, der Knopf bekommt die Zeile */
+  .kopfhalter[data-fest="1"] .head .marke{display:none}
+  .kopfhalter[data-fest="1"] .kopfKnopf{flex:1 1 auto;justify-content:center;margin-left:0;transform:none;
+    font-size:15px;padding:11px 16px;border-radius:11px}
+  .kopfhalter[data-fest="1"] .kopfKnopf svg{display:block}
+  .kopfhalter[data-fest="1"] .kopfKnopf .kkLang{display:inline}
+  .kopfhalter[data-fest="1"] .kopfKnopf .kkKurz{display:none}
+  .kopfhalter[data-fest="1"] .burger{transform:none}
+}
+/* sehr schmale Handys: oben passt nur die Marke, beim Scrollen kommt der Knopf */
+@media(max-width:349px){.kopfhalter:not([data-fest="1"]) .kopfKnopf{display:none}}
+
+.kopfKnopf{background:var(--accent);border-color:var(--accent);color:#fff}
+.kopfKnopf:hover{background:#9a3b06;border-color:#9a3b06;color:#fff}
+
+.kopfKnopf svg.kkGlocke{width:21px;height:17px;flex:0 0 21px;fill:currentColor;stroke:none;margin-top:-2px}
+
+/* ===== r28: Knopf mittig (Laptop) / statt der Marke beim Scrollen (Handy) ===== */
+@media(min-width:760px){
+  .kopfKnopf{position:absolute;left:50%;transform:translate(-50%,-10px);margin-left:0}
+  .kopfKnopf + .burger{margin-left:auto}
+}
+@media(max-width:759px){
+  .kopfhalter:not([data-fest="1"]) .kopfKnopf{display:none}
+  .kopfhalter:not([data-fest="1"]) .kopfKnopf + .burger{margin-left:auto}
+  .kopfhalter[data-fest="1"] .kopfKnopf{flex:0 0 auto;justify-content:flex-start}
+  .kopfhalter[data-fest="1"] .kopfKnopf + .burger{margin-left:auto}
+}
+
+/* Unterer Knopf im gleichen Stil wie die Kopfzeile */
+.beratKnopf{background:var(--accent);border-color:var(--accent);color:#fff}
+.beratKnopf:hover{background:#9a3b06;border-color:#9a3b06;color:#fff}
+.beratKnopf svg.kkGlocke{width:23px;height:19px;flex:0 0 23px;fill:currentColor;stroke:none;margin-top:-2px}
+
+/* ===== r30: Einkerbungen auf dem Handy deutlicher (nur der Rand, Schatten wie vorher) ===== */
+@media(max-width:999px){
+  #koennen .sk{align-self:start;margin:-14px -18px;padding:14px 18px;border-radius:18px;background:var(--paper);
+    box-shadow:inset 6px 6px 14px rgba(150,144,134,.26),inset -6px -6px 14px #fff,inset 0 0 0 1.5px rgba(150,144,134,.34)}
+  #koennen .sk.stark{box-shadow:inset 6px 6px 14px rgba(150,144,134,.26),inset -6px -6px 14px #fff,inset 0 0 0 1.5px rgba(184,71,8,.5)}
+  .label{box-shadow:inset 4px 4px 9px rgba(150,144,134,.30),inset -4px -4px 9px #fff,inset 0 0 0 1.5px rgba(150,144,134,.34)}
+  .heroChat .chatDemo{box-shadow:inset 9px 9px 20px rgba(150,144,134,.30),inset -9px -9px 20px #fff,inset 0 0 0 1.5px rgba(150,144,134,.34)}
+  .testen .film{box-shadow:inset 10px 10px 22px rgba(150,144,134,.30),inset -10px -10px 22px #fff,inset 0 0 0 1.5px rgba(150,144,134,.34)}
+}
+@media(max-width:899px){#koennen .sk{margin:-12px -14px;padding:12px 14px}}
+
+/* ===== r31: Einkerbungen ohne Schatten, nur der Rand ===== */
+.heroChat .chatDemo,.testen .film,.label,#koennen .sk{box-shadow:inset 0 0 0 1.5px rgba(150,144,134,.32)}
+#koennen .sk.stark{box-shadow:inset 0 0 0 1.5px rgba(184,71,8,.5)}
+/* Kopfzeilen-Knopf liegt in einer Einkerbung */
+.kopfKnopf{box-shadow:0 0 0 5px var(--paper),0 0 0 6.5px rgba(150,144,134,.32)}
+@media(min-width:760px){.kopfhalter[data-fest="1"] .kopfKnopf{transform:translate(-50%,0)}}
+@media(max-width:759px){.kopfhalter[data-fest="1"] .head{padding-block:13px 11px}}
+
+/* ===== r32: Einkerbungen gleichmaessig rundum, warm statt grau ===== */
+.heroChat .chatDemo,.testen .film{box-shadow:inset 0 0 0 1px rgba(110,86,66,0.12),inset 0 0 4px rgba(110,86,66,0.17),inset 0 0 18px rgba(110,86,66,0.18),inset 0 0 44px rgba(110,86,66,0.1)}
+#koennen .sk{box-shadow:inset 0 0 0 1px rgba(110,86,66,0.12),inset 0 0 3px rgba(110,86,66,0.17),inset 0 0 13px rgba(110,86,66,0.18),inset 0 0 30px rgba(110,86,66,0.1)}
+#koennen .sk.stark{box-shadow:inset 0 0 0 1.5px rgba(184,71,8,.5),inset 0 0 3px rgba(110,86,66,0.17),inset 0 0 13px rgba(110,86,66,0.18),inset 0 0 30px rgba(110,86,66,0.1)}
+.label{box-shadow:inset 0 0 0 1px rgba(110,86,66,0.12),inset 0 0 2px rgba(110,86,66,0.16),inset 0 0 7px rgba(110,86,66,0.16),inset 0 0 14px rgba(110,86,66,0.06)}
+/* Kopfzeilen-Knopf in einer echten Mulde */
+.kopfKnopf{box-shadow:none}
+@media(max-width:759px){.kopfKnopf{position:relative}}
+.kopfKnopf::before{content:"";position:absolute;inset:-7px;border-radius:17px;z-index:-1;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(110,86,66,.13),inset 0 0 2px rgba(110,86,66,.18),inset 0 0 6px rgba(110,86,66,.14)}
+
+/* r33: Kopfzeilen-Knopf ohne Mulde */
+.kopfKnopf::before{content:none}
+.kopfKnopf{box-shadow:none}
 </style>
 
 <div class="kopfhalter" id="kopfhalter">
@@ -720,7 +801,10 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
     <span class="zeile"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjIxMS41IDI0Mi41IDYwMCA0OTEiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDkxIj48ZGVmcz48Y2xpcFBhdGggaWQ9ImMiPjxwYXRoIGQ9Ik00NzUuNSAyNzguNUEzNiAzNiAwIDAgMSA1NDcuNSAyNzguNUw1NDcuNSAzMzZDNTQ3LjUgMzQzIDU1NSAzNDYuNSA1NjcgMzQ3LjhBMjY0LjUgMjQ4LjcgMCAwIDEgNzc2IDU5MUw3NzYgNjgwTDI0NyA2ODBMMjQ3IDU5MUEyNjQuNSAyNDguNyAwIDAgMSA0NTYgMzQ3LjhDNDY4IDM0Ni41IDQ3NS41IDM0MyA0NzUuNSAzMzZaIi8+PC9jbGlwUGF0aD48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTExLjUgNDM4KSBzY2FsZSgyMTYgNzIpIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNkYzhmNWYiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMC4xNSIgc3RvcC1jb2xvcj0iI2RjOGY1ZiIgc3RvcC1vcGFjaXR5PSIwLjkiLz48c3RvcCBvZmZzZXQ9IjAuMyIgc3RvcC1jb2xvcj0iI2RjOGY1ZiIgc3RvcC1vcGFjaXR5PSIwLjY2NyIvPjxzdG9wIG9mZnNldD0iMC40NSIgc3RvcC1jb2xvcj0iI2RjOGY1ZiIgc3RvcC1vcGFjaXR5PSIwLjQiLz48c3RvcCBvZmZzZXQ9IjAuNiIgc3RvcC1jb2xvcj0iI2RjOGY1ZiIgc3RvcC1vcGFjaXR5PSIwLjE5OCIvPjxzdG9wIG9mZnNldD0iMC43NSIgc3RvcC1jb2xvcj0iI2RjOGY1ZiIgc3RvcC1vcGFjaXR5PSIwLjA4Ii8+PHN0b3Agb2Zmc2V0PSIwLjkiIHN0b3AtY29sb3I9IiNkYzhmNWYiIHN0b3Atb3BhY2l0eT0iMC4wMjYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkYzhmNWYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGZpbGw9IiM5ZjQyMjAiIGQ9Ik00NzUuNSAyNzguNUEzNiAzNiAwIDAgMSA1NDcuNSAyNzguNUw1NDcuNSAzMzZDNTQ3LjUgMzQzIDU1NSAzNDYuNSA1NjcgMzQ3LjhBMjY0LjUgMjQ4LjcgMCAwIDEgNzc2IDU5MUw3NzYgNjgwTDI0NyA2ODBMMjQ3IDU5MUEyNjQuNSAyNDguNyAwIDAgMSA0NTYgMzQ3LjhDNDY4IDM0Ni41IDQ3NS41IDM0MyA0NzUuNSAzMzZaIi8+PGVsbGlwc2UgY3g9IjUxMS41IiBjeT0iNDM4IiByeD0iMjE2IiByeT0iNzIiIGZpbGw9InVybCgjZykiIGNsaXAtcGF0aD0idXJsKCNjKSIvPjxyZWN0IHg9IjIxMS41IiB5PSI2NjguNSIgd2lkdGg9IjYwMCIgaGVpZ2h0PSI2NSIgcng9IjI0IiBmaWxsPSIjODEzNjE4Ii8+PC9zdmc+" alt=""><span class="name">Mr. Bell</span></span>
     <span class="kicker">Digitale Rezeption</span>
     </a>
-    <div class="mitte">für inhabergeführte Hotels</div>
+    <a class="btn kopfKnopf" href="https://zeeg.me/kontakt6231/gespraech-ueber-mr-bell" target="_blank" rel="noopener" aria-label="Beratung vereinbaren">
+      <svg class="kkGlocke" viewBox="211.5 242.5 600 491" aria-hidden="true"><path d="M475.5 278.5A36 36 0 0 1 547.5 278.5L547.5 336C547.5 343 555 346.5 567 347.8A264.5 248.7 0 0 1 776 591L776 680L247 680L247 591A264.5 248.7 0 0 1 456 347.8C468 346.5 475.5 343 475.5 336Z"/><rect x="211.5" y="668.5" width="600" height="65" rx="24"/></svg>
+      <span class="kkLang">Beratung vereinbaren</span><span class="kkKurz">Beratung</span>
+    </a>
     <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menue" aria-label="Menü öffnen">
       <span class="bLinien" aria-hidden="true"><i></i><i></i><i></i></span>
     </button>
@@ -1082,9 +1166,9 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
       <p>Zwanzig Minuten am Telefon oder per Video. Danach wissen Sie, ob Mr. Bell zu
       Ihrem Haus passt.</p>
       <div class="actions">
-        <a class="btn lg" id="cal" href="https://zeeg.me/kontakt6231/gespraech-ueber-mr-bell" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round"><rect x="3.3" y="5.2" width="17.4" height="15.5" rx="2.4"/><path d="M3.3 10h17.4M8 3.3v3.8M16 3.3v3.8"/></svg>
-          Termin im Kalender wählen
+        <a class="btn lg beratKnopf" id="cal" href="https://zeeg.me/kontakt6231/gespraech-ueber-mr-bell" target="_blank" rel="noopener">
+          <svg class="kkGlocke" viewBox="211.5 242.5 600 491" aria-hidden="true"><path d="M475.5 278.5A36 36 0 0 1 547.5 278.5L547.5 336C547.5 343 555 346.5 567 347.8A264.5 248.7 0 0 1 776 591L776 680L247 680L247 591A264.5 248.7 0 0 1 456 347.8C468 346.5 475.5 343 475.5 336Z"/><rect x="211.5" y="668.5" width="600" height="65" rx="24"/></svg>
+          Beratung vereinbaren
         </a>
         <a class="btn lg wa" href="https://wa.me/4917620690319?text=Hallo%20Herr%20Deschler%2C%20ich%20interessiere%20mich%20f%C3%BCr%20Mr.%20Bell%20f%C3%BCr%20unser%20Haus.">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.13-.42-2.15-1.33-.8-.71-1.33-1.59-1.48-1.89-.15-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.2 5.08 4.37.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/><path d="M12.04 2C6.6 2 2.18 6.42 2.18 11.86c0 1.74.45 3.38 1.25 4.8L2 22l5.5-1.44a9.82 9.82 0 0 0 4.54 1.15h.01c5.43 0 9.85-4.42 9.85-9.85C21.9 6.42 17.47 2 12.04 2zm0 17.99h-.01a8.16 8.16 0 0 1-4.15-1.14l-.3-.18-3.08.81.82-3.01-.19-.31a8.13 8.13 0 0 1-1.25-4.3c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.39 5.79c0 4.51-3.67 8.18-8.19 8.18z"/></svg>
