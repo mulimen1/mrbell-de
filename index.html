@@ -1034,6 +1034,60 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
   font-family:var(--sans);font-size:14px;color:#8696a0}
 .dHinweis{margin:0;max-width:none!important;padding:0!important;background:none!important;box-shadow:none!important;
   font-family:var(--sans);font-size:12.5px!important;color:#667781!important;text-align:right}
+
+/* ===== r50 ===== */
+/* Trust-Leiste groesser */
+.vertrauen{gap:20px 36px;margin-top:36px}
+.vertrauen li{font-size:17px;gap:14px}
+.vtIco{flex:0 0 50px;width:50px;height:50px}
+.vtIco svg{width:23px;height:23px}
+.vtText small{font-size:14px;margin-top:3px}
+@media(max-width:759px){
+  .vertrauen{gap:22px 14px;margin-top:40px}
+  .vertrauen li{font-size:18px;gap:16px}
+  .vtIco{flex:0 0 54px;width:54px;height:54px}
+  .vtIco svg{width:25px;height:25px}
+  .vtText small{font-size:14.5px}
+}
+@media(max-width:559px){.vertrauen{gap:22px}.vertrauen li{font-size:18px}.vtText small{font-size:14.5px}}
+@media(max-width:374px){.vertrauen li{font-size:16.5px;gap:13px}.vtIco{flex-basis:48px;width:48px;height:48px}.vtIco svg{width:22px;height:22px}.vtText small{font-size:13.5px}}
+/* Was er bewusst nicht tut: Icon in Mulde statt Strich */
+.nicht ul{gap:26px 44px}
+.nicht li{padding-left:0;display:grid;grid-template-columns:50px 1fr;column-gap:16px;align-items:start}
+.nicht li::before{content:none;display:none}
+.niIco{width:50px;height:50px;display:grid;place-items:center;border-radius:50%;background:var(--paper);box-shadow:inset 0 0 0 1px rgba(70,51,32,.13),inset 0 1px 0 rgba(70,51,32,.20),inset 0 2px 3px rgba(70,51,32,.15),inset 0 6px 9px -3px rgba(70,51,32,.10),inset 0 -1px 0 #fff}
+.niIco svg{width:23px;height:23px;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.niText{padding-top:3px}
+.nicht li .niText b{display:block;font-size:17px;margin-bottom:3px}
+.nicht li .niText > span{display:block;font-size:15px;line-height:1.5}
+.nicht h3{margin-bottom:24px}
+@media(max-width:759px){.nicht li{grid-template-columns:48px 1fr;column-gap:14px}.niIco{width:48px;height:48px}}
+
+/* ===== r51: Trust-Leiste Handy prominent ===== */
+@media(max-width:759px){
+  .vertrauen{margin-top:56px;gap:32px 16px}
+  .vertrauen li{font-size:19.5px;gap:18px;line-height:1.25}
+  .vtIco{flex:0 0 64px;width:64px;height:64px}
+  .vtIco svg{width:29px;height:29px;stroke-width:1.7}
+  .vtText small{font-size:15.5px;margin-top:5px;line-height:1.35}
+  .vtHaken{width:6px;height:12px;margin-left:10px}
+  .hero .heroChat{margin-top:76px}
+}
+@media(max-width:559px){.vertrauen{gap:32px}.vertrauen li{font-size:19.5px}.vtText small{font-size:15.5px}}
+@media(max-width:374px){.vertrauen{gap:28px}.vertrauen li{font-size:18px;gap:15px}.vtIco{flex-basis:56px;width:56px;height:56px}.vtIco svg{width:26px;height:26px}.vtText small{font-size:14.5px}}
+
+/* ===== r52: Faehigkeiten wie "Was er bewusst nicht tut" ===== */
+#koennen .sk,#koennen .sk.stark{display:grid;grid-template-columns:50px 1fr;column-gap:16px;row-gap:0;align-items:start;max-width:none}
+span.skIc{width:50px;height:50px;background:var(--paper);box-shadow:inset 0 0 0 1px rgba(70,51,32,.13),inset 0 1px 0 rgba(70,51,32,.20),inset 0 2px 3px rgba(70,51,32,.15),inset 0 6px 9px -3px rgba(70,51,32,.10),inset 0 -1px 0 #fff}
+span.skIc > svg{width:23px;height:23px;stroke:var(--accent);stroke-width:1.8}
+#koennen .sk b{font-size:17px;padding-top:3px;margin-bottom:3px}
+#koennen .sk > div > span{margin-top:0;font-size:15px;line-height:1.5}
+@media(min-width:1000px){
+  #koennen .grp ul,#koennen .grp ul:has(> li:nth-child(4):last-child){grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 48px}
+  #koennen .sk,#koennen .sk.stark{display:grid;flex-direction:initial;gap:0 16px}
+}
+@media(max-width:759px){#koennen .sk,#koennen .sk.stark{grid-template-columns:48px 1fr;column-gap:14px}span.skIc{width:48px;height:48px}}
+#koennen .grp ul{padding:0;border-radius:0;background:none;box-shadow:none;margin-inline:0}
 </style>
 
 <div class="kopfhalter" id="kopfhalter">
@@ -1250,10 +1304,10 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
       <div class="nicht">
         <h3>Was Mr. Bell bewusst nicht tut.</h3>
         <ul>
-          <li><b>Keine Zimmerbuchungen, keine Zahlungen.</b><span>Buchungen und Geld bleiben bei Ihnen.</span></li>
-          <li><b>Kein Raten.</b><span>Was er nicht sicher weiß, gibt er an Ihre Rezeption weiter.</span></li>
-          <li><b>Keine Werbung.</b><span>Er schreibt Ihren Gästen nie von sich aus etwas zu verkaufen.</span></li>
-          <li><b>Kein Ersatz für Ihr Team.</b><span>Er nimmt die Routinefragen ab. Das Persönliche bleibt bei Ihnen.</span></li>
+          <li><span class="niIco" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5.8" width="18" height="12.4" rx="2.2"/><path d="M3 10h18M7 14.5h3"/></svg></span><div class="niText"><b>Keine Zimmerbuchungen, keine Zahlungen.</b><span>Buchungen und Geld bleiben bei Ihnen.</span></div></li>
+          <li><span class="niIco" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.4"/><path d="M12 16.6h.01"/></svg></span><div class="niText"><b>Kein Raten.</b><span>Was er nicht sicher weiß, gibt er an Ihre Rezeption weiter.</span></div></li>
+          <li><span class="niIco" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 10v4h3l6 4V6L7 10H4z"/><path d="M16.3 9.3a3.8 3.8 0 0 1 0 5.4"/><path d="M18.6 7a7 7 0 0 1 0 10"/></svg></span><div class="niText"><b>Keine Werbung.</b><span>Er schreibt Ihren Gästen nie von sich aus etwas zu verkaufen.</span></div></li>
+          <li><span class="niIco" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9.5" r="2.4"/><path d="M15.6 14.3c2.3.1 4.2 1.7 4.9 4.7"/></svg></span><div class="niText"><b>Kein Ersatz für Ihr Team.</b><span>Er nimmt die Routinefragen ab. Das Persönliche bleibt bei Ihnen.</span></div></li>
         </ul>
       </div>
 
