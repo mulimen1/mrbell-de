@@ -792,6 +792,27 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
 /* r33: Kopfzeilen-Knopf ohne Mulde */
 .kopfKnopf::before{content:none}
 .kopfKnopf{box-shadow:none}
+
+/* ===== r34: Einkerbung "Maximal" - Licht von oben, links = rechts, warm getoent, innen weiss ===== */
+.heroChat .chatDemo,.testen .film{box-shadow:inset 0 0 0 1px rgba(70,51,32,.12),inset 0 1px 0 rgba(70,51,32,.20),inset 1px 0 1px rgba(70,51,32,.08),inset -1px 0 1px rgba(70,51,32,.08),inset 0 3px 5px rgba(70,51,32,.17),inset 0 12px 22px -4px rgba(70,51,32,.15),inset 0 30px 46px -14px rgba(70,51,32,.12),inset 0 0 26px rgba(70,51,32,.06),inset 0 -1px 0 #fff,0 1px 0 #fff}
+#koennen .sk,#koennen .sk.stark{box-shadow:inset 0 0 0 1px rgba(70,51,32,.12),inset 0 1px 0 rgba(70,51,32,.20),inset 1px 0 1px rgba(70,51,32,.08),inset -1px 0 1px rgba(70,51,32,.08),inset 0 2px 4px rgba(70,51,32,.16),inset 0 9px 14px -2px rgba(70,51,32,.14),inset 0 20px 32px -8px rgba(70,51,32,.11),inset 0 0 16px rgba(70,51,32,.06),inset 0 -1px 0 #fff,0 1px 0 #fff}
+.label{box-shadow:inset 0 0 0 1px rgba(70,51,32,.13),inset 0 1px 0 rgba(70,51,32,.20),inset 0 2px 3px rgba(70,51,32,.15),inset 0 6px 9px -3px rgba(70,51,32,.10),inset 0 -1px 0 #fff}
+/* Laptop: Knopf immer senkrecht mittig in der Kopfzeile */
+@media(min-width:760px){.kopfKnopf,.kopfhalter[data-fest="1"] .kopfKnopf{transform:translate(-50%,0)}}
+/* Handy beim Scrollen: Glocke links, Knopf genau mittig */
+@media(max-width:759px){
+  .kopfhalter[data-fest="1"] .head .marke{display:inline-flex}
+  .kopfhalter[data-fest="1"] .head .name,.kopfhalter[data-fest="1"] .head .kicker{display:none}
+  .kopfhalter[data-fest="1"] .kopfKnopf{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}
+}
+@media(max-width:349px){.kopfhalter[data-fest="1"] .head .marke{display:none}}
+
+/* ===== r35 ===== */
+.cdEnde:not(.an){display:none}
+.cdTitel{font-weight:700;font-size:17.5px}
+@media(min-width:1000px){.hero .copy{align-self:start;padding-top:clamp(8px,1.2vw,22px)}}
+@media(max-width:349px){.kopfhalter[data-fest="1"] .kopfKnopf{font-size:13.5px;padding:10px 12px}
+  .kopfhalter[data-fest="1"] .kopfKnopf svg{display:none}}
 </style>
 
 <div class="kopfhalter" id="kopfhalter">
