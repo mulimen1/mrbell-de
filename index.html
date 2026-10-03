@@ -678,6 +678,39 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
 
 /* Chat-Überschrift in der Textschrift statt Playfair, besser lesbar */
 .cdTitel{font-family:var(--sans);font-weight:600;font-size:16.5px;line-height:1.45;letter-spacing:0}
+
+/* Stärkste Fähigkeiten: in eingelassener Fläche hervorgehoben, Text bleibt auf Linie */
+.sk.stark{align-self:start;margin:-14px -18px;padding:14px 18px;border-radius:18px;background:var(--paper);
+  box-shadow:inset 6px 6px 14px rgba(150,144,134,.26),inset -6px -6px 14px #fff,inset 0 0 0 1px rgba(150,144,134,.07)}
+@media(max-width:899px){.sk.stark{margin:-12px -14px;padding:12px 14px}}
+
+/* ===== Laptop: "Das kann Mr. Bell" als Bühne, jede Fähigkeit auf eigener Kachel ===== */
+@media(min-width:1000px){
+  section#koennen{display:block;padding-block:clamp(64px,6vw,96px)}
+  #koennen > .label{display:block;width:fit-content;margin:0 auto 18px}
+  #koennen > h2{text-align:center;font-size:clamp(38px,3.6vw,54px);margin:0 0 clamp(36px,3.4vw,52px)}
+  #koennen .grp{padding-block:34px 38px}
+  #koennen .grp:first-child{padding-top:0}
+  #koennen .grp h3{margin-bottom:24px}
+  #koennen .grp ul{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+  #koennen .sk,#koennen .sk.stark{display:flex;flex-direction:column;gap:16px;max-width:none;margin:0;
+    padding:26px 26px 28px;border-radius:22px;background:var(--paper);
+    box-shadow:inset 6px 6px 14px rgba(150,144,134,.24),inset -6px -6px 14px #fff,inset 0 0 0 1px rgba(150,144,134,.07)}
+  #koennen .sk b{padding-top:0}
+  /* Top-Funktionen: Terrakotta-Rand und kleines Schild */
+  #koennen .sk.stark{box-shadow:inset 6px 6px 14px rgba(150,144,134,.24),inset -6px -6px 14px #fff,inset 0 0 0 1.5px rgba(184,71,8,.45)}
+  #koennen .sk.stark::before{content:"Top-Funktion";order:-1;align-self:flex-start;margin:-4px 0 -4px;padding:5px 10px 4px;border-radius:999px;
+    font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);background:var(--accent-soft)}
+}
+
+/* Stern hinter dem Titel statt Schild "Top-Funktion" */
+.sk.stark b::after{content:"\2605";color:var(--accent);margin-left:7px;font-size:.92em;position:relative;top:-1px}
+@media(min-width:1000px){
+  #koennen .sk.stark::before{content:none}
+  #koennen .sk,#koennen .sk.stark{align-self:stretch}
+  #koennen .grp ul:has(> li:nth-child(4):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
+}
 </style>
 
 <div class="kopfhalter" id="kopfhalter">
@@ -828,55 +861,59 @@ section:not(.hero){border-top-color:rgba(184,71,8,.32)}
     <div class="koennen">
 
       <div class="grp">
-        <h3><span class="nr">01</span>Er kennt Ihr Haus.</h3>
+        <h3><span class="nr">01</span>Er arbeitet für Ihre Rezeption.</h3>
+        <ul>
+          <li class="sk stark">
+            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.8" y="5.2" width="18.4" height="13.6" rx="2.4"/><path d="m3.6 6.6 8.4 6.2 8.4-6.2"/></svg></span>
+            <div><b>Leitet weiter, was er nicht selbst lösen kann</b><span>Frische Handtücher, ein defekter Föhn, eine Beschwerde: Mr. Bell nimmt das Anliegen samt Zimmernummer auf und schickt es sofort per E-Mail an Ihr Team. Nichts geht verloren, und der Gast weiß, dass sich jemand kümmert.</span></div>
+          </li>
+          <li class="sk stark">
+            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.4 14.2a2.6 2.6 0 0 1-2.6 2.6H9.2l-4.4 3.4v-3.4h-.6a2.6 2.6 0 0 1-2.6-2.6V6a2.6 2.6 0 0 1 2.6-2.6h13.6A2.6 2.6 0 0 1 20.4 6v8.2z"/><path d="M11.6 7v3.6"/><path d="M11.6 13.1h.02"/></svg></span>
+            <div><b>Meldet Probleme noch vor der Abreise</b><span>Am Abend vor der Abreise fragt Mr. Bell nach, ob alles gepasst hat. Ein kaltes Zimmer oder ein lauter Nachbar landet sofort bei Ihrem Team, solange der Gast noch im Haus ist. Sie lösen es vor der Abreise, statt es später in einer Bewertung zu lesen.</span></div>
+          </li>
+          <li class="sk stark">
+            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.4" r="7.6"/><path d="M12 9.4v4l2.6 1.7M4.8 4.2 2.4 6.6M19.2 4.2l2.4 2.4"/></svg></span>
+            <div><b>Weckruf und Erinnerungsanruf</b><span>Der Gast schreibt „Wecken Sie mich um 6:30“, und Mr. Bell ruft pünktlich an, auf der Nummer, die der Gast vorher bestätigt hat. Genauso erinnert er an den Tisch um acht oder den frühen Zug. Kein Zettel an der Rezeption, kein vergessener Weckruf.</span></div>
+          </li>
+          <li class="sk">
+            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.2s7.2-6.6 7.2-11.4a7.2 7.2 0 1 0-14.4 0C4.8 14.6 12 21.2 12 21.2z"/><circle cx="12" cy="9.8" r="2.7"/></svg></span>
+            <div><b>Restaurants, Bars, Sehenswürdigkeiten</b><span>Vegetarisch, romantisch, mit Kindern oder spät noch geöffnet: Mr. Bell fragt nach den Vorlieben des Gastes und sucht passende Restaurants, Bars und Sehenswürdigkeiten heraus, mit echten Gehzeiten ab Ihrer Haustür. Keine bezahlten Empfehlungen.</span></div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="grp">
+        <h3><span class="nr">02</span>Er kennt Ihr Haus und Ihr Viertel.</h3>
         <ul>
           <li class="sk">
             <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.6 10.6 12 4l8.4 6.6V20h-5.8v-5.6H9.4V20H3.6v-9.4z"/></svg></span>
-            <div><b>Frühstück, WLAN, Ihre Tipps</b><span>Alles, was Ihre Gäste sonst an der Rezeption fragen — hinterlegt, wie Sie es selbst formulieren würden.</span></div>
-          </li>
-          <li class="sk">
-            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.8" y="6.2" width="18.4" height="13.6" rx="2.6"/><circle cx="12" cy="13" r="3.6"/><path d="M8.4 6.2 9.8 3.8h4.4l1.4 2.4"/></svg></span>
-            <div><b>Er liest Fotos</b><span>Speisekarte, Hinweisschild, Kaffeemaschine: Der Gast fotografiert, Mr. Bell erklärt es in seiner Sprache.</span></div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="grp">
-        <h3><span class="nr">02</span>Er kennt Ihr Viertel.</h3>
-        <ul>
-          <li class="sk">
-            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.2s7.2-6.6 7.2-11.4a7.2 7.2 0 1 0-14.4 0C4.8 14.6 12 21.2 12 21.2z"/><circle cx="12" cy="9.8" r="2.7"/></svg></span>
-            <div><b>Restaurants, Bars, Sehenswürdigkeiten</b><span>Mit echten Gehzeiten ab Ihrer Haustür. Keine bezahlten Empfehlungen.</span></div>
-          </li>
-          <li class="sk">
-            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.2 3.2h3.2l1.7 4.2-2.1 1.5a12.6 12.6 0 0 0 6.1 6.1l1.5-2.1 4.2 1.7v3.2c0 1.1-.9 1.9-2 1.8C11.3 19 5 12.7 4.4 5.2c-.1-1.1.7-2 1.8-2z"/></svg></span>
-            <div><b>Tischreservierung und Taxiruf</b><span>Mr. Bell ruft selbst im Restaurant oder bei der Taxizentrale an und meldet zurück, was vereinbart ist.</span></div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="grp">
-        <h3><span class="nr">03</span>Er arbeitet für Ihre Rezeption.</h3>
-        <ul>
-          <li class="sk">
-            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.8" y="5.2" width="18.4" height="13.6" rx="2.4"/><path d="m3.6 6.6 8.4 6.2 8.4-6.2"/></svg></span>
-            <div><b>Leitet weiter, was er nicht selbst lösen kann</b><span>Frische Handtücher, ein defekter Föhn, eine Beschwerde: Mr. Bell nimmt das Anliegen samt Zimmernummer auf und schickt es sofort per E-Mail an Ihr Team.</span></div>
-          </li>
-          <li class="sk">
-            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M3.4 12h17.2M12 3.4c2.5 2.6 3.8 5.5 3.8 8.6S14.5 18.4 12 20.6C9.5 18.4 8.2 15.1 8.2 12S9.5 6 12 3.4z"/></svg></span>
-            <div><b>Jede Sprache, auch per Sprachnachricht</b><span>Der Gast schreibt oder spricht, wie es ihm leichtfällt. Mr. Bell wechselt die Sprache ohne Nachfrage.</span></div>
-          </li>
-          <li class="sk">
-            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.4" r="7.6"/><path d="M12 9.4v4l2.6 1.7M4.8 4.2 2.4 6.6M19.2 4.2l2.4 2.4"/></svg></span>
-            <div><b>Weckruf und Erinnerungsanruf</b><span>Zur genauen Uhrzeit, auf die Nummer, die der Gast vorher bestätigt hat.</span></div>
-          </li>
-          <li class="sk">
-            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.4 14.2a2.6 2.6 0 0 1-2.6 2.6H9.2l-4.4 3.4v-3.4h-.6a2.6 2.6 0 0 1-2.6-2.6V6a2.6 2.6 0 0 1 2.6-2.6h13.6A2.6 2.6 0 0 1 20.4 6v8.2z"/><path d="M11.6 7v3.6"/><path d="M11.6 13.1h.02"/></svg></span>
-            <div><b>Meldet Probleme noch vor der Abreise</b><span>Am Abend vorher fragt er nach, ob etwas nicht gepasst hat — Sie erfahren es, solange Sie es lösen können.</span></div>
+            <div><b>Frühstück, WLAN, Ihre Tipps</b><span>Wann gibt es Frühstück? Wie lautet das WLAN? Wo kann ich parken? Mr. Bell beantwortet die Fragen, die Ihre Rezeption sonst zwanzigmal am Tag hört, sofort und rund um die Uhr, in Ihren Worten und mit Ihren Tipps.</span></div>
           </li>
           <li class="sk">
             <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3.6 2.6 5.3 5.8.85-4.2 4.1 1 5.8L12 16.9l-5.2 2.75 1-5.8-4.2-4.1 5.8-.85L12 3.6z"/></svg></span>
-            <div><b>Fragt jeden Gast nach einer Bewertung</b><span>Am Abreisetag, per WhatsApp, mit demselben Google-Link für alle. Wie das zusammenspielt, steht weiter unten.</span></div>
+            <div><b>Mehr Google-Bewertungen</b><span>Zufriedene Gäste schreiben selten von sich aus. Am Abreisetag bekommt deshalb jeder Gast per WhatsApp den direkten Link zu Ihrem Google-Profil, genau dann, wenn der Aufenthalt noch frisch ist. Ein Tipp genügt, und die Bewertung ist geschrieben.</span></div>
+          </li>
+          <li class="sk stark">
+            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.2 3.2h3.2l1.7 4.2-2.1 1.5a12.6 12.6 0 0 0 6.1 6.1l1.5-2.1 4.2 1.7v3.2c0 1.1-.9 1.9-2 1.8C11.3 19 5 12.7 4.4 5.2c-.1-1.1.7-2 1.8-2z"/></svg></span>
+            <div><b>Tischreservierung und Taxiruf</b><span>Gefällt dem Gast ein Restaurant, ruft Mr. Bell dort selbst an und reserviert. Genauso bestellt er das Taxi zum Bahnhof. Danach meldet er im Chat, was vereinbart ist. Ihre Rezeption muss dafür nicht ans Telefon.</span></div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="grp">
+        <h3><span class="nr">03</span>Er geht auf jeden Gast ein.</h3>
+        <ul>
+          <li class="sk">
+            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M3.4 12h17.2M12 3.4c2.5 2.6 3.8 5.5 3.8 8.6S14.5 18.4 12 20.6C9.5 18.4 8.2 15.1 8.2 12S9.5 6 12 3.4z"/></svg></span>
+            <div><b>Jede Sprache, auch per Sprachnachricht</b><span>Der Gast schreibt auf Japanisch oder schickt eine Sprachnachricht auf Spanisch, und Mr. Bell antwortet in seiner Sprache, ohne Nachfrage. Für den Gast fühlt es sich an, als spräche Ihre Rezeption seine Sprache.</span></div>
+          </li>
+          <li class="sk">
+            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.8" y="6.2" width="18.4" height="13.6" rx="2.6"/><circle cx="12" cy="13" r="3.6"/><path d="M8.4 6.2 9.8 3.8h4.4l1.4 2.4"/></svg></span>
+            <div><b>Er liest Fotos</b><span>Speisekarte, Hinweisschild, Kaffeemaschine: Der Gast schickt ein Foto, und Mr. Bell erklärt, was darauf steht, in seiner Sprache. Eine echte Hilfe für alle, die kein Deutsch lesen.</span></div>
+          </li>
+          <li class="sk">
+            <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4.2 3.6 6.3v13.5L9 17.7l6 2.1 5.4-2.1V4.2L15 6.3 9 4.2z"/><path d="M9 4.2v13.5M15 6.3v13.5"/></svg></span>
+            <div><b>Persönlicher Tourguide</b><span>Drei Stunden Zeit, mit Kindern unterwegs oder Lust auf Kultur? Mr. Bell stellt aus den Orten rund um Ihr Haus eine Tour zusammen, die zu Zeit und Geschmack des Gastes passt. Ein Erlebnis, das der Gast mit Ihrem Haus verbindet.</span></div>
           </li>
         </ul>
       </div>
