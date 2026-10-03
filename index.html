@@ -640,6 +640,41 @@ footer a{color:var(--muted)}
 .rvJs .rv.rvAn{opacity:1;transform:none}
 .cdPfeile{transition:opacity .5s ease}
 .cdPfeile.rvAus{opacity:0}
+
+/* ===== Tiefe ===== */
+:root{--neuHell:rgba(255,255,255,.95);--neuDunkel:rgba(150,144,134,.32)}
+/* Demofilm: liegt auf einer weichen Karte */
+.testen .film{padding:clamp(14px,1.4vw,20px);border-radius:clamp(30px,2.6vw,38px);background:var(--paper);
+  box-shadow:inset 10px 10px 22px rgba(150,144,134,.30),inset -10px -10px 22px #fff,
+    inset 0 0 0 1px rgba(150,144,134,.07)}
+.testen .film .stage{box-shadow:0 0 0 1px var(--line),0 1px 3px rgba(20,17,14,.06)}
+/* Beispiel-Chat: in die Oberfläche eingelassen */
+.heroChat .chatDemo{padding:clamp(16px,1.8vw,26px);border-radius:clamp(26px,2.4vw,36px);
+  background:var(--paper);
+  box-shadow:inset 9px 9px 20px rgba(150,144,134,.30),inset -9px -9px 20px #fff,
+    inset 0 0 0 1px rgba(150,144,134,.07)}
+/* "Jetzt Sie!" deutlich hervorheben */
+.cdHinweis.cdJetzt{padding:11px 18px 12px;border-radius:14px;background:#fff;color:#3b3b42;font-size:13px;
+  box-shadow:0 0 0 1.5px rgba(184,71,8,.38),0 12px 26px -14px rgba(184,71,8,.55);animation:cd-jetzt 2.6s ease-in-out infinite}
+.cdHinweis.cdJetzt b{font-family:var(--display);font-size:19px;font-weight:700;color:var(--accent);margin-bottom:3px;letter-spacing:-.005em}
+.cdHinweis.cdJetzt.ruhig{animation:none}
+@keyframes cd-jetzt{0%,100%{box-shadow:0 0 0 1.5px rgba(184,71,8,.38),0 12px 26px -14px rgba(184,71,8,.55)}
+  50%{box-shadow:0 0 0 1.5px rgba(184,71,8,.55),0 0 0 7px rgba(184,71,8,.08),0 12px 26px -14px rgba(184,71,8,.55)}}
+@media (prefers-reduced-motion:reduce){.cdHinweis.cdJetzt{animation:none}}
+
+/* Eingabe-Blase: kein Zipfel, der aus dem grünen Rahmen ragt */
+.cdEingabe .cdBlase{border-top-right-radius:9px}
+.cdEingabe .cdBlase::before{display:none}
+/* Kleine Abschnittslabels in eingelassenen Kästen */
+.label{display:inline-block;padding:10px 15px 9px;border-radius:12px;background:var(--paper);line-height:1.2;
+  box-shadow:inset 4px 4px 9px rgba(150,144,134,.30),inset -4px -4px 9px #fff,inset 0 0 0 1px rgba(150,144,134,.07)}
+@media(min-width:980px){section:not(.hero):not(.cta) > .label{padding:10px 15px 9px;justify-self:start;margin-top:4px}}
+
+/* ===== Terrakotta-Details ===== */
+section:not(.hero){border-top-color:rgba(184,71,8,.32)}
+.label::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent);
+  margin-right:8px;vertical-align:middle;position:relative;top:-1px}
+::selection{background:rgba(184,71,8,.18);color:inherit}
 </style>
 
 <div class="kopfhalter" id="kopfhalter">
@@ -1314,7 +1349,8 @@ footer a{color:var(--muted)}
     jetztSie();
   }
   function jetztSie(){
-    dazu(el('p','cdHinweis still','<b>Jetzt Sie!</b>Fragen Sie Mr. Bell, was ein Gast ihn fragen würde. In jeder Sprache.'));
+    var jetztEl=el('p','cdHinweis cdJetzt still','<b>Jetzt Sie!</b>Fragen Sie Mr. Bell, was ein Gast ihn fragen würde. In jeder Sprache.');
+    dazu(jetztEl);
     var z=el('div','cdZeile gast cdEingabe still');
     var b=el('div','cdBlase');
     var zeile=el('div','cdEinZeile');
@@ -1326,6 +1362,34 @@ footer a{color:var(--muted)}
     var zahl=el('p','cdZaehler','0 / '+MAX);z.appendChild(zahl);
     z.appendChild(el('p','cdDs','Ihre Frage wird nur zur Beantwortung an Mr. Bells KI übermittelt und von uns nicht gespeichert. <a href="/datenschutz.html#s29">Datenschutz</a>'));
     dazu(z);
+    // Das Feld schreibt seine Beispiele selbst, solange es leer ist und niemand hineinklickt
+    (function(){
+      var BSP=['z. B. Gibt es Parkplätze am Haus?','z. B. Wo esse ich heute Abend gut?','z. B. Bis wann ist Check-out?',
+               'e.g. Is there a pharmacy nearby?','z. B. Wie ist das WLAN-Passwort?','p. ej. ¿Hay un taxi para mañana?'];
+      if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var i=0,pos=0,vor=true,t=null;
+      function frei(){ return ta.isConnected && !ta.value && document.activeElement!==ta; }
+      function schritt(){
+        t=null;
+        if(!ta.isConnected) return;
+        if(!frei()) return;
+        var w=BSP[i];
+        if(vor){
+          pos++; ta.placeholder=w.slice(0,pos);
+          if(pos>=w.length){ vor=false; t=setTimeout(schritt,2000); }
+          else t=setTimeout(schritt,45+Math.random()*45);
+        } else {
+          pos--; ta.placeholder=w.slice(0,Math.max(pos,0));
+          if(pos<=0){ vor=true; i=(i+1)%BSP.length; t=setTimeout(schritt,450); }
+          else t=setTimeout(schritt,22);
+        }
+      }
+      function start(){ if(!t && frei()){ ta.placeholder=BSP[i]; pos=BSP[i].length; vor=false; t=setTimeout(schritt,1800); } }
+      ta.addEventListener('focus',function(){ if(t){clearTimeout(t);t=null;} ta.placeholder=BSP[i]; jetztEl.classList.add('ruhig'); });
+      ta.addEventListener('blur',function(){ if(!ta.value) start(); });
+      ta.addEventListener('input',function(){ if(t){clearTimeout(t);t=null;} });
+      start();
+    })();
     function pruefe(){
       if(ta.value.length>MAX) ta.value=ta.value.slice(0,MAX);
       var n=ta.value.length;zahl.textContent=n+' / '+MAX;zahl.classList.toggle('voll',n>=MAX);
