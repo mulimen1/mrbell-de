@@ -50,7 +50,7 @@
 <div class="container">
 <a href="/" class="back">← Zurück zur Startseite</a>
 <h1>Datenschutzerklärung</h1>
-<p class="subtitle">Stand: 3. Oktober 2026</p>
+<p class="subtitle">Stand: 5. Oktober 2026</p>
 
 <div class="info-box">
 <p style="margin:0;"><strong>Hinweis zur Verschlüsselung:</strong> Diese Website nutzt eine TLS-Verschlüsselung („Transport Layer Security") zum Schutz der Datenübertragung. Sie erkennen dies am Schloss-Symbol in Ihrer Browserzeile sowie am Adress-Präfix <code>https://</code>.</p>
@@ -73,7 +73,7 @@
 <li><a href="#s12">WhatsApp Business API (360dialog &amp; Meta)</a></li>
 <li><a href="#s13">E-Mail-Kommunikation (Google Workspace)</a></li>
 <li><a href="#s14">Schriftarten (Self-Hosted)</a></li>
-<li><a href="#s15">Cookies, Einwilligungs-Management und Tracking</a></li>
+<li><a href="#s15">Reichweitenmessung und Analyse (mit Einwilligung)</a></li>
 <li><a href="#s16">Übersicht aller Auftragsverarbeiter</a></li>
 <li><a href="#s17">Speicherdauer</a></li>
 <li><a href="#s18">Datenübermittlung in Drittländer</a></li>
@@ -262,18 +262,27 @@ E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
 <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einheitlicher Darstellung).</p>
 
 
-<h2 id="s15">15. Cookies und Tracking</h2>
-<p><strong>Diese Website setzt keine Cookies, die einer Einwilligung bedürfen, und kein Tracking ein.</strong> Es erscheint deshalb auch kein Cookie-Banner.</p>
-<p>Konkret bedeutet das:</p>
+<h2 id="s15">15. Reichweitenmessung und Analyse</h2>
+<p>Wir werten die Nutzung dieser Website ausschließlich selbst aus. Es werden keine Analyse-, Werbe- oder Tracking-Dienste Dritter eingesetzt (kein Google Analytics, kein Meta Pixel, kein Google Tag Manager). Die Auswertung hat zwei Stufen: eine einfache Zählung auf dem Server ohne Einwilligung und eine genauere Analyse, die nur läuft, wenn Sie im Hinweisfenster „Erlauben“ wählen.</p>
+<h3>a) Zählung auf dem Server, ohne Einwilligung</h3>
+<p><strong>Was erfasst wird:</strong> wenn eine Seite dieser Website abgerufen wird, welche Seite das ist, der Zeitpunkt (Datum, Stunde und Minute), der Gerätetyp (Handy, Tablet oder Rechner) und die grobe Herkunft (etwa „Google“, „direkter Aufruf“ oder „von einer anderen Seite dieser Website“). Außerdem zählen wir Klicks auf die Schaltflächen für WhatsApp, Terminbuchung und E-Mail; diese Links führen dafür kurz über unseren eigenen Server, bevor Sie zum Ziel weitergeleitet werden.</p>
+<p><strong>Wie:</strong> Die Zählung erfolgt auf dem Server unseres Hosting-Anbieters Vercel, und zwar allein aus den Angaben, die Ihr Browser beim Abruf ohnehin sendet. Dafür läuft in Ihrem Browser kein Skript, es wird nichts auf Ihrem Gerät gespeichert oder von dort ausgelesen, und es wird keine Kennung vergeben. Jeder Abruf wird einzeln gezählt; mehrere Abrufe werden nicht miteinander verknüpft, und es wird kein Ort ermittelt. Ihre IP-Adresse wird dabei nicht an uns weitergegeben und nicht gespeichert. Die Zählung wird über n8n (Abschnitt 9) in einer Tabelle in Google Workspace (Abschnitt 13) abgelegt; bei Klicks auf eine Kontakt-Schaltfläche erhalten wir zusätzlich eine E-Mail mit denselben Angaben.</p>
+<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse ist, zu wissen, wie oft die Seite und ihre Kontaktmöglichkeiten genutzt werden. Sie können dieser Zählung jederzeit widersprechen (Abschnitt 20).</p>
+<h3>b) Analyse, nur mit Ihrer Einwilligung</h3>
+<p>Wählen Sie im Hinweisfenster „Erlauben“, setzen wir ein Cookie namens <code>mb_analyse</code> mit einer zufälligen Kennung (Laufzeit 12 Monate). Dann erfassen wir zusätzlich:</p>
 <ul>
-<li>Es werden <strong>keine Analyse- oder Reichweitenmessungs-Tools</strong> geladen — weder Google Analytics noch ein vergleichbarer Dienst.</li>
-<li>Es werden <strong>keine Marketing- oder Retargeting-Pixel</strong> eingesetzt. Der zuvor verwendete Meta Pixel und die Meta Conversion API wurden im September 2026 vollständig entfernt, ebenso der Google Tag Manager.</li>
-<li>Es ist <strong>kein Consent-Management-Tool</strong> mehr im Einsatz.</li>
-<li>Es werden <strong>keine Web-Schriftarten nachgeladen</strong>. Die Website nutzt ausschließlich Schriften, die auf Ihrem Gerät bereits vorhanden sind; es besteht keine Verbindung zu Google Fonts oder einem anderen Schriftanbieter.</li>
-<li>Es findet <strong>kein Profiling</strong> und keine geräteübergreifende Wiedererkennung statt.</li>
+<li>wie weit Sie scrollen (25, 50, 75, 100 %) und ob Sie das Seitenende erreichen,</li>
+<li>wie lange Sie auf einer Seite bleiben,</li>
+<li>ob Sie das Video starten und wie weit Sie es ansehen,</li>
+<li>welche Fragen im FAQ Sie aufklappen und ob Sie die Chat-Vorführung öffnen,</li>
+<li>Ihre Browsersprache und Ihren ungefähren Ort (Stadt, Bundesland, Land), den Vercel beim Abruf aus Ihrer IP-Adresse ermittelt; an uns weitergegeben werden nur diese Ortsangaben, nicht die IP-Adresse,</li>
+<li>über die Kennung: welche Seitenaufrufe, Klicks und Ereignisse zu demselben Besuch gehören und ob Sie die Seite später erneut besuchen.</li>
 </ul>
-<p>Technisch notwendige Speichermechanismen können im Browser eingesetzt werden, soweit sie für die Auslieferung der Seite unbedingt erforderlich sind (§ 25 Abs. 2 Nr. 2 TDDDG). Personenbezogene Auswertungen finden dabei nicht statt.</p>
-<p>Unabhängig davon fallen beim Abruf der Website Server-Logs an; hierzu siehe Abschnitt 3.</p>
+<p>Die Ereignisse sendet ein Skript auf dieser Website an unseren Server; abgelegt werden sie wie unter a) beschrieben. Ohne Ihre Einwilligung läuft dieses Skript nicht.</p>
+<p><strong>Rechtsgrundlage:</strong> Ihre Einwilligung nach § 25 Abs. 1 TDDDG und Art. 6 Abs. 1 lit. a DSGVO. Sie können sie jederzeit über „Cookie-Einstellungen“ in der Fußzeile widerrufen; dabei wird das Cookie gelöscht und die Analyse beendet. Die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt unberührt.</p>
+<p><strong>Ihre Auswahl:</strong> Wählen Sie „Ablehnen“, speichern wir nur diese Entscheidung im selben Cookie (<code>mb_analyse=nein</code>, 12 Monate), damit das Hinweisfenster nicht bei jedem Aufruf erneut erscheint. Das ist für die Verwaltung Ihrer Entscheidung unbedingt erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG).</p>
+<h3>c) Empfänger und Speicherdauer</h3>
+<p>Empfänger sind ausschließlich unsere Auftragsverarbeiter Vercel (Abschnitt 16), n8n (Abschnitt 9) und Google Workspace (Abschnitt 13). Eine Weitergabe an Dritte zu Werbe- oder eigenen Zwecken findet nicht statt. Die Daten aus a) und b) werden nach höchstens 14 Monaten gelöscht. Unabhängig davon fallen beim Abruf der Website Server-Logs an; hierzu siehe Abschnitt 3.</p>
 
 <h2 id="s16">16. Übersicht aller Auftragsverarbeiter</h2>
 <p>Folgende Dienstleister verarbeiten in unserem Auftrag personenbezogene Daten gem. Art. 28 DSGVO:</p>
@@ -282,8 +291,8 @@ E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
 <tr><th>Dienstleister</th><th>Tätigkeit</th><th>Sitz / Verarbeitungsort</th><th>Drittland-Garantie</th></tr>
 </thead>
 <tbody>
-<tr><td>Vercel Inc.</td><td>Website-Hosting</td><td>USA / Server EU (Frankfurt)</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
-<tr><td>Google Ireland Ltd.</td><td>E-Mail (Workspace), Google Sheets, Apps Script, Umgebungssuche und Wegzeiten (Places, Routes)</td><td>Irland (EU), Konzernmutter USA</td><td>Cloud Data Processing Addendum + EU-U.S. Data Privacy Framework</td></tr>
+<tr><td>Vercel Inc.</td><td>Website-Hosting, Zählung der Seitenaufrufe, Ermittlung des ungefähren Orts (nur mit Einwilligung)</td><td>USA / Server EU (Frankfurt)</td><td>EU-U.S. Data Privacy Framework + EU-SCC</td></tr>
+<tr><td>Google Ireland Ltd.</td><td>E-Mail (Workspace), Google Sheets (auch Ablage der Reichweitenmessung), Apps Script, Umgebungssuche und Wegzeiten (Places, Routes)</td><td>Irland (EU), Konzernmutter USA</td><td>Cloud Data Processing Addendum + EU-U.S. Data Privacy Framework</td></tr>
 <tr><td>Stripe Payments Europe, Ltd.</td><td>Zahlungsabwicklung</td><td>Irland (EU)</td><td>—</td></tr>
 <tr><td>Zeeg GmbH</td><td>Termin-Buchung</td><td>Deutschland (Hosting Telekom, DE/NL)</td><td>&mdash;</td></tr>
 <tr><td>Cloudflare, Inc. (Unterauftragsverarbeiter von Zeeg)</td><td>Auslieferung und Absicherung der Buchungsmaske</td><td>USA</td><td>EU-U.S. Data Privacy Framework</td></tr>
@@ -309,6 +318,7 @@ E-Mail: <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a>
 <li><strong>Sprachnachrichten von Gästen:</strong> Die Audiodatei wird nicht gespeichert; sie wird ausschließlich zur Umwandlung in Text verarbeitet. Der Text unterliegt derselben Frist wie jede andere Gästenachricht (60 Tage).</li>
 <li><strong>Termin-Daten (Zeeg):</strong> Bis zur Vertragsbeendigung bzw. 90 Tage nach letztem Termin.</li>
 <li><strong>E-Mail-Korrespondenz ohne Vertragsbezug:</strong> Spätestens 2 Jahre nach letzter Antwort.</li>
+<li><strong>Reichweitenmessung und Fragen aus der Chat-Vorführung</strong> (Abschnitte 15 und 29): höchstens 14 Monate.</li>
 <li><strong>Server-Logs:</strong> 30 Tage, sofern nicht zur Beweissicherung erforderlich.</li>
 <li><strong>Rechnungs-/Buchhaltungsbelege:</strong> 10 Jahre (§ 147 AO, § 257 HGB).</li>
 </ul>
@@ -410,9 +420,9 @@ Web: <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel
 <p><strong>Auftragsverarbeiter und Drittland:</strong> Anthropic PBC verarbeitet in den USA auf Grundlage des EU-U.S. Data Privacy Framework, ergänzend nach EU-Standardvertragsklauseln. Google Ireland Limited verarbeitet in der EU; Näheres in Abschnitt 16 und 18.</p>
 <h2 id="s29">29. Chat-Vorführung auf der Startseite</h2>
 <p>Auf der Startseite können Sie Mr. Bell selbst eine Frage stellen, so wie ein Gast sie stellen würde. Ihre Frage (höchstens 150 Zeichen) wird über n8n (Abschnitt 9) an Anthropic (Abschnitt 10) übermittelt, damit das KI-Modell eine Antwort erzeugt. Die Antwort wird Ihnen direkt im Chat angezeigt. Es handelt sich um eine Vorführung mit einem fiktiven Hotel; die Antwort wird nicht an ein Hotel oder eine Rezeption weitergeleitet.</p>
-<p><strong>Was gespeichert wird:</strong> Wir speichern weder Ihre Frage noch die Antwort, und die Ausführungen dieser Funktion werden in n8n nicht protokolliert. Gezählt wird lediglich, wie viele Fragen am jeweiligen Tag insgesamt gestellt wurden, ohne Bezug zu Ihrer Person, um Missbrauch und Kosten zu begrenzen. In Ihrem Browser wird dafür nichts gespeichert, es werden keine Cookies gesetzt. Beim Aufruf verarbeiten n8n und Anthropic technisch bedingt Verbindungsdaten wie Ihre IP-Adresse; wir selbst werten diese nicht aus. Zur Speicherdauer bei Anthropic gilt Abschnitt 10.</p>
+<p><strong>Was gespeichert wird:</strong> Ihre Frage und die Antwort von Mr. Bell speichern wir zusammen mit dem Zeitpunkt und dem Gerätetyp in unserer Tabelle in Google Workspace, um Mr. Bell und die Vorführung zu verbessern; bei der Frage erhalten wir zusätzlich eine E-Mail. Nur wenn Sie die Analyse erlaubt haben (Abschnitt 15 b), wird die Frage zusätzlich Ihrer zufälligen Kennung und Ihrem ungefähren Ort zugeordnet. Ein Bezug zu Ihrer Person entsteht dadurch nicht, solange Sie keine persönlichen Angaben eintippen. Die Einträge werden nach höchstens 14 Monaten gelöscht. In Ihrem Browser wird dafür nichts gespeichert, es werden keine Cookies gesetzt. Beim Aufruf verarbeiten n8n und Anthropic technisch bedingt Verbindungsdaten wie Ihre IP-Adresse; wir selbst werten diese nicht aus. Zur Speicherdauer bei Anthropic gilt Abschnitt 10.</p>
 <p><strong>Bitte geben Sie in dieses Feld keine personenbezogenen Daten ein</strong>, etwa Namen, Telefonnummern oder Buchungsdaten.</p>
-<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt darin, Interessenten die Funktionsweise von Mr. Bell unmittelbar vorzuführen. Die Nutzung ist freiwillig.</p>
+<p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt darin, Interessenten die Funktionsweise von Mr. Bell unmittelbar vorzuführen und die Vorführung anhand der tatsächlich gestellten Fragen zu verbessern. Die Nutzung ist freiwillig.</p>
 <p><strong>Auftragsverarbeiter und Drittland:</strong> n8n GmbH (Abschnitt 9) und Anthropic PBC, USA, auf Grundlage des EU-U.S. Data Privacy Framework, ergänzend nach EU-Standardvertragsklauseln (Abschnitte 10, 16 und 18).</p>
 <h2 id="s30">30. WhatsApp-Test „Mr. Bell ausprobieren“</h2>
 <p>Über den QR-Code oder den Knopf „Mr. Bell ausprobieren“ auf unserer Website öffnet sich WhatsApp mit einer vorbereiteten Nachricht an unsere Vorführnummer. Erst wenn Sie diese Nachricht selbst absenden, beginnt die Vorführung. Für diese Vorführung sind wir der Verantwortliche (Abschnitt 1). Mr. Bell tritt dabei für das fiktive „Hotel Mustermann“ auf; Ihre Nachrichten werden an kein echtes Hotel weitergeleitet. Die Antworten erzeugt ein KI-Modell.</p>
@@ -424,6 +434,7 @@ Web: <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel
 <p><strong>Speicherdauer:</strong> Der Verlauf wird wie eine Gästekonversation behandelt und nach der in Abschnitt 17 genannten Frist automatisch gelöscht. Auf Wunsch löschen wir ihn vorher: Eine kurze E-Mail an <a href="mailto:kontakt@mrbell.de">kontakt@mrbell.de</a> genügt.</p>
 <p><strong>Drittland:</strong> Siehe Abschnitte 10, 12, 16 und 18.</p>
 </div>
+<script defer src="/mb-consent.js"></script>
 <script defer src="/mb-mess.js"></script>
 </body>
 </html>

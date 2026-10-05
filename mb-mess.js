@@ -1,122 +1,117 @@
-/* Mr. Bell — Website-Pings.
-   Einbinden mit:  <script defer src="/mb-mess.js"></script>
+/* Mr. Bell — Analyse im Browser (Version 3).
+   Einbinden mit:  <script defer src="/mb-mess.js"></script>  (nach mb-consent.js)
 
-   Gemeldet wird genau sechserlei:
-     Seite geoeffnet · Nach unten gescrollt · Video gestartet
-     Laenger als 30 Sekunden · Mr. Bell testen geklickt · Termin geklickt
-
-   KEINE Cookies. KEIN localStorage. KEIN sessionStorage. Kein Fingerprinting.
-   Die Sitzungsnummer ist eine Zufallszahl im Arbeitsspeicher und mit dem
-   Schliessen des Tabs weg. Es wird nichts auf dem Geraet gespeichert und
-   nichts von dort ausgelesen - § 25 TDDDG ist nicht beruehrt, ein
-   Einwilligungsbanner also nicht erforderlich. Fuer die uebermittelten Daten
-   gilt Art. 6 Abs. 1 lit. f DSGVO.
-
-   Eigenen Besuch stummschalten:  mrbell.de/?mrbell=intern
-   Wieder mitzaehlen:             mrbell.de/?mrbell=extern
+   Läuft NUR nach "Analyse erlauben" (Cookie mb_analyse = Zufallskennung).
+   Ohne Einwilligung tut dieses Skript nichts, außer eine im Demo-Chat abgeschickte
+   Frage samt Antwort zu melden (window.mbChat), die der Besucher selbst sendet.
+   Seitenaufrufe und Klicks auf WhatsApp / Termin / E-Mail zählt der Server (middleware.js).
+   Ziel aller Meldungen: /p auf der eigenen Domain. Kennung und Ort ergänzt der Server.
 */
 (function () {
   'use strict';
+  var ZIEL = '/p';
+  var SEITE = location.pathname || '/';
 
-  var ZIEL = 'https://mrbell.app.n8n.cloud/webhook/mb-ping';
-
-  var such = location.search || '';
-  try {
-    if (/[?&]mrbell=intern/.test(such)) localStorage.setItem('mb-intern', '1');
-    if (/[?&]mrbell=extern/.test(such)) localStorage.removeItem('mb-intern');
-  } catch (e) {}
-  try { if (localStorage.getItem('mb-intern') === '1') return; } catch (e) {}
-
-  var SID = (function () {
+  function senden(d, abschied) {
+    var txt = JSON.stringify(d);
     try {
-      var a = new Uint8Array(4); crypto.getRandomValues(a);
-      return Array.prototype.map.call(a, function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
-    } catch (e) { return String(Math.random()).slice(2, 10); }
-  })();
-
-  var START = Date.now();
-  var SCHON = {};
-
-  function geraet() {
-    var u = navigator.userAgent || '';
-    if (/iPad|Tablet|PlayBook|Silk|(Android(?!.*Mobile))/i.test(u)) return 'Tablet';
-    if (/Mobi|Android|iPhone|iPod|Windows Phone/i.test(u)) return 'Handy';
-    return 'Rechner';
-  }
-
-  function herkunft() {
-    if (/[?&](brief|mb)=/.test(such)) return 'Brief';
-    var r = document.referrer || '';
-    if (!r) return 'Direkt';
-    try {
-      var h = new URL(r).hostname.replace(/^www\./, '');
-      if (h === location.hostname) return 'Direkt';
-      if (/google\./.test(h)) return 'Google';
-      if (/bing\./.test(h)) return 'Bing';
-      if (/duckduckgo\./.test(h)) return 'DuckDuckGo';
-      if (/(facebook|instagram|linkedin|t\.co|twitter|x\.com)/.test(h)) return h;
-      return h;
-    } catch (e) { return 'Direkt'; }
-  }
-
-  function ping(ereignis, detail) {
-    if (SCHON[ereignis]) return;          // jedes Ereignis genau einmal pro Besuch
-    SCHON[ereignis] = 1;
-    var txt = JSON.stringify({
-      sitzung: SID,
-      ereignis: ereignis,
-      detail: detail || '',
-      herkunft: herkunft(),
-      geraet: geraet()
-    });
-    try {
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon(ZIEL, new Blob([txt], { type: 'text/plain;charset=UTF-8' }));
-      } else {
-        fetch(ZIEL, { method: 'POST', mode: 'no-cors', keepalive: true,
-          headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: txt });
-      }
+      if (abschied && navigator.sendBeacon && navigator.sendBeacon(ZIEL, new Blob([txt], { type: 'text/plain;charset=UTF-8' }))) return;
+      fetch(ZIEL, { method: 'POST', keepalive: true, credentials: 'same-origin', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: txt }).catch(function () {});
     } catch (e) {}
   }
 
-  /* 1. Seite geoeffnet */
-  ping('Seite geöffnet');
+  // Demo-Chat: immer (der Besucher schickt die Frage selbst ab; Hinweis steht unter dem Feld)
+  window.mbChat = function (frage, antwort) {
+    senden({ ereignis: 'Demo-Chat-Frage', detail: '1. Frage', seite: SEITE, frage: String(frage || '').slice(0, 600), antwort: String(antwort || '').slice(0, 2000) });
+  };
 
-  /* 2. Nach unten gescrollt — sobald ein Viertel der Seite hinter ihm liegt */
-  function tiefe() {
-    var h = document.documentElement;
-    var ganz = h.scrollHeight - window.innerHeight;
-    if (ganz <= 0) return 0;
-    return Math.round((window.pageYOffset || h.scrollTop) / ganz * 100);
+  var gestartet = false;
+  function erlaubt() { try { return !!(window.mbAnalyseErlaubt && window.mbAnalyseErlaubt()); } catch (e) { return false; } }
+
+  function start(geradeErlaubt) {
+    if (gestartet || !erlaubt()) return;
+    gestartet = true;
+    var SCHON = {};
+    function ping(ereignis, detail, mehrfach, abschied) {
+      var key = ereignis + '|' + (detail || '');
+      if (!mehrfach && SCHON[key]) return;
+      SCHON[key] = 1;
+      if (!erlaubt()) return;                       // Widerruf greift sofort
+      senden({ ereignis: ereignis, detail: detail || '', seite: SEITE }, abschied);
+    }
+    if (geradeErlaubt) ping('Analyse erlaubt');
+
+    /* Scrolltiefe 25 / 50 / 75 / 100 */
+    function tiefe() {
+      var h = document.documentElement, ganz = h.scrollHeight - window.innerHeight;
+      if (ganz <= 0) return 100;
+      return Math.round((window.pageYOffset || h.scrollTop) / ganz * 100);
+    }
+    var wartet = false;
+    function scroll() {
+      if (wartet) return; wartet = true;
+      setTimeout(function () {
+        wartet = false;
+        var t = tiefe();
+        [25, 50, 75, 100].forEach(function (s) { if (t >= (s === 100 ? 98 : s)) ping('Gescrollt', s + ' %'); });
+      }, 250);
+    }
+    window.addEventListener('scroll', scroll, { passive: true });
+
+    /* Ganz unten: Fußzeile sichtbar */
+    try {
+      var fuss = document.querySelector('footer');
+      if (fuss && 'IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting && (window.pageYOffset || document.documentElement.scrollTop) > 200) { ping('Ganz unten angekommen'); io.disconnect(); } });
+        }, { threshold: 0.3 });
+        io.observe(fuss);
+      }
+    } catch (e) {}
+
+    /* Länger als 30 Sekunden (sichtbar) und Verweildauer */
+    var SICHTBAR = 0, SEIT = document.visibilityState === 'visible' ? Date.now() : 0, gemeldet = 0;
+    function sek() { return Math.round((SICHTBAR + (SEIT ? Date.now() - SEIT : 0)) / 1000); }
+    var dreissig = setInterval(function () { if (sek() >= 30) { ping('Länger als 30 Sekunden'); clearInterval(dreissig); } }, 2000);
+    function verweil() {
+      var s = sek();
+      if (s >= 5 && s - gemeldet >= 10 && gemeldet < 7200) { gemeldet = s; ping('Verweildauer', s + ' s', true, true); }
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') { if (SEIT) { SICHTBAR += Date.now() - SEIT; SEIT = 0; } verweil(); }
+      else if (!SEIT) SEIT = Date.now();
+    });
+    window.addEventListener('pagehide', function () { if (SEIT) { SICHTBAR += Date.now() - SEIT; SEIT = 0; } verweil(); });
+
+    /* Video */
+    try {
+      var film = document.getElementById('film');
+      if (film) {
+        film.addEventListener('play', function () { ping('Video gestartet'); });
+        film.addEventListener('timeupdate', function () {
+          if (!film.duration || !isFinite(film.duration)) return;
+          var p = film.currentTime / film.duration * 100;
+          [25, 50, 75].forEach(function (s) { if (p >= s) ping('Video angesehen', s + ' %'); });
+          if (p >= 97) ping('Video angesehen', '100 %');
+        });
+        film.addEventListener('ended', function () { ping('Video angesehen', '100 %'); });
+      }
+    } catch (e) {}
+
+    /* FAQ */
+    document.addEventListener('click', function (ev) {
+      var q = ev.target && ev.target.closest ? ev.target.closest('.faq .fq') : null;
+      if (!q) return;
+      setTimeout(function () { if (q.getAttribute('aria-expanded') === 'true') ping('FAQ aufgeklappt', (q.textContent || '').trim().slice(0, 60)); }, 0);
+    }, true);
+
+    /* Demo-Chat geöffnet */
+    document.addEventListener('focusin', function (ev) {
+      if (ev.target && ev.target.closest && ev.target.closest('#chatDemo textarea')) ping('Demo-Chat geöffnet');
+    });
   }
-  var wartet = false;
-  window.addEventListener('scroll', function () {
-    if (wartet || SCHON['Nach unten gescrollt']) return;
-    wartet = true;
-    setTimeout(function () {
-      wartet = false;
-      var t = tiefe();
-      if (t >= 25) ping('Nach unten gescrollt', t + '%');
-    }, 300);
-  }, { passive: true });
+  window.mbMessStart = start;
 
-  /* 3. Video gestartet */
-  try {
-    var film = document.getElementById('film');
-    if (film) film.addEventListener('play', function () { ping('Video gestartet'); });
-  } catch (e) {}
-
-  /* 4. Laenger als 30 Sekunden */
-  setTimeout(function () {
-    if (document.visibilityState !== 'hidden') ping('Länger als 30 Sekunden');
-  }, 30000);
-
-  /* 5. + 6. Klicks */
-  document.addEventListener('click', function (ev) {
-    var a = ev.target && ev.target.closest ? ev.target.closest('a,button') : null;
-    if (!a) return;
-    var href = a.getAttribute('href') || '';
-    if (/wa\.me/.test(href)) ping('Mr. Bell testen geklickt');
-    else if (/zeeg\.me/.test(href)) ping('Termin geklickt');
-  }, true);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { start(false); });
+  else start(false);
 })();
