@@ -51,7 +51,6 @@ function geraet(ua) {
   return 'Rechner';
 }
 function herkunft(ref, url) {
-  if (/[?&](brief|mb)=/.test(url.search) || /[?&]utm_source=brief/i.test(url.search)) return 'Brief';
   if (!ref) return 'Direkt';
   try {
     const h = new URL(ref).hostname.replace(/^www\./, '');
