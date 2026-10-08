@@ -14,10 +14,13 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/go/:ziel*', '/p']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/go/:ziel*', '/p', '/wa']
 };
 
 const ZIEL = 'https://mrbell.app.n8n.cloud/webhook/mb-ping';
+// WhatsApp-Webhook (360dialog) -> n8n. Status-Meldungen (gesendet/zugestellt/gelesen) werden hier schon beantwortet,
+// nur echte Nachrichten gehen weiter - spart rund drei von vier n8n-Ausfuehrungen.
+const WA_ZIEL = 'https://mrbell.app.n8n.cloud/webhook/075763a0-940e-44fe-8215-71f6a5974beb-gs-v3';
 
 const GO = {
   'whatsapp-demo': 'https://wa.me/4915142886513?text=Test%20DEMO',
@@ -93,6 +96,20 @@ function melden(daten, req, ctx) {
 export default async function middleware(req, ctx) {
   let url;
   try { url = new URL(req.url); } catch (e) { return weiter(); }
+  // 0) WhatsApp-Webhook: nur Nachrichten an n8n, Status-Meldungen sofort mit 200 beantworten
+  if (url.pathname === '/wa') {
+    if (req.method !== 'POST') return new Response('ok', { status: 200, headers: { 'Cache-Control': 'no-store' } });
+    try {
+      const roh = await req.text();
+      let nurStatus = false;
+      try { const v = JSON.parse(roh).entry[0].changes[0].value; nurStatus = !!(v && v.statuses && !v.messages); } catch (e) { nurStatus = false; }
+      if (nurStatus) return new Response(null, { status: 200 });
+      const r = await fetch(WA_ZIEL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: roh });
+      return new Response(null, { status: r.ok ? 200 : 502 });
+    } catch (e) {
+      return new Response(null, { status: 502 });
+    }
+  }
   const ua = req.headers.get('user-agent') || '';
   const bot = BOT.test(ua);
 
