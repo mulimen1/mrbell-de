@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/go/:ziel*', '/p', '/wa']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa']
 };
 
 const ZIEL = 'https://mrbell.app.n8n.cloud/webhook/mb-ping';

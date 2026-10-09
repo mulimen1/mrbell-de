@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Hier wird bewertet — Mr. Bell</title>
+<style>@font-face{font-family:"Inter";src:url("/fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap}</style>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--t:#C2410C;--t2:#a3370a;--a:#1a1a2e;--c:#f5f5f0;--w:#fff;--s:#E8A33D}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--c);color:var(--a);line-height:1.6;overflow-x:hidden}
+.ct{max-width:560px;margin:0 auto;padding:36px 16px 64px}
+.kopf{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:26px}
+.kopf img{width:34px;height:34px}
+.kopf span{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.4}
+h1{font-size:clamp(1.7rem,6.5vw,2.3rem);font-weight:800;letter-spacing:-.03em;line-height:1.12;text-align:center;text-wrap:balance}
+h1 em{font-style:normal;color:var(--t)}
+.sub{text-align:center;font-size:.95rem;opacity:.6;margin:12px auto 28px;max-width:440px;text-wrap:balance}
+.karte{background:var(--w);border-radius:20px;padding:24px 22px;border:1px solid rgba(26,26,46,.07);box-shadow:0 10px 30px rgba(26,26,46,.06);margin-bottom:28px}
+.haus{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.haus .bild{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#fde4d3,#f6c7a8);display:grid;place-items:center;font-size:1.3rem}
+.haus b{display:block;font-size:1rem}
+.haus small{font-size:.8rem;opacity:.5}
+.frage{font-size:.88rem;opacity:.7;margin-bottom:10px}
+.sterne{display:flex;gap:6px;margin-bottom:14px}
+.sterne button{background:none;border:none;cursor:pointer;padding:2px;line-height:0;border-radius:6px}
+.sterne button:focus-visible{outline:2px solid var(--t);outline-offset:2px}
+.sterne svg{width:38px;height:38px;fill:#e3e0d8;transition:fill .15s,transform .15s}
+.sterne button.an svg{fill:var(--s)}
+.sterne button:hover svg{transform:scale(1.08)}
+.feld{border:1.5px solid rgba(26,26,46,.1);border-radius:12px;padding:12px 14px;font-size:.88rem;color:rgba(26,26,46,.45);min-height:64px;background:var(--c)}
+.danke{display:none;margin-top:12px;font-size:.88rem;color:var(--t);font-weight:600}
+.danke.da{display:block}
+.hinweis{font-size:.8rem;opacity:.5;text-align:center;margin-top:12px}
+h2{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+.schritte{display:grid;gap:12px;margin-bottom:30px;list-style:none}
+.schritte li{background:var(--w);border-radius:14px;padding:14px 16px;border:1px solid rgba(26,26,46,.06);display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;font-size:.9rem}
+.schritte .z{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t);background:rgba(194,65,12,.08);border-radius:6px;padding:3px 8px;white-space:nowrap;margin-top:1px}
+.schritte p{opacity:.8}
+.knoepfe{display:grid;gap:10px}
+.k1,.k2{display:flex;align-items:center;justify-content:center;gap:8px;padding:15px;border-radius:14px;font-weight:700;font-size:.98rem;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.k1{background:linear-gradient(135deg,var(--t),var(--t2));color:#fff;box-shadow:0 8px 22px rgba(194,65,12,.28)}
+.k1:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(194,65,12,.36)}
+.k2{background:var(--w);color:var(--a);border:1.5px solid rgba(26,26,46,.12)}
+.k2:hover{border-color:var(--t)}
+.k1:focus-visible,.k2:focus-visible{outline:2px solid var(--a);outline-offset:3px}
+.fuss{text-align:center;font-size:.75rem;opacity:.4;margin-top:28px}
+.fuss a{color:inherit}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="ct">
+  <div class="kopf"><img src="/bell-logo.svg" alt=""><span>Mr. Bell · Demo</span></div>
+
+  <h1>Genau hier würde Ihr Gast <em>jetzt bewerten.</em></h1>
+  <p class="sub">In der Demo landen Sie bei uns. Bei Ihrem Hotel öffnet derselbe Knopf direkt die Google-Bewertung Ihres Hauses – ein Tipp, Sterne vergeben, fertig.</p>
+
+  <div class="karte" aria-label="Beispiel: so sieht es für den Gast aus">
+    <div class="haus"><div class="bild" aria-hidden="true">🏨</div><div><b>Ihr Hotel</b><small>Bewertung schreiben</small></div></div>
+    <p class="frage">Wie war Ihr Aufenthalt?</p>
+    <div class="sterne" id="sterne" role="group" aria-label="Sterne vergeben">
+      <button type="button" aria-label="1 Stern"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3l-5.9 3.2 1.3-6.5L2.5 9.4l6.6-.8z"/></svg></button>
+      <button type="button" aria-label="2 Sterne"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3l-5.9 3.2 1.3-6.5L2.5 9.4l6.6-.8z"/></svg></button>
+      <button type="button" aria-label="3 Sterne"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3l-5.9 3.2 1.3-6.5L2.5 9.4l6.6-.8z"/></svg></button>
+      <button type="button" aria-label="4 Sterne"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3l-5.9 3.2 1.3-6.5L2.5 9.4l6.6-.8z"/></svg></button>
+      <button type="button" aria-label="5 Sterne"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3l-5.9 3.2 1.3-6.5L2.5 9.4l6.6-.8z"/></svg></button>
+    </div>
+    <div class="feld">Teilen Sie Ihre Erfahrungen …</div>
+    <p class="danke" id="danke">So schnell geht’s – genau das passiert bei Ihren Gästen, nur eben bei Google.</p>
+  </div>
+
+  <h2>So kommen mehr gute Bewertungen zustande</h2>
+  <ul class="schritte">
+    <li><span class="z">Vorabend</span><p>Mr. Bell fragt kurz nach, ob alles passt. Gibt es ein Problem, geht es sofort an die Rezeption – und wird gelöst, solange der Gast noch im Haus ist.</p></li>
+    <li><span class="z">Abreise</span><p>Am Morgen bekommt <b>jeder</b> Gast den Link zur Google-Bewertung – in seiner Sprache. Ohne Filter, ohne Tricks.</p></li>
+    <li><span class="z">Ergebnis</span><p>Ärger wird vor Ort gelöst statt öffentlich, und zufriedene Gäste werden im richtigen Moment gefragt.</p></li>
+  </ul>
+
+  <div class="knoepfe">
+    <a class="k1" href="/go/whatsapp-demo?von=bewertung">Zurück zur Demo in WhatsApp</a>
+    <a class="k2" href="/go/termin?von=bewertung">Gespräch mit Ben vereinbaren</a>
+  </div>
+
+  <p class="fuss">Mr. Bell – der WhatsApp-Concierge für Hotels · <a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a></p>
+</div>
+<script>
+(function () {
+  var b = document.querySelectorAll('#sterne button');
+  b.forEach(function (x, i) {
+    x.addEventListener('click', function () {
+      b.forEach(function (y, j) { y.classList.toggle('an', j <= i); });
+      document.getElementById('danke').classList.add('da');
+    });
+  });
+})();
+</script>
+</body>
+</html>
