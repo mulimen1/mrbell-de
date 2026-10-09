@@ -342,7 +342,7 @@ span.skIc > svg{
 /* Bewertungen */
 .bewText p{margin:0 0 15px;max-width:35rem}
 .bew{display:grid;gap:0;max-width:62rem;margin-top:34px}
-@media(min-width:860px){.bew{grid-template-columns:1fr 1fr}}
+@media(min-width:860px){.bew{grid-template-columns:1fr 1fr 1fr}}
 .bewStufe{border-top:1px solid var(--line);padding:20px 0 0}
 .bewStufe + .bewStufe{margin-top:26px}
 @media(min-width:860px){
@@ -1260,7 +1260,7 @@ span.skIc > svg{width:23px;height:23px;stroke:var(--accent);stroke-width:1.8}
           </li>
           <li class="sk stark">
             <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.4 14.2a2.6 2.6 0 0 1-2.6 2.6H9.2l-4.4 3.4v-3.4h-.6a2.6 2.6 0 0 1-2.6-2.6V6a2.6 2.6 0 0 1 2.6-2.6h13.6A2.6 2.6 0 0 1 20.4 6v8.2z"/><path d="M11.6 7v3.6"/><path d="M11.6 13.1h.02"/></svg></span>
-            <div><b>Meldet Probleme noch vor der Abreise</b><span>Am Abend vor der Abreise fragt Mr. Bell nach, ob alles gepasst hat. Ein kaltes Zimmer oder ein lauter Nachbar landet sofort bei Ihrem Team, solange der Gast noch im Haus ist. Sie lösen es vor der Abreise, statt es später in einer Bewertung zu lesen.</span></div>
+            <div><b>Meldet Probleme noch vor der Abreise</b><span>Nach der ersten Nacht und am Abend vor der Abreise fragt Mr. Bell nach, ob alles passt. Ein kaltes Zimmer oder ein defekter Föhn landet sofort bei Ihrem Team, solange der Gast noch im Haus ist. Sie lösen es während des Aufenthalts, statt es später in einer Bewertung zu lesen.</span></div>
           </li>
           <li class="sk stark">
             <span class="skIc" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.4" r="7.6"/><path d="M12 9.4v4l2.6 1.7M4.8 4.2 2.4 6.6M19.2 4.2l2.4 2.4"/></svg></span>
@@ -1338,6 +1338,13 @@ span.skIc > svg{width:23px;height:23px;stroke:var(--accent);stroke-width:1.8}
 
     <div class="bew">
       <div class="bewStufe">
+        <p class="bewZeit">Nach der ersten Nacht</p>
+        <h3>Ist alles so, wie es sein soll?</h3>
+        <p>Die meisten Probleme zeigen sich am ersten Tag: ein defekter Föhn, ein fehlendes
+        Kissen, ein Zimmer zur lauten Straße. Wer früh fragt, kann noch etwas ändern, und der
+        Rest des Aufenthalts wird gut.</p>
+      </div>
+      <div class="bewStufe">
         <p class="bewZeit">Abend vor der Abreise</p>
         <h3>Gab es etwas, das nicht gepasst hat?</h3>
         <p>Die Antwort landet bei Ihrer Rezeption, während der Gast noch im Haus ist. Ein kaltes
@@ -1376,7 +1383,7 @@ span.skIc > svg{width:23px;height:23px;stroke:var(--accent);stroke-width:1.8}
       <li><span class="n">03</span><div><b>Was er über Ihr Haus sagt, bestimmen Sie</b>
         <span class="t">Frühstückszeiten, Hausregeln, Ihre Empfehlungen. Sie ändern es, und es gilt ab der nächsten Nachricht — ohne Ticket, ohne Wartezeit.</span></div></li>
       <li><span class="n">04</span><div><b>Was automatisch hinausgeht, schalten Sie frei</b>
-        <span class="t">Von sich aus schreibt Mr. Bell nur zweierlei: die Bewertungseinladung am Abreisetag und Weckrufe, die der Gast selbst bestellt hat. Beides können Sie abschalten. Werbung verschickt er nie.</span></div></li>
+        <span class="t">Von sich aus schreibt Mr. Bell nur dreierlei: die kurze Nachfrage nach der ersten Nacht und am Vorabend der Abreise, die Bewertungseinladung am Abreisetag und Weckrufe, die der Gast selbst bestellt hat. Alles davon können Sie abschalten. Werbung verschickt er nie.</span></div></li>
     </ul>
     <figure class="dash" aria-label="Vereinfachte Beispielansicht des Dashboards mit Demo-Daten">
       <div class="dApp">
