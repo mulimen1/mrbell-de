@@ -1289,6 +1289,16 @@ section#anrufen{display:block;padding-block:clamp(48px,6vw,92px)}
 #anrufen .anSkills .sk,#anrufen .anSkills .sk.stark{background:none!important;box-shadow:none!important;border:0!important;border-radius:0!important;padding:0!important;margin:0!important}
 #anrufen .anSkills .sk::before,#anrufen .anSkills .sk::after{content:none!important}
 #anrufen .anSkills{gap:28px 36px;margin-top:clamp(34px,3.6vw,52px)}
+/* r63: Anruf-Bereich hell wie der Rest der Seite (Option A) */
+#anrufen .anBuehne{background:var(--paper-2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+#anrufen .anBuehne::after{display:none}
+#anrufen .anNeu{background:var(--accent-soft);color:var(--accent)}
+#anrufen h2{color:var(--ink)}#anrufen h2 em{color:var(--accent)}
+#anrufen .anLede{color:#44444d}
+#anrufen .anZahlen li{background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+#anrufen .anZahlen li > b{color:var(--ink)}#anrufen .anZahlen li > span{color:var(--muted)}
+#anrufen .anAktion p{color:var(--muted)}
+@media(min-width:1320px){#anrufen .anRuf{background:#fff;box-shadow:inset 0 0 0 1px var(--line),0 10px 24px -16px rgba(0,0,0,.25)}#anrufen .anRuf > div b{color:var(--ink)}#anrufen .anRuf > div > span{color:var(--muted)}#anrufen .anAva{background:#128c7e;box-shadow:0 0 0 6px rgba(18,140,126,.15)}#anrufen .anWelle i{background:#128c7e}#anrufen .anBlase{box-shadow:inset 0 0 0 1px var(--line),0 10px 24px -16px rgba(0,0,0,.25)}#anrufen .anBlase b{color:#128c7e}}
 </style>
 
 <div class="kopfhalter" id="kopfhalter">
