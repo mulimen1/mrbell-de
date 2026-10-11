@@ -1203,6 +1203,15 @@ section#anrufen{display:block;padding-block:clamp(48px,6vw,92px)}
 .kopfKnopf .kkHandy{display:inline-flex!important;align-items:center;gap:10px}
 .kopfKnopf .kkHandy>svg{display:block!important;width:25px!important;height:25px!important;flex:0 0 25px!important;fill:currentColor!important;stroke:none!important;margin:0}
 @media(min-width:760px){.kopfKnopf{padding:8px 20px 8px 16px}.kopfKnopf .hkZ{gap:2px}.kopfKnopf .hk1{font-size:15px}.kopfKnopf .hk2{font-size:12px}.kopfKnopf .kkHandy>svg{width:27px!important;height:27px!important;flex-basis:27px!important}}
+/* r46: Hero-Knopf am Laptop zweizeilig wie am Handy; Punkt haengt links, damit beide Textzeilen buendig starten */
+.heroKnopf .hkGross{display:none!important}.heroKnopf .hkHandy{display:inline-flex!important}
+.heroCta .btn.heroKnopf .hkHandy>svg,.qrKnopf .hkHandy>svg{width:30px!important;height:30px!important;flex:0 0 30px!important}
+.hk2 .hkDot{margin-left:-16px}.hk2 .kkDot{margin-left:-15px}
+.heroKnopf .hkHandy,.qrKnopf .hkHandy{gap:26px!important}
+.kopfKnopf .kkHandy{gap:23px!important}
+.heroCta .btn.heroKnopf{padding-left:20px}
+@media(min-width:760px){.kopfKnopf{padding:8px 20px 8px 13px}}
+@media(max-width:759px){.kopfhalter[data-fest="1"] .kopfKnopf{padding-left:11px}}
 </style>
 
 <div class="kopfhalter" id="kopfhalter">
