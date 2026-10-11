@@ -24,6 +24,7 @@ const WA_ZIEL = 'https://mrbell.app.n8n.cloud/webhook/075763a0-940e-44fe-8215-71
 
 const GO = {
   'whatsapp-demo': 'https://wa.me/4915142886513?text=Test%20DEMO',
+  'whatsapp-anruf': 'https://wa.me/4915142886513?text=Ich%20m%C3%B6chte%20mit%20der%20Rezeption%20von%20Mr.%20Bell%20telefonieren',
   'whatsapp-ben': 'https://wa.me/4917620690319?text=Hallo%20Herr%20Deschler%2C%20ich%20interessiere%20mich%20f%C3%BCr%20Mr.%20Bell%20f%C3%BCr%20unser%20Haus.',
   'termin': 'https://zeeg.me/kontakt6231/gespraech-ueber-mr-bell',
   'mail': 'mailto:kontakt@mrbell.de',
@@ -32,6 +33,7 @@ const GO = {
 };
 const GO_EREIGNIS = {
   'whatsapp-demo': ['WhatsApp geklickt', 'Demo testen'],
+  'whatsapp-anruf': ['WhatsApp geklickt', 'Anruf testen'],
   'whatsapp-ben': ['WhatsApp geklickt', 'an Ben'],
   'termin': ['Termin geklickt', ''],
   'mail': ['E-Mail geklickt', ''],
