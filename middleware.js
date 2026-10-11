@@ -80,6 +80,8 @@ function kennung(req) {
 function intern(req) { return /(?:^|;\s*)mb_intern=1(?:;|$)/.test(req.headers.get('cookie') || ''); }
 
 function melden(daten, req, ctx) {
+  // Ben: Rechner mit Standort Amsterdam (VPN) ist er selbst -> gar nicht erst erfassen
+  if (daten.geraet === 'Rechner' && /^amsterdam$/i.test(dek(req.headers.get('x-vercel-ip-city')).trim())) return null;
   const id = kennung(req);
   if (id) {
     daten.sitzung = id;
