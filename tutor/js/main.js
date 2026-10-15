@@ -59,9 +59,14 @@ function initLanding() {
   // Was Max kann – direkt im Hero sichtbar
   const fr = $('#featrow');
   if (fr) {
-    const F = [['board', L('Erklärt an der Tafel', 'Explains on the whiteboard'), 'tutor'], ['quiz', L('Quiz in 6 Formaten', 'Quizzes in 6 formats'), 'quiz'], ['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['pod', 'Podcast', 'podcast'], ['brain', L('Lernzettel & Mindmap', 'Study sheet & mind map'), 'zettel'], ['mic', L('Sprechen', 'Talk'), 'voice'], ['calc', L('BWL-Trainer', 'Business trainer'), 'trainer']];
-    F.forEach(([ic, t, key], k) => fr.appendChild(h('button', { class: 'feat', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t)));
-    const fs = [...fr.children]; let fi = 0;
+    // Die drei stärksten zuerst und größer, der Rest dezent
+    const TOP = [['board', L('Erklärt an der Tafel', 'Explains on the whiteboard'), 'tutor', L('Dein Skript, live erklärt', 'Your slides, explained live')], ['calendar', L('Klausurplan', 'Exam plan'), 'plan', L('Tag für Tag bis zur Klausur', 'Day by day to your exam')], ['quiz', L('Quiz in 6 Formaten', 'Quizzes in 6 formats'), 'quiz', L('Wie in der echten Klausur', 'Just like the real exam')]];
+    const REST = [['mic', L('Sprechen', 'Talk'), 'voice'], ['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['pod', 'Podcast', 'podcast'], ['brain', L('Lernzettel & Mindmap', 'Study sheet & mind map'), 'zettel'], ['whistle', L('BWL-Trainer', 'Business trainer'), 'trainer']];
+    const rowT = h('div', { class: 'feattop' }), rowR = h('div', { class: 'featrest' });
+    TOP.forEach(([ic, t, key, sub], k) => rowT.appendChild(h('button', { class: 'feat big', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k }, onclick: () => tryFeature(key) }, h('span', { class: 'fi', html: ico(ic) }), h('span', { class: 'ft' }, h('b', {}, t), h('small', {}, sub)))));
+    REST.forEach(([ic, t, key], k) => rowR.appendChild(h('button', { class: 'feat', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k + 3 }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t)));
+    fr.append(rowT, rowR);
+    const fs = [...rowT.children]; let fi = 0;
     if (!reduce) setInterval(() => { if (!fr.isConnected || document.hidden) return; fs.forEach((x, k) => x.classList.toggle('hl', k === fi)); fi = (fi + 1) % fs.length; }, 1500);
   }
 
@@ -171,7 +176,7 @@ async function route() {
     const parts = hash.slice(2).split('/').filter(Boolean);
     await mountApp(parts.slice(1));
   } else {
-    document.title = L('BWL Max – dein KI-Tutor für BWL, VWL & Rechnungswesen', 'BWL Max – your AI tutor for business, economics & accounting');
+    document.title = L('Tutor BWL Max – dein KI-Tutor für BWL, VWL & Rechnungswesen', 'Tutor BWL Max – your AI tutor for business, economics & accounting');
     if (EN) document.querySelector('meta[name="description"]')?.setAttribute('content', 'Upload your lecture and learn with BWL Max, the AI tutor that writes on the whiteboard: explanations, quizzes, flashcards, study paths, podcasts and a practice trainer. Free, no sign-up.');
     initLanding();
   }

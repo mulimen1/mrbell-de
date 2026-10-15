@@ -5,7 +5,8 @@ import { mastery, save } from '../state.js';
 import { generatePath, pathPending } from './path.js';
 import { apiError } from '../ui.js';
 import { dueCards } from './cards.js';
-import { L } from '../i18n.js';
+import { L, LOCALE } from '../i18n.js';
+import { planSummary } from './plan.js';
 
 export async function render(root, ctx) {
   const { doc, arg } = ctx;
@@ -35,9 +36,27 @@ export async function render(root, ctx) {
   };
   fillPath();
 
+  // Klausurvorbereitung: Countdown + Fortschritt, sonst Einstieg in den Plan
+  const ps = planSummary(doc);
+  const pct = ps ? Math.round(ps.frac * 100) : 0, exp = ps ? Math.round(ps.expFrac * 100) : 0;
+  const planTile = h('button', { class: 'tile wide dark pl-tile', onclick: () => ctx.go('plan') },
+    h('div', { class: 'pt-l' }, h('div', { class: 'ti', html: ico('calendar') }),
+      h('div', {}, h('h3', {}, L('Klausurvorbereitung', 'Exam prep')),
+        h('p', {}, !ps ? L('Klausurdatum rein – Max macht dir einen Tag-für-Tag-Plan mit Fortschritt und Ziel-Check.', 'Enter your exam date – Max builds a day-by-day plan with progress tracking and a goal check.')
+          : ps.daysLeft < 0 ? L('Klausur vorbei. Nächste Runde?', 'Exam’s over. Next round?')
+          : ps.daysLeft === 0 ? L('Heute ist Klausur. Viel Erfolg!', 'Exam day. Good luck!')
+          : (ps.todayOpen.length ? L(`Heute: ${ps.todayOpen.length} ${ps.todayOpen.length === 1 ? 'Aufgabe' : 'Aufgaben'} · ~${ps.todayMin} Min.`, `Today: ${ps.todayOpen.length} ${ps.todayOpen.length === 1 ? 'task' : 'tasks'} · ~${ps.todayMin} min`) : ps.todayT.length ? L('Heute alles erledigt.', 'All done for today.') : L('Heute frei.', 'Day off today.'))
+            + (ps.mood === 'behind' || ps.mood === 'way_behind' ? L(' · etwas Rückstand', ' · a bit behind') : ps.mood === 'ahead' ? L(' · vor dem Plan', ' · ahead of plan') : '')))),
+    ps && ps.daysLeft >= 0 ? h('div', { class: 'pt-r' },
+      h('div', { class: 'pt-n' }, h('b', {}, ps.daysLeft), h('span', {}, ps.daysLeft === 1 ? L('Tag', 'day') : L('Tage', 'days'))),
+      h('div', { class: 'pt-p' }, h('div', { class: 'pt-bar' }, h('i', { style: { width: pct + '%' } }), exp > 0 && exp < 100 ? h('s', { style: { left: exp + '%' } }) : null),
+        h('span', {}, L(`${pct} % erledigt · Klausur ${new Date(ps.exam + 'T12:00').toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })}`, `${pct}% done · exam ${new Date(ps.exam + 'T12:00').toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })}`))))
+      : h('div', { class: 'foot' }, ps ? L('Neuen Plan erstellen', 'Create a new plan') : L('Plan erstellen · kostenlos', 'Create plan · free'), h('span', { html: ico('right') })));
+
   wrap.append(
     h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L(`${doc.pages.length} Seiten · hinzugefügt ${ago(doc.created)}`, `${doc.pages.length} pages · added ${ago(doc.created)}`)), h('h2', {}, doc.path?.title || doc.name), doc.path?.summary ? h('p', {}, doc.path.summary) : null)),
     h('div', { class: 'hub' },
+      planTile,
       h('div', { class: 'tile big dark', role: 'button', tabindex: 0, onclick: () => ctx.go('tutor') },
         h('div', { style: { display: 'flex', gap: '14px', alignItems: 'center' } }, f, h('div', {}, h('h3', { style: { fontSize: '22px' } }, L('Frag deinen BWL Max', 'Ask your BWL Max')), h('p', {}, L('Kennt dein Skript, erklärt an der Tafel. Ein bisschen arrogant. Aber er hat recht.', 'Knows your slides, explains on the whiteboard. A little arrogant. But he’s right.')))),
         h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '6px', margin: '14px 0' } },
@@ -53,7 +72,7 @@ export async function render(root, ctx) {
         h('p', {}, best != null ? L(`Letztes Quiz: ${best} %`, `Last quiz: ${best}%`) : L('6 Fragetypen – wie in der Klausur.', '6 question types – just like the exam.')), h('div', { class: 'foot' }, doc.mistakes.length ? L(`${doc.mistakes.length} Fehler zum Wiederholen`, `${doc.mistakes.length} mistakes to review`) : L('Neues Quiz · 2 Einheiten', 'New quiz · 2 credits'))),
       h('button', { class: 'tile', onclick: () => ctx.go('podcast') }, h('div', { class: 'ti', html: ico('pod') }), h('h3', {}, 'Podcast'), h('p', {}, doc.podcasts.length ? L(`${doc.podcasts.length} Folge(n)`, `${doc.podcasts.length} episode(s)`) : L('Dein Skript zum Anhören.', 'Your slides as audio.'))),
       h('button', { class: 'tile', onclick: () => ctx.go('zettel') }, h('div', { class: 'ti', html: ico('brain') }), h('h3', {}, L('Lernzettel', 'Study sheet')), h('p', {}, doc.summary ? L('Zusammenfassung + Mindmap', 'Summary + mind map') : L('Alles Wichtige auf einer Seite.', 'Everything important on one page.'))),
-      h('a', { class: 'tile', href: '#/app/trainer' }, h('div', { class: 'ti', html: ico('calc') }), h('h3', {}, L('BWL-Trainer', 'Business trainer')), h('p', {}, L('Buchungssätze, Break-even, Kapitalwert & mehr – unbegrenzt.', 'Booking entries, break-even, NPV & more – unlimited.')))));
+      h('a', { class: 'tile', href: '#/app/trainer' }, h('div', { class: 'ti', html: ico('whistle') }), h('h3', {}, L('BWL-Trainer', 'Business trainer')), h('p', {}, L('Buchungssätze, Break-even, Kapitalwert & mehr – unbegrenzt.', 'Booking entries, break-even, NPV & more – unlimited.')))));
   face(f, {});
 
   // Direkt nach dem Upload: Lernpfad im Hintergrund bauen

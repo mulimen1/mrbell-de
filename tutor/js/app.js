@@ -14,6 +14,7 @@ import { feedbackButton } from './feedback.js';
 
 const TABS = [
   ['hub', L('Übersicht', 'Overview'), 'home'],
+  ['plan', L('Klausurplan', 'Exam plan'), 'calendar'],
   ['tutor', 'Max', 'chat'],
   ['pfad', L('Lernpfad', 'Study path'), 'path'],
   ['quiz', 'Quiz', 'quiz'],
@@ -23,6 +24,7 @@ const TABS = [
 ];
 const VIEWS = {
   hub: () => import('./views/hub.js'),
+  plan: () => import('./views/plan.js'),
   tutor: () => import('./views/tutor.js'),
   pfad: () => import('./views/path.js'),
   quiz: () => import('./views/quizview.js'),
@@ -55,7 +57,7 @@ function buildShell() {
       h('div', { class: 'grp' }, L('Ohne Skript', 'No slides needed')),
       h('button', { class: 'doc-item', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({ doc: S.doc && location.hash.includes(S.doc.id) ? S.doc : null, onClose: () => { forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } }); } }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, L('Mit Max sprechen', 'Talk to Max'))),
       h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, L('Max erklärt ein Thema', 'Max explains a topic'))),
-      h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('calc') }), h('span', { class: 'nm' }, L('BWL-Trainer', 'Business trainer')))),
+      h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('whistle') }), h('span', { class: 'nm' }, L('BWL-Trainer', 'Business trainer')))),
     h('div', { class: 'bottom' }, outLangSwitch(), accountChip(), quotaEl,
       h('div', { style: { display: 'grid', gap: '2px' } },
         feedbackButton('btn sm ghost'),
@@ -76,6 +78,8 @@ function buildShell() {
   mobileTip();
   onChange(renderList);
   applyThemeButtons();
+  // Schwebender Max-Assistent (überall in der App)
+  import('./assistant.js').then(m => m.mountAssistant && m.mountAssistant()).catch(e => console.warn(e));
 }
 
 function renderQuota(q) {
@@ -257,11 +261,24 @@ const TOPIC_EXAMPLES = L(['Kapitalwertmethode', 'Latente Steuern', 'Preiselastiz
 export function topicForm({ cls = 'askbar', target = null } = {}) {
   const inp = h('input', { class: 'tin', maxlength: 160, 'aria-label': L('Was soll Max dir erklären?', 'What should Max explain?'), placeholder: L('Sag mir, was ich dir erklären soll …', 'Tell me what to explain …'), enterkeyhint: 'go' });
   const fEl = h('span', { class: 'af' });
-  const BTN = L({ quiz: 'Quiz bauen', karten: 'Karten machen', podcast: 'Folge aufnehmen', zettel: 'Lernzettel schreiben', pfad: 'Lernpfad bauen' }, { quiz: 'Build quiz', karten: 'Make flashcards', podcast: 'Record episode', zettel: 'Write study sheet', pfad: 'Build study path' });
+  const BTN = L({ plan: 'Plan bauen', quiz: 'Quiz bauen', karten: 'Karten machen', podcast: 'Folge aufnehmen', zettel: 'Lernzettel schreiben', pfad: 'Lernpfad bauen' }, { plan: 'Build plan', quiz: 'Build quiz', karten: 'Make flashcards', podcast: 'Record episode', zettel: 'Write study sheet', pfad: 'Build study path' });
   const btn = h('button', { class: 'btn primary', type: 'submit' }, BTN[target] || L('Erklär’s mir', 'Explain it'));
   const form = h('form', { class: cls }, fEl, inp, btn);
   face(fEl, {});
-  form.addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (t.length < 2) { inp.focus(); return; } ls.set('tutor.target', target); startTopic(t); });
+  const hint = h('div', { class: 'askhint', role: 'alert' });
+  form.addEventListener('submit', e => {
+    e.preventDefault(); const t = inp.value.trim();
+    if (t.length < 2) {
+      form.classList.remove('bad'); void form.offsetWidth; form.classList.add('bad');
+      hint.textContent = L('Schreib erst ein Thema rein – z. B. „Kapitalwert“. Ohne Thema kann ich nichts erklären.', 'Type a topic first – e.g. “Net present value”. Without a topic there’s nothing to explain.');
+      if (!hint.isConnected) form.insertAdjacentElement('afterend', hint);
+      inp.focus(); return;
+    }
+    hint.remove(); form.classList.remove('bad');
+    form.dispatchEvent(new CustomEvent('topicok'));
+    ls.set('tutor.target', target); startTopic(t);
+  });
+  inp.addEventListener('input', () => { if (inp.value.trim().length >= 2) { hint.remove(); form.classList.remove('bad'); } });
   // Beispiele im Platzhalter durchtippen
   let k = Math.floor(Math.random() * TOPIC_EXAMPLES.length), stop = false;
   inp.addEventListener('focus', () => { stop = true; inp.placeholder = L('z. B. ', 'e.g. ') + TOPIC_EXAMPLES[k % TOPIC_EXAMPLES.length]; });
@@ -281,7 +298,7 @@ export function topicForm({ cls = 'askbar', target = null } = {}) {
 async function topicPrompt() {
   const form = topicForm({ cls: 'askbar inmodal' });
   const p = modal({ title: L('Was soll Max dir erklären?', 'What should Max explain?'), text: L('Kein Skript nötig: Max schreibt dir ein Kurzskript zum Thema – mit Beispiel, Formeln und typischen Klausurfehlern. Danach gehen Quiz, Karten, Lernpfad und Podcast wie gewohnt. 2 Einheiten.', 'No slides needed: Max writes you a short script on the topic – with an example, formulas and typical exam mistakes. After that, quiz, flashcards, study path and podcast work as usual. 2 credits.'), body: form, actions: [] });
-  form.addEventListener('submit', () => document.querySelector('.modal-bg')?.remove());
+  form.addEventListener('topicok', () => document.querySelector('.modal-bg')?.remove());
   setTimeout(() => form.querySelector('input')?.focus(), 80);
   return p;
 }
@@ -343,6 +360,7 @@ const AUTO_TABS = { quiz: 'quiz', karten: 'karten', podcast: 'podcast', zettel: 
 function afterCreate(d) {
   const t = ls.get('tutor.target', null); ls.set('tutor.target', null);
   if (t === 'tutor') { ls.set('tutor.pendingAsk', L('Erklär mir das wichtigste Thema aus dem Skript an der Tafel – mit Beispiel.', 'Explain the most important topic from the slides on the whiteboard – with an example.')); return `#/app/${d.id}/tutor`; }
+  if (t === 'plan') return `#/app/${d.id}/plan`;
   if (AUTO_TABS[t]) return `#/app/${d.id}/${AUTO_TABS[t]}/auto`;
   return `#/app/${d.id}/hub/neu`;
 }
@@ -350,6 +368,7 @@ function afterCreate(d) {
 // „Ausprobieren“: Skript hochladen oder Thema nennen, danach direkt in die Funktion
 export const TRY = L({
   tutor: ['Erklärt an der Tafel', 'Lade dein Skript hoch oder nenn mir ein Thema – ich erklär’s dir direkt an der Tafel.'],
+  plan: ['Klausurplan', 'Lade dein Skript hoch oder nenn mir ein Thema – ich bau dir einen Plan bis zur Klausur, Tag für Tag.'],
   quiz: ['Quiz in 6 Formaten', 'Lade dein Skript hoch oder nenn mir ein Thema – ich bau dir sofort ein Quiz daraus.'],
   karten: ['Karteikarten', 'Lade dein Skript hoch oder nenn mir ein Thema – ich mach dir direkt 16 Karteikarten.'],
   pfad: ['Lernpfad', 'Lade dein Skript hoch oder nenn mir ein Thema – ich teil’s dir in Kapitel mit Lektionen auf.'],
@@ -357,6 +376,7 @@ export const TRY = L({
   zettel: ['Lernzettel & Mindmap', 'Lade dein Skript hoch oder nenn mir ein Thema – ich schreib dir Lernzettel und Mindmap.'],
 }, {
   tutor: ['Explained on the whiteboard', 'Upload your slides or give me a topic – I’ll explain it to you right on the whiteboard.'],
+  plan: ['Exam plan', 'Upload your slides or give me a topic – I’ll build you a day-by-day plan up to your exam.'],
   quiz: ['Quizzes in 6 formats', 'Upload your slides or give me a topic – I’ll build you a quiz from it straight away.'],
   karten: ['Flashcards', 'Upload your slides or give me a topic – I’ll make you 16 flashcards right away.'],
   pfad: ['Study path', 'Upload your slides or give me a topic – I’ll split it into chapters with lessons.'],
@@ -371,7 +391,7 @@ export async function tryFeature(key) {
   const close = () => document.querySelector('.modal-bg.trybg')?.remove();
   fin.addEventListener('change', () => { if (fin.files[0]) { ls.set('tutor.target', key); close(); startUpload(fin.files[0]); } });
   const form = topicForm({ cls: 'askbar inmodal', target: key });
-  form.addEventListener('submit', () => close());
+  form.addEventListener('topicok', () => close());
   const body = h('div', { class: 'trybody' },
     h('label', { class: 'btn primary lg trybtn' }, fin, h('span', { html: ico('upload') }), L('Skript hochladen', 'Upload slides')),
     h('div', { class: 'or' }, h('span', {}, L('oder Thema nennen', 'or name a topic'))),

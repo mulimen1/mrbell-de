@@ -122,6 +122,9 @@ const I = {
   brain: '<path d="M15.5 21.5v-3.4c2.7-1.4 4.6-4.2 4.6-7.4A8.1 8.1 0 0 0 12 2.6a7.6 7.6 0 0 0-7.5 6.5l-1.3 3.4c-.2.5.2 1 .7 1H5v2.7c0 1.2 1 2.2 2.2 2.2H9v3.1"/><g transform="translate(7.20 3.10) scale(0.4500)" stroke-width="2.7"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"  d="M15.145 5.208a3.5 3.5 0 0 0-5.92 1.053A3 3 0 0 0 5 9.051m10.145-3.843a4.5 4.5 0 0 1 5.492 6.065m-5.492-6.065A4.51 4.51 0 0 0 12.028 9M9.05 14a2.5 2.5 0 0 0 2.45 2c.255 0 .382 0 .5.014a2 2 0 0 1 1.435.887c.065.099.122.213.236.44L15 20m-5.95-6a2.5 2.5 0 0 1 .95-2.5M9.05 14H4.5A2.5 2.5 0 1 1 5 9.05m15.637 2.223A2.5 2.5 0 0 0 17.05 13m3.587-1.727A2.5 2.5 0 0 1 19.5 16a1.733 1.733 0 0 0-1.622 2.34L18.5 20M5 9.05c.013.749.3 1.43.764 1.95"/></g>',
   headphones: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3.5" y="14" width="4.5" height="6.5" rx="1.6"/><rect x="16" y="14" width="4.5" height="6.5" rx="1.6"/>',
     shrink: '<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>',
+  calendar: '<rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14h2M12 14h2M16 14h0M8 17h2M12 17h2"/>',
+  // Pfeife: Lucide „whistle“ (ISC-Lizenz)
+  whistle: '<path d="M10 6v4"/><path d="M21 6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-5.675A7 7 0 1 1 9 6z"/>',
   expand: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
 };
 export const ico = (n, cls = '') => `<svg class="ico ${cls}" viewBox="0 0 24 24" aria-hidden="true">${I[n] || ''}</svg>`;

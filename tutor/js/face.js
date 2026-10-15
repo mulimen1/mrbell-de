@@ -37,7 +37,7 @@ class Face {
           <ellipse class="fz-talk" cx="512" cy="622" rx="30" ry="18"/>
         </g>
         <image class="fz-hair" href="/tutor/img/max-hair-sm.png" x="162" y="131" width="709" height="399" preserveAspectRatio="none"/>
-        <g class="fz-dots"><circle cx="820" cy="150" r="16"/><circle cx="860" cy="108" r="12"/><circle cx="892" cy="72" r="9"/></g>
+        <g class="fz-dots"><circle cx="812" cy="158" r="22"/><circle cx="858" cy="112" r="16"/><circle cx="894" cy="74" r="11"/></g>
       </g>`;
     el.replaceChildren(svg);
     this.look = svg.querySelector('.fz-look');

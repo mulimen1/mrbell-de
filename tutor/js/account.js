@@ -83,16 +83,35 @@ export function openLogin({ title } = {}) {
 
     const success = r => {
       fc.set('happy');
+      const goal = r.fresh ? goalQuestion() : null;
       box.replaceChildren(fEl, h('h3', {}, r.fresh ? L('Willkommen im Club.', 'Welcome to the club.') : L('Da bist du ja wieder.', 'There you are again.')),
         h('p', {}, r.fresh
           ? L(`7 Tage Pro – geht aufs Haus. Also auf Papas. Bis ${fmtDate(r.account.proUntil)} lernst du ohne Tageslimit.`, `7 days of Pro – on the house. Well, on Papa’s. Until ${fmtDate(r.account.proUntil)} you learn with no daily limit.`)
           : r.account.pro ? L(`Pro läuft noch bis ${fmtDate(r.account.proUntil)}.`, `Pro runs until ${fmtDate(r.account.proUntil)}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
-        h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', onclick: () => close(true) }, L('Los geht’s', 'Let’s go'))));
+        goal && goal.el,
+        h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', onclick: () => { goal && goal.save(); close(true); } }, L('Los geht’s', 'Let’s go'))));
       setTimeout(() => box.querySelector('.btn.primary')?.focus(), 60);
     };
 
     step1();
   });
+}
+
+// Neues Konto: kurze, optionale Frage nach dem Ziel (füllt später den Klausurplan vor)
+const GOAL_CHIPS = L([[.95, '1,0'], [.9, '1,3'], [.85, '1,7'], [.8, '2,0'], [.75, '2,3'], [.7, '2,7'], [.65, '3,0'], [.5, 'Bestanden']], [[.9, 'Top grade'], [.75, 'Good grade'], [.5, 'Pass']]);
+function goalQuestion() {
+  const k = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const t = new Date(), tm = new Date(t.getTime() + 864e5), mx = new Date(t.getTime() + 365 * 864e5);
+  const prev = ls.get('tutor.goal', null) || {};
+  let grade = typeof prev.grade === 'number' ? prev.grade : null;
+  const date = h('input', { type: 'date', class: 'field', min: k(tm), max: k(mx), value: prev.examDate && prev.examDate > k(t) ? prev.examDate : '', 'aria-label': L('Datum deiner nächsten Klausur', 'Date of your next exam') });
+  const chips = h('div', { class: 'lg-chips' }, GOAL_CHIPS.map(([p, l]) => h('button', { type: 'button', class: 'chip' + (grade != null && Math.abs(grade - p) < .001 ? ' on' : ''), onclick: e => { const on = e.currentTarget.classList.contains('on'); grade = on ? null : p; chips.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', !on && c === e.currentTarget)); } }, l)));
+  const el = h('div', { class: 'lgoal' },
+    h('b', {}, L('Was ist dein Ziel?', 'What’s your goal?'), h('small', {}, L(' · optional', ' · optional'))),
+    h('label', {}, h('span', {}, L('Nächste Klausur', 'Next exam')), date),
+    h('div', {}, h('span', { class: 'lg-l' }, L('Wunschnote', 'Target grade')), chips),
+    h('p', {}, L('Max baut dir daraus später einen Lernplan bis zur Klausur. Leer lassen geht auch.', 'Max later turns this into a study plan up to your exam. Leaving it empty is fine too.')));
+  return { el, save() { const d = /^\d{4}-\d{2}-\d{2}$/.test(date.value) ? date.value : null; if (d || grade != null) ls.set('tutor.goal', { examDate: d, grade }); } };
 }
 
 // Link aus der Mail: #/login/<ek>/<code>
