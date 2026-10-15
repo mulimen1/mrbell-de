@@ -17,7 +17,7 @@ import { applyThemeButtons } from './theme.js';
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
 const M = 12;                       // Mindestabstand zum Rand
-const BUB = 56;                     // Größe des Kopfs
+const BUB = () => document.querySelector('.asst-bub')?.offsetWidth || 96;   // Größe des Kopfs
 const MOB = matchMedia('(max-width: 600px)');
 const SILENT = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
 const TAB = { hub: L('Übersicht', 'Overview'), plan: L('Klausurplan', 'Exam plan'), tutor: L('Max-Chat & Tafel', 'Max chat & whiteboard'), pfad: L('Lernpfad', 'Study path'), quiz: 'Quiz', karten: L('Karteikarten', 'Flashcards'), podcast: 'Podcast', zettel: L('Lernzettel', 'Study sheet') };
@@ -51,7 +51,7 @@ const SVG = {
 
 // ---------- Zustand (persistiert) ----------
 const cfg = Object.assign({ on: true, spk: true, bub: null }, ls.get(KEY, {}) || {});
-if (cfg.v !== 2) { cfg.v = 2; cfg.spk = true; }
+if (cfg.v !== 3) { cfg.v = 3; cfg.spk = true; try { localStorage.setItem('tutor.voice', JSON.stringify('max')); } catch (e) {} ls.set(KEY, cfg); }
 const saveCfg = () => ls.set(KEY, cfg);
 export const isAssistantEnabled = () => cfg.on !== false;
 let api = null;                    // gesetzt, sobald gemountet
@@ -146,13 +146,14 @@ export function mountAssistant() {
 
   // ----- Kopf -----
   const bubFace = h('span', { class: 'asst-bf' });
-  const bub = h('button', { class: 'asst-bub', type: 'button', 'aria-label': L('Mit Max reden', 'Talk to Max'), title: L('Antippen und lossprechen', 'Tap and start talking') },
-    bubFace, h('i', { class: 'asst-dot' }), h('span', { class: 'asst-tip' }, L('Frag mich', 'Ask me')),
+  const bub = h('button', { class: 'asst-bub', type: 'button', 'aria-label': L('Mit Max reden', 'Talk to Max'), title: L('Frag Max', 'Ask Max') },
+    bubFace, h('i', { class: 'asst-dot' }), h('span', { class: 'asst-tip' }, L('Klick mich – ich helf dir', 'Tap me – I’ll help you')),
     h('span', { class: 'asst-x', title: L('Max ausblenden', 'Hide Max'), html: ico('x') }),
     h('span', { class: 'asst-bs', title: L('Stopp', 'Stop'), html: SVG.stop }));
 
   // ----- Leiste („Insel“) -----
   const fEl = h('span', { class: 'ai-f' });
+  const moreBtn = h('button', { class: 'ai-fw', type: 'button', 'aria-label': L('Einstellungen: Stimme, neues Gespräch', 'Settings: voice, new conversation'), title: L('Stimme & Einstellungen', 'Voice & settings'), 'aria-haspopup': 'menu' }, fEl);
   const wave = liveWave(24);
   const stTx = h('span', { class: 'ai-st' });
   const inp = h('input', { class: 'ai-in', type: 'text', enterkeyhint: 'send', autocomplete: 'off', maxlength: 1500, 'aria-label': L('Nachricht an Max', 'Message to Max') });
@@ -160,16 +161,14 @@ export function mountAssistant() {
     L(['Erklär mir den Kapitalwert', 'Bau mir ein Quiz', 'Was ist der Break-even?', 'Mach mir Karteikarten', 'Was soll ich heute lernen?', 'Erklär mir latente Steuern'], ['Explain net present value', 'Build me a quiz', 'What is break-even?', 'Make me flashcards', 'What should I study today?', 'Explain deferred taxes']), L('z. B. ', 'e.g. '));
   const mid = h('div', { class: 'ai-mid' }, stTx, wave.el, inp);
   const B = (cls, label, html) => h('button', { class: 'ai-b ' + cls, type: 'button', 'aria-label': label, title: label, html });
-  const kbBtn = B('ai-kb', L('Tippen', 'Type'), KB);
-  const micBtn = B('ai-mic primary', L('Sprechen', 'Speak'), ico('mic'));
+  const micBtn = h('button', { class: 'ai-talk', type: 'button', 'aria-label': L('Sprich mit Max', 'Talk to Max') }, h('span', { html: ico('mic') }), h('span', { class: 'lbl' }, L('Sprich mit Max', 'Talk to Max')));
   const sendBtn = B('ai-send primary', L('Senden', 'Send'), ico('send'));
   const doneBtn = B('ai-done primary', L('Fertig', 'Done'), CHECK);
   const stopBtn = B('ai-stop primary', L('Stopp', 'Stop'), SVG.stop);
   const muteBtn = B('ai-mute', '', SVG.spkOn);
-  const moreBtn = B('ai-more', L('Mehr', 'More'), SVG.more);
   const closeBtn = B('ai-close', L('Einklappen', 'Collapse'), ico('x'));
   const isl = h('div', { class: 'ai-isl', role: 'group', 'aria-label': L('Max', 'Max') },
-    h('span', { class: 'ai-fw' }, fEl), mid, kbBtn, muteBtn, moreBtn, micBtn, sendBtn, doneBtn, stopBtn, closeBtn);
+    moreBtn, mid, muteBtn, micBtn, sendBtn, doneBtn, stopBtn, closeBtn);
   const voiceChips = VOICES.map(([k, l, d]) => h('button', { class: 'chip', type: 'button', title: d, 'data-v': k, onclick: () => { ls.set('tutor.voice', k); drawMenu(); } }, l));
   const menu = h('div', { class: 'ai-menu', role: 'menu', hidden: true },
     h('div', { class: 'eyebrow' }, L('Stimme', 'Voice')), h('div', { class: 'asst-vch' }, voiceChips),
@@ -186,6 +185,8 @@ export function mountAssistant() {
   const cap = h('div', { class: 'ai-feed' }, feedTog, feedList, srLive);
   let feedOpen = !MOB.matches;
 
+  const bd = h('div', { class: 'ai-bd', 'aria-hidden': 'true' });
+  const bSay = h('div', { class: 'ai-bsay', 'aria-hidden': 'true' });
   // ----- Tafel direkt über der Seite -----
   const bTitle = h('b', {});
   const bCount = h('span', { class: 'cnt' });
@@ -196,11 +197,11 @@ export function mountAssistant() {
   const bArea = h('div', { class: 'ai-ba dots' });
   const bGrab = h('div', { class: 'ai-grab', 'aria-hidden': 'true' }, h('i'));
   const board = h('section', { class: 'ai-board', role: 'region', 'aria-label': L('Max’ Tafel', 'Max’s board') },
-    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bMin, bClose), bArea);
+    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bMin, bClose), bArea, bSay);
   const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', {}, L('Tafel', 'Board')));
 
   const chip = h('button', { class: 'asst-back', type: 'button' }, h('span', { class: 'asst-cf' }), L('Max zurückholen', 'Bring Max back'));
-  const root = h('div', { class: 'asst', 'data-state': 'idle' }, board, bTab, cap, isl, menu, bub);
+  const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : ''), 'data-state': 'idle' }, bd, board, bTab, cap, isl, menu, bub);
   document.body.appendChild(root);
   const bf = face(bubFace, {}), fc = face(fEl, { follow: false });
 
@@ -221,13 +222,14 @@ export function mountAssistant() {
   const coverCheck = () => {
     const covered = !!document.querySelector('body > .voice, body > .modal-bg, .mindmap.mm-full');
     const r = route();
-    const mobTutor = r.tab === 'tutor' && matchMedia('(max-width: 980px)').matches;
     const side = document.querySelector('#app .app.sideopen');
     const land = !r.tab && !document.getElementById('landing')?.classList.contains('hidden');
     root.classList.toggle('land', land);
     root.classList.toggle('landtop', land && scrollY < 140);
     root.classList.toggle('covered', covered);
-    root.classList.toggle('nobub', mobTutor || !!side);
+    root.classList.toggle('nobub', !!side);
+    root.classList.toggle('ontutor', r.tab === 'tutor');
+    if (r.tab === 'tutor' && open) setOpen(false);
     // Insel & Untertitel mittig über dem Inhalt (ohne Seitenleiste)
     const sb = document.querySelector('#app:not(.hidden) .side');
     const sr = sb ? sb.getBoundingClientRect() : null;
@@ -244,7 +246,7 @@ export function mountAssistant() {
   const vw = () => document.documentElement.clientWidth, vh = () => innerHeight;
   function placeBub() {
     const p = cfg.bub || { r: 18, b: 18 };
-    const r = clamp(p.r, 6, vw() - BUB - 6), b = clamp(p.b, 6, vh() - BUB - 6);
+    const r = clamp(p.r, 6, vw() - BUB() - 6), b = clamp(p.b, 6, vh() - BUB() - 6);
     bub.style.right = r + 'px'; bub.style.bottom = `calc(${b}px + env(safe-area-inset-bottom, 0px))`;
     return { r, b };
   }
@@ -272,7 +274,7 @@ export function mountAssistant() {
   dragger(bub, {
     start: () => { bubStart = placeBub(); },
     move: (dx, dy) => {
-      const r = clamp(bubStart.r - dx, 6, vw() - BUB - 6), b = clamp(bubStart.b - dy, 6, vh() - BUB - 6);
+      const r = clamp(bubStart.r - dx, 6, vw() - BUB() - 6), b = clamp(bubStart.b - dy, 6, vh() - BUB() - 6);
       bub.style.right = r + 'px'; bub.style.bottom = b + 'px'; cfg.bub = { r, b };
     },
     end: moved => { if (moved) { justDragged = true; setTimeout(() => { justDragged = false; }, 50); saveCfg(); placeBub(); } },
@@ -281,7 +283,7 @@ export function mountAssistant() {
     if (justDragged) return;
     if (e.target.closest('.asst-x')) { e.stopPropagation(); setAssistantEnabled(false); return; }
     if (e.target.closest('.asst-bs') && state !== 'idle') { e.stopPropagation(); stopAll(); return; }
-    setOpen(true, { listen: true });
+    setOpen(true);
   });
 
   // Blasen zur Seite wischen = ausblenden (kommen mit der nächsten Frage wieder)
@@ -311,13 +313,17 @@ export function mountAssistant() {
     if (v === open) { if (v && listen && state === 'idle') startListen(); return; }
     open = !!v;
     root.classList.toggle('open', open);
+    syncLock();
     closeMenu();
     if (open) {
       unread(false);
       isl.animate([{ opacity: 0, transform: 'translate(-50%, 14px) scale(.92)' }, { opacity: 1, transform: 'translateX(-50%)' }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
+      if (!ls.get('tutor.asst.seen')) { ls.set('tutor.asst.seen', 1); root.classList.add('seen'); }
+      greet();
       if (feedList.children.length) showCap();
       capScroll();
       if (listen) startListen(); else setState(state);
+      if (!MOB.matches && !listen) setTimeout(() => { if (open && state === 'idle') inp.focus({ preventScroll: true }); }, 60);
     } else {
       setTyping(false);
       if (state === 'listen') stopListen('stop');
@@ -336,7 +342,7 @@ export function mountAssistant() {
     }
     // Laptop: einfach lostippen
     const a = document.activeElement;
-    if (!typing && e.key.length === 1 && e.key !== ' ' && !e.ctrlKey && !e.metaKey && !e.altKey && (!a || a === document.body || root.contains(a)) && !document.querySelector('body > .modal-bg')) {
+    if (!typing && state === 'idle' && e.key.length === 1 && e.key !== ' ' && !e.ctrlKey && !e.metaKey && !e.altKey && (!a || a === document.body || root.contains(a)) && !document.querySelector('body > .modal-bg')) {
       if (state === 'listen') stopListen('stop');
       setTyping(true);
     }
@@ -344,13 +350,11 @@ export function mountAssistant() {
 
   // ---------- Tippen ----------
   function setTyping(v) {
-    typing = !!v;
-    root.classList.toggle('typing', typing);
-    if (typing) { listenTok++; if (state === 'listen') stopListen('stop'); inp.focus({ preventScroll: true }); }
+    if (v) { listenTok++; if (state === 'listen') stopListen('stop'); inp.focus({ preventScroll: true }); }
     else inp.blur();
-    drawButtons();
   }
-  kbBtn.addEventListener('click', () => setTyping(true));
+  inp.addEventListener('focus', () => { typing = true; if (state === 'listen') stopListen('stop'); });
+  inp.addEventListener('blur', () => { typing = false; });
   inp.addEventListener('input', drawButtons);
   inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); sendTyped(); } if (e.key === 'Escape') { e.preventDefault(); setTyping(false); } });
   sendBtn.addEventListener('click', () => sendTyped());
@@ -360,11 +364,10 @@ export function mountAssistant() {
   function drawButtons() {
     const s = state;
     const show = (b, v) => { b.hidden = !v; };
-    show(kbBtn, s === 'idle' && !typing && !MOB.matches);
-    show(moreBtn, s === 'idle' && !typing);
-    show(muteBtn, s === 'speak' || s === 'think' || (s === 'idle' && !typing && !MOB.matches));
-    show(micBtn, s === 'idle' && !(typing && inp.value.trim()));
-    show(sendBtn, s === 'idle' && typing && !!inp.value.trim());
+    const hasTx = !!inp.value.trim();
+    show(muteBtn, s === 'speak' || s === 'think');
+    show(micBtn, s === 'idle' && !hasTx);
+    show(sendBtn, s === 'idle' && hasTx);
     show(doneBtn, s === 'listen');
     show(stopBtn, s === 'think' || s === 'speak');
     show(closeBtn, true);
@@ -380,7 +383,7 @@ export function mountAssistant() {
     drawButtons();
     toast(cfg.spk ? L('Max redet wieder.', 'Max talks again.') : L('Max ist stumm – er schreibt nur noch.', 'Max is muted – text only.'));
   });
-  micBtn.addEventListener('click', () => { setTyping(false); startListen(); });
+  micBtn.addEventListener('click', () => { inp.blur(); typing = false; startListen(); });
   doneBtn.addEventListener('click', () => stopListen());
   stopBtn.addEventListener('click', () => stopAll());
 
@@ -403,17 +406,29 @@ export function mountAssistant() {
     if (s === 'speak') wave.talk(); else if (s !== 'listen') wave.stop();
     drawButtons();
   }
-  stTx.addEventListener('click', () => { if (state === 'idle') setTyping(true); });
   function unread(v) { root.classList.toggle('unread', !!v); }
 
   // ---------- Untertitel ----------
-  function showCap() { const was = root.classList.contains('has-cap'); root.classList.add('has-cap'); if (!was) capScroll(); }
-  function dismissCap() { root.classList.remove('has-cap'); }
-  function setFeedOpen(v) { feedOpen = !!v; root.classList.toggle('feed-open', feedOpen); drawTog(); capScroll(); }
+  function syncLock() {
+    const lock = MOB.matches && open && ((feedOpen && root.classList.contains('has-cap')) || (boardOpen && !boardMin));
+    root.classList.toggle('lock', lock);
+    document.documentElement.classList.toggle('asst-lock', lock);
+  }
+  bd.addEventListener('click', () => { if (boardOpen && !boardMin) minBoard(true); else setFeedOpen(false); });
+  // Was Max gerade sagt, steht am Handy unten in der Tafel mit
+  new MutationObserver(() => {
+    if (!boardOpen) return;
+    const last = [...feedList.querySelectorAll('.ai-bub.max:not([hidden]) .ai-a')].pop();
+    bSay.innerHTML = last ? last.innerHTML : '';
+    bSay.scrollTop = bSay.scrollHeight;
+  }).observe(feedList, { childList: true, subtree: true, characterData: true });
+  function showCap() { const was = root.classList.contains('has-cap'); root.classList.add('has-cap'); if (!was) capScroll(); syncLock(); }
+  function dismissCap() { root.classList.remove('has-cap'); syncLock(); }
+  function setFeedOpen(v) { feedOpen = !!v; root.classList.toggle('feed-open', feedOpen); drawTog(); capScroll(); syncLock(); }
   function drawTog() {
     const n = feedList.querySelectorAll('.ai-bub').length, older = n - feedList.querySelectorAll('.ai-bub.last').length;
     feedTog.hidden = older < 1;
-    feedTog.replaceChildren(h('span', { html: ico(feedOpen ? 'down' : 'up') }), feedOpen ? L('Einklappen', 'Collapse') : L('Verlauf', 'History'));
+    feedTog.replaceChildren(h('span', { html: ico(feedOpen ? 'down' : 'up') }), feedOpen ? L('Verlauf einklappen', 'Collapse history') : L('Verlauf ansehen', 'Show history'));
   }
   function markLast() {
     feedList.querySelectorAll('.ai-bub.last').forEach(b => b.classList.remove('last'));
@@ -429,6 +444,16 @@ export function mountAssistant() {
     return { q, a, aTx, aX, done: false };
   }
   function newEx(t, live) { curEx = bubPair(t, live); capQ = curEx.q; capA = curEx.aTx; capX = curEx.aX; markLast(); }
+  // Begrüßung beim ersten Öffnen pro Besuch – sofort als Nachricht
+  let greeted = false;
+  function greet() {
+    if (greeted) return; greeted = true;
+    const g = h('div', { class: 'ai-bub max last greet' }, h('div', { class: 'ai-a' }, richText(L(
+      'Moin, ich bin Max – dein Tutor hier. Ich seh, was du auf der Seite gerade machst, und führ dich durch: Frag mich alles, ich erklär’s dir an der Tafel, öffne Sachen für dich und bau dir Quiz, Karteikarten oder einen Klausurplan. Schreib einfach los – oder tipp auf **Sprich mit Max**.',
+      'Hey, I’m Max – your tutor here. I can see what you’re doing on the page and I’ll guide you: ask me anything, I’ll explain it on the whiteboard, open things for you and build quizzes, flashcards or an exam plan. Just type – or tap **Talk to Max**.'))));
+    feedList.querySelectorAll('.ai-bub.last').forEach(b => b.classList.remove('last'));
+    feedList.appendChild(g); showCap(); drawTog(); capScroll();
+  }
   function endEx() { if (curEx) curEx.done = true; }
   function dropEx() { if (curEx && !curEx.done) { curEx.q.remove(); curEx.a.remove(); curEx = null; capQ = capA = capX = null; markLast(); } }
   function capQuestion(t, live = false) {
@@ -460,12 +485,12 @@ export function mountAssistant() {
     if (write) t.classList.add('ai-write');
     return t;
   }
-  function openBoard() { boardOpen = true; root.classList.add('has-board'); minBoard(false, true); }
+  function openBoard() { boardOpen = true; root.classList.add('has-board'); minBoard(false, true); if (MOB.matches && feedOpen) setFeedOpen(false); }
   function minBoard(v, quiet) {
-    boardMin = !!v; root.classList.toggle('board-min', boardMin);
+    boardMin = !!v; root.classList.toggle('board-min', boardMin); syncLock();
     if (!quiet && !v) board.animate([{ opacity: 0, transform: 'translateX(30px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
   }
-  function closeBoard() { boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); }
+  function closeBoard() { boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); syncLock(); }
   // Tafel „schreibt mit“: Abschnitte erscheinen im Takt der Stimme
   function writeAlong(t, progress) {
     const kids = [...t.children].filter(k => !k.classList.contains('tt'));
