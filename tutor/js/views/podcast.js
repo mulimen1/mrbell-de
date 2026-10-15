@@ -40,7 +40,7 @@ function intro(wrap, ctx) {
   const lens = [['kurz', 'Kurz · ~5 Min.'], ['lang', 'Lang · ~10 Min.']].map(([k, l]) => { const c = h('button', { class: 'chip' + (k === len ? ' on' : '') }, l); c.addEventListener('click', () => { len = k; lens.forEach(x => x.classList.toggle('on', x === c)); }); return c; });
   wrap.replaceChildren(
     h('div', { class: 'pod' },
-      h('div', { class: 'cover' }, h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .7 } }, 'Tutor · Podcast'), h('h3', {}, doc.name), wave()),
+      h('div', { class: 'cover' }, h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .7 } }, 'BWL Max · Podcast'), h('h3', {}, doc.name), wave()),
       h('div', {},
         h('div', { class: 'eyebrow' }, 'Podcast'), h('h2', { style: { fontSize: '30px', letterSpacing: '-.03em', margin: '6px 0 8px' } }, 'Dein Skript zum Anhören'),
         h('p', { style: { color: 'var(--mute)', marginTop: 0 } }, 'Lena erklärt, Max fragt nach – mit Beispielen und den typischen Fehlern. Perfekt für Bahn, Gym oder Spaziergang.'),
@@ -82,7 +82,7 @@ function player(wrap, ctx, p) {
   wrap.replaceChildren(
     h('button', { class: 'btn sm ghost', style: { marginBottom: '12px' }, onclick: () => { stop(); intro(wrap, ctx); } }, h('span', { html: ico('left') }), 'Alle Folgen'),
     h('div', { class: 'pod' },
-      h('div', {}, h('div', { class: 'cover' }, h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .7 } }, 'Tutor · Podcast'), h('h3', {}, p.title), w),
+      h('div', {}, h('div', { class: 'cover' }, h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .7 } }, 'BWL Max · Podcast'), h('h3', {}, p.title), w),
         h('div', { class: 'player' }, playBtn, tbar),
         h('div', { class: 'chips', style: { marginTop: '12px', display: 'flex', gap: '6px', flexWrap: 'wrap' } }, rates),
         h('div', { style: { marginTop: '12px', display: 'flex', gap: '6px' } },

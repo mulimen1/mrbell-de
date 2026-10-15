@@ -1,6 +1,7 @@
 // Fragetypen: Multiple Choice (auch mehrere richtig), Richtig/Falsch, Zuordnen, Reihenfolge, Lückentext, Rechenaufgabe.
 import { h, shuffle, parseNum, fmt, ico, esc } from './util.js';
 import { richText } from './sanitize.js';
+import { say } from './max.js';
 
 export const TYPE_LABEL = { mc: 'Multiple Choice', tf: 'Richtig oder falsch', match: 'Zuordnen', order: 'Reihenfolge', cloze: 'Lückentext', num: 'Rechenaufgabe' };
 const KEYS = 'ABCDEFGH';
@@ -278,11 +279,13 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
     lastR = { ...r, skipped };
     showFeedback(r, skipped);
     face && face.pulse(r.correct ? 'happy' : 'sad', 1400);
+    if (r.correct) burst(card);
+    else card.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-5px)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(0)' }], { duration: 320 });
     resolve({ ...r, skipped });
   }
   function showFeedback(r, skipped) {
     const f = h('div', { class: 'feedback' + (r.correct ? '' : ' bad') },
-      h('div', { class: 'verdict' }, h('span', { class: 'badge', html: r.correct ? ico('check') : ico('x') }), r.correct ? pick(['Richtig.', 'Genau so.', 'Sitzt.', 'Stark.']) : skipped ? 'Kein Problem – so geht’s:' : (r.score > 0 ? 'Teilweise richtig.' : 'Noch nicht ganz.')),
+      h('div', { class: 'verdict' }, h('span', { class: 'badge', html: r.correct ? ico('check') : ico('x') }), r.correct ? say('right') : skipped ? 'Kein Problem – so geht’s:' : (r.score > 0 ? 'Teilweise richtig.' : say('wrong'))),
       r.note ? h('p', {}, r.note) : null,
       q.type === 'num' && !r.correct ? h('p', {}, h('b', {}, 'Lösung: ' + fmt(q.answer) + (q.unit ? ' ' + q.unit : ''))) : null,
       q.explain ? h('p', {}, richText(q.explain)) : null,
@@ -290,7 +293,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
       q.page ? h('div', { class: 'src' }, 'Quelle: Vorlesung, S. ' + q.page) : null);
     fb.replaceChildren(f);
     actions.replaceChildren();
-    if (onAsk && !r.correct) actions.appendChild(h('button', { class: 'btn', onclick: () => onAsk(q, r) }, h('span', { html: ico('chat') }), 'Tutor erklärt’s mir'));
+    if (onAsk && !r.correct) actions.appendChild(h('button', { class: 'btn', onclick: () => onAsk(q, r) }, h('span', { html: ico('chat') }), 'Max erklärt’s mir'));
     actions.appendChild(h('span', { class: 'sp' }));
     if (onNext) { const nb = h('button', { class: 'btn primary', onclick: () => goNext(r) }, nextLabel, ' ', h('span', { class: 'k' }, '↵')); actions.appendChild(nb); setTimeout(() => nb.focus({ preventScroll: true }), 50); }
   }
@@ -309,3 +312,19 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
   return { result, destroy: () => document.removeEventListener('keydown', onKey) };
 }
 const pick = a => a[Math.floor(Math.random() * a.length)];
+
+function burst(card) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const btn = card.querySelector('.opt.right, .mi.right, .oi.right, .gap.right, .numrow input') || card;
+  const r = btn.getBoundingClientRect(), c = card.getBoundingClientRect();
+  card.style.position = 'relative';
+  for (let i = 0; i < 14; i++) {
+    const a = Math.PI * 2 * i / 14 + Math.random() * .3, d = 40 + Math.random() * 50;
+    const p = document.createElement('i'); p.className = 'burst';
+    p.style.left = (r.left - c.left + r.width * (.15 + Math.random() * .7)) + 'px';
+    p.style.top = (r.top - c.top + r.height / 2) + 'px';
+    p.style.setProperty('--dx', Math.cos(a) * d + 'px'); p.style.setProperty('--dy', Math.sin(a) * d + 'px');
+    if (i % 3 === 0) { p.style.width = p.style.height = '4px'; p.style.borderRadius = '1px'; }
+    card.appendChild(p); setTimeout(() => p.remove(), 900);
+  }
+}

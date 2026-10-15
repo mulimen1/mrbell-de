@@ -93,8 +93,8 @@ function chapterView(wrap, ctx, idx) {
         h('div', { class: 'foot' }, c.done ? `Abgeschlossen · ${Math.round((c.score ?? 0) * 100)} %` : (doc.lessons[idx] ? 'Bereit' : 'ca. 5–8 Minuten'))),
       h('button', { class: 'tile', onclick: () => ctx.go('quiz', 'k' + idx) }, h('div', { class: 'ti', html: ico('quiz') }), h('h3', {}, 'Quiz zum Kapitel'), h('p', {}, 'Gemischte Fragetypen nur zu diesem Thema.')),
       h('button', { class: 'tile', onclick: () => ctx.go('karten', 'k' + idx) }, h('div', { class: 'ti', html: ico('cards') }), h('h3', {}, 'Karteikarten'), h('p', {}, 'Begriffe und Formeln dieses Kapitels.')),
-      h('button', { class: 'tile', onclick: () => ctx.ask(`Erklär mir das Kapitel „${c.title}“ an der Tafel – kurz und mit einem Beispiel.`) }, h('div', { class: 'ti', html: ico('chat') }), h('h3', {}, 'Tutor fragen'), h('p', {}, 'Erklärung an der Tafel, Rückfragen erlaubt.')),
-      h('button', { class: 'tile', onclick: () => feynman(feyn, ctx, idx) }, h('div', { class: 'ti', html: ico('bulb') }), h('h3', {}, 'Erklär’s selbst'), h('p', {}, 'Feynman-Methode: Du erklärst, der Tutor bewertet.'))),
+      h('button', { class: 'tile', onclick: () => ctx.ask(`Erklär mir das Kapitel „${c.title}“ an der Tafel – kurz und mit einem Beispiel.`) }, h('div', { class: 'ti', html: ico('chat') }), h('h3', {}, 'Max fragen'), h('p', {}, 'Erklärung an der Tafel, Rückfragen erlaubt.')),
+      h('button', { class: 'tile', onclick: () => feynman(feyn, ctx, idx) }, h('div', { class: 'ti', html: ico('bulb') }), h('h3', {}, 'Erklär’s selbst'), h('p', {}, 'Feynman-Methode: Du erklärst, Max bewertet.'))),
     feyn,
     c.terms.length ? h('div', { style: { marginTop: '24px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, 'Schlüsselbegriffe'), h('div', { class: 'terms' }, c.terms.map(t => h('span', { class: 'chip', onclick: () => ctx.ask(`Was bedeutet „${t}“? Kurz, mit Beispiel.`) }, t)))) : null);
 }
@@ -151,7 +151,7 @@ async function lesson(wrap, ctx, idx) {
       c.done = true; c.score = Math.max(c.score || 0, sc); save(doc);
       const f = h('div', { class: 'face' });
       const nextIdx = doc.path.chapters.findIndex(x => !x.done);
-      stage.replaceChildren(h('div', { class: 'result-hero' }, f, h('div', { class: 'score' }, Math.round(sc * 100) + ' %'), h('p', { style: { color: 'var(--mute)' } }, sc >= .8 ? 'Stark – das Kapitel sitzt.' : sc >= .5 ? 'Gut! Wiederhol die Fehler mit Karteikarten.' : 'Noch wackelig – lass dir die Stellen vom Tutor erklären.'),
+      stage.replaceChildren(h('div', { class: 'result-hero' }, f, h('div', { class: 'score' }, Math.round(sc * 100) + ' %'), h('p', { style: { color: 'var(--mute)' } }, sc >= .8 ? 'Stark – das Kapitel sitzt.' : sc >= .5 ? 'Gut! Wiederhol die Fehler mit Karteikarten.' : 'Noch wackelig – lass dir die Stellen von Max erklären.'),
         h('div', { style: { display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '18px' } },
           nextIdx >= 0 ? h('button', { class: 'btn primary', onclick: () => ctx.go('pfad', String(nextIdx)) }, 'Nächstes Kapitel', h('span', { html: ico('right') })) : h('a', { class: 'btn primary', href: `#/app/${doc.id}/quiz` }, 'Probeklausur schreiben'),
           h('button', { class: 'btn', onclick: () => ctx.go('karten', 'k' + idx) }, 'Karteikarten dazu'),

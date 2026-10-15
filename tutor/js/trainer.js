@@ -210,7 +210,7 @@ function practice(stage, ctx, T, cfg) {
   const bCheck = h('button', { class: 'btn primary tr-check', type: 'button' });
   const bHint = h('button', { class: 'btn tr-hintbtn', type: 'button' });
   const bNew = h('button', { class: 'btn ghost tr-new', type: 'button' }, svgIcon(I.refresh), 'Neue Aufgabe');
-  const bAsk = ctx.onAsk ? h('button', { class: 'btn ghost tr-ask', type: 'button' }, svgIcon(I.chat), 'Tutor fragen') : null;
+  const bAsk = ctx.onAsk ? h('button', { class: 'btn ghost tr-ask', type: 'button' }, svgIcon(I.chat), 'Max fragen') : null;
   const stat = h('div', { class: 'tr-stat' });
   const card = h('section', { class: 'tr-task', 'aria-label': 'Übungsaufgabe' },
     h('div', { class: 'tr-task-top' }, h('span', { class: 'eyebrow' }, 'Übung'), num), prompt, body, hintsEl, fb,

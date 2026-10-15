@@ -6,6 +6,8 @@ import { save, track } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
 import { loading, apiError, costBtn } from '../ui.js';
 import { renderQuestion, normalize, TYPE_LABEL } from '../quiz.js';
+import { feedbackButton } from '../feedback.js';
+import { ls as lsq } from '../util.js';
 
 const TYPES = ['mc', 'tf', 'match', 'order', 'cloze', 'num'];
 const DIFF = [['leicht', 'Leicht'], ['mittel', 'Mittel'], ['schwer', 'Schwer'], ['klausur', 'Klausur']];
@@ -137,6 +139,7 @@ function run(wrap, ctx, quiz) {
         h('button', { class: 'btn primary', onclick: () => overview(wrap, ctx) }, 'Fertig'),
         h('button', { class: 'btn', onclick: () => run(wrap, ctx, quiz) }, 'Nochmal'),
         doc.mistakes.length ? h('button', { class: 'btn', onclick: () => run(wrap, ctx, { id: 'mistakes', title: 'Deine Fehler', questions: shuffle(doc.mistakes).slice(0, 12), mistakes: true }) }, 'Fehler wiederholen') : null),
+      !lsq.get('tutor.feedbackGiven', 0) && score >= .5 ? h('div', { style: { marginTop: '14px' } }, feedbackButton('btn sm')) : null,
       h('div', { class: 'qlist' }, qs.map((q, k) => h('div', {}, h('span', { class: 'm' }, res[k]?.correct ? '✓' : '✗'), h('span', {}, q.type === 'cloze' ? q.q.replace(/___+/g, '…') : q.q))))));
     const fcc = face(f); setTimeout(() => fcc.set(score >= .6 ? 'happy' : 'sad'), 200);
   };

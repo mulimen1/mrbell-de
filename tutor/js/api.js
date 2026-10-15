@@ -34,11 +34,11 @@ export async function ask(action, payload = {}, { signal } = {}) {
     res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, signal });
   } catch (e) {
     if (e.name === 'AbortError') throw e;
-    throw new ApiError('offline', 'Keine Verbindung zum Tutor. Prüf dein Internet oder versuch es gleich nochmal.');
+    throw new ApiError('offline', 'Keine Verbindung zu Max. Prüf dein Internet oder versuch es gleich nochmal.');
   }
   let j = null;
   try { j = await res.json(); } catch (e) {}
-  if (!res.ok || !j) throw new ApiError('server', 'Der Tutor ist gerade nicht erreichbar. Versuch es in ein paar Minuten nochmal.');
+  if (!res.ok || !j) throw new ApiError('server', 'Max ist gerade nicht erreichbar. Versuch es in ein paar Minuten nochmal.');
   if (j.quota) setQuota(j.quota);
   if (!j.ok) throw new ApiError(j.error || 'error', j.message || 'Das hat nicht geklappt.');
   return j;

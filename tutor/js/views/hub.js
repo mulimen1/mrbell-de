@@ -19,7 +19,7 @@ export async function render(root, ctx) {
 
   // Schnellfrage an den Tutor
   const f = h('div', { class: 'face', style: { width: '64px', height: '64px' } });
-  const inp = h('input', { class: 'field', placeholder: 'Frag mich etwas zu deinem Skript …', style: { background: 'transparent', color: 'inherit', borderColor: 'color-mix(in srgb, var(--onInv) 30%, transparent)' } });
+  const inp = h('input', { class: 'field', placeholder: 'Frag Max etwas zu deinem Skript …', style: { background: 'transparent', color: 'inherit', borderColor: 'color-mix(in srgb, var(--onInv) 30%, transparent)' } });
   const quick = h('form', { style: { display: 'flex', gap: '8px', marginTop: 'auto' }, onsubmit: e => { e.preventDefault(); const t = inp.value.trim(); if (t) ctx.ask(t); else ctx.go('tutor'); } },
     inp, h('button', { class: 'send', style: { background: 'var(--onInv)', color: 'var(--inv)' }, 'aria-label': 'Fragen', html: ico('send') }));
   quick.addEventListener('click', e => e.stopPropagation());
@@ -38,7 +38,7 @@ export async function render(root, ctx) {
     h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, `${doc.pages.length} Seiten · hinzugefügt ${ago(doc.created)}`), h('h2', {}, doc.path?.title || doc.name), doc.path?.summary ? h('p', {}, doc.path.summary) : null)),
     h('div', { class: 'hub' },
       h('div', { class: 'tile big dark', role: 'button', tabindex: 0, onclick: () => ctx.go('tutor') },
-        h('div', { style: { display: 'flex', gap: '14px', alignItems: 'center' } }, f, h('div', {}, h('h3', { style: { fontSize: '22px' } }, 'Frag deinen Tutor'), h('p', {}, 'Er kennt dein Skript und erklärt an der Tafel.'))),
+        h('div', { style: { display: 'flex', gap: '14px', alignItems: 'center' } }, f, h('div', {}, h('h3', { style: { fontSize: '22px' } }, 'Frag deinen BWL Max'), h('p', {}, 'Kennt dein Skript, erklärt an der Tafel. Ein bisschen arrogant. Aber er hat recht.'))),
         h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '6px', margin: '14px 0' } },
           ['Fass das Skript in 5 Punkten zusammen', 'Was ist am wichtigsten für die Klausur?', 'Erklär mir das schwierigste Thema'].map(t => h('button', { class: 'chip', style: { background: 'transparent', color: 'inherit', borderColor: 'color-mix(in srgb, var(--onInv) 30%, transparent)' }, onclick: e => { e.stopPropagation(); ctx.ask(t); } }, t))),
         quick),

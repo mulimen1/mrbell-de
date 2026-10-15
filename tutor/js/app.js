@@ -6,10 +6,11 @@ import { readFile, ACCEPT } from './ingest.js';
 import { onQuota, currentQuota } from './api.js';
 import { exportAll, importAll, wipe } from './db.js';
 import { applyThemeButtons } from './theme.js';
+import { feedbackButton } from './feedback.js';
 
 const TABS = [
   ['hub', 'Übersicht', 'home'],
-  ['tutor', 'Tutor', 'chat'],
+  ['tutor', 'Max', 'chat'],
   ['pfad', 'Lernpfad', 'path'],
   ['quiz', 'Quiz', 'quiz'],
   ['karten', 'Karten', 'cards'],
@@ -40,7 +41,7 @@ function buildShell() {
   const faceEl = h('span', { class: 'mini', style: { width: '28px', height: '28px' } });
   const side = h('aside', { class: 'side' },
     h('div', { class: 'top' },
-      h('a', { class: 'brand', href: '#/' }, faceEl, 'Tutor', h('small', {}, 'Beta')),
+      h('a', { class: 'brand', href: '#/' }, faceEl, 'BWL Max', h('small', {}, 'Beta')),
       h('span', { style: { flex: 1 } }),
       h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': 'Hell/Dunkel' })),
     h('div', { class: 'scroll' },
@@ -49,8 +50,9 @@ function buildShell() {
       h('div', { class: 'grp' }, 'Üben ohne Skript'),
       h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('calc') }), h('span', { class: 'nm' }, 'BWL-Trainer'))),
     h('div', { class: 'bottom' }, quotaEl,
-      h('div', { style: { display: 'flex', gap: '6px' } },
-        h('button', { class: 'btn sm ghost', style: { flex: 1 }, onclick: settings }, 'Daten & Sicherung'))));
+      h('div', { style: { display: 'grid', gap: '2px' } },
+        feedbackButton('btn sm ghost'),
+        h('button', { class: 'btn sm ghost', onclick: settings }, 'Daten & Sicherung'))));
   const title = h('h1', {});
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
   const menuBtn = h('button', { class: 'iconbtn mob-menu', 'aria-label': 'Menü', html: ico('menu'), onclick: () => root.querySelector('.app').classList.toggle('sideopen') });
@@ -131,7 +133,7 @@ export async function mountApp(parts) {
   }
   const tab = VIEWS[b] ? b : 'hub';
   shell.title.textContent = S.doc.name;
-  document.title = `${S.doc.name} · Tutor`;
+  document.title = `${S.doc.name} · BWL Max`;
   renderTabs(a, tab);
   renderList();
   return show(`${a}:${tab}:${c || ''}`, async root => {
@@ -186,7 +188,7 @@ export async function startUpload(file) {
   shell.tabs.replaceChildren();
   current.key = 'ingest';
   const f = h('div', { class: 'face' }), bar = h('i'), sub = h('div', { class: 'sub mono' }, file.name);
-  shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f, h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, 'Ich lese dein Skript …'), h('div', { class: 'bar' }, bar), sub)));
+  shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f, h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, 'Max liest dein Skript …'), h('div', { class: 'bar' }, bar), sub)));
   const fc = face(f); fc.set('think');
   try {
     const r = await readFile(file, p => { bar.style.width = Math.round(p * 100) + '%'; sub.textContent = `${file.name} · ${Math.round(p * 100)} %`; });
@@ -224,7 +226,7 @@ async function settings() {
       if (ok) { await wipe(); location.hash = '#/'; location.reload(); }
     } }, h('span', { html: ico('trash') }), 'Alles auf diesem Gerät löschen'));
   imp.addEventListener('change', async () => {
-    try { const n = await importAll(imp.files[0]); await refreshList(); toast(`${n} Skript(e) wiederhergestellt.`); } catch (e) { toast('Das ist keine gültige Tutor-Sicherung.'); }
+    try { const n = await importAll(imp.files[0]); await refreshList(); toast(`${n} Skript(e) wiederhergestellt.`); } catch (e) { toast('Das ist keine gültige BWL-Max-Sicherung.'); }
   });
   await modal({ title: 'Daten & Sicherung', text: 'Alles liegt nur auf diesem Gerät. Sichere deinen Stand als Datei, um ihn auf ein anderes Gerät mitzunehmen.', body, actions: [{ label: 'Fertig', value: true, primary: true }] });
 }

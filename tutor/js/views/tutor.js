@@ -6,6 +6,7 @@ import { save } from '../state.js';
 import { forChat } from '../retrieve.js';
 import { apiError } from '../ui.js';
 import { sanitize, richText } from '../sanitize.js';
+import { say, SPICE, getSpice, setSpice, NAME } from '../max.js';
 
 const ACTIONS = {
   quiz: ['Quiz dazu starten', d => `#/app/${d.id}/quiz`],
@@ -38,15 +39,17 @@ export async function render(root, ctx) {
   const fEl = h('div', { class: 'face' });
   const msgs = h('div', { class: 'msgs', 'aria-live': 'polite' });
   const sugg = h('div', { class: 'suggest' });
-  const ta = h('textarea', { rows: 1, placeholder: 'Frag etwas zu deinem Skript …', 'aria-label': 'Nachricht' });
+  const ta = h('textarea', { rows: 1, placeholder: 'Frag Max etwas zu deinem Skript …', 'aria-label': 'Nachricht' });
   const send = h('button', { class: 'send', 'aria-label': 'Senden', html: ico('send'), disabled: true });
   const modeBtns = [['erklaeren', 'Erklären'], ['sokratisch', 'Sokratisch']].map(([k, l]) => {
     const b = h('button', { class: 'chip' + (mode === k ? ' on' : ''), title: k === 'sokratisch' ? 'Führt dich mit Fragen zur Lösung, statt sie zu verraten' : 'Erklärt direkt' }, l);
     b.addEventListener('click', () => { mode = k; ls.set('tutor.mode', k); modeBtns.forEach(x => x.classList.toggle('on', x === b)); });
     return b;
   });
+  const spiceSel = h('select', { class: 'field spice', title: 'Arroganz-Level', 'aria-label': 'Arroganz-Level' }, SPICE.map(([v, l]) => h('option', { value: v, selected: v === getSpice() }, 'Arroganz: ' + l)));
+  spiceSel.addEventListener('change', () => { setSpice(+spiceSel.value); fc.pulse(+spiceSel.value === 3 ? 'smug' : 'happy', 1200); });
   const chatcol = h('section', { class: 'chatcol' },
-    h('div', { class: 'chathead' }, fEl, h('div', { style: { flex: 1, minWidth: 0 } }, h('b', {}, 'Tutor'), h('span', {}, 'kennt „' + doc.name + '“')),
+    h('div', { class: 'chathead' }, fEl, h('div', { style: { flex: 1, minWidth: 0 } }, h('b', {}, NAME), h('span', {}, 'kennt „' + doc.name + '“')), spiceSel,
       h('button', { class: 'iconbtn mob-only', 'aria-label': 'Tafel zeigen', html: ico('board'), onclick: () => showBoard(true) })),
     msgs, sugg,
     h('div', { class: 'composer' }, h('div', { class: 'box' }, ta, send), h('div', { class: 'opts' }, h('span', {}, 'Modus'), ...modeBtns, h('span', { style: { marginLeft: 'auto' } }, '1 Einheit'))));
@@ -119,7 +122,7 @@ export async function render(root, ctx) {
   let boardCursor = 0;
   const boardOwners = doc.chat.map(m => m.role === 'assistant' ? parse(m.content).boards.length : 0);
   if (!doc.chat.length) {
-    addMsg('assistant', `Hey! Ich hab „${doc.name}“ gelesen (${doc.pages.length} Seiten). Frag mich, was du nicht verstehst – ich erklär’s dir an der Tafel. Oder soll ich dich abfragen?`);
+    addMsg('assistant', say('welcome', doc.name));
   } else {
     doc.chat.forEach((m, k) => {
       const refs = [];
@@ -145,7 +148,7 @@ export async function render(root, ctx) {
     ctrl = new AbortController();
     try {
       const history = doc.chat.slice(-12).map(m => ({ role: m.role, content: m.role === 'assistant' ? forHistory(m.content) : m.content }));
-      const r = await ask('chat', { material: forChat(doc, text + ' ' + doc.chat.slice(-3).map(m => m.content).join(' ')), docName: doc.name, messages: history, opts: { mode } }, { signal: ctrl.signal });
+      const r = await ask('chat', { material: forChat(doc, text + ' ' + doc.chat.slice(-3).map(m => m.content).join(' ')), docName: doc.name, messages: history, opts: { mode, spice: getSpice() } }, { signal: ctrl.signal });
       typing.remove();
       const raw = r.text || '';
       doc.chat.push({ role: 'assistant', content: raw });

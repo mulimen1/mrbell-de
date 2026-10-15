@@ -2,6 +2,7 @@
 import { h, ico, modal, toast } from './util.js';
 import { face } from './face.js';
 import { COST, currentQuota } from './api.js';
+import { say } from './max.js';
 
 export function loading(root, title, lines = []) {
   const f = h('div', { class: 'face' });
@@ -20,8 +21,8 @@ export async function apiError(e, retry) {
   if (e && e.name === 'AbortError') return;
   if (e && e.code === 'limit') {
     await modal({
-      title: 'Für heute ist dein KI-Limit voll',
-      text: 'Um 0:00 Uhr bekommst du neue Einheiten. Bis dahin kannst du weiter mit deinen gespeicherten Quizzen, Karteikarten, Fehlern und dem BWL-Trainer üben – das kostet nichts.',
+      title: 'Max macht Feierabend',
+      text: say('limit') + ' Mit Pro (bald) gibt’s kein Limit.',
       actions: [{ label: 'Alles klar', value: true, primary: true }]
     });
     return;

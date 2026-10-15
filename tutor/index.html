@@ -3,46 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tutor – dein KI-Tutor für BWL, VWL & Rechnungswesen</title>
-<meta name="description" content="Lad deine Vorlesung hoch und lern mit einem KI-Tutor, der an die Tafel schreibt: Erklärungen, Quizze, Karteikarten, Lernpfad, Podcast und Übungs-Trainer. Kostenlos, ohne Anmeldung.">
+<title>BWL Max – dein KI-Tutor für BWL, VWL & Rechnungswesen</title>
+<meta name="description" content="Lad deine Vorlesung hoch und lern mit BWL Max, dem KI-Tutor, der an die Tafel schreibt: Erklärungen, Quizze, Karteikarten, Lernpfad, Podcast und Übungs-Trainer. Kostenlos, ohne Anmeldung.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect x='8' y='10' width='104' height='100' rx='38' fill='%23000'/%3E%3Crect x='35' y='47' width='13' height='20' rx='6.5' fill='%23fff'/%3E%3Crect x='72' y='47' width='13' height='20' rx='6.5' fill='%23fff'/%3E%3Cpath d='M52 79 Q60 85 68 79' stroke='%23fff' stroke-width='3.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="/tutor/img/max-icon-64.png">
+<link rel="apple-touch-icon" href="/tutor/img/max-icon-180.png">
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tutor/css/app.css?v=1">
-<link rel="stylesheet" href="/tutor/css/trainer.css?v=1">
+<link rel="stylesheet" href="/tutor/css/app.css?v=2">
+<link rel="stylesheet" href="/tutor/css/trainer.css?v=2">
 <script>try{var t=localStorage.getItem('tutor.theme');if(t)document.documentElement.dataset.theme=JSON.parse(t)}catch(e){}</script>
 </head>
 <body>
 
 <!-- ================= LANDING ================= -->
 <div id="landing">
-  <nav class="nav" id="nav">
-    <a class="brand" href="#/"><span class="mini" data-face></span>Tutor <small>Beta</small></a>
+  <div class="scrollbar" id="scrollbar"></div>
+  <nav class="nav" id="nav" data-in="0">
+    <a class="brand" href="#/"><span class="mini" data-face></span>BWL Max <small>Beta</small></a>
     <div class="links"><a href="#funktionen">Funktionen</a><a href="#datenschutz">Datenschutz</a><a href="#preise">Preise</a><a href="#faq">FAQ</a></div>
     <div class="spacer"></div>
     <button class="iconbtn" data-theme-toggle aria-label="Hell/Dunkel umschalten"></button>
     <a class="btn primary sm" href="#/app">Loslegen</a>
   </nav>
 
-  <header class="hero">
+  <header class="hero" id="hero">
     <div class="bgdots dots dots-fade"></div>
+    <div class="spot"></div>
     <div class="wrap" style="position:relative">
-      <div class="hero-face" data-face="hero"></div>
-      <div class="greet" id="greet" aria-live="polite"></div>
-      <h1>Lad deine Vorlesung hoch.<br><span class="soft">Versteh sie wirklich.</span></h1>
-      <p class="sub">Dein KI-Tutor für BWL, VWL und Rechnungswesen. Er erklärt an der Tafel, rechnet mit dir, fragt dich ab und baut dir den Lernpfad bis zur Klausur.</p>
+      <div class="hero-face" data-face="hero" data-in="1"></div>
+      <div class="pill-tag" data-in="2"><i></i>Dein KI-Tutor mit Mittelscheitel</div>
+      <div class="greet" id="greet" aria-live="polite" data-in="3"></div>
+      <h1 data-split data-in="4">Lad deine Vorlesung hoch. <span class="soft">Max erklärt sie dir.</span></h1>
+      <p class="sub" data-in="5">BWL Max kennt dein Skript, schreibt an die Tafel, rechnet mit dir und fragt dich ab, bis es sitzt. Ein bisschen arrogant. Aber er weiß, wovon er redet.</p>
 
-      <label class="dropzone" id="drop">
+      <label class="dropzone" id="drop" data-in="6">
         <input type="file" id="fileHero" class="sr" accept=".pdf,.pptx,.docx,.txt,.md">
         <div class="row">
           <div class="file-ico"><svg class="ico" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></div>
           <div class="t"><b>Skript hierher ziehen</b><span>oder klicken – PDF, PowerPoint, Word</span></div>
-          <span class="btn primary lg">Datei wählen</span>
+          <span class="btn primary lg magnet">Datei wählen</span>
         </div>
-        <div class="meta"><i>Ohne Anmeldung</i><i>Kostenlos jeden Tag</i><i>Datei bleibt auf deinem Gerät</i></div>
+        <div class="meta"><i>Ohne Anmeldung</i><i>Jeden Tag kostenlos</i><i>Datei bleibt auf deinem Gerät</i></div>
       </label>
-      <div class="trybar">
+      <div class="trybar" data-in="7">
         <span class="eyebrow" style="align-self:center;margin-right:4px">Kein Skript zur Hand?</span>
         <button class="chip" data-sample>Beispiel: Deckungsbeitragsrechnung</button>
         <a class="chip" href="#/app/trainer">Trainer ohne Upload</a>
@@ -50,23 +54,41 @@
     </div>
   </header>
 
+  <section class="selfie">
+    <div class="wrap">
+      <div class="eyebrow center reveal">Bewertungen</div>
+      <h2 data-split class="center" style="margin-left:auto;margin-right:auto">Max über Max.</h2>
+      <p class="lead center reveal" style="margin-left:auto;margin-right:auto">Echte Stimmen von Studierenden sammeln wir gerade. Bis dahin hat Max sich selbst bewertet. Natürlich mit 5 Sternen.</p>
+      <div class="quotes">
+        <figure class="quote reveal"><div class="stars">★★★★★</div><blockquote>„Ich bin der beste Tutor, den ich kenne. Und ich kenne viele – Papa hat Kontakte.“</blockquote><figcaption><span class="qf" data-face></span>BWL Max · über sich selbst</figcaption></figure>
+        <figure class="quote reveal"><div class="stars">★★★★★</div><blockquote>„Ich erkläre dir den Kapitalwert schneller, als mein Porsche auf 100 ist. Also ziemlich schnell.“</blockquote><figcaption><span class="qf" data-face></span>BWL Max · zwischen zwei Golfrunden</figcaption></figure>
+        <figure class="quote reveal"><div class="stars">★★★★★</div><blockquote>„Fünf Sterne. Hätte ich mir aber auch selbst gegeben, wenn ich schlecht wäre. Bin ich aber nicht.“</blockquote><figcaption><span class="qf" data-face></span>BWL Max · objektiv wie immer</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="track">
+    <span>Rechnungswesen</span><span>Kostenrechnung</span><span>IFRS</span><span>HGB</span><span>Investition</span><span>Finanzierung</span><span>Controlling</span><span>Marketing</span><span>Mikro</span><span>Makro</span><span>Statistik</span><span>Wirtschaftsrecht</span>
+    <span>Rechnungswesen</span><span>Kostenrechnung</span><span>IFRS</span><span>HGB</span><span>Investition</span><span>Finanzierung</span><span>Controlling</span><span>Marketing</span><span>Mikro</span><span>Makro</span><span>Statistik</span><span>Wirtschaftsrecht</span>
+  </div></div>
+
   <section class="section" id="funktionen">
     <div class="wrap">
-      <div class="eyebrow">Alles an einem Ort</div>
-      <h2>Ein Tutor, der dein Skript wirklich kennt.</h2>
-      <p class="lead">Jede Antwort bezieht sich auf deine Vorlesung – mit Seitenangabe. Kein Rumraten, kein Copy-Paste in ChatGPT.</p>
+      <div class="eyebrow reveal">Alles an einem Ort</div>
+      <h2 data-split>Max kann alles. Und er weiß es.</h2>
+      <p class="lead reveal">Jede Antwort bezieht sich auf deine Vorlesung – mit Seitenangabe. Kein Rumraten, kein Copy-Paste in ChatGPT.</p>
       <div class="board">
         <div class="pins">
-          <article class="pin big reveal" style="--rot:-.6deg">
-            <span class="num">01 · TUTOR + TAFEL</span>
-            <h3>Fragen stellen. Er schreibt’s an die Tafel.</h3>
+          <article class="pin big fly" style="--rot:-.6deg">
+            <span class="num">01 · MAX + TAFEL</span>
+            <h3>Frag Max. Er schreibt’s an die Tafel.</h3>
             <p>Rechnungen Schritt für Schritt, Skizzen, T-Konten, Diagramme – live gezeichnet. Wahlweise erklärt er direkt oder führt dich mit Fragen selbst zur Lösung.</p>
             <div class="demo">
               <div class="tafel" style="padding:0;max-width:none">
-                <svg viewBox="0 0 600 250" aria-hidden="true">
+                <svg viewBox="0 0 600 250" aria-hidden="true" class="draw">
                   <line class="ax" x1="50" y1="215" x2="570" y2="215"/><line class="ax" x1="50" y1="215" x2="50" y2="20"/>
                   <polygon class="f2" points="287,134 560,40 560,86"/>
-                  <line class="l2" x1="50" y1="175" x2="560" y2="86"/>
+                  <path class="l2" d="M50 175 L560 86"/>
                   <path class="l1" d="M50 215 L560 40"/>
                   <circle class="dot" cx="287" cy="134" r="6"/>
                   <text x="300" y="160" font-size="15">Break-even: 3.000 Stück</text>
@@ -78,7 +100,7 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
               </div>
             </div>
           </article>
-          <article class="pin reveal" style="--rot:1deg">
+          <article class="pin fly" style="--rot:1deg">
             <span class="num">02 · QUIZ</span>
             <h3>Quizze wie in der Klausur</h3>
             <p>Multiple Choice, Richtig/Falsch, Zuordnen, Reihenfolge, Lückentext, Rechenaufgaben.</p>
@@ -88,30 +110,30 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
               <div class="opt"><span class="l">C</span>x* = Kv ÷ db</div>
             </div>
           </article>
-          <article class="pin reveal" style="--rot:-1.2deg">
+          <article class="pin fly" style="--rot:-1.2deg">
             <span class="num">03 · KARTEIKARTEN</span>
             <h3>Wiederholen, wenn du’s fast vergisst</h3>
             <p>Spaced Repetition – automatisch aus deinem Skript.</p>
             <div class="demo flip"><div class="in"><div class="f">Kurzfristige Preisuntergrenze?</div><div class="b">Variable Stückkosten (p ≥ kv)</div></div></div>
           </article>
-          <article class="pin wide reveal" style="--rot:.8deg">
+          <article class="pin wide fly" style="--rot:.8deg">
             <span class="num">04 · PODCAST</span>
             <h3>Dein Skript als Podcast</h3>
-            <p>Zwei Stimmen sprechen über deine Vorlesung – für Bahn, Gym und Spaziergang.</p>
+            <p>Lena erklärt, Max gibt seinen Senf dazu – für Bahn, Gym und Spaziergang.</p>
             <div class="demo wave" aria-hidden="true"></div>
           </article>
-          <article class="pin wide reveal" style="--rot:-.7deg">
+          <article class="pin wide fly" style="--rot:-.7deg">
             <span class="num">05 · LERNPFAD</span>
             <h3>Vom Skript zum Plan</h3>
             <p>Kapitel für Kapitel: kurze Erklärung, Kontrollfrage, Anwendungsaufgabe.</p>
             <div class="demo pathmini"><div class="d"><span>✓</span>Grundbegriffe</div><div class="d"><span>✓</span>Deckungsbeitrag</div><div class="c"><span></span>Break-even-Analyse</div><div><span></span>Engpassplanung</div></div>
           </article>
-          <article class="pin wide reveal" style="--rot:1.1deg">
+          <article class="pin wide fly" style="--rot:1.1deg">
             <span class="num">06 · TRAINER</span>
             <h3>Üben mit immer neuen Zahlen</h3>
             <p>Buchungssätze, T-Konten, Break-even, Kapitalwert, Angebot & Nachfrage, Bilanz – mit Fehleranalyse.</p>
           </article>
-          <article class="pin wide reveal" style="--rot:-.4deg">
+          <article class="pin wide fly" style="--rot:-.4deg">
             <span class="num">07 · LERNZETTEL</span>
             <h3>Zusammenfassung + Mindmap</h3>
             <p>Die wichtigsten Begriffe, Formeln und Zusammenhänge auf einer Seite.</p>
@@ -122,12 +144,22 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
   </section>
 
   <section class="section">
+    <div class="wrap center">
+      <div class="eyebrow reveal">Arroganz-Level</div>
+      <h2 data-split>Wie arrogant darf Max sein?</h2>
+      <p class="lead reveal">Du entscheidest. Von seriös bis voll Sylt. Fachlich bleibt er immer gleich gut – nur die Sprüche ändern sich.</p>
+      <div class="maxrow" id="maxrow"></div>
+      <div class="spicebar reveal"><span>Seriös</span><span class="on">Spicy</span><span>Voll Sylt</span></div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap">
-      <div class="eyebrow">So geht’s</div>
-      <h2>In 30 Sekunden startklar.</h2>
+      <div class="eyebrow reveal">So geht’s</div>
+      <h2 data-split>In 30 Sekunden startklar.</h2>
       <div class="steps3">
         <div class="step3 reveal"><div class="n">01</div><h3>Skript reinziehen</h3><p>PDF, Folien oder Word. Die Datei wird direkt in deinem Browser gelesen.</p></div>
-        <div class="step3 reveal"><div class="n">02</div><h3>Fragen oder üben</h3><p>Chatte mit dem Tutor, starte ein Quiz oder lass dir einen Lernpfad bauen.</p></div>
+        <div class="step3 reveal"><div class="n">02</div><h3>Fragen oder üben</h3><p>Chatte mit Max, starte ein Quiz oder lass dir einen Lernpfad bauen.</p></div>
         <div class="step3 reveal"><div class="n">03</div><h3>Jeden Tag ein bisschen</h3><p>Karteikarten und Fehler kommen genau dann wieder, wenn du sie brauchst.</p></div>
       </div>
     </div>
@@ -136,54 +168,55 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
   <section class="section" id="datenschutz">
     <div class="wrap privacy">
       <div>
-        <div class="eyebrow">Datenschutz</div>
-        <h2>Dein Skript bleibt deins.</h2>
-        <p class="lead">Kein Konto, keine E-Mail, keine Cloud-Ablage. Deine Dateien und dein Lernstand liegen nur auf deinem Gerät.</p>
+        <div class="eyebrow reveal">Datenschutz</div>
+        <h2 data-split>Max ist arrogant. Nicht neugierig.</h2>
+        <p class="lead reveal">Kein Zwang zum Konto, keine Cloud-Ablage deiner Dateien. Deine Skripte und dein Lernstand liegen auf deinem Gerät.</p>
       </div>
       <ul>
-        <li><span class="lock"><svg class="ico" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Datei bleibt lokal</b><span>Das PDF wird im Browser gelesen und nie hochgeladen.</span></div></li>
-        <li><span class="lock"><svg class="ico" viewBox="0 0 24 24"><path d="M4 12h16M12 4v16"/></svg></span><div><b>Nur der nötige Ausschnitt</b><span>Für eine Antwort geht nur der passende Text an die KI – gespeichert wird bei uns nichts.</span></div></li>
-        <li><span class="lock"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg></span><div><b>Ein Klick, alles weg</b><span>Lösche jederzeit alles – oder sichere deinen Stand als Datei.</span></div></li>
+        <li class="reveal"><span class="lock"><svg class="ico" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Datei bleibt lokal</b><span>Das PDF wird im Browser gelesen und nie hochgeladen.</span></div></li>
+        <li class="reveal"><span class="lock"><svg class="ico" viewBox="0 0 24 24"><path d="M4 12h16M12 4v16"/></svg></span><div><b>Nur der nötige Ausschnitt</b><span>Für eine Antwort geht nur der passende Text an die KI – gespeichert wird bei uns nichts.</span></div></li>
+        <li class="reveal"><span class="lock"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg></span><div><b>Ein Klick, alles weg</b><span>Lösche jederzeit alles – oder sichere deinen Stand als Datei.</span></div></li>
       </ul>
     </div>
   </section>
 
   <section class="section center" id="preise">
     <div class="wrap">
-      <div class="eyebrow">Preise</div>
-      <h2>Alles drin. Jeden Tag kostenlos.</h2>
-      <p class="lead">Kein Probe-Abo, keine Kreditkarte. Du bekommst jeden Tag neue Einheiten – Karteikarten, Trainer und gespeicherte Quizze gehen sogar unbegrenzt.</p>
+      <div class="eyebrow reveal">Preise</div>
+      <h2 data-split>Alles drin. Jeden Tag gratis.</h2>
+      <p class="lead reveal">Max ist großzügig. Kein Probe-Abo, keine Kreditkarte. Jeden Tag neue Einheiten – Karteikarten, Trainer und gespeicherte Quizze gehen sogar unbegrenzt.</p>
       <div class="pricing">
-        <div class="plan">
+        <div class="plan reveal">
           <h3>Free</h3>
           <div class="price">0 €</div>
           <div class="eyebrow">für immer</div>
           <ul><li>Alle Funktionen</li><li>40 KI-Einheiten pro Tag</li><li>Karteikarten & Trainer unbegrenzt</li><li>Ohne Anmeldung</li></ul>
           <a class="btn" href="#/app" style="width:100%">Kostenlos starten</a>
         </div>
-        <div class="plan pro">
+        <div class="plan pro reveal">
           <span class="badge">Bald</span>
           <h3>Pro</h3>
           <div class="price">7,99 € <small>/ Monat</small></div>
           <div class="eyebrow">monatlich kündbar · 1 Klick</div>
-          <ul><li>Unbegrenzt KI</li><li>Probeklausuren im Klausur-Stil</li><li>Längere Podcasts</li><li>Konto & Sync über Geräte</li></ul>
+          <ul><li>Max ohne Limit</li><li>Probeklausuren im Klausur-Stil</li><li>Längere Podcasts</li><li>Sync über alle Geräte</li></ul>
           <button class="btn primary" style="width:100%" disabled>Kommt bald</button>
         </div>
       </div>
-      <div class="fineprint">Tageslimit setzt sich um 0:00 Uhr zurück · Kein Abo-Trick</div>
+      <div class="fineprint reveal">Tageslimit setzt sich um 0:00 Uhr zurück · Kein Abo-Trick</div>
     </div>
   </section>
 
   <section class="section" id="faq">
     <div class="wrap">
-      <div class="center"><div class="eyebrow">FAQ</div><h2>Fragen?</h2></div>
+      <div class="center"><div class="eyebrow reveal">FAQ</div><h2 data-split>Fragen?</h2></div>
       <div class="faq">
-        <details><summary>Werden meine Skripte gespeichert oder zum KI-Training benutzt?</summary><p>Nein. Die Datei wird in deinem Browser gelesen und bleibt auf deinem Gerät. Für eine Antwort schicken wir nur den nötigen Textausschnitt an die KI. Wir speichern davon nichts und nutzen nichts zum Training.</p></details>
-        <details><summary>Brauche ich ein Konto?</summary><p>Nein. Du kannst sofort loslegen. Dein Lernstand liegt im Browser. Ein freiwilliges Konto zum Sichern über mehrere Geräte kommt mit Pro.</p></details>
-        <details><summary>Welche Fächer gehen?</summary><p>Alles aus dem Wirtschaftsstudium: Rechnungswesen, Kosten- und Leistungsrechnung, Investition und Finanzierung, IFRS/HGB, Controlling, Marketing, Mikro und Makro, Statistik und mehr.</p></details>
-        <details><summary>Was ist eine KI-Einheit?</summary><p>Eine Frage an den Tutor kostet 1 Einheit, ein Quiz oder Kartenstapel 2, ein Podcast 3. Mit 40 Einheiten kommst du gut durch einen Lerntag. Üben mit gespeicherten Quizzen, Karteikarten und dem Trainer kostet nichts.</p></details>
-        <details><summary>Ist das nicht Schummeln?</summary><p>Nein – der Tutor ist zum Verstehen gebaut. Im sokratischen Modus verrät er die Lösung nicht sofort, sondern führt dich mit Fragen hin.</p></details>
-        <details><summary>Kann die KI Fehler machen?</summary><p>Ja, selten. Deshalb steht bei jeder Antwort die Seite aus deinem Skript. Im Zweifel gilt immer deine Vorlesung.</p></details>
+        <details name="faq" class="reveal"><summary>Wer ist BWL Max?</summary><div class="ans"><p>Dein KI-Tutor fürs Wirtschaftsstudium. Mittelscheitel, Quarter-Zip, Papa hat eine Holding. Klingt arrogant – ist er auch ein bisschen. Aber er erklärt dir jede Vorlesung so lange, bis du sie verstehst.</p></div></details>
+        <details name="faq" class="reveal"><summary>Werden meine Skripte gespeichert oder zum KI-Training benutzt?</summary><div class="ans"><p>Nein. Die Datei wird in deinem Browser gelesen und bleibt auf deinem Gerät. Für eine Antwort schicken wir nur den nötigen Textausschnitt an die KI. Wir speichern davon nichts und nutzen nichts zum Training.</p></div></details>
+        <details name="faq" class="reveal"><summary>Brauche ich ein Konto?</summary><div class="ans"><p>Nein. Du kannst sofort loslegen. Dein Lernstand liegt im Browser. Ein kostenloses Konto zum Sichern über mehrere Geräte kommt bald.</p></div></details>
+        <details name="faq" class="reveal"><summary>Welche Fächer gehen?</summary><div class="ans"><p>Alles aus dem Wirtschaftsstudium: Rechnungswesen, Kosten- und Leistungsrechnung, Investition und Finanzierung, IFRS/HGB, Controlling, Marketing, Mikro und Makro, Statistik und mehr.</p></div></details>
+        <details name="faq" class="reveal"><summary>Was ist eine KI-Einheit?</summary><div class="ans"><p>Eine Frage an Max kostet 1 Einheit, ein Quiz oder Kartenstapel 2, ein Podcast 3. Mit 40 Einheiten kommst du gut durch einen Lerntag. Üben mit gespeicherten Quizzen, Karteikarten und dem Trainer kostet nichts.</p></div></details>
+        <details name="faq" class="reveal"><summary>Kann ich Max weniger arrogant machen?</summary><div class="ans"><p>Klar. Im Chat stellst du das Arroganz-Level ein: Seriös, Spicy oder Voll Sylt. Fachlich bleibt er immer gleich gut.</p></div></details>
+        <details name="faq" class="reveal"><summary>Kann Max Fehler machen?</summary><div class="ans"><p>Selten – aber ja. Deshalb steht bei jeder Antwort die Seite aus deinem Skript. Im Zweifel gilt immer deine Vorlesung. (Sag ihm das aber nicht.)</p></div></details>
       </div>
     </div>
   </section>
@@ -202,15 +235,15 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
 
   <section class="final">
     <div class="wrap">
-      <div class="bigface" data-face></div>
-      <h2 style="font-size:clamp(32px,5vw,56px);letter-spacing:-.04em;margin:0">Bereit für die Klausur?</h2>
-      <p class="lead" style="margin:14px auto 26px;color:var(--mute)">Kostenlos, ohne Anmeldung, in 30 Sekunden.</p>
-      <a class="btn primary lg" href="#/app">Jetzt loslegen</a>
+      <div class="bigface reveal" data-face></div>
+      <h2 data-split style="font-size:clamp(32px,5vw,60px);letter-spacing:-.04em;margin:0">Klausur bald? Max hat Zeit.</h2>
+      <p class="lead reveal" style="margin:14px auto 26px;color:var(--mute)">Bis 14 Uhr. Dann Tennis. Kostenlos, ohne Anmeldung.</p>
+      <a class="btn primary lg magnet reveal" href="#/app">Jetzt loslegen</a>
     </div>
   </section>
 
   <footer class="foot">
-    <div>© 2026 Tutor · ein Projekt von Mr. Bell</div>
+    <div>© 2026 BWL Max · ein Projekt von Mr. Bell</div>
     <div><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div>
   </footer>
 </div>
@@ -218,7 +251,7 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
 <!-- ================= APP ================= -->
 <div id="app" class="hidden"></div>
 
-<noscript><p style="padding:40px;text-align:center">Bitte aktiviere JavaScript, um den Tutor zu nutzen.</p></noscript>
-<script type="module" src="/tutor/js/main.js?v=1"></script>
+<noscript><p style="padding:40px;text-align:center">Bitte aktiviere JavaScript, um BWL Max zu nutzen.</p></noscript>
+<script type="module" src="/tutor/js/main.js?v=2"></script>
 </body>
 </html>
