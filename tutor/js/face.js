@@ -98,16 +98,17 @@ class Face {
 }
 
 const css = `
-.face svg .fz-head { fill: var(--inv); }
-.face svg .fz-eye { fill: var(--onInv); transition: opacity .2s; }
+.face svg .fz-head { fill: #f5f5f5; stroke: var(--fz-line, #0a0a0a); stroke-width: 15; }
+:root[data-theme="dark"] .face svg .fz-head { stroke: none; }
+.face svg .fz-eye { fill: #0a0a0a; transition: opacity .2s; }
 .face svg .fz-eyes { transform-box: fill-box; transform-origin: center; }
-.face svg .fz-brow { fill: none; stroke: var(--onInv); stroke-width: 16; stroke-linecap: round; opacity: 0; transition: opacity .25s, transform .3s cubic-bezier(.16,1,.3,1); transform-box: fill-box; transform-origin: center; }
-.face svg .fz-happy { fill: none; stroke: var(--onInv); stroke-width: 22; stroke-linecap: round; opacity: 0; transition: opacity .2s; }
-.face svg .fz-mouth { fill: none; stroke: var(--onInv); stroke-width: 15; stroke-linecap: round; transition: opacity .2s; opacity: 0; }
-.face svg .m-happy { fill: var(--onInv); stroke-linejoin: round; }
+.face svg .fz-brow { fill: none; stroke: #0a0a0a; stroke-width: 16; stroke-linecap: round; opacity: 0; transition: opacity .25s, transform .3s cubic-bezier(.16,1,.3,1); transform-box: fill-box; transform-origin: center; }
+.face svg .fz-happy { fill: none; stroke: #0a0a0a; stroke-width: 22; stroke-linecap: round; opacity: 0; transition: opacity .2s; }
+.face svg .fz-mouth { fill: none; stroke: #0a0a0a; stroke-width: 15; stroke-linecap: round; transition: opacity .2s; opacity: 0; }
+.face svg .m-happy { fill: #0a0a0a; stroke-linejoin: round; }
 .face svg .m-idle { opacity: 1; }
-.face svg .fz-talk { fill: var(--onInv); opacity: 0; transform-box: fill-box; transform-origin: center; }
-.face svg .fz-cheek { fill: var(--onInv); opacity: 0; transition: opacity .3s; }
+.face svg .fz-talk { fill: #0a0a0a; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.face svg .fz-cheek { fill: #0a0a0a; opacity: 0; transition: opacity .3s; }
 .face svg .fz-dots circle { fill: var(--ink); opacity: 0; }
 .face svg .fz-body { transform-box: fill-box; transform-origin: 50% 90%; }
 .face[data-state="happy"] svg .fz-eye { opacity: 0; }

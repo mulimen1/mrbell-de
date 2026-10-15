@@ -584,9 +584,6 @@ a.tab, a.doc-item, a.btn, a.chip, a.tile, .brand { text-decoration: none; }
 .side .scroll { overflow-x: hidden; }
 
 .dropzone { display: block; cursor: pointer; }
-.tile.dark .face svg .fz-head, .on-inv .face svg .fz-head { fill: var(--onInv); }
-.tile.dark .face svg .fz-eye, .tile.dark .face svg .fz-talk, .tile.dark .face svg .fz-cheek { fill: var(--inv); }
-.tile.dark .face svg .fz-mouth, .tile.dark .face svg .fz-happy { stroke: var(--inv); }
 .vh h2, .hero h1, .empty h2, .pin h3, .tile h3 { overflow-wrap: anywhere; hyphens: auto; -webkit-hyphens: auto; }
 
 /* ================= BWL MAX · Bewegung ================= */
@@ -949,3 +946,6 @@ button.doc-item { border: 0; background: transparent; width: 100%; text-align: l
 .modal { position: relative; }
 .modal .mx { position: absolute; top: 12px; right: 12px; z-index: 2; }
 .modal .mx + h3 { padding-right: 34px; }
+
+/* Max ist überall weiß; auf hellen Flächen mit Kontur */
+:root .tile.dark .face svg .fz-head, :root .on-inv .face svg .fz-head { stroke: #0a0a0a; stroke-width: 15; }
