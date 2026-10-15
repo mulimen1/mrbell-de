@@ -1,0 +1,49 @@
+// Verbindung zur KI. Es geht nur der benötigte Textausschnitt raus – gespeichert wird dort nichts.
+import { ls, uid } from './util.js';
+
+export const API_URL = (window.TUTOR_API || 'https://mrbell.app.n8n.cloud/webhook/tutor-ki-7c41e2');
+
+export function device() {
+  let d = ls.get('tutor.device');
+  if (!d) { d = 'g' + uid().replace(/-/g, '').slice(0, 20); ls.set('tutor.device', d); }
+  return d;
+}
+
+let quota = ls.get('tutor.quota', null);
+const listeners = new Set();
+export function onQuota(fn) { listeners.add(fn); fn(quota); return () => listeners.delete(fn); }
+function setQuota(q) {
+  if (!q) return;
+  quota = { ...q, day: new Date().toDateString() };
+  ls.set('tutor.quota', quota);
+  listeners.forEach(f => f(quota));
+}
+export function currentQuota() {
+  if (quota && quota.day !== new Date().toDateString()) quota = { used: 0, limit: quota.limit, left: quota.limit, day: new Date().toDateString() };
+  return quota;
+}
+
+export const COST = { chat: 1, quiz: 2, exam: 3, cards: 2, path: 2, lesson: 2, podcast: 3, summary: 2, grade: 1 };
+
+export class ApiError extends Error { constructor(code, msg) { super(msg); this.code = code; } }
+
+export async function ask(action, payload = {}, { signal } = {}) {
+  const body = JSON.stringify({ action, device: device(), ...payload });
+  let res;
+  try {
+    res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, signal });
+  } catch (e) {
+    if (e.name === 'AbortError') throw e;
+    throw new ApiError('offline', 'Keine Verbindung zum Tutor. Prüf dein Internet oder versuch es gleich nochmal.');
+  }
+  let j = null;
+  try { j = await res.json(); } catch (e) {}
+  if (!res.ok || !j) throw new ApiError('server', 'Der Tutor ist gerade nicht erreichbar. Versuch es in ein paar Minuten nochmal.');
+  if (j.quota) setQuota(j.quota);
+  if (!j.ok) throw new ApiError(j.error || 'error', j.message || 'Das hat nicht geklappt.');
+  return j;
+}
+
+export async function ping() {
+  try { const j = await ask('ping'); return true; } catch (e) { return false; }
+}
