@@ -715,14 +715,18 @@ svg.draw .f2 { opacity: 0; } .in svg.draw .f2 { animation: fadeIn .8s ease 1.6s 
 .hero-max { position: relative; width: max-content; margin: 0 auto 26px; }
 .hero-max .hero-face { margin: 0; }
 .bubble { position: absolute; left: calc(100% + 14px); top: 6px; width: max-content; max-width: 300px; min-width: 120px; text-align: left; background: var(--panel); border: 1.5px solid var(--ink); border-radius: 20px 20px 20px 6px; padding: 12px 16px; box-shadow: var(--shadow); transform-origin: 0 100%; }
-.bubble::before { content: ""; position: absolute; left: -11px; bottom: 12px; width: 18px; height: 18px; background: var(--panel); border-left: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); transform: skewY(-35deg) rotate(10deg); border-bottom-left-radius: 4px; }
+/* Sprechblasen-Spitze: zwei saubere Dreiecke (Rand + Füllung) */
+.bubble::before, .bubble::after { content: ""; position: absolute; width: 0; height: 0; border-style: solid; pointer-events: none; }
+.bubble::before { left: -12px; bottom: 16px; border-width: 8px 12px 8px 0; border-color: transparent var(--ink) transparent transparent; }
+.bubble::after { left: -9.75px; bottom: 17.5px; border-width: 6.5px 11.75px 6.5px 0; border-color: transparent var(--panel) transparent transparent; }
 .bubble .greet { display: block; font: 550 15px/1.35 var(--sans); color: var(--ink); min-height: 20px; }
 .bubble[data-in] { opacity: 0; transform: scale(.4) translate(-20px, 10px); transition: opacity .5s var(--ease), transform .7s cubic-bezier(.34,1.56,.64,1); }
 .bubble[data-in].in { opacity: 1; transform: none; }
 @media (max-width: 860px) {
   .hero-max { display: flex; flex-direction: column; align-items: center; }
   .bubble { position: relative; left: auto; top: auto; margin-top: 14px; max-width: min(320px, 86vw); border-radius: 20px; transform-origin: 50% 0; }
-  .bubble::before { left: 50%; top: -10px; bottom: auto; margin-left: -9px; transform: rotate(135deg); border-bottom-left-radius: 4px; }
+  .bubble::before { left: 50%; top: -12px; bottom: auto; margin-left: -8px; border-width: 0 8px 12px 8px; border-color: transparent transparent var(--ink) transparent; }
+  .bubble::after { left: 50%; top: -9.75px; bottom: auto; margin-left: -6.5px; border-width: 0 6.5px 11.75px 6.5px; border-color: transparent transparent var(--panel) transparent; }
 }
 
 .or { display: flex; align-items: center; gap: 14px; max-width: 720px; margin: 22px auto 0; color: var(--faint); font: 500 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
@@ -800,8 +804,8 @@ svg.draw .f2 { opacity: 0; } .in svg.draw .f2 { animation: fadeIn .8s ease 1.6s 
 .bubtalk { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; height: 32px; padding: 0 13px 0 10px; border-radius: 999px; border: 0; background: var(--inv); color: var(--onInv); font: 600 13.5px var(--sans); cursor: pointer; transition: transform .2s var(--ease); position: relative; }
 .bubtalk .ico { width: 16px; height: 16px; }
 .bubtalk:hover { transform: translateY(-1px) scale(1.03); }
-.bubtalk::after { content: ""; position: absolute; inset: -4px; border-radius: inherit; border: 1.5px solid var(--ink); opacity: 0; animation: talkping 2.4s 2.5s infinite; }
-@keyframes talkping { 0% { opacity: .6; transform: scale(.9); } 70%, 100% { opacity: 0; transform: scale(1.25); } }
+.bubtalk { animation: talkping 2.6s 2.5s infinite; }
+@keyframes talkping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink) 45%, transparent); } 70%, 100% { box-shadow: 0 0 0 9px color-mix(in srgb, var(--ink) 0%, transparent); } }
 .micbtn { width: 36px; height: 36px; flex: none; border-radius: 11px; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: all .15s; }
 .micbtn:hover { background: var(--inv); color: var(--onInv); border-color: var(--inv); }
 .micbtn .ico { width: 18px; height: 18px; }
