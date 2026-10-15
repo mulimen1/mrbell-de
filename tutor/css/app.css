@@ -1505,3 +1505,7 @@ footer.foot .asst-tg:hover { color: var(--ink); }
 .featrest .feat { transition: color .3s, border-color .3s, transform .35s var(--ease); }
 .featrest .feat.hl { color: var(--ink); border-color: var(--ink); background: transparent; transform: translateY(-2px); }
 .featrow[data-in].in .featrest .feat.hl { transform: translateY(-2px); }
+/* Live-Mitschrift beim Sprechen */
+.asst-m.me.draft { opacity: .75; border-style: dashed; }
+.asst-m.me.draft::after { content: ""; display: inline-block; width: .45em; height: 1em; margin-left: 3px; vertical-align: -.12em; background: currentColor; opacity: .5; animation: tcur .8s steps(1) infinite; }
+.voice .vlive { opacity: .8; }

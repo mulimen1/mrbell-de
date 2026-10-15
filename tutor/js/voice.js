@@ -5,7 +5,8 @@ import { face } from './face.js';
 import { ask } from './api.js';
 import { save } from './state.js';
 import { forChat } from './retrieve.js';
-import { apiError, typeOut } from './ui.js';
+import { apiError, typeOut, syncOut } from './ui.js';
+import { startLive } from './livestt.js';
 import { liveWave } from './wave.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
@@ -34,7 +35,7 @@ export function openVoice({ doc = null, onClose } = {}) {
   if (open) return; open = true;
   const canRec = !!(navigator.mediaDevices?.getUserMedia && window.MediaRecorder);
   const history = doc ? null : [];
-  let state = 'idle', stream = null, rec = null, chunks = [], actx = null, raf = 0, ctrl = null, voice = getVoice();
+  let state = 'idle', stream = null, rec = null, chunks = [], actx = null, raf = 0, ctrl = null, voice = getVoice(), live = null;
   const audio = new Audio(); audio.preload = 'auto';
 
   // ---------- Oberfläche ----------
@@ -92,7 +93,7 @@ export function openVoice({ doc = null, onClose } = {}) {
   };
   const setState = (s, msg) => {
     state = s; ov.dataset.state = s;
-    status.textContent = msg ?? ({ idle: canRec ? L('Tipp aufs Mikro und frag los.', 'Tap the mic and ask away.') : L('Dein Browser kann hier nicht aufnehmen – tipp deine Frage unten ein.', 'Your browser can’t record here – type your question below.'), listen: L('Ich höre zu …', 'I’m listening …'), think: L('Max denkt nach …', 'Max is thinking …'), speak: L('Max spricht … (tippen zum Unterbrechen)', 'Max is talking … (tap to interrupt)') })[s];
+    status.textContent = msg ?? ({ idle: canRec ? L('Tipp aufs Mikro und frag los.', 'Tap the mic and ask away.') : L('Dein Browser kann hier nicht aufnehmen – tipp deine Frage unten ein.', 'Your browser can’t record here – type your question below.'), listen: L('Max hört zu …', 'Max is listening …'), think: L('Max denkt nach …', 'Max is thinking …'), speak: L('Max redet … (tippen zum Unterbrechen)', 'Max is talking … (tap to interrupt)') })[s];
     fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
     thinkOn(s === 'think');
     if (s === 'speak') wave.talk(); else if (s !== 'listen') wave.stop();
@@ -120,6 +121,7 @@ export function openVoice({ doc = null, onClose } = {}) {
     // Stille erkennen
     actx = actx || new (window.AudioContext || window.webkitAudioContext)();
     wave.mic(actx, stream);
+    live = startLive(actx, stream, { onText: t => { if (t) you.replaceChildren(h('span', { class: 'eyebrow' }, L('Du', 'You')), h('p', { class: 'vlive' }, t)); } });
     const src = actx.createMediaStreamSource(stream), an = actx.createAnalyser(); an.fftSize = 1024; src.connect(an);
     const buf = new Float32Array(an.fftSize);
     const t0 = performance.now(); let floor = 0.008, spoke = false, lastLoud = t0, n = 0;
@@ -146,10 +148,17 @@ export function openVoice({ doc = null, onClose } = {}) {
     rec.stop();
   }
   async function onRecorded(mime) {
-    if (rec?._cancel) { setState('idle', L('Ich hab nichts gehört. Tipp nochmal aufs Mikro.', 'I didn’t hear anything. Tap the mic again.')); return; }
+    const lv = live; live = null;
+    if (rec?._cancel) { lv && lv.cancel(); setState('idle', L('Ich hab nichts gehört. Tipp nochmal aufs Mikro.', 'I didn’t hear anything. Tap the mic again.')); return; }
     const blob = new Blob(chunks, { type: mime });
+    setState('think', L('Max hört genau hin …', 'Max is listening closely …'));
+    if (lv) {
+      const my0 = gen;
+      const lt = await lv.finish();
+      if (my0 !== gen) return;
+      if (lt && lt.length > 1) { try { await answer(lt); } catch (e) { fail(e); } return; }
+    }
     if (blob.size < 1500) { setState('idle', L('Das war zu kurz. Nochmal?', 'That was too short. Again?')); return; }
-    setState('think', L('Ich hör mir das kurz an …', 'Let me have a listen …'));
     try {
       const r = await ask('stt', { audio: await b64(blob), mime });
       await answer(r.text);
@@ -175,7 +184,9 @@ export function openVoice({ doc = null, onClose } = {}) {
       msgs.push({ role: 'assistant', content: raw });
       const p = parse(raw);
       if (doc) { p.boards.forEach(b => doc.boards.push({ ...b, at: Date.now() })); if (doc.chat.length > 80) doc.chat = doc.chat.slice(-80); save(doc); }
-      const sp = h('div', { class: 'vsaid-tx' }); said.replaceChildren(h('span', { class: 'eyebrow' }, 'Max'), sp); typeOut(sp, p.text, { alive: () => my === gen });
+      const sp = h('div', { class: 'vsaid-tx' }, h('span', { class: 'typing' }, h('i'), h('i'), h('i'))); said.replaceChildren(h('span', { class: 'eyebrow' }, 'Max'), sp);
+      shownTx = false;
+      showTx = au => { if (shownTx) return; shownTx = true; if (au) syncOut(sp, p.text, au); else typeOut(sp, p.text, { alive: () => my === gen }); };
       if (p.boards.length) { const b = p.boards[0]; const t = h('div', { class: 'tafel' }); t.appendChild(sanitize(b.html)); boardBox.replaceChildren(h('div', { class: 'eyebrow' }, L('An der Tafel · ', 'On the whiteboard · ') + b.title), t); }
       if (my !== gen) return;
       await speak(p.text, my);
@@ -185,19 +196,23 @@ export function openVoice({ doc = null, onClose } = {}) {
       fail(e);
     } finally { ctrl = null; }
   }
+  let showTx = () => {}, shownTx = true;
   async function speak(text, my = gen) {
-    if (!text) { setState('idle'); return; }
-    if (muted || vol === 0) { setState('idle', L('Stumm geschaltet – die Antwort steht oben.', 'Muted – the answer is above.')); return; }
+    if (!text) { showTx(null); setState('idle'); return; }
+    if (muted || vol === 0) { showTx(null); setState('idle', L('Stumm geschaltet – die Antwort steht oben.', 'Muted – the answer is above.')); return; }
     try {
       const r = await ask('tts', { text, opts: { voice } });
-      if (my !== gen) return;
+      if (my !== gen) { showTx(null); return; }
       const bin = atob(r.audio); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
       const url = URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' }));
       audio.src = url; applyVol();
       setState('speak');
       audio.onended = () => { URL.revokeObjectURL(url); if (state === 'speak') { setState('idle', L('Noch was? Tipp aufs Mikro.', 'Anything else? Tap the mic.')); fc.pulse('happy', 900); } };
-      await audio.play().catch(() => { setState('idle', L('Tipp aufs Mikro, um weiterzureden. (Ton war blockiert)', 'Tap the mic to keep talking. (Sound was blocked)')); });
+      let ok = true;
+      await audio.play().catch(() => { ok = false; setState('idle', L('Tipp aufs Mikro, um weiterzureden. (Ton war blockiert)', 'Tap the mic to keep talking. (Sound was blocked)')); });
+      showTx(ok ? audio : null);
     } catch (e) {
+      showTx(null);
       setState('idle', e?.code === 'voice_busy' || e?.code === 'cap' ? e.message : L('Vorlesen hat nicht geklappt – die Antwort steht oben.', 'Reading aloud didn’t work – the answer is above.'));
     }
   }
@@ -213,6 +228,8 @@ export function openVoice({ doc = null, onClose } = {}) {
     if (state === 'listen') { stopListen(true); }
     if (ctrl) { ctrl.abort(); ctrl = null; const msgs = doc ? doc.chat : history; if (msgs[msgs.length - 1]?.role === 'user') msgs.pop(); }
     try { audio.pause(); } catch (e) {}
+    if (live) { live.cancel(); live = null; }
+    showTx(null);
     setState('idle', L('Gestoppt. Frag einfach neu.', 'Stopped. Just ask again.'));
   };
   stopBtn.addEventListener('click', stopAll);

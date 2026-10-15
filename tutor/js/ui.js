@@ -125,3 +125,27 @@ export function typePlaceholder(inp, base, examples, pre = '') {
     }
   })();
 }
+
+// Text erscheint im Takt der Stimme (läuft mit der Wiedergabe, Stopp zeigt sofort alles)
+export function syncOut(el, text, audio, { scroll = () => {}, spoken = 640 } = {}) {
+  const parts = String(text || '').split(/(\s+)/), total = String(text || '').length, span = Math.min(total, spoken);
+  let shown = -1;
+  el.classList.add('typing-on');
+  return new Promise(res => {
+    const done = () => { el.classList.remove('typing-on'); el.replaceChildren(richText(text)); scroll(); res(); };
+    const tick = () => {
+      if (!el.isConnected) return res();
+      const d = audio.duration;
+      const over = audio.ended || audio.error || (audio.paused && audio.currentTime > 0);
+      if (over) return done();
+      const frac = isFinite(d) && d > 0 ? audio.currentTime / d : 0;
+      const target = Math.ceil(Math.min(1, frac * 1.04) * span);
+      let acc = 0, out = '';
+      for (const p of parts) { if (acc >= target && p.trim()) break; out += p; acc += p.length; }
+      if (out.length !== shown) { shown = out.length; el.replaceChildren(richText(out || '…')); scroll(); }
+      if (frac >= 1) return done();
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+}

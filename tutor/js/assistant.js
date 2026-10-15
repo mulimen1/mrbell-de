@@ -6,8 +6,9 @@ import { face } from './face.js';
 import { ask } from './api.js';
 import { S } from './state.js';
 import { forChat } from './retrieve.js';
-import { apiError, typeOut as typeIt, typePlaceholder } from './ui.js';
+import { apiError, typeOut as typeIt, typePlaceholder, syncOut } from './ui.js';
 import { liveWave } from './wave.js';
+import { startLive } from './livestt.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { VOICES, getVoice } from './voice.js';
@@ -134,7 +135,7 @@ export function mountAssistant() {
 
   let hist = (ls.get(CHAT, []) || []).filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string').slice(-20);
   let open = false, full = false, state = 'idle', ctrl = null, gen = 0, selBoard = null, unread = false;
-  let rec = null, stream = null, chunks = [], actx = null, raf = 0;
+  let rec = null, stream = null, chunks = [], actx = null, raf = 0, lsess = null, draft = null;
   const audio = new Audio(); audio.preload = 'auto';
 
   // Kopf (Bubble)
@@ -409,8 +410,8 @@ export function mountAssistant() {
     mic.setAttribute('aria-label', s === 'listen' ? L('Aufnahme beenden', 'Stop recording') : L('Sprechen', 'Speak'));
     mic.disabled = s === 'think';
     drawFoot(msg ?? '');
-    if (s === 'listen') { liveLbl.textContent = L('Ich höre zu …', 'Listening …'); liveStopTx.textContent = L('Fertig', 'Done'); liveStop.setAttribute('aria-label', L('Aufnahme beenden', 'Stop recording')); }
-    else if (s === 'speak') { liveLbl.textContent = L('Ich rede …', 'Talking …'); liveStopTx.textContent = L('Stopp', 'Stop'); liveStop.setAttribute('aria-label', L('Max stoppen', 'Stop Max')); wave.talk(); }
+    if (s === 'listen') { liveLbl.textContent = L('Max hört zu …', 'Max is listening …'); liveStopTx.textContent = L('Fertig', 'Done'); liveStop.setAttribute('aria-label', L('Aufnahme beenden', 'Stop recording')); }
+    else if (s === 'speak') { liveLbl.textContent = L('Max redet …', 'Max is talking …'); liveStopTx.textContent = L('Stopp', 'Stop'); liveStop.setAttribute('aria-label', L('Max stoppen', 'Stop Max')); wave.talk(); }
     else wave.stop();
   }
 
@@ -424,7 +425,7 @@ export function mountAssistant() {
         h('button', { class: 'asst-big', type: 'button', onclick: () => showBoard(b) }, h('span', { html: ico('expand') }), L('Groß', 'Enlarge'))),
       h('div', { class: 'asst-tb', onclick: () => showBoard(b) }, t));
   }
-  function addMsg(role, raw, { animate = false, exec = false } = {}) {
+  function addMsg(role, raw, { animate = false, exec = false, defer = false } = {}) {
     const el = h('div', { class: 'asst-m ' + (role === 'user' ? 'me' : 'ai') });
     if (role === 'user') { el.textContent = raw; msgs.appendChild(el); scroll(); return el; }
     const p = parse(raw);
@@ -442,7 +443,12 @@ export function mountAssistant() {
     }
     msgs.appendChild(el);
     const txt = p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the whiteboard.') : p.cmds.length ? L('Mach ich.', 'On it.') : '…');
-    if (animate) typeOut(body, txt).then(() => { el.appendChild(extras); scroll(); });
+    if (defer) {
+      // Erst wenn die Stimme startet, läuft der Text mit
+      body.replaceChildren(h('span', { class: 'typing' }, h('i'), h('i'), h('i')));
+      el._show = async au => { if (au) await syncOut(body, txt, au, { scroll }); else await typeOut(body, txt); el.appendChild(extras); scroll(); };
+    }
+    else if (animate) typeOut(body, txt).then(() => { el.appendChild(extras); scroll(); });
     else { body.appendChild(richText(txt)); el.appendChild(extras); }
     scroll();
     return el;
@@ -551,10 +557,11 @@ export function mountAssistant() {
       const raw = String(r.text || '').slice(0, 12000);
       hist.push({ role: 'assistant', content: raw });
       hist = hist.slice(-20); ls.set(CHAT, hist);
-      addMsg('assistant', raw, { animate: open, exec: true });
-      if (!open) { unread = true; root.classList.add('unread'); bf.pulse('happy', 1200); }
       const p = parse(raw);
-      if (spoken && cfg.spk && p.text) await speak(p.text, my);
+      const willSpeak = spoken && cfg.spk && !!p.text;
+      const am = addMsg('assistant', raw, { animate: open, exec: true, defer: willSpeak });
+      if (!open) { unread = true; root.classList.add('unread'); bf.pulse('happy', 1200); }
+      if (willSpeak) await speak(p.text, my, am);
       else { setState('idle'); fc.pulse('happy', 900); }
     } catch (e) {
       typing.remove();
@@ -569,19 +576,24 @@ export function mountAssistant() {
 
   // ---------- Vorlesen ----------
   function unlockAudio() { if (state === 'speak') return; try { audio.src = SILENT; audio.play().catch(() => {}); } catch (e) {} }
-  async function speak(text, my) {
-    setState('think', L('Stimme wird geladen …', 'Loading voice …'));
+  async function speak(text, my, am) {
+    let shown = false;
+    const show = au => { if (shown || !am?._show) return; shown = true; am._show(au); };
+    setState('think', L('Max holt Luft …', 'Max takes a breath …'));
     try {
       const r = await ask('tts', { text: text.slice(0, 2500), opts: { voice: getVoice() } }, { signal: ctrl?.signal });
-      if (my !== gen || !cfg.spk) { if (my === gen) setState('idle'); return; }
+      if (my !== gen || !cfg.spk) { show(null); if (my === gen) setState('idle'); return; }
       const bin = atob(r.audio || ''); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
       const url = URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' }));
       audio.src = url;
       audio.volume = clamp(+ls.get('tutor.vol', 1), 0, 1); audio.muted = !!ls.get('tutor.muted', false);
       setState('speak');
       audio.onended = () => { URL.revokeObjectURL(url); if (state === 'speak' && my === gen) setState('idle'); };
-      await audio.play().catch(() => { if (my === gen) setState('idle', L('Ton war blockiert – tipp auf den Lautsprecher.', 'Sound was blocked – tap the speaker.')); });
+      let ok = true;
+      await audio.play().catch(() => { ok = false; if (my === gen) setState('idle', L('Ton war blockiert – tipp auf den Lautsprecher.', 'Sound was blocked – tap the speaker.')); });
+      show(ok && !audio.muted && audio.volume > 0 ? audio : null);
     } catch (e) {
+      show(null);
       if (my !== gen) return;
       setState('idle', e?.name === 'AbortError' ? L('Gestoppt.', 'Stopped.') : (e?.code === 'voice_busy' || e?.code === 'cap') ? e.message : L('Vorlesen hat nicht geklappt.', 'Reading aloud didn’t work.'));
     }
@@ -603,6 +615,7 @@ export function mountAssistant() {
     try {
       actx = actx || new (window.AudioContext || window.webkitAudioContext)();
       wave.mic(actx, stream);
+      lsess = startLive(actx, stream, { onText: showDraft });
       const src = actx.createMediaStreamSource(stream), an = actx.createAnalyser(); an.fftSize = 1024; src.connect(an);
       const buf = new Float32Array(an.fftSize);
       const t0 = performance.now(); let floor = .008, spoke = false, lastLoud = t0;
@@ -628,13 +641,28 @@ export function mountAssistant() {
     if (!rec || rec.state === 'inactive') return;
     rec._cancel = cancel; rec.stop();
   }
+  // Live-Mitschrift: dein Text erscheint schon beim Sprechen im Chat
+  function showDraft(t) {
+    if (!t) return;
+    if (!draft || !draft.isConnected) { draft = h('div', { class: 'asst-m me draft' }); msgs.appendChild(draft); sugg.replaceChildren(); }
+    draft.textContent = t; scroll();
+  }
+  function dropDraft() { if (draft) draft.remove(); draft = null; }
   async function onRecorded(r, mime) {
     if (r !== rec) return;
     rec = null;
-    if (r._cancel) { if (state === 'listen') setState('idle', r._cancel === 'stop' ? L('Gestoppt.', 'Stopped.') : L('Ich hab nichts gehört.', 'I didn’t hear anything.')); return; }
+    const lv = lsess; lsess = null;
+    if (r._cancel) { lv && lv.cancel(); dropDraft(); if (state === 'listen') setState('idle', r._cancel === 'stop' ? L('Gestoppt.', 'Stopped.') : L('Ich hab nichts gehört.', 'I didn’t hear anything.')); return; }
     const blob = new Blob(chunks, { type: mime });
+    setState('think', L('Max hört genau hin …', 'Max is listening closely …'));
+    if (lv) {
+      const my0 = ++gen;
+      const lt = await lv.finish();
+      if (my0 !== gen) { dropDraft(); return; }
+      if (lt && lt.length > 1) { dropDraft(); state = 'idle'; await submit(lt); return; }
+    }
+    dropDraft();
     if (blob.size < 1500) { setState('idle', L('Das war zu kurz.', 'That was too short.')); return; }
-    setState('think', L('Ich hör mir das an …', 'Listening back …'));
     const my = ++gen;
     ctrl = new AbortController();
     try {
