@@ -6,7 +6,8 @@ import { face } from './face.js';
 import { ask } from './api.js';
 import { S } from './state.js';
 import { forChat } from './retrieve.js';
-import { apiError } from './ui.js';
+import { apiError, typeOut as typeIt, typePlaceholder } from './ui.js';
+import { liveWave } from './wave.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { VOICES, getVoice } from './voice.js';
@@ -140,7 +141,8 @@ export function mountAssistant() {
   const bubFace = h('span', { class: 'asst-bf' });
   const bub = h('button', { class: 'asst-bub', type: 'button', 'aria-label': L('Frag mich', 'Ask me'), title: L('Frag mich – ziehen zum Verschieben', 'Ask me – drag to move') },
     bubFace, h('i', { class: 'asst-dot' }), h('span', { class: 'asst-tip' }, L('Frag mich', 'Ask me')),
-    h('span', { class: 'asst-x', title: L('Max ausblenden', 'Hide Max'), html: ico('x') }));
+    h('span', { class: 'asst-x', title: L('Max ausblenden', 'Hide Max'), html: ico('x') }),
+    h('span', { class: 'asst-bs', title: L('Stopp', 'Stop'), html: SVG.stop }));
   // Panel
   const fEl = h('span', { class: 'asst-f' });
   const thinkEl = h('div', { class: 'asst-think', 'aria-live': 'polite' });
@@ -161,10 +163,17 @@ export function mountAssistant() {
   const msgs = h('div', { class: 'asst-msgs', 'aria-live': 'polite' });
   const sugg = h('div', { class: 'asst-sugg' });
   const ta = h('textarea', { rows: 1, placeholder: L('Frag mich zu dieser Seite …', 'Ask me about this page …'), 'aria-label': L('Nachricht an Max', 'Message to Max'), maxlength: 1500 });
+  typePlaceholder(ta, L('Sag mir, was du lernen willst …', 'Tell me what you want to learn …'),
+    L(['Erklär mir den Break-even-Punkt', 'Bau mir ein Quiz', 'Was ist der Kapitalwert?', 'Mach mir Karteikarten', 'Was soll ich heute lernen?', 'Erklär mir latente Steuern'], ['Explain the break-even point', 'Build me a quiz', 'What is net present value?', 'Make me flashcards', 'What should I study today?', 'Explain deferred taxes']), L('z. B. ', 'e.g. '));
   const mic = h('button', { class: 'asst-mic', type: 'button', 'aria-label': L('Sprechen', 'Speak'), title: L('Sprechen', 'Speak'), html: ico('mic') });
   const send = h('button', { class: 'asst-send', type: 'button', 'aria-label': L('Senden', 'Send'), html: ico('send') });
   const foot = h('div', { class: 'asst-foot' });
-  const chat = h('div', { class: 'asst-chat' }, msgs, sugg,
+  const wave = liveWave(28);
+  const liveLbl = h('span', { class: 'al-l' });
+  const liveStopTx = h('span', {});
+  const liveStop = h('button', { class: 'al-stop', type: 'button' }, h('span', { html: SVG.stop }), liveStopTx);
+  const live = h('div', { class: 'asst-live', 'aria-live': 'polite' }, liveLbl, wave.el, liveStop);
+  const chat = h('div', { class: 'asst-chat' }, msgs, sugg, live,
     h('div', { class: 'asst-comp' }, h('div', { class: 'asst-box' }, ta, mic, send), foot));
   const bvTitle = h('b', {});
   const bvArea = h('div', { class: 'asst-bva' });
@@ -273,6 +282,7 @@ export function mountAssistant() {
   bub.addEventListener('click', e => {
     if (justDragged) return;
     if (e.target.closest('.asst-x')) { e.stopPropagation(); disable(); return; }
+    if (e.target.closest('.asst-bs') && state !== 'idle') { e.stopPropagation(); stopAll(); return; }
     setOpen(true);
   });
   // Panel verschieben (am Kopfbereich)
@@ -398,7 +408,10 @@ export function mountAssistant() {
     send.disabled = !busy && !ta.value.trim();
     mic.setAttribute('aria-label', s === 'listen' ? L('Aufnahme beenden', 'Stop recording') : L('Sprechen', 'Speak'));
     mic.disabled = s === 'think';
-    drawFoot(msg ?? ({ listen: L('Ich höre zu …', 'Listening …'), speak: L('Max spricht …', 'Max is talking …') })[s]);
+    drawFoot(msg ?? '');
+    if (s === 'listen') { liveLbl.textContent = L('Ich höre zu …', 'Listening …'); liveStopTx.textContent = L('Fertig', 'Done'); liveStop.setAttribute('aria-label', L('Aufnahme beenden', 'Stop recording')); }
+    else if (s === 'speak') { liveLbl.textContent = L('Ich rede …', 'Talking …'); liveStopTx.textContent = L('Stopp', 'Stop'); liveStop.setAttribute('aria-label', L('Max stoppen', 'Stop Max')); wave.talk(); }
+    else wave.stop();
   }
 
   // ---------- Nachrichten ----------
@@ -434,15 +447,7 @@ export function mountAssistant() {
     scroll();
     return el;
   }
-  async function typeOut(el, text) {
-    const words = text.split(/(\s+)/); let out = '';
-    for (let k = 0; k < words.length; k++) {
-      out += words[k];
-      if (k % 4 === 0 || k === words.length - 1) { el.replaceChildren(richText(out)); scroll(); await sleep(14); }
-      if (!el.isConnected) break;
-    }
-    el.replaceChildren(richText(text));
-  }
+  const typeOut = (el, text) => typeIt(el, text, { scroll });
   function welcome() {
     msgs.replaceChildren(h('div', { class: 'asst-m ai asst-hi' }, richText(L('Moin, ich bin Max. Ich sehe, was du gerade offen hast, und kann die App für dich steuern: Quiz bauen, Karten machen, Podcast aufnehmen, zum Lernplan springen, Themen erklären. Sag einfach, was du willst – tippen oder reden.', 'Hey, I’m Max. I can see what you have open and I can run the app for you: build quizzes, make flashcards, record a podcast, jump to your study plan, explain topics. Just tell me what you want – type or talk.'))));
   }
@@ -597,6 +602,7 @@ export function mountAssistant() {
     setState('listen');
     try {
       actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      wave.mic(actx, stream);
       const src = actx.createMediaStreamSource(stream), an = actx.createAnalyser(); an.fftSize = 1024; src.connect(an);
       const buf = new Float32Array(an.fftSize);
       const t0 = performance.now(); let floor = .008, spoke = false, lastLoud = t0;
@@ -645,6 +651,7 @@ export function mountAssistant() {
       if (e?.name !== 'AbortError') apiError(e);
     }
   }
+  liveStop.addEventListener('click', () => { if (state === 'listen') stopListen(); else if (state === 'speak') stopAll(); });
   mic.addEventListener('click', () => { if (state === 'listen') return stopListen(); if (state === 'think') return; startListen(); });
 
   // ---------- Stopp ----------

@@ -4,6 +4,7 @@ import { face } from './face.js';
 import { COST, currentQuota, getAccount } from './api.js';
 import { say, thinkLines } from './max.js';
 import { L } from './i18n.js';
+import { richText } from './sanitize.js';
 
 // Gedankenblase neben Max' Kopf (die drei Denk-Punkte führen hinein)
 export function thought(faceEl, kind = 'generic', fallback = []) {
@@ -81,4 +82,46 @@ export function moreOpts(...kids) {
     h('div', { class: 'mo-body' }, ...kids));
   if (!matchMedia('(max-width: 760px)').matches) d.open = true;
   return d;
+}
+
+// Antwort tippt sich Wort für Wort auf (mit Cursor)
+export async function typeOut(el, text, { scroll = () => {}, alive = () => true } = {}) {
+  const parts = String(text || '').split(/(\s+)/);
+  const words = parts.filter(p => p.trim()).length;
+  const step = words > 260 ? 3 : words > 120 ? 2 : 1;
+  const delay = words > 260 ? 22 : 28;
+  let out = '', n = 0;
+  el.classList.add('typing-on');
+  for (let k = 0; k < parts.length; k++) {
+    out += parts[k];
+    if (!parts[k].trim()) continue;
+    if (++n % step && k < parts.length - 1) continue;
+    el.replaceChildren(richText(out));
+    scroll();
+    await new Promise(r => setTimeout(r, delay));
+    if (!el.isConnected || !alive()) break;
+  }
+  el.classList.remove('typing-on');
+  el.replaceChildren(richText(text));
+  scroll();
+}
+
+// Platzhalter tippt Beispiele durch (pausiert, solange man im Feld ist)
+export function typePlaceholder(inp, base, examples, pre = '') {
+  inp.placeholder = base;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !examples?.length) return;
+  let k = Math.floor(Math.random() * examples.length);
+  const busy = () => !!inp.value;
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  (async () => {
+    await wait(2200);
+    while (inp.isConnected) {
+      if (busy()) { inp.placeholder = base; await wait(800); continue; }
+      const t = pre + examples[k++ % examples.length];
+      for (let i = pre.length; i <= t.length; i++) { if (busy() || !inp.isConnected) break; inp.placeholder = t.slice(0, i); await wait(42); }
+      await wait(2000);
+      if (!busy()) inp.placeholder = base;
+      await wait(2600);
+    }
+  })();
 }

@@ -4,7 +4,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
 import { forChat } from '../retrieve.js';
-import { apiError } from '../ui.js';
+import { apiError, typeOut as typeIt, typePlaceholder } from '../ui.js';
 import { sanitize, richText } from '../sanitize.js';
 import { say, SPICE, getSpice, setSpice, NAME } from '../max.js';
 import { openVoice } from '../voice.js';
@@ -42,6 +42,7 @@ export async function render(root, ctx) {
   const msgs = h('div', { class: 'msgs', 'aria-live': 'polite' });
   const sugg = h('div', { class: 'suggest' });
   const ta = h('textarea', { rows: 1, placeholder: L('Frag mich etwas zu deinem Skript …', 'Ask me anything about your slides …'), 'aria-label': L('Nachricht', 'Message') });
+  typePlaceholder(ta, L('Frag mich etwas zu deinem Skript …', 'Ask me anything about your slides …'), (doc.path?.chapters?.length ? doc.path.chapters.map(c => L('Erklär mir „' + c.title + '“', 'Explain “' + c.title + '”')) : []).concat(L(['Rechne mir ein Beispiel vor', 'Was kommt in der Klausur dran?', 'Frag mich ab', 'Erklär mir das schwierigste Thema'], ['Walk me through an example', 'What’s likely on the exam?', 'Quiz me', 'Explain the hardest topic'])), L('z. B. ', 'e.g. '));
   const send = h('button', { class: 'send', 'aria-label': L('Senden', 'Send'), html: ico('send'), disabled: true });
   const talk = () => openVoice({ doc, onClose: async () => { const m = await import('../app.js'); m.forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } });
   const micBtn = h('button', { class: 'micbtn', type: 'button', 'aria-label': L('Sprich mit mir', 'Talk to me'), title: L('Sprich mit mir', 'Talk to me'), html: ico('mic'), onclick: talk });
@@ -111,14 +112,7 @@ export async function render(root, ctx) {
   }
   async function typeOut(el, text) {
     fc.set('talk');
-    const words = text.split(/(\s+)/);
-    let out = '';
-    for (let k = 0; k < words.length; k++) {
-      out += words[k];
-      if (k % 3 === 0 || k === words.length - 1) { el.replaceChildren(richText(out)); scroll(); await sleep(16); }
-      if (!el.isConnected) break;
-    }
-    el.replaceChildren(richText(text));
+    await typeIt(el, text, { scroll });
     fc.set('idle');
   }
   const scroll = () => { msgs.scrollTop = msgs.scrollHeight; };

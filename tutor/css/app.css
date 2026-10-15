@@ -1470,3 +1470,38 @@ footer.foot .asst-tg:hover { color: var(--ink); }
 .side-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 4px; padding-top: 4px; }
 .side-links button { background: none; border: 0; padding: 4px 6px; font: 500 12px var(--sans); color: var(--mute); cursor: pointer; border-radius: 6px; }
 .side-links button:hover { color: var(--ink); background: var(--panel2); }
+
+/* ===== Lebendige Welle (hören / sprechen) ===== */
+.lwave { display: flex; align-items: center; justify-content: center; gap: 3px; height: 30px; min-width: 0; }
+.lwave i { display: block; flex: 0 1 4px; width: 4px; min-width: 2px; height: 100%; border-radius: 4px; background: currentColor; transform: scaleY(.12); transform-origin: center; transition: transform .07s linear; }
+.lwave[data-mode="talk"] i { transition: transform .12s ease-out; }
+
+.asst-live { display: none; align-items: center; gap: 12px; margin: 0 12px 8px; padding: 8px 8px 8px 14px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line2); }
+.asst[data-state="listen"] .asst-live, .asst[data-state="speak"] .asst-live { display: flex; animation: fadeUp .25s var(--ease) both; }
+.asst[data-state="listen"] .asst-sugg, .asst[data-state="speak"] .asst-sugg { display: none; }
+.asst-live .al-l { font: 600 13px var(--sans); white-space: nowrap; color: var(--ink); }
+.asst-live .lwave { flex: 1; color: var(--ink); }
+.al-stop { flex: none; display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 15px 0 12px; border-radius: 999px; border: 0; background: var(--inv); color: var(--onInv); font: 650 13.5px var(--sans); cursor: pointer; }
+.al-stop .ico { width: 15px; height: 15px; }
+.al-stop:active { transform: scale(.96); }
+.asst[data-state="listen"] .asst-live .al-l::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #ff3b30; margin-right: 8px; vertical-align: 1px; animation: recdot 1s ease-in-out infinite; }
+@keyframes recdot { 50% { opacity: .25; } }
+
+/* Stopp direkt am Kopf, wenn Max minimiert weiterredet */
+.asst-bs { position: absolute; bottom: -6px; left: -8px; height: 26px; min-width: 26px; padding: 0 7px; border-radius: 999px; display: none; place-items: center; background: var(--inv); color: var(--onInv); box-shadow: var(--shadow); cursor: pointer; }
+.asst-bs .ico { width: 12px; height: 12px; }
+.asst:not(.open)[data-state="speak"] .asst-bs, .asst:not(.open)[data-state="listen"] .asst-bs { display: grid; animation: fadeUp .25s var(--ease) both; }
+
+/* Antwort tippt sich: blinkender Cursor */
+.typing-on > :last-child::after, .typing-on:not(:has(> *))::after { content: ""; display: inline-block; width: .5em; height: 1em; margin-left: 2px; vertical-align: -.12em; background: currentColor; opacity: .55; animation: tcur .8s steps(1) infinite; }
+@keyframes tcur { 50% { opacity: 0; } }
+
+/* Sprich-mit-mir: Welle unter Max */
+.voice .vwave { width: min(260px, 70vw); height: 44px; margin: 4px auto 0; color: var(--ink); opacity: 0; transition: opacity .25s; }
+.voice .vwave .lwave { height: 44px; gap: 4px; }
+.voice .vwave .lwave i { flex-basis: 5px; width: 5px; }
+.voice[data-state="listen"] .vwave, .voice[data-state="speak"] .vwave { opacity: 1; }
+/* Laufende Umrandung auch bei den kleinen Funktionen */
+.featrest .feat { transition: color .3s, border-color .3s, transform .35s var(--ease); }
+.featrest .feat.hl { color: var(--ink); border-color: var(--ink); background: transparent; transform: translateY(-2px); }
+.featrow[data-in].in .featrest .feat.hl { transform: translateY(-2px); }

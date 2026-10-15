@@ -5,7 +5,8 @@ import { face } from './face.js';
 import { ask } from './api.js';
 import { save } from './state.js';
 import { forChat } from './retrieve.js';
-import { apiError } from './ui.js';
+import { apiError, typeOut } from './ui.js';
+import { liveWave } from './wave.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { getOutLang, setOutLang, L } from './i18n.js';
@@ -39,6 +40,7 @@ export function openVoice({ doc = null, onClose } = {}) {
   // ---------- Oberfläche ----------
   const fEl = h('div', { class: 'vface' });
   const ring = h('div', { class: 'vring' });
+  const wave = liveWave(30);
   const vth = h('div', { class: 'thought vth', 'aria-live': 'polite' });
   let gen = 0;
   let vol = Math.max(0, Math.min(1, +ls.get('tutor.vol', 1))), muted = !!ls.get('tutor.muted', false);
@@ -72,7 +74,7 @@ export function openVoice({ doc = null, onClose } = {}) {
   const ov = h('div', { class: 'voice', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Sprich mit mir', 'Talk to me') },
     h('div', { class: 'vtop' }, h('div', { class: 'vchips' }, h('span', { class: 'eyebrow' }, L('Stimme', 'Voice')), chips), langSeg, closeBtn),
     h('div', { class: 'vmain' },
-      h('div', { class: 'vstage' }, ring, fEl, vth),
+      h('div', { class: 'vstage' }, ring, fEl, vth), h('div', { class: 'vwave' }, wave.el),
       status, you, said, boardBox),
     h('div', { class: 'vbottom' }, h('div', { class: 'vctrl' }, stopBtn, mic, volBox), h('div', { class: 'vhint' }, doc ? L(`Max kennt „${doc.name}“ · 2 Einheiten pro Antwort`, `Max knows “${doc.name}” · 2 credits per answer`) : L('Frag mich alles aus BWL, VWL & Rechnungswesen · 2 Einheiten pro Antwort', 'Ask me anything in business, economics & accounting · 2 credits per answer')), typeForm));
   document.body.appendChild(ov);
@@ -93,6 +95,7 @@ export function openVoice({ doc = null, onClose } = {}) {
     status.textContent = msg ?? ({ idle: canRec ? L('Tipp aufs Mikro und frag los.', 'Tap the mic and ask away.') : L('Dein Browser kann hier nicht aufnehmen – tipp deine Frage unten ein.', 'Your browser can’t record here – type your question below.'), listen: L('Ich höre zu …', 'I’m listening …'), think: L('Max denkt nach …', 'Max is thinking …'), speak: L('Max spricht … (tippen zum Unterbrechen)', 'Max is talking … (tap to interrupt)') })[s];
     fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
     thinkOn(s === 'think');
+    if (s === 'speak') wave.talk(); else if (s !== 'listen') wave.stop();
     mic.setAttribute('aria-label', s === 'listen' ? L('Aufnahme beenden', 'Stop recording') : s === 'speak' ? L('Unterbrechen und sprechen', 'Interrupt and speak') : L('Sprechen', 'Speak'));
   };
   setState('idle');
@@ -116,6 +119,7 @@ export function openVoice({ doc = null, onClose } = {}) {
     setState('listen');
     // Stille erkennen
     actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    wave.mic(actx, stream);
     const src = actx.createMediaStreamSource(stream), an = actx.createAnalyser(); an.fftSize = 1024; src.connect(an);
     const buf = new Float32Array(an.fftSize);
     const t0 = performance.now(); let floor = 0.008, spoke = false, lastLoud = t0, n = 0;
@@ -171,7 +175,7 @@ export function openVoice({ doc = null, onClose } = {}) {
       msgs.push({ role: 'assistant', content: raw });
       const p = parse(raw);
       if (doc) { p.boards.forEach(b => doc.boards.push({ ...b, at: Date.now() })); if (doc.chat.length > 80) doc.chat = doc.chat.slice(-80); save(doc); }
-      said.replaceChildren(h('span', { class: 'eyebrow' }, 'Max'), h('p', {}, richText(p.text)));
+      const sp = h('div', { class: 'vsaid-tx' }); said.replaceChildren(h('span', { class: 'eyebrow' }, 'Max'), sp); typeOut(sp, p.text, { alive: () => my === gen });
       if (p.boards.length) { const b = p.boards[0]; const t = h('div', { class: 'tafel' }); t.appendChild(sanitize(b.html)); boardBox.replaceChildren(h('div', { class: 'eyebrow' }, L('An der Tafel · ', 'On the whiteboard · ') + b.title), t); }
       if (my !== gen) return;
       await speak(p.text, my);

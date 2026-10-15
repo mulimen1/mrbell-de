@@ -3,7 +3,7 @@ import { h, ico, ago, ls, modal } from '../util.js';
 import { face } from '../face.js';
 import { mastery, save } from '../state.js';
 import { generatePath, pathPending } from './path.js';
-import { apiError } from '../ui.js';
+import { apiError, typePlaceholder } from '../ui.js';
 import { dueCards } from './cards.js';
 import { L, LOCALE } from '../i18n.js';
 import { planSummary } from './plan.js';
@@ -25,6 +25,7 @@ export async function render(root, ctx) {
   const quick = h('form', { style: { display: 'flex', gap: '8px', marginTop: 'auto' }, onsubmit: e => { e.preventDefault(); const t = inp.value.trim(); if (t) ctx.ask(t); else ctx.go('tutor'); } },
     inp, h('button', { class: 'send', style: { background: 'var(--onInv)', color: 'var(--inv)' }, 'aria-label': L('Fragen', 'Ask'), html: ico('send') }));
   quick.addEventListener('click', e => e.stopPropagation());
+  typePlaceholder(inp, L('Frag mich etwas zu deinem Skript …', 'Ask me anything about your slides …'), (doc.path?.chapters?.length ? doc.path.chapters.map(c => L('Erklär mir „' + c.title + '“', 'Explain “' + c.title + '”')) : []).concat(L(['Fass das Skript in 5 Punkten zusammen', 'Was ist am wichtigsten für die Klausur?', 'Erklär mir das schwierigste Thema'], ['Summarise the slides in 5 points', 'What matters most for the exam?', 'Explain the hardest topic'])), L('z. B. ', 'e.g. '));
 
   const pathTile = h('button', { class: 'tile half hub-tool', onclick: () => ctx.go('pfad', nextIdx >= 0 ? String(nextIdx) : null) });
   const fillPath = () => {

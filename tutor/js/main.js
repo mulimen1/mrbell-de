@@ -75,8 +75,18 @@ function initLanding() {
     TOP.forEach(([ic, t, key, sub], k) => rowT.appendChild(h('button', { class: 'feat big', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k }, onclick: () => tryFeature(key) }, h('span', { class: 'fi', html: ico(ic) }), h('span', { class: 'ft' }, h('b', {}, t), h('small', {}, sub)))));
     REST.forEach(([ic, t, key], k) => rowR.appendChild(h('button', { class: 'feat', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k + 3 }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t)));
     fr.append(rowT, rowR);
-    const fs = [...rowT.children]; let fi = 0;
-    if (!reduce) setInterval(() => { if (!fr.isConnected || document.hidden) return; fs.forEach((x, k) => x.classList.toggle('hl', k === fi)); fi = (fi + 1) % fs.length; }, 1500);
+    // Umrandung läuft durch alle Funktionen: erst die drei großen, dann die kleinen (die Zeile wischt mit)
+    const fs = [...rowT.children, ...rowR.children]; let fi = 0;
+    if (!reduce) setInterval(() => {
+      if (!fr.isConnected || document.hidden) return;
+      const cur = fs[fi];
+      fs.forEach(x => x.classList.toggle('hl', x === cur));
+      if (rowR.scrollWidth > rowR.clientWidth + 2) {
+        const left = rowR.contains(cur) ? Math.max(0, cur.offsetLeft - rowR.offsetLeft - (rowR.clientWidth - cur.offsetWidth) / 2) : 0;
+        rowR.scrollTo({ left, behavior: 'smooth' });
+      }
+      fi = (fi + 1) % fs.length;
+    }, 1400);
   }
 
   // Ohne Skript: Max erklärt ein Thema
