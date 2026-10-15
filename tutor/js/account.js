@@ -133,7 +133,7 @@ export function accountChip() {
   onAccount(a => {
     if (!el.isConnected && el.dataset.init) return;
     el.dataset.init = 1;
-    if (!a) el.replaceChildren(h('span', { class: 'av', html: ico('lock') }), h('span', { class: 'tx' }, h('b', {}, L('Anmelden', 'Sign in')), h('small', {}, L('7 Tage Pro geschenkt', '7 days of Pro free'))));
+    if (!a) el.replaceChildren(h('span', { class: 'av', html: ico('lock') }), h('span', { class: 'tx' }, h('b', {}, 'Log in'), h('small', {}, L('7 Tage Pro geschenkt', '7 days of Pro free'))));
     else el.replaceChildren(h('span', { class: 'av' }, (a.email[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, a.email), h('small', {}, a.pro ? L(`Pro · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, `Pro · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : 'Free')));
   });
   return el;

@@ -202,19 +202,25 @@ function mindmap(m, name = 'Mindmap') {
   // ---------- Werkzeuge ----------
   const box = h('div', { class: 'mindmap' }, h('div', { class: 'mm-scroll' }, svg));
   const reset = () => { nodes.forEach((n, i) => { n.x = home[i][0]; n.y = home[i][1]; }); nodes.filter(n => n.kind === 'branch' && !n.open).forEach(toggle); draw(); fit(); intro(); };
+  const isFull = () => document.fullscreenElement === box || box.classList.contains('mm-full');
+  const fullBtn = h('button', { class: 'btn sm', type: 'button' });
+  const setFullBtn = () => { const f = isFull(); fullBtn.replaceChildren(h('span', { html: ico(f ? 'shrink' : 'expand') }), f ? L('Vollbild beenden', 'Exit full screen') : L('Vollbild', 'Full screen')); };
   const full = () => {
-    if (document.fullscreenElement) { document.exitFullscreen(); return; }
-    if (box.requestFullscreen) box.requestFullscreen().catch(() => box.classList.toggle('mm-full'));
-    else box.classList.toggle('mm-full');
+    if (document.fullscreenElement === box) { document.exitFullscreen(); return; }
+    if (box.classList.contains('mm-full')) { box.classList.remove('mm-full'); setFullBtn(); return; }
+    if (box.requestFullscreen) box.requestFullscreen().catch(() => { box.classList.add('mm-full'); setFullBtn(); });
+    else { box.classList.add('mm-full'); setFullBtn(); }
   };
+  fullBtn.addEventListener('click', full); setFullBtn();
+  document.addEventListener('fullscreenchange', function fc() { if (!box.isConnected) return document.removeEventListener('fullscreenchange', fc); setFullBtn(); });
   const tools = h('div', { class: 'mm-tools' },
     h('span', { class: 'mm-hint' }, L('Knoten ziehen · Ast antippen zum Auf-/Zuklappen', 'Drag nodes · tap a branch to expand/collapse')),
     h('span', { style: { flex: 1 } }),
     h('button', { class: 'btn sm ghost', type: 'button', onclick: reset }, h('span', { html: ico('refresh') }), L('Neu anordnen', 'Rearrange')),
     h('button', { class: 'btn sm ghost', type: 'button', onclick: () => exportPng(svg, box, name) }, h('span', { html: ico('download') }), L('Als Bild', 'Save image')),
-    h('button', { class: 'btn sm', type: 'button', onclick: full }, h('span', { html: ico('expand') }), L('Vollbild', 'Full screen')));
+    fullBtn);
   box.prepend(tools);
-  document.addEventListener('keydown', function esc(e) { if (!box.isConnected) return document.removeEventListener('keydown', esc); if (e.key === 'Escape') box.classList.remove('mm-full'); });
+  document.addEventListener('keydown', function esc(e) { if (!box.isConnected) return document.removeEventListener('keydown', esc); if (e.key === 'Escape' && box.classList.contains('mm-full')) { box.classList.remove('mm-full'); setFullBtn(); } });
   const io = new IntersectionObserver(es => { if (es.some(x => x.isIntersecting)) { io.disconnect(); intro(); } }, { threshold: .25 });
   requestAnimationFrame(() => io.observe(box));
   return box;

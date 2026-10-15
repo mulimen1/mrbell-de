@@ -44,7 +44,7 @@ function previewBtn(voice, getLang) {
     if (previewAudio && !previewAudio.paused && previewAudio._v === voice) { previewAudio.pause(); b.innerHTML = ico('play'); return; }
     if (previewAudio) previewAudio.pause();
     document.querySelectorAll('.pv').forEach(x => x.innerHTML = ico('play'));
-    previewAudio = new Audio(`/tutor/audio/${voice}-${getLang()}.mp3`); previewAudio._v = voice;
+    previewAudio = new Audio(`/tutor/audio/${voice}-${getLang()}.mp3?v=2`); previewAudio._v = voice;
     previewAudio.onended = () => { b.innerHTML = ico('play'); };
     b.innerHTML = ico('pause');
     previewAudio.play().catch(() => { b.innerHTML = ico('play'); });

@@ -73,7 +73,7 @@ function initLanding() {
 
   // Anmelden (dezent in der Navigation)
   const nl = $('[data-login]');
-  if (nl) { nl.addEventListener('click', () => getAccount() ? openAccount() : openLogin()); onAccount(a => { nl.textContent = a ? L('Konto', 'Account') : L('Anmelden', 'Log in'); }); }
+  if (nl) { nl.addEventListener('click', () => getAccount() ? openAccount() : openLogin()); onAccount(a => { nl.textContent = a ? L('Konto', 'Account') : 'Log in'; }); }
 
   // Begrüßung tippen (Sprechblase)
   const g = $('#greet');

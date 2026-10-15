@@ -97,6 +97,7 @@ const THINK = {
     path: ['Ich teil dein Skript in Kapitel. Wie Papa seine Firmen.', 'Lernreihenfolge sortieren … mach ich beruflich. Fast.', 'Ich gewichte für die Klausur. Insiderwissen.'],
     lesson: ['Ich mal dir die Tafel. Die Kreide ist vergoldet.', 'Kontrollfragen werden gebaut …', 'Gleich wird’s anschaulich. Versprochen.'],
     topic: ['Ich schreib dir ein Skript. Ohne Prof, mit Stil.', 'Beispiel wird durchgerechnet – zweimal, ich bin ja nicht leichtsinnig.', 'Typische Klausurfehler rein. Die hab ich natürlich nie gemacht.', 'Ich frag kurz meinen Vermögensberater …'],
+    voice: ['Gute Frage. Sag ich nicht oft.', 'Ich denk nach. Sieht man an der Stirn.', 'Moment, ich formulier das elegant.', 'Kurz den Kaffee abstellen …', 'Ich such die Antwort. Hab sie gleich, wie immer.', 'Papa hätte jetzt einen Berater angerufen. Ich denk einfach.'],
     ingest: ['Ich les dein Skript. Schneller als du deine Mails.', 'Seite für Seite … ich überfliege nur. Profi.', 'PDF wird zerlegt. Sanft.'],
   },
   en: {
@@ -110,6 +111,7 @@ const THINK = {
     path: ['Splitting your slides into chapters. Like Dad splits companies.', 'Sorting the learning order … I do this professionally. Almost.', 'Weighting for the exam. Insider knowledge.'],
     lesson: ['Drawing your whiteboard. The chalk is gold-plated.', 'Building check questions …', 'It’s about to get visual. Promise.'],
     topic: ['Writing you a script. No professor, all style.', 'Working through the example – twice, I’m not reckless.', 'Adding typical exam mistakes. Which I never made, obviously.', 'Quickly asking my wealth manager …'],
+    voice: ['Good question. I don’t say that often.', 'Thinking. You can see it on my forehead.', 'Hold on, phrasing it elegantly.', 'Just putting my coffee down …', 'Finding the answer. Got it in a sec, as always.', 'Dad would call a consultant now. I just think.'],
     ingest: ['Reading your slides. Faster than you read your emails.', 'Page by page … I’m only skimming. Pro.', 'Taking the PDF apart. Gently.'],
   }
 };

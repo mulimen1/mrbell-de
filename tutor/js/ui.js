@@ -40,7 +40,7 @@ export async function apiError(e, retry) {
   if (e && e.name === 'AbortError') return;
   if (e && e.code === 'cap') {
     const acc = getAccount();
-    const r = await modal({ title: L('Für heute ist Schluss damit', 'That’s it for today'), text: e.message, actions: acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Anmelden · 7 Tage Pro', 'Sign in · 7 days of Pro'), value: true, primary: true }] });
+    const r = await modal({ title: L('Für heute ist Schluss damit', 'That’s it for today'), text: e.message, actions: acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Log in · 7 Tage Pro', 'Log in · 7 days of Pro'), value: true, primary: true }] });
     if (r) { const { openLogin } = await import('./account.js'); if (await openLogin({ title: L('Mehr mit 7 Tagen Pro', 'More with 7 days of Pro') }) && retry) retry(); }
     return;
   }
@@ -49,7 +49,7 @@ export async function apiError(e, retry) {
     const r = await modal({
       title: L('Max macht Feierabend', 'Max is clocking off'),
       text: say('limit') + (acc ? (acc.pro ? L(' Selbst mit Pro ist heute Schluss – morgen geht’s weiter.', ' Even with Pro, that’s it for today – we’ll carry on tomorrow.') : L(' Ab 0:00 Uhr gibt’s neue Einheiten. Pro ohne Limit kommt bald.', ' New credits arrive at midnight. Pro without limits is coming soon.')) : L(' Ab 0:00 Uhr gibt’s neue Einheiten – oder du meldest dich kostenlos an und bekommst 7 Tage Pro ohne Tageslimit.', ' New credits arrive at midnight – or sign in for free and get 7 days of Pro with no daily limit.')),
-      actions: acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Anmelden · 7 Tage Pro', 'Sign in · 7 days of Pro'), value: true, primary: true }]
+      actions: acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Log in · 7 Tage Pro', 'Log in · 7 days of Pro'), value: true, primary: true }]
     });
     if (r) { const { openLogin } = await import('./account.js'); if (await openLogin({ title: L('Weiterlernen mit 7 Tagen Pro', 'Keep learning with 7 days of Pro') }) && retry) retry(); }
     return;

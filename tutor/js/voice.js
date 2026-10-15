@@ -7,7 +7,7 @@ import { save } from './state.js';
 import { forChat } from './retrieve.js';
 import { apiError } from './ui.js';
 import { sanitize, richText } from './sanitize.js';
-import { getSpice } from './max.js';
+import { getSpice, thinkLines } from './max.js';
 import { getOutLang, setOutLang, L } from './i18n.js';
 
 export const VOICES = [
@@ -39,6 +39,21 @@ export function openVoice({ doc = null, onClose } = {}) {
   // ---------- Oberfläche ----------
   const fEl = h('div', { class: 'vface' });
   const ring = h('div', { class: 'vring' });
+  const vth = h('div', { class: 'thought vth', 'aria-live': 'polite' });
+  let gen = 0;
+  let vol = Math.max(0, Math.min(1, +ls.get('tutor.vol', 1))), muted = !!ls.get('tutor.muted', false);
+  const stopBtn = h('button', { class: 'vstop', type: 'button', title: L('Stopp', 'Stop'), 'aria-label': L('Antwort stoppen', 'Stop answer'), html: '<svg class="ico" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor"/></svg>' });
+  const muteBtn = h('button', { class: 'iconbtn vmute', type: 'button' });
+  const volIn = h('input', { type: 'range', min: 0, max: 100, value: Math.round(vol * 100), 'aria-label': L('Lautstärke', 'Volume') });
+  const volBox = h('div', { class: 'vvol' }, muteBtn, volIn);
+  const applyVol = () => {
+    audio.volume = vol; audio.muted = muted || vol === 0;
+    muteBtn.innerHTML = muted || vol === 0 ? '<svg class="ico" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l4 6M21 9l-4 6"/></svg>' : '<svg class="ico" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
+    muteBtn.setAttribute('aria-label', muted ? L('Ton an', 'Unmute') : L('Stumm', 'Mute'));
+    ls.set('tutor.vol', vol); ls.set('tutor.muted', muted);
+  };
+  muteBtn.addEventListener('click', () => { muted = !muted; if (!muted && vol === 0) { vol = .7; volIn.value = 70; } applyVol(); });
+  volIn.addEventListener('input', () => { vol = +volIn.value / 100; muted = vol === 0; applyVol(); });
   const status = h('div', { class: 'vstatus', 'aria-live': 'polite' });
   const you = h('div', { class: 'vyou' });
   const said = h('div', { class: 'vsaid' });
@@ -57,18 +72,27 @@ export function openVoice({ doc = null, onClose } = {}) {
   const ov = h('div', { class: 'voice', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Mit Max sprechen', 'Talk to Max') },
     h('div', { class: 'vtop' }, h('div', { class: 'vchips' }, h('span', { class: 'eyebrow' }, L('Stimme', 'Voice')), chips), langSeg, closeBtn),
     h('div', { class: 'vmain' },
-      h('div', { class: 'vstage' }, ring, fEl),
+      h('div', { class: 'vstage' }, ring, fEl, vth),
       status, you, said, boardBox),
-    h('div', { class: 'vbottom' }, mic, h('div', { class: 'vhint' }, doc ? L(`Max kennt „${doc.name}“ · 2 Einheiten pro Antwort`, `Max knows “${doc.name}” · 2 credits per answer`) : L('Frag Max alles aus BWL, VWL & Rechnungswesen · 2 Einheiten pro Antwort', 'Ask Max anything in business, economics & accounting · 2 credits per answer')), typeForm));
+    h('div', { class: 'vbottom' }, h('div', { class: 'vctrl' }, stopBtn, mic, volBox), h('div', { class: 'vhint' }, doc ? L(`Max kennt „${doc.name}“ · 2 Einheiten pro Antwort`, `Max knows “${doc.name}” · 2 credits per answer`) : L('Frag Max alles aus BWL, VWL & Rechnungswesen · 2 Einheiten pro Antwort', 'Ask Max anything in business, economics & accounting · 2 credits per answer')), typeForm));
   document.body.appendChild(ov);
   document.body.style.overflow = 'hidden';
   const fc = face(fEl, {});
   requestAnimationFrame(() => ov.classList.add('in'));
 
+  let vthIv = 0;
+  const thinkOn = on => {
+    clearInterval(vthIv);
+    if (!on) { vth.classList.remove('on'); return; }
+    const lines = thinkLines('voice', [L('Einen Moment …', 'One moment …')]); let i = 0;
+    const show = () => { vth.textContent = lines[i++ % lines.length]; vth.animate([{ opacity: 0, transform: 'scale(.85) translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.34,1.56,.64,1)' }); };
+    vth.classList.add('on'); show(); vthIv = setInterval(show, 2800);
+  };
   const setState = (s, msg) => {
     state = s; ov.dataset.state = s;
     status.textContent = msg ?? ({ idle: canRec ? L('Tipp aufs Mikro und frag los.', 'Tap the mic and ask away.') : L('Dein Browser kann hier nicht aufnehmen – tipp deine Frage unten ein.', 'Your browser can’t record here – type your question below.'), listen: L('Ich höre zu …', 'I’m listening …'), think: L('Max denkt nach …', 'Max is thinking …'), speak: L('Max spricht … (tippen zum Unterbrechen)', 'Max is talking … (tap to interrupt)') })[s];
     fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
+    thinkOn(s === 'think');
     mic.setAttribute('aria-label', s === 'listen' ? L('Aufnahme beenden', 'Stop recording') : s === 'speak' ? L('Unterbrechen und sprechen', 'Interrupt and speak') : L('Sprechen', 'Speak'));
   };
   setState('idle');
@@ -134,6 +158,7 @@ export function openVoice({ doc = null, onClose } = {}) {
     you.replaceChildren(h('span', { class: 'eyebrow' }, L('Du', 'You')), h('p', {}, text));
     said.replaceChildren(); boardBox.replaceChildren();
     setState('think');
+    const my = ++gen;
     ctrl = new AbortController();
     try {
       const msgs = doc ? doc.chat : history;
@@ -148,20 +173,23 @@ export function openVoice({ doc = null, onClose } = {}) {
       if (doc) { p.boards.forEach(b => doc.boards.push({ ...b, at: Date.now() })); if (doc.chat.length > 80) doc.chat = doc.chat.slice(-80); save(doc); }
       said.replaceChildren(h('span', { class: 'eyebrow' }, 'Max'), h('p', {}, richText(p.text)));
       if (p.boards.length) { const b = p.boards[0]; const t = h('div', { class: 'tafel' }); t.appendChild(sanitize(b.html)); boardBox.replaceChildren(h('div', { class: 'eyebrow' }, L('An der Tafel · ', 'On the whiteboard · ') + b.title), t); }
-      await speak(p.text);
+      if (my !== gen) return;
+      await speak(p.text, my);
     } catch (e) {
       if (e?.name === 'AbortError') return;
       const msgs = doc ? doc.chat : history; if (msgs[msgs.length - 1]?.role === 'user') msgs.pop();
       fail(e);
     } finally { ctrl = null; }
   }
-  async function speak(text) {
+  async function speak(text, my = gen) {
     if (!text) { setState('idle'); return; }
+    if (muted || vol === 0) { setState('idle', L('Stumm geschaltet – die Antwort steht oben.', 'Muted – the answer is above.')); return; }
     try {
       const r = await ask('tts', { text, opts: { voice } });
+      if (my !== gen) return;
       const bin = atob(r.audio); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
       const url = URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' }));
-      audio.src = url;
+      audio.src = url; applyVol();
       setState('speak');
       audio.onended = () => { URL.revokeObjectURL(url); if (state === 'speak') { setState('idle', L('Noch was? Tipp aufs Mikro.', 'Anything else? Tap the mic.')); fc.pulse('happy', 900); } };
       await audio.play().catch(() => { setState('idle', L('Tipp aufs Mikro, um weiterzureden. (Ton war blockiert)', 'Tap the mic to keep talking. (Sound was blocked)')); });
@@ -175,6 +203,17 @@ export function openVoice({ doc = null, onClose } = {}) {
     setState('idle', e?.message || L('Das hat nicht geklappt. Nochmal?', 'That didn’t work. Again?'));
   }
 
+  // ---------- Stopp ----------
+  const stopAll = () => {
+    gen++;
+    if (state === 'listen') { stopListen(true); }
+    if (ctrl) { ctrl.abort(); ctrl = null; const msgs = doc ? doc.chat : history; if (msgs[msgs.length - 1]?.role === 'user') msgs.pop(); }
+    try { audio.pause(); } catch (e) {}
+    setState('idle', L('Gestoppt. Frag einfach neu.', 'Stopped. Just ask again.'));
+  };
+  stopBtn.addEventListener('click', stopAll);
+  applyVol();
+
   // ---------- Bedienung ----------
   mic.addEventListener('click', () => {
     if (state === 'listen') return stopListen();
@@ -184,6 +223,7 @@ export function openVoice({ doc = null, onClose } = {}) {
   });
   typeForm.addEventListener('submit', e => { e.preventDefault(); const t = typeIn.value.trim(); if (!t || state === 'think') return; typeIn.value = ''; if (state === 'speak') audio.pause(); try { audio.src = SILENT; audio.play().catch(() => {}); } catch (x) {} answer(t); });
   const close = () => {
+    gen++; thinkOn(false);
     open = false;
     try { stopListen(true); } catch (e) {}
     try { audio.pause(); } catch (e) {}

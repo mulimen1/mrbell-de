@@ -972,3 +972,20 @@ button.doc-item { border: 0; background: transparent; width: 100%; text-align: l
   .nav .brand .bn { grid-column: 2; }
   .nav .brand small { grid-column: 2; justify-self: start; display: inline-block; font-size: 8.5px; padding: 1px 4px; margin: 0; }
 }
+/* Seitenleiste unten: nichts darf über den Rand ragen */
+.side { overflow-x: hidden; }
+.side .bottom { min-width: 0; overflow: hidden; }
+.side .bottom > * { min-width: 0; max-width: 100%; }
+.olang { flex-wrap: wrap; row-gap: 6px; }
+.olang .seg button { padding: 4px 9px; }
+.voice .vth { display: none; left: calc(100% + 4px); bottom: calc(100% - 22px); }
+.voice .vth.on { display: block; }
+@media (max-width: 760px) { .voice .vth { left: 50%; bottom: calc(100% + 18px); } .voice .vstage { margin-top: 70px; } }
+.voice .vctrl { display: flex; align-items: center; justify-content: center; gap: 18px; width: min(560px, 100%); }
+.voice .vstop { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); display: grid; place-items: center; cursor: pointer; opacity: .35; pointer-events: none; transition: opacity .2s, border-color .2s; }
+.voice .vstop .ico { width: 18px; height: 18px; }
+.voice[data-state="think"] .vstop, .voice[data-state="speak"] .vstop, .voice[data-state="listen"] .vstop { opacity: 1; pointer-events: auto; border-color: var(--ink); }
+.voice .vvol { display: flex; align-items: center; gap: 6px; }
+.voice .vvol input[type=range] { width: 90px; accent-color: var(--ink); }
+.voice .vmute .ico { width: 20px; height: 20px; }
+@media (max-width: 520px) { .voice .vvol input[type=range] { width: 64px; } .voice .vctrl { gap: 12px; } }
