@@ -54,11 +54,11 @@ export function sanitizeInto(el, html) {
 export function richText(s) {
   const frag = document.createDocumentFragment();
   String(s || '').split('\n').forEach((line, i, arr) => {
-    const parts = line.split(/(\*\*[^*]+\*\*|\(S\. ?\d+(?:[–-]\d+)?\))/g);
+    const parts = line.split(/(\*\*[^*]+\*\*|\((?:S|p|pp)\. ?\d+(?:[–-]\d+)?\))/g);
     for (const p of parts) {
       if (!p) continue;
       if (p.startsWith('**') && p.endsWith('**')) { const b = document.createElement('b'); b.textContent = p.slice(2, -2); frag.appendChild(b); }
-      else if (/^\(S\. ?\d+/.test(p)) { const c = document.createElement('span'); c.className = 'cite'; c.textContent = p.slice(1, -1); frag.appendChild(c); }
+      else if (/^\((?:S|p|pp)\. ?\d+/.test(p)) { const c = document.createElement('span'); c.className = 'cite'; c.textContent = p.slice(1, -1); frag.appendChild(c); }
       else frag.appendChild(document.createTextNode(p));
     }
     if (i < arr.length - 1) frag.appendChild(document.createElement('br'));

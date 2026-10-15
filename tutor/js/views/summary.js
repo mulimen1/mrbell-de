@@ -6,6 +6,7 @@ import { save } from '../state.js';
 import { forWhole } from '../retrieve.js';
 import { loading, apiError, costBtn } from '../ui.js';
 import { sanitize } from '../sanitize.js';
+import { L } from '../i18n.js';
 
 export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in' });
@@ -16,19 +17,19 @@ export async function render(root, ctx) {
 
 function intro(wrap, ctx) {
   const f = h('div', { class: 'face' });
-  wrap.replaceChildren(h('div', { class: 'empty' }, f, h('h2', {}, 'Dein Lernzettel'),
-    h('p', {}, 'Die wichtigsten Aussagen, Formeln und Begriffe auf einer Seite – plus Mindmap zum Überblick.'),
-    costBtn('Lernzettel erstellen', 'summary', () => generate(wrap, ctx), 'btn primary lg')));
+  wrap.replaceChildren(h('div', { class: 'empty' }, f, h('h2', {}, L('Dein Lernzettel', 'Your study sheet')),
+    h('p', {}, L('Die wichtigsten Aussagen, Formeln und Begriffe auf einer Seite – plus Mindmap zum Überblick.', 'The key statements, formulas and terms on one page – plus a mind map for the big picture.')),
+    costBtn(L('Lernzettel erstellen', 'Create study sheet'), 'summary', () => generate(wrap, ctx), 'btn primary lg')));
   face(f);
 }
 
 async function generate(wrap, ctx) {
   const { doc } = ctx;
-  const ld = loading(wrap, 'Ich schreibe deinen Lernzettel …', ['Finde die Kernaussagen', 'Sortiere die Formeln', 'Zeichne die Mindmap', 'Definiere die Begriffe']);
+  const ld = loading(wrap, L('Ich schreibe deinen Lernzettel …', 'Writing your study sheet …'), L(['Finde die Kernaussagen', 'Sortiere die Formeln', 'Zeichne die Mindmap', 'Definiere die Begriffe'], ['Finding the key statements', 'Sorting the formulas', 'Drawing the mind map', 'Defining the key terms']));
   try {
     const r = await ask('summary', { material: forWhole(doc), docName: doc.name });
     const d = r.data || {};
-    if (!d.html && !d.tldr) throw new Error('Der Lernzettel ist leer angekommen. Versuch es nochmal.');
+    if (!d.html && !d.tldr) throw new Error(L('Der Lernzettel ist leer angekommen. Versuch es nochmal.', 'The study sheet came back empty. Please try again.'));
     doc.summary = { title: d.title || doc.name, tldr: (d.tldr || []).map(String), html: String(d.html || ''), mindmap: d.mindmap || null, terms: (d.terms || []).filter(t => t && t.t), created: Date.now() };
     save(doc); ld.stop(); show(wrap, ctx);
   } catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx)); }
@@ -38,17 +39,17 @@ function show(wrap, ctx) {
   const S = ctx.doc.summary;
   const body = h('div', { class: 'tafel', style: { padding: 0, maxWidth: 'none' } }); body.appendChild(sanitize(S.html));
   wrap.replaceChildren(
-    h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, 'Lernzettel'), h('h2', {}, S.title)),
+    h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L('Lernzettel', 'Study sheet')), h('h2', {}, S.title)),
       h('div', { style: { display: 'flex', gap: '6px' } },
-        h('button', { class: 'btn sm', onclick: () => window.print() }, h('span', { html: ico('download') }), 'Drucken / PDF'),
-        costBtn('Neu', 'summary', () => generate(wrap, ctx), 'btn sm ghost'))),
+        h('button', { class: 'btn sm', onclick: () => window.print() }, h('span', { html: ico('download') }), L('Drucken / PDF', 'Print / PDF')),
+        costBtn(L('Neu', 'New'), 'summary', () => generate(wrap, ctx), 'btn sm ghost'))),
     S.tldr.length ? h('div', { class: 'card', style: { background: 'var(--inv)', color: 'var(--onInv)', borderColor: 'var(--inv)' } },
-      h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .6, marginBottom: '10px' } }, 'Das Wichtigste in Kürze'),
+      h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .6, marginBottom: '10px' } }, L('Das Wichtigste in Kürze', 'Key points at a glance')),
       h('ol', { style: { margin: 0, paddingLeft: '20px', display: 'grid', gap: '6px', fontSize: '16px' } }, S.tldr.map(t => h('li', {}, t)))) : null,
-    S.mindmap ? h('div', { style: { marginTop: '22px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, 'Mindmap'), mindmap(S.mindmap, S.title)) : null,
+    S.mindmap ? h('div', { style: { marginTop: '22px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Mindmap', 'Mind map')), mindmap(S.mindmap, S.title)) : null,
     h('div', { class: 'card', style: { marginTop: '22px', padding: '26px' } }, body),
-    S.terms.length ? h('div', { style: { marginTop: '22px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, 'Begriffe'),
-      h('div', { class: 'terms' }, S.terms.map(t => h('div', { class: 'term', role: 'button', tabindex: 0, style: { cursor: 'pointer' }, onclick: () => ctx.ask(`Erklär mir „${t.t}“ genauer – mit Beispiel an der Tafel.`) }, h('b', {}, t.t), h('span', {}, t.d), t.page ? h('div', { class: 'eyebrow', style: { marginTop: '8px' } }, 'S. ' + t.page) : null)))) : null);
+    S.terms.length ? h('div', { style: { marginTop: '22px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Begriffe', 'Key terms')),
+      h('div', { class: 'terms' }, S.terms.map(t => h('div', { class: 'term', role: 'button', tabindex: 0, style: { cursor: 'pointer' }, onclick: () => ctx.ask(L(`Erklär mir „${t.t}“ genauer – mit Beispiel an der Tafel.`, `Explain “${t.t}” to me in more detail – with an example on the whiteboard.`)) }, h('b', {}, t.t), h('span', {}, t.d), t.page ? h('div', { class: 'eyebrow', style: { marginTop: '8px' } }, L('S. ', 'p. ') + t.page) : null)))) : null);
 }
 
 // Mindmap: links/rechts aufgefächert (keine Überlappung), Knoten ziehbar, Äste auf-/zuklappbar,
@@ -107,7 +108,7 @@ function mindmap(m, name = 'Mindmap') {
   const home = nodes.map(n => [n.x, n.y]);
 
   // ---------- Zeichnen ----------
-  const svg = el('svg', { class: 'mm', role: 'img', 'aria-label': 'Mindmap: ' + (m.t || name) });
+  const svg = el('svg', { class: 'mm', role: 'img', 'aria-label': L('Mindmap: ', 'Mind map: ') + (m.t || name) });
   const gl = el('g', { class: 'mm-links' }, svg), gn = el('g', { class: 'mm-nodes' }, svg);
   const bounds = () => {
     let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
@@ -194,7 +195,7 @@ function mindmap(m, name = 'Mindmap') {
     for (const n of nodes) {
       const d = n.kind === 'root' ? 0 : n.kind === 'branch' ? 180 + nodes.filter(x => x.kind === 'branch').indexOf(n) * 110 : 520 + (k++) * 28;
       n.g.animate([{ opacity: 0, transform: `translate(${n.x}px, ${n.y}px) scale(.4)` }, { opacity: 1, transform: `translate(${n.x}px, ${n.y}px) scale(1)` }], { duration: 520, delay: d, easing: 'cubic-bezier(.34,1.56,.64,1)', fill: 'backwards' });
-      if (n.path) { const L = n.path.getTotalLength(); n.path.animate([{ strokeDasharray: `${L} ${L}`, strokeDashoffset: L }, { strokeDasharray: `${L} ${L}`, strokeDashoffset: 0 }], { duration: 520, delay: Math.max(0, d - 120), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }); }
+      if (n.path) { const len = n.path.getTotalLength(); n.path.animate([{ strokeDasharray: `${len} ${len}`, strokeDashoffset: len }, { strokeDasharray: `${len} ${len}`, strokeDashoffset: 0 }], { duration: 520, delay: Math.max(0, d - 120), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }); }
     }
   };
 
@@ -207,11 +208,11 @@ function mindmap(m, name = 'Mindmap') {
     else box.classList.toggle('mm-full');
   };
   const tools = h('div', { class: 'mm-tools' },
-    h('span', { class: 'mm-hint' }, 'Knoten ziehen · Ast antippen zum Auf-/Zuklappen'),
+    h('span', { class: 'mm-hint' }, L('Knoten ziehen · Ast antippen zum Auf-/Zuklappen', 'Drag nodes · tap a branch to expand/collapse')),
     h('span', { style: { flex: 1 } }),
-    h('button', { class: 'btn sm ghost', type: 'button', onclick: reset }, h('span', { html: ico('refresh') }), 'Neu anordnen'),
-    h('button', { class: 'btn sm ghost', type: 'button', onclick: () => exportPng(svg, box, name) }, h('span', { html: ico('download') }), 'Als Bild'),
-    h('button', { class: 'btn sm', type: 'button', onclick: full }, h('span', { html: ico('expand') }), 'Vollbild'));
+    h('button', { class: 'btn sm ghost', type: 'button', onclick: reset }, h('span', { html: ico('refresh') }), L('Neu anordnen', 'Rearrange')),
+    h('button', { class: 'btn sm ghost', type: 'button', onclick: () => exportPng(svg, box, name) }, h('span', { html: ico('download') }), L('Als Bild', 'Save image')),
+    h('button', { class: 'btn sm', type: 'button', onclick: full }, h('span', { html: ico('expand') }), L('Vollbild', 'Full screen')));
   box.prepend(tools);
   document.addEventListener('keydown', function esc(e) { if (!box.isConnected) return document.removeEventListener('keydown', esc); if (e.key === 'Escape') box.classList.remove('mm-full'); });
   const io = new IntersectionObserver(es => { if (es.some(x => x.isIntersecting)) { io.disconnect(); intro(); } }, { threshold: .25 });
@@ -238,8 +239,8 @@ async function exportPng(svg, box, name) {
     const c = document.createElement('canvas'); c.width = vb.width * scale; c.height = vb.height * scale;
     c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
     const blob = await new Promise(r => c.toBlob(r, 'image/png'));
-    const a = h('a', { href: URL.createObjectURL(blob), download: `Mindmap - ${String(name).replace(/[\\/:*?"<>|]/g, '').slice(0, 60)}.png` });
+    const a = h('a', { href: URL.createObjectURL(blob), download: `${L('Mindmap', 'Mind map')} - ${String(name).replace(/[\\/:*?"<>|]/g, '').slice(0, 60)}.png` });
     document.body.appendChild(a); a.click(); a.remove();
-    toast('Mindmap gespeichert – liegt in deinen Downloads.');
-  } catch (e) { console.error(e); toast('Das Bild konnte nicht erstellt werden.'); }
+    toast(L('Mindmap gespeichert – liegt in deinen Downloads.', 'Mind map saved – it’s in your downloads.'));
+  } catch (e) { console.error(e); toast(L('Das Bild konnte nicht erstellt werden.', 'The image couldn’t be created.')); }
 }

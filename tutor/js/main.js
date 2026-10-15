@@ -6,6 +6,7 @@ import { openLogin, openAccount, verifyLink } from './account.js';
 import { onAccount, getAccount } from './api.js';
 import { applyThemeButtons } from './theme.js';
 import { lines as maxLines } from './max.js';
+import { EN, L, setLang, lang } from './i18n.js';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -13,6 +14,18 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let landingReady = false;
 function initLanding() {
   if (landingReady) return; landingReady = true;
+
+  // Englische Fassung: Texte aus data-en-* übernehmen (vor dem Wort-Zerlegen)
+  document.documentElement.lang = lang;
+  if (EN) {
+    $$('#landing [data-en]').forEach(el => { el.textContent = el.dataset.en; });
+    $$('#landing [data-en-html]').forEach(el => { el.innerHTML = el.dataset.enHtml; });
+    $$('#landing [data-en-ph]').forEach(el => { el.placeholder = el.dataset.enPh; });
+    $$('#landing [data-en-aria]').forEach(el => { el.setAttribute('aria-label', el.dataset.enAria); });
+    $$('#landing [data-en-title]').forEach(el => { el.title = el.dataset.enTitle; });
+  }
+  // Sprachumschalter
+  $$('[data-setlang]').forEach(b => { b.classList.toggle('on', b.dataset.setlang === lang); b.setAttribute('aria-pressed', b.dataset.setlang === lang); b.addEventListener('click', () => { if (b.dataset.setlang !== lang) setLang(b.dataset.setlang); }); });
 
   // Überschriften in Wörter zerlegen (für das Wort-für-Wort-Erscheinen)
   $$('[data-split]').forEach(el => {
@@ -46,8 +59,8 @@ function initLanding() {
   // Was Max kann – direkt im Hero sichtbar
   const fr = $('#featrow');
   if (fr) {
-    const F = [['board', 'Erklärt an der Tafel', 'tutor'], ['quiz', 'Quiz in 6 Formaten', 'quiz'], ['cards', 'Karteikarten', 'karten'], ['path', 'Lernpfad', 'pfad'], ['pod', 'Podcast', 'podcast'], ['brain', 'Lernzettel & Mindmap', 'zettel'], ['mic', 'Sprechen', 'voice'], ['calc', 'BWL-Trainer', 'trainer']];
-    F.forEach(([ic, t, key], k) => fr.appendChild(h('button', { class: 'feat', type: 'button', title: 'Ausprobieren', style: { '--k': k }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t)));
+    const F = [['board', L('Erklärt an der Tafel', 'Explains on the whiteboard'), 'tutor'], ['quiz', L('Quiz in 6 Formaten', 'Quizzes in 6 formats'), 'quiz'], ['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['pod', 'Podcast', 'podcast'], ['brain', L('Lernzettel & Mindmap', 'Study sheet & mind map'), 'zettel'], ['mic', L('Sprechen', 'Talk'), 'voice'], ['calc', L('BWL-Trainer', 'Business trainer'), 'trainer']];
+    F.forEach(([ic, t, key], k) => fr.appendChild(h('button', { class: 'feat', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t)));
     const fs = [...fr.children]; let fi = 0;
     if (!reduce) setInterval(() => { if (!fr.isConnected || document.hidden) return; fs.forEach((x, k) => x.classList.toggle('hl', k === fi)); fi = (fi + 1) % fs.length; }, 1500);
   }
@@ -60,7 +73,7 @@ function initLanding() {
 
   // Anmelden (dezent in der Navigation)
   const nl = $('[data-login]');
-  if (nl) { nl.addEventListener('click', () => getAccount() ? openAccount() : openLogin()); onAccount(a => { nl.textContent = a ? 'Konto' : 'Anmelden'; }); }
+  if (nl) { nl.addEventListener('click', () => getAccount() ? openAccount() : openLogin()); onAccount(a => { nl.textContent = a ? L('Konto', 'Account') : L('Anmelden', 'Log in'); }); }
 
   // Begrüßung tippen (Sprechblase)
   const g = $('#greet');
@@ -158,7 +171,8 @@ async function route() {
     const parts = hash.slice(2).split('/').filter(Boolean);
     await mountApp(parts.slice(1));
   } else {
-    document.title = 'BWL Max – dein KI-Tutor für BWL, VWL & Rechnungswesen';
+    document.title = L('BWL Max – dein KI-Tutor für BWL, VWL & Rechnungswesen', 'BWL Max – your AI tutor for business, economics & accounting');
+    if (EN) document.querySelector('meta[name="description"]')?.setAttribute('content', 'Upload your lecture and learn with BWL Max, the AI tutor that writes on the whiteboard: explanations, quizzes, flashcards, study paths, podcasts and a practice trainer. Free, no sign-up.');
     initLanding();
   }
   applyThemeButtons();

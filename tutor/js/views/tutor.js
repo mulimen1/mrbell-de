@@ -8,27 +8,28 @@ import { apiError } from '../ui.js';
 import { sanitize, richText } from '../sanitize.js';
 import { say, SPICE, getSpice, setSpice, NAME } from '../max.js';
 import { openVoice } from '../voice.js';
+import { L } from '../i18n.js';
 
 const ACTIONS = {
-  quiz: ['Quiz dazu starten', d => `#/app/${d.id}/quiz`],
-  karten: ['Karteikarten dazu', d => `#/app/${d.id}/karten`],
-  'trainer:buchung': ['Buchungssatz-Trainer', () => '#/app/trainer/buchung'],
-  'trainer:breakeven': ['Break-even-Trainer', () => '#/app/trainer/breakeven'],
-  'trainer:kapitalwert': ['Kapitalwert-Trainer', () => '#/app/trainer/kapitalwert'],
-  'trainer:markt': ['Angebot & Nachfrage', () => '#/app/trainer/markt'],
-  'trainer:tkonten': ['T-Konten-Trainer', () => '#/app/trainer/tkonten'],
-  'trainer:bilanz': ['Bilanz-Trainer', () => '#/app/trainer/bilanz'],
+  quiz: [L('Quiz dazu starten', 'Start a quiz on this'), d => `#/app/${d.id}/quiz`],
+  karten: [L('Karteikarten dazu', 'Flashcards on this'), d => `#/app/${d.id}/karten`],
+  'trainer:buchung': [L('Buchungssatz-Trainer', 'Booking entry trainer'), () => '#/app/trainer/buchung'],
+  'trainer:breakeven': [L('Break-even-Trainer', 'Break-even trainer'), () => '#/app/trainer/breakeven'],
+  'trainer:kapitalwert': [L('Kapitalwert-Trainer', 'NPV trainer'), () => '#/app/trainer/kapitalwert'],
+  'trainer:markt': [L('Angebot & Nachfrage', 'Supply & demand'), () => '#/app/trainer/markt'],
+  'trainer:tkonten': [L('T-Konten-Trainer', 'T-account trainer'), () => '#/app/trainer/tkonten'],
+  'trainer:bilanz': [L('Bilanz-Trainer', 'Balance sheet trainer'), () => '#/app/trainer/bilanz'],
 };
 
 export function parse(raw) {
   const boards = [];
-  let text = String(raw || '').replace(/```tafel[ \t]*([^\n]*)\n([\s\S]*?)(```|$)/g, (_, title, html) => { boards.push({ title: title.trim() || 'Tafel', html: html.trim() }); return '\n'; });
+  let text = String(raw || '').replace(/```tafel[ \t]*([^\n]*)\n([\s\S]*?)(```|$)/g, (_, title, html) => { boards.push({ title: title.trim() || L('Tafel', 'Whiteboard'), html: html.trim() }); return '\n'; });
   const acts = [];
   text = text.replace(/\[\[([a-z:]+)\]\]/g, (_, a) => { if (ACTIONS[a]) acts.push(a); return ''; });
   text = text.replace(/```[\s\S]*?```/g, '').replace(/\n{3,}/g, '\n\n').trim();
   return { text, boards, acts };
 }
-const forHistory = raw => String(raw).replace(/```tafel[ \t]*([^\n]*)\n[\s\S]*?```/g, (_, t) => `[An die Tafel geschrieben: ${t.trim() || 'Tafel'}]`).slice(0, 3000);
+const forHistory = raw => String(raw).replace(/```tafel[ \t]*([^\n]*)\n[\s\S]*?```/g, (_, t) => L(`[An die Tafel geschrieben: ${t.trim() || 'Tafel'}]`, `[Written on the whiteboard: ${t.trim() || 'Whiteboard'}]`)).slice(0, 3000);
 
 export async function render(root, ctx) {
   const { doc } = ctx;
@@ -40,31 +41,31 @@ export async function render(root, ctx) {
   const fEl = h('div', { class: 'face' });
   const msgs = h('div', { class: 'msgs', 'aria-live': 'polite' });
   const sugg = h('div', { class: 'suggest' });
-  const ta = h('textarea', { rows: 1, placeholder: 'Frag Max etwas zu deinem Skript …', 'aria-label': 'Nachricht' });
-  const send = h('button', { class: 'send', 'aria-label': 'Senden', html: ico('send'), disabled: true });
+  const ta = h('textarea', { rows: 1, placeholder: L('Frag Max etwas zu deinem Skript …', 'Ask Max anything about your slides …'), 'aria-label': L('Nachricht', 'Message') });
+  const send = h('button', { class: 'send', 'aria-label': L('Senden', 'Send'), html: ico('send'), disabled: true });
   const talk = () => openVoice({ doc, onClose: async () => { const m = await import('../app.js'); m.forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } });
-  const micBtn = h('button', { class: 'micbtn', type: 'button', 'aria-label': 'Mit Max sprechen', title: 'Mit Max sprechen', html: ico('mic'), onclick: talk });
-  const modeBtns = [['erklaeren', 'Erklären'], ['sokratisch', 'Sokratisch']].map(([k, l]) => {
-    const b = h('button', { class: 'chip' + (mode === k ? ' on' : ''), title: k === 'sokratisch' ? 'Führt dich mit Fragen zur Lösung, statt sie zu verraten' : 'Erklärt direkt' }, l);
+  const micBtn = h('button', { class: 'micbtn', type: 'button', 'aria-label': L('Mit Max sprechen', 'Talk to Max'), title: L('Mit Max sprechen', 'Talk to Max'), html: ico('mic'), onclick: talk });
+  const modeBtns = [['erklaeren', L('Erklären', 'Explain')], ['sokratisch', L('Sokratisch', 'Socratic')]].map(([k, l]) => {
+    const b = h('button', { class: 'chip' + (mode === k ? ' on' : ''), title: k === 'sokratisch' ? L('Führt dich mit Fragen zur Lösung, statt sie zu verraten', 'Guides you to the answer with questions instead of giving it away') : L('Erklärt direkt', 'Explains directly') }, l);
     b.addEventListener('click', () => { mode = k; ls.set('tutor.mode', k); modeBtns.forEach(x => x.classList.toggle('on', x === b)); });
     return b;
   });
-  const spiceSel = h('select', { class: 'field spice', title: 'Arroganz-Level', 'aria-label': 'Arroganz-Level' }, SPICE.map(([v, l]) => h('option', { value: v, selected: v === getSpice() }, 'Arroganz: ' + l)));
+  const spiceSel = h('select', { class: 'field spice', title: L('Arroganz-Level', 'Arrogance level'), 'aria-label': L('Arroganz-Level', 'Arrogance level') }, SPICE.map(([v, l]) => h('option', { value: v, selected: v === getSpice() }, L('Arroganz: ', 'Arrogance: ') + l)));
   spiceSel.addEventListener('change', () => { setSpice(+spiceSel.value); fc.pulse(+spiceSel.value === 3 ? 'smug' : 'happy', 1200); });
   const chatcol = h('section', { class: 'chatcol' },
-    h('div', { class: 'chathead' }, fEl, h('div', { style: { flex: 1, minWidth: 0 } }, h('b', {}, NAME), h('span', {}, 'kennt „' + doc.name + '“')), spiceSel,
-      h('button', { class: 'btn sm talkbtn', type: 'button', onclick: talk }, h('span', { html: ico('mic') }), h('span', { class: 'lbl' }, 'Sprechen')),
-      h('button', { class: 'iconbtn mob-only', 'aria-label': 'Tafel zeigen', html: ico('board'), onclick: () => showBoard(true) })),
+    h('div', { class: 'chathead' }, fEl, h('div', { style: { flex: 1, minWidth: 0 } }, h('b', {}, NAME), h('span', {}, L('kennt „' + doc.name + '“', 'knows “' + doc.name + '”'))), spiceSel,
+      h('button', { class: 'btn sm talkbtn', type: 'button', onclick: talk }, h('span', { html: ico('mic') }), h('span', { class: 'lbl' }, L('Sprechen', 'Talk'))),
+      h('button', { class: 'iconbtn mob-only', 'aria-label': L('Tafel zeigen', 'Show whiteboard'), html: ico('board'), onclick: () => showBoard(true) })),
     msgs, sugg,
-    h('div', { class: 'composer' }, h('div', { class: 'box' }, ta, micBtn, send), h('div', { class: 'opts' }, h('span', {}, 'Modus'), ...modeBtns, h('span', { style: { marginLeft: 'auto' } }, '1 Einheit'))));
+    h('div', { class: 'composer' }, h('div', { class: 'box' }, ta, micBtn, send), h('div', { class: 'opts' }, h('span', {}, L('Modus', 'Mode')), ...modeBtns, h('span', { style: { marginLeft: 'auto' } }, L('1 Einheit', '1 credit')))));
   const btitle = h('div', { class: 'tt' });
   const bcount = h('span', { class: 'cnt' });
-  const prev = h('button', { class: 'iconbtn', 'aria-label': 'Vorherige Tafel', html: ico('left'), onclick: () => go(-1) });
-  const next = h('button', { class: 'iconbtn', 'aria-label': 'Nächste Tafel', html: ico('right'), onclick: () => go(1) });
+  const prev = h('button', { class: 'iconbtn', 'aria-label': L('Vorherige Tafel', 'Previous whiteboard'), html: ico('left'), onclick: () => go(-1) });
+  const next = h('button', { class: 'iconbtn', 'aria-label': L('Nächste Tafel', 'Next whiteboard'), html: ico('right'), onclick: () => go(1) });
   const area = h('div', { class: 'boardarea dots' });
   const boardcol = h('section', { class: 'boardcol' },
     h('div', { class: 'boardbar' }, h('span', { html: ico('board') }), btitle, bcount, prev, next,
-      h('button', { class: 'iconbtn mob-only', 'aria-label': 'Tafel schließen', html: ico('x'), onclick: () => showBoard(false) })),
+      h('button', { class: 'iconbtn mob-only', 'aria-label': L('Tafel schließen', 'Close whiteboard'), html: ico('x'), onclick: () => showBoard(false) })),
     area);
   const tutor = h('div', { class: 'tutor' }, chatcol, boardcol);
   root.appendChild(tutor);
@@ -77,9 +78,9 @@ export async function render(root, ctx) {
     bcount.textContent = doc.boards.length ? `${bIdx + 1} / ${doc.boards.length}` : '';
     prev.disabled = bIdx <= 0; next.disabled = bIdx >= doc.boards.length - 1;
     if (!b) {
-      btitle.textContent = 'Tafel';
+      btitle.textContent = L('Tafel', 'Whiteboard');
       const ef = h('div', { class: 'face' });
-      area.replaceChildren(h('div', { class: 'tafel' }, h('div', { class: 'empty-board' }, ef, h('b', {}, 'Hier schreibe ich hin.'), h('p', {}, 'Rechnungen, Skizzen, T-Konten und Beispiele erscheinen live an der Tafel.'))));
+      area.replaceChildren(h('div', { class: 'tafel' }, h('div', { class: 'empty-board' }, ef, h('b', {}, L('Hier schreibe ich hin.', 'This is where I write.')), h('p', {}, L('Rechnungen, Skizzen, T-Konten und Beispiele erscheinen live an der Tafel.', 'Calculations, sketches, T-accounts and examples appear live on the whiteboard.')))));
       face(ef);
       return;
     }
@@ -103,8 +104,8 @@ export async function render(root, ctx) {
     boardRefs.forEach(({ idx, title }) => extras.appendChild(h('button', { class: 'boardlink', onclick: () => { bIdx = idx; drawBoard(); showBoard(true); } }, h('span', { html: ico('board') }), title)));
     if (p.acts.length) extras.appendChild(h('div', { class: 'acts' }, p.acts.map(a => h('a', { class: 'btn sm', href: ACTIONS[a][1](doc) }, ACTIONS[a][0], h('span', { html: ico('right') })))));
     msgs.appendChild(el);
-    if (animate) typeOut(body, p.text || (p.boards.length ? 'Schau an die Tafel.' : '…')).then(() => { el.appendChild(extras); scroll(); });
-    else { body.appendChild(richText(p.text || (p.boards.length ? 'Schau an die Tafel.' : ''))); el.appendChild(extras); }
+    if (animate) typeOut(body, p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the whiteboard.') : '…')).then(() => { el.appendChild(extras); scroll(); });
+    else { body.appendChild(richText(p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the whiteboard.') : ''))); el.appendChild(extras); }
     scroll();
     return el;
   }
@@ -134,7 +135,7 @@ export async function render(root, ctx) {
       addMsg(m.role, m.content, { boardRefs: refs });
     });
   }
-  const sug = ['Erklär mir das wichtigste Thema an der Tafel', 'Rechne mir ein Beispiel vor', 'Frag mich ab', 'Was kommt wahrscheinlich in der Klausur dran?'];
+  const sug = L(['Erklär mir das wichtigste Thema an der Tafel', 'Rechne mir ein Beispiel vor', 'Frag mich ab', 'Was kommt wahrscheinlich in der Klausur dran?'], ['Explain the most important topic on the whiteboard', 'Walk me through a worked example', 'Quiz me', 'What’s likely to come up in the exam?']);
   const drawSugg = () => sugg.replaceChildren(...(doc.chat.length > 2 ? [] : sug.map(s => h('button', { class: 'chip', onclick: () => submit(s) }, s))));
   drawSugg();
 

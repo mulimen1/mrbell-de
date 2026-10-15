@@ -1,6 +1,7 @@
 // Zustand der App: aktuelles Skript, Speichern, Hilfsfunktionen
 import { docs, kv } from './db.js';
 import { uid } from './util.js';
+import { EN } from './i18n.js';
 
 export const S = { doc: null, list: [] };
 const subs = new Set();
@@ -63,7 +64,7 @@ export function mastery(d = S.doc) {
 }
 
 // Beispiel-Skript, damit man ohne eigene Datei sofort loslegen kann (eigener Text)
-export const SAMPLE = {
+const SAMPLE_DE = {
   name: 'Beispiel · Deckungsbeitragsrechnung',
   pages: [
     `Kosten- und Leistungsrechnung\nKapitel 4: Teilkostenrechnung und Deckungsbeitragsrechnung\nLernziele: Sie können variable und fixe Kosten trennen, den Deckungsbeitrag berechnen, die Gewinnschwelle bestimmen und kurzfristige Entscheidungen (Preisuntergrenze, Zusatzauftrag, Engpass) mit Deckungsbeiträgen treffen.`,
@@ -78,3 +79,20 @@ export const SAMPLE = {
     `Zusammenfassung\n– Teilkostenrechnung: nur variable Kosten werden den Produkten zugerechnet.\n– db = p − kv; Betriebsergebnis = Σ DB − Kf.\n– Break-even-Menge x* = Kf / db.\n– Kurzfristige Preisuntergrenze = kv, langfristige = Selbstkosten je Stück.\n– Zusatzauftrag: annehmen, wenn Kapazität frei und db > 0.\n– Engpass: Rangfolge nach relativem Deckungsbeitrag.`
   ]
 };
+// English version of the sample lecture (same content, same numbers)
+const SAMPLE_EN = {
+  name: 'Example · Contribution margin accounting',
+  pages: [
+    `Cost and Management Accounting\nChapter 4: Marginal costing and contribution margin accounting\nLearning objectives: You can separate variable and fixed costs, calculate the contribution margin, determine the break-even point and make short-term decisions (price floor, special order, bottleneck) using contribution margins.`,
+    `Why marginal costing?\nFull costing allocates all costs – including fixed costs – to the products. For short-term decisions this often leads to mistakes: in the short term, fixed costs are incurred anyway, whether a product is made or not. Marginal costing therefore assigns only the variable costs to the products. Fixed costs are treated as a single block.`,
+    `Variable and fixed costs\nVariable costs change with the output volume (e.g. materials, piece-rate production wages, packaging). Fixed costs stay the same within a period even when volume fluctuates (e.g. rent, salaries, depreciation, insurance).\nCost function: C(x) = Cf + cv · x\nCf = fixed costs, cv = variable cost per unit, x = quantity.`,
+    `The contribution margin\nThe contribution margin (CM) is the difference between sales revenue and variable costs: CM = R − Cv.\nUnit contribution margin: cm = p − cv (price minus variable cost per unit).\nThe contribution margin shows how much a product contributes to covering fixed costs. Only once the total of all contribution margins exceeds fixed costs is there a profit: operating result = CM − Cf.\nExample: price €50, variable cost per unit €30, cm = €20.`,
+    `Break-even analysis\nThe break-even point (break-even quantity) is the quantity at which revenue and total costs are equal. Profit = 0.\nx* = Cf / cm = Cf / (p − cv)\nExample: fixed costs €60,000, price €50, cv €30 → cm = €20 → x* = 60,000 / 20 = 3,000 units.\nBreak-even revenue = x* · p = €150,000.\nMargin of safety = (actual quantity − x*) / actual quantity. With 4,000 units sold: (4,000 − 3,000) / 4,000 = 25 %.`,
+    `Price floors\nShort-term price floor: the price must at least cover the variable cost per unit (p ≥ cv), because fixed costs are incurred anyway in the short term. Every positive contribution margin improves the result.\nLong-term price floor: the price must cover the full cost per unit (total unit cost): p ≥ cv + Cf / x.\nExample: cv = €30, Cf = €60,000, x = 3,000 → long-term price floor €50.`,
+    `Special order\nA special order pays off in the short term if (1) there is spare capacity and (2) the price offered is above the variable cost per unit, i.e. it generates a positive contribution margin. Additional order-specific fixed costs (e.g. special tooling) must be covered by the order's contribution margin.\nExample: request for 500 units at €38, cv = €30 → CM = 500 · €8 = €4,000 → accept if capacity is available.`,
+    `Bottleneck planning\nIf there is no bottleneck, all products with a positive unit contribution margin are produced.\nIf there is a bottleneck (e.g. limited machine hours), the relative contribution margin decides: cm per bottleneck unit = cm / use of the bottleneck.\nExample: product A: cm €20, 2 hrs → €10/hr. Product B: cm €30, 5 hrs → €6/hr. Ranking: A first, then B – even though B has the higher absolute cm.`,
+    `Multi-level contribution margin accounting\nFixed costs are assigned step by step to the areas that cause them:\nSales revenue − variable costs = CM I\nCM I − product fixed costs = CM II\nCM II − product group fixed costs = CM III\nCM III − division fixed costs = CM IV\nTotal CM IV − company-wide fixed costs = operating result\nAdvantage: you can see which product and which group actually covers which fixed costs.`,
+    `Summary\n– Marginal costing: only variable costs are assigned to the products.\n– cm = p − cv; operating result = Σ CM − Cf.\n– Break-even quantity x* = Cf / cm.\n– Short-term price floor = cv, long-term = total cost per unit.\n– Special order: accept if capacity is free and cm > 0.\n– Bottleneck: rank by relative contribution margin.`
+  ]
+};
+export const SAMPLE = EN ? SAMPLE_EN : SAMPLE_DE;

@@ -5,7 +5,7 @@ import { S, refreshList, openDoc, createDoc, removeDoc, lastDocId, save, onChang
 import { readFile, ACCEPT } from './ingest.js';
 import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
 import { accountChip, refreshAccount } from './account.js';
-import { getOutLang, setOutLang } from './i18n.js';
+import { getOutLang, setOutLang, L, LOCALE, lang, setLang } from './i18n.js';
 import { lines as maxLines, getSpice } from './max.js';
 import { apiError } from './ui.js';
 import { exportAll, importAll, wipe } from './db.js';
@@ -13,13 +13,13 @@ import { applyThemeButtons } from './theme.js';
 import { feedbackButton } from './feedback.js';
 
 const TABS = [
-  ['hub', 'Übersicht', 'home'],
+  ['hub', L('Übersicht', 'Overview'), 'home'],
   ['tutor', 'Max', 'chat'],
-  ['pfad', 'Lernpfad', 'path'],
+  ['pfad', L('Lernpfad', 'Study path'), 'path'],
   ['quiz', 'Quiz', 'quiz'],
-  ['karten', 'Karten', 'cards'],
+  ['karten', L('Karten', 'Flashcards'), 'cards'],
   ['podcast', 'Podcast', 'pod'],
-  ['zettel', 'Lernzettel', 'brain'],
+  ['zettel', L('Lernzettel', 'Study sheet'), 'brain'],
 ];
 const VIEWS = {
   hub: () => import('./views/hub.js'),
@@ -47,21 +47,22 @@ function buildShell() {
     h('div', { class: 'top' },
       h('a', { class: 'brand', href: '#/' }, faceEl, 'BWL Max', h('small', {}, 'Beta')),
       h('span', { style: { flex: 1 } }),
-      h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': 'Hell/Dunkel' })),
+      langSwitch(),
+      h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') })),
     h('div', { class: 'scroll' },
-      h('label', { class: 'btn primary', for: 'fileApp', style: { width: '100%', margin: '6px 0 4px' } }, h('span', { html: ico('plus') }), 'Neue Vorlesung'), fileIn,
-      h('div', { class: 'grp' }, 'Deine Skripte'), list,
-      h('div', { class: 'grp' }, 'Ohne Skript'),
-      h('button', { class: 'doc-item', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({ doc: S.doc && location.hash.includes(S.doc.id) ? S.doc : null, onClose: () => { forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } }); } }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, 'Mit Max sprechen')),
-      h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, 'Max erklärt ein Thema')),
-      h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('calc') }), h('span', { class: 'nm' }, 'BWL-Trainer'))),
+      h('label', { class: 'btn primary', for: 'fileApp', style: { width: '100%', margin: '6px 0 4px' } }, h('span', { html: ico('plus') }), L('Neue Vorlesung', 'New lecture')), fileIn,
+      h('div', { class: 'grp' }, L('Deine Skripte', 'Your slides')), list,
+      h('div', { class: 'grp' }, L('Ohne Skript', 'No slides needed')),
+      h('button', { class: 'doc-item', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({ doc: S.doc && location.hash.includes(S.doc.id) ? S.doc : null, onClose: () => { forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } }); } }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, L('Mit Max sprechen', 'Talk to Max'))),
+      h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, L('Max erklärt ein Thema', 'Max explains a topic'))),
+      h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('calc') }), h('span', { class: 'nm' }, L('BWL-Trainer', 'Business trainer')))),
     h('div', { class: 'bottom' }, outLangSwitch(), accountChip(), quotaEl,
       h('div', { style: { display: 'grid', gap: '2px' } },
         feedbackButton('btn sm ghost'),
-        h('button', { class: 'btn sm ghost', onclick: settings }, 'Daten & Sicherung'))));
+        h('button', { class: 'btn sm ghost', onclick: settings }, L('Daten & Sicherung', 'Data & backup')))));
   const title = h('h1', {});
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
-  const menuBtn = h('button', { class: 'iconbtn mob-menu', 'aria-label': 'Menü', html: ico('menu'), onclick: () => root.querySelector('.app').classList.toggle('sideopen') });
+  const menuBtn = h('button', { class: 'iconbtn mob-menu', 'aria-label': L('Menü', 'Menu'), html: ico('menu'), onclick: () => root.querySelector('.app').classList.toggle('sideopen') });
   const view = h('main', { class: 'view', id: 'view' });
   const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, menuBtn, title, tabs), view);
   const app = h('div', { class: 'app' }, side, main);
@@ -82,27 +83,27 @@ function renderQuota(q) {
   const acc = getAccount();
   const limit = q?.limit || (acc?.pro ? 200 : 40), used = q?.used || 0, left = Math.max(0, limit - used);
   shell.quotaEl.replaceChildren(
-    h('div', { class: 'row' }, h('span', {}, 'KI heute'), h('span', {}, `${left} / ${limit} frei`)),
+    h('div', { class: 'row' }, h('span', {}, L('KI heute', 'AI today')), h('span', {}, L(`${left} / ${limit} frei`, `${left} / ${limit} left`))),
     h('div', { class: 'bar' }, h('i', { style: { width: (100 * left / limit) + '%' } })),
-    h('div', { class: 'row', style: { fontSize: '11px' } }, h('span', {}, 'Neu ab 0:00 Uhr'), h('span', {}, acc?.pro ? 'Pro aktiv' : acc ? 'Free' : 'Pro: bald')));
+    h('div', { class: 'row', style: { fontSize: '11px' } }, h('span', {}, L('Neu ab 0:00 Uhr', 'Resets at midnight')), h('span', {}, acc?.pro ? L('Pro aktiv', 'Pro active') : acc ? 'Free' : L('Pro: bald', 'Pro: soon'))));
 }
 
 function renderList() {
   if (!shell) return;
   const items = S.list.map(d => {
-    const del = h('button', { class: 'iconbtn del', 'aria-label': 'Löschen', html: ico('trash'), style: { width: '28px', height: '28px' } });
+    const del = h('button', { class: 'iconbtn del', 'aria-label': L('Löschen', 'Delete'), html: ico('trash'), style: { width: '28px', height: '28px' } });
     del.addEventListener('click', async e => {
       e.preventDefault(); e.stopPropagation();
-      const ok = await modal({ title: 'Skript löschen?', text: `„${d.name}“ und alles dazu (Quizze, Karten, Chat) wird von diesem Gerät gelöscht.`, actions: [{ label: 'Abbrechen', value: false }, { label: 'Löschen', value: true, primary: true }] });
+      const ok = await modal({ title: L('Skript löschen?', 'Delete these slides?'), text: L(`„${d.name}“ und alles dazu (Quizze, Karten, Chat) wird von diesem Gerät gelöscht.`, `“${d.name}” and everything that goes with it (quizzes, flashcards, chat) will be deleted from this device.`), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] });
       if (!ok) return;
       await removeDoc(d.id);
       if (location.hash.includes(d.id)) go('');
     });
     const on = S.doc && S.doc.id === d.id && !location.hash.includes('/trainer');
     return h('a', { class: 'doc-item' + (on ? ' on' : ''), href: `#/app/${d.id}/hub` },
-      h('span', { html: ico('file') }), h('span', { class: 'nm', title: d.name }, d.name), h('span', { class: 'pg' }, d.pages.length + ' S.'), del);
+      h('span', { html: ico('file') }), h('span', { class: 'nm', title: d.name }, d.name), h('span', { class: 'pg' }, d.pages.length + L(' S.', ' p.')), del);
   });
-  shell.list.replaceChildren(...(items.length ? items : [h('div', { class: 'doc-item', style: { color: 'var(--faint)', cursor: 'default' } }, 'Noch nichts hochgeladen')]));
+  shell.list.replaceChildren(...(items.length ? items : [h('div', { class: 'doc-item', style: { color: 'var(--faint)', cursor: 'default' } }, L('Noch nichts hochgeladen', 'Nothing uploaded yet'))]));
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.includes('/trainer')));
 }
 
@@ -118,7 +119,7 @@ export async function mountApp(parts) {
   let [a, b, c] = parts;
   // Trainer (ohne Skript)
   if (a === 'trainer') {
-    shell.title.textContent = 'BWL-Trainer';
+    shell.title.textContent = L('BWL-Trainer', 'Business trainer');
     shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
     renderList();
     return show('trainer:' + (b || ''), async root => {
@@ -132,14 +133,14 @@ export async function mountApp(parts) {
     const last = await lastDocId();
     const id = (last && S.list.find(d => d.id === last)) ? last : S.list[0]?.id;
     if (id) { location.replace(`#/app/${id}/hub`); return; }
-    shell.title.textContent = 'Willkommen';
+    shell.title.textContent = L('Willkommen', 'Welcome');
     shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
     renderList();
     return show('empty', root => emptyState(root));
   }
   if (!S.doc || S.doc.id !== a) {
     const d = await openDoc(a);
-    if (!d) { toast('Dieses Skript gibt es auf diesem Gerät nicht mehr.'); go(''); return; }
+    if (!d) { toast(L('Dieses Skript gibt es auf diesem Gerät nicht mehr.', 'These slides are no longer on this device.')); go(''); return; }
   }
   const tab = VIEWS[b] ? b : 'hub';
   shell.title.textContent = S.doc.name;
@@ -160,18 +161,18 @@ async function show(key, fn) {
   root.replaceChildren();
   root.scrollTop = 0;
   try { const c = await fn(root); if (current.key === key) current.cleanup = typeof c === 'function' ? c : null; }
-  catch (e) { console.error(e); root.replaceChildren(h('div', { class: 'empty' }, h('h2', {}, 'Da ist was schiefgelaufen.'), h('p', {}, String(e.message || e)), h('button', { class: 'btn', onclick: () => location.reload() }, 'Neu laden'))); }
+  catch (e) { console.error(e); root.replaceChildren(h('div', { class: 'empty' }, h('h2', {}, L('Da ist was schiefgelaufen.', 'Something went wrong.')), h('p', {}, String(e.message || e)), h('button', { class: 'btn', onclick: () => location.reload() }, L('Neu laden', 'Reload')))); }
 }
 export function forceRerender() { current.key = ''; }
 
 // Aus Quiz/Trainer heraus: Frage an den Tutor schicken
 export async function askTutorAbout(text, { confirm = true } = {}) {
   if (confirm) {
-    const short = text.split('\n')[0].replace(/^(Ich habe diese .*?falsch (beantwortet|gelöst)) \(.*?\): /, '$1: ');
-    const ok = await modal({ title: 'Soll Max dir das erklären?', text: (short.length > 160 ? short.slice(0, 157) + '…' : short), actions: [{ label: 'Nein', value: false }, { label: 'Ja, erklär’s mir · 1 Einheit', value: true, primary: true }] });
+    const short = text.split('\n')[0].replace(/^(Ich habe diese .*?falsch (beantwortet|gelöst)) \(.*?\): /, '$1: ').replace(/^(I got this .*? wrong) \(.*?\): /, '$1: ');
+    const ok = await modal({ title: L('Soll Max dir das erklären?', 'Want Max to explain this?'), text: (short.length > 160 ? short.slice(0, 157) + '…' : short), actions: [{ label: L('Nein', 'No'), value: false }, { label: L('Ja, erklär’s mir · 1 Einheit', 'Yes, explain it · 1 credit'), value: true, primary: true }] });
     if (!ok) return;
   }
-  if (!S.doc) { const id = S.list[0]?.id; if (!id) { toast('Lade zuerst ein Skript hoch.'); return; } openDoc(id); }
+  if (!S.doc) { const id = S.list[0]?.id; if (!id) { toast(L('Lade zuerst ein Skript hoch.', 'Upload your slides first.')); return; } openDoc(id); }
   ls.set('tutor.pendingAsk', text);
   forceRerender();
   go(`${S.doc ? S.doc.id : S.list[0].id}/tutor`);
@@ -179,15 +180,15 @@ export async function askTutorAbout(text, { confirm = true } = {}) {
 
 function emptyState(root) {
   const f = h('div', { class: 'face' });
-  const lab = h('label', { class: 'btn primary lg', for: 'fileApp' }, h('span', { html: ico('upload') }), 'Skript hochladen');
+  const lab = h('label', { class: 'btn primary lg', for: 'fileApp' }, h('span', { html: ico('upload') }), L('Skript hochladen', 'Upload slides'));
   root.appendChild(h('div', { class: 'view-in' }, h('div', { class: 'empty' }, f,
-    h('h2', {}, 'Was lernen wir heute?'),
-    h('p', {}, 'Zieh dein Vorlesungsskript hier rein – PDF, PowerPoint oder Word. Die Datei bleibt auf deinem Gerät.'),
+    h('h2', {}, L('Was lernen wir heute?', 'What are we learning today?')),
+    h('p', {}, L('Zieh dein Vorlesungsskript hier rein – PDF, PowerPoint oder Word. Die Datei bleibt auf deinem Gerät.', 'Drop your lecture slides here – PDF, PowerPoint or Word. The file stays on your device.')),
     h('div', { style: { display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' } }, lab,
-      h('button', { class: 'btn lg', onclick: () => startSample() }, 'Beispiel ansehen'),
+      h('button', { class: 'btn lg', onclick: () => startSample() }, L('Beispiel ansehen', 'See an example')),
       h('a', { class: 'btn lg ghost', href: '#/app/trainer' }, 'Trainer')),
     topicForm({ cls: 'askbar inapp' }),
-    h('button', { class: 'talklink', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({}); } }, h('span', { html: ico('mic') }), 'oder einfach mit Max quatschen'))));
+    h('button', { class: 'talklink', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({}); } }, h('span', { html: ico('mic') }), L('oder einfach mit Max quatschen', 'or just chat with Max')))));
   face(f);
   dropAnywhere(root);
 }
@@ -201,16 +202,16 @@ function dropAnywhere(el) {
 export async function startUpload(file) {
   if (location.hash !== '#/app/neu') location.hash = '#/app/neu';
   if (!shell) { buildShell(); await refreshList(); }
-  shell.title.textContent = 'Wird gelesen …';
+  shell.title.textContent = L('Wird gelesen …', 'Reading …');
   shell.tabs.replaceChildren();
   current.key = 'ingest';
   const f = h('div', { class: 'face' }), bar = h('i'), sub = h('div', { class: 'sub mono' }, file.name);
-  shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f, h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, 'Max liest dein Skript …'), h('div', { class: 'bar' }, bar), sub)));
+  shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f, h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, L('Max liest dein Skript …', 'Max is reading your slides …')), h('div', { class: 'bar' }, bar), sub)));
   const fc = face(f); fc.set('think');
   try {
     const r = await readFile(file, p => { bar.style.width = Math.round(p * 100) + '%'; sub.textContent = `${file.name} · ${Math.round(p * 100)} %`; });
     const pro = !!getAccount()?.pro, maxP = pro ? 1000 : 300;
-    if (r.pages.length > maxP) throw new Error(`Das Skript hat ${r.pages.length} Seiten – ${pro ? '' : 'in Free '}gehen bis zu ${maxP}. Teil es in kleinere Dateien auf${pro ? '' : ' oder hol dir Pro'}.`);
+    if (r.pages.length > maxP) throw new Error(L(`Das Skript hat ${r.pages.length} Seiten – ${pro ? '' : 'in Free '}gehen bis zu ${maxP}. Teil es in kleinere Dateien auf${pro ? '' : ' oder hol dir Pro'}.`, `These slides have ${r.pages.length} pages – ${pro ? '' : 'on Free '}the limit is ${maxP}. Split them into smaller files${pro ? '' : ' or get Pro'}.`));
     bar.style.width = '100%';
     fc.set('happy');
     const d = await createDoc(r);
@@ -219,9 +220,9 @@ export async function startUpload(file) {
   } catch (e) {
     console.error(e);
     fc.set('sad');
-    sub.textContent = e.message || 'Die Datei konnte nicht gelesen werden.';
+    sub.textContent = e.message || L('Die Datei konnte nicht gelesen werden.', 'The file couldn’t be read.');
     sub.after(h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } },
-      h('label', { class: 'btn primary', for: 'fileApp' }, 'Andere Datei'), h('button', { class: 'btn', onclick: () => startSample() }, 'Beispiel nehmen')));
+      h('label', { class: 'btn primary', for: 'fileApp' }, L('Andere Datei', 'Different file')), h('button', { class: 'btn', onclick: () => startSample() }, L('Beispiel nehmen', 'Use the example'))));
   }
 }
 
@@ -238,38 +239,38 @@ export async function startSample() {
 async function settings() {
   const imp = h('input', { type: 'file', accept: '.bwlmax,.json', class: 'sr' });
   const body = h('div', { style: { display: 'grid', gap: '10px' } },
-    h('button', { class: 'btn', onclick: async () => { const b = await exportAll(); const a = h('a', { href: URL.createObjectURL(b), download: `BWL-Max-Sicherung-${new Date().toISOString().slice(0, 10)}.bwlmax` }); document.body.appendChild(a); a.click(); a.remove(); toast('Sicherung gespeichert – liegt in deinen Downloads.'); } }, h('span', { html: ico('download') }), 'Lernstand als Datei sichern'),
-    h('label', { class: 'btn' }, imp, h('span', { html: ico('upload') }), 'Gesicherten Lernstand wiederherstellen'),
+    h('button', { class: 'btn', onclick: async () => { const b = await exportAll(); const a = h('a', { href: URL.createObjectURL(b), download: `${L('BWL-Max-Sicherung', 'BWL-Max-Backup')}-${new Date().toISOString().slice(0, 10)}.bwlmax` }); document.body.appendChild(a); a.click(); a.remove(); toast(L('Sicherung gespeichert – liegt in deinen Downloads.', 'Backup saved – it’s in your downloads.')); } }, h('span', { html: ico('download') }), L('Lernstand als Datei sichern', 'Back up your progress as a file')),
+    h('label', { class: 'btn' }, imp, h('span', { html: ico('upload') }), L('Gesicherten Lernstand wiederherstellen', 'Restore a backup')),
     h('button', { class: 'btn', onclick: async () => {
-      const ok = await modal({ title: 'Wirklich alles löschen?', text: 'Alle Skripte, Quizze, Karten und Chats werden von diesem Gerät gelöscht. Das lässt sich nicht rückgängig machen.', actions: [{ label: 'Abbrechen', value: false }, { label: 'Alles löschen', value: true, primary: true }] });
+      const ok = await modal({ title: L('Wirklich alles löschen?', 'Really delete everything?'), text: L('Alle Skripte, Quizze, Karten und Chats werden von diesem Gerät gelöscht. Das lässt sich nicht rückgängig machen.', 'All slides, quizzes, flashcards and chats will be deleted from this device. This can’t be undone.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Alles löschen', 'Delete everything'), value: true, primary: true }] });
       if (ok) { await wipe(); location.hash = '#/'; location.reload(); }
-    } }, h('span', { html: ico('trash') }), 'Alles auf diesem Gerät löschen'));
+    } }, h('span', { html: ico('trash') }), L('Alles auf diesem Gerät löschen', 'Delete everything on this device')));
   imp.addEventListener('change', async () => {
-    try { const n = await importAll(imp.files[0]); await refreshList(); toast(`${n} Skript(e) wiederhergestellt.`); } catch (e) { toast('Das ist keine gültige BWL-Max-Sicherung.'); }
+    try { const n = await importAll(imp.files[0]); await refreshList(); toast(L(`${n} Skript(e) wiederhergestellt.`, `${n} set(s) of slides restored.`)); } catch (e) { toast(L('Das ist keine gültige BWL-Max-Sicherung.', 'That’s not a valid BWL Max backup.')); }
   });
-  await modal({ title: 'Daten & Sicherung', text: 'Dein Lernstand liegt nur auf diesem Gerät. Mit „Sichern“ bekommst du eine .bwlmax-Datei in deine Downloads – die musst du nicht öffnen. Auf einem anderen Gerät (oder nach dem Löschen) wählst du sie bei „Wiederherstellen“ aus, und alles ist wieder da.', body, actions: [{ label: 'Fertig', value: true, primary: true }] });
+  await modal({ title: L('Daten & Sicherung', 'Data & backup'), text: L('Dein Lernstand liegt nur auf diesem Gerät. Mit „Sichern“ bekommst du eine .bwlmax-Datei in deine Downloads – die musst du nicht öffnen. Auf einem anderen Gerät (oder nach dem Löschen) wählst du sie bei „Wiederherstellen“ aus, und alles ist wieder da.', 'Your progress only lives on this device. “Back up” puts a .bwlmax file in your downloads – you don’t need to open it. On another device (or after deleting), pick it under “Restore” and everything’s back.'), body, actions: [{ label: L('Fertig', 'Done'), value: true, primary: true }] });
 }
 
 // ---------- Thema ohne Skript: Max schreibt ein Kurzskript ----------
-const TOPIC_EXAMPLES = ['Kapitalwertmethode', 'Latente Steuern', 'Preiselastizität', 'Break-even-Analyse', 'Abschreibungen nach HGB', 'Cournot-Oligopol', 'Leverage-Effekt', 'IFRS 16 Leasing', 'Deckungsbeitrag', 'Opportunitätskosten'];
+const TOPIC_EXAMPLES = L(['Kapitalwertmethode', 'Latente Steuern', 'Preiselastizität', 'Break-even-Analyse', 'Abschreibungen nach HGB', 'Cournot-Oligopol', 'Leverage-Effekt', 'IFRS 16 Leasing', 'Deckungsbeitrag', 'Opportunitätskosten'], ['Net present value', 'Deferred taxes', 'Price elasticity', 'Break-even analysis', 'Depreciation', 'Cournot oligopoly', 'Leverage effect', 'IFRS 16 leases', 'Contribution margin', 'Opportunity cost']);
 export function topicForm({ cls = 'askbar', target = null } = {}) {
-  const inp = h('input', { class: 'tin', maxlength: 160, 'aria-label': 'Was soll Max dir erklären?', placeholder: 'Sag mir, was ich dir erklären soll …', enterkeyhint: 'go' });
+  const inp = h('input', { class: 'tin', maxlength: 160, 'aria-label': L('Was soll Max dir erklären?', 'What should Max explain?'), placeholder: L('Sag mir, was ich dir erklären soll …', 'Tell me what to explain …'), enterkeyhint: 'go' });
   const fEl = h('span', { class: 'af' });
-  const BTN = { quiz: 'Quiz bauen', karten: 'Karten machen', podcast: 'Folge aufnehmen', zettel: 'Lernzettel schreiben', pfad: 'Lernpfad bauen' };
-  const btn = h('button', { class: 'btn primary', type: 'submit' }, BTN[target] || 'Erklär’s mir');
+  const BTN = L({ quiz: 'Quiz bauen', karten: 'Karten machen', podcast: 'Folge aufnehmen', zettel: 'Lernzettel schreiben', pfad: 'Lernpfad bauen' }, { quiz: 'Build quiz', karten: 'Make flashcards', podcast: 'Record episode', zettel: 'Write study sheet', pfad: 'Build study path' });
+  const btn = h('button', { class: 'btn primary', type: 'submit' }, BTN[target] || L('Erklär’s mir', 'Explain it'));
   const form = h('form', { class: cls }, fEl, inp, btn);
   face(fEl, {});
   form.addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (t.length < 2) { inp.focus(); return; } ls.set('tutor.target', target); startTopic(t); });
   // Beispiele im Platzhalter durchtippen
   let k = Math.floor(Math.random() * TOPIC_EXAMPLES.length), stop = false;
-  inp.addEventListener('focus', () => { stop = true; inp.placeholder = 'z. B. ' + TOPIC_EXAMPLES[k % TOPIC_EXAMPLES.length]; });
+  inp.addEventListener('focus', () => { stop = true; inp.placeholder = L('z. B. ', 'e.g. ') + TOPIC_EXAMPLES[k % TOPIC_EXAMPLES.length]; });
   (async () => {
     await new Promise(r => setTimeout(r, 2600));
     while (form.isConnected && !stop) {
-      const t = 'Erklär mir … ' + TOPIC_EXAMPLES[k++ % TOPIC_EXAMPLES.length];
-      for (let i = 13; i <= t.length && !stop; i++) { inp.placeholder = t.slice(0, i); await new Promise(r => setTimeout(r, 45)); }
+      const pre = L('Erklär mir … ', 'Explain … '), t = pre + TOPIC_EXAMPLES[k++ % TOPIC_EXAMPLES.length];
+      for (let i = pre.length; i <= t.length && !stop; i++) { inp.placeholder = t.slice(0, i); await new Promise(r => setTimeout(r, 45)); }
       await new Promise(r => setTimeout(r, 2200));
-      if (!stop) inp.placeholder = 'Sag mir, was ich dir erklären soll …';
+      if (!stop) inp.placeholder = L('Sag mir, was ich dir erklären soll …', 'Tell me what to explain …');
       await new Promise(r => setTimeout(r, 2600));
     }
   })();
@@ -278,7 +279,7 @@ export function topicForm({ cls = 'askbar', target = null } = {}) {
 
 async function topicPrompt() {
   const form = topicForm({ cls: 'askbar inmodal' });
-  const p = modal({ title: 'Was soll Max dir erklären?', text: 'Kein Skript nötig: Max schreibt dir ein Kurzskript zum Thema – mit Beispiel, Formeln und typischen Klausurfehlern. Danach gehen Quiz, Karten, Lernpfad und Podcast wie gewohnt. 2 Einheiten.', body: form, actions: [] });
+  const p = modal({ title: L('Was soll Max dir erklären?', 'What should Max explain?'), text: L('Kein Skript nötig: Max schreibt dir ein Kurzskript zum Thema – mit Beispiel, Formeln und typischen Klausurfehlern. Danach gehen Quiz, Karten, Lernpfad und Podcast wie gewohnt. 2 Einheiten.', 'No slides needed: Max writes you a short script on the topic – with an example, formulas and typical exam mistakes. After that, quiz, flashcards, study path and podcast work as usual. 2 credits.'), body: form, actions: [] });
   form.addEventListener('submit', () => document.querySelector('.modal-bg')?.remove());
   setTimeout(() => form.querySelector('input')?.focus(), 80);
   return p;
@@ -287,15 +288,15 @@ async function topicPrompt() {
 export async function startTopic(topic) {
   if (!shell) { buildShell(); await refreshList(); }
   if (location.hash !== '#/app/neu') location.hash = '#/app/neu';
-  shell.title.textContent = 'Max schreibt …';
+  shell.title.textContent = L('Max schreibt …', 'Max is writing …');
   shell.tabs.replaceChildren();
   current.key = 'topic';
   const f = h('div', { class: 'face' }), sub = h('div', { class: 'sub' }), bar = h('i');
   shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f,
-    h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, `Max schreibt dir ein Kurzskript zu „${topic}“`),
+    h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, L(`Max schreibt dir ein Kurzskript zu „${topic}“`, `Max is writing you a short script on “${topic}”`)),
     h('div', { class: 'bar' }, bar), sub)));
   const fc = face(f); fc.set('think');
-  const lines = ['Ich sortiere kurz meine Gedanken …', ...maxLines('thinking'), 'Beispiel wird durchgerechnet …', 'Ich prüfe die Zahlen zweimal …', 'Typische Klausurfehler kommen rein …'];
+  const lines = [L('Ich sortiere kurz meine Gedanken …', 'Just sorting my thoughts …'), ...maxLines('thinking'), L('Beispiel wird durchgerechnet …', 'Working through the example …'), L('Ich prüfe die Zahlen zweimal …', 'Double-checking the numbers …'), L('Typische Klausurfehler kommen rein …', 'Adding typical exam mistakes …')];
   let i = 0; const t0 = Date.now();
   const iv = setInterval(() => {
     if (!sub.isConnected) return clearInterval(iv);
@@ -307,20 +308,20 @@ export async function startTopic(topic) {
   try {
     const r = await ask('topic', { opts: { topic, spice: getSpice() } });
     const pages = (r.data?.pages || []).map(String).filter(x => x.trim().length > 20);
-    if (pages.length < 2) throw Object.assign(new Error('Max hat sich verhaspelt. Versuch es nochmal.'), { code: 'format' });
+    if (pages.length < 2) throw Object.assign(new Error(L('Max hat sich verhaspelt. Versuch es nochmal.', 'Max got tongue-tied. Try again.')), { code: 'format' });
     clearInterval(iv); bar.style.width = '100%'; fc.set('happy');
     const name = String(r.data.title || topic).slice(0, 80);
     const d = await createDoc({ name, pages, chars: pages.join('').length, generated: true, topic });
     current.key = '';
     const tgt = ls.get('tutor.target', null);
-    if (!tgt || tgt === 'tutor') { ls.set('tutor.target', null); ls.set('tutor.pendingAsk', `Erklär mir „${topic}“ von Grund auf – mit Beispiel an der Tafel.`); location.hash = `#/app/${d.id}/tutor`; }
+    if (!tgt || tgt === 'tutor') { ls.set('tutor.target', null); ls.set('tutor.pendingAsk', L(`Erklär mir „${topic}“ von Grund auf – mit Beispiel an der Tafel.`, `Explain “${topic}” to me from scratch – with an example on the whiteboard.`)); location.hash = `#/app/${d.id}/tutor`; }
     else location.hash = afterCreate(d);
   } catch (e) {
     clearInterval(iv); fc.set('sad');
     if (e.code === 'limit') { await apiError(e); go(''); return; }
-    sub.textContent = e.message || 'Das hat nicht geklappt.';
+    sub.textContent = e.message || L('Das hat nicht geklappt.', 'That didn’t work.');
     sub.after(h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } },
-      h('button', { class: 'btn primary', onclick: () => startTopic(topic) }, 'Nochmal versuchen'), h('button', { class: 'btn', onclick: () => topicPrompt() }, 'Anderes Thema')));
+      h('button', { class: 'btn primary', onclick: () => startTopic(topic) }, L('Nochmal versuchen', 'Try again')), h('button', { class: 'btn', onclick: () => topicPrompt() }, L('Anderes Thema', 'Different topic'))));
   }
 }
 
@@ -330,8 +331,8 @@ function mobileTip() {
   const f = h('span', { class: 'mtf' });
   const close = () => { ls.set('tutor.mobileTip', 1); tip.classList.add('out'); setTimeout(() => tip.remove(), 300); };
   const tip = h('div', { class: 'mtip', role: 'status' }, f,
-    h('div', {}, h('b', {}, 'Tipp von Max'), h('span', {}, 'Am Laptop oder iPad kann ich dir am besten helfen – da passt die Tafel neben den Chat. Am Handy geht aber auch alles.')),
-    h('button', { class: 'iconbtn', 'aria-label': 'Schließen', html: ico('x'), onclick: close }));
+    h('div', {}, h('b', {}, L('Tipp von Max', 'Tip from Max')), h('span', {}, L('Am Laptop oder iPad kann ich dir am besten helfen – da passt die Tafel neben den Chat. Am Handy geht aber auch alles.', 'I work best on a laptop or iPad – the whiteboard fits right next to the chat. Everything works on your phone too, though.'))),
+    h('button', { class: 'iconbtn', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: close }));
   document.body.appendChild(tip);
   face(f, { follow: false });
   setTimeout(() => { if (tip.isConnected) close(); }, 14000);
@@ -341,20 +342,27 @@ function mobileTip() {
 const AUTO_TABS = { quiz: 'quiz', karten: 'karten', podcast: 'podcast', zettel: 'zettel', pfad: 'pfad' };
 function afterCreate(d) {
   const t = ls.get('tutor.target', null); ls.set('tutor.target', null);
-  if (t === 'tutor') { ls.set('tutor.pendingAsk', 'Erklär mir das wichtigste Thema aus dem Skript an der Tafel – mit Beispiel.'); return `#/app/${d.id}/tutor`; }
+  if (t === 'tutor') { ls.set('tutor.pendingAsk', L('Erklär mir das wichtigste Thema aus dem Skript an der Tafel – mit Beispiel.', 'Explain the most important topic from the slides on the whiteboard – with an example.')); return `#/app/${d.id}/tutor`; }
   if (AUTO_TABS[t]) return `#/app/${d.id}/${AUTO_TABS[t]}/auto`;
   return `#/app/${d.id}/hub/neu`;
 }
 
 // „Ausprobieren“: Skript hochladen oder Thema nennen, danach direkt in die Funktion
-export const TRY = {
+export const TRY = L({
   tutor: ['Erklärt an der Tafel', 'Lade dein Skript hoch oder nenn mir ein Thema – ich erklär’s dir direkt an der Tafel.'],
   quiz: ['Quiz in 6 Formaten', 'Lade dein Skript hoch oder nenn mir ein Thema – ich bau dir sofort ein Quiz daraus.'],
   karten: ['Karteikarten', 'Lade dein Skript hoch oder nenn mir ein Thema – ich mach dir direkt 16 Karteikarten.'],
   pfad: ['Lernpfad', 'Lade dein Skript hoch oder nenn mir ein Thema – ich teil’s dir in Kapitel mit Lektionen auf.'],
   podcast: ['Podcast', 'Lade dein Skript hoch oder nenn mir ein Thema – Lena und ich nehmen direkt eine Folge auf.'],
   zettel: ['Lernzettel & Mindmap', 'Lade dein Skript hoch oder nenn mir ein Thema – ich schreib dir Lernzettel und Mindmap.'],
-};
+}, {
+  tutor: ['Explained on the whiteboard', 'Upload your slides or give me a topic – I’ll explain it to you right on the whiteboard.'],
+  quiz: ['Quizzes in 6 formats', 'Upload your slides or give me a topic – I’ll build you a quiz from it straight away.'],
+  karten: ['Flashcards', 'Upload your slides or give me a topic – I’ll make you 16 flashcards right away.'],
+  pfad: ['Study path', 'Upload your slides or give me a topic – I’ll split it into chapters with lessons.'],
+  podcast: ['Podcast', 'Upload your slides or give me a topic – Lena and I will record an episode right away.'],
+  zettel: ['Study sheet & mind map', 'Upload your slides or give me a topic – I’ll write you a study sheet and a mind map.'],
+});
 export async function tryFeature(key) {
   if (key === 'voice') { const { openVoice } = await import('./voice.js'); return openVoice({}); }
   if (key === 'trainer') { location.hash = '#/app/trainer'; return; }
@@ -365,10 +373,10 @@ export async function tryFeature(key) {
   const form = topicForm({ cls: 'askbar inmodal', target: key });
   form.addEventListener('submit', () => close());
   const body = h('div', { class: 'trybody' },
-    h('label', { class: 'btn primary lg trybtn' }, fin, h('span', { html: ico('upload') }), 'Skript hochladen'),
-    h('div', { class: 'or' }, h('span', {}, 'oder Thema nennen')),
+    h('label', { class: 'btn primary lg trybtn' }, fin, h('span', { html: ico('upload') }), L('Skript hochladen', 'Upload slides')),
+    h('div', { class: 'or' }, h('span', {}, L('oder Thema nennen', 'or name a topic'))),
     form,
-    h('button', { class: 'talklink', type: 'button', onclick: () => { ls.set('tutor.target', key); close(); startSample(); } }, 'Erstmal mit dem Beispiel-Skript testen'));
+    h('button', { class: 'talklink', type: 'button', onclick: () => { ls.set('tutor.target', key); close(); startSample(); } }, L('Erstmal mit dem Beispiel-Skript testen', 'Try it with the example slides first')));
   const p = modal({ title, text, body, actions: [] });
   document.querySelector('.modal-bg:last-of-type')?.classList.add('trybg');
   return p;
@@ -382,5 +390,16 @@ function outLangSwitch() {
     b.addEventListener('click', () => { setOutLang(k); btns.forEach(x => x.classList.toggle('on', x === b)); toast(k === 'en' ? 'Max answers in English now.' : 'Max antwortet jetzt auf Deutsch.'); });
     return b;
   });
-  return h('div', { class: 'olang', title: 'Sprache von Max’ Antworten, Quiz, Karten und Podcast' }, h('span', {}, 'Max antwortet auf'), h('div', { class: 'seg' }, btns));
+  return h('div', { class: 'olang', title: L('Sprache von Max’ Antworten, Quiz, Karten und Podcast', 'Language of Max’s answers, quizzes, flashcards and podcast') }, h('span', {}, L('Max antwortet auf', 'Max answers in')), h('div', { class: 'seg' }, btns));
+}
+
+// Sprache der Oberfläche: DE | EN
+function langSwitch() {
+  return h('div', { class: 'langsw', role: 'group', 'aria-label': L('Sprache', 'Language') },
+    [['de', 'DE'], ['en', 'EN']].map(([k, l]) => h('button', { type: 'button', class: k === lang ? 'on' : '', 'data-setlang': k, 'aria-pressed': k === lang ? 'true' : 'false', onclick: () => {
+      if (k === lang) return;
+      // ?lang=… in der Adresse würde die Wahl nach dem Neuladen überschreiben
+      try { const u = new URL(location.href); if (u.searchParams.has('lang')) { u.searchParams.delete('lang'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); } } catch (e) {}
+      setLang(k);
+    } }, l)));
 }

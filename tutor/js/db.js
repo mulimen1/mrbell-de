@@ -1,4 +1,5 @@
 // Lokaler Speicher (IndexedDB): Alles bleibt auf diesem Gerät.
+import { L } from './i18n.js';
 const DB = 'tutor', VER = 1;
 let dbp = null;
 function open() {
@@ -53,7 +54,7 @@ export async function exportAll() {
 }
 export async function importAll(file) {
   const j = JSON.parse(await file.text());
-  if (!j || j.app !== 'tutor' || !Array.isArray(j.docs)) throw new Error('Keine Tutor-Sicherung');
+  if (!j || j.app !== 'tutor' || !Array.isArray(j.docs)) throw new Error(L('Keine Tutor-Sicherung', 'Not a tutor backup'));
   for (const d of j.docs) if (d && d.id && Array.isArray(d.pages)) await docs.put(d);
   return j.docs.length;
 }

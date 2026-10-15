@@ -40,6 +40,13 @@ export function parseNum(s) {
 }
 export function ago(ts) {
   const d = (Date.now() - ts) / 1000;
+  // Sprache direkt vom <html lang> (i18n.js setzt es) – kein Import, sonst Zirkelbezug
+  if (document.documentElement.lang === 'en') {
+    if (d < 60) return 'just now';
+    if (d < 3600) return `${Math.floor(d / 60)} min ago`;
+    if (d < 86400) return `${Math.floor(d / 3600)} hr ago`;
+    const t = Math.floor(d / 86400); return t === 1 ? 'yesterday' : `${t} days ago`;
+  }
   if (d < 60) return 'gerade eben';
   if (d < 3600) return `vor ${Math.floor(d / 60)} Min.`;
   if (d < 86400) return `vor ${Math.floor(d / 3600)} Std.`;

@@ -8,22 +8,22 @@ import { forChat } from './retrieve.js';
 import { apiError } from './ui.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice } from './max.js';
-import { getOutLang, setOutLang } from './i18n.js';
+import { getOutLang, setOutLang, L } from './i18n.js';
 
 export const VOICES = [
-  ['max', 'Max', 'Anfang 20, ganz normal'],
-  ['feiern', 'Max nach dem Feiern', 'tief, etwas verkatert'],
-  ['stimmbruch', 'Max vor dem Stimmbruch', 'hell (Frauenstimme)'],
+  ['max', 'Max', L('Anfang 20, ganz normal', 'early 20s, perfectly normal')],
+  ['feiern', L('Max nach dem Feiern', 'Max after the party'), L('tief, etwas verkatert', 'deep, a bit hungover')],
+  ['stimmbruch', L('Max vor dem Stimmbruch', 'Max before his voice broke'), L('hell (Frauenstimme)', 'high (female voice)')],
 ];
 export const getVoice = () => { const v = ls.get('tutor.voice', 'max'); return VOICES.some(x => x[0] === v) ? v : 'max'; };
 
 const parse = raw => {
   const boards = [];
-  let text = String(raw || '').replace(/```tafel[ \t]*([^\n]*)\n([\s\S]*?)(```|$)/g, (_, t, html) => { boards.push({ title: t.trim() || 'Tafel', html: html.trim() }); return '\n'; });
+  let text = String(raw || '').replace(/```tafel[ \t]*([^\n]*)\n([\s\S]*?)(```|$)/g, (_, t, html) => { boards.push({ title: t.trim() || L('Tafel', 'Whiteboard'), html: html.trim() }); return '\n'; });
   text = text.replace(/\[\[[a-z:]+\]\]/g, '').replace(/```[\s\S]*?```/g, '').replace(/\n{3,}/g, '\n\n').trim();
   return { text, boards };
 };
-const forHistory = raw => String(raw).replace(/```tafel[ \t]*([^\n]*)\n[\s\S]*?```/g, (_, t) => `[An die Tafel geschrieben: ${t.trim() || 'Tafel'}]`).slice(0, 3000);
+const forHistory = raw => String(raw).replace(/```tafel[ \t]*([^\n]*)\n[\s\S]*?```/g, (_, t) => L(`[An die Tafel geschrieben: ${t.trim() || 'Tafel'}]`, `[Written on the whiteboard: ${t.trim() || 'Whiteboard'}]`)).slice(0, 3000);
 const b64 = blob => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1] || ''); r.onerror = rej; r.readAsDataURL(blob); });
 // stilles WAV, um Audio auf iPhone per Tipp freizuschalten
 const SILENT = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
@@ -43,23 +43,23 @@ export function openVoice({ doc = null, onClose } = {}) {
   const you = h('div', { class: 'vyou' });
   const said = h('div', { class: 'vsaid' });
   const boardBox = h('div', { class: 'vboard' });
-  const mic = h('button', { class: 'vmic', type: 'button', 'aria-label': 'Sprechen' }, h('span', { html: ico('mic') }));
-  const typeIn = h('input', { class: 'field', placeholder: 'Lieber tippen? Frag hier …', 'aria-label': 'Frage tippen', maxlength: 600 });
-  const typeForm = h('form', { class: 'vtype' }, typeIn, h('button', { class: 'btn', type: 'submit' }, 'Senden'));
+  const mic = h('button', { class: 'vmic', type: 'button', 'aria-label': L('Sprechen', 'Speak') }, h('span', { html: ico('mic') }));
+  const typeIn = h('input', { class: 'field', placeholder: L('Lieber tippen? Frag hier …', 'Rather type? Ask here …'), 'aria-label': L('Frage tippen', 'Type a question'), maxlength: 600 });
+  const typeForm = h('form', { class: 'vtype' }, typeIn, h('button', { class: 'btn', type: 'submit' }, L('Senden', 'Send')));
   const chips = VOICES.map(([k, l, d]) => {
     const c = h('button', { class: 'chip' + (k === voice ? ' on' : ''), type: 'button', title: d }, l);
     c.addEventListener('click', () => { voice = k; ls.set('tutor.voice', k); chips.forEach(x => x.classList.toggle('on', x === c)); });
     return c;
   });
   const lbs = [['de', 'DE'], ['en', 'EN']].map(([k, l]) => { const b = h('button', { type: 'button', class: k === getOutLang() ? 'on' : '' }, l); b.addEventListener('click', () => { setOutLang(k); lbs.forEach(x => x.classList.toggle('on', x === b)); }); return b; });
-  const langSeg = h('div', { class: 'seg', title: 'Sprache, in der Max antwortet' }, lbs);
-  const closeBtn = h('button', { class: 'iconbtn vclose', type: 'button', 'aria-label': 'Schließen', html: ico('x') });
-  const ov = h('div', { class: 'voice', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Mit Max sprechen' },
-    h('div', { class: 'vtop' }, h('div', { class: 'vchips' }, h('span', { class: 'eyebrow' }, 'Stimme'), chips), langSeg, closeBtn),
+  const langSeg = h('div', { class: 'seg', title: L('Sprache, in der Max antwortet', 'Language Max answers in') }, lbs);
+  const closeBtn = h('button', { class: 'iconbtn vclose', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x') });
+  const ov = h('div', { class: 'voice', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Mit Max sprechen', 'Talk to Max') },
+    h('div', { class: 'vtop' }, h('div', { class: 'vchips' }, h('span', { class: 'eyebrow' }, L('Stimme', 'Voice')), chips), langSeg, closeBtn),
     h('div', { class: 'vmain' },
       h('div', { class: 'vstage' }, ring, fEl),
       status, you, said, boardBox),
-    h('div', { class: 'vbottom' }, mic, h('div', { class: 'vhint' }, doc ? `Max kennt „${doc.name}“ · 2 Einheiten pro Antwort` : 'Frag Max alles aus BWL, VWL & Rechnungswesen · 2 Einheiten pro Antwort'), typeForm));
+    h('div', { class: 'vbottom' }, mic, h('div', { class: 'vhint' }, doc ? L(`Max kennt „${doc.name}“ · 2 Einheiten pro Antwort`, `Max knows “${doc.name}” · 2 credits per answer`) : L('Frag Max alles aus BWL, VWL & Rechnungswesen · 2 Einheiten pro Antwort', 'Ask Max anything in business, economics & accounting · 2 credits per answer')), typeForm));
   document.body.appendChild(ov);
   document.body.style.overflow = 'hidden';
   const fc = face(fEl, {});
@@ -67,13 +67,13 @@ export function openVoice({ doc = null, onClose } = {}) {
 
   const setState = (s, msg) => {
     state = s; ov.dataset.state = s;
-    status.textContent = msg ?? ({ idle: canRec ? 'Tipp aufs Mikro und frag los.' : 'Dein Browser kann hier nicht aufnehmen – tipp deine Frage unten ein.', listen: 'Ich höre zu …', think: 'Max denkt nach …', speak: 'Max spricht … (tippen zum Unterbrechen)' })[s];
+    status.textContent = msg ?? ({ idle: canRec ? L('Tipp aufs Mikro und frag los.', 'Tap the mic and ask away.') : L('Dein Browser kann hier nicht aufnehmen – tipp deine Frage unten ein.', 'Your browser can’t record here – type your question below.'), listen: L('Ich höre zu …', 'I’m listening …'), think: L('Max denkt nach …', 'Max is thinking …'), speak: L('Max spricht … (tippen zum Unterbrechen)', 'Max is talking … (tap to interrupt)') })[s];
     fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
-    mic.setAttribute('aria-label', s === 'listen' ? 'Aufnahme beenden' : s === 'speak' ? 'Unterbrechen und sprechen' : 'Sprechen');
+    mic.setAttribute('aria-label', s === 'listen' ? L('Aufnahme beenden', 'Stop recording') : s === 'speak' ? L('Unterbrechen und sprechen', 'Interrupt and speak') : L('Sprechen', 'Speak'));
   };
   setState('idle');
   if (!canRec) mic.disabled = true;
-  if (!doc) said.replaceChildren(h('p', {}, 'Moin. Frag mich, was du willst – Kapitalwert, Bilanz, Elastizität. Mit deinem Skript wird’s noch besser.'));
+  if (!doc) said.replaceChildren(h('p', {}, L('Moin. Frag mich, was du willst – Kapitalwert, Bilanz, Elastizität. Mit deinem Skript wird’s noch besser.', 'Hey. Ask me whatever you want – NPV, balance sheets, elasticity. With your slides it gets even better.')));
 
   // ---------- Aufnahme ----------
   async function startListen() {
@@ -81,7 +81,7 @@ export function openVoice({ doc = null, onClose } = {}) {
     try { audio.src = SILENT; audio.play().catch(() => {}); } catch (e) {}
     if (!stream) {
       try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); }
-      catch (e) { setState('idle', 'Ich darf dein Mikro nicht benutzen. Erlaub es oben in der Adressleiste – oder tipp unten.'); fc.pulse('sad'); return; }
+      catch (e) { setState('idle', L('Ich darf dein Mikro nicht benutzen. Erlaub es oben in der Adressleiste – oder tipp unten.', 'I’m not allowed to use your mic. Allow it up in the address bar – or type below.')); fc.pulse('sad'); return; }
     }
     const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'].find(m => MediaRecorder.isTypeSupported?.(m)) || '';
     rec = new MediaRecorder(stream, mime ? { mimeType: mime, audioBitsPerSecond: 32000 } : undefined);
@@ -118,10 +118,10 @@ export function openVoice({ doc = null, onClose } = {}) {
     rec.stop();
   }
   async function onRecorded(mime) {
-    if (rec?._cancel) { setState('idle', 'Ich hab nichts gehört. Tipp nochmal aufs Mikro.'); return; }
+    if (rec?._cancel) { setState('idle', L('Ich hab nichts gehört. Tipp nochmal aufs Mikro.', 'I didn’t hear anything. Tap the mic again.')); return; }
     const blob = new Blob(chunks, { type: mime });
-    if (blob.size < 1500) { setState('idle', 'Das war zu kurz. Nochmal?'); return; }
-    setState('think', 'Ich hör mir das kurz an …');
+    if (blob.size < 1500) { setState('idle', L('Das war zu kurz. Nochmal?', 'That was too short. Again?')); return; }
+    setState('think', L('Ich hör mir das kurz an …', 'Let me have a listen …'));
     try {
       const r = await ask('stt', { audio: await b64(blob), mime });
       await answer(r.text);
@@ -131,7 +131,7 @@ export function openVoice({ doc = null, onClose } = {}) {
   // ---------- Antwort ----------
   async function answer(text) {
     text = String(text || '').trim(); if (!text) return;
-    you.replaceChildren(h('span', { class: 'eyebrow' }, 'Du'), h('p', {}, text));
+    you.replaceChildren(h('span', { class: 'eyebrow' }, L('Du', 'You')), h('p', {}, text));
     said.replaceChildren(); boardBox.replaceChildren();
     setState('think');
     ctrl = new AbortController();
@@ -147,7 +147,7 @@ export function openVoice({ doc = null, onClose } = {}) {
       const p = parse(raw);
       if (doc) { p.boards.forEach(b => doc.boards.push({ ...b, at: Date.now() })); if (doc.chat.length > 80) doc.chat = doc.chat.slice(-80); save(doc); }
       said.replaceChildren(h('span', { class: 'eyebrow' }, 'Max'), h('p', {}, richText(p.text)));
-      if (p.boards.length) { const b = p.boards[0]; const t = h('div', { class: 'tafel' }); t.appendChild(sanitize(b.html)); boardBox.replaceChildren(h('div', { class: 'eyebrow' }, 'An der Tafel · ' + b.title), t); }
+      if (p.boards.length) { const b = p.boards[0]; const t = h('div', { class: 'tafel' }); t.appendChild(sanitize(b.html)); boardBox.replaceChildren(h('div', { class: 'eyebrow' }, L('An der Tafel · ', 'On the whiteboard · ') + b.title), t); }
       await speak(p.text);
     } catch (e) {
       if (e?.name === 'AbortError') return;
@@ -163,16 +163,16 @@ export function openVoice({ doc = null, onClose } = {}) {
       const url = URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' }));
       audio.src = url;
       setState('speak');
-      audio.onended = () => { URL.revokeObjectURL(url); if (state === 'speak') { setState('idle', 'Noch was? Tipp aufs Mikro.'); fc.pulse('happy', 900); } };
-      await audio.play().catch(() => { setState('idle', 'Tipp aufs Mikro, um weiterzureden. (Ton war blockiert)'); });
+      audio.onended = () => { URL.revokeObjectURL(url); if (state === 'speak') { setState('idle', L('Noch was? Tipp aufs Mikro.', 'Anything else? Tap the mic.')); fc.pulse('happy', 900); } };
+      await audio.play().catch(() => { setState('idle', L('Tipp aufs Mikro, um weiterzureden. (Ton war blockiert)', 'Tap the mic to keep talking. (Sound was blocked)')); });
     } catch (e) {
-      setState('idle', e?.code === 'voice_busy' || e?.code === 'cap' ? e.message : 'Vorlesen hat nicht geklappt – die Antwort steht oben.');
+      setState('idle', e?.code === 'voice_busy' || e?.code === 'cap' ? e.message : L('Vorlesen hat nicht geklappt – die Antwort steht oben.', 'Reading aloud didn’t work – the answer is above.'));
     }
   }
   function fail(e) {
     fc.pulse('sad', 1400);
-    if (e?.code === 'limit') { setState('idle', 'Tageslimit erreicht.'); apiError(e); return; }
-    setState('idle', e?.message || 'Das hat nicht geklappt. Nochmal?');
+    if (e?.code === 'limit') { setState('idle', L('Tageslimit erreicht.', 'Daily limit reached.')); apiError(e); return; }
+    setState('idle', e?.message || L('Das hat nicht geklappt. Nochmal?', 'That didn’t work. Again?'));
   }
 
   // ---------- Bedienung ----------
@@ -202,6 +202,6 @@ export function openVoice({ doc = null, onClose } = {}) {
 }
 
 // Knopf „Mit Max sprechen“
-export function voiceButton({ doc, cls = 'btn', label = 'Mit Max sprechen', onClose } = {}) {
+export function voiceButton({ doc, cls = 'btn', label = L('Mit Max sprechen', 'Talk to Max'), onClose } = {}) {
   return h('button', { class: cls, type: 'button', onclick: () => openVoice({ doc: typeof doc === 'function' ? doc() : doc, onClose }) }, h('span', { html: ico('mic') }), label);
 }

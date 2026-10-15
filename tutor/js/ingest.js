@@ -1,5 +1,6 @@
 // Dateien lesen – komplett im Browser. Nichts wird hochgeladen.
 // PDF (pdf.js), PowerPoint (.pptx), Word (.docx), Text/Markdown.
+import { L } from './i18n.js';
 let pdfjs = null;
 async function loadPdf() {
   if (pdfjs) return pdfjs;
@@ -12,18 +13,18 @@ export const ACCEPT = '.pdf,.pptx,.docx,.txt,.md,application/pdf';
 const MAX_BYTES = 60 * 1024 * 1024;
 
 export async function readFile(file, onProgress = () => {}) {
-  if (file.size > MAX_BYTES) throw new Error('Die Datei ist größer als 60 MB.');
-  const name = file.name || 'Vorlesung';
+  if (file.size > MAX_BYTES) throw new Error(L('Die Datei ist größer als 60 MB.', 'The file is larger than 60 MB.'));
+  const name = file.name || L('Vorlesung', 'Lecture');
   const ext = (name.split('.').pop() || '').toLowerCase();
   let pages;
   if (ext === 'pdf' || file.type === 'application/pdf') pages = await readPdf(file, onProgress);
   else if (ext === 'pptx') pages = await readPptx(file, onProgress);
   else if (ext === 'docx') pages = await readDocx(file, onProgress);
   else if (ext === 'txt' || ext === 'md' || file.type.startsWith('text/')) pages = splitText(await file.text());
-  else throw new Error('Dieses Format kenne ich noch nicht. PDF, PowerPoint (.pptx), Word (.docx) oder Text gehen.');
+  else throw new Error(L('Dieses Format kenne ich noch nicht. PDF, PowerPoint (.pptx), Word (.docx) oder Text gehen.', 'I don’t know this format yet. PDF, PowerPoint (.pptx), Word (.docx) or text work.'));
   pages = pages.map(p => clean(p));
   const chars = pages.reduce((a, p) => a + p.length, 0);
-  if (chars < 80) throw new Error('In der Datei ist kaum Text. Ist es ein eingescanntes PDF? Dann kann ich es leider noch nicht lesen.');
+  if (chars < 80) throw new Error(L('In der Datei ist kaum Text. Ist es ein eingescanntes PDF? Dann kann ich es leider noch nicht lesen.', 'There’s hardly any text in this file. Is it a scanned PDF? Sadly I can’t read those yet.'));
   return { name: name.replace(/\.[^.]+$/, ''), pages, chars };
 }
 
@@ -68,7 +69,7 @@ async function unzip(file) {
   const dv = new DataView(buf.buffer);
   let eocd = -1;
   for (let i = buf.length - 22; i >= Math.max(0, buf.length - 70000); i--) if (dv.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
-  if (eocd < 0) throw new Error('Die Datei ist beschädigt.');
+  if (eocd < 0) throw new Error(L('Die Datei ist beschädigt.', 'The file is damaged.'));
   const count = dv.getUint16(eocd + 10, true);
   let off = dv.getUint32(eocd + 16, true);
   const entries = {};
@@ -89,7 +90,7 @@ async function unzip(file) {
       const l = e.local, ln = dv.getUint16(l + 26, true), lx = dv.getUint16(l + 28, true);
       const raw = buf.subarray(l + 30 + ln + lx, l + 30 + ln + lx + e.csize);
       if (e.method === 0) return td.decode(raw);
-      if (e.method !== 8 || typeof DecompressionStream === 'undefined') throw new Error('Dein Browser kann diese Datei nicht entpacken. Speichere sie als PDF.');
+      if (e.method !== 8 || typeof DecompressionStream === 'undefined') throw new Error(L('Dein Browser kann diese Datei nicht entpacken. Speichere sie als PDF.', 'Your browser can’t unpack this file. Save it as a PDF.'));
       const ds = new Blob([raw]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
       return await new Response(ds).text();
     }
@@ -113,7 +114,7 @@ async function readPptx(file, onProgress) {
   for (let i = 0; i < slides.length; i++) {
     let t = xmlText(await z.text(slides[i]), 'a:p');
     const notes = slides[i].replace('slides/slide', 'notesSlides/notesSlide');
-    if (z.names.includes(notes)) { const nt = xmlText(await z.text(notes), 'a:p').replace(/^\d+$/m, '').trim(); if (nt) t += '\n[Notizen] ' + nt; }
+    if (z.names.includes(notes)) { const nt = xmlText(await z.text(notes), 'a:p').replace(/^\d+$/m, '').trim(); if (nt) t += L('\n[Notizen] ', '\n[Notes] ') + nt; }
     pages.push(t);
     onProgress((i + 1) / slides.length);
   }

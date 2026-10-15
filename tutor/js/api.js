@@ -1,7 +1,7 @@
 // Verbindung zur KI. Es geht nur der benötigte Textausschnitt raus – gespeichert wird dort nichts.
 import { ls, uid } from './util.js';
 import { S } from './state.js';
-import { lang, getOutLang } from './i18n.js';
+import { lang, getOutLang, L } from './i18n.js';
 
 export const API_URL = (window.TUTOR_API || 'https://hub.mrbell.de/n8n/webhook/tutor-ki-7c41e2');
 
@@ -51,14 +51,14 @@ export async function ask(action, payload = {}, { signal } = {}) {
     res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, signal });
   } catch (e) {
     if (e.name === 'AbortError') throw e;
-    throw new ApiError('offline', 'Keine Verbindung zu Max. Prüf dein Internet oder versuch es gleich nochmal.');
+    throw new ApiError('offline', L('Keine Verbindung zu Max. Prüf dein Internet oder versuch es gleich nochmal.', 'Can’t reach Max. Check your internet or try again in a moment.'));
   }
   let j = null;
   try { j = await res.json(); } catch (e) {}
-  if (!res.ok || !j) throw new ApiError('server', 'Max ist gerade nicht erreichbar. Versuch es in ein paar Minuten nochmal.');
+  if (!res.ok || !j) throw new ApiError('server', L('Max ist gerade nicht erreichbar. Versuch es in ein paar Minuten nochmal.', 'Max isn’t available right now. Try again in a few minutes.'));
   if (j.quota) setQuota(j.quota);
   if ('account' in j) { if (j.account || ses) setAccount(j.account, j.account ? ses : null); }
-  if (!j.ok) throw new ApiError(j.error || 'error', j.message || 'Das hat nicht geklappt.');
+  if (!j.ok) throw new ApiError(j.error || 'error', j.message || L('Das hat nicht geklappt.', 'That didn’t work.'));
   return j;
 }
 
