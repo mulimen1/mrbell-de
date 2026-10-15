@@ -297,7 +297,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = L(
       q.page ? h('div', { class: 'src' }, (S.doc?.generated ? L('Quelle: Kurzskript, S. ', 'Source: short script, p. ') : L('Quelle: Vorlesung, S. ', 'Source: lecture, p. ')) + q.page) : null);
     fb.replaceChildren(f);
     actions.replaceChildren();
-    if (onAsk && !r.correct) actions.appendChild(h('button', { class: 'btn', onclick: () => onAsk(q, r) }, h('span', { html: ico('chat') }), L('Max erklärt’s mir', 'Max explains')));
+    if (onAsk && !r.correct) actions.appendChild(h('button', { class: 'btn', onclick: () => onAsk(q, r) }, h('span', { html: ico('chat') }), L('Erklär’s mir', 'Explain it to me')));
     actions.appendChild(h('span', { class: 'sp' }));
     if (onNext) { const nb = h('button', { class: 'btn primary', onclick: () => goNext(r) }, nextLabel, ' ', h('span', { class: 'k' }, '↵')); actions.appendChild(nb); setTimeout(() => nb.focus({ preventScroll: true }), 50); }
   }

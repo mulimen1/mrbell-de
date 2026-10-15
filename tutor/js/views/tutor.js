@@ -41,10 +41,10 @@ export async function render(root, ctx) {
   const fEl = h('div', { class: 'face' });
   const msgs = h('div', { class: 'msgs', 'aria-live': 'polite' });
   const sugg = h('div', { class: 'suggest' });
-  const ta = h('textarea', { rows: 1, placeholder: L('Frag Max etwas zu deinem Skript …', 'Ask Max anything about your slides …'), 'aria-label': L('Nachricht', 'Message') });
+  const ta = h('textarea', { rows: 1, placeholder: L('Frag mich etwas zu deinem Skript …', 'Ask me anything about your slides …'), 'aria-label': L('Nachricht', 'Message') });
   const send = h('button', { class: 'send', 'aria-label': L('Senden', 'Send'), html: ico('send'), disabled: true });
   const talk = () => openVoice({ doc, onClose: async () => { const m = await import('../app.js'); m.forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } });
-  const micBtn = h('button', { class: 'micbtn', type: 'button', 'aria-label': L('Mit Max sprechen', 'Talk to Max'), title: L('Mit Max sprechen', 'Talk to Max'), html: ico('mic'), onclick: talk });
+  const micBtn = h('button', { class: 'micbtn', type: 'button', 'aria-label': L('Sprich mit mir', 'Talk to me'), title: L('Sprich mit mir', 'Talk to me'), html: ico('mic'), onclick: talk });
   const modeBtns = [['erklaeren', L('Erklären', 'Explain')], ['sokratisch', L('Sokratisch', 'Socratic')]].map(([k, l]) => {
     const b = h('button', { class: 'chip' + (mode === k ? ' on' : ''), title: k === 'sokratisch' ? L('Führt dich mit Fragen zur Lösung, statt sie zu verraten', 'Guides you to the answer with questions instead of giving it away') : L('Erklärt direkt', 'Explains directly') }, l);
     b.addEventListener('click', () => { mode = k; ls.set('tutor.mode', k); modeBtns.forEach(x => x.classList.toggle('on', x === b)); });

@@ -439,7 +439,7 @@ function wizard(wrap, ctx) {
   const f = h('div', { class: 'face' });
   wrap.replaceChildren(
     h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L('Klausurplan', 'Exam plan')), h('h2', {}, L('Bis zur Klausur. Mit Plan.', 'All the way to the exam. With a plan.')),
-      h('p', {}, L('Drei Angaben – Max macht daraus einen Tag-für-Tag-Plan mit Lektionen, Quizzen, Karteikarten und Probeklausur. Kostenlos.', 'Three answers – Max turns them into a day-by-day plan with lessons, quizzes, flashcards and a mock exam. Free.')))),
+      h('p', {}, L('Drei Angaben – ich mach daraus einen Tag-für-Tag-Plan mit Lektionen, Quizzen, Karteikarten und Probeklausur. Kostenlos.', 'Three answers – I’ll turn them into a day-by-day plan with lessons, quizzes, flashcards and a mock exam. Free.')))),
     h('div', { class: 'pl-wiz' },
       h('div', { class: 'pl-maxrow' }, f, h('div', { class: 'pl-say' }, L(['Sag mir, wann’s ernst wird. Ich plane den Rest.', 'Drei Angaben, dann plane ich. So plant Papa seine Übernahmen.', 'Ich hab schon Yachtausflüge schlechter geplant. Los geht’s.'], ['Tell me when it gets serious. I’ll plan the rest.', 'Three answers and I’ll plan. That’s how Dad plans his takeovers.', 'I’ve planned yacht trips worse than this. Let’s go.'])[getSpice() - 1])),
       form.el,

@@ -138,8 +138,8 @@ export function mountAssistant() {
 
   // Kopf (Bubble)
   const bubFace = h('span', { class: 'asst-bf' });
-  const bub = h('button', { class: 'asst-bub', type: 'button', 'aria-label': L('Max fragen', 'Ask Max'), title: L('Max fragen – ziehen zum Verschieben', 'Ask Max – drag to move') },
-    bubFace, h('i', { class: 'asst-dot' }), h('span', { class: 'asst-tip' }, L('Frag Max', 'Ask Max')),
+  const bub = h('button', { class: 'asst-bub', type: 'button', 'aria-label': L('Frag mich', 'Ask me'), title: L('Frag mich – ziehen zum Verschieben', 'Ask me – drag to move') },
+    bubFace, h('i', { class: 'asst-dot' }), h('span', { class: 'asst-tip' }, L('Frag mich', 'Ask me')),
     h('span', { class: 'asst-x', title: L('Max ausblenden', 'Hide Max'), html: ico('x') }));
   // Panel
   const fEl = h('span', { class: 'asst-f' });
@@ -160,7 +160,7 @@ export function mountAssistant() {
     h('button', { class: 'asst-mi', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); disable(); } }, h('span', { html: ico('x') }), L('Max ausblenden', 'Hide Max')));
   const msgs = h('div', { class: 'asst-msgs', 'aria-live': 'polite' });
   const sugg = h('div', { class: 'asst-sugg' });
-  const ta = h('textarea', { rows: 1, placeholder: L('Frag Max zu dieser Seite …', 'Ask Max about this page …'), 'aria-label': L('Nachricht an Max', 'Message to Max'), maxlength: 1500 });
+  const ta = h('textarea', { rows: 1, placeholder: L('Frag mich zu dieser Seite …', 'Ask me about this page …'), 'aria-label': L('Nachricht an Max', 'Message to Max'), maxlength: 1500 });
   const mic = h('button', { class: 'asst-mic', type: 'button', 'aria-label': L('Sprechen', 'Speak'), title: L('Sprechen', 'Speak'), html: ico('mic') });
   const send = h('button', { class: 'asst-send', type: 'button', 'aria-label': L('Senden', 'Send'), html: ico('send') });
   const foot = h('div', { class: 'asst-foot' });
@@ -193,7 +193,7 @@ export function mountAssistant() {
       clearTimeout(chip._t); chip._t = setTimeout(() => { chip.classList.add('out'); setTimeout(() => chip.remove(), 300); }, 8000);
     } else if (on) chip.remove();
   }
-  chip.addEventListener('click', () => { chip.remove(); setAssistantEnabled(true); toast(L('Max ist wieder da.', 'Max is back.')); });
+  chip.addEventListener('click', () => { chip.remove(); setAssistantEnabled(true); toast(L('Bin wieder da.', 'I’m back.')); });
   function disable() { setAssistantEnabled(false); }
 
   const coverCheck = () => {

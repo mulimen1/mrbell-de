@@ -21,12 +21,12 @@ export async function render(root, ctx) {
 
   // Schnellfrage an den Tutor
   const f = h('div', { class: 'face', style: { width: '64px', height: '64px' } });
-  const inp = h('input', { class: 'field', placeholder: L('Frag Max etwas zu deinem Skript …', 'Ask Max anything about your slides …'), style: { background: 'transparent', color: 'inherit', borderColor: 'color-mix(in srgb, var(--onInv) 30%, transparent)' } });
+  const inp = h('input', { class: 'field', placeholder: L('Frag mich etwas zu deinem Skript …', 'Ask me anything about your slides …'), style: { background: 'transparent', color: 'inherit', borderColor: 'color-mix(in srgb, var(--onInv) 30%, transparent)' } });
   const quick = h('form', { style: { display: 'flex', gap: '8px', marginTop: 'auto' }, onsubmit: e => { e.preventDefault(); const t = inp.value.trim(); if (t) ctx.ask(t); else ctx.go('tutor'); } },
     inp, h('button', { class: 'send', style: { background: 'var(--onInv)', color: 'var(--inv)' }, 'aria-label': L('Fragen', 'Ask'), html: ico('send') }));
   quick.addEventListener('click', e => e.stopPropagation());
 
-  const pathTile = h('button', { class: 'tile half', onclick: () => ctx.go('pfad', nextIdx >= 0 ? String(nextIdx) : null) });
+  const pathTile = h('button', { class: 'tile half hub-tool', onclick: () => ctx.go('pfad', nextIdx >= 0 ? String(nextIdx) : null) });
   const fillPath = () => {
     const P = doc.path;
     pathTile.replaceChildren(h('div', { class: 'ti', html: ico('path') }),
@@ -42,7 +42,7 @@ export async function render(root, ctx) {
   const planTile = h('button', { class: 'tile wide dark pl-tile', onclick: () => ctx.go('plan') },
     h('div', { class: 'pt-l' }, h('div', { class: 'ti', html: ico('calendar') }),
       h('div', {}, h('h3', {}, L('Klausurvorbereitung', 'Exam prep')),
-        h('p', {}, !ps ? L('Klausurdatum rein – Max macht dir einen Tag-für-Tag-Plan mit Fortschritt und Ziel-Check.', 'Enter your exam date – Max builds a day-by-day plan with progress tracking and a goal check.')
+        h('p', {}, !ps ? L('Gib mir dein Klausurdatum – ich mach dir einen Tag-für-Tag-Plan mit Fortschritt und Ziel-Check.', 'Give me your exam date – I’ll build you a day-by-day plan with progress tracking and a goal check.')
           : ps.daysLeft < 0 ? L('Klausur vorbei. Nächste Runde?', 'Exam’s over. Next round?')
           : ps.daysLeft === 0 ? L('Heute ist Klausur. Viel Erfolg!', 'Exam day. Good luck!')
           : (ps.todayOpen.length ? L(`Heute: ${ps.todayOpen.length} ${ps.todayOpen.length === 1 ? 'Aufgabe' : 'Aufgaben'} · ~${ps.todayMin} Min.`, `Today: ${ps.todayOpen.length} ${ps.todayOpen.length === 1 ? 'task' : 'tasks'} · ~${ps.todayMin} min`) : ps.todayT.length ? L('Heute alles erledigt.', 'All done for today.') : L('Heute frei.', 'Day off today.'))
@@ -57,22 +57,22 @@ export async function render(root, ctx) {
     h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L(`${doc.pages.length} Seiten · hinzugefügt ${ago(doc.created)}`, `${doc.pages.length} pages · added ${ago(doc.created)}`)), h('h2', {}, doc.path?.title || doc.name), doc.path?.summary ? h('p', {}, doc.path.summary) : null)),
     h('div', { class: 'hub' },
       planTile,
-      h('div', { class: 'tile big dark', role: 'button', tabindex: 0, onclick: () => ctx.go('tutor') },
-        h('div', { style: { display: 'flex', gap: '14px', alignItems: 'center' } }, f, h('div', {}, h('h3', { style: { fontSize: '22px' } }, L('Frag deinen BWL Max', 'Ask your BWL Max')), h('p', {}, L('Kennt dein Skript, erklärt an der Tafel. Ein bisschen arrogant. Aber er hat recht.', 'Knows your slides, explains on the whiteboard. A little arrogant. But he’s right.')))),
-        h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '6px', margin: '14px 0' } },
+      h('div', { class: 'tile big dark hub-max', role: 'button', tabindex: 0, onclick: () => ctx.go('tutor') },
+        h('div', { style: { display: 'flex', gap: '14px', alignItems: 'center' } }, f, h('div', {}, h('h3', { style: { fontSize: '22px' } }, L('Frag mich', 'Ask me')), h('p', {}, L('Ich kenne dein Skript und erklär’s dir an der Tafel. Ein bisschen arrogant. Aber ich hab recht.', 'I know your slides and explain it on the whiteboard. A little arrogant. But I’m right.')))),
+        h('div', { class: 'hub-chips', style: { display: 'flex', flexWrap: 'wrap', gap: '6px', margin: '14px 0' } },
           (L(['Fass das Skript in 5 Punkten zusammen', 'Was ist am wichtigsten für die Klausur?', 'Erklär mir das schwierigste Thema'], ['Summarise the slides in 5 points', 'What matters most for the exam?', 'Explain the hardest topic to me'])).map(t => h('button', { class: 'chip', style: { background: 'transparent', color: 'inherit', borderColor: 'color-mix(in srgb, var(--onInv) 30%, transparent)' }, onclick: e => { e.stopPropagation(); ctx.ask(t); } }, t))),
         quick),
-      h('div', { class: 'tile', role: 'button', tabindex: 0, onclick: () => ctx.go('pfad') },
+      h('div', { class: 'tile hub-prog', role: 'button', tabindex: 0, onclick: () => ctx.go('pfad') },
         h('div', { class: 'ring', style: { '--p': m } }, h('div', {}, m + '%')),
         h('h3', { style: { marginTop: '8px' } }, L('Lernstand', 'Progress')), h('p', {}, m >= 80 ? L('Klausurbereit – halte es frisch.', 'Exam-ready – keep it fresh.') : m >= 40 ? L('Auf gutem Weg.', 'Well on your way.') : L('Gerade erst angefangen.', 'Just getting started.'))),
-      h('button', { class: 'tile', onclick: () => ctx.go('karten') }, h('div', { class: 'ti', html: ico('cards') }), h('h3', {}, L('Karteikarten', 'Flashcards')),
+      h('button', { class: 'tile hub-tool', onclick: () => ctx.go('karten') }, h('div', { class: 'ti', html: ico('cards') }), h('h3', {}, L('Karteikarten', 'Flashcards')),
         h('p', {}, due ? L(`${due} Karten fällig`, `${due} cards due`) : doc.decks.length ? L('Heute alles wiederholt.', 'All reviewed for today.') : L('Automatisch aus dem Skript.', 'Generated from your slides.')), h('div', { class: 'foot' }, due ? L('Jetzt wiederholen', 'Review now') : L('Kostenlos wiederholen', 'Review for free'))),
       pathTile,
-      h('button', { class: 'tile half', onclick: () => ctx.go('quiz') }, h('div', { class: 'ti', html: ico('quiz') }), h('h3', {}, L('Quiz & Probeklausur', 'Quiz & mock exam')),
+      h('button', { class: 'tile half hub-tool', onclick: () => ctx.go('quiz') }, h('div', { class: 'ti', html: ico('quiz') }), h('h3', {}, L('Quiz & Probeklausur', 'Quiz & mock exam')),
         h('p', {}, best != null ? L(`Letztes Quiz: ${best} %`, `Last quiz: ${best}%`) : L('6 Fragetypen – wie in der Klausur.', '6 question types – just like the exam.')), h('div', { class: 'foot' }, doc.mistakes.length ? L(`${doc.mistakes.length} Fehler zum Wiederholen`, `${doc.mistakes.length} mistakes to review`) : L('Neues Quiz · 2 Einheiten', 'New quiz · 2 credits'))),
-      h('button', { class: 'tile', onclick: () => ctx.go('podcast') }, h('div', { class: 'ti', html: ico('pod') }), h('h3', {}, 'Podcast'), h('p', {}, doc.podcasts.length ? L(`${doc.podcasts.length} Folge(n)`, `${doc.podcasts.length} episode(s)`) : L('Dein Skript zum Anhören.', 'Your slides as audio.'))),
-      h('button', { class: 'tile', onclick: () => ctx.go('zettel') }, h('div', { class: 'ti', html: ico('brain') }), h('h3', {}, L('Lernzettel', 'Study sheet')), h('p', {}, doc.summary ? L('Zusammenfassung + Mindmap', 'Summary + mind map') : L('Alles Wichtige auf einer Seite.', 'Everything important on one page.'))),
-      h('a', { class: 'tile', href: '#/app/trainer' }, h('div', { class: 'ti', html: ico('whistle') }), h('h3', {}, L('BWL-Trainer', 'Business trainer')), h('p', {}, L('Buchungssätze, Break-even, Kapitalwert & mehr – unbegrenzt.', 'Booking entries, break-even, NPV & more – unlimited.')))));
+      h('button', { class: 'tile hub-tool', onclick: () => ctx.go('podcast') }, h('div', { class: 'ti', html: ico('pod') }), h('h3', {}, 'Podcast'), h('p', {}, doc.podcasts.length ? L(`${doc.podcasts.length} Folge(n)`, `${doc.podcasts.length} episode(s)`) : L('Dein Skript zum Anhören.', 'Your slides as audio.'))),
+      h('button', { class: 'tile hub-tool', onclick: () => ctx.go('zettel') }, h('div', { class: 'ti', html: ico('brain') }), h('h3', {}, L('Lernzettel', 'Study sheet')), h('p', {}, doc.summary ? L('Zusammenfassung + Mindmap', 'Summary + mind map') : L('Alles Wichtige auf einer Seite.', 'Everything important on one page.'))),
+      h('a', { class: 'tile hub-tool', href: '#/app/trainer' }, h('div', { class: 'ti', html: ico('whistle') }), h('h3', {}, L('BWL-Trainer', 'Business trainer')), h('p', {}, L('Buchungssätze, Break-even, Kapitalwert & mehr – unbegrenzt.', 'Booking entries, break-even, NPV & more – unlimited.')))));
   face(f, {});
 
   // Direkt nach dem Upload: Lernpfad im Hintergrund bauen

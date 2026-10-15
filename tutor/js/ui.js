@@ -47,7 +47,7 @@ export async function apiError(e, retry) {
   if (e && e.code === 'limit') {
     const acc = getAccount();
     const r = await modal({
-      title: L('Max macht Feierabend', 'Max is clocking off'),
+      title: L('Ich mach Feierabend', 'I’m clocking off'),
       text: say('limit') + (acc ? (acc.pro ? L(' Selbst im Inner Circle ist heute Schluss – morgen geht’s weiter.', ' Even in the Inner Circle, that’s it for today – we’ll carry on tomorrow.') : L(' Ab 0:00 Uhr gibt’s neue Einheiten. Der Inner Circle ohne Limit kommt bald.', ' New credits arrive at midnight. The Inner Circle without limits is coming soon.')) : L(' Ab 0:00 Uhr gibt’s neue Einheiten – oder du meldest dich kostenlos an und bekommst 7 Tage Inner Circle ohne Tageslimit.', ' New credits arrive at midnight – or sign in for free and get 7 days of Pro with no daily limit.')),
       actions: acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Log in · 7 Tage Inner Circle', 'Log in · 7 days Inner Circle'), value: true, primary: true }]
     });
@@ -72,4 +72,13 @@ export function hasQuota(action) {
 
 export function errorBox(msg, retry) {
   return h('div', { class: 'empty' }, h('h2', { style: { fontSize: '22px' } }, L('Das hat nicht geklappt', 'That didn’t work')), h('p', {}, msg), retry ? h('button', { class: 'btn primary', onclick: retry }, L('Nochmal versuchen', 'Try again')) : null);
+}
+
+// Zusatz-Einstellungen: am Handy hinter „Anpassen“, am Laptop immer offen
+export function moreOpts(...kids) {
+  const d = h('details', { class: 'more-opts' },
+    h('summary', {}, h('span', { html: ico('tune') }), L('Anpassen', 'Customise'), h('span', { class: 'mo-chev', html: ico('right') })),
+    h('div', { class: 'mo-body' }, ...kids));
+  if (!matchMedia('(max-width: 760px)').matches) d.open = true;
+  return d;
 }

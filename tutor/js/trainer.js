@@ -225,7 +225,7 @@ function practice(stage, ctx, T, cfg) {
   const bCheck = h('button', { class: 'btn primary tr-check', type: 'button' });
   const bHint = h('button', { class: 'btn tr-hintbtn', type: 'button' });
   const bNew = h('button', { class: 'btn ghost tr-new', type: 'button' }, svgIcon(I.refresh), LL('Neue Aufgabe', 'New exercise'));
-  const bAsk = ctx.onAsk ? h('button', { class: 'btn ghost tr-ask', type: 'button' }, svgIcon(I.chat), LL('Max fragen', 'Ask Max')) : null;
+  const bAsk = ctx.onAsk ? h('button', { class: 'btn ghost tr-ask', type: 'button' }, svgIcon(I.chat), LL('Frag mich', 'Ask me')) : null;
   const stat = h('div', { class: 'tr-stat' });
   const card = h('section', { class: 'tr-task', 'aria-label': LL('Übungsaufgabe', 'Practice exercise') },
     h('div', { class: 'tr-task-top' }, h('span', { class: 'eyebrow' }, LL('Übung', 'Practice')), num), prompt, body, hintsEl, fb,

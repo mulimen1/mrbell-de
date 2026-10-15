@@ -67,14 +67,14 @@ export function openVoice({ doc = null, onClose } = {}) {
     return c;
   });
   const lbs = [['de', 'DE'], ['en', 'EN']].map(([k, l]) => { const b = h('button', { type: 'button', class: k === getOutLang() ? 'on' : '' }, l); b.addEventListener('click', () => { setOutLang(k); lbs.forEach(x => x.classList.toggle('on', x === b)); }); return b; });
-  const langSeg = h('div', { class: 'seg', title: L('Sprache, in der Max antwortet', 'Language Max answers in') }, lbs);
+  const langSeg = h('div', { class: 'seg', title: L('Sprache, in der ich antworte', 'Language I answer in') }, lbs);
   const closeBtn = h('button', { class: 'iconbtn vclose', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x') });
-  const ov = h('div', { class: 'voice', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Mit Max sprechen', 'Talk to Max') },
+  const ov = h('div', { class: 'voice', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Sprich mit mir', 'Talk to me') },
     h('div', { class: 'vtop' }, h('div', { class: 'vchips' }, h('span', { class: 'eyebrow' }, L('Stimme', 'Voice')), chips), langSeg, closeBtn),
     h('div', { class: 'vmain' },
       h('div', { class: 'vstage' }, ring, fEl, vth),
       status, you, said, boardBox),
-    h('div', { class: 'vbottom' }, h('div', { class: 'vctrl' }, stopBtn, mic, volBox), h('div', { class: 'vhint' }, doc ? L(`Max kennt „${doc.name}“ · 2 Einheiten pro Antwort`, `Max knows “${doc.name}” · 2 credits per answer`) : L('Frag Max alles aus BWL, VWL & Rechnungswesen · 2 Einheiten pro Antwort', 'Ask Max anything in business, economics & accounting · 2 credits per answer')), typeForm));
+    h('div', { class: 'vbottom' }, h('div', { class: 'vctrl' }, stopBtn, mic, volBox), h('div', { class: 'vhint' }, doc ? L(`Max kennt „${doc.name}“ · 2 Einheiten pro Antwort`, `Max knows “${doc.name}” · 2 credits per answer`) : L('Frag mich alles aus BWL, VWL & Rechnungswesen · 2 Einheiten pro Antwort', 'Ask me anything in business, economics & accounting · 2 credits per answer')), typeForm));
   document.body.appendChild(ov);
   document.body.style.overflow = 'hidden';
   const fc = face(fEl, {});
@@ -242,6 +242,6 @@ export function openVoice({ doc = null, onClose } = {}) {
 }
 
 // Knopf „Mit Max sprechen“
-export function voiceButton({ doc, cls = 'btn', label = L('Mit Max sprechen', 'Talk to Max'), onClose } = {}) {
+export function voiceButton({ doc, cls = 'btn', label = L('Sprich mit mir', 'Talk to me'), onClose } = {}) {
   return h('button', { class: cls, type: 'button', onclick: () => openVoice({ doc: typeof doc === 'function' ? doc() : doc, onClose }) }, h('span', { html: ico('mic') }), label);
 }

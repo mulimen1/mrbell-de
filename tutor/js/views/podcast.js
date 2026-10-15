@@ -3,7 +3,7 @@ import { h, ico, uid, toast, modal, ls } from '../util.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn } from '../ui.js';
+import { loading, apiError, costBtn, moreOpts } from '../ui.js';
 import { SPICE, getSpice } from '../max.js';
 import { getOutLang, setOutLang, L } from '../i18n.js';
 
@@ -72,10 +72,11 @@ function intro(wrap, ctx) {
         h('p', { style: { color: 'var(--mute)', marginTop: 0 } }, L('Lisa erklärt, Max fragt nach – mit echten Stimmen, Beispielen und den typischen Fehlern. Perfekt für Bahn, Gym oder Spaziergang.', 'Lisa explains, Max asks follow-ups – with real voices, examples and the classic mistakes. Perfect for the train, the gym or a walk.')),
         h('div', { class: 'setup', style: { marginTop: '18px' } },
           h('div', { class: 'grid' }, h('div', {}, h('label', { class: 'l' }, L('Thema', 'Topic')), sel), h('div', {}, h('label', { class: 'l' }, L('Länge', 'Length')), h('div', { class: 'chips' }, lens))),
-          h('div', { class: 'grid', style: { marginTop: '14px' } },
-            h('div', {}, h('label', { class: 'l' }, L('Sprache der Folge', 'Episode language')), h('div', { class: 'chips' }, langs)),
-            h('div', {}, h('label', { class: 'l' }, L('Stimmen · ▶ zum Reinhören', 'Voices · ▶ to preview')), h('div', { class: 'chips' }, mvs, lisa))),
-          h('div', { style: { marginTop: '14px' } }, h('label', { class: 'l' }, L('Ton', 'Tone')), h('div', { class: 'chips' }, tones), hint),
+          moreOpts(
+            h('div', { class: 'grid' },
+              h('div', {}, h('label', { class: 'l' }, L('Sprache der Folge', 'Episode language')), h('div', { class: 'chips' }, langs)),
+              h('div', {}, h('label', { class: 'l' }, L('Stimmen · ▶ zum Reinhören', 'Voices · ▶ to preview')), h('div', { class: 'chips' }, mvs, lisa))),
+            h('div', { style: { marginTop: '14px' } }, h('label', { class: 'l' }, L('Ton', 'Tone')), h('div', { class: 'chips' }, tones), hint)),
           h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn(L('Folge erstellen', 'Create episode'), 'podcast', () => generate(wrap, ctx, len, focus, tone, plang, mvoice), 'btn primary lg'))))),
     doc.podcasts.length ? h('div', { style: { marginTop: '26px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Deine Folgen', 'Your episodes')),
       h('div', { class: 'list' }, [...doc.podcasts].reverse().map(p => h('div', { class: 'li', onclick: () => player(wrap, ctx, p) }, h('span', { html: ico('pod') }), h('div', { class: 'gr' }, h('b', {}, p.title), h('span', {}, L(`${p.lines.length} Abschnitte · ~${minutes(p)} Min.${p.lang === 'en' ? ' · English' : ''}`, `${p.lines.length} segments · ~${minutes(p)} min${p.lang === 'de' ? ' · German' : ''}`))))))) : null);

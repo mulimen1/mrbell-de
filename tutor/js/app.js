@@ -10,7 +10,7 @@ import { lines as maxLines, getSpice } from './max.js';
 import { apiError, thought } from './ui.js';
 import { exportAll, importAll, wipe } from './db.js';
 import { applyThemeButtons } from './theme.js';
-import { feedbackButton } from './feedback.js';
+import { feedbackButton, openFeedback } from './feedback.js';
 
 const TABS = [
   ['hub', L('Übersicht', 'Overview'), 'home'],
@@ -39,7 +39,7 @@ let current = { key: '', cleanup: null };
 export function go(path) { location.hash = '#/app' + (path ? '/' + path : ''); }
 
 function asstToggle() {
-  const b = h('button', { class: 'btn sm ghost' });
+  const b = h('button', { type: 'button' });
   const lab = () => import('./assistant.js').then(m => { b.textContent = m.isAssistantEnabled() ? L('Max ausblenden', 'Hide Max') : L('Max einblenden', 'Show Max'); });
   b.addEventListener('click', () => import('./assistant.js').then(m => m.setAssistantEnabled(!m.isAssistantEnabled())));
   addEventListener('asst:change', lab); lab();
@@ -62,13 +62,13 @@ function buildShell() {
       h('label', { class: 'btn primary', for: 'fileApp', style: { width: '100%', margin: '6px 0 4px' } }, h('span', { html: ico('plus') }), L('Neue Vorlesung', 'New lecture')), fileIn,
       h('div', { class: 'grp' }, L('Deine Skripte', 'Your slides')), list,
       h('div', { class: 'grp' }, L('Ohne Skript', 'No slides needed')),
-      h('button', { class: 'doc-item', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({ doc: S.doc && location.hash.includes(S.doc.id) ? S.doc : null, onClose: () => { forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } }); } }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, L('Mit Max sprechen', 'Talk to Max'))),
-      h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, L('Max erklärt ein Thema', 'Max explains a topic'))),
+      h('button', { class: 'doc-item', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({ doc: S.doc && location.hash.includes(S.doc.id) ? S.doc : null, onClose: () => { forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } }); } }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, L('Sprich mit mir', 'Talk to me'))),
+      h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, L('Ich erklär dir ein Thema', 'I’ll explain a topic'))),
       h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('whistle') }), h('span', { class: 'nm' }, L('BWL-Trainer', 'Business trainer')))),
     h('div', { class: 'bottom' }, outLangSwitch(), accountChip(), quotaEl,
-      h('div', { style: { display: 'grid', gap: '2px' } },
-        feedbackButton('btn sm ghost'),
-        h('button', { class: 'btn sm ghost', onclick: settings }, L('Daten & Sicherung', 'Data & backup')),
+      h('div', { class: 'side-links' },
+        h('button', { type: 'button', onclick: openFeedback }, L('★ Feedback', '★ Feedback')),
+        h('button', { type: 'button', onclick: settings }, L('Daten & Sicherung', 'Data & backup')),
         asstToggle())));
   const title = h('h1', {});
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
@@ -201,7 +201,7 @@ function emptyState(root) {
       h('button', { class: 'btn lg', onclick: () => startSample() }, L('Beispiel ansehen', 'See an example')),
       h('a', { class: 'btn lg ghost', href: '#/app/trainer' }, 'Trainer')),
     topicForm({ cls: 'askbar inapp' }),
-    h('button', { class: 'talklink', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({}); } }, h('span', { html: ico('mic') }), L('oder einfach mit Max quatschen', 'or just chat with Max')))));
+    h('button', { class: 'talklink', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({}); } }, h('span', { html: ico('mic') }), L('oder quatsch einfach mit mir', 'or just chat with me')))));
   face(f);
   dropAnywhere(root);
 }
@@ -268,7 +268,7 @@ async function settings() {
 // ---------- Thema ohne Skript: Max schreibt ein Kurzskript ----------
 const TOPIC_EXAMPLES = L(['Kapitalwertmethode', 'Latente Steuern', 'Preiselastizität', 'Break-even-Analyse', 'Abschreibungen nach HGB', 'Cournot-Oligopol', 'Leverage-Effekt', 'IFRS 16 Leasing', 'Deckungsbeitrag', 'Opportunitätskosten'], ['Net present value', 'Deferred taxes', 'Price elasticity', 'Break-even analysis', 'Depreciation', 'Cournot oligopoly', 'Leverage effect', 'IFRS 16 leases', 'Contribution margin', 'Opportunity cost']);
 export function topicForm({ cls = 'askbar', target = null } = {}) {
-  const inp = h('input', { class: 'tin', maxlength: 160, 'aria-label': L('Was soll Max dir erklären?', 'What should Max explain?'), placeholder: L('Sag mir, was ich dir erklären soll …', 'Tell me what to explain …'), enterkeyhint: 'go' });
+  const inp = h('input', { class: 'tin', maxlength: 160, 'aria-label': L('Was soll ich dir erklären?', 'What should I explain?'), placeholder: L('Sag mir, was ich dir erklären soll …', 'Tell me what to explain …'), enterkeyhint: 'go' });
   const fEl = h('span', { class: 'af' });
   const BTN = L({ plan: 'Plan bauen', quiz: 'Quiz bauen', karten: 'Karten machen', podcast: 'Folge aufnehmen', zettel: 'Lernzettel schreiben', pfad: 'Lernpfad bauen' }, { plan: 'Build plan', quiz: 'Build quiz', karten: 'Make flashcards', podcast: 'Record episode', zettel: 'Write study sheet', pfad: 'Build study path' });
   const btn = h('button', { class: 'btn primary', type: 'submit' }, BTN[target] || L('Erklär’s mir', 'Explain it'));
@@ -306,7 +306,7 @@ export function topicForm({ cls = 'askbar', target = null } = {}) {
 
 async function topicPrompt() {
   const form = topicForm({ cls: 'askbar inmodal' });
-  const p = modal({ title: L('Was soll Max dir erklären?', 'What should Max explain?'), text: L('Kein Skript nötig: Max schreibt dir ein Kurzskript zum Thema – mit Beispiel, Formeln und typischen Klausurfehlern. Danach gehen Quiz, Karten, Lernpfad und Podcast wie gewohnt. 2 Einheiten.', 'No slides needed: Max writes you a short script on the topic – with an example, formulas and typical exam mistakes. After that, quiz, flashcards, study path and podcast work as usual. 2 credits.'), body: form, actions: [] });
+  const p = modal({ title: L('Was soll ich dir erklären?', 'What should I explain?'), text: L('Kein Skript nötig: Ich schreib dir ein Kurzskript zum Thema – mit Beispiel, Formeln und typischen Klausurfehlern. Danach gehen Quiz, Karten, Lernpfad und Podcast wie gewohnt. 2 Einheiten.', 'No slides needed: I’ll write you a short script on the topic – with an example, formulas and typical exam mistakes. After that, quiz, flashcards, study path and podcast work as usual. 2 credits.'), body: form, actions: [] });
   form.addEventListener('topicok', () => document.querySelector('.modal-bg')?.remove());
   setTimeout(() => form.querySelector('input')?.focus(), 80);
   return p;
@@ -315,12 +315,12 @@ async function topicPrompt() {
 export async function startTopic(topic) {
   if (!shell) { buildShell(); await refreshList(); }
   if (location.hash !== '#/app/neu') location.hash = '#/app/neu';
-  shell.title.textContent = L('Max schreibt …', 'Max is writing …');
+  shell.title.textContent = L('Ich schreibe …', 'Writing …');
   shell.tabs.replaceChildren();
   current.key = 'topic';
   const f = h('div', { class: 'face' }), sub = h('div', { class: 'sub' }), bar = h('i');
   shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f,
-    h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, L(`Max schreibt dir ein Kurzskript zu „${topic}“`, `Max is writing you a short script on “${topic}”`)),
+    h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, L(`Ich schreib dir ein Kurzskript zu „${topic}“`, `I’m writing you a short script on “${topic}”`)),
     h('div', { class: 'bar' }, bar), sub)));
   const fc = face(f); fc.set('think');
   const tb = thought(f, 'topic', [L('Ich schreibe das Kurzskript …', 'Writing the short script …'), L('Beispiel wird durchgerechnet …', 'Working through the example …'), L('Ich prüfe die Zahlen …', 'Checking the numbers …')]);
@@ -334,7 +334,7 @@ export async function startTopic(topic) {
   try {
     const r = await ask('topic', { opts: { topic, spice: getSpice() } });
     const pages = (r.data?.pages || []).map(String).filter(x => x.trim().length > 20);
-    if (pages.length < 2) throw Object.assign(new Error(L('Max hat sich verhaspelt. Versuch es nochmal.', 'Max got tongue-tied. Try again.')), { code: 'format' });
+    if (pages.length < 2) throw Object.assign(new Error(L('Ich hab mich verhaspelt. Versuch es nochmal.', 'I got tongue-tied. Try again.')), { code: 'format' });
     clearInterval(iv); tb.stop(); bar.style.width = '100%'; fc.set('happy');
     const name = String(r.data.title || topic).slice(0, 80);
     const d = await createDoc({ name, pages, chars: pages.join('').length, generated: true, topic });
@@ -357,11 +357,11 @@ function mobileTip() {
   const f = h('span', { class: 'mtf' });
   const close = () => { ls.set('tutor.mobileTip', 1); tip.classList.add('out'); setTimeout(() => tip.remove(), 300); };
   const tip = h('div', { class: 'mtip', role: 'status' }, f,
-    h('div', {}, h('b', {}, L('Tipp von Max', 'Tip from Max')), h('span', {}, L('Am Laptop oder iPad kann ich dir am besten helfen – da passt die Tafel neben den Chat. Am Handy geht aber auch alles.', 'I work best on a laptop or iPad – the whiteboard fits right next to the chat. Everything works on your phone too, though.'))),
+    h('p', { class: 'mtx' }, h('b', {}, L('Tipp: ', 'Tip: ')), L('Am Laptop oder iPad passt die Tafel neben den Chat.', 'On a laptop or iPad the whiteboard fits next to the chat.')),
     h('button', { class: 'iconbtn', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: close }));
   document.body.appendChild(tip);
   face(f, { follow: false });
-  setTimeout(() => { if (tip.isConnected) close(); }, 14000);
+  setTimeout(() => { if (tip.isConnected) close(); }, 9000);
 }
 
 // Nach Upload/Thema: direkt zur gewählten Funktion (vom „Ausprobieren“ auf der Startseite)
@@ -416,10 +416,10 @@ function outLangSwitch() {
   const cur = getOutLang();
   const btns = [['de', 'Deutsch'], ['en', 'English']].map(([k, l]) => {
     const b = h('button', { type: 'button', class: k === cur ? 'on' : '' }, l);
-    b.addEventListener('click', () => { setOutLang(k); btns.forEach(x => x.classList.toggle('on', x === b)); toast(k === 'en' ? 'Max answers in English now.' : 'Max antwortet jetzt auf Deutsch.'); });
+    b.addEventListener('click', () => { setOutLang(k); btns.forEach(x => x.classList.toggle('on', x === b)); toast(k === 'en' ? 'I’ll answer in English now.' : 'Ich antworte jetzt auf Deutsch.'); });
     return b;
   });
-  return h('div', { class: 'olang', title: L('Sprache von Max’ Antworten, Quiz, Karten und Podcast', 'Language of Max’s answers, quizzes, flashcards and podcast') }, h('span', {}, L('Max antwortet auf', 'Max answers in')), h('div', { class: 'seg' }, btns));
+  return h('div', { class: 'olang', title: L('Sprache meiner Antworten, Quiz, Karten und Podcast', 'Language of my answers, quizzes, flashcards and podcast') }, h('span', {}, L('Ich antworte auf', 'I answer in')), h('div', { class: 'seg' }, btns));
 }
 
 // Sprache der Oberfläche: DE | EN

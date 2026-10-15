@@ -4,7 +4,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save, track } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn } from '../ui.js';
+import { loading, apiError, costBtn, moreOpts } from '../ui.js';
 import { renderQuestion, normalize, TYPE_LABEL, explainPrompt } from '../quiz.js';
 import { feedbackButton } from '../feedback.js';
 import { ls as lsq } from '../util.js';
@@ -43,10 +43,11 @@ function overview(wrap, ctx, pre) {
     h('div', { class: 'setup' },
       h('div', { class: 'grid' },
         h('div', {}, h('label', { class: 'l' }, L('Thema', 'Topic')), sel),
-        h('div', {}, h('label', { class: 'l' }, L('Anzahl', 'Number of questions')), chips([[5, '5'], [8, '8'], [12, '12']], v => st.count === v, v => st.count = v)),
         h('div', {}, h('label', { class: 'l' }, L('Schwierigkeit', 'Difficulty')), chips(DIFF, v => st.diff === v, v => st.diff = v))),
-      h('div', { style: { marginTop: '18px' } }, h('label', { class: 'l' }, L('Fragetypen', 'Question types')),
-        chips(TYPES.map(t => [t, TYPE_LABEL[t]]), v => st.types.has(v), v => { if (st.types.has(v) && st.types.size > 1) st.types.delete(v); else st.types.add(v); })),
+      moreOpts(
+        h('div', { class: 'grid' }, h('div', {}, h('label', { class: 'l' }, L('Anzahl', 'Number of questions')), chips([[5, '5'], [8, '8'], [12, '12']], v => st.count === v, v => st.count = v))),
+        h('div', { style: { marginTop: '18px' } }, h('label', { class: 'l' }, L('Fragetypen', 'Question types')),
+          chips(TYPES.map(t => [t, TYPE_LABEL[t]]), v => st.types.has(v), v => { if (st.types.has(v) && st.types.size > 1) st.types.delete(v); else st.types.add(v); }))),
       h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn(L('Quiz erstellen', 'Create quiz'), 'quiz', () => generate(wrap, ctx, st), 'btn primary lg'))),
     h('div', { class: 'hub', style: { marginTop: '16px' } },
       h('button', { class: 'tile half dark', onclick: () => exam(wrap, ctx) }, h('div', { class: 'ti', html: ico('exam') }), h('h3', {}, L('Probeklausur', 'Mock exam')), h('p', {}, L('12 Aufgaben auf Klausurniveau, mit Zeit und Notenschätzung.', '12 exam-level tasks, timed, with an estimated grade.')), h('div', { class: 'foot' }, L('3 Einheiten · 45 Minuten', '3 credits · 45 minutes'))),
