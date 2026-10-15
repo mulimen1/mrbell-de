@@ -1,7 +1,9 @@
 // Einstieg: Landingpage (mit Animationen) + Router
 import { $, $$, h, sleep } from './util.js';
 import { face } from './face.js';
-import { mountApp, startUpload, startSample } from './app.js';
+import { mountApp, startUpload, startSample, topicForm } from './app.js';
+import { openLogin, openAccount, verifyLink } from './account.js';
+import { onAccount, getAccount } from './api.js';
 import { applyThemeButtons } from './theme.js';
 import { lines as maxLines } from './max.js';
 
@@ -41,14 +43,26 @@ function initLanding() {
     setInterval(() => { if (!sp[0]?.isConnected) return; si = (si + 1) % 3; sp.forEach((x, k) => x.classList.toggle('on', k === si)); fs.forEach((f, k) => f.set(k === si ? (si === 2 ? 'smug' : si === 1 ? 'happy' : 'idle') : 'idle')); }, 2200);
   }
 
-  // Begrüßung tippen
+  // Ohne Skript: Max erklärt ein Thema
+  $('#topicSlot')?.appendChild(topicForm());
+
+  // Mit Max sprechen (direkt aus der Sprechblase)
+  $$('[data-voice]').forEach(b => b.addEventListener('click', async () => { const { openVoice } = await import('./voice.js'); openVoice({}); }));
+
+  // Anmelden (dezent in der Navigation)
+  const nl = $('[data-login]');
+  if (nl) { nl.addEventListener('click', () => getAccount() ? openAccount() : openLogin()); onAccount(a => { nl.textContent = a ? 'Konto' : 'Anmelden'; }); }
+
+  // Begrüßung tippen (Sprechblase)
   const g = $('#greet');
+  const bub = g.closest('.bubble');
   const lines = maxLines('greet');
   let li = 0;
   (async function type() {
     await sleep(900);
     while (g.isConnected) {
       const t = lines[li++ % lines.length];
+      if (bub && !reduce) bub.animate([{ transform: 'scale(.92)' }, { transform: 'scale(1.03)' }, { transform: 'scale(1)' }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)' });
       for (let i = 0; i <= t.length; i++) { g.replaceChildren(t.slice(0, i), h('span', { class: 'cur' })); await sleep(28 + Math.random() * 30); }
       await sleep(3400);
       for (let i = t.length; i >= 0; i -= 2) { g.replaceChildren(t.slice(0, i), h('span', { class: 'cur' })); await sleep(12); }
@@ -65,9 +79,11 @@ function initLanding() {
   // Scroll: Erscheinen, Karten fliegen aus verschiedenen Richtungen ein
   $$('.pin.fly').forEach((p, k) => { p.style.setProperty('--fx', (k % 2 ? 1 : -1) * (40 + (k * 37) % 80) + 'px'); p.style.setProperty('--fr', ((k % 3) - 1) * 7 + 'deg'); p.style.transitionDelay = (k % 3) * 90 + 'ms'; });
   $$('.step3.reveal, .privacy li.reveal, .plan.reveal, .faq details.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 3) * 90 + 'ms'; });
+  // Erscheinen beim Runterscrollen; scrollt man wieder hoch, verschwinden die Elemente unterhalb
+  // (nie die, die man gerade sieht) – beim nächsten Runterscrollen erscheinen sie neu.
   const io = new IntersectionObserver(es => es.forEach(e => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('in'); io.unobserve(e.target);
+    if (e.isIntersecting) { e.target.classList.add('in'); return; }
+    if (e.boundingClientRect.top > innerHeight && !e.target.matches('details[open], .faq details')) e.target.classList.remove('in');
   }), { threshold: .14, rootMargin: '0px 0px -6% 0px' });
   $$('.reveal, .pin.fly, h2[data-split]').forEach(el => io.observe(el));
 
@@ -112,7 +128,9 @@ function initLanding() {
 
 // ---------- Router ----------
 async function route() {
-  const hash = location.hash || '#/';
+  let hash = location.hash || '#/';
+  const lm = hash.match(/^#\/login\/([A-Za-z0-9_-]{20,60})\/(\d{6})$/);
+  if (lm) { history.replaceState(null, '', location.pathname + '#/app'); hash = '#/app'; verifyLink(lm[1], lm[2]); }
   const inApp = hash.startsWith('#/app');
   $('#landing').classList.toggle('hidden', inApp);
   $('#app').classList.toggle('hidden', !inApp);

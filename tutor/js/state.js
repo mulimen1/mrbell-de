@@ -22,8 +22,8 @@ export async function openDoc(id) {
   if (!d) return null;
   S.doc = migrate(d); kv.set('last', id); emit(); return S.doc;
 }
-export async function createDoc({ name, pages, chars, sample = false }) {
-  const d = migrate({ id: uid(), name, pages, chars, created: Date.now(), used: Date.now(), sample });
+export async function createDoc({ name, pages, chars, sample = false, generated = false, topic = '' }) {
+  const d = migrate({ id: uid(), name, pages, chars, created: Date.now(), used: Date.now(), sample, generated, topic });
   await docs.put(d); S.doc = d; kv.set('last', d.id); await refreshList(); return d;
 }
 export async function removeDoc(id) { await docs.del(id); if (S.doc && S.doc.id === id) S.doc = null; await refreshList(); }

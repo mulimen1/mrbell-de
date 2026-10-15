@@ -4,6 +4,7 @@ import { ask } from '../api.js';
 import { save } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
 import { loading, apiError, costBtn } from '../ui.js';
+import { SPICE, getSpice } from '../max.js';
 
 const synth = window.speechSynthesis;
 function voices() { return synth ? synth.getVoices().filter(v => /^de(-|_|$)/i.test(v.lang)) : []; }
@@ -34,7 +35,10 @@ export async function render(root, ctx) {
 
 function intro(wrap, ctx) {
   const { doc } = ctx;
-  let len = 'kurz', focus = -1;
+  let len = 'kurz', focus = -1, tone = getSpice();
+  const TONE_HINT = { 1: 'Komplett sachlich – wie eine gute Vorlesung zum Anhören.', 2: 'Locker, mit ein paar Sprüchen von Max.', 3: 'Max dreht auf: Sylt, Porsche, Papas Holding. Fachlich trotzdem exakt.' };
+  const hint = h('div', { class: 'eyebrow', style: { marginTop: '8px', textTransform: 'none', letterSpacing: 0 } }, TONE_HINT[tone]);
+  const tones = SPICE.map(([k, l]) => { const c = h('button', { class: 'chip' + (k === tone ? ' on' : '') }, l); c.addEventListener('click', () => { tone = k; tones.forEach(x => x.classList.toggle('on', x === c)); hint.textContent = TONE_HINT[k]; }); return c; });
   const sel = h('select', { class: 'field' }, h('option', { value: -1 }, 'Ganzes Skript'), (doc.path?.chapters || []).map((c, i) => h('option', { value: i }, `${i + 1}. ${c.title}`)));
   sel.addEventListener('change', () => focus = +sel.value);
   const lens = [['kurz', 'Kurz · ~5 Min.'], ['lang', 'Lang · ~10 Min.']].map(([k, l]) => { const c = h('button', { class: 'chip' + (k === len ? ' on' : '') }, l); c.addEventListener('click', () => { len = k; lens.forEach(x => x.classList.toggle('on', x === c)); }); return c; });
@@ -46,7 +50,8 @@ function intro(wrap, ctx) {
         h('p', { style: { color: 'var(--mute)', marginTop: 0 } }, 'Lena erklärt, Max fragt nach – mit Beispielen und den typischen Fehlern. Perfekt für Bahn, Gym oder Spaziergang.'),
         h('div', { class: 'setup', style: { marginTop: '18px' } },
           h('div', { class: 'grid' }, h('div', {}, h('label', { class: 'l' }, 'Thema'), sel), h('div', {}, h('label', { class: 'l' }, 'Länge'), h('div', { class: 'chips' }, lens))),
-          h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn('Folge erstellen', 'podcast', () => generate(wrap, ctx, len, focus), 'btn primary lg'))),
+          h('div', { style: { marginTop: '14px' } }, h('label', { class: 'l' }, 'Ton'), h('div', { class: 'chips' }, tones), hint),
+          h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn('Folge erstellen', 'podcast', () => generate(wrap, ctx, len, focus, tone), 'btn primary lg'))),
         !voices().length ? h('p', { class: 'eyebrow', style: { marginTop: '14px' } }, 'Hinweis: Dein Browser hat keine deutsche Stimme – du kannst das Skript trotzdem lesen.') : null)),
     doc.podcasts.length ? h('div', { style: { marginTop: '26px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, 'Deine Folgen'),
       h('div', { class: 'list' }, [...doc.podcasts].reverse().map(p => h('div', { class: 'li', onclick: () => player(wrap, ctx, p) }, h('span', { html: ico('pod') }), h('div', { class: 'gr' }, h('b', {}, p.title), h('span', {}, `${p.lines.length} Abschnitte · ~${minutes(p)} Min.`)))))) : null);
@@ -54,18 +59,18 @@ function intro(wrap, ctx) {
 const minutes = p => Math.max(1, Math.round(p.lines.reduce((a, l) => a + l.t.split(/\s+/).length, 0) / 150));
 function wave() { const w = h('div', { class: 'wave' }); for (let i = 0; i < 30; i++) w.appendChild(h('i', { style: { '--h': (25 + Math.random() * 75) + '%', animationDelay: (i * 53 % 900) + 'ms', animationPlayState: 'paused' } })); return w; }
 
-async function generate(wrap, ctx, len, focus) {
+async function generate(wrap, ctx, len, focus, tone = 2) {
   const { doc } = ctx;
   const ch = focus >= 0 ? doc.path.chapters[focus] : null;
   const ld = loading(wrap, 'Lena und Max nehmen auf …', ['Schreibe das Skript', 'Baue Beispiele ein', 'Max sucht sich eine knifflige Frage', 'Fast fertig']);
   try {
-    const r = await ask('podcast', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { length: len, focus: ch ? ch.title : '' } });
+    const r = await ask('podcast', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { length: len, focus: ch ? ch.title : '', spice: tone } });
     const lines = (r.data?.lines || []).filter(l => l && l.t).map(l => ({ s: /max/i.test(l.s) ? 'Max' : 'Lena', t: String(l.t) }));
     if (lines.length < 4) throw new Error('Die Folge ist nicht vollständig angekommen. Versuch es nochmal.');
     const p = { id: uid(), title: r.data.title || 'Folge', lines, created: Date.now() };
     doc.podcasts.push(p); save(doc);
     ld.stop(); player(wrap, ctx, p);
-  } catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, len, focus)); }
+  } catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, len, focus, tone)); }
 }
 
 function player(wrap, ctx, p) {

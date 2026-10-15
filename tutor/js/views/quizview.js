@@ -5,7 +5,7 @@ import { ask } from '../api.js';
 import { save, track } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
 import { loading, apiError, costBtn } from '../ui.js';
-import { renderQuestion, normalize, TYPE_LABEL } from '../quiz.js';
+import { renderQuestion, normalize, TYPE_LABEL, explainPrompt } from '../quiz.js';
 import { feedbackButton } from '../feedback.js';
 import { ls as lsq } from '../util.js';
 
@@ -112,7 +112,7 @@ function run(wrap, ctx, quiz) {
     prog.style.width = (100 * i / qs.length) + '%';
     count.textContent = `${i + 1} / ${qs.length}`;
     const q = qs[i];
-    const r = renderQuestion(stage, q, { face: fc, onNext: () => { i++; step(); }, nextLabel: i + 1 < qs.length ? 'Weiter' : 'Ergebnis', onAsk: (q, rr) => ctx.ask(explainPrompt(q)) });
+    const r = renderQuestion(stage, q, { face: fc, onNext: () => { i++; step(); }, nextLabel: i + 1 < qs.length ? 'Weiter' : 'Ergebnis', onAsk: (q, rr) => ctx.ask(explainPrompt(q, rr)) });
     r.result.then(x => {
       res[i] = x; track(x.correct);
       const key = q.q;
@@ -146,11 +146,3 @@ function run(wrap, ctx, quiz) {
   step();
 }
 
-function explainPrompt(q) {
-  let s = `Ich habe diese Quizfrage falsch beantwortet: „${q.q}“`;
-  if (q.type === 'mc') s += `\nRichtige Antwort: ${q.correct.map(i => q.options[i]).join(' / ')}`;
-  if (q.type === 'tf') s += `\nDie Aussage ist ${q.correct ? 'richtig' : 'falsch'}.`;
-  if (q.type === 'num') s += `\nLösung: ${fmt(q.answer)} ${q.unit || ''}`;
-  if (q.type === 'cloze') s += `\nLösung: ${q.blanks.join(', ')}`;
-  return s + '\nErklär mir kurz an der Tafel, warum – und woran ich das nächste Mal denke.';
-}

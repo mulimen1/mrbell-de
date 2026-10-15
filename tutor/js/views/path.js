@@ -6,7 +6,7 @@ import { save, track, mastery } from '../state.js';
 import { forWhole, outline, forChapter, fullText } from '../retrieve.js';
 import { loading, apiError, costBtn } from '../ui.js';
 import { sanitize } from '../sanitize.js';
-import { renderQuestion, normalize } from '../quiz.js';
+import { renderQuestion, normalize, explainPrompt } from '../quiz.js';
 
 let pathJob = null;
 export function generatePath(doc) {
@@ -133,7 +133,7 @@ async function lesson(wrap, ctx, idx) {
       if (s.check) {
         chk.appendChild(h('div', { class: 'eyebrow', style: { marginBottom: '12px' } }, 'Kurz geprüft'));
         const qr = h('div'); chk.appendChild(qr);
-        const r = renderQuestion(qr, s.check, { compact: true, showType: false, onNext: next, nextLabel: pos + 1 < steps ? 'Weiter' : 'Abschließen', onAsk: (q) => ctx.ask(`Ich habe die Kontrollfrage nicht verstanden: „${q.q}“. Erklär es mir kurz an der Tafel.`) });
+        const r = renderQuestion(qr, s.check, { compact: true, showType: false, onNext: next, nextLabel: pos + 1 < steps ? 'Weiter' : 'Abschließen', onAsk: (q, rr) => ctx.ask(explainPrompt(q, rr, 'Ich habe diese Kontrollfrage falsch beantwortet')) });
         r.result.then(x => { L.score[pos] = x.score; track(x.correct); save(doc); });
       } else {
         chk.appendChild(h('div', { class: 'qactions' }, h('span', { class: 'sp' }), h('button', { class: 'btn primary', onclick: next }, 'Weiter', h('span', { html: ico('right') }))));
@@ -141,7 +141,7 @@ async function lesson(wrap, ctx, idx) {
     } else if (L.task && pos === L.slides.length) {
       const qr = h('div');
       stage.replaceChildren(bar, h('div', { class: 'eyebrow', style: { margin: '0 0 12px' } }, 'Anwendungsaufgabe · Klausurniveau'), qr);
-      const r = renderQuestion(qr, L.task, { onNext: () => { L.pos++; step(); }, nextLabel: 'Abschließen', onAsk: (q) => ctx.ask(`Hilf mir bei dieser Aufgabe, ohne gleich alles zu verraten: „${q.q}“`) });
+      const r = renderQuestion(qr, L.task, { onNext: () => { L.pos++; step(); }, nextLabel: 'Abschließen', onAsk: (q, rr) => ctx.ask(explainPrompt(q, rr, 'Ich habe diese Anwendungsaufgabe falsch gelöst')) });
       r.result.then(x => { L.score[pos] = x.score * 2; track(x.correct); save(doc); });
     } else {
       // Ende

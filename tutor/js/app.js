@@ -3,7 +3,10 @@ import { $, $$, h, ico, toast, modal, ago, ls } from './util.js';
 import { face } from './face.js';
 import { S, refreshList, openDoc, createDoc, removeDoc, lastDocId, save, onChange, SAMPLE, mastery } from './state.js';
 import { readFile, ACCEPT } from './ingest.js';
-import { onQuota, currentQuota } from './api.js';
+import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
+import { accountChip, refreshAccount } from './account.js';
+import { lines as maxLines, getSpice } from './max.js';
+import { apiError } from './ui.js';
 import { exportAll, importAll, wipe } from './db.js';
 import { applyThemeButtons } from './theme.js';
 import { feedbackButton } from './feedback.js';
@@ -47,9 +50,11 @@ function buildShell() {
     h('div', { class: 'scroll' },
       h('label', { class: 'btn primary', for: 'fileApp', style: { width: '100%', margin: '6px 0 4px' } }, h('span', { html: ico('plus') }), 'Neue Vorlesung'), fileIn,
       h('div', { class: 'grp' }, 'Deine Skripte'), list,
-      h('div', { class: 'grp' }, 'Üben ohne Skript'),
+      h('div', { class: 'grp' }, 'Ohne Skript'),
+      h('button', { class: 'doc-item', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({ doc: S.doc && location.hash.includes(S.doc.id) ? S.doc : null, onClose: () => { forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } }); } }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, 'Mit Max sprechen')),
+      h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, 'Max erklärt ein Thema')),
       h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('calc') }), h('span', { class: 'nm' }, 'BWL-Trainer'))),
-    h('div', { class: 'bottom' }, quotaEl,
+    h('div', { class: 'bottom' }, accountChip(), quotaEl,
       h('div', { style: { display: 'grid', gap: '2px' } },
         feedbackButton('btn sm ghost'),
         h('button', { class: 'btn sm ghost', onclick: settings }, 'Daten & Sicherung'))));
@@ -64,17 +69,20 @@ function buildShell() {
   face(faceEl, {});
   shell = { root, app, side, list, title, tabs, view, quotaEl };
   onQuota(renderQuota);
+  onAccount(() => renderQuota(currentQuota()));
+  refreshAccount();
   onChange(renderList);
   applyThemeButtons();
 }
 
 function renderQuota(q) {
   q = currentQuota() || q;
-  const limit = q?.limit || 40, used = q?.used || 0, left = Math.max(0, limit - used);
+  const acc = getAccount();
+  const limit = q?.limit || (acc?.pro ? 200 : 40), used = q?.used || 0, left = Math.max(0, limit - used);
   shell.quotaEl.replaceChildren(
     h('div', { class: 'row' }, h('span', {}, 'KI heute'), h('span', {}, `${left} / ${limit} frei`)),
     h('div', { class: 'bar' }, h('i', { style: { width: (100 * left / limit) + '%' } })),
-    h('div', { class: 'row', style: { fontSize: '11px' } }, h('span', {}, 'Neu ab 0:00 Uhr'), h('span', {}, 'Pro: bald')));
+    h('div', { class: 'row', style: { fontSize: '11px' } }, h('span', {}, 'Neu ab 0:00 Uhr'), h('span', {}, acc?.pro ? 'Pro aktiv' : acc ? 'Free' : 'Pro: bald')));
 }
 
 function renderList() {
@@ -155,7 +163,12 @@ async function show(key, fn) {
 export function forceRerender() { current.key = ''; }
 
 // Aus Quiz/Trainer heraus: Frage an den Tutor schicken
-export function askTutorAbout(text) {
+export async function askTutorAbout(text, { confirm = true } = {}) {
+  if (confirm) {
+    const short = text.split('\n')[0].replace(/^(Ich habe diese .*?falsch (beantwortet|gelöst)) \(.*?\): /, '$1: ');
+    const ok = await modal({ title: 'Soll Max dir das erklären?', text: (short.length > 160 ? short.slice(0, 157) + '…' : short), actions: [{ label: 'Nein', value: false }, { label: 'Ja, erklär’s mir · 1 Einheit', value: true, primary: true }] });
+    if (!ok) return;
+  }
   if (!S.doc) { const id = S.list[0]?.id; if (!id) { toast('Lad zuerst ein Skript hoch.'); return; } openDoc(id); }
   ls.set('tutor.pendingAsk', text);
   forceRerender();
@@ -170,7 +183,8 @@ function emptyState(root) {
     h('p', {}, 'Zieh dein Vorlesungsskript hier rein – PDF, PowerPoint oder Word. Die Datei bleibt auf deinem Gerät.'),
     h('div', { style: { display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' } }, lab,
       h('button', { class: 'btn lg', onclick: () => startSample() }, 'Beispiel ansehen'),
-      h('a', { class: 'btn lg ghost', href: '#/app/trainer' }, 'Trainer')))));
+      h('a', { class: 'btn lg ghost', href: '#/app/trainer' }, 'Trainer')),
+    topicForm({ cls: 'askbar inapp' }))));
   face(f);
   dropAnywhere(root);
 }
@@ -217,10 +231,10 @@ export async function startSample() {
 
 // ---------- Einstellungen ----------
 async function settings() {
-  const imp = h('input', { type: 'file', accept: '.json', class: 'sr' });
+  const imp = h('input', { type: 'file', accept: '.bwlmax,.json', class: 'sr' });
   const body = h('div', { style: { display: 'grid', gap: '10px' } },
-    h('button', { class: 'btn', onclick: async () => { const b = await exportAll(); const a = h('a', { href: URL.createObjectURL(b), download: 'tutor-sicherung.json' }); document.body.appendChild(a); a.click(); a.remove(); toast('Sicherung gespeichert.'); } }, h('span', { html: ico('download') }), 'Sicherung herunterladen'),
-    h('label', { class: 'btn' }, imp, h('span', { html: ico('upload') }), 'Sicherung einspielen'),
+    h('button', { class: 'btn', onclick: async () => { const b = await exportAll(); const a = h('a', { href: URL.createObjectURL(b), download: `BWL-Max-Sicherung-${new Date().toISOString().slice(0, 10)}.bwlmax` }); document.body.appendChild(a); a.click(); a.remove(); toast('Sicherung gespeichert – liegt in deinen Downloads.'); } }, h('span', { html: ico('download') }), 'Lernstand als Datei sichern'),
+    h('label', { class: 'btn' }, imp, h('span', { html: ico('upload') }), 'Gesicherten Lernstand wiederherstellen'),
     h('button', { class: 'btn', onclick: async () => {
       const ok = await modal({ title: 'Wirklich alles löschen?', text: 'Alle Skripte, Quizze, Karten und Chats werden von diesem Gerät gelöscht. Das lässt sich nicht rückgängig machen.', actions: [{ label: 'Abbrechen', value: false }, { label: 'Alles löschen', value: true, primary: true }] });
       if (ok) { await wipe(); location.hash = '#/'; location.reload(); }
@@ -228,5 +242,77 @@ async function settings() {
   imp.addEventListener('change', async () => {
     try { const n = await importAll(imp.files[0]); await refreshList(); toast(`${n} Skript(e) wiederhergestellt.`); } catch (e) { toast('Das ist keine gültige BWL-Max-Sicherung.'); }
   });
-  await modal({ title: 'Daten & Sicherung', text: 'Alles liegt nur auf diesem Gerät. Sichere deinen Stand als Datei, um ihn auf ein anderes Gerät mitzunehmen.', body, actions: [{ label: 'Fertig', value: true, primary: true }] });
+  await modal({ title: 'Daten & Sicherung', text: 'Dein Lernstand liegt nur auf diesem Gerät. Mit „Sichern“ bekommst du eine .bwlmax-Datei in deine Downloads – die musst du nicht öffnen. Auf einem anderen Gerät (oder nach dem Löschen) wählst du sie bei „Wiederherstellen“ aus, und alles ist wieder da.', body, actions: [{ label: 'Fertig', value: true, primary: true }] });
+}
+
+// ---------- Thema ohne Skript: Max schreibt ein Kurzskript ----------
+const TOPIC_EXAMPLES = ['Kapitalwertmethode', 'Latente Steuern', 'Preiselastizität', 'Break-even-Analyse', 'Abschreibungen nach HGB', 'Cournot-Oligopol', 'Leverage-Effekt', 'IFRS 16 Leasing', 'Deckungsbeitrag', 'Opportunitätskosten'];
+export function topicForm({ cls = 'askbar' } = {}) {
+  const inp = h('input', { class: 'tin', maxlength: 160, 'aria-label': 'Was soll Max dir erklären?', placeholder: 'Sag mir, was ich dir erklären soll …', enterkeyhint: 'go' });
+  const fEl = h('span', { class: 'af' });
+  const btn = h('button', { class: 'btn primary', type: 'submit' }, 'Erklär’s mir');
+  const form = h('form', { class: cls }, fEl, inp, btn);
+  face(fEl, {});
+  form.addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (t.length < 2) { inp.focus(); return; } startTopic(t); });
+  // Beispiele im Platzhalter durchtippen
+  let k = Math.floor(Math.random() * TOPIC_EXAMPLES.length), stop = false;
+  inp.addEventListener('focus', () => { stop = true; inp.placeholder = 'z. B. ' + TOPIC_EXAMPLES[k % TOPIC_EXAMPLES.length]; });
+  (async () => {
+    await new Promise(r => setTimeout(r, 2600));
+    while (form.isConnected && !stop) {
+      const t = 'Erklär mir … ' + TOPIC_EXAMPLES[k++ % TOPIC_EXAMPLES.length];
+      for (let i = 13; i <= t.length && !stop; i++) { inp.placeholder = t.slice(0, i); await new Promise(r => setTimeout(r, 45)); }
+      await new Promise(r => setTimeout(r, 2200));
+      if (!stop) inp.placeholder = 'Sag mir, was ich dir erklären soll …';
+      await new Promise(r => setTimeout(r, 2600));
+    }
+  })();
+  return form;
+}
+
+async function topicPrompt() {
+  const form = topicForm({ cls: 'askbar inmodal' });
+  const p = modal({ title: 'Was soll Max dir erklären?', text: 'Kein Skript nötig: Max schreibt dir ein Kurzskript zum Thema – mit Beispiel, Formeln und typischen Klausurfehlern. Danach gehen Quiz, Karten, Lernpfad und Podcast wie gewohnt. 2 Einheiten.', body: form, actions: [] });
+  form.addEventListener('submit', () => document.querySelector('.modal-bg')?.remove());
+  setTimeout(() => form.querySelector('input')?.focus(), 80);
+  return p;
+}
+
+export async function startTopic(topic) {
+  if (!shell) { buildShell(); await refreshList(); }
+  if (location.hash !== '#/app/neu') location.hash = '#/app/neu';
+  shell.title.textContent = 'Max schreibt …';
+  shell.tabs.replaceChildren();
+  current.key = 'topic';
+  const f = h('div', { class: 'face' }), sub = h('div', { class: 'sub' }), bar = h('i');
+  shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f,
+    h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, `Max schreibt dir ein Kurzskript zu „${topic}“`),
+    h('div', { class: 'bar' }, bar), sub)));
+  const fc = face(f); fc.set('think');
+  const lines = ['Ich sortiere kurz meine Gedanken …', ...maxLines('thinking'), 'Beispiel wird durchgerechnet …', 'Ich prüfe die Zahlen zweimal …', 'Typische Klausurfehler kommen rein …'];
+  let i = 0; const t0 = Date.now();
+  const iv = setInterval(() => {
+    if (!sub.isConnected) return clearInterval(iv);
+    const s = (Date.now() - t0) / 1000;
+    bar.style.width = Math.min(92, 100 * (1 - Math.exp(-s / 22))) + '%';
+    if (Math.round(s * 4) % 12 === 0) sub.textContent = lines[i++ % lines.length];
+  }, 250);
+  sub.textContent = lines[0];
+  try {
+    const r = await ask('topic', { opts: { topic, spice: getSpice() } });
+    const pages = (r.data?.pages || []).map(String).filter(x => x.trim().length > 20);
+    if (pages.length < 2) throw Object.assign(new Error('Max hat sich verhaspelt. Versuch es nochmal.'), { code: 'format' });
+    clearInterval(iv); bar.style.width = '100%'; fc.set('happy');
+    const name = String(r.data.title || topic).slice(0, 80);
+    const d = await createDoc({ name, pages, chars: pages.join('').length, generated: true, topic });
+    current.key = '';
+    ls.set('tutor.pendingAsk', `Erklär mir „${topic}“ von Grund auf – mit Beispiel an der Tafel.`);
+    location.hash = `#/app/${d.id}/tutor`;
+  } catch (e) {
+    clearInterval(iv); fc.set('sad');
+    if (e.code === 'limit') { await apiError(e); go(''); return; }
+    sub.textContent = e.message || 'Das hat nicht geklappt.';
+    sub.after(h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } },
+      h('button', { class: 'btn primary', onclick: () => startTopic(topic) }, 'Nochmal versuchen'), h('button', { class: 'btn', onclick: () => topicPrompt() }, 'Anderes Thema')));
+  }
 }

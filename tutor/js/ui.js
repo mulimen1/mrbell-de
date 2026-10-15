@@ -1,7 +1,7 @@
 // Gemeinsame UI-Bausteine: Ladeanzeige mit Gesicht, Fehler/Limit-Dialog
 import { h, ico, modal, toast } from './util.js';
 import { face } from './face.js';
-import { COST, currentQuota } from './api.js';
+import { COST, currentQuota, getAccount } from './api.js';
 import { say } from './max.js';
 
 export function loading(root, title, lines = []) {
@@ -20,11 +20,13 @@ export function loading(root, title, lines = []) {
 export async function apiError(e, retry) {
   if (e && e.name === 'AbortError') return;
   if (e && e.code === 'limit') {
-    await modal({
+    const acc = getAccount();
+    const r = await modal({
       title: 'Max macht Feierabend',
-      text: say('limit') + ' Mit Pro (bald) gibt’s kein Limit.',
-      actions: [{ label: 'Alles klar', value: true, primary: true }]
+      text: say('limit') + (acc ? (acc.pro ? ' Selbst mit Pro ist heute Schluss – morgen geht’s weiter.' : ' Ab 0:00 Uhr gibt’s neue Einheiten. Pro ohne Limit kommt bald.') : ' Ab 0:00 Uhr gibt’s neue Einheiten – oder du meldest dich kostenlos an und bekommst 7 Tage Pro ohne Tageslimit.'),
+      actions: acc ? [{ label: 'Alles klar', value: false, primary: true }] : [{ label: 'Später', value: false }, { label: 'Anmelden · 7 Tage Pro', value: true, primary: true }]
     });
+    if (r) { const { openLogin } = await import('./account.js'); if (await openLogin({ title: 'Weiterlernen mit 7 Tagen Pro' }) && retry) retry(); }
     return;
   }
   const r = await modal({ title: 'Das hat nicht geklappt', text: (e && e.message) || 'Unbekannter Fehler.', actions: retry ? [{ label: 'Schließen', value: false }, { label: 'Nochmal versuchen', value: true, primary: true }] : [{ label: 'OK', value: false, primary: true }] });

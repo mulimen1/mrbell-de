@@ -7,6 +7,7 @@ import { forChat } from '../retrieve.js';
 import { apiError } from '../ui.js';
 import { sanitize, richText } from '../sanitize.js';
 import { say, SPICE, getSpice, setSpice, NAME } from '../max.js';
+import { openVoice } from '../voice.js';
 
 const ACTIONS = {
   quiz: ['Quiz dazu starten', d => `#/app/${d.id}/quiz`],
@@ -41,6 +42,8 @@ export async function render(root, ctx) {
   const sugg = h('div', { class: 'suggest' });
   const ta = h('textarea', { rows: 1, placeholder: 'Frag Max etwas zu deinem Skript …', 'aria-label': 'Nachricht' });
   const send = h('button', { class: 'send', 'aria-label': 'Senden', html: ico('send'), disabled: true });
+  const talk = () => openVoice({ doc, onClose: async () => { const m = await import('../app.js'); m.forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } });
+  const micBtn = h('button', { class: 'micbtn', type: 'button', 'aria-label': 'Mit Max sprechen', title: 'Mit Max sprechen', html: ico('mic'), onclick: talk });
   const modeBtns = [['erklaeren', 'Erklären'], ['sokratisch', 'Sokratisch']].map(([k, l]) => {
     const b = h('button', { class: 'chip' + (mode === k ? ' on' : ''), title: k === 'sokratisch' ? 'Führt dich mit Fragen zur Lösung, statt sie zu verraten' : 'Erklärt direkt' }, l);
     b.addEventListener('click', () => { mode = k; ls.set('tutor.mode', k); modeBtns.forEach(x => x.classList.toggle('on', x === b)); });
@@ -50,9 +53,10 @@ export async function render(root, ctx) {
   spiceSel.addEventListener('change', () => { setSpice(+spiceSel.value); fc.pulse(+spiceSel.value === 3 ? 'smug' : 'happy', 1200); });
   const chatcol = h('section', { class: 'chatcol' },
     h('div', { class: 'chathead' }, fEl, h('div', { style: { flex: 1, minWidth: 0 } }, h('b', {}, NAME), h('span', {}, 'kennt „' + doc.name + '“')), spiceSel,
+      h('button', { class: 'btn sm talkbtn', type: 'button', onclick: talk }, h('span', { html: ico('mic') }), h('span', { class: 'lbl' }, 'Sprechen')),
       h('button', { class: 'iconbtn mob-only', 'aria-label': 'Tafel zeigen', html: ico('board'), onclick: () => showBoard(true) })),
     msgs, sugg,
-    h('div', { class: 'composer' }, h('div', { class: 'box' }, ta, send), h('div', { class: 'opts' }, h('span', {}, 'Modus'), ...modeBtns, h('span', { style: { marginLeft: 'auto' } }, '1 Einheit'))));
+    h('div', { class: 'composer' }, h('div', { class: 'box' }, ta, micBtn, send), h('div', { class: 'opts' }, h('span', {}, 'Modus'), ...modeBtns, h('span', { style: { marginLeft: 'auto' } }, '1 Einheit'))));
   const btitle = h('div', { class: 'tt' });
   const bcount = h('span', { class: 'cnt' });
   const prev = h('button', { class: 'iconbtn', 'aria-label': 'Vorherige Tafel', html: ico('left'), onclick: () => go(-1) });

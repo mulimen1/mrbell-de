@@ -2,6 +2,8 @@
 import { h, shuffle, parseNum, fmt, ico, esc } from './util.js';
 import { richText } from './sanitize.js';
 import { say } from './max.js';
+import { face } from './face.js';
+import { S } from './state.js';
 
 export const TYPE_LABEL = { mc: 'Multiple Choice', tf: 'Richtig oder falsch', match: 'Zuordnen', order: 'Reihenfolge', cloze: 'Lückentext', num: 'Rechenaufgabe' };
 const KEYS = 'ABCDEFGH';
@@ -86,7 +88,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
           const w = q.why[oi];
           if (w && (sel.has(oi) || q.correct.includes(oi))) b.querySelector('.tx').appendChild(h('span', { class: 'why' }, w));
         });
-        return { correct: ok, score: ok ? 1 : Math.max(0, (hit - miss) / q.correct.length) * .5 };
+        return { correct: ok, score: ok ? 1 : Math.max(0, (hit - miss) / q.correct.length) * .5, given: [...sel].map(i => q.options[i]).join(' / ') };
       }
     };
   }
@@ -107,7 +109,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
         [bt, bf].forEach(b => b.classList.add('locked'));
         (q.correct ? bt : bf).classList.add('right'); if (!ok) (q.correct ? bf : bt).classList.add('wrong');
         bt.classList.remove('sel'); bf.classList.remove('sel');
-        return { correct: ok, score: ok ? 1 : 0 };
+        return { correct: ok, score: ok ? 1 : 0, given: v == null ? '' : (v ? 'richtig' : 'falsch') };
       }
     };
   }
@@ -149,7 +151,8 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
           lEls[lk].classList.add(ok ? 'right' : 'wrong'); rEls[rk].classList.add(ok ? 'right' : 'wrong');
         }
         lEls.forEach((e, k) => { if (!lEls[k].classList.contains('right')) { const r = q.pairs[left[k].i][1]; e.appendChild(h('span', { class: 'why', style: { display: 'block', fontSize: '12.5px', marginTop: '6px', opacity: .8 } }, '→ ' + r)); } });
-        return { correct: good === left.length, score: good / left.length };
+        const given = [...link].map(([lk, rk]) => `${left[lk].t} → ${right[rk].t}${left[lk].i === right[rk].i ? ' (richtig)' : ' (falsch)'}`).join('\n');
+        return { correct: good === left.length, score: good / left.length, given };
       }
     };
   }
@@ -196,7 +199,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
         let good = 0;
         [...list.children].forEach((el, k) => { const ok = cur[k].i === k; if (ok) good++; el.classList.add(ok ? 'right' : 'wrong'); el.querySelector('.mv').remove(); });
         if (good < cur.length) list.appendChild(h('div', { class: 'feedback', style: { marginTop: '6px' } }, h('b', {}, 'Richtige Reihenfolge'), h('ol', { style: { margin: '8px 0 0', paddingLeft: '20px' } }, q.items.map(t => h('li', {}, t)))));
-        return { correct: good === cur.length, score: good / cur.length };
+        return { correct: good === cur.length, score: good / cur.length, given: cur.map((c, k) => `${k + 1}. ${c.t}`).join('\n') };
       }
     };
   }
@@ -244,7 +247,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
           if (!ok) g.after(h('b', { style: { margin: '0 4px', fontSize: '15px' } }, '→ ' + q.blanks[i]));
         });
         chips.forEach(c => c.classList.add('used'));
-        return { correct: good === gaps.length, score: good / gaps.length };
+        return { correct: good === gaps.length, score: good / gaps.length, given: fills.map(f => f == null ? '(leer)' : words[f].w).join(' / ') };
       }
     };
   }
@@ -264,7 +267,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
         let note = '';
         if (!ok && q.unit && /%/.test(q.unit) && Math.abs(v * 100 - a) <= tol) { ok = true; note = 'Stimmt – in Prozent wären das ' + fmt(a) + ' %.'; }
         inp.disabled = true; inp.style.borderColor = 'var(--ink)'; if (!ok) inp.style.borderStyle = 'dashed';
-        return { correct: ok, score: ok ? 1 : 0, note };
+        return { correct: ok, score: ok ? 1 : 0, note, given: inp.value };
       }
     };
   }
@@ -274,7 +277,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
   function doCheck(skipped = false) {
     if (done || (!skipped && checkBtn.disabled)) return;
     done = true;
-    const r = skipped ? { correct: false, score: 0 } : api.check();
+    const r = skipped ? { correct: false, score: 0, skipped: true } : api.check();
     if (skipped && api) try { api.check(); } catch (e) {}
     lastR = { ...r, skipped };
     showFeedback(r, skipped);
@@ -285,12 +288,12 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
   }
   function showFeedback(r, skipped) {
     const f = h('div', { class: 'feedback' + (r.correct ? '' : ' bad') },
-      h('div', { class: 'verdict' }, h('span', { class: 'badge', html: r.correct ? ico('check') : ico('x') }), r.correct ? say('right') : skipped ? 'Kein Problem – so geht’s:' : (r.score > 0 ? 'Teilweise richtig.' : say('wrong'))),
+      h('div', { class: 'verdict' }, maxBadge(r.correct ? 'happy' : 'sad'), r.correct ? say('right') : skipped ? 'Kein Problem – so geht’s:' : (r.score > 0 ? 'Teilweise richtig.' : say('wrong'))),
       r.note ? h('p', {}, r.note) : null,
       q.type === 'num' && !r.correct ? h('p', {}, h('b', {}, 'Lösung: ' + fmt(q.answer) + (q.unit ? ' ' + q.unit : ''))) : null,
       q.explain ? h('p', {}, richText(q.explain)) : null,
       q.type === 'num' && q.solution ? h('div', { class: 'sol' }, String(q.solution).replace(/<br\s*\/?>/g, '\n')) : null,
-      q.page ? h('div', { class: 'src' }, 'Quelle: Vorlesung, S. ' + q.page) : null);
+      q.page ? h('div', { class: 'src' }, (S.doc?.generated ? 'Quelle: Kurzskript, S. ' : 'Quelle: Vorlesung, S. ') + q.page) : null);
     fb.replaceChildren(f);
     actions.replaceChildren();
     if (onAsk && !r.correct) actions.appendChild(h('button', { class: 'btn', onclick: () => onAsk(q, r) }, h('span', { html: ico('chat') }), 'Max erklärt’s mir'));
@@ -312,6 +315,31 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = 'W
   return { result, destroy: () => document.removeEventListener('keydown', onKey) };
 }
 const pick = a => a[Math.floor(Math.random() * a.length)];
+
+// Max' Gesicht im Feedback (happy bei richtig, traurig bei falsch)
+function maxBadge(state) {
+  const el = h('span', { class: 'fbface' });
+  const f = face(el, { follow: false });
+  f.set(state);
+  return el;
+}
+
+// Komplette Frage + eigene Antwort + Lösung, damit Max den Kontext hat
+export function explainPrompt(q, r = {}, intro = 'Ich habe diese Quizfrage falsch beantwortet') {
+  const L = [];
+  if (q.type === 'cloze') L.push(`${intro} (Lückentext): „${q.q}“`);
+  else L.push(`${intro} (${TYPE_LABEL[q.type] || 'Frage'}): „${q.q}“`);
+  if (q.type === 'mc') { L.push('Antwortmöglichkeiten:'); q.options.forEach((o, i) => L.push(`${KEYS[i]}) ${o}`)); L.push('Richtig: ' + q.correct.map(i => q.options[i]).join(' / ')); }
+  if (q.type === 'tf') L.push(`Die Aussage ist ${q.correct ? 'richtig' : 'falsch'}.`);
+  if (q.type === 'match') { L.push('Richtige Zuordnung:'); q.pairs.forEach(p => L.push(`${p[0]} → ${p[1]}`)); }
+  if (q.type === 'order') { L.push('Richtige Reihenfolge:'); q.items.forEach((t, i) => L.push(`${i + 1}. ${t}`)); }
+  if (q.type === 'cloze') L.push('Lösung: ' + q.blanks.join(' / '));
+  if (q.type === 'num') L.push(`Lösung: ${fmt(q.answer)}${q.unit ? ' ' + q.unit : ''}${q.solution ? '\nRechenweg: ' + String(q.solution).replace(/<br\s*\/?>/g, '\n') : ''}`);
+  if (r.skipped || !r.given) L.push('Ich wusste es nicht.');
+  else L.push((q.type === 'match' || q.type === 'order' ? 'Meine Antwort:\n' : 'Meine Antwort: ') + r.given);
+  L.push('Erklär mir kurz an der Tafel, wo mein Denkfehler liegt – und woran ich das nächste Mal denke.');
+  return L.join('\n');
+}
 
 function burst(card) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;

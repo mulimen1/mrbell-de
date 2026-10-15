@@ -707,3 +707,136 @@ svg.draw .f2 { opacity: 0; } .in svg.draw .f2 { animation: fadeIn .8s ease 1.6s 
 .fbstar:hover { transform: scale(1.15); }
 .fbstar.on { color: var(--ink); animation: keypop .35s var(--ease); }
 .fbconsent { display: flex; gap: 8px; align-items: center; margin-top: 12px; font-size: 13.5px; color: var(--ink2); cursor: pointer; }
+
+/* ===== v3: Sprechblase, Thema ohne Skript, Konto, Feedback-Gesicht, Mindmap ===== */
+.navlogin { border: 0; background: none; color: var(--mute); font: 550 14px var(--sans); padding: 6px 10px; border-radius: 8px; cursor: pointer; }
+.navlogin:hover { color: var(--ink); background: var(--panel2); }
+
+.hero-max { position: relative; width: max-content; margin: 0 auto 26px; }
+.hero-max .hero-face { margin: 0; }
+.bubble { position: absolute; left: calc(100% + 14px); top: 6px; width: max-content; max-width: 300px; min-width: 120px; text-align: left; background: var(--panel); border: 1.5px solid var(--ink); border-radius: 20px 20px 20px 6px; padding: 12px 16px; box-shadow: var(--shadow); transform-origin: 0 100%; }
+.bubble::before { content: ""; position: absolute; left: -11px; bottom: 12px; width: 18px; height: 18px; background: var(--panel); border-left: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); transform: skewY(-35deg) rotate(10deg); border-bottom-left-radius: 4px; }
+.bubble .greet { display: block; font: 550 15px/1.35 var(--sans); color: var(--ink); min-height: 20px; }
+.bubble[data-in] { opacity: 0; transform: scale(.4) translate(-20px, 10px); transition: opacity .5s var(--ease), transform .7s cubic-bezier(.34,1.56,.64,1); }
+.bubble[data-in].in { opacity: 1; transform: none; }
+@media (max-width: 860px) {
+  .hero-max { display: flex; flex-direction: column; align-items: center; }
+  .bubble { position: relative; left: auto; top: auto; margin-top: 14px; max-width: min(320px, 86vw); border-radius: 20px; transform-origin: 50% 0; }
+  .bubble::before { left: 50%; top: -10px; bottom: auto; margin-left: -9px; transform: rotate(135deg); border-bottom-left-radius: 4px; }
+}
+
+.or { display: flex; align-items: center; gap: 14px; max-width: 720px; margin: 22px auto 0; color: var(--faint); font: 500 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--line2); }
+.askbar { display: flex; align-items: center; gap: 10px; max-width: 720px; margin: 14px auto 0; padding: 8px 8px 8px 10px; background: var(--panel); border: 1px solid var(--line2); border-radius: 999px; box-shadow: var(--shadow); transition: border-color .2s, box-shadow .2s, transform .2s var(--ease); }
+.askbar:focus-within { border-color: var(--ink); transform: translateY(-1px); }
+.askbar .af { width: 38px; height: 38px; flex: none; }
+.askbar .tin { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font: 500 16px var(--sans); color: var(--ink); padding: 8px 4px; }
+.askbar .tin::placeholder { color: var(--mute); }
+.askbar .btn { flex: none; }
+.askbar.inapp { margin-top: 26px; text-align: left; }
+.askbar.inmodal { margin: 4px 0 0; box-shadow: none; }
+@media (max-width: 520px) { .askbar { border-radius: 22px; flex-wrap: wrap; padding: 10px; } .askbar .tin { flex-basis: calc(100% - 60px); } .askbar .btn { width: 100%; } }
+
+.accchip { display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px 10px; border: 1px dashed var(--line2); border-radius: 12px; background: transparent; cursor: pointer; text-align: left; color: var(--ink); transition: border-color .15s, background .15s; }
+.accchip:hover { border-color: var(--ink); background: var(--panel); }
+.accchip .av { width: 28px; height: 28px; flex: none; border-radius: 50%; background: var(--inv); color: var(--onInv); display: grid; place-items: center; font: 700 13px var(--sans); }
+.accchip .av .ico { width: 14px; height: 14px; }
+.accchip .tx { display: grid; min-width: 0; }
+.accchip b { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.accchip small { font: 500 11px var(--mono); color: var(--mute); }
+
+.modal.login { position: relative; text-align: center; max-width: 420px; }
+.modal.login .lface { width: 76px; height: 76px; margin: 0 auto 12px; }
+.modal.login p { margin-bottom: 18px; }
+.modal.login .lx { position: absolute; top: 12px; right: 12px; }
+.lform { display: flex; gap: 8px; }
+.lform .field { flex: 1; min-width: 0; }
+.field.code { text-align: center; font: 700 30px var(--mono); letter-spacing: .4em; padding: 12px 0 12px .4em; }
+.lerr { min-height: 20px; margin-top: 8px; color: var(--ink); font-size: 13.5px; font-weight: 550; }
+.lfine { display: flex; gap: 8px; align-items: center; justify-content: center; margin-top: 8px; font-size: 12.5px; color: var(--mute); }
+.lfine .ico { width: 14px; height: 14px; flex: none; }
+.accbox { display: grid; gap: 2px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.accrow { display: flex; justify-content: space-between; gap: 12px; padding: 11px 14px; background: var(--panel2); font-size: 14px; }
+.accrow span { color: var(--mute); }
+.accrow b { font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+@media (max-width: 520px) { .lform { flex-direction: column; } }
+
+.feedback .fbface { width: 40px; height: 40px; flex: none; animation: keypop .45s var(--ease) .05s both; }
+
+.mindmap { position: relative; overflow: hidden; }
+.mm-tools { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.mm-hint { font: 500 11.5px var(--mono); color: var(--mute); }
+.mindmap svg.mm { width: 100%; height: auto; max-height: 76vh; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.mm .mm-l { fill: none; stroke: var(--ink); }
+.mm .mm-l-branch { stroke-width: 2.4; opacity: .55; }
+.mm .mm-l-leaf { stroke-width: 1.3; opacity: .3; }
+.mm .mm-n { cursor: grab; touch-action: none; }
+.mm .mm-n.drag { cursor: grabbing; }
+.mm .mm-root .mm-box { fill: var(--inv); }
+.mm .mm-root text { fill: var(--onInv); }
+.mm .mm-branch .mm-box { fill: var(--panel); stroke: var(--ink); stroke-width: 1.6; transition: fill .15s; }
+.mm .mm-branch:hover .mm-box { fill: var(--panel2); }
+.mm .mm-branch text { fill: var(--ink); }
+.mm .mm-badge { fill: var(--mute) !important; font-family: var(--mono); }
+.mm .mm-leaf text { fill: var(--ink2); }
+.mm .mm-leaf:hover text { fill: var(--ink); }
+.mm .mm-dot { fill: var(--ink); }
+.mindmap:fullscreen, .mindmap.mm-full { background: var(--bg); display: flex; flex-direction: column; border-radius: 0; border: 0; }
+.mindmap.mm-full { position: fixed; inset: 0; z-index: 90; }
+.mindmap:fullscreen svg.mm, .mindmap.mm-full svg.mm { flex: 1; max-height: none; height: 100%; }
+@media (max-width: 760px) { .mm-hint { display: none; } .mindmap svg.mm { min-width: 0; } }
+@media (max-width: 760px) {
+  .mindmap { overflow: hidden; }
+  .mindmap .mm-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .mindmap .mm-scroll svg.mm { min-width: 760px; max-height: none; touch-action: pan-x pan-y; }
+  .mindmap:fullscreen .mm-scroll, .mindmap.mm-full .mm-scroll { flex: 1; overflow: auto; }
+}
+.nav .brand { white-space: nowrap; }
+@media (max-width: 520px) { .nav { gap: 6px; } .nav .brand small { display: none; } .navlogin { padding: 6px; font-size: 13.5px; } }
+.mindmap:fullscreen .mm-scroll, .mindmap.mm-full .mm-scroll { flex: 1; display: flex; min-height: 0; }
+.mindmap:fullscreen .mm-scroll svg.mm, .mindmap.mm-full .mm-scroll svg.mm { height: 100%; max-height: none; }
+
+/* ===== Mit Max sprechen ===== */
+.bubtalk { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; height: 32px; padding: 0 13px 0 10px; border-radius: 999px; border: 0; background: var(--inv); color: var(--onInv); font: 600 13.5px var(--sans); cursor: pointer; transition: transform .2s var(--ease); position: relative; }
+.bubtalk .ico { width: 16px; height: 16px; }
+.bubtalk:hover { transform: translateY(-1px) scale(1.03); }
+.bubtalk::after { content: ""; position: absolute; inset: -4px; border-radius: inherit; border: 1.5px solid var(--ink); opacity: 0; animation: talkping 2.4s 2.5s infinite; }
+@keyframes talkping { 0% { opacity: .6; transform: scale(.9); } 70%, 100% { opacity: 0; transform: scale(1.25); } }
+.micbtn { width: 36px; height: 36px; flex: none; border-radius: 11px; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: all .15s; }
+.micbtn:hover { background: var(--inv); color: var(--onInv); border-color: var(--inv); }
+.micbtn .ico { width: 18px; height: 18px; }
+.talkbtn .ico { width: 15px; height: 15px; }
+@media (max-width: 760px) { .talkbtn .lbl { display: none; } }
+
+.voice { position: fixed; inset: 0; z-index: 95; background: var(--bg); display: flex; flex-direction: column; opacity: 0; transform: scale(1.02); transition: opacity .25s var(--ease), transform .35s var(--ease); }
+.voice.in { opacity: 1; transform: none; }
+.voice .vtop { display: flex; align-items: center; gap: 10px; padding: 14px 18px; }
+.voice .vchips { flex: 1; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.voice .vchips .eyebrow { margin-right: 4px; }
+.voice .vmain { flex: 1; overflow: auto; display: flex; flex-direction: column; align-items: center; padding: 10px 20px 20px; text-align: center; }
+.voice .vstage { position: relative; width: 190px; height: 190px; margin: 2vh 0 18px; flex: none; }
+.voice .vface { position: absolute; inset: 0; }
+.voice .vring { position: absolute; inset: -14px; border-radius: 50%; border: 2px solid var(--ink); opacity: 0; transition: transform .08s linear, opacity .2s; }
+.voice[data-state="listen"] .vring { opacity: .35; }
+.voice[data-state="speak"] .vring { opacity: .25; animation: vpulse 1.1s ease-in-out infinite; }
+@keyframes vpulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+.voice .vstatus { font: 500 13px var(--mono); color: var(--mute); min-height: 20px; }
+.voice .vyou, .voice .vsaid { max-width: 640px; width: 100%; margin-top: 14px; }
+.voice .vyou p { margin: 4px 0 0; color: var(--mute); font-size: 15px; }
+.voice .vsaid p { margin: 4px 0 0; font-size: clamp(18px, 2.4vw, 23px); line-height: 1.4; letter-spacing: -.01em; font-weight: 550; }
+.voice .vsaid:not(:empty) { animation: fadeUp .4s var(--ease) both; }
+.voice .vboard { max-width: 760px; width: 100%; margin-top: 18px; text-align: left; }
+.voice .vboard .tafel { border: 1px solid var(--line); border-radius: 18px; background: var(--panel); padding: 20px; margin-top: 8px; max-width: none; }
+.voice .vbottom { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px 18px 22px; border-top: 1px solid var(--line); }
+.voice .vmic { width: 76px; height: 76px; border-radius: 50%; border: 0; background: var(--inv); color: var(--onInv); display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow); transition: transform .2s var(--ease); }
+.voice .vmic .ico { width: 30px; height: 30px; }
+.voice .vmic:hover { transform: scale(1.05); }
+.voice .vmic:disabled { opacity: .35; cursor: not-allowed; }
+.voice[data-state="listen"] .vmic { animation: vmicpulse 1.2s ease-in-out infinite; }
+.voice[data-state="listen"] .vmic .ico rect { fill: currentColor; }
+@keyframes vmicpulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink) 35%, transparent); } 50% { box-shadow: 0 0 0 16px color-mix(in srgb, var(--ink) 0%, transparent); } }
+.voice[data-state="think"] .vmic { opacity: .5; }
+.voice .vhint { font: 500 11.5px var(--mono); color: var(--faint); text-align: center; }
+.voice .vtype { display: flex; gap: 8px; width: min(560px, 100%); }
+.voice .vtype .field { flex: 1; min-width: 0; padding: 9px 13px; }
+@media (max-width: 760px) { .voice .vstage { width: 140px; height: 140px; } .voice .vchips .eyebrow { display: none; } }
