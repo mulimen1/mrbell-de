@@ -71,6 +71,7 @@ function buildShell() {
   onQuota(renderQuota);
   onAccount(() => renderQuota(currentQuota()));
   refreshAccount();
+  mobileTip();
   onChange(renderList);
   applyThemeButtons();
 }
@@ -169,7 +170,7 @@ export async function askTutorAbout(text, { confirm = true } = {}) {
     const ok = await modal({ title: 'Soll Max dir das erklären?', text: (short.length > 160 ? short.slice(0, 157) + '…' : short), actions: [{ label: 'Nein', value: false }, { label: 'Ja, erklär’s mir · 1 Einheit', value: true, primary: true }] });
     if (!ok) return;
   }
-  if (!S.doc) { const id = S.list[0]?.id; if (!id) { toast('Lad zuerst ein Skript hoch.'); return; } openDoc(id); }
+  if (!S.doc) { const id = S.list[0]?.id; if (!id) { toast('Lade zuerst ein Skript hoch.'); return; } openDoc(id); }
   ls.set('tutor.pendingAsk', text);
   forceRerender();
   go(`${S.doc ? S.doc.id : S.list[0].id}/tutor`);
@@ -184,7 +185,8 @@ function emptyState(root) {
     h('div', { style: { display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' } }, lab,
       h('button', { class: 'btn lg', onclick: () => startSample() }, 'Beispiel ansehen'),
       h('a', { class: 'btn lg ghost', href: '#/app/trainer' }, 'Trainer')),
-    topicForm({ cls: 'askbar inapp' }))));
+    topicForm({ cls: 'askbar inapp' }),
+    h('button', { class: 'talklink', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({}); } }, h('span', { html: ico('mic') }), 'oder einfach mit Max quatschen'))));
   face(f);
   dropAnywhere(root);
 }
@@ -315,4 +317,17 @@ export async function startTopic(topic) {
     sub.after(h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } },
       h('button', { class: 'btn primary', onclick: () => startTopic(topic) }, 'Nochmal versuchen'), h('button', { class: 'btn', onclick: () => topicPrompt() }, 'Anderes Thema')));
   }
+}
+
+// Am Handy einmal freundlich auf Laptop/iPad hinweisen
+function mobileTip() {
+  if (!matchMedia('(max-width: 760px)').matches || ls.get('tutor.mobileTip')) return;
+  const f = h('span', { class: 'mtf' });
+  const close = () => { ls.set('tutor.mobileTip', 1); tip.classList.add('out'); setTimeout(() => tip.remove(), 300); };
+  const tip = h('div', { class: 'mtip', role: 'status' }, f,
+    h('div', {}, h('b', {}, 'Tipp von Max'), h('span', {}, 'Am Laptop oder iPad kann ich dir am besten helfen – da passt die Tafel neben den Chat. Am Handy geht aber auch alles.')),
+    h('button', { class: 'iconbtn', 'aria-label': 'Schließen', html: ico('x'), onclick: close }));
+  document.body.appendChild(tip);
+  face(f, { follow: false });
+  setTimeout(() => { if (tip.isConnected) close(); }, 14000);
 }

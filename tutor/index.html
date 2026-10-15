@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BWL Max – dein KI-Tutor für BWL, VWL & Rechnungswesen</title>
-<meta name="description" content="Lad deine Vorlesung hoch und lern mit BWL Max, dem KI-Tutor, der an die Tafel schreibt: Erklärungen, Quizze, Karteikarten, Lernpfad, Podcast und Übungs-Trainer. Kostenlos, ohne Anmeldung.">
+<meta name="description" content="Lade deine Vorlesung hoch und lern mit BWL Max, dem KI-Tutor, der an die Tafel schreibt: Erklärungen, Quizze, Karteikarten, Lernpfad, Podcast und Übungs-Trainer. Kostenlos, ohne Anmeldung.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
 <link rel="icon" type="image/png" href="/tutor/img/max-icon-64.png">
@@ -12,7 +12,7 @@
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/tutor/css/app.css?v=3">
 <link rel="stylesheet" href="/tutor/css/trainer.css?v=2">
-<script>try{var t=localStorage.getItem('tutor.theme');if(t)document.documentElement.dataset.theme=JSON.parse(t)}catch(e){}</script>
+<script>document.documentElement.dataset.theme='dark';try{var t=sessionStorage.getItem('tutor.theme');if(t==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
 </head>
 <body>
 
@@ -37,7 +37,8 @@
         <div class="bubble" data-in="3"><span class="greet" id="greet" aria-live="polite"></span><button class="bubtalk" type="button" data-voice><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Sprich mit mir</button></div>
       </div>
       <div class="pill-tag" data-in="2"><i></i>Dein KI-Tutor mit Mittelscheitel</div>
-      <h1 data-split data-in="4">Lad deine Vorlesung hoch. <span class="soft">Max erklärt sie dir.</span></h1>
+      <h1 data-split data-in="4">Lade deine Vorlesung hoch. <span class="soft">Max erklärt sie dir.</span></h1>
+      <div class="featrow" id="featrow" data-in="5" aria-label="Was Max kann"></div>
       <p class="sub" data-in="5">BWL Max kennt dein Skript, schreibt an die Tafel, rechnet mit dir und fragt dich ab, bis es sitzt. Ein bisschen arrogant. Aber er weiß, wovon er redet.</p>
 
       <label class="dropzone" id="drop" data-in="6">
@@ -49,8 +50,10 @@
         </div>
         <div class="meta"><i>Ohne Anmeldung</i><i>Jeden Tag kostenlos</i><i>Datei bleibt auf deinem Gerät</i></div>
       </label>
+      <p class="mobhint" data-in="6">Am besten am Laptop oder iPad – da passt Max' Tafel neben den Chat.</p>
       <div class="or" data-in="7"><span>oder ohne Skript</span></div>
       <div id="topicSlot" data-in="7"></div>
+      <button class="talklink" type="button" data-voice data-in="7"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>oder einfach mit Max quatschen</button>
       <div class="trybar" data-in="8">
         <span class="eyebrow" style="align-self:center;margin-right:4px">Erstmal reinschnuppern?</span>
         <button class="chip" data-sample>Beispiel: Deckungsbeitragsrechnung</button>

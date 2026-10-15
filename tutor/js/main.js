@@ -1,5 +1,5 @@
 // Einstieg: Landingpage (mit Animationen) + Router
-import { $, $$, h, sleep } from './util.js';
+import { $, $$, h, sleep, ico } from './util.js';
 import { face } from './face.js';
 import { mountApp, startUpload, startSample, topicForm } from './app.js';
 import { openLogin, openAccount, verifyLink } from './account.js';
@@ -43,6 +43,15 @@ function initLanding() {
     setInterval(() => { if (!sp[0]?.isConnected) return; si = (si + 1) % 3; sp.forEach((x, k) => x.classList.toggle('on', k === si)); fs.forEach((f, k) => f.set(k === si ? (si === 2 ? 'smug' : si === 1 ? 'happy' : 'idle') : 'idle')); }, 2200);
   }
 
+  // Was Max kann – direkt im Hero sichtbar
+  const fr = $('#featrow');
+  if (fr) {
+    const F = [['board', 'Erklärt an der Tafel'], ['quiz', 'Quiz in 6 Formaten'], ['cards', 'Karteikarten'], ['path', 'Lernpfad'], ['pod', 'Podcast'], ['note', 'Lernzettel & Mindmap'], ['mic', 'Sprechen'], ['calc', 'BWL-Trainer']];
+    F.forEach(([ic, t], k) => fr.appendChild(h('a', { class: 'feat', href: '#funktionen', style: { '--k': k } }, h('span', { html: ico(ic) }), t)));
+    const fs = [...fr.children]; let fi = 0;
+    if (!reduce) setInterval(() => { if (!fr.isConnected || document.hidden) return; fs.forEach((x, k) => x.classList.toggle('hl', k === fi)); fi = (fi + 1) % fs.length; }, 1500);
+  }
+
   // Ohne Skript: Max erklärt ein Thema
   $('#topicSlot')?.appendChild(topicForm());
 
@@ -81,10 +90,16 @@ function initLanding() {
   $$('.step3.reveal, .privacy li.reveal, .plan.reveal, .faq details.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 3) * 90 + 'ms'; });
   // Erscheinen beim Runterscrollen; scrollt man wieder hoch, verschwinden die Elemente unterhalb
   // (nie die, die man gerade sieht) – beim nächsten Runterscrollen erscheinen sie neu.
+  // In beide Richtungen: Was oben oder unten ganz aus dem Bild ist, versteckt sich wieder
+  // und erscheint neu, sobald man zurückscrollt (von oben kommend fliegt es von oben rein).
   const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); return; }
-    if (e.boundingClientRect.top > innerHeight && !e.target.matches('details[open], .faq details')) e.target.classList.remove('in');
-  }), { threshold: .14, rootMargin: '0px 0px -6% 0px' });
+    const el = e.target;
+    if (e.isIntersecting && e.intersectionRatio >= .12) { el.classList.add('in'); return; }
+    if (e.isIntersecting || el.matches('details[open]')) return;
+    const above = e.boundingClientRect.bottom <= 0;
+    if (!above && e.boundingClientRect.top < innerHeight * .9) return;
+    el.classList.remove('in'); el.classList.toggle('up', above);
+  }), { threshold: [0, .12, .14] });
   $$('.reveal, .pin.fly, h2[data-split]').forEach(el => io.observe(el));
 
   // Fortschrittsbalken + Nav

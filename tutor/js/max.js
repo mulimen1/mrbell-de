@@ -8,9 +8,9 @@ export const NAME = 'BWL Max';
 
 const L = {
   greet: {
-    1: ['Hey. Wie kann ich dir heute helfen?', 'Welche Vorlesung nehmen wir uns vor?', 'Bereit? Lad dein Skript hoch.'],
-    2: ['Moin. Porsche steht, Skript bitte.', 'Kurz Quarter-Zip gerichtet. Was lernen wir?', 'Ich hab um 14 Uhr Tennis. Bis dahin: du.', 'Bilanz? Bilanziere ich im Schlaf.', 'Lad hoch. Ich mach das schon.'],
-    3: ['Papa sagt, ich soll was Soziales machen. Also helf ich dir.', 'Moin aus Kampen. Was steht an?', 'Ohne meinen Porsche komm ich nicht zur Uni. Ohne mich du nicht durch die Klausur.', 'Ich hab Deckungsbeitrag schon im Kindergarten gerechnet.', 'Network ist Net Worth. Also: Skript her.']
+    1: ['Hi, ich bin Max. Ich erkläre dir deine Vorlesung an der Tafel.', 'Aus deinem Skript mache ich Quiz, Karteikarten und einen Podcast.', 'Klausur bald? Ich baue dir einen Lernpfad.', 'Kein Skript da? Sag mir das Thema, ich schreibe dir eins.', 'Du kannst auch einfach mit mir reden.'],
+    2: ['Moin, ich bin Max. Ich erklär dir deine Vorlesung. An der Tafel.', 'Gib mir dein Skript – ich mach Quiz, Karten und Podcast draus.', 'Klausur bald? Ich bau dir den Lernpfad. Papa hätte einen Berater geholt.', 'Kein Skript? Sag mir das Thema, ich schreib dir eins.', 'Lieber reden statt tippen? Klick hier drunter. Ich klinge gut.'],
+    3: ['Moin aus Kampen. Ich bin Max und erklär dir jede Vorlesung.', 'Skript rein, Quiz raus. Effizienz hab ich von Papa.', 'Karteikarten, Podcast, Lernpfad – mach ich zwischen zwei Golfrunden.', 'Kein Skript? Nenn mir ein Thema. Ich diktier dir eins.', 'Reden geht auch. Wie ein Podcast, nur mit besserem Haar.']
   },
   welcome: {
     1: d => `Hey! Ich hab „${d}“ gelesen. Frag mich, was du nicht verstehst – ich erklär’s dir an der Tafel. Oder soll ich dich abfragen?`,
