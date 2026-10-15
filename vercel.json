@@ -95,6 +95,16 @@
   ],
   "rewrites": [
     {
+      "source": "/favicon.ico",
+      "has": [
+        {
+          "type": "host",
+          "value": "bwlmax.de"
+        }
+      ],
+      "destination": "/tutor/img/favicon.ico"
+    },
+    {
       "source": "/",
       "has": [
         {
