@@ -840,3 +840,7 @@ svg.draw .f2 { opacity: 0; } .in svg.draw .f2 { animation: fadeIn .8s ease 1.6s 
 .voice .vtype { display: flex; gap: 8px; width: min(560px, 100%); }
 .voice .vtype .field { flex: 1; min-width: 0; padding: 9px 13px; }
 @media (max-width: 760px) { .voice .vstage { width: 140px; height: 140px; } .voice .vchips .eyebrow { display: none; } }
+button.doc-item { border: 0; background: transparent; width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.chathead > div b, .chathead > div span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chathead .talkbtn { flex: none; }
+@media (max-width: 1440px) { .chathead .talkbtn .lbl { display: none; } .chathead .talkbtn { width: 36px; padding: 0; justify-content: center; } }
