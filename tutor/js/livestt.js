@@ -54,6 +54,7 @@ export function startLive(actx, stream, { onText = () => {} } = {}) {
     const r = await ask('live', {});
     if (dead) return;
     ws = new WebSocket(WS + encodeURIComponent(r.token));
+    if (dead) { try { ws.close(); } catch (e) {} return; }
     ws.onopen = () => { for (const m of queue) ws.send(m); sent += queue.length; queue = []; onOpen(); };
     ws.onmessage = e => {
       let m; try { m = JSON.parse(e.data); } catch (x) { return; }
@@ -66,6 +67,7 @@ export function startLive(actx, stream, { onText = () => {} } = {}) {
   })().catch(() => { dead = true; onOpen(); });
 
   function cleanup() {
+    dead = true;
     try { proc && (proc.onaudioprocess = null); proc && proc.disconnect(); src && src.disconnect(); } catch (e) {}
     try { ws && ws.readyState <= 1 && ws.close(); } catch (e) {}
   }

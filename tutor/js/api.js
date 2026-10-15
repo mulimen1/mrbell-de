@@ -54,7 +54,7 @@ export async function ask(action, payload = {}, { signal } = {}) {
     throw new ApiError('offline', L('Keine Verbindung zu Max. Prüf dein Internet oder versuch es gleich nochmal.', 'Can’t reach Max. Check your internet or try again in a moment.'));
   }
   let j = null;
-  try { j = await res.json(); } catch (e) {}
+  try { j = await res.json(); } catch (e) { if (e?.name === 'AbortError') throw e; }
   if (!res.ok || !j) throw new ApiError('server', L('Max ist gerade nicht erreichbar. Versuch es in ein paar Minuten nochmal.', 'Max isn’t available right now. Try again in a few minutes.'));
   if (j.quota) setQuota(j.quota);
   if ('account' in j) { if (j.account || ses) setAccount(j.account, j.account ? ses : null); }
