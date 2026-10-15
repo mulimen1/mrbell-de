@@ -55,6 +55,7 @@ let api = null;                    // gesetzt, sobald gemountet
 export function setAssistantEnabled(on) {
   cfg.on = !!on; saveCfg();
   if (api) api.applyEnabled(true);
+  dispatchEvent(new CustomEvent('asst:change', { detail: cfg.on }));
 }
 
 // ---------- Hilfen ----------
@@ -116,7 +117,7 @@ function visibleText(max = 1200) {
 }
 function pageContext() {
   const r = route(), d = curDoc();
-  if (!r.tab) return '';
+  if (!r.tab) return document.getElementById('landing')?.classList.contains('hidden') ? '' : L('[Seite: Startseite von BWL Max – noch kein Skript offen]', '[Page: BWL Max home page – no slides open yet]');
   const parts = [L('Seite: ', 'Page: ') + ((TAB[r.tab] || (r.tab === 'trainer' ? L('BWL-Trainer', 'Business trainer') + (r.trainer ? ' ' + r.trainer : '') : r.tab)))];
   if (d) parts.push(L('Skript „', 'Slides “') + d.name + L('“', '”'));
   const vis = visibleText();
@@ -138,7 +139,8 @@ export function mountAssistant() {
   // Kopf (Bubble)
   const bubFace = h('span', { class: 'asst-bf' });
   const bub = h('button', { class: 'asst-bub', type: 'button', 'aria-label': L('Max fragen', 'Ask Max'), title: L('Max fragen – ziehen zum Verschieben', 'Ask Max – drag to move') },
-    bubFace, h('i', { class: 'asst-dot' }), h('span', { class: 'asst-tip' }, L('Frag Max', 'Ask Max')));
+    bubFace, h('i', { class: 'asst-dot' }), h('span', { class: 'asst-tip' }, L('Frag Max', 'Ask Max')),
+    h('span', { class: 'asst-x', title: L('Max ausblenden', 'Hide Max'), html: ico('x') }));
   // Panel
   const fEl = h('span', { class: 'asst-f' });
   const thinkEl = h('div', { class: 'asst-think', 'aria-live': 'polite' });
@@ -146,7 +148,7 @@ export function mountAssistant() {
   const spkBtn = h('button', { class: 'iconbtn asst-ib asst-spk', type: 'button' });
   const fullBtn = h('button', { class: 'iconbtn asst-ib', type: 'button', html: ico('expand') });
   const moreBtn = h('button', { class: 'iconbtn asst-ib', type: 'button', 'aria-label': L('Mehr', 'More'), 'aria-haspopup': 'menu', html: SVG.more });
-  const minBtn = h('button', { class: 'iconbtn asst-ib', type: 'button', 'aria-label': L('Minimieren', 'Minimise'), title: L('Minimieren', 'Minimise'), html: SVG.min });
+  const minBtn = h('button', { class: 'iconbtn asst-ib asst-close', type: 'button', 'aria-label': L('Schließen', 'Close'), title: L('Schließen', 'Close'), html: ico('x') });
   const head = h('header', { class: 'asst-h' },
     h('div', { class: 'asst-fw' }, fEl, thinkEl),
     h('div', { class: 'asst-tt' }, h('b', {}, 'Max'), sees),
@@ -176,7 +178,7 @@ export function mountAssistant() {
     rz, grab, head, menu, h('div', { class: 'asst-body' }, chat, boardView));
   const chip = h('button', { class: 'asst-back', type: 'button' }, h('span', { class: 'asst-cf' }), L('Max zurückholen', 'Bring Max back'));
   const root = h('div', { class: 'asst', 'data-state': 'idle' }, bub, panel);
-  host.appendChild(root);
+  document.body.appendChild(root);
   const bf = face(bubFace, {}), fc = face(fEl, { follow: false });
 
   // ---------- Sichtbarkeit ----------
@@ -186,7 +188,7 @@ export function mountAssistant() {
     if (!on) { stopAll(true); setOpen(false, true); }
     if (announce && !on) {
       document.querySelector('.asst-back')?.remove();
-      host.appendChild(chip);
+      document.body.appendChild(chip);
       face(chip.querySelector('.asst-cf'), { follow: false });
       clearTimeout(chip._t); chip._t = setTimeout(() => { chip.classList.add('out'); setTimeout(() => chip.remove(), 300); }, 8000);
     } else if (on) chip.remove();
@@ -199,14 +201,18 @@ export function mountAssistant() {
     const r = route();
     const mobTutor = r.tab === 'tutor' && matchMedia('(max-width: 980px)').matches;
     const side = document.querySelector('#app .app.sideopen');
+    const land = !r.tab && !document.getElementById('landing')?.classList.contains('hidden');
+    root.classList.toggle('land', land);
+    root.classList.toggle('landtop', land && scrollY < 140);
     root.classList.toggle('covered', covered);
     root.classList.toggle('nobub', mobTutor || !!side);
   };
   let ccRaf = 0;
   const coverSoon = () => { if (!ccRaf) ccRaf = requestAnimationFrame(() => { ccRaf = 0; coverCheck(); }); };
   new MutationObserver(coverSoon).observe(document.body, { childList: true });
-  const appEl = host.querySelector('.app');
-  if (appEl) new MutationObserver(coverSoon).observe(appEl, { attributes: true, attributeFilter: ['class'], subtree: true });
+  new MutationObserver(coverSoon).observe(host, { attributes: true, attributeFilter: ['class'], subtree: true });
+  addEventListener('scroll', coverSoon, { passive: true });
+  addEventListener('hashchange', coverSoon);
 
   // ---------- Position ----------
   const vw = () => document.documentElement.clientWidth, vh = () => innerHeight;
@@ -264,7 +270,11 @@ export function mountAssistant() {
     },
     end: moved => { if (moved) { justDragged = true; setTimeout(() => { justDragged = false; }, 50); saveCfg(); placeBub(); } },
   });
-  bub.addEventListener('click', () => { if (!justDragged) setOpen(true); });
+  bub.addEventListener('click', e => {
+    if (justDragged) return;
+    if (e.target.closest('.asst-x')) { e.stopPropagation(); disable(); return; }
+    setOpen(true);
+  });
   // Panel verschieben (am Kopfbereich)
   let pStart = null;
   dragger(head, {
@@ -649,7 +659,7 @@ export function mountAssistant() {
 
   // ---------- Tastatur ----------
   document.addEventListener('keydown', e => {
-    if (e.key !== 'Escape' || !open || host.classList.contains('hidden')) return;
+    if (e.key !== 'Escape' || !open) return;
     if (document.querySelector('body > .modal-bg, body > .voice, .mindmap.mm-full')) return;
     if (!menu.hidden) { closeMenu(); return; }
     const a = document.activeElement;

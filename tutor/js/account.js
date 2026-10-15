@@ -1,4 +1,4 @@
-// Konto: Anmeldung per E-Mail-Code (kein Passwort). Neues Konto = 7 Tage Pro.
+// Konto: Anmeldung per E-Mail-Code (kein Passwort). Neues Konto = 7 Tage Inner Circle.
 // Gespeichert wird beim Server nur die E-Mail-Adresse. Skripte bleiben auf dem Gerät.
 import { h, ico, toast, ls, modal } from './util.js';
 import { ask, setAccount, getAccount, onAccount, getSession } from './api.js';
@@ -39,7 +39,7 @@ export function openLogin({ title } = {}) {
         catch (e2) { fc.pulse('sad'); err.textContent = e2.message; btn.disabled = false; btn.textContent = L('Code schicken', 'Send code'); }
       });
       box.replaceChildren(x(), fEl, h('h3', {}, title || L('Kostenlos anmelden', 'Sign in for free')),
-        h('p', {}, L('Kein Passwort, kein Newsletter. Du bekommst einen Code per Mail – und fürs neue Konto ', 'No password, no newsletter. You get a code by email – and a new account comes with '), h('b', {}, L('7 Tage Pro', '7 days of Pro')), L(' geschenkt.', ' on the house.')),
+        h('p', {}, L('Kein Passwort, kein Newsletter. Du bekommst einen Code per Mail – und fürs neue Konto ', 'No password, no newsletter. You get a code by email – and a new account comes with '), h('b', {}, L('7 Tage Inner Circle', '7 days in the Inner Circle')), L(' geschenkt.', ' on the house.')),
         form, err,
         h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Wir speichern nur deine E-Mail-Adresse. Deine Skripte bleiben auf deinem Gerät.', 'We only store your email address. Your slides stay on your device.')));
       fc.set('idle');
@@ -86,8 +86,8 @@ export function openLogin({ title } = {}) {
       const goal = r.fresh ? goalQuestion() : null;
       box.replaceChildren(fEl, h('h3', {}, r.fresh ? L('Willkommen im Club.', 'Welcome to the club.') : L('Da bist du ja wieder.', 'There you are again.')),
         h('p', {}, r.fresh
-          ? L(`7 Tage Pro – geht aufs Haus. Also auf Papas. Bis ${fmtDate(r.account.proUntil)} lernst du ohne Tageslimit.`, `7 days of Pro – on the house. Well, on Papa’s. Until ${fmtDate(r.account.proUntil)} you learn with no daily limit.`)
-          : r.account.pro ? L(`Pro läuft noch bis ${fmtDate(r.account.proUntil)}.`, `Pro runs until ${fmtDate(r.account.proUntil)}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
+          ? L(`7 Tage Inner Circle – geht aufs Haus. Also auf Papas. Bis ${fmtDate(r.account.proUntil)} lernst du ohne Tageslimit.`, `7 days in the Inner Circle – on the house. Well, on Papa’s. Until ${fmtDate(r.account.proUntil)} you learn with no daily limit.`)
+          : r.account.pro ? L(`Inner Circle läuft noch bis ${fmtDate(r.account.proUntil)}.`, `Inner Circle runs until ${fmtDate(r.account.proUntil)}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
         goal && goal.el,
         h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', onclick: () => { goal && goal.save(); close(true); } }, L('Los geht’s', 'Let’s go'))));
       setTimeout(() => box.querySelector('.btn.primary')?.focus(), 60);
@@ -119,7 +119,7 @@ export async function verifyLink(ek, code) {
   try {
     const r = await ask('verify', { opts: { ek, code } });
     setAccount(r.account, r.session);
-    toast(r.fresh ? L('Willkommen im Club. 7 Tage Pro gehen aufs Haus.', 'Welcome to the club. 7 days of Pro are on the house.') : L('Angemeldet. Schön, dass du wieder da bist.', 'Signed in. Good to have you back.'), 4000);
+    toast(r.fresh ? L('Willkommen im Inner Circle. 7 Tage gehen aufs Haus.', 'Welcome to the Inner Circle. 7 days are on the house.') : L('Angemeldet. Schön, dass du wieder da bist.', 'Signed in. Good to have you back.'), 4000);
     return true;
   } catch (e) {
     toast(e.message || L('Der Link hat nicht geklappt.', 'The link didn’t work.'), 4000);
@@ -132,7 +132,7 @@ export async function openAccount() {
   if (!a) return openLogin();
   const body = h('div', { class: 'accbox' },
     h('div', { class: 'accrow' }, h('span', {}, L('E-Mail', 'Email')), h('b', {}, a.email)),
-    h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? L(`Pro · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(a.proUntil)})`, `Pro · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(a.proUntil)})`) : L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'))),
+    h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? L(`Inner Circle · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(a.proUntil)})`, `Inner Circle · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(a.proUntil)})`) : L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'))),
     h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))));
   const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Dein Lernstand liegt weiter auf diesem Gerät. Gespeichert ist bei uns nur deine E-Mail-Adresse.', 'Your progress stays on this device. All we store is your email address.'), body,
     actions: [{ label: L('Konto löschen', 'Delete account'), value: 'del' }, { label: L('Abmelden', 'Sign out'), value: 'out' }, { label: L('Fertig', 'Done'), value: null, primary: true }] });
@@ -152,8 +152,8 @@ export function accountChip() {
   onAccount(a => {
     if (!el.isConnected && el.dataset.init) return;
     el.dataset.init = 1;
-    if (!a) el.replaceChildren(h('span', { class: 'av', html: ico('lock') }), h('span', { class: 'tx' }, h('b', {}, 'Log in'), h('small', {}, L('7 Tage Pro geschenkt', '7 days of Pro free'))));
-    else el.replaceChildren(h('span', { class: 'av' }, (a.email[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, a.email), h('small', {}, a.pro ? L(`Pro · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, `Pro · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : 'Free')));
+    if (!a) el.replaceChildren(h('span', { class: 'av', html: ico('lock') }), h('span', { class: 'tx' }, h('b', {}, 'Log in'), h('small', {}, L('7 Tage Inner Circle gratis', '7 days Inner Circle free'))));
+    else el.replaceChildren(h('span', { class: 'av' }, (a.email[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, a.email), h('small', {}, a.pro ? L(`Inner Circle · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, `Inner Circle · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : 'Free')));
   });
   return el;
 }

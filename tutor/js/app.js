@@ -38,6 +38,13 @@ let current = { key: '', cleanup: null };
 
 export function go(path) { location.hash = '#/app' + (path ? '/' + path : ''); }
 
+function asstToggle() {
+  const b = h('button', { class: 'btn sm ghost' });
+  const lab = () => import('./assistant.js').then(m => { b.textContent = m.isAssistantEnabled() ? L('Max ausblenden', 'Hide Max') : L('Max einblenden', 'Show Max'); });
+  b.addEventListener('click', () => import('./assistant.js').then(m => m.setAssistantEnabled(!m.isAssistantEnabled())));
+  addEventListener('asst:change', lab); lab();
+  return b;
+}
 function buildShell() {
   const root = $('#app');
   const fileIn = h('input', { type: 'file', class: 'sr', accept: ACCEPT, id: 'fileApp' });
@@ -61,7 +68,8 @@ function buildShell() {
     h('div', { class: 'bottom' }, outLangSwitch(), accountChip(), quotaEl,
       h('div', { style: { display: 'grid', gap: '2px' } },
         feedbackButton('btn sm ghost'),
-        h('button', { class: 'btn sm ghost', onclick: settings }, L('Daten & Sicherung', 'Data & backup')))));
+        h('button', { class: 'btn sm ghost', onclick: settings }, L('Daten & Sicherung', 'Data & backup')),
+        asstToggle())));
   const title = h('h1', {});
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
   const menuBtn = h('button', { class: 'iconbtn mob-menu', 'aria-label': L('Menü', 'Menu'), html: ico('menu'), onclick: () => root.querySelector('.app').classList.toggle('sideopen') });
@@ -89,7 +97,7 @@ function renderQuota(q) {
   shell.quotaEl.replaceChildren(
     h('div', { class: 'row' }, h('span', {}, L('KI heute', 'AI today')), h('span', {}, L(`${left} / ${limit} frei`, `${left} / ${limit} left`))),
     h('div', { class: 'bar' }, h('i', { style: { width: (100 * left / limit) + '%' } })),
-    h('div', { class: 'row', style: { fontSize: '11px' } }, h('span', {}, L('Neu ab 0:00 Uhr', 'Resets at midnight')), h('span', {}, acc?.pro ? L('Pro aktiv', 'Pro active') : acc ? 'Free' : L('Pro: bald', 'Pro: soon'))));
+    h('div', { class: 'row', style: { fontSize: '11px' } }, h('span', {}, L('Neu ab 0:00 Uhr', 'Resets at midnight')), h('span', {}, acc?.pro ? 'Inner Circle' : acc ? 'Free' : L('Inner Circle: bald', 'Inner Circle: soon'))));
 }
 
 function renderList() {
@@ -114,6 +122,7 @@ function renderList() {
 function renderTabs(docId, tab) {
   shell.tabs.replaceChildren(...TABS.map(([k, label, ic]) =>
     h('a', { class: 'tab' + (k === tab ? ' on' : ''), href: `#/app/${docId}/${k}`, role: 'tab', 'aria-selected': k === tab ? 'true' : 'false' }, h('span', { html: ico(ic), style: { display: 'contents' } }), h('span', {}, label))));
+  requestAnimationFrame(() => { const t = shell.tabs, on = t.querySelector('.on'); if (on && t.scrollWidth > t.clientWidth) t.scrollLeft = on.offsetLeft - (t.clientWidth - on.offsetWidth) / 2; });
   shell.tabs.classList.remove('hidden');
 }
 
@@ -216,7 +225,7 @@ export async function startUpload(file) {
   try {
     const r = await readFile(file, p => { bar.style.width = Math.round(p * 100) + '%'; sub.textContent = `${file.name} · ${Math.round(p * 100)} %`; });
     const pro = !!getAccount()?.pro, maxP = pro ? 1000 : 300;
-    if (r.pages.length > maxP) throw new Error(L(`Das Skript hat ${r.pages.length} Seiten – ${pro ? '' : 'in Free '}gehen bis zu ${maxP}. Teil es in kleinere Dateien auf${pro ? '' : ' oder hol dir Pro'}.`, `These slides have ${r.pages.length} pages – ${pro ? '' : 'on Free '}the limit is ${maxP}. Split them into smaller files${pro ? '' : ' or get Pro'}.`));
+    if (r.pages.length > maxP) throw new Error(L(`Das Skript hat ${r.pages.length} Seiten – ${pro ? '' : 'in Free '}gehen bis zu ${maxP}. Teil es in kleinere Dateien auf${pro ? '' : ' oder komm in den Inner Circle'}.`, `These slides have ${r.pages.length} pages – ${pro ? '' : 'on Free '}the limit is ${maxP}. Split them into smaller files${pro ? '' : ' or join the Inner Circle'}.`));
     bar.style.width = '100%';
     tbi.stop(); fc.set('happy');
     const d = await createDoc(r);

@@ -1373,3 +1373,37 @@ button.asst-cmd:hover { border-color: var(--ink); color: var(--ink); }
 }
 .feat.big > .fi { width: 40px; height: 40px; }
 .feat.big > .ft { width: auto; height: auto; display: grid; place-items: start; flex: 1; white-space: normal; }
+
+/* Max-Assistent auf der Startseite: erst beim Scrollen + Ausblenden-Knopf */
+.asst.landtop:not(.open) .asst-bub { opacity: 0; pointer-events: none; transform: translateY(14px) scale(.6); }
+.asst.land .asst-bub { transition: transform .45s cubic-bezier(.34,1.56,.64,1), border-color .2s, opacity .3s; }
+.asst-x { position: absolute; top: -5px; left: -5px; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--panel); color: var(--ink); border: 1px solid var(--line2); box-shadow: var(--shadow); opacity: 0; transform: scale(.6); transition: opacity .15s, transform .2s var(--ease); cursor: pointer; }
+.asst-x .ico { width: 11px; height: 11px; stroke-width: 2.4; }
+.asst-x:hover { background: var(--inv); color: var(--onInv); border-color: var(--inv); }
+@media (hover: hover) { .asst-bub:hover .asst-x { opacity: 1; transform: none; } }
+.asst.dragging .asst-x { opacity: 0 !important; }
+footer.foot .asst-tg { background: none; border: 0; padding: 0; font: inherit; color: var(--mute); cursor: pointer; margin-right: 14px; }
+footer.foot .asst-tg:hover { color: var(--ink); }
+
+/* Mobile-Fixes: Chat-Spalte, Tabs mit Beschriftung, Schließen-X, Laufband */
+.tutor { grid-template-columns: minmax(330px, 420px) minmax(0, 1fr); }
+.chatcol { min-width: 0; }
+.asst-close .ico { width: 20px; height: 20px; stroke-width: 2.3; }
+.asst-close { color: var(--ink); }
+.marquee .track { will-change: transform; }
+@keyframes marq { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+@media (prefers-reduced-motion: reduce) { .marquee .track { animation: marq 70s linear infinite !important; } }
+@media (max-width: 980px) { .tutor { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 760px) {
+  .chathead { gap: 8px; padding: 10px 12px; }
+  .chathead .face { width: 38px; height: 38px; }
+  .chathead .field.spice { flex: none; max-width: 112px; padding: 0 28px 0 12px; height: 36px; font-size: 13.5px; }
+  .chathead .talkbtn, .chathead .mob-only { width: 36px; height: 36px; flex: none; }
+  .composer .opts { flex-wrap: wrap; }
+  .topbar { height: 62px; }
+  .tabs { min-width: 0; padding: 4px; gap: 4px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 10px, #000 calc(100% - 18px), transparent); mask-image: linear-gradient(90deg, transparent 0, #000 10px, #000 calc(100% - 18px), transparent); scroll-behavior: smooth; }
+  .tab { height: 40px; padding: 0 15px; font-size: 14.5px; gap: 7px; }
+  .tab span { display: inline; }
+  .tab .ico { width: 17px; height: 17px; }
+  .asst-ib { width: 40px; height: 40px; }
+}
