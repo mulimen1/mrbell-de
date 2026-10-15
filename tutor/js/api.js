@@ -1,7 +1,7 @@
 // Verbindung zur KI. Es geht nur der benötigte Textausschnitt raus – gespeichert wird dort nichts.
 import { ls, uid } from './util.js';
 
-export const API_URL = (window.TUTOR_API || 'https://mrbell.app.n8n.cloud/webhook/tutor-ki-7c41e2');
+export const API_URL = (window.TUTOR_API || 'https://hub.mrbell.de/n8n/webhook/tutor-ki-7c41e2');
 
 export function device() {
   let d = ls.get('tutor.device');
