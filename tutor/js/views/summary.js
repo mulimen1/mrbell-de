@@ -10,7 +10,8 @@ import { sanitize } from '../sanitize.js';
 export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in' });
   root.appendChild(wrap);
-  if (ctx.doc.summary) show(wrap, ctx); else intro(wrap, ctx);
+  const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
+  if (auto) generate(wrap, ctx); else if (ctx.doc.summary) show(wrap, ctx); else intro(wrap, ctx);
 }
 
 function intro(wrap, ctx) {

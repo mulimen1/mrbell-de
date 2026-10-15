@@ -1,7 +1,7 @@
 // Einstieg: Landingpage (mit Animationen) + Router
 import { $, $$, h, sleep, ico } from './util.js';
 import { face } from './face.js';
-import { mountApp, startUpload, startSample, topicForm } from './app.js';
+import { mountApp, startUpload, startSample, topicForm, tryFeature } from './app.js';
 import { openLogin, openAccount, verifyLink } from './account.js';
 import { onAccount, getAccount } from './api.js';
 import { applyThemeButtons } from './theme.js';
@@ -46,8 +46,8 @@ function initLanding() {
   // Was Max kann – direkt im Hero sichtbar
   const fr = $('#featrow');
   if (fr) {
-    const F = [['board', 'Erklärt an der Tafel'], ['quiz', 'Quiz in 6 Formaten'], ['cards', 'Karteikarten'], ['path', 'Lernpfad'], ['pod', 'Podcast'], ['note', 'Lernzettel & Mindmap'], ['mic', 'Sprechen'], ['calc', 'BWL-Trainer']];
-    F.forEach(([ic, t], k) => fr.appendChild(h('a', { class: 'feat', href: '#funktionen', style: { '--k': k } }, h('span', { html: ico(ic) }), t)));
+    const F = [['board', 'Erklärt an der Tafel', 'tutor'], ['quiz', 'Quiz in 6 Formaten', 'quiz'], ['cards', 'Karteikarten', 'karten'], ['path', 'Lernpfad', 'pfad'], ['pod', 'Podcast', 'podcast'], ['brain', 'Lernzettel & Mindmap', 'zettel'], ['mic', 'Sprechen', 'voice'], ['calc', 'BWL-Trainer', 'trainer']];
+    F.forEach(([ic, t, key], k) => fr.appendChild(h('button', { class: 'feat', type: 'button', title: 'Ausprobieren', style: { '--k': k }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t)));
     const fs = [...fr.children]; let fi = 0;
     if (!reduce) setInterval(() => { if (!fr.isConnected || document.hidden) return; fs.forEach((x, k) => x.classList.toggle('hl', k === fi)); fi = (fi + 1) % fs.length; }, 1500);
   }
@@ -112,8 +112,12 @@ function initLanding() {
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
   // Lichtkegel im Hero folgt der Maus
-  const hero = $('#hero');
-  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); hero.style.setProperty('--mx', (e.clientX - r.left) + 'px'); hero.style.setProperty('--my', (e.clientY - r.top) + 'px'); }, { passive: true });
+  // Punkte und Lichtschein liegen über der ganzen Seite und folgen der Maus
+  const bg = $('#pagebg');
+  let mx = innerWidth / 2, my = innerHeight * .3, tx = mx, ty = my, run = false;
+  const step = () => { mx += (tx - mx) * .18; my += (ty - my) * .18; bg.style.setProperty('--mx', mx.toFixed(1) + 'px'); bg.style.setProperty('--my', my.toFixed(1) + 'px'); if (Math.abs(tx - mx) + Math.abs(ty - my) > .5) requestAnimationFrame(step); else run = false; };
+  addEventListener('pointermove', e => { if (e.pointerType === 'touch') return; tx = e.clientX; ty = e.clientY; if (!run) { run = true; requestAnimationFrame(step); } }, { passive: true });
+  bg.style.setProperty('--mx', mx + 'px'); bg.style.setProperty('--my', my + 'px');
 
   // Magnet-Knöpfe
   if (!reduce && matchMedia('(pointer: fine)').matches) $$('.magnet').forEach(b => {

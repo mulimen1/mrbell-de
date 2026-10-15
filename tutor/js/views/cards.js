@@ -27,6 +27,8 @@ export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in' });
   root.appendChild(wrap);
   const chIdx = ctx.arg && ctx.arg.startsWith('k') ? parseInt(ctx.arg.slice(1)) : null;
+  const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
+  if (auto) return generate(wrap, ctx, null);
   if (chIdx != null && ctx.doc.path?.chapters[chIdx]) {
     const exists = ctx.doc.decks.find(d => d.chapter === chIdx);
     if (exists) return study(wrap, ctx, exists.cards.map(c => ({ c, d: exists })), exists.title);

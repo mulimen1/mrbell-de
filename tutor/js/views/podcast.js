@@ -29,7 +29,8 @@ export async function render(root, ctx) {
   root.appendChild(wrap);
   if (synth && !synth.getVoices().length) await new Promise(r => { const t = setTimeout(r, 1200); synth.addEventListener('voiceschanged', () => { clearTimeout(t); r(); }, { once: true }); });
   const pod = ctx.doc.podcasts[ctx.doc.podcasts.length - 1];
-  if (pod) player(wrap, ctx, pod); else intro(wrap, ctx);
+  const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
+  if (auto) generate(wrap, ctx, 'kurz', -1, getSpice()); else if (pod) player(wrap, ctx, pod); else intro(wrap, ctx);
   return () => { try { synth && synth.cancel(); } catch (e) {} };
 }
 

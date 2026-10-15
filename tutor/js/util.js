@@ -2,6 +2,11 @@
 export const $ = (s, r = document) => r.querySelector(s);
 export const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
+// Leere Bausteine (null/false) nie als Text „null“ einfügen
+for (const P of [Element.prototype, DocumentFragment.prototype]) for (const m of ['replaceChildren', 'append', 'prepend']) {
+  const orig = P[m]; P[m] = function (...k) { return orig.apply(this, k.filter(x => x != null && x !== false)); };
+}
+
 export function h(tag, attrs = {}, ...kids) {
   const el = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs || {})) {
@@ -80,7 +85,7 @@ const I = {
   path: '<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.5"/>',
   quiz: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.5v.7"/><circle cx="12" cy="17" r=".6" fill="currentColor"/>',
   cards: '<rect x="3" y="7" width="14" height="12" rx="2"/><path d="M7 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/>',
-  pod: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+  pod: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3.5" y="14" width="4.5" height="6.5" rx="1.6"/><rect x="16" y="14" width="4.5" height="6.5" rx="1.6"/>',
   note: '<path d="M5 4h14v16H5z"/><path d="M9 8h6M9 12h6M9 16h3"/>',
   calc: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M8 18h2M12 18h4"/>',
   home: '<path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/>',
@@ -105,7 +110,9 @@ const I = {
   map: '<circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="6" r="2"/><circle cx="19.5" cy="6" r="2"/><circle cx="4.5" cy="18" r="2"/><circle cx="19.5" cy="18" r="2"/><path d="M6.3 7l3.2 3M17.7 7l-3.2 3M6.3 17l3.2-3M17.7 17l-3.2-3"/>',
   bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/>',
   mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
-  expand: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+  brain: '<path d="M15.5 21.5v-3.4c2.7-1.4 4.6-4.2 4.6-7.4A8.1 8.1 0 0 0 12 2.6a7.6 7.6 0 0 0-7.5 6.5l-1.3 3.4c-.2.5.2 1 .7 1H5v2.7c0 1.2 1 2.2 2.2 2.2H9v3.1"/><path d="M10.6 6.6a2.1 2.1 0 0 1 3.1-.7 2.1 2.1 0 0 1 3 1.9 2 2 0 0 1 .4 3.3 2 2 0 0 1-2.3 2.4 2.1 2.1 0 0 1-3.5.2 2 2 0 0 1-2.1-2.6 2 2 0 0 1 1.4-4.5z"/><path d="M13.1 6c-.7 1.1.6 2-.1 3.2s.6 2.2-.1 3.7M10.6 9.4c.9-.2 1.6.2 2.1.9M15.9 8.7c-.9 0-1.7.5-2.1 1.3M15.6 12c-.8-.2-1.6 0-2.2.6"/>',
+  headphones: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3.5" y="14" width="4.5" height="6.5" rx="1.6"/><rect x="16" y="14" width="4.5" height="6.5" rx="1.6"/>',
+    expand: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
 };
 export const ico = (n, cls = '') => `<svg class="ico ${cls}" viewBox="0 0 24 24" aria-hidden="true">${I[n] || ''}</svg>`;
 export const icoEl = (n, cls) => { const s = document.createElement('span'); s.style.display = 'contents'; s.innerHTML = ico(n, cls); return s.firstChild; };

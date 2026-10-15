@@ -51,7 +51,7 @@ export async function render(root, ctx) {
       h('button', { class: 'tile half', onclick: () => ctx.go('quiz') }, h('div', { class: 'ti', html: ico('quiz') }), h('h3', {}, 'Quiz & Probeklausur'),
         h('p', {}, best != null ? `Letztes Quiz: ${best} %` : '6 Fragetypen – wie in der Klausur.'), h('div', { class: 'foot' }, doc.mistakes.length ? `${doc.mistakes.length} Fehler zum Wiederholen` : 'Neues Quiz · 2 Einheiten')),
       h('button', { class: 'tile', onclick: () => ctx.go('podcast') }, h('div', { class: 'ti', html: ico('pod') }), h('h3', {}, 'Podcast'), h('p', {}, doc.podcasts.length ? `${doc.podcasts.length} Folge(n)` : 'Dein Skript zum Anhören.')),
-      h('button', { class: 'tile', onclick: () => ctx.go('zettel') }, h('div', { class: 'ti', html: ico('note') }), h('h3', {}, 'Lernzettel'), h('p', {}, doc.summary ? 'Zusammenfassung + Mindmap' : 'Alles Wichtige auf einer Seite.')),
+      h('button', { class: 'tile', onclick: () => ctx.go('zettel') }, h('div', { class: 'ti', html: ico('brain') }), h('h3', {}, 'Lernzettel'), h('p', {}, doc.summary ? 'Zusammenfassung + Mindmap' : 'Alles Wichtige auf einer Seite.')),
       h('a', { class: 'tile', href: '#/app/trainer' }, h('div', { class: 'ti', html: ico('calc') }), h('h3', {}, 'BWL-Trainer'), h('p', {}, 'Buchungssätze, Break-even, Kapitalwert & mehr – unbegrenzt.'))));
   face(f, {});
 

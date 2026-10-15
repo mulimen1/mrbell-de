@@ -163,7 +163,7 @@ export function openVoice({ doc = null, onClose } = {}) {
       audio.onended = () => { URL.revokeObjectURL(url); if (state === 'speak') { setState('idle', 'Noch was? Tipp aufs Mikro.'); fc.pulse('happy', 900); } };
       await audio.play().catch(() => { setState('idle', 'Tipp aufs Mikro, um weiterzureden. (Ton war blockiert)'); });
     } catch (e) {
-      setState('idle', e?.code === 'voice_busy' ? e.message : 'Vorlesen hat nicht geklappt – die Antwort steht oben.');
+      setState('idle', e?.code === 'voice_busy' || e?.code === 'cap' ? e.message : 'Vorlesen hat nicht geklappt – die Antwort steht oben.');
     }
   }
   function fail(e) {

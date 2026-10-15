@@ -18,7 +18,7 @@ const TABS = [
   ['quiz', 'Quiz', 'quiz'],
   ['karten', 'Karten', 'cards'],
   ['podcast', 'Podcast', 'pod'],
-  ['zettel', 'Lernzettel', 'note'],
+  ['zettel', 'Lernzettel', 'brain'],
 ];
 const VIEWS = {
   hub: () => import('./views/hub.js'),
@@ -208,11 +208,13 @@ export async function startUpload(file) {
   const fc = face(f); fc.set('think');
   try {
     const r = await readFile(file, p => { bar.style.width = Math.round(p * 100) + '%'; sub.textContent = `${file.name} · ${Math.round(p * 100)} %`; });
+    const pro = !!getAccount()?.pro, maxP = pro ? 1000 : 300;
+    if (r.pages.length > maxP) throw new Error(`Das Skript hat ${r.pages.length} Seiten – ${pro ? '' : 'in Free '}gehen bis zu ${maxP}. Teil es in kleinere Dateien auf${pro ? '' : ' oder hol dir Pro'}.`);
     bar.style.width = '100%';
     fc.set('happy');
     const d = await createDoc(r);
     current.key = '';
-    location.hash = `#/app/${d.id}/hub/neu`;
+    location.hash = afterCreate(d);
   } catch (e) {
     console.error(e);
     fc.set('sad');
@@ -225,10 +227,10 @@ export async function startUpload(file) {
 export async function startSample() {
   if (!shell) { buildShell(); await refreshList(); }
   const ex = S.list.find(d => d.sample);
-  if (ex) { location.hash = `#/app/${ex.id}/hub`; return; }
+  if (ex) { const t = ls.get('tutor.target', null); location.hash = t ? afterCreate(ex) : `#/app/${ex.id}/hub`; return; }
   const d = await createDoc({ name: SAMPLE.name, pages: SAMPLE.pages, chars: SAMPLE.pages.join('').length, sample: true });
   current.key = '';
-  location.hash = `#/app/${d.id}/hub/neu`;
+  location.hash = afterCreate(d);
 }
 
 // ---------- Einstellungen ----------
@@ -249,13 +251,14 @@ async function settings() {
 
 // ---------- Thema ohne Skript: Max schreibt ein Kurzskript ----------
 const TOPIC_EXAMPLES = ['Kapitalwertmethode', 'Latente Steuern', 'Preiselastizität', 'Break-even-Analyse', 'Abschreibungen nach HGB', 'Cournot-Oligopol', 'Leverage-Effekt', 'IFRS 16 Leasing', 'Deckungsbeitrag', 'Opportunitätskosten'];
-export function topicForm({ cls = 'askbar' } = {}) {
+export function topicForm({ cls = 'askbar', target = null } = {}) {
   const inp = h('input', { class: 'tin', maxlength: 160, 'aria-label': 'Was soll Max dir erklären?', placeholder: 'Sag mir, was ich dir erklären soll …', enterkeyhint: 'go' });
   const fEl = h('span', { class: 'af' });
-  const btn = h('button', { class: 'btn primary', type: 'submit' }, 'Erklär’s mir');
+  const BTN = { quiz: 'Quiz bauen', karten: 'Karten machen', podcast: 'Folge aufnehmen', zettel: 'Lernzettel schreiben', pfad: 'Lernpfad bauen' };
+  const btn = h('button', { class: 'btn primary', type: 'submit' }, BTN[target] || 'Erklär’s mir');
   const form = h('form', { class: cls }, fEl, inp, btn);
   face(fEl, {});
-  form.addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (t.length < 2) { inp.focus(); return; } startTopic(t); });
+  form.addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (t.length < 2) { inp.focus(); return; } ls.set('tutor.target', target); startTopic(t); });
   // Beispiele im Platzhalter durchtippen
   let k = Math.floor(Math.random() * TOPIC_EXAMPLES.length), stop = false;
   inp.addEventListener('focus', () => { stop = true; inp.placeholder = 'z. B. ' + TOPIC_EXAMPLES[k % TOPIC_EXAMPLES.length]; });
@@ -308,8 +311,9 @@ export async function startTopic(topic) {
     const name = String(r.data.title || topic).slice(0, 80);
     const d = await createDoc({ name, pages, chars: pages.join('').length, generated: true, topic });
     current.key = '';
-    ls.set('tutor.pendingAsk', `Erklär mir „${topic}“ von Grund auf – mit Beispiel an der Tafel.`);
-    location.hash = `#/app/${d.id}/tutor`;
+    const tgt = ls.get('tutor.target', null);
+    if (!tgt || tgt === 'tutor') { ls.set('tutor.target', null); ls.set('tutor.pendingAsk', `Erklär mir „${topic}“ von Grund auf – mit Beispiel an der Tafel.`); location.hash = `#/app/${d.id}/tutor`; }
+    else location.hash = afterCreate(d);
   } catch (e) {
     clearInterval(iv); fc.set('sad');
     if (e.code === 'limit') { await apiError(e); go(''); return; }
@@ -330,4 +334,41 @@ function mobileTip() {
   document.body.appendChild(tip);
   face(f, { follow: false });
   setTimeout(() => { if (tip.isConnected) close(); }, 14000);
+}
+
+// Nach Upload/Thema: direkt zur gewählten Funktion (vom „Ausprobieren“ auf der Startseite)
+const AUTO_TABS = { quiz: 'quiz', karten: 'karten', podcast: 'podcast', zettel: 'zettel', pfad: 'pfad' };
+function afterCreate(d) {
+  const t = ls.get('tutor.target', null); ls.set('tutor.target', null);
+  if (t === 'tutor') { ls.set('tutor.pendingAsk', 'Erklär mir das wichtigste Thema aus dem Skript an der Tafel – mit Beispiel.'); return `#/app/${d.id}/tutor`; }
+  if (AUTO_TABS[t]) return `#/app/${d.id}/${AUTO_TABS[t]}/auto`;
+  return `#/app/${d.id}/hub/neu`;
+}
+
+// „Ausprobieren“: Skript hochladen oder Thema nennen, danach direkt in die Funktion
+export const TRY = {
+  tutor: ['Erklärt an der Tafel', 'Lade dein Skript hoch oder nenn mir ein Thema – ich erklär’s dir direkt an der Tafel.'],
+  quiz: ['Quiz in 6 Formaten', 'Lade dein Skript hoch oder nenn mir ein Thema – ich bau dir sofort ein Quiz daraus.'],
+  karten: ['Karteikarten', 'Lade dein Skript hoch oder nenn mir ein Thema – ich mach dir direkt 16 Karteikarten.'],
+  pfad: ['Lernpfad', 'Lade dein Skript hoch oder nenn mir ein Thema – ich teil’s dir in Kapitel mit Lektionen auf.'],
+  podcast: ['Podcast', 'Lade dein Skript hoch oder nenn mir ein Thema – Lena und ich nehmen direkt eine Folge auf.'],
+  zettel: ['Lernzettel & Mindmap', 'Lade dein Skript hoch oder nenn mir ein Thema – ich schreib dir Lernzettel und Mindmap.'],
+};
+export async function tryFeature(key) {
+  if (key === 'voice') { const { openVoice } = await import('./voice.js'); return openVoice({}); }
+  if (key === 'trainer') { location.hash = '#/app/trainer'; return; }
+  const [title, text] = TRY[key] || TRY.tutor;
+  const fin = h('input', { type: 'file', class: 'sr', accept: ACCEPT });
+  const close = () => document.querySelector('.modal-bg.trybg')?.remove();
+  fin.addEventListener('change', () => { if (fin.files[0]) { ls.set('tutor.target', key); close(); startUpload(fin.files[0]); } });
+  const form = topicForm({ cls: 'askbar inmodal', target: key });
+  form.addEventListener('submit', () => close());
+  const body = h('div', { class: 'trybody' },
+    h('label', { class: 'btn primary lg trybtn' }, fin, h('span', { html: ico('upload') }), 'Skript hochladen'),
+    h('div', { class: 'or' }, h('span', {}, 'oder Thema nennen')),
+    form,
+    h('button', { class: 'talklink', type: 'button', onclick: () => { ls.set('tutor.target', key); close(); startSample(); } }, 'Erstmal mit dem Beispiel-Skript testen'));
+  const p = modal({ title, text, body, actions: [] });
+  document.querySelector('.modal-bg:last-of-type')?.classList.add('trybg');
+  return p;
 }

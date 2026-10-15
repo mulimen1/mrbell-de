@@ -19,6 +19,12 @@ export function loading(root, title, lines = []) {
 
 export async function apiError(e, retry) {
   if (e && e.name === 'AbortError') return;
+  if (e && e.code === 'cap') {
+    const acc = getAccount();
+    const r = await modal({ title: 'Für heute ist Schluss damit', text: e.message, actions: acc ? [{ label: 'Alles klar', value: false, primary: true }] : [{ label: 'Später', value: false }, { label: 'Anmelden · 7 Tage Pro', value: true, primary: true }] });
+    if (r) { const { openLogin } = await import('./account.js'); if (await openLogin({ title: 'Mehr mit 7 Tagen Pro' }) && retry) retry(); }
+    return;
+  }
   if (e && e.code === 'limit') {
     const acc = getAccount();
     const r = await modal({

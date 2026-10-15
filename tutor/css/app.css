@@ -887,3 +887,20 @@ button.doc-item { border: 0; background: transparent; width: 100%; text-align: l
 .empty .talklink { display: flex; }
 .bubble { width: 300px; }
 @media (max-width: 860px) { .bubble { width: min(320px, 86vw); } }
+
+/* Punkte + Lichtschein über die ganze Startseite (statt nur im Hero) */
+#landing { position: relative; isolation: isolate; }
+.pagebg { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.pagebg .pdots { position: absolute; inset: 0; opacity: .45; }
+.pagebg .pdots.hi { opacity: 1; -webkit-mask-image: radial-gradient(520px circle at var(--mx, 50%) var(--my, 30%), #000 0%, rgba(0,0,0,.35) 45%, transparent 75%); mask-image: radial-gradient(520px circle at var(--mx, 50%) var(--my, 30%), #000 0%, rgba(0,0,0,.35) 45%, transparent 75%); }
+.pagebg .pspot { position: absolute; inset: 0; background: radial-gradient(460px circle at var(--mx, 50%) var(--my, 30%), color-mix(in srgb, var(--ink) 8%, transparent), transparent 70%); }
+@media (hover: none) { .pagebg .pdots.hi, .pagebg .pspot { --mx: 50vw; --my: 22vh; } }
+.feat { cursor: pointer; font-family: var(--sans); }
+.trybody { display: grid; gap: 4px; justify-items: center; }
+.trybody .trybtn { width: 100%; justify-content: center; }
+.trybody .or { width: 100%; margin: 14px 0 2px; }
+.trybody .askbar { width: 100%; }
+
+.feat > span { display: grid; place-items: center; width: 17px; height: 17px; flex: none; }
+.feat .ico { display: block; width: 17px; height: 17px; }
+.feat { line-height: 1; }

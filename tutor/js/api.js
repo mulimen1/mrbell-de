@@ -1,6 +1,7 @@
 // Verbindung zur KI. Es geht nur der benötigte Textausschnitt raus – gespeichert wird dort nichts.
 import { ls, uid } from './util.js';
 import { S } from './state.js';
+import { lang } from './i18n.js';
 
 export const API_URL = (window.TUTOR_API || 'https://hub.mrbell.de/n8n/webhook/tutor-ki-7c41e2');
 
@@ -44,7 +45,7 @@ export async function ask(action, payload = {}, { signal } = {}) {
   const extra = {};
   const ses = getSession(); if (ses) extra.session = ses;
   if (payload.material != null && S.doc?.generated) extra.src = 'max';
-  const body = JSON.stringify({ action, device: device(), ...extra, ...payload });
+  const body = JSON.stringify({ action, device: device(), lang, ...extra, ...payload });
   let res;
   try {
     res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, signal });

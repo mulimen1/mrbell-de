@@ -34,6 +34,7 @@ export async function render(root, ctx) {
   const { doc, arg } = ctx;
   const wrap = h('div', { class: 'view-in' });
   root.appendChild(wrap);
+  if (arg === 'auto') { history.replaceState(null, '', location.hash.replace(/\/auto$/, '')); if (!doc.path) return waitPath(wrap, ctx, true); }
   if (arg != null && doc.path && doc.path.chapters[+arg]) return chapterView(wrap, ctx, +arg);
   if (!doc.path) {
     if (pathPending(doc)) return waitPath(wrap, ctx);

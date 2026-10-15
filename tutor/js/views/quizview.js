@@ -22,7 +22,9 @@ export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in' });
   root.appendChild(wrap);
   const pre = ctx.arg && ctx.arg.startsWith('k') ? parseInt(ctx.arg.slice(1)) : null;
-  overview(wrap, ctx, pre);
+  const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
+  if (auto) generate(wrap, ctx, { count: 8, diff: 'mittel', types: new Set(TYPES), focus: -1 });
+  else overview(wrap, ctx, pre);
   return () => { wrap._timer && clearInterval(wrap._timer); };
 }
 
