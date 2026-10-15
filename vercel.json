@@ -2,6 +2,17 @@
   "outputDirectory": ".",
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.bwlmax.de"
+        }
+      ],
+      "destination": "https://bwlmax.de/:path*",
+      "permanent": true
+    },
+    {
       "source": "/blog",
       "destination": "/",
       "permanent": true
@@ -84,6 +95,26 @@
   ],
   "rewrites": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "bwlmax.de"
+        }
+      ],
+      "destination": "/tutor/index.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.bwlmax.de"
+        }
+      ],
+      "destination": "/tutor/index.html"
+    },
+    {
       "source": "/agb",
       "destination": "/agb.html"
     },
@@ -149,10 +180,35 @@
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://hub.mrbell.de https://mrbell.app.n8n.cloud; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
         }
+      ],
+      "missing": [
+        {
+          "type": "host",
+          "value": "bwlmax.de"
+        }
       ]
     },
     {
       "source": "/tutor(.*)",
+      "headers": [
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(self), geolocation=(), payment=(), usb=(), interest-cohort=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self' blob: data:; connect-src 'self' https://hub.mrbell.de https://mrbell.app.n8n.cloud; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "bwlmax.de"
+        }
+      ],
       "headers": [
         {
           "key": "Permissions-Policy",
