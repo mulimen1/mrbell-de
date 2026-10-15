@@ -17,10 +17,10 @@ export const config = {
     '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa']
 };
 
-const ZIEL = 'https://mrbell.app.n8n.cloud/webhook/mb-ping';
+const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
 // WhatsApp-Webhook (360dialog) -> n8n. Status-Meldungen (gesendet/zugestellt/gelesen) werden hier schon beantwortet,
 // nur echte Nachrichten gehen weiter - spart rund drei von vier n8n-Ausfuehrungen.
-const WA_ZIEL = 'https://mrbell.app.n8n.cloud/webhook/075763a0-940e-44fe-8215-71f6a5974beb-gs-v3';
+const WA_ZIEL = 'https://hub.mrbell.de/n8n/webhook/075763a0-940e-44fe-8215-71f6a5974beb-gs-v3';
 
 const GO = {
   'whatsapp-demo': 'https://wa.me/4915142886513?text=Test%20DEMO',

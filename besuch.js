@@ -22,7 +22,7 @@
       intern: intern
     };
 
-    var ziel = 'https://mrbell.app.n8n.cloud/webhook/besuch-7c1d5a2e-3b94-4f60-a8e1-2d6c9b0f4a73';
+    var ziel = 'https://hub.mrbell.de/n8n/webhook/besuch-7c1d5a2e-3b94-4f60-a8e1-2d6c9b0f4a73';
     var txt = JSON.stringify(daten);
 
     if (navigator.sendBeacon) {
