@@ -12,3 +12,7 @@ export const L = (de, en) => (EN && en != null ? en : de);
 export const LOCALE = EN ? 'en-GB' : 'de-DE';
 export function setLang(v) { ls.set('tutor.lang', v); location.reload(); }
 document.documentElement.lang = lang;
+
+// Sprache der Inhalte (Max' Antworten, Quiz, Podcast …) – unabhängig von der Oberfläche einstellbar
+export const getOutLang = () => { const v = ls.get('tutor.outLang', null); return v === 'de' || v === 'en' ? v : lang; };
+export const setOutLang = v => ls.set('tutor.outLang', v);

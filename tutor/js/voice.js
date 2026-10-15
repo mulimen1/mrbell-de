@@ -8,6 +8,7 @@ import { forChat } from './retrieve.js';
 import { apiError } from './ui.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice } from './max.js';
+import { getOutLang, setOutLang } from './i18n.js';
 
 export const VOICES = [
   ['max', 'Max', 'Anfang 20, ganz normal'],
@@ -50,9 +51,11 @@ export function openVoice({ doc = null, onClose } = {}) {
     c.addEventListener('click', () => { voice = k; ls.set('tutor.voice', k); chips.forEach(x => x.classList.toggle('on', x === c)); });
     return c;
   });
+  const lbs = [['de', 'DE'], ['en', 'EN']].map(([k, l]) => { const b = h('button', { type: 'button', class: k === getOutLang() ? 'on' : '' }, l); b.addEventListener('click', () => { setOutLang(k); lbs.forEach(x => x.classList.toggle('on', x === b)); }); return b; });
+  const langSeg = h('div', { class: 'seg', title: 'Sprache, in der Max antwortet' }, lbs);
   const closeBtn = h('button', { class: 'iconbtn vclose', type: 'button', 'aria-label': 'Schließen', html: ico('x') });
   const ov = h('div', { class: 'voice', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Mit Max sprechen' },
-    h('div', { class: 'vtop' }, h('div', { class: 'vchips' }, h('span', { class: 'eyebrow' }, 'Stimme'), chips), closeBtn),
+    h('div', { class: 'vtop' }, h('div', { class: 'vchips' }, h('span', { class: 'eyebrow' }, 'Stimme'), chips), langSeg, closeBtn),
     h('div', { class: 'vmain' },
       h('div', { class: 'vstage' }, ring, fEl),
       status, you, said, boardBox),

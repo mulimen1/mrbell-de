@@ -5,6 +5,7 @@ import { S, refreshList, openDoc, createDoc, removeDoc, lastDocId, save, onChang
 import { readFile, ACCEPT } from './ingest.js';
 import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
 import { accountChip, refreshAccount } from './account.js';
+import { getOutLang, setOutLang } from './i18n.js';
 import { lines as maxLines, getSpice } from './max.js';
 import { apiError } from './ui.js';
 import { exportAll, importAll, wipe } from './db.js';
@@ -54,7 +55,7 @@ function buildShell() {
       h('button', { class: 'doc-item', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({ doc: S.doc && location.hash.includes(S.doc.id) ? S.doc : null, onClose: () => { forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } }); } }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, 'Mit Max sprechen')),
       h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, 'Max erklärt ein Thema')),
       h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('calc') }), h('span', { class: 'nm' }, 'BWL-Trainer'))),
-    h('div', { class: 'bottom' }, accountChip(), quotaEl,
+    h('div', { class: 'bottom' }, outLangSwitch(), accountChip(), quotaEl,
       h('div', { style: { display: 'grid', gap: '2px' } },
         feedbackButton('btn sm ghost'),
         h('button', { class: 'btn sm ghost', onclick: settings }, 'Daten & Sicherung'))));
@@ -371,4 +372,15 @@ export async function tryFeature(key) {
   const p = modal({ title, text, body, actions: [] });
   document.querySelector('.modal-bg:last-of-type')?.classList.add('trybg');
   return p;
+}
+
+// „Max antwortet auf …“ – Sprache der Inhalte
+function outLangSwitch() {
+  const cur = getOutLang();
+  const btns = [['de', 'Deutsch'], ['en', 'English']].map(([k, l]) => {
+    const b = h('button', { type: 'button', class: k === cur ? 'on' : '' }, l);
+    b.addEventListener('click', () => { setOutLang(k); btns.forEach(x => x.classList.toggle('on', x === b)); toast(k === 'en' ? 'Max answers in English now.' : 'Max antwortet jetzt auf Deutsch.'); });
+    return b;
+  });
+  return h('div', { class: 'olang', title: 'Sprache von Max’ Antworten, Quiz, Karten und Podcast' }, h('span', {}, 'Max antwortet auf'), h('div', { class: 'seg' }, btns));
 }
