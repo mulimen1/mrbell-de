@@ -1,5 +1,5 @@
 // „Wie findest du Max?“ – echte Bewertungen sammeln (freiwillig, mit Einwilligung für die Website)
-import { h, toast, ls } from './util.js';
+import { h, toast, ls, ico } from './util.js';
 import { ask } from './api.js';
 import { L } from './i18n.js';
 
@@ -23,6 +23,7 @@ export function openFeedback() {
   const close = () => bg.remove();
   bg.addEventListener('click', e => { if (e.target === bg) close(); });
   bg.appendChild(h('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true' },
+    h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': document.documentElement.lang === 'en' ? 'Close' : 'Schließen', html: ico('x'), onclick: close }),
     h('h3', {}, L('Wie findest du Max?', 'What do you think of Max?')),
     h('p', {}, L('Ehrliches Feedback hilft uns am meisten – auch Kritik.', 'Honest feedback helps us most – criticism included.')),
     h('div', { class: 'fbstars' }, starEls),

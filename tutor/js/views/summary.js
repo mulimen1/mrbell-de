@@ -25,7 +25,7 @@ function intro(wrap, ctx) {
 
 async function generate(wrap, ctx) {
   const { doc } = ctx;
-  const ld = loading(wrap, L('Ich schreibe deinen Lernzettel …', 'Writing your study sheet …'), L(['Finde die Kernaussagen', 'Sortiere die Formeln', 'Zeichne die Mindmap', 'Definiere die Begriffe'], ['Finding the key statements', 'Sorting the formulas', 'Drawing the mind map', 'Defining the key terms']));
+  const ld = loading(wrap, L('Ich schreibe deinen Lernzettel …', 'Writing your study sheet …'), L(['Finde die Kernaussagen', 'Sortiere die Formeln', 'Zeichne die Mindmap', 'Definiere die Begriffe'], ['Finding the key statements', 'Sorting the formulas', 'Drawing the mind map', 'Defining the key terms']), 'summary');
   try {
     const r = await ask('summary', { material: forWhole(doc), docName: doc.name });
     const d = r.data || {};

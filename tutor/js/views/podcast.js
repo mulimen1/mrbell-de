@@ -86,7 +86,7 @@ function wave() { const w = h('div', { class: 'wave' }); for (let i = 0; i < 30;
 async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), mvoice = 'max') {
   const { doc } = ctx;
   const ch = focus >= 0 ? doc.path.chapters[focus] : null;
-  const ld = loading(wrap, L('Lisa und Max nehmen auf …', 'Lisa and Max are recording …'), L(['Schreibe das Skript', 'Baue Beispiele ein', 'Max sucht sich eine knifflige Frage', 'Fast fertig'], ['Writing the script', 'Adding examples', 'Max is picking a tricky question', 'Almost done']));
+  const ld = loading(wrap, L('Lisa und Max nehmen auf …', 'Lisa and Max are recording …'), L(['Schreibe das Skript', 'Baue Beispiele ein', 'Max sucht sich eine knifflige Frage', 'Fast fertig'], ['Writing the script', 'Adding examples', 'Max is picking a tricky question', 'Almost done']), 'podcast');
   try {
     const r = await ask('podcast', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, lang: plang, opts: { length: len, focus: ch ? ch.title : '', spice: tone } });
     const lines = (r.data?.lines || []).filter(l => l && l.t).map(l => ({ s: /max/i.test(l.s) ? 'Max' : 'Lisa', t: String(l.t) }));

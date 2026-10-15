@@ -2,20 +2,38 @@
 import { h, ico, modal, toast } from './util.js';
 import { face } from './face.js';
 import { COST, currentQuota, getAccount } from './api.js';
-import { say } from './max.js';
+import { say, thinkLines } from './max.js';
 import { L } from './i18n.js';
 
-export function loading(root, title, lines = []) {
+// Gedankenblase neben Max' Kopf (die drei Denk-Punkte führen hinein)
+export function thought(faceEl, kind = 'generic', fallback = []) {
+  const bub = h('div', { class: 'thought', 'aria-live': 'polite' });
+  const wrap = h('div', { class: 'thinkwrap' });
+  faceEl.replaceWith(wrap); wrap.append(faceEl, bub);
+  const lines = thinkLines(kind, fallback);
+  let i = 0;
+  const show = () => {
+    if (!bub.isConnected) return clearInterval(iv);
+    bub.textContent = lines[i++ % lines.length];
+    bub.animate([{ opacity: 0, transform: 'scale(.85) translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.34,1.56,.64,1)' });
+  };
+  show();
+  const iv = setInterval(show, 3200);
+  return { el: bub, stop() { clearInterval(iv); } };
+}
+
+export function loading(root, title, lines = [], kind = 'generic') {
   const f = h('div', { class: 'face' });
   const sub = h('div', { class: 'sub' });
   const el = h('div', { class: 'loading' }, f, h('b', {}, title), sub);
   root.replaceChildren(el);
   const fc = face(f); fc.set('think');
-  let i = 0, t0 = Date.now();
-  const tick = () => { if (!el.isConnected) return clearInterval(iv); const s = Math.round((Date.now() - t0) / 1000); sub.textContent = (lines.length ? lines[i++ % lines.length] : L('Einen Moment', 'One moment')) + (s > 4 ? ` · ${s} s` : ''); };
+  const tb = thought(f, kind, lines);
+  const t0 = Date.now();
+  const tick = () => { if (!el.isConnected) return clearInterval(iv); const s = Math.round((Date.now() - t0) / 1000); sub.textContent = s > 4 ? `${s} s` : ''; };
   tick();
-  const iv = setInterval(tick, 2600);
-  return { el, face: fc, stop() { clearInterval(iv); } };
+  const iv = setInterval(tick, 1000);
+  return { el, face: fc, stop() { clearInterval(iv); tb.stop(); } };
 }
 
 export async function apiError(e, retry) {

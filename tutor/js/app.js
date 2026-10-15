@@ -7,7 +7,7 @@ import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
 import { accountChip, refreshAccount } from './account.js';
 import { getOutLang, setOutLang, L, LOCALE, lang, setLang } from './i18n.js';
 import { lines as maxLines, getSpice } from './max.js';
-import { apiError } from './ui.js';
+import { apiError, thought } from './ui.js';
 import { exportAll, importAll, wipe } from './db.js';
 import { applyThemeButtons } from './theme.js';
 import { feedbackButton } from './feedback.js';
@@ -208,18 +208,19 @@ export async function startUpload(file) {
   const f = h('div', { class: 'face' }), bar = h('i'), sub = h('div', { class: 'sub mono' }, file.name);
   shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f, h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, L('Max liest dein Skript …', 'Max is reading your slides …')), h('div', { class: 'bar' }, bar), sub)));
   const fc = face(f); fc.set('think');
+  const tbi = thought(f, 'ingest', [L('Ich lese das Skript …', 'Reading the slides …')]);
   try {
     const r = await readFile(file, p => { bar.style.width = Math.round(p * 100) + '%'; sub.textContent = `${file.name} · ${Math.round(p * 100)} %`; });
     const pro = !!getAccount()?.pro, maxP = pro ? 1000 : 300;
     if (r.pages.length > maxP) throw new Error(L(`Das Skript hat ${r.pages.length} Seiten – ${pro ? '' : 'in Free '}gehen bis zu ${maxP}. Teil es in kleinere Dateien auf${pro ? '' : ' oder hol dir Pro'}.`, `These slides have ${r.pages.length} pages – ${pro ? '' : 'on Free '}the limit is ${maxP}. Split them into smaller files${pro ? '' : ' or get Pro'}.`));
     bar.style.width = '100%';
-    fc.set('happy');
+    tbi.stop(); fc.set('happy');
     const d = await createDoc(r);
     current.key = '';
     location.hash = afterCreate(d);
   } catch (e) {
     console.error(e);
-    fc.set('sad');
+    tbi.stop(); tbi.el.remove(); fc.set('sad');
     sub.textContent = e.message || L('Die Datei konnte nicht gelesen werden.', 'The file couldn’t be read.');
     sub.after(h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } },
       h('label', { class: 'btn primary', for: 'fileApp' }, L('Andere Datei', 'Different file')), h('button', { class: 'btn', onclick: () => startSample() }, L('Beispiel nehmen', 'Use the example'))));
@@ -296,20 +297,19 @@ export async function startTopic(topic) {
     h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, L(`Max schreibt dir ein Kurzskript zu „${topic}“`, `Max is writing you a short script on “${topic}”`)),
     h('div', { class: 'bar' }, bar), sub)));
   const fc = face(f); fc.set('think');
-  const lines = [L('Ich sortiere kurz meine Gedanken …', 'Just sorting my thoughts …'), ...maxLines('thinking'), L('Beispiel wird durchgerechnet …', 'Working through the example …'), L('Ich prüfe die Zahlen zweimal …', 'Double-checking the numbers …'), L('Typische Klausurfehler kommen rein …', 'Adding typical exam mistakes …')];
-  let i = 0; const t0 = Date.now();
+  const tb = thought(f, 'topic', [L('Ich schreibe das Kurzskript …', 'Writing the short script …'), L('Beispiel wird durchgerechnet …', 'Working through the example …'), L('Ich prüfe die Zahlen …', 'Checking the numbers …')]);
+  const t0 = Date.now();
   const iv = setInterval(() => {
-    if (!sub.isConnected) return clearInterval(iv);
+    if (!sub.isConnected) { tb.stop(); return clearInterval(iv); }
     const s = (Date.now() - t0) / 1000;
     bar.style.width = Math.min(92, 100 * (1 - Math.exp(-s / 22))) + '%';
-    if (Math.round(s * 4) % 12 === 0) sub.textContent = lines[i++ % lines.length];
+    sub.textContent = s > 4 ? `${Math.round(s)} s` : '';
   }, 250);
-  sub.textContent = lines[0];
   try {
     const r = await ask('topic', { opts: { topic, spice: getSpice() } });
     const pages = (r.data?.pages || []).map(String).filter(x => x.trim().length > 20);
     if (pages.length < 2) throw Object.assign(new Error(L('Max hat sich verhaspelt. Versuch es nochmal.', 'Max got tongue-tied. Try again.')), { code: 'format' });
-    clearInterval(iv); bar.style.width = '100%'; fc.set('happy');
+    clearInterval(iv); tb.stop(); bar.style.width = '100%'; fc.set('happy');
     const name = String(r.data.title || topic).slice(0, 80);
     const d = await createDoc({ name, pages, chars: pages.join('').length, generated: true, topic });
     current.key = '';
@@ -317,7 +317,7 @@ export async function startTopic(topic) {
     if (!tgt || tgt === 'tutor') { ls.set('tutor.target', null); ls.set('tutor.pendingAsk', L(`Erklär mir „${topic}“ von Grund auf – mit Beispiel an der Tafel.`, `Explain “${topic}” to me from scratch – with an example on the whiteboard.`)); location.hash = `#/app/${d.id}/tutor`; }
     else location.hash = afterCreate(d);
   } catch (e) {
-    clearInterval(iv); fc.set('sad');
+    clearInterval(iv); tb.stop(); tb.el.remove(); fc.set('sad');
     if (e.code === 'limit') { await apiError(e); go(''); return; }
     sub.textContent = e.message || L('Das hat nicht geklappt.', 'That didn’t work.');
     sub.after(h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } },

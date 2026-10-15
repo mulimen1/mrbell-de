@@ -928,3 +928,24 @@ button.doc-item { border: 0; background: transparent; width: 100%; text-align: l
 .side .top .brand small { display: inline-block; font-size: 9px; padding: 1px 4px; }
 .side .top .langsw button.on { display: none; }
 .olang > span { white-space: nowrap; }
+
+/* Gedankenblase beim Bauen: die Denk-Punkte führen hinein */
+.thinkwrap { position: relative; display: inline-block; margin: 0 auto; }
+.ingest .thinkwrap { display: block; width: 110px; margin: 46px auto 18px; }
+.ingest .thinkwrap .face { margin: 0; }
+.loading .thinkwrap { margin-top: 40px; }
+.thought { position: absolute; left: calc(100% + 6px); bottom: calc(100% - 4px); width: max-content; max-width: 250px; padding: 10px 14px; background: var(--panel); border: 1.5px solid var(--ink); border-radius: 20px 20px 20px 6px; font: 550 14px/1.35 var(--sans); color: var(--ink); text-align: left; box-shadow: var(--shadow); transform-origin: 0 100%; }
+@media (max-width: 760px) {
+  .loading .thinkwrap, .ingest .thinkwrap { margin-top: 96px; }
+  .thought { left: 50%; bottom: calc(100% + 22px); max-width: min(270px, 82vw); border-radius: 20px; text-align: center; translate: -50% 0; transform-origin: 50% 100%; }
+}
+.thought::before, .thought::after { content: ""; position: absolute; border: 1.5px solid var(--ink); background: var(--panel); border-radius: 50%; }
+.thought::before { width: 11px; height: 11px; left: -13px; bottom: -6px; }
+.thought::after { width: 6px; height: 6px; left: -22px; bottom: -14px; }
+@media (max-width: 760px) {
+  .thought::before { left: calc(50% + 14px); bottom: -15px; }
+  .thought::after { left: calc(50% + 24px); bottom: -25px; }
+}
+.modal { position: relative; }
+.modal .mx { position: absolute; top: 12px; right: 12px; z-index: 2; }
+.modal .mx + h3 { padding-right: 34px; }

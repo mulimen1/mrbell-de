@@ -75,6 +75,7 @@ export function modal({ title, text, body, actions = [] }) {
     const onKey = e => { if (e.key === 'Escape') close(null); };
     const bg = h('div', { class: 'modal-bg', onclick: e => { if (e.target === bg) close(null); } },
       h('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true' },
+        h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': document.documentElement.lang === 'en' ? 'Close' : 'Schließen', html: ico('x'), onclick: () => close(null) }),
         title && h('h3', {}, title), text && h('p', {}, text), body,
         h('div', { class: 'row' }, actions.map(a => h('button', { class: 'btn ' + (a.primary ? 'primary' : ''), onclick: () => close(a.value) }, a.label)))));
     document.body.appendChild(bg);

@@ -10,8 +10,8 @@ export const NAME = 'BWL Max';
 const DE = {
   greet: {
     1: ['Hi, ich bin Max. Ich erkläre dir deine Vorlesung an der Tafel.', 'Aus deinem Skript mache ich Quiz, Karteikarten und einen Podcast.', 'Klausur bald? Ich baue dir einen Lernpfad.', 'Kein Skript da? Sag mir das Thema, ich schreibe dir eins.', 'Du kannst auch einfach mit mir reden.'],
-    2: ['Moin aus Kampen. Ich bin Max und erklär dir jede Vorlesung.', 'Skript rein, Quiz raus. Effizienz hab ich von Papa.', 'Karteikarten, Podcast, Lernpfad – mach ich zwischen zwei Golfrunden.', 'Reden geht auch. Wie ein Podcast, nur mit besserem Haar.', 'Ich erklär dir das an der Tafel. Ich hab Zeit, der Porsche steht eh in der Werkstatt.', 'Kein Skript dabei? Ich auch nie. Nenn mir das Thema, ich regel das.', 'Deine Klausur ist mein neues Hobby. Polo war mir zu anstrengend.', 'Lernpfad? Hab ich gebaut, bevor du „Lernpfad“ googeln konntest.'],
-    3: ['Moin aus Kampen. Ich bin Max und erklär dir jede Vorlesung.', 'Skript rein, Quiz raus. Effizienz hab ich von Papa.', 'Karteikarten, Podcast, Lernpfad – mach ich zwischen zwei Golfrunden.', 'Reden geht auch. Wie ein Podcast, nur mit besserem Haar.', 'Papa wollte einen Berater für dich. Ich bin billiger und hab bessere Haare.', 'Ich hab Bilanzen gelesen, bevor ich lesen konnte. Sagt zumindest Mama.', 'Mein Quarter-Zip kostet mehr als dein Semesterticket. Meine Erklärungen sind trotzdem gratis.', 'Kein Skript? Nenn mir ein Thema. Ich diktier dir eins – vom Boot aus.']
+    2: ['Moin aus Sylt. Ich bin Max – der beste Tutor, den du im Internet finden wirst.', 'Skript rein, Quiz raus. Effizienz hab ich von Papa.', 'Karteikarten, Podcast, Lernpfad – mach ich zwischen zwei Golfrunden.', 'Reden geht auch. Wie ein Podcast, nur mit besserem Haar.', 'Ich erklär dir das an der Tafel. Ich hab Zeit, der Porsche steht eh in der Werkstatt.', 'Kein Skript dabei? Ich auch nie. Nenn mir das Thema, ich regel das.', 'Deine Klausur ist mein neues Hobby. Polo war mir zu anstrengend.', 'Lernpfad? Hab ich gebaut, bevor du „Lernpfad“ googeln konntest.'],
+    3: ['Moin aus Sylt. Ich bin Max – der beste Tutor im ganzen Internet. Sagt Papa, und Papa irrt nie.', 'Skript rein, Quiz raus. Effizienz hab ich von Papa.', 'Karteikarten, Podcast, Lernpfad – mach ich zwischen zwei Golfrunden.', 'Reden geht auch. Wie ein Podcast, nur mit besserem Haar.', 'Papa wollte einen Berater für dich. Ich bin billiger und hab bessere Haare.', 'Ich hab Bilanzen gelesen, bevor ich lesen konnte. Sagt zumindest Mama.', 'Mein Quarter-Zip kostet mehr als dein Semesterticket. Meine Erklärungen sind trotzdem gratis.', 'Kein Skript? Nenn mir ein Thema. Ich diktier dir eins – vom Boot aus.']
   },
   welcome: {
     1: d => `Hey! Ich hab „${d}“ gelesen. Frag mich, was du nicht verstehst – ich erklär’s dir an der Tafel. Oder soll ich dich abfragen?`,
@@ -47,8 +47,8 @@ const DE = {
 const ENG = {
   greet: {
     1: ['Hi, I’m Max. I explain your lecture on the whiteboard.', 'I turn your slides into quizzes, flashcards and a podcast.', 'Exam coming up? I’ll build you a study path.', 'No slides? Tell me the topic and I’ll write you a script.', 'You can also just talk to me.'],
-    2: ['Hi from Sylt. I’m Max, and I explain any lecture.', 'Slides in, quiz out. I get the efficiency from my dad.', 'Flashcards, podcast, study path – I do them between two rounds of golf.', 'We can also talk. Like a podcast, just with better hair.', 'I’ll explain it on the whiteboard. I have time, the Porsche is in the shop anyway.', 'No slides? Me neither, ever. Give me the topic, I’ll handle it.', 'Your exam is my new hobby. Polo was too exhausting.', 'Study path? Built it before you could google “study path”.'],
-    3: ['Hi from Sylt. I’m Max, and I explain any lecture.', 'Slides in, quiz out. I get the efficiency from my dad.', 'Flashcards, podcast, study path – I do them between two rounds of golf.', 'We can also talk. Like a podcast, just with better hair.', 'Dad wanted to hire you a consultant. I’m cheaper and have better hair.', 'I read balance sheets before I could read. Or so Mum says.', 'My quarter-zip costs more than your semester ticket. My explanations are still free.', 'No slides? Name a topic. I’ll dictate you a script – from the boat.']
+    2: ['Hi from Sylt. I’m Max – the best tutor you’ll find on the internet.', 'Slides in, quiz out. I get the efficiency from my dad.', 'Flashcards, podcast, study path – I do them between two rounds of golf.', 'We can also talk. Like a podcast, just with better hair.', 'I’ll explain it on the whiteboard. I have time, the Porsche is in the shop anyway.', 'No slides? Me neither, ever. Give me the topic, I’ll handle it.', 'Your exam is my new hobby. Polo was too exhausting.', 'Study path? Built it before you could google “study path”.'],
+    3: ['Hi from Sylt. I’m Max – the best tutor on the entire internet. Dad says so, and Dad is never wrong.', 'Slides in, quiz out. I get the efficiency from my dad.', 'Flashcards, podcast, study path – I do them between two rounds of golf.', 'We can also talk. Like a podcast, just with better hair.', 'Dad wanted to hire you a consultant. I’m cheaper and have better hair.', 'I read balance sheets before I could read. Or so Mum says.', 'My quarter-zip costs more than your semester ticket. My explanations are still free.', 'No slides? Name a topic. I’ll dictate you a script – from the boat.']
   },
   welcome: {
     1: d => `Hey! I’ve read “${d}”. Ask me whatever you don’t get – I’ll explain it on the whiteboard. Or should I quiz you?`,
@@ -81,8 +81,44 @@ const ENG = {
     3: ['That’s consulting-firm level.', 'This is what a future partner looks like.']
   }
 };
-const T = EN ? ENG : DE;
 const pick = a => a[Math.floor(Math.random() * a.length)];
+const T = EN ? ENG : DE;
+
+// Gedankenblase, während Max etwas baut (je nach Aufgabe, im Max-Stil)
+const THINK = {
+  de: {
+    start: ['Moment. Genie bei der Arbeit.', 'Okay, ich mach das. Wie immer.', 'Lehn dich zurück. Profi am Werk.'],
+    generic: ['Ich frag kurz meinen Vermögensberater …', 'Moment, ich park noch den Porsche …', 'Excel im Kopf läuft …', 'Ich rechne. Mit Stil.'],
+    quiz: ['Ich denk mir fiese Fragen aus. Fies, aber fair.', 'Falsche Antworten, die verdammt richtig aussehen …', 'Ich rechne jede Aufgabe zweimal nach. Kontrolle ist besser, sagt Papa.', 'Sechs Formate. Weil ich’s kann.'],
+    exam: ['Klausurniveau. Also so, wie dein Prof es mag.', 'Ich stell dir eine Klausur zusammen, die du bestehst. Mit mir.', 'Zeitdruck gibt’s gratis dazu.', 'Ich prüf die Lösungen zweimal. Einmal reicht nur bei Papa.'],
+    cards: ['Ich schreib die Karten so kurz wie meine Geduld.', 'Formeln auf Karten. Wie Visitenkarten, nur nützlich.', 'Spaced Repetition – klingt teuer, ist gratis.'],
+    podcast: ['Lisa richtet das Mikro. Ich die Haare.', 'Ich schreib uns die Sprüche, Lisa die Fakten.', 'Gleich läuft die Aufnahme. Radiostimme, sagt Mama.'],
+    summary: ['Alles Wichtige auf eine Seite. Ich bin Effizienz.', 'Ich zeichne die Mindmap. Freihand, wie Picasso.', 'Kernaussagen rein, Gelaber raus.'],
+    path: ['Ich teil dein Skript in Kapitel. Wie Papa seine Firmen.', 'Lernreihenfolge sortieren … mach ich beruflich. Fast.', 'Ich gewichte für die Klausur. Insiderwissen.'],
+    lesson: ['Ich mal dir die Tafel. Die Kreide ist vergoldet.', 'Kontrollfragen werden gebaut …', 'Gleich wird’s anschaulich. Versprochen.'],
+    topic: ['Ich schreib dir ein Skript. Ohne Prof, mit Stil.', 'Beispiel wird durchgerechnet – zweimal, ich bin ja nicht leichtsinnig.', 'Typische Klausurfehler rein. Die hab ich natürlich nie gemacht.', 'Ich frag kurz meinen Vermögensberater …'],
+    ingest: ['Ich les dein Skript. Schneller als du deine Mails.', 'Seite für Seite … ich überfliege nur. Profi.', 'PDF wird zerlegt. Sanft.'],
+  },
+  en: {
+    start: ['Hold on. Genius at work.', 'Fine, I’ll do it. As always.', 'Sit back. Professional at work.'],
+    generic: ['Quickly asking my wealth manager …', 'Hold on, just parking the Porsche …', 'Mental Excel running …', 'Calculating. With style.'],
+    quiz: ['Coming up with nasty questions. Nasty but fair.', 'Wrong answers that look damn right …', 'Checking every calculation twice. Control is better, says Dad.', 'Six formats. Because I can.'],
+    exam: ['Exam level. Just how your professor likes it.', 'Building you an exam you’ll pass. With me.', 'Time pressure comes free.', 'Checking the solutions twice. Once is only enough for Dad.'],
+    cards: ['Keeping the cards as short as my patience.', 'Formulas on cards. Like business cards, but useful.', 'Spaced repetition – sounds expensive, is free.'],
+    podcast: ['Lisa sets up the mic. I set up my hair.', 'I write the jokes, Lisa the facts.', 'Recording starts in a sec. Radio voice, says Mum.'],
+    summary: ['Everything important on one page. I am efficiency.', 'Drawing the mind map. Freehand, like Picasso.', 'Key points in, waffle out.'],
+    path: ['Splitting your slides into chapters. Like Dad splits companies.', 'Sorting the learning order … I do this professionally. Almost.', 'Weighting for the exam. Insider knowledge.'],
+    lesson: ['Drawing your whiteboard. The chalk is gold-plated.', 'Building check questions …', 'It’s about to get visual. Promise.'],
+    topic: ['Writing you a script. No professor, all style.', 'Working through the example – twice, I’m not reckless.', 'Adding typical exam mistakes. Which I never made, obviously.', 'Quickly asking my wealth manager …'],
+    ingest: ['Reading your slides. Faster than you read your emails.', 'Page by page … I’m only skimming. Pro.', 'Taking the PDF apart. Gently.'],
+  }
+};
+export function thinkLines(kind = 'generic', fallback = []) {
+  if (getSpice() === 1) return fallback.length ? fallback : (EN ? ['One moment …', 'Working on it …'] : ['Einen Moment …', 'Ich arbeite daran …']);
+  const D = THINK[EN ? 'en' : 'de'];
+  const sh = a => [...a].sort(() => Math.random() - .5);
+  return [pick(D.start), ...sh(D[kind] || []), ...sh(D.generic)];
+}
 export function say(kind, arg) {
   const s = getSpice();
   const v = T[kind]?.[s] ?? T[kind]?.[2];
