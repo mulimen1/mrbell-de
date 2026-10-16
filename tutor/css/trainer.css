@@ -342,3 +342,6 @@
 .tr-none { grid-column: 1 / -1; display: grid; gap: 8px; justify-items: start; padding: 22px; border: 1px dashed var(--line2); border-radius: 18px; }
 .tr-none p { margin: 0; color: var(--mute); }
 @media (max-width: 760px) { .tr-phead { grid-template-columns: 1fr; gap: 12px; } }
+.tr-cam { cursor: pointer; } .tr-cam svg { width: 16px; height: 16px; } .tr-cam.busy { opacity: .7; pointer-events: none; }
+.tr-cam.busy svg { animation: ikpulse 1.2s ease-in-out infinite; }
+@media (max-width: 520px) { .tr-lines-foot { flex-wrap: wrap; } }

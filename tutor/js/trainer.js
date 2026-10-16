@@ -3,6 +3,7 @@
    Alle Lösungen werden im Code berechnet. Keine externen Abhängigkeiten. */
 
 import { L as LL, EN, LOCALE } from './i18n.js';
+import { toast } from './util.js';
 
 const LS_KEY = 'tutor.trainer.v1';
 const SVGNS = 'http://www.w3.org/2000/svg';
@@ -453,6 +454,68 @@ function combo(onPick) {
   return { el, get value() { return val; }, set: k => choose(k), disable(b) { inp.disabled = b; }, focus: () => inp.focus() };
 }
 
+// Abschrift eines handschriftlichen Buchungssatzes → Zeilen {side, acc, amt}
+const nz = x => String(x || '').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/l\s*\+\s*l|lul|l\.\s*u\.\s*l\.?/g, 'll').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+export function matchAcc(name) {
+  const n = nz(name); if (!n) return null;
+  const has = re => re.test(n);
+  if (has(/verbindl|\bvbl\b|\bverb\b|\bvll\b|\bvb\b/)) return has(/kredit|darleh|\bbank/) ? 'dar' : has(/finanzamt|\bfa\b/) ? 'vfa' : has(/sozial|\bsoz\b|\bsv\b/) ? 'vsv' : 'vll';
+  if (has(/darleh|bankkredit|\bkredit\b/)) return 'dar';
+  if (has(/zweifel/)) return 'zwf';
+  if (has(/forder|\bford\b|\bfll\b/)) return 'ford';
+  if (has(/vorsteuer|\bvst\b|\bvost\b/)) return 'vst';
+  if (has(/umsatzsteuer|\bust\b|mwst|mehrwertst/)) return 'ust';
+  if (has(/erhalt\w* skont|\besk\b|liefererskont|lieferantenskont/)) return 'esk';
+  if (has(/gewahrt\w* skont|\bgsk\b|kundenskont/)) return 'gsk';
+  if (has(/wareneing|wareneink|\bwe\b|aufwend\w* f\w* waren/)) return 'we';
+  if (has(/umsatzerl|erlose|\bue\b|\buerl\b/)) return 'erl';
+  if (has(/abschreib|\bafa\b/)) return 'afa';
+  if (has(/eigenkap|\bek\b/)) return 'ek';
+  if (has(/privatentn|\bpe\b/)) return 'pent';
+  if (has(/privatein/)) return 'pein';
+  if (has(/ruckstell|\brst\b/)) return 'rst';
+  if (has(/aktiv\w* rechnungsab|\barap\b/)) return 'arap';
+  if (has(/passiv\w* rechnungsab|\bprap\b/)) return 'prap';
+  if (has(/gehalt|gehalter|lohne|\blohn\b/)) return 'geh';
+  if (has(/sozial/)) return 'sozA';
+  if (has(/betriebs\w* (und|u) gesch|\bbga\b|buroausstatt|buromobel/)) return 'bga';
+  if (has(/zinsaufw/)) return 'zinsA';
+  if (has(/zinsert/)) return 'zinsE';
+  if (has(/mietert/)) return 'mert';
+  if (has(/erhalten\w* anzahl/)) return 'eanz';
+  if (has(/geleist\w* anzahl/)) return 'ganz';
+  const w = n.split(' ').filter(x => x.length >= 4);
+  let best = null, bs = 0;
+  for (const [k, lab] of Object.entries(ACC)) { const l = nz(lab); let sc = 0; for (const x of w) if (l.includes(x.slice(0, Math.max(4, x.length - 2)))) sc += x.length; if (sc > bs) { bs = sc; best = k; } }
+  return bs >= 4 ? best : null;
+}
+export function parseBuchFoto(text) {
+  let t = String(text || '').replace(/\[[^\]]*\]/g, ' ').replace(/€|eur(o)?\b/gi, ' ').replace(/\|/g, ' ');
+  const lines0 = t.split(/\n+/).map(x => x.trim()).filter(Boolean);
+  t = lines0.join('\n');
+  const m = /(^|[\s\n])an([\s\n]|$)/i.exec(t) || /(^|[\s\n])haben\s*:?([\s\n]|$)/i.exec(t); if (!m) return [];
+  const sides = [[t.slice(0, m.index), 'S'], [t.slice(m.index + m[0].length), 'H']];
+  const out = [];
+  const amtRe = /(\d{1,3}(?:\.\d{3})+(?:,\d{1,2})?|\d+(?:,\d{1,2})?)/;
+  for (const [part, side] of sides) {
+    const segs = part.split(/\n|,(?!\d)|;|\s{2,}/).map(x => x.trim()).filter(Boolean);
+    const items = [];
+    for (const sg of segs) {
+      // Paare aus Name und Betrag: der Name ist alles zwischen zwei Beträgen („Wareneingang 1.000 Vorsteuer 190“)
+      const re = /(\d{1,3}(?:\.\d{3})+(?:,\d{1,2})?|\d+(?:,\d{1,2})?)/g;
+      let last = 0, mm;
+      while ((mm = re.exec(sg))) { const name = sg.slice(last, mm.index).replace(/^(soll|haben)\s*:?\s*/i, '').trim(); if (name) items.push({ name, amt: parseNum(mm[1]) }); else if (items.length && items[items.length - 1].amt == null) items[items.length - 1].amt = parseNum(mm[1]); last = mm.index + mm[0].length; }
+      const rest = sg.slice(last).replace(/^(soll|haben)\s*:?\s*/i, '').trim(); if (rest) items.push({ name: rest, amt: null });
+    }
+    items.filter(x => x.name && !/^(soll|haben|s|h|buchungssatz)$/i.test(x.name)).forEach(x => out.push(Object.assign({ side, acc: matchAcc(x.name) }, x)));
+  }
+  // Fehlende Beträge ergänzen: „Bank an Kasse 500“ → beide 500
+  const S = out.filter(x => x.side === 'S'), H = out.filter(x => x.side === 'H');
+  const sum = a => a.reduce((x, y) => x + (y.amt || 0), 0);
+  if (S.length === 1 && S[0].amt == null && sum(H)) S[0].amt = r2(sum(H));
+  if (H.length === 1 && H[0].amt == null && sum(S)) H[0].amt = r2(sum(S));
+  return out.filter(x => x.name || x.amt != null);
+}
 function buchView(body, task) {
   const rows = [];
   let locked = false;
@@ -460,7 +523,27 @@ function buchView(body, task) {
   const sumEl = h('div', { class: 'tr-sum', 'aria-live': 'polite' });
   const addBtn = h('button', { class: 'btn sm', type: 'button' }, svgIcon(I.plus), LL('Zeile', 'Line'));
   addBtn.addEventListener('click', () => { const r = addRow(rows.filter(x => x.side === 'S').length > rows.filter(x => x.side === 'H').length ? 'H' : 'S'); r.combo.focus(); });
-  body.append(h('div', { class: 'tr-lines-head', 'aria-hidden': 'true' }, h('span', null, LL('Seite', 'Side')), h('span', null, LL('Konto', 'Account')), h('span', null, LL('Betrag', 'Amount')), h('span')), list, h('div', { class: 'tr-lines-foot' }, addBtn, sumEl));
+  // Fotocheck: handschriftlichen Buchungssatz fotografieren → wird abgeschrieben, Konten erkannt und eingetragen
+  const camIn = h('input', { type: 'file', accept: 'image/*', capture: 'environment', class: 'sr' });
+  const camBtn = h('label', { class: 'btn sm ghost tr-cam', title: LL('Handschriftliche Lösung fotografieren – ich trag sie ein und du prüfst', 'Photograph your handwritten solution – I’ll fill it in and you check') }, camIn, svgIcon('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>'), LL('Foto deiner Lösung', 'Photo of your solution'));
+  camIn.addEventListener('change', async () => {
+    const f = camIn.files[0]; camIn.value = ''; if (!f || locked) return;
+    camBtn.classList.add('busy'); camBtn.lastChild.textContent = LL('Lese deine Schrift …', 'Reading your handwriting …');
+    try {
+      const { imageToJpeg } = await import('./ingest.js'); const { ask } = await import('./api.js');
+      const img = await imageToJpeg(f);
+      const r = await ask('ocr', { opts: { imgs: 1, from: 1 } }, { images: [img] });
+      const lines = parseBuchFoto(String((r.data?.seiten || [])[0] || ''));
+      if (!lines.length) throw new Error(LL('Ich konnte darauf keinen Buchungssatz lesen. Schreib „Konto an Konto Betrag“ und fotografier es gerade von oben.', 'I couldn’t read a booking entry. Write “account to account amount” and take the photo straight from above.'));
+      rows.splice(0).forEach(x => x.el.remove());
+      lines.forEach(l => addRow(l.side, l.acc || undefined, l.amt));
+      const miss = lines.filter(l => !l.acc).map(l => l.name).filter(Boolean);
+      toast(miss.length ? LL(`Übernommen. Nicht sicher erkannt: ${miss.join(', ')} – bitte Konto wählen, dann „Prüfen“.`, `Filled in. Not sure about: ${miss.join(', ')} – pick the account, then “Check”.`) : LL('Aus deinem Foto übernommen – tipp auf „Prüfen“.', 'Taken from your photo – tap “Check”.'), 4200);
+    } catch (e) {
+      if (['need_account', 'cap', 'limit'].includes(e.code)) { (await import('./ui.js')).apiError(e); } else toast(e.message || LL('Das hat nicht geklappt.', 'That didn’t work.'), 4200);
+    } finally { camBtn.classList.remove('busy'); camBtn.lastChild.textContent = LL('Foto deiner Lösung', 'Photo of your solution'); }
+  });
+  body.append(h('div', { class: 'tr-lines-head', 'aria-hidden': 'true' }, h('span', null, LL('Seite', 'Side')), h('span', null, LL('Konto', 'Account')), h('span', null, LL('Betrag', 'Amount')), h('span')), list, h('div', { class: 'tr-lines-foot' }, addBtn, camBtn, sumEl));
   function clearMarks() { rows.forEach(r => { r.el.classList.remove('tr-ok', 'tr-bad'); r.note.textContent = ''; }); }
   function addRow(side, acc, amt) {
     const r = { side };
