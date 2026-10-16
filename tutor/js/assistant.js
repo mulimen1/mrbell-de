@@ -15,6 +15,7 @@ import { getSpice, thinkLines } from './max.js';
 import { VOICES, getVoice, voiceChip } from './voice.js';
 import { L, setOutLang } from './i18n.js';
 import { applyThemeButtons } from './theme.js';
+import { getMic, releaseMic as freeMic } from './mic.js';
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
 const M = 12;                       // Mindestabstand zum Rand
@@ -509,21 +510,26 @@ export function mountAssistant() {
     const tok = ++feedAnim;
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const apply = () => { feedOpen = v; root.classList.toggle('feed-open', feedOpen); drawTog(); capScroll(); syncLock(); };
+    // Während der Animation: keine CSS-Einblend-Animation obendrauf, Blasen auf eigene Ebene (flüssig statt ruckelig)
+    root.classList.add('feed-anim'); clearTimeout(setFeedOpen.t); setFeedOpen.t = setTimeout(() => { if (tok === feedAnim) root.classList.remove('feed-anim'); }, 1300);
     const others = () => [...feedList.querySelectorAll('.ai-bub:not(.last)'), ...feedList.querySelectorAll('.ai-bub.me.last')];
     const lastA = feedList.querySelector('.ai-bub.max.last .ai-a');
-    const grow = (h0) => { if (!lastA || reduce) return; const h1 = lastA.getBoundingClientRect().height; if (Math.abs(h1 - h0) > 2) lastA.animate([{ height: h0 + 'px', overflow: 'hidden' }, { height: h1 + 'px', overflow: 'hidden' }], { duration: 520, easing: 'cubic-bezier(.16,1,.3,1)' }); };
+    const grow = (h0) => { if (!lastA || reduce) return; const h1 = lastA.getBoundingClientRect().height; if (Math.abs(h1 - h0) > 2) lastA.animate([{ opacity: .35 }, { opacity: 1 }], { duration: 320, easing: 'ease-out' }); };
     if (reduce) { apply(); return; }
     const h0 = lastA ? lastA.getBoundingClientRect().height : 0;
     if (v) {
-      apply(); grow(h0);
+      apply(); grow(h0); cap.scrollTop = cap.scrollHeight;
       const list = others().filter(b => b.offsetParent).reverse();   // von unten (neu) nach oben (alt)
-      list.slice(0, 14).forEach((b, i) => b.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 480, delay: i * 40, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }));
-      feedTog.animate([{ opacity: 0, transform: 'translate(-50%, 14px)' }, { opacity: 1, transform: 'translate(-50%, 0)' }], { duration: 480, delay: Math.max(34, (Math.min(list.length, 14) - 1) * 40), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });   // zusammen mit der obersten Blase
+      // nur, was man wirklich sieht – der Rest liegt oben außerhalb und braucht keine Animation
+      const fr = cap.getBoundingClientRect(), vis = list.filter(b => { const r = b.getBoundingClientRect(); return r.bottom > fr.top - 40 && r.top < fr.bottom + 40; }).slice(0, 10);
+      vis.forEach((b, i) => b.animate([{ opacity: 0, transform: 'translate3d(0,12px,0)' }, { opacity: 1, transform: 'translate3d(0,0,0)' }], { duration: 420, delay: i * 35, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }));
+      feedTog.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay: Math.max(34, (vis.length - 1) * 35), easing: 'ease-out', fill: 'backwards' });   // zusammen mit der obersten Blase
     } else {
-      const list = others().filter(b => b.offsetParent);
-      const outs = list.slice(-14).reverse().map((b, i) => b.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(12px)' }], { duration: 280, delay: i * 22, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' }));
+      const fr = cap.getBoundingClientRect();
+      const list = others().filter(b => { if (!b.offsetParent) return false; const r = b.getBoundingClientRect(); return r.bottom > fr.top - 40 && r.top < fr.bottom + 40; });
+      const outs = list.slice(-10).reverse().map((b, i) => b.animate([{ opacity: 1, transform: 'translate3d(0,0,0)' }, { opacity: 0, transform: 'translate3d(0,10px,0)' }], { duration: 240, delay: i * 18, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' }));
       if (outs.length) outs.push(feedTog.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: 'ease-in', fill: 'forwards' }));
-      const done = () => { if (tok !== feedAnim) { outs.forEach(a => a.cancel()); return; } const h = lastA ? lastA.getBoundingClientRect().height : 0; apply(); outs.forEach(a => a.cancel()); grow(h); feedTog.animate([{ opacity: 0, transform: 'translate(-50%, 6px)' }, { opacity: 1, transform: 'translate(-50%, 0)' }], { duration: 380, delay: 120, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }); };
+      const done = () => { if (tok !== feedAnim) { outs.forEach(a => a.cancel()); return; } const h = lastA ? lastA.getBoundingClientRect().height : 0; apply(); outs.forEach(a => a.cancel()); grow(h); feedTog.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 100, easing: 'ease-out', fill: 'backwards' }); };
       if (!outs.length) done(); else Promise.all(outs.map(a => a.finished.catch(() => {}))).then(done);
     }
   }
@@ -874,7 +880,7 @@ export function mountAssistant() {
   }
 
   // ---------- Zuhören (mit Live-Mitschrift) ----------
-  let listenTok = 0, anSrc = null, capTimer2 = 0;
+  let listenTok = 0, anSrc = null, capTimer2 = 0, held = false;
   async function startListen({ followup = false } = {}) {
     if (!open || typing) return;
     if (!(navigator.mediaDevices?.getUserMedia && window.MediaRecorder)) { setTyping(true); setState('idle', L('Hier kann ich nicht zuhören – tipp einfach.', 'I can’t listen here – just type.')); return; }
@@ -887,16 +893,16 @@ export function mountAssistant() {
     viaVoice = true;
     setState('listen', L('Mikro startet …', 'Starting mic …'));
     let s;
-    try { s = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); }
+    try { s = await getMic(); }
     catch (e) { if (tok !== listenTok) return; viaVoice = false; setState('idle', L('Mikro nicht erlaubt – tipp einfach.', 'Mic not allowed – just type.')); setTyping(true); fc.pulse('sad'); return; }
     // inzwischen gestoppt, eingeklappt oder ins Tippen gewechselt? → Mikro sofort wieder aus
-    if (tok !== listenTok || !open || typing || rec) { s.getTracks().forEach(x => x.stop()); if (tok === listenTok && state === 'listen') setState('idle'); return; }
-    stream = s;
+    if (tok !== listenTok || !open || typing || rec) { freeMic(); if (tok === listenTok && state === 'listen') setState('idle'); return; }
+    stream = s; held = true;
     const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'].find(m => MediaRecorder.isTypeSupported?.(m)) || '';
     const r = rec = new MediaRecorder(s, mime ? { mimeType: mime, audioBitsPerSecond: 32000 } : undefined);
     chunks = [];
     r.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
-    r.onstop = () => { try { s.getTracks().forEach(x => x.stop()); } catch (e) {} if (stream === s) releaseMic(); onRecorded(r, r.mimeType || mime || 'audio/webm'); };
+    r.onstop = () => { if (stream === s) releaseMic(); onRecorded(r, r.mimeType || mime || 'audio/webm'); };
     r.start(250);
     setState('listen');
     let running = false;
@@ -927,7 +933,7 @@ export function mountAssistant() {
     } catch (e) {}
   }
   function releaseMic() {
-    try { stream && stream.getTracks().forEach(t => t.stop()); } catch (e) {}
+    if (held) { held = false; freeMic(); }   // Mikro bleibt kurz erlaubt (stumm) – keine neue Nachfrage bei der nächsten Frage
     try { anSrc && anSrc.disconnect(); } catch (e) {}
     anSrc = null; stream = null; wave.stop();
   }

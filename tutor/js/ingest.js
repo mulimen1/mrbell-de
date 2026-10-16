@@ -9,10 +9,12 @@ async function loadPdf() {
   return pdfjs;
 }
 
-export const ACCEPT = '.pdf,.pptx,.docx,.txt,.md,application/pdf';
+export const ACCEPT = '.pdf,.pptx,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.heic,.heif,.gif,application/pdf,image/*';
+export const isImage = f => !!f && (/^image\//.test(f.type || '') || /\.(png|jpe?g|webp|heic|heif|gif|bmp)$/i.test(f.name || ''));
 const MAX_BYTES = 60 * 1024 * 1024;
 
-export async function readFile(file, onProgress = () => {}) {
+// soft: kaum Text ist kein Fehler (eingescanntes PDF) – dann liest die KI die Seiten als Bild
+export async function readFile(file, onProgress = () => {}, { soft = false } = {}) {
   try { window.BM && window.BM.track('Skript hochgeladen', String((file && file.name || '').split('.').pop() || '').toLowerCase().slice(0, 6)); } catch (e) {}
   if (file.size > MAX_BYTES) throw new Error(L('Die Datei ist größer als 60 MB.', 'The file is larger than 60 MB.'));
   const name = file.name || L('Vorlesung', 'Lecture');
@@ -25,8 +27,11 @@ export async function readFile(file, onProgress = () => {}) {
   else throw new Error(L('Dieses Format kenne ich noch nicht. PDF, PowerPoint (.pptx), Word (.docx) oder Text gehen.', 'I don’t know this format yet. PDF, PowerPoint (.pptx), Word (.docx) or text work.'));
   pages = pages.map(p => clean(p));
   const chars = pages.reduce((a, p) => a + p.length, 0);
-  if (chars < 80) throw new Error(L('In der Datei ist kaum Text. Ist es ein eingescanntes PDF? Dann kann ich es leider noch nicht lesen.', 'There’s hardly any text in this file. Is it a scanned PDF? Sadly I can’t read those yet.'));
-  return { name: name.replace(/\.[^.]+$/, ''), pages, chars };
+  const isPdf = ext === 'pdf' || file.type === 'application/pdf';
+  const scan = isPdf && (chars < 80 || chars / Math.max(1, pages.length) < 30);
+  if (scan && !soft) throw new Error(L('In der Datei ist kaum Text. Ist es ein eingescanntes PDF? Dann kann ich es leider noch nicht lesen.', 'There’s hardly any text in this file. Is it a scanned PDF? Sadly I can’t read those yet.'));
+  if (!isPdf && chars < 80) throw new Error(L('In der Datei ist kaum Text.', 'There’s hardly any text in this file.'));
+  return { name: name.replace(/\.[^.]+$/, ''), pages, chars, scan, pdf: isPdf };
 }
 
 function clean(s) {
@@ -134,4 +139,52 @@ function splitText(t) {
   for (const p of paras) { if ((cur + p).length > 2500 && cur) { pages.push(cur); cur = ''; } cur += p + '\n'; }
   if (cur.trim()) pages.push(cur);
   return pages.length ? pages : [''];
+}
+
+// ---------- Bilder für die KI: Fotos, Screenshots, gescannte Seiten ----------
+// Längste Kante höchstens 1568 px (so liest Claude ohne Verkleinern), JPEG – klein genug fürs Handy-Netz
+const MAXPX = 1568;
+function canvasJpeg(cv, q = 0.85) {
+  return new Promise((res, rej) => cv.toBlob(b => {
+    if (!b) return rej(new Error('Bild'));
+    const fr = new FileReader(); fr.onload = () => res({ mime: 'image/jpeg', data: String(fr.result).split(',')[1], w: cv.width, h: cv.height }); fr.onerror = rej; fr.readAsDataURL(b);
+  }, 'image/jpeg', q));
+}
+export async function imageToJpeg(file, max = MAXPX) {
+  let bmp;
+  try { bmp = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+  catch (e) {
+    // Fallback über <img> (ältere Safari-Versionen)
+    try {
+      const url = await new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(file); });
+      bmp = await new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = url; });
+    } catch (e2) {
+      throw new Error(/heic|heif/i.test(file.name || file.type || '') ? L('HEIC-Fotos kann dein Browser nicht öffnen. Mach einen Screenshot davon oder stell die Kamera auf „Maximale Kompatibilität“ (JPG).', 'Your browser can’t open HEIC photos. Take a screenshot of it or set your camera to “Most compatible” (JPG).') : L('Dieses Bild kann ich nicht öffnen.', 'I can’t open this image.'));
+    }
+  }
+  const w = bmp.width || bmp.naturalWidth, hh = bmp.height || bmp.naturalHeight;
+  const s = Math.min(1, max / Math.max(w, hh));
+  const cv = document.createElement('canvas'); cv.width = Math.max(1, Math.round(w * s)); cv.height = Math.max(1, Math.round(hh * s));
+  const cx = cv.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height); cx.drawImage(bmp, 0, 0, cv.width, cv.height);
+  bmp.close && bmp.close();
+  return canvasJpeg(cv);
+}
+// PDF-Seiten als Bild (für Scans und für Stundenpläne, bei denen das Layout zählt)
+export async function pdfPages(file) {
+  const lib = await loadPdf();
+  const doc = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false, disableFontFace: true }).promise;
+  return {
+    n: doc.numPages,
+    async render(i, max = MAXPX) {
+      const p = await doc.getPage(i);
+      const v0 = p.getViewport({ scale: 1 }), s = Math.min(3, max / Math.max(v0.width, v0.height));
+      const vp = p.getViewport({ scale: s });
+      const cv = document.createElement('canvas'); cv.width = Math.round(vp.width); cv.height = Math.round(vp.height);
+      const cx = cv.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height);
+      await p.render({ canvasContext: cx, viewport: vp }).promise;
+      p.cleanup && p.cleanup();
+      return canvasJpeg(cv, 0.82);
+    },
+    close() { try { doc.destroy(); } catch (e) {} }
+  };
 }

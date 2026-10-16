@@ -73,6 +73,34 @@ export function saveFach(f) {
 }
 export function delFach(id) { updateMe(m => { m.faecher = m.faecher.filter(x => x.id !== id); m.kurse.forEach(k => { if (k.fach === id) k.fach = ''; }); }); }
 export const fachOf = docId => me.faecher.find(f => (f.docs || []).includes(docId)) || null;
+// ---------- Termine je Fach: Klausur, Test, Abgabe, Referat ----------
+// f.klausur bleibt der nächste prüfungsartige Termin (Countdown, Prüfungsreife, Karten-Verdichtung), f.klausurArt sagt, ob Klausur oder Test
+export const ART = { klausur: L('Klausur', 'Exam'), test: L('Test', 'Test'), abgabe: L('Abgabe', 'Deadline'), referat: L('Referat', 'Presentation') };
+export const artName = a => ART[a] || ART.klausur;
+export function termineOf(f) {
+  const t = (f.termine || []).slice();
+  if (f.klausur && !t.some(x => x.datum === f.klausur)) t.push({ id: 'k', art: f.klausurArt || 'klausur', datum: f.klausur });
+  return t.sort((a, b) => (a.datum < b.datum ? -1 : 1));
+}
+export function syncKlausur(f) {
+  const today = dayKey(), ex = (f.termine || []).filter(x => x.datum && (x.art === 'klausur' || x.art === 'test'));
+  const nx = ex.filter(x => x.datum >= today).sort((a, b) => (a.datum < b.datum ? -1 : 1))[0] || ex.sort((a, b) => (a.datum < b.datum ? 1 : -1))[0];
+  f.klausur = nx ? nx.datum : ''; f.klausurArt = nx ? nx.art : '';
+}
+// Termin eintragen. Eine Klausur je Fach (eine neue ersetzt die alte, solange die noch nicht vorbei ist), Tests und Abgaben dürfen mehrere sein.
+export function addTerminTo(f, t) {
+  f.termine = termineOf(f).map(x => (x.id === 'k' ? Object.assign({}, x, { id: uid() }) : x));
+  if (t.art === 'klausur') f.termine = f.termine.filter(x => x.art !== 'klausur' || x.datum < dayKey());
+  f.termine = f.termine.filter(x => !(x.art === t.art && x.datum === t.datum));
+  f.termine.push(Object.assign({ id: uid() }, t));
+  syncKlausur(f);
+}
+// Fach über Namen/Kürzel finden – auch „Kosten- und Leistungsrechnung (KLR)“ oder nur „KLR“
+export function findFach(name) {
+  if (!name) return null;
+  const n = norm(String(name).replace(/\s*\([^)]*\)\s*$/, '')), k = (/\(([^)]+)\)\s*$/.exec(name) || [])[1];
+  return me.faecher.find(f => norm(f.name) === n) || me.faecher.find(f => f.kurz && (norm(f.kurz) === n || (k && norm(f.kurz) === norm(k)))) || me.faecher.find(f => n.length >= 4 && (norm(f.name).includes(n) || n.includes(norm(f.name)))) || null;
+}
 // Termin/Kurs einem Fach zuordnen: per Hand, sonst über den Namen
 const norm = s => String(s || '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
 export function guessFach(title) {
@@ -198,11 +226,26 @@ function icsDate(l) {
 }
 function icsDur(v) { const m = /P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?)?/.exec(v || ''); return m ? (((+m[1] || 0) * 24 + (+m[2] || 0)) * 60 + (+m[3] || 0)) * 60e3 : 0; }
 
+// Findet ein Kurs an diesem Tag statt? Wöchentlich, alle zwei Wochen (gerade/ungerade KW) oder einmalig; optional mit Zeitraum
+const isoWeek = d => { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const wd = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - wd); const y0 = Date.UTC(t.getUTCFullYear(), 0, 1); return Math.ceil(((t - y0) / 864e5 + 1) / 7); };
+export function kursOn(k, d0, wd = d0.getDay() || 7) {
+  const key = dayKey(d0);
+  if (k.rhythmus === 'einmalig') return !!k.datum && k.datum === key;
+  if (+k.tag !== wd) return false;
+  if (k.ab && key < k.ab) return false;
+  if (k.bis_datum && key > k.bis_datum) return false;
+  if (k.rhythmus === '14taegig') {
+    if (k.woche === 'gerade') return isoWeek(d0) % 2 === 0;
+    if (k.woche === 'ungerade') return isoWeek(d0) % 2 === 1;
+    if (k.ab) return Math.round((d0 - new Date(k.ab + 'T00:00')) / (7 * 864e5)) % 2 === 0;
+  }
+  return true;
+}
 // Termine an einem Tag: eigene Kurse (wöchentlich) + Kalender
 export function sessionsOn(date) {
   const d0 = new Date(date); d0.setHours(0, 0, 0, 0); const d1 = d0.getTime() + 864e5;
   const wd = d0.getDay() || 7;
-  const own = me.kurse.filter(k => +k.tag === wd).map(k => {
+  const own = me.kurse.filter(k => kursOn(k, d0, wd)).map(k => {
     const [h1, m1] = String(k.von || '08:00').split(':').map(Number), [h2, m2] = String(k.bis || '09:30').split(':').map(Number);
     const s = new Date(d0); s.setHours(h1, m1); const e = new Date(d0); e.setHours(h2, m2);
     return { t: k.titel, s: s.getTime(), e: e.getTime(), o: k.raum || '', art: k.art || '', fach: me.faecher.find(f => f.id === k.fach) || guessFach(k.titel), own: true, id: k.id };

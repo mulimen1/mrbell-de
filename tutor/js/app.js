@@ -2,7 +2,7 @@
 import { $, $$, h, ico, toast, modal, ago, ls } from './util.js';
 import { face } from './face.js';
 import { S, refreshList, openDoc, createDoc, removeDoc, lastDocId, save, onChange, SAMPLE, mastery } from './state.js';
-import { readFile, ACCEPT } from './ingest.js';
+import { ACCEPT } from './ingest.js';
 import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
 import { accountChip, refreshAccount, openLogin, openAccount } from './account.js';
 import { getOutLang, setOutLang, L, LOCALE, lang, setLang } from './i18n.js';
@@ -58,8 +58,16 @@ function asstToggle() {
 }
 function buildShell() {
   const root = $('#app');
-  const fileIn = h('input', { type: 'file', class: 'sr', accept: ACCEPT, id: 'fileApp' });
-  fileIn.addEventListener('change', () => { if (fileIn.files[0]) startUpload(fileIn.files[0]); fileIn.value = ''; });
+  const fileIn = h('input', { type: 'file', class: 'sr', accept: ACCEPT, id: 'fileApp', multiple: true });
+  fileIn.addEventListener('change', () => { if (fileIn.files.length) startUpload([...fileIn.files]); fileIn.value = ''; });
+  // Screenshot einfügen (⌘V / Strg+V) – landet direkt in der Einordnung
+  document.addEventListener('paste', e => {
+    if (!location.hash.startsWith('#/app') || current.key === 'ingest') return;
+    const a = document.activeElement; if (a && (a.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))) return;
+    const fs = [...(e.clipboardData?.files || [])].filter(f => /^image\/|pdf/.test(f.type));
+    if (!fs.length) return;
+    e.preventDefault(); startUpload(fs.map((f, i) => f.name && f.name !== 'image.png' ? f : new File([f], `Screenshot ${new Date().toLocaleDateString(LOCALE)}${fs.length > 1 ? ' ' + (i + 1) : ''}.png`, { type: f.type })));
+  });
   const list = h('div', { class: 'doclist' });
   const quotaEl = h('div', { class: 'quota' });
   const faceEl = h('span', { class: 'mini', style: { width: '28px', height: '28px' } });
@@ -250,35 +258,27 @@ function emptyState(root) {
 
 function dropAnywhere(el) {
   el.addEventListener('dragover', e => { e.preventDefault(); });
-  el.addEventListener('drop', e => { e.preventDefault(); const f = e.dataTransfer?.files?.[0]; if (f) startUpload(f); });
+  el.addEventListener('drop', e => { e.preventDefault(); const f = e.dataTransfer?.files; if (f && f.length) startUpload([...f]); });
 }
 
-// ---------- Upload ----------
-export async function startUpload(file) {
+// ---------- Upload: alles läuft über die Einordnung (intake.js) ----------
+export async function startUpload(files) {
+  files = files instanceof File ? [files] : [...(files || [])];
+  if (!files.length) return;
   if (location.hash !== '#/app/neu') location.hash = '#/app/neu';
   if (!shell) { buildShell(); await refreshList(); }
-  shell.title.textContent = L('Wird gelesen …', 'Reading …');
   shell.tabs.replaceChildren();
   current.key = 'ingest';
-  const f = h('div', { class: 'face' }), bar = h('i'), sub = h('div', { class: 'sub mono' }, file.name);
-  shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f, h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, L('Max liest dein Skript …', 'Max is reading your slides …')), h('div', { class: 'bar' }, bar), sub)));
-  const fc = face(f); fc.set('think');
-  const tbi = thought(f, 'ingest', [L('Ich lese das Skript …', 'Reading the slides …')]);
+  const target = ls.get('tutor.target', null); ls.set('tutor.target', null);
   try {
-    const r = await readFile(file, p => { bar.style.width = Math.round(p * 100) + '%'; sub.textContent = `${file.name} · ${Math.round(p * 100)} %`; });
-    const pro = !!getAccount()?.pro, maxP = pro ? 1000 : 300;
-    if (r.pages.length > maxP) throw new Error(L(`Das Skript hat ${r.pages.length} Seiten – ${pro ? '' : 'in Free '}gehen bis zu ${maxP}. Teil es in kleinere Dateien auf${pro ? '' : ' oder komm in den Inner Circle'}.`, `These slides have ${r.pages.length} pages – ${pro ? '' : 'on Free '}the limit is ${maxP}. Split them into smaller files${pro ? '' : ' or join the Inner Circle'}.`));
-    bar.style.width = '100%';
-    tbi.stop(); fc.set('happy');
-    const d = await createDoc(r);
-    current.key = '';
-    location.hash = afterCreate(d);
+    const { intake } = await import('./intake.js');
+    await intake(files, { view: shell.view, setTitle: t => { shell.title.textContent = t; }, target });
   } catch (e) {
     console.error(e);
-    tbi.stop(); tbi.el.remove(); fc.set('sad');
-    sub.textContent = e.message || L('Die Datei konnte nicht gelesen werden.', 'The file couldn’t be read.');
-    sub.after(h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } },
-      h('label', { class: 'btn primary', for: 'fileApp' }, L('Andere Datei', 'Different file')), h('button', { class: 'btn', onclick: () => startSample() }, L('Beispiel nehmen', 'Use the example'))));
+    const f = h('div', { class: 'face' });
+    shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f, h('h2', { style: { margin: 0 } }, L('Da hakt was.', 'Something’s off.')), h('div', { class: 'sub' }, e.message || L('Die Datei konnte nicht gelesen werden.', 'The file couldn’t be read.')),
+      h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } }, h('label', { class: 'btn primary', for: 'fileApp' }, L('Andere Datei', 'Different file')), h('button', { class: 'btn', onclick: () => startSample() }, L('Beispiel nehmen', 'Use the example'))))));
+    face(f).set('sad');
   }
 }
 
@@ -382,10 +382,13 @@ export async function startTopic(topic) {
     clearInterval(iv); tb.stop(); bar.style.width = '100%'; fc.set('happy');
     const name = String(r.data.title || topic).slice(0, 80);
     const d = await createDoc({ name, pages, chars: pages.join('').length, generated: true, topic });
+    const tgt = ls.get('tutor.target', null); ls.set('tutor.target', null);
+    // Einordnen wie beim Upload: Fach, Ziel, Datum, womit starten – alles optional
+    const { placeTopic, route } = await import('./intake.js');
+    const ans = await placeTopic(d, r.data, tgt).catch(() => null);
     current.key = '';
-    const tgt = ls.get('tutor.target', null);
-    if (!tgt || tgt === 'tutor') { ls.set('tutor.target', null); ls.set('tutor.pendingAsk', L(`Erklär mir „${topic}“ von Grund auf – mit Beispiel an der Tafel.`, `Explain “${topic}” to me from scratch – with an example on the whiteboard.`)); location.hash = `#/app/${d.id}/tutor`; }
-    else location.hash = afterCreate(d);
+    if (!ans || ans.start === 'tutor') { ls.set('tutor.pendingAsk', L(`Erklär mir „${topic}“ von Grund auf – mit Beispiel an der Tafel.`, `Explain “${topic}” to me from scratch – with an example on the whiteboard.`)); location.hash = `#/app/${d.id}/tutor`; }
+    else location.hash = route(d, ans);
   } catch (e) {
     clearInterval(iv); tb.stop(); tb.el.remove(); fc.set('sad');
     if (e.code === 'limit') { await apiError(e); go(''); return; }
@@ -449,9 +452,9 @@ export async function tryFeature(key) {
   if (key === 'trainer') { location.hash = '#/app/trainer'; return; }
   if (key === 'challenge') { location.hash = '#/app/challenge'; return; }
   const [title, text] = TRY[key] || TRY.tutor;
-  const fin = h('input', { type: 'file', class: 'sr', accept: ACCEPT });
+  const fin = h('input', { type: 'file', class: 'sr', accept: ACCEPT, multiple: true });
   const close = () => document.querySelector('.modal-bg.trybg')?.remove();
-  fin.addEventListener('change', () => { if (fin.files[0]) { ls.set('tutor.target', key); close(); startUpload(fin.files[0]); } });
+  fin.addEventListener('change', () => { if (fin.files.length) { ls.set('tutor.target', key); close(); startUpload([...fin.files]); } });
   const form = topicForm({ cls: 'askbar inmodal', target: key });
   form.addEventListener('topicok', () => close());
   const body = h('div', { class: 'trybody' },

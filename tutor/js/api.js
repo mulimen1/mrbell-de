@@ -43,9 +43,10 @@ export function setAccount(a, session) {
   accListeners.forEach(f => { try { f(account); } catch (e) {} });
 }
 
-const EV = { topic: ['Thema erklärt'], quiz: ['Erstellt', 'Quiz'], exam: ['Erstellt', 'Probeklausur'], cards: ['Erstellt', 'Karteikarten'], path: ['Erstellt', 'Lernpfad'],
+const EV = { analyse: ['Upload eingeordnet'], ocr: ['Foto abgeschrieben'], topic: ['Thema erklärt'], quiz: ['Erstellt', 'Quiz'], exam: ['Erstellt', 'Probeklausur'], cards: ['Erstellt', 'Karteikarten'], path: ['Erstellt', 'Lernpfad'],
   lesson: ['Erstellt', 'Lektion'], podcast: ['Erstellt', 'Podcast'], summary: ['Erstellt', 'Lernzettel & Mindmap'], live: ['Sprechen gestartet'], verify: ['Angemeldet'] };
-export async function ask(action, payload = {}, { signal } = {}) {
+// images: [{mime, data}] gehen nur im zweiten Schritt mit (Upload-Analyse, Foto-Abschrift)
+export async function ask(action, payload = {}, { signal, images } = {}) {
   try { const e = action === 'chat' ? ['Max gefragt', payload.opts && payload.opts.assistant ? 'Assistent' : 'Chat'] : EV[action]; if (e && window.BM) window.BM.track(e[0], e[1] || ''); } catch (x) {}
   const extra = {};
   const ses = getSession(); if (ses) extra.session = ses;
@@ -54,7 +55,7 @@ export async function ask(action, payload = {}, { signal } = {}) {
   let j = await post(API_URL, body, signal);
   if (j.ok && j.job) {
     if (j.quota) setQuota(j.quota);
-    j = await post(RUN_URL, JSON.stringify({ job: j.job, device: device(), ui: lang }), signal);
+    j = await post(RUN_URL, JSON.stringify(Object.assign({ job: j.job, device: device(), ui: lang }, images && images.length ? { images: images.map(x => ({ mime: x.mime, data: x.data })) } : {})), signal);
   }
   if (j.quota) setQuota(j.quota);
   if ('account' in j) { if (j.account || ses) setAccount(j.account, j.account ? ses : null); }

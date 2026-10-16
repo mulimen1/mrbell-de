@@ -187,10 +187,10 @@ function initLanding() {
 
   // Upload
   const drop = $('#drop'), inp = $('#fileHero');
-  inp.addEventListener('change', () => { if (inp.files[0]) startUpload(inp.files[0]); inp.value = ''; });
+  inp.addEventListener('change', () => { if (inp.files.length) startUpload([...inp.files]); inp.value = ''; });
   ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('drag'); }));
   ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('drag'); }));
-  drop.addEventListener('drop', e => { const f = e.dataTransfer?.files?.[0]; if (f) startUpload(f); });
+  drop.addEventListener('drop', e => { const f = e.dataTransfer?.files; if (f && f.length) startUpload([...f]); });
   $$('[data-sample]').forEach(b => b.addEventListener('click', () => startSample()));
 }
 

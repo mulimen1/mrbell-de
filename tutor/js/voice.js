@@ -11,6 +11,7 @@ import { liveWave } from './wave.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { getOutLang, setOutLang, L } from './i18n.js';
+import { getMic, releaseMic as freeMic } from './mic.js';
 
 export const VOICES = [
   ['max', L('Max beim Aperol', 'Max over Aperol'), L('Anfang 20, entspannt auf der Terrasse', 'early 20s, relaxed on the terrace')],
@@ -131,7 +132,7 @@ export function openVoice({ doc = null, onClose } = {}) {
     try { audio.pause(); } catch (e) {}
     try { audio.src = SILENT; audio.play().catch(() => {}); } catch (e) {}
     if (!stream) {
-      try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); }
+      try { stream = await getMic(); }
       catch (e) { setState('idle', L('Ich darf dein Mikro nicht benutzen. Erlaub es oben in der Adressleiste – oder tipp unten.', 'I’m not allowed to use your mic. Allow it up in the address bar – or type below.')); fc.pulse('sad'); return; }
     }
     const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'].find(m => MediaRecorder.isTypeSupported?.(m)) || '';
@@ -272,7 +273,7 @@ export function openVoice({ doc = null, onClose } = {}) {
     try { stopListen(true); } catch (e) {}
     try { audio.pause(); } catch (e) {}
     ctrl && ctrl.abort();
-    stream && stream.getTracks().forEach(t => t.stop());
+    if (stream) { freeMic(); stream = null; }
     try { actx && actx.close(); } catch (e) {}
     document.removeEventListener('keydown', onKey);
     document.body.style.overflow = '';

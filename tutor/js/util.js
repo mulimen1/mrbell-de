@@ -69,14 +69,14 @@ export function toast(msg, ms = 2600) {
 }
 
 // Dialog
-export function modal({ title, text, body, actions = [], onAction }) {
+export function modal({ title, text, body, actions = [], onAction, cls = '', eyebrow = '' }) {
   return new Promise(resolve => {
     const close = v => { bg.remove(); document.removeEventListener('keydown', onKey); resolve(v); };
     const onKey = e => { if (e.key === 'Escape') close(null); };
     const bg = h('div', { class: 'modal-bg', onclick: e => { if (e.target === bg) close(null); } },
-      h('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true' },
+      h('div', { class: 'modal' + (cls ? ' ' + cls : ''), role: 'dialog', 'aria-modal': 'true' },
         h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': document.documentElement.lang === 'en' ? 'Close' : 'Schließen', html: ico('x'), onclick: () => close(null) }),
-        title && h('h3', {}, title), text && h('p', {}, text), body,
+        eyebrow && h('div', { class: 'eyebrow' }, eyebrow), title && h('h3', {}, title), text && h('p', {}, text), body,
         h('div', { class: 'row' }, actions.map(a => h('button', { class: 'btn ' + (a.primary ? 'primary' : ''), onclick: () => { if (onAction && onAction(a.value) === false) return; close(a.value); } }, a.label)))));
     document.body.appendChild(bg);
     document.addEventListener('keydown', onKey);

@@ -8,6 +8,7 @@ import { dueCards } from './cards.js';
 import { loading, apiError, costBtn, freshen } from '../ui.js';
 import { moodLine, getSpice } from '../max.js';
 import { L, EN, LOCALE } from '../i18n.js';
+import * as M from '../me.js';
 
 // ---------- Datum (lokal, nicht UTC) ----------
 const DAY = 864e5;
@@ -411,6 +412,8 @@ function feasibility(doc, st) {
   return { text: head, verdict, tone };
 }
 
+// Termin aus dem Fach (Upload-Einordnung, Mein Bereich) hat Vorrang
+function fachExam(doc, today) { try { const f = M.fachOf(doc.id); return f && f.klausur && f.klausur > today ? f.klausur : null; } catch (e) { return null; } }
 function wizard(wrap, ctx) {
   const { doc } = ctx;
   wrap.classList.remove('still');
@@ -418,7 +421,7 @@ function wizard(wrap, ctx) {
   const prefs = ls.get('tutor.planPrefs', {}) || {};
   const g = ls.get('tutor.goal', null);
   const init = {
-    exam: g?.examDate && g.examDate > today ? g.examDate : addDays(today, 21),
+    exam: fachExam(doc, today) || (g?.examDate && g.examDate > today ? g.examDate : addDays(today, 21)),
     weekdays: Array.isArray(prefs.weekdays) && prefs.weekdays.length ? prefs.weekdays : [1, 2, 3, 4, 5],
     minutes: prefs.minutes || 60,
     goal: typeof g?.grade === 'number' ? nearestGoal(g.grade) : null
