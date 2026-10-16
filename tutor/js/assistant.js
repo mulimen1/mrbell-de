@@ -337,24 +337,25 @@ export function mountAssistant() {
     if (!br.width) { setOpen(false); return; }
     const tx = br.left + br.width / 2, ty = br.top + br.height / 2;
     const els = [isl, cap, feedTog, boardOpen && !boardMin ? board : null].filter(e => e && e.offsetParent !== null && e.getBoundingClientRect().width);
-    const ease = 'cubic-bezier(.55,0,.25,1)';
+    const ease = 'cubic-bezier(.4,0,.6,1)';
     const anims = els.map((e, i) => {
       const r = e.getBoundingClientRect();
       const dx = tx - (r.left + r.width / 2), dy = ty - (r.top + r.height / 2);
-      return e.animate([{ translate: '0 0', scale: '1', opacity: 1, filter: 'blur(0)' }, { opacity: 1, offset: .55 }, { translate: `${dx}px ${dy}px`, scale: '.12', opacity: 0, filter: 'blur(4px)' }], { duration: 460, delay: (els.length - 1 - i) * 30, easing: ease, fill: 'forwards' });
+      // nur Transform + Deckkraft (läuft auf der Grafikkarte, kein Ruckeln); Weg Richtung Kopf, aber nicht ganz – wirkt sauberer
+      return e.animate([{ translate: '0 0', scale: '1', opacity: 1 }, { translate: `${dx * .55}px ${dy * .55}px`, scale: '.35', opacity: 0 }], { duration: 340, delay: (els.length - 1 - i) * 24, easing: ease, fill: 'forwards' });
     });
     anims.push(bd.animate([{ opacity: getComputedStyle(bd).opacity }, { opacity: 0 }], { duration: 380, easing: 'ease', fill: 'forwards' }));
-    closing = anims;
+    closing = anims; root.classList.add('closing');
     Promise.all(anims.map(a => a.finished.catch(() => {}))).then(() => {
       if (closing !== anims) return;
-      closing = null; setOpen(false);
+      closing = null; root.classList.remove('closing'); setOpen(false);
       requestAnimationFrame(() => anims.forEach(a => a.cancel()));
       bub.animate([{ opacity: .4, scale: '.86' }, { opacity: 1, scale: '1' }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
     });
   }
   function setOpen(v, { listen = false } = {}) {
     if (v && !isAssistantEnabled()) return;
-    if (closing) { const a = closing; closing = null; a.forEach(x => x.cancel()); if (!v) return; }
+    if (closing) { const a = closing; closing = null; root.classList.remove('closing'); a.forEach(x => x.cancel()); if (!v) return; }
     if (v === open) { if (v && listen && state === 'idle') startListen(); return; }
     open = !!v;
     root.classList.toggle('open', open);
