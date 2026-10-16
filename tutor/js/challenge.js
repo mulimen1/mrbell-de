@@ -97,7 +97,7 @@ function hero(wk, list, action, blur) {
 }
 function locked(wrap, wk, onLogin) {
   const all = rankAll(wk, null);
-  wrap.replaceChildren(hero(wk, all, h('div', { class: 'ch-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => onLogin && onLogin() }, h('span', { html: ico('lock') }), L('Kostenlos anmelden & mitmachen', 'Sign in free & compete')), h('small', {}, L('20 Sekunden · kein Passwort · 7 Tage Inner Circle gratis', '20 seconds · no password · 7 days Inner Circle free'))), true),
+  wrap.replaceChildren(hero(wk, all, h('div', { class: 'ch-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => onLogin && onLogin() }, h('span', { html: ico('lock') }), L('Anmelden & mitmachen', 'Sign in & compete')), h('small', {}, L('20 Sekunden · kein Passwort · 7 Tage Inner Circle gratis', '20 seconds · no password · 7 days Inner Circle free'))), true),
     h('section', { class: 'ch-card ch-wide' }, h('div', { class: 'eyebrow' }, L('Ranking diese Woche', 'This week’s ranking')), board(all.slice(0, 10), { blur: true })));
 }
 function lockedOld(wrap, wk, onLogin) {
@@ -106,7 +106,7 @@ function lockedOld(wrap, wk, onLogin) {
     h('div', { class: 'ch-lock' }, board(list, { blur: true }),
       h('div', { class: 'ch-lockc' }, h('span', { class: 'ch-lki', html: ico('lock') }), h('b', {}, L('Nur mit kostenlosem Konto', 'Free account required')),
         h('p', {}, L('Damit dein Platz im Ranking dir gehört, brauchst du ein Konto. Dauert 20 Sekunden – und es gibt 7 Tage Inner Circle obendrauf.', 'So your spot in the ranking is yours, you need an account. Takes 20 seconds – plus 7 days of Inner Circle.')),
-        h('button', { class: 'btn primary', type: 'button', onclick: () => onLogin && onLogin() }, L('Kostenlos anmelden', 'Sign in for free')))));
+        h('button', { class: 'btn primary', type: 'button', onclick: () => onLogin && onLogin() }, L('Anmelden oder Konto erstellen', 'Sign in or create an account')))));
 }
 function intro(wrap, wk) {
   const list = rankAll(wk, null);

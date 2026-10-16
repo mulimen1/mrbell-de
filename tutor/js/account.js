@@ -39,8 +39,8 @@ export function openLogin({ title } = {}) {
         try { const r = await ask('login', { opts: { email } }); ls.set('tutor.lastEmail', email); step2(r.isNew); }
         catch (e2) { fc.pulse('sad'); err.textContent = e2.message; btn.disabled = false; btn.textContent = L('Code schicken', 'Send code'); }
       });
-      box.replaceChildren(x(), fEl, h('h3', {}, title || L('Kostenlos anmelden', 'Sign in for free')),
-        h('p', {}, L('Kein Passwort, kein Newsletter. Du bekommst einen Code per Mail – und fürs neue Konto ', 'No password, no newsletter. You get a code by email – and a new account comes with '), h('b', {}, L('7 Tage Inner Circle', '7 days in the Inner Circle')), L(' geschenkt.', ' on the house.')),
+      box.replaceChildren(x(), fEl, h('h3', {}, title || L('Anmelden oder Konto erstellen', 'Sign in or create an account')),
+        h('p', {}, L('Gib einfach deine E-Mail ein – egal, ob du schon ein Konto hast oder neu bist. Du bekommst einen Code per Mail, kein Passwort. Neue Konten bekommen ', 'Just enter your email – whether you already have an account or you’re new. You get a code by email, no password. New accounts get '), h('b', {}, L('7 Tage Inner Circle', '7 days in the Inner Circle')), L(' geschenkt.', ' on the house.')),
         form, err,
         h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Wir speichern nur deine E-Mail-Adresse. Deine Skripte bleiben auf deinem Gerät.', 'We only store your email address. Your slides stay on your device.')));
       fc.set('idle');
