@@ -15,8 +15,31 @@ import { getOutLang, setOutLang, L } from './i18n.js';
 export const VOICES = [
   ['max', L('Max beim Aperol', 'Max over Aperol'), L('Anfang 20, entspannt auf der Terrasse', 'early 20s, relaxed on the terrace')],
   ['feiern', L('Max nach dem Feiern', 'Max after the party'), L('tief, etwas verkatert', 'deep, a bit hungover')],
-  ['stimmbruch', L('Max vor dem Stimmbruch', 'Max before his voice broke'), L('hell (Frauenstimme)', 'high (female voice)')],
+  ['stimmbruch', L('Max vor dem Stimmbruch', 'Max before his voice broke'), L('hell und jung – die tiefe Stimme kommt noch', 'high and young – the deep voice is still coming')],
 ];
+// Hörprobe: jede Stimme stellt sich kurz vor (Play-Knopf im Stimmen-Chip)
+let sampleAudio = null;
+export function voiceSample(voice) {
+  const b = h('button', { class: 'pv', type: 'button', title: L('So klinge ich', 'This is how I sound'), 'aria-label': L('Hörprobe abspielen', 'Play voice sample'), html: ico('play') });
+  b.addEventListener('click', e => {
+    e.stopPropagation();
+    if (sampleAudio && !sampleAudio.paused && sampleAudio._v === voice) { sampleAudio.pause(); b.innerHTML = ico('play'); b.classList.remove('on'); return; }
+    if (sampleAudio) sampleAudio.pause();
+    document.querySelectorAll('.pv').forEach(x => { x.innerHTML = ico('play'); x.classList.remove('on'); });
+    sampleAudio = new Audio(`/tutor/audio/${voice}-${getOutLang() === 'en' ? 'en' : 'de'}.mp3?v=3`); sampleAudio._v = voice;
+    sampleAudio.onended = sampleAudio.onpause = () => { b.innerHTML = ico('play'); b.classList.remove('on'); };
+    b.innerHTML = ico('pause'); b.classList.add('on');
+    sampleAudio.play().catch(() => { b.innerHTML = ico('play'); b.classList.remove('on'); });
+  });
+  return b;
+}
+export function voiceChip(k, label, desc, onPick) {
+  const c = h('span', { class: 'chip vchip', role: 'button', tabindex: 0, title: desc, 'data-v': k }, label, voiceSample(k));
+  const pick = () => onPick(k, c);
+  c.addEventListener('click', pick);
+  c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  return c;
+}
 export const getVoice = () => { const v = ls.get('tutor.voice', 'max'); return VOICES.some(x => x[0] === v) ? v : 'max'; };
 
 const parse = raw => {
@@ -65,8 +88,8 @@ export function openVoice({ doc = null, onClose } = {}) {
   const typeIn = h('input', { class: 'field', placeholder: L('Lieber tippen? Frag hier …', 'Rather type? Ask here …'), 'aria-label': L('Frage tippen', 'Type a question'), maxlength: 600 });
   const typeForm = h('form', { class: 'vtype' }, typeIn, h('button', { class: 'btn', type: 'submit' }, L('Senden', 'Send')));
   const chips = VOICES.map(([k, l, d]) => {
-    const c = h('button', { class: 'chip' + (k === voice ? ' on' : ''), type: 'button', title: d }, l);
-    c.addEventListener('click', () => { voice = k; ls.set('tutor.voice', k); chips.forEach(x => x.classList.toggle('on', x === c)); });
+    const c = voiceChip(k, l, d, () => { voice = k; ls.set('tutor.voice', k); chips.forEach(x => x.classList.toggle('on', x === c)); });
+    if (k === voice) c.classList.add('on');
     return c;
   });
   const lbs = [['de', 'DE'], ['en', 'EN']].map(([k, l]) => { const b = h('button', { type: 'button', class: k === getOutLang() ? 'on' : '' }, l); b.addEventListener('click', () => { setOutLang(k); lbs.forEach(x => x.classList.toggle('on', x === b)); }); return b; });

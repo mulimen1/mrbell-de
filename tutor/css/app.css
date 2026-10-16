@@ -1997,3 +1997,6 @@ html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: n
 @keyframes lface { from { opacity: 0; transform: translateY(-10px) scale(.6); } }
 @keyframes lkid { from { opacity: 0; transform: translateY(8px); } }
 @media (prefers-reduced-motion: reduce) { .modal.login, .modal.login *, .modal-bg:has(.modal.login) { animation: none !important; } }
+.ai-menu .asst-vch .vchip { height: 30px; padding: 0 4px 0 11px; gap: 6px; font-size: 12.5px; }
+.ai-vdesc { font-size: 12px; color: var(--mute); margin: -4px 0 10px; }
+.pv.on { background: var(--ink); color: var(--bg); }

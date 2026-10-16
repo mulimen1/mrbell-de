@@ -11,7 +11,7 @@ import { liveWave } from './wave.js';
 import { startLive } from './livestt.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
-import { VOICES, getVoice } from './voice.js';
+import { VOICES, getVoice, voiceChip } from './voice.js';
 import { L, setOutLang } from './i18n.js';
 import { applyThemeButtons } from './theme.js';
 
@@ -170,10 +170,11 @@ export function mountAssistant() {
   const closeBtn = B('ai-close', L('Einklappen', 'Collapse'), ico('x'));
   const isl = h('div', { class: 'ai-isl', role: 'group', 'aria-label': L('Max', 'Max') },
     moreBtn, dotsBtn, mid, muteBtn, micBtn, sendBtn, doneBtn, stopBtn, closeBtn);
-  const voiceChips = VOICES.map(([k, l, d]) => h('button', { class: 'chip', type: 'button', title: d, 'data-v': k, onclick: () => { ls.set('tutor.voice', k); drawMenu(); } }, l));
+  const vDesc = h('div', { class: 'ai-vdesc' });
+  const voiceChips = VOICES.map(([k, l, d]) => voiceChip(k, l, d, () => { ls.set('tutor.voice', k); drawMenu(); }));
   const menu = h('div', { class: 'ai-menu', role: 'menu', hidden: true },
     h('button', { class: 'ai-mx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => closeMenu() }),
-    h('div', { class: 'eyebrow ai-me' }, L('Stimme', 'Voice')), h('div', { class: 'asst-vch' }, voiceChips),
+    h('div', { class: 'eyebrow ai-me' }, L('Stimme', 'Voice')), h('div', { class: 'asst-vch' }, voiceChips), vDesc,
     h('button', { class: 'asst-mi ai-mi-mute', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); muteBtn.click(); } }),
     h('button', { class: 'asst-mi', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); newTalk(); } }, h('span', { html: ico('refresh') }), L('Neues Gespräch', 'New conversation')),
     h('button', { class: 'asst-mi ai-mi-quip', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); toggleQuips(); } }),
@@ -407,7 +408,7 @@ export function mountAssistant() {
 
   // ---------- Menü ----------
   function drawMenu() {
-    const v = getVoice(); voiceChips.forEach(c => c.classList.toggle('on', c.dataset.v === v));
+    const v = getVoice(); voiceChips.forEach(c => c.classList.toggle('on', c.dataset.v === v)); vDesc.textContent = (VOICES.find(x => x[0] === v) || [])[2] || '';
     menu.querySelector('.ai-mi-quip').replaceChildren(h('span', { html: ico('bulb') }), cfg.quips === false ? L('Sprüche & Fragen an', 'Turn jokes & questions on') : L('Sprüche & Fragen aus', 'Turn jokes & questions off'));
     menu.querySelector('.ai-mi-mute').replaceChildren(h('span', { html: cfg.spk ? SVG.spkOff : SVG.spkOn }), cfg.spk ? L('Max stumm schalten', 'Mute Max') : L('Max wieder laut', 'Unmute Max'));
   }
