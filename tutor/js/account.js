@@ -4,6 +4,7 @@ import { h, ico, toast, ls, modal } from './util.js';
 import { ask, setAccount, getAccount, onAccount, getSession } from './api.js';
 import { face } from './face.js';
 import { L, LOCALE } from './i18n.js';
+import { getNick, setNick, nickField, greetSplash } from './nick.js';
 
 const fmtDate = ts => new Date(ts).toLocaleDateString(LOCALE, { day: 'numeric', month: L('numeric', 'short') });
 export const proDaysLeft = a => (a && a.pro) ? Math.max(1, Math.ceil((a.proUntil - Date.now()) / 864e5)) : 0;
@@ -84,12 +85,17 @@ export function openLogin({ title } = {}) {
     const success = r => {
       fc.set('happy');
       const goal = r.fresh ? goalQuestion() : null;
+      const had = getNick(r.account), nf = had ? null : nickField('');
       box.replaceChildren(fEl, h('h3', {}, r.fresh ? L('Willkommen im Club.', 'Welcome to the club.') : L('Da bist du ja wieder.', 'There you are again.')),
         h('p', {}, r.fresh
           ? L(`7 Tage Inner Circle – geht aufs Haus. Also auf Papas. Bis ${fmtDate(r.account.proUntil)} lernst du ohne Tageslimit.`, `7 days in the Inner Circle – on the house. Well, on Papa’s. Until ${fmtDate(r.account.proUntil)} you learn with no daily limit.`)
           : r.account.pro ? L(`Inner Circle läuft noch bis ${fmtDate(r.account.proUntil)}.`, `Inner Circle runs until ${fmtDate(r.account.proUntil)}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
-        goal && goal.el,
-        h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', onclick: () => { goal && goal.save(); close(true); } }, L('Los geht’s', 'Let’s go'))));
+        nf && nf.el, goal && goal.el,
+        h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', onclick: () => {
+          if (nf) { const v = nf.value(); if (!v.ok) return; if (v.nick) setNick(v.nick, r.account); }
+          goal && goal.save(); close(true);
+          const n = getNick(r.account); if (n) { try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {} setTimeout(() => greetSplash(n), 380); }
+        } }, L('Los geht’s', 'Let’s go'))));
       setTimeout(() => box.querySelector('.btn.primary')?.focus(), 60);
     };
 
@@ -119,6 +125,8 @@ export async function verifyLink(ek, code) {
   try {
     const r = await ask('verify', { opts: { ek, code } });
     setAccount(r.account, r.session);
+    const n = getNick(r.account); if (n) { try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {} setTimeout(() => greetSplash(n), 400); } else setTimeout(askNick, 600);
+    if (!n) return true;
     toast(r.fresh ? L('Willkommen im Inner Circle. 7 Tage gehen aufs Haus.', 'Welcome to the Inner Circle. 7 days are on the house.') : L('Angemeldet. Schön, dass du wieder da bist.', 'Signed in. Good to have you back.'), 4000);
     return true;
   } catch (e) {
@@ -127,10 +135,25 @@ export async function verifyLink(ek, code) {
   }
 }
 
+// Spitzname nachträglich festlegen/ändern
+export async function askNick() {
+  const a = getAccount(); if (!a) return;
+  const nf = nickField(getNick(a));
+  const r = await modal({ title: L('Dein Spitzname', 'Your nickname'), text: L('Fiktiv, witzig, echt – alles geht. Nur nichts Beleidigendes oder Anzügliches.', 'Made-up, funny, real – anything goes. Just nothing offensive or dirty.'), body: nf.el,
+    actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Speichern', 'Save'), value: true, primary: true }],
+    onAction: v => { if (!v) return true; const c = nf.value(); return c.ok; } });
+  if (!r) return;
+  const c = nf.value(); if (!c.ok) return;
+  setNick(c.nick, a); onAccountRefresh();
+  if (c.nick) greetSplash(c.nick);
+}
+function onAccountRefresh() { const a = getAccount(); if (a) setAccount(Object.assign({}, a)); }
+
 export async function openAccount() {
   const a = getAccount();
   if (!a) return openLogin();
   const body = h('div', { class: 'accbox' },
+    h('div', { class: 'accrow' }, h('span', {}, L('Spitzname', 'Nickname')), h('b', {}, getNick(a) || '–', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); askNick(); } }, getNick(a) ? L('ändern', 'change') : L('festlegen', 'set')))),
     h('div', { class: 'accrow' }, h('span', {}, L('E-Mail', 'Email')), h('b', {}, a.email)),
     h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? L(`Inner Circle · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(a.proUntil)})`, `Inner Circle · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(a.proUntil)})`) : L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'))),
     h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))));
@@ -153,7 +176,7 @@ export function accountChip() {
     if (!el.isConnected && el.dataset.init) return;
     el.dataset.init = 1;
     if (!a) el.replaceChildren(h('span', { class: 'av', html: ico('lock') }), h('span', { class: 'tx' }, h('b', {}, 'Log in'), h('small', {}, L('7 Tage Inner Circle gratis', '7 days Inner Circle free'))));
-    else el.replaceChildren(h('span', { class: 'av' }, (a.email[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, a.email), h('small', {}, a.pro ? L(`Inner Circle · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, `Inner Circle · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : 'Free')));
+    else el.replaceChildren(h('span', { class: 'av' }, ((getNick(a) || a.email)[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, getNick(a) || a.email), h('small', {}, a.pro ? L(`Inner Circle · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, `Inner Circle · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : 'Free')));
   });
   return el;
 }

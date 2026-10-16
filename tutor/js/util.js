@@ -69,7 +69,7 @@ export function toast(msg, ms = 2600) {
 }
 
 // Dialog
-export function modal({ title, text, body, actions = [] }) {
+export function modal({ title, text, body, actions = [], onAction }) {
   return new Promise(resolve => {
     const close = v => { bg.remove(); document.removeEventListener('keydown', onKey); resolve(v); };
     const onKey = e => { if (e.key === 'Escape') close(null); };
@@ -77,7 +77,7 @@ export function modal({ title, text, body, actions = [] }) {
       h('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true' },
         h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': document.documentElement.lang === 'en' ? 'Close' : 'Schließen', html: ico('x'), onclick: () => close(null) }),
         title && h('h3', {}, title), text && h('p', {}, text), body,
-        h('div', { class: 'row' }, actions.map(a => h('button', { class: 'btn ' + (a.primary ? 'primary' : ''), onclick: () => close(a.value) }, a.label)))));
+        h('div', { class: 'row' }, actions.map(a => h('button', { class: 'btn ' + (a.primary ? 'primary' : ''), onclick: () => { if (onAction && onAction(a.value) === false) return; close(a.value); } }, a.label)))));
     document.body.appendChild(bg);
     document.addEventListener('keydown', onKey);
     const f = bg.querySelector('input,textarea,button.primary'); if (f) setTimeout(() => f.focus(), 50);

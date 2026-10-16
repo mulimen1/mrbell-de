@@ -2,7 +2,8 @@
 import { $, $$, h, sleep, ico } from './util.js';
 import { face } from './face.js';
 import { mountApp, startUpload, startSample, topicForm, tryFeature } from './app.js';
-import { openLogin, openAccount, verifyLink } from './account.js';
+import { openLogin, openAccount, verifyLink, askNick } from './account.js';
+import { greetOnLoad, getNick } from './nick.js';
 import { onAccount, getAccount } from './api.js';
 import { applyThemeButtons } from './theme.js';
 import { lines as maxLines } from './max.js';
@@ -220,4 +221,11 @@ document.addEventListener('click', e => {
   document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
 });
 route();
+// Angemeldet: Max begrüßt mit Spitznamen (oder fragt einmal danach)
+setTimeout(() => {
+  if (/^#\/login\//.test(location.hash)) return;
+  const a = getAccount(); if (!a) return;
+  if (getNick(a)) greetOnLoad();
+  else { let asked = false; try { asked = !!localStorage.getItem('tutor.nickAsked'); } catch (e) {} if (!asked) { try { localStorage.setItem('tutor.nickAsked', '1'); } catch (e) {} askNick(); } }
+}, 1200);
 window.addEventListener('unhandledrejection', e => { console.error(e.reason); });
