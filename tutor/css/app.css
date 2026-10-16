@@ -2441,3 +2441,22 @@ html[lang="en"] .me-wday.on .me-wdh::after { content: "today"; }
 @media (max-width: 760px) { .lockprev, .lp-over { min-height: 400px; } }
 .doc-item.soon { color: var(--mute); }
 .doc-item .soonb { margin-left: auto; font: 500 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--line2); border-radius: 6px; padding: 2px 6px; color: var(--mute); }
+/* Challenge ohne Rangliste: eigener Verlauf */
+.ch-side { position: relative; z-index: 1; display: grid; gap: 12px; align-content: end; }
+.ch-hist { display: flex; align-items: flex-end; gap: 10px; height: 200px; }
+.ch-hb { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; }
+.ch-hb i { width: 100%; border-radius: 10px 10px 4px 4px; background: color-mix(in srgb, var(--ink) 22%, var(--panel)); transform-origin: bottom; animation: chbar .8s cubic-bezier(.16,1,.3,1) both; }
+.ch-hb.best i { background: var(--ink); }
+.ch-hb span { font: 500 10.5px var(--mono); color: var(--mute); }
+.ch-side small { color: var(--mute); font-size: 13px; }
+.ch-fachs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.ch-fachs .chip { height: 34px; padding: 0 14px; font-size: 13.5px; }
+@keyframes chbar { from { transform: scaleY(0); } }
+.ch-res.ch-wide { max-width: 720px; margin: 0 auto; display: grid; justify-items: center; gap: 6px; }
+.ch-res .ch-fach { width: 100%; text-align: left; margin-top: 10px; display: grid; gap: 8px; }
+.ch-acts { display: grid; justify-items: center; gap: 8px; margin-top: 14px; } .ch-acts small { color: var(--mute); font-size: 13px; }
+@media (max-width: 900px) { .ch-hist { height: 120px; } .ch-fachs { justify-content: flex-start; } }
+
+/* KI-Kennzeichnung unter Antworten */
+.aitag{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.01em;color:var(--mute,#8a8a8a);opacity:.75;margin-top:6px;width:100%;user-select:none}
+.aitag .ai-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.6}

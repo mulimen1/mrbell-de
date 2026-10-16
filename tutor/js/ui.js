@@ -242,3 +242,13 @@ export function lockedRest(stage, { left, what, onUnlock }) {
       h('button', { class: 'btn', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin() && onUnlock) onUnlock(); } }, L('Anmelden', 'Sign in')))));
   face(f).set?.('happy');
 }
+
+// KI-Kennzeichnung: welches Modell geantwortet hat (dezent unter der Antwort)
+export function modelName(id) {
+  const m = /claude-([a-z]+)-(\d+)-(\d+)/.exec(String(id || ''));
+  return m ? `Claude ${m[1][0].toUpperCase()}${m[1].slice(1)} ${m[2]}.${m[3]}` : '';
+}
+export function aiTag(id) {
+  const n = modelName(id);
+  return h('div', { class: 'aitag', title: L('Max ist eine KI. Antworten können Fehler enthalten – prüf Wichtiges mit deinem Skript.', 'Max is an AI. Answers can contain mistakes – check important things against your slides.') }, h('span', { class: 'ai-dot' }), L('KI', 'AI') + (n ? ' · ' + n : '') + L(' · kann Fehler machen', ' · can make mistakes'));
+}

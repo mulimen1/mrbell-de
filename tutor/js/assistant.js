@@ -7,7 +7,7 @@ import { face } from './face.js';
 import { ask } from './api.js';
 import { S, save } from './state.js';
 import { forChat } from './retrieve.js';
-import { apiError, typeOut as typeIt, typePlaceholder, syncOut } from './ui.js';
+import { apiError, typeOut as typeIt, typePlaceholder, syncOut, aiTag } from './ui.js';
 import { liveWave } from './wave.js';
 import { startLive } from './livestt.js';
 import { sanitize, richText } from './sanitize.js';
@@ -565,8 +565,8 @@ export function mountAssistant() {
     if (greeted) return; greeted = true;
     const gTx = h('div', { class: 'ai-a' });
     const gText = (L(
-      'Moin, ich bin Max – dein Tutor hier. Ich seh, was du auf der Seite gerade machst, und führ dich durch: Frag mich alles, ich erklär’s dir an der Tafel, öffne Sachen für dich und bau dir Quiz, Karteikarten oder einen Klausurplan. Schreib einfach los – oder tipp auf **Sprich mit Max**.',
-      'Hey, I’m Max – your tutor here. I can see what you’re doing on the page and I’ll guide you: ask me anything, I’ll explain it on the whiteboard, open things for you and build quizzes, flashcards or an exam plan. Just type – or tap **Talk to Max**.'));
+      'Moin, ich bin Max – dein KI-Tutor hier. Ich seh, was du auf der Seite gerade machst, und führ dich durch: Frag mich alles, ich erklär’s dir an der Tafel, öffne Sachen für dich und bau dir Quiz, Karteikarten oder einen Klausurplan. Schreib einfach los – oder tipp auf **Sprich mit Max**.',
+      'Hey, I’m Max – your AI tutor here. I can see what you’re doing on the page and I’ll guide you: ask me anything, I’ll explain it on the whiteboard, open things for you and build quizzes, flashcards or an exam plan. Just type – or tap **Talk to Max**.'));
     const g = h('div', { class: 'ai-bub max last greet' }, gTx);
     revealWords(gTx, gText);
     feedList.querySelectorAll('.ai-bub.last').forEach(b => b.classList.remove('last'));
@@ -771,6 +771,7 @@ export function mountAssistant() {
       const raw = String(r.text || '').slice(0, 12000);
       hist.push({ role: 'assistant', content: raw });
       hist = hist.slice(-20); ls.set(CHAT, hist);
+      ex.model = r.model || '';
       await answer(raw, my, spoken, ex);
     } catch (e) {
       if (hist[hist.length - 1]?.role === 'user' && hist[hist.length - 1].content === text) hist.pop();
@@ -800,6 +801,7 @@ export function mountAssistant() {
     p.boards.forEach(b => extras.push(boardBtn(b)));
     if (!(spoken && cfg.spk) && p.text && cfg.spk) extras.push(listenBtn(p.text, txt, ex));
     if (p.text && p.text.length > 60) { const q = [...hist].reverse().find(m => m.role === 'user')?.content || ''; const d = curDoc(); extras.push(favChip({ typ: 'erklaerung', titel: (q || plainT(p.text)).slice(0, 90), doc: d?.id || '', docName: d?.name || '', ref: favKey(p.text), inhalt: plainT(p.text) })); }
+    if (ex.model !== undefined) extras.push(aiTag(ex.model));
     ex.aX.replaceChildren(...extras);
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);
     if (!open) unread(true);

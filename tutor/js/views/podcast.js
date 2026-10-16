@@ -67,7 +67,7 @@ function intro(wrap, ctx) {
   const lens = [['kurz', L('Kurz · ~5 Min.', 'Short · ~5 min')], ['lang', L('Lang · ~10 Min.', 'Long · ~10 min')]].map(([k, l]) => { const c = h('button', { class: 'chip' + (k === len ? ' on' : '') }, l); c.addEventListener('click', () => { len = k; lens.forEach(x => x.classList.toggle('on', x === c)); }); return c; });
   wrap.replaceChildren(
     h('div', { class: 'pod' },
-      h('div', { class: 'cover' }, h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .7 } }, 'BWL Max · Podcast'), h('h3', {}, doc.name), wave()),
+      h('div', { class: 'cover' }, h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .7 } }, L('BWL Max · KI-Podcast', 'BWL Max · AI podcast')), h('h3', {}, doc.name), wave()),
       h('div', {},
         h('div', { class: 'eyebrow' }, 'Podcast'), h('h2', { style: { fontSize: '30px', letterSpacing: '-.03em', margin: '6px 0 8px' } }, L('Dein Skript zum Anhören', 'Your slides as audio')),
         h('p', { style: { color: 'var(--mute)', marginTop: 0 } }, L('Lisa erklärt, Max fragt nach – mit echten Stimmen, Beispielen und den typischen Fehlern. Perfekt für Bahn, Gym oder Spaziergang.', 'Lisa explains, Max asks follow-ups – with real voices, examples and the classic mistakes. Perfect for the train, the gym or a walk.')),
@@ -119,7 +119,7 @@ function player(wrap, ctx, p) {
   wrap.replaceChildren(
     h('button', { class: 'btn sm ghost', style: { marginBottom: '12px' }, onclick: () => { stop(); intro(wrap, ctx); } }, h('span', { html: ico('left') }), L('Alle Folgen', 'All episodes')),
     h('div', { class: 'pod' },
-      h('div', {}, h('div', { class: 'cover' }, h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .7 } }, 'BWL Max · Podcast'), h('h3', {}, p.title), w),
+      h('div', {}, h('div', { class: 'cover' }, h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .7 } }, L('BWL Max · KI-Podcast', 'BWL Max · AI podcast')), h('h3', {}, p.title), w),
         h('div', { class: 'player' }, playBtn, tbar), status,
         h('div', { class: 'chips', style: { marginTop: '12px', display: 'flex', gap: '6px', flexWrap: 'wrap' } }, rates),
         h('div', { style: { marginTop: '12px', display: 'flex', gap: '6px', alignItems: 'center' } },

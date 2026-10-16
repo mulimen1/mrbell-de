@@ -1,4 +1,4 @@
-// BWL-Wochen-Challenge: jede Woche 24 Fragen für alle gleich, ein Versuch, Ranking gesamt und je Fach. Nur mit Konto.
+// BWL-Wochen-Challenge: jede Woche 24 Fragen für alle gleich, ein Versuch, Ergebnis je Fach und Verlauf der eigenen Wochen. Nur mit Konto.
 import { h, ico, ls } from './util.js';
 import { L, EN } from './i18n.js';
 import { getAccount, onAccount } from './api.js';
@@ -6,7 +6,6 @@ import { face } from './face.js';
 import { BANK as B1, FACH } from './challenge-bank.js';
 import { BANK2 } from './challenge-bank2.js';
 const BANK = [...B1, ...BANK2];
-import { getNick } from './nick.js';
 
 const N = 24, PER = 3, KEY = 'tutor.challenge';
 const T = p => (EN ? p[1] : p[0]);
@@ -23,38 +22,17 @@ function weekTest(wk) {
   return shuf(pick, r).slice(0, N).map(({ q, i }) => { const ord = shuf([0, 1, 2, 3], rng(wk.id * 31 + i)); return { ...q, id: i, opts: ord.map(k => q.o[k]), right: ord.indexOf(q.a) }; });
 }
 // ---------- Teilnehmer der Woche ----------
-const VN = ['Lena', 'Jonas', 'Mia', 'Paul', 'Emma', 'Leon', 'Hannah', 'Finn', 'Sophie', 'Lukas', 'Marie', 'Elias', 'Lea', 'Noah', 'Anna', 'Felix', 'Laura', 'Julian', 'Clara', 'Niklas', 'Lina', 'Moritz', 'Sarah', 'Tim', 'Johanna', 'David', 'Amelie', 'Jan', 'Nele', 'Ben', 'Charlotte', 'Max', 'Greta', 'Henri', 'Frieda', 'Luis', 'Ida', 'Philipp', 'Emily', 'Tom', 'Selin', 'Can', 'Aylin', 'Deniz', 'Mila', 'Jakob', 'Pia', 'Simon', 'Leonie', 'Fabian', 'Zoe', 'Erik', 'Theresa', 'Malte', 'Sina', 'Ole', 'Katharina', 'Vincent', 'Nora', 'Linus', 'Helena', 'Anton', 'Yara', 'Samuel', 'Marlene', 'Benedikt', 'Lilly', 'Kilian', 'Alina', 'Mats'];
-const NN = 'ABCDEFGHJKLMNOPRSTUVWZ';
-const HANDLE = ['BilanzBaron', 'Controlling_Carla', 'DB_Deluxe', 'KapitalwertKing', 'SollUndHaben', 'Excel_Elfe', 'GewinnGustav', 'Break-even-Ben', 'MarketingMira', 'EBIT_Emil', 'Lagerleo', 'VWL_Vicky', 'AfA_Anna', 'ROI_Robin', 'Skonto_Sam', 'BWL_Bella', 'CashCowCarl', 'Leverage_Lia'];
-function field(wk) {
-  const r = rng(wk.id * 104729), now = Date.now(), ws = weekStart().getTime();
-  const prog = Math.min(1, Math.max(0.12, (now - ws) / (7 * 864e5)));
-  const total = Math.round((150 + r() * 140) * (0.3 + 0.7 * prog));
-  const used = new Set(), out = [];
-  for (let i = 0; i < total; i++) {
-    let name; do { name = r() < 0.16 ? HANDLE[Math.floor(r() * HANDLE.length)] + (r() < 0.5 ? '' : Math.floor(r() * 99)) : VN[Math.floor(r() * VN.length)] + ' ' + NN[Math.floor(r() * NN.length)] + '.'; } while (used.has(name)); used.add(name);
-    const ab = Math.min(0.97, Math.max(0.12, 0.56 + (r() + r() + r() - 1.5) * 0.42));   // Fähigkeit, grob normalverteilt
-    let c = 0; for (let k = 0; k < N; k++) if (r() < ab) c++;
-    const secs = Math.round(330 + r() * 720), pts = Math.round(c / N * 1000 + Math.max(0, 1 - secs / 1200) * 120);
-    const fach = {}; Object.keys(FACH).forEach(f => { fach[f] = Math.round(Math.min(100, Math.max(0, (ab + (r() - 0.5) * 0.5) * 100))); });
-    out.push({ name, c, secs, pts, fach });
-  }
-  return out;
-}
 const pointsOf = (c, secs) => Math.round(c / N * 1000 + Math.max(0, 1 - secs / 1200) * 120);
 const mine = wk => (ls.get(KEY, {}) || {})[wk.id] || null;
 function saveMine(wk, res) { const all = ls.get(KEY, {}) || {}; all[wk.id] = res; const ks = Object.keys(all).sort().slice(-12); const o = {}; ks.forEach(k => o[k] = all[k]); ls.set(KEY, o); }
-function rankAll(wk, me) {
-  const f = field(wk), you = me ? { name: getNick() || L('Du', 'You'), c: me.c, secs: me.secs, pts: me.pts, fach: me.fachPct, me: true } : null;
-  const list = (you ? f.concat(you) : f).sort((a, b) => b.pts - a.pts || a.secs - b.secs);
-  return list;
-}
-function verdict(top) {
+// Eigene Wochen (lokal): Verlauf und Rekord
+const history = () => { const all = ls.get(KEY, {}) || {}; return Object.keys(all).sort().map(k => ({ id: +k, ...all[k] })); };
+function verdict(pct) {
   const pick = a => a[Math.floor(Math.random() * a.length)];
-  if (top <= 5) return pick(L(['Main-Character-Energie. Die Konkurrenz schreibt schon Bewerbungen bei dir.', 'Elite. Papa würde dich direkt in die Holding holen.'], ['Main character energy. The competition is already applying to work for you.', 'Elite. Dad would hire you into the holding right away.']));
-  if (top <= 20) return pick(L(['Stark. Bild dir nix drauf ein – aber ein bisschen darfst du.', 'Ganz vorne dabei. Ein blindes Huhn war das nicht.'], ['Strong. Don’t let it go to your head – well, a little.', 'Right up front. That was no fluke.']));
-  if (top <= 60) return pick(L(['Solide Mitte. Weder NPC noch Legende – nächste Woche geht mehr.', 'Ordentlich. Mit zwei Abenden Trainer bist du in den Top 20 %.'], ['Solid middle. Not NPC, not legend – more next week.', 'Decent. Two evenings with the trainer and you’re top 20 %.']));
-  return pick(L(['Mit der Herde. Ab in den Trainer, nächste Woche zeigst du’s allen.', 'NPC-Woche. Passiert den Besten. Revanche am Montag.'], ['With the herd. Hit the trainer – next week you show them.', 'NPC week. Happens to the best. Rematch on Monday.']));
+  if (pct >= 90) return pick(L(['Main-Character-Energie. Ich bin fast ein bisschen neidisch.', 'Elite. Papa würde dich direkt in die Holding holen.'], ['Main character energy. I’m almost a little jealous.', 'Elite. Dad would hire you into the holding straight away.']));
+  if (pct >= 75) return pick(L(['Stark. Bild dir nix drauf ein – aber ein bisschen darfst du.', 'Sitzt. Ein blindes Huhn war das nicht.'], ['Strong. Don’t let it go to your head – well, a little.', 'Solid. That was no fluke.']));
+  if (pct >= 50) return pick(L(['Solide. Mit zwei Abenden Trainer wird das nächste Woche richtig gut.', 'Ordentlich. Da geht noch was – und ich weiß auch, wo.'], ['Solid. Two evenings in the trainer and next week looks great.', 'Decent. There’s more in you – and I know where.']));
+  return pick(L(['Ausbaufähig. Ab in den Trainer, nächste Woche zeigst du’s.', 'Passiert den Besten. Revanche am Montag.'], ['Room to grow. Hit the trainer – next week you show it.', 'Happens to the best. Rematch on Monday.']));
 }
 const countdown = () => { const nx = weekStart(); nx.setDate(nx.getDate() + 7); const ms = nx - Date.now(), d = Math.floor(ms / 864e5), hh = Math.floor(ms % 864e5 / 36e5); return d ? L(`${d} ${d === 1 ? 'Tag' : 'Tagen'} ${hh} Std.`, `${d}d ${hh}h`) : L(`${hh} Std.`, `${hh}h`); };
 
@@ -66,62 +44,28 @@ export function renderChallenge(root, { onLogin } = {}) {
   draw();
   const off = onAccount(() => { if (!wrap.isConnected) { off(); return; } if (!wrap.querySelector('.ch-run')) draw(); });
 }
-function head(wk, sub) {
-  return h('header', { class: 'ch-head' }, h('div', { class: 'ch-ico', html: ico('trophy') }),
-    h('div', {}, h('div', { class: 'eyebrow' }, L(`Wochen-Challenge · KW ${wk.w}`, `Weekly challenge · week ${wk.w}`)), h('h2', {}, L('Wer ist der beste BWLer?', 'Who’s the best at business?')), sub && h('p', {}, sub)));
-}
-function board(list, opts = {}) {
-  const key = opts.fach, rows = key ? list.slice().sort((a, b) => (b.fach[key] || 0) - (a.fach[key] || 0) || b.pts - a.pts) : list;
-  const meI = rows.findIndex(x => x.me), show = new Set(); for (let i = 0; i < Math.min(10, rows.length); i++) show.add(i);
-  if (meI >= 0) for (let i = Math.max(0, meI - 2); i <= Math.min(rows.length - 1, meI + 2); i++) show.add(i);
-  const out = []; let last = -1;
-  [...show].sort((a, b) => a - b).forEach(i => { if (last >= 0 && i > last + 1) out.push(h('div', { class: 'ch-gap' }, '···')); last = i; const x = rows[i];
-    out.push(h('div', { class: 'ch-row' + (x.me ? ' me' : '') + (i < 3 ? ' top' + (i + 1) : '') }, h('span', { class: 'ch-pos' }, i < 3 ? ['🥇', '🥈', '🥉'][i] : String(i + 1)), h('span', { class: 'ch-nm' }, x.name, x.me ? h('small', {}, L(' · du', ' · you')) : null),
-      h('span', { class: 'ch-sc' }, key ? (x.fach[key] || 0) + ' %' : x.pts.toLocaleString(EN ? 'en' : 'de') + L(' Pkt.', ' pts')))); });
-  return h('div', { class: 'ch-board' + (opts.blur ? ' blur' : '') }, out);
-}
-function podium(list, blur) {
-  const p = list.slice(0, 3), ord = [1, 0, 2];
-  return h('div', { class: 'ch-pod' + (blur ? ' blur' : '') }, ord.map(i => p[i] ? h('div', { class: 'ch-pd p' + (i + 1) }, h('div', { class: 'ch-pdn' }, p[i].name), h('div', { class: 'ch-pds' }, p[i].pts.toLocaleString(EN ? 'en' : 'de') + L(' Pkt.', ' pts')), h('div', { class: 'ch-pdb' }, h('span', {}, String(i + 1)))) : null));
-}
-function hero(wk, list, action, blur) {
+function hero(wk, action) {
+  const hist = history().filter(x => x.id !== wk.id).slice(-6);
+  const best = hist.reduce((m, x) => Math.max(m, x.pts || 0), 0);
   return h('section', { class: 'ch-hero' }, h('div', { class: 'ch-glow' }), h('div', { class: 'ch-dots' }),
     h('div', { class: 'ch-hl' },
       h('div', { class: 'ch-trophy', html: ico('trophy') }),
       h('div', { class: 'eyebrow' }, L(`Wochen-Challenge · KW ${wk.w}`, `Weekly challenge · week ${wk.w}`)),
-      h('h1', {}, L('Wer ist der beste BWLer?', 'Who’s the best at business?')),
-      h('p', {}, L('Jede Woche 24 Fragen quer durch alle Fächer. Ein Versuch. Ein Ranking – gesamt und in jedem Fach.', 'Every week 24 questions across all subjects. One attempt. One ranking – overall and per subject.')),
-      h('div', { class: 'ch-meta' }, h('span', {}, h('b', {}, String(list.length)), L('Teilnehmende', 'players')), h('span', {}, h('b', {}, '8'), L('Fächer', 'subjects')), h('span', {}, h('b', {}, countdown()), L('bis zur neuen Runde', 'until next round'))),
+      h('h1', {}, L('Wie gut bist du wirklich?', 'How good are you really?')),
+      h('p', {}, L('Jede Woche 24 neue Fragen quer durch alle Fächer. Ein Versuch, schnell und richtig gibt die meisten Punkte – und du siehst sofort, in welchem Fach du stark bist.', 'Every week 24 new questions across all subjects. One attempt, fast and right scores most – and you see straight away where you’re strong.')),
+      h('div', { class: 'ch-meta' }, h('span', {}, h('b', {}, String(N)), L('Fragen', 'questions')), h('span', {}, h('b', {}, String(Object.keys(FACH).length)), L('Fächer', 'subjects')), h('span', {}, h('b', {}, countdown()), L('bis zur neuen Runde', 'until next round'))),
       action),
-    podium(list, blur));
+    h('div', { class: 'ch-side' }, hist.length
+      ? [h('div', { class: 'eyebrow' }, L('Deine letzten Wochen', 'Your last weeks')),
+        h('div', { class: 'ch-hist' }, hist.map(x => h('div', { class: 'ch-hb' + (x.pts === best ? ' best' : '') }, h('i', { style: { height: Math.max(8, Math.round((x.pts || 0) / 1120 * 100)) + '%' } }), h('span', {}, 'KW ' + (x.id % 100))))),
+        h('small', {}, L(`Rekord: ${best.toLocaleString('de')} Punkte`, `Record: ${best.toLocaleString('en')} points`))]
+      : h('div', { class: 'ch-fachs' }, Object.values(FACH).map(f => h('span', { class: 'chip' }, T(f))))));
 }
 function locked(wrap, wk, onLogin) {
-  const all = rankAll(wk, null);
-  wrap.replaceChildren(hero(wk, all, h('div', { class: 'ch-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => onLogin && onLogin() }, h('span', { html: ico('lock') }), L('Anmelden & mitmachen', 'Sign in & compete')), h('small', {}, L('Kostenlos · dauert 30 Sekunden', 'Free · takes 30 seconds'))), true),
-    h('section', { class: 'ch-card ch-wide' }, h('div', { class: 'eyebrow' }, L('Ranking diese Woche', 'This week’s ranking')), board(all.slice(0, 10), { blur: true })));
-}
-function lockedOld(wrap, wk, onLogin) {
-  const list = rankAll(wk, null).slice(0, 8);
-  wrap.replaceChildren(head(wk, L('Jede Woche 24 Fragen quer durch alle Fächer. Ein Versuch, ein Ranking – gesamt und je Fach.', 'Every week 24 questions across all subjects. One attempt, one ranking – overall and per subject.')),
-    h('div', { class: 'ch-lock' }, board(list, { blur: true }),
-      h('div', { class: 'ch-lockc' }, h('span', { class: 'ch-lki', html: ico('lock') }), h('b', {}, L('Nur mit kostenlosem Konto', 'Free account required')),
-        h('p', {}, L('Damit dein Platz im Ranking dir gehört, brauchst du ein Konto. Dauert 20 Sekunden und ist kostenlos.', 'So your spot in the ranking is yours, you need an account. Takes 20 seconds and it’s free.')),
-        h('button', { class: 'btn primary', type: 'button', onclick: () => onLogin && onLogin() }, L('Anmelden oder Konto erstellen', 'Sign in or create an account')))));
+  wrap.replaceChildren(hero(wk, h('div', { class: 'ch-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => onLogin && onLogin() }, h('span', { html: ico('lock') }), L('Anmelden & mitmachen', 'Sign in & compete')), h('small', {}, L('Kostenlos · dauert 30 Sekunden', 'Free · takes 30 seconds')))));
 }
 function intro(wrap, wk) {
-  const list = rankAll(wk, null);
-  wrap.replaceChildren(hero(wk, list, h('div', { class: 'ch-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => run(wrap, wk) }, h('span', { html: ico('trophy') }), L('Challenge starten', 'Start challenge')), h('small', {}, L('24 Fragen · ca. 10 Minuten · ein Versuch · schnell und richtig = mehr Punkte', '24 questions · about 10 minutes · one attempt · fast and right = more points'))), false),
-    h('section', { class: 'ch-card ch-wide' }, h('div', { class: 'eyebrow' }, L('Aktuelle Top 10', 'Current top 10')), board(list)));
-}
-function introOld(wrap, wk) {
-  const list = rankAll(wk, null);
-  wrap.replaceChildren(head(wk, L(`24 Fragen · ca. 10 Minuten · ein Versuch. Schnell und richtig gibt die meisten Punkte. Neue Runde in ${countdown()}.`, `24 questions · about 10 minutes · one attempt. Fast and right scores most. New round in ${countdown()}.`)),
-    h('div', { class: 'ch-grid' },
-      h('section', { class: 'ch-card ch-start' },
-        h('div', { class: 'ch-chips' }, Object.values(FACH).map(f => h('span', { class: 'chip' }, T(f)))),
-        h('p', {}, L(`Schon ${list.length} Teilnehmende diese Woche. Du trittst gegen alle an – und in jedem Fach einzeln.`, `${list.length} participants so far this week. You compete against all of them – and per subject.`)),
-        h('button', { class: 'btn primary lg', type: 'button', onclick: () => run(wrap, wk) }, ico('trophy') ? h('span', { html: ico('trophy') }) : null, L('Challenge starten', 'Start challenge'))),
-      h('section', { class: 'ch-card' }, h('div', { class: 'eyebrow' }, L('Aktuelle Top 10', 'Current top 10')), board(list))));
+  wrap.replaceChildren(hero(wk, h('div', { class: 'ch-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => run(wrap, wk) }, h('span', { html: ico('trophy') }), L('Challenge starten', 'Start challenge')), h('small', {}, L('24 Fragen · ca. 10 Minuten · ein Versuch · schnell und richtig = mehr Punkte', '24 questions · about 10 minutes · one attempt · fast and right = more points')))));
 }
 function run(wrap, wk) {
   const qs = weekTest(wk), t0 = Date.now(); let i = 0; const ans = [];
@@ -160,24 +104,24 @@ function run(wrap, wk) {
   show();
 }
 function result(wrap, wk, me, fresh) {
-  const list = rankAll(wk, me), pos = list.findIndex(x => x.me) + 1, top = Math.max(1, Math.round(pos / list.length * 100));
+  const pct = Math.round(me.c / N * 100);
+  const prev = history().filter(x => x.id !== wk.id);
+  const best = prev.reduce((m, x) => Math.max(m, x.pts || 0), 0);
+  const rec = prev.length && me.pts > best;
   const fEl = h('div', { class: 'ch-face big' });
-  let tab = '';
-  const tabs = h('div', { class: 'ch-tabs', role: 'tablist' });
-  const holder = h('div', {});
-  const drawTabs = () => { tabs.replaceChildren(...[['', L('Gesamt', 'Overall')], ...Object.entries(FACH).filter(([f]) => me.fachR && me.fachR[f]).map(([f, n]) => [f, T(n)])].map(([k, n]) => h('button', { type: 'button', class: 'chip' + (tab === k ? ' on' : ''), onclick: () => { tab = k; drawTabs(); } }, n))); holder.replaceChildren(board(list, { fach: tab || undefined })); };
-  drawTabs();
-  const fachRows = Object.entries(me.fachR || {}).map(([f, [r, n]]) => h('div', { class: 'ch-frow' }, h('span', {}, T(FACH[f])), h('span', { class: 'ch-fbar' }, h('i', { style: { width: Math.round(r / n * 100) + '%' } })), h('b', {}, `${r}/${n}`)));
-  wrap.replaceChildren(head(wk, L(`Neue Runde in ${countdown()}. Bis dahin zählt dein Ergebnis.`, `New round in ${countdown()}. Your score counts until then.`)),
-    h('div', { class: 'ch-grid' },
-      h('section', { class: 'ch-card ch-res' }, fEl,
-        h('div', { class: 'ch-big' }, L('Platz ', 'Rank '), h('b', {}, String(pos)), h('span', {}, L(` von ${list.length}`, ` of ${list.length}`))),
-        h('div', { class: 'ch-top' + (top <= 10 ? ' hot' : '') }, L(`Top ${top} %`, `Top ${top} %`)),
-        h('p', { class: 'ch-verd' }, verdict(top)),
-        h('div', { class: 'ch-stats' }, h('span', {}, h('b', {}, `${me.c}/${N}`), L(' richtig', ' correct')), h('span', {}, h('b', {}, me.pts.toLocaleString(EN ? 'en' : 'de')), L(' Punkte', ' points')), h('span', {}, h('b', {}, Math.floor(me.secs / 60) + ':' + String(me.secs % 60).padStart(2, '0')), L(' Zeit', ' time'))),
-        fachRows.length ? h('div', { class: 'ch-fach' }, fachRows) : null,
-        h('a', { class: 'btn', href: '#/app/trainer' }, L('Im Trainer nachlegen', 'Level up in the trainer'))),
-      h('section', { class: 'ch-card' }, h('div', { class: 'eyebrow' }, L('Ranking diese Woche', 'This week’s ranking')), tabs, holder)));
-  const fc = face(fEl, {}); fc.set(top <= 20 ? 'happy' : top <= 60 ? 'smug' : 'sad');
+  const fr = Object.entries(me.fachR || {}).map(([f, [r, n]]) => ({ f, p: Math.round(r / n * 100) })).sort((a, b) => b.p - a.p);
+  const weak = fr.length ? fr[fr.length - 1] : null;
+  const fachRows = fr.map(({ f, p }) => h('div', { class: 'ch-frow' }, h('span', {}, T(FACH[f])), h('span', { class: 'ch-fbar' }, h('i', { style: { width: p + '%' } })), h('b', {}, p + ' %')));
+  wrap.replaceChildren(
+    h('section', { class: 'ch-card ch-res ch-wide' }, fEl,
+      h('div', { class: 'eyebrow' }, L(`Wochen-Challenge · KW ${wk.w}`, `Weekly challenge · week ${wk.w}`)),
+      h('div', { class: 'ch-big' }, h('b', {}, `${me.c}/${N}`), h('span', {}, L(' richtig', ' correct'))),
+      h('div', { class: 'ch-top' + (rec ? ' hot' : '') }, rec ? L('Neuer Rekord', 'New record') : L(`${me.pts.toLocaleString('de')} Punkte`, `${me.pts.toLocaleString('en')} points`)),
+      h('p', { class: 'ch-verd' }, verdict(pct)),
+      h('div', { class: 'ch-stats' }, h('span', {}, h('b', {}, me.pts.toLocaleString(EN ? 'en' : 'de')), L(' Punkte', ' points')), h('span', {}, h('b', {}, `${Math.floor(me.secs / 60)}:${String(me.secs % 60).padStart(2, '0')}`), L(' Minuten', ' minutes')), prev.length ? h('span', {}, h('b', {}, best.toLocaleString(EN ? 'en' : 'de')), L(' bisheriger Rekord', ' previous record')) : null),
+      fachRows.length ? h('div', { class: 'ch-fach' }, h('div', { class: 'eyebrow' }, L('Deine Fächer', 'Your subjects')), fachRows) : null,
+      h('div', { class: 'ch-acts' }, h('a', { class: 'btn primary', href: '#/app/trainer' }, weak && weak.p < 100 ? L(`${T(FACH[weak.f])} im Trainer üben`, `Practise ${T(FACH[weak.f])} in the trainer`) : L('Im Trainer nachlegen', 'Level up in the trainer')),
+        h('small', {}, L(`Neue Runde in ${countdown()}.`, `New round in ${countdown()}.`)))));
+  const fc = face(fEl, {}); fc.set(pct >= 75 ? 'happy' : pct >= 50 ? 'smug' : 'sad');
   if (fresh) wrap.querySelector('.ch-res')?.animate([{ opacity: 0, transform: 'scale(.96)' }, { opacity: 1, transform: 'none' }], { duration: 600, easing: 'cubic-bezier(.16,1,.3,1)' });
 }
