@@ -53,7 +53,6 @@ class Face {
       let shown = false;
       const show = () => { if (shown) return; shown = true; HAIR_READY = true; if (performance.now() - t0 > 60) svg.style.transition = 'opacity .18s ease'; svg.style.opacity = ''; };
       this.hair.addEventListener('load', show, { once: true });
-      HAIR_IMG.decode().then(() => requestAnimationFrame(() => requestAnimationFrame(show))).catch(() => {});
       setTimeout(show, 1800);
     }
     el.dataset.state = 'idle';

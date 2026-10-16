@@ -20,7 +20,7 @@ function shell() {
 export function openLogin({ title } = {}) {
   return new Promise(resolve => {
     const { bg, box, fEl, fc } = shell();
-    const close = v => { bg.remove(); document.removeEventListener('keydown', onKey); resolve(v); };
+    const close = v => { if (bg.classList.contains('out')) return; bg.classList.add('out'); setTimeout(() => bg.remove(), 320); document.removeEventListener('keydown', onKey); resolve(v); };
     const onKey = e => { if (e.key === 'Escape') close(false); };
     document.addEventListener('keydown', onKey);
     bg.addEventListener('click', e => { if (e.target === bg) close(false); });

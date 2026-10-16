@@ -1980,3 +1980,20 @@ html.theme-vt::view-transition-new(root) { animation: themein 1.1s cubic-bezier(
 html.theme-vt::view-transition-group(*), html.theme-vt::view-transition-old(*), html.theme-vt::view-transition-new(*) { animation-duration: 1.1s; }
 @keyframes themein { from { clip-path: circle(0 at var(--tx) var(--ty)); } to { clip-path: circle(var(--tr) at var(--tx) var(--ty)); } }
 html.theme-fade, html.theme-fade * { transition: background-color .8s ease, color .8s ease, border-color .8s ease, fill .8s ease, stroke .8s ease !important; }
+/* Hell/Dunkel: während des Kreises keine eigenen Übergänge (sonst kurz graue Leiste oben) */
+html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: none !important; }
+/* Login: weich rein und raus */
+.modal-bg:has(.modal.login) { animation: lbgin .45s ease both; }
+.modal.login { animation: lin .6s cubic-bezier(.16,1,.3,1) both; }
+.modal.login .lface { animation: lface .7s .12s cubic-bezier(.34,1.5,.64,1) both; }
+.modal.login > :not(.lface):not(.lx) { animation: lkid .55s cubic-bezier(.16,1,.3,1) both; }
+.modal.login > :nth-child(3) { animation-delay: .16s; } .modal.login > :nth-child(4) { animation-delay: .22s; } .modal.login > :nth-child(5) { animation-delay: .28s; } .modal.login > :nth-child(n+6) { animation-delay: .34s; }
+.modal-bg.out { animation: lbgout .3s ease forwards; }
+.modal-bg.out .modal.login { animation: lout .3s cubic-bezier(.4,0,1,1) forwards; }
+@keyframes lbgin { from { opacity: 0; backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); } }
+@keyframes lbgout { to { opacity: 0; } }
+@keyframes lin { from { opacity: 0; transform: translateY(22px) scale(.96); } }
+@keyframes lout { to { opacity: 0; transform: translateY(12px) scale(.97); } }
+@keyframes lface { from { opacity: 0; transform: translateY(-10px) scale(.6); } }
+@keyframes lkid { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .modal.login, .modal.login *, .modal-bg:has(.modal.login) { animation: none !important; } }
