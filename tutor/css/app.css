@@ -2015,3 +2015,21 @@ html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: n
 .asst.closing .ai-feed { -webkit-mask-image: none !important; mask-image: none !important; }
 .asst.closing .ai-isl::before, .asst.closing .ai-isl::after { animation: none !important; opacity: 0 !important; }
 .asst.closing .ai-bd { pointer-events: none; }
+/* Handy: großes Textfeld oben, „Sprich mit Max“ zentriert darunter */
+@media (max-width: 600px) {
+  .asst .ai-isl { flex-wrap: wrap; height: auto; padding: 8px 8px 10px; row-gap: 8px; column-gap: 4px; border-radius: 28px; align-content: center; }
+  .asst .ai-isl::after { content: ""; flex-basis: 100%; height: 0; order: 5; }
+  .ai-isl > * { order: 1; }
+  .ai-isl > .ai-mid { height: 48px; }
+  .asst[data-state="idle"] .ai-in { height: 48px; font-size: 16px; padding: 0 16px; }
+  .ai-isl > .ai-talk, .ai-isl > .ai-done, .ai-isl > .ai-stop { order: 10; margin: 0 auto; }
+  .ai-isl > .ai-talk { height: 46px; padding: 0 22px 0 18px; font-size: 14px; gap: 8px; }
+  .ai-isl > .ai-talk .lbl { font-size: 14px; }
+  .ai-isl > .ai-done, .ai-isl > .ai-stop { width: 46px; height: 46px; }
+  /* alles über der Insel um die zweite Reihe nach oben */
+  .ai-cap { bottom: calc(138px + var(--kb) + env(safe-area-inset-bottom, 0px)); }
+  .ai-feed { bottom: calc(138px + var(--kb) + env(safe-area-inset-bottom, 0px)); }
+  .ai-menu { bottom: calc(138px + env(safe-area-inset-bottom, 0px)); }
+  .ai-board { bottom: calc(142px + env(safe-area-inset-bottom, 0px)); }
+  .asst.has-board:not(.board-min) .ai-board { bottom: calc(142px + var(--kb) + env(safe-area-inset-bottom, 0px)) !important; }
+}

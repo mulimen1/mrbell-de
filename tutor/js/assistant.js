@@ -415,7 +415,7 @@ export function mountAssistant() {
     const hasTx = !!inp.value.trim();
     show(muteBtn, s === 'speak' || s === 'think');
     show(dotsBtn, s === 'idle');
-    show(micBtn, s === 'idle' && !hasTx);
+    show(micBtn, s === 'idle' && (!hasTx || MOB.matches));   // Handy: „Sprich mit Max“ steht immer unter dem Textfeld
     show(sendBtn, s === 'idle' && hasTx);
     show(doneBtn, s === 'listen');
     show(stopBtn, s === 'think' || s === 'speak');
