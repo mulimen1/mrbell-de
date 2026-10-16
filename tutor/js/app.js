@@ -302,7 +302,7 @@ export function topicForm({ cls = 'askbar', target = null } = {}) {
     }
     hint.remove(); form.classList.remove('bad');
     form.dispatchEvent(new CustomEvent('topicok'));
-    if (!target) { viaMax(a => a.ask(t)).then(ok => { if (!ok) { ls.set('tutor.target', null); startTopic(t); } }); return; }
+    if (!target) { inp.value = ''; inp.blur(); inp.dispatchEvent(new Event('input')); viaMax(a => a.ask(t)).then(ok => { if (!ok) { ls.set('tutor.target', null); startTopic(t); } }); return; }
     ls.set('tutor.target', target); startTopic(t);
   });
   inp.addEventListener('input', () => { if (inp.value.trim().length >= 2) { hint.remove(); form.classList.remove('bad'); } });

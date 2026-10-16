@@ -485,14 +485,30 @@ export function mountAssistant() {
   let greeted = false;
   function greet() {
     if (greeted) return; greeted = true;
-    const gTx = h('div', { class: 'ai-a' }, h('span', { class: 'typing' }, h('i'), h('i'), h('i')));
+    const gTx = h('div', { class: 'ai-a' });
     const gText = (L(
       'Moin, ich bin Max – dein Tutor hier. Ich seh, was du auf der Seite gerade machst, und führ dich durch: Frag mich alles, ich erklär’s dir an der Tafel, öffne Sachen für dich und bau dir Quiz, Karteikarten oder einen Klausurplan. Schreib einfach los – oder tipp auf **Sprich mit Max**.',
       'Hey, I’m Max – your tutor here. I can see what you’re doing on the page and I’ll guide you: ask me anything, I’ll explain it on the whiteboard, open things for you and build quizzes, flashcards or an exam plan. Just type – or tap **Talk to Max**.'));
     const g = h('div', { class: 'ai-bub max last greet' }, gTx);
-    setTimeout(() => { if (gTx.isConnected) typeIt(gTx, gText, { scroll: capScroll }); }, 1500);
+    revealWords(gTx, gText);
     feedList.querySelectorAll('.ai-bub.last').forEach(b => b.classList.remove('last'));
     feedList.appendChild(g); showCap(); drawTog(); capScroll();
+  }
+  // Text steht sofort in voller Größe (kein Springen), die Wörter blenden weich nacheinander ein
+  function revealWords(el, text) {
+    el.replaceChildren(richText(text));
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); const nodes = []; let n, i = 0;
+    while ((n = tw.nextNode())) nodes.push(n);
+    nodes.forEach(t => {
+      const frag = document.createDocumentFragment();
+      t.nodeValue.split(/(\s+)/).forEach(w => {
+        if (!w) return;
+        if (!w.trim()) { frag.appendChild(document.createTextNode(w)); return; }
+        const sp = document.createElement('span'); sp.className = 'rw'; sp.style.setProperty('--i', i++); sp.textContent = w; frag.appendChild(sp);
+      });
+      t.parentNode.replaceChild(frag, t);
+    });
   }
   function endEx() { if (curEx) curEx.done = true; }
   function dropEx() { if (curEx && !curEx.done) { curEx.q.remove(); curEx.a.remove(); curEx = null; capQ = capA = capX = null; markLast(); } }
@@ -664,7 +680,7 @@ export function mountAssistant() {
     const ctxLine = pageContext();
     hist.push({ role: 'user', content: text });
     setState('think');
-    const my = ++gen, spoken = !!cfg.spk;
+    const my = ++gen, spoken = !!cfg.spk && viaVoice;
     ctrl = new AbortController();
     try {
       const messages = hist.slice(-12).map(m => ({ role: m.role, content: m.role === 'assistant' ? forHistory(m.content) : m.content }));
@@ -704,6 +720,7 @@ export function mountAssistant() {
     const acts = p.acts.map(a => ({ a, href: ACTS[a][1](curDoc() || S.doc) })).filter(x => x.href);
     const extras = [...p.cmds.map(c => cmdChip(c)), ...acts.map(({ a, href }) => h('a', { class: 'ai-cmd link', href }, ACTS[a][0]))];
     p.boards.forEach(b => extras.push(boardBtn(b)));
+    if (!(spoken && cfg.spk) && p.text && cfg.spk) extras.push(listenBtn(p.text, txt, ex));
     ex.aX.replaceChildren(...extras);
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);
     if (!open) unread(true);
@@ -718,6 +735,18 @@ export function mountAssistant() {
       await pr;
       if (my === gen) afterAnswer(p);
     }
+  }
+  // Getippte Antwort nachträglich anhören
+  function listenBtn(text, txt, ex) {
+    const b = h('button', { class: 'ai-cmd ai-hear', type: 'button', html: SVG.spkOn + '<span>' + L('Anhören', 'Listen') + '</span>' });
+    b.onclick = async () => {
+      if (state === 'think') return;
+      if (state === 'speak') { stopAll(true); return; }
+      unlockAudio();
+      const my = ++gen; ctrl = new AbortController(); b.classList.add('on');
+      try { await speak(text, my, txt, null, ex); } finally { b.classList.remove('on'); if (my === gen) ctrl = null; ex.aTx.replaceChildren(richText(txt)); }
+    };
+    return b;
   }
   function afterAnswer() {
     // Sprachgespräch: Max hört danach direkt weiter zu
