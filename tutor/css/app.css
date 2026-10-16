@@ -2481,3 +2481,29 @@ html[lang="en"] .me-wday.on .me-wdh::after { content: "today"; }
 .aitag .aisrc.gen { font-weight: 500; opacity: .75; }
 .aitag { flex-wrap: wrap; row-gap: 3px; column-gap: 6px; }
 .aitag > span { white-space: nowrap; }
+
+/* Inner Circle: Bezahlschritt */
+.modal.abo { width: min(500px, 100%); display: grid; gap: 14px; padding: 28px; }
+.modal.abo h3 { font-size: 26px; letter-spacing: -.03em; margin: 0; }
+.modal.abo .eyebrow { margin-bottom: -8px; }
+.abo-feat { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14.5px; color: var(--ink2); }
+.abo-feat li { display: flex; gap: 10px; align-items: center; }
+.abo-feat li span { display: grid; } .abo-feat li svg { width: 16px; height: 16px; }
+.abo-price { border: 1px solid var(--line2); border-radius: 16px; padding: 12px 14px; display: grid; gap: 6px; }
+.abo-price > div { display: flex; justify-content: space-between; gap: 12px; font-size: 14.5px; }
+.abo-price > div:first-child b { font-size: 18px; }
+.abo-price small { color: var(--mute); font-size: 12px; }
+.abo-pe { min-height: 120px; display: grid; gap: 10px; }
+.abo-skel { height: 44px; border-radius: 14px; background: linear-gradient(90deg, var(--panel2) 0%, var(--line) 50%, var(--panel2) 100%); background-size: 200% 100%; animation: aboSk 1.2s ease-in-out infinite; }
+.abo-skel.short { width: 60%; }
+@keyframes aboSk { to { background-position: -200% 0; } }
+.abo-err { margin: 0; color: #e5484d; font-size: 14px; min-height: 0; }
+.abo-err:empty { display: none; }
+.abo-small { margin: 0; color: var(--mute); font-size: 12.5px; line-height: 1.5; }
+.abo-small a { color: inherit; }
+.abo-buy { width: 100%; justify-content: center; }
+.abo-buy.busy { opacity: .7; cursor: wait; }
+.abo-done { display: grid; justify-items: center; text-align: center; gap: 10px; padding: 12px 0 4px; }
+.abo-ok { width: 64px; height: 64px; border-radius: 50%; background: var(--inv); color: var(--onInv); display: grid; place-items: center; animation: pop .4s var(--ease) both; }
+.abo-ok svg { width: 30px; height: 30px; stroke-width: 2.4; }
+.abo-done p { margin: 0 0 6px; color: var(--ink2); }

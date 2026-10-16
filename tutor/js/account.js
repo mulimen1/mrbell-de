@@ -1,5 +1,6 @@
 // Konto: E-Mail + Passwort (Registrieren mit Bestätigungscode, Passwort vergessen per Code). Neues Konto = Free (Inner Circle nur mit Abo).
 // Beim Server liegen E-Mail-Adresse und Passwort-Hash. Skripte bleiben auf dem Gerät.
+import { aboReady } from './abo.js';
 import { h, ico, toast, ls, modal } from './util.js';
 import { ask, setAccount, getAccount, onAccount, getSession } from './api.js';
 import { face } from './face.js';
@@ -236,6 +237,7 @@ export async function openAccount() {
     h('div', { class: 'accrow' }, h('span', {}, L('E-Mail', 'Email')), h('b', {}, a.email)),
     h('div', { class: 'accrow' }, h('span', {}, L('Passwort', 'Password')), h('b', {}, a.hasPw === false ? L('noch nicht festgelegt', 'not set yet') : '••••••••', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); openLogin({ mode: 'reset', title: a.hasPw === false ? L('Passwort festlegen', 'Set a password') : L('Passwort ändern', 'Change password') }); } }, a.hasPw === false ? L('festlegen', 'set') : L('ändern', 'change')))),
     h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? L(`Inner Circle · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(a.proUntil)})`, `Inner Circle · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(a.proUntil)})`) : L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'))),
+    aboRow(a),
     h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))));
   const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Deine Skripte bleiben auf diesem Gerät. Bei uns liegen deine E-Mail-Adresse und dein verschlüsseltes Passwort.', 'Your slides stay on this device. We store your email address and your encrypted password.'), body,
     actions: [{ label: L('Konto löschen', 'Delete account'), value: 'del' }, { label: L('Abmelden', 'Sign out'), value: 'out' }, { label: L('Fertig', 'Done'), value: null, primary: true }] });
@@ -271,4 +273,12 @@ let checked = false;
 export function refreshAccount() {
   if (checked || !getSession()) return; checked = true;
   ask('ping').catch(() => {});
+}
+
+// Abo-Zeile im Konto: testen bzw. kündigen (Kündigungsbutton nach § 312k BGB steht zusätzlich auf jeder Seite)
+function aboRow(a) {
+  const legal = n => (/(^|\.)bwlmax\.de$/.test(location.hostname) ? '/' + n : '/tutor/legal/' + n + '.html');
+  if (a.pro && a.sub) return h('div', { class: 'accrow' }, h('span', {}, L('Abo', 'Subscription')), h('b', {}, a.subStatus === 'trialing' ? L('Testzeitraum', 'Trial') : a.cancelAt ? L(`gekündigt zum ${fmtDate(a.cancelAt)}`, `cancelled for ${fmtDate(a.cancelAt)}`) : L('aktiv · 7,99 € / Monat', 'active · €7.99 / month'), ' ', a.cancelAt ? null : h('a', { class: 'linkbtn', href: legal('kuendigen') }, L('kündigen', 'cancel'))));
+  if (a.pro || !aboReady()) return null;
+  return h('div', { class: 'accrow' }, h('span', {}, 'Inner Circle'), h('b', {}, h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); import('./abo.js').then(m => m.openAbo()); } }, L('7 Tage gratis testen', 'Try 7 days free'))));
 }
