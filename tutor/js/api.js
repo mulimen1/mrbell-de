@@ -4,6 +4,8 @@ import { S } from './state.js';
 import { lang, getOutLang, L } from './i18n.js';
 
 export const API_URL = (window.TUTOR_API || 'https://hub.mrbell.de/n8n/webhook/tutor-ki-7c41e2');
+// Lange KI-Arbeit läuft in einem eigenen Schritt: erst Auftrag (schnell, zählt Kontingent), dann Ausführung
+export const RUN_URL = (window.TUTOR_RUN || API_URL.replace(/tutor-ki-7c41e2$/, 'tutor-run-5b8e31'));
 
 export function device() {
   let d = ls.get('tutor.device');
@@ -49,9 +51,21 @@ export async function ask(action, payload = {}, { signal } = {}) {
   const ses = getSession(); if (ses) extra.session = ses;
   if (payload.material != null && S.doc?.generated) extra.src = 'max';
   const body = JSON.stringify({ action, device: device(), ui: lang, lang: getOutLang(), ...extra, ...payload });
+  let j = await post(API_URL, body, signal);
+  if (j.ok && j.job) {
+    if (j.quota) setQuota(j.quota);
+    j = await post(RUN_URL, JSON.stringify({ job: j.job, device: device(), ui: lang }), signal);
+  }
+  if (j.quota) setQuota(j.quota);
+  if ('account' in j) { if (j.account || ses) setAccount(j.account, j.account ? ses : null); }
+  if (!j.ok) throw Object.assign(new ApiError(j.error || 'error', j.message || L('Das hat nicht geklappt.', 'That didn’t work.')), { suggest: j.suggest || '' });
+  return j;
+}
+
+async function post(url, body, signal) {
   let res;
   try {
-    res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, signal });
+    res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, signal });
   } catch (e) {
     if (e.name === 'AbortError') throw e;
     throw new ApiError('offline', L('Keine Verbindung zu Max. Prüf dein Internet oder versuch es gleich nochmal.', 'Can’t reach Max. Check your internet or try again in a moment.'));
@@ -59,9 +73,6 @@ export async function ask(action, payload = {}, { signal } = {}) {
   let j = null;
   try { j = await res.json(); } catch (e) { if (e?.name === 'AbortError') throw e; }
   if (!res.ok || !j) throw new ApiError('server', L('Max ist gerade nicht erreichbar. Versuch es in ein paar Minuten nochmal.', 'Max isn’t available right now. Try again in a few minutes.'));
-  if (j.quota) setQuota(j.quota);
-  if ('account' in j) { if (j.account || ses) setAccount(j.account, j.account ? ses : null); }
-  if (!j.ok) throw Object.assign(new ApiError(j.error || 'error', j.message || L('Das hat nicht geklappt.', 'That didn’t work.')), { suggest: j.suggest || '' });
   return j;
 }
 
