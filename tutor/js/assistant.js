@@ -935,13 +935,13 @@ export function mountAssistant() {
     if (cfg.quips === false || open || !isAssistantEnabled() || document.hidden || root.classList.contains('covered') || root.classList.contains('nobub') || document.querySelector('body > .modal-bg, body > .voice')) return planQuip();
     const [q, opts, ans, pct] = QUIPS[qi++ % QUIPS.length];
     const reply = i => {
-      const t = ans[i], v = pct?.[i];
+      const t = ans[i], v = pct?.[i] ? Math.max(3, Math.min(97, pct[i] + Math.round(Math.random() * 4 - 2))) : 0;
       const kids = [h('p', { class: 'q-a' }, t)];
       if (v) {
         const tier = v >= 60 ? 'npc' : v <= 30 ? 'rare' : 'mid';
         kids.push(h('div', { class: 'q-st' },
           h('div', { class: 'q-bar' }, h('i', { style: `--w:${v}%` })),
-          h('small', {}, L(`Ich schätze, ~${v} % würden das nehmen.`, `My guess: ~${v} % would pick that.`) + ' ' + pick(VERDICT[tier]))));
+          h('small', {}, L(`${v} % haben das auch gewählt.`, `${v} % picked that too.`) + ' ' + pick(VERDICT[tier]))));
       }
       quip.replaceChildren(...kids); bf.pulse('happy', 1200); clearTimeout(quipHide); quipHide = setTimeout(hideQuip, pct ? 6500 : 4500); };
     quip.replaceChildren(h('p', {}, q), h('div', { class: 'q-r' }, opts.map((o, i) => h('button', { class: 'chip', type: 'button', onclick: e => { e.stopPropagation(); reply(i); } }, o))),
