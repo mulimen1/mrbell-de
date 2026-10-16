@@ -2631,3 +2631,24 @@ dialog.pal::backdrop { background: color-mix(in srgb, var(--bg) 55%, transparent
   html.asst-lock .bbar { display: none; }
 }
 @media (max-width: 720px) { .topbar:has(.tabs.hidden) h1 { display: block; flex: 1; font-size: 16px; padding-left: 4px; } }
+
+/* Mein Bereich: schmaler Kopf statt großer Bühne */
+.me-hero.mini { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 20px; }
+.me-hero.mini::after { display: none; }
+.me-hero.mini .me-face { width: 46px; height: 46px; flex: none; }
+.me-hero.mini .me-hl { display: grid; gap: 2px; min-width: 0; }
+.me-hero.mini h1 { font-size: clamp(18px, 1.8vw, 22px); line-height: 1.2; letter-spacing: -.02em; margin: 0; font-weight: 700; padding: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.me-hero.mini .me-brief { margin: 0; font-size: 13.5px; color: var(--mute); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; max-width: 640px; }
+.me-hero.mini .me-meta.two { gap: 18px; align-items: center; flex-wrap: nowrap; }
+.me-streak { display: grid; gap: 0; color: var(--mute); font-size: 11.5px; text-align: center; } .me-streak b { color: var(--ink); font-size: 20px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.me-hero.mini .me-wkgoal { min-width: 170px; gap: 6px; } .me-hero.mini .me-wkt { font-size: 11.5px; } .me-hero.mini .me-wkt b { font-size: 18px; margin-right: 4px; }
+.me-hero.mini .me-wkbar { height: 5px; }
+@media (max-width: 720px) {
+  .me-hero.mini { grid-template-columns: auto 1fr; padding: 14px; gap: 12px; }
+  .me-hero.mini .me-meta.two { grid-column: 1 / -1; justify-content: space-between; }
+  .me-hero.mini .me-wkgoal { flex: 1; min-width: 0; }
+  .me-hero.mini h1 { white-space: normal; padding-right: 0; font-size: 18px; }
+  .me-hero.mini .me-face { position: relative; right: auto; top: auto; width: 38px; height: 38px; }
+  .me-hero.mini .me-brief { font-size: 13px; }
+  .me-hero.mini .me-streak { display: flex; align-items: baseline; gap: 5px; } .me-hero.mini .me-streak b { font-size: 17px; }
+}

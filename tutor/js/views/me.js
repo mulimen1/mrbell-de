@@ -66,22 +66,21 @@ function locked(wrap, onLogin) {
 }
 
 // ---------- Kopf: Begrüßung + Lage ----------
+// Kopf: eine schmale Zeile – Gruß, Lage in einem Satz, Serie + Wochenziel. Kein Platzfresser.
 function hero(a, compact = false) {
   const nick = getNick(a);
   const now = new Date();
-  const brief = briefing();
   const days = M.activityDays(S.list), st = M.streak(days);
   const wk = weekMinutes(0);
   const f = h('div', { class: 'me-face' });
-  const el = h('section', { class: 'me-hero' + (compact ? ' sm' : '') }, h('div', { class: 'me-glow' }),
+  const el = h('section', { class: 'me-hero mini' },
+    f,
     h('div', { class: 'me-hl' },
-      h('div', { class: 'eyebrow' }, now.toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long' })),
       h('h1', {}, gruss(now) + (nick ? ', ' : ''), nick ? h('span', { class: 'me-nick' }, nick) : null, '.'),
-      compact ? null : h('p', { class: 'me-brief' }, brief),
-      h('div', { class: 'me-meta two' },
-        stat(st, st === 1 ? L('Tag Serie', 'day streak') : L('Tage Serie', 'day streak')),
-        weekGoal(wk))),
-    f);
+      compact ? h('p', { class: 'me-brief' }, now.toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long' })) : h('p', { class: 'me-brief' }, briefing())),
+    h('div', { class: 'me-meta two' },
+      h('span', { class: 'me-streak', title: L('Lerntage am Stück (ein verpasster Tag pro Woche wird überbrückt)', 'Study days in a row (one missed day per week is bridged)') }, h('b', {}, String(st)), st === 1 ? L('Tag Serie', 'day streak') : L('Tage Serie', 'day streak')),
+      weekGoal(wk)));
   const fc = face(f, {}); fc.set && fc.set(st >= 3 ? 'happy' : 'idle');
   return el;
 }
