@@ -329,32 +329,31 @@ export function mountAssistant() {
   function closeAnimated() {
     if (closing) return;
     // Handy mit offener Tastatur: erst Tastatur weg, dann sauber einziehen (sonst springt alles mitten in der Animation)
-    if (MOB.matches && document.activeElement && isl.contains(document.activeElement)) {
+    if (MOB.matches && document.activeElement === inp) {
       document.activeElement.blur(); closing = []; setTimeout(() => { closing = null; if (open) closeAnimated(); }, 320); return;
     }
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { setOpen(false); return; }
-    const br = bub.getBoundingClientRect();   // Kopf ist offen nur unsichtbar, Mitte stimmt – Klasse NICHT umschalten (sonst starten alle Einblend-Animationen neu)
-    if (!br.width) { setOpen(false); return; }
-    const tx = br.left + br.width / 2, ty = br.top + br.height / 2;
-    const els = [isl, cap, feedTog, boardOpen && !boardMin ? board : null].filter(e => e && e.offsetParent !== null && e.getBoundingClientRect().width);
-    const ease = 'cubic-bezier(.4,0,.6,1)';
-    const anims = els.map((e, i) => {
-      const r = e.getBoundingClientRect();
-      const dx = tx - (r.left + r.width / 2), dy = ty - (r.top + r.height / 2);
-      // nur Transform + Deckkraft (läuft auf der Grafikkarte, kein Ruckeln); Weg Richtung Kopf, aber nicht ganz – wirkt sauberer
-      return e.animate([{ translate: '0 0', scale: '1', opacity: 1 }, { translate: `${dx * .55}px ${dy * .55}px`, scale: '.35', opacity: 0 }], { duration: 340, delay: (els.length - 1 - i) * 24, easing: ease, fill: 'forwards' });
-    });
-    anims.push(bd.animate([{ opacity: getComputedStyle(bd).opacity }, { opacity: 0 }], { duration: 380, easing: 'ease', fill: 'forwards' }));
-    closing = anims; root.classList.add('closing');
+    // Spiegelbild vom Öffnen: Inhalte der Leiste gehen nacheinander raus, dann sinkt die Leiste weich weg,
+    // Blasen und Tafel gleiten nach unten und blenden aus. Nur Transform + Deckkraft, keine Effekte umschalten.
+    const ease = 'cubic-bezier(.4,0,.2,1)';
+    const anims = [];
+    const items = [closeBtn, micBtn, doneBtn, stopBtn, sendBtn, muteBtn, mid, dotsBtn, moreBtn].filter(e => !e.hidden && e.getClientRects().length);
+    items.forEach((e, i) => anims.push(e.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(6px) scale(.96)' }], { duration: 180, delay: Math.min(i, 5) * 16, easing: ease, fill: 'forwards' })));
+    const t0 = 70;   // Leiste geht fast gleichzeitig mit ihrem Inhalt – keine leere Hülle, die stehen bleibt
+    anims.push(isl.animate([{ opacity: 1, transform: 'translateX(-50%)' }, { opacity: 0, transform: 'translate(-50%, 14px) scale(.94)' }], { duration: 260, delay: t0, easing: ease, fill: 'forwards' }));
+    [cap, feedTog].filter(e => e.getClientRects().length).forEach(e => anims.push(e.animate([{ opacity: 1, translate: '0 0' }, { opacity: 0, translate: '0 16px' }], { duration: 280, delay: 20, easing: ease, fill: 'forwards' })));
+    if (boardOpen && !boardMin && board.getClientRects().length) anims.push(board.animate([{ opacity: 1, translate: '0 0', scale: '1' }, { opacity: 0, translate: '0 18px', scale: '.97' }], { duration: 300, easing: ease, fill: 'forwards' }));
+    anims.push(bd.animate([{ opacity: getComputedStyle(bd).opacity }, { opacity: 0 }], { duration: 300, easing: 'ease', fill: 'forwards' }));
+    closing = anims;
     Promise.all(anims.map(a => a.finished.catch(() => {}))).then(() => {
       if (closing !== anims) return;
-      closing = null; root.classList.remove('closing'); setOpen(false);
+      closing = null; setOpen(false);
       requestAnimationFrame(() => anims.forEach(a => a.cancel()));
     });
   }
   function setOpen(v, { listen = false } = {}) {
     if (v && !isAssistantEnabled()) return;
-    if (closing) { const a = closing; closing = null; root.classList.remove('closing'); a.forEach(x => x.cancel()); if (!v) return; }
+    if (closing) { const a = closing; closing = null; a.forEach(x => x.cancel()); if (!v) return; }
     if (v === open) { if (v && listen && state === 'idle') startListen(); return; }
     open = !!v;
     root.classList.toggle('open', open);

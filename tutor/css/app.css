@@ -2010,11 +2010,7 @@ html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: n
 .asst-quip .q-x .ico { width: 14px; height: 14px; stroke-width: 2.6; }
 .asst-quip .q-x:hover { transform: scale(1.08); }
 .asst-quip .q-x::after { content: ""; position: absolute; inset: -8px; }
-/* Beim Schließen: teure Effekte aus, damit nichts ruckelt */
-.asst.closing .ai-isl, .asst.closing .ai-feed, .asst.closing .ai-board, .asst.closing > .ai-ft, .asst.closing .ai-bub { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; will-change: transform, opacity; }
-.asst.closing .ai-feed { -webkit-mask-image: none !important; mask-image: none !important; }
-.asst.closing .ai-isl::before, .asst.closing .ai-isl::after { animation: none !important; opacity: 0 !important; }
-.asst.closing .ai-bd { pointer-events: none; }
+
 /* Handy: großes Textfeld oben, „Sprich mit Max“ zentriert darunter */
 @media (max-width: 600px) {
   .asst .ai-isl { flex-wrap: wrap; height: auto; padding: 8px 8px 10px; row-gap: 8px; column-gap: 4px; border-radius: 28px; align-content: center; }
