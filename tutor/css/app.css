@@ -2064,3 +2064,8 @@ html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: n
 }
 /* Dunkler Modus: auf hellen (invertierten) Flächen braucht Max' weißer Kopf seinen schwarzen Rand */
 :root[data-theme="dark"] .on-inv .face svg .fz-head { stroke: #0a0a0a; stroke-width: 15; }
+
+/* Überschrift: immer genau zwei Zeilen – „Lade deine Vorlesung hoch.“ / „Max erklärt sie dir.“ */
+.hero h1 { white-space: nowrap; max-width: none; font-size: clamp(26px, 6.3vw, 84px); }
+.hero h1 .soft { display: block; }
+@media (max-width: 600px) { .hero h1 { font-size: 7.4vw; letter-spacing: -.05em; } }
