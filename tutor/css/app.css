@@ -1937,3 +1937,8 @@ html.ai-vt::view-transition-new(root) { animation: aivtnew .8s cubic-bezier(.16,
 .fx .cover { animation: fxcover 1.2s cubic-bezier(.16,1,.3,1) .15s both; }
 @keyframes fxcover { from { opacity: 0; transform: perspective(900px) rotateY(-28deg) scale(.9); filter: blur(8px); } }
 @media (prefers-reduced-motion: reduce) { .fx, .fx * { animation: none !important; stroke-dashoffset: 0 !important; } }
+/* Hero: mehr Luft zwischen Überschrift, Funktionen, Text und Upload */
+.hero .featrow { margin-top: 44px; }
+.hero p.sub { margin-top: 44px; }
+.hero .dropzone { margin-top: 56px; }
+@media (max-width: 760px) { .hero .featrow { margin-top: 30px; } .hero p.sub { margin-top: 30px; } .hero .dropzone { margin-top: 38px; } }

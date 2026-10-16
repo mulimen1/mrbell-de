@@ -903,11 +903,11 @@ export function mountAssistant() {
     planQuip();
   }
   // Startseite: etwa alle 30–40 s (fängt Blicke). In der App beim Lernen nur selten (alle 6–9 Min.), nie mitten im Tun.
-  let quipN = 0;
+  let quipN = 0; const quipStart = performance.now();   // erste Minute nach dem Öffnen: keine Frage
   function planQuip(first) {
     clearTimeout(quipT); if (cfg.quips === false) return;
     const land = !route().tab && !document.getElementById('landing')?.classList.contains('hidden');
-    const ms = land ? (first ? 6000 : 20000 + Math.random() * 6000) : (first ? 60000 : 180000 + Math.random() * 60000);
+    const ms = land ? (first ? Math.max(8000, 60000 - (performance.now() - quipStart)) : 20000 + Math.random() * 6000) : (first ? 60000 : 180000 + Math.random() * 60000);
     quipT = setTimeout(() => { if (land && quipN >= 14) return; showQuip(); }, ms);
   }
   addEventListener('hashchange', () => planQuip(true));
