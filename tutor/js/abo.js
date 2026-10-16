@@ -37,11 +37,11 @@ export async function openAbo() {
   const err = h('p', { class: 'abo-err', role: 'alert' });
   const today = h('b', {}, '…'), later = h('span', {}, '…'), laterVal = h('b', {}, '7,99 € / ' + L('Monat', 'month'));
   const trialNote = h('p', { class: 'abo-small' });
-  const btn = h('button', { class: 'btn primary lg abo-buy', type: 'button', disabled: true }, L('Jetzt zahlungspflichtig abonnieren', 'Subscribe now with obligation to pay'));
+  const btn = h('button', { class: 'btn primary lg abo-buy ic-btn', type: 'button', disabled: true }, L('Jetzt zahlungspflichtig abonnieren', 'Subscribe now with obligation to pay'));
   const box = h('div', { class: 'modal abo', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Max’s Inner Circle' },
     h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => { if (!busy) close(); } }),
     h('div', { class: 'eyebrow' }, L('7 Tage kostenlos testen', 'Try 7 days free')),
-    h('h3', {}, 'Max’s Inner Circle'),
+    h('h3', { class: 'ic-name' }, 'Max’s Inner Circle'),
     h('ul', { class: 'abo-feat' }, [L('Max ohne Limit (Fair Use)', 'Max without limits (fair use)'), L('Probeklausuren im Klausur-Stil', 'Mock exams in real exam style'), L('Längere Podcasts mit echten Stimmen', 'Longer podcasts with real voices'), L('Sync über alle Geräte', 'Sync across all devices')].map(t => h('li', {}, h('span', { html: ico('check') }), t))),
     h('div', { class: 'abo-price' },
       h('div', {}, h('span', {}, L('Heute', 'Today')), today),

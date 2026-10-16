@@ -94,7 +94,7 @@ export async function apiError(e, retry) {
   if (e && e.code === 'cap') {
     const acc = getAccount();
     const upsell = acc && !acc.pro && (await import('./abo.js')).aboReady();
-    const r = await modal({ title: L('Für heute ist Schluss damit', 'That’s it for today'), text: e.message, actions: upsell ? [{ label: L('Morgen weiter', 'Tomorrow'), value: false }, { label: L('Inner Circle 7 Tage gratis', 'Inner Circle: 7 days free'), value: 'abo', primary: true }] : acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Kostenloses Konto', 'Free account'), value: true, primary: true }] });
+    const r = await modal({ title: L('Für heute ist Schluss damit', 'That’s it for today'), text: e.message, actions: upsell ? [{ label: L('Morgen weiter', 'Tomorrow'), value: false }, { label: L('Inner Circle 7 Tage gratis', 'Inner Circle: 7 days free'), value: 'abo', primary: true, cls: 'ic-btn' }] : acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Kostenloses Konto', 'Free account'), value: true, primary: true }] });
     if (r === 'abo') return (await import('./abo.js')).openAbo();
     if (r) { const { openLogin } = await import('./account.js'); if (await openLogin({ title: L('Mehr mit kostenlosem Konto', 'More with a free account') }) && retry) retry(); }
     return;
@@ -104,7 +104,7 @@ export async function apiError(e, retry) {
     const r = await modal({
       title: L('Ich mach Feierabend', 'I’m clocking off'),
       text: say('limit') + (acc ? (acc.pro ? L(' Selbst im Inner Circle ist heute Schluss – morgen geht’s weiter.', ' Even in the Inner Circle, that’s it for today – we’ll carry on tomorrow.') : L(' Ab 0:00 Uhr gibt’s neue Einheiten. Der Inner Circle ohne Limit kommt bald.', ' New credits arrive at midnight. The Inner Circle without limits is coming soon.')) : L(' Ab 0:00 Uhr gibt’s neue Einheiten – oder du holst dir ein kostenloses Konto, dann hast du jeden Tag 40 Einheiten.', ' New credits arrive at midnight – or get a free account for 40 credits every day.')),
-      actions: acc && !acc.pro && (await import('./abo.js')).aboReady() ? [{ label: L('Morgen weiter', 'Tomorrow'), value: false }, { label: L('Inner Circle 7 Tage gratis', 'Inner Circle: 7 days free'), value: 'abo', primary: true }] : acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Kostenloses Konto', 'Free account'), value: true, primary: true }]
+      actions: acc && !acc.pro && (await import('./abo.js')).aboReady() ? [{ label: L('Morgen weiter', 'Tomorrow'), value: false }, { label: L('Inner Circle 7 Tage gratis', 'Inner Circle: 7 days free'), value: 'abo', primary: true, cls: 'ic-btn' }] : acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Kostenloses Konto', 'Free account'), value: true, primary: true }]
     });
     if (r === 'abo') return (await import('./abo.js')).openAbo();
     if (r) { const { openLogin } = await import('./account.js'); if (await openLogin({ title: L('Weiterlernen mit kostenlosem Konto', 'Keep learning with a free account') }) && retry) retry(); }

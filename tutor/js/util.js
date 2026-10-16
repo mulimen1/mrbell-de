@@ -77,7 +77,7 @@ export function modal({ title, text, body, actions = [], onAction, cls = '', eye
       h('div', { class: 'modal' + (cls ? ' ' + cls : ''), role: 'dialog', 'aria-modal': 'true' },
         h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': document.documentElement.lang === 'en' ? 'Close' : 'Schließen', html: ico('x'), onclick: () => close(null) }),
         eyebrow && h('div', { class: 'eyebrow' }, eyebrow), title && h('h3', {}, title), text && h('p', {}, text), body,
-        h('div', { class: 'row' }, actions.map(a => h('button', { class: 'btn ' + (a.primary ? 'primary' : ''), onclick: () => { if (onAction && onAction(a.value) === false) return; close(a.value); } }, a.label)))));
+        h('div', { class: 'row' }, actions.map(a => h('button', { class: 'btn ' + (a.primary ? 'primary' : '') + (a.cls ? ' ' + a.cls : ''), onclick: () => { if (onAction && onAction(a.value) === false) return; close(a.value); } }, a.label)))));
     document.body.appendChild(bg);
     document.addEventListener('keydown', onKey);
     const f = bg.querySelector('input,textarea,button.primary'); if (f) setTimeout(() => f.focus(), 50);
@@ -116,6 +116,7 @@ const I = {
   cmd: '<path d="M9 6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3z"/>',
   spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
   lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  star: '<path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/>',
   download: '<path d="M12 4v12M7 11l5 5 5-5M4 20h16"/>',
   refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/>',
   exam: '<path d="M9 4h6l1 2h3v15H5V6h3z"/><path d="M9 12l2 2 4-4"/>',

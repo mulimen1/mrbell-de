@@ -49,13 +49,6 @@ export async function viaMax(fn) {
 export const talkToMax = async () => { if (!(await viaMax(a => a.talk()))) { const { openVoice } = await import('./voice.js'); openVoice({}); } };
 export function go(path) { location.hash = '#/app' + (path ? '/' + path : ''); }
 
-function asstToggle() {
-  const b = h('button', { type: 'button' });
-  const lab = () => import('./assistant.js').then(m => { b.textContent = m.isAssistantEnabled() ? L('Max ausblenden', 'Hide Max') : L('Max einblenden', 'Show Max'); });
-  b.addEventListener('click', () => import('./assistant.js').then(m => m.setAssistantEnabled(!m.isAssistantEnabled())));
-  addEventListener('asst:change', lab); lab();
-  return b;
-}
 function buildShell() {
   const root = $('#app');
   const fileIn = h('input', { type: 'file', class: 'sr', accept: ACCEPT, id: 'fileApp', multiple: true });
@@ -78,22 +71,24 @@ function buildShell() {
       langSwitch(),
       h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') })),
     h('div', { class: 'scroll' },
+      // Oben: wo du bist und was dir gehört
       h('a', { class: 'doc-item me-link', href: '#/app/me', 'data-nav': 'me' }, h('span', { html: ico('home') }), h('span', { class: 'nm' }, L('Mein Bereich', 'My space')), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
-      h('label', { class: 'btn primary', for: 'fileApp', style: { width: '100%', margin: '6px 0 4px' } }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')), fileIn,
+      h('a', { class: 'doc-item', href: '#/app/me/favs', 'data-nav': 'favs' }, h('span', { html: ico('star') }), h('span', { class: 'nm' }, L('Gemerkt', 'Saved')), h('span', { class: 'pg', 'data-favn': '' })),
+      h('label', { class: 'btn primary side-new', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')), fileIn,
       h('div', { class: 'grp' }, L('Deine Skripte', 'Your slides')), list,
-      h('div', { class: 'grp' }, L('Ohne Skript', 'No slides needed')),
-      h('button', { class: 'doc-item', type: 'button', onclick: () => talkToMax() }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, L('Sprich mit mir', 'Talk to me'))),
-      h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, L('Ich erklär dir ein Thema', 'I’ll explain a topic'))),
-      h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('whistle') }), h('span', { class: 'nm' }, L('BWL-Trainer', 'Business trainer'))),
-      h('a', { class: 'doc-item', href: '#/app/challenge', 'data-nav': 'challenge' }, h('span', { html: ico('trophy') }), h('span', { class: 'nm' }, L('Wochen-Challenge', 'Weekly challenge')), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
-      h('button', { class: 'doc-item soon', type: 'button', onclick: () => toast(L('Kommt bald: Jeden Tag ein BWL-Duell, 1 gegen 1. Einmal am Tag kostenlos, mehr im Inner Circle.', 'Coming soon: a daily 1-on-1 business duel. Once a day for free, more in the Inner Circle.'), 4200) }, h('span', { html: ico('spark') }), h('span', { class: 'nm' }, L('1-gegen-1-Duell', '1-on-1 duel')), h('span', { class: 'soonb' }, L('Bald', 'Soon')))),
-    h('div', { class: 'bottom' }, outLangSwitch(), accountChip(), quotaEl,
-      h('div', { class: 'side-links' },
-        h('button', { type: 'button', onclick: openFeedback }, L('★ Feedback', '★ Feedback')),
-        h('button', { type: 'button', onclick: settings }, L('Daten & Sicherung', 'Data & backup')),
-        asstToggle(),
-        h('a', { class: 'side-legal', href: legalHref('kuendigen') }, L('Verträge hier kündigen', 'Cancel contracts here')),
-        h('a', { class: 'side-legal', href: legalHref('widerrufen') }, L('Vertrag widerrufen', 'Withdraw from contract')))));
+      // Darunter ruhig: die Werkzeuge
+      h('div', { class: 'grp' }, L('Werkzeuge', 'Tools')),
+      h('div', { class: 'side-tools' },
+        h('button', { class: 'doc-item', type: 'button', onclick: () => talkToMax() }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, L('Sprich mit mir', 'Talk to me'))),
+        h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, L('Ich erklär dir ein Thema', 'I’ll explain a topic'))),
+        h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('whistle') }), h('span', { class: 'nm' }, L('BWL-Trainer', 'Business trainer'))),
+        h('a', { class: 'doc-item', href: '#/app/rechner', 'data-nav': 'rechner' }, h('span', { html: ico('calc') }), h('span', { class: 'nm' }, L('Rechner', 'Calculators'))),
+        h('a', { class: 'doc-item', href: '#/app/challenge', 'data-nav': 'challenge' }, h('span', { html: ico('trophy') }), h('span', { class: 'nm' }, L('Wochen-Challenge', 'Weekly challenge')), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
+        h('button', { class: 'doc-item soon', type: 'button', onclick: () => toast(L('Kommt bald: Jeden Tag ein BWL-Duell, 1 gegen 1. Einmal am Tag kostenlos, mehr im Inner Circle.', 'Coming soon: a daily 1-on-1 business duel. Once a day for free, more in the Inner Circle.'), 4200) }, h('span', { html: ico('spark') }), h('span', { class: 'nm' }, L('1-gegen-1-Duell', '1-on-1 duel')), h('span', { class: 'soonb' }, L('Bald', 'Soon'))))),
+    // Unten: klein und ruhig – Sprache, Konto, Menü; Kündigen bleibt sichtbar (§ 312k BGB)
+    h('div', { class: 'bottom' }, quotaEl, outLangSwitch(),
+      h('div', { class: 'side-acc' }, accountChip(), sideMenuBtn()),
+      h('div', { class: 'side-fine' }, h('button', { type: 'button', onclick: e => openSideMenu(e.currentTarget, 'recht') }, L('Rechtliches', 'Legal')), h('span', {}, '·'), h('a', { href: legalHref('kuendigen') }, L('Verträge kündigen', 'Cancel contracts')))));
   const title = h('h1', {});
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
   const menuBtn = h('button', { class: 'iconbtn mob-menu', 'aria-label': L('Menü', 'Menu'), html: ico('menu'), onclick: () => root.querySelector('.app').classList.toggle('sideopen') });
@@ -125,7 +120,7 @@ function renderQuota(q) {
   shell.quotaEl.replaceChildren(
     h('div', { class: 'row' }, h('span', {}, L('KI heute', 'AI today')), h('span', {}, L(`${left} / ${limit} frei`, `${left} / ${limit} left`))),
     h('div', { class: 'bar' }, h('i', { style: { width: (100 * left / limit) + '%' } })),
-    h('div', { class: 'row', style: { fontSize: '11px' } }, h('span', {}, L('Neu ab 0:00 Uhr', 'Resets at midnight')), h('span', {}, acc?.pro ? 'Inner Circle' : acc ? 'Free' : L('Inner Circle: bald', 'Inner Circle: soon'))));
+    h('div', { class: 'row', style: { fontSize: '11px' } }, h('span', {}, L('Neu ab 0:00 Uhr', 'Resets at midnight')), acc?.pro ? h('span', { class: 'ic-name' }, 'Inner Circle') : h('span', {}, acc ? 'Free' : L('Inner Circle: bald', 'Inner Circle: soon'))));
 }
 
 function renderList() {
@@ -146,7 +141,10 @@ function renderList() {
   shell.list.replaceChildren(...(items.length ? items : [h('div', { class: 'doc-item', style: { color: 'var(--faint)', cursor: 'default' } }, L('Noch nichts hochgeladen', 'Nothing uploaded yet'))]));
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.includes('/trainer')));
   $$('[data-nav="challenge"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.includes('/challenge')));
-  $$('[data-nav="me"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.startsWith('#/app/me')));
+  $$('[data-nav="me"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.startsWith('#/app/me') && !location.hash.startsWith('#/app/me/favs')));
+  $$('[data-nav="favs"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.startsWith('#/app/me/favs')));
+  $$('[data-nav="rechner"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.startsWith('#/app/rechner')));
+  import('./me.js').then(M => { const n = (M.getMe().favs || []).length; $$('[data-favn]', shell.side).forEach(x => { x.textContent = n ? String(n) : ''; }); }).catch(() => {});
   $$('[data-lockb]', shell.side).forEach(x => { x.hidden = !!getAccount(); });
 }
 
@@ -505,4 +503,36 @@ function bottomBar(getApp) {
   addEventListener('hashchange', mark); mark();
   document.documentElement.classList.add('has-bbar');
   return bar;
+}
+
+// ---------- Kleines Menü unten links: Einstellungen & Rechtliches ----------
+function sideMenuBtn() {
+  return h('button', { class: 'iconbtn side-gear', type: 'button', 'aria-label': L('Einstellungen', 'Settings'), title: L('Einstellungen', 'Settings'), html: ico('tune'), onclick: e => openSideMenu(e.currentTarget) });
+}
+function openSideMenu(anchor, focus = '') {
+  document.querySelector('.sidemenu')?.remove();
+  const it = (label, fn, ic) => h('button', { type: 'button', class: 'sm-it', onclick: () => { close(); fn(); } }, ic ? h('span', { html: ico(ic) }) : null, label);
+  const ln = (label, name) => h('a', { class: 'sm-it sm-l', href: legalHref(name), target: name === 'kuendigen' || name === 'widerrufen' ? null : '_blank', rel: 'noopener' }, label);
+  const asst = h('button', { type: 'button', class: 'sm-it' }, h('span', { html: ico('chat') }), L('Max ausblenden', 'Hide Max'));
+  import('./assistant.js').then(m => { asst.lastChild.textContent = m.isAssistantEnabled() ? L('Max ausblenden', 'Hide Max') : L('Max einblenden', 'Show Max'); });
+  asst.addEventListener('click', () => { close(); import('./assistant.js').then(m => m.setAssistantEnabled(!m.isAssistantEnabled())); });
+  const menu = h('div', { class: 'sidemenu', role: 'menu' },
+    h('div', { class: 'sm-g' },
+      it(L('Feedback geben', 'Give feedback'), openFeedback, 'star'),
+      it(L('Daten & Sicherung', 'Data & backup'), settings, 'download'),
+      asst),
+    h('div', { class: 'sm-sep' }),
+    h('div', { class: 'sm-g sm-legal' + (focus === 'recht' ? ' focus' : '') },
+      h('div', { class: 'sm-h' }, L('Rechtliches', 'Legal')),
+      ln(L('Impressum', 'Legal notice'), 'impressum'), ln(L('Datenschutz', 'Privacy'), 'datenschutz'), ln(L('AGB', 'Terms'), 'agb'), ln(L('Widerrufsbelehrung', 'Right of withdrawal'), 'widerruf'),
+      ln(L('Vertrag widerrufen', 'Withdraw from contract'), 'widerrufen'), ln(L('Verträge kündigen', 'Cancel contracts'), 'kuendigen')));
+  document.body.appendChild(menu);
+  const r = anchor.getBoundingClientRect(), mh = menu.offsetHeight, mw = menu.offsetWidth;
+  menu.style.left = Math.max(8, Math.min(innerWidth - mw - 8, r.right - mw)) + 'px';
+  menu.style.top = Math.max(8, r.top - mh - 8) + 'px';
+  const close = () => { menu.classList.add('out'); setTimeout(() => menu.remove(), 160); document.removeEventListener('pointerdown', outside, true); document.removeEventListener('keydown', esc); };
+  const outside = e => { if (!menu.contains(e.target) && e.target !== anchor && !anchor.contains(e.target)) close(); };
+  const esc = e => { if (e.key === 'Escape') close(); };
+  setTimeout(() => { document.addEventListener('pointerdown', outside, true); document.addEventListener('keydown', esc); }, 0);
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => close()));
 }
