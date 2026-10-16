@@ -253,12 +253,15 @@ export function mountAssistant() {
   new MutationObserver(coverSoon).observe(host, { attributes: true, attributeFilter: ['class'], subtree: true });
   addEventListener('scroll', coverSoon, { passive: true });
   addEventListener('hashchange', coverSoon);
+  addEventListener('hashchange', () => setTimeout(placeBub, 0));
 
   // ---------- Kopf verschieben ----------
   const vw = () => document.documentElement.clientWidth, vh = () => innerHeight;
   function placeBub() {
     const p = cfg.bub || { r: 18, b: 18 };
-    const r = clamp(p.r, 6, vw() - BUB() - 6), b = clamp(p.b, 6, vh() - BUB() - 6);
+    // Auf dem Handy liegt unten die Navigationsleiste – der Kopf sitzt darüber
+    const bb = document.documentElement.classList.contains('has-bbar') && !document.getElementById('app')?.classList.contains('hidden') && matchMedia('(max-width: 720px)').matches ? 64 : 0;
+    const r = clamp(p.r, 6, vw() - BUB() - 6), b = clamp(p.b, 6, vh() - BUB() - 6 - bb) + bb;
     bub.style.right = r + 'px'; bub.style.bottom = `calc(${b}px + env(safe-area-inset-bottom, 0px))`;
     root.style.setProperty('--qr', r + 'px'); root.style.setProperty('--qb', b + 'px');
     return { r, b };

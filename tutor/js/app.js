@@ -4,7 +4,7 @@ import { face } from './face.js';
 import { S, refreshList, openDoc, createDoc, removeDoc, lastDocId, save, onChange, SAMPLE, mastery } from './state.js';
 import { readFile, ACCEPT } from './ingest.js';
 import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
-import { accountChip, refreshAccount, openLogin } from './account.js';
+import { accountChip, refreshAccount, openLogin, openAccount } from './account.js';
 import { getOutLang, setOutLang, L, LOCALE, lang, setLang } from './i18n.js';
 import { lines as maxLines, getSpice } from './max.js';
 import { apiError, thought } from './ui.js';
@@ -90,9 +90,11 @@ function buildShell() {
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
   const menuBtn = h('button', { class: 'iconbtn mob-menu', 'aria-label': L('Menü', 'Menu'), html: ico('menu'), onclick: () => root.querySelector('.app').classList.toggle('sideopen') });
   const view = h('main', { class: 'view', id: 'view' });
-  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, menuBtn, title, tabs), view);
-  const app = h('div', { class: 'app' }, side, main);
-  app.addEventListener('click', e => { if (app.classList.contains('sideopen') && !e.target.closest('.side') && !e.target.closest('.mob-menu')) app.classList.remove('sideopen'); });
+  const palBtn = h('button', { class: 'pal-btn', type: 'button', 'aria-label': L('Suchen', 'Search'), title: L('Suchen und Befehle (⌘K)', 'Search and commands (⌘K)'), onclick: () => import('./palette.js').then(m => m.openPalette()) }, h('span', { html: ico('search') }), h('span', { class: 'pal-btx' }, L('Suchen', 'Search')), h('kbd', {}, /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Strg K'));
+  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, menuBtn, title, tabs, palBtn), view);
+  const bbar = bottomBar(() => app);
+  const app = h('div', { class: 'app' }, side, main, bbar);
+  app.addEventListener('click', e => { if (app.classList.contains('sideopen') && !e.target.closest('.side') && !e.target.closest('.mob-menu') && !e.target.closest('.bb-side')) app.classList.remove('sideopen'); });
   root.replaceChildren(app);
   face(faceEl, {});
   shell = { root, app, side, list, title, tabs, view, quotaEl };
@@ -346,7 +348,7 @@ export function topicForm({ cls = 'askbar', target = null } = {}) {
   return form;
 }
 
-async function topicPrompt() {
+export async function topicPrompt() {
   const form = topicForm({ cls: 'askbar inmodal' });
   const p = modal({ title: L('Was soll ich dir erklären?', 'What should I explain?'), text: L('Kein Skript nötig: Ich schreib dir ein Kurzskript zum Thema – mit Beispiel, Formeln und typischen Klausurfehlern. Danach gehen Quiz, Karten, Lernpfad und Podcast wie gewohnt. 2 Einheiten.', 'No slides needed: I’ll write you a short script on the topic – with an example, formulas and typical exam mistakes. After that, quiz, flashcards, study path and podcast work as usual. 2 credits.'), body: form, actions: [] });
   form.addEventListener('topicok', () => document.querySelector('.modal-bg')?.remove());
@@ -486,3 +488,18 @@ function langSwitch() {
 
 // Rechtliches: auf bwlmax.de kurze Pfade, sonst /tutor/legal/
 function legalHref(name) { return /(^|\.)bwlmax\.de$/.test(location.hostname) ? '/' + name : '/tutor/legal/' + name + '.html'; }
+
+// Handy: sichtbare Navigation unten statt verstecktem Menü (NN/g: 89 % statt 44 % Nutzung)
+function bottomBar(getApp) {
+  const item = (key, ic, label, act) => h(typeof act === 'string' ? 'a' : 'button', Object.assign({ class: 'bb-i', 'data-bb': key }, typeof act === 'string' ? { href: act } : { type: 'button', onclick: act }), h('span', { class: 'bb-ic', html: ico(ic) }), h('span', { class: 'bb-t' }, label));
+  const bar = h('nav', { class: 'bbar', 'aria-label': L('Hauptnavigation', 'Main navigation') },
+    item('me', 'home', L('Heute', 'Today'), '#/app/me'),
+    Object.assign(item('side', 'file', L('Skripte', 'Slides'), () => getApp().classList.toggle('sideopen')), { className: 'bb-i bb-side' }),
+    item('trainer', 'whistle', 'Trainer', '#/app/trainer'),
+    item('search', 'search', L('Suche', 'Search'), () => import('./palette.js').then(m => m.openPalette())),
+    item('ich', 'lock', L('Ich', 'Me'), () => getAccount() ? openAccount() : openLogin()));
+  const mark = () => { const h0 = location.hash; bar.querySelectorAll('.bb-i').forEach(x => x.classList.toggle('on', (x.dataset.bb === 'me' && h0.startsWith('#/app/me')) || (x.dataset.bb === 'trainer' && h0.startsWith('#/app/trainer')))); };
+  addEventListener('hashchange', mark); mark();
+  document.documentElement.classList.add('has-bbar');
+  return bar;
+}

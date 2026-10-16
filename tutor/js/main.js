@@ -110,14 +110,6 @@ function initLanding() {
   if (nr) nr.addEventListener('click', () => getAccount() ? (location.hash = '#/app/me') : openLogin({ mode: 'register' }));
   onAccount(a => { if (nl) nl.hidden = !!a; if (nr) nr.textContent = a ? L('Mein Bereich', 'My space') : L('Konto erstellen', 'Create account'); });
 
-  // Inner Circle buchbar, sobald Stripe eingerichtet ist; Rückkehr nach 3-D Secure abholen
-  import('./abo.js').then(m => {
-    m.resumeAbo();
-    if (!m.aboReady()) return;
-    const pb = $('.plan.pro button'); if (!pb) return;
-    pb.disabled = false; pb.textContent = L('7 Tage gratis testen', 'Try 7 days free'); pb.addEventListener('click', () => m.openAbo());
-    $('.plan.pro .badge')?.remove();
-  }).catch(() => {});
 
   // Begrüßung tippen (Sprechblase)
   const g = $('#greet');
@@ -244,3 +236,15 @@ setTimeout(() => {
   else { let asked = false; try { asked = !!localStorage.getItem('tutor.nickAsked'); } catch (e) {} if (!asked) { try { localStorage.setItem('tutor.nickAsked', '1'); } catch (e) {} askNick(); } }
 }, 1200);
 window.addEventListener('unhandledrejection', e => { console.error(e.reason); });
+
+// ⌘K / Strg+K / „/“: Suche und Befehle
+import('./palette.js').then(m => m.bindPalette()).catch(() => {});
+
+// Inner Circle buchbar, sobald Stripe eingerichtet ist; Rückkehr nach 3-D Secure abholen
+import('./abo.js').then(m => {
+  m.resumeAbo();
+  if (!m.aboReady()) return;
+  const pb = $('.plan.pro button'); if (!pb) return;
+  pb.disabled = false; pb.textContent = L('7 Tage gratis testen', 'Try 7 days free'); pb.addEventListener('click', () => m.openAbo());
+  $('.plan.pro .badge')?.remove();
+}).catch(() => {});
