@@ -1,5 +1,5 @@
 // Fragetypen: Multiple Choice (auch mehrere richtig), Richtig/Falsch, Zuordnen, Reihenfolge, Lückentext, Rechenaufgabe.
-import { h, shuffle, parseNum, fmt, ico, esc } from './util.js';
+import { h, shuffle, parseNum, fmt, ico, esc, haptic } from './util.js';
 import { richText } from './sanitize.js';
 import { say } from './max.js';
 import { face } from './face.js';
@@ -283,6 +283,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = L(
     lastR = { ...r, skipped };
     showFeedback(r, skipped);
     face && face.pulse(r.correct ? 'happy' : 'sad', 1400);
+    haptic(r.correct ? 'ok' : 'bad');
     if (r.correct) burst(card);
     else card.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-5px)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(0)' }], { duration: 320 });
     resolve({ ...r, skipped });

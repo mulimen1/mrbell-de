@@ -217,10 +217,17 @@ export function activityDays(docsList = []) {
   for (const d of docsList) for (const [k, n] of Object.entries(d.stats?.days || {})) days[k] = (days[k] || 0) + Math.max(1, Math.round(n / 2));
   return days;
 }
+// Serie mit Joker: ein verpasster Tag pro Kalenderwoche wird überbrückt, wenn davor gelernt wurde
+const weekKey = x => { const m = new Date(x); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return dayKey(m); };
 export function streak(days) {
-  let n = 0; const d = new Date();
+  let n = 0; const d = new Date(); const used = new Set();
   if (!days[dayKey(d)]) d.setDate(d.getDate() - 1);
-  while (days[dayKey(d)]) { n++; d.setDate(d.getDate() - 1); }
+  for (let g = 0; g < 3000; g++) {
+    if (days[dayKey(d)]) { n++; d.setDate(d.getDate() - 1); continue; }
+    const prev = new Date(d); prev.setDate(prev.getDate() - 1);
+    if (!used.has(weekKey(d)) && days[dayKey(prev)]) { used.add(weekKey(d)); d.setDate(d.getDate() - 1); continue; }
+    break;
+  }
   return n;
 }
 export const fmtMin = m => m >= 60 ? L(`${Math.floor(m / 60)} Std. ${m % 60 ? (m % 60) + ' Min.' : ''}`, `${Math.floor(m / 60)} h ${m % 60 ? (m % 60) + ' min' : ''}`).trim() : L(`${m} Min.`, `${m} min`);

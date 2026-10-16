@@ -135,3 +135,11 @@ const I = {
 };
 export const ico = (n, cls = '') => `<svg class="ico ${cls}" viewBox="0 0 24 24" aria-hidden="true">${I[n] || ''}</svg>`;
 export const icoEl = (n, cls) => { const s = document.createElement('span'); s.style.display = 'contents'; s.innerHTML = ico(n, cls); return s.firstChild; };
+
+// Haptik (Android über navigator.vibrate; iPhone-Safari kann es nicht). Abschaltbar, respektiert „Bewegung reduzieren“.
+export function haptic(kind = 'tap') {
+  try {
+    if (localStorage.getItem('tutor.haptics') === '0' || !navigator.vibrate || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    navigator.vibrate(kind === 'ok' ? 12 : kind === 'bad' ? [16, 70, 16] : kind === 'done' ? [10, 50, 10, 50, 22] : 8);
+  } catch (e) {}
+}

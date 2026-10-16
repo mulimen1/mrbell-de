@@ -574,7 +574,8 @@ function stats(body) {
       kpi(ans ? Math.round(100 * cor / ans) + ' %' : '–', L('Trefferquote', 'Accuracy'), L(`${ans} Fragen beantwortet`, `${ans} questions answered`)),
       kpi(reps, L('Karten gelernt', 'Cards learned'), L('mit Wiederholung', 'with spaced repetition'))),
     weeksCard(),
-    card(L('Deine letzten 18 Wochen', 'Your last 18 weeks'), h('div', { class: 'me-heat' }, cells), h('div', { class: 'me-heatl' }, h('span', {}, L('weniger', 'less')), [0, 1, 2, 3, 4].map(l => h('i', { class: 'l' + l })), h('span', {}, L('mehr', 'more')))),
+    card(L('Deine letzten 18 Wochen', 'Your last 18 weeks'), h('div', { class: 'me-heat' }, cells), h('div', { class: 'me-heatl' }, h('span', {}, L('weniger', 'less')), [0, 1, 2, 3, 4].map(l => h('i', { class: 'l' + l })), h('span', {}, L('mehr', 'more'))),
+      h('p', { class: 'me-muted me-fine' }, L('Serien-Joker: Ein verpasster Tag pro Woche wird automatisch überbrückt.', 'Streak joker: one missed day per week is bridged automatically.'))),
     rows.length ? card(subj.length ? L('Lernstand pro Fach', 'Progress per subject') : L('Lernstand pro Skript', 'Progress per set of slides'), h('div', { class: 'me-bars' }, rows.map((r, i) => h('div', { class: 'me-br' }, h('span', {}, r.n), h('div', { class: 'me-bar big' }, h('i', { style: { width: r.m + '%' } })), h('b', {}, r.m + ' %')))),
       rows.length > 1 ? h('p', { class: 'me-muted' }, L(`Am stärksten: ${rows[0].n}. Hier lohnt sich jede Minute: ${rows[rows.length - 1].n}.`, `Strongest: ${rows[0].n}. Every minute pays off here: ${rows[rows.length - 1].n}.`)) : null) : null);
 }

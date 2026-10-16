@@ -1,6 +1,6 @@
 // Karteikarten mit Spaced Repetition (FSRS-5). Wiederholen kostet keine KI.
 import { starBtn, fachOf } from '../me.js';
-import { h, ico, uid, toast, modal, shuffle } from '../util.js';
+import { h, ico, uid, toast, modal, shuffle, haptic } from '../util.js';
 import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
@@ -109,7 +109,7 @@ function study(wrap, ctx, items, title) {
   };
   const grade = r => {
     const it = queue[i];
-    schedule(it.c, r);
+    schedule(it.c, r); haptic(r === 1 ? 'bad' : 'ok');
     if (r === 1) { again++; queue.splice(Math.min(queue.length, i + 4), 0, it); }
     else done++;
     i++; save(doc); draw();
