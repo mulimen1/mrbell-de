@@ -26,8 +26,8 @@ function collect() {
   }
   try {
     const me = JSON.parse(localStorage.getItem('tutor.me') || 'null') || {};
-    for (const f of me.faecher || []) out.push({ g: L('Fächer', 'Subjects'), t: f.name + (f.kurz ? ` (${f.kurz})` : ''), ic: 'brain', run: nav('#/app/me/faecher'), sub: f.klausur ? L(`Klausur am ${new Date(f.klausur + 'T12:00').toLocaleDateString('de-DE')}`, `Exam on ${f.klausur}`) : '', kw: f.kurz || '' });
-    for (const x of me.favs || []) out.push({ g: L('Gemerkt', 'Saved'), t: x.titel || L('Ohne Titel', 'Untitled'), ic: 'spark', run: nav('#/app/me/favs'), sub: x.docName || '', kw: String(x.inhalt || '').slice(0, 300) });
+    for (const f of me.faecher || []) out.push({ g: L('Fächer', 'Subjects'), t: f.name + (f.kurz ? ` (${f.kurz})` : ''), ic: 'brain', run: nav('#/app/faecher'), sub: f.klausur ? L(`Klausur am ${new Date(f.klausur + 'T12:00').toLocaleDateString('de-DE')}`, `Exam on ${f.klausur}`) : '', kw: f.kurz || '' });
+    for (const x of me.favs || []) out.push({ g: L('Gemerkt', 'Saved'), t: x.titel || L('Ohne Titel', 'Untitled'), ic: 'spark', run: nav('#/app/gemerkt'), sub: x.docName || '', kw: String(x.inhalt || '').slice(0, 300) });
   } catch (e) {}
   // Trainer
   const TR = [['buchung', L('Buchungssätze', 'Booking entries'), 'Soll Haben Buchung'], ['tkonten', L('T-Konten & Abschluss', 'T-accounts'), 'Konto Abschluss GuV'], ['breakeven', L('Break-even & Deckungsbeitrag', 'Break-even'), 'DB BEP Gewinnschwelle'], ['kapitalwert', L('Investitionsrechnung', 'Investment appraisal'), 'Kapitalwert KW NPV IZF Annuität'], ['markt', L('Angebot & Nachfrage', 'Supply & demand'), 'Markt Gleichgewicht VWL'], ['bilanz', L('Bilanz sortieren', 'Balance sheet'), 'Aktiva Passiva'], ['kennzahlen', L('Bilanzkennzahlen', 'Ratios'), 'EK-Quote Liquidität ROI'], ['abschreibung', L('Abschreibungen', 'Depreciation'), 'AfA linear degressiv'], ['kalkulation', L('Handelskalkulation', 'Pricing'), 'Kalkulation Zuschlag'], ['finanzierung', L('Finanzierung & Zinsen', 'Finance & interest'), 'Zins Kredit'], ['marketing', L('Marketing-Kennzahlen', 'Marketing metrics'), ''], ['lager', L('Beschaffung & Lager', 'Procurement'), 'Bestellmenge'], ['produktion', L('Produktion & Personal', 'Production'), ''], ['makro', L('Makroökonomie', 'Macroeconomics'), 'BIP Inflation VWL']];
@@ -40,9 +40,9 @@ function collect() {
   if (due) cmd(L(`Fällige Karten lernen (${due.n})`, `Review due cards (${due.n})`), 'cards', nav(`#/app/${due.d.id}/karten`), 'wiederholen lernen karteikarten');
   cmd(L('Skript hochladen', 'Upload slides'), 'upload', () => document.getElementById('fileApp')?.click(), 'datei pdf neu vorlesung');
   cmd(L('Mein Bereich', 'My space'), 'home', nav('#/app/me'), 'heute hub start');
-  cmd(L('Notenziel – welche Note brauche ich noch?', 'Grade goal – what do I still need?'), 'calc', nav('#/app/me/faecher'), 'noten schnitt ects durchschnitt rechner');
-  cmd(L('Stundenplan', 'Timetable'), 'calendar', nav('#/app/me/plan'), 'kalender vorlesung ical woche');
-  cmd(L('Fortschritt', 'Progress'), 'trophy', nav('#/app/me/stats'), 'statistik lernzeit serie streak meilensteine');
+  cmd(L('Notenziel – welche Note brauche ich noch?', 'Grade goal – what do I still need?'), 'calc', nav('#/app/faecher'), 'noten schnitt ects durchschnitt rechner');
+  cmd(L('Stundenplan', 'Timetable'), 'calendar', nav('#/app/stundenplan'), 'kalender vorlesung ical woche');
+  cmd(L('Fortschritt', 'Progress'), 'trophy', nav('#/app/fortschritt'), 'statistik lernzeit serie streak meilensteine');
   cmd(L('Wochen-Challenge', 'Weekly challenge'), 'trophy', nav('#/app/challenge'), 'quiz wettbewerb');
   cmd(L('Thema erklären lassen (ohne Skript)', 'Explain a topic (no slides)'), 'bulb', () => import('./app.js').then(m => m.topicPrompt()), 'kurzskript thema');
   cmd(L('Mit Max sprechen', 'Talk to Max'), 'mic', () => import('./app.js').then(m => m.talkToMax()), 'stimme sprechen voice');

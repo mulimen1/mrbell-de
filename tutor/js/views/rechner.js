@@ -156,7 +156,7 @@ function showWL(r) {
 // Dein Semester: alle Fächer mit ECTS – was das pro Woche bedeutet
 function semester() {
   const me = M.getMe(), fs = me.faecher.filter(f => +f.ects > 0);
-  if (!fs.length) return h('section', { class: 'me-card rc-sem' }, h('div', { class: 'me-ct' }, L('Dein Semester', 'Your semester')), h('div', { class: 'me-empty' }, h('p', {}, L('Trag bei deinen Fächern die ECTS ein – dann rechne ich dir aus, wie viele Stunden pro Woche dein Semester wirklich braucht.', 'Add ECTS to your subjects – I’ll work out how many hours per week your semester really takes.')), h('a', { class: 'btn sm', href: '#/app/me/faecher' }, L('Zu den Fächern', 'Go to subjects'))));
+  if (!fs.length) return h('section', { class: 'me-card rc-sem' }, h('div', { class: 'me-ct' }, L('Dein Semester', 'Your semester')), h('div', { class: 'me-empty' }, h('p', {}, L('Trag bei deinen Fächern die ECTS ein – dann rechne ich dir aus, wie viele Stunden pro Woche dein Semester wirklich braucht.', 'Add ECTS to your subjects – I’ll work out how many hours per week your semester really takes.')), h('a', { class: 'btn sm', href: '#/app/faecher' }, L('Zu den Fächern', 'Go to subjects'))));
   const today = M.dayKey();
   const rows = fs.map(f => { const tot = +f.ects * 30, wk = f.klausur && f.klausur > today ? Math.max(1, Math.round((new Date(f.klausur + 'T12:00') - Date.now()) / (7 * 864e5))) : null; return { name: f.name, ects: +f.ects, h: tot, wk, pw: wk ? tot * 0.55 / wk : null }; });
   const sumPw = rows.reduce((a, r) => a + (r.pw || 0), 0), goal = (me.wochenziel || 150) / 60;

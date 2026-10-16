@@ -207,7 +207,7 @@ async function timetableStep(ui, res, P) {
   const r = await modal({ cls: 'ik-modal wide', eyebrow: L('Stundenplan erkannt', 'Timetable recognised'), title: clean(res.titel, 60) || L('Dein Stundenplan', 'Your timetable'), text: L(`${rows.length} Veranstaltungen gefunden. Kurz prüfen – du kannst alles ändern.`, `Found ${rows.length} classes. Quick check – you can change anything.`), body,
     actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L(`${rows.length} Kurse eintragen`, `Add ${rows.length} classes`), value: 'ok', primary: true }],
     onAction: v => { if (v === 'ok' && !rows.some(x => x.on)) return false; } });
-  if (r !== 'ok') { location.hash = '#/app/me/plan'; return; }
+  if (r !== 'ok') { location.hash = '#/app/stundenplan'; return; }
   const replace = mode && mode.querySelector('input:checked')?.value === 'replace';
   let nNew = 0, nF = 0;
   M.updateMe(m => {
@@ -230,7 +230,7 @@ async function timetableStep(ui, res, P) {
   });
   toast(L(`${nNew} ${nNew === 1 ? 'Kurs' : 'Kurse'} eingetragen${nF ? ` · ${nF} ${nF === 1 ? 'Fach' : 'Fächer'} angelegt` : ''}.`, `${nNew} ${nNew === 1 ? 'class' : 'classes'} added${nF ? ` · ${nF} subject${nF === 1 ? '' : 's'} created` : ''}.`), 3200);
   if (!getAccount()) { const { openLogin } = await import('./account.js'); openLogin({ title: L('Dein Stundenplan wartet', 'Your timetable is waiting'), text: L('Mit kostenlosem Konto siehst du ihn in „Mein Bereich“ – und ich sag dir jeden Morgen, was ansteht.', 'With a free account you’ll see it in “My space” – and I’ll tell you every morning what’s on.') }); }
-  location.hash = '#/app/me/plan';
+  location.hash = '#/app/stundenplan';
 }
 function normKurs(k, res) {
   const art = ARTS.find(a => a.toLowerCase() === String(k.art || '').toLowerCase()) || (/übung|uebung/i.test(k.art) ? 'Übung' : /tut/i.test(k.art) ? 'Tutorium' : /semin/i.test(k.art) ? 'Seminar' : 'Vorlesung');
@@ -255,7 +255,7 @@ async function examStep(ui, res) {
   }));
   const r = await modal({ cls: 'ik-modal wide', eyebrow: L('Prüfungsplan erkannt', 'Exam schedule recognised'), title: clean(res.titel, 60) || L('Deine Prüfungen', 'Your exams'), text: L('Ich trag die Termine bei deinen Fächern ein – dann zähl ich runter und plane mit.', 'I’ll add the dates to your subjects – then I’ll count down and plan along.'), body: list,
     actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Termine eintragen', 'Add dates'), value: 'ok', primary: true }] });
-  if (r !== 'ok') { location.hash = '#/app/me/faecher'; return; }
+  if (r !== 'ok') { location.hash = '#/app/faecher'; return; }
   let n = 0;
   M.updateMe(m => {
     for (const x of rows) {
@@ -266,7 +266,7 @@ async function examStep(ui, res) {
     }
   });
   toast(L(`${n} ${n === 1 ? 'Termin' : 'Termine'} eingetragen.`, `${n} date${n === 1 ? '' : 's'} added.`));
-  location.hash = '#/app/me/faecher';
+  location.hash = '#/app/faecher';
 }
 
 // ---------- 4c) Lernstoff: Skript anlegen + 3–4 optionale Fragen ----------

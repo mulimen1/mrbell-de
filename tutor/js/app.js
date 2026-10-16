@@ -61,46 +61,57 @@ function buildShell() {
     if (!fs.length) return;
     e.preventDefault(); startUpload(fs.map((f, i) => f.name && f.name !== 'image.png' ? f : new File([f], `Screenshot ${new Date().toLocaleDateString(LOCALE)}${fs.length > 1 ? ' ' + (i + 1) : ''}.png`, { type: f.type })));
   });
-  const list = h('div', { class: 'doclist' });
   const quotaEl = h('div', { class: 'quota' });
   const faceEl = h('span', { class: 'mini', style: { width: '28px', height: '28px' } });
+  const isMob = () => matchMedia('(max-width: 760px)').matches;
+  const tool = (tag, attrs, ic, label, extra) => h(tag, Object.assign({ class: 'doc-item' }, tag === 'button' ? { type: 'button' } : {}, attrs), h('span', { html: ico(ic) }), h('span', { class: 'nm' }, label), extra || null);
+  // Links: nur noch Neuer Stoff + Werkzeuge (offen, nicht versteckt)
   const side = h('aside', { class: 'side' },
     h('div', { class: 'top' },
       h('a', { class: 'brand', href: '#/' }, faceEl, 'BWL Max', h('small', {}, 'Beta')),
       h('span', { style: { flex: 1 } }),
       langSwitch(),
-      h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') })),
+      h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }),
+      h('button', { class: 'iconbtn side-col', type: 'button', 'aria-label': L('Seitenleiste einklappen', 'Collapse sidebar'), title: L('Einklappen (Strg/⌘ + \\)', 'Collapse (Ctrl/⌘ + \\)'), html: ico('sidebar'), onclick: () => setSide(false) })),
     h('div', { class: 'scroll' },
-      // Oben: wo du bist und was dir gehört
-      h('a', { class: 'doc-item me-link', href: '#/app/me', 'data-nav': 'me' }, h('span', { html: ico('home') }), h('span', { class: 'nm' }, L('Mein Bereich', 'My space')), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
-      h('a', { class: 'doc-item', href: '#/app/me/favs', 'data-nav': 'favs' }, h('span', { html: ico('star') }), h('span', { class: 'nm' }, L('Gemerkt', 'Saved')), h('span', { class: 'pg', 'data-favn': '' })),
       h('label', { class: 'btn primary side-new', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')), fileIn,
-      h('div', { class: 'grp' }, L('Deine Skripte', 'Your slides')), list,
-      // Darunter ruhig: die Werkzeuge
       h('div', { class: 'grp' }, L('Werkzeuge', 'Tools')),
       h('div', { class: 'side-tools' },
-        h('button', { class: 'doc-item', type: 'button', onclick: () => talkToMax() }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, L('Sprich mit mir', 'Talk to me'))),
-        h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, L('Ich erklär dir ein Thema', 'I’ll explain a topic'))),
-        h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('whistle') }), h('span', { class: 'nm' }, L('BWL-Trainer', 'Business trainer'))),
-        h('a', { class: 'doc-item', href: '#/app/rechner', 'data-nav': 'rechner' }, h('span', { html: ico('calc') }), h('span', { class: 'nm' }, L('Rechner', 'Calculators'))),
-        h('a', { class: 'doc-item', href: '#/app/challenge', 'data-nav': 'challenge' }, h('span', { html: ico('trophy') }), h('span', { class: 'nm' }, L('Wochen-Challenge', 'Weekly challenge')), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
-        h('button', { class: 'doc-item soon', type: 'button', onclick: () => toast(L('Kommt bald: Jeden Tag ein BWL-Duell, 1 gegen 1. Einmal am Tag kostenlos, mehr im Inner Circle.', 'Coming soon: a daily 1-on-1 business duel. Once a day for free, more in the Inner Circle.'), 4200) }, h('span', { html: ico('spark') }), h('span', { class: 'nm' }, L('1-gegen-1-Duell', '1-on-1 duel')), h('span', { class: 'soonb' }, L('Bald', 'Soon'))))),
+        tool('button', { onclick: () => talkToMax() }, 'mic', L('Sprich mit mir', 'Talk to me')),
+        tool('button', { onclick: () => topicPrompt() }, 'bulb', L('Ich erklär dir ein Thema', 'I’ll explain a topic')),
+        tool('button', { onclick: () => examTool(), 'data-nav': 'exam' }, 'exam', L('Klausur-Simulator', 'Exam simulator')),
+        tool('a', { href: '#/app/trainer', 'data-nav': 'trainer' }, 'whistle', L('BWL-Trainer', 'Business trainer')),
+        tool('a', { href: '#/app/trainer/buchung', 'data-nav': 'foto', onclick: () => setTimeout(() => toast(L('Löse die Aufgabe auf Papier und tipp unten auf „Foto deiner Lösung“ – ich trag sie ein und du prüfst.', 'Solve it on paper and tap “Photo of your solution” below – I’ll fill it in and you check.'), 5200), 400) }, 'camera', L('Fotocheck Buchungssätze', 'Photo check: entries')),
+        tool('a', { href: '#/app/rechner', 'data-nav': 'rechner' }, 'calc', L('Rechner', 'Calculators')),
+        tool('a', { href: '#/app/challenge', 'data-nav': 'challenge' }, 'trophy', L('Wochen-Challenge', 'Weekly challenge'), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
+        tool('button', { class: 'doc-item soon', onclick: () => toast(L('Kommt bald: Jeden Tag ein BWL-Duell, 1 gegen 1. Einmal am Tag kostenlos, mehr im Inner Circle.', 'Coming soon: a daily 1-on-1 business duel. Once a day for free, more in the Inner Circle.'), 4200) }, 'spark', L('1-gegen-1-Duell', '1-on-1 duel'), h('span', { class: 'soonb' }, L('Bald', 'Soon'))))),
     // Unten: klein und ruhig – Sprache, Konto, Menü; Kündigen bleibt sichtbar (§ 312k BGB)
     h('div', { class: 'bottom' }, quotaEl, outLangSwitch(),
       h('div', { class: 'side-acc' }, accountChip(), sideMenuBtn()),
       h('div', { class: 'side-fine' }, h('button', { type: 'button', onclick: e => openSideMenu(e.currentTarget, 'recht') }, L('Rechtliches', 'Legal')), h('span', {}, '·'), h('a', { href: legalHref('kuendigen') }, L('Verträge kündigen', 'Cancel contracts')))));
-  const title = h('h1', {});
+  // Oben: die festen Bereiche – immer da, auch mit eingeklappter Seitenleiste
+  const navA = (key, href, ic, label) => h('a', { class: 'tn', href, 'data-tn': key }, h('span', { html: ico(ic) }), h('span', { class: 'tn-l' }, label));
+  const topnav = h('nav', { class: 'topnav', 'aria-label': L('Bereiche', 'Sections') },
+    navA('me', '#/app/me', 'home', L('Mein Bereich', 'My space')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
+    navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
+    navA('skripte', '#/app/skripte', 'file', L('Skripte', 'Slides')),
+    navA('gemerkt', '#/app/gemerkt', 'star', L('Gemerkt', 'Saved')),
+    navA('fortschritt', '#/app/fortschritt', 'trophy', L('Fortschritt', 'Progress')));
+  const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
-  const menuBtn = h('button', { class: 'iconbtn mob-menu', 'aria-label': L('Menü', 'Menu'), html: ico('menu'), onclick: () => root.querySelector('.app').classList.toggle('sideopen') });
+  const docbar = h('div', { class: 'docbar', hidden: true }, title, tabs);
+  const sideBtn = h('button', { class: 'iconbtn side-tog', type: 'button', 'aria-label': L('Seitenleiste', 'Sidebar'), title: L('Werkzeuge ein-/ausblenden (Strg/⌘ + \\)', 'Show/hide tools (Ctrl/⌘ + \\)'), html: ico('sidebar'), onclick: () => { if (isMob()) app.classList.toggle('sideopen'); else setSide(app.classList.contains('side-closed')); } });
   const view = h('main', { class: 'view', id: 'view' });
   const palBtn = h('button', { class: 'pal-btn', type: 'button', 'aria-label': L('Suchen', 'Search'), title: L('Suchen und Befehle (⌘K)', 'Search and commands (⌘K)'), onclick: () => import('./palette.js').then(m => m.openPalette()) }, h('span', { html: ico('search') }), h('span', { class: 'pal-btx' }, L('Suchen', 'Search')), h('kbd', {}, /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Strg K'));
-  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, menuBtn, title, tabs, palBtn), view);
+  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn), docbar, view);
   const bbar = bottomBar(() => app);
-  const app = h('div', { class: 'app' }, side, main, bbar);
-  app.addEventListener('click', e => { if (app.classList.contains('sideopen') && !e.target.closest('.side') && !e.target.closest('.mob-menu') && !e.target.closest('.bb-side')) app.classList.remove('sideopen'); });
+  const app = h('div', { class: 'app' + (ls.get('tutor.sideClosed', false) ? ' side-closed' : '') }, side, main, bbar);
+  function setSide(open) { app.classList.toggle('side-closed', !open); ls.set('tutor.sideClosed', !open); sideBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === '\\' && location.hash.startsWith('#/app')) { e.preventDefault(); if (isMob()) app.classList.toggle('sideopen'); else setSide(app.classList.contains('side-closed')); } });
+  app.addEventListener('click', e => { if (app.classList.contains('sideopen') && !e.target.closest('.side') && !e.target.closest('.side-tog') && !e.target.closest('.bb-side')) app.classList.remove('sideopen'); });
   root.replaceChildren(app);
   face(faceEl, {});
-  shell = { root, app, side, list, title, tabs, view, quotaEl };
+  shell = { root, app, side, title, tabs, docbar, topnav, view, quotaEl };
   onQuota(renderQuota);
   onAccount(() => renderQuota(currentQuota()));
   refreshAccount();
@@ -109,6 +120,40 @@ function buildShell() {
   applyThemeButtons();
   // Schwebender Max-Assistent (überall in der App)
   import('./assistant.js').then(m => m.mountAssistant && m.mountAssistant()).catch(e => console.warn(e));
+}
+
+// Klausur-Simulator aus den Werkzeugen: welches Skript?
+async function examTool() {
+  const own = S.list.filter(d => !d.sample);
+  const docs = own.length ? own : S.list;
+  if (docs.length === 1) { location.hash = `#/app/${docs[0].id}/quiz/exam`; return; }
+  if (!docs.length) {
+    await modal({ eyebrow: L('Klausur-Simulator', 'Exam simulator'), title: L('Erst den Stoff, dann die Klausur', 'Material first, then the exam'), text: L('Lad dein Skript hoch – oder lass mich ein Kurzskript zu deinem Thema schreiben. Daraus baue ich dir eine Probeklausur mit Zeit, Punkten und Notenschlüssel.', 'Upload your slides – or let me write a short script on your topic. I’ll turn it into a mock exam with time, points and a grading key.'),
+      body: h('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap' } }, h('label', { class: 'btn primary', for: 'fileApp', onclick: () => document.querySelector('.modal-bg')?.remove() }, h('span', { html: ico('upload') }), L('Stoff hochladen', 'Upload material')), h('button', { class: 'btn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); ls.set('tutor.target', 'quiz'); topicPrompt(); } }, L('Thema nennen', 'Name a topic'))), actions: [] });
+    return;
+  }
+  const sorted = docs.slice().sort((a, b) => (b.used || 0) - (a.used || 0));
+  await modal({ eyebrow: L('Klausur-Simulator', 'Exam simulator'), title: L('Für welches Skript?', 'Which slides?'), body: h('div', { class: 'ds-list' }, sorted.slice(0, 12).map(d => h('a', { class: 'ds-i', href: `#/app/${d.id}/quiz/exam`, onclick: () => document.querySelector('.modal-bg')?.remove() }, h('span', { html: ico('file') }), h('span', { class: 'nm' }, d.name), h('small', {}, d.pages.length + L(' S.', ' p.'))))), actions: [] });
+}
+// Skript wechseln: Klick auf den Namen in der Skript-Leiste
+function openDocSwitch(anchor) {
+  document.querySelector('.sidemenu')?.remove();
+  const docs = S.list.slice().sort((a, b) => (b.used || 0) - (a.used || 0));
+  const menu = h('div', { class: 'sidemenu ds-menu', role: 'menu' },
+    h('div', { class: 'sm-h' }, L('Skript wechseln', 'Switch slides')),
+    docs.slice(0, 10).map(d => h('a', { class: 'sm-it' + (S.doc && S.doc.id === d.id ? ' on' : ''), href: `#/app/${d.id}/hub` }, h('span', { html: ico('file') }), h('span', { class: 'nm' }, d.name))),
+    h('div', { class: 'sm-sep' }),
+    h('a', { class: 'sm-it', href: '#/app/skripte' }, h('span', { html: ico('right') }), L('Alle Skripte', 'All slides')),
+    h('label', { class: 'sm-it', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')));
+  document.body.appendChild(menu);
+  const r = anchor.getBoundingClientRect();
+  menu.style.left = Math.max(8, Math.min(innerWidth - menu.offsetWidth - 8, r.left)) + 'px';
+  menu.style.top = (r.bottom + 6) + 'px';
+  const close = () => { menu.classList.add('out'); setTimeout(() => menu.remove(), 150); document.removeEventListener('pointerdown', outside, true); document.removeEventListener('keydown', esc); };
+  const outside = e => { if (!menu.contains(e.target) && !anchor.contains(e.target)) close(); };
+  const esc = e => { if (e.key === 'Escape') close(); };
+  setTimeout(() => { document.addEventListener('pointerdown', outside, true); document.addEventListener('keydown', esc); }, 0);
+  menu.querySelectorAll('a, label').forEach(a => a.addEventListener('click', () => close()));
 }
 
 function renderQuota(q) {
@@ -125,28 +170,19 @@ function renderQuota(q) {
 
 function renderList() {
   if (!shell) return;
-  const items = S.list.map(d => {
-    const del = h('button', { class: 'iconbtn del', 'aria-label': L('Löschen', 'Delete'), html: ico('trash'), style: { width: '28px', height: '28px' } });
-    del.addEventListener('click', async e => {
-      e.preventDefault(); e.stopPropagation();
-      const ok = await modal({ title: L('Skript löschen?', 'Delete these slides?'), text: L(`„${d.name}“ und alles dazu (Quizze, Karten, Chat) wird von diesem Gerät gelöscht.`, `“${d.name}” and everything that goes with it (quizzes, flashcards, chat) will be deleted from this device.`), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] });
-      if (!ok) return;
-      await removeDoc(d.id);
-      if (location.hash.includes(d.id)) go('');
-    });
-    const on = S.doc && S.doc.id === d.id && !location.hash.includes('/trainer') && !location.hash.startsWith('#/app/me');
-    return h('a', { class: 'doc-item' + (on ? ' on' : ''), href: `#/app/${d.id}/hub` },
-      h('span', { html: ico('file') }), h('span', { class: 'nm', title: d.name }, d.name), h('span', { class: 'pg' }, d.pages.length + L(' S.', ' p.')), del);
-  });
-  shell.list.replaceChildren(...(items.length ? items : [h('div', { class: 'doc-item', style: { color: 'var(--faint)', cursor: 'default' } }, L('Noch nichts hochgeladen', 'Nothing uploaded yet'))]));
-  $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.includes('/trainer')));
-  $$('[data-nav="challenge"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.includes('/challenge')));
-  $$('[data-nav="me"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.startsWith('#/app/me') && !location.hash.startsWith('#/app/me/favs')));
-  $$('[data-nav="favs"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.startsWith('#/app/me/favs')));
-  $$('[data-nav="rechner"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.startsWith('#/app/rechner')));
-  import('./me.js').then(M => { const n = (M.getMe().favs || []).length; $$('[data-favn]', shell.side).forEach(x => { x.textContent = n ? String(n) : ''; }); }).catch(() => {});
+  const hs = location.hash;
+  const inDoc = !!(S.doc && hs.includes(S.doc.id));
+  const tn = { me: hs === '#/app/me' || hs.startsWith('#/app/me/') || hs.startsWith('#/app/stundenplan'), faecher: hs.startsWith('#/app/faecher'), skripte: hs.startsWith('#/app/skripte') || inDoc, gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt') };
+  $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
+  $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
+  $$('[data-nav="foto"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer/buchung')));
+  $$('[data-nav="challenge"]', shell.side).forEach(a => a.classList.toggle('on', hs.includes('/challenge')));
+  $$('[data-nav="rechner"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/rechner')));
+  $$('[data-nav="exam"]', shell.side).forEach(a => a.classList.toggle('on', inDoc && hs.includes('/quiz')));
   $$('[data-lockb]', shell.side).forEach(x => { x.hidden = !!getAccount(); });
 }
+// Skript-Leiste (Name + Reiter) nur im Skript
+function docbar(on) { shell.docbar.hidden = !on; shell.app.classList.toggle('in-doc', !!on); }
 
 function renderTabs(docId, tab) {
   shell.tabs.replaceChildren(...TABS.map(([k, label, ic]) =>
@@ -165,53 +201,35 @@ export async function mountApp(parts) {
   if (!shell) { buildShell(); await refreshList(); }
   shell.app.classList.remove('sideopen');
   let [a, b, c] = parts;
-  // Trainer (ohne Skript)
-  if (a === 'trainer') {
-    shell.title.textContent = L('BWL-Trainer', 'Business trainer');
-    shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
-    renderList();
-    return show('trainer:' + (b || ''), async root => {
-      const { renderTrainer } = await import('./trainer.js');
-      const wrap = h('div', { class: 'view-in' }); root.appendChild(wrap);
-      renderTrainer(wrap, { kind: b, onAsk: S.list.length ? text => askTutorAbout(text) : null });
-    });
-  }
-  if (a === 'rechner') {
-    shell.title.textContent = L('Rechner', 'Calculators');
-    document.title = L('Rechner · BWL Max', 'Calculators · BWL Max');
-    shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
-    renderList();
-    return show('rechner:' + (b || ''), async root => { const { render } = await import('./views/rechner.js'); return render(root, { arg: b || '', onAsk: t => viaMax(m => m.ask(t)).then(ok => { if (!ok) askTutorAbout(t, { confirm: false }); }) }); });
-  }
-  if (a === 'challenge') {
-    shell.title.textContent = L('Wochen-Challenge', 'Weekly challenge');
-    shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
-    renderList();
-    return show('challenge', async root => { const { renderChallenge } = await import('./challenge.js'); renderChallenge(root, { onLogin: () => openLogin({ title: L('Anmelden für die Challenge', 'Sign in for the challenge') }) }); });
-  }
-  if (a === 'me') {
-    shell.title.textContent = L('Mein Bereich', 'My space');
-    document.title = L('Mein Bereich · BWL Max', 'My space · BWL Max');
-    shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
-    renderList();
-    return show('me:' + (b || ''), async root => { const { render } = await import('./views/me.js'); return render(root, { sub: b || '', onLogin: () => openLogin({ title: L('Anmelden für deinen Bereich', 'Sign in for your space') }) }); });
-  }
-  if (a === 'neu') return; // Upload läuft
+  // Alte Adressen (Mein Bereich mit Unterseiten) auf die neuen Bereiche umleiten
+  const OLD = { faecher: 'faecher', stats: 'fortschritt', favs: 'gemerkt', plan: 'stundenplan' };
+  if (a === 'me' && b && OLD[b]) { location.replace('#/app/' + OLD[b]); return; }
+  const page = (key, ttl, fn) => { docbar(false); shell.title.textContent = ttl; document.title = ttl + ' · BWL Max'; renderList(); return show(key, fn); };
+  if (a === 'trainer') return page('trainer:' + (b || ''), L('BWL-Trainer', 'Business trainer'), async root => {
+    const { renderTrainer } = await import('./trainer.js');
+    const wrap = h('div', { class: 'view-in' }); root.appendChild(wrap);
+    renderTrainer(wrap, { kind: b, onAsk: S.list.length ? text => askTutorAbout(text) : null });
+  });
+  if (a === 'rechner') return page('rechner:' + (b || ''), L('Rechner', 'Calculators'), async root => { const { render } = await import('./views/rechner.js'); return render(root, { arg: b || '', onAsk: t => viaMax(m => m.ask(t)).then(ok => { if (!ok) askTutorAbout(t, { confirm: false }); }) }); });
+  if (a === 'challenge') return page('challenge', L('Wochen-Challenge', 'Weekly challenge'), async root => { const { renderChallenge } = await import('./challenge.js'); renderChallenge(root, { onLogin: () => openLogin({ title: L('Anmelden für die Challenge', 'Sign in for the challenge') }) }); });
+  if (a === 'skripte') return page('skripte', L('Skripte', 'Slides'), async root => { const { render } = await import('./views/skripte.js'); return render(root); });
+  // Mein Bereich (nur Heute) und die festen Bereiche oben
+  const SUBS = { me: ['', L('Mein Bereich', 'My space')], faecher: ['faecher', L('Fächer & Noten', 'Subjects & grades')], fortschritt: ['stats', L('Fortschritt', 'Progress')], gemerkt: ['favs', L('Gemerkt', 'Saved')], stundenplan: ['plan', L('Stundenplan', 'Timetable')] };
+  if (SUBS[a]) { const [sub, ttl] = SUBS[a]; return page('me:' + sub, ttl, async root => { const { render } = await import('./views/me.js'); return render(root, { sub, onLogin: () => openLogin({ title: L('Anmelden für deinen Bereich', 'Sign in for your space') }) }); }); }
+  if (a === 'neu') { docbar(false); return; } // Upload läuft
   if (!a) {
     const last = await lastDocId();
     const id = (last && S.list.find(d => d.id === last)) ? last : S.list[0]?.id;
     if (id) { location.replace(`#/app/${id}/hub`); return; }
-    shell.title.textContent = L('Willkommen', 'Welcome');
-    shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
-    renderList();
-    return show('empty', root => emptyState(root));
+    return page('empty', L('Willkommen', 'Welcome'), root => emptyState(root));
   }
   if (!S.doc || S.doc.id !== a) {
     const d = await openDoc(a);
     if (!d) { toast(L('Dieses Skript gibt es auf diesem Gerät nicht mehr.', 'These slides are no longer on this device.')); go(''); return; }
   }
   const tab = VIEWS[b] ? b : 'hub';
-  shell.title.textContent = S.doc.name;
+  docbar(true);
+  shell.title.replaceChildren(h('span', { html: ico('file') }), h('b', {}, S.doc.name), h('span', { class: 'db-ch', html: ico('down') }));
   document.title = `${S.doc.name} · BWL Max`;
   renderTabs(a, tab);
   renderList();
@@ -272,7 +290,7 @@ export async function startUpload(files) {
   if (!files.length) return;
   if (location.hash !== '#/app/neu') location.hash = '#/app/neu';
   if (!shell) { buildShell(); await refreshList(); }
-  shell.tabs.replaceChildren();
+  shell.tabs.replaceChildren(); docbar(false);
   current.key = 'ingest';
   const target = ls.get('tutor.target', null); ls.set('tutor.target', null);
   try {
@@ -365,7 +383,7 @@ export async function startTopic(topic) {
   if (!shell) { buildShell(); await refreshList(); }
   if (location.hash !== '#/app/neu') location.hash = '#/app/neu';
   shell.title.textContent = L('Ich schreibe …', 'Writing …');
-  shell.tabs.replaceChildren();
+  shell.tabs.replaceChildren(); docbar(false);
   current.key = 'topic';
   const f = h('div', { class: 'face' }), sub = h('div', { class: 'sub' }), bar = h('i');
   shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f,
@@ -502,11 +520,11 @@ function bottomBar(getApp) {
   const item = (key, ic, label, act) => h(typeof act === 'string' ? 'a' : 'button', Object.assign({ class: 'bb-i', 'data-bb': key }, typeof act === 'string' ? { href: act } : { type: 'button', onclick: act }), h('span', { class: 'bb-ic', html: ico(ic) }), h('span', { class: 'bb-t' }, label));
   const bar = h('nav', { class: 'bbar', 'aria-label': L('Hauptnavigation', 'Main navigation') },
     item('me', 'home', L('Heute', 'Today'), '#/app/me'),
-    Object.assign(item('side', 'file', L('Skripte', 'Slides'), () => getApp().classList.toggle('sideopen')), { className: 'bb-i bb-side' }),
-    item('trainer', 'whistle', 'Trainer', '#/app/trainer'),
+    item('skripte', 'file', L('Skripte', 'Slides'), '#/app/skripte'),
+    Object.assign(item('side', 'sidebar', L('Werkzeuge', 'Tools'), () => getApp().classList.toggle('sideopen')), { className: 'bb-i bb-side' }),
     item('search', 'search', L('Suche', 'Search'), () => import('./palette.js').then(m => m.openPalette())),
     item('ich', 'lock', L('Ich', 'Me'), () => getAccount() ? openAccount() : openLogin()));
-  const mark = () => { const h0 = location.hash; bar.querySelectorAll('.bb-i').forEach(x => x.classList.toggle('on', (x.dataset.bb === 'me' && h0.startsWith('#/app/me')) || (x.dataset.bb === 'trainer' && h0.startsWith('#/app/trainer')))); };
+  const mark = () => { const h0 = location.hash; bar.querySelectorAll('.bb-i').forEach(x => x.classList.toggle('on', (x.dataset.bb === 'me' && h0.startsWith('#/app/me')) || (x.dataset.bb === 'skripte' && (h0.startsWith('#/app/skripte') || !!(S.doc && h0.includes(S.doc.id)))))); };
   addEventListener('hashchange', mark); mark();
   document.documentElement.classList.add('has-bbar');
   return bar;

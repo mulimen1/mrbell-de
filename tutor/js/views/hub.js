@@ -93,7 +93,7 @@ export async function render(root, ctx) {
         zone('z3', L('Prüfen', 'Test yourself'), ex ? L(`Klausur ${new Date(ex + 'T12:00').toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })}`, `Exam ${new Date(ex + 'T12:00').toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })}`) : L('wie in der Klausur', 'like the real exam'), [
           row('exam', L('Klausur-Simulator', 'Exam simulator'), L('Zeit, Punkte, Notenschlüssel · 3 Einheiten', 'Time, points, grading key · 3 credits'), () => ctx.go('quiz', 'exam')),
           doc.mistakes.length ? row('refresh', L('Fehler ausbügeln', 'Fix mistakes'), L(`${doc.mistakes.length} Fragen, die noch nicht sitzen`, `${doc.mistakes.length} questions that don’t stick yet`), () => ctx.go('quiz', 'fehler'), h('span', { class: 'zb' }, String(doc.mistakes.length))) : null,
-          row('trophy', L('Prüfungsreife', 'Exam readiness'), rf.hasData ? L(`${rf.score} % · ${rf.fest} von ${rf.themen || '–'} Themen sicher`, `${rf.score}% · ${rf.fest} of ${rf.themen || '–'} topics secure`) : L('Lern Karten oder mach ein Quiz', 'Study cards or take a quiz'), () => { location.hash = '#/app/me/faecher'; }, rf.hasData ? h('span', { class: 'zr' }, h('i', { style: { width: rf.score + '%' } })) : null)]))));
+          row('trophy', L('Prüfungsreife', 'Exam readiness'), rf.hasData ? L(`${rf.score} % · ${rf.fest} von ${rf.themen || '–'} Themen sicher`, `${rf.score}% · ${rf.fest} of ${rf.themen || '–'} topics secure`) : L('Lern Karten oder mach ein Quiz', 'Study cards or take a quiz'), () => { location.hash = '#/app/faecher'; }, rf.hasData ? h('span', { class: 'zr' }, h('i', { style: { width: rf.score + '%' } })) : null)]))));
   face(f, {});
 
   // Direkt nach dem Upload: Lernpfad im Hintergrund bauen

@@ -12,9 +12,6 @@ import * as M from '../me.js';
 import * as N from '../noten.js';
 import { reife } from '../reife.js';
 
-// Drei Ziele statt fünf: Stundenplan und Gemerktes stecken in „Heute“ (Vollansicht per Link)
-const TABS = [['', L('Heute', 'Today'), 'home'], ['faecher', L('Fächer & Noten', 'Subjects & grades'), 'brain'], ['stats', L('Fortschritt', 'Progress'), 'trophy']];
-const SUBS = { plan: L('Stundenplan', 'Timetable'), favs: L('Gemerkt', 'Saved') };
 const DAYS = L(['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'], ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
 const DAYS_LONG = L(['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'], ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
 const hm = t => new Date(t).toLocaleTimeString(LOCALE, { hour: '2-digit', minute: '2-digit' });
@@ -36,9 +33,10 @@ export function render(root, { sub = '', onLogin } = {}) {
     if (!wrap.isConnected) return;
     const a = getAccount();
     if (!a) return locked(wrap, onLogin);
-    const tab = TABS.some(t => t[0] === sub) || SUBS[sub] ? sub : '';
+    const tab = ['', 'faecher', 'plan', 'favs', 'stats'].includes(sub) ? sub : '';
     const body = h('div', { class: 'me-body' });
-    wrap.replaceChildren(hero(a, tab !== ''), syncAsk(), SUBS[tab] ? subbar(tab) : nav(tab), body, syncCard());
+    // Mein Bereich = nur Heute. Fächer, Stundenplan, Gemerkt, Fortschritt sind eigene Seiten (oben in der Leiste)
+    wrap.replaceChildren(...(tab === '' ? [hero(a), syncAsk()] : [pageHead(tab)]), body, tab === 'faecher' || tab === 'favs' ? syncCard() : null);
     if (tab === '') today(body);
     if (tab === 'faecher') subjects(body);
     if (tab === 'plan') timetable(body, () => weekOff, v => { weekOff = v; draw(); });
@@ -105,9 +103,6 @@ async function editGoal() {
   const r = await modal({ title: L('Wie viel willst du pro Woche lernen?', 'How much do you want to study per week?'), text: L('Faustregel: 1 ECTS ≈ 25–30 Stunden Arbeit. Lieber realistisch starten und steigern.', 'Rule of thumb: 1 ECTS ≈ 25–30 hours of work. Start realistic, then raise it.'), body: sel, actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'ok', primary: true }] });
   if (r === 'ok') M.updateMe(m => { m.wochenziel = +sel.dataset.v; });
 }
-function subbar(tab) {
-  return h('div', { class: 'me-subbar' }, h('a', { class: 'btn sm ghost', href: '#/app/me' }, h('span', { html: ico('left') }), L('Heute', 'Today')), h('b', {}, SUBS[tab]));
-}
 function weekMinutes(off) {
   const days = M.getMe().akt || {}; const d = dayStart(); const wd = (d.getDay() + 6) % 7; d.setDate(d.getDate() - wd + off * 7);
   let m = 0; for (let i = 0; i < 7; i++) { const x = new Date(d); x.setDate(d.getDate() + i); m += days[M.dayKey(x)] || 0; } return m;
@@ -140,6 +135,14 @@ function exams() {
   return out.filter(x => x.days >= 0).sort((a, b) => a.days - b.days);
 }
 
+const HEADS = {
+  faecher: [L('Fächer & Noten', 'Subjects & grades'), L('Klausurtermine, Prüfungsreife und was du für deine Wunschnote noch brauchst.', 'Exam dates, readiness and what you still need for your target grade.')],
+  plan: [L('Stundenplan', 'Timetable'), L('Deine Woche – aus Kalender-Link, Foto oder per Hand.', 'Your week – from a calendar link, a photo or by hand.')],
+  favs: [L('Gemerkt', 'Saved'), L('Alles, was du mit dem Stern markiert hast.', 'Everything you starred.')],
+  stats: [L('Fortschritt', 'Progress'), L('Was du schon geschafft hast – und was als Nächstes kommt.', 'What you’ve achieved – and what’s next.')]
+};
+function pageHead(tab) { const [t, p] = HEADS[tab]; return h('div', { class: 'vh me-ph' }, h('div', {}, h('h2', {}, t), h('p', {}, p))); }
+
 // ---------- Freiwillige Synchronisierung ----------
 function syncAsk() {
   if (M.syncState() !== null) return null;
@@ -168,9 +171,6 @@ function syncCard() {
     sw);
 }
 
-function nav(tab) {
-  return h('nav', { class: 'me-nav', role: 'tablist' }, TABS.map(([k, label, ic]) => h('a', { class: 'me-tab' + (k === tab ? ' on' : ''), href: '#/app/me' + (k ? '/' + k : ''), role: 'tab', 'aria-selected': k === tab ? 'true' : 'false' }, h('span', { html: ico(ic) }), label)));
-}
 const card = (title, ...kids) => h('section', { class: 'me-card' }, title ? h('div', { class: 'me-ct' }, title) : null, ...kids);
 
 // ---------- Heute ----------
@@ -191,8 +191,6 @@ function today(body) {
       h('div', { class: 'me-next-t' }, h('div', { class: 'eyebrow' }, L('Jetzt dran', 'Up next') + (top.min ? L(` · ca. ${top.min} Min.`, ` · ~${top.min} min`) : '')), h('h2', {}, top.t), h('p', {}, top.s)),
       h('div', { class: 'me-next-a' }, h('a', { class: 'btn primary lg me-next-b', href: top.href, onclick: top.onclick || null }, L('Los geht’s', 'Let’s go'), h('span', { html: ico('right') })), other)), alt);
   }
-  // 2b) Fortschritt auf einen Blick – was du schon geschafft hast
-  body.append(progressStrip());
   // 3) Heute im Stundenplan (Streifen) + Demnächst | Gemerkt + Zuletzt geöffnet
   const ses = M.sessionsOn(new Date()), up = ses.filter(s => s.e > now);
   const tm = new Date(); tm.setDate(tm.getDate() + 1);
@@ -200,29 +198,21 @@ function today(body) {
   const hasPlan = me.kurse.length || me.ics.events?.length;
   const showToday = up.length || !ses2.length;
   const strip = !hasPlan
-    ? h('div', { class: 'me-empty' }, h('p', {}, L('Verbinde deinen Stundenplan – dann sag ich dir jeden Morgen, was ansteht, und plane Lernzeit in die Lücken.', 'Connect your timetable – I’ll tell you every morning what’s on and plan study time into the gaps.')), h('a', { class: 'btn sm', href: '#/app/me/plan' }, L('Stundenplan verbinden', 'Connect timetable')))
+    ? h('div', { class: 'me-empty' }, h('p', {}, L('Verbinde deinen Stundenplan – dann sag ich dir jeden Morgen, was ansteht, und plane Lernzeit in die Lücken.', 'Connect your timetable – I’ll tell you every morning what’s on and plan study time into the gaps.')), h('a', { class: 'btn sm', href: '#/app/stundenplan' }, L('Stundenplan verbinden', 'Connect timetable')))
     : up.length ? h('div', { class: 'me-sessions' }, ses.map(s => session(s, now)))
     : ses2.length ? h('div', { class: 'me-sessions' }, h('div', { class: 'me-note' }, ses.length ? L('Für heute bist du durch. Morgen steht an:', 'You’re done for today. Tomorrow:') : L('Heute frei. Morgen steht an:', 'Free today. Tomorrow:')), ses2.map(s => session(s, now)))
     : h('div', { class: 'me-empty' }, h('p', {}, ses.length ? L('Für heute bist du durch. Morgen ist frei.', 'You’re done for today. Tomorrow is free.') : L('Heute keine Vorlesungen. Zeit für dich – oder für Karteikarten.', 'No lectures today. Time for you – or for flashcards.')));
   const ex = exams().filter(e => e.days <= 60).slice(0, 4);
   const soon = ex.length ? h('div', { class: 'me-exams' }, ex.map(e => {
     const rf = e.fach ? reife((e.fach.docs || []).map(docById).filter(Boolean), new Date(e.iso + 'T08:00').getTime()) : e.doc ? reife([e.doc], new Date(e.iso + 'T08:00').getTime()) : null;
-    return h('a', { class: 'me-exam', href: e.doc ? `#/app/${e.doc.id}/plan` : '#/app/me/faecher' },
+    return h('a', { class: 'me-exam', href: e.doc ? `#/app/${e.doc.id}/plan` : '#/app/faecher' },
       h('div', { class: 'me-exn' }, h('b', {}, String(e.days)), h('span', {}, e.days === 1 ? L('Tag', 'day') : L('Tage', 'days'))),
       h('div', { class: 'me-ext' }, h('b', {}, e.name), h('small', {}, new Date(e.iso + 'T12:00').toLocaleDateString(LOCALE, { weekday: 'short', day: 'numeric', month: 'short' }) + (rf && rf.hasData ? L(` · Prüfungsreife ${rf.score} %`, ` · readiness ${rf.score}%`) : '')),
         rf && rf.hasData ? h('div', { class: 'me-bar' }, h('i', { style: { width: rf.score + '%' } })) : null));
-  })) : h('div', { class: 'me-empty' }, h('p', {}, L('Keine Klausur in den nächsten 60 Tagen eingetragen. Trag deine Termine bei den Fächern ein – dann zähl ich runter und plan mit.', 'No exam in the next 60 days. Add your dates to your subjects – I’ll count down and plan along.')), h('a', { class: 'btn sm', href: '#/app/me/faecher' }, L('Klausurtermine eintragen', 'Add exam dates')));
-  const favs = me.favs.slice(0, 3);
-  const recent = S.list.filter(d => !d.sample).sort((a, b) => (b.used || 0) - (a.used || 0)).slice(0, 3);
+  })) : h('div', { class: 'me-empty' }, h('p', {}, L('Keine Klausur in den nächsten 60 Tagen eingetragen. Trag deine Termine bei den Fächern ein – dann zähl ich runter und plan mit.', 'No exam in the next 60 days. Add your dates to your subjects – I’ll count down and plan along.')), h('a', { class: 'btn sm', href: '#/app/faecher' }, L('Klausurtermine eintragen', 'Add exam dates')));
   body.append(h('div', { class: 'me-grid two' },
-    h('div', { class: 'me-col2' },
-      card(showToday ? L('Heute', 'Today') : L('Morgen', 'Tomorrow'), strip, hasPlan ? h('a', { class: 'me-more', href: '#/app/me/plan' }, L('Ganze Woche', 'Full week'), h('span', { html: ico('right') })) : null),
-      card(L('Demnächst', 'Coming up'), soon)),
-    h('div', { class: 'me-col2' },
-      recent.length ? card(L('Zuletzt geöffnet', 'Recently opened'), h('div', { class: 'me-mini' }, recent.map(d => h('a', { class: 'me-mi', href: `#/app/${d.id}/hub` }, h('span', { class: 'me-fi', html: ico('file') }), h('span', {}, h('b', {}, d.name), h('small', {}, ago(d.used || d.created))))))) : null,
-      card(L('Gemerkt', 'Saved'), favs.length ? h('div', { class: 'me-mini' }, favs.map(x => { const d = x.doc && docById(x.doc); const tab = (FT[x.typ] || [])[2] || 'hub'; return h('a', { class: 'me-mi', href: d ? `#/app/${d.id}/${tab}` : '#/app/me/favs' }, h('span', { class: 'me-fi', html: ico((FT[x.typ] || [])[1] || 'spark') }), h('span', {}, h('b', {}, x.titel || L('Ohne Titel', 'Untitled')), h('small', {}, [FT[x.typ]?.[0], x.docName].filter(Boolean).join(' · ')))); }))
-        : h('div', { class: 'me-empty' }, h('p', {}, L('Tipp auf den Stern bei einer Erklärung, einem Quiz oder Kartenstapel – dann liegt es hier griffbereit.', 'Tap the star on an explanation, quiz or deck – it’ll be right here.'))),
-        me.favs.length > 3 ? h('a', { class: 'me-more', href: '#/app/me/favs' }, L(`Alle ${me.favs.length} ansehen`, `See all ${me.favs.length}`), h('span', { html: ico('right') })) : null))));
+    card(showToday ? L('Heute', 'Today') : L('Morgen', 'Tomorrow'), strip, hasPlan ? h('a', { class: 'me-more', href: '#/app/stundenplan' }, L('Ganze Woche', 'Full week'), h('span', { html: ico('right') })) : null),
+    card(L('Demnächst', 'Coming up'), soon)));
 }
 // Start in vier Schritten – verschwindet, sobald erledigt oder ausgeblendet
 function startChecklist() {
@@ -232,8 +222,8 @@ function startChecklist() {
   const steps = [
     { ok: true, t: L('Konto erstellt', 'Account created') },
     { ok: own.length > 0, t: L('Erstes Skript hochladen', 'Upload your first slides'), go: () => document.getElementById('fileApp')?.click() },
-    { ok: me.faecher.some(f => f.klausur) || own.some(d => d.plan?.exam), t: L('Klausurtermin eintragen', 'Add an exam date'), go: () => { location.hash = '#/app/me/faecher'; } },
-    { ok: !!(me.kurse.length || me.ics.events?.length), t: L('Stundenplan verbinden', 'Connect your timetable'), go: () => { location.hash = '#/app/me/plan'; } },
+    { ok: me.faecher.some(f => f.klausur) || own.some(d => d.plan?.exam), t: L('Klausurtermin eintragen', 'Add an exam date'), go: () => { location.hash = '#/app/faecher'; } },
+    { ok: !!(me.kurse.length || me.ics.events?.length), t: L('Stundenplan verbinden', 'Connect your timetable'), go: () => { location.hash = '#/app/stundenplan'; } },
     { ok: own.some(d => d.decks.some(k => k.cards.some(c => c.reps))), t: L('Erste Karteikarten lernen', 'Study your first flashcards'), go: () => { location.hash = own[0] ? `#/app/${own[0].id}/karten` : '#/app'; if (!own[0]) document.getElementById('fileApp')?.click(); } }
   ];
   const done = steps.filter(x => x.ok).length;
@@ -264,7 +254,7 @@ function recommend() {
   const byDue = S.list.map(d => ({ d, n: dueCards(d).length })).filter(x => x.n).sort((a, b) => b.n - a.n);
   const ex = exams();
   const urgent = ex.find(e => e.days <= 21 && e.doc && (e.m ?? 0) < expected(e.days));
-  if (urgent) { const hasCards = urgent.doc.decks.some(k => k.cards.length); out.push({ min: 25, ic: hasCards ? 'cards' : 'calendar', t: L(`${urgent.name}: Reife hochziehen`, `${urgent.name}: boost readiness`), s: L(`${M.artName(urgent.art)} in ${tage(urgent.days)} · Prüfungsreife ${urgent.m} %. 25 Minuten heute bringen dich spürbar nach vorn.`, `Exam in ${tage(urgent.days)} · readiness ${urgent.m}%. 25 minutes today move you forward noticeably.`), href: `#/app/${urgent.doc.id}/${hasCards ? 'karten' : 'plan'}` }); }
+  if (urgent) { const hasCards = urgent.doc.decks.some(k => k.cards.length); out.push({ min: 25, ic: hasCards ? 'cards' : 'calendar', t: L(`${urgent.name}: Reife hochziehen`, `${urgent.name}: boost readiness`), s: urgent.m == null ? L(`${M.artName(urgent.art)} in ${tage(urgent.days)} – und noch nichts gelernt. 25 Minuten heute bringen dich spürbar nach vorn.`, `${M.artName(urgent.art)} in ${tage(urgent.days)} – nothing studied yet. 25 minutes today move you forward noticeably.`) : L(`${M.artName(urgent.art)} in ${tage(urgent.days)} · Prüfungsreife ${urgent.m} %. 25 Minuten heute bringen dich spürbar nach vorn.`, `${M.artName(urgent.art)} in ${tage(urgent.days)} · readiness ${urgent.m}%. 25 minutes today move you forward noticeably.`), href: `#/app/${urgent.doc.id}/${hasCards ? 'karten' : 'plan'}` }); }
   for (const d of S.list) { const p = d.plan ? planSummary(d) : null; if (p && p.daysLeft >= 0 && p.todayOpen?.length) { out.push({ min: p.todayMin || 20, ic: 'exam', t: L(`Heute im Plan: ${d.name}`, `Today’s plan: ${d.name}`), s: L(`${p.todayOpen.length} ${p.todayOpen.length === 1 ? 'Aufgabe' : 'Aufgaben'} · ~${p.todayMin} Min.`, `${p.todayOpen.length} ${p.todayOpen.length === 1 ? 'task' : 'tasks'} · ~${p.todayMin} min`), href: `#/app/${d.id}/plan` }); break; } }
   if (byDue.length) { const n = byDue.reduce((x, y) => x + y.n, 0); out.push({ min: Math.max(2, Math.round(n * 0.4)), ic: 'cards', t: L(`${n} Karten wiederholen`, `Review ${n} cards`), s: L(`Am meisten in „${byDue[0].d.name}“. Wiederholen ist kostenlos.`, `Most in “${byDue[0].d.name}”. Reviewing is free.`), href: `#/app/${byDue[0].d.id}/karten` }); }
   for (const e of ex.filter(e => e.days <= 60 && e.fach)) {
@@ -280,8 +270,8 @@ function recommend() {
   const nxt = S.list.find(d => d.path?.chapters?.some(c => !c.done));
   if (nxt) { const i = nxt.path.chapters.findIndex(c => !c.done); out.push({ min: 15, ic: 'path', t: L(`Weiter: ${nxt.path.chapters[i].title}`, `Next: ${nxt.path.chapters[i].title}`), s: L(`Lernpfad „${nxt.name}“ · Kapitel ${i + 1} von ${nxt.path.chapters.length}`, `Study path “${nxt.name}” · chapter ${i + 1} of ${nxt.path.chapters.length}`), href: `#/app/${nxt.id}/pfad/${i}` }); }
   if (!S.list.length) out.push({ ic: 'upload', t: L('Erstes Skript hochladen', 'Upload your first slides'), s: L('PDF, PowerPoint oder Word – ich mach Quiz, Karten und Lernpfad draus.', 'PDF, PowerPoint or Word – I’ll turn it into quizzes, cards and a study path.'), href: '#/app', onclick: e => { e.preventDefault(); document.getElementById('fileApp')?.click(); } });
-  if (!me.faecher.length) out.push({ ic: 'brain', t: L('Fächer anlegen', 'Add your subjects'), s: L('Mit Klausurdatum – dann zähl ich runter und weiß, was Vorrang hat.', 'With exam dates – so I can count down and prioritise.'), href: '#/app/me/faecher' });
-  if (!me.kurse.length && !me.ics.events?.length) out.push({ ic: 'calendar', t: L('Stundenplan verbinden', 'Connect your timetable'), s: L('Link aus dem Uni-Portal einfügen – dauert 30 Sekunden.', 'Paste the link from your uni portal – takes 30 seconds.'), href: '#/app/me/plan' });
+  if (!me.faecher.length) out.push({ ic: 'brain', t: L('Fächer anlegen', 'Add your subjects'), s: L('Mit Klausurdatum – dann zähl ich runter und weiß, was Vorrang hat.', 'With exam dates – so I can count down and prioritise.'), href: '#/app/faecher' });
+  if (!me.kurse.length && !me.ics.events?.length) out.push({ ic: 'calendar', t: L('Stundenplan verbinden', 'Connect your timetable'), s: L('Link aus dem Uni-Portal einfügen – dauert 30 Sekunden.', 'Paste the link from your uni portal – takes 30 seconds.'), href: '#/app/stundenplan' });
   out.push({ min: 10, ic: 'whistle', t: L('10 Minuten BWL-Trainer', '10 minutes of the trainer'), s: L('Buchungssätze, Break-even, Kapitalwert – unbegrenzt.', 'Entries, break-even, NPV – unlimited.'), href: '#/app/trainer' });
   return out.slice(0, 5);
 }
@@ -534,7 +524,7 @@ async function editKurs(k) {
 }
 async function assignIcs(s) {
   const me = M.getMe();
-  if (!me.faecher.length) { toast(L('Leg zuerst deine Fächer an – dann kann ich Termine zuordnen.', 'Add your subjects first – then I can match events.')); location.hash = '#/app/me/faecher'; return; }
+  if (!me.faecher.length) { toast(L('Leg zuerst deine Fächer an – dann kann ich Termine zuordnen.', 'Add your subjects first – then I can match events.')); location.hash = '#/app/faecher'; return; }
   const sel = h('select', { class: 'field' }, h('option', { value: '-' }, L('– kein Fach –', '– no subject –')), me.faecher.map(f => h('option', { value: f.id, selected: s.fach?.id === f.id || null }, f.name)));
   const r = await modal({ title: s.t, text: `${DAYS_LONG[new Date(s.s).getDay()]}, ${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}. ` + L('Zu welchem Fach gehört der Termin? Gilt für alle Termine mit diesem Namen.', 'Which subject is this? Applies to all events with this name.'), body: sel, actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'ok', primary: true }] });
   if (r === 'ok') M.setIcsFach(s.t, sel.value);
@@ -580,7 +570,7 @@ function stats(body) {
   const rows = subj.length ? subj : S.list.filter(d => !d.sample).map(d => ({ n: d.name, m: mastery(d) }));
   rows.sort((a, b) => b.m - a.m);
   const trend = w1 ? Math.round(100 * (w0 - w1) / w1) : null;
-  body.append(milestones(),
+  body.append(progressStrip(true), milestones(),
     h('div', { class: 'me-kpis' },
       kpi(st, L('Tage Serie', 'day streak'), best > st ? L(`Rekord: ${best}`, `Record: ${best}`) : st ? L('Das ist dein Rekord.', 'That’s your record.') : L('Heute anfangen?', 'Start today?')),
       kpi(M.fmtMin(w0), L('Lernzeit diese Woche', 'Study time this week'), trend == null ? L(`Letzte Woche: ${M.fmtMin(w1)}`, `Last week: ${M.fmtMin(w1)}`) : trend >= 0 ? L(`+${trend} % zur Vorwoche`, `+${trend}% vs last week`) : L(`${trend} % zur Vorwoche`, `${trend}% vs last week`)),
@@ -623,17 +613,17 @@ function progressData() {
   const quizzes = own.reduce((x, d) => x + d.quizzes.filter(q => q.results?.length).length, 0);
   return { totMin, wMin, learned, learnedW, ans, cor, ansW, fest, themen, chDone, chTot: ch.length, quizzes, docs: own.length, st: M.streak(M.activityDays(S.list)) };
 }
-function progressStrip() {
+function progressStrip(full = false) {
   const p = progressData();
-  if (!p.docs && !p.totMin) return null;
+  if (!p.docs && !p.totMin && !full) return null;
   const tile = (val, label, sub, href) => h('a', { class: 'me-pt', href }, h('b', {}, val), h('span', {}, label), sub ? h('small', {}, sub) : null);
   return h('section', { class: 'me-prog' },
-    h('div', { class: 'me-pgh' }, h('b', {}, L('Dein Fortschritt', 'Your progress')), h('a', { class: 'me-more', href: '#/app/me/stats' }, L('Alles ansehen', 'See all'), h('span', { html: ico('right') }))),
+    full ? null : h('div', { class: 'me-pgh' }, h('b', {}, L('Dein Fortschritt', 'Your progress')), h('a', { class: 'me-more', href: '#/app/fortschritt' }, L('Alles ansehen', 'See all'), h('span', { html: ico('right') }))),
     h('div', { class: 'me-pts' },
-      tile(M.fmtMin(p.totMin), L('gelernt insgesamt', 'studied in total'), p.wMin ? L(`+${M.fmtMin(p.wMin)} diese Woche`, `+${M.fmtMin(p.wMin)} this week`) : L('diese Woche noch nichts', 'nothing yet this week'), '#/app/me/stats'),
-      tile(String(p.learned), L('Karten gelernt', 'cards learned'), p.learnedW ? L(`+${p.learnedW} in 7 Tagen`, `+${p.learnedW} in 7 days`) : null, '#/app/me/stats'),
-      p.themen ? tile(`${p.fest}/${p.themen}`, L('Themen sitzen', 'topics secure'), L('sicher bis zur Klausur', 'secure for the exam'), '#/app/me/faecher') : p.chTot ? tile(`${p.chDone}/${p.chTot}`, L('Kapitel geschafft', 'chapters done'), null, '#/app/me/stats') : tile(String(p.docs), L(p.docs === 1 ? 'Skript' : 'Skripte', p.docs === 1 ? 'set of slides' : 'sets of slides'), null, '#/app/me/stats'),
-      tile(p.ans ? Math.round(100 * p.cor / p.ans) + ' %' : '–', L('richtig im Quiz', 'right in quizzes'), p.ans ? L(`${p.ans} Fragen${p.ansW ? `, +${p.ansW} diese Woche` : ''}`, `${p.ans} questions${p.ansW ? `, +${p.ansW} this week` : ''}`) : L('noch kein Quiz', 'no quiz yet'), '#/app/me/stats')));
+      tile(M.fmtMin(p.totMin), L('gelernt insgesamt', 'studied in total'), p.wMin ? L(`+${M.fmtMin(p.wMin)} diese Woche`, `+${M.fmtMin(p.wMin)} this week`) : L('diese Woche noch nichts', 'nothing yet this week'), '#/app/fortschritt'),
+      tile(String(p.learned), L('Karten gelernt', 'cards learned'), p.learnedW ? L(`+${p.learnedW} in 7 Tagen`, `+${p.learnedW} in 7 days`) : null, '#/app/fortschritt'),
+      p.themen ? tile(`${p.fest}/${p.themen}`, L('Themen sitzen', 'topics secure'), L('sicher bis zur Klausur', 'secure for the exam'), '#/app/faecher') : p.chTot ? tile(`${p.chDone}/${p.chTot}`, L('Kapitel geschafft', 'chapters done'), null, '#/app/fortschritt') : tile(String(p.docs), L(p.docs === 1 ? 'Skript' : 'Skripte', p.docs === 1 ? 'set of slides' : 'sets of slides'), null, '#/app/fortschritt'),
+      tile(p.ans ? Math.round(100 * p.cor / p.ans) + ' %' : '–', L('richtig im Quiz', 'right in quizzes'), p.ans ? L(`${p.ans} Fragen${p.ansW ? `, +${p.ansW} diese Woche` : ''}`, `${p.ans} questions${p.ansW ? `, +${p.ansW} this week` : ''}`) : L('noch kein Quiz', 'no quiz yet'), '#/app/fortschritt')));
 }
 // Meilensteine: geschafft + der nächste in Reichweite (ruhig, ohne Konfetti)
 function milestones() {
