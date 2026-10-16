@@ -2038,3 +2038,17 @@ html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: n
 .ai-b.ai-close .ico { width: 18px; height: 18px; stroke-width: 2.5; }
 .ai-b.ai-close:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 @media (max-width: 600px) { .ai-b.ai-close { width: 38px; height: 38px; } }
+/* Laptop genauso: großes Textfeld oben, „Sprich mit Max“ zentriert darunter */
+@media (min-width: 601px) {
+  .asst .ai-isl { flex-wrap: wrap; height: auto; padding: 10px 10px 12px; row-gap: 10px; column-gap: 6px; border-radius: 30px; align-content: center; }
+  .asst .ai-isl::after { content: ""; flex-basis: 100%; height: 0; order: 5; }
+  .ai-isl > * { order: 1; }
+  .ai-isl > .ai-mid { height: 50px; }
+  .asst[data-state="idle"] .ai-in { height: 50px; font-size: 16px; padding: 0 18px; }
+  .ai-isl > .ai-talk, .ai-isl > .ai-done, .ai-isl > .ai-stop { order: 10; margin: 0 auto; }
+  .ai-isl > .ai-talk { height: 46px; padding: 0 24px 0 20px; }
+  .ai-isl > .ai-done, .ai-isl > .ai-stop { width: 46px; height: 46px; }
+  .ai-cap { bottom: calc(154px + env(safe-area-inset-bottom, 0px)); }
+  .ai-feed { bottom: calc(156px + var(--kb) + env(safe-area-inset-bottom, 0px)); }
+  .ai-menu { bottom: calc(154px + env(safe-area-inset-bottom, 0px)); }
+}
