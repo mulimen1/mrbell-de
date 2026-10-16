@@ -83,7 +83,9 @@ function buildShell() {
       h('div', { class: 'side-links' },
         h('button', { type: 'button', onclick: openFeedback }, L('★ Feedback', '★ Feedback')),
         h('button', { type: 'button', onclick: settings }, L('Daten & Sicherung', 'Data & backup')),
-        asstToggle())));
+        asstToggle(),
+        h('a', { class: 'side-legal', href: legalHref('kuendigen') }, L('Verträge hier kündigen', 'Cancel contracts here')),
+        h('a', { class: 'side-legal', href: legalHref('widerrufen') }, L('Vertrag widerrufen', 'Withdraw from contract')))));
   const title = h('h1', {});
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
   const menuBtn = h('button', { class: 'iconbtn mob-menu', 'aria-label': L('Menü', 'Menu'), html: ico('menu'), onclick: () => root.querySelector('.app').classList.toggle('sideopen') });
@@ -479,3 +481,6 @@ function langSwitch() {
       setLang(k);
     } }, l)));
 }
+
+// Rechtliches: auf bwlmax.de kurze Pfade, sonst /tutor/legal/
+function legalHref(name) { return /(^|\.)bwlmax\.de$/.test(location.hostname) ? '/' + name : '/tutor/legal/' + name + '.html'; }

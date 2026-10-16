@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verträge hier kündigen – BWL Max</title>
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/tutor/img/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/tutor/img/max-fav-96.png">
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/tutor/css/legal.css?v=2">
+<script>try{var t=sessionStorage.getItem('tutor.theme');if(t==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
+<style>
+.lg-form{display:grid;gap:14px;margin:6px 0 10px}
+.lg-form label{display:grid;gap:6px;font-size:14px;font-weight:600;color:var(--ink)}
+.lg-form label small{font-weight:400;color:var(--mute)}
+.lg-form input[type=text],.lg-form input[type=email],.lg-form input[type=date],.lg-form textarea,.lg-form select{font:400 16px 'Geist',sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line2);border-radius:14px;padding:12px 14px;width:100%}
+.lg-form textarea{min-height:90px;resize:vertical}
+.lg-form input:focus,.lg-form textarea:focus,.lg-form select:focus{outline:2px solid var(--ink);outline-offset:1px}
+.lg-radio{display:flex;gap:10px;flex-wrap:wrap}
+.lg-radio label{display:flex;align-items:center;gap:8px;font-weight:500;border:1px solid var(--line2);border-radius:999px;padding:9px 14px;cursor:pointer}
+.lg-radio input{accent-color:var(--ink)}
+.lg-fixed{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15px;color:var(--ink2)}
+.lg-err{color:#e5484d;font-size:14px;min-height:1em;margin:0}
+.lg-btn.big{height:52px;font-size:16px;padding:0 26px}
+.lg-btn[disabled]{opacity:.5;cursor:wait}
+.lg-done{display:none}
+.lg-done.on{display:block;animation:lgin .5s cubic-bezier(.16,1,.3,1) both}
+.lg-done pre{white-space:pre-wrap;font:400 14.5px/1.6 'Geist',sans-serif;color:var(--ink2);margin:0}
+.hide,.lg-form .hide{display:none!important}
+</style>
+</head>
+<body>
+<header class="lg-top">
+  <a class="lg-brand" href="/tutor/" data-home><img src="/tutor/img/max-fav-96.png" alt="" width="30" height="30">BWL Max <small>Beta</small></a>
+  <div class="sp"></div>
+  <a class="lg-back" href="/tutor/" data-home>← <span>Zurück zu BWL Max</span></a>
+</header>
+<main>
+  <div class="lg-eyebrow">Verträge</div>
+  <h1>Verträge hier kündigen</h1>
+  <p class="lg-lead">Hier kündigst du dein Abo „Max’s Inner Circle“. Ohne Login, ohne Umwege.</p>
+  <p class="lg-date">Kündigst du im kostenlosen Testzeitraum, zahlst du nichts. Die Inner-Circle-Funktionen enden dann sofort.</p>
+
+  <section id="formular">
+    <form class="lg-form" data-vertrag="kuendigung" novalidate>
+      <label>Vertrag
+        <div class="lg-fixed">Abo „Max’s Inner Circle“ (7,99 € / Monat)</div>
+      </label>
+      <label>Dein Name
+        <input type="text" name="name" autocomplete="name" required maxlength="80">
+      </label>
+      <label>E-Mail-Adresse deines BWL-Max-Kontos <small>An diese Adresse schicken wir auch die Kündigungsbestätigung.</small>
+        <input type="email" name="email" autocomplete="email" required maxlength="120">
+      </label>
+      <div>
+        <p style="margin:0 0 8px;font-size:14px;font-weight:600">Art der Kündigung</p>
+        <div class="lg-radio">
+          <label><input type="radio" name="art" value="ordentlich" checked> Ordentliche Kündigung</label>
+          <label><input type="radio" name="art" value="ausserordentlich"> Außerordentliche Kündigung</label>
+        </div>
+      </div>
+      <label class="hide" data-grund>Grund der außerordentlichen Kündigung
+        <textarea name="grund" maxlength="1000"></textarea>
+      </label>
+      <div>
+        <p style="margin:0 0 8px;font-size:14px;font-weight:600">Zeitpunkt</p>
+        <div class="lg-radio">
+          <label><input type="radio" name="wann" value="naechstmoeglich" checked> Zum nächstmöglichen Zeitpunkt</label>
+          <label><input type="radio" name="wann" value="datum"> Zu einem bestimmten Datum</label>
+        </div>
+      </div>
+      <label class="hide" data-datum>Kündigen zum
+        <input type="date" name="datum">
+      </label>
+      <p class="lg-err" data-err></p>
+      <div><button class="lg-btn big" type="submit">jetzt kündigen</button></div>
+    </form>
+  </section>
+
+  <section class="lg-done" data-done>
+    <h2>Deine Kündigung ist eingegangen</h2>
+    <p>Speicher dir diese Bestätigung oder druck sie aus. Eine Kopie schicken wir dir per E-Mail.</p>
+    <div class="lg-card"><pre data-beleg></pre></div>
+    <p style="margin-top:14px"><button class="lg-btn" type="button" data-print>Bestätigung speichern / drucken</button></p>
+  </section>
+</main>
+<footer>
+  <span>© 2026 BWL Max</span><span class="sp"></span>
+  <a href="/tutor/legal/impressum.html" data-legal="impressum">Impressum</a>
+  <a href="/tutor/legal/datenschutz.html" data-legal="datenschutz">Datenschutz</a>
+  <a href="/tutor/legal/agb.html" data-legal="agb">AGB</a>
+  <a href="/tutor/legal/widerruf.html" data-legal="widerruf">Widerrufsbelehrung</a>
+  <a href="/tutor/legal/kuendigen.html" data-legal="kuendigen">Verträge hier kündigen</a>
+  <a href="/tutor/legal/widerrufen.html" data-legal="widerrufen">Vertrag widerrufen</a>
+  <button type="button" data-consent-open>Cookie-Einstellungen</button>
+</footer>
+<script>
+(function(){var bm=/(^|\.)bwlmax\.de$/.test(location.hostname);
+document.querySelectorAll('[data-home]').forEach(function(a){a.href=bm?'/':'/tutor/'});
+if(bm)document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});})();
+</script>
+<script src="/tutor/js/consent.js?v=3" defer></script>
+<script src="/tutor/js/vertrag.js?v=1" defer></script>
+</body>
+</html>

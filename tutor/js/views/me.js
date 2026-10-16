@@ -160,11 +160,16 @@ function today(body) {
     : ses2.length ? h('div', { class: 'me-sessions' }, h('div', { class: 'me-note' }, ses.length ? L('Für heute bist du durch. Morgen steht an:', 'You’re done for today. Tomorrow:') : L('Heute frei. Morgen steht an:', 'Free today. Tomorrow:')), ses2.map(s => session(s, now)))
     : h('div', { class: 'me-empty' }, h('p', {}, hasPlan ? (ses.length ? L('Für heute bist du durch. Morgen ist frei.', 'You’re done for today. Tomorrow is free.') : L('Heute keine Vorlesungen. Zeit für dich – oder für Karteikarten.', 'No lectures today. Time for you – or for flashcards.')) : L('Verbinde deinen Stundenplan, dann sag ich dir jeden Morgen, was ansteht.', 'Connect your timetable and I’ll tell you every morning what’s on.')),
       hasPlan ? null : h('a', { class: 'btn sm', href: '#/app/me/plan' }, L('Stundenplan verbinden', 'Connect timetable')));
-  const recs = recommend();
+  const recs = recommend(), top = recs[0], rest = recs.slice(1);
   const ex = exams().slice(0, 4);
+  // Eine Karte, ein Button: das Wichtigste jetzt
+  if (top) body.append(h('section', { class: 'me-next' },
+    h('div', { class: 'me-next-i', html: ico(top.ic) }),
+    h('div', { class: 'me-next-t' }, h('div', { class: 'eyebrow' }, L('Jetzt dran', 'Up next')), h('h2', {}, top.t), h('p', {}, top.s)),
+    h('a', { class: 'btn primary lg me-next-b', href: top.href, onclick: top.onclick || null }, L('Los geht’s', 'Let’s go') + (top.min ? L(` · ca. ${top.min} Min.`, ` · ~${top.min} min`) : ''), h('span', { html: ico('right') }))));
   body.append(h('div', { class: 'me-grid' },
-    card(L('Max empfiehlt', 'Max suggests'), h('div', { class: 'me-recs' }, recs.map((r, i) => h('a', { class: 'me-rec' + (i === 0 ? ' top' : ''), href: r.href, onclick: r.onclick || null },
-      h('span', { class: 'me-ri', html: ico(r.ic) }), h('span', { class: 'me-rt' }, h('b', {}, r.t), h('small', {}, r.s)), h('span', { class: 'me-ra', html: ico('right') }))))),
+    rest.length ? card(L('Danach', 'After that'), h('div', { class: 'me-recs' }, rest.map(r => h('a', { class: 'me-rec', href: r.href, onclick: r.onclick || null },
+      h('span', { class: 'me-ri', html: ico(r.ic) }), h('span', { class: 'me-rt' }, h('b', {}, r.t), h('small', {}, r.s)), h('span', { class: 'me-ra', html: ico('right') }))))) : null,
     card(showToday ? L('Heute', 'Today') : L('Morgen', 'Tomorrow'), sesEl),
     card(L('Klausuren', 'Exams'), ex.length ? h('div', { class: 'me-exams' }, ex.map(e => h('a', { class: 'me-exam', href: e.doc ? `#/app/${e.doc.id}/plan` : '#/app/me/faecher' },
       h('div', { class: 'me-exn' }, h('b', {}, String(e.days)), h('span', {}, e.days === 1 ? L('Tag', 'day') : L('Tage', 'days'))),
@@ -189,9 +194,9 @@ function recommend() {
   const byDue = S.list.map(d => ({ d, n: dueCards(d).length })).filter(x => x.n).sort((a, b) => b.n - a.n);
   const ex = exams();
   const urgent = ex.find(e => e.days <= 21 && e.doc && (e.m ?? 0) < expected(e.days));
-  if (urgent) out.push({ ic: 'calendar', t: L(`${urgent.name}: aufholen`, `${urgent.name}: catch up`), s: L(`Klausur in ${tage(urgent.days)} – du bist bei ${urgent.m} %, Ziel wäre ~${expected(urgent.days)} %.`, `Exam in ${tage(urgent.days)} – you’re at ${urgent.m}%, aim for ~${expected(urgent.days)}%.`), href: `#/app/${urgent.doc.id}/plan` });
-  for (const d of S.list) { const p = d.plan ? planSummary(d) : null; if (p && p.daysLeft >= 0 && p.todayOpen?.length) { out.push({ ic: 'exam', t: L(`Heute im Plan: ${d.name}`, `Today’s plan: ${d.name}`), s: L(`${p.todayOpen.length} ${p.todayOpen.length === 1 ? 'Aufgabe' : 'Aufgaben'} · ~${p.todayMin} Min.`, `${p.todayOpen.length} ${p.todayOpen.length === 1 ? 'task' : 'tasks'} · ~${p.todayMin} min`), href: `#/app/${d.id}/plan` }); break; } }
-  if (byDue.length) { const n = byDue.reduce((x, y) => x + y.n, 0); out.push({ ic: 'cards', t: L(`${n} Karten wiederholen`, `Review ${n} cards`), s: L(`Am meisten in „${byDue[0].d.name}“. Wiederholen ist kostenlos.`, `Most in “${byDue[0].d.name}”. Reviewing is free.`), href: `#/app/${byDue[0].d.id}/karten` }); }
+  if (urgent) out.push({ min: 25, ic: 'calendar', t: L(`${urgent.name}: aufholen`, `${urgent.name}: catch up`), s: L(`Klausur in ${tage(urgent.days)} – du bist bei ${urgent.m} %, Ziel wäre ~${expected(urgent.days)} %.`, `Exam in ${tage(urgent.days)} – you’re at ${urgent.m}%, aim for ~${expected(urgent.days)}%.`), href: `#/app/${urgent.doc.id}/plan` });
+  for (const d of S.list) { const p = d.plan ? planSummary(d) : null; if (p && p.daysLeft >= 0 && p.todayOpen?.length) { out.push({ min: p.todayMin || 20, ic: 'exam', t: L(`Heute im Plan: ${d.name}`, `Today’s plan: ${d.name}`), s: L(`${p.todayOpen.length} ${p.todayOpen.length === 1 ? 'Aufgabe' : 'Aufgaben'} · ~${p.todayMin} Min.`, `${p.todayOpen.length} ${p.todayOpen.length === 1 ? 'task' : 'tasks'} · ~${p.todayMin} min`), href: `#/app/${d.id}/plan` }); break; } }
+  if (byDue.length) { const n = byDue.reduce((x, y) => x + y.n, 0); out.push({ min: Math.max(2, Math.round(n * 0.4)), ic: 'cards', t: L(`${n} Karten wiederholen`, `Review ${n} cards`), s: L(`Am meisten in „${byDue[0].d.name}“. Wiederholen ist kostenlos.`, `Most in “${byDue[0].d.name}”. Reviewing is free.`), href: `#/app/${byDue[0].d.id}/karten` }); }
   for (const e of ex.filter(e => e.days <= 60 && e.fach)) {
     const ds = (e.fach.docs || []).map(docById).filter(Boolean);
     if (!ds.length) { out.push({ ic: 'upload', t: L(`${e.name}: Stoff hochladen`, `${e.name}: upload material`), s: L(`Klausur in ${tage(e.days)}, aber noch kein Skript drin. Lad es hoch, dann plan ich mit.`, `Exam in ${tage(e.days)}, but no slides yet. Upload them and I’ll plan along.`), href: '#/app', onclick: ev => { ev.preventDefault(); document.getElementById('fileApp')?.click(); } }); continue; }
@@ -201,13 +206,13 @@ function recommend() {
     if (nk) out.push({ ic: 'cards', t: L(`Karteikarten für ${e.name}`, `Flashcards for ${e.name}`), s: L('Einmal erstellen, dann jeden Tag ein paar Minuten wiederholen – kostenlos.', 'Create once, then review a few minutes a day – free.'), href: `#/app/${nk.id}/karten` });
   }
   const mis = S.list.filter(d => d.mistakes?.length).sort((a, b) => b.mistakes.length - a.mistakes.length)[0];
-  if (mis) out.push({ ic: 'quiz', t: L(`${mis.mistakes.length} Fehler ausbügeln`, `Fix ${mis.mistakes.length} mistakes`), s: L(`Aus „${mis.name}“. Genau da holt man in der Klausur Punkte.`, `From “${mis.name}”. That’s where exam points are.`), href: `#/app/${mis.id}/quiz` });
+  if (mis) out.push({ min: Math.max(3, Math.round(mis.mistakes.length * 0.7)), ic: 'quiz', t: L(`${mis.mistakes.length} Fehler ausbügeln`, `Fix ${mis.mistakes.length} mistakes`), s: L(`Aus „${mis.name}“. Genau da holt man in der Klausur Punkte.`, `From “${mis.name}”. That’s where exam points are.`), href: `#/app/${mis.id}/quiz` });
   const nxt = S.list.find(d => d.path?.chapters?.some(c => !c.done));
-  if (nxt) { const i = nxt.path.chapters.findIndex(c => !c.done); out.push({ ic: 'path', t: L(`Weiter: ${nxt.path.chapters[i].title}`, `Next: ${nxt.path.chapters[i].title}`), s: L(`Lernpfad „${nxt.name}“ · Kapitel ${i + 1} von ${nxt.path.chapters.length}`, `Study path “${nxt.name}” · chapter ${i + 1} of ${nxt.path.chapters.length}`), href: `#/app/${nxt.id}/pfad/${i}` }); }
+  if (nxt) { const i = nxt.path.chapters.findIndex(c => !c.done); out.push({ min: 15, ic: 'path', t: L(`Weiter: ${nxt.path.chapters[i].title}`, `Next: ${nxt.path.chapters[i].title}`), s: L(`Lernpfad „${nxt.name}“ · Kapitel ${i + 1} von ${nxt.path.chapters.length}`, `Study path “${nxt.name}” · chapter ${i + 1} of ${nxt.path.chapters.length}`), href: `#/app/${nxt.id}/pfad/${i}` }); }
   if (!S.list.length) out.push({ ic: 'upload', t: L('Erstes Skript hochladen', 'Upload your first slides'), s: L('PDF, PowerPoint oder Word – ich mach Quiz, Karten und Lernpfad draus.', 'PDF, PowerPoint or Word – I’ll turn it into quizzes, cards and a study path.'), href: '#/app', onclick: e => { e.preventDefault(); document.getElementById('fileApp')?.click(); } });
   if (!me.faecher.length) out.push({ ic: 'brain', t: L('Fächer anlegen', 'Add your subjects'), s: L('Mit Klausurdatum – dann zähl ich runter und weiß, was Vorrang hat.', 'With exam dates – so I can count down and prioritise.'), href: '#/app/me/faecher' });
   if (!me.kurse.length && !me.ics.events?.length) out.push({ ic: 'calendar', t: L('Stundenplan verbinden', 'Connect your timetable'), s: L('Link aus dem Uni-Portal einfügen – dauert 30 Sekunden.', 'Paste the link from your uni portal – takes 30 seconds.'), href: '#/app/me/plan' });
-  out.push({ ic: 'whistle', t: L('10 Minuten BWL-Trainer', '10 minutes of the trainer'), s: L('Buchungssätze, Break-even, Kapitalwert – unbegrenzt.', 'Entries, break-even, NPV – unlimited.'), href: '#/app/trainer' });
+  out.push({ min: 10, ic: 'whistle', t: L('10 Minuten BWL-Trainer', '10 minutes of the trainer'), s: L('Buchungssätze, Break-even, Kapitalwert – unbegrenzt.', 'Entries, break-even, NPV – unlimited.'), href: '#/app/trainer' });
   return out.slice(0, 5);
 }
 

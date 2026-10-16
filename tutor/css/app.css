@@ -2462,3 +2462,18 @@ html[lang="en"] .me-wday.on .me-wdh::after { content: "today"; }
 .aitag .ai-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.6}
 .aitag .aiok{color:var(--ink,#f5f5f5);opacity:.95;font-weight:600;cursor:help}
 .aitag .ai-sep{opacity:.6}
+.side-links a.side-legal { padding: 2px 6px; font: 500 11px var(--sans); color: var(--mute); opacity: .7; text-decoration: none; border-radius: 6px; }
+.side-links a.side-legal:hover { color: var(--ink); opacity: 1; }
+
+/* Mein Bereich: eine Karte, ein Button – das Wichtigste jetzt */
+.me-next { position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; padding: 24px 26px; border-radius: 26px; background: var(--inv); color: var(--onInv); animation: fadeIn .4s ease both; }
+.me-next::after { content: ''; position: absolute; inset: -40% -10% auto auto; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--onInv) 10%, transparent), transparent); pointer-events: none; }
+.me-next-i { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: color-mix(in srgb, var(--onInv) 12%, transparent); }
+.me-next-i svg { width: 24px; height: 24px; }
+.me-next .eyebrow { color: color-mix(in srgb, var(--onInv) 60%, transparent); margin-bottom: 6px; }
+.me-next h2 { margin: 0 0 4px; font-size: clamp(20px, 2.4vw, 26px); letter-spacing: -.03em; line-height: 1.15; }
+.me-next p { margin: 0; color: color-mix(in srgb, var(--onInv) 72%, transparent); font-size: 14.5px; line-height: 1.45; max-width: 560px; }
+.me-next .me-next-b { position: relative; z-index: 1; background: var(--onInv); color: var(--inv); border-color: var(--onInv); white-space: nowrap; gap: 8px; }
+.me-next .me-next-b:hover { transform: translateY(-1px); filter: none; }
+.me-next .me-next-b span { display: grid; }
+@media (max-width: 720px) { .me-next { grid-template-columns: 1fr; gap: 14px; padding: 22px 20px; } .me-next-i { width: 44px; height: 44px; } .me-next .me-next-b { justify-self: stretch; justify-content: center; } }
