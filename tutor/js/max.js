@@ -88,38 +88,40 @@ const T = EN ? ENG : DE;
 const THINK = {
   de: {
     start: ['Moment. Genie bei der Arbeit.', 'Okay, ich mach das. Wie immer.', 'Lehn dich zurück. Profi am Werk.'],
-    generic: ['Ich frag kurz meinen Vermögensberater …', 'Moment, ich park noch den Porsche …', 'Excel im Kopf läuft …', 'Ich rechne. Mit Stil.'],
+    generic: ['Ich frag kurz meinen Vermögensberater …', 'Moment, ich park noch den Porsche …', 'Excel im Kopf läuft …', 'Ich rechne. Mit Stil.', 'Kurz den Kragen hochklappen …', 'Ich ruf mal kurz in Kampen an …', 'Der Butler bringt gleich die Ergebnisse.', 'Noch schnell den Mittelscheitel nachziehen …', 'Ich delegiere das an mein Gehirn. Bestes Team.'],
     quiz: ['Ich denk mir fiese Fragen aus. Fies, aber fair.', 'Falsche Antworten, die verdammt richtig aussehen …', 'Ich rechne jede Aufgabe zweimal nach. Kontrolle ist besser, sagt Papa.', 'Sechs Formate. Weil ich’s kann.'],
     exam: ['Klausurniveau. Also so, wie dein Prof es mag.', 'Ich stell dir eine Klausur zusammen, die du bestehst. Mit mir.', 'Zeitdruck gibt’s gratis dazu.', 'Ich prüf die Lösungen zweimal. Einmal reicht nur bei Papa.'],
-    cards: ['Ich schreib die Karten so kurz wie meine Geduld.', 'Formeln auf Karten. Wie Visitenkarten, nur nützlich.', 'Spaced Repetition – klingt teuer, ist gratis.'],
+    cards: ['Ich schreib die Karten so kurz wie meine Geduld.', 'Formeln auf Karten. Wie Visitenkarten, nur nützlich.', 'Spaced Repetition – klingt teuer, ist gratis.', 'Vorderseite Frage, Rückseite Wahrheit.'],
     podcast: ['Lisa richtet das Mikro. Ich die Haare.', 'Ich schreib uns die Sprüche, Lisa die Fakten.', 'Gleich läuft die Aufnahme. Radiostimme, sagt Mama.'],
-    summary: ['Alles Wichtige auf eine Seite. Ich bin Effizienz.', 'Ich zeichne die Mindmap. Freihand, wie Picasso.', 'Kernaussagen rein, Gelaber raus.'],
-    path: ['Ich teil dein Skript in Kapitel. Wie Papa seine Firmen.', 'Lernreihenfolge sortieren … mach ich beruflich. Fast.', 'Ich gewichte für die Klausur. Insiderwissen.'],
-    lesson: ['Ich mal dir die Tafel. Die Kreide ist vergoldet.', 'Kontrollfragen werden gebaut …', 'Gleich wird’s anschaulich. Versprochen.'],
-    topic: ['Ich schreib dir ein Skript. Ohne Prof, mit Stil.', 'Beispiel wird durchgerechnet – zweimal, ich bin ja nicht leichtsinnig.', 'Typische Klausurfehler rein. Die hab ich natürlich nie gemacht.', 'Ich frag kurz meinen Vermögensberater …'],
+    summary: ['Alles Wichtige auf eine Seite. Ich bin Effizienz.', 'Ich zeichne die Mindmap. Freihand, wie Picasso.', 'Kernaussagen rein, Gelaber raus.', 'Ich fass zusammen. Kurz, wie mein Urlaub vom Urlaub.'],
+    path: ['Ich teil dein Skript in Kapitel. Wie Papa seine Firmen.', 'Lernreihenfolge sortieren … mach ich beruflich. Fast.', 'Ich gewichte für die Klausur. Insiderwissen.', 'Erst Basics, dann Champagner.'],
+    lesson: ['Ich mal dir die Tafel. Die Kreide ist vergoldet.', 'Kontrollfragen werden gebaut …', 'Gleich wird’s anschaulich. Versprochen.', 'Ich rechne vor. Du nickst.'],
+    topic: ['Ich schreib dir ein Skript. Ohne Prof, mit Stil.', 'Beispiel wird durchgerechnet – zweimal, ich bin ja nicht leichtsinnig.', 'Typische Klausurfehler rein. Die hab ich natürlich nie gemacht.', 'Ich such dir das beste Beispiel raus. Nur Premium.', 'Formeln werden poliert. Wie meine Loafer.'],
     voice: ['Gute Frage. Sag ich nicht oft.', 'Ich denk nach. Sieht man an der Stirn.', 'Moment, ich formulier das elegant.', 'Kurz den Kaffee abstellen …', 'Ich such die Antwort. Hab sie gleich, wie immer.', 'Papa hätte jetzt einen Nachhilfelehrer angerufen. Ich denk einfach.'],
-    ingest: ['Ich les dein Skript. Schneller als du deine Mails.', 'Seite für Seite … ich überfliege nur. Profi.', 'PDF wird zerlegt. Sanft.'],
+    ingest: ['Ich les dein Skript. Schneller als du deine Mails.', 'Seite für Seite … ich überfliege nur. Profi.', 'PDF wird zerlegt. Sanft.', 'Ich markier mir das Wichtige. Im Kopf, in Gold.'],
   },
   en: {
     start: ['Hold on. Genius at work.', 'Fine, I’ll do it. As always.', 'Sit back. Professional at work.'],
-    generic: ['Quickly asking my wealth manager …', 'Hold on, just parking the Porsche …', 'Mental Excel running …', 'Calculating. With style.'],
+    generic: ['Quickly asking my wealth manager …', 'Hold on, just parking the Porsche …', 'Mental Excel running …', 'Calculating. With style.', 'Popping my collar real quick …', 'Calling Monaco for a second …', 'The butler is bringing the results.', 'Fixing my middle part …', 'Delegating this to my brain. Best team.'],
     quiz: ['Coming up with nasty questions. Nasty but fair.', 'Wrong answers that look damn right …', 'Checking every calculation twice. Control is better, says Dad.', 'Six formats. Because I can.'],
     exam: ['Exam level. Just how your professor likes it.', 'Building you an exam you’ll pass. With me.', 'Time pressure comes free.', 'Checking the solutions twice. Once is only enough for Dad.'],
-    cards: ['Keeping the cards as short as my patience.', 'Formulas on cards. Like business cards, but useful.', 'Spaced repetition – sounds expensive, is free.'],
+    cards: ['Keeping the cards as short as my patience.', 'Formulas on cards. Like business cards, but useful.', 'Spaced repetition – sounds expensive, is free.', 'Front: question. Back: the truth.'],
     podcast: ['Lisa sets up the mic. I set up my hair.', 'I write the jokes, Lisa the facts.', 'Recording starts in a sec. Radio voice, says Mum.'],
-    summary: ['Everything important on one page. I am efficiency.', 'Drawing the mind map. Freehand, like Picasso.', 'Key points in, waffle out.'],
-    path: ['Splitting your slides into chapters. Like Dad splits companies.', 'Sorting the learning order … I do this professionally. Almost.', 'Weighting for the exam. Insider knowledge.'],
-    lesson: ['Drawing your whiteboard. The chalk is gold-plated.', 'Building check questions …', 'It’s about to get visual. Promise.'],
-    topic: ['Writing you a script. No professor, all style.', 'Working through the example – twice, I’m not reckless.', 'Adding typical exam mistakes. Which I never made, obviously.', 'Quickly asking my wealth manager …'],
+    summary: ['Everything important on one page. I am efficiency.', 'Drawing the mind map. Freehand, like Picasso.', 'Key points in, waffle out.', 'Summarising. Short, like my vacation from vacation.'],
+    path: ['Splitting your slides into chapters. Like Dad splits companies.', 'Sorting the learning order … I do this professionally. Almost.', 'Weighting for the exam. Insider knowledge.', 'Basics first, then champagne.'],
+    lesson: ['Drawing your whiteboard. The chalk is gold-plated.', 'Building check questions …', 'It’s about to get visual. Promise.', 'I do the maths. You nod.'],
+    topic: ['Writing you a script. No professor, all style.', 'Working through the example – twice, I’m not reckless.', 'Adding typical exam mistakes. Which I never made, obviously.', 'Picking the best example. Premium only.', 'Polishing the formulas. Like my loafers.'],
     voice: ['Good question. I don’t say that often.', 'Thinking. You can see it on my forehead.', 'Hold on, phrasing it elegantly.', 'Just putting my coffee down …', 'Finding the answer. Got it in a sec, as always.', 'Dad would call a private tutor now. I just think.'],
-    ingest: ['Reading your slides. Faster than you read your emails.', 'Page by page … I’m only skimming. Pro.', 'Taking the PDF apart. Gently.'],
+    ingest: ['Reading your slides. Faster than you read your emails.', 'Page by page … I’m only skimming. Pro.', 'Taking the PDF apart. Gently.', 'Highlighting the key stuff. In my head, in gold.'],
   }
 };
 export function thinkLines(kind = 'generic', fallback = []) {
   if (getSpice() === 1) return fallback.length ? fallback : (EN ? ['One moment …', 'Working on it …'] : ['Einen Moment …', 'Ich arbeite daran …']);
   const D = THINK[EN ? 'en' : 'de'];
   const sh = a => [...a].sort(() => Math.random() - .5);
-  return [pick(D.start), ...sh(D[kind] || []), ...sh(D.generic)];
+  // nie derselbe Spruch doppelt – auch nicht beim Wiederholen von vorn
+  const seen = new Set();
+  return [pick(D.start), ...sh(D[kind] || []), ...sh(D.generic)].filter(x => !seen.has(x) && seen.add(x));
 }
 export function say(kind, arg) {
   const s = getSpice();
