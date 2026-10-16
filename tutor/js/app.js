@@ -4,7 +4,7 @@ import { face } from './face.js';
 import { S, refreshList, openDoc, createDoc, removeDoc, lastDocId, save, onChange, SAMPLE, mastery } from './state.js';
 import { readFile, ACCEPT } from './ingest.js';
 import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
-import { accountChip, refreshAccount } from './account.js';
+import { accountChip, refreshAccount, openLogin } from './account.js';
 import { getOutLang, setOutLang, L, LOCALE, lang, setLang } from './i18n.js';
 import { lines as maxLines, getSpice } from './max.js';
 import { apiError, thought } from './ui.js';
@@ -75,7 +75,8 @@ function buildShell() {
       h('div', { class: 'grp' }, L('Ohne Skript', 'No slides needed')),
       h('button', { class: 'doc-item', type: 'button', onclick: () => talkToMax() }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, L('Sprich mit mir', 'Talk to me'))),
       h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, L('Ich erklär dir ein Thema', 'I’ll explain a topic'))),
-      h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('whistle') }), h('span', { class: 'nm' }, L('BWL-Trainer', 'Business trainer')))),
+      h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('whistle') }), h('span', { class: 'nm' }, L('BWL-Trainer', 'Business trainer'))),
+      h('a', { class: 'doc-item', href: '#/app/challenge', 'data-nav': 'challenge' }, h('span', { html: ico('trophy') }), h('span', { class: 'nm' }, L('Wochen-Challenge', 'Weekly challenge')), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') }))),
     h('div', { class: 'bottom' }, outLangSwitch(), accountChip(), quotaEl,
       h('div', { class: 'side-links' },
         h('button', { type: 'button', onclick: openFeedback }, L('★ Feedback', '★ Feedback')),
@@ -128,6 +129,8 @@ function renderList() {
   });
   shell.list.replaceChildren(...(items.length ? items : [h('div', { class: 'doc-item', style: { color: 'var(--faint)', cursor: 'default' } }, L('Noch nichts hochgeladen', 'Nothing uploaded yet'))]));
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.includes('/trainer')));
+  $$('[data-nav="challenge"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.includes('/challenge')));
+  $$('[data-lockb]', shell.side).forEach(x => { x.hidden = !!getAccount(); });
 }
 
 function renderTabs(docId, tab) {
@@ -157,6 +160,12 @@ export async function mountApp(parts) {
       const wrap = h('div', { class: 'view-in' }); root.appendChild(wrap);
       renderTrainer(wrap, { kind: b, onAsk: S.list.length ? text => askTutorAbout(text) : null });
     });
+  }
+  if (a === 'challenge') {
+    shell.title.textContent = L('Wochen-Challenge', 'Weekly challenge');
+    shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
+    renderList();
+    return show('challenge', async root => { const { renderChallenge } = await import('./challenge.js'); renderChallenge(root, { onLogin: () => openLogin({ title: L('Anmelden für die Challenge', 'Sign in for the challenge') }) }); });
   }
   if (a === 'neu') return; // Upload läuft
   if (!a) {
@@ -422,6 +431,7 @@ export const TRY = L({
 export async function tryFeature(key) {
   if (key === 'voice') return talkToMax();
   if (key === 'trainer') { location.hash = '#/app/trainer'; return; }
+  if (key === 'challenge') { location.hash = '#/app/challenge'; return; }
   const [title, text] = TRY[key] || TRY.tutor;
   const fin = h('input', { type: 'file', class: 'sr', accept: ACCEPT });
   const close = () => document.querySelector('.modal-bg.trybg')?.remove();

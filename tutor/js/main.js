@@ -77,10 +77,11 @@ function initLanding() {
   if (fr) {
     // Die drei stärksten zuerst und größer, der Rest dezent
     const TOP = [['board', L('Erklärt an der Tafel', 'Explains on the whiteboard'), 'tutor', L('Dein Skript, live erklärt', 'Your slides, explained live')], ['calendar', L('Klausurplan', 'Exam plan'), 'plan', L('Tag für Tag bis zur Klausur', 'Day by day to your exam')], ['quiz', L('Quiz in 6 Formaten', 'Quizzes in 6 formats'), 'quiz', L('Wie in der echten Klausur', 'Just like the real exam')]];
-    const REST = [['whistle', L('BWL-Trainer', 'Business trainer'), 'trainer'], ['brain', L('Lernzettel & Mindmap', 'Study sheet & mind map'), 'zettel'], ['mic', L('Sprechen', 'Talk'), 'voice'], ['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['pod', 'Podcast', 'podcast']];
+    const REST = [['whistle', L('BWL-Trainer', 'Business trainer'), 'trainer'], ['trophy', L('Wochen-Challenge', 'Weekly challenge'), 'challenge'], ['brain', L('Lernzettel & Mindmap', 'Study sheet & mind map'), 'zettel'], ['mic', L('Sprechen', 'Talk'), 'voice'], ['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['pod', 'Podcast', 'podcast']];
     const rowT = h('div', { class: 'feattop' }), rowR = h('div', { class: 'featrest' });
     TOP.forEach(([ic, t, key, sub], k) => rowT.appendChild(h('button', { class: 'feat big', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k }, onclick: () => tryFeature(key) }, h('span', { class: 'fi', html: ico(ic) }), h('span', { class: 'ft' }, h('b', {}, t), h('small', {}, sub)))));
-    REST.forEach(([ic, t, key], k) => rowR.appendChild(h('button', { class: 'feat', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k + 3 }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t)));
+    REST.forEach(([ic, t, key], k) => rowR.appendChild(h('button', { class: 'feat', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k + 3 }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t, key === 'challenge' ? h('span', { class: 'lockb', 'data-lockb': '', title: L('Mit kostenlosem Konto', 'With a free account'), html: ico('lock') }) : null)));
+    onAccount(a => document.querySelectorAll('#featrow [data-lockb]').forEach(x => { x.hidden = !!a; }));
     fr.append(rowT, rowR);
     // Umrandung läuft durch alle Funktionen: erst die drei großen, dann die kleinen (die Zeile wischt mit)
     const fs = [...rowT.children, ...rowR.children]; let fi = 0;
