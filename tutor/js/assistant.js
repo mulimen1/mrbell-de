@@ -771,7 +771,7 @@ export function mountAssistant() {
       const raw = String(r.text || '').slice(0, 12000);
       hist.push({ role: 'assistant', content: raw });
       hist = hist.slice(-20); ls.set(CHAT, hist);
-      ex.model = r.model || '';
+      ex.model = r.model || ''; ex.tools = r.tools || [];
       await answer(raw, my, spoken, ex);
     } catch (e) {
       if (hist[hist.length - 1]?.role === 'user' && hist[hist.length - 1].content === text) hist.pop();
@@ -801,7 +801,7 @@ export function mountAssistant() {
     p.boards.forEach(b => extras.push(boardBtn(b)));
     if (!(spoken && cfg.spk) && p.text && cfg.spk) extras.push(listenBtn(p.text, txt, ex));
     if (p.text && p.text.length > 60) { const q = [...hist].reverse().find(m => m.role === 'user')?.content || ''; const d = curDoc(); extras.push(favChip({ typ: 'erklaerung', titel: (q || plainT(p.text)).slice(0, 90), doc: d?.id || '', docName: d?.name || '', ref: favKey(p.text), inhalt: plainT(p.text) })); }
-    if (ex.model !== undefined) extras.push(aiTag(ex.model));
+    if (ex.model !== undefined) extras.push(aiTag(ex.tools));
     ex.aX.replaceChildren(...extras);
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);
     if (!open) unread(true);

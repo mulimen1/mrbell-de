@@ -248,6 +248,9 @@ export function modelName(id) {
   const m = /claude-([a-z]+)-(\d+)-(\d+)/.exec(String(id || ''));
   return m ? `Claude ${m[1][0].toUpperCase()}${m[1].slice(1)} ${m[2]}.${m[3]}` : '';
 }
-export function aiTag() {
-  return h('div', { class: 'aitag', title: L('Max ist eine KI (Sprachmodell von Anthropic). Antworten können Fehler enthalten – prüf Wichtiges mit deinem Skript.', 'Max is an AI (language model by Anthropic). Answers can contain mistakes – check important things against your slides.') }, h('span', { class: 'ai-dot' }), L('KI von Anthropic · kann Fehler machen', 'AI by Anthropic · can make mistakes'));
+const TOOLNAME = { rechne: 'Rechner', kapitalwert: 'Kapitalwert', interner_zinsfuss: 'Interner Zinsfuß', annuitaet: 'Annuität', finanzmathe: 'Zinsrechnung', abschreibung: 'Abschreibung', break_even: 'Break-even', deckungsbeitrag: 'Deckungsbeitrag', zuschlagskalkulation: 'Zuschlagskalkulation', einkommensteuer: 'Einkommensteuer (§ 32a EStG)', statistik: 'Statistik' };
+export function aiTag(tools) {
+  const t = Array.isArray(tools) ? tools.filter(x => TOOLNAME[x]) : [];
+  const ok = t.length ? h('span', { class: 'aiok', title: L('Die Zahlen hat ein festes Rechenprogramm ausgerechnet, nicht die KI: ', 'The numbers were computed by a fixed calculator, not by the AI: ') + t.map(x => TOOLNAME[x]).join(', ') }, '✓ ' + L('Zahlen exakt nachgerechnet', 'Numbers verified by calculator')) : null;
+  return h('div', { class: 'aitag', title: L('Max ist eine KI (Sprachmodell von Anthropic). Antworten können Fehler enthalten – prüf Wichtiges mit deinem Skript.', 'Max is an AI (language model by Anthropic). Answers can contain mistakes – check important things against your slides.') }, ok, ok ? h('span', { class: 'ai-sep' }, '·') : h('span', { class: 'ai-dot' }), L('KI von Anthropic · kann Fehler machen', 'AI by Anthropic · can make mistakes'));
 }

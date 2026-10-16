@@ -96,7 +96,7 @@ export async function render(root, ctx) {
   drawBoard();
 
   // ---------- Nachrichten ----------
-  function addMsg(role, raw, { animate = false, boardRefs = [], nofav = false, model } = {}) {
+  function addMsg(role, raw, { animate = false, boardRefs = [], nofav = false, model, tools } = {}) {
     const el = h('div', { class: 'msg ' + (role === 'user' ? 'me' : 'ai') });
     if (role === 'user') { el.textContent = raw; msgs.appendChild(el); scroll(); return el; }
     const p = parse(raw);
@@ -104,7 +104,7 @@ export async function render(root, ctx) {
     el.appendChild(body);
     const extras = h('div');
     boardRefs.forEach(({ idx, title }) => extras.appendChild(h('button', { class: 'boardlink', onclick: () => { bIdx = idx; drawBoard(); showBoard(true); } }, h('span', { html: ico('board') }), title)));
-    if (model !== undefined) extras.appendChild(aiTag(model));
+    if (model !== undefined) extras.appendChild(aiTag(tools));
     if (!nofav && (p.text || '').length > 60) extras.appendChild(h('div', { class: 'favrow' }, starBtn(() => ({ typ: 'erklaerung', titel: plain(p.text).slice(0, 90), doc: doc.id, docName: doc.name, ref: textKey(p.text), inhalt: plain(p.text) }), { label: true, cls: 'sm' })));
     if (p.acts.length) extras.appendChild(h('div', { class: 'acts' }, p.acts.map(a => h('a', { class: 'btn sm', href: ACTIONS[a][1](doc) }, ACTIONS[a][0], h('span', { html: ico('right') })))));
     msgs.appendChild(el);
@@ -129,7 +129,7 @@ export async function render(root, ctx) {
     doc.chat.forEach((m, k) => {
       const refs = [];
       for (let j = 0; j < boardOwners[k]; j++) { if (doc.boards[boardCursor]) refs.push({ idx: boardCursor, title: doc.boards[boardCursor].title }); boardCursor++; }
-      addMsg(m.role, m.content, { boardRefs: refs, model: m.role === 'assistant' ? m.model : undefined });
+      addMsg(m.role, m.content, { boardRefs: refs, model: m.role === 'assistant' ? m.model : undefined, tools: m.tools });
     });
   }
   const sug = L(['Erklär mir das wichtigste Thema an der Tafel', 'Rechne mir ein Beispiel vor', 'Frag mich ab', 'Was kommt wahrscheinlich in der Klausur dran?'], ['Explain the most important topic on the whiteboard', 'Walk me through a worked example', 'Quiz me', 'What’s likely to come up in the exam?']);
@@ -153,7 +153,7 @@ export async function render(root, ctx) {
       const r = await ask('chat', { material: forChat(doc, text + ' ' + doc.chat.slice(-3).map(m => m.content).join(' ')), docName: doc.name, messages: history, opts: { mode, spice: getSpice() } }, { signal: ctrl.signal });
       typing.remove();
       const raw = r.text || '';
-      doc.chat.push({ role: 'assistant', content: raw, model: r.model || '' });
+      doc.chat.push({ role: 'assistant', content: raw, model: r.model || '', tools: r.tools || [] });
       const p = parse(raw);
       const refs = [];
       p.boards.forEach(b => { doc.boards.push({ ...b, at: Date.now() }); refs.push({ idx: doc.boards.length - 1, title: b.title }); });
@@ -161,7 +161,7 @@ export async function render(root, ctx) {
       if (doc.boards.length > 60) { const cut = doc.boards.length - 60; doc.boards = doc.boards.slice(cut); refs.forEach(x => x.idx -= cut); }
       save(doc);
       if (p.boards.length) { bIdx = refs[0].idx; drawBoard(); if (matchMedia('(max-width: 980px)').matches) setTimeout(() => showBoard(true), 600); }
-      addMsg('assistant', raw, { animate: true, boardRefs: refs, model: r.model || '' });
+      addMsg('assistant', raw, { animate: true, boardRefs: refs, model: r.model || '', tools: r.tools || [] });
     } catch (e) {
       typing.remove(); fc.set('sad'); setTimeout(() => fc.set('idle'), 1500);
       doc.chat.pop(); save(doc);

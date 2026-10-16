@@ -2460,3 +2460,5 @@ html[lang="en"] .me-wday.on .me-wdh::after { content: "today"; }
 /* KI-Kennzeichnung unter Antworten */
 .aitag{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.01em;color:var(--mute,#8a8a8a);opacity:.75;margin-top:6px;width:100%;user-select:none}
 .aitag .ai-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.6}
+.aitag .aiok{color:var(--ink,#f5f5f5);opacity:.95;font-weight:600;cursor:help}
+.aitag .ai-sep{opacity:.6}
