@@ -36,7 +36,20 @@ export function nickField(initial = '') {
 }
 
 // ---------- Begrüßung ----------
+// Feiertage (bundesweit + ein paar Klassiker). Ostern nach Gauß/Meeus.
+function ostern(y) { const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), da = ((h + l - 7 * m + 114) % 31) + 1; return new Date(y, mo - 1, da); }
+function feiertag(d = new Date()) {
+  const y = d.getFullYear(), md = (d.getMonth() + 1) * 100 + d.getDate();
+  const o = ostern(y), rel = n => { const x = new Date(o); x.setDate(o.getDate() + n); return (x.getMonth() + 1) * 100 + x.getDate(); };
+  const F = { 101: 'neujahr', 214: 'valentin', 501: 'mai', 1003: 'einheit', 1031: 'halloween', 1224: 'heiligabend', 1225: 'weihnachten', 1226: 'weihnachten', 1231: 'silvester' };
+  F[rel(-2)] = 'karfreitag'; F[rel(0)] = 'ostern'; F[rel(1)] = 'ostern'; F[rel(39)] = 'himmelfahrt'; F[rel(49)] = 'pfingsten'; F[rel(50)] = 'pfingsten';
+  return F[md] || null;
+}
+// Kopfzeile: Tageszeit, an Feiertagen der Feiertag
 export function gruss(d = new Date()) {
+  const ft = feiertag(d);
+  const FG = { neujahr: L('Frohes neues Jahr', 'Happy New Year'), ostern: L('Frohe Ostern', 'Happy Easter'), heiligabend: L('Frohe Weihnachten', 'Merry Christmas'), weihnachten: L('Frohe Weihnachten', 'Merry Christmas'), silvester: L('Guten Rutsch', 'Happy New Year’s Eve'), halloween: L('Happy Halloween', 'Happy Halloween') };
+  if (ft && FG[ft]) return FG[ft];
   const hr = d.getHours();
   if (hr >= 5 && hr < 11) return L('Guten Morgen', 'Good morning');
   if (hr >= 11 && hr < 14) return L('Guten Mittag', 'Good afternoon');
@@ -44,38 +57,86 @@ export function gruss(d = new Date()) {
   if (hr >= 18 && hr < 23) return L('Guten Abend', 'Good evening');
   return L('Na, Nachteule', 'Hey, night owl');
 }
-const SPRUCH = L([
-  'Schön, dich zu sehen. Fast so schön wie mein Spiegelbild.',
-  'Dein Lernstand hat dich vermisst. Ich ein bisschen auch.',
-  'Heute wird gelernt. Danach gönnen wir uns einen Aperol.',
-  'Kaffee steht, Tafel ist geputzt, Mittelscheitel sitzt. Los geht’s.',
-  'Du bist pünktlich. Papa wäre stolz – auf dich, nicht auf mich.',
-  'Die Klausur weiß noch nicht, was auf sie zukommt.',
-  'Ich hab extra den Porsche stehen lassen. Für dich.',
-  'Heute machen wir aus Stoff Wissen. Und aus Wissen eine 1,0.',
-  'Main-Character-Energie erkannt. Weiter so.',
-  'Wieder da? Du hast offensichtlich Geschmack.',
-  'Lass uns kurz die Welt der BWL erobern. Danach Mittagspause.',
-  'Deine Karteikarten haben schon nach dir gefragt.',
-  'Ich hab heute gute Laune. Liegt bestimmt an dir.',
-  'Sylt kann warten. Erst die Bilanz, dann der Strand.',
-], [
-  'Good to see you. Almost as good as my reflection.',
-  'Your progress missed you. I did a little too.',
-  'Studying first. Aperol afterwards.',
-  'Coffee’s ready, board’s clean, middle part is perfect. Let’s go.',
-  'Right on time. Dad would be proud – of you, not me.',
-  'The exam has no idea what’s coming.',
-  'I left the Porsche at home. For you.',
-  'Today we turn notes into knowledge. And knowledge into an A.',
-  'Main character energy detected. Keep it up.',
-  'Back again? You clearly have taste.',
-  'Let’s conquer business studies real quick. Then lunch.',
-  'Your flashcards were asking about you.',
-  'I’m in a great mood today. Probably because of you.',
-  'Sylt can wait. Balance sheet first, beach later.',
-]);
-function nextSpruch() { const last = ls.get('tutor.greetLast', -1); let i; do i = Math.floor(Math.random() * SPRUCH.length); while (i === last && SPRUCH.length > 1); ls.set('tutor.greetLast', i); return SPRUCH[i]; }
+// Sprüche: frech, aber entspannt. Erst Anlass (Feiertag, Wochentag, Tageszeit), sonst allgemein.
+const S = (de, en) => L(de, en);
+const POOL = {
+  allg: () => [
+    S('Schön, dich zu sehen. Fast so schön wie mein Spiegelbild.', 'Good to see you. Almost as good as my reflection.'),
+    S('Dein Lernstand hat dich vermisst. Ich ein bisschen auch.', 'Your progress missed you. I did a little too.'),
+    S('Kaffee steht, Tafel ist geputzt, Mittelscheitel sitzt.', 'Coffee’s ready, board’s clean, middle part is perfect.'),
+    S('Die Klausur weiß noch nicht, was auf sie zukommt.', 'The exam has no idea what’s coming.'),
+    S('Ich hab extra den Porsche stehen lassen. Für dich.', 'I left the Porsche at home. For you.'),
+    S('Main-Character-Energie erkannt. Weiter so.', 'Main character energy detected. Keep it up.'),
+    S('Wieder da? Du hast offensichtlich Geschmack.', 'Back again? You clearly have taste.'),
+    S('Deine Karteikarten haben schon nach dir gefragt.', 'Your flashcards were asking about you.'),
+    S('Sylt kann warten. Erst die Bilanz, dann der Strand.', 'Sylt can wait. Balance sheet first, beach later.'),
+    S('Du bist auf einem guten Weg. Ich sag das nicht zu jedem.', 'You’re on a good path. I don’t say that to everyone.'),
+    S('Kurz reinschauen zählt auch. Sagt die Statistik. Meine.', 'Just popping in counts too. Says the data. Mine.'),
+    S('Einmal tief durchatmen. Dann Soll an Haben.', 'Deep breath. Then debit to credit.'),
+    S('Ich hab dir einen Platz an der Tafel freigehalten.', 'I saved you a spot at the whiteboard.'),
+    S('Kleine Schritte. Große Noten.', 'Small steps. Big grades.'),
+  ],
+  morgen: () => [
+    S('Früh dran. Die Konkurrenz schläft noch.', 'Early bird. The competition’s still asleep.'),
+    S('Erst Kaffee, dann Kostenrechnung. In der Reihenfolge.', 'Coffee first, then cost accounting. In that order.'),
+    S('Morgens lernen ist wie Zinseszins. Zahlt sich später aus.', 'Studying in the morning is like compound interest. Pays off later.'),
+  ],
+  mittag: () => [
+    S('Mittagspause mit Lernen? Ambitioniert. Gefällt mir.', 'Studying over lunch? Ambitious. I like it.'),
+    S('Kurz was mitnehmen, dann ab in die Mensa.', 'Grab something quick, then off to the canteen.'),
+  ],
+  nachmittag: () => [
+    S('Nachmittagstief? Nicht mit mir.', 'Afternoon slump? Not on my watch.'),
+    S('Perfekte Zeit für ein paar Karten zwischendurch.', 'Perfect time for a few flashcards.'),
+  ],
+  abend: () => [
+    S('Feierabend für die anderen. Lernabend für uns.', 'Evening off for everyone else. Study evening for us.'),
+    S('Ein Kapitel noch, dann Netflix. Abgemacht?', 'One more chapter, then Netflix. Deal?'),
+    S('Abends lernen, morgens klüger aufwachen. So der Plan.', 'Study tonight, wake up smarter. That’s the plan.'),
+  ],
+  nacht: () => [
+    S('Es ist spät. Aber gut, ich bin auch noch wach.', 'It’s late. But fine, I’m up too.'),
+    S('Nachtschicht? Nicht zu lang, ja? Schlaf ist auch Lernen.', 'Night shift? Not too long, okay? Sleep is studying too.'),
+  ],
+  montag: () => [
+    S('Neue Woche, neues Glück. Und neue Karteikarten.', 'New week, new luck. And new flashcards.'),
+    S('Guter Start in die Woche. Ich glaub an dich – meistens.', 'Have a good start to the week. I believe in you – mostly.'),
+    S('Montag. Wir machen das Beste draus.', 'Monday. Let’s make the best of it.'),
+  ],
+  freitag: () => [
+    S('Fast Wochenende. Erst noch kurz klug werden.', 'Almost the weekend. Just get a bit smarter first.'),
+    S('Freitag und du lernst? Respekt. Ehrlich.', 'Friday and you’re studying? Respect. Honestly.'),
+  ],
+  wochenende: () => [
+    S('Lernen am Wochenende? Ich sag’s keinem.', 'Studying on the weekend? I won’t tell anyone.'),
+    S('Wochenende. Kurz was schaffen, dann frei. Klingt fair.', 'Weekend. Get a bit done, then off. Sounds fair.'),
+  ],
+  neujahr: () => [S('Neues Jahr, neue Vorsätze. Fangen wir mit einem an.', 'New year, new resolutions. Let’s start with one.')],
+  valentin: () => [S('Valentinstag. Ich bring keine Blumen, aber Karteikarten.', 'Valentine’s Day. No flowers, but flashcards.')],
+  mai: () => [S('Tag der Arbeit. Heute ganz entspannt.', 'Labour Day. Nice and easy today.')],
+  einheit: () => [S('Tag der Deutschen Einheit. Soll und Haben vereint.', 'German Unity Day. Debit and credit, united.')],
+  halloween: () => [S('Das Gruseligste heute? Deine Klausurtermine. Keine Sorge, wir machen das.', 'The scariest thing today? Your exam dates. Don’t worry, we’ve got this.')],
+  heiligabend: () => [S('Heiligabend. Ich hoffe, du lernst nur zwischen Bescherung und Essen.', 'Christmas Eve. Hopefully only between presents and dinner.')],
+  weihnachten: () => [S('Frohe Weihnachten! Die Bilanz kann heute auch mal warten.', 'Merry Christmas! The balance sheet can wait today.')],
+  silvester: () => [S('Letzter Tag im Jahr. Wenigstens die Karteikarten sind fällig – sonst nichts.', 'Last day of the year. Only the flashcards are due – nothing else.')],
+  karfreitag: () => [S('Feiertag. Ruhig angehen lassen.', 'Public holiday. Take it easy.')],
+  ostern: () => [S('Frohe Ostern! Die Klausurtermine sind besser versteckt als jedes Ei.', 'Happy Easter! Your exam dates are hidden better than any egg.')],
+  himmelfahrt: () => [S('Feiertag. Wer lernt, hat heute schon gewonnen.', 'Public holiday. Studying today already counts as winning.')],
+  pfingsten: () => [S('Pfingsten. Langes Wochenende – ein bisschen was geht trotzdem.', 'Whitsun. Long weekend – a little something still works.')],
+};
+export function nextSpruch(d = new Date()) {
+  const hist = ls.get('tutor.greetHist', []) || [];
+  const hr = d.getHours(), wd = d.getDay(), ft = feiertag(d);
+  const zeit = hr >= 5 && hr < 11 ? 'morgen' : hr < 14 && hr >= 11 ? 'mittag' : hr >= 14 && hr < 18 ? 'nachmittag' : hr >= 18 && hr < 23 ? 'abend' : 'nacht';
+  const tag = wd === 1 && hr < 18 ? 'montag' : wd === 5 && hr >= 12 ? 'freitag' : wd === 0 || wd === 6 ? 'wochenende' : null;
+  // Feiertag zuerst, dann meist (60 %) der Anlass, sonst allgemein
+  const order = ft ? [ft, tag, zeit, 'allg'] : Math.random() < .6 ? [tag, zeit, 'allg'] : ['allg', tag, zeit];
+  for (const key of order.filter(Boolean)) {
+    const fresh = POOL[key]().filter(x => !hist.includes(x));
+    if (fresh.length) { const x = fresh[Math.floor(Math.random() * fresh.length)]; ls.set('tutor.greetHist', [x, ...hist].slice(0, 12)); return x; }
+  }
+  const all = POOL.allg(); return all[Math.floor(Math.random() * all.length)];
+}
 
 let showing = false;
 export function greetSplash(nick = getNick()) {
