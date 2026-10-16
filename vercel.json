@@ -2,17 +2,6 @@
   "outputDirectory": ".",
   "redirects": [
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.bwlmax.de"
-        }
-      ],
-      "destination": "https://bwlmax.de/:path*",
-      "permanent": true
-    },
-    {
       "source": "/blog",
       "destination": "/",
       "permanent": true
@@ -99,7 +88,7 @@
       "has": [
         {
           "type": "host",
-          "value": "bwlmax.de"
+          "value": "(www\\.)?bwlmax\\.de"
         }
       ],
       "destination": "/tutor/img/favicon.ico"
@@ -109,17 +98,7 @@
       "has": [
         {
           "type": "host",
-          "value": "bwlmax.de"
-        }
-      ],
-      "destination": "/tutor/index.html"
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.bwlmax.de"
+          "value": "(www\\.)?bwlmax\\.de"
         }
       ],
       "destination": "/tutor/index.html"
@@ -194,7 +173,7 @@
       "missing": [
         {
           "type": "host",
-          "value": "bwlmax.de"
+          "value": "(www\\.)?bwlmax\\.de"
         }
       ]
     },
@@ -216,7 +195,7 @@
       "has": [
         {
           "type": "host",
-          "value": "bwlmax.de"
+          "value": "(www\\.)?bwlmax\\.de"
         }
       ],
       "headers": [
