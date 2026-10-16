@@ -172,7 +172,8 @@ export function mountAssistant() {
     moreBtn, dotsBtn, mid, muteBtn, micBtn, sendBtn, doneBtn, stopBtn, closeBtn);
   const voiceChips = VOICES.map(([k, l, d]) => h('button', { class: 'chip', type: 'button', title: d, 'data-v': k, onclick: () => { ls.set('tutor.voice', k); drawMenu(); } }, l));
   const menu = h('div', { class: 'ai-menu', role: 'menu', hidden: true },
-    h('div', { class: 'eyebrow' }, L('Stimme', 'Voice')), h('div', { class: 'asst-vch' }, voiceChips),
+    h('button', { class: 'ai-mx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => closeMenu() }),
+    h('div', { class: 'eyebrow ai-me' }, L('Stimme', 'Voice')), h('div', { class: 'asst-vch' }, voiceChips),
     h('button', { class: 'asst-mi ai-mi-mute', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); muteBtn.click(); } }),
     h('button', { class: 'asst-mi', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); newTalk(); } }, h('span', { html: ico('refresh') }), L('Neues Gespräch', 'New conversation')),
     h('button', { class: 'asst-mi ai-mi-quip', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); toggleQuips(); } }),
@@ -484,9 +485,12 @@ export function mountAssistant() {
   let greeted = false;
   function greet() {
     if (greeted) return; greeted = true;
-    const g = h('div', { class: 'ai-bub max last greet' }, h('div', { class: 'ai-a' }, richText(L(
+    const gTx = h('div', { class: 'ai-a' }, h('span', { class: 'typing' }, h('i'), h('i'), h('i')));
+    const gText = (L(
       'Moin, ich bin Max – dein Tutor hier. Ich seh, was du auf der Seite gerade machst, und führ dich durch: Frag mich alles, ich erklär’s dir an der Tafel, öffne Sachen für dich und bau dir Quiz, Karteikarten oder einen Klausurplan. Schreib einfach los – oder tipp auf **Sprich mit Max**.',
-      'Hey, I’m Max – your tutor here. I can see what you’re doing on the page and I’ll guide you: ask me anything, I’ll explain it on the whiteboard, open things for you and build quizzes, flashcards or an exam plan. Just type – or tap **Talk to Max**.'))));
+      'Hey, I’m Max – your tutor here. I can see what you’re doing on the page and I’ll guide you: ask me anything, I’ll explain it on the whiteboard, open things for you and build quizzes, flashcards or an exam plan. Just type – or tap **Talk to Max**.'));
+    const g = h('div', { class: 'ai-bub max last greet' }, gTx);
+    setTimeout(() => { if (gTx.isConnected) typeIt(gTx, gText, { scroll: capScroll }); }, 1500);
     feedList.querySelectorAll('.ai-bub.last').forEach(b => b.classList.remove('last'));
     feedList.appendChild(g); showCap(); drawTog(); capScroll();
   }
@@ -538,7 +542,6 @@ export function mountAssistant() {
       board.style.setProperty('--ox', (fr.left + fr.width / 2 - br.left) + 'px');
       board.style.setProperty('--oy', (fr.top + fr.height / 2 - br.top) + 'px');
       board.classList.remove('ai-reveal'); void board.offsetWidth; board.classList.add('ai-reveal');
-      setTimeout(() => board.classList.remove('ai-reveal'), 1400);
     });
   }
   function minBoard(v, quiet) {
@@ -873,25 +876,26 @@ export function mountAssistant() {
   addEventListener('hashchange', () => { if (boardOpen && !boardMin && MOB.matches) minBoard(true, true); });
 
   const QUIPS = L([
-    ['Daytona oder Batman-GMT – welche Rolex steht mir besser?', ['Daytona', 'Batman'], ['Klassiker. Wie mein Kapitalwert: immer positiv.', 'Mutig. Papa sagt, Blau-Schwarz ist das neue Beige.']],
-    ['Saint-Tropez oder Monaco – wo verbring ich das nächste Semester?', ['Saint-Tropez', 'Monaco'], ['Gute Wahl. Club 55 statt Hörsaal 3.', 'Steuerlich clever. Du lernst schnell.']],
-    ['Privatjet chartern oder direkt kaufen? Was meinst du?', ['Chartern', 'Kaufen'], ['Asset-light. Du hast BWL verstanden.', 'Bilanzverlängerung deluxe. Respekt.']],
+    ['Daytona, Batman-GMT oder Submariner – welche Rolex steht mir besser?', ['Daytona', 'Batman', 'Submariner'], ['Klassiker. Wie mein Kapitalwert: immer positiv.', 'Mutig. Papa sagt, Blau-Schwarz ist das neue Beige.', 'Zeitlos. Wie die doppelte Buchführung.']],
+    ['Saint-Tropez, Monaco oder Sylt – wo verbring ich das nächste Semester?', ['Saint-Tropez', 'Monaco', 'Sylt'], ['Gute Wahl. Club 55 statt Hörsaal 3.', 'Steuerlich clever. Du lernst schnell.', 'Heimvorteil. Ich reservier schon mal in Kampen.']],
+    ['Privatjet chartern, kaufen – oder doch Airline?', ['Chartern', 'Kaufen', 'Airline'], ['Asset-light. Du hast BWL verstanden.', 'Bilanzverlängerung deluxe. Respekt.', 'First Class, hoffe ich. Sonst reden wir nicht mehr.']],
     ['Aperol oder Hugo – was trinkt man beim Lernen?', ['Aperol', 'Hugo'], ['Orange ist das neue Gold. Weiterlernen!', 'Sylt-Klassiker. Aber erst nach dem Quiz.']],
     ['Polo oder Golf – womit netzwerk ich am Wochenende?', ['Polo', 'Golf'], ['Pferde sind auch nur Anlagevermögen.', 'Handicap runter, Kontakte rauf.']],
     ['Kampen oder Keitum – wo steht mein nächstes Ferienhaus?', ['Kampen', 'Keitum'], ['Natürlich. Die Whiskeystraße ruft.', 'Understatement. Gefällt mir.']],
   ], [
-    ['Daytona or Batman GMT – which Rolex suits me better?', ['Daytona', 'Batman'], ['A classic. Like my NPV: always positive.', 'Bold. Dad says blue-black is the new beige.']],
+    ['Daytona, Batman GMT or Submariner – which Rolex suits me best?', ['Daytona', 'Batman', 'Submariner'], ['A classic. Like my NPV: always positive.', 'Bold. Dad says blue-black is the new beige.', 'Timeless. Like double-entry bookkeeping.']],
     ['Saint-Tropez or Monaco – where do I spend next semester?', ['Saint-Tropez', 'Monaco'], ['Good call. Club 55 instead of lecture hall 3.', 'Tax-smart. You learn fast.']],
-    ['Charter a private jet or just buy one?', ['Charter', 'Buy'], ['Asset-light. You get business.', 'Balance sheet extension deluxe. Respect.']],
+    ['Charter a jet, buy one – or fly commercial?', ['Charter', 'Buy', 'Airline'], ['Asset-light. You get business.', 'Balance sheet extension deluxe. Respect.', 'First class, I hope. Otherwise we’re done.']],
     ['Aperol or Hugo – what do you drink while studying?', ['Aperol', 'Hugo'], ['Orange is the new gold. Keep going!', 'A classic. But only after the quiz.']],
     ['Polo or golf – where do I network this weekend?', ['Polo', 'Golf'], ['Horses are just fixed assets.', 'Handicap down, contacts up.']],
   ]);
   let quipT = 0, quipHide = 0, qi = Math.floor(Math.random() * QUIPS.length);
-  function hideQuip() { clearTimeout(quipHide); quip.classList.add('out'); setTimeout(() => { quip.hidden = true; quip.classList.remove('out'); root.classList.remove('quipping'); }, 260); }
+  function hideQuip() { clearTimeout(quipHide); if (quip.hidden) return; quip.classList.add('out'); setTimeout(() => { quip.hidden = true; quip.classList.remove('out'); root.classList.remove('quipping'); }, 900); }
   function showQuip() {
-    if (cfg.quips === false || open || !isAssistantEnabled() || document.hidden || root.classList.contains('covered') || root.classList.contains('landtop') || root.classList.contains('nobub') || document.querySelector('body > .modal-bg, body > .voice')) return planQuip();
+    if (cfg.quips !== false && root.classList.contains('landtop')) { clearTimeout(quipT); quipT = setTimeout(showQuip, 3000); return; }
+    if (cfg.quips === false || open || !isAssistantEnabled() || document.hidden || root.classList.contains('covered') || root.classList.contains('nobub') || document.querySelector('body > .modal-bg, body > .voice')) return planQuip();
     const [q, opts, ans] = QUIPS[qi++ % QUIPS.length];
-    const reply = t => { quip.replaceChildren(h('p', {}, t)); bf.pulse('happy', 1200); clearTimeout(quipHide); quipHide = setTimeout(hideQuip, 3800); };
+    const reply = t => { const p = h('p', { class: 'q-a' }, t); quip.replaceChildren(p); bf.pulse('happy', 1200); clearTimeout(quipHide); quipHide = setTimeout(hideQuip, 4500); };
     quip.replaceChildren(h('p', {}, q), h('div', { class: 'q-r' }, opts.map((o, i) => h('button', { class: 'chip', type: 'button', onclick: e => { e.stopPropagation(); reply(ans[i]); } }, o))),
       h('button', { class: 'q-x', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: e => { e.stopPropagation(); hideQuip(); } }));
     quip.hidden = false; quipN++; root.classList.add('quipping'); bf.pulse('smug', 1400);
@@ -903,8 +907,8 @@ export function mountAssistant() {
   function planQuip(first) {
     clearTimeout(quipT); if (cfg.quips === false) return;
     const land = !route().tab && !document.getElementById('landing')?.classList.contains('hidden');
-    const ms = land ? (first ? 9000 : 30000 + Math.random() * 10000) : (first ? 180000 : 360000 + Math.random() * 180000);
-    quipT = setTimeout(() => { if (root.classList.contains('land') && quipN >= 8) return planQuip(); showQuip(); }, ms);
+    const ms = land ? (first ? 6000 : 20000 + Math.random() * 6000) : (first ? 60000 : 180000 + Math.random() * 60000);
+    quipT = setTimeout(() => { if (land && quipN >= 14) return; showQuip(); }, ms);
   }
   addEventListener('hashchange', () => planQuip(true));
   function toggleQuips() { cfg.quips = cfg.quips === false; saveCfg(); if (cfg.quips === false) { hideQuip(); clearTimeout(quipT); toast(L('Keine Sprüche mehr. Langweilig, aber okay.', 'No more jokes. Boring, but fine.')); } else { planQuip(true); toast(L('Sprüche sind wieder an.', 'Jokes are back on.')); } }
