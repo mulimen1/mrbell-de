@@ -905,27 +905,46 @@ export function mountAssistant() {
   addEventListener('hashchange', () => { if (boardOpen && !boardMin && MOB.matches) minBoard(true, true); });
 
   const QUIPS = L([
-    ['Daytona, Batman-GMT oder Submariner – welche Rolex steht mir besser?', ['Daytona', 'Batman', 'Submariner'], ['Klassiker. Wie mein Kapitalwert: immer positiv.', 'Mutig. Papa sagt, Blau-Schwarz ist das neue Beige.', 'Zeitlos. Wie die doppelte Buchführung.']],
-    ['Saint-Tropez, Monaco oder Sylt – wo verbring ich das nächste Semester?', ['Saint-Tropez', 'Monaco', 'Sylt'], ['Gute Wahl. Club 55 statt Hörsaal 3.', 'Steuerlich clever. Du lernst schnell.', 'Heimvorteil. Ich reservier schon mal in Kampen.']],
-    ['Privatjet chartern, kaufen – oder doch Airline?', ['Chartern', 'Kaufen', 'Airline'], ['Asset-light. Du hast BWL verstanden.', 'Bilanzverlängerung deluxe. Respekt.', 'First Class, hoffe ich. Sonst reden wir nicht mehr.']],
-    ['Aperol oder Hugo – was trinkt man beim Lernen?', ['Aperol', 'Hugo'], ['Orange ist das neue Gold. Weiterlernen!', 'Sylt-Klassiker. Aber erst nach dem Quiz.']],
-    ['Polo oder Golf – womit netzwerk ich am Wochenende?', ['Polo', 'Golf'], ['Pferde sind auch nur Anlagevermögen.', 'Handicap runter, Kontakte rauf.']],
-    ['Kampen oder Keitum – wo steht mein nächstes Ferienhaus?', ['Kampen', 'Keitum'], ['Natürlich. Die Whiskeystraße ruft.', 'Understatement. Gefällt mir.']],
+    ['Daytona, Batman-GMT oder Submariner – welche Rolex steht mir besser?', ['Daytona', 'Batman', 'Submariner'], ['Klassiker. Wie mein Kapitalwert: immer positiv.', 'Mutig. Papa sagt, Blau-Schwarz ist das neue Beige.', 'Zeitlos. Wie die doppelte Buchführung.'], [46, 22, 32]],
+    ['Saint-Tropez, Monaco oder Sylt – wo verbring ich das nächste Semester?', ['Saint-Tropez', 'Monaco', 'Sylt'], ['Gute Wahl. Club 55 statt Hörsaal 3.', 'Steuerlich clever. Du lernst schnell.', 'Heimvorteil. Ich reservier schon mal in Kampen.'], [34, 24, 42]],
+    ['Privatjet chartern, kaufen – oder doch Airline?', ['Chartern', 'Kaufen', 'Airline'], ['Asset-light. Du hast BWL verstanden.', 'Bilanzverlängerung deluxe. Respekt.', 'First Class, hoffe ich. Sonst reden wir nicht mehr.'], [33, 52, 15]],
+    ['Aperol oder Hugo – was trinkt man beim Lernen?', ['Aperol', 'Hugo'], ['Orange ist das neue Gold. Weiterlernen!', 'Sylt-Klassiker. Aber erst nach dem Quiz.'], [74, 26]],
+    ['Polo oder Golf – womit netzwerk ich am Wochenende?', ['Polo', 'Golf'], ['Pferde sind auch nur Anlagevermögen.', 'Handicap runter, Kontakte rauf.'], [31, 69]],
+    ['Kampen oder Keitum – wo steht mein nächstes Ferienhaus?', ['Kampen', 'Keitum'], ['Natürlich. Die Whiskeystraße ruft.', 'Understatement. Gefällt mir.'], [71, 29]],
   ], [
-    ['Daytona, Batman GMT or Submariner – which Rolex suits me best?', ['Daytona', 'Batman', 'Submariner'], ['A classic. Like my NPV: always positive.', 'Bold. Dad says blue-black is the new beige.', 'Timeless. Like double-entry bookkeeping.']],
-    ['Saint-Tropez or Monaco – where do I spend next semester?', ['Saint-Tropez', 'Monaco'], ['Good call. Club 55 instead of lecture hall 3.', 'Tax-smart. You learn fast.']],
-    ['Charter a jet, buy one – or fly commercial?', ['Charter', 'Buy', 'Airline'], ['Asset-light. You get business.', 'Balance sheet extension deluxe. Respect.', 'First class, I hope. Otherwise we’re done.']],
-    ['Aperol or Hugo – what do you drink while studying?', ['Aperol', 'Hugo'], ['Orange is the new gold. Keep going!', 'A classic. But only after the quiz.']],
-    ['Polo or golf – where do I network this weekend?', ['Polo', 'Golf'], ['Horses are just fixed assets.', 'Handicap down, contacts up.']],
+    ['Daytona, Batman GMT or Submariner – which Rolex suits me best?', ['Daytona', 'Batman', 'Submariner'], ['A classic. Like my NPV: always positive.', 'Bold. Dad says blue-black is the new beige.', 'Timeless. Like double-entry bookkeeping.'], [46, 22, 32]],
+    ['Saint-Tropez or Monaco – where do I spend next semester?', ['Saint-Tropez', 'Monaco'], ['Good call. Club 55 instead of lecture hall 3.', 'Tax-smart. You learn fast.'], [58, 42]],
+    ['Charter a jet, buy one – or fly commercial?', ['Charter', 'Buy', 'Airline'], ['Asset-light. You get business.', 'Balance sheet extension deluxe. Respect.', 'First class, I hope. Otherwise we’re done.'], [33, 52, 15]],
+    ['Aperol or Hugo – what do you drink while studying?', ['Aperol', 'Hugo'], ['Orange is the new gold. Keep going!', 'A classic. But only after the quiz.'], [74, 26]],
+    ['Polo or golf – where do I network this weekend?', ['Polo', 'Golf'], ['Horses are just fixed assets.', 'Handicap down, contacts up.'], [31, 69]],
   ]);
+  const VERDICT = L({
+    npc: ['Du NPC.', 'Mainstream-Move. NPC-Energie.', 'Mit der Herde. Sicher ist sicher.', 'Basic, aber solide. NPC.', 'Wie alle. Ich sag nix.'],
+    mid: ['Solide Mitte. Weder NPC noch Legende.', 'Ausgeglichen – wie eine gute Bilanz.', 'Halb Herde, halb Hauptfigur.'],
+    rare: ['Du bist was Besonderes. Bild dir nix drauf ein.', 'Auch ein blindes Huhn findet mal ein Korn.', 'Minderheit. Mutig – oder einfach verpeilt.', 'Hauptfigur-Energie. Übertreib’s nicht.'],
+  }, {
+    npc: ['You NPC.', 'Mainstream move. NPC energy.', 'With the herd. Safe choice.', 'Basic but solid. NPC.'],
+    mid: ['Solid middle. Not NPC, not legend.', 'Balanced – like a good balance sheet.'],
+    rare: ['You’re special. Don’t let it go to your head.', 'Even a blind squirrel finds a nut.', 'Minority. Brave – or just lost.'],
+  });
+  const pick = a => a[Math.floor(Math.random() * a.length)];
   let quipT = 0, quipHide = 0, qi = Math.floor(Math.random() * QUIPS.length);
   function hideQuip() { clearTimeout(quipHide); if (quip.hidden) return; quip.classList.add('out'); setTimeout(() => { quip.hidden = true; quip.classList.remove('out'); root.classList.remove('quipping'); }, 900); }
   function showQuip() {
     if (cfg.quips !== false && root.classList.contains('landtop')) { clearTimeout(quipT); quipT = setTimeout(showQuip, 3000); return; }
     if (cfg.quips === false || open || !isAssistantEnabled() || document.hidden || root.classList.contains('covered') || root.classList.contains('nobub') || document.querySelector('body > .modal-bg, body > .voice')) return planQuip();
-    const [q, opts, ans] = QUIPS[qi++ % QUIPS.length];
-    const reply = t => { const p = h('p', { class: 'q-a' }, t); quip.replaceChildren(p); bf.pulse('happy', 1200); clearTimeout(quipHide); quipHide = setTimeout(hideQuip, 4500); };
-    quip.replaceChildren(h('p', {}, q), h('div', { class: 'q-r' }, opts.map((o, i) => h('button', { class: 'chip', type: 'button', onclick: e => { e.stopPropagation(); reply(ans[i]); } }, o))),
+    const [q, opts, ans, pct] = QUIPS[qi++ % QUIPS.length];
+    const reply = i => {
+      const t = ans[i], v = pct?.[i];
+      const kids = [h('p', { class: 'q-a' }, t)];
+      if (v) {
+        const tier = v >= 60 ? 'npc' : v <= 30 ? 'rare' : 'mid';
+        kids.push(h('div', { class: 'q-st' },
+          h('div', { class: 'q-bar' }, h('i', { style: `--w:${v}%` })),
+          h('small', {}, L(`Ich schätze, ~${v} % würden das nehmen.`, `My guess: ~${v} % would pick that.`) + ' ' + pick(VERDICT[tier]))));
+      }
+      quip.replaceChildren(...kids); bf.pulse('happy', 1200); clearTimeout(quipHide); quipHide = setTimeout(hideQuip, pct ? 6500 : 4500); };
+    quip.replaceChildren(h('p', {}, q), h('div', { class: 'q-r' }, opts.map((o, i) => h('button', { class: 'chip', type: 'button', onclick: e => { e.stopPropagation(); reply(i); } }, o))),
       h('button', { class: 'q-x', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: e => { e.stopPropagation(); hideQuip(); } }));
     quip.hidden = false; quipN++; root.classList.add('quipping'); bf.pulse('smug', 1400);
     clearTimeout(quipHide); quipHide = setTimeout(hideQuip, root.classList.contains('land') ? 11000 : 14000);
