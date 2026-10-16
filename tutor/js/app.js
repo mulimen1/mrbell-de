@@ -176,6 +176,13 @@ export async function mountApp(parts) {
       renderTrainer(wrap, { kind: b, onAsk: S.list.length ? text => askTutorAbout(text) : null });
     });
   }
+  if (a === 'rechner') {
+    shell.title.textContent = L('Rechner', 'Calculators');
+    document.title = L('Rechner · BWL Max', 'Calculators · BWL Max');
+    shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
+    renderList();
+    return show('rechner:' + (b || ''), async root => { const { render } = await import('./views/rechner.js'); return render(root, { arg: b || '', onAsk: t => viaMax(m => m.ask(t)).then(ok => { if (!ok) askTutorAbout(t, { confirm: false }); }) }); });
+  }
   if (a === 'challenge') {
     shell.title.textContent = L('Wochen-Challenge', 'Weekly challenge');
     shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
