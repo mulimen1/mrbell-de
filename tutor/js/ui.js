@@ -93,18 +93,18 @@ export async function apiError(e, retry) {
   if (e && e.code === 'need_account') return accountGate({ text: e.message, retry });
   if (e && e.code === 'cap') {
     const acc = getAccount();
-    const r = await modal({ title: L('Für heute ist Schluss damit', 'That’s it for today'), text: e.message, actions: acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Log in · 7 Tage Inner Circle', 'Log in · 7 days Inner Circle'), value: true, primary: true }] });
-    if (r) { const { openLogin } = await import('./account.js'); if (await openLogin({ title: L('Mehr mit 7 Tagen Inner Circle', 'More with 7 days in the Inner Circle') }) && retry) retry(); }
+    const r = await modal({ title: L('Für heute ist Schluss damit', 'That’s it for today'), text: e.message, actions: acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Kostenloses Konto', 'Free account'), value: true, primary: true }] });
+    if (r) { const { openLogin } = await import('./account.js'); if (await openLogin({ title: L('Mehr mit kostenlosem Konto', 'More with a free account') }) && retry) retry(); }
     return;
   }
   if (e && e.code === 'limit') {
     const acc = getAccount();
     const r = await modal({
       title: L('Ich mach Feierabend', 'I’m clocking off'),
-      text: say('limit') + (acc ? (acc.pro ? L(' Selbst im Inner Circle ist heute Schluss – morgen geht’s weiter.', ' Even in the Inner Circle, that’s it for today – we’ll carry on tomorrow.') : L(' Ab 0:00 Uhr gibt’s neue Einheiten. Der Inner Circle ohne Limit kommt bald.', ' New credits arrive at midnight. The Inner Circle without limits is coming soon.')) : L(' Ab 0:00 Uhr gibt’s neue Einheiten – oder du meldest dich kostenlos an und bekommst 7 Tage Inner Circle ohne Tageslimit.', ' New credits arrive at midnight – or sign in for free and get 7 days of Pro with no daily limit.')),
-      actions: acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Log in · 7 Tage Inner Circle', 'Log in · 7 days Inner Circle'), value: true, primary: true }]
+      text: say('limit') + (acc ? (acc.pro ? L(' Selbst im Inner Circle ist heute Schluss – morgen geht’s weiter.', ' Even in the Inner Circle, that’s it for today – we’ll carry on tomorrow.') : L(' Ab 0:00 Uhr gibt’s neue Einheiten. Der Inner Circle ohne Limit kommt bald.', ' New credits arrive at midnight. The Inner Circle without limits is coming soon.')) : L(' Ab 0:00 Uhr gibt’s neue Einheiten – oder du holst dir ein kostenloses Konto, dann hast du jeden Tag 40 Einheiten.', ' New credits arrive at midnight – or get a free account for 40 credits every day.')),
+      actions: acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Kostenloses Konto', 'Free account'), value: true, primary: true }]
     });
-    if (r) { const { openLogin } = await import('./account.js'); if (await openLogin({ title: L('Weiterlernen mit 7 Tagen Inner Circle', 'Keep learning with 7 days in the Inner Circle') }) && retry) retry(); }
+    if (r) { const { openLogin } = await import('./account.js'); if (await openLogin({ title: L('Weiterlernen mit kostenlosem Konto', 'Keep learning with a free account') }) && retry) retry(); }
     return;
   }
   const r = await modal({ title: L('Das hat nicht geklappt', 'That didn’t work'), text: (e && e.message) || L('Unbekannter Fehler.', 'Unknown error.'), actions: retry ? [{ label: L('Schließen', 'Close'), value: false }, { label: L('Nochmal versuchen', 'Try again'), value: true, primary: true }] : [{ label: 'OK', value: false, primary: true }] });

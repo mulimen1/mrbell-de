@@ -1,4 +1,4 @@
-// Konto: E-Mail + Passwort (Registrieren mit Bestätigungscode, Passwort vergessen per Code). Neues Konto = 7 Tage Inner Circle.
+// Konto: E-Mail + Passwort (Registrieren mit Bestätigungscode, Passwort vergessen per Code). Neues Konto = Free (Inner Circle nur mit Abo).
 // Beim Server liegen E-Mail-Adresse und Passwort-Hash. Skripte bleiben auf dem Gerät.
 import { h, ico, toast, ls, modal } from './util.js';
 import { ask, setAccount, getAccount, onAccount, getSession } from './api.js';
@@ -96,7 +96,7 @@ export function openLogin({ title, mode = 'login' } = {}) {
         try { await ask('login', { opts: { email, password: pw, mode: 'register' } }); ls.set('tutor.lastEmail', email); codeStep('register'); }
         catch (e2) { fc.pulse('sad'); busyBtn(btn, false, LBL); err.replaceChildren(e2.message); if (e2.code === 'exists') err.append(' ', link(L('Zur Anmeldung →', 'Go to sign in →'), () => login())); }
       });
-      box.replaceChildren(...head(L('Konto erstellen', 'Create your account'), [L('Kostenlos und in 30 Sekunden. Für neue Konten gibt’s ', 'Free and done in 30 seconds. New accounts get '), h('b', {}, L('7 Tage Inner Circle', '7 days in the Inner Circle')), L(' geschenkt.', ' on the house.')]), form, err,
+      box.replaceChildren(...head(L('Konto erstellen', 'Create your account'), L('Kostenlos und in 30 Sekunden. Alles, was du ohne Konto gemacht hast, bleibt erhalten.', 'Free and done in 30 seconds. Everything you did without an account stays.')), form, err,
         h('div', { class: 'lalt' }, L('Schon ein Konto? ', 'Already have an account? '), link(L('Anmelden', 'Sign in'), () => login())),
         h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Passwort wird verschlüsselt gespeichert. Deine Skripte bleiben auf deinem Gerät.', 'Your password is stored encrypted. Your slides stay on your device.')));
       fc.set('idle'); setTimeout(() => em.focus(), 60);
@@ -169,7 +169,7 @@ export function openLogin({ title, mode = 'login' } = {}) {
       if (!r.fresh && had && m !== 'reset') { finish(); return; }
       box.replaceChildren(fEl, h('h3', {}, r.fresh ? L('Willkommen im Club.', 'Welcome to the club.') : m === 'reset' ? L('Neues Passwort gespeichert.', 'New password saved.') : L('Da bist du ja wieder.', 'There you are again.')),
         h('p', {}, r.fresh
-          ? L(`7 Tage Inner Circle – geht aufs Haus. Also auf Papas. Bis ${fmtDate(r.account.proUntil)} lernst du ohne Tageslimit.`, `7 days in the Inner Circle – on the house. Well, on Papa’s. Until ${fmtDate(r.account.proUntil)} you learn with no daily limit.`)
+          ? L('Dein Konto steht. Alles ist freigeschaltet, dein Fortschritt wird gespeichert – und ich hab heute noch richtig Lust.', 'Your account is ready. Everything’s unlocked, your progress is saved – and I’m in a great mood today.')
           : m === 'reset' ? L('Ab jetzt meldest du dich damit an. Andere Geräte haben wir sicherheitshalber abgemeldet.', 'Use it to sign in from now on. For safety we signed out your other devices.')
           : r.account.pro ? L(`Inner Circle läuft noch bis ${fmtDate(r.account.proUntil)}.`, `Inner Circle runs until ${fmtDate(r.account.proUntil)}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
         nf && nf.el, goal && goal.el,
@@ -206,7 +206,7 @@ export async function verifyLink(ek, code) {
     setAccount(r.account, r.session);
     const n = getNick(r.account); if (n) { try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {} setTimeout(() => greetSplash(n), 400); } else setTimeout(askNick, 600);
     if (!n) return true;
-    toast(r.fresh ? L('Willkommen im Inner Circle. 7 Tage gehen aufs Haus.', 'Welcome to the Inner Circle. 7 days are on the house.') : L('Angemeldet. Schön, dass du wieder da bist.', 'Signed in. Good to have you back.'), 4000);
+    toast(r.fresh ? L('Willkommen! Dein Konto ist startklar.', 'Welcome! Your account is ready.') : L('Angemeldet. Schön, dass du wieder da bist.', 'Signed in. Good to have you back.'), 4000);
     return true;
   } catch (e) {
     toast(e.message || L('Der Link hat nicht geklappt.', 'The link didn’t work.'), 4000);
@@ -257,7 +257,7 @@ export function accountChip() {
     h('div', { class: 'accg-b' },
       h('button', { class: 'btn sm', type: 'button', onclick: () => openLogin() }, L('Anmelden', 'Sign in')),
       h('button', { class: 'btn sm primary', type: 'button', onclick: () => openLogin({ mode: 'register' }) }, L('Konto erstellen', 'Create account'))),
-    h('small', {}, L('Neue Konten: 7 Tage Inner Circle gratis', 'New accounts: 7 days Inner Circle free')));
+    h('small', {}, L('Kostenlos · dein Fortschritt bleibt gespeichert', 'Free · your progress stays saved')));
   onAccount(a => {
     if (!a) { wrap.replaceChildren(guest); return; }
     chip.replaceChildren(h('span', { class: 'av' }, ((getNick(a) || a.email)[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, getNick(a) || a.email), h('small', {}, a.pro ? L(`Inner Circle · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, `Inner Circle · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : 'Free')));

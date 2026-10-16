@@ -53,7 +53,7 @@ function locked(wrap, onLogin) {
       h('p', {}, L('Fächer mit Klausur-Countdown, dein Stundenplan, alles Gemerkte und deine Lernserie – und Max sagt dir jeden Tag, was gerade dran ist.', 'Subjects with exam countdowns, your timetable, everything you saved and your streak – and Max tells you every day what to do next.')),
       h('div', { class: 'me-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => import('../account.js').then(m => m.openLogin({ mode: 'register' })) }, L('Konto erstellen', 'Create account')),
         h('button', { class: 'btn lg', type: 'button', onclick: () => onLogin && onLogin() }, L('Anmelden', 'Sign in')),
-        h('small', {}, L('Kostenlos · 7 Tage Inner Circle geschenkt', 'Free · 7 days Inner Circle on us')))),
+        h('small', {}, L('Kostenlos · dauert 30 Sekunden', 'Free · takes 30 seconds')))),
     f),
     h('div', { class: 'me-preview', 'aria-hidden': 'true' },
       ['Kostenrechnung', 'Marketing', 'Investition & Finanzierung'].map((n, i) => h('div', { class: 'me-pcard' }, h('b', {}, n), h('span', {}, L(`Klausur in ${[12, 19, 33][i]} Tagen`, `Exam in ${[12, 19, 33][i]} days`)), h('div', { class: 'me-bar' }, h('i', { style: { width: [64, 41, 22][i] + '%' } })))),
