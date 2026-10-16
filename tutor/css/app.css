@@ -2060,3 +2060,5 @@ html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: n
   .asst-tip::after { right: 30px; top: auto; bottom: -6px; transform: rotate(45deg); }
   .asst.tip-on:not(.open) .asst-tip { animation: none; }
 }
+/* Dunkler Modus: auf hellen (invertierten) Flächen braucht Max' weißer Kopf seinen schwarzen Rand */
+:root[data-theme="dark"] .on-inv .face svg .fz-head { stroke: #0a0a0a; stroke-width: 15; }
