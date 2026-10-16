@@ -27,6 +27,12 @@ function initLanding() {
   // Sprachumschalter
   $$('[data-setlang]').forEach(b => { b.classList.toggle('on', b.dataset.setlang === lang); b.setAttribute('aria-pressed', b.dataset.setlang === lang); b.addEventListener('click', () => { if (b.dataset.setlang !== lang) setLang(b.dataset.setlang); }); });
 
+  // Nach dem Wort-Erscheinen: Wörter wieder normaler Fließtext (sauberes Markieren ohne Kästchen)
+  function settle(el) {
+    if (!el.hasAttribute?.('data-split')) return;
+    const n = el.querySelectorAll('.wi').length;
+    clearTimeout(el._st); el._st = setTimeout(() => { if (el.classList.contains('in')) el.classList.add('settled'); }, n * 55 + 1000);
+  }
   // Überschriften in Wörter zerlegen (für das Wort-für-Wort-Erscheinen)
   $$('[data-split]').forEach(el => {
     let i = 0;
@@ -120,7 +126,7 @@ function initLanding() {
   const w = $('.pin .wave'); if (w) for (let i = 0; i < 38; i++) w.appendChild(h('i', { style: { '--h': (25 + Math.random() * 75) + '%', animationDelay: (i * 47 % 900) + 'ms' } }));
 
   // Intro: alles erscheint nacheinander
-  $$('[data-in]').forEach(el => { const d = reduce ? 0 : 120 + (+el.dataset.in) * 110; setTimeout(() => el.classList.add('in'), d); });
+  $$('[data-in]').forEach(el => { const d = reduce ? 0 : 120 + (+el.dataset.in) * 110; setTimeout(() => { el.classList.add('in'); settle(el); }, d); });
 
   // Scroll: Erscheinen, Karten fliegen aus verschiedenen Richtungen ein
   $$('.pin.fly').forEach((p, k) => { p.style.setProperty('--fx', (k % 2 ? 1 : -1) * (40 + (k * 37) % 80) + 'px'); p.style.setProperty('--fr', ((k % 3) - 1) * 7 + 'deg'); p.style.transitionDelay = (k % 3) * 90 + 'ms'; });
@@ -131,11 +137,11 @@ function initLanding() {
   // und erscheint neu, sobald man zurückscrollt (von oben kommend fliegt es von oben rein).
   const io = new IntersectionObserver(es => es.forEach(e => {
     const el = e.target;
-    if (e.isIntersecting && e.intersectionRatio >= .12) { el.classList.add('in'); return; }
+    if (e.isIntersecting && e.intersectionRatio >= .12) { el.classList.add('in'); settle(el); return; }
     if (e.isIntersecting || el.matches('details[open]')) return;
     const above = e.boundingClientRect.bottom <= 0;
     if (!above && e.boundingClientRect.top < innerHeight * .9) return;
-    el.classList.remove('in'); el.classList.toggle('up', above);
+    el.classList.remove('in', 'settled'); el.classList.toggle('up', above);
   }), { threshold: [0, .12, .14] });
   $$('.reveal, .pin.fly, h2[data-split]').forEach(el => io.observe(el));
 
