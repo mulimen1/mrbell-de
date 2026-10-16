@@ -42,10 +42,10 @@
     if (box) return;
     if (!document.getElementById('bmc-css')) { var s = document.createElement('style'); s.id = 'bmc-css'; s.textContent = css; document.head.appendChild(s); }
     box = document.createElement('div'); box.className = 'bmc'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', T('Cookie-Einstellungen', 'Cookie settings'));
-    box.innerHTML = '<h3>' + T('Darf ich mitzählen?', 'Can I keep count?') + '</h3>'
-      + '<p>' + T('Was du schreibst, sagst oder hochlädst, speichere ich nie. Wenn du erlaubst, zähle ich nur mit, <b>welche Funktionen</b> genutzt werden – damit BWL Max besser wird. ', 'I never store what you type, say or upload. If you allow it, I only count <b>which features</b> get used – so BWL Max gets better. ')
+    box.innerHTML = '<h3>' + T('Cookies', 'Cookies') + '</h3>'
+      + '<p>' + T('BWL Max nutzt Cookies, um anonym zu messen, welche Funktionen genutzt werden – damit Max besser wird. Was du schreibst, sagst oder hochlädst, wird nie gespeichert. ', 'BWL Max uses cookies to measure anonymously which features get used – so Max gets better. What you type, say or upload is never stored. ')
       + '<a href="' + legal() + '">' + T('Mehr dazu', 'Learn more') + '</a></p>'
-      + '<div class="r"><button type="button" data-v="nein">' + T('Nur notwendige', 'Essential only') + '</button><button type="button" class="y" data-v="ja">' + T('Erlauben', 'Allow') + '</button></div>';
+      + '<div class="r"><button type="button" data-v="nein">' + T('Ablehnen', 'Decline') + '</button><button type="button" class="y" data-v="ja">' + T('Cookies akzeptieren', 'Accept cookies') + '</button></div>';
     box.addEventListener('click', function (e) { var b = e.target.closest('button[data-v]'); if (b) close(b.dataset.v); });
     document.body.appendChild(box); document.documentElement.classList.add('bmc-open');
   }

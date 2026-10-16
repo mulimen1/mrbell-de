@@ -105,7 +105,7 @@
 
   <section id="analyse">
     <h2>8. Analyse &amp; Cookie-Banner</h2>
-    <p>Beim ersten Besuch fragt dich ein Banner, ob ich die Nutzung von BWL Max mitzählen darf. Nur wenn du auf <b>„Erlauben“</b> tippst, passiert Folgendes:</p>
+    <p>Beim ersten Besuch fragt dich ein Cookie-Banner nach deiner Einwilligung. Nur wenn du auf <b>„Cookies akzeptieren“</b> tippst, passiert Folgendes:</p>
     <ul>
       <li>Ein Cookie <code>bm_analyse</code> mit einer zufälligen Kennung wird gesetzt (Laufzeit 12 Monate), damit ich Besuche desselben Browsers zusammenzählen kann.</li>
       <li>Gezählt werden nur <b>Ereignisse</b>, nie Inhalte: Seite aufgerufen, halb bzw. ganz nach unten gescrollt, länger als 30 Sekunden geblieben, Max geöffnet, Max eine Frage gestellt (ohne die Frage), „Sprich mit Max“ gestartet, Skript hochgeladen (ohne Dateinamen), Beispiel geöffnet, Thema erklären lassen (ohne das Thema), etwas erstellt (z. B. „Quiz“ oder „Klausurplan“), einen Bereich geöffnet, angemeldet, Spaßfrage beantwortet.</li>
@@ -160,6 +160,6 @@
 document.querySelectorAll('[data-home]').forEach(function(a){a.href=bm?'/':'/tutor/'});
 if(bm)document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});})();
 </script>
-<script src="/tutor/js/consent.js?v=1" defer></script>
+<script src="/tutor/js/consent.js?v=2" defer></script>
 </body>
 </html>

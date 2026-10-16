@@ -997,8 +997,8 @@ export function mountAssistant() {
   ]);
   const VERDICT = L({
     npc: ['Du NPC.', 'Mainstream-Move. NPC-Energie.', 'Mit der Herde. Sicher ist sicher.', 'Basic, aber solide. NPC.', 'Wie alle. Ich sag nix.'],
-    mid: ['Solide Mitte. Weder NPC noch Legende.', 'Ausgeglichen – wie eine gute Bilanz.', 'Halb Herde, halb Hauptfigur.'],
-    rare: ['Du bist was Besonderes. Bild dir nix drauf ein.', 'Auch ein blindes Huhn findet mal ein Korn.', 'Minderheit. Mutig – oder einfach verpeilt.', 'Hauptfigur-Energie. Übertreib’s nicht.'],
+    mid: ['Solide Mitte. Weder NPC noch Legende.', 'Ausgeglichen – wie eine gute Bilanz.', 'Halb Herde, halb Main Character.'],
+    rare: ['Du bist was Besonderes. Bild dir nix drauf ein.', 'Auch ein blindes Huhn findet mal ein Korn.', 'Minderheit. Mutig – oder einfach verpeilt.', 'Main-Character-Energie. Übertreib’s nicht.'],
   }, {
     npc: ['You NPC.', 'Mainstream move. NPC energy.', 'With the herd. Safe choice.', 'Basic but solid. NPC.'],
     mid: ['Solid middle. Not NPC, not legend.', 'Balanced – like a good balance sheet.'],
