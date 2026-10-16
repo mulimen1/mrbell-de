@@ -27,6 +27,18 @@ function pwField(auto, ph) {
 }
 const EYE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg>';
 
+// Spam-Hinweis: gerade landen viele Mails noch im Spam – mit Knopf direkt zum richtigen Postfach
+const MAILHOST = [[/gmail\.com|googlemail\.com/, 'Gmail', 'https://mail.google.com/mail/u/0/#spam'], [/outlook\.|hotmail\.|live\.|msn\./, 'Outlook', 'https://outlook.live.com/mail/0/junkemail'],
+  [/gmx\./, 'GMX', 'https://www.gmx.net/'], [/web\.de$/, 'WEB.DE', 'https://web.de/'], [/icloud\.com|me\.com|mac\.com/, 'iCloud Mail', 'https://www.icloud.com/mail'], [/yahoo\./, 'Yahoo Mail', 'https://mail.yahoo.com/'], [/aol\./, 'AOL Mail', 'https://mail.aol.com/']];
+function spamBox(email) {
+  const dom = String(email).split('@')[1] || '', host = MAILHOST.find(([re]) => re.test(dom));
+  return h('div', { class: 'lspam', role: 'note' },
+    h('span', { class: 'lsi', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19z"/><path d="M12 10v4.5"/><circle cx="12" cy="17.2" r=".7" fill="currentColor"/></svg>' }),
+    h('div', {}, h('b', {}, L('Keine Mail? Schau im Spam-Ordner nach.', 'No email? Check your spam folder.')),
+      h('p', {}, L('Weil BWL Max noch neu ist, landen viele Mails gerade im Spam. Markier sie dort als „Kein Spam“ – dann kommen die nächsten direkt an.', 'Because BWL Max is still new, many emails land in spam right now. Mark ours as “Not spam” – then the next ones arrive directly.')),
+      host ? h('a', { class: 'btn sm', href: host[2], target: '_blank', rel: 'noopener' }, L(`${host[1]} öffnen`, `Open ${host[1]}`), h('span', { html: ico('right') })) : null));
+}
+
 // mode: 'login' (E-Mail + Passwort) · 'register' (Konto erstellen, Mail bestätigen) · 'reset' (Passwort vergessen)
 export function openLogin({ title, mode = 'login' } = {}) {
   return new Promise(resolve => {
@@ -135,7 +147,8 @@ export function openLogin({ title, mode = 'login' } = {}) {
       });
       setTimeout(() => { again.disabled = false; }, 30000);
       box.replaceChildren(x(), fEl, h('h3', {}, m === 'register' ? L('Bestätige deine E-Mail', 'Confirm your email') : L('Check dein Postfach', 'Check your inbox')),
-        h('p', {}, L('Wir haben dir einen 6-stelligen Code an ', 'We sent a 6-digit code to '), h('b', {}, email), L(' geschickt. Nichts da? Schau kurz im Spam-Ordner.', '. Nothing there? Take a quick look in your spam folder.')),
+        h('p', {}, L('Wir haben dir einen 6-stelligen Code an ', 'We sent a 6-digit code to '), h('b', {}, email), L(' geschickt.', '.')),
+        spamBox(email),
         inp, err,
         h('div', { class: 'row', style: { justifyContent: 'space-between' } }, h('button', { class: 'btn sm ghost', type: 'button', onclick: () => (m === 'reset' ? reset() : register()) }, L('Andere E-Mail', 'Different email')), again));
       fc.set('idle'); setTimeout(() => inp.focus(), 60);
