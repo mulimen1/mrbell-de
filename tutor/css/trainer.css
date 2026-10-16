@@ -330,3 +330,15 @@
   .tr-sb { padding: 6px 8px !important; font-size: 13px !important; }
   .tr-tks-mini { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 }
+
+/* Suche oben rechts: nur im Trainer */
+.tr-phead { display: grid; grid-template-columns: 1fr minmax(240px, 320px); gap: 20px; align-items: end; }
+.tr-qw { position: relative; display: block; }
+.tr .tr-qw .ico { position: absolute; z-index: 1; left: 13px; top: 50%; transform: translateY(-50%); width: 17px; height: 17px; color: var(--faint); pointer-events: none; }
+.tr .tr-qw .tr-q { height: 44px; padding: 0 12px 0 40px; border-radius: 14px; width: 100%; font-size: 15px; box-shadow: none; outline: none; }
+.tr .tr-qw .tr-q:focus { border-color: var(--ink); box-shadow: none; }
+.tr-q::-webkit-search-cancel-button { cursor: pointer; }
+.tr-snip { color: var(--mute); font-style: italic; }
+.tr-none { grid-column: 1 / -1; display: grid; gap: 8px; justify-items: start; padding: 22px; border: 1px dashed var(--line2); border-radius: 18px; }
+.tr-none p { margin: 0; color: var(--mute); }
+@media (max-width: 760px) { .tr-phead { grid-template-columns: 1fr; gap: 12px; } }

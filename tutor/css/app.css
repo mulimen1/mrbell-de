@@ -2883,3 +2883,22 @@ button.doc-item { font-size: 14px; }
 }
 @media (min-width: 1100px) { .rc-form fieldset { grid-template-columns: 1fr 1fr; column-gap: 10px; } .rc-form .rc-b { grid-column: 1 / -1; } }
 .rc-in .field { padding-top: 8px; padding-bottom: 8px; }
+
+/* Fortschritt in „Heute“ + Meilensteine */
+.me-prog { display: grid; gap: 10px; }
+.me-pgh { display: flex; align-items: baseline; justify-content: space-between; padding: 0 4px; }
+.me-pgh b { font-size: 15px; letter-spacing: -.01em; }
+.me-pts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.me-pt { display: grid; gap: 2px; padding: 14px 16px; border-radius: 18px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); text-decoration: none; transition: border-color .15s; min-width: 0; }
+.me-pt:hover { border-color: var(--line2); }
+.me-pt b { font-size: 24px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.me-pt span { font-size: 13px; color: var(--ink2); }
+.me-pt small { font-size: 12px; color: var(--mute); }
+.me-ms { display: flex; flex-wrap: wrap; gap: 8px; }
+.me-m { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px 7px 9px; border-radius: 999px; border: 1px solid var(--line2); background: var(--panel); font-size: 13px; font-weight: 550; }
+.me-m .ico { width: 14px; height: 14px; padding: 2px; border-radius: 50%; background: var(--inv); color: var(--onInv); box-sizing: content-box; }
+.me-m.l3, .me-m.l4 { border: 1px solid transparent; background: linear-gradient(var(--panel), var(--panel)) padding-box, var(--chrome-edge) border-box; }
+.me-mn { display: grid; gap: 10px; margin-top: 16px; }
+.me-mnr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(90px, 200px) auto; gap: 12px; align-items: center; font-size: 13.5px; }
+.me-mnr small { color: var(--mute); white-space: nowrap; }
+@media (max-width: 720px) { .me-pts { grid-template-columns: 1fr 1fr; } .me-pt b { font-size: 21px; } .me-mnr { grid-template-columns: 1fr auto; } .me-mnr .me-bar { grid-column: 1 / -1; grid-row: 2; } }

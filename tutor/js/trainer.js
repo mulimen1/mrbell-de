@@ -1659,21 +1659,66 @@ export const TRAINERS = [
 const BUILD = Object.assign({ buchung: BUCH, tkonten: TKON, breakeven: BEVEN, kapitalwert: KWERT, markt: MARKT, bilanz: BILANZ }, MORE_BUILD);
 TRAINERS.push(...MORE_TRAINERS);
 
-function pickerView(ctx) {
-  const grid = h('div', { class: 'tr-grid' }, TRAINERS.map((T, i) => {
-    const s = getStats(T.id);
-    const card = h('button', { type: 'button', class: 'tr-card', style: `animation-delay:${i * 40}ms` },
-      h('div', { class: 'tr-ico' }, svgIcon(T.icon)), h('div', { class: 'eyebrow' }, T.area), h('h3', null, T.title), h('p', null, T.desc),
-      h('div', { class: 'tr-card-f' }, s.attempts ? [h('span', null, LL(`${s.correct} gelöst`, `${s.correct} solved`)), h('span', null, LL(`Serie ${s.streak}`, `Streak ${s.streak}`))] : h('span', null, LL('Noch nicht geübt', 'Not practised yet')), svgIcon(I.next, 'ico tr-go')));
-    card.addEventListener('click', () => openTrainer(ctx, T.id, true));
-    return card;
-  }));
-  ctx.root.replaceChildren(h('div', { class: 'tr tr-picker' }, h('header', { class: 'tr-phead' }, h('div', { class: 'eyebrow' }, 'Trainer'), h('h2', null, LL('Üben, bis es sitzt', 'Practise until it sticks')), h('p', null, LL('Unendlich viele Aufgaben, sofort geprüft. Jede Lösung wird berechnet – und bei Fehlern sagt dir der Trainer genau, wo es hakt.', 'Endless exercises, checked instantly. Every solution is calculated – and when you slip up, the trainer tells you exactly where.'))), grid));
+// Suchbegriffe, die nicht im Titel stehen (Synonyme, typische Klausurwörter)
+const KEYW = {
+  buchung: 'buchungssatz soll haben umsatzsteuer vorsteuer skonto rabatt abgrenzung rap rückstellung wareneinkauf verkauf anlagen buchen konten kontenrahmen skr hgb',
+  tkonten: 't-konto t konten eröffnungsbilanz schlussbilanz saldo abschluss bestandskonten erfolgskonten guv',
+  breakeven: 'gewinnschwelle deckungsbeitrag db fixkosten variable kosten preisuntergrenze engpass relativer deckungsbeitrag kostenrechnung',
+  kapitalwert: 'npv kapitalwert annuität irr interner zinsfuß amortisation investition dynamisch statisch barwert abzinsen',
+  markt: 'angebot nachfrage gleichgewicht konsumentenrente produzentenrente steuer höchstpreis mindestpreis elastizität mikro',
+  bilanz: 'bilanz aktiva passiva gliederung 266 anlagevermögen umlaufvermögen eigenkapital rückstellungen verbindlichkeiten sortieren',
+  marketing: 'marktanteil sättigung elastizität clv roas conversion cac kundenwert marketing',
+  kennzahlen: 'liquidität eigenkapitalquote anlagendeckung goldene bilanzregel roi rentabilität du pont quick ratio working capital verschuldungsgrad',
+  abschreibung: 'afa abschreibung linear degressiv leistung pro rata restbuchwert buchwert',
+  kalkulation: 'handelskalkulation listeneinkaufspreis bezugspreis selbstkosten listenverkaufspreis kalkulationszuschlag handelsspanne skonto rabatt',
+  lager: 'andler optimale bestellmenge meldebestand lagerumschlag lagerdauer sicherheitsbestand beschaffung',
+  finanzierung: 'skonto effektivzins zinseszins barwert annuitätendarlehen leverage tilgung finanzierung kredit',
+  produktion: 'produktivität wirtschaftlichkeit beschäftigungsgrad personalbedarf fluktuation kapazität',
+  makro: 'inflation bip wachstum realzins arbeitslosenquote multiplikator vwl makro'
+};
+const plainTxt = html => String(html || '').replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/\s+/g, ' ');
+const normQ = s => String(s || '').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+function trainerHits(q) {
+  const words = normQ(q).split(/[^a-z0-9äöüß&-]+/).filter(w => w.length >= 2);
+  if (!words.length) return TRAINERS.map(T => ({ T, score: 0 }));
+  return TRAINERS.map(T => {
+    const head = normQ(T.title + ' ' + T.area + ' ' + T.desc), kw = normQ(KEYW[T.id] || ''), body = normQ(plainTxt(BUILD[T.id] && BUILD[T.id].explain));
+    let score = 0, snip = '';
+    for (const w of words) {
+      if (head.includes(w)) score += 3; else if (kw.includes(w)) score += 2; else if (body.includes(w)) { score += 1; if (!snip) { const raw = plainTxt(BUILD[T.id].explain), i = normQ(raw).indexOf(w); snip = '…' + raw.slice(Math.max(0, i - 40), i + 60).trim() + '…'; } }
+      else return { T, score: -1 };
+    }
+    return { T, score, snip };
+  }).filter(x => x.score > 0).sort((a, b) => b.score - a.score);
 }
-function openTrainer(ctx, id, fromPicker) {
+function pickerView(ctx, q0 = '') {
+  const grid = h('div', { class: 'tr-grid' });
+  const card = (T, i, snip) => {
+    const s = getStats(T.id);
+    const c = h('button', { type: 'button', class: 'tr-card', style: `animation-delay:${i * 30}ms` },
+      h('div', { class: 'tr-ico' }, svgIcon(T.icon)), h('div', { class: 'eyebrow' }, T.area), h('h3', null, T.title), h('p', null, snip ? h('span', { class: 'tr-snip' }, snip) : T.desc),
+      h('div', { class: 'tr-card-f' }, s.attempts ? [h('span', null, LL(`${s.correct} gelöst`, `${s.correct} solved`)), h('span', null, LL(`Serie ${s.streak}`, `Streak ${s.streak}`))] : h('span', null, LL('Noch nicht geübt', 'Not practised yet')), svgIcon(I.next, 'ico tr-go')));
+    c.addEventListener('click', () => openTrainer(ctx, T.id, true, q.value));
+    return c;
+  };
+  const q = h('input', { class: 'field tr-q', type: 'search', value: q0, placeholder: LL('Thema suchen … z. B. Skonto, Liquidität, Andler', 'Search a topic … e.g. discount, liquidity, EOQ'), 'aria-label': LL('Im Trainer suchen', 'Search the trainer'), enterkeyhint: 'search' });
+  const draw = () => {
+    const hits = trainerHits(q.value);
+    if (hits.length) grid.replaceChildren(...hits.map((x, i) => card(x.T, i, x.snip)));
+    else grid.replaceChildren(h('div', { class: 'tr-none' }, h('b', null, LL(`Zu „${q.value.trim()}“ gibt’s noch keinen Trainer.`, `No trainer for “${q.value.trim()}” yet.`)), h('p', null, LL('Max erklärt es dir aber sofort – mit Beispiel an der Tafel.', 'But Max will explain it right away – with an example on the whiteboard.')),
+      h('button', { class: 'btn sm primary', type: 'button', onclick: () => import('./app.js').then(m => m.viaMax(a => a.ask(LL(`Erklär mir ${q.value.trim()} mit einem Beispiel und gib mir dann eine Übungsaufgabe.`, `Explain ${q.value.trim()} with an example, then give me an exercise.`))).then(ok => { if (!ok) m.startTopic(q.value.trim()); })) }, LL('Max fragen', 'Ask Max'))));
+  };
+  q.addEventListener('input', () => { clearTimeout(q.t); q.t = setTimeout(draw, 80); });
+  q.addEventListener('keydown', e => { if (e.key === 'Enter') { const f = grid.querySelector('.tr-card'); if (f) f.click(); } if (e.key === 'Escape') { q.value = ''; draw(); } });
+  draw();
+  ctx.root.replaceChildren(h('div', { class: 'tr tr-picker' }, h('header', { class: 'tr-phead' }, h('div', { class: 'tr-pht' }, h('div', { class: 'eyebrow' }, 'Trainer'), h('h2', null, LL('Üben, bis es sitzt', 'Practise until it sticks')), h('p', null, LL('Unendlich viele Aufgaben, sofort geprüft. Jede Lösung wird berechnet – und bei Fehlern sagt dir der Trainer genau, wo es hakt.', 'Endless exercises, checked instantly. Every solution is calculated – and when you slip up, the trainer tells you exactly where.'))),
+    h('label', { class: 'tr-qw' }, svgIcon('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>', 'ico'), q)), grid));
+  if (q0 || (typeof matchMedia === 'function' && matchMedia('(pointer: fine)').matches)) setTimeout(() => { q.focus(); if (q0) q.select(); }, 40);
+}
+function openTrainer(ctx, id, fromPicker, q = '') {
   const T = TRAINERS.find(t => t.id === id), B = BUILD[id];
   const wrap = h('div', { class: 'tr tr-page' });
-  if (fromPicker) wrap.append(h('button', { class: 'btn ghost sm tr-back', type: 'button', onclick: () => pickerView(ctx) }, svgIcon(I.back), LL('Alle Trainer', 'All trainers')));
+  if (fromPicker) wrap.append(h('button', { class: 'btn ghost sm tr-back', type: 'button', onclick: () => pickerView(ctx, q) }, svgIcon(I.back), q ? LL(`Zurück zur Suche „${q}“`, `Back to “${q}”`) : LL('Alle Trainer', 'All trainers')));
   wrap.append(h('header', { class: 'tr-head' }, h('div', { class: 'tr-ico' }, svgIcon(T.icon)), h('div', { class: 'tr-head-t' }, h('div', { class: 'eyebrow' }, 'Trainer · ' + T.area), h('h2', null, T.title), h('p', null, T.desc))));
   const ex = h('details', { class: 'tr-explain' }, h('summary', null, LL('Kurz erklärt', 'Quick explanation')));
   const exb = h('div', { class: 'tr-explain-b' }); exb.innerHTML = B.explain; ex.append(exb);

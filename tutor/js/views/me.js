@@ -13,7 +13,7 @@ import * as N from '../noten.js';
 import { reife } from '../reife.js';
 
 // Drei Ziele statt fünf: Stundenplan und Gemerktes stecken in „Heute“ (Vollansicht per Link)
-const TABS = [['', L('Heute', 'Today'), 'home'], ['faecher', L('Fächer & Noten', 'Subjects & grades'), 'brain'], ['stats', L('Statistik', 'Stats'), 'trophy']];
+const TABS = [['', L('Heute', 'Today'), 'home'], ['faecher', L('Fächer & Noten', 'Subjects & grades'), 'brain'], ['stats', L('Fortschritt', 'Progress'), 'trophy']];
 const SUBS = { plan: L('Stundenplan', 'Timetable'), favs: L('Gemerkt', 'Saved') };
 const DAYS = L(['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'], ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
 const DAYS_LONG = L(['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'], ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
@@ -187,6 +187,8 @@ function today(body) {
       h('div', { class: 'me-next-t' }, h('div', { class: 'eyebrow' }, L('Jetzt dran', 'Up next') + (top.min ? L(` · ca. ${top.min} Min.`, ` · ~${top.min} min`) : '')), h('h2', {}, top.t), h('p', {}, top.s)),
       h('div', { class: 'me-next-a' }, h('a', { class: 'btn primary lg me-next-b', href: top.href, onclick: top.onclick || null }, L('Los geht’s', 'Let’s go'), h('span', { html: ico('right') })), other)), alt);
   }
+  // 2b) Fortschritt auf einen Blick – was du schon geschafft hast
+  body.append(progressStrip());
   // 3) Heute im Stundenplan (Streifen) + Demnächst | Gemerkt + Zuletzt geöffnet
   const ses = M.sessionsOn(new Date()), up = ses.filter(s => s.e > now);
   const tm = new Date(); tm.setDate(tm.getDate() + 1);
@@ -574,7 +576,7 @@ function stats(body) {
   const rows = subj.length ? subj : S.list.filter(d => !d.sample).map(d => ({ n: d.name, m: mastery(d) }));
   rows.sort((a, b) => b.m - a.m);
   const trend = w1 ? Math.round(100 * (w0 - w1) / w1) : null;
-  body.append(
+  body.append(milestones(),
     h('div', { class: 'me-kpis' },
       kpi(st, L('Tage Serie', 'day streak'), best > st ? L(`Rekord: ${best}`, `Record: ${best}`) : st ? L('Das ist dein Rekord.', 'That’s your record.') : L('Heute anfangen?', 'Start today?')),
       kpi(M.fmtMin(w0), L('Lernzeit diese Woche', 'Study time this week'), trend == null ? L(`Letzte Woche: ${M.fmtMin(w1)}`, `Last week: ${M.fmtMin(w1)}`) : trend >= 0 ? L(`+${trend} % zur Vorwoche`, `+${trend}% vs last week`) : L(`${trend} % zur Vorwoche`, `${trend}% vs last week`)),
@@ -597,4 +599,61 @@ function weeksCard() {
     h('p', { class: 'me-wsum' }, h('b', {}, M.fmtMin(ws[7].m)), L(` von ${M.fmtMin(goal)} diese Woche`, ` of ${M.fmtMin(goal)} this week`), ws[7].m >= goal ? L(' – Ziel geschafft.', ' – goal reached.') : ''),
     h('div', { class: 'me-wbars', style: { '--g': String(goal / top) } }, h('span', { class: 'me-wgoal', title: L('Wochenziel', 'Weekly goal') }),
       ws.map(w => h('div', { class: 'me-wbc' + (w.off === 0 ? ' now' : '') + (w.m >= goal ? ' hit' : ''), title: `${lbl(w.off)}: ${M.fmtMin(w.m)}` }, h('i', { style: { height: Math.max(2, 100 * w.m / top) + '%' } }), h('small', {}, lbl(w.off))))));
+}
+
+// ---------- Fortschritt: was schon geschafft ist ----------
+function progressData() {
+  const me = M.getMe(), now = Date.now(), wk = now - 7 * 864e5;
+  const own = S.list.filter(d => !d.sample);
+  const totMin = Object.values(me.akt || {}).reduce((a, x) => a + x, 0), wMin = weekMinutes(0);
+  const cards = own.flatMap(d => d.decks.flatMap(k => k.cards));
+  const learned = cards.filter(c => (c.reps || 0) > 0).length, learnedW = cards.filter(c => (c.reps || 0) > 0 && (c.last || 0) > wk).length;
+  const ans = own.reduce((x, d) => x + (d.stats?.answered || 0), 0), cor = own.reduce((x, d) => x + (d.stats?.correct || 0), 0);
+  const wkKeys = new Set([...Array(7)].map((_, i) => M.dayKey(new Date(now - i * 864e5))));
+  const ansW = own.reduce((x, d) => x + Object.entries(d.stats?.days || {}).filter(([k]) => wkKeys.has(k)).reduce((a, [, n]) => a + n, 0), 0);
+  let fest = 0, themen = 0;
+  const fs = me.faecher.map(f => (f.docs || []).map(docById).filter(Boolean)).filter(x => x.length);
+  for (const ds of fs) { const r = reife(ds); fest += r.fest; themen += r.themen; }
+  if (!themen) { const loose = own.filter(d => !M.fachOf(d.id)); if (loose.length) { const r = reife(loose); fest += r.fest; themen += r.themen; } }
+  const ch = own.flatMap(d => d.path?.chapters || []), chDone = ch.filter(c => c.done).length;
+  const quizzes = own.reduce((x, d) => x + d.quizzes.filter(q => q.results?.length).length, 0);
+  return { totMin, wMin, learned, learnedW, ans, cor, ansW, fest, themen, chDone, chTot: ch.length, quizzes, docs: own.length, st: M.streak(M.activityDays(S.list)) };
+}
+function progressStrip() {
+  const p = progressData();
+  if (!p.docs && !p.totMin) return null;
+  const tile = (val, label, sub, href) => h('a', { class: 'me-pt', href }, h('b', {}, val), h('span', {}, label), sub ? h('small', {}, sub) : null);
+  return h('section', { class: 'me-prog' },
+    h('div', { class: 'me-pgh' }, h('b', {}, L('Dein Fortschritt', 'Your progress')), h('a', { class: 'me-more', href: '#/app/me/stats' }, L('Alles ansehen', 'See all'), h('span', { html: ico('right') }))),
+    h('div', { class: 'me-pts' },
+      tile(M.fmtMin(p.totMin), L('gelernt insgesamt', 'studied in total'), p.wMin ? L(`+${M.fmtMin(p.wMin)} diese Woche`, `+${M.fmtMin(p.wMin)} this week`) : L('diese Woche noch nichts', 'nothing yet this week'), '#/app/me/stats'),
+      tile(String(p.learned), L('Karten gelernt', 'cards learned'), p.learnedW ? L(`+${p.learnedW} in 7 Tagen`, `+${p.learnedW} in 7 days`) : null, '#/app/me/stats'),
+      p.themen ? tile(`${p.fest}/${p.themen}`, L('Themen sitzen', 'topics secure'), L('sicher bis zur Klausur', 'secure for the exam'), '#/app/me/faecher') : p.chTot ? tile(`${p.chDone}/${p.chTot}`, L('Kapitel geschafft', 'chapters done'), null, '#/app/me/stats') : tile(String(p.docs), L(p.docs === 1 ? 'Skript' : 'Skripte', p.docs === 1 ? 'set of slides' : 'sets of slides'), null, '#/app/me/stats'),
+      tile(p.ans ? Math.round(100 * p.cor / p.ans) + ' %' : '–', L('richtig im Quiz', 'right in quizzes'), p.ans ? L(`${p.ans} Fragen${p.ansW ? `, +${p.ansW} diese Woche` : ''}`, `${p.ans} questions${p.ansW ? `, +${p.ansW} this week` : ''}`) : L('noch kein Quiz', 'no quiz yet'), '#/app/me/stats')));
+}
+// Meilensteine: geschafft + der nächste in Reichweite (ruhig, ohne Konfetti)
+function milestones() {
+  const p = progressData();
+  const M_ = [
+    ['docs', [1, 5, 15], n => L(`${n} ${n === 1 ? 'Skript' : 'Skripte'} hochgeladen`, `${n} upload${n === 1 ? '' : 's'}`)],
+    ['learned', [10, 50, 100, 250, 500, 1000], n => L(`${n} Karten gelernt`, `${n} cards learned`)],
+    ['ans', [20, 100, 250, 500, 1000], n => L(`${n} Quizfragen beantwortet`, `${n} quiz questions answered`)],
+    ['chDone', [1, 5, 15, 30], n => L(`${n} ${n === 1 ? 'Kapitel' : 'Kapitel'} im Lernpfad geschafft`, `${n} chapter${n === 1 ? '' : 's'} completed`)],
+    ['st', [3, 7, 14, 30, 60], n => L(`${n} Tage Serie`, `${n}-day streak`)],
+    ['totH', [1, 5, 10, 25, 50, 100], n => L(`${n} ${n === 1 ? 'Stunde' : 'Stunden'} gelernt`, `${n} hour${n === 1 ? '' : 's'} studied`)],
+    ['fest', [1, 5, 10, 25], n => L(`${n} ${n === 1 ? 'Thema sitzt' : 'Themen sitzen'} sicher`, `${n} topic${n === 1 ? '' : 's'} secure`)]
+  ];
+  const v = Object.assign({}, p, { totH: Math.floor(p.totMin / 60) });
+  const got = [], next = [];
+  for (const [k, steps, txt] of M_) {
+    const x = v[k] || 0, done = steps.filter(s => x >= s), nx = steps.find(s => x < s);
+    if (done.length) got.push({ t: txt(done[done.length - 1]), lvl: done.length });
+    if (nx) next.push({ t: txt(nx), p: x / nx, rest: nx - x, k });
+  }
+  next.sort((a, b) => b.p - a.p);
+  if (!got.length && !next.length) return null;
+  const restTxt = n => n.k === 'totH' ? L(`noch ${n.rest} Std.`, `${n.rest} h to go`) : n.k === 'st' ? L(`noch ${n.rest} ${n.rest === 1 ? 'Tag' : 'Tage'}`, `${n.rest} day${n.rest === 1 ? '' : 's'} to go`) : L(`noch ${n.rest}`, `${n.rest} to go`);
+  return card(L('Geschafft', 'Achieved'),
+    got.length ? h('div', { class: 'me-ms' }, got.map(g => h('span', { class: 'me-m l' + Math.min(4, g.lvl) }, h('span', { html: ico('check') }), g.t))) : h('p', { class: 'me-muted' }, L('Dein erster Meilenstein ist ganz nah.', 'Your first milestone is close.')),
+    next.length ? h('div', { class: 'me-mn' }, h('div', { class: 'me-lab' }, L('Als Nächstes', 'Up next')), next.slice(0, 3).map(n => h('div', { class: 'me-mnr' }, h('span', {}, n.t), h('div', { class: 'me-bar' }, h('i', { style: { width: Math.max(3, Math.round(100 * n.p)) + '%' } })), h('small', {}, restTxt(n))))) : null);
 }
