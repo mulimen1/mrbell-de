@@ -1,4 +1,5 @@
 // Quiz, Probeklausur, Fehler wiederholen
+import { starBtn } from '../me.js';
 import { h, ico, uid, toast, fmt, shuffle } from '../util.js';
 import { face } from '../face.js';
 import { ask } from '../api.js';
@@ -58,7 +59,8 @@ function overview(wrap, ctx, pre) {
         const best = q.results?.length ? Math.round(100 * Math.max(...q.results.map(r => r.score))) : null;
         return h('div', { class: 'li', onclick: () => run(wrap, ctx, q) }, h('span', { html: ico(q.exam ? 'exam' : 'quiz') }),
           h('div', { class: 'gr' }, h('b', {}, q.title), h('span', {}, L(`${q.questions.length} Fragen · ${q.diff || ''}${q.results?.length ? ` · ${q.results.length}× gemacht` : ''}`, `${q.questions.length} questions · ${diffLabel(q.diff)}${q.results?.length ? ` · taken ${q.results.length}×` : ''}`))),
-          best != null ? h('span', { class: 'sc' }, best + ' %') : h('span', { class: 'tag' }, L('neu', 'new')));
+          best != null ? h('span', { class: 'sc' }, best + ' %') : h('span', { class: 'tag' }, L('neu', 'new')),
+          starBtn(() => ({ typ: 'quiz', titel: q.title, doc: doc.id, docName: doc.name, ref: q.id || q.title }), { cls: 'sm bare' }));
       }))) : null);
 }
 

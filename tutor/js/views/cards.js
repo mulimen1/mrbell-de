@@ -1,4 +1,5 @@
 // Karteikarten mit Spaced Repetition (vereinfachtes SM-2). Wiederholen kostet keine KI.
+import { starBtn } from '../me.js';
 import { h, ico, uid, toast, modal, shuffle } from '../util.js';
 import { face } from '../face.js';
 import { ask } from '../api.js';
@@ -55,6 +56,7 @@ function overview(wrap, ctx) {
       return h('div', { class: 'li', onclick: () => study(wrap, ctx, d.cards.map(c => ({ c, d })), d.title) },
         h('span', { html: ico('cards') }),
         h('div', { class: 'gr' }, h('b', {}, d.title), h('span', {}, L(`${d.cards.length} Karten · ${known} sicher · ${dd} fällig`, `${d.cards.length} cards · ${known} known · ${dd} due`))),
+        starBtn(() => ({ typ: 'karten', titel: d.title, doc: doc.id, docName: doc.name, ref: d.id || d.title, inhalt: d.cards.slice(0, 40).map(c => `${c.front} → ${c.back}`).join('\n') }), { cls: 'sm bare' }),
         h('button', { class: 'iconbtn', title: L('Für Anki exportieren', 'Export for Anki'), html: ico('download'), onclick: e => { e.stopPropagation(); exportAnki(d); } }),
         h('button', { class: 'iconbtn', title: L('Löschen', 'Delete'), html: ico('trash'), onclick: async e => { e.stopPropagation(); const ok = await modal({ title: L('Stapel löschen?', 'Delete deck?'), text: d.title, actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { doc.decks = doc.decks.filter(x => x !== d); save(doc); overview(wrap, ctx); } } }));
     })) : null,

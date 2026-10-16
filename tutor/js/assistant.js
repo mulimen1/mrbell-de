@@ -1,6 +1,7 @@
 // Schwebender Max – ohne Chatbox. Kopf unten rechts → Antippen: schwebende Leiste, Max hört sofort zu.
 // Antworten kommen als Stimme + mitlaufender Untertitel, Erklärungen als Tafel direkt über der Seite,
 // Befehle (Quiz bauen, Tab öffnen …) führt er selbst aus. Tippen geht mit einem Klick oder einfach lostippen.
+import { starBtn as favStar, textKey as favKey, plain as plainT } from './me.js';
 import { h, ico, ls, sleep, toast } from './util.js';
 import { face } from './face.js';
 import { ask } from './api.js';
@@ -798,6 +799,7 @@ export function mountAssistant() {
     const extras = [...p.cmds.map(c => cmdChip(c)), ...acts.map(({ a, href }) => h('a', { class: 'ai-cmd link', href }, ACTS[a][0]))];
     p.boards.forEach(b => extras.push(boardBtn(b)));
     if (!(spoken && cfg.spk) && p.text && cfg.spk) extras.push(listenBtn(p.text, txt, ex));
+    if (p.text && p.text.length > 60) { const q = [...hist].reverse().find(m => m.role === 'user')?.content || ''; const d = curDoc(); extras.push(favChip({ typ: 'erklaerung', titel: (q || plainT(p.text)).slice(0, 90), doc: d?.id || '', docName: d?.name || '', ref: favKey(p.text), inhalt: plainT(p.text) })); }
     ex.aX.replaceChildren(...extras);
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);
     if (!open) unread(true);
@@ -813,6 +815,7 @@ export function mountAssistant() {
       if (my === gen) afterAnswer(p);
     }
   }
+  function favChip(it) { return favStar(() => it, { label: true, cls: 'ai-cmd ai-fav' }); }
   // Getippte Antwort nachträglich anhören
   function listenBtn(text, txt, ex) {
     const b = h('button', { class: 'ai-cmd ai-hear', type: 'button', html: SVG.spkOn + '<span>' + L('Anhören', 'Listen') + '</span>' });

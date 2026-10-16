@@ -70,6 +70,7 @@ function buildShell() {
       langSwitch(),
       h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') })),
     h('div', { class: 'scroll' },
+      h('a', { class: 'doc-item me-link', href: '#/app/me', 'data-nav': 'me' }, h('span', { html: ico('home') }), h('span', { class: 'nm' }, L('Mein Bereich', 'My space')), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
       h('label', { class: 'btn primary', for: 'fileApp', style: { width: '100%', margin: '6px 0 4px' } }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')), fileIn,
       h('div', { class: 'grp' }, L('Deine Skripte', 'Your slides')), list,
       h('div', { class: 'grp' }, L('Ohne Skript', 'No slides needed')),
@@ -123,13 +124,14 @@ function renderList() {
       await removeDoc(d.id);
       if (location.hash.includes(d.id)) go('');
     });
-    const on = S.doc && S.doc.id === d.id && !location.hash.includes('/trainer');
+    const on = S.doc && S.doc.id === d.id && !location.hash.includes('/trainer') && !location.hash.startsWith('#/app/me');
     return h('a', { class: 'doc-item' + (on ? ' on' : ''), href: `#/app/${d.id}/hub` },
       h('span', { html: ico('file') }), h('span', { class: 'nm', title: d.name }, d.name), h('span', { class: 'pg' }, d.pages.length + L(' S.', ' p.')), del);
   });
   shell.list.replaceChildren(...(items.length ? items : [h('div', { class: 'doc-item', style: { color: 'var(--faint)', cursor: 'default' } }, L('Noch nichts hochgeladen', 'Nothing uploaded yet'))]));
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.includes('/trainer')));
   $$('[data-nav="challenge"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.includes('/challenge')));
+  $$('[data-nav="me"]', shell.side).forEach(a => a.classList.toggle('on', location.hash.startsWith('#/app/me')));
   $$('[data-lockb]', shell.side).forEach(x => { x.hidden = !!getAccount(); });
 }
 
@@ -166,6 +168,13 @@ export async function mountApp(parts) {
     shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
     renderList();
     return show('challenge', async root => { const { renderChallenge } = await import('./challenge.js'); renderChallenge(root, { onLogin: () => openLogin({ title: L('Anmelden für die Challenge', 'Sign in for the challenge') }) }); });
+  }
+  if (a === 'me') {
+    shell.title.textContent = L('Mein Bereich', 'My space');
+    document.title = L('Mein Bereich · BWL Max', 'My space · BWL Max');
+    shell.tabs.replaceChildren(); shell.tabs.classList.add('hidden');
+    renderList();
+    return show('me:' + (b || ''), async root => { const { render } = await import('./views/me.js'); return render(root, { sub: b || '', onLogin: () => openLogin({ title: L('Anmelden für deinen Bereich', 'Sign in for your space') }) }); });
   }
   if (a === 'neu') return; // Upload läuft
   if (!a) {

@@ -36,7 +36,7 @@ export function nickField(initial = '') {
 }
 
 // ---------- Begrüßung ----------
-function gruss(d = new Date()) {
+export function gruss(d = new Date()) {
   const hr = d.getHours();
   if (hr >= 5 && hr < 11) return L('Guten Morgen', 'Good morning');
   if (hr >= 11 && hr < 14) return L('Guten Mittag', 'Good afternoon');

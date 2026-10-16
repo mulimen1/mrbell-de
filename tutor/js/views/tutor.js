@@ -1,4 +1,5 @@
 // Tutor: Chat links, Tafel rechts. Die KI schreibt Erklärungen als ```tafel-Blöcke an die Tafel.
+import { starBtn, textKey, plain } from '../me.js';
 import { h, ico, ls, sleep, toast } from '../util.js';
 import { face } from '../face.js';
 import { ask } from '../api.js';
@@ -95,7 +96,7 @@ export async function render(root, ctx) {
   drawBoard();
 
   // ---------- Nachrichten ----------
-  function addMsg(role, raw, { animate = false, boardRefs = [] } = {}) {
+  function addMsg(role, raw, { animate = false, boardRefs = [], nofav = false } = {}) {
     const el = h('div', { class: 'msg ' + (role === 'user' ? 'me' : 'ai') });
     if (role === 'user') { el.textContent = raw; msgs.appendChild(el); scroll(); return el; }
     const p = parse(raw);
@@ -103,6 +104,7 @@ export async function render(root, ctx) {
     el.appendChild(body);
     const extras = h('div');
     boardRefs.forEach(({ idx, title }) => extras.appendChild(h('button', { class: 'boardlink', onclick: () => { bIdx = idx; drawBoard(); showBoard(true); } }, h('span', { html: ico('board') }), title)));
+    if (!nofav && (p.text || '').length > 60) extras.appendChild(h('div', { class: 'favrow' }, starBtn(() => ({ typ: 'erklaerung', titel: plain(p.text).slice(0, 90), doc: doc.id, docName: doc.name, ref: textKey(p.text), inhalt: plain(p.text) }), { label: true, cls: 'sm' })));
     if (p.acts.length) extras.appendChild(h('div', { class: 'acts' }, p.acts.map(a => h('a', { class: 'btn sm', href: ACTIONS[a][1](doc) }, ACTIONS[a][0], h('span', { html: ico('right') })))));
     msgs.appendChild(el);
     if (animate) typeOut(body, p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the whiteboard.') : '…')).then(() => { el.appendChild(extras); scroll(); });
@@ -121,7 +123,7 @@ export async function render(root, ctx) {
   let boardCursor = 0;
   const boardOwners = doc.chat.map(m => m.role === 'assistant' ? parse(m.content).boards.length : 0);
   if (!doc.chat.length) {
-    addMsg('assistant', say('welcome', doc.name));
+    addMsg('assistant', say('welcome', doc.name), { nofav: true });
   } else {
     doc.chat.forEach((m, k) => {
       const refs = [];

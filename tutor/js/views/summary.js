@@ -1,4 +1,5 @@
 // Lernzettel: Kernaussagen, strukturierte Zusammenfassung, Mindmap, Begriffe
+import { starBtn } from '../me.js';
 import { h, ico, esc, toast } from '../util.js';
 import { face } from '../face.js';
 import { ask } from '../api.js';
@@ -40,7 +41,8 @@ function show(wrap, ctx) {
   const body = h('div', { class: 'tafel', style: { padding: 0, maxWidth: 'none' } }); body.appendChild(sanitize(S.html));
   wrap.replaceChildren(
     h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L('Lernzettel', 'Study sheet')), h('h2', {}, S.title)),
-      h('div', { style: { display: 'flex', gap: '6px' } },
+      h('div', { style: { display: 'flex', gap: '6px', alignItems: 'center' } },
+        starBtn(() => ({ typ: 'zettel', titel: S.title, doc: ctx.doc.id, docName: ctx.doc.name, ref: 'zettel', inhalt: S.tldr.join('\n') })),
         h('button', { class: 'btn sm', onclick: () => window.print() }, h('span', { html: ico('download') }), L('Drucken / PDF', 'Print / PDF')),
         costBtn(L('Neu', 'New'), 'summary', () => generate(wrap, ctx), 'btn sm ghost'))),
     S.tldr.length ? h('div', { class: 'card', style: { background: 'var(--inv)', color: 'var(--onInv)', borderColor: 'var(--inv)' } },

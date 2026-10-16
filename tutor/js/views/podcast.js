@@ -1,4 +1,5 @@
 // Podcast: Zwei Stimmen sprechen über das Skript (Sprachausgabe des Geräts, kostenlos & offline)
+import { starBtn } from '../me.js';
 import { h, ico, uid, toast, modal, ls } from '../util.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
@@ -79,7 +80,7 @@ function intro(wrap, ctx) {
             h('div', { style: { marginTop: '14px' } }, h('label', { class: 'l' }, L('Ton', 'Tone')), h('div', { class: 'chips' }, tones), hint)),
           h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn(L('Folge erstellen', 'Create episode'), 'podcast', () => generate(wrap, ctx, len, focus, tone, plang, mvoice), 'btn primary lg'))))),
     doc.podcasts.length ? h('div', { style: { marginTop: '26px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Deine Folgen', 'Your episodes')),
-      h('div', { class: 'list' }, [...doc.podcasts].reverse().map(p => h('div', { class: 'li', onclick: () => player(wrap, ctx, p) }, h('span', { html: ico('pod') }), h('div', { class: 'gr' }, h('b', {}, p.title), h('span', {}, L(`${p.lines.length} Abschnitte · ~${minutes(p)} Min.${p.lang === 'en' ? ' · English' : ''}`, `${p.lines.length} segments · ~${minutes(p)} min${p.lang === 'de' ? ' · German' : ''}`))))))) : null);
+      h('div', { class: 'list' }, [...doc.podcasts].reverse().map(p => h('div', { class: 'li', onclick: () => player(wrap, ctx, p) }, h('span', { html: ico('pod') }), starBtn(() => ({ typ: 'podcast', titel: p.title, doc: doc.id, docName: doc.name, ref: p.id || p.title }), { cls: 'sm bare' }), h('div', { class: 'gr' }, h('b', {}, p.title), h('span', {}, L(`${p.lines.length} Abschnitte · ~${minutes(p)} Min.${p.lang === 'en' ? ' · English' : ''}`, `${p.lines.length} segments · ~${minutes(p)} min${p.lang === 'de' ? ' · German' : ''}`))))))) : null);
 }
 const minutes = p => Math.max(1, Math.round(p.lines.reduce((a, l) => a + l.t.split(/\s+/).length, 0) / 150));
 function wave() { const w = h('div', { class: 'wave' }); for (let i = 0; i < 30; i++) w.appendChild(h('i', { style: { '--h': (25 + Math.random() * 75) + '%', animationDelay: (i * 53 % 900) + 'ms', animationPlayState: 'paused' } })); return w; }
@@ -120,7 +121,8 @@ function player(wrap, ctx, p) {
       h('div', {}, h('div', { class: 'cover' }, h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .7 } }, 'BWL Max · Podcast'), h('h3', {}, p.title), w),
         h('div', { class: 'player' }, playBtn, tbar), status,
         h('div', { class: 'chips', style: { marginTop: '12px', display: 'flex', gap: '6px', flexWrap: 'wrap' } }, rates),
-        h('div', { style: { marginTop: '12px', display: 'flex', gap: '6px' } },
+        h('div', { style: { marginTop: '12px', display: 'flex', gap: '6px', alignItems: 'center' } },
+          starBtn(() => ({ typ: 'podcast', titel: p.title, doc: ctx.doc.id, docName: ctx.doc.name, ref: p.id || p.title })),
           h('button', { class: 'btn sm ghost', onclick: () => { const t = p.lines.map(l => `${l.s}: ${l.t}`).join('\n\n'); const a = h('a', { href: URL.createObjectURL(new Blob([p.title + '\n\n' + t], { type: 'text/plain' })), download: p.title + '.txt' }); document.body.appendChild(a); a.click(); a.remove(); } }, h('span', { html: ico('download') }), L('Skript', 'Transcript')),
           h('button', { class: 'btn sm ghost', onclick: async () => { const ok = await modal({ title: L('Folge löschen?', 'Delete episode?'), text: p.title, actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { stop(); doc.podcasts = doc.podcasts.filter(x => x !== p); save(doc); intro(wrap, ctx); } } }, h('span', { html: ico('trash') }), L('Löschen', 'Delete')))),
       script));
