@@ -333,7 +333,7 @@ export function mountAssistant() {
       document.activeElement.blur(); closing = []; setTimeout(() => { closing = null; if (open) closeAnimated(); }, 320); return;
     }
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { setOpen(false); return; }
-    root.classList.remove('open'); const br = bub.getBoundingClientRect(); root.classList.add('open');
+    const br = bub.getBoundingClientRect();   // Kopf ist offen nur unsichtbar, Mitte stimmt – Klasse NICHT umschalten (sonst starten alle Einblend-Animationen neu)
     if (!br.width) { setOpen(false); return; }
     const tx = br.left + br.width / 2, ty = br.top + br.height / 2;
     const els = [isl, cap, feedTog, boardOpen && !boardMin ? board : null].filter(e => e && e.offsetParent !== null && e.getBoundingClientRect().width);
@@ -350,7 +350,6 @@ export function mountAssistant() {
       if (closing !== anims) return;
       closing = null; root.classList.remove('closing'); setOpen(false);
       requestAnimationFrame(() => anims.forEach(a => a.cancel()));
-      bub.animate([{ opacity: .4, scale: '.86' }, { opacity: 1, scale: '1' }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
     });
   }
   function setOpen(v, { listen = false } = {}) {

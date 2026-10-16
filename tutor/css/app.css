@@ -2033,3 +2033,8 @@ html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: n
   .ai-board { bottom: calc(142px + env(safe-area-inset-bottom, 0px)); }
   .asst.has-board:not(.board-min) .ai-board { bottom: calc(142px + var(--kb) + env(safe-area-inset-bottom, 0px)) !important; }
 }
+/* Chat-× deutlich: Kreis mit Rand, kräftiges Icon */
+.ai-b.ai-close { width: 40px; height: 40px; color: var(--ink); background: color-mix(in srgb, var(--ink) 12%, transparent); border: 1.5px solid color-mix(in srgb, var(--ink) 38%, transparent); border-radius: 50%; }
+.ai-b.ai-close .ico { width: 18px; height: 18px; stroke-width: 2.5; }
+.ai-b.ai-close:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+@media (max-width: 600px) { .ai-b.ai-close { width: 38px; height: 38px; } }
