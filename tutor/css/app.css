@@ -1974,3 +1974,9 @@ svg, svg *, img, canvas, video, picture, .ico, button, button *, .chip, .chip *,
 ::selection { background: color-mix(in srgb, var(--ink) 22%, transparent); color: inherit; }
 [data-split].settled .w, [data-split].settled .wi { display: inline; padding: 0; margin: 0; overflow: visible; transition: none; }
 .asst-quip .q-r, .asst-quip .q-x, .q-bar { -webkit-user-select: none; user-select: none; }
+/* Hell/Dunkel-Wechsel: Kreis wächst aus dem Knopf und färbt die Seite langsam um */
+html.theme-vt::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
+html.theme-vt::view-transition-new(root) { animation: themein 1.1s cubic-bezier(.65,0,.35,1) both; mix-blend-mode: normal; }
+html.theme-vt::view-transition-group(*), html.theme-vt::view-transition-old(*), html.theme-vt::view-transition-new(*) { animation-duration: 1.1s; }
+@keyframes themein { from { clip-path: circle(0 at var(--tx) var(--ty)); } to { clip-path: circle(var(--tr) at var(--tx) var(--ty)); } }
+html.theme-fade, html.theme-fade * { transition: background-color .8s ease, color .8s ease, border-color .8s ease, fill .8s ease, stroke .8s ease !important; }

@@ -2,6 +2,9 @@
 // Blinzelt, schaut dem Cursor nach. Zustände: idle, think, happy, sad, talk, smug.
 const NS = 'http://www.w3.org/2000/svg';
 const faces = new Set();
+// Haare einmal vorladen und dekodieren, damit jeder Kopf sofort mit Frisur erscheint
+const HAIR_IMG = new Image(); HAIR_IMG.src = '/tutor/img/max-hair-sm.png';
+let HAIR_READY = false;
 let pointer = null;
 addEventListener('pointermove', e => { pointer = { x: e.clientX, y: e.clientY, t: performance.now() }; }, { passive: true });
 
@@ -44,6 +47,15 @@ class Face {
     this.eyes = svg.querySelector('.fz-eyes');
     this.body = svg.querySelector('.fz-body');
     this.hair = svg.querySelector('.fz-hair');
+    // Kopf erst zeigen, wenn die Haare da sind – nie ein kahler Max
+    {
+      svg.style.opacity = '0'; const t0 = performance.now();
+      let shown = false;
+      const show = () => { if (shown) return; shown = true; HAIR_READY = true; if (performance.now() - t0 > 60) svg.style.transition = 'opacity .18s ease'; svg.style.opacity = ''; };
+      this.hair.addEventListener('load', show, { once: true });
+      HAIR_IMG.decode().then(() => requestAnimationFrame(() => requestAnimationFrame(show))).catch(() => {});
+      setTimeout(show, 1800);
+    }
     el.dataset.state = 'idle';
     this.lx = 0; this.ly = 0; this.tx = 0; this.ty = 0;
     this.idleLook = { x: 0, y: 0, until: 0 };

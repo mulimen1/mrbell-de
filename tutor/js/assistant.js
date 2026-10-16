@@ -445,7 +445,30 @@ export function mountAssistant() {
   }).observe(feedList, { childList: true, subtree: true, characterData: true });
   function showCap() { const was = root.classList.contains('has-cap'); root.classList.add('has-cap'); if (!was) capScroll(); syncLock(); }
   function dismissCap() { root.classList.remove('has-cap'); syncLock(); }
-  function setFeedOpen(v) { feedOpen = !!v; root.classList.toggle('feed-open', feedOpen); drawTog(); capScroll(); syncLock(); }
+  // Verlauf auf-/zuklappen – mit Animation: ältere Blasen gleiten gestaffelt rein/raus, die letzte wächst weich mit
+  let feedAnim = 0;
+  function setFeedOpen(v) {
+    v = !!v; if (v === feedOpen && root.classList.contains('feed-open') === v) return;
+    const tok = ++feedAnim;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const apply = () => { feedOpen = v; root.classList.toggle('feed-open', feedOpen); drawTog(); capScroll(); syncLock(); };
+    const others = () => [...feedList.querySelectorAll('.ai-bub:not(.last)'), ...feedList.querySelectorAll('.ai-bub.me.last')];
+    const lastA = feedList.querySelector('.ai-bub.max.last .ai-a');
+    const grow = (h0) => { if (!lastA || reduce) return; const h1 = lastA.getBoundingClientRect().height; if (Math.abs(h1 - h0) > 2) lastA.animate([{ height: h0 + 'px', overflow: 'hidden' }, { height: h1 + 'px', overflow: 'hidden' }], { duration: 520, easing: 'cubic-bezier(.16,1,.3,1)' }); };
+    if (reduce) { apply(); return; }
+    const h0 = lastA ? lastA.getBoundingClientRect().height : 0;
+    if (v) {
+      apply(); grow(h0);
+      const list = others().filter(b => b.offsetParent).reverse();   // von unten (neu) nach oben (alt)
+      list.slice(0, 14).forEach((b, i) => b.animate([{ opacity: 0, transform: 'translateY(16px) scale(.96)', filter: 'blur(6px)' }, { opacity: 1, transform: 'none', filter: 'none' }], { duration: 560, delay: 40 + i * 45, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }));
+      cap.animate([{ opacity: .6 }, { opacity: 1 }], { duration: 400, easing: 'ease-out' });
+    } else {
+      const list = others().filter(b => b.offsetParent);
+      const outs = list.slice(-14).reverse().map((b, i) => b.animate([{ opacity: 1, transform: 'none', filter: 'none' }, { opacity: 0, transform: 'translateY(12px) scale(.96)', filter: 'blur(6px)' }], { duration: 300, delay: i * 25, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' }));
+      const done = () => { if (tok !== feedAnim) { outs.forEach(a => a.cancel()); return; } const h = lastA ? lastA.getBoundingClientRect().height : 0; apply(); outs.forEach(a => a.cancel()); grow(h); };
+      if (!outs.length) done(); else Promise.all(outs.map(a => a.finished.catch(() => {}))).then(done);
+    }
+  }
   // „Verlauf“-Knopf sitzt immer direkt über der obersten sichtbaren Blase
   function placeTog() {
     requestAnimationFrame(() => {
