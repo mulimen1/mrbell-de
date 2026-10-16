@@ -1,12 +1,14 @@
-// BWL-Wochen-Challenge: jede Woche 12 Fragen für alle gleich, ein Versuch, Ranking gesamt und je Fach. Nur mit Konto.
+// BWL-Wochen-Challenge: jede Woche 24 Fragen für alle gleich, ein Versuch, Ranking gesamt und je Fach. Nur mit Konto.
 import { h, ico, ls } from './util.js';
 import { L, EN } from './i18n.js';
 import { getAccount, onAccount } from './api.js';
 import { face } from './face.js';
-import { BANK, FACH } from './challenge-bank.js';
+import { BANK as B1, FACH } from './challenge-bank.js';
+import { BANK2 } from './challenge-bank2.js';
+const BANK = [...B1, ...BANK2];
 import { getNick } from './nick.js';
 
-const N = 12, KEY = 'tutor.challenge';
+const N = 24, PER = 3, KEY = 'tutor.challenge';
 const T = p => (EN ? p[1] : p[0]);
 // ---------- Woche & Zufall (für alle gleich) ----------
 function isoWeek(d = new Date()) { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y = t.getUTCFullYear(); const w = Math.ceil(((t - Date.UTC(y, 0, 1)) / 864e5 + 1) / 7); return { y, w, id: y * 100 + w }; }
@@ -16,7 +18,7 @@ const shuf = (a, r) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) {
 function weekTest(wk) {
   const r = rng(wk.id * 7919);
   const byF = {}; shuf(BANK.map((q, i) => ({ q, i })), r).forEach(x => (byF[x.q.f] = byF[x.q.f] || []).push(x));
-  const pick = []; Object.keys(FACH).forEach(f => { if (byF[f] && byF[f].length) pick.push(byF[f].shift()); });
+  const pick = []; Object.keys(FACH).forEach(f => { for (let k = 0; k < PER && byF[f] && byF[f].length; k++) pick.push(byF[f].shift()); });
   const rest = shuf(Object.values(byF).flat(), r); while (pick.length < N && rest.length) pick.push(rest.shift());
   return shuf(pick, r).slice(0, N).map(({ q, i }) => { const ord = shuf([0, 1, 2, 3], rng(wk.id * 31 + i)); return { ...q, id: i, opts: ord.map(k => q.o[k]), right: ord.indexOf(q.a) }; });
 }
@@ -33,13 +35,13 @@ function field(wk) {
     let name; do { name = r() < 0.16 ? HANDLE[Math.floor(r() * HANDLE.length)] + (r() < 0.5 ? '' : Math.floor(r() * 99)) : VN[Math.floor(r() * VN.length)] + ' ' + NN[Math.floor(r() * NN.length)] + '.'; } while (used.has(name)); used.add(name);
     const ab = Math.min(0.97, Math.max(0.12, 0.56 + (r() + r() + r() - 1.5) * 0.42));   // Fähigkeit, grob normalverteilt
     let c = 0; for (let k = 0; k < N; k++) if (r() < ab) c++;
-    const secs = Math.round(150 + r() * 420), pts = Math.round(c / N * 1000 + Math.max(0, 1 - secs / 600) * 120);
+    const secs = Math.round(330 + r() * 720), pts = Math.round(c / N * 1000 + Math.max(0, 1 - secs / 1200) * 120);
     const fach = {}; Object.keys(FACH).forEach(f => { fach[f] = Math.round(Math.min(100, Math.max(0, (ab + (r() - 0.5) * 0.5) * 100))); });
     out.push({ name, c, secs, pts, fach });
   }
   return out;
 }
-const pointsOf = (c, secs) => Math.round(c / N * 1000 + Math.max(0, 1 - secs / 600) * 120);
+const pointsOf = (c, secs) => Math.round(c / N * 1000 + Math.max(0, 1 - secs / 1200) * 120);
 const mine = wk => (ls.get(KEY, {}) || {})[wk.id] || null;
 function saveMine(wk, res) { const all = ls.get(KEY, {}) || {}; all[wk.id] = res; const ks = Object.keys(all).sort().slice(-12); const o = {}; ks.forEach(k => o[k] = all[k]); ls.set(KEY, o); }
 function rankAll(wk, me) {
@@ -88,7 +90,7 @@ function hero(wk, list, action, blur) {
       h('div', { class: 'ch-trophy', html: ico('trophy') }),
       h('div', { class: 'eyebrow' }, L(`Wochen-Challenge · KW ${wk.w}`, `Weekly challenge · week ${wk.w}`)),
       h('h1', {}, L('Wer ist der beste BWLer?', 'Who’s the best at business?')),
-      h('p', {}, L('Jede Woche 12 Fragen quer durch alle Fächer. Ein Versuch. Ein Ranking – gesamt und in jedem Fach.', 'Every week 12 questions across all subjects. One attempt. One ranking – overall and per subject.')),
+      h('p', {}, L('Jede Woche 24 Fragen quer durch alle Fächer. Ein Versuch. Ein Ranking – gesamt und in jedem Fach.', 'Every week 24 questions across all subjects. One attempt. One ranking – overall and per subject.')),
       h('div', { class: 'ch-meta' }, h('span', {}, h('b', {}, String(list.length)), L('Teilnehmende', 'players')), h('span', {}, h('b', {}, '8'), L('Fächer', 'subjects')), h('span', {}, h('b', {}, countdown()), L('bis zur neuen Runde', 'until next round'))),
       action),
     podium(list, blur));
@@ -100,7 +102,7 @@ function locked(wrap, wk, onLogin) {
 }
 function lockedOld(wrap, wk, onLogin) {
   const list = rankAll(wk, null).slice(0, 8);
-  wrap.replaceChildren(head(wk, L('Jede Woche 12 Fragen quer durch alle Fächer. Ein Versuch, ein Ranking – gesamt und je Fach.', 'Every week 12 questions across all subjects. One attempt, one ranking – overall and per subject.')),
+  wrap.replaceChildren(head(wk, L('Jede Woche 24 Fragen quer durch alle Fächer. Ein Versuch, ein Ranking – gesamt und je Fach.', 'Every week 24 questions across all subjects. One attempt, one ranking – overall and per subject.')),
     h('div', { class: 'ch-lock' }, board(list, { blur: true }),
       h('div', { class: 'ch-lockc' }, h('span', { class: 'ch-lki', html: ico('lock') }), h('b', {}, L('Nur mit kostenlosem Konto', 'Free account required')),
         h('p', {}, L('Damit dein Platz im Ranking dir gehört, brauchst du ein Konto. Dauert 20 Sekunden – und es gibt 7 Tage Inner Circle obendrauf.', 'So your spot in the ranking is yours, you need an account. Takes 20 seconds – plus 7 days of Inner Circle.')),
@@ -108,12 +110,12 @@ function lockedOld(wrap, wk, onLogin) {
 }
 function intro(wrap, wk) {
   const list = rankAll(wk, null);
-  wrap.replaceChildren(hero(wk, list, h('div', { class: 'ch-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => run(wrap, wk) }, h('span', { html: ico('trophy') }), L('Challenge starten', 'Start challenge')), h('small', {}, L('12 Fragen · ca. 5 Minuten · ein Versuch · schnell und richtig = mehr Punkte', '12 questions · about 5 minutes · one attempt · fast and right = more points'))), false),
+  wrap.replaceChildren(hero(wk, list, h('div', { class: 'ch-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => run(wrap, wk) }, h('span', { html: ico('trophy') }), L('Challenge starten', 'Start challenge')), h('small', {}, L('24 Fragen · ca. 10 Minuten · ein Versuch · schnell und richtig = mehr Punkte', '24 questions · about 10 minutes · one attempt · fast and right = more points'))), false),
     h('section', { class: 'ch-card ch-wide' }, h('div', { class: 'eyebrow' }, L('Aktuelle Top 10', 'Current top 10')), board(list)));
 }
 function introOld(wrap, wk) {
   const list = rankAll(wk, null);
-  wrap.replaceChildren(head(wk, L(`12 Fragen · ca. 5 Minuten · ein Versuch. Schnell und richtig gibt die meisten Punkte. Neue Runde in ${countdown()}.`, `12 questions · about 5 minutes · one attempt. Fast and right scores most. New round in ${countdown()}.`)),
+  wrap.replaceChildren(head(wk, L(`24 Fragen · ca. 10 Minuten · ein Versuch. Schnell und richtig gibt die meisten Punkte. Neue Runde in ${countdown()}.`, `24 questions · about 10 minutes · one attempt. Fast and right scores most. New round in ${countdown()}.`)),
     h('div', { class: 'ch-grid' },
       h('section', { class: 'ch-card ch-start' },
         h('div', { class: 'ch-chips' }, Object.values(FACH).map(f => h('span', { class: 'chip' }, T(f)))),

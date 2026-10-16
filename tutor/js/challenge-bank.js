@@ -1,4 +1,4 @@
-// BWL-Wochen-Challenge: Fragenpool (jede Woche werden daraus 12 Fragen für alle gleich gezogen)
+// BWL-Wochen-Challenge: Fragenpool (jede Woche werden daraus 24 Fragen für alle gleich gezogen)
 // f = Fach, a = Index der richtigen Antwort
 export const FACH = {
   rewe: ['Rechnungswesen', 'Accounting'], kore: ['Kostenrechnung & Controlling', 'Cost accounting & controlling'], mkt: ['Marketing', 'Marketing'],
