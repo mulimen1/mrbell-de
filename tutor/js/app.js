@@ -110,6 +110,8 @@ function renderQuota(q) {
   q = currentQuota() || q;
   const acc = getAccount();
   const limit = q?.limit || (acc?.pro ? 200 : 40), used = q?.used || 0, left = Math.max(0, limit - used);
+  // Kontingent ist Systemstatus, kein Ziel: erst ab 70 % Verbrauch sichtbar
+  shell.quotaEl.hidden = used < 0.7 * limit;
   shell.quotaEl.replaceChildren(
     h('div', { class: 'row' }, h('span', {}, L('KI heute', 'AI today')), h('span', {}, L(`${left} / ${limit} frei`, `${left} / ${limit} left`))),
     h('div', { class: 'bar' }, h('i', { style: { width: (100 * left / limit) + '%' } })),

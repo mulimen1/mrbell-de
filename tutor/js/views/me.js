@@ -9,8 +9,12 @@ import { gruss } from '../nick.js';
 import { dueCards } from './cards.js';
 import { planSummary } from './plan.js';
 import * as M from '../me.js';
+import * as N from '../noten.js';
+import { reife } from '../reife.js';
 
-const TABS = [['', L('Heute', 'Today'), 'home'], ['faecher', L('Fächer', 'Subjects'), 'brain'], ['plan', L('Stundenplan', 'Timetable'), 'calendar'], ['favs', L('Favoriten', 'Favourites'), 'spark'], ['stats', L('Statistik', 'Stats'), 'trophy']];
+// Drei Ziele statt fünf: Stundenplan und Gemerktes stecken in „Heute“ (Vollansicht per Link)
+const TABS = [['', L('Heute', 'Today'), 'home'], ['faecher', L('Fächer & Noten', 'Subjects & grades'), 'brain'], ['stats', L('Statistik', 'Stats'), 'trophy']];
+const SUBS = { plan: L('Stundenplan', 'Timetable'), favs: L('Gemerkt', 'Saved') };
 const DAYS = L(['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'], ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
 const DAYS_LONG = L(['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'], ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
 const hm = t => new Date(t).toLocaleTimeString(LOCALE, { hour: '2-digit', minute: '2-digit' });
@@ -27,9 +31,9 @@ export function render(root, { sub = '', onLogin } = {}) {
     if (!wrap.isConnected) return;
     const a = getAccount();
     if (!a) return locked(wrap, onLogin);
-    const tab = TABS.some(t => t[0] === sub) ? sub : '';
+    const tab = TABS.some(t => t[0] === sub) || SUBS[sub] ? sub : '';
     const body = h('div', { class: 'me-body' });
-    wrap.replaceChildren(hero(a, tab !== ''), syncAsk(), nav(tab), body, syncCard());
+    wrap.replaceChildren(hero(a, tab !== ''), syncAsk(), SUBS[tab] ? subbar(tab) : nav(tab), body, syncCard());
     if (tab === '') today(body);
     if (tab === 'faecher') subjects(body);
     if (tab === 'plan') timetable(body, () => weekOff, v => { weekOff = v; draw(); });
@@ -67,23 +71,39 @@ function hero(a, compact = false) {
   const now = new Date();
   const brief = briefing();
   const days = M.activityDays(S.list), st = M.streak(days);
-  const wk = weekMinutes(0), ans = S.list.reduce((x, d) => x + (d.stats?.answered || 0), 0), cor = S.list.reduce((x, d) => x + (d.stats?.correct || 0), 0);
+  const wk = weekMinutes(0);
   const f = h('div', { class: 'me-face' });
   const el = h('section', { class: 'me-hero' + (compact ? ' sm' : '') }, h('div', { class: 'me-glow' }),
     h('div', { class: 'me-hl' },
       h('div', { class: 'eyebrow' }, now.toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long' })),
       h('h1', {}, gruss(now) + (nick ? ', ' : ''), nick ? h('span', { class: 'me-nick' }, nick) : null, '.'),
       compact ? null : h('p', { class: 'me-brief' }, brief),
-      h('div', { class: 'me-meta' },
+      h('div', { class: 'me-meta two' },
         stat(st, st === 1 ? L('Tag Serie', 'day streak') : L('Tage Serie', 'day streak')),
-        stat(M.fmtMin(wk), L('diese Woche', 'this week')),
-        stat(ans ? Math.round(100 * cor / ans) + ' %' : '–', L('richtig', 'correct')),
-        stat(M.getMe().faecher.length, L('Fächer', 'subjects')))),
+        weekGoal(wk))),
     f);
   const fc = face(f, {}); fc.set && fc.set(st >= 3 ? 'happy' : 'idle');
   return el;
 }
 const stat = (b, s) => h('span', {}, h('b', {}, String(b)), s);
+// Wochenziel als Balken (Länge statt Zahlenwand); antippen = Ziel ändern
+function weekGoal(wk) {
+  const goal = M.getMe().wochenziel || 150, pct = Math.min(100, Math.round(100 * wk / goal));
+  return h('button', { class: 'me-wkgoal' + (wk >= goal ? ' done' : ''), type: 'button', title: L('Wochenziel ändern', 'Change weekly goal'), onclick: editGoal },
+    h('span', { class: 'me-wkt' }, h('b', {}, M.fmtMin(wk)), L(` von ${M.fmtMin(goal)} diese Woche`, ` of ${M.fmtMin(goal)} this week`)),
+    h('span', { class: 'me-wkbar' }, h('i', { style: { width: pct + '%' } })));
+}
+async function editGoal() {
+  const cur = M.getMe().wochenziel || 150;
+  const opts = [60, 90, 120, 150, 210, 300, 420, 600];
+  const sel = h('div', { class: 'me-goals' }, opts.map(m => h('button', { class: 'chip' + (m === cur ? ' on' : ''), type: 'button', onclick: e => { sel.querySelectorAll('.chip').forEach(c => c.classList.remove('on')); e.currentTarget.classList.add('on'); sel.dataset.v = m; } }, M.fmtMin(m))));
+  sel.dataset.v = cur;
+  const r = await modal({ title: L('Wie viel willst du pro Woche lernen?', 'How much do you want to study per week?'), text: L('Faustregel: 1 ECTS ≈ 25–30 Stunden Arbeit. Lieber realistisch starten und steigern.', 'Rule of thumb: 1 ECTS ≈ 25–30 hours of work. Start realistic, then raise it.'), body: sel, actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'ok', primary: true }] });
+  if (r === 'ok') M.updateMe(m => { m.wochenziel = +sel.dataset.v; });
+}
+function subbar(tab) {
+  return h('div', { class: 'me-subbar' }, h('a', { class: 'btn sm ghost', href: '#/app/me' }, h('span', { html: ico('left') }), L('Heute', 'Today')), h('b', {}, SUBS[tab]));
+}
 function weekMinutes(off) {
   const days = M.getMe().akt || {}; const d = dayStart(); const wd = (d.getDay() + 6) % 7; d.setDate(d.getDate() - wd + off * 7);
   let m = 0; for (let i = 0; i < 7; i++) { const x = new Date(d); x.setDate(d.getDate() + i); m += days[M.dayKey(x)] || 0; } return m;
@@ -97,7 +117,7 @@ function briefing() {
   const due = S.list.reduce((x, d) => x + dueCards(d).length, 0);
   if (due) parts.push(L(`${due} ${due === 1 ? 'Karte ist' : 'Karten sind'} fällig – ${Math.max(2, Math.round(due * 0.4))} Minuten, dann sitzt das.`, `${due} ${due === 1 ? 'card is' : 'cards are'} due – ${Math.max(2, Math.round(due * 0.4))} minutes and it sticks.`));
   const ex = exams()[0];
-  if (ex && ex.days >= 0 && ex.days <= 45) parts.push(ex.days === 0 ? L(`Heute ist ${ex.name}-Klausur. Du packst das.`, `${ex.name} exam today. You’ve got this.`) : L(`${ex.name}-Klausur in ${tage(ex.days)}${ex.m != null ? ` – du stehst bei ${ex.m} %` : ''}.`, `${ex.name} exam in ${tage(ex.days)}${ex.m != null ? ` – you’re at ${ex.m}%` : ''}.`));
+  if (ex && ex.days >= 0 && ex.days <= 45) parts.push(ex.days === 0 ? L(`Heute ist ${ex.name}-Klausur. Du packst das.`, `${ex.name} exam today. You’ve got this.`) : L(`${ex.name}-Klausur in ${tage(ex.days)}${ex.m != null ? ` – Prüfungsreife ${ex.m} %` : ''}.`, `${ex.name} exam in ${tage(ex.days)}${ex.m != null ? ` – readiness ${ex.m}%` : ''}.`));
   if (!parts.length) parts.push(S.list.length ? L('Nichts Dringendes. Perfekter Tag, um vorzuarbeiten.', 'Nothing urgent. Perfect day to get ahead.') : L('Leg deine Fächer an und lad dein erstes Skript hoch – dann plane ich mit.', 'Add your subjects and upload your first slides – then I’ll plan along.'));
   return parts.join(' ');
 }
@@ -109,9 +129,10 @@ function exams() {
     const planEx = ds.map(d => d.plan?.exam).filter(Boolean).sort()[0];
     const iso = f.klausur || planEx; if (!iso) continue;
     ds.forEach(d => seen.add(d.id));
-    out.push({ name: f.name, iso, days: daysUntil(iso), m: ds.length ? Math.round(ds.reduce((x, d) => x + mastery(d), 0) / ds.length) : null, fach: f, doc: ds[0] });
+    const rf = ds.length ? reife(ds, new Date(iso + 'T08:00').getTime()) : null;
+    out.push({ name: f.name, iso, days: daysUntil(iso), m: rf && rf.hasData ? rf.score : null, fach: f, doc: ds[0] });
   }
-  for (const d of S.list) if (!seen.has(d.id) && d.plan?.exam) out.push({ name: d.name, iso: d.plan.exam, days: daysUntil(d.plan.exam), m: mastery(d), doc: d });
+  for (const d of S.list) if (!seen.has(d.id) && d.plan?.exam) { const rf = reife([d], new Date(d.plan.exam + 'T08:00').getTime()); out.push({ name: d.name, iso: d.plan.exam, days: daysUntil(d.plan.exam), m: rf.hasData ? rf.score : null, doc: d }); }
   return out.filter(x => x.days >= 0).sort((a, b) => a.days - b.days);
 }
 
@@ -150,32 +171,75 @@ const card = (title, ...kids) => h('section', { class: 'me-card' }, title ? h('d
 
 // ---------- Heute ----------
 function today(body) {
+  const me = M.getMe();
   const now = Date.now();
+  const recs = recommend(), top = recs[0], alts = recs.slice(1, 4);
+  // 1) Startcheckliste (startet nicht bei null – das Konto ist schon erledigt)
+  const check = startChecklist();
+  if (check) body.append(check);
+  // 2) Jetzt dran: ein Knopf, mit Grund und Dauer; „Etwas anderes“ zeigt höchstens drei Alternativen
+  if (top) {
+    const alt = h('div', { class: 'me-alts', hidden: true }, alts.map(r => h('a', { class: 'me-rec', href: r.href, onclick: r.onclick || null },
+      h('span', { class: 'me-ri', html: ico(r.ic) }), h('span', { class: 'me-rt' }, h('b', {}, r.t), h('small', {}, r.s + (r.min ? L(` · ca. ${r.min} Min.`, ` · ~${r.min} min`) : ''))), h('span', { class: 'me-ra', html: ico('right') }))));
+    const other = alts.length ? h('button', { class: 'me-next-o', type: 'button', onclick: e => { alt.hidden = !alt.hidden; e.currentTarget.textContent = alt.hidden ? L('Etwas anderes', 'Something else') : L('Weniger', 'Less'); } }, L('Etwas anderes', 'Something else')) : null;
+    body.append(h('section', { class: 'me-next' },
+      h('div', { class: 'me-next-i', html: ico(top.ic) }),
+      h('div', { class: 'me-next-t' }, h('div', { class: 'eyebrow' }, L('Jetzt dran', 'Up next') + (top.min ? L(` · ca. ${top.min} Min.`, ` · ~${top.min} min`) : '')), h('h2', {}, top.t), h('p', {}, top.s)),
+      h('div', { class: 'me-next-a' }, h('a', { class: 'btn primary lg me-next-b', href: top.href, onclick: top.onclick || null }, L('Los geht’s', 'Let’s go'), h('span', { html: ico('right') })), other)), alt);
+  }
+  // 3) Heute im Stundenplan (Streifen) + Demnächst | Gemerkt + Zuletzt geöffnet
   const ses = M.sessionsOn(new Date()), up = ses.filter(s => s.e > now);
   const tm = new Date(); tm.setDate(tm.getDate() + 1);
   const ses2 = up.length ? [] : M.sessionsOn(tm);
-  const hasPlan = M.getMe().kurse.length || M.getMe().ics.events?.length;
+  const hasPlan = me.kurse.length || me.ics.events?.length;
   const showToday = up.length || !ses2.length;
-  const sesEl = up.length ? h('div', { class: 'me-sessions' }, ses.map(s => session(s, now)))
+  const strip = !hasPlan
+    ? h('div', { class: 'me-empty' }, h('p', {}, L('Verbinde deinen Stundenplan – dann sag ich dir jeden Morgen, was ansteht, und plane Lernzeit in die Lücken.', 'Connect your timetable – I’ll tell you every morning what’s on and plan study time into the gaps.')), h('a', { class: 'btn sm', href: '#/app/me/plan' }, L('Stundenplan verbinden', 'Connect timetable')))
+    : up.length ? h('div', { class: 'me-sessions' }, ses.map(s => session(s, now)))
     : ses2.length ? h('div', { class: 'me-sessions' }, h('div', { class: 'me-note' }, ses.length ? L('Für heute bist du durch. Morgen steht an:', 'You’re done for today. Tomorrow:') : L('Heute frei. Morgen steht an:', 'Free today. Tomorrow:')), ses2.map(s => session(s, now)))
-    : h('div', { class: 'me-empty' }, h('p', {}, hasPlan ? (ses.length ? L('Für heute bist du durch. Morgen ist frei.', 'You’re done for today. Tomorrow is free.') : L('Heute keine Vorlesungen. Zeit für dich – oder für Karteikarten.', 'No lectures today. Time for you – or for flashcards.')) : L('Verbinde deinen Stundenplan, dann sag ich dir jeden Morgen, was ansteht.', 'Connect your timetable and I’ll tell you every morning what’s on.')),
-      hasPlan ? null : h('a', { class: 'btn sm', href: '#/app/me/plan' }, L('Stundenplan verbinden', 'Connect timetable')));
-  const recs = recommend(), top = recs[0], rest = recs.slice(1);
-  const ex = exams().slice(0, 4);
-  // Eine Karte, ein Button: das Wichtigste jetzt
-  if (top) body.append(h('section', { class: 'me-next' },
-    h('div', { class: 'me-next-i', html: ico(top.ic) }),
-    h('div', { class: 'me-next-t' }, h('div', { class: 'eyebrow' }, L('Jetzt dran', 'Up next')), h('h2', {}, top.t), h('p', {}, top.s)),
-    h('a', { class: 'btn primary lg me-next-b', href: top.href, onclick: top.onclick || null }, L('Los geht’s', 'Let’s go') + (top.min ? L(` · ca. ${top.min} Min.`, ` · ~${top.min} min`) : ''), h('span', { html: ico('right') }))));
-  body.append(h('div', { class: 'me-grid' },
-    rest.length ? card(L('Danach', 'After that'), h('div', { class: 'me-recs' }, rest.map(r => h('a', { class: 'me-rec', href: r.href, onclick: r.onclick || null },
-      h('span', { class: 'me-ri', html: ico(r.ic) }), h('span', { class: 'me-rt' }, h('b', {}, r.t), h('small', {}, r.s)), h('span', { class: 'me-ra', html: ico('right') }))))) : null,
-    card(showToday ? L('Heute', 'Today') : L('Morgen', 'Tomorrow'), sesEl),
-    card(L('Klausuren', 'Exams'), ex.length ? h('div', { class: 'me-exams' }, ex.map(e => h('a', { class: 'me-exam', href: e.doc ? `#/app/${e.doc.id}/plan` : '#/app/me/faecher' },
+    : h('div', { class: 'me-empty' }, h('p', {}, ses.length ? L('Für heute bist du durch. Morgen ist frei.', 'You’re done for today. Tomorrow is free.') : L('Heute keine Vorlesungen. Zeit für dich – oder für Karteikarten.', 'No lectures today. Time for you – or for flashcards.')));
+  const ex = exams().filter(e => e.days <= 60).slice(0, 4);
+  const soon = ex.length ? h('div', { class: 'me-exams' }, ex.map(e => {
+    const rf = e.fach ? reife((e.fach.docs || []).map(docById).filter(Boolean), new Date(e.iso + 'T08:00').getTime()) : e.doc ? reife([e.doc], new Date(e.iso + 'T08:00').getTime()) : null;
+    return h('a', { class: 'me-exam', href: e.doc ? `#/app/${e.doc.id}/plan` : '#/app/me/faecher' },
       h('div', { class: 'me-exn' }, h('b', {}, String(e.days)), h('span', {}, e.days === 1 ? L('Tag', 'day') : L('Tage', 'days'))),
-      h('div', { class: 'me-ext' }, h('b', {}, e.name), h('small', {}, new Date(e.iso + 'T12:00').toLocaleDateString(LOCALE, { weekday: 'short', day: 'numeric', month: 'short' }) + (e.m != null ? L(` · Lernstand ${e.m} %`, ` · progress ${e.m}%`) : '')),
-        e.m != null ? h('div', { class: 'me-bar' }, h('i', { style: { width: e.m + '%' } }), h('s', { style: { left: expected(e.days) + '%' } })) : null))))
-      : h('div', { class: 'me-empty' }, h('p', {}, L('Noch keine Klausurtermine. Trag sie bei deinen Fächern ein – dann zähl ich runter und plan mit.', 'No exam dates yet. Add them to your subjects – I’ll count down and plan along.')), h('a', { class: 'btn sm', href: '#/app/me/faecher' }, L('Fächer anlegen', 'Add subjects'))))));
+      h('div', { class: 'me-ext' }, h('b', {}, e.name), h('small', {}, new Date(e.iso + 'T12:00').toLocaleDateString(LOCALE, { weekday: 'short', day: 'numeric', month: 'short' }) + (rf && rf.hasData ? L(` · Prüfungsreife ${rf.score} %`, ` · readiness ${rf.score}%`) : '')),
+        rf && rf.hasData ? h('div', { class: 'me-bar' }, h('i', { style: { width: rf.score + '%' } })) : null));
+  })) : h('div', { class: 'me-empty' }, h('p', {}, L('Keine Klausur in den nächsten 60 Tagen eingetragen. Trag deine Termine bei den Fächern ein – dann zähl ich runter und plan mit.', 'No exam in the next 60 days. Add your dates to your subjects – I’ll count down and plan along.')), h('a', { class: 'btn sm', href: '#/app/me/faecher' }, L('Klausurtermine eintragen', 'Add exam dates')));
+  const favs = me.favs.slice(0, 3);
+  const recent = S.list.filter(d => !d.sample).sort((a, b) => (b.used || 0) - (a.used || 0)).slice(0, 3);
+  body.append(h('div', { class: 'me-grid two' },
+    h('div', { class: 'me-col2' },
+      card(showToday ? L('Heute', 'Today') : L('Morgen', 'Tomorrow'), strip, hasPlan ? h('a', { class: 'me-more', href: '#/app/me/plan' }, L('Ganze Woche', 'Full week'), h('span', { html: ico('right') })) : null),
+      card(L('Demnächst', 'Coming up'), soon)),
+    h('div', { class: 'me-col2' },
+      recent.length ? card(L('Zuletzt geöffnet', 'Recently opened'), h('div', { class: 'me-mini' }, recent.map(d => h('a', { class: 'me-mi', href: `#/app/${d.id}/hub` }, h('span', { class: 'me-fi', html: ico('file') }), h('span', {}, h('b', {}, d.name), h('small', {}, ago(d.used || d.created))))))) : null,
+      card(L('Gemerkt', 'Saved'), favs.length ? h('div', { class: 'me-mini' }, favs.map(x => { const d = x.doc && docById(x.doc); const tab = (FT[x.typ] || [])[2] || 'hub'; return h('a', { class: 'me-mi', href: d ? `#/app/${d.id}/${tab}` : '#/app/me/favs' }, h('span', { class: 'me-fi', html: ico((FT[x.typ] || [])[1] || 'spark') }), h('span', {}, h('b', {}, x.titel || L('Ohne Titel', 'Untitled')), h('small', {}, [FT[x.typ]?.[0], x.docName].filter(Boolean).join(' · ')))); }))
+        : h('div', { class: 'me-empty' }, h('p', {}, L('Tipp auf den Stern bei einer Erklärung, einem Quiz oder Kartenstapel – dann liegt es hier griffbereit.', 'Tap the star on an explanation, quiz or deck – it’ll be right here.'))),
+        me.favs.length > 3 ? h('a', { class: 'me-more', href: '#/app/me/favs' }, L(`Alle ${me.favs.length} ansehen`, `See all ${me.favs.length}`), h('span', { html: ico('right') })) : null))));
+}
+// Start in vier Schritten – verschwindet, sobald erledigt oder ausgeblendet
+function startChecklist() {
+  const me = M.getMe();
+  if (me.startOk) return null;
+  const own = S.list.filter(d => !d.sample);
+  const steps = [
+    { ok: true, t: L('Konto erstellt', 'Account created') },
+    { ok: own.length > 0, t: L('Erstes Skript hochladen', 'Upload your first slides'), go: () => document.getElementById('fileApp')?.click() },
+    { ok: me.faecher.some(f => f.klausur) || own.some(d => d.plan?.exam), t: L('Klausurtermin eintragen', 'Add an exam date'), go: () => { location.hash = '#/app/me/faecher'; } },
+    { ok: !!(me.kurse.length || me.ics.events?.length), t: L('Stundenplan verbinden', 'Connect your timetable'), go: () => { location.hash = '#/app/me/plan'; } },
+    { ok: own.some(d => d.decks.some(k => k.cards.some(c => c.reps))), t: L('Erste Karteikarten lernen', 'Study your first flashcards'), go: () => { location.hash = own[0] ? `#/app/${own[0].id}/karten` : '#/app'; if (!own[0]) document.getElementById('fileApp')?.click(); } }
+  ];
+  const done = steps.filter(x => x.ok).length;
+  if (done === steps.length) { M.updateMe(m => { m.startOk = Date.now(); }, { quiet: true }); return null; }
+  const next = steps.find(x => !x.ok);
+  return h('section', { class: 'me-start' },
+    h('div', { class: 'me-st-h' }, h('b', {}, L('Dein Start', 'Getting started')), h('span', {}, L(`${done} von ${steps.length}`, `${done} of ${steps.length}`)),
+      h('button', { class: 'linkbtn', type: 'button', onclick: () => M.updateMe(m => { m.startOk = Date.now(); }) }, L('Ausblenden', 'Hide'))),
+    h('div', { class: 'me-bar' }, h('i', { style: { width: Math.round(100 * done / steps.length) + '%' } })),
+    h('ol', { class: 'me-steps' }, steps.map(x => h('li', { class: x.ok ? 'ok' : x === next ? 'next' : '' },
+      h('span', { class: 'me-sti', html: x.ok ? ico('check') : '' }),
+      x.ok || !x.go ? h('span', {}, x.t) : h('button', { class: 'linkbtn', type: 'button', onclick: x.go }, x.t)))));
 }
 // Wo man stehen sollte: grob linear über 6 Wochen vor der Klausur
 const expected = d => Math.max(5, Math.min(95, Math.round(100 - d * (100 / 42))));
@@ -194,7 +258,7 @@ function recommend() {
   const byDue = S.list.map(d => ({ d, n: dueCards(d).length })).filter(x => x.n).sort((a, b) => b.n - a.n);
   const ex = exams();
   const urgent = ex.find(e => e.days <= 21 && e.doc && (e.m ?? 0) < expected(e.days));
-  if (urgent) out.push({ min: 25, ic: 'calendar', t: L(`${urgent.name}: aufholen`, `${urgent.name}: catch up`), s: L(`Klausur in ${tage(urgent.days)} – du bist bei ${urgent.m} %, Ziel wäre ~${expected(urgent.days)} %.`, `Exam in ${tage(urgent.days)} – you’re at ${urgent.m}%, aim for ~${expected(urgent.days)}%.`), href: `#/app/${urgent.doc.id}/plan` });
+  if (urgent) { const hasCards = urgent.doc.decks.some(k => k.cards.length); out.push({ min: 25, ic: hasCards ? 'cards' : 'calendar', t: L(`${urgent.name}: Reife hochziehen`, `${urgent.name}: boost readiness`), s: L(`Klausur in ${tage(urgent.days)} · Prüfungsreife ${urgent.m} %. 25 Minuten heute bringen dich spürbar nach vorn.`, `Exam in ${tage(urgent.days)} · readiness ${urgent.m}%. 25 minutes today move you forward noticeably.`), href: `#/app/${urgent.doc.id}/${hasCards ? 'karten' : 'plan'}` }); }
   for (const d of S.list) { const p = d.plan ? planSummary(d) : null; if (p && p.daysLeft >= 0 && p.todayOpen?.length) { out.push({ min: p.todayMin || 20, ic: 'exam', t: L(`Heute im Plan: ${d.name}`, `Today’s plan: ${d.name}`), s: L(`${p.todayOpen.length} ${p.todayOpen.length === 1 ? 'Aufgabe' : 'Aufgaben'} · ~${p.todayMin} Min.`, `${p.todayOpen.length} ${p.todayOpen.length === 1 ? 'task' : 'tasks'} · ~${p.todayMin} min`), href: `#/app/${d.id}/plan` }); break; } }
   if (byDue.length) { const n = byDue.reduce((x, y) => x + y.n, 0); out.push({ min: Math.max(2, Math.round(n * 0.4)), ic: 'cards', t: L(`${n} Karten wiederholen`, `Review ${n} cards`), s: L(`Am meisten in „${byDue[0].d.name}“. Wiederholen ist kostenlos.`, `Most in “${byDue[0].d.name}”. Reviewing is free.`), href: `#/app/${byDue[0].d.id}/karten` }); }
   for (const e of ex.filter(e => e.days <= 60 && e.fach)) {
@@ -216,28 +280,118 @@ function recommend() {
   return out.slice(0, 5);
 }
 
-// ---------- Fächer ----------
+// ---------- Fächer & Noten ----------
 function subjects(body) {
   const me = M.getMe();
+  body.append(notenCard());
   const grid = h('div', { class: 'me-subj' });
   for (const f of me.faecher) {
     const ds = (f.docs || []).map(docById).filter(Boolean);
-    const m = ds.length ? Math.round(ds.reduce((x, d) => x + mastery(d), 0) / ds.length) : 0;
     const iso = f.klausur || ds.map(d => d.plan?.exam).filter(Boolean).sort()[0];
     const dl = iso ? daysUntil(iso) : null;
-    const due = ds.reduce((x, d) => x + dueCards(d).length, 0);
+    const rf = reife(ds, iso ? new Date(iso + 'T08:00').getTime() : 0);
+    const graded = (me.noten?.module || []).find(m => m.fach === f.id);
+    // Nächster Schritt fürs Fach: schwache oder fällige Karten → Karten, sonst Quiz, sonst Skript zuordnen
+    const d0 = ds[0];
+    const step = !ds.length ? null
+      : rf.weak || rf.due ? { t: L(`${Math.max(rf.weak, rf.due)} Karten festigen`, `Strengthen ${Math.max(rf.weak, rf.due)} cards`), href: `#/app/${d0.id}/karten` }
+      : rf.neu ? { t: L(`${rf.neu} neue Karten lernen`, `Learn ${rf.neu} new cards`), href: `#/app/${d0.id}/karten` }
+      : !rf.cards ? { t: L('Karteikarten erstellen', 'Create flashcards'), href: `#/app/${d0.id}/karten` }
+      : { t: L('Quiz zur Kontrolle', 'Check yourself with a quiz'), href: `#/app/${d0.id}/quiz` };
     grid.append(h('article', { class: 'me-sc' },
       h('div', { class: 'me-sch' }, h('span', { class: 'me-badge' }, (f.kurz || f.name).slice(0, 3).toUpperCase()), h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Bearbeiten', 'Edit'), html: ico('tune'), onclick: () => editFach(f) })),
       h('h3', {}, f.name),
-      h('div', { class: 'me-scd' }, dl == null ? h('span', { class: 'me-muted' }, L('Kein Klausurtermin', 'No exam date')) : dl < 0 ? h('span', { class: 'me-muted' }, L('Klausur vorbei', 'Exam over')) : h('span', {}, h('b', {}, String(dl)), dl === 1 ? L(' Tag bis zur Klausur', ' day to the exam') : L(' Tage bis zur Klausur', ' days to the exam'))),
-      h('div', { class: 'me-bar big' }, h('i', { style: { width: m + '%' } }), dl != null && dl >= 0 ? h('s', { style: { left: expected(dl) + '%' } }) : null),
-      h('div', { class: 'me-scm' }, h('span', {}, L(`Lernstand ${m} %`, `Progress ${m}%`)), due ? h('span', {}, L(`${due} Karten fällig`, `${due} cards due`)) : null, f.ects ? h('span', {}, f.ects + ' ECTS') : null),
+      h('div', { class: 'me-scd' }, graded ? h('span', {}, L('Note ', 'Grade '), h('b', {}, N.fmt(+graded.note))) : dl == null ? h('span', { class: 'me-muted' }, L('Kein Klausurtermin', 'No exam date')) : dl < 0 ? h('span', { class: 'me-muted' }, L('Klausur vorbei', 'Exam over')) : h('span', {}, h('b', {}, String(dl)), dl === 1 ? L(' Tag bis zur Klausur', ' day to the exam') : L(' Tage bis zur Klausur', ' days to the exam'))),
+      rf.hasData ? h('div', { class: 'me-rf' },
+        h('div', { class: 'me-rft' }, h('span', {}, L('Prüfungsreife', 'Exam readiness')), h('b', {}, rf.score + ' %')),
+        h('div', { class: 'me-bar big' }, h('i', { style: { width: rf.score + '%' } })),
+        h('small', { class: 'me-muted' }, rf.themen ? L(`${rf.fest} von ${rf.themen} Themen sitzen am Klausurtag sicher`, `${rf.fest} of ${rf.themen} topics will be secure on exam day`) : L('Lern Karten oder mach ein Quiz – dann sehe ich, was sitzt.', 'Study cards or take a quiz – then I can see what sticks.'))) : null,
+      h('div', { class: 'me-scm' }, rf.due ? h('span', {}, L(`${rf.due} Karten fällig`, `${rf.due} cards due`)) : null, f.ects ? h('span', {}, f.ects + ' ECTS') : null),
+      step ? h('a', { class: 'btn sm primary me-scstep', href: step.href }, step.t, h('span', { html: ico('right') })) : null,
+      dl != null && dl < 0 && !graded ? h('button', { class: 'btn sm', type: 'button', onclick: () => editNote({ name: f.name, ects: f.ects || '', fach: f.id }) }, L('Note eintragen', 'Add grade')) : null,
       h('div', { class: 'me-scdocs' }, ds.length ? ds.map(d => h('a', { class: 'chip', href: `#/app/${d.id}/hub` }, h('span', { html: ico('file') }), d.name.length > 26 ? d.name.slice(0, 25) + '…' : d.name))
         : h('button', { class: 'chip', type: 'button', onclick: () => editFach(f) }, h('span', { html: ico('plus') }), L('Skripte zuordnen', 'Assign slides')))));
   }
   grid.append(h('button', { class: 'me-sc me-scadd', type: 'button', onclick: () => editFach(null) }, h('span', { html: ico('plus') }), h('b', {}, L('Fach anlegen', 'Add subject')), h('small', {}, L('z. B. Kostenrechnung, Klausur am 12.02.', 'e.g. Cost accounting, exam on 12 Feb'))));
   const loose = S.list.filter(d => !d.sample && !M.fachOf(d.id));
   body.append(grid, loose.length && me.faecher.length ? h('div', { class: 'me-note' }, L(`${loose.length} ${loose.length === 1 ? 'Skript ist' : 'Skripte sind'} noch keinem Fach zugeordnet.`, `${loose.length} ${loose.length === 1 ? 'set of slides isn’t' : 'sets of slides aren’t'} assigned to a subject yet.`)) : null);
+}
+
+// ---------- Notenziel: „Welche Note brauche ich noch?“ ----------
+const noten = () => { const n = M.getMe().noten || {}; return { profil: Object.assign(N.defaultProfil(), n.profil || {}), module: n.module || [], ziel: n.ziel || 2.0 }; };
+function notenCard() {
+  const { profil: p, module: mods, ziel } = noten();
+  const st = N.stand(mods);
+  const intro = h('p', { class: 'me-muted' }, L('Rechnet wie die meisten Prüfungsordnungen: nach ECTS gewichtet und nach der ersten Nachkommastelle abgeschnitten. Deine Noten bleiben bei dir – auf diesem Gerät bzw. in deinem Konto, wenn du synchronisierst.', 'Calculated like most exam regulations: ECTS-weighted and truncated after the first decimal. Your grades stay with you – on this device, or in your account if you sync.'));
+  if (!st.n) return card(L('Notenziel', 'Grade goal'), h('div', { class: 'me-empty' },
+    h('p', {}, L('Trag deine bisherigen Noten ein – dann rechne ich aus, was du für deine Wunschnote noch brauchst und welche Module am meisten bewegen.', 'Add your grades so far – I’ll work out what you still need for your target grade and which modules move it most.')),
+    h('div', { class: 'me-row-b' }, h('button', { class: 'btn sm primary', type: 'button', onclick: () => editNote(null) }, h('span', { html: ico('plus') }), L('Erste Note eintragen', 'Add first grade')), h('button', { class: 'btn sm ghost', type: 'button', onclick: editProfil }, L('Prüfungsordnung', 'Exam regulations')))), intro);
+  const cur = N.cut(st.exakt, p.stellen);
+  const zielSel = h('select', { class: 'field me-zsel', 'aria-label': L('Wunschnote', 'Target grade') }, [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.3, 3.5, 4.0].map(z => h('option', { value: z, selected: Math.abs(z - ziel) < 1e-9 || null }, N.fmt(z))));
+  zielSel.addEventListener('change', () => M.updateMe(m => { m.noten = Object.assign({}, m.noten, { ziel: +zielSel.value }); }));
+  const b = N.benoetigt(p, mods, ziel);
+  const open = M.getMe().faecher.filter(f => f.ects && !mods.some(m => m.fach === f.id));
+  let verdict;
+  if (b.fertig) verdict = L(`Alle ECTS sind drin – dein Schnitt ist ${N.fmt(cur)}.`, `All credits are in – your average is ${N.fmt(cur)}.`);
+  else if (b.sicher) verdict = L(`Entspannt: Die ${N.fmt(ziel)} schaffst du sogar mit lauter 4,0.`, `Relax: you’ll get ${N.fmt(ziel)} even with straight 4.0s.`);
+  else if (!b.machbar) verdict = L(`Die ${N.fmt(ziel)} ist leider nicht mehr drin. Mit lauter 1,0 kämst du auf ${N.fmt(b.bestMoeglich)}.`, `${N.fmt(ziel)} is out of reach. With straight 1.0s you’d get ${N.fmt(b.bestMoeglich)}.`);
+  else {
+    const k = Math.max(1, Math.min(6, Math.round(b.Erem / 6))), combo = N.kombi(b.r, k);
+    verdict = h('span', {}, L(`Für eine ${N.fmt(ziel)} brauchst du in den offenen ${b.Erem} ECTS einen Schnitt besser als `, `For a ${N.fmt(ziel)} you need an average better than `), h('b', {}, N.fmt(b.r, 2)), L(b.Erem ? '' : '', ` in the remaining ${b.Erem} ECTS`), '.',
+      combo ? h('small', { class: 'me-muted me-combo' }, L(`Zum Beispiel bei ${k} gleich großen Prüfungen: `, `For example across ${k} equally weighted exams: `) + combo.map(x => N.fmt(x)).join(' · ')) : null);
+  }
+  const lever = open.slice().sort((a, c) => (+c.ects) - (+a.ects)).slice(0, 3).map(f => h('li', {}, h('b', {}, f.name), L(` (${f.ects} ECTS): eine Notenstufe besser = `, ` (${f.ects} ECTS): one grade step better = `), h('b', {}, N.fmtHebel(N.hebel(p, +f.ects))), L(' besserer Endschnitt', ' better final grade')));
+  if (p.thesis || p.aThesis) lever.push(h('li', {}, h('b', {}, L('Abschlussarbeit', 'Thesis')), L(': eine Notenstufe besser = ', ': one grade step better = '), h('b', {}, N.fmtHebel(N.hebelThesis(p))), L(' besserer Endschnitt', ' better final grade')));
+  const list = h('details', { class: 'me-nlist' }, h('summary', {}, L(`${st.n} ${st.n === 1 ? 'Note' : 'Noten'} · ${st.E} ECTS`, `${st.n} ${st.n === 1 ? 'grade' : 'grades'} · ${st.E} ECTS`)),
+    h('div', { class: 'me-nrows' }, mods.slice().sort((a, c) => (c.ts || 0) - (a.ts || 0)).map(m => h('button', { class: 'me-nrow', type: 'button', onclick: () => editNote(m) }, h('span', {}, m.name), h('small', {}, (m.ects || '–') + ' ECTS'), h('b', {}, +m.note > 4 ? L('n. b.', 'fail') : N.fmt(+m.note))))));
+  return card(L('Notenziel', 'Grade goal'),
+    h('div', { class: 'me-ng' },
+      h('div', { class: 'me-nbig' }, h('small', {}, L('Dein Schnitt', 'Your average')), h('b', {}, N.fmt(cur)), h('span', { class: 'me-muted' }, L(`exakt ${N.fmt(st.exakt, 2)} · ${N.praedikat(cur)}`, `exact ${N.fmt(st.exakt, 2)} · ${N.praedikat(cur)}`)),
+        h('div', { class: 'me-bar' }, h('i', { style: { width: Math.min(100, Math.round(100 * st.E / p.gesamt)) + '%' } })), h('small', { class: 'me-muted' }, L(`${st.E} von ${p.gesamt} ECTS benotet`, `${st.E} of ${p.gesamt} ECTS graded`))),
+      h('div', { class: 'me-nz' }, h('label', { class: 'me-zl' }, L('Wunschnote', 'Target grade'), zielSel), h('p', { class: 'me-verdict' }, verdict),
+        lever.length ? h('div', {}, h('div', { class: 'me-lab' }, L('Wo sich Aufwand lohnt', 'Where effort pays off')), h('ul', { class: 'me-lever' }, lever)) : null)),
+    list,
+    h('div', { class: 'me-row-b' }, h('button', { class: 'btn sm', type: 'button', onclick: () => editNote(null) }, h('span', { html: ico('plus') }), L('Note eintragen', 'Add grade')), h('button', { class: 'btn sm ghost', type: 'button', onclick: editProfil }, L('Prüfungsordnung: ', 'Regulations: ') + (p.mode === 'anteil' ? L('mit Anteilen', 'with shares') : L('ECTS-gewichtet', 'ECTS-weighted')) + ` · ${p.gesamt} ECTS`)),
+    h('p', { class: 'me-muted me-fine' }, L('Orientierung, keine verbindliche Auskunft – maßgeblich ist deine Prüfungsordnung.', 'Guidance only – your exam regulations are binding.')));
+}
+async function editNote(m) {
+  const isNew = !m || !m.id; m = Object.assign({ name: '', ects: '', note: '' }, m || {});
+  const name = h('input', { class: 'field', value: m.name, maxlength: 80, placeholder: L('Modul, z. B. Kostenrechnung', 'Module, e.g. Cost accounting'), list: 'me-mods' });
+  const dl = h('datalist', { id: 'me-mods' }, M.getMe().faecher.map(f => h('option', { value: f.name })));
+  const ects = h('input', { class: 'field', type: 'number', min: 1, max: 30, step: 0.5, value: m.ects, placeholder: 'ECTS', inputmode: 'decimal' });
+  const note = h('select', { class: 'field' }, h('option', { value: '' }, L('– Note –', '– grade –')), [...N.NOTEN.map(n => [n, N.fmt(n)]), [5.0, L('5,0 (nicht bestanden)', '5.0 (fail)')]].map(([v, t]) => h('option', { value: v, selected: +m.note === v || null }, t)));
+  name.addEventListener('input', () => { const f = M.getMe().faecher.find(x => x.name === name.value); if (f && f.ects && !ects.value) ects.value = f.ects; });
+  const body = h('div', { class: 'me-form' }, dl, h('label', {}, h('span', {}, L('Modul', 'Module')), name), h('div', { class: 'me-row2' }, h('label', {}, h('span', {}, 'ECTS'), ects), h('label', {}, h('span', {}, L('Note', 'Grade')), note)));
+  const actions = [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'save', primary: true }];
+  if (!isNew) actions.unshift({ label: L('Löschen', 'Delete'), value: 'del' });
+  const r = await modal({ title: isNew ? L('Note eintragen', 'Add grade') : m.name, body, actions, onAction: v => { if (v !== 'save') return; if (!name.value.trim()) { name.focus(); return false; } if (!(+ects.value > 0)) { ects.focus(); return false; } if (!note.value) { note.focus(); return false; } } });
+  if (!r) return;
+  M.updateMe(me => {
+    const n = me.noten = Object.assign({ module: [] }, me.noten); n.module = (n.module || []).slice();
+    if (r === 'del') { n.module = n.module.filter(x => x.id !== m.id); return; }
+    const fach = m.fach || (me.faecher.find(f => f.name === name.value.trim()) || {}).id || '';
+    const rec = { id: m.id || uid(), name: name.value.trim().slice(0, 80), ects: +ects.value, note: +note.value, fach, ts: m.ts || Date.now() };
+    const i = n.module.findIndex(x => x.id === rec.id); if (i >= 0) n.module[i] = rec; else n.module.push(rec);
+  });
+  if (r === 'save' && isNew) toast(L('Eingetragen.', 'Added.'));
+}
+async function editProfil() {
+  const p = noten().profil;
+  const mode = h('select', { class: 'field' }, h('option', { value: 'ects', selected: p.mode !== 'anteil' || null }, L('Alles nach ECTS gewichtet (Standard)', 'Everything ECTS-weighted (standard)')), h('option', { value: 'anteil', selected: p.mode === 'anteil' || null }, L('Module + Thesis + Kolloquium mit festen Anteilen', 'Modules + thesis + colloquium with fixed shares')));
+  const ges = h('select', { class: 'field' }, [180, 210, 240, 90, 120].map(x => h('option', { value: x, selected: +p.gesamt === x || null }, x + ' ECTS')));
+  const th = h('input', { class: 'field', type: 'number', min: 0, max: 30, value: p.thesis || 12 });
+  const ko = h('input', { class: 'field', type: 'number', min: 0, max: 15, value: p.kolloq || 0 });
+  const aT = h('input', { class: 'field', type: 'number', min: 0, max: 50, value: p.aThesis || 15 });
+  const aK = h('input', { class: 'field', type: 'number', min: 0, max: 30, value: p.aKolloq || 5 });
+  const shares = h('div', { class: 'me-row2' }, h('label', {}, h('span', {}, L('Anteil Thesis in %', 'Thesis share %')), aT), h('label', {}, h('span', {}, L('Anteil Kolloquium in %', 'Colloquium share %')), aK));
+  const sync = () => { shares.hidden = mode.value !== 'anteil'; }; mode.addEventListener('change', sync); sync();
+  const tpl = h('button', { class: 'linkbtn', type: 'button', onclick: () => { const t = N.PROFILE.hsb; mode.value = t.mode; ges.value = t.gesamt; th.value = t.thesis; ko.value = t.kolloq; aT.value = t.aThesis; aK.value = t.aKolloq; sync(); } }, L('Vorlage: 80 % Module · 15 % Thesis · 5 % Kolloquium', 'Template: 80% modules · 15% thesis · 5% colloquium'));
+  const body = h('div', { class: 'me-form' }, h('label', {}, h('span', {}, L('Berechnung', 'Calculation')), mode), h('label', {}, h('span', {}, L('Studiengang gesamt', 'Programme total')), ges),
+    h('div', { class: 'me-row2' }, h('label', {}, h('span', {}, L('ECTS Thesis', 'Thesis ECTS')), th), h('label', {}, h('span', {}, L('ECTS Kolloquium', 'Colloquium ECTS')), ko)), shares, tpl,
+    h('p', { class: 'me-muted' }, L('Steht in deiner Prüfungsordnung meist unter „Bildung der Gesamtnote“. Die Endnote wird nach der ersten Nachkommastelle abgeschnitten.', 'Usually under “calculation of the final grade” in your regulations. The final grade is truncated after the first decimal.')));
+  const r = await modal({ title: L('Deine Prüfungsordnung', 'Your exam regulations'), body, actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'ok', primary: true }] });
+  if (r !== 'ok') return;
+  M.updateMe(m => { m.noten = Object.assign({}, m.noten, { profil: { key: mode.value === 'anteil' ? 'eigen' : 'ects', mode: mode.value, gesamt: +ges.value, thesis: +th.value || 0, kolloq: +ko.value || 0, aThesis: +aT.value || 0, aKolloq: +aK.value || 0, stellen: 1 } }); });
 }
 async function editFach(f) {
   const isNew = !f; f = f ? JSON.parse(JSON.stringify(f)) : { name: '', kurz: '', klausur: '', ects: '', docs: [] };
@@ -419,8 +573,20 @@ function stats(body) {
       kpi(M.fmtMin(w0), L('Lernzeit diese Woche', 'Study time this week'), trend == null ? L(`Letzte Woche: ${M.fmtMin(w1)}`, `Last week: ${M.fmtMin(w1)}`) : trend >= 0 ? L(`+${trend} % zur Vorwoche`, `+${trend}% vs last week`) : L(`${trend} % zur Vorwoche`, `${trend}% vs last week`)),
       kpi(ans ? Math.round(100 * cor / ans) + ' %' : '–', L('Trefferquote', 'Accuracy'), L(`${ans} Fragen beantwortet`, `${ans} questions answered`)),
       kpi(reps, L('Karten gelernt', 'Cards learned'), L('mit Wiederholung', 'with spaced repetition'))),
+    weeksCard(),
     card(L('Deine letzten 18 Wochen', 'Your last 18 weeks'), h('div', { class: 'me-heat' }, cells), h('div', { class: 'me-heatl' }, h('span', {}, L('weniger', 'less')), [0, 1, 2, 3, 4].map(l => h('i', { class: 'l' + l })), h('span', {}, L('mehr', 'more')))),
     rows.length ? card(subj.length ? L('Lernstand pro Fach', 'Progress per subject') : L('Lernstand pro Skript', 'Progress per set of slides'), h('div', { class: 'me-bars' }, rows.map((r, i) => h('div', { class: 'me-br' }, h('span', {}, r.n), h('div', { class: 'me-bar big' }, h('i', { style: { width: r.m + '%' } })), h('b', {}, r.m + ' %')))),
       rows.length > 1 ? h('p', { class: 'me-muted' }, L(`Am stärksten: ${rows[0].n}. Hier lohnt sich jede Minute: ${rows[rows.length - 1].n}.`, `Strongest: ${rows[0].n}. Every minute pays off here: ${rows[rows.length - 1].n}.`)) : null) : null);
 }
 const kpi = (b, t, s) => h('div', { class: 'me-kpi' }, h('b', {}, String(b)), h('span', {}, t), h('small', {}, s));
+// Lernzeit pro Woche als Balken gegen das Wochenziel – Länge statt Graustufen
+function weeksCard() {
+  const goal = M.getMe().wochenziel || 150;
+  const ws = [...Array(8)].map((_, i) => ({ off: i - 7, m: weekMinutes(i - 7) }));
+  const top = Math.max(goal, ...ws.map(w => w.m), 1);
+  const lbl = off => off === 0 ? L('diese', 'this') : off === -1 ? L('letzte', 'last') : L(`KW ${isoWeek(new Date(Date.now() + off * 7 * 864e5))}`, `W${isoWeek(new Date(Date.now() + off * 7 * 864e5))}`);
+  return card(L('Lernzeit pro Woche', 'Study time per week'),
+    h('p', { class: 'me-wsum' }, h('b', {}, M.fmtMin(ws[7].m)), L(` von ${M.fmtMin(goal)} diese Woche`, ` of ${M.fmtMin(goal)} this week`), ws[7].m >= goal ? L(' – Ziel geschafft.', ' – goal reached.') : ''),
+    h('div', { class: 'me-wbars', style: { '--g': String(goal / top) } }, h('span', { class: 'me-wgoal', title: L('Wochenziel', 'Weekly goal') }),
+      ws.map(w => h('div', { class: 'me-wbc' + (w.off === 0 ? ' now' : '') + (w.m >= goal ? ' hit' : ''), title: `${lbl(w.off)}: ${M.fmtMin(w.m)}` }, h('i', { style: { height: Math.max(2, 100 * w.m / top) + '%' } }), h('small', {}, lbl(w.off))))));
+}
