@@ -2477,3 +2477,7 @@ html[lang="en"] .me-wday.on .me-wdh::after { content: "today"; }
 .me-next .me-next-b:hover { transform: translateY(-1px); filter: none; }
 .me-next .me-next-b span { display: grid; }
 @media (max-width: 720px) { .me-next { grid-template-columns: 1fr; gap: 14px; padding: 22px 20px; } .me-next-i { width: 44px; height: 44px; } .me-next .me-next-b { justify-self: stretch; justify-content: center; } }
+.aitag .aisrc { color: var(--ink2, var(--ink)); opacity: .9; font-weight: 600; cursor: help; }
+.aitag .aisrc.gen { font-weight: 500; opacity: .75; }
+.aitag { flex-wrap: wrap; row-gap: 3px; column-gap: 6px; }
+.aitag > span { white-space: nowrap; }

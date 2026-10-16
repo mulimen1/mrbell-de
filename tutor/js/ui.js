@@ -249,8 +249,18 @@ export function modelName(id) {
   return m ? `Claude ${m[1][0].toUpperCase()}${m[1].slice(1)} ${m[2]}.${m[3]}` : '';
 }
 const TOOLNAME = { rechne: 'Rechner', kapitalwert: 'Kapitalwert', interner_zinsfuss: 'Interner Zinsfuß', annuitaet: 'Annuität', finanzmathe: 'Zinsrechnung', abschreibung: 'Abschreibung', break_even: 'Break-even', deckungsbeitrag: 'Deckungsbeitrag', zuschlagskalkulation: 'Zuschlagskalkulation', einkommensteuer: 'Einkommensteuer (§ 32a EStG)', statistik: 'Statistik' };
-export function aiTag(tools) {
+// Herkunft: src = 'doc' (Skript mitgeschickt) / 'max' (Max' eigenes Kurzskript) / '' (ohne Skript). Seiten kommen aus den (S. x)-Belegen.
+export function aiTag(tools, raw = '', src = '') {
   const t = Array.isArray(tools) ? tools.filter(x => TOOLNAME[x]) : [];
   const ok = t.length ? h('span', { class: 'aiok', title: L('Die Zahlen hat ein festes Rechenprogramm ausgerechnet, nicht die KI: ', 'The numbers were computed by a fixed calculator, not by the AI: ') + t.map(x => TOOLNAME[x]).join(', ') }, '✓ ' + L('Zahlen exakt nachgerechnet', 'Numbers verified by calculator')) : null;
-  return h('div', { class: 'aitag', title: L('Max ist eine KI (Sprachmodell von Anthropic). Antworten können Fehler enthalten – prüf Wichtiges mit deinem Skript.', 'Max is an AI (language model by Anthropic). Answers can contain mistakes – check important things against your slides.') }, ok, ok ? h('span', { class: 'ai-sep' }, '·') : h('span', { class: 'ai-dot' }), L('KI von Anthropic · kann Fehler machen', 'AI by Anthropic · can make mistakes'));
+  let from = null;
+  if (src) {
+    const pages = [...new Set([...String(raw).matchAll(/\((?:S|p|pp)\. ?(\d+)(?:[–-](\d+))?\)/g)].map(m => +m[1]))].sort((a, b) => a - b).slice(0, 5);
+    from = pages.length
+      ? h('span', { class: 'aisrc', title: L('Die Aussagen sind mit diesen Seiten belegt – zum Nachlesen.', 'Backed by these pages – check them yourself.') }, (src === 'max' ? L('Aus dem Kurzskript', 'From the short script') : L('Aus deinem Skript', 'From your slides')) + ' · ' + L('S. ', 'p. ') + pages.join(', '))
+      : h('span', { class: 'aisrc gen', title: L('Dazu steht nichts Passendes im Skript – Max erklärt aus allgemeinem Fachwissen.', 'Nothing matching in the slides – Max explains from general knowledge.') }, L('Allgemeinwissen, nicht aus dem Skript', 'General knowledge, not from the slides'));
+  }
+  const lead = [from, ok].filter(Boolean);
+  return h('div', { class: 'aitag', title: L('Max ist eine KI (Sprachmodell von Anthropic). Antworten können Fehler enthalten – prüf Wichtiges mit deinem Skript.', 'Max is an AI (language model by Anthropic). Answers can contain mistakes – check important things against your slides.') },
+    ...lead.flatMap(x => [x, h('span', { class: 'ai-sep' }, '·')]), lead.length ? null : h('span', { class: 'ai-dot' }), h('span', { class: 'aikI' }, L('KI von Anthropic · kann Fehler machen', 'AI by Anthropic · can make mistakes')));
 }

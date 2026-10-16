@@ -104,7 +104,7 @@ export async function render(root, ctx) {
     el.appendChild(body);
     const extras = h('div');
     boardRefs.forEach(({ idx, title }) => extras.appendChild(h('button', { class: 'boardlink', onclick: () => { bIdx = idx; drawBoard(); showBoard(true); } }, h('span', { html: ico('board') }), title)));
-    if (model !== undefined) extras.appendChild(aiTag(tools));
+    if (model !== undefined) extras.appendChild(aiTag(tools, raw, doc.generated ? 'max' : 'doc'));
     if (!nofav && (p.text || '').length > 60) extras.appendChild(h('div', { class: 'favrow' }, starBtn(() => ({ typ: 'erklaerung', titel: plain(p.text).slice(0, 90), doc: doc.id, docName: doc.name, ref: textKey(p.text), inhalt: plain(p.text) }), { label: true, cls: 'sm' })));
     if (p.acts.length) extras.appendChild(h('div', { class: 'acts' }, p.acts.map(a => h('a', { class: 'btn sm', href: ACTIONS[a][1](doc) }, ACTIONS[a][0], h('span', { html: ico('right') })))));
     msgs.appendChild(el);
