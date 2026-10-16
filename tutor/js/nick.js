@@ -93,7 +93,6 @@ export function greetSplash(nick = getNick()) {
   const close = () => { if (done) return; done = true; el.classList.add('out'); setTimeout(() => { el.remove(); showing = false; }, 520); };
   el.addEventListener('click', close);
   addEventListener('keydown', function k(e) { if (e.key === 'Escape' || e.key === 'Enter') { removeEventListener('keydown', k); close(); } });
-  setTimeout(close, 5200);
   requestAnimationFrame(() => el.classList.add('in'));
 }
 // Beim Laden der Seite: angemeldet + Spitzname → begrüßen (nicht öfter als alle 2 Minuten)
