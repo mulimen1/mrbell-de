@@ -248,7 +248,6 @@ export function modelName(id) {
   const m = /claude-([a-z]+)-(\d+)-(\d+)/.exec(String(id || ''));
   return m ? `Claude ${m[1][0].toUpperCase()}${m[1].slice(1)} ${m[2]}.${m[3]}` : '';
 }
-export function aiTag(id) {
-  const n = modelName(id);
-  return h('div', { class: 'aitag', title: L('Max ist eine KI. Antworten können Fehler enthalten – prüf Wichtiges mit deinem Skript.', 'Max is an AI. Answers can contain mistakes – check important things against your slides.') }, h('span', { class: 'ai-dot' }), L('KI', 'AI') + (n ? ' · ' + n : '') + L(' · kann Fehler machen', ' · can make mistakes'));
+export function aiTag() {
+  return h('div', { class: 'aitag', title: L('Max ist eine KI (Sprachmodell von Anthropic). Antworten können Fehler enthalten – prüf Wichtiges mit deinem Skript.', 'Max is an AI (language model by Anthropic). Answers can contain mistakes – check important things against your slides.') }, h('span', { class: 'ai-dot' }), L('KI von Anthropic · kann Fehler machen', 'AI by Anthropic · can make mistakes'));
 }
