@@ -147,7 +147,7 @@ export function mountAssistant() {
   // ----- Kopf -----
   const bubFace = h('span', { class: 'asst-bf' });
   const bub = h('button', { class: 'asst-bub', type: 'button', 'aria-label': L('Mit Max reden', 'Talk to Max'), title: L('Frag Max', 'Ask Max') },
-    bubFace, h('i', { class: 'asst-dot' }), h('span', { class: 'asst-tip' }, L('Klick mich – ich helf dir', 'Tap me – I’ll help you')),
+    bubFace, h('i', { class: 'asst-dot' }), h('span', { class: 'asst-tip' }, h('span', {}, L('Klick mich – ich helf dir', 'Tap me – I’ll help you')), h('span', { class: 'tip-x', role: 'button', tabindex: 0, 'aria-label': L('Hinweis schließen', 'Dismiss hint'), html: ico('x') })),
     h('span', { class: 'asst-x', title: L('Max ausblenden', 'Hide Max'), html: ico('x') }),
     h('span', { class: 'asst-bs', title: L('Stopp', 'Stop'), html: SVG.stop }));
 
@@ -326,6 +326,24 @@ export function mountAssistant() {
   // ---------- Öffnen / Einklappen ----------
   // Schließen: Insel, Verlauf und Tafel ziehen sich sauber in den Kopf rechts zurück (ohne Überschwingen)
   let closing = null;
+  // „Klick mich“-Hinweis: kommt zügig, bleibt ein paar Sekunden, lässt sich wegklicken,
+  // und kommt wieder, solange Max noch nie benutzt wurde
+  let tipOff = false, tipVisSince = 0, tipNext = 0, tipHideT = 0, tipN = 0;
+  const tipX = bub.querySelector('.tip-x');
+  const hideTip = () => { clearTimeout(tipHideT); root.classList.remove('tip-on'); };
+  tipX.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); tipOff = true; hideTip(); });
+  tipX.addEventListener('pointerdown', e => e.stopPropagation());
+  setInterval(() => {
+    if (tipOff || ls.get('tutor.asst.seen')) { if (root.classList.contains('tip-on')) hideTip(); return; }
+    const vis = !open && !document.hidden && isAssistantEnabled() && !['landtop', 'covered', 'nobub', 'quipping', 'dragging', 'off'].some(c => root.classList.contains(c));
+    if (!vis) { tipVisSince = 0; if (root.classList.contains('tip-on')) hideTip(); return; }
+    const now = Date.now();
+    if (!tipVisSince) tipVisSince = now;
+    if (!root.classList.contains('tip-on') && now - tipVisSince >= 1500 && now >= tipNext) {
+      root.classList.add('tip-on'); tipN++; tipNext = tipN >= 3 ? Infinity : now + 9000 + 45000;   // höchstens 3× pro Besuch
+      clearTimeout(tipHideT); tipHideT = setTimeout(hideTip, 9000);
+    }
+  }, 400);
   function closeAnimated() {
     if (closing) return;
     // Handy mit offener Tastatur: erst Tastatur weg, dann sauber einziehen (sonst springt alles mitten in der Animation)

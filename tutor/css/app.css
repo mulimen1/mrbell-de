@@ -1690,7 +1690,7 @@ footer.foot .asst-tg:hover { color: var(--ink); }
 .asst-bs { height: 32px; min-width: 32px; bottom: -4px; left: -6px; }
 .asst-tip { font: 650 14.5px var(--sans); padding: 10px 15px; right: calc(100% + 14px); box-shadow: 0 10px 30px -12px rgba(0,0,0,.5); }
 .asst-tip::after { content: ""; position: absolute; right: -6px; top: 50%; width: 12px; height: 12px; background: inherit; transform: translateY(-50%) rotate(45deg); border-radius: 2px; }
-.asst:not(.seen):not(.open):not(.landtop):not(.covered):not(.dragging) .asst-tip { opacity: 1; transform: none; animation: aitipnudge 2.6s ease-in-out 1.2s infinite; }
+.asst.tip-on:not(.open):not(.landtop):not(.covered):not(.dragging) .asst-tip { opacity: 1; transform: none; pointer-events: auto; animation: aitipnudge 2.6s ease-in-out 1.2s infinite; }
 @keyframes aitipnudge { 0%, 70%, 100% { translate: 0 -50%; } 80% { translate: -6px -50%; } 90% { translate: 0 -50%; } }
 @media (max-width: 600px) {
   .asst-bub { width: 84px; height: 84px; }
@@ -2047,4 +2047,16 @@ html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: n
   .ai-cap { bottom: calc(154px + env(safe-area-inset-bottom, 0px)); }
   .ai-feed { bottom: calc(156px + var(--kb) + env(safe-area-inset-bottom, 0px)); }
   .ai-menu { bottom: calc(154px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* „Klick mich“-Hinweis mit kleinem × (Handy + Laptop) */
+.asst-tip { display: inline-flex !important; align-items: center; gap: 8px; padding-right: 8px !important; transition: opacity .45s ease, transform .5s cubic-bezier(.16,1,.3,1) !important; }
+.asst-tip .tip-x { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: color-mix(in srgb, var(--onInv) 14%, transparent); cursor: pointer; position: relative; }
+.asst-tip .tip-x::after { content: ""; position: absolute; inset: -8px; }
+.asst-tip .tip-x .ico { width: 12px; height: 12px; stroke-width: 2.6; }
+.asst-tip .tip-x:hover { background: color-mix(in srgb, var(--onInv) 26%, transparent); }
+@media (max-width: 600px) {
+  .asst-tip { right: 0; top: auto; bottom: calc(100% + 12px); translate: 0 0; }
+  .asst-tip::after { right: 30px; top: auto; bottom: -6px; transform: rotate(45deg); }
+  .asst.tip-on:not(.open) .asst-tip { animation: none; }
 }
