@@ -5,7 +5,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn, freshen } from '../ui.js';
+import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { richText } from '../sanitize.js';
 import { L } from '../i18n.js';
 
@@ -82,6 +82,8 @@ async function generate(wrap, ctx, chIdx) {
 function study(wrap, ctx, items, title) {
   const { doc } = ctx;
   let queue = shuffle(items).sort((a, b) => (a.c.due || 0) - (b.c.due || 0)).slice(0, 40);
+  // Ohne Konto: die ersten Karten jedes Stapels zuerst, der Rest danach (gesperrt)
+  if (isGuest()) { const free = x => x.d.cards.indexOf(x.c) < GUEST_CARDS; queue = [...items.filter(free), ...items.filter(x => !free(x))].slice(0, 40); }
   let i = 0, flipped = false, done = 0, again = 0;
   const stage = h('div', { class: 'fc-stage' });
   wrap.replaceChildren(h('button', { class: 'btn sm ghost', onclick: () => { cleanup(); overview(wrap, ctx); }, style: { marginBottom: '10px' } }, h('span', { html: ico('left') }), L('Karteikarten', 'Flashcards')),
@@ -94,6 +96,7 @@ function study(wrap, ctx, items, title) {
       const fc = face(f); setTimeout(() => fc.set('happy'), 150);
       return;
     }
+    if (isGuest() && queue[i].d.cards.indexOf(queue[i].c) >= GUEST_CARDS) return lockedRest(stage, { left: queue.length - i, what: L('Karten', 'cards'), onUnlock: draw });
     const { c } = queue[i];
     flipped = false;
     const card = h('div', { class: 'fc', tabindex: 0, role: 'button', 'aria-label': L('Karte umdrehen', 'Flip card') },

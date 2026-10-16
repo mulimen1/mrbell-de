@@ -5,7 +5,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save, track } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn, moreOpts, freshen } from '../ui.js';
+import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { renderQuestion, normalize, TYPE_LABEL, explainPrompt } from '../quiz.js';
 import { feedbackButton } from '../feedback.js';
 import { ls as lsq } from '../util.js';
@@ -79,6 +79,7 @@ async function generate(wrap, ctx, st) {
 }
 
 async function exam(wrap, ctx) {
+  if (isGuest()) return lockedPreview(wrap, { kind: 'exam', title: L('Probeklausur – mit kostenlosem Konto', 'Mock exam – with a free account'), onUnlock: () => exam(wrap, ctx), back: () => overview(wrap, ctx) });
   const { doc } = ctx;
   const ld = loading(wrap, L('Ich stelle deine Probeklausur zusammen …', 'Putting your mock exam together …'), L(['Wähle die wichtigsten Themen', 'Schreibe Rechenaufgaben', 'Baue Transferfragen', 'Prüfe alle Lösungen', 'Gleich geschafft'], ['Picking the key topics', 'Writing calculations', 'Building transfer questions', 'Checking all solutions', 'Almost done']), 'exam');
   try {
@@ -117,6 +118,7 @@ function run(wrap, ctx, quiz) {
   }
   const step = () => {
     if (i >= qs.length) return finish();
+    if (isGuest() && !quiz.mistakes && i >= GUEST_QUIZ) { count.textContent = `${i} / ${qs.length}`; return lockedRest(stage, { left: qs.length - i, what: L('Fragen', 'questions'), onUnlock: step }); }
     prog.style.width = (100 * i / qs.length) + '%';
     count.textContent = `${i + 1} / ${qs.length}`;
     const q = qs[i];

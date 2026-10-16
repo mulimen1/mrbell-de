@@ -3,7 +3,7 @@ import { h, ico, ago, ls, modal } from '../util.js';
 import { face } from '../face.js';
 import { mastery, save } from '../state.js';
 import { generatePath, pathPending } from './path.js';
-import { apiError, typePlaceholder } from '../ui.js';
+import { apiError, typePlaceholder, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { dueCards } from './cards.js';
 import { L, LOCALE } from '../i18n.js';
 import { planSummary } from './plan.js';
@@ -33,7 +33,7 @@ export async function render(root, ctx) {
     pathTile.replaceChildren(h('div', { class: 'ti', html: ico('path') }),
       h('h3', {}, P ? (nextIdx >= 0 ? L(`Weiter: ${P.chapters[nextIdx].title}`, `Next: ${P.chapters[nextIdx].title}`) : L('Lernpfad geschafft', 'Study path completed')) : L('Lernpfad', 'Study path')),
       h('p', {}, P ? L(`${P.chapters.filter(c => c.done).length} von ${P.chapters.length} Kapiteln`, `${P.chapters.filter(c => c.done).length} of ${P.chapters.length} chapters`) : pathPending(doc) ? L('Wird gerade erstellt …', 'Being built right now …') : L('Kapitel, Lektionen und Aufgaben aus deinem Skript.', 'Chapters, lessons and exercises from your slides.')),
-      h('div', { class: 'foot' }, P ? h('span', { class: 'weight' }, P.chapters.map(c => h('i', { class: c.done ? 'on' : '' }))) : pathPending(doc) ? h('span', { class: 'spinner' }) : L('Erstellen · 2 Einheiten', 'Create · 2 credits')));
+      h('div', { class: 'foot' }, P ? h('span', { class: 'weight' }, P.chapters.map(c => h('i', { class: c.done ? 'on' : '' }))) : pathPending(doc) ? h('span', { class: 'spinner' }) : (isGuest() ? L('Mit kostenlosem Konto', 'With a free account') : L('Erstellen · 2 Einheiten', 'Create · 2 credits'))));
   };
   fillPath();
 
@@ -77,7 +77,7 @@ export async function render(root, ctx) {
   face(f, {});
 
   // Direkt nach dem Upload: Lernpfad im Hintergrund bauen
-  if (arg === 'neu' && !doc.path && !pathPending(doc) && !doc.autoPathTried) {
+  if (arg === 'neu' && !doc.path && !pathPending(doc) && !doc.autoPathTried && !isGuest()) {
     doc.autoPathTried = true; save(doc);
     history.replaceState(null, '', `#/app/${doc.id}/hub`);
     const p = generatePath(doc); fillPath();

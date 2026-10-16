@@ -5,7 +5,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
 import { forWhole } from '../retrieve.js';
-import { loading, apiError, costBtn, freshen } from '../ui.js';
+import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { sanitize } from '../sanitize.js';
 import { L } from '../i18n.js';
 
@@ -25,6 +25,7 @@ function intro(wrap, ctx) {
 }
 
 async function generate(wrap, ctx) {
+  if (isGuest()) return lockedPreview(wrap, { kind: 'zettel', title: L('Lernzettel & Mindmap – mit kostenlosem Konto', 'Study sheet & mind map – with a free account'), onUnlock: () => generate(wrap, ctx), back: () => intro(wrap, ctx) });
   const { doc } = ctx;
   const ld = loading(wrap, L('Ich schreibe deinen Lernzettel …', 'Writing your study sheet …'), L(['Finde die Kernaussagen', 'Sortiere die Formeln', 'Zeichne die Mindmap', 'Definiere die Begriffe'], ['Finding the key statements', 'Sorting the formulas', 'Drawing the mind map', 'Defining the key terms']), 'summary');
   try {

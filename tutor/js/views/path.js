@@ -4,13 +4,14 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save, track, mastery } from '../state.js';
 import { forWhole, outline, forChapter, fullText } from '../retrieve.js';
-import { loading, apiError, costBtn, freshen } from '../ui.js';
+import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { sanitize } from '../sanitize.js';
 import { renderQuestion, normalize, explainPrompt } from '../quiz.js';
 import { L } from '../i18n.js';
 
 let pathJob = null;
 export function generatePath(doc) {
+  if (isGuest()) return Promise.reject(Object.assign(new Error(L('Der Lernpfad gibt’s mit kostenlosem Konto.', 'The study path comes with a free account.')), { code: 'need_account' }));
   if (pathJob && pathJob.id === doc.id) return pathJob.p;
   const all = fullText(doc);
   const material = all.length <= 60000 ? all : outline(doc);
@@ -56,6 +57,7 @@ function intro(wrap, ctx) {
 }
 
 async function waitPath(wrap, ctx, start) {
+  if (isGuest()) return lockedPreview(wrap, { kind: 'pfad', title: L('Dein Lernpfad – mit kostenlosem Konto', 'Your study path – with a free account'), onUnlock: () => waitPath(wrap, ctx, true) });
   const ld = loading(wrap, L('Ich baue deinen Lernpfad …', 'Building your study path …'), L(['Lese das Skript', 'Finde die Kapitel', 'Sortiere nach Lernreihenfolge', 'Gewichte für die Klausur'], ['Reading the slides', 'Finding the chapters', 'Sorting into learning order', 'Weighting for the exam']), 'path');
   try { await ld.race(generatePath(ctx.doc)); ld.stop(); wrap.replaceChildren(); listView(wrap, ctx); freshen(wrap); }
   catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => waitPath(wrap, ctx, true)); }

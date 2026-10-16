@@ -4,7 +4,7 @@ import { h, ico, uid, toast, modal, ls } from '../util.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn, moreOpts, freshen } from '../ui.js';
+import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { SPICE, getSpice } from '../max.js';
 import { getOutLang, setOutLang, L } from '../i18n.js';
 
@@ -86,6 +86,7 @@ const minutes = p => Math.max(1, Math.round(p.lines.reduce((a, l) => a + l.t.spl
 function wave() { const w = h('div', { class: 'wave' }); for (let i = 0; i < 30; i++) w.appendChild(h('i', { style: { '--h': (25 + Math.random() * 75) + '%', animationDelay: (i * 53 % 900) + 'ms', animationPlayState: 'paused' } })); return w; }
 
 async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), mvoice = 'max') {
+  if (isGuest()) return lockedPreview(wrap, { kind: 'podcast', title: L('Dein Podcast – mit kostenlosem Konto', 'Your podcast – with a free account'), onUnlock: () => generate(wrap, ctx, len, focus, tone, plang, mvoice), back: () => intro(wrap, ctx) });
   const { doc } = ctx;
   const ch = focus >= 0 ? doc.path.chapters[focus] : null;
   const ld = loading(wrap, L('Lisa und Max nehmen auf …', 'Lisa and Max are recording …'), L(['Schreibe das Skript', 'Baue Beispiele ein', 'Max sucht sich eine knifflige Frage', 'Fast fertig'], ['Writing the script', 'Adding examples', 'Max is picking a tricky question', 'Almost done']), 'podcast');

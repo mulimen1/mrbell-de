@@ -73,8 +73,24 @@ export function loading(root, title, lines = [], kind = 'generic') {
   };
 }
 
+// Ohne Konto: freundlich zum kostenlosen Konto schicken – danach geht's genau da weiter
+export async function accountGate({ title, text, retry } = {}) {
+  const pts = h('ul', { class: 'gate-pts' },
+    h('li', {}, h('span', { html: ico('check') }), L('Kostenlos – keine Kreditkarte, kein Abo', 'Free – no credit card, no subscription')),
+    h('li', {}, h('span', { html: ico('check') }), L('Alles, was du schon gemacht hast, bleibt erhalten', 'Everything you’ve done so far stays')),
+    h('li', {}, h('span', { html: ico('check') }), L('Nur E-Mail bestätigen – Code kommt evtl. im Spam an', 'Just confirm your email – the code may land in spam')));
+  const r = await modal({ title: title || L('Weiter geht’s mit kostenlosem Konto', 'Keep going with a free account'), text: text || L('Ohne Konto kannst du alles einmal ausprobieren. Für mehr brauchst du nur ein kostenloses Konto.', 'Without an account you can try everything once. For more, all you need is a free account.'), body: pts,
+    actions: [{ label: L('Ich hab schon eins', 'I already have one'), value: 'login' }, { label: L('Konto erstellen', 'Create account'), value: 'reg', primary: true }] });
+  if (!r) return false;
+  const { openLogin } = await import('./account.js');
+  const ok = await openLogin({ mode: r === 'reg' ? 'register' : 'login' });
+  if (ok && retry) retry();
+  return !!ok;
+}
+
 export async function apiError(e, retry) {
   if (e && e.name === 'AbortError') return;
+  if (e && e.code === 'need_account') return accountGate({ text: e.message, retry });
   if (e && e.code === 'cap') {
     const acc = getAccount();
     const r = await modal({ title: L('Für heute ist Schluss damit', 'That’s it for today'), text: e.message, actions: acc ? [{ label: L('Alles klar', 'Got it'), value: false, primary: true }] : [{ label: L('Später', 'Later'), value: false }, { label: L('Log in · 7 Tage Inner Circle', 'Log in · 7 days Inner Circle'), value: true, primary: true }] });
@@ -190,4 +206,39 @@ export function syncOut(el, text, audio, { scroll = () => {}, spoken = 640 } = {
 export function freshen(el) {
   if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   [...el.children].forEach((c, i) => { c.classList.add('fx'); c.style.setProperty('--fx', i); });
+}
+
+// ---------- Gast-Modus: was nur mit (kostenlosem) Konto geht ----------
+export const isGuest = () => !getAccount();
+export const GUEST_CARDS = 10, GUEST_QUIZ = 3;
+const PREV = {
+  podcast: () => h('div', { class: 'lp-pod' }, h('div', { class: 'lp-cover' }, h('b', {}, L('Folge 1', 'Episode 1')), h('i')), h('div', { class: 'lp-wave' }, [...Array(42)].map((_, i) => h('i', { style: { height: (18 + Math.abs(Math.sin(i * 1.7)) * 70) + '%' } })))),
+  zettel: () => h('div', { class: 'lp-lines' }, [92, 78, 85, 60, 88, 72, 40, 81, 66].map(w => h('i', { style: { width: w + '%' } }))),
+  pfad: () => h('div', { class: 'lp-path' }, [1, 2, 3, 4, 5].map(n => h('div', {}, h('b', {}, String(n)), h('i', { style: { width: (50 + (n * 37) % 40) + '%' } })))),
+  exam: () => h('div', { class: 'lp-lines' }, [70, 95, 88, 0, 64, 90, 82, 0, 58, 86].map(w => w ? h('i', { style: { width: w + '%' } }) : h('br'))),
+};
+export function lockedPreview(wrap, { kind = 'zettel', title, text, onUnlock, back } = {}) {
+  const f = h('div', { class: 'face' });
+  wrap.replaceChildren(h('div', { class: 'lockprev' },
+    h('div', { class: 'lp-blur', 'aria-hidden': 'true' }, (PREV[kind] || PREV.zettel)()),
+    h('div', { class: 'lp-over' }, f,
+      h('h2', {}, title || L('Mit kostenlosem Konto freischalten', 'Unlock with a free account')),
+      h('p', {}, text || L('Ohne Konto kannst du Max einmal ausprobieren. Das hier gibt’s mit kostenlosem Konto – dauert 30 Sekunden, alles bleibt erhalten.', 'Without an account you can try Max once. This comes with a free account – takes 30 seconds, everything stays.')),
+      h('div', { class: 'lp-b' },
+        h('button', { class: 'btn primary lg', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin({ mode: 'register' }) && onUnlock) onUnlock(); } }, L('Kostenlos freischalten', 'Unlock for free')),
+        h('button', { class: 'btn lg', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin() && onUnlock) onUnlock(); } }, L('Anmelden', 'Sign in'))),
+      h('small', {}, L('Kostenlos · keine Kreditkarte · Code kommt evtl. im Spam an', 'Free · no credit card · code may land in spam')),
+      back ? h('button', { class: 'btn sm ghost', type: 'button', onclick: back, style: { marginTop: '6px' } }, h('span', { html: ico('left') }), L('Zurück', 'Back')) : null)));
+  face(f);
+}
+// Mitten im Lernen: Rest gesperrt (Karten, Quiz) – was schon da ist, bleibt erhalten
+export function lockedRest(stage, { left, what, onUnlock }) {
+  const f = h('div', { class: 'face', style: { width: '64px', height: '64px' } });
+  stage.replaceChildren(h('div', { class: 'lockrest' }, f,
+    h('h3', {}, L(`Noch ${left} ${what} warten auf dich`, `${left} more ${what} are waiting`)),
+    h('p', {}, L('Sind schon fertig – mit kostenlosem Konto geht’s direkt hier weiter. Dein Fortschritt bleibt erhalten.', 'They’re ready – with a free account you continue right here. Your progress stays.')),
+    h('div', { class: 'lp-b' },
+      h('button', { class: 'btn primary', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin({ mode: 'register' }) && onUnlock) onUnlock(); } }, L('Kostenlos weitermachen', 'Continue for free')),
+      h('button', { class: 'btn', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin() && onUnlock) onUnlock(); } }, L('Anmelden', 'Sign in')))));
+  face(f).set?.('happy');
 }

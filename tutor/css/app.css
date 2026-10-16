@@ -2418,3 +2418,24 @@ html[lang="en"] .me-wday.on .me-wdh::after { content: "today"; }
 .lspam b { font-size: 14.5px; display: block; }
 .modal.login .lspam p { margin: 4px 0 10px; font-size: 13px; color: var(--ink2); line-height: 1.45; }
 .lspam .btn span { display: contents; } .lspam .btn .ico { width: 14px; height: 14px; }
+
+/* ===== Gast-Modus: gesperrte Vorschau ===== */
+.lockprev { position: relative; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; min-height: 460px; background: var(--panel); animation: chin .5s var(--ease) both; }
+.lp-blur { position: absolute; inset: 0; padding: 36px; filter: blur(7px); opacity: .55; pointer-events: none; }
+.lp-over { position: relative; z-index: 1; min-height: 460px; display: grid; place-content: center; justify-items: center; text-align: center; gap: 10px; padding: 36px 24px; background: radial-gradient(ellipse at 50% 45%, color-mix(in srgb, var(--panel) 92%, transparent) 30%, transparent 75%); }
+.lp-over .face { width: 84px; height: 84px; }
+.lp-over h2 { margin: 6px 0 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -.03em; max-width: 520px; }
+.lp-over p { margin: 0; color: var(--ink2); max-width: 460px; }
+.lp-over small, .lockrest small { color: var(--mute); font-size: 12.5px; }
+.lp-b { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.lp-lines { display: grid; gap: 14px; } .lp-lines i { display: block; height: 14px; border-radius: 7px; background: var(--ink); opacity: .35; }
+.lp-path { display: grid; gap: 14px; } .lp-path > div { display: flex; gap: 14px; align-items: center; } .lp-path b { width: 40px; height: 40px; border-radius: 50%; background: var(--inv); color: var(--onInv); display: grid; place-items: center; } .lp-path i { height: 16px; border-radius: 8px; background: var(--ink); opacity: .35; }
+.lp-pod { display: grid; gap: 22px; } .lp-cover { height: 160px; border-radius: 20px; background: var(--inv); color: var(--onInv); padding: 22px; font-size: 22px; }
+.lp-wave { height: 90px; display: flex; align-items: center; gap: 4px; } .lp-wave i { flex: 1; border-radius: 3px; background: var(--ink); opacity: .45; }
+.lockrest { display: grid; justify-items: center; text-align: center; gap: 8px; padding: 34px 20px; border: 1px solid var(--ink); border-radius: 22px; background: var(--panel); animation: chin .45s var(--ease) both; }
+.lockrest h3 { margin: 4px 0 0; font-size: 22px; letter-spacing: -.02em; } .lockrest p { margin: 0; color: var(--ink2); max-width: 420px; }
+.gate-pts { list-style: none; padding: 0; margin: 4px 0 6px; display: grid; gap: 8px; text-align: left; }
+.gate-pts li { display: flex; gap: 10px; align-items: center; font-size: 14.5px; }
+.gate-pts li span { width: 22px; height: 22px; border-radius: 50%; background: var(--inv); color: var(--onInv); display: grid; place-items: center; flex: none; }
+.gate-pts li .ico { width: 13px; height: 13px; }
+@media (max-width: 760px) { .lockprev, .lp-over { min-height: 400px; } }
