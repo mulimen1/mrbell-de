@@ -328,6 +328,10 @@ export function mountAssistant() {
   let closing = null;
   function closeAnimated() {
     if (closing) return;
+    // Handy mit offener Tastatur: erst Tastatur weg, dann sauber einziehen (sonst springt alles mitten in der Animation)
+    if (MOB.matches && document.activeElement && isl.contains(document.activeElement)) {
+      document.activeElement.blur(); closing = []; setTimeout(() => { closing = null; if (open) closeAnimated(); }, 320); return;
+    }
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { setOpen(false); return; }
     root.classList.remove('open'); const br = bub.getBoundingClientRect(); root.classList.add('open');
     if (!br.width) { setOpen(false); return; }
@@ -455,11 +459,17 @@ export function mountAssistant() {
   function unread(v) { root.classList.toggle('unread', !!v); }
 
   // ---------- Untertitel ----------
+  document.addEventListener('touchmove', e => {
+    if (!(MOB.matches && open)) return;
+    const ok = e.target.closest && e.target.closest('.ai-board, .ai-menu, .asst-ctx, .modal-bg, .voice' + (feedOpen ? ', .ai-feed' : ''));
+    if (!ok && e.cancelable) e.preventDefault();
+  }, { passive: false });
   function syncLock() {
     placeTog();
     const lock = MOB.matches && open && ((feedOpen && root.classList.contains('has-cap')) || (boardOpen && !boardMin));
     root.classList.toggle('lock', lock);
-    document.documentElement.classList.toggle('asst-lock', lock);
+    // Handy: solange Max offen ist, scrollt die Seite dahinter nie mit
+    document.documentElement.classList.toggle('asst-lock', MOB.matches && open);
   }
   bd.addEventListener('click', () => { if (boardOpen && !boardMin) minBoard(true); else setFeedOpen(false); });
   // Was Max gerade sagt, steht am Handy unten in der Tafel mit
