@@ -462,12 +462,12 @@ export function mountAssistant() {
       apply(); grow(h0);
       const list = others().filter(b => b.offsetParent).reverse();   // von unten (neu) nach oben (alt)
       list.slice(0, 14).forEach((b, i) => b.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 480, delay: i * 40, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }));
-      feedTog.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 420, delay: Math.min(list.length, 14) * 40, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+      feedTog.animate([{ opacity: 0, transform: 'translate(-50%, 8px)' }, { opacity: 1, transform: 'translate(-50%, 0)' }], { duration: 420, delay: Math.min(list.length, 14) * 40, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
     } else {
       const list = others().filter(b => b.offsetParent);
       const outs = list.slice(-14).reverse().map((b, i) => b.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(12px)' }], { duration: 280, delay: i * 22, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' }));
       if (outs.length) outs.push(feedTog.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: 'ease-in', fill: 'forwards' }));
-      const done = () => { if (tok !== feedAnim) { outs.forEach(a => a.cancel()); return; } const h = lastA ? lastA.getBoundingClientRect().height : 0; apply(); outs.forEach(a => a.cancel()); grow(h); feedTog.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 380, delay: 120, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }); };
+      const done = () => { if (tok !== feedAnim) { outs.forEach(a => a.cancel()); return; } const h = lastA ? lastA.getBoundingClientRect().height : 0; apply(); outs.forEach(a => a.cancel()); grow(h); feedTog.animate([{ opacity: 0, transform: 'translate(-50%, 6px)' }, { opacity: 1, transform: 'translate(-50%, 0)' }], { duration: 380, delay: 120, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }); };
       if (!outs.length) done(); else Promise.all(outs.map(a => a.finished.catch(() => {}))).then(done);
     }
   }
