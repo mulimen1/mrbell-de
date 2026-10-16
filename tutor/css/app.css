@@ -1938,10 +1938,14 @@ html.ai-vt::view-transition-new(root) { animation: aivtnew .8s cubic-bezier(.16,
 @keyframes fxcover { from { opacity: 0; transform: perspective(900px) rotateY(-28deg) scale(.9); filter: blur(8px); } }
 @media (prefers-reduced-motion: reduce) { .fx, .fx * { animation: none !important; stroke-dashoffset: 0 !important; } }
 /* Hero: mehr Luft zwischen Überschrift, Funktionen, Text und Upload */
-.hero .featrow { margin-top: 44px; }
-.hero p.sub { margin-top: 44px; }
-.hero .dropzone { margin-top: 56px; }
-@media (max-width: 760px) { .hero .featrow { margin-top: 30px; } .hero p.sub { margin-top: 30px; } .hero .dropzone { margin-top: 38px; } }
+/* Hero: viel Luft – eins nach dem anderen */
+.hero .featrow { margin-top: 72px; }
+.hero .featrest { margin-top: 22px; }
+.hero p.sub { margin-top: 80px; }
+.hero .dropzone { margin-top: 88px; }
+.hero .or { margin-top: 56px; }
+.hero .or + * { margin-top: 28px; }
+@media (max-width: 760px) { .hero .featrow { margin-top: 48px; } .hero .featrest { margin-top: 16px; } .hero p.sub { margin-top: 52px; } .hero .dropzone { margin-top: 56px; } .hero .or { margin-top: 40px; } .hero .or + * { margin-top: 22px; } }
 /* Begrüßung: Blase poppt sauber auf, Wörter blenden nacheinander ein (kein Springen) */
 .asst.open .ai-bub.greet { animation: aigreet2 .7s .35s cubic-bezier(.34,1.4,.64,1) backwards; transform-origin: 0 100%; }
 @keyframes aigreet2 { from { opacity: 0; transform: translateY(10px) scale(.86); } }
@@ -2000,3 +2004,4 @@ html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: n
 .ai-menu .asst-vch .vchip { height: 30px; padding: 0 4px 0 11px; gap: 6px; font-size: 12.5px; }
 .ai-vdesc { font-size: 12px; color: var(--mute); margin: -4px 0 10px; }
 .pv.on { background: var(--ink); color: var(--bg); }
+@media (max-width: 760px) { .hero .feattop { gap: 12px; } }
