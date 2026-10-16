@@ -7,6 +7,8 @@ import { apiError, typePlaceholder, isGuest, lockedPreview, lockedRest, GUEST_CA
 import { dueCards } from './cards.js';
 import { L, LOCALE } from '../i18n.js';
 import { planSummary } from './plan.js';
+import * as M from '../me.js';
+import { reife } from '../reife.js';
 
 export async function render(root, ctx) {
   const { doc, arg } = ctx;
@@ -28,7 +30,7 @@ export async function render(root, ctx) {
   typePlaceholder(inp, L('Frag mich etwas zu deinem Skript …', 'Ask me anything about your slides …'), (doc.path?.chapters?.length ? doc.path.chapters.map(c => L('Erklär mir „' + c.title + '“', 'Explain “' + c.title + '”')) : []).concat(L(['Fass das Skript in 5 Punkten zusammen', 'Was ist am wichtigsten für die Klausur?', 'Erklär mir das schwierigste Thema'], ['Summarise the slides in 5 points', 'What matters most for the exam?', 'Explain the hardest topic'])), L('z. B. ', 'e.g. '));
 
   const pathTile = h('button', { class: 'tile half hub-tool', onclick: () => ctx.go('pfad', nextIdx >= 0 ? String(nextIdx) : null) });
-  const fillPath = () => {
+  let fillPath = () => {
     const P = doc.path;
     pathTile.replaceChildren(h('div', { class: 'ti', html: ico('path') }),
       h('h3', {}, P ? (nextIdx >= 0 ? L(`Weiter: ${P.chapters[nextIdx].title}`, `Next: ${P.chapters[nextIdx].title}`) : L('Lernpfad geschafft', 'Study path completed')) : L('Lernpfad', 'Study path')),
@@ -54,9 +56,23 @@ export async function render(root, ctx) {
         h('span', {}, L(`${pct} % erledigt · Klausur ${new Date(ps.exam + 'T12:00').toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })}`, `${pct}% done · exam ${new Date(ps.exam + 'T12:00').toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })}`))))
       : h('div', { class: 'foot' }, ps ? L('Neuen Plan erstellen', 'Create a new plan') : L('Plan erstellen · kostenlos', 'Create plan · free'), h('span', { html: ico('right') })));
 
+  // Drei Bereiche statt Kachel-Wand: Verstehen · Üben · Prüfen
+  const ex = M.fachOf(doc.id)?.klausur || doc.plan?.exam || '';
+  const rf = reife([doc], ex ? new Date(ex + 'T08:00').getTime() : 0);
+  const row = (ic, title, sub, onclick, extra) => h('button', { class: 'zrow', type: 'button', onclick }, h('span', { class: 'zi', html: ico(ic) }), h('span', { class: 'zt' }, h('b', {}, title), h('small', {}, sub)), extra || h('span', { class: 'za', html: ico('right') }));
+  const pathRow = h('div', { class: 'zslot' });
+  const fillPathRow = () => {
+    const P = doc.path, n = P ? P.chapters.filter(c => c.done).length : 0;
+    pathRow.replaceChildren(row('path', P ? (nextIdx >= 0 ? L('Lernpfad: ', 'Study path: ') + P.chapters[nextIdx].title : L('Lernpfad geschafft', 'Study path completed')) : L('Lernpfad', 'Study path'),
+      P ? L(`${n} von ${P.chapters.length} Kapiteln`, `${n} of ${P.chapters.length} chapters`) : pathPending(doc) ? L('Wird gerade erstellt …', 'Being built right now …') : (isGuest() ? L('Mit kostenlosem Konto', 'With a free account') : L('Kapitel mit Lektionen · 2 Einheiten', 'Chapters with lessons · 2 credits')),
+      () => ctx.go('pfad', nextIdx >= 0 ? String(nextIdx) : null), pathPending(doc) ? h('span', { class: 'spinner' }) : null));
+  };
+  fillPathRow();
+  const fillPath0 = fillPath; fillPath = () => { fillPath0(); fillPathRow(); };
+  const zone = (cls, title, sub, rows) => h('section', { class: 'zone ' + cls }, h('div', { class: 'zh' }, h('b', {}, title), h('small', {}, sub)), rows);
   wrap.append(
     h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L(`${doc.pages.length} Seiten · hinzugefügt ${ago(doc.created)}`, `${doc.pages.length} pages · added ${ago(doc.created)}`)), h('h2', {}, doc.path?.title || doc.name), doc.path?.summary ? h('p', {}, doc.path.summary) : null)),
-    h('div', { class: 'hub' },
+    h('div', { class: 'hub hub3' },
       planTile,
       h('div', { class: 'tile big dark hub-max', role: 'button', tabindex: 0, onclick: () => ctx.go('tutor') },
         h('div', { style: { display: 'flex', gap: '14px', alignItems: 'center' } }, f, h('div', {}, h('h3', { style: { fontSize: '22px' } }, L('Frag mich', 'Ask me')), h('p', {}, L('Ich kenne dein Skript und erklär’s dir an der Tafel. Ein bisschen arrogant. Aber ich hab recht.', 'I know your slides and explain it on the whiteboard. A little arrogant. But I’m right.')))),
@@ -66,14 +82,18 @@ export async function render(root, ctx) {
       h('div', { class: 'tile hub-prog', role: 'button', tabindex: 0, onclick: () => ctx.go('pfad') },
         h('div', { class: 'ring', style: { '--p': m } }, h('div', {}, m + '%')),
         h('h3', { style: { marginTop: '8px' } }, L('Lernstand', 'Progress')), h('p', {}, m >= 80 ? L('Klausurbereit – halte es frisch.', 'Exam-ready – keep it fresh.') : m >= 40 ? L('Auf gutem Weg.', 'Well on your way.') : L('Gerade erst angefangen.', 'Just getting started.'))),
-      h('button', { class: 'tile hub-tool', onclick: () => ctx.go('karten') }, h('div', { class: 'ti', html: ico('cards') }), h('h3', {}, L('Karteikarten', 'Flashcards')),
-        h('p', {}, due ? L(`${due} Karten fällig`, `${due} cards due`) : doc.decks.length ? L('Heute alles wiederholt.', 'All reviewed for today.') : L('Automatisch aus dem Skript.', 'Generated from your slides.')), h('div', { class: 'foot' }, due ? L('Jetzt wiederholen', 'Review now') : L('Kostenlos wiederholen', 'Review for free'))),
-      pathTile,
-      h('button', { class: 'tile half hub-tool', onclick: () => ctx.go('quiz') }, h('div', { class: 'ti', html: ico('quiz') }), h('h3', {}, L('Quiz & Probeklausur', 'Quiz & mock exam')),
-        h('p', {}, best != null ? L(`Letztes Quiz: ${best} %`, `Last quiz: ${best}%`) : L('6 Fragetypen – wie in der Klausur.', '6 question types – just like the exam.')), h('div', { class: 'foot' }, doc.mistakes.length ? L(`${doc.mistakes.length} Fehler zum Wiederholen`, `${doc.mistakes.length} mistakes to review`) : L('Neues Quiz · 2 Einheiten', 'New quiz · 2 credits'))),
-      h('button', { class: 'tile hub-tool', onclick: () => ctx.go('podcast') }, h('div', { class: 'ti', html: ico('pod') }), h('h3', {}, 'Podcast'), h('p', {}, doc.podcasts.length ? L(`${doc.podcasts.length} Folge(n)`, `${doc.podcasts.length} episode(s)`) : L('Dein Skript zum Anhören.', 'Your slides as audio.'))),
-      h('button', { class: 'tile hub-tool', onclick: () => ctx.go('zettel') }, h('div', { class: 'ti', html: ico('brain') }), h('h3', {}, L('Lernzettel', 'Study sheet')), h('p', {}, doc.summary ? L('Zusammenfassung + Mindmap', 'Summary + mind map') : L('Alles Wichtige auf einer Seite.', 'Everything important on one page.'))),
-      h('a', { class: 'tile hub-tool', href: '#/app/trainer' }, h('div', { class: 'ti', html: ico('whistle') }), h('h3', {}, L('BWL-Trainer', 'Business trainer')), h('p', {}, L('Buchungssätze, Break-even, Kapitalwert & mehr – unbegrenzt.', 'Booking entries, break-even, NPV & more – unlimited.')))));
+      h('div', { class: 'zones' },
+        zone('z1', L('Verstehen', 'Understand'), L('Stoff aufbauen', 'Build it up'), [pathRow,
+          row('brain', L('Lernzettel & Mindmap', 'Study sheet & mind map'), doc.summary ? L('Fertig – zum Nachlesen', 'Ready to read') : L('Alles Wichtige auf einer Seite', 'Everything on one page'), () => ctx.go('zettel')),
+          row('pod', 'Podcast', doc.podcasts.length ? L(`${doc.podcasts.length} Folge(n)`, `${doc.podcasts.length} episode(s)`) : L('Dein Skript zum Anhören', 'Your slides as audio'), () => ctx.go('podcast'))]),
+        zone('z2', L('Üben', 'Practise'), L('bis es sitzt', 'until it sticks'), [
+          row('cards', L('Karteikarten', 'Flashcards'), due ? L(`${due} fällig – kostenlos wiederholen`, `${due} due – review for free`) : doc.decks.length ? L('Heute alles wiederholt', 'All reviewed today') : L('Automatisch aus dem Skript', 'Generated from your slides'), () => ctx.go('karten'), due ? h('span', { class: 'zb' }, String(due)) : null),
+          row('quiz', 'Quiz', best != null ? L(`Letztes Quiz: ${best} %`, `Last quiz: ${best}%`) : L('6 Fragetypen wie in der Klausur', '6 question types like the exam'), () => ctx.go('quiz')),
+          row('whistle', L('BWL-Trainer', 'Business trainer'), L('Unbegrenzt rechnen und buchen', 'Unlimited calculating and booking'), () => { location.hash = '#/app/trainer'; })]),
+        zone('z3', L('Prüfen', 'Test yourself'), ex ? L(`Klausur ${new Date(ex + 'T12:00').toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })}`, `Exam ${new Date(ex + 'T12:00').toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })}`) : L('wie in der Klausur', 'like the real exam'), [
+          row('exam', L('Klausur-Simulator', 'Exam simulator'), L('Zeit, Punkte, Notenschlüssel · 3 Einheiten', 'Time, points, grading key · 3 credits'), () => ctx.go('quiz', 'exam')),
+          doc.mistakes.length ? row('refresh', L('Fehler ausbügeln', 'Fix mistakes'), L(`${doc.mistakes.length} Fragen, die noch nicht sitzen`, `${doc.mistakes.length} questions that don’t stick yet`), () => ctx.go('quiz', 'fehler'), h('span', { class: 'zb' }, String(doc.mistakes.length))) : null,
+          row('trophy', L('Prüfungsreife', 'Exam readiness'), rf.hasData ? L(`${rf.score} % · ${rf.fest} von ${rf.themen || '–'} Themen sicher`, `${rf.score}% · ${rf.fest} of ${rf.themen || '–'} topics secure`) : L('Lern Karten oder mach ein Quiz', 'Study cards or take a quiz'), () => { location.hash = '#/app/me/faecher'; }, rf.hasData ? h('span', { class: 'zr' }, h('i', { style: { width: rf.score + '%' } })) : null)]))));
   face(f, {});
 
   // Direkt nach dem Upload: Lernpfad im Hintergrund bauen
@@ -81,6 +101,6 @@ export async function render(root, ctx) {
     doc.autoPathTried = true; save(doc);
     history.replaceState(null, '', `#/app/${doc.id}/hub`);
     const p = generatePath(doc); fillPath();
-    p.then(() => { if (pathTile.isConnected) { ctx.go('hub'); } }).catch(e => { fillPath(); if (e.code === 'limit') apiError(e); });
+    p.then(() => { if (pathRow.isConnected) { ctx.go('hub'); } }).catch(e => { fillPath(); if (e.code === 'limit') apiError(e); });
   }
 }

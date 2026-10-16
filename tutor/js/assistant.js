@@ -810,6 +810,8 @@ export function mountAssistant() {
     p.boards.forEach(b => extras.push(boardBtn(b)));
     if (!(spoken && cfg.spk) && p.text && cfg.spk) extras.push(listenBtn(p.text, txt, ex));
     if (p.text && p.text.length > 60) { const q = [...hist].reverse().find(m => m.role === 'user')?.content || ''; const d = curDoc(); extras.push(favChip({ typ: 'erklaerung', titel: (q || plainT(p.text)).slice(0, 90), doc: d?.id || '', docName: d?.name || '', ref: favKey(p.text), inhalt: plainT(p.text) })); }
+    // Vorgerechnete Lösung → Zwillingsaufgabe zum Selbstrechnen
+    if ((ex.tools && ex.tools.length) || p.boards.some(b => /class="(calc|step|result|bs|tkonto)"/.test(b.html))) extras.push(h('button', { class: 'ai-cmd link', type: 'button', onclick: () => submit(L('Gib mir eine Zwillingsaufgabe dazu: gleiche Struktur, neue Zahlen. Erst nur die Aufgabe – die Lösung zeigst du erst, wenn ich meine Antwort geschickt oder „Lösung“ geschrieben habe.', 'Give me a twin exercise: same structure, new numbers. Only the task first – show the solution only once I’ve sent my answer or typed “solution”.')) }, L('Zwillingsaufgabe', 'Twin exercise')));
     if (ex.model !== undefined) extras.push(aiTag(ex.tools, raw, ex.src));
     ex.aX.replaceChildren(...extras);
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);

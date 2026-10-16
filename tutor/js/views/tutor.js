@@ -106,7 +106,10 @@ export async function render(root, ctx) {
     boardRefs.forEach(({ idx, title }) => extras.appendChild(h('button', { class: 'boardlink', onclick: () => { bIdx = idx; drawBoard(); showBoard(true); } }, h('span', { html: ico('board') }), title)));
     if (model !== undefined) extras.appendChild(aiTag(tools, raw, doc.generated ? 'max' : 'doc'));
     if (!nofav && (p.text || '').length > 60) extras.appendChild(h('div', { class: 'favrow' }, starBtn(() => ({ typ: 'erklaerung', titel: plain(p.text).slice(0, 90), doc: doc.id, docName: doc.name, ref: textKey(p.text), inhalt: plain(p.text) }), { label: true, cls: 'sm' })));
-    if (p.acts.length) extras.appendChild(h('div', { class: 'acts' }, p.acts.map(a => h('a', { class: 'btn sm', href: ACTIONS[a][1](doc) }, ACTIONS[a][0], h('span', { html: ico('right') })))));
+    // Vorgerechnete Lösung → gleich üben: Zwillingsaufgabe (gleiche Struktur, neue Zahlen)
+    const worked = (tools && tools.length) || p.boards.some(b => /class="(calc|step|result|bs|tkonto)"/.test(b.html));
+    const twin = worked ? h('button', { class: 'btn sm twinbtn', type: 'button', onclick: () => { if (busy) return; submit(L('Gib mir eine Zwillingsaufgabe dazu: gleiche Struktur, neue Zahlen. Erst nur die Aufgabe – die Lösung zeigst du erst, wenn ich meine Antwort geschickt oder „Lösung“ geschrieben habe.', 'Give me a twin exercise: same structure, new numbers. Only the task first – show the solution only once I’ve sent my answer or typed “solution”.')); } }, h('span', { html: ico('spark') }), L('Zwillingsaufgabe', 'Twin exercise')) : null;
+    if (p.acts.length || twin) extras.appendChild(h('div', { class: 'acts' }, twin, p.acts.map(a => h('a', { class: 'btn sm', href: ACTIONS[a][1](doc) }, ACTIONS[a][0], h('span', { html: ico('right') })))));
     msgs.appendChild(el);
     if (animate) typeOut(body, p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the whiteboard.') : '…')).then(() => { el.appendChild(extras); scroll(); });
     else { body.appendChild(richText(p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the whiteboard.') : ''))); el.appendChild(extras); }

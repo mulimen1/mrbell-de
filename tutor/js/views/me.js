@@ -22,12 +22,16 @@ const dayStart = (d = new Date()) => { const x = new Date(d); x.setHours(0, 0, 0
 const daysUntil = iso => Math.round((new Date(iso + 'T12:00') - dayStart().getTime() - 12 * 3600e3) / 864e5);
 const tage = n => n === 1 ? L('1 Tag', '1 day') : L(`${n} Tagen`, `${n} days`);
 const docById = id => S.list.find(d => d.id === id);
+// Fach-Zeile im Stundenplan nur, wenn der Kurs nicht ohnehin schon so heißt
+const nrm = x => String(x || '').toLowerCase().replace(/[^a-zäöüß0-9]+/g, ' ').trim();
+const sameName = (t, f) => { const a = nrm(t), b = nrm(f.name), k = nrm(f.kurz); return (b && (a.includes(b) || b.includes(a.split(' ').slice(0, 3).join(' ')))) || (k && a.split(' ').includes(k)); };
 const bisZu = a => a === 'test' ? L('zum Test', 'the test') : a === 'abgabe' ? L('zur Abgabe', 'the deadline') : a === 'referat' ? L('zum Referat', 'the presentation') : L('zur Klausur', 'the exam');
 
 export function render(root, { sub = '', onLogin } = {}) {
   const wrap = h('div', { class: 'view-in me' });
   root.appendChild(wrap);
-  let weekOff = 0, favFilter = 'all';
+  // Am Wochenende zeigt der Stundenplan gleich die kommende Woche
+  let weekOff = [0, 6].includes(new Date().getDay()) ? 1 : 0, favFilter = 'all';
   const draw = () => {
     if (!wrap.isConnected) return;
     const a = getAccount();
@@ -449,7 +453,7 @@ function timetable(body, getOff, setOff) {
       cols.map(([d, list]) => h('div', { class: 'me-col' + (d.getTime() === today0 ? ' on' : '') }, layout(list).map(({ s, lane, lanes }) => {
         const top = ((s.s - d.getTime()) / 3600e3 - h0) * PX, ht = Math.max(26, (s.e - s.s) / 3600e3 * PX - 3);
         return h('button', { class: 'me-blk' + (s.own ? ' own' : '') + (s.e < Date.now() ? ' past' : ''), type: 'button', style: { top: top + 'px', height: ht + 'px', left: `calc(${100 * lane / lanes}% + 2px)`, width: `calc(${100 / lanes}% - 4px)` }, title: `${s.t} · ${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}`, onclick: () => s.own ? editKurs(me.kurse.find(k => k.id === s.id)) : assignIcs(s) },
-          h('b', {}, s.t), h('small', {}, `${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}`), s.fach ? h('i', {}, s.fach.kurz || s.fach.name) : null);
+          h('b', {}, s.t), h('small', {}, `${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}`), s.fach ? (sameName(s.t, s.fach) ? null : h('i', {}, s.fach.kurz || s.fach.name)) : null);
       })))));
   // Handy: Liste statt Raster
   const list = h('div', { class: 'me-wlist' }, cols.map(([d, l]) => h('div', { class: 'me-wday' + (d.getTime() === today0 ? ' on' : '') }, h('div', { class: 'me-wdh' }, DAYS_LONG[d.getDay()], h('small', {}, d.toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' }))),
@@ -507,7 +511,7 @@ function connectBox() {
       h('li', {}, h('b', {}, 'Apple / iCloud: '), L('Kalender teilen → „Öffentlicher Kalender“ → Link kopieren.', 'Share calendar → “Public calendar” → copy link.'))),
     h('p', {}, L('Kein Link? Dann lad die .ics-Datei hoch oder trag deine Kurse per Hand ein.', 'No link? Upload the .ics file or add your classes by hand.')));
   return h('section', { class: 'me-conn' }, h('div', { class: 'me-cw' }, h('b', {}, L('Stundenplan verbinden', 'Connect your timetable')), h('small', {}, L('Einmal verbinden, dann aktualisiert er sich von selbst. Funktioniert mit fast jeder Uni.', 'Connect once and it updates itself. Works with almost every uni.'))),
-    form, err, h('div', { class: 'me-cb' }, h('label', { class: 'btn sm ghost' }, fin, h('span', { html: ico('upload') }), L('.ics-Datei hochladen', 'Upload .ics file'))), help);
+    form, err, h('div', { class: 'me-cb' }, h('label', { class: 'btn sm', for: 'fileApp' }, h('span', { html: ico('upload') }), L('Foto oder Screenshot vom Stundenplan', 'Photo or screenshot of your timetable')), h('label', { class: 'btn sm ghost' }, fin, h('span', { html: ico('file') }), L('.ics-Datei', '.ics file'))), help);
 }
 async function editKurs(k) {
   const me = M.getMe(), isNew = !k; k = k ? Object.assign({}, k) : { titel: '', fach: '', tag: ((new Date().getDay() + 6) % 7) + 1, von: '10:00', bis: '11:30', raum: '', art: 'Vorlesung' };

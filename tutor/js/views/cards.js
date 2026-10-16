@@ -3,7 +3,7 @@ import { starBtn, fachOf } from '../me.js';
 import { h, ico, uid, toast, modal, shuffle, haptic } from '../util.js';
 import { face } from '../face.js';
 import { ask } from '../api.js';
-import { save } from '../state.js';
+import { save, S } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
 import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { richText } from '../sanitize.js';
@@ -138,8 +138,10 @@ async function addOwn(wrap, ctx) {
 
 function exportAnki(d) {
   const clean = s => String(s).replace(/\t/g, ' ').replace(/\n/g, '<br>');
-  const txt = d.cards.map(c => clean(c.front) + '\t' + clean(c.back)).join('\n');
+  // Kopfzeilen versteht Anki ab 2.1.54: Trennzeichen, HTML, Stapelname, Schlagwort – Import mit einem Klick
+  const deck = ('BWL Max::' + (S.doc?.name || 'Skript') + '::' + d.title).replace(/[\t\n]/g, ' ');
+  const txt = ['#separator:tab', '#html:true', '#deck:' + deck, '#tags:bwl-max', '#columns:Vorderseite\tRückseite'].join('\n') + '\n' + d.cards.map(c => clean(c.front) + '\t' + clean(c.back)).join('\n');
   const a = h('a', { href: URL.createObjectURL(new Blob([txt], { type: 'text/plain' })), download: d.title.replace(/[^\wäöüÄÖÜß -]/g, '') + ' (Anki).txt' });
   document.body.appendChild(a); a.click(); a.remove();
-  toast(L('In Anki: Datei → Importieren → Felder durch Tab getrennt.', 'In Anki: File → Import → fields separated by tab.'));
+  toast(L('In Anki: Datei → Importieren → diese Datei wählen. Stapel und Felder sind schon eingestellt.', 'In Anki: File → Import → pick this file. Deck and fields are already set.'), 4200);
 }
