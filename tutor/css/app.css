@@ -2439,3 +2439,5 @@ html[lang="en"] .me-wday.on .me-wdh::after { content: "today"; }
 .gate-pts li span { width: 22px; height: 22px; border-radius: 50%; background: var(--inv); color: var(--onInv); display: grid; place-items: center; flex: none; }
 .gate-pts li .ico { width: 13px; height: 13px; }
 @media (max-width: 760px) { .lockprev, .lp-over { min-height: 400px; } }
+.doc-item.soon { color: var(--mute); }
+.doc-item .soonb { margin-left: auto; font: 500 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--line2); border-radius: 6px; padding: 2px 6px; color: var(--mute); }
