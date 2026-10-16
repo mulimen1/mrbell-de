@@ -324,8 +324,33 @@ export function mountAssistant() {
   bTab.addEventListener('click', () => minBoard(false));
 
   // ---------- Öffnen / Einklappen ----------
+  // Schließen: Insel, Verlauf und Tafel ziehen sich sauber in den Kopf rechts zurück (ohne Überschwingen)
+  let closing = null;
+  function closeAnimated() {
+    if (closing) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { setOpen(false); return; }
+    root.classList.remove('open'); const br = bub.getBoundingClientRect(); root.classList.add('open');
+    if (!br.width) { setOpen(false); return; }
+    const tx = br.left + br.width / 2, ty = br.top + br.height / 2;
+    const els = [isl, cap, feedTog, boardOpen && !boardMin ? board : null].filter(e => e && e.offsetParent !== null && e.getBoundingClientRect().width);
+    const ease = 'cubic-bezier(.55,0,.25,1)';
+    const anims = els.map((e, i) => {
+      const r = e.getBoundingClientRect();
+      const dx = tx - (r.left + r.width / 2), dy = ty - (r.top + r.height / 2);
+      return e.animate([{ translate: '0 0', scale: '1', opacity: 1, filter: 'blur(0)' }, { opacity: 1, offset: .55 }, { translate: `${dx}px ${dy}px`, scale: '.12', opacity: 0, filter: 'blur(4px)' }], { duration: 460, delay: (els.length - 1 - i) * 30, easing: ease, fill: 'forwards' });
+    });
+    anims.push(bd.animate([{ opacity: getComputedStyle(bd).opacity }, { opacity: 0 }], { duration: 380, easing: 'ease', fill: 'forwards' }));
+    closing = anims;
+    Promise.all(anims.map(a => a.finished.catch(() => {}))).then(() => {
+      if (closing !== anims) return;
+      closing = null; setOpen(false);
+      requestAnimationFrame(() => anims.forEach(a => a.cancel()));
+      bub.animate([{ opacity: .4, scale: '.86' }, { opacity: 1, scale: '1' }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
+    });
+  }
   function setOpen(v, { listen = false } = {}) {
     if (v && !isAssistantEnabled()) return;
+    if (closing) { const a = closing; closing = null; a.forEach(x => x.cancel()); if (!v) return; }
     if (v === open) { if (v && listen && state === 'idle') startListen(); return; }
     open = !!v;
     root.classList.toggle('open', open);
@@ -348,7 +373,7 @@ export function mountAssistant() {
       if (document.activeElement && isl.contains(document.activeElement)) document.activeElement.blur();
     }
   }
-  closeBtn.addEventListener('click', () => setOpen(false));
+  closeBtn.addEventListener('click', () => closeAnimated());
   document.addEventListener('keydown', e => {
     if (!open || root.classList.contains('off')) return;
     if (e.key === 'Escape') {
@@ -356,7 +381,7 @@ export function mountAssistant() {
       if (!menu.hidden) { closeMenu(); return; }
       e.preventDefault();
       if (state === 'listen') { stopListen('stop'); return; }
-      setOpen(false); return;
+      closeAnimated(); return;
     }
     // Laptop: einfach lostippen
     const a = document.activeElement;
