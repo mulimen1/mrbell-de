@@ -1976,7 +1976,9 @@ input, textarea, [contenteditable="true"] { -webkit-user-select: text; user-sele
 svg, svg *, img, canvas, video, picture, .ico, button, button *, .chip, .chip *, .btn, .btn *, [role="button"], [role="button"] *, [aria-hidden="true"], [aria-hidden="true"] *,
 .asst-bub, .asst-bub *, .ai-fw, .ai-fw *, .ai-isl > :not(.ai-in), nav, nav *, .tabs, .tabs *, .opt, .opt * { -webkit-user-select: none !important; user-select: none !important; }
 ::selection { background: color-mix(in srgb, var(--ink) 22%, transparent); color: inherit; }
-[data-split].settled .w, [data-split].settled .wi { display: inline; padding: 0; margin: 0; overflow: visible; transition: none; }
+[data-split].settled .w { padding: 0; margin: 0; overflow: visible; }
+[data-split].settled .wi { transition: none; }
+.hero h1, .hero h1 * { -webkit-hyphens: manual !important; hyphens: manual !important; }
 .asst-quip .q-r, .asst-quip .q-x, .q-bar { -webkit-user-select: none; user-select: none; }
 /* Hell/Dunkel-Wechsel: Kreis wächst aus dem Knopf und färbt die Seite langsam um */
 html.theme-vt::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
