@@ -41,7 +41,10 @@ export function setAccount(a, session) {
   accListeners.forEach(f => { try { f(account); } catch (e) {} });
 }
 
+const EV = { topic: ['Thema erklärt'], quiz: ['Erstellt', 'Quiz'], exam: ['Erstellt', 'Probeklausur'], cards: ['Erstellt', 'Karteikarten'], path: ['Erstellt', 'Lernpfad'],
+  lesson: ['Erstellt', 'Lektion'], podcast: ['Erstellt', 'Podcast'], summary: ['Erstellt', 'Lernzettel & Mindmap'], live: ['Sprechen gestartet'], verify: ['Angemeldet'] };
 export async function ask(action, payload = {}, { signal } = {}) {
+  try { const e = action === 'chat' ? ['Max gefragt', payload.opts && payload.opts.assistant ? 'Assistent' : 'Chat'] : EV[action]; if (e && window.BM) window.BM.track(e[0], e[1] || ''); } catch (x) {}
   const extra = {};
   const ses = getSession(); if (ses) extra.session = ses;
   if (payload.material != null && S.doc?.generated) extra.src = 'max';

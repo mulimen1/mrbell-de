@@ -13,7 +13,7 @@
 // Die IP-Adresse wird nie weitergegeben oder gespeichert.
 
 export const config = {
-  matcher: ['/', '/index.html', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
+  matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
     '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa']
 };
 
@@ -97,12 +97,53 @@ function melden(daten, req, ctx) {
   return p;
 }
 
+// ---------- BWL Max: Seitenaufruf ohne Kennung, Ereignisse nur mit Einwilligung (Cookie bm_analyse) ----------
+const BM_ZIEL = 'https://hub.mrbell.de/n8n/webhook/bm-ping';
+const BM_EREIGNISSE = ['Analyse erlaubt', 'Gescrollt', 'Länger als 30 Sekunden', 'Max geöffnet', 'Max gefragt', 'Sprechen gestartet', 'Skript hochgeladen',
+  'Beispiel geöffnet', 'Thema erklärt', 'Erstellt', 'Bereich geöffnet', 'Trainer geöffnet', 'Angemeldet', 'Spaßfrage beantwortet'];
+function bmKennung(req) { const m = /(?:^|;\s*)bm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
+function bmMelden(daten, req, ctx, bwlmax) {
+  if (intern(req)) return null;
+  if (daten.geraet === 'Rechner' && /^amsterdam$/i.test(dek(req.headers.get('x-vercel-ip-city')).trim())) return null;
+  daten.domain = bwlmax ? 'bwlmax.de' : 'mrbell.de/tutor';
+  const id = bmKennung(req);
+  daten.sitzung = id;
+  if (id) { daten.stadt = kurz(dek(req.headers.get('x-vercel-ip-city')), 40); daten.region = kurz(req.headers.get('x-vercel-ip-country-region'), 10); daten.land = kurz(req.headers.get('x-vercel-ip-country'), 4); daten.sprache = kurz((req.headers.get('accept-language') || '').split(',')[0], 10); }
+  const p = fetch(BM_ZIEL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(daten) }).catch(function () {});
+  if (ctx && typeof ctx.waitUntil === 'function') { ctx.waitUntil(p); return null; }
+  return p;
+}
+function bmSeite(req, ctx, url, bwlmax, recht) {
+  const ua = req.headers.get('user-agent') || '';
+  if (req.method !== 'GET' || BOT.test(ua) || !/text\/html/.test(req.headers.get('accept') || '')) return;
+  if (/prefetch|prerender/i.test((req.headers.get('sec-purpose') || '') + (req.headers.get('purpose') || '') + (req.headers.get('x-purpose') || ''))) return;
+  bmMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht ? (recht === 'impressum' ? 'Impressum' : 'Datenschutz') : '', seite: recht ? '/' + recht : '/',
+    herkunft: herkunft(req.headers.get('referer') || '', url), geraet: geraet(ua) }, req, ctx, bwlmax);
+}
+async function bmEreignis(req, ctx, bwlmax) {
+  if (req.method !== 'POST') return new Response(null, { status: 405 });
+  const ua = req.headers.get('user-agent') || '';
+  if (BOT.test(ua) || !bmKennung(req)) return new Response(null, { status: 204 });
+  let d; try { d = JSON.parse((await req.text()).slice(0, 2000)); } catch (e) { return new Response(null, { status: 400 }); }
+  const ereignis = kurz(d && d.ereignis, 40);
+  if (BM_EREIGNISSE.indexOf(ereignis) < 0) return new Response(null, { status: 204 });
+  const offen = bmMelden({ ereignis: ereignis, detail: kurz(d.detail, 60), seite: kurz(d.seite, 60), herkunft: '', geraet: geraet(ua) }, req, ctx, bwlmax);
+  if (offen) await Promise.race([offen, new Promise(function (r) { setTimeout(r, 1500); })]);
+  return new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store' } });
+}
+
 export default async function middleware(req, ctx) {
   let url;
   try { url = new URL(req.url); } catch (e) { return weiter(); }
-  // bwlmax.de: Startseite kommt vom Tutor (statische Dateien von mrbell.de hätten sonst Vorrang). Keine Messung.
-  if (/^(www\.)?bwlmax\.de$/i.test(url.hostname)) {
-    if (url.pathname === '/' || url.pathname === '/index.html') return new Response(null, { headers: { 'x-middleware-rewrite': new URL('/tutor/index.html', url).toString() } });
+  // ---------- BWL Max (bwlmax.de und mrbell.de/tutor) — eigene Messung, getrennt von Mr. Bell ----------
+  const bwlmax = /^(www\.)?bwlmax\.de$/i.test(url.hostname);
+  if (url.pathname === '/bm') return bmEreignis(req, ctx, bwlmax);
+  if (bwlmax || url.pathname.startsWith('/tutor')) {
+    const start = url.pathname === '/' || url.pathname === '/index.html' || /^\/tutor\/?(index\.html)?$/.test(url.pathname);
+    const recht = bwlmax && (url.pathname.replace(/\.html$/, '') === '/impressum' || url.pathname.replace(/\.html$/, '') === '/datenschutz') ? url.pathname.replace(/^\/|\.html$/g, '') : '';
+    if (start || recht) bmSeite(req, ctx, url, bwlmax, recht);
+    if (bwlmax && start) return new Response(null, { headers: { 'x-middleware-rewrite': new URL('/tutor/index.html', url).toString() } });
+    if (recht) return new Response(null, { headers: { 'x-middleware-rewrite': new URL('/tutor/legal/' + recht + '.html', url).toString() } });
     return weiter();
   }
   // 0) WhatsApp-Webhook: nur Nachrichten an n8n, Status-Meldungen sofort mit 200 beantworten

@@ -457,7 +457,7 @@ async function withPath(wrap, ctx, opts) {
 
 function finishCreate(wrap, ctx, opts) {
   const { doc } = ctx;
-  doc.plan = buildPlan(doc, opts);
+  doc.plan = buildPlan(doc, opts); try { window.BM && window.BM.track('Erstellt', 'Klausurplan'); } catch (e) {}
   save(doc);
   planView(wrap, ctx, { fresh: true });
 }

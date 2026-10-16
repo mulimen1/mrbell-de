@@ -378,7 +378,7 @@ export function mountAssistant() {
     syncLock();
     closeMenu();
     if (open) {
-      unread(false);
+      unread(false); try { window.BM && window.BM.track('Max geöffnet'); } catch (e) {}
       isl.animate([{ opacity: 0, transform: 'translate(-50%, 14px) scale(.92)' }, { opacity: 1, transform: 'translateX(-50%)' }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
       if (!ls.get('tutor.asst.seen')) { ls.set('tutor.asst.seen', 1); root.classList.add('seen'); }
       if (!quip.hidden) hideQuip(); ctxm.hidden = true;
@@ -1012,6 +1012,7 @@ export function mountAssistant() {
     if (cfg.quips === false || open || !isAssistantEnabled() || document.hidden || root.classList.contains('covered') || root.classList.contains('nobub') || document.querySelector('body > .modal-bg, body > .voice')) return planQuip();
     const [q, opts, ans, pct] = QUIPS[qi++ % QUIPS.length];
     const reply = i => {
+      try { window.BM && window.BM.track('Spaßfrage beantwortet', opts[i]); } catch (e) {}
       const t = ans[i], v = pct?.[i] ? Math.max(3, Math.min(97, pct[i] + Math.round(Math.random() * 4 - 2))) : 0;
       const kids = [h('p', { class: 'q-a' }, t)];
       if (v) {

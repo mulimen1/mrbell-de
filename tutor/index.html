@@ -22,7 +22,7 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tutor/css/app.css?v=25">
+<link rel="stylesheet" href="/tutor/css/app.css?v=26">
 <link rel="stylesheet" href="/tutor/css/trainer.css?v=3">
 <style>html.preload{background:#000}html.preload[data-theme=light]{background:#fff}html.preload body{opacity:0}html body{transition:opacity .25s ease}</style>
 <script>document.documentElement.classList.add('preload');setTimeout(function(){document.documentElement.classList.remove('preload')},2500);</script>
@@ -254,8 +254,8 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
   </section>
 
   <footer class="foot">
-    <div data-en="© 2026 BWL Max · a Mr. Bell project">© 2026 BWL Max · ein Projekt von Mr. Bell</div>
-    <div><a href="/impressum" data-en="Legal notice">Impressum</a><a href="/datenschutz" data-en="Privacy">Datenschutz</a></div>
+    <div>© 2026 BWL Max</div>
+    <div><a href="/tutor/legal/impressum.html" data-legal="impressum" data-en="Legal notice">Impressum</a><a href="/tutor/legal/datenschutz.html" data-legal="datenschutz" data-en="Privacy">Datenschutz</a><a href="#" data-consent-open data-en="Cookie settings">Cookie-Einstellungen</a></div>
   </footer>
 </div>
 
@@ -263,6 +263,8 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
 <div id="app" class="hidden"></div>
 
 <noscript><p style="padding:40px;text-align:center">Bitte aktiviere JavaScript, um BWL Max zu nutzen.</p></noscript>
-<script type="module" src="/tutor/js/main.js?v=3"></script>
+<script>(function(){if(/(^|\.)bwlmax\.de$/.test(location.hostname))document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});})();</script>
+<script src="/tutor/js/consent.js?v=1"></script>
+<script type="module" src="/tutor/js/main.js?v=4"></script>
 </body>
 </html>

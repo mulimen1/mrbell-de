@@ -13,6 +13,7 @@ export const ACCEPT = '.pdf,.pptx,.docx,.txt,.md,application/pdf';
 const MAX_BYTES = 60 * 1024 * 1024;
 
 export async function readFile(file, onProgress = () => {}) {
+  try { window.BM && window.BM.track('Skript hochgeladen', String((file && file.name || '').split('.').pop() || '').toLowerCase().slice(0, 6)); } catch (e) {}
   if (file.size > MAX_BYTES) throw new Error(L('Die Datei ist größer als 60 MB.', 'The file is larger than 60 MB.'));
   const name = file.name || L('Vorlesung', 'Lecture');
   const ext = (name.split('.').pop() || '').toLowerCase();

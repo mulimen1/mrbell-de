@@ -258,6 +258,7 @@ export async function startUpload(file) {
 }
 
 export async function startSample() {
+  try { window.BM && window.BM.track('Beispiel geöffnet'); } catch (e) {}
   if (!shell) { buildShell(); await refreshList(); }
   const ex = S.list.find(d => d.sample);
   if (ex) { const t = ls.get('tutor.target', null); location.hash = t ? afterCreate(ex) : `#/app/${ex.id}/hub`; return; }
