@@ -2303,7 +2303,7 @@ label.me-chk small { margin-left: auto; color: var(--mute); font-size: 12px; } l
 .me-blk small { font: 500 10.5px var(--mono); color: var(--mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .me-blk i { font-style: normal; font: 650 10px var(--mono); letter-spacing: .05em; text-transform: uppercase; margin-top: auto; }
 .me-blk.own { background: var(--inv); color: var(--onInv); border-color: var(--inv); } .me-blk.own small { color: color-mix(in srgb, var(--onInv) 65%, transparent); }
-.me-blk.past { opacity: 1; } .me-blk.own.past { box-shadow: none; } .me-blk.own.past small, .me-blk.own.past i { opacity: .8; }
+.me-blk.past { opacity: .5; }
 .me-wlist { display: none; gap: 10px; }
 .me-wday { display: grid; gap: 6px; } .me-wdh { font-weight: 650; font-size: 14px; display: flex; gap: 8px; align-items: baseline; } .me-wdh small { color: var(--mute); font-weight: 500; }
 .me-wday.on .me-wdh::after { content: "heute"; font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .08em; background: var(--inv); color: var(--onInv); padding: 2px 6px; border-radius: 6px; }
