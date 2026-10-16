@@ -100,6 +100,11 @@ function melden(daten, req, ctx) {
 export default async function middleware(req, ctx) {
   let url;
   try { url = new URL(req.url); } catch (e) { return weiter(); }
+  // bwlmax.de: Startseite kommt vom Tutor (statische Dateien von mrbell.de hätten sonst Vorrang). Keine Messung.
+  if (/^(www\.)?bwlmax\.de$/i.test(url.hostname)) {
+    if (url.pathname === '/' || url.pathname === '/index.html') return new Response(null, { headers: { 'x-middleware-rewrite': new URL('/tutor/index.html', url).toString() } });
+    return weiter();
+  }
   // 0) WhatsApp-Webhook: nur Nachrichten an n8n, Status-Meldungen sofort mit 200 beantworten
   if (url.pathname === '/wa') {
     if (req.method !== 'POST') return new Response('ok', { status: 200, headers: { 'Cache-Control': 'no-store' } });
