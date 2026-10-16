@@ -1915,3 +1915,25 @@ html.ai-vt::view-transition-new(root) { animation: aivtnew .8s cubic-bezier(.16,
 .ai-mx .ico { width: 16px; height: 16px; }
 .ai-menu .ai-me { margin: 0 0 12px 2px; }
 .ai-menu .asst-vch { margin-top: 0; padding-right: 30px; }
+
+/* ===== Frisch erstellt: sauberer Auftritt (einmalig) ===== */
+.fx { animation: fxin .9s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--fx, 0) * 120ms); }
+@keyframes fxin { from { opacity: 0; transform: translateY(26px) scale(.985); filter: blur(10px); } }
+/* Innenleben nacheinander */
+.fx .card, .fx .chap, .fx .opt, .fx .term, .fx .tile, .fx .kl-day, .fx .tafel > * { animation: fxitem .8s cubic-bezier(.16,1,.3,1) both; }
+.fx .chap:nth-child(1), .fx .opt:nth-child(1), .fx .term:nth-child(1), .fx .card:nth-child(1) { animation-delay: .25s; }
+.fx .chap:nth-child(2), .fx .opt:nth-child(2), .fx .term:nth-child(2), .fx .card:nth-child(2) { animation-delay: .35s; }
+.fx .chap:nth-child(3), .fx .opt:nth-child(3), .fx .term:nth-child(3), .fx .card:nth-child(3) { animation-delay: .45s; }
+.fx .chap:nth-child(4), .fx .opt:nth-child(4), .fx .term:nth-child(4), .fx .card:nth-child(4) { animation-delay: .55s; }
+.fx .chap:nth-child(n+5), .fx .opt:nth-child(n+5), .fx .term:nth-child(n+5), .fx .card:nth-child(n+5) { animation-delay: .65s; }
+@keyframes fxitem { from { opacity: 0; transform: translateY(14px); filter: blur(6px); } }
+/* Mindmap: Äste zeichnen sich, Knoten erscheinen von innen nach außen */
+.fx .mm-l { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: fxdraw 1.6s .5s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes fxdraw { to { stroke-dashoffset: 0; } }
+.fx .mm-n { animation: fxnode .7s cubic-bezier(.16,1,.3,1) both; }
+.fx .mm-root { animation-delay: .3s; } .fx .mm-branch { animation-delay: .8s; } .fx .mm-leaf { animation-delay: 1.3s; }
+@keyframes fxnode { from { opacity: 0; filter: blur(6px); } }
+/* Podcast-Cover dreht sich rein */
+.fx .cover { animation: fxcover 1.2s cubic-bezier(.16,1,.3,1) .15s both; }
+@keyframes fxcover { from { opacity: 0; transform: perspective(900px) rotateY(-28deg) scale(.9); filter: blur(8px); } }
+@media (prefers-reduced-motion: reduce) { .fx, .fx * { animation: none !important; stroke-dashoffset: 0 !important; } }

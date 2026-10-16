@@ -185,3 +185,9 @@ export function syncOut(el, text, audio, { scroll = () => {}, spoken = 640 } = {
     requestAnimationFrame(tick);
   });
 }
+
+// Frisch erstellte Inhalte erscheinen einmal mit Auftritt (gestaffelt, Mindmap zeichnet sich)
+export function freshen(el) {
+  if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  [...el.children].forEach((c, i) => { c.classList.add('fx'); c.style.setProperty('--fx', i); });
+}

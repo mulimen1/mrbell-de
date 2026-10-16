@@ -4,7 +4,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save, track } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn, moreOpts } from '../ui.js';
+import { loading, apiError, costBtn, moreOpts, freshen } from '../ui.js';
 import { renderQuestion, normalize, TYPE_LABEL, explainPrompt } from '../quiz.js';
 import { feedbackButton } from '../feedback.js';
 import { ls as lsq } from '../util.js';
@@ -72,7 +72,7 @@ async function generate(wrap, ctx, st) {
     if (qs.length < 2) throw new Error(L('Das Quiz ist nicht vollständig angekommen. Versuch es nochmal.', 'The quiz didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: ch ? ch.title : (r.data.title || 'Quiz'), questions: qs, diff: st.diff, created: Date.now(), results: [] };
     doc.quizzes.push(quiz); save(doc);
-    ld.stop(); run(wrap, ctx, quiz);
+    ld.stop(); run(wrap, ctx, quiz); freshen(wrap);
   } catch (e) { ld.stop(); overview(wrap, ctx, st.focus); apiError(e, () => generate(wrap, ctx, st)); }
 }
 
@@ -85,7 +85,7 @@ async function exam(wrap, ctx) {
     if (qs.length < 4) throw new Error(L('Die Probeklausur ist nicht vollständig angekommen. Versuch es nochmal.', 'The mock exam didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: L('Probeklausur · ', 'Mock exam · ') + new Date().toLocaleDateString(LOCALE), questions: qs, diff: 'Klausur', exam: true, minutes: 45, created: Date.now(), results: [] };
     doc.quizzes.push(quiz); save(doc);
-    ld.stop(); run(wrap, ctx, quiz);
+    ld.stop(); run(wrap, ctx, quiz); freshen(wrap);
   } catch (e) { ld.stop(); overview(wrap, ctx); apiError(e, () => exam(wrap, ctx)); }
 }
 

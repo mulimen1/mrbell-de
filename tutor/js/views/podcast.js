@@ -3,7 +3,7 @@ import { h, ico, uid, toast, modal, ls } from '../util.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn, moreOpts } from '../ui.js';
+import { loading, apiError, costBtn, moreOpts, freshen } from '../ui.js';
 import { SPICE, getSpice } from '../max.js';
 import { getOutLang, setOutLang, L } from '../i18n.js';
 
@@ -94,7 +94,7 @@ async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), m
     if (lines.length < 4) throw new Error(L('Die Folge ist nicht vollständig angekommen. Versuch es nochmal.', 'The episode didn’t arrive completely. Please try again.'));
     const p = { id: uid(), title: r.data.title || L('Folge', 'Episode'), lines, created: Date.now(), lang: plang, voice: mvoice, real: true, audio: [] };
     doc.podcasts.push(p); save(doc);
-    ld.stop(); player(wrap, ctx, p);
+    ld.stop(); player(wrap, ctx, p); freshen(wrap);
   } catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, len, focus, tone, plang, mvoice)); }
 }
 

@@ -5,7 +5,7 @@ import { face } from '../face.js';
 import { save, mastery } from '../state.js';
 import { generatePath, pathPending } from './path.js';
 import { dueCards } from './cards.js';
-import { loading, apiError, costBtn } from '../ui.js';
+import { loading, apiError, costBtn, freshen } from '../ui.js';
 import { moodLine, getSpice } from '../max.js';
 import { L, EN, LOCALE } from '../i18n.js';
 
@@ -451,7 +451,7 @@ function wizard(wrap, ctx) {
 
 async function withPath(wrap, ctx, opts) {
   const ld = loading(wrap, L('Ich teile dein Skript in Kapitel …', 'Splitting your slides into chapters …'), L(['Lese das Skript', 'Finde die Kapitel', 'Gewichte für die Klausur', 'Danach plane ich deine Tage'], ['Reading the slides', 'Finding the chapters', 'Weighting for the exam', 'Then I’ll plan your days']), 'path');
-  try { await ld.race(generatePath(ctx.doc)); ld.stop(); finishCreate(wrap, ctx, opts); }
+  try { await ld.race(generatePath(ctx.doc)); ld.stop(); finishCreate(wrap, ctx, opts); freshen(wrap); }
   catch (e) { ld.stop(); wizard(wrap, ctx); apiError(e, () => withPath(wrap, ctx, opts)); }
 }
 

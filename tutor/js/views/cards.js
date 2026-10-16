@@ -4,7 +4,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn } from '../ui.js';
+import { loading, apiError, costBtn, freshen } from '../ui.js';
 import { richText } from '../sanitize.js';
 import { L } from '../i18n.js';
 
@@ -73,7 +73,7 @@ async function generate(wrap, ctx, chIdx) {
     const deck = { id: uid(), title: ch ? ch.title : (r.data.title || L('Ganzes Skript', 'Whole script')), chapter: chIdx, cards, created: Date.now() };
     doc.decks.push(deck); save(doc);
     ld.stop();
-    study(wrap, ctx, cards.map(c => ({ c, d: deck })), deck.title);
+    study(wrap, ctx, cards.map(c => ({ c, d: deck })), deck.title); freshen(wrap);
   } catch (e) { ld.stop(); overview(wrap, ctx); apiError(e, () => generate(wrap, ctx, chIdx)); }
 }
 

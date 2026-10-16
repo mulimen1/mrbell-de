@@ -4,7 +4,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save, track, mastery } from '../state.js';
 import { forWhole, outline, forChapter, fullText } from '../retrieve.js';
-import { loading, apiError, costBtn } from '../ui.js';
+import { loading, apiError, costBtn, freshen } from '../ui.js';
 import { sanitize } from '../sanitize.js';
 import { renderQuestion, normalize, explainPrompt } from '../quiz.js';
 import { L } from '../i18n.js';
@@ -57,7 +57,7 @@ function intro(wrap, ctx) {
 
 async function waitPath(wrap, ctx, start) {
   const ld = loading(wrap, L('Ich baue deinen Lernpfad …', 'Building your study path …'), L(['Lese das Skript', 'Finde die Kapitel', 'Sortiere nach Lernreihenfolge', 'Gewichte für die Klausur'], ['Reading the slides', 'Finding the chapters', 'Sorting into learning order', 'Weighting for the exam']), 'path');
-  try { await ld.race(generatePath(ctx.doc)); ld.stop(); wrap.replaceChildren(); listView(wrap, ctx); }
+  try { await ld.race(generatePath(ctx.doc)); ld.stop(); wrap.replaceChildren(); listView(wrap, ctx); freshen(wrap); }
   catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => waitPath(wrap, ctx, true)); }
 }
 
