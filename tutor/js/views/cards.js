@@ -1,5 +1,5 @@
-// Karteikarten mit Spaced Repetition (vereinfachtes SM-2). Wiederholen kostet keine KI.
-import { starBtn } from '../me.js';
+// Karteikarten mit Spaced Repetition (FSRS-5). Wiederholen kostet keine KI.
+import { starBtn, fachOf } from '../me.js';
 import { h, ico, uid, toast, modal, shuffle } from '../util.js';
 import { face } from '../face.js';
 import { ask } from '../api.js';
@@ -8,18 +8,15 @@ import { forWhole, forChapter } from '../retrieve.js';
 import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { richText } from '../sanitize.js';
 import { L } from '../i18n.js';
+import { review } from '../fsrs.js';
 
 const DAY = 864e5;
 export function dueCards(doc, now = Date.now()) { return doc.decks.flatMap(d => d.cards.map(c => ({ c, d }))).filter(x => (x.c.due || 0) <= now); }
 
+// FSRS-5: Abstände nach Stabilität und Schwierigkeit, vor der Klausur verdichtet
+let examAt = 0;
 function schedule(c, r) {
-  const now = Date.now();
-  c.ease = c.ease || 2.5; c.reps = c.reps || 0; c.ivl = c.ivl || 0;
-  if (r === 1) { c.lapses = (c.lapses || 0) + 1; c.ease = Math.max(1.3, c.ease - .2); c.ivl = 0; c.due = now + 60e3; c.reps = 0; return L('in 1 Min.', 'in 1 min'); }
-  if (r === 2) { c.ease = Math.max(1.3, c.ease - .15); c.ivl = c.ivl ? Math.max(1, c.ivl * 1.2) : 0; c.due = c.ivl ? now + c.ivl * DAY : now + 6e5; }
-  if (r === 3) { c.ivl = c.reps === 0 ? 1 : c.reps === 1 ? 3 : Math.round(c.ivl * c.ease); c.due = now + c.ivl * DAY; }
-  if (r === 4) { c.ease += .15; c.ivl = c.reps === 0 ? 4 : Math.round(c.ivl * c.ease * 1.3); c.due = now + c.ivl * DAY; }
-  c.reps++;
+  review(c, r, Date.now(), examAt);
   return label(c.ivl, c.due);
 }
 function preview(c, r) { const x = JSON.parse(JSON.stringify(c)); return schedule(x, r); }
@@ -81,6 +78,7 @@ async function generate(wrap, ctx, chIdx) {
 
 function study(wrap, ctx, items, title) {
   const { doc } = ctx;
+  { const f = fachOf(doc.id); const iso = (f && f.klausur) || doc.plan?.exam; examAt = iso ? new Date(iso + 'T08:00').getTime() || 0 : 0; }
   let queue = shuffle(items).sort((a, b) => (a.c.due || 0) - (b.c.due || 0)).slice(0, 40);
   // Ohne Konto: die ersten Karten jedes Stapels zuerst, der Rest danach (gesperrt)
   if (isGuest()) { const free = x => x.d.cards.indexOf(x.c) < GUEST_CARDS; queue = [...items.filter(free), ...items.filter(x => !free(x))].slice(0, 40); }
