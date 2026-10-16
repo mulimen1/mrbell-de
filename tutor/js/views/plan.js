@@ -578,6 +578,7 @@ function planView(wrap, ctx, { fresh = false } = {}) {
       cal,
       h('div', { class: 'pl-foot' },
         h('button', { class: 'btn sm ghost', onclick: edit }, h('span', { html: ico('calendar') }), L('Plan bearbeiten', 'Edit plan')),
+        h('button', { class: 'btn sm ghost', onclick: () => exportIcs(doc), title: L('Als .ics – passt in Google, Apple und Outlook', 'As .ics – works with Google, Apple and Outlook') }, h('span', { html: ico('download') }), L('In meinen Kalender', 'Add to my calendar')),
         h('button', { class: 'btn sm ghost', onclick: del }, h('span', { html: ico('trash') }), L('Plan löschen', 'Delete plan'))));
     wrap.classList.toggle('still', !first); first = false;
     if (fresh) { fresh = false; toast(L(`Dein Plan steht: ${plan.studyDays} Lerntage. Fang mit „Heute“ an.`, `Your plan is ready: ${plan.studyDays} study days. Start with “Today”.`), 4000); }
@@ -657,4 +658,33 @@ function planView(wrap, ctx, { fresh = false } = {}) {
   }
 
   draw();
+}
+
+// Lernplan als Kalenderdatei (.ics): ein Termin pro Lerntag mit den Aufgaben, dazu die Klausur
+function exportIcs(doc) {
+  const plan = doc.plan; if (!plan) return;
+  const esc = t => String(t).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+  const d8 = iso => iso.replace(/-/g, '');
+  const next = iso => { const x = new Date(iso + 'T12:00:00Z'); x.setUTCDate(x.getUTCDate() + 1); return x.toISOString().slice(0, 10).replace(/-/g, ''); };
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+Z$/, 'Z');
+  const today = new Date().toLocaleDateString('sv-SE');
+  const fold = line => { const out = []; let x = line; while (x.length > 74) { out.push(x.slice(0, 74)); x = ' ' + x.slice(74); } out.push(x); return out.join('\r\n'); };
+  const ev = [];
+  for (const day of plan.days) {
+    if (day.date < today) continue;
+    const open = day.tasks.filter(t => !t.done); if (!open.length) continue;
+    const min = open.reduce((a, t) => a + (t.minutes || 0), 0);
+    ev.push(['BEGIN:VEVENT', 'UID:bwlmax-' + doc.id + '-' + d8(day.date) + '@bwlmax.de', 'DTSTAMP:' + stamp, 'DTSTART;VALUE=DATE:' + d8(day.date), 'DTEND;VALUE=DATE:' + next(day.date),
+      'SUMMARY:' + esc(L(`Lernen: ${doc.name} (~${min} Min.)`, `Study: ${doc.name} (~${min} min)`)),
+      'DESCRIPTION:' + esc(open.map(t => '– ' + (t.label || taskLabel(t, doc)) + (t.minutes ? L(` (${t.minutes} Min.)`, ` (${t.minutes} min)`) : '')).join('\n') + '\n\nbwlmax.de'),
+      'TRANSP:TRANSPARENT', 'END:VEVENT']);
+  }
+  if (plan.exam && plan.exam >= today) ev.push(['BEGIN:VEVENT', 'UID:bwlmax-' + doc.id + '-klausur@bwlmax.de', 'DTSTAMP:' + stamp, 'DTSTART;VALUE=DATE:' + d8(plan.exam), 'DTEND;VALUE=DATE:' + next(plan.exam), 'SUMMARY:' + esc(L(`Klausur: ${doc.name}`, `Exam: ${doc.name}`)), 'END:VEVENT']);
+  if (!ev.length) { toast(L('Keine offenen Lerntage mehr im Plan.', 'No open study days left in the plan.')); return; }
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//BWL Max//Lernplan//DE', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'X-WR-CALNAME:' + esc('BWL Max · ' + doc.name), ...ev.flat(), 'END:VCALENDAR'].map(fold).join('\r\n') + '\r\n';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
+  a.download = ('Lernplan ' + doc.name).replace(/[^\wäöüÄÖÜß .-]/g, '').slice(0, 60) + '.ics';
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  toast(L('Kalenderdatei geladen – einfach öffnen, dann landet der Plan in deinem Kalender.', 'Calendar file downloaded – open it and the plan lands in your calendar.'), 4200);
 }
