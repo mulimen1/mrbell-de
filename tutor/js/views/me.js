@@ -555,30 +555,13 @@ function favourites(body, getF, setF) {
 
 // ---------- Statistik ----------
 function stats(body) {
-  const days = M.activityDays(S.list);
-  const st = M.streak(days);
-  const keys = Object.keys(days).filter(k => days[k]).sort();
-  let best = 0, run = 0, prev = null; for (const k of keys) { const d = new Date(k + 'T12:00'); run = prev && Math.round((d - prev) / 864e5) === 1 ? run + 1 : 1; best = Math.max(best, run); prev = d; }
-  const w0 = weekMinutes(0), w1 = weekMinutes(-1);
-  const ans = S.list.reduce((x, d) => x + (d.stats?.answered || 0), 0), cor = S.list.reduce((x, d) => x + (d.stats?.correct || 0), 0);
-  const reps = S.list.reduce((x, d) => x + d.decks.flatMap(k => k.cards).filter(c => (c.reps || 0) > 0).length, 0);
-  // Heatmap: 18 Wochen
-  const W = 18, end = dayStart(); const start = new Date(end); start.setDate(end.getDate() - ((end.getDay() + 6) % 7) - (W - 1) * 7);
-  const max = Math.max(1, ...Object.values(days));
-  const cells = []; for (let i = 0; i < W * 7; i++) { const d = new Date(start); d.setDate(start.getDate() + i); const v = days[M.dayKey(d)] || 0; const lv = d > end ? -1 : v ? Math.min(4, 1 + Math.floor(3 * v / max)) : 0; cells.push(h('i', { class: 'l' + lv, title: d > end ? '' : `${d.toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })}: ${v ? M.fmtMin(v) : L('nichts', 'nothing')}` })); }
+  // Oben große Zahlen, dann Lernkalender, dann dein Plan (views/fortschritt.js) – darunter Meilensteine und Verlauf
+  const top = h('div', { class: 'fx-wrap' }); body.append(top);
+  import('./fortschritt.js').then(F => { if (!top.isConnected) return; F.render(top); }).catch(e => console.error(e));
   const subj = M.getMe().faecher.map(f => { const ds = (f.docs || []).map(docById).filter(Boolean); return { n: f.name, m: ds.length ? Math.round(ds.reduce((x, d) => x + mastery(d), 0) / ds.length) : null }; }).filter(x => x.m != null);
   const rows = subj.length ? subj : S.list.filter(d => !d.sample).map(d => ({ n: d.name, m: mastery(d) }));
   rows.sort((a, b) => b.m - a.m);
-  const trend = w1 ? Math.round(100 * (w0 - w1) / w1) : null;
-  body.append(progressStrip(true), milestones(),
-    h('div', { class: 'me-kpis' },
-      kpi(st, L('Tage Serie', 'day streak'), best > st ? L(`Rekord: ${best}`, `Record: ${best}`) : st ? L('Das ist dein Rekord.', 'That’s your record.') : L('Heute anfangen?', 'Start today?')),
-      kpi(M.fmtMin(w0), L('Lernzeit diese Woche', 'Study time this week'), trend == null ? L(`Letzte Woche: ${M.fmtMin(w1)}`, `Last week: ${M.fmtMin(w1)}`) : trend >= 0 ? L(`+${trend} % zur Vorwoche`, `+${trend}% vs last week`) : L(`${trend} % zur Vorwoche`, `${trend}% vs last week`)),
-      kpi(ans ? Math.round(100 * cor / ans) + ' %' : '–', L('Trefferquote', 'Accuracy'), L(`${ans} Fragen beantwortet`, `${ans} questions answered`)),
-      kpi(reps, L('Karten gelernt', 'Cards learned'), L('mit Wiederholung', 'with spaced repetition'))),
-    weeksCard(),
-    card(L('Deine letzten 18 Wochen', 'Your last 18 weeks'), h('div', { class: 'me-heat' }, cells), h('div', { class: 'me-heatl' }, h('span', {}, L('weniger', 'less')), [0, 1, 2, 3, 4].map(l => h('i', { class: 'l' + l })), h('span', {}, L('mehr', 'more'))),
-      h('p', { class: 'me-muted me-fine' }, L('Serien-Joker: Ein verpasster Tag pro Woche wird automatisch überbrückt.', 'Streak joker: one missed day per week is bridged automatically.'))),
+  body.append(milestones(), weeksCard(),
     rows.length ? card(subj.length ? L('Lernstand pro Fach', 'Progress per subject') : L('Lernstand pro Skript', 'Progress per set of slides'), h('div', { class: 'me-bars' }, rows.map((r, i) => h('div', { class: 'me-br' }, h('span', {}, r.n), h('div', { class: 'me-bar big' }, h('i', { style: { width: r.m + '%' } })), h('b', {}, r.m + ' %')))),
       rows.length > 1 ? h('p', { class: 'me-muted' }, L(`Am stärksten: ${rows[0].n}. Hier lohnt sich jede Minute: ${rows[rows.length - 1].n}.`, `Strongest: ${rows[0].n}. Every minute pays off here: ${rows[rows.length - 1].n}.`)) : null) : null);
 }

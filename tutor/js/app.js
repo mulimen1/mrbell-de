@@ -70,12 +70,12 @@ function buildShell() {
     h('div', { class: 'top' },
       h('a', { class: 'brand', href: '#/' }, faceEl, 'BWL Max', h('small', {}, 'Beta')),
       h('span', { style: { flex: 1 } }),
-      langSwitch(),
-      h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }),
+      // Sprache + Hell/Dunkel stehen oben neben der Suche; am Handy hier
+      h('span', { class: 'side-mobset' }, langSwitch(), h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') })),
       h('button', { class: 'iconbtn side-col', type: 'button', 'aria-label': L('Seitenleiste einklappen', 'Collapse sidebar'), title: L('Einklappen (Strg/⌘ + \\)', 'Collapse (Ctrl/⌘ + \\)'), html: ico('sidebar'), onclick: () => setSide(false) })),
     h('div', { class: 'scroll' },
       h('label', { class: 'btn primary side-new', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')), fileIn,
-      h('div', { class: 'grp' }, L('Werkzeuge', 'Tools')),
+      h('div', { class: 'grp' }, 'Tools'),
       h('div', { class: 'side-tools' },
         tool('button', { onclick: () => talkToMax() }, 'mic', L('Sprich mit mir', 'Talk to me')),
         tool('button', { onclick: () => topicPrompt() }, 'bulb', L('Ich erklär dir ein Thema', 'I’ll explain a topic')),
@@ -100,10 +100,11 @@ function buildShell() {
   const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
   const docbar = h('div', { class: 'docbar', hidden: true }, title, tabs);
-  const sideBtn = h('button', { class: 'iconbtn side-tog', type: 'button', 'aria-label': L('Seitenleiste', 'Sidebar'), title: L('Werkzeuge ein-/ausblenden (Strg/⌘ + \\)', 'Show/hide tools (Ctrl/⌘ + \\)'), html: ico('sidebar'), onclick: () => { if (isMob()) app.classList.toggle('sideopen'); else setSide(app.classList.contains('side-closed')); } });
+  const sideBtn = h('button', { class: 'iconbtn side-tog', type: 'button', 'aria-label': L('Seitenleiste', 'Sidebar'), title: L('Tools ein-/ausblenden (Strg/⌘ + \\)', 'Show/hide tools (Ctrl/⌘ + \\)'), html: ico('sidebar'), onclick: () => { if (isMob()) app.classList.toggle('sideopen'); else setSide(app.classList.contains('side-closed')); } });
   const view = h('main', { class: 'view', id: 'view' });
   const palBtn = h('button', { class: 'pal-btn', type: 'button', 'aria-label': L('Suchen', 'Search'), title: L('Suchen und Befehle (⌘K)', 'Search and commands (⌘K)'), onclick: () => import('./palette.js').then(m => m.openPalette()) }, h('span', { html: ico('search') }), h('span', { class: 'pal-btx' }, L('Suchen', 'Search')), h('kbd', {}, /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Strg K'));
-  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn), docbar, view);
+  const topset = h('div', { class: 'topset' }, langSwitch(), h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }));
+  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn, topset), docbar, view);
   const bbar = bottomBar(() => app);
   const app = h('div', { class: 'app' + (ls.get('tutor.sideClosed', false) ? ' side-closed' : '') }, side, main, bbar);
   function setSide(open) { app.classList.toggle('side-closed', !open); ls.set('tutor.sideClosed', !open); sideBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
@@ -521,7 +522,7 @@ function bottomBar(getApp) {
   const bar = h('nav', { class: 'bbar', 'aria-label': L('Hauptnavigation', 'Main navigation') },
     item('me', 'home', L('Heute', 'Today'), '#/app/me'),
     item('skripte', 'file', L('Skripte', 'Slides'), '#/app/skripte'),
-    Object.assign(item('side', 'sidebar', L('Werkzeuge', 'Tools'), () => getApp().classList.toggle('sideopen')), { className: 'bb-i bb-side' }),
+    Object.assign(item('side', 'sidebar', 'Tools', () => getApp().classList.toggle('sideopen')), { className: 'bb-i bb-side' }),
     item('search', 'search', L('Suche', 'Search'), () => import('./palette.js').then(m => m.openPalette())),
     item('ich', 'lock', L('Ich', 'Me'), () => getAccount() ? openAccount() : openLogin()));
   const mark = () => { const h0 = location.hash; bar.querySelectorAll('.bb-i').forEach(x => x.classList.toggle('on', (x.dataset.bb === 'me' && h0.startsWith('#/app/me')) || (x.dataset.bb === 'skripte' && (h0.startsWith('#/app/skripte') || !!(S.doc && h0.includes(S.doc.id)))))); };

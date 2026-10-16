@@ -3,7 +3,7 @@
 import { ls, toast } from './util.js';
 import { L } from './i18n.js';
 
-const IDLE = 4 * 60e3;
+const IDLE = 20 * 60e3;   // so lange bleibt das Mikro nach der letzten Frage bereit (stumm) – keine neue Browser-Nachfrage
 const CONS = { audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } };
 let st = null, users = 0, idleT = 0, pending = null;
 const alive = s => !!s && s.getAudioTracks().some(t => t.readyState === 'live');
@@ -32,18 +32,19 @@ export function stopMic() {
   st = null; users = 0;
 }
 addEventListener('pagehide', stopMic);
-document.addEventListener('visibilitychange', () => { if (document.hidden && !users) { clearTimeout(idleT); idleT = setTimeout(() => { if (document.hidden && !users) stopMic(); }, 30e3); } });
+document.addEventListener('visibilitychange', () => { if (document.hidden && !users) { clearTimeout(idleT); idleT = setTimeout(() => { if (document.hidden && !users) stopMic(); }, 3 * 60e3); } else if (!document.hidden && st && !users) { clearTimeout(idleT); idleT = setTimeout(stopMic, IDLE); } });
 
 // Fragt der Browser trotzdem jedes Mal? Dann einmal erklären, wie man es dauerhaft erlaubt.
 async function hint() {
   try {
-    if (ls.get('tutor.micTip')) return;
     const p = await navigator.permissions?.query({ name: 'microphone' });
     if (!p || p.state === 'granted') return;
-    ls.set('tutor.micTip', 1);
+    // Fragt der Browser wiederholt nach: beim 2. und 5. Mal erklären, wie man es dauerhaft erlaubt
+    const n = (ls.get('tutor.micAsks', 0) || 0) + 1; ls.set('tutor.micAsks', n);
+    if (n !== 2 && n !== 5) return;
     const safari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
     setTimeout(() => toast(safari
-      ? L('Tipp: Damit Safari nicht jedes Mal fragt – Safari › Einstellungen für bwlmax.de › Mikrofon: Erlauben.', 'Tip: so Safari stops asking – Safari › Settings for bwlmax.de › Microphone: Allow.')
-      : L('Tipp: Damit dein Browser nicht jedes Mal fragt – beim Mikrofon „Bei Besuchen der Website zulassen“ wählen (Schloss-Symbol in der Adressleiste).', 'Tip: so your browser stops asking – choose “Allow while visiting the site” for the microphone (lock icon in the address bar).'), 7000), 1200);
+      ? L('Damit Safari nicht jedes Mal fragt: oben im Menü Safari › Einstellungen für bwlmax.de … › Mikrofon: Erlauben.', 'So Safari stops asking: menu Safari › Settings for bwlmax.de … › Microphone: Allow.')
+      : L('Tipp: Damit dein Browser nicht jedes Mal fragt – beim Mikrofon „Bei Besuchen der Website zulassen“ wählen (Schloss-Symbol in der Adressleiste).', 'Tip: so your browser stops asking – choose “Allow while visiting the site” for the microphone (lock icon in the address bar).'), 9000), 1200);
   } catch (e) {}
 }

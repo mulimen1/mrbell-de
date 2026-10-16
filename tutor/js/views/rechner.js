@@ -62,7 +62,7 @@ export function render(root, { arg = '', onAsk } = {}) {
     grid.replaceChildren(...(hits.length ? hits.map(x => h('a', { class: 'rc-card', href: '#/app/rechner/' + x.k }, h('span', { class: 'rc-ci', html: ico(x.ic) }), h('b', {}, x.t), h('small', {}, x.s))) : [h('div', { class: 'me-empty' }, h('p', {}, L('Kein Rechner dafür. Frag Max – er rechnet alles exakt nach.', 'No calculator for that. Ask Max – he calculates everything exactly.')))]));
   };
   q.addEventListener('input', draw); draw();
-  wrap.append(h('div', { class: 'vh rc-h' }, h('div', {}, h('div', { class: 'eyebrow' }, L('Werkzeuge', 'Tools')), h('h2', {}, L('Rechner', 'Calculators')), h('p', {}, L('Exakt gerechnet, mit Rechenweg und Faustregeln – dieselben Formeln, mit denen Max rechnet.', 'Calculated exactly, with working and rules of thumb – the same formulas Max uses.'))), q), grid);
+  wrap.append(h('div', { class: 'vh rc-h' }, h('div', {}, h('div', { class: 'eyebrow' }, 'Tools'), h('h2', {}, L('Rechner', 'Calculators')), h('p', {}, L('Exakt gerechnet, mit Rechenweg und Faustregeln – dieselben Formeln, mit denen Max rechnet.', 'Calculated exactly, with working and rules of thumb – the same formulas Max uses.'))), q), grid);
   setTimeout(() => { if (matchMedia('(pointer: fine)').matches) q.focus(); }, 50);
 }
 
