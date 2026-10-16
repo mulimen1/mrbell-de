@@ -462,7 +462,7 @@ export function mountAssistant() {
       apply(); grow(h0);
       const list = others().filter(b => b.offsetParent).reverse();   // von unten (neu) nach oben (alt)
       list.slice(0, 14).forEach((b, i) => b.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 480, delay: i * 40, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }));
-      feedTog.animate([{ opacity: 0, transform: 'translate(-50%, 8px)' }, { opacity: 1, transform: 'translate(-50%, 0)' }], { duration: 420, delay: Math.min(list.length, 14) * 40, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+      feedTog.animate([{ opacity: 0, transform: 'translate(-50%, 14px)' }, { opacity: 1, transform: 'translate(-50%, 0)' }], { duration: 480, delay: Math.max(34, (Math.min(list.length, 14) - 1) * 40), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });   // zusammen mit der obersten Blase
     } else {
       const list = others().filter(b => b.offsetParent);
       const outs = list.slice(-14).reverse().map((b, i) => b.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(12px)' }], { duration: 280, delay: i * 22, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' }));
