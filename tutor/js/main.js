@@ -80,11 +80,11 @@ function initLanding() {
     const REST = [['whistle', L('BWL-Trainer', 'Business trainer'), 'trainer'], ['trophy', L('Wochen-Challenge', 'Weekly challenge'), 'challenge'], ['brain', L('Lernzettel & Mindmap', 'Study sheet & mind map'), 'zettel'], ['mic', L('Sprechen', 'Talk'), 'voice'], ['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['pod', 'Podcast', 'podcast']];
     const rowT = h('div', { class: 'feattop' }), rowR = h('div', { class: 'featrest' });
     TOP.forEach(([ic, t, key, sub], k) => rowT.appendChild(h('button', { class: 'feat big', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k }, onclick: () => tryFeature(key) }, h('span', { class: 'fi', html: ico(ic) }), h('span', { class: 'ft' }, h('b', {}, t), h('small', {}, sub)))));
-    REST.forEach(([ic, t, key], k) => rowR.appendChild(h('button', { class: 'feat', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k + 3 }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t, key === 'challenge' ? h('span', { class: 'lockb', 'data-lockb': '', title: L('Mit kostenlosem Konto', 'With a free account'), html: ico('lock') }) : null)));
+    REST.forEach(([ic, t, key], k) => (key === 'pfad' && rowR.appendChild(h('span', { class: 'fbreak', 'aria-hidden': 'true' })), rowR).appendChild(h('button', { class: 'feat', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k + 3 }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t, key === 'challenge' ? h('span', { class: 'lockb', 'data-lockb': '', title: L('Mit kostenlosem Konto', 'With a free account'), html: ico('lock') }) : null)));
     onAccount(a => document.querySelectorAll('#featrow [data-lockb]').forEach(x => { x.hidden = !!a; }));
     fr.append(rowT, rowR);
     // Umrandung läuft durch alle Funktionen: erst die drei großen, dann die kleinen (die Zeile wischt mit)
-    const fs = [...rowT.children, ...rowR.children]; let fi = 0;
+    const fs = [...rowT.children, ...rowR.children].filter(x => x.tagName === "BUTTON"); let fi = 0;
     if (!reduce) setInterval(() => {
       if (!fr.isConnected || document.hidden) return;
       const cur = fs[fi];

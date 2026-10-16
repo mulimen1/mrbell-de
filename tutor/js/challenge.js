@@ -78,7 +78,27 @@ function board(list, opts = {}) {
       h('span', { class: 'ch-sc' }, key ? (x.fach[key] || 0) + ' %' : x.pts.toLocaleString(EN ? 'en' : 'de') + L(' Pkt.', ' pts')))); });
   return h('div', { class: 'ch-board' + (opts.blur ? ' blur' : '') }, out);
 }
+function podium(list, blur) {
+  const p = list.slice(0, 3), ord = [1, 0, 2];
+  return h('div', { class: 'ch-pod' + (blur ? ' blur' : '') }, ord.map(i => p[i] ? h('div', { class: 'ch-pd p' + (i + 1) }, h('div', { class: 'ch-pdn' }, p[i].name), h('div', { class: 'ch-pds' }, p[i].pts.toLocaleString(EN ? 'en' : 'de') + L(' Pkt.', ' pts')), h('div', { class: 'ch-pdb' }, h('span', {}, String(i + 1)))) : null));
+}
+function hero(wk, list, action, blur) {
+  return h('section', { class: 'ch-hero' }, h('div', { class: 'ch-glow' }), h('div', { class: 'ch-dots' }),
+    h('div', { class: 'ch-hl' },
+      h('div', { class: 'ch-trophy', html: ico('trophy') }),
+      h('div', { class: 'eyebrow' }, L(`Wochen-Challenge · KW ${wk.w}`, `Weekly challenge · week ${wk.w}`)),
+      h('h1', {}, L('Wer ist der beste BWLer?', 'Who’s the best at business?')),
+      h('p', {}, L('Jede Woche 12 Fragen quer durch alle Fächer. Ein Versuch. Ein Ranking – gesamt und in jedem Fach.', 'Every week 12 questions across all subjects. One attempt. One ranking – overall and per subject.')),
+      h('div', { class: 'ch-meta' }, h('span', {}, h('b', {}, String(list.length)), L('Teilnehmende', 'players')), h('span', {}, h('b', {}, '8'), L('Fächer', 'subjects')), h('span', {}, h('b', {}, countdown()), L('bis zur neuen Runde', 'until next round'))),
+      action),
+    podium(list, blur));
+}
 function locked(wrap, wk, onLogin) {
+  const all = rankAll(wk, null);
+  wrap.replaceChildren(hero(wk, all, h('div', { class: 'ch-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => onLogin && onLogin() }, h('span', { html: ico('lock') }), L('Kostenlos anmelden & mitmachen', 'Sign in free & compete')), h('small', {}, L('20 Sekunden · kein Passwort · 7 Tage Inner Circle gratis', '20 seconds · no password · 7 days Inner Circle free'))), true),
+    h('section', { class: 'ch-card ch-wide' }, h('div', { class: 'eyebrow' }, L('Ranking diese Woche', 'This week’s ranking')), board(all.slice(0, 10), { blur: true })));
+}
+function lockedOld(wrap, wk, onLogin) {
   const list = rankAll(wk, null).slice(0, 8);
   wrap.replaceChildren(head(wk, L('Jede Woche 12 Fragen quer durch alle Fächer. Ein Versuch, ein Ranking – gesamt und je Fach.', 'Every week 12 questions across all subjects. One attempt, one ranking – overall and per subject.')),
     h('div', { class: 'ch-lock' }, board(list, { blur: true }),
@@ -87,6 +107,11 @@ function locked(wrap, wk, onLogin) {
         h('button', { class: 'btn primary', type: 'button', onclick: () => onLogin && onLogin() }, L('Kostenlos anmelden', 'Sign in for free')))));
 }
 function intro(wrap, wk) {
+  const list = rankAll(wk, null);
+  wrap.replaceChildren(hero(wk, list, h('div', { class: 'ch-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => run(wrap, wk) }, h('span', { html: ico('trophy') }), L('Challenge starten', 'Start challenge')), h('small', {}, L('12 Fragen · ca. 5 Minuten · ein Versuch · schnell und richtig = mehr Punkte', '12 questions · about 5 minutes · one attempt · fast and right = more points'))), false),
+    h('section', { class: 'ch-card ch-wide' }, h('div', { class: 'eyebrow' }, L('Aktuelle Top 10', 'Current top 10')), board(list)));
+}
+function introOld(wrap, wk) {
   const list = rankAll(wk, null);
   wrap.replaceChildren(head(wk, L(`12 Fragen · ca. 5 Minuten · ein Versuch. Schnell und richtig gibt die meisten Punkte. Neue Runde in ${countdown()}.`, `12 questions · about 5 minutes · one attempt. Fast and right scores most. New round in ${countdown()}.`)),
     h('div', { class: 'ch-grid' },
