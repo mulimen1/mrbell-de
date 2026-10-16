@@ -6,7 +6,8 @@ export function applyThemeButtons() {
     b.innerHTML = ico(dark ? 'sun' : 'moon');
     b.onclick = () => {
       const now = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-      const flip = () => { document.documentElement.dataset.theme = now ? 'light' : 'dark'; };
+      const next = now ? 'light' : 'dark';
+      const flip = () => { document.documentElement.dataset.theme = next; applyThemeButtons(); };
       // Hell/Dunkel: weicher Kreis aus dem Knopf, der langsam die ganze Seite umfärbt
       const r = b.getBoundingClientRect(), H = document.documentElement;
       const x = r.left + r.width / 2, y = r.top + r.height / 2;
@@ -19,8 +20,7 @@ export function applyThemeButtons() {
         H.classList.add('theme-fade'); flip(); setTimeout(() => H.classList.remove('theme-fade'), 900);
       }
       // Jeder Besuch startet dunkel; die Wahl gilt nur für diesen Besuch.
-      try { sessionStorage.setItem('tutor.theme', document.documentElement.dataset.theme); } catch (e) {}
-      applyThemeButtons();
+      try { sessionStorage.setItem('tutor.theme', next); } catch (e) {}
     };
   });
 }
