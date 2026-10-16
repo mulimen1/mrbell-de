@@ -1,5 +1,5 @@
-// Konto: Anmeldung per E-Mail-Code (kein Passwort). Neues Konto = 7 Tage Inner Circle.
-// Gespeichert wird beim Server nur die E-Mail-Adresse. Skripte bleiben auf dem Gerät.
+// Konto: E-Mail + Passwort (Registrieren mit Bestätigungscode, Passwort vergessen per Code). Neues Konto = 7 Tage Inner Circle.
+// Beim Server liegen E-Mail-Adresse und Passwort-Hash. Skripte bleiben auf dem Gerät.
 import { h, ico, toast, ls, modal } from './util.js';
 import { ask, setAccount, getAccount, onAccount, getSession } from './api.js';
 import { face } from './face.js';
@@ -18,7 +18,17 @@ function shell() {
   return { bg, box, fEl, fc };
 }
 
-export function openLogin({ title } = {}) {
+// Passwort-Feld mit Auge zum Anzeigen
+function pwField(auto, ph) {
+  const inp = h('input', { class: 'field', type: 'password', autocomplete: auto, placeholder: ph, minlength: auto === 'new-password' ? 8 : null, required: true, 'aria-label': ph });
+  const eye = h('button', { class: 'leye', type: 'button', 'aria-label': L('Passwort anzeigen', 'Show password'), html: EYE });
+  eye.addEventListener('click', () => { const on = inp.type === 'password'; inp.type = on ? 'text' : 'password'; eye.classList.toggle('on', on); eye.setAttribute('aria-label', on ? L('Passwort verbergen', 'Hide password') : L('Passwort anzeigen', 'Show password')); inp.focus(); });
+  return { el: h('div', { class: 'lpw' }, inp, eye), inp };
+}
+const EYE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg>';
+
+// mode: 'login' (E-Mail + Passwort) · 'register' (Konto erstellen, Mail bestätigen) · 'reset' (Passwort vergessen)
+export function openLogin({ title, mode = 'login' } = {}) {
   return new Promise(resolve => {
     const { bg, box, fEl, fc } = shell();
     const close = v => { if (bg.classList.contains('out')) return; bg.classList.add('out'); setTimeout(() => bg.remove(), 320); document.removeEventListener('keydown', onKey); resolve(v); };
@@ -26,28 +36,81 @@ export function openLogin({ title } = {}) {
     document.addEventListener('keydown', onKey);
     bg.addEventListener('click', e => { if (e.target === bg) close(false); });
     const x = () => h('button', { class: 'iconbtn lx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(false) });
-    let email = ls.get('tutor.lastEmail', '');
+    let email = ls.get('tutor.lastEmail', '') || getAccount()?.email || '', pw = '';
+    let firstTitle = title;
+    const head = (t, sub) => { const tt = firstTitle || t; firstTitle = null; return [x(), fEl, h('h3', {}, tt), sub ? h('p', {}, sub) : null]; };
+    const mailInp = () => h('input', { class: 'field', type: 'email', autocomplete: 'email', inputmode: 'email', placeholder: L('E-Mail-Adresse', 'Email address'), value: email, 'aria-label': L('E-Mail-Adresse', 'Email address'), required: true });
+    const link = (txt, fn) => h('button', { class: 'llink', type: 'button', onclick: fn }, txt);
+    const busyBtn = (btn, on, label) => { btn.disabled = on; btn.textContent = on ? L('Einen Moment …', 'One moment …') : label; };
 
-    const step1 = () => {
-      const inp = h('input', { class: 'field', type: 'email', autocomplete: 'email', inputmode: 'email', placeholder: L('du@uni.de', 'you@uni.ac.uk'), value: email, 'aria-label': L('E-Mail-Adresse', 'Email address'), required: true });
-      const btn = h('button', { class: 'btn primary', type: 'submit' }, L('Code schicken', 'Send code'));
+    // ---------- Anmelden ----------
+    const login = () => {
+      const em = mailInp(), p = pwField('current-password', L('Passwort', 'Password'));
+      const LBL = L('Anmelden', 'Sign in');
+      const btn = h('button', { class: 'btn primary lg lbtn', type: 'submit' }, LBL);
       const err = h('div', { class: 'lerr', role: 'alert' });
-      const form = h('form', { class: 'lform' }, inp, btn);
+      const form = h('form', { class: 'lstack' }, em, p.el, h('div', { class: 'lrow' }, link(L('Passwort vergessen?', 'Forgot password?'), () => { email = em.value.trim(); reset(); })), btn);
       form.addEventListener('submit', async e => {
-        e.preventDefault(); email = inp.value.trim(); if (!email) return;
-        btn.disabled = true; btn.textContent = L('Sende …', 'Sending …'); err.textContent = ''; fc.set('think');
-        try { const r = await ask('login', { opts: { email } }); ls.set('tutor.lastEmail', email); step2(r.isNew); }
-        catch (e2) { fc.pulse('sad'); err.textContent = e2.message; btn.disabled = false; btn.textContent = L('Code schicken', 'Send code'); }
+        e.preventDefault(); email = em.value.trim(); if (!email || !p.inp.value) return;
+        busyBtn(btn, true, LBL); err.replaceChildren(); fc.set('think');
+        try {
+          const r = await ask('pwlogin', { opts: { email, password: p.inp.value } });
+          ls.set('tutor.lastEmail', email); setAccount(r.account, r.session); success(r);
+        } catch (e2) {
+          fc.pulse('sad'); busyBtn(btn, false, LBL);
+          err.replaceChildren(e2.message || L('Das hat nicht geklappt.', 'That didn’t work.'));
+          if (e2.code === 'no_pw') err.append(' ', link(L('Jetzt Passwort festlegen →', 'Set a password now →'), () => reset()));
+          if (e2.code === 'bad_login') { p.inp.value = ''; p.inp.focus(); }
+        }
       });
-      box.replaceChildren(x(), fEl, h('h3', {}, title || L('Anmelden oder Konto erstellen', 'Sign in or create an account')),
-        h('p', {}, L('Gib einfach deine E-Mail ein – egal, ob du schon ein Konto hast oder neu bist. Du bekommst einen Code per Mail, kein Passwort. Neue Konten bekommen ', 'Just enter your email – whether you already have an account or you’re new. You get a code by email, no password. New accounts get '), h('b', {}, L('7 Tage Inner Circle', '7 days in the Inner Circle')), L(' geschenkt.', ' on the house.')),
-        form, err,
-        h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Wir speichern nur deine E-Mail-Adresse. Deine Skripte bleiben auf deinem Gerät.', 'We only store your email address. Your slides stay on your device.')));
-      fc.set('idle');
-      setTimeout(() => inp.focus(), 60);
+      box.replaceChildren(...head(L('Anmelden', 'Sign in'), L('Schön, dass du wieder da bist.', 'Good to have you back.')), form, err,
+        h('div', { class: 'lalt' }, L('Noch kein Konto? ', 'No account yet? '), link(L('Konto erstellen', 'Create account'), () => register())));
+      fc.set('idle'); setTimeout(() => (email ? p.inp : em).focus(), 60);
     };
 
-    const step2 = () => {
+    // ---------- Konto erstellen ----------
+    const register = () => {
+      const em = mailInp(), p = pwField('new-password', L('Passwort (mind. 8 Zeichen)', 'Password (min. 8 characters)'));
+      const LBL = L('Konto erstellen', 'Create account');
+      const btn = h('button', { class: 'btn primary lg lbtn', type: 'submit' }, LBL);
+      const hint = h('div', { class: 'lhint' }, h('span', { class: 'lck', html: ico('check') }), L('Mindestens 8 Zeichen', 'At least 8 characters'));
+      p.inp.addEventListener('input', () => hint.classList.toggle('ok', p.inp.value.length >= 8));
+      const err = h('div', { class: 'lerr', role: 'alert' });
+      const form = h('form', { class: 'lstack' }, em, p.el, hint, btn);
+      form.addEventListener('submit', async e => {
+        e.preventDefault(); email = em.value.trim(); pw = p.inp.value;
+        if (pw.length < 8) { err.textContent = L('Dein Passwort braucht mindestens 8 Zeichen.', 'Your password needs at least 8 characters.'); p.inp.focus(); return; }
+        busyBtn(btn, true, LBL); err.replaceChildren(); fc.set('think');
+        try { await ask('login', { opts: { email, password: pw, mode: 'register' } }); ls.set('tutor.lastEmail', email); codeStep('register'); }
+        catch (e2) { fc.pulse('sad'); busyBtn(btn, false, LBL); err.replaceChildren(e2.message); if (e2.code === 'exists') err.append(' ', link(L('Zur Anmeldung →', 'Go to sign in →'), () => login())); }
+      });
+      box.replaceChildren(...head(L('Konto erstellen', 'Create your account'), [L('Kostenlos und in 30 Sekunden. Für neue Konten gibt’s ', 'Free and done in 30 seconds. New accounts get '), h('b', {}, L('7 Tage Inner Circle', '7 days in the Inner Circle')), L(' geschenkt.', ' on the house.')]), form, err,
+        h('div', { class: 'lalt' }, L('Schon ein Konto? ', 'Already have an account? '), link(L('Anmelden', 'Sign in'), () => login())),
+        h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Passwort wird verschlüsselt gespeichert. Deine Skripte bleiben auf deinem Gerät.', 'Your password is stored encrypted. Your slides stay on your device.')));
+      fc.set('idle'); setTimeout(() => em.focus(), 60);
+    };
+
+    // ---------- Passwort vergessen ----------
+    const reset = () => {
+      const em = mailInp(), p = pwField('new-password', L('Neues Passwort (mind. 8 Zeichen)', 'New password (min. 8 characters)'));
+      const LBL = L('Code schicken', 'Send code');
+      const btn = h('button', { class: 'btn primary lg lbtn', type: 'submit' }, LBL);
+      const err = h('div', { class: 'lerr', role: 'alert' });
+      const form = h('form', { class: 'lstack' }, em, p.el, btn);
+      form.addEventListener('submit', async e => {
+        e.preventDefault(); email = em.value.trim(); pw = p.inp.value;
+        if (pw.length < 8) { err.textContent = L('Dein neues Passwort braucht mindestens 8 Zeichen.', 'Your new password needs at least 8 characters.'); p.inp.focus(); return; }
+        busyBtn(btn, true, LBL); err.replaceChildren(); fc.set('think');
+        try { await ask('login', { opts: { email, password: pw, mode: 'reset' } }); ls.set('tutor.lastEmail', email); codeStep('reset'); }
+        catch (e2) { fc.pulse('sad'); busyBtn(btn, false, LBL); err.replaceChildren(e2.message); if (e2.code === 'no_account') err.append(' ', link(L('Konto erstellen →', 'Create account →'), () => register())); }
+      });
+      box.replaceChildren(...head(L('Neues Passwort', 'New password'), L('Gib deine E-Mail und ein neues Passwort ein. Wir schicken dir einen Code zur Bestätigung.', 'Enter your email and a new password. We’ll send you a code to confirm.')), form, err,
+        h('div', { class: 'lalt' }, link(L('← Zurück zur Anmeldung', '← Back to sign in'), () => login())));
+      fc.set('idle'); setTimeout(() => (email ? p.inp : em).focus(), 60);
+    };
+
+    // ---------- Code aus der Mail ----------
+    const codeStep = m => {
       const inp = h('input', { class: 'field code', inputmode: 'numeric', autocomplete: 'one-time-code', maxlength: 6, placeholder: '······', 'aria-label': L('Code aus der E-Mail', 'Code from the email') });
       const err = h('div', { class: 'lerr', role: 'alert' });
       const again = h('button', { class: 'btn sm ghost', type: 'button', disabled: true }, L('Neuen Code schicken', 'Send a new code'));
@@ -56,11 +119,8 @@ export function openLogin({ title } = {}) {
         const code = inp.value.replace(/\D/g, '');
         if (code.length < 6 || busy) return;
         busy = true; inp.disabled = true; fc.set('think'); err.textContent = '';
-        try {
-          const r = await ask('verify', { opts: { email, code } });
-          setAccount(r.account, r.session);
-          success(r);
-        } catch (e) {
+        try { const r = await ask('verify', { opts: { email, code } }); setAccount(r.account, r.session); pw = ''; success(r, m); }
+        catch (e) {
           busy = false; inp.disabled = false; inp.value = ''; fc.pulse('sad'); err.textContent = e.message;
           inp.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(0)' }], { duration: 300 });
           if (e.code === 'code_expired') again.disabled = false;
@@ -70,38 +130,44 @@ export function openLogin({ title } = {}) {
       inp.addEventListener('input', () => { inp.value = inp.value.replace(/\D/g, '').slice(0, 6); if (inp.value.length === 6) go(); });
       again.addEventListener('click', async () => {
         again.disabled = true;
-        try { await ask('login', { opts: { email } }); toast(L('Neuer Code ist unterwegs.', 'A new code is on its way.')); } catch (e) { err.textContent = e.message; }
+        try { await ask('login', { opts: { email, password: pw, mode: m } }); toast(L('Neuer Code ist unterwegs.', 'A new code is on its way.')); } catch (e) { err.textContent = e.message; }
         setTimeout(() => { again.disabled = false; }, 30000);
       });
       setTimeout(() => { again.disabled = false; }, 30000);
-      box.replaceChildren(x(), fEl, h('h3', {}, L('Check dein Postfach', 'Check your inbox')),
-        h('p', {}, L('Der Code ist unterwegs an ', 'The code is on its way to '), h('b', {}, email), L('. Nichts da? Schau kurz im Spam-Ordner.', '. Nothing there? Take a quick look in your spam folder.')),
+      box.replaceChildren(x(), fEl, h('h3', {}, m === 'register' ? L('Bestätige deine E-Mail', 'Confirm your email') : L('Check dein Postfach', 'Check your inbox')),
+        h('p', {}, L('Wir haben dir einen 6-stelligen Code an ', 'We sent a 6-digit code to '), h('b', {}, email), L(' geschickt. Nichts da? Schau kurz im Spam-Ordner.', '. Nothing there? Take a quick look in your spam folder.')),
         inp, err,
-        h('div', { class: 'row', style: { justifyContent: 'space-between' } }, h('button', { class: 'btn sm ghost', type: 'button', onclick: step1 }, L('Andere E-Mail', 'Different email')), again));
-      fc.set('idle');
-      setTimeout(() => inp.focus(), 60);
+        h('div', { class: 'row', style: { justifyContent: 'space-between' } }, h('button', { class: 'btn sm ghost', type: 'button', onclick: () => (m === 'reset' ? reset() : register()) }, L('Andere E-Mail', 'Different email')), again));
+      fc.set('idle'); setTimeout(() => inp.focus(), 60);
     };
 
-    const success = r => {
+    // ---------- Geschafft ----------
+    const success = (r, m) => {
       fc.set('happy');
       const goal = r.fresh ? goalQuestion() : null;
       const had = getNick(r.account), nf = had ? null : nickField('');
-      box.replaceChildren(fEl, h('h3', {}, r.fresh ? L('Willkommen im Club.', 'Welcome to the club.') : L('Da bist du ja wieder.', 'There you are again.')),
+      const finish = () => {
+        if (nf) { const v = nf.value(); if (!v.ok) return; if (v.nick) setNick(v.nick, r.account); }
+        goal && goal.save(); close(true);
+        if (!location.hash || location.hash === '#/' || location.hash === '#') location.hash = '#/app/me';
+        const n = getNick(r.account); if (n) { try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {} setTimeout(() => greetSplash(n), 380); }
+      };
+      // Bekannt + Spitzname vorhanden: direkt rein, ohne Zwischenschritt
+      if (!r.fresh && had && m !== 'reset') { finish(); return; }
+      box.replaceChildren(fEl, h('h3', {}, r.fresh ? L('Willkommen im Club.', 'Welcome to the club.') : m === 'reset' ? L('Neues Passwort gespeichert.', 'New password saved.') : L('Da bist du ja wieder.', 'There you are again.')),
         h('p', {}, r.fresh
           ? L(`7 Tage Inner Circle – geht aufs Haus. Also auf Papas. Bis ${fmtDate(r.account.proUntil)} lernst du ohne Tageslimit.`, `7 days in the Inner Circle – on the house. Well, on Papa’s. Until ${fmtDate(r.account.proUntil)} you learn with no daily limit.`)
+          : m === 'reset' ? L('Ab jetzt meldest du dich damit an. Andere Geräte haben wir sicherheitshalber abgemeldet.', 'Use it to sign in from now on. For safety we signed out your other devices.')
           : r.account.pro ? L(`Inner Circle läuft noch bis ${fmtDate(r.account.proUntil)}.`, `Inner Circle runs until ${fmtDate(r.account.proUntil)}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
         nf && nf.el, goal && goal.el,
-        h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', onclick: () => {
-          if (nf) { const v = nf.value(); if (!v.ok) return; if (v.nick) setNick(v.nick, r.account); }
-          goal && goal.save(); close(true);
-          const n = getNick(r.account); if (n) { try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {} setTimeout(() => greetSplash(n), 380); }
-        } }, L('Los geht’s', 'Let’s go'))));
+        h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', onclick: finish }, L('Los geht’s', 'Let’s go'))));
       setTimeout(() => box.querySelector('.btn.primary')?.focus(), 60);
     };
 
-    step1();
+    ({ register, reset }[mode] || login)();
   });
 }
+export const openRegister = (o = {}) => openLogin(Object.assign({}, o, { mode: 'register' }));
 
 // Neues Konto: kurze, optionale Frage nach dem Ziel (füllt später den Klausurplan vor)
 const GOAL_CHIPS = L([[.95, '1,0'], [.9, '1,3'], [.85, '1,7'], [.8, '2,0'], [.75, '2,3'], [.7, '2,7'], [.65, '3,0'], [.5, 'Bestanden']], [[.9, 'Top grade'], [.75, 'Good grade'], [.5, 'Pass']]);
@@ -155,11 +221,12 @@ export async function openAccount() {
   const body = h('div', { class: 'accbox' },
     h('div', { class: 'accrow' }, h('span', {}, L('Spitzname', 'Nickname')), h('b', {}, getNick(a) || '–', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); askNick(); } }, getNick(a) ? L('ändern', 'change') : L('festlegen', 'set')))),
     h('div', { class: 'accrow' }, h('span', {}, L('E-Mail', 'Email')), h('b', {}, a.email)),
+    h('div', { class: 'accrow' }, h('span', {}, L('Passwort', 'Password')), h('b', {}, a.hasPw === false ? L('noch nicht festgelegt', 'not set yet') : '••••••••', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); openLogin({ mode: 'reset', title: a.hasPw === false ? L('Passwort festlegen', 'Set a password') : L('Passwort ändern', 'Change password') }); } }, a.hasPw === false ? L('festlegen', 'set') : L('ändern', 'change')))),
     h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? L(`Inner Circle · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(a.proUntil)})`, `Inner Circle · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(a.proUntil)})`) : L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'))),
     h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))));
-  const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Dein Lernstand liegt weiter auf diesem Gerät. Gespeichert ist bei uns nur deine E-Mail-Adresse.', 'Your progress stays on this device. All we store is your email address.'), body,
+  const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Deine Skripte bleiben auf diesem Gerät. Bei uns liegen deine E-Mail-Adresse und dein verschlüsseltes Passwort.', 'Your slides stay on this device. We store your email address and your encrypted password.'), body,
     actions: [{ label: L('Konto löschen', 'Delete account'), value: 'del' }, { label: L('Abmelden', 'Sign out'), value: 'out' }, { label: L('Fertig', 'Done'), value: null, primary: true }] });
-  if (r === 'out') { try { await ask('logout'); } catch (e) {} setAccount(null, null); toast(L('Abgemeldet. Max wartet.', 'Signed out. Max will wait.')); }
+  if (r === 'out') { try { await ask('logout'); } catch (e) {} setAccount(null, null); toast(L('Abgemeldet. Max wartet.', 'Signed out. Max will wait.')); location.hash = '#/'; }
   if (r === 'del') {
     const ok = await modal({ title: L('Konto wirklich löschen?', 'Really delete your account?'), text: L('Deine E-Mail-Adresse wird bei uns gelöscht und du wirst überall abgemeldet. Dein Lernstand auf diesem Gerät bleibt.', 'We delete your email address and sign you out everywhere. Your progress on this device stays.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] });
     if (ok) {
@@ -171,14 +238,19 @@ export async function openAccount() {
 
 // Unauffälliger Konto-Knopf (Seitenleiste)
 export function accountChip() {
-  const el = h('button', { class: 'accchip', type: 'button', onclick: () => getAccount() ? openAccount() : openLogin() });
+  const wrap = h('div', { class: 'accwrap' });
+  const chip = h('button', { class: 'accchip', type: 'button', onclick: () => openAccount() });
+  const guest = h('div', { class: 'accguest' },
+    h('div', { class: 'accg-b' },
+      h('button', { class: 'btn sm', type: 'button', onclick: () => openLogin() }, L('Anmelden', 'Sign in')),
+      h('button', { class: 'btn sm primary', type: 'button', onclick: () => openLogin({ mode: 'register' }) }, L('Konto erstellen', 'Create account'))),
+    h('small', {}, L('Neue Konten: 7 Tage Inner Circle gratis', 'New accounts: 7 days Inner Circle free')));
   onAccount(a => {
-    if (!el.isConnected && el.dataset.init) return;
-    el.dataset.init = 1;
-    if (!a) el.replaceChildren(h('span', { class: 'av', html: ico('lock') }), h('span', { class: 'tx' }, h('b', {}, 'Log in'), h('small', {}, L('7 Tage Inner Circle gratis', '7 days Inner Circle free'))));
-    else el.replaceChildren(h('span', { class: 'av' }, ((getNick(a) || a.email)[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, getNick(a) || a.email), h('small', {}, a.pro ? L(`Inner Circle · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, `Inner Circle · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : 'Free')));
+    if (!a) { wrap.replaceChildren(guest); return; }
+    chip.replaceChildren(h('span', { class: 'av' }, ((getNick(a) || a.email)[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, getNick(a) || a.email), h('small', {}, a.pro ? L(`Inner Circle · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, `Inner Circle · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : 'Free')));
+    wrap.replaceChildren(chip);
   });
-  return el;
+  return wrap;
 }
 
 // Beim Start: Sitzung prüfen (kostet nichts)

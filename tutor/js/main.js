@@ -105,7 +105,10 @@ function initLanding() {
 
   // Anmelden (dezent in der Navigation)
   const nl = $('[data-login]');
-  if (nl) { nl.addEventListener('click', () => getAccount() ? openAccount() : openLogin()); onAccount(a => { nl.textContent = a ? L('Konto', 'Account') : 'Log in'; }); }
+  if (nl) nl.addEventListener('click', () => getAccount() ? openAccount() : openLogin());
+  const nr = $('[data-register]');
+  if (nr) nr.addEventListener('click', () => getAccount() ? (location.hash = '#/app/me') : openLogin({ mode: 'register' }));
+  onAccount(a => { if (nl) nl.hidden = !!a; if (nr) nr.textContent = a ? L('Mein Bereich', 'My space') : L('Konto erstellen', 'Create account'); });
 
   // Begrüßung tippen (Sprechblase)
   const g = $('#greet');
@@ -195,6 +198,8 @@ async function route() {
   let hash = location.hash || '#/';
   const lm = hash.match(/^#\/login\/([A-Za-z0-9_-]{20,60})\/(\d{6})$/);
   if (lm) { history.replaceState(null, '', location.pathname + '#/app'); hash = '#/app'; verifyLink(lm[1], lm[2]); }
+  // Angemeldet: keine Startseite, direkt in den eigenen Bereich
+  if (getAccount() && (hash === '#/' || hash === '#' || hash === '#/app' || hash === '#/app/')) { history.replaceState(null, '', location.pathname + location.search + '#/app/me'); hash = '#/app/me'; }
   const inApp = hash.startsWith('#/app');
   $('#landing').classList.toggle('hidden', inApp);
   $('#app').classList.toggle('hidden', !inApp);
