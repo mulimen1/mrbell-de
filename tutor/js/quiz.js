@@ -294,7 +294,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = L(
       q.type === 'num' && !r.correct ? h('p', {}, h('b', {}, L('Lösung: ', 'Solution: ') + fmt(q.answer) + (q.unit ? ' ' + q.unit : ''))) : null,
       q.explain ? h('p', {}, richText(q.explain)) : null,
       q.type === 'num' && q.solution ? h('div', { class: 'sol' }, String(q.solution).replace(/<br\s*\/?>/g, '\n')) : null,
-      q.page ? h('div', { class: 'src' }, (S.doc?.generated ? L('Quelle: Kurzskript, S. ', 'Source: short script, p. ') : L('Quelle: Vorlesung, S. ', 'Source: lecture, p. ')) + q.page) : null);
+      q.page ? h('div', { class: 'src' }, (S.doc?.generated ? L('Quelle: Kurzskript, S. ', 'Source: short script, p. ') : L('Quelle: dein Stoff, S. ', 'Source: your material, p. ')) + q.page) : null);
     fb.replaceChildren(f);
     actions.replaceChildren();
     if (onAsk && !r.correct) actions.appendChild(h('button', { class: 'btn', onclick: () => onAsk(q, r) }, h('span', { html: ico('chat') }), L('Erklär’s mir', 'Explain it to me')));

@@ -27,7 +27,7 @@ async function generate(wrap, ctx) {
   const { doc } = ctx;
   const ld = loading(wrap, L('Ich schreibe deinen Lernzettel …', 'Writing your study sheet …'), L(['Finde die Kernaussagen', 'Sortiere die Formeln', 'Zeichne die Mindmap', 'Definiere die Begriffe'], ['Finding the key statements', 'Sorting the formulas', 'Drawing the mind map', 'Defining the key terms']), 'summary');
   try {
-    const r = await ask('summary', { material: forWhole(doc), docName: doc.name });
+    const r = await ask('summary', { material: forWhole(doc), docName: doc.name }, { signal: ld.signal });
     const d = r.data || {};
     if (!d.html && !d.tldr) throw new Error(L('Der Lernzettel ist leer angekommen. Versuch es nochmal.', 'The study sheet came back empty. Please try again.'));
     doc.summary = { title: d.title || doc.name, tldr: (d.tldr || []).map(String), html: String(d.html || ''), mindmap: d.mindmap || null, terms: (d.terms || []).filter(t => t && t.t), created: Date.now() };

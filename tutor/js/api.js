@@ -58,7 +58,7 @@ export async function ask(action, payload = {}, { signal } = {}) {
   if (!res.ok || !j) throw new ApiError('server', L('Max ist gerade nicht erreichbar. Versuch es in ein paar Minuten nochmal.', 'Max isn’t available right now. Try again in a few minutes.'));
   if (j.quota) setQuota(j.quota);
   if ('account' in j) { if (j.account || ses) setAccount(j.account, j.account ? ses : null); }
-  if (!j.ok) throw new ApiError(j.error || 'error', j.message || L('Das hat nicht geklappt.', 'That didn’t work.'));
+  if (!j.ok) throw Object.assign(new ApiError(j.error || 'error', j.message || L('Das hat nicht geklappt.', 'That didn’t work.')), { suggest: j.suggest || '' });
   return j;
 }
 

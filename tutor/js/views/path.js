@@ -57,7 +57,7 @@ function intro(wrap, ctx) {
 
 async function waitPath(wrap, ctx, start) {
   const ld = loading(wrap, L('Ich baue deinen Lernpfad …', 'Building your study path …'), L(['Lese das Skript', 'Finde die Kapitel', 'Sortiere nach Lernreihenfolge', 'Gewichte für die Klausur'], ['Reading the slides', 'Finding the chapters', 'Sorting into learning order', 'Weighting for the exam']), 'path');
-  try { await generatePath(ctx.doc); ld.stop(); wrap.replaceChildren(); listView(wrap, ctx); }
+  try { await ld.race(generatePath(ctx.doc)); ld.stop(); wrap.replaceChildren(); listView(wrap, ctx); }
   catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => waitPath(wrap, ctx, true)); }
 }
 
@@ -107,7 +107,7 @@ async function lesson(wrap, ctx, idx) {
   if (!doc.lessons[idx]) {
     const ld = loading(wrap, L('Ich bereite die Lektion vor …', 'Preparing your lesson …'), L(['Lese die Kapitelseiten', 'Zeichne die Tafel', 'Überlege mir Kontrollfragen', 'Baue eine Klausuraufgabe'], ['Reading the chapter pages', 'Drawing the whiteboard', 'Thinking up check questions', 'Building an exam exercise']), 'lesson');
     try {
-      const r = await ask('lesson', { material: forChapter(doc, c), docName: doc.name, opts: { chapter: L(`${c.title} (Seiten ${c.pages[0]}–${c.pages[1] || c.pages[0]})`, `${c.title} (pages ${c.pages[0]}–${c.pages[1] || c.pages[0]})`), goal: c.goal } });
+      const r = await ask('lesson', { material: forChapter(doc, c), docName: doc.name, opts: { chapter: L(`${c.title} (Seiten ${c.pages[0]}–${c.pages[1] || c.pages[0]})`, `${c.title} (pages ${c.pages[0]}–${c.pages[1] || c.pages[0]})`), goal: c.goal } }, { signal: ld.signal });
       const les = r.data || {};
       const slides = (les.slides || []).filter(s => s && s.html).map(s => ({ title: String(s.title || ''), html: String(s.html), check: normalize(s.check) }));
       if (!slides.length) throw new Error(L('Die Lektion war leer. Versuch es nochmal.', 'The lesson came back empty. Please try again.'));

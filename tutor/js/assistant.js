@@ -35,7 +35,7 @@ function cmdOf(k, v) {
   if (k === 'make') return MAKE[v] ? { k, v, label: MAKE[v][1], doc: true } : null;
   if (k === 'topic') return v.length > 1 ? { k, v, label: L(`Kurzskript zu „${v}“`, `Short script on “${v}”`) } : null;
   if (k === 'trainer') return TRAINERS[v] ? { k, v, label: TRAINERS[v] } : null;
-  if (k === 'upload') return { k, label: L('Skript hochladen', 'Upload slides') };
+  if (k === 'upload') return { k, label: L('Stoff hochladen', 'Upload material') };
   if (k === 'voice') return { k, label: L('Sprachmodus', 'Voice mode') };
   if (k === 'lang') return v === 'de' || v === 'en' ? { k, v, label: v === 'en' ? L('Antworten auf Englisch', 'Answers in English') : L('Antworten auf Deutsch', 'Answers in German') } : null;
   if (k === 'theme') return v === 'dark' || v === 'light' ? { k, v, label: v === 'dark' ? L('Dunkles Design', 'Dark mode') : L('Helles Design', 'Light mode') } : null;
@@ -153,6 +153,7 @@ export function mountAssistant() {
 
   // ----- Leiste („Insel“) -----
   const fEl = h('span', { class: 'ai-f' });
+  const dotsBtn = h('button', { class: 'ai-dots', type: 'button', 'aria-label': L('Einstellungen', 'Settings'), title: L('Stimme, laut/stumm, neues Gespräch', 'Voice, mute, new conversation'), html: SVG.more });
   const moreBtn = h('button', { class: 'ai-fw', type: 'button', 'aria-label': L('Einstellungen: Stimme, neues Gespräch', 'Settings: voice, new conversation'), title: L('Stimme & Einstellungen', 'Voice & settings'), 'aria-haspopup': 'menu' }, fEl);
   const wave = liveWave(24);
   const stTx = h('span', { class: 'ai-st' });
@@ -168,12 +169,13 @@ export function mountAssistant() {
   const muteBtn = B('ai-mute', '', SVG.spkOn);
   const closeBtn = B('ai-close', L('Einklappen', 'Collapse'), ico('x'));
   const isl = h('div', { class: 'ai-isl', role: 'group', 'aria-label': L('Max', 'Max') },
-    moreBtn, mid, muteBtn, micBtn, sendBtn, doneBtn, stopBtn, closeBtn);
+    moreBtn, dotsBtn, mid, muteBtn, micBtn, sendBtn, doneBtn, stopBtn, closeBtn);
   const voiceChips = VOICES.map(([k, l, d]) => h('button', { class: 'chip', type: 'button', title: d, 'data-v': k, onclick: () => { ls.set('tutor.voice', k); drawMenu(); } }, l));
   const menu = h('div', { class: 'ai-menu', role: 'menu', hidden: true },
     h('div', { class: 'eyebrow' }, L('Stimme', 'Voice')), h('div', { class: 'asst-vch' }, voiceChips),
     h('button', { class: 'asst-mi ai-mi-mute', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); muteBtn.click(); } }),
     h('button', { class: 'asst-mi', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); newTalk(); } }, h('span', { html: ico('refresh') }), L('Neues Gespräch', 'New conversation')),
+    h('button', { class: 'asst-mi ai-mi-quip', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); toggleQuips(); } }),
     h('button', { class: 'asst-mi', type: 'button', role: 'menuitem', onclick: () => { closeMenu(); setAssistantEnabled(false); } }, h('span', { html: ico('x') }), L('Max ausblenden', 'Hide Max')));
 
   // ----- Untertitel-Karte (schwebt über der Leiste, wegwischbar) -----
@@ -182,7 +184,7 @@ export function mountAssistant() {
   const feedList = h('div', { class: 'ai-fl' });
   const feedTog = h('button', { class: 'ai-ft', type: 'button' });
   const srLive = h('div', { class: 'sr', 'aria-live': 'polite' });
-  const cap = h('div', { class: 'ai-feed' }, feedTog, feedList, srLive);
+  const cap = h('div', { class: 'ai-feed' }, feedList, srLive);
   let feedOpen = !MOB.matches;
 
   const bd = h('div', { class: 'ai-bd', 'aria-hidden': 'true' });
@@ -192,16 +194,25 @@ export function mountAssistant() {
   const bCount = h('span', { class: 'cnt' });
   const bPrev = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Vorherige Tafel', 'Previous board'), html: ico('left'), onclick: () => goBoard(-1) });
   const bNext = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Nächste Tafel', 'Next board'), html: ico('right'), onclick: () => goBoard(1) });
-  const bMin = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Tafel einklappen', 'Collapse board'), title: L('Einklappen', 'Collapse'), html: SIDE, onclick: () => minBoard(true) });
-  const bClose = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Tafel schließen', 'Close board'), html: ico('x'), onclick: () => closeBoard() });
+  const bMin = h('button', { class: 'iconbtn ai-bmin', type: 'button', 'aria-label': L('Tafel minimieren', 'Minimise board'), title: L('Minimieren – liegt dann griffbereit am Rand', 'Minimise – stays at the edge'), html: SVG.min, onclick: () => minBoard(true) });
+  const bAsk = h('div', { class: 'ai-bask', hidden: true, role: 'alertdialog', 'aria-label': L('Tafel löschen?', 'Delete board?') },
+    h('b', {}, L('Tafel löschen?', 'Delete this board?')),
+    h('p', {}, L('Willst du sie nur griffbereit zur Seite legen? Dann tipp auf –.', 'Just want to put it aside, ready to grab? Tap – instead.')),
+    h('div', { class: 'ai-bask-r' },
+      h('button', { class: 'btn sm ai-del', type: 'button', onclick: () => { askBoard(false); deleteBoard(); } }, L('Löschen', 'Delete')),
+      h('button', { class: 'btn sm', type: 'button', onclick: () => { askBoard(false); minBoard(true); } }, h('span', { html: SVG.min }), L('Zur Seite legen', 'Put aside')),
+      h('button', { class: 'btn sm ghost', type: 'button', onclick: () => askBoard(false) }, L('Abbrechen', 'Cancel'))));
+  const bClose = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Tafel löschen', 'Delete board'), title: L('Löschen', 'Delete'), html: ico('x'), onclick: () => askBoard(true) });
   const bArea = h('div', { class: 'ai-ba dots' });
   const bGrab = h('div', { class: 'ai-grab', 'aria-hidden': 'true' }, h('i'));
   const board = h('section', { class: 'ai-board', role: 'region', 'aria-label': L('Max’ Tafel', 'Max’s board') },
-    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bMin, bClose), bArea, bSay);
+    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bMin, bClose), bAsk, bArea, bSay);
   const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', {}, L('Tafel', 'Board')));
 
   const chip = h('button', { class: 'asst-back', type: 'button' }, h('span', { class: 'asst-cf' }), L('Max zurückholen', 'Bring Max back'));
-  const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : ''), 'data-state': 'idle' }, bd, board, bTab, cap, isl, menu, bub);
+  const quip = h('div', { class: 'asst-quip', role: 'status', hidden: true });
+  const ctxm = h('div', { class: 'asst-ctx', role: 'menu', hidden: true });
+  const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : ''), 'data-state': 'idle' }, bd, board, bTab, cap, feedTog, isl, menu, quip, ctxm, bub);
   document.body.appendChild(root);
   const bf = face(bubFace, {}), fc = face(fEl, { follow: false });
 
@@ -228,8 +239,6 @@ export function mountAssistant() {
     root.classList.toggle('landtop', land && scrollY < 140);
     root.classList.toggle('covered', covered);
     root.classList.toggle('nobub', !!side);
-    root.classList.toggle('ontutor', r.tab === 'tutor');
-    if (r.tab === 'tutor' && open) setOpen(false);
     // Insel & Untertitel mittig über dem Inhalt (ohne Seitenleiste)
     const sb = document.querySelector('#app:not(.hidden) .side');
     const sr = sb ? sb.getBoundingClientRect() : null;
@@ -248,6 +257,7 @@ export function mountAssistant() {
     const p = cfg.bub || { r: 18, b: 18 };
     const r = clamp(p.r, 6, vw() - BUB() - 6), b = clamp(p.b, 6, vh() - BUB() - 6);
     bub.style.right = r + 'px'; bub.style.bottom = `calc(${b}px + env(safe-area-inset-bottom, 0px))`;
+    root.style.setProperty('--qr', r + 'px'); root.style.setProperty('--qb', b + 'px');
     return { r, b };
   }
   addEventListener('resize', () => { placeBub(); coverCheck(); });
@@ -256,8 +266,9 @@ export function mountAssistant() {
       const t = e.target.closest('button, textarea, input, a, .ai-menu');
       if (e.button !== 0 || (t && t !== el)) return;
       if (start && start(e) === false) return;
-      const sx = e.clientX, sy = e.clientY; let moved = false;
+      const sx = e.clientX, sy = e.clientY; let moved = false, lx = sx, ly = sy;
       const mv = ev => {
+        lx = ev.clientX; ly = ev.clientY;
         const dx = ev.clientX - sx, dy = ev.clientY - sy;
         if (!moved && Math.hypot(dx, dy) < threshold) return;
         if (!moved) { moved = true; root.classList.add('dragging'); try { getSelection().removeAllRanges(); } catch (x) {} }
@@ -265,7 +276,9 @@ export function mountAssistant() {
       };
       const up = ev => {
         removeEventListener('pointermove', mv); removeEventListener('pointerup', up); removeEventListener('pointercancel', up);
-        root.classList.remove('dragging'); end && end(moved, ev, ev.clientX - sx, ev.clientY - sy);
+        root.classList.remove('dragging');
+        if (ev.type === 'pointercancel') { end && end(false, ev, 0, 0); return; }
+        end && end(moved, ev, lx - sx, ly - sy);
       };
       addEventListener('pointermove', mv, { passive: false }); addEventListener('pointerup', up); addEventListener('pointercancel', up);
     });
@@ -279,8 +292,9 @@ export function mountAssistant() {
     },
     end: moved => { if (moved) { justDragged = true; setTimeout(() => { justDragged = false; }, 50); saveCfg(); placeBub(); } },
   });
+  let closedAt = 0;
   bub.addEventListener('click', e => {
-    if (justDragged) return;
+    if (justDragged || Date.now() - closedAt < 500) return;
     if (e.target.closest('.asst-x')) { e.stopPropagation(); setAssistantEnabled(false); return; }
     if (e.target.closest('.asst-bs') && state !== 'idle') { e.stopPropagation(); stopAll(); return; }
     setOpen(true);
@@ -289,12 +303,12 @@ export function mountAssistant() {
   // Blasen zur Seite wischen = ausblenden (kommen mit der nächsten Frage wieder)
   dragger(feedList, {
     threshold: 10,
-    start: e => { if (e.target.closest('.ai-x button, .ai-x a') || !e.target.closest('.ai-bub')) return false; feedList.style.transition = 'none'; },
-    move: (dx, dy) => { if (Math.abs(dy) > Math.abs(dx)) return; feedList.style.transform = `translateX(${dx}px)`; feedList.style.opacity = String(1 - Math.min(.85, Math.abs(dx) / 220)); },
-    end: (moved, ev, dx) => {
+    start: e => { if (feedOpen || e.target.closest('.ai-x button, .ai-x a') || !e.target.closest('.ai-bub')) return false; feedList.style.transition = 'none'; },
+    move: (dx, dy) => { if (Math.abs(dy) > Math.abs(dx) / 2) return; feedList.style.transform = `translateX(${dx}px)`; feedList.style.opacity = String(1 - Math.min(.85, Math.abs(dx) / 220)); },
+    end: (moved, ev, dx, dy) => {
       feedList.style.transition = ''; feedList.style.transform = ''; feedList.style.opacity = '';
       if (moved) { feedList._sw = Date.now(); }
-      if (moved && Math.abs(dx) > 110) dismissCap();
+      if (moved && !feedOpen && Math.abs(dx) > 110 && Math.abs(dx) > Math.abs(dy) * 2) dismissCap();
     },
   });
   feedTog.addEventListener('click', () => setFeedOpen(!feedOpen));
@@ -319,13 +333,15 @@ export function mountAssistant() {
       unread(false);
       isl.animate([{ opacity: 0, transform: 'translate(-50%, 14px) scale(.92)' }, { opacity: 1, transform: 'translateX(-50%)' }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
       if (!ls.get('tutor.asst.seen')) { ls.set('tutor.asst.seen', 1); root.classList.add('seen'); }
+      if (!quip.hidden) hideQuip(); ctxm.hidden = true;
       greet();
       if (feedList.children.length) showCap();
       capScroll();
       if (listen) startListen(); else setState(state);
       if (!MOB.matches && !listen) setTimeout(() => { if (open && state === 'idle') inp.focus({ preventScroll: true }); }, 60);
     } else {
-      setTyping(false);
+      setTyping(false); closedAt = Date.now();
+      if (MOB.matches && feedOpen) setFeedOpen(false);
       if (state === 'listen') stopListen('stop');
       if (document.activeElement && isl.contains(document.activeElement)) document.activeElement.blur();
     }
@@ -366,6 +382,7 @@ export function mountAssistant() {
     const show = (b, v) => { b.hidden = !v; };
     const hasTx = !!inp.value.trim();
     show(muteBtn, s === 'speak' || s === 'think');
+    show(dotsBtn, s === 'idle');
     show(micBtn, s === 'idle' && !hasTx);
     show(sendBtn, s === 'idle' && hasTx);
     show(doneBtn, s === 'listen');
@@ -390,11 +407,13 @@ export function mountAssistant() {
   // ---------- Menü ----------
   function drawMenu() {
     const v = getVoice(); voiceChips.forEach(c => c.classList.toggle('on', c.dataset.v === v));
+    menu.querySelector('.ai-mi-quip').replaceChildren(h('span', { html: ico('bulb') }), cfg.quips === false ? L('Sprüche & Fragen an', 'Turn jokes & questions on') : L('Sprüche & Fragen aus', 'Turn jokes & questions off'));
     menu.querySelector('.ai-mi-mute').replaceChildren(h('span', { html: cfg.spk ? SVG.spkOff : SVG.spkOn }), cfg.spk ? L('Max stumm schalten', 'Mute Max') : L('Max wieder laut', 'Unmute Max'));
   }
   function closeMenu() { menu.hidden = true; moreBtn.setAttribute('aria-expanded', 'false'); }
+  dotsBtn.addEventListener('click', e => { e.stopPropagation(); moreBtn.click(); });
   moreBtn.addEventListener('click', e => { e.stopPropagation(); if (menu.hidden) { drawMenu(); menu.hidden = false; moreBtn.setAttribute('aria-expanded', 'true'); } else closeMenu(); });
-  document.addEventListener('pointerdown', e => { if (!menu.hidden && !menu.contains(e.target) && !moreBtn.contains(e.target)) closeMenu(); });
+  document.addEventListener('pointerdown', e => { if (!menu.hidden && !menu.contains(e.target) && !moreBtn.contains(e.target) && !dotsBtn.contains(e.target)) closeMenu(); });
   function newTalk() { stopAll(true); hist = []; ls.set(CHAT, []); feedList.replaceChildren(); curEx = null; markLast(); dismissCap(); closeBoard(); toast(L('Neues Gespräch.', 'New conversation.')); }
 
   // ---------- Zustand ----------
@@ -410,6 +429,7 @@ export function mountAssistant() {
 
   // ---------- Untertitel ----------
   function syncLock() {
+    placeTog();
     const lock = MOB.matches && open && ((feedOpen && root.classList.contains('has-cap')) || (boardOpen && !boardMin));
     root.classList.toggle('lock', lock);
     document.documentElement.classList.toggle('asst-lock', lock);
@@ -425,10 +445,26 @@ export function mountAssistant() {
   function showCap() { const was = root.classList.contains('has-cap'); root.classList.add('has-cap'); if (!was) capScroll(); syncLock(); }
   function dismissCap() { root.classList.remove('has-cap'); syncLock(); }
   function setFeedOpen(v) { feedOpen = !!v; root.classList.toggle('feed-open', feedOpen); drawTog(); capScroll(); syncLock(); }
+  // „Verlauf“-Knopf sitzt immer direkt über der obersten sichtbaren Blase
+  function placeTog() {
+    requestAnimationFrame(() => {
+      const r = cap.getBoundingClientRect();
+      const vis = open && root.classList.contains('has-cap') && getComputedStyle(cap).display !== 'none' && !feedTog.hidden;
+      root.classList.toggle('tog-on', vis);
+      if (!vis) return;
+      const first = [...feedList.querySelectorAll('.ai-bub')].find(b => b.offsetParent);
+      const top = feedOpen ? r.top : Math.max(r.top, first ? Math.min(r.bottom, first.getBoundingClientRect().top) : r.bottom);
+      feedTog.style.top = Math.max(8, Math.round(top - 42)) + 'px';
+      feedTog.style.left = Math.round(r.left + r.width / 2) + 'px';
+    });
+  }
+  addEventListener('resize', placeTog);
+  cap.addEventListener('scroll', () => { if (feedOpen) placeTog(); }, { passive: true });
   function drawTog() {
     const n = feedList.querySelectorAll('.ai-bub').length, older = n - feedList.querySelectorAll('.ai-bub.last').length;
-    feedTog.hidden = older < 1;
+    feedTog.hidden = older < 1 && n < 2;
     feedTog.replaceChildren(h('span', { html: ico(feedOpen ? 'down' : 'up') }), feedOpen ? L('Verlauf einklappen', 'Collapse history') : L('Verlauf ansehen', 'Show history'));
+    placeTog();
   }
   function markLast() {
     feedList.querySelectorAll('.ai-bub.last').forEach(b => b.classList.remove('last'));
@@ -462,11 +498,11 @@ export function mountAssistant() {
     capQ.textContent = t; capQ.classList.toggle('live', live);
     capScroll();
   }
-  function capScroll() { requestAnimationFrame(() => { cap.scrollTop = cap.scrollHeight; }); }
+  function capScroll() { requestAnimationFrame(() => { cap.scrollTop = cap.scrollHeight; placeTog(); }); }
   function capThinking() { if (!curEx) return; curEx.a.hidden = false; capA.replaceChildren(h('span', { class: 'typing' }, h('i'), h('i'), h('i'))); capScroll(); }
   // Verlauf beim Start (zum Nachlesen)
   hist.slice(-12).forEach((m, i, arr) => {
-    if (m.role === 'user') { const nx = arr[i + 1]; const pr = bubPair(m.content.replace(/^\[[^\]]*\]\n/, '')); if (nx?.role === 'assistant') { pr.a.hidden = false; pr.aTx.appendChild(richText(parse(nx.content).text || '…')); } pr.done = true; }
+    if (m.role === 'user') { const nx = arr[i + 1]; const pr = bubPair(m.content.replace(/^\[[^\]]*\]\n/, '')); if (nx?.role === 'assistant') { const px = parse(nx.content); pr.a.hidden = false; pr.aTx.appendChild(richText(px.text || (px.boards.length ? L('Schau an die Tafel.', 'Look at the board.') : '…'))); px.boards.forEach(b => pr.aX.appendChild(boardBtn(b))); } pr.done = true; }
   });
   setFeedOpen(feedOpen);
   function capIdleLater() {}
@@ -474,6 +510,14 @@ export function mountAssistant() {
   feedList.addEventListener('click', e => { if (Date.now() - (feedList._sw || 0) < 400) return; if (!feedOpen && e.target.closest('.ai-bub') && !e.target.closest('button,a')) setFeedOpen(true); });
 
   // ---------- Tafel ----------
+  // Knopf in der Nachricht: holt genau diese Tafel zurück – auch wenn sie gelöscht oder eingeklappt wurde
+  function boardBtn(b) {
+    return h('button', { class: 'ai-cmd link bshow', type: 'button', title: b.title, onclick: () => {
+      let i = boards.findIndex(x => x.title === b.title && x.html === b.html);
+      if (i < 0) { boards.push(b); i = boards.length - 1; }
+      bIdx = i; drawBoard(false); openBoard();
+    } }, h('span', { class: 'ck', html: ico('board') }), L('Tafel: ', 'Board: ') + (b.title.length > 34 ? b.title.slice(0, 33) + '…' : b.title));
+  }
   function goBoard(d) { if (!boards.length) return; bIdx = clamp(bIdx + d, 0, boards.length - 1); drawBoard(false); }
   function drawBoard(write) {
     const b = boards[bIdx]; if (!b) return;
@@ -485,10 +529,31 @@ export function mountAssistant() {
     if (write) t.classList.add('ai-write');
     return t;
   }
-  function openBoard() { boardOpen = true; root.classList.add('has-board'); minBoard(false, true); if (MOB.matches && feedOpen) setFeedOpen(false); }
+  function openBoard() {
+    const was = boardOpen && !boardMin;
+    boardOpen = true; root.classList.add('has-board'); minBoard(false, true);
+    if (MOB.matches && feedOpen) setFeedOpen(false);
+    if (!was && !matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(() => {
+      const fr = (open ? fEl : bubFace).getBoundingClientRect(), br = board.getBoundingClientRect();
+      board.style.setProperty('--ox', (fr.left + fr.width / 2 - br.left) + 'px');
+      board.style.setProperty('--oy', (fr.top + fr.height / 2 - br.top) + 'px');
+      board.classList.remove('ai-reveal'); void board.offsetWidth; board.classList.add('ai-reveal');
+      setTimeout(() => board.classList.remove('ai-reveal'), 1400);
+    });
+  }
   function minBoard(v, quiet) {
-    boardMin = !!v; root.classList.toggle('board-min', boardMin); syncLock();
+    boardMin = !!v; root.classList.toggle('board-min', boardMin); askBoard(false); syncLock();
     if (!quiet && !v) board.animate([{ opacity: 0, transform: 'translateX(30px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
+  }
+  function askBoard(v) { bAsk.hidden = !v; if (v) bAsk.querySelector('.ai-del').focus({ preventScroll: true }); }
+  // Löschen: aktuelle Tafel raus (auch aus dem Skript), sonst nächste zeigen
+  function deleteBoard() {
+    const b = boards[bIdx]; if (!b) return closeBoard();
+    const d = curDoc() || S.doc;
+    if (d && Array.isArray(d.boards)) { const i = d.boards.findIndex(x => x.title === b.title && x.html === b.html); if (i >= 0) { d.boards.splice(i, 1); save(d); } }
+    boards.splice(bIdx, 1);
+    if (!boards.length) { closeBoard(); toast(L('Tafel gelöscht.', 'Board deleted.')); return; }
+    bIdx = clamp(bIdx, 0, boards.length - 1); drawBoard(false); toast(L('Tafel gelöscht.', 'Board deleted.'));
   }
   function closeBoard() { boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); syncLock(); }
   // Tafel „schreibt mit“: Abschnitte erscheinen im Takt der Stimme
@@ -510,10 +575,42 @@ export function mountAssistant() {
 
   // ---------- Befehle ausführen ----------
   const sleepUntil = async (fn, ms = 5000) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { const x = fn(); if (x) return x; await sleep(120); } return null; };
+  // Max „teleportiert“ dich: neue Seite öffnet sich als Kreis aus seinem Gesicht (View Transitions), sonst Lichtwelle
+  function warpOrigin() {
+    const fr = (open ? fEl : bubFace).getBoundingClientRect();
+    const x = fr.left + fr.width / 2, y = fr.top + fr.height / 2;
+    document.documentElement.style.setProperty('--vx', x + 'px');
+    document.documentElement.style.setProperty('--vy', y + 'px');
+    return { x, y };
+  }
+  function waitRender(ms = 900) {
+    const v = document.getElementById('view') || document.body;
+    return new Promise(res => {
+      let done = false; const fin = () => { if (done) return; done = true; mo.disconnect(); setTimeout(res, 60); };
+      const mo = new MutationObserver(fin); mo.observe(v, { childList: true, subtree: true });
+      setTimeout(fin, ms);
+    });
+  }
   async function nav(hash, force) {
     if (force) { try { (await import('./app.js')).forceRerender(); } catch (e) {} }
-    if (location.hash === hash) dispatchEvent(new HashChangeEvent('hashchange'));
-    else location.hash = hash;
+    const go = async () => {
+      if (location.hash === hash) dispatchEvent(new HashChangeEvent('hashchange'));
+      else location.hash = hash;
+      await waitRender();
+    };
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const { x, y } = warpOrigin();
+    if (!reduce && document.startViewTransition) {
+      document.documentElement.classList.add('ai-vt');
+      try { const vt = document.startViewTransition(go); await vt.updateCallbackDone; vt.finished.finally(() => document.documentElement.classList.remove('ai-vt')); }
+      catch (e) { document.documentElement.classList.remove('ai-vt'); }
+      return;
+    }
+    if (!reduce) {
+      const w = h('div', { class: 'ai-warp', style: { '--wx': x + 'px', '--wy': y + 'px' } });
+      document.body.appendChild(w); setTimeout(() => w.remove(), 1100);
+    }
+    await go();
   }
   function cmdChip(c) {
     if (c.k === 'upload' || c.k === 'voice') {
@@ -603,7 +700,7 @@ export function mountAssistant() {
     // Befehle sofort ausführen, als kleine Häkchen unter der Antwort
     const acts = p.acts.map(a => ({ a, href: ACTS[a][1](curDoc() || S.doc) })).filter(x => x.href);
     const extras = [...p.cmds.map(c => cmdChip(c)), ...acts.map(({ a, href }) => h('a', { class: 'ai-cmd link', href }, ACTS[a][0]))];
-    if (p.boards.length) extras.push(h('button', { class: 'ai-cmd link bshow', type: 'button', onclick: () => { openBoard(); } }, h('span', { class: 'ck', html: ico('board') }), L('Tafel zeigen', 'Show board')));
+    p.boards.forEach(b => extras.push(boardBtn(b)));
     ex.aX.replaceChildren(...extras);
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);
     if (!open) unread(true);
@@ -775,6 +872,63 @@ export function mountAssistant() {
   // Wenn eine Tafel offen ist und man woanders hin navigiert: Tafel einklappen statt im Weg zu sein
   addEventListener('hashchange', () => { if (boardOpen && !boardMin && MOB.matches) minBoard(true, true); });
 
+  const QUIPS = L([
+    ['Daytona oder Batman-GMT – welche Rolex steht mir besser?', ['Daytona', 'Batman'], ['Klassiker. Wie mein Kapitalwert: immer positiv.', 'Mutig. Papa sagt, Blau-Schwarz ist das neue Beige.']],
+    ['Saint-Tropez oder Monaco – wo verbring ich das nächste Semester?', ['Saint-Tropez', 'Monaco'], ['Gute Wahl. Club 55 statt Hörsaal 3.', 'Steuerlich clever. Du lernst schnell.']],
+    ['Privatjet chartern oder direkt kaufen? Was meinst du?', ['Chartern', 'Kaufen'], ['Asset-light. Du hast BWL verstanden.', 'Bilanzverlängerung deluxe. Respekt.']],
+    ['Aperol oder Hugo – was trinkt man beim Lernen?', ['Aperol', 'Hugo'], ['Orange ist das neue Gold. Weiterlernen!', 'Sylt-Klassiker. Aber erst nach dem Quiz.']],
+    ['Polo oder Golf – womit netzwerk ich am Wochenende?', ['Polo', 'Golf'], ['Pferde sind auch nur Anlagevermögen.', 'Handicap runter, Kontakte rauf.']],
+    ['Kampen oder Keitum – wo steht mein nächstes Ferienhaus?', ['Kampen', 'Keitum'], ['Natürlich. Die Whiskeystraße ruft.', 'Understatement. Gefällt mir.']],
+  ], [
+    ['Daytona or Batman GMT – which Rolex suits me better?', ['Daytona', 'Batman'], ['A classic. Like my NPV: always positive.', 'Bold. Dad says blue-black is the new beige.']],
+    ['Saint-Tropez or Monaco – where do I spend next semester?', ['Saint-Tropez', 'Monaco'], ['Good call. Club 55 instead of lecture hall 3.', 'Tax-smart. You learn fast.']],
+    ['Charter a private jet or just buy one?', ['Charter', 'Buy'], ['Asset-light. You get business.', 'Balance sheet extension deluxe. Respect.']],
+    ['Aperol or Hugo – what do you drink while studying?', ['Aperol', 'Hugo'], ['Orange is the new gold. Keep going!', 'A classic. But only after the quiz.']],
+    ['Polo or golf – where do I network this weekend?', ['Polo', 'Golf'], ['Horses are just fixed assets.', 'Handicap down, contacts up.']],
+  ]);
+  let quipT = 0, quipHide = 0, qi = Math.floor(Math.random() * QUIPS.length);
+  function hideQuip() { clearTimeout(quipHide); quip.classList.add('out'); setTimeout(() => { quip.hidden = true; quip.classList.remove('out'); root.classList.remove('quipping'); }, 260); }
+  function showQuip() {
+    if (cfg.quips === false || open || !isAssistantEnabled() || document.hidden || root.classList.contains('covered') || root.classList.contains('landtop') || root.classList.contains('nobub') || document.querySelector('body > .modal-bg, body > .voice')) return planQuip();
+    const [q, opts, ans] = QUIPS[qi++ % QUIPS.length];
+    const reply = t => { quip.replaceChildren(h('p', {}, t)); bf.pulse('happy', 1200); clearTimeout(quipHide); quipHide = setTimeout(hideQuip, 3800); };
+    quip.replaceChildren(h('p', {}, q), h('div', { class: 'q-r' }, opts.map((o, i) => h('button', { class: 'chip', type: 'button', onclick: e => { e.stopPropagation(); reply(ans[i]); } }, o))),
+      h('button', { class: 'q-x', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: e => { e.stopPropagation(); hideQuip(); } }));
+    quip.hidden = false; quipN++; root.classList.add('quipping'); bf.pulse('smug', 1400);
+    clearTimeout(quipHide); quipHide = setTimeout(hideQuip, root.classList.contains('land') ? 11000 : 14000);
+    planQuip();
+  }
+  // Startseite: etwa alle 30–40 s (fängt Blicke). In der App beim Lernen nur selten (alle 6–9 Min.), nie mitten im Tun.
+  let quipN = 0;
+  function planQuip(first) {
+    clearTimeout(quipT); if (cfg.quips === false) return;
+    const land = !route().tab && !document.getElementById('landing')?.classList.contains('hidden');
+    const ms = land ? (first ? 9000 : 30000 + Math.random() * 10000) : (first ? 180000 : 360000 + Math.random() * 180000);
+    quipT = setTimeout(() => { if (root.classList.contains('land') && quipN >= 8) return planQuip(); showQuip(); }, ms);
+  }
+  addEventListener('hashchange', () => planQuip(true));
+  function toggleQuips() { cfg.quips = cfg.quips === false; saveCfg(); if (cfg.quips === false) { hideQuip(); clearTimeout(quipT); toast(L('Keine Sprüche mehr. Langweilig, aber okay.', 'No more jokes. Boring, but fine.')); } else { planQuip(true); toast(L('Sprüche sind wieder an.', 'Jokes are back on.')); } }
+  planQuip(true);
+
+  // Rechtsklick bzw. lange drücken auf den Kopf: kleines Menü (Sprüche aus, ausblenden)
+  function openCtx(x, y) {
+    ctxm.replaceChildren(
+      h('button', { class: 'asst-mi', type: 'button', onclick: () => { ctxm.hidden = true; setOpen(true); } }, h('span', { html: ico('chat') }), L('Max öffnen', 'Open Max')),
+      h('button', { class: 'asst-mi', type: 'button', onclick: () => { ctxm.hidden = true; toggleQuips(); } }, h('span', { html: ico('bulb') }), cfg.quips === false ? L('Sprüche & Fragen an', 'Jokes & questions on') : L('Sprüche & Fragen aus', 'Jokes & questions off')),
+      h('button', { class: 'asst-mi', type: 'button', onclick: () => { ctxm.hidden = true; setAssistantEnabled(false); } }, h('span', { html: ico('x') }), L('Max ausblenden', 'Hide Max')),
+      h('small', {}, L('Zurückholen: unten in der Seitenleiste „Max einblenden“.', 'Bring back: “Show Max” at the bottom of the sidebar.')));
+    ctxm.hidden = false;
+    const r = ctxm.getBoundingClientRect();
+    ctxm.style.left = Math.max(8, Math.min(innerWidth - r.width - 8, x - r.width)) + 'px';
+    ctxm.style.top = Math.max(8, Math.min(innerHeight - r.height - 8, y - r.height - 8)) + 'px';
+  }
+  bub.addEventListener('contextmenu', e => { e.preventDefault(); openCtx(e.clientX, e.clientY); });
+  let lpT = 0;
+  bub.addEventListener('touchstart', e => { const t = e.touches[0]; lpT = setTimeout(() => { justDragged = true; setTimeout(() => { justDragged = false; }, 400); openCtx(t.clientX, t.clientY); }, 550); }, { passive: true });
+  ['touchend', 'touchmove', 'touchcancel'].forEach(ev => bub.addEventListener(ev, () => clearTimeout(lpT), { passive: true }));
+  document.addEventListener('pointerdown', e => { if (!ctxm.hidden && !ctxm.contains(e.target)) ctxm.hidden = true; });
+  quip.addEventListener('click', e => { if (!e.target.closest('button')) { hideQuip(); setOpen(true); } });
+
   // Handy-Tastatur: Leiste bleibt über der Tastatur
   const vv = window.visualViewport;
   if (vv) { const kb = () => root.style.setProperty('--kb', Math.max(0, Math.round(innerHeight - vv.height - vv.offsetTop)) + 'px'); vv.addEventListener('resize', kb); vv.addEventListener('scroll', kb); }
@@ -782,6 +936,11 @@ export function mountAssistant() {
   setState('idle');
   placeBub(); coverCheck();
   applyEnabled(false);
-  api = { applyEnabled, open: () => setOpen(true, { listen: true }), close: () => setOpen(false) };
+  api = {
+    applyEnabled, open: () => setOpen(true), close: () => setOpen(false),
+    // Von außen: Text direkt an Max geben (z. B. „Erklär's mir“-Feld) bzw. Sprechen starten
+    ask: t => { setOpen(true); if (MOB.matches && feedOpen) setFeedOpen(false); submit(t); },
+    talk: () => { setOpen(true); startListen(); },
+  };
   return api;
 }

@@ -1,5 +1,5 @@
 // Gemeinsame UI-Bausteine: Ladeanzeige mit Gesicht, Fehler/Limit-Dialog
-import { h, ico, modal, toast } from './util.js';
+import { h, ico, modal, toast, ls } from './util.js';
 import { face } from './face.js';
 import { COST, currentQuota, getAccount } from './api.js';
 import { say, thinkLines } from './max.js';
@@ -23,18 +23,54 @@ export function thought(faceEl, kind = 'generic', fallback = []) {
   return { el: bub, stop() { clearInterval(iv); } };
 }
 
+// Ladeanzeige: Gesicht + Gedankenblase + Fortschrittsbalken mit Countdown + Abbrechen.
+// Die Dauer lernt sie mit (Mittelwert der letzten Male pro Art), damit der Countdown stimmt.
+const EST = { quiz: 28, exam: 45, path: 35, lesson: 26, podcast: 50, cards: 22, summary: 34, topic: 22, ingest: 15, generic: 25 };
 export function loading(root, title, lines = [], kind = 'generic') {
+  const ctrl = new AbortController();
+  let rejectCancel;
+  const cancelled = new Promise((_, rej) => { rejectCancel = rej; }); cancelled.catch(() => {});
+  const key = 'tutor.est.' + kind;
+  const est = Math.max(6, Math.min(120, +ls.get(key, EST[kind] || EST.generic) || 25));
   const f = h('div', { class: 'face' });
-  const sub = h('div', { class: 'sub' });
-  const el = h('div', { class: 'loading' }, f, h('b', {}, title), sub);
+  const fill = h('i');
+  const num = h('span', { class: 'ld-n' });
+  const cancel = h('button', { class: 'btn sm ghost ld-x', type: 'button' }, L('Abbrechen', 'Cancel'));
+  const el = h('div', { class: 'loading' }, f, h('b', {}, title),
+    h('div', { class: 'ld-bar', role: 'progressbar', 'aria-label': L('Fortschritt', 'Progress') }, fill),
+    h('div', { class: 'ld-meta' }, num, cancel));
   root.replaceChildren(el);
   const fc = face(f); fc.set('think');
   const tb = thought(f, kind, lines);
-  const t0 = Date.now();
-  const tick = () => { if (!el.isConnected) return clearInterval(iv); const s = Math.round((Date.now() - t0) / 1000); sub.textContent = s > 4 ? `${s} s` : ''; };
+  const t0 = Date.now(); let done = false;
+  const tick = () => {
+    if (!el.isConnected || done) return clearInterval(iv);
+    const s = (Date.now() - t0) / 1000;
+    const p = s < est ? (s / est) * .94 : .94 + .055 * (1 - Math.exp(-(s - est) / 12));
+    fill.style.width = (p * 100).toFixed(1) + '%';
+    const left = Math.ceil(est - s);
+    num.textContent = left > 0 ? L(`noch ca. ${left} s`, `about ${left} s left`) : L('gleich fertig …', 'almost done …');
+  };
+  cancel.addEventListener('click', () => {
+    if (done) return;
+    ctrl.abort();
+    const e = new Error('abgebrochen'); e.name = 'AbortError'; rejectCancel(e);
+    toast(L('Abgebrochen.', 'Cancelled.'));
+  });
   tick();
-  const iv = setInterval(tick, 1000);
-  return { el, face: fc, stop() { clearInterval(iv); tb.stop(); } };
+  const iv = setInterval(tick, 200);
+  return {
+    el, face: fc, signal: ctrl.signal, cancelled,
+    // für Aufgaben ohne eigenes Abbrechen (z. B. Lernpfad im Hintergrund): Warten beenden
+    race: p => Promise.race([p, cancelled]),
+    stop() {
+      if (done) return; done = true;
+      clearInterval(iv); tb.stop();
+      const s = (Date.now() - t0) / 1000;
+      if (!ctrl.signal.aborted && s > 2) ls.set(key, Math.round(est * .6 + s * .4));
+      fill.style.width = '100%';
+    },
+  };
 }
 
 export async function apiError(e, retry) {

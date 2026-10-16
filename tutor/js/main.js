@@ -93,7 +93,7 @@ function initLanding() {
   $('#topicSlot')?.appendChild(topicForm());
 
   // Mit Max sprechen (direkt aus der Sprechblase)
-  $$('[data-voice]').forEach(b => b.addEventListener('click', async () => { const { openVoice } = await import('./voice.js'); openVoice({}); }));
+  $$('[data-voice]').forEach(b => b.addEventListener('click', async () => { const { talkToMax } = await import('./app.js'); talkToMax(); }));
 
   // Anmelden (dezent in der Navigation)
   const nl = $('[data-login]');
@@ -196,11 +196,13 @@ async function route() {
     await mountApp(parts.slice(1));
   } else {
     document.title = L('Tutor BWL Max – dein KI-Tutor für BWL, VWL & Rechnungswesen', 'Tutor BWL Max – your AI tutor for business, economics & accounting');
-    if (EN) document.querySelector('meta[name="description"]')?.setAttribute('content', 'Upload your lecture and learn with BWL Max, the AI tutor that writes on the whiteboard: explanations, quizzes, flashcards, study paths, podcasts and a practice trainer. Free, no sign-up.');
+    if (EN) document.querySelector('meta[name="description"]')?.setAttribute('content', 'Upload your course material – slides, notes or past exams – and learn with BWL Max, the AI tutor that writes on the whiteboard: explanations, quizzes, flashcards, study paths, podcasts and a practice trainer. Free, no sign-up.');
     initLanding();
     import('./assistant.js').then(m => m.mountAssistant && m.mountAssistant()).catch(e => console.warn(e));
   }
   applyThemeButtons();
+  // Erst zeigen, wenn alles übersetzt/zerlegt ist – kein kurzes Aufblitzen von Rohtext
+  requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.remove('preload')));
 }
 addEventListener('hashchange', route);
 document.addEventListener('click', e => {

@@ -36,6 +36,17 @@ const VIEWS = {
 let shell = null;
 let current = { key: '', cleanup: null };
 
+// Alles, was „mit Max reden“ heißt, läuft über den schwebenden Max (wenn er nicht ausgeblendet ist)
+export async function viaMax(fn) {
+  try {
+    const m = await import('./assistant.js');
+    if (!m.isAssistantEnabled()) return false;
+    const a = m.mountAssistant(); if (!a || !a.ask) return false;
+    document.querySelector('#app .app.sideopen')?.classList.remove('sideopen');
+    fn(a); return true;
+  } catch (e) { console.warn(e); return false; }
+}
+export const talkToMax = async () => { if (!(await viaMax(a => a.talk()))) { const { openVoice } = await import('./voice.js'); openVoice({}); } };
 export function go(path) { location.hash = '#/app' + (path ? '/' + path : ''); }
 
 function asstToggle() {
@@ -59,10 +70,10 @@ function buildShell() {
       langSwitch(),
       h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') })),
     h('div', { class: 'scroll' },
-      h('label', { class: 'btn primary', for: 'fileApp', style: { width: '100%', margin: '6px 0 4px' } }, h('span', { html: ico('plus') }), L('Neue Vorlesung', 'New lecture')), fileIn,
+      h('label', { class: 'btn primary', for: 'fileApp', style: { width: '100%', margin: '6px 0 4px' } }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')), fileIn,
       h('div', { class: 'grp' }, L('Deine Skripte', 'Your slides')), list,
       h('div', { class: 'grp' }, L('Ohne Skript', 'No slides needed')),
-      h('button', { class: 'doc-item', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({ doc: S.doc && location.hash.includes(S.doc.id) ? S.doc : null, onClose: () => { forceRerender(); dispatchEvent(new HashChangeEvent('hashchange')); } }); } }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, L('Sprich mit mir', 'Talk to me'))),
+      h('button', { class: 'doc-item', type: 'button', onclick: () => talkToMax() }, h('span', { html: ico('mic') }), h('span', { class: 'nm' }, L('Sprich mit mir', 'Talk to me'))),
       h('button', { class: 'doc-item', type: 'button', onclick: () => topicPrompt() }, h('span', { html: ico('bulb') }), h('span', { class: 'nm' }, L('Ich erklär dir ein Thema', 'I’ll explain a topic'))),
       h('a', { class: 'doc-item', href: '#/app/trainer', 'data-nav': 'trainer' }, h('span', { html: ico('whistle') }), h('span', { class: 'nm' }, L('BWL-Trainer', 'Business trainer')))),
     h('div', { class: 'bottom' }, outLangSwitch(), accountChip(), quotaEl,
@@ -122,7 +133,13 @@ function renderList() {
 function renderTabs(docId, tab) {
   shell.tabs.replaceChildren(...TABS.map(([k, label, ic]) =>
     h('a', { class: 'tab' + (k === tab ? ' on' : ''), href: `#/app/${docId}/${k}`, role: 'tab', 'aria-selected': k === tab ? 'true' : 'false' }, h('span', { html: ico(ic), style: { display: 'contents' } }), h('span', {}, label))));
-  requestAnimationFrame(() => { const t = shell.tabs, on = t.querySelector('.on'); if (on && t.scrollWidth > t.clientWidth) t.scrollLeft = on.offsetLeft - (t.clientWidth - on.offsetWidth) / 2; });
+  // aktiven Reiter nur dann ins Bild holen, wenn er nicht schon ganz sichtbar ist
+  requestAnimationFrame(() => {
+    const t = shell.tabs, on = t.querySelector('.on');
+    if (!on || t.scrollWidth <= t.clientWidth + 2) { t.scrollLeft = 0; return; }
+    const l = on.offsetLeft - t.offsetLeft, r = l + on.offsetWidth;
+    if (l < t.scrollLeft || r > t.scrollLeft + t.clientWidth) t.scrollLeft = Math.max(0, l - (t.clientWidth - on.offsetWidth) / 2);
+  });
   shell.tabs.classList.remove('hidden');
 }
 
@@ -193,15 +210,15 @@ export async function askTutorAbout(text, { confirm = true } = {}) {
 
 function emptyState(root) {
   const f = h('div', { class: 'face' });
-  const lab = h('label', { class: 'btn primary lg', for: 'fileApp' }, h('span', { html: ico('upload') }), L('Skript hochladen', 'Upload slides'));
+  const lab = h('label', { class: 'btn primary lg', for: 'fileApp' }, h('span', { html: ico('upload') }), L('Stoff hochladen', 'Upload material'));
   root.appendChild(h('div', { class: 'view-in' }, h('div', { class: 'empty' }, f,
     h('h2', {}, L('Was lernen wir heute?', 'What are we learning today?')),
-    h('p', {}, L('Zieh dein Vorlesungsskript hier rein – PDF, PowerPoint oder Word. Die Datei bleibt auf deinem Gerät.', 'Drop your lecture slides here – PDF, PowerPoint or Word. The file stays on your device.')),
+    h('p', {}, L('Zieh deinen Unistoff hier rein – Vorlesung, Skript, Übungsblatt oder Altklausur, als PDF, PowerPoint oder Word. Die Datei bleibt auf deinem Gerät.', 'Drop your course material here – slides, notes, problem sets or past exams, as PDF, PowerPoint or Word. The file stays on your device.')),
     h('div', { style: { display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' } }, lab,
       h('button', { class: 'btn lg', onclick: () => startSample() }, L('Beispiel ansehen', 'See an example')),
       h('a', { class: 'btn lg ghost', href: '#/app/trainer' }, 'Trainer')),
     topicForm({ cls: 'askbar inapp' }),
-    h('button', { class: 'talklink', type: 'button', onclick: async () => { const { openVoice } = await import('./voice.js'); openVoice({}); } }, h('span', { html: ico('mic') }), L('oder quatsch einfach mit mir', 'or just chat with me')))));
+    h('button', { class: 'talklink', type: 'button', onclick: () => talkToMax() }, h('span', { html: ico('mic') }), L('oder quatsch einfach mit mir', 'or just chat with me')))));
   face(f);
   dropAnywhere(root);
 }
@@ -285,6 +302,7 @@ export function topicForm({ cls = 'askbar', target = null } = {}) {
     }
     hint.remove(); form.classList.remove('bad');
     form.dispatchEvent(new CustomEvent('topicok'));
+    if (!target) { viaMax(a => a.ask(t)).then(ok => { if (!ok) { ls.set('tutor.target', null); startTopic(t); } }); return; }
     ls.set('tutor.target', target); startTopic(t);
   });
   inp.addEventListener('input', () => { if (inp.value.trim().length >= 2) { hint.remove(); form.classList.remove('bad'); } });
@@ -346,6 +364,14 @@ export async function startTopic(topic) {
     clearInterval(iv); tb.stop(); tb.el.remove(); fc.set('sad');
     if (e.code === 'limit') { await apiError(e); go(''); return; }
     sub.textContent = e.message || L('Das hat nicht geklappt.', 'That didn’t work.');
+    // Thema unklar: Max fragt nach – mit seinem besten Vorschlag
+    if (e.code === 'unklar') {
+      fc.set('think');
+      sub.after(h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' } },
+        e.suggest ? h('button', { class: 'btn primary', onclick: () => startTopic(e.suggest) }, L(`Ja, „${e.suggest}“`, `Yes, “${e.suggest}”`)) : null,
+        h('button', { class: e.suggest ? 'btn' : 'btn primary', onclick: () => topicPrompt() }, L('Anders formulieren', 'Rephrase'))));
+      return;
+    }
     sub.after(h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } },
       h('button', { class: 'btn primary', onclick: () => startTopic(topic) }, L('Nochmal versuchen', 'Try again')), h('button', { class: 'btn', onclick: () => topicPrompt() }, L('Anderes Thema', 'Different topic'))));
   }
@@ -393,7 +419,7 @@ export const TRY = L({
   zettel: ['Study sheet & mind map', 'Upload your slides or give me a topic – I’ll write you a study sheet and a mind map.'],
 });
 export async function tryFeature(key) {
-  if (key === 'voice') { const { openVoice } = await import('./voice.js'); return openVoice({}); }
+  if (key === 'voice') return talkToMax();
   if (key === 'trainer') { location.hash = '#/app/trainer'; return; }
   const [title, text] = TRY[key] || TRY.tutor;
   const fin = h('input', { type: 'file', class: 'sr', accept: ACCEPT });
@@ -402,7 +428,7 @@ export async function tryFeature(key) {
   const form = topicForm({ cls: 'askbar inmodal', target: key });
   form.addEventListener('topicok', () => close());
   const body = h('div', { class: 'trybody' },
-    h('label', { class: 'btn primary lg trybtn' }, fin, h('span', { html: ico('upload') }), L('Skript hochladen', 'Upload slides')),
+    h('label', { class: 'btn primary lg trybtn' }, fin, h('span', { html: ico('upload') }), L('Stoff hochladen', 'Upload material')),
     h('div', { class: 'or' }, h('span', {}, L('oder Thema nennen', 'or name a topic'))),
     form,
     h('button', { class: 'talklink', type: 'button', onclick: () => { ls.set('tutor.target', key); close(); startSample(); } }, L('Erstmal mit dem Beispiel-Skript testen', 'Try it with the example slides first')));

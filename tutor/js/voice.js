@@ -13,7 +13,7 @@ import { getSpice, thinkLines } from './max.js';
 import { getOutLang, setOutLang, L } from './i18n.js';
 
 export const VOICES = [
-  ['max', 'Max', L('Anfang 20, ganz normal', 'early 20s, perfectly normal')],
+  ['max', L('Max beim Aperol', 'Max over Aperol'), L('Anfang 20, entspannt auf der Terrasse', 'early 20s, relaxed on the terrace')],
   ['feiern', L('Max nach dem Feiern', 'Max after the party'), L('tief, etwas verkatert', 'deep, a bit hungover')],
   ['stimmbruch', L('Max vor dem Stimmbruch', 'Max before his voice broke'), L('hell (Frauenstimme)', 'high (female voice)')],
 ];

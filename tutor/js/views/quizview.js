@@ -67,7 +67,7 @@ async function generate(wrap, ctx, st) {
   const ch = st.focus >= 0 ? doc.path.chapters[st.focus] : null;
   const ld = loading(wrap, L('Ich schreibe dein Quiz …', 'Writing your quiz …'), L(['Lese das Skript', 'Denke mir knifflige Fragen aus', 'Baue typische Fehler als Antworten ein', 'Rechne die Aufgaben zweimal nach'], ['Reading the slides', 'Thinking up tricky questions', 'Building in typical mistakes as answers', 'Double-checking the calculations']), 'quiz');
   try {
-    const r = await ask('quiz', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { count: st.count, difficulty: st.diff, types: [...st.types], focus: ch ? L(`Kapitel „${ch.title}“ (S. ${ch.pages[0]}–${ch.pages[1]})`, `Chapter “${ch.title}” (p. ${ch.pages[0]}–${ch.pages[1]})`) : '' } });
+    const r = await ask('quiz', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { count: st.count, difficulty: st.diff, types: [...st.types], focus: ch ? L(`Kapitel „${ch.title}“ (S. ${ch.pages[0]}–${ch.pages[1]})`, `Chapter “${ch.title}” (p. ${ch.pages[0]}–${ch.pages[1]})`) : '' } }, { signal: ld.signal });
     const qs = (r.data?.questions || []).map(normalize).filter(Boolean);
     if (qs.length < 2) throw new Error(L('Das Quiz ist nicht vollständig angekommen. Versuch es nochmal.', 'The quiz didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: ch ? ch.title : (r.data.title || 'Quiz'), questions: qs, diff: st.diff, created: Date.now(), results: [] };
@@ -80,7 +80,7 @@ async function exam(wrap, ctx) {
   const { doc } = ctx;
   const ld = loading(wrap, L('Ich stelle deine Probeklausur zusammen …', 'Putting your mock exam together …'), L(['Wähle die wichtigsten Themen', 'Schreibe Rechenaufgaben', 'Baue Transferfragen', 'Prüfe alle Lösungen', 'Gleich geschafft'], ['Picking the key topics', 'Writing calculations', 'Building transfer questions', 'Checking all solutions', 'Almost done']), 'exam');
   try {
-    const r = await ask('exam', { material: forWhole(doc), docName: doc.name, opts: { count: 12, difficulty: 'klausur' } });
+    const r = await ask('exam', { material: forWhole(doc), docName: doc.name, opts: { count: 12, difficulty: 'klausur' } }, { signal: ld.signal });
     const qs = (r.data?.questions || []).map(normalize).filter(Boolean);
     if (qs.length < 4) throw new Error(L('Die Probeklausur ist nicht vollständig angekommen. Versuch es nochmal.', 'The mock exam didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: L('Probeklausur · ', 'Mock exam · ') + new Date().toLocaleDateString(LOCALE), questions: qs, diff: 'Klausur', exam: true, minutes: 45, created: Date.now(), results: [] };

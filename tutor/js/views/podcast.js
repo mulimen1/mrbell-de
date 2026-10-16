@@ -35,7 +35,7 @@ export async function render(root, ctx) {
   return () => { try { synth && synth.cancel(); } catch (e) {} };
 }
 
-const MAXV = [['max', L('Max · klassisch', 'Max · classic')], ['feiern', L('Max · nach dem Feiern', 'Max · after the party')]];
+const MAXV = [['max', L('Max · beim Aperol', 'Max · over Aperol')], ['feiern', L('Max · nach dem Feiern', 'Max · after the party')]];
 let previewAudio = null;
 function previewBtn(voice, getLang) {
   const b = h('button', { class: 'pv', type: 'button', title: L('So klinge ich', 'This is how I sound'), 'aria-label': L('Hörprobe abspielen', 'Play voice sample'), html: ico('play') });
@@ -89,7 +89,7 @@ async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), m
   const ch = focus >= 0 ? doc.path.chapters[focus] : null;
   const ld = loading(wrap, L('Lisa und Max nehmen auf …', 'Lisa and Max are recording …'), L(['Schreibe das Skript', 'Baue Beispiele ein', 'Max sucht sich eine knifflige Frage', 'Fast fertig'], ['Writing the script', 'Adding examples', 'Max is picking a tricky question', 'Almost done']), 'podcast');
   try {
-    const r = await ask('podcast', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, lang: plang, opts: { length: len, focus: ch ? ch.title : '', spice: tone } });
+    const r = await ask('podcast', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, lang: plang, opts: { length: len, focus: ch ? ch.title : '', spice: tone } }, { signal: ld.signal });
     const lines = (r.data?.lines || []).filter(l => l && l.t).map(l => ({ s: /max/i.test(l.s) ? 'Max' : 'Lisa', t: String(l.t) }));
     if (lines.length < 4) throw new Error(L('Die Folge ist nicht vollständig angekommen. Versuch es nochmal.', 'The episode didn’t arrive completely. Please try again.'));
     const p = { id: uid(), title: r.data.title || L('Folge', 'Episode'), lines, created: Date.now(), lang: plang, voice: mvoice, real: true, audio: [] };

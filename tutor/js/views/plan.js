@@ -352,7 +352,7 @@ export async function render(root, ctx) {
   if (ctx.doc.plan) return planView(wrap, ctx);
   if (pathPending(ctx.doc)) {
     const ld = loading(wrap, L('Max baut gerade deinen Lernpfad …', 'Max is building your study path …'), [], 'path');
-    try { await generatePath(ctx.doc); } catch (e) {}
+    try { await ld.race(generatePath(ctx.doc)); } catch (e) {}
     ld.stop();
   }
   wizard(wrap, ctx);
@@ -451,7 +451,7 @@ function wizard(wrap, ctx) {
 
 async function withPath(wrap, ctx, opts) {
   const ld = loading(wrap, L('Ich teile dein Skript in Kapitel …', 'Splitting your slides into chapters …'), L(['Lese das Skript', 'Finde die Kapitel', 'Gewichte für die Klausur', 'Danach plane ich deine Tage'], ['Reading the slides', 'Finding the chapters', 'Weighting for the exam', 'Then I’ll plan your days']), 'path');
-  try { await generatePath(ctx.doc); ld.stop(); finishCreate(wrap, ctx, opts); }
+  try { await ld.race(generatePath(ctx.doc)); ld.stop(); finishCreate(wrap, ctx, opts); }
   catch (e) { ld.stop(); wizard(wrap, ctx); apiError(e, () => withPath(wrap, ctx, opts)); }
 }
 

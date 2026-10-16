@@ -67,7 +67,7 @@ async function generate(wrap, ctx, chIdx) {
   const ch = chIdx != null ? doc.path.chapters[chIdx] : null;
   const ld = loading(wrap, L('Ich schreibe deine Karteikarten …', 'Writing your flashcards …'), L(['Suche Begriffe und Formeln', 'Formuliere präzise Fragen', 'Halte die Antworten kurz'], ['Finding key terms and formulas', 'Phrasing precise questions', 'Keeping the answers short']), 'cards');
   try {
-    const r = await ask('cards', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { count: ch ? 12 : 16, focus: ch ? L(`Kapitel „${ch.title}“ (S. ${ch.pages[0]}–${ch.pages[1]})`, `Chapter “${ch.title}” (p. ${ch.pages[0]}–${ch.pages[1]})`) : '' } });
+    const r = await ask('cards', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { count: ch ? 12 : 16, focus: ch ? L(`Kapitel „${ch.title}“ (S. ${ch.pages[0]}–${ch.pages[1]})`, `Chapter “${ch.title}” (p. ${ch.pages[0]}–${ch.pages[1]})`) : '' } }, { signal: ld.signal });
     const cards = (r.data?.cards || []).filter(c => c && c.front && c.back).map(c => ({ id: uid(), front: String(c.front), back: String(c.back), page: c.page || null, due: 0 }));
     if (!cards.length) throw new Error(L('Es kamen keine Karten zurück. Versuch es nochmal.', 'No cards came back. Please try again.'));
     const deck = { id: uid(), title: ch ? ch.title : (r.data.title || L('Ganzes Skript', 'Whole script')), chapter: chIdx, cards, created: Date.now() };

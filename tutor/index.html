@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tutor BWL Max – dein KI-Tutor für BWL, VWL & Rechnungswesen</title>
-<meta name="description" content="Lade deine Vorlesung hoch und lern mit BWL Max, dem KI-Tutor, der an die Tafel schreibt: Erklärungen, Quizze, Karteikarten, Lernpfad, Podcast und Übungs-Trainer. Kostenlos, ohne Anmeldung.">
+<meta name="description" content="Lade deinen Unistoff hoch – Vorlesung, Skript oder Altklausur – und lern mit BWL Max, dem KI-Tutor, der an die Tafel schreibt: Erklärungen, Quizze, Karteikarten, Lernpfad, Podcast und Übungs-Trainer. Kostenlos, ohne Anmeldung.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="/tutor/img/favicon.ico" sizes="48x48">
@@ -21,8 +21,10 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tutor/css/app.css?v=4">
+<link rel="stylesheet" href="/tutor/css/app.css?v=5">
 <link rel="stylesheet" href="/tutor/css/trainer.css?v=3">
+<style>html.preload{background:#000}html.preload[data-theme=light]{background:#fff}html.preload body{opacity:0}html body{transition:opacity .25s ease}</style>
+<script>document.documentElement.classList.add('preload');setTimeout(function(){document.documentElement.classList.remove('preload')},2500);</script>
 <script>document.documentElement.dataset.theme='dark';try{var t=sessionStorage.getItem('tutor.theme');if(t==='light')document.documentElement.dataset.theme='light'}catch(e){}</script>
 </head>
 <body>
@@ -57,7 +59,7 @@
         <input type="file" id="fileHero" class="sr" accept=".pdf,.pptx,.docx,.txt,.md">
         <div class="row">
           <div class="file-ico"><svg class="ico" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></div>
-          <div class="t" data-en-html="&lt;b&gt;Drop your lecture notes here&lt;/b&gt;&lt;span&gt;or click – PDF, PowerPoint, Word&lt;/span&gt;"><b>Skript hierher ziehen</b><span>oder klicken – PDF, PowerPoint, Word</span></div>
+          <div class="t" data-en-html="&lt;b&gt;Drop your course material here&lt;/b&gt;&lt;span&gt;Slides, notes, problem sets, past exams – PDF, PowerPoint, Word&lt;/span&gt;"><b>Deinen Unistoff hierher ziehen</b><span>Vorlesung, Skript, Übungsblatt, Altklausur – PDF, PowerPoint, Word</span></div>
           <span class="btn primary lg magnet" data-en="Choose file">Datei wählen</span>
         </div>
         <div class="meta"><i data-en="No sign-up">Ohne Anmeldung</i><i data-en="Free every day">Jeden Tag kostenlos</i><i data-en="File stays on your device">Datei bleibt auf deinem Gerät</i></div>
@@ -96,7 +98,7 @@
     <div class="wrap">
       <div class="eyebrow reveal" data-en="Everything in one place">Alles an einem Ort</div>
       <h2 data-split data-en="Max can do everything. And he knows it.">Max kann alles. Und er weiß es.</h2>
-      <p class="lead reveal" data-en="Every answer is based on your lecture – with page references. No guesswork, no copy-pasting into ChatGPT.">Jede Antwort bezieht sich auf deine Vorlesung – mit Seitenangabe. Kein Rumraten, kein Copy-Paste in ChatGPT.</p>
+      <p class="lead reveal" data-en="Every answer is based on your material – slides, notes or past exams – with page references. No guesswork, no copy-pasting into ChatGPT.">Jede Antwort bezieht sich auf deinen Stoff – Vorlesung, Skript oder Altklausur – mit Seitenangabe. Kein Rumraten, kein Copy-Paste in ChatGPT.</p>
       <div class="board">
         <div class="pins">
           <article class="pin big fly" style="--rot:-.6deg">
@@ -233,11 +235,11 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
         <details name="faq" class="reveal"><summary data-en="Who is BWL Max?">Wer ist BWL Max?</summary><div class="ans" data-en-html="&lt;p&gt;Your AI tutor for business and economics degrees. Middle part, quarter-zip, Dad owns a holding company. Sounds arrogant – and he is, a little. But he’ll explain any lecture to you until you get it.&lt;/p&gt;"><p>Dein KI-Tutor fürs Wirtschaftsstudium. Mittelscheitel, Quarter-Zip, Papa hat eine Holding. Klingt arrogant – ist er auch ein bisschen. Aber er erklärt dir jede Vorlesung so lange, bis du sie verstehst.</p></div></details>
         <details name="faq" class="reveal"><summary data-en="Are my notes stored or used to train AI?">Werden meine Skripte gespeichert oder zum KI-Training benutzt?</summary><div class="ans" data-en-html="&lt;p&gt;No. The file is read in your browser and stays on your device. For each answer, we only send the necessary text snippet to the AI. We don’t store any of it and don’t use anything for training.&lt;/p&gt;"><p>Nein. Die Datei wird in deinem Browser gelesen und bleibt auf deinem Gerät. Für eine Antwort schicken wir nur den nötigen Textausschnitt an die KI. Wir speichern davon nichts und nutzen nichts zum Training.</p></div></details>
         <details name="faq" class="reveal"><summary data-en="Do I need an account?">Brauche ich ein Konto?</summary><div class="ans" data-en-html="&lt;p&gt;No. You can get started right away. With a free account (just your email, no password) you get 7 days in the Inner Circle with no daily limit, and your units work across all your devices. The only thing we store for that is your email address – your notes stay on your device.&lt;/p&gt;"><p>Nein. Du kannst sofort loslegen. Mit einem kostenlosen Konto (nur E-Mail, kein Passwort) bekommst du 7 Tage Inner Circle ohne Tageslimit geschenkt, und deine Einheiten gelten auf all deinen Geräten. Gespeichert wird dafür nur deine E-Mail-Adresse – deine Skripte bleiben auf deinem Gerät.</p></div></details>
-        <details name="faq" class="reveal"><summary data-en="I don’t have any notes right now. Does it still work?">Ich hab gerade kein Skript. Geht trotzdem was?</summary><div class="ans" data-en-html="&lt;p&gt;Sure. Just tell Max what you want explained – for example “net present value” or “deferred taxes”. He’ll write you a short set of notes on it, and from there you get whiteboard explanations, quizzes, flashcards, a study path and a podcast, just like with your own lecture.&lt;/p&gt;"><p>Klar. Sag Max einfach, was er dir erklären soll – zum Beispiel „Kapitalwertmethode“ oder „latente Steuern“. Er schreibt dir ein Kurzskript dazu, und daraus gehen Erklärungen an der Tafel, Quiz, Karteikarten, Lernpfad und Podcast genauso wie mit deiner Vorlesung.</p></div></details>
+        <details name="faq" class="reveal"><summary data-en="I don’t have any notes right now. Does it still work?">Ich hab gerade kein Skript. Geht trotzdem was?</summary><div class="ans" data-en-html="&lt;p&gt;Sure. Just tell Max what you want explained – for example “net present value” or “deferred taxes”. He’ll write you a short set of notes on it, and from there you get whiteboard explanations, quizzes, flashcards, a study path and a podcast, just like with your own material.&lt;/p&gt;"><p>Klar. Sag Max einfach, was er dir erklären soll – zum Beispiel „Kapitalwertmethode“ oder „latente Steuern“. Er schreibt dir ein Kurzskript dazu, und daraus gehen Erklärungen an der Tafel, Quiz, Karteikarten, Lernpfad und Podcast genauso wie mit deinem eigenen Stoff.</p></div></details>
         <details name="faq" class="reveal"><summary data-en="Which subjects does it cover?">Welche Fächer gehen?</summary><div class="ans" data-en-html="&lt;p&gt;Everything from a business or economics degree: accounting, cost accounting, investment and finance, IFRS/HGB, controlling, marketing, micro- and macroeconomics, statistics and more.&lt;/p&gt;"><p>Alles aus dem Wirtschaftsstudium: Rechnungswesen, Kosten- und Leistungsrechnung, Investition und Finanzierung, IFRS/HGB, Controlling, Marketing, Mikro und Makro, Statistik und mehr.</p></div></details>
         <details name="faq" class="reveal"><summary data-en="What is an AI unit?">Was ist eine KI-Einheit?</summary><div class="ans" data-en-html="&lt;p&gt;A question to Max costs 1 unit, a quiz or flashcard deck 2, a podcast 3. With 40 units you’ll easily get through a day of studying. Practising with saved quizzes, flashcards and the trainer costs nothing.&lt;/p&gt;"><p>Eine Frage an Max kostet 1 Einheit, ein Quiz oder Kartenstapel 2, ein Podcast 3. Mit 40 Einheiten kommst du gut durch einen Lerntag. Üben mit gespeicherten Quizzen, Karteikarten und dem Trainer kostet nichts.</p></div></details>
         <details name="faq" class="reveal"><summary data-en="Can I make Max less arrogant?">Kann ich Max weniger arrogant machen?</summary><div class="ans" data-en-html="&lt;p&gt;Sure. In the chat you can set the arrogance level: Serious, Spicy or Full Sylt. His expertise stays just as good.&lt;/p&gt;"><p>Klar. Im Chat stellst du das Arroganz-Level ein: Seriös, Spicy oder Voll Sylt. Fachlich bleibt er immer gleich gut.</p></div></details>
-        <details name="faq" class="reveal"><summary data-en="Can Max make mistakes?">Kann Max Fehler machen?</summary><div class="ans" data-en-html="&lt;p&gt;Rarely – but yes. That’s why every answer shows the page from your notes. When in doubt, your lecture always wins. (Just don’t tell him that.)&lt;/p&gt;"><p>Selten – aber ja. Deshalb steht bei jeder Antwort die Seite aus deinem Skript. Im Zweifel gilt immer deine Vorlesung. (Sag ihm das aber nicht.)</p></div></details>
+        <details name="faq" class="reveal"><summary data-en="Can Max make mistakes?">Kann Max Fehler machen?</summary><div class="ans" data-en-html="&lt;p&gt;Rarely – but yes. That’s why every answer shows the page from your notes. When in doubt, your material always wins. (Just don’t tell him that.)&lt;/p&gt;"><p>Selten – aber ja. Deshalb steht bei jeder Antwort die Seite aus deinem Skript. Im Zweifel gilt immer dein Stoff. (Sag ihm das aber nicht.)</p></div></details>
       </div>
     </div>
   </section>
