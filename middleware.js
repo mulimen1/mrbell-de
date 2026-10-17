@@ -142,7 +142,8 @@ export default async function middleware(req, ctx) {
   const bwlmax = /^(www\.)?bwlmax\.de$/i.test(url.hostname);
   if (url.pathname === '/bm') return bmEreignis(req, ctx, bwlmax);
   // Zahlen-Dashboard (nur bwlmax.de, wird selbst nicht gezählt)
-  if (url.pathname === '/zahlen') return bwlmax ? new Response(null, { headers: { 'x-middleware-rewrite': new URL('/tutor/zahlen.html', url).toString() } }) : weiter();
+  // Zahlen leben jetzt in der App (gleiche Anmeldung) – alte Adresse und Handy-Lesezeichen landen dort
+  if (url.pathname === '/zahlen') return bwlmax ? Response.redirect(new URL('/#/app/zahlen', url).toString(), 307) : weiter();
   if (bwlmax || url.pathname.startsWith('/tutor')) {
     const start = url.pathname === '/' || url.pathname === '/index.html' || /^\/tutor\/?(index\.html)?$/.test(url.pathname);
     const recht = bwlmax && /^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(url.pathname.replace(/\.html$/, '')) ? url.pathname.replace(/^\/|\.html$/g, '') : '';

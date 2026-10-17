@@ -203,8 +203,11 @@ button { font: inherit; color: inherit; }
 <script>
 (function () {
   'use strict';
+  // Läuft eigenständig (bwlmax.de/zahlen) oder in der BWL-Max-App (Bereich „Zahlen“, im Shadow DOM)
+  var ROOT = window.__zlRoot || document;
+  var $id = function (i) { return ROOT.getElementById(i); };
   var API = (new URLSearchParams(location.search)).get('api') || 'https://hub.mrbell.de/api/bwlmax/zahlen';
-  var app = document.getElementById('app'), segEl = document.getElementById('seg'), liveEl = document.getElementById('live'), standEl = document.getElementById('stand');
+  var app = $id('app'), segEl = $id('seg'), liveEl = $id('live'), standEl = $id('stand');
   var Z = (function () { try { return localStorage.getItem('zahlen.z') || '7'; } catch (e) { return '7'; } })();
   var data = null, lastOk = 0, timer = 0, seenFeed = {}, firstDraw = true, showAllWege = false;
   var DE = new Intl.NumberFormat('de-DE');
@@ -411,8 +414,8 @@ button { font: inherit; color: inherit; }
       '<section class="grid"><div class="card"><div class="hd"><h2>Besucher-Wege</h2><small>Was jemand nacheinander gemacht hat</small></div><div id="wege">' + wege + '</div></div></section>' +
       '<div class="foot">Gezählt wird ohne Inhalte. Wege, Orte und Wiederkehrer nur bei Besuchern, die Cookies erlaubt haben. · <span id="stand2"></span></div>';
 
-    verlauf(document.getElementById('chart'), achse, keys, bes, besR, akt);
-    var mb = document.getElementById('more'); if (mb) mb.onclick = function () { showAllWege = !showAllWege; draw(); };
+    verlauf($id('chart'), achse, keys, bes, besR, akt);
+    var mb = $id('more'); if (mb) mb.onclick = function () { showAllWege = !showAllWege; draw(); };
     firstDraw = false;
     tick();
   }
@@ -422,7 +425,7 @@ button { font: inherit; color: inherit; }
     var n = data.live ? data.live.besucher : 0;
     liveEl.classList.toggle('zero', !n); liveEl.querySelector('span').textContent = n ? (n === 1 ? '1 gerade da' : n + ' gerade da') : 'niemand gerade da';
     var s = data.stand ? 'Daten ' + rel(data.stand).replace('gerade eben', 'aktuell') : '';
-    standEl.textContent = s; var s2 = document.getElementById('stand2'); if (s2) s2.textContent = s + (data.email ? ' · angemeldet als ' + data.email : '');
+    standEl.textContent = s; var s2 = $id('stand2'); if (s2) s2.textContent = s + (data.email ? ' · angemeldet als ' + data.email : '');
   }
 
   // ---------- Zustände ----------
@@ -459,12 +462,16 @@ button { font: inherit; color: inherit; }
   }
   segEl.addEventListener('click', function (e) { var b = e.target.closest('button[data-z]'); if (!b || b.dataset.z === Z) return; setZ(b.dataset.z); firstDraw = true; data = null; load(); });
   setZ(Z);
-  addEventListener('scroll', function () { document.getElementById('top').classList.toggle('scr', scrollY > 6); }, { passive: true });
-  var rz = 0; addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { if (data) { var c = document.getElementById('chart'); if (c) verlauf(c, data.zeitraum.achse, data.basis.achse || [], data.basis.reihe.besuche || [], data.besucherReihe || [], data.basis.reihe.aktiv || []); } }, 150); });
+  var onScroll = function () { var t = $id('top'); if (t) t.classList.toggle('scr', scrollY > 6); };
+  addEventListener('scroll', onScroll, { passive: true });
+  var rz = 0, onResize; addEventListener('resize', onResize = function () { clearTimeout(rz); rz = setTimeout(function () { if (data) { var c = $id('chart'); if (c) verlauf(c, data.zeitraum.achse, data.basis.achse || [], data.basis.reihe.besuche || [], data.besucherReihe || [], data.basis.reihe.aktiv || []); } }, 150); });
   load();
   timer = setInterval(function () { if (!document.hidden) load(true); }, 20000);
-  setInterval(tick, 10000);
-  document.addEventListener('visibilitychange', function () { if (!document.hidden && Date.now() - lastOk > 15000) load(true); });
+  var tickT = setInterval(tick, 10000);
+  var onVis = function () { if (!document.hidden && Date.now() - lastOk > 15000) load(true); };
+  document.addEventListener('visibilitychange', onVis);
+  // In der App: beim Verlassen alles sauber stoppen
+  window.__zlStop = function () { clearInterval(timer); clearInterval(tickT); removeEventListener('scroll', onScroll); removeEventListener('resize', onResize); document.removeEventListener('visibilitychange', onVis); window.__zlStop = null; };
 })();
 </script>
 </body>

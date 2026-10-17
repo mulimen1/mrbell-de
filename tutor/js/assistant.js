@@ -380,6 +380,7 @@ export function mountAssistant() {
     // In der App: dauerhaft „Klick mich – ich führ dich durch“
     if (app) {
       const k = tourKey(), seen = ls.get('tutor.tour.seen', {}) || {};
+      if (location.hash.startsWith('#/app/zahlen')) { if (root.classList.contains('tip-on')) hideTip(); return; }   // Bens Zahlen: keine Führung
       if (tipKey !== k) {
         if (seen[k]) { if (root.classList.contains('tip-on')) hideTip(); return; }
         if (now - tipVisSince < 900) return;

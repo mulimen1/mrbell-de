@@ -100,7 +100,8 @@ function buildShell() {
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
     navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
     navA('gemerkt', '#/app/gemerkt', 'star', L('Gemerkt', 'Saved')),
-    navA('fortschritt', '#/app/fortschritt', 'trophy', L('Fortschritt', 'Progress')));
+    navA('fortschritt', '#/app/fortschritt', 'trophy', L('Fortschritt', 'Progress')),
+    Object.assign(navA('zahlen', '#/app/zahlen', 'chart', L('Zahlen', 'Numbers')), { hidden: true }));
   const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
   const backEl = h('a', { class: 'db-back', href: '#/app/lernen', hidden: true, title: L('Zurück zu Lernen', 'Back to Learn') }, h('span', { html: ico('left') }), h('span', {}, L('Lernen', 'Learn')));
@@ -119,7 +120,7 @@ function buildShell() {
   face(faceEl, {}); face(tnFace, { follow: false });
   shell = { root, app, side, title, tabs, docbar, topnav, view, quotaEl, backEl };
   onQuota(renderQuota);
-  onAccount(() => renderQuota(currentQuota()));
+  onAccount(a => { renderQuota(currentQuota()); import('./views/zahlen.js').then(m => { const z = topnav.querySelector('[data-tn="zahlen"]'); if (z) z.hidden = !m.isAdmin(a); }); });
   refreshAccount();
   mobileTip();
   import('./promo.js').then(m => m.initPromo()).catch(() => {});
@@ -190,7 +191,7 @@ function renderList() {
   if (!shell) return;
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
-  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt') };
+  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') };
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
   $$('[data-nav="foto"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer/buchung')));
@@ -223,7 +224,7 @@ export async function mountApp(parts) {
   const OLD = { faecher: 'faecher', stats: 'fortschritt', favs: 'gemerkt', plan: 'stundenplan' };
   if (a === 'me' && b && OLD[b]) { location.replace('#/app/' + OLD[b]); return; }
   // Aus „Lernen“ gekommen? Dann gibt’s oben „← Lernen“ – bis man woanders hin wechselt
-  if (!a || ['tutor', 'faecher', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
+  if (!a || ['tutor', 'faecher', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen', 'zahlen'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
   const back = backTarget(), fromLearn = !!back;
   shell.backEl.hidden = !back;
   if (back) { shell.backEl.href = back.href; shell.backEl.title = L('Zurück zu ', 'Back to ') + back.label; shell.backEl.lastChild.textContent = back.label; }
@@ -236,6 +237,7 @@ export async function mountApp(parts) {
   });
   if (a === 'rechner') return page('rechner:' + (b || ''), L('Rechner', 'Calculators'), async root => { const { render } = await import('./views/rechner.js'); return render(root, { arg: b || '', onAsk: t => viaMax(m => m.ask(t)).then(ok => { if (!ok) askTutorAbout(t, { confirm: false }); }) }); });
   if (a === 'challenge') return page('challenge', L('Wochen-Challenge', 'Weekly challenge'), async root => { const { renderChallenge } = await import('./challenge.js'); renderChallenge(root, { onLogin: () => openLogin({ title: L('Anmelden für die Challenge', 'Sign in for the challenge') }) }); });
+  if (a === 'zahlen') return page('zahlen', L('Zahlen', 'Numbers'), async root => { const { render } = await import('./views/zahlen.js'); return render(root); });
   if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
   if (a === 'skripte') { location.replace('#/app/bibliothek/unterlagen'); return; }
   if (a === 'bibliothek') return page('bibliothek', L('Bibliothek', 'Library'), async root => { const { render } = await import('./views/bibliothek.js'); return render(root, { tab: b || '' }); });
