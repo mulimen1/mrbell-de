@@ -438,13 +438,13 @@ button { font: inherit; color: inherit; }
   function load(quiet) {
     if (busy) return; busy = true;
     var ses = session();
-    if (!ses) { busy = false; return gate('Kurz anmelden', 'Melde dich auf bwlmax.de mit deinem Konto an – danach siehst du hier alles, ohne extra Passwort.', '<a class="btn" href="/#/app">Bei BWL Max anmelden</a>'); }
+    if (!ses) { busy = false; return gate('Kurz anmelden', 'Melde dich auf bwlmax.de mit deinem Konto an – danach siehst du hier alles, ohne extra Passwort.', '<a class="btn" href="/#/anmelden" onclick="try{sessionStorage.setItem(\'tutor.after\',\'/zahlen\')}catch(e){}">Bei BWL Max anmelden</a>'); }
     if (!quiet && !data) skeleton();
     fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ session: ses, zeit: Z }), cache: 'no-store' })
       .then(function (r) { return r.json().catch(function () { return { ok: false, status: r.status }; }).then(function (j) { j.status = r.status; return j; }); })
       .then(function (j) {
         busy = false;
-        if (j.status === 401) return gate('Kurz anmelden', 'Deine Anmeldung bei BWL Max ist abgelaufen. Einmal neu anmelden, dann geht’s hier direkt weiter.', '<a class="btn" href="/#/app">Bei BWL Max anmelden</a>');
+        if (j.status === 401) return gate('Kurz anmelden', 'Melde dich bei BWL Max mit deinem Konto an (' + esc('bendeschler0@gmail.com') + ') – danach landest du automatisch wieder hier.', '<a class="btn" href="/#/anmelden" onclick="try{sessionStorage.setItem(\'tutor.after\',\'/zahlen\')}catch(e){}">Bei BWL Max anmelden</a>');
         if (j.status === 403) return gate('Kein Zugriff', 'Das Konto ' + esc(j.email || '') + ' darf diese Zahlen nicht sehen.', '<a class="btn ghost" href="/">Zu BWL Max</a>');
         if (j.status === 404) return gate('Fast fertig', 'Die Datenleitung vom Server wird gerade eingerichtet. Sobald sie steht, erscheinen hier deine Zahlen.', '<button class="btn ghost" onclick="location.reload()">Nochmal versuchen</button>');
         if (!j.ok || !j.basis) { if (data) return; return gate('Server nicht erreichbar', 'Gerade kommen keine Daten durch. Ich versuch es gleich wieder automatisch.', '<button class="btn ghost" onclick="location.reload()">Jetzt nochmal</button>'); }

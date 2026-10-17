@@ -108,7 +108,8 @@ function initLanding() {
   if (nl) nl.addEventListener('click', () => getAccount() ? openAccount() : openLogin());
   const nr = $('[data-register]');
   if (nr) nr.addEventListener('click', () => getAccount() ? (location.hash = '#/app/tutor') : openLogin({ mode: 'register' }));
-  onAccount(a => { if (nl) nl.hidden = !!a; if (nr) nr.textContent = a ? L('Mein Bereich', 'My space') : L('Konto erstellen', 'Create account'); });
+  onAccount(a => { if (a) { let z = null; try { z = sessionStorage.getItem('tutor.after'); } catch (e) {} if (z && /^\/[a-z]+$/.test(z)) { sessionStorage.removeItem('tutor.after'); setTimeout(() => { location.href = z; }, 700); } }
+    if (nl) nl.hidden = !!a; if (nr) nr.textContent = a ? L('Mein Bereich', 'My space') : L('Konto erstellen', 'Create account'); });
 
 
   // Begrüßung tippen (Sprechblase)
@@ -199,6 +200,8 @@ async function route() {
   let hash = location.hash || '#/';
   const lm = hash.match(/^#\/login\/([A-Za-z0-9_-]{20,60})\/(\d{6})$/);
   if (lm) { history.replaceState(null, '', location.pathname + '#/app'); hash = '#/app'; verifyLink(lm[1], lm[2]); }
+  // Direkt zur Anmeldung (z. B. von bwlmax.de/zahlen) – danach geht’s dorthin zurück
+  if (hash === '#/anmelden') { history.replaceState(null, '', location.pathname + '#/'); hash = '#/'; if (getAccount()) { const z = sessionStorage.getItem('tutor.after'); if (z) { sessionStorage.removeItem('tutor.after'); location.href = z; return; } } else setTimeout(() => openLogin(), 350); }
   // Angemeldet: keine Startseite, direkt in den eigenen Bereich
   if (getAccount() && (hash === '#/' || hash === '#' || hash === '#/app' || hash === '#/app/')) { history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor'; }
   const inApp = hash.startsWith('#/app');
