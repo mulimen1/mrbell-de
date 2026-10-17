@@ -235,6 +235,8 @@ route();
 setTimeout(() => {
   if (/^#\/login\//.test(location.hash)) return;
   const a = getAccount(); if (!a) return;
+  // Spitzname nur lokal (von früher)? Einmal ans Konto hängen, damit er überall gilt
+  if (!a.nick && getNick(a)) import('./nick.js').then(m => m.setNick(getNick(a), a)).catch(() => {});
   let asked = false; try { asked = !!localStorage.getItem('tutor.nickAsked'); } catch (e) {}
   if (getNick(a) || asked) greetOnLoad();
   else { try { localStorage.setItem('tutor.nickAsked', '1'); } catch (e) {} askNick(); }

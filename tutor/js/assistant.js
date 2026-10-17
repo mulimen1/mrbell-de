@@ -660,7 +660,10 @@ export function mountAssistant() {
   // Nachdenken: Pünktchen plus echte Gedanken, die wechseln (im Tutor-Raum denkt Max in der Blase über dem Kopf)
   let thkT = 0;
   function capThinking() {
-    if (!curEx) return; curEx.a.hidden = false;
+    if (!curEx) return;
+    // Im Tutor-Raum denkt Max in seiner Gedankenblase – keine zweite, leere „…“-Blase im Verlauf
+    if (STAGE) { curEx.a.hidden = true; clearInterval(thkT); return; }
+    curEx.a.hidden = false;
     const th = h('span', { class: 'ai-thk' });
     capA.replaceChildren(h('span', { class: 'typing' }, h('i'), h('i'), h('i')), ...(STAGE ? [] : [th])); capScroll();
     clearInterval(thkT); if (STAGE) return;
@@ -906,6 +909,7 @@ export function mountAssistant() {
   }
 
   async function answer(raw, my, spoken, ex) {
+    if (ex && ex.a) ex.a.hidden = false;
     const p = parse(raw);
     const txt = p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the board.') : p.cmds.length ? L('Mach ich.', 'On it.') : '…');
     const aEl = ex.aTx;

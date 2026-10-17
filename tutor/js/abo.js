@@ -1,12 +1,31 @@
 // Inner Circle abschließen: eigener Bezahlschritt mit dem Stripe Payment Element.
 // Der Bestellbutton heißt „Jetzt zahlungspflichtig abonnieren“ (§ 312j BGB) – deshalb kein gehostetes Stripe Checkout.
 import { h, ico, toast, ls } from './util.js';
-import { ask, getAccount, setAccount } from './api.js';
+import { getAccount, setAccount, getSession } from './api.js';
 import { L, LOCALE } from './i18n.js';
 
-// Öffentlicher Stripe-Schlüssel (pk_…). Leer = Inner Circle noch nicht buchbar.
-export const STRIPE_PK = window.BM_STRIPE_PK || '';
-export const aboReady = () => !!STRIPE_PK;
+// Öffentlicher Stripe-Schlüssel (pk_…) kommt vom Server, sobald Ben alles eingerichtet hat. Leer = noch nicht buchbar.
+const HUB = 'https://hub.mrbell.de/api/bwlmax/';
+let PK = window.BM_STRIPE_PK || ls.get('tutor.stripePk', '') || '';
+export const aboReady = () => !!PK;
+let pkP = null;
+export function loadPk(force) {
+  if (pkP && !force) return pkP;
+  pkP = fetch(HUB + 'stripe/pk', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: '{}', cache: 'no-store' })
+    .then(r => r.json()).then(j => { if (j && j.ok) { PK = j.pk || ''; ls.set('tutor.stripePk', PK); } return PK; })
+    .catch(() => PK);
+  return pkP;
+}
+// Abo-Vorgänge laufen über den eigenen Server (Stripe-Schlüssel bleiben dort)
+export async function hub(op, extra) {
+  let r;
+  try { r = await fetch(HUB + 'abo', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify(Object.assign({ session: getSession(), op }, extra || {})), cache: 'no-store' }); }
+  catch (e) { throw new Error(L('Keine Verbindung. Prüf dein Internet und versuch es nochmal.', 'No connection. Check your internet and try again.')); }
+  const j = await r.json().catch(() => null);
+  if (!j || !j.ok) throw new Error((j && j.fehler) || L('Das hat gerade nicht geklappt.', 'That didn’t work just now.'));
+  return j;
+}
+export async function cancelAbo() { const r = await hub('cancel'); if (r.account) setAccount(r.account); return r; }
 const legal = n => (/(^|\.)bwlmax\.de$/.test(location.hostname) ? '/' + n : '/tutor/legal/' + n + '.html');
 const fmtDay = t => new Date(t).toLocaleDateString(LOCALE, { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -25,6 +44,7 @@ function loadStripe() {
 const dark = () => (document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches);
 
 export async function openAbo() {
+  await loadPk();
   if (!aboReady()) { toast(L('Der Inner Circle startet in Kürze.', 'The Inner Circle opens soon.')); return; }
   const a = getAccount();
   if (!a) { const m = await import('./account.js'); m.openLogin({ mode: 'register', title: L('Erst ein kostenloses Konto – dann geht’s in den Inner Circle', 'Free account first – then into the Inner Circle') }); return; }
@@ -56,7 +76,9 @@ export async function openAbo() {
 
   let st;
   try {
-    st = await ask('abo', { opts: { op: 'start' } });
+    st = await hub('start');
+    if (st.already) { if (st.account) setAccount(st.account); close(); toast(L('Du bist schon im Inner Circle.', 'You’re already in the Inner Circle.')); return; }
+    if (!st.trialEnd) box.querySelector('.eyebrow').textContent = L('Monatlich kündbar', 'Cancel monthly');
   } catch (e) { err.textContent = e.message || L('Das hat gerade nicht geklappt.', 'That didn’t work just now.'); pe.replaceChildren(); return; }
   const trialEnd = st.trialEnd ? st.trialEnd * 1000 : 0;
   today.textContent = trialEnd ? '0,00 €' : '7,99 €';
@@ -69,7 +91,7 @@ export async function openAbo() {
   let stripe, elements;
   try {
     const Stripe = await loadStripe();
-    stripe = Stripe(STRIPE_PK, { locale: document.documentElement.lang === 'en' ? 'en' : 'de' });
+    stripe = Stripe(PK, { locale: document.documentElement.lang === 'en' ? 'en' : 'de' });
     const d = dark();
     elements = stripe.elements({ clientSecret: st.clientSecret, appearance: { theme: d ? 'night' : 'stripe', variables: { colorPrimary: d ? '#f5f5f5' : '#0a0a0a', colorBackground: d ? '#0b0b0c' : '#ffffff', colorText: d ? '#f5f5f5' : '#0a0a0a', borderRadius: '14px', fontFamily: 'Geist, -apple-system, Segoe UI, Helvetica, Arial, sans-serif', spacingUnit: '4px' } } });
     const el = elements.create('payment', { layout: 'tabs' });
@@ -97,8 +119,15 @@ export async function openAbo() {
 
 // Nach Bezahlung (auch nach 3-D-Secure-Umleitung): Freischaltung beim Server abholen
 export async function checkAbo(sub) {
-  const r = await ask('abo', { opts: { op: 'check', sub: sub || ls.get('tutor.aboSub') } });
-  if (r.account) setAccount(r.account);
+  // Stripe hängt die Karte ein paar Sekunden später ans Abo – kurz nachfassen, bis die Freischaltung da ist
+  let r = null;
+  for (let i = 0; i < 6; i++) {
+    r = await hub('check', { sub: sub || ls.get('tutor.aboSub') });
+    if (r.account && r.account.pro) break;
+    await new Promise(x => setTimeout(x, 1500));
+  }
+  if (r && r.account) setAccount(r.account);
+  if (!(r && r.account && r.account.pro)) throw new Error('pending');
   ls.set('tutor.aboSub', null);
   return r;
 }

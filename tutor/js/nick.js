@@ -2,12 +2,17 @@
 import { h, ls } from './util.js';
 import { face } from './face.js';
 import { L } from './i18n.js';
-import { getAccount } from './api.js';
+import { getAccount, ask } from './api.js';
 
 const KEY = 'tutor.nick';
 const all = () => ls.get(KEY, {}) || {};
-export function getNick(a = getAccount()) { if (!a) return ''; return all()[a.email] || ''; }
-export function setNick(nick, a = getAccount()) { if (!a) return; const m = all(); if (nick) m[a.email] = nick; else delete m[a.email]; ls.set(KEY, m); }
+// Spitzname hängt am Konto (Server) – damit Max ihn auf jedem Gerät und im privaten Fenster kennt.
+// Lokal nur als schneller Zwischenspeicher.
+export function getNick(a = getAccount()) { if (!a) return ''; return all()[a.email] || a.nick || ''; }
+export function setNick(nick, a = getAccount()) {
+  if (!a) return; const m = all(); if (nick) m[a.email] = nick; else delete m[a.email]; ls.set(KEY, m);
+  ask('setnick', { opts: { nick: nick || '' } }).catch(() => {});
+}
 
 // ---------- Prüfung: fiktive/witzige Namen ja – beleidigend, sexuell, rassistisch nein ----------
 const BAD = ['fick', 'fuck', 'fotze', 'votze', 'muschi', 'pussy', 'schwanz', 'penis', 'pimmel', 'dick', 'cock', 'vagina', 'titte', 'titt', 'boob', 'tits', 'sex', 'sexy', 'porn', 'porno', 'nackt', 'nude', 'anal', 'blowjob', 'bj', 'cum', 'sperma', 'wichs', 'wank', 'orgas', 'horny', 'geil', 'milf', 'dildo', 'hure', 'nutte', 'whore', 'slut', 'schlampe', 'bitch', 'hoe',

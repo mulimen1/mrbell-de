@@ -276,10 +276,33 @@ export function refreshAccount() {
   ask('ping').catch(() => {});
 }
 
-// Abo-Zeile im Konto: testen bzw. kündigen (Kündigungsbutton nach § 312k BGB steht zusätzlich auf jeder Seite)
+// Abo-Zeile im Konto: Stand + direkt kündigen (der Kündigungsbutton nach § 312k BGB steht zusätzlich auf jeder Seite)
 function aboRow(a) {
-  const legal = n => (/(^|\.)bwlmax\.de$/.test(location.hostname) ? '/' + n : '/tutor/legal/' + n + '.html');
-  if (a.pro && a.sub) return h('div', { class: 'accrow' }, h('span', {}, L('Abo', 'Subscription')), h('b', {}, a.subStatus === 'trialing' ? L('Testzeitraum', 'Trial') : a.cancelAt ? L(`gekündigt zum ${fmtDate(a.cancelAt)}`, `cancelled for ${fmtDate(a.cancelAt)}`) : L('aktiv · 7,99 € / Monat', 'active · €7.99 / month'), ' ', a.cancelAt ? null : h('a', { class: 'linkbtn', href: legal('kuendigen') }, L('kündigen', 'cancel'))));
+  if (a.pro && a.sub) {
+    const tx = h('span', {}, L('aktiv · 7,99 € / Monat', 'active · €7.99 / month'));
+    let trial = false;
+    const btn = h('button', { class: 'linkbtn', type: 'button', onclick: async () => {
+      const ok = await modal({ title: L('Inner Circle kündigen?', 'Cancel the Inner Circle?'),
+        text: trial ? L('Du bist im Testzeitraum: Die Vorteile enden sofort und es wird nichts abgebucht.', 'You’re in your trial: benefits end right away and nothing is charged.')
+          : L('Dein Inner Circle läuft bis zum Ende des bezahlten Monats weiter. Danach wird nichts mehr abgebucht.', 'Your Inner Circle keeps running until the end of the paid month. Nothing is charged after that.'),
+        actions: [{ label: L('Behalten', 'Keep it'), value: false }, { label: L('Kündigen', 'Cancel'), value: true, primary: true }] });
+      if (!ok) return;
+      try {
+        const m = await import('./abo.js'); const r = await m.cancelAbo();
+        toast(r.sofort ? L('Gekündigt. Es wird nichts abgebucht.', 'Cancelled. Nothing will be charged.') : L(`Gekündigt – läuft noch bis ${fmtDate(r.endet)}.`, `Cancelled – runs until ${fmtDate(r.endet)}.`), 4200);
+        document.querySelector('.modal-bg')?.remove();
+      } catch (e) { toast(e.message, 4200); }
+    } }, L('kündigen', 'cancel'));
+    import('./abo.js').then(m => m.hub('status')).then(r => {
+      const x = r.abo; if (!x) return;
+      trial = x.status === 'trialing';
+      tx.textContent = trial ? L(`Test bis ${fmtDate(x.trialEnd)}`, `Trial until ${fmtDate(x.trialEnd)}`)
+        : x.cancelAt ? L(`gekündigt · läuft bis ${fmtDate(x.cancelAt)}`, `cancelled · runs until ${fmtDate(x.cancelAt)}`)
+        : L(`aktiv · 7,99 € / Monat · nächste Abbuchung ${fmtDate(x.periodEnd)}`, `active · €7.99 / month · next charge ${fmtDate(x.periodEnd)}`);
+      if (x.cancelAt) btn.remove();
+    }).catch(() => {});
+    return h('div', { class: 'accrow' }, h('span', {}, L('Abo', 'Subscription')), h('b', {}, tx, ' ', btn));
+  }
   if (a.pro || !aboReady()) return null;
   return h('div', { class: 'accrow' }, h('span', { class: 'ic-name' }, 'Inner Circle'), h('b', {}, h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); import('./abo.js').then(m => m.openAbo()); } }, L('7 Tage gratis testen', 'Try 7 days free'))));
 }
