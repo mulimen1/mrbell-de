@@ -9,7 +9,7 @@ import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest
 import { richText, cardBack } from '../sanitize.js';
 import { L } from '../i18n.js';
 import { review } from '../fsrs.js';
-import { autoOpts } from '../create.js';
+import { autoOpts, personalise } from '../create.js';
 import { dlBtn, optsDeck } from '../export.js';
 import { savedToast } from '../lib.js';
 
@@ -47,7 +47,7 @@ function overview(wrap, ctx) {
     h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L('Karteikarten', 'Flashcards')), h('h2', {}, total ? L(`${due.length} fällig`, `${due.length} due`) : L('Karteikarten', 'Flashcards')), h('p', {}, total ? L(`${total} Karten in ${doc.decks.length} Stapel(n). Wiederholen kostet keine Einheiten.`, `${total} cards in ${doc.decks.length} deck(s). Reviewing costs no credits.`) : L('Aus deinem Skript – mit Wiederholung genau dann, wenn du’s fast vergisst.', 'From your slides – reviewed right when you’re about to forget them.'))),
       h('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap' } },
         due.length ? h('button', { class: 'btn primary', onclick: () => study(wrap, ctx, due, L('Fällige Karten', 'Due cards')) }, h('span', { html: ico('play') }), L(`${due.length} wiederholen`, `Review ${due.length}`)) : null,
-        costBtn(L('Neue Karten erstellen', 'Create new cards'), 'cards', () => generate(wrap, ctx, null), due.length ? 'btn' : 'btn primary'),
+        costBtn(L('Neue Karten erstellen', 'Create new cards'), 'cards', async () => { const o = await personalise('karten', doc); if (o) generate(wrap, ctx, o.focus >= 0 && doc.path?.chapters[o.focus] ? o.focus : null, o); }, due.length ? 'btn' : 'btn primary'),
         total ? dlBtn(() => optsDeck(doc.decks, doc), { cls: 'btn' }) : null)),
     total ? null : h('div', { class: 'empty', style: { paddingTop: '30px' } }, f, h('p', {}, L('Noch keine Karten. Ich erstelle dir 16 Karten aus dem ganzen Skript – oder wähle im Lernpfad ein Kapitel.', 'No cards yet. I’ll create 16 cards from the whole script – or pick a chapter in the study path.'))),
     doc.decks.length ? h('div', { class: 'list' }, [...doc.decks].reverse().map(d => {

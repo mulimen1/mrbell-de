@@ -4021,3 +4021,16 @@ html.bv-open .asst { visibility: hidden; }
 .tt-mi { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 11px; background: var(--panel2); flex: none; } .tt-mi .ico { width: 18px; height: 18px; }
 .tt-mt { flex: 1; min-width: 180px; display: grid; gap: 2px; } .tt-mt b { font-size: 14.5px; } .tt-mt small { color: var(--mute); font-size: 12.5px; }
 @media (max-width: 760px) { .tt-hero { padding: 18px 16px; border-radius: 20px; } .tt-face { width: 56px; height: 56px; } .tt-top h3 { font-size: 18px; } .tt-top { align-items: flex-start; } }
+/* Stoff wählen: Skript · Thema · eigene Datei (Personalisieren, Podcast, Quiz, Klausurplan) */
+.sp { display: grid; gap: 8px; min-width: 0; }
+.sp-seg { justify-self: start; }
+.sp-box .field { width: 100%; }
+.sp-drop { display: grid; justify-items: center; gap: 3px; padding: 16px 12px; border: 1.5px dashed var(--line2); border-radius: 14px; cursor: pointer; text-align: center; transition: border-color .15s, background .15s; }
+.sp-drop:hover, .sp-drop.on { border-color: var(--ink); background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.sp-drop.has { border-style: solid; border-color: var(--ink); }
+.sp-drop .ico { width: 20px; height: 20px; } .sp-drop b { font-size: 14px; } .sp-fn { color: var(--mute); font-size: 12px; word-break: break-word; }
+.sp-hint[hidden] { display: none; }
+.sp-err { color: #e5372b; font-size: 13px; min-height: 0; } .sp-err:empty { display: none; }
+.sp-row { display: grid; gap: 6px; margin-bottom: 14px; }
+.setup .sp-row { margin-bottom: 16px; }
+.pl-src { margin: 4px 0 16px; }

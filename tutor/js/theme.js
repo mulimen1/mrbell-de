@@ -19,7 +19,7 @@ export function applyThemeButtons() {
       } else {
         H.classList.add('theme-fade'); flip(); setTimeout(() => H.classList.remove('theme-fade'), 900);
       }
-      // Jeder Besuch startet dunkel; die Wahl gilt nur für diesen Besuch.
+      // Jeder Besuch startet hell; die Wahl gilt nur für diesen Besuch (auch nach dem Sprachwechsel).
       try { sessionStorage.setItem('tutor.theme', next); } catch (e) {}
     };
   });

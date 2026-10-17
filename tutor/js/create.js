@@ -79,8 +79,12 @@ export async function personalise(tab, doc) {
     const sel = h('select', { class: 'field ik-sel', onchange: e => { st.focus = +e.target.value; } },
       h('option', { value: -1 }, L('Ganzes Skript', 'Whole script')),
       chapters.map((c, i) => h('option', { value: i }, `${i + 1}. ${c.title}`)));
-    return row(L('Umfang', 'Scope'), sel);
+    scopeRow = row(L('Umfang', 'Scope'), sel);
+    return scopeRow;
   };
+  let scopeRow = null;
+  // Stoff frei wählen: anderes Skript, ein Thema oder eine eigene Datei – Umfang gilt nur fürs offene Skript
+  const pick = srcPicker(doc, { onChange: () => { if (scopeRow) scopeRow.hidden = !pick.here(); } });
 
   let body;
   if (tab === 'karten') {
@@ -111,13 +115,15 @@ export async function personalise(tab, doc) {
   const [eyebrow, title] = TITLE[tab];
   const r = await modal({
     cls: 'ik-modal ik-pers', eyebrow: L('Kurz personalisieren · ', 'Quick setup · ') + eyebrow, title,
-    body: h('div', { class: 'ik-place' }, body.filter(Boolean), h('p', { class: 'ik-for' }, h('span', { html: ico('file') }), doc.name)),
+    body: h('div', { class: 'ik-place' }, row(L('Stoff', 'Material'), pick.el), body.filter(Boolean)),
     actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: [L('Erstellen', 'Create'), cost ? h('span', { class: 'k', title: L('KI-Einheiten', 'AI credits') }, cost) : null], value: 'ok', primary: true }],
+    onAction: v => { if (v === 'ok' && pick.check()) return false; }
   });
   if (r !== 'ok') return null;
   const keep = Object.assign({}, st); delete keep.focus;
   ls.set('tutor.pers.' + tab, keep);
   if (tab === 'podcast') ls.set('tutor.podVoice', st.voice);
+  if (!pick.here()) { st.focus = -1; goSource(tab, pick.get(), st); return null; }
   return st;
 }
 

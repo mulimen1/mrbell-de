@@ -7,7 +7,7 @@ import { forWhole, forChapter } from '../retrieve.js';
 import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { SPICE, getSpice } from '../max.js';
 import { getOutLang, setOutLang, L } from '../i18n.js';
-import { autoOpts } from '../create.js';
+import { autoOpts, srcPicker, goSource } from '../create.js';
 import { dlBtn, optsPodcast } from '../export.js';
 import { savedToast } from '../lib.js';
 
@@ -73,6 +73,10 @@ function intro(wrap, ctx) {
   const lisa = h('span', { class: 'chip vchip on fixed' }, 'Lisa', previewBtn('lisa', () => plang));
   const sel = h('select', { class: 'field' }, h('option', { value: -1 }, L('Ganzes Skript', 'Whole script')), (doc.path?.chapters || []).map((c, i) => h('option', { value: i }, `${i + 1}. ${c.title}`)));
   sel.addEventListener('change', () => focus = +sel.value);
+  // Stoff frei wählen: dieses oder ein anderes Skript, ein Thema oder eine eigene Datei
+  const pick = srcPicker(doc, { onChange: () => { scopeBox.hidden = !pick.here(); } });
+  const scopeBox = h('div', {}, h('label', { class: 'l' }, L('Umfang', 'Scope')), sel);
+  const create = () => { if (pick.here()) return generate(wrap, ctx, len, focus, tone, plang, mvoice); if (pick.check()) return; goSource('podcast', pick.get(), { len, focus: -1, tone, lang: plang, voice: mvoice }); };
   const lens = [['kurz', L('Kurz · ~5 Min.', 'Short · ~5 min')], ['lang', L('Lang · ~10 Min.', 'Long · ~10 min')]].map(([k, l]) => { const c = h('button', { class: 'chip' + (k === len ? ' on' : '') }, l); c.addEventListener('click', () => { len = k; lens.forEach(x => x.classList.toggle('on', x === c)); }); return c; });
   wrap.replaceChildren(
     h('div', { class: 'pod' },
@@ -81,13 +85,14 @@ function intro(wrap, ctx) {
         h('div', { class: 'eyebrow' }, 'Podcast'), h('h2', { style: { fontSize: '30px', letterSpacing: '-.03em', margin: '6px 0 8px' } }, L('Dein Skript zum Anhören', 'Your slides as audio')),
         h('p', { style: { color: 'var(--mute)', marginTop: 0 } }, L('Lisa erklärt, Max fragt nach – mit echten Stimmen, Beispielen und den typischen Fehlern. Perfekt für Bahn, Gym oder Spaziergang.', 'Lisa explains, Max asks follow-ups – with real voices, examples and the classic mistakes. Perfect for the train, the gym or a walk.')),
         h('div', { class: 'setup', style: { marginTop: '18px' } },
-          h('div', { class: 'grid' }, h('div', {}, h('label', { class: 'l' }, L('Thema', 'Topic')), sel), h('div', {}, h('label', { class: 'l' }, L('Länge', 'Length')), h('div', { class: 'chips' }, lens))),
+          h('div', { class: 'sp-row' }, h('label', { class: 'l' }, L('Stoff', 'Material')), pick.el),
+          h('div', { class: 'grid' }, scopeBox, h('div', {}, h('label', { class: 'l' }, L('Länge', 'Length')), h('div', { class: 'chips' }, lens))),
           moreOpts(
             h('div', { class: 'grid' },
               h('div', {}, h('label', { class: 'l' }, L('Sprache der Folge', 'Episode language')), h('div', { class: 'chips' }, langs)),
               h('div', {}, h('label', { class: 'l' }, L('Stimmen · ▶ zum Reinhören', 'Voices · ▶ to preview')), h('div', { class: 'chips' }, mvs, lisa))),
             h('div', { style: { marginTop: '14px' } }, h('label', { class: 'l' }, L('Ton', 'Tone')), h('div', { class: 'chips' }, tones), hint)),
-          h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn(L('Folge erstellen', 'Create episode'), 'podcast', () => generate(wrap, ctx, len, focus, tone, plang, mvoice), 'btn primary lg'))))),
+          h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn(L('Folge erstellen', 'Create episode'), 'podcast', create, 'btn primary lg'))))),
     doc.podcasts.length ? h('div', { style: { marginTop: '26px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Deine Folgen', 'Your episodes')),
       h('div', { class: 'list' }, [...doc.podcasts].reverse().map(p => h('div', { class: 'li', onclick: () => player(wrap, ctx, p) }, h('span', { html: ico('pod') }), starBtn(() => ({ typ: 'podcast', titel: p.title, doc: doc.id, docName: doc.name, ref: p.id || p.title }), { cls: 'sm bare' }), h('div', { class: 'gr' }, h('b', {}, p.title), h('span', {}, L(`${p.lines.length} Abschnitte · ~${minutes(p)} Min.${p.lang === 'en' ? ' · English' : ''}`, `${p.lines.length} segments · ~${minutes(p)} min${p.lang === 'de' ? ' · German' : ''}`))))))) : null);
 }

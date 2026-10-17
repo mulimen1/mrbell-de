@@ -9,6 +9,7 @@ import { loading, apiError, costBtn, freshen } from '../ui.js';
 import { moodLine, getSpice } from '../max.js';
 import { L, EN, LOCALE } from '../i18n.js';
 import * as M from '../me.js';
+import { srcPicker, goSource } from '../create.js';
 
 // ---------- Datum (lokal, nicht UTC) ----------
 const DAY = 864e5;
@@ -429,7 +430,10 @@ function wizard(wrap, ctx) {
   const feas = h('div', { class: 'pl-feas' });
   const update = st => { const f = feasibility(doc, st); feas.dataset.tone = f.tone || 'warn'; feas.replaceChildren(h('b', {}, f.text), f.verdict ? h('span', {}, f.verdict) : null); btn.disabled = !!f.bad; };
   const form = planForm(doc, init, st => update(st));
+  // Stoff frei wählen: anderes Skript sofort öffnen; Thema oder Datei → erst verarbeiten, dann direkt zum Klausurplan
+  const pick = srcPicker(doc, { onChange: v => { if (v.kind === 'doc' && v.id !== doc.id) goSource('plan', v); } });
   const create = () => {
+    if (!pick.here()) { if (!pick.check()) goSource('plan', pick.get()); return; }
     const st = form.st;
     const opts = { exam: st.exam, weekdays: [...st.weekdays].sort(), minutes: st.minutes, goal: st.goal };
     ls.set('tutor.planPrefs', { weekdays: opts.weekdays, minutes: opts.minutes });
@@ -445,6 +449,7 @@ function wizard(wrap, ctx) {
       h('p', {}, L('Drei Angaben – ich mach daraus einen Tag-für-Tag-Plan mit Lektionen, Quizzen, Karteikarten und Probeklausur. Kostenlos.', 'Three answers – I’ll turn them into a day-by-day plan with lessons, quizzes, flashcards and a mock exam. Free.')))),
     h('div', { class: 'pl-wiz' },
       h('div', { class: 'pl-maxrow' }, f, h('div', { class: 'pl-say' }, L(['Sag mir, wann’s ernst wird. Ich plane den Rest.', 'Drei Angaben, dann plane ich. So plant Papa seine Übernahmen.', 'Ich hab schon Yachtausflüge schlechter geplant. Los geht’s.'], ['Tell me when it gets serious. I’ll plan the rest.', 'Three answers and I’ll plan. That’s how Dad plans his takeovers.', 'I’ve planned yacht trips worse than this. Let’s go.'])[getSpice() - 1])),
+      h('div', { class: 'sp-row pl-src' }, h('label', { class: 'l' }, L('Für welchen Stoff?', 'For which material?')), pick.el),
       form.el,
       h('div', { class: 'pl-go' }, feas, btn),
       doc.path ? null : h('p', { class: 'pl-fine' }, L('Dein Skript hat noch keinen Lernpfad. Max teilt es zuerst in Kapitel (2 Einheiten) – der Plan selbst kostet nichts.', 'Your slides don’t have a study path yet. Max splits them into chapters first (2 credits) – the plan itself is free.'))));

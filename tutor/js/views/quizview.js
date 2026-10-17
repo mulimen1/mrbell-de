@@ -11,7 +11,7 @@ import { renderQuestion, normalize, TYPE_LABEL, explainPrompt } from '../quiz.js
 import { feedbackButton } from '../feedback.js';
 import { ls as lsq } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
-import { autoOpts } from '../create.js';
+import { autoOpts, srcPicker, goSource } from '../create.js';
 import { dlBtn, optsQuiz } from '../export.js';
 import { savedToast } from '../lib.js';
 
@@ -57,18 +57,23 @@ function overview(wrap, ctx, pre) {
   const chips = (arr, get, set) => h('div', { class: 'chips' }, arr.map(([v, l]) => { const c = h('button', { class: 'chip' + (get(v) ? ' on' : '') }, l); c.addEventListener('click', () => { set(v); c.parentNode.querySelectorAll('.chip').forEach((x, i) => x.classList.toggle('on', get(arr[i][0]))); }); return c; }));
   const sel = h('select', { class: 'field' }, h('option', { value: -1 }, L('Ganzes Skript', 'Whole script')), (doc.path?.chapters || []).map((c, i) => h('option', { value: i, selected: i === st.focus }, `${i + 1}. ${c.title}`)));
   sel.addEventListener('change', () => st.focus = +sel.value);
+  // Stoff frei wählen: dieses oder ein anderes Skript, ein Thema oder eine eigene Datei
+  const pick = srcPicker(doc, { onChange: () => { scopeBox.hidden = !pick.here(); } });
+  const scopeBox = h('div', {}, h('label', { class: 'l' }, L('Umfang', 'Scope')), sel);
+  const create = () => { if (pick.here()) return generate(wrap, ctx, st); if (pick.check()) return; goSource('quiz', pick.get(), { count: st.count, diff: st.diff, types: [...st.types], focus: -1 }); };
   const past = [...doc.quizzes].reverse();
   wrap.replaceChildren(
     h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, 'Quiz'), h('h2', {}, L('Teste dich – wie in der Klausur', 'Test yourself – just like the exam')), h('p', {}, L('Multiple Choice, Richtig/Falsch, Zuordnen, Reihenfolge, Lückentext und Rechenaufgaben.', 'Multiple choice, true/false, matching, ordering, fill-in-the-blank and calculations.')))),
     h('div', { class: 'setup' },
+      h('div', { class: 'sp-row' }, h('label', { class: 'l' }, L('Stoff', 'Material')), pick.el),
       h('div', { class: 'grid' },
-        h('div', {}, h('label', { class: 'l' }, L('Thema', 'Topic')), sel),
+        scopeBox,
         h('div', {}, h('label', { class: 'l' }, L('Schwierigkeit', 'Difficulty')), chips(DIFF, v => st.diff === v, v => st.diff = v))),
       moreOpts(
         h('div', { class: 'grid' }, h('div', {}, h('label', { class: 'l' }, L('Anzahl', 'Number of questions')), chips([[5, '5'], [8, '8'], [12, '12']], v => st.count === v, v => st.count = v))),
         h('div', { style: { marginTop: '18px' } }, h('label', { class: 'l' }, L('Fragetypen', 'Question types')),
           chips(TYPES.map(t => [t, TYPE_LABEL[t]]), v => st.types.has(v), v => { if (st.types.has(v) && st.types.size > 1) st.types.delete(v); else st.types.add(v); }))),
-      h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn(L('Quiz erstellen', 'Create quiz'), 'quiz', () => generate(wrap, ctx, st), 'btn primary lg'))),
+      h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn(L('Quiz erstellen', 'Create quiz'), 'quiz', create, 'btn primary lg'))),
     h('div', { class: 'hub', style: { marginTop: '16px' } },
       h('button', { class: 'tile half dark', onclick: () => exam(wrap, ctx) }, h('div', { class: 'ti', html: ico('exam') }), h('h3', {}, L('Klausur-Simulator', 'Exam simulator')), h('p', {}, L('Wie in der echten Klausur: Zeitlimit, Punkte je Aufgabe, Notenschlüssel – Auswertung erst am Ende.', 'Like the real exam: time limit, points per task, grading key – results only at the end.')), h('div', { class: 'foot' }, L('3 Einheiten · Dauer wählbar', '3 credits · choose duration'))),
       h('button', { class: 'tile half', disabled: !doc.mistakes.length, style: doc.mistakes.length ? null : { opacity: .55, cursor: 'default' }, onclick: () => doc.mistakes.length && run(wrap, ctx, { id: 'mistakes', title: L('Deine Fehler', 'Your mistakes'), questions: shuffle(doc.mistakes).slice(0, 12), mistakes: true }) },
