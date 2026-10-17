@@ -4,7 +4,7 @@ import { h, ico, toast, modal, ls, sleep, uid } from './util.js';
 import { L, LOCALE } from './i18n.js';
 import { face } from './face.js';
 import { thought, apiError } from './ui.js';
-import { ask, getAccount } from './api.js';
+import { ask, getAccount, currentQuota } from './api.js';
 import { readFile, isImage, imageToJpeg, pdfPages } from './ingest.js';
 import { createDoc, save, S } from './state.js';
 import * as M from './me.js';
@@ -45,7 +45,7 @@ export async function intake(fileList, ui) {
   if (!res) {
     if (err && err.name === 'AbortError') return;
     // Ohne KI: Text-Dateien gehen trotzdem (einordnen per Hand), Fotos und Scans nicht
-    if (P.text) res = localGuess(P, note);
+    if (P.text) { res = localGuess(P, note); if (err && ['cap', 'limit'].includes(err.code)) res.noQuota = true; }
     else { if (err && ['need_account', 'cap', 'limit'].includes(err.code)) { await apiError(err, () => intake(fileList, ui)); return fail(ui, err.message, () => intake(fileList, ui)); } return fail(ui, (err && err.message) || L('Das hat nicht geklappt.', 'That didn’t work.'), () => intake(fileList, ui)); }
   }
   res.note = note;
@@ -296,8 +296,16 @@ async function materialStep(ui, res, P) {
   if (pages.join('').length < 40) return fail(ui, L('Darauf konnte ich keinen Text erkennen. Probier ein schärferes Foto oder eine andere Datei.', 'I couldn’t find any text on it. Try a sharper photo or another file.'));
   if (!pages.some(Boolean)) pages = [''];
   const name = clean(ans.name || res.titel || P.name, 80) || L('Unterlagen', 'Material');
-  const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, ocr ? { ocr: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}) });
+  // Kontingent leer? Speichern geht trotzdem – Max nimmt sich das Skript vor, sobald wieder Antworten da sind
+  const q = currentQuota(), empty = res.noQuota || (q && q.limit && (q.limit - (q.used || 0)) <= 0);
+  const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, ocr ? { ocr: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}, empty ? { waiting: Date.now() } : {}) });
   applyPlace(d, ans);
+  if (empty) {
+    ls.set('tutor.room.focus', [d.id]); ls.set('tutor.attach.room', null);
+    location.hash = '#/app/tutor';
+    setTimeout(() => import('./ic.js').then(m => m.quotaWait(d.name)), 700);
+    return;
+  }
   location.hash = route(d, ans);
 }
 

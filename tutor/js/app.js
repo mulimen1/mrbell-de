@@ -163,8 +163,24 @@ function openDocSwitch(anchor) {
   menu.querySelectorAll('a, label').forEach(a => a.addEventListener('click', () => close()));
 }
 
-// Kein „KI heute x / 40“ mehr in der Seitenleiste – das wirkt billig. Wird’s knapp, zeigt Max es dezent am Eingabefeld.
-function renderQuota() { if (shell?.quotaEl) shell.quotaEl.hidden = true; }
+// Kein Dauer-Zähler „KI heute x / 40“ – das wirkt billig. Knapp: leiser Hinweis am Eingabefeld.
+// Aufgebraucht: unten links eine schwarze Inner-Circle-Karte – nur dann.
+function renderQuota() {
+  if (!shell?.quotaEl) return;
+  const q = currentQuota(), acc = getAccount();
+  const left = q && q.limit ? Math.max(0, q.limit - (q.used || 0)) : null;
+  const show = left === 0 && !(acc && acc.pro);
+  const el = shell.quotaEl;
+  el.hidden = !show;
+  if (!show) { el.replaceChildren(); return; }
+  el.className = 'quota qx';
+  el.replaceChildren(
+    h('div', { class: 'qx-top' }, h('b', { class: 'ic-lt' }, 'Max’s Inner Circle'), h('span', { class: 'qx-dot', 'aria-hidden': 'true' })),
+    h('div', { class: 'qx-h' }, L('Für heute aufgebraucht', 'Used up for today')),
+    h('div', { class: 'qx-s' }, L('Neue Antworten ab 0:00 Uhr. Hochladen und speichern geht immer.', 'New answers from midnight. Uploading and saving always works.')),
+    h('button', { class: 'qx-go', type: 'button', onclick: () => (acc ? import('./ic.js').then(m => m.innerCircle({ reason: L('Für heute sind deine Antworten aufgebraucht.', 'You’ve used up today’s answers.') })) : openLogin({ title: L('Mehr mit kostenlosem Konto', 'More with a free account') })) },
+      h('span', {}, acc ? L('Ohne Limit weiterlernen', 'Keep learning without limits') : L('Kostenloses Konto holen', 'Get a free account')), h('span', { class: 'qx-ar', html: ico('right') })));
+}
 
 // Woher kam man? „Lernen“ oder „Bibliothek“ – dann gibt’s oben einen Weg zurück
 const BACK = { lernen: ['#/app/lernen', L('Lernen', 'Learn')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')] };

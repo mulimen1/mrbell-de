@@ -4,8 +4,8 @@
 import { h, ico, ls, toast } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
 import { face, isAsleep } from '../face.js';
-import { S, mastery, onChange } from '../state.js';
-import { getAccount, onAccount } from '../api.js';
+import { S, mastery, onChange, saveNow } from '../state.js';
+import { getAccount, onAccount, currentQuota } from '../api.js';
 import { getNick, gruss, halloText, nextSpruch } from '../nick.js';
 import { getSpice, thinkLines } from '../max.js';
 import { dueCards } from './cards.js';
@@ -16,6 +16,9 @@ import * as MC from '../maxcfg.js';
 import { recommend, exams, weekMinutes, syncAsk, startChecklist } from './me.js';
 import { fly, setRoomHead } from '../flight.js';
 import { thoughtFor } from '../thoughts.js';
+
+// Skript, das bei leerem Kontingent kam: Begrüßung bleibt für diese Sitzung stehen, auch wenn der Raum neu zeichnet
+let waitGreet = null;
 
 const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const MOB = matchMedia('(max-width: 900px)');
@@ -117,6 +120,20 @@ export function render(root, ctx = {}) {
     const justGreeted = Date.now() - fresh < 20000;
     const lets = ({ locker: L('So. Lass uns direkt loslegen.', 'Right. Let’s get going.'), freundlich: L('Schön, dass du da bist. Lass uns loslegen.', 'Good to have you here. Let’s get started.'), sachlich: L('Los geht’s.', 'Let’s go.'), streng: L('Keine Ausreden. Wir legen los.', 'No excuses. We start now.') })[c.ton] || L('Lass uns loslegen.', 'Let’s get started.');
     const out = [justGreeted ? lets : halloText(nick)];
+    // Skript kam bei leerem Kontingent rein? Dann ist es das Erste, worum Max sich kümmert
+    if (waitGreet && Date.now() - waitGreet.at < 15 * 60e3) { out.push(waitGreet.text); return out.join(' '); }
+    const waitDoc = S.list.filter(d => d.waiting).sort((a, b) => b.waiting - a.waiting)[0];
+    if (waitDoc) {
+      const q = currentQuota(), left = q && q.limit ? q.limit - (q.used || 0) : 1;
+      const nm = waitDoc.name.length > 52 ? waitDoc.name.slice(0, 51) + '…' : waitDoc.name;
+      if (left <= 0) { out.push(L(`„${nm}“ ist sicher abgelegt. Für heute bin ich durch – morgen leg ich direkt damit los.`, `“${nm}” is safely stored. I’m done for today – tomorrow I’ll start right there.`)); return out.join(' '); }
+      const d = S.doc && S.doc.id === waitDoc.id ? S.doc : waitDoc;
+      d.waiting = null; waitDoc.waiting = null; saveNow(d).catch(() => {});
+      ls.set('tutor.room.focus', [d.id]);
+      waitGreet = { at: Date.now(), text: L(`„${nm}“ hat auf uns gewartet – jetzt hab ich wieder Zeit. Womit fangen wir an: erklären, Karteikarten oder Quiz?`, `“${nm}” has been waiting for us – now I’ve got time again. Where do we start: explain it, flashcards or a quiz?`) };
+      out.push(waitGreet.text);
+      return out.join(' ');
+    }
     // Lage in einem Satz – frisch hochgeladenes Skript zuerst: Max kennt es schon
     const ex = nextExam(), due = S.list.reduce((x, d) => x + dueCards(d).length, 0);
     const fresh1 = S.list.filter(d => !d.sample && Date.now() - (d.created || 0) < 3 * 3600e3).sort((a, b) => b.created - a.created)[0];
