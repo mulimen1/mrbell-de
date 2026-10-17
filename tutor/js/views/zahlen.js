@@ -2,7 +2,8 @@
 // Eine Quelle: das Dashboard aus /tutor/zahlen.html wird im Shadow DOM eingebettet – gleiche Anmeldung wie die App,
 // kein zweites Login, kein eigener Speicher (das war das Problem der separaten Handy-Web-App).
 import { h, ico, modal, toast } from '../util.js';
-import { getSession } from '../api.js';
+import { getSession, ask } from '../api.js';
+import { ls } from '../util.js';
 import { L } from '../i18n.js';
 
 export const ADMIN = ['bendeschler0@gmail.com'];
@@ -84,9 +85,33 @@ async function keys(paint) {
   return r;
 }
 
+// ---------- Feedback – Ben liest jedes einzelne ----------
+const KIND = { fehlt: L('Fehlt', 'Missing'), nervt: L('Nervt', 'Annoying'), idee: L('Idee', 'Idea'), lob: L('Lob', 'Praise'), bewertung: L('Bewertung', 'Rating') };
+function fbCard() {
+  const card = h('section', { class: 'zl-fb', hidden: true });
+  let all = [], open = false;
+  const seen = +ls.get('zahlen.fbSeen', 0) || 0;
+  const paint = () => {
+    const neu = all.filter(x => Date.parse(x.at) > seen).length;
+    const list = open ? all : all.slice(0, 4);
+    card.hidden = false;
+    card.replaceChildren(
+      h('div', { class: 'zf-h' }, h('b', {}, 'Feedback'), h('small', {}, all.length ? L(`${all.length} insgesamt`, `${all.length} total`) + (neu ? L(` · ${neu} neu`, ` · ${neu} new`) : '') : L('Noch keins – kommt, sobald die ersten Nutzer schreiben.', 'None yet – it’ll come once the first users write.'))),
+      all.length ? h('div', { class: 'zf-list' }, list.map(x => h('div', { class: 'zf-it' + (Date.parse(x.at) > seen ? ' neu' : '') },
+        h('div', { class: 'zf-top' }, h('span', { class: 'zf-k' }, KIND[x.kind || 'bewertung'] || x.kind), x.stars ? h('span', { class: 'zf-s' }, '★'.repeat(x.stars)) : null,
+          h('span', { class: 'zf-d' }, new Date(x.at).toLocaleString('de-DE', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }))),
+        x.text ? h('p', {}, x.text) : null,
+        x.name || x.info ? h('small', {}, [x.name, x.info].filter(Boolean).join(' · ') + (x.consent ? L(' · darf auf die Website', ' · may go on the website') : '')) : null))) : null,
+      all.length > 4 ? h('button', { class: 'btn sm ghost zf-more', type: 'button', onclick: () => { open = !open; paint(); } }, open ? L('Weniger', 'Less') : L(`Alle ${all.length} anzeigen`, `Show all ${all.length}`)) : null);
+    ls.set('zahlen.fbSeen', Date.now());
+  };
+  ask('feedbacklist', { opts: {} }).then(r => { all = (r.data || []).slice().sort((a, b) => Date.parse(b.at) - Date.parse(a.at)); paint(); }).catch(() => {});
+  return card;
+}
+
 export async function render(root) {
   const host = h('div', { class: 'zl-host' });
-  const wrap = h('div', { class: 'view-in zl' }, payCard(), host);
+  const wrap = h('div', { class: 'view-in zl' }, payCard(), host, fbCard());
   root.appendChild(wrap);
   let s;
   try { s = await source(); }

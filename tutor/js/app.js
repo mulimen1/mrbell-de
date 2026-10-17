@@ -88,7 +88,9 @@ function buildShell() {
         tool('a', { href: '#/app/challenge', 'data-nav': 'challenge' }, 'trophy', L('Wochen-Challenge', 'Weekly challenge'), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
         tool('button', { class: 'doc-item soon', onclick: () => toast(L('Kommt bald: Jeden Tag ein BWL-Duell, 1 gegen 1. Einmal am Tag kostenlos, mehr im Inner Circle.', 'Coming soon: a daily 1-on-1 business duel. Once a day for free, more in the Inner Circle.'), 4200) }, 'spark', L('1-gegen-1-Duell', '1-on-1 duel'), h('span', { class: 'soonb' }, L('Bald', 'Soon'))))),
     // Unten: klein und ruhig – Sprache, Konto, Menü; Kündigen bleibt sichtbar (§ 312k BGB)
-    h('div', { class: 'bottom' }, quotaEl, outLangSwitch(),
+    h('div', { class: 'bottom' }, quotaEl,
+      h('button', { class: 'side-fb', type: 'button', onclick: () => openFeedback() }, h('span', { class: 'side-fb-i', html: ico('chat') }), h('span', {}, h('b', {}, L('Feedback geben', 'Give feedback')), h('small', {}, L('Was fehlt? Was nervt? Wir lesen alles.', 'Missing something? Annoyed? We read it all.')))),
+      outLangSwitch(),
       h('div', { class: 'side-acc' }, accountChip(), sideMenuBtn()),
       h('div', { class: 'side-fine' }, h('button', { type: 'button', onclick: e => openSideMenu(e.currentTarget, 'recht') }, L('Rechtliches', 'Legal')), h('span', {}, '·'), h('a', { href: legalHref('kuendigen') }, L('Verträge kündigen', 'Cancel contracts')))));
   // Oben: die festen Bereiche – immer da, auch mit eingeklappter Seitenleiste
@@ -109,7 +111,9 @@ function buildShell() {
   const sideBtn = h('button', { class: 'iconbtn side-tog', type: 'button', 'aria-label': L('Seitenleiste', 'Sidebar'), title: L('Tools ein-/ausblenden (Strg/⌘ + \\)', 'Show/hide tools (Ctrl/⌘ + \\)'), html: ico('sidebar'), onclick: () => { if (isMob()) app.classList.toggle('sideopen'); else setSide(app.classList.contains('side-closed')); } });
   const view = h('main', { class: 'view', id: 'view' });
   const palBtn = h('button', { class: 'pal-btn', type: 'button', 'aria-label': L('Suchen', 'Search'), title: L('Suchen und Befehle (⌘K)', 'Search and commands (⌘K)'), onclick: () => import('./palette.js').then(m => m.openPalette()) }, h('span', { html: ico('search') }), h('span', { class: 'pal-btx' }, L('Suchen', 'Search')), h('kbd', {}, /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Strg K'));
-  const topset = h('div', { class: 'topset' }, langSwitch(), h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }));
+  // Feedback ist immer einen Klick entfernt (oben rechts, in der Seitenleiste und im Menü)
+  const fbTop = h('button', { class: 'fb-top', type: 'button', title: L('Was fehlt, was nervt, deine Idee – wir lesen alles', 'What’s missing, what’s annoying, your idea – we read everything'), onclick: () => openFeedback() }, h('span', { html: ico('chat') }), h('span', {}, 'Feedback'));
+  const topset = h('div', { class: 'topset' }, fbTop, langSwitch(), h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }));
   const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn, topset), docbar, view);
   const bbar = bottomBar(() => app);
   const app = h('div', { class: 'app' + (ls.get('tutor.sideClosed', false) ? ' side-closed' : '') }, side, main, bbar);

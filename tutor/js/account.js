@@ -164,7 +164,11 @@ export function openLogin({ title, mode = 'login' } = {}) {
         if (nf) { const v = nf.value(); if (!v.ok) return; if (v.nick) setNick(v.nick, r.account); }
         goal && goal.save(); close(true);
         if (!location.hash || location.hash === '#/' || location.hash === '#' || location.hash === '#/app/me') location.hash = '#/app/tutor';
-        const n = getNick(r.account); if (n) { try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {} setTimeout(() => greetSplash(n), 380); }
+        const n = getNick(r.account);
+        try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {}
+        // Neues Konto: einmal das große Willkommen (mit echter Nutzernummer) – sonst die normale Begrüßung
+        if (r.fresh) setTimeout(() => import('./welcome.js').then(m => m.welcomeFirst({ nick: n, nr: +r.nr || 0 })), 380);
+        else if (n) setTimeout(() => greetSplash(n), 380);
       };
       // Bekannt + Spitzname vorhanden: direkt rein, ohne Zwischenschritt
       if (!r.fresh && had && m !== 'reset') { finish(); return; }
