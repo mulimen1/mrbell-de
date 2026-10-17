@@ -91,6 +91,11 @@ export async function accountGate({ title, text, retry } = {}) {
 export async function apiError(e, retry) {
   if (e && e.name === 'AbortError') return;
   if (e && e.code === 'need_account') return accountGate({ text: e.message, retry });
+  // Kontingent aufgebraucht: mit Konto (ohne Abo) kommt das Inner-Circle-Blatt mit allen Vorteilen
+  if (e && (e.code === 'cap' || e.code === 'limit')) {
+    const acc = getAccount();
+    if (acc && !acc.pro) { const { innerCircle } = await import('./ic.js'); await innerCircle({ reason: e.code === 'cap' ? (e.message || '') : L('Für heute sind deine Antworten aufgebraucht.', 'You’ve used up today’s answers.') }); return; }
+  }
   if (e && e.code === 'cap') {
     const acc = getAccount();
     const upsell = acc && !acc.pro && (await import('./abo.js')).aboReady();

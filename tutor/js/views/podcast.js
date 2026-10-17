@@ -7,6 +7,7 @@ import { forWhole, forChapter } from '../retrieve.js';
 import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { SPICE, getSpice } from '../max.js';
 import { getOutLang, setOutLang, L } from '../i18n.js';
+import { takeCreate } from '../create.js';
 
 const synth = window.speechSynthesis;
 function voices() { return synth ? synth.getVoices().filter(v => /^de(-|_|$)/i.test(v.lang)) : []; }
@@ -30,9 +31,14 @@ export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in' });
   root.appendChild(wrap);
   if (synth && !synth.getVoices().length) await new Promise(r => { const t = setTimeout(r, 1200); synth.addEventListener('voiceschanged', () => { clearTimeout(t); r(); }, { once: true }); });
-  const pod = ctx.doc.podcasts[ctx.doc.podcasts.length - 1];
+  const want = ctx.arg && ctx.arg.startsWith('p-') ? ctx.doc.podcasts.find(p => p.id === ctx.arg.slice(2)) : null;
+  if (want) history.replaceState(null, '', location.hash.replace(/\/p-[^/]*$/, ''));
+  const pod = want || ctx.doc.podcasts[ctx.doc.podcasts.length - 1];
   const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
-  if (auto) generate(wrap, ctx, 'kurz', -1, getSpice(), getOutLang(), ls.get('tutor.podVoice', 'max')); else if (pod) player(wrap, ctx, pod); else intro(wrap, ctx);
+  if (auto) {
+    const o = takeCreate('podcast', ctx.doc.id) || {};
+    generate(wrap, ctx, o.len === 'lang' ? 'lang' : 'kurz', o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : -1, [1, 2, 3].includes(o.tone) ? o.tone : getSpice(), o.lang === 'en' || o.lang === 'de' ? o.lang : getOutLang(), o.voice || ls.get('tutor.podVoice', 'max'));
+  } else if (pod) player(wrap, ctx, pod); else intro(wrap, ctx);
   return () => { try { synth && synth.cancel(); } catch (e) {} };
 }
 
@@ -94,7 +100,7 @@ async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), m
     const r = await ask('podcast', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, lang: plang, opts: { length: len, focus: ch ? ch.title : '', spice: tone } }, { signal: ld.signal });
     const lines = (r.data?.lines || []).filter(l => l && l.t).map(l => ({ s: /max/i.test(l.s) ? 'Max' : 'Lisa', t: String(l.t) }));
     if (lines.length < 4) throw new Error(L('Die Folge ist nicht vollständig angekommen. Versuch es nochmal.', 'The episode didn’t arrive completely. Please try again.'));
-    const p = { id: uid(), title: r.data.title || L('Folge', 'Episode'), lines, created: Date.now(), lang: plang, voice: mvoice, real: true, audio: [] };
+    const p = { id: uid(), title: r.data.title || L('Folge', 'Episode'), lines, created: Date.now(), lang: plang, voice: mvoice, len, tone, focus: ch ? ch.title : null, real: true, audio: [] };
     doc.podcasts.push(p); save(doc);
     ld.stop(); player(wrap, ctx, p); freshen(wrap);
   } catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, len, focus, tone, plang, mvoice)); }

@@ -11,6 +11,7 @@ import { renderQuestion, normalize, TYPE_LABEL, explainPrompt } from '../quiz.js
 import { feedbackButton } from '../feedback.js';
 import { ls as lsq } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
+import { takeCreate } from '../create.js';
 
 const TYPES = ['mc', 'tf', 'match', 'order', 'cloze', 'num'];
 const DIFF = [['leicht', L('Leicht', 'Easy')], ['mittel', L('Mittel', 'Medium')], ['schwer', L('Schwer', 'Hard')], ['klausur', L('Klausur', 'Exam level')]];
@@ -35,8 +36,13 @@ export async function render(root, ctx) {
   const pre = ctx.arg && ctx.arg.startsWith('k') ? parseInt(ctx.arg.slice(1)) : null;
   const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
   const go = ctx.arg === 'exam' || ctx.arg === 'fehler'; if (go) history.replaceState(null, '', location.hash.replace(/\/(exam|fehler)$/, ''));
-  if (auto) generate(wrap, ctx, { count: 8, diff: 'mittel', types: new Set(TYPES), focus: -1 });
+  if (auto) {
+    const o = takeCreate('quiz', ctx.doc.id) || {};
+    const types = (o.types || TYPES).filter(t => TYPES.includes(t));
+    generate(wrap, ctx, { count: o.count || 8, diff: o.diff || 'mittel', types: new Set(types.length ? types : TYPES), focus: o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : -1 });
+  }
   else if (ctx.arg === 'exam') { overview(wrap, ctx, pre); exam(wrap, ctx); }
+  else if (ctx.arg && ctx.arg.startsWith('q-') && ctx.doc.quizzes.some(q => q.id === ctx.arg.slice(2))) { history.replaceState(null, '', location.hash.replace(/\/q-[^/]*$/, '')); run(wrap, ctx, ctx.doc.quizzes.find(q => q.id === ctx.arg.slice(2))); }
   else if (ctx.arg === 'fehler' && ctx.doc.mistakes.length) run(wrap, ctx, { id: 'mistakes', title: L('Deine Fehler', 'Your mistakes'), questions: shuffle(ctx.doc.mistakes).slice(0, 12), mistakes: true });
   else overview(wrap, ctx, pre);
   return () => { wrap._timer && clearInterval(wrap._timer); };

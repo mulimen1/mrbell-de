@@ -4,7 +4,7 @@
 import { starBtn as favStar, textKey as favKey, plain as plainT } from './me.js';
 import { h, ico, ls, sleep, toast } from './util.js';
 import { face } from './face.js';
-import { ask } from './api.js';
+import { ask, onQuota, currentQuota, getAccount } from './api.js';
 import { S, save } from './state.js';
 import { forChat } from './retrieve.js';
 import { apiError, typeOut as typeIt, typePlaceholder, syncOut, aiTag } from './ui.js';
@@ -86,7 +86,7 @@ const b64 = blob => new Promise((res, rej) => { const r = new FileReader(); r.on
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
 const TOURQ = /^\s*(führ|fuehr) mich (durch|rum|herum)|^\s*walk me through/i;
-const PAGES = { faecher: L('Fächer & Noten', 'Subjects & grades'), skripte: L('Skripte', 'Slides'), gemerkt: L('Gemerkt', 'Saved'), fortschritt: L('Fortschritt', 'Progress'), stundenplan: L('Stundenplan', 'Timetable'), rechner: L('Rechner', 'Calculators'), challenge: L('Wochen-Challenge', 'Weekly challenge'), lernen: L('Lernen', 'Learn'), me: L('Mein Bereich', 'My space') };
+const PAGES = { faecher: L('Fächer & Noten', 'Subjects & grades'), skripte: L('Bibliothek', 'Library'), bibliothek: L('Bibliothek', 'Library'), gemerkt: L('Gemerkt', 'Saved'), fortschritt: L('Fortschritt', 'Progress'), stundenplan: L('Stundenplan', 'Timetable'), rechner: L('Rechner', 'Calculators'), challenge: L('Wochen-Challenge', 'Weekly challenge'), lernen: L('Lernen', 'Learn'), me: L('Mein Bereich', 'My space') };
 function route() {
   const p = location.hash.replace(/^#\/?/, '').split('/');
   if (p[0] !== 'app') return { tab: null };
@@ -187,7 +187,7 @@ export function mountAssistant() {
   const closeBtn = B('ai-close', L('Einklappen', 'Collapse'), ico('x'));
   // Dokumente rein: Knopf, Reinziehen oder ⌘V ins Eingabefeld
   const attIn = h('input', { type: 'file', multiple: true, hidden: true, accept: '.pdf,.ppt,.pptx,.doc,.docx,.txt,.md,.rtf,.odt,.odp,image/*', onchange: e => { const fs = [...(e.target.files || [])]; e.target.value = ''; addFiles(fs); } });
-  const attBtn = h('button', { class: 'ai-att', type: 'button', 'aria-label': L('Dokument hinzufügen', 'Add a document'), title: L('Dokument hinzufügen – oder einfach reinziehen bzw. mit ⌘V einfügen', 'Add a document – or just drag it in or paste with ⌘V'), onclick: () => attIn.click() },
+  const attBtn = h('button', { class: 'ai-att', type: 'button', 'aria-label': L('Dokument hinzufügen', 'Add a document'), title: L('Dokument hinzufügen – oder einfach reinziehen bzw. mit ⌘V einfügen', 'Add a document – or just drag it in or paste with ⌘V'), 'aria-haspopup': 'dialog', onclick: e => { e.stopPropagation(); toggleDrop(); } },
     h('span', { html: ico('plus') }), h('span', { class: 'lbl' }, L('Dokument', 'Document')));
   const tourBtn = h('button', { class: 'ai-tourb', type: 'button', title: L('Max zeigt dir mit seinem Cursor, was auf dieser Seite wichtig ist', 'Max shows you with his cursor what matters on this page'), onclick: () => pageTour() },
     h('span', { html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5 18.5 11 12.4 12.4 9.6 18.6z"/></svg>' }), h('span', { class: 'lbl' }, L('Führ mich durch', 'Walk me through')));
@@ -983,7 +983,40 @@ export function mountAssistant() {
   document.addEventListener('dragover', e => { if (STAGE || !open || !hasFiles(e)) return; const on = !!e.target.closest?.('.asst'); root.classList.toggle('dropping', on); if (on) { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; } });
   document.addEventListener('dragleave', e => { if (!e.relatedTarget) root.classList.remove('dropping'); });
   document.addEventListener('drop', e => { root.classList.remove('dropping'); if (STAGE || !open || !hasFiles(e) || !e.target.closest?.('.asst')) return; e.preventDefault(); addFiles([...(e.dataTransfer.files || [])]); });
-  isl.appendChild(h('div', { class: 'ai-chips' }, refChip, attChip));
+  // Kontingent: nur wenn’s knapp wird, ein leiser Hinweis – nie ein Zähler „x / 40“
+  const lowChip = h('button', { class: 'ai-low', type: 'button', hidden: true, onclick: () => (getAccount() ? import('./ic.js').then(m => m.innerCircle({ reason: lowChip.textContent })) : import('./account.js').then(m => m.openLogin({ title: L('Mehr mit kostenlosem Konto', 'More with a free account') }))) });
+  const paintLow = () => {
+    const q = currentQuota(); const acc = getAccount();
+    const left = q && q.limit ? Math.max(0, (q.limit - (q.used || 0))) : null;
+    const show = left != null && left <= 8 && !(acc && acc.pro && left > 0);
+    lowChip.hidden = !show;
+    if (show) lowChip.textContent = left === 0 ? L('Für heute aufgebraucht', 'Used up for today') : left === 1 ? L('Noch 1 Antwort heute', '1 answer left today') : L(`Noch ${left} Antworten heute`, `${left} answers left today`);
+    lowChip.classList.toggle('zero', left === 0);
+    lowChip.disabled = !!(acc && acc.pro);
+  };
+  onQuota(paintLow);
+  isl.appendChild(h('div', { class: 'ai-chips' }, refChip, attChip, lowChip));
+  // „+ Dokument“: Feld zum Reinziehen – oder Datei auswählen, oder ⌘V
+  const MAC = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+  const dropZone = h('div', { class: 'ai-dz' },
+    h('span', { class: 'ai-dzi', html: ico('upload') }),
+    h('b', {}, L('Dokument hierher ziehen', 'Drag your document here')),
+    h('small', {}, L('PDF, PowerPoint, Word oder Foto', 'PDF, PowerPoint, Word or photo')),
+    h('button', { class: 'btn sm primary', type: 'button', onclick: e => { e.stopPropagation(); attIn.click(); } }, L('Datei auswählen', 'Choose a file')),
+    h('small', { class: 'ai-dzk' }, L(`oder kopieren und mit ${MAC ? '⌘' : 'Strg'} + V ins Eingabefeld einfügen`, `or copy it and paste into the input with ${MAC ? '⌘' : 'Ctrl'} + V`)));
+  const dropPop = h('div', { class: 'ai-drop', hidden: true, role: 'dialog', 'aria-label': L('Dokument hinzufügen', 'Add a document') },
+    h('button', { class: 'ai-dropx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: e => { e.stopPropagation(); toggleDrop(false); } }), dropZone);
+  isl.appendChild(dropPop);
+  function toggleDrop(v) {
+    const on = v === undefined ? dropPop.hidden : !!v;
+    dropPop.hidden = !on; attBtn.classList.toggle('on', on); attBtn.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  ['dragenter', 'dragover'].forEach(ev => dropPop.addEventListener(ev, e => { if (!hasFiles(e)) return; e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; dropZone.classList.add('over'); }));
+  dropPop.addEventListener('dragleave', e => { if (!dropPop.contains(e.relatedTarget)) dropZone.classList.remove('over'); });
+  dropPop.addEventListener('drop', e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('over'); const fs = [...(e.dataTransfer.files || [])]; if (fs.length) { toggleDrop(false); addFiles(fs); } });
+  document.addEventListener('pointerdown', e => { if (!dropPop.hidden && !dropPop.contains(e.target) && !attBtn.contains(e.target)) toggleDrop(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !dropPop.hidden) toggleDrop(false); });
+  attIn.addEventListener('change', () => toggleDrop(false));
   function setRef(r) {
     const spot = spotText(r.el, 64) || r.say.slice(0, 64);
     askRef = { i: r.i, n: r.n, say: r.say, spot: spotText(r.el, 160) || r.say };
@@ -1402,6 +1435,8 @@ export function mountAssistant() {
     focusInput: () => { if (state === 'idle') inp.focus({ preventScroll: true }); },
     newTalk: () => newTalk(),
     boardShown: () => boardOpen && !boardMin,
+    // Von außen (Bibliothek): eine gespeicherte Tafel groß zeigen
+    showBoard: b => { if (!b || !b.html) return; let i = boards.findIndex(x => x.title === b.title && x.html === b.html); if (i < 0) { boards.push({ title: b.title, html: b.html }); i = boards.length - 1; } bIdx = i; drawBoard(false); openBoard(); },
     restoreBoard: () => { if (keepBoard && boards.length && !boardOpen) { keepBoard = false; drawBoard(false); openBoard(); } },
   };
   return api;

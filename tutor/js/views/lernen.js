@@ -1,6 +1,6 @@
 // Lernen: alles, womit man bei BWL Max lernen kann, an einem Ort – mit Struktur.
 // 1) Deine Skripte als Karten (Stand auf einen Blick, eins ist ausgewählt)
-// 2) Was du mit DIESEM Skript machen kannst – jedes Tool zeigt, was schon da ist; was fehlt, wird mit einem Klick erstellt
+// 2) Was du mit DIESEM Skript machen kannst – jedes Tool zeigt, was schon da ist; was fehlt, wird nach kurzem Personalisieren erstellt
 // 3) Üben & Prüfen, 4) Mit Max
 import { h, ico, ls, toast } from '../util.js';
 import { L } from '../i18n.js';
@@ -45,8 +45,15 @@ export function render(root) {
     const need = (tab, hasIt) => () => {
       const doc = pickDoc();
       if (!doc) { toast(L('Dafür brauch ich ein Skript – lad eins hoch oder nenn mir ein Thema.', 'I need slides for that – upload some or name a topic.'), 4200); document.getElementById('fileApp')?.click(); return; }
-      // Gibt’s noch nicht? Dann direkt erstellen – kein Zwischenschritt
-      go(`#/app/${doc.id}/${tab}${!hasIt && ['karten', 'quiz', 'podcast', 'zettel', 'pfad'].includes(tab) ? '/auto' : ''}`);
+      if (hasIt) return go(`#/app/${doc.id}/${tab}`);
+      // Gibt’s noch nicht? Kurz personalisieren – erst „Erstellen“ legt los
+      if (['karten', 'quiz', 'podcast', 'zettel'].includes(tab)) {
+        return import('../create.js').then(async m => {
+          const o = await m.personalise(tab, doc); if (!o) return;
+          m.setCreate(tab, doc.id, o); go(`#/app/${doc.id}/${tab}/auto`);
+        });
+      }
+      go(`#/app/${doc.id}/${tab}${tab === 'pfad' ? '/auto' : ''}`);
     };
 
     // ---------- 1) Skripte ----------

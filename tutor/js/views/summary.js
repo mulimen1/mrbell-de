@@ -8,12 +8,13 @@ import { forWhole } from '../retrieve.js';
 import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { sanitize } from '../sanitize.js';
 import { L } from '../i18n.js';
+import { takeCreate, zettelHint } from '../create.js';
 
 export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in' });
   root.appendChild(wrap);
   const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
-  if (auto) generate(wrap, ctx); else if (ctx.doc.summary) show(wrap, ctx); else intro(wrap, ctx);
+  if (auto) generate(wrap, ctx, takeCreate('zettel', ctx.doc.id)); else if (ctx.doc.summary) show(wrap, ctx); else intro(wrap, ctx);
 }
 
 function intro(wrap, ctx) {
@@ -24,17 +25,17 @@ function intro(wrap, ctx) {
   face(f);
 }
 
-async function generate(wrap, ctx) {
-  if (isGuest()) return lockedPreview(wrap, { kind: 'zettel', title: L('Lernzettel & Mindmap – mit kostenlosem Konto', 'Study sheet & mind map – with a free account'), onUnlock: () => generate(wrap, ctx), back: () => intro(wrap, ctx) });
+async function generate(wrap, ctx, o) {
+  if (isGuest()) return lockedPreview(wrap, { kind: 'zettel', title: L('Lernzettel & Mindmap – mit kostenlosem Konto', 'Study sheet & mind map – with a free account'), onUnlock: () => generate(wrap, ctx, o), back: () => intro(wrap, ctx) });
   const { doc } = ctx;
   const ld = loading(wrap, L('Ich schreibe deinen Lernzettel …', 'Writing your study sheet …'), L(['Finde die Kernaussagen', 'Sortiere die Formeln', 'Zeichne die Mindmap', 'Definiere die Begriffe'], ['Finding the key statements', 'Sorting the formulas', 'Drawing the mind map', 'Defining the key terms']), 'summary');
   try {
-    const r = await ask('summary', { material: forWhole(doc), docName: doc.name }, { signal: ld.signal });
+    const r = await ask('summary', { material: zettelHint(o) + forWhole(doc), docName: doc.name, opts: o ? { length: o.len, style: o.art } : undefined }, { signal: ld.signal });
     const d = r.data || {};
     if (!d.html && !d.tldr) throw new Error(L('Der Lernzettel ist leer angekommen. Versuch es nochmal.', 'The study sheet came back empty. Please try again.'));
-    doc.summary = { title: d.title || doc.name, tldr: (d.tldr || []).map(String), html: String(d.html || ''), mindmap: d.mindmap || null, terms: (d.terms || []).filter(t => t && t.t), created: Date.now() };
+    doc.summary = { title: d.title || doc.name, tldr: (d.tldr || []).map(String), html: String(d.html || ''), mindmap: d.mindmap || null, terms: (d.terms || []).filter(t => t && t.t), created: Date.now(), len: o?.len || null };
     save(doc); ld.stop(); show(wrap, ctx); freshen(wrap);
-  } catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx)); }
+  } catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, o)); }
 }
 
 function show(wrap, ctx) {

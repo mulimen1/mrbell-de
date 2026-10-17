@@ -9,6 +9,7 @@ import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest
 import { richText } from '../sanitize.js';
 import { L } from '../i18n.js';
 import { review } from '../fsrs.js';
+import { takeCreate } from '../create.js';
 
 const DAY = 864e5;
 export function dueCards(doc, now = Date.now()) { return doc.decks.flatMap(d => d.cards.map(c => ({ c, d }))).filter(x => (x.c.due || 0) <= now); }
@@ -27,7 +28,7 @@ export async function render(root, ctx) {
   root.appendChild(wrap);
   const chIdx = ctx.arg && ctx.arg.startsWith('k') ? parseInt(ctx.arg.slice(1)) : null;
   const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
-  if (auto) return generate(wrap, ctx, null);
+  if (auto) { const o = takeCreate('karten', ctx.doc.id); return generate(wrap, ctx, o && o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : null, o); }
   if (chIdx != null && ctx.doc.path?.chapters[chIdx]) {
     const exists = ctx.doc.decks.find(d => d.chapter === chIdx);
     if (exists) return study(wrap, ctx, exists.cards.map(c => ({ c, d: exists })), exists.title);
@@ -61,19 +62,22 @@ function overview(wrap, ctx) {
   if (!total) face(f);
 }
 
-async function generate(wrap, ctx, chIdx) {
+const ART = { begriffe: L('Schwerpunkt: Fachbegriffe und Definitionen', 'Focus: key terms and definitions'), formeln: L('Schwerpunkt: Formeln und Rechenwege – Vorderseite fragt nach Formel oder Rechenschritt', 'Focus: formulas and workings – the front asks for a formula or calculation step'), klausur: L('Schwerpunkt: typische Klausurfragen mit knappen Musterantworten', 'Focus: typical exam questions with short model answers') };
+async function generate(wrap, ctx, chIdx, o) {
   const { doc } = ctx;
   const ch = chIdx != null ? doc.path.chapters[chIdx] : null;
+  const count = o?.count || (ch ? 12 : 16);
+  const focus = [ch ? L(`Kapitel „${ch.title}“ (S. ${ch.pages[0]}–${ch.pages[1]})`, `Chapter “${ch.title}” (p. ${ch.pages[0]}–${ch.pages[1]})`) : '', ART[o?.art] || ''].filter(Boolean).join('. ');
   const ld = loading(wrap, L('Ich schreibe deine Karteikarten …', 'Writing your flashcards …'), L(['Suche Begriffe und Formeln', 'Formuliere präzise Fragen', 'Halte die Antworten kurz'], ['Finding key terms and formulas', 'Phrasing precise questions', 'Keeping the answers short']), 'cards');
   try {
-    const r = await ask('cards', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { count: ch ? 12 : 16, focus: ch ? L(`Kapitel „${ch.title}“ (S. ${ch.pages[0]}–${ch.pages[1]})`, `Chapter “${ch.title}” (p. ${ch.pages[0]}–${ch.pages[1]})`) : '' } }, { signal: ld.signal });
+    const r = await ask('cards', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { count, focus } }, { signal: ld.signal });
     const cards = (r.data?.cards || []).filter(c => c && c.front && c.back).map(c => ({ id: uid(), front: String(c.front), back: String(c.back), page: c.page || null, due: 0 }));
     if (!cards.length) throw new Error(L('Es kamen keine Karten zurück. Versuch es nochmal.', 'No cards came back. Please try again.'));
     const deck = { id: uid(), title: ch ? ch.title : (r.data.title || L('Ganzes Skript', 'Whole script')), chapter: chIdx, cards, created: Date.now() };
     doc.decks.push(deck); save(doc);
     ld.stop();
     study(wrap, ctx, cards.map(c => ({ c, d: deck })), deck.title); freshen(wrap);
-  } catch (e) { ld.stop(); overview(wrap, ctx); apiError(e, () => generate(wrap, ctx, chIdx)); }
+  } catch (e) { ld.stop(); overview(wrap, ctx); apiError(e, () => generate(wrap, ctx, chIdx, o)); }
 }
 
 function study(wrap, ctx, items, title) {

@@ -63,7 +63,7 @@ function buildShell() {
     if (!fs.length) return;
     e.preventDefault(); startUpload(fs.map((f, i) => f.name && f.name !== 'image.png' ? f : new File([f], `Screenshot ${new Date().toLocaleDateString(LOCALE)}${fs.length > 1 ? ' ' + (i + 1) : ''}.png`, { type: f.type })));
   });
-  const quotaEl = h('div', { class: 'quota' });
+  const quotaEl = h('div', { class: 'quota', hidden: true });
   const faceEl = h('span', { class: 'mini', style: { width: '28px', height: '28px' } });
   const isMob = () => matchMedia('(max-width: 760px)').matches;
   const tool = (tag, attrs, ic, label, extra) => h(tag, Object.assign({ class: 'doc-item' }, tag === 'button' ? { type: 'button' } : {}, attrs), h('span', { html: ico(ic) }), h('span', { class: 'nm' }, label), extra || null);
@@ -98,12 +98,12 @@ function buildShell() {
     h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor' }, tnFace, h('span', { class: 'tn-l' }, 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
     navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
-    navA('skripte', '#/app/skripte', 'file', L('Skripte', 'Slides')),
+    navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
     navA('gemerkt', '#/app/gemerkt', 'star', L('Gemerkt', 'Saved')),
     navA('fortschritt', '#/app/fortschritt', 'trophy', L('Fortschritt', 'Progress')));
   const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
-  const backEl = h('a', { class: 'db-back', href: '#/app/lernen', hidden: true, title: L('Zurück zu Lernen', 'Back to Learn') }, h('span', { html: ico('left') }), L('Lernen', 'Learn'));
+  const backEl = h('a', { class: 'db-back', href: '#/app/lernen', hidden: true, title: L('Zurück zu Lernen', 'Back to Learn') }, h('span', { html: ico('left') }), h('span', {}, L('Lernen', 'Learn')));
   const docbar = h('div', { class: 'docbar', hidden: true }, backEl, title, tabs);
   const sideBtn = h('button', { class: 'iconbtn side-tog', type: 'button', 'aria-label': L('Seitenleiste', 'Sidebar'), title: L('Tools ein-/ausblenden (Strg/⌘ + \\)', 'Show/hide tools (Ctrl/⌘ + \\)'), html: ico('sidebar'), onclick: () => { if (isMob()) app.classList.toggle('sideopen'); else setSide(app.classList.contains('side-closed')); } });
   const view = h('main', { class: 'view', id: 'view' });
@@ -149,7 +149,7 @@ function openDocSwitch(anchor) {
     h('div', { class: 'sm-h' }, L('Skript wechseln', 'Switch slides')),
     docs.slice(0, 10).map(d => h('a', { class: 'sm-it' + (S.doc && S.doc.id === d.id ? ' on' : ''), href: `#/app/${d.id}/hub` }, h('span', { html: ico('file') }), h('span', { class: 'nm' }, d.name))),
     h('div', { class: 'sm-sep' }),
-    h('a', { class: 'sm-it', href: '#/app/skripte' }, h('span', { html: ico('right') }), L('Alle Skripte', 'All slides')),
+    h('a', { class: 'sm-it', href: '#/app/bibliothek' }, h('span', { html: ico('right') }), L('Bibliothek öffnen', 'Open library')),
     h('label', { class: 'sm-it', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')));
   document.body.appendChild(menu);
   const r = anchor.getBoundingClientRect();
@@ -162,24 +162,18 @@ function openDocSwitch(anchor) {
   menu.querySelectorAll('a, label').forEach(a => a.addEventListener('click', () => close()));
 }
 
-function renderQuota(q) {
-  q = currentQuota() || q;
-  const acc = getAccount();
-  const limit = q?.limit || (acc?.pro ? 200 : 40), used = q?.used || 0, left = Math.max(0, limit - used);
-  // Kontingent ist Systemstatus, kein Ziel: erst ab 70 % Verbrauch sichtbar
-  shell.quotaEl.hidden = used < 0.7 * limit;
-  shell.quotaEl.replaceChildren(
-    h('div', { class: 'row' }, h('span', {}, L('KI heute', 'AI today')), h('span', {}, L(`${left} / ${limit} frei`, `${left} / ${limit} left`))),
-    h('div', { class: 'bar' }, h('i', { style: { width: (100 * left / limit) + '%' } })),
-    h('div', { class: 'row', style: { fontSize: '11px' } }, h('span', {}, L('Neu ab 0:00 Uhr', 'Resets at midnight')), acc?.pro ? h('span', { class: 'ic-name' }, 'Inner Circle') : h('span', {}, acc ? 'Free' : L('Inner Circle: bald', 'Inner Circle: soon'))));
-}
+// Kein „KI heute x / 40“ mehr in der Seitenleiste – das wirkt billig. Wird’s knapp, zeigt Max es dezent am Eingabefeld.
+function renderQuota() { if (shell?.quotaEl) shell.quotaEl.hidden = true; }
 
-function backToLearn() { try { return sessionStorage.getItem('tutor.backTo') === 'lernen'; } catch (e) { return false; } }
+// Woher kam man? „Lernen“ oder „Bibliothek“ – dann gibt’s oben einen Weg zurück
+const BACK = { lernen: ['#/app/lernen', L('Lernen', 'Learn')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')] };
+function backTarget() { try { const k = sessionStorage.getItem('tutor.backTo'); return BACK[k] ? { key: k, href: k === 'bibliothek' ? '#/app/bibliothek/' + (ls.get('tutor.bib.tab', 'alles') || 'alles') : BACK[k][0], label: BACK[k][1] } : null; } catch (e) { return null; } }
+function backToLearn() { return backTarget()?.key === 'lernen'; }
 function renderList() {
   if (!shell) return;
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
-  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher'), skripte: hs.startsWith('#/app/skripte') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt') };
+  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt') };
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
   $$('[data-nav="foto"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer/buchung')));
@@ -212,11 +206,12 @@ export async function mountApp(parts) {
   const OLD = { faecher: 'faecher', stats: 'fortschritt', favs: 'gemerkt', plan: 'stundenplan' };
   if (a === 'me' && b && OLD[b]) { location.replace('#/app/' + OLD[b]); return; }
   // Aus „Lernen“ gekommen? Dann gibt’s oben „← Lernen“ – bis man woanders hin wechselt
-  if (!a || ['tutor', 'faecher', 'skripte', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
-  const fromLearn = backToLearn();
-  shell.backEl.hidden = !fromLearn;
-  const backLink = () => h('a', { class: 'view-back', href: '#/app/lernen' }, h('span', { html: ico('left') }), L('Zurück zu Lernen', 'Back to Learn'));
-  const page = (key, ttl, fn) => { docbar(false); shell.title.textContent = ttl; document.title = ttl + ' · BWL Max'; renderList(); return show(key, fromLearn && !(a === 'rechner' && b) ? async root => { const c2 = await fn(root); if (backToLearn() && root.isConnected && !root.querySelector('.view-back')) root.prepend(backLink()); return c2; } : fn); };
+  if (!a || ['tutor', 'faecher', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
+  const back = backTarget(), fromLearn = !!back;
+  shell.backEl.hidden = !back;
+  if (back) { shell.backEl.href = back.href; shell.backEl.title = L('Zurück zu ', 'Back to ') + back.label; shell.backEl.lastChild.textContent = back.label; }
+  const backLink = () => h('a', { class: 'view-back', href: back ? back.href : '#/app/lernen' }, h('span', { html: ico('left') }), L('Zurück zu ', 'Back to ') + (back ? back.label : L('Lernen', 'Learn')));
+  const page = (key, ttl, fn) => { docbar(false); shell.title.textContent = ttl; document.title = ttl + ' · BWL Max'; renderList(); return show(key, fromLearn && !(a === 'rechner' && b) ? async root => { const c2 = await fn(root); if (backTarget() && root.isConnected && !root.querySelector('.view-back')) root.prepend(backLink()); return c2; } : fn); };
   if (a === 'trainer') return page('trainer:' + (b || ''), L('BWL-Trainer', 'Business trainer'), async root => {
     const { renderTrainer } = await import('./trainer.js');
     const wrap = h('div', { class: 'view-in' }); root.appendChild(wrap);
@@ -225,7 +220,8 @@ export async function mountApp(parts) {
   if (a === 'rechner') return page('rechner:' + (b || ''), L('Rechner', 'Calculators'), async root => { const { render } = await import('./views/rechner.js'); return render(root, { arg: b || '', onAsk: t => viaMax(m => m.ask(t)).then(ok => { if (!ok) askTutorAbout(t, { confirm: false }); }) }); });
   if (a === 'challenge') return page('challenge', L('Wochen-Challenge', 'Weekly challenge'), async root => { const { renderChallenge } = await import('./challenge.js'); renderChallenge(root, { onLogin: () => openLogin({ title: L('Anmelden für die Challenge', 'Sign in for the challenge') }) }); });
   if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
-  if (a === 'skripte') return page('skripte', L('Skripte', 'Slides'), async root => { const { render } = await import('./views/skripte.js'); return render(root); });
+  if (a === 'skripte') { location.replace('#/app/bibliothek/unterlagen'); return; }
+  if (a === 'bibliothek') return page('bibliothek', L('Bibliothek', 'Library'), async root => { const { render } = await import('./views/bibliothek.js'); return render(root, { tab: b || '' }); });
   // Tutor-Raum: die Startseite. Wer von woanders kommt, dem fliegt Max von unten rechts entgegen.
   if (!a || (a === 'me' && !b)) { location.replace('#/app/tutor'); return; }
   if (a === 'tutor') {
@@ -552,11 +548,11 @@ function bottomBar(getApp) {
   const item = (key, ic, label, act) => h(typeof act === 'string' ? 'a' : 'button', Object.assign({ class: 'bb-i', 'data-bb': key }, typeof act === 'string' ? { href: act } : { type: 'button', onclick: act }), h('span', { class: 'bb-ic', html: ico(ic) }), h('span', { class: 'bb-t' }, label));
   const bar = h('nav', { class: 'bbar', 'aria-label': L('Hauptnavigation', 'Main navigation') },
     (() => { const f = h('span', { class: 'bb-ic bb-face' }); const el = h('a', { class: 'bb-i bb-tutor', 'data-bb': 'tutor', href: '#/app/tutor' }, f, h('span', { class: 'bb-t' }, 'Tutor')); face(f, { follow: false }); return el; })(),
-    item('skripte', 'file', L('Skripte', 'Slides'), '#/app/skripte'),
+    item('bibliothek', 'library', L('Bibliothek', 'Library'), '#/app/bibliothek'),
     Object.assign(item('side', 'sidebar', 'Tools', () => getApp().classList.toggle('sideopen')), { className: 'bb-i bb-side' }),
     item('search', 'search', L('Suche', 'Search'), () => import('./palette.js').then(m => m.openPalette())),
     item('ich', 'lock', L('Ich', 'Me'), () => getAccount() ? openAccount() : openLogin()));
-  const mark = () => { const h0 = location.hash; bar.querySelectorAll('.bb-i').forEach(x => x.classList.toggle('on', (x.dataset.bb === 'tutor' && h0.startsWith('#/app/tutor')) || (x.dataset.bb === 'skripte' && (h0.startsWith('#/app/skripte') || !!(S.doc && h0.includes(S.doc.id)))))); };
+  const mark = () => { const h0 = location.hash; bar.querySelectorAll('.bb-i').forEach(x => x.classList.toggle('on', (x.dataset.bb === 'tutor' && h0.startsWith('#/app/tutor')) || (x.dataset.bb === 'bibliothek' && (h0.startsWith('#/app/bibliothek') || !!(S.doc && h0.includes(S.doc.id)))))); };
   addEventListener('hashchange', mark); mark();
   document.documentElement.classList.add('has-bbar');
   return bar;
