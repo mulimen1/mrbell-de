@@ -1,5 +1,5 @@
 // Willkommen im Club: kommt einmal, direkt nach dem Konto-Erstellen und dem Spitznamen.
-// Echte Nutzernummer vom Server – „einer der ersten 100“ nur, wenn es stimmt. Danach: Beta, wir brauchen dein Feedback.
+// Nutzernummer vom Server wird nur geprüft, nie angezeigt – „einer der ersten 100“ nur, wenn es stimmt. Danach: Beta, wir brauchen dein Feedback.
 import { h, ico, ls } from './util.js';
 import { L } from './i18n.js';
 
@@ -21,7 +21,7 @@ export function welcomeFirst({ nick = '', nr = 0 } = {}) {
       h('span', { class: 'icx-shine', 'aria-hidden': 'true' }),
       f,
       first100
-        ? h('div', { class: 'wl-badge' }, h('span', { class: 'ic-lt' }, L(`Nutzer Nr. ${nr}`, `Member no. ${nr}`)), h('span', { class: 'wl-dot' }), L('einer der ersten 100', 'one of the first 100'))
+        ? h('div', { class: 'wl-badge' }, h('span', { class: 'ic-lt' }, 'BWL Max'), h('span', { class: 'wl-dot' }), L('einer der ersten 100', 'one of the first 100'))
         : h('div', { class: 'wl-badge' }, h('span', { class: 'ic-lt' }, 'BWL Max'), h('span', { class: 'wl-dot' }), L('frisch gestartet', 'just launched')),
       h('h2', { class: 'wl-h' }, L('Willkommen', 'Welcome'), name ? [', ', name] : null, '.'),
       h('p', { class: 'wl-lead' }, first100
