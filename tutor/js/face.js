@@ -48,7 +48,8 @@ class Face {
     this.body = svg.querySelector('.fz-body');
     this.hair = svg.querySelector('.fz-hair');
     // Kopf erst zeigen, wenn die Haare da sind – nie ein kahler Max
-    {
+    if (!HAIR_READY && HAIR_IMG.complete && HAIR_IMG.naturalWidth) HAIR_READY = true;
+    if (!HAIR_READY) {
       svg.style.opacity = '0'; const t0 = performance.now();
       let shown = false;
       const show = () => { if (shown) return; shown = true; HAIR_READY = true; if (performance.now() - t0 > 60) svg.style.transition = 'opacity .18s ease'; svg.style.opacity = ''; };
@@ -71,6 +72,8 @@ class Face {
     if (state === 'smug') this.hair.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-10px)' }, { transform: 'translateY(0)' }], { duration: 520, easing: 'ease-in-out' });
   }
   pulse(state, ms = 1600) { this.set(state); clearTimeout(this._pt); this._pt = setTimeout(() => this.set('idle'), ms); }
+  // Blick kurz in eine Richtung zwingen (z. B. beim Fliegen: dahin, wo er hinfliegt)
+  lookAt(x, y, ms = 900) { this.forced = { x: Math.max(-46, Math.min(46, x)), y: Math.max(-26, Math.min(26, y)), until: performance.now() + ms }; }
   blink(double) {
     if (!this.eyes?.isConnected) return;
     const kf = [{ transform: 'scaleY(1)' }, { transform: 'scaleY(.08)' }, { transform: 'scaleY(1)' }];
@@ -89,7 +92,8 @@ class Face {
   loop(t) {
     if (!this.el.isConnected) { faces.delete(this); clearTimeout(this._bt); return; }
     const r = this.el.getBoundingClientRect();
-    if (this.state === 'think') { this.tx = 22; this.ty = -22; }
+    if (this.forced && t < this.forced.until) { this.tx = this.forced.x; this.ty = this.forced.y; }
+    else if (this.state === 'think') { this.tx = 22; this.ty = -22; }
     else if (this.follow && pointer && t - pointer.t < 4000 && r.width) {
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const dx = pointer.x - cx, dy = pointer.y - cy, d = Math.hypot(dx, dy) || 1;

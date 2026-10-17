@@ -16,6 +16,7 @@ import { VOICES, getVoice, voiceChip } from './voice.js';
 import { L, setOutLang } from './i18n.js';
 import { applyThemeButtons } from './theme.js';
 import { getMic, releaseMic as freeMic } from './mic.js';
+import { prompt as maxPrompt, mode as maxMode } from './maxcfg.js';
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
 const M = 12;                       // Mindestabstand zum Rand
@@ -57,6 +58,8 @@ if (cfg.v !== 3) { cfg.v = 3; cfg.spk = true; try { localStorage.setItem('tutor.
 const saveCfg = () => ls.set(KEY, cfg);
 export const isAssistantEnabled = () => cfg.on !== false;
 let api = null;                    // gesetzt, sobald gemountet
+// Tutor-Raum: Max wohnt dann mitten auf der Seite (Eingabe, Gespräch, Tafel in den Plätzen des Raums)
+let STAGE = null;
 export function setAssistantEnabled(on) {
   cfg.on = !!on; saveCfg();
   if (api) api.applyEnabled(true);
@@ -82,9 +85,10 @@ function route() {
   if (p[0] !== 'app') return { tab: null };
   if (p[1] === 'trainer') return { trainer: p[2] || '', tab: 'trainer' };
   if (!p[1] || p[1] === 'neu') return { tab: p[1] ? 'neu' : 'start' };
+  if (p[1] === 'tutor') return { tab: 'room' };
   return { docId: p[1], tab: TAB[p[2]] ? p[2] : 'hub', arg: p[3] ? decodeURIComponent(p[3]) : '' };
 }
-const curDoc = () => { const r = route(); return r.docId && S.doc && S.doc.id === r.docId ? S.doc : null; };
+const curDoc = () => { if (STAGE) return STAGE.doc ? STAGE.doc() : null; const r = route(); return r.docId && S.doc && S.doc.id === r.docId ? S.doc : null; };
 function placeLabel() {
   const r = route(), d = curDoc();
   if (r.tab === 'trainer') return L('BWL-Trainer', 'Business trainer') + (r.trainer ? ' · ' + r.trainer : '');
@@ -121,6 +125,7 @@ function visibleText(max = 1200) {
   return s.length > max ? s.slice(0, max - 1) + '…' : s;
 }
 function pageContext() {
+  if (STAGE) return STAGE.context ? STAGE.context() : '';
   const r = route(), d = curDoc();
   if (!r.tab) return document.getElementById('landing')?.classList.contains('hidden') ? '' : L('[Seite: Startseite von BWL Max – noch kein Skript offen]', '[Page: BWL Max home page – no slides open yet]');
   const parts = [L('Seite: ', 'Page: ') + ((TAB[r.tab] || (r.tab === 'trainer' ? L('BWL-Trainer', 'Business trainer') + (r.trainer ? ' ' + r.trainer : '') : r.tab)))];
@@ -223,7 +228,7 @@ export function mountAssistant() {
 
   // ---------- Sichtbarkeit ----------
   function applyEnabled(announce) {
-    const on = isAssistantEnabled();
+    const on = isAssistantEnabled() || !!STAGE;
     root.classList.toggle('off', !on);
     if (!on) { stopAll(true); setOpen(false); closeBoard(); }
     if (announce && !on) {
@@ -351,7 +356,7 @@ export function mountAssistant() {
     }
   }, 400);
   function closeAnimated() {
-    if (closing) return;
+    if (closing || STAGE) return;
     // Handy mit offener Tastatur: erst Tastatur weg, dann sauber einziehen (sonst springt alles mitten in der Animation)
     if (MOB.matches && document.activeElement === inp) {
       document.activeElement.blur(); closing = []; setTimeout(() => { closing = null; if (open) closeAnimated(); }, 320); return;
@@ -376,7 +381,7 @@ export function mountAssistant() {
     });
   }
   function setOpen(v, { listen = false } = {}) {
-    if (v && !isAssistantEnabled()) return;
+    if (v && !isAssistantEnabled() && !STAGE) return;
     if (closing) { const a = closing; closing = null; a.forEach(x => x.cancel()); if (!v) return; }
     if (v === open) { if (v && listen && state === 'idle') startListen(); return; }
     open = !!v;
@@ -385,10 +390,10 @@ export function mountAssistant() {
     closeMenu();
     if (open) {
       unread(false); try { window.BM && window.BM.track('Max geöffnet'); } catch (e) {}
-      isl.animate([{ opacity: 0, transform: 'translate(-50%, 14px) scale(.92)' }, { opacity: 1, transform: 'translateX(-50%)' }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
+      if (!STAGE) isl.animate([{ opacity: 0, transform: 'translate(-50%, 14px) scale(.92)' }, { opacity: 1, transform: 'translateX(-50%)' }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
       if (!ls.get('tutor.asst.seen')) { ls.set('tutor.asst.seen', 1); root.classList.add('seen'); }
       if (!quip.hidden) hideQuip(); ctxm.hidden = true;
-      greet();
+      if (STAGE) ls.set('tutor.asst.greeted', 1); else greet();
       if (feedList.children.length) showCap();
       capScroll();
       if (listen) startListen(); else setState(state);
@@ -408,6 +413,7 @@ export function mountAssistant() {
       if (!menu.hidden) { closeMenu(); return; }
       e.preventDefault();
       if (state === 'listen') { stopListen('stop'); return; }
+      if (STAGE) { if (document.activeElement === inp) inp.blur(); return; }
       closeAnimated(); return;
     }
     // Laptop: einfach lostippen
@@ -473,6 +479,7 @@ export function mountAssistant() {
   // ---------- Zustand ----------
   function setState(s, msg) {
     state = s; root.dataset.state = s;
+    try { STAGE?.onState?.(s); } catch (e) {}
     fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
     bf.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
     stTx.textContent = msg ?? ({ idle: L('Tippen oder sprechen', 'Type or talk'), listen: L('Max hört zu …', 'Max is listening …'), think: L('Max überlegt …', 'Max is thinking …'), speak: L('Max redet …', 'Max is talking …') })[s];
@@ -483,16 +490,16 @@ export function mountAssistant() {
 
   // ---------- Untertitel ----------
   document.addEventListener('touchmove', e => {
-    if (!(MOB.matches && open)) return;
+    if (!(MOB.matches && open) || STAGE) return;
     const ok = e.target.closest && e.target.closest('.ai-board, .ai-menu, .asst-ctx, .modal-bg, .voice' + (feedOpen ? ', .ai-feed' : ''));
     if (!ok && e.cancelable) e.preventDefault();
   }, { passive: false });
   function syncLock() {
     placeTog();
-    const lock = MOB.matches && open && ((feedOpen && root.classList.contains('has-cap')) || (boardOpen && !boardMin));
+    const lock = !STAGE && MOB.matches && open && ((feedOpen && root.classList.contains('has-cap')) || (boardOpen && !boardMin));
     root.classList.toggle('lock', lock);
     // Handy: solange Max offen ist, scrollt die Seite dahinter nie mit
-    document.documentElement.classList.toggle('asst-lock', MOB.matches && open);
+    document.documentElement.classList.toggle('asst-lock', !STAGE && MOB.matches && open);
   }
   bd.addEventListener('click', () => { if (boardOpen && !boardMin) minBoard(true); else setFeedOpen(false); });
   // Was Max gerade sagt, steht am Handy unten in der Tafel mit
@@ -648,7 +655,7 @@ export function mountAssistant() {
     });
   }
   function minBoard(v, quiet) {
-    boardMin = !!v; root.classList.toggle('board-min', boardMin); askBoard(false); syncLock();
+    boardMin = !!v; root.classList.toggle('board-min', boardMin); askBoard(false); syncLock(); boardHook();
     if (!quiet && !v) board.animate([{ opacity: 0, transform: 'translateX(30px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
   }
   function askBoard(v) { bAsk.hidden = !v; if (v) bAsk.querySelector('.ai-del').focus({ preventScroll: true }); }
@@ -661,7 +668,8 @@ export function mountAssistant() {
     if (!boards.length) { closeBoard(); toast(L('Tafel gelöscht.', 'Board deleted.')); return; }
     bIdx = clamp(bIdx, 0, boards.length - 1); drawBoard(false); toast(L('Tafel gelöscht.', 'Board deleted.'));
   }
-  function closeBoard() { boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); syncLock(); }
+  function closeBoard() { boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); syncLock(); boardHook(); }
+  function boardHook() { try { STAGE?.onBoard?.(boardOpen && !boardMin); } catch (e) {} }
   // Tafel „schreibt mit“: Abschnitte erscheinen im Takt der Stimme
   function writeAlong(t, progress) {
     const kids = [...t.children].filter(k => !k.classList.contains('tt'));
@@ -766,15 +774,19 @@ export function mountAssistant() {
     const ex = curEx;
     const ctxLine = pageContext();
     hist.push({ role: 'user', content: text });
+    try { STAGE?.onAsk?.(text); } catch (e) {}
     setState('think');
     const my = ++gen, spoken = !!cfg.spk && viaVoice;
     ctrl = new AbortController();
     try {
       const messages = hist.slice(-12).map(m => ({ role: m.role, content: m.role === 'assistant' ? forHistory(m.content) : m.content }));
-      if (ctxLine) messages[messages.length - 1].content = ctxLine + '\n' + text;
-      const payload = { messages, opts: { mode: 'erklaeren', spice: getSpice(), voice: spoken, assistant: true } };
+      const pre = [ctxLine, maxPrompt()].filter(Boolean).join('\n');
+      if (pre) messages[messages.length - 1].content = pre + '\n' + text;
+      const payload = { messages, opts: { mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true } };
       const d = curDoc();
-      if (d) Object.assign(payload, { material: forChat(d, text + ' ' + visibleText(400)), docName: d.name });
+      const mat = STAGE && STAGE.material ? STAGE.material(text) : null;
+      if (mat) Object.assign(payload, mat);
+      else if (d) Object.assign(payload, { material: forChat(d, text + ' ' + visibleText(400)), docName: d.name });
       const r = await ask('chat', payload, { signal: ctrl.signal });
       if (my !== gen) return;
       const raw = String(r.text || '').slice(0, 12000);
@@ -782,6 +794,7 @@ export function mountAssistant() {
       hist = hist.slice(-20); ls.set(CHAT, hist);
       ex.model = r.model || ''; ex.tools = r.tools || []; ex.src = d ? (d.generated ? 'max' : 'doc') : '';
       await answer(raw, my, spoken, ex);
+      try { STAGE?.onAnswer?.(parse(raw)); } catch (e) {}
     } catch (e) {
       if (hist[hist.length - 1]?.role === 'user' && hist[hist.length - 1].content === text) hist.pop();
       if (ex) { ex.aTx.replaceChildren(); ex.a.hidden = true; ex.done = true; }
@@ -812,6 +825,7 @@ export function mountAssistant() {
     if (p.text && p.text.length > 60) { const q = [...hist].reverse().find(m => m.role === 'user')?.content || ''; const d = curDoc(); extras.push(favChip({ typ: 'erklaerung', titel: (q || plainT(p.text)).slice(0, 90), doc: d?.id || '', docName: d?.name || '', ref: favKey(p.text), inhalt: plainT(p.text) })); }
     // Vorgerechnete Lösung → Zwillingsaufgabe zum Selbstrechnen
     if ((ex.tools && ex.tools.length) || p.boards.some(b => /class="(calc|step|result|bs|tkonto)"/.test(b.html))) extras.push(h('button', { class: 'ai-cmd link', type: 'button', onclick: () => submit(L('Gib mir eine Zwillingsaufgabe dazu: gleiche Struktur, neue Zahlen. Erst nur die Aufgabe – die Lösung zeigst du erst, wenn ich meine Antwort geschickt oder „Lösung“ geschrieben habe.', 'Give me a twin exercise: same structure, new numbers. Only the task first – show the solution only once I’ve sent my answer or typed “solution”.')) }, L('Zwillingsaufgabe', 'Twin exercise')));
+    if (!STAGE && route().tab && route().tab !== 'room' && (p.boards.length || (p.text || '').length > 280)) extras.push(h('a', { class: 'ai-cmd link ai-room', href: '#/app/tutor', onclick: () => ls.set('tutor.room.continue', 1) }, h('span', { class: 'ck', html: ico('right') }), L('Im Tutor weitermachen', 'Continue in the tutor')));
     if (ex.model !== undefined) extras.push(aiTag(ex.tools, raw, ex.src));
     ex.aX.replaceChildren(...extras);
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);
@@ -1079,6 +1093,72 @@ export function mountAssistant() {
   const vv = window.visualViewport;
   if (vv) { const kb = () => root.style.setProperty('--kb', Math.max(0, Math.round(innerHeight - vv.height - vv.offsetTop)) + 'px'); vv.addEventListener('resize', kb); vv.addEventListener('scroll', kb); }
 
+
+  // ---------- Tutor-Raum: Max zieht auf die Seite ----------
+  // Eingabe, Gespräch und Tafel liegen dann genau über den Plätzen, die der Raum dafür freihält.
+  let stageRO = null, islRO = null, stageTick = 0, keepBoard = false;
+  function placeStage() {
+    if (!STAGE || !STAGE.slots) return;
+    const put = (k, el) => {
+      if (!el || !el.isConnected) return;
+      const r = el.getBoundingClientRect();
+      root.style.setProperty(`--${k}l`, r.left + 'px'); root.style.setProperty(`--${k}t`, r.top + 'px');
+      root.style.setProperty(`--${k}w`, r.width + 'px'); root.style.setProperty(`--${k}h`, r.height + 'px');
+      root.style.setProperty(`--${k}b`, (innerHeight - r.bottom) + 'px');
+    };
+    put('sc', STAGE.slots.composer); put('sf', STAGE.slots.chat); put('sb', STAGE.slots.board);
+  }
+  function burst(ms = 700) { cancelAnimationFrame(stageTick); const t0 = performance.now(); const f = () => { placeStage(); if (STAGE && performance.now() - t0 < ms) stageTick = requestAnimationFrame(f); }; f(); }
+  addEventListener('resize', () => { if (STAGE) burst(300); });
+  function stage(o) {
+    STAGE = o;
+    root.classList.add('stage'); root.classList.remove('off', 'lock', 'tip-on');
+    hideQuip(); closeMenu(); ctxm.hidden = true; chip.remove();
+    if (!open) setOpen(true); else syncLock();
+    applyEnabled(false);
+    stageRO?.disconnect(); islRO?.disconnect();
+    stageRO = new ResizeObserver(() => placeStage());
+    [o.slots.composer, o.slots.chat, o.slots.board, document.getElementById('view')].forEach(el => el && stageRO.observe(el));
+    islRO = new ResizeObserver(() => { try { STAGE?.onIsl?.(isl.getBoundingClientRect().height); } catch (e) {} });
+    islRO.observe(isl);
+    burst(900); drawButtons();
+  }
+  function unstage() {
+    if (!STAGE) return;
+    STAGE = null; stageRO?.disconnect(); islRO?.disconnect(); cancelAnimationFrame(stageTick);
+    root.classList.remove('stage', 'stage-talk', 'stage-hold', 'show-old');
+    keepBoard = boardOpen && !boardMin;
+    if (boardOpen) closeBoard();
+    if (feedOpen) setFeedOpen(false, { instant: true });
+    if (open) { closing = null; setOpen(false); }
+    applyEnabled(false); syncLock();
+  }
+  function stageTalk(v) {
+    root.classList.toggle('stage-talk', !!v);
+    if (!v && boardOpen) closeBoard();
+    setFeedOpen(!!v, { instant: true });
+    if (v && feedList.children.length) { showCap(); capScroll(); }
+    burst(700);
+  }
+  // Kleine Nachricht von Max ins Gespräch (ohne KI, z. B. „Pause vorbei“)
+  function note(text) {
+    const aTx = h('div', { class: 'ai-a' });
+    const b = h('div', { class: 'ai-bub max note' }, aTx);
+    revealWords(aTx, text);
+    feedList.querySelectorAll('.ai-bub.last').forEach(x => x.classList.remove('last'));
+    b.classList.add('last'); curEx = null;
+    feedList.appendChild(b); showCap(); drawTog(); capScroll();
+  }
+  function holdBub(v, pop) {
+    root.classList.toggle('bub-hold', !!v);
+    if (!v && pop && !matchMedia('(prefers-reduced-motion: reduce)').matches) bub.animate([{ transform: 'scale(.72)', opacity: .2 }, { transform: 'scale(1.07)', opacity: 1, offset: .6 }, { transform: 'scale(1)', opacity: 1 }], { duration: 460, easing: 'cubic-bezier(.3,1.3,.5,1)' });
+  }
+  function bubFaceRect() {
+    if (open && !STAGE) return fEl.getBoundingClientRect();
+    placeBub();
+    return bubFace.getBoundingClientRect();
+  }
+
   setState('idle');
   placeBub(); coverCheck();
   applyEnabled(false);
@@ -1087,6 +1167,19 @@ export function mountAssistant() {
     // Von außen: Text direkt an Max geben (z. B. „Erklär's mir“-Feld) bzw. Sprechen starten
     ask: t => { setOpen(true); if (MOB.matches && feedOpen) setFeedOpen(false); submit(t); },
     talk: () => { setOpen(true); startListen(); },
+    stage, unstage, talk2: stageTalk, note, holdBub, bubFaceRect, relayout: burst,
+    hold: v => root.classList.toggle('stage-hold', !!v),
+    markOld: () => feedList.querySelectorAll('.ai-bub:not(.last)').forEach(b => b.classList.add('old')),
+    prefill: t => { if (state !== 'idle') return; inp.value = t; inp.focus({ preventScroll: true }); try { inp.setSelectionRange(t.length, t.length); } catch (e) {} drawButtons(); },
+    hasOld: () => !!feedList.querySelector('.ai-bub.old'),
+    showOld: v => { root.classList.toggle('show-old', !!v); capScroll(); },
+    hasHistory: () => hist.length > 0,
+    lastQuestion: () => { const m = [...hist].reverse().find(x => x.role === 'user'); return m ? m.content.replace(/^\[[^\]]*\]\n/, '') : ''; },
+    state: () => state, stopAll: () => stopAll(),
+    focusInput: () => { if (state === 'idle') inp.focus({ preventScroll: true }); },
+    newTalk: () => newTalk(),
+    boardShown: () => boardOpen && !boardMin,
+    restoreBoard: () => { if (keepBoard && boards.length && !boardOpen) { keepBoard = false; drawBoard(false); openBoard(); } },
   };
   return api;
 }

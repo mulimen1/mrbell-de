@@ -163,7 +163,7 @@ export function openLogin({ title, mode = 'login' } = {}) {
       const finish = () => {
         if (nf) { const v = nf.value(); if (!v.ok) return; if (v.nick) setNick(v.nick, r.account); }
         goal && goal.save(); close(true);
-        if (!location.hash || location.hash === '#/' || location.hash === '#') location.hash = '#/app/me';
+        if (!location.hash || location.hash === '#/' || location.hash === '#' || location.hash === '#/app/me') location.hash = '#/app/tutor';
         const n = getNick(r.account); if (n) { try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {} setTimeout(() => greetSplash(n), 380); }
       };
       // Bekannt + Spitzname vorhanden: direkt rein, ohne Zwischenschritt

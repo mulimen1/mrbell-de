@@ -103,12 +103,12 @@ async function editGoal() {
   const r = await modal({ title: L('Wie viel willst du pro Woche lernen?', 'How much do you want to study per week?'), text: L('Faustregel: 1 ECTS ≈ 25–30 Stunden Arbeit. Lieber realistisch starten und steigern.', 'Rule of thumb: 1 ECTS ≈ 25–30 hours of work. Start realistic, then raise it.'), body: sel, actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'ok', primary: true }] });
   if (r === 'ok') M.updateMe(m => { m.wochenziel = +sel.dataset.v; });
 }
-function weekMinutes(off) {
+export function weekMinutes(off) {
   const days = M.getMe().akt || {}; const d = dayStart(); const wd = (d.getDay() + 6) % 7; d.setDate(d.getDate() - wd + off * 7);
   let m = 0; for (let i = 0; i < 7; i++) { const x = new Date(d); x.setDate(d.getDate() + i); m += days[M.dayKey(x)] || 0; } return m;
 }
 // Max' Lage in einem Satz – aus Stundenplan, Karten, Klausuren
-function briefing() {
+export function briefing() {
   const parts = [];
   const now = Date.now();
   const ses = M.sessionsOn(new Date()).filter(s => s.e > now);
@@ -121,7 +121,7 @@ function briefing() {
   return parts.join(' ');
 }
 // Alle Klausuren: aus Fächern, sonst aus Klausurplänen der Skripte
-function exams() {
+export function exams() {
   const me = M.getMe(), out = [], seen = new Set();
   for (const f of me.faecher) {
     const ds = (f.docs || []).map(docById).filter(Boolean);
@@ -144,7 +144,7 @@ const HEADS = {
 function pageHead(tab) { const [t, p] = HEADS[tab]; return h('div', { class: 'vh me-ph' }, h('div', {}, h('h2', {}, t), h('p', {}, p))); }
 
 // ---------- Freiwillige Synchronisierung ----------
-function syncAsk() {
+export function syncAsk() {
   if (M.syncState() !== null) return null;
   return h('section', { class: 'me-ask' },
     h('div', { class: 'me-ask-i', html: ico('refresh') }),
@@ -215,7 +215,7 @@ function today(body) {
     card(L('Demnächst', 'Coming up'), soon)));
 }
 // Start in vier Schritten – verschwindet, sobald erledigt oder ausgeblendet
-function startChecklist() {
+export function startChecklist() {
   const me = M.getMe();
   if (me.startOk) return null;
   const own = S.list.filter(d => !d.sample);
@@ -249,7 +249,7 @@ function session(s, now) {
       ds.length && !past ? h('a', { class: 'me-sact', href: due ? `#/app/${ds[0].id}/karten` : `#/app/${ds[0].id}/hub` }, due ? L(`${due} Karten davor wiederholen`, `Review ${due} cards first`) : L('Kurz vorbereiten', 'Quick prep')) : null));
 }
 // Die nächsten sinnvollen Schritte, nach Wichtigkeit
-function recommend() {
+export function recommend() {
   const me = M.getMe(), out = [];
   const byDue = S.list.map(d => ({ d, n: dueCards(d).length })).filter(x => x.n).sort((a, b) => b.n - a.n);
   const ex = exams();

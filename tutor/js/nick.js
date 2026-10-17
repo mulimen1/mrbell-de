@@ -139,28 +139,42 @@ export function nextSpruch(d = new Date()) {
 }
 
 let showing = false;
+// Große Begrüßung – danach fliegt Max an seinen Platz: in den Tutor-Raum (großer Kopf) oder nach unten rechts
 export function greetSplash(nick = getNick()) {
-  if (!nick || showing || document.querySelector('.ngreet')) return;
+  if (showing || document.querySelector('.ngreet')) return;
   showing = true;
+  ls.set('tutor.greetLast', Date.now());
+  try { sessionStorage.setItem('tutor.justGreeted', String(Date.now())); } catch (e) {}
   const fEl = h('div', { class: 'ng-face' });
   const line = h('p', { class: 'ng-line' }, nextSpruch());
   const el = h('div', { class: 'ngreet', role: 'dialog', 'aria-label': L('Begrüßung', 'Welcome') },
-    h('div', { class: 'ng-in' }, fEl, h('h2', { class: 'ng-hey' }, gruss() + ', ', h('span', { class: 'ng-nick' }, nick), '.'), line,
-      h('button', { class: 'btn primary ng-go', type: 'button' }, L('Los geht’s', 'Let’s go'))));
+    h('div', { class: 'ng-in' }, fEl, h('h2', { class: 'ng-hey' }, gruss() + (nick ? ', ' : ''), nick ? h('span', { class: 'ng-nick' }, nick) : null, '.'), line,
+      h('div', { class: 'ng-skip' }, L('Antippen, um direkt loszulegen', 'Tap to jump right in'))));
   document.body.appendChild(el);
+  import('./flight.js').then(F => F.hideDock()).catch(() => {});
   const fc = face(fEl, {}); fc.set('happy');
   setTimeout(() => fc.pulse && fc.pulse('smug', 1400), 900);
   let done = false;
-  const close = () => { if (done) return; done = true; el.classList.add('out'); setTimeout(() => { el.remove(); showing = false; }, 520); };
+  const close = () => {
+    if (done) return; done = true; clearTimeout(auto);
+    const r = fEl.getBoundingClientRect();
+    el.classList.add('out');
+    import('./flight.js').then(F => { fEl.style.visibility = 'hidden'; return F.dockTo(r, { dur: 1050, arc: .16 }); }).catch(() => {});
+    setTimeout(() => { el.remove(); showing = false; }, 560);
+  };
+  const auto = setTimeout(close, 3200);
   el.addEventListener('click', close);
   addEventListener('keydown', function k(e) { if (e.key === 'Escape' || e.key === 'Enter') { removeEventListener('keydown', k); close(); } });
   requestAnimationFrame(() => el.classList.add('in'));
 }
 // Beim Laden der Seite: angemeldet + Spitzname → begrüßen (nicht öfter als alle 2 Minuten)
+// Beim Öffnen der App: das erste Mal am Tag (oder nach 4 Stunden) – nicht bei jedem Neuladen
 export function greetOnLoad() {
   const a = getAccount(), n = getNick(a); if (!a || !n) return;
   let t = 0; try { t = +sessionStorage.getItem('tutor.greetAt') || 0; } catch (e) {}
   if (Date.now() - t < 120000) return;
+  const last = +ls.get('tutor.greetLast', 0) || 0;
+  if (new Date(last).toDateString() === new Date().toDateString() && Date.now() - last < 4 * 3600e3) return;
   try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {}
-  setTimeout(() => greetSplash(n), 700);
+  setTimeout(() => greetSplash(n), 500);
 }

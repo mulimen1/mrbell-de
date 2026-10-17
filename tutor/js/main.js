@@ -107,7 +107,7 @@ function initLanding() {
   const nl = $('[data-login]');
   if (nl) nl.addEventListener('click', () => getAccount() ? openAccount() : openLogin());
   const nr = $('[data-register]');
-  if (nr) nr.addEventListener('click', () => getAccount() ? (location.hash = '#/app/me') : openLogin({ mode: 'register' }));
+  if (nr) nr.addEventListener('click', () => getAccount() ? (location.hash = '#/app/tutor') : openLogin({ mode: 'register' }));
   onAccount(a => { if (nl) nl.hidden = !!a; if (nr) nr.textContent = a ? L('Mein Bereich', 'My space') : L('Konto erstellen', 'Create account'); });
 
 
@@ -200,7 +200,7 @@ async function route() {
   const lm = hash.match(/^#\/login\/([A-Za-z0-9_-]{20,60})\/(\d{6})$/);
   if (lm) { history.replaceState(null, '', location.pathname + '#/app'); hash = '#/app'; verifyLink(lm[1], lm[2]); }
   // Angemeldet: keine Startseite, direkt in den eigenen Bereich
-  if (getAccount() && (hash === '#/' || hash === '#' || hash === '#/app' || hash === '#/app/')) { history.replaceState(null, '', location.pathname + location.search + '#/app/me'); hash = '#/app/me'; }
+  if (getAccount() && (hash === '#/' || hash === '#' || hash === '#/app' || hash === '#/app/')) { history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor'; }
   const inApp = hash.startsWith('#/app');
   $('#landing').classList.toggle('hidden', inApp);
   $('#app').classList.toggle('hidden', !inApp);

@@ -39,7 +39,7 @@ function collect() {
   const due = S.list.map(d => ({ d, n: (d.decks || []).flatMap(k => k.cards).filter(c => (c.due || 0) <= Date.now()).length })).filter(x => x.n).sort((a, b) => b.n - a.n)[0];
   if (due) cmd(L(`Fällige Karten lernen (${due.n})`, `Review due cards (${due.n})`), 'cards', nav(`#/app/${due.d.id}/karten`), 'wiederholen lernen karteikarten');
   cmd(L('Skript hochladen', 'Upload slides'), 'upload', () => document.getElementById('fileApp')?.click(), 'datei pdf neu vorlesung');
-  cmd(L('Mein Bereich', 'My space'), 'home', nav('#/app/me'), 'heute hub start');
+  cmd('Tutor', 'chat', nav('#/app/tutor'), 'max tutor raum start heute mein bereich lernen session');
   cmd(L('Notenziel – welche Note brauche ich noch?', 'Grade goal – what do I still need?'), 'calc', nav('#/app/faecher'), 'noten schnitt ects durchschnitt rechner');
   cmd(L('Stundenplan', 'Timetable'), 'calendar', nav('#/app/stundenplan'), 'kalender vorlesung ical woche');
   cmd(L('Fortschritt', 'Progress'), 'trophy', nav('#/app/fortschritt'), 'statistik lernzeit serie streak meilensteine');
