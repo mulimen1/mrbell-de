@@ -1,7 +1,8 @@
 // Einstieg: Landingpage (mit Animationen) + Router
 import { $, $$, h, sleep, ico } from './util.js';
 import { face } from './face.js';
-import { mountApp, startUpload, startSample, topicForm, tryFeature } from './app.js';
+import { mountApp, startUpload, startSample, topicForm, tryFeature, viaMax, startTopic } from './app.js';
+import { landingTopic } from './themen.js';
 import { openLogin, openAccount, verifyLink, askNick } from './account.js';
 import { greetOnLoad, getNick } from './nick.js';
 import { onAccount, getAccount } from './api.js';
@@ -24,6 +25,14 @@ function initLanding() {
     $$('#landing [data-en-ph]').forEach(el => { el.placeholder = el.dataset.enPh; });
     $$('#landing [data-en-aria]').forEach(el => { el.setAttribute('aria-label', el.dataset.enAria); });
     $$('#landing [data-en-title]').forEach(el => { el.title = el.dataset.enTitle; });
+  }
+  // Themen-Einstieg (Google-Anzeige/Link mit ?thema=…): Überschrift passt zur Suche, Max erklärt gleich danach
+  const TH = EN ? null : landingTopic();
+  if (TH) {
+    const h1 = $('#hero h1');
+    // Zeile 1 das Thema, Zeile 2 „einfach erklärt.“ – Schrift schrumpft bei langen Begriffen, damit nichts abgeschnitten wird
+    if (h1) { h1.textContent = TH.name + ' '; h1.appendChild(h('span', { class: 'soft' }, 'einfach erklärt.')); h1.classList.add('h1-topic'); h1.style.setProperty('--k', String(Math.min(1, 22 / Math.max(TH.name.length, 16)))); }
+    document.title = `${TH.name} einfach erklärt · BWL Max`;
   }
   // Sprachumschalter
   $$('[data-setlang]').forEach(b => { b.classList.toggle('on', b.dataset.setlang === lang); b.setAttribute('aria-pressed', b.dataset.setlang === lang); b.addEventListener('click', () => { if (b.dataset.setlang !== lang) setLang(b.dataset.setlang); }); });
@@ -99,6 +108,17 @@ function initLanding() {
 
   // Ohne Skript: Max erklärt ein Thema
   $('#topicSlot')?.appendChild(topicForm());
+  // … und beim Themen-Einstieg legt Max direkt los (einmal pro Besuch und Thema)
+  if (TH) {
+    let done = ''; try { done = sessionStorage.getItem('tutor.themaDone') || ''; } catch (e) {}
+    const go = async () => {
+      try { sessionStorage.setItem('tutor.themaDone', TH.slug); } catch (e) {}
+      if (!(await viaMax(a => a.ask(TH.ask)))) startTopic(TH.name);
+    };
+    // erst wenn die Seite wirklich zu sehen ist (Tab im Hintergrund geöffnet → warten)
+    const later = () => setTimeout(go, reduce ? 400 : 1700);
+    if (done !== TH.slug) { if (document.hidden) document.addEventListener('visibilitychange', function v() { if (!document.hidden) { document.removeEventListener('visibilitychange', v); later(); } }); else later(); }
+  }
 
   // Mit Max sprechen (direkt aus der Sprechblase)
   $$('[data-voice]').forEach(b => b.addEventListener('click', async () => { const { talkToMax } = await import('./app.js'); talkToMax(); }));

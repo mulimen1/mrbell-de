@@ -4110,4 +4110,9 @@ html.bv-open .asst { visibility: hidden; }
 :root[data-theme="dark"][data-accent] :is(.me-ask .btn.primary, .me-next .me-next-b) { background: #ffffff; color: var(--acc-deep, var(--inv)); border-color: #ffffff; }
 :root[data-theme="dark"][data-accent] .me-ask .btn:not(.primary) { color: #ffffff; border-color: rgba(255,255,255,.35); }
 :root[data-theme="dark"][data-accent] :is(.me-next-o, .me-next-o:hover) { color: rgba(255,255,255,.8); }
+/* Themen-Einstieg (?thema=…): lange Begriffe passen in eine Zeile */
+.hero h1.h1-topic { font-size: clamp(24px, calc(6.3vw * var(--k, 1)), 84px); }
+@media (max-width: 600px) { .hero h1.h1-topic { font-size: calc(7.4vw * var(--k, 1)); } }
+/* Startseite am Handy: Farbknopf weg, damit „Konto erstellen“ ganz sichtbar bleibt (Farbe gibt's im Menü der App) */
+@media (max-width: 520px) { #nav .acc-btn { display: none; } }
 
