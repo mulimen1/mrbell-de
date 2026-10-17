@@ -103,7 +103,8 @@ function buildShell() {
     navA('fortschritt', '#/app/fortschritt', 'trophy', L('Fortschritt', 'Progress')));
   const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
-  const docbar = h('div', { class: 'docbar', hidden: true }, title, tabs);
+  const backEl = h('a', { class: 'db-back', href: '#/app/lernen', hidden: true, title: L('Zurück zu Lernen', 'Back to Learn') }, h('span', { html: ico('left') }), L('Lernen', 'Learn'));
+  const docbar = h('div', { class: 'docbar', hidden: true }, backEl, title, tabs);
   const sideBtn = h('button', { class: 'iconbtn side-tog', type: 'button', 'aria-label': L('Seitenleiste', 'Sidebar'), title: L('Tools ein-/ausblenden (Strg/⌘ + \\)', 'Show/hide tools (Ctrl/⌘ + \\)'), html: ico('sidebar'), onclick: () => { if (isMob()) app.classList.toggle('sideopen'); else setSide(app.classList.contains('side-closed')); } });
   const view = h('main', { class: 'view', id: 'view' });
   const palBtn = h('button', { class: 'pal-btn', type: 'button', 'aria-label': L('Suchen', 'Search'), title: L('Suchen und Befehle (⌘K)', 'Search and commands (⌘K)'), onclick: () => import('./palette.js').then(m => m.openPalette()) }, h('span', { html: ico('search') }), h('span', { class: 'pal-btx' }, L('Suchen', 'Search')), h('kbd', {}, /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Strg K'));
@@ -116,7 +117,7 @@ function buildShell() {
   app.addEventListener('click', e => { if (app.classList.contains('sideopen') && !e.target.closest('.side') && !e.target.closest('.side-tog') && !e.target.closest('.bb-side')) app.classList.remove('sideopen'); });
   root.replaceChildren(app);
   face(faceEl, {}); face(tnFace, { follow: false });
-  shell = { root, app, side, title, tabs, docbar, topnav, view, quotaEl };
+  shell = { root, app, side, title, tabs, docbar, topnav, view, quotaEl, backEl };
   onQuota(renderQuota);
   onAccount(() => renderQuota(currentQuota()));
   refreshAccount();
@@ -173,11 +174,12 @@ function renderQuota(q) {
     h('div', { class: 'row', style: { fontSize: '11px' } }, h('span', {}, L('Neu ab 0:00 Uhr', 'Resets at midnight')), acc?.pro ? h('span', { class: 'ic-name' }, 'Inner Circle') : h('span', {}, acc ? 'Free' : L('Inner Circle: bald', 'Inner Circle: soon'))));
 }
 
+function backToLearn() { try { return sessionStorage.getItem('tutor.backTo') === 'lernen'; } catch (e) { return false; } }
 function renderList() {
   if (!shell) return;
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
-  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen'), faecher: hs.startsWith('#/app/faecher'), skripte: hs.startsWith('#/app/skripte') || inDoc, gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt') };
+  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher'), skripte: hs.startsWith('#/app/skripte') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt') };
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
   $$('[data-nav="foto"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer/buchung')));
@@ -209,7 +211,12 @@ export async function mountApp(parts) {
   // Alte Adressen (Mein Bereich mit Unterseiten) auf die neuen Bereiche umleiten
   const OLD = { faecher: 'faecher', stats: 'fortschritt', favs: 'gemerkt', plan: 'stundenplan' };
   if (a === 'me' && b && OLD[b]) { location.replace('#/app/' + OLD[b]); return; }
-  const page = (key, ttl, fn) => { docbar(false); shell.title.textContent = ttl; document.title = ttl + ' · BWL Max'; renderList(); return show(key, fn); };
+  // Aus „Lernen“ gekommen? Dann gibt’s oben „← Lernen“ – bis man woanders hin wechselt
+  if (!a || ['tutor', 'faecher', 'skripte', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
+  const fromLearn = backToLearn();
+  shell.backEl.hidden = !fromLearn;
+  const backLink = () => h('a', { class: 'view-back', href: '#/app/lernen' }, h('span', { html: ico('left') }), L('Zurück zu Lernen', 'Back to Learn'));
+  const page = (key, ttl, fn) => { docbar(false); shell.title.textContent = ttl; document.title = ttl + ' · BWL Max'; renderList(); return show(key, fromLearn && !(a === 'rechner' && b) ? async root => { const c2 = await fn(root); if (backToLearn() && root.isConnected && !root.querySelector('.view-back')) root.prepend(backLink()); return c2; } : fn); };
   if (a === 'trainer') return page('trainer:' + (b || ''), L('BWL-Trainer', 'Business trainer'), async root => {
     const { renderTrainer } = await import('./trainer.js');
     const wrap = h('div', { class: 'view-in' }); root.appendChild(wrap);
