@@ -1047,7 +1047,7 @@ export function mountAssistant() {
     const out = []; let cur = '';
     for (const s0 of sents) {
       const s1 = s0.trim(); if (!s1) continue;
-      const lim = out.length === 0 ? 170 : 650;
+      const lim = out.length === 0 ? 170 : 2500;   // höchstens zwei Stücke: jedes Vorlesen kostet eine Einheit
       if (cur && (cur.length + s1.length + 1 > lim || (out.length === 0 && cur.length >= 60))) { out.push(cur); cur = s1; }
       else cur = cur ? cur + ' ' + s1 : s1;
     }
