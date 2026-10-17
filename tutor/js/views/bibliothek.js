@@ -95,7 +95,8 @@ export function render(root, { tab: want = '' } = {}) {
 
   // ---------- Zeilen ----------
   const itemRow = (it, ic, showDoc) => {
-    const open = it.board ? () => inRoom(api => api.showBoard && api.showBoard(it.board)) : () => { fromHere(); location.hash = it.href; };
+    // Tafel: direkt als Tafel ansehen (blättern durch die Tafeln desselben Skripts) – nicht in den Chat springen
+    const open = it.board ? () => { const list = it.loose ? looseBoards() : (it.d.boards || []); const l = list.filter(b => b && b.html); import('../boardview.js').then(m => m.openBoardView(l, Math.max(0, l.findIndex(b => b === it.board || (b.title === it.board.title && b.html === it.board.html))), { docName: it.loose ? '' : it.d.name })); } : () => { fromHere(); location.hash = it.href; };
     return h('div', { class: 'sk-r bib-r', role: 'link', tabindex: 0, onclick: open, onkeydown: e => { if (e.key === 'Enter') open(); } },
       h('span', { class: 'sk-i', html: ico(it.ic || ic) }),
       h('span', { class: 'sk-t', title: it.tip ? L('Deine Frage: ', 'Your question: ') + it.tip : null }, h('b', {}, it.t), h('small', {}, (it.first ? [...it.meta, showDoc ? short(it.d.name, 36) : null] : [showDoc ? short(it.d.name, 36) : null, ...it.meta]).filter(Boolean).join(' · ') || ' ')),
