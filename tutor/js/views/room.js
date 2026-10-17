@@ -148,7 +148,7 @@ export function render(root, ctx = {}) {
   // ---------- Gedankenblasen: Max denkt laut (ab und zu, nicht bei jeder Antwort) ----------
   let lastThought = Date.now() - 20000, thT = 0;
   function think(force) {
-    if (stopped || isAsleep() || document.hidden || room.querySelector('.rm-ov')) return;
+    if (stopped || isAsleep() || document.hidden || room.querySelector('.rm-ov') || document.documentElement.classList.contains('mx-touring')) return;
     if (!force && Date.now() - lastThought < 45000) return;
     lastThought = Date.now();
     const el = mode === 'home' ? thoughtHome : thoughtBar, other = el === thoughtHome ? thoughtBar : thoughtHome;
@@ -228,12 +228,11 @@ export function render(root, ctx = {}) {
       ['calc', L('Rechner', 'Calculators'), () => { location.hash = '#/app/rechner'; }],
       ['mic', L('Sprechen', 'Talk'), () => api && api.talk()]
     ];
-    const more = h('div', { class: 'rm-more2' + (moreOpen ? ' on' : '') }, MORE.map(([ic, t, fn]) => h('button', { class: 'chip rm-mc', type: 'button', onclick: fn }, h('span', { html: ico(ic) }), t)));
+    // Alles sofort sichtbar: vier große Kacheln, darunter eine ruhige Zeile mit dem Rest – kein Aufklappen
+    const more = h('div', { class: 'rm-more2 on' }, h('span', { class: 'rm-mlab' }, L('Außerdem', 'Also')), MORE.map(([ic, t, fn]) => h('button', { class: 'chip rm-mc', type: 'button', onclick: fn }, h('span', { html: ico(ic) }), t)));
     skills.replaceChildren(
       h('div', { class: 'rm-sk' }, SK.map(([ic, t, s2, fn], i) => h('button', { class: 'rm-tile', type: 'button', onclick: fn, style: { '--i': String(i) } },
         h('span', { class: 'rm-ti', html: ico(ic) }), h('b', {}, t), h('small', {}, s2)))),
-      h('button', { class: 'rm-morebtn', type: 'button', 'aria-expanded': moreOpen ? 'true' : 'false', onclick: e => { moreOpen = !moreOpen; more.classList.toggle('on', moreOpen); e.currentTarget.setAttribute('aria-expanded', moreOpen ? 'true' : 'false'); e.currentTarget.querySelector('.rm-mt').textContent = moreOpen ? L('Weniger', 'Less') : L('Mehr, was ich kann', 'More I can do'); } },
-        h('span', { class: 'rm-mt' }, moreOpen ? L('Weniger', 'Less') : L('Mehr, was ich kann', 'More I can do')), h('span', { html: ico('down') })),
       more);
     // Einmalige Frage (Synchronisierung) – nur solange sie offen ist
     askSlot.replaceChildren(...[getAccount() ? syncAsk() : null].filter(Boolean));

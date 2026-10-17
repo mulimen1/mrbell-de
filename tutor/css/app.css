@@ -3517,3 +3517,11 @@ body:has(.room.rail) .asst.stage .ai-btab { right: 300px; }
 .asst.dropping .ai-chips::before { content: "Loslassen – dann arbeiten wir damit"; display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 600 13px var(--sans); }
 .ai-thk { display: inline-block; margin-left: 10px; font: italic 500 14px/1.4 var(--sans); color: var(--mute); vertical-align: middle; }
 .rm-thx { display: inline-block; }
+html.mx-touring .asst-quip, html.mx-touring .rm-th { display: none !important; }
+/* Raum: „Außerdem“-Zeile immer sichtbar */
+.rm-more2.on { margin-top: 6px; align-items: center; animation: rmup .6s .55s cubic-bezier(.16,1,.3,1) both; }
+.rm-more2.on .rm-mc { animation: none; height: 32px; padding: 0 13px; font-size: 13px; }
+.rm-mlab { font: 600 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); margin-right: 4px; }
+/* Chip-Icons exakt auf Texthöhe */
+.chip > span:has(> .ico) { display: inline-grid; place-items: center; line-height: 0; }
+@media (max-width: 600px) { .rm-more2.on { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; margin: 4px -14px 0; padding: 0 14px 2px; width: calc(100% + 28px); } .rm-more2.on::-webkit-scrollbar { display: none; } .rm-more2.on .rm-mc { flex: none; } }

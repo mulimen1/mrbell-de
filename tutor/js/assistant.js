@@ -85,6 +85,7 @@ const forHistory = raw => String(raw).replace(/```tafel[ \t]*([^\n]*)\n[\s\S]*?`
 const b64 = blob => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1] || ''); r.onerror = rej; r.readAsDataURL(blob); });
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
+const TOURQ = /^\s*(führ|fuehr) mich (durch|rum|herum)|^\s*walk me through/i;
 const PAGES = { faecher: L('Fächer & Noten', 'Subjects & grades'), skripte: L('Skripte', 'Slides'), gemerkt: L('Gemerkt', 'Saved'), fortschritt: L('Fortschritt', 'Progress'), stundenplan: L('Stundenplan', 'Timetable'), rechner: L('Rechner', 'Calculators'), challenge: L('Wochen-Challenge', 'Weekly challenge'), lernen: L('Lernen', 'Learn'), me: L('Mein Bereich', 'My space') };
 function route() {
   const p = location.hash.replace(/^#\/?/, '').split('/');
@@ -843,9 +844,11 @@ export function mountAssistant() {
 
   // ---------- Fragen & Antworten ----------
   let pendingMap = null;
+  const LAZY_MAP = {};
   async function submit(text) {
     text = String(text || '').trim();
     if (!text || state === 'think') return;
+    if (!pendingMap && TOURQ.test(text) && route().tab) { pageTour(); return; }
     if (tourActive()) pauseTour();   // Frage mitten in der Führung: Max hält an, antwortet, dann geht's per ▶ weiter
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     unlockAudio();
@@ -856,6 +859,7 @@ export function mountAssistant() {
     const ctxLine = pageContext();
     hist.push({ role: 'user', content: text });
     try { STAGE?.onAsk?.(text); } catch (e) {}
+    if (pendingMap === LAZY_MAP) { await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))); const m = pageMap(); pendingMap = m.count ? m.text : null; }
     setState('think');
     const my = ++gen, spoken = !!cfg.spk && viaVoice;
     ctrl = new AbortController();
@@ -941,7 +945,9 @@ export function mountAssistant() {
   // ---------- Max-Cursor: Tafel Block für Block erklären, oder echte Stellen der Seite zeigen ----------
   function curStart() { const rf = STAGE ? [...document.querySelectorAll('.room .rm-fs')].find(e => e.getBoundingClientRect().width > 0) : null; const r = (rf || (open ? fEl : bubFace)).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height * .4 }; }
   function startTour(steps) {
-    return tour(steps, { startAt: curStart(), onAsk: ref => { if (!open) setOpen(true); setRef(ref); setTyping(true); } });
+    hideQuip();
+    const dockAt = () => (STAGE || open ? isl : bub).getBoundingClientRect();
+    return tour(steps, { startAt: curStart(), dockAt, onAsk: ref => { if (!open) setOpen(true); setRef(ref); setTyping(true); } });
   }
   // „Frage“ in der Cursor-Blase: Max weiß, welche Stelle gemeint ist
   let askRef = null;
@@ -1006,6 +1012,8 @@ export function mountAssistant() {
   // „Klick mich – ich führ dich durch“: Max liest die Seite und zeigt dir mit dem Cursor, worauf es ankommt
   function pageTour() {
     stopTour();
+    // Im Tutor-Raum wechselt die Ansicht beim Fragen ins Gespräch – die Seitenkarte entsteht erst danach
+    if (STAGE) { pendingMap = LAZY_MAP; submit(L('Führ mich durch den Tutor-Raum – zeig mir mit deinem Cursor, was hier wichtig ist und wie ich es nutze.', 'Walk me through the tutor room – show me with your cursor what matters here and how to use it.')); return; }
     const m = pageMap();
     setOpen(true);
     if (!m.count) { submit(L('Wobei kann ich dir auf dieser Seite helfen?', 'How can I help you on this page?')); return; }
@@ -1252,7 +1260,7 @@ export function mountAssistant() {
   function hideQuip() { clearTimeout(quipHide); if (quip.hidden) return; quip.classList.add('out'); setTimeout(() => { quip.hidden = true; quip.classList.remove('out'); root.classList.remove('quipping'); }, 900); }
   function showQuip() {
     if (cfg.quips !== false && root.classList.contains('landtop')) { clearTimeout(quipT); quipT = setTimeout(showQuip, 3000); return; }
-    if (cfg.quips === false || open || !isAssistantEnabled() || document.hidden || root.classList.contains('covered') || root.classList.contains('nobub') || document.querySelector('body > .modal-bg, body > .voice')) return planQuip();
+    if (cfg.quips === false || open || tourActive() || !isAssistantEnabled() || document.hidden || root.classList.contains('covered') || root.classList.contains('nobub') || document.querySelector('body > .modal-bg, body > .voice')) return planQuip();
     const [q, opts, ans, pct] = QUIPS[qi++ % QUIPS.length];
     const reply = i => {
       try { window.BM && window.BM.track('Spaßfrage beantwortet', opts[i]); } catch (e) {}
@@ -1388,7 +1396,8 @@ export function mountAssistant() {
     hasOld: () => !!feedList.querySelector('.ai-bub.old'),
     showOld: v => { root.classList.toggle('show-old', !!v); capScroll(); },
     hasHistory: () => hist.length > 0,
-    lastQuestion: () => { const m = [...hist].reverse().find(x => x.role === 'user'); return m ? m.content.replace(/^\[[^\]]*\]\n/, '') : ''; },
+    // „Weiter: …“ – nie eine Seitenführung (die gehört zu einer anderen Seite und lässt sich nicht „fortsetzen“)
+    lastQuestion: () => { const m = [...hist].reverse().find(x => x.role === 'user' && !TOURQ.test(x.content.replace(/^\[[^\]]*\]\n/, ''))); return m ? m.content.replace(/^\[[^\]]*\]\n/, '') : ''; },
     state: () => state, stopAll: () => stopAll(),
     focusInput: () => { if (state === 'idle') inp.focus({ preventScroll: true }); },
     newTalk: () => newTalk(),

@@ -24,7 +24,7 @@ function contentRects(hl, scope) {
   };
   const wOf = el => (hl && hl.contains(el) ? 8 : scope && scope.contains(el) ? 1.5 : .6);
   const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-    acceptNode: n => (n.nodeValue.trim() && n.parentElement && !n.parentElement.closest('.mx-cur, script, style, noscript, .sr') ? 1 : 3),
+    acceptNode: n => (n.nodeValue.trim() && n.parentElement && !n.parentElement.closest('.mx-cur, .mx-dock, script, style, noscript, .sr') ? 1 : 3),
   });
   const rg = document.createRange();
   for (let n = tw.nextNode(); n; n = tw.nextNode()) {
@@ -45,27 +45,38 @@ function contentRects(hl, scope) {
     if (r.width < 12 || r.height < 12 || r.bottom < 0 || r.top > H || !vis(r, el)) return;
     out.push({ l: r.left, t: r.top, r: r.right, b: r.bottom, w: wOf(el) * .7 });
   });
-  // Eingabeleiste von Max nie zudecken
+  // Steuerleiste der Führung und Eingabeleiste von Max nie zudecken
+  document.querySelectorAll('.mx-dock').forEach(el => { const r = el.getBoundingClientRect(); if (r.width) out.push({ l: r.left - 8, t: r.top - 8, r: r.right + 8, b: r.bottom + 8, w: 3 }); });
   document.querySelectorAll('.asst .ai-isl').forEach(el => { const r = el.getBoundingClientRect(); if (r.width) out.push({ l: r.left, t: r.top, r: r.right, b: r.bottom, w: .5 }); });
   return { rects: out, lines };
 }
 
 // steps: [{ el, say }] – el darf null sein (dann zeigt Max oben in die Mitte des Inhalts)
-export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
+export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {}) {
   steps = (steps || []).filter(s => s && s.say);
   if (!steps.length) return null;
   if (active) active.stop(true);
   const sz = h('span', { class: 'mx-sz', 'aria-hidden': 'true' }), ty = h('span', { class: 'mx-ty' });
   const txt = h('div', { class: 'mx-txt' }, sz, ty);
+  // Steuerung sitzt groß unten rechts bei Max – die Blase am Cursor bleibt reine Erklärung
   const num = h('span', { class: 'mx-n' });
   const bPause = h('button', { type: 'button', class: 'mx-b mx-pp', 'aria-label': L('Pause', 'Pause'), title: L('Pause (Leertaste)', 'Pause (space)') });
-  const bNext = h('button', { type: 'button', class: 'mx-b', 'aria-label': L('Weiter', 'Next'), title: L('Weiter (→)', 'Next (→)'), html: ico('right') });
-  const bStop = h('button', { type: 'button', class: 'mx-b', 'aria-label': L('Stopp', 'Stop'), title: L('Stopp (Esc)', 'Stop (Esc)'), html: ico('x') });
+  const nextLbl = h('span', {}, L('Weiter', 'Next'));
+  const bNext = h('button', { type: 'button', class: 'mx-next', 'aria-label': L('Weiter', 'Next'), title: L('Weiter (→)', 'Next (→)') }, nextLbl, h('span', { html: ico('right') }));
+  const bStop = h('button', { type: 'button', class: 'mx-b', 'aria-label': L('Führung beenden', 'End walkthrough'), title: L('Beenden (Esc)', 'End (Esc)'), html: ico('x') });
   const bAsk = onAsk ? h('button', { type: 'button', class: 'mx-ask', title: L('Frage genau zu dieser Stelle', 'Ask about exactly this spot') }, h('span', { html: ico('chat') }), L('Frage', 'Ask')) : null;
   const tag = h('span', { class: 'mx-tag' }, label);
-  const say = h('div', { class: 'mx-say' }, tag, txt, h('div', { class: 'mx-ctl' }, num, h('span', { style: { flex: 1 } }), bAsk, bPause, bNext, bStop));
+  const say = h('div', { class: 'mx-say' }, tag, txt);
   const cur = h('div', { class: 'mx-cur', role: 'status', 'aria-live': 'polite' }, h('span', { class: 'mx-p', html: PTR }), say);
-  document.body.appendChild(cur);
+  const dock = h('div', { class: 'mx-dock', role: 'toolbar', 'aria-label': L('Max-Führung', 'Max walkthrough') },
+    h('span', { class: 'mx-dl' }, h('i', { class: 'mx-live' }), h('b', {}, L('Max zeigt’s dir', 'Max shows you')), num), bAsk, bPause, bNext, bStop);
+  document.body.append(cur, dock);
+  const placeDock = () => {
+    const r = dockAt ? dockAt() : null;
+    if (r && r.width && r.top > 0) { dock.style.right = Math.max(10, Math.round(innerWidth - r.right)) + 'px'; dock.style.bottom = Math.max(10, Math.round(innerHeight - r.top + 12)) + 'px'; }
+    else { dock.style.right = '18px'; dock.style.bottom = '18px'; }
+  };
+  placeDock();
   document.documentElement.classList.add('mx-touring');
   let i = -1, paused = false, dead = false, hold = 0, typed = 0, typing = 0, hl = null, relT = 0;
   // Ziel: Spitze relativ zur Stelle (folgt beim Scrollen), Blase relativ zur Spitze
@@ -147,6 +158,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
     } else if (s) { tx = pos.ax ?? tx; ty2 = pos.ay ?? ty2; }
     if (reduce()) { x = tx; y = ty2; } else { x += (tx - x) * .16; y += (ty2 - y) * .16; }
     cur.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+    placeDock();
     raf = requestAnimationFrame(place);
   };
   const setHL = el => { if (hl) hl.classList.remove('mx-hl'); hl = el || null; if (hl) hl.classList.add('mx-hl'); };
@@ -155,7 +167,11 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
     if (reduce()) { ty.textContent = text; typed = text.length; return Promise.resolve(); }
     return new Promise(res => { typing = setInterval(() => { if (paused) return; typed = Math.min(text.length, typed + 2); ty.textContent = text.slice(0, typed); if (typed >= text.length) { clearInterval(typing); res(); } }, 22); });
   };
-  const drawCtl = () => { bPause.innerHTML = ico(paused ? 'play' : 'pause'); bPause.setAttribute('aria-label', paused ? L('Weiter abspielen', 'Resume') : L('Pause', 'Pause')); num.textContent = `${i + 1} / ${steps.length}`; cur.classList.toggle('paused', paused); };
+  const drawCtl = () => {
+    bPause.innerHTML = ico(paused ? 'play' : 'pause'); bPause.setAttribute('aria-label', paused ? L('Weiter abspielen', 'Resume') : L('Pause', 'Pause'));
+    num.textContent = `${i + 1} / ${steps.length}`; nextLbl.textContent = i >= steps.length - 1 ? L('Fertig', 'Done') : L('Weiter', 'Next');
+    cur.classList.toggle('paused', paused); dock.classList.toggle('paused', paused);
+  };
   async function go(n) {
     clearTimeout(hold);
     if (n >= steps.length) return finish();
@@ -182,7 +198,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
     setHL(null); clearTimeout(hold);
     const t = L('Das war’s. Frag mich, wenn was hakt.', 'That’s it. Ask me if anything’s unclear.');
     sz.textContent = t; ty.textContent = t;
-    num.textContent = ''; cur.classList.add('done');
+    num.textContent = ''; cur.classList.add('done'); dock.classList.add('done');
     hold = setTimeout(() => stop(), 3400);
   }
   function pause() { if (dead) return; paused = true; clearTimeout(hold); drawCtl(); }
@@ -195,7 +211,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
     removeEventListener('scroll', relayout, true);
     removeEventListener('resize', relayout);
     if (active === ctl) { active = null; document.documentElement.classList.remove('mx-touring'); }
-    if (quick || reduce()) cur.remove(); else { cur.classList.add('out'); setTimeout(() => cur.remove(), 380); }
+    if (quick || reduce()) { cur.remove(); dock.remove(); } else { cur.classList.add('out'); dock.classList.add('out'); setTimeout(() => { cur.remove(); dock.remove(); }, 380); }
     onEnd && onEnd();
   }
   const onKey = e => {
@@ -217,7 +233,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
   const ctl = { pause, resume, stop, next: () => go(i + 1), el: cur };
   active = ctl;
   cur.style.transform = `translate(${x}px, ${y}px)`;
-  requestAnimationFrame(() => cur.classList.add('in'));
+  requestAnimationFrame(() => { cur.classList.add('in'); dock.classList.add('in'); });
   raf = requestAnimationFrame(place);
   go(0);
   return ctl;
@@ -282,7 +298,7 @@ const css = `
 .mx-cur.flip-x .mx-p { left: -23px; transform: scaleX(-1); }
 .mx-ptr { width: 100%; height: 100%; display: block; }
 .mx-ptr path { fill: var(--inv); stroke: var(--bg); stroke-width: 1.6; stroke-linejoin: round; }
-.mx-say { position: absolute; left: 18px; top: 50px; width: max-content; max-width: min(340px, calc(100vw - 20px)); padding: 12px 14px 9px; border-radius: 6px 18px 18px 18px; background: var(--panel); color: var(--ink); border: 1px solid var(--line2); box-shadow: 0 24px 60px -24px rgba(0,0,0,.75), 0 0 0 1px color-mix(in srgb, var(--ink) 6%, transparent); pointer-events: auto; transform-origin: 0 0; transition: left .42s cubic-bezier(.16,1,.3,1), top .42s cubic-bezier(.16,1,.3,1), border-radius .3s; }
+.mx-say { position: absolute; left: 18px; top: 50px; width: max-content; max-width: min(330px, calc(100vw - 20px)); padding: 11px 14px 12px; border-radius: 6px 18px 18px 18px; background: var(--panel); color: var(--ink); border: 1px solid var(--line2); box-shadow: 0 24px 60px -24px rgba(0,0,0,.75), 0 0 0 1px color-mix(in srgb, var(--ink) 6%, transparent); pointer-events: auto; transform-origin: 0 0; transition: left .42s cubic-bezier(.16,1,.3,1), top .42s cubic-bezier(.16,1,.3,1), border-radius .3s; }
 .mx-cur.flip-x .mx-say { border-radius: 18px 6px 18px 18px; transform-origin: 100% 0; }
 .mx-cur[data-at$="-up"] .mx-say { border-radius: 18px 18px 18px 6px; transform-origin: 0 100%; }
 .mx-cur.flip-x[data-at$="-up"] .mx-say { border-radius: 18px 18px 6px 18px; transform-origin: 100% 100%; }
@@ -292,12 +308,19 @@ const css = `
 .mx-cur.flip-x .mx-tag { left: auto; right: -1px; }
 .mx-txt { display: grid; font: 500 15px/1.48 var(--sans); min-height: 1.5em; text-wrap: pretty; }
 .mx-txt > span { grid-area: 1 / 1; } .mx-sz { visibility: hidden; }
-.mx-ctl { display: flex; align-items: center; gap: 2px; margin-top: 8px; padding-top: 7px; border-top: 1px solid var(--line); }
-.mx-n { font: 600 11px var(--mono); color: var(--mute); }
-.mx-b { width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 8px; background: transparent; color: var(--ink2); cursor: pointer; } .mx-b:hover { background: var(--panel2); color: var(--ink); } .mx-b .ico { width: 15px; height: 15px; } .mx-pp .ico { fill: currentColor; stroke: none; width: 13px; height: 13px; }
-.mx-ask { display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; margin-right: 4px; border-radius: 999px; border: 1px solid var(--line2); background: transparent; color: var(--ink); font: 600 12px var(--sans); cursor: pointer; } .mx-ask:hover { border-color: var(--ink); } .mx-ask .ico { width: 13px; height: 13px; }
+.mx-dock { position: fixed; z-index: 131; right: 18px; bottom: 18px; display: flex; align-items: center; gap: 6px; max-width: calc(100vw - 20px); padding: 7px 7px 7px 16px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line2); box-shadow: 0 24px 60px -22px rgba(0,0,0,.75), 0 0 0 1px color-mix(in srgb, var(--ink) 6%, transparent); opacity: 0; transform: translateY(10px); transition: opacity .3s ease, transform .35s cubic-bezier(.16,1,.3,1); }
+.mx-dock.in { opacity: 1; transform: none; } .mx-dock.out { opacity: 0; transform: translateY(8px); }
+.mx-dl { display: inline-flex; align-items: center; gap: 8px; margin-right: 6px; white-space: nowrap; font: 600 13.5px var(--sans); color: var(--ink); }
+.mx-dl b { font-weight: 650; }
+.mx-live { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); animation: mxlive 1.6s ease-in-out infinite; } .mx-dock.paused .mx-live { animation: none; opacity: .35; }
+@keyframes mxlive { 50% { opacity: .25; transform: scale(.8); } }
+.mx-n { font: 600 12px var(--mono); color: var(--mute); }
+.mx-b { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border: 1px solid var(--line2); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; transition: border-color .15s, background .15s; } .mx-b:hover { border-color: var(--ink); background: var(--panel2); } .mx-b .ico { width: 16px; height: 16px; } .mx-pp .ico { fill: currentColor; stroke: none; width: 14px; height: 14px; }
+.mx-next { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px 0 22px; border: 0; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 700 15px var(--sans); cursor: pointer; flex: none; transition: transform .15s ease, opacity .15s; } .mx-next:hover { transform: translateX(2px); } .mx-next:active { transform: scale(.97); } .mx-next .ico { width: 17px; height: 17px; stroke-width: 2.4; }
+.mx-ask { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; flex: none; border-radius: 999px; border: 1px solid var(--line2); background: transparent; color: var(--ink); font: 600 13.5px var(--sans); cursor: pointer; } .mx-ask:hover { border-color: var(--ink); background: var(--panel2); } .mx-ask .ico { width: 15px; height: 15px; }
+.mx-dock.done .mx-ask, .mx-dock.done .mx-pp, .mx-dock.done .mx-next, .mx-dock.done .mx-n { display: none; }
 .mx-cur.paused .mx-tag::after { content: " · Pause"; font-weight: 500; opacity: .75; }
-.mx-cur.done .mx-ctl { display: none; }
+@media (max-width: 600px) { .mx-dock { padding: 6px 6px 6px 12px; gap: 5px; } .mx-dl b { display: none; } .mx-ask { padding: 0 11px; } .mx-next { padding: 0 14px 0 16px; } }
 .mx-hl { outline: 2px solid var(--ink) !important; outline-offset: 4px; box-shadow: 0 0 0 8px color-mix(in srgb, var(--ink) 9%, transparent) !important; transition: outline-offset .25s ease, box-shadow .25s ease; }
 svg text.mx-hl { outline: none !important; fill: var(--ink); font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .mx-say.pop { animation: none; } .mx-say, .mx-p { transition: none; } }
