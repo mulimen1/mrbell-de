@@ -30,15 +30,16 @@ export function applyThemeButtons() {
 }
 
 // ---------- Farbpalette ----------
-// 10 gedeckte Akzentfarben. Hintergrund und Text bleiben schwarz/weiß – die Farbe ersetzt das „Schwarz“
+// 10 gedeckte Akzentfarben – Standard ist Dunkelgrün (wie Max' Quarter-Zip), Schwarz/Weiß bleibt wählbar.
+// Gespeichert: Farbname, 'std' für Schwarz/Weiß; nichts gespeichert = Grün. Hintergrund und Text bleiben schwarz/weiß – die Farbe ersetzt das „Schwarz“
 // der Akzente (Knöpfe, aktive Tabs, Chips, Häkchen, Fortschritt). Jede Farbe hat einen Ton für Hell und einen
 // helleren für Dunkel, damit weiße Schrift darauf immer lesbar bleibt. Die Werte stehen in app.css.
 export const ACCENTS = [
-  ['', 'Standard', 'Default', '#0a0a0a', '#f5f5f5'],
+  ['gruen', 'Grün', 'Forest', '#1f5137', '#2f7a55'],
+  ['', 'Schwarz', 'Black', '#0a0a0a', '#f5f5f5'],
   ['navy', 'Navy', 'Navy', '#1f3a5f', '#3d6299'],
   ['kobalt', 'Kobalt', 'Cobalt', '#1f4fbf', '#3f6bd0'],
   ['petrol', 'Petrol', 'Teal', '#0e5a63', '#1d7a85'],
-  ['gruen', 'Grün', 'Forest', '#1f5137', '#2f7a55'],
   ['oliv', 'Oliv', 'Olive', '#4f5b23', '#6b7833'],
   ['cognac', 'Cognac', 'Cognac', '#7a4523', '#9c5c2c'],
   ['bordeaux', 'Bordeaux', 'Burgundy', '#7b1e2e', '#a83346'],
@@ -48,7 +49,7 @@ export const ACCENTS = [
 const ACC_KEY = 'tutor.accent';
 export const getAccent = () => document.documentElement.dataset.accent || '';
 function showAccent(id) { const H = document.documentElement; if (id) H.dataset.accent = id; else delete H.dataset.accent; }
-const remember = id => { try { if (id) localStorage.setItem(ACC_KEY, id); else localStorage.removeItem(ACC_KEY); } catch (e) {} };
+const remember = id => { try { localStorage.setItem(ACC_KEY, id || 'std'); } catch (e) {} };
 // Farbe wechseln – mit Animation: Kreis aus dem angeklickten Farbtupfer färbt die Seite um (wie Hell/Dunkel).
 // Gespeichert auf dem Gerät (bleibt nach Ab-/Anmelden) und in „Mein Bereich“ (mit Sync auch auf anderen Geräten).
 export function setAccent(id, from) {
