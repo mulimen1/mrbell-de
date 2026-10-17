@@ -1,9 +1,13 @@
-// BWL Max: runder Kopf (schwarz im hellen, weiß im dunklen Modus) mit blondem Mittelscheitel.
-// Blinzelt, schaut dem Cursor nach. Zustände: idle, think, happy, sad, talk, smug.
+// BWL Max: runder Kopf mit blondem Mittelscheitel und navy Quarter-Zip-Kragen.
+// Blinzelt, schaut dem Cursor nach. Zustände: idle, think, happy, sad, talk, smug, sleep.
+// Kopf, Augen, Mund und Kragen sind Vektor (in jeder Größe scharf), die Haare ein hochaufgelöstes Bild.
+// Der Kragen liegt hinter dem Kopf: Der Kopf bewegt sich wie immer, die Schultern gehen leicht mit.
 const NS = 'http://www.w3.org/2000/svg';
 const faces = new Set();
 // Haare einmal vorladen und dekodieren, damit jeder Kopf sofort mit Frisur erscheint
-const HAIR_IMG = new Image(); HAIR_IMG.src = '/tutor/img/max-hair-sm.png';
+const HAIR_SRC = '/tutor/img/max-hair.webp';
+const HAIR_IMG = new Image(); HAIR_IMG.src = HAIR_SRC;
+let UID = 0;
 let HAIR_READY = false;
 let pointer = null;
 addEventListener('pointermove', e => { pointer = { x: e.clientX, y: e.clientY, t: performance.now() }; }, { passive: true });
@@ -28,12 +32,14 @@ class Face {
     this.el = el; this.follow = follow; this.state = 'idle'; this.sleepy = sleepy;
     el.classList.add('face');
     const svg = document.createElementNS(NS, 'svg');
-    svg.setAttribute('viewBox', '140 100 750 680');
+    svg.setAttribute('viewBox', '140 110 750 790');
+    const u = 'm' + (++UID);
     svg.setAttribute('aria-hidden', 'true');
     svg.style.cssText = 'width:100%;height:100%;overflow:visible;display:block';
-    svg.innerHTML = `
+    svg.innerHTML = COLLAR(u) + `
       <g class="fz-body">
         <ellipse class="fz-head" cx="512" cy="492" rx="262" ry="257"/>
+        <path class="fz-chin" d="M345 690 A262 257 0 0 0 679 690"/>
         <g class="fz-look">
           <g class="fz-brows"><path class="fz-brow l" d="M378 452 Q414 432 452 444"/><path class="fz-brow r" d="M574 444 Q612 432 648 452"/></g>
           <g class="fz-eyes">
@@ -48,7 +54,7 @@ class Face {
           <path class="fz-mouth m-think" d="M470 624 Q512 624 556 618"/>
           <ellipse class="fz-talk" cx="512" cy="622" rx="30" ry="18"/>
         </g>
-        <image class="fz-hair" href="/tutor/img/max-hair-sm.png" x="162" y="131" width="709" height="399" preserveAspectRatio="none"/>
+        <image class="fz-hair" href="${HAIR_SRC}" x="162" y="131" width="709" height="399" preserveAspectRatio="none"/>
         <g class="fz-dots"><circle cx="812" cy="158" r="22"/><circle cx="858" cy="112" r="16"/><circle cx="894" cy="74" r="11"/></g>
       </g>`;
     el.replaceChildren(svg);
@@ -56,6 +62,7 @@ class Face {
     this.eyes = svg.querySelector('.fz-eyes');
     this.body = svg.querySelector('.fz-body');
     this.hair = svg.querySelector('.fz-hair');
+    this.collar = svg.querySelector('.fz-collar');
     // Kopf erst zeigen, wenn die Haare da sind – nie ein kahler Max
     if (!HAIR_READY && HAIR_IMG.complete && HAIR_IMG.naturalWidth) HAIR_READY = true;
     if (!HAIR_READY) {
@@ -79,9 +86,18 @@ class Face {
     this.el.dataset.state = state;
     if (state === 'sleep') this.zz();
     else if (was === 'sleep') { const z = this.el.querySelector(':scope > .fz-zz'); if (z) { z.classList.add('out'); setTimeout(() => z.remove(), 400); } }
-    if (state === 'happy') this.body.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-26px)' }, { transform: 'translateY(0)' }], { duration: 440, easing: 'cubic-bezier(.16,1,.3,1)' });
-    if (state === 'sad') this.body.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-4deg)' }, { transform: 'rotate(0)' }], { duration: 800, easing: 'ease-in-out' });
-    if (state === 'smug') this.hair.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-10px)' }, { transform: 'translateY(0)' }], { duration: 520, easing: 'ease-in-out' });
+    if (state === 'happy') {
+      this.body.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-26px)' }, { transform: 'translateY(0)' }], { duration: 440, easing: 'cubic-bezier(.16,1,.3,1)' });
+      this.collar.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-11px)' }, { transform: 'translateY(1.5px)' }, { transform: 'translateY(0)' }], { duration: 520, delay: 40, easing: 'cubic-bezier(.16,1,.3,1)' });
+    }
+    if (state === 'sad') {
+      this.body.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-4deg)' }, { transform: 'rotate(0)' }], { duration: 800, easing: 'ease-in-out' });
+      this.collar.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(6px)' }, { transform: 'translateY(0)' }], { duration: 900, easing: 'ease-in-out' });
+    }
+    if (state === 'smug') {
+      this.hair.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-10px)' }, { transform: 'translateY(0)' }], { duration: 520, easing: 'ease-in-out' });
+      this.collar.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-7px)' }, { transform: 'translateY(0)' }], { duration: 560, delay: 60, easing: 'ease-in-out' });
+    }
   }
   // Schlaf-Zs, die nach oben schweben
   zz() {
@@ -137,6 +153,9 @@ class Face {
 const css = `
 .face svg .fz-head { fill: #f5f5f5; stroke: var(--fz-line, #0a0a0a); stroke-width: 15; }
 :root[data-theme="dark"] .face svg .fz-head { stroke: none; }
+/* Kinnlinie über dem Kragen – auch im dunklen Modus, wo der Kopf sonst keinen Rand hat */
+.face svg .fz-chin { fill: none; stroke: var(--fz-line, #0a0a0a); stroke-width: 15; }
+.face svg .fz-collar { transform-box: fill-box; transform-origin: 50% 100%; }
 .face svg .fz-eye { fill: #0a0a0a; transition: opacity .2s; }
 .face svg .fz-eyes { transform-box: fill-box; transform-origin: center; }
 .face svg .fz-brow { fill: none; stroke: #0a0a0a; stroke-width: 16; stroke-linecap: round; opacity: 0; transition: opacity .25s, transform .3s cubic-bezier(.16,1,.3,1); transform-box: fill-box; transform-origin: center; }
@@ -166,14 +185,44 @@ const css = `
 .face[data-state="sleep"] svg .fz-eyes { transform: scaleY(.1); transition: transform .5s ease; }
 .face svg .fz-eyes { transition: transform .25s ease; }
 .face[data-state="sleep"] svg .fz-body { animation: fzbreath 3.4s ease-in-out infinite; }
+.face[data-state="sleep"] svg .fz-collar { animation: fzshoulder 3.4s ease-in-out infinite; }
 .fz-zz { position: absolute; right: -26%; top: -22%; width: 44%; height: 70%; pointer-events: none; font: 700 1em/1 var(--sans, sans-serif); color: var(--ink); }
 .fz-zz span { position: absolute; left: 0; bottom: 0; opacity: 0; animation: fzz 2.7s ease-in infinite; }
 .fz-zz span:nth-child(2) { animation-delay: .9s; font-size: .8em; } .fz-zz span:nth-child(3) { animation-delay: 1.8s; font-size: 1.15em; }
 .fz-zz.out { opacity: 0; transition: opacity .35s ease; }
 @keyframes fzz { 0% { opacity: 0; transform: translate(0, 0) rotate(-8deg); } 15% { opacity: .9; } 100% { opacity: 0; transform: translate(1.6em, -2.6em) rotate(12deg); } }
 @keyframes fzbreath { 50% { transform: rotate(3deg) translateY(8px); } }
-@media (prefers-reduced-motion: reduce) { .fz-zz span, .face[data-state="sleep"] svg .fz-body { animation: none !important; } .fz-zz span:last-child { opacity: .8; } }
+@keyframes fzshoulder { 50% { transform: translateY(4px); } }
+@media (prefers-reduced-motion: reduce) { .fz-zz span, .face[data-state="sleep"] svg .fz-body, .face[data-state="sleep"] svg .fz-collar { animation: none !important; } .fz-zz span:last-child { opacity: .8; } }
 @keyframes fzdot { 0%, 100% { opacity: .15; } 50% { opacity: 1; } }
 @keyframes fztalk { from { transform: scaleY(.35); } to { transform: scaleY(1.15); } }
 `;
 const s = document.createElement('style'); s.textContent = css; document.head.appendChild(s);
+
+// Navy Quarter-Zip: Stehkragen mit Paspel, hellblauer Hemdkragen, Reißverschluss mit Zipper.
+// Liegt hinter dem Kopf; Teile, die nur bei Bewegung sichtbar werden (Rückseite, Hals), sind mitgezeichnet.
+// u = eindeutiges Suffix für die Verläufe je Gesicht (sonst brechen Verläufe, wenn das erste Gesicht ausgeblendet ist).
+function COLLAR(u) {
+  return `<g class="fz-collar">
+<defs>
+<linearGradient id="fzu${u}" gradientUnits="userSpaceOnUse" x1="0" y1="680" x2="0" y2="840"><stop offset="0" stop-color="#3b4e68"/><stop offset=".55" stop-color="#2d3d53"/><stop offset="1" stop-color="#233144"/></linearGradient>
+<radialGradient id="fzl${u}" gradientUnits="userSpaceOnUse" cx="512" cy="790" r="235" fx="512" fy="770"><stop offset="0" stop-color="#33465e"/><stop offset=".62" stop-color="#253446"/><stop offset="1" stop-color="#141c27"/></radialGradient>
+<linearGradient id="fzs${u}" gradientUnits="userSpaceOnUse" x1="0" y1="720" x2="0" y2="840"><stop offset="0" stop-color="#f3f6fa"/><stop offset="1" stop-color="#d6e2ef"/></linearGradient>
+<linearGradient id="fzn${u}" gradientUnits="userSpaceOnUse" x1="0" y1="740" x2="0" y2="800"><stop offset="0" stop-color="#e9ecf0"/><stop offset="1" stop-color="#fdfdfe"/></linearGradient>
+<linearGradient id="fzz${u}" gradientUnits="userSpaceOnUse" x1="503" y1="0" x2="521" y2="0"><stop offset="0" stop-color="#f6f7f8"/><stop offset=".45" stop-color="#d3d6d9"/><stop offset="1" stop-color="#8d9298"/></linearGradient>
+</defs>
+<path fill="#151d29" d="M346 684 C420 652 604 652 678 684 L652 702 C590 682 434 682 372 702 Z"/>
+<path fill="url(#fzn${u})" d="M362 640 L662 640 L660 700 L512 852 L364 700 Z"/>
+<g fill="url(#fzs${u})" stroke="#7690b1" stroke-width="2.6" stroke-linejoin="round"><path d="M352 688 C380 718 412 748 452 784 C474 804 494 822 512 842 L512 822 C506 816 498 808 490 799 C478 785 462 768 446 750 C430 732 414 712 398 690 Z"/><path d="M652 688 C636 708 622 728 614 734 C596 752 576 774 554 798 C540 814 526 828 512 842 L512 814 C517 809 525 799 533 789 C545 773 561 754 577 738 C591 723 606 706 619 688 Z"/></g>
+<g fill="#dce6f2" stroke="#8aa1c0" stroke-width="2"><path d="M480.5 777 C475.5 778 473 784 474.5 791 C477 801 488 812 503 821 C502.5 808 499.5 794 495 786 C492 780 486 776.5 480.5 777 Z"/><path d="M543.5 777 C548.5 778 551 784 549.5 791 C547 801 536 812 521 821 C521.5 808 524.5 794 529 786 C532 780 538 776.5 543.5 777 Z"/></g>
+<path fill="url(#fzu${u})" d="M512 838 C507.8 833.5 497 820.8 487 811 C477 801.2 463.5 789.2 452 779 C440.5 768.8 428.3 759.5 418 750 C407.7 740.5 398.8 731.5 390 722 C381.2 712.5 369.2 697.8 365 693 L348 678 Q340 680 327 689 C325.7 693.7 321.5 707.5 319 717 C316.5 726.5 313.6 737.7 312 746 C310.4 754.3 309.3 760.8 309.5 767 C309.7 773.2 309.4 776.5 313 783 C316.6 789.5 322.3 797.5 331 806 C339.7 814.5 353.3 825.8 365 834 C376.7 842.2 389.2 849 401 855 C412.8 861 424.2 865.7 436 870 C447.8 874.3 459.3 878.2 472 881 C484.7 883.8 505.3 886 512 887 C518.7 886 539.3 883.8 552 881 C564.7 878.2 576.2 874.3 588 870 C599.8 865.7 611.2 861 623 855 C634.8 849 647.3 842.2 659 834 C670.7 825.8 684.3 814.5 693 806 C701.7 797.5 707.4 789.5 711 783 C714.6 776.5 714.3 773.2 714.5 767 C714.7 760.8 713.6 754.3 712 746 C710.4 737.7 707.5 726.5 705 717 C702.5 707.5 698.3 693.7 697 689 Q684 680 676 678 L659 693 C654.8 697.8 642.8 712.5 634 722 C625.2 731.5 616.3 740.5 606 750 C595.7 759.5 583.5 768.8 572 779 C560.5 789.2 547 801.2 537 811 C527 820.8 516.2 833.5 512 838 Z"/>
+<path fill="url(#fzl${u})" d="M313.5 766 C313.4 765.8 323.2 764.2 333 765 C342.8 765.8 356.5 768.5 368 771 C379.5 773.5 390.5 776.2 402 780 C413.5 783.8 425.5 789 437 794 C448.5 799 461 804.7 471 810 C481 815.3 490.3 821.5 497 826 C503.7 830.5 508.7 835.2 511 837 C511.3 837 512.7 837 513 837 C515.3 835.2 520.3 830.5 527 826 C533.7 821.5 543 815.3 553 810 C563 804.7 575.5 799 587 794 C598.5 789 610.5 783.8 622 780 C633.5 776.2 644.5 773.5 656 771 C667.5 768.5 681.2 765.8 691 765 C700.8 764.2 710.6 765.8 714.5 766 C713.9 769.7 714.6 776.5 711 783 C707.4 789.5 701.7 797.5 693 806 C684.3 814.5 670.7 825.8 659 834 C647.3 842.2 634.8 849 623 855 C611.2 861 599.8 865.7 588 870 C576.2 874.3 564.7 878.2 552 881 C539.3 883.8 518.7 886 512 887 C505.3 886 484.7 883.8 472 881 C459.3 878.2 447.8 874.3 436 870 C424.2 865.7 412.8 861 401 855 C389.2 849 376.7 842.2 365 834 C353.3 825.8 339.7 814.5 331 806 C322.3 797.5 316.6 789.5 313 783 C309.4 776.5 310.1 769.7 309.5 767 Z"/>
+<path fill="none" stroke="#0b111a" stroke-width="9" opacity=".32" stroke-linecap="round" transform="translate(0 5)" d="M313.5 766 C313.4 765.8 323.2 764.2 333 765 C342.8 765.8 356.5 768.5 368 771 C379.5 773.5 390.5 776.2 402 780 C413.5 783.8 425.5 789 437 794 C448.5 799 461 804.7 471 810 C481 815.3 490.3 821.5 497 826 C503.7 830.5 508.7 835.2 511 837 M710.5 766 C710.6 765.8 700.8 764.2 691 765 C681.2 765.8 667.5 768.5 656 771 C644.5 773.5 633.5 776.2 622 780 C610.5 783.8 598.5 789 587 794 C575.5 799 563 804.7 553 810 C543 815.3 533.7 821.5 527 826 C520.3 830.5 515.3 835.2 513 837"/>
+<path fill="none" stroke="#54698a" stroke-width="3" opacity=".55" stroke-linecap="round" d="M331 700 C323 724 316 748 314 760 M693 700 C701 724 708 748 710 760"/>
+<path fill="none" stroke="#0e141d" stroke-width="5" stroke-linejoin="round" d="M512 838 C507.8 833.5 497 820.8 487 811 C477 801.2 463.5 789.2 452 779 C440.5 768.8 428.3 759.5 418 750 C407.7 740.5 398.8 731.5 390 722 C381.2 712.5 369.2 697.8 365 693 L348 678 Q340 680 327 689 C325.7 693.7 321.5 707.5 319 717 C316.5 726.5 313.6 737.7 312 746 C310.4 754.3 309.3 760.8 309.5 767 C309.7 773.2 309.4 776.5 313 783 C316.6 789.5 322.3 797.5 331 806 C339.7 814.5 353.3 825.8 365 834 C376.7 842.2 389.2 849 401 855 C412.8 861 424.2 865.7 436 870 C447.8 874.3 459.3 878.2 472 881 C484.7 883.8 505.3 886 512 887 C518.7 886 539.3 883.8 552 881 C564.7 878.2 576.2 874.3 588 870 C599.8 865.7 611.2 861 623 855 C634.8 849 647.3 842.2 659 834 C670.7 825.8 684.3 814.5 693 806 C701.7 797.5 707.4 789.5 711 783 C714.6 776.5 714.3 773.2 714.5 767 C714.7 760.8 713.6 754.3 712 746 C710.4 737.7 707.5 726.5 705 717 C702.5 707.5 698.3 693.7 697 689 Q684 680 676 678 L659 693 C654.8 697.8 642.8 712.5 634 722 C625.2 731.5 616.3 740.5 606 750 C595.7 759.5 583.5 768.8 572 779 C560.5 789.2 547 801.2 537 811 C527 820.8 516.2 833.5 512 838 Z"/>
+<g fill="none" stroke-linecap="round"><path stroke="#0e141d" stroke-width="6.4" d="M313.5 766 C313.4 765.8 323.2 764.2 333 765 C342.8 765.8 356.5 768.5 368 771 C379.5 773.5 390.5 776.2 402 780 C413.5 783.8 425.5 789 437 794 C448.5 799 461 804.7 471 810 C481 815.3 490.3 821.5 497 826 C503.7 830.5 508.7 835.2 511 837 M710.5 766 C710.6 765.8 700.8 764.2 691 765 C681.2 765.8 667.5 768.5 656 771 C644.5 773.5 633.5 776.2 622 780 C610.5 783.8 598.5 789 587 794 C575.5 799 563 804.7 553 810 C543 815.3 533.7 821.5 527 826 C520.3 830.5 515.3 835.2 513 837"/><path stroke="#a2a8af" stroke-width="3.6" d="M313.5 766 C313.4 765.8 323.2 764.2 333 765 C342.8 765.8 356.5 768.5 368 771 C379.5 773.5 390.5 776.2 402 780 C413.5 783.8 425.5 789 437 794 C448.5 799 461 804.7 471 810 C481 815.3 490.3 821.5 497 826 C503.7 830.5 508.7 835.2 511 837 M710.5 766 C710.6 765.8 700.8 764.2 691 765 C681.2 765.8 667.5 768.5 656 771 C644.5 773.5 633.5 776.2 622 780 C610.5 783.8 598.5 789 587 794 C575.5 799 563 804.7 553 810 C543 815.3 533.7 821.5 527 826 C520.3 830.5 515.3 835.2 513 837"/><path stroke="#f1f3f5" stroke-width="1.2" transform="translate(0 -.8)" d="M313.5 766 C313.4 765.8 323.2 764.2 333 765 C342.8 765.8 356.5 768.5 368 771 C379.5 773.5 390.5 776.2 402 780 C413.5 783.8 425.5 789 437 794 C448.5 799 461 804.7 471 810 C481 815.3 490.3 821.5 497 826 C503.7 830.5 508.7 835.2 511 837 M710.5 766 C710.6 765.8 700.8 764.2 691 765 C681.2 765.8 667.5 768.5 656 771 C644.5 773.5 633.5 776.2 622 780 C610.5 783.8 598.5 789 587 794 C575.5 799 563 804.7 553 810 C543 815.3 533.7 821.5 527 826 C520.3 830.5 515.3 835.2 513 837"/><path stroke="#c6cbd1" stroke-width="5.6" stroke-linecap="butt" stroke-dasharray="1.7 1.9" d="M471 810 C475.3 812.7 490.3 821.5 497 826 C503.7 830.5 508.7 835.2 511 837 M553 810 C548.7 812.7 533.7 821.5 527 826 C520.3 830.5 515.3 835.2 513 837"/></g>
+<g fill="url(#fzz${u})" stroke="#474c54" stroke-width="2"><path d="M501 829 C501 826.5 503 825 505.5 825 L518.5 825 C521 825 523 826.5 523 829 L520.8 845.5 C520.4 848.2 518.4 849.6 515.8 849.6 L508.2 849.6 C505.6 849.6 503.6 848.2 503.2 845.5 Z"/><rect x="505" y="846" width="14" height="44" rx="5.2"/></g>
+<rect fill="#3a3e45" x="508.4" y="877" width="7.2" height="7" rx="2.1"/>
+<path stroke="#fff" stroke-width="1.8" opacity=".75" stroke-linecap="round" d="M507.9 852 L507.9 871"/>
+</g>`;
+}
