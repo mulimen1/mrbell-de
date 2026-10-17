@@ -247,8 +247,9 @@ window.addEventListener('unhandledrejection', e => { console.error(e.reason); })
 import('./palette.js').then(m => m.bindPalette()).catch(() => {});
 
 // Inner Circle buchbar, sobald Stripe eingerichtet ist; Rückkehr nach 3-D Secure abholen
-import('./abo.js').then(m => {
+import('./abo.js').then(async m => {
   m.resumeAbo();
+  await m.loadPk();   // Schlüssel beim Start holen – sonst sieht kein neuer Nutzer den Inner Circle als buchbar
   if (!m.aboReady()) return;
   const pb = $('.plan.pro button'); if (!pb) return;
   pb.disabled = false; pb.textContent = L('7 Tage gratis testen', 'Try 7 days free'); pb.addEventListener('click', () => m.openAbo());

@@ -11,7 +11,7 @@ export const aboReady = () => !!PK;
 let pkP = null;
 export function loadPk(force) {
   if (pkP && !force) return pkP;
-  pkP = fetch(HUB + 'stripe/pk', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: '{}', cache: 'no-store' })
+  pkP = fetch(HUB + 'stripe/pk', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ session: getSession() || '' }), cache: 'no-store' })   // Sitzung: im Testmodus bekommt nur Ben den Schlüssel
     .then(r => r.json()).then(j => { if (j && j.ok) { PK = j.pk || ''; ls.set('tutor.stripePk', PK); } return PK; })
     .catch(() => PK);
   return pkP;
