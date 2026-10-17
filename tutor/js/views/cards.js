@@ -10,6 +10,7 @@ import { richText } from '../sanitize.js';
 import { L } from '../i18n.js';
 import { review } from '../fsrs.js';
 import { takeCreate } from '../create.js';
+import { savedToast } from '../lib.js';
 
 const DAY = 864e5;
 export function dueCards(doc, now = Date.now()) { return doc.decks.flatMap(d => d.cards.map(c => ({ c, d }))).filter(x => (x.c.due || 0) <= now); }
@@ -75,7 +76,7 @@ async function generate(wrap, ctx, chIdx, o) {
     if (!cards.length) throw new Error(L('Es kamen keine Karten zurück. Versuch es nochmal.', 'No cards came back. Please try again.'));
     const deck = { id: uid(), title: ch ? ch.title : (r.data.title || L('Ganzes Skript', 'Whole script')), chapter: chIdx, cards, created: Date.now() };
     doc.decks.push(deck); save(doc);
-    ld.stop();
+    ld.stop(); savedToast('karten');
     study(wrap, ctx, cards.map(c => ({ c, d: deck })), deck.title); freshen(wrap);
   } catch (e) { ld.stop(); overview(wrap, ctx); apiError(e, () => generate(wrap, ctx, chIdx, o)); }
 }

@@ -18,6 +18,7 @@ import { applyThemeButtons } from './theme.js';
 import { getMic, releaseMic as freeMic } from './mic.js';
 import { prompt as maxPrompt, mode as maxMode } from './maxcfg.js';
 import { knowledge } from './know.js';
+import { keepBoards } from './lib.js';
 import { tour, tourActive, pauseTour, stopTour, boardSteps, pageMap, byMxId, spotText } from './cursor.js';
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
@@ -910,8 +911,9 @@ export function mountAssistant() {
     // Tafel(n) auf die Seite – und ins Skript, damit sie auch im Tafel-Tab liegen
     let t = null;
     if (p.boards.length) {
-      const d = curDoc();
-      if (d) { p.boards.forEach(b => d.boards.push({ ...b, at: Date.now() })); save(d); }
+      // Jede Tafel landet automatisch in der Bibliothek – mit Überschrift und Beschreibung
+      const lastQ = [...hist].reverse().find(m => m.role === 'user')?.content || '';
+      keepBoards(p.boards, { doc: curDoc(), question: lastQ, answer: p.text });
       boards = boards.concat(p.boards).slice(-12); bIdx = boards.length - p.boards.length;
       t = drawBoard(true); openBoard();
     }

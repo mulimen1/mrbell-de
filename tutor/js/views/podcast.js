@@ -8,6 +8,7 @@ import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, 
 import { SPICE, getSpice } from '../max.js';
 import { getOutLang, setOutLang, L } from '../i18n.js';
 import { takeCreate } from '../create.js';
+import { savedToast } from '../lib.js';
 
 const synth = window.speechSynthesis;
 function voices() { return synth ? synth.getVoices().filter(v => /^de(-|_|$)/i.test(v.lang)) : []; }
@@ -102,7 +103,7 @@ async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), m
     if (lines.length < 4) throw new Error(L('Die Folge ist nicht vollständig angekommen. Versuch es nochmal.', 'The episode didn’t arrive completely. Please try again.'));
     const p = { id: uid(), title: r.data.title || L('Folge', 'Episode'), lines, created: Date.now(), lang: plang, voice: mvoice, len, tone, focus: ch ? ch.title : null, real: true, audio: [] };
     doc.podcasts.push(p); save(doc);
-    ld.stop(); player(wrap, ctx, p); freshen(wrap);
+    ld.stop(); player(wrap, ctx, p); freshen(wrap); savedToast('podcasts');
   } catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, len, focus, tone, plang, mvoice)); }
 }
 

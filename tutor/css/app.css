@@ -3678,3 +3678,13 @@ html.mx-touring .asst-quip, html.mx-touring .rm-th { display: none !important; }
 .icx-soon { margin: -6px 0 0; text-align: center; font-size: 12.5px; color: #8d8d96; }
 .icx-later { border: 0; background: none; color: #a9a9b2; font: 550 13px var(--sans); padding: 6px; cursor: pointer; border-radius: 10px; } .icx-later:hover { color: #fff; }
 @media (max-width: 520px) { .icx-ben { grid-template-columns: 1fr; } .modal.icx { padding: 26px 18px 18px; } .modal.icx h3 { font-size: 26px; } }
+
+/* „In der Bibliothek gespeichert · Ansehen“ */
+.lib-toast { gap: 10px; }
+.lib-ok { width: 20px; height: 20px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--onInv); color: var(--inv); }
+.lib-ok svg { width: 12px; height: 12px; stroke-width: 2.6; }
+.lib-toast .toast-undo { margin-left: 4px; }
+/* Meldungen nie übers Eingabefeld legen: im Tutor-Raum über der Insel, am Handy über der unteren Leiste */
+body:has(.asst.stage) .toasts, body:has(.asst.open .ai-isl) .toasts { bottom: 106px; }
+html.has-bbar .toasts { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+html.has-bbar body:has(.asst.stage) .toasts { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }

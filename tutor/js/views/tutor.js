@@ -10,6 +10,7 @@ import { sanitize, richText } from '../sanitize.js';
 import { say, SPICE, getSpice, setSpice, NAME } from '../max.js';
 import { openVoice } from '../voice.js';
 import { L } from '../i18n.js';
+import { boardMeta, savedToast } from '../lib.js';
 
 const ACTIONS = {
   quiz: [L('Quiz dazu starten', 'Start a quiz on this'), d => `#/app/${d.id}/quiz`],
@@ -159,7 +160,8 @@ export async function render(root, ctx) {
       doc.chat.push({ role: 'assistant', content: raw, model: r.model || '', tools: r.tools || [] });
       const p = parse(raw);
       const refs = [];
-      p.boards.forEach(b => { doc.boards.push({ ...b, at: Date.now() }); refs.push({ idx: doc.boards.length - 1, title: b.title }); });
+      p.boards.forEach(b => { doc.boards.push({ ...b, ...boardMeta(b, text, p.text), at: Date.now() }); refs.push({ idx: doc.boards.length - 1, title: b.title }); });
+      if (p.boards.length) savedToast('tafeln', p.boards.length);
       if (doc.chat.length > 80) doc.chat = doc.chat.slice(-80);
       if (doc.boards.length > 60) { const cut = doc.boards.length - 60; doc.boards = doc.boards.slice(cut); refs.forEach(x => x.idx -= cut); }
       save(doc);

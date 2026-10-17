@@ -6,6 +6,7 @@ import { L } from '../i18n.js';
 import { S, removeDoc, mastery, saveNow, refreshList, onChange } from '../state.js';
 import { dueCards } from './cards.js';
 import * as M from '../me.js';
+import { looseBoards, setLooseBoards } from '../lib.js';
 
 const KIND = { vorlesung: L('Vorlesung', 'Lecture'), uebung: L('Übung', 'Exercise'), altklausur: L('Altklausur', 'Past exam'), mitschrift: L('Mitschrift', 'Notes'), zusammenfassung: L('Zusammenfassung', 'Summary'), sonstiges: '' };
 // Reihenfolge der Bereiche
@@ -19,6 +20,7 @@ const TYPES = [
 ];
 const PREVIEW = 4; // in „Alles“: so viele je Bereich, Rest über „Alle anzeigen“
 const live = d => (S.doc && S.doc.id === d.id ? S.doc : d);
+const NO_DOC = { id: '', name: L('Ohne Skript', 'No slides') };
 const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 const fromHere = () => { try { sessionStorage.setItem('tutor.backTo', 'bibliothek'); } catch (e) {} };
 const datum = t => (t ? new Date(t).toLocaleDateString(document.documentElement.lang === 'en' ? 'en-GB' : 'de-DE', { day: 'numeric', month: 'short' }) : '');
@@ -38,8 +40,10 @@ function items(type, docs) {
     if (type === 'quiz') (d.quizzes || []).forEach(q => { const best = q.results?.length ? Math.round(100 * Math.max(...q.results.map(r => r.score || 0))) : null; out.push({ d, t: q.title, at: q.created || d.created, ic: q.exam ? 'exam' : 'quiz', meta: [L(`${q.questions.length} Fragen`, `${q.questions.length} questions`), q.diff ? String(q.diff).replace(/^./, c => c.toUpperCase()) : null], pill: best != null ? best + ' %' : L('neu', 'new'), href: `#/app/${d.id}/quiz/q-${encodeURIComponent(q.id)}`, del: () => { d.quizzes = d.quizzes.filter(y => y !== q); } }); });
     if (type === 'zettel' && d.summary) out.push({ d, t: d.summary.title || d.name, at: d.summary.created || d.created, meta: [(d.summary.tldr || []).length ? L(`${d.summary.tldr.length} Kernaussagen`, `${d.summary.tldr.length} key points`) : null, d.summary.len === 'lang' ? L('ausführlich', 'detailed') : d.summary.len === 'kurz' ? L('kurz', 'short') : null], href: `#/app/${d.id}/zettel`, del: () => { d.summary = null; } });
     if (type === 'podcasts') (d.podcasts || []).forEach(p => out.push({ d, t: p.title, at: p.created || d.created, meta: [p.len === 'lang' ? L('~10 Min.', '~10 min') : p.len === 'kurz' ? L('~5 Min.', '~5 min') : null, p.lang === 'en' ? 'English' : 'Deutsch'], href: `#/app/${d.id}/podcast/p-${encodeURIComponent(p.id)}`, del: () => { d.podcasts = d.podcasts.filter(y => y !== p); } }));
-    if (type === 'tafeln') (d.boards || []).forEach(b => b && b.html && out.push({ d, t: b.title || L('Tafel', 'Board'), at: b.at || d.created, meta: [], board: b, del: () => { d.boards = d.boards.filter(y => y !== b); } }));
+    if (type === 'tafeln') (d.boards || []).forEach(b => b && b.html && out.push({ d, t: b.title || L('Tafel', 'Board'), at: b.at || d.created, meta: [b.sum || b.q || null], tip: b.q, first: true, board: b, del: () => { d.boards = d.boards.filter(y => y !== b); } }));
   }
+  // Tafeln aus Gesprächen ohne Skript
+  if (type === 'tafeln') looseBoards().forEach(b => b && b.html && out.push({ d: NO_DOC, loose: true, t: b.title || L('Tafel', 'Board'), at: b.at || 0, meta: [b.sum || b.q || null], tip: b.q, first: true, board: b, del: () => setLooseBoards(looseBoards().filter(y => !(y.html === b.html && y.at === b.at))) }));
   return out.sort((a, b) => (b.at || 0) - (a.at || 0));
 }
 
@@ -85,7 +89,7 @@ export function render(root, { tab: want = '' } = {}) {
   async function del(it) {
     const ok = await modal({ title: L('Wirklich löschen?', 'Really delete?'), text: L(`„${it.t}“ wird von diesem Gerät gelöscht.`, `“${it.t}” will be deleted from this device.`), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] });
     if (!ok) return;
-    it.del(); await saveNow(it.d); await refreshList(); toast(L('Gelöscht', 'Deleted'));
+    it.del(); if (!it.loose) await saveNow(it.d); await refreshList(); draw(); toast(L('Gelöscht', 'Deleted'));
   }
 
   // ---------- Zeilen ----------
@@ -93,7 +97,7 @@ export function render(root, { tab: want = '' } = {}) {
     const open = it.board ? () => inRoom(api => api.showBoard && api.showBoard(it.board)) : () => { fromHere(); location.hash = it.href; };
     return h('div', { class: 'sk-r bib-r', role: 'link', tabindex: 0, onclick: open, onkeydown: e => { if (e.key === 'Enter') open(); } },
       h('span', { class: 'sk-i', html: ico(it.ic || ic) }),
-      h('span', { class: 'sk-t' }, h('b', {}, it.t), h('small', {}, [showDoc ? short(it.d.name, 36) : null, ...it.meta].filter(Boolean).join(' · ') || ' ')),
+      h('span', { class: 'sk-t', title: it.tip ? L('Deine Frage: ', 'Your question: ') + it.tip : null }, h('b', {}, it.t), h('small', {}, (it.first ? [...it.meta, showDoc ? short(it.d.name, 36) : null] : [showDoc ? short(it.d.name, 36) : null, ...it.meta]).filter(Boolean).join(' · ') || ' ')),
       it.pill ? h('span', { class: 'bib-p' + (it.hot ? ' hot' : '') }, it.pill) : h('span'),
       h('span', { class: 'bib-d', title: it.at ? new Date(it.at).toLocaleString() : '' }, datum(it.at)),
       h('button', { class: 'iconbtn sk-del', type: 'button', 'aria-label': L('Löschen', 'Delete'), html: ico('trash'), onclick: e => { e.stopPropagation(); del(it); } }));
@@ -139,7 +143,7 @@ export function render(root, { tab: want = '' } = {}) {
   function drawBody() {
     if (!wrap.isConnected) return;
     // Noch gar nichts hochgeladen
-    if (!data.docs.length) {
+    if (!data.docs.length && !made().length) {
       body.replaceChildren(h('div', { class: 'sk-empty' }, h('label', { class: 'sk-drop', for: 'fileApp' }, h('span', { html: ico('upload') }), h('b', {}, L('Datei, Foto oder Screenshot hier rein', 'Drop a file, photo or screenshot here')), h('small', {}, L('oder in der App einfach ⌘V / Strg+V', 'or just ⌘V / Ctrl+V in the app'))),
         h('button', { class: 'btn', type: 'button', onclick: () => import('../app.js').then(m => m.topicPrompt()) }, h('span', { html: ico('bulb') }), L('Kein Skript? Nenn mir ein Thema', 'No slides? Give me a topic'))),
         intro());

@@ -12,6 +12,7 @@ import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { getOutLang, setOutLang, L } from './i18n.js';
 import { getMic, releaseMic as freeMic } from './mic.js';
+import { keepBoards } from './lib.js';
 
 export const VOICES = [
   ['max', L('Max beim Aperol', 'Max over Aperol'), L('Anfang 20, entspannt auf der Terrasse', 'early 20s, relaxed on the terrace')],
@@ -207,7 +208,8 @@ export function openVoice({ doc = null, onClose } = {}) {
       const raw = r.text || '';
       msgs.push({ role: 'assistant', content: raw });
       const p = parse(raw);
-      if (doc) { p.boards.forEach(b => doc.boards.push({ ...b, at: Date.now() })); if (doc.chat.length > 80) doc.chat = doc.chat.slice(-80); save(doc); }
+      keepBoards(p.boards, { doc, question: text, answer: p.text });   // jede Tafel automatisch in die Bibliothek
+      if (doc) { if (doc.chat.length > 80) doc.chat = doc.chat.slice(-80); save(doc); }
       const sp = h('div', { class: 'vsaid-tx' }, h('span', { class: 'typing' }, h('i'), h('i'), h('i'))); said.replaceChildren(h('span', { class: 'eyebrow' }, 'Max'), sp);
       shownTx = false;
       showTx = au => { if (shownTx) return; shownTx = true; if (au) syncOut(sp, p.text, au); else typeOut(sp, p.text, { alive: () => my === gen }); };

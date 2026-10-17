@@ -12,6 +12,7 @@ import { feedbackButton } from '../feedback.js';
 import { ls as lsq } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
 import { takeCreate } from '../create.js';
+import { savedToast } from '../lib.js';
 
 const TYPES = ['mc', 'tf', 'match', 'order', 'cloze', 'num'];
 const DIFF = [['leicht', L('Leicht', 'Easy')], ['mittel', L('Mittel', 'Medium')], ['schwer', L('Schwer', 'Hard')], ['klausur', L('Klausur', 'Exam level')]];
@@ -90,7 +91,7 @@ async function generate(wrap, ctx, st) {
     if (qs.length < 2) throw new Error(L('Das Quiz ist nicht vollständig angekommen. Versuch es nochmal.', 'The quiz didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: ch ? ch.title : (r.data.title || 'Quiz'), questions: qs, diff: st.diff, created: Date.now(), results: [] };
     doc.quizzes.push(quiz); save(doc);
-    ld.stop(); run(wrap, ctx, quiz); freshen(wrap);
+    ld.stop(); run(wrap, ctx, quiz); freshen(wrap); savedToast('quiz');
   } catch (e) { ld.stop(); overview(wrap, ctx, st.focus); apiError(e, () => generate(wrap, ctx, st)); }
 }
 
@@ -122,7 +123,7 @@ async function exam(wrap, ctx) {
     if (qs.length < 4) throw new Error(L('Die Probeklausur ist nicht vollständig angekommen. Versuch es nochmal.', 'The mock exam didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: L('Probeklausur · ', 'Mock exam · ') + new Date().toLocaleDateString(LOCALE), questions: qs, diff: 'Klausur', exam: true, minutes: cfg.minutes, pass: cfg.pass, silent: cfg.silent, created: Date.now(), results: [] };
     doc.quizzes.push(quiz); save(doc);
-    ld.stop(); run(wrap, ctx, quiz); freshen(wrap);
+    ld.stop(); run(wrap, ctx, quiz); freshen(wrap); savedToast('quiz');
   } catch (e) { ld.stop(); overview(wrap, ctx); apiError(e, () => exam(wrap, ctx)); }
 }
 

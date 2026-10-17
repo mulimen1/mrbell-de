@@ -9,6 +9,7 @@ import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest
 import { sanitize } from '../sanitize.js';
 import { L } from '../i18n.js';
 import { takeCreate, zettelHint } from '../create.js';
+import { savedToast } from '../lib.js';
 
 export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in' });
@@ -34,7 +35,7 @@ async function generate(wrap, ctx, o) {
     const d = r.data || {};
     if (!d.html && !d.tldr) throw new Error(L('Der Lernzettel ist leer angekommen. Versuch es nochmal.', 'The study sheet came back empty. Please try again.'));
     doc.summary = { title: d.title || doc.name, tldr: (d.tldr || []).map(String), html: String(d.html || ''), mindmap: d.mindmap || null, terms: (d.terms || []).filter(t => t && t.t), created: Date.now(), len: o?.len || null };
-    save(doc); ld.stop(); show(wrap, ctx); freshen(wrap);
+    save(doc); ld.stop(); show(wrap, ctx); freshen(wrap); savedToast('zettel');
   } catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, o)); }
 }
 
