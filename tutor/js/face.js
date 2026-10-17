@@ -39,7 +39,6 @@ class Face {
     svg.innerHTML = COLLAR(u) + `
       <g class="fz-body">
         <ellipse class="fz-head" cx="512" cy="492" rx="262" ry="257"/>
-        <path class="fz-chin" d="M345 690 A262 257 0 0 0 679 690"/>
         <g class="fz-look">
           <g class="fz-brows"><path class="fz-brow l" d="M378 452 Q414 432 452 444"/><path class="fz-brow r" d="M574 444 Q612 432 648 452"/></g>
           <g class="fz-eyes">
@@ -153,8 +152,10 @@ class Face {
 const css = `
 .face svg .fz-head { fill: #f5f5f5; stroke: var(--fz-line, #0a0a0a); stroke-width: 15; }
 :root[data-theme="dark"] .face svg .fz-head { stroke: none; }
-/* Kinnlinie über dem Kragen – auch im dunklen Modus, wo der Kopf sonst keinen Rand hat */
-.face svg .fz-chin { fill: none; stroke: var(--fz-line, #0a0a0a); stroke-width: 15; }
+/* Schatten unterm Kinn: trennt Kopf und Hemd – im dunklen Modus (Kopf ohne Rand) kräftiger */
+.face svg .fzc-shade { opacity: .2; }
+:root[data-theme="dark"] .face svg .fzc-shade, .icx .face svg .fzc-shade, .kg .face svg .fzc-shade, .wl .face svg .fzc-shade { opacity: .5; }
+:root[data-theme="dark"] .on-inv .face svg .fzc-shade, :root .tile.dark .face svg .fzc-shade { opacity: .2; }
 .face svg .fz-collar { transform-box: fill-box; transform-origin: 50% 100%; }
 .face svg .fz-eye { fill: #0a0a0a; transition: opacity .2s; }
 .face svg .fz-eyes { transform-box: fill-box; transform-origin: center; }
@@ -210,11 +211,13 @@ function COLLAR(u) {
 <linearGradient id="fzs${u}" gradientUnits="userSpaceOnUse" x1="0" y1="720" x2="0" y2="840"><stop offset="0" stop-color="#f3f6fa"/><stop offset="1" stop-color="#d6e2ef"/></linearGradient>
 <linearGradient id="fzn${u}" gradientUnits="userSpaceOnUse" x1="0" y1="740" x2="0" y2="800"><stop offset="0" stop-color="#e9ecf0"/><stop offset="1" stop-color="#fdfdfe"/></linearGradient>
 <linearGradient id="fzz${u}" gradientUnits="userSpaceOnUse" x1="503" y1="0" x2="521" y2="0"><stop offset="0" stop-color="#f6f7f8"/><stop offset=".45" stop-color="#d3d6d9"/><stop offset="1" stop-color="#8d9298"/></linearGradient>
+<clipPath id="fzk${u}"><path d="M362 640 L662 640 L660 700 L512 852 L364 700 Z"/></clipPath>
 </defs>
 <path fill="#151d29" d="M346 684 C420 652 604 652 678 684 L652 702 C590 682 434 682 372 702 Z"/>
 <path fill="url(#fzn${u})" d="M362 640 L662 640 L660 700 L512 852 L364 700 Z"/>
 <g fill="url(#fzs${u})" stroke="#7690b1" stroke-width="2.6" stroke-linejoin="round"><path d="M352 688 C380 718 412 748 452 784 C474 804 494 822 512 842 L512 822 C506 816 498 808 490 799 C478 785 462 768 446 750 C430 732 414 712 398 690 Z"/><path d="M652 688 C636 708 622 728 614 734 C596 752 576 774 554 798 C540 814 526 828 512 842 L512 814 C517 809 525 799 533 789 C545 773 561 754 577 738 C591 723 606 706 619 688 Z"/></g>
 <g fill="#dce6f2" stroke="#8aa1c0" stroke-width="2"><path d="M480.5 777 C475.5 778 473 784 474.5 791 C477 801 488 812 503 821 C502.5 808 499.5 794 495 786 C492 780 486 776.5 480.5 777 Z"/><path d="M543.5 777 C548.5 778 551 784 549.5 791 C547 801 536 812 521 821 C521.5 808 524.5 794 529 786 C532 780 538 776.5 543.5 777 Z"/></g>
+<ellipse class="fzc-shade" clip-path="url(#fzk${u})" fill="#1b2533" cx="512" cy="509" rx="263" ry="258"/>
 <path fill="url(#fzu${u})" d="M512 838 C507.8 833.5 497 820.8 487 811 C477 801.2 463.5 789.2 452 779 C440.5 768.8 428.3 759.5 418 750 C407.7 740.5 398.8 731.5 390 722 C381.2 712.5 369.2 697.8 365 693 L348 678 Q340 680 327 689 C325.7 693.7 321.5 707.5 319 717 C316.5 726.5 313.6 737.7 312 746 C310.4 754.3 309.3 760.8 309.5 767 C309.7 773.2 309.4 776.5 313 783 C316.6 789.5 322.3 797.5 331 806 C339.7 814.5 353.3 825.8 365 834 C376.7 842.2 389.2 849 401 855 C412.8 861 424.2 865.7 436 870 C447.8 874.3 459.3 878.2 472 881 C484.7 883.8 505.3 886 512 887 C518.7 886 539.3 883.8 552 881 C564.7 878.2 576.2 874.3 588 870 C599.8 865.7 611.2 861 623 855 C634.8 849 647.3 842.2 659 834 C670.7 825.8 684.3 814.5 693 806 C701.7 797.5 707.4 789.5 711 783 C714.6 776.5 714.3 773.2 714.5 767 C714.7 760.8 713.6 754.3 712 746 C710.4 737.7 707.5 726.5 705 717 C702.5 707.5 698.3 693.7 697 689 Q684 680 676 678 L659 693 C654.8 697.8 642.8 712.5 634 722 C625.2 731.5 616.3 740.5 606 750 C595.7 759.5 583.5 768.8 572 779 C560.5 789.2 547 801.2 537 811 C527 820.8 516.2 833.5 512 838 Z"/>
 <path fill="url(#fzl${u})" d="M313.5 766 C313.4 765.8 323.2 764.2 333 765 C342.8 765.8 356.5 768.5 368 771 C379.5 773.5 390.5 776.2 402 780 C413.5 783.8 425.5 789 437 794 C448.5 799 461 804.7 471 810 C481 815.3 490.3 821.5 497 826 C503.7 830.5 508.7 835.2 511 837 C511.3 837 512.7 837 513 837 C515.3 835.2 520.3 830.5 527 826 C533.7 821.5 543 815.3 553 810 C563 804.7 575.5 799 587 794 C598.5 789 610.5 783.8 622 780 C633.5 776.2 644.5 773.5 656 771 C667.5 768.5 681.2 765.8 691 765 C700.8 764.2 710.6 765.8 714.5 766 C713.9 769.7 714.6 776.5 711 783 C707.4 789.5 701.7 797.5 693 806 C684.3 814.5 670.7 825.8 659 834 C647.3 842.2 634.8 849 623 855 C611.2 861 599.8 865.7 588 870 C576.2 874.3 564.7 878.2 552 881 C539.3 883.8 518.7 886 512 887 C505.3 886 484.7 883.8 472 881 C459.3 878.2 447.8 874.3 436 870 C424.2 865.7 412.8 861 401 855 C389.2 849 376.7 842.2 365 834 C353.3 825.8 339.7 814.5 331 806 C322.3 797.5 316.6 789.5 313 783 C309.4 776.5 310.1 769.7 309.5 767 Z"/>
 <path fill="none" stroke="#0b111a" stroke-width="9" opacity=".32" stroke-linecap="round" transform="translate(0 5)" d="M313.5 766 C313.4 765.8 323.2 764.2 333 765 C342.8 765.8 356.5 768.5 368 771 C379.5 773.5 390.5 776.2 402 780 C413.5 783.8 425.5 789 437 794 C448.5 799 461 804.7 471 810 C481 815.3 490.3 821.5 497 826 C503.7 830.5 508.7 835.2 511 837 M710.5 766 C710.6 765.8 700.8 764.2 691 765 C681.2 765.8 667.5 768.5 656 771 C644.5 773.5 633.5 776.2 622 780 C610.5 783.8 598.5 789 587 794 C575.5 799 563 804.7 553 810 C543 815.3 533.7 821.5 527 826 C520.3 830.5 515.3 835.2 513 837"/>

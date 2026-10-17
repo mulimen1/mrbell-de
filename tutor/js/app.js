@@ -113,7 +113,7 @@ function buildShell() {
   const view = h('main', { class: 'view', id: 'view' });
   const palBtn = h('button', { class: 'pal-btn', type: 'button', 'aria-label': L('Suchen', 'Search'), title: L('Suchen und Befehle (⌘K)', 'Search and commands (⌘K)'), onclick: () => import('./palette.js').then(m => m.openPalette()) }, h('span', { html: ico('search') }), h('span', { class: 'pal-btx' }, L('Suchen', 'Search')), h('kbd', {}, /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Strg K'));
   // Feedback ist immer einen Klick entfernt (oben rechts, in der Seitenleiste und im Menü)
-  const fbTop = h('button', { class: 'fb-top', type: 'button', title: L('Was fehlt, was nervt, deine Idee – wir lesen alles', 'What’s missing, what’s annoying, your idea – we read everything'), onclick: () => openFeedback() }, h('span', { html: ico('chat') }), h('span', {}, 'Feedback'));
+  const fbTop = h('button', { class: 'fb-top', type: 'button', title: L('Was fehlt, was nervt, deine Idee – wir lesen alles', 'What’s missing, what’s annoying, your idea – we read everything'), 'aria-label': 'Feedback', onclick: () => openFeedback() }, h('span', { html: ico('chat') }));
   const topset = h('div', { class: 'topset' }, fbTop, langSwitch(), h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }));
   const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn, topset), docbar, view);
   const bbar = bottomBar(() => app);
