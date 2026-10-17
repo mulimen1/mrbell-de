@@ -127,7 +127,7 @@ function buildShell() {
 }
 
 // Klausur-Simulator aus den Werkzeugen: welches Skript?
-async function examTool() {
+export async function examTool() {
   const own = S.list.filter(d => !d.sample);
   const docs = own.length ? own : S.list;
   if (docs.length === 1) { location.hash = `#/app/${docs[0].id}/quiz/exam`; return; }

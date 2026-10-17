@@ -3353,3 +3353,80 @@ a.rm-tc:hover { border-color: var(--line2); }
 .rm-th.small { left: 4px; top: calc(100% + 14px); bottom: auto; max-width: min(340px, 60vw); font-size: 13.5px; transform-origin: 0 0; }
 .rm-th.small .d1 { left: 18px; top: -9px; bottom: auto; width: 9px; height: 9px; } .rm-th.small .d2 { left: 10px; top: -16px; bottom: auto; width: 5px; height: 5px; }
 @media (max-width: 900px) { .rm-th:not(.small) { left: auto; right: calc(100% + 12px); bottom: 42%; max-width: calc(50vw - 70px); font-size: 12px; padding: 8px 11px; transform-origin: 100% 100%; } .rm-th:not(.small) .d1 { left: auto; right: -11px; } .rm-th:not(.small) .d2 { left: auto; right: -20px; } }
+
+/* ---------- Tutor-Raum v3: Kopf bleibt groß, Skill-Kacheln, ruhige Ecke oben rechts ---------- */
+.rm-corner { display: flex; gap: 8px; align-items: center; }
+.rm-gear { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); cursor: pointer; box-shadow: 0 10px 30px -18px rgba(0,0,0,.6); transition: border-color .15s, transform .2s var(--ease); }
+.rm-gear:hover { border-color: var(--ink); transform: rotate(-12deg); } .rm-gear .ico { width: 17px; height: 17px; }
+.rm-bar .rm-gear { width: 34px; height: 34px; box-shadow: none; }
+.rm-name, .rm-teaser, .rm-cfg { display: none !important; }
+.rm-bubble { margin-top: 14px; }
+/* Skills */
+.rm-skills { width: 100%; display: grid; gap: 10px; justify-items: center; margin-top: 22px; }
+.rm-sk { width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.rm-tile { display: grid; gap: 6px; align-content: start; justify-items: start; text-align: left; padding: 16px 16px 15px; border-radius: 20px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; font: inherit; min-width: 0; transition: border-color .18s, transform .25s var(--ease), background .18s; animation: rmup .6s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(.3s + var(--i) * 70ms); }
+.rm-tile:hover { border-color: var(--ink); transform: translateY(-3px); }
+.rm-tile:active { transform: scale(.98); }
+.rm-ti { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--panel2); margin-bottom: 4px; transition: background .2s, color .2s; } .rm-ti .ico { width: 18px; height: 18px; }
+.rm-tile:hover .rm-ti { background: var(--inv); color: var(--onInv); }
+.rm-tile b { font-size: 15px; letter-spacing: -.012em; line-height: 1.25; }
+.rm-tile small { font-size: 12.5px; color: var(--mute); line-height: 1.4; }
+.rm-morebtn { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border: 0; background: none; color: var(--mute); font: 600 13px var(--sans); cursor: pointer; border-radius: 999px; animation: rmup .6s .62s both; }
+.rm-morebtn:hover { color: var(--ink); background: var(--panel2); } .rm-morebtn .ico { width: 14px; height: 14px; transition: transform .25s var(--ease); }
+.rm-morebtn[aria-expanded="true"] .ico { transform: rotate(180deg); }
+.rm-more2 { display: none; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.rm-more2.on { display: flex; } .rm-more2.on .rm-mc { animation: rmpop .35s cubic-bezier(.3,1.5,.5,1) both; }
+.rm-mc { gap: 6px; } .rm-mc .ico { width: 14px; height: 14px; }
+.rm-more2.on .rm-mc:nth-child(2) { animation-delay: .03s; } .rm-more2.on .rm-mc:nth-child(3) { animation-delay: .06s; } .rm-more2.on .rm-mc:nth-child(4) { animation-delay: .09s; } .rm-more2.on .rm-mc:nth-child(5) { animation-delay: .12s; } .rm-more2.on .rm-mc:nth-child(6) { animation-delay: .15s; } .rm-more2.on .rm-mc:nth-child(7) { animation-delay: .18s; }
+/* Gespräch: Kopf bleibt groß */
+.rm-bar { padding: 10px 18px; min-height: 56px; }
+.rm-col { display: flex; flex-direction: column; min-height: 0; width: min(820px, 100%); justify-self: center; }
+.room.talk.has-board .rm-col { width: 100%; }
+.rm-th-wrap { flex: none; display: grid; justify-items: center; gap: 4px; padding: 6px 0 8px; }
+.rm-fs.talk { width: clamp(84px, 11vh, 112px); height: clamp(84px, 11vh, 112px); }
+.rm-th-wrap .rm-st { max-width: 100%; font-size: 13px; text-align: center; }
+.rm-col .rm-chat { flex: 1; min-height: 0; width: 100%; justify-self: auto; }
+@media (max-width: 900px) {
+  .rm-sk { grid-template-columns: 1fr 1fr; gap: 8px; } .rm-tile { padding: 13px 13px 12px; border-radius: 18px; } .rm-tile small { display: none; } .rm-ti { width: 34px; height: 34px; }
+  .rm-skills { margin-top: 14px; }
+  .rm-fs.talk { width: 72px; height: 72px; } .rm-th-wrap { padding: 2px 0 4px; }
+  .room.talk.has-board .rm-chat { display: none; }
+  .rm-gear { width: 36px; height: 36px; }
+}
+
+/* ---------- Max unten rechts: rechts angedockt statt mittig – die Seite (dein „DIN-A4-Ding“) bleibt frei ---------- */
+@media (min-width: 601px) {
+  .asst:not(.stage) { --dw: min(440px, 36vw); }
+  .asst:not(.stage) .ai-isl, .asst:not(.stage).has-board:not(.board-min) .ai-isl { left: auto !important; right: 18px !important; transform: none !important; width: var(--dw) !important; }
+  .asst:not(.stage) .ai-feed, .asst:not(.stage).has-board:not(.board-min) .ai-feed { left: auto !important; right: 18px !important; transform: none !important; width: var(--dw) !important; max-height: calc(100vh - 190px - var(--kb)); }
+  .asst:not(.stage) .ai-cap, .asst:not(.stage).has-board:not(.board-min) .ai-cap { left: auto !important; right: 18px !important; transform: none; width: var(--dw) !important; }
+  .asst:not(.stage) .ai-menu { left: auto; right: 18px; transform: none; }
+  /* Tafel: dieselbe Spalte, über der Eingabe; Text läuft unten in der Tafel mit */
+  .asst:not(.stage).has-board:not(.board-min) .ai-board { left: auto !important; right: 18px !important; width: var(--dw) !important; top: 76px !important; bottom: calc(166px + var(--kb) + env(safe-area-inset-bottom, 0px)) !important; border-radius: 22px; }
+  .asst:not(.stage).has-board:not(.board-min) .ai-feed, .asst:not(.stage).has-board:not(.board-min) .ai-cap { display: none !important; }
+  .asst:not(.stage) .ai-bsay:not(:empty) { display: block; }
+  .asst:not(.stage) .ai-ba .tafel { padding: 20px 20px 44px; }
+}
+@media (min-width: 601px) and (max-width: 980px) { .asst:not(.stage) { --dw: min(420px, 52vw); } }
+
+/* „Klick mich – ich führ dich durch“: in der App immer da, ruhig, ohne Dauergewackel */
+.asst.tip-tour.tip-on:not(.open):not(.landtop):not(.covered):not(.dragging) .asst-tip { animation-iteration-count: 2; cursor: pointer; }
+.asst.tip-tour .asst-tip > span:first-child::before { content: ""; display: inline-block; width: 11px; height: 11px; margin-right: 7px; vertical-align: -1px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 2.5 20 11.2l-7.1 1.7-3.3 7.6z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 2.5 20 11.2l-7.1 1.7-3.3 7.6z'/%3E%3C/svg%3E") center / contain no-repeat; }
+html.mx-touring .asst-tip { opacity: 0 !important; pointer-events: none !important; }
+
+/* Tafel-Kopf: „Zeig’s mir mit dem Cursor“ */
+.ai-btour[hidden] { display: none !important; }
+.ai-btour .ico { width: 15px; height: 15px; } .ai-btour .ico path { fill: currentColor; stroke: currentColor; stroke-width: 1.2; stroke-linejoin: round; }
+
+/* Tutor-Raum am Handy: Tafel bekommt den Platz, Kopf wird klein, Leiste passt */
+@media (max-width: 760px) {
+  .room.talk.has-board .rm-talk { grid-template-rows: auto minmax(0, 1fr); gap: 6px; }
+  .room.talk.has-board .rm-fs.talk { width: 46px; height: 46px; }
+  .room.talk.has-board .rm-th-wrap { grid-auto-flow: column; justify-content: center; align-items: center; gap: 10px; padding: 0 0 2px; }
+  .room.talk.has-board .rm-th-wrap .rm-st { text-align: left; }
+  .room.talk.has-board .rm-th { display: none !important; }
+  .rm-bar { gap: 6px; padding: 8px 10px; }
+  .rm-bar .rm-skl, .rm-bar .rm-skc { display: none; }
+  .rm-bar .rm-end-b { padding: 0 10px; font-size: 12.5px; white-space: nowrap; }
+  .rm-bar .rm-gear { width: 32px; height: 32px; }
+}

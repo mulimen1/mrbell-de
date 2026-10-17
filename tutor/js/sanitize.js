@@ -5,7 +5,8 @@ const TAGS = new Set(['h2', 'h3', 'h4', 'p', 'ul', 'ol', 'li', 'b', 'strong', 'i
 const ATTR = new Set(['class', 'colspan', 'rowspan',
   'viewbox', 'x', 'y', 'x1', 'y1', 'x2', 'y2', 'cx', 'cy', 'r', 'rx', 'ry', 'width', 'height', 'd', 'points', 'transform',
   'text-anchor', 'dominant-baseline', 'font-size', 'font-weight', 'dx', 'dy', 'stroke-dasharray', 'opacity', 'fill-opacity',
-  'marker-end', 'marker-start', 'refx', 'refy', 'markerwidth', 'markerheight', 'orient', 'id', 'preserveaspectratio']);
+  'marker-end', 'marker-start', 'refx', 'refy', 'markerwidth', 'markerheight', 'orient', 'id', 'preserveaspectratio',
+  'data-say']);   // data-say: Max' „Warum“ zu diesem Tafel-Block (wird nur als Text angezeigt)
 const SVGNS = 'http://www.w3.org/2000/svg';
 
 export function sanitize(html) {

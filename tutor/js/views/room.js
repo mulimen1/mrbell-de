@@ -47,14 +47,12 @@ export function render(root, ctx = {}) {
   // ---------- Gerüst ----------
   const faceEl = h('div', { class: 'rm-face' });
   const heroSlot = h('div', { class: 'rm-fs big' });
-  const barSlot = h('div', { class: 'rm-fs small' });
+  const talkSlot = h('div', { class: 'rm-fs talk' });
   const say = h('p', { class: 'rm-say', 'aria-live': 'polite' });
-  const cfgBtn = () => h('button', { class: 'rm-cfg', type: 'button', onclick: () => MC.openMaxCfg(), title: L('Wie Max mit dir redet, unterrichtet und wann Pause ist', 'How Max talks, teaches and when to take a break') }, h('span', { html: ico('tune') }), h('span', {}, L('Max konfigurieren', 'Configure Max')));
-  const teaser = h('div', { class: 'rm-teaser' });
+  const cfgBtn = () => h('button', { class: 'rm-gear', type: 'button', onclick: () => MC.openMaxCfg(), title: L('Max konfigurieren – Ton, Methode, Fokus, Pausen', 'Configure Max – tone, method, focus, breaks'), 'aria-label': L('Max konfigurieren', 'Configure Max'), html: ico('tune') });
+  const skills = h('div', { class: 'rm-skills' });
   const askSlot = h('div', { class: 'rm-ask' });
-  const hero = h('div', { class: 'rm-hero' }, heroSlot,
-    h('div', { class: 'rm-name' }, h('b', {}, 'Max'), h('span', {}, L('dein Tutor', 'your tutor')), cfgBtn()),
-    h('div', { class: 'rm-bubble' }, say), teaser, askSlot);
+  const hero = h('div', { class: 'rm-hero' }, heroSlot, h('div', { class: 'rm-bubble' }, say), skills, askSlot);
   const scroll = h('div', { class: 'rm-scroll' }, hero);
   const status = h('small', { class: 'rm-st' });
   const timer = h('span', { class: 'rm-timer', hidden: true });
@@ -63,25 +61,25 @@ export function render(root, ctx = {}) {
   const skBtn = () => h('button', { class: 'rm-skb', type: 'button', 'aria-expanded': 'false', onclick: () => toggleRail(), title: L('Deine Skripte – antippen oder in den Chat ziehen', 'Your slides – tap or drag into the chat') },
     h('span', { html: ico('file') }), h('span', { class: 'rm-skl' }, L('Skripte', 'Slides')), h('b', { class: 'rm-skn' }), h('span', { class: 'rm-skc', html: ico('left') }));
   const skBtnHome = skBtn(), skBtnBar = skBtn();
-  const bar = h('div', { class: 'rm-bar' }, barSlot,
-    h('div', { class: 'rm-bt' }, h('b', {}, 'Max'), status),
-    timer, h('span', { style: { flex: 1 } }), oldBtn,
-    h('button', { class: 'iconbtn', type: 'button', title: L('Max konfigurieren', 'Configure Max'), html: ico('tune'), onclick: () => MC.openMaxCfg() }), skBtnBar,
+  const bar = h('div', { class: 'rm-bar' },
+    timer, h('span', { style: { flex: 1 } }), oldBtn, cfgBtn(), skBtnBar,
     h('button', { class: 'btn sm rm-end-b', type: 'button', onclick: () => endSession() }, L('Session beenden', 'End session')));
   const chatSlot = h('div', { class: 'rm-chat' });
   const boardSlot = h('div', { class: 'rm-board' });
-  const talk = h('div', { class: 'rm-talk' }, chatSlot, boardSlot);
+  // Gespräch: Max' Kopf bleibt groß oben, darunter das Gespräch; rechts daneben die Tafel
+  const talkCol = h('div', { class: 'rm-col' }, h('div', { class: 'rm-th-wrap' }, talkSlot, status), chatSlot);
+  const talk = h('div', { class: 'rm-talk' }, talkCol, boardSlot);
   const focusRow = h('div', { class: 'rm-focus' });
   const sugg = h('div', { class: 'rm-sugg' });
   const comp = h('div', { class: 'rm-comp' });
   const dock = h('div', { class: 'rm-dock' }, focusRow, sugg, comp);
-  const corner = h('div', { class: 'rm-corner' }, skBtnHome);
+  const corner = h('div', { class: 'rm-corner' }, cfgBtn(), skBtnHome);
   const drop = h('div', { class: 'rm-drop', hidden: true }, h('div', {}, h('span', { html: ico('file') }), h('b', {}, L('Loslassen – dann arbeiten wir damit.', 'Drop it – and we’ll work with it.'))));
   const stage = h('section', { class: 'rm-stage' }, corner, bar, scroll, talk, dock, drop);
   const right = h('aside', { class: 'rm-right', 'aria-label': L('Skripte', 'Slides') });
   const room = h('div', { class: 'room home' }, stage, right);
-  const thoughtHome = h('div', { class: 'rm-th', hidden: true }), thoughtBar = h('div', { class: 'rm-th small', hidden: true });
-  heroSlot.appendChild(thoughtHome); barSlot.appendChild(thoughtBar);
+  const thoughtHome = h('div', { class: 'rm-th', hidden: true }), thoughtBar = h('div', { class: 'rm-th', hidden: true });
+  heroSlot.appendChild(thoughtHome); talkSlot.appendChild(thoughtBar);
   root.appendChild(room);
   heroSlot.appendChild(faceEl);
   fc = face(faceEl, { sleepy: true });
@@ -157,52 +155,41 @@ export function render(root, ctx = {}) {
     think();
   }, 15000);
 
-  // ---------- Teaser: diese Woche · offen · Max' Tipp ----------
+  // ---------- Skills: was Max mit dir machen kann – vier große Kacheln, der Rest unter „Mehr“ ----------
+  let moreOpen = false;
+  const workDoc = () => focusDocs()[0] || S.list.slice().sort((a, b) => (b.used || 0) - (a.used || 0))[0] || null;
+  const needDoc = fn => { const d = workDoc(); if (!d) { toast(L('Dafür brauch ich ein Skript – lad eins hoch oder nenn mir ein Thema.', 'I need slides for that – upload some or name a topic.'), 4200); document.getElementById('fileApp')?.click(); return; } fn(d); };
   function drawTeaser() {
-    const goal = M.getMe().wochenziel || 150, wk = weekMinutes(0), pct = Math.min(1, wk / goal);
-    const st = M.streak(M.activityDays(S.list));
-    const C = 2 * Math.PI * 22;
-    const ring = h('div', { class: 'rm-ring', html: `<svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="22" class="tr"/><circle cx="27" cy="27" r="22" class="fg" style="stroke-dasharray:${C.toFixed(1)};stroke-dashoffset:${(C * (1 - pct)).toFixed(1)}"/></svg><b>${Math.round(pct * 100)}%</b>` });
-    const fmtH = m => m < 60 ? L(`${m} Min.`, `${m} min`) : (Math.round(m / 6) / 10).toLocaleString(LOCALE) + L(' Std.', ' h');
-    const week = h('a', { class: 'rm-tc rm-week', href: '#/app/fortschritt' }, h('div', { class: 'eyebrow' }, L('Diese Woche', 'This week')),
-      h('div', { class: 'rm-wk' }, ring, h('div', {}, h('b', {}, fmtH(wk), h('span', {}, ' / ' + fmtH(goal))), h('small', {}, st ? L(`${st} ${st === 1 ? 'Tag' : 'Tage'} Serie`, `${st}-day streak`) : L('Heute die Serie starten', 'Start your streak today')))));
-    // Offen
-    const open = [];
-    const byDue = S.list.map(d => ({ d, n: dueCards(d).length })).filter(x => x.n).sort((a, b) => b.n - a.n);
-    if (byDue.length) open.push({ ic: 'cards', t: L(`${byDue.reduce((a, x) => a + x.n, 0)} Karten fällig`, `${byDue.reduce((a, x) => a + x.n, 0)} cards due`), href: `#/app/${byDue[0].d.id}/karten` });
-    for (const e of exams().filter(e => e.days <= 60).slice(0, 2)) open.push({ ic: 'calendar', t: L(`${e.name}: ${M.artName(e.art)} in ${tage(e.days)}`, `${e.name}: ${M.artName(e.art).toLowerCase()} in ${tage(e.days)}`), href: e.doc ? `#/app/${e.doc.id}/plan` : '#/app/faecher' });
-    for (const d of S.list) { const p = d.plan ? planSummary(d) : null; if (p && p.daysLeft >= 0 && p.todayOpen?.length) { open.push({ ic: 'exam', t: L(`Plan heute: ${p.todayOpen.length} ${p.todayOpen.length === 1 ? 'Aufgabe' : 'Aufgaben'}`, `Plan today: ${p.todayOpen.length} ${p.todayOpen.length === 1 ? 'task' : 'tasks'}`), href: `#/app/${d.id}/plan` }); break; } }
-    const mis = S.list.filter(d => d.mistakes?.length).sort((a, b) => b.mistakes.length - a.mistakes.length)[0];
-    if (mis) open.push({ ic: 'quiz', t: L(`${mis.mistakes.length} Fehler zum Ausbügeln`, `${mis.mistakes.length} mistakes to fix`), href: `#/app/${mis.id}/quiz` });
-    const openC = h('div', { class: 'rm-tc rm-open' }, h('div', { class: 'eyebrow' }, L('Noch offen', 'Still open')),
-      open.length ? h('div', { class: 'rm-ol' }, open.slice(0, 3).map(o => h('a', { class: 'rm-oi', href: o.href }, h('span', { html: ico(o.ic) }), h('span', {}, o.t), h('span', { class: 'rm-oa', html: ico('right') }))))
-        : h('p', { class: 'rm-none' }, L('Nichts offen. Stark.', 'Nothing open. Strong.')));
-    // Max' Tipp
-    const rec = recommend()[0];
-    let tipC = null;
-    if (rec) {
-      const m = String(rec.href || '').match(/^#\/app\/([^/]+)\/(\w+)/), d = m && docById(m[1]);
-      tipC = h('div', { class: 'rm-tc rm-tip' }, h('div', { class: 'eyebrow' }, L('Mein Tipp für jetzt', 'My tip for now')),
-        h('b', { class: 'rm-tt' }, rec.t), h('small', {}, rec.s),
-        h('div', { class: 'rm-ta' },
-          d ? h('button', { class: 'btn sm primary', type: 'button', onclick: () => withMax(d, m[2], rec) }, L('Mit mir angehen', 'Do it with me')) : null,
-          h('a', { class: 'btn sm' + (d ? ' ghost' : ' primary'), href: rec.href, onclick: rec.onclick || null }, d ? L('Öffnen', 'Open') : L('Los geht’s', 'Let’s go'), h('span', { html: ico('right') }))));
-    }
-    teaser.replaceChildren(week, openC, tipC);
-    // Einmalige Fragen (Synchronisierung, erste Schritte) – nur solange sie offen sind
-    askSlot.replaceChildren(...[getAccount() ? syncAsk() : null, startChecklist()].filter(Boolean).slice(0, 1));
+    const ds = focusDocs();
+    const SK = [
+      ['board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt – ich zeig dir mit dem Cursor, warum', 'Step by step – I point out the why with my cursor'),
+        () => ds.length ? ask(L('Erklär mir das wichtigste Thema aus meinem Skript an der Tafel – Schritt für Schritt, mit Beispiel.', 'Explain the most important topic from my slides on the board – step by step, with an example.')) : api && api.prefill(L('Erklär mir an der Tafel: ', 'Explain on the board: '))],
+      ['quiz', L('Abfragen', 'Quiz me'), L('Eine Frage nach der anderen – ich sag dir, ob’s sitzt', 'One question at a time – I tell you if it sticks'),
+        () => ask(L('Frag mich ab – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.', 'Quiz me – one question at a time, wait for my answer each time and tell me if it’s right.'))],
+      ['calc', L('Rechnen mit Rechenweg', 'Calculate with workings'), L('Typische Klausuraufgabe, danach eine Zwillingsaufgabe', 'A typical exam task, then a twin exercise'),
+        () => ask(L('Rechne mir eine typische Klausuraufgabe Schritt für Schritt an der Tafel vor – danach gibst du mir eine Zwillingsaufgabe.', 'Walk me through a typical exam task step by step on the board – then give me a twin exercise.'))],
+      ['exam', L('Probeklausur', 'Mock exam'), L('Mit Zeit, Punkten und Note', 'With time, points and a grade'), () => import('../app.js').then(m => m.examTool())]
+    ];
+    const MORE = [
+      ['cards', L('Karteikarten', 'Flashcards'), () => needDoc(d => { location.hash = `#/app/${d.id}/karten`; })],
+      ['calendar', L('Lernplan', 'Study plan'), () => needDoc(d => { location.hash = `#/app/${d.id}/plan`; })],
+      ['pod', L('Podcast', 'Podcast'), () => needDoc(d => { location.hash = `#/app/${d.id}/podcast`; })],
+      ['brain', L('Lernzettel', 'Study sheet'), () => needDoc(d => { location.hash = `#/app/${d.id}/zettel`; })],
+      ['whistle', L('BWL-Trainer', 'Business trainer'), () => { location.hash = '#/app/trainer'; }],
+      ['calc', L('Rechner', 'Calculators'), () => { location.hash = '#/app/rechner'; }],
+      ['mic', L('Sprechen', 'Talk'), () => api && api.talk()]
+    ];
+    const more = h('div', { class: 'rm-more2' + (moreOpen ? ' on' : '') }, MORE.map(([ic, t, fn]) => h('button', { class: 'chip rm-mc', type: 'button', onclick: fn }, h('span', { html: ico(ic) }), t)));
+    skills.replaceChildren(
+      h('div', { class: 'rm-sk' }, SK.map(([ic, t, s2, fn], i) => h('button', { class: 'rm-tile', type: 'button', onclick: fn, style: { '--i': String(i) } },
+        h('span', { class: 'rm-ti', html: ico(ic) }), h('b', {}, t), h('small', {}, s2)))),
+      h('button', { class: 'rm-morebtn', type: 'button', 'aria-expanded': moreOpen ? 'true' : 'false', onclick: e => { moreOpen = !moreOpen; more.classList.toggle('on', moreOpen); e.currentTarget.setAttribute('aria-expanded', moreOpen ? 'true' : 'false'); e.currentTarget.querySelector('.rm-mt').textContent = moreOpen ? L('Weniger', 'Less') : L('Mehr, was ich kann', 'More I can do'); } },
+        h('span', { class: 'rm-mt' }, moreOpen ? L('Weniger', 'Less') : L('Mehr, was ich kann', 'More I can do')), h('span', { html: ico('down') })),
+      more);
+    // Einmalige Frage (Synchronisierung) – nur solange sie offen ist
+    askSlot.replaceChildren(...[getAccount() ? syncAsk() : null].filter(Boolean));
   }
-  function withMax(d, kind, rec) {
-    setFocus([d.id]); drawFocus(); drawRails();
-    const n = d.name;
-    const P = {
-      karten: L(`Frag mich die wichtigsten Themen aus „${n}“ ab – eine Frage nach der anderen, warte jeweils auf meine Antwort.`, `Quiz me on the key topics of “${n}” – one question at a time, wait for my answer each time.`),
-      plan: L(`Was steht heute im Klausurplan für „${n}“? Lass uns das zusammen durchgehen.`, `What’s on today’s exam plan for “${n}”? Let’s go through it together.`),
-      quiz: L(`Lass uns meine Fehler aus „${n}“ durchgehen – erklär kurz, dann frag mich nochmal ab.`, `Let’s go through my mistakes from “${n}” – explain briefly, then quiz me again.`),
-      pfad: L(`Weiter im Lernpfad von „${n}“: Erklär mir das nächste Kapitel an der Tafel.`, `Next in the study path of “${n}”: explain the next chapter on the board.`)
-    };
-    ask(P[kind] || L(`Bring meine Prüfungsreife in „${n}“ hoch: Frag mich zuerst ab, wo ich stehe, dann erklär mir, was fehlt.`, `Raise my exam readiness in “${n}”: first quiz me to see where I stand, then explain what’s missing.`));
-  }
+
 
   // ---------- Skripte (rechts, aufklappbar) ----------
   function skriptList(onPick) {
@@ -260,17 +247,11 @@ export function render(root, ctx = {}) {
       ? [h('span', { class: 'rm-fl2' }, L('Wir arbeiten mit', 'Working with')), ...ds.map(d => h('span', { class: 'rm-chip' }, h('span', { html: ico(d.generated ? 'bulb' : 'file') }), h('span', { class: 'rm-cn' }, d.name), h('button', { type: 'button', 'aria-label': L('Entfernen', 'Remove'), html: ico('x'), onclick: () => { setFocus(getFocus().filter(x => x !== d.id)); drawFocus(); drawRails(); drawSugg(); } })))]
       : [h('span', { class: 'rm-fl2 soft' }, L('Ohne Skript – ich nehm mein BWL-Wissen. ', 'No slides – I’ll use my business knowledge. '), h('button', { class: 'linkbtn rm-fl3', type: 'button', onclick: () => toggleRail(true) }, L('Skript wählen', 'Pick slides')))]));
   }
-  // Schnellstarts (nur im Begrüßungs-Zustand)
+  // Nur noch „Weiter, wo wir waren“ – die Skills stehen oben als Kacheln
   function drawSugg() {
-    if (mode !== 'home') { sugg.replaceChildren(); return; }
-    const ds = focusDocs(), ex = nextExam();
-    const chips = [];
-    if (api && api.hasHistory()) { const q = api.lastQuestion(); if (q) chips.push([L('Weiter: ', 'Continue: ') + (q.length > 34 ? q.slice(0, 33) + '…' : q), () => goTalk({ mark: false, show: true }), 'refresh']); }
-    chips.push([ds.length ? L('Erklär mir das Wichtigste', 'Explain the key topic') : L('Erklär mir …', 'Explain …'), () => ds.length ? ask(L('Erklär mir das wichtigste Thema aus meinem Skript an der Tafel – mit Beispiel.', 'Explain the most important topic from my slides on the whiteboard – with an example.')) : api && api.prefill(L('Erklär mir ', 'Explain ')), 'board']);
-    chips.push([L('Frag mich ab', 'Quiz me'), () => ask(L('Frag mich ab – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.', 'Quiz me – one question at a time, wait for my answer each time and tell me if it’s right.')), 'quiz']);
-    chips.push([L('Rechne mir was vor', 'Walk me through a calculation'), () => ask(L('Rechne mir eine typische Klausuraufgabe Schritt für Schritt an der Tafel vor – danach gibst du mir eine Zwillingsaufgabe.', 'Walk me through a typical exam task step by step on the whiteboard – then give me a twin exercise.')), 'calc']);
-    if (ex && ex.days <= 45) chips.push([L(`Lernplan bis ${ex.name}`, `Plan until ${ex.name}`), () => ask(L(`Meine ${M.artName(ex.art)} in ${ex.name} ist in ${tage(ex.days)}. Mach mir einen realistischen Plan bis dahin – was wann, und womit fangen wir heute an?`, `My ${ex.name} ${M.artName(ex.art).toLowerCase()} is in ${tage(ex.days)}. Make me a realistic plan until then – what when, and what do we start with today?`)), 'calendar']);
-    sugg.replaceChildren(...chips.map(([t, fn, ic]) => h('button', { class: 'chip rm-q', type: 'button', onclick: fn }, h('span', { html: ico(ic) }), t)));
+    if (mode !== 'home' || !api || !api.hasHistory()) { sugg.replaceChildren(); return; }
+    const q = api.lastQuestion(); if (!q) { sugg.replaceChildren(); return; }
+    sugg.replaceChildren(h('button', { class: 'chip rm-q', type: 'button', onclick: () => goTalk({ mark: false, show: true }) }, h('span', { html: ico('refresh') }), L('Weiter: ', 'Continue: ') + (q.length > 40 ? q.slice(0, 39) + '…' : q)));
   }
 
   // ---------- Gespräch ----------
@@ -290,7 +271,7 @@ export function render(root, ctx = {}) {
     if (api) { if (mark) api.markOld(); api.showOld(show); }
     oldBtn.hidden = !(api && api.hasOld()); oldBtn.classList.toggle('on', !!show);
     room.classList.remove('home'); room.classList.add('talk');
-    moveFace(barSlot);
+    moveFace(talkSlot);
     api && api.talk2(true);
     if (api && !mark) api.restoreBoard();
     room.classList.toggle('has-board', !!(api && api.boardShown()));

@@ -17,6 +17,7 @@ import { L, setOutLang } from './i18n.js';
 import { applyThemeButtons } from './theme.js';
 import { getMic, releaseMic as freeMic } from './mic.js';
 import { prompt as maxPrompt, mode as maxMode } from './maxcfg.js';
+import { tour, tourActive, pauseTour, stopTour, boardSteps, pageMap, byMxId } from './cursor.js';
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
 const M = 12;                       // Mindestabstand zum Rand
@@ -70,13 +71,16 @@ export function setAssistantEnabled(on) {
 function parse(raw) {
   const boards = [];
   let text = String(raw || '').replace(/```tafel[ \t]*([^\n]*)\n([\s\S]*?)(```|$)/g, (_, t, html) => { boards.push({ title: t.trim() || L('Tafel', 'Whiteboard'), html: html.trim() }); return '\n'; });
+  // Seitenführung: ```zeigen [{"id":"m3","say":"…"}] – Max zeigt mit dem Cursor auf echte Stellen der Seite
+  let tourSteps = null;
+  text = text.replace(/```zeigen[ \t]*\n?([\s\S]*?)(```|$)/g, (_, j) => { try { const a = JSON.parse(String(j).trim()); if (Array.isArray(a)) tourSteps = a.filter(x => x && x.id && x.say).slice(0, 10).map(x => ({ id: String(x.id), say: String(x.say).slice(0, 260) })); } catch (e) {} return '\n'; });
   const acts = [], cmds = [];
   text = text.replace(CMD, (_, k, v) => { const c = cmdOf(k, v); if (c) cmds.push(c); return ''; });
   text = text.replace(/\[\[([a-z:]+)\]\]/g, (_, a) => { if (ACTS[a]) acts.push(a); return ''; });
   text = text.replace(/```[\s\S]*?```/g, '').replace(/\n{3,}/g, '\n\n').trim();
-  return { text, boards, acts, cmds };
+  return { text, boards, acts, cmds, tour: tourSteps };
 }
-const forHistory = raw => String(raw).replace(/```tafel[ \t]*([^\n]*)\n[\s\S]*?```/g, (_, t) => L(`[An die Tafel geschrieben: ${t.trim() || 'Tafel'}]`, `[Written on the whiteboard: ${t.trim() || 'Whiteboard'}]`)).slice(0, 2400);
+const forHistory = raw => String(raw).replace(/```tafel[ \t]*([^\n]*)\n[\s\S]*?```/g, (_, t) => L(`[An die Tafel geschrieben: ${t.trim() || 'Tafel'}]`, `[Written on the whiteboard: ${t.trim() || 'Whiteboard'}]`)).replace(/```zeigen[\s\S]*?```/g, L('[Auf der Seite mit dem Cursor gezeigt]', '[Shown on the page with the cursor]')).slice(0, 2400);
 const b64 = blob => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1] || ''); r.onerror = rej; r.readAsDataURL(blob); });
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
@@ -204,6 +208,7 @@ export function mountAssistant() {
   const bCount = h('span', { class: 'cnt' });
   const bPrev = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Vorherige Tafel', 'Previous board'), html: ico('left'), onclick: () => goBoard(-1) });
   const bNext = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Nächste Tafel', 'Next board'), html: ico('right'), onclick: () => goBoard(1) });
+  const bTour = h('button', { class: 'iconbtn ai-btour', type: 'button', hidden: true, 'aria-label': L('Mit dem Cursor erklären', 'Explain with the cursor'), title: L('Zeig’s mir – Schritt für Schritt mit dem Cursor', 'Show me – step by step with the cursor'), html: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5 18.5 11 12.4 12.4 9.6 18.6z"/></svg>', onclick: () => { const st = boardSteps(bArea.querySelector('.tafel')); if (st.length) startTour(st); } });
   const bMin = h('button', { class: 'iconbtn ai-bmin', type: 'button', 'aria-label': L('Tafel minimieren', 'Minimise board'), title: L('Minimieren – liegt dann griffbereit am Rand', 'Minimise – stays at the edge'), html: SVG.min, onclick: () => minBoard(true) });
   const bAsk = h('div', { class: 'ai-bask', hidden: true, role: 'alertdialog', 'aria-label': L('Tafel löschen?', 'Delete board?') },
     h('b', {}, L('Tafel löschen?', 'Delete this board?')),
@@ -216,7 +221,7 @@ export function mountAssistant() {
   const bArea = h('div', { class: 'ai-ba dots' });
   const bGrab = h('div', { class: 'ai-grab', 'aria-hidden': 'true' }, h('i'));
   const board = h('section', { class: 'ai-board', role: 'region', 'aria-label': L('Max’ Tafel', 'Max’s board') },
-    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bMin, bClose), bAsk, bArea, bSay);
+    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bMin, bClose), bAsk, bArea, bSay);
   const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', {}, L('Tafel', 'Board')));
 
   const chip = h('button', { class: 'asst-back', type: 'button' }, h('span', { class: 'asst-cf' }), L('Max zurückholen', 'Bring Max back'));
@@ -344,12 +349,25 @@ export function mountAssistant() {
   const hideTip = () => { clearTimeout(tipHideT); root.classList.remove('tip-on'); };
   tipX.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); tipOff = true; hideTip(); });
   tipX.addEventListener('pointerdown', e => e.stopPropagation());
+  const tipTx = bub.querySelector('.asst-tip > span');
+  const inApp = () => { const r = route(); return !!r.tab && r.tab !== 'room'; };
+  addEventListener('hashchange', () => { tipOff = false; });
+  bub.querySelector('.asst-tip').addEventListener('click', e => { if (e.target.closest('.tip-x') || !inApp()) return; e.preventDefault(); e.stopPropagation(); hideTip(); pageTour(); });
   setInterval(() => {
-    if (tipOff || ls.get('tutor.asst.seen')) { if (root.classList.contains('tip-on')) hideTip(); return; }
-    const vis = !open && !document.hidden && isAssistantEnabled() && !['landtop', 'covered', 'nobub', 'quipping', 'dragging', 'off'].some(c => root.classList.contains(c));
+    const app = inApp();
+    if (tipOff || (!app && ls.get('tutor.asst.seen'))) { if (root.classList.contains('tip-on')) hideTip(); return; }
+    const vis = !open && !document.hidden && isAssistantEnabled() && !STAGE && !tourActive() && !['landtop', 'covered', 'nobub', 'quipping', 'dragging', 'off'].some(c => root.classList.contains(c));
     if (!vis) { tipVisSince = 0; if (root.classList.contains('tip-on')) hideTip(); return; }
     const now = Date.now();
     if (!tipVisSince) tipVisSince = now;
+    // In der App: dauerhaft „Klick mich – ich führ dich durch“
+    if (app) {
+      root.classList.add('tip-tour');
+      tipTx.textContent = L('Klick mich – ich führ dich durch', 'Tap me – I’ll walk you through');
+      if (!root.classList.contains('tip-on') && now - tipVisSince >= 900) root.classList.add('tip-on');
+      return;
+    }
+    root.classList.remove('tip-tour'); tipTx.textContent = L('Klick mich – ich helf dir', 'Tap me – I’ll help you');
     if (!root.classList.contains('tip-on') && now - tipVisSince >= 1500 && now >= tipNext) {
       root.classList.add('tip-on'); tipN++; tipNext = tipN >= 3 ? Infinity : now + 9000 + 45000;   // höchstens 3× pro Besuch
       clearTimeout(tipHideT); tipHideT = setTimeout(hideTip, 9000);
@@ -641,6 +659,7 @@ export function mountAssistant() {
     t.appendChild(sanitize(b.html));
     bArea.replaceChildren(t); bArea.scrollTop = 0;
     if (write) t.classList.add('ai-write');
+    stopTour(); drawTourBtn();
     return t;
   }
   function openBoard() {
@@ -765,9 +784,11 @@ export function mountAssistant() {
   }
 
   // ---------- Fragen & Antworten ----------
+  let pendingMap = null;
   async function submit(text) {
     text = String(text || '').trim();
     if (!text || state === 'think') return;
+    if (tourActive()) pauseTour();   // Frage mitten in der Führung: Max hält an, antwortet, dann geht's per ▶ weiter
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     unlockAudio();
     capQuestion(text); capQ.classList.remove('live'); capThinking();
@@ -780,7 +801,12 @@ export function mountAssistant() {
     ctrl = new AbortController();
     try {
       const messages = hist.slice(-12).map(m => ({ role: m.role, content: m.role === 'assistant' ? forHistory(m.content) : m.content }));
-      const pre = [ctxLine, maxPrompt()].filter(Boolean).join('\n');
+      const TAFEL = L('[Tafel: Gib jedem Block an der Tafel (h3, p, ul, div.calc, div.step, div.result, table, svg) ein Attribut data-say mit genau einem kurzen Satz (höchstens 18 Wörter), warum dieser Schritt so ist – Max zeigt ihn dann mit seinem Cursor.]',
+        '[Board: give every block on the board (h3, p, ul, div.calc, div.step, div.result, table, svg) a data-say attribute with exactly one short sentence (max 18 words) on why this step is the way it is – Max then points to it with his cursor.]');
+      const SEITE = pendingMap ? L(`[Seitenführung: Antworte mit 1–2 kurzen Sätzen Einleitung und danach genau einem Block \`\`\`zeigen mit einer JSON-Liste von 4–7 Schritten, z. B. [{"id":"m3","say":"…"}]. Nutze nur Kennungen aus dieser Liste, in sinnvoller Reihenfolge. say = 1–2 kurze Sätze: was das ist und warum es wichtig ist – konkret, mit den Zahlen auf der Seite.\nElemente der Seite:\n${pendingMap}]`,
+        `[Page tour: answer with a 1–2 sentence intro, then exactly one \`\`\`zeigen block with a JSON list of 4–7 steps, e.g. [{"id":"m3","say":"…"}]. Only use ids from this list, in a sensible order. say = 1–2 short sentences: what it is and why it matters – concrete, with the numbers on the page.\nPage elements:\n${pendingMap}]`) : '';
+      pendingMap = null;
+      const pre = [ctxLine, maxPrompt(), TAFEL, SEITE].filter(Boolean).join('\n');
       if (pre) messages[messages.length - 1].content = pre + '\n' + text;
       const payload = { messages, opts: { mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true } };
       const d = curDoc();
@@ -841,6 +867,37 @@ export function mountAssistant() {
       await pr;
       if (my === gen) afterAnswer(p);
     }
+    if (my === gen) runTours(p, t);
+  }
+  // ---------- Max-Cursor: Tafel Block für Block erklären, oder echte Stellen der Seite zeigen ----------
+  function curStart() { const rf = STAGE ? [...document.querySelectorAll('.room .rm-fs')].find(e => e.getBoundingClientRect().width > 0) : null; const r = (rf || (open ? fEl : bubFace)).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height * .4 }; }
+  function startTour(steps) {
+    return tour(steps, { startAt: curStart(), onAsk: () => { if (!open) setOpen(true); setTyping(true); } });
+  }
+  async function runTours(p, t) {
+    if (p.tour && p.tour.length) {
+      const steps = p.tour.map(x => ({ el: byMxId(x.id), say: x.say })).filter(x => x.el);
+      if (!steps.length) return;
+      if (!STAGE && open) closeAnimated();   // Seite frei machen – Max zeigt direkt auf ihr
+      setTimeout(() => startTour(steps), STAGE ? 200 : 520);
+      return;
+    }
+    if (!t || !t.isConnected) return;
+    // warten, bis die Tafel fertig geschrieben ist
+    for (let k = 0; k < 40 && t.isConnected && t.querySelector('.ai-hide'); k++) await sleep(120);
+    const steps = boardSteps(t);
+    drawTourBtn();
+    if (steps.length >= 2 && t.isConnected) setTimeout(() => { if (t.isConnected && state !== 'think') startTour(steps); }, 450);
+  }
+  function drawTourBtn() { const st = boardSteps(bArea.querySelector('.tafel')); bTour.hidden = st.length < 2; }
+  // „Klick mich – ich führ dich durch“: Max liest die Seite und zeigt dir mit dem Cursor, worauf es ankommt
+  function pageTour() {
+    stopTour();
+    const m = pageMap();
+    setOpen(true);
+    if (!m.count) { submit(L('Wobei kann ich dir auf dieser Seite helfen?', 'How can I help you on this page?')); return; }
+    pendingMap = m.text;
+    submit(L('Führ mich durch diese Seite – zeig mir mit deinem Cursor, was hier wichtig ist und wie ich es nutze.', 'Walk me through this page – show me with your cursor what matters here and how to use it.'));
   }
   function favChip(it) { return favStar(() => it, { label: true, cls: 'ai-cmd ai-fav' }); }
   // Getippte Antwort nachträglich anhören
