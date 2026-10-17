@@ -3525,3 +3525,4 @@ html.mx-touring .asst-quip, html.mx-touring .rm-th { display: none !important; }
 /* Chip-Icons exakt auf Texthöhe */
 .chip > span:has(> .ico) { display: inline-grid; place-items: center; line-height: 0; }
 @media (max-width: 600px) { .rm-more2.on { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; scrollbar-width: none; margin: 4px -14px 0; padding: 0 14px 2px; width: calc(100% + 28px); } .rm-more2.on::-webkit-scrollbar { display: none; } .rm-more2.on .rm-mc { flex: none; } }
+.tn > span:has(> .ico), .ln-ti, .rm-ti { line-height: 0; } .tn > span:has(> .ico) { display: inline-grid; place-items: center; }
