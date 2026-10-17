@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
@@ -100,7 +100,9 @@ function melden(daten, req, ctx) {
 // ---------- BWL Max: Seitenaufruf ohne Kennung, Ereignisse nur mit Einwilligung (Cookie bm_analyse) ----------
 const BM_ZIEL = 'https://hub.mrbell.de/n8n/webhook/bm-ping';
 const BM_EREIGNISSE = ['Analyse erlaubt', 'Gescrollt', 'Länger als 30 Sekunden', 'Max geöffnet', 'Max gefragt', 'Sprechen gestartet', 'Skript hochgeladen',
-  'Beispiel geöffnet', 'Thema erklärt', 'Erstellt', 'Bereich geöffnet', 'Trainer geöffnet', 'Angemeldet', 'Spaßfrage beantwortet'];
+  'Beispiel geöffnet', 'Thema erklärt', 'Erstellt', 'Bereich geöffnet', 'Trainer geöffnet', 'Angemeldet', 'Spaßfrage beantwortet', 'Konto erstellt'];
+// Ohne Einwilligung zählbar (ohne Kennung, ohne Ort): nur die reine Anzahl neuer Konten
+const BM_OHNE = ['Konto erstellt'];
 function bmKennung(req) { const m = /(?:^|;\s*)bm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
 function bmMelden(daten, req, ctx, bwlmax) {
   if (intern(req)) return null;
@@ -123,10 +125,11 @@ function bmSeite(req, ctx, url, bwlmax, recht) {
 async function bmEreignis(req, ctx, bwlmax) {
   if (req.method !== 'POST') return new Response(null, { status: 405 });
   const ua = req.headers.get('user-agent') || '';
-  if (BOT.test(ua) || !bmKennung(req)) return new Response(null, { status: 204 });
+  if (BOT.test(ua)) return new Response(null, { status: 204 });
   let d; try { d = JSON.parse((await req.text()).slice(0, 2000)); } catch (e) { return new Response(null, { status: 400 }); }
   const ereignis = kurz(d && d.ereignis, 40);
   if (BM_EREIGNISSE.indexOf(ereignis) < 0) return new Response(null, { status: 204 });
+  if (!bmKennung(req) && BM_OHNE.indexOf(ereignis) < 0) return new Response(null, { status: 204 });
   const offen = bmMelden({ ereignis: ereignis, detail: kurz(d.detail, 60), seite: kurz(d.seite, 60), herkunft: '', geraet: geraet(ua) }, req, ctx, bwlmax);
   if (offen) await Promise.race([offen, new Promise(function (r) { setTimeout(r, 1500); })]);
   return new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store' } });
@@ -138,6 +141,8 @@ export default async function middleware(req, ctx) {
   // ---------- BWL Max (bwlmax.de und mrbell.de/tutor) — eigene Messung, getrennt von Mr. Bell ----------
   const bwlmax = /^(www\.)?bwlmax\.de$/i.test(url.hostname);
   if (url.pathname === '/bm') return bmEreignis(req, ctx, bwlmax);
+  // Zahlen-Dashboard (nur bwlmax.de, wird selbst nicht gezählt)
+  if (url.pathname === '/zahlen') return bwlmax ? new Response(null, { headers: { 'x-middleware-rewrite': new URL('/tutor/zahlen.html', url).toString() } }) : weiter();
   if (bwlmax || url.pathname.startsWith('/tutor')) {
     const start = url.pathname === '/' || url.pathname === '/index.html' || /^\/tutor\/?(index\.html)?$/.test(url.pathname);
     const recht = bwlmax && /^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(url.pathname.replace(/\.html$/, '')) ? url.pathname.replace(/^\/|\.html$/g, '') : '';

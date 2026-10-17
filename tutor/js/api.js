@@ -59,6 +59,8 @@ export async function ask(action, payload = {}, { signal, images } = {}) {
   }
   if (j.quota) setQuota(j.quota);
   if ('account' in j) { if (j.account || ses) setAccount(j.account, j.account ? ses : null); }
+  // Neues Konto: immer zählen (ohne Einwilligung nur die Anzahl, ohne Kennung und Ort)
+  if (action === 'verify' && j.ok && j.fresh) { try { if (window.BM && window.BM.ok()) window.BM.track('Konto erstellt'); else fetch('/bm', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ ereignis: 'Konto erstellt', detail: '', seite: '/' }), keepalive: true, credentials: 'omit' }).catch(() => {}); } catch (x) {} }
   if (!j.ok) throw Object.assign(new ApiError(j.error || 'error', j.message || L('Das hat nicht geklappt.', 'That didn’t work.')), { suggest: j.suggest || '' });
   return j;
 }
