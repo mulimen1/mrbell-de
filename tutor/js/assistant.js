@@ -189,7 +189,8 @@ export function mountAssistant() {
   const feedTog = h('button', { class: 'ai-ft', type: 'button' });
   const srLive = h('div', { class: 'sr', 'aria-live': 'polite' });
   const cap = h('div', { class: 'ai-feed' }, feedList, srLive);
-  let feedOpen = !MOB.matches;
+  const seenBefore = !!ls.get('tutor.asst.seen');   // wer Max schon kennt, bekommt keine Begrüßung mehr
+  let feedOpen = false;   // Verlauf startet immer eingeklappt – aufklappen nur per Klick
 
   const bd = h('div', { class: 'ai-bd', 'aria-hidden': 'true' });
   const bSay = h('div', { class: 'ai-bsay', 'aria-hidden': 'true' });
@@ -394,7 +395,7 @@ export function mountAssistant() {
       if (!MOB.matches && !listen) setTimeout(() => { if (open && state === 'idle') inp.focus({ preventScroll: true }); }, 60);
     } else {
       setTyping(false); closedAt = Date.now();
-      if (MOB.matches && feedOpen) setFeedOpen(false);
+      if (feedOpen) setFeedOpen(false, { instant: true });   // nächstes Öffnen: Verlauf wieder zu
       if (state === 'listen') stopListen('stop');
       if (document.activeElement && isl.contains(document.activeElement)) document.activeElement.blur();
     }
@@ -505,7 +506,7 @@ export function mountAssistant() {
   function dismissCap() { root.classList.remove('has-cap'); syncLock(); }
   // Verlauf auf-/zuklappen – mit Animation: ältere Blasen gleiten gestaffelt rein/raus, die letzte wächst weich mit
   let feedAnim = 0;
-  function setFeedOpen(v) {
+  function setFeedOpen(v, { instant = false } = {}) {
     v = !!v; if (v === feedOpen && root.classList.contains('feed-open') === v) return;
     const tok = ++feedAnim;
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -515,7 +516,7 @@ export function mountAssistant() {
     const others = () => [...feedList.querySelectorAll('.ai-bub:not(.last)'), ...feedList.querySelectorAll('.ai-bub.me.last')];
     const lastA = feedList.querySelector('.ai-bub.max.last .ai-a');
     const grow = (h0) => { if (!lastA || reduce) return; const h1 = lastA.getBoundingClientRect().height; if (Math.abs(h1 - h0) > 2) lastA.animate([{ opacity: .35 }, { opacity: 1 }], { duration: 320, easing: 'ease-out' }); };
-    if (reduce) { apply(); return; }
+    if (reduce || instant) { apply(); root.classList.remove('feed-anim'); return; }
     const h0 = lastA ? lastA.getBoundingClientRect().height : 0;
     if (v) {
       apply(); grow(h0); cap.scrollTop = cap.scrollHeight;
@@ -568,10 +569,9 @@ export function mountAssistant() {
     return { q, a, aTx, aX, done: false };
   }
   function newEx(t, live) { curEx = bubPair(t, live); capQ = curEx.q; capA = curEx.aTx; capX = curEx.aX; markLast(); }
-  // Begrüßung beim ersten Öffnen pro Besuch – sofort als Nachricht
-  let greeted = false;
+  // Begrüßung genau einmal – beim allerersten Öffnen, danach nie wieder
   function greet() {
-    if (greeted) return; greeted = true;
+    if (ls.get('tutor.asst.greeted') || seenBefore || hist.length) { ls.set('tutor.asst.greeted', 1); return; } ls.set('tutor.asst.greeted', 1);
     const gTx = h('div', { class: 'ai-a' });
     const gText = (L(
       'Moin, ich bin Max – dein KI-Tutor hier. Ich seh, was du auf der Seite gerade machst, und führ dich durch: Frag mich alles, ich erklär’s dir an der Tafel, öffne Sachen für dich und bau dir Quiz, Karteikarten oder einen Klausurplan. Schreib einfach los – oder tipp auf **Sprich mit Max**.',
