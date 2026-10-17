@@ -58,13 +58,25 @@ export async function openAbo() {
   // Sofort sichtbar: heute 0,00 €, Abbuchung erst nach 7 Tagen – der Server bestätigt das gleich (ohne Test: 7,99 €)
   const today = h('b', {}, '0,00 €'), later = h('span', {}, L(`Ab ${fmtDay(Date.now() + 7 * 864e5)}`, `From ${fmtDay(Date.now() + 7 * 864e5)}`)), laterVal = h('b', {}, '7,99 € / ' + L('Monat', 'month'));
   const trialNote = h('p', { class: 'abo-small' });
+  // Test klar sichtbar: großes „7 Tage gratis“ und ein Zeitstrahl heute 0,00 € → erste Abbuchung
+  const tlEnd = h('b', {}, fmtDay(Date.now() + 7 * 864e5));
+  const trialBadge = h('div', { class: 'abo-trial' }, h('span', { class: 'abo-trial-n' }, '7'),
+    h('span', { class: 'abo-trial-t' }, h('b', {}, L('Tage gratis testen', 'days free')), h('small', {}, L('Voller Zugriff ab sofort – heute zahlst du 0,00 €', 'Full access right away – you pay €0.00 today'))));
+  const tl = h('div', { class: 'abo-tl' },
+    h('div', { class: 'abo-tl-track' }, h('i')),
+    h('div', { class: 'abo-tl-pts' },
+      h('div', { class: 'abo-tl-pt' }, h('b', {}, L('Heute', 'Today')), h('strong', {}, '0,00 €'), h('small', {}, L('Inner Circle startet', 'Inner Circle starts'))),
+      h('div', { class: 'abo-tl-pt' }, tlEnd, h('strong', {}, '7,99 €'), h('small', {}, L('Erste Abbuchung, dann monatlich', 'First charge, then monthly')))),
+    h('small', { class: 'abo-tl-note' }, L('Kündigst du vorher, zahlst du nichts. Endpreis – keine Mehrwertsteuer (Kleinunternehmer, § 19 UStG).', 'Cancel before and you pay nothing. Final price – no VAT (small business, § 19 UStG).')));
   const btn = h('button', { class: 'btn primary lg abo-buy ic-btn', type: 'button', disabled: true }, L('Jetzt zahlungspflichtig abonnieren', 'Subscribe now with obligation to pay'));
   const box = h('div', { class: 'modal abo', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Max’s Inner Circle' },
     h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => { if (!busy) close(); } }),
-    h('div', { class: 'eyebrow' }, L('7 Tage kostenlos testen', 'Try 7 days free')),
+    h('div', { class: 'eyebrow', hidden: true }, L('Monatlich kündbar', 'Cancel monthly')),
     h('h3', { class: 'ic-name' }, 'Max’s Inner Circle'),
+    trialBadge,
     h('ul', { class: 'abo-feat' }, [L('Max ohne Limit (Fair Use)', 'Max without limits (fair use)'), L('Probeklausuren im Klausur-Stil', 'Mock exams in real exam style'), L('Längere Podcasts mit echten Stimmen', 'Longer podcasts with real voices'), L('Sync über alle Geräte', 'Sync across all devices')].map(t => h('li', {}, h('span', { html: ico('check') }), t))),
-    h('div', { class: 'abo-price' },
+    tl,
+    h('div', { class: 'abo-price', hidden: true },
       h('div', {}, h('span', {}, L('Heute', 'Today')), today),
       h('div', {}, later, laterVal),
       h('small', {}, L('Endpreis – keine Mehrwertsteuer (Kleinunternehmer, § 19 UStG).', 'Final price – no VAT (small business, § 19 UStG).'))),
@@ -79,7 +91,8 @@ export async function openAbo() {
   try {
     st = await hub('start');
     if (st.already) { if (st.account) setAccount(st.account); close(); toast(L('Du bist schon im Inner Circle.', 'You’re already in the Inner Circle.')); return; }
-    if (!st.trialEnd) box.querySelector('.eyebrow').textContent = L('Monatlich kündbar', 'Cancel monthly');
+    if (!st.trialEnd) { box.querySelector('.eyebrow').hidden = false; trialBadge.hidden = true; tl.hidden = true; box.querySelector('.abo-price').hidden = false; }
+    else tlEnd.textContent = fmtDay(st.trialEnd * 1000);
   } catch (e) { err.textContent = e.message || L('Das hat gerade nicht geklappt.', 'That didn’t work just now.'); pe.replaceChildren(); return; }
   const trialEnd = st.trialEnd ? st.trialEnd * 1000 : 0;
   today.textContent = trialEnd ? '0,00 €' : '7,99 €';
