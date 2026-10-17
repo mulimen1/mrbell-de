@@ -463,7 +463,8 @@ export function render(root, ctx = {}) {
       context, material,
       onAsk: q => { lastQ = q || ''; if (mode !== 'talk') goTalk(); startSession(); SES.asks++; },
       onAnswer: p => { if (p && p.boards) SES.boards += p.boards.length; },
-      onBoard: v => { room.classList.toggle('has-board', !!v && mode === 'talk'); },
+      // Tafel von außen geöffnet (z. B. aus der Bibliothek): erst in den Gesprächsmodus, sonst bleibt sie unsichtbar
+      onBoard: v => { if (v && mode !== 'talk') goTalk(); room.classList.toggle('has-board', !!v && mode === 'talk'); },
       onState: s => {
         working(s === 'think');
         fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
