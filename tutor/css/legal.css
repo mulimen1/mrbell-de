@@ -48,3 +48,22 @@ footer a, footer button { color: var(--mute); background: none; border: 0; font:
 footer a:hover, footer button:hover { color: var(--ink); }
 @media (max-width: 600px) { main { padding-top: 36px; } .lg-toc { columns: 1; } .lg-back span { display: none; } th, td { font-size: 13.5px; } }
 @media print { .lg-top, footer { display: none; } :root, :root[data-theme="dark"] { --bg: #fff; --ink: #000; --ink2: #000; --mute: #333; --panel: #fff; --line: #999; } main { animation: none; } }
+/* Akzentfarbe wie in der App (Standard Dunkelgrün, gewählt im Farbknopf) */
+:root[data-accent="navy"] { --inv: #1f3a5f; --onInv: #fff; }
+:root[data-accent="kobalt"] { --inv: #1f4fbf; --onInv: #fff; }
+:root[data-accent="petrol"] { --inv: #0e5a63; --onInv: #fff; }
+:root[data-accent="gruen"] { --inv: #1f5137; --onInv: #fff; }
+:root[data-accent="oliv"] { --inv: #4f5b23; --onInv: #fff; }
+:root[data-accent="cognac"] { --inv: #7a4523; --onInv: #fff; }
+:root[data-accent="bordeaux"] { --inv: #7b1e2e; --onInv: #fff; }
+:root[data-accent="aubergine"] { --inv: #4e2a5f; --onInv: #fff; }
+:root[data-accent="graphit"] { --inv: #3f4650; --onInv: #fff; }
+:root[data-theme="dark"][data-accent="navy"] { --inv: #3d6299; --onInv: #fff; }
+:root[data-theme="dark"][data-accent="kobalt"] { --inv: #3f6bd0; --onInv: #fff; }
+:root[data-theme="dark"][data-accent="petrol"] { --inv: #1d7a85; --onInv: #fff; }
+:root[data-theme="dark"][data-accent="gruen"] { --inv: #2f7a55; --onInv: #fff; }
+:root[data-theme="dark"][data-accent="oliv"] { --inv: #6b7833; --onInv: #fff; }
+:root[data-theme="dark"][data-accent="cognac"] { --inv: #9c5c2c; --onInv: #fff; }
+:root[data-theme="dark"][data-accent="bordeaux"] { --inv: #a83346; --onInv: #fff; }
+:root[data-theme="dark"][data-accent="aubergine"] { --inv: #7a4a91; --onInv: #fff; }
+:root[data-theme="dark"][data-accent="graphit"] { --inv: #646d79; --onInv: #fff; }
