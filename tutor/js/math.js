@@ -41,6 +41,66 @@ export function texPlain(t) {
 // Ganzer Text: Formeln durch die lesbare Form ersetzen (z. B. fürs Vorlesen oder Vorschauen)
 export const plainMath = s => String(s || '').replace(RX, (m, d, i) => texPlain(d != null ? d : i));
 
+// ---------- Sicherheitsnetz: Formel-Reste ohne \( \) erkennen und trotzdem setzen ----------
+// z. B. „FK_{Z} = Fremdkapitalzinsen“, „r_EK = G / EK × 100“, „\frac{G}{EK}“ – nie mehr Rohcode auf Karten oder im Chat.
+const STRONG = /\\[a-zA-Z]{2,}|\\[%,;!]|[A-Za-z0-9)\]}]_(?:\{[^{}\s]{1,24}\}|[A-Za-z0-9]{1,8})|[A-Za-z0-9)\]}]\^(?:\{[^{}\s]{1,24}\}|[A-Za-z0-9+\-]{1,6})|\{[^{}\s]*\}\{/;
+const OP = /^(?:=|\+|-|−|–|·|×|\*|\/|<|>|≤|≥|≈|≠|±)$/;
+const WEAK = /^(?:[A-Z]{1,4}[0-9]*|[a-zA-Z]|[a-zA-Z][0-9]|\d[\d.,]*%?|\(?[\dA-Za-z]*[+\-−*/^][\dA-Za-z+\-−*/^.,]*\)?)$/;
+const NOMATH = /:\/\/|@|www\.|_{2,}/;
+const PUNCT_R = /[.,;:!?*"“”„)]+$/, PUNCT_L = /^[*"“”„(]+/, END = /[.,;:!?]$/;
+const TEXQ = /\\[a-zA-Z(\[%]|[A-Za-z0-9)\]}][_^][{A-Za-z0-9]/;
+function core(tok) { return tok.replace(PUNCT_L, '').replace(PUNCT_R, ''); }
+function kind(tok) {
+  const c = core(tok);
+  if (!c || NOMATH.test(c)) return 'x';
+  if (STRONG.test(c) || STRONG.test(tok)) return 's';
+  if (OP.test(c)) return 'o';
+  if (c.length <= 14 && WEAK.test(c) && !/^(?:a|I|A)$/.test(c)) return 'w';
+  return 'x';
+}
+const tidy = t => t.replace(/([_^])([A-Za-z0-9]{2,})/g, '$1{$2}').replace(/\s*×\s*/g, ' \\times ').replace(/\s*·\s*/g, ' \\cdot ').replace(/−/g, '-').trim();
+function fixPlain(s) {
+  if (!TEXQ.test(s)) return s;
+  const parts = s.split(/(\s+)/), toks = [];
+  for (let i = 0; i < parts.length; i += 2) toks.push({ t: parts[i], sp: parts[i + 1] || '', k: kind(parts[i]) });
+  let out = '', i = 0;
+  while (i < toks.length) {
+    if (toks[i].k === 'x' || !toks[i].t) { out += toks[i].t + toks[i].sp; i++; continue; }
+    // Satzzeichen am Wortende beendet die Formel (danach geht der Satz weiter)
+    let j = i; while (j < toks.length && toks[j].k !== 'x' && toks[j].t) { j++; if (END.test(toks[j - 1].t)) break; }
+    let a = i, b = j - 1;
+    // Ränder: Rechenzeichen weg, kurze Symbole nur, wenn ein Rechenzeichen daneben steht
+    for (let ch = true; ch && a <= b;) { ch = false;
+      if (toks[a].k === 'o') { a++; ch = true; } else if (toks[a].k === 'w' && a < b && toks[a + 1].k !== 'o') { a++; ch = true; }
+      if (a <= b && toks[b].k === 'o') { b--; ch = true; } else if (a <= b && toks[b].k === 'w' && b > a && toks[b - 1].k !== 'o') { b--; ch = true; } }
+    const hasStrong = toks.slice(a, b + 1).some(x => x.k === 's');
+    if (!hasStrong || a > b) { for (let k = i; k < j; k++) out += toks[k].t + toks[k].sp; i = j; continue; }
+    for (let k = i; k < a; k++) out += toks[k].t + toks[k].sp;
+    let expr = toks.slice(a, b + 1).map((x, k) => x.t + (k < b - a ? x.sp : '')).join('');
+    // Satzzeichen/Sternchen außen lassen; Klammern nur, wenn sie nicht zur Formel gehören
+    let lead = expr.match(/^[*"“”„]+/)?.[0] || '', trail = expr.match(/[.,;:!?*"“”„]+$/)?.[0] || '';
+    expr = expr.slice(lead.length, expr.length - trail.length);
+    const bal = () => (expr.match(/\(/g) || []).length - (expr.match(/\)/g) || []).length;
+    while (expr.startsWith('(') && bal() > 0) { lead += '('; expr = expr.slice(1); }
+    while (expr.endsWith(')') && bal() < 0) { trail = ')' + trail; expr = expr.slice(0, -1); }
+    out += lead + '\\(' + tidy(expr) + '\\)' + trail + toks[b].sp;
+    for (let k = b + 1; k < j; k++) out += toks[k].t + toks[k].sp;
+    i = j;
+  }
+  return out;
+}
+// Text mit schon gesetzten Formeln: nur die Stücke dazwischen prüfen
+export function fixStray(s) {
+  s = String(s || '');
+  if (!TEXQ.test(s)) return s;
+  let out = '', last = 0, m; RX.lastIndex = 0;
+  while ((m = RX.exec(s))) { out += fixPlain(s.slice(last, m.index)) + m[0]; last = m.index + m[0].length; }
+  return out + fixPlain(s.slice(last));
+}
+// Formel aus einem eigenen Feld (ohne Begrenzer); falls die KI doch welche mitschickt, weg damit
+export const bareTex = t => String(t || '').trim().replace(/^\$+|\$+$/g, '').replace(/^\\[([]\s*/, '').replace(/\s*\\[)\]]$/, '').trim();
+export function texEl(tex, display) { const el = mark(bareTex(tex), display); watch(); queueMath(); return el; }
+
 function mark(tex, display) {
   const el = document.createElement('span');
   el.className = 'tex';
@@ -55,7 +115,7 @@ export function mathify(root) {
   if (!root) return root;
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode(n) {
-      if (!/\\[([]/.test(n.nodeValue)) return NodeFilter.FILTER_REJECT;
+      if (!TEXQ.test(n.nodeValue)) return NodeFilter.FILTER_REJECT;
       for (let p = n.parentNode; p && p !== root; p = p.parentNode) { if (p.nodeType === 1 && (SKIP.has(p.localName) || p.classList.contains('tex'))) return NodeFilter.FILTER_REJECT; }
       return NodeFilter.FILTER_ACCEPT;
     }
@@ -63,7 +123,7 @@ export function mathify(root) {
   const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
   let n = 0;
   for (const t of nodes) {
-    const s = t.nodeValue; RX.lastIndex = 0;
+    const s = fixStray(t.nodeValue); RX.lastIndex = 0;
     if (!RX.test(s)) continue;
     RX.lastIndex = 0;
     const frag = document.createDocumentFragment(); let last = 0, m;
@@ -108,7 +168,6 @@ export function queueMath() {
   (window.requestAnimationFrame || setTimeout)(() => setTimeout(render, 0));
 }
 // Alles, was später ins Dokument kommt (Quiz-Optionen, Karten, Listen …), wird automatisch mitgesetzt
-const TEXQ = /\\[([]/;
 function watch() {
   if (mo || !window.MutationObserver || !document.body) return;
   mo = new MutationObserver(muts => {

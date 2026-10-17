@@ -2,8 +2,8 @@
 // Ein Knopf überall gleich: dlBtn(). Mehrere Formate → kleine Auswahl, ein Format → sofort.
 import { h, ico, ls, toast, fmt } from './util.js';
 import { L, LOCALE } from './i18n.js';
-import { sanitize, richText } from './sanitize.js';
-import { mathReady } from './math.js';
+import { sanitize, richText, cardBack, cardLegend } from './sanitize.js';
+import { mathReady, fixStray, bareTex } from './math.js';
 import { ask } from './api.js';
 import { save } from './state.js';
 
@@ -126,7 +126,7 @@ export function cardsPdf(decks, doc) {
   return printPdf({ title: decks.length === 1 ? decks[0].title : L('Karteikarten', 'Flashcards'), kind: L(`${n} Karteikarten`, `${n} flashcards`), sub: doc?.name,
     body: decks.map((d, i) => h('div', { class: i ? 'pr-break' : '' }, decks.length > 1 ? h('h2', {}, d.title) : null,
       h('div', { class: 'pr-cards' }, h('div', { class: 'pr-ch' }, h('span', {}, L('Frage', 'Question')), h('span', {}, L('Antwort', 'Answer'))),
-        d.cards.map(c => h('div', { class: 'pr-card' }, h('div', {}, richText(c.front)), h('div', {}, richText(c.back), c.page ? h('span', { class: 'pr-pg' }, L(' · S. ', ' · p. ') + c.page) : null)))))) });
+        d.cards.map(c => h('div', { class: 'pr-card' }, h('div', {}, richText(c.front)), h('div', { class: 'pr-cb' }, cardBack(c), c.page ? h('span', { class: 'pr-pg' }, L('S. ', 'p. ') + c.page) : null)))))) });
 }
 
 export function ankiFile(decks, doc) {
@@ -137,7 +137,9 @@ export function ankiFile(decks, doc) {
   if (decks.length === 1) lines.splice(2, 0, '#deck:' + ('BWL Max::' + (doc?.name || L('Skript', 'Slides')) + '::' + decks[0].title).replace(/[\t\n]/g, ' '));
   else lines.splice(2, 0, '#deck:' + ('BWL Max::' + (doc?.name || L('Skript', 'Slides'))).replace(/[\t\n]/g, ' '));
   const tag = s => 'bwl-max ' + String(s || '').replace(/[^\wäöüÄÖÜß-]+/g, '_').slice(0, 40);
-  for (const d of decks) for (const c of d.cards) lines.push(clean(c.front) + '\t' + clean(c.back) + '\t' + tag(d.title));
+  // Rückseite: Formel als eigene Zeile, Legende, dann Text – Formel-Reste ohne \( \) werden vorher gesetzt
+  const back = c => [c.formula ? '\\[' + clean(bareTex(c.formula)) + '\\]' : '', cardLegend(c).map(([s, t]) => '\\(' + clean(bareTex(s)) + '\\) ' + clean(t)).join(' · '), c.back ? clean(fixStray(c.back)) : ''].filter(Boolean).join('<br>');
+  for (const d of decks) for (const c of d.cards) lines.push(clean(fixStray(c.front)) + '\t' + back(c) + '\t' + tag(d.title));
   saveBlob(new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }), safe(decks.length === 1 ? decks[0].title : doc?.name || 'Karteikarten') + ' (Anki).txt');
   toast(L('In Anki: Datei → Importieren → diese Datei wählen. Stapel und Felder sind schon eingestellt.', 'In Anki: File → Import → pick this file. Deck and fields are already set.'), 5000);
 }

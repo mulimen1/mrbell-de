@@ -1,5 +1,5 @@
 // KI-HTML für die Tafel sicher machen: nur erlaubte Tags/Attribute, keine Skripte, keine Links, keine Styles.
-import { mathify } from './math.js';
+import { mathify, fixStray, texEl } from './math.js';
 const TAGS = new Set(['h2', 'h3', 'h4', 'p', 'ul', 'ol', 'li', 'b', 'strong', 'i', 'em', 'u', 'small', 'sub', 'sup', 'br', 'hr', 'code', 'span', 'div',
   'table', 'thead', 'tbody', 'tr', 'th', 'td', 'caption',
   'svg', 'g', 'line', 'rect', 'circle', 'ellipse', 'path', 'polyline', 'polygon', 'text', 'tspan', 'defs', 'marker', 'title']);
@@ -58,7 +58,7 @@ export function sanitizeInto(el, html) {
 export function richText(s) {
   const frag = document.createDocumentFragment();
   // Formeln über mehrere Zeilen zusammenhalten
-  String(s || '').replace(/\\\[[\s\S]+?\\\]/g, m => m.replace(/\n/g, ' ')).split('\n').forEach((line, i, arr) => {
+  fixStray(String(s || '')).replace(/\\\[[\s\S]+?\\\]/g, m => m.replace(/\n/g, ' ')).split('\n').forEach((line, i, arr) => {
     const parts = line.split(/(\*\*[^*]+\*\*|\((?:S|p|pp)\. ?\d+(?:[–-]\d+)?\))/g);
     for (const p of parts) {
       if (!p) continue;
@@ -69,4 +69,16 @@ export function richText(s) {
     if (i < arr.length - 1) frag.appendChild(document.createElement('br'));
   });
   return mathify(frag);
+}
+
+// Rückseite einer Karteikarte: Formel groß (eigenes Feld), darunter die Legende, dann der kurze Text – immer sauber gesetzt
+export const cardLegend = c => (Array.isArray(c && c.legend) ? c.legend : []).filter(x => Array.isArray(x) && x[0] && x[1]).slice(0, 8);
+export function cardBack(c) {
+  const frag = document.createDocumentFragment();
+  const div = (cls, ...kids) => { const d = document.createElement('div'); d.className = cls; kids.forEach(k => k && d.appendChild(k)); return d; };
+  if (c.formula) frag.appendChild(div('cb-f', texEl(c.formula, true)));
+  const leg = cardLegend(c);
+  if (leg.length) frag.appendChild(div('cb-leg', ...leg.map(([sym, t]) => { const i = div('cb-li', texEl(sym, false)); i.appendChild(document.createTextNode(' ' + String(t))); return i; })));
+  if (c.back) frag.appendChild(div('cb-t', richText(c.back)));
+  return frag;
 }

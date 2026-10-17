@@ -6,7 +6,7 @@ import { ask } from '../api.js';
 import { save, S } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
 import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
-import { richText } from '../sanitize.js';
+import { richText, cardBack } from '../sanitize.js';
 import { L } from '../i18n.js';
 import { review } from '../fsrs.js';
 import { autoOpts } from '../create.js';
@@ -73,7 +73,7 @@ async function generate(wrap, ctx, chIdx, o) {
   const ld = loading(wrap, L('Ich schreibe deine Karteikarten …', 'Writing your flashcards …'), L(['Suche Begriffe und Formeln', 'Formuliere präzise Fragen', 'Halte die Antworten kurz'], ['Finding key terms and formulas', 'Phrasing precise questions', 'Keeping the answers short']), 'cards');
   try {
     const r = await ask('cards', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { count, focus } }, { signal: ld.signal });
-    const cards = (r.data?.cards || []).filter(c => c && c.front && c.back).map(c => ({ id: uid(), front: String(c.front), back: String(c.back), page: c.page || null, due: 0 }));
+    const cards = (r.data?.cards || []).filter(c => c && c.front && (c.back || c.formula)).map(c => ({ id: uid(), front: String(c.front), back: String(c.back || ''), formula: c.formula ? String(c.formula).slice(0, 400) : '', legend: (Array.isArray(c.legend) ? c.legend : []).filter(x => Array.isArray(x) && x[0] && x[1]).slice(0, 8).map(x => [String(x[0]).slice(0, 40), String(x[1]).slice(0, 80)]), page: c.page || null, due: 0 }));
     if (!cards.length) throw new Error(L('Es kamen keine Karten zurück. Versuch es nochmal.', 'No cards came back. Please try again.'));
     const deck = { id: uid(), title: ch ? ch.title : (r.data.title || L('Ganzes Skript', 'Whole script')), chapter: chIdx, cards, created: Date.now() };
     doc.decks.push(deck); save(doc);
@@ -106,7 +106,7 @@ function study(wrap, ctx, items, title) {
     const card = h('div', { class: 'fc', tabindex: 0, role: 'button', 'aria-label': L('Karte umdrehen', 'Flip card') },
       h('div', { class: 'in' },
         h('div', { class: 'f' }, richText(c.front), h('span', { class: 'hint' }, L('Tippen zum Umdrehen', 'Tap to flip')), c.page ? h('span', { class: 'pg' }, L('S. ', 'p. ') + c.page) : null),
-        h('div', { class: 'b' }, richText(c.back))));
+        h('div', { class: 'b' }, cardBack(c))));
     // Drei klare Knöpfe, keine Abstände – den Rest plant die Wiederholung im Hintergrund
     const rate = h('div', { class: 'rate r3', style: { visibility: 'hidden' } }, [[1, L('Nochmal', 'Again'), 'k1'], [2, L('Unsicher', 'Not sure'), 'k2'], [3, L('Gewusst', 'Got it'), 'k3']].map(([r, l, k]) =>
       h('button', { class: 'btn ' + k + (r === 3 ? ' primary' : ''), type: 'button', onclick: () => grade(r) }, l)));
