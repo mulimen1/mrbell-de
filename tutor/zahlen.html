@@ -184,6 +184,7 @@ button { font: inherit; color: inherit; }
   .card .hd small { display: none; } .heat .h:nth-child(odd) { visibility: hidden; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+.kl-acc{max-height:420px;overflow:auto}.kl-acc .who{display:grid;gap:1px;min-width:0}.kl-acc .who b{font-weight:650}.kl-acc .em{color:var(--mute,#8b8b93);font-weight:500;word-break:break-all}.kl-acc .wo{color:var(--mute,#8b8b93);font-size:11.5px}.kl-acc .icb{justify-self:start;display:inline-block;font:600 10px/1 var(--mono,monospace);letter-spacing:.06em;text-transform:uppercase;padding:3px 6px;border:1px solid currentColor;border-radius:999px;opacity:.8}
 </style>
 </head>
 <body>
@@ -376,7 +377,11 @@ button { font: inherit; color: inherit; }
 
     var kl = d.konten.liste || [];
     var konten = '<div class="konto-top"><div><div class="v num">' + fmt(d.konten.zeitraum) + '</div><small>' + esc(d.zeitraum.name) + ' · ' + fmt(d.konten.gesamt) + ' insgesamt · ' + fmt(d.konten.anmeldungen) + ' Anmeldungen</small></div><div style="width:46%">' + spark(d.konten.reihe) + '</div></div>'
-      + (kl.length ? '<div class="kl">' + kl.slice(0, 8).map(function (x) { return '<div class="r"><span class="ic">' + ico('userplus') + '</span><span>' + esc([x.ort, x.geraet].filter(Boolean).join(' · ') || 'Neues Konto') + '</span><small>' + rel(x.t) + '</small></div>'; }).join('') + '</div>' : '<div class="empty">Neue Konten tauchen hier auf, sobald sich jemand registriert.</div>');
+      + (kl.length ? '<div class="kl kl-acc">' + kl.map(function (x) {
+          var wer = x.nick ? '<b>' + esc(x.nick) + '</b> <span class="em">' + esc(x.email || '') + '</span>' : '<b>' + esc(x.email || 'Neues Konto') + '</b>';
+          var wo = [x.ort, x.geraet].filter(Boolean).join(' · ');
+          return '<div class="r"><span class="ic">' + ico('userplus') + '</span><span class="who">' + wer + (x.ic ? ' <span class="icb">Inner Circle</span>' : '') + (wo ? '<small class="wo">' + esc(wo) + '</small>' : '') + '</span><small>' + rel(x.t) + '</small></div>';
+        }).join('') + '</div>' : '<div class="empty">Neue Konten tauchen hier auf, sobald sich jemand registriert.</div>');
 
     var nutz = '<div class="sub">Erstellt</div>' + bars(d.basis.erstellt) + '<div class="sub">Meistgenutzte Bereiche</div>' + bars(d.basis.bereiche, 0, function (x) { return BEREICH[x] || x; })
       + '<div class="sub">Max</div>' + bars([['Fragen im Chat & unten rechts', k.fragen || 0], ['Gespräche (Sprechen)', k.sprechen || 0], ['Skripte hochgeladen', k.upload || 0], ['Beispiel ausprobiert', k.beispiel || 0]].filter(function (x) { return x[1]; }));
