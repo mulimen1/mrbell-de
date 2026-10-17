@@ -68,6 +68,10 @@ export async function render(root, ctx) {
   const area = h('div', { class: 'boardarea dots' });
   const boardcol = h('section', { class: 'boardcol' },
     h('div', { class: 'boardbar' }, h('span', { html: ico('board') }), btitle, bcount, prev, next,
+      h('button', { class: 'iconbtn', 'aria-label': L('Tafel herunterladen', 'Download whiteboard'), title: L('Herunterladen (PDF)', 'Download (PDF)'), html: ico('download'), onclick: () => import('../export.js').then(E => {
+        const b = doc.boards[bIdx]; if (!b) return E.pick([]);
+        E.pick(doc.boards.length > 1 ? [{ label: L('Diese Tafel', 'This board'), sub: 'PDF', ic: 'board', fn: () => E.boardsPdf([b]) }, { label: L(`Alle ${doc.boards.length} Tafeln`, `All ${doc.boards.length} boards`), sub: 'PDF', ic: 'board', fn: () => E.boardsPdf(doc.boards, doc.name) }] : [{ label: 'PDF', ic: 'file', fn: () => E.boardsPdf([b]) }]);
+      }) }),
       h('button', { class: 'iconbtn mob-only', 'aria-label': L('Tafel schließen', 'Close whiteboard'), html: ico('x'), onclick: () => showBoard(false) })),
     area);
   const tutor = h('div', { class: 'tutor' }, chatcol, boardcol);

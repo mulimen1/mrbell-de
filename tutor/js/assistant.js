@@ -2,7 +2,7 @@
 // Antworten kommen als Stimme + mitlaufender Untertitel, Erklärungen als Tafel direkt über der Seite,
 // Befehle (Quiz bauen, Tab öffnen …) führt er selbst aus. Tippen geht mit einem Klick oder einfach lostippen.
 import { starBtn as favStar, textKey as favKey, plain as plainT } from './me.js';
-import { h, ico, ls, sleep, toast } from './util.js';
+import { h, ico, ls, sleep, toast, learningNow } from './util.js';
 import { face } from './face.js';
 import { ask, onQuota, currentQuota, getAccount } from './api.js';
 import { S, save } from './state.js';
@@ -13,7 +13,8 @@ import { startLive } from './livestt.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { VOICES, getVoice, voiceChip } from './voice.js';
-import { L, setOutLang } from './i18n.js';
+import { L, setOutLang, getOutLang } from './i18n.js';
+import { speakMath } from './math.js';
 import { applyThemeButtons } from './theme.js';
 import { getMic, releaseMic as freeMic } from './mic.js';
 import { prompt as maxPrompt, mode as maxMode } from './maxcfg.js';
@@ -78,6 +79,9 @@ function parse(raw) {
   text = text.replace(/```zeigen[ \t]*\n?([\s\S]*?)(```|$)/g, (_, j) => { try { const a = JSON.parse(String(j).trim()); if (Array.isArray(a)) tourSteps = a.filter(x => x && x.id && x.say).slice(0, 10).map(x => ({ id: String(x.id), say: String(x.say).slice(0, 260) })); } catch (e) {} return '\n'; });
   const acts = [], cmds = [];
   text = text.replace(CMD, (_, k, v) => { const c = cmdOf(k, v); if (c) cmds.push(c); return ''; });
+  // Kein Skript, aber „mach mir einen Podcast zu X“: erst Kurzskript, danach direkt genau dieses Werkzeug
+  const tp = cmds.find(c => c.k === 'topic'), mk = cmds.find(c => c.k === 'make');
+  if (tp && mk) { tp.target = mk.v === 'exam' ? 'quiz' : MAKE[mk.v][0]; cmds.splice(cmds.indexOf(mk), 1); }
   text = text.replace(/\[\[([a-z:]+)\]\]/g, (_, a) => { if (ACTS[a]) acts.push(a); return ''; });
   text = text.replace(/```[\s\S]*?```/g, '').replace(/\n{3,}/g, '\n\n').trim();
   return { text, boards, acts, cmds, tour: tourSteps };
@@ -225,17 +229,23 @@ export function mountAssistant() {
   const bMin = h('button', { class: 'iconbtn ai-bmin', type: 'button', 'aria-label': L('Tafel minimieren', 'Minimise board'), title: L('Minimieren – liegt dann griffbereit am Rand', 'Minimise – stays at the edge'), html: SVG.min, onclick: () => minBoard(true) });
   const bAsk = h('div', { class: 'ai-bask', hidden: true, role: 'alertdialog', 'aria-label': L('Tafel löschen?', 'Delete board?') },
     h('b', {}, L('Tafel löschen?', 'Delete this board?')),
-    h('p', {}, L('Willst du sie nur griffbereit zur Seite legen? Dann tipp auf –.', 'Just want to put it aside, ready to grab? Tap – instead.')),
+    h('p', {}, L('Sie verschwindet dann auch aus deiner Bibliothek. Nur zumachen? Tipp auf ×.', 'It will also disappear from your library. Just want to close it? Tap ×.')),
     h('div', { class: 'ai-bask-r' },
       h('button', { class: 'btn sm ai-del', type: 'button', onclick: () => { askBoard(false); deleteBoard(); } }, L('Löschen', 'Delete')),
       h('button', { class: 'btn sm ai-delall', type: 'button', onclick: () => { askBoard(false); deleteAllBoards(); } }, h('span', { html: ico('trash') }), h('span', { class: 'ai-dan' })),
       h('button', { class: 'btn sm', type: 'button', onclick: () => { askBoard(false); minBoard(true); } }, h('span', { html: SVG.min }), L('Zur Seite legen', 'Put aside')),
       h('button', { class: 'btn sm ghost', type: 'button', onclick: () => askBoard(false) }, L('Abbrechen', 'Cancel'))));
-  const bClose = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Tafel löschen', 'Delete board'), title: L('Löschen', 'Delete'), html: ico('x'), onclick: () => askBoard(true) });
+  // × schließt nur – jede Tafel liegt ohnehin in der Bibliothek. Löschen gibt’s separat (Papierkorb).
+  const bClose = h('button', { class: 'iconbtn ai-bclose', type: 'button', 'aria-label': L('Tafel schließen', 'Close board'), title: L('Schließen – bleibt in deiner Bibliothek', 'Close – it stays in your library'), html: ico('x'), onclick: () => { askBoard(false); stopTour(); closeBoard(); } });
+  const bDl = h('button', { class: 'iconbtn ai-bdl', type: 'button', 'aria-label': L('Tafel herunterladen', 'Download board'), title: L('Herunterladen (PDF)', 'Download (PDF)'), html: ico('download'), onclick: () => import('./export.js').then(E => {
+    const b = boards[bIdx]; if (!b) return;
+    E.pick(boards.length > 1 ? [{ label: L('Diese Tafel', 'This board'), sub: 'PDF', ic: 'board', fn: () => E.boardsPdf([b]) }, { label: L(`Alle ${boards.length} Tafeln`, `All ${boards.length} boards`), sub: 'PDF', ic: 'board', fn: () => E.boardsPdf(boards, (curDoc() || S.doc)?.name) }] : [{ label: 'PDF', ic: 'file', fn: () => E.boardsPdf([b]) }]);
+  }) });
+  const bDel = h('button', { class: 'iconbtn ai-bdel', type: 'button', 'aria-label': L('Tafel löschen', 'Delete board'), title: L('Löschen', 'Delete'), html: ico('trash'), onclick: () => askBoard(bAsk.hidden) });
   const bArea = h('div', { class: 'ai-ba dots' });
   const bGrab = h('div', { class: 'ai-grab', 'aria-hidden': 'true' }, h('i'));
   const board = h('section', { class: 'ai-board', role: 'region', 'aria-label': L('Max’ Tafel', 'Max’s board') },
-    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bMin, bClose), bAsk, bArea, bSay);
+    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bDl, bDel, bMin, bClose), bAsk, bArea, bSay);
   const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', {}, L('Tafel', 'Board')));
 
   const chip = h('button', { class: 'asst-back', type: 'button' }, h('span', { class: 'asst-cf' }), L('Max zurückholen', 'Bring Max back'));
@@ -378,6 +388,7 @@ export function mountAssistant() {
     const now = Date.now();
     if (!tipVisSince) tipVisSince = now;
     // In der App: dauerhaft „Klick mich – ich führ dich durch“
+    if (app && learningNow()) { if (root.classList.contains('tip-on')) hideTip(); return; }   // mitten im Lernen: keine Führung
     if (app) {
       const k = tourKey(), seen = ls.get('tutor.tour.seen', {}) || {};
       if (location.hash.startsWith('#/app/zahlen')) { if (root.classList.contains('tip-on')) hideTip(); return; }   // Bens Zahlen: keine Führung
@@ -822,7 +833,11 @@ export function mountAssistant() {
     const fail = msg => { chipEl.classList.remove('run'); chipEl.classList.add('no'); chipEl.replaceChildren(h('span', { class: 'ck', html: ico('x') }), msg); };
     const ok = () => { chipEl.classList.remove('run'); chipEl.classList.add('ok'); if (['go', 'make', 'trainer', 'topic'].includes(c.k) && feedOpen) setFeedOpen(false); };   // Seite frei machen
     const d = curDoc() || S.doc;
-    if (c.doc && !d) return fail(L('Dafür brauch ich ein Skript – lad eins hoch.', 'I need slides for that – upload some.'));
+    if (c.doc && !d) {
+      // Werkzeug ohne Skript: Stoff hochladen oder Thema nennen – danach entsteht direkt das Werkzeug
+      if (c.k === 'make') { const m = await import('./app.js'); m.tryFeature(c.v === 'exam' ? 'quiz' : MAKE[c.v][0]); ok(); return; }
+      return fail(L('Dafür brauch ich ein Skript – lad eins hoch.', 'I need slides for that – upload some.'));
+    }
     try {
       if (c.k === 'go') await nav(`#/app/${d.id}/${c.v}`);
       else if (c.k === 'make') {
@@ -833,7 +848,7 @@ export function mountAssistant() {
           btn.click();
         } else await nav(`#/app/${d.id}/${MAKE[c.v][0]}/auto`, true);
       }
-      else if (c.k === 'topic') { ls.set('tutor.target', null); const m = await import('./app.js'); m.startTopic(c.v); }
+      else if (c.k === 'topic') { ls.set('tutor.target', c.target || null); const m = await import('./app.js'); m.startTopic(c.v); }
       else if (c.k === 'trainer') await nav('#/app/trainer/' + c.v);
       else if (c.k === 'upload') { const f = document.getElementById('fileApp'); if (!f) { await nav('#/app'); } const f2 = await sleepUntil(() => document.getElementById('fileApp'), 2000); if (!f2) return fail(L('Upload gerade nicht möglich.', 'Upload not available right now.')); f2.click(); }
       else if (c.k === 'voice') {
@@ -1095,6 +1110,7 @@ export function mountAssistant() {
     return out.length ? out : [text];
   }
   async function speak(text, my, txt, t, ex) {
+    text = speakMath(text, getOutLang() === 'en');
     const aEl = ex.aTx;
     let shown = false;
     // Ohne Ton: ganzen Text in SEINE Blase (nie in eine neuere)
@@ -1300,7 +1316,7 @@ export function mountAssistant() {
   function hideQuip() { clearTimeout(quipHide); if (quip.hidden) return; quip.classList.add('out'); setTimeout(() => { quip.hidden = true; quip.classList.remove('out'); root.classList.remove('quipping'); }, 900); }
   function showQuip() {
     if (cfg.quips !== false && root.classList.contains('landtop')) { clearTimeout(quipT); quipT = setTimeout(showQuip, 3000); return; }
-    if (cfg.quips === false || open || tourActive() || !isAssistantEnabled() || document.hidden || root.classList.contains('covered') || root.classList.contains('nobub') || document.querySelector('body > .modal-bg, body > .voice')) return planQuip();
+    if (cfg.quips === false || learningNow() || open || tourActive() || !isAssistantEnabled() || document.hidden || root.classList.contains('covered') || root.classList.contains('nobub') || document.querySelector('body > .modal-bg, body > .voice')) return planQuip();
     const [q, opts, ans, pct] = QUIPS[qi++ % QUIPS.length];
     const reply = i => {
       try { window.BM && window.BM.track('Spaßfrage beantwortet', opts[i]); } catch (e) {}

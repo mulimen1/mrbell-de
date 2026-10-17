@@ -145,8 +145,10 @@ export function moreOpts(...kids) {
 }
 
 // Antwort tippt sich Wort für Wort auf (mit Cursor)
+// Formeln bleiben ein Stück (sonst stünde halber LaTeX-Code kurz sichtbar da)
+const tokens = t => String(t || '').split(/(\\\[[\s\S]+?\\\]|\\\([\s\S]+?\\\)|\s+)/).filter(Boolean);
 export async function typeOut(el, text, { scroll = () => {}, alive = () => true } = {}) {
-  const parts = String(text || '').split(/(\s+)/);
+  const parts = tokens(text);
   const words = parts.filter(p => p.trim()).length;
   const step = words > 260 ? 3 : words > 120 ? 2 : 1;
   const delay = words > 260 ? 22 : 28;
@@ -188,7 +190,7 @@ export function typePlaceholder(inp, base, examples, pre = '') {
 
 // Text erscheint im Takt der Stimme (läuft mit der Wiedergabe, Stopp zeigt sofort alles)
 export function syncOut(el, text, audio, { scroll = () => {}, spoken = 640 } = {}) {
-  const parts = String(text || '').split(/(\s+)/), total = String(text || '').length, span = Math.min(total, spoken);
+  const parts = tokens(text), total = String(text || '').length, span = Math.min(total, spoken);
   let shown = -1;
   el.classList.add('typing-on');
   return new Promise(res => {

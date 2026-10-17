@@ -2998,7 +2998,9 @@ button.doc-item { font-size: 14px; }
   .docbar { padding: 6px 10px; gap: 8px; } .db-title { max-width: 40%; font-size: 13.5px; }
   .sk-r { grid-template-columns: 34px minmax(0, 1fr) auto; } .sk-m, .sk-del { display: none; }
 }
-@media (max-width: 760px) { html.has-bbar .side-tog { display: none !important; } .topbar { padding: 0 10px; gap: 8px; } }
+/* Untere Leiste gibt’s erst bis 720 px – darüber (z. B. iPad mini hochkant, 744 px) bleibt der Knopf für die Seitenleiste */
+@media (max-width: 720px) { html.has-bbar .side-tog { display: none !important; } }
+@media (max-width: 760px) { .topbar { padding: 0 10px; gap: 8px; } }
 /* Sprache + Hell/Dunkel oben neben der Suche; links an ihrer Stelle der Einklapp-Knopf */
 .topset { display: flex; align-items: center; gap: 4px; flex: none; }
 .topset .langsw button.on { display: none; }
@@ -3891,3 +3893,96 @@ body:has(.asst.stage) .kg { bottom: 104px; }
 .abo-tl-pt small, .abo-tl-note { font-size: 12px; color: var(--mute); }
 @media (prefers-reduced-motion: reduce) { .abo-trial, .abo-trial::after, .abo-trial-n, .abo-tl { animation: none !important; } .abo-tl-track i { animation: none; width: 100%; } }
 .modal.abo [hidden] { display: none !important; }
+
+/* Englischer Modus: Tafel-Etiketten auf Englisch (kein Deutsch-Englisch-Mix) */
+html[data-out="en"] .tafel .example::before { content: "EXAMPLE"; }
+html[data-out="en"] .tafel .warn::before { content: "WATCH OUT · COMMON MISTAKE"; }
+html[lang="en"] .asst.dropping .ai-chips::before { content: "Drop it – then we’ll work with it"; }
+
+/* ---------- Formeln (KaTeX) ---------- */
+.tex { white-space: nowrap; }
+.tex[data-d="1"] { display: block; text-align: center; margin: 10px 0; white-space: normal; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; padding: 2px 0; }
+.tex:not([data-ok]) { font-family: var(--mono); font-size: .92em; }
+.tex .katex { font-size: 1.12em; }
+.tex .katex-display { margin: 0; }
+.tex .katex-display > .katex { white-space: nowrap; }
+.tafel .formel { border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px 10px; margin: 14px 0; background: var(--panel); animation: fadeUp .4s var(--ease) both; }
+.tafel .formel .tex[data-d="1"] { margin: 4px 0 8px; }
+.tafel .formel .tex[data-d="1"] .katex { font-size: 1.32em; }
+.tafel .legend, .legend { font-size: 13.5px; line-height: 1.7; color: var(--mute); border-top: 1px solid var(--line); padding-top: 8px; margin-top: 4px; }
+.tafel .legend .tex { color: var(--ink); }
+.tafel .calc .tex[data-d="1"] { text-align: left; }
+.opt .tx .tex .katex, .flip .tex .katex { font-size: 1.05em; }
+@media print { .tex[data-d="1"] { overflow: visible; } }
+/* Tafel-Skizzen-Regeln nicht auf die Formel-Grafiken (Wurzel, lange Klammern) anwenden */
+.tafel .katex svg, .asst-tb .tafel .katex svg { display: block; position: absolute; width: 100%; height: inherit; max-height: none; margin: 0; background: none; border: 0; border-radius: 0; fill: currentColor; stroke: currentColor; }
+.tafel .katex svg path, .tafel .katex svg line, .tafel .katex svg rect, .tafel .katex svg polyline { fill: currentColor; stroke: none; stroke-width: 0; stroke-dasharray: none; animation: none; }
+/* Karteikarten: drei Knöpfe (Nochmal · Unsicher · Gewusst) */
+.rate.r3 { grid-template-columns: repeat(3, 1fr); }
+.rate.r3 .btn { height: 54px; font-size: 15px; font-weight: 600; }
+@media (max-width: 760px) { .rate.r3 { grid-template-columns: repeat(3, 1fr); gap: 6px; } .rate.r3 .btn { height: 50px; font-size: 14px; padding: 0 6px; } }
+
+/* Seitenleiste als Overlay (Handy, iPad mini hochkant): Hintergrund abdunkeln, Tippen daneben schließt */
+@media (max-width: 760px) {
+  .app::after { content: ""; position: fixed; inset: 0; z-index: 69; background: rgba(0, 0, 0, .38); opacity: 0; pointer-events: none; transition: opacity .3s var(--ease); }
+  .app.sideopen::after { opacity: 1; pointer-events: auto; }
+  .app.sideopen .side { box-shadow: 0 20px 60px rgba(0, 0, 0, .35); }
+}
+.ai-bh .ai-bdel { color: var(--mute); } .ai-bh .ai-bdel:hover { color: #e5372b; } .ai-bh .ai-bdel .ico { width: 16px; height: 16px; }
+/* ---------- Herunterladen: Auswahl + PDF-Druckansicht ---------- */
+.dl-modal { max-width: 420px; }
+.dl-list { display: grid; gap: 8px; margin-top: 14px; }
+.dl-opt { display: flex; align-items: center; gap: 12px; text-align: left; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); cursor: pointer; font: inherit; transition: border-color .15s, background .15s; }
+.dl-opt:hover, .dl-opt:focus-visible { border-color: var(--ink); background: var(--panel2); }
+.dl-oi { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--panel2); flex: none; }
+.dl-oi .ico { width: 18px; height: 18px; }
+.dl-ot { display: grid; gap: 2px; min-width: 0; } .dl-ot b { font-size: 14.5px; } .dl-ot small { font-size: 12.5px; color: var(--mute); }
+.printroot { display: none; }
+@media print {
+  html.printing body > *:not(#printroot) { display: none !important; }
+  html.printing, html.printing body { height: auto !important; min-height: 0 !important; overflow: visible !important; }
+  html.printing #printroot { display: block !important; position: static !important; }
+  #printroot, #printroot * { animation: none !important; transition: none !important; }
+  #printroot { font: 10.5pt/1.55 var(--sans); color: #000; }
+  #printroot svg path.l1, #printroot svg polyline.l1 { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }
+  #printroot .katex svg path { stroke: none !important; }
+  .pr-head { display: flex; justify-content: space-between; gap: 12pt; font: 500 8pt var(--mono); letter-spacing: .1em; text-transform: uppercase; border-bottom: 1px solid #000; padding-bottom: 5pt; margin-bottom: 14pt; }
+  .pr-brand { font-weight: 700; }
+  .pr-title { font-size: 20pt; line-height: 1.15; margin: 0 0 4pt; letter-spacing: -.02em; }
+  .pr-sub { margin: 0 0 14pt; color: #333 !important; }
+  .pr-body h2 { font-size: 13.5pt; margin: 14pt 0 6pt; }
+  .pr-sec { margin: 0 0 12pt; }
+  .pr-break { break-before: page; }
+  .pr-note { font-size: 9.5pt; color: #333 !important; margin: 4pt 0; }
+  .pr-pg { font: 500 8pt var(--mono); color: #444 !important; }
+  .pr-foot { margin-top: 20pt; padding-top: 6pt; border-top: 1px solid #999; font: 500 7.5pt var(--mono); color: #555 !important; }
+  #printroot .tafel { padding: 0 !important; margin: 0 !important; max-width: none !important; min-height: 0 !important; border: 0 !important; }
+  #printroot .tafel .tt { font-size: 14pt; margin: 0 0 8pt; }
+  #printroot .tafel svg { max-height: 300px; break-inside: avoid; }
+  #printroot .tafel .formel, #printroot .tafel .calc, #printroot .tafel .example, #printroot .tafel .result, #printroot .tafel .warn, #printroot .tafel table { break-inside: avoid; }
+  .pr-tldr li, .pr-tree li { margin: 2pt 0; }
+  .pr-terms { display: grid; grid-template-columns: 34% 1fr; gap: 4pt 12pt; margin: 0; } .pr-terms dt { font-weight: 650; } .pr-terms dd { margin: 0; }
+  .pr-q { break-inside: avoid; padding: 8pt 0 10pt; border-bottom: 1px solid #ccc; }
+  .pr-qh { display: flex; gap: 8pt; align-items: baseline; font-size: 9pt; } .pr-qt { font: 500 8pt var(--mono); text-transform: uppercase; letter-spacing: .08em; color: #444 !important; }
+  .pr-qq { margin: 4pt 0 6pt; font-size: 11pt; }
+  .pr-opts { margin: 0; padding-left: 20pt; } .pr-opts li { margin: 2pt 0; }
+  .pr-match { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt; } .pr-match ol { margin: 0; padding-left: 18pt; }
+  .pr-order { list-style: none; padding: 0; margin: 0; } .pr-order li { margin: 2pt 0; }
+  .pr-sol { display: grid; gap: 8pt; } .pr-s { display: grid; grid-template-columns: 22pt 1fr; break-inside: avoid; } .pr-se { font-size: 9.5pt; color: #333 !important; margin-top: 2pt; }
+  .pr-cards { display: grid; border: 1px solid #999; border-radius: 6pt; overflow: hidden; }
+  .pr-ch, .pr-card { display: grid; grid-template-columns: 1fr 1fr; } .pr-ch { font: 500 8pt var(--mono); text-transform: uppercase; letter-spacing: .08em; border-bottom: 1px solid #999; }
+  .pr-ch span, .pr-card > div { padding: 6pt 9pt; } .pr-card { break-inside: avoid; border-bottom: 1px solid #ddd; } .pr-card > div:first-child { border-right: 1px solid #ddd; font-weight: 600; }
+  .pr-page { break-inside: avoid-page; margin-bottom: 14pt; } .pr-pn { font: 500 8pt var(--mono); color: #555 !important; }
+  @page { margin: 16mm 15mm; }
+}
+.sk-dl { color: var(--mute); } .sk-dl:hover { color: var(--ink); }
+@media print { .pr-mm svg { width: 100%; height: auto; max-height: 120mm; break-inside: avoid; } }
+.ai-bh .ai-bdl { color: var(--mute); } .ai-bh .ai-bdl:hover { color: var(--ink); } .ai-bh .ai-bdl .ico { width: 17px; height: 17px; }
+/* Bibliothek: Herunterladen neben Löschen (auf Touch immer sichtbar) */
+.sk-r { grid-template-columns: 34px minmax(0, 1fr) auto 110px 32px 32px; }
+.bib-r { grid-template-columns: 34px minmax(0, 1fr) auto auto 32px 32px; }
+@media (max-width: 760px) {
+  .sk-r { grid-template-columns: 34px minmax(0, 1fr) auto 32px; }
+  .bib-r { grid-template-columns: 34px minmax(0, 1fr) auto 32px; }
+}
+@media print { .pr-opts li { margin: 5pt 0; } .pr-mm { break-inside: avoid; } .pr-mm svg.mm { display: block; margin: 0 auto; } }

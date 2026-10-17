@@ -149,3 +149,13 @@ export function haptic(kind = 'tap') {
     navigator.vibrate(kind === 'ok' ? 12 : kind === 'bad' ? [16, 70, 16] : kind === 'done' ? [10, 50, 10, 50, 22] : 8);
   } catch (e) {}
 }
+
+// Gerade mitten im Lernen? Dann keine Werbung, keine Spaßfragen und kein „Klick mich – ich führ dich durch“.
+const LEARN_TABS = ['tutor', 'pfad', 'quiz', 'karten', 'podcast', 'zettel'];
+export function learningNow() {
+  const p = location.hash.replace(/^#\/?/, '').split('/');
+  if (p[0] !== 'app') return false;
+  if (['tutor', 'trainer', 'challenge', 'rechner'].includes(p[1])) return true;   // Tutor-Raum, BWL-Trainer, Challenge, Rechner
+  if (p[1] && LEARN_TABS.includes(p[2])) return true;                              // Karten, Quiz, Podcast, Lernzettel, Lernpfad, Max zum Skript
+  return !!document.querySelector('.vmode, .qz-exam, .exam-run, .rm-timer:not([hidden])');
+}

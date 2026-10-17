@@ -1,4 +1,5 @@
 // KI-HTML für die Tafel sicher machen: nur erlaubte Tags/Attribute, keine Skripte, keine Links, keine Styles.
+import { mathify } from './math.js';
 const TAGS = new Set(['h2', 'h3', 'h4', 'p', 'ul', 'ol', 'li', 'b', 'strong', 'i', 'em', 'u', 'small', 'sub', 'sup', 'br', 'hr', 'code', 'span', 'div',
   'table', 'thead', 'tbody', 'tr', 'th', 'td', 'caption',
   'svg', 'g', 'line', 'rect', 'circle', 'ellipse', 'path', 'polyline', 'polygon', 'text', 'tspan', 'defs', 'marker', 'title']);
@@ -42,6 +43,8 @@ export function sanitize(html) {
     s.removeAttribute('width'); s.removeAttribute('height');
     s.setAttribute('role', 'img');
   });
+  // Formeln (\( … \), \[ … \]) setzen – erst nach dem Säubern, die Platzhalter kommen von uns
+  mathify(tpl.content);
   // Zeilenumbrüche in calc-Blöcken beibehalten, <br> ist erlaubt
   return tpl.content;
 }
@@ -54,7 +57,8 @@ export function sanitizeInto(el, html) {
 // Fließtext aus dem Chat: Text + **fett** + Zeilen, keine HTML-Injektion
 export function richText(s) {
   const frag = document.createDocumentFragment();
-  String(s || '').split('\n').forEach((line, i, arr) => {
+  // Formeln über mehrere Zeilen zusammenhalten
+  String(s || '').replace(/\\\[[\s\S]+?\\\]/g, m => m.replace(/\n/g, ' ')).split('\n').forEach((line, i, arr) => {
     const parts = line.split(/(\*\*[^*]+\*\*|\((?:S|p|pp)\. ?\d+(?:[–-]\d+)?\))/g);
     for (const p of parts) {
       if (!p) continue;
@@ -64,5 +68,5 @@ export function richText(s) {
     }
     if (i < arr.length - 1) frag.appendChild(document.createElement('br'));
   });
-  return frag;
+  return mathify(frag);
 }

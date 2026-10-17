@@ -8,14 +8,15 @@ import { forWhole } from '../retrieve.js';
 import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { sanitize } from '../sanitize.js';
 import { L } from '../i18n.js';
-import { takeCreate, zettelHint } from '../create.js';
+import { autoOpts, zettelHint } from '../create.js';
+import { dlBtn, optsSummary } from '../export.js';
 import { savedToast } from '../lib.js';
 
 export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in' });
   root.appendChild(wrap);
   const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
-  if (auto) generate(wrap, ctx, takeCreate('zettel', ctx.doc.id)); else if (ctx.doc.summary) show(wrap, ctx); else intro(wrap, ctx);
+  if (auto) { const o = await autoOpts('zettel', ctx.doc); if (!wrap.isConnected) return; if (!o) { wrap.remove(); return render(root, Object.assign({}, ctx, { arg: null })); } generate(wrap, ctx, o); } else if (ctx.doc.summary) show(wrap, ctx); else intro(wrap, ctx);
 }
 
 function intro(wrap, ctx) {
@@ -46,7 +47,7 @@ function show(wrap, ctx) {
     h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L('Lernzettel · KI-erstellt', 'Study sheet · AI-generated')), h('h2', {}, S.title)),
       h('div', { style: { display: 'flex', gap: '6px', alignItems: 'center' } },
         starBtn(() => ({ typ: 'zettel', titel: S.title, doc: ctx.doc.id, docName: ctx.doc.name, ref: 'zettel', inhalt: S.tldr.join('\n') })),
-        h('button', { class: 'btn sm', onclick: () => window.print() }, h('span', { html: ico('download') }), L('Drucken / PDF', 'Print / PDF')),
+        dlBtn(() => optsSummary(ctx.doc), { cls: 'btn sm' }),
         costBtn(L('Neu', 'New'), 'summary', () => generate(wrap, ctx), 'btn sm ghost'))),
     S.tldr.length ? h('div', { class: 'card', style: { background: 'var(--inv)', color: 'var(--onInv)', borderColor: 'var(--inv)' } },
       h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .6, marginBottom: '10px' } }, L('Das Wichtigste in Kürze', 'Key points at a glance')),
@@ -59,7 +60,7 @@ function show(wrap, ctx) {
 
 // Mindmap: links/rechts aufgefächert (keine Überlappung), Knoten ziehbar, Äste auf-/zuklappbar,
 // baut sich animiert auf, Vollbild und Download als Bild.
-function mindmap(m, name = 'Mindmap') {
+export function mindmap(m, name = 'Mindmap') {
   const NS = 'http://www.w3.org/2000/svg';
   const branches = (m.c || []).slice(0, 8).map(b => ({ t: String(b?.t ?? b), c: (b?.c || []).slice(0, 5).map(x => String(x?.t ?? x)) }));
   const cv = document.createElement('canvas').getContext('2d');

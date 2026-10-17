@@ -100,6 +100,7 @@ function buildShell() {
     h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor' }, tnFace, h('span', { class: 'tn-l' }, 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
     navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
+    navA('stundenplan', '#/app/stundenplan', 'calendar', L('Stundenplan', 'Timetable')),
     navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
     navA('gemerkt', '#/app/gemerkt', 'star', L('Gemerkt', 'Saved')),
     navA('fortschritt', '#/app/fortschritt', 'trophy', L('Fortschritt', 'Progress')),
@@ -195,7 +196,7 @@ function renderList() {
   if (!shell) return;
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
-  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') };
+  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher'), stundenplan: hs.startsWith('#/app/stundenplan'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') };
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
   $$('[data-nav="foto"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer/buchung')));

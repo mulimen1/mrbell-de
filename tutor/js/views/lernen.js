@@ -44,7 +44,8 @@ export function render(root) {
     const docs = byUse(), d = pickDoc();
     const need = (tab, hasIt) => () => {
       const doc = pickDoc();
-      if (!doc) { toast(L('Dafür brauch ich ein Skript – lad eins hoch oder nenn mir ein Thema.', 'I need slides for that – upload some or name a topic.'), 4200); document.getElementById('fileApp')?.click(); return; }
+      // Noch kein Skript: hochladen oder Thema nennen – danach entsteht direkt dieses Werkzeug
+      if (!doc) return import('../app.js').then(m => m.tryFeature(tab));
       if (hasIt) return go(`#/app/${doc.id}/${tab}`);
       // Gibt’s noch nicht? Kurz personalisieren – erst „Erstellen“ legt los
       if (['karten', 'quiz', 'podcast', 'zettel'].includes(tab)) {
@@ -85,7 +86,11 @@ export function render(root) {
       T('headphones', 'Podcast', st.pods ? L(`${st.pods} ${st.pods === 1 ? 'Folge' : 'Folgen'}`, `${st.pods} episode${st.pods === 1 ? '' : 's'}`) : L('Zum Anhören – unterwegs, beim Sport', 'To listen to on the go'), st.pods ? L('Anhören', 'Listen') : L('Erstellen', 'Create'), need('podcast', st.pods > 0), st.pods > 0),
       T('path', L('Lernpfad', 'Study path'), st.chAll ? L(`${st.chDone} von ${st.chAll} Kapiteln`, `${st.chDone} of ${st.chAll} chapters`) : L('Kapitel für Kapitel, mit Mini-Checks', 'Chapter by chapter'), st.chAll ? L('Weiter', 'Continue') : L('Erstellen', 'Create'), need('pfad', st.chAll > 0), st.chAll > 0),
       T('calendar', L('Lernplan', 'Study plan'), st.plan ? (st.plan.daysLeft >= 0 ? L(`Klausur in ${tage(st.plan.daysLeft)}`, `Exam in ${tage(st.plan.daysLeft)}`) + (st.plan.todayOpen?.length ? L(` · heute ${st.plan.todayOpen.length} offen`, ` · ${st.plan.todayOpen.length} open today`) : '') : L('Klausur vorbei', 'Exam over')) : L('Tag für Tag bis zur Klausur', 'Day by day to the exam'), st.plan ? L('Öffnen', 'Open') : L('Plan machen', 'Make a plan'), need('plan', !!st.plan), !!st.plan),
-    ] : [];
+    ] : [
+      // Ohne Skript trotzdem alle Werkzeuge zeigen – erst Stoff (Upload oder Thema), dann direkt das Werkzeug
+      ...[['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['quiz', 'Quiz', 'quiz'], ['note', L('Lernzettel', 'Study sheet'), 'zettel'], ['headphones', 'Podcast', 'podcast'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['calendar', L('Lernplan', 'Study plan'), 'plan']]
+        .map(([ic, t, tab]) => T(ic, t, L('Skript hochladen oder Thema nennen', 'Upload slides or name a topic'), L('Erstellen', 'Create'), need(tab, false)))
+    ];
     const trimmed = d ? (d.name.length > 46 ? d.name.slice(0, 45) + '…' : d.name) : '';
 
     wrap.replaceChildren(
@@ -94,8 +99,8 @@ export function render(root) {
         h('h1', {}, L('Wie willst du heute lernen?', 'How do you want to study today?')),
         h('p', { class: 'ln-sub' }, L('Wähl ein Skript – darunter siehst du, was schon fertig ist und was ich dir noch baue.', 'Pick your slides – below you’ll see what’s ready and what I can still build.'))),
       h('section', { class: 'ln-grp first' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Deine Skripte', 'Your slides')), h('span', { class: 'eyebrow' }, docs.length ? L(`${docs.length} ${docs.length === 1 ? 'Skript' : 'Skripte'}`, `${docs.length} slides`) : '')), docs$),
-      d ? h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Mit ', 'With '), h('span', { class: 'ln-q' }, `„${trimmed}“`), L(' lernen', '')), h('span', { class: 'eyebrow' }, L('Stoff aufbauen', 'Build it up'))),
-        h('div', { class: 'ln-grid' }, tools)) : null,
+      h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, d ? h('h2', {}, L('Mit ', 'With '), h('span', { class: 'ln-q' }, `„${trimmed}“`), L(' lernen', '')) : h('h2', {}, L('Lernstoff aufbauen', 'Build your study material')), h('span', { class: 'eyebrow' }, L('Stoff aufbauen', 'Build it up'))),
+        h('div', { class: 'ln-grid' }, tools)),
       h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Üben & Prüfen', 'Practise & test')), h('span', { class: 'eyebrow' }, L('Bis es sitzt', 'Until it sticks'))),
         h('div', { class: 'ln-grid' },
           T('exam', L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel', 'With time, points and grading'), L('Starten', 'Start'), () => { fromHere(); import('../app.js').then(m => m.examTool()); }),

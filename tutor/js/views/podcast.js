@@ -7,7 +7,8 @@ import { forWhole, forChapter } from '../retrieve.js';
 import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { SPICE, getSpice } from '../max.js';
 import { getOutLang, setOutLang, L } from '../i18n.js';
-import { takeCreate } from '../create.js';
+import { autoOpts } from '../create.js';
+import { dlBtn, optsPodcast } from '../export.js';
 import { savedToast } from '../lib.js';
 
 const synth = window.speechSynthesis;
@@ -37,7 +38,8 @@ export async function render(root, ctx) {
   const pod = want || ctx.doc.podcasts[ctx.doc.podcasts.length - 1];
   const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
   if (auto) {
-    const o = takeCreate('podcast', ctx.doc.id) || {};
+    const o = await autoOpts('podcast', ctx.doc); if (!wrap.isConnected) return;
+    if (!o) { wrap.remove(); return render(root, Object.assign({}, ctx, { arg: null })); }
     generate(wrap, ctx, o.len === 'lang' ? 'lang' : 'kurz', o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : -1, [1, 2, 3].includes(o.tone) ? o.tone : getSpice(), o.lang === 'en' || o.lang === 'de' ? o.lang : getOutLang(), o.voice || ls.get('tutor.podVoice', 'max'));
   } else if (pod) player(wrap, ctx, pod); else intro(wrap, ctx);
   return () => { try { synth && synth.cancel(); } catch (e) {} };
@@ -131,7 +133,7 @@ function player(wrap, ctx, p) {
         h('div', { class: 'chips', style: { marginTop: '12px', display: 'flex', gap: '6px', flexWrap: 'wrap' } }, rates),
         h('div', { style: { marginTop: '12px', display: 'flex', gap: '6px', alignItems: 'center' } },
           starBtn(() => ({ typ: 'podcast', titel: p.title, doc: ctx.doc.id, docName: ctx.doc.name, ref: p.id || p.title })),
-          h('button', { class: 'btn sm ghost', onclick: () => { const t = p.lines.map(l => `${l.s}: ${l.t}`).join('\n\n'); const a = h('a', { href: URL.createObjectURL(new Blob([p.title + '\n\n' + t], { type: 'text/plain' })), download: p.title + '.txt' }); document.body.appendChild(a); a.click(); a.remove(); } }, h('span', { html: ico('download') }), L('Skript', 'Transcript')),
+          dlBtn(() => optsPodcast(p, doc), { cls: 'btn sm ghost' }),
           h('button', { class: 'btn sm ghost', onclick: async () => { const ok = await modal({ title: L('Folge löschen?', 'Delete episode?'), text: p.title, actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { stop(); doc.podcasts = doc.podcasts.filter(x => x !== p); save(doc); intro(wrap, ctx); } } }, h('span', { html: ico('trash') }), L('Löschen', 'Delete')))),
       script));
   const setStatus = () => { status.textContent = real() ? L(`Echte Stimmen: Lisa & ${p.voice === 'feiern' ? 'Max nach dem Feiern' : 'Max'}`, `Real voices: Lisa & ${p.voice === 'feiern' ? 'Max after the party' : 'Max'}`) : (synth && voices().length ? L('Gratis-Stimme deines Browsers', 'Your browser’s free voice') : L('Dein Browser hat keine Stimme – lies einfach mit.', 'Your browser has no voice – just read along.')); };

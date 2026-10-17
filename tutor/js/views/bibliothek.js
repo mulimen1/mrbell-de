@@ -7,6 +7,7 @@ import { S, removeDoc, mastery, saveNow, refreshList, onChange } from '../state.
 import { dueCards } from './cards.js';
 import * as M from '../me.js';
 import { looseBoards, setLooseBoards } from '../lib.js';
+import * as E from '../export.js';
 
 const KIND = { vorlesung: L('Vorlesung', 'Lecture'), uebung: L('Übung', 'Exercise'), altklausur: L('Altklausur', 'Past exam'), mitschrift: L('Mitschrift', 'Notes'), zusammenfassung: L('Zusammenfassung', 'Summary'), sonstiges: '' };
 // Reihenfolge der Bereiche
@@ -36,14 +37,14 @@ async function inRoom(fn) {
 function items(type, docs) {
   const out = [];
   for (const d of docs) {
-    if (type === 'karten') (d.decks || []).forEach(x => { if (!(x.cards || []).length) return; const due = dueCards({ ...d, decks: [x] }).length; out.push({ d, t: x.title, at: x.created || d.created, meta: [L(`${x.cards.length} Karten`, `${x.cards.length} cards`)], pill: due ? L(`${due} fällig`, `${due} due`) : null, hot: due > 0, href: `#/app/${d.id}/karten${x.chapter != null && d.path?.chapters?.[x.chapter] ? '/k' + x.chapter : ''}`, del: () => { d.decks = d.decks.filter(y => y !== x); } }); });
-    if (type === 'quiz') (d.quizzes || []).forEach(q => { const best = q.results?.length ? Math.round(100 * Math.max(...q.results.map(r => r.score || 0))) : null; out.push({ d, t: q.title, at: q.created || d.created, ic: q.exam ? 'exam' : 'quiz', meta: [L(`${q.questions.length} Fragen`, `${q.questions.length} questions`), q.diff ? String(q.diff).replace(/^./, c => c.toUpperCase()) : null], pill: best != null ? best + ' %' : L('neu', 'new'), href: `#/app/${d.id}/quiz/q-${encodeURIComponent(q.id)}`, del: () => { d.quizzes = d.quizzes.filter(y => y !== q); } }); });
-    if (type === 'zettel' && d.summary) out.push({ d, t: d.summary.title || d.name, at: d.summary.created || d.created, meta: [(d.summary.tldr || []).length ? L(`${d.summary.tldr.length} Kernaussagen`, `${d.summary.tldr.length} key points`) : null, d.summary.len === 'lang' ? L('ausführlich', 'detailed') : d.summary.len === 'kurz' ? L('kurz', 'short') : null], href: `#/app/${d.id}/zettel`, del: () => { d.summary = null; } });
-    if (type === 'podcasts') (d.podcasts || []).forEach(p => out.push({ d, t: p.title, at: p.created || d.created, meta: [p.len === 'lang' ? L('~10 Min.', '~10 min') : p.len === 'kurz' ? L('~5 Min.', '~5 min') : null, p.lang === 'en' ? 'English' : 'Deutsch'], href: `#/app/${d.id}/podcast/p-${encodeURIComponent(p.id)}`, del: () => { d.podcasts = d.podcasts.filter(y => y !== p); } }));
-    if (type === 'tafeln') (d.boards || []).forEach(b => b && b.html && out.push({ d, t: b.title || L('Tafel', 'Board'), at: b.at || d.created, meta: [b.sum || b.q || null], tip: b.q, first: true, board: b, del: () => { d.boards = d.boards.filter(y => y !== b); } }));
+    if (type === 'karten') (d.decks || []).forEach(x => { if (!(x.cards || []).length) return; const due = dueCards({ ...d, decks: [x] }).length; out.push({ exp: () => E.pick(E.optsDeck([x], d)), d, t: x.title, at: x.created || d.created, meta: [L(`${x.cards.length} Karten`, `${x.cards.length} cards`)], pill: due ? L(`${due} fällig`, `${due} due`) : null, hot: due > 0, href: `#/app/${d.id}/karten${x.chapter != null && d.path?.chapters?.[x.chapter] ? '/k' + x.chapter : ''}`, del: () => { d.decks = d.decks.filter(y => y !== x); } }); });
+    if (type === 'quiz') (d.quizzes || []).forEach(q => { const best = q.results?.length ? Math.round(100 * Math.max(...q.results.map(r => r.score || 0))) : null; out.push({ exp: () => E.pick(E.optsQuiz(q, d)), d, t: q.title, at: q.created || d.created, ic: q.exam ? 'exam' : 'quiz', meta: [L(`${q.questions.length} Fragen`, `${q.questions.length} questions`), q.diff ? String(q.diff).replace(/^./, c => c.toUpperCase()) : null], pill: best != null ? best + ' %' : L('neu', 'new'), href: `#/app/${d.id}/quiz/q-${encodeURIComponent(q.id)}`, del: () => { d.quizzes = d.quizzes.filter(y => y !== q); } }); });
+    if (type === 'zettel' && d.summary) out.push({ exp: () => E.pick(E.optsSummary(d)), d, t: d.summary.title || d.name, at: d.summary.created || d.created, meta: [(d.summary.tldr || []).length ? L(`${d.summary.tldr.length} Kernaussagen`, `${d.summary.tldr.length} key points`) : null, d.summary.len === 'lang' ? L('ausführlich', 'detailed') : d.summary.len === 'kurz' ? L('kurz', 'short') : null], href: `#/app/${d.id}/zettel`, del: () => { d.summary = null; } });
+    if (type === 'podcasts') (d.podcasts || []).forEach(p => out.push({ exp: () => E.pick(E.optsPodcast(p, d)), d, t: p.title, at: p.created || d.created, meta: [p.len === 'lang' ? L('~10 Min.', '~10 min') : p.len === 'kurz' ? L('~5 Min.', '~5 min') : null, p.lang === 'en' ? 'English' : 'Deutsch'], href: `#/app/${d.id}/podcast/p-${encodeURIComponent(p.id)}`, del: () => { d.podcasts = d.podcasts.filter(y => y !== p); } }));
+    if (type === 'tafeln') (d.boards || []).forEach(b => b && b.html && out.push({ exp: () => E.pick(E.optsBoards([b])), d, t: b.title || L('Tafel', 'Board'), at: b.at || d.created, meta: [b.sum || b.q || null], tip: b.q, first: true, board: b, del: () => { d.boards = d.boards.filter(y => y !== b); } }));
   }
   // Tafeln aus Gesprächen ohne Skript
-  if (type === 'tafeln') looseBoards().forEach(b => b && b.html && out.push({ d: NO_DOC, loose: true, t: b.title || L('Tafel', 'Board'), at: b.at || 0, meta: [b.sum || b.q || null], tip: b.q, first: true, board: b, del: () => setLooseBoards(looseBoards().filter(y => !(y.html === b.html && y.at === b.at))) }));
+  if (type === 'tafeln') looseBoards().forEach(b => b && b.html && out.push({ exp: () => E.pick(E.optsBoards([b])), d: NO_DOC, loose: true, t: b.title || L('Tafel', 'Board'), at: b.at || 0, meta: [b.sum || b.q || null], tip: b.q, first: true, board: b, del: () => setLooseBoards(looseBoards().filter(y => !(y.html === b.html && y.at === b.at))) }));
   return out.sort((a, b) => (b.at || 0) - (a.at || 0));
 }
 
@@ -100,6 +101,7 @@ export function render(root, { tab: want = '' } = {}) {
       h('span', { class: 'sk-t', title: it.tip ? L('Deine Frage: ', 'Your question: ') + it.tip : null }, h('b', {}, it.t), h('small', {}, (it.first ? [...it.meta, showDoc ? short(it.d.name, 36) : null] : [showDoc ? short(it.d.name, 36) : null, ...it.meta]).filter(Boolean).join(' · ') || ' ')),
       it.pill ? h('span', { class: 'bib-p' + (it.hot ? ' hot' : '') }, it.pill) : h('span'),
       h('span', { class: 'bib-d', title: it.at ? new Date(it.at).toLocaleString() : '' }, datum(it.at)),
+      it.exp ? h('button', { class: 'iconbtn sk-dl', type: 'button', 'aria-label': L('Herunterladen', 'Download'), title: L('Herunterladen', 'Download'), html: ico('download'), onclick: e => { e.stopPropagation(); it.exp(); } }) : h('span'),
       h('button', { class: 'iconbtn sk-del', type: 'button', 'aria-label': L('Löschen', 'Delete'), html: ico('trash'), onclick: e => { e.stopPropagation(); del(it); } }));
   };
   const docRow = d => {
@@ -111,6 +113,7 @@ export function render(root, { tab: want = '' } = {}) {
       h('span', { class: 'sk-t' }, h('b', {}, d.name), h('small', {}, [KIND[d.kind] || (d.generated ? L('Kurzskript', 'Short script') : d.sample ? L('Beispiel', 'Example') : ''), (d.pages?.length === 1 ? L('1 Seite', '1 page') : (d.pages?.length || 0) + L(' Seiten', ' pages')), n ? L(`${n} erstellt`, `${n} made`) : null, L('geöffnet ', 'opened ') + ago(d.used || d.created)].filter(Boolean).join(' · '))),
       due ? h('span', { class: 'zb', title: L('fällige Karten', 'cards due') }, String(due)) : h('span'),
       h('span', { class: 'sk-m', title: L('Lernstand', 'Progress') }, h('span', { class: 'zr' }, h('i', { style: { width: m + '%' } })), h('small', {}, m + ' %')),
+      h('button', { class: 'iconbtn sk-dl', type: 'button', 'aria-label': L('Alles zu diesem Skript herunterladen', 'Download everything for these slides'), title: L('Herunterladen', 'Download'), html: ico('download'), onclick: e => { e.preventDefault(); e.stopPropagation(); E.pick(E.optsDoc(d)); } }),
       delB);
   };
 

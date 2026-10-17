@@ -6,6 +6,7 @@ import { save, track, mastery } from '../state.js';
 import { forWhole, outline, forChapter, fullText } from '../retrieve.js';
 import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { sanitize } from '../sanitize.js';
+import { dlBtn, pathPdf } from '../export.js';
 import { renderQuestion, normalize, explainPrompt } from '../quiz.js';
 import { L } from '../i18n.js';
 
@@ -80,6 +81,7 @@ function listView(wrap, ctx) {
         c.goal ? h('p', {}, c.goal) : null,
         h('div', { class: 'terms' }, h('span', { class: 'eyebrow', style: { alignSelf: 'center' } }, L(`S. ${c.pages[0]}–${c.pages[1] || c.pages[0]}`, `p. ${c.pages[0]}–${c.pages[1] || c.pages[0]}`)), c.terms.slice(0, 4).map(t => h('span', { class: 'tag' }, t)), c.done && c.score != null ? h('span', { class: 'tag', style: { marginLeft: 'auto' } }, Math.round(c.score * 100) + ' %') : null))))),
     h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'flex-end' } },
+      dlBtn(() => [{ label: 'PDF', sub: L('Kapitel, Ziele und deine Lektionen', 'Chapters, goals and your lessons'), ic: 'file', fn: () => pathPdf(ctx.doc) }], { cls: 'btn sm ghost' }),
       h('button', { class: 'btn sm ghost', onclick: async () => { const ok = await modal({ title: L('Lernpfad neu erstellen?', 'Rebuild study path?'), text: L('Dein Fortschritt im Lernpfad wird zurückgesetzt. Quizze und Karten bleiben.', 'Your study path progress will be reset. Quizzes and flashcards stay.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Neu erstellen', 'Rebuild'), value: true, primary: true }] }); if (!ok) return; ctx.doc.path = null; ctx.doc.lessons = {}; save(ctx.doc); waitPath(wrap, ctx, true); } }, h('span', { html: ico('refresh') }), L('Neu erstellen', 'Rebuild'))));
 }
 

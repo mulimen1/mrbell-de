@@ -15,4 +15,5 @@ document.documentElement.lang = lang;
 
 // Sprache der Inhalte (Max' Antworten, Quiz, Podcast …) – unabhängig von der Oberfläche einstellbar
 export const getOutLang = () => { const v = ls.get('tutor.outLang', null); return v === 'de' || v === 'en' ? v : lang; };
-export const setOutLang = v => ls.set('tutor.outLang', v);
+export const setOutLang = v => { ls.set('tutor.outLang', v); document.documentElement.dataset.out = getOutLang(); };
+document.documentElement.dataset.out = getOutLang();   // Tafel-Beschriftungen (Beispiel, Achtung …) in der Sprache der Inhalte

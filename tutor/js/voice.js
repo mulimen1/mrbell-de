@@ -11,6 +11,7 @@ import { liveWave } from './wave.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { getOutLang, setOutLang, L } from './i18n.js';
+import { speakMath } from './math.js';
 import { getMic, releaseMic as freeMic } from './mic.js';
 import { keepBoards } from './lib.js';
 
@@ -224,6 +225,7 @@ export function openVoice({ doc = null, onClose } = {}) {
   }
   let showTx = () => {}, shownTx = true;
   async function speak(text, my = gen) {
+    text = speakMath(text, getOutLang() === 'en');
     if (!text) { showTx(null); setState('idle'); return; }
     if (muted || vol === 0) { showTx(null); setState('idle', L('Stumm geschaltet – die Antwort steht oben.', 'Muted – the answer is above.')); return; }
     try {

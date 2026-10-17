@@ -2,7 +2,7 @@
 // (die Parodie auf dubiose Trading-Gruppen-Werbung). Nur Text, kein Logo, kein Auto.
 // Kommt selten: frühestens nach 3 Min. aktiver Nutzung, höchstens alle 3 Tage, nach 3× Wegklicken nur noch alle 14 Tage.
 // Nie während Führung, Dialog, Sprechen oder Klausur. Zum Ansehen: Adresse mit ?komm aufrufen.
-import { h, ico, ls } from './util.js';
+import { h, ico, ls, learningNow } from './util.js';
 import { L } from './i18n.js';
 import { getAccount } from './api.js';
 
@@ -35,6 +35,7 @@ function busy() {
   const d = document;
   return d.hidden || !location.hash.startsWith('#/app')
     || d.documentElement.classList.contains('mx-touring')
+    || learningNow()
     || d.querySelector('.modal-bg, .vmode, .asst.think, .asst.speak, .asst.listen, .qz-exam, .exam-run, .ai-drop:not([hidden])');
 }
 

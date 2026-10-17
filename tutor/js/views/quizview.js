@@ -11,7 +11,8 @@ import { renderQuestion, normalize, TYPE_LABEL, explainPrompt } from '../quiz.js
 import { feedbackButton } from '../feedback.js';
 import { ls as lsq } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
-import { takeCreate } from '../create.js';
+import { autoOpts } from '../create.js';
+import { dlBtn, optsQuiz } from '../export.js';
 import { savedToast } from '../lib.js';
 
 const TYPES = ['mc', 'tf', 'match', 'order', 'cloze', 'num'];
@@ -38,7 +39,8 @@ export async function render(root, ctx) {
   const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
   const go = ctx.arg === 'exam' || ctx.arg === 'fehler'; if (go) history.replaceState(null, '', location.hash.replace(/\/(exam|fehler)$/, ''));
   if (auto) {
-    const o = takeCreate('quiz', ctx.doc.id) || {};
+    const o = await autoOpts('quiz', ctx.doc); if (!wrap.isConnected) return;
+    if (!o) { wrap.remove(); return render(root, Object.assign({}, ctx, { arg: null })); }
     const types = (o.types || TYPES).filter(t => TYPES.includes(t));
     generate(wrap, ctx, { count: o.count || 8, diff: o.diff || 'mittel', types: new Set(types.length ? types : TYPES), focus: o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : -1 });
   }
@@ -77,7 +79,8 @@ function overview(wrap, ctx, pre) {
         return h('div', { class: 'li', onclick: () => run(wrap, ctx, q) }, h('span', { html: ico(q.exam ? 'exam' : 'quiz') }),
           h('div', { class: 'gr' }, h('b', {}, q.title), h('span', {}, L(`${q.questions.length} Fragen · ${q.diff || ''}${q.results?.length ? ` · ${q.results.length}× gemacht` : ''}`, `${q.questions.length} questions · ${diffLabel(q.diff)}${q.results?.length ? ` · taken ${q.results.length}×` : ''}`))),
           best != null ? h('span', { class: 'sc' }, best + ' %') : h('span', { class: 'tag' }, L('neu', 'new')),
-          starBtn(() => ({ typ: 'quiz', titel: q.title, doc: doc.id, docName: doc.name, ref: q.id || q.title }), { cls: 'sm bare' }));
+          starBtn(() => ({ typ: 'quiz', titel: q.title, doc: doc.id, docName: doc.name, ref: q.id || q.title }), { cls: 'sm bare' }),
+          dlBtn(() => optsQuiz(q, doc), { cls: 'iconbtn', text: false }));
       }))) : null);
 }
 
@@ -188,6 +191,7 @@ function run(wrap, ctx, quiz) {
       h('div', { style: { display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '16px' } },
         h('button', { class: 'btn primary', onclick: () => overview(wrap, ctx) }, L('Fertig', 'Done')),
         h('button', { class: 'btn', onclick: () => run(wrap, ctx, quiz) }, L('Nochmal', 'Again')),
+        quiz.id !== 'mistakes' ? dlBtn(() => optsQuiz(quiz, doc), { cls: 'btn' }) : null,
         doc.mistakes.length ? h('button', { class: 'btn', onclick: () => run(wrap, ctx, { id: 'mistakes', title: L('Deine Fehler', 'Your mistakes'), questions: shuffle(doc.mistakes).slice(0, 12), mistakes: true }) }, L('Fehler wiederholen', 'Review mistakes')) : null),
       !lsq.get('tutor.feedbackGiven', 0) && score >= .5 ? h('div', { style: { marginTop: '14px' } }, feedbackButton('btn sm')) : null,
       h('div', { class: 'qlist' }, qs.map((q, k) => h('div', {}, h('span', { class: 'm' }, res[k]?.correct ? '✓' : '✗'), h('span', {}, q.type === 'cloze' ? q.q.replace(/___+/g, '…') : q.q))))));

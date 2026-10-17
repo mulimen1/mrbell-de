@@ -224,7 +224,10 @@ export function render(root, ctx = {}) {
   // ---------- Skills: was Max mit dir machen kann – vier große Kacheln, der Rest unter „Mehr“ ----------
   let moreOpen = false;
   const workDoc = () => focusDocs()[0] || S.list.slice().sort((a, b) => (b.used || 0) - (a.used || 0))[0] || null;
-  const needDoc = fn => { const d = workDoc(); if (!d) { toast(L('Dafür brauch ich ein Skript – lad eins hoch oder nenn mir ein Thema.', 'I need slides for that – upload some or name a topic.'), 4200); document.getElementById('fileApp')?.click(); return; } fn(d); };
+  // Werkzeug-Knopf: gibt’s das schon → öffnen; sonst kurz personalisieren und direkt erstellen.
+  // Ohne Skript: hochladen oder Thema nennen – danach entsteht genau dieses Werkzeug (keine Übersicht, keine Tafel).
+  const HAS = { karten: d => (d.decks || []).some(x => x.cards?.length), podcast: d => (d.podcasts || []).length > 0, zettel: d => !!d.summary };
+  const tool = tab => () => { const d = workDoc(); if (!d) return import('../app.js').then(m => m.tryFeature(tab)); location.hash = `#/app/${d.id}/${tab}${HAS[tab] && !HAS[tab](d) ? '/auto' : ''}`; };
   function drawTeaser() {
     const ds = focusDocs();
     const SK = [
@@ -237,10 +240,10 @@ export function render(root, ctx = {}) {
       ['exam', L('Probeklausur', 'Mock exam'), L('Mit Zeit, Punkten und Note', 'With time, points and a grade'), () => import('../app.js').then(m => m.examTool())]
     ];
     const MORE = [
-      ['cards', L('Karteikarten', 'Flashcards'), () => needDoc(d => { location.hash = `#/app/${d.id}/karten`; })],
-      ['calendar', L('Lernplan', 'Study plan'), () => needDoc(d => { location.hash = `#/app/${d.id}/plan`; })],
-      ['pod', L('Podcast', 'Podcast'), () => needDoc(d => { location.hash = `#/app/${d.id}/podcast`; })],
-      ['brain', L('Lernzettel', 'Study sheet'), () => needDoc(d => { location.hash = `#/app/${d.id}/zettel`; })],
+      ['cards', L('Karteikarten', 'Flashcards'), tool('karten')],
+      ['calendar', L('Lernplan', 'Study plan'), tool('plan')],
+      ['pod', L('Podcast', 'Podcast'), tool('podcast')],
+      ['brain', L('Lernzettel', 'Study sheet'), tool('zettel')],
       ['whistle', L('BWL-Trainer', 'Business trainer'), () => { location.hash = '#/app/trainer'; }],
       ['calc', L('Rechner', 'Calculators'), () => { location.hash = '#/app/rechner'; }],
       ['mic', L('Sprechen', 'Talk'), () => api && api.talk()]

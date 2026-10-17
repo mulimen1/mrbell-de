@@ -9,7 +9,8 @@ import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest
 import { richText } from '../sanitize.js';
 import { L } from '../i18n.js';
 import { review } from '../fsrs.js';
-import { takeCreate } from '../create.js';
+import { autoOpts } from '../create.js';
+import { dlBtn, optsDeck } from '../export.js';
 import { savedToast } from '../lib.js';
 
 const DAY = 864e5;
@@ -21,7 +22,6 @@ function schedule(c, r) {
   review(c, r, Date.now(), examAt);
   return label(c.ivl, c.due);
 }
-function preview(c, r) { const x = JSON.parse(JSON.stringify(c)); return schedule(x, r); }
 function label(ivl, due) { if (!ivl) { const m = Math.round((due - Date.now()) / 6e4); return m < 60 ? L(`in ${Math.max(1, m)} Min.`, `in ${Math.max(1, m)} min`) : L('heute', 'today'); } return ivl === 1 ? L('morgen', 'tomorrow') : ivl < 30 ? L(`in ${Math.round(ivl)} T.`, `in ${Math.round(ivl)} d`) : L(`in ${Math.round(ivl / 30)} Mon.`, `in ${Math.round(ivl / 30)} mo`); }
 
 export async function render(root, ctx) {
@@ -29,7 +29,7 @@ export async function render(root, ctx) {
   root.appendChild(wrap);
   const chIdx = ctx.arg && ctx.arg.startsWith('k') ? parseInt(ctx.arg.slice(1)) : null;
   const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
-  if (auto) { const o = takeCreate('karten', ctx.doc.id); return generate(wrap, ctx, o && o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : null, o); }
+  if (auto) { const o = await autoOpts('karten', ctx.doc); if (!wrap.isConnected) return; if (!o) { wrap.remove(); return render(root, Object.assign({}, ctx, { arg: null })); } return generate(wrap, ctx, o && o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : null, o); }
   if (chIdx != null && ctx.doc.path?.chapters[chIdx]) {
     const exists = ctx.doc.decks.find(d => d.chapter === chIdx);
     if (exists) return study(wrap, ctx, exists.cards.map(c => ({ c, d: exists })), exists.title);
@@ -47,7 +47,8 @@ function overview(wrap, ctx) {
     h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L('Karteikarten', 'Flashcards')), h('h2', {}, total ? L(`${due.length} fällig`, `${due.length} due`) : L('Karteikarten', 'Flashcards')), h('p', {}, total ? L(`${total} Karten in ${doc.decks.length} Stapel(n). Wiederholen kostet keine Einheiten.`, `${total} cards in ${doc.decks.length} deck(s). Reviewing costs no credits.`) : L('Aus deinem Skript – mit Wiederholung genau dann, wenn du’s fast vergisst.', 'From your slides – reviewed right when you’re about to forget them.'))),
       h('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap' } },
         due.length ? h('button', { class: 'btn primary', onclick: () => study(wrap, ctx, due, L('Fällige Karten', 'Due cards')) }, h('span', { html: ico('play') }), L(`${due.length} wiederholen`, `Review ${due.length}`)) : null,
-        costBtn(L('Neue Karten erstellen', 'Create new cards'), 'cards', () => generate(wrap, ctx, null), due.length ? 'btn' : 'btn primary'))),
+        costBtn(L('Neue Karten erstellen', 'Create new cards'), 'cards', () => generate(wrap, ctx, null), due.length ? 'btn' : 'btn primary'),
+        total ? dlBtn(() => optsDeck(doc.decks, doc), { cls: 'btn' }) : null)),
     total ? null : h('div', { class: 'empty', style: { paddingTop: '30px' } }, f, h('p', {}, L('Noch keine Karten. Ich erstelle dir 16 Karten aus dem ganzen Skript – oder wähle im Lernpfad ein Kapitel.', 'No cards yet. I’ll create 16 cards from the whole script – or pick a chapter in the study path.'))),
     doc.decks.length ? h('div', { class: 'list' }, [...doc.decks].reverse().map(d => {
       const dd = d.cards.filter(c => (c.due || 0) <= Date.now()).length;
@@ -56,7 +57,7 @@ function overview(wrap, ctx) {
         h('span', { html: ico('cards') }),
         h('div', { class: 'gr' }, h('b', {}, d.title), h('span', {}, L(`${d.cards.length} Karten · ${known} sicher · ${dd} fällig`, `${d.cards.length} cards · ${known} known · ${dd} due`))),
         starBtn(() => ({ typ: 'karten', titel: d.title, doc: doc.id, docName: doc.name, ref: d.id || d.title, inhalt: d.cards.slice(0, 40).map(c => `${c.front} → ${c.back}`).join('\n') }), { cls: 'sm bare' }),
-        h('button', { class: 'iconbtn', title: L('Für Anki exportieren', 'Export for Anki'), html: ico('download'), onclick: e => { e.stopPropagation(); exportAnki(d); } }),
+        dlBtn(() => optsDeck([d], doc), { cls: 'iconbtn', text: false }),
         h('button', { class: 'iconbtn', title: L('Löschen', 'Delete'), html: ico('trash'), onclick: async e => { e.stopPropagation(); const ok = await modal({ title: L('Stapel löschen?', 'Delete deck?'), text: d.title, actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { doc.decks = doc.decks.filter(x => x !== d); save(doc); overview(wrap, ctx); } } }));
     })) : null,
     h('div', { style: { marginTop: '18px' } }, h('button', { class: 'btn sm ghost', onclick: () => addOwn(wrap, ctx) }, h('span', { html: ico('plus') }), L('Eigene Karte', 'Own card'))));
@@ -90,7 +91,7 @@ function study(wrap, ctx, items, title) {
   let i = 0, flipped = false, done = 0, again = 0;
   const stage = h('div', { class: 'fc-stage' });
   wrap.replaceChildren(h('button', { class: 'btn sm ghost', onclick: () => { cleanup(); overview(wrap, ctx); }, style: { marginBottom: '10px' } }, h('span', { html: ico('left') }), L('Karteikarten', 'Flashcards')),
-    h('div', { class: 'vh', style: { marginBottom: '6px' } }, h('div', {}, h('div', { class: 'eyebrow' }, L('Leertaste = umdrehen · 1–4 = bewerten', 'Space = flip · 1–4 = rate')), h('h2', { style: { fontSize: '24px' } }, title))), stage);
+    h('div', { class: 'vh', style: { marginBottom: '6px' } }, h('div', {}, h('div', { class: 'eyebrow' }, L('Leertaste = umdrehen · 1–3 = bewerten', 'Space = flip · 1–3 = rate')), h('h2', { style: { fontSize: '24px' } }, title))), stage);
   const draw = () => {
     if (i >= queue.length) {
       const f = h('div', { class: 'face' });
@@ -106,8 +107,9 @@ function study(wrap, ctx, items, title) {
       h('div', { class: 'in' },
         h('div', { class: 'f' }, richText(c.front), h('span', { class: 'hint' }, L('Tippen zum Umdrehen', 'Tap to flip')), c.page ? h('span', { class: 'pg' }, L('S. ', 'p. ') + c.page) : null),
         h('div', { class: 'b' }, richText(c.back))));
-    const rate = h('div', { class: 'rate', style: { visibility: 'hidden' } }, [[1, L('Nochmal', 'Again')], [2, L('Schwer', 'Hard')], [3, L('Gut', 'Good')], [4, L('Leicht', 'Easy')]].map(([r, l]) =>
-      h('button', { class: 'btn' + (r === 3 ? ' primary' : ''), onclick: () => grade(r) }, l, h('small', {}, preview(c, r)))));
+    // Drei klare Knöpfe, keine Abstände – den Rest plant die Wiederholung im Hintergrund
+    const rate = h('div', { class: 'rate r3', style: { visibility: 'hidden' } }, [[1, L('Nochmal', 'Again'), 'k1'], [2, L('Unsicher', 'Not sure'), 'k2'], [3, L('Gewusst', 'Got it'), 'k3']].map(([r, l, k]) =>
+      h('button', { class: 'btn ' + k + (r === 3 ? ' primary' : ''), type: 'button', onclick: () => grade(r) }, l)));
     const flip = () => { flipped = !flipped; card.classList.toggle('flipped', flipped); if (flipped) rate.style.visibility = 'visible'; };
     card.addEventListener('click', flip);
     stage.replaceChildren(card, rate, h('div', { class: 'deckstats' }, h('span', {}, `${i + 1} / ${queue.length}`), h('span', {}, '·'), h('span', {}, L(`${done} erledigt`, `${done} done`))));
@@ -123,7 +125,7 @@ function study(wrap, ctx, items, title) {
     if (!stage.isConnected) return cleanup();
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     if (e.code === 'Space') { e.preventDefault(); stage.querySelector('.fc')?.click(); }
-    else if (flipped && ['1', '2', '3', '4'].includes(e.key)) grade(+e.key);
+    else if (flipped && ['1', '2', '3'].includes(e.key)) grade(+e.key);
   };
   const cleanup = () => document.removeEventListener('keydown', onKey);
   document.addEventListener('keydown', onKey);
@@ -141,12 +143,3 @@ async function addOwn(wrap, ctx) {
   save(ctx.doc); toast(L('Karte hinzugefügt.', 'Card added.')); overview(wrap, ctx);
 }
 
-function exportAnki(d) {
-  const clean = s => String(s).replace(/\t/g, ' ').replace(/\n/g, '<br>');
-  // Kopfzeilen versteht Anki ab 2.1.54: Trennzeichen, HTML, Stapelname, Schlagwort – Import mit einem Klick
-  const deck = ('BWL Max::' + (S.doc?.name || 'Skript') + '::' + d.title).replace(/[\t\n]/g, ' ');
-  const txt = ['#separator:tab', '#html:true', '#deck:' + deck, '#tags:bwl-max', '#columns:Vorderseite\tRückseite'].join('\n') + '\n' + d.cards.map(c => clean(c.front) + '\t' + clean(c.back)).join('\n');
-  const a = h('a', { href: URL.createObjectURL(new Blob([txt], { type: 'text/plain' })), download: d.title.replace(/[^\wäöüÄÖÜß -]/g, '') + ' (Anki).txt' });
-  document.body.appendChild(a); a.click(); a.remove();
-  toast(L('In Anki: Datei → Importieren → diese Datei wählen. Stapel und Felder sind schon eingestellt.', 'In Anki: File → Import → pick this file. Deck and fields are already set.'), 4200);
-}

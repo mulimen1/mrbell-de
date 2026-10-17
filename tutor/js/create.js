@@ -1,7 +1,7 @@
 // „Kurz personalisieren“: bevor Max etwas Neues baut, ein kleines Pop-up mit den wichtigsten Wünschen.
 // Erst „Erstellen“ startet – die Auswahl wird an die Ansicht übergeben (einmalig, 5 Min. gültig) und fürs nächste Mal gemerkt.
 import { h, ico, ls, modal } from './util.js';
-import { L } from './i18n.js';
+import { L, getOutLang } from './i18n.js';
 import { COST } from './api.js';
 import { SPICE } from './max.js';
 
@@ -11,6 +11,13 @@ export function takeCreate(tool, docId) {
   if (!c || c.tool !== tool || c.doc !== docId || Date.now() - (c.at || 0) > 5 * 60e3) return null;
   ls.set('tutor.create', null);
   return c.opts || {};
+}
+
+// /auto ohne vorherige Auswahl (nach Thema/Upload, von Max oder einem Werkzeug-Knopf): erst kurz personalisieren, dann direkt erstellen
+export async function autoOpts(tab, doc) {
+  const o = takeCreate(tab, doc.id);
+  if (o) return o;
+  return personalise(tab, doc);
 }
 
 // Für den Lernzettel: Wünsche als klare Anweisung vor das Material
@@ -41,7 +48,7 @@ export async function personalise(tab, doc) {
     karten: { focus: -1, count: 16, art: 'mix' },
     quiz: { focus: -1, count: 8, diff: 'mittel', types: ['mc', 'tf', 'match', 'order', 'cloze', 'num'] },
     zettel: { len: 'kurz', art: 'mix' },
-    podcast: { focus: -1, len: 'kurz', lang: document.documentElement.lang === 'en' ? 'en' : 'de', tone: 2, voice: ls.get('tutor.podVoice', 'max') },
+    podcast: { focus: -1, len: 'kurz', lang: getOutLang(), tone: 2, voice: ls.get('tutor.podVoice', 'max') },
   }[tab];
   const st = Object.assign({}, DEF, ls.get('tutor.pers.' + tab, null) || {});
   st.focus = -1; // Umfang immer frisch: ganzes Skript als Standard
