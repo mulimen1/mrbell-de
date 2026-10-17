@@ -147,6 +147,7 @@ export async function loadIcsUrl(url) {
   const ev = parseIcs(r.ics || '');
   if (!ev.length) throw new Error(L('Im Kalender stehen in den nächsten Wochen keine Termine.', 'No events in that calendar for the coming weeks.'));
   updateMe(m => { m.ics = { url, at: Date.now(), events: ev, name: icsName(r.ics) }; });
+  icsFaecher(ev);
   return ev.length;
 }
 export async function loadIcsFile(file) {
@@ -155,7 +156,47 @@ export async function loadIcsFile(file) {
   const ev = parseIcs(t);
   if (!ev.length) throw new Error(L('In der Datei stehen in den nächsten Wochen keine Termine.', 'No events in that file for the coming weeks.'));
   updateMe(m => { m.ics = { url: '', at: Date.now(), events: ev, name: icsName(t) || file.name }; });
+  icsFaecher(ev);
   return ev.length;
+}
+// ---------- Aus dem Stundenplan automatisch die Fächer ableiten ----------
+// Wiederkehrende Lehrveranstaltungen (Vorlesung, Übung, Tutorium … oder ein Wirtschaftsfach im Titel) → ein Fach je Kurs.
+// „VL Kostenrechnung“ und „Übung Kostenrechnung (Gr. 2)“ ergeben dasselbe Fach. Einmal gelöschte Fächer legt der Abgleich nicht wieder an.
+const KIND = /(^|[\s\-–—:|/(])(vorlesung|vl|v|übung|uebung|ü|ue|ueb|tutorium|tut|seminar|sem|praktikum|kolloquium|lecture|tutorial|exercise|lab|grundkurs)(\.|\b)/gi;
+const COURSE = /(^|[^\p{L}])(vorlesung|vl|übung|uebung|ü|ue|tutorium|tut|seminar|praktikum|kolloquium|lecture|tutorial|exercise)(?![\p{L}])/iu;
+const ECON = /(bwl|vwl|rechnungswesen|buchf|buchhalt|kosten|leistungsrechnung|klr|controlling|finanz|invest|marketing|statistik|mathe|wirtschaft|recht|ifrs|hgb|bilanz|accounting|finance|economics|management|steuer|personal|organisation|logistik|produktion|unternehm|makro|mikro|ökonom|oekonom|informatik|englisch|english|business|ökonometrie)/i;
+export function kursName(title) {
+  return String(title || '').replace(/\([^)]*\)|\[[^\]]*\]/g, ' ').replace(/\b(gruppe|group|gr)\.?\s*[\w-]+/gi, ' ').replace(KIND, ' ')
+    .replace(/\b[A-Z]{1,4}[-\s]?\d{2,}[A-Za-z0-9-]*\b/g, ' ').replace(/\s{2,}/g, ' ').replace(/^[\s\-–—:|,./]+|[\s\-–—:|,./]+$/g, '').trim().slice(0, 60);
+}
+export function deriveFaecher(events) {
+  const by = new Map();
+  for (const [t, s] of events || []) {
+    const n = kursName(t); if (n.length < 3 || !/\p{L}{3}/u.test(n)) continue;
+    const k = norm(n), g = by.get(k) || { name: n, days: new Set(), hint: false };
+    g.days.add(new Date(s).toDateString()); if (COURSE.test(t) || ECON.test(t)) g.hint = true;
+    if (n.length < g.name.length) g.name = n;
+    by.set(k, g);
+  }
+  return [...by.values()].filter(g => g.hint && g.days.size >= 2).map(g => g.name);
+}
+let lastIcs = 0;
+export const lastIcsFaecher = () => lastIcs;
+function icsFaecher(ev) {
+  const names = deriveFaecher(ev); lastIcs = 0;
+  if (!names.length) return 0;
+  updateMe(m => {
+    m.icsFachDone ||= [];
+    for (const nm of names) {
+      const k = norm(nm);
+      if (m.icsFachDone.includes(k)) continue;
+      m.icsFachDone.push(k);
+      if (findFach(nm)) continue;
+      m.faecher.push({ id: uid(), created: Date.now(), name: nm, kurz: '', klausur: '', ects: '', docs: [], termine: [], ausKalender: true });
+      lastIcs++;
+    }
+  });
+  return lastIcs;
 }
 export function icsFach(title) { const id = (me.icsMap || {})[title]; if (id === '-') return null; return (id && me.faecher.find(f => f.id === id)) || guessFach(title); }
 export function setIcsFach(title, id) { updateMe(m => { m.icsMap ||= {}; m.icsMap[title] = id || '-'; }); }

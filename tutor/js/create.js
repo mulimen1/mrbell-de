@@ -4,11 +4,14 @@ import { h, ico, ls, modal } from './util.js';
 import { L, getOutLang } from './i18n.js';
 import { COST } from './api.js';
 import { SPICE } from './max.js';
+import { S } from './state.js';
+import { ACCEPT } from './ingest.js';
 
 export function setCreate(tool, docId, opts) { ls.set('tutor.create', { tool, doc: docId, opts: opts || {}, at: Date.now() }); }
 export function takeCreate(tool, docId) {
   const c = ls.get('tutor.create', null);
-  if (!c || c.tool !== tool || c.doc !== docId || Date.now() - (c.at || 0) > 5 * 60e3) return null;
+  // '*' = Wahl gilt für den Stoff, der gleich erst entsteht (Thema oder Upload) – dafür länger gültig
+  if (!c || c.tool !== tool || (c.doc !== docId && c.doc !== '*') || Date.now() - (c.at || 0) > (c.doc === '*' ? 30 : 5) * 60e3) return null;
   ls.set('tutor.create', null);
   return c.opts || {};
 }
@@ -116,4 +119,57 @@ export async function personalise(tab, doc) {
   ls.set('tutor.pers.' + tab, keep);
   if (tab === 'podcast') ls.set('tutor.podVoice', st.voice);
   return st;
+}
+
+// ---------- Stoff wählen: eins deiner Skripte, ein Thema (Max prüft es) oder eine eigene Datei ----------
+// Überall gleich: im Personalisieren-Fenster, im Podcast- und Quiz-Formular und im Klausurplan.
+const TABROUTE = { karten: 'karten', quiz: 'quiz', zettel: 'zettel', podcast: 'podcast', plan: 'plan', pfad: 'pfad' };
+export function srcPicker(doc, { onChange } = {}) {
+  const docs = S.list.slice().sort((a, b) => Math.max(b.used || 0, b.created || 0) - Math.max(a.used || 0, a.created || 0));
+  if (doc && !docs.some(d => d.id === doc.id)) docs.unshift(doc);
+  const st = { kind: docs.length ? 'doc' : 'topic', id: doc ? doc.id : (docs[0] && docs[0].id), topic: '', files: [] };
+  const sel = h('select', { class: 'field sp-doc', 'aria-label': L('Skript', 'Slides') }, docs.map(d => h('option', { value: d.id, selected: d.id === st.id || null }, (d.generated ? '💡 ' : '') + d.name)));
+  sel.addEventListener('change', () => { st.id = sel.value; err.textContent = ''; onChange && onChange(get()); });
+  const inp = h('input', { class: 'field sp-topic', maxlength: 160, placeholder: L('Thema, z. B. Kapitalwertmethode', 'Topic, e.g. net present value'), 'aria-label': L('Thema', 'Topic'), autocomplete: 'off' });
+  inp.addEventListener('input', () => { st.topic = inp.value; err.textContent = ''; });
+  const fin = h('input', { type: 'file', class: 'sr', accept: ACCEPT, multiple: true });
+  const fname = h('small', { class: 'sp-fn' }, L('oder tippen zum Auswählen · PDF, PowerPoint, Word, Foto', 'or tap to choose · PDF, PowerPoint, Word, photo'));
+  const drop = h('label', { class: 'sp-drop' }, fin, h('span', { html: ico('upload') }), h('b', {}, L('Datei hier reinziehen', 'Drop a file here')), fname);
+  const setFiles = f => { st.files = [...(f || [])].filter(Boolean); fname.textContent = st.files.length ? st.files.map(x => x.name).join(', ') : L('oder tippen zum Auswählen · PDF, PowerPoint, Word, Foto', 'or tap to choose · PDF, PowerPoint, Word, photo'); drop.classList.toggle('has', !!st.files.length); err.textContent = ''; };
+  fin.addEventListener('change', () => setFiles(fin.files));
+  ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('on'); }));
+  ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove('on'); }));
+  drop.addEventListener('drop', e => setFiles(e.dataTransfer && e.dataTransfer.files));
+  const hint = h('small', { class: 'ik-hint sp-hint' });
+  const err = h('div', { class: 'sp-err', role: 'alert' });
+  const panes = { doc: sel, topic: inp, file: drop };
+  const HINT = { doc: '', topic: L('Ich prüfe, ob es das Fachthema gibt, und schreib dir dazu ein Kurzskript (2 Einheiten).', 'I check that the topic exists and write you a short script on it (2 credits).'), file: L('Ich lese die Datei, ordne sie ein und erstelle dann genau das hier.', 'I read the file, sort it in and then create exactly this.') };
+  const seg = h('div', { class: 'ik-seg sp-seg', role: 'radiogroup' }, [['doc', L('Skript', 'Slides')], ['topic', L('Thema', 'Topic')], ['file', L('Eigene Datei', 'Own file')]].filter(([k]) => k !== 'doc' || docs.length).map(([k, t]) =>
+    h('button', { type: 'button', role: 'radio', 'data-v': k, onclick: () => { st.kind = k; paint(); onChange && onChange(get()); if (k === 'topic') setTimeout(() => inp.focus(), 30); } }, t)));
+  const box = h('div', { class: 'sp-box' });
+  function paint() {
+    seg.querySelectorAll('button').forEach(b => { const on = b.dataset.v === st.kind; b.classList.toggle('on', on); b.setAttribute('aria-checked', on ? 'true' : 'false'); });
+    box.replaceChildren(panes[st.kind]); hint.textContent = HINT[st.kind]; hint.hidden = !HINT[st.kind]; err.textContent = '';
+  }
+  const get = () => ({ kind: st.kind, id: st.id, topic: st.topic.trim(), files: st.files });
+  // Nur echte Eingaben durchlassen – ob es das Thema wirklich gibt, prüft Max danach (sonst fragt er nach)
+  const check = () => {
+    if (st.kind === 'topic') { const t = st.topic.trim(); if (t.length < 2 || !/\p{L}/u.test(t)) return L('Schreib ein Thema rein – z. B. „Kapitalwert“.', 'Type a topic – e.g. “net present value”.'); }
+    if (st.kind === 'file' && !st.files.length) return L('Wähl eine Datei aus oder zieh sie rein.', 'Choose a file or drop it in.');
+    if (st.kind === 'doc' && !st.id) return L('Wähl ein Skript.', 'Pick some slides.');
+    return '';
+  };
+  const el = h('div', { class: 'sp' }, seg, box, hint, err);
+  paint();
+  return { el, get, check: () => { const m = check(); err.textContent = m; return m; }, here: () => st.kind === 'doc' && doc && st.id === doc.id };
+}
+// Anderer Stoff als das offene Skript: dorthin wechseln – oder erst Thema/Datei verarbeiten, danach direkt dieses Werkzeug
+export async function goSource(tab, src, opts) {
+  const route = TABROUTE[tab] || tab, auto = tab !== 'plan';
+  if (src.kind === 'doc') { if (auto) setCreate(tab, src.id, opts || {}); location.hash = `#/app/${src.id}/${route}${auto ? '/auto' : ''}`; return; }
+  if (auto) setCreate(tab, '*', opts || {});
+  ls.set('tutor.target', tab);
+  const m = await import('./app.js');
+  if (src.kind === 'topic') return m.startTopic(src.topic);
+  if (src.kind === 'file') return m.startUpload(src.files);
 }

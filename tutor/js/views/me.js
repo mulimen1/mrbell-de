@@ -477,7 +477,7 @@ function ttHero() {
   const take = async files => {
     files = [...(files || [])].filter(Boolean); if (!files.length) return;
     const ics = files.find(f => /\.ics$/i.test(f.name) || f.type === 'text/calendar');
-    if (ics) { try { const n = await M.loadIcsFile(ics); toast(L(`${n} Termine übernommen.`, `${n} events imported.`)); } catch (e) { toast(e.message); } return; }
+    if (ics) { try { const n = await M.loadIcsFile(ics), nf = M.lastIcsFaecher(); toast(L(`${n} Termine übernommen.`, `${n} events imported.`) + (nf ? L(` ${nf} ${nf === 1 ? 'Fach' : 'Fächer'} automatisch angelegt.`, ` ${nf} subject${nf === 1 ? '' : 's'} created automatically.`) : '')); } catch (e) { toast(e.message); } return; }
     const m = await import('../app.js'); m.startUpload(files);   // Max erkennt den Stundenplan und baut ihn zusammen
   };
   const fin = h('input', { type: 'file', accept: ACC, class: 'sr', multiple: true });
@@ -511,7 +511,7 @@ function ttHero() {
 function connectBox() {
   const me = M.getMe();
   const fin = h('input', { type: 'file', accept: '.ics,text/calendar', class: 'sr' });
-  fin.addEventListener('change', async () => { const f = fin.files[0]; fin.value = ''; if (!f) return; try { const n = await M.loadIcsFile(f); toast(L(`${n} Termine übernommen.`, `${n} events imported.`)); } catch (e) { toast(e.message); } });
+  fin.addEventListener('change', async () => { const f = fin.files[0]; fin.value = ''; if (!f) return; try { const n = await M.loadIcsFile(f), nf = M.lastIcsFaecher(); toast(L(`${n} Termine übernommen.`, `${n} events imported.`) + (nf ? L(` ${nf} ${nf === 1 ? 'Fach' : 'Fächer'} automatisch angelegt.`, ` ${nf} subject${nf === 1 ? '' : 's'} created automatically.`) : '')); } catch (e) { toast(e.message); } });
   if (me.ics.events?.length) {
     const n = me.ics.events.filter(x => x[1] > Date.now()).length;
     const btn = h('button', { class: 'btn sm', type: 'button' }, h('span', { html: ico('refresh') }), L('Aktualisieren', 'Refresh'));
@@ -527,7 +527,7 @@ function connectBox() {
   form.addEventListener('submit', async e => {
     e.preventDefault(); const u = inp.value.trim(); if (!u) { inp.focus(); return; }
     go.disabled = true; go.textContent = L('Lade …', 'Loading …'); err.textContent = '';
-    try { const n = await M.loadIcsUrl(u); toast(L(`Verbunden · ${n} Termine. Ich ordne sie deinen Fächern zu.`, `Connected · ${n} events. I’ll match them to your subjects.`)); }
+    try { const n = await M.loadIcsUrl(u), nf = M.lastIcsFaecher(); toast(nf ? L(`Verbunden · ${n} Termine · ${nf} ${nf === 1 ? 'Fach' : 'Fächer'} automatisch angelegt.`, `Connected · ${n} events · ${nf} subject${nf === 1 ? '' : 's'} created automatically.`) : L(`Verbunden · ${n} Termine. Ich ordne sie deinen Fächern zu.`, `Connected · ${n} events. I’ll match them to your subjects.`)); }
     catch (x) { err.textContent = x.message || L('Hat nicht geklappt.', 'That didn’t work.'); go.disabled = false; go.textContent = L('Verbinden', 'Connect'); }
   });
   const help = h('details', { class: 'me-help' }, h('summary', {}, L('Wo finde ich meinen Kalender-Link?', 'Where do I find my calendar link?')),
@@ -558,7 +558,14 @@ async function editKurs(k) {
   const r = await modal({ title: isNew ? L('Kurs eintragen', 'Add class') : k.titel, body, actions, onAction: v => { if (v === 'save' && (!titel.value.trim() || bis.value <= von.value)) { (titel.value.trim() ? bis : titel).focus(); return false; } } });
   if (r === 'del') return M.delKurs(k.id);
   if (r !== 'save') return;
-  M.saveKurs(Object.assign(k, { titel: titel.value.trim(), fach: fach.value, tag: +tag.value, von: von.value, bis: bis.value, raum: raum.value.trim(), art: art.value }));
+  // Neuer Kurs ohne Fach: Fach automatisch aus dem Kursnamen ableiten (oder ein passendes nehmen)
+  let fid = fach.value;
+  if (!fid && isNew && titel.value.trim()) {
+    const nm = M.kursName(titel.value) || titel.value.trim(), ex = M.findFach(nm);
+    if (ex) fid = ex.id;
+    else if (nm.length >= 3) { const nf = { id: uid(), name: nm, kurz: '', klausur: '', ects: '', docs: [], termine: [] }; M.saveFach(nf); fid = nf.id; toast(L(`Fach „${nm}“ angelegt.`, `Subject “${nm}” created.`)); }
+  }
+  M.saveKurs(Object.assign(k, { titel: titel.value.trim(), fach: fid, tag: +tag.value, von: von.value, bis: bis.value, raum: raum.value.trim(), art: art.value }));
 }
 async function assignIcs(s) {
   const me = M.getMe();
