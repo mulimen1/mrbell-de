@@ -17,7 +17,8 @@ import { L, setOutLang } from './i18n.js';
 import { applyThemeButtons } from './theme.js';
 import { getMic, releaseMic as freeMic } from './mic.js';
 import { prompt as maxPrompt, mode as maxMode } from './maxcfg.js';
-import { tour, tourActive, pauseTour, stopTour, boardSteps, pageMap, byMxId } from './cursor.js';
+import { knowledge } from './know.js';
+import { tour, tourActive, pauseTour, stopTour, boardSteps, pageMap, byMxId, spotText } from './cursor.js';
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
 const M = 12;                       // Mindestabstand zum Rand
@@ -84,12 +85,14 @@ const forHistory = raw => String(raw).replace(/```tafel[ \t]*([^\n]*)\n[\s\S]*?`
 const b64 = blob => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1] || ''); r.onerror = rej; r.readAsDataURL(blob); });
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
+const PAGES = { faecher: L('Fächer & Noten', 'Subjects & grades'), skripte: L('Skripte', 'Slides'), gemerkt: L('Gemerkt', 'Saved'), fortschritt: L('Fortschritt', 'Progress'), stundenplan: L('Stundenplan', 'Timetable'), rechner: L('Rechner', 'Calculators'), challenge: L('Wochen-Challenge', 'Weekly challenge'), lernen: L('Lernen', 'Learn'), me: L('Mein Bereich', 'My space') };
 function route() {
   const p = location.hash.replace(/^#\/?/, '').split('/');
   if (p[0] !== 'app') return { tab: null };
   if (p[1] === 'trainer') return { trainer: p[2] || '', tab: 'trainer' };
   if (!p[1] || p[1] === 'neu') return { tab: p[1] ? 'neu' : 'start' };
   if (p[1] === 'tutor') return { tab: 'room' };
+  if (PAGES[p[1]]) return { tab: 'page', page: p[1], arg: p[2] || '' };
   return { docId: p[1], tab: TAB[p[2]] ? p[2] : 'hub', arg: p[3] ? decodeURIComponent(p[3]) : '' };
 }
 const curDoc = () => { if (STAGE) return STAGE.doc ? STAGE.doc() : null; const r = route(); return r.docId && S.doc && S.doc.id === r.docId ? S.doc : null; };
@@ -98,6 +101,8 @@ function placeLabel() {
   if (r.tab === 'trainer') return L('BWL-Trainer', 'Business trainer') + (r.trainer ? ' · ' + r.trainer : '');
   if (r.tab === 'start') return L('Start', 'Start');
   if (r.tab === 'neu') return L('Neues Skript', 'New slides');
+  if (r.tab === 'room') return L('Tutor-Raum', 'Tutor room');
+  if (r.tab === 'page') { const sub = r.arg ? (document.querySelector('#view h1, #view h2')?.innerText || '').trim() : ''; return PAGES[r.page] + (sub && sub !== PAGES[r.page] ? ' · ' + sub.slice(0, 50) : ''); }
   return (TAB[r.tab] || '') + (d ? ' · ' + d.name : '');
 }
 // Was gerade im Hauptbereich zu sehen ist (nur sichtbare Textknoten, gekürzt)
@@ -132,7 +137,7 @@ function pageContext() {
   if (STAGE) return STAGE.context ? STAGE.context() : '';
   const r = route(), d = curDoc();
   if (!r.tab) return document.getElementById('landing')?.classList.contains('hidden') ? '' : L('[Seite: Startseite von BWL Max – noch kein Skript offen]', '[Page: BWL Max home page – no slides open yet]');
-  const parts = [L('Seite: ', 'Page: ') + ((TAB[r.tab] || (r.tab === 'trainer' ? L('BWL-Trainer', 'Business trainer') + (r.trainer ? ' ' + r.trainer : '') : r.tab)))];
+  const parts = [L('Seite: ', 'Page: ') + (r.tab === 'page' ? placeLabel() : (TAB[r.tab] || (r.tab === 'trainer' ? L('BWL-Trainer', 'Business trainer') + (r.trainer ? ' ' + r.trainer : '') : r.tab)))];
   if (d) parts.push(L('Skript „', 'Slides “') + d.name + L('“', '”'));
   const vis = visibleText();
   if (vis) parts.push(L('sichtbar: ', 'visible: ') + vis);
@@ -179,8 +184,10 @@ export function mountAssistant() {
   const stopBtn = B('ai-stop primary', L('Stopp', 'Stop'), SVG.stop);
   const muteBtn = B('ai-mute', '', SVG.spkOn);
   const closeBtn = B('ai-close', L('Einklappen', 'Collapse'), ico('x'));
+  const tourBtn = h('button', { class: 'ai-tourb', type: 'button', title: L('Max zeigt dir mit seinem Cursor, was auf dieser Seite wichtig ist', 'Max shows you with his cursor what matters on this page'), onclick: () => pageTour() },
+    h('span', { html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5 18.5 11 12.4 12.4 9.6 18.6z"/></svg>' }), h('span', { class: 'lbl' }, L('Führ mich durch', 'Walk me through')));
   const isl = h('div', { class: 'ai-isl', role: 'group', 'aria-label': L('Max', 'Max') },
-    moreBtn, dotsBtn, mid, muteBtn, micBtn, sendBtn, doneBtn, stopBtn, closeBtn);
+    moreBtn, dotsBtn, mid, muteBtn, micBtn, tourBtn, sendBtn, doneBtn, stopBtn, closeBtn);
   const vDesc = h('div', { class: 'ai-vdesc' });
   const voiceChips = VOICES.map(([k, l, d]) => voiceChip(k, l, d, () => { ls.set('tutor.voice', k); drawMenu(); }));
   const menu = h('div', { class: 'ai-menu', role: 'menu', hidden: true },
@@ -351,7 +358,10 @@ export function mountAssistant() {
   tipX.addEventListener('pointerdown', e => e.stopPropagation());
   const tipTx = bub.querySelector('.asst-tip > span');
   const inApp = () => { const r = route(); return !!r.tab && r.tab !== 'room'; };
-  addEventListener('hashchange', () => { tipOff = false; });
+  // „Klick mich – ich führ dich durch“ nur beim ersten Besuch einer Seite (danach steht der Knopf im Chat)
+  let tipKey = null;
+  const tourKey = () => { const r = route(); if (r.tab === 'page') return r.page + (r.arg ? ':' + r.arg : ''); if (r.tab === 'trainer') return 'trainer:' + (r.trainer || ''); if (r.docId) return 'doc:' + r.tab; return r.tab || ''; };
+  addEventListener('hashchange', () => { tipOff = false; tipKey = null; drawButtons(); setTimeout(drawButtons, 120); });
   bub.querySelector('.asst-tip').addEventListener('click', e => { if (e.target.closest('.tip-x') || !inApp()) return; e.preventDefault(); e.stopPropagation(); hideTip(); pageTour(); });
   setInterval(() => {
     const app = inApp();
@@ -362,6 +372,12 @@ export function mountAssistant() {
     if (!tipVisSince) tipVisSince = now;
     // In der App: dauerhaft „Klick mich – ich führ dich durch“
     if (app) {
+      const k = tourKey(), seen = ls.get('tutor.tour.seen', {}) || {};
+      if (tipKey !== k) {
+        if (seen[k]) { if (root.classList.contains('tip-on')) hideTip(); return; }
+        if (now - tipVisSince < 900) return;
+        tipKey = k; seen[k] = 1; ls.set('tutor.tour.seen', seen);
+      }
       root.classList.add('tip-tour');
       tipTx.textContent = L('Klick mich – ich führ dich durch', 'Tap me – I’ll walk you through');
       if (!root.classList.contains('tip-on') && now - tipVisSince >= 900) root.classList.add('tip-on');
@@ -462,6 +478,7 @@ export function mountAssistant() {
     show(muteBtn, s === 'speak' || s === 'think');
     show(dotsBtn, s === 'idle');
     show(micBtn, s === 'idle');   // „Sprich mit Max“ steht immer unter dem Textfeld
+    show(tourBtn, s === 'idle' && !STAGE && !!route().tab && route().tab !== 'room');
     show(sendBtn, s === 'idle' && hasTx);
     show(doneBtn, s === 'listen');
     show(stopBtn, s === 'think' || s === 'speak');
@@ -792,6 +809,7 @@ export function mountAssistant() {
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     unlockAudio();
     capQuestion(text); capQ.classList.remove('live'); capThinking();
+    if (askRef) capQ.prepend(h('span', { class: 'ai-refq' }, L(`Zu ${askRef.i}/${askRef.n} · `, `Re ${askRef.i}/${askRef.n} · `) + (askRef.spot.length > 60 ? askRef.spot.slice(0, 59) + '…' : askRef.spot)));
     const ex = curEx;
     const ctxLine = pageContext();
     hist.push({ role: 'user', content: text });
@@ -803,10 +821,17 @@ export function mountAssistant() {
       const messages = hist.slice(-12).map(m => ({ role: m.role, content: m.role === 'assistant' ? forHistory(m.content) : m.content }));
       const TAFEL = L('[Tafel: Gib jedem Block an der Tafel (h3, p, ul, div.calc, div.step, div.result, table, svg) ein Attribut data-say mit genau einem kurzen Satz (höchstens 18 Wörter), warum dieser Schritt so ist – Max zeigt ihn dann mit seinem Cursor.]',
         '[Board: give every block on the board (h3, p, ul, div.calc, div.step, div.result, table, svg) a data-say attribute with exactly one short sentence (max 18 words) on why this step is the way it is – Max then points to it with his cursor.]');
-      const SEITE = pendingMap ? L(`[Seitenführung: Antworte mit 1–2 kurzen Sätzen Einleitung und danach genau einem Block \`\`\`zeigen mit einer JSON-Liste von 4–7 Schritten, z. B. [{"id":"m3","say":"…"}]. Nutze nur Kennungen aus dieser Liste, in sinnvoller Reihenfolge. say = 1–2 kurze Sätze: was das ist und warum es wichtig ist – konkret, mit den Zahlen auf der Seite.\nElemente der Seite:\n${pendingMap}]`,
-        `[Page tour: answer with a 1–2 sentence intro, then exactly one \`\`\`zeigen block with a JSON list of 4–7 steps, e.g. [{"id":"m3","say":"…"}]. Only use ids from this list, in a sensible order. say = 1–2 short sentences: what it is and why it matters – concrete, with the numbers on the page.\nPage elements:\n${pendingMap}]`) : '';
+      const here = STAGE ? L('Tutor-Raum', 'Tutor room') : placeLabel(), before = ls.get('tutor.asst.lastPage');
+      ls.set('tutor.asst.lastPage', here);
+      const WECHSEL = before && here && before !== here ? L(`[Seitenwechsel: Der Nutzer ist jetzt auf „${here}“ (vorher „${before}“). Was davor im Verlauf steht, bezog sich auf die alte Seite – das war kein Fehler, also nichts korrigieren oder entschuldigen.]`, `[Page change: the user is now on “${here}” (before: “${before}”). Earlier messages referred to the old page – that was not a mistake, so don't correct or apologise.]`) : '';
+      const REF = askRef ? L(`[Bezug: Die Frage gehört zu Schritt ${askRef.i}/${askRef.n} deiner Cursor-Erklärung. Stelle: „${askRef.spot}“. Deine Erklärung dort: „${askRef.say}“. Antworte genau darauf.]`, `[Reference: the question is about step ${askRef.i}/${askRef.n} of your cursor walkthrough. Spot: “${askRef.spot}”. Your explanation there: “${askRef.say}”. Answer exactly that.]`) : '';
+      if (askRef && ex) ex.ref = true;
+      clearRef();
+      const SEITE = pendingMap ? L(`[Seitenführung für die Seite „${here}“: Beziehe dich nur auf diese Seite und diese Elementliste. Antworte mit 1–2 kurzen Sätzen Einleitung und danach genau einem Block \`\`\`zeigen mit einer JSON-Liste von 4–7 Schritten, z. B. [{"id":"m3","say":"…"}]. Nutze nur Kennungen aus dieser Liste, in sinnvoller Reihenfolge. say = 1–2 kurze Sätze: was das ist und warum es wichtig ist – konkret, mit den Zahlen auf der Seite.\nElemente der Seite:\n${pendingMap}]`,
+        `[Page tour for the page “${here}”: only refer to this page and this element list. Answer with a 1–2 sentence intro, then exactly one \`\`\`zeigen block with a JSON list of 4–7 steps, e.g. [{"id":"m3","say":"…"}]. Only use ids from this list, in a sensible order. say = 1–2 short sentences: what it is and why it matters – concrete, with the numbers on the page.\nPage elements:\n${pendingMap}]`) : '';
       pendingMap = null;
-      const pre = [ctxLine, maxPrompt(), TAFEL, SEITE].filter(Boolean).join('\n');
+      let KNOW = ''; try { KNOW = knowledge(); } catch (e) {}
+      const pre = [ctxLine, KNOW, WECHSEL, REF, maxPrompt(), TAFEL, SEITE].filter(Boolean).join('\n');
       if (pre) messages[messages.length - 1].content = pre + '\n' + text;
       const payload = { messages, opts: { mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true } };
       const d = curDoc();
@@ -842,7 +867,7 @@ export function mountAssistant() {
       boards = boards.concat(p.boards).slice(-12); bIdx = boards.length - p.boards.length;
       t = drawBoard(true); openBoard();
     }
-    else if (boardOpen && !boardMin) minBoard(true, true);   // neue Antwort ohne Tafel: alte Tafel zur Seite, Seite frei
+    else if (boardOpen && !boardMin && !ex.ref && !tourActive()) minBoard(true, true);   // neue Antwort ohne Tafel: alte Tafel zur Seite – außer die Frage galt genau dieser Tafel
     // Befehle sofort ausführen, als kleine Häkchen unter der Antwort
     const acts = p.acts.map(a => ({ a, href: ACTS[a][1](curDoc() || S.doc) })).filter(x => x.href);
     const extras = [...p.cmds.map(c => cmdChip(c)), ...acts.map(({ a, href }) => h('a', { class: 'ai-cmd link', href }, ACTS[a][0]))];
@@ -872,8 +897,23 @@ export function mountAssistant() {
   // ---------- Max-Cursor: Tafel Block für Block erklären, oder echte Stellen der Seite zeigen ----------
   function curStart() { const rf = STAGE ? [...document.querySelectorAll('.room .rm-fs')].find(e => e.getBoundingClientRect().width > 0) : null; const r = (rf || (open ? fEl : bubFace)).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height * .4 }; }
   function startTour(steps) {
-    return tour(steps, { startAt: curStart(), onAsk: () => { if (!open) setOpen(true); setTyping(true); } });
+    return tour(steps, { startAt: curStart(), onAsk: ref => { if (!open) setOpen(true); setRef(ref); setTyping(true); } });
   }
+  // „Frage“ in der Cursor-Blase: Max weiß, welche Stelle gemeint ist
+  let askRef = null;
+  const refTx = h('span', { class: 'ai-ref-t' });
+  const refChip = h('div', { class: 'ai-ref', hidden: true }, h('span', { class: 'ai-ref-i', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5 18.5 11 12.4 12.4 9.6 18.6z"/></svg>' }), refTx,
+    h('button', { class: 'ai-ref-x', type: 'button', 'aria-label': L('Bezug entfernen', 'Remove reference'), html: ico('x'), onclick: e => { e.stopPropagation(); clearRef(); inp.focus({ preventScroll: true }); } }));
+  isl.appendChild(refChip);
+  function setRef(r) {
+    const spot = spotText(r.el, 64) || r.say.slice(0, 64);
+    askRef = { i: r.i, n: r.n, say: r.say, spot: spotText(r.el, 160) || r.say };
+    refTx.replaceChildren(h('b', {}, L(`Frage zu ${r.i}/${r.n}`, `About ${r.i}/${r.n}`)), ' · ' + spot);
+    refChip.hidden = false; root.classList.add('has-ref');
+    inp.dataset.phLock = L('Deine Frage zu dieser Stelle …', 'Your question about this spot …'); inp.placeholder = inp.dataset.phLock;
+  }
+  function clearRef() { askRef = null; refChip.hidden = true; root.classList.remove('has-ref'); delete inp.dataset.phLock; }
+  addEventListener('hashchange', () => { if (askRef) clearRef(); });
   async function runTours(p, t) {
     if (p.tour && p.tour.length) {
       const steps = p.tour.map(x => ({ el: byMxId(x.id), say: x.say })).filter(x => x.el);
@@ -897,7 +937,8 @@ export function mountAssistant() {
     setOpen(true);
     if (!m.count) { submit(L('Wobei kann ich dir auf dieser Seite helfen?', 'How can I help you on this page?')); return; }
     pendingMap = m.text;
-    submit(L('Führ mich durch diese Seite – zeig mir mit deinem Cursor, was hier wichtig ist und wie ich es nutze.', 'Walk me through this page – show me with your cursor what matters here and how to use it.'));
+    const pl = placeLabel();
+    submit(L(`Führ mich durch die Seite „${pl}“ – zeig mir mit deinem Cursor, was hier wichtig ist und wie ich es nutze.`, `Walk me through the page “${pl}” – show me with your cursor what matters here and how to use it.`));
   }
   function favChip(it) { return favStar(() => it, { label: true, cls: 'ai-cmd ai-fav' }); }
   // Getippte Antwort nachträglich anhören
@@ -1188,7 +1229,7 @@ export function mountAssistant() {
     if (boardOpen) closeBoard();
     if (feedOpen) setFeedOpen(false, { instant: true });
     if (open) { closing = null; setOpen(false); }
-    applyEnabled(false); syncLock();
+    applyEnabled(false); syncLock(); drawButtons();
   }
   function stageTalk(v) {
     root.classList.toggle('stage-talk', !!v);

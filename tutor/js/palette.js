@@ -43,6 +43,7 @@ function collect() {
   cmd(L('Notenziel – welche Note brauche ich noch?', 'Grade goal – what do I still need?'), 'calc', nav('#/app/faecher'), 'noten schnitt ects durchschnitt rechner');
   cmd(L('Stundenplan', 'Timetable'), 'calendar', nav('#/app/stundenplan'), 'kalender vorlesung ical woche');
   cmd(L('Fortschritt', 'Progress'), 'trophy', nav('#/app/fortschritt'), 'statistik lernzeit serie streak meilensteine');
+  cmd(L('Lernen – alle Lern-Tools', 'Learn – all study tools'), 'spark', nav('#/app/lernen'), 'tools karteikarten podcast lernzettel quiz lernplan trainer rechner üben');
   cmd(L('Wochen-Challenge', 'Weekly challenge'), 'trophy', nav('#/app/challenge'), 'quiz wettbewerb');
   cmd(L('Thema erklären lassen (ohne Skript)', 'Explain a topic (no slides)'), 'bulb', () => import('./app.js').then(m => m.topicPrompt()), 'kurzskript thema');
   cmd(L('Mit Max sprechen', 'Talk to Max'), 'mic', () => import('./app.js').then(m => m.talkToMax()), 'stimme sprechen voice');

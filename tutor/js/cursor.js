@@ -1,58 +1,159 @@
 // Max-Cursor: Max zeigt dir Dinge direkt auf der Seite. Pfeil mit Namensschild „Max“, daran hängt eine Erklärblase.
 // Er gleitet von Stelle zu Stelle, hebt sie hervor und sagt, warum das so ist. Pause, Weiter, Stopp – und jederzeit fragen.
+// Die Blase sucht sich selbst den Platz, an dem sie am wenigsten Text verdeckt (gemessen an den echten Textzeilen).
 import { h, ico } from './util.js';
 import { L } from './i18n.js';
 
 const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const PTR = '<svg class="mx-ptr" viewBox="0 0 24 26" aria-hidden="true"><path d="M3 2.5 20.5 12.2 12.6 13.9 9.2 21.4z"/></svg>';
+const TAG = 27;          // Höhe des „Max“-Schilds über der Blase
+const M = 8;             // Abstand zum Bildschirmrand
 let active = null;
 export const tourActive = () => !!active;
 export function stopTour() { if (active) active.stop(); }
 export function pauseTour() { if (active) active.pause(); }
+
+// ---------- Was liegt wo? Echte Textzeilen und Bedienelemente im Bild ----------
+const ov = (a, b) => Math.max(0, Math.min(a.r, b.r) - Math.max(a.l, b.l)) * Math.max(0, Math.min(a.b, b.b) - Math.max(a.t, b.t));
+function contentRects(hl, scope) {
+  const W = innerWidth, H = innerHeight, out = [], lines = [];
+  const vis = (r, el) => {
+    const x = Math.min(W - 1, Math.max(0, r.left + Math.min(r.width / 2, 12))), y = Math.min(H - 1, Math.max(0, r.top + r.height / 2));
+    const e = document.elementFromPoint(x, y);
+    return !!e && (e === el || el.contains(e) || e.contains(el));
+  };
+  const wOf = el => (hl && hl.contains(el) ? 8 : scope && scope.contains(el) ? 1.5 : .6);
+  const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode: n => (n.nodeValue.trim() && n.parentElement && !n.parentElement.closest('.mx-cur, script, style, noscript, .sr') ? 1 : 3),
+  });
+  const rg = document.createRange();
+  for (let n = tw.nextNode(); n; n = tw.nextNode()) {
+    const el = n.parentElement;
+    rg.selectNodeContents(n);
+    for (const r of rg.getClientRects()) {
+      if (r.width < 2 || r.height < 2 || r.bottom < 0 || r.top > H || r.right < 0 || r.left > W) continue;
+      if (!vis(r, el)) continue;
+      const q = { l: r.left, t: r.top, r: r.right, b: r.bottom, w: wOf(el) };
+      out.push(q);
+      if (hl && hl.contains(el)) lines.push(q);
+    }
+  }
+  // Felder, Bilder, Diagramme zählen auch als Inhalt
+  document.querySelectorAll('input:not([type=hidden]), textarea, select, img, canvas, svg:not(.ico):not(.mx-ptr)').forEach(el => {
+    if (el.closest('.mx-cur')) return;
+    const r = el.getBoundingClientRect();
+    if (r.width < 12 || r.height < 12 || r.bottom < 0 || r.top > H || !vis(r, el)) return;
+    out.push({ l: r.left, t: r.top, r: r.right, b: r.bottom, w: wOf(el) * .7 });
+  });
+  // Eingabeleiste von Max nie zudecken
+  document.querySelectorAll('.asst .ai-isl').forEach(el => { const r = el.getBoundingClientRect(); if (r.width) out.push({ l: r.left, t: r.top, r: r.right, b: r.bottom, w: .5 }); });
+  return { rects: out, lines };
+}
 
 // steps: [{ el, say }] – el darf null sein (dann zeigt Max oben in die Mitte des Inhalts)
 export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
   steps = (steps || []).filter(s => s && s.say);
   if (!steps.length) return null;
   if (active) active.stop(true);
-  const txt = h('div', { class: 'mx-txt' });
+  const sz = h('span', { class: 'mx-sz', 'aria-hidden': 'true' }), ty = h('span', { class: 'mx-ty' });
+  const txt = h('div', { class: 'mx-txt' }, sz, ty);
   const num = h('span', { class: 'mx-n' });
   const bPause = h('button', { type: 'button', class: 'mx-b mx-pp', 'aria-label': L('Pause', 'Pause'), title: L('Pause (Leertaste)', 'Pause (space)') });
   const bNext = h('button', { type: 'button', class: 'mx-b', 'aria-label': L('Weiter', 'Next'), title: L('Weiter (→)', 'Next (→)'), html: ico('right') });
   const bStop = h('button', { type: 'button', class: 'mx-b', 'aria-label': L('Stopp', 'Stop'), title: L('Stopp (Esc)', 'Stop (Esc)'), html: ico('x') });
-  const bAsk = onAsk ? h('button', { type: 'button', class: 'mx-ask' }, h('span', { html: ico('chat') }), L('Frage', 'Ask')) : null;
-  const say = h('div', { class: 'mx-say' }, txt, h('div', { class: 'mx-ctl' }, num, h('span', { style: { flex: 1 } }), bAsk, bPause, bNext, bStop));
-  const cur = h('div', { class: 'mx-cur', role: 'status', 'aria-live': 'polite' }, h('span', { class: 'mx-p', html: PTR }), h('span', { class: 'mx-tag' }, label), say);
+  const bAsk = onAsk ? h('button', { type: 'button', class: 'mx-ask', title: L('Frage genau zu dieser Stelle', 'Ask about exactly this spot') }, h('span', { html: ico('chat') }), L('Frage', 'Ask')) : null;
+  const tag = h('span', { class: 'mx-tag' }, label);
+  const say = h('div', { class: 'mx-say' }, tag, txt, h('div', { class: 'mx-ctl' }, num, h('span', { style: { flex: 1 } }), bAsk, bPause, bNext, bStop));
+  const cur = h('div', { class: 'mx-cur', role: 'status', 'aria-live': 'polite' }, h('span', { class: 'mx-p', html: PTR }), say);
   document.body.appendChild(cur);
   document.documentElement.classList.add('mx-touring');
-  let i = -1, paused = false, dead = false, hold = 0, typed = 0, typing = 0, hl = null;
-  // Position: weich hinterher (folgt auch, wenn gescrollt wird)
+  let i = -1, paused = false, dead = false, hold = 0, typed = 0, typing = 0, hl = null, relT = 0;
+  // Ziel: Spitze relativ zur Stelle (folgt beim Scrollen), Blase relativ zur Spitze
+  let pos = { dx: 12, dy: 12, ox: 18, oy: 50, flip: false };
   const start = startAt || { x: innerWidth - 90, y: innerHeight - 110 };
-  let x = start.x, y = start.y, tx = x, ty = y, raf = 0;
-  const target = () => {
-    const s = steps[i]; if (!s) return;
-    if (!s.el || !s.el.isConnected) { const v = document.getElementById('view') || document.body, r = v.getBoundingClientRect(); tx = r.left + r.width / 2 - 40; ty = Math.max(r.top + 70, 90); return; }
-    const r = s.el.getBoundingClientRect();
-    tx = r.left + Math.min(Math.max(r.width * .12, 10), 46); ty = r.top + Math.min(Math.max(r.height * .5, 8), 26);
-  };
+  let x = start.x, y = start.y, tx = x, ty2 = y, raf = 0;
+  const cur$ = () => steps[i];
+  const viewRect = () => (document.getElementById('view') || document.body).getBoundingClientRect();
+
+  // ---------- Platz für die Blase finden ----------
+  function layout() {
+    const s = cur$(); if (!s) return;
+    const sw = say.offsetWidth || 320, sh = (say.offsetHeight || 100) + TAG, W = innerWidth, H = innerHeight;
+    if (!s.el || !s.el.isConnected) {
+      const r = viewRect();
+      pos = { ax: r.left + r.width / 2 - 40, ay: Math.max(r.top + 70, 90), dx: null, ox: 18, oy: 34 + TAG, flip: false };
+      applyPos(); return;
+    }
+    const E = s.el.getBoundingClientRect();
+    const scope = s.el.closest('.tafel') || document.getElementById('view');
+    const keep = cur.style.display; cur.style.display = 'none';
+    const { rects, lines } = contentRects(s.el, scope);
+    cur.style.display = keep;
+    // erste und letzte Textzeile der gezeigten Stelle
+    let fl, ll;
+    if (lines.length) {
+      fl = lines.reduce((a, b) => (b.t < a.t - 2 || (Math.abs(b.t - a.t) <= 2 && b.l < a.l) ? b : a));
+      ll = lines.reduce((a, b) => (b.b > a.b + 2 || (Math.abs(b.b - a.b) <= 2 && b.r > a.r) ? b : a));
+    } else {
+      const l = E.left + Math.min(14, E.width / 4), r = E.left + Math.min(E.width - 8, Math.max(40, E.width * .35));
+      fl = ll = { l, r, t: E.top + E.height * .2, b: E.top + E.height * .8 };
+    }
+    const llm = (ll.t + ll.b) / 2, my = Math.min(E.height / 2, 18);
+    const C = [
+      // rechts neben dem Textende – meistens leerer Platz im selben Kasten
+      ['after', ll.r + 8, llm - 5, t => [t.x + 26, t.y - 8], false, 0],
+      ['after-up', ll.r + 8, llm - 5, t => [t.x + 26, t.y + 22 - sh], false, 300],
+      // rechts neben der ganzen Stelle
+      ['right', E.right - 8, E.top + my, t => [E.right + 20, t.y - 8], false, 700],
+      ['right-up', E.right - 8, E.top + my, t => [E.right + 20, t.y + 22 - sh], false, 900],
+      // darunter
+      ['below', fl.l + 10, E.bottom - 6, t => [t.x + 20, E.bottom + 12], false, 1400],
+      // links daneben (Pfeil gespiegelt)
+      ['left', E.left + 6, E.top + my, t => [t.x - 28 - sw, t.y - 8], true, 1700],
+      ['left-up', E.left + 6, E.top + my, t => [t.x - 28 - sw, t.y + 22 - sh], true, 2000],
+      // darüber
+      ['above', fl.l + 10, E.top + 6, t => [t.x + 20, E.top - 12 - sh], false, 2300],
+    ];
+    let best = null;
+    for (const [k, px, py, fn, flip, bias] of C) {
+      const t = { x: Math.min(W - 6, Math.max(6, px)), y: Math.min(H - 6, Math.max(6, py)) };
+      const [ux, uy] = fn(t);
+      const cx = Math.min(W - M - sw, Math.max(M, ux)), cy = Math.min(H - M - sh, Math.max(M, uy));
+      const U = { l: cx, t: cy, r: cx + sw, b: cy + sh };
+      const A = flip ? { l: t.x - 24, t: t.y - 3, r: t.x + 4, b: t.y + 27 } : { l: t.x - 4, t: t.y - 3, r: t.x + 24, b: t.y + 27 };
+      let cost = bias + Math.hypot(cx - ux, cy - uy) * 120 + ov(U, A) * 14;
+      for (const q of rects) { const o = ov(U, q); if (o) cost += o * q.w; }
+      if (!best || cost < best.cost) best = { cost, k, t, cx, cy, flip };
+    }
+    pos = { dx: best.t.x - E.left, dy: best.t.y - E.top, ox: best.cx - best.t.x, oy: best.cy + TAG - best.t.y, flip: best.flip, k: best.k };
+    applyPos();
+  }
+  function applyPos() {
+    say.style.left = pos.ox.toFixed(0) + 'px'; say.style.top = pos.oy.toFixed(0) + 'px';
+    cur.classList.toggle('flip-x', !!pos.flip);
+    cur.dataset.at = pos.k || '';
+  }
+  const relayout = () => { clearTimeout(relT); relT = setTimeout(() => { if (!dead) layout(); }, 140); };
+
+  // ---------- Bewegung: weich hinterher, folgt beim Scrollen ----------
   const place = () => {
-    target();
-    if (reduce()) { x = tx; y = ty; } else { x += (tx - x) * .16; y += (ty - y) * .16; }
+    if (dead) return;
+    const s = cur$();
+    if (s && s.el) {
+      // Stelle weg (Seite gewechselt, Tafel zu/eingeklappt) → Führung sofort beenden, nicht irgendwo rumhängen
+      if (!s.el.isConnected || !s.el.getClientRects().length) { stop(true); return; }
+      const r = s.el.getBoundingClientRect();
+      tx = r.left + pos.dx; ty2 = r.top + pos.dy;
+    } else if (s) { tx = pos.ax ?? tx; ty2 = pos.ay ?? ty2; }
+    if (reduce()) { x = tx; y = ty2; } else { x += (tx - x) * .16; y += (ty2 - y) * .16; }
     cur.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
-    // Blase: rechts unten vom Cursor, am Rand gespiegelt
-    const sw = say.offsetWidth || 300, sh = say.offsetHeight || 90;
-    // waagerecht immer ganz im Bild: notfalls nach links geschoben (Handy)
-    let lx = 18; if (x + lx + sw > innerWidth - 10) lx = Math.max(10 - x, innerWidth - 10 - sw - x);
-    say.style.left = lx.toFixed(0) + 'px';
-    cur.classList.toggle('flip-x', lx < 0);
-    cur.classList.toggle('flip-y', y + 46 + sh > innerHeight - 10);
-    if (!dead) raf = requestAnimationFrame(place);
+    raf = requestAnimationFrame(place);
   };
   const setHL = el => { if (hl) hl.classList.remove('mx-hl'); hl = el || null; if (hl) hl.classList.add('mx-hl'); };
   const typeOut = text => {
-    clearInterval(typing); txt.textContent = ''; typed = 0;
-    if (reduce()) { txt.textContent = text; return Promise.resolve(); }
-    return new Promise(res => { typing = setInterval(() => { if (paused) return; typed = Math.min(text.length, typed + 2); txt.textContent = text.slice(0, typed); if (typed >= text.length) { clearInterval(typing); res(); } }, 22); });
+    clearInterval(typing); ty.textContent = ''; typed = 0;
+    if (reduce()) { ty.textContent = text; typed = text.length; return Promise.resolve(); }
+    return new Promise(res => { typing = setInterval(() => { if (paused) return; typed = Math.min(text.length, typed + 2); ty.textContent = text.slice(0, typed); if (typed >= text.length) { clearInterval(typing); res(); } }, 22); });
   };
   const drawCtl = () => { bPause.innerHTML = ico(paused ? 'play' : 'pause'); bPause.setAttribute('aria-label', paused ? L('Weiter abspielen', 'Resume') : L('Pause', 'Pause')); num.textContent = `${i + 1} / ${steps.length}`; cur.classList.toggle('paused', paused); };
   async function go(n) {
@@ -62,11 +163,14 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
     const s = steps[i];
     if (s.el && s.el.isConnected) {
       const r = s.el.getBoundingClientRect();
-      const out = r.top < 70 || r.bottom > innerHeight - 140;
-      if (out) { s.el.scrollIntoView({ block: 'center', behavior: reduce() ? 'auto' : 'smooth' }); await new Promise(r2 => setTimeout(r2, 420)); }
+      const out = r.top < 70 || r.bottom > innerHeight - 160;
+      if (out) { s.el.scrollIntoView({ block: 'center', behavior: reduce() ? 'auto' : 'smooth' }); await new Promise(r2 => setTimeout(r2, 460)); }
     }
     if (dead || i !== n) return;
     setHL(s.el);
+    // Blasengröße steht vorher fest (unsichtbarer Volltext) – so springt nichts, während der Text reinläuft
+    sz.textContent = s.say; ty.textContent = '';
+    layout();
     say.classList.remove('pop'); void say.offsetWidth; say.classList.add('pop');
     await typeOut(s.say);
     if (dead || i !== n) return;
@@ -76,7 +180,8 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
   function schedule() { clearTimeout(hold); if (!paused) hold = setTimeout(() => go(i + 1), readMs()); }
   function finish() {
     setHL(null); clearTimeout(hold);
-    txt.textContent = L('Das war’s. Frag mich, wenn was hakt.', 'That’s it. Ask me if anything’s unclear.');
+    const t = L('Das war’s. Frag mich, wenn was hakt.', 'That’s it. Ask me if anything’s unclear.');
+    sz.textContent = t; ty.textContent = t;
     num.textContent = ''; cur.classList.add('done');
     hold = setTimeout(() => stop(), 3400);
   }
@@ -84,8 +189,11 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
   function resume() { if (dead) return; paused = false; drawCtl(); if (typed >= (steps[i]?.say || '').length) schedule(); }
   function stop(quick) {
     if (dead) return; dead = true;
-    cancelAnimationFrame(raf); clearTimeout(hold); clearInterval(typing); setHL(null);
+    cancelAnimationFrame(raf); clearTimeout(hold); clearTimeout(relT); clearInterval(typing); setHL(null);
     removeEventListener('keydown', onKey, true);
+    removeEventListener('hashchange', onHash);
+    removeEventListener('scroll', relayout, true);
+    removeEventListener('resize', relayout);
     if (active === ctl) { active = null; document.documentElement.classList.remove('mx-touring'); }
     if (quick || reduce()) cur.remove(); else { cur.classList.add('out'); setTimeout(() => cur.remove(), 380); }
     onEnd && onEnd();
@@ -97,11 +205,15 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max' } = {}) {
     else if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); }
     else if (e.key === 'ArrowLeft') { e.preventDefault(); go(Math.max(0, i - 1)); }
   };
+  const onHash = () => stop(true);
   addEventListener('keydown', onKey, true);
+  addEventListener('hashchange', onHash);
+  addEventListener('scroll', relayout, { capture: true, passive: true });
+  addEventListener('resize', relayout);
   bPause.onclick = () => (paused ? resume() : pause());
   bNext.onclick = () => go(i + 1);
   bStop.onclick = () => stop();
-  if (bAsk) bAsk.onclick = () => { pause(); onAsk(); };
+  if (bAsk) bAsk.onclick = () => { pause(); const s = steps[i]; onAsk({ i: i + 1, n: steps.length, say: s.say, el: s.el }); };
   const ctl = { pause, resume, stop, next: () => go(i + 1), el: cur };
   active = ctl;
   cur.style.transform = `translate(${x}px, ${y}px)`;
@@ -116,6 +228,14 @@ export function boardSteps(t) {
   if (!t) return [];
   const els = [...t.querySelectorAll('[data-say]')].filter(el => !el.parentElement.closest('[data-say]'));
   return els.map(el => ({ el, say: String(el.getAttribute('data-say') || '').trim().slice(0, 240) })).filter(s => s.say);
+}
+
+// Kurzer Text einer Stelle (für „Frage zu …“)
+export function spotText(el, max = 60) {
+  if (!el) return '';
+  const t = el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' ? ((el.getAttribute('aria-label') || el.closest('label')?.innerText || el.placeholder || '') + (el.value ? ' = ' + el.value : '')) : (el.innerText || el.textContent || '');
+  const s = t.replace(/\s+/g, ' ').trim();
+  return s.length > max ? s.slice(0, max - 1) + '…' : s;
 }
 
 // Seite: sichtbare, sinnvolle Stellen bekommen eine Kennung, Max bekommt eine kurze Liste davon
@@ -158,25 +278,28 @@ export const byMxId = id => document.querySelector(`[data-mxid="${String(id).rep
 const css = `
 .mx-cur { position: fixed; left: 0; top: 0; z-index: 130; pointer-events: none; opacity: 0; transition: opacity .3s ease; will-change: transform; }
 .mx-cur.in { opacity: 1; } .mx-cur.out { opacity: 0; transition: opacity .35s ease; }
-.mx-p { position: absolute; left: -3px; top: -2px; width: 26px; height: 28px; display: block; filter: drop-shadow(0 4px 10px rgba(0,0,0,.45)); }
+.mx-p { position: absolute; left: -3px; top: -2px; width: 26px; height: 28px; display: block; filter: drop-shadow(0 4px 10px rgba(0,0,0,.45)); transition: transform .3s cubic-bezier(.3,1.4,.5,1); }
+.mx-cur.flip-x .mx-p { left: -23px; transform: scaleX(-1); }
 .mx-ptr { width: 100%; height: 100%; display: block; }
 .mx-ptr path { fill: var(--inv); stroke: var(--bg); stroke-width: 1.6; stroke-linejoin: round; }
-.mx-tag { position: absolute; left: 18px; top: 22px; padding: 3px 10px 4px; border-radius: 999px 999px 999px 4px; background: var(--inv); color: var(--onInv); font: 700 12px/1.2 var(--sans); letter-spacing: .01em; white-space: nowrap; box-shadow: 0 6px 18px -6px rgba(0,0,0,.5); }
-.mx-say { position: absolute; left: 18px; top: 50px; width: max-content; max-width: min(340px, calc(100vw - 20px)); padding: 12px 14px 9px; border-radius: 6px 18px 18px 18px; background: var(--panel); color: var(--ink); border: 1px solid var(--line2); box-shadow: 0 24px 60px -24px rgba(0,0,0,.75), 0 0 0 1px color-mix(in srgb, var(--ink) 6%, transparent); pointer-events: auto; transform-origin: 0 0; }
+.mx-say { position: absolute; left: 18px; top: 50px; width: max-content; max-width: min(340px, calc(100vw - 20px)); padding: 12px 14px 9px; border-radius: 6px 18px 18px 18px; background: var(--panel); color: var(--ink); border: 1px solid var(--line2); box-shadow: 0 24px 60px -24px rgba(0,0,0,.75), 0 0 0 1px color-mix(in srgb, var(--ink) 6%, transparent); pointer-events: auto; transform-origin: 0 0; transition: left .42s cubic-bezier(.16,1,.3,1), top .42s cubic-bezier(.16,1,.3,1), border-radius .3s; }
+.mx-cur.flip-x .mx-say { border-radius: 18px 6px 18px 18px; transform-origin: 100% 0; }
+.mx-cur[data-at$="-up"] .mx-say { border-radius: 18px 18px 18px 6px; transform-origin: 0 100%; }
+.mx-cur.flip-x[data-at$="-up"] .mx-say { border-radius: 18px 18px 6px 18px; transform-origin: 100% 100%; }
 .mx-say.pop { animation: mxpop .38s cubic-bezier(.3,1.4,.5,1) both; }
-@keyframes mxpop { from { opacity: .3; transform: scale(.9) translateY(-4px); } }
-.mx-txt { font: 500 15px/1.48 var(--sans); min-height: 1.5em; text-wrap: pretty; }
+@keyframes mxpop { from { opacity: .3; transform: scale(.92) translateY(-3px); } }
+.mx-tag { position: absolute; left: -1px; bottom: calc(100% + 5px); padding: 3px 10px 4px; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 700 12px/1.2 var(--sans); letter-spacing: .01em; white-space: nowrap; box-shadow: 0 6px 18px -6px rgba(0,0,0,.5); }
+.mx-cur.flip-x .mx-tag { left: auto; right: -1px; }
+.mx-txt { display: grid; font: 500 15px/1.48 var(--sans); min-height: 1.5em; text-wrap: pretty; }
+.mx-txt > span { grid-area: 1 / 1; } .mx-sz { visibility: hidden; }
 .mx-ctl { display: flex; align-items: center; gap: 2px; margin-top: 8px; padding-top: 7px; border-top: 1px solid var(--line); }
 .mx-n { font: 600 11px var(--mono); color: var(--mute); }
 .mx-b { width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 8px; background: transparent; color: var(--ink2); cursor: pointer; } .mx-b:hover { background: var(--panel2); color: var(--ink); } .mx-b .ico { width: 15px; height: 15px; } .mx-pp .ico { fill: currentColor; stroke: none; width: 13px; height: 13px; }
 .mx-ask { display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; margin-right: 4px; border-radius: 999px; border: 1px solid var(--line2); background: transparent; color: var(--ink); font: 600 12px var(--sans); cursor: pointer; } .mx-ask:hover { border-color: var(--ink); } .mx-ask .ico { width: 13px; height: 13px; }
 .mx-cur.paused .mx-tag::after { content: " · Pause"; font-weight: 500; opacity: .75; }
 .mx-cur.done .mx-ctl { display: none; }
-.mx-cur.flip-x .mx-say { border-radius: 18px 6px 18px 18px; transform-origin: 100% 0; }
-.mx-cur.flip-x .mx-tag { left: auto; right: 4px; border-radius: 999px 999px 4px 999px; }
-.mx-cur.flip-y .mx-say { top: auto; bottom: 10px; }
 .mx-hl { outline: 2px solid var(--ink) !important; outline-offset: 4px; box-shadow: 0 0 0 8px color-mix(in srgb, var(--ink) 9%, transparent) !important; transition: outline-offset .25s ease, box-shadow .25s ease; }
 svg text.mx-hl { outline: none !important; fill: var(--ink); font-weight: 800; }
-@media (prefers-reduced-motion: reduce) { .mx-say.pop { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .mx-say.pop { animation: none; } .mx-say, .mx-p { transition: none; } }
 `;
 const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);

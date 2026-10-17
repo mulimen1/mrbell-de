@@ -96,6 +96,7 @@ function buildShell() {
   const tnFace = h('span', { class: 'tn-face' });
   const topnav = h('nav', { class: 'topnav', 'aria-label': L('Bereiche', 'Sections') },
     h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor' }, tnFace, h('span', { class: 'tn-l' }, 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
+    navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
     navA('skripte', '#/app/skripte', 'file', L('Skripte', 'Slides')),
     navA('gemerkt', '#/app/gemerkt', 'star', L('Gemerkt', 'Saved')),
@@ -176,7 +177,7 @@ function renderList() {
   if (!shell) return;
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
-  const tn = { tutor: hs.startsWith('#/app/tutor'), faecher: hs.startsWith('#/app/faecher'), skripte: hs.startsWith('#/app/skripte') || inDoc, gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt') };
+  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen'), faecher: hs.startsWith('#/app/faecher'), skripte: hs.startsWith('#/app/skripte') || inDoc, gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt') };
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
   $$('[data-nav="foto"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer/buchung')));
@@ -216,6 +217,7 @@ export async function mountApp(parts) {
   });
   if (a === 'rechner') return page('rechner:' + (b || ''), L('Rechner', 'Calculators'), async root => { const { render } = await import('./views/rechner.js'); return render(root, { arg: b || '', onAsk: t => viaMax(m => m.ask(t)).then(ok => { if (!ok) askTutorAbout(t, { confirm: false }); }) }); });
   if (a === 'challenge') return page('challenge', L('Wochen-Challenge', 'Weekly challenge'), async root => { const { renderChallenge } = await import('./challenge.js'); renderChallenge(root, { onLogin: () => openLogin({ title: L('Anmelden für die Challenge', 'Sign in for the challenge') }) }); });
+  if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
   if (a === 'skripte') return page('skripte', L('Skripte', 'Slides'), async root => { const { render } = await import('./views/skripte.js'); return render(root); });
   // Tutor-Raum: die Startseite. Wer von woanders kommt, dem fliegt Max von unten rechts entgegen.
   if (!a || (a === 'me' && !b)) { location.replace('#/app/tutor'); return; }

@@ -166,16 +166,16 @@ export function typePlaceholder(inp, base, examples, pre = '') {
   inp.placeholder = base;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || !examples?.length) return;
   let k = Math.floor(Math.random() * examples.length);
-  const busy = () => !!inp.value;
+  const busy = () => !!inp.value || !!inp.dataset.phLock;
   const wait = ms => new Promise(r => setTimeout(r, ms));
   (async () => {
     await wait(2200);
     while (inp.isConnected) {
-      if (busy()) { inp.placeholder = base; await wait(800); continue; }
+      if (busy()) { inp.placeholder = inp.dataset.phLock || base; await wait(800); continue; }
       const t = pre + examples[k++ % examples.length];
       for (let i = pre.length; i <= t.length; i++) { if (busy() || !inp.isConnected) break; inp.placeholder = t.slice(0, i); await wait(42); }
       await wait(2000);
-      if (!busy()) inp.placeholder = base;
+      if (!busy()) inp.placeholder = base; else if (inp.dataset.phLock) inp.placeholder = inp.dataset.phLock;
       await wait(2600);
     }
   })();

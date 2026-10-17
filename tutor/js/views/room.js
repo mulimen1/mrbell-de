@@ -117,8 +117,17 @@ export function render(root, ctx = {}) {
     const justGreeted = Date.now() - fresh < 20000;
     const lets = ({ locker: L('So. Lass uns direkt loslegen.', 'Right. Let’s get going.'), freundlich: L('Schön, dass du da bist. Lass uns loslegen.', 'Good to have you here. Let’s get started.'), sachlich: L('Los geht’s.', 'Let’s go.'), streng: L('Keine Ausreden. Wir legen los.', 'No excuses. We start now.') })[c.ton] || L('Lass uns loslegen.', 'Let’s get started.');
     const out = [justGreeted ? lets : `${gruss()}${nick ? ', ' + nick : ''}.`];
-    // Lage in einem Satz
+    // Lage in einem Satz – frisch hochgeladenes Skript zuerst: Max kennt es schon
     const ex = nextExam(), due = S.list.reduce((x, d) => x + dueCards(d).length, 0);
+    const fresh1 = S.list.filter(d => !d.sample && Date.now() - (d.created || 0) < 3 * 3600e3).sort((a, b) => b.created - a.created)[0];
+    if (fresh1) {
+      const nm = fresh1.name.length > 52 ? fresh1.name.slice(0, 51) + '…' : fresh1.name;
+      const nc = (fresh1.decks || []).reduce((x, k) => x + (k.cards || []).length, 0);
+      out.push(nc ? L(`„${nm}“ hab ich gelesen – und deine ${nc} Karteikarten dazu liegen bereit.`, `I’ve read “${nm}” – and your ${nc} flashcards for it are ready.`) : L(`„${nm}“ hab ich schon gelesen.`, `I’ve already read “${nm}”.`));
+      if (!justGreeted && getSpice() >= 2 && c.ton !== 'sachlich') out.push(nextSpruch());
+      out.push(L('Was willst du daraus wissen?', 'What do you want to know from it?'));
+      return out.join(' ');
+    }
     if (ex && ex.days <= 21) out.push(ex.days === 0 ? L(`Heute ist ${ex.name}. Du packst das – kurz aufwärmen?`, `${ex.name} is today. You’ve got this – quick warm-up?`) : L(`${ex.name} in ${tage(ex.days)}${ex.m != null ? `, Prüfungsreife ${ex.m} %` : ''}. Da setzen wir an.`, `${ex.name} in ${tage(ex.days)}${ex.m != null ? `, readiness ${ex.m}%` : ''}. That’s where we start.`));
     else if (due) out.push(L(`${due} ${due === 1 ? 'Karte ist' : 'Karten sind'} fällig – ${Math.max(2, Math.round(due * .4))} Minuten, dann sitzt das.`, `${due} ${due === 1 ? 'card is' : 'cards are'} due – ${Math.max(2, Math.round(due * .4))} minutes and it sticks.`));
     else if (!S.list.filter(d => !d.sample).length) out.push(L('Zieh mir dein erstes Skript rein – oder sag mir einfach, was du lernen willst.', 'Drop in your first slides – or just tell me what you want to learn.'));
