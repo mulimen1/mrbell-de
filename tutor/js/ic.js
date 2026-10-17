@@ -70,3 +70,52 @@ export function innerCircle({ reason = '', later = '' } = {}) {
     setTimeout(() => (ready ? cta : box.querySelector('.icx-later')).focus({ preventScroll: true }), 60);
   });
 }
+
+// Kündigen im Konto: erst klar zeigen, was wegfällt (im Test: sofort), dann ein zweites Mal bestätigen.
+// Der gesetzliche Kündigungsbutton unter „Verträge kündigen“ (§ 312k BGB) bleibt davon unberührt und einfach.
+// Liefert true, wenn wirklich gekündigt werden soll.
+export function cancelFlow({ trial = false, end = 0 } = {}) {
+  return new Promise(async resolve => {
+    let gone = false, fc = null;
+    const close = v => { if (gone) return; gone = true; bg.classList.add('out'); document.removeEventListener('keydown', onKey); setTimeout(() => bg.remove(), matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 340); resolve(v); };
+    const onKey = e => { if (e.key === 'Escape') close(false); };
+    const day = t => t ? new Date(t).toLocaleDateString(L('de-DE', 'en-GB'), { day: 'numeric', month: 'long' }) : '';
+    const LOSE = [
+      ['chat', L('Max ohne Tageslimit', 'Max without a daily limit'), L('Zurück auf 40 Einheiten pro Tag', 'Back to 40 credits a day')],
+      ['exam', L('Probeklausuren', 'Mock exams'), L('Fallen weg', 'Gone')],
+      ['pod', L('Längere Podcasts', 'Longer podcasts'), L('Fallen weg', 'Gone')],
+      ['refresh', L('Sync auf allen Geräten', 'Sync on all devices'), L('Fällt weg', 'Gone')],
+    ];
+    const f = h('span', { class: 'icx-face' });
+    const box = h('div', { class: 'modal icx icc', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Inner Circle kündigen', 'Cancel the Inner Circle') });
+    const keep = () => { close(false); import('./util.js').then(m => m.toast(L('Schön, dass du bleibst.', 'Glad you’re staying.'), 2600)); };
+    const step1 = () => box.replaceChildren(
+      h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(false) }),
+      h('div', { class: 'icx-top' }, f, h('div', { class: 'icx-why' }, trial ? L(`Dein kostenloser Test läuft noch bis ${day(end)}.`, `Your free trial runs until ${day(end)}.`) : L(`Bezahlt bis ${day(end)}.`, `Paid until ${day(end)}.`))),
+      h('h3', { class: 'icc-h' }, trial ? L('Kündigst du jetzt, ist alles sofort weg.', 'Cancel now and it’s all gone instantly.') : L(`Ab ${day(end)} ist alles weg.`, `From ${day(end)}, it’s all gone.`)),
+      h('p', { class: 'icx-lead' }, trial ? L(`Nicht erst am ${day(end)} – sondern in diesem Moment. Das verlierst du:`, `Not on ${day(end)} – right now. Here’s what you lose:`) : L('Bis dahin bleibt alles, wie es ist. Danach verlierst du:', 'Until then nothing changes. After that you lose:')),
+      h('ul', { class: 'icx-ben icc-lose' }, LOSE.map(([ic, t, s], i) => h('li', { style: { '--i': String(i) } }, h('span', { class: 'icx-bi', html: ico(ic) }), h('span', {}, h('b', {}, t), h('small', {}, s))))),
+      trial ? h('div', { class: 'icc-tip' }, h('b', {}, L('Tipp:', 'Tip:')), ' ', L(`Nutz den Test einfach weiter und kündige erst kurz vor dem ${day(end)} – bis dahin zahlst du nichts. Den kostenlosen Test gibt es nur einmal.`, `Keep using the trial and cancel just before ${day(end)} – you pay nothing until then. The free trial is one-time only.`)) : null,
+      h('button', { class: 'btn primary lg ic-btn icx-cta', type: 'button', onclick: keep }, L('Inner Circle behalten', 'Keep the Inner Circle')),
+      h('button', { class: 'icx-later icc-go', type: 'button', onclick: step2 }, L('Trotzdem kündigen', 'Cancel anyway')));
+    const step2 = () => {
+      box.classList.add('icc-2');
+      box.replaceChildren(
+        h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(false) }),
+        h('div', { class: 'icx-top' }, f, h('div', { class: 'icx-why' }, L('Letzter Schritt', 'Last step'))),
+        h('h3', { class: 'icc-h' }, L('Wirklich kündigen?', 'Really cancel?')),
+        h('p', { class: 'icx-lead' }, trial ? L('Alle Vorteile enden sofort, und der kostenlose Test lässt sich nicht noch einmal starten.', 'All benefits end right away, and the free trial can’t be started again.') : L(`Dein Inner Circle endet am ${day(end)}. Danach wird nichts mehr abgebucht.`, `Your Inner Circle ends on ${day(end)}. Nothing is charged after that.`)),
+        h('div', { class: 'icc-row' },
+          h('button', { class: 'btn lg icc-yes', type: 'button', onclick: () => close(true) }, L('Ja, jetzt kündigen', 'Yes, cancel now')),
+          h('button', { class: 'btn primary lg ic-btn', type: 'button', onclick: keep }, L('Doch behalten', 'Keep it'))));
+      try { fc && fc.pulse && fc.pulse('sad', 1800); } catch (e) {}
+      setTimeout(() => box.querySelector('.ic-btn')?.focus({ preventScroll: true }), 60);
+    };
+    step1();
+    const bg = h('div', { class: 'modal-bg icx-bg', onclick: e => { if (e.target === bg) close(false); } }, box);
+    document.body.appendChild(bg);
+    document.addEventListener('keydown', onKey);
+    try { const { face } = await import('./face.js'); fc = face(f, { follow: false }); setTimeout(() => fc.pulse && fc.pulse('sad', 1600), 500); } catch (e) {}
+    setTimeout(() => box.querySelector('.icx-cta')?.focus({ preventScroll: true }), 60);
+  });
+}

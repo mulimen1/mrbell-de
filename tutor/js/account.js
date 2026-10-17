@@ -290,12 +290,12 @@ export function refreshAccount() {
 function aboRow(a) {
   if (a.pro && a.sub) {
     const tx = h('span', {}, L('aktiv · 7,99 € / Monat', 'active · €7.99 / month'));
-    let trial = false;
+    let trial = false, info = null;
     const btn = h('button', { class: 'linkbtn', type: 'button', onclick: async () => {
-      const ok = await modal({ title: L('Inner Circle kündigen?', 'Cancel the Inner Circle?'),
-        text: trial ? L('Du bist im Testzeitraum: Die Vorteile enden sofort und es wird nichts abgebucht.', 'You’re in your trial: benefits end right away and nothing is charged.')
-          : L('Dein Inner Circle läuft bis zum Ende des bezahlten Monats weiter. Danach wird nichts mehr abgebucht.', 'Your Inner Circle keeps running until the end of the paid month. Nothing is charged after that.'),
-        actions: [{ label: L('Behalten', 'Keep it'), value: false }, { label: L('Kündigen', 'Cancel'), value: true, primary: true }] });
+      // Erst zeigen, was wegfällt, dann ein zweites Mal bestätigen
+      document.querySelector('.modal-bg')?.remove();
+      const { cancelFlow } = await import('./ic.js');
+      const ok = await cancelFlow({ trial, end: info ? (trial ? info.trialEnd : info.periodEnd) : proEnd(a) });
       if (!ok) return;
       try {
         const m = await import('./abo.js'); const r = await m.cancelAbo();
@@ -305,7 +305,7 @@ function aboRow(a) {
     } }, L('kündigen', 'cancel'));
     import('./abo.js').then(m => m.hub('status')).then(r => {
       const x = r.abo; if (!x) return;
-      trial = x.status === 'trialing';
+      info = x; trial = x.status === 'trialing';
       tx.textContent = trial ? L(`Test bis ${fmtDate(x.trialEnd)}`, `Trial until ${fmtDate(x.trialEnd)}`)
         : x.cancelAt ? L(`gekündigt · läuft bis ${fmtDate(x.cancelAt)}`, `cancelled · runs until ${fmtDate(x.cancelAt)}`)
         : L(`aktiv · 7,99 € / Monat · nächste Abbuchung ${fmtDate(x.periodEnd)}`, `active · €7.99 / month · next charge ${fmtDate(x.periodEnd)}`);

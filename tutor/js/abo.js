@@ -67,7 +67,7 @@ export async function openAbo() {
     h('div', { class: 'abo-price' },
       h('div', {}, h('span', {}, L('Heute', 'Today')), today),
       h('div', {}, later, laterVal),
-      h('small', {}, L('Endpreis. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.', 'Final price. No VAT charged under § 19 UStG (small business).'))),
+      h('small', {}, L('Endpreis – keine Mehrwertsteuer (Kleinunternehmer, § 19 UStG).', 'Final price – no VAT (small business, § 19 UStG).'))),
     pe, err,
     trialNote,
     h('p', { class: 'abo-small' }, L('Es gelten unsere ', 'Our '), h('a', { href: legal('agb'), target: '_blank', rel: 'noopener' }, L('AGB', 'terms')), L('. Infos zu deinem Widerrufsrecht stehen in der ', ' apply. Information on your right of withdrawal is in the '), h('a', { href: legal('widerruf'), target: '_blank', rel: 'noopener' }, L('Widerrufsbelehrung', 'withdrawal notice')), '.'),
@@ -95,7 +95,13 @@ export async function openAbo() {
     stripe = Stripe(PK, { locale: document.documentElement.lang === 'en' ? 'en' : 'de' });
     const d = dark();
     elements = stripe.elements({ clientSecret: st.clientSecret, appearance: { theme: d ? 'night' : 'stripe', variables: { colorPrimary: d ? '#f5f5f5' : '#0a0a0a', colorBackground: d ? '#0b0b0c' : '#ffffff', colorText: d ? '#f5f5f5' : '#0a0a0a', borderRadius: '14px', fontFamily: 'Geist, -apple-system, Segoe UI, Helvetica, Arial, sans-serif', spacingUnit: '4px' } } });
-    const el = elements.create('payment', { layout: 'tabs' });
+    // Apple Pay: im Apple-Pay-Fenster steht das Abo mit Test und Monatspreis (sonst zeigt Apple nur „0,00 €“)
+    const rec = { paymentDescription: 'Max’s Inner Circle', managementURL: location.origin + '/#/app/me',
+      regularBilling: { amount: 799, label: 'Max’s Inner Circle', recurringPaymentIntervalUnit: 'month', recurringPaymentIntervalCount: 1 } };
+    if (trialEnd) { rec.regularBilling.recurringPaymentStartDate = new Date(trialEnd); rec.trialBilling = { amount: 0, label: L('7 Tage gratis', '7 days free'), recurringPaymentEndDate: new Date(trialEnd) }; }
+    let el;
+    try { el = elements.create('payment', { layout: 'tabs', applePay: { recurringPaymentRequest: rec } }); }
+    catch (e) { el = elements.create('payment', { layout: 'tabs' }); }
     pe.replaceChildren(); el.mount(pe);
     el.on('ready', () => { btn.disabled = false; });
   } catch (e) { err.textContent = L('Der Bezahlschritt lädt gerade nicht. Prüf dein Internet oder versuch es gleich nochmal.', 'The payment step won’t load right now. Check your connection and try again.'); return; }
