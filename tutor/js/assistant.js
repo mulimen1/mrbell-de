@@ -175,7 +175,7 @@ export function mountAssistant() {
   const stTx = h('span', { class: 'ai-st' });
   const inp = h('input', { class: 'ai-in', type: 'text', enterkeyhint: 'send', autocomplete: 'off', maxlength: 1500, 'aria-label': L('Nachricht an Max', 'Message to Max') });
   typePlaceholder(inp, L('Frag mich was …', 'Ask me anything …'),
-    L(['Erklär mir den Kapitalwert', 'Bau mir ein Quiz', 'Was ist der Break-even?', 'Mach mir Karteikarten', 'Was soll ich heute lernen?', 'Erklär mir latente Steuern'], ['Explain net present value', 'Build me a quiz', 'What is break-even?', 'Make me flashcards', 'What should I study today?', 'Explain deferred taxes']), L('z. B. ', 'e.g. '));
+    L(['Erklär mir den Kapitalwert', 'Dokument reinziehen oder mit ⌘V einfügen', 'Bau mir ein Quiz', 'Was ist der Break-even?', 'Mach mir Karteikarten', 'Was soll ich heute lernen?', 'Erklär mir latente Steuern'], ['Explain net present value', 'Drag in a document or paste with ⌘V', 'Build me a quiz', 'What is break-even?', 'Make me flashcards', 'What should I study today?', 'Explain deferred taxes']), L('z. B. ', 'e.g. '));
   const mid = h('div', { class: 'ai-mid' }, stTx, wave.el, inp);
   const B = (cls, label, html) => h('button', { class: 'ai-b ' + cls, type: 'button', 'aria-label': label, title: label, html });
   const micBtn = h('button', { class: 'ai-talk', type: 'button', 'aria-label': L('Sprich mit Max', 'Talk to Max') }, h('span', { html: ico('mic') }), h('span', { class: 'lbl' }, L('Sprich mit Max', 'Talk to Max')));
@@ -184,10 +184,14 @@ export function mountAssistant() {
   const stopBtn = B('ai-stop primary', L('Stopp', 'Stop'), SVG.stop);
   const muteBtn = B('ai-mute', '', SVG.spkOn);
   const closeBtn = B('ai-close', L('Einklappen', 'Collapse'), ico('x'));
+  // Dokumente rein: Knopf, Reinziehen oder ⌘V ins Eingabefeld
+  const attIn = h('input', { type: 'file', multiple: true, hidden: true, accept: '.pdf,.ppt,.pptx,.doc,.docx,.txt,.md,.rtf,.odt,.odp,image/*', onchange: e => { const fs = [...(e.target.files || [])]; e.target.value = ''; addFiles(fs); } });
+  const attBtn = h('button', { class: 'ai-att', type: 'button', 'aria-label': L('Dokument hinzufügen', 'Add a document'), title: L('Dokument hinzufügen – oder einfach reinziehen bzw. mit ⌘V einfügen', 'Add a document – or just drag it in or paste with ⌘V'), onclick: () => attIn.click() },
+    h('span', { html: ico('plus') }), h('span', { class: 'lbl' }, L('Dokument', 'Document')));
   const tourBtn = h('button', { class: 'ai-tourb', type: 'button', title: L('Max zeigt dir mit seinem Cursor, was auf dieser Seite wichtig ist', 'Max shows you with his cursor what matters on this page'), onclick: () => pageTour() },
     h('span', { html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5 18.5 11 12.4 12.4 9.6 18.6z"/></svg>' }), h('span', { class: 'lbl' }, L('Führ mich durch', 'Walk me through')));
   const isl = h('div', { class: 'ai-isl', role: 'group', 'aria-label': L('Max', 'Max') },
-    moreBtn, dotsBtn, mid, muteBtn, micBtn, tourBtn, sendBtn, doneBtn, stopBtn, closeBtn);
+    moreBtn, dotsBtn, attBtn, mid, muteBtn, micBtn, tourBtn, sendBtn, doneBtn, stopBtn, closeBtn, attIn);
   const vDesc = h('div', { class: 'ai-vdesc' });
   const voiceChips = VOICES.map(([k, l, d]) => voiceChip(k, l, d, () => { ls.set('tutor.voice', k); drawMenu(); }));
   const menu = h('div', { class: 'ai-menu', role: 'menu', hidden: true },
@@ -222,6 +226,7 @@ export function mountAssistant() {
     h('p', {}, L('Willst du sie nur griffbereit zur Seite legen? Dann tipp auf –.', 'Just want to put it aside, ready to grab? Tap – instead.')),
     h('div', { class: 'ai-bask-r' },
       h('button', { class: 'btn sm ai-del', type: 'button', onclick: () => { askBoard(false); deleteBoard(); } }, L('Löschen', 'Delete')),
+      h('button', { class: 'btn sm ai-delall', type: 'button', onclick: () => { askBoard(false); deleteAllBoards(); } }, h('span', { html: ico('trash') }), h('span', { class: 'ai-dan' })),
       h('button', { class: 'btn sm', type: 'button', onclick: () => { askBoard(false); minBoard(true); } }, h('span', { html: SVG.min }), L('Zur Seite legen', 'Put aside')),
       h('button', { class: 'btn sm ghost', type: 'button', onclick: () => askBoard(false) }, L('Abbrechen', 'Cancel'))));
   const bClose = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Tafel löschen', 'Delete board'), title: L('Löschen', 'Delete'), html: ico('x'), onclick: () => askBoard(true) });
@@ -477,6 +482,7 @@ export function mountAssistant() {
     const hasTx = !!inp.value.trim();
     show(muteBtn, s === 'speak' || s === 'think');
     show(dotsBtn, s === 'idle');
+    show(attBtn, s === 'idle');
     show(micBtn, s === 'idle');   // „Sprich mit Max“ steht immer unter dem Textfeld
     show(tourBtn, s === 'idle' && !STAGE && !!route().tab && route().tab !== 'room');
     show(sendBtn, s === 'idle' && hasTx);
@@ -648,7 +654,17 @@ export function mountAssistant() {
     capScroll();
   }
   function capScroll() { requestAnimationFrame(() => { cap.scrollTop = cap.scrollHeight; placeTog(); }); }
-  function capThinking() { if (!curEx) return; curEx.a.hidden = false; capA.replaceChildren(h('span', { class: 'typing' }, h('i'), h('i'), h('i'))); capScroll(); }
+  // Nachdenken: Pünktchen plus echte Gedanken, die wechseln (im Tutor-Raum denkt Max in der Blase über dem Kopf)
+  let thkT = 0;
+  function capThinking() {
+    if (!curEx) return; curEx.a.hidden = false;
+    const th = h('span', { class: 'ai-thk' });
+    capA.replaceChildren(h('span', { class: 'typing' }, h('i'), h('i'), h('i')), ...(STAGE ? [] : [th])); capScroll();
+    clearInterval(thkT); if (STAGE) return;
+    const lines = thinkLines('voice', [L('Ich sortier das kurz …', 'Sorting this out …'), L('Gleich hab ich’s …', 'Almost there …')]); let k = 0;
+    const nx = () => { if (!th.isConnected) return clearInterval(thkT); th.textContent = lines[k++ % lines.length]; th.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 }); capScroll(); };
+    setTimeout(() => { if (th.isConnected) { nx(); thkT = setInterval(nx, 2600); } }, 700);
+  }
   // Verlauf beim Start (zum Nachlesen)
   hist.slice(-12).forEach((m, i, arr) => {
     if (m.role === 'user') { const nx = arr[i + 1]; const pr = bubPair(m.content.replace(/^\[[^\]]*\]\n/, '')); if (nx?.role === 'assistant') { const px = parse(nx.content); pr.a.hidden = false; pr.aTx.appendChild(richText(px.text || (px.boards.length ? L('Schau an die Tafel.', 'Look at the board.') : '…'))); px.boards.forEach(b => pr.aX.appendChild(boardBtn(b))); } pr.done = true; }
@@ -691,10 +707,35 @@ export function mountAssistant() {
     });
   }
   function minBoard(v, quiet) {
+    // Zur Seite legen: Tafel gleitet nach rechts raus, am Rand bleibt ein „Tafel“-Griff zum Zurückholen
+    if (v && !quiet && !boardMin && boardOpen && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const an = board.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateX(70px) scale(.97)' }], { duration: 260, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
+      an.finished.then(() => { minBoard(true, true); an.cancel(); bTab.animate([{ opacity: 0, transform: 'translate(20px, -50%)' }, { opacity: 1, transform: 'translate(0, -50%)' }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)' }); }).catch(() => {});
+      return;
+    }
     boardMin = !!v; root.classList.toggle('board-min', boardMin); askBoard(false); syncLock(); boardHook();
     if (!quiet && !v) board.animate([{ opacity: 0, transform: 'translateX(30px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
   }
-  function askBoard(v) { bAsk.hidden = !v; if (v) bAsk.querySelector('.ai-del').focus({ preventScroll: true }); }
+  function askBoard(v) {
+    bAsk.hidden = !v;
+    if (v) { const n = boards.length, all = bAsk.querySelector('.ai-delall'); all.hidden = n < 2; all.querySelector('.ai-dan').textContent = L(`Alle ${n} löschen`, `Delete all ${n}`); bAsk.querySelector('.ai-del').focus({ preventScroll: true }); }
+  }
+  // Alle Tafeln auf einmal weg (auch aus den Skripten) – mit Rückgängig
+  function deleteAllBoards() {
+    const gone = boards.slice(), touched = [];
+    for (const d of S.list.concat(S.doc ? [S.doc] : [])) {
+      if (!d || !Array.isArray(d.boards) || touched.some(x => x.d === d)) continue;
+      const before = d.boards.slice();
+      d.boards = d.boards.filter(x => !gone.some(b => b.title === x.title && b.html === x.html));
+      if (d.boards.length !== before.length) { touched.push({ d, before }); save(d); }
+    }
+    stopTour(); boards = []; bIdx = 0; closeBoard();
+    const undo = h('button', { class: 'toast-undo', type: 'button', onclick: () => {
+      boards = gone; bIdx = Math.max(0, gone.length - 1); touched.forEach(({ d, before }) => { d.boards = before; save(d); });
+      drawBoard(false); openBoard(); undo.closest('.toast')?.remove();
+    } }, L('Rückgängig', 'Undo'));
+    toast(h('span', { class: 'toast-row' }, L(`${gone.length} Tafeln gelöscht.`, `${gone.length} boards deleted.`), undo), 6000);
+  }
   // Löschen: aktuelle Tafel raus (auch aus dem Skript), sonst nächste zeigen
   function deleteBoard() {
     const b = boards[bIdx]; if (!b) return closeBoard();
@@ -809,6 +850,7 @@ export function mountAssistant() {
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     unlockAudio();
     capQuestion(text); capQ.classList.remove('live'); capThinking();
+    const pasted = attachTx; if (pasted) { capQ.prepend(h('span', { class: 'ai-refq' }, L('Eingefügter Text · ', 'Pasted text · ') + pasted.length.toLocaleString('de-DE') + L(' Zeichen', ' chars'))); clearAttach(); }
     if (askRef) capQ.prepend(h('span', { class: 'ai-refq' }, L(`Zu ${askRef.i}/${askRef.n} · `, `Re ${askRef.i}/${askRef.n} · `) + (askRef.spot.length > 60 ? askRef.spot.slice(0, 59) + '…' : askRef.spot)));
     const ex = curEx;
     const ctxLine = pageContext();
@@ -831,13 +873,15 @@ export function mountAssistant() {
         `[Page tour for the page “${here}”: only refer to this page and this element list. Answer with a 1–2 sentence intro, then exactly one \`\`\`zeigen block with a JSON list of 4–7 steps, e.g. [{"id":"m3","say":"…"}]. Only use ids from this list, in a sensible order. say = 1–2 short sentences: what it is and why it matters – concrete, with the numbers on the page.\nPage elements:\n${pendingMap}]`) : '';
       pendingMap = null;
       let KNOW = ''; try { KNOW = knowledge(); } catch (e) {}
-      const pre = [ctxLine, KNOW, WECHSEL, REF, maxPrompt(), TAFEL, SEITE].filter(Boolean).join('\n');
+      const KURZ = spoken ? L('[Gesprochenes Gespräch: Antworte wie im echten Gespräch – höchstens 2–3 kurze Sätze, direkt auf den Punkt. Ausführliches gehört an die Tafel.]', '[Spoken conversation: answer like a real conversation – 2–3 short sentences max, straight to the point. Anything detailed goes on the board.]') : '';
+      const pre = [ctxLine, KNOW, WECHSEL, REF, KURZ, maxPrompt(), TAFEL, SEITE].filter(Boolean).join('\n');
       if (pre) messages[messages.length - 1].content = pre + '\n' + text;
       const payload = { messages, opts: { mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true } };
       const d = curDoc();
       const mat = STAGE && STAGE.material ? STAGE.material(text) : null;
       if (mat) Object.assign(payload, mat);
       else if (d) Object.assign(payload, { material: forChat(d, text + ' ' + visibleText(400)), docName: d.name });
+      if (pasted) { payload.material = (payload.material ? payload.material + '\n\n' : '') + L('### Vom Nutzer eingefügter Text\n', '### Text pasted by the user\n') + pasted; payload.docName = payload.docName ? payload.docName + L(' + eingefügter Text', ' + pasted text') : L('Eingefügter Text', 'Pasted text'); }
       const r = await ask('chat', payload, { signal: ctrl.signal });
       if (my !== gen) return;
       const raw = String(r.text || '').slice(0, 12000);
@@ -904,7 +948,36 @@ export function mountAssistant() {
   const refTx = h('span', { class: 'ai-ref-t' });
   const refChip = h('div', { class: 'ai-ref', hidden: true }, h('span', { class: 'ai-ref-i', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5 18.5 11 12.4 12.4 9.6 18.6z"/></svg>' }), refTx,
     h('button', { class: 'ai-ref-x', type: 'button', 'aria-label': L('Bezug entfernen', 'Remove reference'), html: ico('x'), onclick: e => { e.stopPropagation(); clearRef(); inp.focus({ preventScroll: true }); } }));
-  isl.appendChild(refChip);
+  // eingefügter langer Text hängt als Kontext an der nächsten Frage
+  let attachTx = '';
+  const attTx = h('span', { class: 'ai-ref-t' });
+  const attChip = h('div', { class: 'ai-ref att', hidden: true }, h('span', { class: 'ai-ref-i', html: ico('file') }), attTx,
+    h('button', { class: 'ai-ref-x', type: 'button', 'aria-label': L('Text entfernen', 'Remove text'), html: ico('x'), onclick: e => { e.stopPropagation(); clearAttach(); inp.focus({ preventScroll: true }); } }));
+  function setAttach(t) {
+    attachTx = String(t).slice(0, 60000);
+    attTx.replaceChildren(h('b', {}, L('Eingefügter Text', 'Pasted text')), ' · ' + attachTx.length.toLocaleString('de-DE') + L(' Zeichen', ' chars'));
+    attChip.hidden = false; root.classList.add('has-att');
+    inp.dataset.phLock = L('Was soll ich damit machen?', 'What should I do with it?'); inp.placeholder = inp.dataset.phLock;
+  }
+  function clearAttach() { attachTx = ''; attChip.hidden = true; root.classList.remove('has-att'); if (!askRef) delete inp.dataset.phLock; }
+  function addFiles(fs) {
+    fs = (fs || []).filter(f => f && f.size);
+    if (!fs.length) return;
+    ls.set('tutor.attach.room', 1);   // nach dem Einlesen zurück in den Tutor-Raum, mit genau diesem Skript
+    import('./app.js').then(m => m.startUpload(fs));
+  }
+  inp.addEventListener('paste', e => {
+    const fs = [...(e.clipboardData?.files || [])];
+    if (fs.length) { e.preventDefault(); addFiles(fs); return; }
+    const tx = e.clipboardData?.getData('text/plain') || '';
+    if (tx.length > 600) { e.preventDefault(); setAttach(tx); }
+  });
+  // Reinziehen auf Max (außerhalb des Raums – dort fängt der Raum es selbst)
+  const hasFiles = e => [...(e.dataTransfer?.types || [])].includes('Files');
+  document.addEventListener('dragover', e => { if (STAGE || !open || !hasFiles(e)) return; const on = !!e.target.closest?.('.asst'); root.classList.toggle('dropping', on); if (on) { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; } });
+  document.addEventListener('dragleave', e => { if (!e.relatedTarget) root.classList.remove('dropping'); });
+  document.addEventListener('drop', e => { root.classList.remove('dropping'); if (STAGE || !open || !hasFiles(e) || !e.target.closest?.('.asst')) return; e.preventDefault(); addFiles([...(e.dataTransfer.files || [])]); });
+  isl.appendChild(h('div', { class: 'ai-chips' }, refChip, attChip));
   function setRef(r) {
     const spot = spotText(r.el, 64) || r.say.slice(0, 64);
     askRef = { i: r.i, n: r.n, say: r.say, spot: spotText(r.el, 160) || r.say };
@@ -912,7 +985,7 @@ export function mountAssistant() {
     refChip.hidden = false; root.classList.add('has-ref');
     inp.dataset.phLock = L('Deine Frage zu dieser Stelle …', 'Your question about this spot …'); inp.placeholder = inp.dataset.phLock;
   }
-  function clearRef() { askRef = null; refChip.hidden = true; root.classList.remove('has-ref'); delete inp.dataset.phLock; }
+  function clearRef() { askRef = null; refChip.hidden = true; root.classList.remove('has-ref'); if (!attachTx) delete inp.dataset.phLock; }
   addEventListener('hashchange', () => { if (askRef) clearRef(); });
   async function runTours(p, t) {
     if (p.tour && p.tour.length) {
@@ -960,34 +1033,76 @@ export function mountAssistant() {
 
   // ---------- Vorlesen (Text + Tafel laufen mit der Stimme) ----------
   function unlockAudio() { if (state === 'speak') return; try { audio.src = SILENT; audio.play().catch(() => {}); } catch (e) {} }
+  // Vorlesen in Stücken: der erste Satz geht sofort los, der Rest wird geholt, während Max schon spricht
+  function speechChunks(text) {
+    const sents = String(text).replace(/\s+/g, ' ').trim().match(/[^.!?…:;]+[.!?…:;]+["“”»«)]*\s*|[^.!?…:;]+$/g) || [text];
+    const out = []; let cur = '';
+    for (const s0 of sents) {
+      const s1 = s0.trim(); if (!s1) continue;
+      const lim = out.length === 0 ? 170 : 650;
+      if (cur && (cur.length + s1.length + 1 > lim || (out.length === 0 && cur.length >= 60))) { out.push(cur); cur = s1; }
+      else cur = cur ? cur + ' ' + s1 : s1;
+    }
+    if (cur) out.push(cur);
+    return out.length ? out : [text];
+  }
   async function speak(text, my, txt, t, ex) {
     const aEl = ex.aTx;
     let shown = false;
     // Ohne Ton: ganzen Text in SEINE Blase (nie in eine neuere)
     const showNow = (instant) => { if (shown) return; shown = true; ex.done = true; if (instant) aEl.replaceChildren(richText(txt)); else typeIt(aEl, txt, { scroll: capScroll }); if (t) writeAlong(t, () => 1); capScroll(); };
     capThinking();
-    try {
-      const r = await ask('tts', { text: text.slice(0, 2500), opts: { voice: getVoice() } }, { signal: ctrl?.signal });
-      if (my !== gen) { showNow(true); return; }
-      if (!cfg.spk) { showNow(); setState('idle'); afterAnswer(); return; }
+    const chunks = speechChunks(text.slice(0, 2500)), total = chunks.reduce((a, c) => a + c.length, 0) || 1;
+    const fetchTTS = s => ask('tts', { text: s, opts: { voice: getVoice() } }, { signal: ctrl?.signal }).then(r => {
       const bin = atob(r.audio || ''); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
-      const url = URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' }));
-      audio.src = url;
-      audio.volume = clamp(+ls.get('tutor.vol', 1), 0, 1); audio.muted = !cfg.spk;
-      setState('speak');
-      let ok = true;
-      const finished = new Promise(res => { audio.onended = res; audio.onpause = () => { if (!audio.ended) res(); }; audio.onerror = res; });
-      await audio.play().catch(() => { ok = false; });
-      if (my !== gen) { URL.revokeObjectURL(url); showNow(true); return; }
-      if (!ok) { URL.revokeObjectURL(url); showNow(); setState('idle', L('Ton war blockiert – die Antwort steht oben.', 'Sound was blocked – the answer is above.')); return; }
-      shown = true; ex.done = true;
-      const sync = syncOut(aEl, txt, audio, { scroll: capScroll });
-      if (t) writeAlong(t, () => { const d = audio.duration; return audio.ended || (audio.paused && audio.currentTime > 0) ? 1 : isFinite(d) && d > 0 ? audio.currentTime / d : 0; });
-      await finished; await sync;
-      URL.revokeObjectURL(url);
-      if (my === gen && state === 'speak') { setState('idle'); fc.pulse('happy', 900); afterAnswer(); }
+      return URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' }));
+    });
+    const urls = [];
+    let doneChars = 0, ci = 0, stopped = false;
+    const prog = () => { const d = audio.duration, f = isFinite(d) && d > 0 ? Math.min(1, audio.currentTime / d) : 0; return Math.min(1, (doneChars + f * (chunks[ci]?.length || 0)) / total); };
+    // Text läuft mit der Stimme mit – über alle Stücke hinweg
+    const parts = String(txt || '').split(/(\s+)/), tlen = String(txt || '').length;
+    let syncing = false, shownLen = -1;
+    const syncLoop = () => {
+      if (!syncing || !aEl.isConnected) return;
+      const target = Math.ceil(Math.min(1, prog() * 1.03) * tlen);
+      let acc = 0, out = '';
+      for (const p of parts) { if (acc >= target && p.trim()) break; out += p; acc += p.length; }
+      if (out.length !== shownLen) { shownLen = out.length; aEl.replaceChildren(richText(out || '…')); capScroll(); }
+      requestAnimationFrame(syncLoop);
+    };
+    try {
+      let next = fetchTTS(chunks[0]);
+      for (ci = 0; ci < chunks.length; ci++) {
+        const url = await next; urls.push(url);
+        if (my !== gen) { stopped = true; break; }
+        if (!cfg.spk) { showNow(); setState('idle'); afterAnswer(); urls.forEach(u => URL.revokeObjectURL(u)); return; }
+        if (ci + 1 < chunks.length) { next = fetchTTS(chunks[ci + 1]); next.catch(() => {}); }
+        audio.src = url;
+        audio.volume = clamp(+ls.get('tutor.vol', 1), 0, 1); audio.muted = !cfg.spk;
+        if (ci === 0) setState('speak');
+        let ok = true;
+        const finished = new Promise(res => { audio.onended = () => res('end'); audio.onpause = () => { if (!audio.ended) res('pause'); }; audio.onerror = () => res('err'); });
+        await audio.play().catch(() => { ok = false; });
+        if (my !== gen) { stopped = true; break; }
+        if (!ok) { syncing = false; urls.forEach(u => URL.revokeObjectURL(u)); showNow(); setState('idle', L('Ton war blockiert – die Antwort steht oben.', 'Sound was blocked – the answer is above.')); return; }
+        if (ci === 0) {
+          shown = true; ex.done = true; aEl.classList.add('typing-on');
+          syncing = true; requestAnimationFrame(syncLoop);
+          if (t) writeAlong(t, () => (stopped ? 1 : prog()));
+        }
+        const how = await finished;
+        doneChars += chunks[ci].length;
+        if (how !== 'end' || my !== gen) { stopped = true; break; }
+      }
+      syncing = false; aEl.classList.remove('typing-on'); aEl.replaceChildren(richText(txt)); capScroll();
+      urls.forEach(u => URL.revokeObjectURL(u));
+      if (!stopped && my === gen && state === 'speak') { setState('idle'); fc.pulse('happy', 900); afterAnswer(); }
+      else if (!shown) showNow(true);
     } catch (e) {
-      showNow(my !== gen);
+      syncing = false; aEl.classList.remove('typing-on');
+      urls.forEach(u => URL.revokeObjectURL(u));
+      if (shown) { aEl.replaceChildren(richText(txt)); capScroll(); } else showNow(my !== gen);
       if (my !== gen) return;
       setState('idle', e?.name === 'AbortError' ? L('Gestoppt.', 'Stopped.') : (e?.code === 'voice_busy' || e?.code === 'cap') ? e.message : L('Vorlesen hat nicht geklappt.', 'Reading aloud didn’t work.'));
     }
@@ -1039,7 +1154,7 @@ export function mountAssistant() {
         const t = performance.now();
         if (t - t0 < 350) floor = Math.max(floor, rms * .9);
         if (rms > Math.max(.018, floor * 2.6)) { spoke = true; lastLoud = t; }
-        if (spoke && t - lastLoud > 1300) return stopListen();
+        if (spoke && t - lastLoud > 1050) return stopListen();
         if (!spoke && t - t0 > quiet) return stopListen(true);
         raf = requestAnimationFrame(tick);
       };

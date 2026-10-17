@@ -57,6 +57,23 @@ export function gruss(d = new Date()) {
   if (hr >= 18 && hr < 23) return L('Guten Abend', 'Good evening');
   return L('Na, Nachteule', 'Hey, night owl');
 }
+// Begrüßung als natürlicher Satz – Name eingebaut statt „Na, Nachteule, Ben.“ (höchstens ein Komma)
+// Gibt [davor, danach] zurück, damit die Begrüßung den Namen hervorheben kann; ohne Namen ein ganzer Satz.
+export function hallo(nick, d = new Date()) {
+  const ft = feiertag(d), hr = d.getHours();
+  const FG = { neujahr: L('Frohes neues Jahr', 'Happy New Year'), ostern: L('Frohe Ostern', 'Happy Easter'), heiligabend: L('Frohe Weihnachten', 'Merry Christmas'), weihnachten: L('Frohe Weihnachten', 'Merry Christmas'), silvester: L('Guten Rutsch', 'Happy New Year’s Eve'), halloween: L('Happy Halloween', 'Happy Halloween') };
+  const V = ft && FG[ft] ? [[FG[ft] + ', ', '!', FG[ft] + '!']]
+    : hr >= 5 && hr < 11 ? [[L('Guten Morgen, ', 'Good morning, '), '.', L('Guten Morgen.', 'Good morning.')], [L('Moin ', 'Morning '), '!', L('Moin!', 'Morning!')], [L('Früh dran, ', '. Respekt.'), L('. Respekt.', '. Respect.'), L('Früh dran. Respekt.', 'Early start. Respect.')]]
+    : hr >= 11 && hr < 14 ? [[L('Mahlzeit, ', 'Hey '), L('.', '.'), L('Mahlzeit.', 'Hey there.')], [L('Hey ', 'Hey '), '!', L('Hey!', 'Hey!')]]
+    : hr >= 14 && hr < 18 ? [[L('Hey ', 'Hey '), '!', L('Hey!', 'Hey!')], [L('Da bist du ja, ', 'There you are, '), '.', L('Da bist du ja.', 'There you are.')]]
+    : hr >= 18 && hr < 23 ? [[L('Guten Abend, ', 'Good evening, '), '.', L('Guten Abend.', 'Good evening.')], [L('N’Abend, ', 'Evening, '), '.', L('N’Abend.', 'Evening.')], [L('Feierabend-Lernen, ', 'After-hours studying, '), L('? Stark.', '? Strong.'), L('Feierabend-Lernen? Stark.', 'After-hours studying? Strong.')]]
+    : [[L('Noch wach, ', 'Still up, '), '?', L('Noch wach?', 'Still up?')], [L('Hey ', 'Hey '), L(', du Nachteule.', ', you night owl.'), L('Hey, du Nachteule.', 'Hey, night owl.')], [L('Nachtschicht, ', 'Night shift, '), '?', L('Nachtschicht?', 'Night shift?')]];
+  const doy = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 864e5);
+  const v = V[(doy + hr) % V.length];
+  return nick ? [v[0], v[1]] : [v[2], ''];
+}
+export const halloText = (nick, d) => { const [a, b] = hallo(nick, d); return nick ? a + nick + b : a; };
+
 // Sprüche: frech, aber entspannt. Erst Anlass (Feiertag, Wochentag, Tageszeit), sonst allgemein.
 const S = (de, en) => L(de, en);
 const POOL = {
@@ -148,7 +165,7 @@ export function greetSplash(nick = getNick()) {
   const fEl = h('div', { class: 'ng-face' });
   const line = h('p', { class: 'ng-line' }, nextSpruch());
   const el = h('div', { class: 'ngreet', role: 'dialog', 'aria-label': L('Begrüßung', 'Welcome') },
-    h('div', { class: 'ng-in' }, fEl, h('h2', { class: 'ng-hey' }, gruss() + (nick ? ', ' : ''), nick ? h('span', { class: 'ng-nick' }, nick) : null, '.'), line,
+    h('div', { class: 'ng-in' }, fEl, h('h2', { class: 'ng-hey' }, ...(() => { const [a, b] = hallo(nick); return nick ? [a, h('span', { class: 'ng-nick' }, nick), b] : [a]; })()), line,
       h('div', { class: 'ng-skip' }, L('Antippen, um direkt loszulegen', 'Tap to jump right in'))));
   document.body.appendChild(el);
   import('./flight.js').then(F => F.hideDock()).catch(() => {});

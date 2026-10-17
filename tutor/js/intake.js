@@ -370,6 +370,8 @@ export function applyPlace(d, ans) {
 }
 export function route(d, ans) {
   const s = ans && ans.start || 'hub';
+  // Aus dem Chat reingezogen/eingefügt: zurück in den Tutor-Raum, mit genau diesem Skript (außer man wählt aktiv etwas anderes)
+  if (ls.get('tutor.attach.room')) { ls.set('tutor.attach.room', null); if (['hub', 'tutor', ''].includes(s)) { ls.set('tutor.room.focus', [d.id]); return '#/app/tutor'; } }
   if (s === 'tutor') { ls.set('tutor.pendingAsk', d.kind === 'uebung' ? L('Geh mit mir die erste Aufgabe durch – erst den Ansatz, dann den Lösungsweg Schritt für Schritt.', 'Walk me through the first exercise – approach first, then the solution step by step.') : d.kind === 'altklausur' ? L('Welche Aufgabentypen kommen in dieser Klausur vor, und wie gehe ich sie an?', 'Which kinds of tasks are in this exam, and how do I tackle them?') : L('Erklär mir das wichtigste Thema aus dem Skript an der Tafel – mit Beispiel.', 'Explain the most important topic from the slides on the whiteboard – with an example.')); return `#/app/${d.id}/tutor`; }
   if (s === 'plan') return `#/app/${d.id}/plan`;
   if (s === 'karten') return `#/app/${d.id}/karten/auto`;

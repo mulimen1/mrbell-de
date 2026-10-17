@@ -3261,7 +3261,7 @@ a.rm-tc:hover { border-color: var(--line2); }
 .asst.stage .asst-quip, .asst.stage .asst-tip, .asst.stage .ai-room { display: none !important; }
 .asst.stage .ai-isl { position: fixed !important; left: var(--scl) !important; width: var(--scw) !important; bottom: max(var(--scb), calc(var(--kb) + 8px)) !important; top: auto !important; transform: none !important; transition: none !important; z-index: 86; }
 .asst.stage .ai-isl::before { display: none !important; }
-.asst.stage .ai-close, .asst.stage .ai-fw, .asst.stage > .ai-ft, .asst.stage .ai-bd, .asst.stage .ai-btab { display: none !important; }
+.asst.stage .ai-close, .asst.stage .ai-fw, .asst.stage > .ai-ft, .asst.stage .ai-bd { display: none !important; }
 .asst.stage:not(.stage-talk) .ai-feed { display: none !important; }
 .asst.stage.stage-talk .ai-feed { display: block !important; position: fixed !important; left: var(--sfl) !important; top: var(--sft) !important; width: var(--sfw) !important; height: var(--sfh) !important; max-height: none !important; bottom: auto !important; transform: none !important; pointer-events: auto !important; padding: 8px 6px 14px !important; transition: none !important; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 16px) !important; mask-image: linear-gradient(to bottom, transparent 0, #000 16px) !important; scrollbar-width: thin; z-index: 85; }
 .asst.stage .ai-feed::-webkit-scrollbar { display: block; width: 6px; }
@@ -3432,7 +3432,9 @@ html.mx-touring .asst-tip { opacity: 0 !important; pointer-events: none !importa
 }
 
 /* „Frage“ aus der Cursor-Blase: Bezug sitzt als Chip über dem Eingabefeld */
-.ai-ref { position: absolute; left: 12px; bottom: calc(100% + 8px); max-width: calc(100% - 24px); display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 6px 0 11px; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 500 13px var(--sans); box-shadow: 0 12px 30px -12px rgba(0,0,0,.6); animation: aireffin .35s cubic-bezier(.3,1.4,.5,1) both; z-index: 2; }
+.ai-chips { position: absolute; left: 12px; right: 12px; bottom: calc(100% + 8px); display: flex; flex-wrap: wrap; gap: 6px; pointer-events: none; z-index: 2; }
+.ai-chips > * { pointer-events: auto; }
+.ai-ref { position: relative; max-width: 100%; display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 6px 0 11px; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 500 13px var(--sans); box-shadow: 0 12px 30px -12px rgba(0,0,0,.6); animation: aireffin .35s cubic-bezier(.3,1.4,.5,1) both; z-index: 2; }
 .ai-ref[hidden] { display: none; }
 @keyframes aireffin { from { opacity: 0; transform: translateY(6px) scale(.96); } }
 .ai-ref-i svg { width: 13px; height: 13px; display: block; fill: currentColor; }
@@ -3490,3 +3492,28 @@ html.mx-touring .asst-tip { opacity: 0 !important; pointer-events: none !importa
   .ln-grp { margin-top: 28px; } .ln-gh h2 { font-size: 18px; }
   .ln-doc { height: 40px; font-size: 13px; }
 }
+
+/* Tutor-Raum: zur Seite gelegte Tafel – Griff am rechten Rand (neben offener Skripte-Leiste) */
+.asst.stage.has-board.board-min .ai-btab { display: inline-flex; top: 50%; bottom: auto; }
+body:has(.room.rail) .asst.stage .ai-btab { right: 300px; }
+.ai-btab:hover { background: var(--inv); color: var(--onInv); border-color: var(--inv); }
+@media (max-width: 760px) { .asst.stage.has-board.board-min .ai-btab { top: 46%; } body:has(.room.rail) .asst.stage .ai-btab { right: 0; } }
+
+/* Alle Tafeln löschen + Rückgängig */
+.ai-delall[hidden] { display: none; }
+.ai-delall { display: inline-flex; align-items: center; gap: 6px; } .ai-delall .ico { width: 14px; height: 14px; }
+.toast-row { display: inline-flex; align-items: center; gap: 14px; }
+.toast-undo { border: 0; background: none; color: inherit; font: 700 14px var(--sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 0; }
+
+/* Dokument hinzufügen: Knopf im Eingabefeld, Reinziehen, ⌘V */
+.ai-att { flex: none; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 13px 0 10px; border-radius: 999px; border: 1px dashed var(--line2); background: transparent; color: var(--ink2); font: 600 13px var(--sans); cursor: pointer; transition: border-color .15s, color .15s, background .15s; }
+.ai-att[hidden] { display: none !important; }
+.ai-att:hover { border-color: var(--ink); border-style: solid; color: var(--ink); background: var(--panel2); }
+.ai-att .ico { width: 15px; height: 15px; stroke-width: 2.4; }
+@media (max-width: 600px) { .ai-att { width: 38px; height: 38px; padding: 0; justify-content: center; } .ai-att .lbl { display: none; } }
+.ai-ref.att { background: var(--panel); color: var(--ink); border: 1px solid var(--ink); }
+.ai-ref.att .ai-ref-x { background: var(--panel2); }
+.asst.dropping .ai-isl { box-shadow: 0 0 0 2px var(--ink), 0 18px 50px -18px rgba(0,0,0,.55); }
+.asst.dropping .ai-chips::before { content: "Loslassen – dann arbeiten wir damit"; display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 600 13px var(--sans); }
+.ai-thk { display: inline-block; margin-left: 10px; font: italic 500 14px/1.4 var(--sans); color: var(--mute); vertical-align: middle; }
+.rm-thx { display: inline-block; }

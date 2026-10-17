@@ -6,8 +6,8 @@ import { L, LOCALE } from '../i18n.js';
 import { face, isAsleep } from '../face.js';
 import { S, mastery, onChange } from '../state.js';
 import { getAccount, onAccount } from '../api.js';
-import { getNick, gruss, nextSpruch } from '../nick.js';
-import { getSpice } from '../max.js';
+import { getNick, gruss, halloText, nextSpruch } from '../nick.js';
+import { getSpice, thinkLines } from '../max.js';
 import { dueCards } from './cards.js';
 import { planSummary } from './plan.js';
 import { forChat, fullText, topPages } from '../retrieve.js';
@@ -116,7 +116,7 @@ export function render(root, ctx = {}) {
     let fresh = 0; try { fresh = +sessionStorage.getItem('tutor.justGreeted') || 0; } catch (e) {}
     const justGreeted = Date.now() - fresh < 20000;
     const lets = ({ locker: L('So. Lass uns direkt loslegen.', 'Right. Let’s get going.'), freundlich: L('Schön, dass du da bist. Lass uns loslegen.', 'Good to have you here. Let’s get started.'), sachlich: L('Los geht’s.', 'Let’s go.'), streng: L('Keine Ausreden. Wir legen los.', 'No excuses. We start now.') })[c.ton] || L('Lass uns loslegen.', 'Let’s get started.');
-    const out = [justGreeted ? lets : `${gruss()}${nick ? ', ' + nick : ''}.`];
+    const out = [justGreeted ? lets : halloText(nick)];
     // Lage in einem Satz – frisch hochgeladenes Skript zuerst: Max kennt es schon
     const ex = nextExam(), due = S.list.reduce((x, d) => x + dueCards(d).length, 0);
     const fresh1 = S.list.filter(d => !d.sample && Date.now() - (d.created || 0) < 3 * 3600e3).sort((a, b) => b.created - a.created)[0];
@@ -156,6 +156,46 @@ export function render(root, ctx = {}) {
     el.replaceChildren(h('span', {}, thoughtFor()), h('i', { class: 'd1' }), h('i', { class: 'd2' }));
     el.classList.remove('out'); el.hidden = false; void el.offsetWidth; el.classList.add('in');
     clearTimeout(thT); thT = setTimeout(() => { el.classList.add('out'); setTimeout(() => { el.hidden = true; el.classList.remove('in', 'out'); }, 450); }, 5600);
+  }
+  // Während Max arbeitet: echte Gedanken statt Pünktchen – erst zur Frage, dann wechselnd, bis die Antwort da ist
+  let workT = 0, workOn = false, lastQ = '';
+  const STOPW = new Set('erklär erkläre erklären mir mich bitte kannst du was wie warum wieso welche welcher nochmal einmal einfach genau eigentlich zwischen unterschied diese dieser dieses einen einem einer eine über unter tafel schritt frage fragen nicht'.split(' '));
+  function keyword(t) {
+    const ws = String(t || '').replace(/[„“"'?!.,:;()]/g, ' ').split(/\s+/).filter(w => w.length > 4 && !STOPW.has(w.toLowerCase()));
+    return ws.sort((a, b) => (/^[A-ZÄÖÜ]/.test(b) - /^[A-ZÄÖÜ]/.test(a)) || b.length - a.length)[0] || '';
+  }
+  function workLines() {
+    const kw = keyword(lastQ), d = focusDocs()[0];
+    const first = kw ? [
+      L(`„${kw}“ – gute Wahl. Moment …`, `“${kw}” – good choice. One sec …`),
+      d ? L(`${kw} … wo stand das nochmal im Skript?`, `${kw} … where was that in the slides?`) : L(`${kw}. Ich bau dir das sauber auf.`, `${kw}. Let me set this up properly.`),
+      L(`Okay, ${kw}. Erst das Prinzip, dann ein Beispiel.`, `Okay, ${kw}. Principle first, then an example.`),
+    ] : [L('Gute Frage. Moment …', 'Good question. One sec …')];
+    return [first[Math.floor(Math.random() * first.length)], ...thinkLines('voice', [L('Ich sortier das kurz …', 'Sorting this out …'), L('Gleich hab ich’s …', 'Almost there …')])];
+  }
+  function showThought(text, { stay = false } = {}) {
+    const el = mode === 'home' ? thoughtHome : thoughtBar, other = el === thoughtHome ? thoughtBar : thoughtHome;
+    other.hidden = true;
+    const fresh = el.hidden || el.classList.contains('out');
+    el.replaceChildren(h('span', { class: 'rm-thx' }, text), h('i', { class: 'd1' }), h('i', { class: 'd2' }));
+    el.classList.remove('out'); el.hidden = false;
+    if (fresh) { el.classList.remove('in'); void el.offsetWidth; el.classList.add('in'); }
+    else el.firstChild.animate([{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'cubic-bezier(.16,1,.3,1)' });
+    clearTimeout(thT);
+    if (!stay) thT = setTimeout(() => { el.classList.add('out'); setTimeout(() => { if (el.classList.contains('out')) { el.hidden = true; el.classList.remove('in', 'out'); } }, 450); }, 1500);
+  }
+  function working(on) {
+    if (on === workOn) return;
+    workOn = on; clearInterval(workT);
+    if (on) {
+      if (stopped || document.hidden) return;
+      const lines = workLines(); let k = 0;
+      lastThought = Date.now();
+      showThought(lines[k++], { stay: true });
+      workT = setInterval(() => { if (!workOn) return clearInterval(workT); showThought(lines[k++ % lines.length], { stay: true }); }, 2600);
+    } else {
+      showThought(pick([L('Hab’s.', 'Got it.'), L('So, pass auf.', 'Right, listen up.'), L('Fertig. Wie immer.', 'Done. As always.')]));
+    }
   }
   // Im Ruhezustand ab und zu von selbst (nicht, solange jemand tippt)
   const thIv = setInterval(() => {
@@ -379,7 +419,7 @@ export function render(root, ctx = {}) {
     e.preventDefault(); drop.hidden = true; room.classList.remove('dragging');
     const id = e.dataTransfer.getData('text/x-bwlmax-doc');
     if (id) { const d = docById(id); if (d) addDoc(d, true); return; }
-    const fs = [...(e.dataTransfer.files || [])]; if (fs.length) import('../app.js').then(m => m.startUpload(fs));
+    const fs = [...(e.dataTransfer.files || [])]; if (fs.length) { ls.set('tutor.attach.room', 1); import('../app.js').then(m => m.startUpload(fs)); }
   };
   document.addEventListener('dragover', onOver); document.addEventListener('dragleave', onLeave); document.addEventListener('drop', onDrop);
 
@@ -402,11 +442,11 @@ export function render(root, ctx = {}) {
       slots: { composer: comp, chat: chatSlot, board: boardSlot },
       doc: () => focusDocs()[0] || null,
       context, material,
-      onAsk: () => { if (mode !== 'talk') goTalk(); startSession(); SES.asks++; },
+      onAsk: q => { lastQ = q || ''; if (mode !== 'talk') goTalk(); startSession(); SES.asks++; },
       onAnswer: p => { if (p && p.boards) SES.boards += p.boards.length; },
       onBoard: v => { room.classList.toggle('has-board', !!v && mode === 'talk'); },
       onState: s => {
-        if (s === 'think' && Math.random() < .5) setTimeout(() => think(), 600);
+        working(s === 'think');
         fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
         faceEl.classList.toggle('listening', s === 'listen');
         status.textContent = ({ listen: L('hört zu …', 'listening …'), think: L('überlegt …', 'thinking …'), speak: L('redet …', 'talking …') })[s] || (focusDocs()[0]?.name || L('dein Tutor', 'your tutor'));
@@ -456,7 +496,7 @@ export function render(root, ctx = {}) {
   MOB.addEventListener?.('change', onMq);
 
   return () => {
-    stopped = true; clearInterval(iv); clearInterval(thIv); clearTimeout(thT); removeEventListener('hashchange', onHash);
+    stopped = true; clearInterval(iv); clearInterval(thIv); clearInterval(workT); clearTimeout(thT); removeEventListener('hashchange', onHash);
     off1(); off2(); off3(); removeEventListener('maxcfg:change', onCfg); MOB.removeEventListener?.('change', onMq);
     document.removeEventListener('dragover', onOver); document.removeEventListener('dragleave', onLeave); document.removeEventListener('drop', onDrop);
     document.querySelector('.rm-sheet')?.remove();
