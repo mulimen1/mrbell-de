@@ -106,7 +106,8 @@ const BM_OHNE = ['Konto erstellt'];
 function bmKennung(req) { const m = /(?:^|;\s*)bm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
 function bmMelden(daten, req, ctx, bwlmax) {
   if (intern(req)) return null;
-  if (daten.geraet === 'Rechner' && /^amsterdam$/i.test(dek(req.headers.get('x-vercel-ip-city')).trim())) return null;
+  // Amsterdam = Bens VPN: auf jedem Gerät gar nicht erst zählen (auch ohne Cookie, wo kein Ort gespeichert wird)
+  if (/^amsterdam$/i.test(dek(req.headers.get('x-vercel-ip-city')).trim())) return null;
   daten.domain = bwlmax ? 'bwlmax.de' : 'mrbell.de/tutor';
   const id = bmKennung(req);
   daten.sitzung = id;
