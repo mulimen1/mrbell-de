@@ -55,7 +55,8 @@ export async function openAbo() {
   let busy = false;
   const pe = h('div', { class: 'abo-pe' }, h('div', { class: 'abo-skel' }), h('div', { class: 'abo-skel' }), h('div', { class: 'abo-skel short' }));
   const err = h('p', { class: 'abo-err', role: 'alert' });
-  const today = h('b', {}, '…'), later = h('span', {}, '…'), laterVal = h('b', {}, '7,99 € / ' + L('Monat', 'month'));
+  // Sofort sichtbar: heute 0,00 €, Abbuchung erst nach 7 Tagen – der Server bestätigt das gleich (ohne Test: 7,99 €)
+  const today = h('b', {}, '0,00 €'), later = h('span', {}, L(`Ab ${fmtDay(Date.now() + 7 * 864e5)}`, `From ${fmtDay(Date.now() + 7 * 864e5)}`)), laterVal = h('b', {}, '7,99 € / ' + L('Monat', 'month'));
   const trialNote = h('p', { class: 'abo-small' });
   const btn = h('button', { class: 'btn primary lg abo-buy ic-btn', type: 'button', disabled: true }, L('Jetzt zahlungspflichtig abonnieren', 'Subscribe now with obligation to pay'));
   const box = h('div', { class: 'modal abo', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Max’s Inner Circle' },
