@@ -120,8 +120,11 @@ function bmSeite(req, ctx, url, bwlmax, recht) {
   const ua = req.headers.get('user-agent') || '';
   if (req.method !== 'GET' || BOT.test(ua) || !/text\/html/.test(req.headers.get('accept') || '')) return;
   if (/prefetch|prerender/i.test((req.headers.get('sec-purpose') || '') + (req.headers.get('purpose') || '') + (req.headers.get('x-purpose') || ''))) return;
-  bmMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht ? (recht === 'impressum' ? 'Impressum' : 'Datenschutz') : '', seite: recht ? '/' + recht : '/',
-    herkunft: herkunft(req.headers.get('referer') || '', url), geraet: geraet(ua) }, req, ctx, bwlmax);
+  // Herkunft: Kampagnen-Kennung schlägt Referrer (Google Ads ?gclid, ?utm_source=…, eigene Links ?ref=lmu1), Thema-Einstieg ins Detail
+  const p = url.searchParams, ref = kurz(p.get('ref') || '', 30), utm = kurz(p.get('utm_source') || '', 20), thema = kurz(p.get('thema') || p.get('q') || '', 30);
+  const quelle = p.get('gclid') || /^(google|gads)$/i.test(utm) && /cpc|paid|ads/i.test(p.get('utm_medium') || '') ? 'Google Ads' : utm ? 'Kampagne: ' + utm : ref ? 'Link: ' + ref : '';
+  bmMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht ? (recht === 'impressum' ? 'Impressum' : 'Datenschutz') : (thema ? 'Thema: ' + thema : ''), seite: recht ? '/' + recht : '/',
+    herkunft: quelle || herkunft(req.headers.get('referer') || '', url), geraet: geraet(ua) }, req, ctx, bwlmax);
 }
 async function bmEreignis(req, ctx, bwlmax) {
   if (req.method !== 'POST') return new Response(null, { status: 405 });
