@@ -279,7 +279,7 @@ export function recommend() {
 // ---------- Fächer & Noten ----------
 function subjects(body) {
   const me = M.getMe();
-  body.append(notenCard());
+  body.append(ttHero(), notenCard());
   const grid = h('div', { class: 'me-subj' });
   for (const f of me.faecher) {
     const ds = (f.docs || []).map(docById).filter(Boolean);
@@ -469,6 +469,44 @@ function layout(list) {
   for (const s of list) { if (group.length && s.s >= end) flush(); group.push(s); end = Math.max(end, s.e); }
   if (group.length) flush();
   return out;
+}
+// Ganz oben bei „Fächer & Noten“: Stundenplan erstellen oder verbinden – Foto/Datei reinziehen, Max erkennt ihn und baut ihn zusammen
+function ttHero() {
+  const me = M.getMe(), has = !!(me.kurse.length || me.ics.events?.length);
+  const ACC = 'image/*,application/pdf,.pdf,.ics,text/calendar,.png,.jpg,.jpeg,.heic,.webp';
+  const take = async files => {
+    files = [...(files || [])].filter(Boolean); if (!files.length) return;
+    const ics = files.find(f => /\.ics$/i.test(f.name) || f.type === 'text/calendar');
+    if (ics) { try { const n = await M.loadIcsFile(ics); toast(L(`${n} Termine übernommen.`, `${n} events imported.`)); } catch (e) { toast(e.message); } return; }
+    const m = await import('../app.js'); m.startUpload(files);   // Max erkennt den Stundenplan und baut ihn zusammen
+  };
+  const fin = h('input', { type: 'file', accept: ACC, class: 'sr', multiple: true });
+  fin.addEventListener('change', () => { const f = [...fin.files]; fin.value = ''; take(f); });
+  if (has) {
+    const n = me.kurse.length, ev = (me.ics.events || []).filter(x => x[1] > Date.now()).length;
+    return h('section', { class: 'tt-mini' }, h('span', { class: 'tt-mi', html: ico('calendar') }),
+      h('div', { class: 'tt-mt' }, h('b', {}, L('Dein Stundenplan', 'Your timetable')), h('small', {}, [n ? L(`${n} Kurse`, `${n} classes`) : null, ev ? L(`${ev} kommende Termine`, `${ev} upcoming events`) : null].filter(Boolean).join(' · ') + L(' · Lernzeit plane ich in die Lücken', ' · I plan study time into the gaps'))),
+      h('label', { class: 'btn sm ghost' }, fin, h('span', { html: ico('upload') }), L('Foto/Datei ergänzen', 'Add photo/file')),
+      h('a', { class: 'btn sm', href: '#/app/stundenplan' }, L('Ansehen', 'View')));
+  }
+  const f = h('span', { class: 'tt-face' });
+  const drop = h('label', { class: 'tt-drop' }, fin, h('span', { class: 'tt-di', html: ico('upload') }),
+    h('b', {}, L('Foto, Screenshot oder Datei hier reinziehen', 'Drop a photo, screenshot or file here')),
+    h('small', {}, L('oder tippen zum Auswählen · PDF, Bild, .ics', 'or tap to choose · PDF, image, .ics')));
+  ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('on'); }));
+  ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove('on'); }));
+  drop.addEventListener('drop', e => take(e.dataTransfer && e.dataTransfer.files));
+  const card = h('section', { class: 'tt-hero' },
+    h('div', { class: 'tt-top' }, f, h('div', {},
+      h('div', { class: 'eyebrow' }, L('Stundenplan', 'Timetable')),
+      h('h3', {}, L('Erstell deinen Stundenplan – oder verbinde ihn', 'Create your timetable – or connect it')),
+      h('p', {}, L('Schick mir einfach ein Foto oder eine Datei. Ich erkenne deine Kurse, bau dir daraus den Stundenplan und plane deine tägliche Lernzeit in die Lücken.', 'Just send me a photo or a file. I’ll recognise your classes, build your timetable and plan your daily study time into the gaps.')))),
+    drop,
+    h('div', { class: 'tt-alt' },
+      h('a', { class: 'btn sm', href: '#/app/stundenplan' }, h('span', { html: ico('refresh') }), L('Kalender-Link verbinden', 'Connect calendar link')),
+      h('button', { class: 'btn sm ghost', type: 'button', onclick: () => editKurs(null) }, h('span', { html: ico('plus') }), L('Selbst eintragen', 'Add by hand'))));
+  face(f, { follow: false });
+  return card;
 }
 function connectBox() {
   const me = M.getMe();
