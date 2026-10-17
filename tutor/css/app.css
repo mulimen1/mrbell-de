@@ -3840,3 +3840,20 @@ body:has(.asst.stage) .kg { bottom: 104px; }
 .wl-go { background: #f4f4f6; color: #0b0b0d; border-color: #f4f4f6; gap: 6px; } .wl-go svg { width: 16px; height: 16px; }
 @media (max-width: 520px) { .wl { padding: 28px 18px 20px; } .wl-h { font-size: 28px; } .wl-row { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .wl, .wl-bg, .wl-face, .wl-badge, .wl-h, .wl-nick, .wl-lead, .wl-card, .wl-row { animation: none !important; } }
+
+/* Tarif im Konto-Chip unten links: Free dezent, Inner Circle mit drehendem Chromring und Glanz */
+.accchip small .plan-pill, .accchip small .ic-pill { display: inline-flex; align-items: center; height: 17px; padding: 0 7px; margin-top: 2px; border-radius: 999px; font: 650 9.5px var(--sans); letter-spacing: .08em; text-transform: uppercase; vertical-align: middle; }
+.accchip small .plan-pill { border: 1px solid var(--line2); color: var(--mute); }
+.accchip small .ic-pill { position: relative; overflow: hidden; border: 1px solid transparent; background: var(--graphite) padding-box, var(--chrome-edge) border-box; margin-right: 4px; }
+.accchip small .ic-pill .ic-lt { font-weight: 650; }
+.accchip small .ic-pill::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 32%, rgba(255,255,255,.5) 50%, transparent 68%); transform: translateX(-130%); animation: icSweep 8s ease-in-out 1.5s infinite; pointer-events: none; }
+@keyframes icSweep { 0%, 78% { transform: translateX(-130%); } 100% { transform: translateX(130%); } }
+.accchip.ic .av { overflow: visible; }
+.accchip.ic .av::after { inset: -3px; padding: 1.6px; background: conic-gradient(from 0deg, #f6f6f8, #74747c, #fdfdfd, #5c5c64, #d8d8de, #6a6a72, #f6f6f8); animation: icSpin 10s linear infinite; }
+@keyframes icSpin { to { transform: rotate(360deg); } }
+.accchip.ic-new .av::after { animation: icRingIn 1.1s cubic-bezier(.2,.8,.2,1) both, icSpin 10s linear 1.1s infinite; }
+.accchip.ic-new .av { animation: icGlow 1.8s ease-out .2s both; }
+.accchip.ic-new small .ic-pill::after { animation-delay: .5s; }
+@keyframes icRingIn { from { transform: rotate(-200deg) scale(.6); opacity: 0; } to { transform: rotate(0) scale(1); opacity: 1; } }
+@keyframes icGlow { 0% { box-shadow: 0 0 0 0 rgba(236,236,240,.0); } 35% { box-shadow: 0 0 0 6px rgba(236,236,240,.18); } 100% { box-shadow: 0 0 0 12px rgba(236,236,240,0); } }
+@media (prefers-reduced-motion: reduce) { .accchip.ic .av::after, .accchip.ic-new .av, .accchip small .ic-pill::after { animation: none; } }

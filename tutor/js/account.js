@@ -8,7 +8,9 @@ import { L, LOCALE } from './i18n.js';
 import { getNick, setNick, nickField, greetSplash } from './nick.js';
 
 const fmtDate = ts => new Date(ts).toLocaleDateString(LOCALE, { day: 'numeric', month: L('numeric', 'short') });
-export const proDaysLeft = a => (a && a.pro) ? Math.max(1, Math.ceil((a.proUntil - Date.now()) / 864e5)) : 0;
+// Ende der Inner-Circle-Zeit ohne den Puffer, den der Server bei Abos anhängt (sonst „8 Tage“ statt 7)
+export const proEnd = a => (a && a.proUntil ? a.proUntil - (a.sub ? 6 * 36e5 : 0) : 0);
+export const proDaysLeft = a => (a && a.pro) ? Math.max(1, Math.ceil((proEnd(a) - Date.now()) / 864e5)) : 0;
 
 function shell() {
   const bg = h('div', { class: 'modal-bg' });
@@ -176,7 +178,7 @@ export function openLogin({ title, mode = 'login' } = {}) {
         h('p', {}, r.fresh
           ? L('Dein Konto steht. Alles ist freigeschaltet, dein Fortschritt wird gespeichert – und ich hab heute noch richtig Lust.', 'Your account is ready. Everything’s unlocked, your progress is saved – and I’m in a great mood today.')
           : m === 'reset' ? L('Ab jetzt meldest du dich damit an. Andere Geräte haben wir sicherheitshalber abgemeldet.', 'Use it to sign in from now on. For safety we signed out your other devices.')
-          : r.account.pro ? L(`Inner Circle läuft noch bis ${fmtDate(r.account.proUntil)}.`, `Inner Circle runs until ${fmtDate(r.account.proUntil)}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
+          : r.account.pro ? L(`Inner Circle läuft noch bis ${fmtDate(proEnd(r.account))}.`, `Inner Circle runs until ${fmtDate(proEnd(r.account))}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
         nf && nf.el, goal && goal.el,
         h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', onclick: finish }, L('Los geht’s', 'Let’s go'))));
       setTimeout(() => box.querySelector('.btn.primary')?.focus(), 60);
@@ -240,7 +242,7 @@ export async function openAccount() {
     h('div', { class: 'accrow' }, h('span', {}, L('Spitzname', 'Nickname')), h('b', {}, getNick(a) || '–', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); askNick(); } }, getNick(a) ? L('ändern', 'change') : L('festlegen', 'set')))),
     h('div', { class: 'accrow' }, h('span', {}, L('E-Mail', 'Email')), h('b', {}, a.email)),
     h('div', { class: 'accrow' }, h('span', {}, L('Passwort', 'Password')), h('b', {}, a.hasPw === false ? L('noch nicht festgelegt', 'not set yet') : '••••••••', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); openLogin({ mode: 'reset', title: a.hasPw === false ? L('Passwort festlegen', 'Set a password') : L('Passwort ändern', 'Change password') }); } }, a.hasPw === false ? L('festlegen', 'set') : L('ändern', 'change')))),
-    h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? h('span', {}, h('span', { class: 'ic-chip' }, h('span', { class: 'ic-lt' }, 'Inner Circle')), L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(a.proUntil)})`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(a.proUntil)})`)) : [L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'), ' ', h('button', { class: 'linkbtn', type: 'button', onclick: planSwitch }, L('wechseln', 'change'))])),
+    h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? h('span', {}, h('span', { class: 'ic-chip' }, h('span', { class: 'ic-lt' }, 'Inner Circle')), L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(proEnd(a))})`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(proEnd(a))})`)) : [L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'), ' ', h('button', { class: 'linkbtn', type: 'button', onclick: planSwitch }, L('wechseln', 'change'))])),
     aboRow(a),
     h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))));
   const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Deine Skripte bleiben auf diesem Gerät. Bei uns liegen deine E-Mail-Adresse und dein verschlüsseltes Passwort.', 'Your slides stay on this device. We store your email address and your encrypted password.'), body,
@@ -267,7 +269,11 @@ export function accountChip() {
   onAccount(a => {
     if (!a) { wrap.replaceChildren(guest); return; }
     chip.classList.toggle('ic', !!a.pro);
-    chip.replaceChildren(h('span', { class: 'av' }, ((getNick(a) || a.email)[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, getNick(a) || a.email), h('small', {}, a.pro ? h('span', { class: 'ic-name' }, 'Inner Circle') : 'Free', a.pro && !a.sub ? L(` · noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, ` · ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : '')));
+    // Einmalig beim Eintritt: Ring und Abzeichen leuchten kurz auf
+    const fresh = a.pro && !ls.get('tutor.icHello', 0);
+    if (a.pro) ls.set('tutor.icHello', Date.now()); else ls.set('tutor.icHello', 0);
+    chip.classList.toggle('ic-new', !!fresh);
+    chip.replaceChildren(h('span', { class: 'av' }, ((getNick(a) || a.email)[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, getNick(a) || a.email), h('small', {}, a.pro ? h('span', { class: 'ic-pill' }, h('span', { class: 'ic-lt' }, 'Inner Circle')) : h('span', { class: 'plan-pill' }, 'Free'), a.pro && !a.sub ? L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : '')));
     wrap.replaceChildren(chip);
   });
   return wrap;
