@@ -184,14 +184,12 @@ export function greetSplash(nick = getNick()) {
   addEventListener('keydown', function k(e) { if (e.key === 'Escape' || e.key === 'Enter') { removeEventListener('keydown', k); close(); } });
   requestAnimationFrame(() => el.classList.add('in'));
 }
-// Beim Laden der Seite: angemeldet + Spitzname → begrüßen (nicht öfter als alle 2 Minuten)
-// Beim Öffnen der App: das erste Mal am Tag (oder nach 4 Stunden) – nicht bei jedem Neuladen
+// Jedes Mal, wenn BWL Max richtig startet (neuer Tab / App geöffnet) – nicht beim Neuladen im selben Tab
+// und nicht beim Wechseln innerhalb der App. sessionStorage gilt genau pro Tab.
 export function greetOnLoad() {
-  const a = getAccount(), n = getNick(a); if (!a || !n) return;
+  const a = getAccount(); if (!a) return;
   let t = 0; try { t = +sessionStorage.getItem('tutor.greetAt') || 0; } catch (e) {}
-  if (Date.now() - t < 120000) return;
-  const last = +ls.get('tutor.greetLast', 0) || 0;
-  if (new Date(last).toDateString() === new Date().toDateString() && Date.now() - last < 4 * 3600e3) return;
+  if (t) return;
   try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {}
-  setTimeout(() => greetSplash(n), 500);
+  setTimeout(() => greetSplash(getNick(a)), 500);
 }

@@ -235,8 +235,9 @@ route();
 setTimeout(() => {
   if (/^#\/login\//.test(location.hash)) return;
   const a = getAccount(); if (!a) return;
-  if (getNick(a)) greetOnLoad();
-  else { let asked = false; try { asked = !!localStorage.getItem('tutor.nickAsked'); } catch (e) {} if (!asked) { try { localStorage.setItem('tutor.nickAsked', '1'); } catch (e) {} askNick(); } }
+  let asked = false; try { asked = !!localStorage.getItem('tutor.nickAsked'); } catch (e) {}
+  if (getNick(a) || asked) greetOnLoad();
+  else { try { localStorage.setItem('tutor.nickAsked', '1'); } catch (e) {} askNick(); }
 }, 1200);
 window.addEventListener('unhandledrejection', e => { console.error(e.reason); });
 
