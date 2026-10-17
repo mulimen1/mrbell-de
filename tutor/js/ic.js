@@ -12,11 +12,13 @@ const BEN = () => [
 ];
 
 // reason: kurzer Satz, warum das Blatt kommt (z. B. Text vom Server). Liefert 'abo', 'later' oder null.
-export function innerCircle({ reason = '' } = {}) {
+export function innerCircle({ reason = '', later = '' } = {}) {
   return new Promise(async resolve => {
     const { aboReady, openAbo } = await import('./abo.js');
     const ready = aboReady();
-    const close = v => { bg.classList.add('out'); document.removeEventListener('keydown', onKey); setTimeout(() => bg.remove(), 180); resolve(v); };
+    // Schließen mit Abgang: Karte sinkt weich weg, Hintergrund klart auf
+    let gone = false;
+    const close = v => { if (gone) return; gone = true; bg.classList.add('out'); document.removeEventListener('keydown', onKey); setTimeout(() => bg.remove(), matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 340); resolve(v); };
     const onKey = e => { if (e.key === 'Escape') close(null); };
     const f = h('span', { class: 'icx-face' });
     const cta = h('button', { class: 'btn primary lg ic-btn icx-cta', type: 'button', disabled: ready ? null : true, onclick: () => { close('abo'); openAbo(); } },
@@ -24,13 +26,14 @@ export function innerCircle({ reason = '' } = {}) {
     const box = h('div', { class: 'modal icx', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Max’s Inner Circle' },
       h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(null) }),
       h('div', { class: 'icx-top' }, f, h('div', { class: 'icx-why' }, reason || L('Für heute hast du alles rausgeholt.', 'You’ve used everything for today.'))),
-      h('h3', { class: 'ic-lt' }, 'Max’s Inner Circle'),
+      h('h3', { class: 'ic-lt icx-title' }, 'Max’s Inner Circle'),
+      h('span', { class: 'icx-shine', 'aria-hidden': 'true' }),
       h('p', { class: 'icx-lead' }, L('Lern weiter, wann du willst – ohne Tageslimit.', 'Keep learning whenever you want – no daily limit.')),
       h('ul', { class: 'icx-ben' }, BEN().map(([ic, t, s], i) => h('li', { style: { '--i': String(i) } }, h('span', { class: 'icx-bi', html: ico(ic) }), h('span', {}, h('b', {}, t), h('small', {}, s))))),
       h('div', { class: 'icx-price' }, h('b', {}, L('7 Tage gratis', '7 days free')), h('span', {}, L('danach 7,99 € im Monat', 'then €7.99 a month'))),
       cta,
       ready ? null : h('p', { class: 'icx-soon' }, L('Der Inner Circle startet in Kürze.', 'The Inner Circle opens soon.')),
-      h('button', { class: 'icx-later', type: 'button', onclick: () => close('later') }, L('Morgen weiter – neue Antworten ab 0:00 Uhr', 'Carry on tomorrow – new answers from midnight')));
+      h('button', { class: 'icx-later', type: 'button', onclick: () => close('later') }, later || L('Morgen weiter – neue Antworten ab 0:00 Uhr', 'Carry on tomorrow – new answers from midnight')));
     const bg = h('div', { class: 'modal-bg icx-bg', onclick: e => { if (e.target === bg) close(null); } }, box);
     document.body.appendChild(bg);
     document.addEventListener('keydown', onKey);

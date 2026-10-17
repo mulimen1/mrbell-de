@@ -122,6 +122,7 @@ function buildShell() {
   onAccount(() => renderQuota(currentQuota()));
   refreshAccount();
   mobileTip();
+  import('./promo.js').then(m => m.initPromo()).catch(() => {});
   onChange(renderList);
   applyThemeButtons();
   // Schwebender Max-Assistent (überall in der App)
