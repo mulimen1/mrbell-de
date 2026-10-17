@@ -1,9 +1,9 @@
-// Tutor-Raum – die Startseite. Max groß in der Mitte, links deine Fächer, rechts deine Skripte, unten das Eingabefeld.
+// Tutor-Raum – die Startseite. Max groß in der Mitte, rechts (aufklappbar) deine Skripte, unten das Eingabefeld.
 // Erst begrüßt er dich und sagt, was jetzt dran ist (Fortschritt diese Woche, was offen ist, sein Tipp).
 // Sobald ihr loslegt, rutscht er nach oben, das Gespräch und die Tafel übernehmen die Bühne. Mit Pausen und Session-Bilanz.
 import { h, ico, ls, toast } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
-import { face } from '../face.js';
+import { face, isAsleep } from '../face.js';
 import { S, mastery, onChange } from '../state.js';
 import { getAccount, onAccount } from '../api.js';
 import { getNick, gruss, nextSpruch } from '../nick.js';
@@ -14,7 +14,8 @@ import { forChat, fullText, topPages } from '../retrieve.js';
 import * as M from '../me.js';
 import * as MC from '../maxcfg.js';
 import { recommend, exams, weekMinutes, syncAsk, startChecklist } from './me.js';
-import { fly, land, setRoomHead } from '../flight.js';
+import { fly, setRoomHead } from '../flight.js';
+import { thoughtFor } from '../thoughts.js';
 
 const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const MOB = matchMedia('(max-width: 900px)');
@@ -48,7 +49,7 @@ export function render(root, ctx = {}) {
   const heroSlot = h('div', { class: 'rm-fs big' });
   const barSlot = h('div', { class: 'rm-fs small' });
   const say = h('p', { class: 'rm-say', 'aria-live': 'polite' });
-  const cfgBtn = () => h('button', { class: 'rm-cfg', type: 'button', onclick: () => MC.openMaxCfg(), title: L('Wie Max mit dir redet, unterrichtet und wann Pause ist', 'How Max talks, teaches and when to take a break') }, h('span', { html: ico('tune') }), h('span', {}, L('Max einstellen', 'Set up Max')));
+  const cfgBtn = () => h('button', { class: 'rm-cfg', type: 'button', onclick: () => MC.openMaxCfg(), title: L('Wie Max mit dir redet, unterrichtet und wann Pause ist', 'How Max talks, teaches and when to take a break') }, h('span', { html: ico('tune') }), h('span', {}, L('Max konfigurieren', 'Configure Max')));
   const teaser = h('div', { class: 'rm-teaser' });
   const askSlot = h('div', { class: 'rm-ask' });
   const hero = h('div', { class: 'rm-hero' }, heroSlot,
@@ -58,12 +59,14 @@ export function render(root, ctx = {}) {
   const status = h('small', { class: 'rm-st' });
   const timer = h('span', { class: 'rm-timer', hidden: true });
   const oldBtn = h('button', { class: 'iconbtn rm-old', type: 'button', title: L('Früheres Gespräch zeigen', 'Show earlier conversation'), html: ico('clock'), hidden: true, onclick: () => { const on = !oldBtn.classList.contains('on'); oldBtn.classList.toggle('on', on); api && api.showOld(on); } });
-  const mobFach = h('button', { class: 'rm-pill', type: 'button', onclick: () => sheet('faecher') }, h('span', { html: ico('brain') }), L('Fächer', 'Subjects'));
-  const mobSkript = h('button', { class: 'rm-pill', type: 'button', onclick: () => sheet('skripte') }, h('span', { html: ico('file') }), h('span', { class: 'rm-pl' }, L('Skripte', 'Slides')));
+  // Skripte: rechts aufklappbar (am Handy als Leiste von unten) – beim Öffnen des Raums immer zu
+  const skBtn = () => h('button', { class: 'rm-skb', type: 'button', 'aria-expanded': 'false', onclick: () => toggleRail(), title: L('Deine Skripte – antippen oder in den Chat ziehen', 'Your slides – tap or drag into the chat') },
+    h('span', { html: ico('file') }), h('span', { class: 'rm-skl' }, L('Skripte', 'Slides')), h('b', { class: 'rm-skn' }), h('span', { class: 'rm-skc', html: ico('left') }));
+  const skBtnHome = skBtn(), skBtnBar = skBtn();
   const bar = h('div', { class: 'rm-bar' }, barSlot,
     h('div', { class: 'rm-bt' }, h('b', {}, 'Max'), status),
     timer, h('span', { style: { flex: 1 } }), oldBtn,
-    h('button', { class: 'iconbtn', type: 'button', title: L('Max einstellen', 'Set up Max'), html: ico('tune'), onclick: () => MC.openMaxCfg() }),
+    h('button', { class: 'iconbtn', type: 'button', title: L('Max konfigurieren', 'Configure Max'), html: ico('tune'), onclick: () => MC.openMaxCfg() }), skBtnBar,
     h('button', { class: 'btn sm rm-end-b', type: 'button', onclick: () => endSession() }, L('Session beenden', 'End session')));
   const chatSlot = h('div', { class: 'rm-chat' });
   const boardSlot = h('div', { class: 'rm-board' });
@@ -72,19 +75,20 @@ export function render(root, ctx = {}) {
   const sugg = h('div', { class: 'rm-sugg' });
   const comp = h('div', { class: 'rm-comp' });
   const dock = h('div', { class: 'rm-dock' }, focusRow, sugg, comp);
-  const mob = h('div', { class: 'rm-mob' }, mobFach, mobSkript);
+  const corner = h('div', { class: 'rm-corner' }, skBtnHome);
   const drop = h('div', { class: 'rm-drop', hidden: true }, h('div', {}, h('span', { html: ico('file') }), h('b', {}, L('Loslassen – dann arbeiten wir damit.', 'Drop it – and we’ll work with it.'))));
-  const stage = h('section', { class: 'rm-stage' }, mob, bar, scroll, talk, dock, drop);
-  const left = h('aside', { class: 'rm-left', 'aria-label': L('Fächer', 'Subjects') });
+  const stage = h('section', { class: 'rm-stage' }, corner, bar, scroll, talk, dock, drop);
   const right = h('aside', { class: 'rm-right', 'aria-label': L('Skripte', 'Slides') });
-  const room = h('div', { class: 'room home' }, left, stage, right);
+  const room = h('div', { class: 'room home' }, stage, right);
+  const thoughtHome = h('div', { class: 'rm-th', hidden: true }), thoughtBar = h('div', { class: 'rm-th small', hidden: true });
+  heroSlot.appendChild(thoughtHome); barSlot.appendChild(thoughtBar);
   root.appendChild(room);
   heroSlot.appendChild(faceEl);
-  fc = face(faceEl, {});
+  fc = face(faceEl, { sleepy: true });
 
   // Der große Kopf ist Max' Zuhause, solange der Raum offen ist (Begrüßung und Seitenwechsel fliegen hierher)
   const bubbleEl = () => say.parentElement;
-  const headApi = { el: faceEl, hide: () => { faceEl.style.visibility = 'hidden'; if (document.querySelector('.ngreet') && bubbleEl()) bubbleEl().style.opacity = '0'; }, show: flew => { faceEl.style.visibility = ''; if (bubbleEl() && bubbleEl().style.opacity === '0') { bubbleEl().style.opacity = ''; if (!reduce()) bubbleEl().animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, easing: 'cubic-bezier(.16,1,.3,1)' }); } let g = 0; try { g = +sessionStorage.getItem('tutor.justGreeted') || 0; } catch (e) {} if (mode === 'home' && Date.now() - g < 20000) setTimeout(() => speak(speechText()), 120); if (flew) land(faceEl); else if (!reduce()) faceEl.animate([{ opacity: 0, transform: 'scale(.8)' }, { opacity: 1, transform: 'none' }], { duration: 500, easing: 'cubic-bezier(.2,1.3,.4,1)' }); } };
+  const headApi = { el: faceEl, hide: () => { faceEl.style.visibility = 'hidden'; if (document.querySelector('.ngreet') && bubbleEl()) bubbleEl().style.opacity = '0'; }, show: flew => { faceEl.style.visibility = ''; if (bubbleEl() && bubbleEl().style.opacity === '0') { bubbleEl().style.opacity = ''; if (!reduce()) bubbleEl().animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 450, easing: 'cubic-bezier(.16,1,.3,1)' }); } let g = 0; try { g = +sessionStorage.getItem('tutor.justGreeted') || 0; } catch (e) {} if (mode === 'home' && Date.now() - g < 20000) setTimeout(() => speak(speechText()), 120); if (!flew && !reduce()) faceEl.animate([{ opacity: 0, transform: 'scale(.8)' }, { opacity: 1, transform: 'none' }], { duration: 500, easing: 'cubic-bezier(.2,1.3,.4,1)' }); } };
   setRoomHead(headApi);
   if (document.querySelector('.ngreet') || ctx.arrive) headApi.hide();
 
@@ -134,6 +138,25 @@ export function render(root, ctx = {}) {
   }
   const react = text => { if (mode === 'home') speak(text); else api && api.note(text); };
 
+  // ---------- Gedankenblasen: Max denkt laut (ab und zu, nicht bei jeder Antwort) ----------
+  let lastThought = Date.now() - 20000, thT = 0;
+  function think(force) {
+    if (stopped || isAsleep() || document.hidden || room.querySelector('.rm-ov')) return;
+    if (!force && Date.now() - lastThought < 45000) return;
+    lastThought = Date.now();
+    const el = mode === 'home' ? thoughtHome : thoughtBar, other = el === thoughtHome ? thoughtBar : thoughtHome;
+    other.hidden = true;
+    el.replaceChildren(h('span', {}, thoughtFor()), h('i', { class: 'd1' }), h('i', { class: 'd2' }));
+    el.classList.remove('out'); el.hidden = false; void el.offsetWidth; el.classList.add('in');
+    clearTimeout(thT); thT = setTimeout(() => { el.classList.add('out'); setTimeout(() => { el.hidden = true; el.classList.remove('in', 'out'); }, 450); }, 5600);
+  }
+  // Im Ruhezustand ab und zu von selbst (nicht, solange jemand tippt)
+  const thIv = setInterval(() => {
+    if (!api || api.state() !== 'idle' || Math.random() > .35) return;
+    const inp = document.querySelector('.asst.stage .ai-in'); if (inp && inp.value) return;
+    think();
+  }, 15000);
+
   // ---------- Teaser: diese Woche · offen · Max' Tipp ----------
   function drawTeaser() {
     const goal = M.getMe().wochenziel || 150, wk = weekMinutes(0), pct = Math.min(1, wk / goal);
@@ -181,35 +204,7 @@ export function render(root, ctx = {}) {
     ask(P[kind] || L(`Bring meine Prüfungsreife in „${n}“ hoch: Frag mich zuerst ab, wo ich stehe, dann erklär mir, was fehlt.`, `Raise my exam readiness in “${n}”: first quiz me to see where I stand, then explain what’s missing.`));
   }
 
-  // ---------- Fächer (links) & Skripte (rechts) ----------
-  function fachList(onPick) {
-    const me = M.getMe(), foc = new Set(getFocus());
-    if (!me.faecher.length) return h('div', { class: 'rm-empty' }, h('p', {}, L('Noch keine Fächer. Leg sie an – oder schick mir ein Foto von deinem Stundenplan.', 'No subjects yet. Add them – or send me a photo of your timetable.')), h('a', { class: 'btn sm', href: '#/app/faecher' }, L('Fächer anlegen', 'Add subjects')));
-    const list = me.faecher.slice().sort((a, b) => (a.klausur || '9999') < (b.klausur || '9999') ? -1 : 1);
-    return h('div', { class: 'rm-fl' }, list.map(f => {
-      const ds = (f.docs || []).map(docById).filter(Boolean);
-      const m = ds.length ? Math.round(ds.reduce((x, d) => x + mastery(d), 0) / ds.length) : 0;
-      const n = f.klausur ? Math.round((new Date(f.klausur + 'T12:00') - new Date(M.dayKey() + 'T12:00')) / 864e5) : null;
-      const on = ds.length && ds.every(d => foc.has(d.id));
-      return h('button', { class: 'rm-f' + (on ? ' on' : ''), type: 'button', onclick: () => { onPick && onPick(); pickFach(f, ds, on); } },
-        h('span', { class: 'rm-fk' }, (f.kurz || f.name).slice(0, 4)),
-        h('span', { class: 'rm-ft' }, h('b', {}, f.name), h('small', {}, n != null && n >= 0 ? (n === 0 ? L(`${M.artName(f.klausurArt)} heute`, `${M.artName(f.klausurArt)} today`) : L(`${M.artName(f.klausurArt)} in ${n} T.`, `${M.artName(f.klausurArt)} in ${n} d`)) : ds.length ? L(`${ds.length} ${ds.length === 1 ? 'Skript' : 'Skripte'}`, `${ds.length} set${ds.length === 1 ? '' : 's'}`) : L('noch kein Skript', 'no slides yet')),
-          h('span', { class: 'rm-fb' }, h('i', { style: { width: m + '%' } }))));
-    }));
-  }
-  function pickFach(f, ds, on) {
-    if (!ds.length) { toast(L(`In „${f.name}“ liegt noch kein Skript. Lad eins hoch – ich sortier es ein.`, `No slides in “${f.name}” yet. Upload some – I’ll file them.`), 4200); return; }
-    if (on) { setFocus(getFocus().filter(id => !ds.some(d => d.id === id))); drawFocus(); drawRails(); return; }
-    setFocus(ds.map(d => d.id)); drawFocus(); drawRails();
-    const n = f.klausur ? Math.round((new Date(f.klausur + 'T12:00') - new Date(M.dayKey() + 'T12:00')) / 864e5) : null;
-    react(n != null && n >= 0 ? L(`${f.name}. ${M.artName(f.klausurArt)} in ${tage(n)} – womit fangen wir an?`, `${f.name}. ${M.artName(f.klausurArt)} in ${tage(n)} – where do we start?`) : L(`${f.name}, alles klar. Erklären, abfragen oder rechnen?`, `${f.name}, got it. Explain, quiz or calculate?`));
-    drawSugg();
-  }
-  function todayBox() {
-    const now = Date.now(), ses = M.sessionsOn(new Date()).filter(s => s.e > now);
-    return h('div', { class: 'rm-today' }, h('div', { class: 'rm-rh' }, h('b', {}, L('Heute', 'Today')), h('a', { class: 'rm-more', href: '#/app/stundenplan' }, L('Woche', 'Week'))),
-      ses.length ? ses.slice(0, 4).map(s => h('div', { class: 'rm-ses' + (s.s <= now ? ' live' : '') }, h('b', {}, hm(s.s)), h('span', {}, s.t))) : h('p', { class: 'rm-none' }, M.getMe().kurse.length || M.getMe().ics.events?.length ? L('Keine Vorlesung mehr heute.', 'No more lectures today.') : L('Stundenplan noch nicht drin.', 'No timetable yet.')));
-  }
+  // ---------- Skripte (rechts, aufklappbar) ----------
   function skriptList(onPick) {
     const foc = new Set(getFocus());
     const docs = S.list.slice().sort((a, b) => (b.used || 0) - (a.used || 0)).slice(0, 60);
@@ -241,17 +236,29 @@ export function render(root, ctx = {}) {
     react(dropped ? pick([L(`„${d.name}“ ist drin. Erklären, abfragen oder durchrechnen?`, `“${d.name}” is in. Explain, quiz or calculate?`), L(`Hab „${d.name}“. Womit fangen wir an?`, `Got “${d.name}”. Where do we start?`)]) : L(`Okay, wir arbeiten mit „${d.name}“.`, `Okay, we’re working with “${d.name}”.`));
   }
   function drawRails() {
-    left.replaceChildren(h('div', { class: 'rm-rh' }, h('b', {}, L('Fächer', 'Subjects')), h('a', { class: 'rm-more', href: '#/app/faecher' }, L('Verwalten', 'Manage'))), fachList(), todayBox());
     const n = S.list.length;
-    right.replaceChildren(h('div', { class: 'rm-rh' }, h('b', {}, L('Skripte', 'Slides')), h('label', { class: 'rm-add', for: 'fileApp', title: L('Neuer Stoff', 'Add material'), html: ico('plus') })),
+    right.replaceChildren(h('div', { class: 'rm-rh' }, h('b', {}, L('Skripte', 'Slides')), h('span', { style: { flex: 1 } }),
+      h('label', { class: 'rm-add', for: 'fileApp', title: L('Neuer Stoff', 'Add material'), html: ico('plus') }),
+      h('button', { class: 'rm-add', type: 'button', title: L('Einklappen', 'Collapse'), 'aria-label': L('Skripte einklappen', 'Collapse slides'), html: ico('right'), onclick: () => toggleRail(false) })),
       skriptList(), n ? h('p', { class: 'rm-hint' }, L('Antippen oder in den Chat ziehen – dann arbeitet Max genau damit.', 'Tap or drag into the chat – Max then works with exactly that.')) : null);
-    const fc2 = getFocus().length; mobSkript.querySelector('.rm-pl').textContent = fc2 ? L(`Skripte · ${fc2}`, `Slides · ${fc2}`) : L('Skripte', 'Slides');
+    // Knopf: Anzahl der Skripte, und wie viele gerade im Fokus sind
+    const f = getFocus().length;
+    [skBtnHome, skBtnBar].forEach(b => { b.querySelector('.rm-skn').textContent = f ? `${f}/${n}` : String(n); b.classList.toggle('has', !!f); });
+  }
+  // Leiste rechts auf/zu (am Handy: von unten)
+  let railOpen = false;
+  function toggleRail(v = !railOpen) {
+    if (MOB.matches) { if (v) sheet(); return; }
+    railOpen = !!v;
+    room.classList.toggle('rail', railOpen);
+    [skBtnHome, skBtnBar].forEach(b => b.setAttribute('aria-expanded', railOpen ? 'true' : 'false'));
+    api && api.relayout(600);
   }
   function drawFocus() {
     const ds = focusDocs();
     focusRow.replaceChildren(...(ds.length
       ? [h('span', { class: 'rm-fl2' }, L('Wir arbeiten mit', 'Working with')), ...ds.map(d => h('span', { class: 'rm-chip' }, h('span', { html: ico(d.generated ? 'bulb' : 'file') }), h('span', { class: 'rm-cn' }, d.name), h('button', { type: 'button', 'aria-label': L('Entfernen', 'Remove'), html: ico('x'), onclick: () => { setFocus(getFocus().filter(x => x !== d.id)); drawFocus(); drawRails(); drawSugg(); } })))]
-      : [h('span', { class: 'rm-fl2 soft' }, MOB.matches ? L('Ohne Skript – ich nehm mein BWL-Wissen. Tipp oben auf „Skripte“.', 'No slides – I’ll use my business knowledge. Tap “Slides” above.') : L('Ohne Skript – ich nehm mein BWL-Wissen. Wähl rechts ein Skript oder zieh es hier rein.', 'No slides – I’ll use my business knowledge. Pick slides on the right or drag them in here.'))]));
+      : [h('span', { class: 'rm-fl2 soft' }, L('Ohne Skript – ich nehm mein BWL-Wissen. ', 'No slides – I’ll use my business knowledge. '), h('button', { class: 'linkbtn rm-fl3', type: 'button', onclick: () => toggleRail(true) }, L('Skript wählen', 'Pick slides')))]));
   }
   // Schnellstarts (nur im Begrüßungs-Zustand)
   function drawSugg() {
@@ -386,14 +393,13 @@ export function render(root, ctx = {}) {
   };
   document.addEventListener('dragover', onOver); document.addEventListener('dragleave', onLeave); document.addEventListener('drop', onDrop);
 
-  // ---------- Handy: Fächer / Skripte als Leiste von unten ----------
-  function sheet(kind) {
+  // ---------- Handy: Skripte als Leiste von unten ----------
+  function sheet() {
     document.querySelector('.rm-sheet')?.remove();
     const close = () => { bg.classList.add('out'); setTimeout(() => bg.remove(), 260); api && api.hold(false); };
-    const body = kind === 'faecher' ? [fachList(close), todayBox(), h('a', { class: 'btn sm', href: '#/app/faecher', onclick: close }, L('Fächer verwalten', 'Manage subjects'))]
-      : [skriptList(close), h('label', { class: 'btn sm', for: 'fileApp', onclick: close }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material'))];
     const bg = h('div', { class: 'rm-sheet', onclick: e => { if (e.target === bg) close(); } },
-      h('div', { class: 'rm-shin' }, h('div', { class: 'rm-grab' }, h('i')), h('div', { class: 'rm-rh' }, h('b', {}, kind === 'faecher' ? L('Fächer', 'Subjects') : L('Skripte', 'Slides')), h('button', { class: 'iconbtn', type: 'button', html: ico('x'), 'aria-label': L('Schließen', 'Close'), onclick: close })), ...body));
+      h('div', { class: 'rm-shin' }, h('div', { class: 'rm-grab' }, h('i')), h('div', { class: 'rm-rh' }, h('b', {}, L('Skripte', 'Slides')), h('button', { class: 'iconbtn', type: 'button', html: ico('x'), 'aria-label': L('Schließen', 'Close'), onclick: close })),
+        skriptList(close), h('label', { class: 'btn sm', for: 'fileApp', onclick: close }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material'))));
     document.body.appendChild(bg); api && api.hold(true);
   }
 
@@ -410,6 +416,7 @@ export function render(root, ctx = {}) {
       onAnswer: p => { if (p && p.boards) SES.boards += p.boards.length; },
       onBoard: v => { room.classList.toggle('has-board', !!v && mode === 'talk'); },
       onState: s => {
+        if (s === 'think' && Math.random() < .5) setTimeout(() => think(), 600);
         fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
         faceEl.classList.toggle('listening', s === 'listen');
         status.textContent = ({ listen: L('hört zu …', 'listening …'), think: L('überlegt …', 'thinking …'), speak: L('redet …', 'talking …') })[s] || (focusDocs()[0]?.name || L('dein Tutor', 'your tutor'));
@@ -445,7 +452,7 @@ export function render(root, ctx = {}) {
   if (!SES.on) speak(speechText());
   if (ctx.arrive) requestAnimationFrame(() => requestAnimationFrame(async () => {
     if (stopped) return;
-    const flew = await fly(ctx.arrive, faceEl.getBoundingClientRect(), { dur: 820 });
+    const flew = await fly(ctx.arrive, () => faceEl.getBoundingClientRect(), { dur: 900 });
     headApi.show(flew);
   }));
   else if (!document.querySelector('.ngreet') && !reduce()) faceEl.animate([{ opacity: 0, transform: 'scale(.6) translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 650, easing: 'cubic-bezier(.2,1.3,.4,1)' });
@@ -459,7 +466,7 @@ export function render(root, ctx = {}) {
   MOB.addEventListener?.('change', onMq);
 
   return () => {
-    stopped = true; clearInterval(iv); removeEventListener('hashchange', onHash);
+    stopped = true; clearInterval(iv); clearInterval(thIv); clearTimeout(thT); removeEventListener('hashchange', onHash);
     off1(); off2(); off3(); removeEventListener('maxcfg:change', onCfg); MOB.removeEventListener?.('change', onMq);
     document.removeEventListener('dragover', onOver); document.removeEventListener('dragleave', onLeave); document.removeEventListener('drop', onDrop);
     document.querySelector('.rm-sheet')?.remove();

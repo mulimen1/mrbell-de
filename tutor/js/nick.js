@@ -152,14 +152,14 @@ export function greetSplash(nick = getNick()) {
       h('div', { class: 'ng-skip' }, L('Antippen, um direkt loszulegen', 'Tap to jump right in'))));
   document.body.appendChild(el);
   import('./flight.js').then(F => F.hideDock()).catch(() => {});
-  const fc = face(fEl, {}); fc.set('happy');
+  const fc = face(fEl, {});
   setTimeout(() => fc.pulse && fc.pulse('smug', 1400), 900);
   let done = false;
   const close = () => {
     if (done) return; done = true; clearTimeout(auto);
     const r = fEl.getBoundingClientRect();
     el.classList.add('out');
-    import('./flight.js').then(F => { fEl.style.visibility = 'hidden'; return F.dockTo(r, { dur: 1050, arc: .16 }); }).catch(() => {});
+    import('./flight.js').then(F => { fEl.style.visibility = 'hidden'; return F.dockTo(r, { dur: 1100, arc: .16 }); }).catch(() => {});
     setTimeout(() => { el.remove(); showing = false; }, 560);
   };
   const auto = setTimeout(close, 3200);

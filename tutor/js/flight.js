@@ -7,39 +7,52 @@ const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ease = u => { const a = 1 - u; return 1 - a * a * a * (1 + 1.6 * u); };
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
-export function fly(from, to, { dur = 880, arc = .28, state = 'happy', z = 160 } = {}) {
-  if (!from || !to || !from.width || !to.width || reduce()) return Promise.resolve(false);
-  const size = Math.round(Math.max(from.width, to.width));
-  const mk = cls => { const el = document.createElement('div'); el.className = 'flyer' + (cls ? ' ' + cls : ''); el.style.cssText = `position:fixed;left:0;top:0;width:${size}px;height:${size}px;z-index:${z};pointer-events:none;will-change:transform,opacity;`; return el; };
+// to darf eine Funktion sein: dann wird das Ziel in jedem Bild neu gemessen – wandert die Seite während des Flugs
+// (z. B. weil die Seitenleiste einklappt), landet der Kopf trotzdem exakt da, wo er bleibt. Kein Nachruckeln.
+export function fly(from, to, { dur = 900, arc = .26, state = 'idle', z = 160, linger = 200 } = {}) {
+  const target = typeof to === 'function' ? to : () => to;
+  const first = target();
+  if (!from || !first || !from.width || !first.width || reduce()) return Promise.resolve(false);
+  const size = Math.round(Math.max(from.width, first.width));
+  const mk = cls => { const el = document.createElement('div'); el.className = 'flyer' + (cls ? ' ' + cls : ''); el.style.cssText = `position:fixed;left:0;top:0;width:${size}px;height:${size}px;z-index:${z};pointer-events:none;will-change:transform;`; return el; };
   const el = mk('');
   const fc = face(el, { follow: false }); fc.set(state);
-  const sx = from.left + from.width / 2, sy = from.top + from.height / 2, ex = to.left + to.width / 2, ey = to.top + to.height / 2;
-  const dx = ex - sx, dy = ey - sy, dist = Math.hypot(dx, dy) || 1;
-  // Kontrollpunkt senkrecht zur Strecke, immer nach oben gewölbt
-  let nx = -dy / dist, ny = dx / dist; if (ny > 0) { nx = -nx; ny = -ny; }
-  const bow = Math.min(dist * arc, 240);
-  const cx = (sx + ex) / 2 + nx * bow, cy = (sy + ey) / 2 + ny * bow;
-  const s0 = from.width / size, s1 = to.width / size;
-  const N = 40, kf = [];
-  for (let i = 0; i <= N; i++) {
-    const u = i / N, t = ease(u), m = 1 - t;
+  document.body.appendChild(el);
+  const sx = from.left + from.width / 2, sy = from.top + from.height / 2;
+  { const dx = first.left + first.width / 2 - sx, dy = first.top + first.height / 2 - sy, d = Math.hypot(dx, dy) || 1; fc.lookAt(dx / d * 42, dy / d * 24, dur + 300); }
+  // Nachzieh-Schatten: zwei blasse Kopien, die ein paar Bilder hinterherhängen
+  const ghosts = [1, 2].map(k => { const g = mk('ghost face'); g.dataset.state = state; const svg = el.querySelector('svg'); if (svg) g.appendChild(svg.cloneNode(true)); g.style.opacity = String(k === 1 ? .18 : .08); g.style.visibility = 'hidden'; document.body.insertBefore(g, el); return g; });
+  const trail = [];
+  const at = (u, r) => {
+    const t = ease(u), m = 1 - t;
+    const ex = r.left + r.width / 2, ey = r.top + r.height / 2;
+    const dx = ex - sx, dy = ey - sy, dist = Math.hypot(dx, dy) || 1;
+    let nx = -dy / dist, ny = dx / dist; if (ny > 0) { nx = -nx; ny = -ny; }
+    const bow = Math.min(dist * arc, 220);
+    const cx = (sx + ex) / 2 + nx * bow, cy = (sy + ey) / 2 + ny * bow;
     const x = m * m * sx + 2 * m * t * cx + t * t * ex, y = m * m * sy + 2 * m * t * cy + t * t * ey;
     const tx = 2 * m * (cx - sx) + 2 * t * (ex - cx);
-    const rot = clamp(tx / (Math.abs(tx) + 60) * 11, -11, 11) * Math.sin(Math.PI * u);
-    const sc = s0 + (s1 - s0) * t + Math.sin(Math.PI * u) * .07 * Math.max(s0, s1);
-    kf.push({ transform: `translate(${(x - size / 2).toFixed(1)}px, ${(y - size / 2).toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${sc.toFixed(4)})`, offset: u });
-  }
-  document.body.appendChild(el);
-  fc.lookAt(dx / dist * 42, dy / dist * 24, dur + 200);
-  // Nachzieh-Schatten: zwei blasse Kopien kurz dahinter (wirkt wie Bewegungsunschärfe)
-  const ghosts = [1, 2].map(k => {
-    const g = mk('ghost face'); g.dataset.state = state; const svg = el.querySelector('svg'); if (svg) g.appendChild(svg.cloneNode(true));
-    g.style.opacity = String(k === 1 ? .2 : .09); document.body.insertBefore(g, el);
-    g.animate(kf, { duration: dur, delay: 26 * k, easing: 'linear', fill: 'both' });
-    return g;
+    const rot = clamp(tx / (Math.abs(tx) + 60) * 9, -9, 9) * Math.sin(Math.PI * u);
+    const w = from.width + (r.width - from.width) * t;
+    return `translate(${(x - size / 2).toFixed(2)}px, ${(y - size / 2).toFixed(2)}px) rotate(${rot.toFixed(2)}deg) scale(${(w / size).toFixed(4)})`;
+  };
+  el.style.transform = at(0, first);
+  return new Promise(res => {
+    const t0 = performance.now(); let last = first;
+    const frame = now => {
+      const u = Math.min(1, (now - t0) / dur);
+      const r = target(); if (r && r.width) last = r;
+      const tf = at(u, last);
+      el.style.transform = tf; trail.push(tf);
+      ghosts.forEach((g, k) => { const tr = trail[trail.length - 1 - 2 * (k + 1)]; if (tr) { g.style.transform = tr; g.style.visibility = ''; } });
+      if (u < 1) { requestAnimationFrame(frame); return; }
+      // Gelandet: exakt auf dem Ziel. Das echte Gesicht erscheint darunter, die Kopie bleibt kurz drüber und geht dann.
+      ghosts.forEach(g => g.remove());
+      res(true);
+      setTimeout(() => { el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 120, fill: 'forwards' }).finished.finally(() => el.remove()); }, linger);
+    };
+    requestAnimationFrame(frame);
   });
-  const a = el.animate(kf, { duration: dur, easing: 'linear', fill: 'forwards' });
-  return a.finished.catch(() => {}).then(() => { el.remove(); setTimeout(() => ghosts.forEach(g => g.remove()), 70); return true; });
 }
 
 // Landung: kurz zusammengedrückt, dann federnd auf Größe
@@ -57,8 +70,8 @@ export async function dockTo(fromRect, opts = {}) {
   if (roomHeadEl()) {
     roomHead.hide();
     await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-    const r = roomHead.el.getBoundingClientRect();
-    const flew = await fly(fromRect, r, opts);
+    const el = roomHead.el;
+    const flew = await fly(fromRect, () => el.getBoundingClientRect(), opts);
     roomHead.show(flew);
     return 'room';
   }
@@ -67,8 +80,7 @@ export async function dockTo(fromRect, opts = {}) {
     const api = m.mountAssistant();
     if (!api || !m.isAssistantEnabled()) return null;
     api.holdBub(true);
-    const r = api.bubFaceRect();
-    const flew = await fly(fromRect, r, opts);
+    const flew = await fly(fromRect, () => api.bubFaceRect(), opts);
     api.holdBub(false, flew);
     return 'bub';
   } catch (e) { return null; }

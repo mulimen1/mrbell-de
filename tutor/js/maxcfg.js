@@ -1,4 +1,4 @@
-// Max einstellen: wie er mit dir redet, wie er dir etwas beibringt, worauf er achtet, wie tief er geht – und wann Pause ist.
+// Max konfigurieren: wie er mit dir redet, wie er dir etwas beibringt, worauf er achtet, wie tief er geht – und wann Pause ist.
 // Gespeichert in „Mein Bereich“ (synchronisiert). Jede Frage an Max bekommt die Einstellungen als kurze Anweisung mit.
 import { h, ico, modal, toast } from './util.js';
 import { L } from './i18n.js';
@@ -100,7 +100,7 @@ export async function openMaxCfg() {
       h('div', {}, lab(L('Sprüche', 'Jokes')), seg(SPRUECHE, () => spice, v => { spice = v; fc.pulse(v === 3 ? 'smug' : 'happy', 900); }))),
     h('div', {}, lab(L('Pausen', 'Breaks'), L('Max sagt dir, wann du kurz rausgehst', 'Max tells you when to step away')), seg(PAUSEN, () => c.pause, v => { c.pause = v; })));
   const fc = face(fEl, {}); paint();
-  const r = await modal({ cls: 'mc-modal', eyebrow: L('Max einstellen', 'Set up Max'), title: L('Wie soll dein Tutor ticken?', 'How should your tutor tick?'), body,
+  const r = await modal({ cls: 'mc-modal', eyebrow: L('Max konfigurieren', 'Configure Max'), title: L('Wie soll dein Tutor ticken?', 'How should your tutor tick?'), body,
     actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'ok', primary: true }] });
   if (r !== 'ok') return false;
   M.updateMe(m => { m.maxcfg = { ton: c.ton, methode: c.methode, fokus: c.fokus, niveau: c.niveau, pause: c.pause }; });

@@ -224,7 +224,7 @@ export function mountAssistant() {
   const ctxm = h('div', { class: 'asst-ctx', role: 'menu', hidden: true });
   const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : ''), 'data-state': 'idle' }, bd, board, bTab, cap, feedTog, isl, menu, quip, ctxm, bub);
   document.body.appendChild(root);
-  const bf = face(bubFace, {}), fc = face(fEl, { follow: false });
+  const bf = face(bubFace, { sleepy: true }), fc = face(fEl, { follow: false });
 
   // ---------- Sichtbarkeit ----------
   function applyEnabled(announce) {
@@ -1151,7 +1151,8 @@ export function mountAssistant() {
   }
   function holdBub(v, pop) {
     root.classList.toggle('bub-hold', !!v);
-    if (!v && pop && !matchMedia('(prefers-reduced-motion: reduce)').matches) bub.animate([{ transform: 'scale(.72)', opacity: .2 }, { transform: 'scale(1.07)', opacity: 1, offset: .6 }, { transform: 'scale(1)', opacity: 1 }], { duration: 460, easing: 'cubic-bezier(.3,1.3,.5,1)' });
+    // Kreis blendet weich ein, das Gesicht liegt schon genau da, wo der fliegende Kopf gelandet ist
+    if (!v && pop && !matchMedia('(prefers-reduced-motion: reduce)').matches) bub.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, easing: 'ease-out' });
   }
   function bubFaceRect() {
     if (open && !STAGE) return fEl.getBoundingClientRect();

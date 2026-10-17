@@ -7,6 +7,15 @@ const HAIR_IMG = new Image(); HAIR_IMG.src = '/tutor/img/max-hair-sm.png';
 let HAIR_READY = false;
 let pointer = null;
 addEventListener('pointermove', e => { pointer = { x: e.clientX, y: e.clientY, t: performance.now() }; }, { passive: true });
+// Eine Minute gar nichts (keine Maus, keine Taste, kein Scrollen) – dann schläft Max ein. Jede Bewegung weckt ihn.
+let lastInput = Date.now(), asleep = false;
+export const isAsleep = () => asleep;
+const wake = () => { lastInput = Date.now(); if (!asleep) return; asleep = false; faces.forEach(f => { if (f.sleepy && f.state === 'sleep') { f.set('idle'); f.blink(true); } }); };
+for (const ev of ['pointermove', 'pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll']) addEventListener(ev, wake, { passive: true, capture: true });
+setInterval(() => {
+  if (asleep || document.hidden || Date.now() - lastInput < 60e3) return;
+  asleep = true; faces.forEach(f => { if (f.sleepy && f.el.isConnected && f.state === 'idle') f.set('sleep'); });
+}, 2000);
 
 export function face(el, opts = {}) {
   const f = new Face(el, opts);
@@ -15,8 +24,8 @@ export function face(el, opts = {}) {
 }
 
 class Face {
-  constructor(el, { follow = true } = {}) {
-    this.el = el; this.follow = follow; this.state = 'idle';
+  constructor(el, { follow = true, sleepy = false } = {}) {
+    this.el = el; this.follow = follow; this.state = 'idle'; this.sleepy = sleepy;
     el.classList.add('face');
     const svg = document.createElementNS(NS, 'svg');
     svg.setAttribute('viewBox', '140 100 750 680');
@@ -65,11 +74,23 @@ class Face {
   }
   set(state) {
     if (this.state === state) return;
+    const was = this.state;
     this.state = state;
     this.el.dataset.state = state;
+    if (state === 'sleep') this.zz();
+    else if (was === 'sleep') { const z = this.el.querySelector(':scope > .fz-zz'); if (z) { z.classList.add('out'); setTimeout(() => z.remove(), 400); } }
     if (state === 'happy') this.body.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-26px)' }, { transform: 'translateY(0)' }], { duration: 440, easing: 'cubic-bezier(.16,1,.3,1)' });
     if (state === 'sad') this.body.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-4deg)' }, { transform: 'rotate(0)' }], { duration: 800, easing: 'ease-in-out' });
     if (state === 'smug') this.hair.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-10px)' }, { transform: 'translateY(0)' }], { duration: 520, easing: 'ease-in-out' });
+  }
+  // Schlaf-Zs, die nach oben schweben
+  zz() {
+    if (this.el.querySelector(':scope > .fz-zz')) return;
+    if (getComputedStyle(this.el).position === 'static') this.el.style.position = 'relative';
+    const z = document.createElement('div'); z.className = 'fz-zz'; z.setAttribute('aria-hidden', 'true');
+    z.style.fontSize = Math.max(10, Math.round((this.el.offsetWidth || 40) * .22)) + 'px';
+    z.innerHTML = '<span>z</span><span>z</span><span>Z</span>';
+    this.el.appendChild(z);
   }
   pulse(state, ms = 1600) { this.set(state); clearTimeout(this._pt); this._pt = setTimeout(() => this.set('idle'), ms); }
   // Blick kurz in eine Richtung zwingen (z. B. beim Fliegen: dahin, wo er hinfliegt)
@@ -84,7 +105,7 @@ class Face {
     clearTimeout(this._bt);
     this._bt = setTimeout(() => {
       if (!this.el.isConnected) { faces.delete(this); return; }
-      if (this.state !== 'happy') this.blink(Math.random() < .22);
+      if (this.state !== 'happy' && this.state !== 'sleep') this.blink(Math.random() < .22);
       if (this.state === 'idle' && Math.random() < .12) this.pulse('smug', 1400);
       this.scheduleBlink();
     }, 2600 + Math.random() * 3600);
@@ -92,7 +113,8 @@ class Face {
   loop(t) {
     if (!this.el.isConnected) { faces.delete(this); clearTimeout(this._bt); return; }
     const r = this.el.getBoundingClientRect();
-    if (this.forced && t < this.forced.until) { this.tx = this.forced.x; this.ty = this.forced.y; }
+    if (this.state === 'sleep') { this.tx = 0; this.ty = 14; }
+    else if (this.forced && t < this.forced.until) { this.tx = this.forced.x; this.ty = this.forced.y; }
     else if (this.state === 'think') { this.tx = 22; this.ty = -22; }
     else if (this.follow && pointer && t - pointer.t < 4000 && r.width) {
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
@@ -140,6 +162,17 @@ const css = `
 .face[data-state="think"] svg .fz-dots circle:nth-child(2) { animation-delay: .2s; }
 .face[data-state="think"] svg .fz-dots circle:nth-child(3) { animation-delay: .4s; }
 .face[data-state="talk"] svg .fz-talk { opacity: 1; animation: fztalk .32s ease-in-out infinite alternate; }
+/* Schlafen: Augen zu, leichtes Atmen, Zs steigen auf */
+.face[data-state="sleep"] svg .fz-eyes { transform: scaleY(.1); transition: transform .5s ease; }
+.face svg .fz-eyes { transition: transform .25s ease; }
+.face[data-state="sleep"] svg .fz-body { animation: fzbreath 3.4s ease-in-out infinite; }
+.fz-zz { position: absolute; right: -26%; top: -22%; width: 44%; height: 70%; pointer-events: none; font: 700 1em/1 var(--sans, sans-serif); color: var(--ink); }
+.fz-zz span { position: absolute; left: 0; bottom: 0; opacity: 0; animation: fzz 2.7s ease-in infinite; }
+.fz-zz span:nth-child(2) { animation-delay: .9s; font-size: .8em; } .fz-zz span:nth-child(3) { animation-delay: 1.8s; font-size: 1.15em; }
+.fz-zz.out { opacity: 0; transition: opacity .35s ease; }
+@keyframes fzz { 0% { opacity: 0; transform: translate(0, 0) rotate(-8deg); } 15% { opacity: .9; } 100% { opacity: 0; transform: translate(1.6em, -2.6em) rotate(12deg); } }
+@keyframes fzbreath { 50% { transform: rotate(3deg) translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .fz-zz span, .face[data-state="sleep"] svg .fz-body { animation: none !important; } .fz-zz span:last-child { opacity: .8; } }
 @keyframes fzdot { 0%, 100% { opacity: .15; } 50% { opacity: 1; } }
 @keyframes fztalk { from { transform: scaleY(.35); } to { transform: scaleY(1.15); } }
 `;

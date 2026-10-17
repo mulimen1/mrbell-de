@@ -249,8 +249,8 @@ export async function mountApp(parts) {
   });
 }
 
-async function show(key, fn) {
-  if (current.key === key) return;
+// Aktuelle Seite verlassen. Kommt man aus dem Tutor-Raum, fliegt Max' Kopf danach nach unten rechts.
+function leaveView(key) {
   let headRect = null, ap = null;
   if (current.key === 'room' && key !== 'room') {
     const fe = document.querySelector('.room .rm-face');
@@ -260,14 +260,19 @@ async function show(key, fn) {
   }
   try { current.cleanup && current.cleanup(); } catch (e) {}
   current = { key, cleanup: null };
+  return () => { if (headRect && ap) requestAnimationFrame(() => requestAnimationFrame(async () => { const flew = await fly(headRect, () => ap.bubFaceRect(), { dur: 900 }); ap.holdBub(false, flew); })); };
+}
+async function show(key, fn) {
+  if (current.key === key && !current.force) return;
+  const after = leaveView(key);
   const root = shell.view;
   root.replaceChildren();
   root.scrollTop = 0;
-  if (headRect && ap) requestAnimationFrame(() => requestAnimationFrame(async () => { const flew = await fly(headRect, ap.bubFaceRect(), { dur: 860 }); ap.holdBub(false, flew); }));
+  after();
   try { const c = await fn(root); if (current.key === key) current.cleanup = typeof c === 'function' ? c : null; }
   catch (e) { console.error(e); root.replaceChildren(h('div', { class: 'empty' }, h('h2', {}, L('Da ist was schiefgelaufen.', 'Something went wrong.')), h('p', {}, String(e.message || e)), h('button', { class: 'btn', onclick: () => location.reload() }, L('Neu laden', 'Reload')))); }
 }
-export function forceRerender() { current.key = ''; }
+export function forceRerender() { current.force = true; }
 
 // Aus Quiz/Trainer heraus: Frage an den Tutor schicken
 export async function askTutorAbout(text, { confirm = true } = {}) {
@@ -309,7 +314,7 @@ export async function startUpload(files) {
   if (location.hash !== '#/app/neu') location.hash = '#/app/neu';
   if (!shell) { buildShell(); await refreshList(); }
   shell.tabs.replaceChildren(); docbar(false);
-  current.key = 'ingest';
+  const after = leaveView('ingest'); after();
   const target = ls.get('tutor.target', null); ls.set('tutor.target', null);
   try {
     const { intake } = await import('./intake.js');
@@ -329,7 +334,7 @@ export async function startSample() {
   const ex = S.list.find(d => d.sample);
   if (ex) { const t = ls.get('tutor.target', null); location.hash = t ? afterCreate(ex) : `#/app/${ex.id}/hub`; return; }
   const d = await createDoc({ name: SAMPLE.name, pages: SAMPLE.pages, chars: SAMPLE.pages.join('').length, sample: true });
-  current.key = '';
+  forceRerender();
   location.hash = afterCreate(d);
 }
 
@@ -402,7 +407,7 @@ export async function startTopic(topic) {
   if (location.hash !== '#/app/neu') location.hash = '#/app/neu';
   shell.title.textContent = L('Ich schreibe …', 'Writing …');
   shell.tabs.replaceChildren(); docbar(false);
-  current.key = 'topic';
+  const after = leaveView('topic'); after();
   const f = h('div', { class: 'face' }), sub = h('div', { class: 'sub' }), bar = h('i');
   shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f,
     h('h2', { style: { margin: 0, letterSpacing: '-.03em' } }, L(`Ich schreib dir ein Kurzskript zu „${topic}“`, `I’m writing you a short script on “${topic}”`)),
@@ -427,7 +432,7 @@ export async function startTopic(topic) {
     // Einordnen wie beim Upload: Fach, Ziel, Datum, womit starten – alles optional
     const { placeTopic, route } = await import('./intake.js');
     const ans = await placeTopic(d, r.data, tgt).catch(() => null);
-    current.key = '';
+    forceRerender();
     if (!ans || ans.start === 'tutor') { ls.set('tutor.pendingAsk', L(`Erklär mir „${topic}“ von Grund auf – mit Beispiel an der Tafel.`, `Explain “${topic}” to me from scratch – with an example on the whiteboard.`)); location.hash = `#/app/${d.id}/tutor`; }
     else location.hash = route(d, ans);
   } catch (e) {
