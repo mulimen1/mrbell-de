@@ -240,7 +240,7 @@ export async function openAccount() {
     h('div', { class: 'accrow' }, h('span', {}, L('Spitzname', 'Nickname')), h('b', {}, getNick(a) || '–', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); askNick(); } }, getNick(a) ? L('ändern', 'change') : L('festlegen', 'set')))),
     h('div', { class: 'accrow' }, h('span', {}, L('E-Mail', 'Email')), h('b', {}, a.email)),
     h('div', { class: 'accrow' }, h('span', {}, L('Passwort', 'Password')), h('b', {}, a.hasPw === false ? L('noch nicht festgelegt', 'not set yet') : '••••••••', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); openLogin({ mode: 'reset', title: a.hasPw === false ? L('Passwort festlegen', 'Set a password') : L('Passwort ändern', 'Change password') }); } }, a.hasPw === false ? L('festlegen', 'set') : L('ändern', 'change')))),
-    h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? h('span', {}, h('span', { class: 'ic-chip' }, h('span', { class: 'ic-lt' }, 'Inner Circle')), L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(a.proUntil)})`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(a.proUntil)})`)) : L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'))),
+    h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? h('span', {}, h('span', { class: 'ic-chip' }, h('span', { class: 'ic-lt' }, 'Inner Circle')), L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(a.proUntil)})`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(a.proUntil)})`)) : [L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'), ' ', h('button', { class: 'linkbtn', type: 'button', onclick: planSwitch }, L('wechseln', 'change'))])),
     aboRow(a),
     h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))));
   const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Deine Skripte bleiben auf diesem Gerät. Bei uns liegen deine E-Mail-Adresse und dein verschlüsseltes Passwort.', 'Your slides stay on this device. We store your email address and your encrypted password.'), body,
@@ -307,6 +307,14 @@ function aboRow(a) {
     }).catch(() => {});
     return h('div', { class: 'accrow' }, h('span', {}, L('Abo', 'Subscription')), h('b', {}, tx, ' ', btn));
   }
-  if (a.pro || !aboReady()) return null;
-  return h('div', { class: 'accrow' }, h('span', { class: 'ic-name' }, 'Inner Circle'), h('b', {}, h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); import('./abo.js').then(m => m.openAbo()); } }, L('7 Tage gratis testen', 'Try 7 days free'))));
+  return null;   // Free: Wechsel läuft über „Tarif · wechseln“
+}
+// Tarif wechseln geht immer – auch wenn das Tageslimit noch nicht erreicht ist
+async function planSwitch() {
+  document.querySelector('.modal-bg')?.remove();
+  const m = await import('./abo.js');
+  await m.loadPk(true);
+  if (m.aboReady()) return m.openAbo();
+  const { innerCircle } = await import('./ic.js');
+  innerCircle({ reason: L('Mehr Max, wann du willst.', 'More Max, whenever you want.'), later: L('Schließen', 'Close') });
 }
