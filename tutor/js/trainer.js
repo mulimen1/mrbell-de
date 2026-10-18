@@ -422,7 +422,7 @@ function combo(onPick) {
       lb.append(h('div', { class: 'tr-cb-g', role: 'presentation' }, g));
       for (const [k, n] of m) {
         const o = h('div', { class: 'tr-cb-o', role: 'option', id: uid('o'), 'aria-selected': 'false', 'data-k': k }, n);
-        o.addEventListener('click', () => { choose(k); close(); });
+        o.addEventListener('click', () => { choose(k); if (sheet && sheet.isConnected) closeSheet(); else close(); });
         lb.append(o); opts.push(o);
       }
     }
@@ -437,7 +437,34 @@ function combo(onPick) {
   function openList() { if (open || inp.disabled) return; open = true; el.classList.add('open'); inp.setAttribute('aria-expanded', 'true'); }
   function close() { open = false; el.classList.remove('open'); inp.setAttribute('aria-expanded', 'false'); }
   function choose(k) { val = k; inp.value = k ? AN(k) : ''; onPick(k); }
-  inp.addEventListener('focus', () => { render(''); openList(); requestAnimationFrame(() => inp.select()); });
+  // Handy: Kontenliste als Vollbild-Sheet über allem (Suchfeld oben, große Zeilen, Tastatur verdeckt nichts)
+  const sheetMode = () => typeof matchMedia === 'function' && matchMedia('(max-width: 640px) and (pointer: coarse)').matches;
+  let sheet = null, sq = null, home = null;
+  const fitVV = () => { if (sheet) sheet.style.height = (window.visualViewport ? visualViewport.height : innerHeight) + 'px'; };
+  function openSheet() {
+    if (inp.disabled || (sheet && sheet.isConnected)) return;
+    if (!sheet) {
+      sq = h('input', { class: 'field tr-cbs-q', type: 'search', enterkeyhint: 'done', placeholder: LL('Konto suchen …', 'Search account …'), 'aria-label': LL('Konto suchen', 'Search account'), 'aria-controls': lid, autocomplete: 'off', spellcheck: 'false' });
+      const x = h('button', { class: 'btn sm ghost tr-cbs-x', type: 'button' }, LL('Fertig', 'Done'));
+      x.addEventListener('click', closeSheet);
+      sq.addEventListener('input', () => render(sq.value));
+      sq.addEventListener('keydown', e => { if (e.key === 'Escape') { e.preventDefault(); closeSheet(); } else if (e.key === 'Enter') { e.preventDefault(); const k = act >= 0 ? opts[act].dataset.k : opts.length === 1 ? opts[0].dataset.k : null; if (k) choose(k); closeSheet(); } });
+      sheet = h('div', { class: 'tr-cbs', role: 'dialog', 'aria-modal': 'true', 'aria-label': LL('Konto wählen', 'Choose account') }, h('div', { class: 'tr-cbs-h' }, sq, x));
+    }
+    home = home || lb.parentNode;
+    sq.value = ''; render(''); sheet.append(lb); document.body.append(sheet);
+    open = true; el.classList.add('open'); inp.setAttribute('aria-expanded', 'true'); document.documentElement.classList.add('tr-cbs-on');
+    fitVV(); window.visualViewport?.addEventListener('resize', fitVV); window.visualViewport?.addEventListener('scroll', fitVV);
+    sq.focus({ preventScroll: true });
+    const cur = opts.find(o => o.dataset.k === val); if (cur) cur.scrollIntoView({ block: 'center' }); else lb.scrollTop = 0;
+  }
+  function closeSheet() {
+    if (!sheet || !sheet.isConnected) return;
+    window.visualViewport?.removeEventListener('resize', fitVV); window.visualViewport?.removeEventListener('scroll', fitVV);
+    sq.blur(); sheet.remove(); (home || el).append(lb); document.documentElement.classList.remove('tr-cbs-on'); close();
+  }
+  inp.addEventListener('focus', () => { if (sheetMode()) { inp.blur(); openSheet(); return; } render(''); openList(); requestAnimationFrame(() => inp.select()); });
+  inp.addEventListener('mousedown', e => { if (sheetMode()) { e.preventDefault(); openSheet(); } });
   inp.addEventListener('input', () => { render(inp.value); openList(); });
   inp.addEventListener('keydown', e => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
@@ -1023,7 +1050,7 @@ function kwExplore(stage) {
       const inp = h('input', { class: 'field tr-cfin', type: 'text', inputmode: 'decimal', value: fmt(c, 0), 'aria-label': LL(`Zahlung in t = ${t}`, `Cash flow at t = ${t}`) });
       inp.addEventListener('input', () => { const v = parseNum(inp.value); inp.classList.toggle('tr-in-bad', !Number.isFinite(v)); S.cf[t] = Number.isFinite(v) ? v : 0; upd(); });
       inp.addEventListener('blur', () => { if (Number.isFinite(parseNum(inp.value))) inp.value = fmt(S.cf[t], 0); });
-      const f = h('td', { class: 'n' }), bw = h('td', { class: 'n' }), cum = h('td', { class: 'n' });
+      const f = h('td', { class: 'n tr-fac' }), bw = h('td', { class: 'n' }), cum = h('td', { class: 'n' });
       tbody.append(h('tr', null, h('td', { class: 'tr-t' }, t), h('td', null, inp), f, bw, cum));
       return { f, bw, cum };
     });
@@ -1033,14 +1060,14 @@ function kwExplore(stage) {
     chart.draw();
     let cum = 0;
     S.cf.forEach((c, t) => { const q = (1 + S.i) ** -t, pv = c * q; cum += pv; cells[t].f.textContent = fmt(q, 4); cells[t].bw.textContent = fmt(pv, 2); cells[t].cum.textContent = fmt(cum, 2); cells[t].cum.classList.toggle('tr-neg', cum < 0); });
-    tfoot.replaceChildren(h('tr', null, h('td', { colspan: 3 }, LL('Kapitalwert', 'NPV')), h('td', { class: 'n', colspan: 2 }, h('b', null, eur(cum)))));
+    tfoot.replaceChildren(h('tr', null, h('td', { colspan: 2 }, LL('Kapitalwert', 'NPV')), h('td', { class: 'tr-fac' }), h('td', { class: 'n', colspan: 2 }, h('b', null, eur(cum)))));
     const n = S.cf.length - 1, ann = inv.annuity(cum, S.i, n), roots = inv.irr(S.cf), ps = inv.payback(S.cf, 0), pd = inv.payback(S.cf, S.i);
     const yr = v => (v == null ? LL('nicht in der Laufzeit', 'not within the term') : fmt(v, 2) + LL(' Jahre', ' years'));
     kp.replaceChildren(kpi(LL('Kapitalwert', 'NPV'), eur0(cum), cum >= 0 ? LL('vorteilhaft (KW ≥ 0)', 'worthwhile (NPV ≥ 0)') : LL('nicht vorteilhaft', 'not worthwhile')), kpi(LL('Annuität', 'Annuity'), eur0(ann), LL(`pro Jahr über ${n} Jahre`, `per year over ${n} years`)),
       kpi(LL('Interner Zinsfuß', 'Internal rate of return'), roots.length ? fmt(roots[0] * 100, 2) + LL(' %', '%') : LL('keiner', 'none'), roots.length > 1 ? LL(`mehrere Lösungen (${roots.length})`, `multiple solutions (${roots.length})`) : roots.length ? (roots[0] > S.i ? LL('liegt über i', 'above i') : LL('liegt unter i', 'below i')) : LL('kein Vorzeichenwechsel', 'no sign change')),
       kpi(LL('Amortisation statisch', 'Static payback'), yr(ps), LL('kumuliert, unverzinst', 'cumulative, undiscounted')), kpi(LL('Amortisation dynamisch', 'Dynamic payback'), yr(pd), LL('kumulierte Barwerte', 'cumulative present values')));
   }
-  const table = h('table', { class: 'tr-table tr-cft' }, h('thead', null, h('tr', null, h('th', null, 't'), h('th', null, LL('Zahlung (€)', 'Cash flow (€)')), h('th', { class: 'n' }, LL('Abzinsungsfaktor', 'Discount factor')), h('th', { class: 'n' }, LL('Barwert', 'Present value')), h('th', { class: 'n' }, LL('kumuliert', 'cumulative')))), tbody, tfoot);
+  const table = h('table', { class: 'tr-table tr-cft' }, h('thead', null, h('tr', null, h('th', null, 't'), h('th', null, LL('Zahlung (€)', 'Cash flow (€)')), h('th', { class: 'n tr-fac' }, LL('Abzinsungsfaktor', 'Discount factor')), h('th', { class: 'n' }, LL('Barwert', 'Present value')), h('th', { class: 'n' }, LL('kumuliert', 'cumulative')))), tbody, tfoot);
   stage.append(h('div', { class: 'tr-explore' }, h('div', { class: 'tr-panel' }, zins.el, h('p', { class: 'tr-mute tr-small' }, LL('Trag die Zahlungen unten in die Tabelle ein (Auszahlungen negativ).', 'Enter the cash flows in the table below (outflows negative).')), h('div', { class: 'tr-row-btns' }, bAdd, bDel)), h('div', { class: 'tr-chartwrap' }, box)), kp,
     h('div', { class: 'tr-sub tr-sub-gap' }, LL('Zahlungsreihe & Abzinsungstabelle', 'Cash flows & discounting table')), h('div', { class: 'tr-tablew' }, table));
   rows(); upd();
