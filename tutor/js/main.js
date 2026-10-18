@@ -12,6 +12,7 @@ import { EN, L, setLang, lang } from './i18n.js';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+let topicEntry = false;
 // ---------- Landing ----------
 let landingReady = false;
 function initLanding() {
@@ -230,8 +231,9 @@ async function route() {
     let done = ''; try { done = sessionStorage.getItem('tutor.themaDone') || ''; } catch (e) {}
     if (T && done !== T.slug) {
       try { sessionStorage.setItem('tutor.themaDone', T.slug); sessionStorage.setItem('tutor.topicHead', T.name); sessionStorage.setItem('tutor.stay', String(Date.now())); } catch (e) {}
-      ls.set('tutor.pendingAsk', { t: T.ask, show: T.show || `Erklär mir „${T.name}“.`, wait: T.wait || `${T.name} – kommt sofort. Ich bau dir die Tafel jetzt live: erst das Prinzip, dann die Formel, dann ein durchgerechnetes Beispiel.` });
+      ls.set('tutor.pendingAsk', { t: T.ask, board: T.name === 'BWL' ? L('Dein BWL-Überblick', 'Your business overview') : T.name, show: T.show || `Erklär mir „${T.name}“.`, wait: T.wait || `${T.name} – kommt sofort. Ich bau dir die Tafel jetzt live: erst das Prinzip, dann die Formel, dann ein durchgerechnetes Beispiel.` });
       history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor';
+      topicEntry = true;
     }
   }
   const inApp = hash.startsWith('#/app');
@@ -263,7 +265,7 @@ document.addEventListener('click', e => {
 route();
 // Angemeldet: Max begrüßt mit Spitznamen (oder fragt einmal danach)
 setTimeout(() => {
-  if (/^#\/login\//.test(location.hash)) return;
+  if (/^#\/login\//.test(location.hash) || topicEntry) return;   // Thema-Einstieg: keine Begrüßung dazwischen, Max erklärt sofort
   const a = getAccount(); if (!a) return;
   // Spitzname nur lokal (von früher)? Einmal ans Konto hängen, damit er überall gilt
   if (!a.nick && getNick(a)) import('./nick.js').then(m => m.setNick(getNick(a), a)).catch(() => {});

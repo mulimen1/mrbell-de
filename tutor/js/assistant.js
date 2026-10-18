@@ -763,6 +763,17 @@ export function mountAssistant() {
     if (!boards.length) { closeBoard(); toast(L('Tafel gelöscht.', 'Board deleted.')); return; }
     bIdx = clamp(bIdx, 0, boards.length - 1); drawBoard(false); toast(L('Tafel gelöscht.', 'Board deleted.'));
   }
+  // Platzhalter, solange Max die Tafel baut (Thema-Einstieg): man sieht sofort, dass gerade die Tafel entsteht
+  let building = false;
+  function showBuilding(title) {
+    building = true;
+    bTitle.textContent = title; bCount.textContent = ''; bPrev.hidden = bNext.hidden = true;
+    const lines = [88, 64, 76, 52, 70].map((w, i) => h('i', { style: `width:${w}%;animation-delay:${i * .12}s` }));
+    bArea.replaceChildren(h('div', { class: 'tafel' }, h('h2', { class: 'tt' }, title),
+      h('div', { class: 'ai-building' }, h('p', { class: 'ai-bld-t' }, h('span', { class: 'ai-bld-pen', 'aria-hidden': 'true' }, '✎'), L('Max baut deine Tafel – live, nur für dich …', 'Max is building your board – live, just for you …')), h('div', { class: 'ai-bld-l' }, ...lines))));
+    openBoard();
+  }
+  function endBuilding() { if (!building) return; building = false; if (boards.length) drawBoard(false); else closeBoard(); }
   function closeBoard() { boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); syncLock(); boardHook(); }
   function boardHook() { try { STAGE?.onBoard?.(boardOpen && !boardMin); } catch (e) {} }
   // Tafel „schreibt mit“: Abschnitte erscheinen im Takt der Stimme
@@ -880,6 +891,7 @@ export function mountAssistant() {
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     unlockAudio();
     waitTx = o.wait || ''; capQuestion(shown); capQ.classList.remove('live'); capThinking();
+    if (o.board) showBuilding(String(o.board));
     const pasted = attachTx; if (pasted) { capQ.prepend(h('span', { class: 'ai-refq' }, L('Eingefügter Text · ', 'Pasted text · ') + pasted.length.toLocaleString('de-DE') + L(' Zeichen', ' chars'))); clearAttach(); }
     if (askRef) capQ.prepend(h('span', { class: 'ai-refq' }, L(`Zu ${askRef.i}/${askRef.n} · `, `Re ${askRef.i}/${askRef.n} · `) + (askRef.spot.length > 60 ? askRef.spot.slice(0, 59) + '…' : askRef.spot)));
     const ex = curEx;
@@ -924,6 +936,7 @@ export function mountAssistant() {
     } catch (e) {
       if (hist[hist.length - 1]?.role === 'user' && hist[hist.length - 1].content === text) hist.pop();
       if (ex) { ex.aTx.replaceChildren(); ex.a.hidden = true; ex.done = true; }
+      endBuilding();
       if (my !== gen) return;
       setState('idle', e?.name === 'AbortError' ? L('Gestoppt.', 'Stopped.') : undefined);
       if (e?.name !== 'AbortError') { fc.pulse('sad', 1400); apiError(e, () => submit(text)); }
@@ -937,6 +950,7 @@ export function mountAssistant() {
     const aEl = ex.aTx;
     // Tafel(n) auf die Seite – und ins Skript, damit sie auch im Tafel-Tab liegen
     let t = null;
+    if (p.boards.length) building = false; else endBuilding();
     if (p.boards.length) {
       // Jede Tafel landet automatisch in der Bibliothek – mit Überschrift und Beschreibung
       const lastQ = [...hist].reverse().find(m => m.role === 'user')?.content || '';

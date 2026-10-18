@@ -501,7 +501,9 @@ export function render(root, ctx = {}) {
 
   // ---------- Erstes Bild ----------
   drawRails(); drawFocus(); drawTeaser(); drawSugg();
-  if (!SES.on) speak(speechText());
+  // Kommt man über ein Thema (Anzeige, Lernseite …) rein: keine Begrüßung („Zieh mir dein Skript rein …“), Max legt sofort los
+  const pend0 = ls.get('tutor.pendingAsk', null);
+  if (!SES.on) speak(pend0 && typeof pend0 === 'object' && pend0.wait ? pend0.wait : speechText());
   if (ctx.arrive) requestAnimationFrame(() => requestAnimationFrame(async () => {
     if (stopped) return;
     const flew = await fly(ctx.arrive, () => faceEl.getBoundingClientRect(), { dur: 900 });
