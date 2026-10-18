@@ -230,7 +230,7 @@ async function route() {
     let done = ''; try { done = sessionStorage.getItem('tutor.themaDone') || ''; } catch (e) {}
     if (T && done !== T.slug) {
       try { sessionStorage.setItem('tutor.themaDone', T.slug); sessionStorage.setItem('tutor.topicHead', T.name); sessionStorage.setItem('tutor.stay', String(Date.now())); } catch (e) {}
-      ls.set('tutor.pendingAsk', { t: T.ask, show: `Erklär mir „${T.name}“.`, wait: `${T.name} – kommt sofort. Ich bau dir die Tafel jetzt live: erst das Prinzip, dann die Formel, dann ein durchgerechnetes Beispiel.` });
+      ls.set('tutor.pendingAsk', { t: T.ask, show: T.show || `Erklär mir „${T.name}“.`, wait: T.wait || `${T.name} – kommt sofort. Ich bau dir die Tafel jetzt live: erst das Prinzip, dann die Formel, dann ein durchgerechnetes Beispiel.` });
       history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor';
     }
   }
