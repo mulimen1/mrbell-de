@@ -2,6 +2,7 @@
 import { ls, uid } from './util.js';
 import { S } from './state.js';
 import { lang, getOutLang, L } from './i18n.js';
+import { repairDeep } from './math.js';
 
 export const API_URL = (window.TUTOR_API || 'https://hub.mrbell.de/n8n/webhook/tutor-ki-7c41e2');
 // Lange KI-Arbeit läuft in einem eigenen Schritt: erst Auftrag (schnell, zählt Kontingent), dann Ausführung
@@ -62,7 +63,8 @@ export async function ask(action, payload = {}, { signal, images } = {}) {
   // Neues Konto: immer zählen (ohne Einwilligung nur die Anzahl, ohne Kennung und Ort)
   if (action === 'verify' && j.ok && j.fresh) { try { if (window.BM && window.BM.ok()) window.BM.track('Konto erstellt'); else fetch('/bm', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ ereignis: 'Konto erstellt', detail: '', seite: '/' }), keepalive: true, credentials: 'omit' }).catch(() => {}); } catch (x) {} }
   if (!j.ok) throw Object.assign(new ApiError(j.error || 'error', j.message || L('Das hat nicht geklappt.', 'That didn’t work.')), { suggest: j.suggest || '' });
-  return j;
+  // Formel-Rohcode der KI reparieren (einfach escapte Befehle, $…$), bevor irgendetwas angezeigt wird
+  return repairDeep(j);
 }
 
 async function post(url, body, signal) {

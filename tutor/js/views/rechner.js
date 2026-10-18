@@ -19,7 +19,7 @@ const CALC = [
     ex: { anlagevermoegen: '600.000', vorraete: '150.000', forderungen: '120.000', liquide_mittel: '30.000', eigenkapital: '300.000', langfristiges_fk: '280.000', kurzfristiges_fk: '320.000', umsatz: '1.200.000', jahresueberschuss: '45.000', zinsaufwand: '18.000' },
     run: v => T.bilanz(v), show: showBilanz },
   { k: 'kapitalwert', ic: 'calc', t: L('Kapitalwert & interner Zinsfuß', 'NPV & IRR'), s: L('Barwerte je Jahr, Kapitalwert, IRR exakt und per Interpolation.', 'Present values per year, NPV, IRR exact and interpolated.'),
-    groups: [['', [['anschaffungsauszahlung', L('Anschaffungsauszahlung I₀', 'Initial investment I₀'), 'n', '€'], ['zinssatz_prozent', L('Kalkulationszins', 'Discount rate'), 'n', '%'], ['zahlungen', L('Rückflüsse ab Jahr 1 (mit ; trennen)', 'Cash flows from year 1 (separate with ;)'), 'l', '€'], ['restwert', L('Restwert (optional)', 'Salvage value (optional)'), 'n', '€']]]],
+    groups: [['', [['anschaffungsauszahlung', L('Anschaffungsauszahlung \\(I_0\\)', 'Initial investment \\(I_0\\)'), 'n', '€'], ['zinssatz_prozent', L('Kalkulationszins', 'Discount rate'), 'n', '%'], ['zahlungen', L('Rückflüsse ab Jahr 1 (mit ; trennen)', 'Cash flows from year 1 (separate with ;)'), 'l', '€'], ['restwert', L('Restwert (optional)', 'Salvage value (optional)'), 'n', '€']]]],
     ex: { anschaffungsauszahlung: '100.000', zinssatz_prozent: '8', zahlungen: '30.000; 35.000; 40.000; 25.000', restwert: '' },
     run: v => { const a = T.kapitalwert(v), b = T.interner_zinsfuss(v); return Object.assign(a, { irr: b.interner_zinsfuss_prozent }); }, show: showKW },
   { k: 'annuitaet', ic: 'calendar', t: L('Annuität & Tilgungsplan', 'Annuity & repayment plan'), s: L('Rate, Kapitalwiedergewinnungsfaktor, Zins und Tilgung je Jahr.', 'Payment, capital recovery factor, interest and principal per year.'),
@@ -101,7 +101,46 @@ const labelOf = (c, k) => { for (const [, f] of c.groups) for (const x of f) if 
 
 // ---------- Ergebnisdarstellung ----------
 const big = (label, val, sub) => h('div', { class: 'rc-big' }, h('small', {}, label), h('b', {}, val), sub ? h('span', {}, sub) : null);
-const formula = f => f ? h('div', { class: 'rc-fx' }, f) : null;
+// Formeln der Rechner als echte Mathematik (KaTeX) statt Tastatur-Text – die Rechenlogik selbst bleibt unberührt
+const TXT = s => '\\text{' + s + '}';
+const FX = [
+  ['C0 = −I0 + Σ CFt · (1 + i)^−t', 'C_0 = -I_0 + \\sum_{t=1}^{n} CF_t \\cdot (1+i)^{-t}'],
+  ['r ≈ i1 − C1 · (i2 − i1) / (C2 − C1)', 'r \\approx i_1 - C_1 \\cdot \\frac{i_2 - i_1}{C_2 - C_1}'],
+  ['A = K · (q^n · i) / (q^n − 1), q = 1 + i', 'A = K \\cdot \\frac{q^n \\cdot i}{q^n - 1}, \\quad q = 1 + i'],
+  ['i_eff = (1 + i_nom/m)^m − 1', 'i_{' + TXT('eff') + '} = \\left(1 + \\frac{i_{' + TXT('nom') + '}}{m}\\right)^{m} - 1'],
+  ['Kn = K0 · q^n', 'K_n = K_0 \\cdot q^{n}'],
+  ['K0 = Kn · q^−n', 'K_0 = K_n \\cdot q^{-n}'],
+  ['R0 = r · (q^n − 1) / (q^n · i)', 'R_0 = r \\cdot \\frac{q^n - 1}{q^n \\cdot i}'],
+  ['Rn = r · (q^n − 1) / i', 'R_n = r \\cdot \\frac{q^n - 1}{i}'],
+  ['R0 = r / i', 'R_0 = \\frac{r}{i}'],
+  ['AfA = (AK − Restwert) / Nutzungsdauer', TXT('AfA') + ' = \\frac{' + TXT('AK') + ' - ' + TXT('Restwert') + '}{' + TXT('Nutzungsdauer') + '}'],
+  ['AfA_t = Restbuchwert · Satz; Wechsel, sobald Restbuchwert / Restnutzungsdauer ≥ degressiver Betrag', TXT('AfA') + '_t = ' + TXT('Restbuchwert') + ' \\cdot ' + TXT('Satz') + ' \\quad ' + TXT('Wechsel, sobald ') + '\\frac{' + TXT('Restbuchwert') + '}{' + TXT('Restnutzungsdauer') + '} \\geq ' + TXT('degressiver Betrag')],
+  ['D = (AK − RW) / (N·(N+1)/2); AfA_t = D · (N − t + 1)', 'D = \\frac{' + TXT('AK') + ' - ' + TXT('RW') + '}{\\frac{N(N+1)}{2}}, \\quad ' + TXT('AfA') + '_t = D \\cdot (N - t + 1)'],
+  ['AfA_t = (AK − RW) / Gesamtleistung · Leistung_t', TXT('AfA') + '_t = \\frac{' + TXT('AK') + ' - ' + TXT('RW') + '}{' + TXT('Gesamtleistung') + '} \\cdot ' + TXT('Leistung') + '_t'],
+  ['x_BE = Kf / (p − kv); U_BE = x_BE · p', 'x_{BE} = \\frac{K_f}{p - k_v}, \\quad U_{BE} = x_{BE} \\cdot p'],
+  ['x = (Kf + G) / (p − kv)', 'x = \\frac{K_f + G}{p - k_v}'],
+  ['ŷ = a + b·x', '\\hat{y} = a + b \\cdot x'],
+  ['Workload = ECTS × Stunden je ECTS; Präsenz = SWS × Wochen × 45 Min.', TXT('Workload') + ' = ' + TXT('ECTS') + ' \\cdot ' + TXT('Stunden je ECTS') + ', \\quad ' + TXT('Präsenz') + ' = ' + TXT('SWS') + ' \\cdot ' + TXT('Wochen') + ' \\cdot 45' + TXT(' Min.')],
+];
+// Kennzahlen wie „EK / Gesamtkapital“ → Bruch mit Wörtern
+function kennTex(f) {
+  const w = x => x.trim().replace(/^\((.*)\)$/, '$1').split(/\s*([+−-])\s*/).map(t => /^[+−-]$/.test(t) ? (t === '+' ? ' + ' : ' - ') : TXT(t)).join('');
+  if (/ \/ /.test(f) && f.split(' / ').length === 2) { const [a, b] = f.split(' / '); return '\\frac{' + w(a) + '}{' + w(b) + '}'; }
+  if (/ × /.test(f)) return f.split(' × ').map(w).join(' \\cdot ');
+  if (/ − /.test(f)) return w(f);
+  return null;
+}
+export function texFormel(f) {
+  f = String(f || ''); if (!f) return '';
+  for (const [a, tex] of FX) if (f === a || f.startsWith(a + ' ') || f.startsWith(a + ';')) {
+    const rest = f.slice(a.length).replace(/^\s*;\s*/, ' ').trim();
+    const extra = rest.replace(/^\((.*)\)$/, '$1').replace(/(\d+)\/12/, '$1 von 12 Monaten').replace(/ · q$/, '');
+    const vor = / · q$/.test(rest) || / · q /.test(rest);
+    return '\\[' + tex + (vor ? ' \\cdot q' : '') + '\\]' + (extra && !/^· q$/.test(rest) ? ' ' + extra.replace(/^· q\s*/, '') : '');
+  }
+  const k = kennTex(f); return k ? '\\(' + k + '\\)' : f;
+}
+const formula = f => f ? h('div', { class: 'rc-fx' }, texFormel(f)) : null;
 function table(cols, rows) {
   return h('div', { class: 'rc-tw' }, h('table', { class: 'rc-t' }, h('thead', {}, h('tr', {}, cols.map(c => h('th', { class: c[2] ? 'n' : '' }, c[1])))),
     h('tbody', {}, rows.map(r => h('tr', { class: r._cls || '' }, cols.map(c => h('td', { class: c[2] ? 'n' : '' }, c[2] ? c[2](r[c[0]]) : r[c[0]])))))));
@@ -113,11 +152,11 @@ function showBilanz(r) {
     r.ausgeglichen ? null : h('div', { class: 'rc-warn' }, L(`Aktiva (${eur(r.bilanzsumme_aktiva)}) und Passiva (${eur(r.bilanzsumme_passiva)}) sind nicht gleich – prüf die Zahlen. Gerechnet wird mit dem Gesamtkapital.`, `Assets (${eur(r.bilanzsumme_aktiva)}) and liabilities (${eur(r.bilanzsumme_passiva)}) don’t match – check the numbers.`)),
     h('div', { class: 'rc-bigs' }, big(L('Bilanzsumme', 'Total assets'), eur(r.bilanzsumme_aktiva)), big(L('Umlaufvermögen', 'Current assets'), eur(r.umlaufvermoegen)), big(L('Fremdkapital', 'Liabilities'), eur(r.fremdkapital))),
     ...Object.entries(groups).map(([g, ks]) => h('div', { class: 'rc-kg' }, h('div', { class: 'rc-kgh' }, g), ks.map(k => h('div', { class: 'rc-k' + (k.ok === true ? ' ok' : k.ok === false ? ' bad' : '') },
-      h('div', { class: 'rc-kn' }, h('b', {}, k.name), h('small', {}, k.formel)), h('div', { class: 'rc-kv' }, h('b', {}, val(k)), k.regel ? h('small', {}, (k.ok ? '✓ ' : k.ok === false ? '⚠ ' : '') + k.regel) : null))))),
+      h('div', { class: 'rc-kn' }, h('b', {}, k.name), h('small', {}, texFormel(k.formel))), h('div', { class: 'rc-kv' }, h('b', {}, val(k)), k.regel ? h('small', {}, (k.ok ? '✓ ' : k.ok === false ? '⚠ ' : '') + k.regel) : null))))),
     h('p', { class: 'rc-note' }, L('Faustregeln sind Orientierung, keine Gesetze – Branche und Geschäftsmodell zählen mit.', 'Rules of thumb are guidance, not laws – industry and business model matter.'))];
 }
 function showKW(r) {
-  return [h('div', { class: 'rc-bigs' }, big(L('Kapitalwert C₀', 'NPV C₀'), eur(r.kapitalwert), r.urteil), big(L('Interner Zinsfuß', 'IRR'), r.irr == null ? '–' : num(r.irr, 2) + ' %'), big(L('Summe der Barwerte', 'Sum of present values'), eur(r.summe_barwerte))),
+  return [h('div', { class: 'rc-bigs' }, big(L('Kapitalwert \\(C_0\\)', 'NPV \\(C_0\\)'), eur(r.kapitalwert), r.urteil), big(L('Interner Zinsfuß', 'IRR'), r.irr == null ? '–' : num(r.irr, 2) + ' %'), big(L('Summe der Barwerte', 'Sum of present values'), eur(r.summe_barwerte))),
     table([['jahr', L('Jahr', 'Year')], ['zahlung', L('Rückfluss', 'Cash flow'), eur], ['abzinsungsfaktor', L('Abzinsungsfaktor', 'Discount factor'), x => num(x, 6)], ['barwert', L('Barwert', 'Present value'), eur]], r.jahre), formula(r.formel)];
 }
 function showAnn(r) {
@@ -147,7 +186,7 @@ function showESt(r) {
 }
 function showStat(r) {
   const rows = [[L('n', 'n'), r.n], [L('Mittelwert', 'Mean'), r.mittelwert], [L('Median', 'Median'), r.median], [L('Modus', 'Mode'), r.modus ? r.modus.join('; ') : '–'], [L('Spannweite', 'Range'), r.spannweite], [L('Varianz (Grundgesamtheit)', 'Variance (population)'), r.varianz_grundgesamtheit], [L('Standardabweichung (GG)', 'Std. dev. (population)'), r.std_grundgesamtheit], [L('Varianz (Stichprobe)', 'Variance (sample)'), r.varianz_stichprobe], [L('Standardabweichung (Stichprobe)', 'Std. dev. (sample)'), r.std_stichprobe], [L('Variationskoeffizient', 'Coefficient of variation'), r.variationskoeffizient]];
-  if (r.regression) rows.push([L('Korrelation r', 'Correlation r'), r.korrelation_r], [L('Regression ŷ = a + b·x', 'Regression ŷ = a + b·x'), `a = ${num(r.regression.achsenabschnitt_a, 4)} · b = ${num(r.regression.steigung_b, 4)}`], ['R²', r.regression.bestimmtheitsmass_r2]);
+  if (r.regression) rows.push([L('Korrelation r', 'Correlation r'), r.korrelation_r], [L('Regression \\(\\hat{y} = a + b \\cdot x\\)', 'Regression \\(\\hat{y} = a + b \\cdot x\\)'), `a = ${num(r.regression.achsenabschnitt_a, 4)} · b = ${num(r.regression.steigung_b, 4)}`], ['\\(R^{2}\\)', r.regression.bestimmtheitsmass_r2]);
   return table([['k', ''], ['v', '', x => typeof x === 'number' ? num(x, 4) : (x ?? '–')]], rows.map(([k, v]) => ({ k, v })));
 }
 function showWL(r) {

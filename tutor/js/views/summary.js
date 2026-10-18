@@ -8,6 +8,7 @@ import { forWhole } from '../retrieve.js';
 import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { sanitize } from '../sanitize.js';
 import { L } from '../i18n.js';
+import { plainMath } from '../math.js';
 import { autoOpts, zettelHint, personalise } from '../create.js';
 import { dlBtn, optsSummary } from '../export.js';
 import { savedToast } from '../lib.js';
@@ -62,7 +63,8 @@ function show(wrap, ctx) {
 // baut sich animiert auf, Vollbild und Download als Bild.
 export function mindmap(m, name = 'Mindmap') {
   const NS = 'http://www.w3.org/2000/svg';
-  const branches = (m.c || []).slice(0, 8).map(b => ({ t: String(b?.t ?? b), c: (b?.c || []).slice(0, 5).map(x => String(x?.t ?? x)) }));
+  // In der Mindmap (SVG) kann KaTeX nicht setzen – Formelreste dort lesbar statt Rohcode
+  const branches = (m.c || []).slice(0, 8).map(b => ({ t: plainMath(String(b?.t ?? b)), c: (b?.c || []).slice(0, 5).map(x => plainMath(String(x?.t ?? x))) }));
   const cv = document.createElement('canvas').getContext('2d');
   const FONT = getComputedStyle(document.body).fontFamily || 'system-ui, sans-serif';
   const meas = (t, size, w) => { cv.font = `${w} ${size}px ${FONT}`; return cv.measureText(t).width; };
@@ -80,7 +82,7 @@ export function mindmap(m, name = 'Mindmap') {
   const BR = { size: 14.5, w: 650, maxW: 170, lh: 18 };
   const RT = { size: 18, w: 700, maxW: 230, lh: 22 };
   const nodes = [];
-  const rootLines = wrapT(m.t || name, RT.size, RT.w, RT.maxW);
+  const rootLines = wrapT(plainMath(m.t || name), RT.size, RT.w, RT.maxW);
   const rootW = Math.max(...rootLines.map(l => meas(l, RT.size, RT.w))) + 56, rootH = rootLines.length * RT.lh + 34;
   const root = { kind: 'root', lines: rootLines, w: rootW, h: rootH, x: 0, y: 0 };
   nodes.push(root);

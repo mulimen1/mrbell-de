@@ -90,8 +90,26 @@ function fixPlain(s) {
   return out;
 }
 // Text mit schon gesetzten Formeln: nur die Stücke dazwischen prüfen
+// KI-Ausgaben reparieren, bevor irgendwo Rohcode sichtbar wird:
+// – in JSON nur einfach escapte Befehle (\frac → Seitenvorschub + „rac“, \text → Tab + „ext“ …)
+// – $…$ / $$…$$ statt \( … \) / \[ … \]
+const CTL = [[/\f(?=rac\b|rac\{)/g, '\\f'], [/\t(?=ext\{|imes\b|heta\b|au\b)/g, '\\t'], [/\x08(?=eta\b|ar\{|egin\{|ig[lr]?\b)/g, '\\b'], [/\r(?=ight[)\]|.]|ho\b|ightarrow\b)/g, '\\r'], [/\v(?=arepsilon\b|ec\{)/g, '\\v']];
+export function repairTex(s) {
+  if (typeof s !== 'string' || !s) return s;
+  for (const [re, to] of CTL) s = s.replace(re, to);
+  if (s.indexOf('$') >= 0) s = s.replace(/\$\$([^$]{1,400}?)\$\$/g, (m, x) => /[\\^_{]/.test(x) ? '\\[' + x + '\\]' : m)
+    .replace(/(^|[^\\$\w])\$(?!\s)([^$\n]{1,200}?[^\s$])\$(?![\w$])/g, (m, a, x) => /\\[a-zA-Z]|[\^_]\{?\w/.test(x) ? a + '\\(' + x + '\\)' : m);
+  return s;
+}
+export function repairDeep(v, d = 0) {
+  if (d > 8 || v == null) return v;
+  if (typeof v === 'string') return repairTex(v);
+  if (Array.isArray(v)) { for (let i = 0; i < v.length; i++) v[i] = repairDeep(v[i], d + 1); return v; }
+  if (typeof v === 'object') { for (const k of Object.keys(v)) v[k] = repairDeep(v[k], d + 1); return v; }
+  return v;
+}
 export function fixStray(s) {
-  s = String(s || '');
+  s = repairTex(String(s || ''));
   if (!TEXQ.test(s)) return s;
   let out = '', last = 0, m; RX.lastIndex = 0;
   while ((m = RX.exec(s))) { out += fixPlain(s.slice(last, m.index)) + m[0]; last = m.index + m[0].length; }

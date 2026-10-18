@@ -118,8 +118,8 @@
                   <text x="470" y="34" font-size="14" data-en="Revenue">Erlöse</text><text x="470" y="108" font-size="14" data-en="Costs">Kosten</text>
                   <text x="500" y="238" font-size="13" data-en="Quantity">Menge</text>
                 </svg>
-                <div class="calc" style="margin:10px 0 0" data-en="cm = €50 − €30 = €20&#10;x* = €60,000 ÷ €20 = 3,000 units">db = 50 € − 30 € = 20 €
-x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
+                <div class="calc" style="margin:10px 0 0" data-en="\(\text{cm} = \text{€}50 - \text{€}30 = \text{€}20\)&#10;\(x^{*} = \frac{\text{€}60{,}000}{\text{€}20} = 3{,}000\text{ units}\)">\(\text{db} = 50\text{ €} - 30\text{ €} = 20\text{ €}\)
+\(x^{*} = \frac{60.000\text{ €}}{20\text{ €}} = 3.000\text{ Stück}\)</div>
               </div>
             </div>
           </article>
@@ -128,16 +128,16 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
             <h3 data-en="Quizzes like the real exam">Quizze wie in der Klausur</h3>
             <p data-en="Multiple choice, true/false, matching, ordering, fill in the blanks, calculations.">Multiple Choice, Richtig/Falsch, Zuordnen, Reihenfolge, Lückentext, Rechenaufgaben.</p>
             <div class="demo mini-quiz">
-              <div class="opt" data-en-html="&lt;span class=&quot;l&quot;&gt;A&lt;/span&gt;x* = FC ÷ p"><span class="l">A</span>x* = Kf ÷ p</div>
-              <div class="opt ok" data-en-html="&lt;span class=&quot;l&quot;&gt;B&lt;/span&gt;x* = FC ÷ (p − vc)"><span class="l">B</span>x* = Kf ÷ (p − kv)</div>
-              <div class="opt" data-en-html="&lt;span class=&quot;l&quot;&gt;C&lt;/span&gt;x* = VC ÷ cm"><span class="l">C</span>x* = Kv ÷ db</div>
+              <div class="opt" data-en-html="&lt;span class=&quot;l&quot;&gt;A&lt;/span&gt;\(x^{*} = \frac{\text{FC}}{p}\)"><span class="l">A</span>\(x^{*} = \frac{K_f}{p}\)</div>
+              <div class="opt ok" data-en-html="&lt;span class=&quot;l&quot;&gt;B&lt;/span&gt;\(x^{*} = \frac{\text{FC}}{p - \text{vc}}\)"><span class="l">B</span>\(x^{*} = \frac{K_f}{p - k_v}\)</div>
+              <div class="opt" data-en-html="&lt;span class=&quot;l&quot;&gt;C&lt;/span&gt;\(x^{*} = \frac{\text{VC}}{\text{cm}}\)"><span class="l">C</span>\(x^{*} = \frac{K_v}{\text{db}}\)</div>
             </div>
           </article>
           <article class="pin fly" style="--rot:-1.2deg">
             <span class="num" data-en="03 · FLASHCARDS">03 · KARTEIKARTEN</span>
             <h3 data-en="Review just before you forget">Wiederholen, wenn du’s fast vergisst</h3>
             <p data-en="Spaced repetition – generated automatically from your notes.">Spaced Repetition – automatisch aus deinem Skript.</p>
-            <div class="demo flip"><div class="in"><div class="f" data-en="Short-term price floor?">Kurzfristige Preisuntergrenze?</div><div class="b" data-en="Variable cost per unit (p ≥ vc)">Variable Stückkosten (p ≥ kv)</div></div></div>
+            <div class="demo flip"><div class="in"><div class="f" data-en="Short-term price floor?">Kurzfristige Preisuntergrenze?</div><div class="b" data-en="Variable cost per unit (\(p \geq \text{vc}\))">Variable Stückkosten (\(p \geq k_v\))</div></div></div>
           </article>
           <article class="pin wide fly" style="--rot:.8deg">
             <span class="num">04 · PODCAST</span>
@@ -275,6 +275,7 @@ x* = 60.000 € ÷ 20 € = 3.000 Stück</div>
 <noscript><p style="padding:40px;text-align:center">Bitte aktiviere JavaScript, um BWL Max zu nutzen.</p></noscript>
 <script>(function(){if(/(^|\.)bwlmax\.de$/.test(location.hostname))document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});})();</script>
 <script src="/tutor/js/consent.js?v=8"></script>
-<script type="module" src="/tutor/js/main.js?v=13"></script>
+<script type="module" src="/tutor/js/main.js?v=14"></script>
+<script type="module">import { mathify } from '/tutor/js/math.js'; document.querySelectorAll('#landing .calc, #landing .mini-quiz, #landing .flip').forEach(el => mathify(el));</script>
 </body>
 </html>

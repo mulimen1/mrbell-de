@@ -773,7 +773,7 @@ export function mountAssistant() {
       h('div', { class: 'ai-building' }, h('p', { class: 'ai-bld-t' }, h('span', { class: 'ai-bld-pen', 'aria-hidden': 'true' }, '✎'), L('Max baut deine Tafel – live, nur für dich …', 'Max is building your board – live, just for you …')), h('div', { class: 'ai-bld-l' }, ...lines))));
     openBoard();
   }
-  function endBuilding() { if (!building) return; building = false; if (boards.length) drawBoard(false); else closeBoard(); }
+  function endBuilding() { if (!building) return; building = false; if (boards.length) drawBoard(false); else { bArea.replaceChildren(); closeBoard(); } }
   function closeBoard() { boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); syncLock(); boardHook(); }
   function boardHook() { try { STAGE?.onBoard?.(boardOpen && !boardMin); } catch (e) {} }
   // Tafel „schreibt mit“: Abschnitte erscheinen im Takt der Stimme
@@ -919,7 +919,7 @@ export function mountAssistant() {
       const KURZ = spoken ? L('[Gesprochenes Gespräch: Antworte wie im echten Gespräch – höchstens 2–3 kurze Sätze, direkt auf den Punkt. Ausführliches gehört an die Tafel.]', '[Spoken conversation: answer like a real conversation – 2–3 short sentences max, straight to the point. Anything detailed goes on the board.]') : '';
       const pre = [ctxLine, KNOW, WECHSEL, REF, KURZ, maxPrompt(), TAFEL, SEITE].filter(Boolean).join('\n');
       if (pre) messages[messages.length - 1].content = pre + '\n' + text;
-      const payload = { messages, opts: { mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true } };
+      const payload = { messages, opts: Object.assign({ mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true }, o.entry ? { entry: true } : {}) };
       const d = curDoc();
       const mat = STAGE && STAGE.material ? STAGE.material(text) : null;
       if (mat) Object.assign(payload, mat);
@@ -935,11 +935,25 @@ export function mountAssistant() {
       try { STAGE?.onAnswer?.(parse(raw)); } catch (e) {}
     } catch (e) {
       if (hist[hist.length - 1]?.role === 'user' && hist[hist.length - 1].content === text) hist.pop();
+      // Konto nötig beim Einstieg oder in den ersten 90 Sekunden: kein Fenster, das alles blockiert – Max sagt es ruhig im Chat
+      const acc = e?.code === 'need_account' && (o.entry || performance.now() < 90000);
+      const other = !acc && o.entry && e?.name !== 'AbortError' && !['cap', 'limit', 'need_account'].includes(e?.code);
+      if ((acc || other) && ex && my === gen) {
+        endBuilding(); setState('idle'); fc.pulse(acc ? 'happy' : 'sad', 900);
+        ex.a.hidden = false; ex.done = true;
+        ex.aTx.replaceChildren(h('span', {}, acc ? L('Für die nächste Erklärung brauchst du ein kostenloses Konto – dauert 30 Sekunden, und alles, was du hier schon gemacht hast, bleibt erhalten.', 'For the next explanation you need a free account – takes 30 seconds, and everything you’ve done here stays.')
+          : L('Da hat gerade die Verbindung gehakt. Tipp kurz auf „Nochmal“, dann bau ich dir die Tafel.', 'The connection just hiccuped. Tap “Try again” and I’ll build your board.')));
+        ex.aX.replaceChildren(acc
+          ? h('button', { class: 'ai-cmd', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin({ mode: 'register' })) submit(text, o); } }, L('Kostenloses Konto erstellen', 'Create free account'))
+          : h('button', { class: 'ai-cmd', type: 'button', onclick: () => { ex.aX.replaceChildren(); submit(text, o); } }, L('Nochmal', 'Try again')));
+        capScroll();
+        return;
+      }
       if (ex) { ex.aTx.replaceChildren(); ex.a.hidden = true; ex.done = true; }
       endBuilding();
       if (my !== gen) return;
       setState('idle', e?.name === 'AbortError' ? L('Gestoppt.', 'Stopped.') : undefined);
-      if (e?.name !== 'AbortError') { fc.pulse('sad', 1400); apiError(e, () => submit(text)); }
+      if (e?.name !== 'AbortError') { fc.pulse('sad', 1400); apiError(e, () => submit(text, o)); }
     } finally { if (my === gen) ctrl = null; }
   }
 
