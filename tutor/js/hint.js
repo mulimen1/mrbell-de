@@ -1,5 +1,5 @@
-// Dezenter Hinweis oben links, ~25 s nach dem Start (einmal pro Besuch):
-// Handy → „Am Laptop/iPad kann Max noch mehr“; Laptop ohne Konto → „Bleib gern hier – kostenloses Konto“.
+// Dezenter Hinweis oben links, ~25 s nach dem Start (einmal pro Besuch): Laptop ohne Konto → „Bleib gern hier – kostenloses Konto“.
+// Handy/Tablet mit Touch: hier nichts – am Handy gibt’s stattdessen einmalig den kleinen Tipp aus app.js (mobileTip).
 import { h, ico } from './util.js';
 import { L } from './i18n.js';
 import { getAccount } from './api.js';
@@ -9,6 +9,7 @@ const KEY = 'tutor.hintShown';
 const mob = () => matchMedia('(max-width: 820px) and (pointer: coarse), (max-width: 600px)').matches;
 
 export function scheduleHint(delay = 25000) {
+  if (mob()) return;
   try { if (sessionStorage.getItem(KEY)) return; } catch (e) { return; }
   const t0 = Date.now();
   const tryShow = () => {
@@ -23,7 +24,7 @@ export function scheduleHint(delay = 25000) {
 
 function show() {
   const acc = getAccount(), phone = mob();
-  if (!phone && acc) return;   // Laptop mit Konto: nichts zu sagen
+  if (phone || acc) return;   // Handy: kein Laptop-Hinweis · Laptop mit Konto: nichts zu sagen
   try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
   const title = phone ? L('Am Laptop oder iPad kann ich noch mehr', 'On a laptop or iPad I can do even more') : L('Noch mehr Fragen? Bleib gern hier.', 'More questions? Stick around.');
   const text = phone

@@ -28,7 +28,10 @@
     + '.bmc h3{margin:0 0 6px;font-size:16px;letter-spacing:-.01em;font-weight:700}.bmc p{margin:0 0 14px;color:var(--ink2,#d4d4d8)}.bmc p a{color:inherit;text-underline-offset:3px}'
     + '.bmc .r{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bmc button{height:44px;border-radius:999px;font:650 14px Geist,-apple-system,sans-serif;cursor:pointer;border:1px solid var(--line2,#2e2e33);background:transparent;color:inherit;transition:transform .15s,filter .15s}'
     + '.bmc button:active{transform:scale(.97)}.bmc button.y{background:var(--inv,#f5f5f5);color:var(--onInv,#000);border-color:var(--inv,#f5f5f5)}.bmc button:hover{filter:brightness(1.08)}'
-    + '@media(max-width:600px){.bmc{left:12px;right:12px;bottom:12px;width:auto;padding:18px 16px 16px;border-radius:20px}}'
+    + '.bmc .s{display:none}'
+    // Handy: schmale Leiste unten (über der Navigationsleiste), ein, zwei Zeilen Text + zwei gleich große Knöpfe
+    + '@media(max-width:600px),(pointer:coarse) and (max-height:500px){.bmc{left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));width:auto;max-width:560px;margin:0 auto;padding:10px 10px 10px 14px;border-radius:18px;font-size:13px;line-height:1.35}'
+    + '.bmc h3,.bmc .l{display:none}.bmc .s{display:inline}.bmc p{margin:0 0 8px;color:var(--ink2,#d4d4d8)}.bmc .r{gap:6px}.bmc button{height:44px;font-size:14px;white-space:nowrap;padding:0 8px}}'
     + '@media (prefers-reduced-motion:reduce){.bmc,.bmc.out{animation:none}}';
   var box = null;
   function legal() { return /(^|\.)bwlmax\.de$/.test(location.hostname) ? '/datenschutz#analyse' : '/tutor/legal/datenschutz.html#analyse'; }
@@ -43,12 +46,21 @@
     if (!document.getElementById('bmc-css')) { var s = document.createElement('style'); s.id = 'bmc-css'; s.textContent = css; document.head.appendChild(s); }
     box = document.createElement('div'); box.className = 'bmc'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', T('Cookie-Einstellungen', 'Cookie settings'));
     box.innerHTML = '<h3>' + T('Cookies', 'Cookies') + '</h3>'
-      + '<p>' + T('BWL Max nutzt Cookies, um anonym zu messen, welche Funktionen genutzt werden – damit Max besser wird. Was du schreibst, sagst oder hochlädst, wird nie gespeichert. ', 'BWL Max uses cookies to measure anonymously which features get used – so Max gets better. What you type, say or upload is never stored. ')
-      + '<a href="' + legal() + '">' + T('Mehr dazu', 'Learn more') + '</a></p>'
-      + '<div class="r"><button type="button" data-v="nein">' + T('Ablehnen', 'Decline') + '</button><button type="button" class="y" data-v="ja">' + T('Cookies akzeptieren', 'Accept cookies') + '</button></div>';
+      + '<p><span class="l">' + T('BWL Max nutzt Cookies, um anonym zu messen, welche Funktionen genutzt werden – damit Max besser wird. Was du schreibst, sagst oder hochlädst, wird nie gespeichert. ', 'BWL Max uses cookies to measure anonymously which features get used – so Max gets better. What you type, say or upload is never stored. ')
+      + '</span><span class="s">' + T('Cookies für eine anonyme Nutzungsstatistik? Deine Inhalte werden nie gespeichert. ', 'Cookies for anonymous usage stats? Your content is never stored. ')
+      + '</span><a href="' + legal() + '">' + T('Mehr dazu', 'Learn more') + '</a></p>'
+      + '<div class="r"><button type="button" data-v="nein">' + T('Ablehnen', 'Decline') + '</button><button type="button" class="y" data-v="ja">' + T('<span class="l">Cookies akzeptieren</span><span class="s">Akzeptieren</span>', '<span class="l">Accept cookies</span><span class="s">Accept</span>') + '</button></div>';
     box.addEventListener('click', function (e) { var b = e.target.closest('button[data-v]'); if (b) close(b.dataset.v); });
     document.body.appendChild(box); document.documentElement.classList.add('bmc-open');
+    place();
   }
+  // Handy: über der unteren Navigationsleiste der App (auf der Startseite gibt es keine)
+  function place() {
+    if (!box) return;
+    var bb = document.querySelector('.bbar'), r = bb && bb.getBoundingClientRect();
+    box.style.bottom = r && r.height && r.top < innerHeight && matchMedia('(max-width:600px),(pointer:coarse) and (max-height:500px)').matches ? (innerHeight - r.top + 8) + 'px' : '';
+  }
+  addEventListener('resize', place); addEventListener('hashchange', function () { setTimeout(place, 60); });
 
   // ---------- automatische Ereignisse (nur mit Einwilligung) ----------
   var started = false;
@@ -75,6 +87,9 @@
 
   window.BM = { track: track, open: open, ok: ok };
   document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-consent-open]')) { e.preventDefault(); open(); } });
-  var init = function () { var c = get(); if (c === 'ja' && !hasCookie()) setCookie(); if (c !== 'ja' && c !== 'nein') setTimeout(open, 900); else start(); };
+  // Themen-Einstieg (?thema=…, Google-Anzeige): Max baut gleich eine Tafel – der Banner kommt erst, wenn sie fertig ist (spätestens nach 45 s)
+  var topicEntry = function () { if (/[?&]thema=/.test(location.search)) return true; try { var p = JSON.parse(localStorage.getItem('tutor.pendingAsk') || 'null'); return !!(p && p.entry); } catch (e) { return false; } };
+  var later = function () { var done = false; var go = function () { if (done) return; done = true; setTimeout(open, 700); }; addEventListener('bm:board-done', go); setTimeout(go, 45000); };
+  var init = function () { var c = get(); if (c === 'ja' && !hasCookie()) setCookie(); if (c !== 'ja' && c !== 'nein') { if (topicEntry()) later(); else setTimeout(open, 900); } else start(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

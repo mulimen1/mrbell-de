@@ -1,0 +1,94 @@
+/* BWL Max – Handy-Feinschliff für den App-Rahmen (nach app.css geladen).
+   Tipp oben links, Max-Knopf, „Klick mich“, obere Leiste, Seitenleiste, gesperrte Bereiche, Feedback. */
+
+/* ---------- Gesperrte Bereiche (ohne Konto): je Seite eigene Vorschau ---------- */
+.mlk-prev { display: block; }
+.mlk-prev > :not(.me-plock) { filter: blur(3px); opacity: .7; pointer-events: none; user-select: none; }
+.mlk-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.mlk-cards .me-pcard { filter: none; opacity: 1; }
+.mlk-week { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.mlk-day { display: grid; gap: 8px; min-width: 0; }
+.mlk-day > b { font: 600 12px var(--sans); color: var(--mute); text-align: center; }
+.mlk-col { display: grid; grid-template-rows: repeat(5, 30px); gap: 6px; padding: 6px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+.mlk-blk { display: flex; align-items: center; min-width: 0; padding: 0 7px; border-radius: 8px; background: var(--panel2); border: 1px solid var(--line2); font: 600 11px/1.15 var(--sans); color: var(--ink2); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.mlk-blk.own { background: var(--inv); color: var(--onInv); border-color: var(--inv); }
+.mlk-favs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.mlk-fav { display: flex; gap: 10px; align-items: flex-start; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); min-width: 0; }
+.mlk-fav > div { display: grid; gap: 3px; min-width: 0; }
+.mlk-fav small { color: var(--mute); font-size: 12px; }
+.mlk-fav b { font-size: 14px; line-height: 1.3; }
+.mlk-star { flex: none; color: #e8a400; line-height: 0; }
+.mlk-star .ico { width: 18px; height: 18px; fill: currentColor; }
+.mlk-stats { display: grid; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+.mlk-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 4px; }
+.mlk-kpis > div { display: grid; gap: 2px; padding: 10px; border-radius: 12px; background: var(--panel2); }
+.mlk-kpis b { font-size: 20px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.mlk-kpis small { color: var(--mute); font-size: 12px; }
+.mlk-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; align-items: center; font-size: 13.5px; }
+.mlk-row > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mlk-row b { font-variant-numeric: tabular-nums; }
+.mlk-row .me-bar { grid-column: 1 / -1; margin: 0; }
+@media (max-width: 720px) {
+  .mlk-cards { grid-template-columns: 1fr; }
+  .mlk-week { gap: 4px; } .mlk-col { padding: 4px; gap: 4px; grid-template-rows: repeat(5, 26px); } .mlk-blk { padding: 0 4px; font-size: 9.5px; }
+  .mlk-favs { grid-template-columns: 1fr; }
+}
+
+/* ---------- Ab hier: nur Handy ---------- */
+@media (max-width: 600px), (pointer: coarse) and (max-height: 500px) {
+  /* Einmaliger Tipp oben links: klein, unter der Statusleiste, fängt nur Tipps auf sich selbst ab */
+  .mtip2 { position: fixed; z-index: 96; left: 10px; top: calc(8px + env(safe-area-inset-top, 0px)); max-width: min(372px, calc(100vw - 20px)); display: flex; align-items: center; gap: 8px; padding: 6px 4px 6px 7px; border-radius: 16px; background: var(--panel); color: var(--ink); border: 1px solid var(--line2); box-shadow: 0 14px 34px -18px rgba(0,0,0,.55), 0 1px 3px rgba(0,0,0,.08); animation: mt2in .45s cubic-bezier(.16,1,.3,1) both; transition: opacity .3s ease, transform .3s ease; pointer-events: auto; }
+  .mtip2.out { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+  .mtip2 .mt2f { flex: none; width: 26px; height: 26px; }
+  .mtip2 p { margin: 0; flex: 1; min-width: 0; font: 450 12.5px/1.32 var(--sans); color: var(--ink2); }
+  .mtip2 p b { color: var(--ink); font-weight: 650; }
+  .mt2x { flex: none; width: 32px; height: 32px; display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--mute); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .mt2x .ico { width: 15px; height: 15px; }
+  @keyframes mt2in { from { opacity: 0; transform: translateY(-10px) scale(.97); } }
+
+  /* Alter Laptop-Tipp unten nie mehr am Handy */
+  .mtip { display: none !important; }
+
+  /* Max-Knopf: kompakt statt 84 pt */
+  .asst-bub { width: 56px !important; height: 56px !important; border-width: 1px; }
+  .asst-bub .asst-bf { width: 44px !important; height: 44px !important; margin-top: 4px !important; }
+  .asst-bub .asst-dot { width: 12px; height: 12px; top: 3px; right: 3px; }
+  .asst-bub .asst-x { width: 22px; height: 22px; top: -4px; left: -4px; }
+  .asst-bub .asst-bs { height: 26px; min-width: 26px; bottom: -4px; left: -6px; }
+  /* … und weicht aus: beim Runterscrollen, solange ein Eingabefeld aktiv ist, und hinter der Seitenleiste */
+  html.m-bubhide .asst:not(.open) .asst-bub,
+  html.m-bubfocus .asst:not(.open) .asst-bub,
+  html.m-side .asst-bub { opacity: 0 !important; transform: translateY(18px) scale(.8) !important; pointer-events: none !important; }
+  html.m-bubhide .asst:not(.open) .asst-quip, html.m-bubfocus .asst:not(.open) .asst-quip { opacity: 0; pointer-events: none; }
+
+  /* „Klick mich – …“: nur im einen kurzen Moment, den app.js freigibt */
+  html:not(.m-pill) .asst-tip { opacity: 0 !important; pointer-events: none !important; animation: none !important; visibility: hidden; }
+
+  /* Platz unter dem letzten Inhalt, damit nichts dauerhaft unter dem Knopf liegt */
+  .app .view-in { padding-bottom: 104px; }
+
+  /* Obere Leiste: weicher Rand statt abgeschnittener Wörter, große Tippflächen, kein schwarzes Fokus-Quadrat */
+  .topnav { --fl: 0px; --fr: 0px; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fl), #000 calc(100% - var(--fr)), transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 var(--fl), #000 calc(100% - var(--fr)), transparent 100%); scroll-padding-inline: 24px; }
+  .topnav.m-fl { --fl: 22px; } .topnav.m-fr { --fr: 34px; }
+  .tn { height: 40px; -webkit-tap-highlight-color: transparent; }
+  .tn:focus:not(:focus-visible) { outline: none; }
+  .bb-i { -webkit-tap-highlight-color: transparent; } .bb-i:focus:not(:focus-visible) { outline: none; }
+  /* Bibliothek steht unten in der Leiste – oben nicht doppelt */
+  html.has-bbar .topnav .tn[data-tn="bibliothek"] { display: none; }
+
+  /* Seitenleiste (Tools): liegt über Max' Eingabeleiste, dunkler Hintergrund mit Weichzeichner (keine Textfetzen am Rand) */
+  .app.sideopen .side { z-index: 92; }
+  .app.sideopen::after { z-index: 91; background: rgba(0, 0, 0, .5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+  .app.sideopen .bbar { z-index: 93; }
+  html.m-side .ai-isl, html.m-side .ai-feed, html.m-side .asst-quip, html.m-side .asst-tip, html.m-side .rm-comp, html.m-side .asst-back { visibility: hidden !important; pointer-events: none !important; }
+  /* Sprache der Antworten + Rechtliches: Tippflächen ≥ 40 px */
+  .side .olang { font-size: 12px; }
+  .side .olang .seg { display: inline-flex; }
+  .side .olang .seg button { min-height: 40px; padding: 0 14px; font-size: 13px; }
+  .side-fine { gap: 2px; font-size: 12px; }
+  .side-fine a, .side-fine button { display: inline-flex; align-items: center; min-height: 40px; padding: 0 8px; }
+  .side-acc .side-gear { width: 40px; height: 40px; }
+
+  /* Feedback: Eingabefeld kleiner, damit „Abschicken“ über der Tastatur bleibt */
+  .fb-modal textarea { max-height: 30vh; }
+}

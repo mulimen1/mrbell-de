@@ -32,7 +32,7 @@ export function render(root, { sub = '', onLogin } = {}) {
   const draw = () => {
     if (!wrap.isConnected) return;
     const a = getAccount();
-    if (!a) return locked(wrap, onLogin);
+    if (!a) return locked(wrap, onLogin, sub);
     const tab = ['', 'faecher', 'plan', 'favs', 'stats'].includes(sub) ? sub : '';
     const body = h('div', { class: 'me-body' });
     // Mein Bereich = nur Heute. Fächer, Stundenplan, Gemerkt, Fortschritt sind eigene Seiten (oben in der Leiste)
@@ -51,19 +51,46 @@ export function render(root, { sub = '', onLogin } = {}) {
 }
 
 // ---------- Ohne Konto ----------
-function locked(wrap, onLogin) {
+// Jede Seite hat ihren eigenen Pitch und eine passende, unscharfe Vorschau. Haupt-Knopf: kostenloses Konto.
+const LOCK = () => ({
+  '': [L('Mein Bereich', 'My space'), L('Dein Studium. An einem Ort.', 'Your degree. In one place.'), L('Fächer mit Klausur-Countdown, dein Stundenplan, alles Gemerkte und deine Lernserie – und Max sagt dir jeden Tag, was gerade dran ist.', 'Subjects with exam countdowns, your timetable, everything you saved and your streak – and Max tells you every day what to do next.')],
+  faecher: [L('Fächer & Noten', 'Subjects & grades'), L('Alle Fächer. Jede Klausur im Blick.', 'Every subject. Every exam in sight.'), L('Leg deine Fächer an – mit Klausur-Countdown, Prüfungsreife und deinen Noten. Max plant mit, was bis wann sitzen muss.', 'Add your subjects – with exam countdowns, readiness and your grades. Max plans what has to stick by when.')],
+  plan: [L('Stundenplan', 'Timetable'), L('Deine Woche auf einen Blick.', 'Your week at a glance.'), L('Trag deine Vorlesungen ein oder importier den Uni-Kalender – Max weiß dann, wann du Zeit zum Lernen hast.', 'Add your lectures or import your uni calendar – then Max knows when you have time to study.')],
+  favs: [L('Gemerkt', 'Saved'), L('Alles Wichtige, sofort wieder da.', 'Everything important, right back.'), L('Merk dir Erklärungen, Tafeln und Karten mit einem Tipp – und find sie vor der Klausur in Sekunden wieder.', 'Save explanations, whiteboards and cards with one tap – and find them again in seconds before the exam.')],
+  stats: [L('Fortschritt', 'Progress'), L('Sieh, wie du besser wirst.', 'See yourself getting better.'), L('Lernserie, Wochenziel und Prüfungsreife pro Fach – damit du weißt, wo du stehst und was noch fehlt.', 'Streak, weekly goal and readiness per subject – so you know where you stand and what’s missing.')],
+});
+function lockPreview(sub) {
+  if (sub === 'plan') {
+    const days = L(['Mo', 'Di', 'Mi', 'Do', 'Fr'], ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']);
+    const blocks = [[[0, 2, L('Kostenrechnung', 'Cost accounting')], [3, 2, 'Marketing']], [[1, 2, L('Statistik', 'Statistics')]], [[0, 1, 'Marketing'], [2, 2, L('Finanzierung', 'Finance')]], [[1, 3, L('Lernen', 'Study'), 1]], [[0, 2, L('Statistik', 'Statistics')], [3, 1, L('Tutorium', 'Tutorial')]]];
+    return h('div', { class: 'mlk-week' }, days.map((d, i) => h('div', { class: 'mlk-day' }, h('b', {}, d), h('div', { class: 'mlk-col' }, blocks[i].map(([at, len, t, own]) => h('span', { class: 'mlk-blk' + (own ? ' own' : ''), style: { gridRow: `${at + 1} / span ${len}` } }, t))))));
+  }
+  if (sub === 'favs') {
+    const items = L([['Tafel', 'Kapitalwertmethode – Schritt für Schritt'], ['Karte', 'Was ist der Leverage-Effekt?'], ['Erklärung', 'Deckungsbeitrag vs. Gewinn'], ['Karte', 'Formel: Preiselastizität']], [['Whiteboard', 'Net present value – step by step'], ['Card', 'What is the leverage effect?'], ['Explanation', 'Contribution margin vs. profit'], ['Card', 'Formula: price elasticity']]);
+    return h('div', { class: 'mlk-favs' }, items.map(([k, t]) => h('div', { class: 'mlk-fav' }, h('span', { class: 'mlk-star', html: ico('star') }), h('div', {}, h('small', {}, k), h('b', {}, t)))));
+  }
+  if (sub === 'stats') {
+    const rows = [[L('Kostenrechnung', 'Cost accounting'), 78], ['Marketing', 54], [L('Investition & Finanzierung', 'Investment & finance'), 31]];
+    return h('div', { class: 'mlk-stats' },
+      h('div', { class: 'mlk-kpis' }, h('div', {}, h('b', {}, '12'), h('small', {}, L('Tage Serie', 'day streak'))), h('div', {}, h('b', {}, '2 h 40'), h('small', {}, L('diese Woche', 'this week'))), h('div', {}, h('b', {}, '186'), h('small', {}, L('Karten gelernt', 'cards learned')))),
+      rows.map(([n, v]) => h('div', { class: 'mlk-row' }, h('span', {}, n), h('b', {}, v + ' %'), h('div', { class: 'me-bar' }, h('i', { style: { width: v + '%' } })))));
+  }
+  return h('div', { class: 'mlk-cards' }, ['Kostenrechnung', 'Marketing', 'Investition & Finanzierung'].map((n, i) => h('div', { class: 'me-pcard' }, h('b', {}, n), h('span', {}, L(`Klausur in ${[12, 19, 33][i]} Tagen`, `Exam in ${[12, 19, 33][i]} days`)), h('div', { class: 'me-bar' }, h('i', { style: { width: [64, 41, 22][i] + '%' } })))));
+}
+function locked(wrap, onLogin, sub = '') {
   const f = h('div', { class: 'me-face' });
+  const [eyebrow, title, text] = LOCK()[sub] || LOCK()[''];
   wrap.replaceChildren(h('section', { class: 'me-hero me-lockhero' }, h('div', { class: 'me-glow' }),
     h('div', { class: 'me-hl' },
-      h('div', { class: 'eyebrow' }, L('Mein Bereich', 'My space')),
-      h('h1', {}, L('Dein Studium. An einem Ort.', 'Your degree. In one place.')),
-      h('p', {}, L('Fächer mit Klausur-Countdown, dein Stundenplan, alles Gemerkte und deine Lernserie – und Max sagt dir jeden Tag, was gerade dran ist.', 'Subjects with exam countdowns, your timetable, everything you saved and your streak – and Max tells you every day what to do next.')),
-      h('div', { class: 'me-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => import('../account.js').then(m => m.openLogin({ mode: 'register' })) }, L('Konto erstellen', 'Create account')),
+      h('div', { class: 'eyebrow' }, eyebrow),
+      h('h1', {}, title),
+      h('p', {}, text),
+      h('div', { class: 'me-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => import('../account.js').then(m => m.openLogin({ mode: 'register' })) }, L('Kostenloses Konto erstellen', 'Create free account')),
         h('button', { class: 'btn lg', type: 'button', onclick: () => onLogin && onLogin() }, L('Anmelden', 'Sign in')),
         h('small', {}, L('Kostenlos · dauert 30 Sekunden', 'Free · takes 30 seconds')))),
     f),
-    h('div', { class: 'me-preview', 'aria-hidden': 'true' },
-      ['Kostenrechnung', 'Marketing', 'Investition & Finanzierung'].map((n, i) => h('div', { class: 'me-pcard' }, h('b', {}, n), h('span', {}, L(`Klausur in ${[12, 19, 33][i]} Tagen`, `Exam in ${[12, 19, 33][i]} days`)), h('div', { class: 'me-bar' }, h('i', { style: { width: [64, 41, 22][i] + '%' } })))),
+    h('div', { class: 'me-preview mlk-prev mlk-' + (sub || 'me'), 'aria-hidden': 'true' },
+      lockPreview(sub),
       h('div', { class: 'me-plock' }, h('span', { html: ico('lock') }), L('Mit Konto freigeschaltet', 'Unlocked with an account'))));
   const fc = face(f, {}); fc.set && fc.set('happy');
 }

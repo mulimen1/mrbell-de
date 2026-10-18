@@ -148,7 +148,7 @@ export function render(root, { tab: want = '' } = {}) {
     if (!wrap.isConnected) return;
     // Noch gar nichts hochgeladen
     if (!data.docs.length && !made().length) {
-      body.replaceChildren(h('div', { class: 'sk-empty' }, h('label', { class: 'sk-drop', for: 'fileApp' }, h('span', { html: ico('upload') }), h('b', {}, L('Datei, Foto oder Screenshot hier rein', 'Drop a file, photo or screenshot here')), h('small', {}, L('oder in der App einfach ⌘V / Strg+V', 'or just ⌘V / Ctrl+V in the app'))),
+      body.replaceChildren(h('div', { class: 'sk-empty' }, h('label', { class: 'sk-drop', for: 'fileApp' }, h('span', { html: ico('upload') }), h('b', {}, L('Datei, Foto oder Screenshot hier rein', 'Drop a file, photo or screenshot here')), matchMedia('(pointer: coarse), (max-width: 600px)').matches ? null : h('small', {}, L('oder in der App einfach ⌘V / Strg+V', 'or just ⌘V / Ctrl+V in the app'))),
         h('button', { class: 'btn', type: 'button', onclick: () => import('../app.js').then(m => m.topicPrompt()) }, h('span', { html: ico('bulb') }), L('Kein Skript? Nenn mir ein Thema', 'No slides? Give me a topic'))),
         intro());
       return;

@@ -90,7 +90,7 @@ function render(q) {
   list.replaceChildren(...shown.flatMap((x, i) => {
     const head = x.g !== g ? h('div', { class: 'pal-g', role: 'presentation' }, (g = x.g)) : null;
     const row = h('button', { class: 'pal-i' + (x.ask ? ' ask' : ''), type: 'button', role: 'option', id: 'pal-' + i, 'aria-selected': i === sel ? 'true' : 'false', onmousemove: () => setSel(i), onclick: () => runItem(i) },
-      h('span', { class: 'pal-ic', html: ico(x.ic || 'spark') }), h('span', { class: 'pal-t' }, h('b', {}, x.t), x.sub ? h('small', {}, x.sub) : null), i === sel ? h('kbd', {}, '↵') : null);
+      h('span', { class: 'pal-ic', html: ico(x.ic || 'spark') }), h('span', { class: 'pal-t' }, h('b', {}, x.t), x.sub ? h('small', {}, x.sub) : null), i === sel && !touch() ? h('kbd', {}, '↵') : null);
     return [head, row];
   }));
   if (!shown.length) list.append(h('div', { class: 'pal-empty' }, L('Nichts gefunden.', 'Nothing found.')));
@@ -99,7 +99,7 @@ function render(q) {
 function setSel(i) {
   if (!shown.length) return;
   sel = (i + shown.length) % shown.length;
-  list.querySelectorAll('.pal-i').forEach((el, k) => { el.setAttribute('aria-selected', k === sel ? 'true' : 'false'); const kb = el.querySelector('kbd'); if (k === sel && !kb) el.append(h('kbd', {}, '↵')); if (k !== sel && kb) kb.remove(); });
+  list.querySelectorAll('.pal-i').forEach((el, k) => { el.setAttribute('aria-selected', k === sel ? 'true' : 'false'); const kb = el.querySelector('kbd'); if (k === sel && !kb && !touch()) el.append(h('kbd', {}, '↵')); if (k !== sel && kb) kb.remove(); });
   const cur = list.querySelector('#pal-' + sel); if (cur) { cur.scrollIntoView({ block: 'nearest' }); input.setAttribute('aria-activedescendant', cur.id); }
 }
 function runItem(i) { const x = shown[i]; if (!x) return; close(); setTimeout(() => x.run(), 0); }
@@ -110,14 +110,16 @@ async function askMax(q) {
   if (S.doc) askTutorAbout(q, { confirm: false });
 }
 
+// Touch/Handy: keine Tastenkürzel zeigen (Esc, ↑↓, ↵, Strg K)
+const touch = () => matchMedia('(pointer: coarse), (max-width: 600px)').matches;
 function build() {
   input = h('input', { class: 'pal-in', type: 'search', placeholder: L('Suchen oder Max fragen …', 'Search or ask Max …'), autocomplete: 'off', spellcheck: 'false', role: 'combobox', 'aria-expanded': 'true', 'aria-controls': 'pal-list', 'aria-label': L('Suche', 'Search') });
   list = h('div', { class: 'pal-list', id: 'pal-list', role: 'listbox' });
   const mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
   dlg = h('dialog', { class: 'pal', 'aria-label': L('Suche und Befehle', 'Search and commands') },
-    h('div', { class: 'pal-top' }, h('span', { class: 'pal-si', html: ico('search') }), input, h('button', { class: 'pal-x', type: 'button', onclick: close }, 'Esc')),
+    h('div', { class: 'pal-top' }, h('span', { class: 'pal-si', html: ico('search') }), input, touch() ? h('button', { class: 'pal-x pal-xt', type: 'button', 'aria-label': L('Schließen', 'Close'), onclick: close, html: ico('x') }) : h('button', { class: 'pal-x', type: 'button', onclick: close }, 'Esc')),
     list,
-    h('div', { class: 'pal-foot' }, h('span', {}, h('kbd', {}, '↑'), h('kbd', {}, '↓'), L(' auswählen', ' select')), h('span', {}, h('kbd', {}, '↵'), L(' öffnen', ' open')), h('span', {}, h('kbd', {}, mac ? '⌘K' : 'Strg K'), L(' überall', ' anywhere'))));
+    touch() ? null : h('div', { class: 'pal-foot' }, h('span', {}, h('kbd', {}, '↑'), h('kbd', {}, '↓'), L(' auswählen', ' select')), h('span', {}, h('kbd', {}, '↵'), L(' öffnen', ' open')), h('span', {}, h('kbd', {}, mac ? '⌘K' : 'Strg K'), L(' überall', ' anywhere'))));
   input.addEventListener('input', () => render(input.value));
   input.addEventListener('keydown', e => {
     if (e.key === 'ArrowDown') { e.preventDefault(); setSel(sel + 1); }

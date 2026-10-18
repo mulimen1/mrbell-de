@@ -219,6 +219,14 @@ export function freshen(el) {
 }
 
 // ---------- Gast-Modus: was nur mit (kostenlosem) Konto geht ----------
+// Handy (nicht Tablet): schmal oder Querformat mit wenig Höhe
+export const isPhone = () => matchMedia('(max-width: 600px), (pointer: coarse) and (max-height: 500px)').matches;
+// Am Handy nie mehr als ein Overlay gleichzeitig: Cookie-Banner, Dialoge, Hinweise, „Klick mich“, Tipp
+export function overlayBusy() {
+  const c = document.documentElement.classList;
+  if (c.contains('bmc-open') || c.contains('m-pill') || c.contains('m-tip')) return true;
+  return [...document.querySelectorAll('.modal-bg, .ngreet, .hn, .sidemenu, .acc-pop, .app.sideopen, .pal[open], body > .voice')].some(e => e.getClientRects().length);
+}
 export const isGuest = () => !getAccount();
 export const GUEST_CARDS = 10, GUEST_QUIZ = 3;
 const PREV = {

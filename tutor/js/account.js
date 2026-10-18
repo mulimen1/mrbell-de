@@ -99,7 +99,7 @@ export function openLogin({ title, mode = 'login' } = {}) {
         try { await ask('login', { opts: { email, password: pw, mode: 'register' } }); ls.set('tutor.lastEmail', email); codeStep('register'); }
         catch (e2) { fc.pulse('sad'); busyBtn(btn, false, LBL); err.replaceChildren(e2.message); if (e2.code === 'exists') err.append(' ', link(L('Zur Anmeldung →', 'Go to sign in →'), () => login())); }
       });
-      box.replaceChildren(...head(L('Konto erstellen', 'Create your account'), L('Kostenlos und in 30 Sekunden. Alles, was du ohne Konto gemacht hast, bleibt erhalten.', 'Free and done in 30 seconds. Everything you did without an account stays.')), form, err,
+      box.replaceChildren(...head(L('Kostenloses Konto erstellen', 'Create your free account'), L('Kostenlos und in 30 Sekunden. Alles, was du ohne Konto gemacht hast, bleibt erhalten.', 'Free and done in 30 seconds. Everything you did without an account stays.')), form, err,
         h('div', { class: 'lalt' }, L('Schon ein Konto? ', 'Already have an account? '), link(L('Anmelden', 'Sign in'), () => login())),
         h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Passwort wird verschlüsselt gespeichert. Deine Skripte bleiben auf deinem Gerät.', 'Your password is stored encrypted. Your slides stay on your device.')));
       fc.set('idle'); setTimeout(() => em.focus(), 60);
@@ -188,6 +188,11 @@ export function openLogin({ title, mode = 'login' } = {}) {
   });
 }
 export const openRegister = (o = {}) => openLogin(Object.assign({}, o, { mode: 'register' }));
+// Gast ohne Konto in diesem Browser → Registrieren (mit „Schon ein Konto? Anmelden“); wer schon mal angemeldet war → Anmelden
+export const knownHere = () => !!(getAccount() || ls.get('tutor.lastEmail', ''));
+export function openAuth({ title, registerTitle, ...o } = {}) {
+  return knownHere() ? openLogin({ ...o, title, mode: 'login' }) : openLogin({ ...o, title: registerTitle, mode: 'register' });
+}
 
 // Neues Konto: kurze, optionale Frage nach dem Ziel (füllt später den Klausurplan vor)
 const GOAL_CHIPS = L([[.95, '1,0'], [.9, '1,3'], [.85, '1,7'], [.8, '2,0'], [.75, '2,3'], [.7, '2,7'], [.65, '3,0'], [.5, 'Bestanden']], [[.9, 'Top grade'], [.75, 'Good grade'], [.5, 'Pass']]);

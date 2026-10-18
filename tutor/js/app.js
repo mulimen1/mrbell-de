@@ -4,10 +4,10 @@ import { face } from './face.js';
 import { S, refreshList, openDoc, createDoc, removeDoc, lastDocId, save, onChange, SAMPLE, mastery } from './state.js';
 import { ACCEPT } from './ingest.js';
 import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
-import { accountChip, refreshAccount, openLogin, openAccount } from './account.js';
+import { accountChip, refreshAccount, openLogin, openAccount, openAuth } from './account.js';
 import { getOutLang, setOutLang, L, LOCALE, lang, setLang } from './i18n.js';
 import { lines as maxLines, getSpice } from './max.js';
-import { apiError, thought } from './ui.js';
+import { apiError, thought, isPhone, overlayBusy } from './ui.js';
 import { exportAll, importAll, wipe } from './db.js';
 import { applyThemeButtons } from './theme.js';
 import { feedbackButton, openFeedback } from './feedback.js';
@@ -127,6 +127,7 @@ function buildShell() {
   onQuota(renderQuota);
   onAccount(a => { renderQuota(currentQuota()); import('./views/zahlen.js').then(m => { const z = topnav.querySelector('[data-tn="zahlen"]'); if (z) z.hidden = !m.isAdmin(a); }); });
   refreshAccount();
+  phoneShell(topnav, app);
   mobileTip();
   import('./promo.js').then(m => m.initPromo()).catch(() => {});
   onChange(renderList);
@@ -198,6 +199,7 @@ function renderList() {
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
   const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher'), stundenplan: hs.startsWith('#/app/stundenplan'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') };
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
+  requestAnimationFrame(navIntoView);
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
   $$('[data-nav="foto"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer/buchung')));
   $$('[data-nav="challenge"]', shell.side).forEach(a => a.classList.toggle('on', hs.includes('/challenge')));
@@ -242,8 +244,10 @@ export async function mountApp(parts) {
     renderTrainer(wrap, { kind: b, onAsk: S.list.length ? text => askTutorAbout(text) : null });
   });
   if (a === 'rechner') return page('rechner:' + (b || ''), L('Rechner', 'Calculators'), async root => { const { render } = await import('./views/rechner.js'); return render(root, { arg: b || '', onAsk: t => viaMax(m => m.ask(t)).then(ok => { if (!ok) askTutorAbout(t, { confirm: false }); }) }); });
-  if (a === 'challenge') return page('challenge', L('Wochen-Challenge', 'Weekly challenge'), async root => { const { renderChallenge } = await import('./challenge.js'); renderChallenge(root, { onLogin: () => openLogin({ title: L('Anmelden für die Challenge', 'Sign in for the challenge') }) }); });
+  if (a === 'challenge') return page('challenge', L('Wochen-Challenge', 'Weekly challenge'), async root => { const { renderChallenge } = await import('./challenge.js'); renderChallenge(root, { onLogin: () => openAuth({ title: L('Anmelden für die Challenge', 'Sign in for the challenge'), registerTitle: L('Kostenloses Konto für die Challenge', 'Free account for the challenge') }) }); });
   if (a === 'duell') return page('duell:' + (b || ''), L('BWL-Duell', 'Business duel'), async root => { const { renderDuell } = await import('./duell.js'); return renderDuell(root, { code: b || '' }); });
+  // Zahlen ist Bens internes Dashboard – alle anderen landen im Tutor
+  if (a === 'zahlen') { const z = await import('./views/zahlen.js'); if (!z.isAdmin(getAccount())) { location.replace('#/app/tutor'); return; } }
   if (a === 'zahlen') return page('zahlen', L('Zahlen', 'Numbers'), async root => { const { render } = await import('./views/zahlen.js'); return render(root); });
   if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
   if (a === 'skripte') { location.replace('#/app/bibliothek/unterlagen'); return; }
@@ -261,7 +265,8 @@ export async function mountApp(parts) {
   // Mein Bereich (nur Heute) und die festen Bereiche oben
   const SUBS = { me: ['', L('Mein Bereich', 'My space')], faecher: ['faecher', L('Fächer & Noten', 'Subjects & grades')], fortschritt: ['stats', L('Fortschritt', 'Progress')], gemerkt: ['favs', L('Gemerkt', 'Saved')], stundenplan: ['plan', L('Stundenplan', 'Timetable')] };
   if (SUBS[a]) { const [sub, ttl] = SUBS[a]; return page('me:' + sub, ttl, async root => { const { render } = await import('./views/me.js'); return render(root, { sub, onLogin: () => openLogin({ title: L('Anmelden für deinen Bereich', 'Sign in for your space') }) }); }); }
-  if (a === 'neu') { docbar(false); return; } // Upload läuft
+  // Neuer Stoff: läuft gerade Upload/Kurzskript, zeigt das die Seite schon; direkt geöffnet (Neuladen, Link) → Upload-Seite
+  if (a === 'neu') { docbar(false); if (current.key === 'ingest' || current.key === 'topic') return; return page('neu', L('Neuer Stoff', 'Add material'), async root => { emptyState(root); }); }
   // „Max“ im Skript = Tutor-Raum mit genau diesem Skript
   if (b === 'tutor' && S.list.some(d => d.id === a)) { ls.set('tutor.room.focus', [a]); location.replace('#/app/tutor'); return; }
   if (!S.doc || S.doc.id !== a) {
@@ -483,17 +488,89 @@ export async function startTopic(topic) {
   }
 }
 
-// Am Handy einmal freundlich auf Laptop/iPad hinweisen
+// Am Handy genau einmal (pro Browser) ein kleiner Tipp oben links: am Laptop/iPad ist die Tafel neben dem Chat
 function mobileTip() {
-  if (!matchMedia('(max-width: 760px)').matches || ls.get('tutor.mobileTip')) return;
-  const f = h('span', { class: 'mtf' });
-  const close = () => { ls.set('tutor.mobileTip', 1); tip.classList.add('out'); setTimeout(() => tip.remove(), 300); };
-  const tip = h('div', { class: 'mtip', role: 'status' }, f,
-    h('p', { class: 'mtx' }, h('b', {}, L('Tipp: ', 'Tip: ')), L('Am Laptop oder iPad passt die Tafel neben den Chat.', 'On a laptop or iPad the whiteboard fits next to the chat.')),
-    h('button', { class: 'iconbtn', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: close }));
-  document.body.appendChild(tip);
-  face(f, { follow: false });
-  setTimeout(() => { if (tip.isConnected) close(); }, 9000);
+  if (!isPhone() || ls.get('tutor.mobileTip2', 0)) return;
+  const t0 = Date.now();
+  const tryShow = () => {
+    if (ls.get('tutor.mobileTip2', 0) || !isPhone()) return;
+    if (document.hidden || overlayBusy()) { if (Date.now() - t0 < 60000) setTimeout(tryShow, 1500); return; }
+    ls.set('tutor.mobileTip2', 1);
+    const f = h('span', { class: 'mt2f' });
+    let gone = false;
+    const close = () => { if (gone) return; gone = true; document.documentElement.classList.remove('m-tip'); tip.classList.add('out'); setTimeout(() => tip.remove(), 300); };
+    const tip = h('div', { class: 'mtip2', role: 'status' }, f,
+      h('p', {}, h('b', {}, L('Tipp: ', 'Tip: ')), L('Am Laptop oder iPad ist BWL Max noch stärker – große Tafel direkt neben dem Chat.', 'On a laptop or iPad BWL Max is even better – a big whiteboard right next to the chat.')),
+      h('button', { class: 'mt2x', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: close }));
+    document.body.appendChild(tip);
+    document.documentElement.classList.add('m-tip');
+    face(f, { follow: false });
+    setTimeout(close, 6000);
+    // Cookie-Banner oder Dialog kommt dazu → Tipp geht sofort, nie zwei Overlays auf einmal
+    const iv = setInterval(() => { if (gone) return clearInterval(iv); if (document.documentElement.classList.contains('bmc-open') || document.querySelector('.modal-bg')) { close(); clearInterval(iv); } }, 300);
+  };
+  setTimeout(tryShow, 3000);
+}
+
+// Handy: „Klick mich“ höchstens einmal kurz, Max-Knopf weicht beim Runterscrollen und Tippen aus,
+// obere Leiste mit Verlauf am Rand, Seitenleiste über allem, Dialoge schließen beim Zurück
+function phoneShell(topnav, app) {
+  const root = document.documentElement;
+  // „Klick mich – …“: einmal pro Browser, ~4 s, weg beim ersten Scrollen/Tippen
+  let pillT = 0;
+  const pillOff = () => { clearTimeout(pillT); root.classList.remove('m-pill'); };
+  const watchPill = asst => {
+    const check = () => {
+      if (!isPhone() || root.classList.contains('m-pill') || ls.get('tutor.m.pill', 0)) return;
+      if (!asst.classList.contains('tip-on') || overlayBusy()) return;
+      ls.set('tutor.m.pill', 1); root.classList.add('m-pill');
+      pillT = setTimeout(pillOff, 4000);
+    };
+    new MutationObserver(check).observe(asst, { attributes: true, attributeFilter: ['class'] });
+    check();
+  };
+  const findAsst = (n = 0) => { const a = document.querySelector('.asst'); if (a) watchPill(a); else if (n < 60) setTimeout(() => findAsst(n + 1), 500); };
+  findAsst();
+  document.addEventListener('pointerdown', e => { if (!root.classList.contains('m-pill')) return; if (e.target.closest && e.target.closest('.asst-bub')) setTimeout(pillOff, 500); else pillOff(); }, true);
+  // Max-Knopf: beim Runterscrollen weg, beim Hochscrollen wieder da; weg, solange ein Eingabefeld aktiv ist
+  const last = new WeakMap();
+  document.addEventListener('scroll', e => {
+    const el = e.target === document ? document.scrollingElement : e.target;
+    if (!el || el.nodeType !== 1 || el.closest?.('.asst, .side, .topnav, .tabs')) return;
+    const y = el.scrollTop, p = last.get(el); last.set(el, y);
+    if (root.classList.contains('m-pill')) pillOff();
+    if (p == null) return;
+    if (y < 24 || y - p < -6) root.classList.remove('m-bubhide');
+    else if (y - p > 6) root.classList.add('m-bubhide');
+  }, { capture: true, passive: true });
+  const field = el => el && el.matches && el.matches('input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]), textarea, select, [contenteditable="true"]') && !el.closest('.asst');
+  document.addEventListener('focusin', e => { if (field(e.target)) root.classList.add('m-bubfocus'); });
+  document.addEventListener('focusout', () => setTimeout(() => { if (!field(document.activeElement)) root.classList.remove('m-bubfocus'); }, 60));
+  addEventListener('hashchange', () => root.classList.remove('m-bubhide'));
+  // Obere Leiste: Verlauf rechts/links, solange es dort weitergeht
+  const edge = () => { const max = topnav.scrollWidth - topnav.clientWidth; topnav.classList.toggle('m-fl', topnav.scrollLeft > 4); topnav.classList.toggle('m-fr', max > 4 && topnav.scrollLeft < max - 4); };
+  topnav.addEventListener('scroll', edge, { passive: true }); addEventListener('resize', edge); setTimeout(edge, 300);
+  shell.navEdge = edge;
+  // Seitenleiste offen → Eingabeleiste von Max weg (sonst liegt sie über Sprache, Konto und Rechtlichem)
+  new MutationObserver(() => root.classList.toggle('m-side', app.classList.contains('sideopen'))).observe(app, { attributes: true, attributeFilter: ['class'] });
+  // Dialoge merken sich die Adresse, unter der sie aufgingen; ändert sie sich (Zurück am Handy), gehen sie zu
+  new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(n => { if (n.nodeType === 1 && n.classList.contains('modal-bg') && !n.dataset.hash) n.dataset.hash = location.hash; }))).observe(document.body, { childList: true });
+  addEventListener('hashchange', () => {
+    document.querySelectorAll('body > .modal-bg').forEach(bg => {
+      if (!bg.dataset.hash || bg.dataset.hash === location.hash) return;
+      const x = bg.querySelector('.modal > .mx, .modal > .lx, .modal .mx, .modal .lx, [aria-label="Schließen"], [aria-label="Close"]');
+      if (x) x.click();
+      setTimeout(() => { if (bg.isConnected && !bg.classList.contains('out')) bg.remove(); }, 400);
+    });
+  });
+}
+function navIntoView() {
+  const t = shell?.topnav, on = t && t.querySelector('.tn.on');
+  if (!on || !on.offsetWidth || t.scrollWidth <= t.clientWidth + 2) { shell?.navEdge?.(); return; }
+  const l = on.getBoundingClientRect().left - t.getBoundingClientRect().left + t.scrollLeft;
+  const want = Math.max(0, l - (t.clientWidth - on.offsetWidth) / 2);
+  if (Math.abs(want - t.scrollLeft) > 4) t.scrollTo({ left: want, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  setTimeout(() => shell?.navEdge?.(), 400);
 }
 
 // Nach Upload/Thema: direkt zur gewählten Funktion (vom „Ausprobieren“ auf der Startseite)
@@ -577,7 +654,7 @@ function bottomBar(getApp) {
     item('bibliothek', 'library', L('Bibliothek', 'Library'), '#/app/bibliothek'),
     Object.assign(item('side', 'sidebar', 'Tools', () => getApp().classList.toggle('sideopen')), { className: 'bb-i bb-side' }),
     item('search', 'search', L('Suche', 'Search'), () => import('./palette.js').then(m => m.openPalette())),
-    item('ich', 'lock', L('Ich', 'Me'), () => getAccount() ? openAccount() : openLogin()));
+    item('ich', 'lock', L('Ich', 'Me'), () => getAccount() ? openAccount() : openAuth()));
   const mark = () => { const h0 = location.hash; bar.querySelectorAll('.bb-i').forEach(x => x.classList.toggle('on', (x.dataset.bb === 'tutor' && h0.startsWith('#/app/tutor')) || (x.dataset.bb === 'bibliothek' && (h0.startsWith('#/app/bibliothek') || !!(S.doc && h0.includes(S.doc.id)))))); };
   addEventListener('hashchange', mark); mark();
   document.documentElement.classList.add('has-bbar');

@@ -35,7 +35,7 @@ export function openFeedback(start = 'fehlt') {
   const tabs = h('div', { class: 'fb-kinds', role: 'tablist' });
   const paint = () => {
     const k = KINDS().find(x => x[0] === kind);
-    tabs.replaceChildren(...KINDS().map(([id, t]) => h('button', { type: 'button', role: 'tab', class: 'fb-kind' + (id === kind ? ' on' : ''), 'aria-selected': id === kind ? 'true' : 'false', onclick: () => { kind = id; paint(); text.focus(); } }, t)));
+    tabs.replaceChildren(...KINDS().map(([id, t]) => h('button', { type: 'button', role: 'tab', class: 'fb-kind' + (id === kind ? ' on' : ''), 'aria-selected': id === kind ? 'true' : 'false', onclick: () => { kind = id; paint(); if (!touch()) text.focus(); } }, t)));
     text.placeholder = k[2];
     rate.hidden = kind !== 'bewertung';
     check();
@@ -66,5 +66,8 @@ export function openFeedback(start = 'fehlt') {
     }
   });
   document.body.appendChild(bg);
-  setTimeout(() => text.focus(), 60);
+  // Touch: kein Autofokus (sonst deckt die iPhone-Tastatur „Abschicken“ ab); beim Tippen bleibt „Abschicken“ im Bild
+  if (!touch()) setTimeout(() => text.focus(), 60);
+  text.addEventListener('focus', () => { if (touch()) setTimeout(() => send.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 350); });
 }
+const touch = () => matchMedia('(pointer: coarse), (max-width: 600px)').matches;
