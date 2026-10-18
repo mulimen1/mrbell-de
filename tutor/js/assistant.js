@@ -544,7 +544,7 @@ export function mountAssistant() {
     const now = Date.now();
     if (!tipVisSince) tipVisSince = now;
     // In der App: dauerhaft „Klick mich – ich führ dich durch“
-    if (app && learningNow()) { if (root.classList.contains('tip-on')) hideTip(); return; }   // mitten im Lernen: keine Führung
+    if (app && (learningNow() || MOB.matches)) { if (root.classList.contains('tip-on')) hideTip(); return; }   // mitten im Lernen und am Handy: keine Führung (nur Laptop)
     if (app) {
       const k = tourKey(), seen = ls.get('tutor.tour.seen', {}) || {};
       if (location.hash.startsWith('#/app/zahlen')) { if (root.classList.contains('tip-on')) hideTip(); return; }   // Bens Zahlen: keine Führung
