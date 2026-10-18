@@ -1,5 +1,5 @@
 // Einstieg: Landingpage (mit Animationen) + Router
-import { $, $$, h, sleep, ico } from './util.js';
+import { $, $$, h, sleep, ico, ls } from './util.js';
 import { face } from './face.js';
 import { mountApp, startUpload, startSample, topicForm, tryFeature, viaMax, startTopic } from './app.js';
 import { landingTopic } from './themen.js';
@@ -224,6 +224,16 @@ async function route() {
   if (hash === '#/anmelden') { history.replaceState(null, '', location.pathname + '#/'); hash = '#/'; if (getAccount()) { const z = sessionStorage.getItem('tutor.after'); if (z) { sessionStorage.removeItem('tutor.after'); location.href = z; return; } } else setTimeout(() => openLogin(), 350); }
   // Angemeldet: keine Startseite, direkt in den eigenen Bereich
   if (getAccount() && (hash === '#/' || hash === '#' || hash === '#/app' || hash === '#/app/')) { history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor'; }
+  // Themen-Einstieg (Google-Anzeige: ?thema=…): direkt in den großen Tutor-Raum – Max erklärt dort an der Tafel
+  if (!EN && (hash === '#/' || hash === '#')) {
+    const T = landingTopic();
+    let done = ''; try { done = sessionStorage.getItem('tutor.themaDone') || ''; } catch (e) {}
+    if (T && done !== T.slug) {
+      try { sessionStorage.setItem('tutor.themaDone', T.slug); sessionStorage.setItem('tutor.topicHead', T.name); sessionStorage.setItem('tutor.stay', String(Date.now())); } catch (e) {}
+      ls.set('tutor.pendingAsk', { t: T.ask, show: `Erklär mir „${T.name}“.`, wait: `${T.name} – kommt sofort. Ich bau dir die Tafel jetzt live: erst das Prinzip, dann die Formel, dann ein durchgerechnetes Beispiel.` });
+      history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor';
+    }
+  }
   const inApp = hash.startsWith('#/app');
   $('#landing').classList.toggle('hidden', inApp);
   $('#app').classList.toggle('hidden', !inApp);
@@ -275,3 +285,4 @@ import('./abo.js').then(async m => {
   pb.disabled = false; pb.textContent = L('7 Tage gratis testen', 'Try 7 days free'); pb.addEventListener('click', () => m.openAbo());
   $('.plan.pro .badge')?.remove();
 }).catch(() => {});
+import('./hint.js').then(m => m.scheduleHint()).catch(() => {});

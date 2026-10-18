@@ -4273,3 +4273,17 @@ html, body { max-width: 100%; overflow-x: hidden; }
   html.mx-touring:not(.mx-tpaused) .ai-board .tafel { padding-bottom: 46vh; }
 }
 @media (max-width: 600px) { .ai-board .tafel [data-say] { scroll-margin-top: 14px; } }
+/* Themen-Einstieg: Thema als Überschrift im Tutor-Raum */
+.rm-topic { margin: 0 0 6px; text-align: center; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.08; letter-spacing: -.035em; font-weight: 700; }
+.rm-topic span { color: var(--mute); }
+@media (max-width: 600px) { .rm-topic { display: none; } }
+/* Handy mit Tafel: nur eine schlanke Frage-Zeile unten */
+@media (max-width: 600px) {
+  .asst.stage.has-board:not(.board-min) .ai-isl { flex-wrap: nowrap !important; height: 58px !important; padding: 0 6px 0 8px !important; row-gap: 0 !important; border-radius: 999px !important; align-items: center !important; }
+  .asst.stage.has-board:not(.board-min) .ai-isl::after { display: none !important; }
+  .asst.stage.has-board:not(.board-min) .ai-isl > .ai-talk, .asst.stage.has-board:not(.board-min) .ai-isl > .ai-done, .asst.stage.has-board:not(.board-min) .ai-isl > .ai-stop { order: 3 !important; margin: 0 !important; }
+  .asst.stage.has-board:not(.board-min) .ai-isl > .ai-talk { width: 44px; height: 44px; padding: 0 !important; justify-content: center; }
+  .asst.stage.has-board:not(.board-min) .ai-isl > .ai-talk .lbl, .asst.stage.has-board:not(.board-min) .ai-tourb { display: none !important; }
+  .asst.stage.has-board:not(.board-min) .ai-isl > .ai-mid { height: 44px; }
+  .asst.stage.has-board:not(.board-min) .ai-board { bottom: calc(var(--scb) + 70px) !important; }
+}

@@ -70,7 +70,9 @@ export function render(root, ctx = {}) {
   const chatSlot = h('div', { class: 'rm-chat' });
   const boardSlot = h('div', { class: 'rm-board' });
   // Gespräch: Max' Kopf bleibt groß oben, darunter das Gespräch; rechts daneben die Tafel
-  const talkCol = h('div', { class: 'rm-col' }, h('div', { class: 'rm-th-wrap' }, talkSlot, status), chatSlot);
+  let topicHead = ''; try { topicHead = sessionStorage.getItem('tutor.topicHead') || ''; sessionStorage.removeItem('tutor.topicHead'); } catch (e) {}
+  const topicEl = topicHead ? h('h1', { class: 'rm-topic' }, L('BWL einfach erklärt', 'Business explained simply'), h('span', {}, L(' – dein Tutor fürs Studium.', ' – your study tutor.'))) : null;
+  const talkCol = h('div', { class: 'rm-col' }, topicEl, h('div', { class: 'rm-th-wrap' }, talkSlot, status), chatSlot);
   const talk = h('div', { class: 'rm-talk' }, talkCol, boardSlot);
   const focusRow = h('div', { class: 'rm-focus' });
   const sugg = h('div', { class: 'rm-sugg' });
@@ -323,7 +325,7 @@ export function render(root, ctx = {}) {
   }
 
   // ---------- Gespräch ----------
-  const ask = text => { if (!api) return; api.ask(text); };
+  const ask = (text, o) => { if (!api) return; api.ask(text, o); };
   function moveFace(slot) {
     if (faceEl.parentElement === slot) return;
     const a = faceEl.getBoundingClientRect();
@@ -492,7 +494,7 @@ export function render(root, ctx = {}) {
     const cont = ls.get('tutor.room.continue', 0); if (cont) ls.set('tutor.room.continue', 0);
     const pending = ls.get('tutor.pendingAsk', null); if (pending) ls.set('tutor.pendingAsk', null);
     if (SES.on || cont) goTalk({ mark: false });
-    if (pending) { goTalk(); setTimeout(() => ask(pending), ctx.arrive ? 900 : 350); }
+    if (pending) { goTalk(); setTimeout(() => (typeof pending === 'object' ? ask(pending.t, pending) : ask(pending)), ctx.arrive ? 900 : 350); }
     drawSugg();
     if (!MOB.matches) setTimeout(() => { if (!document.querySelector('.ngreet')) api.focusInput(); }, 700);
   });

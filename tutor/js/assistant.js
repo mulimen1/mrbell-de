@@ -673,6 +673,7 @@ export function mountAssistant() {
   function capThinking() {
     if (!curEx) return;
     // Im Tutor-Raum denkt Max in seiner Gedankenblase – keine zweite, leere „…“-Blase im Verlauf
+    if (STAGE && waitTx) { curEx.a.hidden = false; clearInterval(thkT); capA.replaceChildren(h('span', { class: 'ai-wait' }, waitTx)); waitTx = ''; capScroll(); return; }
     if (STAGE) { curEx.a.hidden = true; clearInterval(thkT); return; }
     curEx.a.hidden = false;
     const th = h('span', { class: 'ai-thk' });
@@ -821,7 +822,11 @@ export function mountAssistant() {
     await go();
   }
   function cmdChip(c) {
-    if (c.k === 'upload' || c.k === 'voice') {
+    // Themen-Einstieg aus der Anzeige: Max bleibt im Raum – Werkzeuge nur als Angebot zum Antippen
+    let stay = 0; try { stay = +sessionStorage.getItem('tutor.stay') || 0; } catch (e) {}
+    const hold = stay && Date.now() - stay < 6e5 && ['go', 'trainer', 'make'].includes(c.k);
+    if (c.k === 'upload' || c.k === 'voice' || hold) {
+      if (hold) { const b = h('button', { class: 'ai-cmd tap', type: 'button', onclick: () => { try { sessionStorage.removeItem('tutor.stay'); } catch (e) {} b.classList.remove('tap'); b.classList.add('run'); runCmd(c, b); } }, h('span', { class: 'ck', html: ico('right') }), c.label); return b; }
       const b = h('button', { class: 'ai-cmd tap', type: 'button', onclick: () => runCmd(c, b) }, h('span', { class: 'ck', html: ico(c.k === 'upload' ? 'upload' : 'mic') }), c.label);
       return b;
     }
@@ -865,20 +870,22 @@ export function mountAssistant() {
   // ---------- Fragen & Antworten ----------
   let pendingMap = null;
   const LAZY_MAP = {};
-  async function submit(text) {
+  let waitTx = '';
+  async function submit(text, o = {}) {
     text = String(text || '').trim();
+    const shown = String(o.show || text);
     if (!text || state === 'think') return;
     if (!pendingMap && TOURQ.test(text) && route().tab) { pageTour(); return; }
     if (tourActive()) pauseTour();   // Frage mitten in der Führung: Max hält an, antwortet, dann geht's per ▶ weiter
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     unlockAudio();
-    capQuestion(text); capQ.classList.remove('live'); capThinking();
+    waitTx = o.wait || ''; capQuestion(shown); capQ.classList.remove('live'); capThinking();
     const pasted = attachTx; if (pasted) { capQ.prepend(h('span', { class: 'ai-refq' }, L('Eingefügter Text · ', 'Pasted text · ') + pasted.length.toLocaleString('de-DE') + L(' Zeichen', ' chars'))); clearAttach(); }
     if (askRef) capQ.prepend(h('span', { class: 'ai-refq' }, L(`Zu ${askRef.i}/${askRef.n} · `, `Re ${askRef.i}/${askRef.n} · `) + (askRef.spot.length > 60 ? askRef.spot.slice(0, 59) + '…' : askRef.spot)));
     const ex = curEx;
     const ctxLine = pageContext();
     hist.push({ role: 'user', content: text });
-    try { STAGE?.onAsk?.(text); } catch (e) {}
+    try { STAGE?.onAsk?.(shown); } catch (e) {}
     if (pendingMap === LAZY_MAP) { await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))); const m = pageMap(); pendingMap = m.count ? m.text : null; }
     setState('think');
     const my = ++gen, spoken = !!cfg.spk && viaVoice;
@@ -1061,7 +1068,7 @@ export function mountAssistant() {
     for (let k = 0; k < 40 && t.isConnected && t.querySelector('.ai-hide'); k++) await sleep(120);
     const steps = boardSteps(t);
     drawTourBtn();
-    if (steps.length >= 2 && t.isConnected) setTimeout(() => { if (t.isConnected && state !== 'think') startTour(steps); }, 450);
+    if (steps.length >= 2 && t.isConnected && !MOB.matches) setTimeout(() => { if (t.isConnected && state !== 'think') startTour(steps); }, 450);
   }
   function drawTourBtn() { const st = boardSteps(bArea.querySelector('.tafel')); bTour.hidden = st.length < 2; }
   // „Klick mich – ich führ dich durch“: Max liest die Seite und zeigt dir mit dem Cursor, worauf es ankommt
@@ -1443,7 +1450,7 @@ export function mountAssistant() {
   api = {
     applyEnabled, open: () => setOpen(true), close: () => setOpen(false),
     // Von außen: Text direkt an Max geben (z. B. „Erklär's mir“-Feld) bzw. Sprechen starten
-    ask: t => { setOpen(true); if (MOB.matches && feedOpen) setFeedOpen(false); submit(t); },
+    ask: (t, o) => { setOpen(true); if (MOB.matches && feedOpen) setFeedOpen(false); submit(t, o || {}); },
     talk: () => { setOpen(true); startListen(); },
     stage, unstage, talk2: stageTalk, note, holdBub, bubFaceRect, relayout: burst,
     hold: v => root.classList.toggle('stage-hold', !!v),

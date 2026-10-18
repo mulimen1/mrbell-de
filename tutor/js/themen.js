@@ -28,8 +28,8 @@ const clean = s => String(s || '').replace(/[^\p{L}\p{N} \-]/gu, ' ').replace(/\
 export function landingTopic(search = location.search) {
   let p; try { p = new URLSearchParams(search); } catch (e) { return null; }
   const slug = String(p.get('thema') || '').toLowerCase().trim();
-  if (THEMEN[slug]) { const [name, what] = THEMEN[slug]; return { slug, name, ask: `Erklär mir ${what} von Grund auf, an der Tafel.` }; }
+  if (THEMEN[slug]) { const [name, what] = THEMEN[slug]; return { slug, name, ask: `Erklär mir ${what} von Grund auf, an der Tafel. Bleib dafür hier im Tutor-Raum.` }; }
   const q = clean(p.get('q'));
-  if (q.length >= 3) { const name = q.charAt(0).toUpperCase() + q.slice(1); return { slug: 'q:' + q.toLowerCase(), name, ask: `Erklär mir „${name}“ von Grund auf – mit Beispiel an der Tafel.` }; }
+  if (q.length >= 3) { const name = q.charAt(0).toUpperCase() + q.slice(1); return { slug: 'q:' + q.toLowerCase(), name, ask: `Erklär mir „${name}“ von Grund auf – mit Beispiel an der Tafel. Bleib dafür hier im Tutor-Raum.` }; }
   return null;
 }

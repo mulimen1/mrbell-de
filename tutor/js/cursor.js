@@ -51,6 +51,16 @@ function contentRects(hl, scope) {
   return { rects: out, lines };
 }
 
+// Nur senkrecht scrollen (scrollIntoView schiebt sonst manchmal ganze Bereiche seitlich weg)
+function vScroll(el, where) {
+  let sc = el.parentElement;
+  while (sc && sc !== document.body) { const cs = getComputedStyle(sc); if (/(auto|scroll)/.test(cs.overflowY) && sc.scrollHeight > sc.clientHeight + 2) break; sc = sc.parentElement; }
+  const r = el.getBoundingClientRect();
+  if (!sc || sc === document.body) { const top = scrollY + r.top - (where === 'start' ? 16 : (innerHeight - r.height) / 2); scrollTo({ top: Math.max(0, top), behavior: reduce() ? 'auto' : 'smooth' }); return; }
+  const R = sc.getBoundingClientRect();
+  const top = sc.scrollTop + (r.top - R.top) - (where === 'start' ? 14 : Math.max(14, (R.height - r.height) / 2));
+  sc.scrollTo({ top: Math.max(0, top), behavior: reduce() ? 'auto' : 'smooth' });
+}
 // steps: [{ el, say }] – el darf null sein (dann zeigt Max oben in die Mitte des Inhalts)
 export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {}) {
   steps = (steps || []).filter(s => s && s.say);
@@ -197,7 +207,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {
       const r = s.el.getBoundingClientRect();
       const low = mob() ? Math.max(260, innerHeight - (dock.getBoundingClientRect().top || innerHeight - 70) + (say.offsetHeight || 110) + 40) : 160;
       const out = r.top < 70 || r.bottom > innerHeight - low;
-      if (out) { s.el.scrollIntoView({ block: mob() ? 'start' : 'center', behavior: reduce() ? 'auto' : 'smooth' }); await new Promise(r2 => setTimeout(r2, 460)); }
+      if (out) { vScroll(s.el, mob() ? 'start' : 'center'); await new Promise(r2 => setTimeout(r2, 460)); }
     }
     if (dead || i !== n) return;
     setHL(s.el);

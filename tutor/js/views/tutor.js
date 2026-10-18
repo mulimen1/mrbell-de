@@ -186,7 +186,7 @@ export async function render(root, ctx) {
 
   // Frage aus anderem Bereich (Quiz, Trainer, Übersicht)?
   const pending = ls.get('tutor.pendingAsk', null);
-  if (pending) { ls.set('tutor.pendingAsk', null); setTimeout(() => submit(pending), 250); }
+  if (pending) { ls.set('tutor.pendingAsk', null); setTimeout(() => submit(typeof pending === 'object' ? pending.t : pending), 250); }
   else setTimeout(() => ta.focus({ preventScroll: true }), 100);
 
   return () => { ctrl && ctrl.abort(); };
