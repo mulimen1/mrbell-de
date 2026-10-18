@@ -46,7 +46,7 @@ const TITLE = {
 // Liefert die gewählten Optionen – oder null, wenn abgebrochen
 export async function personalise(tab, doc) {
   if (!TOOL[tab]) return {};
-  const chapters = doc.path?.chapters || [];
+  const chapters = doc?.path?.chapters || [];
   const DEF = {
     karten: { focus: -1, count: 16, art: 'mix' },
     quiz: { focus: -1, count: 8, diff: 'mittel', types: ['mc', 'tf', 'match', 'order', 'cloze', 'num'] },
@@ -133,7 +133,7 @@ const TABROUTE = { karten: 'karten', quiz: 'quiz', zettel: 'zettel', podcast: 'p
 export function srcPicker(doc, { onChange } = {}) {
   const docs = S.list.slice().sort((a, b) => Math.max(b.used || 0, b.created || 0) - Math.max(a.used || 0, a.created || 0));
   if (doc && !docs.some(d => d.id === doc.id)) docs.unshift(doc);
-  const st = { kind: docs.length ? 'doc' : 'topic', id: doc ? doc.id : (docs[0] && docs[0].id), topic: '', files: [] };
+  const st = { kind: docs.length ? 'doc' : 'file', id: doc ? doc.id : (docs[0] && docs[0].id), topic: '', files: [] };
   const sel = h('select', { class: 'field sp-doc', 'aria-label': L('Skript', 'Slides') }, docs.map(d => h('option', { value: d.id, selected: d.id === st.id || null }, (d.generated ? '💡 ' : '') + d.name)));
   sel.addEventListener('change', () => { st.id = sel.value; err.textContent = ''; onChange && onChange(get()); });
   const inp = h('input', { class: 'field sp-topic', maxlength: 160, placeholder: L('Thema, z. B. Kapitalwertmethode', 'Topic, e.g. net present value'), 'aria-label': L('Thema', 'Topic'), autocomplete: 'off' });

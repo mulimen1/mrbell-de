@@ -64,6 +64,7 @@ export function render(root) {
       if (await gated(tab)) return;
       const doc = pickDoc();
       // Noch kein Skript: hochladen oder Thema nennen – danach entsteht direkt dieses Werkzeug
+      if (!doc && ['podcast', 'quiz', 'zettel'].includes(tab)) return import('../create.js').then(m => m.personalise(tab, null));   // Optionen wählen + Datei/Thema → danach direkt genau das
       if (!doc) return import('../app.js').then(m => m.tryFeature(tab));
       if (hasIt) return go(`#/app/${doc.id}/${tab}`);
       // Gibt’s noch nicht? Kurz personalisieren – erst „Erstellen“ legt los

@@ -75,4 +75,10 @@ export function savedToast(kind, n = 1) {
   lastToast = Date.now();
   const go = h('a', { class: 'toast-undo', href: '#/app/bibliothek/' + kind }, L('Ansehen', 'View'));
   toast(h('span', { class: 'toast-row lib-toast' }, h('span', { class: 'lib-ok', 'aria-hidden': 'true', html: ico('check') }), (WHAT[kind] || WHAT.quiz)(n), go), 3600);
+  // Gerade aus „Werkzeug + Upload“ gebaut? Danach – als Extra – den Lernplan anbieten
+  const ad = ls.get('tutor.addon', null);
+  if (ad && Date.now() - (ad.at || 0) < 90 * 60e3 && location.hash.includes(ad.doc)) {
+    ls.set('tutor.addon', null);
+    setTimeout(() => toast(h('span', { class: 'toast-row lib-toast' }, L('Willst du noch einen Lernplan bis zur Klausur?', 'Want a study plan up to your exam too?'), h('a', { class: 'toast-undo', href: `#/app/${ad.doc}/plan` }, L('Lernplan', 'Study plan'))), 7000), 3800);
+  }
 }

@@ -324,6 +324,7 @@ async function materialStep(ui, res, P, tool = null) {
     setTimeout(() => import('./ic.js').then(m => m.quotaWait(d.name)), 700);
     return;
   }
+  if (tool) ls.set('tutor.addon', { doc: d.id, tool, at: Date.now() });   // nach dem Werkzeug: Lernplan als Extra anbieten
   location.hash = route(d, ans);
 }
 

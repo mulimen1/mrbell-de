@@ -617,8 +617,8 @@ export async function tryFeature(key) {
   if (key === 'trainer') { location.hash = '#/app/trainer'; return; }
   if (key === 'challenge') { location.hash = '#/app/challenge'; return; }
   const [title, text] = TRY[key] || TRY.tutor;
-  // Werkzeug gewählt (Karteikarten, Quiz …): nach Upload/Thema direkt bauen – mit den zuletzt gewählten Einstellungen, ohne nochmal zu fragen
-  if (AUTO_TABS[key]) import('./create.js').then(m => m.setCreate(key, '*', ls.get('tutor.pers.' + key, null) || {})).catch(() => {});
+  // Karteikarten: nach Upload/Thema direkt bauen, ohne Fragen (Podcast, Quiz, Lernzettel fragen kurz nach Länge, Stimme …)
+  if (key === 'karten') import('./create.js').then(m => m.setCreate(key, '*', ls.get('tutor.pers.' + key, null) || {})).catch(() => {});
   const fin = h('input', { type: 'file', class: 'sr', accept: ACCEPT, multiple: true });
   const close = () => document.querySelector('.modal-bg.trybg')?.remove();
   fin.addEventListener('change', () => { if (fin.files.length) { ls.set('tutor.target', key); close(); startUpload([...fin.files]); } });
