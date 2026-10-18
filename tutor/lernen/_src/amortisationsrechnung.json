@@ -1,116 +1,116 @@
 {
- "slug": "amortisationsrechnung",
- "name": "Amortisationsrechnung",
- "title": "Amortisationsrechnung einfach erklärt – mit Beispiel",
- "meta": "Amortisationsrechnung verständlich: Durchschnitts- und Kumulationsmethode, dynamische Amortisationsdauer, Formeln und ein durchgerechnetes Beispiel.",
- "h1": "Amortisationsrechnung einfach erklärt",
- "kurz": "Die Amortisationsrechnung ermittelt, nach wie vielen Jahren eine Investition die Anschaffungsauszahlung über ihre Rückflüsse wieder hereingeholt hat. Statisch geht das mit der Durchschnitts- oder der Kumulationsmethode, dynamisch mit abgezinsten Rückflüssen. Ist die Amortisationsdauer kürzer als die vorgegebene Höchstdauer, gilt die Investition als vorteilhaft.",
- "keywords": [
-  "Amortisationsrechnung",
-  "Amortisationsdauer berechnen",
-  "Amortisationszeit",
-  "Kumulationsmethode",
-  "Durchschnittsmethode Amortisation",
-  "dynamische Amortisationsrechnung",
-  "Payback-Periode",
-  "Amortisationsrechnung Beispiel"
- ],
- "abschnitte": [
-  {
-   "h2": "Was ist die Amortisationsrechnung?",
-   "html": "<p>Die Amortisationsrechnung (auch Pay-off- oder Payback-Methode) beantwortet eine sehr praktische Frage: <strong>Wann habe ich mein Geld zurück?</strong> Gemessen wird die Zeit, bis die kumulierten Rückflüsse einer Investition die Anschaffungsauszahlung decken. Ab diesem Zeitpunkt arbeitet die Investition „im Plus“.</p><p>Anders als <a href=\"/lernen/kostenvergleichsrechnung\">Kosten-</a> oder <a href=\"/lernen/gewinnvergleichsrechnung\">Gewinnvergleichsrechnung</a> bewertet sie nicht die Wirtschaftlichkeit an sich, sondern das <strong>Risiko</strong>: Je schneller das Kapital zurückfließt, desto kürzer ist es gebunden und desto weniger kann unterwegs schiefgehen. Darum ist die Methode bei Mittelständlern und in schnelllebigen Branchen sehr beliebt – und in Klausuren ein Dauerbrenner.</p><p>Es gibt drei Varianten: die statische <strong>Durchschnittsmethode</strong>, die statische <strong>Kumulationsmethode</strong> und die <strong>dynamische</strong> Amortisationsrechnung, die mit abgezinsten Werten arbeitet.</p>"
-  },
-  {
-   "h2": "Welche Formeln gelten für die Amortisationsdauer?",
-   "html": "<h3>Durchschnittsmethode (statisch)</h3><div class=\"formel\">Amortisationsdauer = Anschaffungsauszahlung ÷ durchschnittlicher jährlicher Rückfluss</div><p>Den Rückfluss bestimmt man entweder direkt aus den Zahlungen oder näherungsweise als <strong>Gewinn + Abschreibungen</strong>. Die <a href=\"/lernen/abschreibung\">Abschreibung</a> wird addiert, weil sie den Gewinn mindert, aber kein Geld kostet. Bei einem Restwert L rechnet man mit (I₀ − L) im Zähler.</p><h3>Kumulationsmethode (statisch)</h3><p>Die Rückflüsse werden Jahr für Jahr aufaddiert, bis die Summe die Anschaffungsauszahlung erreicht. Für das angebrochene Jahr wird linear interpoliert:</p><div class=\"formel\">Amortisationsdauer = t + (I₀ − kumulierte Rückflüsse bis t) ÷ Rückfluss in t + 1</div><p>Dabei ist t das letzte volle Jahr, in dem die Summe noch unter I₀ liegt.</p><h3>Dynamische Amortisationsrechnung</h3><p>Wie die Kumulationsmethode, nur werden die Rückflüsse vorher mit dem Kalkulationszins abgezinst (Barwerte statt Nominalwerte). Gesucht ist der Zeitpunkt, an dem der kumulierte <a href=\"/lernen/kapitalwertmethode\">Kapitalwert</a> von negativ auf null springt.</p>"
-  },
-  {
-   "h2": "Beispiel: Amortisationsdauer mit allen drei Methoden",
-   "html": "<div class=\"beispiel\"><p><strong>Aufgabe:</strong> Ein Handwerksbetrieb kauft einen Transporter für 60.000 €, Nutzungsdauer 5 Jahre, kein Restwert. Erwartete Rückflüsse: 14.000 €, 18.000 €, 22.000 €, 20.000 €, 16.000 €. Kalkulationszins 8 %. Die Geschäftsführung akzeptiert höchstens 4 Jahre Amortisationsdauer.</p><p><strong>1. Durchschnittsmethode</strong><br>Durchschnittlicher Rückfluss: (14.000 + 18.000 + 22.000 + 20.000 + 16.000) ÷ 5 = 90.000 ÷ 5 = 18.000 €<br>Amortisationsdauer: 60.000 ÷ 18.000 = <strong>3,33 Jahre</strong></p><p>Gegenprobe über Gewinn + Abschreibung: Lineare Abschreibung 60.000 ÷ 5 = 12.000 € pro Jahr. Der Durchschnittsgewinn beträgt 18.000 − 12.000 = 6.000 €. Rückfluss = 6.000 + 12.000 = 18.000 € – gleiches Ergebnis.</p><p><strong>2. Kumulationsmethode und 3. dynamische Methode</strong></p><table><thead><tr><th>t</th><th>Rückfluss</th><th>kumuliert</th><th>AF 8 %</th><th>Barwert</th><th>kumuliert inkl. −60.000</th></tr></thead><tbody><tr><td>1</td><td>14.000 €</td><td>14.000 €</td><td>0,9259</td><td>12.962,60 €</td><td>−47.037,40 €</td></tr><tr><td>2</td><td>18.000 €</td><td>32.000 €</td><td>0,8573</td><td>15.431,40 €</td><td>−31.606,00 €</td></tr><tr><td>3</td><td>22.000 €</td><td>54.000 €</td><td>0,7938</td><td>17.463,60 €</td><td>−14.142,40 €</td></tr><tr><td>4</td><td>20.000 €</td><td>74.000 €</td><td>0,7350</td><td>14.700,00 €</td><td>557,60 €</td></tr><tr><td>5</td><td>16.000 €</td><td>90.000 €</td><td>0,6806</td><td>10.889,60 €</td><td>11.447,20 €</td></tr></tbody></table><p><strong>Kumulationsmethode:</strong> Nach 3 Jahren sind 54.000 € zurückgeflossen, es fehlen 6.000 €. Im Jahr 4 fließen 20.000 €.<br>Amortisationsdauer = 3 + 6.000 ÷ 20.000 = <strong>3,3 Jahre</strong></p><p><strong>Dynamische Methode:</strong> Nach 3 Jahren fehlen barwertig noch 14.142,40 €, im Jahr 4 kommen 14.700,00 € Barwert hinzu.<br>Amortisationsdauer = 3 + 14.142,40 ÷ 14.700,00 = <strong>rund 3,96 Jahre</strong></p><p><strong>Ergebnis:</strong> Alle drei Werte liegen unter 4 Jahren – die Investition wird akzeptiert. Nach der dynamischen Rechnung allerdings nur knapp. Nebenbei liefert die letzte Spalte den Kapitalwert der gesamten Investition: 11.447,20 €.</p></div>"
-  },
-  {
-   "h2": "Wie interpretiert man das Ergebnis?",
-   "html": "<p>Die Entscheidungsregel lautet: <strong>Eine Investition ist vorteilhaft, wenn ihre Amortisationsdauer die vom Unternehmen festgelegte Höchstdauer nicht überschreitet.</strong> Bei mehreren Alternativen wird die mit der kürzesten Amortisationsdauer gewählt.</p><p>Die Höchstdauer ist eine subjektive Vorgabe. Sie liegt sinnvollerweise deutlich unter der Nutzungsdauer – denn eine Investition, die sich erst im letzten Jahr amortisiert, hat kaum Puffer, falls die Rückflüsse schwächer ausfallen.</p><p>Beachte den Unterschied zwischen den Varianten im Beispiel: Die Durchschnittsmethode (3,33 Jahre) unterstellt gleichmäßige Rückflüsse, obwohl sie in den ersten Jahren niedriger sind. Die Kumulationsmethode (3,3 Jahre) bildet die tatsächliche Verteilung ab. Die dynamische Methode (3,96 Jahre) berücksichtigt zusätzlich, dass spätere Euros weniger wert sind – sie ist deshalb <em>immer länger</em> als die statische Kumulationsmethode, solange der Zins positiv ist.</p><div class=\"merke\">Die Amortisationsrechnung misst Risiko, nicht Rentabilität. Kurze Amortisationsdauer heißt: schnell wieder liquide – nicht automatisch: besonders profitabel.</div>"
-  },
-  {
-   "h2": "Vor- und Nachteile der Amortisationsrechnung",
-   "html": "<h3>Vorteile</h3><ul><li>Einfach zu rechnen und leicht zu kommunizieren („in vier Jahren ist das Geld zurück“).</li><li>Gutes Maß für das Liquiditäts- und Unsicherheitsrisiko: Lange Kapitalbindung bedeutet mehr Prognoserisiko.</li><li>Die dynamische Variante berücksichtigt den Zeitwert des Geldes.</li></ul><h3>Nachteile</h3><ul><li>Rückflüsse <strong>nach</strong> dem Amortisationszeitpunkt werden ignoriert. Eine Investition, die sich nach drei Jahren amortisiert und dann endet, kann schlechter sein als eine, die sich nach vier Jahren amortisiert, aber zehn Jahre läuft.</li><li>Keine Aussage über die Rentabilität oder den Vermögenszuwachs.</li><li>Die Durchschnittsmethode ist bei schwankenden Rückflüssen ungenau.</li><li>Die zulässige Höchstdauer ist willkürlich gesetzt.</li></ul><p>Wie gefährlich der erste Nachteil ist, zeigt ein Mini-Vergleich bei 8 %: Projekt X kostet 30.000 € und bringt zwei Jahre lang je 15.000 €, danach nichts mehr. Projekt Y kostet ebenfalls 30.000 € und bringt fünf Jahre lang je 10.000 €. Nach der Kumulationsmethode amortisiert sich X nach 2 Jahren, Y erst nach 3 Jahren – X wirkt besser. Der Kapitalwert dreht das Bild komplett: X kommt auf 15.000 × (0,9259 + 0,8573) − 30.000 = −3.252 €, Y auf 10.000 × 3,9926 − 30.000 = 9.926 €. X verfehlt sogar die Mindestverzinsung, Y schafft einen deutlichen Vermögenszuwachs.</p><p>In der Praxis wird die Amortisationsrechnung deshalb als <strong>Zusatzkriterium</strong> neben einem Rentabilitätsmaß eingesetzt, etwa neben der Kapitalwertmethode oder dem <a href=\"/lernen/interner-zinsfuss\">internen Zinsfuß</a>.</p>"
-  },
-  {
-   "h2": "Abgrenzung: statische und dynamische Verfahren",
-   "html": "<p>Durchschnitts- und Kumulationsmethode zählen zu den statischen Verfahren, wie Kosten-, Gewinn- und Rentabilitätsvergleich. Sie rechnen mit nominalen Beträgen und tun so, als sei ein Euro in fünf Jahren genauso viel wert wie heute. Die dynamische Amortisationsrechnung gehört zu den dynamischen Verfahren und ist mit der Kapitalwertmethode direkt verknüpft: Die Amortisationsdauer ist genau der Zeitpunkt, an dem der kumulierte Kapitalwert null erreicht. Läuft die Investition danach weiter, wächst der Kapitalwert bis zum Ende der Nutzungsdauer auf seinen Endbetrag an.</p>"
-  }
- ],
- "fehler": [
-  "Bei der Durchschnittsmethode wird nur durch den Gewinn geteilt. Der Rückfluss ist Gewinn plus Abschreibungen; wer die Abschreibung vergisst, erhält eine viel zu lange Amortisationsdauer.",
-  "Bei der Kumulationsmethode wird einfach abgerundet („nach 3 Jahren noch nicht, also 4 Jahre“). Interpoliere den Rest anteilig mit dem Rückfluss des Folgejahres, also hier 6.000 ÷ 20.000 = 0,3 Jahre.",
-  "Bei der Interpolation wird durch den falschen Rückfluss geteilt, etwa durch den des Jahres 3 statt des Jahres 4. Geteilt wird immer durch den Rückfluss des Jahres, in dem die Amortisation eintritt.",
-  "Bei der dynamischen Methode werden nominale und abgezinste Werte vermischt. Kumuliere konsequent nur Barwerte und interpoliere auch mit dem Barwert des Folgejahres.",
-  "Eine kurze Amortisationsdauer wird als hohe Rentabilität interpretiert. Die Methode sagt nur, wie schnell das Kapital zurückfließt, nicht wie viel insgesamt verdient wird."
- ],
- "faq": [
-  {
-   "q": "Wie berechnet man die Amortisationsdauer?",
-   "a": "Am einfachsten teilst du die Anschaffungsauszahlung durch den durchschnittlichen jährlichen Rückfluss (Durchschnittsmethode). Genauer ist die Kumulationsmethode: Du addierst die Rückflüsse Jahr für Jahr, bis die Anschaffungsauszahlung erreicht ist, und interpolierst das angebrochene Jahr."
-  },
-  {
-   "q": "Was ist der Unterschied zwischen statischer und dynamischer Amortisationsrechnung?",
-   "a": "Die statische Variante rechnet mit nominalen Rückflüssen. Die dynamische zinst die Rückflüsse vorher mit dem Kalkulationszins ab und berücksichtigt so den Zeitwert des Geldes. Die dynamische Amortisationsdauer ist deshalb länger."
-  },
-  {
-   "q": "Warum addiert man bei der Amortisationsrechnung die Abschreibungen zum Gewinn?",
-   "a": "Abschreibungen mindern den Gewinn, führen aber zu keiner Auszahlung. Sie fließen über die Umsatzerlöse als Geld zurück. Der zahlungswirksame Rückfluss ist daher Gewinn plus Abschreibungen."
-  },
-  {
-   "q": "Was ist eine gute Amortisationsdauer?",
-   "a": "Das legt jedes Unternehmen selbst fest, abhängig von Branche, Risiko und Nutzungsdauer. Wichtig ist, dass die Amortisationsdauer deutlich unter der Nutzungsdauer liegt. In Klausuren ist die maximal zulässige Dauer immer vorgegeben."
-  },
-  {
-   "q": "Ist die Amortisationsrechnung ein statisches oder dynamisches Verfahren?",
-   "a": "Beides gibt es. Durchschnitts- und Kumulationsmethode sind statisch, die Variante mit abgezinsten Rückflüssen ist dynamisch. Wenn in der Aufgabe nichts weiter steht, ist meist die statische Variante gemeint."
-  }
- ],
- "quiz": [
-  {
-   "q": "Eine Maschine kostet 45.000 €, der durchschnittliche Gewinn beträgt 6.000 €, die jährliche Abschreibung 9.000 €. Wie hoch ist die Amortisationsdauer nach der Durchschnittsmethode?",
-   "o": [
-    "5,0 Jahre",
-    "7,5 Jahre",
-    "3,0 Jahre",
-    "2,5 Jahre"
-   ],
-   "r": 2,
-   "e": "Rückfluss = 6.000 + 9.000 = 15.000 €. 45.000 ÷ 15.000 = 3 Jahre. 7,5 Jahre entstehen, wenn man die Abschreibung vergisst."
-  },
-  {
-   "q": "Welche Aussage zur dynamischen Amortisationsdauer ist richtig?",
-   "o": [
-    "Sie ist bei positivem Zins immer länger als die statische nach der Kumulationsmethode",
-    "Sie ist immer kürzer als die statische",
-    "Sie ist identisch mit der statischen",
-    "Sie ignoriert den Kalkulationszins"
-   ],
-   "r": 0,
-   "e": "Abgezinste Rückflüsse sind kleiner als nominale, also dauert es länger, bis I₀ gedeckt ist."
-  },
-  {
-   "q": "Was ist der wichtigste Kritikpunkt an der Amortisationsrechnung?",
-   "o": [
-    "Sie ist zu kompliziert",
-    "Sie berücksichtigt die Anschaffungsauszahlung nicht",
-    "Sie funktioniert nur bei gleich hohen Rückflüssen",
-    "Rückflüsse nach dem Amortisationszeitpunkt bleiben unberücksichtigt"
-   ],
-   "r": 3,
-   "e": "Was nach der Amortisation passiert, spielt für das Ergebnis keine Rolle. Deshalb sagt die Methode nichts über die Rentabilität aus."
-  }
- ],
- "verwandt": [
-  "kapitalwertmethode",
-  "kostenvergleichsrechnung",
-  "gewinnvergleichsrechnung",
-  "abschreibung",
-  "interner-zinsfuss"
- ],
- "ask": "die Amortisationsrechnung – statisch mit Durchschnitts- und Kumulationsmethode und dynamisch an einem Zahlenbeispiel"
+  "slug": "amortisationsrechnung",
+  "name": "Amortisationsrechnung",
+  "title": "Amortisationsrechnung einfach erklärt – mit Beispiel",
+  "meta": "Amortisationsrechnung verständlich: Durchschnitts- und Kumulationsmethode, dynamische Amortisationsdauer, Formeln und ein durchgerechnetes Beispiel.",
+  "h1": "Amortisationsrechnung einfach erklärt",
+  "kurz": "Die Amortisationsrechnung ermittelt, nach wie vielen Jahren eine Investition die Anschaffungsauszahlung über ihre Rückflüsse wieder hereingeholt hat. Statisch geht das mit der Durchschnitts- oder der Kumulationsmethode, dynamisch mit abgezinsten Rückflüssen. Ist die Amortisationsdauer kürzer als die vorgegebene Höchstdauer, gilt die Investition als vorteilhaft.",
+  "keywords": [
+    "Amortisationsrechnung",
+    "Amortisationsdauer berechnen",
+    "Amortisationszeit",
+    "Kumulationsmethode",
+    "Durchschnittsmethode Amortisation",
+    "dynamische Amortisationsrechnung",
+    "Payback-Periode",
+    "Amortisationsrechnung Beispiel"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist die Amortisationsrechnung?",
+      "html": "<p>Die Amortisationsrechnung (auch Pay-off- oder Payback-Methode) beantwortet eine sehr praktische Frage: <strong>Wann habe ich mein Geld zurück?</strong> Gemessen wird die Zeit, bis die kumulierten Rückflüsse einer Investition die Anschaffungsauszahlung decken. Ab diesem Zeitpunkt arbeitet die Investition „im Plus“.</p><p>Anders als <a href=\"/lernen/kostenvergleichsrechnung\">Kosten-</a> oder <a href=\"/lernen/gewinnvergleichsrechnung\">Gewinnvergleichsrechnung</a> bewertet sie nicht die Wirtschaftlichkeit an sich, sondern das <strong>Risiko</strong>: Je schneller das Kapital zurückfließt, desto kürzer ist es gebunden und desto weniger kann unterwegs schiefgehen. Darum ist die Methode bei Mittelständlern und in schnelllebigen Branchen sehr beliebt – und in Klausuren ein Dauerbrenner.</p><p>Es gibt drei Varianten: die statische <strong>Durchschnittsmethode</strong>, die statische <strong>Kumulationsmethode</strong> und die <strong>dynamische</strong> Amortisationsrechnung, die mit abgezinsten Werten arbeitet.</p>"
+    },
+    {
+      "h2": "Welche Formeln gelten für die Amortisationsdauer?",
+      "html": "<h3>Durchschnittsmethode (statisch)</h3><div class=\"formel\">\\[ \\text{Amortisationsdauer} = \\frac{\\text{Anschaffungsauszahlung}}{\\text{durchschnittlicher jährlicher Rückfluss}} \\]</div><p>Den Rückfluss bestimmt man entweder direkt aus den Zahlungen oder näherungsweise als <strong>\\( \\text{Gewinn} + \\text{Abschreibungen} \\)</strong>. Die <a href=\"/lernen/abschreibung\">Abschreibung</a> wird addiert, weil sie den Gewinn mindert, aber kein Geld kostet. Bei einem Restwert \\( L \\) rechnet man mit \\( (I_0 - L) \\) im Zähler.</p><h3>Kumulationsmethode (statisch)</h3><p>Die Rückflüsse werden Jahr für Jahr aufaddiert, bis die Summe die Anschaffungsauszahlung erreicht. Für das angebrochene Jahr wird linear interpoliert:</p><div class=\"formel\">\\[ \\text{Amortisationsdauer} = t + \\frac{I_0 - \\text{kumulierte Rückflüsse bis } t}{\\text{Rückfluss in } t+1} \\]</div><p>Dabei ist \\( t \\) das letzte volle Jahr, in dem die Summe noch unter \\( I_0 \\) liegt.</p><h3>Dynamische Amortisationsrechnung</h3><p>Wie die Kumulationsmethode, nur werden die Rückflüsse vorher mit dem Kalkulationszins abgezinst (Barwerte statt Nominalwerte). Gesucht ist der Zeitpunkt, an dem der kumulierte <a href=\"/lernen/kapitalwertmethode\">Kapitalwert</a> von negativ auf null springt.</p>"
+    },
+    {
+      "h2": "Beispiel: Amortisationsdauer mit allen drei Methoden",
+      "html": "<div class=\"beispiel\"><p><strong>Aufgabe:</strong> Ein Handwerksbetrieb kauft einen Transporter für 60.000 €, Nutzungsdauer 5 Jahre, kein Restwert. Erwartete Rückflüsse: 14.000 €, 18.000 €, 22.000 €, 20.000 €, 16.000 €. Kalkulationszins 8 %. Die Geschäftsführung akzeptiert höchstens 4 Jahre Amortisationsdauer.</p><p><strong>1. Durchschnittsmethode</strong><br>Durchschnittlicher Rückfluss: \\( \\frac{14.000 + 18.000 + 22.000 + 20.000 + 16.000}{5} = \\frac{90.000}{5} = 18.000 \\) €<br>Amortisationsdauer: \\( \\frac{60.000}{18.000} = \\mathbf{3{,}33} \\) <strong>Jahre</strong></p><p>Gegenprobe über \\( \\text{Gewinn} + \\text{Abschreibung} \\): Lineare Abschreibung \\( \\frac{60.000}{5} = 12.000 \\) € pro Jahr. Der Durchschnittsgewinn beträgt \\( 18.000 - 12.000 = 6.000 \\) €. \\( \\text{Rückfluss} = 6.000 + 12.000 = 18.000 \\) € – gleiches Ergebnis.</p><p><strong>2. Kumulationsmethode und 3. dynamische Methode</strong></p><table><thead><tr><th>t</th><th>Rückfluss</th><th>kumuliert</th><th>AF 8 %</th><th>Barwert</th><th>kumuliert inkl. −60.000</th></tr></thead><tbody><tr><td>1</td><td>14.000 €</td><td>14.000 €</td><td>0,9259</td><td>12.962,60 €</td><td>−47.037,40 €</td></tr><tr><td>2</td><td>18.000 €</td><td>32.000 €</td><td>0,8573</td><td>15.431,40 €</td><td>−31.606,00 €</td></tr><tr><td>3</td><td>22.000 €</td><td>54.000 €</td><td>0,7938</td><td>17.463,60 €</td><td>−14.142,40 €</td></tr><tr><td>4</td><td>20.000 €</td><td>74.000 €</td><td>0,7350</td><td>14.700,00 €</td><td>557,60 €</td></tr><tr><td>5</td><td>16.000 €</td><td>90.000 €</td><td>0,6806</td><td>10.889,60 €</td><td>11.447,20 €</td></tr></tbody></table><p><strong>Kumulationsmethode:</strong> Nach 3 Jahren sind 54.000 € zurückgeflossen, es fehlen 6.000 €. Im Jahr 4 fließen 20.000 €.<br>\\( \\text{Amortisationsdauer} = 3 + \\frac{6.000}{20.000} = \\mathbf{3{,}3} \\) <strong>Jahre</strong></p><p><strong>Dynamische Methode:</strong> Nach 3 Jahren fehlen barwertig noch 14.142,40 €, im Jahr 4 kommen 14.700,00 € Barwert hinzu.<br>\\( \\text{Amortisationsdauer} = 3 + \\frac{14.142{,}40}{14.700{,}00} \\approx \\mathbf{3{,}96} \\) <strong>Jahre</strong></p><p><strong>Ergebnis:</strong> Alle drei Werte liegen unter 4 Jahren – die Investition wird akzeptiert. Nach der dynamischen Rechnung allerdings nur knapp. Nebenbei liefert die letzte Spalte den Kapitalwert der gesamten Investition: 11.447,20 €.</p></div>"
+    },
+    {
+      "h2": "Wie interpretiert man das Ergebnis?",
+      "html": "<p>Die Entscheidungsregel lautet: <strong>Eine Investition ist vorteilhaft, wenn ihre Amortisationsdauer die vom Unternehmen festgelegte Höchstdauer nicht überschreitet.</strong> Bei mehreren Alternativen wird die mit der kürzesten Amortisationsdauer gewählt.</p><p>Die Höchstdauer ist eine subjektive Vorgabe. Sie liegt sinnvollerweise deutlich unter der Nutzungsdauer – denn eine Investition, die sich erst im letzten Jahr amortisiert, hat kaum Puffer, falls die Rückflüsse schwächer ausfallen.</p><p>Beachte den Unterschied zwischen den Varianten im Beispiel: Die Durchschnittsmethode (3,33 Jahre) unterstellt gleichmäßige Rückflüsse, obwohl sie in den ersten Jahren niedriger sind. Die Kumulationsmethode (3,3 Jahre) bildet die tatsächliche Verteilung ab. Die dynamische Methode (3,96 Jahre) berücksichtigt zusätzlich, dass spätere Euros weniger wert sind – sie ist deshalb <em>immer länger</em> als die statische Kumulationsmethode, solange der Zins positiv ist.</p><div class=\"merke\">Die Amortisationsrechnung misst Risiko, nicht Rentabilität. Kurze Amortisationsdauer heißt: schnell wieder liquide – nicht automatisch: besonders profitabel.</div>"
+    },
+    {
+      "h2": "Vor- und Nachteile der Amortisationsrechnung",
+      "html": "<h3>Vorteile</h3><ul><li>Einfach zu rechnen und leicht zu kommunizieren („in vier Jahren ist das Geld zurück“).</li><li>Gutes Maß für das Liquiditäts- und Unsicherheitsrisiko: Lange Kapitalbindung bedeutet mehr Prognoserisiko.</li><li>Die dynamische Variante berücksichtigt den Zeitwert des Geldes.</li></ul><h3>Nachteile</h3><ul><li>Rückflüsse <strong>nach</strong> dem Amortisationszeitpunkt werden ignoriert. Eine Investition, die sich nach drei Jahren amortisiert und dann endet, kann schlechter sein als eine, die sich nach vier Jahren amortisiert, aber zehn Jahre läuft.</li><li>Keine Aussage über die Rentabilität oder den Vermögenszuwachs.</li><li>Die Durchschnittsmethode ist bei schwankenden Rückflüssen ungenau.</li><li>Die zulässige Höchstdauer ist willkürlich gesetzt.</li></ul><p>Wie gefährlich der erste Nachteil ist, zeigt ein Mini-Vergleich bei 8 %: Projekt X kostet 30.000 € und bringt zwei Jahre lang je 15.000 €, danach nichts mehr. Projekt Y kostet ebenfalls 30.000 € und bringt fünf Jahre lang je 10.000 €. Nach der Kumulationsmethode amortisiert sich X nach 2 Jahren, Y erst nach 3 Jahren – X wirkt besser. Der Kapitalwert dreht das Bild komplett: X kommt auf \\( 15.000 \\cdot (0{,}9259 + 0{,}8573) - 30.000 = -3.252 \\) €, Y auf \\( 10.000 \\cdot 3{,}9926 - 30.000 = 9.926 \\) €. X verfehlt sogar die Mindestverzinsung, Y schafft einen deutlichen Vermögenszuwachs.</p><p>In der Praxis wird die Amortisationsrechnung deshalb als <strong>Zusatzkriterium</strong> neben einem Rentabilitätsmaß eingesetzt, etwa neben der Kapitalwertmethode oder dem <a href=\"/lernen/interner-zinsfuss\">internen Zinsfuß</a>.</p>"
+    },
+    {
+      "h2": "Abgrenzung: statische und dynamische Verfahren",
+      "html": "<p>Durchschnitts- und Kumulationsmethode zählen zu den statischen Verfahren, wie Kosten-, Gewinn- und Rentabilitätsvergleich. Sie rechnen mit nominalen Beträgen und tun so, als sei ein Euro in fünf Jahren genauso viel wert wie heute. Die dynamische Amortisationsrechnung gehört zu den dynamischen Verfahren und ist mit der Kapitalwertmethode direkt verknüpft: Die Amortisationsdauer ist genau der Zeitpunkt, an dem der kumulierte Kapitalwert null erreicht. Läuft die Investition danach weiter, wächst der Kapitalwert bis zum Ende der Nutzungsdauer auf seinen Endbetrag an.</p>"
+    }
+  ],
+  "fehler": [
+    "Bei der Durchschnittsmethode wird nur durch den Gewinn geteilt. Der Rückfluss ist Gewinn plus Abschreibungen; wer die Abschreibung vergisst, erhält eine viel zu lange Amortisationsdauer.",
+    "Bei der Kumulationsmethode wird einfach abgerundet („nach 3 Jahren noch nicht, also 4 Jahre“). Interpoliere den Rest anteilig mit dem Rückfluss des Folgejahres, also hier \\( \\frac{6.000}{20.000} = 0{,}3 \\) Jahre.",
+    "Bei der Interpolation wird durch den falschen Rückfluss geteilt, etwa durch den des Jahres 3 statt des Jahres 4. Geteilt wird immer durch den Rückfluss des Jahres, in dem die Amortisation eintritt.",
+    "Bei der dynamischen Methode werden nominale und abgezinste Werte vermischt. Kumuliere konsequent nur Barwerte und interpoliere auch mit dem Barwert des Folgejahres.",
+    "Eine kurze Amortisationsdauer wird als hohe Rentabilität interpretiert. Die Methode sagt nur, wie schnell das Kapital zurückfließt, nicht wie viel insgesamt verdient wird."
+  ],
+  "faq": [
+    {
+      "q": "Wie berechnet man die Amortisationsdauer?",
+      "a": "Am einfachsten teilst du die Anschaffungsauszahlung durch den durchschnittlichen jährlichen Rückfluss (Durchschnittsmethode). Genauer ist die Kumulationsmethode: Du addierst die Rückflüsse Jahr für Jahr, bis die Anschaffungsauszahlung erreicht ist, und interpolierst das angebrochene Jahr."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen statischer und dynamischer Amortisationsrechnung?",
+      "a": "Die statische Variante rechnet mit nominalen Rückflüssen. Die dynamische zinst die Rückflüsse vorher mit dem Kalkulationszins ab und berücksichtigt so den Zeitwert des Geldes. Die dynamische Amortisationsdauer ist deshalb länger."
+    },
+    {
+      "q": "Warum addiert man bei der Amortisationsrechnung die Abschreibungen zum Gewinn?",
+      "a": "Abschreibungen mindern den Gewinn, führen aber zu keiner Auszahlung. Sie fließen über die Umsatzerlöse als Geld zurück. Der zahlungswirksame Rückfluss ist daher Gewinn plus Abschreibungen."
+    },
+    {
+      "q": "Was ist eine gute Amortisationsdauer?",
+      "a": "Das legt jedes Unternehmen selbst fest, abhängig von Branche, Risiko und Nutzungsdauer. Wichtig ist, dass die Amortisationsdauer deutlich unter der Nutzungsdauer liegt. In Klausuren ist die maximal zulässige Dauer immer vorgegeben."
+    },
+    {
+      "q": "Ist die Amortisationsrechnung ein statisches oder dynamisches Verfahren?",
+      "a": "Beides gibt es. Durchschnitts- und Kumulationsmethode sind statisch, die Variante mit abgezinsten Rückflüssen ist dynamisch. Wenn in der Aufgabe nichts weiter steht, ist meist die statische Variante gemeint."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Eine Maschine kostet 45.000 €, der durchschnittliche Gewinn beträgt 6.000 €, die jährliche Abschreibung 9.000 €. Wie hoch ist die Amortisationsdauer nach der Durchschnittsmethode?",
+      "o": [
+        "5,0 Jahre",
+        "7,5 Jahre",
+        "3,0 Jahre",
+        "2,5 Jahre"
+      ],
+      "r": 2,
+      "e": "\\( \\text{Rückfluss} = 6.000 + 9.000 = 15.000 \\) €. \\( \\frac{45.000}{15.000} = 3 \\) Jahre. 7,5 Jahre entstehen, wenn man die Abschreibung vergisst."
+    },
+    {
+      "q": "Welche Aussage zur dynamischen Amortisationsdauer ist richtig?",
+      "o": [
+        "Sie ist bei positivem Zins immer länger als die statische nach der Kumulationsmethode",
+        "Sie ist immer kürzer als die statische",
+        "Sie ist identisch mit der statischen",
+        "Sie ignoriert den Kalkulationszins"
+      ],
+      "r": 0,
+      "e": "Abgezinste Rückflüsse sind kleiner als nominale, also dauert es länger, bis \\( I_0 \\) gedeckt ist."
+    },
+    {
+      "q": "Was ist der wichtigste Kritikpunkt an der Amortisationsrechnung?",
+      "o": [
+        "Sie ist zu kompliziert",
+        "Sie berücksichtigt die Anschaffungsauszahlung nicht",
+        "Sie funktioniert nur bei gleich hohen Rückflüssen",
+        "Rückflüsse nach dem Amortisationszeitpunkt bleiben unberücksichtigt"
+      ],
+      "r": 3,
+      "e": "Was nach der Amortisation passiert, spielt für das Ergebnis keine Rolle. Deshalb sagt die Methode nichts über die Rentabilität aus."
+    }
+  ],
+  "verwandt": [
+    "kapitalwertmethode",
+    "kostenvergleichsrechnung",
+    "gewinnvergleichsrechnung",
+    "abschreibung",
+    "interner-zinsfuss"
+  ],
+  "ask": "die Amortisationsrechnung – statisch mit Durchschnitts- und Kumulationsmethode und dynamisch an einem Zahlenbeispiel"
 }

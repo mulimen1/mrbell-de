@@ -22,15 +22,15 @@
   },
   {
    "h2": "Wie sehen Angebots- und Nachfragefunktion aus?",
-   "html": "<p>In Klausuren arbeitest du fast immer mit linearen Funktionen. Sie tauchen in zwei Schreibweisen auf, und du musst zwischen ihnen wechseln können.</p><div class=\"formel\">Nachfrage: Q(D) = a − b × p   (b &gt; 0)<br>Angebot: Q(S) = c + d × p   (d &gt; 0)</div><p>Hier steht die Menge links, der Preis ist die unabhängige Variable. In der Grafik trägt man in der VWL aber traditionell den <strong>Preis auf der y-Achse</strong> und die Menge auf der x-Achse ab. Dafür brauchst du die nach p aufgelöste Form, die <strong>inverse Funktion</strong>:</p><div class=\"formel\">inverse Nachfrage: p = a ÷ b − (1 ÷ b) × Q<br>inverse Angebot: p = −c ÷ d + (1 ÷ d) × Q</div><p>Der y-Achsenabschnitt der inversen Nachfrage ist der <strong>Prohibitivpreis</strong>: Ab diesem Preis kauft niemand mehr. Der y-Achsenabschnitt der inversen Angebotsfunktion ist der Mindestpreis, ab dem überhaupt jemand anbietet. Die <strong>Sättigungsmenge</strong> (Nachfrage bei p = 0) liest du direkt an a ab.</p><p>Wie stark die Menge auf Preisänderungen reagiert, misst die <a href=\"/lernen/preiselastizitaet\">Preiselastizität der Nachfrage</a>. Die Steigung allein ist dafür kein gutes Maß, weil sie von den Einheiten abhängt.</p>"
+   "html": "<p>In Klausuren arbeitest du fast immer mit linearen Funktionen. Sie tauchen in zwei Schreibweisen auf, und du musst zwischen ihnen wechseln können.</p><div class=\"formel\">\\[ \\text{Nachfrage: } Q_D = a - b \\cdot p \\quad (b > 0) \\]\\[ \\text{Angebot: } Q_S = c + d \\cdot p \\quad (d > 0) \\]</div><p>Hier steht die Menge links, der Preis ist die unabhängige Variable. In der Grafik trägt man in der VWL aber traditionell den <strong>Preis auf der y-Achse</strong> und die Menge auf der x-Achse ab. Dafür brauchst du die nach \\( p \\) aufgelöste Form, die <strong>inverse Funktion</strong>:</p><div class=\"formel\">\\[ \\text{inverse Nachfrage: } p = \\frac{a}{b} - \\frac{1}{b} \\cdot Q \\]\\[ \\text{inverse Angebot: } p = -\\frac{c}{d} + \\frac{1}{d} \\cdot Q \\]</div><p>Der y-Achsenabschnitt der inversen Nachfrage ist der <strong>Prohibitivpreis</strong>: Ab diesem Preis kauft niemand mehr. Der y-Achsenabschnitt der inversen Angebotsfunktion ist der Mindestpreis, ab dem überhaupt jemand anbietet. Die <strong>Sättigungsmenge</strong> (Nachfrage bei \\( p = 0 \\)) liest du direkt an \\( a \\) ab.</p><p>Wie stark die Menge auf Preisänderungen reagiert, misst die <a href=\"/lernen/preiselastizitaet\">Preiselastizität der Nachfrage</a>. Die Steigung allein ist dafür kein gutes Maß, weil sie von den Einheiten abhängt.</p>"
   },
   {
    "h2": "Wie berechnet man das Marktgleichgewicht?",
-   "html": "<p>Im Gleichgewicht wollen Käufer genau so viel kaufen, wie Anbieter verkaufen wollen. Das Vorgehen ist immer gleich:</p><ol><li>Beide Funktionen in dieselbe Form bringen (beide nach Q oder beide nach p aufgelöst).</li><li>Gleichsetzen: Q(D) = Q(S).</li><li>Nach p auflösen – das ist der Gleichgewichtspreis p*.</li><li>p* in <em>eine</em> der beiden Funktionen einsetzen – das ist die Gleichgewichtsmenge Q*.</li><li>Probe: p* in die andere Funktion einsetzen, es muss dieselbe Menge herauskommen.</li></ol><div class=\"formel\">a − b × p = c + d × p  ⇒  p* = (a − c) ÷ (b + d)</div><p>Liegt der Preis über p*, entsteht ein <strong>Angebotsüberhang</strong>: Anbieter bleiben auf Ware sitzen und senken die Preise. Liegt er darunter, entsteht ein <strong>Nachfrageüberhang</strong>: Käufer gehen leer aus und überbieten sich. Beide Kräfte treiben den Preis zurück Richtung Gleichgewicht.</p>"
+   "html": "<p>Im Gleichgewicht wollen Käufer genau so viel kaufen, wie Anbieter verkaufen wollen. Das Vorgehen ist immer gleich:</p><ol><li>Beide Funktionen in dieselbe Form bringen (beide nach \\( Q \\) oder beide nach \\( p \\) aufgelöst).</li><li>Gleichsetzen: \\( Q_D = Q_S \\).</li><li>Nach \\( p \\) auflösen – das ist der Gleichgewichtspreis \\( p^* \\).</li><li>\\( p^* \\) in <em>eine</em> der beiden Funktionen einsetzen – das ist die Gleichgewichtsmenge \\( Q^* \\).</li><li>Probe: \\( p^* \\) in die andere Funktion einsetzen, es muss dieselbe Menge herauskommen.</li></ol><div class=\"formel\">\\[ a - b \\cdot p = c + d \\cdot p \\;\\Rightarrow\\; p^* = \\frac{a - c}{b + d} \\]</div><p>Liegt der Preis über \\( p^* \\), entsteht ein <strong>Angebotsüberhang</strong>: Anbieter bleiben auf Ware sitzen und senken die Preise. Liegt er darunter, entsteht ein <strong>Nachfrageüberhang</strong>: Käufer gehen leer aus und überbieten sich. Beide Kräfte treiben den Preis zurück Richtung Gleichgewicht.</p>"
   },
   {
    "h2": "Beispiel: Gleichgewicht, Verschiebung und Höchstpreis",
-   "html": "<div class=\"beispiel\"><p><strong>Markt für Fahrradreparaturen in einer Unistadt (Menge pro Woche, Preis in €):</strong></p><p>Nachfrage: Q(D) = 120 − 4p<br>Angebot: Q(S) = −30 + 6p</p><ol><li><strong>Gleichsetzen:</strong> 120 − 4p = −30 + 6p</li><li><strong>Umstellen:</strong> 150 = 10p ⇒ p* = 15 €</li><li><strong>Menge:</strong> Q(D) = 120 − 4 × 15 = 60</li><li><strong>Probe:</strong> Q(S) = −30 + 6 × 15 = 60 ✓</li></ol><p>Inverse Form: Nachfrage p = 30 − Q ÷ 4, Angebot p = 5 + Q ÷ 6. Prohibitivpreis 30 €, Sättigungsmenge 120, Anbieter starten ab 5 €. Einsetzen von Q = 60 ergibt in beiden Fällen 15 € ✓.</p><p><strong>Verschiebung:</strong> Zum Semesterstart ziehen viele Studierende zu, die Nachfrage steigt bei jedem Preis um 30 Einheiten: Q(D) = 150 − 4p.</p><ol><li>150 − 4p = −30 + 6p ⇒ 180 = 10p ⇒ p* = 18 €</li><li>Q* = 150 − 4 × 18 = 78 (Probe: −30 + 6 × 18 = 78 ✓)</li></ol><p>Preis und Menge steigen – typisch für eine Rechtsverschiebung der Nachfrage.</p><p><strong>Höchstpreis:</strong> Zurück zur Ausgangslage. Die Stadt legt einen Höchstpreis von 12 € fest.</p><table><thead><tr><th>Größe</th><th>Rechnung</th><th>Ergebnis</th></tr></thead><tbody><tr><td>Nachfrage</td><td>120 − 4 × 12</td><td>72</td></tr><tr><td>Angebot</td><td>−30 + 6 × 12</td><td>42</td></tr><tr><td>Nachfrageüberhang</td><td>72 − 42</td><td>30</td></tr><tr><td>Gehandelte Menge</td><td>Minimum von 72 und 42</td><td>42</td></tr></tbody></table><p>Es werden nur noch 42 statt 60 Reparaturen durchgeführt, 30 Wünsche bleiben unerfüllt.</p></div>"
+   "html": "<div class=\"beispiel\"><p><strong>Markt für Fahrradreparaturen in einer Unistadt (Menge pro Woche, Preis in €):</strong></p><p>Nachfrage: \\( Q_D = 120 - 4p \\)<br>Angebot: \\( Q_S = -30 + 6p \\)</p><ol><li><strong>Gleichsetzen:</strong> \\( 120 - 4p = -30 + 6p \\)</li><li><strong>Umstellen:</strong> \\( 150 = 10p \\Rightarrow p^* = 15 \\) €</li><li><strong>Menge:</strong> \\( Q_D = 120 - 4 \\cdot 15 = 60 \\)</li><li><strong>Probe:</strong> \\( Q_S = -30 + 6 \\cdot 15 = 60 \\) ✓</li></ol><p>Inverse Form: Nachfrage \\( p = 30 - \\frac{Q}{4} \\), Angebot \\( p = 5 + \\frac{Q}{6} \\). Prohibitivpreis 30 €, Sättigungsmenge 120, Anbieter starten ab 5 €. Einsetzen von \\( Q = 60 \\) ergibt in beiden Fällen 15 € ✓.</p><p><strong>Verschiebung:</strong> Zum Semesterstart ziehen viele Studierende zu, die Nachfrage steigt bei jedem Preis um 30 Einheiten: \\( Q_D = 150 - 4p \\).</p><ol><li>\\( 150 - 4p = -30 + 6p \\Rightarrow 180 = 10p \\Rightarrow p^* = 18 \\) €</li><li>\\( Q^* = 150 - 4 \\cdot 18 = 78 \\) (Probe: \\( -30 + 6 \\cdot 18 = 78 \\) ✓)</li></ol><p>Preis und Menge steigen – typisch für eine Rechtsverschiebung der Nachfrage.</p><p><strong>Höchstpreis:</strong> Zurück zur Ausgangslage. Die Stadt legt einen Höchstpreis von 12 € fest.</p><table><thead><tr><th>Größe</th><th>Rechnung</th><th>Ergebnis</th></tr></thead><tbody><tr><td>Nachfrage</td><td>\\( 120 - 4 \\cdot 12 \\)</td><td>72</td></tr><tr><td>Angebot</td><td>\\( -30 + 6 \\cdot 12 \\)</td><td>42</td></tr><tr><td>Nachfrageüberhang</td><td>\\( 72 - 42 \\)</td><td>30</td></tr><tr><td>Gehandelte Menge</td><td>\\( \\min(72;\\ 42) \\)</td><td>42</td></tr></tbody></table><p>Es werden nur noch 42 statt 60 Reparaturen durchgeführt, 30 Wünsche bleiben unerfüllt.</p></div>"
   },
   {
    "h2": "Bewegung auf der Kurve oder Verschiebung der Kurve?",
@@ -43,15 +43,15 @@
  ],
  "fehler": [
   "Bewegung und Verschiebung verwechseln: Steigt der Preis des Gutes selbst, sinkt die nachgefragte Menge entlang der Kurve – die Nachfragekurve verschiebt sich dabei nicht.",
-  "Funktionen in unterschiedlicher Form gleichsetzen, also eine nach Q und eine nach p aufgelöst. Bring immer erst beide in dieselbe Form.",
-  "Nach dem Berechnen von p* die Menge vergessen oder keine Probe machen. Setz p* in beide Funktionen ein – kommt nicht dieselbe Menge heraus, steckt ein Rechenfehler drin.",
+  "Funktionen in unterschiedlicher Form gleichsetzen, also eine nach \\( Q \\) und eine nach \\( p \\) aufgelöst. Bring immer erst beide in dieselbe Form.",
+  "Nach dem Berechnen von \\( p^* \\) die Menge vergessen oder keine Probe machen. Setz \\( p^* \\) in beide Funktionen ein – kommt nicht dieselbe Menge heraus, steckt ein Rechenfehler drin.",
   "Beim Höchstpreis die nachgefragte Menge als gehandelte Menge angeben. Gehandelt wird immer die kleinere Menge, beim Höchstpreis also die angebotene.",
-  "Einen Höchstpreis über dem Gleichgewichtspreis für wirksam halten. Er greift nur, wenn er unter p* liegt; ein Mindestpreis nur, wenn er über p* liegt."
+  "Einen Höchstpreis über dem Gleichgewichtspreis für wirksam halten. Er greift nur, wenn er unter \\( p^* \\) liegt; ein Mindestpreis nur, wenn er über \\( p^* \\) liegt."
  ],
  "faq": [
   {
    "q": "Wie berechnet man den Gleichgewichtspreis?",
-   "a": "Du setzt Angebots- und Nachfragefunktion gleich und löst nach dem Preis auf. Bei Q(D) = 120 − 4p und Q(S) = −30 + 6p ergibt sich 150 = 10p, also p* = 15. Anschließend setzt du p* in eine Funktion ein, um die Gleichgewichtsmenge zu erhalten."
+   "a": "Du setzt Angebots- und Nachfragefunktion gleich und löst nach dem Preis auf. Bei \\( Q_D = 120 - 4p \\) und \\( Q_S = -30 + 6p \\) ergibt sich \\( 150 = 10p \\), also \\( p^* = 15 \\). Anschließend setzt du \\( p^* \\) in eine Funktion ein, um die Gleichgewichtsmenge zu erhalten."
   },
   {
    "q": "Was ist der Unterschied zwischen Angebotsüberhang und Nachfrageüberhang?",
@@ -63,7 +63,7 @@
   },
   {
    "q": "Warum steht der Preis auf der y-Achse?",
-   "a": "Das ist eine Konvention aus der Tradition von Alfred Marshall, obwohl mathematisch meist die Menge vom Preis abhängt. Für die Grafik brauchst du deshalb die inverse Funktion, also die nach p aufgelöste Form."
+   "a": "Das ist eine Konvention aus der Tradition von Alfred Marshall, obwohl mathematisch meist die Menge vom Preis abhängt. Für die Grafik brauchst du deshalb die inverse Funktion, also die nach \\( p \\) aufgelöste Form."
   },
   {
    "q": "Was passiert, wenn Angebot und Nachfrage gleichzeitig steigen?",
@@ -72,15 +72,15 @@
  ],
  "quiz": [
   {
-   "q": "Nachfrage Q(D) = 100 − 2p, Angebot Q(S) = 20 + 2p. Wie hoch ist der Gleichgewichtspreis?",
+   "q": "Nachfrage \\( Q_D = 100 - 2p \\), Angebot \\( Q_S = 20 + 2p \\). Wie hoch ist der Gleichgewichtspreis?",
    "o": [
-    "p* = 30",
-    "p* = 20",
-    "p* = 40",
-    "p* = 60"
+    "\\( p^* = 30 \\)",
+    "\\( p^* = 20 \\)",
+    "\\( p^* = 40 \\)",
+    "\\( p^* = 60 \\)"
    ],
    "r": 1,
-   "e": "100 − 2p = 20 + 2p ⇒ 80 = 4p ⇒ p* = 20. Die Menge ist dann 100 − 40 = 60."
+   "e": "\\( 100 - 2p = 20 + 2p \\Rightarrow 80 = 4p \\Rightarrow p^* = 20 \\). Die Menge ist dann \\( 100 - 40 = 60 \\)."
   },
   {
    "q": "Die Löhne in einer Branche steigen deutlich. Was passiert im Marktmodell?",
@@ -94,12 +94,12 @@
    "e": "Höhere Inputpreise machen die Produktion bei jedem Preis teurer. Das Angebot sinkt, die Kurve verschiebt sich nach links."
   },
   {
-   "q": "Gleichgewicht bei p* = 15. Der Staat setzt einen Höchstpreis von 12 fest. Was entsteht?",
+   "q": "Gleichgewicht bei \\( p^* = 15 \\). Der Staat setzt einen Höchstpreis von 12 fest. Was entsteht?",
    "o": [
     "Ein Nachfrageüberhang",
     "Ein Angebotsüberhang",
-    "Keine Wirkung, weil der Höchstpreis unter p* liegt",
-    "Ein neues Gleichgewicht bei p = 12 ohne Überhang"
+    "Keine Wirkung, weil der Höchstpreis unter \\( p^* \\) liegt",
+    "Ein neues Gleichgewicht bei \\( p = 12 \\) ohne Überhang"
    ],
    "r": 0,
    "e": "Unter dem Gleichgewichtspreis wollen Käufer mehr kaufen, als Anbieter anbieten. Es entsteht ein Nachfrageüberhang, gehandelt wird nur die angebotene Menge."

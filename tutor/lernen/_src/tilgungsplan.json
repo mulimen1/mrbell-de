@@ -1,120 +1,120 @@
 {
- "slug": "tilgungsplan",
- "name": "Tilgungsplan (Annuitäten- und Ratendarlehen)",
- "title": "Tilgungsplan erstellen: Annuitäten- vs. Ratendarlehen",
- "meta": "Tilgungsplan einfach erklärt: Annuitätendarlehen und Ratendarlehen im Vergleich, Formeln, komplette Tabellen mit Zins, Tilgung und Restschuld.",
- "h1": "Tilgungsplan einfach erklärt: Annuitäten- und Ratendarlehen",
- "kurz": "Ein Tilgungsplan zeigt für jede Periode eines Darlehens Restschuld, Zinsen, Tilgung und die gesamte Zahlung. Beim Ratendarlehen ist die Tilgung konstant, die Rate sinkt. Beim Annuitätendarlehen ist die Rate (Annuität) konstant, während der Zinsanteil sinkt und der Tilgungsanteil steigt. Bei gleicher Laufzeit zahlst du beim Ratendarlehen insgesamt weniger Zinsen.",
- "keywords": [
-  "Tilgungsplan",
-  "Tilgungsplan erstellen",
-  "Annuitätendarlehen",
-  "Ratendarlehen",
-  "Annuitätendarlehen vs Ratendarlehen",
-  "Annuität berechnen",
-  "Annuitätenfaktor",
-  "Tilgungsplan Beispiel"
- ],
- "abschnitte": [
-  {
-   "h2": "Was ist ein Tilgungsplan?",
-   "html": "<p>Wer ein Darlehen aufnimmt, zahlt zwei Dinge zurück: die <strong>Tilgung</strong>, also den geliehenen Betrag, und die <strong>Zinsen</strong> als Preis für das Leihen. Der Tilgungsplan stellt beides Periode für Periode in einer Tabelle dar. Er beantwortet, wie viel du jedes Jahr zahlst, wie viel davon Zinsen sind und wie hoch die Restschuld noch ist.</p><p>Jeder Tilgungsplan hat dieselben Spalten:</p><ul><li><strong>Restschuld am Periodenanfang</strong></li><li><strong>Zinsen</strong> = Restschuld am Anfang × Zinssatz</li><li><strong>Tilgung</strong></li><li><strong>Zahlung (Rate)</strong> = Zinsen + Tilgung</li><li><strong>Restschuld am Periodenende</strong> = Restschuld am Anfang − Tilgung</li></ul><p>Die beiden klassischen Darlehensformen unterscheiden sich nur darin, welche Größe konstant bleibt: beim Ratendarlehen die Tilgung, beim Annuitätendarlehen die Zahlung. Eine dritte Form, das Fälligkeitsdarlehen, tilgt erst am Ende komplett und zahlt bis dahin nur Zinsen.</p>"
-  },
-  {
-   "h2": "Welche Formeln brauchst du?",
-   "html": "<h3>Ratendarlehen</h3><div class=\"formel\">Tilgung pro Periode = Darlehensbetrag ÷ Laufzeit<br>Zinsen_t = Restschuld am Anfang von t × i<br>Rate_t = Tilgung + Zinsen_t</div><h3>Annuitätendarlehen</h3><div class=\"formel\">Annuität = Darlehensbetrag × Annuitätenfaktor<br>Annuitätenfaktor = (i × (1 + i)^n) ÷ ((1 + i)^n − 1)<br>Tilgung_t = Annuität − Zinsen_t</div><p>Der Annuitätenfaktor (auch Kapitalwiedergewinnungsfaktor) verteilt den Darlehensbetrag so auf n gleich hohe Zahlungen, dass am Ende inklusive Zinsen alles zurückgezahlt ist. Er beruht auf der <a href=\"/lernen/zinseszins\">Zinseszinsrechnung</a> und taucht auch in der <a href=\"/lernen/annuitaetenmethode\">Annuitätenmethode</a> der Investitionsrechnung auf.</p><p>Praktisch: Beim Annuitätendarlehen wächst die Tilgung jedes Jahr genau um den Faktor (1 + i). Tilgung_(t+1) = Tilgung_t × (1 + i). Damit kannst du deine Tabelle kontrollieren.</p>"
-  },
-  {
-   "h2": "Beispiel: Ratendarlehen mit Tilgungsplan",
-   "html": "<div class=\"beispiel\"><p>Die Mosel Elektro KG nimmt ein Darlehen über 100.000 € auf. Zinssatz 5 % pro Jahr, Laufzeit 5 Jahre, jährliche Zahlung am Jahresende.</p><ol><li>Tilgung pro Jahr: 100.000 ÷ 5 = 20.000 €.</li><li>Zinsen Jahr 1: 100.000 × 0,05 = 5.000 € → Rate 25.000 €.</li><li>Zinsen Jahr 2: 80.000 × 0,05 = 4.000 € → Rate 24.000 €, usw.</li></ol><table><thead><tr><th>Jahr</th><th>Restschuld Anfang</th><th>Zinsen</th><th>Tilgung</th><th>Rate</th><th>Restschuld Ende</th></tr></thead><tbody><tr><td>1</td><td>100.000,00</td><td>5.000,00</td><td>20.000,00</td><td>25.000,00</td><td>80.000,00</td></tr><tr><td>2</td><td>80.000,00</td><td>4.000,00</td><td>20.000,00</td><td>24.000,00</td><td>60.000,00</td></tr><tr><td>3</td><td>60.000,00</td><td>3.000,00</td><td>20.000,00</td><td>23.000,00</td><td>40.000,00</td></tr><tr><td>4</td><td>40.000,00</td><td>2.000,00</td><td>20.000,00</td><td>22.000,00</td><td>20.000,00</td></tr><tr><td>5</td><td>20.000,00</td><td>1.000,00</td><td>20.000,00</td><td>21.000,00</td><td>0,00</td></tr><tr><td><strong>Summe</strong></td><td></td><td><strong>15.000,00</strong></td><td><strong>100.000,00</strong></td><td><strong>115.000,00</strong></td><td></td></tr></tbody></table><p>Alle Beträge in €. Die Rate sinkt jedes Jahr um 1.000 €, weil die Zinsen auf eine um 20.000 € kleinere Restschuld berechnet werden.</p></div>"
-  },
-  {
-   "h2": "Beispiel: Annuitätendarlehen mit Tilgungsplan",
-   "html": "<div class=\"beispiel\"><p>Gleiche Daten: 100.000 €, 5 %, 5 Jahre, jährliche Zahlung.</p><ol><li>Aufzinsungsfaktor: 1,05^5 = 1,2762816.</li><li>Annuitätenfaktor: (0,05 × 1,2762816) ÷ (1,2762816 − 1) = 0,2309748.</li><li>Annuität: 100.000 × 0,2309748 = <strong>23.097,48 €</strong>.</li><li>Jahr 1: Zinsen 100.000 × 0,05 = 5.000,00 €; Tilgung 23.097,48 − 5.000,00 = 18.097,48 €.</li><li>Jahr 2: Zinsen 81.902,52 × 0,05 = 4.095,13 €; Tilgung 19.002,35 €. Kontrolle: 18.097,48 × 1,05 = 19.002,35 €.</li></ol><table><thead><tr><th>Jahr</th><th>Restschuld Anfang</th><th>Zinsen</th><th>Tilgung</th><th>Annuität</th><th>Restschuld Ende</th></tr></thead><tbody><tr><td>1</td><td>100.000,00</td><td>5.000,00</td><td>18.097,48</td><td>23.097,48</td><td>81.902,52</td></tr><tr><td>2</td><td>81.902,52</td><td>4.095,13</td><td>19.002,35</td><td>23.097,48</td><td>62.900,17</td></tr><tr><td>3</td><td>62.900,17</td><td>3.145,01</td><td>19.952,47</td><td>23.097,48</td><td>42.947,69</td></tr><tr><td>4</td><td>42.947,69</td><td>2.147,38</td><td>20.950,10</td><td>23.097,48</td><td>21.997,60</td></tr><tr><td>5</td><td>21.997,60</td><td>1.099,88</td><td>21.997,60</td><td>23.097,48</td><td>0,00</td></tr><tr><td><strong>Summe</strong></td><td></td><td><strong>15.487,40</strong></td><td><strong>100.000,00</strong></td><td><strong>115.487,40</strong></td><td></td></tr></tbody></table><p>Alle Beträge in €. Die Annuität bleibt gleich, der Zinsanteil fällt von 5.000 € auf 1.099,88 €, der Tilgungsanteil steigt entsprechend.</p></div>"
-  },
-  {
-   "h2": "Annuitätendarlehen und Ratendarlehen im Vergleich",
-   "html": "<table><thead><tr><th>Merkmal</th><th>Ratendarlehen</th><th>Annuitätendarlehen</th></tr></thead><tbody><tr><td>Konstant</td><td>Tilgung</td><td>Rate (Annuität)</td></tr><tr><td>Rate im Zeitverlauf</td><td>sinkend</td><td>gleichbleibend</td></tr><tr><td>Erste Rate im Beispiel</td><td>25.000,00 €</td><td>23.097,48 €</td></tr><tr><td>Letzte Rate im Beispiel</td><td>21.000,00 €</td><td>23.097,48 €</td></tr><tr><td>Zinsen gesamt im Beispiel</td><td>15.000,00 €</td><td>15.487,40 €</td></tr><tr><td>Typischer Einsatz</td><td>Unternehmenskredite, Förderdarlehen</td><td>Baufinanzierung, Konsumentenkredite</td></tr></tbody></table><p>Das Annuitätendarlehen kostet hier 487,40 € mehr Zinsen. Der Grund: In den ersten Jahren wird weniger getilgt, die Restschuld bleibt länger höher, und auf sie fallen Zinsen an. Der Zinssatz ist identisch – du leihst dir nur im Durchschnitt länger mehr Geld.</p><p><strong>Für das Annuitätendarlehen</strong> spricht die planbare, gleichbleibende Belastung und die niedrigere Anfangsrate. <strong>Für das Ratendarlehen</strong> sprechen die geringeren Gesamtzinsen und die schnell sinkende Belastung – vorausgesetzt, die hohe Anfangsrate passt in den <a href=\"/lernen/cashflow\">Cashflow</a>.</p><div class=\"merke\">Ratendarlehen: Tilgung konstant, Rate sinkt. Annuitätendarlehen: Rate konstant, Tilgung steigt. Bei gleichem Zins und gleicher Laufzeit hat das Ratendarlehen die geringeren Gesamtzinsen.</div>"
-  },
-  {
-   "h2": "Restschuld ohne Tabelle berechnen und Fälligkeitsdarlehen",
-   "html": "<p>Manchmal wird in der Klausur nur nach der Restschuld zu einem bestimmten Zeitpunkt gefragt. Dann musst du nicht die ganze Tabelle aufstellen.</p><p>Beim <strong>Ratendarlehen</strong> ist das trivial: Restschuld nach t Jahren = Darlehen − t × Tilgung. Nach 2 Jahren also 100.000 − 2 × 20.000 = 60.000 €.</p><p>Beim <strong>Annuitätendarlehen</strong> nutzt du die Restschuldformel:</p><div class=\"formel\">R_t = S × (1 + i)^t − A × ((1 + i)^t − 1) ÷ i</div><p>S ist der Darlehensbetrag, A die Annuität. Nach 2 Jahren: 100.000 × 1,05² − 23.097,48 × (1,05² − 1) ÷ 0,05 = 110.250,00 − 47.349,83 = 62.900,17 €. Das stimmt mit der Tabelle überein. Die Formel ist intuitiv: Das Darlehen wächst mit Zinseszins, die gezahlten Annuitäten ebenfalls – die Differenz ist die Restschuld.</p><p>Zum Vergleich das <strong>Fälligkeitsdarlehen</strong> (endfälliges Darlehen): Es wird erst am Laufzeitende in einer Summe getilgt. Bis dahin zahlst du jedes Jahr 100.000 × 0,05 = 5.000 € Zinsen, über 5 Jahre also 25.000 €. Es ist damit die teuerste der drei Formen, schont aber die Liquidität während der Laufzeit am stärksten.</p>"
-  },
-  {
-   "h2": "Praxis: Annuität mit anfänglicher Tilgung",
-   "html": "<p>Banken nennen bei Baufinanzierungen oft keine Laufzeit, sondern einen Sollzins und eine anfängliche Tilgung in Prozent. Die Jahresannuität ergibt sich dann aus Darlehen × (Sollzins + anfängliche Tilgung). Beispiel: 200.000 € zu 4 % Zins und 2 % anfänglicher Tilgung ergeben 200.000 × 0,06 = 12.000 € pro Jahr, also 1.000 € pro Monat. Die Laufzeit folgt dann aus dieser Annuität und ist nicht vorgegeben.</p><p>Bei monatlichen Raten rechnet die Bank mit dem Monatszins (Jahreszins ÷ 12) und entsprechend mehr Perioden. Das Prinzip des Tilgungsplans bleibt gleich. Wie Zins- und Tilgungsanteil gebucht werden, ist übrigens unterschiedlich: Die Zinsen sind Aufwand in der GuV, die Tilgung mindert nur die Verbindlichkeit in der Bilanz. Mehr zur Einordnung von Krediten findest du unter <a href=\"/lernen/finanzierungsarten\">Finanzierungsarten</a>.</p>"
-  }
- ],
- "fehler": [
-  "Die Zinsen auf die Restschuld am Periodenende berechnen. Richtig ist immer die Restschuld am Anfang der Periode, denn über diese Periode war das Geld geliehen.",
-  "Beim Annuitätendarlehen die Tilgung als Darlehen ÷ Laufzeit ansetzen. Das gilt nur beim Ratendarlehen; beim Annuitätendarlehen ist die Tilgung Annuität minus Zinsen.",
-  "Den Annuitätenfaktor mit dem Aufzinsungsfaktor verwechseln. (1 + i)^n allein ist der Aufzinsungsfaktor; der Annuitätenfaktor ist i × (1 + i)^n ÷ ((1 + i)^n − 1).",
-  "Rundungsdifferenzen in der letzten Zeile ignorieren. Wenn die Restschuld nicht genau auf 0 geht, passt man in der Praxis die letzte Rate an – in der Klausur solltest du die Differenz kurz erwähnen.",
-  "Behaupten, das Annuitätendarlehen habe einen höheren Zinssatz. Der Zins ist gleich; die höheren Gesamtzinsen kommen nur von der langsameren Tilgung."
- ],
- "faq": [
-  {
-   "q": "Wie erstellt man einen Tilgungsplan?",
-   "a": "Lege eine Tabelle mit Restschuld am Anfang, Zinsen, Tilgung, Rate und Restschuld am Ende an. Berechne pro Zeile die Zinsen auf die Anfangsrestschuld, bestimme die Tilgung je nach Darlehensart und ziehe sie von der Restschuld ab. Am Ende muss die Restschuld null sein."
-  },
-  {
-   "q": "Was ist der Unterschied zwischen Annuitätendarlehen und Ratendarlehen?",
-   "a": "Beim Ratendarlehen ist die Tilgung jedes Jahr gleich, die Gesamtrate sinkt. Beim Annuitätendarlehen ist die Gesamtrate gleich, der Tilgungsanteil steigt und der Zinsanteil sinkt."
-  },
-  {
-   "q": "Welches Darlehen ist günstiger, Annuitäten- oder Ratendarlehen?",
-   "a": "Bei gleichem Zins und gleicher Laufzeit zahlst du beim Ratendarlehen weniger Zinsen, weil schneller getilgt wird. Dafür sind die ersten Raten höher als die Annuität."
-  },
-  {
-   "q": "Wie berechnet man die Annuität?",
-   "a": "Multipliziere den Darlehensbetrag mit dem Annuitätenfaktor i × (1 + i)^n ÷ ((1 + i)^n − 1). Bei 100.000 €, 5 % und 5 Jahren ergibt das 23.097,48 € pro Jahr."
-  },
-  {
-   "q": "Warum steigt beim Annuitätendarlehen der Tilgungsanteil?",
-   "a": "Mit jeder Zahlung sinkt die Restschuld und damit der Zinsanteil. Da die Annuität gleich bleibt, fließt der frei werdende Betrag in die Tilgung."
-  }
- ],
- "quiz": [
-  {
-   "q": "Ratendarlehen über 60.000 €, 4 Jahre, 5 % Zins. Wie hoch ist die erste Jahresrate?",
-   "o": [
-    "15.000 €",
-    "16.920 €",
-    "18.000 €",
-    "15.750 €"
-   ],
-   "r": 2,
-   "e": "Tilgung 60.000 ÷ 4 = 15.000 €, Zinsen 60.000 × 0,05 = 3.000 €, Rate = 18.000 €."
-  },
-  {
-   "q": "Annuität 23.097,48 €, Restschuld zu Jahresbeginn 100.000 €, Zins 5 %. Wie hoch ist die Tilgung im ersten Jahr?",
-   "o": [
-    "18.097,48 €",
-    "20.000,00 €",
-    "23.097,48 €",
-    "5.000,00 €"
-   ],
-   "r": 0,
-   "e": "Zinsen 5.000 €; Tilgung = Annuität − Zinsen = 18.097,48 €."
-  },
-  {
-   "q": "Welche Aussage zum Annuitätendarlehen stimmt?",
-   "o": [
-    "Die Tilgung ist jedes Jahr gleich hoch.",
-    "Der Zinsanteil steigt im Zeitverlauf.",
-    "Die Gesamtrate sinkt jedes Jahr.",
-    "Der Tilgungsanteil steigt jedes Jahr um den Faktor (1 + i)."
-   ],
-   "r": 3,
-   "e": "Weil die Annuität konstant bleibt und die Zinsen sinken, wächst die Tilgung jedes Jahr genau um (1 + i)."
-  }
- ],
- "verwandt": [
-  "zinseszins",
-  "annuitaetenmethode",
-  "finanzierungsarten",
-  "barwert-abzinsen",
-  "cashflow"
- ],
- "ask": "den Tilgungsplan – mit einem Vergleich von Annuitätendarlehen und Ratendarlehen in einer Tabelle"
+  "slug": "tilgungsplan",
+  "name": "Tilgungsplan (Annuitäten- und Ratendarlehen)",
+  "title": "Tilgungsplan erstellen: Annuitäten- vs. Ratendarlehen",
+  "meta": "Tilgungsplan einfach erklärt: Annuitätendarlehen und Ratendarlehen im Vergleich, Formeln, komplette Tabellen mit Zins, Tilgung und Restschuld.",
+  "h1": "Tilgungsplan einfach erklärt: Annuitäten- und Ratendarlehen",
+  "kurz": "Ein Tilgungsplan zeigt für jede Periode eines Darlehens Restschuld, Zinsen, Tilgung und die gesamte Zahlung. Beim Ratendarlehen ist die Tilgung konstant, die Rate sinkt. Beim Annuitätendarlehen ist die Rate (Annuität) konstant, während der Zinsanteil sinkt und der Tilgungsanteil steigt. Bei gleicher Laufzeit zahlst du beim Ratendarlehen insgesamt weniger Zinsen.",
+  "keywords": [
+    "Tilgungsplan",
+    "Tilgungsplan erstellen",
+    "Annuitätendarlehen",
+    "Ratendarlehen",
+    "Annuitätendarlehen vs Ratendarlehen",
+    "Annuität berechnen",
+    "Annuitätenfaktor",
+    "Tilgungsplan Beispiel"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist ein Tilgungsplan?",
+      "html": "<p>Wer ein Darlehen aufnimmt, zahlt zwei Dinge zurück: die <strong>Tilgung</strong>, also den geliehenen Betrag, und die <strong>Zinsen</strong> als Preis für das Leihen. Der Tilgungsplan stellt beides Periode für Periode in einer Tabelle dar. Er beantwortet, wie viel du jedes Jahr zahlst, wie viel davon Zinsen sind und wie hoch die Restschuld noch ist.</p><p>Jeder Tilgungsplan hat dieselben Spalten:</p><ul><li><strong>Restschuld am Periodenanfang</strong></li><li><strong>Zinsen</strong> \\( = \\text{Restschuld am Anfang} \\cdot \\text{Zinssatz} \\)</li><li><strong>Tilgung</strong></li><li><strong>Zahlung (Rate)</strong> \\( = \\text{Zinsen} + \\text{Tilgung} \\)</li><li><strong>Restschuld am Periodenende</strong> \\( = \\text{Restschuld am Anfang} - \\text{Tilgung} \\)</li></ul><p>Die beiden klassischen Darlehensformen unterscheiden sich nur darin, welche Größe konstant bleibt: beim Ratendarlehen die Tilgung, beim Annuitätendarlehen die Zahlung. Eine dritte Form, das Fälligkeitsdarlehen, tilgt erst am Ende komplett und zahlt bis dahin nur Zinsen.</p>"
+    },
+    {
+      "h2": "Welche Formeln brauchst du?",
+      "html": "<h3>Ratendarlehen</h3><div class=\"formel\">\\[ \\text{Tilgung pro Periode} = \\frac{\\text{Darlehensbetrag}}{\\text{Laufzeit}} \\] \\[ \\text{Zinsen}_t = \\text{Restschuld am Anfang von } t \\cdot i \\] \\[ \\text{Rate}_t = \\text{Tilgung} + \\text{Zinsen}_t \\]</div><h3>Annuitätendarlehen</h3><div class=\"formel\">\\[ \\text{Annuität} = \\text{Darlehensbetrag} \\cdot \\text{Annuitätenfaktor} \\] \\[ \\text{Annuitätenfaktor} = \\frac{i \\cdot (1+i)^n}{(1+i)^n - 1} \\] \\[ \\text{Tilgung}_t = \\text{Annuität} - \\text{Zinsen}_t \\]</div><p>Der Annuitätenfaktor (auch Kapitalwiedergewinnungsfaktor) verteilt den Darlehensbetrag so auf \\( n \\) gleich hohe Zahlungen, dass am Ende inklusive Zinsen alles zurückgezahlt ist. Er beruht auf der <a href=\"/lernen/zinseszins\">Zinseszinsrechnung</a> und taucht auch in der <a href=\"/lernen/annuitaetenmethode\">Annuitätenmethode</a> der Investitionsrechnung auf.</p><p>Praktisch: Beim Annuitätendarlehen wächst die Tilgung jedes Jahr genau um den Faktor \\( (1+i) \\). \\( \\text{Tilgung}_{t+1} = \\text{Tilgung}_t \\cdot (1+i) \\). Damit kannst du deine Tabelle kontrollieren.</p>"
+    },
+    {
+      "h2": "Beispiel: Ratendarlehen mit Tilgungsplan",
+      "html": "<div class=\"beispiel\"><p>Die Mosel Elektro KG nimmt ein Darlehen über 100.000 € auf. Zinssatz 5 % pro Jahr, Laufzeit 5 Jahre, jährliche Zahlung am Jahresende.</p><ol><li>Tilgung pro Jahr: \\( \\frac{100.000}{5} = 20.000 \\) €.</li><li>Zinsen Jahr 1: \\( 100.000 \\cdot 0{,}05 = 5.000 \\) € → Rate 25.000 €.</li><li>Zinsen Jahr 2: \\( 80.000 \\cdot 0{,}05 = 4.000 \\) € → Rate 24.000 €, usw.</li></ol><table><thead><tr><th>Jahr</th><th>Restschuld Anfang</th><th>Zinsen</th><th>Tilgung</th><th>Rate</th><th>Restschuld Ende</th></tr></thead><tbody><tr><td>1</td><td>100.000,00</td><td>5.000,00</td><td>20.000,00</td><td>25.000,00</td><td>80.000,00</td></tr><tr><td>2</td><td>80.000,00</td><td>4.000,00</td><td>20.000,00</td><td>24.000,00</td><td>60.000,00</td></tr><tr><td>3</td><td>60.000,00</td><td>3.000,00</td><td>20.000,00</td><td>23.000,00</td><td>40.000,00</td></tr><tr><td>4</td><td>40.000,00</td><td>2.000,00</td><td>20.000,00</td><td>22.000,00</td><td>20.000,00</td></tr><tr><td>5</td><td>20.000,00</td><td>1.000,00</td><td>20.000,00</td><td>21.000,00</td><td>0,00</td></tr><tr><td><strong>Summe</strong></td><td></td><td><strong>15.000,00</strong></td><td><strong>100.000,00</strong></td><td><strong>115.000,00</strong></td><td></td></tr></tbody></table><p>Alle Beträge in €. Die Rate sinkt jedes Jahr um 1.000 €, weil die Zinsen auf eine um 20.000 € kleinere Restschuld berechnet werden.</p></div>"
+    },
+    {
+      "h2": "Beispiel: Annuitätendarlehen mit Tilgungsplan",
+      "html": "<div class=\"beispiel\"><p>Gleiche Daten: 100.000 €, 5 %, 5 Jahre, jährliche Zahlung.</p><ol><li>Aufzinsungsfaktor: \\( 1{,}05^5 = 1{,}2762816 \\).</li><li>Annuitätenfaktor: \\( \\frac{0{,}05 \\cdot 1{,}2762816}{1{,}2762816 - 1} = 0{,}2309748 \\).</li><li>Annuität: \\( 100.000 \\cdot 0{,}2309748 = \\mathbf{23.097{,}48} \\) <strong>€</strong>.</li><li>Jahr 1: Zinsen \\( 100.000 \\cdot 0{,}05 = 5.000{,}00 \\) €; Tilgung \\( 23.097{,}48 - 5.000{,}00 = 18.097{,}48 \\) €.</li><li>Jahr 2: Zinsen \\( 81.902{,}52 \\cdot 0{,}05 = 4.095{,}13 \\) €; Tilgung 19.002,35 €. Kontrolle: \\( 18.097{,}48 \\cdot 1{,}05 = 19.002{,}35 \\) €.</li></ol><table><thead><tr><th>Jahr</th><th>Restschuld Anfang</th><th>Zinsen</th><th>Tilgung</th><th>Annuität</th><th>Restschuld Ende</th></tr></thead><tbody><tr><td>1</td><td>100.000,00</td><td>5.000,00</td><td>18.097,48</td><td>23.097,48</td><td>81.902,52</td></tr><tr><td>2</td><td>81.902,52</td><td>4.095,13</td><td>19.002,35</td><td>23.097,48</td><td>62.900,17</td></tr><tr><td>3</td><td>62.900,17</td><td>3.145,01</td><td>19.952,47</td><td>23.097,48</td><td>42.947,69</td></tr><tr><td>4</td><td>42.947,69</td><td>2.147,38</td><td>20.950,10</td><td>23.097,48</td><td>21.997,60</td></tr><tr><td>5</td><td>21.997,60</td><td>1.099,88</td><td>21.997,60</td><td>23.097,48</td><td>0,00</td></tr><tr><td><strong>Summe</strong></td><td></td><td><strong>15.487,40</strong></td><td><strong>100.000,00</strong></td><td><strong>115.487,40</strong></td><td></td></tr></tbody></table><p>Alle Beträge in €. Die Annuität bleibt gleich, der Zinsanteil fällt von 5.000 € auf 1.099,88 €, der Tilgungsanteil steigt entsprechend.</p></div>"
+    },
+    {
+      "h2": "Annuitätendarlehen und Ratendarlehen im Vergleich",
+      "html": "<table><thead><tr><th>Merkmal</th><th>Ratendarlehen</th><th>Annuitätendarlehen</th></tr></thead><tbody><tr><td>Konstant</td><td>Tilgung</td><td>Rate (Annuität)</td></tr><tr><td>Rate im Zeitverlauf</td><td>sinkend</td><td>gleichbleibend</td></tr><tr><td>Erste Rate im Beispiel</td><td>25.000,00 €</td><td>23.097,48 €</td></tr><tr><td>Letzte Rate im Beispiel</td><td>21.000,00 €</td><td>23.097,48 €</td></tr><tr><td>Zinsen gesamt im Beispiel</td><td>15.000,00 €</td><td>15.487,40 €</td></tr><tr><td>Typischer Einsatz</td><td>Unternehmenskredite, Förderdarlehen</td><td>Baufinanzierung, Konsumentenkredite</td></tr></tbody></table><p>Das Annuitätendarlehen kostet hier 487,40 € mehr Zinsen. Der Grund: In den ersten Jahren wird weniger getilgt, die Restschuld bleibt länger höher, und auf sie fallen Zinsen an. Der Zinssatz ist identisch – du leihst dir nur im Durchschnitt länger mehr Geld.</p><p><strong>Für das Annuitätendarlehen</strong> spricht die planbare, gleichbleibende Belastung und die niedrigere Anfangsrate. <strong>Für das Ratendarlehen</strong> sprechen die geringeren Gesamtzinsen und die schnell sinkende Belastung – vorausgesetzt, die hohe Anfangsrate passt in den <a href=\"/lernen/cashflow\">Cashflow</a>.</p><div class=\"merke\">Ratendarlehen: Tilgung konstant, Rate sinkt. Annuitätendarlehen: Rate konstant, Tilgung steigt. Bei gleichem Zins und gleicher Laufzeit hat das Ratendarlehen die geringeren Gesamtzinsen.</div>"
+    },
+    {
+      "h2": "Restschuld ohne Tabelle berechnen und Fälligkeitsdarlehen",
+      "html": "<p>Manchmal wird in der Klausur nur nach der Restschuld zu einem bestimmten Zeitpunkt gefragt. Dann musst du nicht die ganze Tabelle aufstellen.</p><p>Beim <strong>Ratendarlehen</strong> ist das trivial: \\( \\text{Restschuld nach } t \\text{ Jahren} = \\text{Darlehen} - t \\cdot \\text{Tilgung} \\). Nach 2 Jahren also \\( 100.000 - 2 \\cdot 20.000 = 60.000 \\) €.</p><p>Beim <strong>Annuitätendarlehen</strong> nutzt du die Restschuldformel:</p><div class=\"formel\">\\[ R_t = S \\cdot (1+i)^t - A \\cdot \\frac{(1+i)^t - 1}{i} \\]</div><p>\\( S \\) ist der Darlehensbetrag, \\( A \\) die Annuität. Nach 2 Jahren: \\( 100.000 \\cdot 1{,}05^2 - 23.097{,}48 \\cdot \\frac{1{,}05^2 - 1}{0{,}05} = 110.250{,}00 - 47.349{,}83 = 62.900{,}17 \\) €. Das stimmt mit der Tabelle überein. Die Formel ist intuitiv: Das Darlehen wächst mit Zinseszins, die gezahlten Annuitäten ebenfalls – die Differenz ist die Restschuld.</p><p>Zum Vergleich das <strong>Fälligkeitsdarlehen</strong> (endfälliges Darlehen): Es wird erst am Laufzeitende in einer Summe getilgt. Bis dahin zahlst du jedes Jahr \\( 100.000 \\cdot 0{,}05 = 5.000 \\) € Zinsen, über 5 Jahre also 25.000 €. Es ist damit die teuerste der drei Formen, schont aber die Liquidität während der Laufzeit am stärksten.</p>"
+    },
+    {
+      "h2": "Praxis: Annuität mit anfänglicher Tilgung",
+      "html": "<p>Banken nennen bei Baufinanzierungen oft keine Laufzeit, sondern einen Sollzins und eine anfängliche Tilgung in Prozent. Die Jahresannuität ergibt sich dann aus \\( \\text{Darlehen} \\cdot (\\text{Sollzins} + \\text{anfängliche Tilgung}) \\). Beispiel: 200.000 € zu 4 % Zins und 2 % anfänglicher Tilgung ergeben \\( 200.000 \\cdot 0{,}06 = 12.000 \\) € pro Jahr, also 1.000 € pro Monat. Die Laufzeit folgt dann aus dieser Annuität und ist nicht vorgegeben.</p><p>Bei monatlichen Raten rechnet die Bank mit dem Monatszins \\( \\left(\\frac{\\text{Jahreszins}}{12}\\right) \\) und entsprechend mehr Perioden. Das Prinzip des Tilgungsplans bleibt gleich. Wie Zins- und Tilgungsanteil gebucht werden, ist übrigens unterschiedlich: Die Zinsen sind Aufwand in der GuV, die Tilgung mindert nur die Verbindlichkeit in der Bilanz. Mehr zur Einordnung von Krediten findest du unter <a href=\"/lernen/finanzierungsarten\">Finanzierungsarten</a>.</p>"
+    }
+  ],
+  "fehler": [
+    "Die Zinsen auf die Restschuld am Periodenende berechnen. Richtig ist immer die Restschuld am Anfang der Periode, denn über diese Periode war das Geld geliehen.",
+    "Beim Annuitätendarlehen die Tilgung als \\( \\frac{\\text{Darlehen}}{\\text{Laufzeit}} \\) ansetzen. Das gilt nur beim Ratendarlehen; beim Annuitätendarlehen ist die Tilgung Annuität minus Zinsen.",
+    "Den Annuitätenfaktor mit dem Aufzinsungsfaktor verwechseln. \\( (1+i)^n \\) allein ist der Aufzinsungsfaktor; der Annuitätenfaktor ist \\( \\frac{i \\cdot (1+i)^n}{(1+i)^n - 1} \\).",
+    "Rundungsdifferenzen in der letzten Zeile ignorieren. Wenn die Restschuld nicht genau auf 0 geht, passt man in der Praxis die letzte Rate an – in der Klausur solltest du die Differenz kurz erwähnen.",
+    "Behaupten, das Annuitätendarlehen habe einen höheren Zinssatz. Der Zins ist gleich; die höheren Gesamtzinsen kommen nur von der langsameren Tilgung."
+  ],
+  "faq": [
+    {
+      "q": "Wie erstellt man einen Tilgungsplan?",
+      "a": "Lege eine Tabelle mit Restschuld am Anfang, Zinsen, Tilgung, Rate und Restschuld am Ende an. Berechne pro Zeile die Zinsen auf die Anfangsrestschuld, bestimme die Tilgung je nach Darlehensart und ziehe sie von der Restschuld ab. Am Ende muss die Restschuld null sein."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Annuitätendarlehen und Ratendarlehen?",
+      "a": "Beim Ratendarlehen ist die Tilgung jedes Jahr gleich, die Gesamtrate sinkt. Beim Annuitätendarlehen ist die Gesamtrate gleich, der Tilgungsanteil steigt und der Zinsanteil sinkt."
+    },
+    {
+      "q": "Welches Darlehen ist günstiger, Annuitäten- oder Ratendarlehen?",
+      "a": "Bei gleichem Zins und gleicher Laufzeit zahlst du beim Ratendarlehen weniger Zinsen, weil schneller getilgt wird. Dafür sind die ersten Raten höher als die Annuität."
+    },
+    {
+      "q": "Wie berechnet man die Annuität?",
+      "a": "Multipliziere den Darlehensbetrag mit dem Annuitätenfaktor \\( \\frac{i \\cdot (1+i)^n}{(1+i)^n - 1} \\). Bei 100.000 €, 5 % und 5 Jahren ergibt das 23.097,48 € pro Jahr."
+    },
+    {
+      "q": "Warum steigt beim Annuitätendarlehen der Tilgungsanteil?",
+      "a": "Mit jeder Zahlung sinkt die Restschuld und damit der Zinsanteil. Da die Annuität gleich bleibt, fließt der frei werdende Betrag in die Tilgung."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Ratendarlehen über 60.000 €, 4 Jahre, 5 % Zins. Wie hoch ist die erste Jahresrate?",
+      "o": [
+        "15.000 €",
+        "16.920 €",
+        "18.000 €",
+        "15.750 €"
+      ],
+      "r": 2,
+      "e": "Tilgung \\( \\frac{60.000}{4} = 15.000 \\) €, Zinsen \\( 60.000 \\cdot 0{,}05 = 3.000 \\) €, \\( \\text{Rate} = 18.000 \\) €."
+    },
+    {
+      "q": "Annuität 23.097,48 €, Restschuld zu Jahresbeginn 100.000 €, Zins 5 %. Wie hoch ist die Tilgung im ersten Jahr?",
+      "o": [
+        "18.097,48 €",
+        "20.000,00 €",
+        "23.097,48 €",
+        "5.000,00 €"
+      ],
+      "r": 0,
+      "e": "Zinsen 5.000 €; \\( \\text{Tilgung} = \\text{Annuität} - \\text{Zinsen} = 18.097{,}48 \\) €."
+    },
+    {
+      "q": "Welche Aussage zum Annuitätendarlehen stimmt?",
+      "o": [
+        "Die Tilgung ist jedes Jahr gleich hoch.",
+        "Der Zinsanteil steigt im Zeitverlauf.",
+        "Die Gesamtrate sinkt jedes Jahr.",
+        "Der Tilgungsanteil steigt jedes Jahr um den Faktor \\( (1+i) \\)."
+      ],
+      "r": 3,
+      "e": "Weil die Annuität konstant bleibt und die Zinsen sinken, wächst die Tilgung jedes Jahr genau um \\( (1+i) \\)."
+    }
+  ],
+  "verwandt": [
+    "zinseszins",
+    "annuitaetenmethode",
+    "finanzierungsarten",
+    "barwert-abzinsen",
+    "cashflow"
+  ],
+  "ask": "den Tilgungsplan – mit einem Vergleich von Annuitätendarlehen und Ratendarlehen in einer Tabelle"
 }

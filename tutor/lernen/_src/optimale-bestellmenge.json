@@ -1,114 +1,114 @@
 {
- "slug": "optimale-bestellmenge",
- "name": "Optimale Bestellmenge (Andler-Formel)",
- "title": "Optimale Bestellmenge: Andler-Formel mit Beispiel",
- "meta": "Optimale Bestellmenge einfach erklärt: Andler-Formel, Bestellkosten vs. Lagerhaltungskosten, Rechenbeispiel Schritt für Schritt und typische Klausurfehler.",
- "h1": "Optimale Bestellmenge einfach erklärt",
- "kurz": "Die optimale Bestellmenge ist die Menge pro Bestellung, bei der die Summe aus Bestellkosten und Lagerhaltungskosten im Jahr am kleinsten ist. Berechnet wird sie mit der Andler-Formel: Wurzel aus (2 × Jahresbedarf × fixe Kosten pro Bestellung) geteilt durch (Einstandspreis × Lagerhaltungskostensatz). Im Optimum sind Bestell- und Lagerkosten genau gleich hoch.",
- "keywords": [
-  "optimale Bestellmenge",
-  "Andler-Formel",
-  "optimale Bestellmenge berechnen",
-  "Bestellkosten Lagerhaltungskosten",
-  "Lagerhaltungskostensatz",
-  "Bestellhäufigkeit berechnen",
-  "klassische Losgrößenformel"
- ],
- "abschnitte": [
-  {
-   "h2": "Was ist die optimale Bestellmenge?",
-   "html": "<p>Jedes Unternehmen, das Material einkauft, steht vor einem Zielkonflikt. Bestellst du selten, aber große Mengen, sparst du an <strong>Bestellkosten</strong> (Bestellabwicklung, Transport, Wareneingangsprüfung, Rechnungsprüfung). Dafür liegt viel Ware im Lager und bindet Kapital – die <strong>Lagerhaltungskosten</strong> steigen. Bestellst du oft und wenig, ist es genau umgekehrt.</p>\n<p>Die optimale Bestellmenge (auch wirtschaftliche Bestellmenge, englisch <em>Economic Order Quantity</em>, EOQ) ist der Punkt dazwischen, an dem die <strong>Summe beider Kostenarten minimal</strong> ist. Die zugehörige Formel geht auf Kurt Andler (1929) zurück und heißt deshalb Andler-Formel; in der Produktion kennst du dieselbe Logik als klassische Losgrößenformel (dort mit Rüstkosten statt Bestellkosten).</p>\n<p>Wichtig: Die Formel betrachtet nur die <em>entscheidungsrelevanten</em> Kosten. Der Einkaufswert der Ware selbst (Jahresbedarf × Preis) fällt unabhängig von der Bestellmenge an und spielt für das Optimum keine Rolle – solange es keine Mengenrabatte gibt.</p>"
-  },
-  {
-   "h2": "Welche Annahmen stecken in der Andler-Formel?",
-   "html": "<p>Das Modell ist bewusst einfach. Es gilt nur unter diesen Prämissen, die in Klausuren gern abgefragt werden:</p>\n<ul>\n<li>Der <strong>Jahresbedarf ist bekannt und konstant</strong>, der Verbrauch erfolgt gleichmäßig über das Jahr.</li>\n<li>Die Lieferung kommt <strong>sofort und vollständig</strong> an (keine Lieferzeit, keine Teillieferungen).</li>\n<li>Es gibt <strong>keine Fehlmengen</strong> und keinen Sicherheitsbestand.</li>\n<li>Der <strong>Einstandspreis ist konstant</strong> – also keine Mengenrabatte.</li>\n<li>Die <strong>fixen Kosten pro Bestellung</strong> hängen nicht von der Menge ab.</li>\n<li>Lager- und Finanzierungskapazität sind unbegrenzt.</li>\n</ul>\n<p>Aus der Annahme des gleichmäßigen Verbrauchs folgt der <strong>durchschnittliche Lagerbestand von Q ÷ 2</strong>: Direkt nach der Lieferung liegen Q Stück im Lager, kurz vor der nächsten Lieferung null. Im Mittel also die Hälfte.</p>"
-  },
-  {
-   "h2": "Wie lautet die Formel für die optimale Bestellmenge?",
-   "html": "<p>Zuerst die Bausteine. Mit M = Jahresbedarf (Stück), K(B) = fixe Kosten pro Bestellung (€), p = Einstandspreis pro Stück (€), i = Lagerhaltungskostensatz (Zins- plus Lagerkostensatz, als Dezimalzahl) und Q = Bestellmenge gilt:</p>\n<div class=\"formel\">Bestellkosten pro Jahr = (M ÷ Q) × K(B)<br>Lagerhaltungskosten pro Jahr = (Q ÷ 2) × p × i<br>Gesamtkosten K(Q) = (M ÷ Q) × K(B) + (Q ÷ 2) × p × i</div>\n<p>Leitest du K(Q) nach Q ab und setzt die Ableitung gleich null, erhältst du:</p>\n<div class=\"formel\">Q(opt) = √( (2 × M × K(B)) / (p × i) )</div>\n<p>Wird der Lagerhaltungskostensatz in Prozent angegeben (z. B. 16 statt 0,16), steht in vielen Lehrbüchern die äquivalente Form:</p>\n<div class=\"formel\">Q(opt) = √( (200 × M × K(B)) / (p × i[%]) )</div>\n<p>Daraus folgen zwei weitere Größen, die fast immer mit abgefragt werden:</p>\n<div class=\"formel\">Optimale Bestellhäufigkeit n(opt) = M ÷ Q(opt)<br>Bestellrhythmus (Tage) = 360 ÷ n(opt)</div>\n<div class=\"merke\">Im Optimum gilt: Bestellkosten = Lagerhaltungskosten. Damit kannst du jedes Ergebnis in Sekunden kontrollieren.</div>"
-  },
-  {
-   "h2": "Beispiel: Optimale Bestellmenge Schritt für Schritt berechnen",
-   "html": "<div class=\"beispiel\">\n<p><strong>Aufgabe:</strong> Ein Fahrradhersteller benötigt pro Jahr 8.000 Sättel. Jede Bestellung verursacht fixe Kosten von 125 €. Ein Sattel kostet im Einkauf 50 €. Der Lagerhaltungskostensatz (Kapitalbindung plus Lagerkosten) beträgt 16 % pro Jahr. Gesucht sind optimale Bestellmenge, Bestellhäufigkeit, Bestellrhythmus (360 Tage) und die minimalen Gesamtkosten.</p>\n<ol>\n<li><strong>Lagerhaltungskosten pro Stück und Jahr:</strong> p × i = 50 € × 0,16 = 8 €</li>\n<li><strong>Andler-Formel einsetzen:</strong> Q(opt) = √( (2 × 8.000 × 125) / 8 ) = √( 2.000.000 / 8 ) = √250.000 = <strong>500 Stück</strong></li>\n<li><strong>Bestellhäufigkeit:</strong> n = 8.000 ÷ 500 = <strong>16 Bestellungen pro Jahr</strong></li>\n<li><strong>Bestellrhythmus:</strong> 360 ÷ 16 = <strong>22,5 Tage</strong></li>\n<li><strong>Bestellkosten:</strong> 16 × 125 € = 2.000 €</li>\n<li><strong>Lagerhaltungskosten:</strong> durchschnittlicher Bestand 500 ÷ 2 = 250 Stück; 250 × 8 € = 2.000 €</li>\n<li><strong>Gesamtkosten (entscheidungsrelevant):</strong> 2.000 € + 2.000 € = <strong>4.000 €</strong></li>\n</ol>\n<p><strong>Kontrolle:</strong> Bestellkosten und Lagerkosten sind beide 2.000 € – das Ergebnis stimmt.</p>\n<p><strong>Vergleich mit anderen Bestellmengen:</strong></p>\n<table>\n<thead><tr><th>Bestellmenge Q</th><th>Bestellungen</th><th>Bestellkosten</th><th>Lagerkosten</th><th>Gesamtkosten</th></tr></thead>\n<tbody>\n<tr><td>250</td><td>32</td><td>4.000 €</td><td>1.000 €</td><td>5.000 €</td></tr>\n<tr><td>400</td><td>20</td><td>2.500 €</td><td>1.600 €</td><td>4.100 €</td></tr>\n<tr><td><strong>500</strong></td><td><strong>16</strong></td><td><strong>2.000 €</strong></td><td><strong>2.000 €</strong></td><td><strong>4.000 €</strong></td></tr>\n<tr><td>800</td><td>10</td><td>1.250 €</td><td>3.200 €</td><td>4.450 €</td></tr>\n<tr><td>1.000</td><td>8</td><td>1.000 €</td><td>4.000 €</td><td>5.000 €</td></tr>\n</tbody>\n</table>\n<p>Die Tabelle zeigt zwei Dinge: Das Minimum liegt tatsächlich bei 500 Stück. Und die Kostenkurve ist rund um das Optimum recht flach – 400 Stück kosten nur 100 € mehr. Das ist in der Praxis wichtig, weil man ohnehin oft auf Packungsgrößen runden muss.</p>\n</div>"
-  },
-  {
-   "h2": "Wie interpretiert man das Ergebnis?",
-   "html": "<p>Das Ergebnis sagt dir: Bestelle immer 500 Sättel, also 16-mal im Jahr, ungefähr alle drei Wochen. Jede Abweichung erhöht die Summe aus Bestell- und Lagerkosten.</p>\n<h3>Was passiert, wenn sich die Parameter ändern?</h3>\n<ul>\n<li><strong>Bestellfixkosten steigen</strong> (z. B. teurerer Transport): Q(opt) steigt – du bestellst seltener, aber mehr.</li>\n<li><strong>Zinsen oder Lagerkosten steigen:</strong> Q(opt) sinkt – Kapitalbindung wird teurer, also kleinere Mengen.</li>\n<li><strong>Bedarf vervierfacht sich:</strong> Q(opt) verdoppelt sich nur (wegen der Wurzel). Die Bestellmenge wächst also unterproportional zum Bedarf.</li>\n</ul>\n<h3>Und in der Praxis?</h3>\n<p>Echte Einkäufer nutzen die Andler-Formel als Richtwert. Sie ergänzen einen Sicherheitsbestand, berücksichtigen Lieferzeiten über einen Meldebestand und prüfen Mengenrabatte gesondert. Gibt es Rabattstaffeln, rechnest du die Gesamtkosten <em>inklusive</em> Einkaufswert für Q(opt) und für jede Rabattgrenze und nimmst die günstigste Variante. Welche Artikel überhaupt eine so genaue Planung verdienen, klärt vorher oft eine <a href=\"/lernen/abc-analyse\">ABC-Analyse</a>: Für A-Güter lohnt sich die exakte Optimierung, bei C-Gütern reicht meist ein einfaches Verfahren.</p>"
-  },
-  {
-   "h2": "Vor- und Nachteile der Andler-Formel",
-   "html": "<table>\n<thead><tr><th>Vorteile</th><th>Nachteile</th></tr></thead>\n<tbody>\n<tr><td>Einfach zu rechnen, wenig Daten nötig</td><td>Realitätsferne Annahmen (konstanter Bedarf, keine Lieferzeit)</td></tr>\n<tr><td>Macht den Zielkonflikt zwischen Bestell- und Lagerkosten sichtbar</td><td>Keine Mengenrabatte, keine Fehlmengen berücksichtigt</td></tr>\n<tr><td>Robust: flache Kostenkurve, kleine Rundungen kosten wenig</td><td>Kosten wie der Lagerhaltungskostensatz sind in der Praxis schwer exakt zu bestimmen</td></tr>\n<tr><td>Gute Basis für Erweiterungen (Rabatte, Sicherheitsbestand)</td><td>Betrachtet jeden Artikel isoliert, keine Sammelbestellungen</td></tr>\n</tbody>\n</table>\n<h3>Abgrenzung zu verwandten Begriffen</h3>\n<p>Die <strong>optimale Losgröße</strong> nutzt dieselbe Formel, nur mit Rüstkosten pro Fertigungsauftrag statt Bestellkosten. Der <strong>Meldebestand</strong> beantwortet eine andere Frage, nämlich <em>wann</em> bestellt wird (Tagesverbrauch × Lieferzeit + Sicherheitsbestand), während die optimale Bestellmenge sagt, <em>wie viel</em>. Die Lagerhaltungskosten selbst gehören zu den <a href=\"/lernen/fixe-und-variable-kosten\">mengenabhängigen Kosten</a>, die Zinskomponente entspricht inhaltlich den <a href=\"/lernen/kalkulatorische-kosten\">kalkulatorischen Zinsen</a> auf das gebundene Kapital.</p>"
-  }
- ],
- "fehler": [
-  "Lagerhaltungskosten mit dem vollen Bestand Q statt mit dem Durchschnittsbestand Q ÷ 2 berechnen. Richtig: Lagerkosten = (Q ÷ 2) × p × i.",
-  "Den Prozentsatz falsch einsetzen: 16 % entweder als 0,16 in die Formel mit Faktor 2 oder als 16 in die Formel mit Faktor 200 – nie mischen.",
-  "Den Einkaufswert der Ware (M × p) in die Gesamtkosten zum Vergleich der Bestellmengen einrechnen, obwohl es keine Rabatte gibt. Er ist dann nicht entscheidungsrelevant.",
-  "Die Wurzel vergessen oder erst nach dem Teilen durch p × i ziehen und dabei falsch klammern. Erst den kompletten Bruch ausrechnen, dann die Wurzel ziehen.",
-  "Das Ergebnis nicht kontrollieren. Im Optimum müssen Bestell- und Lagerkosten gleich sein – ein schneller Check gegen Rechenfehler."
- ],
- "faq": [
-  {
-   "q": "Wie berechnet man die optimale Bestellmenge?",
-   "a": "Mit der Andler-Formel: Wurzel aus (2 × Jahresbedarf × fixe Kosten pro Bestellung) geteilt durch (Einstandspreis × Lagerhaltungskostensatz). Bei 8.000 Stück Bedarf, 125 € pro Bestellung, 50 € Preis und 16 % Satz ergibt das 500 Stück."
-  },
-  {
-   "q": "Warum teilt man den Lagerbestand durch 2?",
-   "a": "Weil das Modell gleichmäßigen Verbrauch annimmt. Nach der Lieferung liegen Q Stück im Lager, kurz vor der nächsten Lieferung null, im Durchschnitt also Q ÷ 2. Auf diesen Durchschnittsbestand fallen die Lagerhaltungskosten an."
-  },
-  {
-   "q": "Was gehört zum Lagerhaltungskostensatz?",
-   "a": "Er setzt sich meist aus dem Zinssatz für das gebundene Kapital und einem Lagerkostensatz zusammen, etwa für Raum, Versicherung, Schwund und Verwaltung. Beide werden in Prozent des durchschnittlichen Lagerwerts pro Jahr ausgedrückt und addiert."
-  },
-  {
-   "q": "Was ist der Unterschied zwischen optimaler Bestellmenge und optimaler Losgröße?",
-   "a": "Rechnerisch nichts, die Formel ist identisch. Die optimale Bestellmenge bezieht sich auf den Einkauf mit Bestellkosten, die optimale Losgröße auf die Fertigung mit Rüstkosten pro Auflage."
-  },
-  {
-   "q": "Gilt die Andler-Formel auch bei Mengenrabatten?",
-   "a": "Nicht direkt, weil sie einen konstanten Preis voraussetzt. Bei Rabattstaffeln vergleichst du die Gesamtkosten inklusive Einkaufswert für die Andler-Menge und für jede Rabattschwelle und wählst die günstigste Menge."
-  }
- ],
- "quiz": [
-  {
-   "q": "Jahresbedarf 8.000 Stück, Bestellkosten 125 € je Bestellung, Preis 50 €, Lagerhaltungskostensatz 16 %. Wie hoch ist die optimale Bestellmenge?",
-   "o": [
-    "250 Stück",
-    "354 Stück",
-    "500 Stück",
-    "707 Stück"
-   ],
-   "r": 2,
-   "e": "√((2 × 8.000 × 125) ÷ (50 × 0,16)) = √(2.000.000 ÷ 8) = √250.000 = 500 Stück."
-  },
-  {
-   "q": "Was gilt im Optimum der Andler-Formel?",
-   "o": [
-    "Bestellkosten sind gleich den Lagerhaltungskosten",
-    "Lagerhaltungskosten sind null",
-    "Bestellkosten sind doppelt so hoch wie die Lagerkosten",
-    "Der Einkaufswert ist minimal"
-   ],
-   "r": 0,
-   "e": "Im Minimum der Gesamtkostenfunktion sind beide Kostenarten exakt gleich hoch – im Beispiel je 2.000 €."
-  },
-  {
-   "q": "Der Jahresbedarf vervierfacht sich, alles andere bleibt gleich. Was passiert mit der optimalen Bestellmenge?",
-   "o": [
-    "Sie vervierfacht sich",
-    "Sie halbiert sich",
-    "Sie bleibt gleich",
-    "Sie verdoppelt sich"
-   ],
-   "r": 3,
-   "e": "Der Bedarf steht unter der Wurzel. √4 = 2, also verdoppelt sich die optimale Bestellmenge."
-  }
- ],
- "verwandt": [
-  "abc-analyse",
-  "kalkulatorische-kosten",
-  "fixe-und-variable-kosten",
-  "kostenrechnung"
- ],
- "ask": "die optimale Bestellmenge mit der Andler-Formel – mit einem durchgerechneten Beispiel und dem Vergleich von Bestell- und Lagerhaltungskosten"
+  "slug": "optimale-bestellmenge",
+  "name": "Optimale Bestellmenge (Andler-Formel)",
+  "title": "Optimale Bestellmenge: Andler-Formel mit Beispiel",
+  "meta": "Optimale Bestellmenge einfach erklärt: Andler-Formel, Bestellkosten vs. Lagerhaltungskosten, Rechenbeispiel Schritt für Schritt und typische Klausurfehler.",
+  "h1": "Optimale Bestellmenge einfach erklärt",
+  "kurz": "Die optimale Bestellmenge ist die Menge pro Bestellung, bei der die Summe aus Bestellkosten und Lagerhaltungskosten im Jahr am kleinsten ist. Berechnet wird sie mit der Andler-Formel: \\( \\sqrt{\\frac{2 \\cdot \\text{Jahresbedarf} \\cdot \\text{fixe Kosten pro Bestellung}}{\\text{Einstandspreis} \\cdot \\text{Lagerhaltungskostensatz}}} \\). Im Optimum sind Bestell- und Lagerkosten genau gleich hoch.",
+  "keywords": [
+    "optimale Bestellmenge",
+    "Andler-Formel",
+    "optimale Bestellmenge berechnen",
+    "Bestellkosten Lagerhaltungskosten",
+    "Lagerhaltungskostensatz",
+    "Bestellhäufigkeit berechnen",
+    "klassische Losgrößenformel"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist die optimale Bestellmenge?",
+      "html": "<p>Jedes Unternehmen, das Material einkauft, steht vor einem Zielkonflikt. Bestellst du selten, aber große Mengen, sparst du an <strong>Bestellkosten</strong> (Bestellabwicklung, Transport, Wareneingangsprüfung, Rechnungsprüfung). Dafür liegt viel Ware im Lager und bindet Kapital – die <strong>Lagerhaltungskosten</strong> steigen. Bestellst du oft und wenig, ist es genau umgekehrt.</p>\n<p>Die optimale Bestellmenge (auch wirtschaftliche Bestellmenge, englisch <em>Economic Order Quantity</em>, EOQ) ist der Punkt dazwischen, an dem die <strong>Summe beider Kostenarten minimal</strong> ist. Die zugehörige Formel geht auf Kurt Andler (1929) zurück und heißt deshalb Andler-Formel; in der Produktion kennst du dieselbe Logik als klassische Losgrößenformel (dort mit Rüstkosten statt Bestellkosten).</p>\n<p>Wichtig: Die Formel betrachtet nur die <em>entscheidungsrelevanten</em> Kosten. Der Einkaufswert der Ware selbst \\( (\\text{Jahresbedarf} \\cdot \\text{Preis}) \\) fällt unabhängig von der Bestellmenge an und spielt für das Optimum keine Rolle – solange es keine Mengenrabatte gibt.</p>"
+    },
+    {
+      "h2": "Welche Annahmen stecken in der Andler-Formel?",
+      "html": "<p>Das Modell ist bewusst einfach. Es gilt nur unter diesen Prämissen, die in Klausuren gern abgefragt werden:</p>\n<ul>\n<li>Der <strong>Jahresbedarf ist bekannt und konstant</strong>, der Verbrauch erfolgt gleichmäßig über das Jahr.</li>\n<li>Die Lieferung kommt <strong>sofort und vollständig</strong> an (keine Lieferzeit, keine Teillieferungen).</li>\n<li>Es gibt <strong>keine Fehlmengen</strong> und keinen Sicherheitsbestand.</li>\n<li>Der <strong>Einstandspreis ist konstant</strong> – also keine Mengenrabatte.</li>\n<li>Die <strong>fixen Kosten pro Bestellung</strong> hängen nicht von der Menge ab.</li>\n<li>Lager- und Finanzierungskapazität sind unbegrenzt.</li>\n</ul>\n<p>Aus der Annahme des gleichmäßigen Verbrauchs folgt der <strong>durchschnittliche Lagerbestand von \\( \\frac{Q}{2} \\)</strong>: Direkt nach der Lieferung liegen Q Stück im Lager, kurz vor der nächsten Lieferung null. Im Mittel also die Hälfte.</p>"
+    },
+    {
+      "h2": "Wie lautet die Formel für die optimale Bestellmenge?",
+      "html": "<p>Zuerst die Bausteine. Mit \\( M \\) = Jahresbedarf (Stück), \\( K_B \\) = fixe Kosten pro Bestellung (€), \\( p \\) = Einstandspreis pro Stück (€), \\( i \\) = Lagerhaltungskostensatz (Zins- plus Lagerkostensatz, als Dezimalzahl) und \\( Q \\) = Bestellmenge gilt:</p>\n<div class=\"formel\">\\[ \\text{Bestellkosten pro Jahr} = \\frac{M}{Q} \\cdot K_B \\] \\[ \\text{Lagerhaltungskosten pro Jahr} = \\frac{Q}{2} \\cdot p \\cdot i \\] \\[ \\text{Gesamtkosten } K(Q) = \\frac{M}{Q} \\cdot K_B + \\frac{Q}{2} \\cdot p \\cdot i \\]</div>\n<p>Leitest du \\( K(Q) \\) nach \\( Q \\) ab und setzt die Ableitung gleich null, erhältst du:</p>\n<div class=\"formel\">\\[ Q_{opt} = \\sqrt{\\frac{2 \\cdot M \\cdot K_B}{p \\cdot i}} \\]</div>\n<p>Wird der Lagerhaltungskostensatz in Prozent angegeben (z. B. 16 statt 0,16), steht in vielen Lehrbüchern die äquivalente Form:</p>\n<div class=\"formel\">\\[ Q_{opt} = \\sqrt{\\frac{200 \\cdot M \\cdot K_B}{p \\cdot i_{[\\%]}}} \\]</div>\n<p>Daraus folgen zwei weitere Größen, die fast immer mit abgefragt werden:</p>\n<div class=\"formel\">\\[ \\text{Optimale Bestellhäufigkeit } n_{opt} = \\frac{M}{Q_{opt}} \\] \\[ \\text{Bestellrhythmus (Tage)} = \\frac{360}{n_{opt}} \\]</div>\n<div class=\"merke\">Im Optimum gilt: \\( \\text{Bestellkosten} = \\text{Lagerhaltungskosten} \\). Damit kannst du jedes Ergebnis in Sekunden kontrollieren.</div>"
+    },
+    {
+      "h2": "Beispiel: Optimale Bestellmenge Schritt für Schritt berechnen",
+      "html": "<div class=\"beispiel\">\n<p><strong>Aufgabe:</strong> Ein Fahrradhersteller benötigt pro Jahr 8.000 Sättel. Jede Bestellung verursacht fixe Kosten von 125 €. Ein Sattel kostet im Einkauf 50 €. Der Lagerhaltungskostensatz (Kapitalbindung plus Lagerkosten) beträgt 16 % pro Jahr. Gesucht sind optimale Bestellmenge, Bestellhäufigkeit, Bestellrhythmus (360 Tage) und die minimalen Gesamtkosten.</p>\n<ol>\n<li><strong>Lagerhaltungskosten pro Stück und Jahr:</strong> \\( p \\cdot i = 50 \\cdot 0{,}16 = 8 \\) €</li>\n<li><strong>Andler-Formel einsetzen:</strong> \\( Q_{opt} = \\sqrt{\\frac{2 \\cdot 8.000 \\cdot 125}{8}} = \\sqrt{\\frac{2.000.000}{8}} = \\sqrt{250.000} = 500 \\) Stück</li>\n<li><strong>Bestellhäufigkeit:</strong> \\( n = \\frac{8.000}{500} = 16 \\) Bestellungen pro Jahr</li>\n<li><strong>Bestellrhythmus:</strong> \\( \\frac{360}{16} = 22{,}5 \\) Tage</li>\n<li><strong>Bestellkosten:</strong> \\( 16 \\cdot 125 = 2.000 \\) €</li>\n<li><strong>Lagerhaltungskosten:</strong> durchschnittlicher Bestand \\( \\frac{500}{2} = 250 \\) Stück; \\( 250 \\cdot 8 = 2.000 \\) €</li>\n<li><strong>Gesamtkosten (entscheidungsrelevant):</strong> \\( 2.000 + 2.000 = 4.000 \\) €</li>\n</ol>\n<p><strong>Kontrolle:</strong> Bestellkosten und Lagerkosten sind beide 2.000 € – das Ergebnis stimmt.</p>\n<p><strong>Vergleich mit anderen Bestellmengen:</strong></p>\n<table>\n<thead><tr><th>Bestellmenge Q</th><th>Bestellungen</th><th>Bestellkosten</th><th>Lagerkosten</th><th>Gesamtkosten</th></tr></thead>\n<tbody>\n<tr><td>250</td><td>32</td><td>4.000 €</td><td>1.000 €</td><td>5.000 €</td></tr>\n<tr><td>400</td><td>20</td><td>2.500 €</td><td>1.600 €</td><td>4.100 €</td></tr>\n<tr><td><strong>500</strong></td><td><strong>16</strong></td><td><strong>2.000 €</strong></td><td><strong>2.000 €</strong></td><td><strong>4.000 €</strong></td></tr>\n<tr><td>800</td><td>10</td><td>1.250 €</td><td>3.200 €</td><td>4.450 €</td></tr>\n<tr><td>1.000</td><td>8</td><td>1.000 €</td><td>4.000 €</td><td>5.000 €</td></tr>\n</tbody>\n</table>\n<p>Die Tabelle zeigt zwei Dinge: Das Minimum liegt tatsächlich bei 500 Stück. Und die Kostenkurve ist rund um das Optimum recht flach – 400 Stück kosten nur 100 € mehr. Das ist in der Praxis wichtig, weil man ohnehin oft auf Packungsgrößen runden muss.</p>\n</div>"
+    },
+    {
+      "h2": "Wie interpretiert man das Ergebnis?",
+      "html": "<p>Das Ergebnis sagt dir: Bestelle immer 500 Sättel, also 16-mal im Jahr, ungefähr alle drei Wochen. Jede Abweichung erhöht die Summe aus Bestell- und Lagerkosten.</p>\n<h3>Was passiert, wenn sich die Parameter ändern?</h3>\n<ul>\n<li><strong>Bestellfixkosten steigen</strong> (z. B. teurerer Transport): \\( Q_{opt} \\) steigt – du bestellst seltener, aber mehr.</li>\n<li><strong>Zinsen oder Lagerkosten steigen:</strong> \\( Q_{opt} \\) sinkt – Kapitalbindung wird teurer, also kleinere Mengen.</li>\n<li><strong>Bedarf vervierfacht sich:</strong> \\( Q_{opt} \\) verdoppelt sich nur (wegen der Wurzel). Die Bestellmenge wächst also unterproportional zum Bedarf.</li>\n</ul>\n<h3>Und in der Praxis?</h3>\n<p>Echte Einkäufer nutzen die Andler-Formel als Richtwert. Sie ergänzen einen Sicherheitsbestand, berücksichtigen Lieferzeiten über einen Meldebestand und prüfen Mengenrabatte gesondert. Gibt es Rabattstaffeln, rechnest du die Gesamtkosten <em>inklusive</em> Einkaufswert für \\( Q_{opt} \\) und für jede Rabattgrenze und nimmst die günstigste Variante. Welche Artikel überhaupt eine so genaue Planung verdienen, klärt vorher oft eine <a href=\"/lernen/abc-analyse\">ABC-Analyse</a>: Für A-Güter lohnt sich die exakte Optimierung, bei C-Gütern reicht meist ein einfaches Verfahren.</p>"
+    },
+    {
+      "h2": "Vor- und Nachteile der Andler-Formel",
+      "html": "<table>\n<thead><tr><th>Vorteile</th><th>Nachteile</th></tr></thead>\n<tbody>\n<tr><td>Einfach zu rechnen, wenig Daten nötig</td><td>Realitätsferne Annahmen (konstanter Bedarf, keine Lieferzeit)</td></tr>\n<tr><td>Macht den Zielkonflikt zwischen Bestell- und Lagerkosten sichtbar</td><td>Keine Mengenrabatte, keine Fehlmengen berücksichtigt</td></tr>\n<tr><td>Robust: flache Kostenkurve, kleine Rundungen kosten wenig</td><td>Kosten wie der Lagerhaltungskostensatz sind in der Praxis schwer exakt zu bestimmen</td></tr>\n<tr><td>Gute Basis für Erweiterungen (Rabatte, Sicherheitsbestand)</td><td>Betrachtet jeden Artikel isoliert, keine Sammelbestellungen</td></tr>\n</tbody>\n</table>\n<h3>Abgrenzung zu verwandten Begriffen</h3>\n<p>Die <strong>optimale Losgröße</strong> nutzt dieselbe Formel, nur mit Rüstkosten pro Fertigungsauftrag statt Bestellkosten. Der <strong>Meldebestand</strong> beantwortet eine andere Frage, nämlich <em>wann</em> bestellt wird \\( (\\text{Tagesverbrauch} \\cdot \\text{Lieferzeit} + \\text{Sicherheitsbestand}) \\), während die optimale Bestellmenge sagt, <em>wie viel</em>. Die Lagerhaltungskosten selbst gehören zu den <a href=\"/lernen/fixe-und-variable-kosten\">mengenabhängigen Kosten</a>, die Zinskomponente entspricht inhaltlich den <a href=\"/lernen/kalkulatorische-kosten\">kalkulatorischen Zinsen</a> auf das gebundene Kapital.</p>"
+    }
+  ],
+  "fehler": [
+    "Lagerhaltungskosten mit dem vollen Bestand Q statt mit dem Durchschnittsbestand \\( \\frac{Q}{2} \\) berechnen. Richtig: \\( \\text{Lagerkosten} = \\frac{Q}{2} \\cdot p \\cdot i \\).",
+    "Den Prozentsatz falsch einsetzen: 16 % entweder als 0,16 in die Formel mit Faktor 2 oder als 16 in die Formel mit Faktor 200 – nie mischen.",
+    "Den Einkaufswert der Ware \\( (M \\cdot p) \\) in die Gesamtkosten zum Vergleich der Bestellmengen einrechnen, obwohl es keine Rabatte gibt. Er ist dann nicht entscheidungsrelevant.",
+    "Die Wurzel vergessen oder erst nach dem Teilen durch \\( p \\cdot i \\) ziehen und dabei falsch klammern. Erst den kompletten Bruch ausrechnen, dann die Wurzel ziehen.",
+    "Das Ergebnis nicht kontrollieren. Im Optimum müssen Bestell- und Lagerkosten gleich sein – ein schneller Check gegen Rechenfehler."
+  ],
+  "faq": [
+    {
+      "q": "Wie berechnet man die optimale Bestellmenge?",
+      "a": "Mit der Andler-Formel: \\( \\sqrt{\\frac{2 \\cdot \\text{Jahresbedarf} \\cdot \\text{fixe Kosten pro Bestellung}}{\\text{Einstandspreis} \\cdot \\text{Lagerhaltungskostensatz}}} \\). Bei 8.000 Stück Bedarf, 125 € pro Bestellung, 50 € Preis und 16 % Satz ergibt das 500 Stück."
+    },
+    {
+      "q": "Warum teilt man den Lagerbestand durch 2?",
+      "a": "Weil das Modell gleichmäßigen Verbrauch annimmt. Nach der Lieferung liegen Q Stück im Lager, kurz vor der nächsten Lieferung null, im Durchschnitt also \\( \\frac{Q}{2} \\). Auf diesen Durchschnittsbestand fallen die Lagerhaltungskosten an."
+    },
+    {
+      "q": "Was gehört zum Lagerhaltungskostensatz?",
+      "a": "Er setzt sich meist aus dem Zinssatz für das gebundene Kapital und einem Lagerkostensatz zusammen, etwa für Raum, Versicherung, Schwund und Verwaltung. Beide werden in Prozent des durchschnittlichen Lagerwerts pro Jahr ausgedrückt und addiert."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen optimaler Bestellmenge und optimaler Losgröße?",
+      "a": "Rechnerisch nichts, die Formel ist identisch. Die optimale Bestellmenge bezieht sich auf den Einkauf mit Bestellkosten, die optimale Losgröße auf die Fertigung mit Rüstkosten pro Auflage."
+    },
+    {
+      "q": "Gilt die Andler-Formel auch bei Mengenrabatten?",
+      "a": "Nicht direkt, weil sie einen konstanten Preis voraussetzt. Bei Rabattstaffeln vergleichst du die Gesamtkosten inklusive Einkaufswert für die Andler-Menge und für jede Rabattschwelle und wählst die günstigste Menge."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Jahresbedarf 8.000 Stück, Bestellkosten 125 € je Bestellung, Preis 50 €, Lagerhaltungskostensatz 16 %. Wie hoch ist die optimale Bestellmenge?",
+      "o": [
+        "250 Stück",
+        "354 Stück",
+        "500 Stück",
+        "707 Stück"
+      ],
+      "r": 2,
+      "e": "\\( \\sqrt{\\frac{2 \\cdot 8.000 \\cdot 125}{50 \\cdot 0{,}16}} = \\sqrt{\\frac{2.000.000}{8}} = \\sqrt{250.000} = 500 \\) Stück."
+    },
+    {
+      "q": "Was gilt im Optimum der Andler-Formel?",
+      "o": [
+        "Bestellkosten sind gleich den Lagerhaltungskosten",
+        "Lagerhaltungskosten sind null",
+        "Bestellkosten sind doppelt so hoch wie die Lagerkosten",
+        "Der Einkaufswert ist minimal"
+      ],
+      "r": 0,
+      "e": "Im Minimum der Gesamtkostenfunktion sind beide Kostenarten exakt gleich hoch – im Beispiel je 2.000 €."
+    },
+    {
+      "q": "Der Jahresbedarf vervierfacht sich, alles andere bleibt gleich. Was passiert mit der optimalen Bestellmenge?",
+      "o": [
+        "Sie vervierfacht sich",
+        "Sie halbiert sich",
+        "Sie bleibt gleich",
+        "Sie verdoppelt sich"
+      ],
+      "r": 3,
+      "e": "Der Bedarf steht unter der Wurzel. \\( \\sqrt{4} = 2 \\), also verdoppelt sich die optimale Bestellmenge."
+    }
+  ],
+  "verwandt": [
+    "abc-analyse",
+    "kalkulatorische-kosten",
+    "fixe-und-variable-kosten",
+    "kostenrechnung"
+  ],
+  "ask": "die optimale Bestellmenge mit der Andler-Formel – mit einem durchgerechneten Beispiel und dem Vergleich von Bestell- und Lagerhaltungskosten"
 }

@@ -1,118 +1,118 @@
 {
- "slug": "make-or-buy",
- "name": "Make-or-Buy-Entscheidung",
- "title": "Make-or-Buy-Entscheidung einfach erklärt – mit Beispiel",
- "meta": "Make-or-Buy-Entscheidung einfach erklärt: kurzfristig mit variablen Kosten, langfristig mit kritischer Menge, plus qualitative Faktoren und Beispiel.",
- "h1": "Make-or-Buy-Entscheidung einfach erklärt",
- "kurz": "Bei der Make-or-Buy-Entscheidung prüft ein Unternehmen, ob es ein Teil selbst herstellt (Make) oder einkauft (Buy). Kurzfristig vergleichst du nur die variablen Stückkosten der Eigenfertigung mit dem Einkaufspreis, weil die Fixkosten ohnehin anfallen. Langfristig zählen auch abbaubare Fixkosten – daraus ergibt sich eine kritische Menge.",
- "keywords": [
-  "Make-or-Buy-Entscheidung",
-  "Make or Buy Berechnung",
-  "Eigenfertigung oder Fremdbezug",
-  "Make or Buy kritische Menge",
-  "Make or Buy kurzfristig langfristig",
-  "Make or Buy qualitative Faktoren"
- ],
- "abschnitte": [
-  {
-   "h2": "Was ist eine Make-or-Buy-Entscheidung?",
-   "html": "<p>Ein Fahrradhersteller kann seine Gepäckträger selbst schweißen oder bei einem Zulieferer kaufen. Genau diese Wahl zwischen <strong>Eigenfertigung (Make)</strong> und <strong>Fremdbezug (Buy)</strong> heißt Make-or-Buy-Entscheidung. Sie betrifft Bauteile, aber auch Dienstleistungen wie Buchhaltung, IT oder Logistik (dann spricht man oft von Outsourcing).</p><p>In der Klausur ist das ein Klassiker der entscheidungsorientierten Kostenrechnung. Der Kern: Du darfst nur die Kosten vergleichen, die sich durch die Entscheidung tatsächlich ändern – die sogenannten <strong>entscheidungsrelevanten Kosten</strong>. Alles, was in beiden Varianten gleich anfällt, ist irrelevant. Typische Prüfungsfrage: „Soll das Teil bei gegebener Kapazität weiter selbst gefertigt oder zugekauft werden?“ Bevor du rechnest, kläre immer zwei Dinge: Ist die Entscheidung kurz- oder langfristig, und ist Kapazität frei oder knapp?</p><div class=\"merke\">Relevant sind nur Kosten, die sich zwischen den Alternativen unterscheiden. Fixkosten, die bei Make und Buy weiterlaufen, haben im Vergleich nichts zu suchen.</div>"
-  },
-  {
-   "h2": "Kurzfristige Make-or-Buy-Entscheidung: Wie rechnet man?",
-   "html": "<p>Kurzfristig sind die Kapazitäten vorhanden und die Fixkosten (Maschinen, Halle, festangestellte Mitarbeitende) nicht abbaubar. Sie laufen weiter, egal ob du selbst fertigst oder einkaufst. Deshalb vergleichst du:</p><div class=\"formel\">Make, wenn: variable Stückkosten der Eigenfertigung (k_v) &lt; Einkaufspreis je Stück (p_B)</div><p>Der Einkaufspreis ist dabei der Einstandspreis, also inklusive Bezugskosten wie Fracht, Zoll oder Verpackung und abzüglich Rabatt oder Skonto. Die variablen Stückkosten bestehen typischerweise aus Materialeinzelkosten, Fertigungslöhnen und variablen Gemeinkosten – mehr dazu bei <a href=\"/lernen/fixe-und-variable-kosten\">fixen und variablen Kosten</a>.</p><h3>Sonderfall: Engpass</h3><p>Ist die Kapazität knapp, verdrängt die Eigenfertigung andere Produkte. Dann musst du zu den variablen Kosten den entgangenen Deckungsbeitrag pro Engpasseinheit (Opportunitätskosten) addieren. Wie man Engpässe bewertet, zeigt die Seite zum <a href=\"/lernen/optimales-produktionsprogramm\">optimalen Produktionsprogramm</a>.</p>"
-  },
-  {
-   "h2": "Langfristige Make-or-Buy-Entscheidung und kritische Menge",
-   "html": "<p>Langfristig lassen sich Fixkosten abbauen: Maschinen werden verkauft, Mietverträge gekündigt, Stellen nicht nachbesetzt. Dann gehören die <strong>abbaubaren Fixkosten</strong> der Eigenfertigung mit in den Vergleich. Kosten der beiden Alternativen bei der Menge x:</p><div class=\"formel\">K_Make(x) = K_f,abbaubar + k_v × x<br>K_Buy(x) = p_B × x</div><p>Gleichsetzen liefert die <strong>kritische Menge</strong>, bei der beide Varianten gleich teuer sind:</p><div class=\"formel\">x_krit = K_f,abbaubar ÷ (p_B − k_v)</div><p>Liegt der Bedarf über x_krit, lohnt sich die Eigenfertigung, darunter der Fremdbezug. Die Logik ist dieselbe wie beim Break-even-Point: Die Ersparnis pro Stück (p_B − k_v) muss die zusätzlichen Fixkosten erst einmal decken.</p>"
-  },
-  {
-   "h2": "Beispiel: Make-or-Buy Schritt für Schritt",
-   "html": "<div class=\"beispiel\"><p>Die Velotec GmbH braucht 8.000 Gepäckträger pro Jahr. Daten der Eigenfertigung je Stück: Material 22 €, Fertigungslohn 12 €, variable Gemeinkosten 4 €. Die Fixkosten der Fertigungsabteilung betragen 60.000 € pro Jahr. Ein Zulieferer bietet den Gepäckträger frei Haus für 45 € an.</p><ol><li><strong>Variable Stückkosten:</strong> k_v = 22 + 12 + 4 = 38 €.</li><li><strong>Kurzfristige Entscheidung:</strong> 38 € &lt; 45 € ⇒ <strong>Make</strong>. Ersparnis gegenüber Fremdbezug: (45 − 38) × 8.000 = 56.000 € pro Jahr.</li><li><strong>Die Vollkostenfalle:</strong> Wer die Fixkosten verteilt, rechnet 60.000 ÷ 8.000 = 7,50 € Fixkosten je Stück, also 45,50 € Vollkosten. Das wirkt teurer als 45 € – der Fremdbezug erscheint günstiger. Falsch: Die 60.000 € fallen kurzfristig auch beim Kauf an, und das Unternehmen hätte 56.000 € höhere Kosten.</li><li><strong>Langfristige Sicht:</strong> Von den 60.000 € könnten 40.000 € abgebaut werden, wenn die Abteilung geschlossen wird (Leasing einer Schweißanlage, eine Stelle). Kritische Menge: x_krit = 40.000 ÷ (45 − 38) = 5.714,29 Stück.</li><li><strong>Ergebnis langfristig:</strong> Ab 5.715 Stück ist Make günstiger. Probe: Bei 5.715 Stück kostet Make 40.000 + 38 × 5.715 = 257.170 €, Buy 45 × 5.715 = 257.175 €. Bei 8.000 Stück bleibt Make günstiger.</li></ol><table><thead><tr><th>Menge</th><th>Make (40.000 + 38x)</th><th>Buy (45x)</th><th>Günstiger</th></tr></thead><tbody><tr><td>5.000</td><td>230.000 €</td><td>225.000 €</td><td>Buy</td></tr><tr><td>5.715</td><td>257.170 €</td><td>257.175 €</td><td>Make</td></tr><tr><td>8.000</td><td>344.000 €</td><td>360.000 €</td><td>Make</td></tr></tbody></table></div>"
-  },
-  {
-   "h2": "Was ändert sich, wenn die Kapazität knapp ist?",
-   "html": "<p>Im Beispiel oben haben wir freie Kapazität unterstellt. Angenommen, die Schweißanlage der Velotec GmbH ist voll ausgelastet: Jeder selbst gefertigte Gepäckträger belegt 0,5 Maschinenstunden, die sonst für Fahrradrahmen genutzt würden. Die Rahmen bringen einen Deckungsbeitrag von 20 € je Maschinenstunde.</p><ol><li><strong>Opportunitätskosten je Gepäckträger:</strong> 0,5 h × 20 €/h = 10 €.</li><li><strong>Relevante Kosten der Eigenfertigung:</strong> 38 € + 10 € = 48 €.</li><li><strong>Vergleich:</strong> 48 € &gt; 45 € ⇒ jetzt ist <strong>Buy</strong> die bessere Wahl, und die frei werdende Kapazität geht an die Rahmen.</li></ol><p>Das zeigt: Dieselben Zahlen können je nach Kapazitätssituation zu entgegengesetzten Entscheidungen führen. Lies in der Aufgabe deshalb genau, ob von „freier Kapazität“, „Vollauslastung“ oder „Verdrängung“ die Rede ist. Der Gedanke hinter den <a href=\"/lernen/opportunitaetskosten\">Opportunitätskosten</a> ist dabei immer gleich: Du bewertest eine knappe Ressource mit dem Nutzen, den sie in der besten Alternativverwendung stiften würde.</p>"
-  },
-  {
-   "h2": "Welche qualitativen Faktoren spielen eine Rolle?",
-   "html": "<p>Eine reine Kostenrechnung reicht für die Entscheidung selten aus. In Klausuren wird fast immer verlangt, auch <strong>qualitative Faktoren</strong> zu nennen und zu bewerten:</p><table><thead><tr><th>Für Make spricht</th><th>Für Buy spricht</th></tr></thead><tbody><tr><td>Kontrolle über Qualität und Termine</td><td>Spezialisierter Lieferant hat oft mehr Know-how</td></tr><tr><td>Schutz von Know-how und Patenten</td><td>Weniger gebundenes Kapital, mehr Liquidität</td></tr><tr><td>Unabhängigkeit von Lieferanten</td><td>Flexibilität bei schwankendem Bedarf</td></tr><tr><td>Auslastung vorhandener Kapazitäten, Arbeitsplätze</td><td>Konzentration auf Kernkompetenzen</td></tr><tr><td>Kein Risiko von Lieferausfällen</td><td>Kostenrisiko (z. B. Maschinenausfall) liegt beim Lieferanten</td></tr></tbody></table><p>Für strategisch wichtige Teile, die das Produkt einzigartig machen, tendieren Unternehmen eher zur Eigenfertigung. Standardteile ohne Wettbewerbsvorteil werden eher eingekauft. Wichtig für die Argumentation: Ein knapper Kostenvorteil kann durch Abhängigkeitsrisiken schnell überkompensiert werden.</p>"
-  },
-  {
-   "h2": "Grenzen der Make-or-Buy-Rechnung",
-   "html": "<p>Die rechnerische Lösung beruht auf Annahmen, die du kritisch einordnen solltest:</p><ul><li><strong>Konstante Preise und Kosten:</strong> Lieferanten erhöhen Preise, wenn du abhängig bist; Mengenrabatte verändern p_B.</li><li><strong>Lineare Kosten:</strong> Die Rechnung unterstellt, dass jedes weitere Stück gleich viel kostet. Bei steigenden <a href=\"/lernen/grenzkosten\">Grenzkosten</a> (Überstunden, Zusatzschichten) stimmt das nicht mehr.</li><li><strong>Kurz- vs. langfristig:</strong> Welche Fixkosten abbaubar sind, hängt von Kündigungsfristen und Verträgen ab. Hier wird in Aufgaben gern ein Detail im Text versteckt.</li><li><strong>Transaktionskosten:</strong> Lieferantensuche, Verhandlungen, Qualitätskontrolle eingehender Ware tauchen in der einfachen Rechnung oft nicht auf.</li></ul><p>Für langfristige Entscheidungen mit hohen Investitionen nutzt man statt der Kostenrechnung eher Verfahren wie die <a href=\"/lernen/kostenvergleichsrechnung\">Kostenvergleichsrechnung</a> oder dynamische Investitionsrechnungen, die Abschreibungen und Kapitalbindung berücksichtigen.</p>"
-  }
- ],
- "fehler": [
-  "Kurzfristig werden Vollkosten (inklusive Fixkostenanteil) mit dem Einkaufspreis verglichen. Richtig sind nur die variablen Stückkosten, weil die Fixkosten bei beiden Alternativen weiterlaufen.",
-  "Langfristig werden alle Fixkosten angesetzt statt nur der abbaubaren. Fixkosten, die auch nach dem Umstieg auf Fremdbezug bleiben, sind weiterhin irrelevant.",
-  "Die kritische Menge wird falsch gerundet. 5.714,29 Stück bedeutet: Make lohnt sich erst ab 5.715 Stück – bei Mengen wird zur Entscheidung immer auf die nächste ganze Zahl in die sinnvolle Richtung gerundet.",
-  "Beim Fremdbezug wird der Listenpreis statt des Einstandspreises genommen. Bezugskosten wie Fracht und Zoll gehören dazu, Rabatte und Skonto werden abgezogen.",
-  "Bei einem Engpass werden die Opportunitätskosten vergessen. Verdrängt die Eigenfertigung ein anderes Produkt, muss dessen entgangener Deckungsbeitrag zu den Kosten der Eigenfertigung addiert werden."
- ],
- "faq": [
-  {
-   "q": "Was ist der Unterschied zwischen kurzfristiger und langfristiger Make-or-Buy-Entscheidung?",
-   "a": "Kurzfristig sind die Fixkosten nicht abbaubar, also vergleichst du nur variable Stückkosten mit dem Einkaufspreis. Langfristig können Fixkosten wegfallen, deshalb kommen die abbaubaren Fixkosten der Eigenfertigung in den Vergleich und es ergibt sich eine kritische Menge."
-  },
-  {
-   "q": "Wie berechnet man die kritische Menge bei Make or Buy?",
-   "a": "Du teilst die abbaubaren Fixkosten der Eigenfertigung durch die Differenz aus Einkaufspreis und variablen Stückkosten. Ab dieser Menge ist Eigenfertigung günstiger, darunter Fremdbezug."
-  },
-  {
-   "q": "Warum sind Fixkosten bei der kurzfristigen Make-or-Buy-Entscheidung irrelevant?",
-   "a": "Weil sie in beiden Alternativen in gleicher Höhe anfallen. Kosten, die sich durch die Entscheidung nicht verändern, beeinflussen das Ergebnis des Vergleichs nicht."
-  },
-  {
-   "q": "Welche qualitativen Faktoren gibt es bei Make or Buy?",
-   "a": "Typisch sind Qualitätskontrolle, Know-how-Schutz, Abhängigkeit von Lieferanten, Lieferzuverlässigkeit, Flexibilität, Kapitalbindung und die Konzentration auf Kernkompetenzen. Sie können eine knappe Kostenentscheidung umdrehen."
-  },
-  {
-   "q": "Was ist Outsourcing im Zusammenhang mit Make or Buy?",
-   "a": "Outsourcing ist die Entscheidung für Buy bei Leistungen, die bisher intern erbracht wurden, etwa IT, Lohnabrechnung oder Logistik. Die Rechenlogik ist dieselbe wie bei Bauteilen."
-  }
- ],
- "quiz": [
-  {
-   "q": "Variable Stückkosten Eigenfertigung 18 €, Fixkosten (nicht abbaubar) 30.000 €, Bedarf 5.000 Stück, Einkaufspreis 22 €. Was gilt kurzfristig?",
-   "o": [
-    "Buy, weil die Vollkosten 24 € betragen",
-    "Make, weil 18 € < 22 €",
-    "Buy, weil 22 € < 30.000 € ÷ 5.000",
-    "Keine Entscheidung möglich"
-   ],
-   "r": 1,
-   "e": "Kurzfristig zählen nur die variablen Kosten; die 30.000 € fallen in beiden Fällen an."
-  },
-  {
-   "q": "Abbaubare Fixkosten 24.000 €, k_v 30 €, Einkaufspreis 36 €. Wie hoch ist die kritische Menge?",
-   "o": [
-    "667 Stück",
-    "800 Stück",
-    "4.000 Stück",
-    "6.000 Stück"
-   ],
-   "r": 2,
-   "e": "24.000 ÷ (36 − 30) = 4.000 Stück."
-  },
-  {
-   "q": "Was gehört NICHT zu den qualitativen Faktoren der Make-or-Buy-Entscheidung?",
-   "o": [
-    "Abhängigkeit vom Lieferanten",
-    "Know-how-Schutz",
-    "Lieferzuverlässigkeit",
-    "Variable Stückkosten"
-   ],
-   "r": 3,
-   "e": "Variable Stückkosten sind ein quantitativer Faktor der Kostenrechnung."
-  }
- ],
- "verwandt": [
-  "fixe-und-variable-kosten",
-  "grenzkosten",
-  "optimales-produktionsprogramm",
-  "deckungsbeitrag",
-  "opportunitaetskosten"
- ],
- "ask": "die Make-or-Buy-Entscheidung – kurzfristig und langfristig mit kritischer Menge an einem Beispiel"
+  "slug": "make-or-buy",
+  "name": "Make-or-Buy-Entscheidung",
+  "title": "Make-or-Buy-Entscheidung einfach erklärt – mit Beispiel",
+  "meta": "Make-or-Buy-Entscheidung einfach erklärt: kurzfristig mit variablen Kosten, langfristig mit kritischer Menge, plus qualitative Faktoren und Beispiel.",
+  "h1": "Make-or-Buy-Entscheidung einfach erklärt",
+  "kurz": "Bei der Make-or-Buy-Entscheidung prüft ein Unternehmen, ob es ein Teil selbst herstellt (Make) oder einkauft (Buy). Kurzfristig vergleichst du nur die variablen Stückkosten der Eigenfertigung mit dem Einkaufspreis, weil die Fixkosten ohnehin anfallen. Langfristig zählen auch abbaubare Fixkosten – daraus ergibt sich eine kritische Menge.",
+  "keywords": [
+    "Make-or-Buy-Entscheidung",
+    "Make or Buy Berechnung",
+    "Eigenfertigung oder Fremdbezug",
+    "Make or Buy kritische Menge",
+    "Make or Buy kurzfristig langfristig",
+    "Make or Buy qualitative Faktoren"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist eine Make-or-Buy-Entscheidung?",
+      "html": "<p>Ein Fahrradhersteller kann seine Gepäckträger selbst schweißen oder bei einem Zulieferer kaufen. Genau diese Wahl zwischen <strong>Eigenfertigung (Make)</strong> und <strong>Fremdbezug (Buy)</strong> heißt Make-or-Buy-Entscheidung. Sie betrifft Bauteile, aber auch Dienstleistungen wie Buchhaltung, IT oder Logistik (dann spricht man oft von Outsourcing).</p><p>In der Klausur ist das ein Klassiker der entscheidungsorientierten Kostenrechnung. Der Kern: Du darfst nur die Kosten vergleichen, die sich durch die Entscheidung tatsächlich ändern – die sogenannten <strong>entscheidungsrelevanten Kosten</strong>. Alles, was in beiden Varianten gleich anfällt, ist irrelevant. Typische Prüfungsfrage: „Soll das Teil bei gegebener Kapazität weiter selbst gefertigt oder zugekauft werden?“ Bevor du rechnest, kläre immer zwei Dinge: Ist die Entscheidung kurz- oder langfristig, und ist Kapazität frei oder knapp?</p><div class=\"merke\">Relevant sind nur Kosten, die sich zwischen den Alternativen unterscheiden. Fixkosten, die bei Make und Buy weiterlaufen, haben im Vergleich nichts zu suchen.</div>"
+    },
+    {
+      "h2": "Kurzfristige Make-or-Buy-Entscheidung: Wie rechnet man?",
+      "html": "<p>Kurzfristig sind die Kapazitäten vorhanden und die Fixkosten (Maschinen, Halle, festangestellte Mitarbeitende) nicht abbaubar. Sie laufen weiter, egal ob du selbst fertigst oder einkaufst. Deshalb vergleichst du:</p><div class=\"formel\">\\[ \\text{Make, wenn: } k_v \\lt p_B \\]mit \\(k_v\\) = variable Stückkosten der Eigenfertigung, \\(p_B\\) = Einkaufspreis je Stück</div><p>Der Einkaufspreis ist dabei der Einstandspreis, also inklusive Bezugskosten wie Fracht, Zoll oder Verpackung und abzüglich Rabatt oder Skonto. Die variablen Stückkosten bestehen typischerweise aus Materialeinzelkosten, Fertigungslöhnen und variablen Gemeinkosten – mehr dazu bei <a href=\"/lernen/fixe-und-variable-kosten\">fixen und variablen Kosten</a>.</p><h3>Sonderfall: Engpass</h3><p>Ist die Kapazität knapp, verdrängt die Eigenfertigung andere Produkte. Dann musst du zu den variablen Kosten den entgangenen Deckungsbeitrag pro Engpasseinheit (Opportunitätskosten) addieren. Wie man Engpässe bewertet, zeigt die Seite zum <a href=\"/lernen/optimales-produktionsprogramm\">optimalen Produktionsprogramm</a>.</p>"
+    },
+    {
+      "h2": "Langfristige Make-or-Buy-Entscheidung und kritische Menge",
+      "html": "<p>Langfristig lassen sich Fixkosten abbauen: Maschinen werden verkauft, Mietverträge gekündigt, Stellen nicht nachbesetzt. Dann gehören die <strong>abbaubaren Fixkosten</strong> der Eigenfertigung mit in den Vergleich. Kosten der beiden Alternativen bei der Menge \\(x\\):</p><div class=\"formel\">\\[ K_{\\text{Make}}(x) = K_{f,\\text{abbaubar}} + k_v \\cdot x \\]\\[ K_{\\text{Buy}}(x) = p_B \\cdot x \\]</div><p>Gleichsetzen liefert die <strong>kritische Menge</strong>, bei der beide Varianten gleich teuer sind:</p><div class=\"formel\">\\[ x_{\\text{krit}} = \\frac{K_{f,\\text{abbaubar}}}{p_B - k_v} \\]</div><p>Liegt der Bedarf über \\(x_{\\text{krit}}\\), lohnt sich die Eigenfertigung, darunter der Fremdbezug. Die Logik ist dieselbe wie beim Break-even-Point: Die Ersparnis pro Stück (\\(p_B - k_v\\)) muss die zusätzlichen Fixkosten erst einmal decken.</p>"
+    },
+    {
+      "h2": "Beispiel: Make-or-Buy Schritt für Schritt",
+      "html": "<div class=\"beispiel\"><p>Die Velotec GmbH braucht 8.000 Gepäckträger pro Jahr. Daten der Eigenfertigung je Stück: Material 22 €, Fertigungslohn 12 €, variable Gemeinkosten 4 €. Die Fixkosten der Fertigungsabteilung betragen 60.000 € pro Jahr. Ein Zulieferer bietet den Gepäckträger frei Haus für 45 € an.</p><ol><li><strong>Variable Stückkosten:</strong> \\(k_v = 22 + 12 + 4 = 38\\) €.</li><li><strong>Kurzfristige Entscheidung:</strong> \\(38 \\lt 45 \\Rightarrow\\) <strong>Make</strong>. Ersparnis gegenüber Fremdbezug: \\((45 - 38) \\cdot 8.000 = 56.000\\) € pro Jahr.</li><li><strong>Die Vollkostenfalle:</strong> Wer die Fixkosten verteilt, rechnet \\(\\frac{60.000}{8.000} = 7{,}50\\) € Fixkosten je Stück, also 45,50 € Vollkosten. Das wirkt teurer als 45 € – der Fremdbezug erscheint günstiger. Falsch: Die 60.000 € fallen kurzfristig auch beim Kauf an, und das Unternehmen hätte 56.000 € höhere Kosten.</li><li><strong>Langfristige Sicht:</strong> Von den 60.000 € könnten 40.000 € abgebaut werden, wenn die Abteilung geschlossen wird (Leasing einer Schweißanlage, eine Stelle). Kritische Menge: \\(x_{\\text{krit}} = \\frac{40.000}{45 - 38} = 5.714{,}29\\) Stück.</li><li><strong>Ergebnis langfristig:</strong> Ab 5.715 Stück ist Make günstiger. Probe: Bei 5.715 Stück kostet Make \\(40.000 + 38 \\cdot 5.715 = 257.170\\) €, Buy \\(45 \\cdot 5.715 = 257.175\\) €. Bei 8.000 Stück bleibt Make günstiger.</li></ol><table><thead><tr><th>Menge</th><th>Make (\\(40.000 + 38x\\))</th><th>Buy (\\(45x\\))</th><th>Günstiger</th></tr></thead><tbody><tr><td>5.000</td><td>230.000 €</td><td>225.000 €</td><td>Buy</td></tr><tr><td>5.715</td><td>257.170 €</td><td>257.175 €</td><td>Make</td></tr><tr><td>8.000</td><td>344.000 €</td><td>360.000 €</td><td>Make</td></tr></tbody></table></div>"
+    },
+    {
+      "h2": "Was ändert sich, wenn die Kapazität knapp ist?",
+      "html": "<p>Im Beispiel oben haben wir freie Kapazität unterstellt. Angenommen, die Schweißanlage der Velotec GmbH ist voll ausgelastet: Jeder selbst gefertigte Gepäckträger belegt 0,5 Maschinenstunden, die sonst für Fahrradrahmen genutzt würden. Die Rahmen bringen einen Deckungsbeitrag von 20 € je Maschinenstunde.</p><ol><li><strong>Opportunitätskosten je Gepäckträger:</strong> 0,5 h zu 20 €/h: \\(0{,}5 \\cdot 20 = 10\\) €.</li><li><strong>Relevante Kosten der Eigenfertigung:</strong> \\(38 + 10 = 48\\) €.</li><li><strong>Vergleich:</strong> \\(48 \\gt 45 \\Rightarrow\\) jetzt ist <strong>Buy</strong> die bessere Wahl, und die frei werdende Kapazität geht an die Rahmen.</li></ol><p>Das zeigt: Dieselben Zahlen können je nach Kapazitätssituation zu entgegengesetzten Entscheidungen führen. Lies in der Aufgabe deshalb genau, ob von „freier Kapazität“, „Vollauslastung“ oder „Verdrängung“ die Rede ist. Der Gedanke hinter den <a href=\"/lernen/opportunitaetskosten\">Opportunitätskosten</a> ist dabei immer gleich: Du bewertest eine knappe Ressource mit dem Nutzen, den sie in der besten Alternativverwendung stiften würde.</p>"
+    },
+    {
+      "h2": "Welche qualitativen Faktoren spielen eine Rolle?",
+      "html": "<p>Eine reine Kostenrechnung reicht für die Entscheidung selten aus. In Klausuren wird fast immer verlangt, auch <strong>qualitative Faktoren</strong> zu nennen und zu bewerten:</p><table><thead><tr><th>Für Make spricht</th><th>Für Buy spricht</th></tr></thead><tbody><tr><td>Kontrolle über Qualität und Termine</td><td>Spezialisierter Lieferant hat oft mehr Know-how</td></tr><tr><td>Schutz von Know-how und Patenten</td><td>Weniger gebundenes Kapital, mehr Liquidität</td></tr><tr><td>Unabhängigkeit von Lieferanten</td><td>Flexibilität bei schwankendem Bedarf</td></tr><tr><td>Auslastung vorhandener Kapazitäten, Arbeitsplätze</td><td>Konzentration auf Kernkompetenzen</td></tr><tr><td>Kein Risiko von Lieferausfällen</td><td>Kostenrisiko (z. B. Maschinenausfall) liegt beim Lieferanten</td></tr></tbody></table><p>Für strategisch wichtige Teile, die das Produkt einzigartig machen, tendieren Unternehmen eher zur Eigenfertigung. Standardteile ohne Wettbewerbsvorteil werden eher eingekauft. Wichtig für die Argumentation: Ein knapper Kostenvorteil kann durch Abhängigkeitsrisiken schnell überkompensiert werden.</p>"
+    },
+    {
+      "h2": "Grenzen der Make-or-Buy-Rechnung",
+      "html": "<p>Die rechnerische Lösung beruht auf Annahmen, die du kritisch einordnen solltest:</p><ul><li><strong>Konstante Preise und Kosten:</strong> Lieferanten erhöhen Preise, wenn du abhängig bist; Mengenrabatte verändern \\(p_B\\).</li><li><strong>Lineare Kosten:</strong> Die Rechnung unterstellt, dass jedes weitere Stück gleich viel kostet. Bei steigenden <a href=\"/lernen/grenzkosten\">Grenzkosten</a> (Überstunden, Zusatzschichten) stimmt das nicht mehr.</li><li><strong>Kurz- vs. langfristig:</strong> Welche Fixkosten abbaubar sind, hängt von Kündigungsfristen und Verträgen ab. Hier wird in Aufgaben gern ein Detail im Text versteckt.</li><li><strong>Transaktionskosten:</strong> Lieferantensuche, Verhandlungen, Qualitätskontrolle eingehender Ware tauchen in der einfachen Rechnung oft nicht auf.</li></ul><p>Für langfristige Entscheidungen mit hohen Investitionen nutzt man statt der Kostenrechnung eher Verfahren wie die <a href=\"/lernen/kostenvergleichsrechnung\">Kostenvergleichsrechnung</a> oder dynamische Investitionsrechnungen, die Abschreibungen und Kapitalbindung berücksichtigen.</p>"
+    }
+  ],
+  "fehler": [
+    "Kurzfristig werden Vollkosten (inklusive Fixkostenanteil) mit dem Einkaufspreis verglichen. Richtig sind nur die variablen Stückkosten, weil die Fixkosten bei beiden Alternativen weiterlaufen.",
+    "Langfristig werden alle Fixkosten angesetzt statt nur der abbaubaren. Fixkosten, die auch nach dem Umstieg auf Fremdbezug bleiben, sind weiterhin irrelevant.",
+    "Die kritische Menge wird falsch gerundet. 5.714,29 Stück bedeutet: Make lohnt sich erst ab 5.715 Stück – bei Mengen wird zur Entscheidung immer auf die nächste ganze Zahl in die sinnvolle Richtung gerundet.",
+    "Beim Fremdbezug wird der Listenpreis statt des Einstandspreises genommen. Bezugskosten wie Fracht und Zoll gehören dazu, Rabatte und Skonto werden abgezogen.",
+    "Bei einem Engpass werden die Opportunitätskosten vergessen. Verdrängt die Eigenfertigung ein anderes Produkt, muss dessen entgangener Deckungsbeitrag zu den Kosten der Eigenfertigung addiert werden."
+  ],
+  "faq": [
+    {
+      "q": "Was ist der Unterschied zwischen kurzfristiger und langfristiger Make-or-Buy-Entscheidung?",
+      "a": "Kurzfristig sind die Fixkosten nicht abbaubar, also vergleichst du nur variable Stückkosten mit dem Einkaufspreis. Langfristig können Fixkosten wegfallen, deshalb kommen die abbaubaren Fixkosten der Eigenfertigung in den Vergleich und es ergibt sich eine kritische Menge."
+    },
+    {
+      "q": "Wie berechnet man die kritische Menge bei Make or Buy?",
+      "a": "Du teilst die abbaubaren Fixkosten der Eigenfertigung durch die Differenz aus Einkaufspreis und variablen Stückkosten. Ab dieser Menge ist Eigenfertigung günstiger, darunter Fremdbezug."
+    },
+    {
+      "q": "Warum sind Fixkosten bei der kurzfristigen Make-or-Buy-Entscheidung irrelevant?",
+      "a": "Weil sie in beiden Alternativen in gleicher Höhe anfallen. Kosten, die sich durch die Entscheidung nicht verändern, beeinflussen das Ergebnis des Vergleichs nicht."
+    },
+    {
+      "q": "Welche qualitativen Faktoren gibt es bei Make or Buy?",
+      "a": "Typisch sind Qualitätskontrolle, Know-how-Schutz, Abhängigkeit von Lieferanten, Lieferzuverlässigkeit, Flexibilität, Kapitalbindung und die Konzentration auf Kernkompetenzen. Sie können eine knappe Kostenentscheidung umdrehen."
+    },
+    {
+      "q": "Was ist Outsourcing im Zusammenhang mit Make or Buy?",
+      "a": "Outsourcing ist die Entscheidung für Buy bei Leistungen, die bisher intern erbracht wurden, etwa IT, Lohnabrechnung oder Logistik. Die Rechenlogik ist dieselbe wie bei Bauteilen."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Variable Stückkosten Eigenfertigung 18 €, Fixkosten (nicht abbaubar) 30.000 €, Bedarf 5.000 Stück, Einkaufspreis 22 €. Was gilt kurzfristig?",
+      "o": [
+        "Buy, weil die Vollkosten 24 € betragen",
+        "Make, weil \\(18 \\lt 22\\) €",
+        "Buy, weil \\(22 \\lt \\frac{30.000}{5.000}\\) €",
+        "Keine Entscheidung möglich"
+      ],
+      "r": 1,
+      "e": "Kurzfristig zählen nur die variablen Kosten; die 30.000 € fallen in beiden Fällen an."
+    },
+    {
+      "q": "Abbaubare Fixkosten 24.000 €, \\(k_v\\) 30 €, Einkaufspreis 36 €. Wie hoch ist die kritische Menge?",
+      "o": [
+        "667 Stück",
+        "800 Stück",
+        "4.000 Stück",
+        "6.000 Stück"
+      ],
+      "r": 2,
+      "e": "\\(\\frac{24.000}{36 - 30} = 4.000\\) Stück."
+    },
+    {
+      "q": "Was gehört NICHT zu den qualitativen Faktoren der Make-or-Buy-Entscheidung?",
+      "o": [
+        "Abhängigkeit vom Lieferanten",
+        "Know-how-Schutz",
+        "Lieferzuverlässigkeit",
+        "Variable Stückkosten"
+      ],
+      "r": 3,
+      "e": "Variable Stückkosten sind ein quantitativer Faktor der Kostenrechnung."
+    }
+  ],
+  "verwandt": [
+    "fixe-und-variable-kosten",
+    "grenzkosten",
+    "optimales-produktionsprogramm",
+    "deckungsbeitrag",
+    "opportunitaetskosten"
+  ],
+  "ask": "die Make-or-Buy-Entscheidung – kurzfristig und langfristig mit kritischer Menge an einem Beispiel"
 }

@@ -1,115 +1,115 @@
 {
- "slug": "skonto-buchen",
- "name": "Skonto buchen",
- "title": "Skonto buchen – Lieferer- und Kundenskonto mit Beispiel",
- "meta": "Skonto buchen: Liefererskonto und Kundenskonto, Netto- und Bruttomethode, Steuerkorrektur und ob sich Skonto lohnt – mit Rechenbeispiel.",
- "h1": "Skonto buchen: Liefererskonto und Kundenskonto",
- "kurz": "Skonto ist ein Preisnachlass für schnelle Zahlung, zum Beispiel 2 % bei Zahlung innerhalb von 10 Tagen. Nimmt ein Unternehmen Skonto in Anspruch, spricht man von Liefererskonto; gewährt es Skonto, von Kundenskonto. Weil sich das Entgelt mindert, muss beim Buchen immer auch die Vorsteuer bzw. Umsatzsteuer anteilig korrigiert werden.",
- "keywords": [
-  "Skonto buchen",
-  "Liefererskonto buchen",
-  "Kundenskonto buchen",
-  "Skonto Nettomethode Bruttomethode",
-  "Skonto Umsatzsteuer Korrektur",
-  "Skonto berechnen",
-  "Lohnt sich Skonto",
-  "Skontoertrag"
- ],
- "abschnitte": [
-  {
-   "h2": "Was ist Skonto?",
-   "html": "<p>Auf vielen Rechnungen steht eine Zahlungsbedingung wie „Zahlbar innerhalb von 30 Tagen netto, bei Zahlung innerhalb von 10 Tagen 2 % Skonto“. Der Käufer darf also entweder nach 30 Tagen den vollen Betrag zahlen oder nach höchstens 10 Tagen 2 % weniger. Skonto ist damit eine Belohnung für schnelle Zahlung – im Unterschied zum Rabatt, der schon beim Kauf gewährt wird und auf der Rechnung bereits abgezogen ist.</p>\n<p>In der Buchführung unterscheidet man zwei Seiten:</p>\n<ul>\n<li><strong>Liefererskonto</strong> (auch Lieferantenskonto): Du kaufst ein und ziehst beim Bezahlen Skonto ab. Deine Anschaffungskosten sinken.</li>\n<li><strong>Kundenskonto</strong>: Du verkaufst und dein Kunde zieht Skonto ab. Deine Umsatzerlöse sinken.</li>\n</ul>\n<p>Skonto ist steuerlich eine nachträgliche Minderung des Entgelts. Deshalb muss die Steuer im gleichen Verhältnis berichtigt werden (§ 17 UStG): beim Liefererskonto die Vorsteuer, beim Kundenskonto die Umsatzsteuer. Wie die Steuer grundsätzlich gebucht wird, steht unter <a href=\"/lernen/umsatzsteuer-vorsteuer-buchen\">Umsatzsteuer und Vorsteuer buchen</a>.</p>\n<div class=\"merke\">Skonto wird vom Bruttobetrag abgezogen, enthält also Steuer. Diese Steuer muss immer herausgerechnet und korrigiert werden.</div>"
-  },
-  {
-   "h2": "Wie berechnet man Skonto und die Steuerkorrektur?",
-   "html": "<div class=\"formel\">Skonto brutto = Rechnungsbetrag brutto × Skontosatz<br>Skonto netto = Skonto brutto ÷ 1,19 (bzw. Nettobetrag × Skontosatz)<br>Steuerkorrektur = Skonto brutto − Skonto netto<br>Zahlbetrag = Rechnungsbetrag brutto − Skonto brutto</div>\n<p>Beide Wege zum Nettoskonto führen zum selben Ergebnis: Ob du 2 % vom Netto nimmst oder 2 % vom Brutto durch 1,19 teilst, ist mathematisch gleich. In der Klausur ist meist der zweite Weg schneller, weil der Bruttobetrag direkt auf der Rechnung steht.</p>\n<p>Achtung bei Rechnungen mit zwei Steuersätzen: Enthält eine Rechnung Positionen mit 19 % und mit 7 %, musst du das Skonto auf beide Anteile aufteilen und die Steuer für jeden Anteil getrennt korrigieren. Am einfachsten nimmst du dafür den Skontosatz direkt auf jeden Nettobetrag und rechnest dann die jeweilige Steuer darauf.</p>"
-  },
-  {
-   "h2": "Was ist der Unterschied zwischen Nettomethode und Bruttomethode?",
-   "html": "<p>Für die Steuerkorrektur gibt es zwei Buchungstechniken. Das Ergebnis am Monatsende ist identisch, nur der Zeitpunkt der Korrektur unterscheidet sich.</p>\n<table>\n<thead><tr><th></th><th>Nettomethode</th><th>Bruttomethode</th></tr></thead>\n<tbody>\n<tr><td>Skontobuchung</td><td>Skonto netto auf das Nachlasskonto</td><td>Skonto brutto auf das Nachlasskonto</td></tr>\n<tr><td>Steuerkorrektur</td><td>sofort bei jeder Zahlung</td><td>gesammelt am Ende des Voranmeldungszeitraums</td></tr>\n<tr><td>Vorteil</td><td>Konten sind jederzeit korrekt</td><td>weniger Einzelbuchungen bei vielen Zahlungen</td></tr>\n<tr><td>Nachteil</td><td>mehr Aufwand pro Zahlung</td><td>Steuerkonten bis zur Korrektur zu hoch</td></tr>\n</tbody>\n</table>\n<p>In den meisten Lehrbüchern und Klausuren ist die <strong>Nettomethode</strong> Standard. Die Bruttomethode solltest du kennen, weil sie gerne als Variante abgefragt wird.</p>"
-  },
-  {
-   "h2": "Beispiel: Liefererskonto und Kundenskonto buchen",
-   "html": "<div class=\"beispiel\">\n<p><strong>Teil A – Liefererskonto:</strong> Ein Händler kauft Waren für 5.000 € netto zzgl. 19 % Umsatzsteuer auf Ziel. Bedingung: 2 % Skonto bei Zahlung innerhalb von 10 Tagen, sonst 30 Tage netto.</p>\n<ol>\n<li>Rechnungsbetrag: 5.000 + 950 = 5.950,00 €. Buchung beim Einkauf: <em>Aufwendungen für Waren 5.000,00 und Vorsteuer 950,00 an Verbindlichkeiten aLuL 5.950,00</em></li>\n<li>Skonto brutto: 5.950 × 0,02 = 119,00 €</li>\n<li>Skonto netto: 119 ÷ 1,19 = 100,00 € (Probe: 5.000 × 0,02 = 100,00 €)</li>\n<li>Vorsteuerkorrektur: 119 − 100 = 19,00 €</li>\n<li>Zahlbetrag: 5.950 − 119 = 5.831,00 €</li>\n</ol>\n<p><strong>Nettomethode:</strong> <em>Verbindlichkeiten aLuL 5.950,00 an Bank 5.831,00, an Liefererskonti 100,00, an Vorsteuer 19,00</em></p>\n<p><strong>Bruttomethode:</strong> bei Zahlung <em>Verbindlichkeiten aLuL 5.950,00 an Bank 5.831,00 und an Liefererskonti 119,00</em>; am Monatsende <em>Liefererskonti 19,00 an Vorsteuer 19,00</em>.</p>\n<p>Ergebnis in beiden Fällen: Anschaffungskosten 4.900 €, Vorsteuer 931 €. Probe: 4.900 + 931 = 5.831 € = Zahlbetrag.</p>\n<p><strong>Teil B – Kundenskonto:</strong> Derselbe Händler verkauft Waren für 8.000 € netto zzgl. 19 % auf Ziel; der Kunde zahlt innerhalb der Frist unter Abzug von 3 % Skonto.</p>\n<ol>\n<li>Rechnungsbetrag: 8.000 + 1.520 = 9.520,00 €. Buchung beim Verkauf: <em>Forderungen aLuL 9.520,00 an Umsatzerlöse 8.000,00 und Umsatzsteuer 1.520,00</em></li>\n<li>Skonto brutto: 9.520 × 0,03 = 285,60 €</li>\n<li>Skonto netto: 285,60 ÷ 1,19 = 240,00 €</li>\n<li>Umsatzsteuerkorrektur: 285,60 − 240,00 = 45,60 €</li>\n<li>Zahlungseingang: 9.520 − 285,60 = 9.234,40 €</li>\n</ol>\n<p><strong>Nettomethode:</strong> <em>Bank 9.234,40, Kundenskonti 240,00 und Umsatzsteuer 45,60 an Forderungen aLuL 9.520,00</em></p>\n<p>Ergebnis: Erlös netto 7.760 €, Umsatzsteuer 1.474,40 €. Probe: 7.760 + 1.474,40 = 9.234,40 €.</p>\n</div>"
-  },
-  {
-   "h2": "Auf welche Konten wird Skonto gebucht?",
-   "html": "<p>Die Kontennamen unterscheiden sich je nach Kontenrahmen und Lehrbuch, die Logik ist aber immer gleich:</p>\n<ul>\n<li><strong>Liefererskonti</strong> („Nachlässe“, „Erhaltene Skonti“) ist ein Unterkonto des Wareneinkaufs bzw. der Aufwendungen für Waren und steht im Haben. Es mindert die Anschaffungskosten, denn nach § 255 Abs. 1 HGB sind Anschaffungspreisminderungen abzuziehen. Skonto ist deshalb <strong>kein</strong> Zinsertrag und auch kein sonstiger betrieblicher Ertrag.</li>\n<li><strong>Kundenskonti</strong> („Erlösberichtigungen“, „Gewährte Skonti“) ist ein Unterkonto der Umsatzerlöse und steht im Soll. Es mindert die Erlöse, ist also kein Aufwand im eigentlichen Sinn.</li>\n</ul>\n<p>Beim Abschluss werden die Nachlasskonten über ihr Hauptkonto abgeschlossen, also Liefererskonti über Aufwendungen für Waren und Kundenskonti über Umsatzerlöse. Kauft ein Unternehmen eine Maschine mit Skonto, wird der Nachlass direkt beim Anlagekonto gebucht; die Anschaffungskosten und damit die <a href=\"/lernen/abschreibung\">Abschreibung</a> werden entsprechend kleiner.</p>"
-  },
-  {
-   "h2": "Lohnt es sich, Skonto zu ziehen?",
-   "html": "<p>Fast immer, und das zeigt eine einfache Rechnung. Wer Skonto nicht nutzt, „leiht“ sich den Betrag für die Differenz zwischen Skontofrist und Zahlungsziel vom Lieferanten – zu einem sehr hohen Preis.</p>\n<div class=\"formel\">Effektiver Jahreszins = Skontosatz ÷ (100 − Skontosatz) × 360 ÷ (Zahlungsziel − Skontofrist)<br>Faustformel: Skontosatz × 360 ÷ (Zahlungsziel − Skontofrist)</div>\n<div class=\"beispiel\">\n<p>Bei 2 % Skonto, 10 Tagen Skontofrist und 30 Tagen Ziel:</p>\n<ul>\n<li>Exakt: 2 ÷ 98 × 360 ÷ 20 = 36,73 % pro Jahr</li>\n<li>Faustformel: 2 × 360 ÷ 20 = 36 % pro Jahr</li>\n</ul>\n<p>Fehlt dem Händler aus Teil A das Geld und er überzieht für 20 Tage sein Kontokorrentkonto zu 12 % Zinsen, kostet ihn das 5.831 × 0,12 × 20 ÷ 360 = 38,87 €. Die Ersparnis beträgt 100 € netto (die 19 € Vorsteuer bekommt er ohnehin zurück). Vorteil: 100 − 38,87 = 61,13 €.</p>\n</div>\n<p>Solange ein Kredit günstiger ist als der effektive Skontozins, lohnt es sich also, Skonto zu ziehen und notfalls kurzfristig zu finanzieren. Für die Liquiditätsplanung ist das ein wichtiger Hebel, siehe auch <a href=\"/lernen/liquiditaetsgrade\">Liquiditätsgrade</a>.</p>"
-  }
- ],
- "fehler": [
-  "Skonto wird ohne Steuerkorrektur gebucht, etwa „Verbindlichkeiten an Bank und Liefererskonti“ mit dem Bruttoskonto. Bei der Nettomethode musst du die enthaltene Steuer immer separat auf Vorsteuer bzw. Umsatzsteuer korrigieren.",
-  "Die Steuerkorrektur wird mit 19 % vom Bruttoskonto berechnet (119 × 0,19 = 22,61 €). Richtig ist 119 ÷ 1,19 × 0,19 = 19 €, weil das Bruttoskonto die Steuer bereits enthält.",
-  "Liefererskonto wird als Zinsertrag oder sonstiger Ertrag gebucht. Es ist eine Anschaffungspreisminderung und mindert den Wareneinsatz bzw. die Anschaffungskosten.",
-  "Kundenskonto wird mit Liefererskonto verwechselt. Frag dich: Zahle ich (Liefererskonto, Haben, mindert Vorsteuer) oder bekomme ich Geld (Kundenskonto, Soll, mindert Umsatzsteuer)?",
-  "Bei der Zahlung wird nur der Zahlbetrag aus der Verbindlichkeit ausgebucht. Die Verbindlichkeit muss immer in voller Rechnungshöhe ausgeglichen werden, die Differenz ist das Skonto."
- ],
- "faq": [
-  {
-   "q": "Wird Skonto vom Netto- oder Bruttobetrag berechnet?",
-   "a": "In der Praxis wird Skonto vom Rechnungsbetrag, also brutto, abgezogen. Für die Buchung rechnet man daraus den Nettoskonto und die Steuerkorrektur heraus. Rechnerisch ist 2 % vom Netto genau gleich dem Nettoanteil von 2 % vom Brutto."
-  },
-  {
-   "q": "Ist Skonto ein Ertrag?",
-   "a": "Nein. Liefererskonto mindert die Anschaffungskosten bzw. den Wareneinsatz und ist damit eine Aufwandsminderung. Kundenskonto mindert die Umsatzerlöse. Ältere Lehrbücher behandelten Skonto teils als Finanzertrag, nach § 255 HGB ist es aber eine Anschaffungspreisminderung."
-  },
-  {
-   "q": "Was ist der Unterschied zwischen Skonto und Rabatt?",
-   "a": "Rabatt wird beim Kauf gewährt und steht schon abgezogen auf der Rechnung, er wird deshalb gar nicht gesondert gebucht. Skonto ist an eine schnelle Zahlung geknüpft und wird erst bei der Zahlung gebucht."
-  },
-  {
-   "q": "Wie hoch ist der Skontozins bei 2/10 netto 30?",
-   "a": "Exakt 2 ÷ 98 × 360 ÷ 20 = 36,73 % pro Jahr, mit der Faustformel rund 36 %. Damit ist Lieferantenkredit fast immer deutlich teurer als ein Bankkredit."
-  },
-  {
-   "q": "Darf ich Skonto abziehen, wenn ich zu spät zahle?",
-   "a": "Nein, Skonto ist nur innerhalb der vereinbarten Frist zulässig. Wer nach Ablauf der Frist trotzdem kürzt, zahlt die Rechnung unvollständig und der Lieferant kann den Restbetrag nachfordern."
-  }
- ],
- "quiz": [
-  {
-   "q": "Rechnung 2.380 € brutto (19 %), 2 % Skonto. Wie hoch ist die Vorsteuerkorrektur?",
-   "o": [
-    "9,04 €",
-    "7,60 €",
-    "47,60 €",
-    "40,00 €"
-   ],
-   "r": 1,
-   "e": "Skonto brutto 47,60 €, netto 47,60 ÷ 1,19 = 40 €, Vorsteuerkorrektur 7,60 €. 9,04 € wären fälschlich 19 % vom Bruttoskonto."
-  },
-  {
-   "q": "Auf welcher Kontoseite wird Kundenskonto bei der Nettomethode gebucht?",
-   "o": [
-    "Im Soll",
-    "Im Haben",
-    "Gar nicht, nur die Umsatzsteuer wird korrigiert",
-    "Auf dem Konto Zinserträge"
-   ],
-   "r": 0,
-   "e": "Kundenskonto mindert die Umsatzerlöse, die im Haben stehen – die Minderung wird daher im Soll gebucht."
-  },
-  {
-   "q": "Wie wirkt Liefererskonto beim Kauf einer Maschine?",
-   "o": [
-    "Es erhöht die Abschreibung",
-    "Es ist ein Zinsertrag",
-    "Es mindert die Anschaffungskosten der Maschine",
-    "Es wird als Umsatzerlös gebucht"
-   ],
-   "r": 2,
-   "e": "Nach § 255 Abs. 1 HGB sind Anschaffungspreisminderungen von den Anschaffungskosten abzuziehen, dadurch sinkt auch die Abschreibungsbasis."
-  }
- ],
- "verwandt": [
-  "umsatzsteuer-vorsteuer-buchen",
-  "buchungssaetze",
-  "abschreibung",
-  "liquiditaetsgrade"
- ],
- "ask": "das Buchen von Skonto – mit einem Beispiel zu Liefererskonto, Kundenskonto und der Umsatzsteuer-Korrektur"
+  "slug": "skonto-buchen",
+  "name": "Skonto buchen",
+  "title": "Skonto buchen – Lieferer- und Kundenskonto mit Beispiel",
+  "meta": "Skonto buchen: Liefererskonto und Kundenskonto, Netto- und Bruttomethode, Steuerkorrektur und ob sich Skonto lohnt – mit Rechenbeispiel.",
+  "h1": "Skonto buchen: Liefererskonto und Kundenskonto",
+  "kurz": "Skonto ist ein Preisnachlass für schnelle Zahlung, zum Beispiel 2 % bei Zahlung innerhalb von 10 Tagen. Nimmt ein Unternehmen Skonto in Anspruch, spricht man von Liefererskonto; gewährt es Skonto, von Kundenskonto. Weil sich das Entgelt mindert, muss beim Buchen immer auch die Vorsteuer bzw. Umsatzsteuer anteilig korrigiert werden.",
+  "keywords": [
+    "Skonto buchen",
+    "Liefererskonto buchen",
+    "Kundenskonto buchen",
+    "Skonto Nettomethode Bruttomethode",
+    "Skonto Umsatzsteuer Korrektur",
+    "Skonto berechnen",
+    "Lohnt sich Skonto",
+    "Skontoertrag"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist Skonto?",
+      "html": "<p>Auf vielen Rechnungen steht eine Zahlungsbedingung wie „Zahlbar innerhalb von 30 Tagen netto, bei Zahlung innerhalb von 10 Tagen 2 % Skonto“. Der Käufer darf also entweder nach 30 Tagen den vollen Betrag zahlen oder nach höchstens 10 Tagen 2 % weniger. Skonto ist damit eine Belohnung für schnelle Zahlung – im Unterschied zum Rabatt, der schon beim Kauf gewährt wird und auf der Rechnung bereits abgezogen ist.</p>\n<p>In der Buchführung unterscheidet man zwei Seiten:</p>\n<ul>\n<li><strong>Liefererskonto</strong> (auch Lieferantenskonto): Du kaufst ein und ziehst beim Bezahlen Skonto ab. Deine Anschaffungskosten sinken.</li>\n<li><strong>Kundenskonto</strong>: Du verkaufst und dein Kunde zieht Skonto ab. Deine Umsatzerlöse sinken.</li>\n</ul>\n<p>Skonto ist steuerlich eine nachträgliche Minderung des Entgelts. Deshalb muss die Steuer im gleichen Verhältnis berichtigt werden (§ 17 UStG): beim Liefererskonto die Vorsteuer, beim Kundenskonto die Umsatzsteuer. Wie die Steuer grundsätzlich gebucht wird, steht unter <a href=\"/lernen/umsatzsteuer-vorsteuer-buchen\">Umsatzsteuer und Vorsteuer buchen</a>.</p>\n<div class=\"merke\">Skonto wird vom Bruttobetrag abgezogen, enthält also Steuer. Diese Steuer muss immer herausgerechnet und korrigiert werden.</div>"
+    },
+    {
+      "h2": "Wie berechnet man Skonto und die Steuerkorrektur?",
+      "html": "<div class=\"formel\">\\[ \\text{Skonto}_{\\text{brutto}} = \\text{Rechnungsbetrag}_{\\text{brutto}} \\cdot \\text{Skontosatz} \\]\\[ \\text{Skonto}_{\\text{netto}} = \\frac{\\text{Skonto}_{\\text{brutto}}}{1{,}19} \\quad (\\text{bzw. Nettobetrag} \\cdot \\text{Skontosatz}) \\]\\[ \\text{Steuerkorrektur} = \\text{Skonto}_{\\text{brutto}} - \\text{Skonto}_{\\text{netto}} \\]\\[ \\text{Zahlbetrag} = \\text{Rechnungsbetrag}_{\\text{brutto}} - \\text{Skonto}_{\\text{brutto}} \\]</div>\n<p>Beide Wege zum Nettoskonto führen zum selben Ergebnis: Ob du 2 % vom Netto nimmst oder 2 % vom Brutto durch 1,19 teilst, ist mathematisch gleich. In der Klausur ist meist der zweite Weg schneller, weil der Bruttobetrag direkt auf der Rechnung steht.</p>\n<p>Achtung bei Rechnungen mit zwei Steuersätzen: Enthält eine Rechnung Positionen mit 19 % und mit 7 %, musst du das Skonto auf beide Anteile aufteilen und die Steuer für jeden Anteil getrennt korrigieren. Am einfachsten nimmst du dafür den Skontosatz direkt auf jeden Nettobetrag und rechnest dann die jeweilige Steuer darauf.</p>"
+    },
+    {
+      "h2": "Was ist der Unterschied zwischen Nettomethode und Bruttomethode?",
+      "html": "<p>Für die Steuerkorrektur gibt es zwei Buchungstechniken. Das Ergebnis am Monatsende ist identisch, nur der Zeitpunkt der Korrektur unterscheidet sich.</p>\n<table>\n<thead><tr><th></th><th>Nettomethode</th><th>Bruttomethode</th></tr></thead>\n<tbody>\n<tr><td>Skontobuchung</td><td>Skonto netto auf das Nachlasskonto</td><td>Skonto brutto auf das Nachlasskonto</td></tr>\n<tr><td>Steuerkorrektur</td><td>sofort bei jeder Zahlung</td><td>gesammelt am Ende des Voranmeldungszeitraums</td></tr>\n<tr><td>Vorteil</td><td>Konten sind jederzeit korrekt</td><td>weniger Einzelbuchungen bei vielen Zahlungen</td></tr>\n<tr><td>Nachteil</td><td>mehr Aufwand pro Zahlung</td><td>Steuerkonten bis zur Korrektur zu hoch</td></tr>\n</tbody>\n</table>\n<p>In den meisten Lehrbüchern und Klausuren ist die <strong>Nettomethode</strong> Standard. Die Bruttomethode solltest du kennen, weil sie gerne als Variante abgefragt wird.</p>"
+    },
+    {
+      "h2": "Beispiel: Liefererskonto und Kundenskonto buchen",
+      "html": "<div class=\"beispiel\">\n<p><strong>Teil A – Liefererskonto:</strong> Ein Händler kauft Waren für 5.000 € netto zzgl. 19 % Umsatzsteuer auf Ziel. Bedingung: 2 % Skonto bei Zahlung innerhalb von 10 Tagen, sonst 30 Tage netto.</p>\n<ol>\n<li>Rechnungsbetrag: \\(5.000 + 950 = 5.950{,}00\\) €. Buchung beim Einkauf: <em>Aufwendungen für Waren 5.000,00 und Vorsteuer 950,00 an Verbindlichkeiten aLuL 5.950,00</em></li>\n<li>Skonto brutto: \\(5.950 \\cdot 0{,}02 = 119{,}00\\) €</li>\n<li>Skonto netto: \\(\\frac{119}{1{,}19} = 100{,}00\\) € (Probe: \\(5.000 \\cdot 0{,}02 = 100{,}00\\) €)</li>\n<li>Vorsteuerkorrektur: \\(119 - 100 = 19{,}00\\) €</li>\n<li>Zahlbetrag: \\(5.950 - 119 = 5.831{,}00\\) €</li>\n</ol>\n<p><strong>Nettomethode:</strong> <em>Verbindlichkeiten aLuL 5.950,00 an Bank 5.831,00, an Liefererskonti 100,00, an Vorsteuer 19,00</em></p>\n<p><strong>Bruttomethode:</strong> bei Zahlung <em>Verbindlichkeiten aLuL 5.950,00 an Bank 5.831,00 und an Liefererskonti 119,00</em>; am Monatsende <em>Liefererskonti 19,00 an Vorsteuer 19,00</em>.</p>\n<p>Ergebnis in beiden Fällen: Anschaffungskosten 4.900 €, Vorsteuer 931 €. Probe: \\(4.900 + 931 = 5.831\\) € = Zahlbetrag.</p>\n<p><strong>Teil B – Kundenskonto:</strong> Derselbe Händler verkauft Waren für 8.000 € netto zzgl. 19 % auf Ziel; der Kunde zahlt innerhalb der Frist unter Abzug von 3 % Skonto.</p>\n<ol>\n<li>Rechnungsbetrag: \\(8.000 + 1.520 = 9.520{,}00\\) €. Buchung beim Verkauf: <em>Forderungen aLuL 9.520,00 an Umsatzerlöse 8.000,00 und Umsatzsteuer 1.520,00</em></li>\n<li>Skonto brutto: \\(9.520 \\cdot 0{,}03 = 285{,}60\\) €</li>\n<li>Skonto netto: \\(\\frac{285{,}60}{1{,}19} = 240{,}00\\) €</li>\n<li>Umsatzsteuerkorrektur: \\(285{,}60 - 240{,}00 = 45{,}60\\) €</li>\n<li>Zahlungseingang: \\(9.520 - 285{,}60 = 9.234{,}40\\) €</li>\n</ol>\n<p><strong>Nettomethode:</strong> <em>Bank 9.234,40, Kundenskonti 240,00 und Umsatzsteuer 45,60 an Forderungen aLuL 9.520,00</em></p>\n<p>Ergebnis: Erlös netto 7.760 €, Umsatzsteuer 1.474,40 €. Probe: \\(7.760 + 1.474{,}40 = 9.234{,}40\\) €.</p>\n</div>"
+    },
+    {
+      "h2": "Auf welche Konten wird Skonto gebucht?",
+      "html": "<p>Die Kontennamen unterscheiden sich je nach Kontenrahmen und Lehrbuch, die Logik ist aber immer gleich:</p>\n<ul>\n<li><strong>Liefererskonti</strong> („Nachlässe“, „Erhaltene Skonti“) ist ein Unterkonto des Wareneinkaufs bzw. der Aufwendungen für Waren und steht im Haben. Es mindert die Anschaffungskosten, denn nach § 255 Abs. 1 HGB sind Anschaffungspreisminderungen abzuziehen. Skonto ist deshalb <strong>kein</strong> Zinsertrag und auch kein sonstiger betrieblicher Ertrag.</li>\n<li><strong>Kundenskonti</strong> („Erlösberichtigungen“, „Gewährte Skonti“) ist ein Unterkonto der Umsatzerlöse und steht im Soll. Es mindert die Erlöse, ist also kein Aufwand im eigentlichen Sinn.</li>\n</ul>\n<p>Beim Abschluss werden die Nachlasskonten über ihr Hauptkonto abgeschlossen, also Liefererskonti über Aufwendungen für Waren und Kundenskonti über Umsatzerlöse. Kauft ein Unternehmen eine Maschine mit Skonto, wird der Nachlass direkt beim Anlagekonto gebucht; die Anschaffungskosten und damit die <a href=\"/lernen/abschreibung\">Abschreibung</a> werden entsprechend kleiner.</p>"
+    },
+    {
+      "h2": "Lohnt es sich, Skonto zu ziehen?",
+      "html": "<p>Fast immer, und das zeigt eine einfache Rechnung. Wer Skonto nicht nutzt, „leiht“ sich den Betrag für die Differenz zwischen Skontofrist und Zahlungsziel vom Lieferanten – zu einem sehr hohen Preis.</p>\n<div class=\"formel\">\\[ \\text{Effektiver Jahreszins} = \\frac{\\text{Skontosatz}}{100 - \\text{Skontosatz}} \\cdot \\frac{360}{\\text{Zahlungsziel} - \\text{Skontofrist}} \\]\\[ \\text{Faustformel: } \\frac{\\text{Skontosatz} \\cdot 360}{\\text{Zahlungsziel} - \\text{Skontofrist}} \\]</div>\n<div class=\"beispiel\">\n<p>Bei 2 % Skonto, 10 Tagen Skontofrist und 30 Tagen Ziel:</p>\n<ul>\n<li>Exakt: \\(\\frac{2}{98} \\cdot \\frac{360}{20} = 36{,}73\\,\\%\\) pro Jahr</li>\n<li>Faustformel: \\(\\frac{2 \\cdot 360}{20} = 36\\,\\%\\) pro Jahr</li>\n</ul>\n<p>Fehlt dem Händler aus Teil A das Geld und er überzieht für 20 Tage sein Kontokorrentkonto zu 12 % Zinsen, kostet ihn das \\(5.831 \\cdot 0{,}12 \\cdot \\frac{20}{360} = 38{,}87\\) €. Die Ersparnis beträgt 100 € netto (die 19 € Vorsteuer bekommt er ohnehin zurück). Vorteil: \\(100 - 38{,}87 = 61{,}13\\) €.</p>\n</div>\n<p>Solange ein Kredit günstiger ist als der effektive Skontozins, lohnt es sich also, Skonto zu ziehen und notfalls kurzfristig zu finanzieren. Für die Liquiditätsplanung ist das ein wichtiger Hebel, siehe auch <a href=\"/lernen/liquiditaetsgrade\">Liquiditätsgrade</a>.</p>"
+    }
+  ],
+  "fehler": [
+    "Skonto wird ohne Steuerkorrektur gebucht, etwa „Verbindlichkeiten an Bank und Liefererskonti“ mit dem Bruttoskonto. Bei der Nettomethode musst du die enthaltene Steuer immer separat auf Vorsteuer bzw. Umsatzsteuer korrigieren.",
+    "Die Steuerkorrektur wird mit 19 % vom Bruttoskonto berechnet (\\(119 \\cdot 0{,}19 = 22{,}61\\) €). Richtig ist \\(\\frac{119}{1{,}19} \\cdot 0{,}19 = 19\\) €, weil das Bruttoskonto die Steuer bereits enthält.",
+    "Liefererskonto wird als Zinsertrag oder sonstiger Ertrag gebucht. Es ist eine Anschaffungspreisminderung und mindert den Wareneinsatz bzw. die Anschaffungskosten.",
+    "Kundenskonto wird mit Liefererskonto verwechselt. Frag dich: Zahle ich (Liefererskonto, Haben, mindert Vorsteuer) oder bekomme ich Geld (Kundenskonto, Soll, mindert Umsatzsteuer)?",
+    "Bei der Zahlung wird nur der Zahlbetrag aus der Verbindlichkeit ausgebucht. Die Verbindlichkeit muss immer in voller Rechnungshöhe ausgeglichen werden, die Differenz ist das Skonto."
+  ],
+  "faq": [
+    {
+      "q": "Wird Skonto vom Netto- oder Bruttobetrag berechnet?",
+      "a": "In der Praxis wird Skonto vom Rechnungsbetrag, also brutto, abgezogen. Für die Buchung rechnet man daraus den Nettoskonto und die Steuerkorrektur heraus. Rechnerisch ist 2 % vom Netto genau gleich dem Nettoanteil von 2 % vom Brutto."
+    },
+    {
+      "q": "Ist Skonto ein Ertrag?",
+      "a": "Nein. Liefererskonto mindert die Anschaffungskosten bzw. den Wareneinsatz und ist damit eine Aufwandsminderung. Kundenskonto mindert die Umsatzerlöse. Ältere Lehrbücher behandelten Skonto teils als Finanzertrag, nach § 255 HGB ist es aber eine Anschaffungspreisminderung."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Skonto und Rabatt?",
+      "a": "Rabatt wird beim Kauf gewährt und steht schon abgezogen auf der Rechnung, er wird deshalb gar nicht gesondert gebucht. Skonto ist an eine schnelle Zahlung geknüpft und wird erst bei der Zahlung gebucht."
+    },
+    {
+      "q": "Wie hoch ist der Skontozins bei 2/10 netto 30?",
+      "a": "Exakt \\(\\frac{2}{98} \\cdot \\frac{360}{20} = 36{,}73\\,\\%\\) pro Jahr, mit der Faustformel rund 36 %. Damit ist Lieferantenkredit fast immer deutlich teurer als ein Bankkredit."
+    },
+    {
+      "q": "Darf ich Skonto abziehen, wenn ich zu spät zahle?",
+      "a": "Nein, Skonto ist nur innerhalb der vereinbarten Frist zulässig. Wer nach Ablauf der Frist trotzdem kürzt, zahlt die Rechnung unvollständig und der Lieferant kann den Restbetrag nachfordern."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Rechnung 2.380 € brutto (19 %), 2 % Skonto. Wie hoch ist die Vorsteuerkorrektur?",
+      "o": [
+        "9,04 €",
+        "7,60 €",
+        "47,60 €",
+        "40,00 €"
+      ],
+      "r": 1,
+      "e": "Skonto brutto 47,60 €, netto \\(\\frac{47{,}60}{1{,}19} = 40\\) €, Vorsteuerkorrektur 7,60 €. 9,04 € wären fälschlich 19 % vom Bruttoskonto."
+    },
+    {
+      "q": "Auf welcher Kontoseite wird Kundenskonto bei der Nettomethode gebucht?",
+      "o": [
+        "Im Soll",
+        "Im Haben",
+        "Gar nicht, nur die Umsatzsteuer wird korrigiert",
+        "Auf dem Konto Zinserträge"
+      ],
+      "r": 0,
+      "e": "Kundenskonto mindert die Umsatzerlöse, die im Haben stehen – die Minderung wird daher im Soll gebucht."
+    },
+    {
+      "q": "Wie wirkt Liefererskonto beim Kauf einer Maschine?",
+      "o": [
+        "Es erhöht die Abschreibung",
+        "Es ist ein Zinsertrag",
+        "Es mindert die Anschaffungskosten der Maschine",
+        "Es wird als Umsatzerlös gebucht"
+      ],
+      "r": 2,
+      "e": "Nach § 255 Abs. 1 HGB sind Anschaffungspreisminderungen von den Anschaffungskosten abzuziehen, dadurch sinkt auch die Abschreibungsbasis."
+    }
+  ],
+  "verwandt": [
+    "umsatzsteuer-vorsteuer-buchen",
+    "buchungssaetze",
+    "abschreibung",
+    "liquiditaetsgrade"
+  ],
+  "ask": "das Buchen von Skonto – mit einem Beispiel zu Liefererskonto, Kundenskonto und der Umsatzsteuer-Korrektur"
 }

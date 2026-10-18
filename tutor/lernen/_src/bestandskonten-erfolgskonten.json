@@ -1,120 +1,120 @@
 {
- "slug": "bestandskonten-erfolgskonten",
- "name": "Bestandskonten und Erfolgskonten",
- "title": "Bestandskonten und Erfolgskonten – Unterschied mit Beispiel",
- "meta": "Bestandskonten und Erfolgskonten einfach erklärt: Aktiv-, Passiv-, Aufwands- und Ertragskonten, Abschluss über SBK und GuV – mit durchgebuchtem Beispiel.",
- "h1": "Bestandskonten und Erfolgskonten einfach erklärt",
- "kurz": "Bestandskonten erfassen Vermögen und Kapital, haben einen Anfangsbestand und werden über das Schlussbilanzkonto abgeschlossen. Erfolgskonten erfassen Aufwendungen und Erträge, starten jedes Jahr bei null und werden über das GuV-Konto abgeschlossen. Ihr Saldo, also Gewinn oder Verlust, landet am Ende im Eigenkapital.",
- "keywords": [
-  "Bestandskonten und Erfolgskonten",
-  "Bestandskonten",
-  "Erfolgskonten",
-  "Aktivkonten Passivkonten",
-  "Aufwandskonten Ertragskonten",
-  "Schlussbilanzkonto",
-  "GuV-Konto",
-  "Unterschied Bestandskonto Erfolgskonto"
- ],
- "abschnitte": [
-  {
-   "h2": "Was sind Bestandskonten und Erfolgskonten?",
-   "html": "<p>In der <a href=\"/lernen/doppelte-buchfuehrung\">doppelten Buchführung</a> gibt es zwei große Kontengruppen. <strong>Bestandskonten</strong> bilden die Posten der <a href=\"/lernen/bilanz\">Bilanz</a> ab: Maschinen, Waren, Forderungen, Bank, aber auch Eigenkapital, Darlehen und Verbindlichkeiten. Sie zeigen, was zu einem Zeitpunkt vorhanden ist – deshalb „Bestand“.</p>\n<p><strong>Erfolgskonten</strong> erfassen dagegen Wertveränderungen innerhalb eines Zeitraums, die das Eigenkapital erhöhen oder mindern: Umsatzerlöse, Zinserträge, Löhne, Miete, Abschreibungen. Sie zeigen, wie der Gewinn entstanden ist, und bilden die Grundlage der <a href=\"/lernen/gewinn-und-verlustrechnung\">Gewinn- und Verlustrechnung</a>.</p>\n<p>Man kann sich Erfolgskonten als ausgelagerte Unterkonten des Eigenkapitals vorstellen. Würde man jeden Aufwand und Ertrag direkt auf dem Eigenkapitalkonto buchen, wäre am Jahresende nicht mehr erkennbar, woher der Gewinn kommt. Deshalb sammelt man die Vorgänge getrennt und überträgt nur den Saldo.</p>\n<div class=\"merke\">Bestandskonten = Zeitpunkt (Bilanz). Erfolgskonten = Zeitraum (GuV). Beide hängen über das Eigenkapital zusammen.</div>"
-  },
-  {
-   "h2": "Welche Kontenarten gibt es und wie werden sie gebucht?",
-   "html": "<p>Jede Gruppe teilt sich noch einmal in zwei Arten. Entscheidend ist, auf welcher Seite Anfangsbestand und Zugänge stehen:</p>\n<table>\n<thead><tr><th>Kontenart</th><th>Beispiele</th><th>Anfangsbestand</th><th>Zugang / Mehrung</th><th>Abgang / Minderung</th><th>Abschluss über</th></tr></thead>\n<tbody>\n<tr><td>Aktivkonto</td><td>Bank, Kasse, Waren, Forderungen</td><td>Soll</td><td>Soll</td><td>Haben</td><td>Schlussbilanzkonto</td></tr>\n<tr><td>Passivkonto</td><td>Eigenkapital, Darlehen, Verbindlichkeiten</td><td>Haben</td><td>Haben</td><td>Soll</td><td>Schlussbilanzkonto</td></tr>\n<tr><td>Aufwandskonto</td><td>Löhne, Miete, Abschreibungen</td><td>keiner</td><td>Soll</td><td>Haben (Korrektur)</td><td>GuV-Konto</td></tr>\n<tr><td>Ertragskonto</td><td>Umsatzerlöse, Zinserträge, Mieterträge</td><td>keiner</td><td>Haben</td><td>Soll (Korrektur)</td><td>GuV-Konto</td></tr>\n</tbody>\n</table>\n<p>Die Logik dahinter: Aufwand mindert das Eigenkapital. Das Eigenkapital ist ein Passivkonto und nimmt im Soll ab – also steht Aufwand im Soll. Ertrag erhöht das Eigenkapital und steht deshalb wie dessen Zugänge im Haben. Wenn du dir das einmal klarmachst, musst du die Tabelle nicht auswendig lernen.</p>\n<div class=\"formel\">Saldo Bestandskonto = Anfangsbestand + Zugänge − Abgänge<br>Saldo GuV-Konto = Summe Erträge − Summe Aufwendungen (positiv = Gewinn)<br>Eigenkapital (Ende) = Eigenkapital (Anfang) + Gewinn − Verlust</div>"
-  },
-  {
-   "h2": "Wie werden die Konten abgeschlossen?",
-   "html": "<p>Am Ende der Periode schließt du die Konten in einer festen Reihenfolge ab:</p>\n<ol>\n<li><strong>Erfolgskonten → GuV-Konto:</strong> Aufwandskonten mit „GuV an Aufwandskonto“, Ertragskonten mit „Ertragskonto an GuV“.</li>\n<li><strong>GuV-Konto → Eigenkapital:</strong> Bei Gewinn „GuV an Eigenkapital“, bei Verlust „Eigenkapital an GuV“.</li>\n<li><strong>Bestandskonten → Schlussbilanzkonto (SBK):</strong> Aktivkonten mit „SBK an Aktivkonto“, Passivkonten mit „Passivkonto an SBK“.</li>\n</ol>\n<p>Die Reihenfolge ist wichtig: Das Eigenkapitalkonto darfst du erst abschließen, wenn der Gewinn oder Verlust aus der GuV übertragen wurde. Sonst stimmt das Schlussbilanzkonto nicht.</p>"
-  },
-  {
-   "h2": "Beispiel: Ein Monat durchgebucht",
-   "html": "<div class=\"beispiel\">\n<p><strong>Ausgangslage:</strong> Ein Dienstleister startet mit 10.000 € auf dem Bankkonto und 25.000 € Eigenkapital. Im Monat passiert Folgendes (ohne Umsatzsteuer):</p>\n<ol>\n<li>Kunden überweisen für Leistungen 8.000 €: <em>Bank 8.000 an Umsatzerlöse 8.000</em></li>\n<li>Miete per Bank 1.500 €: <em>Mietaufwand 1.500 an Bank 1.500</em></li>\n<li>Löhne per Bank 3.000 €: <em>Löhne 3.000 an Bank 3.000</em></li>\n<li>Zinsgutschrift der Bank 200 €: <em>Bank 200 an Zinserträge 200</em></li>\n</ol>\n<p><strong>Schritt 1 – Bestandskonto Bank:</strong></p>\n<table>\n<thead><tr><th>Soll</th><th>€</th><th>Haben</th><th>€</th></tr></thead>\n<tbody>\n<tr><td>Anfangsbestand</td><td>10.000</td><td>Mietaufwand</td><td>1.500</td></tr>\n<tr><td>Umsatzerlöse</td><td>8.000</td><td>Löhne</td><td>3.000</td></tr>\n<tr><td>Zinserträge</td><td>200</td><td>Schlussbestand (SBK)</td><td>13.700</td></tr>\n<tr><td><strong>Summe</strong></td><td><strong>18.200</strong></td><td><strong>Summe</strong></td><td><strong>18.200</strong></td></tr>\n</tbody>\n</table>\n<p>Rechnung: 10.000 + 8.000 + 200 − 1.500 − 3.000 = 13.700 €.</p>\n<p><strong>Schritt 2 – GuV-Konto:</strong></p>\n<table>\n<thead><tr><th>Soll (Aufwand)</th><th>€</th><th>Haben (Ertrag)</th><th>€</th></tr></thead>\n<tbody>\n<tr><td>Mietaufwand</td><td>1.500</td><td>Umsatzerlöse</td><td>8.000</td></tr>\n<tr><td>Löhne</td><td>3.000</td><td>Zinserträge</td><td>200</td></tr>\n<tr><td>Gewinn (an Eigenkapital)</td><td>3.700</td><td></td><td></td></tr>\n<tr><td><strong>Summe</strong></td><td><strong>8.200</strong></td><td><strong>Summe</strong></td><td><strong>8.200</strong></td></tr>\n</tbody>\n</table>\n<p>Rechnung: Erträge 8.200 − Aufwendungen 4.500 = Gewinn 3.700 €.</p>\n<p><strong>Schritt 3 – Abschlussbuchungen:</strong></p>\n<ul>\n<li>GuV 1.500 an Mietaufwand 1.500 und GuV 3.000 an Löhne 3.000</li>\n<li>Umsatzerlöse 8.000 an GuV 8.000 und Zinserträge 200 an GuV 200</li>\n<li>GuV 3.700 an Eigenkapital 3.700</li>\n<li>SBK 13.700 an Bank 13.700</li>\n<li>Eigenkapital 28.700 an SBK 28.700 (25.000 + 3.700)</li>\n</ul>\n<p><strong>Probe:</strong> Das Bankguthaben ist um 3.700 € gestiegen, das Eigenkapital ebenfalls um 3.700 €. Weil alle vier Geschäftsfälle über die Bank liefen, muss das genau so sein.</p>\n</div>"
-  },
-  {
-   "h2": "Woran erkennst du in der Klausur, welches Konto gemeint ist?",
-   "html": "<p>Geh bei jedem Geschäftsfall drei Fragen durch:</p>\n<ol>\n<li><strong>Verändert sich das Eigenkapital?</strong> Wenn nein, sind nur Bestandskonten betroffen (zum Beispiel Kauf einer Maschine auf Ziel). Wenn ja, ist mindestens ein Erfolgskonto beteiligt.</li>\n<li><strong>Steigt oder sinkt das Eigenkapital?</strong> Steigt es, ist es ein Ertrag (Haben). Sinkt es, ist es ein Aufwand (Soll).</li>\n<li><strong>Welches Gegenkonto?</strong> Meist ein Bestandskonto wie Bank, Kasse, Forderungen oder Verbindlichkeiten.</li>\n</ol>\n<p>Ein typischer Stolperstein ist die Tilgung eines Darlehens: Sie ist kein Aufwand, denn Bank und Darlehen sinken gleichzeitig, das Eigenkapital bleibt unverändert. Nur die Zinsen sind Aufwand. Ähnlich ist es bei einer Maschine: Der Kauf ist ein Aktivtausch, erst die <a href=\"/lernen/abschreibung\">Abschreibung</a> wird als Aufwand gebucht.</p>"
-  },
-  {
-   "h2": "Sind Warenkonten Bestands- oder Erfolgskonten?",
-   "html": "<p>Hier kommt es auf das Buchungsverfahren an, und genau das wird in Klausuren gern abgefragt. Beim <strong>bestandsorientierten Verfahren</strong> wird jeder Wareneinkauf zunächst auf dem aktiven Bestandskonto „Waren“ erfasst. Erst wenn die Ware verkauft wird oder am Jahresende per Inventur feststeht, wie viel verbraucht wurde, bucht man den Wareneinsatz als Aufwand: <em>Aufwendungen für Waren an Waren</em>.</p>\n<p>Beim <strong>aufwandsorientierten Verfahren</strong>, das in der Praxis verbreiteter ist, geht jeder Einkauf sofort als Aufwand auf „Aufwendungen für Waren“. Am Jahresende wird nur die Bestandsveränderung korrigiert: Ist der Endbestand laut Inventur höher als der Anfangsbestand, wurde weniger verbraucht als eingekauft, und der Aufwand wird um die Differenz gemindert. Ist er niedriger, wird zusätzlicher Aufwand gebucht.</p>\n<p>Beide Verfahren führen zum gleichen Gewinn. Sie unterscheiden sich nur darin, wann der Einkauf als Aufwand sichtbar wird. Lies in der Aufgabenstellung deshalb immer nach, welches Verfahren verlangt ist.</p>"
-  },
-  {
-   "h2": "Was unterscheidet Bestands- und Erfolgskonten noch?",
-   "html": "<table>\n<thead><tr><th>Merkmal</th><th>Bestandskonten</th><th>Erfolgskonten</th></tr></thead>\n<tbody>\n<tr><td>Bezug</td><td>Zeitpunkt (Stichtag)</td><td>Zeitraum (Geschäftsjahr)</td></tr>\n<tr><td>Anfangsbestand</td><td>ja, aus der Eröffnungsbilanz</td><td>nein, starten bei null</td></tr>\n<tr><td>Abschluss</td><td>Schlussbilanzkonto</td><td>GuV-Konto</td></tr>\n<tr><td>Ergebnis</td><td>Bilanz</td><td>Gewinn oder Verlust</td></tr>\n<tr><td>Wirkung auf Eigenkapital</td><td>keine (außer Eigenkapitalkonto selbst)</td><td>erhöhen oder mindern es</td></tr>\n</tbody>\n</table>\n<p>Neben diesen beiden Gruppen begegnet dir noch das <strong>Privatkonto</strong>: Es ist ebenfalls ein Unterkonto des Eigenkapitals, aber kein Erfolgskonto. Privatentnahmen und -einlagen verändern zwar das Eigenkapital, sind aber weder Aufwand noch Ertrag. Das Privatkonto wird deshalb direkt über das Eigenkapitalkonto abgeschlossen, nicht über die GuV.</p>\n<p>Auch die Konten <strong>Vorsteuer</strong> und <strong>Umsatzsteuer</strong> sind Bestandskonten (Forderung bzw. Verbindlichkeit gegenüber dem Finanzamt), keine Erfolgskonten – mehr dazu unter <a href=\"/lernen/umsatzsteuer-vorsteuer-buchen\">Umsatzsteuer und Vorsteuer buchen</a>.</p>"
-  }
- ],
- "fehler": [
-  "Erfolgskonten bekommen einen Anfangsbestand. Aufwands- und Ertragskonten starten jedes Geschäftsjahr bei null, weil ihr Saldo im Vorjahr bereits ins Eigenkapital übertragen wurde.",
-  "Erfolgskonten werden über das Schlussbilanzkonto abgeschlossen. Richtig ist der Abschluss über das GuV-Konto; nur dessen Saldo geht ins Eigenkapital und damit indirekt in die Bilanz.",
-  "Die Darlehenstilgung wird als Aufwand gebucht. Die Tilgung mindert nur Bank und Darlehen; Aufwand sind allein die Zinsen.",
-  "Gewinn wird auf der falschen Seite des GuV-Kontos eingetragen. Der Gewinn steht als Saldo im Soll des GuV-Kontos und wird mit „GuV an Eigenkapital“ übertragen.",
-  "Das Eigenkapitalkonto wird abgeschlossen, bevor der GuV-Saldo übertragen ist. Halte die Reihenfolge ein: erst Erfolgskonten, dann GuV, dann Bestandskonten."
- ],
- "faq": [
-  {
-   "q": "Ist das Eigenkapitalkonto ein Bestandskonto?",
-   "a": "Ja, das Eigenkapital ist ein passives Bestandskonto. Es hat einen Anfangsbestand im Haben und wird über das Schlussbilanzkonto abgeschlossen. Die Erfolgskonten und das Privatkonto sind seine Unterkonten."
-  },
-  {
-   "q": "Warum haben Erfolgskonten keinen Anfangsbestand?",
-   "a": "Erfolgskonten messen den Erfolg eines bestimmten Zeitraums. Am Jahresende wird ihr Saldo über die GuV ins Eigenkapital übertragen, danach sind sie ausgeglichen. Im neuen Jahr beginnt die Messung deshalb wieder bei null."
-  },
-  {
-   "q": "Auf welcher Seite steht Aufwand?",
-   "a": "Aufwand wird im Soll gebucht, weil er das Eigenkapital mindert und das Eigenkapital als Passivkonto im Soll abnimmt. Erträge stehen entsprechend im Haben."
-  },
-  {
-   "q": "Was ist das Schlussbilanzkonto?",
-   "a": "Das Schlussbilanzkonto (SBK) ist ein Hilfskonto, über das alle Bestandskonten am Jahresende abgeschlossen werden. Es enthält links die Schlussbestände der Aktivkonten und rechts die der Passivkonten und entspricht inhaltlich der Schlussbilanz."
-  },
-  {
-   "q": "Ist Vorsteuer ein Erfolgskonto?",
-   "a": "Nein. Vorsteuer ist ein aktives Bestandskonto, weil sie eine Forderung gegenüber dem Finanzamt darstellt. Die Umsatzsteuer ist entsprechend ein passives Bestandskonto."
-  }
- ],
- "quiz": [
-  {
-   "q": "Über welches Konto wird das Konto „Löhne“ abgeschlossen?",
-   "o": [
+  "slug": "bestandskonten-erfolgskonten",
+  "name": "Bestandskonten und Erfolgskonten",
+  "title": "Bestandskonten und Erfolgskonten – Unterschied mit Beispiel",
+  "meta": "Bestandskonten und Erfolgskonten einfach erklärt: Aktiv-, Passiv-, Aufwands- und Ertragskonten, Abschluss über SBK und GuV – mit durchgebuchtem Beispiel.",
+  "h1": "Bestandskonten und Erfolgskonten einfach erklärt",
+  "kurz": "Bestandskonten erfassen Vermögen und Kapital, haben einen Anfangsbestand und werden über das Schlussbilanzkonto abgeschlossen. Erfolgskonten erfassen Aufwendungen und Erträge, starten jedes Jahr bei null und werden über das GuV-Konto abgeschlossen. Ihr Saldo, also Gewinn oder Verlust, landet am Ende im Eigenkapital.",
+  "keywords": [
+    "Bestandskonten und Erfolgskonten",
+    "Bestandskonten",
+    "Erfolgskonten",
+    "Aktivkonten Passivkonten",
+    "Aufwandskonten Ertragskonten",
     "Schlussbilanzkonto",
-    "Eigenkapitalkonto direkt",
     "GuV-Konto",
-    "Privatkonto"
-   ],
-   "r": 2,
-   "e": "Löhne sind ein Aufwandskonto und damit ein Erfolgskonto, das über das GuV-Konto abgeschlossen wird."
-  },
-  {
-   "q": "Welche Aussage zu Ertragskonten ist richtig?",
-   "o": [
-    "Sie haben einen Anfangsbestand im Haben",
-    "Zugänge werden im Haben gebucht",
-    "Sie werden über das SBK abgeschlossen",
-    "Sie mindern das Eigenkapital"
-   ],
-   "r": 1,
-   "e": "Erträge erhöhen das Eigenkapital und werden deshalb wie dessen Zugänge im Haben gebucht. Einen Anfangsbestand haben sie nicht."
-  },
-  {
-   "q": "Ein GuV-Konto zeigt Erträge von 8.200 € und Aufwendungen von 4.500 €. Wie lautet die Abschlussbuchung?",
-   "o": [
-    "Eigenkapital 3.700 an GuV 3.700",
-    "GuV 3.700 an Eigenkapital 3.700",
-    "GuV 3.700 an SBK 3.700",
-    "SBK 3.700 an GuV 3.700"
-   ],
-   "r": 1,
-   "e": "Es entsteht ein Gewinn von 3.700 €, der das Eigenkapital erhöht: GuV an Eigenkapital."
-  }
- ],
- "verwandt": [
-  "doppelte-buchfuehrung",
-  "buchungssaetze",
-  "gewinn-und-verlustrechnung",
-  "bilanz",
-  "abschreibung"
- ],
- "ask": "Bestandskonten und Erfolgskonten – mit einem Beispiel, wie man sie bucht und abschließt"
+    "Unterschied Bestandskonto Erfolgskonto"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was sind Bestandskonten und Erfolgskonten?",
+      "html": "<p>In der <a href=\"/lernen/doppelte-buchfuehrung\">doppelten Buchführung</a> gibt es zwei große Kontengruppen. <strong>Bestandskonten</strong> bilden die Posten der <a href=\"/lernen/bilanz\">Bilanz</a> ab: Maschinen, Waren, Forderungen, Bank, aber auch Eigenkapital, Darlehen und Verbindlichkeiten. Sie zeigen, was zu einem Zeitpunkt vorhanden ist – deshalb „Bestand“.</p>\n<p><strong>Erfolgskonten</strong> erfassen dagegen Wertveränderungen innerhalb eines Zeitraums, die das Eigenkapital erhöhen oder mindern: Umsatzerlöse, Zinserträge, Löhne, Miete, Abschreibungen. Sie zeigen, wie der Gewinn entstanden ist, und bilden die Grundlage der <a href=\"/lernen/gewinn-und-verlustrechnung\">Gewinn- und Verlustrechnung</a>.</p>\n<p>Man kann sich Erfolgskonten als ausgelagerte Unterkonten des Eigenkapitals vorstellen. Würde man jeden Aufwand und Ertrag direkt auf dem Eigenkapitalkonto buchen, wäre am Jahresende nicht mehr erkennbar, woher der Gewinn kommt. Deshalb sammelt man die Vorgänge getrennt und überträgt nur den Saldo.</p>\n<div class=\"merke\">Bestandskonten = Zeitpunkt (Bilanz). Erfolgskonten = Zeitraum (GuV). Beide hängen über das Eigenkapital zusammen.</div>"
+    },
+    {
+      "h2": "Welche Kontenarten gibt es und wie werden sie gebucht?",
+      "html": "<p>Jede Gruppe teilt sich noch einmal in zwei Arten. Entscheidend ist, auf welcher Seite Anfangsbestand und Zugänge stehen:</p>\n<table>\n<thead><tr><th>Kontenart</th><th>Beispiele</th><th>Anfangsbestand</th><th>Zugang / Mehrung</th><th>Abgang / Minderung</th><th>Abschluss über</th></tr></thead>\n<tbody>\n<tr><td>Aktivkonto</td><td>Bank, Kasse, Waren, Forderungen</td><td>Soll</td><td>Soll</td><td>Haben</td><td>Schlussbilanzkonto</td></tr>\n<tr><td>Passivkonto</td><td>Eigenkapital, Darlehen, Verbindlichkeiten</td><td>Haben</td><td>Haben</td><td>Soll</td><td>Schlussbilanzkonto</td></tr>\n<tr><td>Aufwandskonto</td><td>Löhne, Miete, Abschreibungen</td><td>keiner</td><td>Soll</td><td>Haben (Korrektur)</td><td>GuV-Konto</td></tr>\n<tr><td>Ertragskonto</td><td>Umsatzerlöse, Zinserträge, Mieterträge</td><td>keiner</td><td>Haben</td><td>Soll (Korrektur)</td><td>GuV-Konto</td></tr>\n</tbody>\n</table>\n<p>Die Logik dahinter: Aufwand mindert das Eigenkapital. Das Eigenkapital ist ein Passivkonto und nimmt im Soll ab – also steht Aufwand im Soll. Ertrag erhöht das Eigenkapital und steht deshalb wie dessen Zugänge im Haben. Wenn du dir das einmal klarmachst, musst du die Tabelle nicht auswendig lernen.</p>\n<div class=\"formel\">\\[ \\text{Saldo Bestandskonto} = \\text{Anfangsbestand} + \\text{Zugänge} - \\text{Abgänge} \\]\\[ \\text{Saldo GuV-Konto} = \\text{Summe Erträge} - \\text{Summe Aufwendungen} \\quad (\\text{positiv} = \\text{Gewinn}) \\]\\[ \\text{Eigenkapital}_{\\text{Ende}} = \\text{Eigenkapital}_{\\text{Anfang}} + \\text{Gewinn} - \\text{Verlust} \\]</div>"
+    },
+    {
+      "h2": "Wie werden die Konten abgeschlossen?",
+      "html": "<p>Am Ende der Periode schließt du die Konten in einer festen Reihenfolge ab:</p>\n<ol>\n<li><strong>Erfolgskonten → GuV-Konto:</strong> Aufwandskonten mit „GuV an Aufwandskonto“, Ertragskonten mit „Ertragskonto an GuV“.</li>\n<li><strong>GuV-Konto → Eigenkapital:</strong> Bei Gewinn „GuV an Eigenkapital“, bei Verlust „Eigenkapital an GuV“.</li>\n<li><strong>Bestandskonten → Schlussbilanzkonto (SBK):</strong> Aktivkonten mit „SBK an Aktivkonto“, Passivkonten mit „Passivkonto an SBK“.</li>\n</ol>\n<p>Die Reihenfolge ist wichtig: Das Eigenkapitalkonto darfst du erst abschließen, wenn der Gewinn oder Verlust aus der GuV übertragen wurde. Sonst stimmt das Schlussbilanzkonto nicht.</p>"
+    },
+    {
+      "h2": "Beispiel: Ein Monat durchgebucht",
+      "html": "<div class=\"beispiel\">\n<p><strong>Ausgangslage:</strong> Ein Dienstleister startet mit 10.000 € auf dem Bankkonto und 25.000 € Eigenkapital. Im Monat passiert Folgendes (ohne Umsatzsteuer):</p>\n<ol>\n<li>Kunden überweisen für Leistungen 8.000 €: <em>Bank 8.000 an Umsatzerlöse 8.000</em></li>\n<li>Miete per Bank 1.500 €: <em>Mietaufwand 1.500 an Bank 1.500</em></li>\n<li>Löhne per Bank 3.000 €: <em>Löhne 3.000 an Bank 3.000</em></li>\n<li>Zinsgutschrift der Bank 200 €: <em>Bank 200 an Zinserträge 200</em></li>\n</ol>\n<p><strong>Schritt 1 – Bestandskonto Bank:</strong></p>\n<table>\n<thead><tr><th>Soll</th><th>€</th><th>Haben</th><th>€</th></tr></thead>\n<tbody>\n<tr><td>Anfangsbestand</td><td>10.000</td><td>Mietaufwand</td><td>1.500</td></tr>\n<tr><td>Umsatzerlöse</td><td>8.000</td><td>Löhne</td><td>3.000</td></tr>\n<tr><td>Zinserträge</td><td>200</td><td>Schlussbestand (SBK)</td><td>13.700</td></tr>\n<tr><td><strong>Summe</strong></td><td><strong>18.200</strong></td><td><strong>Summe</strong></td><td><strong>18.200</strong></td></tr>\n</tbody>\n</table>\n<p>Rechnung: \\( 10.000 + 8.000 + 200 - 1.500 - 3.000 = 13.700 \\) €.</p>\n<p><strong>Schritt 2 – GuV-Konto:</strong></p>\n<table>\n<thead><tr><th>Soll (Aufwand)</th><th>€</th><th>Haben (Ertrag)</th><th>€</th></tr></thead>\n<tbody>\n<tr><td>Mietaufwand</td><td>1.500</td><td>Umsatzerlöse</td><td>8.000</td></tr>\n<tr><td>Löhne</td><td>3.000</td><td>Zinserträge</td><td>200</td></tr>\n<tr><td>Gewinn (an Eigenkapital)</td><td>3.700</td><td></td><td></td></tr>\n<tr><td><strong>Summe</strong></td><td><strong>8.200</strong></td><td><strong>Summe</strong></td><td><strong>8.200</strong></td></tr>\n</tbody>\n</table>\n<p>Rechnung: \\( \\text{Erträge } 8.200 - \\text{Aufwendungen } 4.500 = \\text{Gewinn } 3.700 \\) €.</p>\n<p><strong>Schritt 3 – Abschlussbuchungen:</strong></p>\n<ul>\n<li>GuV 1.500 an Mietaufwand 1.500 und GuV 3.000 an Löhne 3.000</li>\n<li>Umsatzerlöse 8.000 an GuV 8.000 und Zinserträge 200 an GuV 200</li>\n<li>GuV 3.700 an Eigenkapital 3.700</li>\n<li>SBK 13.700 an Bank 13.700</li>\n<li>Eigenkapital 28.700 an SBK 28.700 (\\( 25.000 + 3.700 \\))</li>\n</ul>\n<p><strong>Probe:</strong> Das Bankguthaben ist um 3.700 € gestiegen, das Eigenkapital ebenfalls um 3.700 €. Weil alle vier Geschäftsfälle über die Bank liefen, muss das genau so sein.</p>\n</div>"
+    },
+    {
+      "h2": "Woran erkennst du in der Klausur, welches Konto gemeint ist?",
+      "html": "<p>Geh bei jedem Geschäftsfall drei Fragen durch:</p>\n<ol>\n<li><strong>Verändert sich das Eigenkapital?</strong> Wenn nein, sind nur Bestandskonten betroffen (zum Beispiel Kauf einer Maschine auf Ziel). Wenn ja, ist mindestens ein Erfolgskonto beteiligt.</li>\n<li><strong>Steigt oder sinkt das Eigenkapital?</strong> Steigt es, ist es ein Ertrag (Haben). Sinkt es, ist es ein Aufwand (Soll).</li>\n<li><strong>Welches Gegenkonto?</strong> Meist ein Bestandskonto wie Bank, Kasse, Forderungen oder Verbindlichkeiten.</li>\n</ol>\n<p>Ein typischer Stolperstein ist die Tilgung eines Darlehens: Sie ist kein Aufwand, denn Bank und Darlehen sinken gleichzeitig, das Eigenkapital bleibt unverändert. Nur die Zinsen sind Aufwand. Ähnlich ist es bei einer Maschine: Der Kauf ist ein Aktivtausch, erst die <a href=\"/lernen/abschreibung\">Abschreibung</a> wird als Aufwand gebucht.</p>"
+    },
+    {
+      "h2": "Sind Warenkonten Bestands- oder Erfolgskonten?",
+      "html": "<p>Hier kommt es auf das Buchungsverfahren an, und genau das wird in Klausuren gern abgefragt. Beim <strong>bestandsorientierten Verfahren</strong> wird jeder Wareneinkauf zunächst auf dem aktiven Bestandskonto „Waren“ erfasst. Erst wenn die Ware verkauft wird oder am Jahresende per Inventur feststeht, wie viel verbraucht wurde, bucht man den Wareneinsatz als Aufwand: <em>Aufwendungen für Waren an Waren</em>.</p>\n<p>Beim <strong>aufwandsorientierten Verfahren</strong>, das in der Praxis verbreiteter ist, geht jeder Einkauf sofort als Aufwand auf „Aufwendungen für Waren“. Am Jahresende wird nur die Bestandsveränderung korrigiert: Ist der Endbestand laut Inventur höher als der Anfangsbestand, wurde weniger verbraucht als eingekauft, und der Aufwand wird um die Differenz gemindert. Ist er niedriger, wird zusätzlicher Aufwand gebucht.</p>\n<p>Beide Verfahren führen zum gleichen Gewinn. Sie unterscheiden sich nur darin, wann der Einkauf als Aufwand sichtbar wird. Lies in der Aufgabenstellung deshalb immer nach, welches Verfahren verlangt ist.</p>"
+    },
+    {
+      "h2": "Was unterscheidet Bestands- und Erfolgskonten noch?",
+      "html": "<table>\n<thead><tr><th>Merkmal</th><th>Bestandskonten</th><th>Erfolgskonten</th></tr></thead>\n<tbody>\n<tr><td>Bezug</td><td>Zeitpunkt (Stichtag)</td><td>Zeitraum (Geschäftsjahr)</td></tr>\n<tr><td>Anfangsbestand</td><td>ja, aus der Eröffnungsbilanz</td><td>nein, starten bei null</td></tr>\n<tr><td>Abschluss</td><td>Schlussbilanzkonto</td><td>GuV-Konto</td></tr>\n<tr><td>Ergebnis</td><td>Bilanz</td><td>Gewinn oder Verlust</td></tr>\n<tr><td>Wirkung auf Eigenkapital</td><td>keine (außer Eigenkapitalkonto selbst)</td><td>erhöhen oder mindern es</td></tr>\n</tbody>\n</table>\n<p>Neben diesen beiden Gruppen begegnet dir noch das <strong>Privatkonto</strong>: Es ist ebenfalls ein Unterkonto des Eigenkapitals, aber kein Erfolgskonto. Privatentnahmen und -einlagen verändern zwar das Eigenkapital, sind aber weder Aufwand noch Ertrag. Das Privatkonto wird deshalb direkt über das Eigenkapitalkonto abgeschlossen, nicht über die GuV.</p>\n<p>Auch die Konten <strong>Vorsteuer</strong> und <strong>Umsatzsteuer</strong> sind Bestandskonten (Forderung bzw. Verbindlichkeit gegenüber dem Finanzamt), keine Erfolgskonten – mehr dazu unter <a href=\"/lernen/umsatzsteuer-vorsteuer-buchen\">Umsatzsteuer und Vorsteuer buchen</a>.</p>"
+    }
+  ],
+  "fehler": [
+    "Erfolgskonten bekommen einen Anfangsbestand. Aufwands- und Ertragskonten starten jedes Geschäftsjahr bei null, weil ihr Saldo im Vorjahr bereits ins Eigenkapital übertragen wurde.",
+    "Erfolgskonten werden über das Schlussbilanzkonto abgeschlossen. Richtig ist der Abschluss über das GuV-Konto; nur dessen Saldo geht ins Eigenkapital und damit indirekt in die Bilanz.",
+    "Die Darlehenstilgung wird als Aufwand gebucht. Die Tilgung mindert nur Bank und Darlehen; Aufwand sind allein die Zinsen.",
+    "Gewinn wird auf der falschen Seite des GuV-Kontos eingetragen. Der Gewinn steht als Saldo im Soll des GuV-Kontos und wird mit „GuV an Eigenkapital“ übertragen.",
+    "Das Eigenkapitalkonto wird abgeschlossen, bevor der GuV-Saldo übertragen ist. Halte die Reihenfolge ein: erst Erfolgskonten, dann GuV, dann Bestandskonten."
+  ],
+  "faq": [
+    {
+      "q": "Ist das Eigenkapitalkonto ein Bestandskonto?",
+      "a": "Ja, das Eigenkapital ist ein passives Bestandskonto. Es hat einen Anfangsbestand im Haben und wird über das Schlussbilanzkonto abgeschlossen. Die Erfolgskonten und das Privatkonto sind seine Unterkonten."
+    },
+    {
+      "q": "Warum haben Erfolgskonten keinen Anfangsbestand?",
+      "a": "Erfolgskonten messen den Erfolg eines bestimmten Zeitraums. Am Jahresende wird ihr Saldo über die GuV ins Eigenkapital übertragen, danach sind sie ausgeglichen. Im neuen Jahr beginnt die Messung deshalb wieder bei null."
+    },
+    {
+      "q": "Auf welcher Seite steht Aufwand?",
+      "a": "Aufwand wird im Soll gebucht, weil er das Eigenkapital mindert und das Eigenkapital als Passivkonto im Soll abnimmt. Erträge stehen entsprechend im Haben."
+    },
+    {
+      "q": "Was ist das Schlussbilanzkonto?",
+      "a": "Das Schlussbilanzkonto (SBK) ist ein Hilfskonto, über das alle Bestandskonten am Jahresende abgeschlossen werden. Es enthält links die Schlussbestände der Aktivkonten und rechts die der Passivkonten und entspricht inhaltlich der Schlussbilanz."
+    },
+    {
+      "q": "Ist Vorsteuer ein Erfolgskonto?",
+      "a": "Nein. Vorsteuer ist ein aktives Bestandskonto, weil sie eine Forderung gegenüber dem Finanzamt darstellt. Die Umsatzsteuer ist entsprechend ein passives Bestandskonto."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Über welches Konto wird das Konto „Löhne“ abgeschlossen?",
+      "o": [
+        "Schlussbilanzkonto",
+        "Eigenkapitalkonto direkt",
+        "GuV-Konto",
+        "Privatkonto"
+      ],
+      "r": 2,
+      "e": "Löhne sind ein Aufwandskonto und damit ein Erfolgskonto, das über das GuV-Konto abgeschlossen wird."
+    },
+    {
+      "q": "Welche Aussage zu Ertragskonten ist richtig?",
+      "o": [
+        "Sie haben einen Anfangsbestand im Haben",
+        "Zugänge werden im Haben gebucht",
+        "Sie werden über das SBK abgeschlossen",
+        "Sie mindern das Eigenkapital"
+      ],
+      "r": 1,
+      "e": "Erträge erhöhen das Eigenkapital und werden deshalb wie dessen Zugänge im Haben gebucht. Einen Anfangsbestand haben sie nicht."
+    },
+    {
+      "q": "Ein GuV-Konto zeigt Erträge von 8.200 € und Aufwendungen von 4.500 €. Wie lautet die Abschlussbuchung?",
+      "o": [
+        "Eigenkapital 3.700 an GuV 3.700",
+        "GuV 3.700 an Eigenkapital 3.700",
+        "GuV 3.700 an SBK 3.700",
+        "SBK 3.700 an GuV 3.700"
+      ],
+      "r": 1,
+      "e": "Es entsteht ein Gewinn von 3.700 €, der das Eigenkapital erhöht: GuV an Eigenkapital."
+    }
+  ],
+  "verwandt": [
+    "doppelte-buchfuehrung",
+    "buchungssaetze",
+    "gewinn-und-verlustrechnung",
+    "bilanz",
+    "abschreibung"
+  ],
+  "ask": "Bestandskonten und Erfolgskonten – mit einem Beispiel, wie man sie bucht und abschließt"
 }

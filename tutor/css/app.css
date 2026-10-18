@@ -1673,7 +1673,7 @@ footer.foot .asst-tg:hover { color: var(--ink); }
   .ai-feed { bottom: calc(80px + var(--kb) + env(safe-area-inset-bottom, 0px)); max-height: 46vh; }
   .asst.feed-open .ai-feed { max-height: 64vh; }
   .ai-bub { font-size: 15px; max-width: 90%; }
-  /* eingeklappt am Handy: Antwort höchstens 4 Zeilen, Antippen klappt auf */
+  /* eingeklappt am Handy: Antwort höchstens 5 Zeilen, Antippen klappt auf */
   .asst:not(.feed-open) .ai-bub.max .ai-a { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
   .asst.has-board:not(.board-min) .ai-feed { left: 50%; width: var(--isl-w); max-height: 30vh; }
   .asst.has-board:not(.board-min):not(.feed-open) .ai-bub.me.last { display: none; }
@@ -4295,3 +4295,20 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .seo-links a { font-size: 14px; color: var(--ink2); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 7px 13px; transition: border-color .15s, color .15s; }
 .seo-links a:hover { border-color: var(--ink); color: var(--ink); }
 .seo-links a.all { color: var(--ink); font-weight: 600; border-color: var(--line2); }
+
+/* ---------- Formeln & Handy-Tafel (18.10.) ---------- */
+/* Rechenblöcke mit gesetzten Formeln: normale Schrift statt Schreibmaschine, genug Luft für Brüche */
+.tafel .calc:has(.tex) { font: 400 15.5px/1.5 var(--sans); white-space: normal; }
+.tafel .calc .tex { display: block; margin: 6px 0; overflow-x: auto; overflow-y: hidden; padding: 3px 0; }
+.tafel .calc .tex .katex { font-size: 1.14em; }
+/* Formeln in Überschriften/Schritten: nicht oben oder unten abschneiden */
+.tafel h2 .tex, .tafel h3 .tex, .tafel .step .tex, .tafel b .tex { display: inline-block; vertical-align: middle; line-height: normal; padding: 4px 0; }
+.tafel h3 { line-height: 1.5; }
+@media (max-width: 600px) {
+  /* Tafel offen: kein zusätzlicher „Max“-Textkasten unter der Tafel */
+  .asst .ai-bsay, .asst.stage .ai-bsay:not(:empty), .asst:not(.stage) .ai-bsay:not(:empty) { display: none !important; }
+  /* Gedankenblase: Text bleibt in der Blase (Silbentrennung, höchstens 5 Zeilen) */
+  .rm-th { overflow-wrap: anywhere; hyphens: auto; -webkit-hyphens: auto; }
+  .rm-th:not(.small) { max-width: calc(50vw - 66px); font-size: 12.5px; line-height: 1.38; padding: 8px 11px; }
+  .rm-th > span { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden; }
+}

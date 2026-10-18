@@ -1,115 +1,115 @@
 {
- "slug": "annuitaetenmethode",
- "name": "Annuitätenmethode",
- "title": "Annuitätenmethode einfach erklärt – mit Beispiel",
- "meta": "Annuitätenmethode verständlich erklärt: Kapitalwiedergewinnungsfaktor, Formel, Investitionsvergleich mit Rechenbeispiel und typische Klausurfehler.",
- "h1": "Annuitätenmethode einfach erklärt",
- "kurz": "Die Annuitätenmethode ist ein dynamisches Investitionsrechenverfahren, das den Kapitalwert einer Investition in gleich hohe jährliche Beträge umrechnet. Dazu wird der Kapitalwert mit dem Kapitalwiedergewinnungsfaktor (Annuitätenfaktor) multipliziert. Ist die Annuität positiv, lohnt sich die Investition; beim Vergleich gewinnt die Alternative mit der höchsten Annuität.",
- "keywords": [
-  "Annuitätenmethode",
-  "Kapitalwiedergewinnungsfaktor",
-  "Annuitätenfaktor",
-  "Annuität berechnen",
-  "Annuitätenmethode Beispiel",
-  "Annuitätenmethode Formel",
-  "dynamische Investitionsrechnung"
- ],
- "abschnitte": [
-  {
-   "h2": "Was ist die Annuitätenmethode?",
-   "html": "<p>Die Annuitätenmethode ist eng mit der <a href=\"/lernen/kapitalwertmethode\">Kapitalwertmethode</a> verwandt. Der Kapitalwert sagt dir, wie viel reicher du durch eine Investition <em>heute</em> wirst – als ein Betrag in t = 0. Die Annuitätenmethode verteilt genau diesen Betrag gleichmäßig auf alle Nutzungsjahre. Heraus kommt ein <strong>jährlicher Überschuss</strong>, den die Investition zusätzlich zur geforderten Verzinsung abwirft.</p><p>„Annuität“ heißt nichts anderes als gleich hohe jährliche Zahlung. Du kennst das Prinzip vom Annuitätendarlehen: Ein Kredit wird in konstanten Raten aus Zins und Tilgung zurückgezahlt (siehe <a href=\"/lernen/tilgungsplan\">Tilgungsplan</a>). Die Annuitätenmethode nutzt dieselbe Mathematik – nur rechnet sie nicht einen Kredit, sondern den Kapitalwert in eine Jahresrate um.</p><p>Warum der Umweg? Ein Jahresbetrag ist für viele Entscheider greifbarer als ein Barwert. Und vor allem lassen sich damit Investitionen mit <strong>unterschiedlicher Nutzungsdauer</strong> besser vergleichen.</p>"
-  },
-  {
-   "h2": "Wie lautet die Formel der Annuitätenmethode?",
-   "html": "<p>Zuerst berechnest du den Kapitalwert C₀. Dann multiplizierst du ihn mit dem Kapitalwiedergewinnungsfaktor (KWF):</p><div class=\"formel\">Annuität A = C₀ × KWF</div><div class=\"formel\">KWF = i × (1 + i)^n ÷ ((1 + i)^n − 1)</div><p>Dabei ist i der Kalkulationszinssatz und n die Nutzungsdauer. Der KWF ist der Kehrwert des Rentenbarwertfaktors (RBF): KWF = 1 ÷ RBF. Er beantwortet die Frage: Welche jährliche Zahlung über n Jahre hat denselben Barwert wie 1 € heute?</p><table><thead><tr><th>Zins</th><th>n = 3</th><th>n = 5</th></tr></thead><tbody><tr><td>6 %</td><td>0,3741</td><td>0,2374</td></tr><tr><td>8 %</td><td>0,3880</td><td>0,2505</td></tr></tbody></table><p><strong>Sonderfall gleich hoher Rückflüsse:</strong> Bringt eine Investition jedes Jahr denselben Rückfluss Z, brauchst du den Kapitalwert gar nicht. Dann gilt direkt A = Z − I₀ × KWF (bei Restwert null). Der Ausdruck I₀ × KWF ist die jährliche „Kapitaldienst-Rate“, mit der du Anschaffung und Verzinsung zurückverdienen musst.</p>"
-  },
-  {
-   "h2": "Beispiel: Zwei Investitionen mit der Annuitätenmethode vergleichen",
-   "html": "<div class=\"beispiel\"><p><strong>Aufgabe:</strong> Eine Druckerei kann eine von zwei Maschinen kaufen. Kalkulationszins: 6 %.</p><ul><li><strong>Maschine A:</strong> 80.000 €, Nutzungsdauer 5 Jahre, Rückflüsse 18.000 €, 20.000 €, 22.000 €, 20.000 €, 18.000 €</li><li><strong>Maschine B:</strong> 40.000 €, Nutzungsdauer 3 Jahre, Rückflüsse 16.000 €, 16.000 €, 15.000 €</li></ul><p><strong>Schritt 1: Kapitalwerte berechnen</strong> (Abzinsungsfaktoren 6 %: 0,9434 · 0,8900 · 0,8396 · 0,7921 · 0,7473)</p><table><thead><tr><th>t</th><th>Rückfluss A</th><th>Barwert A</th><th>Rückfluss B</th><th>Barwert B</th></tr></thead><tbody><tr><td>1</td><td>18.000 €</td><td>16.981,20 €</td><td>16.000 €</td><td>15.094,40 €</td></tr><tr><td>2</td><td>20.000 €</td><td>17.800,00 €</td><td>16.000 €</td><td>14.240,00 €</td></tr><tr><td>3</td><td>22.000 €</td><td>18.471,20 €</td><td>15.000 €</td><td>12.594,00 €</td></tr><tr><td>4</td><td>20.000 €</td><td>15.842,00 €</td><td>–</td><td>–</td></tr><tr><td>5</td><td>18.000 €</td><td>13.451,40 €</td><td>–</td><td>–</td></tr><tr><td></td><td>Summe</td><td>82.545,80 €</td><td>Summe</td><td>41.928,40 €</td></tr><tr><td></td><td>− I₀</td><td>−80.000,00 €</td><td>− I₀</td><td>−40.000,00 €</td></tr><tr><td></td><td><strong>C₀</strong></td><td><strong>2.545,80 €</strong></td><td><strong>C₀</strong></td><td><strong>1.928,40 €</strong></td></tr></tbody></table><p><strong>Schritt 2: KWF bestimmen</strong><br>A: 0,06 × 1,06⁵ ÷ (1,06⁵ − 1) = 0,2374<br>B: 0,06 × 1,06³ ÷ (1,06³ − 1) = 0,3741</p><p><strong>Schritt 3: Annuitäten berechnen</strong><br>A: 2.545,80 € × 0,2374 = <strong>604,37 € pro Jahr</strong><br>B: 1.928,40 € × 0,3741 = <strong>721,41 € pro Jahr</strong></p><p><strong>Ergebnis:</strong> Beide Maschinen sind vorteilhaft (Annuität &gt; 0). Nach dem Kapitalwert läge A vorn, nach der Annuität B. B erwirtschaftet in jedem Jahr ihrer kürzeren Laufzeit mehr Überschuss. Unter der Annahme, dass B nach drei Jahren zu gleichen Bedingungen wieder angeschafft werden kann, ist <strong>B die bessere Wahl</strong>.</p></div>"
-  },
-  {
-   "h2": "Kurzbeispiel: Annuität bei gleich hohen Rückflüssen",
-   "html": "<p>Sind die Rückflüsse konstant, geht es schneller. Ein Lieferdienst kauft ein E-Lastenrad-Paket für 50.000 €, das fünf Jahre lang jeweils 13.000 € Rückfluss bringt. Kalkulationszins 6 %, KWF 0,2374.</p><ol><li>Kapitaldienst pro Jahr: 50.000 € × 0,2374 = 11.870 €</li><li>Annuität: 13.000 € − 11.870 € = <strong>1.130 € pro Jahr</strong></li></ol><p>Gegenprobe über den Kapitalwert: 13.000 € × 4,2124 (RBF) − 50.000 € = 4.761,20 €; mal 0,2374 ergibt 1.130,31 €. Die 31 Cent Differenz sind reine Rundung der Faktoren. Beide Wege sind in der Klausur zulässig – der direkte spart dir aber die komplette Abzinsungstabelle.</p><p>Ein Wort zur <strong>Wiederholungsannahme</strong> aus dem großen Beispiel: Der Vergleich über die Annuität ist nur dann sauber, wenn Maschine B nach drei Jahren zu denselben Konditionen erneut gekauft werden kann. Ist das nicht möglich – etwa weil das Modell ausläuft oder die Preise steigen –, musst du für die Jahre 4 und 5 eine konkrete Anschlussinvestition oder eine Anlage zum Kalkulationszins unterstellen. Dann entscheidet wieder der Kapitalwert über den gesamten Planungszeitraum.</p>"
-  },
-  {
-   "h2": "Wie interpretiert man die Annuität?",
-   "html": "<ul><li><strong>A &gt; 0:</strong> Die Investition deckt Anschaffung und Verzinsung zum Kalkulationszins und bringt jedes Jahr zusätzlich A Euro – vorteilhaft.</li><li><strong>A = 0:</strong> Genau die Mindestverzinsung wird erreicht.</li><li><strong>A &lt; 0:</strong> nicht vorteilhaft.</li></ul><p>Für Maschine A heißt das in Klausursprache: „Die Investition erwirtschaftet über fünf Jahre einen jährlichen Überschuss von 604,37 €, nachdem die Anschaffungsauszahlung zurückgewonnen und das gebundene Kapital mit 6 % verzinst wurde.“</p><p>Die Annuität sagt bei einer Einzelentscheidung exakt dasselbe wie der Kapitalwert – das Vorzeichen ist immer gleich, weil der KWF positiv ist. Einen Unterschied macht sie nur beim Vergleich mehrerer Alternativen mit verschiedenen Laufzeiten.</p><div class=\"merke\">Gleiche Laufzeit: Kapitalwert und Annuität führen zur selben Rangfolge. Unterschiedliche Laufzeit: Die Annuität vergleicht fairer – sofern die kürzere Investition wiederholbar ist.</div>"
-  },
-  {
-   "h2": "Wann ist die Annuitätenmethode sinnvoll?",
-   "html": "<p>Typische Anwendungsfälle sind:</p><ul><li><strong>Vergleich von Investitionen mit unterschiedlicher Nutzungsdauer</strong>, etwa zwei Maschinen mit drei und fünf Jahren Laufzeit.</li><li><strong>Ermittlung der optimalen Nutzungsdauer</strong> oder des Ersatzzeitpunkts: Man wählt die Laufzeit mit der höchsten Annuität.</li><li><strong>Kostenbetrachtung</strong>: Rechnest du nur mit Auszahlungen, erhältst du die jährlichen Durchschnittskosten in dynamischer Form – das dynamische Gegenstück zur <a href=\"/lernen/kostenvergleichsrechnung\">Kostenvergleichsrechnung</a>.</li><li><strong>Kommunikation</strong>: Ein Jahresbetrag lässt sich leicht mit laufenden Gewinnen oder Budgets abgleichen.</li></ul>"
-  },
-  {
-   "h2": "Vor- und Nachteile der Annuitätenmethode",
-   "html": "<h3>Vorteile</h3><ul><li>Berücksichtigt den Zeitwert des Geldes wie alle dynamischen Verfahren.</li><li>Liefert eine anschauliche Jahresgröße statt eines Barwerts.</li><li>Erlaubt einen fairen Vergleich bei unterschiedlicher Laufzeit (unter der Wiederholungsannahme).</li></ul><h3>Nachteile</h3><ul><li>Setzt voraus, dass die kürzere Investition identisch wiederholt werden kann – in der Praxis selten realistisch.</li><li>Übernimmt alle Prämissen der Kapitalwertmethode: vollkommener Kapitalmarkt, sichere Zahlungen, ein einheitlicher Kalkulationszins.</li><li>Der unterschiedliche Kapitaleinsatz bleibt unberücksichtigt; Differenzinvestitionen werden implizit zum Kalkulationszins angelegt.</li></ul><p>Zur Abgrenzung: Der <a href=\"/lernen/interner-zinsfuss\">interne Zinsfuß</a> liefert eine Rendite in Prozent, die Annuitätenmethode einen Eurobetrag pro Jahr, die Kapitalwertmethode einen Eurobetrag in t = 0. Alle drei beruhen auf dem Abzinsen und sind dynamische Verfahren.</p>"
-  }
- ],
- "fehler": [
-  "Der KWF wird mit dem Rentenbarwertfaktor verwechselt. Der KWF ist immer kleiner als 1 (bei n > 1), der RBF größer als 1. Wer den Kapitalwert mit dem RBF multipliziert, erhält einen viel zu hohen Wert.",
-  "Für alle Alternativen wird derselbe KWF verwendet. Der Faktor hängt von der Nutzungsdauer ab – jede Investition bekommt ihren eigenen KWF mit ihrem eigenen n.",
-  "Die Annuität wird ohne vorherige Berechnung des Kapitalwerts direkt aus dem durchschnittlichen Rückfluss gebildet. Das funktioniert nur bei gleich hohen Rückflüssen; sonst musst du erst C₀ berechnen.",
-  "Bei unterschiedlicher Laufzeit wird nach dem höheren Kapitalwert entschieden, obwohl die Aufgabe den Annuitätenvergleich verlangt. Lies genau, welches Kriterium gefragt ist, und nenne die Wiederholungsannahme.",
-  "Die Annuität wird als Gewinn im Sinne der GuV interpretiert. Sie ist ein Überschuss nach Kapitalrückgewinnung und Verzinsung, keine buchhalterische Größe."
- ],
- "faq": [
-  {
-   "q": "Was ist der Kapitalwiedergewinnungsfaktor?",
-   "a": "Der Kapitalwiedergewinnungsfaktor (KWF, auch Annuitätenfaktor) rechnet einen heutigen Betrag in gleich hohe jährliche Zahlungen über n Jahre um. Er lautet i × (1 + i)^n ÷ ((1 + i)^n − 1) und ist der Kehrwert des Rentenbarwertfaktors. Bei 6 % und fünf Jahren beträgt er 0,2374."
-  },
-  {
-   "q": "Was ist der Unterschied zwischen Kapitalwertmethode und Annuitätenmethode?",
-   "a": "Die Kapitalwertmethode liefert den gesamten Vermögenszuwachs als Betrag in t = 0. Die Annuitätenmethode verteilt diesen Betrag gleichmäßig auf die Nutzungsjahre. Bei gleicher Laufzeit führen beide zur selben Entscheidung, bei unterschiedlicher Laufzeit kann die Rangfolge abweichen."
-  },
-  {
-   "q": "Wann ist eine Investition nach der Annuitätenmethode vorteilhaft?",
-   "a": "Wenn die Annuität größer als null ist. Dann werden Anschaffungsauszahlung und Verzinsung zum Kalkulationszins vollständig gedeckt und es bleibt jedes Jahr ein Überschuss. Bei mehreren Alternativen wählt man die mit der höchsten Annuität."
-  },
-  {
-   "q": "Wie berechnet man die Annuität bei gleichen Rückflüssen?",
-   "a": "Bei konstanten jährlichen Rückflüssen Z gilt A = Z − I₀ × KWF, wenn kein Restwert anfällt. Du ziehst also vom jährlichen Rückfluss die Rate ab, die zur Rückgewinnung und Verzinsung der Anschaffung nötig ist."
-  }
- ],
- "quiz": [
-  {
-   "q": "Eine Investition hat bei 8 % und vier Jahren Laufzeit einen Kapitalwert von 5.000 €. Der KWF beträgt 0,3019. Wie hoch ist die Annuität?",
-   "o": [
-    "1.509,50 €",
-    "1.250,00 €",
-    "16.561,77 €",
-    "5.400,00 €"
-   ],
-   "r": 0,
-   "e": "A = 5.000 € × 0,3019 = 1.509,50 €. 1.250 € wäre einfach durch vier geteilt – das ignoriert die Verzinsung."
-  },
-  {
-   "q": "Wie hängen Kapitalwiedergewinnungsfaktor und Rentenbarwertfaktor zusammen?",
-   "o": [
-    "KWF = RBF × i",
-    "KWF = RBF − 1",
-    "KWF = 1 ÷ RBF",
-    "KWF = RBF ÷ n"
-   ],
-   "r": 2,
-   "e": "Der KWF ist der Kehrwert des RBF. Bei 6 % und fünf Jahren: RBF 4,2124, KWF 1 ÷ 4,2124 = 0,2374."
-  },
-  {
-   "q": "Wann können Kapitalwert- und Annuitätenmethode zu unterschiedlichen Rangfolgen führen?",
-   "o": [
-    "Wenn die Kapitalwerte negativ sind",
-    "Wenn die Alternativen unterschiedliche Nutzungsdauern haben",
-    "Wenn der Kalkulationszins über 10 % liegt",
-    "Wenn die Rückflüsse gleich hoch sind"
-   ],
-   "r": 1,
-   "e": "Bei gleicher Laufzeit wird jeder Kapitalwert mit demselben KWF multipliziert, die Rangfolge bleibt. Nur bei verschiedenen Laufzeiten unterscheiden sich die Faktoren."
-  }
- ],
- "verwandt": [
-  "kapitalwertmethode",
-  "interner-zinsfuss",
-  "tilgungsplan",
-  "barwert-abzinsen",
-  "kostenvergleichsrechnung"
- ],
- "ask": "die Annuitätenmethode – mit einem Investitionsvergleich und dem Kapitalwiedergewinnungsfaktor"
+  "slug": "annuitaetenmethode",
+  "name": "Annuitätenmethode",
+  "title": "Annuitätenmethode einfach erklärt – mit Beispiel",
+  "meta": "Annuitätenmethode verständlich erklärt: Kapitalwiedergewinnungsfaktor, Formel, Investitionsvergleich mit Rechenbeispiel und typische Klausurfehler.",
+  "h1": "Annuitätenmethode einfach erklärt",
+  "kurz": "Die Annuitätenmethode ist ein dynamisches Investitionsrechenverfahren, das den Kapitalwert einer Investition in gleich hohe jährliche Beträge umrechnet. Dazu wird der Kapitalwert mit dem Kapitalwiedergewinnungsfaktor (Annuitätenfaktor) multipliziert. Ist die Annuität positiv, lohnt sich die Investition; beim Vergleich gewinnt die Alternative mit der höchsten Annuität.",
+  "keywords": [
+    "Annuitätenmethode",
+    "Kapitalwiedergewinnungsfaktor",
+    "Annuitätenfaktor",
+    "Annuität berechnen",
+    "Annuitätenmethode Beispiel",
+    "Annuitätenmethode Formel",
+    "dynamische Investitionsrechnung"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist die Annuitätenmethode?",
+      "html": "<p>Die Annuitätenmethode ist eng mit der <a href=\"/lernen/kapitalwertmethode\">Kapitalwertmethode</a> verwandt. Der Kapitalwert sagt dir, wie viel reicher du durch eine Investition <em>heute</em> wirst – als ein Betrag in \\(t = 0\\). Die Annuitätenmethode verteilt genau diesen Betrag gleichmäßig auf alle Nutzungsjahre. Heraus kommt ein <strong>jährlicher Überschuss</strong>, den die Investition zusätzlich zur geforderten Verzinsung abwirft.</p><p>„Annuität“ heißt nichts anderes als gleich hohe jährliche Zahlung. Du kennst das Prinzip vom Annuitätendarlehen: Ein Kredit wird in konstanten Raten aus Zins und Tilgung zurückgezahlt (siehe <a href=\"/lernen/tilgungsplan\">Tilgungsplan</a>). Die Annuitätenmethode nutzt dieselbe Mathematik – nur rechnet sie nicht einen Kredit, sondern den Kapitalwert in eine Jahresrate um.</p><p>Warum der Umweg? Ein Jahresbetrag ist für viele Entscheider greifbarer als ein Barwert. Und vor allem lassen sich damit Investitionen mit <strong>unterschiedlicher Nutzungsdauer</strong> besser vergleichen.</p>"
+    },
+    {
+      "h2": "Wie lautet die Formel der Annuitätenmethode?",
+      "html": "<p>Zuerst berechnest du den Kapitalwert \\(C_0\\). Dann multiplizierst du ihn mit dem Kapitalwiedergewinnungsfaktor (KWF):</p><div class=\"formel\">\\[ \\text{Annuität } A = C_0 \\cdot \\text{KWF} \\]</div><div class=\"formel\">\\[ \\text{KWF} = \\frac{i \\cdot (1+i)^n}{(1+i)^n - 1} \\]</div><p>Dabei ist \\(i\\) der Kalkulationszinssatz und \\(n\\) die Nutzungsdauer. Der KWF ist der Kehrwert des Rentenbarwertfaktors (RBF): \\(\\text{KWF} = \\frac{1}{\\text{RBF}}\\). Er beantwortet die Frage: Welche jährliche Zahlung über \\(n\\) Jahre hat denselben Barwert wie 1 € heute?</p><table><thead><tr><th>Zins</th><th>\\(n = 3\\)</th><th>\\(n = 5\\)</th></tr></thead><tbody><tr><td>6 %</td><td>0,3741</td><td>0,2374</td></tr><tr><td>8 %</td><td>0,3880</td><td>0,2505</td></tr></tbody></table><p><strong>Sonderfall gleich hoher Rückflüsse:</strong> Bringt eine Investition jedes Jahr denselben Rückfluss \\(Z\\), brauchst du den Kapitalwert gar nicht. Dann gilt direkt \\(A = Z - I_0 \\cdot \\text{KWF}\\) (bei Restwert null). Der Ausdruck \\(I_0 \\cdot \\text{KWF}\\) ist die jährliche „Kapitaldienst-Rate“, mit der du Anschaffung und Verzinsung zurückverdienen musst.</p>"
+    },
+    {
+      "h2": "Beispiel: Zwei Investitionen mit der Annuitätenmethode vergleichen",
+      "html": "<div class=\"beispiel\"><p><strong>Aufgabe:</strong> Eine Druckerei kann eine von zwei Maschinen kaufen. Kalkulationszins: 6 %.</p><ul><li><strong>Maschine A:</strong> 80.000 €, Nutzungsdauer 5 Jahre, Rückflüsse 18.000 €, 20.000 €, 22.000 €, 20.000 €, 18.000 €</li><li><strong>Maschine B:</strong> 40.000 €, Nutzungsdauer 3 Jahre, Rückflüsse 16.000 €, 16.000 €, 15.000 €</li></ul><p><strong>Schritt 1: Kapitalwerte berechnen</strong> (Abzinsungsfaktoren 6 %: 0,9434; 0,8900; 0,8396; 0,7921; 0,7473)</p><table><thead><tr><th>t</th><th>Rückfluss A</th><th>Barwert A</th><th>Rückfluss B</th><th>Barwert B</th></tr></thead><tbody><tr><td>1</td><td>18.000 €</td><td>16.981,20 €</td><td>16.000 €</td><td>15.094,40 €</td></tr><tr><td>2</td><td>20.000 €</td><td>17.800,00 €</td><td>16.000 €</td><td>14.240,00 €</td></tr><tr><td>3</td><td>22.000 €</td><td>18.471,20 €</td><td>15.000 €</td><td>12.594,00 €</td></tr><tr><td>4</td><td>20.000 €</td><td>15.842,00 €</td><td>–</td><td>–</td></tr><tr><td>5</td><td>18.000 €</td><td>13.451,40 €</td><td>–</td><td>–</td></tr><tr><td></td><td>Summe</td><td>82.545,80 €</td><td>Summe</td><td>41.928,40 €</td></tr><tr><td></td><td>\\(-I_0\\)</td><td>−80.000,00 €</td><td>\\(-I_0\\)</td><td>−40.000,00 €</td></tr><tr><td></td><td><strong>\\(C_0\\)</strong></td><td><strong>2.545,80 €</strong></td><td><strong>\\(C_0\\)</strong></td><td><strong>1.928,40 €</strong></td></tr></tbody></table><p><strong>Schritt 2: KWF bestimmen</strong><br>A: \\(\\frac{0{,}06 \\cdot 1{,}06^5}{1{,}06^5 - 1} = 0{,}2374\\)<br>B: \\(\\frac{0{,}06 \\cdot 1{,}06^3}{1{,}06^3 - 1} = 0{,}3741\\)</p><p><strong>Schritt 3: Annuitäten berechnen</strong><br>A: \\(2.545{,}80 \\cdot 0{,}2374 = \\mathbf{604{,}37}\\) <strong>€ pro Jahr</strong><br>B: \\(1.928{,}40 \\cdot 0{,}3741 = \\mathbf{721{,}41}\\) <strong>€ pro Jahr</strong></p><p><strong>Ergebnis:</strong> Beide Maschinen sind vorteilhaft (\\(\\text{Annuität} \\gt 0\\)). Nach dem Kapitalwert läge A vorn, nach der Annuität B. B erwirtschaftet in jedem Jahr ihrer kürzeren Laufzeit mehr Überschuss. Unter der Annahme, dass B nach drei Jahren zu gleichen Bedingungen wieder angeschafft werden kann, ist <strong>B die bessere Wahl</strong>.</p></div>"
+    },
+    {
+      "h2": "Kurzbeispiel: Annuität bei gleich hohen Rückflüssen",
+      "html": "<p>Sind die Rückflüsse konstant, geht es schneller. Ein Lieferdienst kauft ein E-Lastenrad-Paket für 50.000 €, das fünf Jahre lang jeweils 13.000 € Rückfluss bringt. Kalkulationszins 6 %, KWF 0,2374.</p><ol><li>Kapitaldienst pro Jahr: \\(50.000 \\cdot 0{,}2374 = 11.870\\) €</li><li>Annuität: \\(13.000 - 11.870 = \\mathbf{1.130}\\) <strong>€ pro Jahr</strong></li></ol><p>Gegenprobe über den Kapitalwert: \\(13.000 \\cdot \\underbrace{4{,}2124}_{\\text{RBF}} - 50.000 = 4.761{,}20\\) €; \\(4.761{,}20 \\cdot 0{,}2374 = 1.130{,}31\\) €. Die 31 Cent Differenz sind reine Rundung der Faktoren. Beide Wege sind in der Klausur zulässig – der direkte spart dir aber die komplette Abzinsungstabelle.</p><p>Ein Wort zur <strong>Wiederholungsannahme</strong> aus dem großen Beispiel: Der Vergleich über die Annuität ist nur dann sauber, wenn Maschine B nach drei Jahren zu denselben Konditionen erneut gekauft werden kann. Ist das nicht möglich – etwa weil das Modell ausläuft oder die Preise steigen –, musst du für die Jahre 4 und 5 eine konkrete Anschlussinvestition oder eine Anlage zum Kalkulationszins unterstellen. Dann entscheidet wieder der Kapitalwert über den gesamten Planungszeitraum.</p>"
+    },
+    {
+      "h2": "Wie interpretiert man die Annuität?",
+      "html": "<ul><li><strong>\\(A \\gt 0\\):</strong> Die Investition deckt Anschaffung und Verzinsung zum Kalkulationszins und bringt jedes Jahr zusätzlich \\(A\\) Euro – vorteilhaft.</li><li><strong>\\(A = 0\\):</strong> Genau die Mindestverzinsung wird erreicht.</li><li><strong>\\(A \\lt 0\\):</strong> nicht vorteilhaft.</li></ul><p>Für Maschine A heißt das in Klausursprache: „Die Investition erwirtschaftet über fünf Jahre einen jährlichen Überschuss von 604,37 €, nachdem die Anschaffungsauszahlung zurückgewonnen und das gebundene Kapital mit 6 % verzinst wurde.“</p><p>Die Annuität sagt bei einer Einzelentscheidung exakt dasselbe wie der Kapitalwert – das Vorzeichen ist immer gleich, weil der KWF positiv ist. Einen Unterschied macht sie nur beim Vergleich mehrerer Alternativen mit verschiedenen Laufzeiten.</p><div class=\"merke\">Gleiche Laufzeit: Kapitalwert und Annuität führen zur selben Rangfolge. Unterschiedliche Laufzeit: Die Annuität vergleicht fairer – sofern die kürzere Investition wiederholbar ist.</div>"
+    },
+    {
+      "h2": "Wann ist die Annuitätenmethode sinnvoll?",
+      "html": "<p>Typische Anwendungsfälle sind:</p><ul><li><strong>Vergleich von Investitionen mit unterschiedlicher Nutzungsdauer</strong>, etwa zwei Maschinen mit drei und fünf Jahren Laufzeit.</li><li><strong>Ermittlung der optimalen Nutzungsdauer</strong> oder des Ersatzzeitpunkts: Man wählt die Laufzeit mit der höchsten Annuität.</li><li><strong>Kostenbetrachtung</strong>: Rechnest du nur mit Auszahlungen, erhältst du die jährlichen Durchschnittskosten in dynamischer Form – das dynamische Gegenstück zur <a href=\"/lernen/kostenvergleichsrechnung\">Kostenvergleichsrechnung</a>.</li><li><strong>Kommunikation</strong>: Ein Jahresbetrag lässt sich leicht mit laufenden Gewinnen oder Budgets abgleichen.</li></ul>"
+    },
+    {
+      "h2": "Vor- und Nachteile der Annuitätenmethode",
+      "html": "<h3>Vorteile</h3><ul><li>Berücksichtigt den Zeitwert des Geldes wie alle dynamischen Verfahren.</li><li>Liefert eine anschauliche Jahresgröße statt eines Barwerts.</li><li>Erlaubt einen fairen Vergleich bei unterschiedlicher Laufzeit (unter der Wiederholungsannahme).</li></ul><h3>Nachteile</h3><ul><li>Setzt voraus, dass die kürzere Investition identisch wiederholt werden kann – in der Praxis selten realistisch.</li><li>Übernimmt alle Prämissen der Kapitalwertmethode: vollkommener Kapitalmarkt, sichere Zahlungen, ein einheitlicher Kalkulationszins.</li><li>Der unterschiedliche Kapitaleinsatz bleibt unberücksichtigt; Differenzinvestitionen werden implizit zum Kalkulationszins angelegt.</li></ul><p>Zur Abgrenzung: Der <a href=\"/lernen/interner-zinsfuss\">interne Zinsfuß</a> liefert eine Rendite in Prozent, die Annuitätenmethode einen Eurobetrag pro Jahr, die Kapitalwertmethode einen Eurobetrag in \\(t = 0\\). Alle drei beruhen auf dem Abzinsen und sind dynamische Verfahren.</p>"
+    }
+  ],
+  "fehler": [
+    "Der KWF wird mit dem Rentenbarwertfaktor verwechselt. Der KWF ist immer kleiner als 1 (bei \\(n \\gt 1\\)), der RBF größer als 1. Wer den Kapitalwert mit dem RBF multipliziert, erhält einen viel zu hohen Wert.",
+    "Für alle Alternativen wird derselbe KWF verwendet. Der Faktor hängt von der Nutzungsdauer ab – jede Investition bekommt ihren eigenen KWF mit ihrem eigenen \\(n\\).",
+    "Die Annuität wird ohne vorherige Berechnung des Kapitalwerts direkt aus dem durchschnittlichen Rückfluss gebildet. Das funktioniert nur bei gleich hohen Rückflüssen; sonst musst du erst \\(C_0\\) berechnen.",
+    "Bei unterschiedlicher Laufzeit wird nach dem höheren Kapitalwert entschieden, obwohl die Aufgabe den Annuitätenvergleich verlangt. Lies genau, welches Kriterium gefragt ist, und nenne die Wiederholungsannahme.",
+    "Die Annuität wird als Gewinn im Sinne der GuV interpretiert. Sie ist ein Überschuss nach Kapitalrückgewinnung und Verzinsung, keine buchhalterische Größe."
+  ],
+  "faq": [
+    {
+      "q": "Was ist der Kapitalwiedergewinnungsfaktor?",
+      "a": "Der Kapitalwiedergewinnungsfaktor (KWF, auch Annuitätenfaktor) rechnet einen heutigen Betrag in gleich hohe jährliche Zahlungen über \\(n\\) Jahre um. Er lautet \\(\\frac{i \\cdot (1+i)^n}{(1+i)^n - 1}\\) und ist der Kehrwert des Rentenbarwertfaktors. Bei 6 % und fünf Jahren beträgt er 0,2374."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Kapitalwertmethode und Annuitätenmethode?",
+      "a": "Die Kapitalwertmethode liefert den gesamten Vermögenszuwachs als Betrag in \\(t = 0\\). Die Annuitätenmethode verteilt diesen Betrag gleichmäßig auf die Nutzungsjahre. Bei gleicher Laufzeit führen beide zur selben Entscheidung, bei unterschiedlicher Laufzeit kann die Rangfolge abweichen."
+    },
+    {
+      "q": "Wann ist eine Investition nach der Annuitätenmethode vorteilhaft?",
+      "a": "Wenn die Annuität größer als null ist. Dann werden Anschaffungsauszahlung und Verzinsung zum Kalkulationszins vollständig gedeckt und es bleibt jedes Jahr ein Überschuss. Bei mehreren Alternativen wählt man die mit der höchsten Annuität."
+    },
+    {
+      "q": "Wie berechnet man die Annuität bei gleichen Rückflüssen?",
+      "a": "Bei konstanten jährlichen Rückflüssen \\(Z\\) gilt \\(A = Z - I_0 \\cdot \\text{KWF}\\), wenn kein Restwert anfällt. Du ziehst also vom jährlichen Rückfluss die Rate ab, die zur Rückgewinnung und Verzinsung der Anschaffung nötig ist."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Eine Investition hat bei 8 % und vier Jahren Laufzeit einen Kapitalwert von 5.000 €. Der KWF beträgt 0,3019. Wie hoch ist die Annuität?",
+      "o": [
+        "1.509,50 €",
+        "1.250,00 €",
+        "16.561,77 €",
+        "5.400,00 €"
+      ],
+      "r": 0,
+      "e": "\\(A = 5.000 \\cdot 0{,}3019 = 1.509{,}50\\) €. 1.250 € wäre einfach durch vier geteilt – das ignoriert die Verzinsung."
+    },
+    {
+      "q": "Wie hängen Kapitalwiedergewinnungsfaktor und Rentenbarwertfaktor zusammen?",
+      "o": [
+        "\\(\\text{KWF} = \\text{RBF} \\cdot i\\)",
+        "\\(\\text{KWF} = \\text{RBF} - 1\\)",
+        "\\(\\text{KWF} = \\frac{1}{\\text{RBF}}\\)",
+        "\\(\\text{KWF} = \\frac{\\text{RBF}}{n}\\)"
+      ],
+      "r": 2,
+      "e": "Der KWF ist der Kehrwert des RBF. Bei 6 % und fünf Jahren: RBF 4,2124, KWF \\(\\frac{1}{4{,}2124} = 0{,}2374\\)."
+    },
+    {
+      "q": "Wann können Kapitalwert- und Annuitätenmethode zu unterschiedlichen Rangfolgen führen?",
+      "o": [
+        "Wenn die Kapitalwerte negativ sind",
+        "Wenn die Alternativen unterschiedliche Nutzungsdauern haben",
+        "Wenn der Kalkulationszins über 10 % liegt",
+        "Wenn die Rückflüsse gleich hoch sind"
+      ],
+      "r": 1,
+      "e": "Bei gleicher Laufzeit wird jeder Kapitalwert mit demselben KWF multipliziert, die Rangfolge bleibt. Nur bei verschiedenen Laufzeiten unterscheiden sich die Faktoren."
+    }
+  ],
+  "verwandt": [
+    "kapitalwertmethode",
+    "interner-zinsfuss",
+    "tilgungsplan",
+    "barwert-abzinsen",
+    "kostenvergleichsrechnung"
+  ],
+  "ask": "die Annuitätenmethode – mit einem Investitionsvergleich und dem Kapitalwiedergewinnungsfaktor"
 }

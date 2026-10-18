@@ -5,11 +5,19 @@
   "meta": "Buchungssätze einfach erklärt: So bildest du „Soll an Haben“ in 4 Schritten, mit Beispielen zu Einkauf, Verkauf, Umsatzsteuer und zusammengesetzten Sätzen.",
   "h1": "Buchungssätze einfach erklärt",
   "kurz": "Ein Buchungssatz ist die kurze Anweisung, auf welchen Konten ein Geschäftsvorfall gebucht wird. Er hat immer die Form „Soll an Haben“: Zuerst nennst du das Konto bzw. die Konten mit Sollbuchung, dann nach dem Wort „an“ die Konten mit Habenbuchung. Die Summe der Soll- und Habenbeträge ist dabei immer gleich.",
-  "keywords": ["Buchungssätze", "Buchungssatz bilden", "Soll an Haben", "Buchungssätze Übungen", "zusammengesetzter Buchungssatz", "Buchungssätze mit Umsatzsteuer", "Buchungssatz Beispiel"],
+  "keywords": [
+    "Buchungssätze",
+    "Buchungssatz bilden",
+    "Soll an Haben",
+    "Buchungssätze Übungen",
+    "zusammengesetzter Buchungssatz",
+    "Buchungssätze mit Umsatzsteuer",
+    "Buchungssatz Beispiel"
+  ],
   "abschnitte": [
     {
       "h2": "Was ist ein Buchungssatz?",
-      "html": "<p>Jeder Geschäftsvorfall – ein Einkauf, eine Überweisung, ein Verkauf – verändert mindestens zwei Konten. Das ist das Prinzip der <a href=\"/lernen/doppelte-buchfuehrung\">doppelten Buchführung</a>. Der Buchungssatz hält fest, <strong>welche Konten</strong> betroffen sind, <strong>auf welcher Seite</strong> gebucht wird und <strong>mit welchem Betrag</strong>.</p><div class=\"formel\">Konto im Soll  an  Konto im Haben  (Betrag)<br>Summe Soll = Summe Haben</div><p>Das Wort „an“ trennt die Sollseite von der Habenseite. Es hat keine inhaltliche Bedeutung im Sinne von „Geld geht an jemanden“ – es ist nur ein Trennzeichen. Grundlage jeder Buchung ist ein Beleg (Rechnung, Kontoauszug, Quittung): Keine Buchung ohne Beleg.</p><p>Man unterscheidet zwei Arten:</p><ul><li><strong>Einfacher Buchungssatz:</strong> genau ein Sollkonto und ein Habenkonto, z. B. „Bank an Kasse 2.000 €“.</li><li><strong>Zusammengesetzter Buchungssatz:</strong> mehr als zwei Konten, z. B. bei einem Einkauf mit Vorsteuer.</li></ul>"
+      "html": "<p>Jeder Geschäftsvorfall – ein Einkauf, eine Überweisung, ein Verkauf – verändert mindestens zwei Konten. Das ist das Prinzip der <a href=\"/lernen/doppelte-buchfuehrung\">doppelten Buchführung</a>. Der Buchungssatz hält fest, <strong>welche Konten</strong> betroffen sind, <strong>auf welcher Seite</strong> gebucht wird und <strong>mit welchem Betrag</strong>.</p><div class=\"formel\">Konto im Soll  an  Konto im Haben  (Betrag)<br>\\[ \\text{Summe Soll} = \\text{Summe Haben} \\]</div><p>Das Wort „an“ trennt die Sollseite von der Habenseite. Es hat keine inhaltliche Bedeutung im Sinne von „Geld geht an jemanden“ – es ist nur ein Trennzeichen. Grundlage jeder Buchung ist ein Beleg (Rechnung, Kontoauszug, Quittung): Keine Buchung ohne Beleg.</p><p>Man unterscheidet zwei Arten:</p><ul><li><strong>Einfacher Buchungssatz:</strong> genau ein Sollkonto und ein Habenkonto, z. B. „Bank an Kasse 2.000 €“.</li><li><strong>Zusammengesetzter Buchungssatz:</strong> mehr als zwei Konten, z. B. bei einem Einkauf mit Vorsteuer.</li></ul>"
     },
     {
       "h2": "Wie bildet man einen Buchungssatz? Die 4-Schritte-Methode",
@@ -17,7 +25,7 @@
     },
     {
       "h2": "Beispiel: Sechs Buchungssätze Schritt für Schritt",
-      "html": "<div class=\"beispiel\"><p>Die Kessler Möbel GmbH hat im März folgende Geschäftsvorfälle. Es gilt der Umsatzsteuer-Regelsatz von 19 %.</p><ol><li><strong>Kauf von Rohstoffen auf Ziel, netto 5.000 €.</strong> Umsatzsteuer: 5.000 × 0,19 = 950 €, brutto 5.950 €. Rohstoffaufwand (Aufwand, Zugang → Soll), Vorsteuer (Forderung gegenüber dem Finanzamt, Aktiv, Zugang → Soll), Verbindlichkeiten LuL (Passiv, Zugang → Haben).<br><strong>Aufwendungen für Rohstoffe 5.000 €, Vorsteuer 950 € an Verbindlichkeiten LuL 5.950 €</strong></li><li><strong>Verkauf von Möbeln auf Ziel, netto 8.000 €.</strong> Umsatzsteuer: 8.000 × 0,19 = 1.520 €, brutto 9.520 €. Forderungen LuL (Aktiv, Zugang → Soll), Umsatzerlöse (Ertrag, Zugang → Haben), Umsatzsteuer (Verbindlichkeit, Passiv, Zugang → Haben).<br><strong>Forderungen LuL 9.520 € an Umsatzerlöse 8.000 €, Umsatzsteuer 1.520 €</strong></li><li><strong>Der Kunde aus Fall 2 überweist 9.520 €.</strong> Bank (Aktiv, Zugang → Soll), Forderungen (Aktiv, Abgang → Haben).<br><strong>Bank an Forderungen LuL 9.520 €</strong></li><li><strong>Bareinzahlung von 2.000 € aus der Kasse auf das Bankkonto.</strong><br><strong>Bank an Kasse 2.000 €</strong> (Aktivtausch)</li><li><strong>Aufnahme eines Darlehens über 20.000 €, Gutschrift auf dem Bankkonto.</strong> Bank (Aktiv, Zugang → Soll), Darlehen (Passiv, Zugang → Haben).<br><strong>Bank an Darlehensverbindlichkeiten 20.000 €</strong></li><li><strong>Überweisung der Monatsmiete für die Lagerhalle, 1.200 €</strong> (umsatzsteuerfrei vermietet). Mietaufwand (Aufwand, Zugang → Soll), Bank (Aktiv, Abgang → Haben).<br><strong>Mietaufwand an Bank 1.200 €</strong></li></ol><p>Kontrolle bei den zusammengesetzten Sätzen: Fall 1: 5.000 + 950 = 5.950 €. Fall 2: 8.000 + 1.520 = 9.520 €. Soll und Haben stimmen jeweils überein.</p></div>"
+      "html": "<div class=\"beispiel\"><p>Die Kessler Möbel GmbH hat im März folgende Geschäftsvorfälle. Es gilt der Umsatzsteuer-Regelsatz von 19 %.</p><ol><li><strong>Kauf von Rohstoffen auf Ziel, netto 5.000 €.</strong> Umsatzsteuer: \\(5.000 \\cdot 0{,}19 = 950\\) €, brutto 5.950 €. Rohstoffaufwand (Aufwand, Zugang → Soll), Vorsteuer (Forderung gegenüber dem Finanzamt, Aktiv, Zugang → Soll), Verbindlichkeiten LuL (Passiv, Zugang → Haben).<br><strong>Aufwendungen für Rohstoffe 5.000 €, Vorsteuer 950 € an Verbindlichkeiten LuL 5.950 €</strong></li><li><strong>Verkauf von Möbeln auf Ziel, netto 8.000 €.</strong> Umsatzsteuer: \\(8.000 \\cdot 0{,}19 = 1.520\\) €, brutto 9.520 €. Forderungen LuL (Aktiv, Zugang → Soll), Umsatzerlöse (Ertrag, Zugang → Haben), Umsatzsteuer (Verbindlichkeit, Passiv, Zugang → Haben).<br><strong>Forderungen LuL 9.520 € an Umsatzerlöse 8.000 €, Umsatzsteuer 1.520 €</strong></li><li><strong>Der Kunde aus Fall 2 überweist 9.520 €.</strong> Bank (Aktiv, Zugang → Soll), Forderungen (Aktiv, Abgang → Haben).<br><strong>Bank an Forderungen LuL 9.520 €</strong></li><li><strong>Bareinzahlung von 2.000 € aus der Kasse auf das Bankkonto.</strong><br><strong>Bank an Kasse 2.000 €</strong> (Aktivtausch)</li><li><strong>Aufnahme eines Darlehens über 20.000 €, Gutschrift auf dem Bankkonto.</strong> Bank (Aktiv, Zugang → Soll), Darlehen (Passiv, Zugang → Haben).<br><strong>Bank an Darlehensverbindlichkeiten 20.000 €</strong></li><li><strong>Überweisung der Monatsmiete für die Lagerhalle, 1.200 €</strong> (umsatzsteuerfrei vermietet). Mietaufwand (Aufwand, Zugang → Soll), Bank (Aktiv, Abgang → Haben).<br><strong>Mietaufwand an Bank 1.200 €</strong></li></ol><p>Kontrolle bei den zusammengesetzten Sätzen: Fall 1: \\(5.000 + 950 = 5.950\\) €. Fall 2: \\(8.000 + 1.520 = 9.520\\) €. Soll und Haben stimmen jeweils überein.</p></div>"
     },
     {
       "h2": "Wie liest man einen Buchungssatz rückwärts?",
@@ -40,17 +48,68 @@
     "Im zusammengesetzten Buchungssatz stimmen die Summen nicht. Rechne vor dem Abgeben immer nach, ob Soll gleich Haben ist."
   ],
   "faq": [
-    {"q": "Was bedeutet „an“ im Buchungssatz?", "a": "„An“ trennt die Sollkonten von den Habenkonten. Alles vor dem „an“ wird im Soll gebucht, alles danach im Haben. Inhaltlich bedeutet das Wort nichts."},
-    {"q": "Woher weiß ich, ob ich im Soll oder im Haben buchen muss?", "a": "Bestimme zuerst die Kontoart und ob der Wert zu- oder abnimmt. Aktiv- und Aufwandskonten nehmen im Soll zu, Passiv- und Ertragskonten im Haben."},
-    {"q": "Was ist ein zusammengesetzter Buchungssatz?", "a": "Ein Buchungssatz, an dem mehr als zwei Konten beteiligt sind, z. B. ein Einkauf mit Aufwand, Vorsteuer und Verbindlichkeit. Auch hier muss die Summe aller Sollbeträge der Summe aller Habenbeträge entsprechen."},
-    {"q": "Muss ich in der Klausur Kontonummern angeben?", "a": "Das hängt von der Aufgabenstellung und deinem Lehrstuhl ab. Viele Klausuren akzeptieren Kontenbezeichnungen, manche verlangen die Nummern eines vorgegebenen Kontenrahmens. Lies die Aufgabenstellung genau."},
-    {"q": "Wie buche ich eine Barzahlung?", "a": "Bei einer Barzahlung wird statt Bank das Konto Kasse verwendet. Zahlt das Unternehmen bar, steht die Kasse im Haben, weil der Kassenbestand abnimmt."}
+    {
+      "q": "Was bedeutet „an“ im Buchungssatz?",
+      "a": "„An“ trennt die Sollkonten von den Habenkonten. Alles vor dem „an“ wird im Soll gebucht, alles danach im Haben. Inhaltlich bedeutet das Wort nichts."
+    },
+    {
+      "q": "Woher weiß ich, ob ich im Soll oder im Haben buchen muss?",
+      "a": "Bestimme zuerst die Kontoart und ob der Wert zu- oder abnimmt. Aktiv- und Aufwandskonten nehmen im Soll zu, Passiv- und Ertragskonten im Haben."
+    },
+    {
+      "q": "Was ist ein zusammengesetzter Buchungssatz?",
+      "a": "Ein Buchungssatz, an dem mehr als zwei Konten beteiligt sind, z. B. ein Einkauf mit Aufwand, Vorsteuer und Verbindlichkeit. Auch hier muss die Summe aller Sollbeträge der Summe aller Habenbeträge entsprechen."
+    },
+    {
+      "q": "Muss ich in der Klausur Kontonummern angeben?",
+      "a": "Das hängt von der Aufgabenstellung und deinem Lehrstuhl ab. Viele Klausuren akzeptieren Kontenbezeichnungen, manche verlangen die Nummern eines vorgegebenen Kontenrahmens. Lies die Aufgabenstellung genau."
+    },
+    {
+      "q": "Wie buche ich eine Barzahlung?",
+      "a": "Bei einer Barzahlung wird statt Bank das Konto Kasse verwendet. Zahlt das Unternehmen bar, steht die Kasse im Haben, weil der Kassenbestand abnimmt."
+    }
   ],
   "quiz": [
-    {"q": "Ein Unternehmen tilgt 4.000 € Darlehen per Banküberweisung. Wie lautet der Buchungssatz?", "o": ["Bank an Darlehen 4.000 €", "Darlehen an Kasse 4.000 €", "Zinsaufwand an Bank 4.000 €", "Darlehen an Bank 4.000 €"], "r": 3, "e": "Das Darlehen (Passivkonto) nimmt ab, also Soll. Die Bank (Aktivkonto) nimmt ab, also Haben."},
-    {"q": "Verkauf von Waren auf Ziel, netto 2.000 €, 19 % USt. Welcher Betrag wird auf Forderungen LuL gebucht?", "o": ["2.380 € im Soll", "2.000 € im Soll", "2.380 € im Haben", "380 € im Soll"], "r": 0, "e": "Die Forderung entsteht in Höhe des Bruttobetrags: 2.000 × 1,19 = 2.380 €. Forderungen sind ein Aktivkonto und nehmen im Soll zu."},
-    {"q": "Welcher Geschäftsvorfall steckt hinter „Bank an Kasse 500 €“?", "o": ["Barabhebung vom Bankkonto", "Bareinzahlung auf das Bankkonto", "Barzahlung einer Rechnung", "Überweisung an einen Lieferanten"], "r": 1, "e": "Bank steigt (Soll), Kasse sinkt (Haben): Bargeld wurde auf das Bankkonto eingezahlt."}
+    {
+      "q": "Ein Unternehmen tilgt 4.000 € Darlehen per Banküberweisung. Wie lautet der Buchungssatz?",
+      "o": [
+        "Bank an Darlehen 4.000 €",
+        "Darlehen an Kasse 4.000 €",
+        "Zinsaufwand an Bank 4.000 €",
+        "Darlehen an Bank 4.000 €"
+      ],
+      "r": 3,
+      "e": "Das Darlehen (Passivkonto) nimmt ab, also Soll. Die Bank (Aktivkonto) nimmt ab, also Haben."
+    },
+    {
+      "q": "Verkauf von Waren auf Ziel, netto 2.000 €, 19 % USt. Welcher Betrag wird auf Forderungen LuL gebucht?",
+      "o": [
+        "2.380 € im Soll",
+        "2.000 € im Soll",
+        "2.380 € im Haben",
+        "380 € im Soll"
+      ],
+      "r": 0,
+      "e": "Die Forderung entsteht in Höhe des Bruttobetrags: \\(2.000 \\cdot 1{,}19 = 2.380\\) €. Forderungen sind ein Aktivkonto und nehmen im Soll zu."
+    },
+    {
+      "q": "Welcher Geschäftsvorfall steckt hinter „Bank an Kasse 500 €“?",
+      "o": [
+        "Barabhebung vom Bankkonto",
+        "Bareinzahlung auf das Bankkonto",
+        "Barzahlung einer Rechnung",
+        "Überweisung an einen Lieferanten"
+      ],
+      "r": 1,
+      "e": "Bank steigt (Soll), Kasse sinkt (Haben): Bargeld wurde auf das Bankkonto eingezahlt."
+    }
   ],
-  "verwandt": ["doppelte-buchfuehrung", "bestandskonten-erfolgskonten", "umsatzsteuer-vorsteuer-buchen", "skonto-buchen", "bilanz"],
+  "verwandt": [
+    "doppelte-buchfuehrung",
+    "bestandskonten-erfolgskonten",
+    "umsatzsteuer-vorsteuer-buchen",
+    "skonto-buchen",
+    "bilanz"
+  ],
   "ask": "Buchungssätze – mit Übungsfällen zu Einkauf, Verkauf und Umsatzsteuer"
 }

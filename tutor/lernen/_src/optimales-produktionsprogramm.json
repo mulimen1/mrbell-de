@@ -1,114 +1,114 @@
 {
- "slug": "optimales-produktionsprogramm",
- "name": "Optimales Produktionsprogramm (Engpass)",
- "title": "Optimales Produktionsprogramm – Engpass einfach erklärt",
- "meta": "Optimales Produktionsprogramm einfach erklärt: ohne Engpass nach Deckungsbeitrag, mit Engpass nach relativem Deckungsbeitrag – mit Rechenbeispiel.",
- "h1": "Optimales Produktionsprogramm einfach erklärt",
- "kurz": "Das optimale Produktionsprogramm legt fest, welche Produkte in welcher Menge hergestellt werden, damit der Gesamtdeckungsbeitrag maximal wird. Ohne Engpass produzierst du alle Produkte mit positivem Stückdeckungsbeitrag bis zur Absatzgrenze. Bei einem Engpass entscheidet die Rangfolge nach dem relativen Deckungsbeitrag, also dem Deckungsbeitrag je Engpasseinheit.",
- "keywords": [
-  "optimales Produktionsprogramm",
-  "relativer Deckungsbeitrag",
-  "Engpass Produktionsprogramm",
-  "Produktionsprogrammplanung",
-  "Deckungsbeitrag pro Engpasseinheit",
-  "optimales Produktionsprogramm berechnen"
- ],
- "abschnitte": [
-  {
-   "h2": "Worum geht es beim optimalen Produktionsprogramm?",
-   "html": "<p>Ein Unternehmen stellt mehrere Produkte her und muss entscheiden, wie viel es von jedem produziert. Kurzfristig sind die Fixkosten gegeben – sie lassen sich durch das Programm nicht beeinflussen. Deshalb ist das Ziel nicht „minimale Kosten“, sondern der <strong>maximale Gesamtdeckungsbeitrag</strong>. Der Gewinn ergibt sich dann als Gesamtdeckungsbeitrag minus Fixkosten.</p><p>Grundbaustein ist der Stückdeckungsbeitrag:</p><div class=\"formel\">db = p − k_v</div><p>Falls du hier noch unsicher bist, lies zuerst die Seite zum <a href=\"/lernen/deckungsbeitrag\">Deckungsbeitrag</a>. Für die Programmplanung kommt es dann auf eine einzige Frage an: <strong>Reicht die Kapazität, um alle Absatzmöglichkeiten zu bedienen, oder nicht?</strong></p>"
-  },
-  {
-   "h2": "Optimales Produktionsprogramm ohne Engpass",
-   "html": "<p>Reichen alle Kapazitäten aus, um die maximale Absatzmenge jedes Produkts herzustellen, ist die Entscheidung einfach:</p><ul><li>Produkte mit <strong>positivem Stückdeckungsbeitrag</strong> (db &gt; 0) werden bis zur Absatzhöchstmenge produziert. Jedes Stück trägt zur Deckung der Fixkosten bei.</li><li>Produkte mit <strong>negativem Stückdeckungsbeitrag</strong> (db &lt; 0) werden nicht produziert – jedes Stück erhöht den Verlust.</li><li>Bei db = 0 ist das Unternehmen indifferent.</li></ul><p>Wichtig: Ein Produkt mit positivem Deckungsbeitrag, aber Verlust nach Vollkosten bleibt kurzfristig im Programm. Würdest du es streichen, fielen seine anteiligen Fixkosten trotzdem an, und der Gesamtgewinn sänke. Diese Erkenntnis ist der zentrale Vorteil der Teilkostenrechnung gegenüber der Vollkostenrechnung in der Kostenrechnung.</p>"
-  },
-  {
-   "h2": "Optimales Produktionsprogramm mit einem Engpass",
-   "html": "<p>Ein <strong>Engpass</strong> liegt vor, wenn eine Ressource (z. B. Maschinenstunden, Rohstoff, Arbeitszeit) nicht ausreicht, um alle Produkte in maximaler Menge herzustellen. Dann konkurrieren die Produkte um diese knappe Ressource. Entscheidend ist nicht mehr, welches Produkt pro Stück am meisten bringt, sondern welches <strong>pro Einheit des Engpasses</strong> am meisten bringt:</p><div class=\"formel\">relativer Deckungsbeitrag = Stückdeckungsbeitrag ÷ Engpassbeanspruchung je Stück</div><p>Vorgehen in vier Schritten:</p><ol><li>Prüfen, ob überhaupt ein Engpass vorliegt: benötigte Kapazität (Summe aus Höchstmenge × Beanspruchung) mit vorhandener Kapazität vergleichen.</li><li>Für alle Produkte mit db &gt; 0 den relativen Deckungsbeitrag berechnen.</li><li>Rangfolge bilden: höchster relativer Deckungsbeitrag zuerst.</li><li>Kapazität nach dieser Rangfolge verteilen, jeweils bis zur Absatzgrenze, bis die Kapazität erschöpft ist.</li></ol><p>Warum funktioniert das? Die knappe Ressource ist der eigentliche Flaschenhals. Jede Stunde kann nur einmal vergeben werden, also soll sie dorthin gehen, wo sie den größten Beitrag stiftet. Ein Produkt mit hohem Stückdeckungsbeitrag, das aber sehr viel Kapazität frisst, kann pro Engpassstunde schlechter abschneiden als ein unscheinbares Produkt mit kleinem Beitrag und kurzer Bearbeitungszeit. Sind relative Deckungsbeiträge gleich, ist die Reihenfolge zwischen diesen Produkten egal.</p><div class=\"merke\">Ohne Engpass: Rangfolge egal, alles mit db &gt; 0 produzieren. Mit einem Engpass: Rangfolge nach db je Engpasseinheit.</div>"
-  },
-  {
-   "h2": "Beispiel: Produktionsprogramm mit Engpass berechnen",
-   "html": "<div class=\"beispiel\"><p>Ein Hersteller von Gartenmöbeln fertigt drei Produkte auf derselben Fräsmaschine. Diese steht 2.500 Stunden pro Periode zur Verfügung. Die Fixkosten betragen 20.000 €.</p><table><thead><tr><th>Produkt</th><th>Preis</th><th>k_v</th><th>Std. je Stück</th><th>max. Absatz</th></tr></thead><tbody><tr><td>A (Bank)</td><td>80 €</td><td>50 €</td><td>2</td><td>400</td></tr><tr><td>B (Tisch)</td><td>120 €</td><td>75 €</td><td>5</td><td>300</td></tr><tr><td>C (Hocker)</td><td>60 €</td><td>40 €</td><td>1</td><td>500</td></tr></tbody></table><ol><li><strong>Engpass prüfen:</strong> Bedarf = 400 × 2 + 300 × 5 + 500 × 1 = 800 + 1.500 + 500 = 2.800 h &gt; 2.500 h ⇒ Engpass.</li><li><strong>Stückdeckungsbeiträge:</strong> A: 30 €, B: 45 €, C: 20 € – alle positiv.</li><li><strong>Relative Deckungsbeiträge:</strong> A: 30 ÷ 2 = 15 €/h, B: 45 ÷ 5 = 9 €/h, C: 20 ÷ 1 = 20 €/h.</li><li><strong>Rangfolge:</strong> C (20) vor A (15) vor B (9).</li><li><strong>Kapazität verteilen:</strong> C: 500 Stück × 1 h = 500 h (Rest 2.000 h). A: 400 Stück × 2 h = 800 h (Rest 1.200 h). B: 1.200 h ÷ 5 h = 240 Stück.</li><li><strong>Ergebnis:</strong> Gesamtdeckungsbeitrag = 500 × 20 + 400 × 30 + 240 × 45 = 10.000 + 12.000 + 10.800 = 32.800 €. Gewinn = 32.800 − 20.000 = 12.800 €.</li></ol><p><strong>Gegenprobe mit der falschen Rangfolge</strong> nach absolutem Stückdeckungsbeitrag (B vor A vor C): B 300 Stück (1.500 h), A 400 Stück (800 h), C nur 200 Stück (200 h). Gesamtdeckungsbeitrag = 13.500 + 12.000 + 4.000 = 29.500 € – also 3.300 € weniger.</p></div>"
-  },
-  {
-   "h2": "Wie interpretiert man das Ergebnis?",
-   "html": "<p>Das Ergebnis wirkt auf den ersten Blick paradox: Der Tisch hat den höchsten Stückdeckungsbeitrag, wird aber gekürzt. Der Grund: Er bindet pro Stück fünf Maschinenstunden. In fünf Stunden könntest du stattdessen fünf Hocker (5 × 20 = 100 €) oder zweieinhalb Bänke (2,5 × 30 = 75 €) bauen – beides bringt mehr als ein Tisch mit 45 €.</p><p>Daraus lassen sich weitere Kennzahlen ableiten, die in Klausuren gern als Folgefrage auftauchen:</p><ul><li><strong>Wert einer zusätzlichen Engpassstunde:</strong> Die nächste Stunde ginge an das Grenzprodukt B und brächte 9 €. Mehr als 9 € pro Stunde sollte man für zusätzliche Kapazität (z. B. Überstunden) kurzfristig nicht zahlen.</li><li><strong>Zusatzauftrag:</strong> Ein Auftrag, der Fräszeit benötigt, muss mindestens die variablen Kosten plus 9 € je beanspruchter Stunde decken, weil er B verdrängt. Das sind <a href=\"/lernen/opportunitaetskosten\">Opportunitätskosten</a>.</li><li><strong>Fremdbezug:</strong> Dieselbe Logik nutzt du bei der <a href=\"/lernen/make-or-buy\">Make-or-Buy-Entscheidung</a> unter Vollauslastung.</li></ul>"
-  },
-  {
-   "h2": "Grenzen des Verfahrens und Abgrenzung",
-   "html": "<p>Die Rangfolge nach dem relativen Deckungsbeitrag funktioniert nur bei <strong>genau einem Engpass</strong>. Sind gleichzeitig zwei Ressourcen knapp (z. B. Maschinenzeit und Rohstoff), kann sich für jeden Engpass eine andere Rangfolge ergeben. Ein Produkt, das bei der Maschine vorn liegt, kann beim Rohstoff hinten liegen – eine eindeutige Reihenfolge existiert dann nicht mehr. Dann löst man das Problem mit linearer Optimierung, etwa grafisch oder mit dem Simplex-Verfahren.</p><p>Weitere Annahmen, die du kennen solltest:</p><ul><li>Preise und variable Stückkosten sind konstant (linearer Verlauf, siehe <a href=\"/lernen/fixe-und-variable-kosten\">fixe und variable Kosten</a>).</li><li>Fixkosten sind kurzfristig nicht veränderbar.</li><li>Produkte sind unabhängig voneinander – Verbundeffekte (Kunde kauft den Tisch nur mit Bänken) werden ignoriert.</li><li>Teilmengen sind möglich; bei ganzzahligen Losgrößen muss man ggf. runden und neu prüfen.</li></ul><p>Abgrenzung: Die Programmplanung ist eine <strong>kurzfristige</strong> Entscheidung. Ob sich eine zweite Fräsmaschine lohnt, beantwortest du dagegen mit Investitionsrechnungen wie der <a href=\"/lernen/gewinnvergleichsrechnung\">Gewinnvergleichsrechnung</a>.</p>"
-  }
- ],
- "fehler": [
-  "Die Rangfolge wird nach absolutem Stückdeckungsbeitrag gebildet, obwohl ein Engpass vorliegt. Bei Engpass zählt immer der Deckungsbeitrag je Engpasseinheit.",
-  "Es wird nicht geprüft, ob überhaupt ein Engpass besteht. Reicht die Kapazität, werden einfach alle Produkte mit positivem Deckungsbeitrag in Höchstmenge produziert.",
-  "Produkte mit Verlust nach Vollkosten werden gestrichen. Solange der Stückdeckungsbeitrag positiv ist, trägt das Produkt kurzfristig zur Fixkostendeckung bei und bleibt im Programm.",
-  "Die Restkapazität wird falsch umgerechnet, z. B. 1.200 Stunden als 1.200 Stück angesetzt. Die verbleibenden Stunden müssen durch die Beanspruchung je Stück geteilt werden.",
-  "Der Gesamtdeckungsbeitrag wird als Gewinn angegeben. Zum Gewinn kommst du erst, wenn du die Fixkosten abziehst."
- ],
- "faq": [
-  {
-   "q": "Was ist der relative Deckungsbeitrag?",
-   "a": "Der relative Deckungsbeitrag ist der Stückdeckungsbeitrag geteilt durch die Beanspruchung des Engpasses je Stück, zum Beispiel Euro pro Maschinenstunde. Er zeigt, wie viel Deckungsbeitrag ein Produkt pro Einheit der knappen Ressource erwirtschaftet."
-  },
-  {
-   "q": "Wann verwendet man den absoluten und wann den relativen Deckungsbeitrag?",
-   "a": "Ohne Engpass reicht der absolute Stückdeckungsbeitrag: Alle Produkte mit positivem Wert werden in Höchstmenge produziert. Bei genau einem Engpass bestimmt der relative Deckungsbeitrag die Rangfolge."
-  },
-  {
-   "q": "Wie erkennt man einen Engpass?",
-   "a": "Du multiplizierst die maximalen Absatzmengen mit der Beanspruchung je Stück und addierst. Ist die Summe größer als die verfügbare Kapazität, liegt ein Engpass vor."
-  },
-  {
-   "q": "Was macht man bei mehreren Engpässen?",
-   "a": "Bei zwei oder mehr Engpässen reicht die einfache Rangfolge nicht aus, weil jede Ressource eine andere Reihenfolge ergeben kann. Dann nutzt man lineare Optimierung, bei zwei Produkten auch grafisch."
-  },
-  {
-   "q": "Sollte man ein Produkt mit negativem Betriebsergebnis aus dem Programm nehmen?",
-   "a": "Kurzfristig nur, wenn sein Stückdeckungsbeitrag negativ ist. Ein Verlust nach Vollkosten entsteht oft nur durch die Fixkostenverteilung, die bei Streichung trotzdem anfällt."
-  }
- ],
- "quiz": [
-  {
-   "q": "Produkt X: db 24 €, 4 Maschinenstunden. Produkt Y: db 15 €, 2 Maschinenstunden. Maschinenzeit ist der Engpass. Was wird zuerst produziert?",
-   "o": [
-    "X, weil 24 € > 15 €",
-    "Y, weil 7,50 €/h > 6 €/h",
-    "Beide gleich, weil beide positiv sind",
-    "X, weil es mehr Kapazität nutzt"
-   ],
-   "r": 1,
-   "e": "Relativer db: X = 24 ÷ 4 = 6 €/h, Y = 15 ÷ 2 = 7,50 €/h – also Y zuerst."
-  },
-  {
-   "q": "Es gibt keinen Engpass. Ein Produkt hat einen Stückdeckungsbeitrag von 3 €, aber einen Verlust nach Vollkosten. Was tust du kurzfristig?",
-   "o": [
-    "Bis zur Absatzgrenze produzieren",
-    "Aus dem Programm nehmen",
-    "Nur die Hälfte produzieren",
-    "Den Preis auf die Vollkosten anheben"
-   ],
-   "r": 0,
-   "e": "Jedes Stück bringt 3 € Beitrag zur Fixkostendeckung; Streichen würde den Gewinn senken."
-  },
-  {
-   "q": "Nach Verplanung der besten Produkte bleiben 900 Stunden. Das nächste Produkt benötigt 3 Stunden je Stück. Wie viele Stück werden gefertigt?",
-   "o": [
-    "900 Stück",
-    "2.700 Stück",
-    "300 Stück",
-    "450 Stück"
-   ],
-   "r": 2,
-   "e": "900 h ÷ 3 h je Stück = 300 Stück (sofern die Absatzgrenze nicht niedriger liegt)."
-  }
- ],
- "verwandt": [
-  "deckungsbeitrag",
-  "make-or-buy",
-  "opportunitaetskosten",
-  "fixe-und-variable-kosten",
-  "break-even-point"
- ],
- "ask": "das optimale Produktionsprogramm – mit und ohne Engpass, inklusive relativem Deckungsbeitrag an einem Beispiel"
+  "slug": "optimales-produktionsprogramm",
+  "name": "Optimales Produktionsprogramm (Engpass)",
+  "title": "Optimales Produktionsprogramm – Engpass einfach erklärt",
+  "meta": "Optimales Produktionsprogramm einfach erklärt: ohne Engpass nach Deckungsbeitrag, mit Engpass nach relativem Deckungsbeitrag – mit Rechenbeispiel.",
+  "h1": "Optimales Produktionsprogramm einfach erklärt",
+  "kurz": "Das optimale Produktionsprogramm legt fest, welche Produkte in welcher Menge hergestellt werden, damit der Gesamtdeckungsbeitrag maximal wird. Ohne Engpass produzierst du alle Produkte mit positivem Stückdeckungsbeitrag bis zur Absatzgrenze. Bei einem Engpass entscheidet die Rangfolge nach dem relativen Deckungsbeitrag, also dem Deckungsbeitrag je Engpasseinheit.",
+  "keywords": [
+    "optimales Produktionsprogramm",
+    "relativer Deckungsbeitrag",
+    "Engpass Produktionsprogramm",
+    "Produktionsprogrammplanung",
+    "Deckungsbeitrag pro Engpasseinheit",
+    "optimales Produktionsprogramm berechnen"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Worum geht es beim optimalen Produktionsprogramm?",
+      "html": "<p>Ein Unternehmen stellt mehrere Produkte her und muss entscheiden, wie viel es von jedem produziert. Kurzfristig sind die Fixkosten gegeben – sie lassen sich durch das Programm nicht beeinflussen. Deshalb ist das Ziel nicht „minimale Kosten“, sondern der <strong>maximale Gesamtdeckungsbeitrag</strong>. Der Gewinn ergibt sich dann als Gesamtdeckungsbeitrag minus Fixkosten.</p><p>Grundbaustein ist der Stückdeckungsbeitrag:</p><div class=\"formel\">\\[ \\text{db} = p - k_v \\]</div><p>Falls du hier noch unsicher bist, lies zuerst die Seite zum <a href=\"/lernen/deckungsbeitrag\">Deckungsbeitrag</a>. Für die Programmplanung kommt es dann auf eine einzige Frage an: <strong>Reicht die Kapazität, um alle Absatzmöglichkeiten zu bedienen, oder nicht?</strong></p>"
+    },
+    {
+      "h2": "Optimales Produktionsprogramm ohne Engpass",
+      "html": "<p>Reichen alle Kapazitäten aus, um die maximale Absatzmenge jedes Produkts herzustellen, ist die Entscheidung einfach:</p><ul><li>Produkte mit <strong>positivem Stückdeckungsbeitrag</strong> (\\( \\text{db} \\gt 0 \\)) werden bis zur Absatzhöchstmenge produziert. Jedes Stück trägt zur Deckung der Fixkosten bei.</li><li>Produkte mit <strong>negativem Stückdeckungsbeitrag</strong> (\\( \\text{db} \\lt 0 \\)) werden nicht produziert – jedes Stück erhöht den Verlust.</li><li>Bei \\( \\text{db} = 0 \\) ist das Unternehmen indifferent.</li></ul><p>Wichtig: Ein Produkt mit positivem Deckungsbeitrag, aber Verlust nach Vollkosten bleibt kurzfristig im Programm. Würdest du es streichen, fielen seine anteiligen Fixkosten trotzdem an, und der Gesamtgewinn sänke. Diese Erkenntnis ist der zentrale Vorteil der Teilkostenrechnung gegenüber der Vollkostenrechnung in der Kostenrechnung.</p>"
+    },
+    {
+      "h2": "Optimales Produktionsprogramm mit einem Engpass",
+      "html": "<p>Ein <strong>Engpass</strong> liegt vor, wenn eine Ressource (z. B. Maschinenstunden, Rohstoff, Arbeitszeit) nicht ausreicht, um alle Produkte in maximaler Menge herzustellen. Dann konkurrieren die Produkte um diese knappe Ressource. Entscheidend ist nicht mehr, welches Produkt pro Stück am meisten bringt, sondern welches <strong>pro Einheit des Engpasses</strong> am meisten bringt:</p><div class=\"formel\">\\[ \\text{relativer Deckungsbeitrag} = \\frac{\\text{Stückdeckungsbeitrag}}{\\text{Engpassbeanspruchung je Stück}} \\]</div><p>Vorgehen in vier Schritten:</p><ol><li>Prüfen, ob überhaupt ein Engpass vorliegt: benötigte Kapazität (Summe aus \\( \\text{Höchstmenge} \\cdot \\text{Beanspruchung} \\)) mit vorhandener Kapazität vergleichen.</li><li>Für alle Produkte mit \\( \\text{db} \\gt 0 \\) den relativen Deckungsbeitrag berechnen.</li><li>Rangfolge bilden: höchster relativer Deckungsbeitrag zuerst.</li><li>Kapazität nach dieser Rangfolge verteilen, jeweils bis zur Absatzgrenze, bis die Kapazität erschöpft ist.</li></ol><p>Warum funktioniert das? Die knappe Ressource ist der eigentliche Flaschenhals. Jede Stunde kann nur einmal vergeben werden, also soll sie dorthin gehen, wo sie den größten Beitrag stiftet. Ein Produkt mit hohem Stückdeckungsbeitrag, das aber sehr viel Kapazität frisst, kann pro Engpassstunde schlechter abschneiden als ein unscheinbares Produkt mit kleinem Beitrag und kurzer Bearbeitungszeit. Sind relative Deckungsbeiträge gleich, ist die Reihenfolge zwischen diesen Produkten egal.</p><div class=\"merke\">Ohne Engpass: Rangfolge egal, alles mit \\( \\text{db} \\gt 0 \\) produzieren. Mit einem Engpass: Rangfolge nach db je Engpasseinheit.</div>"
+    },
+    {
+      "h2": "Beispiel: Produktionsprogramm mit Engpass berechnen",
+      "html": "<div class=\"beispiel\"><p>Ein Hersteller von Gartenmöbeln fertigt drei Produkte auf derselben Fräsmaschine. Diese steht 2.500 Stunden pro Periode zur Verfügung. Die Fixkosten betragen 20.000 €.</p><table><thead><tr><th>Produkt</th><th>Preis</th><th>\\( k_v \\)</th><th>Std. je Stück</th><th>max. Absatz</th></tr></thead><tbody><tr><td>A (Bank)</td><td>80 €</td><td>50 €</td><td>2</td><td>400</td></tr><tr><td>B (Tisch)</td><td>120 €</td><td>75 €</td><td>5</td><td>300</td></tr><tr><td>C (Hocker)</td><td>60 €</td><td>40 €</td><td>1</td><td>500</td></tr></tbody></table><ol><li><strong>Engpass prüfen:</strong> \\( \\text{Bedarf} = 400 \\cdot 2 + 300 \\cdot 5 + 500 \\cdot 1 = 800 + 1.500 + 500 = 2.800\\text{ h} \\gt 2.500\\text{ h} \\Rightarrow \\text{Engpass} \\).</li><li><strong>Stückdeckungsbeiträge:</strong> A: 30 €, B: 45 €, C: 20 € – alle positiv.</li><li><strong>Relative Deckungsbeiträge:</strong> A: \\( \\frac{30}{2} = 15 \\) €/h, B: \\( \\frac{45}{5} = 9 \\) €/h, C: \\( \\frac{20}{1} = 20 \\) €/h.</li><li><strong>Rangfolge:</strong> C (20) vor A (15) vor B (9).</li><li><strong>Kapazität verteilen:</strong> C: \\( 500\\text{ Stück} \\cdot 1\\text{ h} = 500\\text{ h} \\) (Rest 2.000 h). A: \\( 400\\text{ Stück} \\cdot 2\\text{ h} = 800\\text{ h} \\) (Rest 1.200 h). B: \\( \\frac{1.200\\text{ h}}{5\\text{ h}} = 240\\text{ Stück} \\).</li><li><strong>Ergebnis:</strong> \\( \\text{Gesamtdeckungsbeitrag} = 500 \\cdot 20 + 400 \\cdot 30 + 240 \\cdot 45 = 10.000 + 12.000 + 10.800 = 32.800 \\) €. \\( \\text{Gewinn} = 32.800 - 20.000 = 12.800 \\) €.</li></ol><p><strong>Gegenprobe mit der falschen Rangfolge</strong> nach absolutem Stückdeckungsbeitrag (B vor A vor C): B 300 Stück (1.500 h), A 400 Stück (800 h), C nur 200 Stück (200 h). \\( \\text{Gesamtdeckungsbeitrag} = 13.500 + 12.000 + 4.000 = 29.500 \\) € – also 3.300 € weniger.</p></div>"
+    },
+    {
+      "h2": "Wie interpretiert man das Ergebnis?",
+      "html": "<p>Das Ergebnis wirkt auf den ersten Blick paradox: Der Tisch hat den höchsten Stückdeckungsbeitrag, wird aber gekürzt. Der Grund: Er bindet pro Stück fünf Maschinenstunden. In fünf Stunden könntest du stattdessen fünf Hocker (\\( 5 \\cdot 20 = 100 \\) €) oder zweieinhalb Bänke (\\( 2{,}5 \\cdot 30 = 75 \\) €) bauen – beides bringt mehr als ein Tisch mit 45 €.</p><p>Daraus lassen sich weitere Kennzahlen ableiten, die in Klausuren gern als Folgefrage auftauchen:</p><ul><li><strong>Wert einer zusätzlichen Engpassstunde:</strong> Die nächste Stunde ginge an das Grenzprodukt B und brächte 9 €. Mehr als 9 € pro Stunde sollte man für zusätzliche Kapazität (z. B. Überstunden) kurzfristig nicht zahlen.</li><li><strong>Zusatzauftrag:</strong> Ein Auftrag, der Fräszeit benötigt, muss mindestens die variablen Kosten plus 9 € je beanspruchter Stunde decken, weil er B verdrängt. Das sind <a href=\"/lernen/opportunitaetskosten\">Opportunitätskosten</a>.</li><li><strong>Fremdbezug:</strong> Dieselbe Logik nutzt du bei der <a href=\"/lernen/make-or-buy\">Make-or-Buy-Entscheidung</a> unter Vollauslastung.</li></ul>"
+    },
+    {
+      "h2": "Grenzen des Verfahrens und Abgrenzung",
+      "html": "<p>Die Rangfolge nach dem relativen Deckungsbeitrag funktioniert nur bei <strong>genau einem Engpass</strong>. Sind gleichzeitig zwei Ressourcen knapp (z. B. Maschinenzeit und Rohstoff), kann sich für jeden Engpass eine andere Rangfolge ergeben. Ein Produkt, das bei der Maschine vorn liegt, kann beim Rohstoff hinten liegen – eine eindeutige Reihenfolge existiert dann nicht mehr. Dann löst man das Problem mit linearer Optimierung, etwa grafisch oder mit dem Simplex-Verfahren.</p><p>Weitere Annahmen, die du kennen solltest:</p><ul><li>Preise und variable Stückkosten sind konstant (linearer Verlauf, siehe <a href=\"/lernen/fixe-und-variable-kosten\">fixe und variable Kosten</a>).</li><li>Fixkosten sind kurzfristig nicht veränderbar.</li><li>Produkte sind unabhängig voneinander – Verbundeffekte (Kunde kauft den Tisch nur mit Bänken) werden ignoriert.</li><li>Teilmengen sind möglich; bei ganzzahligen Losgrößen muss man ggf. runden und neu prüfen.</li></ul><p>Abgrenzung: Die Programmplanung ist eine <strong>kurzfristige</strong> Entscheidung. Ob sich eine zweite Fräsmaschine lohnt, beantwortest du dagegen mit Investitionsrechnungen wie der <a href=\"/lernen/gewinnvergleichsrechnung\">Gewinnvergleichsrechnung</a>.</p>"
+    }
+  ],
+  "fehler": [
+    "Die Rangfolge wird nach absolutem Stückdeckungsbeitrag gebildet, obwohl ein Engpass vorliegt. Bei Engpass zählt immer der Deckungsbeitrag je Engpasseinheit.",
+    "Es wird nicht geprüft, ob überhaupt ein Engpass besteht. Reicht die Kapazität, werden einfach alle Produkte mit positivem Deckungsbeitrag in Höchstmenge produziert.",
+    "Produkte mit Verlust nach Vollkosten werden gestrichen. Solange der Stückdeckungsbeitrag positiv ist, trägt das Produkt kurzfristig zur Fixkostendeckung bei und bleibt im Programm.",
+    "Die Restkapazität wird falsch umgerechnet, z. B. 1.200 Stunden als 1.200 Stück angesetzt. Die verbleibenden Stunden müssen durch die Beanspruchung je Stück geteilt werden.",
+    "Der Gesamtdeckungsbeitrag wird als Gewinn angegeben. Zum Gewinn kommst du erst, wenn du die Fixkosten abziehst."
+  ],
+  "faq": [
+    {
+      "q": "Was ist der relative Deckungsbeitrag?",
+      "a": "Der relative Deckungsbeitrag ist der Stückdeckungsbeitrag geteilt durch die Beanspruchung des Engpasses je Stück, zum Beispiel Euro pro Maschinenstunde. Er zeigt, wie viel Deckungsbeitrag ein Produkt pro Einheit der knappen Ressource erwirtschaftet."
+    },
+    {
+      "q": "Wann verwendet man den absoluten und wann den relativen Deckungsbeitrag?",
+      "a": "Ohne Engpass reicht der absolute Stückdeckungsbeitrag: Alle Produkte mit positivem Wert werden in Höchstmenge produziert. Bei genau einem Engpass bestimmt der relative Deckungsbeitrag die Rangfolge."
+    },
+    {
+      "q": "Wie erkennt man einen Engpass?",
+      "a": "Du multiplizierst die maximalen Absatzmengen mit der Beanspruchung je Stück und addierst. Ist die Summe größer als die verfügbare Kapazität, liegt ein Engpass vor."
+    },
+    {
+      "q": "Was macht man bei mehreren Engpässen?",
+      "a": "Bei zwei oder mehr Engpässen reicht die einfache Rangfolge nicht aus, weil jede Ressource eine andere Reihenfolge ergeben kann. Dann nutzt man lineare Optimierung, bei zwei Produkten auch grafisch."
+    },
+    {
+      "q": "Sollte man ein Produkt mit negativem Betriebsergebnis aus dem Programm nehmen?",
+      "a": "Kurzfristig nur, wenn sein Stückdeckungsbeitrag negativ ist. Ein Verlust nach Vollkosten entsteht oft nur durch die Fixkostenverteilung, die bei Streichung trotzdem anfällt."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Produkt X: db 24 €, 4 Maschinenstunden. Produkt Y: db 15 €, 2 Maschinenstunden. Maschinenzeit ist der Engpass. Was wird zuerst produziert?",
+      "o": [
+        "X, weil 24 € > 15 €",
+        "Y, weil 7,50 €/h > 6 €/h",
+        "Beide gleich, weil beide positiv sind",
+        "X, weil es mehr Kapazität nutzt"
+      ],
+      "r": 1,
+      "e": "Relativer db: \\( X = \\frac{24}{4} = 6 \\) €/h, \\( Y = \\frac{15}{2} = 7{,}50 \\) €/h – also Y zuerst."
+    },
+    {
+      "q": "Es gibt keinen Engpass. Ein Produkt hat einen Stückdeckungsbeitrag von 3 €, aber einen Verlust nach Vollkosten. Was tust du kurzfristig?",
+      "o": [
+        "Bis zur Absatzgrenze produzieren",
+        "Aus dem Programm nehmen",
+        "Nur die Hälfte produzieren",
+        "Den Preis auf die Vollkosten anheben"
+      ],
+      "r": 0,
+      "e": "Jedes Stück bringt 3 € Beitrag zur Fixkostendeckung; Streichen würde den Gewinn senken."
+    },
+    {
+      "q": "Nach Verplanung der besten Produkte bleiben 900 Stunden. Das nächste Produkt benötigt 3 Stunden je Stück. Wie viele Stück werden gefertigt?",
+      "o": [
+        "900 Stück",
+        "2.700 Stück",
+        "300 Stück",
+        "450 Stück"
+      ],
+      "r": 2,
+      "e": "\\( \\frac{900\\text{ h}}{3\\text{ h je Stück}} = 300\\text{ Stück} \\) (sofern die Absatzgrenze nicht niedriger liegt)."
+    }
+  ],
+  "verwandt": [
+    "deckungsbeitrag",
+    "make-or-buy",
+    "opportunitaetskosten",
+    "fixe-und-variable-kosten",
+    "break-even-point"
+  ],
+  "ask": "das optimale Produktionsprogramm – mit und ohne Engpass, inklusive relativem Deckungsbeitrag an einem Beispiel"
 }
