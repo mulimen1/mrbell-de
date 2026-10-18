@@ -88,7 +88,7 @@ function locked(wrap, onLogin, sub = '') {
       h('div', { class: 'me-cta' }, h('button', { class: 'btn primary lg', type: 'button', onclick: () => import('../account.js').then(m => m.openLogin({ mode: 'register' })) }, L('Kostenloses Konto erstellen', 'Create free account')),
         h('button', { class: 'btn lg', type: 'button', onclick: () => onLogin && onLogin() }, L('Anmelden', 'Sign in')),
         h('small', {}, L('Kostenlos · dauert 30 Sekunden', 'Free · takes 30 seconds'))),
-      h('p', { class: 'm-laptop' }, L('Erstell dein Konto jetzt – am Laptop geht’s dann genau da weiter, wo du aufgehört hast.', 'Create your account now – on your laptop you’ll pick up right where you left off.'))),
+      h('p', { class: 'm-laptop' }, L('Erstell dein Konto jetzt – am Laptop meldest du dich einfach an und lernst weiter.', 'Create your account now – on your laptop just sign in and keep learning.'))),
     f),
     h('div', { class: 'me-preview mlk-prev mlk-' + (sub || 'me'), 'aria-hidden': 'true' },
       lockPreview(sub),

@@ -229,7 +229,7 @@ export function overlayBusy() {
   return [...document.querySelectorAll('.modal-bg, .ngreet, .hn, .sidemenu, .acc-pop, .app.sideopen, .pal[open], body > .voice')].some(e => e.getClientRects().length);
 }
 // Handy: Zeile unter Konto-Aufrufen (nur am Handy sichtbar, CSS .m-laptop)
-export const LAPTOP_LINE = () => L('Erstell dein Konto jetzt – am Laptop geht’s dann genau da weiter, wo du aufgehört hast.', 'Create your account now – on your laptop you’ll pick up right where you left off.');
+export const LAPTOP_LINE = () => L('Erstell dein Konto jetzt – am Laptop meldest du dich einfach an und lernst weiter.', 'Create your account now – on your laptop just sign in and keep learning.');
 export const isGuest = () => !getAccount();
 export const GUEST_CARDS = 10, GUEST_QUIZ = 3;
 const PREV = {

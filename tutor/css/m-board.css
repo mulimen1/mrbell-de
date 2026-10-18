@@ -146,3 +146,9 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 .tafel .m-trn .m-trs { color: var(--mute); font-weight: 500; }
 .tafel .m-trn .m-tra { margin-left: auto; font-weight: 500; transition: transform .15s; }
 .tafel .m-trn:hover .m-tra { transform: translateX(3px); }
+
+/* Handy: der Verlauf-Knopf sitzt über der Eingabe – die Skript-Zeile darunter weicht ihm */
+@media (max-width: 600px) {
+  body:has(.m-hist:not([hidden])) .rm-fl2,
+  body:has(.m-hist:not([hidden])) .rm-fl3 { display: none !important; }
+}
