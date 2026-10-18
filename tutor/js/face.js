@@ -7,7 +7,7 @@ const faces = new Set();
 // Haare einmal vorladen und dekodieren, damit jeder Kopf sofort mit Frisur erscheint
 const HAIR_SRC = '/tutor/img/max-hair.webp';
 const HAIR_IMG = new Image(); HAIR_IMG.src = HAIR_SRC;
-const COLLAR_SRC = '/tutor/img/max-collar.webp';
+const COLLAR_SRC = '/tutor/img/max-collar.webp?v=2';
 const COLLAR_IMG = new Image(); COLLAR_IMG.src = COLLAR_SRC;
 let UID = 0;
 let HAIR_READY = false;
