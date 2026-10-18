@@ -7,7 +7,7 @@ import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
 import { accountChip, refreshAccount, openLogin, openAccount, openAuth } from './account.js';
 import { getOutLang, setOutLang, L, LOCALE, lang, setLang } from './i18n.js';
 import { lines as maxLines, getSpice } from './max.js';
-import { apiError, thought, isPhone, overlayBusy } from './ui.js';
+import { apiError, thought, isPhone, overlayBusy, LAPTOP_LINE } from './ui.js';
 import { exportAll, importAll, wipe } from './db.js';
 import { applyThemeButtons } from './theme.js';
 import { feedbackButton, openFeedback } from './feedback.js';
@@ -115,21 +115,23 @@ function buildShell() {
   // Feedback ist immer einen Klick entfernt (oben rechts, in der Seitenleiste und im Menü)
   const fbTop = h('button', { class: 'fb-top', type: 'button', title: L('Was fehlt, was nervt, deine Idee – wir lesen alles', 'What’s missing, what’s annoying, your idea – we read everything'), 'aria-label': 'Feedback', onclick: () => openFeedback() }, h('span', { html: ico('chat') }));
   const topset = h('div', { class: 'topset' }, fbTop, langSwitch(), h('button', { class: 'iconbtn', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }));
-  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn, topset), docbar, view);
+  // Handy: statt Leiste unten kleine Knöpfe rechts oben – Tools, (Suche = palBtn), Konto
+  const accBtn = h('button', { class: 'm-act m-acc', type: 'button', 'aria-label': L('Konto', 'Account'), html: ico('lock'), onclick: () => getAccount() ? openAccount() : openAuth() });
+  const mActs = h('div', { class: 'm-acts' }, h('button', { class: 'm-act m-tools', type: 'button', 'aria-label': 'Tools', html: ico('sidebar'), onclick: () => app.classList.toggle('sideopen') }), accBtn);
+  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn, mActs, topset), docbar, view);
   const bbar = bottomBar(() => app);
   const app = h('div', { class: 'app' + (ls.get('tutor.sideClosed', false) ? ' side-closed' : '') }, side, main, bbar);
   function setSide(open) { app.classList.toggle('side-closed', !open); ls.set('tutor.sideClosed', !open); sideBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
   document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === '\\' && location.hash.startsWith('#/app')) { e.preventDefault(); if (isMob()) app.classList.toggle('sideopen'); else setSide(app.classList.contains('side-closed')); } });
-  app.addEventListener('click', e => { if (app.classList.contains('sideopen') && !e.target.closest('.side') && !e.target.closest('.side-tog') && !e.target.closest('.bb-side')) app.classList.remove('sideopen'); });
+  app.addEventListener('click', e => { if (app.classList.contains('sideopen') && !e.target.closest('.side') && !e.target.closest('.side-tog') && !e.target.closest('.bb-side') && !e.target.closest('.m-tools')) app.classList.remove('sideopen'); });
   root.replaceChildren(app);
   face(faceEl, {}); face(tnFace, { follow: false });
   shell = { root, app, side, title, tabs, docbar, topnav, view, quotaEl, backEl };
   onQuota(renderQuota);
-  onAccount(a => { renderQuota(currentQuota()); import('./views/zahlen.js').then(m => { const z = topnav.querySelector('[data-tn="zahlen"]'); if (z) z.hidden = !m.isAdmin(a); }); });
+  onAccount(a => { accBtn.classList.toggle('in', !!a); accBtn.setAttribute('aria-label', a ? L('Dein Konto', 'Your account') : L('Anmelden oder Konto erstellen', 'Sign in or create account')); renderQuota(currentQuota()); import('./views/zahlen.js').then(m => { const z = topnav.querySelector('[data-tn="zahlen"]'); if (z) z.hidden = !m.isAdmin(a); }); });
   refreshAccount();
   phoneShell(topnav, app);
   mobileTip();
-  import('./promo.js').then(m => m.initPromo()).catch(() => {});
   onChange(renderList);
   applyThemeButtons();
   // Schwebender Max-Assistent (überall in der App)
@@ -185,8 +187,9 @@ function renderQuota() {
     h('div', { class: 'qx-top' }, h('b', { class: 'ic-lt' }, 'Max’s Inner Circle'), h('span', { class: 'qx-dot', 'aria-hidden': 'true' })),
     h('div', { class: 'qx-h' }, L('Für heute aufgebraucht', 'Used up for today')),
     h('div', { class: 'qx-s' }, L('Neue Antworten ab 0:00 Uhr. Hochladen und speichern geht immer.', 'New answers from midnight. Uploading and saving always works.')),
-    h('button', { class: 'qx-go', type: 'button', onclick: () => (acc ? import('./ic.js').then(m => m.innerCircle({ reason: L('Für heute sind deine Antworten aufgebraucht.', 'You’ve used up today’s answers.') })) : openLogin({ title: L('Mehr mit kostenlosem Konto', 'More with a free account') })) },
-      h('span', {}, acc ? L('Ohne Limit weiterlernen', 'Keep learning without limits') : L('Kostenloses Konto holen', 'Get a free account')), h('span', { class: 'qx-ar', html: ico('right') })));
+    h('button', { class: 'qx-go', type: 'button', onclick: () => (acc ? import('./ic.js').then(m => m.innerCircle({ reason: L('Für heute sind deine Antworten aufgebraucht.', 'You’ve used up today’s answers.') })) : openAuth({ title: L('Mehr mit kostenlosem Konto', 'More with a free account'), registerTitle: L('Mehr mit kostenlosem Konto', 'More with a free account') })) },
+      h('span', {}, acc ? L('Ohne Limit weiterlernen', 'Keep learning without limits') : L('Kostenloses Konto holen', 'Get a free account')), h('span', { class: 'qx-ar', html: ico('right') })),
+    acc ? null : h('div', { class: 'm-laptop' }, LAPTOP_LINE()));
 }
 
 // Woher kam man? „Lernen“ oder „Bibliothek“ – dann gibt’s oben einen Weg zurück
@@ -657,7 +660,10 @@ function bottomBar(getApp) {
     item('ich', 'lock', L('Ich', 'Me'), () => getAccount() ? openAccount() : openAuth()));
   const mark = () => { const h0 = location.hash; bar.querySelectorAll('.bb-i').forEach(x => x.classList.toggle('on', (x.dataset.bb === 'tutor' && h0.startsWith('#/app/tutor')) || (x.dataset.bb === 'bibliothek' && (h0.startsWith('#/app/bibliothek') || !!(S.doc && h0.includes(S.doc.id)))))); };
   addEventListener('hashchange', mark); mark();
-  document.documentElement.classList.add('has-bbar');
+  // Handy: keine Leiste unten (mehr Platz) – alles steckt oben; Tablet behält sie
+  const mq = matchMedia('(max-width: 600px), (pointer: coarse) and (max-height: 500px)');
+  const apply = () => { document.documentElement.classList.toggle('has-bbar', !mq.matches); document.documentElement.classList.toggle('m-nobb', mq.matches); };
+  apply(); try { mq.addEventListener('change', apply); } catch (e) { mq.addListener && mq.addListener(apply); }
   return bar;
 }
 

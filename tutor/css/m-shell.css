@@ -34,6 +34,10 @@
   .mlk-favs { grid-template-columns: 1fr; }
 }
 
+/* Laptop-Hinweis unter Konto-Aufrufen und Kopf-Knöpfe: nur am Handy */
+.m-laptop { display: none; }
+.m-acts { display: none; }
+
 /* ---------- Ab hier: nur Handy ---------- */
 @media (max-width: 600px), (pointer: coarse) and (max-height: 500px) {
   /* Einmaliger Tipp oben links: klein, unter der Statusleiste, fängt nur Tipps auf sich selbst ab */
@@ -73,8 +77,26 @@
   .tn { height: 40px; -webkit-tap-highlight-color: transparent; }
   .tn:focus:not(:focus-visible) { outline: none; }
   .bb-i { -webkit-tap-highlight-color: transparent; } .bb-i:focus:not(:focus-visible) { outline: none; }
-  /* Bibliothek steht unten in der Leiste – oben nicht doppelt */
-  html.has-bbar .topnav .tn[data-tn="bibliothek"] { display: none; }
+  /* Keine Leiste unten am Handy: alles steckt oben – Reiter + Knöpfe Suche · Tools · Konto */
+  html.m-nobb .bbar { display: none !important; }
+  html.m-nobb .app .view { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  html.m-nobb .side-tog { display: none !important; }
+  html.m-nobb .side .bottom { padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+  .topbar { gap: 4px; padding-left: max(8px, env(safe-area-inset-left, 0px)); padding-right: max(8px, env(safe-area-inset-right, 0px)); }
+  .topnav { flex: 1 1 auto; }
+  .topbar .pal-btn { width: 40px; height: 40px; margin-left: 2px; border-color: transparent; background: transparent; color: var(--ink2); }
+  .topbar .pal-btn svg { width: 19px; height: 19px; }
+  .m-acts { display: flex; flex: none; gap: 0; }
+  .m-act { width: 40px; height: 40px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink2); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .m-act .ico { width: 20px; height: 20px; }
+  .m-act:active { background: var(--panel2); }
+  .m-act:focus:not(:focus-visible) { outline: none; }
+  .app.sideopen .m-tools { color: var(--ink); background: var(--panel2); }
+  .m-acc.in { color: var(--ink); }
+  .m-laptop { display: block; margin: 10px 0 0; font: 450 12.5px/1.4 var(--sans); color: var(--mute); }
+  li.m-laptop { display: list-item; list-style: none; }
+  .me-hl .m-laptop { margin-top: 12px; max-width: 34ch; }
+  .modal.login .m-laptop { text-align: center; margin: 12px auto 0; max-width: 32ch; }
 
   /* Seitenleiste (Tools): liegt über Max' Eingabeleiste, dunkler Hintergrund mit Weichzeichner (keine Textfetzen am Rand) */
   .app.sideopen .side { z-index: 92; }
@@ -91,4 +113,7 @@
 
   /* Feedback: Eingabefeld kleiner, damit „Abschicken“ über der Tastatur bleibt */
   .fb-modal textarea { max-height: 30vh; }
+}
+@media (max-width: 600px), (pointer: coarse) and (max-height: 500px) {
+  .qx .m-laptop { color: color-mix(in srgb, currentColor 65%, transparent); margin-top: 8px; font-size: 12px; }
 }

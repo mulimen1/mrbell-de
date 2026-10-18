@@ -78,7 +78,8 @@ export async function accountGate({ title, text, retry } = {}) {
   const pts = h('ul', { class: 'gate-pts' },
     h('li', {}, h('span', { html: ico('check') }), L('Kostenlos – keine Kreditkarte, kein Abo', 'Free – no credit card, no subscription')),
     h('li', {}, h('span', { html: ico('check') }), L('Alles, was du schon gemacht hast, bleibt erhalten', 'Everything you’ve done so far stays')),
-    h('li', {}, h('span', { html: ico('check') }), L('Nur E-Mail bestätigen – Code kommt evtl. im Spam an', 'Just confirm your email – the code may land in spam')));
+    h('li', {}, h('span', { html: ico('check') }), L('Nur E-Mail bestätigen – Code kommt evtl. im Spam an', 'Just confirm your email – the code may land in spam')),
+    h('li', { class: 'm-laptop' }, LAPTOP_LINE()));
   const r = await modal({ title: title || L('Weiter geht’s mit kostenlosem Konto', 'Keep going with a free account'), text: text || L('Ohne Konto kannst du alles einmal ausprobieren. Für mehr brauchst du nur ein kostenloses Konto.', 'Without an account you can try everything once. For more, all you need is a free account.'), body: pts,
     actions: [{ label: L('Ich hab schon eins', 'I already have one'), value: 'login' }, { label: L('Konto erstellen', 'Create account'), value: 'reg', primary: true }] });
   if (!r) return false;
@@ -227,6 +228,8 @@ export function overlayBusy() {
   if (c.contains('bmc-open') || c.contains('m-pill') || c.contains('m-tip')) return true;
   return [...document.querySelectorAll('.modal-bg, .ngreet, .hn, .sidemenu, .acc-pop, .app.sideopen, .pal[open], body > .voice')].some(e => e.getClientRects().length);
 }
+// Handy: Zeile unter Konto-Aufrufen (nur am Handy sichtbar, CSS .m-laptop)
+export const LAPTOP_LINE = () => L('Erstell dein Konto jetzt – am Laptop geht’s dann genau da weiter, wo du aufgehört hast.', 'Create your account now – on your laptop you’ll pick up right where you left off.');
 export const isGuest = () => !getAccount();
 export const GUEST_CARDS = 10, GUEST_QUIZ = 3;
 const PREV = {
@@ -246,6 +249,7 @@ export function lockedPreview(wrap, { kind = 'zettel', title, text, onUnlock, ba
         h('button', { class: 'btn primary lg', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin({ mode: 'register' }) && onUnlock) onUnlock(); } }, L('Kostenlos freischalten', 'Unlock for free')),
         h('button', { class: 'btn lg', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin() && onUnlock) onUnlock(); } }, L('Anmelden', 'Sign in'))),
       h('small', {}, L('Kostenlos · keine Kreditkarte · Code kommt evtl. im Spam an', 'Free · no credit card · code may land in spam')),
+      h('p', { class: 'm-laptop' }, LAPTOP_LINE()),
       back ? h('button', { class: 'btn sm ghost', type: 'button', onclick: back, style: { marginTop: '6px' } }, h('span', { html: ico('left') }), L('Zurück', 'Back')) : null)));
   face(f);
 }
@@ -257,7 +261,8 @@ export function lockedRest(stage, { left, what, onUnlock }) {
     h('p', {}, L('Sind schon fertig – mit kostenlosem Konto geht’s direkt hier weiter. Dein Fortschritt bleibt erhalten.', 'They’re ready – with a free account you continue right here. Your progress stays.')),
     h('div', { class: 'lp-b' },
       h('button', { class: 'btn primary', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin({ mode: 'register' }) && onUnlock) onUnlock(); } }, L('Kostenlos weitermachen', 'Continue for free')),
-      h('button', { class: 'btn', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin() && onUnlock) onUnlock(); } }, L('Anmelden', 'Sign in')))));
+      h('button', { class: 'btn', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin() && onUnlock) onUnlock(); } }, L('Anmelden', 'Sign in'))),
+    h('p', { class: 'm-laptop' }, LAPTOP_LINE())));
   face(f).set?.('happy');
 }
 
