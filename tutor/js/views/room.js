@@ -43,7 +43,13 @@ const setFocus = ids => ls.set('tutor.room.focus', [...new Set(ids)].filter(id =
 
 export function render(root, ctx = {}) {
   staleCheck();
-  const asstP = import('../assistant.js').then(m => m.mountAssistant());
+  // Lädt Max (Netz wackelt kurz)? Einmal sauber neu laden – die offene Frage bleibt gespeichert und wird danach gestellt
+  const asstP = import('../assistant.js').then(m => m.mountAssistant()).catch(e => {
+    let t = 0; try { t = +sessionStorage.getItem('tutor.reloadOnce') || 0; } catch (x) {}
+    if (Date.now() - t > 60000) { try { sessionStorage.setItem('tutor.reloadOnce', String(Date.now())); } catch (x) {} location.reload(); }
+    else toast(L('Verbindung wackelt – lad die Seite bitte kurz neu.', 'Connection is shaky – please reload the page.'), 8000);
+    return null;
+  });
   let api = null, mode = 'home', fc = null, stopped = false;
   const cfg = () => MC.getCfg();
 
