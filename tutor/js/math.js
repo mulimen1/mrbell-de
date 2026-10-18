@@ -307,7 +307,9 @@ function fixText(root) {
 }
 // ---------- Buchungssätze: Soll-Konto | Betrag, darunter „an“ Haben-Konto | Betrag ----------
 const AMT_RX = /[-−]?\d{1,3}(?:\.\d{3})+(?:,\d{1,2})?[  ]?(?:€|EUR)|[-−]?\d+(?:,\d{1,2})?[  ]?(?:€|EUR)/g;
-const SEPW = /^(an|und|\+)$/i;
+const SEPW = /^(an|und|\+|und an|sowie an|sowie)$/i;
+const isAn = t => /\ban\b/i.test(t);
+const rows0 = toks => toks.some(t => t.k === 'an');
 const num = s => parseFloat(String(s).replace(/−/g, '-').replace(/[^\d,-]/g, '').replace(',', '.'));
 function bsParse(bs) {
   if (bs.querySelector('.tex, table, div, ul, ol')) return null;
@@ -323,10 +325,11 @@ function bsParse(bs) {
     if (n.nodeType !== 1) continue;
     const t = n.localName, tx = n.textContent;
     if (t === 'br') toks.push({ k: 'br' });
-    else if (t === 'span' && SEPW.test(tx.trim())) toks.push({ k: /^an$/i.test(tx.trim()) ? 'an' : 'und' });
+    else if (t === 'span' && SEPW.test(tx.trim())) toks.push({ k: isAn(tx) ? 'an' : 'und' });
     else if ((t === 'em' || t === 'i' || t === 'small') && /\d/.test(tx)) {
-      if (/soll|haben|=/i.test(tx)) { toks.push({ k: 'sum', v: tx.trim() }); continue; }
-      const g = []; tx.split(/\s+(an|AN)\s+/).forEach((p, i) => { if (i % 2) g.push('an'); else (p.match(AMT_RX) || []).forEach(a => g.push(a)); });
+      if (/soll|haben/i.test(tx) || (/=/.test(tx) && !rows0(toks))) { toks.push({ k: 'sum', v: tx.trim() }); continue; }
+      // „1.000 € + 190 € = 1.190 €“: links Soll-, rechts Haben-Beträge
+      const g = []; tx.split(/\s+(an|AN|=)\s+/).forEach((p, i) => { if (i % 2) g.push('an'); else (p.match(AMT_RX) || []).forEach(a => g.push(a)); });
       if (g.some(x => x !== 'an')) toks.push({ k: 'grp', v: g }); else text(tx, !marked);
     } else text(tx, !marked);
   }

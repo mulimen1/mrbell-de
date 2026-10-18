@@ -229,8 +229,8 @@ export function mountAssistant() {
     placeHist();
   }
   function placeHist() {
-    if (mHist.hidden) return;
-    const put = () => { const tops = [isl, STAGE?.slots?.composer].filter(e => e && e.isConnected).map(e => e.getBoundingClientRect()).filter(r => r.height).map(r => r.top); if (tops.length) mHist.style.bottom = Math.max(8, Math.round(innerHeight - Math.min(...tops) + 8)) + 'px'; };
+    if (mHist.hidden && !(MOB.matches && boardMin)) return;
+    const put = () => { const tops = [isl, STAGE?.slots?.composer].filter(e => e && e.isConnected).map(e => e.getBoundingClientRect()).filter(r => r.height).map(r => r.top); if (tops.length) { const bt = Math.max(8, Math.round(innerHeight - Math.min(...tops) + 8)) + 'px'; mHist.style.bottom = bt; root.style.setProperty('--m-hb', bt); } };
     requestAnimationFrame(put); setTimeout(put, 450);
   }
   addEventListener('resize', placeHist);
@@ -301,14 +301,49 @@ export function mountAssistant() {
   const bGrab = h('div', { class: 'ai-grab', 'aria-hidden': 'true' }, h('i'));
   const board = h('section', { class: 'ai-board', role: 'region', 'aria-label': L('Max’ Tafel', 'Max’s board') },
     bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bDl, bDel, bFs, bMore, bMin, bClose), bMenu, bAsk, bArea, bSay);
-  const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', {}, L('Tafel', 'Board')));
+  const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', { class: 'm-btl' }, L('Tafel', 'Board')), h('span', { class: 'm-btm' }, L('Zurück zur Tafel', 'Back to the board')));
+  // ---------- Handy: die Tafel ist die Seite ----------
+  // Rechts unten Max (öffnet den Chat), daneben drei grüne Knöpfe: Quiz, Beispiel, passender Trainer
+  const pFace = h('span', { class: 'm-pmf' });
+  const pMax = h('button', { class: 'm-pmax', type: 'button', 'aria-label': L('Mit Max chatten', 'Chat with Max'), title: L('Frag Max', 'Ask Max'), onclick: () => toChat() }, pFace);
+  const pQuiz = h('button', { class: 'm-pb', type: 'button', onclick: () => { const b = boards[bIdx]; if (!b) return; toChat(true); askQuiz(b.title); } }, h('span', { class: 'm-pbi', html: ico('quiz') }), h('span', { class: 'm-pbl' }, L('Quiz mich dazu', 'Quiz me on this')), h('span', { class: 'm-pbs' }, L('Quiz', 'Quiz')));
+  const pEx = h('button', { class: 'm-pb', type: 'button', onclick: () => { const b = boards[bIdx]; if (b) askExample(b.title); } }, h('span', { class: 'm-pbi', html: ico('calc') }), h('span', { class: 'm-pbl' }, L('Rechne mir ein Beispiel', 'Work me an example')), h('span', { class: 'm-pbs' }, L('Beispiel', 'Example')));
+  const pTr = h('a', { class: 'm-pb', href: '#/app/trainer' }, h('span', { class: 'm-pbi', html: ico('whistle') }), h('span', { class: 'm-pbl' }), h('span', { class: 'm-pbs' }, L('Üben', 'Practise')));
+  const pBtns = h('div', { class: 'm-pbtns' }, pQuiz, pEx, pTr);
+  function drawPage(b) {
+    const tr = b ? trainerFor(b.title + ' ' + buildTitle) : null;
+    pTr.hidden = !tr;
+    if (tr) { pTr.href = '#/app/trainer/' + tr[0]; pTr.querySelector('.m-pbl').textContent = tr[1] + ' · ' + L('BWL-Trainer', 'Business trainer'); }
+    pBtns.classList.remove('m-small');
+  }
+  // Chat öffnen (Tafel bleibt griffbereit: „Zurück zur Tafel“)
+  function toChat(quietly) { if (boardOpen && !boardMin) minBoard(true, true); fold(false); if (!quietly) setFeedOpen(true); }
+  let pageOn = false;
+  function syncPage() {
+    const v = MOB.matches && boardOpen && !boardMin;
+    if (v) { const tb = document.querySelector('.topbar'); const r = tb && tb.getClientRects().length ? tb.getBoundingClientRect() : null; root.style.setProperty('--m-top', Math.max(0, Math.round(r ? r.bottom : 0)) + 'px'); }
+    root.classList.toggle('m-page', v); document.documentElement.classList.toggle('m-boardpage', v);
+    if (v !== pageOn) { pageOn = v; const t = bArea.querySelector('.tafel'); requestAnimationFrame(() => { try { window.dispatchEvent(new Event('resize')); } catch (e) {} if (t) tableHints(t); }); }
+  }
+  // Beim Runterscrollen werden die Knöpfe klein, beim Hochscrollen und am Ende wieder groß
+  let pLast = 0;
+  bArea.addEventListener('scroll', () => {
+    if (!pageOn) return;
+    const y = bArea.scrollTop, end = bArea.scrollHeight - bArea.clientHeight - y < 80;
+    if (end || y < 60) pBtns.classList.remove('m-small');
+    else if (y > pLast + 6) pBtns.classList.add('m-small');
+    else if (y < pLast - 6) pBtns.classList.remove('m-small');
+    pLast = y;
+  }, { passive: true });
 
   const chip = h('button', { class: 'asst-back', type: 'button' }, h('span', { class: 'asst-cf' }), L('Max zurückholen', 'Bring Max back'));
   const quip = h('div', { class: 'asst-quip', role: 'status', hidden: true });
   const ctxm = h('div', { class: 'asst-ctx', role: 'menu', hidden: true });
-  const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : '') + (MOB.matches ? ' m-fold' : ''), 'data-state': 'idle' }, bd, board, bTab, cap, feedTog, mHist, isl, menu, quip, ctxm, bub);
+  const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : '') + (MOB.matches ? ' m-fold' : ''), 'data-state': 'idle' }, bd, board, bTab, cap, feedTog, mHist, isl, menu, quip, ctxm, bub, pBtns, pMax);
   document.body.appendChild(root);
-  const bf = face(bubFace, { sleepy: true }), fc = face(fEl, { follow: false });
+  const bf = face(bubFace, { sleepy: true }), fc = face(fEl, { follow: false }); face(pFace, { sleepy: true });
+  MOB.addEventListener?.('change', () => syncPage());
+  addEventListener('resize', () => { if (pageOn) { const tb = document.querySelector('.topbar'); if (tb) root.style.setProperty('--m-top', Math.round(tb.getBoundingClientRect().bottom) + 'px'); } });
 
   // ---------- Sichtbarkeit ----------
   function applyEnabled(announce) {
@@ -774,7 +809,7 @@ export function mountAssistant() {
     t.appendChild(nextChips(b));
     bArea.replaceChildren(t); bArea.scrollTop = 0;
     if (write) t.classList.add('ai-write');
-    stopTour(); drawTourBtn(); drawBMore();
+    stopTour(); drawTourBtn(); drawBMore(); drawPage(b); root.classList.remove('m-bld');
     requestAnimationFrame(() => tableHints(t)); setTimeout(() => tableHints(t), 900);
     return t;
   }
@@ -838,13 +873,15 @@ export function mountAssistant() {
     const overview = overviewB.has(b) || (/Überblick|overview/i.test(title) && /BWL|business/i.test(title));
     const kids = overview
       ? OVERVIEW.filter(k => THEMEN[k]).map(k => { const [name, what] = THEMEN[k]; return chip(name, () => submit(L(`Erklär mir ${what} von Grund auf, an der Tafel. Bleib dafür hier im Tutor-Raum.`, `Explain ${name} to me from scratch, on the whiteboard. Stay here in the tutor room.`), { board: name, show: L(`Erklär mir „${name}“.`, `Explain “${name}”.`) })); })
-      : [chip(L('Quiz mich dazu', 'Quiz me on this'), () => submit(L(`Quiz mich zu „${title}“ – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.`, `Quiz me on “${title}” – one question at a time, wait for my answer each time and tell me if it’s right.`), { show: L('Quiz mich dazu', 'Quiz me on this') })),
-        chip(L('Rechne mir ein Beispiel', 'Work me an example'), () => submit(L(`Rechne mir ein neues Beispiel zu „${title}“ Schritt für Schritt an der Tafel vor – mit anderen Zahlen.`, `Work through a new example on “${title}” step by step on the whiteboard – with different numbers.`), { show: L('Rechne mir ein Beispiel', 'Work me an example'), board: title })),
+      : [chip(L('Quiz mich dazu', 'Quiz me on this'), () => askQuiz(title)),
+        chip(L('Rechne mir ein Beispiel', 'Work me an example'), () => askExample(title)),
         chip(L('Erklär’s einfacher', 'Explain it simpler'), () => submit(L(`Erklär mir „${title}“ nochmal einfacher – kurz, mit einem Alltagsbeispiel.`, `Explain “${title}” again more simply – short, with an everyday example.`), { show: L('Erklär’s einfacher', 'Explain it simpler') }))];
     const tr = overview ? null : trainerFor(title + ' ' + buildTitle);
     const trEl = tr ? h('a', { class: 'm-trn', href: '#/app/trainer/' + tr[0] }, h('span', { class: 'm-trl' }, tr[1]), h('span', { class: 'm-trs' }, ' · ' + L('BWL-Trainer', 'Business trainer')), h('span', { class: 'm-tra', 'aria-hidden': 'true' }, '→')) : null;
-    return h('div', { class: 'm-next' }, h('p', { class: 'm-nt' }, overview ? L('Wo hakt’s? Tipp an:', 'Where are you stuck? Tap:') : L('Und jetzt?', 'What next?')), h('div', { class: 'm-nr' }, ...kids), trEl);
+    return h('div', { class: 'm-next' + (overview ? ' m-ov' : '') }, h('p', { class: 'm-nt' }, overview ? L('Wo hakt’s? Tipp an:', 'Where are you stuck? Tap:') : L('Und jetzt?', 'What next?')), h('div', { class: 'm-nr' }, ...kids), trEl);
   }
+  function askQuiz(title) { submit(L(`Quiz mich zu „${title}“ – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.`, `Quiz me on “${title}” – one question at a time, wait for my answer each time and tell me if it’s right.`), { show: L('Quiz mich dazu', 'Quiz me on this') }); }
+  function askExample(title) { submit(L(`Rechne mir ein neues Beispiel zu „${title}“ Schritt für Schritt an der Tafel vor – mit anderen Zahlen.`, `Work through a new example on “${title}” step by step on the whiteboard – with different numbers.`), { show: L('Rechne mir ein Beispiel', 'Work me an example'), board: title }); }
   // Passendes Trainer-Modul zum Thema der Tafel (ruhiger Link am Ende)
   const TRN = [
     [/buchungss|buchungssatz|skonto|vorsteuer|umsatzsteuer|jahresabschluss|\bguv\b|gewinn- und verlust|booking entr/i, 'buchung', L('Buchungssätze üben', 'Practise booking entries')],
@@ -866,11 +903,11 @@ export function mountAssistant() {
     setTimeout(go, 300);
   }
   // Platzhalter, solange Max die Tafel baut (Thema-Einstieg): man sieht sofort, dass gerade die Tafel entsteht
-  let building = false, buildTitle = '', bldT = 0;
+  let building = false, buildTitle = '', bldT = 0, ovNext = false;
   const BLD = () => [L('Ich such die besten Beispiele raus …', 'Picking the best examples …'), L('Ich rechne das einmal sauber durch …', 'Running the numbers properly …'), L('Formeln in Schönschrift – dauert kurz …', 'Writing the formulas neatly …'), L('Erst das Prinzip, dann die Zahlen …', 'Principle first, then the numbers …'), L('Gleich steht’s an der Tafel …', 'Almost on the board …'), L('Klausurfallen markier ich dir extra …', 'Marking the exam traps for you …')];
   const keepEnd = t => t.replace(/ (\S+) …$/, '\u00a0$1\u00a0…');
   function showBuilding(title) {
-    building = true; buildTitle = String(title || '');
+    building = true; buildTitle = String(title || ''); root.classList.add('m-bld');
     bTitle.textContent = title; bCount.textContent = ''; bPrev.hidden = bNext.hidden = true;
     const lines = [88, 64, 76, 52, 70].map((w, i) => h('i', { style: `width:${w}%;animation-delay:${i * .12}s` }));
     const st = h('span', { class: 'm-bst', 'aria-live': 'polite' }, keepEnd(L('Max baut deine Tafel – live, nur für dich …', 'Max is building your board – live, just for you …')));
@@ -887,7 +924,7 @@ export function mountAssistant() {
   }
   function endBuilding() { if (!building) return; building = false; clearInterval(bldT); boardDone(); if (boards.length) drawBoard(false); else { bArea.replaceChildren(); closeBoard(); } }
   function closeBoard() { setFs(false); boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); syncLock(); boardHook(); }
-  function boardHook() { try { STAGE?.onBoard?.(boardOpen && !boardMin); } catch (e) {} placeHist(); setTimeout(placeHist, 700); }
+  function boardHook() { try { STAGE?.onBoard?.(boardOpen && !boardMin); } catch (e) {} syncPage(); placeHist(); setTimeout(placeHist, 700); }
   // Tafel „schreibt mit“: Abschnitte erscheinen im Takt der Stimme
   function writeAlong(t, progress) {
     const kids = [...t.children].filter(k => !k.classList.contains('tt'));
@@ -1004,6 +1041,7 @@ export function mountAssistant() {
     unlockAudio();
     if (MOB.matches) fold(!!o.entry);
     waitTx = o.wait || ''; capQuestion(shown); capQ.classList.remove('live'); capThinking();
+    ovNext = o.slug === 'bwl' || /Überblick|overview/i.test(String(o.board || ''));   // BWL-Überblick: Themen-Knöpfe am Ende
     const inst = !!(o.entry && hasInstant(o.slug));   // Sofort-Tafel (boards.js): kein Platzhalter, die Tafel ist gleich da
     if (o.board && !inst) showBuilding(String(o.board));
     const pasted = attachTx; if (pasted) { capQ.prepend(h('span', { class: 'ai-refq' }, L('Eingefügter Text · ', 'Pasted text · ') + pasted.length.toLocaleString('de-DE') + L(' Zeichen', ' chars'))); clearAttach(); }
@@ -1084,7 +1122,8 @@ export function mountAssistant() {
     const wasBuilding = building;
     if (p.boards.length) { building = false; clearInterval(bldT); } else endBuilding();
     if (p.boards.length) {
-      if (wasBuilding && /Überblick|overview/i.test(buildTitle)) p.boards.forEach(b => overviewB.add(b));
+      if (ovNext || (wasBuilding && /Überblick|overview/i.test(buildTitle))) p.boards.forEach(b => overviewB.add(b));
+      ovNext = false;
       // Jede Tafel landet automatisch in der Bibliothek – mit Überschrift und Beschreibung
       const lastQ = [...hist].reverse().find(m => m.role === 'user')?.content || '';
       keepBoards(p.boards, { doc: curDoc(), question: lastQ, answer: p.text });
