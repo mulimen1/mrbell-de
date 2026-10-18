@@ -1,0 +1,148 @@
+/* ---------- Tafel & Chat am Handy (18.10.) – wird nach app.css geladen ---------- */
+
+/* Buchungssatz als Raster: Soll-Konto | Betrag, darunter „an“ Haben-Konto | Betrag */
+.tafel .bs.m-bs { display: block; padding: 12px 14px; }
+.tafel .bs.m-bs span { font: inherit; color: inherit; text-transform: none; letter-spacing: normal; }
+.m-bsg { max-width: 560px; display: grid; grid-template-columns: 1.9em minmax(0, 1fr) auto; column-gap: 8px; row-gap: 6px; align-items: baseline; }
+.m-bsr { display: contents; }
+.m-bsr.m-s .m-acc { grid-column: 1 / 3; }
+.m-bsr.m-h .m-an { grid-column: 1; }
+.m-bsr.m-h .m-acc { grid-column: 2; }
+.tafel .bs.m-bs .m-an { font: 600 11.5px var(--mono); letter-spacing: .06em; color: var(--mute); text-transform: lowercase; }
+.tafel .bs.m-bs .m-acc { font-weight: 600; overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; min-width: 0; }
+.tafel .bs.m-bs .m-amt { grid-column: 3; justify-self: end; white-space: nowrap; font: 600 14px var(--mono); font-variant-numeric: tabular-nums; text-align: right; }
+.tafel .bs.m-bs .m-bsf { display: block; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); font: 500 12.5px var(--mono); color: var(--mute); text-align: right; white-space: normal; }
+/* nicht zerlegbarer Buchungssatz: wenigstens Beträge zusammenhalten */
+.tafel .bs.m-bsx { display: block; line-height: 1.7; }
+.tafel .bs.m-bsx em { margin-left: 0; white-space: nowrap; }
+
+/* Formeln im Rechenblock: im Satz, Einheit klebt an der Zahl, Text läuft normal weiter */
+.tafel .calc span.tex:not([data-d]) { display: inline-block; vertical-align: middle; margin: 2px 0; padding: 3px 0; max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.tafel .calc span.tex.tex-wrap:not([data-d]) { display: block; text-align: left; }
+.tafel .calc:has(.tex) { line-height: 1.7; }
+.tafel .calc span.tex[data-d] + br, .tafel .calc span.tex.tex-wrap + br { display: none; }
+.tafel .m-nw { white-space: nowrap; }
+
+/* Tabellen: eigener Scroll-Rahmen mit Hinweis am rechten Rand, Zahlen nie umbrechen */
+.tafel .m-tw { position: relative; margin: 14px 0; overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+.tafel .m-tw > table { margin: 0; }
+.ai-board .tafel .m-tw > table { max-width: none; }
+.tafel .m-tw.m-more { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 34px), rgba(0,0,0,.25)); mask-image: linear-gradient(to right, #000 calc(100% - 34px), rgba(0,0,0,.25)); }
+.tafel td.m-num, .tafel th.m-num, .tafel td.n, .tafel th.n { white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
+.tafel td.m-num { font-family: var(--mono); font-size: 13.5px; }
+.tafel td, .tafel th { overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
+@media (max-width: 600px) {
+  .tafel table { font-size: 13.5px; }
+  .tafel th, .tafel td { padding: 8px 9px; }
+  .tafel table.m-t4 { font-size: 12.5px; }
+  .tafel table.m-t4 th, .tafel table.m-t4 td { padding: 7px 6px; }
+  .tafel table.m-t4 th, .tafel table.m-t4 td { padding: 7px 5px; }
+  .tafel table.m-t4 th:first-child, .tafel table.m-t4 td:first-child { padding-left: 9px; }
+  .tafel table.m-t4 th:last-child, .tafel table.m-t4 td:last-child { padding-right: 9px; }
+  .tafel table.m-t4 td.n, .tafel table.m-t4 td.m-num { font-size: 11.5px; letter-spacing: -.02em; }
+}
+
+/* Bilanz/GuV als T-Konto: zwei Seiten, Summen auf einer Linie */
+.tafel .m-tk { display: grid; grid-template-columns: 1fr 1fr; margin: 14px 0; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); overflow: hidden; font-variant-numeric: tabular-nums; animation: fadeUp .4s var(--ease) both; }
+.m-tks { display: flex; flex-direction: column; min-width: 0; padding: 0 0 2px; }
+.m-tks + .m-tks { border-left: 2px solid var(--ink); }
+.m-tkh { display: flex; align-items: baseline; gap: 6px; padding: 9px 12px 8px; border-bottom: 2px solid var(--ink); background: var(--panel2); font-size: 13.5px; }
+.m-tkh b { flex: 1; min-width: 0; overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
+.m-tku { font: 500 12px var(--mono); color: var(--mute); }
+.m-tkr { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px; row-gap: 0; padding: 6px 12px; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.35; }
+.m-tkl { flex: 1 1 0; min-width: min-content; max-width: 100%; overflow-wrap: break-word; }
+.m-tka { margin-left: auto; white-space: nowrap; font: 500 13.5px var(--mono); text-align: right; }
+.m-tkr.m-tkg { padding-top: 9px; border-bottom: 0; }
+.m-tkr.m-tkg .m-tkl { font-size: 12.5px; }
+.m-tkr.m-tksum { margin-top: auto; border-top: 2px solid var(--ink); border-bottom: 0; font-weight: 700; }
+.m-tkr.m-tksum .m-tka { font-weight: 700; }
+@media (max-width: 600px) {
+  .m-tkh { padding: 8px 9px 7px; font-size: 12.5px; }
+  .m-tkr { padding: 6px 9px; font-size: 13px; column-gap: 6px; }
+  .m-tka { font-size: 12.5px; }
+}
+@media (max-width: 359px) {
+  .tafel .m-tk { grid-template-columns: 1fr; }
+  .m-tks + .m-tks { border-left: 0; border-top: 2px solid var(--ink); }
+}
+
+/* SWOT als 2×2-Karten */
+.tafel .m-swot { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; animation: fadeUp .4s var(--ease) both; }
+.m-sw { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); padding: 11px 12px; min-width: 0; font-size: 14px; line-height: 1.45; overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
+.m-sw0, .m-sw3 { background: var(--panel2); }
+.m-swt { display: block; font-size: 14.5px; margin-bottom: 6px; }
+.m-sw ul { margin: 0; padding-left: 16px; }
+.m-sw li { margin: 3px 0; }
+.m-sw p { margin: 0; }
+@media (max-width: 600px) { .m-sw { font-size: 13.5px; padding: 10px; } .m-swt { font-size: 14px; } }
+@media (max-width: 359px) { .tafel .m-swot { grid-template-columns: 1fr; } }
+
+/* „Typische Fehler“ als Liste */
+.tafel .warn .m-fi { margin: 0 0 4px; font-weight: 600; }
+.tafel .warn .m-fl { margin: 4px 0 0; padding-left: 20px; }
+.tafel .warn .m-fl li { margin: 5px 0; }
+
+/* Kopf der Tafel am Handy: Titel bekommt Platz (2 Zeilen), Rest im „…“-Menü */
+.asst .ai-bh .m-bmore { display: none !important; }
+.m-bmenu { position: absolute; z-index: 5; top: 54px; right: 10px; min-width: 220px; padding: 6px; border: 1px solid var(--line2); border-radius: 14px; background: var(--panel); box-shadow: 0 18px 50px -18px rgba(0,0,0,.45); display: grid; gap: 2px; }
+.m-bmenu[hidden] { display: none; }
+.m-bmi { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: var(--ink); font: 550 14.5px var(--sans); text-align: left; cursor: pointer; }
+.m-bmi:hover, .m-bmi:focus-visible { background: var(--panel2); }
+.m-bmi .ico { width: 18px; height: 18px; }
+@media (max-width: 600px) {
+  .asst .ai-bh .ai-btour, .asst .ai-bh .ai-bdl, .asst .ai-bh .ai-bdel { display: none !important; }
+  .asst .ai-bh .m-bmore { display: inline-grid !important; }
+  .asst .ai-bh { gap: 2px; padding-left: 14px; padding-right: 6px; }
+  .asst .ai-bh b { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 14px; line-height: 1.25; overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
+  .asst .ai-bh .iconbtn { width: 40px; height: 40px; flex: none; }
+}
+
+/* Warten auf die Tafel: Satz bleibt zusammen, wechselt alle paar Sekunden */
+.ai-bld-t .m-bst { display: inline-block; min-width: 0; text-wrap: balance; }
+.ai-bld-t .ai-bld-pen { flex: none; }
+
+/* Wie geht's weiter? Chips am Ende jeder Tafel */
+.tafel .m-next { margin: 26px 0 0; padding-top: 16px; border-top: 1px dashed var(--line2); }
+.tafel .m-nt { margin: 0 0 10px; font: 600 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+.tafel .m-nr { display: flex; flex-wrap: wrap; gap: 8px; }
+.tafel .m-nr .ai-cmd.m-nc { height: 40px; padding: 0 16px; font-size: 14px; background: var(--panel); color: var(--ink); border-color: var(--line2); }
+.tafel .m-nr .ai-cmd.m-nc:first-child { background: var(--inv); color: var(--onInv); border-color: var(--inv); }
+.tafel .m-nr .ai-cmd.m-nc .ck .ico { width: 15px; height: 15px; }
+.tafel .m-nr .ai-cmd.m-nc:active { transform: scale(.97); }
+
+/* Folgeantwort am Handy (Tutor-Raum): ganze Antwort lesbar, nicht auf 2–4 Zeilen gekürzt */
+@media (max-width: 600px) {
+  .asst.stage .ai-bub.max .ai-a, .asst.stage:not(.feed-open) .ai-bub.max .ai-a, .asst.stage:not(.feed-open) .ai-bub.max.last .ai-a { display: block !important; -webkit-line-clamp: unset !important; overflow: visible !important; }
+  .asst.stage.stage-talk .ai-feed { overflow-y: auto !important; overscroll-behavior: contain; }
+  /* Max wird im Gespräch kleiner (Kopf neben dem Status), damit die Antwort Platz hat */
+  .room.talk:not(.has-board) .rm-fs.talk { width: 52px; height: 52px; }
+  .room.talk:not(.has-board) .rm-th-wrap { grid-auto-flow: column; justify-content: center; align-items: center; gap: 10px; padding: 0 0 2px; }
+  .room.talk:not(.has-board) .rm-th-wrap .rm-st { text-align: left; }
+}
+
+/* Handy: Verlauf standardmäßig zu – nur „Verlauf ansehen“ direkt über der Eingabe */
+.m-hist { display: none; }
+@media (max-width: 600px) {
+  .asst .ai-ft { display: none !important; }
+  .asst.asst.m-fold .ai-feed, .asst.asst.m-fold .ai-cap { display: none !important; }
+  .asst.open .m-hist:not([hidden]) { position: fixed; z-index: 87; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 16px 0 12px; border-radius: 999px; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); font: 600 13.5px var(--sans); box-shadow: 0 10px 30px -14px rgba(0,0,0,.4); cursor: pointer; }
+  .asst.open .m-hist .ico { width: 16px; height: 16px; }
+  .asst.has-board:not(.board-min) .m-hist, .asst.stage-hold .m-hist, html.mx-touring .asst .m-hist { display: none !important; }
+}
+
+/* Tafel im Vollbild */
+.asst .ai-board.m-fs.m-fs, .asst.stage.has-board:not(.board-min) .ai-board.m-fs.m-fs { position: fixed !important; inset: 0 !important; left: 0 !important; top: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; height: 100dvh !important; max-width: none !important; border-radius: 0 !important; z-index: 2147483000 !important; padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); box-shadow: none !important; animation: none !important; transform: none !important; }
+.ai-board.m-fs .ai-grab { display: none; }
+.ai-board.m-fs .ai-ba .tafel { max-width: 860px; margin: 0 auto; }
+.ai-board.m-fs .m-bfs { background: var(--inv); color: var(--onInv); }
+.ai-board:fullscreen { background: var(--panel); }
+html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
+.asst.m-fsr .ai-isl, .asst.m-fsr .ai-feed, .asst.m-fsr .m-hist, .asst.m-fsr .ai-btab { visibility: hidden !important; }
+@media (max-width: 600px) { .asst .ai-bh .m-bfs { display: inline-grid !important; } }
+
+/* Passender Trainer: ruhiger Link am Ende der Tafel */
+.tafel .m-trn { display: flex; align-items: baseline; gap: 4px; margin: 14px 0 0; padding: 10px 2px; line-height: 1.3; border: 0; border-top: 1px solid var(--line); color: var(--ink); text-decoration: none; font: 600 14.5px var(--sans); }
+.tafel .m-trn:hover .m-trl { text-decoration: underline; text-underline-offset: 3px; }
+.tafel .m-trn .m-trs { color: var(--mute); font-weight: 500; }
+.tafel .m-trn .m-tra { margin-left: auto; font-weight: 500; transition: transform .15s; }
+.tafel .m-trn:hover .m-tra { transform: translateX(3px); }
