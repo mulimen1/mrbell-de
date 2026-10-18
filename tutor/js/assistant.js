@@ -362,8 +362,35 @@ export function mountAssistant() {
     if (v) { const tb = document.querySelector('.topbar'); const r = tb && tb.getClientRects().length ? tb.getBoundingClientRect() : null; root.style.setProperty('--m-top', Math.max(0, Math.round(r ? r.bottom : 0)) + 'px'); }
     root.classList.toggle('m-page', v); document.documentElement.classList.toggle('m-boardpage', v);
     if (!v) { root.classList.remove('m-pchat'); pThink(null); }
-    if (v !== pageOn) { pageOn = v; const t = bArea.querySelector('.tafel'); requestAnimationFrame(() => { try { window.dispatchEvent(new Event('resize')); } catch (e) {} if (t) tableHints(t); }); }
+    if (v !== pageOn) { pageOn = v; setTimeout(syncRet, 0); const t = bArea.querySelector('.tafel'); requestAnimationFrame(() => { try { window.dispatchEvent(new Event('resize')); } catch (e) {} if (t) tableHints(t); }); }
   }
+  // ---------- Zurück zur Themenseite (Handy) ----------
+  // Wer die Seite verlässt (Tutor, Lernen, Fächer …), sieht oben rechts „Zurück zu Bilanz ✕“ – ein Tipp und man ist genau dort, wo man war.
+  const mRet = h('button', { class: 'm-ret', type: 'button', hidden: true, onclick: () => backToPage() }, h('span', { class: 'm-retl' }), h('span', { class: 'm-retx', html: ico('x') }));
+  document.body.appendChild(mRet);
+  let retIdx = -1;
+  function retLabel() { const b = boards[retIdx]; if (!b) return ''; const tr = trainerFor(b.title + ' ' + (b.slug || '')); return topicOf(b, tr)[0] || L('Tafel', 'board'); }
+  function syncRet() {
+    if (pageOn) retIdx = bIdx;
+    const show = MOB.matches && !pageOn && !/^#\/app\/tutor/.test(location.hash) && retIdx >= 0 && !!boards[retIdx] && !document.documentElement.classList.contains('m-rlock') && !root.classList.contains('m-pchat');
+    mRet.hidden = !show;
+    if (show) { mRet.querySelector('.m-retl').textContent = L('Zurück zu ', 'Back to ') + retLabel(); const tb = document.querySelector('.topbar'); const r = tb && tb.getClientRects().length ? tb.getBoundingClientRect() : null; mRet.style.top = Math.max(8, Math.round((r ? r.bottom : 0) + 8)) + 'px'; }
+  }
+  function backToPage() {
+    if (retIdx < 0 || !boards[retIdx]) return false;
+    const open1 = () => { if (bIdx !== retIdx) { bIdx = retIdx; try { drawBoard(false); } catch (e) {} } openBoard(); syncPage(); syncRet(); };
+    if (!/^#\/app\/tutor/.test(location.hash)) { location.hash = '#/app/tutor'; setTimeout(open1, 260); } else open1();
+    return true;
+  }
+  addEventListener('bm:back-to-page', e => { if (MOB.matches && backToPage()) e.preventDefault(); });
+  addEventListener('hashchange', () => setTimeout(syncRet, 30));
+  // „Tutor“ oben links auf der Themenseite: Seite zur Seite legen, Tutor-Raum zeigen (für Gäste mit Anmeldung) – X bringt zurück
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('[data-tn="tutor"]'); if (!a || !MOB.matches || !pageOn) return;
+    e.preventDefault(); retIdx = bIdx; minBoard(true, true); syncPage(); syncRet();
+    import('./roomlock.js').then(m => m.lockRoom()).catch(() => {});
+  }, true);
+
   // Beim Runterscrollen werden die Knöpfe klein, beim Hochscrollen und am Ende wieder groß
   let pLast = 0;
   bArea.addEventListener('scroll', () => {

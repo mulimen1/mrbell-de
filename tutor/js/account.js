@@ -43,7 +43,7 @@ function spamBox(email) {
 }
 
 // mode: 'login' (E-Mail + Passwort) · 'register' (Konto erstellen, Mail bestätigen) · 'reset' (Passwort vergessen)
-export function openLogin({ title, mode = 'login' } = {}) {
+export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
   return new Promise(resolve => {
     const { bg, box, fEl, fc } = shell();
     const close = v => { if (bg.classList.contains('out')) return; bg.classList.add('out'); setTimeout(() => bg.remove(), 320); document.removeEventListener('keydown', onKey); resolve(v); };
@@ -52,8 +52,8 @@ export function openLogin({ title, mode = 'login' } = {}) {
     bg.addEventListener('click', e => { if (e.target === bg) close(false); });
     const x = () => h('button', { class: 'iconbtn lx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(false) });
     let email = ls.get('tutor.lastEmail', '') || getAccount()?.email || '', pw = '';
-    let firstTitle = title;
-    const head = (t, sub) => { const tt = firstTitle || t; firstTitle = null; return [x(), fEl, h('h3', {}, tt), sub ? h('p', {}, sub) : null]; };
+    let firstTitle = title, firstSub = sub0;
+    const head = (t, sub) => { const tt = firstTitle || t, ss = firstSub || sub; firstTitle = null; firstSub = null; return [x(), fEl, h('h3', {}, tt), ss ? h('p', {}, ss) : null]; };
     const mailInp = () => h('input', { class: 'field', type: 'email', autocomplete: 'email', inputmode: 'email', placeholder: L('E-Mail-Adresse', 'Email address'), value: email, 'aria-label': L('E-Mail-Adresse', 'Email address'), required: true });
     const link = (txt, fn) => h('button', { class: 'llink', type: 'button', onclick: fn }, txt);
     const busyBtn = (btn, on, label) => { btn.disabled = on; btn.textContent = on ? L('Einen Moment …', 'One moment …') : label; };
@@ -191,8 +191,8 @@ export function openLogin({ title, mode = 'login' } = {}) {
 export const openRegister = (o = {}) => openLogin(Object.assign({}, o, { mode: 'register' }));
 // Gast ohne Konto in diesem Browser → Registrieren (mit „Schon ein Konto? Anmelden“); wer schon mal angemeldet war → Anmelden
 export const knownHere = () => !!(getAccount() || ls.get('tutor.lastEmail', ''));
-export function openAuth({ title, registerTitle, ...o } = {}) {
-  return knownHere() ? openLogin({ ...o, title, mode: 'login' }) : openLogin({ ...o, title: registerTitle, mode: 'register' });
+export function openAuth({ title, registerTitle, sub, registerSub, ...o } = {}) {
+  return knownHere() ? openLogin({ ...o, title, sub, mode: 'login' }) : openLogin({ ...o, title: registerTitle, sub: registerSub || sub, mode: 'register' });
 }
 
 // Neues Konto: kurze, optionale Frage nach dem Ziel (füllt später den Klausurplan vor)

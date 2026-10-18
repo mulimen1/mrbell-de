@@ -19,6 +19,25 @@ function pickDoc() {
 // Aus Lernen heraus geöffnet: oben gibt’s „← Lernen“ zurück
 const fromHere = () => { try { sessionStorage.setItem('tutor.backTo', 'lernen'); } catch (e) {} };
 const go = hash => { fromHere(); location.hash = hash; };
+// Handy ohne Konto: Lernen bleibt offen – erst beim Werkzeug kommt (passend dazu) das kostenlose Konto
+const GATE = {
+  karten: [L('Deine Karteikarten – kostenlos', 'Your flashcards – free'), L('Lad Stoff hoch oder nenn ein Thema – Max baut dir daneben deine Karteikarten und fragt dich ab, bis es sitzt.', 'Upload material or name a topic – Max builds your flashcards and quizzes you until it sticks.')],
+  quiz: [L('Dein Quiz – kostenlos', 'Your quiz – free'), L('Lad Stoff hoch oder nenn ein Thema – Max baut dir daneben ein Quiz mit Erklärung zu jeder Antwort.', 'Upload material or name a topic – Max builds you a quiz with an explanation for every answer.')],
+  zettel: [L('Dein Lernzettel – kostenlos', 'Your study sheet – free'), L('Lad Stoff hoch oder nenn ein Thema – Max fasst dir das Wichtigste auf einer Seite zusammen.', 'Upload material or name a topic – Max puts the essentials on one page.')],
+  podcast: [L('Dein Podcast – kostenlos', 'Your podcast – free'), L('Lad Stoff hoch oder nenn ein Thema – Max macht dir daraus eine Folge zum Anhören, unterwegs oder beim Sport.', 'Upload material or name a topic – Max turns it into an episode to listen to on the go.')],
+  pfad: [L('Dein Lernpfad – kostenlos', 'Your study path – free'), L('Lad Stoff hoch oder nenn ein Thema – Max führt dich Kapitel für Kapitel durch, mit Mini-Checks.', 'Upload material or name a topic – Max takes you chapter by chapter, with mini-checks.')],
+  plan: [L('Dein Lernplan – kostenlos', 'Your study plan – free'), L('Sag Max, wann deine Klausur ist – er plant dir jeden Tag bis dahin.', 'Tell Max when your exam is – he plans every day until then.')],
+  exam: [L('Deine Probeklausur – kostenlos', 'Your mock exam – free'), L('Max baut dir eine Probeklausur mit Zeit, Punkten und Notenschlüssel – wie in echt.', 'Max builds you a mock exam with time, points and grading – like the real thing.')]
+};
+const isPhone = () => matchMedia('(max-width: 600px)').matches;
+async function gated(tab) {
+  if (!isPhone()) return false;
+  const { getAccount } = await import('../api.js'); if (getAccount()) return false;
+  const g = GATE[tab]; if (!g) return false;
+  const { openAuth } = await import('../account.js');
+  openAuth({ title: g[0], registerTitle: g[0], sub: g[1] });
+  return true;
+}
 
 // Max im Tutor-Raum etwas machen lassen (wartet, bis der Raum steht)
 async function inRoom(fn) {
@@ -42,7 +61,8 @@ export function render(root) {
 
   function draw() {
     const docs = byUse(), d = pickDoc();
-    const need = (tab, hasIt) => () => {
+    const need = (tab, hasIt) => async () => {
+      if (await gated(tab)) return;
       const doc = pickDoc();
       // Noch kein Skript: hochladen oder Thema nennen – danach entsteht direkt dieses Werkzeug
       if (!doc) return import('../app.js').then(m => m.tryFeature(tab));
@@ -103,7 +123,7 @@ export function render(root) {
         h('div', { class: 'ln-grid' }, tools)),
       h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Üben & Prüfen', 'Practise & test')), h('span', { class: 'eyebrow' }, L('Bis es sitzt', 'Until it sticks'))),
         h('div', { class: 'ln-grid' },
-          T('exam', L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel', 'With time, points and grading'), L('Starten', 'Start'), () => { fromHere(); import('../app.js').then(m => m.examTool()); }),
+          T('exam', L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel', 'With time, points and grading'), L('Starten', 'Start'), async () => { if (await gated('exam')) return; fromHere(); import('../app.js').then(m => m.examTool()); }),
           T('whistle', L('BWL-Trainer', 'Business trainer'), L('Aufgaben ohne Ende, sofort korrigiert', 'Endless exercises, corrected instantly'), L('Trainieren', 'Train'), () => go('#/app/trainer')),
           T('camera', L('Fotocheck Buchungssätze', 'Photo check: entries'), L('Auf Papier lösen, Foto machen, fertig', 'Solve on paper, snap a photo'), L('Starten', 'Start'), () => go('#/app/trainer/buchung')),
           T('calc', L('Rechner', 'Calculators'), L('Exakt gerechnet, mit Rechenweg', 'Exact, with the workings'), L('Öffnen', 'Open'), () => go('#/app/rechner')),

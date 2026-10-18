@@ -263,6 +263,8 @@ export async function mountApp(parts) {
       try { const ap = asstMod.mountAssistant(); const r = ap && ap.bubFaceRect(); if (r && r.width && r.top < innerHeight && r.left < innerWidth) arrive = r; } catch (e) {}
     }
     if (current.key !== 'room') shell.app.classList.add('side-closed');   // im Raum ist links Platz für die Fächer
+    // Handy ohne Konto: der große Tutor-Raum ist der Konto-Moment (Themenseiten und Max unten rechts bleiben frei)
+    if (!ls.get('tutor.pendingAsk', null) && !/(^|\s)(m-boardpage|m-eboot)(\s|$)/.test(document.documentElement.className)) import('./roomlock.js').then(m => m.lockRoom()).catch(() => {});
     return page('room', 'Tutor', async root => { const { render } = await import('./views/room.js'); return render(root, { arrive }); });
   }
   // Mein Bereich (nur Heute) und die festen Bereiche oben
