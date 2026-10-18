@@ -1,116 +1,116 @@
 {
-  "slug": "kapitalwertmethode",
-  "name": "Kapitalwertmethode",
-  "title": "Kapitalwertmethode einfach erklärt – mit Beispiel",
-  "meta": "Kapitalwertmethode verständlich: Formel, Abzinsungsfaktoren, durchgerechnetes Beispiel und Entscheidungsregel – plus typische Klausurfehler und Quiz.",
-  "h1": "Kapitalwertmethode einfach erklärt",
-  "kurz": "Die Kapitalwertmethode ist ein dynamisches Verfahren der Investitionsrechnung. Alle künftigen Ein- und Auszahlungen einer Investition werden mit dem Kalkulationszinssatz auf den Zeitpunkt \\( t = 0 \\) abgezinst und addiert. Ist der Kapitalwert (Net Present Value) größer als null, ist die Investition vorteilhaft: Sie verzinst das eingesetzte Kapital zum Kalkulationszins und erwirtschaftet zusätzlich einen Vermögenszuwachs.",
-  "keywords": [
-    "Kapitalwertmethode",
-    "Kapitalwert berechnen",
-    "Net Present Value",
-    "Kapitalwert Formel",
-    "Abzinsungsfaktor",
-    "Kapitalwertmethode Beispiel",
-    "Kapitalwert Interpretation",
-    "dynamische Investitionsrechnung"
-  ],
-  "abschnitte": [
-    {
-      "h2": "Was ist die Kapitalwertmethode?",
-      "html": "<p>Die Kapitalwertmethode beantwortet eine einzige Frage: <strong>Wie viel ist eine Investition heute wert, wenn man alle künftigen Zahlungen auf den heutigen Tag umrechnet?</strong> Sie gehört zu den <em>dynamischen</em> Verfahren der Investitionsrechnung, weil sie den Zeitpunkt jeder Zahlung berücksichtigt. 10.000 € in vier Jahren sind eben weniger wert als 10.000 € heute – du könntest das Geld ja in der Zwischenzeit anlegen.</p><p>Genau dieses „Umrechnen auf heute“ heißt <strong>Abzinsen</strong> oder Diskontieren. Was dahintersteckt, erklärt die Seite zu <a href=\"/lernen/barwert-abzinsen\">Barwert und Abzinsen</a> ausführlich. Die Kapitalwertmethode wendet dieses Prinzip auf eine ganze Zahlungsreihe an: Anschaffungsauszahlung, laufende Rückflüsse (Einzahlungen minus Auszahlungen) und ein eventueller Liquidationserlös am Ende.</p><p>Der <strong>Kalkulationszinssatz</strong> ist dabei die Mindestverzinsung, die du von der Investition verlangst. Meist ist das der Zins einer Alternativanlage oder der Fremdkapitalzins – also deine <a href=\"/lernen/opportunitaetskosten\">Opportunitätskosten</a>. Rechnest du mit einem höheren Zins, werden spätere Zahlungen stärker abgewertet und der Kapitalwert sinkt.</p>"
-    },
-    {
-      "h2": "Wie lautet die Formel für den Kapitalwert?",
-      "html": "<p>Der Kapitalwert \\( C_0 \\) ist die Summe aller abgezinsten Zahlungsüberschüsse minus der Anschaffungsauszahlung:</p><div class=\"formel\">\\[ C_0 = -I_0 + Z_1 \\cdot (1+i)^{-1} + Z_2 \\cdot (1+i)^{-2} + \\ldots + Z_n \\cdot (1+i)^{-n} + L \\cdot (1+i)^{-n} \\]</div><ul><li><strong>\\( I_0 \\)</strong>: Anschaffungsauszahlung im Zeitpunkt \\( t = 0 \\)</li><li><strong>\\( Z_t \\)</strong>: Rückfluss (Einzahlungen − Auszahlungen) im Jahr \\( t \\)</li><li><strong>\\( i \\)</strong>: Kalkulationszinssatz als Dezimalzahl (\\( 8\\,\\% = 0{,}08 \\))</li><li><strong>\\( n \\)</strong>: Nutzungsdauer in Jahren</li><li><strong>\\( L \\)</strong>: Liquidationserlös (Restwert) am Ende der Nutzungsdauer</li></ul><p>Der Ausdruck \\( (1+i)^{-t} \\) ist der <strong>Abzinsungsfaktor</strong>. In Klausuren bekommst du ihn oft als Tabelle, sonst rechnest du ihn mit dem Taschenrechner aus und rundest auf vier Nachkommastellen. Bei 8 % ergibt sich zum Beispiel:</p><table><thead><tr><th>Jahr \\( t \\)</th><th>Rechnung</th><th>Abzinsungsfaktor</th></tr></thead><tbody><tr><td>1</td><td>\\( \\frac{1}{1{,}08} \\)</td><td>0,9259</td></tr><tr><td>2</td><td>\\( \\frac{1}{1{,}08^2} \\)</td><td>0,8573</td></tr><tr><td>3</td><td>\\( \\frac{1}{1{,}08^3} \\)</td><td>0,7938</td></tr><tr><td>4</td><td>\\( \\frac{1}{1{,}08^4} \\)</td><td>0,7350</td></tr></tbody></table><p>Sind alle Rückflüsse gleich hoch, kannst du dir die Einzelrechnung sparen und mit dem <strong>Rentenbarwertfaktor</strong> arbeiten: \\( C_0 = -I_0 + Z \\cdot \\text{RBF} \\). Der RBF ist einfach die Summe der einzelnen Abzinsungsfaktoren.</p>"
-    },
-    {
-      "h2": "Beispiel: Kapitalwert Schritt für Schritt berechnen",
-      "html": "<div class=\"beispiel\"><p><strong>Aufgabe:</strong> Eine Bäckerei überlegt, einen neuen Ofen für 100.000 € zu kaufen. Er bringt in den nächsten vier Jahren folgende Rückflüsse: 30.000 €, 40.000 €, 50.000 € und 20.000 €. Danach ist er wertlos (\\( L = 0 \\)). Der Kalkulationszins beträgt 8 %. Lohnt sich die Investition?</p><ol><li><strong>Abzinsungsfaktoren bestimmen</strong> (siehe Tabelle oben): 0,9259 · 0,8573 · 0,7938 · 0,7350.</li><li><strong>Jeden Rückfluss mit seinem Faktor multiplizieren</strong> – das ergibt die Barwerte.</li><li><strong>Barwerte addieren und die Anschaffungsauszahlung abziehen.</strong></li></ol><table><thead><tr><th>\\( t \\)</th><th>Zahlung</th><th>Abzinsungsfaktor (8 %)</th><th>Barwert</th></tr></thead><tbody><tr><td>0</td><td>−100.000 €</td><td>1,0000</td><td>−100.000,00 €</td></tr><tr><td>1</td><td>30.000 €</td><td>0,9259</td><td>27.777,00 €</td></tr><tr><td>2</td><td>40.000 €</td><td>0,8573</td><td>34.292,00 €</td></tr><tr><td>3</td><td>50.000 €</td><td>0,7938</td><td>39.690,00 €</td></tr><tr><td>4</td><td>20.000 €</td><td>0,7350</td><td>14.700,00 €</td></tr><tr><td></td><td></td><td><strong>Kapitalwert \\( C_0 \\)</strong></td><td><strong>16.459,00 €</strong></td></tr></tbody></table><p>Summe der Barwerte: \\( 27.777 + 34.292 + 39.690 + 14.700 = 116.459 \\) €. Abzüglich 100.000 € ergibt sich ein <strong>Kapitalwert von 16.459 €</strong>.</p><p>Rechnest du ohne gerundete Faktoren, kommst du auf 16.463,54 €. Die Abweichung von rund 4,50 € entsteht nur durch das Runden auf vier Stellen – in der Klausur zählt das Ergebnis mit den Tabellenwerten.</p></div>"
-    },
-    {
-      "h2": "Wie interpretiert man den Kapitalwert?",
-      "html": "<p>Die Entscheidungsregel ist kurz:</p><ul><li><strong>\\( C_0 \\gt 0 \\):</strong> Die Investition ist vorteilhaft. Sie bringt die geforderte Verzinsung und zusätzlich einen Überschuss.</li><li><strong>\\( C_0 = 0 \\):</strong> Die Investition verzinst das Kapital genau zum Kalkulationszins – du bist indifferent.</li><li><strong>\\( C_0 \\lt 0 \\):</strong> Die Mindestverzinsung wird verfehlt. Finger weg.</li></ul><p>Bei mehreren sich gegenseitig ausschließenden Alternativen wählst du die mit dem <strong>höchsten positiven Kapitalwert</strong>.</p><p>Wichtig für die Klausur ist die <strong>verbale Interpretation</strong>. Für unser Beispiel lautet sie: „Der Ofen amortisiert die Anschaffungsauszahlung, verzinst das jeweils gebundene Kapital mit 8 % und erwirtschaftet darüber hinaus einen Vermögenszuwachs von 16.459 €, bezogen auf den Zeitpunkt \\( t = 0 \\).“ Der Kapitalwert ist also <em>kein</em> Gewinn im Sinne der GuV, sondern ein Barwert-Überschuss.</p><div class=\"merke\">Kapitalwert positiv = Investition schlägt die Alternativanlage zum Kalkulationszins. Der Betrag zeigt, um wie viel du heute reicher bist.</div>"
-    },
-    {
-      "h2": "Welche Annahmen stecken in der Kapitalwertmethode?",
-      "html": "<p>Viele Klausuren fragen nicht nur nach der Rechnung, sondern nach den Prämissen. Die wichtigsten:</p><ul><li><strong>Vollkommener Kapitalmarkt:</strong> Du kannst jederzeit zum Kalkulationszins Geld anlegen und aufnehmen. Soll- und Habenzins sind gleich.</li><li><strong>Sichere Erwartungen:</strong> Alle Zahlungen sind bekannt und treten genau so ein.</li><li><strong>Wiederanlageprämisse:</strong> Rückflüsse werden bis zum Ende der Laufzeit zum Kalkulationszins angelegt.</li><li><strong>Zahlungen fallen am Periodenende an</strong> (nachschüssig), die Anschaffung in \\( t = 0 \\).</li></ul><p>In der Realität ist keine dieser Annahmen erfüllt. Deshalb ergänzt man die Rechnung in der Praxis um Sensitivitätsanalysen: Wie stark ändert sich der Kapitalwert, wenn der Zins um einen Prozentpunkt steigt oder ein Rückfluss 10 % niedriger ausfällt?</p><p>Am Ofen-Beispiel sieht man, wie empfindlich das Ergebnis auf den Zins reagiert: Bei 12 % (Faktoren 0,8929 · 0,7972 · 0,7118 · 0,6355) schrumpft der Kapitalwert auf 6.975 €, bei 16 % (Faktoren 0,8621 · 0,7432 · 0,6407 · 0,5523) wird er mit −1.328 € sogar negativ. Irgendwo zwischen 12 % und 16 % liegt also der Zinssatz, bei dem die Investition gerade noch lohnt. Wer in der Planung den Zins zu niedrig ansetzt, rechnet sich Projekte schön.</p>"
-    },
-    {
-      "h2": "Vor- und Nachteile und Abgrenzung zu anderen Verfahren",
-      "html": "<h3>Vorteile</h3><ul><li>Berücksichtigt den Zeitwert des Geldes – anders als statische Verfahren wie die <a href=\"/lernen/kostenvergleichsrechnung\">Kostenvergleichsrechnung</a>.</li><li>Liefert einen absoluten Betrag in Euro, der direkt als Vermögenszuwachs lesbar ist.</li><li>Unterschiedlich hohe Rückflüsse und Restwerte lassen sich problemlos einbauen.</li><li>Führt immer zu einer eindeutigen Lösung – im Gegensatz zum internen Zinsfuß.</li></ul><h3>Nachteile</h3><ul><li>Der Kalkulationszins ist schwer festzulegen und beeinflusst das Ergebnis stark.</li><li>Künftige Zahlungen sind in Wahrheit unsicher.</li><li>Projekte mit unterschiedlicher Laufzeit oder Kapitalbindung lassen sich nur eingeschränkt vergleichen.</li></ul><h3>Abgrenzung</h3><p>Der <a href=\"/lernen/interner-zinsfuss\">interne Zinsfuß</a> ist genau der Zinssatz, bei dem der Kapitalwert null wird – er gibt eine Rendite in Prozent statt eines Betrags in Euro an. Die <a href=\"/lernen/annuitaetenmethode\">Annuitätenmethode</a> verteilt den Kapitalwert gleichmäßig auf die Nutzungsjahre und eignet sich besser, wenn die Laufzeiten verschieden sind. Alle drei Verfahren beruhen auf derselben Logik, beantworten aber unterschiedliche Fragen.</p>"
-    }
-  ],
-  "fehler": [
-    "Die Anschaffungsauszahlung wird ebenfalls abgezinst. Sie fällt in \\( t = 0 \\) an, der Abzinsungsfaktor ist dort 1 – sie wird also unverändert abgezogen.",
-    "Der Liquidationserlös wird vergessen oder mit dem falschen Faktor abgezinst. Er gehört ins letzte Nutzungsjahr und wird mit dem Faktor für Jahr \\( n \\) multipliziert.",
-    "Statt Rückflüssen werden Gewinne oder Erlöse eingesetzt. Die Kapitalwertmethode arbeitet mit Zahlungen; Abschreibungen sind keine Auszahlung und gehören nicht in die Zahlungsreihe.",
-    "Der Zinssatz wird als 8 statt 0,08 in die Formel eingesetzt oder es wird aufgezinst statt abgezinst. Prüfe: Der Barwert muss immer kleiner sein als die spätere Zahlung.",
-    "Nur das Ergebnis wird hingeschrieben. Viele Punkte gibt es für die Interpretation: Vorteilhaftigkeit, Verzinsung zum Kalkulationszins und Vermögenszuwachs bezogen auf \\( t = 0 \\)."
-  ],
-  "faq": [
-    {
-      "q": "Was sagt ein Kapitalwert von 0 aus?",
-      "a": "Ein Kapitalwert von null bedeutet, dass die Investition das eingesetzte Kapital genau zum Kalkulationszinssatz verzinst. Es entsteht kein zusätzlicher Vermögenszuwachs, aber auch kein Verlust. Der Kalkulationszins entspricht dann dem internen Zinsfuß."
-    },
-    {
-      "q": "Was ist der Unterschied zwischen Kapitalwert und Barwert?",
-      "a": "Der Barwert ist der heutige Wert einer einzelnen künftigen Zahlung oder Zahlungsreihe. Der Kapitalwert ist die Summe aller Barwerte einer Investition abzüglich der Anschaffungsauszahlung. \\( \\text{Kapitalwert} = \\text{Barwert der Rückflüsse} - I_0 \\)."
-    },
-    {
-      "q": "Welchen Zinssatz nimmt man für die Kapitalwertmethode?",
-      "a": "Man nimmt den Kalkulationszinssatz, also die Mindestverzinsung, die der Investor verlangt. Häufig ist das der Zins einer gleichwertigen Alternativanlage oder der Fremdkapitalzins, bei Unternehmen oft ein gewichteter Kapitalkostensatz. In Klausuren ist er immer vorgegeben."
-    },
-    {
-      "q": "Was passiert mit dem Kapitalwert, wenn der Zins steigt?",
-      "a": "Der Kapitalwert sinkt, weil künftige Rückflüsse stärker abgezinst werden. Bei normalen Investitionen (erst Auszahlung, dann Einzahlungen) gibt es genau einen Zinssatz, ab dem der Kapitalwert negativ wird – das ist der interne Zinsfuß."
-    },
-    {
-      "q": "Ist Net Present Value dasselbe wie Kapitalwert?",
-      "a": "Ja. Net Present Value (NPV) ist der englische Begriff für den Kapitalwert. In der Literatur findest du auch die Bezeichnung Nettobarwert oder \\( C_0 \\)."
-    }
-  ],
-  "quiz": [
-    {
-      "q": "Eine Investition hat einen Kapitalwert von +5.000 € bei 6 % Kalkulationszins. Was bedeutet das?",
-      "o": [
-        "Die Investition erzielt einen Gewinn von 5.000 € pro Jahr",
-        "Die Investition verzinst das Kapital mit 6 % und erzielt zusätzlich einen Vermögenszuwachs von 5.000 € bezogen auf \\( t = 0 \\)",
-        "Die Rendite der Investition beträgt genau 6 %",
-        "Die Investition ist nach 5.000 Tagen amortisiert"
-      ],
-      "r": 1,
-      "e": "Ein positiver Kapitalwert heißt: Mindestverzinsung erreicht plus Überschuss, ausgedrückt als Barwert in \\( t = 0 \\). Eine Rendite von genau 6 % hätte einen Kapitalwert von null."
-    },
-    {
-      "q": "Wie hoch ist der Barwert eines Rückflusses von 20.000 € in Jahr 4 bei 8 % (Abzinsungsfaktor 0,7350)?",
-      "o": [
-        "27.209,78 €",
-        "18.518,52 €",
-        "14.700,00 €",
-        "21.600,00 €"
-      ],
-      "r": 2,
-      "e": "\\( 20.000 \\cdot 0{,}7350 = 14.700 \\) €. 18.518,52 € wäre nur ein Jahr abgezinst, 27.209,78 € wäre aufgezinst."
-    },
-    {
-      "q": "Welche Größe gehört NICHT in die Zahlungsreihe der Kapitalwertmethode?",
-      "o": [
-        "Liquidationserlös",
-        "Laufende Wartungsauszahlungen",
-        "Anschaffungsauszahlung",
-        "Jährliche Abschreibung"
-      ],
-      "r": 3,
-      "e": "Abschreibungen sind Aufwand, aber keine Auszahlung. Die Kapitalwertmethode rechnet nur mit tatsächlichen Zahlungen."
-    }
-  ],
-  "verwandt": [
-    "interner-zinsfuss",
-    "annuitaetenmethode",
-    "barwert-abzinsen",
-    "amortisationsrechnung",
-    "zinseszins"
-  ],
-  "ask": "die Kapitalwertmethode – mit einem durchgerechneten Investitionsbeispiel"
+ "slug": "kapitalwertmethode",
+ "name": "Kapitalwertmethode",
+ "title": "Kapitalwertmethode einfach erklärt – mit Beispiel",
+ "meta": "Kapitalwertmethode verständlich: Formel, Abzinsungsfaktoren, durchgerechnetes Beispiel und Entscheidungsregel – plus typische Klausurfehler und Quiz.",
+ "h1": "Kapitalwertmethode einfach erklärt",
+ "kurz": "Die Kapitalwertmethode ist ein dynamisches Verfahren der Investitionsrechnung. Alle künftigen Ein- und Auszahlungen einer Investition werden mit dem Kalkulationszinssatz auf den Zeitpunkt \\( t = 0 \\) abgezinst und addiert. Ist der Kapitalwert (Net Present Value) größer als null, ist die Investition vorteilhaft: Sie verzinst das eingesetzte Kapital zum Kalkulationszins und erwirtschaftet zusätzlich einen Vermögenszuwachs.",
+ "keywords": [
+  "Kapitalwertmethode",
+  "Kapitalwert berechnen",
+  "Net Present Value",
+  "Kapitalwert Formel",
+  "Abzinsungsfaktor",
+  "Kapitalwertmethode Beispiel",
+  "Kapitalwert Interpretation",
+  "dynamische Investitionsrechnung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist die Kapitalwertmethode?",
+   "html": "<p>Die Kapitalwertmethode beantwortet eine einzige Frage: <strong>Wie viel ist eine Investition heute wert, wenn man alle künftigen Zahlungen auf den heutigen Tag umrechnet?</strong> Sie gehört zu den <em>dynamischen</em> Verfahren der Investitionsrechnung, weil sie den Zeitpunkt jeder Zahlung berücksichtigt. 10.000 € in vier Jahren sind eben weniger wert als 10.000 € heute – du könntest das Geld ja in der Zwischenzeit anlegen.</p><p>Genau dieses „Umrechnen auf heute“ heißt <strong>Abzinsen</strong> oder Diskontieren. Was dahintersteckt, erklärt die Seite zu <a href=\"/lernen/barwert-abzinsen\">Barwert und Abzinsen</a> ausführlich. Die Kapitalwertmethode wendet dieses Prinzip auf eine ganze Zahlungsreihe an: Anschaffungsauszahlung, laufende Rückflüsse (Einzahlungen minus Auszahlungen) und ein eventueller Liquidationserlös am Ende.</p><p>Der <strong>Kalkulationszinssatz</strong> ist dabei die Mindestverzinsung, die du von der Investition verlangst. Meist ist das der Zins einer Alternativanlage oder der Fremdkapitalzins – also deine <a href=\"/lernen/opportunitaetskosten\">Opportunitätskosten</a>. Rechnest du mit einem höheren Zins, werden spätere Zahlungen stärker abgewertet und der Kapitalwert sinkt.</p>"
+  },
+  {
+   "h2": "Wie lautet die Formel für den Kapitalwert?",
+   "html": "<p>Der Kapitalwert \\( C_0 \\) ist die Summe aller abgezinsten Zahlungsüberschüsse minus der Anschaffungsauszahlung:</p><div class=\"formel\">\\[ C_0 = -I_0 + Z_1 \\cdot (1+i)^{-1} + Z_2 \\cdot (1+i)^{-2} + \\ldots + Z_n \\cdot (1+i)^{-n} + L \\cdot (1+i)^{-n} \\]</div><ul><li><strong>\\( I_0 \\)</strong>: Anschaffungsauszahlung im Zeitpunkt \\( t = 0 \\)</li><li><strong>\\( Z_t \\)</strong>: Rückfluss (Einzahlungen − Auszahlungen) im Jahr \\( t \\)</li><li><strong>\\( i \\)</strong>: Kalkulationszinssatz als Dezimalzahl (\\( 8\\,\\% = 0{,}08 \\))</li><li><strong>\\( n \\)</strong>: Nutzungsdauer in Jahren</li><li><strong>\\( L \\)</strong>: Liquidationserlös (Restwert) am Ende der Nutzungsdauer</li></ul><p>Der Ausdruck \\( (1+i)^{-t} \\) ist der <strong>Abzinsungsfaktor</strong>. In Klausuren bekommst du ihn oft als Tabelle, sonst rechnest du ihn mit dem Taschenrechner aus und rundest auf vier Nachkommastellen. Bei 8 % ergibt sich zum Beispiel:</p><table><thead><tr><th>Jahr \\( t \\)</th><th>Rechnung</th><th>Abzinsungsfaktor</th></tr></thead><tbody><tr><td>1</td><td>\\( \\frac{1}{1{,}08} \\)</td><td>0,9259</td></tr><tr><td>2</td><td>\\( \\frac{1}{1{,}08^2} \\)</td><td>0,8573</td></tr><tr><td>3</td><td>\\( \\frac{1}{1{,}08^3} \\)</td><td>0,7938</td></tr><tr><td>4</td><td>\\( \\frac{1}{1{,}08^4} \\)</td><td>0,7350</td></tr></tbody></table><p>Sind alle Rückflüsse gleich hoch, kannst du dir die Einzelrechnung sparen und mit dem <strong>Rentenbarwertfaktor</strong> arbeiten: \\( C_0 = -I_0 + Z \\cdot \\text{RBF} \\). Der RBF ist einfach die Summe der einzelnen Abzinsungsfaktoren.</p>"
+  },
+  {
+   "h2": "Beispiel: Kapitalwert Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p><strong>Aufgabe:</strong> Eine Bäckerei überlegt, einen neuen Ofen für 100.000 € zu kaufen. Er bringt in den nächsten vier Jahren folgende Rückflüsse: 30.000 €, 40.000 €, 50.000 € und 20.000 €. Danach ist er wertlos (\\( L = 0 \\)). Der Kalkulationszins beträgt 8 %. Lohnt sich die Investition?</p><ol><li><strong>Abzinsungsfaktoren bestimmen</strong> (siehe Tabelle oben): 0,9259; 0,8573; 0,7938; 0,7350.</li><li><strong>Jeden Rückfluss mit seinem Faktor multiplizieren</strong> – das ergibt die Barwerte.</li><li><strong>Barwerte addieren und die Anschaffungsauszahlung abziehen.</strong></li></ol><table><thead><tr><th>\\( t \\)</th><th>Zahlung</th><th>Abzinsungsfaktor (8 %)</th><th>Barwert</th></tr></thead><tbody><tr><td>0</td><td>−100.000 €</td><td>1,0000</td><td>−100.000,00 €</td></tr><tr><td>1</td><td>30.000 €</td><td>0,9259</td><td>27.777,00 €</td></tr><tr><td>2</td><td>40.000 €</td><td>0,8573</td><td>34.292,00 €</td></tr><tr><td>3</td><td>50.000 €</td><td>0,7938</td><td>39.690,00 €</td></tr><tr><td>4</td><td>20.000 €</td><td>0,7350</td><td>14.700,00 €</td></tr><tr><td></td><td></td><td><strong>Kapitalwert \\( C_0 \\)</strong></td><td><strong>16.459,00 €</strong></td></tr></tbody></table><p>Summe der Barwerte: \\( 27.777 + 34.292 + 39.690 + 14.700 = 116.459 \\) €. Abzüglich 100.000 € ergibt sich ein <strong>Kapitalwert von 16.459 €</strong>.</p><p>Rechnest du ohne gerundete Faktoren, kommst du auf 16.463,54 €. Die Abweichung von rund 4,50 € entsteht nur durch das Runden auf vier Stellen – in der Klausur zählt das Ergebnis mit den Tabellenwerten.</p></div>"
+  },
+  {
+   "h2": "Wie interpretiert man den Kapitalwert?",
+   "html": "<p>Die Entscheidungsregel ist kurz:</p><ul><li><strong>\\( C_0 \\gt 0 \\):</strong> Die Investition ist vorteilhaft. Sie bringt die geforderte Verzinsung und zusätzlich einen Überschuss.</li><li><strong>\\( C_0 = 0 \\):</strong> Die Investition verzinst das Kapital genau zum Kalkulationszins – du bist indifferent.</li><li><strong>\\( C_0 \\lt 0 \\):</strong> Die Mindestverzinsung wird verfehlt. Finger weg.</li></ul><p>Bei mehreren sich gegenseitig ausschließenden Alternativen wählst du die mit dem <strong>höchsten positiven Kapitalwert</strong>.</p><p>Wichtig für die Klausur ist die <strong>verbale Interpretation</strong>. Für unser Beispiel lautet sie: „Der Ofen amortisiert die Anschaffungsauszahlung, verzinst das jeweils gebundene Kapital mit 8 % und erwirtschaftet darüber hinaus einen Vermögenszuwachs von 16.459 €, bezogen auf den Zeitpunkt \\( t = 0 \\).“ Der Kapitalwert ist also <em>kein</em> Gewinn im Sinne der GuV, sondern ein Barwert-Überschuss.</p><div class=\"merke\">Kapitalwert positiv = Investition schlägt die Alternativanlage zum Kalkulationszins. Der Betrag zeigt, um wie viel du heute reicher bist.</div>"
+  },
+  {
+   "h2": "Welche Annahmen stecken in der Kapitalwertmethode?",
+   "html": "<p>Viele Klausuren fragen nicht nur nach der Rechnung, sondern nach den Prämissen. Die wichtigsten:</p><ul><li><strong>Vollkommener Kapitalmarkt:</strong> Du kannst jederzeit zum Kalkulationszins Geld anlegen und aufnehmen. Soll- und Habenzins sind gleich.</li><li><strong>Sichere Erwartungen:</strong> Alle Zahlungen sind bekannt und treten genau so ein.</li><li><strong>Wiederanlageprämisse:</strong> Rückflüsse werden bis zum Ende der Laufzeit zum Kalkulationszins angelegt.</li><li><strong>Zahlungen fallen am Periodenende an</strong> (nachschüssig), die Anschaffung in \\( t = 0 \\).</li></ul><p>In der Realität ist keine dieser Annahmen erfüllt. Deshalb ergänzt man die Rechnung in der Praxis um Sensitivitätsanalysen: Wie stark ändert sich der Kapitalwert, wenn der Zins um einen Prozentpunkt steigt oder ein Rückfluss 10 % niedriger ausfällt?</p><p>Am Ofen-Beispiel sieht man, wie empfindlich das Ergebnis auf den Zins reagiert: Bei 12 % (Faktoren 0,8929; 0,7972; 0,7118; 0,6355) schrumpft der Kapitalwert auf 6.975 €, bei 16 % (Faktoren 0,8621; 0,7432; 0,6407; 0,5523) wird er mit −1.328 € sogar negativ. Irgendwo zwischen 12 % und 16 % liegt also der Zinssatz, bei dem die Investition gerade noch lohnt. Wer in der Planung den Zins zu niedrig ansetzt, rechnet sich Projekte schön.</p>"
+  },
+  {
+   "h2": "Vor- und Nachteile und Abgrenzung zu anderen Verfahren",
+   "html": "<h3>Vorteile</h3><ul><li>Berücksichtigt den Zeitwert des Geldes – anders als statische Verfahren wie die <a href=\"/lernen/kostenvergleichsrechnung\">Kostenvergleichsrechnung</a>.</li><li>Liefert einen absoluten Betrag in Euro, der direkt als Vermögenszuwachs lesbar ist.</li><li>Unterschiedlich hohe Rückflüsse und Restwerte lassen sich problemlos einbauen.</li><li>Führt immer zu einer eindeutigen Lösung – im Gegensatz zum internen Zinsfuß.</li></ul><h3>Nachteile</h3><ul><li>Der Kalkulationszins ist schwer festzulegen und beeinflusst das Ergebnis stark.</li><li>Künftige Zahlungen sind in Wahrheit unsicher.</li><li>Projekte mit unterschiedlicher Laufzeit oder Kapitalbindung lassen sich nur eingeschränkt vergleichen.</li></ul><h3>Abgrenzung</h3><p>Der <a href=\"/lernen/interner-zinsfuss\">interne Zinsfuß</a> ist genau der Zinssatz, bei dem der Kapitalwert null wird – er gibt eine Rendite in Prozent statt eines Betrags in Euro an. Die <a href=\"/lernen/annuitaetenmethode\">Annuitätenmethode</a> verteilt den Kapitalwert gleichmäßig auf die Nutzungsjahre und eignet sich besser, wenn die Laufzeiten verschieden sind. Alle drei Verfahren beruhen auf derselben Logik, beantworten aber unterschiedliche Fragen.</p>"
+  }
+ ],
+ "fehler": [
+  "Die Anschaffungsauszahlung wird ebenfalls abgezinst. Sie fällt in \\( t = 0 \\) an, der Abzinsungsfaktor ist dort 1 – sie wird also unverändert abgezogen.",
+  "Der Liquidationserlös wird vergessen oder mit dem falschen Faktor abgezinst. Er gehört ins letzte Nutzungsjahr und wird mit dem Faktor für Jahr \\( n \\) multipliziert.",
+  "Statt Rückflüssen werden Gewinne oder Erlöse eingesetzt. Die Kapitalwertmethode arbeitet mit Zahlungen; Abschreibungen sind keine Auszahlung und gehören nicht in die Zahlungsreihe.",
+  "Der Zinssatz wird als 8 statt 0,08 in die Formel eingesetzt oder es wird aufgezinst statt abgezinst. Prüfe: Der Barwert muss immer kleiner sein als die spätere Zahlung.",
+  "Nur das Ergebnis wird hingeschrieben. Viele Punkte gibt es für die Interpretation: Vorteilhaftigkeit, Verzinsung zum Kalkulationszins und Vermögenszuwachs bezogen auf \\( t = 0 \\)."
+ ],
+ "faq": [
+  {
+   "q": "Was sagt ein Kapitalwert von 0 aus?",
+   "a": "Ein Kapitalwert von null bedeutet, dass die Investition das eingesetzte Kapital genau zum Kalkulationszinssatz verzinst. Es entsteht kein zusätzlicher Vermögenszuwachs, aber auch kein Verlust. Der Kalkulationszins entspricht dann dem internen Zinsfuß."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Kapitalwert und Barwert?",
+   "a": "Der Barwert ist der heutige Wert einer einzelnen künftigen Zahlung oder Zahlungsreihe. Der Kapitalwert ist die Summe aller Barwerte einer Investition abzüglich der Anschaffungsauszahlung. \\( \\text{Kapitalwert} = \\text{Barwert der Rückflüsse} - I_0 \\)."
+  },
+  {
+   "q": "Welchen Zinssatz nimmt man für die Kapitalwertmethode?",
+   "a": "Man nimmt den Kalkulationszinssatz, also die Mindestverzinsung, die der Investor verlangt. Häufig ist das der Zins einer gleichwertigen Alternativanlage oder der Fremdkapitalzins, bei Unternehmen oft ein gewichteter Kapitalkostensatz. In Klausuren ist er immer vorgegeben."
+  },
+  {
+   "q": "Was passiert mit dem Kapitalwert, wenn der Zins steigt?",
+   "a": "Der Kapitalwert sinkt, weil künftige Rückflüsse stärker abgezinst werden. Bei normalen Investitionen (erst Auszahlung, dann Einzahlungen) gibt es genau einen Zinssatz, ab dem der Kapitalwert negativ wird – das ist der interne Zinsfuß."
+  },
+  {
+   "q": "Ist Net Present Value dasselbe wie Kapitalwert?",
+   "a": "Ja. Net Present Value (NPV) ist der englische Begriff für den Kapitalwert. In der Literatur findest du auch die Bezeichnung Nettobarwert oder \\( C_0 \\)."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Eine Investition hat einen Kapitalwert von +5.000 € bei 6 % Kalkulationszins. Was bedeutet das?",
+   "o": [
+    "Die Investition erzielt einen Gewinn von 5.000 € pro Jahr",
+    "Die Investition verzinst das Kapital mit 6 % und erzielt zusätzlich einen Vermögenszuwachs von 5.000 € bezogen auf \\( t = 0 \\)",
+    "Die Rendite der Investition beträgt genau 6 %",
+    "Die Investition ist nach 5.000 Tagen amortisiert"
+   ],
+   "r": 1,
+   "e": "Ein positiver Kapitalwert heißt: Mindestverzinsung erreicht plus Überschuss, ausgedrückt als Barwert in \\( t = 0 \\). Eine Rendite von genau 6 % hätte einen Kapitalwert von null."
+  },
+  {
+   "q": "Wie hoch ist der Barwert eines Rückflusses von 20.000 € in Jahr 4 bei 8 % (Abzinsungsfaktor 0,7350)?",
+   "o": [
+    "27.209,78 €",
+    "18.518,52 €",
+    "14.700,00 €",
+    "21.600,00 €"
+   ],
+   "r": 2,
+   "e": "\\( 20.000 \\cdot 0{,}7350 = 14.700 \\) €. 18.518,52 € wäre nur ein Jahr abgezinst, 27.209,78 € wäre aufgezinst."
+  },
+  {
+   "q": "Welche Größe gehört NICHT in die Zahlungsreihe der Kapitalwertmethode?",
+   "o": [
+    "Liquidationserlös",
+    "Laufende Wartungsauszahlungen",
+    "Anschaffungsauszahlung",
+    "Jährliche Abschreibung"
+   ],
+   "r": 3,
+   "e": "Abschreibungen sind Aufwand, aber keine Auszahlung. Die Kapitalwertmethode rechnet nur mit tatsächlichen Zahlungen."
+  }
+ ],
+ "verwandt": [
+  "interner-zinsfuss",
+  "annuitaetenmethode",
+  "barwert-abzinsen",
+  "amortisationsrechnung",
+  "zinseszins"
+ ],
+ "ask": "die Kapitalwertmethode – mit einem durchgerechneten Investitionsbeispiel"
 }

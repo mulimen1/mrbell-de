@@ -1,112 +1,112 @@
 {
-  "slug": "abc-analyse",
-  "name": "ABC-Analyse",
-  "title": "ABC-Analyse einfach erklärt – mit Rechenbeispiel",
-  "meta": "ABC-Analyse einfach erklärt: Vorgehen Schritt für Schritt, Rechentabelle mit Wertanteilen und kumulierten Werten, A-, B-, C-Einteilung und Klausurfehler.",
-  "h1": "ABC-Analyse einfach erklärt",
-  "kurz": "Die ABC-Analyse teilt Artikel, Kunden oder Lieferanten nach ihrer wirtschaftlichen Bedeutung in drei Klassen ein. A-Güter machen einen kleinen Teil der Menge, aber den Großteil des Werts aus (oft rund 70–80 %), C-Güter umgekehrt einen großen Mengenanteil bei geringem Wert. So erkennst du, wo sich Aufwand in Einkauf und Lagerhaltung lohnt.",
-  "keywords": [
-    "ABC-Analyse",
-    "ABC-Analyse Beispiel",
-    "ABC-Analyse berechnen",
-    "ABC-Analyse Tabelle",
-    "Wertanteil kumuliert",
-    "A-Güter B-Güter C-Güter",
-    "ABC-Analyse Materialwirtschaft",
-    "ABC XYZ Analyse"
-  ],
-  "abschnitte": [
-    {
-      "h2": "Was ist eine ABC-Analyse?",
-      "html": "<p>Die ABC-Analyse ist ein Verfahren aus der Materialwirtschaft, das du überall dort einsetzen kannst, wo du Wichtiges von Unwichtigem trennen willst. Sie beruht auf einer Beobachtung, die als <strong>Pareto-Prinzip</strong> bekannt ist: Wenige Positionen sind für den Großteil des Werts verantwortlich, viele Positionen für nur einen kleinen Rest.</p>\n<p>Im Lager heißt das: Ein paar teure Bauteile binden den größten Teil des Kapitals, während Tausende Schrauben, Scheiben und Etiketten zusammen kaum ins Gewicht fallen. Die ABC-Analyse macht diese Verteilung sichtbar und teilt die Artikel in drei Klassen:</p>\n<ul>\n<li><strong>A-Güter:</strong> geringer Mengenanteil, hoher Wertanteil – sehr wichtig.</li>\n<li><strong>B-Güter:</strong> mittlerer Mengen- und Wertanteil – mittel wichtig.</li>\n<li><strong>C-Güter:</strong> hoher Mengenanteil, geringer Wertanteil – weniger wichtig.</li>\n</ul>\n<p>Typische Richtwerte aus Lehrbüchern: A-Güter ca. 70–80 % des Werts bei ca. 10–20 % der Menge, B-Güter ca. 15–20 % des Werts, C-Güter ca. 5–10 % des Werts bei ca. 50–70 % der Menge. Das sind <strong>keine festen Grenzen</strong> – jedes Unternehmen legt sie selbst fest. Neben Artikeln lassen sich auch Kunden (nach Umsatz) oder Lieferanten (nach Einkaufsvolumen) so einteilen.</p>"
-    },
-    {
-      "h2": "Wie geht man bei der ABC-Analyse vor?",
-      "html": "<ol>\n<li><strong>Verbrauchswert je Artikel berechnen:</strong> \\( \\text{Jahresverbrauchsmenge} \\cdot \\text{Preis pro Stück} \\).</li>\n<li><strong>Artikel absteigend nach Verbrauchswert sortieren</strong> – der Artikel mit dem höchsten Wert bekommt Rang 1.</li>\n<li><strong>Wertanteil berechnen:</strong> Verbrauchswert des Artikels in Prozent des Gesamtverbrauchswerts.</li>\n<li><strong>Wertanteile kumulieren:</strong> Die Prozentwerte von oben nach unten aufaddieren, bis 100 % erreicht sind.</li>\n<li><strong>Mengenanteile berechnen und kumulieren</strong> (oder alternativ den Anteil an der Zahl der Artikelpositionen).</li>\n<li><strong>Klassengrenzen festlegen</strong> und jeden Artikel A, B oder C zuordnen.</li>\n</ol>\n<div class=\"formel\">\\[ \\text{Verbrauchswert} = \\text{Menge} \\cdot \\text{Preis pro Stück} \\]\\[ \\text{Wertanteil}\\ (\\%) = \\frac{\\text{Verbrauchswert des Artikels}}{\\text{Gesamtverbrauchswert}} \\cdot 100 \\]\\[ \\text{Mengenanteil}\\ (\\%) = \\frac{\\text{Menge des Artikels}}{\\text{Gesamtmenge}} \\cdot 100 \\]\\[ \\text{kumulierter Anteil (Rang } n\\text{)} = \\text{Summe der Anteile von Rang 1 bis Rang } n \\]</div>\n<div class=\"merke\">Sortiert wird nach dem Verbrauchswert – nicht nach dem Stückpreis und nicht nach der Menge.</div>"
-    },
-    {
-      "h2": "Beispiel: ABC-Analyse für einen Maschinenbauer",
-      "html": "<div class=\"beispiel\">\n<p><strong>Aufgabe:</strong> Ein Hersteller von Hebebühnen hat im letzten Jahr folgende zehn Materialien verbraucht. Führe eine ABC-Analyse durch (Klassengrenze A bis ca. 80 %, B bis ca. 95 % des kumulierten Wertanteils).</p>\n<p><strong>Schritt 1 – Verbrauchswerte:</strong> z. B. Hydraulikpumpe: \\( 120 \\cdot 450 = 54.000 \\) €; Schrauben M8: \\( 50.000 \\cdot 0{,}08 = 4.000 \\) €. Die Summe aller zehn Verbrauchswerte beträgt <strong>200.000 €</strong>, die Gesamtmenge <strong>109.320 Stück</strong>.</p>\n<p><strong>Schritt 2–5 – Sortieren, Anteile und kumulierte Werte:</strong></p>\n<table><thead><tr><th>Rang</th><th>Artikel</th><th>Menge (Stück)</th><th>Preis/Stück</th><th>Verbrauchswert</th><th>Wertanteil</th><th>Wertanteil kumuliert</th><th>Mengenanteil kumuliert</th><th>Klasse</th></tr></thead><tbody><tr><td>1</td><td>Hydraulikpumpe</td><td>120</td><td>450,00 €</td><td>54.000 €</td><td>27,00 %</td><td>27,00 %</td><td>0,11 %</td><td>A</td></tr><tr><td>2</td><td>Elektromotor</td><td>300</td><td>160,00 €</td><td>48.000 €</td><td>24,00 %</td><td>51,00 %</td><td>0,38 %</td><td>A</td></tr><tr><td>3</td><td>Steuerplatine</td><td>800</td><td>45,00 €</td><td>36.000 €</td><td>18,00 %</td><td>69,00 %</td><td>1,12 %</td><td>A</td></tr><tr><td>4</td><td>Kabelbaum</td><td>1.500</td><td>12,00 €</td><td>18.000 €</td><td>9,00 %</td><td>78,00 %</td><td>2,49 %</td><td>A</td></tr><tr><td>5</td><td>Gehäuse</td><td>600</td><td>25,00 €</td><td>15.000 €</td><td>7,50 %</td><td>85,50 %</td><td>3,04 %</td><td>B</td></tr><tr><td>6</td><td>Kugellager</td><td>2.000</td><td>6,50 €</td><td>13.000 €</td><td>6,50 %</td><td>92,00 %</td><td>4,87 %</td><td>B</td></tr><tr><td>7</td><td>Dichtungsset</td><td>4.000</td><td>2,00 €</td><td>8.000 €</td><td>4,00 %</td><td>96,00 %</td><td>8,53 %</td><td>B</td></tr><tr><td>8</td><td>Schrauben M8</td><td>50.000</td><td>0,08 €</td><td>4.000 €</td><td>2,00 %</td><td>98,00 %</td><td>54,26 %</td><td>C</td></tr><tr><td>9</td><td>Etiketten</td><td>20.000</td><td>0,125 €</td><td>2.500 €</td><td>1,25 %</td><td>99,25 %</td><td>72,56 %</td><td>C</td></tr><tr><td>10</td><td>Unterlegscheiben</td><td>30.000</td><td>0,05 €</td><td>1.500 €</td><td>0,75 %</td><td>100,00 %</td><td>100,00 %</td><td>C</td></tr></tbody></table>\n<p>Rechenweg für Rang 3: \\( \\text{Wertanteil} = \\frac{36.000}{200.000} \\cdot 100 = 18\\,\\% \\). Kumuliert: \\( 27\\,\\% + 24\\,\\% + 18\\,\\% = 69\\,\\% \\). Mengenanteil kumuliert: \\( \\frac{120 + 300 + 800}{109.320} \\cdot 100 = 1{,}12\\,\\% \\).</p>\n<p><strong>Schritt 6 – Einteilung:</strong> Bis Rang 4 erreicht der kumulierte Wertanteil 78 % – das ist A. Rang 5 bis 7 bringen ihn auf 96 %; da Rang 7 mit 4 % deutlich größer ist als die folgenden Artikel, wird die B-Grenze hier gezogen statt genau bei 95 %. Die übrigen drei Artikel sind C.</p>\n<table><thead><tr><th>Klasse</th><th>Artikel</th><th>Anteil an Positionen</th><th>Verbrauchswert</th><th>Wertanteil</th><th>Menge</th><th>Mengenanteil</th></tr></thead><tbody>\n<tr><td>A</td><td>4</td><td>40 %</td><td>156.000 €</td><td>78 %</td><td>2.720</td><td>2,49 %</td></tr>\n<tr><td>B</td><td>3</td><td>30 %</td><td>36.000 €</td><td>18 %</td><td>6.600</td><td>6,04 %</td></tr>\n<tr><td>C</td><td>3</td><td>30 %</td><td>8.000 €</td><td>4 %</td><td>100.000</td><td>91,47 %</td></tr>\n<tr><td><strong>Summe</strong></td><td>10</td><td>100 %</td><td>200.000 €</td><td>100 %</td><td>109.320</td><td>100 %</td></tr>\n</tbody></table>\n<p><strong>Ergebnis:</strong> Vier Artikel mit nur 2,49 % der Menge stehen für 78 % des Verbrauchswerts. Die drei C-Artikel machen 91,47 % aller Stücke aus, aber nur 4 % des Werts. Bei nur zehn Artikeln ist der Anteil an den Positionen naturgemäß grob – in der Praxis mit Hunderten Artikeln liegt der Positionsanteil der A-Klasse meist deutlich niedriger.</p>\n</div>"
-    },
-    {
-      "h2": "Was folgt aus der Einteilung?",
-      "html": "<p>Die ABC-Analyse ist nur der erste Schritt – entscheidend sind die unterschiedlichen Maßnahmen je Klasse:</p>\n<table><thead><tr><th></th><th>A-Güter</th><th>B-Güter</th><th>C-Güter</th></tr></thead>\n<tbody>\n<tr><td>Beschaffung</td><td>intensive Marktanalyse, harte Preisverhandlungen, mehrere Angebote</td><td>normale Sorgfalt</td><td>vereinfachte Bestellung, Rahmenverträge, Sammelbestellungen</td></tr>\n<tr><td>Bestandsführung</td><td>genaue Bedarfsplanung, niedrige Sicherheitsbestände, Just-in-Time prüfen</td><td>periodische Kontrolle</td><td>höhere Sicherheitsbestände, grobe Kontrolle (z. B. Zwei-Behälter-System)</td></tr>\n<tr><td>Kontrolle</td><td>laufend, ggf. Einzelinventur</td><td>regelmäßig</td><td>stichprobenartig</td></tr>\n</tbody></table>\n<p>Der Grund: Bei A-Gütern spart schon ein Prozent Preisnachlass viel Geld – im Beispiel \\( 1\\,\\% \\cdot 156.000 = 1.560 \\) €. Bei C-Gütern bringt dieselbe Verhandlung nur \\( 1\\,\\% \\cdot 8.000 = 80 \\) €, kostet aber genauso viel Arbeitszeit. Für A-Güter lohnt sich daher auch die Berechnung der <a href=\"/lernen/optimale-bestellmenge\">optimalen Bestellmenge</a>, weil hohe Lagerbestände hier viel Kapital binden. Bei der Bewertung des Lagers im Rahmen von <a href=\"/lernen/inventur-inventar\">Inventur und Inventar</a> hilft die Einteilung ebenfalls, Prioritäten zu setzen.</p>"
-    },
-    {
-      "h2": "Vorteile, Nachteile und Abgrenzung zur XYZ-Analyse",
-      "html": "<p><strong>Vorteile:</strong></p>\n<ul>\n<li>Einfach, mit wenigen Daten durchführbar und gut grafisch darstellbar (Lorenzkurve: kumulierter Mengenanteil auf der x-Achse, kumulierter Wertanteil auf der y-Achse).</li>\n<li>Lenkt Zeit und Aufmerksamkeit auf die Positionen, bei denen es wirtschaftlich darauf ankommt.</li>\n<li>Vielseitig: für Materialien, Kunden, Lieferanten oder Produkte einsetzbar.</li>\n</ul>\n<p><strong>Nachteile:</strong></p>\n<ul>\n<li>Es zählt nur der Wert. Ein billiges C-Teil kann trotzdem kritisch sein – fehlt eine Dichtung für 2 €, steht die ganze Produktion.</li>\n<li>Die Klassengrenzen sind willkürlich gesetzt.</li>\n<li>Die Analyse beruht auf Vergangenheitswerten und sagt nichts über die Schwankung des Verbrauchs.</li>\n</ul>\n<p><strong>XYZ-Analyse:</strong> Sie ergänzt genau diese Lücke und teilt Artikel nach der <em>Vorhersagegenauigkeit des Verbrauchs</em> ein: X = konstanter Verbrauch, Y = schwankender, Z = unregelmäßiger Verbrauch. Kombiniert ergibt sich eine ABC/XYZ-Matrix: AX-Güter (wertvoll, gut planbar) eignen sich besonders für Just-in-Time-Beschaffung, CZ-Güter eher für Lagerhaltung mit Puffer.</p>\n<p><strong>Abgrenzung:</strong> Die ABC-Analyse bewertet nach Wert, nicht nach Gewinnbeitrag. Wenn du Kunden oder Produkte nach ihrem Beitrag zum Ergebnis beurteilen willst, ist der <a href=\"/lernen/deckungsbeitrag\">Deckungsbeitrag</a> die bessere Größe.</p>"
-    }
-  ],
-  "fehler": [
-    "Nach Stückpreis oder Menge statt nach Verbrauchswert sortieren. Erst \\( \\text{Menge} \\cdot \\text{Preis} \\) berechnen, dann absteigend nach diesem Verbrauchswert ordnen.",
-    "Vergessen zu kumulieren und die Klassen anhand der Einzelanteile einteilen. Die Klassengrenzen beziehen sich auf den kumulierten Wertanteil.",
-    "Den Mengenanteil an falscher Stelle kumulieren: Die Mengen müssen in derselben Reihenfolge wie die Werte (nach Verbrauchswert sortiert) aufaddiert werden, nicht nach Menge sortiert.",
-    "Die Lehrbuch-Richtwerte (z. B. 80/15/5) als feste Regel anwenden. Nimm die Grenzen aus der Aufgabenstellung und achte auf sinnvolle Sprünge in den Werten.",
-    "Nur die Einteilung liefern ohne Maßnahmen. In der Klausur werden oft Konsequenzen für Beschaffung, Lagerhaltung und Kontrolle je Klasse erwartet."
-  ],
-  "faq": [
-    {
-      "q": "Wie berechnet man eine ABC-Analyse?",
-      "a": "Du berechnest für jeden Artikel den Verbrauchswert als Menge mal Preis, sortierst absteigend und bestimmst den Wertanteil am Gesamtwert. Dann kumulierst du die Wertanteile und teilst die Artikel anhand festgelegter Grenzen, etwa 80 % und 95 %, in A, B und C ein."
-    },
-    {
-      "q": "Was sind A-, B- und C-Güter?",
-      "a": "A-Güter haben einen geringen Mengenanteil, aber einen hohen Wertanteil, oft rund 70 bis 80 %. B-Güter liegen im Mittelfeld. C-Güter machen einen großen Teil der Menge aus, tragen aber nur wenige Prozent zum Gesamtwert bei."
-    },
-    {
-      "q": "Was bedeutet kumulierter Wertanteil?",
-      "a": "Der kumulierte Wertanteil ist die laufende Summe der Wertanteile in der sortierten Liste. Er zeigt, wie viel Prozent des Gesamtwerts die Artikel bis zu einem bestimmten Rang zusammen ausmachen; beim letzten Artikel ist er 100 %."
-    },
-    {
-      "q": "Welche Grenzen gelten für die ABC-Analyse?",
-      "a": "Es gibt keine festen Grenzen. Häufig verwendete Richtwerte sind A bis etwa 80 %, B bis etwa 95 % und C für den Rest des kumulierten Wertanteils. In Klausuren sind die Grenzen meist vorgegeben."
-    },
-    {
-      "q": "Was ist der Unterschied zwischen ABC- und XYZ-Analyse?",
-      "a": "Die ABC-Analyse teilt Artikel nach ihrem Wertanteil ein, die XYZ-Analyse nach der Regelmäßigkeit und Vorhersagbarkeit ihres Verbrauchs. Kombiniert helfen beide bei der Wahl der Beschaffungs- und Lagerstrategie."
-    }
-  ],
-  "quiz": [
-    {
-      "q": "Artikel P: 500 Stück à 8 €, Artikel Q: 50 Stück à 90 €, Artikel R: 2.000 Stück à 1,50 €. In welcher Reihenfolge stehen sie in der ABC-Analyse?",
-      "o": [
-        "Q, P, R",
-        "R, P, Q",
-        "P, R, Q",
-        "P, Q, R"
-      ],
-      "r": 0,
-      "e": "Verbrauchswerte: \\( Q = 50 \\cdot 90 = 4.500 \\) €, \\( P = 500 \\cdot 8 = 4.000 \\) €, \\( R = 2.000 \\cdot 1{,}50 = 3.000 \\) €. Sortiert wird nach Verbrauchswert, nicht nach Menge oder Stückpreis."
-    },
-    {
-      "q": "Welche Maßnahme passt typischerweise zu C-Gütern?",
-      "o": [
-        "Intensive Preisverhandlungen mit mehreren Angeboten",
-        "Just-in-Time-Anlieferung",
-        "Vereinfachte Sammelbestellungen und höhere Sicherheitsbestände",
-        "Laufende Einzelkontrolle des Bestands"
-      ],
-      "r": 2,
-      "e": "C-Güter haben wenig Wert – der Verwaltungsaufwand soll gering bleiben, Fehlmengen werden durch Puffer vermieden."
-    },
-    {
-      "q": "Die kumulierten Wertanteile lauten 40 %, 65 %, 82 %, 91 %, 97 %, 100 %. Bei Grenzen \\( A \\le 82\\,\\% \\) und \\( B \\le 97\\,\\% \\): Wie viele Artikel sind B-Güter?",
-      "o": [
-        "Einer",
-        "Zwei",
-        "Drei",
-        "Vier"
-      ],
-      "r": 1,
-      "e": "Die ersten drei Artikel (bis 82 %) sind A, Rang 4 und 5 (91 % und 97 %) sind B, Rang 6 ist C."
-    }
-  ],
-  "verwandt": [
-    "optimale-bestellmenge",
-    "inventur-inventar",
-    "deckungsbeitrag",
-    "kostenrechnung",
-    "einzelkosten-gemeinkosten"
-  ],
-  "ask": "die ABC-Analyse – mit einer durchgerechneten Tabelle aus Wertanteilen, kumulierten Werten und Klasseneinteilung"
+ "slug": "abc-analyse",
+ "name": "ABC-Analyse",
+ "title": "ABC-Analyse einfach erklärt – mit Rechenbeispiel",
+ "meta": "ABC-Analyse einfach erklärt: Vorgehen Schritt für Schritt, Rechentabelle mit Wertanteilen und kumulierten Werten, A-, B-, C-Einteilung und Klausurfehler.",
+ "h1": "ABC-Analyse einfach erklärt",
+ "kurz": "Die ABC-Analyse teilt Artikel, Kunden oder Lieferanten nach ihrer wirtschaftlichen Bedeutung in drei Klassen ein. A-Güter machen einen kleinen Teil der Menge, aber den Großteil des Werts aus (oft rund 70–80 %), C-Güter umgekehrt einen großen Mengenanteil bei geringem Wert. So erkennst du, wo sich Aufwand in Einkauf und Lagerhaltung lohnt.",
+ "keywords": [
+  "ABC-Analyse",
+  "ABC-Analyse Beispiel",
+  "ABC-Analyse berechnen",
+  "ABC-Analyse Tabelle",
+  "Wertanteil kumuliert",
+  "A-Güter B-Güter C-Güter",
+  "ABC-Analyse Materialwirtschaft",
+  "ABC XYZ Analyse"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist eine ABC-Analyse?",
+   "html": "<p>Die ABC-Analyse ist ein Verfahren aus der Materialwirtschaft, das du überall dort einsetzen kannst, wo du Wichtiges von Unwichtigem trennen willst. Sie beruht auf einer Beobachtung, die als <strong>Pareto-Prinzip</strong> bekannt ist: Wenige Positionen sind für den Großteil des Werts verantwortlich, viele Positionen für nur einen kleinen Rest.</p>\n<p>Im Lager heißt das: Ein paar teure Bauteile binden den größten Teil des Kapitals, während Tausende Schrauben, Scheiben und Etiketten zusammen kaum ins Gewicht fallen. Die ABC-Analyse macht diese Verteilung sichtbar und teilt die Artikel in drei Klassen:</p>\n<ul>\n<li><strong>A-Güter:</strong> geringer Mengenanteil, hoher Wertanteil – sehr wichtig.</li>\n<li><strong>B-Güter:</strong> mittlerer Mengen- und Wertanteil – mittel wichtig.</li>\n<li><strong>C-Güter:</strong> hoher Mengenanteil, geringer Wertanteil – weniger wichtig.</li>\n</ul>\n<p>Typische Richtwerte aus Lehrbüchern: A-Güter ca. 70–80 % des Werts bei ca. 10–20 % der Menge, B-Güter ca. 15–20 % des Werts, C-Güter ca. 5–10 % des Werts bei ca. 50–70 % der Menge. Das sind <strong>keine festen Grenzen</strong> – jedes Unternehmen legt sie selbst fest. Neben Artikeln lassen sich auch Kunden (nach Umsatz) oder Lieferanten (nach Einkaufsvolumen) so einteilen.</p>"
+  },
+  {
+   "h2": "Wie geht man bei der ABC-Analyse vor?",
+   "html": "<ol>\n<li><strong>Verbrauchswert je Artikel berechnen:</strong> \\( \\text{Jahresverbrauchsmenge} \\cdot \\text{Preis pro Stück} \\).</li>\n<li><strong>Artikel absteigend nach Verbrauchswert sortieren</strong> – der Artikel mit dem höchsten Wert bekommt Rang 1.</li>\n<li><strong>Wertanteil berechnen:</strong> Verbrauchswert des Artikels in Prozent des Gesamtverbrauchswerts.</li>\n<li><strong>Wertanteile kumulieren:</strong> Die Prozentwerte von oben nach unten aufaddieren, bis 100 % erreicht sind.</li>\n<li><strong>Mengenanteile berechnen und kumulieren</strong> (oder alternativ den Anteil an der Zahl der Artikelpositionen).</li>\n<li><strong>Klassengrenzen festlegen</strong> und jeden Artikel A, B oder C zuordnen.</li>\n</ol>\n<div class=\"formel\">\\[ \\text{Verbrauchswert} = \\text{Menge} \\cdot \\text{Preis pro Stück} \\]\\[ \\text{Wertanteil}\\ (\\%) = \\frac{\\text{Verbrauchswert des Artikels}}{\\text{Gesamtverbrauchswert}} \\cdot 100 \\]\\[ \\text{Mengenanteil}\\ (\\%) = \\frac{\\text{Menge des Artikels}}{\\text{Gesamtmenge}} \\cdot 100 \\]\\[ \\text{kumulierter Anteil (Rang } n\\text{)} = \\text{Summe der Anteile von Rang 1 bis Rang } n \\]</div>\n<div class=\"merke\">Sortiert wird nach dem Verbrauchswert – nicht nach dem Stückpreis und nicht nach der Menge.</div>"
+  },
+  {
+   "h2": "Beispiel: ABC-Analyse für einen Maschinenbauer",
+   "html": "<div class=\"beispiel\">\n<p><strong>Aufgabe:</strong> Ein Hersteller von Hebebühnen hat im letzten Jahr folgende zehn Materialien verbraucht. Führe eine ABC-Analyse durch (Klassengrenze A bis ca. 80 %, B bis ca. 95 % des kumulierten Wertanteils).</p>\n<p><strong>Schritt 1 – Verbrauchswerte:</strong> z. B. Hydraulikpumpe: \\( 120 \\cdot 450 = 54.000 \\) €; Schrauben M8: \\( 50.000 \\cdot 0{,}08 = 4.000 \\) €. Die Summe aller zehn Verbrauchswerte beträgt <strong>200.000 €</strong>, die Gesamtmenge <strong>109.320 Stück</strong>.</p>\n<p><strong>Schritt 2–5 – Sortieren, Anteile und kumulierte Werte:</strong></p>\n<table><thead><tr><th>Rang</th><th>Artikel</th><th>Menge (Stück)</th><th>Preis/Stück</th><th>Verbrauchswert</th><th>Wertanteil</th><th>Wertanteil kumuliert</th><th>Mengenanteil kumuliert</th><th>Klasse</th></tr></thead><tbody><tr><td>1</td><td>Hydraulikpumpe</td><td>120</td><td>450,00 €</td><td>54.000 €</td><td>27,00 %</td><td>27,00 %</td><td>0,11 %</td><td>A</td></tr><tr><td>2</td><td>Elektromotor</td><td>300</td><td>160,00 €</td><td>48.000 €</td><td>24,00 %</td><td>51,00 %</td><td>0,38 %</td><td>A</td></tr><tr><td>3</td><td>Steuerplatine</td><td>800</td><td>45,00 €</td><td>36.000 €</td><td>18,00 %</td><td>69,00 %</td><td>1,12 %</td><td>A</td></tr><tr><td>4</td><td>Kabelbaum</td><td>1.500</td><td>12,00 €</td><td>18.000 €</td><td>9,00 %</td><td>78,00 %</td><td>2,49 %</td><td>A</td></tr><tr><td>5</td><td>Gehäuse</td><td>600</td><td>25,00 €</td><td>15.000 €</td><td>7,50 %</td><td>85,50 %</td><td>3,04 %</td><td>B</td></tr><tr><td>6</td><td>Kugellager</td><td>2.000</td><td>6,50 €</td><td>13.000 €</td><td>6,50 %</td><td>92,00 %</td><td>4,87 %</td><td>B</td></tr><tr><td>7</td><td>Dichtungsset</td><td>4.000</td><td>2,00 €</td><td>8.000 €</td><td>4,00 %</td><td>96,00 %</td><td>8,53 %</td><td>B</td></tr><tr><td>8</td><td>Schrauben M8</td><td>50.000</td><td>0,08 €</td><td>4.000 €</td><td>2,00 %</td><td>98,00 %</td><td>54,26 %</td><td>C</td></tr><tr><td>9</td><td>Etiketten</td><td>20.000</td><td>0,125 €</td><td>2.500 €</td><td>1,25 %</td><td>99,25 %</td><td>72,56 %</td><td>C</td></tr><tr><td>10</td><td>Unterlegscheiben</td><td>30.000</td><td>0,05 €</td><td>1.500 €</td><td>0,75 %</td><td>100,00 %</td><td>100,00 %</td><td>C</td></tr></tbody></table>\n<p>Rechenweg für Rang 3: \\( \\text{Wertanteil} = \\frac{36.000}{200.000} \\cdot 100 = 18\\,\\% \\). Kumuliert: \\( 27\\,\\% + 24\\,\\% + 18\\,\\% = 69\\,\\% \\). Mengenanteil kumuliert: \\( \\frac{120 + 300 + 800}{109.320} \\cdot 100 = 1{,}12\\,\\% \\).</p>\n<p><strong>Schritt 6 – Einteilung:</strong> Bis Rang 4 erreicht der kumulierte Wertanteil 78 % – das ist A. Rang 5 bis 7 bringen ihn auf 96 %; da Rang 7 mit 4 % deutlich größer ist als die folgenden Artikel, wird die B-Grenze hier gezogen statt genau bei 95 %. Die übrigen drei Artikel sind C.</p>\n<table><thead><tr><th>Klasse</th><th>Artikel</th><th>Anteil an Positionen</th><th>Verbrauchswert</th><th>Wertanteil</th><th>Menge</th><th>Mengenanteil</th></tr></thead><tbody>\n<tr><td>A</td><td>4</td><td>40 %</td><td>156.000 €</td><td>78 %</td><td>2.720</td><td>2,49 %</td></tr>\n<tr><td>B</td><td>3</td><td>30 %</td><td>36.000 €</td><td>18 %</td><td>6.600</td><td>6,04 %</td></tr>\n<tr><td>C</td><td>3</td><td>30 %</td><td>8.000 €</td><td>4 %</td><td>100.000</td><td>91,47 %</td></tr>\n<tr><td><strong>Summe</strong></td><td>10</td><td>100 %</td><td>200.000 €</td><td>100 %</td><td>109.320</td><td>100 %</td></tr>\n</tbody></table>\n<p><strong>Ergebnis:</strong> Vier Artikel mit nur 2,49 % der Menge stehen für 78 % des Verbrauchswerts. Die drei C-Artikel machen 91,47 % aller Stücke aus, aber nur 4 % des Werts. Bei nur zehn Artikeln ist der Anteil an den Positionen naturgemäß grob – in der Praxis mit Hunderten Artikeln liegt der Positionsanteil der A-Klasse meist deutlich niedriger.</p>\n</div>"
+  },
+  {
+   "h2": "Was folgt aus der Einteilung?",
+   "html": "<p>Die ABC-Analyse ist nur der erste Schritt – entscheidend sind die unterschiedlichen Maßnahmen je Klasse:</p>\n<table><thead><tr><th></th><th>A-Güter</th><th>B-Güter</th><th>C-Güter</th></tr></thead>\n<tbody>\n<tr><td>Beschaffung</td><td>intensive Marktanalyse, harte Preisverhandlungen, mehrere Angebote</td><td>normale Sorgfalt</td><td>vereinfachte Bestellung, Rahmenverträge, Sammelbestellungen</td></tr>\n<tr><td>Bestandsführung</td><td>genaue Bedarfsplanung, niedrige Sicherheitsbestände, Just-in-Time prüfen</td><td>periodische Kontrolle</td><td>höhere Sicherheitsbestände, grobe Kontrolle (z. B. Zwei-Behälter-System)</td></tr>\n<tr><td>Kontrolle</td><td>laufend, ggf. Einzelinventur</td><td>regelmäßig</td><td>stichprobenartig</td></tr>\n</tbody></table>\n<p>Der Grund: Bei A-Gütern spart schon ein Prozent Preisnachlass viel Geld – im Beispiel \\( 1\\,\\% \\cdot 156.000 = 1.560 \\) €. Bei C-Gütern bringt dieselbe Verhandlung nur \\( 1\\,\\% \\cdot 8.000 = 80 \\) €, kostet aber genauso viel Arbeitszeit. Für A-Güter lohnt sich daher auch die Berechnung der <a href=\"/lernen/optimale-bestellmenge\">optimalen Bestellmenge</a>, weil hohe Lagerbestände hier viel Kapital binden. Bei der Bewertung des Lagers im Rahmen von <a href=\"/lernen/inventur-inventar\">Inventur und Inventar</a> hilft die Einteilung ebenfalls, Prioritäten zu setzen.</p>"
+  },
+  {
+   "h2": "Vorteile, Nachteile und Abgrenzung zur XYZ-Analyse",
+   "html": "<p><strong>Vorteile:</strong></p>\n<ul>\n<li>Einfach, mit wenigen Daten durchführbar und gut grafisch darstellbar (Lorenzkurve: kumulierter Mengenanteil auf der x-Achse, kumulierter Wertanteil auf der y-Achse).</li>\n<li>Lenkt Zeit und Aufmerksamkeit auf die Positionen, bei denen es wirtschaftlich darauf ankommt.</li>\n<li>Vielseitig: für Materialien, Kunden, Lieferanten oder Produkte einsetzbar.</li>\n</ul>\n<p><strong>Nachteile:</strong></p>\n<ul>\n<li>Es zählt nur der Wert. Ein billiges C-Teil kann trotzdem kritisch sein – fehlt eine Dichtung für 2 €, steht die ganze Produktion.</li>\n<li>Die Klassengrenzen sind willkürlich gesetzt.</li>\n<li>Die Analyse beruht auf Vergangenheitswerten und sagt nichts über die Schwankung des Verbrauchs.</li>\n</ul>\n<p><strong>XYZ-Analyse:</strong> Sie ergänzt genau diese Lücke und teilt Artikel nach der <em>Vorhersagegenauigkeit des Verbrauchs</em> ein: X = konstanter Verbrauch, Y = schwankender, Z = unregelmäßiger Verbrauch. Kombiniert ergibt sich eine ABC/XYZ-Matrix: AX-Güter (wertvoll, gut planbar) eignen sich besonders für Just-in-Time-Beschaffung, CZ-Güter eher für Lagerhaltung mit Puffer.</p>\n<p><strong>Abgrenzung:</strong> Die ABC-Analyse bewertet nach Wert, nicht nach Gewinnbeitrag. Wenn du Kunden oder Produkte nach ihrem Beitrag zum Ergebnis beurteilen willst, ist der <a href=\"/lernen/deckungsbeitrag\">Deckungsbeitrag</a> die bessere Größe.</p>"
+  }
+ ],
+ "fehler": [
+  "Nach Stückpreis oder Menge statt nach Verbrauchswert sortieren. Erst \\( \\text{Menge} \\cdot \\text{Preis} \\) berechnen, dann absteigend nach diesem Verbrauchswert ordnen.",
+  "Vergessen zu kumulieren und die Klassen anhand der Einzelanteile einteilen. Die Klassengrenzen beziehen sich auf den kumulierten Wertanteil.",
+  "Den Mengenanteil an falscher Stelle kumulieren: Die Mengen müssen in derselben Reihenfolge wie die Werte (nach Verbrauchswert sortiert) aufaddiert werden, nicht nach Menge sortiert.",
+  "Die Lehrbuch-Richtwerte (z. B. 80-15-5) als feste Regel anwenden. Nimm die Grenzen aus der Aufgabenstellung und achte auf sinnvolle Sprünge in den Werten.",
+  "Nur die Einteilung liefern ohne Maßnahmen. In der Klausur werden oft Konsequenzen für Beschaffung, Lagerhaltung und Kontrolle je Klasse erwartet."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man eine ABC-Analyse?",
+   "a": "Du berechnest für jeden Artikel den Verbrauchswert als Menge mal Preis, sortierst absteigend und bestimmst den Wertanteil am Gesamtwert. Dann kumulierst du die Wertanteile und teilst die Artikel anhand festgelegter Grenzen, etwa 80 % und 95 %, in A, B und C ein."
+  },
+  {
+   "q": "Was sind A-, B- und C-Güter?",
+   "a": "A-Güter haben einen geringen Mengenanteil, aber einen hohen Wertanteil, oft rund 70 bis 80 %. B-Güter liegen im Mittelfeld. C-Güter machen einen großen Teil der Menge aus, tragen aber nur wenige Prozent zum Gesamtwert bei."
+  },
+  {
+   "q": "Was bedeutet kumulierter Wertanteil?",
+   "a": "Der kumulierte Wertanteil ist die laufende Summe der Wertanteile in der sortierten Liste. Er zeigt, wie viel Prozent des Gesamtwerts die Artikel bis zu einem bestimmten Rang zusammen ausmachen; beim letzten Artikel ist er 100 %."
+  },
+  {
+   "q": "Welche Grenzen gelten für die ABC-Analyse?",
+   "a": "Es gibt keine festen Grenzen. Häufig verwendete Richtwerte sind A bis etwa 80 %, B bis etwa 95 % und C für den Rest des kumulierten Wertanteils. In Klausuren sind die Grenzen meist vorgegeben."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen ABC- und XYZ-Analyse?",
+   "a": "Die ABC-Analyse teilt Artikel nach ihrem Wertanteil ein, die XYZ-Analyse nach der Regelmäßigkeit und Vorhersagbarkeit ihres Verbrauchs. Kombiniert helfen beide bei der Wahl der Beschaffungs- und Lagerstrategie."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Artikel P: 500 Stück à 8 €, Artikel Q: 50 Stück à 90 €, Artikel R: 2.000 Stück à 1,50 €. In welcher Reihenfolge stehen sie in der ABC-Analyse?",
+   "o": [
+    "Q, P, R",
+    "R, P, Q",
+    "P, R, Q",
+    "P, Q, R"
+   ],
+   "r": 0,
+   "e": "Verbrauchswerte: \\( Q = 50 \\cdot 90 = 4.500 \\) €, \\( P = 500 \\cdot 8 = 4.000 \\) €, \\( R = 2.000 \\cdot 1{,}50 = 3.000 \\) €. Sortiert wird nach Verbrauchswert, nicht nach Menge oder Stückpreis."
+  },
+  {
+   "q": "Welche Maßnahme passt typischerweise zu C-Gütern?",
+   "o": [
+    "Intensive Preisverhandlungen mit mehreren Angeboten",
+    "Just-in-Time-Anlieferung",
+    "Vereinfachte Sammelbestellungen und höhere Sicherheitsbestände",
+    "Laufende Einzelkontrolle des Bestands"
+   ],
+   "r": 2,
+   "e": "C-Güter haben wenig Wert – der Verwaltungsaufwand soll gering bleiben, Fehlmengen werden durch Puffer vermieden."
+  },
+  {
+   "q": "Die kumulierten Wertanteile lauten 40 %, 65 %, 82 %, 91 %, 97 %, 100 %. Bei Grenzen \\( A \\le 82\\,\\% \\) und \\( B \\le 97\\,\\% \\): Wie viele Artikel sind B-Güter?",
+   "o": [
+    "Einer",
+    "Zwei",
+    "Drei",
+    "Vier"
+   ],
+   "r": 1,
+   "e": "Die ersten drei Artikel (bis 82 %) sind A, Rang 4 und 5 (91 % und 97 %) sind B, Rang 6 ist C."
+  }
+ ],
+ "verwandt": [
+  "optimale-bestellmenge",
+  "inventur-inventar",
+  "deckungsbeitrag",
+  "kostenrechnung",
+  "einzelkosten-gemeinkosten"
+ ],
+ "ask": "die ABC-Analyse – mit einer durchgerechneten Tabelle aus Wertanteilen, kumulierten Werten und Klasseneinteilung"
 }

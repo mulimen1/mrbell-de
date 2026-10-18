@@ -134,6 +134,6 @@
   <a href="/tutor/legal/datenschutz.html" data-legal="datenschutz">Datenschutz</a>
 </footer>
 <script>(function(){if(/(^|\.)bwlmax\.de$/.test(location.hostname))document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});
-document.querySelectorAll('.ln-q').forEach(function(q){q.classList.add('js');var r=+q.dataset.r;q.querySelectorAll('li').forEach(function(li,i){var b=document.createElement('button');b.type='button';b.textContent=li.textContent;li.textContent='';li.appendChild(b);b.addEventListener('click',function(){if(q.classList.contains('done'))return;q.classList.add('done');b.classList.add(i===r?'ok':'no');if(i!==r)q.querySelectorAll('li button')[r].classList.add('ok');q.querySelector('details').open=true;});});});})();</script>
+document.querySelectorAll('.ln-q').forEach(function(q){q.classList.add('js');var r=+q.dataset.r;q.querySelectorAll('li').forEach(function(li,i){var b=document.createElement('button');b.type='button';while(li.firstChild)b.appendChild(li.firstChild);li.appendChild(b);b.addEventListener('click',function(){if(q.classList.contains('done'))return;q.classList.add('done');b.classList.add(i===r?'ok':'no');if(i!==r)q.querySelectorAll('li button')[r].classList.add('ok');q.querySelector('details').open=true;});});});})();</script>
 </body>
 </html>
