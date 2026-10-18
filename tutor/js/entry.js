@@ -165,10 +165,11 @@ async function aiCall(prompt) {
 // ---------- Speichern-Karte (inline, ehrlich) ----------
 function saveCard(c, s, capped) {
   if (s.querySelector('.m-save')) return;
+  const isQ = s.classList.contains('m-live-quiz');
   const card = h('div', { class: 'm-save' },
-    h('b', {}, capped ? L('Für heute hab ich dir genug Gratis-Runden gebaut.', 'That’s enough free rounds for today.') : L('Dein Fortschritt ist nur in diesem Tab – schließt du ihn, ist er weg.', 'Your progress only lives in this tab – close it and it’s gone.')),
-    h('p', {}, capped ? L('Mit kostenlosem Konto geht’s direkt weiter – und deine nächsten Quiz und Übungen bleiben gespeichert.', 'With a free account you can keep going – and your next quizzes and exercises are saved.') : L('Mit kostenlosem Konto bleiben deine nächsten Quiz und Übungen gespeichert.', 'With a free account your next quizzes and exercises are saved.')),
-    h('button', { class: 'm-saveb', type: 'button', onclick: async () => { try { const { openAuth } = await import('./account.js'); openAuth({ registerTitle: L('Kostenlos speichern', 'Save for free') }); } catch (e) {} } }, L('Kostenlos speichern', 'Save for free')),
+    h('b', {}, capped ? L('Für heute hab ich dir genug Gratis-Runden gebaut.', 'That’s enough free rounds for today.') : (isQ ? L('Dieses Quiz gibt’s nur in diesem Tab – schließt du ihn, ist es weg.', 'This quiz only lives in this tab – close it and it’s gone.') : L('Diese Übung gibt’s nur in diesem Tab – schließt du ihn, ist sie weg.', 'This exercise only lives in this tab – close it and it’s gone.'))),
+    h('p', {}, capped ? L('Mit kostenlosem Konto baut dir Max direkt weiter – mehr Quiz und Übungen am Tag.', 'With a free account Max keeps building – more quizzes and exercises per day.') : L('Mit kostenlosem Konto baut dir Max mehr Quiz und Übungen am Tag – und am Laptop meldest du dich einfach an und lernst weiter.', 'With a free account Max builds you more quizzes and exercises per day – and on your laptop you just sign in and keep going.')),
+    h('button', { class: 'm-saveb', type: 'button', onclick: async () => { try { const { openAuth } = await import('./account.js'); openAuth({ registerTitle: L('Kostenloses Konto erstellen', 'Create a free account') }); } catch (e) {} } }, L('Kostenloses Konto erstellen', 'Create a free account')),
     h('small', {}, L('Am Laptop oder iPad noch stärker: Tafel und Chat nebeneinander, Skript hochladen, Probeklausur.', 'Even better on a laptop or iPad: board and chat side by side, upload your slides, mock exam.')));
   s.append(card);
 }
@@ -301,7 +302,11 @@ export function parseExercise(text) {
       else if ((v = take(l, 'ERKLAERUNG')) != null || (v = take(l, 'ERKLÄRUNG')) != null) ex.erkl = v;
     }
   });
-  if (ex.typ.startsWith('zuord')) { ex.items = ex.items.filter(i => ex.gruppen.includes(i.g)); return ex.gruppen.length >= 2 && ex.items.length >= 3 ? ex : null; }
+  if (ex.typ.startsWith('zuord')) {
+    // Lösung nie im Begriff verraten: Klammern wie „(aktiver RAP)“ oder „(Passiva)“ fliegen raus
+    const stems = ex.gruppen.map(g => g.toLowerCase().replace(/[^a-zäöü]/g, '').slice(0, 5)).filter(x => x.length >= 4);
+    ex.items.forEach(i => { i.t = i.t.replace(/\s*\(([^)]*)\)/g, (m, inner) => stems.some(st => inner.toLowerCase().replace(/[^a-zäöü]/g, '').includes(st.slice(0, 5)) || inner.toLowerCase().includes(st.slice(0, 4))) ? '' : m).trim(); });
+    ex.items = ex.items.filter(i => ex.gruppen.includes(i.g)); return ex.gruppen.length >= 2 && ex.items.length >= 3 ? ex : null; }
   if (ex.typ.startsWith('buch')) { ex.faelle = ex.faelle.filter(f => f.s.length && f.hb.length && [...f.s, ...f.hb].every(x => isFinite(x.n))); ex.faelle.forEach(f => [...f.s, ...f.hb].forEach(x => { if (!ex.konten.includes(x.k)) ex.konten.push(x.k); })); return ex.faelle.length ? ex : null; }
   if (ex.typ.startsWith('rech')) { ex.fragen = ex.fragen.filter(f => isFinite(f.r)); return ex.fragen.length ? ex : null; }
   return null;

@@ -317,3 +317,8 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
   html .asst.asst.m-page.m-pchat .ai-feed.ai-feed { display: block !important; position: fixed !important; left: 8px !important; right: 78px !important; width: auto !important; top: auto !important; height: auto !important; bottom: calc(max(var(--kb, 0px), env(safe-area-inset-bottom, 0px)) + 76px) !important; max-height: min(52vh, 440px) !important; overflow-y: auto !important; z-index: 94 !important; padding: 10px !important; border-radius: 20px; background: var(--bg); border: 1px solid var(--line2); box-shadow: 0 24px 60px -24px rgba(0,0,0,.55); -webkit-mask-image: none !important; mask-image: none !important; visibility: visible !important; }
   html .asst.asst.m-page.m-pchat .ai-feed .ai-bub { max-width: 100%; }
 }
+
+/* Max' Sprechblase auf der Themenseite: neben Max statt darüber, klein, nie im Weg (Taps gehen durch) */
+@media (max-width: 600px) {
+  .asst.m-page:not(.m-pchat) .m-pbub:not([hidden]) { right: 82px; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); max-width: min(220px, calc(100vw - 108px)); padding: 8px 11px; font-size: 12.5px; border-radius: 14px 14px 4px 14px; pointer-events: none; }
+}
