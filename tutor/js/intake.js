@@ -31,7 +31,9 @@ export async function intake(fileList, ui) {
 
   ui.setTitle(L('Neuer Stoff', 'New material'));
   const prep = prepare(src);                       // liest im Hintergrund, während man die Notiz tippt
-  const note = await noteStep(ui.view, src, prep);
+  // Kommt man von einem Werkzeug (Karteikarten, Quiz, Podcast …): keine Fragen vorher – genau das wird gebaut
+  const tool = TOOLS.includes(ui.target) ? ui.target : null;
+  const note = tool ? await readStep(ui.view, prep, tool) : await noteStep(ui.view, src, prep);
   if (!note) return;
   let P;
   try { P = await prep.done; }
@@ -49,6 +51,7 @@ export async function intake(fileList, ui) {
     else { if (err && ['need_account', 'cap', 'limit'].includes(err.code)) { await apiError(err, () => intake(fileList, ui)); return fail(ui, err.message, () => intake(fileList, ui)); } return fail(ui, (err && err.message) || L('Das hat nicht geklappt.', 'That didn’t work.'), () => intake(fileList, ui)); }
   }
   res.note = note;
+  if (tool) return materialStep(ui, res, P, tool);
   if (res.typ === 'stundenplan') { if ((res.kurse || []).length) return timetableStep(ui, res, P); P.close && P.close(); return fail(ui, L('Das sieht nach einem Stundenplan aus, aber ich konnte keine Kurse sicher lesen. Probier einen schärferen Screenshot oder den Export aus deinem Uni-Portal.', 'That looks like a timetable, but I couldn’t read the classes reliably. Try a sharper screenshot or your uni portal’s export.'), () => intake(fileList, ui)); }
   if (res.typ === 'pruefungsplan' && (res.termine || []).length) return examStep(ui, res);
   return materialStep(ui, res, P);
@@ -65,8 +68,8 @@ function prepare(src) {
       return { kind: 'bild', name: src.name.replace(/\.[^.]+$/, ''), n: out.length, img: i => out[i], thumbs: out.slice(0, 6) };
     }
     const r = await readFile(src.file, p => set(p * 0.9, L('Lese …', 'Reading …')), { soft: true });
-    const pro = !!getAccount()?.pro, maxP = pro ? 1000 : 300;
-    if (!r.scan && r.pages.length > maxP) throw new Error(L(`Das Skript hat ${r.pages.length} Seiten – ${pro ? '' : 'in Free '}gehen bis zu ${maxP}. Teil es in kleinere Dateien auf${pro ? '' : ' oder komm in den Inner Circle'}.`, `These slides have ${r.pages.length} pages – ${pro ? '' : 'on Free '}the limit is ${maxP}. Split them into smaller files${pro ? '' : ' or join the Inner Circle'}.`));
+    const maxP = 1000;
+    if (!r.scan && r.pages.length > maxP) throw new Error(L(`Das Skript hat ${r.pages.length} Seiten – es gehen bis zu ${maxP}. Teil es in kleinere Dateien auf.`, `These slides have ${r.pages.length} pages – the limit is ${maxP}. Split them into smaller files.`));
     if (r.pdf && (r.scan || r.pages.length <= 3)) {
       // Scan: alle Seiten als Bild für die Abschrift; kurze PDFs: erste Seiten fürs Layout (Stundenplan, Tabellen)
       const pp = await pdfPages(src.file), maxP = r.scan ? (getAccount()?.pro ? 90 : 30) : 2;
@@ -80,6 +83,18 @@ function prepare(src) {
   })();
   st.done.catch(() => {});
   return st;
+}
+
+// ---------- 2a) Vom Werkzeug aus: nur lesen (mit Fortschritt), keine Fragen ----------
+const TOOLS = ['karten', 'quiz', 'podcast', 'zettel', 'pfad'];
+const TOOLNAME = { karten: L('Karteikarten', 'flashcards'), quiz: L('das Quiz', 'quiz'), podcast: L('den Podcast', 'podcast'), zettel: L('den Lernzettel', 'study sheet'), pfad: L('den Lernpfad', 'study path') };
+async function readStep(view, prep, tool) {
+  const scr = busy(view, L(`Ich lese dein Skript für ${tool === 'karten' ? 'die ' : ''}${TOOLNAME[tool]} …`, `Reading your slides for the ${TOOLNAME[tool]} …`), [L('Ich lese jede Seite …', 'Reading every page …'), L('Gleich geht’s los …', 'Almost there …')]);
+  const upd = st => scr.sub(st.p >= 1 ? L('Gelesen', 'Read') : (st.label || L('Lese …', 'Reading …')) + (st.p ? ` ${Math.round(st.p * 100)} %` : ''), st.p);
+  prep.onp = upd; upd(prep);
+  try { await prep.done; } catch (e) {}
+  scr.stop(); prep.onp = null;
+  return { text: '', termin: null, tags: [], art: '' };
 }
 
 // ---------- 2) Notiz vor dem Absenden (optional) ----------
@@ -270,7 +285,7 @@ async function examStep(ui, res) {
 }
 
 // ---------- 4c) Lernstoff: Skript anlegen + 3–4 optionale Fragen ----------
-async function materialStep(ui, res, P) {
+async function materialStep(ui, res, P, tool = null) {
   // Fotos und Scans werden schon abgeschrieben, während man die Fragen beantwortet
   let ocr = null;
   const prog = { done: 0, n: 0, el: null };
@@ -281,7 +296,9 @@ async function materialStep(ui, res, P) {
   }
   if (P.kind === 'bild' || P.kind === 'scan') { prog.n = P.n; ocr = ocrAll(P, (d, n) => { prog.done = d; if (prog.el) prog.el.textContent = L(`Ich lese mit … Seite ${d} von ${n}`, `Reading along … page ${d} of ${n}`); }); ocr.catch(() => {}); }
   ui.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, h('h2', {}, (TYP[res.typ] || TYP.sonstiges) + L(' erkannt', ' recognised')))));
-  const ans = await placeModal(res, { prog, target: ui.target });
+  // Werkzeug gewählt: nicht fragen, nur passend ins Fach legen (falls es das Fach schon gibt) und direkt bauen
+  const exF = tool ? (M.findFach(res.fach_vorhanden) || M.findFach(res.fach)) : null;
+  const ans = tool ? (exF ? { name: clean(res.titel, 80), fach: exF.id, start: tool } : { skip: true, name: clean(res.titel, 80), start: tool }) : await placeModal(res, { prog, target: ui.target });
   let pages = P.text ? P.text.pages : null;
   if (ocr) {
     const scr = busy(ui.view, L('Ich schreib die Seiten ab …', 'Transcribing the pages …'), [L('Ich lese jede Seite …', 'Reading every page …'), L('Formeln und Tabellen auch …', 'Formulas and tables too …')]);
@@ -300,6 +317,7 @@ async function materialStep(ui, res, P) {
   const q = currentQuota(), empty = res.noQuota || (q && q.limit && (q.limit - (q.used || 0)) <= 0);
   const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, ocr ? { ocr: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}, empty ? { waiting: Date.now() } : {}) });
   applyPlace(d, ans);
+  ls.set('tutor.learn.doc', d.id);   // In „Lernen“ ist danach genau dieses Skript ausgewählt
   if (empty) {
     ls.set('tutor.room.focus', [d.id]); ls.set('tutor.attach.room', null);
     location.hash = '#/app/tutor';
@@ -391,8 +409,10 @@ export function route(d, ans) {
 // Kurzskript zu einem Thema: dieselben Fragen, danach weiter wie gewünscht
 export async function placeTopic(d, data, target) {
   const res = { typ: 'thema', titel: d.name, fach: clean(data && data.subject, 60), fach_vorhanden: '', termine: [], ziel: '' };
-  const ans = await placeModal(res, { target, topic: true });
+  const exF = TOOLS.includes(target) ? M.findFach(res.fach) : null;
+  const ans = TOOLS.includes(target) ? (exF ? { name: d.name, fach: exF.id, start: target } : { skip: true, name: d.name, start: target }) : await placeModal(res, { target, topic: true });   // Werkzeug gewählt: keine Fragen
   applyPlace(d, ans);
+  ls.set('tutor.learn.doc', d.id);   // In „Lernen“ ist danach genau dieses Skript ausgewählt
   return ans;
 }
 
@@ -437,8 +457,9 @@ function busy(view, title, lines) {
 }
 function fail(ui, msg, retry) {
   const f = h('div', { class: 'face' });
-  const lab = h('label', { class: 'btn primary', for: 'fileApp' }, L('Andere Datei', 'Different file'));
+  const keep = () => { if (ui.target) ls.set('tutor.target', ui.target); };   // Andere Datei → bleibt beim gewählten Werkzeug
+  const lab = h('label', { class: 'btn primary', for: 'fileApp', onclick: keep }, L('Andere Datei', 'Different file'));
   ui.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f, h('h2', { style: { margin: 0 } }, L('Da hakt was.', 'Something’s off.')), h('div', { class: 'sub' }, msg),
-    h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' } }, retry ? h('button', { class: 'btn primary', type: 'button', onclick: retry }, L('Nochmal versuchen', 'Try again')) : null, retry ? h('label', { class: 'btn', for: 'fileApp' }, L('Andere Datei', 'Different file')) : lab))));
+    h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' } }, retry ? h('button', { class: 'btn primary', type: 'button', onclick: retry }, L('Nochmal versuchen', 'Try again')) : null, retry ? h('label', { class: 'btn', for: 'fileApp', onclick: keep }, L('Andere Datei', 'Different file')) : lab))));
   const fc = face(f); fc.set('sad');
 }

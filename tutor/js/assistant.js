@@ -221,10 +221,10 @@ export function mountAssistant() {
   const srLive = h('div', { class: 'sr', 'aria-live': 'polite' });
   // Handy: Verlauf/Antwortkarte standardmäßig zu – nur ein schlanker Knopf direkt über der Eingabe.
   // Auf geht sie von selbst nur, wenn du selbst gefragt hast (getippt, gesprochen, Knopf); beim Themen-Einstieg bleibt sie zu.
-  const mHist = h('button', { class: 'm-hist', type: 'button', hidden: true, onclick: () => { if (root.classList.contains('m-fold')) { fold(false); setFeedOpen(true); } else { setFeedOpen(false, { instant: true }); fold(true); } } });
+  const mHist = h('button', { class: 'm-hist', type: 'button', hidden: true, onclick: () => { fold(false); setFeedOpen(!feedOpen, { user: true }); } });
   function fold(v) { root.classList.toggle('m-fold', !!v); drawHist(); }
   function drawHist() {
-    const f = root.classList.contains('m-fold'), n = feedList.querySelectorAll('.ai-bub').length;
+    const f = root.classList.contains('m-fold') || !feedOpen, n = feedList.querySelectorAll('.ai-bub').length;
     mHist.hidden = !MOB.matches || !n;
     mHist.replaceChildren(h('span', { html: ico(f ? 'up' : 'down') }), f ? L('Verlauf ansehen', 'Show history') : L('Verlauf schließen', 'Close history'));
     placeHist();
@@ -238,7 +238,7 @@ export function mountAssistant() {
   try { new ResizeObserver(() => placeHist()).observe(isl); } catch (e) {}
   const cap = h('div', { class: 'ai-feed' }, feedList, srLive);
   const seenBefore = !!ls.get('tutor.asst.seen');   // wer Max schon kennt, bekommt keine Begrüßung mehr
-  let feedOpen = false;   // Verlauf startet immer eingeklappt – aufklappen nur per Klick
+  let feedOpen = MOB.matches;   // Handy: Verlauf ist offen und geht nur zu, wenn man selbst auf „Verlauf schließen“ tippt
 
   const bd = h('div', { class: 'ai-bd', 'aria-hidden': 'true' });
   const bSay = h('div', { class: 'ai-bsay', 'aria-hidden': 'true' });
@@ -405,7 +405,7 @@ export function mountAssistant() {
   const chip = h('button', { class: 'asst-back', type: 'button' }, h('span', { class: 'asst-cf' }), L('Max zurückholen', 'Bring Max back'));
   const quip = h('div', { class: 'asst-quip', role: 'status', hidden: true });
   const ctxm = h('div', { class: 'asst-ctx', role: 'menu', hidden: true });
-  const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : '') + (MOB.matches ? ' m-fold' : ''), 'data-state': 'idle' }, bd, board, bTab, cap, feedTog, mHist, isl, menu, quip, ctxm, bub, pDim, pBtns, pBub, pMax);
+  const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : '') + '', 'data-state': 'idle' }, bd, board, bTab, cap, feedTog, mHist, isl, menu, quip, ctxm, bub, pDim, pBtns, pBub, pMax);
   document.body.appendChild(root);
   const bf = face(bubFace, { sleepy: true }), fc = face(fEl, { follow: false }); face(pFace, { sleepy: true });
   MOB.addEventListener?.('change', () => syncPage());
@@ -725,8 +725,9 @@ export function mountAssistant() {
   function dismissCap() { root.classList.remove('has-cap'); syncLock(); }
   // Verlauf auf-/zuklappen – mit Animation: ältere Blasen gleiten gestaffelt rein/raus, die letzte wächst weich mit
   let feedAnim = 0;
-  function setFeedOpen(v, { instant = false } = {}) {
-    v = !!v; if (v === feedOpen && root.classList.contains('feed-open') === v) return;
+  function setFeedOpen(v, { instant = false, user = false, force = false } = {}) {
+    v = !!v;
+    if (!v && MOB.matches && !user && !force) return;   // Handy: nie von selbst zuklappen – die letzte Nachricht bleibt auch zu immer sichtbar if (v === feedOpen && root.classList.contains('feed-open') === v) return;
     const tok = ++feedAnim;
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const apply = () => { feedOpen = v; root.classList.toggle('feed-open', feedOpen); drawTog(); capScroll(); syncLock(); };
@@ -1078,7 +1079,7 @@ export function mountAssistant() {
   }
   async function runCmd(c, chipEl) {
     const fail = msg => { chipEl.classList.remove('run'); chipEl.classList.add('no'); chipEl.replaceChildren(h('span', { class: 'ck', html: ico('x') }), msg); };
-    const ok = () => { chipEl.classList.remove('run'); chipEl.classList.add('ok'); if (['go', 'make', 'trainer', 'topic'].includes(c.k) && feedOpen) setFeedOpen(false); };   // Seite frei machen
+    const ok = () => { chipEl.classList.remove('run'); chipEl.classList.add('ok'); if (['go', 'make', 'trainer', 'topic'].includes(c.k) && feedOpen) setFeedOpen(false, { force: true }); };   // Seite frei machen
     const d = curDoc() || S.doc;
     if (c.doc && !d) {
       // Werkzeug ohne Skript: Stoff hochladen oder Thema nennen – danach entsteht direkt das Werkzeug
@@ -1685,7 +1686,7 @@ export function mountAssistant() {
     root.classList.remove('stage', 'stage-talk', 'stage-hold', 'show-old');
     keepBoard = boardOpen && !boardMin;
     if (boardOpen) closeBoard();
-    if (feedOpen) setFeedOpen(false, { instant: true });
+    if (feedOpen) setFeedOpen(false, { instant: true, force: true });
     if (open) { closing = null; setOpen(false); }
     applyEnabled(false); syncLock(); drawButtons();
   }

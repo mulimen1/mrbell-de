@@ -11,7 +11,7 @@ export function setCreate(tool, docId, opts) { ls.set('tutor.create', { tool, do
 export function takeCreate(tool, docId) {
   const c = ls.get('tutor.create', null);
   // '*' = Wahl gilt für den Stoff, der gleich erst entsteht (Thema oder Upload) – dafür länger gültig
-  if (!c || c.tool !== tool || (c.doc !== docId && c.doc !== '*') || Date.now() - (c.at || 0) > (c.doc === '*' ? 30 : 5) * 60e3) return null;
+  if (!c || c.tool !== tool || (c.doc !== docId && c.doc !== '*') || Date.now() - (c.at || 0) > (c.doc === '*' ? 90 : 5) * 60e3) return null;
   ls.set('tutor.create', null);
   return c.opts || {};
 }

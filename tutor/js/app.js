@@ -193,6 +193,10 @@ function renderQuota() {
 }
 
 // Woher kam man? „Lernen“ oder „Bibliothek“ – dann gibt’s oben einen Weg zurück
+const LERN_TOOLS = ['karten', 'quiz', 'zettel', 'podcast', 'pfad', 'plan', 'exam'];
+export function lernLast() {
+  try { const h = sessionStorage.getItem('tutor.lernLast'); if (!h || h === '#/app/lernen') return null; const id = h.split('/')[2]; return S.list.some(d => d.id === id) ? h : null; } catch (e) { return null; }
+}
 const BACK = { lernen: ['#/app/lernen', L('Lernen', 'Learn')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')] };
 function backTarget() { try { const k = sessionStorage.getItem('tutor.backTo'); return BACK[k] ? { key: k, href: k === 'bibliothek' ? '#/app/bibliothek/' + (ls.get('tutor.bib.tab', 'alles') || 'alles') : BACK[k][0], label: BACK[k][1] } : null; } catch (e) { return null; } }
 function backToLearn() { return backTarget()?.key === 'lernen'; }
@@ -237,6 +241,8 @@ export async function mountApp(parts) {
   // Aus „Lernen“ gekommen? Dann gibt’s oben „← Lernen“ – bis man woanders hin wechselt
   if (!a || ['tutor', 'faecher', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen', 'zahlen'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
   const back = backTarget(), fromLearn = !!back;
+  // Wo man in „Lernen“ zuletzt war (Übersicht oder ein Werkzeug wie Karteikarten) – „Lernen“ oben bringt einen genau dorthin zurück
+  try { if (a === 'lernen') sessionStorage.setItem('tutor.lernLast', '#/app/lernen'); else if (a && LERN_TOOLS.includes(b) && S.list.some(d => d.id === a)) sessionStorage.setItem('tutor.lernLast', `#/app/${a}/${b}`); } catch (e) {}
   shell.backEl.hidden = !back;
   if (back) { shell.backEl.href = back.href; shell.backEl.title = L('Zurück zu ', 'Back to ') + back.label; shell.backEl.lastChild.textContent = back.label; }
   const backLink = () => h('a', { class: 'view-back', href: back ? back.href : '#/app/lernen' }, h('span', { html: ico('left') }), L('Zurück zu ', 'Back to ') + (back ? back.label : L('Lernen', 'Learn')));
@@ -364,7 +370,7 @@ export async function startUpload(files) {
     console.error(e);
     const f = h('div', { class: 'face' });
     shell.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f, h('h2', { style: { margin: 0 } }, L('Da hakt was.', 'Something’s off.')), h('div', { class: 'sub' }, e.message || L('Die Datei konnte nicht gelesen werden.', 'The file couldn’t be read.')),
-      h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } }, h('label', { class: 'btn primary', for: 'fileApp' }, L('Andere Datei', 'Different file')), h('button', { class: 'btn', onclick: () => startSample() }, L('Beispiel nehmen', 'Use the example'))))));
+      h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center' } }, h('label', { class: 'btn primary', for: 'fileApp', onclick: () => { if (target) ls.set('tutor.target', target); } }, L('Andere Datei', 'Different file')), h('button', { class: 'btn', onclick: () => startSample() }, L('Beispiel nehmen', 'Use the example'))))));
     face(f).set('sad');
   }
 }
@@ -611,6 +617,8 @@ export async function tryFeature(key) {
   if (key === 'trainer') { location.hash = '#/app/trainer'; return; }
   if (key === 'challenge') { location.hash = '#/app/challenge'; return; }
   const [title, text] = TRY[key] || TRY.tutor;
+  // Werkzeug gewählt (Karteikarten, Quiz …): nach Upload/Thema direkt bauen – mit den zuletzt gewählten Einstellungen, ohne nochmal zu fragen
+  if (AUTO_TABS[key]) import('./create.js').then(m => m.setCreate(key, '*', ls.get('tutor.pers.' + key, null) || {})).catch(() => {});
   const fin = h('input', { type: 'file', class: 'sr', accept: ACCEPT, multiple: true });
   const close = () => document.querySelector('.modal-bg.trybg')?.remove();
   fin.addEventListener('change', () => { if (fin.files.length) { ls.set('tutor.target', key); close(); startUpload([...fin.files]); } });
@@ -700,3 +708,13 @@ function openSideMenu(anchor, focus = '') {
   setTimeout(() => { document.addEventListener('pointerdown', outside, true); document.addEventListener('keydown', esc); }, 0);
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => close()));
 }
+
+// „Lernen“ oben: zurück dahin, wo man in Lernen zuletzt war (z. B. die gerade gebauten Karteikarten) – nicht jedes Mal von vorn
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('a[data-tn="lernen"]'); if (!a || e.metaKey || e.ctrlKey) return;
+  const last = lernLast(), cur = location.hash.replace(/\/auto$/, '');
+  if (!last || cur === last || cur.startsWith('#/app/lernen')) return;
+  e.preventDefault();
+  try { sessionStorage.setItem('tutor.backTo', 'lernen'); } catch (x) {}
+  location.hash = last;
+}, true);

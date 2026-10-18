@@ -2658,7 +2658,8 @@ dialog.pal::backdrop { background: color-mix(in srgb, var(--bg) 55%, transparent
 .asst.feed-anim .ai-feed { scroll-behavior: auto !important; }
 
 /* ---------- Upload-Einordnung ---------- */
-.intake { max-width: 600px; margin: clamp(28px, 8vh, 80px) auto; display: grid; gap: 18px; }
+.intake { max-width: 600px; margin: clamp(28px, 8vh, 80px) auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+.intake > *, .ik-head > div, .ik-files, .ik-file { min-width: 0; } .ik-file { flex: 1 1 auto; }
 .ik-head { display: flex; gap: 16px; align-items: center; }
 .ik-face { width: 58px; height: 58px; flex: none; }
 .ik-head h2 { margin: 0 0 3px; font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -.03em; }
