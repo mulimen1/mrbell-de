@@ -153,7 +153,6 @@ class Face {
 
 const css = `
 .face svg .fz-head { fill: #f5f5f5; stroke: var(--fz-line, #0a0a0a); stroke-width: 15; }
-:root[data-theme="dark"] .face svg .fz-head { stroke: none; }
 /* Schatten unterm Kinn: trennt Kopf und Hemd – im dunklen Modus (Kopf ohne Rand) kräftiger */
 .face svg .fzc-shade { opacity: .2; }
 :root[data-theme="dark"] .face svg .fzc-shade, .icx .face svg .fzc-shade, .kg .face svg .fzc-shade, .wl .face svg .fzc-shade { opacity: .5; }
