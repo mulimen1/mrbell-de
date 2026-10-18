@@ -151,3 +151,12 @@ html.m-rlock body { overflow: hidden; }
 html.m-rlock .m-ret, body:has(.modal-bg) .m-ret { display: none !important; }
 /* Anmeldefenster offen → Sperre tritt zurück (Unschärfe bleibt), danach ist sie wieder da */
 body:has(.modal-bg) .m-rl { visibility: hidden; pointer-events: none; }
+
+/* Mit Google anmelden */
+.lg-gw { display: grid; gap: 12px; margin: 4px 0 2px; }
+.lg-g, .m-rl-gw { display: flex; justify-content: center; min-height: 44px; }
+.lg-g[hidden], .m-rl-gw[hidden] { display: none; }
+.lg-g:empty, .m-rl-gw:empty { min-height: 0; }
+.lg-or { display: flex; align-items: center; gap: 10px; color: var(--mute, #777); font-size: 12.5px; }
+.lg-or::before, .lg-or::after { content: ""; flex: 1; height: 1px; background: var(--line, #e6e6e8); }
+.m-rl-gw { margin-top: 4px; }

@@ -57,6 +57,8 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
     const mailInp = () => h('input', { class: 'field', type: 'email', autocomplete: 'email', inputmode: 'email', placeholder: L('E-Mail-Adresse', 'Email address'), value: email, 'aria-label': L('E-Mail-Adresse', 'Email address'), required: true });
     const link = (txt, fn) => h('button', { class: 'llink', type: 'button', onclick: fn }, txt);
     const busyBtn = (btn, on, label) => { btn.disabled = on; btn.textContent = on ? L('Einen Moment …', 'One moment …') : label; };
+    // Google zuerst (ein Tipp), darunter E-Mail
+    const gBox = () => { const el = h('div', { class: 'lg-g' }); setTimeout(() => import('./google.js').then(m => m.googleButton(el, r => success(r, 'google'))).catch(() => { el.hidden = true; }), 0); return h('div', { class: 'lg-gw' }, el, h('div', { class: 'lg-or' }, h('span', {}, L('oder mit E-Mail', 'or with email')))); };
 
     // ---------- Anmelden ----------
     const login = () => {
@@ -78,9 +80,9 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
           if (e2.code === 'bad_login') { p.inp.value = ''; p.inp.focus(); }
         }
       });
-      box.replaceChildren(...head(L('Anmelden', 'Sign in'), L('Schön, dass du wieder da bist.', 'Good to have you back.')), form, err,
+      box.replaceChildren(...head(L('Anmelden', 'Sign in'), L('Schön, dass du wieder da bist.', 'Good to have you back.')), gBox(), form, err,
         h('div', { class: 'lalt' }, L('Noch kein Konto? ', 'No account yet? '), link(L('Konto erstellen', 'Create account'), () => register())));
-      fc.set('idle'); setTimeout(() => (email ? p.inp : em).focus(), 60);
+      fc.set('idle'); if (!matchMedia('(pointer: coarse)').matches) setTimeout(() => (email ? p.inp : em).focus(), 60);
     };
 
     // ---------- Konto erstellen ----------
@@ -99,11 +101,11 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
         try { await ask('login', { opts: { email, password: pw, mode: 'register' } }); ls.set('tutor.lastEmail', email); codeStep('register'); }
         catch (e2) { fc.pulse('sad'); busyBtn(btn, false, LBL); err.replaceChildren(e2.message); if (e2.code === 'exists') err.append(' ', link(L('Zur Anmeldung →', 'Go to sign in →'), () => login())); }
       });
-      box.replaceChildren(...head(L('Kostenloses Konto erstellen', 'Create your free account'), L('Kostenlos und in 30 Sekunden. Alles, was du ohne Konto gemacht hast, bleibt erhalten.', 'Free and done in 30 seconds. Everything you did without an account stays.')), form, err,
+      box.replaceChildren(...head(L('Kostenloses Konto erstellen', 'Create your free account'), L('Kostenlos und in 30 Sekunden. Alles, was du ohne Konto gemacht hast, bleibt erhalten.', 'Free and done in 30 seconds. Everything you did without an account stays.')), gBox(), form, err,
         h('p', { class: 'm-laptop' }, L('Erstell dein Konto jetzt – am Laptop meldest du dich einfach an und lernst weiter.', 'Create your account now – on your laptop just sign in and keep learning.')),
         h('div', { class: 'lalt' }, L('Schon ein Konto? ', 'Already have an account? '), link(L('Anmelden', 'Sign in'), () => login())),
         h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Passwort wird verschlüsselt gespeichert. Deine Skripte bleiben auf deinem Gerät.', 'Your password is stored encrypted. Your slides stay on your device.')));
-      fc.set('idle'); setTimeout(() => em.focus(), 60);
+      fc.set('idle'); if (!matchMedia('(pointer: coarse)').matches) setTimeout(() => em.focus(), 60);
     };
 
     // ---------- Passwort vergessen ----------
@@ -122,7 +124,7 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
       });
       box.replaceChildren(...head(L('Neues Passwort', 'New password'), L('Gib deine E-Mail und ein neues Passwort ein. Wir schicken dir einen Code zur Bestätigung.', 'Enter your email and a new password. We’ll send you a code to confirm.')), form, err,
         h('div', { class: 'lalt' }, link(L('← Zurück zur Anmeldung', '← Back to sign in'), () => login())));
-      fc.set('idle'); setTimeout(() => (email ? p.inp : em).focus(), 60);
+      fc.set('idle'); if (!matchMedia('(pointer: coarse)').matches) setTimeout(() => (email ? p.inp : em).focus(), 60);
     };
 
     // ---------- Code aus der Mail ----------

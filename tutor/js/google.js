@@ -1,0 +1,49 @@
+// „Mit Google anmelden“: offizieller Google-Knopf (Google Identity Services). Google bestätigt die E-Mail-Adresse,
+// der Server prüft das Token bei Google und legt das Konto an oder meldet an. Passwörter gibt es dabei nicht.
+import { ask, setAccount } from './api.js';
+import { ls, toast } from './util.js';
+import { L } from './i18n.js';
+
+export const GOOGLE_CLIENT_ID = '992487886164-195m4i8j8dqqmnonfmi2kh6s3eur4vte.apps.googleusercontent.com';
+
+let gisP = null;
+function loadGis() {
+  if (window.google?.accounts?.id) return Promise.resolve(window.google);
+  if (gisP) return gisP;
+  gisP = new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = 'https://accounts.google.com/gsi/client'; s.async = true; s.defer = true;
+    s.onload = () => (window.google?.accounts?.id ? res(window.google) : rej(new Error('gis')));
+    s.onerror = () => { gisP = null; rej(new Error('gis')); };
+    document.head.appendChild(s);
+  });
+  return gisP;
+}
+
+let handler = null, inited = false;
+// Ein Google-Knopf in `el`. onDone(r) bekommt die Server-Antwort (Konto + Sitzung sind dann schon gesetzt).
+export async function googleButton(el, onDone) {
+  if (!el) return;
+  handler = onDone;
+  try {
+    const g = await loadGis();
+    if (!inited) {
+      g.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID, ux_mode: 'popup', auto_select: false, cancel_on_tap_outside: true, itp_support: true,
+        callback: async resp => {
+          try {
+            const r = await ask('glogin', { opts: { credential: resp.credential } });
+            if (r.account?.email) ls.set('tutor.lastEmail', r.account.email);
+            setAccount(r.account, r.session);
+            try { if (r.fresh && window.BM && window.BM.ok()) window.BM.track('Konto erstellt', 'Google'); } catch (e) {}
+            handler && handler(r);
+          } catch (e) { toast(e.message || L('Die Anmeldung mit Google hat nicht geklappt.', 'Signing in with Google didn’t work.'), 5000); }
+        }
+      });
+      inited = true;
+    }
+    const w = Math.max(200, Math.min(400, Math.round(el.getBoundingClientRect().width || 320)));
+    el.replaceChildren();
+    g.accounts.id.renderButton(el, { type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', shape: 'pill', logo_alignment: 'center', width: w, locale: document.documentElement.lang === 'en' ? 'en' : 'de' });
+  } catch (e) { el.hidden = true; }   // Google nicht erreichbar → einfach nur E-Mail anbieten
+}

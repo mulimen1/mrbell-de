@@ -41,7 +41,8 @@ function show() {
   if (!isPhone() && document.querySelector('.asst.has-board:not(.board-min)')) return;   // Laptop: Themen-Einstieg mit Tafel bleibt frei
   if (!isPhone() && JSON.parse(localStorage.getItem('tutor.pendingAsk') || 'null')) return;
   document.documentElement.classList.add('m-rlock');
-  const g = window.BM_GOOGLE_CLIENT_ID ? h('button', { class: 'm-rl-g', type: 'button', onclick: async () => { try { const m = await import('./google.js'); if (await m.googleSignIn()) unlockRoom(); } catch (e) {} } }, h('span', { class: 'm-rl-gi', html: GOOGLE }), L('Mit Google anmelden', 'Continue with Google')) : null;
+  const g = h('div', { class: 'm-rl-gw' });
+  import('./google.js').then(m => m.googleButton(g, r => { unlockRoom(); if (r.fresh) import('./welcome.js').then(w => w.welcomeFirst({ nr: +r.nr || 0 })).catch(() => {}); else import('./util.js').then(u => u.toast(L('Da bist du ja wieder.', 'There you are again.'), 3000)); })).catch(() => { g.hidden = true; });
   el = h('div', { class: 'm-rl', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Kostenloses Konto', 'Free account') },
     h('button', { class: 'm-rl-x', type: 'button', 'aria-label': L('Schließen und zurück', 'Close and go back'), onclick: back }, h('span', { html: ico('x') })),
     h('div', { class: 'm-rl-card' },
