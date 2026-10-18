@@ -4237,3 +4237,18 @@ html.bv-open .asst { visibility: hidden; }
 @keyframes ngpop { 0% { transform: translateY(8px) scale(.6); opacity: .2; } 60% { transform: translateY(-4px) scale(1.25); opacity: 1; } 100% { transform: none; } }
 .ng-streak small { color: var(--ink2); font-size: 14px; }
 .ng-streak + .ng-line { margin-top: 12px; }
+/* Duell-Link mit Kopieren */
+.du-share .du-link { flex: 1 1 100%; }
+.du-link { display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 14px; border-radius: 16px; border: 1.5px dashed color-mix(in srgb, var(--inv) 45%, var(--line2)); background: color-mix(in srgb, var(--inv) 5%, var(--panel)); cursor: pointer; transition: border-color .2s, background .2s, transform .15s; min-width: 0; }
+.du-link:hover { border-color: var(--inv); border-style: solid; }
+.du-link:active { transform: scale(.99); }
+.du-li-ic svg, .du-ci svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; display: block; }
+.du-li-ic { color: var(--inv); flex: none; }
+.du-url { flex: 1; min-width: 0; font: 500 14px var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink2); user-select: all; }
+.du-cbtn { flex: none; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px; border-radius: 12px; border: 0; background: var(--inv); color: var(--onInv); font: 600 14px var(--sans); cursor: pointer; transition: transform .15s, background .25s; }
+.du-cbtn:hover { transform: translateY(-1px); }
+.du-link.done { border-style: solid; border-color: #2fbf71; background: color-mix(in srgb, #2fbf71 10%, var(--panel)); animation: duok .45s cubic-bezier(.34,1.56,.64,1); }
+.du-link.done .du-cbtn { background: #2fbf71; color: #fff; }
+.du-link.done .du-ci { animation: dupop .4s cubic-bezier(.34,1.56,.64,1); }
+.du-act, .du-act > *, .du-share, .du-share > * { min-width: 0; }
+.du-share .du-link { max-width: 100%; }

@@ -44,12 +44,27 @@ const btnBusy = (b, on) => { b.disabled = on; b.classList.toggle('busy', on); };
 // Teilen: System-Teilen, sonst WhatsApp + Link kopieren
 function shareRow(code, myN, big) {
   const url = link(code), text = L(`${myN || 'Ich'} fordert dich zum BWL-Duell heraus. Drei Runden – wer weiß mehr?`, `${myN || 'I'} challenge you to a business duel. Three rounds – who knows more?`);
-  const copy = async () => { try { await navigator.clipboard.writeText(text + ' ' + url); toast(L('Link kopiert. Ab in die Lerngruppe damit.', 'Link copied. Drop it in your study group.')); } catch (e) { prompt(L('Link kopieren:', 'Copy link:'), url); } track('Duell', 'Link kopiert'); };
+  const CLIP = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>';
+  const OK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const lbl = h('span', {}, L('Kopieren', 'Copy')), icn = h('span', { class: 'du-ci', html: CLIP });
+  const cbtn = h('button', { class: 'du-cbtn', type: 'button', onclick: () => copy() }, icn, lbl);
+  const urlEl = h('span', { class: 'du-url', title: url }, url.replace(/^https?:\/\/(www\.)?/, ''));
+  const box = h('div', { class: 'du-link', onclick: e => { if (e.target !== cbtn && !cbtn.contains(e.target)) copy(); } }, h('span', { class: 'du-li-ic', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg>' }), urlEl, cbtn);
+  let rt = 0;
+  async function copy() {
+    let ok = true; try { await navigator.clipboard.writeText(text + ' ' + url); } catch (e) { ok = false; }
+    if (!ok) { try { const r = document.createRange(); r.selectNodeContents(urlEl); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); ok = document.execCommand('copy'); } catch (e) {} }
+    if (!ok) { prompt(L('Link kopieren:', 'Copy link:'), url); return; }
+    haptic('ok'); track('Duell', 'Link kopiert');
+    box.classList.remove('done'); void box.offsetWidth; box.classList.add('done'); icn.innerHTML = OK; lbl.textContent = L('Kopiert', 'Copied');
+    toast(L('Link kopiert. Ab in die Lerngruppe damit.', 'Link copied. Drop it in your study group.'));
+    clearTimeout(rt); rt = setTimeout(() => { box.classList.remove('done'); icn.innerHTML = CLIP; lbl.textContent = L('Kopieren', 'Copy'); }, 2200);
+  }
   const sys = async () => { try { await navigator.share({ title: 'BWL-Duell', text, url }); track('Duell', 'Geteilt'); } catch (e) {} };
   return h('div', { class: 'du-share' + (big ? ' big' : '') },
     navigator.share ? h('button', { class: 'btn primary', type: 'button', onclick: sys }, h('span', { html: ico('send') }), L('Herausforderung schicken', 'Send challenge')) : null,
     h('a', { class: 'btn' + (navigator.share ? '' : ' primary'), href: 'https://wa.me/?text=' + encodeURIComponent(text + ' ' + url), target: '_blank', rel: 'noopener', onclick: () => track('Duell', 'WhatsApp') }, 'WhatsApp'),
-    h('button', { class: 'btn ghost', type: 'button', onclick: copy }, L('Link kopieren', 'Copy link')));
+    box);
 }
 
 // ---------- Einstieg ----------
