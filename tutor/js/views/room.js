@@ -71,7 +71,7 @@ export function render(root, ctx = {}) {
   const boardSlot = h('div', { class: 'rm-board' });
   // Gespräch: Max' Kopf bleibt groß oben, darunter das Gespräch; rechts daneben die Tafel
   let topicHead = ''; try { topicHead = sessionStorage.getItem('tutor.topicHead') || ''; sessionStorage.removeItem('tutor.topicHead'); } catch (e) {}
-  const topicEl = topicHead ? h('h1', { class: 'rm-topic' }, L('BWL einfach erklärt', 'Business explained simply'), h('span', {}, L(' – dein Tutor fürs Studium.', ' – your study tutor.'))) : null;
+  const topicEl = topicHead ? h('h1', { class: 'rm-topic' }, 'BWL ', h('span', {}, L('einfach erklärt.', 'explained simply.'))) : null;
   const talkCol = h('div', { class: 'rm-col' }, topicEl, h('div', { class: 'rm-th-wrap' }, talkSlot, status), chatSlot);
   const talk = h('div', { class: 'rm-talk' }, talkCol, boardSlot);
   const focusRow = h('div', { class: 'rm-focus' });
