@@ -149,3 +149,5 @@ html.m-rlock body { overflow: hidden; }
 @keyframes mretin { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 @media (min-width: 601px) { .m-ret { display: none !important; } }
 html.m-rlock .m-ret, body:has(.modal-bg) .m-ret { display: none !important; }
+/* Anmeldefenster offen → Sperre tritt zurück (Unschärfe bleibt), danach ist sie wieder da */
+body:has(.modal-bg) .m-rl { visibility: hidden; pointer-events: none; }
