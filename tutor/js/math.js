@@ -32,7 +32,7 @@ export function prepTex(t) {
 export function texPlain(t) {
   let s = String(t || '');
   for (let i = 0; i < 4; i++) s = s.replace(/\\[dt]?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, '($1)/($2)');
-  return s.replace(/\\left|\\right|\\big[lr]?|\\Big[lr]?/g, '').replace(/\\sqrt\s*\{([^{}]*)\}/g, '√($1)').replace(/\\(?:text|mathrm|textbf|operatorname)\s*\{([^{}]*)\}/g, '$1')
+  return s.replace(/\\q?quad\b/g, ' ').replace(/\\left|\\right|\\big[lr]?|\\Big[lr]?/g, '').replace(/\\sqrt\s*\{([^{}]*)\}/g, '√($1)').replace(/\\(?:text|mathrm|textbf|operatorname)\s*\{([^{}]*)\}/g, '$1')
     .replace(/\\cdot/g, '·').replace(/\\times/g, '×').replace(/\\div/g, '÷').replace(/\\pm/g, '±').replace(/\\leq?/g, '≤').replace(/\\geq?/g, '≥').replace(/\\neq/g, '≠').replace(/\\approx/g, '≈')
     .replace(/\\sum/g, 'Σ').replace(/\\Delta/g, 'Δ').replace(/\\delta/g, 'δ').replace(/\\alpha/g, 'α').replace(/\\beta/g, 'β').replace(/\\sigma/g, 'σ').replace(/\\mu/g, 'μ').replace(/\\infty/g, '∞').replace(/\\to|\\rightarrow/g, '→')
     .replace(/\\[,;: !]/g, ' ').replace(/\\%/g, '%').replace(/\\([a-zA-Z]+)/g, '$1')
@@ -119,7 +119,13 @@ export function fixStray(s) {
 export const bareTex = t => String(t || '').trim().replace(/^\$+|\$+$/g, '').replace(/^\\[([]\s*/, '').replace(/\s*\\[)\]]$/, '').trim();
 export function texEl(tex, display) { const el = mark(bareTex(tex), display); watch(); queueMath(); return el; }
 
+// Reine Wort-„Formeln“ (z. B. \text{Soll-Konto} \text{an} \text{Haben-Konto}) sind keine Mathematik – als normaler Text zeigen
+function wordsOnly(tex) {
+  const rest = String(tex).replace(/\\(?:text|mathrm|textbf)\s*\{[^{}]*\}/g, '').replace(/\\(?:quad|qquad|[,;:! ]|space)/g, '').replace(/[\s()\[\],.:;–-]/g, '');
+  return /\\text\s*\{/.test(tex) && !rest;
+}
 function mark(tex, display) {
+  if (wordsOnly(tex)) { const w = document.createElement('span'); w.className = 'tex-w'; w.textContent = texPlain(tex); return w; }
   const el = document.createElement('span');
   el.className = 'tex';
   el.dataset.tex = tex;
@@ -163,8 +169,26 @@ function paint(k, root = document) {
     const d = el.dataset.d === '1', t = prepTex(el.dataset.tex), tex = !d && /\\(frac|sum|prod|int|lim)\b/.test(t) ? '\\displaystyle ' + t : t;
     try { k.render(tex, el, { displayMode: d, throwOnError: false, strict: 'ignore', trust: false, maxExpand: 400, maxSize: 20 }); } catch (e) {}
     el.dataset.ok = '1';
+    if (d) fitLater(el);
   }
 }
+// Große Formel breiter als ihr Platz (Handy)? Schrift so weit verkleinern, dass sie ganz zu sehen ist (höchstens auf 60 %)
+const fitQ = new Set(); let fitT = 0;
+function fitLater(el) { fitQ.add(el); clearTimeout(fitT); fitT = setTimeout(fitAll, 60); }
+function fitAll() {
+  for (const el of fitQ) {
+    fitQ.delete(el); if (!el.isConnected) continue;
+    const k = el.querySelector('.katex-display > .katex') || el.querySelector('.katex'); if (!k) continue;
+    k.style.fontSize = '';
+    const box = el.clientWidth || (el.parentElement && el.parentElement.clientWidth) || 0, w = k.scrollWidth;
+    if (!(box > 40 && w > box + 1)) continue;
+    const r = (box - 4) / w;
+    if (r >= .78) { const fs = parseFloat(getComputedStyle(k).fontSize) || 16; k.style.fontSize = (fs * r).toFixed(2) + 'px'; continue; }
+    // viel zu breit: als umbrechende Formel setzen (bricht nach =, + und − um), statt winzig oder abgeschnitten
+    if (window.katex && el.dataset.tex) { try { window.katex.render('\\displaystyle ' + prepTex(el.dataset.tex), el, { displayMode: false, throwOnError: false, strict: 'ignore', trust: false, maxExpand: 400, maxSize: 20 }); el.classList.add('tex-wrap'); } catch (e) {} }
+  }
+}
+if (typeof window !== 'undefined') window.addEventListener('resize', () => { document.querySelectorAll('span.tex[data-d="1"][data-ok]').forEach(fitLater); });
 function render() {
   queued = false;
   if (!document.querySelector('span.tex:not([data-ok])')) return;

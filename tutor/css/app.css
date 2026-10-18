@@ -4321,3 +4321,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .ai-bld-l i { display: block; height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--panel2) 0%, var(--line) 45%, var(--panel2) 90%); background-size: 220% 100%; animation: aibldsh 1.5s ease-in-out infinite; }
 @keyframes aibldsh { from { background-position: 120% 0; } to { background-position: -100% 0; } }
 @media (prefers-reduced-motion: reduce) { .ai-bld-pen, .ai-bld-l i { animation: none; } }
+/* Formel-Fallbacks: Wort-„Formeln“ als normaler Text, zu breite Formeln brechen um */
+.tafel .calc:has(.tex-w) { font: 400 15.5px/1.5 var(--sans); white-space: normal; }
+span.tex.tex-wrap { display: block; text-align: center; white-space: normal; line-height: 2.1; padding: 4px 0; }
+span.tex.tex-wrap .katex { white-space: normal; }
