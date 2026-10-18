@@ -224,8 +224,8 @@ async function route() {
   if (hash === '#/anmelden') { history.replaceState(null, '', location.pathname + '#/'); hash = '#/'; if (getAccount()) { const z = sessionStorage.getItem('tutor.after'); if (z) { sessionStorage.removeItem('tutor.after'); location.href = z; return; } } else setTimeout(() => openLogin(), 350); }
   // Angemeldet: keine Startseite, direkt in den eigenen Bereich
   if (getAccount() && (hash === '#/' || hash === '#' || hash === '#/app' || hash === '#/app/')) { history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor'; }
-  // Themen-Einstieg (Google-Anzeige: ?thema=…): direkt in den großen Tutor-Raum – Max erklärt dort an der Tafel
-  if (!EN && (hash === '#/' || hash === '#')) {
+  // Themen-Einstieg (Google-Anzeige: ?thema=…): immer direkt in den großen Tutor-Raum – auch bei englischem Browser
+  if (hash === '#/' || hash === '#') {
     const T = landingTopic();
     let done = ''; try { done = sessionStorage.getItem('tutor.themaDone') || ''; } catch (e) {}
     if (T && done !== T.slug) {
