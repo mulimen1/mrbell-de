@@ -86,7 +86,7 @@ function buildShell() {
         tool('a', { href: '#/app/trainer/buchung', 'data-nav': 'foto', onclick: () => setTimeout(() => toast(L('Löse die Aufgabe auf Papier und tipp unten auf „Foto deiner Lösung“ – ich trag sie ein und du prüfst.', 'Solve it on paper and tap “Photo of your solution” below – I’ll fill it in and you check.'), 5200), 400) }, 'camera', L('Fotocheck Buchungssätze', 'Photo check: entries')),
         tool('a', { href: '#/app/rechner', 'data-nav': 'rechner' }, 'calc', L('Rechner', 'Calculators')),
         tool('a', { href: '#/app/challenge', 'data-nav': 'challenge' }, 'trophy', L('Wochen-Challenge', 'Weekly challenge'), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
-        tool('button', { class: 'doc-item soon', onclick: () => toast(L('Kommt bald: Jeden Tag ein BWL-Duell, 1 gegen 1. Einmal am Tag kostenlos, mehr im Inner Circle.', 'Coming soon: a daily 1-on-1 business duel. Once a day for free, more in the Inner Circle.'), 4200) }, 'spark', L('1-gegen-1-Duell', '1-on-1 duel'), h('span', { class: 'soonb' }, L('Bald', 'Soon'))))),
+        tool('a', { href: '#/app/duell', 'data-nav': 'duell' }, 'spark', L('BWL-Duell', 'Business duel'), h('span', { class: 'newb' }, L('Neu', 'New'))))),
     // Unten: klein und ruhig – Sprache, Konto, Menü; Kündigen bleibt sichtbar (§ 312k BGB)
     h('div', { class: 'bottom' }, quotaEl,
       h('button', { class: 'side-fb', type: 'button', onclick: () => openFeedback() }, h('span', { class: 'side-fb-i', html: ico('chat') }), h('span', {}, h('b', {}, L('Feedback geben', 'Give feedback')), h('small', {}, L('Was fehlt? Was nervt? Wir lesen alles.', 'Missing something? Annoyed? We read it all.')))),
@@ -201,6 +201,7 @@ function renderList() {
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
   $$('[data-nav="foto"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer/buchung')));
   $$('[data-nav="challenge"]', shell.side).forEach(a => a.classList.toggle('on', hs.includes('/challenge')));
+  $$('[data-nav="duell"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/duell')));
   $$('[data-nav="rechner"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/rechner')));
   $$('[data-nav="exam"]', shell.side).forEach(a => a.classList.toggle('on', inDoc && hs.includes('/quiz')));
   $$('[data-lockb]', shell.side).forEach(x => { x.hidden = !!getAccount(); });
@@ -242,6 +243,7 @@ export async function mountApp(parts) {
   });
   if (a === 'rechner') return page('rechner:' + (b || ''), L('Rechner', 'Calculators'), async root => { const { render } = await import('./views/rechner.js'); return render(root, { arg: b || '', onAsk: t => viaMax(m => m.ask(t)).then(ok => { if (!ok) askTutorAbout(t, { confirm: false }); }) }); });
   if (a === 'challenge') return page('challenge', L('Wochen-Challenge', 'Weekly challenge'), async root => { const { renderChallenge } = await import('./challenge.js'); renderChallenge(root, { onLogin: () => openLogin({ title: L('Anmelden für die Challenge', 'Sign in for the challenge') }) }); });
+  if (a === 'duell') return page('duell:' + (b || ''), L('BWL-Duell', 'Business duel'), async root => { const { renderDuell } = await import('./duell.js'); return renderDuell(root, { code: b || '' }); });
   if (a === 'zahlen') return page('zahlen', L('Zahlen', 'Numbers'), async root => { const { render } = await import('./views/zahlen.js'); return render(root); });
   if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
   if (a === 'skripte') { location.replace('#/app/bibliothek/unterlagen'); return; }

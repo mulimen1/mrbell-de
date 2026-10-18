@@ -169,8 +169,22 @@ export function greetSplash(nick = getNick()) {
   try { sessionStorage.setItem('tutor.justGreeted', String(Date.now())); } catch (e) {}
   const fEl = h('div', { class: 'ng-face' });
   const line = h('p', { class: 'ng-line' }, nextSpruch());
+  // Lernserie: zählt ab dem ersten Tag, heute zählt mit (wer in der App ist, lernt)
+  const sk = h('div', { class: 'ng-streak', hidden: true });
+  Promise.all([import('./me.js'), import('./state.js')]).then(([M, St]) => {
+    const days = M.activityDays(St.S.list || []); days[M.dayKey()] = days[M.dayKey()] || 1;
+    const n = Math.max(1, M.streak(days));
+    const num = h('b', { class: 'ng-sn' }, String(Math.max(0, n - 1)));
+    const txt = n === 1 ? L('Tag 1. Ab heute zählt jeder Tag.', 'Day 1. From today, every day counts.')
+      : n >= 30 ? L(`${n} Tage am Stück. Langsam wirst du mir unheimlich.`, `${n} days in a row. You’re starting to scare me.`)
+        : n >= 7 ? L(`${n} Tage am Stück. Langsam wirst du mir ähnlich.`, `${n} days in a row. You’re becoming more like me.`)
+          : L(`${n} Tage am Stück. Nicht nachlassen.`, `${n} days in a row. Don’t slack now.`);
+    sk.replaceChildren(h('div', { class: 'ng-sk' }, num, h('span', {}, n === 1 ? L('Tag', 'day') : L('Tage Serie', 'day streak'))), h('small', {}, txt));
+    sk.hidden = false;
+    setTimeout(() => { num.textContent = String(n); num.classList.add('pop'); }, 1150);
+  }).catch(() => {});
   const el = h('div', { class: 'ngreet', role: 'dialog', 'aria-label': L('Begrüßung', 'Welcome') },
-    h('div', { class: 'ng-in' }, fEl, h('h2', { class: 'ng-hey' }, ...(() => { const [a, b] = hallo(nick); return nick ? [a, h('span', { class: 'ng-nick' }, nick), b] : [a]; })()), line,
+    h('div', { class: 'ng-in' }, fEl, h('h2', { class: 'ng-hey' }, ...(() => { const [a, b] = hallo(nick); return nick ? [a, h('span', { class: 'ng-nick' }, nick), b] : [a]; })()), sk, line,
       h('div', { class: 'ng-skip' }, L('Antippen, um direkt loszulegen', 'Tap to jump right in'))));
   document.body.appendChild(el);
   import('./flight.js').then(F => F.hideDock()).catch(() => {});
@@ -184,7 +198,7 @@ export function greetSplash(nick = getNick()) {
     import('./flight.js').then(F => { fEl.style.visibility = 'hidden'; return F.dockTo(r, { dur: 1100, arc: .16 }); }).catch(() => {});
     setTimeout(() => { el.remove(); showing = false; }, 560);
   };
-  const auto = setTimeout(close, 3200);
+  const auto = setTimeout(close, 4200);
   el.addEventListener('click', close);
   addEventListener('keydown', function k(e) { if (e.key === 'Escape' || e.key === 'Enter') { removeEventListener('keydown', k); close(); } });
   requestAnimationFrame(() => el.classList.add('in'));
