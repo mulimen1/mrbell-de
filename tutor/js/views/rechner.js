@@ -136,14 +136,15 @@ export function texFormel(f) {
     const rest = f.slice(a.length).replace(/^\s*;\s*/, ' ').trim();
     const extra = rest.replace(/^\((.*)\)$/, '$1').replace(/(\d+)\/12/, '$1 von 12 Monaten').replace(/ · q$/, '');
     const vor = / · q$/.test(rest) || / · q /.test(rest);
-    return '\\[' + tex + (vor ? ' \\cdot q' : '') + '\\]' + (extra && !/^· q$/.test(rest) ? ' ' + extra.replace(/^· q\s*/, '') : '');
+    const narrow = typeof matchMedia === 'function' && matchMedia('(max-width: 600px)').matches;
+    return '\\[' + (narrow ? tex.replace(/,?\s*\\quad\s*/g, '\\]\\[') : tex) + (vor ? ' \\cdot q' : '') + '\\]' + (extra && !/^· q$/.test(rest) ? ' ' + extra.replace(/^· q\s*/, '') : '');
   }
   const k = kennTex(f); return k ? '\\(' + k + '\\)' : f;
 }
 const formula = f => f ? h('div', { class: 'rc-fx' }, texFormel(f)) : null;
 function table(cols, rows) {
-  return h('div', { class: 'rc-tw' }, h('table', { class: 'rc-t' }, h('thead', {}, h('tr', {}, cols.map(c => h('th', { class: c[2] ? 'n' : '' }, c[1])))),
-    h('tbody', {}, rows.map(r => h('tr', { class: r._cls || '' }, cols.map(c => h('td', { class: c[2] ? 'n' : '' }, c[2] ? c[2](r[c[0]]) : r[c[0]])))))));
+  return h('div', { class: 'rc-tw' }, h('table', { class: 'rc-t' }, h('thead', {}, h('tr', {}, cols.map(c => h('th', { class: (c[2] ? 'n' : '') + (c[3] ? ' rc-lo' : '') }, c[1])))),
+    h('tbody', {}, rows.map(r => h('tr', { class: r._cls || '' }, cols.map(c => h('td', { class: (c[2] ? 'n' : '') + (c[3] ? ' rc-lo' : '') }, c[2] ? c[2](r[c[0]]) : r[c[0]])))))));
 }
 function showBilanz(r) {
   const groups = {}; r.kennzahlen.forEach(k => { (groups[k.gruppe] ||= []).push(k); });
@@ -152,16 +153,16 @@ function showBilanz(r) {
     r.ausgeglichen ? null : h('div', { class: 'rc-warn' }, L(`Aktiva (${eur(r.bilanzsumme_aktiva)}) und Passiva (${eur(r.bilanzsumme_passiva)}) sind nicht gleich – prüf die Zahlen. Gerechnet wird mit dem Gesamtkapital.`, `Assets (${eur(r.bilanzsumme_aktiva)}) and liabilities (${eur(r.bilanzsumme_passiva)}) don’t match – check the numbers.`)),
     h('div', { class: 'rc-bigs' }, big(L('Bilanzsumme', 'Total assets'), eur(r.bilanzsumme_aktiva)), big(L('Umlaufvermögen', 'Current assets'), eur(r.umlaufvermoegen)), big(L('Fremdkapital', 'Liabilities'), eur(r.fremdkapital))),
     ...Object.entries(groups).map(([g, ks]) => h('div', { class: 'rc-kg' }, h('div', { class: 'rc-kgh' }, g), ks.map(k => h('div', { class: 'rc-k' + (k.ok === true ? ' ok' : k.ok === false ? ' bad' : '') },
-      h('div', { class: 'rc-kn' }, h('b', {}, k.name), h('small', {}, texFormel(k.formel))), h('div', { class: 'rc-kv' }, h('b', {}, val(k)), k.regel ? h('small', {}, (k.ok ? '✓ ' : k.ok === false ? '⚠ ' : '') + k.regel) : null))))),
+      h('div', { class: 'rc-kn' }, h('b', {}, String(k.name).replace(/ ([IV]{1,3})$/, '\u00a0$1')), h('small', {}, texFormel(k.formel))), h('div', { class: 'rc-kv' }, h('b', {}, val(k)), k.regel ? h('small', {}, (k.ok ? '✓ ' : k.ok === false ? '⚠ ' : '') + k.regel) : null))))),
     h('p', { class: 'rc-note' }, L('Faustregeln sind Orientierung, keine Gesetze – Branche und Geschäftsmodell zählen mit.', 'Rules of thumb are guidance, not laws – industry and business model matter.'))];
 }
 function showKW(r) {
-  return [h('div', { class: 'rc-bigs' }, big(L('Kapitalwert \\(C_0\\)', 'NPV \\(C_0\\)'), eur(r.kapitalwert), r.urteil), big(L('Interner Zinsfuß', 'IRR'), r.irr == null ? '–' : num(r.irr, 2) + ' %'), big(L('Summe der Barwerte', 'Sum of present values'), eur(r.summe_barwerte))),
-    table([['jahr', L('Jahr', 'Year')], ['zahlung', L('Rückfluss', 'Cash flow'), eur], ['abzinsungsfaktor', L('Abzinsungsfaktor', 'Discount factor'), x => num(x, 6)], ['barwert', L('Barwert', 'Present value'), eur]], r.jahre), formula(r.formel)];
+  return [h('div', { class: 'rc-bigs' }, big(L('Kapitalwert \\(C_0\\)', 'NPV \\(C_0\\)'), eur(r.kapitalwert), String(r.urteil || '').replace(/\(C0 ([<>=]) 0\)/, (m, op) => '\\((C_0 ' + op + ' 0)\\)')), big(L('Interner Zinsfuß', 'IRR'), r.irr == null ? '–' : num(r.irr, 2) + ' %'), big(L('Summe der Barwerte', 'Sum of present values'), eur(r.summe_barwerte))),
+    table([['jahr', L('Jahr', 'Year')], ['zahlung', L('Rückfluss', 'Cash flow'), eur], ['abzinsungsfaktor', L('Abzinsungsfaktor', 'Discount factor'), x => num(x, 6), 'lo'], ['barwert', L('Barwert', 'Present value'), eur]], r.jahre), formula(r.formel)];
 }
 function showAnn(r) {
   return [h('div', { class: 'rc-bigs' }, big(L('Annuität pro Jahr', 'Annual payment'), eur(r.annuitaet)), big('KWF', num(r.kapitalwiedergewinnungsfaktor, 6))),
-    r.tilgungsplan ? table([['jahr', L('Jahr', 'Year')], ['restschuld_anfang', L('Restschuld Anfang', 'Opening balance'), eur], ['zinsen', L('Zinsen', 'Interest'), eur], ['tilgung', L('Tilgung', 'Principal'), eur], ['restschuld_ende', L('Restschuld Ende', 'Closing balance'), eur]], r.tilgungsplan) : null, formula(r.formel)];
+    r.tilgungsplan ? table([['jahr', L('Jahr', 'Year')], ['restschuld_anfang', L('Restschuld Anfang', 'Opening balance'), eur, 'lo'], ['zinsen', L('Zinsen', 'Interest'), eur], ['tilgung', L('Tilgung', 'Principal'), eur], ['restschuld_ende', L('Restschuld Ende', 'Closing balance'), eur]], r.tilgungsplan) : null, formula(r.formel)];
 }
 function showBE(r) {
   if (r.hinweis) return h('div', { class: 'rc-warn' }, r.hinweis);
@@ -171,7 +172,7 @@ function showBE(r) {
 }
 function showAfA(r) {
   return [r.jaehrliche_abschreibung != null ? h('div', { class: 'rc-bigs' }, big(L('Jährliche AfA', 'Annual depreciation'), eur(r.jaehrliche_abschreibung))) : r.wechseljahr ? h('div', { class: 'rc-bigs' }, big(L('Wechsel zur linearen AfA', 'Switch to straight-line'), L(`im Jahr ${r.wechseljahr}`, `in year ${r.wechseljahr}`))) : null,
-    table([['jahr', L('Jahr', 'Year')], ['buchwert_anfang', L('Buchwert Anfang', 'Opening book value'), eur], ['abschreibung', L('Abschreibung', 'Depreciation'), eur], ['buchwert_ende', L('Buchwert Ende', 'Closing book value'), eur]].concat(r.plan.some(x => x.methode) ? [['methode', L('Methode', 'Method')]] : []), r.plan), formula(r.formel)];
+    table([['jahr', L('Jahr', 'Year')], ['buchwert_anfang', L('Buchwert Anfang', 'Opening book value'), eur, 'lo'], ['abschreibung', L('Abschreibung', 'Depreciation'), eur], ['buchwert_ende', L('Buchwert Ende', 'Closing book value'), eur]].concat(r.plan.some(x => x.methode) ? [['methode', L('Methode', 'Method')]] : []), r.plan), formula(r.formel)];
 }
 function showZK(r) {
   return [table([['k', L('Position', 'Item')], ['v', L('Betrag', 'Amount'), eur]], r.schema.map(([k, v]) => ({ k, v, _cls: /^=/.test(k) ? 'sum' : '' }))), h('p', { class: 'rc-note' }, r.hinweis)];

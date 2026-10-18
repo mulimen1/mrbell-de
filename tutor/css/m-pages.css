@@ -1,0 +1,132 @@
+/* BWL Max · Mobile-Feinschliff für Landing, Rechner & Challenge – wird nach app.css geladen */
+
+/* ================= Rechner ================= */
+/* Spalten dürfen nie auf Formel-/Tabellenbreite wachsen */
+.rc-body > *, .rc-out, .rc-out > * { min-width: 0; }
+.rc-fx { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; max-width: 100%; }
+.rc-fx .katex-display { margin: .35em 0; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+/* app.css `.rc-big span` darf KaTeX-Innenleben nicht umformatieren */
+.rc-big .katex span { font-size: inherit; }
+.rc-big .katex .vlist-s { font-size: 1px; }
+.rc-big > span .katex { font-size: 1.1em; }
+
+/* Tabellen: dezenter Scroll-Schatten am Rand, erste Spalte bleibt stehen */
+.rc-tw {
+  -webkit-overflow-scrolling: touch;
+  background:
+    linear-gradient(to right, var(--panel) 30%, transparent) left / 36px 100% no-repeat local,
+    linear-gradient(to left, var(--panel) 30%, transparent) right / 36px 100% no-repeat local,
+    linear-gradient(to right, color-mix(in srgb, var(--ink) 16%, transparent), transparent) left / 16px 100% no-repeat scroll,
+    linear-gradient(to left, color-mix(in srgb, var(--ink) 16%, transparent), transparent) right / 16px 100% no-repeat scroll,
+    var(--panel);
+}
+.rc-t td { white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .rc-body { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .rc-t { font-size: 12.5px; }
+  .rc-t th { padding: 8px 8px; font-size: 10px; letter-spacing: .03em; white-space: normal; line-height: 1.25; vertical-align: bottom; }
+  .rc-t td { padding: 7px 8px; }
+  .rc-t th:first-child, .rc-t td:first-child { padding-left: 10px; }
+  .rc-t .rc-lo { display: none; }
+  .rc-t th:first-child, .rc-t td:first-child { position: sticky; left: 0; z-index: 1; background: var(--panel); }
+  .rc-t th:first-child { background: var(--bg2); }
+  .rc-t tr.sum td:first-child { background: var(--panel2); }
+  .rc-fx { padding: 8px 10px; }
+  .rc-fx .katex-display > .katex { font-size: 1.08em; }
+  .rc-kn b { overflow-wrap: break-word; }
+
+  /* Übersicht: kompakte Liste statt einer großen Karte je Rechner */
+  .rc-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; margin-top: 14px; }
+  .rc-card { grid-template-columns: 36px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 12px; row-gap: 1px; align-items: center; min-height: 60px; padding: 10px 14px; border-radius: 14px; }
+  .rc-card .rc-ci { grid-row: 1 / span 2; margin: 0; }
+  .rc-card b { font-size: 15px; }
+  .rc-card small { font-size: 12.5px; line-height: 1.35; -webkit-line-clamp: 1; display: block; white-space: nowrap; text-overflow: ellipsis; }
+}
+
+/* ================= Wochen-Challenge ================= */
+/* Fächer sind reine Info – als flache Labels statt als Knöpfe */
+.ch-fachs .chip { height: auto; min-height: 0; padding: 5px 10px; border: 0; border-radius: 8px; background: var(--panel2); color: var(--ink2); font-size: 12.5px; font-weight: 500; cursor: default; box-shadow: none; pointer-events: none; }
+.ch-fachs { gap: 6px; }
+@media (max-width: 760px) {
+  .ch.view-in { padding-left: 16px; padding-right: 16px; }
+  .ch-hero { border-radius: 22px; padding: 24px 20px; }
+}
+
+/* ================= Landing ================= */
+/* Hero-Überschrift: Desktop „Lade deine Vorlesung hoch“, Handy „Frag Max“ (kein Skript am Handy) */
+.hero h1 .h1-mb { display: none; }
+.mq-l, .mq-chips { display: none; }
+/* „Am besten am Laptop oder iPad“ – nicht mehr anzeigen (kam nur auf Handys/kleinen Tablets) */
+.mobhint { display: none !important; }
+/* Karteikarten-Demo: Text + Formel als ein Block – keine verwaisten Klammern */
+.flip .b > span { display: block; }
+.flip .b .katex { white-space: nowrap; }
+
+@media (max-width: 640px) {
+  .hero h1 .h1-mb { display: inline; }
+  .hero h1 .h1-dk { display: none; }
+  .hero { padding-top: 60px; padding-bottom: 28px; }
+  .hero .wrap { display: flex; flex-direction: column; align-items: stretch; }
+  .hero .wrap > * { min-width: 0; max-width: 100%; }
+  .hero .hero-max { order: 1; margin: 0 auto 6px; }
+  .hero .hero-face { width: 88px; height: 88px; }
+  .hero .bubble { margin-top: 10px; padding: 9px 14px; max-width: min(320px, 88vw); }
+  .hero .bubble .greet { font-size: 14px; line-height: 1.3; }
+  .hero h1 { order: 2; margin-top: 12px; }
+  .hero h1:not(.h1-topic) { font-size: min(11vw, 44px); line-height: 1; }
+  .hero .mq-l { order: 3; display: block; margin: 18px 0 0; font: 600 15px var(--sans); color: var(--ink); text-align: left; }
+  .hero #topicSlot { order: 4; margin-top: 0; }
+  .hero #topicSlot .askbar { margin: 8px 0 0; flex-wrap: nowrap; border-radius: 16px; padding: 6px 6px 6px 14px; gap: 8px; }
+  .hero #topicSlot .askbar .af { display: none; }
+  .hero #topicSlot .askbar .tin { flex: 1 1 auto; min-width: 0; font-size: 16px; padding: 10px 0; }
+  .hero #topicSlot .askbar .btn { width: auto; min-height: 44px; padding: 0 14px; white-space: nowrap; }
+  .hero .mq-chips { order: 5; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+  .hero .mq-chips .chip { min-height: 42px; height: auto; padding: 0 12px; display: flex; align-items: center; justify-content: center; font-size: 14.5px; text-decoration: none; min-width: 0; }
+  .hero .talkcta { order: 6; margin: 14px auto 0; }
+  .hero p.sub { order: 7; margin-top: 32px; font-size: 15.5px; }
+  .hero .featrow { order: 8; margin-top: 24px; width: 100%; }
+  .hero .dropzone { order: 9; margin-top: 28px; padding: 18px; }
+  .hero .trybar { order: 10; }
+  .hero .or { display: none !important; }
+  /* Tippziele ≥ 40 px */
+  .navlogin, .nav .navreg { min-height: 40px; }
+  .navlogin { padding: 0 10px; }
+  .langsw.mob button, .langsw.mob button.on { min-height: 40px; padding: 0 14px; }
+  .pricing .plan .btn { min-height: 44px; }
+  .featrest .feat { height: 40px; }
+  .faq summary { min-height: 44px; align-items: center; }
+  .faq details { padding: 10px 0; }
+  .seo-links a { min-height: 40px; display: inline-flex; align-items: center; }
+
+  /* Funktions-Pinnwand: keine schwarzen Pin-Punkte, kompakter, kleine Demos nur bei den ersten drei */
+  .pin::before { display: none; }
+  .pin { padding: 18px 16px 16px; }
+  .pin h3 { margin-top: 8px; font-size: 19px; }
+  .pins { gap: 12px; }
+  .pin.wide .demo { display: none; }
+  .board { margin-top: 28px; padding: 12px; }
+
+  /* Seite kürzer: weniger Luft, Nebensachen ausblenden (Desktop unverändert) */
+  .section { padding-top: 56px; }
+  .selfie { padding-top: 48px; }
+  .quotes { margin-top: 22px; }
+  .quotes .quote:nth-child(n+2) { display: none; }
+  .marquee { display: none; }
+  .section:has(> .wrap > .steps3) { display: none; }
+  .maxrow { margin: 22px 0 12px; }
+  .maxrow .face { width: 64px; height: 64px; }
+  .privacy ul { margin-top: 18px; }
+  .final { padding: 64px 0 48px; }
+  .final .bigface { width: 84px; height: 84px; margin-bottom: 18px; }
+  .seo-themen { padding: 40px 0 20px; }
+  .seo-links a:nth-child(n+11):not(.all) { display: none; }
+
+  /* Footer: Links umbrechen, groß genug zum Tippen, frei vom schwebenden Max (§ 312k BGB: Kündigen erreichbar) */
+  footer.foot { display: block; padding: 22px 16px calc(112px + env(safe-area-inset-bottom, 0px)); min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+  footer.foot > div { min-width: 0; max-width: 100%; }
+  footer.foot > div + div { display: flex; flex-wrap: wrap; column-gap: 18px; row-gap: 0; margin-top: 8px; }
+  footer.foot a { display: inline-flex; align-items: center; min-height: 40px; margin-right: 0; white-space: nowrap; }
+}
