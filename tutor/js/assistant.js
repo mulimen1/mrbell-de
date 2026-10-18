@@ -866,6 +866,16 @@ export function mountAssistant() {
       bIdx = i; drawBoard(false); openBoard();
     } }, h('span', { class: 'ck', html: ico('board') }), L('Tafel: ', 'Board: ') + (b.title.length > 34 ? b.title.slice(0, 33) + '…' : b.title));
   }
+  // Seite erscheint: Überschrift Buchstabe für Buchstabe, danach gleiten die Abschnitte nacheinander rein
+  function appear(t) {
+    const tt = t.querySelector('.tt'); if (!tt) return;
+    let i = 0; const n = tt.textContent.replace(/\s/g, '').length, step = Math.max(10, Math.min(22, 640 / Math.max(1, n)));
+    const words = tt.textContent.split(/(\s+)/).map(w => /^\s+$/.test(w) ? document.createTextNode(w)
+      : h('span', { class: 'tf-w' }, ...[...w].map(c => h('span', { class: 'tf-c', style: { animationDelay: Math.round(40 + i++ * step) + 'ms' } }, c))));
+    tt.setAttribute('aria-label', tt.textContent); tt.replaceChildren(...words);
+    t.style.setProperty('--tf-d', Math.round(40 + i * step * .7) + 'ms');
+    t.classList.add('tf-in');
+  }
   function goBoard(d) { if (!boards.length) return; bIdx = clamp(bIdx + d, 0, boards.length - 1); drawBoard(false); }
   function drawBoard(write) {
     const b = boards[bIdx]; if (!b) return;
@@ -876,6 +886,7 @@ export function mountAssistant() {
     t.appendChild(nextChips(b));
     bArea.replaceChildren(t); bArea.scrollTop = 0;
     if (write) t.classList.add('ai-write');
+    else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) appear(t);
     stopTour(); drawTourBtn(); drawBMore(); root.classList.remove('m-bld');
     root.classList.toggle('m-entryb', !!b.entry);
     drawPage(b);

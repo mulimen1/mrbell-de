@@ -322,3 +322,16 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 @media (max-width: 600px) {
   .asst.m-page:not(.m-pchat) .m-pbub:not([hidden]) { right: 82px; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); max-width: min(220px, calc(100vw - 108px)); padding: 8px 11px; font-size: 12.5px; border-radius: 14px 14px 4px 14px; pointer-events: none; }
 }
+
+/* ---------- Seite erscheint: Titel Buchstabe für Buchstabe, dann Abschnitte nacheinander ---------- */
+.tafel.tf-in .tt .tf-w { display: inline-block; white-space: nowrap; }
+.tafel.tf-in .tt .tf-c { display: inline-block; animation: tfc .55s cubic-bezier(.16,1,.3,1) both; }
+@keyframes tfc { from { opacity: 0; transform: translateY(.35em); filter: blur(6px); } }
+.tafel.tf-in > :not(.tt) { animation: tfk .6s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--tf-d, 400ms) + 420ms); }
+.tafel.tf-in > :nth-child(2) { animation-delay: var(--tf-d, 400ms); }
+.tafel.tf-in > :nth-child(3) { animation-delay: calc(var(--tf-d, 400ms) + 90ms); }
+.tafel.tf-in > :nth-child(4) { animation-delay: calc(var(--tf-d, 400ms) + 180ms); }
+.tafel.tf-in > :nth-child(5) { animation-delay: calc(var(--tf-d, 400ms) + 270ms); }
+.tafel.tf-in > :nth-child(6) { animation-delay: calc(var(--tf-d, 400ms) + 350ms); }
+@keyframes tfk { from { opacity: 0; transform: translateY(16px); filter: blur(5px); } }
+@media (prefers-reduced-motion: reduce) { .tafel.tf-in .tt .tf-c, .tafel.tf-in > * { animation: none; } }
