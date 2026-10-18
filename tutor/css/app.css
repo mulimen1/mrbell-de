@@ -4252,3 +4252,24 @@ html.bv-open .asst { visibility: hidden; }
 .du-link.done .du-ci { animation: dupop .4s cubic-bezier(.34,1.56,.64,1); }
 .du-act, .du-act > *, .du-share, .du-share > * { min-width: 0; }
 .du-share .du-link { max-width: 100%; }
+
+/* ---------- Handy: nichts seitlich verschiebbar ---------- */
+html, body { max-width: 100%; overflow-x: hidden; }
+@supports (overflow: clip) { html, body { overflow-x: clip; } }
+@media (max-width: 600px) {
+  .asst-tip { max-width: calc(100vw - 24px); }
+  /* Gedankenblase neben Max wächst nach unten, nicht über die Leiste */
+  .rm-th:not(.small) { top: -6px; bottom: auto; transform-origin: 100% 0; }
+  .rm-th:not(.small) .d1 { top: 18px; bottom: auto; } .rm-th:not(.small) .d2 { top: 30px; bottom: auto; }
+  /* Tafel: groß und sauber – von oben bis zur Eingabe */
+  .asst.stage.has-board:not(.board-min) .ai-board { left: 8px !important; right: 8px !important; width: auto !important; top: calc(8px + env(safe-area-inset-top, 0px)) !important; height: auto !important; bottom: calc(var(--scb) + var(--sch) + 10px) !important; z-index: 120 !important; border-radius: 20px; }
+  .ai-board .tafel { overflow-x: auto; overscroll-behavior-x: contain; }
+  .ai-board, .ai-board * { max-width: 100%; }
+  /* Während Max erklärt: Tafel bis unten, Erklärung + Steuerung unten, sonst nichts */
+  html.mx-touring:not(.mx-tpaused) .asst.stage.has-board:not(.board-min) .ai-board { bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important; }
+  html.mx-touring:not(.mx-tpaused) .asst.stage .ai-isl { visibility: hidden !important; }
+  html.mx-touring:not(.mx-tpaused) .bbar { visibility: hidden; }
+  html.mx-touring .asst .ai-bsay { display: none !important; }
+  html.mx-touring:not(.mx-tpaused) .ai-board .tafel { padding-bottom: 46vh; }
+}
+@media (max-width: 600px) { .ai-board .tafel [data-say] { scroll-margin-top: 14px; } }

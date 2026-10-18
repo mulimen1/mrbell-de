@@ -71,7 +71,14 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {
   const dock = h('div', { class: 'mx-dock', role: 'toolbar', 'aria-label': L('Max-Führung', 'Max walkthrough') },
     h('span', { class: 'mx-dl' }, h('i', { class: 'mx-live' }), h('b', {}, L('Max zeigt’s dir', 'Max shows you')), num), bAsk, bPause, bNext, bStop);
   document.body.append(cur, dock);
+  const mob = () => innerWidth <= 600;
   const placeDock = () => {
+    if (mob()) {
+      dock.style.left = '8px'; dock.style.right = '8px';
+      const r = dock.classList.contains('paused') && dockAt ? dockAt() : null;
+      dock.style.bottom = r && r.width && r.top > 0 ? Math.max(10, Math.round(innerHeight - r.top + 8)) + 'px' : 'calc(10px + env(safe-area-inset-bottom, 0px))';
+      return;
+    }
     const r = dockAt ? dockAt() : null;
     if (r && r.width && r.top > 0) { dock.style.right = Math.max(10, Math.round(innerWidth - r.right)) + 'px'; dock.style.bottom = Math.max(10, Math.round(innerHeight - r.top + 12)) + 'px'; }
     else { dock.style.right = '18px'; dock.style.bottom = '18px'; }
@@ -93,9 +100,17 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {
     if (!s.el || !s.el.isConnected) {
       const r = viewRect();
       pos = { ax: r.left + r.width / 2 - 40, ay: Math.max(r.top + 70, 90), dx: null, ox: 18, oy: 34 + TAG, flip: false };
+      if (mob()) { const D = dock.getBoundingClientRect(); pos.cy = (D.top || H - 70) - 10 - (say.offsetHeight || 90); pos.k = 'mob'; }
       applyPos(); return;
     }
     const E = s.el.getBoundingClientRect();
+    if (mob()) {
+      const D = dock.getBoundingClientRect(), sayH = say.offsetHeight || 90;
+      const tx0 = Math.min(W - 30, Math.max(10, E.left + Math.min(14, E.width / 4))), ty0 = Math.min(H - 6, Math.max(6, E.top + Math.min(E.height / 2, 18)));
+      const cy = (D.top || H - 70) - 10 - sayH;
+      pos = { dx: tx0 - E.left, dy: ty0 - E.top, ox: M - tx0, oy: cy - ty0, cy, flip: false, k: 'mob' };
+      applyPos(); return;
+    }
     const scope = s.el.closest('.tafel') || document.getElementById('view');
     const keep = cur.style.display; cur.style.display = 'none';
     const { rects, lines } = contentRects(s.el, scope);
@@ -158,6 +173,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {
     } else if (s) { tx = pos.ax ?? tx; ty2 = pos.ay ?? ty2; }
     if (reduce()) { x = tx; y = ty2; } else { x += (tx - x) * .16; y += (ty2 - y) * .16; }
     cur.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+    if (pos.k === 'mob') { say.style.left = (M - x).toFixed(1) + 'px'; say.style.top = (pos.cy - y).toFixed(1) + 'px'; }
     placeDock();
     raf = requestAnimationFrame(place);
   };
@@ -170,7 +186,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {
   const drawCtl = () => {
     bPause.innerHTML = ico(paused ? 'play' : 'pause'); bPause.setAttribute('aria-label', paused ? L('Weiter abspielen', 'Resume') : L('Pause', 'Pause'));
     num.textContent = `${i + 1} / ${steps.length}`; nextLbl.textContent = i >= steps.length - 1 ? L('Fertig', 'Done') : L('Weiter', 'Next');
-    cur.classList.toggle('paused', paused); dock.classList.toggle('paused', paused);
+    cur.classList.toggle('paused', paused); dock.classList.toggle('paused', paused); document.documentElement.classList.toggle('mx-tpaused', paused);
   };
   async function go(n) {
     clearTimeout(hold);
@@ -179,8 +195,9 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {
     const s = steps[i];
     if (s.el && s.el.isConnected) {
       const r = s.el.getBoundingClientRect();
-      const out = r.top < 70 || r.bottom > innerHeight - 160;
-      if (out) { s.el.scrollIntoView({ block: 'center', behavior: reduce() ? 'auto' : 'smooth' }); await new Promise(r2 => setTimeout(r2, 460)); }
+      const low = mob() ? Math.max(260, innerHeight - (dock.getBoundingClientRect().top || innerHeight - 70) + (say.offsetHeight || 110) + 40) : 160;
+      const out = r.top < 70 || r.bottom > innerHeight - low;
+      if (out) { s.el.scrollIntoView({ block: mob() ? 'start' : 'center', behavior: reduce() ? 'auto' : 'smooth' }); await new Promise(r2 => setTimeout(r2, 460)); }
     }
     if (dead || i !== n) return;
     setHL(s.el);
@@ -210,7 +227,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {
     removeEventListener('hashchange', onHash);
     removeEventListener('scroll', relayout, true);
     removeEventListener('resize', relayout);
-    if (active === ctl) { active = null; document.documentElement.classList.remove('mx-touring'); }
+    if (active === ctl) { active = null; document.documentElement.classList.remove('mx-touring', 'mx-tpaused'); }
     if (quick || reduce()) { cur.remove(); dock.remove(); } else { cur.classList.add('out'); dock.classList.add('out'); setTimeout(() => { cur.remove(); dock.remove(); }, 380); }
     onEnd && onEnd();
   }
@@ -320,7 +337,10 @@ const css = `
 .mx-ask { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; flex: none; border-radius: 999px; border: 1px solid var(--line2); background: transparent; color: var(--ink); font: 600 13.5px var(--sans); cursor: pointer; } .mx-ask:hover { border-color: var(--ink); background: var(--panel2); } .mx-ask .ico { width: 15px; height: 15px; }
 .mx-dock.done .mx-ask, .mx-dock.done .mx-pp, .mx-dock.done .mx-next, .mx-dock.done .mx-n { display: none; }
 .mx-cur.paused .mx-tag::after { content: " · Pause"; font-weight: 500; opacity: .75; }
-@media (max-width: 600px) { .mx-dock { padding: 6px 6px 6px 12px; gap: 5px; } .mx-dl b { display: none; } .mx-ask { padding: 0 11px; } .mx-next { padding: 0 14px 0 16px; } }
+@media (max-width: 600px) { .mx-dock { padding: 6px 6px 6px 12px; gap: 5px; justify-content: flex-end; } .mx-dl { margin-right: auto; } .mx-dl b { display: none; } .mx-ask { padding: 0 11px; } .mx-next { padding: 0 14px 0 16px; }
+  .mx-say { width: calc(100vw - 16px); max-width: none; border-radius: 18px !important; }
+  .mx-cur[data-at="mob"] .mx-tag { left: 12px; }
+  .mx-cur.paused .mx-say { opacity: 0; pointer-events: none; } }
 .mx-hl { outline: 2px solid var(--ink) !important; outline-offset: 4px; box-shadow: 0 0 0 8px color-mix(in srgb, var(--ink) 9%, transparent) !important; transition: outline-offset .25s ease, box-shadow .25s ease; }
 svg text.mx-hl { outline: none !important; fill: var(--ink); font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .mx-say.pop { animation: none; } .mx-say, .mx-p { transition: none; } }

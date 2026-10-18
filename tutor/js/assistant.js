@@ -848,7 +848,7 @@ export function mountAssistant() {
           btn.click();
         } else await nav(`#/app/${d.id}/${MAKE[c.v][0]}/auto`, true);
       }
-      else if (c.k === 'topic') { ls.set('tutor.target', c.target || null); const m = await import('./app.js'); m.startTopic(c.v); }
+      else if (c.k === 'topic') { ls.set('tutor.target', c.target || null); if (!STAGE && open) closeAnimated(); const m = await import('./app.js'); m.startTopic(c.v); }
       else if (c.k === 'trainer') await nav('#/app/trainer/' + c.v);
       else if (c.k === 'upload') { const f = document.getElementById('fileApp'); if (!f) { await nav('#/app'); } const f2 = await sleepUntil(() => document.getElementById('fileApp'), 2000); if (!f2) return fail(L('Upload gerade nicht möglich.', 'Upload not available right now.')); f2.click(); }
       else if (c.k === 'voice') {
