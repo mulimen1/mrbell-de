@@ -63,6 +63,7 @@ export function render(root) {
     const need = (tab, hasIt) => async () => {
       if (await gated(tab)) return;
       const doc = pickDoc();
+      fromHere();   // was hier entsteht, gehört zu „Lernen“ (oben markiert, „← Lernen“ zurück)
       // Noch kein Skript: hochladen oder Thema nennen – danach entsteht direkt dieses Werkzeug
       if (!doc && ['podcast', 'quiz', 'zettel'].includes(tab)) return import('../create.js').then(m => m.personalise(tab, null));   // Optionen wählen + Datei/Thema → danach direkt genau das
       if (!doc) return import('../app.js').then(m => m.tryFeature(tab));
