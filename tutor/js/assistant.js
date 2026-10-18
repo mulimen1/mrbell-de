@@ -21,6 +21,7 @@ import { prompt as maxPrompt, mode as maxMode } from './maxcfg.js';
 import { knowledge } from './know.js';
 import { keepBoards } from './lib.js';
 import { tour, tourActive, pauseTour, stopTour, boardSteps, pageMap, byMxId, spotText } from './cursor.js';
+import { hasInstant, instantReply } from './boards.js';   // Sofort-Tafeln für Themen-Einstiege
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
 const M = 12;                       // Mindestabstand zum Rand
@@ -891,7 +892,8 @@ export function mountAssistant() {
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     unlockAudio();
     waitTx = o.wait || ''; capQuestion(shown); capQ.classList.remove('live'); capThinking();
-    if (o.board) showBuilding(String(o.board));
+    const inst = !!(o.entry && hasInstant(o.slug));   // Sofort-Tafel (boards.js): kein Platzhalter, die Tafel ist gleich da
+    if (o.board && !inst) showBuilding(String(o.board));
     const pasted = attachTx; if (pasted) { capQ.prepend(h('span', { class: 'ai-refq' }, L('Eingefügter Text · ', 'Pasted text · ') + pasted.length.toLocaleString('de-DE') + L(' Zeichen', ' chars'))); clearAttach(); }
     if (askRef) capQ.prepend(h('span', { class: 'ai-refq' }, L(`Zu ${askRef.i}/${askRef.n} · `, `Re ${askRef.i}/${askRef.n} · `) + (askRef.spot.length > 60 ? askRef.spot.slice(0, 59) + '…' : askRef.spot)));
     const ex = curEx;
@@ -925,7 +927,10 @@ export function mountAssistant() {
       if (mat) Object.assign(payload, mat);
       else if (d) Object.assign(payload, { material: forChat(d, text + ' ' + visibleText(400)), docName: d.name });
       if (pasted) { payload.material = (payload.material ? payload.material + '\n\n' : '') + L('### Vom Nutzer eingefügter Text\n', '### Text pasted by the user\n') + pasted; payload.docName = payload.docName ? payload.docName + L(' + eingefügter Text', ' + pasted text') : L('Eingefügter Text', 'Pasted text'); }
-      const r = await ask('chat', payload, { signal: ctrl.signal });
+      // >>> Sofort-Tafel (boards.js): Themen-Einstieg mit gespeicherter Tafel → kein KI-Aufruf, sonst live
+      let r = inst ? await instantReply(o) : null;
+      if (!r) { if (inst && o.board) showBuilding(String(o.board)); r = await ask('chat', payload, { signal: ctrl.signal }); }
+      // <<< Sofort-Tafel
       if (my !== gen) return;
       const raw = String(r.text || '').slice(0, 12000);
       hist.push({ role: 'assistant', content: raw });

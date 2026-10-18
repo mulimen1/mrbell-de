@@ -3,6 +3,7 @@ import { $, $$, h, sleep, ico, ls } from './util.js';
 import { face } from './face.js';
 import { mountApp, startUpload, startSample, topicForm, tryFeature, viaMax, startTopic } from './app.js';
 import { landingTopic } from './themen.js';
+import { hasInstant, loadInstant } from './boards.js';
 import { openLogin, openAccount, verifyLink, askNick } from './account.js';
 import { greetOnLoad, getNick } from './nick.js';
 import { onAccount, getAccount } from './api.js';
@@ -231,7 +232,10 @@ async function route() {
     let done = ''; try { done = sessionStorage.getItem('tutor.themaDone') || ''; } catch (e) {}
     if (T && done !== T.slug) {
       try { sessionStorage.setItem('tutor.themaDone', T.slug); sessionStorage.setItem('tutor.topicHead', T.name); sessionStorage.setItem('tutor.stay', String(Date.now())); } catch (e) {}
-      ls.set('tutor.pendingAsk', { t: T.ask, entry: true, board: T.name === 'BWL' ? L('Dein BWL-Überblick', 'Your business overview') : T.name, show: T.show || `Erklär mir „${T.name}“.`, wait: T.wait || `${T.name} – kommt sofort. Ich bau dir die Tafel jetzt live: erst das Prinzip, dann die Formel, dann ein durchgerechnetes Beispiel.` });
+      // >>> Sofort-Tafel (boards.js): gespeicherte Tafel schon jetzt laden, Max sagt nicht „live“
+      const IB = hasInstant(T.slug); if (IB) loadInstant(T.slug);
+      ls.set('tutor.pendingAsk', { t: T.ask, entry: true, slug: T.slug, board: T.name === 'BWL' ? L('Dein BWL-Überblick', 'Your business overview') : T.name, show: T.show || `Erklär mir „${T.name}“.`, wait: IB ? (T.slug === 'bwl' ? 'Klar, dafür bin ich da. Hier ist dein Überblick übers BWL-Studium – danach sagst du mir, wo’s hakt, und wir gehen genau da rein.' : `${T.name} – ich schreib’s dir an die Tafel: erst das Prinzip, dann die Formel, dann ein durchgerechnetes Beispiel.`) : T.wait || `${T.name} – kommt sofort. Ich bau dir die Tafel jetzt live: erst das Prinzip, dann die Formel, dann ein durchgerechnetes Beispiel.` });
+      // <<< Sofort-Tafel
       history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor';
       topicEntry = true;
     }
