@@ -1,4 +1,4 @@
-// Tutor-Raum am Handy ohne Konto: kurz sehen, was einen erwartet – nach einer Sekunde wird der Raum unscharf,
+// Tutor-Raum ohne Konto (Handy und Laptop): kurz sehen, was einen erwartet – nach einer Sekunde wird der Raum unscharf,
 // darüber das kostenlose Konto (Google zuerst, falls eingerichtet). Oben rechts ein deutliches X: zurück dahin, wo man war.
 // Max unten rechts auf Themenseiten bleibt frei – gesperrt wird nur der große Tutor-Raum.
 import { h, ico } from './util.js';
@@ -10,7 +10,7 @@ let el = null, timer = 0;
 
 export function lockRoom({ delay = 1000 } = {}) {
   clearTimeout(timer);
-  if (!isPhone() || getAccount()) return;
+  if (getAccount()) return;
   timer = setTimeout(show, delay);
 }
 export function unlockRoom() {
@@ -35,9 +35,11 @@ async function auth(mode) {
 }
 
 function show() {
-  if (!isPhone() || getAccount() || el) return;
+  if (getAccount() || el) return;
   if (!/^#\/app\/tutor/.test(location.hash)) return;
   if (document.documentElement.classList.contains('m-boardpage')) return;   // Themenseite liegt oben – nicht sperren
+  if (!isPhone() && document.querySelector('.asst.has-board:not(.board-min)')) return;   // Laptop: Themen-Einstieg mit Tafel bleibt frei
+  if (!isPhone() && JSON.parse(localStorage.getItem('tutor.pendingAsk') || 'null')) return;
   document.documentElement.classList.add('m-rlock');
   const g = window.BM_GOOGLE_CLIENT_ID ? h('button', { class: 'm-rl-g', type: 'button', onclick: async () => { try { const m = await import('./google.js'); if (await m.googleSignIn()) unlockRoom(); } catch (e) {} } }, h('span', { class: 'm-rl-gi', html: GOOGLE }), L('Mit Google anmelden', 'Continue with Google')) : null;
   el = h('div', { class: 'm-rl', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Kostenloses Konto', 'Free account') },
@@ -49,7 +51,7 @@ function show() {
       g,
       h('button', { class: 'm-rl-b', type: 'button', onclick: () => auth('register') }, L('Kostenloses Konto erstellen', 'Create a free account')),
       h('button', { class: 'm-rl-l', type: 'button', onclick: () => auth('login') }, L('Ich hab schon ein Konto', 'I already have an account')),
-      h('small', {}, L('Tipp: Am Laptop meldest du dich genauso an – dort hast du Tafel und Chat nebeneinander.', 'Tip: sign in the same way on your laptop – board and chat side by side.'))));
+      h('small', {}, isPhone() ? L('Tipp: Am Laptop meldest du dich genauso an – dort hast du Tafel und Chat nebeneinander.', 'Tip: sign in the same way on your laptop – board and chat side by side.') : L('Am Handy meldest du dich genauso an – Max ist überall dabei.', 'Sign in the same way on your phone – Max comes along everywhere.'))));
   document.body.append(el);
 }
 

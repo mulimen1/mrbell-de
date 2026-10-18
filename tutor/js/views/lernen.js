@@ -19,7 +19,7 @@ function pickDoc() {
 // Aus Lernen heraus geöffnet: oben gibt’s „← Lernen“ zurück
 const fromHere = () => { try { sessionStorage.setItem('tutor.backTo', 'lernen'); } catch (e) {} };
 const go = hash => { fromHere(); location.hash = hash; };
-// Handy ohne Konto: Lernen bleibt offen – erst beim Werkzeug kommt (passend dazu) das kostenlose Konto
+// Ohne Konto (Handy und Laptop): Lernen bleibt offen – erst beim Werkzeug kommt (passend dazu) das kostenlose Konto
 const GATE = {
   karten: [L('Deine Karteikarten – kostenlos', 'Your flashcards – free'), L('Lad Stoff hoch oder nenn ein Thema – Max baut dir daneben deine Karteikarten und fragt dich ab, bis es sitzt.', 'Upload material or name a topic – Max builds your flashcards and quizzes you until it sticks.')],
   quiz: [L('Dein Quiz – kostenlos', 'Your quiz – free'), L('Lad Stoff hoch oder nenn ein Thema – Max baut dir daneben ein Quiz mit Erklärung zu jeder Antwort.', 'Upload material or name a topic – Max builds you a quiz with an explanation for every answer.')],
@@ -31,7 +31,6 @@ const GATE = {
 };
 const isPhone = () => matchMedia('(max-width: 600px)').matches;
 async function gated(tab) {
-  if (!isPhone()) return false;
   const { getAccount } = await import('../api.js'); if (getAccount()) return false;
   const g = GATE[tab]; if (!g) return false;
   const { openAuth } = await import('../account.js');

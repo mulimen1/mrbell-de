@@ -119,10 +119,9 @@
 }
 
 /* ---------- Tutor-Raum gesperrt (Handy, ohne Konto) ---------- */
-@media (max-width: 600px) {
-  html.m-rlock #view, html.m-rlock .asst > :not(.ai-board) { filter: blur(7px) saturate(.9); pointer-events: none !important; transition: filter .45s ease; }
-  html.m-rlock body { overflow: hidden; }
-}
+html.m-rlock #view, html.m-rlock .asst > :not(.ai-board) { filter: blur(7px) saturate(.9); pointer-events: none !important; transition: filter .45s ease; }
+html.m-rlock body { overflow: hidden; }
+@media (min-width: 601px) { .m-rl { padding-top: 24px; } .m-rl-card { max-width: 420px; } .m-rl-x { top: 76px; right: 28px; } }
 .m-rl { position: fixed; inset: 0; z-index: 1300; display: flex; align-items: center; justify-content: center; padding: 76px 16px calc(24px + env(safe-area-inset-bottom, 0px)); background: color-mix(in srgb, var(--bg, #fff) 38%, transparent); animation: mrlin .45s cubic-bezier(.16,1,.3,1) both; }
 .m-rl.out { animation: mrlout .25s ease both; }
 @keyframes mrlin { from { opacity: 0; } to { opacity: 1; } }
