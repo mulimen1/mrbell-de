@@ -16,7 +16,14 @@ main.ln h1 { font-size: clamp(34px, 6vw, 54px); line-height: 1.05; }
 .ln-max .go { flex: none; font-weight: 650; font-size: 14px; background: var(--onInv); color: var(--inv); border-radius: 999px; padding: 10px 16px; white-space: nowrap; }
 main.ln section { padding: 28px 0; }
 main.ln section h2 { font-size: 24px; scroll-margin-top: 90px; }
-.formel { font: 500 15.5px/1.6 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace; background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; padding: 14px 16px; margin: 10px 0 14px; color: var(--ink); overflow-x: auto; white-space: pre-wrap; }
+.formel { font: 400 16px/1.6 'Geist', sans-serif; background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; padding: 6px 16px; margin: 10px 0 14px; color: var(--ink); overflow-x: auto; overflow-y: hidden; text-align: center; }
+/* Formeln (KaTeX, beim Bauen gesetzt) */
+.katex { font-size: 1.12em; }
+.fx-d { display: block; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; padding: 2px 0; }
+.fx-d .katex-display { margin: .55em 0; }
+.formel .fx-d .katex-display { margin: .7em 0; }
+td .katex, li .katex, p .katex { white-space: nowrap; }
+.ln-table td .katex { font-size: 1.04em; }
 .beispiel { border: 1px solid var(--line2); border-radius: 18px; padding: 18px 20px 8px; margin: 12px 0 16px; position: relative; }
 .beispiel::before { content: 'Beispiel'; position: absolute; top: -10px; left: 16px; background: var(--bg); padding: 0 8px; font: 500 11.5px ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
 .merke { background: color-mix(in srgb, var(--inv) 9%, var(--bg)); border-radius: 14px; padding: 14px 16px; margin: 12px 0 14px; color: var(--ink); }
