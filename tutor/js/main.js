@@ -240,6 +240,7 @@ async function route() {
       topicEntry = true;
     }
   }
+  if (!topicEntry) document.documentElement.classList.remove('m-eboot');   // kein Themen-Einstieg: Startseite normal zeigen
   const inApp = hash.startsWith('#/app');
   $('#landing').classList.toggle('hidden', inApp);
   $('#app').classList.toggle('hidden', !inApp);

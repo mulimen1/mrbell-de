@@ -22,7 +22,8 @@ import { prompt as maxPrompt, mode as maxMode } from './maxcfg.js';
 import { knowledge } from './know.js';
 import { keepBoards } from './lib.js';
 import { tour, tourActive, pauseTour, stopTour, boardSteps, pageMap, byMxId, spotText } from './cursor.js';
-import { hasInstant, instantReply } from './boards.js';   // Sofort-Tafeln für Themen-Einstiege
+import { hasInstant, instantReply } from './boards.js';
+import * as Entry from './entry.js';   // Themen-Einstieg: Mini-Check, Live-Quiz, Live-Übung   // Sofort-Tafeln für Themen-Einstiege
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
 const M = 12;                       // Mindestabstand zum Rand
@@ -305,24 +306,62 @@ export function mountAssistant() {
   // ---------- Handy: die Tafel ist die Seite ----------
   // Rechts unten Max (öffnet den Chat), daneben drei grüne Knöpfe: Quiz, Beispiel, passender Trainer
   const pFace = h('span', { class: 'm-pmf' });
-  const pMax = h('button', { class: 'm-pmax', type: 'button', 'aria-label': L('Mit Max chatten', 'Chat with Max'), title: L('Frag Max', 'Ask Max'), onclick: () => toChat() }, pFace);
-  const pQuiz = h('button', { class: 'm-pb', type: 'button', onclick: () => { const b = boards[bIdx]; if (!b) return; toChat(true); askQuiz(b.title); } }, h('span', { class: 'm-pbi', html: ico('quiz') }), h('span', { class: 'm-pbl' }, L('Quiz mich dazu', 'Quiz me on this')), h('span', { class: 'm-pbs' }, L('Quiz', 'Quiz')));
-  const pEx = h('button', { class: 'm-pb', type: 'button', onclick: () => { const b = boards[bIdx]; if (b) askExample(b.title); } }, h('span', { class: 'm-pbi', html: ico('calc') }), h('span', { class: 'm-pbl' }, L('Rechne mir ein Beispiel', 'Work me an example')), h('span', { class: 'm-pbs' }, L('Beispiel', 'Example')));
-  const pTr = h('a', { class: 'm-pb', href: '#/app/trainer' }, h('span', { class: 'm-pbi', html: ico('whistle') }), h('span', { class: 'm-pbl' }), h('span', { class: 'm-pbs' }, L('Üben', 'Practise')));
-  const pBtns = h('div', { class: 'm-pbtns' }, pQuiz, pEx, pTr);
+  const pMax = h('button', { class: 'm-pmax', type: 'button', 'aria-label': L('Mit Max chatten', 'Chat with Max'), title: L('Frag Max', 'Ask Max'), onclick: () => pChat(!root.classList.contains('m-pchat')) }, pFace, h('span', { class: 'm-pmx', html: ico('x') }));
+  const pQuiz = h('button', { class: 'm-pb', type: 'button', onclick: () => { const c = entryCtx(); if (c) Entry.quiz(c); } }, h('span', { class: 'm-pbi', html: ico('quiz') }), h('span', { class: 'm-pbl' }, L('Quiz mich dazu', 'Quiz me on this')), h('span', { class: 'm-pbs' }, L('Quiz', 'Quiz')));
+  const pTr = h('button', { class: 'm-pb', type: 'button', onclick: () => { const c = entryCtx(); if (c) Entry.exercise(c); } }, h('span', { class: 'm-pbi', html: ico('whistle') }), h('span', { class: 'm-pbl' }), h('span', { class: 'm-pbs' }, L('Üben', 'Practise')));
+  const pBtns = h('div', { class: 'm-pbtns' }, pQuiz, pTr);
+  // Gedankenblase neben dem kleinen Max (Kommentare beim Scrollen, Gedanken beim Bauen)
+  const pBub = h('div', { class: 'm-pbub', role: 'status', 'aria-live': 'polite', hidden: true });
+  const pDim = h('div', { class: 'm-pdim', 'aria-hidden': 'true', onclick: () => pChat(false) });
+  let pBubT = 0, pThinkT = 0;
+  function pSay(text, ms = 4000) {
+    if (!pageOn || !text) return;
+    clearTimeout(pBubT); pBub.textContent = text; pBub.hidden = false;
+    pBub.classList.remove('in'); void pBub.offsetWidth; pBub.classList.add('in');
+    if (ms) pBubT = setTimeout(() => { if (!pThinkT) pBub.hidden = true; }, ms);
+  }
+  function pThink(lines) {
+    clearInterval(pThinkT); pThinkT = 0;
+    if (!lines) { pBub.hidden = true; return; }
+    let k = 0; pSay(lines[k++], 0);
+    pThinkT = setInterval(() => pSay(lines[k++ % lines.length], 0), 2800);
+  }
+  const pBusy = () => root.classList.contains('m-pchat') || !!pThinkT || [...document.querySelectorAll('.bmc:not(.out), .mtip2:not(.out)')].some(e => e.getClientRects().length);
+  // Kurzer Themenname (für „Bilanz üben“) und Wortstamm (für „Dein Bilanz-Quiz“)
+  const NAME = { bilanz: ['Bilanz', 'Bilanz'], buchungssatz: ['Buchungssätze', 'Buchungssatz'], kapitalwert: ['Kapitalwert', 'Kapitalwert'], deckungsbeitrag: ['Deckungsbeitrag', 'Deckungsbeitrags'], 'break-even': ['Break-even', 'Break-even'], guv: ['GuV', 'GuV'], swot: ['SWOT', 'SWOT'], abschreibung: ['Abschreibung', 'Abschreibungs'], 'marketing-mix': ['Marketing-Mix', 'Marketing-Mix'], zuschlagskalkulation: ['Zuschlagskalkulation', 'Kalkulations'], bwl: ['BWL', 'BWL'] };
+  function topicOf(b, tr) {
+    if (b.slug && NAME[b.slug]) return NAME[b.slug];
+    if (b.slug && THEMEN[b.slug]) { const n = THEMEN[b.slug][0]; return [n, /\s/.test(n) ? '' : n]; }
+    if (tr) { const n = tr[1].replace(/\s+üben$/, '').replace(/^Practi[cs]e\s+/, ''); return [n, /\s/.test(n) ? '' : n.replace(/sätze$/, 'satz')]; }
+    const n = String(b.title || '').split(/\s[–—-]\s|:/)[0].trim().slice(0, 32); return [n, ''];
+  }
+  const entryNotes = [];
+  function entryCtx() {
+    const b = boards[bIdx], t = bArea.querySelector('.tafel'); if (!b || !t || building) return null;
+    const tr = trainerFor(b.title + ' ' + (b.slug || '') + ' ' + buildTitle), [topic, stem] = topicOf(b, tr);
+    return { t, b, slug: b.slug || '', topic, stem, trainer: tr ? tr[0] : '', scroller: bArea, say: pSay, think: pThink, note: n => { entryNotes.push(n); if (entryNotes.length > 6) entryNotes.shift(); }, busy: pBusy };
+  }
   function drawPage(b) {
-    const tr = b ? trainerFor(b.title + ' ' + buildTitle) : null;
-    pTr.hidden = !tr;
-    if (tr) { pTr.href = '#/app/trainer/' + tr[0]; pTr.querySelector('.m-pbl').textContent = tr[1] + ' · ' + L('BWL-Trainer', 'Business trainer'); }
+    const c = b ? entryCtx() : null;
+    pTr.querySelector('.m-pbl').textContent = c ? `${c.topic} ${L('üben', 'practise')} · BWL-Trainer` : L('Üben · BWL-Trainer', 'Practise · trainer');
     pBtns.classList.remove('m-small');
+  }
+  // Kleiner Max-Chat über der Seite – man bleibt auf der Seite
+  function pChat(v) {
+    v = !!v && pageOn;
+    root.classList.toggle('m-pchat', v);
+    if (v) { pThink(null); fold(false); if (feedOpen) setFeedOpen(false, { instant: true }); capScroll(); setTimeout(() => { try { inp.focus({ preventScroll: true }); } catch (e) {} }, 60); }
+    else { try { inp.blur(); } catch (e) {} }
   }
   // Chat öffnen (Tafel bleibt griffbereit: „Zurück zur Tafel“)
   function toChat(quietly) { if (boardOpen && !boardMin) minBoard(true, true); fold(false); if (!quietly) setFeedOpen(true); }
+  function bootDone() { document.documentElement.classList.remove('m-eboot'); }
   let pageOn = false;
   function syncPage() {
     const v = MOB.matches && boardOpen && !boardMin;
     if (v) { const tb = document.querySelector('.topbar'); const r = tb && tb.getClientRects().length ? tb.getBoundingClientRect() : null; root.style.setProperty('--m-top', Math.max(0, Math.round(r ? r.bottom : 0)) + 'px'); }
     root.classList.toggle('m-page', v); document.documentElement.classList.toggle('m-boardpage', v);
+    if (!v) { root.classList.remove('m-pchat'); pThink(null); }
     if (v !== pageOn) { pageOn = v; const t = bArea.querySelector('.tafel'); requestAnimationFrame(() => { try { window.dispatchEvent(new Event('resize')); } catch (e) {} if (t) tableHints(t); }); }
   }
   // Beim Runterscrollen werden die Knöpfe klein, beim Hochscrollen und am Ende wieder groß
@@ -339,7 +378,7 @@ export function mountAssistant() {
   const chip = h('button', { class: 'asst-back', type: 'button' }, h('span', { class: 'asst-cf' }), L('Max zurückholen', 'Bring Max back'));
   const quip = h('div', { class: 'asst-quip', role: 'status', hidden: true });
   const ctxm = h('div', { class: 'asst-ctx', role: 'menu', hidden: true });
-  const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : '') + (MOB.matches ? ' m-fold' : ''), 'data-state': 'idle' }, bd, board, bTab, cap, feedTog, mHist, isl, menu, quip, ctxm, bub, pBtns, pMax);
+  const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : '') + (MOB.matches ? ' m-fold' : ''), 'data-state': 'idle' }, bd, board, bTab, cap, feedTog, mHist, isl, menu, quip, ctxm, bub, pDim, pBtns, pBub, pMax);
   document.body.appendChild(root);
   const bf = face(bubFace, { sleepy: true }), fc = face(fEl, { follow: false }); face(pFace, { sleepy: true });
   MOB.addEventListener?.('change', () => syncPage());
@@ -624,6 +663,7 @@ export function mountAssistant() {
   // ---------- Zustand ----------
   function setState(s, msg) {
     state = s; root.dataset.state = s;
+    if (pageOn && root.classList.contains('m-pchat')) { if (s === 'think') pThink(Entry.CHAT_THINK); else if (pThinkT) pThink(null); }
     try { STAGE?.onState?.(s); } catch (e) {}
     fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
     bf.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
@@ -809,7 +849,11 @@ export function mountAssistant() {
     t.appendChild(nextChips(b));
     bArea.replaceChildren(t); bArea.scrollTop = 0;
     if (write) t.classList.add('ai-write');
-    stopTour(); drawTourBtn(); drawBMore(); drawPage(b); root.classList.remove('m-bld');
+    stopTour(); drawTourBtn(); drawBMore(); root.classList.remove('m-bld');
+    root.classList.toggle('m-entryb', !!b.entry);
+    drawPage(b);
+    if (b.entry) { const c = entryCtx(); if (c) Entry.enhance(c); }
+    bootDone();
     requestAnimationFrame(() => tableHints(t)); setTimeout(() => tableHints(t), 900);
     return t;
   }
@@ -817,7 +861,7 @@ export function mountAssistant() {
     const was = boardOpen && !boardMin;
     boardOpen = true; root.classList.add('has-board'); minBoard(false, true);
     if (MOB.matches && feedOpen) setFeedOpen(false);
-    if (!was && !matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(() => {
+    if (!was && !MOB.matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(() => {
       const fr = (open ? fEl : bubFace).getBoundingClientRect(), br = board.getBoundingClientRect();
       board.style.setProperty('--ox', (fr.left + fr.width / 2 - br.left) + 'px');
       board.style.setProperty('--oy', (fr.top + fr.height / 2 - br.top) + 'px');
@@ -907,7 +951,7 @@ export function mountAssistant() {
   const BLD = () => [L('Ich such die besten Beispiele raus …', 'Picking the best examples …'), L('Ich rechne das einmal sauber durch …', 'Running the numbers properly …'), L('Formeln in Schönschrift – dauert kurz …', 'Writing the formulas neatly …'), L('Erst das Prinzip, dann die Zahlen …', 'Principle first, then the numbers …'), L('Gleich steht’s an der Tafel …', 'Almost on the board …'), L('Klausurfallen markier ich dir extra …', 'Marking the exam traps for you …')];
   const keepEnd = t => t.replace(/ (\S+) …$/, '\u00a0$1\u00a0…');
   function showBuilding(title) {
-    building = true; buildTitle = String(title || ''); root.classList.add('m-bld');
+    building = true; buildTitle = String(title || ''); root.classList.add('m-bld'); root.classList.remove('m-entryb'); bootDone();
     bTitle.textContent = title; bCount.textContent = ''; bPrev.hidden = bNext.hidden = true;
     const lines = [88, 64, 76, 52, 70].map((w, i) => h('i', { style: `width:${w}%;animation-delay:${i * .12}s` }));
     const st = h('span', { class: 'm-bst', 'aria-live': 'polite' }, keepEnd(L('Max baut deine Tafel – live, nur für dich …', 'Max is building your board – live, just for you …')));
@@ -922,7 +966,7 @@ export function mountAssistant() {
     }, 3000);
     openBoard();
   }
-  function endBuilding() { if (!building) return; building = false; clearInterval(bldT); boardDone(); if (boards.length) drawBoard(false); else { bArea.replaceChildren(); closeBoard(); } }
+  function endBuilding() { bootDone(); if (!building) return; building = false; clearInterval(bldT); boardDone(); if (boards.length) drawBoard(false); else { bArea.replaceChildren(); closeBoard(); } }
   function closeBoard() { setFs(false); boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); syncLock(); boardHook(); }
   function boardHook() { try { STAGE?.onBoard?.(boardOpen && !boardMin); } catch (e) {} syncPage(); placeHist(); setTimeout(placeHist, 700); }
   // Tafel „schreibt mit“: Abschnitte erscheinen im Takt der Stimme
@@ -1047,7 +1091,8 @@ export function mountAssistant() {
     const pasted = attachTx; if (pasted) { capQ.prepend(h('span', { class: 'ai-refq' }, L('Eingefügter Text · ', 'Pasted text · ') + pasted.length.toLocaleString('de-DE') + L(' Zeichen', ' chars'))); clearAttach(); }
     if (askRef) capQ.prepend(h('span', { class: 'ai-refq' }, L(`Zu ${askRef.i}/${askRef.n} · `, `Re ${askRef.i}/${askRef.n} · `) + (askRef.spot.length > 60 ? askRef.spot.slice(0, 59) + '…' : askRef.spot)));
     const ex = curEx;
-    const ctxLine = pageContext();
+    if (ex) { ex.entry = !!o.entry; ex.slug = o.slug || ''; }
+    const ctxLine = pageContext() + (entryNotes.length ? '\n' + entryNotes.splice(0).join('\n') : '');
     hist.push({ role: 'user', content: text });
     try { STAGE?.onAsk?.(shown); } catch (e) {}
     if (pendingMap === LAZY_MAP) { await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))); const m = pageMap(); pendingMap = m.count ? m.text : null; }
@@ -1124,13 +1169,16 @@ export function mountAssistant() {
     if (p.boards.length) {
       if (ovNext || (wasBuilding && /Überblick|overview/i.test(buildTitle))) p.boards.forEach(b => overviewB.add(b));
       ovNext = false;
+      if (ex && ex.entry) p.boards.forEach(b => { b.entry = true; b.slug = ex.slug; });
+      root.classList.remove('m-pchat');
       // Jede Tafel landet automatisch in der Bibliothek – mit Überschrift und Beschreibung
       const lastQ = [...hist].reverse().find(m => m.role === 'user')?.content || '';
-      keepBoards(p.boards, { doc: curDoc(), question: lastQ, answer: p.text });
+      const asPage = MOB.matches && !!(ex && ex.entry);   // Themenseite am Handy: steht sofort da, ohne Einblenden und ohne Hinweis
+      keepBoards(p.boards, { doc: curDoc(), question: lastQ, answer: p.text, quiet: asPage });
       boards = boards.concat(p.boards).slice(-12); bIdx = boards.length - p.boards.length;
-      t = drawBoard(true); openBoard(); whenWritten(t);
+      t = drawBoard(!asPage); openBoard(); whenWritten(t);
     }
-    else if (boardOpen && !boardMin && !ex.ref && !tourActive()) minBoard(true, true);   // neue Antwort ohne Tafel: alte Tafel zur Seite – außer die Frage galt genau dieser Tafel
+    else if (boardOpen && !boardMin && !ex.ref && !tourActive() && !root.classList.contains('m-pchat')) minBoard(true, true);   // neue Antwort ohne Tafel: alte Tafel zur Seite – außer die Frage galt genau dieser Tafel
     // Befehle sofort ausführen, als kleine Häkchen unter der Antwort
     const acts = p.acts.map(a => ({ a, href: ACTS[a][1](curDoc() || S.doc) })).filter(x => x.href);
     const extras = [...p.cmds.map(c => cmdChip(c)), ...acts.map(({ a, href }) => h('a', { class: 'ai-cmd link', href }, ACTS[a][0]))];
