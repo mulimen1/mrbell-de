@@ -84,26 +84,6 @@
   ],
   "rewrites": [
     {
-      "source": "/robots.txt",
-      "has": [
-        {
-          "type": "host",
-          "value": "(www\\.)?bwlmax\\.de"
-        }
-      ],
-      "destination": "/tutor/robots.txt"
-    },
-    {
-      "source": "/sitemap.xml",
-      "has": [
-        {
-          "type": "host",
-          "value": "(www\\.)?bwlmax\\.de"
-        }
-      ],
-      "destination": "/tutor/sitemap.xml"
-    },
-    {
       "source": "/lernen",
       "has": [
         {
