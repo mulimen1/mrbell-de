@@ -1,0 +1,115 @@
+{
+ "slug": "grenzkosten",
+ "name": "Grenzkosten",
+ "title": "Grenzkosten berechnen – einfach erklärt mit Beispiel",
+ "meta": "Grenzkosten einfach erklärt: Kostenfunktion ableiten, Grenzkosten = Preis bzw. Grenzerlös setzen, Bezug zu variablen Kosten – mit Rechenbeispiel.",
+ "h1": "Grenzkosten einfach erklärt",
+ "kurz": "Grenzkosten sind die zusätzlichen Kosten, die durch die Produktion einer weiteren Mengeneinheit entstehen. Mathematisch sind sie die erste Ableitung der Gesamtkostenfunktion K(x), also K'(x). Ein Unternehmen maximiert seinen Gewinn dort, wo Grenzerlös und Grenzkosten gleich sind. Bei linearem Kostenverlauf entsprechen die Grenzkosten genau den variablen Stückkosten.",
+ "keywords": [
+  "Grenzkosten",
+  "Grenzkosten berechnen",
+  "Grenzkostenfunktion",
+  "Grenzkosten Ableitung",
+  "Grenzkosten gleich Grenzerlös",
+  "Grenzkosten variable Kosten",
+  "Grenzkosten Formel"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was sind Grenzkosten?",
+   "html": "<p>Grenzkosten beantworten eine sehr praktische Frage: <strong>Was kostet mich das nächste Stück?</strong> Wenn ein Betrieb 120 Stühle herstellt und überlegt, einen 121. zu bauen, interessieren nicht die Durchschnittskosten aller Stühle, sondern nur der Kostenzuwachs durch diesen einen Stuhl.</p><p>Fixkosten wie Miete oder Gehälter der Verwaltung ändern sich durch ein zusätzliches Stück nicht. Deshalb stecken in den Grenzkosten <em>nur variable Bestandteile</em> – Material, Akkordlohn, Energie für die Maschine. Wenn du die Unterscheidung noch einmal auffrischen willst: Sie wird auf der Seite zu <a href=\"/lernen/fixe-und-variable-kosten\">fixen und variablen Kosten</a> ausführlich erklärt.</p><p>In der Volkswirtschaftslehre und in der Produktionstheorie arbeitest du meist mit einer stetigen Kostenfunktion K(x). Dann sind die Grenzkosten die Steigung dieser Funktion an einer bestimmten Stelle – also ihre erste Ableitung.</p><div class=\"merke\">Grenzkosten = Kosten der letzten (bzw. nächsten) Einheit = K'(x). Fixkosten fallen beim Ableiten weg.</div>"
+  },
+  {
+   "h2": "Wie lautet die Formel für Grenzkosten?",
+   "html": "<p>Je nachdem, ob du mit diskreten Mengen oder mit einer Funktion rechnest, gibt es zwei Varianten:</p><div class=\"formel\">Diskret: GK = ΔK ÷ Δx = (K(x₂) − K(x₁)) / (x₂ − x₁)</div><div class=\"formel\">Stetig: GK(x) = K'(x) = dK / dx</div><p>Die Gesamtkosten setzen sich aus Fixkosten und variablen Kosten zusammen: K(x) = K_f + K_v(x). Da K_f eine Konstante ist, gilt immer:</p><div class=\"formel\">K'(x) = K_v'(x)</div><p>Die Grenzkosten hängen also ausschließlich von den variablen Kosten ab. Daraus folgen zwei wichtige Spezialfälle:</p><ul><li><strong>Linearer Kostenverlauf:</strong> K(x) = K_f + k_v × x. Dann ist K'(x) = k_v. Die Grenzkosten sind konstant und genau gleich den variablen Stückkosten. Das ist die Annahme in der Teilkostenrechnung, etwa beim <a href=\"/lernen/deckungsbeitrag\">Deckungsbeitrag</a>.</li><li><strong>S-förmiger (ertragsgesetzlicher) Kostenverlauf:</strong> K(x) = a × x³ − b × x² + c × x + K_f. Die Grenzkosten sind dann eine nach oben geöffnete Parabel: Sie fallen zunächst, erreichen ein Minimum und steigen danach an.</li></ul>"
+  },
+  {
+   "h2": "Beispiel: Grenzkosten Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p>Eine Möbelwerkstatt hat die Kostenfunktion K(x) = 0,01x³ − 1,5x² + 120x + 4.000 (x = Stühle pro Monat, K in €). Sie verkauft auf einem Markt mit vollständiger Konkurrenz zum festen Preis p = 192 € pro Stuhl.</p><ol><li><strong>Fixkosten ablesen:</strong> Der Summand ohne x ist K_f = 4.000 €.</li><li><strong>Ableiten:</strong> K'(x) = 0,03x² − 3x + 120.</li><li><strong>Grenzkosten an einzelnen Stellen:</strong> K'(50) = 75 − 150 + 120 = 45 €; K'(100) = 300 − 300 + 120 = 120 €; K'(120) = 432 − 360 + 120 = 192 €.</li><li><strong>Minimum der Grenzkosten:</strong> K''(x) = 0,06x − 3 = 0 ⇒ x = 50. Ab 50 Stühlen steigen die Grenzkosten wieder (Wendepunkt der Kostenfunktion).</li><li><strong>Gewinnmaximum:</strong> Bei vollständiger Konkurrenz ist der Grenzerlös gleich dem Preis. Bedingung: K'(x) = p ⇒ 0,03x² − 3x + 120 = 192. Umgeformt: x² − 100x − 2.400 = 0 mit den Lösungen x = 120 und x = −20. Ökonomisch sinnvoll ist nur x = 120 (Probe: K'(120) = 192 €, und K''(120) = 4,2 &gt; 0).</li><li><strong>Gewinn:</strong> K(120) = 17.280 − 21.600 + 14.400 + 4.000 = 14.080 €. Erlös E = 192 × 120 = 23.040 €. Gewinn G = 23.040 − 14.080 = 8.960 €.</li></ol><table><thead><tr><th>Menge x</th><th>K(x) in €</th><th>K'(x) in €</th></tr></thead><tbody><tr><td>50</td><td>7.500</td><td>45</td></tr><tr><td>100</td><td>11.000</td><td>120</td></tr><tr><td>120</td><td>14.080</td><td>192</td></tr></tbody></table><p><strong>Kontrolle diskret:</strong> K(121) − K(120) = 194,11 €. Die Ableitung (192 €) ist also eine sehr gute Näherung für die tatsächlichen Mehrkosten des 121. Stuhls.</p></div>"
+  },
+  {
+   "h2": "Warum gilt im Gewinnmaximum Grenzkosten = Grenzerlös?",
+   "html": "<p>Der Gewinn ist G(x) = E(x) − K(x). Notwendige Bedingung für ein Maximum ist G'(x) = 0, also E'(x) − K'(x) = 0 und damit:</p><div class=\"formel\">Grenzerlös E'(x) = Grenzkosten K'(x)</div><p>Die Intuition dahinter: Solange ein zusätzliches Stück mehr Erlös bringt, als es kostet (E' &gt; K'), lohnt sich Mehrproduktion. Sobald das nächste Stück mehr kostet, als es einbringt (E' &lt; K'), sinkt der Gewinn. Genau am Übergang liegt das Optimum.</p><h3>Polypol vs. Monopol</h3><ul><li><strong>Vollständige Konkurrenz (Polypol):</strong> Der Preis ist fest, jedes weitere Stück bringt genau p. Also E'(x) = p, und die Regel lautet <strong>Preis = Grenzkosten</strong>.</li><li><strong>Monopol:</strong> Der Anbieter muss den Preis senken, um mehr zu verkaufen. Der Grenzerlös liegt dann unter dem Preis. Du setzt E'(x) = K'(x), bestimmst die Menge und liest den Preis anschließend an der Preis-Absatz-Funktion ab.</li></ul><p>Achte auf die <strong>hinreichende Bedingung</strong>: Im Maximum müssen die Grenzkosten steigen (K''(x) &gt; 0 bzw. G''(x) &lt; 0). Die Gleichung K'(x) = p kann bei S-förmigen Kosten zwei Lösungen haben – die im fallenden Ast der Grenzkostenkurve ist ein Gewinnminimum.</p>"
+  },
+  {
+   "h2": "Wie hängen Grenzkosten, variable Kosten und Stückkosten zusammen?",
+   "html": "<p>In Klausuren werden gern mehrere Kostenbegriffe gemischt abgefragt. Diese Übersicht hilft beim Sortieren (mit den Werten aus dem Beispiel bei x = 120):</p><table><thead><tr><th>Begriff</th><th>Formel</th><th>Wert bei x = 120</th></tr></thead><tbody><tr><td>Grenzkosten</td><td>K'(x)</td><td>192,00 €</td></tr><tr><td>Durchschnittliche variable Kosten</td><td>k_v(x) = K_v(x) ÷ x</td><td>84,00 €</td></tr><tr><td>Stückkosten (gesamt)</td><td>k(x) = K(x) ÷ x</td><td>117,33 €</td></tr></tbody></table><p>Zwei Zusammenhänge solltest du kennen:</p><ul><li>Die Grenzkostenkurve schneidet die Kurve der durchschnittlichen variablen Kosten in deren Minimum. Im Beispiel liegt das Minimum bei x = 75 mit k_v = 63,75 € – und tatsächlich ist K'(75) = 63,75 €. Dieser Punkt heißt <strong>Betriebsminimum</strong> (kurzfristige Preisuntergrenze).</li><li>Ebenso schneidet die Grenzkostenkurve die Stückkostenkurve in deren Minimum, dem <strong>Betriebsoptimum</strong> (langfristige Preisuntergrenze). Liegt der Preis darunter, deckst du die Fixkosten nicht mehr – die Verbindung zum <a href=\"/lernen/break-even-point\">Break-even-Point</a> liegt auf der Hand.</li></ul><p>Der Grund ist rein mathematisch: Solange die Grenzkosten unter dem Durchschnitt liegen, ziehen sie den Durchschnitt nach unten; liegen sie darüber, ziehen sie ihn nach oben.</p>"
+  },
+  {
+   "h2": "Wofür braucht man Grenzkosten in der Praxis?",
+   "html": "<p>Grenzkosten sind die Grundlage fast jeder kurzfristigen Entscheidung in der <a href=\"/lernen/kostenrechnung\">Kostenrechnung</a>:</p><ul><li><strong>Zusatzaufträge:</strong> Ein Auftrag lohnt sich kurzfristig, wenn der Preis über den Grenzkosten liegt – vorausgesetzt, es ist freie Kapazität da.</li><li><strong>Eigenfertigung oder Fremdbezug:</strong> Bei der <a href=\"/lernen/make-or-buy\">Make-or-Buy-Entscheidung</a> vergleichst du den Einkaufspreis mit den variablen Kosten der Eigenfertigung.</li><li><strong>Preisuntergrenzen:</strong> Kurzfristig solltest du nicht unter die variablen Stückkosten gehen.</li></ul><p><strong>Grenzen des Konzepts:</strong> In der Praxis kennt kaum ein Unternehmen seine Kostenfunktion als Polynom. Meist wird vereinfachend ein linearer Verlauf unterstellt, sodass Grenzkosten = variable Stückkosten gelten. Außerdem sind Grenzkosten nur für kleine Mengenänderungen aussagekräftig; bei großen Sprüngen (z. B. einer zusätzlichen Schicht) springen auch Fixkosten – dann brauchst du eine Differenzbetrachtung statt einer Ableitung.</p>"
+  }
+ ],
+ "fehler": [
+  "Die Fixkosten werden beim Ableiten mitgenommen. Ein konstanter Summand fällt beim Ableiten immer weg – Fixkosten haben keinen Einfluss auf die Grenzkosten.",
+  "Grenzkosten werden mit Stückkosten K(x) ÷ x verwechselt. Stückkosten sind ein Durchschnitt über alle Einheiten, Grenzkosten betreffen nur die letzte Einheit.",
+  "Bei K'(x) = p wird die falsche Lösung der quadratischen Gleichung gewählt. Prüfe immer, ob die Grenzkosten an dieser Stelle steigen (K''(x) > 0), sonst hast du ein Gewinnminimum.",
+  "Im Monopol wird Preis = Grenzkosten gesetzt. Richtig ist Grenzerlös = Grenzkosten; den Preis liest du erst danach an der Preis-Absatz-Funktion ab.",
+  "Beim Ableiten von x³ oder x² werden Exponent und Koeffizient falsch multipliziert, z. B. 0,01x³ zu 0,01x² statt 0,03x². Schreib den Schritt einzeln hin."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man Grenzkosten?",
+   "a": "Du leitest die Gesamtkostenfunktion K(x) einmal nach x ab und setzt die gewünschte Menge ein. Ohne Funktion teilst du die Kostenänderung durch die Mengenänderung, also ΔK ÷ Δx."
+  },
+  {
+   "q": "Sind Grenzkosten gleich variable Kosten?",
+   "a": "Bei linearem Kostenverlauf ja: Dann sind die Grenzkosten konstant und genau gleich den variablen Stückkosten. Bei gekrümmten Kostenfunktionen unterscheiden sie sich, weil die variablen Stückkosten ein Durchschnitt sind und die Grenzkosten nur die letzte Einheit betreffen."
+  },
+  {
+   "q": "Warum ist im Gewinnmaximum Grenzerlös gleich Grenzkosten?",
+   "a": "Der Gewinn ist Erlös minus Kosten. Seine Ableitung ist null, wenn Grenzerlös und Grenzkosten gleich sind. Vorher bringt jedes weitere Stück zusätzlichen Gewinn, danach mindert es den Gewinn."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Grenzkosten und Stückkosten?",
+   "a": "Stückkosten sind die Gesamtkosten geteilt durch die Menge, also ein Durchschnitt inklusive Fixkostenanteil. Grenzkosten sind nur die Mehrkosten der nächsten Einheit und enthalten keine Fixkosten."
+  },
+  {
+   "q": "Können Grenzkosten sinken?",
+   "a": "Ja. Bei einem S-förmigen Kostenverlauf sinken die Grenzkosten zunächst, etwa durch bessere Auslastung und Spezialisierung, erreichen am Wendepunkt der Kostenfunktion ihr Minimum und steigen danach wieder."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Wie lauten die Grenzkosten zur Kostenfunktion K(x) = 2x² + 10x + 500?",
+   "o": [
+    "K'(x) = 2x + 10",
+    "K'(x) = 4x + 10",
+    "K'(x) = 4x + 510",
+    "K'(x) = 2x² + 10"
+   ],
+   "r": 1,
+   "e": "2x² wird zu 4x, 10x zu 10, die Fixkosten 500 fallen weg."
+  },
+  {
+   "q": "Ein Unternehmen im Polypol verkauft zum Preis von 50 €. Welche Bedingung gilt im Gewinnmaximum?",
+   "o": [
+    "Stückkosten = 50 €",
+    "Fixkosten = Erlös",
+    "Variable Stückkosten = 0",
+    "Grenzkosten = 50 €"
+   ],
+   "r": 3,
+   "e": "Im Polypol ist der Grenzerlös gleich dem Preis, also gilt K'(x) = p = 50 €."
+  },
+  {
+   "q": "Bei linearem Gesamtkostenverlauf K(x) = 8.000 + 25x sind die Grenzkosten …",
+   "o": [
+    "konstant 25 €",
+    "abhängig von der Menge",
+    "gleich den Stückkosten",
+    "8.025 €"
+   ],
+   "r": 0,
+   "e": "Die Ableitung einer linearen Funktion ist ihre Steigung, hier 25 € – identisch mit den variablen Stückkosten."
+  }
+ ],
+ "verwandt": [
+  "fixe-und-variable-kosten",
+  "deckungsbeitrag",
+  "break-even-point",
+  "make-or-buy",
+  "kostenrechnung"
+ ],
+ "ask": "die Grenzkosten – mit einer abgeleiteten Kostenfunktion und der Bedingung Grenzerlös = Grenzkosten an einem Beispiel"
+}

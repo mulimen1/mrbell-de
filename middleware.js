@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
@@ -123,7 +123,7 @@ function bmSeite(req, ctx, url, bwlmax, recht) {
   // Herkunft: Kampagnen-Kennung schlägt Referrer (Google Ads ?gclid, ?utm_source=…, eigene Links ?ref=lmu1), Thema-Einstieg ins Detail
   const p = url.searchParams, ref = kurz(p.get('ref') || '', 30), utm = kurz(p.get('utm_source') || '', 20), thema = kurz(p.get('thema') || p.get('q') || '', 30);
   const quelle = p.get('gclid') || /^(google|gads)$/i.test(utm) && /cpc|paid|ads/i.test(p.get('utm_medium') || '') ? 'Google Ads' : utm ? 'Kampagne: ' + utm : ref ? 'Link: ' + ref : '';
-  bmMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht ? (recht === 'impressum' ? 'Impressum' : 'Datenschutz') : (thema ? 'Thema: ' + thema : ''), seite: recht ? '/' + recht : '/',
+  bmMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht ? (recht === 'impressum' ? 'Impressum' : 'Datenschutz') : (thema ? 'Thema: ' + thema : ''), seite: recht ? '/' + recht : (/^\/lernen/.test(url.pathname) ? kurz(url.pathname, 60) : '/'),
     herkunft: quelle || herkunft(req.headers.get('referer') || '', url), geraet: geraet(ua) }, req, ctx, bwlmax);
 }
 async function bmEreignis(req, ctx, bwlmax) {
@@ -151,7 +151,9 @@ export default async function middleware(req, ctx) {
   if (bwlmax || url.pathname.startsWith('/tutor')) {
     const start = url.pathname === '/' || url.pathname === '/index.html' || /^\/tutor\/?(index\.html)?$/.test(url.pathname);
     const recht = bwlmax && /^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(url.pathname.replace(/\.html$/, '')) ? url.pathname.replace(/^\/|\.html$/g, '') : '';
-    if (start || recht) bmSeite(req, ctx, url, bwlmax, recht);
+    // Lernseiten (bwlmax.de/lernen/…) zählen wie die Startseite, mit Seitenpfad
+    const lern = bwlmax && /^\/lernen(\/[a-z0-9-]+)?\/?$/.test(url.pathname);
+    if (start || recht || lern) bmSeite(req, ctx, url, bwlmax, recht);
     if (bwlmax && start) return new Response(null, { headers: { 'x-middleware-rewrite': new URL('/tutor/index.html', url).toString() } });
     if (recht) return new Response(null, { headers: { 'x-middleware-rewrite': new URL('/tutor/legal/' + recht + '.html', url).toString() } });
     return weiter();

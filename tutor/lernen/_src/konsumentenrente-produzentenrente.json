@@ -1,0 +1,115 @@
+{
+ "slug": "konsumentenrente-produzentenrente",
+ "name": "Konsumentenrente und Produzentenrente",
+ "title": "Konsumentenrente und Produzentenrente berechnen",
+ "meta": "Konsumentenrente und Produzentenrente einfach erklärt: grafisch ablesen, berechnen, Wohlfahrt und Wohlfahrtsverlust bestimmen – mit Rechenbeispiel.",
+ "h1": "Konsumentenrente und Produzentenrente einfach erklärt",
+ "kurz": "Die Konsumentenrente ist die Differenz zwischen dem, was Käufer maximal zahlen würden, und dem Marktpreis. Die Produzentenrente ist die Differenz zwischen Marktpreis und dem Mindestpreis, zu dem Anbieter verkaufen würden. Grafisch sind es die Flächen zwischen Preislinie und Nachfrage- bzw. Angebotskurve; zusammen ergeben sie die Gesamtwohlfahrt des Marktes.",
+ "keywords": [
+  "konsumentenrente",
+  "produzentenrente",
+  "konsumentenrente berechnen",
+  "produzentenrente berechnen",
+  "wohlfahrt berechnen",
+  "wohlfahrtsverlust",
+  "deadweight loss",
+  "zahlungsbereitschaft"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was sind Konsumentenrente und Produzentenrente?",
+   "html": "<p>Jeder Käufer hat eine <strong>maximale Zahlungsbereitschaft</strong>: den höchsten Preis, den er für ein Gut gerade noch zahlen würde. Zahlt er weniger, macht er ein gutes Geschäft. Dieser Vorteil heißt <strong>Konsumentenrente</strong>.</p><p>Jeder Anbieter hat eine <strong>Preisuntergrenze</strong>, meist seine <a href=\"/lernen/grenzkosten\">Grenzkosten</a>: Darunter würde er nicht verkaufen. Erhält er mehr, entsteht ein Vorteil, die <strong>Produzentenrente</strong>.</p><div class=\"beispiel\"><p><strong>Kleines Einstiegsbeispiel:</strong> Vier Studierende wollen ein gebrauchtes Lehrbuch. Ihre Zahlungsbereitschaften: 50 €, 40 €, 30 € und 20 €. Der Marktpreis liegt bei 25 €.</p><ol><li>Es kaufen nur die drei, deren Zahlungsbereitschaft über 25 € liegt.</li><li>Konsumentenrente: (50 − 25) + (40 − 25) + (30 − 25) = 25 + 15 + 5 = <strong>45 €</strong></li><li>Die vierte Person mit 20 € kauft nicht und hat keine Rente.</li></ol></div><div class=\"merke\">Konsumentenrente = Zahlungsbereitschaft − Preis. Produzentenrente = Preis − Preisuntergrenze. Jeweils über alle gehandelten Einheiten summiert.</div>"
+  },
+  {
+   "h2": "Wie liest man die Renten grafisch ab?",
+   "html": "<p>Im Preis-Mengen-Diagramm (Preis auf der y-Achse) zeigt die Nachfragekurve die Zahlungsbereitschaft jeder zusätzlichen Einheit, die Angebotskurve die Preisuntergrenze. Daraus ergeben sich die Flächen:</p><ul><li><strong>Konsumentenrente:</strong> Fläche <em>unter der Nachfragekurve</em> und <em>über dem Marktpreis</em>, von der Menge 0 bis zur gehandelten Menge.</li><li><strong>Produzentenrente:</strong> Fläche <em>über der Angebotskurve</em> und <em>unter dem Marktpreis</em>, ebenfalls bis zur gehandelten Menge.</li><li><strong>Gesamtwohlfahrt:</strong> Summe beider Flächen, also das Dreieck zwischen Nachfrage- und Angebotskurve bis zur gehandelten Menge.</li></ul><p>Bei linearen Kurven im Gleichgewicht sind beide Renten Dreiecke. Sobald der Staat eingreift, werden daraus oft Trapeze, und es entsteht ein Dreieck, das keiner Seite mehr gehört: der <strong>Wohlfahrtsverlust</strong>.</p>"
+  },
+  {
+   "h2": "Mit welchen Formeln berechnet man die Renten?",
+   "html": "<p>Für lineare Funktionen in inverser Form (p in Abhängigkeit von Q) gilt im Marktgleichgewicht (p*, Q*):</p><div class=\"formel\">Konsumentenrente = ½ × Q* × (Prohibitivpreis − p*)<br>Produzentenrente = ½ × Q* × (p* − Mindestangebotspreis)<br>Gesamtwohlfahrt = Konsumentenrente + Produzentenrente</div><p>Der <strong>Prohibitivpreis</strong> ist der Achsenabschnitt der inversen Nachfragefunktion, der <strong>Mindestangebotspreis</strong> der Achsenabschnitt der inversen Angebotsfunktion. Für nichtlineare Kurven brauchst du das Integral:</p><div class=\"formel\">KR = ∫ von 0 bis Q* [p(D)(Q) − p*] dQ<br>PR = ∫ von 0 bis Q* [p* − p(S)(Q)] dQ</div><p>Wie du p* und Q* bestimmst, findest du ausführlich bei <a href=\"/lernen/angebot-und-nachfrage\">Angebot und Nachfrage</a>.</p>"
+  },
+  {
+   "h2": "Beispiel: Renten im Gleichgewicht und beim Mindestpreis",
+   "html": "<div class=\"beispiel\"><p><strong>Markt für Konzerttickets einer Uni-Band:</strong><br>Inverse Nachfrage: p = 40 − 0,5Q<br>Inverse Angebot: p = 10 + 0,25Q</p><p><strong>Schritt 1 – Gleichgewicht:</strong></p><ol><li>40 − 0,5Q = 10 + 0,25Q ⇒ 30 = 0,75Q ⇒ Q* = 40</li><li>p* = 40 − 0,5 × 40 = 20 € (Probe: 10 + 0,25 × 40 = 20 ✓)</li></ol><p><strong>Schritt 2 – Renten im Gleichgewicht:</strong></p><ol><li>Konsumentenrente = ½ × 40 × (40 − 20) = <strong>400 €</strong></li><li>Produzentenrente = ½ × 40 × (20 − 10) = <strong>200 €</strong></li><li>Gesamtwohlfahrt = 400 + 200 = <strong>600 €</strong></li></ol><p><strong>Schritt 3 – Mindestpreis von 24 €:</strong></p><ol><li>Gekauft wird nur noch, was Käufer zu 24 € wollen: 40 − 0,5Q = 24 ⇒ Q = 32</li><li>Preisuntergrenze des 32. Tickets: 10 + 0,25 × 32 = 18 €</li><li>Konsumentenrente = ½ × 32 × (40 − 24) = <strong>256 €</strong></li><li>Produzentenrente (Trapez) = (24 − 10) × 32 − ½ × 32 × (18 − 10) = 448 − 128 = <strong>320 €</strong></li><li>Gesamtwohlfahrt = 256 + 320 = <strong>576 €</strong></li><li>Wohlfahrtsverlust = ½ × (40 − 32) × (24 − 18) = <strong>24 €</strong> (Probe: 600 − 576 = 24 ✓)</li></ol><table><thead><tr><th></th><th>Gleichgewicht</th><th>Mindestpreis 24 €</th><th>Veränderung</th></tr></thead><tbody><tr><td>Menge</td><td>40</td><td>32</td><td>−8</td></tr><tr><td>Konsumentenrente</td><td>400 €</td><td>256 €</td><td>−144 €</td></tr><tr><td>Produzentenrente</td><td>200 €</td><td>320 €</td><td>+120 €</td></tr><tr><td>Gesamtwohlfahrt</td><td>600 €</td><td>576 €</td><td>−24 €</td></tr></tbody></table><p><strong>Zerlegung:</strong> 128 € (= (24 − 20) × 32) wandern als Rechteck von den Käufern zu den Anbietern. Die Käufer verlieren zusätzlich ein Dreieck von ½ × 8 × 4 = 16 €, die Anbieter eines von ½ × 8 × 2 = 8 €. Zusammen ist das der Wohlfahrtsverlust von 24 €.</p></div><p>Annahme dabei: Die 32 Tickets werden von den Anbietern mit den niedrigsten Kosten bereitgestellt. Verkaufen auch teurere Anbieter, ist der Verlust in der Realität noch größer.</p>"
+  },
+  {
+   "h2": "Was sagt die Wohlfahrt aus?",
+   "html": "<p>Im Modell der vollkommenen Konkurrenz ist die Gesamtwohlfahrt im Marktgleichgewicht <strong>maximal</strong>. Jede Einheit, deren Zahlungsbereitschaft über den Kosten liegt, wird gehandelt, und keine Einheit, bei der es umgekehrt ist. Das ist die Grundlage für die Aussage, dass Märkte unter idealen Bedingungen effizient sind.</p><p>Jeder Eingriff, der die Menge vom Gleichgewicht wegbewegt, erzeugt einen <strong>Wohlfahrtsverlust</strong> (Deadweight Loss): Tauschgeschäfte, die beiden Seiten genützt hätten, finden nicht mehr statt.</p><table><thead><tr><th>Eingriff</th><th>Wer gewinnt?</th><th>Wer verliert?</th><th>Wohlfahrtsverlust?</th></tr></thead><tbody><tr><td>Wirksamer Höchstpreis</td><td>Käufer, die noch zum Zug kommen</td><td>Anbieter</td><td>ja</td></tr><tr><td>Wirksamer Mindestpreis</td><td>meist Anbieter</td><td>Käufer</td><td>ja</td></tr><tr><td>Mengensteuer</td><td>Staat (Steuereinnahmen)</td><td>Käufer und Anbieter</td><td>ja</td></tr><tr><td>Monopol</td><td>Monopolist</td><td>Käufer</td><td>ja</td></tr></tbody></table><p>Wie stark die Menge auf einen Eingriff reagiert und wer die Last trägt, hängt von der <a href=\"/lernen/preiselastizitaet\">Preiselastizität</a> ab: Je unelastischer eine Marktseite, desto größer ihr Anteil an der Last und desto kleiner der Wohlfahrtsverlust.</p>"
+  },
+  {
+   "h2": "Grenzen des Konzepts und Abgrenzung",
+   "html": "<p><strong>Effizienz ist nicht Gerechtigkeit:</strong> Die Wohlfahrt sagt nur, wie groß der Kuchen ist, nicht wie er verteilt wird. Ein Mindestlohn kann einen Wohlfahrtsverlust erzeugen und trotzdem politisch gewollt sein, weil er Einkommen umverteilt.</p><p><strong>Weitere Grenzen:</strong></p><ul><li>Die Zahlungsbereitschaft hängt vom Einkommen ab: Wer mehr Geld hat, kann mehr zahlen, ohne das Gut stärker zu schätzen.</li><li>Externe Effekte (z. B. Umweltschäden) sind in den Kurven nicht enthalten. Dann ist das Marktgleichgewicht nicht mehr wohlfahrtsmaximierend.</li><li>Die Kurven sind in der Praxis nur geschätzt, die Flächen also Näherungen. Für die Richtung einer Wirkung reicht das meist, für exakte Eurobeträge nicht.</li></ul><p><strong>Abgrenzung zu Gewinn:</strong> Die Produzentenrente ist nicht dasselbe wie der Gewinn. Sie ist Erlös minus variable Kosten und entspricht damit dem <a href=\"/lernen/deckungsbeitrag\">Deckungsbeitrag</a>. Zieht man noch die Fixkosten ab, erhält man den Gewinn.</p>"
+  }
+ ],
+ "fehler": [
+  "Die Konsumentenrente bis zur Sättigungsmenge statt bis zur gehandelten Menge berechnen. Die Fläche endet immer bei der Menge, die tatsächlich gekauft wird.",
+  "Bei Höchst- oder Mindestpreisen weiter mit dem Dreieck rechnen. Meist wird eine Rente zum Trapez – zerleg die Fläche in Rechteck und Dreieck oder zieh das fehlende Dreieck ab.",
+  "Den Faktor ½ vergessen. Bei linearen Kurven ist jede Rente im Gleichgewicht ein Dreieck: ½ × Grundseite × Höhe.",
+  "Mit der normalen statt der inversen Funktion arbeiten. Für die Flächen brauchst du die Achsenabschnitte auf der Preisachse, also die nach p aufgelöste Form.",
+  "Die Umverteilung zwischen Käufern und Anbietern als Wohlfahrtsverlust zählen. Das Rechteck wechselt nur den Besitzer; verloren gehen allein die Dreiecke nicht mehr stattfindender Geschäfte."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man die Konsumentenrente?",
+   "a": "Bei linearer Nachfrage rechnest du ½ × gehandelte Menge × (Prohibitivpreis − Marktpreis). Bei p = 40 − 0,5Q und einem Gleichgewicht bei Q = 40 und p = 20 ergibt das ½ × 40 × 20 = 400. Bei nichtlinearen Kurven nimmst du das Integral der Nachfragefunktion minus Marktpreis."
+  },
+  {
+   "q": "Wie berechnet man die Produzentenrente?",
+   "a": "Bei linearem Angebot rechnest du ½ × gehandelte Menge × (Marktpreis − Achsenabschnitt der Angebotsfunktion). Bei p = 10 + 0,25Q und einem Gleichgewicht bei Q = 40 und p = 20 ergibt das ½ × 40 × 10 = 200."
+  },
+  {
+   "q": "Was ist der Wohlfahrtsverlust?",
+   "a": "Der Wohlfahrtsverlust ist der Rückgang der Gesamtwohlfahrt gegenüber dem Marktgleichgewicht, etwa durch Steuern, Höchst- oder Mindestpreise. Er entsteht, weil Geschäfte wegfallen, bei denen die Zahlungsbereitschaft über den Kosten gelegen hätte. Grafisch ist es meist ein Dreieck zwischen den Kurven."
+  },
+  {
+   "q": "Ist die Produzentenrente der Gewinn?",
+   "a": "Nein. Die Produzentenrente ist Erlös minus variable Kosten, also der Deckungsbeitrag. Der Gewinn ergibt sich erst nach Abzug der Fixkosten."
+  },
+  {
+   "q": "Wann ist die Gesamtwohlfahrt maximal?",
+   "a": "Bei vollkommener Konkurrenz ohne externe Effekte ist die Wohlfahrt im Marktgleichgewicht maximal. Jede Abweichung der Menge davon, nach oben oder unten, verringert sie."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Inverse Nachfrage p = 60 − 2Q, Marktpreis 20 €. Wie hoch ist die Konsumentenrente?",
+   "o": [
+    "800 €",
+    "200 €",
+    "400 €",
+    "1.600 €"
+   ],
+   "r": 2,
+   "e": "Menge: 60 − 2Q = 20 ⇒ Q = 20. KR = ½ × 20 × (60 − 20) = 400 €."
+  },
+  {
+   "q": "Ein wirksamer Höchstpreis wird eingeführt. Was gilt sicher?",
+   "o": [
+    "Die Produzentenrente sinkt",
+    "Die Konsumentenrente steigt",
+    "Die Gesamtwohlfahrt bleibt gleich",
+    "Die gehandelte Menge steigt"
+   ],
+   "r": 0,
+   "e": "Anbieter erhalten einen niedrigeren Preis und verkaufen weniger, also sinkt ihre Rente sicher. Die Konsumentenrente kann steigen oder sinken, je nachdem, ob der Preisvorteil oder der Mengenverlust überwiegt."
+  },
+  {
+   "q": "Welche Fläche gehört zum Wohlfahrtsverlust bei einem Mindestpreis?",
+   "o": [
+    "Das Rechteck zwischen altem und neuem Preis über der gehandelten Menge",
+    "Die gesamte Produzentenrente",
+    "Die Fläche unter der Nachfragekurve",
+    "Das Dreieck zwischen den Kurven von der neuen bis zur alten Gleichgewichtsmenge"
+   ],
+   "r": 3,
+   "e": "Das Rechteck ist nur eine Umverteilung von Käufern zu Anbietern. Verloren geht das Dreieck der Geschäfte, die nicht mehr zustande kommen."
+  }
+ ],
+ "verwandt": [
+  "angebot-und-nachfrage",
+  "preiselastizitaet",
+  "grenzkosten",
+  "deckungsbeitrag"
+ ],
+ "ask": "Konsumentenrente und Produzentenrente – mit einem durchgerechneten Beispiel zu Wohlfahrt und Wohlfahrtsverlust"
+}

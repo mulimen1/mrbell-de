@@ -1,0 +1,116 @@
+{
+ "slug": "umsatzsteuer-vorsteuer-buchen",
+ "name": "Umsatzsteuer und Vorsteuer buchen",
+ "title": "Umsatzsteuer und Vorsteuer buchen – mit Zahllast-Beispiel",
+ "meta": "Umsatzsteuer und Vorsteuer buchen leicht gemacht: 19 % und 7 %, Netto/Brutto umrechnen, Zahllast ermitteln und abschließen – mit Buchungssätzen.",
+ "h1": "Umsatzsteuer und Vorsteuer buchen",
+ "kurz": "Beim Einkauf bucht ein Unternehmen die gezahlte Steuer als Vorsteuer (Forderung ans Finanzamt), beim Verkauf die in Rechnung gestellte Steuer als Umsatzsteuer (Verbindlichkeit). Am Ende des Voranmeldungszeitraums wird die Vorsteuer mit der Umsatzsteuer verrechnet. Die Differenz ist die Zahllast, die ans Finanzamt überwiesen wird.",
+ "keywords": [
+  "Umsatzsteuer buchen",
+  "Vorsteuer buchen",
+  "Zahllast berechnen",
+  "Umsatzsteuer Vorsteuer Unterschied",
+  "Vorsteuerüberhang",
+  "Buchungssatz Umsatzsteuer",
+  "Umsatzsteuer herausrechnen",
+  "Umsatzsteuer 7 Prozent"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der Unterschied zwischen Umsatzsteuer und Vorsteuer?",
+   "html": "<p>Die Umsatzsteuer soll am Ende nur der Endverbraucher tragen. Unternehmen sind lediglich Durchlaufstation: Sie kassieren die Steuer von ihren Kunden und führen sie ans Finanzamt ab, dürfen aber die Steuer, die sie selbst an Lieferanten gezahlt haben, wieder abziehen.</p>\n<ul>\n<li><strong>Vorsteuer</strong> ist die Umsatzsteuer, die dir ein Lieferant in Rechnung stellt. Du bekommst sie vom Finanzamt zurück, deshalb ist sie für dich eine <strong>Forderung</strong> – gebucht auf dem aktiven Bestandskonto „Vorsteuer“.</li>\n<li><strong>Umsatzsteuer</strong> ist die Steuer, die du deinen Kunden in Rechnung stellst. Du schuldest sie dem Finanzamt, also ist sie eine <strong>Verbindlichkeit</strong> – gebucht auf dem passiven Bestandskonto „Umsatzsteuer“.</li>\n</ul>\n<p>Weil Vorsteuer und Umsatzsteuer nur durchlaufen, sind sie <strong>erfolgsneutral</strong>: Sie tauchen weder als Aufwand noch als Ertrag in der GuV auf. Der Aufwand eines Einkaufs ist immer nur der Nettobetrag, der Erlös eines Verkaufs ebenfalls. Warum das so ist, siehst du bei <a href=\"/lernen/bestandskonten-erfolgskonten\">Bestandskonten und Erfolgskonten</a>.</p>\n<div class=\"merke\">Einkauf → Vorsteuer (Soll, Forderung). Verkauf → Umsatzsteuer (Haben, Verbindlichkeit). Beides ist erfolgsneutral.</div>"
+  },
+  {
+   "h2": "Welche Steuersätze gelten und wie rechnet man um?",
+   "html": "<p>In Deutschland gibt es zwei Steuersätze (Stand 2026): den <strong>Regelsteuersatz von 19 %</strong> und den <strong>ermäßigten Satz von 7 %</strong>. Der ermäßigte Satz gilt unter anderem für die meisten Lebensmittel, Bücher und Zeitungen sowie seit dem 1.1.2026 dauerhaft für Speisen in der Gastronomie; Getränke im Restaurant bleiben bei 19 %. In Klausuren ist der Steuersatz fast immer vorgegeben – lies ihn aus der Aufgabe ab, statt ihn zu raten.</p>\n<div class=\"formel\">Umsatzsteuer = Nettobetrag × Steuersatz<br>Bruttobetrag = Nettobetrag × (1 + Steuersatz), also × 1,19 bzw. × 1,07<br>Nettobetrag = Bruttobetrag ÷ 1,19 bzw. ÷ 1,07<br>Steuer aus Brutto = Bruttobetrag ÷ 1,19 × 0,19 bzw. Bruttobetrag ÷ 1,07 × 0,07<br>Zahllast = Umsatzsteuer − Vorsteuer</div>\n<p><strong>Beispiel zum Herausrechnen:</strong> Eine Quittung über 595 € brutto bei 19 % enthält 595 ÷ 1,19 = 500 € netto und 95 € Steuer. Ein häufiger Fehler ist, einfach 19 % von 595 € zu nehmen – das ergäbe 113,05 € und wäre falsch, weil die 19 % sich auf den Nettobetrag beziehen.</p>"
+  },
+  {
+   "h2": "Wie lauten die Buchungssätze?",
+   "html": "<table>\n<thead><tr><th>Vorgang</th><th>Buchungssatz</th></tr></thead>\n<tbody>\n<tr><td>Einkauf auf Ziel</td><td>Aufwendungen für Waren (netto) + Vorsteuer an Verbindlichkeiten aLuL (brutto)</td></tr>\n<tr><td>Verkauf auf Ziel</td><td>Forderungen aLuL (brutto) an Umsatzerlöse (netto) + Umsatzsteuer</td></tr>\n<tr><td>Verrechnung am Monatsende</td><td>Umsatzsteuer an Vorsteuer (in Höhe der Vorsteuer)</td></tr>\n<tr><td>Überweisung der Zahllast</td><td>Umsatzsteuer an Bank</td></tr>\n</tbody>\n</table>\n<p>Die Verrechnung erfolgt pro Voranmeldungszeitraum, meist monatlich oder vierteljährlich. Die Umsatzsteuer-Voranmeldung ist grundsätzlich bis zum 10. Tag nach Ablauf des Zeitraums abzugeben (§ 18 UStG), sofern keine Dauerfristverlängerung besteht. Bei Anlagegütern wie einem Firmenwagen funktioniert die Buchung genauso, nur steht statt des Aufwandskontos das Anlagekonto im Soll.</p>"
+  },
+  {
+   "h2": "Beispiel: Zahllast einer Buchhandlung berechnen",
+   "html": "<div class=\"beispiel\">\n<p><strong>Ausgangslage:</strong> Eine Buchhandlung verkauft Bücher (7 %) und Schreibwaren (19 %). Im März fallen folgende Vorgänge an, alle auf Ziel:</p>\n<table>\n<thead><tr><th>Vorgang</th><th>Netto €</th><th>Satz</th><th>Steuer €</th><th>Brutto €</th></tr></thead>\n<tbody>\n<tr><td>Einkauf Bücher</td><td>4.000,00</td><td>7 %</td><td>280,00</td><td>4.280,00</td></tr>\n<tr><td>Einkauf Schreibwaren</td><td>1.800,00</td><td>19 %</td><td>342,00</td><td>2.142,00</td></tr>\n<tr><td>Verkauf Bücher</td><td>6.500,00</td><td>7 %</td><td>455,00</td><td>6.955,00</td></tr>\n<tr><td>Verkauf Schreibwaren</td><td>3.000,00</td><td>19 %</td><td>570,00</td><td>3.570,00</td></tr>\n</tbody>\n</table>\n<p><strong>Schritt 1 – Einkäufe buchen:</strong></p>\n<ul>\n<li>Aufwendungen für Waren 4.000,00 und Vorsteuer 280,00 an Verbindlichkeiten aLuL 4.280,00</li>\n<li>Aufwendungen für Waren 1.800,00 und Vorsteuer 342,00 an Verbindlichkeiten aLuL 2.142,00</li>\n</ul>\n<p><strong>Schritt 2 – Verkäufe buchen:</strong></p>\n<ul>\n<li>Forderungen aLuL 6.955,00 an Umsatzerlöse 6.500,00 und Umsatzsteuer 455,00</li>\n<li>Forderungen aLuL 3.570,00 an Umsatzerlöse 3.000,00 und Umsatzsteuer 570,00</li>\n</ul>\n<p><strong>Schritt 3 – Salden ermitteln:</strong> Umsatzsteuer 455 + 570 = 1.025,00 €. Vorsteuer 280 + 342 = 622,00 €.</p>\n<p><strong>Schritt 4 – Zahllast:</strong> 1.025,00 − 622,00 = <strong>403,00 €</strong>.</p>\n<p><strong>Schritt 5 – Buchen:</strong></p>\n<ul>\n<li>Verrechnung: <em>Umsatzsteuer 622,00 an Vorsteuer 622,00</em> – das Vorsteuerkonto ist damit ausgeglichen.</li>\n<li>Überweisung am 10. April: <em>Umsatzsteuer 403,00 an Bank 403,00</em> – jetzt ist auch das Umsatzsteuerkonto ausgeglichen.</li>\n</ul>\n<p><strong>Kontrolle:</strong> Die Buchhandlung hat 1.025 € von Kunden kassiert, 622 € an Lieferanten gezahlt und 403 € ans Finanzamt abgeführt: 622 + 403 = 1.025. Sie selbst trägt keinen Cent Steuer.</p>\n</div>"
+  },
+  {
+   "h2": "Was passiert bei einem Vorsteuerüberhang?",
+   "html": "<p>Ist die Vorsteuer größer als die Umsatzsteuer, etwa weil in einem Monat eine teure Maschine gekauft wurde, entsteht ein <strong>Vorsteuerüberhang</strong>. Dann zahlst du nichts, sondern bekommst vom Finanzamt Geld zurück. Die Verrechnung dreht sich um: Man bucht <em>Umsatzsteuer an Vorsteuer</em> in Höhe der (kleineren) Umsatzsteuer, der Rest bleibt als Forderung auf dem Vorsteuerkonto stehen, bis die Erstattung eingeht (<em>Bank an Vorsteuer</em>).</p>\n<p><strong>Kurzbeispiel:</strong> Umsatzsteuer 1.200 €, Vorsteuer 3.800 €. Verrechnung: <em>Umsatzsteuer 1.200 an Vorsteuer 1.200</em>. Auf dem Vorsteuerkonto bleiben 3.800 − 1.200 = 2.600 € stehen. Bei Erstattung: <em>Bank 2.600 an Vorsteuer 2.600</em>.</p>\n<p><strong>Zum Bilanzstichtag:</strong> Ist die Zahllast für Dezember am 31.12. noch nicht überwiesen, wird sie in der <a href=\"/lernen/bilanz\">Bilanz</a> unter den sonstigen Verbindlichkeiten ausgewiesen. Ein Vorsteuerüberhang erscheint entsprechend als sonstiger Vermögensgegenstand. Im Kontenabschluss heißt das: Erst Vorsteuer und Umsatzsteuer verrechnen, dann nur das verbleibende Konto über das Schlussbilanzkonto abschließen.</p>"
+  },
+  {
+   "h2": "Wann wird keine Vorsteuer gebucht?",
+   "html": "<p>Den Vorsteuerabzug gibt es nur für Unternehmer, die selbst umsatzsteuerpflichtige Umsätze ausführen, und nur mit einer ordnungsgemäßen Rechnung. Wichtige Ausnahmen:</p>\n<ul>\n<li><strong>Kleinunternehmer nach § 19 UStG</strong> weisen keine Umsatzsteuer aus und dürfen umgekehrt keine Vorsteuer abziehen. Bei ihnen ist der Bruttobetrag eines Einkaufs vollständig Aufwand.</li>\n<li><strong>Steuerfreie Umsätze</strong>, etwa von Ärzten oder bei Wohnungsvermietung, schließen den Vorsteuerabzug für die damit zusammenhängenden Einkäufe in der Regel aus.</li>\n<li><strong>Privatpersonen</strong> haben nie einen Vorsteuerabzug – sie sind die Endverbraucher.</li>\n</ul>\n<p>Für die Klausur heißt das: Wird ausdrücklich ein Kleinunternehmer beschrieben, bucht man Einkäufe brutto auf das Aufwandskonto und Verkäufe ohne Umsatzsteuer. Auch bei <a href=\"/lernen/skonto-buchen\">Skonto</a> und anderen Preisnachlässen spielt die Steuer eine Rolle: Mindert sich das Entgelt, muss die Vorsteuer bzw. Umsatzsteuer anteilig korrigiert werden.</p>\n<p>Wer das System einmal verstanden hat, erkennt in jedem <a href=\"/lernen/buchungssaetze\">Buchungssatz</a> mit Rechnungsbetrag sofort die drei Teile: Netto aufs Erfolgs- oder Anlagekonto, Steuer auf Vorsteuer oder Umsatzsteuer, Brutto auf Bank, Kasse, Forderungen oder Verbindlichkeiten.</p>"
+  }
+ ],
+ "fehler": [
+  "Die Steuer wird vom Bruttobetrag berechnet (595 € × 19 %). Richtig ist Brutto ÷ 1,19 × 0,19, weil sich der Steuersatz immer auf den Nettobetrag bezieht.",
+  "Vorsteuer und Umsatzsteuer werden vertauscht. Merk dir: Beim Einkauf zahlst du Steuer vor (Vorsteuer, Soll), beim Verkauf stellst du Umsatzsteuer in Rechnung (Haben).",
+  "Der Bruttobetrag wird als Aufwand oder Erlös gebucht. Auf Erfolgskonten gehört nur der Nettobetrag, sonst ist der Gewinn um die Steuer verfälscht.",
+  "Bei der Verrechnung wird „Vorsteuer an Umsatzsteuer“ gebucht. Richtig ist „Umsatzsteuer an Vorsteuer“, denn das Vorsteuerkonto steht im Soll und wird über das Haben ausgeglichen.",
+  "Verschiedene Steuersätze werden in einen Topf geworfen. Rechne bei gemischten Rechnungen jeden Satz getrennt aus und addiere erst danach die Steuerbeträge."
+ ],
+ "faq": [
+  {
+   "q": "Ist die Vorsteuer Aufwand?",
+   "a": "Nein, bei vorsteuerabzugsberechtigten Unternehmen ist die Vorsteuer eine Forderung gegenüber dem Finanzamt und damit erfolgsneutral. Aufwand ist nur der Nettobetrag. Anders ist es bei Kleinunternehmern, die keine Vorsteuer abziehen dürfen."
+  },
+  {
+   "q": "Wie berechne ich die Zahllast?",
+   "a": "Zahllast = Umsatzsteuer − Vorsteuer des Voranmeldungszeitraums. Ist das Ergebnis positiv, überweist du den Betrag ans Finanzamt; ist es negativ, liegt ein Vorsteuerüberhang vor und du bekommst eine Erstattung."
+  },
+  {
+   "q": "Wie rechne ich 19 % Umsatzsteuer aus einem Bruttobetrag heraus?",
+   "a": "Teile den Bruttobetrag durch 1,19, um den Nettobetrag zu erhalten, und ziehe ihn vom Brutto ab. Kürzer: Brutto ÷ 1,19 × 0,19. Bei 7 % rechnest du entsprechend mit 1,07 und 0,07."
+  },
+  {
+   "q": "Wo steht die Zahllast in der Bilanz?",
+   "a": "Eine am Bilanzstichtag noch nicht bezahlte Zahllast steht auf der Passivseite unter den sonstigen Verbindlichkeiten. Ein Vorsteuerüberhang wird auf der Aktivseite als sonstiger Vermögensgegenstand ausgewiesen."
+  },
+  {
+   "q": "Ist Umsatzsteuer dasselbe wie Mehrwertsteuer?",
+   "a": "Ja, im Alltag werden beide Begriffe gleich verwendet. Der gesetzliche Begriff im Umsatzsteuergesetz ist Umsatzsteuer; „Mehrwertsteuer“ beschreibt die Idee, dass wirtschaftlich nur der Mehrwert jeder Stufe besteuert wird."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Eine Rechnung lautet über 1.070 € brutto bei 7 %. Wie hoch ist die Steuer?",
+   "o": [
+    "74,90 €",
+    "70,00 €",
+    "107,00 €",
+    "65,42 €"
+   ],
+   "r": 1,
+   "e": "1.070 ÷ 1,07 = 1.000 € netto, die Steuer beträgt also 70 €. 74,90 € wären fälschlich 7 % vom Bruttobetrag."
+  },
+  {
+   "q": "Umsatzsteuer 2.400 €, Vorsteuer 2.900 €. Was gilt?",
+   "o": [
+    "Zahllast 500 €",
+    "Zahllast 5.300 €",
+    "Vorsteuerüberhang 500 €",
+    "Keine Buchung nötig"
+   ],
+   "r": 2,
+   "e": "Die Vorsteuer übersteigt die Umsatzsteuer um 500 €. Das Unternehmen erhält diesen Betrag vom Finanzamt erstattet."
+  },
+  {
+   "q": "Welcher Buchungssatz verrechnet Vorsteuer und Umsatzsteuer am Monatsende?",
+   "o": [
+    "Vorsteuer an Umsatzsteuer",
+    "Bank an Umsatzsteuer",
+    "Umsatzerlöse an Vorsteuer",
+    "Umsatzsteuer an Vorsteuer"
+   ],
+   "r": 3,
+   "e": "Das Vorsteuerkonto hat seinen Saldo im Soll und wird im Haben ausgeglichen; das Umsatzsteuerkonto wird im Soll belastet."
+  }
+ ],
+ "verwandt": [
+  "buchungssaetze",
+  "skonto-buchen",
+  "bestandskonten-erfolgskonten",
+  "doppelte-buchfuehrung",
+  "bilanz"
+ ],
+ "ask": "das Buchen von Umsatzsteuer und Vorsteuer – mit einem Beispiel zur Zahllast mit 19 % und 7 %"
+}

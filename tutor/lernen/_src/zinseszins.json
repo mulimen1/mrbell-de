@@ -1,0 +1,120 @@
+{
+ "slug": "zinseszins",
+ "name": "Zinseszins",
+ "title": "Zinseszins einfach erklärt – Formel, Beispiel, Rule of 72",
+ "meta": "Zinseszins verstehen: Formel K_n = K_0 × (1 + i)^n, Beispiel Schritt für Schritt, unterjährige Verzinsung, Effektivzins und die 72er-Regel.",
+ "h1": "Zinseszins einfach erklärt",
+ "kurz": "Zinseszins bedeutet, dass Zinsen nicht ausgezahlt, sondern dem Kapital zugeschlagen und in den Folgeperioden mitverzinst werden. Das Kapital wächst dadurch exponentiell statt linear. Das Endkapital berechnest du mit K_n = K_0 × (1 + i)^n. Aus 10.000 € werden so bei 4 % in zehn Jahren 14.802,44 € statt 14.000 € bei einfacher Verzinsung.",
+ "keywords": [
+  "Zinseszins",
+  "Zinseszins Formel",
+  "Zinseszins berechnen",
+  "Zinseszinsrechnung",
+  "unterjährige Verzinsung",
+  "Rule of 72",
+  "72er-Regel",
+  "Effektivzins unterjährig"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der Zinseszins?",
+   "html": "<p>Bei der <strong>einfachen Verzinsung</strong> bekommst du jedes Jahr Zinsen nur auf dein ursprüngliches Kapital. Bei der <strong>Zinseszinsrechnung</strong> werden die Zinsen am Ende jeder Periode dem Kapital gutgeschrieben. In der nächsten Periode verzinst sich dann das größere Kapital – inklusive der Zinsen aus dem Vorjahr. Zinsen auf Zinsen eben.</p><p>Der Effekt ist am Anfang klein und wird mit jeder Periode größer. Genau deshalb unterschätzen viele, wie stark Laufzeit und Zinssatz das Ergebnis beeinflussen. In der Finanzmathematik ist der Zinseszins die Grundlage für fast alles Weitere: Abzinsen, Barwerte, Kapitalwerte, Annuitäten und Kredite bauen auf demselben Faktor (1 + i)^n auf.</p>"
+  },
+  {
+   "h2": "Wie lautet die Zinseszinsformel?",
+   "html": "<div class=\"formel\">K_n = K_0 × (1 + i)^n</div><ul><li><strong>K_n</strong> = Endkapital nach n Perioden</li><li><strong>K_0</strong> = Anfangskapital</li><li><strong>i</strong> = Zinssatz pro Periode als Dezimalzahl (4 % = 0,04)</li><li><strong>n</strong> = Anzahl der Perioden</li><li><strong>(1 + i)^n</strong> = Aufzinsungsfaktor</li></ul><p>Die Formel lässt sich nach jeder Größe umstellen. Das wird in Klausuren gern abgefragt:</p><div class=\"formel\">K_0 = K_n ÷ (1 + i)^n<br>i = (K_n ÷ K_0)^(1/n) − 1<br>n = ln(K_n ÷ K_0) ÷ ln(1 + i)</div><p>Die erste Umstellung ist das Abzinsen: Du rechnest einen künftigen Betrag auf heute zurück. Das vertiefst du unter <a href=\"/lernen/barwert-abzinsen\">Barwert und Abzinsen</a>. Zum Vergleich die einfache Verzinsung:</p><div class=\"formel\">K_n = K_0 × (1 + i × n)</div>"
+  },
+  {
+   "h2": "Beispiel: Zinseszins Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p>Du legst 10.000 € für 10 Jahre zu 4 % pro Jahr an. Die Zinsen werden jährlich gutgeschrieben und wieder angelegt.</p><ol><li>Aufzinsungsfaktor: 1,04^10 = 1,480244 (gerundet).</li><li>Endkapital: 10.000 × 1,480244 = <strong>14.802,44 €</strong>.</li><li>Zinsertrag gesamt: 14.802,44 − 10.000 = 4.802,44 €.</li><li>Zum Vergleich einfache Verzinsung: 10.000 × (1 + 0,04 × 10) = 14.000 €.</li><li>Zinseszinseffekt: 14.802,44 − 14.000 = <strong>802,44 €</strong>.</li></ol><table><thead><tr><th>Jahr</th><th>Zinsen im Jahr</th><th>Kapital am Jahresende</th></tr></thead><tbody><tr><td>1</td><td>400,00 €</td><td>10.400,00 €</td></tr><tr><td>2</td><td>416,00 €</td><td>10.816,00 €</td></tr><tr><td>3</td><td>432,64 €</td><td>11.248,64 €</td></tr><tr><td>4</td><td>449,95 €</td><td>11.698,59 €</td></tr><tr><td>5</td><td>467,94 €</td><td>12.166,53 €</td></tr><tr><td>6</td><td>486,66 €</td><td>12.653,19 €</td></tr><tr><td>7</td><td>506,13 €</td><td>13.159,32 €</td></tr><tr><td>8</td><td>526,37 €</td><td>13.685,69 €</td></tr><tr><td>9</td><td>547,43 €</td><td>14.233,12 €</td></tr><tr><td>10</td><td>569,32 €</td><td>14.802,44 €</td></tr></tbody></table><p>An der mittleren Spalte siehst du den Kern: Bei einfacher Verzinsung wären es jedes Jahr konstant 400 €. Mit Zinseszins steigen die Jahreszinsen von 400 € auf 569,32 €.</p></div>"
+  },
+  {
+   "h2": "Umstellen: Laufzeit, Zinssatz und Anfangskapital gesucht",
+   "html": "<p>In Klausuren ist das Endkapital oft gegeben und eine andere Größe gesucht. Drei typische Varianten mit eigenen Zahlen:</p><div class=\"beispiel\"><ol><li><strong>Laufzeit gesucht:</strong> Wie lange dauert es, bis aus 10.000 € bei 4 % genau 15.000 € werden? n = ln(15.000 ÷ 10.000) ÷ ln(1,04) = ln(1,5) ÷ ln(1,04) = <strong>10,34 Jahre</strong>. Bei jährlicher Gutschrift ist das Ziel also erst nach 11 Jahren erreicht (10.000 × 1,04^11 = 15.394,54 €).</li><li><strong>Zinssatz gesucht:</strong> Aus 10.000 € sollen in 6 Jahren 13.000 € werden. i = (13.000 ÷ 10.000)^(1/6) − 1 = 1,3^(1/6) − 1 = <strong>4,47 %</strong>.</li><li><strong>Anfangskapital gesucht:</strong> Du brauchst in 8 Jahren 20.000 €, der Zins beträgt 5 %. K_0 = 20.000 ÷ 1,05^8 = <strong>13.536,79 €</strong>.</li></ol></div><p>Ein häufiger Fehler beim Zinssatz: Die Differenz 3.000 € durch 6 Jahre zu teilen und auf 5 % pro Jahr zu kommen. Das wäre einfache Verzinsung und überschätzt den nötigen Zinssatz, weil die Zinseszinsen ignoriert werden.</p>"
+  },
+  {
+   "h2": "Unterjährige Verzinsung und effektiver Jahreszins",
+   "html": "<p>Werden Zinsen nicht jährlich, sondern z. B. monatlich oder vierteljährlich gutgeschrieben, verzinsen sie sich schon innerhalb des Jahres weiter. Der angegebene Jahreszins (Nominalzins) wird dazu auf die Perioden aufgeteilt:</p><div class=\"formel\">K_n = K_0 × (1 + i ÷ m)^(m × n)</div><p>Dabei ist m die Zahl der Zinsperioden pro Jahr (12 für monatlich, 4 für vierteljährlich). Den tatsächlich erzielten Jahreszins nennt man effektiven Jahreszins:</p><div class=\"formel\">i_eff = (1 + i ÷ m)^m − 1</div><div class=\"beispiel\"><p><strong>Fortsetzung des Beispiels</strong> mit 4 % nominal, 10 Jahre, 10.000 €:</p><ol><li>Vierteljährlich: 10.000 × (1 + 0,04 ÷ 4)^40 = 10.000 × 1,01^40 = <strong>14.888,64 €</strong>; i_eff = 1,01^4 − 1 = 4,0604 %.</li><li>Monatlich: 10.000 × (1 + 0,04 ÷ 12)^120 = <strong>14.908,33 €</strong>; i_eff = (1 + 0,04 ÷ 12)^12 − 1 = 4,0742 %.</li><li>Unterschied monatlich zu jährlich: 14.908,33 − 14.802,44 = 105,89 €.</li></ol></div><p>Je häufiger verzinst wird, desto höher das Endkapital – der Zuwachs wird aber immer kleiner. Die theoretische Obergrenze ist die stetige Verzinsung mit K_n = K_0 × e^(i × n), hier 14.918,25 €.</p>"
+  },
+  {
+   "h2": "Rule of 72: Wann verdoppelt sich das Kapital?",
+   "html": "<p>Für eine schnelle Kopfrechnung gibt es die 72er-Regel:</p><div class=\"formel\">Verdopplungszeit ≈ 72 ÷ Zinssatz in Prozent</div><p>Bei 4 % ergibt das 72 ÷ 4 = 18 Jahre. Exakt rechnest du mit n = ln(2) ÷ ln(1,04) = 17,67 Jahre. Bei 8 % liefert die Regel 9 Jahre, exakt sind es 9,01 Jahre. Bei 2 % sagt die Regel 36 Jahre, exakt sind es 35,00 Jahre.</p><p>Die Regel ist eine Näherung und funktioniert am besten zwischen etwa 4 % und 12 %. Bei sehr niedrigen Zinsen wäre 70 genauer, bei hohen Zinsen eher 74 bis 76. In Klausuren solltest du die exakte Umstellung nach n beherrschen und die Regel nur als Plausibilitätscheck nutzen.</p><p>Die Regel funktioniert übrigens in beide Richtungen: Bei 3 % Inflation halbiert sich die Kaufkraft deines Geldes nach rund 72 ÷ 3 = 24 Jahren. Mehr zum Kaufkraftverlust unter <a href=\"/lernen/inflation\">Inflation</a>.</p><div class=\"merke\">Zinseszins wirkt über die Zeit: Eine Verdopplung der Laufzeit verdoppelt nicht den Zinsertrag, sondern lässt ihn überproportional wachsen.</div>"
+  },
+  {
+   "h2": "Wo braucht man die Zinseszinsrechnung?",
+   "html": "<p>In der BWL begegnet dir der Zinseszins in vielen Themen, oft ohne dass er so heißt:</p><ul><li><strong>Investitionsrechnung:</strong> Die <a href=\"/lernen/kapitalwertmethode\">Kapitalwertmethode</a> zinst alle Zahlungen mit (1 + i)^−t ab – das ist die umgestellte Zinseszinsformel.</li><li><strong>Kredite:</strong> Annuitätenfaktoren und Restschulden basieren auf denselben Faktoren, siehe <a href=\"/lernen/tilgungsplan\">Tilgungsplan</a>.</li><li><strong>Geldanlage und Altersvorsorge:</strong> Lange Laufzeiten machen den Zinseszinseffekt erst richtig groß.</li><li><strong>Volkswirtschaft:</strong> Wachstumsraten und Preissteigerungen werden ebenfalls geometrisch fortgeschrieben.</li></ul><p>Grenzen: Die Formel setzt einen konstanten Zinssatz und die vollständige Wiederanlage voraus. Steuern, Gebühren und Inflation mindern den realen Zuwachs. Für reale Werte rechnest du näherungsweise mit dem Realzins (Nominalzins minus Inflationsrate) oder exakt mit (1 + Nominalzins) ÷ (1 + Inflationsrate) − 1.</p>"
+  }
+ ],
+ "fehler": [
+  "Den Prozentsatz nicht als Dezimalzahl einsetzen. 4 % sind 0,04, also 1,04^10 – nicht 1,4^10 oder 5^10.",
+  "Bei unterjähriger Verzinsung nur den Zins teilen, aber den Exponenten nicht anpassen. Bei monatlicher Verzinsung über 10 Jahre sind es 120 Perioden mit i ÷ 12.",
+  "Nominal- und Effektivzins verwechseln. Ein Nominalzins von 4 % mit monatlicher Gutschrift entspricht einem effektiven Jahreszins von 4,0742 %, nicht 4 %.",
+  "Die Rule of 72 als exakte Formel verwenden. Wird nach der genauen Laufzeit gefragt, rechne n = ln(K_n ÷ K_0) ÷ ln(1 + i).",
+  "Einfache Verzinsung und Zinseszins mischen. Lies genau, ob Zinsen ausgezahlt (einfach) oder wieder angelegt (Zinseszins) werden."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man den Zinseszins?",
+   "a": "Du multiplizierst das Anfangskapital mit dem Aufzinsungsfaktor (1 + i)^n. Der reine Zinseszinseffekt ist die Differenz zwischen diesem Endkapital und dem Ergebnis der einfachen Verzinsung K_0 × (1 + i × n)."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen einfacher Verzinsung und Zinseszins?",
+   "a": "Bei einfacher Verzinsung werden Zinsen nur auf das Anfangskapital gezahlt, das Kapital wächst linear. Beim Zinseszins werden die Zinsen mitverzinst, das Kapital wächst exponentiell."
+  },
+  {
+   "q": "Was ist die Rule of 72?",
+   "a": "Eine Faustregel zur Verdopplungszeit: 72 geteilt durch den Zinssatz in Prozent ergibt ungefähr die Jahre, bis sich ein Kapital verdoppelt. Bei 6 % sind das etwa 12 Jahre."
+  },
+  {
+   "q": "Wie rechnet man mit monatlicher Verzinsung?",
+   "a": "Teile den Jahreszins durch 12 und multipliziere die Laufzeit in Jahren mit 12. Die Formel lautet K_n = K_0 × (1 + i ÷ 12)^(12 × n)."
+  },
+  {
+   "q": "Wie stellt man die Zinseszinsformel nach n um?",
+   "a": "Teile beide Seiten durch K_0 und logarithmiere: n = ln(K_n ÷ K_0) ÷ ln(1 + i). Dabei ist es egal, ob du den natürlichen oder den Zehnerlogarithmus nimmst, solange du beide Male denselben verwendest."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Du legst 5.000 € für 2 Jahre zu 3 % mit Zinseszins an. Wie hoch ist das Endkapital?",
+   "o": [
+    "5.300,00 €",
+    "5.304,50 €",
+    "5.150,00 €",
+    "5.309,00 €"
+   ],
+   "r": 1,
+   "e": "5.000 × 1,03² = 5.000 × 1,0609 = 5.304,50 €."
+  },
+  {
+   "q": "Wie hoch ist der effektive Jahreszins bei 12 % nominal und monatlicher Verzinsung (gerundet)?",
+   "o": [
+    "12,00 %",
+    "12,36 %",
+    "13,00 %",
+    "12,68 %"
+   ],
+   "r": 3,
+   "e": "(1 + 0,12 ÷ 12)^12 − 1 = 1,01^12 − 1 ≈ 12,68 %."
+  },
+  {
+   "q": "Nach der Rule of 72: Wie lange dauert es ungefähr, bis sich ein Kapital bei 6 % Zins verdoppelt?",
+   "o": [
+    "12 Jahre",
+    "6 Jahre",
+    "16,7 Jahre",
+    "8 Jahre"
+   ],
+   "r": 0,
+   "e": "72 ÷ 6 = 12 Jahre. Exakt sind es ln(2) ÷ ln(1,06) ≈ 11,9 Jahre."
+  }
+ ],
+ "verwandt": [
+  "barwert-abzinsen",
+  "kapitalwertmethode",
+  "tilgungsplan",
+  "annuitaetenmethode",
+  "inflation"
+ ],
+ "ask": "den Zinseszins – mit einem Beispiel zu jährlicher und monatlicher Verzinsung und der Rule of 72"
+}

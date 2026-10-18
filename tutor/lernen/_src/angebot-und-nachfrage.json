@@ -1,0 +1,115 @@
+{
+ "slug": "angebot-und-nachfrage",
+ "name": "Angebot und Nachfrage",
+ "title": "Angebot und Nachfrage: Marktgleichgewicht berechnen",
+ "meta": "Angebot und Nachfrage einfach erklärt: Funktionen aufstellen, Marktgleichgewicht berechnen, Kurven verschieben – mit Rechenbeispiel und Klausurfehlern.",
+ "h1": "Angebot und Nachfrage einfach erklärt",
+ "kurz": "Angebot und Nachfrage beschreiben, wie viel Anbieter zu einem bestimmten Preis verkaufen wollen und wie viel Käufer kaufen wollen. Im Marktgleichgewicht sind beide Mengen gleich groß: Du setzt Angebots- und Nachfragefunktion gleich und erhältst Gleichgewichtspreis und Gleichgewichtsmenge. Ändert sich ein anderer Einflussfaktor als der Preis, verschiebt sich die ganze Kurve.",
+ "keywords": [
+  "angebot und nachfrage",
+  "marktgleichgewicht berechnen",
+  "gleichgewichtspreis berechnen",
+  "nachfragefunktion",
+  "angebotsfunktion",
+  "angebotsüberhang nachfrageüberhang",
+  "verschiebung nachfragekurve",
+  "höchstpreis mindestpreis"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was bedeuten Angebot und Nachfrage?",
+   "html": "<p>Die <strong>Nachfrage</strong> zeigt, welche Menge eines Gutes die Haushalte bei jedem möglichen Preis kaufen möchten. Je teurer das Gut, desto weniger wird nachgefragt – die Nachfragekurve fällt. Dahinter stecken zwei Effekte: Bei höherem Preis weichen Käufer auf Ersatzgüter aus (Substitutionseffekt), und ihr Einkommen reicht für weniger Einheiten (Einkommenseffekt).</p><p>Das <strong>Angebot</strong> zeigt, welche Menge die Unternehmen bei jedem Preis verkaufen möchten. Je höher der Preis, desto mehr lohnt sich die Produktion, weil auch Einheiten mit höheren <a href=\"/lernen/grenzkosten\">Grenzkosten</a> noch Gewinn bringen – die Angebotskurve steigt.</p><p>Wichtig für die Klausur: Angebot und Nachfrage sind <em>Pläne</em>, keine tatsächlich gehandelten Mengen. Gehandelt wird immer die kleinere der beiden Mengen, denn niemand kann zum Kauf oder Verkauf gezwungen werden.</p><div class=\"merke\">Preis rauf: Nachfrage sinkt, Angebot steigt. Die Kurven schneiden sich im Marktgleichgewicht.</div>"
+  },
+  {
+   "h2": "Wie sehen Angebots- und Nachfragefunktion aus?",
+   "html": "<p>In Klausuren arbeitest du fast immer mit linearen Funktionen. Sie tauchen in zwei Schreibweisen auf, und du musst zwischen ihnen wechseln können.</p><div class=\"formel\">Nachfrage: Q(D) = a − b × p   (b &gt; 0)<br>Angebot: Q(S) = c + d × p   (d &gt; 0)</div><p>Hier steht die Menge links, der Preis ist die unabhängige Variable. In der Grafik trägt man in der VWL aber traditionell den <strong>Preis auf der y-Achse</strong> und die Menge auf der x-Achse ab. Dafür brauchst du die nach p aufgelöste Form, die <strong>inverse Funktion</strong>:</p><div class=\"formel\">inverse Nachfrage: p = a ÷ b − (1 ÷ b) × Q<br>inverse Angebot: p = −c ÷ d + (1 ÷ d) × Q</div><p>Der y-Achsenabschnitt der inversen Nachfrage ist der <strong>Prohibitivpreis</strong>: Ab diesem Preis kauft niemand mehr. Der y-Achsenabschnitt der inversen Angebotsfunktion ist der Mindestpreis, ab dem überhaupt jemand anbietet. Die <strong>Sättigungsmenge</strong> (Nachfrage bei p = 0) liest du direkt an a ab.</p><p>Wie stark die Menge auf Preisänderungen reagiert, misst die <a href=\"/lernen/preiselastizitaet\">Preiselastizität der Nachfrage</a>. Die Steigung allein ist dafür kein gutes Maß, weil sie von den Einheiten abhängt.</p>"
+  },
+  {
+   "h2": "Wie berechnet man das Marktgleichgewicht?",
+   "html": "<p>Im Gleichgewicht wollen Käufer genau so viel kaufen, wie Anbieter verkaufen wollen. Das Vorgehen ist immer gleich:</p><ol><li>Beide Funktionen in dieselbe Form bringen (beide nach Q oder beide nach p aufgelöst).</li><li>Gleichsetzen: Q(D) = Q(S).</li><li>Nach p auflösen – das ist der Gleichgewichtspreis p*.</li><li>p* in <em>eine</em> der beiden Funktionen einsetzen – das ist die Gleichgewichtsmenge Q*.</li><li>Probe: p* in die andere Funktion einsetzen, es muss dieselbe Menge herauskommen.</li></ol><div class=\"formel\">a − b × p = c + d × p  ⇒  p* = (a − c) ÷ (b + d)</div><p>Liegt der Preis über p*, entsteht ein <strong>Angebotsüberhang</strong>: Anbieter bleiben auf Ware sitzen und senken die Preise. Liegt er darunter, entsteht ein <strong>Nachfrageüberhang</strong>: Käufer gehen leer aus und überbieten sich. Beide Kräfte treiben den Preis zurück Richtung Gleichgewicht.</p>"
+  },
+  {
+   "h2": "Beispiel: Gleichgewicht, Verschiebung und Höchstpreis",
+   "html": "<div class=\"beispiel\"><p><strong>Markt für Fahrradreparaturen in einer Unistadt (Menge pro Woche, Preis in €):</strong></p><p>Nachfrage: Q(D) = 120 − 4p<br>Angebot: Q(S) = −30 + 6p</p><ol><li><strong>Gleichsetzen:</strong> 120 − 4p = −30 + 6p</li><li><strong>Umstellen:</strong> 150 = 10p ⇒ p* = 15 €</li><li><strong>Menge:</strong> Q(D) = 120 − 4 × 15 = 60</li><li><strong>Probe:</strong> Q(S) = −30 + 6 × 15 = 60 ✓</li></ol><p>Inverse Form: Nachfrage p = 30 − Q ÷ 4, Angebot p = 5 + Q ÷ 6. Prohibitivpreis 30 €, Sättigungsmenge 120, Anbieter starten ab 5 €. Einsetzen von Q = 60 ergibt in beiden Fällen 15 € ✓.</p><p><strong>Verschiebung:</strong> Zum Semesterstart ziehen viele Studierende zu, die Nachfrage steigt bei jedem Preis um 30 Einheiten: Q(D) = 150 − 4p.</p><ol><li>150 − 4p = −30 + 6p ⇒ 180 = 10p ⇒ p* = 18 €</li><li>Q* = 150 − 4 × 18 = 78 (Probe: −30 + 6 × 18 = 78 ✓)</li></ol><p>Preis und Menge steigen – typisch für eine Rechtsverschiebung der Nachfrage.</p><p><strong>Höchstpreis:</strong> Zurück zur Ausgangslage. Die Stadt legt einen Höchstpreis von 12 € fest.</p><table><thead><tr><th>Größe</th><th>Rechnung</th><th>Ergebnis</th></tr></thead><tbody><tr><td>Nachfrage</td><td>120 − 4 × 12</td><td>72</td></tr><tr><td>Angebot</td><td>−30 + 6 × 12</td><td>42</td></tr><tr><td>Nachfrageüberhang</td><td>72 − 42</td><td>30</td></tr><tr><td>Gehandelte Menge</td><td>Minimum von 72 und 42</td><td>42</td></tr></tbody></table><p>Es werden nur noch 42 statt 60 Reparaturen durchgeführt, 30 Wünsche bleiben unerfüllt.</p></div>"
+  },
+  {
+   "h2": "Bewegung auf der Kurve oder Verschiebung der Kurve?",
+   "html": "<p>Das ist die häufigste Verständnisfrage überhaupt. Die Regel: Ändert sich der <strong>Preis des Gutes selbst</strong>, bewegst du dich <em>entlang</em> der Kurve. Ändert sich <strong>irgendein anderer Faktor</strong>, verschiebt sich die ganze Kurve.</p><h3>Was verschiebt die Nachfragekurve?</h3><ul><li>Einkommen (bei normalen Gütern: mehr Einkommen ⇒ Rechtsverschiebung)</li><li>Preise von Substituten (Butter teurer ⇒ mehr Nachfrage nach Margarine) und Komplementen (Drucker teurer ⇒ weniger Nachfrage nach Druckerpatronen)</li><li>Präferenzen, Erwartungen, Anzahl der Käufer</li></ul><h3>Was verschiebt die Angebotskurve?</h3><ul><li>Inputpreise wie Löhne, Energie, Rohstoffe (teurer ⇒ Linksverschiebung)</li><li>Technischer Fortschritt (Rechtsverschiebung)</li><li>Steuern und Subventionen, Anzahl der Anbieter, Wetter bei Agrargütern</li></ul><table><thead><tr><th>Schock</th><th>Preis</th><th>Menge</th></tr></thead><tbody><tr><td>Nachfrage steigt</td><td>steigt</td><td>steigt</td></tr><tr><td>Nachfrage sinkt</td><td>sinkt</td><td>sinkt</td></tr><tr><td>Angebot steigt</td><td>sinkt</td><td>steigt</td></tr><tr><td>Angebot sinkt</td><td>steigt</td><td>sinkt</td></tr></tbody></table><p>Verschieben sich beide Kurven gleichzeitig, ist eine Größe eindeutig, die andere hängt vom Ausmaß ab. Beispiel: Angebot und Nachfrage steigen beide ⇒ Menge steigt sicher, der Preis kann steigen, fallen oder gleich bleiben.</p>"
+  },
+  {
+   "h2": "Wozu braucht man das Marktmodell – und wo sind seine Grenzen?",
+   "html": "<p>Das Modell ist das Werkzeug, mit dem du in der Mikroökonomie fast alles analysierst: Steuern, Subventionen, Höchst- und Mindestpreise, Mietpreisbremse, Mindestlohn oder Ölpreisschocks. Über die Fläche zwischen Kurven und Preis misst du außerdem, wer vom Handel profitiert – das ist das Thema <a href=\"/lernen/konsumentenrente-produzentenrente\">Konsumentenrente und Produzentenrente</a>.</p><p><strong>Stärken:</strong> einfach, rechnerisch sauber, gute Vorhersage der Richtung von Preis- und Mengenänderungen.</p><p><strong>Grenzen:</strong> Das Grundmodell unterstellt <em>vollkommene Konkurrenz</em>: viele kleine Anbieter und Nachfrager, homogene Güter, vollständige Information, keine Marktmacht. Bei einem Monopol gibt es gar keine Angebotskurve im eigentlichen Sinn, weil der Anbieter den Preis selbst setzt. Außerdem ist das Modell <em>partiell</em>: Es betrachtet einen Markt isoliert und ignoriert Rückwirkungen auf andere Märkte.</p><p>Abgrenzung: Beim Marktgleichgewicht geht es um einen einzelnen Markt. Aggregierte Größen wie das Preisniveau oder die gesamtwirtschaftliche Produktion behandelt die Makroökonomie, etwa bei <a href=\"/lernen/inflation\">Inflation</a>.</p>"
+  }
+ ],
+ "fehler": [
+  "Bewegung und Verschiebung verwechseln: Steigt der Preis des Gutes selbst, sinkt die nachgefragte Menge entlang der Kurve – die Nachfragekurve verschiebt sich dabei nicht.",
+  "Funktionen in unterschiedlicher Form gleichsetzen, also eine nach Q und eine nach p aufgelöst. Bring immer erst beide in dieselbe Form.",
+  "Nach dem Berechnen von p* die Menge vergessen oder keine Probe machen. Setz p* in beide Funktionen ein – kommt nicht dieselbe Menge heraus, steckt ein Rechenfehler drin.",
+  "Beim Höchstpreis die nachgefragte Menge als gehandelte Menge angeben. Gehandelt wird immer die kleinere Menge, beim Höchstpreis also die angebotene.",
+  "Einen Höchstpreis über dem Gleichgewichtspreis für wirksam halten. Er greift nur, wenn er unter p* liegt; ein Mindestpreis nur, wenn er über p* liegt."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man den Gleichgewichtspreis?",
+   "a": "Du setzt Angebots- und Nachfragefunktion gleich und löst nach dem Preis auf. Bei Q(D) = 120 − 4p und Q(S) = −30 + 6p ergibt sich 150 = 10p, also p* = 15. Anschließend setzt du p* in eine Funktion ein, um die Gleichgewichtsmenge zu erhalten."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Angebotsüberhang und Nachfrageüberhang?",
+   "a": "Ein Angebotsüberhang entsteht, wenn der Preis über dem Gleichgewichtspreis liegt: Es wird mehr angeboten als nachgefragt. Ein Nachfrageüberhang entsteht bei einem Preis unter dem Gleichgewicht: Käufer wollen mehr, als angeboten wird. Die Größe des Überhangs ist die Differenz der beiden Mengen."
+  },
+  {
+   "q": "Warum ist die Nachfragekurve fallend?",
+   "a": "Bei einem höheren Preis weichen Käufer auf günstigere Ersatzgüter aus, und ihr Budget reicht für weniger Einheiten. Außerdem sinkt der Zusatznutzen jeder weiteren Einheit, sodass Käufer für zusätzliche Mengen weniger zu zahlen bereit sind."
+  },
+  {
+   "q": "Warum steht der Preis auf der y-Achse?",
+   "a": "Das ist eine Konvention aus der Tradition von Alfred Marshall, obwohl mathematisch meist die Menge vom Preis abhängt. Für die Grafik brauchst du deshalb die inverse Funktion, also die nach p aufgelöste Form."
+  },
+  {
+   "q": "Was passiert, wenn Angebot und Nachfrage gleichzeitig steigen?",
+   "a": "Die Gleichgewichtsmenge steigt in jedem Fall. Ob der Preis steigt oder fällt, hängt davon ab, welche Verschiebung stärker ist. Ohne konkrete Zahlen ist die Preiswirkung unbestimmt."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Nachfrage Q(D) = 100 − 2p, Angebot Q(S) = 20 + 2p. Wie hoch ist der Gleichgewichtspreis?",
+   "o": [
+    "p* = 30",
+    "p* = 20",
+    "p* = 40",
+    "p* = 60"
+   ],
+   "r": 1,
+   "e": "100 − 2p = 20 + 2p ⇒ 80 = 4p ⇒ p* = 20. Die Menge ist dann 100 − 40 = 60."
+  },
+  {
+   "q": "Die Löhne in einer Branche steigen deutlich. Was passiert im Marktmodell?",
+   "o": [
+    "Die Nachfragekurve verschiebt sich nach rechts",
+    "Bewegung entlang der Angebotskurve",
+    "Die Angebotskurve verschiebt sich nach links, der Preis steigt, die Menge sinkt",
+    "Die Angebotskurve verschiebt sich nach rechts, der Preis sinkt"
+   ],
+   "r": 2,
+   "e": "Höhere Inputpreise machen die Produktion bei jedem Preis teurer. Das Angebot sinkt, die Kurve verschiebt sich nach links."
+  },
+  {
+   "q": "Gleichgewicht bei p* = 15. Der Staat setzt einen Höchstpreis von 12 fest. Was entsteht?",
+   "o": [
+    "Ein Nachfrageüberhang",
+    "Ein Angebotsüberhang",
+    "Keine Wirkung, weil der Höchstpreis unter p* liegt",
+    "Ein neues Gleichgewicht bei p = 12 ohne Überhang"
+   ],
+   "r": 0,
+   "e": "Unter dem Gleichgewichtspreis wollen Käufer mehr kaufen, als Anbieter anbieten. Es entsteht ein Nachfrageüberhang, gehandelt wird nur die angebotene Menge."
+  }
+ ],
+ "verwandt": [
+  "konsumentenrente-produzentenrente",
+  "preiselastizitaet",
+  "opportunitaetskosten",
+  "grenzkosten"
+ ],
+ "ask": "Angebot und Nachfrage – mit einem durchgerechneten Marktgleichgewicht und einer Kurvenverschiebung"
+}

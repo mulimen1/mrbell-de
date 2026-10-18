@@ -4287,3 +4287,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .asst.stage.has-board:not(.board-min) .ai-isl > .ai-mid { height: 44px; }
   .asst.stage.has-board:not(.board-min) .ai-board { bottom: calc(var(--scb) + 70px) !important; }
 }
+
+/* Lernseiten-Links auf der Startseite (SEO) */
+.seo-themen { padding: 56px 0 30px; border-top: 1px solid var(--line); }
+.seo-themen h2 { font-size: 20px; letter-spacing: -.02em; margin: 0 0 16px; }
+.seo-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.seo-links a { font-size: 14px; color: var(--ink2); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 7px 13px; transition: border-color .15s, color .15s; }
+.seo-links a:hover { border-color: var(--ink); color: var(--ink); }
+.seo-links a.all { color: var(--ink); font-weight: 600; border-color: var(--line2); }

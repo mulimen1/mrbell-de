@@ -1,6 +1,7 @@
 // Themen-Einstiege für Google-Anzeigen und Links: bwlmax.de/?thema=kapitalwert
 // → Überschrift passt zur Suche („Kapitalwertmethode – einfach erklärt.“) und Max erklärt das Thema sofort an der Tafel.
 // Freitext geht auch: ?q=kapitalwert+berechnen (nur Buchstaben, Zahlen, Leerzeichen, Bindestrich).
+import { LERNEN } from './themen-lernen.js';
 export const THEMEN = {
   kapitalwert: ['Kapitalwertmethode', 'die Kapitalwertmethode (Net Present Value) – mit einem durchgerechneten Investitionsbeispiel'],
   deckungsbeitrag: ['Deckungsbeitrag', 'den Deckungsbeitrag – pro Stück und gesamt, mit einem Beispiel'],
@@ -24,6 +25,8 @@ export const THEMEN = {
   grenzkosten: ['Grenzkosten', 'Grenzkosten – mit Kostenfunktion und Beispiel'],
   porter: ['Porters Five Forces', 'Porters Five Forces – mit einem Branchenbeispiel']
 };
+// Themen der Lernseiten (bwlmax.de/lernen/…) ergänzen – bestehende Einträge bleiben, wie sie sind
+for (const [k, v] of Object.entries(LERNEN)) if (!THEMEN[k]) THEMEN[k] = v;
 const clean = s => String(s || '').replace(/[^\p{L}\p{N} \-]/gu, ' ').replace(/\s+/g, ' ').trim().slice(0, 60);
 export function landingTopic(search = location.search) {
   let p; try { p = new URLSearchParams(search); } catch (e) { return null; }

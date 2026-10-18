@@ -1,0 +1,116 @@
+{
+ "slug": "interner-zinsfuss",
+ "name": "Interner Zinsfuß",
+ "title": "Interner Zinsfuß berechnen – Interpolation mit Beispiel",
+ "meta": "Internen Zinsfuß einfach berechnen: Formel, Interpolation (Regula falsi) Schritt für Schritt, Entscheidungsregel und typische Probleme der IZF-Methode.",
+ "h1": "Interner Zinsfuß einfach erklärt",
+ "kurz": "Der interne Zinsfuß (IZF, englisch Internal Rate of Return) ist der Zinssatz, bei dem der Kapitalwert einer Investition genau null ist. Er gibt die Rendite an, mit der sich das jeweils gebundene Kapital verzinst. Liegt der interne Zinsfuß über dem Kalkulationszinssatz, ist die Investition vorteilhaft. Berechnet wird er meist näherungsweise per linearer Interpolation.",
+ "keywords": [
+  "interner Zinsfuß",
+  "interner Zinsfuß berechnen",
+  "Interne-Zinsfuß-Methode",
+  "Interpolation interner Zinsfuß",
+  "Regula falsi",
+  "Internal Rate of Return",
+  "IZF Formel",
+  "interner Zinsfuß Beispiel"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der interne Zinsfuß?",
+   "html": "<p>Bei der <a href=\"/lernen/kapitalwertmethode\">Kapitalwertmethode</a> gibst du einen Zinssatz vor und bekommst einen Betrag in Euro heraus. Die Interne-Zinsfuß-Methode dreht die Frage um: <strong>Bei welchem Zinssatz wird der Kapitalwert genau null?</strong> Dieser Zinssatz ist die Effektivverzinsung der Investition – ihre eigene, „interne“ Rendite.</p><p>Anschaulich: Würdest du das Geld für die Investition zu genau diesem Zins leihen, könntest du mit den Rückflüssen Zinsen und Tilgung exakt bezahlen – am Ende bliebe nichts übrig, es fehlte aber auch nichts. Ein höherer Finanzierungszins würde die Investition unrentabel machen, ein niedrigerer ließe einen Überschuss.</p><p>Der Charme der Methode: Eine Rendite in Prozent versteht jeder sofort und kann sie mit Zinsen am Markt vergleichen. Genau deshalb ist der IZF in der Praxis so beliebt – und genau deshalb lohnt es sich, seine Schwächen zu kennen.</p>"
+  },
+  {
+   "h2": "Welche Formel gilt für den internen Zinsfuß?",
+   "html": "<p>Gesucht ist der Zinssatz r, der folgende Gleichung erfüllt:</p><div class=\"formel\">0 = −I₀ + Z₁ × (1 + r)^(−1) + Z₂ × (1 + r)^(−2) + … + Zₙ × (1 + r)^(−n)</div><p>Ab drei Perioden lässt sich diese Gleichung nicht mehr sauber nach r auflösen. Ausnahmen, die in Klausuren gern vorkommen:</p><ul><li><strong>Eine Periode:</strong> r = Z₁ ÷ I₀ − 1</li><li><strong>Zwei Perioden:</strong> Substituiere q = 1 + r, multipliziere mit q² und löse die quadratische Gleichung −I₀ × q² + Z₁ × q + Z₂ = 0 mit der p-q- oder Mitternachtsformel.</li><li><strong>Unendliche gleiche Rückflüsse</strong> (ewige Rente): r = Z ÷ I₀</li></ul><p>In allen anderen Fällen nutzt du die <strong>lineare Interpolation</strong> (Regula falsi). Du rechnest den Kapitalwert für zwei Versuchszinssätze aus – einen mit positivem Ergebnis (i₁, C₁) und einen mit negativem (i₂, C₂) – und legst eine Gerade durch die beiden Punkte:</p><div class=\"formel\">r ≈ i₁ − C₁ × (i₂ − i₁) ÷ (C₂ − C₁)</div><p>Weil C₂ negativ ist, wird der Nenner negativ und der Bruch insgesamt addiert. Die Näherung ist umso genauer, je näher i₁ und i₂ beieinanderliegen.</p>"
+  },
+  {
+   "h2": "Beispiel: Internen Zinsfuß per Interpolation berechnen",
+   "html": "<div class=\"beispiel\"><p><strong>Aufgabe:</strong> Ein Fahrradladen kauft eine Werkstatteinrichtung für 50.000 €. Sie bringt drei Jahre lang Rückflüsse von 20.000 €, 25.000 € und 15.000 €. Der Kalkulationszins liegt bei 7 %. Ermittle den internen Zinsfuß mit den Versuchszinssätzen 8 % und 12 %.</p><p><strong>Schritt 1: Kapitalwert bei 8 %</strong></p><table><thead><tr><th>t</th><th>Zahlung</th><th>AF 8 %</th><th>Barwert</th><th>AF 12 %</th><th>Barwert</th></tr></thead><tbody><tr><td>0</td><td>−50.000 €</td><td>1,0000</td><td>−50.000,00 €</td><td>1,0000</td><td>−50.000,00 €</td></tr><tr><td>1</td><td>20.000 €</td><td>0,9259</td><td>18.518,00 €</td><td>0,8929</td><td>17.858,00 €</td></tr><tr><td>2</td><td>25.000 €</td><td>0,8573</td><td>21.432,50 €</td><td>0,7972</td><td>19.930,00 €</td></tr><tr><td>3</td><td>15.000 €</td><td>0,7938</td><td>11.907,00 €</td><td>0,7118</td><td>10.677,00 €</td></tr><tr><td></td><td></td><td><strong>C₀</strong></td><td><strong>1.857,50 €</strong></td><td><strong>C₀</strong></td><td><strong>−1.535,00 €</strong></td></tr></tbody></table><p><strong>Schritt 2: Kapitalwert bei 12 %</strong> – siehe rechte Spalten: −1.535,00 €. Damit liegt der IZF zwischen 8 % und 12 %.</p><p><strong>Schritt 3: Interpolieren</strong></p><p>r ≈ 0,08 − 1.857,50 × (0,12 − 0,08) ÷ (−1.535,00 − 1.857,50)<br>r ≈ 0,08 − 74,30 ÷ (−3.392,50)<br>r ≈ 0,08 + 0,0219 = 0,1019 → <strong>rund 10,19 %</strong></p><p><strong>Schritt 4: Entscheiden</strong> – 10,19 % &gt; 7 % Kalkulationszins. Die Investition ist vorteilhaft.</p><p><strong>Kontrolle:</strong> Der exakte interne Zinsfuß (numerisch gelöst) liegt bei 10,13 %. Die Interpolation überschätzt ihn leicht, weil die Kapitalwertkurve nach unten gewölbt ist und die Gerade über ihr verläuft. Mit den engeren Versuchszinssätzen 10 % und 12 % (C₀ bei 10 %: 111,50 €) würdest du schon auf 10,14 % kommen.</p></div>"
+  },
+  {
+   "h2": "Wie lautet die Entscheidungsregel?",
+   "html": "<ul><li><strong>r &gt; i:</strong> Die Investition rentiert sich besser als die Alternativanlage – vorteilhaft.</li><li><strong>r = i:</strong> indifferent, der Kapitalwert ist null.</li><li><strong>r &lt; i:</strong> nicht vorteilhaft.</li></ul><p>Bei einer einzelnen Investition mit normaler Zahlungsreihe (erst Auszahlung, danach nur Einzahlungen) kommen IZF und Kapitalwert immer zum gleichen Urteil. Ist C₀ bei i positiv, muss der Zins, bei dem C₀ null wird, höher liegen.</p><p>Beim <strong>Vergleich mehrerer Alternativen</strong> ist das anders. Ein kleines Projekt kann einen höheren IZF haben als ein großes, aber einen geringeren Kapitalwert. Wer nur auf den höchsten Prozentwert schaut, entscheidet sich dann womöglich für weniger Vermögenszuwachs. Der Kapitalwert ist in solchen Fällen das maßgebliche Kriterium.</p><div class=\"merke\">Interner Zinsfuß = Zinssatz, bei dem C₀ = 0. Ist er größer als der Kalkulationszins, lohnt sich die Investition. Bei Rangkonflikten zwischen Alternativen entscheidet der Kapitalwert.</div>"
+  },
+  {
+   "h2": "Welche Probleme hat die Interne-Zinsfuß-Methode?",
+   "html": "<h3>1. Wiederanlageprämisse</h3><p>Rechnerisch unterstellt der IZF, dass alle Rückflüsse zum internen Zinsfuß selbst wieder angelegt werden. Bei einer Rendite von 25 % ist das unrealistisch – am Markt bekommst du eher den Kalkulationszins. Die Kapitalwertmethode unterstellt die Wiederanlage zum Kalkulationszins, was plausibler ist.</p><h3>2. Mehrere oder gar keine Lösungen</h3><p>Wechselt das Vorzeichen der Zahlungsreihe mehr als einmal, kann es mehrere interne Zinsfüße geben. Beispiel: −100 € heute, +230 € in Jahr 1, −132 € in Jahr 2 (etwa Rückbaukosten). Diese Reihe hat den Kapitalwert null sowohl bei 10 % als auch bei 20 %. Welcher davon ist „die“ Rendite? Keiner sinnvoll. Ebenso gibt es Zahlungsreihen ganz ohne reellen internen Zinsfuß.</p><h3>3. Keine Aussage über die Größe</h3><p>Eine Rendite von 30 % auf 1.000 € bringt weniger als 12 % auf 500.000 €. Der IZF ignoriert den Kapitaleinsatz und die Laufzeit.</p><h3>4. Nur Näherung</h3><p>Die Interpolation liefert ein Näherungsergebnis, das vom gewählten Zinsintervall abhängt.</p>"
+  },
+  {
+   "h2": "Abgrenzung zu verwandten Verfahren",
+   "html": "<p>Kapitalwert, interner Zinsfuß und <a href=\"/lernen/annuitaetenmethode\">Annuitätenmethode</a> sind die drei klassischen dynamischen Verfahren. Sie nutzen alle das Abzinsen aus <a href=\"/lernen/barwert-abzinsen\">Barwert und Abzinsen</a>, liefern aber andere Kennzahlen: Euro-Betrag in t = 0, Prozentrendite und Euro-Betrag pro Jahr.</p><p>Die statische <a href=\"/lernen/rentabilitaet\">Rentabilitätsrechnung</a> (ROI) liefert ebenfalls einen Prozentwert, setzt aber einen Durchschnittsgewinn ins Verhältnis zum durchschnittlich gebundenen Kapital und ignoriert, wann die Zahlungen fließen. Der IZF ist daher die „dynamische Rendite“. In der Praxis wird er oft zusammen mit dem Kapitalwert berichtet: der Kapitalwert für die Entscheidung, der IZF für die Kommunikation.</p>"
+  }
+ ],
+ "fehler": [
+  "Beide Versuchszinssätze liefern einen positiven (oder beide einen negativen) Kapitalwert. Für die Interpolation brauchst du zwingend einen positiven und einen negativen Wert, sonst extrapolierst du ungenau.",
+  "Vorzeichenfehler in der Interpolationsformel: C₂ ist negativ, also wird der Nenner C₂ − C₁ negativ. Setz die negativen Werte in Klammern ein, dann landet der IZF auch zwischen i₁ und i₂.",
+  "Prozent und Dezimal werden gemischt, etwa i₂ − i₁ = 4 statt 0,04. Das Ergebnis ist dann ein IZF von über 200 % – ein klares Warnsignal.",
+  "Bei sich ausschließenden Alternativen wird automatisch das Projekt mit dem höchsten IZF gewählt. Prüfe immer auch den Kapitalwert; bei Konflikt gilt der Kapitalwert.",
+  "Der IZF wird mit dem Kalkulationszins verwechselt. Der Kalkulationszins ist vorgegeben, der interne Zinsfuß wird berechnet und dann mit ihm verglichen."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man den internen Zinsfuß ohne Taschenrechner-Funktion?",
+   "a": "Du rechnest den Kapitalwert für zwei Versuchszinssätze aus, einen mit positivem und einen mit negativem Ergebnis. Dann interpolierst du linear: r ≈ i₁ − C₁ × (i₂ − i₁) ÷ (C₂ − C₁). Je enger die Versuchszinssätze liegen, desto genauer wird das Ergebnis."
+  },
+  {
+   "q": "Was bedeutet ein interner Zinsfuß von 10 %?",
+   "a": "Das jeweils noch gebundene Kapital verzinst sich während der Laufzeit mit 10 % pro Jahr. Bei einem Kalkulationszins von 10 % wäre der Kapitalwert genau null. Liegt deine Mindestverzinsung darunter, lohnt sich die Investition."
+  },
+  {
+   "q": "Warum ist die Interpolation ungenau?",
+   "a": "Die Kapitalwertfunktion ist keine Gerade, sondern eine gekrümmte Kurve. Die Interpolation ersetzt das Stück zwischen den Versuchszinssätzen durch eine Gerade. Bei normalen Investitionen überschätzt sie den IZF deshalb leicht."
+  },
+  {
+   "q": "Können Kapitalwert und interner Zinsfuß zu unterschiedlichen Ergebnissen kommen?",
+   "a": "Bei einer einzelnen normalen Investition nicht – beide sagen dasselbe über die Vorteilhaftigkeit. Beim Vergleich mehrerer Projekte mit unterschiedlichem Kapitaleinsatz oder Laufzeit kann die Rangfolge aber abweichen. Dann ist der Kapitalwert ausschlaggebend."
+  },
+  {
+   "q": "Ist interner Zinsfuß dasselbe wie Rendite?",
+   "a": "Er ist eine bestimmte Form der Rendite, nämlich die dynamische Effektivverzinsung einer Zahlungsreihe. Im Englischen heißt er Internal Rate of Return (IRR). Andere Renditekennzahlen wie der ROI berücksichtigen den Zeitpunkt der Zahlungen nicht."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Bei 6 % beträgt der Kapitalwert 2.000 €, bei 10 % −1.000 €. Wie hoch ist der interne Zinsfuß nach linearer Interpolation?",
+   "o": [
+    "7,33 %",
+    "8,67 %",
+    "9,00 %",
+    "8,00 %"
+   ],
+   "r": 1,
+   "e": "r ≈ 0,06 − 2.000 × 0,04 ÷ (−1.000 − 2.000) = 0,06 + 0,0267 = 8,67 %."
+  },
+  {
+   "q": "Eine Investition hat einen IZF von 9 %, der Kalkulationszins beträgt 11 %. Was gilt?",
+   "o": [
+    "Der Kapitalwert bei 11 % ist negativ – nicht vorteilhaft",
+    "Der Kapitalwert bei 11 % ist positiv – vorteilhaft",
+    "Der Kapitalwert ist bei 11 % genau null",
+    "Ohne Zahlungsreihe ist keine Aussage möglich"
+   ],
+   "r": 0,
+   "e": "Liegt der Kalkulationszins über dem IZF, ist der Kapitalwert negativ. Die Investition erreicht die Mindestverzinsung nicht."
+  },
+  {
+   "q": "Wann kann eine Zahlungsreihe mehrere interne Zinsfüße haben?",
+   "o": [
+    "Wenn die Laufzeit länger als fünf Jahre ist",
+    "Wenn alle Rückflüsse gleich hoch sind",
+    "Wenn der Kalkulationszins sehr niedrig ist",
+    "Wenn das Vorzeichen der Zahlungen mehr als einmal wechselt"
+   ],
+   "r": 3,
+   "e": "Nach der Vorzeichenregel von Descartes gibt es höchstens so viele positive Lösungen wie Vorzeichenwechsel. Bei mehreren Wechseln, etwa durch Rückbaukosten am Ende, sind mehrere IZF möglich."
+  }
+ ],
+ "verwandt": [
+  "kapitalwertmethode",
+  "annuitaetenmethode",
+  "barwert-abzinsen",
+  "rentabilitaet",
+  "amortisationsrechnung"
+ ],
+ "ask": "den internen Zinsfuß – mit einer Schritt-für-Schritt-Interpolation an einem Zahlenbeispiel"
+}

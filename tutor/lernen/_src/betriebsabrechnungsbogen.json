@@ -1,0 +1,116 @@
+{
+ "slug": "betriebsabrechnungsbogen",
+ "name": "Betriebsabrechnungsbogen (BAB)",
+ "title": "Betriebsabrechnungsbogen (BAB) – einfach erklärt",
+ "meta": "Betriebsabrechnungsbogen (BAB) einfach erklärt: Gemeinkosten verteilen, Umlage der Hilfskostenstellen, Zuschlagssätze berechnen – mit komplettem Beispiel.",
+ "h1": "Betriebsabrechnungsbogen (BAB) einfach erklärt",
+ "kurz": "Der Betriebsabrechnungsbogen (BAB) ist das zentrale Werkzeug der Kostenstellenrechnung. In einer Tabelle werden die Gemeinkosten einer Periode mit Verteilungsschlüsseln auf die Kostenstellen Material, Fertigung, Verwaltung und Vertrieb verteilt. Am Ende stehen Zuschlagssätze, mit denen die Gemeinkosten in der Zuschlagskalkulation auf die Produkte verrechnet werden.",
+ "keywords": [
+  "Betriebsabrechnungsbogen",
+  "BAB",
+  "BAB Zuschlagssätze berechnen",
+  "Gemeinkosten verteilen",
+  "Kostenstellenrechnung",
+  "Verteilungsschlüssel",
+  "Hilfskostenstelle Umlage",
+  "Kostenüberdeckung Kostenunterdeckung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist ein Betriebsabrechnungsbogen?",
+   "html": "<p>Der Betriebsabrechnungsbogen ist die tabellarische Form der Kostenstellenrechnung und damit die mittlere Stufe der <a href=\"/lernen/kostenrechnung\">Kosten- und Leistungsrechnung</a>. Er löst ein Grundproblem: <a href=\"/lernen/einzelkosten-gemeinkosten\">Gemeinkosten</a> wie Miete, Gehälter oder Strom lassen sich keinem Produkt direkt zuordnen. Sie lassen sich aber meist einem Bereich des Betriebs zuordnen, in dem sie entstehen.</p>\n<p>Der BAB hat deshalb einen einfachen Aufbau: In den <strong>Zeilen</strong> stehen die Gemeinkostenarten, in den <strong>Spalten</strong> die Kostenstellen. Jede Zeile wird mit einem passenden Schlüssel auf die Spalten verteilt. Die Spaltensummen setzt man dann ins Verhältnis zu einer Bezugsgröße und erhält die Zuschlagssätze für die Kalkulation.</p>\n<p>Der BAB erfüllt damit drei Aufgaben: Er verteilt die Gemeinkosten verursachungsgerecht, er liefert Zuschlagssätze für die <a href=\"/lernen/zuschlagskalkulation\">Zuschlagskalkulation</a>, und er ermöglicht die Kostenkontrolle je Bereich, etwa im Vergleich mit dem Vorjahr oder mit Planwerten.</p>\n<div class=\"merke\">Merke: Im BAB werden nur Gemeinkosten verteilt. Einzelkosten tauchen nur als Zuschlagsbasis auf.</div>"
+  },
+  {
+   "h2": "Wie ist der BAB aufgebaut? Die vier Schritte",
+   "html": "<ol>\n<li><strong>Primäre Gemeinkosten verteilen:</strong> Die Gemeinkosten aus der Kostenartenrechnung werden auf alle Kostenstellen verteilt. Wo Belege vorliegen (Gehaltsliste, Materialentnahmescheine), geschieht das direkt, sonst über Schlüssel.</li>\n<li><strong>Hilfskostenstellen umlegen (sekundäre Verteilung):</strong> Kostenstellen, die nur für andere Stellen arbeiten, etwa Fuhrpark, Kantine oder Reparaturwerkstatt, werden auf die Hauptkostenstellen umgelegt.</li>\n<li><strong>Summen je Hauptkostenstelle bilden:</strong> Material, Fertigung, Verwaltung, Vertrieb.</li>\n<li><strong>Zuschlagssätze berechnen:</strong> Gemeinkosten der Stelle ÷ Zuschlagsbasis × 100 %.</li>\n</ol>\n<h3>Typische Verteilungsschlüssel</h3>\n<table>\n<thead><tr><th>Gemeinkostenart</th><th>Üblicher Schlüssel</th></tr></thead>\n<tbody>\n<tr><td>Miete, Heizung, Gebäudereinigung</td><td>Fläche in m²</td></tr>\n<tr><td>Strom</td><td>kWh laut Zähler oder installierte Leistung</td></tr>\n<tr><td>Abschreibungen, Versicherungen von Anlagen</td><td>Anlagenwerte</td></tr>\n<tr><td>Hilfslöhne, Gehälter, Sozialkosten</td><td>direkt laut Lohn- und Gehaltsliste bzw. Köpfe</td></tr>\n<tr><td>Hilfs- und Betriebsstoffe</td><td>direkt laut Entnahmescheinen</td></tr>\n</tbody>\n</table>\n<h3>Die Zuschlagssätze</h3>\n<div class=\"formel\">MGK-Zuschlag = Materialgemeinkosten ÷ Fertigungsmaterial × 100 %</div>\n<div class=\"formel\">FGK-Zuschlag = Fertigungsgemeinkosten ÷ Fertigungslöhne × 100 %</div>\n<div class=\"formel\">Herstellkosten = Fertigungsmaterial + MGK + Fertigungslöhne + FGK</div>\n<div class=\"formel\">VwGK-Zuschlag = Verwaltungsgemeinkosten ÷ Herstellkosten × 100 %; VtGK-Zuschlag analog</div>\n<p>Genau genommen sind die Bezugsgröße für Verwaltung und Vertrieb die <em>Herstellkosten des Umsatzes</em>. Gibt es Bestandsveränderungen an fertigen und unfertigen Erzeugnissen, korrigierst du die Herstellkosten der Produktion um diese: Bestandsmehrungen ziehst du ab, Bestandsminderungen rechnest du hinzu.</p>"
+  },
+  {
+   "h2": "Beispiel: BAB mit Zuschlagssätzen Schritt für Schritt",
+   "html": "<div class=\"beispiel\">\n<p>Ein Hersteller von Fahrradanhängern hat im Monat 100.000 € Fertigungsmaterial (FM) und 50.000 € Fertigungslöhne (FL) als Einzelkosten. Die Gemeinkosten betragen 128.300 €. Bekannt sind: Flächen 200 / 600 / 100 / 100 m², Anlagenwerte im Verhältnis 10 : 70 : 10 : 10, Stromverbrauch im Verhältnis 5 : 80 : 5 : 10. Bestandsveränderungen gibt es keine.</p>\n<p><strong>Schritt 1 – Gemeinkosten verteilen.</strong> Beispiel Miete: 24.000 € ÷ 1.000 m² = 24 € je m², also Material 200 × 24 = 4.800 €, Fertigung 600 × 24 = 14.400 €, Verwaltung und Vertrieb je 2.400 €.</p>\n<table>\n<thead><tr><th>Gemeinkostenart</th><th>Summe</th><th>Schlüssel</th><th>Material</th><th>Fertigung</th><th>Verwaltung</th><th>Vertrieb</th></tr></thead>\n<tbody>\n<tr><td>Hilfslöhne</td><td>18.000 €</td><td>direkt (Lohnlisten)</td><td>2.000 €</td><td>12.000 €</td><td>1.500 €</td><td>2.500 €</td></tr>\n<tr><td>Gehälter</td><td>38.300 €</td><td>direkt (Gehaltsliste)</td><td>5.000 €</td><td>8.000 €</td><td>16.300 €</td><td>9.000 €</td></tr>\n<tr><td>Miete</td><td>24.000 €</td><td>m² (200 : 600 : 100 : 100)</td><td>4.800 €</td><td>14.400 €</td><td>2.400 €</td><td>2.400 €</td></tr>\n<tr><td>Abschreibungen</td><td>30.000 €</td><td>Anlagenwerte (10 : 70 : 10 : 10)</td><td>3.000 €</td><td>21.000 €</td><td>3.000 €</td><td>3.000 €</td></tr>\n<tr><td>Energie</td><td>8.000 €</td><td>kWh (5 : 80 : 5 : 10)</td><td>400 €</td><td>6.400 €</td><td>400 €</td><td>800 €</td></tr>\n<tr><td>Sonstige</td><td>10.000 €</td><td>direkt (Belege)</td><td>1.000 €</td><td>2.000 €</td><td>4.000 €</td><td>3.000 €</td></tr>\n<tr><td><strong>Summe Gemeinkosten</strong></td><td><strong>128.300 €</strong></td><td></td><td><strong>16.200 €</strong></td><td><strong>63.800 €</strong></td><td><strong>27.600 €</strong></td><td><strong>20.700 €</strong></td></tr>\n<tr><td>Zuschlagsbasis</td><td></td><td></td><td>FM 100.000 €</td><td>FL 50.000 €</td><td>HK 230.000 €</td><td>HK 230.000 €</td></tr>\n<tr><td><strong>Zuschlagssatz</strong></td><td></td><td></td><td><strong>16,2 %</strong></td><td><strong>127,6 %</strong></td><td><strong>12 %</strong></td><td><strong>9 %</strong></td></tr>\n</tbody>\n</table>\n<p><strong>Schritt 2 – Kontrolle:</strong> 16.200 + 63.800 + 27.600 + 20.700 = 128.300 €. Die Summe der Spalten muss immer der Summe der Gemeinkosten entsprechen.</p>\n<p><strong>Schritt 3 – Zuschlagssätze:</strong></p>\n<ol>\n<li>MGK: 16.200 ÷ 100.000 = <strong>16,2 %</strong></li>\n<li>FGK: 63.800 ÷ 50.000 = <strong>127,6 %</strong></li>\n<li>Herstellkosten: 100.000 + 16.200 + 50.000 + 63.800 = 230.000 €</li>\n<li>VwGK: 27.600 ÷ 230.000 = <strong>12 %</strong></li>\n<li>VtGK: 20.700 ÷ 230.000 = <strong>9 %</strong></li>\n</ol>\n<p><strong>Schritt 4 – Anwendung:</strong> Ein Anhänger-Auftrag braucht 1.000 € Material und 400 € Fertigungslohn. Materialkosten 1.000 + 162,00 = 1.162,00 €; Fertigungskosten 400 + 510,40 = 910,40 €; Herstellkosten 2.072,40 €; dazu 12 % Verwaltung (248,69 €) und 9 % Vertrieb (186,52 €) ergibt Selbstkosten von <strong>2.507,61 €</strong>.</p>\n</div>"
+  },
+  {
+   "h2": "Wie werden Hilfskostenstellen umgelegt?",
+   "html": "<p>Viele BAB-Aufgaben enthalten eine <strong>allgemeine Kostenstelle</strong> (z. B. Gebäude, Energieversorgung), die für alle anderen Stellen Leistungen erbringt, oder eine <strong>Hilfskostenstelle</strong> eines Bereichs, etwa die Arbeitsvorbereitung für die Fertigung. Ihre Kosten müssen auf die Hauptkostenstellen weiterverteilt werden, denn nur die Hauptkostenstellen haben eine Zuschlagsbasis.</p>\n<p>Das übliche Verfahren in Klausuren ist das <strong>Stufenleiterverfahren</strong> (Treppenverfahren): Die Hilfsstellen werden nacheinander abgerechnet, jede gibt ihre Kosten nur an die noch nicht abgerechneten Stellen weiter. Leistungen in Gegenrichtung werden dabei ignoriert. Einfacher ist das <strong>Anbauverfahren</strong>, bei dem Hilfsstellen nur an Hauptstellen abgeben. Exakt, aber rechenintensiv ist das <strong>Gleichungsverfahren</strong>, das gegenseitige Leistungsbeziehungen über ein Gleichungssystem erfasst.</p>\n<p>Wichtig: Nach der Umlage muss die Summe der Hilfskostenstelle null sein, und die Gesamtsumme aller Gemeinkosten darf sich nicht verändert haben.</p>"
+  },
+  {
+   "h2": "Normalkosten, Istkosten und Kostenüber- oder -unterdeckung",
+   "html": "<p>In der Praxis kalkuliert ein Betrieb Angebote mit <strong>Normalzuschlagssätzen</strong>, also Durchschnittswerten vergangener Perioden. Am Monatsende zeigt der BAB die <strong>Ist-Zuschlagssätze</strong>. Der Vergleich deckt auf, ob zu viel oder zu wenig Gemeinkosten verrechnet wurden.</p>\n<div class=\"beispiel\">\n<p>Der Fahrradanhänger-Hersteller hat mit einem Normal-FGK-Satz von 120 % kalkuliert. Verrechnet wurden also 50.000 × 120 % = 60.000 €. Tatsächlich angefallen sind 63.800 €. Es entsteht eine <strong>Kostenunterdeckung von 3.800 €</strong>: Die Kalkulation war zu optimistisch, die Angebote waren zu billig.</p>\n</div>\n<p>Liegen die verrechneten Normalkosten über den Istkosten, spricht man von einer <strong>Kostenüberdeckung</strong>. Beides ist ein Signal für das Controlling: Entweder sind die Kosten aus dem Ruder gelaufen oder die Normalsätze müssen angepasst werden.</p>"
+  },
+  {
+   "h2": "Vorteile, Grenzen und Alternativen des BAB",
+   "html": "<p><strong>Vorteile:</strong> Der BAB ist übersichtlich, schafft eine nachvollziehbare Grundlage für die Kalkulation und zeigt, in welchem Bereich welche Kosten entstehen. Er ist damit auch ein Kontrollinstrument für Kostenstellenverantwortliche.</p>\n<p><strong>Grenzen:</strong> Die Schlüssel sind Annahmen. Ob die Fertigung wirklich 60 % der Miete verursacht, nur weil sie 60 % der Fläche nutzt, ist eine Vereinfachung. Problematisch wird es bei hohen Fertigungsgemeinkosten: Ein Zuschlag von 127,6 % auf Löhne unterstellt, dass jede Lohnstunde gleich viele Maschinenkosten verursacht. In automatisierten Betrieben ist der <a href=\"/lernen/maschinenstundensatz\">Maschinenstundensatz</a> genauer, der die maschinenabhängigen Kosten pro Laufstunde verrechnet.</p>\n<p>Außerdem verteilt der klassische BAB fixe und variable Gemeinkosten gemeinsam. Für kurzfristige Entscheidungen ist das ungeeignet; dort arbeitet man mit Teilkosten. Bei einem Betrieb mit nur einem Produkt braucht man den BAB oft gar nicht, da reicht die Divisionskalkulation.</p>"
+  }
+ ],
+ "fehler": [
+  "Einzelkosten im BAB verteilen: Fertigungsmaterial und Fertigungslöhne gehören nicht in die Verteilung, sie sind nur Zuschlagsbasis für Material- und Fertigungsgemeinkosten.",
+  "Verwaltungs- und Vertriebszuschlag auf die Einzelkosten beziehen: Die Basis sind die Herstellkosten, also Einzelkosten plus Material- und Fertigungsgemeinkosten.",
+  "Bestandsveränderungen vergessen: Bei Bestandsmehrungen werden sie von den Herstellkosten der Produktion abgezogen, bei Minderungen addiert, um die Herstellkosten des Umsatzes zu erhalten.",
+  "Keine Summenkontrolle machen: Rechne am Ende nach, ob die Summe aller Stellen der Summe der Gemeinkosten entspricht. Ein Rundungs- oder Schlüsselfehler fällt so sofort auf.",
+  "Beim Stufenleiterverfahren an bereits abgerechnete Stellen zurückverteilen: Jede Hilfsstelle gibt nur an die Stellen rechts von ihr ab."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen Hauptkostenstelle und Hilfskostenstelle?",
+   "a": "Hauptkostenstellen arbeiten direkt an den Produkten (Material, Fertigung, Verwaltung, Vertrieb) und haben eine Zuschlagsbasis. Hilfskostenstellen erbringen Leistungen für andere Stellen, etwa Fuhrpark oder Instandhaltung, und werden auf die Hauptkostenstellen umgelegt."
+  },
+  {
+   "q": "Wie berechnet man die Zuschlagssätze im BAB?",
+   "a": "Teile die Gemeinkosten einer Hauptkostenstelle durch ihre Bezugsgröße. Material: MGK ÷ Fertigungsmaterial. Fertigung: FGK ÷ Fertigungslöhne. Verwaltung und Vertrieb: jeweils Gemeinkosten ÷ Herstellkosten des Umsatzes."
+  },
+  {
+   "q": "Was ist ein Verteilungsschlüssel?",
+   "a": "Eine Bezugsgröße, nach der Gemeinkosten auf Kostenstellen verteilt werden, wenn kein direkter Beleg vorliegt. Beispiele sind Quadratmeter für Miete, kWh für Strom oder Anlagenwerte für Abschreibungen."
+  },
+  {
+   "q": "Was bedeutet Kostenunterdeckung?",
+   "a": "Die mit Normalzuschlagssätzen verrechneten Gemeinkosten sind niedriger als die tatsächlich angefallenen Istkosten. Die Produkte wurden also zu niedrig kalkuliert, und das Betriebsergebnis fällt schlechter aus als erwartet."
+  },
+  {
+   "q": "Warum stehen Einzelkosten im BAB?",
+   "a": "Sie werden nicht verteilt, sondern nur als Zuschlagsbasis unter die Tabelle geschrieben. Ohne Fertigungsmaterial und Fertigungslöhne könnte man die Material- und Fertigungsgemeinkostenzuschläge nicht berechnen."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Fertigungsgemeinkosten 63.800 €, Fertigungslöhne 50.000 €. Wie hoch ist der FGK-Zuschlag?",
+   "o": [
+    "78,4 %",
+    "63,8 %",
+    "27,7 %",
+    "127,6 %"
+   ],
+   "r": 3,
+   "e": "63.800 ÷ 50.000 = 1,276, also 127,6 %. Der Zuschlag darf über 100 % liegen, wenn die Gemeinkosten höher als die Löhne sind."
+  },
+  {
+   "q": "Welcher Schlüssel eignet sich am besten, um die Miete auf Kostenstellen zu verteilen?",
+   "o": [
+    "Anzahl der Produkte",
+    "Genutzte Fläche in m²",
+    "Höhe der Fertigungslöhne",
+    "Umsatz je Abteilung"
+   ],
+   "r": 1,
+   "e": "Mietkosten entstehen durch genutzte Fläche, deshalb ist die Fläche in Quadratmetern der verursachungsgerechte Schlüssel."
+  },
+  {
+   "q": "Normal verrechnete FGK 60.000 €, Ist-FGK 63.800 €. Was liegt vor?",
+   "o": [
+    "Kostenunterdeckung von 3.800 €",
+    "Kostenüberdeckung von 3.800 €",
+    "Kostenunterdeckung von 63.800 €",
+    "Weder Über- noch Unterdeckung"
+   ],
+   "r": 0,
+   "e": "Es wurden weniger Kosten verrechnet als angefallen sind. Das ist eine Unterdeckung von 63.800 − 60.000 = 3.800 €."
+  }
+ ],
+ "verwandt": [
+  "zuschlagskalkulation",
+  "einzelkosten-gemeinkosten",
+  "kostenrechnung",
+  "maschinenstundensatz",
+  "divisionskalkulation"
+ ],
+ "ask": "den Betriebsabrechnungsbogen – mit einem Beispiel zur Verteilung der Gemeinkosten und zur Berechnung der Zuschlagssätze"
+}

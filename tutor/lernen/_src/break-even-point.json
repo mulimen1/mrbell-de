@@ -1,0 +1,116 @@
+{
+ "slug": "break-even-point",
+ "name": "Break-even-Point",
+ "title": "Break-even-Point berechnen – Formel und Beispiel",
+ "meta": "Break-even-Point einfach erklärt: Gewinnschwelle per Formel berechnen, grafisch darstellen, Sicherheitsabstand und Zielgewinn – mit Beispiel.",
+ "h1": "Break-even-Point einfach erklärt",
+ "kurz": "Der Break-even-Point (Gewinnschwelle) ist die Absatzmenge, bei der die Umsatzerlöse genau die Gesamtkosten decken – der Gewinn ist null. Du berechnest ihn, indem du die Fixkosten durch den Deckungsbeitrag pro Stück teilst: x(BE) = K(f) ÷ (p − k(v)). Jedes weitere verkaufte Stück bringt Gewinn.",
+ "keywords": [
+  "Break-even-Point",
+  "Break-even-Point berechnen",
+  "Gewinnschwelle",
+  "Break-even-Analyse",
+  "Break-even-Menge Formel",
+  "Break-even-Umsatz",
+  "Gewinnschwelle grafisch",
+  "Sicherheitsabstand"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der Break-even-Point?",
+   "html": "<p>Der Break-even-Point (BEP), auf Deutsch <strong>Gewinnschwelle</strong> oder Nutzenschwelle, markiert den Punkt, an dem ein Unternehmen weder Gewinn noch Verlust macht. Unterhalb dieser Menge reichen die Erlöse nicht, um alle Kosten zu decken; oberhalb beginnt die Gewinnzone.</p>\n<p>Die Logik dahinter kommt aus der Teilkostenrechnung: Jedes verkaufte Stück bringt einen <a href=\"/lernen/deckungsbeitrag\">Deckungsbeitrag</a>, also Preis minus variable Stückkosten. Dieser Betrag deckt Stück für Stück die Fixkosten ab. Sobald die Summe der Deckungsbeiträge die Fixkosten erreicht, ist die Gewinnschwelle erreicht.</p>\n<div class=\"merke\">Merke: Am Break-even-Point gilt Umsatz = Gesamtkosten, Gesamtdeckungsbeitrag = Fixkosten und Gewinn = 0.</div>\n<p>In Klausuren taucht die Gewinnschwelle meist in drei Varianten auf: Gesucht ist die Menge, der Umsatz oder ein fehlender Wert wie der Mindestpreis bei gegebener Absatzmenge. Alle drei löst du mit derselben Gewinngleichung, indem du G = 0 setzt und nach der gesuchten Größe umstellst. Wer die Gleichung verstanden hat, muss keine Einzelformeln auswendig lernen.</p>"
+  },
+  {
+   "h2": "Wie berechnet man den Break-even-Point? Die Formel",
+   "html": "<p>Ausgangspunkt ist die Gewinngleichung bei linearem Kostenverlauf:</p>\n<div class=\"formel\">G = p × x − (K(f) + k(v) × x) = (p − k(v)) × x − K(f)</div>\n<p>Setzt du den Gewinn G gleich null und löst nach x auf, erhältst du die Break-even-Menge:</p>\n<div class=\"formel\">x(BE) = K(f) ÷ (p − k(v)) = Fixkosten ÷ Stückdeckungsbeitrag</div>\n<p>Willst du statt der Menge den Umsatz an der Gewinnschwelle, multiplizierst du mit dem Preis oder nutzt die Deckungsbeitragsquote. Das ist praktisch, wenn ein Unternehmen viele Produkte verkauft und keine einheitliche Stückzahl hat:</p>\n<div class=\"formel\">U(BE) = x(BE) × p = K(f) ÷ DB-Quote, mit DB-Quote = (p − k(v)) ÷ p</div>\n<p>Zwei Erweiterungen kommen in Klausuren häufig vor:</p>\n<div class=\"formel\">Menge für Zielgewinn: x = (K(f) + Zielgewinn) ÷ (p − k(v))</div>\n<div class=\"formel\">Sicherheitsabstand = (geplante Menge − x(BE)) ÷ geplante Menge × 100 %</div>\n<p>Der Sicherheitsabstand sagt, um wie viel Prozent der Absatz sinken darf, bevor das Unternehmen in die Verlustzone rutscht.</p>"
+  },
+  {
+   "h2": "Beispiel: Gewinnschwelle Schritt für Schritt",
+   "html": "<div class=\"beispiel\">\n<p>Ein Start-up verkauft Bluetooth-Lautsprecher für 60 € netto. Die variablen Kosten (Bauteile, Montage, Versand) betragen 36 € je Stück. An Fixkosten (Miete, Gehälter, Marketingbudget) fallen pro Jahr 120.000 € an. Geplant ist ein Absatz von 6.500 Stück.</p>\n<ol>\n<li>Stückdeckungsbeitrag: 60 € − 36 € = <strong>24 €</strong></li>\n<li>Break-even-Menge: 120.000 € ÷ 24 € = <strong>5.000 Stück</strong></li>\n<li>Break-even-Umsatz: 5.000 × 60 € = <strong>300.000 €</strong> (Kontrolle über die DB-Quote: 24 ÷ 60 = 40 %; 120.000 € ÷ 0,40 = 300.000 €)</li>\n<li>Gewinn bei Planabsatz: 6.500 × 24 € − 120.000 € = <strong>36.000 €</strong></li>\n<li>Sicherheitsabstand: (6.500 − 5.000) ÷ 6.500 = <strong>23,1 %</strong></li>\n<li>Menge für einen Zielgewinn von 48.000 €: (120.000 + 48.000) ÷ 24 = <strong>7.000 Stück</strong></li>\n</ol>\n<p>Interpretation: Das Start-up muss mindestens 5.000 Lautsprecher verkaufen, um kostendeckend zu arbeiten. Fällt der Absatz gegenüber dem Plan um mehr als 23,1 %, entsteht Verlust.</p>\n</div>"
+  },
+  {
+   "h2": "Wie stellt man den Break-even-Point grafisch dar?",
+   "html": "<p>In der Grafik trägst du auf der x-Achse die Menge und auf der y-Achse Euro ab. Drei Linien sind nötig:</p>\n<ul>\n<li><strong>Fixkostenlinie:</strong> waagerecht in Höhe von 120.000 €.</li>\n<li><strong>Gesamtkostenlinie:</strong> beginnt bei 120.000 € auf der y-Achse und steigt mit 36 € je Stück.</li>\n<li><strong>Umsatzlinie (Erlösgerade):</strong> beginnt im Ursprung und steigt mit 60 € je Stück, also steiler als die Kostenlinie.</li>\n</ul>\n<p>Der Schnittpunkt von Umsatz- und Gesamtkostenlinie ist der Break-even-Point. Links davon liegt die Verlustzone (Kostenlinie über der Umsatzlinie), rechts die Gewinnzone. Diese Wertetabelle hilft beim Zeichnen:</p>\n<table>\n<thead><tr><th>Menge</th><th>Umsatz</th><th>Gesamtkosten</th><th>Ergebnis</th></tr></thead>\n<tbody>\n<tr><td>0</td><td>0 €</td><td>120.000 €</td><td>−120.000 €</td></tr>\n<tr><td>2.500</td><td>150.000 €</td><td>210.000 €</td><td>−60.000 €</td></tr>\n<tr><td>5.000</td><td>300.000 €</td><td>300.000 €</td><td>0 €</td></tr>\n<tr><td>7.500</td><td>450.000 €</td><td>390.000 €</td><td>60.000 €</td></tr>\n</tbody>\n</table>\n<p>Alternativ gibt es die <strong>Deckungsbeitragsdarstellung</strong>: Hier zeichnest du nur die Fixkostenlinie und die Gerade des Gesamtdeckungsbeitrags (Steigung 24 €). Der Schnittpunkt liegt ebenfalls bei 5.000 Stück. Beide Varianten sind korrekt; achte darauf, welche die Aufgabe verlangt.</p>"
+  },
+  {
+   "h2": "Was beeinflusst die Gewinnschwelle?",
+   "html": "<p>Mit der Formel kannst du sofort ablesen, wie sich Änderungen auswirken. Im Beispiel:</p>\n<ul>\n<li><strong>Preis sinkt auf 56 €:</strong> Stück-DB fällt auf 20 €, die Gewinnschwelle steigt auf 120.000 ÷ 20 = 6.000 Stück. Eine Preissenkung um knapp 7 % erhöht die nötige Menge um 20 %.</li>\n<li><strong>Fixkosten steigen um 12.000 €:</strong> 132.000 ÷ 24 = 5.500 Stück.</li>\n<li><strong>Variable Kosten sinken:</strong> Der Stück-DB steigt, die Gewinnschwelle sinkt.</li>\n</ul>\n<p>Unternehmen mit hohen Fixkosten und niedrigen variablen Kosten (z. B. Software, Fluggesellschaften) haben eine hohe Gewinnschwelle, verdienen danach aber mit jedem Stück viel. Unternehmen mit niedrigen Fixkosten erreichen den BEP schneller, verdienen jenseits davon aber weniger je Stück. Man spricht hier vom <strong>operativen Leverage</strong>: Je höher der Fixkostenanteil, desto stärker schwankt der Gewinn mit dem Absatz. Darum lohnt es sich, die Kostenstruktur über <a href=\"/lernen/fixe-und-variable-kosten\">fixe und variable Kosten</a> genau zu kennen.</p>"
+  },
+  {
+   "h2": "Wofür nutzt man die Break-even-Analyse – und wo sind ihre Grenzen?",
+   "html": "<p>Die Break-even-Analyse ist ein Standardwerkzeug in Businessplänen, bei Preisentscheidungen und bei der Frage, ob sich ein neues Produkt lohnt. Gründer zeigen Banken damit, ab welchem Absatz das Vorhaben trägt. Im Controlling dient der Sicherheitsabstand als Frühwarngröße für das Risiko eines Absatzeinbruchs.</p>\n<p><strong>Vorteile:</strong> einfach zu rechnen, gut zu visualisieren, macht die Wirkung von Preis- und Kostenänderungen sofort sichtbar.</p>\n<p><strong>Grenzen:</strong></p>\n<ul>\n<li>Sie unterstellt lineare Kosten- und Erlösverläufe. In der Realität gibt es Mengenrabatte im Einkauf, sprungfixe Kosten (eine zweite Maschine ab einer bestimmten Menge) und Preise, die bei höherem Absatz sinken müssen.</li>\n<li>Bei mehreren Produkten braucht man einen festen Absatzmix, sonst gibt es keine eindeutige Break-even-Menge. Dann arbeitet man mit der durchschnittlichen DB-Quote und dem Break-even-Umsatz.</li>\n<li>Sie ist statisch und betrachtet eine Periode; Zahlungszeitpunkte und Zinsen bleiben außen vor.</li>\n</ul>\n<p>Abzugrenzen ist die Gewinnschwelle vom <strong>Cash-Break-even</strong>: Dabei rechnet man nur mit auszahlungswirksamen Fixkosten, also ohne Abschreibungen. Er liegt deshalb niedriger und zeigt, ab wann das Unternehmen keine Liquidität mehr verliert. In der Investitionsrechnung ist die verwandte Frage, wann sich eine Anschaffung zurückverdient hat, Thema der <a href=\"/lernen/amortisationsrechnung\">Amortisationsrechnung</a>. Auf der Kostenseite hilft auch die <a href=\"/lernen/kostenvergleichsrechnung\">Kostenvergleichsrechnung</a> mit ihrer kritischen Menge, die nach derselben Idee berechnet wird.</p>"
+  }
+ ],
+ "fehler": [
+  "Fixkosten durch den Preis statt durch den Stückdeckungsbeitrag teilen: 120.000 ÷ 60 = 2.000 ist falsch. Richtig ist 120.000 ÷ (60 − 36) = 5.000 Stück.",
+  "Ergebnis nicht aufrunden: Kommt eine krumme Menge heraus, etwa 4.166,67 Stück, ist die Gewinnschwelle erst bei 4.167 Stück erreicht, weil man keine Bruchteile verkauft.",
+  "Break-even-Menge und Break-even-Umsatz verwechseln: Die Menge ist in Stück, der Umsatz in Euro. Lies genau, wonach gefragt ist, und gib die Einheit an.",
+  "In der Grafik die Gesamtkostenlinie im Ursprung beginnen lassen: Sie startet in Höhe der Fixkosten. Im Ursprung beginnt nur die Umsatzlinie.",
+  "Den Sicherheitsabstand auf die Break-even-Menge statt auf die geplante Menge beziehen: Der Nenner ist der Plan- bzw. Istabsatz."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man den Break-even-Point?",
+   "a": "Teile die Fixkosten durch den Deckungsbeitrag pro Stück: x(BE) = K(f) ÷ (p − k(v)). Bei 120.000 € Fixkosten, 60 € Preis und 36 € variablen Kosten liegt die Gewinnschwelle bei 5.000 Stück."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Break-even-Menge und Break-even-Umsatz?",
+   "a": "Die Break-even-Menge gibt an, wie viele Stück verkauft werden müssen. Der Break-even-Umsatz ist der dazugehörige Erlös in Euro, also Menge mal Preis oder Fixkosten geteilt durch die DB-Quote."
+  },
+  {
+   "q": "Was passiert nach dem Break-even-Point?",
+   "a": "Jedes zusätzlich verkaufte Stück erhöht den Gewinn um genau seinen Stückdeckungsbeitrag, weil die Fixkosten bereits gedeckt sind. Im Beispiel bringt jedes Stück über 5.000 also 24 € Gewinn."
+  },
+  {
+   "q": "Wie berechnet man den Break-even-Point bei mehreren Produkten?",
+   "a": "Man unterstellt einen festen Absatzmix und berechnet daraus eine durchschnittliche Deckungsbeitragsquote. Der Break-even-Umsatz ist dann Fixkosten geteilt durch diese Quote. Eine einzelne Stückzahl gibt es ohne festen Mix nicht."
+  },
+  {
+   "q": "Was sagt der Sicherheitsabstand aus?",
+   "a": "Er zeigt, um wie viel Prozent der Absatz oder Umsatz unter den Plan fallen darf, bevor ein Verlust entsteht. Ein hoher Sicherheitsabstand bedeutet ein geringeres Risiko."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Fixkosten 120.000 €, Preis 60 €, variable Stückkosten 36 €. Wo liegt die Gewinnschwelle?",
+   "o": [
+    "2.000 Stück",
+    "3.333 Stück",
+    "5.000 Stück",
+    "7.000 Stück"
+   ],
+   "r": 2,
+   "e": "120.000 ÷ (60 − 36) = 5.000 Stück. 2.000 entsteht, wenn man fälschlich durch den Preis teilt."
+  },
+  {
+   "q": "Wo beginnt in der klassischen Break-even-Grafik die Gesamtkostenlinie?",
+   "o": [
+    "Auf der y-Achse in Höhe der Fixkosten",
+    "Im Ursprung",
+    "Am Break-even-Point",
+    "Auf der x-Achse bei der Break-even-Menge"
+   ],
+   "r": 0,
+   "e": "Auch bei null Stück fallen die Fixkosten an, deshalb startet die Gesamtkostenlinie in deren Höhe."
+  },
+  {
+   "q": "Planabsatz 6.500 Stück, Break-even-Menge 5.000 Stück. Wie hoch ist der Sicherheitsabstand?",
+   "o": [
+    "30,0 %",
+    "1.500 %",
+    "76,9 %",
+    "23,1 %"
+   ],
+   "r": 3,
+   "e": "(6.500 − 5.000) ÷ 6.500 = 23,1 %. Bezieht man fälschlich auf 5.000, kommt 30 % heraus."
+  }
+ ],
+ "verwandt": [
+  "deckungsbeitrag",
+  "fixe-und-variable-kosten",
+  "kostenvergleichsrechnung",
+  "grenzkosten",
+  "gewinnvergleichsrechnung"
+ ],
+ "ask": "den Break-even-Point – mit Formel, durchgerechnetem Beispiel und der grafischen Lösung"
+}

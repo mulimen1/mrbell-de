@@ -1,0 +1,116 @@
+{
+ "slug": "zuschlagskalkulation",
+ "name": "Zuschlagskalkulation",
+ "title": "Zuschlagskalkulation einfach erklärt – mit Schema",
+ "meta": "Zuschlagskalkulation einfach erklärt: Kalkulationsschema von Materialkosten über Selbstkosten bis zum Angebotspreis, mit Beispiel und typischen Fehlern.",
+ "h1": "Zuschlagskalkulation einfach erklärt",
+ "kurz": "Die Zuschlagskalkulation ist ein Verfahren der Kostenträgerstückrechnung. Sie rechnet einem Produkt seine Einzelkosten direkt zu und schlägt die Gemeinkosten mit Prozentsätzen aus dem Betriebsabrechnungsbogen auf. So entstehen Schritt für Schritt Herstellkosten, Selbstkosten und – mit Gewinn, Skonto und Rabatt – der Angebotspreis.",
+ "keywords": [
+  "Zuschlagskalkulation",
+  "Kalkulationsschema",
+  "Zuschlagskalkulation Schema",
+  "Selbstkosten berechnen",
+  "Herstellkosten berechnen",
+  "Angebotspreis berechnen",
+  "Listenverkaufspreis",
+  "differenzierende Zuschlagskalkulation"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist die Zuschlagskalkulation?",
+   "html": "<p>Die Zuschlagskalkulation beantwortet die Frage: <strong>Was kostet ein einzelnes Produkt oder ein einzelner Auftrag, und welchen Preis muss ich dafür verlangen?</strong> Sie gehört zur Vollkostenrechnung und ist das Standardverfahren für Betriebe mit vielen unterschiedlichen Produkten oder Einzelaufträgen, also typischerweise Handwerk, Maschinenbau oder Serienfertigung mit wechselnden Varianten.</p>\n<p>Die Idee ist einfach. Kosten, die du einem Produkt direkt zuordnen kannst, setzt du in tatsächlicher Höhe an: das Fertigungsmaterial und die Fertigungslöhne. Alle anderen Kosten, die <a href=\"/lernen/einzelkosten-gemeinkosten\">Gemeinkosten</a>, verteilst du mit Prozentzuschlägen. Diese Zuschlagssätze stammen aus dem <a href=\"/lernen/betriebsabrechnungsbogen\">Betriebsabrechnungsbogen</a> (BAB), in dem die Gemeinkosten einer Periode ins Verhältnis zu einer Bezugsgröße gesetzt wurden.</p>\n<p>Man unterscheidet die <strong>summarische</strong> Zuschlagskalkulation mit nur einem Zuschlagssatz für alle Gemeinkosten und die <strong>differenzierende</strong> (elektive) Zuschlagskalkulation mit getrennten Sätzen für Material, Fertigung, Verwaltung und Vertrieb. In Klausuren ist fast immer die differenzierende Variante gemeint.</p>\n<p>Nicht verwechseln solltest du sie mit der Handelskalkulation: Dort startet das Schema beim Listeneinkaufspreis einer Ware und rechnet über Bezugspreis und Handlungskosten. Die Zuschlagskalkulation hier ist die Kalkulation eines Industrie- oder Handwerksbetriebs, der selbst fertigt.</p>"
+  },
+  {
+   "h2": "Wie sieht das Kalkulationsschema aus?",
+   "html": "<p>Das Schema gliedert sich in die Kalkulation der Selbstkosten und die anschließende Verkaufskalkulation:</p>\n<table>\n<thead><tr><th>Position</th><th>Basis des Zuschlags</th></tr></thead>\n<tbody>\n<tr><td>Fertigungsmaterial (Materialeinzelkosten, MEK)</td><td></td></tr>\n<tr><td>+ Materialgemeinkosten (MGK)</td><td>% der MEK</td></tr>\n<tr><td><strong>= Materialkosten</strong></td><td></td></tr>\n<tr><td>Fertigungslöhne (Fertigungseinzelkosten, FEK)</td><td></td></tr>\n<tr><td>+ Fertigungsgemeinkosten (FGK)</td><td>% der Fertigungslöhne</td></tr>\n<tr><td>+ Sondereinzelkosten der Fertigung</td><td>direkt (z. B. Spezialwerkzeug)</td></tr>\n<tr><td><strong>= Fertigungskosten</strong></td><td></td></tr>\n<tr><td><strong>= Herstellkosten</strong> (Material- + Fertigungskosten)</td><td></td></tr>\n<tr><td>+ Verwaltungsgemeinkosten (VwGK)</td><td>% der Herstellkosten</td></tr>\n<tr><td>+ Vertriebsgemeinkosten (VtGK)</td><td>% der Herstellkosten</td></tr>\n<tr><td>+ Sondereinzelkosten des Vertriebs</td><td>direkt (z. B. Spezialverpackung)</td></tr>\n<tr><td><strong>= Selbstkosten</strong></td><td></td></tr>\n<tr><td>+ Gewinnzuschlag</td><td>% der Selbstkosten</td></tr>\n<tr><td><strong>= Barverkaufspreis</strong></td><td></td></tr>\n<tr><td>+ Kundenskonto</td><td>% vom Zielverkaufspreis (im Hundert)</td></tr>\n<tr><td><strong>= Zielverkaufspreis</strong></td><td></td></tr>\n<tr><td>+ Kundenrabatt</td><td>% vom Listenverkaufspreis (im Hundert)</td></tr>\n<tr><td><strong>= Listenverkaufspreis (netto) = Angebotspreis</strong></td><td></td></tr>\n</tbody>\n</table>\n<p>Die Umsatzsteuer kommt erst danach oben drauf, wenn ein Bruttopreis gefragt ist. Manche Lehrbücher setzen zwischen Barverkaufspreis und Zielverkaufspreis noch eine Vertreterprovision; sie wird wie das Skonto im Hundert vom Zielverkaufspreis gerechnet.</p>\n<div class=\"merke\">Merke: Gewinn wird vom Hundert gerechnet (Basis Selbstkosten), Skonto und Rabatt im Hundert (Basis ist der jeweils höhere Preis, der noch gesucht wird).</div>"
+  },
+  {
+   "h2": "Warum werden Skonto und Rabatt „im Hundert“ gerechnet?",
+   "html": "<p>Das ist der Punkt, an dem in Klausuren am meisten Punkte verloren gehen. Der Kunde bekommt den Rabatt vom Listenpreis und das Skonto vom Zielverkaufspreis abgezogen. Wenn du von unten nach oben rechnest, kennst du diese höheren Preise aber noch nicht. Der Barverkaufspreis entspricht also nicht 100 %, sondern 100 % minus Skontosatz des gesuchten Zielverkaufspreises.</p>\n<div class=\"formel\">Zielverkaufspreis = Barverkaufspreis ÷ (1 − Skontosatz)</div>\n<div class=\"formel\">Listenverkaufspreis = Zielverkaufspreis ÷ (1 − Rabattsatz)</div>\n<p>Rechnest du stattdessen einfach 2 % auf den Barverkaufspreis drauf, ist der Preis zu niedrig: Zieht der Kunde später 2 % vom höheren Betrag ab, bleibt weniger als der Barverkaufspreis übrig, und dein kalkulierter Gewinn schrumpft.</p>"
+  },
+  {
+   "h2": "Beispiel: Zuschlagskalkulation Schritt für Schritt",
+   "html": "<div class=\"beispiel\">\n<p>Ein Metallbaubetrieb kalkuliert ein Treppengeländer. Daten: Fertigungsmaterial 200 €, Fertigungslöhne 150 €, Sondereinzelkosten der Fertigung (Biegeschablone) 30 €, Sondereinzelkosten des Vertriebs (Transport) 15 €. Zuschlagssätze aus dem BAB: MGK 12 %, FGK 140 %, VwGK 8 %, VtGK 6 %. Gewinnzuschlag 10 %, Kundenskonto 2 %, Kundenrabatt 15 %.</p>\n<table>\n<thead><tr><th>Position</th><th>Rechnung</th><th>Betrag</th></tr></thead>\n<tbody>\n<tr><td>Fertigungsmaterial</td><td></td><td>200,00 €</td></tr>\n<tr><td>+ MGK</td><td>12 % von 200,00</td><td>24,00 €</td></tr>\n<tr><td>= Materialkosten</td><td></td><td>224,00 €</td></tr>\n<tr><td>Fertigungslöhne</td><td></td><td>150,00 €</td></tr>\n<tr><td>+ FGK</td><td>140 % von 150,00</td><td>210,00 €</td></tr>\n<tr><td>+ SEK der Fertigung</td><td></td><td>30,00 €</td></tr>\n<tr><td>= Fertigungskosten</td><td></td><td>390,00 €</td></tr>\n<tr><td><strong>= Herstellkosten</strong></td><td>224,00 + 390,00</td><td><strong>614,00 €</strong></td></tr>\n<tr><td>+ VwGK</td><td>8 % von 614,00</td><td>49,12 €</td></tr>\n<tr><td>+ VtGK</td><td>6 % von 614,00</td><td>36,84 €</td></tr>\n<tr><td>+ SEK des Vertriebs</td><td></td><td>15,00 €</td></tr>\n<tr><td><strong>= Selbstkosten</strong></td><td></td><td><strong>714,96 €</strong></td></tr>\n<tr><td>+ Gewinn</td><td>10 % von 714,96</td><td>71,50 €</td></tr>\n<tr><td>= Barverkaufspreis</td><td></td><td>786,46 €</td></tr>\n<tr><td>+ Kundenskonto</td><td>786,46 ÷ 0,98 − 786,46</td><td>16,05 €</td></tr>\n<tr><td>= Zielverkaufspreis</td><td></td><td>802,51 €</td></tr>\n<tr><td>+ Kundenrabatt</td><td>802,51 ÷ 0,85 − 802,51</td><td>141,62 €</td></tr>\n<tr><td><strong>= Listenverkaufspreis (netto)</strong></td><td></td><td><strong>944,13 €</strong></td></tr>\n</tbody>\n</table>\n<p><strong>Probe rückwärts:</strong> 944,13 € − 15 % Rabatt = 802,51 €; davon 2 % Skonto abgezogen ergibt 786,46 €. Es bleiben also genau die Selbstkosten plus 71,50 € Gewinn. Hätte man Skonto und Rabatt fälschlich vom Hundert aufgeschlagen, käme man nur auf 922,89 € und würde rund 21 € Gewinn verschenken.</p>\n</div>"
+  },
+  {
+   "h2": "Rückwärts- und Differenzkalkulation",
+   "html": "<p>Das Schema funktioniert auch in die andere Richtung:</p>\n<ul>\n<li><strong>Rückwärtskalkulation:</strong> Der Marktpreis ist vorgegeben. Du rechnest vom Listenverkaufspreis abwärts (Rabatt und Skonto jetzt vom Hundert abziehen, Gewinn im Hundert herausrechnen) und prüfst, welche Selbstkosten maximal erlaubt sind.</li>\n<li><strong>Differenzkalkulation:</strong> Preis und Selbstkosten sind gegeben. Du rechnest von oben bis zum Barverkaufspreis und von unten bis zu den Selbstkosten; die Differenz ist der tatsächliche Gewinn, oft als Prozentsatz der Selbstkosten angegeben.</li>\n</ul>\n<p><strong>Zahlenbeispiel:</strong> Die Konkurrenz bietet vergleichbare Geländer für 900 € netto an. Rückwärts gerechnet: 900 € − 15 % Rabatt = 765,00 €; − 2 % Skonto = 749,70 € Barverkaufspreis. Bei 10 % Gewinnzuschlag dürften die Selbstkosten höchstens 749,70 ÷ 1,10 = 681,55 € betragen, der Betrieb liegt mit 714,96 € darüber. Die Differenzkalkulation zeigt, was bei 900 € übrig bliebe: 749,70 − 714,96 = 34,74 € Gewinn, also nur 4,86 % der Selbstkosten statt der geplanten 10 %.</p>\n<p>Für die Nachkalkulation nach Auftragsende setzt man statt der Normal-Zuschlagssätze die Ist-Zuschlagssätze ein. Weicht das Ergebnis ab, spricht man von Kostenüber- oder -unterdeckung.</p>"
+  },
+  {
+   "h2": "Wann passt die Zuschlagskalkulation – und wann nicht?",
+   "html": "<p><strong>Geeignet</strong> ist sie für Betriebe mit heterogenem Programm und Auftragsfertigung, in denen sich Einzelkosten gut erfassen lassen. Bei einem einzigen Massenprodukt ist dagegen die einfachere <a href=\"/lernen/divisionskalkulation\">Divisionskalkulation</a> üblich: Gesamtkosten geteilt durch Menge.</p>\n<p><strong>Vorteile:</strong> verursachungsgerechter als ein Pauschalzuschlag, flexibel für jeden Auftrag einsetzbar, gut nachvollziehbar für Kunden und Prüfer.</p>\n<p><strong>Nachteile:</strong> Die Zuschlagssätze unterstellen, dass Gemeinkosten proportional zu Material oder Lohn steigen. In stark automatisierten Fertigungen stimmt das kaum noch: Wenige Lohnstunden tragen dann riesige Fertigungsgemeinkosten, und Zuschläge von mehreren Hundert Prozent verzerren das Ergebnis. Hier rechnet man besser mit dem <a href=\"/lernen/maschinenstundensatz\">Maschinenstundensatz</a>. Außerdem werden Fixkosten wie variable behandelt; für kurzfristige Entscheidungen wie einen Zusatzauftrag ist deshalb die <a href=\"/lernen/deckungsbeitrag\">Deckungsbeitragsrechnung</a> das bessere Werkzeug.</p>"
+  }
+ ],
+ "fehler": [
+  "Skonto und Rabatt vom Hundert aufschlagen: Richtig ist im Hundert, also Barverkaufspreis ÷ 0,98 und Zielverkaufspreis ÷ 0,85 bei 2 % Skonto und 15 % Rabatt.",
+  "Verwaltungs- und Vertriebsgemeinkosten auf die Selbstkosten oder die Einzelkosten beziehen: Basis sind die Herstellkosten.",
+  "Sondereinzelkosten bezuschlagen: Sondereinzelkosten der Fertigung und des Vertriebs werden in voller Höhe addiert, aber nicht mit Gemeinkostenzuschlägen belegt.",
+  "Reihenfolge von Skonto und Rabatt vertauschen: Von unten nach oben kommt erst das Skonto, dann der Rabatt, denn der Kunde zieht zuerst den Rabatt vom Listenpreis ab und danach das Skonto.",
+  "Die Umsatzsteuer in die Kalkulation einbauen: Kalkuliert wird netto. Die Umsatzsteuer kommt nur auf den Listenverkaufspreis, wenn ein Bruttopreis verlangt ist."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen Herstellkosten und Selbstkosten?",
+   "a": "Herstellkosten umfassen Material- und Fertigungskosten einschließlich ihrer Gemeinkosten. Selbstkosten sind Herstellkosten plus Verwaltungs- und Vertriebsgemeinkosten und Sondereinzelkosten des Vertriebs, also alle Kosten des Produkts bis zum Verkauf."
+  },
+  {
+   "q": "Woher kommen die Zuschlagssätze?",
+   "a": "Aus dem Betriebsabrechnungsbogen. Dort werden die Gemeinkosten jeder Hauptkostenstelle durch ihre Zuschlagsbasis geteilt, zum Beispiel Materialgemeinkosten durch Fertigungsmaterial oder Verwaltungsgemeinkosten durch Herstellkosten."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Barverkaufspreis und Listenverkaufspreis?",
+   "a": "Der Barverkaufspreis ist der Betrag, der nach Abzug von Rabatt und Skonto tatsächlich beim Unternehmen ankommt. Der Listenverkaufspreis ist der Angebotspreis vor allen Nachlässen, also das, was auf dem Angebot steht."
+  },
+  {
+   "q": "Wird der Gewinn auf die Selbstkosten oder auf den Verkaufspreis gerechnet?",
+   "a": "In der Zuschlagskalkulation wird der Gewinnzuschlag vom Hundert auf die Selbstkosten gerechnet. Nur bei der Rückwärtskalkulation rechnest du ihn im Hundert aus dem Barverkaufspreis heraus."
+  },
+  {
+   "q": "Was sind Sondereinzelkosten?",
+   "a": "Kosten, die einem bestimmten Auftrag direkt zurechenbar sind, aber weder Material noch Fertigungslohn sind. Beispiele sind Spezialwerkzeuge, Lizenzgebühren, Konstruktionskosten oder Spezialverpackung und Frachten im Vertrieb."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Worauf bezieht sich der Verwaltungsgemeinkostenzuschlag?",
+   "o": [
+    "Auf die Materialeinzelkosten",
+    "Auf die Selbstkosten",
+    "Auf die Herstellkosten",
+    "Auf die Fertigungslöhne"
+   ],
+   "r": 2,
+   "e": "Verwaltungs- und Vertriebsgemeinkosten werden in Prozent der Herstellkosten zugeschlagen."
+  },
+  {
+   "q": "Barverkaufspreis 786,46 €, Kundenskonto 2 %. Wie hoch ist der Zielverkaufspreis?",
+   "o": [
+    "802,19 €",
+    "802,51 €",
+    "770,73 €",
+    "786,46 €"
+   ],
+   "r": 1,
+   "e": "Skonto wird im Hundert gerechnet: 786,46 ÷ 0,98 = 802,51 €. 802,19 € wäre der falsche Aufschlag vom Hundert."
+  },
+  {
+   "q": "Wie werden Sondereinzelkosten der Fertigung behandelt?",
+   "o": [
+    "Sie werden direkt addiert, ohne Gemeinkostenzuschlag",
+    "Sie erhalten den Fertigungsgemeinkostenzuschlag",
+    "Sie werden erst nach den Selbstkosten addiert",
+    "Sie werden im BAB verteilt"
+   ],
+   "r": 0,
+   "e": "Sondereinzelkosten sind Einzelkosten. Sie werden in voller Höhe in die Fertigungskosten übernommen, aber nicht bezuschlagt."
+  }
+ ],
+ "verwandt": [
+  "betriebsabrechnungsbogen",
+  "einzelkosten-gemeinkosten",
+  "divisionskalkulation",
+  "maschinenstundensatz",
+  "kostenrechnung"
+ ],
+ "ask": "die Zuschlagskalkulation – mit dem Kalkulationsschema von den Materialkosten bis zum Listenverkaufspreis"
+}
