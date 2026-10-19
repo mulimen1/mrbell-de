@@ -260,3 +260,4 @@
 .ms-pb { height: 4px; border-radius: 4px; background: var(--line2); margin-top: 8px; overflow: hidden; }
 .ms-pbar { display: block; height: 100%; width: 2%; background: var(--inv); border-radius: 4px; transition: width .4s ease; }
 .ms-tools .ms-vid { background: var(--panel); color: var(--ink); border: 1px solid var(--line2); }
+@media (min-width: 900px) { .ms-tools .ms-tb.ms-palb { display: none; } }

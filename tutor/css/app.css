@@ -4348,3 +4348,8 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 /* Themen-Einstieg: automatische Frage nie als Nachricht zeigen; am Handy auch die Antwort nicht im Verlauf */
 .ai-feed .ai-bub.auto { display: none !important; }
 @media (max-width: 600px) { .ai-feed .ai-bub.auto-a { display: none !important; } }
+/* Lernen: Upload-Karte als deutliche Ablagefläche */
+.ln-empty { padding: 26px 24px; border-width: 2px; border-color: color-mix(in srgb, var(--inv) 35%, var(--line2)); background: color-mix(in srgb, var(--inv) 3%, var(--panel)); transition: border-color .15s, background .15s, transform .15s; }
+.ln-empty.ln-over, .ln-dc.add.ln-over { border-style: solid; border-color: var(--inv); background: color-mix(in srgb, var(--inv) 9%, var(--panel)); transform: scale(1.01); }
+.ln-empty.ln-over .ln-dci { animation: lnbob .6s ease-in-out infinite alternate; }
+@keyframes lnbob { to { transform: translateY(-4px); } }

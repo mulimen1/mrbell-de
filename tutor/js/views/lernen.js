@@ -54,6 +54,15 @@ function stats(d) {
 }
 const tage = n => (n === 1 ? L('1 Tag', '1 day') : L(`${n} Tagen`, `${n} days`));
 
+// Datei direkt auf die Karte ziehen: deutlich sichtbar, dann geht's wie beim Hochladen weiter
+function dropable(el) {
+  let n = 0;
+  el.addEventListener('dragenter', e => { if (!e.dataTransfer?.types?.includes('Files')) return; e.preventDefault(); n++; el.classList.add('ln-over'); });
+  el.addEventListener('dragover', e => { if (e.dataTransfer?.types?.includes('Files')) e.preventDefault(); });
+  el.addEventListener('dragleave', () => { if (--n <= 0) { n = 0; el.classList.remove('ln-over'); } });
+  el.addEventListener('drop', e => { e.preventDefault(); e.stopPropagation(); n = 0; el.classList.remove('ln-over'); const f = e.dataTransfer?.files; if (f && f.length) import('../app.js').then(m => m.startUpload([...f])); });
+  return el;
+}
 export function render(root) {
   const wrap = h('div', { class: 'view-in ln' });
   root.appendChild(wrap);
@@ -90,11 +99,11 @@ export function render(root) {
     };
     const docs$ = docs.length
       ? h('div', { class: 'ln-docs' }, docs.slice(0, 12).map(docCard),
-        h('label', { class: 'ln-dc add', for: 'fileApp' }, h('span', { class: 'ln-dci', html: ico('plus') }), h('b', {}, L('Neues Skript', 'New slides')), h('small', { class: 'ln-dcs' }, L('PDF, PowerPoint, Word, Foto', 'PDF, PowerPoint, Word, photo'))))
-      : h('div', { class: 'ln-empty' }, h('span', { class: 'ln-dci', html: ico('upload') }),
-        h('div', {}, h('b', {}, L('Lad dein erstes Skript oder Video hoch', 'Upload your first slides or video')), h('small', {}, L('Auch Vorlesungsvideos und Aufnahmen – ich schreib sie ab und bau dir Karteikarten, Quiz, Lernzettel und Podcast daraus.', 'Lecture videos and recordings too – I transcribe them and build flashcards, quizzes, study sheets and podcasts from it.'))),
+        dropable(h('label', { class: 'ln-dc add', for: 'fileApp' }, h('span', { class: 'ln-dci', html: ico('plus') }), h('b', {}, L('Neues Skript', 'New slides')), h('small', { class: 'ln-dcs' }, L('Vorlesung, Buch, Video – oder hierher ziehen', 'Lecture, book, video – or drop here')))))
+      : dropable(h('div', { class: 'ln-empty' }, h('span', { class: 'ln-dci', html: ico('upload') }),
+        h('div', {}, h('b', {}, L('Lad dein erstes Skript hoch (Vorlesung, Buch, Video)', 'Upload your first material (lecture, book, video)')), h('small', {}, L('Einfach hierher ziehen oder hochladen – Vorlesungsvideos schreib ich dir ab. Dann bau ich dir Karteikarten, Quiz, Lernzettel und Podcast daraus.', 'Lecture videos and recordings too – I transcribe them and build flashcards, quizzes, study sheets and podcasts from it.'))),
         h('label', { class: 'btn primary sm', for: 'fileApp' }, L('Hochladen', 'Upload')),
-        h('button', { class: 'btn sm', type: 'button', onclick: () => import('../app.js').then(m => m.topicPrompt()) }, L('Oder: Thema nennen', 'Or: name a topic')));
+        h('button', { class: 'btn sm', type: 'button', onclick: () => import('../app.js').then(m => m.topicPrompt()) }, L('Oder: Thema nennen', 'Or: name a topic'))));
 
     // ---------- 2) Tools fürs gewählte Skript ----------
     const st = d ? stats(d) : null;
