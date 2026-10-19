@@ -127,3 +127,21 @@ html.bv-open .dk, html.ms-printing .dk { display: none; }
   .dk.hide { opacity: 0; transform: translateY(10px); pointer-events: none; }
 }
 @media (max-width: 600px) { .dk.row .dk-b { height: 36px; font-size: 13px; padding: 0 12px 0 9px; } }
+
+/* Lexikon: Begriff vorschlagen */
+.lx-sg { margin: 14px 8px 4px; }
+.lx-sgb { display: block; width: 100%; text-align: left; padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--inv) 22%, transparent); background: color-mix(in srgb, var(--inv) 7%, var(--panel)); color: var(--inv); cursor: pointer; transition: background .15s, transform .1s; }
+.lx-sgb:hover { background: color-mix(in srgb, var(--inv) 12%, var(--panel)); }
+.lx-sgb:active { transform: scale(.98); }
+.lx-sgb b { display: block; font: 650 14px var(--sans); }
+.lx-sgb small { display: block; margin-top: 2px; font: 500 12px/1.4 var(--sans); color: color-mix(in srgb, var(--inv) 70%, var(--mute)); }
+.lx-sgf { padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--inv) 22%, transparent); background: color-mix(in srgb, var(--inv) 5%, var(--panel)); animation: dkfade .3s cubic-bezier(.22,1,.36,1) both; }
+.lx-sgf > b { display: block; font: 650 13.5px var(--sans); color: var(--inv); margin-bottom: 8px; }
+.lx-sgr { display: flex; gap: 8px; }
+.lx-sgi { flex: 1; min-width: 0; height: 38px; border-radius: 10px; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); padding: 0 12px; font: 500 14px var(--sans); }
+.lx-sgm { display: block; min-height: 16px; margin-top: 6px; font-size: 12px; color: var(--mute); }
+.lx-sgm.err { color: #c0392b; }
+.lx-sgt { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: color-mix(in srgb, var(--inv) 8%, var(--panel)); animation: dkfade .4s cubic-bezier(.22,1,.36,1) both; }
+.lx-sgface { width: 54px; height: 54px; flex: none; }
+.lx-sgt b { display: block; font: 650 14.5px var(--sans); color: var(--inv); }
+.lx-sgt small { display: block; font-size: 12.5px; line-height: 1.4; color: var(--ink2); margin-top: 2px; }

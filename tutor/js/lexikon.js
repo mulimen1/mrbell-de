@@ -51,6 +51,15 @@ export function search(q, data) {
   return out.sort((a, b) => b[0] - a[0] || a[1].t.length - b[1].t.length).slice(0, 40).map(x => x[1]);
 }
 
+// Einziger Filter beim Vorschlagen: Beleidigungen und Anstößiges
+const BAD = ['arschloch', 'arsch', 'fick', 'fotze', 'hurensohn', 'hure', 'wichser', 'wixxer', 'schlampe', 'nutte', 'bastard', 'spast', 'missgeburt', 'schwuchtel', 'neger', 'nigger', 'nigga', 'kanake', 'hitler', 'nazi', 'sieg heil', 'penis', 'vagina', 'porno', 'porn', 'titten', 'schwanz', 'muschi', 'pimmel', 'kacke', 'scheiss', 'scheiß', 'scheiße', 'pisse', 'idiot', 'vollidiot', 'depp', 'fuck', 'shit', 'bitch', 'cunt', 'dick', 'slut', 'whore', 'retard', 'faggot', 'sex', 'kys', 'töte', 'umbringen'];
+function bad(t) {
+  const n = String(t).toLowerCase().replace(/0/g, 'o').replace(/1/g, 'i').replace(/3/g, 'e').replace(/4/g, 'a').replace(/5/g, 's').replace(/@/g, 'a').replace(/\$/g, 's');
+  const flat = n.replace(/[^a-zäöüß]+/g, '');
+  if (/https?:|www\.|\.(com|de|net|ru)\b/.test(n)) return true;
+  return BAD.some(w => { const f = w.replace(/\s+/g, ''); return f.length <= 5 ? new RegExp('(^|[^a-zäöü])' + f + '([^a-zäöü]|$)').test(n) : flat.includes(f); });
+}
+
 export async function lexikon(root, { close } = {}) {
   const q = h('input', { type: 'search', class: 'lx-q', placeholder: L('Begriff suchen – z. B. Deckungsbeitrag, EBIT, WACC', 'Search a term – e.g. contribution margin, EBIT, WACC'), 'aria-label': L('Begriff suchen', 'Search term'), autocomplete: 'off', enterkeyhint: 'search' });
   const cats = h('div', { class: 'lx-cats' });
@@ -74,10 +83,10 @@ export async function lexikon(root, { close } = {}) {
       const rec = (ls.get(RKEY, []) || []).map(t => data.find(x => x.t === t)).filter(Boolean);
       const pool = cat ? data.filter(x => x.c === cat).sort((a, b) => a.t.localeCompare(b.t, 'de')) : null;
       list.replaceChildren(...(pool ? pool.map(row) : [rec.length ? h('h4', {}, L('Zuletzt nachgeschlagen', 'Recently looked up')) : null, ...rec.map(row), h('h4', {}, L('Oft gesucht', 'Popular')),
-        ...['Deckungsbeitrag', 'Break-even-Point', 'Kapitalwert', 'EBIT', 'Bilanz', 'Abschreibung', 'Preiselastizität der Nachfrage', 'WACC', 'Leverage-Effekt', 'Rückstellungen'].map(t => data.find(x => x.t === t) || data.find(x => x._t.startsWith(norm(t)))).filter(Boolean).map(row)]).filter(Boolean));
+        ...['Deckungsbeitrag', 'Break-even-Point', 'Kapitalwert', 'EBIT', 'Bilanz', 'Abschreibung', 'Preiselastizität der Nachfrage', 'WACC', 'Leverage-Effekt', 'Rückstellungen'].map(t => data.find(x => x.t === t) || data.find(x => x._t.startsWith(norm(t)))).filter(Boolean).map(row)]).filter(Boolean), suggest(''));
       return;
     }
-    list.replaceChildren(...res.map(row), askMax(v, !res.length));
+    list.replaceChildren(...res.map(row), askMax(v, !res.length), suggest(v));
   }
   const askMax = (term, empty) => h('div', { class: 'lx-ask' }, empty ? h('p', {}, L(`„${term}“ steht noch nicht im Lexikon.`, `“${term}” isn’t in the glossary yet.`)) : null,
     h('button', { type: 'button', class: 'btn sm primary', onclick: () => ask(term) }, h('span', { html: ico('chat') }), L(`Max erklärt „${term}“`, `Max explains “${term}”`)));
@@ -86,6 +95,36 @@ export async function lexikon(root, { close } = {}) {
     try { const m = await import('./assistant.js'); const a = m.isAssistantEnabled() && m.mountAssistant(); if (a && a.ask) { close && close(); a.ask(L(`Erklär mir kurz und klausurtauglich: ${term}`, `Explain briefly, exam-ready: ${term}`)); return; } } catch (e) {}
     location.hash = '#/app/tutor';
   }
+  // „Fachbegriff nicht gefunden?“ – Nutzer schlagen Begriffe vor (landet im Feedback), danach freut sich Max
+  function suggest(pre) {
+    const box = h('div', { class: 'lx-sg' });
+    const closed = () => box.replaceChildren(h('button', { type: 'button', class: 'lx-sgb', onclick: () => { haptic(); openF(); } },
+      h('b', {}, L('BWL-Fachbegriff nicht gefunden?', 'Business term not found?')), h('small', {}, L('Schreib ihn uns und hilf mit, BWL Max besser zu machen.', 'Send it to us and help make BWL Max better.'))));
+    function openF() {
+      const inp = h('input', { type: 'text', class: 'lx-sgi', maxlength: 80, value: pre || '', placeholder: L('Welcher Begriff fehlt?', 'Which term is missing?'), 'aria-label': L('Fehlender Begriff', 'Missing term') });
+      const msg = h('small', { class: 'lx-sgm' });
+      const send = h('button', { type: 'button', class: 'btn primary sm' }, L('Senden', 'Send'));
+      const go = async () => {
+        const t = inp.value.replace(/\s+/g, ' ').trim();
+        if (t.length < 2) { msg.textContent = L('Schreib den Begriff kurz rein.', 'Type the term first.'); return; }
+        if (bad(t)) { msg.textContent = L('Bitte nur Fachbegriffe – ohne Beleidigungen oder Anstößiges.', 'Business terms only – no insults or offensive content.'); msg.classList.add('err'); return; }
+        send.disabled = true; send.textContent = L('Sende …', 'Sending …'); msg.textContent = ''; msg.classList.remove('err');
+        try { const { ask: a } = await import('./api.js'); await a('feedback', { opts: { kind: 'fehlt', stars: 0, text: 'Lexikon – Begriff fehlt: ' + t, name: '', info: '', consent: false } }); } catch (e) {}
+        haptic(); thanks(t);
+      };
+      send.addEventListener('click', go);
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); go(); } });
+      box.replaceChildren(h('div', { class: 'lx-sgf' }, h('b', {}, L('Welcher BWL-Begriff fehlt?', 'Which business term is missing?')), h('div', { class: 'lx-sgr' }, inp, send), msg));
+      setTimeout(() => inp.focus(), 30);
+    }
+    function thanks(t) {
+      const fc = h('div', { class: 'lx-sgface' });
+      box.replaceChildren(h('div', { class: 'lx-sgt' }, fc, h('div', {}, h('b', {}, L('Danke dir!', 'Thank you!')), h('small', {}, L(`„${t}“ kommt auf meine Liste. Mit Leuten wie dir werd ich jeden Tag schlauer.`, `“${t}” is on my list. People like you make me smarter every day.`)))));
+      import('./face.js').then(m => { const f = m.face(fc, { follow: false }); setTimeout(() => f.pulse('happy', 2600), 120); }).catch(() => {});
+    }
+    closed(); return box;
+  }
+
   function show(x) {
     haptic();
     const r = (ls.get(RKEY, []) || []).filter(t => t !== x.t); r.unshift(x.t); ls.set(RKEY, r.slice(0, 8));
