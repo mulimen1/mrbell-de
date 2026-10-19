@@ -984,7 +984,15 @@ export function mountAssistant() {
   async function cardsFromBoard(b, nm) {
     try { window.BM && window.BM.track('Karteikarten-Angebot', nm); } catch (e) {}
     let txt = '';
-    try { const d = new DOMParser().parseFromString('<div>' + sanitize(b.html) + '</div>', 'text/html'); d.querySelectorAll('br,p,li,h3,div,tr').forEach(n => n.append('\n')); txt = d.body.textContent.replace(/[ \t]+/g, ' ').replace(/\n\s*\n+/g, '\n').trim(); } catch (e) {}
+    // Text der Tafel (sichtbare Seite bevorzugt, sonst gespeichertes HTML) – ohne Quiz-Kästen, Knöpfe und Angebote
+    try {
+      const live = boards[bIdx] === b && bArea.querySelector('.tafel');
+      const d = document.createElement('div');
+      if (live) d.append(live.cloneNode(true)); else d.append(sanitize(b.html));
+      d.querySelectorAll('.m-chk, .m-hook, .m-next, .m-offer, button, script, style, .m-sec').forEach(n => n.remove());
+      d.querySelectorAll('br,p,li,h2,h3,h4,div,tr').forEach(n => n.append('\n'));
+      txt = d.textContent.replace(/[ \t]+/g, ' ').replace(/\n\s*\n+/g, '\n').trim();
+    } catch (e) {}
     if (!txt) txt = String(b.title || nm);
     const doc = await createDoc({ name: String(b.title || nm).slice(0, 80), pages: [txt.slice(0, 12000)], chars: txt.length, generated: true, topic: nm });
     if (open) setOpen(false);
