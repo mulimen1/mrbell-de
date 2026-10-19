@@ -1241,7 +1241,7 @@ export function mountAssistant() {
     if (!open) unread(true);
     const willSpeak = spoken && cfg.spk && !!p.text;
     if (willSpeak) {
-      await speak(p.text, my, txt, t, ex);
+      await speak(ex.voice || p.text, my, txt, t, ex);   // Sketch: eigene Aussprache-Fassung möglich (z. B. „Proff“ statt „Prof.“)
     } else {
       setState('idle'); fc.pulse('happy', 900);
       const pr = typeIt(aEl, txt, { scroll: capScroll });
@@ -1413,15 +1413,15 @@ export function mountAssistant() {
   }
   // Creator Mode: feste Szene abspielen – gleicher Weg wie eine echte Antwort (Stimme, Tafel, Mimik), aber ohne KI
   async function playSketch(text, r) {
-    (r.prefetch || []).forEach(s => s && s.say && prefetchSpeech(s.say));
+    (r.prefetch || []).forEach(s => s && s.say && prefetchSpeech(s.voice || s.say));
     if (!r.step) { if (curEx && !curEx.done) dropEx(); setState('idle', r.msg); if (r.miss) afterAnswer(); return; }   // nicht erkannt: Frage verwerfen, Max hört direkt wieder zu
     const s = r.step;
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     if (tourActive()) stopTour();
-    unlockAudio(); prefetchSpeech(s.say);
+    unlockAudio(); prefetchSpeech(s.voice || s.say);
     if (MOB.matches) fold(false);
     capQuestion(text); capQ.classList.remove('live'); capThinking();
-    const ex = curEx; if (!ex) return; ex.sketch = true;
+    const ex = curEx; if (!ex) return; ex.sketch = true; ex.voice = s.voice || '';
     try { STAGE?.onAsk?.(text); } catch (e) {}
     const my = ++gen; ctrl = new AbortController();
     const raw = s.say + (s.board ? `\n\n\`\`\`tafel ${s.board.title}\n${s.board.html}\n\`\`\`` : '');
