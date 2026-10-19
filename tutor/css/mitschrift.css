@@ -252,3 +252,7 @@
 .ms-camt small { font-size: 11px; opacity: .8; font-weight: 500; }
 .ms-ta.over { outline: 2px dashed var(--ink); outline-offset: -8px; }
 .mb[hidden], .ms-lbox[hidden] { display: none !important; }
+.ms-hbtns { display: flex; gap: 8px; flex-wrap: wrap; }
+.ms-lbtn.ms-save { background: var(--inv); color: var(--onInv); border-color: transparent; }
+.ms-card.draft { border-style: dashed; }
+.ms-dtag { position: absolute; top: 10px; right: 12px; font: 650 10.5px var(--sans); letter-spacing: .04em; text-transform: uppercase; color: #8a5a00; background: #ffe7a8; padding: 2px 7px; border-radius: 999px; font-style: normal; }

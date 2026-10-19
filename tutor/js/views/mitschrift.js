@@ -3,7 +3,7 @@
 // damit Karteikarten, Quiz & Co. direkt daraus entstehen können.
 import { h, ico, ls, toast, ago, uid } from '../util.js';
 import { L } from '../i18n.js';
-import { S, createDoc, openDoc, save } from '../state.js';
+import { S, createDoc, openDoc, save, saveNow, refreshList } from '../state.js';
 import { ask } from '../api.js';
 import * as M from '../me.js';
 import { formula, rich, flat, sketch, canDraw, underline, box } from '../msdraw.js';
@@ -14,31 +14,71 @@ import { pad, drawingEl, drawingJpeg } from '../mspad.js';
 
 const DKEY = 'tutor.ms.draft';
 let cssOn = false;
-function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=6', 'data-ms': '1' })); }
+function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=7', 'data-ms': '1' })); }
 
 export async function render(root, { id = '' } = {}) {
   css();
   const wrap = h('div', { class: 'view-in ms' }); root.appendChild(wrap);
-  if (id) {
+  if (id && !/^neu/.test(id)) {
     const d = await openDoc(id);
     if (!d || !d.ms) { toast(L('Diese Mitschrift gibt es auf diesem Gerät nicht mehr.', 'This note is no longer on this device.')); location.replace('#/app/mitschrift'); return; }
-    return sheetView(wrap, d);
+    return d.ms.draft ? editor(wrap, d) : sheetView(wrap, d);
   }
-  return editor(wrap);
+  if (/^neu/.test(id)) return editor(wrap, null);
+  // Ohne Adresse: am offenen Entwurf weiterschreiben
+  const cur = (ls.get(DKEY, {}) || {}).docId;
+  const known = cur && S.list.find(x => x.id === cur && x.ms && x.ms.draft);
+  return editor(wrap, known ? await openDoc(cur) : null);
 }
 
 // ---------- Editor ----------
-function editor(wrap) {
-  const draft = Object.assign({ fach: '', text: '', stil: 'fueller', at: 0, skript: '' }, ls.get(DKEY, {}) || {});
-  const keep = () => { draft.at = Date.now(); ls.set(DKEY, draft); st.textContent = draft.text.trim() ? L('Automatisch gespeichert', 'Saved automatically') : ''; };
+// Jeder Entwurf ist sofort eine echte Mitschrift (Entwurf) – unter „Deine Mitschriften“, in der Bibliothek und im Fach.
+// Gespeichert wird beim Tippen (kurz verzögert), beim Verlassen der Seite und beim Schließen des Tabs.
+function editor(wrap, doc) {
+  const local = ls.get(DKEY, {}) || {};
+  const draft = doc ? { fach: doc.ms.fach || '', text: doc.ms.raw || '', stil: doc.ms.stil || 'fueller', at: doc.ms.at || 0, skript: doc.ms.skript || '', blatt: doc.ms.blatt, zeichnung: doc.ms.zeichnung || { strokes: [], h: 1250 }, docId: doc.id }
+    : Object.assign({ fach: '', text: '', stil: 'fueller', at: 0, skript: '' }, local.docId ? { fach: local.fach || '', stil: local.stil, skript: local.skript || '', blatt: local.blatt } : local, { docId: null });
+  let pT = 0, chain = Promise.resolve();
+  const hasContent = () => !!(draft.text.trim() || (draft.zeichnung && draft.zeichnung.strokes && draft.zeichnung.strokes.length));
+  const draftName = () => { const l = draft.text.split('\n').map(x => x.trim()).find(Boolean); return l ? (l.length > 48 ? l.slice(0, 46) + '…' : l) : (draft.fach || L('Mitschrift', 'Notes')) + ' – ' + new Date().toLocaleDateString(L('de-DE', 'en-GB'), { day: '2-digit', month: '2-digit' }); };
+  const persist = now => {
+    clearTimeout(pT);
+    const run = () => chain = chain.then(async () => {
+      if (!doc && !hasContent()) return;
+      const ms = Object.assign({}, doc && doc.ms, { draft: true, raw: draft.text, fach: draft.fach, skript: draft.skript, stil: draft.stil, blatt: draft.blatt, zeichnung: draft.zeichnung, at: Date.now() });
+      if (!doc) {
+        doc = await createDoc({ name: draftName(), pages: [draft.text || draftName()], chars: draft.text.length, extra: { kind: 'mitschrift', ms } });
+        draft.docId = doc.id; ls.set(DKEY, draft); linkMitschriften(); setCount();
+        if (/^#\/app\/mitschrift(\/neu[^/]*)?$/.test(location.hash)) history.replaceState(null, '', '#/app/mitschrift/' + doc.id);
+      } else { doc.name = draftName(); doc.pages = [draft.text || doc.name]; doc.chars = draft.text.length; doc.ms = ms; await saveNow(doc); }
+    }).catch(e => console.warn('Mitschrift sichern', e));
+    if (now) return run();
+    pT = setTimeout(run, 700);
+    return chain;
+  };
+  const keep = () => { draft.at = Date.now(); ls.set(DKEY, draft); persist(); st.textContent = hasContent() ? L('Wird automatisch gesichert', 'Saved automatically') : ''; };
+  const onHide = () => { if (document.visibilityState === 'hidden') persist(true); };
+  document.addEventListener('visibilitychange', onHide); addEventListener('pagehide', onHide);
 
   // Deine Mitschriften: direkt unter der Überschrift aufklappbar (statt ganz unten)
   const listBox = h('div', { class: 'ms-lbox', hidden: true });
-  const n = S.list.filter(d => d.ms).length;
+  const cnt = h('small', {});
+  const setCount = () => { const k = S.list.filter(d => d.ms).length; cnt.textContent = k ? String(k) : ''; cnt.hidden = !k; };
   const listBtn = h('button', { type: 'button', class: 'ms-lbtn', 'aria-expanded': 'false', onclick: () => { listBox.hidden = !listBox.hidden; listBtn.setAttribute('aria-expanded', String(!listBox.hidden)); if (!listBox.hidden) listBox.replaceChildren(list()); } },
-    h('span', { html: ico('library') }), L('Deine Mitschriften', 'Your notes'), n ? h('small', {}, String(n)) : null, h('span', { class: 'ms-lch', html: ico('down') }));
+    h('span', { html: ico('library') }), L('Deine Mitschriften', 'Your notes'), cnt, h('span', { class: 'ms-lch', html: ico('down') }));
+  setCount();
+  const saveBtn = h('button', { type: 'button', class: 'ms-lbtn ms-save', onclick: async () => {
+    if (!hasContent()) { toast(L('Schreib erst etwas – dann sichere ich es.', 'Write something first – then I’ll save it.')); return; }
+    await persist(true); await refreshList(); setCount(); if (!listBox.hidden) listBox.replaceChildren(list());
+    toast(L('Gesichert – unter „Deine Mitschriften“ und in der Bibliothek.', 'Saved – under “Your notes” and in the library.'));
+  } }, h('span', { html: ico('check') }), L('Notiz sichern', 'Save note'));
+  const newBtn = h('button', { type: 'button', class: 'ms-lbtn', onclick: async () => {
+    await persist(true); await refreshList();
+    ls.set(DKEY, { fach: draft.fach, stil: draft.stil, blatt: draft.blatt, text: '', docId: null });
+    location.hash = '#/app/mitschrift/neu-' + Date.now().toString(36);
+  } }, h('span', { html: ico('plus') }), L('Neue Mitschrift', 'New note'));
   const head = h('div', { class: 'ms-head' },
-    h('div', { class: 'ms-ht' }, h('div', { class: 'eyebrow' }, L('Live-Mitschrift', 'Live notes')), h('h2', {}, L('Schreib einfach mit.', 'Just take notes.')), listBtn),
+    h('div', { class: 'ms-ht' }, h('div', { class: 'eyebrow' }, L('Live-Mitschrift', 'Live notes')), h('h2', {}, L('Schreib einfach mit.', 'Just take notes.')), h('div', { class: 'ms-hbtns' }, listBtn, saveBtn, newBtn)),
       h('p', { class: 'ms-hp' }, L('Tipp in der Vorlesung drauflos oder fotografier Notizen und Tafel. Max macht daraus eine saubere Mitschrift – in Schreibschrift oder Druckschrift, mit Skizzen.', 'Type away during the lecture or snap your notes and the board. Max turns it into clean notes – in cursive or print, with sketches.')));
 
   // Fach: einfach eintippen (muss kein angelegtes Fach sein). Vorhandene Fächer als Abkürzung daneben,
@@ -123,6 +163,7 @@ function editor(wrap) {
   const pal = palette(ins);
   // Zeichnen: Maus, Finger oder Apple Pencil – liegt als eigenes Blatt neben dem Getippten
   const z = draft.zeichnung = draft.zeichnung || { strokes: [], h: 1250 };
+  draft.blatt = blatt;
   const canGo = () => draft.text.trim().length >= 25 || (z.strokes || []).length > 0;
   const drawBtn = h('button', { type: 'button', class: 'ms-tb ms-drawb', 'aria-expanded': 'false', onclick: () => setDraw(!ed.classList.contains('draw-on')) }, h('span', { html: '<svg class="ico" viewBox="0 0 24 24"><path d="M3 21c3-1 4-3 6-3s2 2 4 2 3-4 6-4"/><path d="m14 4 3 3-8 8H6v-3z"/></svg>' }), L('Zeichnen', 'Draw'));
   function setDraw(on) {
@@ -159,7 +200,7 @@ function editor(wrap) {
   if ((z.strokes || []).length) setTimeout(() => setDraw(false), 0);
   wrap.append(head, listBox, ed);
   keep();
-  return () => { cleanup(); zp && zp.stop(); };
+  return () => { cleanup(); zp && zp.stop(); document.removeEventListener('visibilitychange', onHide); removeEventListener('pagehide', onHide); persist(true).then(() => refreshList()); };
 
   async function fromPhotos(files) {
     const busy = h('div', { class: 'ms-busy', role: 'status' },
@@ -185,6 +226,20 @@ function editor(wrap) {
     }
   }
 
+  // Entwurf wird zur fertigen Mitschrift (gleiches Dokument – kein Doppel)
+  async function finalize(name, pages, ms) {
+    clearTimeout(pT); await chain;
+    if (doc) { doc.name = name; doc.pages = pages; doc.chars = pages.join('').length; doc.ms = ms; doc.used = Date.now(); await saveNow(doc); await refreshList(); }
+    else doc = await createDoc({ name, pages, chars: pages.join('').length, extra: { kind: 'mitschrift', ms } });
+    linkMitschriften();
+    ls.set(DKEY, { fach: draft.fach, text: '', stil: ms.stil, at: 0, skript: draft.skript, blatt: { ...blatt }, docId: null });
+    const id = doc.id; doc = null; draft.text = ''; draft.zeichnung = { strokes: [], h: 1250 };   // nichts mehr als Entwurf nachspeichern
+    const to = '#/app/mitschrift/' + id;
+    if (location.hash !== to) { location.hash = to; return; }
+    // Adresse ist schon die des Entwurfs: Blatt direkt hier zeigen
+    const d = await openDoc(id); window.scrollTo(0, 0); wrap.replaceChildren(); sheetView(wrap, d);
+  }
+
   async function make(photo) {
     const notes = ta.value.trim(), hasZ = (z.strokes || []).length > 0; if (notes.length < 25 && !(photo && notes.length) && !hasZ) return;
     const busy = h('div', { class: 'ms-busy', role: 'status' },
@@ -199,19 +254,15 @@ function editor(wrap) {
       const all = (notes + (fromZ.length > 8 ? '\n\n[Handschriftlich/Skizze]: ' + fromZ : '')).trim();
       if (all.length < 25 && hasZ) {   // nur gezeichnet: ohne KI als Blatt speichern
         const t0 = (draft.fach ? draft.fach + ' – ' : '') + L('Skizze', 'Sketch');
-        const doc = await createDoc({ name: t0, pages: [t0 + (all ? '\n' + all : '')], chars: t0.length, extra: { kind: 'mitschrift', ms: { data: { titel: t0, kern: all, abschnitte: [], korrekturen: [], fragen: [] }, raw: notes, stil, blatt: { ...blatt }, fach: draft.fach, zeichnung: { strokes: z.strokes, h: z.h }, at: Date.now() } } });
-        linkMitschriften(); ls.set(DKEY, { fach: draft.fach, text: '', stil, at: 0, skript: draft.skript, blatt: { ...blatt } });
-        location.hash = '#/app/mitschrift/' + doc.id; return;
+        await finalize(t0, [t0 + (all ? '\n' + all : '')], { data: { titel: t0, kern: all, abschnitte: [], korrekturen: [], fragen: [] }, raw: notes, stil, blatt: { ...blatt }, fach: draft.fach, zeichnung: { strokes: z.strokes, h: z.h }, at: Date.now() });
+        return;
       }
       const r = await ask('mitschrift', Object.assign({ opts: { notes: all, fach: draft.fach, stil } }, sk ? { material: forWhole(sk).slice(0, 30000), docName: sk.name } : {}));
       const data = clean(r.data);
       if (!data.abschnitte.length) throw new Error(L('Die Mitschrift kam leer an. Versuch es nochmal.', 'The notes came back empty. Please try again.'));
       const text = asText(data);
-      const doc = await createDoc({ name: data.titel || L('Mitschrift', 'Notes'), pages: [text], chars: text.length, extra: { kind: 'mitschrift', ms: { data, raw: notes, stil, blatt: { ...blatt }, zeichnung: hasZ ? { strokes: z.strokes, h: z.h } : undefined, fach: draft.fach, skript: sk ? sk.id : '', foto: !!photo, at: Date.now() } } });
-      linkMitschriften();
-      ls.set(DKEY, { fach: draft.fach, text: '', stil, at: 0, skript: draft.skript, blatt: { ...blatt } });
+      await finalize(data.titel || L('Mitschrift', 'Notes'), [text], { data, raw: notes, stil, blatt: { ...blatt }, zeichnung: hasZ ? { strokes: z.strokes, h: z.h } : undefined, fach: draft.fach, skript: sk ? sk.id : '', foto: !!photo, at: Date.now() });
       try { window.BM && window.BM.track('Mitschrift', stil); } catch (e) {}
-      location.hash = '#/app/mitschrift/' + doc.id;
     } catch (e) {
       busy.replaceWith(foot); ta.readOnly = false;
       import('../ui.js').then(m => m.apiError(e, make)).catch(() => toast(e.message));
@@ -220,10 +271,10 @@ function editor(wrap) {
 }
 
 function list() {
-  const items = S.list.filter(d => d.kind === 'mitschrift' && d.ms).sort((a, b) => (b.created || 0) - (a.created || 0));
+  const items = S.list.filter(d => d.kind === 'mitschrift' && d.ms).sort((a, b) => ((b.ms.at || b.created || 0) - (a.ms.at || a.created || 0)));
   if (!items.length) return h('p', { class: 'ms-empty' }, L('Du hast noch keine Mitschriften gemacht – schreib einfach unten los.', 'You haven’t made any notes yet – just start writing below.'));
   return h('div', { class: 'ms-list' },
-    items.slice(0, 30).map(d => h('a', { class: 'ms-card', href: '#/app/mitschrift/' + d.id }, h('b', {}, d.name), h('small', {}, [d.ms.fach, ago(d.created)].filter(Boolean).join(' · ')))));
+    items.slice(0, 40).map(d => h('a', { class: 'ms-card' + (d.ms.draft ? ' draft' : ''), href: '#/app/mitschrift/' + d.id }, d.ms.draft ? h('i', { class: 'ms-dtag' }, L('Entwurf', 'Draft')) : null, h('b', {}, d.name), h('small', {}, [d.ms.fach, ago(d.ms.at || d.created)].filter(Boolean).join(' · ')))));
 }
 
 // KI-Antwort absichern (fehlende Felder, falsche Typen)
