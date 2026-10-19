@@ -4326,3 +4326,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .tafel .calc:has(.tex-w) { font: 400 15.5px/1.5 var(--sans); white-space: normal; }
 span.tex.tex-wrap { display: block; text-align: center; white-space: normal; line-height: 2.1; padding: 4px 0; }
 span.tex.tex-wrap .katex { white-space: normal; }
+
+/* Zahlen im hellen Design: das Dashboard ist schwarz gestaltet – als dunkle Fläche einbetten, damit Titel, „gerade da“ & Co. lesbar bleiben */
+html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; padding: 14px 20px 6px; }
+@media (prefers-color-scheme: light) { html:not([data-theme]) .zl-host { background: #000; border-radius: 26px; padding: 14px 20px 6px; } }
+@media (max-width: 600px) { html[data-theme="light"] .zl-host { padding: 10px 12px 4px; border-radius: 20px; } }
