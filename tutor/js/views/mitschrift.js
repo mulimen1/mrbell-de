@@ -13,7 +13,7 @@ import { palette, blattDefault, blattPicker, applyBlatt, inkOf, smartTextarea, t
 
 const DKEY = 'tutor.ms.draft';
 let cssOn = false;
-function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=3', 'data-ms': '1' })); }
+function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=4', 'data-ms': '1' })); }
 
 export async function render(root, { id = '' } = {}) {
   css();
@@ -40,14 +40,18 @@ function editor(wrap) {
   const fachIn = h('input', { type: 'text', class: 'ms-fin', value: draft.fach, placeholder: L('Fach, z. B. Kostenrechnung', 'Subject, e.g. Cost accounting'), 'aria-label': L('Fach', 'Subject'), autocomplete: 'off',
     oninput: e => { draft.fach = e.target.value.trim(); drawFach(); keep(); } });
   const fachEl = h('div', { class: 'ms-fachw' });
+  const fachSlot = h('span', { class: 'ms-fslot' }), fachRow = h('div', { class: 'ms-frow' }, h('small', {}, L('Fach', 'Subject')), fachIn, fachSlot);
   const drawFach = () => {
     const faecher = M.getMe().faecher || [], hit = draft.fach ? M.findFach(draft.fach) : null;
     const add = draft.fach && !hit ? h('button', { type: 'button', class: 'ms-addf', onclick: () => { M.saveFach({ name: draft.fach, kurz: '', klausur: '', ects: '', docs: [], termine: [] }); toast(L(`„${draft.fach}“ ist jetzt ein Fach – deine Mitschriften landen automatisch dort.`, `“${draft.fach}” is now a subject – your notes go there automatically.`)); linkMitschriften(); drawFach(); } }, h('span', { html: ico('plus') }), L('Als Fach anlegen', 'Add as subject')) : null;
     const ok = hit ? h('span', { class: 'ms-fok', title: L('Wird in diesem Fach gespeichert', 'Saved to this subject') }, h('span', { html: ico('check') }), hit.name.toLowerCase() === draft.fach.toLowerCase() ? L('Fach', 'Subject') : hit.name) : null;
-    fachEl.replaceChildren(
-      h('div', { class: 'ms-frow' }, h('small', {}, L('Fach', 'Subject')), fachIn, ok, add),
-      faecher.length ? h('div', { class: 'ms-fach' }, faecher.filter(f => !hit || f.id !== hit.id).map(f => h('button', { type: 'button', class: 'chip', onclick: () => { draft.fach = fachIn.value = f.name; drawFach(); keep(); } }, f.name))) : null,
-      skriptRow());
+    // Das Eingabefeld bleibt stehen (sonst verliert es beim Tippen den Fokus) – nur Häkchen/Knopf daneben wechseln
+    fachSlot.replaceChildren(...[ok, add].filter(Boolean));
+    if (!fachRow.isConnected || fachRow.parentNode !== fachEl) fachEl.prepend(fachRow);
+    [...fachEl.children].forEach(c => { if (c !== fachRow) c.remove(); });
+    fachEl.append(
+      ...[faecher.length ? h('div', { class: 'ms-fach' }, faecher.filter(f => !hit || f.id !== hit.id).map(f => h('button', { type: 'button', class: 'chip', onclick: () => { draft.fach = fachIn.value = f.name; drawFach(); keep(); } }, f.name))) : null].filter(Boolean),
+      ...[skriptRow()].filter(Boolean));
   };
   // Optional: mit einem Skript verbinden – dann kennt Max die Begriffe und Seiten aus der Vorlesung
   const skripte = () => S.list.filter(d => !d.ms && !d.sample && d.pages?.length);
