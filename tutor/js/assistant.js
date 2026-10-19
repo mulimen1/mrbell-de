@@ -226,12 +226,15 @@ export function mountAssistant() {
   function drawHist() {
     const f = root.classList.contains('m-fold') || !feedOpen, n = feedList.querySelectorAll(MOB.matches ? '.ai-bub:not(.auto):not(.auto-a)' : '.ai-bub:not(.auto)').length;
     mHist.hidden = !MOB.matches || !n;
-    mHist.replaceChildren(h('span', { html: ico(f ? 'up' : 'down') }), f ? L('Verlauf ansehen', 'Show history') : L('Verlauf schließen', 'Close history'));
+    mHist.replaceChildren(h('span', { html: ico(f ? 'up' : 'down') }), f ? L('Verlauf', 'History') : L('Verlauf zu', 'Hide history'));
     placeHist();
   }
   function placeHist() {
     if (mHist.hidden && !(MOB.matches && boardMin)) return;
-    const put = () => { const tops = [isl, STAGE?.slots?.composer].filter(e => e && e.isConnected).map(e => e.getBoundingClientRect()).filter(r => r.height).map(r => r.top); if (tops.length) { const bt = Math.max(8, Math.round(innerHeight - Math.min(...tops) + 8)) + 'px'; mHist.style.bottom = bt; root.style.setProperty('--m-hb', bt); } };
+    const put = () => { const tops = [isl, STAGE?.slots?.composer].filter(e => e && e.isConnected).map(e => e.getBoundingClientRect()).filter(r => r.height).map(r => r.top);
+      // Max' letzte Antwort steht über dem Chatfeld: Knopf darüber, nicht mitten in die Antwort
+      if (MOB.matches && tops.length) feedList.querySelectorAll('.ai-bub').forEach(b => { if (!b.offsetParent || getComputedStyle(b).display === 'none') return; const r = b.getBoundingClientRect(); if (r.height > 10 && r.top > innerHeight * 0.3 && r.top < Math.min(...tops)) tops.push(r.top); });
+      if (tops.length) { const bt = Math.max(8, Math.round(innerHeight - Math.min(...tops) + 8)) + 'px'; mHist.style.bottom = bt; root.style.setProperty('--m-hb', bt); } };
     requestAnimationFrame(put); setTimeout(put, 450);
   }
   addEventListener('resize', placeHist);

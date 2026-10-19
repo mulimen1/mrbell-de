@@ -335,3 +335,6 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 .tafel.tf-in > :nth-child(6) { animation-delay: calc(var(--tf-d, 400ms) + 350ms); }
 @keyframes tfk { from { opacity: 0; transform: translateY(16px); filter: blur(5px); } }
 @media (prefers-reduced-motion: reduce) { .tafel.tf-in .tt .tf-c, .tafel.tf-in > * { animation: none; } }
+
+/* Handy: „Verlauf“ links über Max' letzter Antwort, Rechner/Lexikon rechts in derselben Reihe */
+@media (max-width: 600px) { .asst.open .m-hist:not([hidden]) { left: 12px; transform: none; height: 36px; font-size: 13.5px; } }

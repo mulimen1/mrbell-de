@@ -126,3 +126,4 @@ html.bv-open .dk, html.ms-printing .dk { display: none; }
   .dk.row .dk-l { display: inline; }
   .dk.hide { opacity: 0; transform: translateY(10px); pointer-events: none; }
 }
+@media (max-width: 600px) { .dk.row .dk-b { height: 36px; font-size: 13px; padding: 0 12px 0 9px; } }
