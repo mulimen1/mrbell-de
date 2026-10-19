@@ -99,7 +99,8 @@ export async function lexikon(root, { close } = {}) {
   function suggest(pre) {
     const box = h('div', { class: 'lx-sg' });
     const closed = () => box.replaceChildren(h('button', { type: 'button', class: 'lx-sgb', onclick: () => { haptic(); openF(); } },
-      h('b', {}, L('BWL-Fachbegriff nicht gefunden?', 'Business term not found?')), h('small', {}, L('Schreib ihn uns und hilf mit, BWL Max besser zu machen.', 'Send it to us and help make BWL Max better.'))));
+      h('span', { class: 'lx-sgx' }, h('b', {}, L('BWL-Fachbegriff nicht gefunden?', 'Business term not found?')), h('small', {}, L('Schreib ihn uns und hilf mit, BWL Max besser zu machen.', 'Send it to us and help make BWL Max better.'))),
+      h('span', { class: 'lx-sgp', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>' })));
     function openF() {
       const inp = h('input', { type: 'text', class: 'lx-sgi', maxlength: 80, value: pre || '', placeholder: L('Welcher Begriff fehlt?', 'Which term is missing?'), 'aria-label': L('Fehlender Begriff', 'Missing term') });
       const msg = h('small', { class: 'lx-sgm' });

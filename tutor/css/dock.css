@@ -130,11 +130,15 @@ html.bv-open .dk, html.ms-printing .dk { display: none; }
 
 /* Lexikon: Begriff vorschlagen */
 .lx-sg { margin: 14px 8px 4px; }
-.lx-sgb { display: block; width: 100%; text-align: left; padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--inv) 22%, transparent); background: color-mix(in srgb, var(--inv) 7%, var(--panel)); color: var(--inv); cursor: pointer; transition: background .15s, transform .1s; }
-.lx-sgb:hover { background: color-mix(in srgb, var(--inv) 12%, var(--panel)); }
+.lx-sgb { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 12px 12px 12px 16px; border-radius: 14px; border: 0; background: var(--inv); color: var(--onInv); cursor: pointer; box-shadow: 0 1px 0 rgba(255,255,255,.12) inset, 0 6px 16px -8px color-mix(in srgb, var(--inv) 70%, transparent); transition: transform .12s, box-shadow .2s, filter .2s; }
+.lx-sgb:hover { filter: brightness(1.08); box-shadow: 0 1px 0 rgba(255,255,255,.12) inset, 0 10px 22px -10px color-mix(in srgb, var(--inv) 80%, transparent); transform: translateY(-1px); }
 .lx-sgb:active { transform: scale(.98); }
+.lx-sgb:focus-visible { outline: 2px solid var(--inv); outline-offset: 3px; }
+.lx-sgb .lx-sgx { flex: 1; min-width: 0; }
 .lx-sgb b { display: block; font: 650 14px var(--sans); }
-.lx-sgb small { display: block; margin-top: 2px; font: 500 12px/1.4 var(--sans); color: color-mix(in srgb, var(--inv) 70%, var(--mute)); }
+.lx-sgb small { display: block; margin-top: 2px; font: 500 12px/1.4 var(--sans); color: color-mix(in srgb, var(--onInv) 78%, transparent); }
+.lx-sgb .lx-sgp { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--onInv) 16%, transparent); }
+.lx-sgb .lx-sgp svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
 .lx-sgf { padding: 12px 14px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--inv) 22%, transparent); background: color-mix(in srgb, var(--inv) 5%, var(--panel)); animation: dkfade .3s cubic-bezier(.22,1,.36,1) both; }
 .lx-sgf > b { display: block; font: 650 13.5px var(--sans); color: var(--inv); margin-bottom: 8px; }
 .lx-sgr { display: flex; gap: 8px; }
