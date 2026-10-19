@@ -169,7 +169,17 @@ const HEADS = {
   favs: [L('Gemerkt', 'Saved'), L('Alles, was du mit dem Stern markiert hast.', 'Everything you starred.')],
   stats: [L('Fortschritt', 'Progress'), L('Was du schon geschafft hast – und was als Nächstes kommt.', 'What you’ve achieved – and what’s next.')]
 };
-function pageHead(tab) { const [t, p] = HEADS[tab]; return h('div', { class: 'vh me-ph' }, h('div', {}, h('h2', {}, t), h('p', {}, p))); }
+function pageHead(tab) {
+  const [t, p] = HEADS[tab];
+  const head = h('div', { class: 'vh me-ph' }, h('div', {}, h('h2', {}, t), h('p', {}, p)));
+  if (tab !== 'faecher' && tab !== 'plan') return head;
+  // Fächer und Stundenplan sind ein Bereich – oben umschalten
+  const sw = h('div', { class: 'bib-tabs me-sw', role: 'tablist' }, [['faecher', L('Fächer & Noten', 'Subjects & grades'), 'brain', '#/app/faecher'], ['plan', L('Stundenplan', 'Timetable'), 'calendar', '#/app/stundenplan']].map(([k, n, ic, href]) =>
+    h('a', { class: 'bib-tab' + (k === tab ? ' on' : ''), href, role: 'tab', 'aria-selected': k === tab ? 'true' : 'false' }, h('span', { html: ico(ic) }), h('span', {}, n))));
+  return h('div', {}, sw, head);
+}
+// Gemerkt als Bereich der Bibliothek
+export function favsPane(el) { let f = 'all'; const draw = () => { if (!el.isConnected) return; el.replaceChildren(); favourites(el, () => f, v => { f = v; draw(); }); }; draw(); }
 
 // ---------- Freiwillige Synchronisierung ----------
 export function syncAsk() {

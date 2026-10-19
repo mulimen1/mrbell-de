@@ -100,9 +100,7 @@ function buildShell() {
     h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor' }, tnFace, h('span', { class: 'tn-l' }, 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
     navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
-    navA('stundenplan', '#/app/stundenplan', 'calendar', L('Stundenplan', 'Timetable')),
     navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
-    navA('gemerkt', '#/app/gemerkt', 'star', L('Gemerkt', 'Saved')),
     navA('fortschritt', '#/app/fortschritt', 'trophy', L('Fortschritt', 'Progress')),
     Object.assign(navA('zahlen', '#/app/zahlen', 'chart', L('Zahlen', 'Numbers')), { hidden: true }));
   const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
@@ -204,7 +202,7 @@ function renderList() {
   if (!shell) return;
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
-  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher'), stundenplan: hs.startsWith('#/app/stundenplan'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') };
+  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') };
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   requestAnimationFrame(navIntoView);
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
@@ -236,7 +234,9 @@ export async function mountApp(parts) {
   shell.app.classList.remove('sideopen');
   let [a, b, c] = parts;
   // Alte Adressen (Mein Bereich mit Unterseiten) auf die neuen Bereiche umleiten
-  const OLD = { faecher: 'faecher', stats: 'fortschritt', favs: 'gemerkt', plan: 'stundenplan' };
+  const OLD = { faecher: 'faecher', stats: 'fortschritt', favs: 'bibliothek/gemerkt', plan: 'stundenplan' };
+  // Gemerkt wohnt jetzt in der Bibliothek
+  if (a === 'gemerkt') { location.replace('#/app/bibliothek/gemerkt'); return; }
   if (a === 'me' && b && OLD[b]) { location.replace('#/app/' + OLD[b]); return; }
   // Aus „Lernen“ gekommen? Dann gibt’s oben „← Lernen“ – bis man woanders hin wechselt
   if (!a || ['tutor', 'faecher', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen', 'zahlen'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
@@ -274,7 +274,7 @@ export async function mountApp(parts) {
     return page('room', 'Tutor', async root => { const { render } = await import('./views/room.js'); return render(root, { arrive }); });
   }
   // Mein Bereich (nur Heute) und die festen Bereiche oben
-  const SUBS = { me: ['', L('Mein Bereich', 'My space')], faecher: ['faecher', L('Fächer & Noten', 'Subjects & grades')], fortschritt: ['stats', L('Fortschritt', 'Progress')], gemerkt: ['favs', L('Gemerkt', 'Saved')], stundenplan: ['plan', L('Stundenplan', 'Timetable')] };
+  const SUBS = { me: ['', L('Mein Bereich', 'My space')], faecher: ['faecher', L('Fächer & Noten', 'Subjects & grades')], fortschritt: ['stats', L('Fortschritt', 'Progress')], stundenplan: ['plan', L('Stundenplan', 'Timetable')] };
   if (SUBS[a]) { const [sub, ttl] = SUBS[a]; return page('me:' + sub, ttl, async root => { const { render } = await import('./views/me.js'); return render(root, { sub, onLogin: () => openLogin({ title: L('Anmelden für deinen Bereich', 'Sign in for your space') }) }); }); }
   // Neuer Stoff: läuft gerade Upload/Kurzskript, zeigt das die Seite schon; direkt geöffnet (Neuladen, Link) → Upload-Seite
   if (a === 'neu') { docbar(false); if (current.key === 'ingest' || current.key === 'topic') return; return page('neu', L('Neuer Stoff', 'Add material'), async root => { emptyState(root); }); }

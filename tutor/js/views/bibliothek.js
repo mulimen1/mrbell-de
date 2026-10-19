@@ -8,6 +8,7 @@ import { dueCards } from './cards.js';
 import * as M from '../me.js';
 import { looseBoards, setLooseBoards } from '../lib.js';
 import * as E from '../export.js';
+import { getAccount } from '../api.js';
 
 const KIND = { vorlesung: L('Vorlesung', 'Lecture'), uebung: L('Übung', 'Exercise'), altklausur: L('Altklausur', 'Past exam'), mitschrift: L('Mitschrift', 'Notes'), zusammenfassung: L('Zusammenfassung', 'Summary'), sonstiges: '' };
 // Reihenfolge der Bereiche
@@ -76,13 +77,19 @@ export function render(root, { tab: want = '' } = {}) {
     if (!wrap.isConnected) return;
     collect();
     const have = present();
-    if (filter !== 'alles' && !have.some(([k]) => k === filter)) filter = 'alles';
+    // Gemerkt (alles mit Stern) ist ein eigener Bereich der Bibliothek – mit Konto immer da
+    const favN = getAccount() ? M.getMe().favs.length : -1;
+    const fav = favN >= 0 ? [['gemerkt', L('Gemerkt', 'Saved'), 'star']] : [];
+    data.gemerkt = { length: Math.max(0, favN) };
+    if (filter !== 'alles' && !have.some(([k]) => k === filter) && !(filter === 'gemerkt' && fav.length)) filter = 'alles';
     // Chips nur, wenn es mehr als einen Bereich gibt; Suche nur, wenn es etwas zu suchen gibt
-    chipsEl.hidden = have.length < 2;
-    chipsEl.replaceChildren(...(have.length < 2 ? [] : [['alles', L('Alles', 'All'), 'grid'], ...have].map(([k, t, ic]) => h('button', { type: 'button', role: 'tab', class: 'bib-tab' + (k === filter ? ' on' : ''), 'aria-selected': k === filter ? 'true' : 'false', onclick: () => k !== filter && setFilter(k) },
+    const all = [...fav, ...have];
+    const one = all.length < 2 && filter !== 'gemerkt';
+    chipsEl.hidden = one;
+    chipsEl.replaceChildren(...(one ? [] : [['alles', L('Alles', 'All'), 'grid'], ...all].map(([k, t, ic]) => h('button', { type: 'button', role: 'tab', class: 'bib-tab' + (k === filter ? ' on' : ''), 'aria-selected': k === filter ? 'true' : 'false', onclick: () => k !== filter && setFilter(k) },
       k === 'alles' ? null : h('span', { html: ico(ic) }), h('span', {}, t), k === 'alles' ? null : h('small', {}, String(data[k].length))))));
     const total = have.reduce((a, [k]) => a + data[k].length, 0);
-    tools.hidden = total < 4;
+    tools.hidden = total < 4 || filter === 'gemerkt';
     if (tools.hidden && q) { q = ''; search.value = ''; }
     drawBody();
   }
@@ -146,6 +153,7 @@ export function render(root, { tab: want = '' } = {}) {
 
   function drawBody() {
     if (!wrap.isConnected) return;
+    if (filter === 'gemerkt') { const el = h('div', { class: 'bib-favs' }); body.replaceChildren(el); import('./me.js').then(m => m.favsPane(el)); return; }
     // Noch gar nichts hochgeladen
     if (!data.docs.length && !made().length) {
       body.replaceChildren(h('div', { class: 'sk-empty' }, h('label', { class: 'sk-drop', for: 'fileApp' }, h('span', { html: ico('upload') }), h('b', {}, L('Datei, Foto oder Screenshot hier rein', 'Drop a file, photo or screenshot here')), matchMedia('(pointer: coarse), (max-width: 600px)').matches ? null : h('small', {}, L('oder in der App einfach ⌘V / Strg+V', 'or just ⌘V / Ctrl+V in the app'))),
