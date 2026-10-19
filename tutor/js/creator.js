@@ -23,10 +23,12 @@ export function handle(text) {
   const t = norm(text);
   if (isCmd(t)) {
     const arg = t.slice(7).trim();
-    if (['stop', 'ende', 'reset', 'aus'].includes(arg)) { cur = null; idx = 0; return { msg: arg === 'reset' ? 'Sketch zurückgesetzt – neuer Take mit /sketch …' : 'Sketch beendet – Max ist wieder der normale Tutor.' }; }
+    if (['stop', 'ende', 'reset', 'aus'].includes(arg)) { cur = null; idx = 0; delete document.documentElement.dataset.creatorLabel; return { msg: arg === 'reset' ? 'Sketch zurückgesetzt – neuer Take mit /sketch …' : 'Sketch beendet – Max ist wieder der normale Tutor.' }; }
     const sk = SK.find(s => s.id === arg);
     if (!sk) return { msg: 'Sketche: ' + SK.map(s => '/sketch ' + s.id).join(' · ') };
     cur = sk; idx = 0;
+    if (sk.pairs) { document.documentElement.dataset.creatorLabel = 'BWL Max'; }   // Screenshots: Markenname unter Max' Kopf
+    else delete document.documentElement.dataset.creatorLabel;
     if (sk.pairs) return { msg: `${sk.name} an – ${sk.steps.length} vorbereitete Antworten. /sketch stop schaltet aus.` };
     if (sk.steps[0] && sk.steps[0].start) return next(sk.steps.slice(1));
     return { msg: `Sketch „${sk.name}“ bereit.`, prefetch: sk.steps };

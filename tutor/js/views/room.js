@@ -477,7 +477,7 @@ export function render(root, ctx = {}) {
         working(s === 'think');
         fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
         faceEl.classList.toggle('listening', s === 'listen');
-        status.textContent = ({ listen: L('hört zu …', 'listening …'), think: L('überlegt …', 'thinking …'), speak: L('redet …', 'talking …') })[s] || (focusDocs()[0]?.name || L('dein Tutor', 'your tutor'));
+        status.textContent = ({ listen: L('hört zu …', 'listening …'), think: L('überlegt …', 'thinking …'), speak: L('redet …', 'talking …') })[s] || (document.documentElement.dataset.creatorLabel || focusDocs()[0]?.name || L('dein Tutor', 'your tutor'));
       },
       onIsl: hh => { if (hh > 20) room.style.setProperty('--islh', Math.round(hh) + 'px'); },
     });
@@ -495,7 +495,7 @@ export function render(root, ctx = {}) {
     if (stopped || !a) return;
     api = a;
     stageNow();
-    status.textContent = focusDocs()[0]?.name || L('dein Tutor', 'your tutor');
+    status.textContent = document.documentElement.dataset.creatorLabel || focusDocs()[0]?.name || L('dein Tutor', 'your tutor');
     // Woher kommen wir? Unten rechts „Im Tutor weitermachen“, eine Frage aus Quiz/Trainer – oder ganz normal
     const cont = ls.get('tutor.room.continue', 0); if (cont) ls.set('tutor.room.continue', 0);
     const pending = ls.get('tutor.pendingAsk', null); if (pending) ls.set('tutor.pendingAsk', null);
