@@ -1,0 +1,105 @@
+/* Mitschrift: Editor + handschriftliches Blatt (Füller/Druckschrift) */
+@font-face { font-family: 'BM Fueller'; src: url('/tutor/fonts/caveat-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'BM Fueller'; src: url('/tutor/fonts/caveat-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'BM Druck'; src: url('/tutor/fonts/kalam-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'BM Druck'; src: url('/tutor/fonts/kalam-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+
+.ms { max-width: 860px; margin: 0 auto; }
+.ms-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+.ms-head h2 { margin: 2px 0 4px; }
+.ms-head p { margin: 0; color: var(--mute); max-width: 52ch; }
+
+/* ---------- Editor ---------- */
+.ms-ed { border: 1px solid var(--line2); border-radius: 22px; background: var(--panel); overflow: hidden; box-shadow: 0 1px 0 rgba(0,0,0,.02), 0 12px 40px -24px rgba(0,0,0,.25); }
+.ms-fach { display: flex; gap: 6px; align-items: center; padding: 12px 14px 0; overflow-x: auto; scrollbar-width: none; }
+.ms-fach::-webkit-scrollbar { display: none; }
+.ms-fach > small { flex: none; color: var(--mute); font-weight: 600; margin-right: 2px; }
+.ms-fach .chip { flex: none; }
+.ms-fach input { flex: 1 0 150px; min-width: 150px; height: 34px; border-radius: 999px; border: 1px dashed var(--line2); background: transparent; color: var(--ink); padding: 0 14px; font: 500 14px var(--sans); }
+.ms-tools { display: flex; gap: 4px; padding: 10px 12px 0; overflow-x: auto; scrollbar-width: none; }
+.ms-tools::-webkit-scrollbar { display: none; }
+.ms-tools button { flex: none; min-width: 38px; height: 34px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line2); background: var(--bg); color: var(--ink); font: 600 15px var(--sans); cursor: pointer; }
+.ms-tools button:active { transform: scale(.96); }
+.ms-ta { display: block; width: 100%; min-height: 46vh; resize: vertical; border: 0; outline: 0; padding: 8px 18px 18px 18px; background:
+  repeating-linear-gradient(to bottom, transparent 0 31px, color-mix(in srgb, var(--line2) 70%, transparent) 31px 32px) 0 8px; background-attachment: local;
+  color: var(--ink); font: 400 16px/32px var(--sans); }
+.ms-ta::placeholder { color: var(--mute); opacity: .8; }
+.ms-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 14px; border-top: 1px solid var(--line2); }
+.ms-foot .ms-st { color: var(--mute); font-size: 12.5px; margin-right: auto; }
+.ms-go { min-height: 44px; }
+.ms-busy { display: flex; align-items: center; gap: 14px; padding: 18px; }
+.ms-busy b { display: block; }
+.ms-busy small { color: var(--mute); }
+.ms-penani { width: 54px; height: 40px; flex: none; }
+.ms-penani path.w { stroke: #1f3c88; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-dasharray: 160; stroke-dashoffset: 160; animation: mspen 1.6s ease-in-out infinite; }
+@keyframes mspen { to { stroke-dashoffset: 0; } }
+
+/* Liste */
+.ms-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 12px; margin-top: 22px; }
+.ms-list h3 { grid-column: 1 / -1; margin: 6px 0 0; font-size: 15px; }
+.ms-card { position: relative; display: block; text-decoration: none; color: #1f3c88; padding: 16px 16px 14px; border-radius: 16px; min-height: 120px; border: 1px solid #e7e1cf;
+  background: repeating-linear-gradient(to bottom, #fffdf6 0 25px, #e3e9f5 25px 26px); font-family: 'BM Fueller', cursive; transition: transform .15s var(--ease); }
+.ms-card:hover { transform: translateY(-2px) rotate(-.4deg); }
+.ms-card b { display: block; font-size: 24px; line-height: 26px; }
+.ms-card small { display: block; font: 500 12px var(--sans); color: #6b6b6b; margin-top: 8px; }
+
+/* ---------- Blatt ---------- */
+.ms-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.ms-bar .grow { margin-right: auto; }
+.ms-paper { --ink: #1f3c88; --red: #c0392b; --lh: 34px; position: relative; color: var(--ink); background-color: #fffdf6;
+  background-image: linear-gradient(to right, transparent 0 46px, rgba(214,88,88,.45) 46px 47.5px, transparent 47.5px),
+    repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) - 1px), #dde5f2 calc(var(--lh) - 1px) var(--lh));
+  background-position: 0 14px; border-radius: 6px; box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 18px 50px -28px rgba(0,0,0,.45); padding: 26px 26px 40px 64px; overflow: hidden; }
+.ms-paper.fueller { font: 400 25px/var(--lh) 'BM Fueller', cursive; }
+.ms-paper.druck { --ink: #23324f; font: 400 17.5px/var(--lh) 'BM Druck', cursive; }
+.ms-paper * { line-height: var(--lh); }
+.ms-meta { display: flex; justify-content: space-between; gap: 10px; font-size: .78em; opacity: .75; }
+.ms-t { font-weight: 700; font-size: 1.55em; margin: 6px 0 0; line-height: 1.25 !important; }
+.ms-ul { display: block; width: min(100%, 420px); height: 12px; margin: 2px 0 6px; }
+.ms-kern { margin: 0 0 6px; opacity: .9; }
+.ms-sec { margin-top: var(--lh); }
+.ms-h { font-weight: 700; font-size: 1.12em; margin: 0; display: inline-block; position: relative; }
+.ms-h::after { content: ''; position: absolute; left: -4px; right: -6px; bottom: 5px; height: .48em; background: rgba(255,214,64,.55); z-index: -1; transform: rotate(-.7deg); border-radius: 3px; }
+.ms-h { z-index: 0; isolation: isolate; }
+.ms-sec ul { list-style: none; margin: 0; padding: 0; }
+.ms-sec li { position: relative; padding-left: 1.05em; }
+.ms-sec li::before { content: '–'; position: absolute; left: 0; }
+.ms-paper mark { background: linear-gradient(transparent 52%, rgba(255,214,64,.6) 52% 92%, transparent 92%); color: inherit; padding: 0 2px; }
+.ms-f { position: relative; display: inline-block; padding: 4px 18px; margin: 6px 0 2px; font-weight: 700; }
+.ms-f sub, .ms-f sup { font-size: .62em; line-height: 0; }
+.ms-box { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.ms-leg { font-size: .8em; opacity: .85; margin: 0; }
+.ms-merke { position: relative; margin: 10px 0 2px; padding: 4px 16px 6px; color: var(--red); }
+.ms-merke b { font-weight: 700; }
+.ms-fig { margin: 10px 0 4px; }
+.ms-fig figcaption { font-size: .82em; opacity: .85; text-align: center; }
+.ms-sk { display: block; width: min(100%, 470px); height: auto; margin: 4px auto 0; overflow: visible; }
+.ms-svgt { font-family: inherit; fill: var(--ink); }
+.ms-kor { color: var(--red); margin-top: var(--lh); }
+.ms-kor p { margin: 0; }
+.ms-fr { margin-top: var(--lh); }
+.ms-fr ol { margin: 0; padding-left: 1.3em; }
+.ms-sign { margin-top: var(--lh); text-align: right; font-size: .75em; opacity: .55; }
+
+/* Erscheinen: Zeile für Zeile wie geschrieben */
+.ms-paper.ms-in .ms-a { clip-path: inset(-20% 100% -20% 0); animation: msw .55s cubic-bezier(.4,.1,.3,1) forwards; animation-delay: calc(var(--i, 0) * 70ms); }
+@keyframes msw { to { clip-path: inset(-20% -2% -20% 0); } }
+@media (prefers-reduced-motion: reduce) { .ms-paper.ms-in .ms-a { animation: none; clip-path: none; } }
+
+/* Dunkles Design: Papier bleibt Papier */
+.ms-raw { white-space: pre-wrap; font: 400 14px/1.6 var(--sans); color: var(--ink2); background: var(--bg); border: 1px solid var(--line2); border-radius: 14px; padding: 14px; margin-top: 14px; }
+
+@media (max-width: 640px) {
+  .ms-paper { padding: 18px 14px 30px 40px; background-image: linear-gradient(to right, transparent 0 28px, rgba(214,88,88,.45) 28px 29.5px, transparent 29.5px), repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) - 1px), #dde5f2 calc(var(--lh) - 1px) var(--lh)); --lh: 30px; }
+  .ms-paper.fueller { font-size: 22px; }
+  .ms-paper.druck { font-size: 15.5px; }
+  .ms-ta { min-height: 52vh; }
+}
+
+/* Drucken / PDF: nur das Blatt */
+@media print {
+  html.ms-printing body * { visibility: hidden !important; }
+  html.ms-printing .ms-paper, html.ms-printing .ms-paper * { visibility: visible !important; }
+  html.ms-printing .ms-paper { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; border-radius: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html.ms-printing .ms-paper .ms-a { clip-path: none !important; animation: none !important; }
+}

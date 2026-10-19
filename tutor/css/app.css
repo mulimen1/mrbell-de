@@ -4332,3 +4332,16 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 @media (prefers-color-scheme: light) { html:not([data-theme]) .zl-host { background: #000; border-radius: 26px; padding: 14px 20px 6px; } }
 @media (max-width: 600px) { html[data-theme="light"] .zl-host { padding: 10px 12px 4px; border-radius: 20px; } }
 .me-sw { margin-bottom: 18px; } .me-sw a.bib-tab { text-decoration: none; }
+/* Startseite: Live-Mitschrift-Vorschau */
+@font-face { font-family: 'BM Fueller'; src: url('/tutor/fonts/caveat-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'BM Fueller'; src: url('/tutor/fonts/caveat-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+.msdemo { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.25fr); align-items: center; gap: 12px; }
+.msd-raw { font: 500 12.5px/1.7 var(--mono, ui-monospace, monospace); color: var(--mute); background: var(--bg); border: 1px dashed var(--line2); border-radius: 12px; padding: 10px 12px; transform: rotate(-1deg); }
+.msd-ar { font-size: 22px; color: var(--mute); }
+.msd-pap { display: flex; flex-direction: column; color: #1f3c88; font: 400 20px/26px 'BM Fueller', cursive; padding: 10px 14px 12px 26px; border-radius: 6px; transform: rotate(.8deg);
+  background: linear-gradient(to right, transparent 0 16px, rgba(214,88,88,.45) 16px 17.5px, transparent 17.5px), repeating-linear-gradient(to bottom, #fffdf6 0 25px, #dde5f2 25px 26px); box-shadow: 0 10px 30px -18px rgba(0,0,0,.4); }
+.msd-pap b { font-weight: 700; font-size: 23px; background: linear-gradient(transparent 55%, rgba(255,214,64,.6) 55% 92%, transparent 92%); align-self: flex-start; }
+.msd-pap sub { font-size: .62em; line-height: 0; }
+.msd-pap .r { color: #c0392b; }
+@media (max-width: 560px) { .msdemo { grid-template-columns: 1fr; } .msd-ar { transform: rotate(90deg); justify-self: center; } }
+.pin.wide .demo.msdemo { display: grid; }
