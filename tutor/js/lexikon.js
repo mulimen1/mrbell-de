@@ -2,18 +2,26 @@
 // englische Begriffe, Tippfehler-tolerant). Nicht dabei? Max erklärt es.
 import { h, ico, ls } from './util.js';
 import { L } from './i18n.js';
-import { rich } from './msdraw.js';
+// Kleiner Formel-Satz ohne Zeichen-Bibliothek: K_f → K<sub>f</sub>, x^2 → x<sup>2</sup>
+const esc = t => String(t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const rich = t => esc(t).replace(/\^\(([^()]{1,24})\)/g, '<sup>$1</sup>').replace(/\^([A-Za-z0-9*]{1,6})/g, '<sup>$1</sup>').replace(/_\{([^{}]{1,16})\}/g, '<sub>$1</sub>').replace(/(\b[A-Za-zÄÖÜäöüΔσμρβε])_([A-Za-z0-9ÄÖÜäöü]{1,6})/g, '$1<sub>$2</sub>');
 import { haptic } from './dock.js';
 
 let DATA = null;
 const RKEY = 'tutor.lex.recent';
 const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ß/g, 'ss').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+let LOADING = null;
+export function preload() { return load().catch(() => null); }
 async function load() {
   if (DATA) return DATA;
+  if (LOADING) return LOADING;
+  LOADING = (async () => {
   const r = await fetch('/tutor/data/lexikon.json?v=1');
   const arr = await r.json();
   DATA = arr.map((x, i) => Object.assign(x, { i, _t: norm(x.t), _a: (x.a || []).map(norm), _d: norm(x.d) }));
   return DATA;
+  })();
+  try { return await LOADING; } finally { if (!DATA) LOADING = null; }
 }
 // Ähnlichkeit für Tippfehler (Levenshtein, früh abbrechen)
 function lev(a, b, max = 2) {

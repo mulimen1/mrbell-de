@@ -4,7 +4,7 @@ import { h, ico, ls } from './util.js';
 import { L } from './i18n.js';
 
 let mounted = false, dock, panel = null, which = '';
-const CSS_V = 1;
+const CSS_V = 2;
 
 const ICON = {
   calc: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.8" width="14" height="18.4" rx="2.6"/><rect x="8" y="5.8" width="8" height="3.6" rx=".8"/><path d="M8.6 13h.01M12 13h.01M15.4 13h.01M8.6 16.6h.01M12 16.6h.01M15.4 16.6h.01"/></svg>',
@@ -28,6 +28,11 @@ export function mountDock() {
   dock = h('div', { class: 'dk', role: 'toolbar', 'aria-label': L('Werkzeuge', 'Tools') }, b('calc', L('Taschenrechner', 'Calculator')), b('lex', L('BWL-Lexikon', 'Business glossary')));
   document.body.appendChild(dock);
   place(); setInterval(place, 350); addEventListener('resize', place);
+  // Vorladen, damit sich beides sofort und flüssig öffnet: Code im Leerlauf, Lexikon-Daten beim Drüberfahren/Antippen
+  const idle = window.requestIdleCallback || (f => setTimeout(f, 1500));
+  idle(() => { import('./calc.js').catch(() => {}); import('./lexikon.js').then(m => setTimeout(() => m.preload(), 4000)).catch(() => {}); });
+  const lexB = dock.querySelector('[data-k="lex"]');
+  ['pointerenter', 'pointerdown', 'focus'].forEach(t => lexB.addEventListener(t, () => import('./lexikon.js').then(m => m.preload()).catch(() => {}), { once: true }));
   addEventListener('keydown', e => { if (e.key === 'Escape' && panel) close(); });
 }
 
@@ -51,7 +56,7 @@ function place() {
 function toggle(k) { haptic(); if (which === k) { close(); return; } open(k); }
 function close() {
   if (!panel) return; const p = panel; panel = null; which = '';
-  p.classList.add('out'); setTimeout(() => p.remove(), 180);
+  p.classList.remove('in'); p.classList.add('out'); setTimeout(() => p.remove(), 260);
   dock.querySelectorAll('.dk-b').forEach(x => x.setAttribute('aria-expanded', 'false'));
 }
 async function open(k) {
@@ -61,8 +66,15 @@ async function open(k) {
   const head = h('div', { class: 'dkp-h' }, h('span', { class: 'dkp-i', html: ICON[k] }), h('b', {}, k === 'calc' ? L('Rechner', 'Calculator') : L('BWL-Lexikon', 'Business glossary')),
     h('button', { type: 'button', class: 'dkp-x', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => { haptic(); close(); } }));
   const body = h('div', { class: 'dkp-b' });
-  panel = h('div', { class: 'dkp dkp-' + k, role: 'dialog', 'aria-label': k === 'calc' ? L('Taschenrechner', 'Calculator') : L('BWL-Lexikon', 'Business glossary') }, h('i', { class: 'dkp-grab', 'aria-hidden': 'true' }), head, body);
-  document.body.appendChild(panel); place();
-  if (k === 'calc') (await import('./calc.js')).calculator(body);
-  else (await import('./lexikon.js')).lexikon(body, { close });
+  const p = h('div', { class: 'dkp dkp-' + k + ' pre', role: 'dialog', 'aria-label': k === 'calc' ? L('Taschenrechner', 'Calculator') : L('BWL-Lexikon', 'Business glossary') }, h('i', { class: 'dkp-grab', 'aria-hidden': 'true' }), head, body);
+  panel = p;
+  // Erst fertig bauen (unsichtbar), dann in einem Rutsch einblenden – kein Ruckeln, kein Nachladen im Bild
+  document.body.appendChild(p); place();
+  const build = (async () => {
+    if (k === 'calc') (await import('./calc.js')).calculator(body);
+    else await (await import('./lexikon.js')).lexikon(body, { close });
+  })().catch(e => console.warn(e));
+  await Promise.race([build, new Promise(r => setTimeout(r, 650))]);   // langsames Netz: trotzdem zügig zeigen
+  if (panel !== p) return;
+  requestAnimationFrame(() => requestAnimationFrame(() => { p.classList.remove('pre'); p.classList.add('in'); }));
 }

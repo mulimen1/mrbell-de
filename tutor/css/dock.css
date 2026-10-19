@@ -12,12 +12,17 @@ html.bv-open .dk, html.ms-printing .dk { display: none; }
 /* Fenster */
 .dkp { position: fixed; z-index: 120; right: calc(var(--dr, 16px) + 56px); bottom: var(--db, 18px); width: 320px; max-height: min(720px, calc(100vh - 36px)); display: flex; flex-direction: column;
   background: var(--panel); color: var(--ink); border: 1px solid var(--line2); border-radius: 22px; box-shadow: 0 30px 80px -30px rgba(0,0,0,.45), 0 8px 24px -12px rgba(0,0,0,.2);
-  overflow: hidden; transform-origin: 100% 100%; animation: dkin .2s cubic-bezier(.2,.9,.3,1.2); }
+  overflow: hidden; transform-origin: 100% 100%;
+  opacity: 0; transform: translateY(14px) scale(.965); filter: blur(2px); will-change: transform, opacity;
+  transition: opacity .32s cubic-bezier(.22,1,.36,1), transform .42s cubic-bezier(.22,1,.36,1), filter .32s ease, width .3s cubic-bezier(.22,1,.36,1); }
+.dkp.pre { visibility: hidden; transition: none; }
+.dkp.in { opacity: 1; transform: none; filter: none; }
+.dkp.in .dkp-h, .dkp.in .dkp-b { animation: dkfade .45s cubic-bezier(.22,1,.36,1) both; }
+.dkp.in .dkp-b { animation-delay: .06s; }
+@keyframes dkfade { from { opacity: 0; transform: translateY(6px); } }
 .dkp.dkp-lex { width: 380px; height: min(620px, calc(100vh - 110px)); }
 .dkp.dkp-calc.wide { width: 420px; }
-.dkp.out { animation: dkout .18s ease forwards; }
-@keyframes dkin { from { opacity: 0; transform: translateY(8px) scale(.94); } }
-@keyframes dkout { to { opacity: 0; transform: translateY(8px) scale(.96); } }
+.dkp.out { opacity: 0; transform: translateY(10px) scale(.975); filter: blur(1px); transition-duration: .22s, .26s, .22s; }
 .dkp-grab { display: none; }
 .dkp-h { display: flex; align-items: center; gap: 9px; padding: 12px 12px 8px 16px; }
 .dkp-h b { font: 650 14.5px var(--sans); flex: 1; }
@@ -30,12 +35,12 @@ html.bv-open .dk, html.ms-printing .dk { display: none; }
 @media (max-width: 600px) {
   .dk { gap: 7px; }
   .dk-b { width: 42px; height: 42px; border-radius: 13px; }
-  .dkp, .dkp.dkp-lex, .dkp.dkp-calc.wide { left: 0; right: 0; bottom: 0; width: auto; max-height: 86vh; border-radius: 24px 24px 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); transform-origin: 50% 100%; animation-name: dkup; }
+  .dkp, .dkp.dkp-lex, .dkp.dkp-calc.wide { left: 0; right: 0; bottom: 0; width: auto; max-height: 86vh; border-radius: 24px 24px 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); transform: translateY(100%); filter: none; opacity: 1;
+    transition: transform .48s cubic-bezier(.22,1,.36,1), opacity .2s; }
+  .dkp.in { transform: none; }
+  .dkp.out { transform: translateY(100%); opacity: 1; filter: none; transition: transform .3s cubic-bezier(.4,0,.6,1); }
   .dkp.dkp-lex { height: 86vh; }
-  .dkp.out { animation: dkdown .2s ease forwards; }
   .dkp-grab { display: block; width: 40px; height: 4px; border-radius: 4px; background: var(--line2); margin: 8px auto 0; }
-  @keyframes dkup { from { transform: translateY(100%); } }
-  @keyframes dkdown { to { transform: translateY(100%); } }
 }
 
 /* ---------- Rechner ---------- */
@@ -106,3 +111,7 @@ html.bv-open .dk, html.ms-printing .dk { display: none; }
 .lx-rel { margin-top: 14px; }
 .lx-rel small { display: block; color: var(--mute); font: 650 11px var(--sans); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
 .lx-rel > div { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Hintergrund am Handy leicht abdunkeln, damit das Fenster ruhig wirkt */
+@media (max-width: 600px) { .dkp::before { content: none; } }
+@media (prefers-reduced-motion: reduce) { .dkp, .dkp.in, .dkp.out { transition: opacity .15s !important; transform: none !important; filter: none !important; } .dkp.in .dkp-h, .dkp.in .dkp-b { animation: none; } }
