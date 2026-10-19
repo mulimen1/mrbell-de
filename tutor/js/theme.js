@@ -52,6 +52,7 @@ function showAccent(id) { const H = document.documentElement; if (id) H.dataset.
 const remember = id => { try { localStorage.setItem(ACC_KEY, id || 'std'); } catch (e) {} };
 // Farbe wechseln – mit Animation: Kreis aus dem angeklickten Farbtupfer färbt die Seite um (wie Hell/Dunkel).
 // Gespeichert auf dem Gerät (bleibt nach Ab-/Anmelden) und in „Mein Bereich“ (mit Sync auch auf anderen Geräten).
+const dressNow = id => { document.documentElement.dataset.outfit = id || 'std'; import('./face.js').then(m => m.setOutfit(id)).catch(() => {}); };
 export function setAccent(id, from) {
   if (!ACCENTS.some(a => a[0] === id)) id = '';
   remember(id);
@@ -59,7 +60,7 @@ export function setAccent(id, from) {
   if (id === getAccent()) return;
   const H = document.documentElement;
   // Max zieht sich mit um: Der Assistent übernimmt das (rausfliegen, umziehen, zurück); ist er nicht da, sofort
-  if (dispatchEvent(new CustomEvent('bm:accent', { detail: { id }, cancelable: true }))) H.dataset.outfit = id || 'std';
+  if (dispatchEvent(new CustomEvent('bm:accent', { detail: { id }, cancelable: true }))) dressNow(id);
   if (from && document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const r = from.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
     H.classList.add('theme-vt'); H.style.setProperty('--tx', x + 'px'); H.style.setProperty('--ty', y + 'px');
@@ -72,7 +73,7 @@ let accSynced = false;
 function syncAccent() {
   if (accSynced) return; accSynced = true;
   import('./me.js').then(M => {
-    const take = m => { if (m && typeof m.accent === 'string' && ACCENTS.some(a => a[0] === m.accent) && m.accent !== getAccent()) { remember(m.accent); const H = document.documentElement; H.dataset.outfit = m.accent || 'std'; H.classList.add('theme-fade'); showAccent(m.accent); setTimeout(() => H.classList.remove('theme-fade'), 900); } };
+    const take = m => { if (m && typeof m.accent === 'string' && ACCENTS.some(a => a[0] === m.accent) && m.accent !== getAccent()) { remember(m.accent); const H = document.documentElement; dressNow(m.accent); H.classList.add('theme-fade'); showAccent(m.accent); setTimeout(() => H.classList.remove('theme-fade'), 900); } };
     take(M.getMe()); M.onMe(take);
   }).catch(() => {});
 }

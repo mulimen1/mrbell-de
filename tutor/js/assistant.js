@@ -1633,51 +1633,6 @@ export function mountAssistant() {
   function toggleQuips() { cfg.quips = cfg.quips === false; saveCfg(); if (cfg.quips === false) { hideQuip(); clearTimeout(quipT); toast(L('Keine Sprüche mehr. Langweilig, aber okay.', 'No more jokes. Boring, but fine.')); } else { planQuip(true); toast(L('Sprüche sind wieder an.', 'Jokes are back on.')); } }
   planQuip(true);
 
-  // ----- Farbe gewechselt: Max zieht sich um -----
-  // „Ich zieh mich kurz um“ → fliegt rechts raus → kommt im neuen Pulli von rechts zurück → frecher Spruch zur Farbe.
-  // Nur wenn sein Kopf gerade zu sehen ist; sonst (oder bei „weniger Bewegung“) wechselt der Pulli sofort (theme.js).
-  const DRESS = {
-    gruen: ['Zurück zum Original. Endlich mal eine gute Entscheidung.', 'Back to the original. Finally a good decision.'],
-    std: ['Schwarz. Ich seh aus wie ein Unternehmensberater um 2 Uhr nachts.', 'Black. I look like a consultant at 2 a.m.'],
-    navy: ['Navy. Ich seh jetzt aus wie ein Sparkassen-Azubi. Danke dafür.', 'Navy. Now I look like a bank trainee. Thanks.'],
-    kobalt: ['Kobalt? Geschmack hast du ja nicht – aber Mut, das muss man dir lassen.', 'Cobalt? No taste, but you’ve got guts.'],
-    petrol: ['Petrol. Klingt nach Tankstelle, steht mir aber leider gut.', 'Teal. Sounds like a gas station, but sadly it suits me.'],
-    oliv: ['Oliv. Ich seh aus wie ein BWLer beim Bund. Na gut.', 'Olive. I look like a business student in the army. Fine.'],
-    cognac: ['Cognac. Fehlt nur noch der Porsche vom Papa.', 'Cognac. All that’s missing is daddy’s Porsche.'],
-    bordeaux: ['Bordeaux. Sehr Investmentbanker. Ich will jetzt Bonus.', 'Burgundy. Very investment banker. I want a bonus now.'],
-    aubergine: ['Aubergine. Geschmack hast du ja nicht – aber ich trag’s mit Würde.', 'Plum. No taste at all – but I wear it with dignity.'],
-    graphit: ['Graphit. Grau wie dein Konto am Monatsende. Steht mir trotzdem.', 'Graphite. Grey like your bank account at month’s end. Still suits me.']
-  };
-  const OUT_SAY = [['Ich zieh mich kurz um – warte eine Sekunde.', 'Let me change real quick – one sec.'], ['Moment, ich zieh mich schnell um.', 'Hold on, quick outfit change.'], ['Sekunde – so kann ich nicht rumlaufen.', 'One sec – I can’t walk around like this.']];
-  let dressTo = null;
-  function say(t, ms) {
-    clearTimeout(quipOff); clearTimeout(quipHide); quip.classList.remove('out');
-    quip.replaceChildren(h('p', {}, t), h('button', { class: 'q-x', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: e => { e.stopPropagation(); hideQuip(); } }));
-    quip.hidden = false; root.classList.add('quipping');
-    if (ms) quipHide = setTimeout(hideQuip, ms);
-  }
-  addEventListener('bm:accent', e => {
-    const id = e.detail.id || 'std';
-    const seen = !open && isAssistantEnabled() && !document.hidden && !STAGE && !tourActive() && !matchMedia('(prefers-reduced-motion: reduce)').matches
-      && !['covered', 'nobub', 'off', 'landtop', 'dragging'].some(c => root.classList.contains(c)) && bub.getBoundingClientRect().width > 20 && getComputedStyle(bub).opacity !== '0';
-    if (!seen && !root.classList.contains('dress')) return;
-    e.preventDefault(); dressTo = id;
-    if (root.classList.contains('dress')) return;   // läuft schon: die zuletzt gewählte Farbe wird angezogen
-    root.classList.add('dress'); clearTimeout(quipT);
-    const [de, en] = OUT_SAY[Math.floor(Math.random() * OUT_SAY.length)];
-    say(L(de, en)); bf.pulse('talk', 1200);
-    setTimeout(() => { root.classList.add('dress-out'); }, 1250);
-    setTimeout(() => { hideQuip(); }, 1500);
-    setTimeout(() => {
-      document.documentElement.dataset.outfit = dressTo;
-      root.classList.remove('dress-out'); root.classList.add('dress-in');
-    }, 2350);
-    setTimeout(() => {
-      root.classList.remove('dress-in', 'dress');
-      const q = DRESS[dressTo] || DRESS.aubergine; say(L(q[0], q[1]), 5200); bf.pulse('smug', 1800);
-      planQuip();
-    }, 3050);
-  });
 
   // Rechtsklick bzw. lange drücken auf den Kopf: kleines Menü (Sprüche aus, ausblenden)
   function openCtx(x, y) {

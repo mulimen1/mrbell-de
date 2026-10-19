@@ -64,7 +64,7 @@ function place() {
     return;
   }
   dock.classList.remove('row', 'hide');
-  if (document.querySelector('.asst.dress')) return;   // Max zieht sich gerade um – Dock bleibt stehen
+  if (document.documentElement.classList.contains('mx-dress')) return;   // Max zieht sich gerade um – Dock bleibt stehen
   const bub = document.querySelector('.asst-bub');
   let r = null;
   if (bub) { const cs = getComputedStyle(bub); const rr = bub.getBoundingClientRect(); if (rr.width > 20 && cs.opacity !== '0' && cs.visibility !== 'hidden' && cs.display !== 'none' && !bub.closest('.off')) r = rr; }

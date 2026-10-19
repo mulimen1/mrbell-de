@@ -4354,9 +4354,3 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 .ln-empty.ln-over .ln-dci { animation: lnbob .6s ease-in-out infinite alternate; }
 @keyframes lnbob { to { transform: translateY(-4px); } }
 
-/* Max zieht sich um (Farbwechsel): rechts raus, im neuen Pulli von rechts zurück */
-.asst.dress .asst-tip, .asst.dress .asst-x { opacity: 0 !important; }
-.asst.dress-out .asst-bub { animation: dressout .55s cubic-bezier(.55,0,.85,.25) forwards; pointer-events: none; }
-.asst.dress-in .asst-bub { animation: dressin .7s cubic-bezier(.2,.9,.3,1.22) both; pointer-events: none; }
-@keyframes dressout { 0% { translate: 0 0; rotate: 0deg; } 18% { translate: -10px 0; rotate: -6deg; } 100% { translate: calc(100vw + 40px) -18px; rotate: 24deg; } }
-@keyframes dressin { 0% { translate: calc(100vw + 40px) -14px; rotate: -20deg; } 100% { translate: 0 0; rotate: 0deg; } }
