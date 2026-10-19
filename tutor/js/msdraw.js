@@ -11,7 +11,7 @@ const fmt = v => { const n = typeof v === 'number' ? v : num(v); return n == nul
 // Formeln: Rohcode der KI (LaTeX-Reste) → lesbare Handschrift mit Hoch-/Tiefstellung
 export function formula(s) {
   let t = String(s || '').trim().replace(/^\\[([]|\\[\])]$/g, '').replace(/\\\(|\\\)|\\\[|\\\]|\$/g, '');
-  for (let i = 0; i < 4; i++) t = t.replace(/\\[dt]?frac\{([^{}]*)\}\{([^{}]*)\}/g, (_, a, b) => `${/[ +−-]/.test(a) ? '(' + a + ')' : a} / ${/[ +−-]/.test(b) ? '(' + b + ')' : b}`);
+  for (let i = 0; i < 4; i++) t = t.replace(/\\[dt]?frac\{([^{}]*)\}\{([^{}]*)\}/g, (_, a, b) => `${/[+−-]/.test(a) ? '(' + a + ')' : a} / ${/[+−-]/.test(b) ? '(' + b + ')' : b}`);
   const SYM = { cdot: '·', times: '×', Delta: 'Δ', delta: 'δ', sum: 'Σ', leq: '≤', le: '≤', geq: '≥', ge: '≥', neq: '≠', approx: '≈', rightarrow: '→', Rightarrow: '⇒', to: '→', infty: '∞', alpha: 'α', beta: 'β', varepsilon: 'ε', epsilon: 'ε', mu: 'μ', sigma: 'σ', pi: 'π', lambda: 'λ', rho: 'ρ', sqrt: '√', pm: '±', '%': '%', ',': ' ', ';': ' ', quad: '  ', text: '', mathrm: '', left: '', right: '' };
   t = t.replace(/\\([A-Za-z]+|[%,;])/g, (_, w) => w in SYM ? SYM[w] : w);
   let h = esc(t).replace(/\s-\s/g, ' − ');
