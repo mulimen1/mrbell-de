@@ -76,7 +76,7 @@ async function generate(wrap, ctx, chIdx, o) {
   const gate = o?.max && isGuest();
   // Ohne Anmeldefenster: Max schreibt die Karten, die erste steht da – beim ersten Antippen kommt die Anmeldung (study)
   try {
-    const r = await ask('cards', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { count, focus } }, { signal: ld.signal });
+    const r = await ask('cards', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: gate ? { count, focus, entry: true } : { count, focus } }, { signal: ld.signal });
     const cards = (r.data?.cards || []).filter(c => c && c.front && (c.back || c.formula)).map(c => ({ id: uid(), front: String(c.front), back: String(c.back || ''), formula: c.formula ? String(c.formula).slice(0, 400) : '', legend: (Array.isArray(c.legend) ? c.legend : []).filter(x => Array.isArray(x) && x[0] && x[1]).slice(0, 8).map(x => [String(x[0]).slice(0, 40), String(x[1]).slice(0, 80)]), page: c.page || null, due: 0 }));
     if (!cards.length) throw new Error(L('Es kamen keine Karten zurück. Versuch es nochmal.', 'No cards came back. Please try again.'));
     const deck = { id: uid(), title: ch ? ch.title : (r.data.title || L('Ganzes Skript', 'Whole script')), chapter: chIdx, cards, created: Date.now() };

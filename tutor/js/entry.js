@@ -103,18 +103,19 @@ function hookCard(c) {
       h('button', { class: 'm-hookl', type: 'button', onclick: () => exercise(c) }, `${c.topic} ${L('üben', 'practice')} · BWL-Trainer →`)));
 }
 
-// Beim Scrollen: höchstens 3 Sprüche pro Besuch, nur wenn nichts anderes im Weg ist
+// Beim Scrollen: ein Spruch pro Besuch – der stärkste (Klausurfalle zuerst), nur wenn nichts anderes im Weg ist
 function watchScroll(c) {
   if (!('IntersectionObserver' in window) || c.t._mObs) return;
   let n = 0; const seen = new Set();
-  const list = (SAY[c.slug] || SAY0).map(([sel, text]) => [c.t.querySelector(sel), text]).filter(([el]) => el);
+  const all = (SAY[c.slug] || SAY0).map(([sel, text]) => [c.t.querySelector(sel), text, /\.warn/.test(sel)]).filter(([el]) => el);
+  const list = [...all.filter(x => x[2]), ...all.filter(x => !x[2])].slice(0, 1);
   const io = new IntersectionObserver(es => {
     for (const e of es) {
-      if (!e.isIntersecting || seen.has(e.target) || n >= 3) continue;
+      if (!e.isIntersecting || seen.has(e.target) || n >= 1) continue;
       if (c.busy()) continue;
       const it = list.find(([el]) => el === e.target); if (!it) continue;
       seen.add(e.target); n++; c.say(it[1], 4200);
-      if (n >= 3) io.disconnect();
+      if (n >= 1) io.disconnect();
     }
   }, { root: c.scroller || null, threshold: .45 });
   list.forEach(([el]) => io.observe(el));

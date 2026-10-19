@@ -45,8 +45,8 @@
     + '.bmc button:active{transform:scale(.97)}.bmc button.y{background:var(--inv,#f5f5f5);color:var(--onInv,#000);border-color:var(--inv,#f5f5f5)}.bmc button:hover{filter:brightness(1.08)}'
     + '.bmc .s{display:none}'
     // Handy: schmale Leiste unten (über der Navigationsleiste), ein, zwei Zeilen Text + zwei gleich große Knöpfe
-    + '@media(max-width:600px),(pointer:coarse) and (max-height:500px){.bmc{left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));width:auto;max-width:560px;margin:0 auto;padding:10px 10px 10px 14px;border-radius:18px;font-size:13px;line-height:1.35}'
-    + '.bmc h3,.bmc .l{display:none}.bmc .s{display:inline}.bmc p{margin:0 0 8px;color:var(--ink2,#d4d4d8)}.bmc .r{gap:6px}.bmc button{height:44px;font-size:14px;white-space:nowrap;padding:0 8px}}'
+    + '@media(max-width:600px),(pointer:coarse) and (max-height:500px){.bmc{left:12px;right:12px;top:50%;bottom:auto!important;translate:0 -50%;width:auto;max-width:560px;margin:0 auto;padding:18px 16px 16px;border-radius:22px;font-size:14px;line-height:1.45}'
+    + '.bmc p{margin:0 0 14px;color:var(--ink2,#d4d4d8)}.bmc .r{gap:6px}.bmc button{height:44px;font-size:14px;white-space:nowrap;padding:0 8px}}'
     + '@media (prefers-reduced-motion:reduce){.bmc,.bmc.out{animation:none}}';
   var box = null;
   function legal() { return /(^|\.)bwlmax\.de$/.test(location.hostname) ? '/datenschutz#analyse' : '/tutor/legal/datenschutz.html#analyse'; }
@@ -103,9 +103,6 @@
 
   window.BM = { track: track, open: open, ok: ok };
   document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-consent-open]')) { e.preventDefault(); open(); } });
-  // Themen-Einstieg (?thema=…, Google-Anzeige): Max baut gleich eine Tafel – der Banner kommt erst, wenn sie fertig ist (spätestens nach 45 s)
-  var topicEntry = function () { if (/[?&]thema=/.test(location.search)) return true; try { var p = JSON.parse(localStorage.getItem('tutor.pendingAsk') || 'null'); return !!(p && p.entry); } catch (e) { return false; } };
-  var later = function () { var done = false; var go = function () { if (done) return; done = true; setTimeout(open, 700); }; addEventListener('bm:board-done', go); setTimeout(go, 45000); };
-  var init = function () { var c = get(); if (c === 'ja' && !hasCookie()) setCookie(); if (c !== 'ja' && c !== 'nein') { if (topicEntry()) later(); else setTimeout(open, 900); } else start(); };
+  var init = function () { var c = get(); if (c === 'ja' && !hasCookie()) setCookie(); if (c !== 'ja' && c !== 'nein') setTimeout(open, 900); else start(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
