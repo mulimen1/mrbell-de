@@ -224,7 +224,7 @@ export function mountAssistant() {
   const mHist = h('button', { class: 'm-hist', type: 'button', hidden: true, onclick: () => { fold(false); setFeedOpen(!feedOpen, { user: true }); } });
   function fold(v) { root.classList.toggle('m-fold', !!v); drawHist(); }
   function drawHist() {
-    const f = root.classList.contains('m-fold') || !feedOpen, n = feedList.querySelectorAll('.ai-bub').length;
+    const f = root.classList.contains('m-fold') || !feedOpen, n = feedList.querySelectorAll(MOB.matches ? '.ai-bub:not(.auto):not(.auto-a)' : '.ai-bub:not(.auto)').length;
     mHist.hidden = !MOB.matches || !n;
     mHist.replaceChildren(h('span', { html: ico(f ? 'up' : 'down') }), f ? L('Verlauf ansehen', 'Show history') : L('Verlauf schließen', 'Close history'));
     placeHist();
@@ -1124,6 +1124,8 @@ export function mountAssistant() {
     unlockAudio();
     if (MOB.matches) fold(!!o.entry);
     waitTx = o.wait || ''; capQuestion(shown); capQ.classList.remove('live'); capThinking();
+    // Themen-Einstieg (Anzeige/Link): die automatische Frage hat niemand getippt – nicht als Nachricht zeigen; am Handy auch die Antwort nicht im Verlauf (sie steht ja als Seite da)
+    if (o.entry && curEx) { curEx.q.classList.add('auto'); curEx.a.classList.add('auto-a'); drawHist(); }
     ovNext = o.slug === 'bwl' || /Überblick|overview/i.test(String(o.board || ''));   // BWL-Überblick: Themen-Knöpfe am Ende
     const inst = !!(o.entry && hasInstant(o.slug));   // Sofort-Tafel (boards.js): kein Platzhalter, die Tafel ist gleich da
     if (o.board && !inst) showBuilding(String(o.board));

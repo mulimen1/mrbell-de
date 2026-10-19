@@ -120,7 +120,7 @@ html.bv-open .dk, html.ms-printing .dk { display: none; }
 .dk-ic { display: grid; place-items: center; }
 .dk-l { display: none; }
 @media (max-width: 600px) {
-  .dk.row { flex-direction: row; gap: 8px; transition: opacity .25s cubic-bezier(.22,1,.36,1), transform .35s cubic-bezier(.22,1,.36,1); }
+  .dk.row { z-index: 95; flex-direction: row; gap: 8px; transition: opacity .25s cubic-bezier(.22,1,.36,1), transform .35s cubic-bezier(.22,1,.36,1); }
   .dk.row .dk-b { width: auto; height: 38px; padding: 0 13px 0 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; font: 650 13.5px var(--sans); box-shadow: 0 8px 22px -10px rgba(0,0,0,.35); }
   .dk.row .dk-b svg { width: 19px; height: 19px; }
   .dk.row .dk-l { display: inline; }

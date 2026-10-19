@@ -4345,3 +4345,6 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 .msd-pap .r { color: #c0392b; }
 @media (max-width: 560px) { .msdemo { grid-template-columns: 1fr; } .msd-ar { transform: rotate(90deg); justify-self: center; } }
 .pin.wide .demo.msdemo { display: grid; }
+/* Themen-Einstieg: automatische Frage nie als Nachricht zeigen; am Handy auch die Antwort nicht im Verlauf */
+.ai-feed .ai-bub.auto { display: none !important; }
+@media (max-width: 600px) { .ai-feed .ai-bub.auto-a { display: none !important; } }

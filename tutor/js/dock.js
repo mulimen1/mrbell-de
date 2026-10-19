@@ -4,7 +4,7 @@ import { h, ico, ls } from './util.js';
 import { L } from './i18n.js';
 
 let mounted = false, dock, panel = null, which = '';
-const CSS_V = 4;
+const CSS_V = 5;
 
 const ICON = {
   calc: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.8" width="14" height="18.4" rx="2.6"/><rect x="8" y="5.8" width="8" height="3.6" rx=".8"/><path d="M8.6 13h.01M12 13h.01M15.4 13h.01M8.6 16.6h.01M12 16.6h.01M15.4 16.6h.01"/></svg>',
@@ -49,7 +49,16 @@ function place() {
     const rr = isl && isl.getBoundingClientRect();
     const on = !!(rr && rr.width > 100 && rr.top > 80 && getComputedStyle(isl).display !== 'none') || !!panel;
     dock.classList.add('row'); dock.classList.toggle('hide', !on);
-    if (rr && rr.width > 100) { dock.style.right = Math.round(Math.max(8, innerWidth - rr.right + 6)) + 'px'; dock.style.bottom = Math.round(innerHeight - rr.top + 8) + 'px'; }
+    if (rr && rr.width > 100) {
+      // „Verlauf ansehen“ sitzt auch über dem Chatfeld – dann kommen Rechner/Lexikon eine Reihe darüber
+      let top = rr.top;
+      const mh = document.querySelector('.m-hist:not([hidden])'), hr = mh && mh.getBoundingClientRect();
+      if (hr && hr.height && hr.bottom > top - 60) top = Math.min(top, hr.top);
+      // Max' letzte Antwort steht über dem Chatfeld: Knöpfe darüber; ist der ganze Verlauf offen (lang), Knöpfe ausblenden
+      const bubs = [...document.querySelectorAll('.asst .ai-feed .ai-bub')].filter(b => b.offsetParent && getComputedStyle(b).visibility !== 'hidden' && getComputedStyle(b).opacity !== '0').map(b => b.getBoundingClientRect()).filter(r => r.height > 10 && r.bottom > 0 && r.top < innerHeight);
+      if (bubs.length) { const ft = Math.min(...bubs.map(r => r.top)); if (ft < innerHeight * 0.32) { dock.classList.add('hide'); return; } top = Math.min(top, ft); }
+      dock.style.right = Math.round(Math.max(8, innerWidth - rr.right + 6)) + 'px'; dock.style.bottom = Math.round(innerHeight - top + 8) + 'px';
+    }
     return;
   }
   dock.classList.remove('row', 'hide');
