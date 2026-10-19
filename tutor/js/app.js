@@ -135,6 +135,7 @@ function buildShell() {
   applyThemeButtons();
   // Schwebender Max-Assistent (überall in der App)
   import('./assistant.js').then(m => { asstMod = m; m.mountAssistant && m.mountAssistant(); }).catch(e => console.warn(e));
+  import('./dock.js').then(m => m.mountDock()).catch(e => console.warn(e));
 }
 
 // Klausur-Simulator aus den Werkzeugen: welches Skript?

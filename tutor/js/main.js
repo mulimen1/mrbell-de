@@ -253,6 +253,7 @@ async function route() {
     if (EN) document.querySelector('meta[name="description"]')?.setAttribute('content', 'Upload your course material – slides, notes or past exams – and learn with BWL Max, the AI tutor that writes on the whiteboard: explanations, quizzes, flashcards, study paths, podcasts and a practice trainer. Free, no sign-up.');
     initLanding();
     import('./assistant.js').then(m => m.mountAssistant && m.mountAssistant()).catch(e => console.warn(e));
+    import('./dock.js').then(m => m.mountDock()).catch(e => console.warn(e));
   }
   applyThemeButtons();
   // Erst zeigen, wenn alles übersetzt/zerlegt ist – kein kurzes Aufblitzen von Rohtext
