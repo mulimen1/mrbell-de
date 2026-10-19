@@ -10,10 +10,11 @@ import { formula, rich, flat, sketch, canDraw, underline, box } from '../msdraw.
 import { forWhole } from '../retrieve.js';
 import { linkMitschriften } from '../mslink.js';
 import { palette, blattDefault, blattPicker, applyBlatt, inkOf, smartTextarea, toggleBullet } from '../mspal.js';
+import { pad, drawingEl, drawingJpeg } from '../mspad.js';
 
 const DKEY = 'tutor.ms.draft';
 let cssOn = false;
-function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=4', 'data-ms': '1' })); }
+function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=6', 'data-ms': '1' })); }
 
 export async function render(root, { id = '' } = {}) {
   css();
@@ -31,9 +32,14 @@ function editor(wrap) {
   const draft = Object.assign({ fach: '', text: '', stil: 'fueller', at: 0, skript: '' }, ls.get(DKEY, {}) || {});
   const keep = () => { draft.at = Date.now(); ls.set(DKEY, draft); st.textContent = draft.text.trim() ? L('Automatisch gespeichert', 'Saved automatically') : ''; };
 
+  // Deine Mitschriften: direkt unter der Überschrift aufklappbar (statt ganz unten)
+  const listBox = h('div', { class: 'ms-lbox', hidden: true });
+  const n = S.list.filter(d => d.ms).length;
+  const listBtn = h('button', { type: 'button', class: 'ms-lbtn', 'aria-expanded': 'false', onclick: () => { listBox.hidden = !listBox.hidden; listBtn.setAttribute('aria-expanded', String(!listBox.hidden)); if (!listBox.hidden) listBox.replaceChildren(list()); } },
+    h('span', { html: ico('library') }), L('Deine Mitschriften', 'Your notes'), n ? h('small', {}, String(n)) : null, h('span', { class: 'ms-lch', html: ico('down') }));
   const head = h('div', { class: 'ms-head' },
-    h('div', {}, h('div', { class: 'eyebrow' }, L('Live-Mitschrift', 'Live notes')), h('h2', {}, L('Schreib einfach mit.', 'Just take notes.')),
-      h('p', {}, L('Tipp in der Vorlesung drauflos oder fotografier Notizen und Tafel. Max macht daraus eine saubere Mitschrift – in Schreibschrift oder Druckschrift, mit Skizzen.', 'Type away during the lecture or snap your notes and the board. Max turns it into clean notes – in cursive or print, with sketches.'))));
+    h('div', { class: 'ms-ht' }, h('div', { class: 'eyebrow' }, L('Live-Mitschrift', 'Live notes')), h('h2', {}, L('Schreib einfach mit.', 'Just take notes.')), listBtn),
+      h('p', { class: 'ms-hp' }, L('Tipp in der Vorlesung drauflos oder fotografier Notizen und Tafel. Max macht daraus eine saubere Mitschrift – in Schreibschrift oder Druckschrift, mit Skizzen.', 'Type away during the lecture or snap your notes and the board. Max turns it into clean notes – in cursive or print, with sketches.')));
 
   // Fach: einfach eintippen (muss kein angelegtes Fach sein). Vorhandene Fächer als Abkürzung daneben,
   // ein unbekannter Name bekommt einen kleinen Knopf „Als Fach anlegen“ – freiwillig.
@@ -58,17 +64,35 @@ function editor(wrap) {
   let pick = false;
   const skriptRow = () => {
     const sel = draft.skript && S.list.find(d => d.id === draft.skript);
-    if (sel) return h('div', { class: 'ms-skr' }, h('span', { html: ico('file') }), h('span', {}, L('Mit Skript: ', 'With slides: '), h('b', {}, sel.name)), h('button', { type: 'button', class: 'iconbtn', 'aria-label': L('Skript lösen', 'Unlink slides'), html: ico('x'), onclick: () => { draft.skript = ''; keep(); drawFach(); } }));
-    const all = skripte(); if (!all.length) return null;
-    if (!pick) return h('button', { type: 'button', class: 'ms-skl', onclick: () => { pick = true; drawFach(); } }, h('span', { html: ico('file') }), L('Mit Skript verbinden (optional)', 'Link slides (optional)'));
-    const f = draft.fach ? M.findFach(draft.fach) : null;
+    if (sel) return h('div', { class: 'ms-skc' }, h('span', { class: 'ms-ski', html: ico('file') }), h('div', {}, h('small', {}, L('Verbunden mit Skript', 'Linked slides')), h('b', {}, sel.name)), h('button', { type: 'button', class: 'iconbtn', 'aria-label': L('Skript lösen', 'Unlink slides'), html: ico('x'), onclick: () => { draft.skript = ''; keep(); drawFach(); } }));
+    if (!pick) return h('button', { type: 'button', class: 'ms-skl', onclick: () => { pick = true; drawFach(); } }, h('span', { html: ico('file') }), L('Mit Skript verbinden', 'Link slides'), h('small', {}, L('optional', 'optional')));
+    const all = skripte(), f = draft.fach ? M.findFach(draft.fach) : null;
     const mine = f ? all.filter(d => (f.docs || []).includes(d.id)) : [];
-    const list = [...mine, ...all.filter(d => !mine.includes(d))];
-    return h('div', { class: 'ms-skr' }, h('span', { html: ico('file') }),
-      h('select', { class: 'field', 'aria-label': L('Skript', 'Slides'), onchange: e => { draft.skript = e.target.value; pick = false; keep(); drawFach(); } },
-        h('option', { value: '' }, L('Skript wählen …', 'Choose slides …')), list.slice(0, 60).map(d => h('option', { value: d.id }, d.name))),
-      h('button', { type: 'button', class: 'iconbtn', 'aria-label': L('Abbrechen', 'Cancel'), html: ico('x'), onclick: () => { pick = false; drawFach(); } }));
+    const list = [...mine, ...all.filter(d => !mine.includes(d))].slice(0, 8);
+    const fin = h('input', { type: 'file', class: 'sr', accept: '.pdf,.pptx,.docx,.txt,.md,application/pdf' });
+    fin.addEventListener('change', () => { const fl = fin.files[0]; fin.value = ''; if (fl) addSkript(fl); });
+    const drop = h('label', { class: 'ms-skd' }, fin, h('span', { html: ico('upload') }), h('div', {}, h('b', {}, L('Skript hierher ziehen oder auswählen', 'Drop slides here or choose a file')), h('small', {}, 'PDF, PowerPoint, Word')));
+    ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); e.stopPropagation(); drop.classList.add('over'); }));
+    ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); e.stopPropagation(); drop.classList.remove('over'); }));
+    drop.addEventListener('drop', e => { const fl = e.dataTransfer?.files?.[0]; if (fl) addSkript(fl); });
+    return h('div', { class: 'ms-skp' },
+      h('div', { class: 'ms-skh' }, h('div', {}, h('b', {}, L('Mit Skript verbinden', 'Link slides')), h('small', {}, L('Max nimmt daraus Fachbegriffe und Seitenzahlen – mehr nicht.', 'Max uses it for terms and page numbers – nothing more.'))), h('button', { type: 'button', class: 'iconbtn', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => { pick = false; drawFach(); } })),
+      drop,
+      list.length ? h('div', { class: 'ms-skl2' }, list.map(d => h('button', { type: 'button', class: 'ms-sko', onclick: () => { draft.skript = d.id; pick = false; keep(); drawFach(); } }, h('span', { html: ico('file') }), h('span', {}, d.name), M.fachOf(d.id) ? h('small', {}, M.fachOf(d.id).name) : null))) : null);
   };
+  // Neues Skript direkt hier: Text lokal auslesen, in der Bibliothek ablegen, verbinden
+  async function addSkript(file) {
+    try {
+      toast(L('Lese dein Skript …', 'Reading your slides …'));
+      const { readFile } = await import('../ingest.js');
+      const r = await readFile(file);
+      const d = await createDoc({ name: r.name, pages: r.pages, chars: r.chars, extra: { kind: 'vorlesung' } });
+      const f = draft.fach ? M.findFach(draft.fach) : null;
+      if (f) M.updateMe(m => { const x = m.faecher.find(y => y.id === f.id); if (x) x.docs = [...new Set([...(x.docs || []), d.id])]; });
+      draft.skript = d.id; pick = false; keep(); drawFach();
+      toast(L(`„${r.name}“ ist verbunden und liegt in deiner Bibliothek.`, `“${r.name}” is linked and in your library.`));
+    } catch (e) { toast(e.message || L('Das Skript konnte ich nicht lesen.', 'I couldn’t read the slides.'), 4500); }
+  }
   drawFach();
 
   const ta = h('textarea', { class: 'ms-ta', spellcheck: 'false', autocapitalize: 'off', 'aria-label': L('Deine Notizen', 'Your notes'),
@@ -78,7 +102,7 @@ function editor(wrap) {
   ta.addEventListener('input', () => {
     const p = ta.selectionStart, v = ta.value, nv = v.replace(/->/g, '→').replace(/=>/g, '⇒').replace(/<-/g, '←');
     if (nv !== v) { ta.value = nv; const d = v.length - nv.length; ta.selectionStart = ta.selectionEnd = Math.max(0, p - d); }
-    draft.text = ta.value; keep(); if (go) go.disabled = draft.text.trim().length < 25;
+    draft.text = ta.value; keep(); if (go) go.disabled = !canGo();
   });
   const changed = () => ta.dispatchEvent(new Event('input'));
   const ins = s => {
@@ -91,13 +115,23 @@ function editor(wrap) {
   const cleanup = smartTextarea(ta, changed);
   // Blatt (Papier, Farbe, Tinte) – gilt für dein Notizblatt und für die fertige Mitschrift
   const blatt = Object.assign(blattDefault(), draft.blatt || {});
-  const paintTa = () => applyBlatt(ta, blatt);
+  const paintTa = () => { applyBlatt(ta, blatt); if (zp) { applyBlatt(zp.el.querySelector('.mz-host'), blatt); zp.recolor(); } };
+  let zp = null;
   paintTa();
   const bp = blattPicker(blatt, () => { draft.blatt = { ...blatt }; paintTa(); keep(); }); bp.hidden = true;
   // Zeichen & Formen: Laptop rechts daneben, Handy ausklappbar
   const pal = palette(ins);
+  // Zeichnen: Maus, Finger oder Apple Pencil – liegt als eigenes Blatt neben dem Getippten
+  const z = draft.zeichnung = draft.zeichnung || { strokes: [], h: 1250 };
+  const canGo = () => draft.text.trim().length >= 25 || (z.strokes || []).length > 0;
+  const drawBtn = h('button', { type: 'button', class: 'ms-tb ms-drawb', 'aria-expanded': 'false', onclick: () => setDraw(!ed.classList.contains('draw-on')) }, h('span', { html: '<svg class="ico" viewBox="0 0 24 24"><path d="M3 21c3-1 4-3 6-3s2 2 4 2 3-4 6-4"/><path d="m14 4 3 3-8 8H6v-3z"/></svg>' }), L('Zeichnen', 'Draw'));
+  function setDraw(on) {
+    ed.classList.toggle('draw-on', on); drawBtn.setAttribute('aria-expanded', String(on));
+    if (on && !zp) { zp = pad(z, blatt, () => { keep(); go.disabled = !canGo(); }); body.appendChild(zp.el); applyBlatt(zp.el.querySelector('.mz-host'), blatt); }
+    if (zp) requestAnimationFrame(() => { zp.fit(); if (on && innerWidth < 900) zp.el.scrollIntoView({ block: 'start', behavior: 'smooth' }); });
+  }
   const camIn = h('input', { type: 'file', accept: 'image/*', multiple: true, class: 'sr' });
-  const cam = h('label', { class: 'ms-cam', title: L('Foto von Notizen oder Tafel – wird zur sauberen Mitschrift', 'Photo of notes or the board – becomes clean notes') }, camIn, h('span', { html: ico('camera') }), L('Foto', 'Photo'));
+  const cam = h('label', { class: 'ms-cam', title: L('Bild von Tafel oder Aufschrieb – wird zur sauberen Mitschrift', 'Photo of the board or your notes – becomes clean notes') }, camIn, h('span', { html: ico('camera') }), h('span', { class: 'ms-camt' }, h('b', {}, L('Bild', 'Photo')), h('small', {}, L('Tafel oder Aufschrieb', 'board or notes'))));
   camIn.addEventListener('change', () => { const fs = [...camIn.files].slice(0, 6); camIn.value = ''; if (fs.length) fromPhotos(fs); });
   const palBtn = h('button', { type: 'button', class: 'ms-tb ms-palb', 'aria-expanded': 'false', onclick: () => { const open = !ed.classList.contains('pal-open'); ed.classList.toggle('pal-open', open); palBtn.setAttribute('aria-expanded', String(open)); } }, h('b', {}, 'Σ→'), L('Zeichen & Formen', 'Symbols'));
   const blattBtn = h('button', { type: 'button', class: 'ms-tb', 'aria-expanded': 'false', onclick: () => { bp.hidden = !bp.hidden; blattBtn.setAttribute('aria-expanded', String(!bp.hidden)); } }, h('i', { class: 'ms-swatch' }), L('Blatt', 'Paper'));
@@ -105,19 +139,27 @@ function editor(wrap) {
     h('button', { type: 'button', class: 'ms-tb', onmousedown: e => e.preventDefault(), onclick: () => toggleBullet(ta, changed) }, h('b', {}, '•'), L('Liste', 'List')),
     h('button', { type: 'button', class: 'ms-tb', onmousedown: e => e.preventDefault(), onclick: () => ins('★\uFE0E ') }, h('b', {}, '★\uFE0E'), L('wichtig', 'key')),
     h('button', { type: 'button', class: 'ms-tb', onmousedown: e => e.preventDefault(), onclick: () => ins(' (?) ') }, h('b', {}, '?'), L('unklar', 'unclear')),
-    palBtn, blattBtn);
+    drawBtn, palBtn, blattBtn);
 
   let stil = draft.stil === 'druck' ? 'druck' : 'fueller';
   const seg = h('div', { class: 'seg', role: 'radiogroup', 'aria-label': L('Schrift', 'Handwriting') });
   const drawSeg = () => seg.replaceChildren(...[['fueller', L('Füller', 'Fountain pen')], ['druck', L('Druckschrift', 'Print')]].map(([k, n]) => h('button', { type: 'button', class: k === stil ? 'on' : '', role: 'radio', 'aria-checked': String(k === stil), onclick: () => { stil = draft.stil = k; drawSeg(); keep(); } }, n)));
   drawSeg();
   const st = h('span', { class: 'ms-st' });
-  const go = h('button', { type: 'button', class: 'btn primary ms-go', disabled: draft.text.trim().length < 25, onclick: () => make() }, h('span', { html: ico('pen') }), L('Saubere Mitschrift machen', 'Make clean notes'));
+  const go = h('button', { type: 'button', class: 'btn primary ms-go', disabled: !canGo(), onclick: () => make() }, h('span', { html: ico('pen') }), L('Saubere Mitschrift machen', 'Make clean notes'));
   const foot = h('div', { class: 'ms-foot' }, st, seg, go);
-  const ed = h('div', { class: 'ms-ed' }, fachEl, tools, bp, h('div', { class: 'ms-body' }, ta, pal), foot);
-  wrap.append(head, ed, list());
+  const body = h('div', { class: 'ms-body' }, ta, pal);
+  // Bilder einfach reinziehen oder einfügen (⌘V) – Dateien wie PDF werden als Skript verbunden
+  const takeFiles = fl => { const imgs = fl.filter(f => /^image\//.test(f.type) || /\.(png|jpe?g|webp|heic|heif)$/i.test(f.name || '')); const docs = fl.filter(f => !imgs.includes(f)); if (imgs.length) fromPhotos(imgs.slice(0, 6)); else if (docs.length) addSkript(docs[0]); };
+  ta.addEventListener('dragover', e => { if (e.dataTransfer?.types?.includes('Files')) { e.preventDefault(); ta.classList.add('over'); } });
+  ta.addEventListener('dragleave', () => ta.classList.remove('over'));
+  ta.addEventListener('drop', e => { const fl = [...(e.dataTransfer?.files || [])]; ta.classList.remove('over'); if (fl.length) { e.preventDefault(); takeFiles(fl); } });
+  ta.addEventListener('paste', e => { const fl = [...(e.clipboardData?.files || [])]; if (fl.length) { e.preventDefault(); takeFiles(fl); } });
+  const ed = h('div', { class: 'ms-ed' }, fachEl, tools, bp, body, foot);
+  if ((z.strokes || []).length) setTimeout(() => setDraw(false), 0);
+  wrap.append(head, listBox, ed);
   keep();
-  return cleanup;
+  return () => { cleanup(); zp && zp.stop(); };
 
   async function fromPhotos(files) {
     const busy = h('div', { class: 'ms-busy', role: 'status' },
@@ -144,18 +186,28 @@ function editor(wrap) {
   }
 
   async function make(photo) {
-    const notes = ta.value.trim(); if (notes.length < 25 && !(photo && notes.length)) return;
+    const notes = ta.value.trim(), hasZ = (z.strokes || []).length > 0; if (notes.length < 25 && !(photo && notes.length) && !hasZ) return;
     const busy = h('div', { class: 'ms-busy', role: 'status' },
       h('span', { html: '<svg class="ms-penani" viewBox="0 0 54 40" aria-hidden="true"><path class="w" d="M3 26c5-9 9-9 11 0s6 9 9 0 6-9 9 0 6 9 9 0 6-8 10-2"/></svg>' }),
       h('div', {}, h('b', {}, L('Max schreibt sauber ab …', 'Max is writing it up …')), h('small', {}, L('ordnet, korrigiert, zeichnet Skizzen – dauert ca. 15 Sekunden', 'sorting, correcting, sketching – takes about 15 seconds'))));
     foot.replaceWith(busy); ta.readOnly = true;
     try {
       const sk = draft.skript && S.list.find(d => d.id === draft.skript);
-      const r = await ask('mitschrift', Object.assign({ opts: { notes, fach: draft.fach, stil } }, sk ? { material: forWhole(sk).slice(0, 30000), docName: sk.name } : {}));
+      // Zeichnung: Handschrift darauf lesen lassen, damit sie in die Mitschrift einfließt
+      let fromZ = '';
+      if (hasZ) { const img = drawingJpeg(z); if (img) { try { const o = await ask('ocr', { opts: { imgs: 1, from: 1 } }, { images: [img] }); fromZ = String(((o.data && o.data.seiten) || [])[0] || '').trim(); } catch (e) { if (['cap', 'limit'].includes(e.code)) throw e; } } }
+      const all = (notes + (fromZ.length > 8 ? '\n\n[Handschriftlich/Skizze]: ' + fromZ : '')).trim();
+      if (all.length < 25 && hasZ) {   // nur gezeichnet: ohne KI als Blatt speichern
+        const t0 = (draft.fach ? draft.fach + ' – ' : '') + L('Skizze', 'Sketch');
+        const doc = await createDoc({ name: t0, pages: [t0 + (all ? '\n' + all : '')], chars: t0.length, extra: { kind: 'mitschrift', ms: { data: { titel: t0, kern: all, abschnitte: [], korrekturen: [], fragen: [] }, raw: notes, stil, blatt: { ...blatt }, fach: draft.fach, zeichnung: { strokes: z.strokes, h: z.h }, at: Date.now() } } });
+        linkMitschriften(); ls.set(DKEY, { fach: draft.fach, text: '', stil, at: 0, skript: draft.skript, blatt: { ...blatt } });
+        location.hash = '#/app/mitschrift/' + doc.id; return;
+      }
+      const r = await ask('mitschrift', Object.assign({ opts: { notes: all, fach: draft.fach, stil } }, sk ? { material: forWhole(sk).slice(0, 30000), docName: sk.name } : {}));
       const data = clean(r.data);
       if (!data.abschnitte.length) throw new Error(L('Die Mitschrift kam leer an. Versuch es nochmal.', 'The notes came back empty. Please try again.'));
       const text = asText(data);
-      const doc = await createDoc({ name: data.titel || L('Mitschrift', 'Notes'), pages: [text], chars: text.length, extra: { kind: 'mitschrift', ms: { data, raw: notes, stil, blatt: { ...blatt }, fach: draft.fach, skript: sk ? sk.id : '', foto: !!photo, at: Date.now() } } });
+      const doc = await createDoc({ name: data.titel || L('Mitschrift', 'Notes'), pages: [text], chars: text.length, extra: { kind: 'mitschrift', ms: { data, raw: notes, stil, blatt: { ...blatt }, zeichnung: hasZ ? { strokes: z.strokes, h: z.h } : undefined, fach: draft.fach, skript: sk ? sk.id : '', foto: !!photo, at: Date.now() } } });
       linkMitschriften();
       ls.set(DKEY, { fach: draft.fach, text: '', stil, at: 0, skript: draft.skript, blatt: { ...blatt } });
       try { window.BM && window.BM.track('Mitschrift', stil); } catch (e) {}
@@ -169,8 +221,8 @@ function editor(wrap) {
 
 function list() {
   const items = S.list.filter(d => d.kind === 'mitschrift' && d.ms).sort((a, b) => (b.created || 0) - (a.created || 0));
-  if (!items.length) return h('div');
-  return h('div', { class: 'ms-list' }, h('h3', {}, L('Deine Mitschriften', 'Your notes')),
+  if (!items.length) return h('p', { class: 'ms-empty' }, L('Du hast noch keine Mitschriften gemacht – schreib einfach unten los.', 'You haven’t made any notes yet – just start writing below.'));
+  return h('div', { class: 'ms-list' },
     items.slice(0, 30).map(d => h('a', { class: 'ms-card', href: '#/app/mitschrift/' + d.id }, h('b', {}, d.name), h('small', {}, [d.ms.fach, ago(d.created)].filter(Boolean).join(' · ')))));
 }
 
@@ -249,6 +301,7 @@ function paper(d, anim) {
     if (a.bild) sec.append(A(h('figure', { class: 'ms-fig' }, sketch(a.bild, ink), a.bild.titel ? h('figcaption', {}, flat(a.bild.titel)) : null)));
     p.append(sec);
   });
+  if (ms.zeichnung && ms.zeichnung.strokes && ms.zeichnung.strokes.length) { const cv = drawingEl(ms.zeichnung, ink); if (cv) p.append(A(h('figure', { class: 'ms-fig ms-zf' }, cv, x.abschnitte.length ? h('figcaption', {}, L('Meine Skizze', 'My sketch')) : null))); }
   if (x.korrekturen.length) p.append(A(h('div', { class: 'ms-kor' }, x.korrekturen.map(k => h('p', { html: '✎ ' + rich(k) })))));
   if (x.fragen.length) p.append(A(h('div', { class: 'ms-fr' }, h('h2', { class: 'ms-h' }, L('Check dich selbst', 'Test yourself')), h('ol', {}, x.fragen.map(q => h('li', { html: rich(q) }))))));
   p.append(A(h('div', { class: 'ms-sign' }, 'BWL Max · ' + L('Mitschrift', 'Notes'))));

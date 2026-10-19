@@ -74,7 +74,7 @@ export function palette(insert, { mobile } = {}) {
   let q = '';
   const recent = () => (ls.get(RKEY, []) || []).slice(0, 10);
   const use = it => { insert(it[1]); const r = recent().filter(x => x[0] !== it[0]); r.unshift(it); ls.set(RKEY, r.slice(0, 10)); if (!q) draw(); };
-  const btn = it => h('button', { type: 'button', class: 'mp-k' + (it[0].length > 3 ? ' w' : ''), title: it[2].split(' ').slice(0, 3).join(', '), onmousedown: e => e.preventDefault(), onclick: () => use(it) }, it[0]);
+  const btn = it => h('button', { type: 'button', class: 'mp-k' + (it[0].length > 2 && !/^[x(]/.test(it[0]) || /\s/.test(it[0]) || it[0].length > 4 ? ' w' : ''), html: it[0].replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/_(\w+)/, '<sub>$1</sub>'), title: it[2].split(' ').slice(0, 3).join(', '), onmousedown: e => e.preventDefault(), onclick: () => use(it) });
   const search = h('input', { type: 'search', class: 'mp-q', placeholder: L('Suchen: Pfeil, Summe, Dollar, Bruch …', 'Search: arrow, sum, dollar, fraction …'), 'aria-label': L('Zeichen suchen', 'Search symbols'),
     oninput: e => { q = norm(e.target.value.trim()); draw(); } });
   const body = h('div', { class: 'mp-b' });
