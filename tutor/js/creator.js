@@ -27,10 +27,13 @@ export function handle(text) {
     const sk = SK.find(s => s.id === arg);
     if (!sk) return { msg: 'Sketche: ' + SK.map(s => '/sketch ' + s.id).join(' · ') };
     cur = sk; idx = 0;
+    if (sk.pairs) return { msg: `${sk.name} an – ${sk.steps.length} vorbereitete Antworten. /sketch stop schaltet aus.` };
     if (sk.steps[0] && sk.steps[0].start) return next(sk.steps.slice(1));
     return { msg: `Sketch „${sk.name}“ bereit.`, prefetch: sk.steps };
   }
   if (!cur) return null;
+  // X-Modus (pairs): feste Antworten auf bestimmte Fragen, in beliebiger Reihenfolge; alles andere geht normal an die KI
+  if (cur.pairs) { const hit = cur.steps.find(st => (st.when || []).some(w => comp(t).includes(comp(w)))); return hit ? { step: hit, prefetch: [] } : null; }
   const st = cur.steps[idx];
   if (!st || !(st.when || []).some(w => comp(t).includes(comp(w)))) return { msg: `Gehört: „${String(text).slice(0, 60)}“ – Sketch wartet auf: „${st ? st.hint : ''}“`, miss: true };
   return next([]);

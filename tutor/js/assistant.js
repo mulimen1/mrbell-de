@@ -1413,12 +1413,12 @@ export function mountAssistant() {
   }
   // Creator Mode: feste Szene abspielen – gleicher Weg wie eine echte Antwort (Stimme, Tafel, Mimik), aber ohne KI
   async function playSketch(text, r) {
-    (r.prefetch || []).forEach(s => s && s.say && prefetchSpeech(s.voice || s.say));
+    (r.prefetch || []).forEach(s => s && s.say && !s.silent && prefetchSpeech(s.voice || s.say));
     if (!r.step) { if (curEx && !curEx.done) dropEx(); setState('idle', r.msg); if (r.miss) afterAnswer(); return; }   // nicht erkannt: Frage verwerfen, Max hört direkt wieder zu
     const s = r.step;
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     if (tourActive()) stopTour();
-    unlockAudio(); prefetchSpeech(s.voice || s.say);
+    unlockAudio(); if (!s.silent) prefetchSpeech(s.voice || s.say);
     if (MOB.matches) fold(false);
     capQuestion(text); capQ.classList.remove('live'); capThinking();
     const ex = curEx; if (!ex) return; ex.sketch = true; ex.voice = s.voice || '';
@@ -1426,7 +1426,7 @@ export function mountAssistant() {
     const my = ++gen; ctrl = new AbortController();
     const raw = s.say + (s.board ? `\n\n\`\`\`tafel ${s.board.title}\n${s.board.html}\n\`\`\`` : '');
     try {
-      await answer(raw, my, true, ex);
+      await answer(raw, my, !s.silent, ex);   // silent: nur Text (z. B. für Screenshots)
       try { STAGE?.onAnswer?.(parse(raw)); } catch (e) {}
       if (my === gen && s.face) { fc.pulse(s.face, 2400); bf.pulse(s.face, 2400); }
     } finally { if (my === gen) ctrl = null; }
