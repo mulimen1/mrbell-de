@@ -302,10 +302,14 @@ export function mountAssistant() {
   }
   document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && board.classList.contains('m-fs')) setFs(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && board.classList.contains('m-fs') && !document.fullscreenElement) setFs(false); });
+  // Laptop: derselbe Knopf unten links auf der Tafel (nur Einstiegs-Tafeln)
+  const dCards = h('button', { class: 'm-pb m-pcards m-dcards', type: 'button', onclick: () => pCards.click() },
+    h('span', { class: 'm-pbi', html: ico('cards') }),
+    h('span', { class: 'm-pbt' }, h('b', { class: 'm-pbl' }, L('Karteikarten erstellen', 'Make flashcards')), h('small', {}, L('Die BWL-Basics müssen sitzen.', 'Lock in the basics.'))));
   const bArea = h('div', { class: 'ai-ba dots' });
   const bGrab = h('div', { class: 'ai-grab', 'aria-hidden': 'true' }, h('i'));
   const board = h('section', { class: 'ai-board', role: 'region', 'aria-label': L('Max’ Tafel', 'Max’s board') },
-    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bDl, bDel, bFs, bMore, bMin, bClose), bMenu, bAsk, bArea, bSay);
+    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bDl, bDel, bFs, bMore, bMin, bClose), bMenu, bAsk, bArea, bSay, dCards);
   const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', { class: 'm-btl' }, L('Tafel', 'Board')), h('span', { class: 'm-btm' }, L('Zurück zur Tafel', 'Back to the board')));
   // ---------- Handy: die Tafel ist die Seite ----------
   // Rechts unten Max (öffnet den Chat), daneben drei grüne Knöpfe: Quiz, Beispiel, passender Trainer

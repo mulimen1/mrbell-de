@@ -163,7 +163,7 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
     // ---------- Geschafft ----------
     const success = (r, m) => {
       fc.set('happy');
-      const goal = r.fresh ? goalQuestion() : null;
+      const goal = null;   // kein Zwischenschritt mehr: nur kurz der Spitzname, dann sofort zurück dahin, wo man war
       const had = getNick(r.account), nf = had ? null : nickField('');
       const finish = () => {
         if (nf) { const v = nf.value(); if (!v.ok) return; if (v.nick) setNick(v.nick, r.account); }
@@ -172,14 +172,15 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
         const n = getNick(r.account);
         try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {}
         // Neues Konto: einmal das große Willkommen (mit echter Nutzernummer) – sonst die normale Begrüßung
-        if (r.fresh) setTimeout(() => import('./welcome.js').then(m => m.welcomeFirst({ nick: n, nr: +r.nr || 0 })), 380);
-        else if (n) setTimeout(() => greetSplash(n), 380);
+        // Kein Willkommens-Fenster, das den Faden reißt – kurzer Gruß, und es geht genau dort weiter, wo man war
+        if (r.fresh) { ls.set('tutor.welcomed', Date.now()); setTimeout(() => toast(n ? L(`Willkommen, ${n}. Weiter geht’s.`, `Welcome, ${n}. Let’s keep going.`) : L('Konto steht. Weiter geht’s.', 'Account ready. Let’s keep going.'), 2600), 300); }
+        else if (n) setTimeout(() => toast(L(`Da bist du ja wieder, ${n}.`, `There you are again, ${n}.`), 2400), 300);
       };
       // Bekannt + Spitzname vorhanden: direkt rein, ohne Zwischenschritt
       if (!r.fresh && had && m !== 'reset') { finish(); return; }
       box.replaceChildren(fEl, h('h3', {}, r.fresh ? L('Willkommen im Club.', 'Welcome to the club.') : m === 'reset' ? L('Neues Passwort gespeichert.', 'New password saved.') : L('Da bist du ja wieder.', 'There you are again.')),
         h('p', {}, r.fresh
-          ? L('Dein Konto steht. Alles ist freigeschaltet, dein Fortschritt wird gespeichert – und ich hab heute noch richtig Lust.', 'Your account is ready. Everything’s unlocked, your progress is saved – and I’m in a great mood today.')
+          ? (nf ? L('Wie soll ich dich nennen? Dann geht’s sofort weiter.', 'What should I call you? Then we carry straight on.') : L('Dein Konto steht. Weiter geht’s.', 'Your account is ready. Let’s go.'))
           : m === 'reset' ? L('Ab jetzt meldest du dich damit an. Andere Geräte haben wir sicherheitshalber abgemeldet.', 'Use it to sign in from now on. For safety we signed out your other devices.')
           : r.account.pro ? L(`Inner Circle läuft noch bis ${fmtDate(proEnd(r.account))}.`, `Inner Circle runs until ${fmtDate(proEnd(r.account))}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
         nf && nf.el, goal && goal.el,
