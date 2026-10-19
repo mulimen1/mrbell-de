@@ -249,7 +249,7 @@ async function route() {
     const parts = hash.slice(2).split('/').filter(Boolean);
     await mountApp(parts.slice(1));
   } else {
-    document.title = L('BWL Max – dein Tutor für BWL, VWL & Rechnungswesen', 'BWL Max – your tutor for business, economics & accounting');
+    document.title = L('BWL Max – dein persönlicher Tutor: Tafel, Live-Mitschrift & Klausurvorbereitung', 'BWL Max – your personal tutor: whiteboard, live notes & exam prep');
     if (EN) document.querySelector('meta[name="description"]')?.setAttribute('content', 'Upload your course material – slides, notes or past exams – and learn with BWL Max, the AI tutor that writes on the whiteboard: explanations, quizzes, flashcards, study paths, podcasts and a practice trainer. Free, no sign-up.');
     initLanding();
     import('./assistant.js').then(m => m.mountAssistant && m.mountAssistant()).catch(e => console.warn(e));
