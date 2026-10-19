@@ -6,6 +6,8 @@ import { ask, getSession } from './api.js';
 
 let SK = null, loading = null, cur = null, idx = 0;
 const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+// Spracherkennung schreibt Wörter mal mit Bindestrich, mal getrennt, mal zusammen – verglichen wird ohne Leer- und Satzzeichen
+const comp = s => norm(s).replace(/[^a-z0-9äöüß]/g, '');
 
 export function load() {
   if (SK || !getSession()) return Promise.resolve(!!SK);
@@ -30,7 +32,7 @@ export function handle(text) {
   }
   if (!cur) return null;
   const st = cur.steps[idx];
-  if (!st || !(st.when || []).some(w => t.includes(norm(w)))) return { msg: `Sketch wartet auf: „${st ? st.hint : ''}“ – /sketch stop beendet` };
+  if (!st || !(st.when || []).some(w => comp(t).includes(comp(w)))) return { msg: `Gehört: „${String(text).slice(0, 60)}“ – Sketch wartet auf: „${st ? st.hint : ''}“`, miss: true };
   return next([]);
 }
 function next(prefetch) {

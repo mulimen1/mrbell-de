@@ -1414,7 +1414,7 @@ export function mountAssistant() {
   // Creator Mode: feste Szene abspielen – gleicher Weg wie eine echte Antwort (Stimme, Tafel, Mimik), aber ohne KI
   async function playSketch(text, r) {
     (r.prefetch || []).forEach(s => s && s.say && prefetchSpeech(s.say));
-    if (!r.step) { setState('idle', r.msg); return; }
+    if (!r.step) { if (curEx && !curEx.done) dropEx(); setState('idle', r.msg); if (r.miss) afterAnswer(); return; }   // nicht erkannt: Frage verwerfen, Max hört direkt wieder zu
     const s = r.step;
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     if (tourActive()) stopTour();
