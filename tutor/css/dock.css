@@ -115,3 +115,14 @@ html.bv-open .dk, html.ms-printing .dk { display: none; }
 /* Hintergrund am Handy leicht abdunkeln, damit das Fenster ruhig wirkt */
 @media (max-width: 600px) { .dkp::before { content: none; } }
 @media (prefers-reduced-motion: reduce) { .dkp, .dkp.in, .dkp.out { transition: opacity .15s !important; transform: none !important; filter: none !important; } .dkp.in .dkp-h, .dkp.in .dkp-b { animation: none; } }
+
+/* Handy: Knöpfe erscheinen erst, wenn Max offen ist – als kleine Reihe über dem Chatfeld */
+.dk-ic { display: grid; place-items: center; }
+.dk-l { display: none; }
+@media (max-width: 600px) {
+  .dk.row { flex-direction: row; gap: 8px; transition: opacity .25s cubic-bezier(.22,1,.36,1), transform .35s cubic-bezier(.22,1,.36,1); }
+  .dk.row .dk-b { width: auto; height: 38px; padding: 0 13px 0 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; font: 650 13.5px var(--sans); box-shadow: 0 8px 22px -10px rgba(0,0,0,.35); }
+  .dk.row .dk-b svg { width: 19px; height: 19px; }
+  .dk.row .dk-l { display: inline; }
+  .dk.hide { opacity: 0; transform: translateY(10px); pointer-events: none; }
+}

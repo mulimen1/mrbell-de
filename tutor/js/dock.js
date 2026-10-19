@@ -4,7 +4,7 @@ import { h, ico, ls } from './util.js';
 import { L } from './i18n.js';
 
 let mounted = false, dock, panel = null, which = '';
-const CSS_V = 3;
+const CSS_V = 4;
 
 const ICON = {
   calc: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.8" width="14" height="18.4" rx="2.6"/><rect x="8" y="5.8" width="8" height="3.6" rx=".8"/><path d="M8.6 13h.01M12 13h.01M15.4 13h.01M8.6 16.6h.01M12 16.6h.01M15.4 16.6h.01"/></svg>',
@@ -24,10 +24,13 @@ export function haptic() {
 export function mountDock() {
   if (mounted) return; mounted = true;
   if (!document.querySelector('link[data-dock]')) document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/dock.css?v=' + CSS_V, 'data-dock': '1' }));
-  const b = (k, label) => h('button', { type: 'button', class: 'dk-b', 'data-k': k, 'aria-label': label, title: label, 'aria-expanded': 'false', html: ICON[k], onclick: () => toggle(k) });
+  const b = (k, label) => h('button', { type: 'button', class: 'dk-b', 'data-k': k, 'aria-label': label, title: label, 'aria-expanded': 'false', onclick: () => toggle(k) }, h('span', { class: 'dk-ic', html: ICON[k] }), h('span', { class: 'dk-l' }, label === L('Taschenrechner', 'Calculator') ? L('Rechner', 'Calculator') : L('Lexikon', 'Glossary')));
   dock = h('div', { class: 'dk', role: 'toolbar', 'aria-label': L('Werkzeuge', 'Tools') }, b('calc', L('Taschenrechner', 'Calculator')), b('lex', L('BWL-Lexikon', 'Business glossary')));
   document.body.appendChild(dock);
   place(); setInterval(place, 350); addEventListener('resize', place);
+  // Max öffnet/schließt: sofort nachziehen (nicht erst beim nächsten Takt)
+  const watch = () => { const a = document.querySelector('.asst'); if (!a) return setTimeout(watch, 600); new MutationObserver(() => { place(); setTimeout(place, 120); setTimeout(place, 420); }).observe(a, { attributes: true, attributeFilter: ['class'] }); };
+  watch();
   // Vorladen, damit sich beides sofort und flüssig öffnet: Code im Leerlauf, Lexikon-Daten beim Drüberfahren/Antippen
   const idle = window.requestIdleCallback || (f => setTimeout(f, 1500));
   idle(() => { import('./calc.js').catch(() => {}); import('./lexikon.js').then(m => setTimeout(() => m.preload(), 4000)).catch(() => {}); });
@@ -37,8 +40,19 @@ export function mountDock() {
 }
 
 // Dock folgt Max’ Kopf (der lässt sich verschieben); ist Max weg, sitzt es unten rechts
+// Handy: Dock nur, wenn Max offen ist – dann als zwei kleine Knöpfe direkt über seinem Chatfeld
+const MOB = matchMedia('(max-width: 600px)');
 function place() {
   if (!dock) return;
+  if (MOB.matches) {
+    const isl = document.querySelector('.asst.open .ai-isl');
+    const rr = isl && isl.getBoundingClientRect();
+    const on = !!(rr && rr.width > 100 && rr.top > 80 && getComputedStyle(isl).display !== 'none') || !!panel;
+    dock.classList.add('row'); dock.classList.toggle('hide', !on);
+    if (rr && rr.width > 100) { dock.style.right = Math.round(Math.max(8, innerWidth - rr.right + 6)) + 'px'; dock.style.bottom = Math.round(innerHeight - rr.top + 8) + 'px'; }
+    return;
+  }
+  dock.classList.remove('row', 'hide');
   const bub = document.querySelector('.asst-bub');
   let r = null;
   if (bub) { const cs = getComputedStyle(bub); const rr = bub.getBoundingClientRect(); if (rr.width > 20 && cs.opacity !== '0' && cs.visibility !== 'hidden' && cs.display !== 'none' && !bub.closest('.off')) r = rr; }
