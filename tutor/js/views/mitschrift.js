@@ -14,7 +14,7 @@ import { pad, drawingEl, drawingJpeg } from '../mspad.js';
 
 const DKEY = 'tutor.ms.draft';
 let cssOn = false;
-function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=7', 'data-ms': '1' })); }
+function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=8', 'data-ms': '1' })); }
 
 export async function render(root, { id = '' } = {}) {
   css();
@@ -154,7 +154,7 @@ function editor(wrap, doc) {
   };
   const cleanup = smartTextarea(ta, changed);
   // Blatt (Papier, Farbe, Tinte) – gilt für dein Notizblatt und für die fertige Mitschrift
-  const blatt = Object.assign(blattDefault(), draft.blatt && draft.blatt.v === 2 ? draft.blatt : {});   // ältere Entwürfe: neuer Standard (kariert)
+  const blatt = Object.assign(blattDefault(), draft.blatt && draft.blatt.v === 3 ? draft.blatt : {});   // ältere Entwürfe: neuer Standard (kariert)
   const paintTa = () => { applyBlatt(ta, blatt); if (zp) { applyBlatt(zp.el.querySelector('.mz-host'), blatt); zp.recolor(); } };
   let zp = null;
   paintTa();

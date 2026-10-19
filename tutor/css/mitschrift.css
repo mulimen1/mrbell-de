@@ -121,11 +121,11 @@
 
 /* ---------- Blatt: Papierart / Papierfarbe / Tinte ---------- */
 .ms-paper, .ms-ta { --mx: 46px; }
-.ms-paper { background-color: var(--pc, #fff8e1); }
+.ms-paper { background-color: var(--pc, #ffffff); }
 .ms-paper.p-lin { background-image: linear-gradient(to right, transparent 0 var(--mx), rgba(214,88,88,.45) var(--mx) calc(var(--mx) + 1.5px), transparent calc(var(--mx) + 1.5px)), repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) - 1px), var(--ln, #dde5f2) calc(var(--lh) - 1px) var(--lh)); }
 .ms-paper.p-kar { background-image: repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) / 2 - 1px), var(--ln, #dde5f2) calc(var(--lh) / 2 - 1px) calc(var(--lh) / 2)), repeating-linear-gradient(to right, transparent 0 calc(var(--lh) / 2 - 1px), var(--ln, #dde5f2) calc(var(--lh) / 2 - 1px) calc(var(--lh) / 2)); }
 .ms-paper.p-leer { background-image: none; }
-.ms-ta { background-color: var(--pc, #fff8e1) !important; color: var(--ink, #1f3c88); caret-color: var(--ink, #1f3c88); }
+.ms-ta { background-color: var(--pc, #ffffff) !important; color: var(--ink, #1f3c88); caret-color: var(--ink, #1f3c88); }
 .ms-ta::placeholder { color: color-mix(in srgb, var(--ink, #1f3c88) 45%, transparent); }
 .ms-ta.p-lin { background-image: repeating-linear-gradient(to bottom, transparent 0 31px, var(--ln, #dde5f2) 31px 32px) !important; }
 .ms-ta.p-kar { background-image: repeating-linear-gradient(to bottom, transparent 0 15px, var(--ln, #dde5f2) 15px 16px), repeating-linear-gradient(to right, transparent 0 15px, var(--ln, #dde5f2) 15px 16px) !important; }
@@ -196,7 +196,7 @@
 .mz-sz i { display: block; border-radius: 50%; background: var(--ink); }
 .mz-sz.on { box-shadow: 0 0 0 2px var(--ink) inset; }
 .mz-t { height: 34px; padding: 0 12px; border-radius: 9px; border: 1px solid var(--line2); background: transparent; color: var(--ink2); font: 600 12.5px var(--sans); cursor: pointer; }
-.mz-host { position: relative; background-color: var(--pc, #fff8e1); overflow: hidden; }
+.mz-host { position: relative; background-color: var(--pc, #ffffff); overflow: hidden; }
 .mz-host.p-lin { background-image: repeating-linear-gradient(to bottom, transparent 0 31px, var(--ln, #dde5f2) 31px 32px); }
 .mz-host.p-kar { background-image: repeating-linear-gradient(to bottom, transparent 0 15px, var(--ln, #dde5f2) 15px 16px), repeating-linear-gradient(to right, transparent 0 15px, var(--ln, #dde5f2) 15px 16px); }
 .mz-cv { display: block; touch-action: none; cursor: crosshair; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
