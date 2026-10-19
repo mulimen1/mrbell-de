@@ -254,11 +254,11 @@ export function lockedPreview(wrap, { kind = 'zettel', title, text, onUnlock, ba
   face(f);
 }
 // Mitten im Lernen: Rest gesperrt (Karten, Quiz) – was schon da ist, bleibt erhalten
-export function lockedRest(stage, { left, what, onUnlock }) {
+export function lockedRest(stage, { left, what, onUnlock, title, text }) {
   const f = h('div', { class: 'face', style: { width: '64px', height: '64px' } });
   stage.replaceChildren(h('div', { class: 'lockrest' }, f,
-    h('h3', {}, L(`Noch ${left} ${what} warten auf dich`, `${left} more ${what} are waiting`)),
-    h('p', {}, L('Sind schon fertig – mit kostenlosem Konto geht’s direkt hier weiter. Dein Fortschritt bleibt erhalten.', 'They’re ready – with a free account you continue right here. Your progress stays.')),
+    h('h3', {}, title || L(`Noch ${left} ${what} warten auf dich`, `${left} more ${what} are waiting`)),
+    h('p', {}, text || L('Sind schon fertig – mit kostenlosem Konto geht’s direkt hier weiter. Dein Fortschritt bleibt erhalten.', 'They’re ready – with a free account you continue right here. Your progress stays.')),
     h('div', { class: 'lp-b' },
       h('button', { class: 'btn primary', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin({ mode: 'register' }) && onUnlock) onUnlock(); } }, L('Kostenlos weitermachen', 'Continue for free')),
       h('button', { class: 'btn', type: 'button', onclick: async () => { const { openLogin } = await import('./account.js'); if (await openLogin() && onUnlock) onUnlock(); } }, L('Anmelden', 'Sign in'))),
