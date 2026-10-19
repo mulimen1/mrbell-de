@@ -256,3 +256,7 @@
 .ms-lbtn.ms-save { background: var(--inv); color: var(--onInv); border-color: transparent; }
 .ms-card.draft { border-style: dashed; }
 .ms-dtag { position: absolute; top: 10px; right: 12px; font: 650 10.5px var(--sans); letter-spacing: .04em; text-transform: uppercase; color: #8a5a00; background: #ffe7a8; padding: 2px 7px; border-radius: 999px; font-style: normal; }
+.ms-busy .grow { flex: 1; min-width: 0; }
+.ms-pb { height: 4px; border-radius: 4px; background: var(--line2); margin-top: 8px; overflow: hidden; }
+.ms-pbar { display: block; height: 100%; width: 2%; background: var(--inv); border-radius: 4px; transition: width .4s ease; }
+.ms-tools .ms-vid { background: var(--panel); color: var(--ink); border: 1px solid var(--line2); }

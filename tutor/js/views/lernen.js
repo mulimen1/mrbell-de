@@ -92,7 +92,7 @@ export function render(root) {
       ? h('div', { class: 'ln-docs' }, docs.slice(0, 12).map(docCard),
         h('label', { class: 'ln-dc add', for: 'fileApp' }, h('span', { class: 'ln-dci', html: ico('plus') }), h('b', {}, L('Neues Skript', 'New slides')), h('small', { class: 'ln-dcs' }, L('PDF, PowerPoint, Word, Foto', 'PDF, PowerPoint, Word, photo'))))
       : h('div', { class: 'ln-empty' }, h('span', { class: 'ln-dci', html: ico('upload') }),
-        h('div', {}, h('b', {}, L('Lad dein erstes Skript hoch', 'Upload your first slides')), h('small', {}, L('Dann bau ich dir Karteikarten, Quiz, Lernzettel und Podcast daraus.', 'Then I’ll build flashcards, quizzes, study sheets and podcasts from it.'))),
+        h('div', {}, h('b', {}, L('Lad dein erstes Skript oder Video hoch', 'Upload your first slides or video')), h('small', {}, L('Auch Vorlesungsvideos und Aufnahmen – ich schreib sie ab und bau dir Karteikarten, Quiz, Lernzettel und Podcast daraus.', 'Lecture videos and recordings too – I transcribe them and build flashcards, quizzes, study sheets and podcasts from it.'))),
         h('label', { class: 'btn primary sm', for: 'fileApp' }, L('Hochladen', 'Upload')),
         h('button', { class: 'btn sm', type: 'button', onclick: () => import('../app.js').then(m => m.topicPrompt()) }, L('Oder: Thema nennen', 'Or: name a topic')));
 
@@ -110,7 +110,7 @@ export function render(root) {
     ] : [
       // Ohne Skript trotzdem alle Werkzeuge zeigen – erst Stoff (Upload oder Thema), dann direkt das Werkzeug
       ...[['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['quiz', 'Quiz', 'quiz'], ['note', L('Lernzettel', 'Study sheet'), 'zettel'], ['headphones', 'Podcast', 'podcast'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['calendar', L('Lernplan', 'Study plan'), 'plan']]
-        .map(([ic, t, tab]) => T(ic, t, L('Skript hochladen oder Thema nennen', 'Upload slides or name a topic'), L('Erstellen', 'Create'), need(tab, false)))
+        .map(([ic, t, tab]) => T(ic, t, L('Skript, Video oder Thema', 'Slides, video or topic'), L('Erstellen', 'Create'), need(tab, false)))
     ];
     const trimmed = d ? (d.name.length > 46 ? d.name.slice(0, 45) + '…' : d.name) : '';
 

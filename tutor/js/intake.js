@@ -6,6 +6,7 @@ import { face } from './face.js';
 import { thought, apiError } from './ui.js';
 import { ask, getAccount, currentQuota } from './api.js';
 import { readFile, isImage, imageToJpeg, pdfPages } from './ingest.js';
+import { isMedia } from './transcribe.js';
 import { createDoc, save, S } from './state.js';
 import * as M from './me.js';
 
@@ -37,7 +38,7 @@ export async function intake(fileList, ui) {
   if (!note) return;
   let P;
   try { P = await prep.done; }
-  catch (e) { return fail(ui, e.message || L('Die Datei konnte nicht gelesen werden.', 'The file couldn’t be read.')); }
+  catch (e) { if (e && ['need_account', 'limit', 'cap'].includes(e.code)) { await apiError(e, () => intake(fileList, ui)); } return fail(ui, e.message || L('Die Datei konnte nicht gelesen werden.', 'The file couldn’t be read.')); }
 
   // Analyse: Was ist das?
   const scr = busy(ui.view, L('Max schaut sich das an …', 'Max is taking a look …'), [L('Ich schau mir das an …', 'Taking a look …'), L('Ist das ein Stundenplan?', 'Is this a timetable?'), L('Ich such das passende Fach …', 'Finding the right subject …'), L('Termine? Hab ich im Blick.', 'Dates? Got them.')]);
@@ -66,6 +67,14 @@ function prepare(src) {
       const out = [];
       for (let i = 0; i < src.files.length; i++) { out.push(await imageToJpeg(src.files[i])); set((i + 1) / src.files.length, L(`Foto ${i + 1} von ${src.files.length}`, `Photo ${i + 1} of ${src.files.length}`)); }
       return { kind: 'bild', name: src.name.replace(/\.[^.]+$/, ''), n: out.length, img: i => out[i], thumbs: out.slice(0, 6) };
+    }
+    // Video/Audio: Ton herauslösen und abschreiben – danach ist es ein ganz normales Skript (für alle Werkzeuge)
+    if (isMedia(src.file)) {
+      if (!getAccount()) throw Object.assign(new Error(L('Videos und Aufnahmen schreibe ich mit kostenlosem Konto ab.', 'I transcribe videos and recordings with a free account.')), { code: 'need_account' });
+      const { transcribe } = await import('./transcribe.js');
+      const t = await transcribe(src.file, (p, label) => set(Math.min(0.99, p), label));
+      set(1);
+      return { kind: 'text', name: t.name, n: t.pages.length, text: { name: t.name, pages: t.pages, chars: t.chars, scan: false, pdf: false }, layout: 0, media: true };
     }
     const r = await readFile(src.file, p => set(p * 0.9, L('Lese …', 'Reading …')), { soft: true });
     const maxP = 1000;
@@ -315,7 +324,7 @@ async function materialStep(ui, res, P, tool = null) {
   const name = clean(ans.name || res.titel || P.name, 80) || L('Unterlagen', 'Material');
   // Kontingent leer? Speichern geht trotzdem – Max nimmt sich das Skript vor, sobald wieder Antworten da sind
   const q = currentQuota(), empty = res.noQuota || (q && q.limit && (q.limit - (q.used || 0)) <= 0);
-  const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, ocr ? { ocr: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}, empty ? { waiting: Date.now() } : {}) });
+  const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, ocr ? { ocr: true } : {}, P.media ? { media: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}, empty ? { waiting: Date.now() } : {}) });
   applyPlace(d, ans);
   ls.set('tutor.learn.doc', d.id);   // In „Lernen“ ist danach genau dieses Skript ausgewählt
   if (empty) {

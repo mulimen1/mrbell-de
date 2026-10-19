@@ -1308,7 +1308,7 @@ export function mountAssistant() {
   const dropZone = h('div', { class: 'ai-dz' },
     h('span', { class: 'ai-dzi', html: ico('upload') }),
     h('b', {}, L('Dokument hierher ziehen', 'Drag your document here')),
-    h('small', {}, L('PDF, PowerPoint, Word oder Foto', 'PDF, PowerPoint, Word or photo')),
+    h('small', {}, L('PDF, PowerPoint, Word, Foto oder Video', 'PDF, PowerPoint, Word, photo or video')),
     h('button', { class: 'btn sm primary', type: 'button', onclick: e => { e.stopPropagation(); attIn.click(); } }, L('Datei auswählen', 'Choose a file')),
     h('small', { class: 'ai-dzk' }, L(`oder kopieren und mit ${MAC ? '⌘' : 'Strg'} + V ins Eingabefeld einfügen`, `or copy it and paste into the input with ${MAC ? '⌘' : 'Ctrl'} + V`)));
   const dropPop = h('div', { class: 'ai-drop', hidden: true, role: 'dialog', 'aria-label': L('Dokument hinzufügen', 'Add a document') },

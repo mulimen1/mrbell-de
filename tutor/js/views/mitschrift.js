@@ -14,7 +14,7 @@ import { pad, drawingEl, drawingJpeg } from '../mspad.js';
 
 const DKEY = 'tutor.ms.draft';
 let cssOn = false;
-function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=8', 'data-ms': '1' })); }
+function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=9', 'data-ms': '1' })); }
 
 export async function render(root, { id = '' } = {}) {
   css();
@@ -36,7 +36,7 @@ export async function render(root, { id = '' } = {}) {
 // Gespeichert wird beim Tippen (kurz verzögert), beim Verlassen der Seite und beim Schließen des Tabs.
 function editor(wrap, doc) {
   const local = ls.get(DKEY, {}) || {};
-  const draft = doc ? { fach: doc.ms.fach || '', text: doc.ms.raw || '', stil: doc.ms.stil || 'fueller', at: doc.ms.at || 0, skript: doc.ms.skript || '', blatt: doc.ms.blatt, zeichnung: doc.ms.zeichnung || { strokes: [], h: 1250 }, docId: doc.id }
+  const draft = doc ? { video: !!doc.ms.video, fach: doc.ms.fach || '', text: doc.ms.raw || '', stil: doc.ms.stil || 'fueller', at: doc.ms.at || 0, skript: doc.ms.skript || '', blatt: doc.ms.blatt, zeichnung: doc.ms.zeichnung || { strokes: [], h: 1250 }, docId: doc.id }
     : Object.assign({ fach: '', text: '', stil: 'fueller', at: 0, skript: '' }, local.docId ? { fach: local.fach || '', stil: local.stil, skript: local.skript || '', blatt: local.blatt } : local, { docId: null });
   let pT = 0, chain = Promise.resolve();
   const hasContent = () => !!(draft.text.trim() || (draft.zeichnung && draft.zeichnung.strokes && draft.zeichnung.strokes.length));
@@ -45,7 +45,7 @@ function editor(wrap, doc) {
     clearTimeout(pT);
     const run = () => chain = chain.then(async () => {
       if (!doc && !hasContent()) return;
-      const ms = Object.assign({}, doc && doc.ms, { draft: true, raw: draft.text, fach: draft.fach, skript: draft.skript, stil: draft.stil, blatt: draft.blatt, zeichnung: draft.zeichnung, at: Date.now() });
+      const ms = Object.assign({}, doc && doc.ms, { draft: true, video: !!draft.video, raw: draft.text, fach: draft.fach, skript: draft.skript, stil: draft.stil, blatt: draft.blatt, zeichnung: draft.zeichnung, at: Date.now() });
       if (!doc) {
         doc = await createDoc({ name: draftName(), pages: [draft.text || draftName()], chars: draft.text.length, extra: { kind: 'mitschrift', ms } });
         draft.docId = doc.id; ls.set(DKEY, draft); linkMitschriften(); setCount();
@@ -174,9 +174,13 @@ function editor(wrap, doc) {
   const camIn = h('input', { type: 'file', accept: 'image/*', multiple: true, class: 'sr' });
   const cam = h('label', { class: 'ms-cam', title: L('Bild von Tafel oder Aufschrieb – wird zur sauberen Mitschrift', 'Photo of the board or your notes – becomes clean notes') }, camIn, h('span', { html: ico('camera') }), h('span', { class: 'ms-camt' }, h('b', {}, L('Bild', 'Photo')), h('small', {}, L('Tafel oder Aufschrieb', 'board or notes'))));
   camIn.addEventListener('change', () => { const fs = [...camIn.files].slice(0, 6); camIn.value = ''; if (fs.length) fromPhotos(fs); });
+  // Video oder Aufnahme der Vorlesung: Max schreibt ab und macht direkt die Mitschrift daraus
+  const vidIn = h('input', { type: 'file', accept: 'video/*,audio/*,.mp4,.mov,.m4a,.mp3,.wav,.webm', class: 'sr' });
+  const vid = h('label', { class: 'ms-cam ms-vid', title: L('Vorlesungsvideo oder Aufnahme – wird zur sauberen Mitschrift', 'Lecture video or recording – becomes clean notes') }, vidIn, h('span', { html: '<svg class="ico" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="m16 10.5 5-3v9l-5-3z"/></svg>' }), h('span', { class: 'ms-camt' }, h('b', {}, L('Video', 'Video')), h('small', {}, L('Vorlesung oder Aufnahme', 'lecture or recording'))));
+  vidIn.addEventListener('change', () => { const f = vidIn.files[0]; vidIn.value = ''; if (f) fromVideo(f); });
   const palBtn = h('button', { type: 'button', class: 'ms-tb ms-palb', 'aria-expanded': 'false', onclick: () => { const open = !ed.classList.contains('pal-open'); ed.classList.toggle('pal-open', open); palBtn.setAttribute('aria-expanded', String(open)); } }, h('b', {}, 'Σ→'), L('Zeichen & Formen', 'Symbols'));
   const blattBtn = h('button', { type: 'button', class: 'ms-tb', 'aria-expanded': 'false', onclick: () => { bp.hidden = !bp.hidden; blattBtn.setAttribute('aria-expanded', String(!bp.hidden)); } }, h('i', { class: 'ms-swatch' }), L('Blatt', 'Paper'));
-  const tools = h('div', { class: 'ms-tools', role: 'toolbar', 'aria-label': L('Werkzeuge', 'Tools') }, cam,
+  const tools = h('div', { class: 'ms-tools', role: 'toolbar', 'aria-label': L('Werkzeuge', 'Tools') }, cam, vid,
     h('button', { type: 'button', class: 'ms-tb', onmousedown: e => e.preventDefault(), onclick: () => toggleBullet(ta, changed) }, h('b', {}, '•'), L('Liste', 'List')),
     h('button', { type: 'button', class: 'ms-tb', onmousedown: e => e.preventDefault(), onclick: () => ins('★\uFE0E ') }, h('b', {}, '★\uFE0E'), L('wichtig', 'key')),
     h('button', { type: 'button', class: 'ms-tb', onmousedown: e => e.preventDefault(), onclick: () => ins(' (?) ') }, h('b', {}, '?'), L('unklar', 'unclear')),
@@ -201,6 +205,30 @@ function editor(wrap, doc) {
   wrap.append(head, listBox, ed);
   keep();
   return () => { cleanup(); zp && zp.stop(); document.removeEventListener('visibilitychange', onHide); removeEventListener('pagehide', onHide); persist(true).then(() => refreshList()); };
+
+  async function fromVideo(file) {
+    const { getAccount } = await import('../api.js');
+    if (!getAccount()) { import('../ui.js').then(m => m.apiError(Object.assign(new Error(L('Videos und Aufnahmen schreibe ich mit kostenlosem Konto ab.', 'I transcribe videos and recordings with a free account.')), { code: 'need_account' }), () => fromVideo(file))); return; }
+    const sub = h('small', {}, L('Ich hol den Ton aus der Datei …', 'Extracting the audio …'));
+    const bar = h('i', { class: 'ms-pbar' });
+    const busy = h('div', { class: 'ms-busy', role: 'status' },
+      h('span', { html: '<svg class="ms-penani" viewBox="0 0 54 40" aria-hidden="true"><path class="w" d="M3 26c5-9 9-9 11 0s6 9 9 0 6-9 9 0 6 9 9 0 6-8 10-2"/></svg>' }),
+      h('div', { class: 'grow' }, h('b', {}, L('Max hört sich die Vorlesung an …', 'Max is listening to the lecture …')), sub, h('div', { class: 'ms-pb' }, bar)));
+    foot.replaceWith(busy); ta.readOnly = true;
+    try {
+      const { transcribe } = await import('../transcribe.js');
+      const t = await transcribe(file, (p, label) => { sub.textContent = label; bar.style.width = Math.round(p * 100) + '%'; });
+      const min = Math.max(1, Math.round(t.dur / 60));
+      ta.value = (ta.value.trim() ? ta.value.trim() + '\n\n' : '') + `[${L('Video', 'Video')}: ${t.name} · ${min} ${L('Min.', 'min')}]\n` + t.pages.join('\n');
+      draft.text = ta.value; draft.video = true; keep();
+      busy.replaceWith(foot); ta.readOnly = false;
+      make(true);
+    } catch (e) {
+      busy.replaceWith(foot); ta.readOnly = false;
+      if (e && e.name === 'AbortError') return;
+      import('../ui.js').then(m => m.apiError(e, () => fromVideo(file))).catch(() => toast(e.message));
+    }
+  }
 
   async function fromPhotos(files) {
     const busy = h('div', { class: 'ms-busy', role: 'status' },
@@ -257,7 +285,7 @@ function editor(wrap, doc) {
         await finalize(t0, [t0 + (all ? '\n' + all : '')], { data: { titel: t0, kern: all, abschnitte: [], korrekturen: [], fragen: [] }, raw: notes, stil, blatt: { ...blatt }, fach: draft.fach, zeichnung: { strokes: z.strokes, h: z.h }, at: Date.now() });
         return;
       }
-      const r = await ask('mitschrift', Object.assign({ opts: { notes: all, fach: draft.fach, stil } }, sk ? { material: forWhole(sk).slice(0, 30000), docName: sk.name } : {}));
+      const r = await ask('mitschrift', Object.assign({ opts: Object.assign({ notes: all, fach: draft.fach, stil }, draft.video ? { quelle: 'video' } : {}) }, sk ? { material: forWhole(sk).slice(0, 30000), docName: sk.name } : {}));
       const data = clean(r.data);
       if (!data.abschnitte.length) throw new Error(L('Die Mitschrift kam leer an. Versuch es nochmal.', 'The notes came back empty. Please try again.'));
       const text = asText(data);

@@ -9,7 +9,7 @@ async function loadPdf() {
   return pdfjs;
 }
 
-export const ACCEPT = '.pdf,.pptx,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.heic,.heif,.gif,application/pdf,image/*';
+export const ACCEPT = '.pdf,.pptx,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.heic,.heif,.gif,application/pdf,image/*,video/*,audio/*,.mp4,.mov,.m4v,.m4a,.mp3,.wav,.aac,.webm,.ogg,.opus,.flac';
 export const isImage = f => !!f && (/^image\//.test(f.type || '') || /\.(png|jpe?g|webp|heic|heif|gif|bmp)$/i.test(f.name || ''));
 const MAX_BYTES = 60 * 1024 * 1024;
 
@@ -24,7 +24,7 @@ export async function readFile(file, onProgress = () => {}, { soft = false } = {
   else if (ext === 'pptx') pages = await readPptx(file, onProgress);
   else if (ext === 'docx') pages = await readDocx(file, onProgress);
   else if (ext === 'txt' || ext === 'md' || file.type.startsWith('text/')) pages = splitText(await file.text());
-  else throw new Error(L('Dieses Format kenne ich noch nicht. PDF, PowerPoint (.pptx), Word (.docx) oder Text gehen.', 'I don’t know this format yet. PDF, PowerPoint (.pptx), Word (.docx) or text work.'));
+  else throw new Error(L('Dieses Format kenne ich noch nicht. PDF, PowerPoint (.pptx), Word (.docx), Text, Video oder Audio gehen.', 'I don’t know this format yet. PDF, PowerPoint (.pptx), Word (.docx) or text work.'));
   pages = pages.map(p => clean(p));
   const chars = pages.reduce((a, p) => a + p.length, 0);
   const isPdf = ext === 'pdf' || file.type === 'application/pdf';

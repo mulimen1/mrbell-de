@@ -139,7 +139,7 @@ export function srcPicker(doc, { onChange } = {}) {
   const inp = h('input', { class: 'field sp-topic', maxlength: 160, placeholder: L('Thema, z. B. Kapitalwertmethode', 'Topic, e.g. net present value'), 'aria-label': L('Thema', 'Topic'), autocomplete: 'off' });
   inp.addEventListener('input', () => { st.topic = inp.value; err.textContent = ''; });
   const fin = h('input', { type: 'file', class: 'sr', accept: ACCEPT, multiple: true });
-  const fname = h('small', { class: 'sp-fn' }, L('oder tippen zum Auswählen · PDF, PowerPoint, Word, Foto', 'or tap to choose · PDF, PowerPoint, Word, photo'));
+  const fname = h('small', { class: 'sp-fn' }, L('oder tippen zum Auswählen · PDF, PowerPoint, Word, Foto, Video', 'or tap to choose · PDF, PowerPoint, Word, photo, video'));
   const drop = h('label', { class: 'sp-drop' }, fin, h('span', { html: ico('upload') }), h('b', {}, L('Datei hier reinziehen', 'Drop a file here')), fname);
   const setFiles = f => { st.files = [...(f || [])].filter(Boolean); fname.textContent = st.files.length ? st.files.map(x => x.name).join(', ') : L('oder tippen zum Auswählen · PDF, PowerPoint, Word, Foto', 'or tap to choose · PDF, PowerPoint, Word, photo'); drop.classList.toggle('has', !!st.files.length); err.textContent = ''; };
   fin.addEventListener('change', () => setFiles(fin.files));

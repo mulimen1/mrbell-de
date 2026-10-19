@@ -64,10 +64,10 @@
       <p class="sub" data-in="5" data-en="Your personal tutor who explains everything on the whiteboard. He takes live notes with you in the lecture – typed or from a photo, written up neatly in fountain pen or print – and stays with you until the exam. A little arrogant. But he knows what he’s talking about.">Dein persönlicher Tutor, der dir an der Tafel alles erklärt. Er schreibt in der Vorlesung live mit – getippt oder vom Foto, sauber in Schreibschrift oder Druckschrift wie mit Tinte – und begleitet dich bis zur Klausur. Ein bisschen arrogant. Aber er weiß, wovon er redet.</p>
 
       <label class="dropzone" id="drop" data-in="6">
-        <input type="file" id="fileHero" class="sr" accept=".pdf,.pptx,.docx,.txt,.md">
+        <input type="file" id="fileHero" class="sr" accept=".pdf,.pptx,.docx,.txt,.md,video/*,audio/*,.mp4,.mov,.m4a,.mp3">
         <div class="row">
           <div class="file-ico"><svg class="ico" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></div>
-          <div class="t" data-en-html="&lt;b&gt;Drop your course material here&lt;/b&gt;&lt;span&gt;Slides, notes, problem sets, past exams – PDF, PowerPoint, Word&lt;/span&gt;"><b>Deinen Unistoff hierher ziehen</b><span>Vorlesung, Skript, Übungsblatt, Altklausur – PDF, PowerPoint, Word</span></div>
+          <div class="t" data-en-html="&lt;b&gt;Drop your course material here&lt;/b&gt;&lt;span&gt;Slides, notes, past exams, lecture videos – PDF, PowerPoint, Word, video, audio&lt;/span&gt;"><b>Deinen Unistoff hierher ziehen</b><span>Skript, Übungsblatt, Altklausur, Vorlesungsvideo – PDF, PowerPoint, Word, Video, Audio</span></div>
           <span class="btn primary lg magnet" data-en="Choose file">Datei wählen</span>
         </div>
         <div class="meta"><i data-en="No sign-up">Ohne Anmeldung</i><i data-en="Free every day">Jeden Tag kostenlos</i><i data-en="File stays on your device">Datei bleibt auf deinem Gerät</i></div>
@@ -133,7 +133,7 @@
           <article class="pin wide fly" style="--rot:-.5deg">
             <span class="num" data-en="02 · LIVE NOTES">02 · LIVE-MITSCHRIFT</span>
             <h3 data-en="Type along or snap a photo. Max writes it up neatly.">Tipp mit oder fotografier’s. Max schreibt’s sauber ab.</h3>
-            <p data-en="Live note support in the lecture: type as fast as you can – or take a photo of your notes or the board. Max turns it into clean notes in cursive or print, like real ink – with sketches, corrections and quiz questions, filed straight into your subject.">Live-Mitschrift-Unterstützung in der Vorlesung: Tipp so schnell du kannst – oder fotografier deine Notizen oder die Tafel. Max macht daraus eine saubere Mitschrift in Schreibschrift oder Druckschrift, wie mit Tinte – mit Skizzen, Korrekturen und Kontrollfragen, direkt in deinem Fach abgelegt.</p>
+            <p data-en="Live note support in the lecture: type as fast as you can – or take a photo of your notes or the board, or upload the lecture video. Max turns it into clean notes in cursive or print, like real ink – with sketches, corrections and quiz questions, filed straight into your subject.">Live-Mitschrift-Unterstützung in der Vorlesung: Tipp so schnell du kannst – oder fotografier deine Notizen oder die Tafel, oder lad das Vorlesungsvideo hoch. Max macht daraus eine saubere Mitschrift in Schreibschrift oder Druckschrift, wie mit Tinte – mit Skizzen, Korrekturen und Kontrollfragen, direkt in deinem Fach abgelegt.</p>
             <div class="demo msdemo" aria-hidden="true">
               <div class="msd-raw">db = umsatz - var k<br>break even -&gt; kf / db<br>!! kurzfr PUG = kv ??</div>
               <div class="msd-ar">→</div>
@@ -297,7 +297,7 @@
 <noscript><p style="padding:40px;text-align:center">Bitte aktiviere JavaScript, um BWL Max zu nutzen.</p></noscript>
 <script>(function(){if(/(^|\.)bwlmax\.de$/.test(location.hostname))document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});})();</script>
 <script src="/tutor/js/consent.js?v=8"></script>
-<script type="module" src="/tutor/js/main.js?v=31"></script>
+<script type="module" src="/tutor/js/main.js?v=32"></script>
 <script type="module">import { mathify } from '/tutor/js/math.js'; document.querySelectorAll('#landing .calc, #landing .mini-quiz, #landing .flip').forEach(el => mathify(el));</script>
 </body>
 </html>

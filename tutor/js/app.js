@@ -145,7 +145,7 @@ export async function examTool() {
   if (docs.length === 1) { location.hash = `#/app/${docs[0].id}/quiz/exam`; return; }
   if (!docs.length) {
     await modal({ eyebrow: L('Klausur-Simulator', 'Exam simulator'), title: L('Erst den Stoff, dann die Klausur', 'Material first, then the exam'), text: L('Lad dein Skript hoch – oder lass mich ein Kurzskript zu deinem Thema schreiben. Daraus baue ich dir eine Probeklausur mit Zeit, Punkten und Notenschlüssel.', 'Upload your slides – or let me write a short script on your topic. I’ll turn it into a mock exam with time, points and a grading key.'),
-      body: h('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap' } }, h('label', { class: 'btn primary', for: 'fileApp', onclick: () => document.querySelector('.modal-bg')?.remove() }, h('span', { html: ico('upload') }), L('Stoff hochladen', 'Upload material')), h('button', { class: 'btn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); ls.set('tutor.target', 'quiz'); topicPrompt(); } }, L('Thema nennen', 'Name a topic'))), actions: [] });
+      body: h('div', { style: { display: 'flex', gap: '8px', flexWrap: 'wrap' } }, h('label', { class: 'btn primary', for: 'fileApp', onclick: () => document.querySelector('.modal-bg')?.remove() }, h('span', { html: ico('upload') }), L('Skript oder Video hochladen', 'Upload slides or video')), h('button', { class: 'btn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); ls.set('tutor.target', 'quiz'); topicPrompt(); } }, L('Thema nennen', 'Name a topic'))), actions: [] });
     return;
   }
   const sorted = docs.slice().sort((a, b) => (b.used || 0) - (a.used || 0));
@@ -342,7 +342,7 @@ function emptyState(root) {
   const lab = h('label', { class: 'btn primary lg', for: 'fileApp' }, h('span', { html: ico('upload') }), L('Stoff hochladen', 'Upload material'));
   root.appendChild(h('div', { class: 'view-in' }, h('div', { class: 'empty' }, f,
     h('h2', {}, L('Was lernen wir heute?', 'What are we learning today?')),
-    h('p', {}, L('Zieh deinen Unistoff hier rein – Vorlesung, Skript, Übungsblatt oder Altklausur, als PDF, PowerPoint oder Word. Die Datei bleibt auf deinem Gerät.', 'Drop your course material here – slides, notes, problem sets or past exams, as PDF, PowerPoint or Word. The file stays on your device.')),
+    h('p', {}, L('Zieh deinen Unistoff hier rein – Skript, Übungsblatt, Altklausur oder Vorlesungsvideo, als PDF, PowerPoint, Word, Video oder Audio. Videos schreib ich dir ab.', 'Drop your course material here – slides, problem sets, past exams or lecture videos, as PDF, PowerPoint, Word, video or audio. I transcribe videos for you.')),
     h('div', { style: { display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' } }, lab,
       h('button', { class: 'btn lg', onclick: () => startSample() }, L('Beispiel ansehen', 'See an example')),
       h('a', { class: 'btn lg ghost', href: '#/app/trainer' }, 'Trainer')),
@@ -599,21 +599,21 @@ function afterCreate(d) {
 
 // „Ausprobieren“: Skript hochladen oder Thema nennen, danach direkt in die Funktion
 export const TRY = L({
-  tutor: ['Erklärt an der Tafel', 'Lade dein Skript hoch oder nenn mir ein Thema – ich erklär’s dir direkt an der Tafel.'],
-  plan: ['Klausurplan', 'Lade dein Skript hoch oder nenn mir ein Thema – ich bau dir einen Plan bis zur Klausur, Tag für Tag.'],
-  quiz: ['Quiz in 6 Formaten', 'Lade dein Skript hoch oder nenn mir ein Thema – ich bau dir sofort ein Quiz daraus.'],
-  karten: ['Karteikarten', 'Lade dein Skript hoch oder nenn mir ein Thema – ich mach dir direkt 16 Karteikarten.'],
-  pfad: ['Lernpfad', 'Lade dein Skript hoch oder nenn mir ein Thema – ich teil’s dir in Kapitel mit Lektionen auf.'],
-  podcast: ['Podcast', 'Lade dein Skript hoch oder nenn mir ein Thema – Lena und ich nehmen direkt eine Folge auf.'],
-  zettel: ['Lernzettel & Mindmap', 'Lade dein Skript hoch oder nenn mir ein Thema – ich schreib dir Lernzettel und Mindmap.'],
+  tutor: ['Erklärt an der Tafel', 'Lade dein Skript oder Vorlesungsvideo hoch oder nenn mir ein Thema – ich erklär’s dir direkt an der Tafel.'],
+  plan: ['Klausurplan', 'Lade dein Skript oder Vorlesungsvideo hoch oder nenn mir ein Thema – ich bau dir einen Plan bis zur Klausur, Tag für Tag.'],
+  quiz: ['Quiz in 6 Formaten', 'Lade dein Skript oder Vorlesungsvideo hoch oder nenn mir ein Thema – ich bau dir sofort ein Quiz daraus.'],
+  karten: ['Karteikarten', 'Lade dein Skript oder Vorlesungsvideo hoch oder nenn mir ein Thema – ich mach dir direkt 16 Karteikarten.'],
+  pfad: ['Lernpfad', 'Lade dein Skript oder Vorlesungsvideo hoch oder nenn mir ein Thema – ich teil’s dir in Kapitel mit Lektionen auf.'],
+  podcast: ['Podcast', 'Lade dein Skript oder Vorlesungsvideo hoch oder nenn mir ein Thema – Lena und ich nehmen direkt eine Folge auf.'],
+  zettel: ['Lernzettel & Mindmap', 'Lade dein Skript oder Vorlesungsvideo hoch oder nenn mir ein Thema – ich schreib dir Lernzettel und Mindmap.'],
 }, {
-  tutor: ['Explained on the whiteboard', 'Upload your slides or give me a topic – I’ll explain it to you right on the whiteboard.'],
-  plan: ['Exam plan', 'Upload your slides or give me a topic – I’ll build you a day-by-day plan up to your exam.'],
-  quiz: ['Quizzes in 6 formats', 'Upload your slides or give me a topic – I’ll build you a quiz from it straight away.'],
-  karten: ['Flashcards', 'Upload your slides or give me a topic – I’ll make you 16 flashcards right away.'],
-  pfad: ['Study path', 'Upload your slides or give me a topic – I’ll split it into chapters with lessons.'],
-  podcast: ['Podcast', 'Upload your slides or give me a topic – Lena and I will record an episode right away.'],
-  zettel: ['Study sheet & mind map', 'Upload your slides or give me a topic – I’ll write you a study sheet and a mind map.'],
+  tutor: ['Explained on the whiteboard', 'Upload your slides or lecture video, or give me a topic – I’ll explain it to you right on the whiteboard.'],
+  plan: ['Exam plan', 'Upload your slides or lecture video, or give me a topic – I’ll build you a day-by-day plan up to your exam.'],
+  quiz: ['Quizzes in 6 formats', 'Upload your slides or lecture video, or give me a topic – I’ll build you a quiz from it straight away.'],
+  karten: ['Flashcards', 'Upload your slides or lecture video, or give me a topic – I’ll make you 16 flashcards right away.'],
+  pfad: ['Study path', 'Upload your slides or lecture video, or give me a topic – I’ll split it into chapters with lessons.'],
+  podcast: ['Podcast', 'Upload your slides or lecture video, or give me a topic – Lena and I will record an episode right away.'],
+  zettel: ['Study sheet & mind map', 'Upload your slides or lecture video, or give me a topic – I’ll write you a study sheet and a mind map.'],
 });
 export async function tryFeature(key) {
   if (key === 'voice') return talkToMax();
@@ -629,7 +629,7 @@ export async function tryFeature(key) {
   const form = topicForm({ cls: 'askbar inmodal', target: key });
   form.addEventListener('topicok', () => close());
   const body = h('div', { class: 'trybody' },
-    h('label', { class: 'btn primary lg trybtn' }, fin, h('span', { html: ico('upload') }), L('Stoff hochladen', 'Upload material')),
+    h('label', { class: 'btn primary lg trybtn' }, fin, h('span', { html: ico('upload') }), L('Skript oder Video hochladen', 'Upload slides or video')),
     h('div', { class: 'or' }, h('span', {}, L('oder Thema nennen', 'or name a topic'))),
     form,
     h('button', { class: 'talklink', type: 'button', onclick: () => { ls.set('tutor.target', key); close(); startSample(); } }, L('Erstmal mit dem Beispiel-Skript testen', 'Try it with the example slides first')));
