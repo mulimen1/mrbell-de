@@ -13,9 +13,24 @@
   var ok = function () { return get() === 'ja' && hasCookie(); };
   // Seite ohne Skript-IDs (Skript-Kennungen fallen raus)
   function seite() { var p = location.pathname.replace(/^\/tutor\/?/, '/'); var h = location.hash.replace(/^#\/?/, '').split('/'); if (h[0] === 'app') { if (h[1] && !/^(neu|trainer)$/.test(h[1])) h[1] = 'skript'; return (p + '#/' + h.slice(0, 3).join('/')).slice(0, 60); } return p.slice(0, 60); }
+  // ---------- Google Ads: Conversion-Messung (nur mit Einwilligung) ----------
+  // id = Conversion-ID (AW-…), signup/ask = Conversion-Labels. Leer = aus. Gemeldet werden nur zwei Ereignisse, nie Inhalte.
+  var ADS = { id: '', signup: '', ask: '' };
+  var firstUrl = location.href;   // Einstiegs-URL mit Klick-Kennung (gclid) merken, bevor die App die Adresse ändert
+  function ads() {
+    if (!ADS.id || !ok() || window.gtag) return;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', ADS.id, { page_location: firstUrl });
+    var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ADS.id); document.head.appendChild(s);
+  }
+  function conv(label) { if (!ADS.id || !label || !ok()) return; ads(); try { window.gtag('event', 'conversion', { send_to: ADS.id + '/' + label }); } catch (e) {} }
   var sent = {};
   function track(ereignis, detail, once) {
     if (!ok()) return;
+    if (ereignis === 'Konto erstellt') conv(ADS.signup);
+    if (ereignis === 'Max gefragt') { var fk = 'bm.ads.ask'; var done = false; try { done = !!localStorage.getItem(fk); } catch (e) {} if (!done) { try { localStorage.setItem(fk, '1'); } catch (e) {} conv(ADS.ask); } }
     var k = ereignis + '|' + (detail || ''); if (once && sent[k]) return; sent[k] = 1;
     var body = JSON.stringify({ ereignis: String(ereignis).slice(0, 40), detail: String(detail || '').slice(0, 60), seite: seite() });
     try { fetch('/bm', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: body, keepalive: true, credentials: 'same-origin' }).catch(function () {}); } catch (e) {}
@@ -46,8 +61,8 @@
     if (!document.getElementById('bmc-css')) { var s = document.createElement('style'); s.id = 'bmc-css'; s.textContent = css; document.head.appendChild(s); }
     box = document.createElement('div'); box.className = 'bmc'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', T('Cookie-Einstellungen', 'Cookie settings'));
     box.innerHTML = '<h3>' + T('Cookies', 'Cookies') + '</h3>'
-      + '<p><span class="l">' + T('BWL Max nutzt Cookies, um anonym zu messen, welche Funktionen genutzt werden – damit Max besser wird. Was du schreibst, sagst oder hochlädst, wird nie gespeichert. ', 'BWL Max uses cookies to measure anonymously which features get used – so Max gets better. What you type, say or upload is never stored. ')
-      + '</span><span class="s">' + T('Cookies für eine anonyme Nutzungsstatistik? Deine Inhalte werden nie gespeichert. ', 'Cookies for anonymous usage stats? Your content is never stored. ')
+      + '<p><span class="l">' + T('BWL Max nutzt Cookies, um anonym zu messen, welche Funktionen genutzt werden – damit Max besser wird – und ob unsere Google-Anzeigen ankommen. Was du schreibst, sagst oder hochlädst, wird nie gespeichert. ', 'BWL Max uses cookies to measure anonymously which features get used – so Max gets better – and whether our Google ads work. What you type, say or upload is never stored. ')
+      + '</span><span class="s">' + T('Cookies für Nutzungsstatistik und Anzeigenmessung? Deine Inhalte werden nie gespeichert. ', 'Cookies for usage stats and ad measurement? Your content is never stored. ')
       + '</span><a href="' + legal() + '">' + T('Mehr dazu', 'Learn more') + '</a></p>'
       + '<div class="r"><button type="button" data-v="nein">' + T('Ablehnen', 'Decline') + '</button><button type="button" class="y" data-v="ja">' + T('<span class="l">Cookies akzeptieren</span><span class="s">Akzeptieren</span>', '<span class="l">Accept cookies</span><span class="s">Accept</span>') + '</button></div>';
     box.addEventListener('click', function (e) { var b = e.target.closest('button[data-v]'); if (b) close(b.dataset.v); });
@@ -66,6 +81,7 @@
   var started = false;
   function start() {
     if (started || !ok()) return; started = true;
+    ads();
     setTimeout(function () { track('Länger als 30 Sekunden', '', true); }, 30000);
     var onScroll = function () {
       var land = document.getElementById('landing'); if (land && land.classList.contains('hidden')) return;
