@@ -1125,6 +1125,7 @@ export function mountAssistant() {
     // Creator Mode: feste Sketch-Szene statt KI (nur wenn der Server die Sketche für dieses Konto geliefert hat)
     if (Creator.isCmd(text) || Creator.active()) { if (Creator.isCmd(text)) await Creator.load(); const sk = Creator.handle(text); if (sk) { playSketch(text, sk); return; } }
     if (!pendingMap && TOURQ.test(text) && route().tab) { pageTour(); return; }
+    vTour = false;
     if (tourActive()) pauseTour();   // Frage mitten in der Führung: Max hält an, antwortet, dann geht's per ▶ weiter
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     unlockAudio();
@@ -1240,6 +1241,10 @@ export function mountAssistant() {
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);
     if (!open) unread(true);
     const willSpeak = spoken && cfg.spk && !!p.text;
+    // Gesprochene Antwort mit Tafel (Laptop): danach spricht Max die Tafel-Schritte selbst, der Cursor zeigt nur mit –
+    // weiter zuhören erst, wenn er damit fertig ist
+    vTour = !!(willSpeak && t && !MOB.matches && boardSteps(t).length >= 2);
+    if (vTour) boardSteps(t).forEach(st => prefetchSpeech(st.say));
     if (willSpeak) {
       await speak(ex.voice || p.text, my, txt, t, ex);   // Sketch: eigene Aussprache-Fassung möglich (z. B. „Proff“ statt „Prof.“)
     } else {
@@ -1250,14 +1255,28 @@ export function mountAssistant() {
       await pr;
       if (my === gen) afterAnswer(p);
     }
-    if (my === gen) runTours(p, t);
+    if (my === gen) runTours(p, t, vTour); else vTour = false;
   }
   // ---------- Max-Cursor: Tafel Block für Block erklären, oder echte Stellen der Seite zeigen ----------
   function curStart() { const rf = STAGE ? [...document.querySelectorAll('.room .rm-fs')].find(e => e.getBoundingClientRect().width > 0) : null; const r = (rf || (open ? fEl : bubFace)).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height * .4 }; }
-  function startTour(steps) {
+  // Max spricht einen Cursor-Schritt (gleiche Stimme, gleicher Zwischenspeicher wie die Antwort)
+  async function sayStep(text) {
+    const my = gen;
+    for (const c of speechChunks(speakMath(text, getOutLang() === 'en').slice(0, 600))) {
+      let url; try { url = await (TTSC.get(c) || ttsUrl(c)); } catch (e) { return; }
+      if (my !== gen || !cfg.spk) { free(url); return; }
+      audio.src = url; audio.volume = clamp(+ls.get('tutor.vol', 1), 0, 1); setState('speak');
+      await new Promise(r => { audio.onended = r; audio.onpause = r; audio.onerror = r; audio.play().catch(r); });
+      free(url);
+      if (my !== gen) return;
+    }
+    if (my === gen) setState('idle');
+  }
+  function startTour(steps, spoken) {
     hideQuip();
     const dockAt = () => (STAGE || open ? isl : bub).getBoundingClientRect();
-    return tour(steps, { startAt: curStart(), dockAt, onAsk: ref => { if (!open) setOpen(true); setRef(ref); setTyping(true); } });
+    return tour(steps, Object.assign({ startAt: curStart(), dockAt, onAsk: ref => { if (!open) setOpen(true); setRef(ref); setTyping(true); } },
+      spoken ? { voice: sayStep, onEnd: () => { vTour = false; try { audio.pause(); } catch (e) {} setState('idle'); afterAnswer(); } } : {}));
   }
   // „Frage“ in der Cursor-Blase: Max weiß, welche Stelle gemeint ist
   let askRef = null;
@@ -1336,7 +1355,7 @@ export function mountAssistant() {
   }
   function clearRef() { askRef = null; refChip.hidden = true; root.classList.remove('has-ref'); if (!attachTx) delete inp.dataset.phLock; }
   addEventListener('hashchange', () => { if (askRef) clearRef(); });
-  async function runTours(p, t) {
+  async function runTours(p, t, spoken) {
     if (p.tour && p.tour.length) {
       const steps = p.tour.map(x => ({ el: byMxId(x.id), say: x.say })).filter(x => x.el);
       if (!steps.length) return;
@@ -1349,7 +1368,8 @@ export function mountAssistant() {
     for (let k = 0; k < 40 && t.isConnected && t.querySelector('.ai-hide'); k++) await sleep(120);
     const steps = boardSteps(t);
     drawTourBtn();
-    if (steps.length >= 2 && t.isConnected && !MOB.matches) setTimeout(() => { if (t.isConnected && state !== 'think') startTour(steps); }, 450);
+    if (steps.length >= 2 && t.isConnected && !MOB.matches) setTimeout(() => { if (t.isConnected && state !== 'think') startTour(steps, spoken); else if (spoken) { vTour = false; afterAnswer(); } }, 450);
+    else if (spoken) { vTour = false; afterAnswer(); }
   }
   function drawTourBtn() { const st = boardSteps(bArea.querySelector('.tafel')); bTour.hidden = st.length < 2; }
   // „Klick mich – ich führ dich durch“: Max liest die Seite und zeigt dir mit dem Cursor, worauf es ankommt
@@ -1377,7 +1397,9 @@ export function mountAssistant() {
     };
     return b;
   }
+  let vTour = false;
   function afterAnswer() {
+    if (vTour) return;   // Max erklärt gleich noch die Tafel – erst danach wieder zuhören
     // Sprachgespräch: Max hört danach direkt weiter zu
     if (viaVoice && open && state === 'idle' && !typing && !document.hidden) setTimeout(() => { if (viaVoice && open && state === 'idle' && !typing && !document.hidden) startListen({ followup: true }); }, 450);
   }
@@ -1417,7 +1439,7 @@ export function mountAssistant() {
     if (!r.step) { if (curEx && !curEx.done) dropEx(); setState('idle', r.msg); if (r.miss) afterAnswer(); return; }   // nicht erkannt: Frage verwerfen, Max hört direkt wieder zu
     const s = r.step;
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
-    if (tourActive()) stopTour();
+    vTour = false; if (tourActive()) stopTour();
     unlockAudio(); if (!s.silent) prefetchSpeech(s.voice || s.say);
     if (MOB.matches) fold(false);
     capQuestion(text); capQ.classList.remove('live'); capThinking();

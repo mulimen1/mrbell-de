@@ -62,7 +62,8 @@ function vScroll(el, where) {
   sc.scrollTo({ top: Math.max(0, top), behavior: reduce() ? 'auto' : 'smooth' });
 }
 // steps: [{ el, say }] – el darf null sein (dann zeigt Max oben in die Mitte des Inhalts)
-export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {}) {
+// voice: (text) => Promise – Max spricht den Schritt selbst; die Blase zeigt dann nur „Max“, kein Text
+export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt, voice } = {}) {
   steps = (steps || []).filter(s => s && s.say);
   if (!steps.length) return null;
   if (active) active.stop(true);
@@ -77,7 +78,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {
   const bAsk = onAsk ? h('button', { type: 'button', class: 'mx-ask', title: L('Frage genau zu dieser Stelle', 'Ask about exactly this spot') }, h('span', { html: ico('chat') }), L('Frage', 'Ask')) : null;
   const tag = h('span', { class: 'mx-tag' }, label);
   const say = h('div', { class: 'mx-say' }, tag, txt);
-  const cur = h('div', { class: 'mx-cur', role: 'status', 'aria-live': 'polite' }, h('span', { class: 'mx-p', html: PTR }), say);
+  const cur = h('div', { class: 'mx-cur' + (voice ? ' mx-voice' : ''), role: 'status', 'aria-live': 'polite' }, h('span', { class: 'mx-p', html: PTR }), say);
   const dock = h('div', { class: 'mx-dock', role: 'toolbar', 'aria-label': L('Max-Führung', 'Max walkthrough') },
     h('span', { class: 'mx-dl' }, h('i', { class: 'mx-live' }), h('b', {}, L('Max zeigt’s dir', 'Max shows you')), num), bAsk, bPause, bNext, bStop);
   document.body.append(cur, dock);
@@ -212,21 +213,28 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt } = {
     if (dead || i !== n) return;
     setHL(s.el);
     // Blasengröße steht vorher fest (unsichtbarer Volltext) – so springt nichts, während der Text reinläuft
+    if (voice) {   // gesprochen: Cursor zeigt, Max sagt es – kein Text in der Blase
+      sz.textContent = ''; ty.textContent = ''; layout();
+      say.classList.remove('pop'); void say.offsetWidth; say.classList.add('pop');
+      try { await voice(s.say); } catch (e) {}
+      typed = s.say.length;
+    } else {
     sz.textContent = s.say; ty.textContent = '';
     layout();
     say.classList.remove('pop'); void say.offsetWidth; say.classList.add('pop');
     await typeOut(s.say);
+    }
     if (dead || i !== n) return;
     schedule();
   }
-  const readMs = () => Math.max(2600, (steps[i]?.say || '').split(/\s+/).length * 330 + 900);
+  const readMs = () => voice ? 350 : Math.max(2600, (steps[i]?.say || '').split(/\s+/).length * 330 + 900);
   function schedule() { clearTimeout(hold); if (!paused) hold = setTimeout(() => go(i + 1), readMs()); }
   function finish() {
     setHL(null); clearTimeout(hold);
-    const t = L('Das war’s. Frag mich, wenn was hakt.', 'That’s it. Ask me if anything’s unclear.');
+    const t = voice ? '' : L('Das war’s. Frag mich, wenn was hakt.', 'That’s it. Ask me if anything’s unclear.');
     sz.textContent = t; ty.textContent = t;
     num.textContent = ''; cur.classList.add('done'); dock.classList.add('done');
-    hold = setTimeout(() => stop(), 3400);
+    hold = setTimeout(() => stop(), voice ? 900 : 3400);
   }
   function pause() { if (dead) return; paused = true; clearTimeout(hold); drawCtl(); }
   function resume() { if (dead) return; paused = false; drawCtl(); if (typed >= (steps[i]?.say || '').length) schedule(); }
@@ -329,6 +337,7 @@ const css = `
 .mx-cur.flip-x .mx-say { border-radius: 18px 6px 18px 18px; transform-origin: 100% 0; }
 .mx-cur[data-at$="-up"] .mx-say { border-radius: 18px 18px 18px 6px; transform-origin: 0 100%; }
 .mx-cur.flip-x[data-at$="-up"] .mx-say { border-radius: 18px 18px 6px 18px; transform-origin: 100% 100%; }
+.mx-cur.mx-voice .mx-txt { display: none; }
 .mx-say.pop { animation: mxpop .38s cubic-bezier(.3,1.4,.5,1) both; }
 @keyframes mxpop { from { opacity: .3; transform: scale(.92) translateY(-3px); } }
 .mx-tag { position: absolute; left: -1px; bottom: calc(100% + 5px); padding: 3px 10px 4px; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 700 12px/1.2 var(--sans); letter-spacing: .01em; white-space: nowrap; box-shadow: 0 6px 18px -6px rgba(0,0,0,.5); }
