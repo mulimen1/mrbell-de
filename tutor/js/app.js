@@ -231,7 +231,7 @@ function renderTabs(docId, tab) {
 }
 
 export async function mountApp(parts) {
-  if (!shell) { buildShell(); await refreshList(); }
+  if (!shell) { buildShell(); await refreshList(); import('./mslink.js').then(m => { m.linkMitschriften(); import('./me.js').then(M => { let t = 0; M.onMe(() => { clearTimeout(t); t = setTimeout(m.linkMitschriften, 300); }); }); }).catch(() => {}); }
   shell.app.classList.remove('sideopen');
   let [a, b, c] = parts;
   // Alte Adressen (Mein Bereich mit Unterseiten) auf die neuen Bereiche umleiten

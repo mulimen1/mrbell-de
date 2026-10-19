@@ -15,7 +15,7 @@ export function formula(s) {
   const SYM = { cdot: '·', times: '×', Delta: 'Δ', delta: 'δ', sum: 'Σ', leq: '≤', le: '≤', geq: '≥', ge: '≥', neq: '≠', approx: '≈', rightarrow: '→', Rightarrow: '⇒', to: '→', infty: '∞', alpha: 'α', beta: 'β', varepsilon: 'ε', epsilon: 'ε', mu: 'μ', sigma: 'σ', pi: 'π', lambda: 'λ', rho: 'ρ', sqrt: '√', pm: '±', '%': '%', ',': ' ', ';': ' ', quad: '  ', text: '', mathrm: '', left: '', right: '' };
   t = t.replace(/\\([A-Za-z]+|[%,;])/g, (_, w) => w in SYM ? SYM[w] : w);
   let h = esc(t).replace(/\s-\s/g, ' − ');
-  h = h.replace(/_\{([^{}]*)\}/g, '<sub>$1</sub>').replace(/\^\{([^{}]*)\}/g, '<sup>$1</sup>').replace(/_([A-Za-z0-9ÄÖÜäöü]+)/g, '<sub>$1</sub>').replace(/\^([A-Za-z0-9]+)/g, '<sup>$1</sup>');
+  h = h.replace(/\^\*/g, '<sup>*</sup>').replace(/_\{([^{}]*)\}/g, '<sub>$1</sub>').replace(/\^\{([^{}]*)\}/g, '<sup>$1</sup>').replace(/_([A-Za-z0-9ÄÖÜäöü]+)/g, '<sub>$1</sub>').replace(/\^([A-Za-z0-9]+)/g, '<sup>$1</sup>');
   return h.replace(/[{}]/g, '');
 }
 // **fett** → Textmarker
@@ -24,6 +24,7 @@ export const marked = s => esc(s).replace(/\*\*([^*]+)\*\*/g, '<mark>$1</mark>')
 export function rich(s) {
   const parts = [];
   const t = String(s || '').replace(/\\\(([\s\S]+?)\\\)|\\\[([\s\S]+?)\\\]|\$([^$]+)\$/g, (m, a, b, c) => { parts.push(formula(a || b || c)); return '\u0000' + (parts.length - 1) + '\u0001'; })
+    .replace(/\^\*/g, () => { parts.push('<sup>*</sup>'); return '\u0000' + (parts.length - 1) + '\u0001'; })
     .replace(/\\[A-Za-z]+(?:\{[^{}]*\}){0,2}/g, m => { parts.push(formula(m)); return '\u0000' + (parts.length - 1) + '\u0001'; });
   return marked(t).replace(/_\{([^{}]*)\}/g, '<sub>$1</sub>').replace(/(\b[A-Za-zÄÖÜäöü])_([A-Za-z0-9]{1,4})\b/g, '$1<sub>$2</sub>').replace(/\u0000(\d+)\u0001/g, (m, i) => parts[i]);
 }

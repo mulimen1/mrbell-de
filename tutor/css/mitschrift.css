@@ -103,3 +103,77 @@
   html.ms-printing .ms-paper { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; border-radius: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   html.ms-printing .ms-paper .ms-a { clip-path: none !important; animation: none !important; }
 }
+/* Fach frei eintippen + optional Skript */
+.ms-fachw { padding: 12px 14px 0; display: flex; flex-direction: column; gap: 8px; }
+.ms-fachw .ms-fach { padding: 0; }
+.ms-frow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ms-frow > small { color: var(--mute); font-weight: 600; }
+.ms-fin { flex: 1 1 180px; min-width: 0; height: 40px; border-radius: 12px; border: 1px solid var(--line2); background: var(--bg); color: var(--ink); padding: 0 12px; font: 600 15px var(--sans); }
+.ms-fin:focus { outline: 2px solid color-mix(in srgb, var(--accent, #1f5c3f) 40%, transparent); outline-offset: 1px; }
+.ms-addf, .ms-skl { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 999px; border: 1px dashed var(--line2); background: transparent; color: var(--ink2); font: 600 13px var(--sans); cursor: pointer; align-self: flex-start; }
+.ms-addf .ico, .ms-skl .ico, .ms-skr .ico, .ms-fok .ico { width: 15px; height: 15px; }
+.ms-fok { display: inline-flex; align-items: center; gap: 5px; color: var(--mute); font: 600 12.5px var(--sans); }
+.ms-skr { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink2); }
+.ms-skr select { flex: 1; min-width: 0; height: 36px; }
+.ms-skr b { font-weight: 650; }
+.ms-cam { flex: none; display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 10px; background: var(--inv); color: var(--onInv); font: 650 13.5px var(--sans); cursor: pointer; }
+.ms-cam .ico { width: 16px; height: 16px; }
+
+/* ---------- Blatt: Papierart / Papierfarbe / Tinte ---------- */
+.ms-paper, .ms-ta { --mx: 46px; }
+.ms-paper { background-color: var(--pc, #fff8e1); }
+.ms-paper.p-lin { background-image: linear-gradient(to right, transparent 0 var(--mx), rgba(214,88,88,.45) var(--mx) calc(var(--mx) + 1.5px), transparent calc(var(--mx) + 1.5px)), repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) - 1px), var(--ln, #dde5f2) calc(var(--lh) - 1px) var(--lh)); }
+.ms-paper.p-kar { background-image: repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) / 2 - 1px), var(--ln, #dde5f2) calc(var(--lh) / 2 - 1px) calc(var(--lh) / 2)), repeating-linear-gradient(to right, transparent 0 calc(var(--lh) / 2 - 1px), var(--ln, #dde5f2) calc(var(--lh) / 2 - 1px) calc(var(--lh) / 2)); }
+.ms-paper.p-leer { background-image: none; }
+.ms-ta { background-color: var(--pc, #fff8e1) !important; color: var(--ink, #1f3c88); caret-color: var(--ink, #1f3c88); }
+.ms-ta::placeholder { color: color-mix(in srgb, var(--ink, #1f3c88) 45%, transparent); }
+.ms-ta.p-lin { background-image: repeating-linear-gradient(to bottom, transparent 0 31px, var(--ln, #dde5f2) 31px 32px) !important; }
+.ms-ta.p-kar { background-image: repeating-linear-gradient(to bottom, transparent 0 15px, var(--ln, #dde5f2) 15px 16px), repeating-linear-gradient(to right, transparent 0 15px, var(--ln, #dde5f2) 15px 16px) !important; }
+.ms-ta.p-leer { background-image: none !important; }
+@media (max-width: 640px) { .ms-paper { --mx: 28px; } }
+
+/* Werkzeugleiste */
+.ms-tools .ms-tb { flex: none; display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 11px; border-radius: 10px; border: 1px solid var(--line2); background: var(--bg); color: var(--ink2); font: 600 13px var(--sans); cursor: pointer; }
+.ms-tb b { font-size: 15px; color: var(--ink); font-weight: 700; }
+.ms-tools .ms-tb[aria-expanded="true"] { background: var(--inv); color: var(--onInv); border-color: transparent; }
+.ms-tb[aria-expanded="true"] b { color: var(--onInv); }
+.ms-swatch { width: 14px; height: 14px; border-radius: 4px; border: 1px solid var(--line2); background: repeating-linear-gradient(to bottom, #fff8e1 0 3px, #c4d6ea 3px 4px); }
+
+/* Blatt-Auswahl */
+.mb { display: flex; gap: 18px; flex-wrap: wrap; padding: 10px 14px 4px; }
+.ms-bar + .mb, .ms .mb.solo { padding: 0 0 14px; }
+.mb-r { display: flex; align-items: center; gap: 8px; }
+.mb-r small { color: var(--mute); font-weight: 600; min-width: 42px; }
+.mb-o { display: flex; gap: 6px; }
+.mb-p { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border-radius: 9px; border: 1px solid var(--line2); background: var(--panel); color: var(--ink2); font: 600 12.5px var(--sans); cursor: pointer; }
+.mb-p i { width: 16px; height: 16px; border-radius: 3px; border: 1px solid var(--line2); background-color: #fff; }
+.mb-p.p-lin i { background-image: repeating-linear-gradient(to bottom, transparent 0 3px, #aab9d4 3px 4px); }
+.mb-p.p-kar i { background-image: repeating-linear-gradient(to bottom, transparent 0 3px, #aab9d4 3px 4px), repeating-linear-gradient(to right, transparent 0 3px, #aab9d4 3px 4px); }
+.mb-p.on { border-color: var(--ink); color: var(--ink); box-shadow: 0 0 0 1px var(--ink) inset; }
+.mb-s { width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(0,0,0,.18); cursor: pointer; padding: 0; position: relative; }
+.mb-s.on::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--ink); }
+
+/* Schreibfläche + Legende */
+.ms-body { position: relative; }
+.mp { display: none; border-top: 1px solid var(--line2); background: var(--panel); }
+.ms-ed.pal-open .mp { display: flex; flex-direction: column; max-height: 46vh; }
+.mp-h { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line2); }
+.mp-h .ico { width: 16px; height: 16px; color: var(--mute); flex: none; }
+.mp-q { flex: 1; min-width: 0; height: 34px; border: 0; background: transparent; color: var(--ink); font: 500 14px var(--sans); outline: 0; }
+.mp-b { overflow-y: auto; padding: 4px 12px 14px; overscroll-behavior: contain; }
+.mp-b section + section { margin-top: 6px; }
+.mp-b h4 { margin: 10px 0 6px; font: 650 11px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+.mp-g { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 5px; }
+.mp-k { height: 38px; min-width: 0; padding: 0 4px; border-radius: 9px; border: 1px solid var(--line2); background: var(--bg); color: var(--ink); font: 500 16px var(--sans); cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: transform .08s, background .12s; }
+.mp-k.w { grid-column: span 2; font-size: 13px; font-weight: 600; }
+.mp-k:hover { background: color-mix(in srgb, var(--ink) 7%, var(--bg)); }
+.mp-k:active { transform: scale(.94); }
+.mp-none { color: var(--mute); font-size: 13px; margin: 12px 0; }
+@media (min-width: 900px) {
+  .ms { max-width: 1120px; }
+  .ms-body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; }
+  .mp, .ms-ed.pal-open .mp { display: flex; flex-direction: column; border-top: 0; border-left: 1px solid var(--line2); max-height: none; height: 100%; position: absolute; right: 0; top: 0; bottom: 0; width: 300px; }
+  .ms-body .ms-ta { grid-column: 1; }
+  .ms-palb { display: none; }
+}
+@media (max-width: 899px) { .ms-body { display: flex; flex-direction: column; } .ms-body .mp { order: -1; border-top: 0; border-bottom: 1px solid var(--line2); } }

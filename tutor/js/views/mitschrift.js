@@ -7,10 +7,13 @@ import { S, createDoc, openDoc, save } from '../state.js';
 import { ask } from '../api.js';
 import * as M from '../me.js';
 import { formula, rich, flat, sketch, canDraw, underline, box } from '../msdraw.js';
+import { forWhole } from '../retrieve.js';
+import { linkMitschriften } from '../mslink.js';
+import { palette, blattDefault, blattPicker, applyBlatt, inkOf, smartTextarea, toggleBullet } from '../mspal.js';
 
 const DKEY = 'tutor.ms.draft';
 let cssOn = false;
-function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=1', 'data-ms': '1' })); }
+function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=3', 'data-ms': '1' })); }
 
 export async function render(root, { id = '' } = {}) {
   css();
@@ -25,20 +28,43 @@ export async function render(root, { id = '' } = {}) {
 
 // ---------- Editor ----------
 function editor(wrap) {
-  const draft = Object.assign({ fach: '', text: '', stil: 'fueller', at: 0 }, ls.get(DKEY, {}) || {});
+  const draft = Object.assign({ fach: '', text: '', stil: 'fueller', at: 0, skript: '' }, ls.get(DKEY, {}) || {});
   const keep = () => { draft.at = Date.now(); ls.set(DKEY, draft); st.textContent = draft.text.trim() ? L('Automatisch gespeichert', 'Saved automatically') : ''; };
 
   const head = h('div', { class: 'ms-head' },
     h('div', {}, h('div', { class: 'eyebrow' }, L('Live-Mitschrift', 'Live notes')), h('h2', {}, L('Schreib einfach mit.', 'Just take notes.')),
-      h('p', {}, L('Tipp in der Vorlesung drauflos – Stichworte, Abkürzungen, Pfeile. Max macht daraus eine saubere Mitschrift in Handschrift, mit Skizzen.', 'Type away during the lecture – keywords, abbreviations, arrows. Max turns it into clean handwritten notes with sketches.'))));
+      h('p', {}, L('Tipp in der Vorlesung drauflos oder fotografier Notizen und Tafel. Max macht daraus eine saubere Mitschrift – in Schreibschrift oder Druckschrift, mit Skizzen.', 'Type away during the lecture or snap your notes and the board. Max turns it into clean notes – in cursive or print, with sketches.'))));
 
-  // Fach: vorhandene Fächer als Chips, sonst frei eintippen
-  const faecher = M.getMe().faecher || [];
-  const fachIn = h('input', { type: 'text', placeholder: faecher.length ? L('anderes Fach …', 'other subject …') : L('Fach, z. B. Kostenrechnung', 'Subject, e.g. Cost accounting'), value: faecher.some(f => f.name === draft.fach) ? '' : draft.fach, 'aria-label': L('Fach', 'Subject'),
+  // Fach: einfach eintippen (muss kein angelegtes Fach sein). Vorhandene Fächer als Abkürzung daneben,
+  // ein unbekannter Name bekommt einen kleinen Knopf „Als Fach anlegen“ – freiwillig.
+  const fachIn = h('input', { type: 'text', class: 'ms-fin', value: draft.fach, placeholder: L('Fach, z. B. Kostenrechnung', 'Subject, e.g. Cost accounting'), 'aria-label': L('Fach', 'Subject'), autocomplete: 'off',
     oninput: e => { draft.fach = e.target.value.trim(); drawFach(); keep(); } });
-  const fachEl = h('div', { class: 'ms-fach' });
-  const drawFach = () => fachEl.replaceChildren(h('small', {}, L('Fach', 'Subject')),
-    ...faecher.map(f => h('button', { type: 'button', class: 'chip' + (draft.fach === f.name ? ' on' : ''), onclick: () => { draft.fach = draft.fach === f.name ? '' : f.name; fachIn.value = ''; drawFach(); keep(); } }, f.name)), fachIn);
+  const fachEl = h('div', { class: 'ms-fachw' });
+  const drawFach = () => {
+    const faecher = M.getMe().faecher || [], hit = draft.fach ? M.findFach(draft.fach) : null;
+    const add = draft.fach && !hit ? h('button', { type: 'button', class: 'ms-addf', onclick: () => { M.saveFach({ name: draft.fach, kurz: '', klausur: '', ects: '', docs: [], termine: [] }); toast(L(`„${draft.fach}“ ist jetzt ein Fach – deine Mitschriften landen automatisch dort.`, `“${draft.fach}” is now a subject – your notes go there automatically.`)); linkMitschriften(); drawFach(); } }, h('span', { html: ico('plus') }), L('Als Fach anlegen', 'Add as subject')) : null;
+    const ok = hit ? h('span', { class: 'ms-fok', title: L('Wird in diesem Fach gespeichert', 'Saved to this subject') }, h('span', { html: ico('check') }), hit.name.toLowerCase() === draft.fach.toLowerCase() ? L('Fach', 'Subject') : hit.name) : null;
+    fachEl.replaceChildren(
+      h('div', { class: 'ms-frow' }, h('small', {}, L('Fach', 'Subject')), fachIn, ok, add),
+      faecher.length ? h('div', { class: 'ms-fach' }, faecher.filter(f => !hit || f.id !== hit.id).map(f => h('button', { type: 'button', class: 'chip', onclick: () => { draft.fach = fachIn.value = f.name; drawFach(); keep(); } }, f.name))) : null,
+      skriptRow());
+  };
+  // Optional: mit einem Skript verbinden – dann kennt Max die Begriffe und Seiten aus der Vorlesung
+  const skripte = () => S.list.filter(d => !d.ms && !d.sample && d.pages?.length);
+  let pick = false;
+  const skriptRow = () => {
+    const sel = draft.skript && S.list.find(d => d.id === draft.skript);
+    if (sel) return h('div', { class: 'ms-skr' }, h('span', { html: ico('file') }), h('span', {}, L('Mit Skript: ', 'With slides: '), h('b', {}, sel.name)), h('button', { type: 'button', class: 'iconbtn', 'aria-label': L('Skript lösen', 'Unlink slides'), html: ico('x'), onclick: () => { draft.skript = ''; keep(); drawFach(); } }));
+    const all = skripte(); if (!all.length) return null;
+    if (!pick) return h('button', { type: 'button', class: 'ms-skl', onclick: () => { pick = true; drawFach(); } }, h('span', { html: ico('file') }), L('Mit Skript verbinden (optional)', 'Link slides (optional)'));
+    const f = draft.fach ? M.findFach(draft.fach) : null;
+    const mine = f ? all.filter(d => (f.docs || []).includes(d.id)) : [];
+    const list = [...mine, ...all.filter(d => !mine.includes(d))];
+    return h('div', { class: 'ms-skr' }, h('span', { html: ico('file') }),
+      h('select', { class: 'field', 'aria-label': L('Skript', 'Slides'), onchange: e => { draft.skript = e.target.value; pick = false; keep(); drawFach(); } },
+        h('option', { value: '' }, L('Skript wählen …', 'Choose slides …')), list.slice(0, 60).map(d => h('option', { value: d.id }, d.name))),
+      h('button', { type: 'button', class: 'iconbtn', 'aria-label': L('Abbrechen', 'Cancel'), html: ico('x'), onclick: () => { pick = false; drawFach(); } }));
+  };
   drawFach();
 
   const ta = h('textarea', { class: 'ms-ta', spellcheck: 'false', autocapitalize: 'off', 'aria-label': L('Deine Notizen', 'Your notes'),
@@ -48,12 +74,34 @@ function editor(wrap) {
   ta.addEventListener('input', () => {
     const p = ta.selectionStart, v = ta.value, nv = v.replace(/->/g, '→').replace(/=>/g, '⇒').replace(/<-/g, '←');
     if (nv !== v) { ta.value = nv; const d = v.length - nv.length; ta.selectionStart = ta.selectionEnd = Math.max(0, p - d); }
-    draft.text = ta.value; keep(); go.disabled = draft.text.trim().length < 25;
+    draft.text = ta.value; keep(); if (go) go.disabled = draft.text.trim().length < 25;
   });
-  const ins = s => { ta.focus(); const a = ta.selectionStart, b = ta.selectionEnd; ta.setRangeText(s, a, b, 'end'); ta.dispatchEvent(new Event('input')); };
-  const tools = h('div', { class: 'ms-tools', role: 'toolbar', 'aria-label': L('Zeichen', 'Symbols') },
-    [['→', '→ '], ['⇒', '⇒ '], ['≠', '≠'], ['≈', '≈'], ['Δ', 'Δ'], ['Σ', 'Σ'], ['%', '%'], ['€', '€'], ['⭐ ' + L('wichtig', 'key'), '⭐ '], ['❓ ' + L('unklar', 'unclear'), '❓ ']].map(([t, s]) =>
-      h('button', { type: 'button', onmousedown: e => e.preventDefault(), onclick: () => ins(s) }, t)));
+  const changed = () => ta.dispatchEvent(new Event('input'));
+  const ins = s => {
+    ta.focus(); const a = ta.selectionStart, b = ta.selectionEnd, c = s.indexOf('¦'), t = s.replace('¦', '');
+    // Zeilenanfang-Bausteine (Aufzählung, Def., Bsp.) am Textanfang ohne Leerzeile
+    const txt = a === 0 || ta.value[a - 1] === '\n' ? t.replace(/^\n/, '') : t;
+    ta.setRangeText(txt, a, b, 'end'); if (c >= 0) { const pos = a + (txt.length - (t.length - c)); ta.selectionStart = ta.selectionEnd = pos; }
+    changed();
+  };
+  const cleanup = smartTextarea(ta, changed);
+  // Blatt (Papier, Farbe, Tinte) – gilt für dein Notizblatt und für die fertige Mitschrift
+  const blatt = Object.assign(blattDefault(), draft.blatt || {});
+  const paintTa = () => applyBlatt(ta, blatt);
+  paintTa();
+  const bp = blattPicker(blatt, () => { draft.blatt = { ...blatt }; paintTa(); keep(); }); bp.hidden = true;
+  // Zeichen & Formen: Laptop rechts daneben, Handy ausklappbar
+  const pal = palette(ins);
+  const camIn = h('input', { type: 'file', accept: 'image/*', multiple: true, class: 'sr' });
+  const cam = h('label', { class: 'ms-cam', title: L('Foto von Notizen oder Tafel – wird zur sauberen Mitschrift', 'Photo of notes or the board – becomes clean notes') }, camIn, h('span', { html: ico('camera') }), L('Foto', 'Photo'));
+  camIn.addEventListener('change', () => { const fs = [...camIn.files].slice(0, 6); camIn.value = ''; if (fs.length) fromPhotos(fs); });
+  const palBtn = h('button', { type: 'button', class: 'ms-tb ms-palb', 'aria-expanded': 'false', onclick: () => { const open = !ed.classList.contains('pal-open'); ed.classList.toggle('pal-open', open); palBtn.setAttribute('aria-expanded', String(open)); } }, h('b', {}, 'Σ→'), L('Zeichen & Formen', 'Symbols'));
+  const blattBtn = h('button', { type: 'button', class: 'ms-tb', 'aria-expanded': 'false', onclick: () => { bp.hidden = !bp.hidden; blattBtn.setAttribute('aria-expanded', String(!bp.hidden)); } }, h('i', { class: 'ms-swatch' }), L('Blatt', 'Paper'));
+  const tools = h('div', { class: 'ms-tools', role: 'toolbar', 'aria-label': L('Werkzeuge', 'Tools') }, cam,
+    h('button', { type: 'button', class: 'ms-tb', onmousedown: e => e.preventDefault(), onclick: () => toggleBullet(ta, changed) }, h('b', {}, '•'), L('Liste', 'List')),
+    h('button', { type: 'button', class: 'ms-tb', onmousedown: e => e.preventDefault(), onclick: () => ins('★\uFE0E ') }, h('b', {}, '★\uFE0E'), L('wichtig', 'key')),
+    h('button', { type: 'button', class: 'ms-tb', onmousedown: e => e.preventDefault(), onclick: () => ins(' (?) ') }, h('b', {}, '?'), L('unklar', 'unclear')),
+    palBtn, blattBtn);
 
   let stil = draft.stil === 'druck' ? 'druck' : 'fueller';
   const seg = h('div', { class: 'seg', role: 'radiogroup', 'aria-label': L('Schrift', 'Handwriting') });
@@ -62,24 +110,50 @@ function editor(wrap) {
   const st = h('span', { class: 'ms-st' });
   const go = h('button', { type: 'button', class: 'btn primary ms-go', disabled: draft.text.trim().length < 25, onclick: () => make() }, h('span', { html: ico('pen') }), L('Saubere Mitschrift machen', 'Make clean notes'));
   const foot = h('div', { class: 'ms-foot' }, st, seg, go);
-  const ed = h('div', { class: 'ms-ed' }, fachEl, tools, ta, foot);
+  const ed = h('div', { class: 'ms-ed' }, fachEl, tools, bp, h('div', { class: 'ms-body' }, ta, pal), foot);
   wrap.append(head, ed, list());
   keep();
+  return cleanup;
 
-  async function make() {
-    const notes = ta.value.trim(); if (notes.length < 25) return;
+  async function fromPhotos(files) {
+    const busy = h('div', { class: 'ms-busy', role: 'status' },
+      h('span', { html: '<svg class="ms-penani" viewBox="0 0 54 40" aria-hidden="true"><path class="w" d="M3 26c5-9 9-9 11 0s6 9 9 0 6-9 9 0 6 9 9 0 6-8 10-2"/></svg>' }),
+      h('div', {}, h('b', {}, L('Max liest dein Foto …', 'Max is reading your photo …')), h('small', {}, L('Handschrift, Tafel, Folie – danach schreibt er alles sauber ab', 'handwriting, board, slide – then he writes it all up neatly'))));
+    foot.replaceWith(busy); ta.readOnly = true;
+    try {
+      const { imageToJpeg } = await import('../ingest.js');
+      let text = '';
+      for (let i = 0; i < files.length; i += 3) {
+        const images = []; for (const f of files.slice(i, i + 3)) images.push(await imageToJpeg(f));
+        const r = await ask('ocr', { opts: { imgs: images.length, from: i + 1 } }, { images });
+        text += ((r.data && r.data.seiten) || []).map(String).join('\n\n') + '\n\n';
+      }
+      text = text.trim();
+      if (text.length < 15) throw new Error(L('Darauf konnte ich nichts lesen. Fotografier es gerade von oben und gut beleuchtet.', 'I couldn’t read anything on it. Take the photo straight from above in good light.'));
+      ta.value = (ta.value.trim() ? ta.value.trim() + '\n\n' : '') + text; draft.text = ta.value; keep();
+      busy.replaceWith(foot); ta.readOnly = false;
+      make(true);
+    } catch (e) {
+      busy.replaceWith(foot); ta.readOnly = false;
+      import('../ui.js').then(m => m.apiError(e)).catch(() => toast(e.message));
+    }
+  }
+
+  async function make(photo) {
+    const notes = ta.value.trim(); if (notes.length < 25 && !(photo && notes.length)) return;
     const busy = h('div', { class: 'ms-busy', role: 'status' },
       h('span', { html: '<svg class="ms-penani" viewBox="0 0 54 40" aria-hidden="true"><path class="w" d="M3 26c5-9 9-9 11 0s6 9 9 0 6-9 9 0 6 9 9 0 6-8 10-2"/></svg>' }),
       h('div', {}, h('b', {}, L('Max schreibt sauber ab …', 'Max is writing it up …')), h('small', {}, L('ordnet, korrigiert, zeichnet Skizzen – dauert ca. 15 Sekunden', 'sorting, correcting, sketching – takes about 15 seconds'))));
     foot.replaceWith(busy); ta.readOnly = true;
     try {
-      const r = await ask('mitschrift', { opts: { notes, fach: draft.fach, stil } });
+      const sk = draft.skript && S.list.find(d => d.id === draft.skript);
+      const r = await ask('mitschrift', Object.assign({ opts: { notes, fach: draft.fach, stil } }, sk ? { material: forWhole(sk).slice(0, 30000), docName: sk.name } : {}));
       const data = clean(r.data);
       if (!data.abschnitte.length) throw new Error(L('Die Mitschrift kam leer an. Versuch es nochmal.', 'The notes came back empty. Please try again.'));
       const text = asText(data);
-      const doc = await createDoc({ name: data.titel || L('Mitschrift', 'Notes'), pages: [text], chars: text.length, extra: { kind: 'mitschrift', ms: { data, raw: notes, stil, fach: draft.fach, at: Date.now() } } });
-      if (draft.fach) intoFach(doc, draft.fach);
-      ls.set(DKEY, { fach: draft.fach, text: '', stil, at: 0 });
+      const doc = await createDoc({ name: data.titel || L('Mitschrift', 'Notes'), pages: [text], chars: text.length, extra: { kind: 'mitschrift', ms: { data, raw: notes, stil, blatt: { ...blatt }, fach: draft.fach, skript: sk ? sk.id : '', foto: !!photo, at: Date.now() } } });
+      linkMitschriften();
+      ls.set(DKEY, { fach: draft.fach, text: '', stil, at: 0, skript: draft.skript, blatt: { ...blatt } });
       try { window.BM && window.BM.track('Mitschrift', stil); } catch (e) {}
       location.hash = '#/app/mitschrift/' + doc.id;
     } catch (e) {
@@ -87,15 +161,6 @@ function editor(wrap) {
       import('../ui.js').then(m => m.apiError(e, make)).catch(() => toast(e.message));
     }
   }
-}
-
-function intoFach(doc, name) {
-  M.updateMe(m => {
-    let f = m.faecher.find(x => x.name.toLowerCase() === name.toLowerCase()) || M.findFach(name);
-    if (!f) { f = { id: uid(), created: Date.now(), name, kurz: '', klausur: '', ects: '', docs: [], termine: [] }; m.faecher.push(f); }
-    else f = m.faecher.find(x => x.id === f.id);
-    f.docs = [...new Set([...(f.docs || []), doc.id])];
-  });
 }
 
 function list() {
@@ -134,14 +199,19 @@ function sheetView(wrap, d) {
   const drawSeg = () => seg.replaceChildren(...[['fueller', L('Füller', 'Fountain pen')], ['druck', L('Druckschrift', 'Print')]].map(([k, n]) => h('button', { type: 'button', class: k === (ms.stil || 'fueller') ? 'on' : '', role: 'radio', 'aria-checked': String(k === ms.stil), onclick: () => { ms.stil = k; save(d); drawSeg(); draw(false); } }, n)));
   drawSeg();
   const raw = h('div', { class: 'ms-raw', hidden: true }, ms.raw || '');
+  ms.blatt = Object.assign(blattDefault(), ms.blatt || {});
+  const bp = blattPicker(ms.blatt, b => { ms.blatt = { ...b }; save(d); draw(false); }); bp.hidden = true;
+  const blattBtn = h('button', { type: 'button', class: 'btn sm', 'aria-expanded': 'false', onclick: () => { bp.hidden = !bp.hidden; blattBtn.setAttribute('aria-expanded', String(!bp.hidden)); } }, h('i', { class: 'ms-swatch' }), L('Blatt', 'Paper'));
   const bar = h('div', { class: 'ms-bar' },
     h('a', { class: 'btn ghost sm grow', href: '#/app/mitschrift' }, h('span', { html: ico('left') }), L('Mitschriften', 'Notes')),
-    seg,
+    seg, blattBtn,
     h('button', { type: 'button', class: 'btn sm', onclick: () => printIt() }, h('span', { html: ico('download') }), 'PDF'),
     h('a', { class: 'btn sm', href: `#/app/${d.id}/karten` }, h('span', { html: ico('cards') }), L('Karteikarten', 'Flashcards')),
     h('a', { class: 'btn sm', href: `#/app/${d.id}/quiz` }, h('span', { html: ico('quiz') }), 'Quiz'),
     h('button', { type: 'button', class: 'btn ghost sm', onclick: e => { showRaw = !showRaw; raw.hidden = !showRaw; e.currentTarget.lastChild.textContent = showRaw ? L('Notizen ausblenden', 'Hide notes') : L('Meine Notizen', 'My notes'); } }, h('span', { html: ico('note') }), h('span', {}, L('Meine Notizen', 'My notes'))));
-  wrap.append(bar, paperHost, raw);
+  const sk = ms.skript && S.list.find(x => x.id === ms.skript);
+  if (sk) bar.append(h('a', { class: 'btn ghost sm', href: `#/app/${sk.id}/hub` }, h('span', { html: ico('file') }), sk.name.length > 28 ? sk.name.slice(0, 27) + '…' : sk.name));
+  wrap.append(bar, bp, paperHost, raw);
   draw(!ms.seen); if (!ms.seen) { ms.seen = 1; save(d); }
   const onR = () => paperHost.querySelectorAll('.ms-f, .ms-merke').forEach(el => el._box && el._box());
   addEventListener('resize', onR);
@@ -157,9 +227,10 @@ function printIt() {
 
 function paper(d, anim) {
   const ms = d.ms, x = ms.data, stil = ms.stil === 'druck' ? 'druck' : 'fueller';
-  const ink = stil === 'druck' ? '#23324f' : '#1f3c88';
+  const blatt = Object.assign(blattDefault(), ms.blatt || {}), ink = inkOf(blatt);
   let i = 0; const A = el => { el.classList.add('ms-a'); el.style.setProperty('--i', i++); return el; };
   const p = h('article', { class: 'ms-paper ' + stil + (anim ? ' ms-in' : '') });
+  applyBlatt(p, blatt);
   const date = new Date(ms.at || d.created || Date.now()).toLocaleDateString(L('de-DE', 'en-GB'), { weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric' });
   p.append(A(h('div', { class: 'ms-meta' }, h('span', {}, ms.fach || ''), h('span', {}, date))));
   p.append(A(h('h1', { class: 'ms-t', html: rich(x.titel || d.name) })), A(h('div', {}, underline(420, 3, ink))));
