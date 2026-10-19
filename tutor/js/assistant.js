@@ -23,6 +23,7 @@ import { knowledge } from './know.js';
 import { keepBoards } from './lib.js';
 import { tour, tourActive, pauseTour, stopTour, boardSteps, pageMap, byMxId, spotText } from './cursor.js';
 import { hasInstant, instantReply } from './boards.js';
+import * as Creator from './creator.js';   // TikTok-Sketche (nur Gründer-Konto, serverseitig freigeschaltet)
 import * as Entry from './entry.js';   // Themen-Einstieg: Mini-Check, Live-Quiz, Live-Übung   // Sofort-Tafeln für Themen-Einstiege
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
@@ -1121,6 +1122,8 @@ export function mountAssistant() {
     text = String(text || '').trim();
     const shown = String(o.show || text);
     if (!text || state === 'think') return;
+    // Creator Mode: feste Sketch-Szene statt KI (nur wenn der Server die Sketche für dieses Konto geliefert hat)
+    if (Creator.isCmd(text) || Creator.active()) { if (Creator.isCmd(text)) await Creator.load(); const sk = Creator.handle(text); if (sk) { playSketch(text, sk); return; } }
     if (!pendingMap && TOURQ.test(text) && route().tab) { pageTour(); return; }
     if (tourActive()) pauseTour();   // Frage mitten in der Führung: Max hält an, antwortet, dann geht's per ▶ weiter
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
@@ -1218,7 +1221,7 @@ export function mountAssistant() {
       // Jede Tafel landet automatisch in der Bibliothek – mit Überschrift und Beschreibung
       const lastQ = [...hist].reverse().find(m => m.role === 'user')?.content || '';
       const asPage = MOB.matches && !!(ex && ex.entry);   // Themenseite am Handy: steht sofort da, ohne Einblenden und ohne Hinweis
-      keepBoards(p.boards, { doc: curDoc(), question: lastQ, answer: p.text, quiet: asPage });
+      if (!ex.sketch) keepBoards(p.boards, { doc: curDoc(), question: lastQ, answer: p.text, quiet: asPage });
       boards = boards.concat(p.boards).slice(-12); bIdx = boards.length - p.boards.length;
       t = drawBoard(!asPage); openBoard(); whenWritten(t);
     }
@@ -1233,7 +1236,7 @@ export function mountAssistant() {
     if ((ex.tools && ex.tools.length) || p.boards.some(b => /class="(calc|step|result|bs|tkonto)"/.test(b.html))) extras.push(h('button', { class: 'ai-cmd link', type: 'button', onclick: () => submit(L('Gib mir eine Zwillingsaufgabe dazu: gleiche Struktur, neue Zahlen. Erst nur die Aufgabe – die Lösung zeigst du erst, wenn ich meine Antwort geschickt oder „Lösung“ geschrieben habe.', 'Give me a twin exercise: same structure, new numbers. Only the task first – show the solution only once I’ve sent my answer or typed “solution”.')) }, L('Zwillingsaufgabe', 'Twin exercise')));
     if (!STAGE && route().tab && route().tab !== 'room' && (p.boards.length || (p.text || '').length > 280)) extras.push(h('a', { class: 'ai-cmd link ai-room', href: '#/app/tutor', onclick: () => ls.set('tutor.room.continue', 1) }, h('span', { class: 'ck', html: ico('right') }), L('Im Tutor weitermachen', 'Continue in the tutor')));
     if (ex.model !== undefined) extras.push(aiTag(ex.tools, raw, ex.src));
-    ex.aX.replaceChildren(...extras);
+    ex.aX.replaceChildren(...(ex.sketch ? [] : extras));
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);
     if (!open) unread(true);
     const willSpeak = spoken && cfg.spk && !!p.text;
@@ -1394,6 +1397,40 @@ export function mountAssistant() {
     if (cur) out.push(cur);
     return out.length ? out : [text];
   }
+  // Sketch-Sätze vorab laden und behalten: jeder Take klingt exakt gleich und startet ohne Wartezeit
+  const TTSC = new Map(), KEEP = new Set();
+  const free = u => { if (!KEEP.has(u)) URL.revokeObjectURL(u); };
+  const ttsUrl = (s, signal) => ask('tts', { text: s, opts: { voice: getVoice() } }, { signal }).then(r => {
+    const bin = atob(r.audio || ''); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    return URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' }));
+  });
+  function prefetchSpeech(text) {
+    speechChunks(speakMath(text, getOutLang() === 'en').slice(0, 2500)).forEach(s => {
+      if (TTSC.has(s)) return;
+      const p = ttsUrl(s); TTSC.set(s, p);
+      p.then(u => KEEP.add(u)).catch(() => TTSC.delete(s));
+    });
+  }
+  // Creator Mode: feste Szene abspielen – gleicher Weg wie eine echte Antwort (Stimme, Tafel, Mimik), aber ohne KI
+  async function playSketch(text, r) {
+    (r.prefetch || []).forEach(s => s && s.say && prefetchSpeech(s.say));
+    if (!r.step) { setState('idle', r.msg); return; }
+    const s = r.step;
+    if (state === 'speak') { try { audio.pause(); } catch (e) {} }
+    if (tourActive()) stopTour();
+    unlockAudio(); prefetchSpeech(s.say);
+    if (MOB.matches) fold(false);
+    capQuestion(text); capQ.classList.remove('live'); capThinking();
+    const ex = curEx; if (!ex) return; ex.sketch = true;
+    try { STAGE?.onAsk?.(text); } catch (e) {}
+    const my = ++gen; ctrl = new AbortController();
+    const raw = s.say + (s.board ? `\n\n\`\`\`tafel ${s.board.title}\n${s.board.html}\n\`\`\`` : '');
+    try {
+      await answer(raw, my, true, ex);
+      try { STAGE?.onAnswer?.(parse(raw)); } catch (e) {}
+      if (my === gen && s.face) { fc.pulse(s.face, 2400); bf.pulse(s.face, 2400); }
+    } finally { if (my === gen) ctrl = null; }
+  }
   async function speak(text, my, txt, t, ex) {
     text = speakMath(text, getOutLang() === 'en');
     const aEl = ex.aTx;
@@ -1402,10 +1439,7 @@ export function mountAssistant() {
     const showNow = (instant) => { if (shown) return; shown = true; ex.done = true; if (instant) aEl.replaceChildren(richText(txt)); else typeIt(aEl, txt, { scroll: capScroll }); if (t) writeAlong(t, () => 1); capScroll(); };
     capThinking();
     const chunks = speechChunks(text.slice(0, 2500)), total = chunks.reduce((a, c) => a + c.length, 0) || 1;
-    const fetchTTS = s => ask('tts', { text: s, opts: { voice: getVoice() } }, { signal: ctrl?.signal }).then(r => {
-      const bin = atob(r.audio || ''); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
-      return URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' }));
-    });
+    const fetchTTS = s => TTSC.get(s) || ttsUrl(s, ctrl?.signal);
     const urls = [];
     let doneChars = 0, ci = 0, stopped = false;
     const prog = () => { const d = audio.duration, f = isFinite(d) && d > 0 ? Math.min(1, audio.currentTime / d) : 0; return Math.min(1, (doneChars + f * (chunks[ci]?.length || 0)) / total); };
@@ -1425,7 +1459,7 @@ export function mountAssistant() {
       for (ci = 0; ci < chunks.length; ci++) {
         const url = await next; urls.push(url);
         if (my !== gen) { stopped = true; break; }
-        if (!cfg.spk) { showNow(); setState('idle'); afterAnswer(); urls.forEach(u => URL.revokeObjectURL(u)); return; }
+        if (!cfg.spk) { showNow(); setState('idle'); afterAnswer(); urls.forEach(u => free(u)); return; }
         if (ci + 1 < chunks.length) { next = fetchTTS(chunks[ci + 1]); next.catch(() => {}); }
         audio.src = url;
         audio.volume = clamp(+ls.get('tutor.vol', 1), 0, 1); audio.muted = !cfg.spk;
@@ -1434,7 +1468,7 @@ export function mountAssistant() {
         const finished = new Promise(res => { audio.onended = () => res('end'); audio.onpause = () => { if (!audio.ended) res('pause'); }; audio.onerror = () => res('err'); });
         await audio.play().catch(() => { ok = false; });
         if (my !== gen) { stopped = true; break; }
-        if (!ok) { syncing = false; urls.forEach(u => URL.revokeObjectURL(u)); showNow(); setState('idle', L('Ton war blockiert – die Antwort steht oben.', 'Sound was blocked – the answer is above.')); return; }
+        if (!ok) { syncing = false; urls.forEach(u => free(u)); showNow(); setState('idle', L('Ton war blockiert – die Antwort steht oben.', 'Sound was blocked – the answer is above.')); return; }
         if (ci === 0) {
           shown = true; ex.done = true; aEl.classList.add('typing-on');
           syncing = true; requestAnimationFrame(syncLoop);
@@ -1445,12 +1479,12 @@ export function mountAssistant() {
         if (how !== 'end' || my !== gen) { stopped = true; break; }
       }
       syncing = false; aEl.classList.remove('typing-on'); aEl.replaceChildren(richText(txt)); capScroll();
-      urls.forEach(u => URL.revokeObjectURL(u));
+      urls.forEach(u => free(u));
       if (!stopped && my === gen && state === 'speak') { setState('idle'); fc.pulse('happy', 900); afterAnswer(); }
       else if (!shown) showNow(true);
     } catch (e) {
       syncing = false; aEl.classList.remove('typing-on');
-      urls.forEach(u => URL.revokeObjectURL(u));
+      urls.forEach(u => free(u));
       if (shown) { aEl.replaceChildren(richText(txt)); capScroll(); } else showNow(my !== gen);
       if (my !== gen) return;
       setState('idle', e?.name === 'AbortError' ? L('Gestoppt.', 'Stopped.') : (e?.code === 'voice_busy' || e?.code === 'cap') ? e.message : L('Vorlesen hat nicht geklappt.', 'Reading aloud didn’t work.'));
