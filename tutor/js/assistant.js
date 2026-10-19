@@ -5,7 +5,7 @@ import { starBtn as favStar, textKey as favKey, plain as plainT } from './me.js'
 import { h, ico, ls, sleep, toast, learningNow } from './util.js';
 import { face } from './face.js';
 import { ask, onQuota, currentQuota, getAccount } from './api.js';
-import { S, save } from './state.js';
+import { S, save, createDoc } from './state.js';
 import { forChat } from './retrieve.js';
 import { apiError, typeOut as typeIt, typePlaceholder, syncOut, aiTag } from './ui.js';
 import { liveWave } from './wave.js';
@@ -965,7 +965,27 @@ export function mountAssistant() {
         chip(L('Erklär’s einfacher', 'Explain it simpler'), () => submit(L(`Erklär mir „${title}“ nochmal einfacher – kurz, mit einem Alltagsbeispiel.`, `Explain “${title}” again more simply – short, with an everyday example.`), { show: L('Erklär’s einfacher', 'Explain it simpler') }))];
     const tr = overview ? null : trainerFor(title + ' ' + buildTitle);
     const trEl = tr ? h('a', { class: 'm-trn', href: '#/app/trainer/' + tr[0] }, h('span', { class: 'm-trl' }, tr[1]), h('span', { class: 'm-trs' }, ' · ' + L('BWL-Trainer', 'Business trainer')), h('span', { class: 'm-tra', 'aria-hidden': 'true' }, '→')) : null;
-    return h('div', { class: 'm-next' + (overview ? ' m-ov' : '') }, h('p', { class: 'm-nt' }, overview ? L('Wo hakt’s? Tipp an:', 'Where are you stuck? Tap:') : L('Und jetzt?', 'What next?')), h('div', { class: 'm-nr' }, ...kids), trEl);
+    // Themen-Einstieg (Google-Anzeige): Max bietet Karteikarten zu genau dieser Tafel an – der Weg zum kostenlosen Konto
+    let offer = null;
+    if (!overview && b.entry) {
+      const nm = title.replace(/\s*[:(–-].*$/, '').trim() || title, of = h('div', { class: 'face m-ofc' });
+      offer = h('div', { class: 'm-offer' }, of,
+        h('div', { class: 'm-oft' }, h('b', {}, L(`${nm} sitzt? Ich mach dir Karteikarten dazu.`, `Got ${nm}? I’ll make you flashcards for it.`)),
+          h('small', {}, L('Damit’s bis zur Klausur hängen bleibt – ich frag dich genau dann ab, wenn du’s fast vergessen hast.', 'So it sticks until the exam – I’ll quiz you right when you’re about to forget.'))),
+        h('button', { class: 'btn primary sm', type: 'button', onclick: () => cardsFromBoard(b, nm) }, L('Karteikarten machen', 'Make flashcards')));
+      try { face(of); } catch (e) {}
+    }
+    return h('div', { class: 'm-next' + (overview ? ' m-ov' : '') }, offer, h('p', { class: 'm-nt' }, overview ? L('Wo hakt’s? Tipp an:', 'Where are you stuck? Tap:') : L('Und jetzt?', 'What next?')), h('div', { class: 'm-nr' }, ...kids), trEl);
+  }
+  // Karteikarten aus der Tafel: als kleines Skript speichern und direkt im Karten-Bereich erstellen lassen
+  async function cardsFromBoard(b, nm) {
+    try { window.BM && window.BM.track('Karteikarten-Angebot', nm); } catch (e) {}
+    let txt = '';
+    try { const d = new DOMParser().parseFromString('<div>' + sanitize(b.html) + '</div>', 'text/html'); d.querySelectorAll('br,p,li,h3,div,tr').forEach(n => n.append('\n')); txt = d.body.textContent.replace(/[ \t]+/g, ' ').replace(/\n\s*\n+/g, '\n').trim(); } catch (e) {}
+    if (!txt) txt = String(b.title || nm);
+    const doc = await createDoc({ name: String(b.title || nm).slice(0, 80), pages: [txt.slice(0, 12000)], chars: txt.length, generated: true, topic: nm });
+    if (open) setOpen(false);
+    location.hash = `#/app/${doc.id}/karten/max`;
   }
   function askQuiz(title) { submit(L(`Quiz mich zu „${title}“ – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.`, `Quiz me on “${title}” – one question at a time, wait for my answer each time and tell me if it’s right.`), { show: L('Quiz mich dazu', 'Quiz me on this') }); }
   function askExample(title) { submit(L(`Rechne mir ein neues Beispiel zu „${title}“ Schritt für Schritt an der Tafel vor – mit anderen Zahlen.`, `Work through a new example on “${title}” step by step on the whiteboard – with different numbers.`), { show: L('Rechne mir ein Beispiel', 'Work me an example'), board: title }); }

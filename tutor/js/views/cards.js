@@ -28,6 +28,7 @@ export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in' });
   root.appendChild(wrap);
   const chIdx = ctx.arg && ctx.arg.startsWith('k') ? parseInt(ctx.arg.slice(1)) : null;
+  if (ctx.arg === 'max') { history.replaceState(null, '', location.hash.replace(/\/max$/, '')); return generate(wrap, ctx, null, { count: 12, max: true }); }
   const auto = ctx.arg === 'auto'; if (auto) history.replaceState(null, '', location.hash.replace(/\/auto$/, ''));
   if (auto) { const o = await autoOpts('karten', ctx.doc); if (!wrap.isConnected) return; if (!o) { wrap.remove(); return render(root, Object.assign({}, ctx, { arg: null })); } return generate(wrap, ctx, o && o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : null, o); }
   if (chIdx != null && ctx.doc.path?.chapters[chIdx]) {
@@ -71,15 +72,24 @@ async function generate(wrap, ctx, chIdx, o) {
   const count = o?.count || (ch ? 12 : 16);
   const focus = [ch ? L(`Kapitel „${ch.title}“ (S. ${ch.pages[0]}–${ch.pages[1]})`, `Chapter “${ch.title}” (p. ${ch.pages[0]}–${ch.pages[1]})`) : '', ART[o?.art] || ''].filter(Boolean).join('. ');
   const ld = loading(wrap, L('Ich schreibe deine Karteikarten …', 'Writing your flashcards …'), L(['Suche Begriffe und Formeln', 'Formuliere präzise Fragen', 'Halte die Antworten kurz'], ['Finding key terms and formulas', 'Phrasing precise questions', 'Keeping the answers short']), 'cards');
+  // Aus Max' Tafel (Anzeigen-Einstieg), ohne Konto: während Max schreibt, kommt die Anmeldung – danach sind alle Karten da
+  const gate = o?.max && isGuest();
+  if (gate) setTimeout(() => import('../account.js').then(m => m.openLogin({ mode: 'register', title: L('Speicher deine Karten', 'Save your cards'), sub: L('Max schreibt sie gerade. Mit kostenlosem Konto bekommst du alle – und er fragt dich ab, bevor du sie vergisst. Dauert 30 Sekunden.', 'Max is writing them right now. With a free account you get all of them – and he quizzes you before you forget. Takes 30 seconds.') })).catch(() => {}), 900);
   try {
     const r = await ask('cards', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { count, focus } }, { signal: ld.signal });
     const cards = (r.data?.cards || []).filter(c => c && c.front && (c.back || c.formula)).map(c => ({ id: uid(), front: String(c.front), back: String(c.back || ''), formula: c.formula ? String(c.formula).slice(0, 400) : '', legend: (Array.isArray(c.legend) ? c.legend : []).filter(x => Array.isArray(x) && x[0] && x[1]).slice(0, 8).map(x => [String(x[0]).slice(0, 40), String(x[1]).slice(0, 80)]), page: c.page || null, due: 0 }));
     if (!cards.length) throw new Error(L('Es kamen keine Karten zurück. Versuch es nochmal.', 'No cards came back. Please try again.'));
     const deck = { id: uid(), title: ch ? ch.title : (r.data.title || L('Ganzes Skript', 'Whole script')), chapter: chIdx, cards, created: Date.now() };
+    if (gate) deck.guestFree = 3;   // ohne Konto: 3 Karten zum Reinschnuppern, der Rest nach der Anmeldung
     doc.decks.push(deck); save(doc);
     ld.stop(); savedToast('karten');
     study(wrap, ctx, cards.map(c => ({ c, d: deck })), deck.title); freshen(wrap);
-  } catch (e) { ld.stop(); overview(wrap, ctx); apiError(e, () => generate(wrap, ctx, chIdx, o)); }
+  } catch (e) {
+    ld.stop();
+    // Gast-Kontingent schon verbraucht: kein zweites Fenster – die Karten warten hinter der Anmeldung
+    if (gate && e?.code === 'need_account') return lockedPreview(wrap, { kind: 'zettel', title: L('Deine Karten warten auf dich', 'Your cards are waiting'), text: L('Mit kostenlosem Konto schreibt Max sie dir sofort – und fragt dich ab, bevor du sie vergisst.', 'With a free account Max writes them right away – and quizzes you before you forget.'), onUnlock: () => generate(wrap, ctx, chIdx, { count: 12 }) });
+    overview(wrap, ctx); apiError(e, () => generate(wrap, ctx, chIdx, o));
+  }
 }
 
 function study(wrap, ctx, items, title) {
@@ -87,7 +97,8 @@ function study(wrap, ctx, items, title) {
   { const f = fachOf(doc.id); const iso = (f && f.klausur) || doc.plan?.exam; examAt = iso ? new Date(iso + 'T08:00').getTime() || 0 : 0; }
   let queue = shuffle(items).sort((a, b) => (a.c.due || 0) - (b.c.due || 0)).slice(0, 40);
   // Ohne Konto: die ersten Karten jedes Stapels zuerst, der Rest danach (gesperrt)
-  if (isGuest()) { const free = x => x.d.cards.indexOf(x.c) < GUEST_CARDS; queue = [...items.filter(free), ...items.filter(x => !free(x))].slice(0, 40); }
+  const lim = d => (d.guestFree != null ? d.guestFree : GUEST_CARDS);
+  if (isGuest()) { const free = x => x.d.cards.indexOf(x.c) < lim(x.d); queue = [...items.filter(free), ...items.filter(x => !free(x))].slice(0, 40); }
   let i = 0, flipped = false, done = 0, again = 0;
   const stage = h('div', { class: 'fc-stage' });
   wrap.replaceChildren(h('button', { class: 'btn sm ghost', onclick: () => { cleanup(); overview(wrap, ctx); }, style: { marginBottom: '10px' } }, h('span', { html: ico('left') }), L('Karteikarten', 'Flashcards')),
@@ -100,7 +111,7 @@ function study(wrap, ctx, items, title) {
       const fc = face(f); setTimeout(() => fc.set('happy'), 150);
       return;
     }
-    if (isGuest() && queue[i].d.cards.indexOf(queue[i].c) >= GUEST_CARDS) return lockedRest(stage, { left: queue.length - i, what: L('Karten', 'cards'), onUnlock: draw });
+    if (isGuest() && queue[i].d.cards.indexOf(queue[i].c) >= lim(queue[i].d)) return lockedRest(stage, { left: queue.length - i, what: L('Karten', 'cards'), onUnlock: draw });
     const { c } = queue[i];
     flipped = false;
     const card = h('div', { class: 'fc', tabindex: 0, role: 'button', 'aria-label': L('Karte umdrehen', 'Flip card') },

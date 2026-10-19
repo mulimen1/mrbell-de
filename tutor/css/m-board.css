@@ -103,6 +103,14 @@
 
 /* Wie geht's weiter? Chips am Ende jeder Tafel */
 .tafel .m-next { margin: 26px 0 0; padding-top: 16px; border-top: 1px dashed var(--line2); }
+/* Karteikarten-Angebot unter der Tafel (Themen-Einstieg) */
+.tafel .m-offer { display: grid; grid-template-columns: 52px 1fr auto; align-items: center; gap: 14px; margin: 0 0 18px; padding: 14px 16px; border-radius: 18px; background: color-mix(in srgb, var(--inv) 7%, var(--panel)); border: 1px solid color-mix(in srgb, var(--inv) 20%, transparent); animation: mofin .5s cubic-bezier(.16,1,.3,1) both; }
+.tafel .m-offer .m-ofc { width: 52px; height: 52px; }
+.tafel .m-offer b { display: block; font: 650 16px/1.3 var(--sans); color: var(--ink); }
+.tafel .m-offer small { display: block; margin-top: 3px; font: 500 13px/1.4 var(--sans); color: var(--mute); }
+.tafel .m-offer .btn { white-space: nowrap; }
+@keyframes mofin { from { opacity: 0; transform: translateY(8px); } }
+@media (max-width: 600px) { .tafel .m-offer { grid-template-columns: 44px 1fr; } .tafel .m-offer .m-ofc { width: 44px; height: 44px; } .tafel .m-offer .btn { grid-column: 1 / -1; height: 44px; } .tafel .m-next:has(.m-offer) { border-top: 0; } }
 .tafel .m-nt { margin: 0 0 10px; font: 600 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
 .tafel .m-nr { display: flex; flex-wrap: wrap; gap: 8px; }
 .tafel .m-nr .ai-cmd.m-nc { height: 40px; padding: 0 16px; font-size: 14px; background: var(--panel); color: var(--ink); border-color: var(--line2); }
@@ -175,7 +183,8 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
   .asst.m-page:not(.m-pchat) .ai-isl, .asst.m-page:not(.m-pchat) .ai-feed, .asst.m-page .ai-cap, .asst.m-page .m-hist, .asst.m-page .asst-quip, .asst.m-page .ai-bsay, .asst.m-page .ai-ft { display: none !important; }
   html.m-boardpage .rm-comp, html.m-boardpage .rm-dock { visibility: hidden !important; }
   /* Doppelter Chip-Block am Ende fällt weg – die schwebenden Knöpfe ersetzen ihn (BWL-Überblick behält seine Themen) */
-  .tafel .m-next:not(.m-ov) { display: none !important; }
+  .tafel .m-next:not(.m-ov) > :not(.m-offer) { display: none !important; }   /* Karteikarten-Angebot bleibt */
+  .tafel .m-next:not(.m-ov):not(:has(.m-offer)) { display: none !important; }
   .tafel .m-next.m-ov .m-trn { display: none; }
 
   /* Max rechts unten – wie der schwebende Max auf der Seite */
