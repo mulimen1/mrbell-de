@@ -202,6 +202,17 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
   .m-pb .m-pbl { overflow: hidden; text-overflow: ellipsis; }
   .m-pb .m-pbs { display: none; }
   /* klein beim Lesen: nur Symbol + kurzes Wort */
+  .asst.m-page:not(.m-bld) .m-pbtns:has(.m-pcards) { bottom: calc(13px + env(safe-area-inset-bottom, 0px)); }
+  .m-pb.m-pcards { min-height: 58px; padding: 0 20px 0 14px; gap: 11px; border-radius: 20px; text-align: left; white-space: normal; }
+  .m-pcards .m-pbi { width: 34px; height: 34px; border-radius: 11px; background: color-mix(in srgb, var(--onInv) 16%, transparent); }
+  .m-pcards .m-pbi .ico { width: 19px; height: 19px; }
+  .m-pcards .m-pbt { display: grid; gap: 2px; min-width: 0; }
+  .m-pcards .m-pbl { font: 700 15px/1.15 var(--sans); white-space: nowrap; }
+  .m-pcards small { font: 500 12px/1.2 var(--sans); opacity: .78; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .m-pcards.busy { opacity: .7; pointer-events: none; }
+  .m-pbtns.m-small .m-pb.m-pcards { min-height: 44px; border-radius: 999px; padding: 0 14px 0 8px; }
+  .m-pbtns.m-small .m-pcards .m-pbt { display: none; }
+  .m-pbtns.m-small .m-pcards .m-pbi { width: 30px; height: 30px; border-radius: 999px; }
   .m-pbtns.m-small .m-pb { min-height: 36px; padding: 0 12px 0 10px; font-size: 13px; opacity: .96; }
   .m-pbtns.m-small .m-pb .m-pbl { display: none; }
   .m-pbtns.m-small .m-pb .m-pbs { display: inline; }

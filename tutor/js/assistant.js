@@ -311,9 +311,13 @@ export function mountAssistant() {
   // Rechts unten Max (öffnet den Chat), daneben drei grüne Knöpfe: Quiz, Beispiel, passender Trainer
   const pFace = h('span', { class: 'm-pmf' });
   const pMax = h('button', { class: 'm-pmax', type: 'button', 'aria-label': L('Mit Max chatten', 'Chat with Max'), title: L('Frag Max', 'Ask Max'), onclick: () => pChat(!root.classList.contains('m-pchat')) }, pFace, h('span', { class: 'm-pmx', html: ico('x') }));
-  const pQuiz = h('button', { class: 'm-pb', type: 'button', onclick: () => { const c = entryCtx(); if (c) Entry.quiz(c); } }, h('span', { class: 'm-pbi', html: ico('quiz') }), h('span', { class: 'm-pbl' }, L('Quiz mich dazu', 'Quiz me on this')), h('span', { class: 'm-pbs' }, L('Quiz', 'Quiz')));
-  const pTr = h('button', { class: 'm-pb', type: 'button', onclick: () => { const c = entryCtx(); if (c) Entry.exercise(c); } }, h('span', { class: 'm-pbi', html: ico('whistle') }), h('span', { class: 'm-pbl' }), h('span', { class: 'm-pbs' }, L('Üben', 'Practise')));
-  const pBtns = h('div', { class: 'm-pbtns' }, pQuiz, pTr);
+  // Ein Knopf neben Max: Karteikarten zum Thema – werden sofort erstellt, die erste ist gleich zu sehen
+  let pCardsBusy = false;
+  const pCards = h('button', { class: 'm-pb m-pcards', type: 'button', onclick: async () => { const c = entryCtx(); if (!c || pCardsBusy) return; pCardsBusy = true; pCards.classList.add('busy'); try { await cardsFromBoard(c.b, c.topic); } finally { pCardsBusy = false; pCards.classList.remove('busy'); } } },
+    h('span', { class: 'm-pbi', html: ico('cards') }),
+    h('span', { class: 'm-pbt' }, h('b', { class: 'm-pbl' }, L('Karteikarten erstellen', 'Make flashcards')), h('small', {}, L('Die BWL-Basics müssen sitzen.', 'Lock in the basics.'))),
+    h('span', { class: 'm-pbs' }, L('Karteikarten', 'Flashcards')));
+  const pBtns = h('div', { class: 'm-pbtns' }, pCards);
   // Gedankenblase neben dem kleinen Max (Kommentare beim Scrollen, Gedanken beim Bauen)
   const pBub = h('div', { class: 'm-pbub', role: 'status', 'aria-live': 'polite', hidden: true });
   const pDim = h('div', { class: 'm-pdim', 'aria-hidden': 'true', onclick: () => pChat(false) });
@@ -347,7 +351,6 @@ export function mountAssistant() {
   }
   function drawPage(b) {
     const c = b ? entryCtx() : null;
-    pTr.querySelector('.m-pbl').textContent = c ? `${c.topic} ${L('üben', 'practise')} · BWL-Trainer` : L('Üben · BWL-Trainer', 'Practise · trainer');
     pBtns.classList.remove('m-small');
   }
   // Kleiner Max-Chat über der Seite – man bleibt auf der Seite
