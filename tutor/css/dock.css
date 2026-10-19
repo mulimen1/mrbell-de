@@ -35,8 +35,8 @@ html.bv-open .dk, html.ms-printing .dk { display: none; }
 @media (max-width: 600px) {
   .dk { gap: 7px; }
   .dk-b { width: 42px; height: 42px; border-radius: 13px; }
-  .dkp, .dkp.dkp-lex, .dkp.dkp-calc.wide { left: 0; right: 0; bottom: 0; width: auto; max-height: 86vh; border-radius: 24px 24px 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); transform: translateY(100%); filter: none; opacity: 1;
-    transition: transform .48s cubic-bezier(.22,1,.36,1), opacity .2s; }
+  .dkp, .dkp.dkp-lex, .dkp.dkp-calc.wide { left: 0; right: 0; bottom: 0; width: auto; max-height: 86vh; border-radius: 24px 24px 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .dkp { transform: translateY(100%); filter: none; opacity: 1; transition: transform .48s cubic-bezier(.22,1,.36,1), opacity .2s; }
   .dkp.in { transform: none; }
   .dkp.out { transform: translateY(100%); opacity: 1; filter: none; transition: transform .3s cubic-bezier(.4,0,.6,1); }
   .dkp.dkp-lex { height: 86vh; }
