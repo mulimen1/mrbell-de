@@ -114,7 +114,7 @@ function editor(wrap) {
   };
   const cleanup = smartTextarea(ta, changed);
   // Blatt (Papier, Farbe, Tinte) – gilt für dein Notizblatt und für die fertige Mitschrift
-  const blatt = Object.assign(blattDefault(), draft.blatt || {});
+  const blatt = Object.assign(blattDefault(), draft.blatt && draft.blatt.v === 2 ? draft.blatt : {});   // ältere Entwürfe: neuer Standard (kariert)
   const paintTa = () => { applyBlatt(ta, blatt); if (zp) { applyBlatt(zp.el.querySelector('.mz-host'), blatt); zp.recolor(); } };
   let zp = null;
   paintTa();

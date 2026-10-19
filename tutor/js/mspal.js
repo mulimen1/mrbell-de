@@ -98,8 +98,8 @@ export function palette(insert, { mobile } = {}) {
 export const PAPIER = () => [['lin', L('Liniert', 'Lined')], ['kar', L('Kariert', 'Grid')], ['leer', L('Blanko', 'Blank')]];
 export const FARBE = () => [['weiss', L('Weiß', 'White'), '#ffffff', '#d9e2f0'], ['creme', L('Gelblich', 'Cream'), '#fff8e1', '#e6dcc0'], ['orange', L('Orange', 'Orange'), '#ffeedd', '#efd2b5'], ['gruen', L('Grün', 'Green'), '#e9f5ea', '#c7dfc9'], ['blau', L('Hellblau', 'Light blue'), '#e7f1fb', '#c4d6ea']];
 export const TINTE = () => [['blau', L('Blau', 'Blue'), '#1f3c88'], ['schwarz', L('Schwarz', 'Black'), '#1d1d1f'], ['gruen', L('Grün', 'Green'), '#1e6b45'], ['rot', L('Rot', 'Red'), '#b3261e'], ['lila', L('Lila', 'Purple'), '#5b3a9a']];
-const BKEY = 'tutor.ms.blatt';
-export const blattDefault = () => Object.assign({ art: 'lin', farbe: 'creme', tinte: 'blau' }, ls.get(BKEY, {}) || {});
+const BKEY = 'tutor.ms.blatt2';   // v2: Standard ist kariert
+export const blattDefault = () => Object.assign({ art: 'kar', farbe: 'creme', tinte: 'blau' }, ls.get(BKEY, {}) || {});
 export const inkOf = b => (TINTE().find(x => x[0] === b.tinte) || TINTE()[0])[2];
 export function applyBlatt(el, b) {
   const f = FARBE().find(x => x[0] === b.farbe) || FARBE()[1];
@@ -109,7 +109,7 @@ export function applyBlatt(el, b) {
 // Kompakte Auswahl: drei Papierarten, fünf Papierfarben, fünf Tinten
 export function blattPicker(b, onChange) {
   const el = h('div', { class: 'mb' });
-  const set = (k, v) => { b[k] = v; ls.set(BKEY, { art: b.art, farbe: b.farbe, tinte: b.tinte }); draw(); onChange(b); };
+  const set = (k, v) => { b[k] = v; b.v = 2; ls.set(BKEY, { art: b.art, farbe: b.farbe, tinte: b.tinte }); draw(); onChange(b); };
   function draw() {
     el.replaceChildren(
       h('div', { class: 'mb-r' }, h('small', {}, L('Papier', 'Paper')), h('div', { class: 'mb-o' }, PAPIER().map(([k, n]) => h('button', { type: 'button', class: 'mb-p p-' + k + (b.art === k ? ' on' : ''), 'aria-pressed': String(b.art === k), onclick: () => set('art', k) }, h('i'), n)))),
