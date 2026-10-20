@@ -72,6 +72,7 @@ const WHAT = {
 let lastToast = 0;
 export function savedToast(kind, n = 1) {
   if (Date.now() - lastToast < 1500) return;   // nicht doppelt
+  try { if (sessionStorage.getItem('bm.adEntry')) return; } catch (e) {}   // Einstieg über Google-Anzeige: nicht überfordern
   lastToast = Date.now();
   const go = h('a', { class: 'toast-undo', href: '#/app/bibliothek/' + kind }, L('Ansehen', 'View'));
   toast(h('span', { class: 'toast-row lib-toast' }, h('span', { class: 'lib-ok', 'aria-hidden': 'true', html: ico('check') }), (WHAT[kind] || WHAT.quiz)(n), go), 3600);

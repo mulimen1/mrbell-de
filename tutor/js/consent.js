@@ -16,7 +16,9 @@
   // ---------- Google Ads: Conversion-Messung (nur mit Einwilligung) ----------
   // id = Conversion-ID (AW-…), signup/ask = Conversion-Labels. Leer = aus. Gemeldet werden nur zwei Ereignisse, nie Inhalte.
   var ADS = { id: '', signup: '', ask: '' };
-  var firstUrl = location.href;   // Einstiegs-URL mit Klick-Kennung (gclid) merken, bevor die App die Adresse ändert
+  var firstUrl = location.href;
+  // Einstieg über Anzeige/Themen-Link merken (für diesen Besuch): dann keine Nebenbei-Meldungen wie „In der Bibliothek gespeichert“
+  try { if (/[?&](thema|gclid|gbraid|wbraid)=/.test(location.search)) sessionStorage.setItem('bm.adEntry', '1'); } catch (e) {}   // Einstiegs-URL mit Klick-Kennung (gclid) merken, bevor die App die Adresse ändert
   function ads() {
     if (!ADS.id || !ok() || window.gtag) return;
     window.dataLayer = window.dataLayer || [];
