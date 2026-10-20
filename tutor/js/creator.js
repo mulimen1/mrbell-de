@@ -15,6 +15,7 @@ export function load() {
   return loading;
 }
 export const active = () => !!cur;
+export const sequential = () => !!(cur && !cur.pairs);
 export const isCmd = t => /^\/sketch\b/i.test(String(t || '').trim());
 
 // Liefert null (→ normaler Tutor), { msg } (nur Statuszeile) oder { step, prefetch } (feste Szene)

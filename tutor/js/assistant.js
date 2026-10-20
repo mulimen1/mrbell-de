@@ -1488,6 +1488,15 @@ export function mountAssistant() {
       p.then(u => KEEP.add(u)).catch(() => TTSC.delete(s));
     });
   }
+  // Creator Mode: Weiter per Taste (→ oder Bild runter, auch Presenter-Fernbedienung) – Max muss nichts hören, kein Mikro nötig
+  document.addEventListener('keydown', e => {
+    if (!Creator.sequential() || e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (!['ArrowRight', 'PageDown'].includes(e.key)) return;
+    const el = document.activeElement; if (el && /^(INPUT|TEXTAREA)$/.test(el.tagName) && el.value) return;
+    e.preventDefault(); e.stopPropagation();
+    if (state === 'think') return;
+    submit('weiter');
+  }, true);
   // Creator Mode: feste Szene abspielen – gleicher Weg wie eine echte Antwort (Stimme, Tafel, Mimik), aber ohne KI
   async function playSketch(text, r) {
     (r.prefetch || []).forEach(s => s && s.say && !s.silent && prefetchSpeech(s.voice || s.say));
