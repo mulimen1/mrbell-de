@@ -72,16 +72,17 @@ export function render(root, ctx = {}) {
   const skBtnHome = skBtn(), skBtnBar = skBtn();
   // Lernserie: kleine grüne Flamme neben den Einstellungen – grau, solange heute noch nicht gelernt wurde
   const FLAME = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg>';
-  const stkN = h('b', { class: 'rm-stn' }, '0');
-  const stk = h('span', { class: 'rm-streak', role: 'img' }, h('span', { class: 'rm-fl', html: FLAME }), stkN);
+  // zweimal: oben in der Leiste (Gespräch) und oben rechts in der Ecke (Startansicht)
+  const mkStk = () => h('span', { class: 'rm-streak', role: 'img' }, h('span', { class: 'rm-fl', html: FLAME }), h('b', { class: 'rm-stn' }, '0'));
+  const stk = mkStk(), stkHome = mkStk();
   const drawStreak = () => {
     let days = {}; try { days = M.activityDays(S.list || []); } catch (e) {}
     const today = !!days[M.dayKey()], n = M.streak(days);
-    stkN.textContent = String(n); stk.classList.toggle('on', today); stk.classList.toggle('zero', !n);
+    for (const x of [stk, stkHome]) { x.querySelector('b').textContent = String(n); x.classList.toggle('on', today); x.classList.toggle('zero', !n); }
     const t = !n ? L('Lernserie: Heute anfangen – jeder Tag zählt.', 'Streak: start today – every day counts.')
       : today ? L(`${n} ${n === 1 ? 'Tag' : 'Tage'} Lernserie. Heute schon dabei.`, `${n}-day streak. Done for today.`)
       : L(`${n} ${n === 1 ? 'Tag' : 'Tage'} Lernserie – heute noch lernen, sonst ist sie weg.`, `${n}-day streak – study today to keep it.`);
-    stk.title = t; stk.setAttribute('aria-label', t);
+    for (const x of [stk, stkHome]) { x.title = t; x.setAttribute('aria-label', t); }
   };
   drawStreak(); const stkIv = setInterval(drawStreak, 30000); const offStk = onChange(drawStreak);
   const bar = h('div', { class: 'rm-bar' },
@@ -98,7 +99,7 @@ export function render(root, ctx = {}) {
   const sugg = h('div', { class: 'rm-sugg' });
   const comp = h('div', { class: 'rm-comp' });
   const dock = h('div', { class: 'rm-dock' }, focusRow, sugg, comp);
-  const corner = h('div', { class: 'rm-corner' }, cfgBtn(), skBtnHome);
+  const corner = h('div', { class: 'rm-corner' }, stkHome, cfgBtn(), skBtnHome);
   const drop = h('div', { class: 'rm-drop', hidden: true }, h('div', {}, h('span', { html: ico('file') }), h('b', {}, L('Loslassen – dann arbeiten wir damit.', 'Drop it – and we’ll work with it.'))));
   const stage = h('section', { class: 'rm-stage' }, corner, bar, scroll, talk, dock, drop);
   const right = h('aside', { class: 'rm-right', 'aria-label': L('Skripte', 'Slides') });

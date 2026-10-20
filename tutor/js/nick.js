@@ -162,8 +162,12 @@ export function nextSpruch(d = new Date()) {
 
 let showing = false;
 // Große Begrüßung – danach fliegt Max an seinen Platz: in den Tutor-Raum (großer Kopf) oder nach unten rechts
-export function greetSplash(nick = getNick()) {
+export function greetSplash(nick = getNick(), force = false) {
   if (showing || document.querySelector('.ngreet')) return;
+  // Begrüßung mit Lernserie höchstens einmal am Tag – egal ob neuer Tab, Neuanmeldung oder Login
+  const today = new Date().toLocaleDateString('sv-SE');
+  if (ls.get('tutor.greetDay', '') === today && !force) return;
+  ls.set('tutor.greetDay', today);
   showing = true;
   ls.set('tutor.greetLast', Date.now());
   try { sessionStorage.setItem('tutor.justGreeted', String(Date.now())); } catch (e) {}
@@ -210,9 +214,7 @@ export function greetOnLoad() {
   let t = 0; try { t = +sessionStorage.getItem('tutor.greetAt') || 0; } catch (e) {}
   if (t) return;
   // Begrüßung mit Lernserie nur beim ersten Öffnen am Tag – danach steht die Serie nur noch klein oben im Tutor
-  const today = new Date().toLocaleDateString('sv-SE');
-  if (ls.get('tutor.greetDay', '') === today) return;
-  ls.set('tutor.greetDay', today);
+  if (ls.get('tutor.greetDay', '') === new Date().toLocaleDateString('sv-SE')) return;
   try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {}
   setTimeout(() => greetSplash(getNick(a)), 500);
 }
