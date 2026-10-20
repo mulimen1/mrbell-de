@@ -26,6 +26,41 @@ export function thought(faceEl, kind = 'generic', fallback = []) {
 // Ladeanzeige: Gesicht + Gedankenblase + Fortschrittsbalken mit Countdown + Abbrechen.
 // Die Dauer lernt sie mit (Mittelwert der letzten Male pro Art), damit der Countdown stimmt.
 const EST = { quiz: 28, exam: 45, path: 35, lesson: 26, podcast: 50, cards: 22, summary: 34, topic: 22, ingest: 15, generic: 25 };
+// ---------- Läuft im Hintergrund (oben rechts) ----------
+// Wer während des Erstellens woanders hinklickt, sieht oben rechts: „Karteikarten werden erstellt · 42 %“ – antippen führt zurück.
+// Fertig: der Knopf wird grün („Karteikarten fertig · Ansehen“).
+const JOB = { cards: ['Karteikarten', 'Flashcards'], quiz: ['Quiz', 'Quiz'], exam: ['Probeklausur', 'Mock exam'], path: ['Lernpfad', 'Study path'], lesson: ['Lektion', 'Lesson'], podcast: ['Podcast', 'Podcast'], summary: ['Lernzettel', 'Study sheet'] };
+let jobBox = null;
+function jobsEl() {
+  if (jobBox && jobBox.isConnected) return jobBox;
+  jobBox = h('div', { class: 'bgjobs', 'aria-live': 'polite' }); document.body.appendChild(jobBox); return jobBox;
+}
+function goBack(hash) {
+  const t = hash.replace(/^#\/?/, '').split('/'), target = '#/' + (t[0] === 'app' ? t.slice(0, 3) : t).join('/');
+  if (location.hash === target) dispatchEvent(new HashChangeEvent('hashchange')); else location.hash = target;
+}
+function bgJob(kind, back) {
+  const nm = JOB[kind] ? L(JOB[kind][0], JOB[kind][1]) : L('Max', 'Max');
+  const pct = h('b', { class: 'bj-p' }, '0 %');
+  const txt = h('span', { class: 'bj-t' }, nm, ' ', kind === 'cards' ? L('werden erstellt', 'in progress') : L('wird erstellt', 'in progress'));
+  const x = h('button', { class: 'bj-x', type: 'button', 'aria-label': L('Ausblenden', 'Hide'), html: ico('x'), onclick: e => { e.stopPropagation(); el.remove(); } });
+  const el = h('div', { class: 'bj run', role: 'button', tabindex: 0, title: L('Zurück dorthin', 'Go back there'), onclick: () => { goBack(back); if (el.classList.contains('ok')) el.remove(); } },
+    h('span', { class: 'bj-i' }, h('i', { class: 'bj-spin' })), txt, pct, x);
+  el.addEventListener('keydown', e => { if (e.key === 'Enter') el.click(); });
+  let shown = false;
+  return {
+    show() { if (shown) return; shown = true; jobsEl().appendChild(el); },
+    set(p) { pct.textContent = Math.round(p * 100) + ' %'; },
+    done(ok) {
+      if (!shown) return;
+      if (!ok) { el.remove(); return; }
+      el.classList.remove('run'); el.classList.add('ok');
+      el.querySelector('.bj-i').innerHTML = ico('check');
+      txt.replaceChildren(nm, ' ', L('fertig', 'ready')); pct.textContent = L('Ansehen', 'View');
+    },
+  };
+}
+
 export function loading(root, title, lines = [], kind = 'generic') {
   const ctrl = new AbortController();
   let rejectCancel;
@@ -43,10 +78,12 @@ export function loading(root, title, lines = [], kind = 'generic') {
   const fc = face(f); fc.set('think');
   const tb = thought(f, kind, lines);
   const t0 = Date.now(); let done = false;
+  const job = bgJob(kind, location.hash);
   const tick = () => {
-    if (!el.isConnected || done) return clearInterval(iv);
+    if (done) return clearInterval(iv);
     const s = (Date.now() - t0) / 1000;
     const p = s < est ? (s / est) * .94 : .94 + .055 * (1 - Math.exp(-(s - est) / 12));
+    if (!el.isConnected) { job.show(); job.set(p); return; }   // woanders hingeklickt: läuft oben rechts weiter
     fill.style.width = (p * 100).toFixed(1) + '%';
     const left = Math.ceil(est - s);
     num.textContent = left > 0 ? L(`noch ca. ${left} s`, `about ${left} s left`) : L('gleich fertig …', 'almost done …');
@@ -63,8 +100,9 @@ export function loading(root, title, lines = [], kind = 'generic') {
     el, face: fc, signal: ctrl.signal, cancelled,
     // für Aufgaben ohne eigenes Abbrechen (z. B. Lernpfad im Hintergrund): Warten beenden
     race: p => Promise.race([p, cancelled]),
-    stop() {
+    stop(ok = true) {
       if (done) return; done = true;
+      job.done(ok && !ctrl.signal.aborted);
       clearInterval(iv); tb.stop();
       const s = (Date.now() - t0) / 1000;
       if (!ctrl.signal.aborted && s > 2) ls.set(key, Math.round(est * .6 + s * .4));

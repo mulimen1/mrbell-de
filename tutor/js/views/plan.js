@@ -460,7 +460,7 @@ function wizard(wrap, ctx) {
 async function withPath(wrap, ctx, opts) {
   const ld = loading(wrap, L('Ich teile dein Skript in Kapitel …', 'Splitting your slides into chapters …'), L(['Lese das Skript', 'Finde die Kapitel', 'Gewichte für die Klausur', 'Danach plane ich deine Tage'], ['Reading the slides', 'Finding the chapters', 'Weighting for the exam', 'Then I’ll plan your days']), 'path');
   try { await ld.race(generatePath(ctx.doc)); ld.stop(); finishCreate(wrap, ctx, opts); freshen(wrap); }
-  catch (e) { ld.stop(); wizard(wrap, ctx); apiError(e, () => withPath(wrap, ctx, opts)); }
+  catch (e) { ld.stop(false); wizard(wrap, ctx); apiError(e, () => withPath(wrap, ctx, opts)); }
 }
 
 function finishCreate(wrap, ctx, opts) {

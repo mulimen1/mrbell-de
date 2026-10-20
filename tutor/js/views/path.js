@@ -61,7 +61,7 @@ async function waitPath(wrap, ctx, start) {
   if (isGuest()) return lockedPreview(wrap, { kind: 'pfad', title: L('Dein Lernpfad – mit kostenlosem Konto', 'Your study path – with a free account'), onUnlock: () => waitPath(wrap, ctx, true) });
   const ld = loading(wrap, L('Ich baue deinen Lernpfad …', 'Building your study path …'), L(['Lese das Skript', 'Finde die Kapitel', 'Sortiere nach Lernreihenfolge', 'Gewichte für die Klausur'], ['Reading the slides', 'Finding the chapters', 'Sorting into learning order', 'Weighting for the exam']), 'path');
   try { await ld.race(generatePath(ctx.doc)); ld.stop(); wrap.replaceChildren(); listView(wrap, ctx); freshen(wrap); }
-  catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => waitPath(wrap, ctx, true)); }
+  catch (e) { ld.stop(false); intro(wrap, ctx); apiError(e, () => waitPath(wrap, ctx, true)); }
 }
 
 function listView(wrap, ctx) {
@@ -117,7 +117,7 @@ async function lesson(wrap, ctx, idx) {
       if (!slides.length) throw new Error(L('Die Lektion war leer. Versuch es nochmal.', 'The lesson came back empty. Please try again.'));
       doc.lessons[idx] = { title: les.title || c.title, slides, task: normalize(les.task), pos: 0, score: [] };
       c.started = true; save(doc);
-    } catch (e) { ld.stop(); chapterView(wrap, ctx, idx); apiError(e, () => lesson(wrap, ctx, idx)); return; }
+    } catch (e) { ld.stop(false); chapterView(wrap, ctx, idx); apiError(e, () => lesson(wrap, ctx, idx)); return; }
     ld.stop();
   }
   const les = doc.lessons[idx];

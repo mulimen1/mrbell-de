@@ -85,7 +85,7 @@ async function generate(wrap, ctx, chIdx, o) {
     ld.stop(); savedToast('karten');
     study(wrap, ctx, cards.map(c => ({ c, d: deck })), deck.title); freshen(wrap);
   } catch (e) {
-    ld.stop();
+    ld.stop(false);
     // Gast-Kontingent schon verbraucht: kein zweites Fenster – die Karten warten hinter der Anmeldung
     if (gate && e?.code === 'need_account') return lockedPreview(wrap, { kind: 'zettel', title: L('Deine Karten warten auf dich', 'Your cards are waiting'), text: L('Mit kostenlosem Konto schreibt Max sie dir sofort – und fragt dich ab, bevor du sie vergisst.', 'With a free account Max writes them right away – and quizzes you before you forget.'), onUnlock: () => generate(wrap, ctx, chIdx, { count: 12 }) });
     overview(wrap, ctx); apiError(e, () => generate(wrap, ctx, chIdx, o));

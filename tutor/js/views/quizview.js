@@ -100,7 +100,7 @@ async function generate(wrap, ctx, st) {
     const quiz = { id: uid(), title: ch ? ch.title : (r.data.title || 'Quiz'), questions: qs, diff: st.diff, created: Date.now(), results: [] };
     doc.quizzes.push(quiz); save(doc);
     ld.stop(); run(wrap, ctx, quiz); freshen(wrap); savedToast('quiz');
-  } catch (e) { ld.stop(); overview(wrap, ctx, st.focus); apiError(e, () => generate(wrap, ctx, st)); }
+  } catch (e) { ld.stop(false); overview(wrap, ctx, st.focus); apiError(e, () => generate(wrap, ctx, st)); }
 }
 
 // Klausur-Simulator: Dauer, Umfang, Bestehensgrenze und echte Klausurbedingungen einstellen
@@ -132,7 +132,7 @@ async function exam(wrap, ctx) {
     const quiz = { id: uid(), title: L('Probeklausur · ', 'Mock exam · ') + new Date().toLocaleDateString(LOCALE), questions: qs, diff: 'Klausur', exam: true, minutes: cfg.minutes, pass: cfg.pass, silent: cfg.silent, created: Date.now(), results: [] };
     doc.quizzes.push(quiz); save(doc);
     ld.stop(); run(wrap, ctx, quiz); freshen(wrap); savedToast('quiz');
-  } catch (e) { ld.stop(); overview(wrap, ctx); apiError(e, () => exam(wrap, ctx)); }
+  } catch (e) { ld.stop(false); overview(wrap, ctx); apiError(e, () => exam(wrap, ctx)); }
 }
 
 function run(wrap, ctx, quiz) {

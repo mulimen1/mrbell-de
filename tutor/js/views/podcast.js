@@ -111,7 +111,7 @@ async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), m
     const p = { id: uid(), title: r.data.title || L('Folge', 'Episode'), lines, created: Date.now(), lang: plang, voice: mvoice, len, tone, focus: ch ? ch.title : null, real: true, audio: [] };
     doc.podcasts.push(p); save(doc);
     ld.stop(); player(wrap, ctx, p); freshen(wrap); savedToast('podcasts');
-  } catch (e) { ld.stop(); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, len, focus, tone, plang, mvoice)); }
+  } catch (e) { ld.stop(false); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, len, focus, tone, plang, mvoice)); }
 }
 
 function player(wrap, ctx, p) {

@@ -4354,3 +4354,27 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 .ln-empty.ln-over .ln-dci { animation: lnbob .6s ease-in-out infinite alternate; }
 @keyframes lnbob { to { transform: translateY(-4px); } }
 
+
+/* Läuft im Hintergrund – oben rechts (Karteikarten, Quiz, Podcast … werden erstellt) */
+.bgjobs { position: fixed; z-index: 130; top: 68px; right: 16px; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; pointer-events: none; }
+.bj { pointer-events: auto; display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 6px 0 8px; border-radius: 999px; background: var(--panel); color: var(--ink); border: 1px solid var(--line2); box-shadow: 0 14px 34px -16px rgba(0,0,0,.45); font: 600 13.5px var(--sans); cursor: pointer; white-space: nowrap; animation: bjin .4s cubic-bezier(.16,1,.3,1) both; transition: background .3s, color .3s, transform .15s; }
+.bj:hover { transform: translateY(-1px); }
+.bj:active { transform: scale(.97); }
+@keyframes bjin { from { opacity: 0; transform: translateY(-8px) scale(.96); } }
+.bj-i { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--panel2); flex: none; }
+.bj-i .ico, .bj-i svg { width: 16px; height: 16px; }
+.bj-spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line2); border-top-color: var(--ink); animation: bjspin .8s linear infinite; }
+@keyframes bjspin { to { transform: rotate(360deg); } }
+.bj-p { font: 650 12.5px var(--mono); color: var(--mute); min-width: 38px; text-align: right; }
+.bj-x { width: 28px; height: 28px; border: 0; background: none; color: var(--mute); border-radius: 50%; display: grid; place-items: center; cursor: pointer; padding: 0; }
+.bj-x:hover { background: var(--panel2); color: var(--ink); }
+.bj-x .ico, .bj-x svg { width: 14px; height: 14px; }
+.bj.ok { background: var(--inv); color: var(--onInv); border-color: transparent; animation: bjin .4s cubic-bezier(.16,1,.3,1) both, bjpulse 1.6s ease 2 .3s; }
+.bj.ok .bj-i { background: color-mix(in srgb, var(--onInv) 18%, transparent); }
+.bj.ok .bj-p { color: var(--onInv); text-decoration: underline; text-underline-offset: 3px; }
+.bj.ok .bj-x { color: var(--onInv); opacity: .75; }
+.bj.ok .bj-x:hover { background: color-mix(in srgb, var(--onInv) 15%, transparent); }
+@keyframes bjpulse { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--inv) 22%, transparent), 0 14px 34px -16px rgba(0,0,0,.45); } }
+@media (max-width: 600px) { .bgjobs { top: calc(62px + env(safe-area-inset-top, 0px)); right: 10px; left: 10px; align-items: stretch; } .bj { justify-content: flex-start; } .bj-t { flex: 1; overflow: hidden; text-overflow: ellipsis; } }
+@media (prefers-reduced-motion: reduce) { .bj, .bj.ok { animation: none; } .bj-spin { animation-duration: 2s; } }
+@media (max-width: 600px) { body:has(.m-ret:not([hidden])) .bgjobs { top: calc(124px + env(safe-area-inset-top, 0px)); } }
