@@ -25,11 +25,11 @@ export function thought(faceEl, kind = 'generic', fallback = []) {
 
 // Ladeanzeige: Gesicht + Gedankenblase + Fortschrittsbalken mit Countdown + Abbrechen.
 // Die Dauer lernt sie mit (Mittelwert der letzten Male pro Art), damit der Countdown stimmt.
-const EST = { quiz: 28, exam: 45, path: 35, lesson: 26, podcast: 50, cards: 22, summary: 34, topic: 22, ingest: 15, generic: 25 };
+const EST = { ex: 30, quiz: 28, exam: 45, path: 35, lesson: 26, podcast: 50, cards: 22, summary: 34, topic: 22, ingest: 15, generic: 25 };
 // ---------- Läuft im Hintergrund (oben rechts) ----------
 // Wer während des Erstellens woanders hinklickt, sieht oben rechts: „Karteikarten werden erstellt · 42 %“ – antippen führt zurück.
 // Fertig: der Knopf wird grün („Karteikarten fertig · Ansehen“).
-const JOB = { cards: ['Karteikarten', 'Flashcards'], quiz: ['Quiz', 'Quiz'], exam: ['Probeklausur', 'Mock exam'], path: ['Lernpfad', 'Study path'], lesson: ['Lektion', 'Lesson'], podcast: ['Podcast', 'Podcast'], summary: ['Lernzettel', 'Study sheet'] };
+const JOB = { cards: ['Karteikarten', 'Flashcards'], quiz: ['Quiz', 'Quiz'], ex: ['Übung', 'Exercise'], exam: ['Probeklausur', 'Mock exam'], path: ['Lernpfad', 'Study path'], lesson: ['Lektion', 'Lesson'], podcast: ['Podcast', 'Podcast'], summary: ['Lernzettel', 'Study sheet'] };
 let jobBox = null;
 function jobsEl() {
   if (jobBox && jobBox.isConnected) return jobBox;
@@ -43,13 +43,14 @@ function bgJob(kind, back) {
   const nm = JOB[kind] ? L(JOB[kind][0], JOB[kind][1]) : L('Max', 'Max');
   const pct = h('b', { class: 'bj-p' }, '0 %');
   const txt = h('span', { class: 'bj-t' }, nm, ' ', kind === 'cards' ? L('werden erstellt', 'in progress') : L('wird erstellt', 'in progress'));
-  const x = h('button', { class: 'bj-x', type: 'button', 'aria-label': L('Ausblenden', 'Hide'), html: ico('x'), onclick: e => { e.stopPropagation(); el.remove(); } });
-  const el = h('div', { class: 'bj run', role: 'button', tabindex: 0, title: L('Zurück dorthin', 'Go back there'), onclick: () => { goBack(back); if (el.classList.contains('ok')) el.remove(); } },
+  const x = h('button', { class: 'bj-x', type: 'button', 'aria-label': L('Ausblenden', 'Hide'), html: ico('x'), onclick: e => { e.stopPropagation(); gone = true; el.remove(); } });
+  const el = h('div', { class: 'bj run', role: 'button', tabindex: 0, title: L('Zurück dorthin', 'Go back there'), onclick: () => { if (typeof back === 'function') back(); else goBack(back); if (el.classList.contains('ok')) el.remove(); } },
     h('span', { class: 'bj-i' }, h('i', { class: 'bj-spin' })), txt, pct, x);
   el.addEventListener('keydown', e => { if (e.key === 'Enter') el.click(); });
-  let shown = false;
+  let shown = false, gone = false;
   return {
-    show() { if (shown) return; shown = true; jobsEl().appendChild(el); },
+    show() { if (gone || (shown && el.isConnected)) return; shown = true; jobsEl().appendChild(el); },
+    hide() { if (shown && el.classList.contains('run')) { el.remove(); shown = false; } },
     set(p) { pct.textContent = Math.round(p * 100) + ' %'; },
     done(ok) {
       if (!shown) return;
@@ -61,6 +62,17 @@ function bgJob(kind, back) {
   };
 }
 
+// Für Erstellungen ohne Ladeanzeige (z. B. Quiz/Übung live auf der Tafel): el = Bereich, in dem es entsteht
+export function watchJob(kind, el, { back = location.hash, est } = {}) {
+  const e = Math.max(6, Math.min(120, +ls.get('tutor.est.' + kind, est || EST[kind] || EST.generic) || 25));
+  const job = bgJob(kind, back), t0 = Date.now(); let done = false;
+  const iv = setInterval(() => {
+    if (done) return clearInterval(iv);
+    const s = (Date.now() - t0) / 1000, p = s < e ? (s / e) * .94 : .94 + .055 * (1 - Math.exp(-(s - e) / 12));
+    if (!el.isConnected || !el.getClientRects().length) { job.show(); job.set(p); } else job.hide();
+  }, 250);
+  return { stop(ok = true) { if (done) return; done = true; clearInterval(iv); job.done(ok); const s = (Date.now() - t0) / 1000; if (ok && s > 2) ls.set('tutor.est.' + kind, Math.round(e * .6 + s * .4)); } };
+}
 export function loading(root, title, lines = [], kind = 'generic') {
   const ctrl = new AbortController();
   let rejectCancel;
@@ -83,7 +95,9 @@ export function loading(root, title, lines = [], kind = 'generic') {
     if (done) return clearInterval(iv);
     const s = (Date.now() - t0) / 1000;
     const p = s < est ? (s / est) * .94 : .94 + .055 * (1 - Math.exp(-(s - est) / 12));
-    if (!el.isConnected) { job.show(); job.set(p); return; }   // woanders hingeklickt: läuft oben rechts weiter
+    // woanders hingeklickt (Seite weg oder nur versteckt, z. B. anderer Reiter): läuft oben rechts weiter
+    if (!el.isConnected || !el.getClientRects().length) { job.show(); job.set(p); return; }
+    job.hide();
     fill.style.width = (p * 100).toFixed(1) + '%';
     const left = Math.ceil(est - s);
     num.textContent = left > 0 ? L(`noch ca. ${left} s`, `about ${left} s left`) : L('gleich fertig …', 'almost done …');

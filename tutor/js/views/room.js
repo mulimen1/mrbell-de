@@ -89,6 +89,15 @@ export function render(root, ctx = {}) {
   const stage = h('section', { class: 'rm-stage' }, corner, bar, scroll, talk, dock, drop);
   const right = h('aside', { class: 'rm-right', 'aria-label': L('Skripte', 'Slides') });
   const room = h('div', { class: 'room home' }, stage, right);
+  // Laptop mit Tafel: Eingabe nur unter dem Gespräch (links) – die Tafel reicht rechts bis ganz nach unten
+  const placeDock = () => {
+    const side = room.classList.contains('talk') && room.classList.contains('has-board') && innerWidth > 900;
+    if (side && dock.parentNode !== talkCol) talkCol.appendChild(dock);
+    else if (!side && dock.parentNode !== stage) stage.insertBefore(dock, drop);
+    room.classList.toggle('dock-side', side);
+  };
+  new MutationObserver(placeDock).observe(room, { attributes: true, attributeFilter: ['class'] });
+  addEventListener('resize', placeDock);
   const thoughtHome = h('div', { class: 'rm-th', hidden: true }), thoughtBar = h('div', { class: 'rm-th', hidden: true });
   heroSlot.appendChild(thoughtHome); talkSlot.appendChild(thoughtBar);
   root.appendChild(room);

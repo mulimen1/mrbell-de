@@ -2,6 +2,7 @@
 // Mini-Check nach dem ersten Absatz, Quiz und Übung live auf der Seite (ohne Konto), Max kommentiert beim Scrollen,
 // danach eine ehrliche Speichern-Karte. Alles läuft auf der Seite – nichts springt auf, kein Raumwechsel.
 import { h, ls } from './util.js';
+import { watchJob } from './ui.js';
 import { L } from './i18n.js';
 import { ask } from './api.js';
 import { mathify, polishBoard, queueMath } from './math.js';
@@ -207,6 +208,7 @@ export async function quiz(c) {
   head.textContent = qTitle(c, when);
   const sk = skeleton(s, L('Max baut dein Quiz – live …', 'Max is building your quiz – live …'));
   c.think(THINK_Q);
+  const job = watchJob('quiz', s, { back: () => { c.back(); setTimeout(() => scrollToEl(c, s), 450); }, est: 25 });
   capUse('q');
   const prompt = `[Quiz-Auftrag von der Themenseite „${c.topic}“. Antworte AUSSCHLIESSLICH in genau diesem Textformat – keine Tafel, keine Einleitung, kein Markdown, keine Codeblöcke:
 #QUIZ
@@ -224,7 +226,7 @@ Genau 5 Fragen, getrennt durch eine Zeile mit ---. Je 3–4 Antworten, genau ein
 Grundlage ist diese Seite: ${plain(c.b.html)}]`;
   let text = '', err = null;
   try { text = await aiCall(prompt); } catch (e) { err = e; }
-  c.think(null); sk.remove(); s.classList.remove('m-busy');
+  job.stop(!err); c.think(null); sk.remove(); s.classList.remove('m-busy');
   if (err) { s.append(h('p', { class: 'm-err' }, err.message || L('Das hat nicht geklappt.', 'That didn’t work.')), h('button', { class: 'm-retry', type: 'button', onclick: () => { s.remove(); quiz(c); } }, L('Nochmal', 'Try again'))); if (err.code === 'need_account' || err.code === 'limit' || err.code === 'cap') saveCard(c, s, true); return; }
   const qs = parseQuiz(text);
   if (!qs) { fallback(c, s, text); saveCard(c, s); return; }
@@ -324,6 +326,7 @@ export async function exercise(c, focus) {
   head.textContent = xTitle(c, when);
   const sk = skeleton(s, L('Max baut deine Übung – live …', 'Max is building your exercise – live …'));
   c.think(THINK_X);
+  const job = watchJob('ex', s, { back: () => { c.back(); setTimeout(() => scrollToEl(c, s), 450); }, est: 30 });
   capUse('x');
   const typ = prefType(c);
   const FMT = {
@@ -362,7 +365,7 @@ Fachlich 100 % korrekt und eindeutig, deutsches Uni-BWL, nachgerechnet. ${whenHi
 Grundlage ist diese Seite: ${plain(c.b.html)}]`;
   let text = '', err = null;
   try { text = await aiCall(prompt); } catch (e) { err = e; }
-  c.think(null); sk.remove(); s.classList.remove('m-busy');
+  job.stop(!err); c.think(null); sk.remove(); s.classList.remove('m-busy');
   if (err) { s.append(h('p', { class: 'm-err' }, err.message || L('Das hat nicht geklappt.', 'That didn’t work.')), h('button', { class: 'm-retry', type: 'button', onclick: () => { s.remove(); exercise(c, focus); } }, L('Nochmal', 'Try again')), trn); if (err.code === 'need_account' || err.code === 'limit' || err.code === 'cap') saveCard(c, s, true); return; }
   const ex = parseExercise(text);
   if (!ex) { fallback(c, s, text); s.append(trn); saveCard(c, s); return; }

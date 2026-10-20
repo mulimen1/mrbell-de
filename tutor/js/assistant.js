@@ -353,7 +353,7 @@ export function mountAssistant() {
   function entryCtx() {
     const b = boards[bIdx], t = bArea.querySelector('.tafel'); if (!b || !t || building) return null;
     const tr = trainerFor(b.title + ' ' + (b.slug || '') + ' ' + buildTitle), [topic, stem] = topicOf(b, tr);
-    return { t, b, slug: b.slug || '', topic, stem, trainer: tr ? tr[0] : '', scroller: bArea, say: pSay, think: pThink, note: n => { entryNotes.push(n); if (entryNotes.length > 6) entryNotes.shift(); }, busy: pBusy };
+    return { t, b, slug: b.slug || '', topic, stem, trainer: tr ? tr[0] : '', scroller: bArea, say: pSay, think: pThink, note: n => { entryNotes.push(n); if (entryNotes.length > 6) entryNotes.shift(); }, busy: pBusy, back: () => backTo(b) };
   }
   function drawPage(b) {
     const c = b ? entryCtx() : null;
@@ -391,6 +391,11 @@ export function mountAssistant() {
     const show = MOB.matches && !pageOn && !/^#\/app\/tutor/.test(location.hash) && retIdx >= 0 && !!boards[retIdx] && !document.documentElement.classList.contains('m-rlock') && !root.classList.contains('m-pchat');
     mRet.hidden = !show;
     if (show) { mRet.querySelector('.m-retl').textContent = L('Zurück zu ', 'Back to ') + retLabel(); const tb = document.querySelector('.topbar'); const r = tb && tb.getClientRects().length ? tb.getBoundingClientRect() : null; mRet.style.top = Math.max(8, Math.round((r ? r.bottom : 0) + 8)) + 'px'; }
+  }
+  // Zurück zu genau dieser Tafel (Knopf oben rechts nach Quiz/Übung im Hintergrund) – ohne sie neu zu zeichnen, wenn sie noch dran ist
+  function backTo(b) {
+    const go = () => { const i = boards.indexOf(b); if (i >= 0 && i !== bIdx) { bIdx = i; try { drawBoard(false); } catch (e) {} } openBoard(); try { syncPage(); syncRet(); } catch (e) {} };
+    if (!/^#\/app\/tutor/.test(location.hash)) { location.hash = '#/app/tutor'; setTimeout(go, 260); } else go();
   }
   function backToPage() {
     if (retIdx < 0 || !boards[retIdx]) return false;
@@ -911,7 +916,7 @@ export function mountAssistant() {
     const t = h('div', { class: 'tafel' }, h('h2', { class: 'tt' }, b.title));
     t.appendChild(polishBoard(sanitize(b.html)));
     t.appendChild(nextChips(b));
-    bArea.replaceChildren(t); bArea.scrollTop = 0;
+    bArea.replaceChildren(t); bArea.scrollTop = 0; bArea.dataset.b = String(bIdx); bArea.__b = b;
     if (write) t.classList.add('ai-write');
     else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) appear(t);
     stopTour(); drawTourBtn(); drawBMore(); root.classList.remove('m-bld');
@@ -1853,7 +1858,8 @@ export function mountAssistant() {
     boardShown: () => boardOpen && !boardMin,
     // Von außen (Bibliothek): eine gespeicherte Tafel groß zeigen
     showBoard: b => { if (!b || !b.html) return; let i = boards.findIndex(x => x.title === b.title && x.html === b.html); if (i < 0) { boards.push({ title: b.title, html: b.html }); i = boards.length - 1; } bIdx = i; drawBoard(false); openBoard(); },
-    restoreBoard: () => { if (keepBoard && boards.length && !boardOpen) { keepBoard = false; drawBoard(false); openBoard(); } },
+    // Zurück im Tutor: dieselbe Tafel nicht neu zeichnen – sonst wäre ein inzwischen gebautes Quiz/eine Übung darauf weg
+    restoreBoard: () => { if (keepBoard && boards.length && !boardOpen) { keepBoard = false; if (!(bArea.querySelector('.tafel') && bArea.dataset.b === String(bIdx) && bArea.__b === boards[bIdx])) drawBoard(false); openBoard(); } },
   };
   return api;
 }

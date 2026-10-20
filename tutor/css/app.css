@@ -4378,3 +4378,7 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 @media (max-width: 600px) { .bgjobs { top: calc(62px + env(safe-area-inset-top, 0px)); right: 10px; left: 10px; align-items: stretch; } .bj { justify-content: flex-start; } .bj-t { flex: 1; overflow: hidden; text-overflow: ellipsis; } }
 @media (prefers-reduced-motion: reduce) { .bj, .bj.ok { animation: none; } .bj-spin { animation-duration: 2s; } }
 @media (max-width: 600px) { body:has(.m-ret:not([hidden])) .bgjobs { top: calc(124px + env(safe-area-inset-top, 0px)); } }
+/* Laptop mit Tafel: Eingabe nur links unter dem Gespräch, Tafel bis ganz unten */
+.room.dock-side .rm-col .rm-dock { width: 100%; padding: 8px 0 16px; margin: 0; }
+.room.dock-side .rm-talk { padding-bottom: 16px; }
+.room.dock-side .rm-board { padding-bottom: 0; }
