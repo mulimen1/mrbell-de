@@ -36,8 +36,7 @@ export function handle(text) {
   if (!cur) return null;
   // X-Modus (pairs): feste Antworten auf bestimmte Fragen, in beliebiger Reihenfolge; alles andere geht normal an die KI
   if (cur.pairs) { const hit = cur.steps.find(st => (st.when || []).some(w => comp(t).includes(comp(w)))); return hit ? { step: hit, prefetch: [] } : null; }
-  const st = cur.steps[idx];
-  if (!st || !(st.when || []).some(w => comp(t).includes(comp(w)))) return { msg: `Gehört: „${String(text).slice(0, 60)}“ – Sketch wartet auf: „${st ? st.hint : ''}“`, miss: true };
+  // Sketch läuft: egal was gehört wurde – der nächste Schritt kommt (keine Spracherkennung, die den Take ruiniert)
   return next([]);
 }
 function next(prefetch) {

@@ -1497,9 +1497,10 @@ export function mountAssistant() {
     vTour = false; if (tourActive()) stopTour();
     unlockAudio(); if (!s.silent) prefetchSpeech(s.voice || s.say);
     if (MOB.matches) fold(false);
-    capQuestion(text); capQ.classList.remove('live'); capThinking();
+    const q = s.hint || text;   // im Bild steht der Skript-Satz, nie die (evtl. falsche) Transkription
+    capQuestion(q); capQ.classList.remove('live'); capThinking();
     const ex = curEx; if (!ex) return; ex.sketch = true; ex.voice = s.voice || '';
-    try { STAGE?.onAsk?.(text); } catch (e) {}
+    try { STAGE?.onAsk?.(q); } catch (e) {}
     const my = ++gen; ctrl = new AbortController();
     const raw = s.say + (s.board ? `\n\n\`\`\`tafel ${s.board.title}\n${s.board.html}\n\`\`\`` : '');
     try {
@@ -1598,7 +1599,7 @@ export function mountAssistant() {
     try { await actx.resume(); running = actx.state === 'running'; } catch (x) {}
     if (rec !== r) return;
     wave.mic(actx, s);
-    lsess = startLive(actx, s, { onText: t => { if (t && state === 'listen' && rec === r) capQuestion(t, true); } });
+    lsess = startLive(actx, s, { onText: t => { if (t && state === 'listen' && rec === r && !Creator.active()) capQuestion(t, true); } });
     clearTimeout(capTimer2); capTimer2 = setTimeout(() => { if (rec === r) stopListen(); }, 45000);
     if (!running) return;   // ohne laufendes Audio keine Stille-Erkennung – „Fertig“ drücken oder 45-s-Grenze
     try {
