@@ -5,6 +5,8 @@ export const lang = (() => {
   try { const q = new URLSearchParams(location.search).get('lang'); if (q === 'de' || q === 'en') { ls.set('tutor.lang', q); return q; } } catch (e) {}
   const v = ls.get('tutor.lang', null);
   if (v === 'de' || v === 'en') return v;
+  // Suchmaschinen (Googlebot crawlt mit Englisch) bekommen immer die deutsche Seite – sonst landet der englische Titel bei Google
+  if (/bot|crawl|spider|slurp|google-inspectiontool|lighthouse/i.test(navigator.userAgent || '')) return 'de';
   return /^de\b|^de-/i.test(navigator.language || 'de') ? 'de' : 'en';
 })();
 export const EN = lang === 'en';
