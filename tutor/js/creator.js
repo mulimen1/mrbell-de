@@ -9,9 +9,10 @@ const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
 // Spracherkennung schreibt Wörter mal mit Bindestrich, mal getrennt, mal zusammen – verglichen wird ohne Leer- und Satzzeichen
 const comp = s => norm(s).replace(/[^a-z0-9äöüß]/g, '');
 
+let denied = false;   // Server sagt „kein Creator-Konto“ → nicht bei jeder Frage neu fragen
 export function load() {
-  if (SK || !getSession()) return Promise.resolve(!!SK);
-  if (!loading) loading = ask('creator', {}).then(r => { SK = Array.isArray(r.sketches) ? r.sketches : null; return !!SK; }).catch(() => false).finally(() => { loading = null; });
+  if (SK || denied || !getSession()) return Promise.resolve(!!SK);
+  if (!loading) loading = ask('creator', {}).then(r => { SK = Array.isArray(r.sketches) ? r.sketches : null; return !!SK; }).catch(e => { if (e && e.code === 'origin') denied = true; return false; }).finally(() => { loading = null; });
   return loading;
 }
 export const active = () => !!cur;
@@ -37,7 +38,13 @@ export function handle(text) {
     if (sk.steps[0] && sk.steps[0].start) return next(sk.steps.slice(1));
     return { msg: `Sketch „${sk.name}“ bereit.`, prefetch: sk.steps };
   }
-  if (!cur) return null;
+  // Startsatz („Darf ich vorstellen …“) startet den Sketch von selbst – kein /sketch nötig, auch nicht nach Neuladen
+  if (!cur) {
+    const sk = SK.find(x => !x.pairs && x.steps[0] && (x.steps[0].when || []).some(w => comp(t).includes(comp(w))));
+    if (!sk) return null;
+    cur = sk; idx = 0; last = sk; delete document.documentElement.dataset.creatorLabel;
+    return next(sk.steps.slice(1));
+  }
   // X-Modus (pairs): feste Antworten auf bestimmte Fragen, in beliebiger Reihenfolge; alles andere geht normal an die KI
   if (cur.pairs) { const hit = cur.steps.find(st => (st.when || []).some(w => comp(t).includes(comp(w)))); return hit ? { step: hit, prefetch: [] } : null; }
   // Sketch läuft: egal was gehört wurde – der nächste Schritt kommt (keine Spracherkennung, die den Take ruiniert)

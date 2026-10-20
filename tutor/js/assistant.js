@@ -1179,9 +1179,8 @@ export function mountAssistant() {
     if (!text || state === 'think') return;
     // Creator Mode: feste Sketch-Szene statt KI (nur wenn der Server die Sketche für dieses Konto geliefert hat)
     if (o.sketchKey) { const sk = Creator.keyNext(); if (sk) playSketch(text, sk); return; }
-    // Sketch läuft: gesprochene/getippte Sätze werden ignoriert – weiter geht's nur per Taste (sonst springt er doppelt)
-    if (Creator.sequential() && !Creator.isCmd(text)) { if (curEx && !curEx.done) dropEx(); setState('idle', L('Sketch läuft – weiter mit →', 'Sketch running – next with →')); return; }
-    if (Creator.isCmd(text) || Creator.active()) { if (Creator.isCmd(text)) await Creator.load(); const sk = Creator.handle(text); if (sk) { playSketch(text, sk); return; } }
+    // Creator Mode (nur Gründer-Konten): Startsatz oder /sketch → feste Szene; danach ist jeder Satz der nächste Schritt
+    { await Creator.load(); const sk = Creator.handle(text); if (sk) { playSketch(text, sk); return; } }
     if (!pendingMap && TOURQ.test(text) && route().tab) { pageTour(); return; }
     vTour = false;
     if (tourActive()) pauseTour();   // Frage mitten in der Führung: Max hält an, antwortet, dann geht's per ▶ weiter
