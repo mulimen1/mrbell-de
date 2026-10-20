@@ -261,3 +261,12 @@
 .ms-pbar { display: block; height: 100%; width: 2%; background: var(--inv); border-radius: 4px; transition: width .4s ease; }
 .ms-tools .ms-vid { background: var(--panel); color: var(--ink); border: 1px solid var(--line2); }
 @media (min-width: 900px) { .ms-tools .ms-tb.ms-palb { display: none; } }
+
+/* Foto per Drag & Drop auf die ganze Mitschrift-Seite */
+.ms-dz { position: fixed; inset: 0; z-index: 900; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(255, 253, 246, .82); backdrop-filter: blur(3px); pointer-events: none; }
+.ms.ms-dragging .ms-dz { display: flex; animation: msDz .16s ease-out; }
+.ms-dzi { display: flex; flex-direction: column; align-items: center; gap: 8px; width: min(560px, 100%); padding: 48px 28px; border: 3px dashed #1f3c88; border-radius: 22px; background: #fffdf6; color: #1f3c88; text-align: center; box-shadow: 0 18px 50px rgba(31, 60, 136, .14); }
+.ms-dzi span svg { width: 44px; height: 44px; }
+.ms-dzi b { font-size: 24px; }
+.ms-dzi small { font-size: 15px; opacity: .75; }
+@keyframes msDz { from { opacity: 0; } to { opacity: 1; } }

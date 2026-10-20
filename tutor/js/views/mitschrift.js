@@ -14,7 +14,7 @@ import { pad, drawingEl, drawingJpeg } from '../mspad.js';
 
 const DKEY = 'tutor.ms.draft';
 let cssOn = false;
-function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=10', 'data-ms': '1' })); }
+function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=11', 'data-ms': '1' })); }
 
 export async function render(root, { id = '' } = {}) {
   css();
@@ -198,11 +198,19 @@ function editor(wrap, doc) {
   const takeFiles = fl => { const imgs = fl.filter(f => /^image\//.test(f.type) || /\.(png|jpe?g|webp|heic|heif)$/i.test(f.name || '')); const docs = fl.filter(f => !imgs.includes(f)); if (imgs.length) fromPhotos(imgs.slice(0, 6)); else if (docs.length) addSkript(docs[0]); };
   ta.addEventListener('dragover', e => { if (e.dataTransfer?.types?.includes('Files')) { e.preventDefault(); ta.classList.add('over'); } });
   ta.addEventListener('dragleave', () => ta.classList.remove('over'));
-  ta.addEventListener('drop', e => { const fl = [...(e.dataTransfer?.files || [])]; ta.classList.remove('over'); if (fl.length) { e.preventDefault(); takeFiles(fl); } });
+  // Drop aufs Schreibfeld übernimmt die ganze Seite (unten) – sonst käme das Foto doppelt an
   ta.addEventListener('paste', e => { const fl = [...(e.clipboardData?.files || [])]; if (fl.length) { e.preventDefault(); takeFiles(fl); } });
   const ed = h('div', { class: 'ms-ed' }, fachEl, tools, bp, body, foot);
+  // Foto irgendwo auf die Mitschrift-Seite ziehen → große Ablagefläche, loslassen → Max macht die saubere Mitschrift
+  const dz = h('div', { class: 'ms-dz', 'aria-hidden': 'true' }, h('div', { class: 'ms-dzi' }, h('span', { html: ico('camera') }), h('b', {}, L('Foto hier loslassen', 'Drop your photo here')), h('small', {}, L('Tafel, Folie oder Aufschrieb – Max schreibt es sauber ab', 'Board, slide or notes – Max writes it up neatly'))));
+  let dzN = 0;
+  const hasF = e => !!e.dataTransfer?.types?.includes('Files');
+  wrap.addEventListener('dragenter', e => { if (!hasF(e)) return; e.preventDefault(); dzN++; wrap.classList.add('ms-dragging'); });
+  wrap.addEventListener('dragover', e => { if (!hasF(e)) return; e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; });
+  wrap.addEventListener('dragleave', e => { if (!hasF(e)) return; if (--dzN <= 0) { dzN = 0; wrap.classList.remove('ms-dragging'); } });
+  wrap.addEventListener('drop', e => { if (!hasF(e)) return; dzN = 0; wrap.classList.remove('ms-dragging'); ta.classList.remove('over'); const fl = [...(e.dataTransfer?.files || [])]; if (!fl.length) return; e.preventDefault(); e.stopPropagation(); takeFiles(fl); });
   if ((z.strokes || []).length) setTimeout(() => setDraw(false), 0);
-  wrap.append(head, listBox, ed);
+  wrap.append(head, listBox, ed, dz);
   keep();
   return () => { cleanup(); zp && zp.stop(); document.removeEventListener('visibilitychange', onHide); removeEventListener('pagehide', onHide); persist(true).then(() => refreshList()); };
 
