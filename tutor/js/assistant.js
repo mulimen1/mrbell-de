@@ -1526,8 +1526,8 @@ export function mountAssistant() {
     let shown = false;
     // Ohne Ton: ganzen Text in SEINE Blase (nie in eine neuere)
     const showNow = (instant) => { if (shown) return; shown = true; ex.done = true; if (instant) aEl.replaceChildren(richText(txt)); else typeIt(aEl, txt, { scroll: capScroll }); if (t) writeAlong(t, () => 1); capScroll(); };
-    if (ex.sketch) showNow(true);   // Sketch: Max' Satz steht sofort in seiner Blase, die Stimme läuft dazu (kein Mitlaufen, das in Safari hängen kann)
     capThinking();
+    if (ex.sketch) { ex.a.hidden = false; showNow(true); }   // Sketch: Max' Satz steht sofort sichtbar in seiner Blase, die Stimme läuft dazu
     const chunks = speechChunks(text.slice(0, 2500)), total = chunks.reduce((a, c) => a + c.length, 0) || 1;
     const fetchTTS = s => TTSC.get(s) || ttsUrl(s, ctrl?.signal);
     const urls = [];
