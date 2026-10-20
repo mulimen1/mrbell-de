@@ -4,7 +4,7 @@
 // Nach dem letzten Schritt ist die Session vorbei und Max ist wieder der normale Tutor.
 import { ask, getSession } from './api.js';
 
-let SK = null, loading = null, cur = null, idx = 0;
+let SK = null, loading = null, cur = null, idx = 0, last = null;   // last: zuletzt gespielter Sketch – → startet ihn neu (nächster Take)
 const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
 // Spracherkennung schreibt Wörter mal mit Bindestrich, mal getrennt, mal zusammen – verglichen wird ohne Leer- und Satzzeichen
 const comp = s => norm(s).replace(/[^a-z0-9äöüß]/g, '');
@@ -16,6 +16,9 @@ export function load() {
 }
 export const active = () => !!cur;
 export const sequential = () => !!(cur && !cur.pairs);
+export const canKey = () => !!((cur && !cur.pairs) || last);
+// Nächster Take per Taste: ist der Sketch durch, beginnt er wieder von vorn
+export function keyNext() { if (!cur && last) { cur = last; idx = 0; } return cur && !cur.pairs ? next([]) : null; }
 export const isCmd = t => /^\/sketch\b/i.test(String(t || '').trim());
 
 // Liefert null (→ normaler Tutor), { msg } (nur Statuszeile) oder { step, prefetch } (feste Szene)
@@ -24,10 +27,10 @@ export function handle(text) {
   const t = norm(text);
   if (isCmd(t)) {
     const arg = t.slice(7).trim();
-    if (['stop', 'ende', 'reset', 'aus'].includes(arg)) { cur = null; idx = 0; delete document.documentElement.dataset.creatorLabel; return { msg: arg === 'reset' ? 'Sketch zurückgesetzt – neuer Take mit /sketch …' : 'Sketch beendet – Max ist wieder der normale Tutor.' }; }
+    if (['stop', 'ende', 'reset', 'aus'].includes(arg)) { cur = null; idx = 0; if (arg !== 'reset') last = null; delete document.documentElement.dataset.creatorLabel; return { msg: arg === 'reset' ? 'Sketch zurückgesetzt – neuer Take mit /sketch …' : 'Sketch beendet – Max ist wieder der normale Tutor.' }; }
     const sk = SK.find(s => s.id === arg);
     if (!sk) return { msg: 'Sketche: ' + SK.map(s => '/sketch ' + s.id).join(' · ') };
-    cur = sk; idx = 0;
+    cur = sk; idx = 0; last = sk.pairs ? null : sk;
     if (sk.pairs) { document.documentElement.dataset.creatorLabel = 'BWL Max'; }   // Screenshots: Markenname unter Max' Kopf
     else delete document.documentElement.dataset.creatorLabel;
     if (sk.pairs) return { msg: `${sk.name} an – ${sk.steps.length} vorbereitete Antworten. /sketch stop schaltet aus.` };

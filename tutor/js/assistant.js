@@ -1178,6 +1178,9 @@ export function mountAssistant() {
     const shown = String(o.show || text);
     if (!text || state === 'think') return;
     // Creator Mode: feste Sketch-Szene statt KI (nur wenn der Server die Sketche für dieses Konto geliefert hat)
+    if (o.sketchKey) { const sk = Creator.keyNext(); if (sk) playSketch(text, sk); return; }
+    // Sketch läuft: gesprochene/getippte Sätze werden ignoriert – weiter geht's nur per Taste (sonst springt er doppelt)
+    if (Creator.sequential() && !Creator.isCmd(text)) { if (curEx && !curEx.done) dropEx(); setState('idle', L('Sketch läuft – weiter mit →', 'Sketch running – next with →')); return; }
     if (Creator.isCmd(text) || Creator.active()) { if (Creator.isCmd(text)) await Creator.load(); const sk = Creator.handle(text); if (sk) { playSketch(text, sk); return; } }
     if (!pendingMap && TOURQ.test(text) && route().tab) { pageTour(); return; }
     vTour = false;
@@ -1490,12 +1493,12 @@ export function mountAssistant() {
   }
   // Creator Mode: Weiter per Taste (→ oder Bild runter, auch Presenter-Fernbedienung) – Max muss nichts hören, kein Mikro nötig
   document.addEventListener('keydown', e => {
-    if (!Creator.sequential() || e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (!Creator.canKey() || e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
     if (!['ArrowRight', 'PageDown'].includes(e.key)) return;
     const el = document.activeElement; if (el && /^(INPUT|TEXTAREA)$/.test(el.tagName) && el.value) return;
     e.preventDefault(); e.stopPropagation();
     if (state === 'think') return;
-    submit('weiter');
+    submit('weiter', { sketchKey: true });
   }, true);
   // Creator Mode: feste Szene abspielen – gleicher Weg wie eine echte Antwort (Stimme, Tafel, Mimik), aber ohne KI
   async function playSketch(text, r) {
