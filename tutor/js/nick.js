@@ -209,6 +209,10 @@ export function greetOnLoad() {
   const a = getAccount(); if (!a) return;
   let t = 0; try { t = +sessionStorage.getItem('tutor.greetAt') || 0; } catch (e) {}
   if (t) return;
+  // Begrüßung mit Lernserie nur beim ersten Öffnen am Tag – danach steht die Serie nur noch klein oben im Tutor
+  const today = new Date().toLocaleDateString('sv-SE');
+  if (ls.get('tutor.greetDay', '') === today) return;
+  ls.set('tutor.greetDay', today);
   try { sessionStorage.setItem('tutor.greetAt', String(Date.now())); } catch (e) {}
   setTimeout(() => greetSplash(getNick(a)), 500);
 }

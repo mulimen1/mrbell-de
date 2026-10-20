@@ -70,8 +70,22 @@ export function render(root, ctx = {}) {
   const skBtn = () => h('button', { class: 'rm-skb', type: 'button', 'aria-expanded': 'false', onclick: () => toggleRail(), title: L('Deine Skripte – antippen oder in den Chat ziehen', 'Your slides – tap or drag into the chat') },
     h('span', { html: ico('file') }), h('span', { class: 'rm-skl' }, L('Skripte', 'Slides')), h('b', { class: 'rm-skn' }), h('span', { class: 'rm-skc', html: ico('left') }));
   const skBtnHome = skBtn(), skBtnBar = skBtn();
+  // Lernserie: kleine grüne Flamme neben den Einstellungen – grau, solange heute noch nicht gelernt wurde
+  const FLAME = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg>';
+  const stkN = h('b', { class: 'rm-stn' }, '0');
+  const stk = h('span', { class: 'rm-streak', role: 'img' }, h('span', { class: 'rm-fl', html: FLAME }), stkN);
+  const drawStreak = () => {
+    let days = {}; try { days = M.activityDays(S.list || []); } catch (e) {}
+    const today = !!days[M.dayKey()], n = M.streak(days);
+    stkN.textContent = String(n); stk.classList.toggle('on', today); stk.classList.toggle('zero', !n);
+    const t = !n ? L('Lernserie: Heute anfangen – jeder Tag zählt.', 'Streak: start today – every day counts.')
+      : today ? L(`${n} ${n === 1 ? 'Tag' : 'Tage'} Lernserie. Heute schon dabei.`, `${n}-day streak. Done for today.`)
+      : L(`${n} ${n === 1 ? 'Tag' : 'Tage'} Lernserie – heute noch lernen, sonst ist sie weg.`, `${n}-day streak – study today to keep it.`);
+    stk.title = t; stk.setAttribute('aria-label', t);
+  };
+  drawStreak(); const stkIv = setInterval(drawStreak, 30000); const offStk = onChange(drawStreak);
   const bar = h('div', { class: 'rm-bar' },
-    timer, h('span', { style: { flex: 1 } }), oldBtn, cfgBtn(), skBtnBar,
+    timer, h('span', { style: { flex: 1 } }), oldBtn, stk, cfgBtn(), skBtnBar,
     h('button', { class: 'btn sm rm-end-b', type: 'button', onclick: () => endSession() }, L('Session beenden', 'End session')));
   const chatSlot = h('div', { class: 'rm-chat' });
   const boardSlot = h('div', { class: 'rm-board' });
@@ -536,7 +550,7 @@ export function render(root, ctx = {}) {
 
   return () => {
     stopped = true; clearInterval(iv); clearInterval(thIv); clearInterval(workT); clearTimeout(thT); removeEventListener('hashchange', onHash);
-    off1(); off2(); off3(); removeEventListener('maxcfg:change', onCfg); MOB.removeEventListener?.('change', onMq);
+    off1(); off2(); off3(); offStk(); clearInterval(stkIv); removeEventListener('maxcfg:change', onCfg); MOB.removeEventListener?.('change', onMq);
     document.removeEventListener('dragover', onOver); document.removeEventListener('dragleave', onLeave); document.removeEventListener('drop', onDrop);
     document.querySelector('.rm-sheet')?.remove();
     setRoomHead(null);

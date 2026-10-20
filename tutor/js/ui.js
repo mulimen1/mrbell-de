@@ -39,6 +39,17 @@ function goBack(hash) {
   const t = hash.replace(/^#\/?/, '').split('/'), target = '#/' + (t[0] === 'app' ? t.slice(0, 3) : t).join('/');
   if (location.hash === target) dispatchEvent(new HashChangeEvent('hashchange')); else location.hash = target;
 }
+// Zurück genau auf die Erstellung: die Seite, auf der es entsteht, wird wieder eingesetzt – läuft es noch, sieht man den Ladebalken,
+// ist es fertig, ist man direkt in den Karten/im Quiz/im Lernzettel (kein Umweg über eine Übersicht)
+function restorePage(hash, pageEl) {
+  const view = document.getElementById('view');
+  if (!pageEl || !view) return goBack(hash);
+  if (pageEl.isConnected) { pageEl.scrollIntoView({ block: 'start' }); return; }
+  const t = hash.replace(/^#\/?/, '').split('/'), target = '#/' + (t[0] === 'app' ? t.slice(0, 3) : t).join('/');
+  const put = () => { if (view.childNodes.length !== 1 || view.firstChild !== pageEl) { view.replaceChildren(pageEl); view.scrollTop = 0; } };
+  if (location.hash !== target) location.hash = target;
+  put(); let n = 0; const iv = setInterval(() => { put(); if (++n > 12) clearInterval(iv); }, 120);   // nach dem Neuaufbau der Ansicht nochmal einsetzen
+}
 function bgJob(kind, back) {
   const nm = JOB[kind] ? L(JOB[kind][0], JOB[kind][1]) : L('Max', 'Max');
   const pct = h('b', { class: 'bj-p' }, '0 %');
@@ -90,7 +101,10 @@ export function loading(root, title, lines = [], kind = 'generic') {
   const fc = face(f); fc.set('think');
   const tb = thought(f, kind, lines);
   const t0 = Date.now(); let done = false;
-  const job = bgJob(kind, location.hash);
+  const startHash = location.hash, vw = document.getElementById('view');
+  let pageEl = root; while (pageEl && pageEl.parentElement && pageEl.parentElement !== vw) pageEl = pageEl.parentElement;
+  if (!pageEl || pageEl.parentElement !== vw) pageEl = null;
+  const job = bgJob(kind, () => restorePage(startHash, pageEl));
   const tick = () => {
     if (done) return clearInterval(iv);
     const s = (Date.now() - t0) / 1000;

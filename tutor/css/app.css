@@ -4382,3 +4382,16 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 .room.dock-side .rm-col .rm-dock { width: 100%; padding: 8px 0 16px; margin: 0; }
 .room.dock-side .rm-talk { padding-bottom: 16px; }
 .room.dock-side .rm-board { padding-bottom: 0; }
+/* Lernserie neben den Einstellungen im Tutor */
+.rm-streak { display: inline-flex; align-items: center; gap: 5px; height: 34px; padding: 0 11px 0 8px; border-radius: 999px; border: 1px solid var(--line2); background: var(--panel); font: 700 13.5px var(--mono); color: var(--mute); cursor: default; user-select: none; }
+.rm-fl { display: grid; place-items: center; width: 18px; height: 18px; }
+.rm-fl svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
+.rm-fl svg .rm-fl-in { fill: currentColor; stroke: none; opacity: 0; }
+.rm-streak.on { color: var(--ink); border-color: color-mix(in srgb, var(--inv) 35%, var(--line2)); background: color-mix(in srgb, var(--inv) 7%, var(--panel)); }
+.rm-streak.on .rm-fl { color: var(--inv); }
+.rm-streak.on .rm-fl svg { fill: var(--inv); }
+.rm-streak.on .rm-fl svg .rm-fl-in { opacity: 1; }
+.rm-streak.on .rm-fl { animation: rmflk 3.2s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes rmflk { 0%, 100% { transform: scale(1) rotate(0); } 45% { transform: scale(1.06, .97) rotate(-2deg); } 70% { transform: scale(.98, 1.04) rotate(1.5deg); } }
+@media (prefers-reduced-motion: reduce) { .rm-streak.on .rm-fl { animation: none; } }
+@media (max-width: 600px) { .rm-streak { height: 32px; padding: 0 9px 0 6px; } }
