@@ -15,7 +15,7 @@
   function seite() { var p = location.pathname.replace(/^\/tutor\/?/, '/'); var h = location.hash.replace(/^#\/?/, '').split('/'); if (h[0] === 'app') { if (h[1] && !/^(neu|trainer)$/.test(h[1])) h[1] = 'skript'; return (p + '#/' + h.slice(0, 3).join('/')).slice(0, 60); } return p.slice(0, 60); }
   // ---------- Google Ads: Conversion-Messung (nur mit Einwilligung) ----------
   // id = Conversion-ID (AW-…), signup/ask = Conversion-Labels. Leer = aus. Gemeldet werden nur zwei Ereignisse, nie Inhalte.
-  var ADS = { id: '', signup: '', ask: '' };
+  var ADS = { id: 'AW-18519363266', signup: 'CzMLCK-Jp6MdEMKd3P5E', ask: '4QdyCJOUr6MdEMKd3P5E' };
   var firstUrl = location.href;
   // Einstieg über Anzeige/Themen-Link merken (für diesen Besuch): dann keine Nebenbei-Meldungen wie „In der Bibliothek gespeichert“
   try { if (/[?&](thema|gclid|gbraid|wbraid)=/.test(location.search)) sessionStorage.setItem('bm.adEntry', '1'); } catch (e) {}   // Einstiegs-URL mit Klick-Kennung (gclid) merken, bevor die App die Adresse ändert
