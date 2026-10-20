@@ -351,6 +351,15 @@ export function planSummary(doc) {
 export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in klplan' });
   root.appendChild(wrap);
+  // Creator Mode (Video-Takes): Plan frisch erstellen – mit der echten Erstell-Animation (Kapitel finden, dann Plan)
+  if (ctx.arg === 'sketch') {
+    history.replaceState(null, '', location.hash.replace(/\/sketch$/, ''));
+    let o = null; try { o = JSON.parse(sessionStorage.getItem('tutor.planSketch') || 'null'); sessionStorage.removeItem('tutor.planSketch'); } catch (e) {}
+    if (o && Date.now() - (o.at || 0) < 120000) {
+      ctx.doc.plan = null; ctx.doc.path = null; save(ctx.doc);
+      return withPath(wrap, ctx, { exam: o.exam, weekdays: [0, 1, 2, 3, 4, 5, 6], minutes: 60, goal: null });
+    }
+  }
   if (ctx.doc.plan) return planView(wrap, ctx);
   if (pathPending(ctx.doc)) {
     const ld = loading(wrap, L('Max baut gerade deinen Lernpfad …', 'Max is building your study path …'), [], 'path');

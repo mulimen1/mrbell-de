@@ -36,22 +36,29 @@ export function handle(text) {
     else delete document.documentElement.dataset.creatorLabel;
     if (sk.pairs) return { msg: `${sk.name} an – ${sk.steps.length} vorbereitete Antworten. /sketch stop schaltet aus.` };
     if (sk.steps[0] && sk.steps[0].start) return next(sk.steps.slice(1));
+    if (sk.armed) return { msg: `„${sk.name}“ scharf – ich warte auf deinen Satz an Max.`, prefetch: sk.steps };
     return { msg: `Sketch „${sk.name}“ bereit.`, prefetch: sk.steps };
   }
   // Startsatz („Darf ich vorstellen …“) startet den Sketch von selbst – kein /sketch nötig, auch nicht nach Neuladen
   if (!cur) {
-    const sk = SK.find(x => !x.pairs && x.steps[0] && (x.steps[0].when || []).some(w => comp(t).includes(comp(w))));
+    const sk = SK.find(x => !x.pairs && !x.armed && x.steps[0] && (x.steps[0].when || []).some(w => comp(t).includes(comp(w))));
     if (!sk) return null;
     cur = sk; idx = 0; last = sk; delete document.documentElement.dataset.creatorLabel;
     return next(sk.steps.slice(1));
   }
   // X-Modus (pairs): feste Antworten auf bestimmte Fragen, in beliebiger Reihenfolge; alles andere geht normal an die KI
   if (cur.pairs) { const hit = cur.steps.find(st => (st.when || []).some(w => comp(t).includes(comp(w)))); return hit ? { step: hit, prefetch: [] } : null; }
+  // Scharfer Sketch (z. B. Lernplan): wartet auf den Satz an Max – alles andere (Satz in die Kamera, Reaktion danach) wird ignoriert
+  if (cur.armed && idx === 0) {
+    const st = cur.steps[0];
+    if ((st.when || []).some(w => comp(t).includes(comp(w)))) return next([]);
+    return { msg: 'Bereit – sag deinen Satz an Max.', miss: true };
+  }
   // Sketch läuft: egal was gehört wurde – der nächste Schritt kommt (keine Spracherkennung, die den Take ruiniert)
   return next([]);
 }
 function next(prefetch) {
   const st = cur.steps[idx++];
-  if (idx >= cur.steps.length) cur = null;   // letzter Schritt → wieder normaler Tutor
+  if (idx >= cur.steps.length) { if (cur.armed) idx = 0; else cur = null; }   // letzter Schritt → normaler Tutor; scharfe Sketche bleiben scharf für den nächsten Take
   return { step: st, prefetch };
 }
