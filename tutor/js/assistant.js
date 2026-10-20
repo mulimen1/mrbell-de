@@ -13,7 +13,7 @@ import { startLive } from './livestt.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { VOICES, getVoice, voiceChip } from './voice.js';
-import { L, setOutLang, getOutLang } from './i18n.js';
+import { L, EN, setOutLang, getOutLang } from './i18n.js';
 import { speakMath, polishBoard, tableHints } from './math.js';
 import { THEMEN } from './themen.js';
 import { applyThemeButtons } from './theme.js';
@@ -347,6 +347,8 @@ export function mountAssistant() {
     if (tr) { const n = tr[1].replace(/\s+üben$/, '').replace(/^Practi[cs]e\s+/, ''); return [n, /\s/.test(n) ? '' : n.replace(/sätze$/, 'satz')]; }
     const n = String(b.title || '').split(/\s[–—-]\s|:/)[0].trim().slice(0, 32); return [n, ''];
   }
+  const SITZT = { bilanz: 'Die Bilanz muss sitzen.', buchungssatz: 'Buchungssätze müssen sitzen.', kapitalwert: 'Der Kapitalwert muss sitzen.', deckungsbeitrag: 'Der Deckungsbeitrag muss sitzen.', 'break-even': 'Der Break-even muss sitzen.', guv: 'Die GuV muss sitzen.', swot: 'Die SWOT-Analyse muss sitzen.', abschreibung: 'Abschreibungen müssen sitzen.', 'marketing-mix': 'Der Marketing-Mix muss sitzen.', zuschlagskalkulation: 'Die Zuschlagskalkulation muss sitzen.', bwl: 'Die BWL-Basics müssen sitzen.' };
+  const sitzt = c => EN ? `Lock in ${c.topic}.` : SITZT[c.slug] || (c.topic ? `${c.topic} – das muss sitzen.` : 'Die BWL-Basics müssen sitzen.');
   const entryNotes = [];
   function entryCtx() {
     const b = boards[bIdx], t = bArea.querySelector('.tafel'); if (!b || !t || building) return null;
@@ -355,6 +357,9 @@ export function mountAssistant() {
   }
   function drawPage(b) {
     const c = b ? entryCtx() : null;
+    // Unterzeile passend zum Thema der Anzeige: „Die Bilanz muss sitzen.“
+    const sub = c ? sitzt(c) : L('Die BWL-Basics müssen sitzen.', 'Lock in the basics.');
+    [pCards, dCards].forEach(x => { const e = x.querySelector('small'); if (e) e.textContent = sub; });
     pBtns.classList.remove('m-small');
   }
   // Kleiner Max-Chat über der Seite – man bleibt auf der Seite
