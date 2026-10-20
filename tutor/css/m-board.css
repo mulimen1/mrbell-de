@@ -358,18 +358,16 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 /* Handy: „Verlauf“ links über Max' letzter Antwort, Rechner/Lexikon rechts in derselben Reihe */
 @media (max-width: 600px) { .asst.open .m-hist:not([hidden]) { left: 12px; transform: none; height: 36px; font-size: 13.5px; } }
 
-/* Laptop: Karteikarten-Knopf unten links auf der Einstiegs-Tafel */
+/* Laptop: Karteikarten-Knopf oben in der Leiste über der Tafel, neben den Einstellungen */
 .m-dcards { display: none; }
 @media (min-width: 601px) {
-  .asst.m-entryb:not(.m-bld) .ai-board .m-dcards { display: inline-flex; position: absolute; z-index: 6; left: 18px; bottom: 18px; max-width: calc(100% - 36px); }
-  .m-dcards { align-items: center; gap: 11px; min-height: 58px; padding: 0 20px 0 14px; border: 0; border-radius: 20px; background: var(--inv); color: var(--onInv); text-align: left; cursor: pointer; box-shadow: 0 14px 30px -14px rgba(0,0,0,.55), 0 1px 3px rgba(0,0,0,.12); transition: transform .15s, filter .15s; }
+  html.bm-entryb .rm-bar .m-dcards { display: inline-flex; align-items: center; gap: 9px; height: 40px; padding: 0 16px 0 6px; margin-right: 4px; border: 0; border-radius: 999px; background: var(--inv); color: var(--onInv); cursor: pointer; white-space: nowrap; box-shadow: 0 8px 20px -12px rgba(0,0,0,.5); transition: transform .15s, filter .15s; animation: fadeIn .35s ease both; }
   .m-dcards:hover { transform: translateY(-1px); filter: brightness(1.08); }
   .m-dcards:active { transform: scale(.97); }
-  .m-dcards .m-pbi { display: inline-grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 11px; background: color-mix(in srgb, var(--onInv) 16%, transparent); }
-  .m-dcards .m-pbi .ico { width: 19px; height: 19px; stroke: currentColor; }
-  .m-dcards .m-pbt { display: grid; gap: 2px; }
-  .m-dcards .m-pbl { font: 700 15px/1.15 var(--sans); white-space: nowrap; }
-  .m-dcards small { font: 500 12px/1.2 var(--sans); opacity: .78; white-space: nowrap; }
-  .m-dcards.busy, .asst .m-pcards.busy ~ .m-dcards { opacity: .7; pointer-events: none; }
+  .m-dcards .m-pbi { display: inline-grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 999px; background: color-mix(in srgb, var(--onInv) 16%, transparent); }
+  .m-dcards .m-pbi .ico { width: 17px; height: 17px; stroke: currentColor; }
+  .m-dcards .m-pbt { display: inline-flex; align-items: baseline; gap: 8px; }
+  .m-dcards .m-pbl { font: 700 14px/1 var(--sans); }
+  .m-dcards small { font: 500 12.5px/1 var(--sans); opacity: .75; }
+  .asst .m-pcards.busy ~ .m-dcards, .m-dcards.busy { opacity: .7; pointer-events: none; }
 }
-@media (min-width: 601px) { .asst.m-entryb:not(.m-bld) .ai-board .ai-ba { padding-bottom: 96px; } }

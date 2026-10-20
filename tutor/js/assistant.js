@@ -309,7 +309,7 @@ export function mountAssistant() {
   const bArea = h('div', { class: 'ai-ba dots' });
   const bGrab = h('div', { class: 'ai-grab', 'aria-hidden': 'true' }, h('i'));
   const board = h('section', { class: 'ai-board', role: 'region', 'aria-label': L('Max’ Tafel', 'Max’s board') },
-    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bDl, bDel, bFs, bMore, bMin, bClose), bMenu, bAsk, bArea, bSay, dCards);
+    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bDl, bDel, bFs, bMore, bMin, bClose), bMenu, bAsk, bArea, bSay);
   const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', { class: 'm-btl' }, L('Tafel', 'Board')), h('span', { class: 'm-btm' }, L('Zurück zur Tafel', 'Back to the board')));
   // ---------- Handy: die Tafel ist die Seite ----------
   // Rechts unten Max (öffnet den Chat), daneben drei grüne Knöpfe: Quiz, Beispiel, passender Trainer
@@ -417,6 +417,16 @@ export function mountAssistant() {
   const quip = h('div', { class: 'asst-quip', role: 'status', hidden: true });
   const ctxm = h('div', { class: 'asst-ctx', role: 'menu', hidden: true });
   const root = h('div', { class: 'asst' + (ls.get('tutor.asst.seen') ? ' seen' : '') + '', 'data-state': 'idle' }, bd, board, bTab, cap, feedTog, mHist, isl, menu, quip, ctxm, bub, pDim, pBtns, pBub, pMax);
+  // Laptop: Karteikarten-Knopf oben in der Leiste über der Tafel (neben Einstellungen) – nur bei offener Einstiegs-Tafel
+  const syncDCards = () => {
+    const on = !MOB.matches && root.classList.contains('m-entryb') && !root.classList.contains('m-bld') && root.classList.contains('has-board') && !root.classList.contains('board-min');
+    document.documentElement.classList.toggle('bm-entryb', on);
+    if (!on) return;
+    const bar = document.querySelector('.room .rm-bar');
+    if (bar && dCards.parentNode !== bar) bar.insertBefore(dCards, bar.querySelector('.rm-old') || bar.querySelector('.rm-gear'));
+  };
+  new MutationObserver(syncDCards).observe(root, { attributes: true, attributeFilter: ['class'] });
+  addEventListener('hashchange', () => setTimeout(syncDCards, 80));
   document.body.appendChild(root);
   const bf = face(bubFace, { sleepy: true }), fc = face(fEl, { follow: false }); face(pFace, { sleepy: true });
   MOB.addEventListener?.('change', () => syncPage());
@@ -901,7 +911,7 @@ export function mountAssistant() {
     else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) appear(t);
     stopTour(); drawTourBtn(); drawBMore(); root.classList.remove('m-bld');
     root.classList.toggle('m-entryb', !!b.entry);
-    drawPage(b);
+    drawPage(b); setTimeout(syncDCards, 0);
     if (b.entry) { const c = entryCtx(); if (c) Entry.enhance(c); }
     bootDone();
     requestAnimationFrame(() => tableHints(t)); setTimeout(() => tableHints(t), 900);
