@@ -36,7 +36,7 @@ export function handle(text) {
     else delete document.documentElement.dataset.creatorLabel;
     if (sk.pairs) return { msg: `${sk.name} an – ${sk.steps.length} vorbereitete Antworten. /sketch stop schaltet aus.` };
     if (sk.steps[0] && sk.steps[0].start) return next(sk.steps.slice(1));
-    if (sk.armed) return { msg: `„${sk.name}“ scharf – ich warte auf deinen Satz an Max.`, prefetch: sk.steps };
+    if (sk.armed) return { msg: `„${sk.name}“ scharf – ich warte auf deinen Satz an Max.`, prefetch: sk.steps, prep: (sk.steps.find(x => x.plan) || {}).plan };
     return { msg: `Sketch „${sk.name}“ bereit.`, prefetch: sk.steps };
   }
   // Startsatz („Darf ich vorstellen …“) startet den Sketch von selbst – kein /sketch nötig, auch nicht nach Neuladen

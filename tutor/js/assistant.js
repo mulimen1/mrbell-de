@@ -1502,6 +1502,7 @@ export function mountAssistant() {
   // Creator Mode: feste Szene abspielen – gleicher Weg wie eine echte Antwort (Stimme, Tafel, Mimik), aber ohne KI
   async function playSketch(text, r) {
     (r.prefetch || []).forEach(s => s && s.say && !s.silent && prefetchSpeech(s.voice || s.say));
+    if (r.prep) sketchDoc(r.prep).catch(() => {});   // Video-Skript schon beim Scharfschalten anlegen – dann startet der Plan direkt nach Max' Satz
     if (!r.step) { if (curEx && !curEx.done) dropEx(); setState('idle', r.msg); if (r.miss) afterAnswer(); return; }   // nicht erkannt: Frage verwerfen, Max hört direkt wieder zu
     const s = r.step;
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
@@ -1521,19 +1522,26 @@ export function mountAssistant() {
     } finally { if (my === gen) ctrl = null; }
     if (s.plan && my === gen) sketchPlan(s.plan);   // direkt nach dem gesprochenen Satz: echter Klausurplan mit Erstell-Animation
   }
+  // eigenes Video-Skript (nie ein echtes Skript von dir – dessen Lernpfad und Plan bleiben unangetastet); einmalig echtes Kurzskript
+  let sketchDocP = null;
+  function sketchDoc(o) {
+    const have = (S.list || []).find(x => x.creatorSketch === o.topic);
+    if (have) return Promise.resolve(have);
+    if (!sketchDocP) sketchDocP = (async () => {
+      const r = await ask('topic', { opts: { topic: o.topic, spice: getSpice() } });
+      const pages = (r.data?.pages || []).map(String).filter(x => x.trim().length > 20);
+      if (pages.length < 2) throw new Error('Kurzskript leer');
+      const cur = S.doc;
+      const d = await createDoc({ name: o.topic, pages, chars: pages.join('').length, generated: true, topic: o.topic, extra: { creatorSketch: o.topic } });
+      if (cur && cur.id !== d.id) S.doc = cur;   // im Tutor bleibt dein aktuelles Skript ausgewählt
+      return d;
+    })().finally(() => { sketchDocP = null; });
+    return sketchDocP;
+  }
   // Creator Mode: vorhandene Klausurplan-Funktion für ein Skript zum Thema starten (Klausur in n Tagen)
   async function sketchPlan(o) {
     try {
-      // eigenes Video-Skript (nie ein echtes Skript von dir – dessen Lernpfad und Plan bleiben unangetastet)
-      let d = (S.list || []).find(x => x.creatorSketch === o.topic);
-      if (!d) {   // noch kein Skript zum Thema: einmalig echtes Kurzskript schreiben lassen (nur beim allerersten Take)
-        setState('think', L(`Ich lege dein ${o.topic}-Skript an …`, `Setting up your ${o.topic} notes …`));
-        const r = await ask('topic', { opts: { topic: o.topic, spice: getSpice() } });
-        const pages = (r.data?.pages || []).map(String).filter(x => x.trim().length > 20);
-        if (pages.length < 2) throw new Error('Kurzskript leer');
-        d = await createDoc({ name: o.topic, pages, chars: pages.join('').length, generated: true, topic: o.topic, extra: { creatorSketch: o.topic } });
-        setState('idle');
-      }
+      const d = await sketchDoc(o);
       const ex = new Date(); ex.setDate(ex.getDate() + (o.inDays || 1));
       sessionStorage.setItem('tutor.planSketch', JSON.stringify({ exam: ex.toLocaleDateString('sv-SE'), at: Date.now() }));
       location.hash = `#/app/${d.id}/plan/sketch`;
