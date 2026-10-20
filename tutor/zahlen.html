@@ -275,6 +275,8 @@ button { font: inherit; color: inherit; }
     var h = Math.round(m / 60); if (h < 24) return 'vor ' + h + ' Std.';
     var d = Math.round(h / 24); return d === 1 ? 'gestern' : 'vor ' + d + ' Tagen';
   }
+  // Uhrzeit dazu (heute: „02:13 · vor 9 Std.“, früher: „Mo 18.10. · 14:02“)
+  function wann(t) { var d = new Date(t), heute = new Date().toDateString() === d.toDateString(); return heute ? uhr(t) + ' · ' + rel(t) : d.toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'numeric', timeZone: 'Europe/Berlin' }) + ' · ' + uhr(t); }
   function uhr(t) { return new Date(t).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }); }
   function tagLabel(key, achse) {
     if (achse === 'stunde') return key + ' Uhr';
@@ -375,7 +377,7 @@ button { font: inherit; color: inherit; }
     var feed = feedList.length ? feedList.map(function (e) {
       var key = e.t + e.ereignis + e.detail, neu = !firstDraw && !seenFeed[key]; seenFeed[key] = 1;
       var who = [e.ort, e.geraet].filter(Boolean).join(' · ') || (e.domain || 'Besucher');
-      return '<div class="ev' + (HOT[e.ereignis] ? ' hot' : '') + (neu ? ' neu' : '') + '"><span class="ic">' + ico((EV[e.ereignis] || ['spark'])[0]) + '</span><span class="w"><b>' + esc(evText(e.ereignis, e.detail)) + '</b><small>' + esc(who) + '</small></span><span class="t" title="' + esc(new Date(e.t).toLocaleString('de-DE')) + '">' + rel(e.t) + '</span></div>';
+      return '<div class="ev' + (HOT[e.ereignis] ? ' hot' : '') + (neu ? ' neu' : '') + '"><span class="ic">' + ico((EV[e.ereignis] || ['spark'])[0]) + '</span><span class="w"><b>' + esc(evText(e.ereignis, e.detail)) + '</b><small>' + esc(who) + '</small></span><span class="t" title="' + esc(new Date(e.t).toLocaleString('de-DE')) + '">' + wann(e.t) + '</span></div>';
     }).join('') : '<div class="empty">Noch keine Ereignisse in diesem Zeitraum.</div>';
 
     var kl = d.konten.liste || [];
