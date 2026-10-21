@@ -59,7 +59,7 @@ export function innerCircle({ reason = '', later = '' } = {}) {
       h('span', { class: 'icx-shine', 'aria-hidden': 'true' }),
       h('p', { class: 'icx-lead' }, L('Lern weiter, wann du willst – ohne Tageslimit.', 'Keep learning whenever you want – no daily limit.')),
       h('ul', { class: 'icx-ben' }, BEN().map(([ic, t, s], i) => h('li', { style: { '--i': String(i) } }, h('span', { class: 'icx-bi', html: ico(ic) }), h('span', {}, h('b', {}, t), h('small', {}, s))))),
-      h('div', { class: 'icx-price' }, h('b', {}, L('7 Tage gratis', '7 days free')), h('span', {}, L('danach 7,99 € im Monat', 'then €7.99 a month'))),
+      h('div', { class: 'icx-price' }, h('b', {}, L('7 Tage gratis', '7 days free')), h('span', {}, L('danach 11,99 € im Monat', 'then €11.99 a month'))),
       cta,
       ready ? null : h('p', { class: 'icx-soon' }, L('Der Inner Circle startet in Kürze.', 'The Inner Circle opens soon.')),
       h('button', { class: 'icx-later', type: 'button', onclick: () => close('later') }, later || L('Morgen weiter – neue Antworten ab 0:00 Uhr', 'Carry on tomorrow – new answers from midnight')));

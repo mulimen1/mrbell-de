@@ -1514,7 +1514,13 @@ export function mountAssistant() {
   // Sketch-Sätze vorab laden und behalten: jeder Take klingt exakt gleich und startet ohne Wartezeit
   const TTSC = new Map(), KEEP = new Set();
   const free = u => { if (!KEEP.has(u)) URL.revokeObjectURL(u); };
-  const ttsUrl = (s, signal) => ask('tts', { text: s, opts: { voice: getVoice() } }, { signal }).then(r => {
+  // Stimme hat für heute Pause (Kosten-Bremse): einmal Bescheid sagen, Text läuft normal weiter
+  const dayKey = () => new Date().toISOString().slice(0, 10);
+  const voiceOff = () => ls.get('tutor.voiceOff', '') === dayKey();
+  const ttsUrl = (s, signal) => (voiceOff() ? Promise.reject(Object.assign(new Error('voice_off'), { code: 'voice_off' })) : ask('tts', { text: s, opts: { voice: getVoice() } }, { signal })).catch(e => {
+    if (e && e.code === 'voice_off' && !voiceOff()) { ls.set('tutor.voiceOff', dayKey()); toast(e.message || L('Für heute macht meine Stimme Pause – schreiben geht ganz normal weiter.', 'My voice is taking a break for today – chatting works as usual.'), 6000); }
+    throw e;
+  }).then(r => {
     const bin = atob(r.audio || ''); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
     return URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' }));
   });

@@ -294,13 +294,24 @@ export function accountChip() {
 let checked = false;
 export function refreshAccount() {
   if (checked || !getSession()) return; checked = true;
-  ask('ping').catch(() => {});
+  ask('ping').then(r => { if (r && r.notice) showNotice(String(r.notice)); }).catch(() => {});
+}
+// Kurze Nachricht vom Team (einmalig, z. B. Entschuldigung) – danach beim Server als gelesen markiert
+function showNotice(text) {
+  const bg = h('div', { class: 'modal-bg ntc-bg' });
+  const close = () => { bg.remove(); ask('noticeok').catch(() => {}); };
+  bg.append(h('div', { class: 'modal ntc', role: 'dialog', 'aria-modal': 'true' },
+    h('img', { src: '/tutor/img/max-fav-192.png', alt: '', style: 'width:64px;height:64px;border-radius:18px;display:block;margin:0 auto 12px' }),
+    h('p', { style: 'margin:0 0 18px;font-size:15.5px;line-height:1.55;text-align:center;white-space:pre-line' }, text),
+    h('button', { class: 'btn primary', type: 'button', style: 'width:100%;min-height:46px', onclick: close }, L('Alles klar', 'Got it'))));
+  bg.addEventListener('click', e => { if (e.target === bg) close(); });
+  document.body.append(bg);
 }
 
 // Abo-Zeile im Konto: Stand + direkt kündigen (der Kündigungsbutton nach § 312k BGB steht zusätzlich auf jeder Seite)
 function aboRow(a) {
   if (a.pro && a.sub) {
-    const tx = h('span', {}, L('aktiv · 7,99 € / Monat', 'active · €7.99 / month'));
+    const tx = h('span', {}, L('aktiv · 11,99 € / Monat', 'active · €11.99 / month'));
     let trial = false, info = null;
     const btn = h('button', { class: 'linkbtn', type: 'button', onclick: async () => {
       // Erst zeigen, was wegfällt, dann ein zweites Mal bestätigen
@@ -319,7 +330,7 @@ function aboRow(a) {
       info = x; trial = x.status === 'trialing';
       tx.textContent = trial ? L(`Test bis ${fmtDate(x.trialEnd)}`, `Trial until ${fmtDate(x.trialEnd)}`)
         : x.cancelAt ? L(`gekündigt · läuft bis ${fmtDate(x.cancelAt)}`, `cancelled · runs until ${fmtDate(x.cancelAt)}`)
-        : L(`aktiv · 7,99 € / Monat · nächste Abbuchung ${fmtDate(x.periodEnd)}`, `active · €7.99 / month · next charge ${fmtDate(x.periodEnd)}`);
+        : L(`aktiv · 11,99 € / Monat · nächste Abbuchung ${fmtDate(x.periodEnd)}`, `active · €11.99 / month · next charge ${fmtDate(x.periodEnd)}`);
       if (x.cancelAt) btn.remove();
     }).catch(() => {});
     return h('div', { class: 'accrow' }, h('span', {}, L('Abo', 'Subscription')), h('b', {}, tx, ' ', btn));

@@ -51,7 +51,7 @@ function payCard() {
         h('div', { class: 'zp-act' },
           st.sk ? h('button', { class: 'btn sm ghost', type: 'button', onclick: async e => { e.currentTarget.disabled = true; try { paint(await hubPost('setup')); toast(L('Geprüft.', 'Checked.')); } catch (x) { toast(x.message); } } }, L('Prüfen', 'Check')) : null,
           h('button', { class: 'btn sm' + (st.sk ? ' ghost' : ' primary'), type: 'button', onclick: () => keys(paint) }, st.sk ? L('Schlüssel ändern', 'Change keys') : L('Schlüssel eintragen', 'Enter keys')))),
-      st.bereit ? null : h('div', { class: 'zp-steps' }, step(st.pk && st.sk, L('Schlüssel', 'Keys')), step(st.produkt, L('Produkt 7,99 €', 'Product €7.99')), step(st.webhook, L('Benachrichtigung', 'Webhook')), step(st.pro, L('Freischaltung', 'Unlocking'))));
+      st.bereit ? null : h('div', { class: 'zp-steps' }, step(st.pk && st.sk, L('Schlüssel', 'Keys')), step(st.produkt, L('Produkt 11,99 €', 'Product €11.99')), step(st.webhook, L('Benachrichtigung', 'Webhook')), step(st.pro, L('Freischaltung', 'Unlocking'))));
   };
   hubPost('status').then(paint).catch(() => { card.hidden = true; });
   card.hidden = true;

@@ -55,8 +55,8 @@ export async function openAbo() {
   let busy = false;
   const pe = h('div', { class: 'abo-pe' }, h('div', { class: 'abo-skel' }), h('div', { class: 'abo-skel' }), h('div', { class: 'abo-skel short' }));
   const err = h('p', { class: 'abo-err', role: 'alert' });
-  // Sofort sichtbar: heute 0,00 €, Abbuchung erst nach 7 Tagen – der Server bestätigt das gleich (ohne Test: 7,99 €)
-  const today = h('b', {}, '0,00 €'), later = h('span', {}, L(`Ab ${fmtDay(Date.now() + 7 * 864e5)}`, `From ${fmtDay(Date.now() + 7 * 864e5)}`)), laterVal = h('b', {}, '7,99 € / ' + L('Monat', 'month'));
+  // Sofort sichtbar: heute 0,00 €, Abbuchung erst nach 7 Tagen – der Server bestätigt das gleich (ohne Test: 11,99 €)
+  const today = h('b', {}, '0,00 €'), later = h('span', {}, L(`Ab ${fmtDay(Date.now() + 7 * 864e5)}`, `From ${fmtDay(Date.now() + 7 * 864e5)}`)), laterVal = h('b', {}, '11,99 € / ' + L('Monat', 'month'));
   const trialNote = h('p', { class: 'abo-small' });
   // Test klar sichtbar: großes „7 Tage gratis“ und ein Zeitstrahl heute 0,00 € → erste Abbuchung
   const tlEnd = h('b', {}, fmtDay(Date.now() + 7 * 864e5));
@@ -66,7 +66,7 @@ export async function openAbo() {
     h('div', { class: 'abo-tl-track' }, h('i')),
     h('div', { class: 'abo-tl-pts' },
       h('div', { class: 'abo-tl-pt' }, h('b', {}, L('Heute', 'Today')), h('strong', {}, '0,00 €'), h('small', {}, L('Inner Circle startet', 'Inner Circle starts'))),
-      h('div', { class: 'abo-tl-pt' }, tlEnd, h('strong', {}, '7,99 €'), h('small', {}, L('Erste Abbuchung, dann monatlich', 'First charge, then monthly')))),
+      h('div', { class: 'abo-tl-pt' }, tlEnd, h('strong', {}, '11,99 €'), h('small', {}, L('Erste Abbuchung, dann monatlich', 'First charge, then monthly')))),
     h('small', { class: 'abo-tl-note' }, L('Kündigst du vorher, zahlst du nichts. Endpreis – keine Mehrwertsteuer (Kleinunternehmer, § 19 UStG).', 'Cancel before and you pay nothing. Final price – no VAT (small business, § 19 UStG).')));
   const btn = h('button', { class: 'btn primary lg abo-buy ic-btn', type: 'button', disabled: true }, L('Jetzt zahlungspflichtig abonnieren', 'Subscribe now with obligation to pay'));
   const box = h('div', { class: 'modal abo', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Max’s Inner Circle' },
@@ -95,7 +95,7 @@ export async function openAbo() {
     else tlEnd.textContent = fmtDay(st.trialEnd * 1000);
   } catch (e) { err.textContent = e.message || L('Das hat gerade nicht geklappt.', 'That didn’t work just now.'); pe.replaceChildren(); return; }
   const trialEnd = st.trialEnd ? st.trialEnd * 1000 : 0;
-  today.textContent = trialEnd ? '0,00 €' : '7,99 €';
+  today.textContent = trialEnd ? '0,00 €' : '11,99 €';
   later.textContent = trialEnd ? L(`Ab ${fmtDay(trialEnd)}`, `From ${fmtDay(trialEnd)}`) : L('Danach jeden Monat', 'Then every month');
   trialNote.textContent = trialEnd
     ? L(`Kündigst du bis zum ${fmtDay(trialEnd)}, zahlst du nichts – die Inner-Circle-Vorteile enden dann sofort mit der Kündigung. Danach monatlich zum Monatsende kündbar.`, `Cancel by ${fmtDay(trialEnd)} and you pay nothing – Inner Circle benefits end immediately when you cancel. After that, cancel any time at the end of the month.`)
