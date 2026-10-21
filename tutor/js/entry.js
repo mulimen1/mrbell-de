@@ -113,31 +113,31 @@ function ladder(c) {
   const draw = () => {
     const st = ladGet(c), acc = !!getAccount();
     // Start und „Verstanden“ sind schon erledigt – man steigt nicht bei null ein
-    const ok = [true, true, !!st.q, !!st.p, !!(st.q && st.p)], done = ok[4];
+    // letzter Punkt „Klausurfest“ = Praxisfall an einem echten Unternehmen (mit kostenlosem Konto)
+    const ok = [true, true, !!st.q, !!(st.q && st.p)], done = ok[3];
     const cur = ok.indexOf(false);
     // erstes Bild: „Verstanden“ läuft sichtbar voll (Strahl von Start → Verstanden), danach nur neu Geschafftes
     const fresh = prev ? ok.map((v, i) => v && !prev[i]) : ok.map((v, i) => i === 1);
     prev = ok.slice();
-    const pct = Math.round(ok.slice(0, 4).filter(Boolean).length / 4 * 100);
+    const pct = Math.round(ok.filter(Boolean).length / 4 * 100);
     const N = [
       [L('Start', 'Start'), null, '0%'],
       [L('Verstanden', 'Understood'), null],
       [L('Klausurfragen', 'Exam questions'), () => go2()],
-      [L('Praxisfall', 'Real case'), () => go3()],
-      [L('Klausurfest', 'Exam-ready'), null, '★']
+      [L('Klausurfest', 'Exam-ready'), () => go3(), '★']
     ];
     const path = h('div', { class: 'm-ladp' });
     N.forEach(([lab, fn, face], i) => {
       if (i) path.append(h('span', { class: 'm-ladl' + (ok[i] ? ' on' : '') + (fresh[i] ? ' fresh' : '') + (i === cur ? ' next' : '') }, h('i')));
       const isCur = i === cur, lock = !ok[i] && !isCur;
-      const sym = ok[i] && i !== 4 ? (i === 0 ? face : '✓') : i === 3 && !acc && !ok[3] ? '🔒' : face || String(i);
-      const btn = h(fn && isCur ? 'button' : 'div', Object.assign({ class: 'm-ladn' + (ok[i] ? ' ok' : '') + (isCur ? ' cur' : '') + (lock ? ' lock' : '') + (fresh[i] ? ' fresh' : '') + (i === 4 ? ' m-ladz' : '') + (i === 0 ? ' m-lad0' : '') }, fn && isCur ? { type: 'button', 'aria-label': lab, onclick: () => fn() } : {}),
-        sym, isCur && fn ? h('em', { class: 'm-ladt' }, i === 3 && !acc ? L('Freischalten', 'Unlock') : L('Los', 'Go')) : null, fresh[i] ? fx(i === 4 ? 12 : 8) : null);
+      const sym = ok[i] && i !== 3 ? (i === 0 ? face : '✓') : i === 3 && !acc && !ok[3] ? '🔒' : face || String(i);
+      const btn = h(fn && isCur ? 'button' : 'div', Object.assign({ class: 'm-ladn' + (ok[i] ? ' ok' : '') + (isCur ? ' cur' : '') + (lock ? ' lock' : '') + (fresh[i] ? ' fresh' : '') + (i === 3 ? ' m-ladz' : '') + (i === 0 ? ' m-lad0' : '') }, fn && isCur ? { type: 'button', 'aria-label': lab, onclick: () => fn() } : {}),
+        sym, isCur && fn ? h('em', { class: 'm-ladt' }, i === 3 && !acc ? L('Freischalten', 'Unlock') : L('Los', 'Go')) : null, fresh[i] ? fx(i === 3 ? 12 : 8) : null);
       path.append(h('div', { class: 'm-ladc' }, btn, h('small', {}, lab)));
     });
     const sub = done ? L(`Sitzt. ${topic} kann in der Klausur kommen.`, `Done. Bring on the ${topic} exam question.`)
       : cur === 2 ? L('Nächster Schritt: 3 Klausurfragen – Max fragt dich ab.', 'Next: 3 exam questions – Max quizzes you.')
-      : L(`Letzter Schritt: ${topic} an einem echten Unternehmen – so wie es in der Klausur kommt.`, `Last step: ${topic} at a real company – exam style.`);
+      : L(`Letzter Schritt: ${topic} an einem echten Unternehmen – so wie es in der Klausur kommt. Dann sitzt es.`, `Last step: ${topic} at a real company – exam style.`);
     box.classList.toggle('done', done);
     box.replaceChildren(
       h('div', { class: 'm-ladh' }, h('b', {}, done ? L(`${topic}: klausurfest`, `${topic}: exam-ready`) : L(`${topic} klausurfest machen`, `Make ${topic} exam-ready`)), h('span', {}, `${pct} %`)),

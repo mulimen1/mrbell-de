@@ -435,3 +435,6 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 .m-ladl.fresh i { animation: mladfill .8s cubic-bezier(.65,0,.35,1) both; }
 @media (max-width: 520px) { .m-ladc { width: 52px; } .m-ladc small { font-size: 11px; } .m-ladn { width: 42px; height: 42px; font-size: 15px; } .m-ladl { margin-top: 17px; min-width: 6px; } }
 @media (prefers-reduced-motion: reduce) { .m-ladl.on::after, .m-ladl.next i, .m-ladn.cur::before { animation: none; } }
+.m-ladc:last-child .m-ladt { left: auto; right: -6px; transform: none; bottom: calc(100% + 10px); }
+.m-ladc:last-child .m-ladt::after { left: auto; right: 28px; margin-left: 0; }
+.m-ladp { margin-top: 38px; }
