@@ -276,44 +276,94 @@ const deNum = s => {
   else if (/^-?\d{1,3}(\.\d{3})+$/.test(m)) m = m.replace(/\./g, '');
   return parseFloat(m);
 };
-// Creator Mode (TikTok): festes Quiz im ganz normalen Quiz-Design an der Tafel. Max baut es „live“, liest jede Frage vor,
-// du tippst deine Antwort, Max erklärt die Lösung – erst danach erscheint die nächste Frage. Inhalte kommen vom Server.
-export async function fixedQuiz(c, data, { speak = async () => {} } = {}) {
+// Quiz Frage für Frage an der Tafel: Max liest jede Frage vor, erst nach der Auflösung kommt die nächste.
+// Normal: du tippst deine Antwort, Max sagt, ob's sitzt, und erklärt. auto (Creator Mode/TikTok): Countdown 3…0,
+// dann löst Max selbst auf und fragt am Ende, wie viele du richtig hattest.
+export async function fixedQuiz(c, data, { speak = async () => {}, built = false } = {}) {
   const qs = (data.questions || []).filter(q => q && q.q && Array.isArray(q.a));
   if (!qs.length) return;
-  c.t.querySelectorAll('.m-live-quiz').forEach(x => x.remove());
-  const { s } = section(c, 'quiz', data.title || L('Quiz', 'Quiz'));
-  s.classList.add('m-busy');
-  const sk = skeleton(s, L('Max baut dein Quiz – live …', 'Max is building your quiz – live …'));
-  await new Promise(r => setTimeout(r, 1700));
-  sk.remove(); s.classList.remove('m-busy');
+  const auto = !!data.auto;
+  let s = built;
+  if (!s) {
+    c.t.querySelectorAll('.m-live-quiz').forEach(x => x.remove());
+    s = section(c, 'quiz', data.title || L('Quiz', 'Quiz')).s;
+    s.classList.add('m-busy');
+    const sk = skeleton(s, L('Max baut dein Quiz – live …', 'Max is building your quiz – live …'));
+    await new Promise(r => setTimeout(r, 1700));
+    sk.remove(); s.classList.remove('m-busy');
+  }
   let score = 0;
+  const wait = ms => new Promise(r => setTimeout(r, ms));
   for (let qi = 0; qi < qs.length; qi++) {
     const q = qs[qi];
+    if (!s.isConnected) return;
     const why = h('p', { class: 'm-qwhy', hidden: true });
     let pick;
     const picked = new Promise(r => { pick = r; });
-    const opts = q.a.map((o, oi) => h('button', { class: 'm-qo', type: 'button', onclick: () => pick(oi) }, h('span', { class: 'm-qol' }, String.fromCharCode(65 + oi)), h('span', { class: 'm-qot' }, o)));
-    const card = h('div', { class: 'm-q' }, h('div', { class: 'm-qn' }, `${L('Frage', 'Question')} ${qi + 1}/${qs.length}${q.cat ? ' · ' + q.cat : ''}`), h('p', { class: 'm-qq' }, q.q), h('div', { class: 'm-qos' }, opts), why);
+    const opts = q.a.map((o, oi) => h('button', { class: 'm-qo', type: 'button', disabled: auto, onclick: () => pick(oi) }, h('span', { class: 'm-qol' }, String.fromCharCode(65 + oi)), h('span', { class: 'm-qot' }, o)));
+    const cd = auto ? h('span', { class: 'm-qcd', hidden: true }) : null;
+    const card = h('div', { class: 'm-q' }, h('div', { class: 'm-qn' }, `${L('Frage', 'Question')} ${qi + 1}/${qs.length}${q.cat ? ' · ' + q.cat : ''}`, cd), h('p', { class: 'm-qq' }, q.q), h('div', { class: 'm-qos' }, opts), why);
     writeIn(c, s, [card]);
     requestAnimationFrame(() => scrollToEl(c, card));
     await speak(q.q);
-    const oi = await picked;
+    let oi = -1;
+    if (auto) {   // Countdown erst, wenn Max fertig gelesen hat und alle Antworten stehen
+      await wait(500);
+      cd.hidden = false;
+      for (let n = 3; n >= 0; n--) { cd.textContent = n; cd.classList.remove('tick'); void cd.offsetWidth; cd.classList.add('tick'); await wait(n ? 1000 : 400); }
+      cd.hidden = true;
+    } else oi = await picked;
     card.classList.add('done');
     const ok = oi === q.right; if (ok) score++;
     opts.forEach((b, j) => { b.disabled = true; b.classList.toggle('ok', j === q.right); b.classList.toggle('no', j === oi && !ok); });
-    why.replaceChildren(h('b', {}, ok ? L('Richtig. ', 'Right. ') : L('Leider nein. ', 'Not quite. ')), ...(q.calc || []).flatMap(x => [h('b', { class: 'm-qcalc' }, x), ' ']), q.say || '');
-    why.hidden = false;
+    why.replaceChildren(...(auto ? [] : [h('b', {}, ok ? L('Richtig. ', 'Right. ') : L('Leider nein. ', 'Not quite. '))]), ...(q.calc || []).flatMap(x => [h('b', { class: 'm-qcalc' }, x), ' ']), q.say || '');
+    why.hidden = false; mathify(why); queueMath();
     why.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)' });
     requestAnimationFrame(() => scrollToEl(c, card));
+    await wait(auto ? 450 : 150);
     await speak(q.say || '');
-    await new Promise(r => setTimeout(r, 500));
+    await wait(500);
   }
+  if (!s.isConnected) return;
   const n = qs.length;
-  const result = h('div', { class: 'm-qres' }, h('div', { class: 'm-qsc' }, h('b', {}, `${score}/${n}`), h('span', {}, L(' richtig', ' correct'))), data.outro ? h('p', { class: 'm-qdg' }, data.outro) : null);
+  const result = auto
+    ? h('div', { class: 'm-qres' }, h('p', { class: 'm-qdg' }, data.outro || L('Wie viele hattest du richtig?', 'How many did you get right?')))
+    : h('div', { class: 'm-qres' }, h('div', { class: 'm-qsc' }, h('b', {}, `${score}/${n}`), h('span', {}, L(' richtig', ' correct'))), h('p', { class: 'm-qdg' }, data.outro || (score === n ? L('Volle Punktzahl. Ich hab nichts anderes erwartet.', 'Full marks. As expected.') : score >= n - 1 ? L('Fast perfekt. Den einen holen wir uns noch.', 'Almost perfect.') : L('Okay, da ist Luft nach oben. Frag mich einfach, was unklar war.', 'Okay, room to improve. Just ask me what was unclear.'))));
   writeIn(c, s, [result]);
   requestAnimationFrame(() => scrollToEl(c, result));
-  if (data.outroSay) await speak(data.outroSay);
+  const end = data.outroSay || (auto ? '' : (score === n ? L('Alle richtig. Stark.', 'All correct. Strong.') : L(`${score} von ${n} richtig.`, `${score} out of ${n} correct.`)));
+  if (end) await speak(end);
+}
+// Für alle: „Quiz mich dazu“ unter der Tafel – Max baut 3 Fragen zur Tafel und fragt dich Frage für Frage ab (mit Stimme)
+export async function liveQuiz(c, { speak } = {}) {
+  if (c.t.querySelector('.m-live-quiz.m-busy')) return;
+  c.t.querySelectorAll('.m-live-quiz').forEach(x => x.remove());
+  const { s } = section(c, 'quiz', L(`Quiz: ${c.topic || 'diese Tafel'}`, `Quiz: ${c.topic || 'this board'}`));
+  if (!capOk('q')) { s.append(h('p', {}, L('Heute sind deine Gratis-Quiz schon weg.', 'Your free quizzes for today are used up.'))); saveCard(c, s, true); return; }
+  s.classList.add('m-busy');
+  const sk = skeleton(s, L('Max baut dein Quiz – live …', 'Max is building your quiz – live …'));
+  c.think(THINK_Q);
+  capUse('q');
+  const prompt = `[Quiz-Auftrag zur aktuellen Tafel „${c.topic}“. Antworte AUSSCHLIESSLICH in genau diesem Textformat – keine Tafel, keine Einleitung, kein Markdown, keine Codeblöcke:
+#QUIZ
+F: Frage
+A) Antwort
+B) Antwort
+C) Antwort
+D) Antwort
+RICHTIG: B
+WARUM: zwei kurze, gesprochene Sätze, warum das richtig ist – mit der Rechnung in Worten, falls gerechnet wird
+THEMA: Teilthema in 2–4 Wörtern
+---
+Genau 3 Fragen, getrennt durch eine Zeile mit ---, von leicht nach anspruchsvoll. Genau 4 Antworten, genau eine richtig, die richtige an wechselnden Stellen. Fachlich 100 % korrekt, eindeutig, deutsches Uni-BWL, Zahlen deutsch geschrieben (1.000), keine Formeln in LaTeX.
+Grundlage ist diese Tafel: ${plain(c.b.html)}]`;
+  let text = '', err = null;
+  try { text = await aiCall(prompt); } catch (e) { err = e; }
+  c.think(null); sk.remove(); s.classList.remove('m-busy');
+  const qs = err ? null : parseQuiz(text);
+  if (!qs) { s.append(h('p', { class: 'm-err' }, (err && err.message) || L('Das hat nicht geklappt.', 'That didn’t work.')), h('button', { class: 'm-retry', type: 'button', onclick: () => { s.remove(); liveQuiz(c, { speak }); } }, L('Nochmal', 'Try again'))); return; }
+  const questions = qs.slice(0, 3).map(q => ({ q: q.q, a: q.opts, right: q.r, cat: q.tag, say: L(`Richtig ist ${'ABCD'[q.r]}. `, `The answer is ${'ABCD'[q.r]}. `) + (q.why || '') }));
+  await fixedQuiz(c, { questions }, { speak, built: s });
 }
 export { deNum };
 export function parseExercise(text) {

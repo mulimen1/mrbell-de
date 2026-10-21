@@ -1022,7 +1022,8 @@ export function mountAssistant() {
     if (open) setOpen(false);
     location.hash = `#/app/${doc.id}/karten/max`;
   }
-  function askQuiz(title) { submit(L(`Quiz mich zu „${title}“ – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.`, `Quiz me on “${title}” – one question at a time, wait for my answer each time and tell me if it’s right.`), { show: L('Quiz mich dazu', 'Quiz me on this') }); }
+  // „Quiz mich dazu“: Max baut 3 Fragen an die Tafel, liest jede vor, du antwortest, er erklärt – dann die nächste
+  function askQuiz(title) { const c = entryCtx(); if (c) { unlockAudio(); Entry.liveQuiz(c, { speak: t => sayStep(t) }); return; } submit(L(`Quiz mich zu „${title}“ – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.`, `Quiz me on “${title}” – one question at a time, wait for my answer each time and tell me if it’s right.`), { show: L('Quiz mich dazu', 'Quiz me on this') }); }
   function askExample(title) { submit(L(`Rechne mir ein neues Beispiel zu „${title}“ Schritt für Schritt an der Tafel vor – mit anderen Zahlen.`, `Work through a new example on “${title}” step by step on the whiteboard – with different numbers.`), { show: L('Rechne mir ein Beispiel', 'Work me an example'), board: title }); }
   // Passendes Trainer-Modul zum Thema der Tafel (ruhiger Link am Ende)
   const TRN = [
