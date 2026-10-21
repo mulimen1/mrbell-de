@@ -251,7 +251,7 @@ export function mountAssistant() {
   const bCount = h('span', { class: 'cnt' });
   const bPrev = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Vorherige Tafel', 'Previous board'), html: ico('left'), onclick: () => goBoard(-1) });
   const bNext = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Nächste Tafel', 'Next board'), html: ico('right'), onclick: () => goBoard(1) });
-  const bTour = h('button', { class: 'iconbtn ai-btour', type: 'button', hidden: true, 'aria-label': L('Mit dem Cursor erklären', 'Explain with the cursor'), title: L('Zeig’s mir – Schritt für Schritt mit dem Cursor', 'Show me – step by step with the cursor'), html: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5 18.5 11 12.4 12.4 9.6 18.6z"/></svg>', onclick: () => { const st = boardSteps(bArea.querySelector('.tafel')); if (st.length) startTour(st); } });
+  const bTour = h('button', { class: 'iconbtn ai-btour', type: 'button', hidden: true, 'aria-label': L('Max zeigt’s dir', 'Max shows you'), 'data-tip': L('Max zeigt’s dir', 'Max shows you'), html: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5 18.5 11 12.4 12.4 9.6 18.6z"/></svg>', onclick: () => { const st = boardSteps(bArea.querySelector('.tafel')); if (st.length) { st.forEach(x => prefetchSpeech(x.say)); startTour(st, cfg.spk ? 'klick' : false); } } });
   const bMin = h('button', { class: 'iconbtn ai-bmin', type: 'button', 'aria-label': L('Tafel minimieren', 'Minimise board'), title: L('Minimieren – liegt dann griffbereit am Rand', 'Minimise – stays at the edge'), html: SVG.min, onclick: () => minBoard(true) });
   const bAsk = h('div', { class: 'ai-bask', hidden: true, role: 'alertdialog', 'aria-label': L('Tafel löschen?', 'Delete board?') },
     h('b', {}, L('Tafel löschen?', 'Delete this board?')),
@@ -1303,7 +1303,7 @@ export function mountAssistant() {
     const willSpeak = spoken && cfg.spk && !!p.text;
     // Gesprochene Antwort mit Tafel (Laptop): danach spricht Max die Tafel-Schritte selbst, der Cursor zeigt nur mit –
     // weiter zuhören erst, wenn er damit fertig ist
-    vTour = !!(willSpeak && t && !MOB.matches && boardSteps(t).length >= 2);
+    vTour = false;   // Tafel-Führung startet nur noch per Klick auf den Cursor-Button (sonst zu viel auf einmal)
     if (vTour) boardSteps(t).forEach(st => prefetchSpeech(st.say));
     if (willSpeak) {
       await speak(ex.voice || p.text, my, txt, t, ex);   // Sketch: eigene Aussprache-Fassung möglich (z. B. „Proff“ statt „Prof.“)
@@ -1336,7 +1336,7 @@ export function mountAssistant() {
     hideQuip();
     const dockAt = () => (STAGE || open ? isl : bub).getBoundingClientRect();
     return tour(steps, Object.assign({ startAt: curStart(), dockAt, onAsk: ref => { if (!open) setOpen(true); setRef(ref); setTyping(true); } },
-      spoken ? { voice: sayStep, onEnd: () => { vTour = false; try { audio.pause(); } catch (e) {} setState('idle'); afterAnswer(); } } : {}));
+      spoken ? { voice: sayStep, onEnd: () => { vTour = false; try { audio.pause(); } catch (e) {} setState('idle'); if (spoken !== 'klick') afterAnswer(); } } : {}));
   }
   // „Frage“ in der Cursor-Blase: Max weiß, welche Stelle gemeint ist
   let askRef = null;
@@ -1428,8 +1428,7 @@ export function mountAssistant() {
     for (let k = 0; k < 40 && t.isConnected && t.querySelector('.ai-hide'); k++) await sleep(120);
     const steps = boardSteps(t);
     drawTourBtn();
-    if (steps.length >= 2 && t.isConnected && !MOB.matches) setTimeout(() => { if (t.isConnected && state !== 'think') startTour(steps, spoken); else if (spoken) { vTour = false; afterAnswer(); } }, 450);
-    else if (spoken) { vTour = false; afterAnswer(); }
+    if (spoken) { vTour = false; afterAnswer(); }
   }
   function drawTourBtn() { const st = boardSteps(bArea.querySelector('.tafel')); bTour.hidden = st.length < 2; }
   // „Klick mich – ich führ dich durch“: Max liest die Seite und zeigt dir mit dem Cursor, worauf es ankommt
