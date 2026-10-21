@@ -438,3 +438,14 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 .m-ladc:last-child .m-ladt { left: auto; right: -6px; transform: none; bottom: calc(100% + 10px); }
 .m-ladc:last-child .m-ladt::after { left: auto; right: 28px; margin-left: 0; }
 .m-ladp { margin-top: 38px; }
+/* Glow für Erledigtes */
+.m-ladn.ok { box-shadow: 0 5px 0 #157a40, 0 0 0 0 rgba(39,184,102,0); animation: mladglow 2.6s ease-in-out infinite; }
+.m-ladn.m-ladz.ok { box-shadow: 0 5px 0 #c79c00; animation: mladglowz 2.6s ease-in-out infinite; }
+.m-ladn.ok.fresh { animation: mladpop .6s cubic-bezier(.34,1.56,.64,1) .6s both, mladglow 2.6s ease-in-out 1.3s infinite; }
+@keyframes mladglow { 0%, 100% { box-shadow: 0 5px 0 #157a40, 0 0 10px 1px rgba(39,184,102,.35); } 50% { box-shadow: 0 5px 0 #157a40, 0 0 22px 5px rgba(39,184,102,.55); } }
+@keyframes mladglowz { 0%, 100% { box-shadow: 0 5px 0 #c79c00, 0 0 12px 2px rgba(242,194,0,.4); } 50% { box-shadow: 0 5px 0 #c79c00, 0 0 26px 7px rgba(242,194,0,.6); } }
+.m-ladl.on { box-shadow: 0 0 10px rgba(39,184,102,.45); overflow: visible; }
+.m-ladl.on i { overflow: hidden; }
+.m-ladl.next i { animation: mladnext2 1.8s ease-in-out infinite; }
+@keyframes mladnext2 { 0%, 100% { width: 22%; } 50% { width: 36%; } }
+@media (prefers-reduced-motion: reduce) { .m-ladn.ok, .m-ladn.m-ladz.ok { animation: none; } }
