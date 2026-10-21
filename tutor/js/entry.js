@@ -150,7 +150,9 @@ function ladder(c) {
     box.classList.toggle('done', done);
     box.replaceChildren(
       h('div', { class: 'm-ladh' }, h('b', {}, done ? L(`${topic}: klausurfest`, `${topic}: exam-ready`) : L(`${topic} klausurfest machen`, `Make ${topic} exam-ready`)), h('span', {}, `${pct} %`)),
-      path, h('p', { class: 'm-ladsub' }, sub));
+      path, h('p', { class: 'm-ladsub' }, sub),
+      done ? null : h('button', { class: 'm-ladcta', type: 'button', onclick: () => (cur === 2 ? go2() : go3()) },
+        cur === 2 ? L('Zu den Klausurfragen', 'Go to exam questions') : L('Zum Praxisfall', 'Go to the real case'), h('span', { 'aria-hidden': 'true' }, '→')));
   };
   const go2 = () => c.exam ? c.exam(topic) : liveQuiz(c, { speak: c.speak, practice: () => go3(), onDone: () => { ladSet(c, { q: 1 }); draw(); box.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
   const go3 = async () => {

@@ -495,3 +495,8 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 /* Karteikarten-Knopf oben: etwas hervorgehoben, aber ruhig */
 html.bm-entryb .rm-bar .m-dcards { border: 2px solid var(--ink); box-shadow: 0 2px 0 var(--ink); }
 html.bm-entryb .rm-bar .m-dcards:hover { box-shadow: 0 3px 0 var(--ink); }
+
+.tafel .m-ladcta { display: flex; align-items: center; justify-content: center; gap: 8px; width: min(340px, 100%); min-height: 48px; margin: 14px auto 4px; padding: 0 22px; border: 0; border-radius: 14px; background: #2fb866; color: #fff; font: 750 15.5px var(--sans); cursor: pointer; box-shadow: 0 4px 0 #23964f; transition: transform .1s, box-shadow .1s, filter .15s; }
+.tafel .m-ladcta:hover { filter: brightness(1.05); }
+.tafel .m-ladcta:active { transform: translateY(3px); box-shadow: 0 1px 0 #23964f; }
+.tafel .m-ladcta span { font-size: 17px; }
