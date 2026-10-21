@@ -186,7 +186,7 @@ button { font: inherit; color: inherit; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 .kl-acc{max-height:420px;overflow:auto}.kl-acc .who{display:grid;gap:1px;min-width:0}.kl-acc .who b{font-weight:650}.kl-acc .em{color:var(--mute,#8b8b93);font-weight:500;word-break:break-all}.kl-acc .wo{color:var(--mute,#8b8b93);font-size:11.5px}.kl-acc .icb{justify-self:start;display:inline-block;font:600 10px/1 var(--mono,monospace);letter-spacing:.06em;text-transform:uppercase;padding:3px 6px;border:1px solid currentColor;border-radius:999px;opacity:.8}
-.ua .r{display:flex;align-items:center;gap:12px;padding:12px 4px;border-top:1px solid var(--line,rgba(127,127,127,.18))}.ua>:first-child .r,.ua>.r:first-child{border-top:0}.ua .who{flex:1;min-width:0}.ua .who small{display:block}.ua summary{list-style:none;cursor:pointer}.ua summary::-webkit-details-marker{display:none}.uad[open] summary small:last-child{opacity:.6}.uav{margin:0 0 10px 48px;display:grid;gap:4px}.uav div{display:grid;grid-template-columns:1.4fr 1fr .8fr .8fr;gap:10px;font-size:13px;padding:6px 10px;border-radius:9px;background:rgba(127,127,127,.08)}
+.limb{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#e5484d;color:#fff;font-size:11.5px;font-weight:700;vertical-align:1px}.liml{color:#e5484d}.ua .r{display:flex;align-items:center;gap:12px;padding:12px 4px;border-top:1px solid var(--line,rgba(127,127,127,.18))}.ua>:first-child .r,.ua>.r:first-child{border-top:0}.ua .who{flex:1;min-width:0}.ua .who small{display:block}.ua summary{list-style:none;cursor:pointer}.ua summary::-webkit-details-marker{display:none}.uad[open] summary small:last-child{opacity:.6}.uav{margin:0 0 10px 48px;display:grid;gap:4px}.uav div{display:grid;grid-template-columns:1.4fr 1fr .8fr .8fr;gap:10px;font-size:13px;padding:6px 10px;border-radius:9px;background:rgba(127,127,127,.08)}
 </style>
 </head>
 <body>
@@ -396,16 +396,18 @@ button { font: inherit; color: inherit; }
     var ak = kl.filter(function (x) { return OHNE.indexOf(String(x.email || '').toLowerCase()) < 0; }).map(function (x) {
       var a = (x.act || []).slice().sort(function (p, q) { return q.s - p.s; }); return { x: x, a: a, last: a.length ? a[0].e : 0 };
     }).sort(function (p, q) { return (q.last || 0) - (p.last || 0) || q.x.t - p.x.t; });
+    var limN = ak.filter(function (o) { return (o.x.lim || []).some(function (l) { return Date.now() - l.t < 7 * 864e5; }); }).length;
     var aktiv = ak.length ? '<div class="ua">' + ak.map(function (o) {
-      var x = o.x, a = o.a, zeit = a.reduce(function (s, v) { return s + Math.max(60000, v.e - v.s); }, 0), fr = a.reduce(function (s, v) { return s + (v.q || 0); }, 0);
+      var x = o.x, a = o.a, lim = (x.lim || []).slice().sort(function (p, q) { return q.t - p.t; }), zeit = a.reduce(function (s, v) { return s + Math.max(60000, v.e - v.s); }, 0), fr = a.reduce(function (s, v) { return s + (v.q || 0); }, 0);
       var ger = a.map(function (v) { return v.d; }).filter(function (v, i, l) { return l.indexOf(v) === i; }).join(', ');
       var head = '<span class="ic">' + ico('userplus') + '</span><span class="who"><b>' + esc(x.nick || x.email || 'Konto') + '</b>' + (x.nick ? ' <span class="em">' + esc(x.email || '') + '</span>' : '')
+        + (lim.length ? ' <span class="limb" title="' + esc(lim.map(function (l) { return new Date(l.t).toLocaleString('de-DE') + ' – ' + (l.w || ''); }).join('\n')) + '">Limit erreicht · ' + rel(lim[0].t) + (lim.length > 1 ? ' · ' + lim.length + '×' : '') + '</span>' : '')
         + '<small class="wo">' + (a.length ? a.length + (a.length === 1 ? ' Besuch' : ' Besuche') + ' · ' + dauer(zeit) + ' · ' + fr + (fr === 1 ? ' Frage' : ' Fragen') + (ger ? ' · ' + esc(ger) : '') : 'Noch kein Besuch seit Start der Messung (21.10.)') + '</small></span>'
         + '<small>' + (a.length ? 'aktiv ' + rel(o.last) : '–') + '</small>';
       if (!a.length) return '<div class="r">' + head + '</div>';
       return '<details class="uad"><summary class="r">' + head + '</summary><div class="uav">' + a.map(function (v) {
         var dt = new Date(v.s);
-        return '<div><span>' + dt.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + ' · ' + dt.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + '</span><span>' + esc(v.d || '') + '</span><span>' + dauer(Math.max(60000, v.e - v.s)) + '</span><span>' + (v.q || 0) + (v.q === 1 ? ' Frage' : ' Fragen') + '</span></div>';
+        return '<div><span>' + dt.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + ' · ' + dt.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + '</span><span>' + esc(v.d || '') + '</span><span>' + dauer(Math.max(60000, v.e - v.s)) + '</span><span>' + (v.q || 0) + (v.q === 1 ? ' Frage' : ' Fragen') + (v.l ? ' · <b class="liml">Limit</b>' : '') + '</span></div>';
       }).join('') + '</div></details>';
     }).join('') + '</div>' : '<div class="empty">Noch keine Konten.</div>';
 
@@ -438,7 +440,7 @@ button { font: inherit; color: inherit; }
       '<div class="card"><div class="hd"><h2>Gerade passiert</h2><small>live</small></div><div class="feed" id="feed">' + feed + '</div></div></section>' +
       '<section class="grid g2"><div class="card"><div class="hd"><h2>Neue Konten</h2><small>' + esc(d.zeitraum.name) + '</small></div>' + konten + '</div>' +
       '<div class="card"><div class="hd"><h2>Was genutzt wird</h2><small>Funktionen</small></div>' + nutz + '</div></section>' +
-      '<section class="grid"><div class="card"><div class="hd"><h2>Nutzer-Aktivität</h2><small>Besuche je Konto · ohne Inhalte</small></div>' + aktiv + '</div></section>' +
+      '<section class="grid"><div class="card"><div class="hd"><h2>Nutzer-Aktivität</h2><small>' + (limN ? '<span class="limb">' + limN + ' im Limit (7 Tage)</span> · ' : '') + 'Besuche je Konto · ohne Inhalte</small></div>' + aktiv + '</div></section>' +
       '<section class="grid"><div class="card"><div class="hd"><h2>Wann sie kommen</h2><small>Seitenaufrufe je Wochentag & Stunde</small></div>' + heat + '</div></section>' +
       '<section class="grid g3"><div class="card"><div class="hd"><h2>Woher</h2><small>Quelle</small></div>' + bars(d.basis.herkunft) + '</div>' +
       '<div class="card"><div class="hd"><h2>Geräte</h2><small>Anteil</small></div>' + geraete + '</div>' +
