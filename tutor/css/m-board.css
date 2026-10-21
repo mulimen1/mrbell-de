@@ -382,7 +382,7 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 .m-ladh b { font-size: 16px; letter-spacing: -.01em; }
 .m-ladh span { font: 800 13px var(--sans); color: var(--mute); font-variant-numeric: tabular-nums; }
 .m-ladp { display: flex; align-items: flex-start; margin: 30px 0 4px; }
-.m-ladc { flex: none; width: 74px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.m-ladc { flex: none; width: 72px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .m-ladc small { font: 700 12.5px var(--sans); color: var(--mute); text-align: center; line-height: 1.2; }
 .m-ladl { flex: 1; height: 8px; margin-top: 24px; border-radius: 99px; background: var(--panel2); overflow: hidden; min-width: 14px; }
 .m-ladl i { display: block; height: 100%; width: 0; border-radius: inherit; background: #1f9d55; }
@@ -419,3 +419,19 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 .tafel .m-ladsub { margin: 12px 0 0; font-size: 13.5px; color: var(--mute); text-align: center; }
 @media (max-width: 520px) { .m-ladc { width: 60px; } .m-ladn { width: 48px; height: 48px; font-size: 17px; } .m-ladl { margin-top: 20px; } }
 @media (prefers-reduced-motion: reduce) { .m-ladn.cur, .m-ladn.fresh, .m-ladl.fresh i, .m-ladfx i { animation: none; } }
+.m-ladn.m-lad0 { font-size: 14px; }
+.m-ladn.m-lad0.ok { background: #1f9d55; }
+/* Strahl: gefüllte Strecke glänzt, die Strecke zum nächsten Schritt pulsiert leicht */
+.m-ladl { position: relative; }
+.m-ladl.on i { background: linear-gradient(90deg, #1f9d55, #27b866); }
+.m-ladl.on::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, transparent 0, rgba(255,255,255,.55) 50%, transparent 100%); background-size: 40% 100%; background-repeat: no-repeat; animation: mladshine 2.8s ease-in-out infinite; }
+.m-ladl.next i { width: 22%; background: rgba(31,157,85,.45); animation: mladnext 1.6s ease-in-out infinite; }
+@keyframes mladshine { 0% { background-position: -60% 0; } 60%, 100% { background-position: 160% 0; } }
+@keyframes mladnext { 0%, 100% { width: 14%; } 50% { width: 30%; } }
+.m-ladn.cur::before { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid var(--inv); opacity: 0; animation: mladring 1.8s ease-out infinite; }
+@keyframes mladring { 0% { opacity: .5; transform: scale(.9); } 100% { opacity: 0; transform: scale(1.25); } }
+.m-lad.wait .fresh, .m-lad.wait .fresh i, .m-lad.wait .m-ladfx i { animation-play-state: paused !important; }
+.m-ladn.fresh { animation: mladpop .6s cubic-bezier(.34,1.56,.64,1) .6s both; }
+.m-ladl.fresh i { animation: mladfill .8s cubic-bezier(.65,0,.35,1) both; }
+@media (max-width: 520px) { .m-ladc { width: 52px; } .m-ladc small { font-size: 11px; } .m-ladn { width: 42px; height: 42px; font-size: 15px; } .m-ladl { margin-top: 17px; min-width: 6px; } }
+@media (prefers-reduced-motion: reduce) { .m-ladl.on::after, .m-ladl.next i, .m-ladn.cur::before { animation: none; } }

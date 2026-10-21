@@ -109,37 +109,38 @@ function ladder(c) {
   const topic = c.topic || 'BWL';
   const box = h('div', { class: 'm-lad' });
   let prev = null;
+  const fx = n => h('span', { class: 'm-ladfx' }, ...Array.from({ length: n }, () => h('i')));
   const draw = () => {
     const st = ladGet(c), acc = !!getAccount();
-    const ok = [true, !!st.q, !!st.p], n = ok.filter(Boolean).length, done = n === 3;
-    const cur = ok.indexOf(false);   // aktueller Schritt (-1 = alles geschafft)
-    const fresh = prev ? ok.map((v, i) => v && !prev[i]) : [false, false, false];
-    const won = done && prev && !prev.every(Boolean);
+    // Start und „Verstanden“ sind schon erledigt – man steigt nicht bei null ein
+    const ok = [true, true, !!st.q, !!st.p, !!(st.q && st.p)], done = ok[4];
+    const cur = ok.indexOf(false);
+    // erstes Bild: „Verstanden“ läuft sichtbar voll (Strahl von Start → Verstanden), danach nur neu Geschafftes
+    const fresh = prev ? ok.map((v, i) => v && !prev[i]) : ok.map((v, i) => i === 1);
     prev = ok.slice();
-    const nodes = [
+    const pct = Math.round(ok.slice(0, 4).filter(Boolean).length / 4 * 100);
+    const N = [
+      [L('Start', 'Start'), null, '0%'],
       [L('Verstanden', 'Understood'), null],
       [L('Klausurfragen', 'Exam questions'), () => go2()],
-      [L('Praxisfall', 'Real case'), () => go3()]
+      [L('Praxisfall', 'Real case'), () => go3()],
+      [L('Klausurfest', 'Exam-ready'), null, '★']
     ];
-    const tagTxt = i => i === 2 && !acc ? L('Freischalten', 'Unlock') : L('Los', 'Go');
     const path = h('div', { class: 'm-ladp' });
-    nodes.forEach(([lab, fn], i) => {
-      if (i) path.append(h('span', { class: 'm-ladl' + (ok[i] ? ' on' : '') + (fresh[i] ? ' fresh' : '') }, h('i')));
+    N.forEach(([lab, fn, face], i) => {
+      if (i) path.append(h('span', { class: 'm-ladl' + (ok[i] ? ' on' : '') + (fresh[i] ? ' fresh' : '') + (i === cur ? ' next' : '') }, h('i')));
       const isCur = i === cur, lock = !ok[i] && !isCur;
-      const btn = h('button', { class: 'm-ladn' + (ok[i] ? ' ok' : '') + (isCur ? ' cur' : '') + (lock ? ' lock' : '') + (fresh[i] ? ' fresh' : ''), type: 'button', disabled: !isCur || !fn, 'aria-label': lab, onclick: () => fn && fn() },
-        ok[i] ? '✓' : i === 2 && !acc ? '🔒' : String(i + 1),
-        isCur && fn ? h('em', { class: 'm-ladt' }, tagTxt(i)) : null,
-        fresh[i] ? h('span', { class: 'm-ladfx' }, ...Array.from({ length: 8 }, () => h('i'))) : null);
+      const sym = ok[i] && i !== 4 ? (i === 0 ? face : '✓') : i === 3 && !acc && !ok[3] ? '🔒' : face || String(i);
+      const btn = h(fn && isCur ? 'button' : 'div', Object.assign({ class: 'm-ladn' + (ok[i] ? ' ok' : '') + (isCur ? ' cur' : '') + (lock ? ' lock' : '') + (fresh[i] ? ' fresh' : '') + (i === 4 ? ' m-ladz' : '') + (i === 0 ? ' m-lad0' : '') }, fn && isCur ? { type: 'button', 'aria-label': lab, onclick: () => fn() } : {}),
+        sym, isCur && fn ? h('em', { class: 'm-ladt' }, i === 3 && !acc ? L('Freischalten', 'Unlock') : L('Los', 'Go')) : null, fresh[i] ? fx(i === 4 ? 12 : 8) : null);
       path.append(h('div', { class: 'm-ladc' }, btn, h('small', {}, lab)));
     });
-    path.append(h('span', { class: 'm-ladl' + (done ? ' on' : '') + (won ? ' fresh' : '') }, h('i')));
-    path.append(h('div', { class: 'm-ladc' }, h('div', { class: 'm-ladn m-ladz' + (done ? ' ok' : '') + (won ? ' fresh' : '') }, '★', won ? h('span', { class: 'm-ladfx' }, ...Array.from({ length: 10 }, () => h('i'))) : null), h('small', {}, L('Klausurfest', 'Exam-ready'))));
     const sub = done ? L(`Sitzt. ${topic} kann in der Klausur kommen.`, `Done. Bring on the ${topic} exam question.`)
-      : cur === 1 ? L('3 Klausurfragen – Max fragt dich ab.', '3 exam questions – Max quizzes you.')
+      : cur === 2 ? L('Nächster Schritt: 3 Klausurfragen – Max fragt dich ab.', 'Next: 3 exam questions – Max quizzes you.')
       : L(`Letzter Schritt: ${topic} an einem echten Unternehmen – so wie es in der Klausur kommt.`, `Last step: ${topic} at a real company – exam style.`);
     box.classList.toggle('done', done);
     box.replaceChildren(
-      h('div', { class: 'm-ladh' }, h('b', {}, done ? L(`${topic}: klausurfest`, `${topic}: exam-ready`) : L(`${topic} klausurfest machen`, `Make ${topic} exam-ready`)), h('span', {}, `${n}/3`)),
+      h('div', { class: 'm-ladh' }, h('b', {}, done ? L(`${topic}: klausurfest`, `${topic}: exam-ready`) : L(`${topic} klausurfest machen`, `Make ${topic} exam-ready`)), h('span', {}, `${pct} %`)),
       path, h('p', { class: 'm-ladsub' }, sub));
   };
   const go2 = () => liveQuiz(c, { speak: c.speak, practice: () => go3(), onDone: () => { ladSet(c, { q: 1 }); draw(); box.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
@@ -154,6 +155,9 @@ function ladder(c) {
     c.practice(topic);
   };
   draw();
+  // Animation erst, wenn die Karte wirklich im Blick ist
+  box.classList.add('wait');
+  try { const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); setTimeout(() => box.classList.remove('wait'), 250); } }, { threshold: .6 }); io.observe(box); } catch (e) { box.classList.remove('wait'); }
   return box;
 }
 function hookCard(c) {
