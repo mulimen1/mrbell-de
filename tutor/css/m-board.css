@@ -449,3 +449,19 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 .m-ladl.next i { animation: mladnext2 1.8s ease-in-out infinite; }
 @keyframes mladnext2 { 0%, 100% { width: 22%; } 50% { width: 36%; } }
 @media (prefers-reduced-motion: reduce) { .m-ladn.ok, .m-ladn.m-ladz.ok { animation: none; } }
+
+/* Erklärung ⇄ Klausurfragen */
+.tafel .m-bsw { display: inline-flex; gap: 4px; padding: 4px; margin: 0 0 14px; border-radius: 999px; background: var(--panel2); border: 1px solid var(--line); }
+.tafel .m-bsw button { min-height: 34px; padding: 0 16px; border: 0; border-radius: 999px; background: none; color: var(--mute); font: 700 13.5px var(--sans); cursor: pointer; }
+.tafel .m-bsw button.on { background: var(--panel); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); cursor: default; }
+/* Klausurfragen ohne Konto: kurz sehen, dann unscharf */
+.ai-board.m-gated .ai-ba .tafel > :not(.m-bsw) { filter: blur(7px); transition: filter .6s ease; pointer-events: none; user-select: none; }
+.ai-board.m-gated .ai-ba { overflow: hidden !important; }
+.m-gate { position: absolute; left: 0; right: 0; bottom: 0; top: 60px; z-index: 6; display: grid; place-items: center; padding: 20px; background: color-mix(in srgb, var(--panel) 35%, transparent); }
+.m-gatec { width: min(380px, 100%); padding: 24px 22px 16px; border-radius: 20px; background: var(--panel); border: 1px solid var(--line2); box-shadow: 0 24px 60px rgba(0,0,0,.18); text-align: center; display: grid; gap: 10px; justify-items: center; }
+.m-gatec img { width: 56px; height: 56px; border-radius: 16px; }
+.m-gatec b { font-size: 19px; letter-spacing: -.01em; }
+.m-gatec p { margin: 0 0 4px; color: var(--mute); font-size: 14.5px; line-height: 1.45; }
+.m-gatec .btn { width: 100%; min-height: 48px; }
+.m-gateb { border: 0; background: none; color: var(--mute); font: 600 13.5px var(--sans); cursor: pointer; padding: 6px; text-decoration: underline; text-underline-offset: 3px; }
+.ai-board.m-gated .tafel .m-bsw { position: relative; z-index: 7; }

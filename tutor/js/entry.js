@@ -74,6 +74,8 @@ export function enhance(c) {
   if (c.speak && c.practice) {   // Lern-Stufen: verstanden → Klausurfragen → echter Praxisfall (mit kostenlosem Konto)
     const first0 = [...t.children].find(e => !e.classList.contains('tt') && !/^h\d$/.test(e.localName));
     const lad = ladder(c); if (first0) first0.after(lad); else t.append(lad);
+    // dieselbe Karte am Ende der Tafel (statt „Karteikarten machen“)
+    const nx = t.querySelector('.m-next'), lad2 = ladder(c); if (nx) nx.before(lad2); else t.append(lad2);
     watchScroll(c); return;
   }
   const first = [...t.children].find(e => !e.classList.contains('tt') && !/^h\d$/.test(e.localName));   // erster Inhaltsblock (meist der erste Absatz)
@@ -104,11 +106,14 @@ export function enhance(c) {
 // ---------- Lern-Stufen „Thema klausurfest machen“ ----------
 const LAD_K = c => 'tutor.lad.' + (c.slug || c.topic);
 const ladGet = c => { try { return JSON.parse(sessionStorage.getItem(LAD_K(c)) || '{}'); } catch (e) { return {}; } };
-const ladSet = (c, v) => { try { sessionStorage.setItem(LAD_K(c), JSON.stringify(Object.assign(ladGet(c), v))); } catch (e) {} };
+const ladSet = (c, v) => { try { sessionStorage.setItem(LAD_K(c), JSON.stringify(Object.assign(ladGet(c), v))); } catch (e) {} dispatchEvent(new CustomEvent('bm:lad')); };
+// von außen (Klausurfragen-Tafel freigeschaltet): Schritt abhaken
+export function markLad(slug, v) { if (slug) ladSet({ slug }, v); }
 function ladder(c) {
   const topic = c.topic || 'BWL';
   const box = h('div', { class: 'm-lad' });
   let prev = null;
+  addEventListener('bm:lad', () => { if (box.isConnected) draw(); });
   const fx = n => h('span', { class: 'm-ladfx' }, ...Array.from({ length: n }, () => h('i')));
   const draw = () => {
     const st = ladGet(c), acc = !!getAccount();
@@ -143,7 +148,7 @@ function ladder(c) {
       h('div', { class: 'm-ladh' }, h('b', {}, done ? L(`${topic}: klausurfest`, `${topic}: exam-ready`) : L(`${topic} klausurfest machen`, `Make ${topic} exam-ready`)), h('span', {}, `${pct} %`)),
       path, h('p', { class: 'm-ladsub' }, sub));
   };
-  const go2 = () => liveQuiz(c, { speak: c.speak, practice: () => go3(), onDone: () => { ladSet(c, { q: 1 }); draw(); box.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
+  const go2 = () => c.exam ? c.exam(topic) : liveQuiz(c, { speak: c.speak, practice: () => go3(), onDone: () => { ladSet(c, { q: 1 }); draw(); box.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
   const go3 = async () => {
     if (!getAccount()) {
       c.say(L('Praxisfall gibt’s mit kostenlosem Konto. Dauert 20 Sekunden – deine Tafel bleibt, wo sie ist.', 'The real case comes with a free account. 20 seconds – your board stays right here.'), 4200);

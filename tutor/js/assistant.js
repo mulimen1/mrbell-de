@@ -353,7 +353,7 @@ export function mountAssistant() {
   function entryCtx() {
     const b = boards[bIdx], t = bArea.querySelector('.tafel'); if (!b || !t || building) return null;
     const tr = trainerFor(b.title + ' ' + (b.slug || '') + ' ' + buildTitle), [topic, stem] = topicOf(b, tr);
-    return { t, b, slug: b.slug || '', topic, stem, trainer: tr ? tr[0] : '', scroller: bArea, say: pSay, think: pThink, note: n => { entryNotes.push(n); if (entryNotes.length > 6) entryNotes.shift(); }, busy: pBusy, back: () => backTo(b), speak: t => sayStep(t), practice: f => askPractice(f) };
+    return { t, b, slug: b.slug || '', topic, stem, trainer: tr ? tr[0] : '', scroller: bArea, say: pSay, think: pThink, note: n => { entryNotes.push(n); if (entryNotes.length > 6) entryNotes.shift(); }, busy: pBusy, back: () => backTo(b), speak: t => sayStep(t), practice: f => askPractice(f), exam: f => askExam(f) };
   }
   function drawPage(b) {
     const c = b ? entryCtx() : null;
@@ -916,13 +916,20 @@ export function mountAssistant() {
     const t = h('div', { class: 'tafel' }, h('h2', { class: 'tt' }, b.title));
     t.appendChild(polishBoard(sanitize(b.html)));
     t.appendChild(nextChips(b));
+    // Erklärung ⇄ Klausurfragen: Umschalter oben auf der Tafel
+    const mate = b.exam ? b.pair : b.pairB;
+    if (mate && boards.includes(mate)) t.prepend(h('div', { class: 'm-bsw', role: 'tablist' },
+      ...[[L('Erklärung', 'Explanation'), !b.exam], [L('Klausurfragen', 'Exam questions'), !!b.exam]].map(([lab, on]) =>
+        h('button', { type: 'button', role: 'tab', 'aria-selected': String(on), class: on ? 'on' : '', onclick: () => { if (on) return; bIdx = boards.indexOf(mate); drawBoard(false); } }, lab))));
+    ungate();
     bArea.replaceChildren(t); bArea.scrollTop = 0; bArea.dataset.b = String(bIdx); bArea.__b = b;
+    if (b.exam) { if (getAccount()) Entry.markLad(b.slug, { q: 1 }); else { const ms = b.seen ? 300 : 1900; b.seen = 1; setTimeout(() => gate(b), ms); } }
     if (write) t.classList.add('ai-write');
     else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) appear(t);
     stopTour(); drawTourBtn(); drawBMore(); root.classList.remove('m-bld');
     root.classList.toggle('m-entryb', !!b.entry);
     drawPage(b); setTimeout(syncDCards, 0);
-    if (b.entry) { const c = entryCtx(); if (c) Entry.enhance(c); }
+    if (b.entry && !b.exam) { const c = entryCtx(); if (c) Entry.enhance(c); }
     bootDone();
     requestAnimationFrame(() => tableHints(t)); setTimeout(() => tableHints(t), 900);
     return t;
@@ -994,7 +1001,7 @@ export function mountAssistant() {
     const trEl = tr ? h('a', { class: 'm-trn', href: '#/app/trainer/' + tr[0] }, h('span', { class: 'm-trl' }, tr[1]), h('span', { class: 'm-trs' }, ' · ' + L('BWL-Trainer', 'Business trainer')), h('span', { class: 'm-tra', 'aria-hidden': 'true' }, '→')) : null;
     // Themen-Einstieg (Google-Anzeige): Max bietet Karteikarten zu genau dieser Tafel an – der Weg zum kostenlosen Konto
     let offer = null;
-    if (!overview && b.entry) {
+    if (!overview && b.entry && false) {
       const nm = title.replace(/\s*[:(–-].*$/, '').trim() || title, of = h('div', { class: 'face m-ofc' });
       offer = h('div', { class: 'm-offer' }, of,
         h('div', { class: 'm-oft' }, h('b', {}, L(`${nm} sitzt? Ich mach dir Karteikarten dazu.`, `Got ${nm}? I’ll make you flashcards for it.`)),
@@ -1023,6 +1030,31 @@ export function mountAssistant() {
     location.hash = `#/app/${doc.id}/karten/max`;
   }
   // Praxisfall: Max rechnet das Thema an einem echten Unternehmen durch – im Sylt-Stil, fachlich exakt
+  // Klausurfragen: eigene, neue Tafel mit echten Aufgaben; ohne Konto kurz sehen, dann unscharf + kostenlos freischalten
+  function askExam(f) {
+    const src = boards[bIdx]; if (!src) return;
+    if (src.pairB && boards.includes(src.pairB)) { bIdx = boards.indexOf(src.pairB); drawBoard(false); openBoard(); return; }
+    submit(L(`Klausurfragen zu „${f}“: Schreib an die Tafel 4 echte Klausuraufgaben auf Uni-BWL-Niveau – 1 Verständnisfrage, 2 Rechen- oder Buchungsaufgaben mit konkreten Zahlen, 1 Transferaufgabe –, jede mit Punktzahl. Darunter je die Musterlösung Schritt für Schritt. Im Chat nur ein kurzer Satz.`, `Exam questions on “${f}”: put 4 real university exam tasks on the board – 1 concept question, 2 calculation tasks with concrete numbers, 1 transfer task – each with points, then a step-by-step model solution for each. Only one short sentence in the chat.`),
+      { show: L(`Klausurfragen: ${f}`, `Exam questions: ${f}`), board: L(`Klausurfragen: ${f}`, `Exam questions: ${f}`), exam: src });
+  }
+  var gateEl = null;
+  function ungate() { board.classList.remove('m-gated'); if (gateEl) { gateEl.remove(); gateEl = null; } }
+  function gate(b) {
+    if (getAccount() || bArea.__b !== b || gateEl) return;
+    board.classList.add('m-gated');
+    gateEl = h('div', { class: 'm-gate' }, h('div', { class: 'm-gatec' },
+      h('img', { src: '/tutor/img/max-fav-192.png', alt: '' }),
+      h('b', {}, L('Klausurfragen freischalten', 'Unlock exam questions')),
+      h('p', {}, L('Einfach kostenlos anmelden – dauert 20 Sekunden. Deine Tafeln bleiben, wo sie sind.', 'Just sign up for free – takes 20 seconds. Your boards stay right here.')),
+      h('button', { class: 'btn primary', type: 'button', onclick: async () => {
+        const { openAuth } = await import('./account.js');
+        await openAuth({ registerTitle: L('Klausurfragen freischalten', 'Unlock exam questions'), registerSub: L('Kostenlos. Deine Tafeln und dein Fortschritt bleiben gespeichert.', 'Free. Your boards and progress stay saved.') });
+        if (getAccount()) { ungate(); Entry.markLad(b.slug, { q: 1 }); }
+      } }, L('Kostenlos freischalten', 'Unlock for free')),
+      h('button', { class: 'm-gateb', type: 'button', onclick: () => { if (b.pair && boards.includes(b.pair)) { bIdx = boards.indexOf(b.pair); drawBoard(false); } } }, L('Zurück zur Erklärung', 'Back to the explanation'))));
+    board.append(gateEl);
+    gateEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 450, easing: 'ease-out' });
+  }
   function askPractice(f) { submit(L(`Praxisfall: Zeig mir „${f}“ an der Tafel an einem echten, bekannten Unternehmen – Schritt für Schritt wie eine Klausuraufgabe, in deinem Sylt-Stil, aber fachlich exakt. Echte Zahlen nur, wenn du sie sicher kennst; sonst runde Beispielzahlen und das klar dazusagen.`, `Real case: show me “${f}” on the whiteboard with a real, well-known company – step by step like an exam task. Real figures only if you’re sure; otherwise round example numbers and say so.`), { show: L(`Praxisfall: ${f}`, `Real case: ${f}`), board: f }); }
   // „Quiz mich dazu“: Max baut 3 Fragen an die Tafel, liest jede vor, du antwortest, er erklärt – dann die nächste
   function askQuiz(title) { const c = entryCtx(); if (c) { unlockAudio(); Entry.liveQuiz(c, { speak: t => sayStep(t), practice: f => askPractice(f) }); return; } submit(L(`Quiz mich zu „${title}“ – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.`, `Quiz me on “${title}” – one question at a time, wait for my answer each time and tell me if it’s right.`), { show: L('Quiz mich dazu', 'Quiz me on this') }); }
@@ -1199,7 +1231,7 @@ export function mountAssistant() {
     const pasted = attachTx; if (pasted) { capQ.prepend(h('span', { class: 'ai-refq' }, L('Eingefügter Text · ', 'Pasted text · ') + pasted.length.toLocaleString('de-DE') + L(' Zeichen', ' chars'))); clearAttach(); }
     if (askRef) capQ.prepend(h('span', { class: 'ai-refq' }, L(`Zu ${askRef.i}/${askRef.n} · `, `Re ${askRef.i}/${askRef.n} · `) + (askRef.spot.length > 60 ? askRef.spot.slice(0, 59) + '…' : askRef.spot)));
     const ex = curEx;
-    if (ex) { ex.entry = !!o.entry; ex.slug = o.slug || ''; }
+    if (ex) { ex.entry = !!o.entry; ex.slug = o.slug || ''; ex.exam = o.exam || null; }
     const ctxLine = pageContext() + (entryNotes.length ? '\n' + entryNotes.splice(0).join('\n') : '');
     hist.push({ role: 'user', content: text });
     try { STAGE?.onAsk?.(shown); } catch (e) {}
@@ -1278,6 +1310,7 @@ export function mountAssistant() {
       if (ovNext || (wasBuilding && /Überblick|overview/i.test(buildTitle))) p.boards.forEach(b => overviewB.add(b));
       ovNext = false;
       if (ex && ex.entry) p.boards.forEach(b => { b.entry = true; b.slug = ex.slug; });
+      if (ex && ex.exam) p.boards.forEach(b => { b.exam = true; b.entry = true; b.pair = ex.exam; b.slug = ex.exam.slug; ex.exam.pairB = b; });
       root.classList.remove('m-pchat');
       // Jede Tafel landet automatisch in der Bibliothek – mit Überschrift und Beschreibung
       const lastQ = [...hist].reverse().find(m => m.role === 'user')?.content || '';
