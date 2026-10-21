@@ -59,11 +59,15 @@ function say(el, text, ms) {
 const wait = ms => new Promise(r => setTimeout(r, ms));
 const pulse = (el, s, ms) => { try { (el.classList.contains('face') ? el : el.querySelector('.face'))?.__face?.pulse?.(s, ms); } catch (e) {} };
 
+// Creator Mode (Sketch Designwechsel): der Assistent hängt Max' Satz an (detail.line = { say, play })
+const creatorLine = (from, to) => { const d = { from, to, line: null }; dispatchEvent(new CustomEvent('bm:dressline', { detail: d })); return d.line; };
+let from0 = null;
 addEventListener('bm:accent', e => {
   const id = e.detail.id || 'std';
   if (busy) { e.preventDefault(); to = id; return; }   // läuft schon: die zuletzt gewählte Farbe wird angezogen
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || document.hidden) return;
-  const el = target(); if (!el) return;
+  from0 = document.documentElement.dataset.accent || 'std';
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || document.hidden || !target()) { const ln = creatorLine(from0, id); if (ln) ln.play(); return; }
+  const el = target();
   e.preventDefault(); to = id; busy = true;
   run(el).catch(() => setOutfit(to)).finally(() => { busy = false; });
 });
@@ -73,9 +77,10 @@ async function run(el) {
   // Erst die Farb-Animation der Seite abwarten (die legt sonst ein Standbild über alles)
   for (let i = 0; i < 30 && H.classList.contains('theme-vt'); i++) await wait(60);
   H.classList.add('mx-dress'); asst && asst.classList.add('mx-busy');
+  const pre = creatorLine(from0, to);   // Sketch: kein „Ich zieh mich um“, Max fliegt direkt raus
   const [de, en] = OUT[Math.floor(Math.random() * OUT.length)];
-  const off = say(el, L(de, en)); pulse(el, 'talk', 1200);
-  await wait(1300);
+  const off = pre ? () => {} : say(el, L(de, en)); if (!pre) pulse(el, 'talk', 1200);
+  await wait(pre ? 250 : 1300);
   const r = el.getBoundingClientRect();
   el.style.setProperty('--mxd', Math.round(innerWidth - r.left + 40) + 'px');
   el.classList.add('mx-out');
@@ -88,6 +93,8 @@ async function run(el) {
   await wait(720);
   el.classList.remove('mx-in'); el.style.removeProperty('--mxd');
   H.classList.remove('mx-dress'); asst && asst.classList.remove('mx-busy');
+  const ln = creatorLine(from0, to);
+  if (ln) { say(el, ln.say, Math.max(3500, ln.say.length * 75)); ln.play(); return; }   // Stimme läuft weiter, Max ist schon wieder frei für den nächsten Farbwechsel
   const q = LINES[to] || LINES.aubergine;
   say(el, L(q[0], q[1]), 5200); pulse(el, 'smug', 1800);
 }

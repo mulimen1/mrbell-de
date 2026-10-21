@@ -24,6 +24,7 @@ function hsl(hex) {
 }
 export function outfitColors(id) {
   if (!id || id === 'gruen') return GREEN;
+  if (id === 'pink') return OUT_L.map((l, i) => `hsl(328, ${i === 7 ? 80 : 92}%, ${Math.min(72, l + 22)}%)`);   // Knallpink
   const a = ACCENTS.find(x => x[0] === (id === 'std' ? '' : id)); if (!a) return GREEN;
   let [hu, sa] = a[0] ? hsl(a[3]) : [220, 7];
   sa = Math.min(sa, 55);
