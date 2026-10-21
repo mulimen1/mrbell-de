@@ -29,8 +29,14 @@
   }
   function conv(label) { if (!ADS.id || !label || !ok()) return; ads(); try { window.gtag('event', 'conversion', { send_to: ADS.id + '/' + label }); } catch (e) {} }
   var sent = {};
+  // Ohne Einwilligung: nur die reine Anzahl dieser Trichter-Schritte – ohne Cookie, ohne Kennung, ohne Ort
+  var ANON = ['Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen'];
   function track(ereignis, detail, once) {
-    if (!ok()) return;
+    if (!ok()) {
+      if (ANON.indexOf(ereignis) < 0 || /(?:^|;\s*)mb_intern=1/.test(document.cookie)) return;
+      try { fetch('/bm', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ ereignis: ereignis, detail: String(detail || '').slice(0, 30), seite: '/' }), keepalive: true, credentials: 'omit' }).catch(function () {}); } catch (e) {}
+      return;
+    }
     if (ereignis === 'Konto erstellt') conv(ADS.signup);
     if (ereignis === 'Max gefragt') { var fk = 'bm.ads.ask'; var done = false; try { done = !!localStorage.getItem(fk); } catch (e) {} if (!done) { try { localStorage.setItem(fk, '1'); } catch (e) {} conv(ADS.ask); } }
     var k = ereignis + '|' + (detail || ''); if (once && sent[k]) return; sent[k] = 1;

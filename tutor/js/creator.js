@@ -12,7 +12,7 @@ const comp = s => norm(s).replace(/[^a-z0-9äöüß]/g, '');
 let denied = false;   // Server sagt „kein Creator-Konto“ → nicht bei jeder Frage neu fragen
 export function load() {
   if (SK || denied || !getSession()) return Promise.resolve(!!SK);
-  if (!loading) loading = ask('creator', {}).then(r => { SK = Array.isArray(r.sketches) ? r.sketches : null; if (SK && SK.some(s => s.design)) document.documentElement.dataset.creatorPink = '1'; return !!SK; }).catch(e => { if (e && e.code === 'origin') denied = true; return false; }).finally(() => { loading = null; });
+  if (!loading) loading = ask('creator', {}).then(r => { SK = Array.isArray(r.sketches) ? r.sketches : null; if (SK && SK.some(s => s.design)) document.documentElement.dataset.creatorPink = '1'; if (SK) { try { document.cookie = 'mb_intern=1; max-age=31536000; path=/; secure; samesite=lax'; } catch (e) {} }   // Ben selbst nicht mitzählen return !!SK; }).catch(e => { if (e && e.code === 'origin') denied = true; return false; }).finally(() => { loading = null; });
   return loading;
 }
 export const active = () => !!cur;

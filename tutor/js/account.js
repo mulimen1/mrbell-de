@@ -58,7 +58,7 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
     const link = (txt, fn) => h('button', { class: 'llink', type: 'button', onclick: fn }, txt);
     const busyBtn = (btn, on, label) => { btn.disabled = on; btn.textContent = on ? L('Einen Moment …', 'One moment …') : label; };
     // Google zuerst (ein Tipp), darunter E-Mail
-    const gBox = () => { const el = h('div', { class: 'lg-g' }); setTimeout(() => import('./google.js').then(m => m.googleButton(el, r => success(r, 'google'))).catch(() => { el.hidden = true; }), 0); return h('div', { class: 'lg-gw' }, el, h('div', { class: 'lg-or' }, h('span', {}, L('oder mit E-Mail', 'or with email')))); };
+    const gBox = () => { const el = h('div', { class: 'lg-g' }); setTimeout(() => import('./google.js').then(m => m.googleButton(el, r => { try { window.BM && window.BM.track('Anmeldung begonnen', 'Google'); } catch (x) {} return success(r, 'google'); })).catch(() => { el.hidden = true; }), 0); return h('div', { class: 'lg-gw' }, el, h('div', { class: 'lg-or' }, h('span', {}, L('oder mit E-Mail', 'or with email')))); };
 
     // ---------- Anmelden ----------
     const login = () => {
@@ -98,6 +98,7 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
         e.preventDefault(); email = em.value.trim(); pw = p.inp.value;
         if (pw.length < 8) { err.textContent = L('Dein Passwort braucht mindestens 8 Zeichen.', 'Your password needs at least 8 characters.'); p.inp.focus(); return; }
         busyBtn(btn, true, LBL); err.replaceChildren(); fc.set('think');
+        try { window.BM && window.BM.track('Anmeldung begonnen', 'E-Mail'); } catch (x) {}
         try { await ask('login', { opts: { email, password: pw, mode: 'register' } }); ls.set('tutor.lastEmail', email); codeStep('register'); }
         catch (e2) { fc.pulse('sad'); busyBtn(btn, false, LBL); err.replaceChildren(e2.message); if (e2.code === 'exists') err.append(' ', link(L('Zur Anmeldung →', 'Go to sign in →'), () => login())); }
       });
@@ -195,6 +196,7 @@ export const openRegister = (o = {}) => openLogin(Object.assign({}, o, { mode: '
 // Gast ohne Konto in diesem Browser → Registrieren (mit „Schon ein Konto? Anmelden“); wer schon mal angemeldet war → Anmelden
 export const knownHere = () => !!(getAccount() || ls.get('tutor.lastEmail', ''));
 export function openAuth({ title, registerTitle, sub, registerSub, ...o } = {}) {
+  try { window.BM && window.BM.track('Anmeldefenster gesehen', knownHere() ? 'Anmelden' : 'Registrieren'); } catch (e) {}
   return knownHere() ? openLogin({ ...o, title, sub, mode: 'login' }) : openLogin({ ...o, title: registerTitle, sub: registerSub || sub, mode: 'register' });
 }
 

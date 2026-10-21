@@ -354,7 +354,8 @@ button { font: inherit; color: inherit; }
     var bes = reihe.besuche || [], akt = reihe.aktiv || [], besR = d.besucherReihe || bes;
     var kontenVor = d.konten.vorher != null ? { konten: d.konten.vorher } : null;
     var K = [
-      ['user', 'Besucher', k.besucher, 'besucher', besR, true],
+      ['eye', 'Aus Google Ads', k.ads || 0, 'ads', null],
+      ['user', 'Besucher (mit Cookies)', k.besucher, 'besucher', besR, true],
       ['eye', 'Seitenaufrufe', k.besuche, 'besuche', bes],
       ['userplus', 'Neue Konten', d.konten.zeitraum, 'konten', d.konten.reihe, false, kontenVor],
       ['chat', 'Fragen an Max', k.fragen, 'fragen', akt],
