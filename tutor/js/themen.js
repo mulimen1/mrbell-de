@@ -23,7 +23,13 @@ export const THEMEN = {
   rueckstellungen: ['Rückstellungen', 'Rückstellungen – wann, warum und wie man sie bucht'],
   eigenkapitalrentabilitaet: ['Eigenkapitalrentabilität', 'die Eigenkapitalrentabilität – Formel, Beispiel und Zusammenhang zum Leverage-Effekt'],
   grenzkosten: ['Grenzkosten', 'Grenzkosten – mit Kostenfunktion und Beispiel'],
-  porter: ['Porters Five Forces', 'Porters Five Forces – mit einem Branchenbeispiel']
+  porter: ['Porters Five Forces', 'Porters Five Forces – mit einem Branchenbeispiel'],
+  'aktiva-passiva': ['Aktiva und Passiva', 'Aktiva und Passiva – welcher Posten auf welche Seite gehört, an einem Bilanzbeispiel'],
+  eroeffnungsbilanz: ['Bilanz erstellen', 'wie man eine Bilanz erstellt – von der Eröffnungsbilanz bis zur Schlussbilanz'],
+  bilanzanalyse: ['Bilanzanalyse', 'die Bilanzanalyse – EK-Quote, Anlagendeckung und Liquiditätsgrade an einem Beispiel'],
+  'swot-beispiel': ['SWOT-Analyse Beispiel', 'eine SWOT-Analyse an einem durchgearbeiteten Unternehmensbeispiel'],
+  'swot-matrix': ['SWOT-Matrix', 'die SWOT-Matrix mit SO-, WO-, ST- und WT-Strategien an einem Beispiel'],
+  'swot-vorlage': ['SWOT-Analyse Vorlage', 'eine SWOT-Vorlage mit Leitfragen für jedes Feld und wie man sie ausfüllt']
 };
 // Themen der Lernseiten (bwlmax.de/lernen/…) ergänzen – bestehende Einträge bleiben, wie sie sind
 for (const [k, v] of Object.entries(LERNEN)) if (!THEMEN[k]) THEMEN[k] = v;
