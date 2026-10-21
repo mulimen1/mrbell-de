@@ -4,7 +4,7 @@
 import { h, ls } from './util.js';
 import { watchJob } from './ui.js';
 import { L } from './i18n.js';
-import { ask } from './api.js';
+import { ask, getAccount } from './api.js';
 import { mathify, polishBoard, queueMath } from './math.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice } from './max.js';
@@ -70,7 +70,12 @@ const plain = html => String(html || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp
 
 // Mini-Check + Haken direkt nach dem ersten Absatz
 export function enhance(c) {
-  const t = c.t; if (!t || t.querySelector('.m-chk, .m-hook')) return;
+  const t = c.t; if (!t || t.querySelector('.m-chk, .m-hook, .m-lad')) return;
+  if (c.speak && c.practice) {   // Lern-Stufen: verstanden → Klausurfragen → echter Praxisfall (mit kostenlosem Konto)
+    const first0 = [...t.children].find(e => !e.classList.contains('tt') && !/^h\d$/.test(e.localName));
+    const lad = ladder(c); if (first0) first0.after(lad); else t.append(lad);
+    watchScroll(c); return;
+  }
   const first = [...t.children].find(e => !e.classList.contains('tt') && !/^h\d$/.test(e.localName));   // erster Inhaltsblock (meist der erste Absatz)
   const hook = hookCard(c);
   const chk = CHECKS[c.slug];
@@ -95,6 +100,61 @@ export function enhance(c) {
   const els = [box, hook].filter(Boolean);
   if (first) first.after(...els); else t.append(...els);
   watchScroll(c);
+}
+// ---------- Lern-Stufen „Thema klausurfest machen“ ----------
+const LAD_K = c => 'tutor.lad.' + (c.slug || c.topic);
+const ladGet = c => { try { return JSON.parse(sessionStorage.getItem(LAD_K(c)) || '{}'); } catch (e) { return {}; } };
+const ladSet = (c, v) => { try { sessionStorage.setItem(LAD_K(c), JSON.stringify(Object.assign(ladGet(c), v))); } catch (e) {} };
+function ladder(c) {
+  const topic = c.topic || 'BWL';
+  const box = h('div', { class: 'm-lad' });
+  let prev = null;
+  const draw = () => {
+    const st = ladGet(c), acc = !!getAccount();
+    const ok = [true, !!st.q, !!st.p], n = ok.filter(Boolean).length, done = n === 3;
+    const cur = ok.indexOf(false);   // aktueller Schritt (-1 = alles geschafft)
+    const fresh = prev ? ok.map((v, i) => v && !prev[i]) : [false, false, false];
+    const won = done && prev && !prev.every(Boolean);
+    prev = ok.slice();
+    const nodes = [
+      [L('Verstanden', 'Understood'), null],
+      [L('Klausurfragen', 'Exam questions'), () => go2()],
+      [L('Praxisfall', 'Real case'), () => go3()]
+    ];
+    const tagTxt = i => i === 2 && !acc ? L('Freischalten', 'Unlock') : L('Los', 'Go');
+    const path = h('div', { class: 'm-ladp' });
+    nodes.forEach(([lab, fn], i) => {
+      if (i) path.append(h('span', { class: 'm-ladl' + (ok[i] ? ' on' : '') + (fresh[i] ? ' fresh' : '') }, h('i')));
+      const isCur = i === cur, lock = !ok[i] && !isCur;
+      const btn = h('button', { class: 'm-ladn' + (ok[i] ? ' ok' : '') + (isCur ? ' cur' : '') + (lock ? ' lock' : '') + (fresh[i] ? ' fresh' : ''), type: 'button', disabled: !isCur || !fn, 'aria-label': lab, onclick: () => fn && fn() },
+        ok[i] ? '✓' : i === 2 && !acc ? '🔒' : String(i + 1),
+        isCur && fn ? h('em', { class: 'm-ladt' }, tagTxt(i)) : null,
+        fresh[i] ? h('span', { class: 'm-ladfx' }, ...Array.from({ length: 8 }, () => h('i'))) : null);
+      path.append(h('div', { class: 'm-ladc' }, btn, h('small', {}, lab)));
+    });
+    path.append(h('span', { class: 'm-ladl' + (done ? ' on' : '') + (won ? ' fresh' : '') }, h('i')));
+    path.append(h('div', { class: 'm-ladc' }, h('div', { class: 'm-ladn m-ladz' + (done ? ' ok' : '') + (won ? ' fresh' : '') }, '★', won ? h('span', { class: 'm-ladfx' }, ...Array.from({ length: 10 }, () => h('i'))) : null), h('small', {}, L('Klausurfest', 'Exam-ready'))));
+    const sub = done ? L(`Sitzt. ${topic} kann in der Klausur kommen.`, `Done. Bring on the ${topic} exam question.`)
+      : cur === 1 ? L('3 Klausurfragen – Max fragt dich ab.', '3 exam questions – Max quizzes you.')
+      : L(`Letzter Schritt: ${topic} an einem echten Unternehmen – so wie es in der Klausur kommt.`, `Last step: ${topic} at a real company – exam style.`);
+    box.classList.toggle('done', done);
+    box.replaceChildren(
+      h('div', { class: 'm-ladh' }, h('b', {}, done ? L(`${topic}: klausurfest`, `${topic}: exam-ready`) : L(`${topic} klausurfest machen`, `Make ${topic} exam-ready`)), h('span', {}, `${n}/3`)),
+      path, h('p', { class: 'm-ladsub' }, sub));
+  };
+  const go2 = () => liveQuiz(c, { speak: c.speak, practice: () => go3(), onDone: () => { ladSet(c, { q: 1 }); draw(); box.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
+  const go3 = async () => {
+    if (!getAccount()) {
+      c.say(L('Praxisfall gibt’s mit kostenlosem Konto. Dauert 20 Sekunden – deine Tafel bleibt, wo sie ist.', 'The real case comes with a free account. 20 seconds – your board stays right here.'), 4200);
+      const { openAuth } = await import('./account.js');
+      const ok = await openAuth({ registerTitle: L('Praxisfall freischalten', 'Unlock the real case'), registerSub: L('Kostenlos. Deine Tafel und dein Fortschritt bleiben gespeichert.', 'Free. Your board and progress stay saved.') });
+      if (!ok && !getAccount()) return;
+    }
+    ladSet(c, { p: 1 }); draw();
+    c.practice(topic);
+  };
+  draw();
+  return box;
 }
 function hookCard(c) {
   return h('div', { class: 'm-hook' },
@@ -279,7 +339,7 @@ const deNum = s => {
 // Quiz Frage für Frage an der Tafel: Max liest jede Frage vor, erst nach der Auflösung kommt die nächste.
 // Normal: du tippst deine Antwort, Max sagt, ob's sitzt, und erklärt. auto (Creator Mode/TikTok): Countdown 3…0,
 // dann löst Max selbst auf und fragt am Ende, wie viele du richtig hattest.
-export async function fixedQuiz(c, data, { speak = async () => {}, built = false } = {}) {
+export async function fixedQuiz(c, data, { speak = async () => {}, built = false, practice = null } = {}) {
   const qs = (data.questions || []).filter(q => q && q.q && Array.isArray(q.a));
   if (!qs.length) return;
   const auto = !!data.auto;
@@ -292,7 +352,7 @@ export async function fixedQuiz(c, data, { speak = async () => {}, built = false
     await new Promise(r => setTimeout(r, 1700));
     sk.remove(); s.classList.remove('m-busy');
   }
-  let score = 0;
+  let score = 0; const gaps = [];
   const wait = ms => new Promise(r => setTimeout(r, ms));
   for (let qi = 0; qi < qs.length; qi++) {
     const q = qs[qi];
@@ -314,7 +374,7 @@ export async function fixedQuiz(c, data, { speak = async () => {}, built = false
       cd.hidden = true;
     } else oi = await picked;
     card.classList.add('done');
-    const ok = oi === q.right; if (ok) score++;
+    const ok = oi === q.right; if (ok) score++; else if (!auto && q.cat) gaps.push(q.cat);
     opts.forEach((b, j) => { b.disabled = true; b.classList.toggle('ok', j === q.right); b.classList.toggle('no', j === oi && !ok); });
     why.replaceChildren(...(auto ? [] : [h('b', {}, ok ? L('Richtig. ', 'Right. ') : L('Leider nein. ', 'Not quite. '))]), ...(q.calc || []).flatMap(x => [h('b', { class: 'm-qcalc' }, x), ' ']), q.say || '');
     why.hidden = false; mathify(why); queueMath();
@@ -329,13 +389,19 @@ export async function fixedQuiz(c, data, { speak = async () => {}, built = false
   const result = auto
     ? h('div', { class: 'm-qres' }, h('p', { class: 'm-qdg' }, data.outro || L('Wie viele hattest du richtig?', 'How many did you get right?')))
     : h('div', { class: 'm-qres' }, h('div', { class: 'm-qsc' }, h('b', {}, `${score}/${n}`), h('span', {}, L(' richtig', ' correct'))), h('p', { class: 'm-qdg' }, data.outro || (score === n ? L('Volle Punktzahl. Ich hab nichts anderes erwartet.', 'Full marks. As expected.') : score >= n - 1 ? L('Fast perfekt. Den einen holen wir uns noch.', 'Almost perfect.') : L('Okay, da ist Luft nach oben. Frag mich einfach, was unklar war.', 'Okay, room to improve. Just ask me what was unclear.'))));
+  // Persönliche Lücke → praktisches Beispiel an einem echten Unternehmen (genau ein Angebot, kein Overload)
+  if (!auto && practice) {
+    const focus = gaps[0] || c.topic || '';
+    result.append(h('p', { class: 'm-qdg' }, gaps.length ? L(`Bei „${focus}“ hakt’s noch. Lass uns das an einem echten Unternehmen durchgehen – dann sitzt es.`, `“${focus}” still needs work. Let’s go through it with a real company.`) : L(`Sitzt. Jetzt der Praxistest: ${focus} an einem echten Unternehmen.`, `Nailed it. Now the real-world test: ${focus} at a real company.`)),
+      h('button', { class: 'm-qx', type: 'button', onclick: () => practice(focus) }, L('An einem echten Unternehmen üben', 'Practise with a real company')));
+  }
   writeIn(c, s, [result]);
   requestAnimationFrame(() => scrollToEl(c, result));
   const end = data.outroSay || (auto ? '' : (score === n ? L('Alle richtig. Stark.', 'All correct. Strong.') : L(`${score} von ${n} richtig.`, `${score} out of ${n} correct.`)));
   if (end) await speak(end);
 }
 // Für alle: „Quiz mich dazu“ unter der Tafel – Max baut 3 Fragen zur Tafel und fragt dich Frage für Frage ab (mit Stimme)
-export async function liveQuiz(c, { speak } = {}) {
+export async function liveQuiz(c, { speak, practice, onDone } = {}) {
   if (c.t.querySelector('.m-live-quiz.m-busy')) return;
   c.t.querySelectorAll('.m-live-quiz').forEach(x => x.remove());
   const { s } = section(c, 'quiz', L(`Quiz: ${c.topic || 'diese Tafel'}`, `Quiz: ${c.topic || 'this board'}`));
@@ -361,9 +427,10 @@ Grundlage ist diese Tafel: ${plain(c.b.html)}]`;
   try { text = await aiCall(prompt); } catch (e) { err = e; }
   c.think(null); sk.remove(); s.classList.remove('m-busy');
   const qs = err ? null : parseQuiz(text);
-  if (!qs) { s.append(h('p', { class: 'm-err' }, (err && err.message) || L('Das hat nicht geklappt.', 'That didn’t work.')), h('button', { class: 'm-retry', type: 'button', onclick: () => { s.remove(); liveQuiz(c, { speak }); } }, L('Nochmal', 'Try again'))); return; }
+  if (!qs) { s.append(h('p', { class: 'm-err' }, (err && err.message) || L('Das hat nicht geklappt.', 'That didn’t work.')), h('button', { class: 'm-retry', type: 'button', onclick: () => { s.remove(); liveQuiz(c, { speak, practice, onDone }); } }, L('Nochmal', 'Try again'))); return; }
   const questions = qs.slice(0, 3).map(q => ({ q: q.q, a: q.opts, right: q.r, cat: q.tag, say: L(`Richtig ist ${'ABCD'[q.r]}. `, `The answer is ${'ABCD'[q.r]}. `) + (q.why || '') }));
-  await fixedQuiz(c, { questions }, { speak, built: s });
+  await fixedQuiz(c, { questions }, { speak, built: s, practice });
+  if (onDone) onDone();
 }
 export { deNum };
 export function parseExercise(text) {

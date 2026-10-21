@@ -375,3 +375,47 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
   .m-dcards small { font: 500 12.5px/1 var(--sans); color: var(--mute); }
   .asst .m-pcards.busy ~ .m-dcards, .m-dcards.busy { opacity: .7; pointer-events: none; }
 }
+/* Lern-Stufen „Thema klausurfest machen“ */
+.tafel .m-lad { margin: 18px 0 22px; padding: 16px 16px 12px; border-radius: 18px; border: 1px solid var(--line2); background: var(--panel); }
+.tafel .m-lad.done { border-color: #e0b400; box-shadow: 0 0 0 3px rgba(224,180,0,.14); }
+.m-ladh { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.m-ladh b { font-size: 16px; letter-spacing: -.01em; }
+.m-ladh span { font: 800 13px var(--sans); color: var(--mute); font-variant-numeric: tabular-nums; }
+.m-ladp { display: flex; align-items: flex-start; margin: 30px 0 4px; }
+.m-ladc { flex: none; width: 74px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.m-ladc small { font: 700 12.5px var(--sans); color: var(--mute); text-align: center; line-height: 1.2; }
+.m-ladl { flex: 1; height: 8px; margin-top: 24px; border-radius: 99px; background: var(--panel2); overflow: hidden; min-width: 14px; }
+.m-ladl i { display: block; height: 100%; width: 0; border-radius: inherit; background: #1f9d55; }
+.m-ladl.on i { width: 100%; }
+.m-ladl.fresh i { animation: mladfill .7s cubic-bezier(.16,1,.3,1) both; }
+@keyframes mladfill { from { width: 0; } to { width: 100%; } }
+.m-ladn { position: relative; width: 56px; height: 56px; border-radius: 50%; border: 0; display: grid; place-items: center; font: 800 20px var(--sans); color: var(--mute); background: var(--panel2); box-shadow: 0 5px 0 var(--line2); cursor: default; padding: 0; transition: transform .12s, box-shadow .12s; }
+.m-ladn.ok { background: #1f9d55; color: #fff; box-shadow: 0 5px 0 #157a40; }
+.m-ladn.cur { background: var(--inv); color: var(--onInv); box-shadow: 0 5px 0 rgba(0,0,0,.35); cursor: pointer; animation: mladbob 1.6s ease-in-out infinite; }
+.m-ladn.cur:active { transform: translateY(4px); box-shadow: 0 1px 0 rgba(0,0,0,.35); animation: none; }
+.m-ladn.lock { opacity: .7; font-size: 18px; }
+.m-ladn.m-ladz { font-size: 24px; }
+.m-ladn.m-ladz.ok { background: #f2c200; color: #fff; box-shadow: 0 5px 0 #c79c00; }
+.m-ladn.fresh { animation: mladpop .6s cubic-bezier(.34,1.56,.64,1) .45s both; }
+@keyframes mladbob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes mladpop { 0% { transform: scale(.5); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
+.m-ladt { position: absolute; bottom: calc(100% + 12px); left: 50%; transform: translateX(-50%); padding: 5px 11px; border-radius: 10px; background: var(--panel); border: 2px solid var(--line2); color: var(--ink); font: 800 12.5px var(--sans); font-style: normal; white-space: nowrap; letter-spacing: .02em; text-transform: uppercase; pointer-events: none; }
+.m-ladt::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -6px; border: 6px solid transparent; border-top-color: var(--line2); }
+.m-ladfx { position: absolute; inset: 0; pointer-events: none; }
+.m-ladfx i { position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; margin: -3.5px; border-radius: 2px; background: #1f9d55; opacity: 0; animation: mladfx .8s cubic-bezier(.16,1,.3,1) .55s both; }
+.m-ladz .m-ladfx i { background: #f2c200; }
+.m-ladfx i:nth-child(3n) { background: #f2c200; } .m-ladfx i:nth-child(4n) { background: #3b82f6; }
+.m-ladfx i:nth-child(1) { --a: 0deg; }
+.m-ladfx i:nth-child(2) { --a: 36deg; }
+.m-ladfx i:nth-child(3) { --a: 72deg; }
+.m-ladfx i:nth-child(4) { --a: 108deg; }
+.m-ladfx i:nth-child(5) { --a: 144deg; }
+.m-ladfx i:nth-child(6) { --a: 180deg; }
+.m-ladfx i:nth-child(7) { --a: 216deg; }
+.m-ladfx i:nth-child(8) { --a: 252deg; }
+.m-ladfx i:nth-child(9) { --a: 288deg; }
+.m-ladfx i:nth-child(10) { --a: 324deg; }
+@keyframes mladfx { 0% { opacity: 1; transform: rotate(var(--a)) translateY(0) scale(1); } 100% { opacity: 0; transform: rotate(var(--a)) translateY(-46px) scale(.4); } }
+.tafel .m-ladsub { margin: 12px 0 0; font-size: 13.5px; color: var(--mute); text-align: center; }
+@media (max-width: 520px) { .m-ladc { width: 60px; } .m-ladn { width: 48px; height: 48px; font-size: 17px; } .m-ladl { margin-top: 20px; } }
+@media (prefers-reduced-motion: reduce) { .m-ladn.cur, .m-ladn.fresh, .m-ladl.fresh i, .m-ladfx i { animation: none; } }

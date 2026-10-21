@@ -353,7 +353,7 @@ export function mountAssistant() {
   function entryCtx() {
     const b = boards[bIdx], t = bArea.querySelector('.tafel'); if (!b || !t || building) return null;
     const tr = trainerFor(b.title + ' ' + (b.slug || '') + ' ' + buildTitle), [topic, stem] = topicOf(b, tr);
-    return { t, b, slug: b.slug || '', topic, stem, trainer: tr ? tr[0] : '', scroller: bArea, say: pSay, think: pThink, note: n => { entryNotes.push(n); if (entryNotes.length > 6) entryNotes.shift(); }, busy: pBusy, back: () => backTo(b) };
+    return { t, b, slug: b.slug || '', topic, stem, trainer: tr ? tr[0] : '', scroller: bArea, say: pSay, think: pThink, note: n => { entryNotes.push(n); if (entryNotes.length > 6) entryNotes.shift(); }, busy: pBusy, back: () => backTo(b), speak: t => sayStep(t), practice: f => askPractice(f) };
   }
   function drawPage(b) {
     const c = b ? entryCtx() : null;
@@ -1022,8 +1022,10 @@ export function mountAssistant() {
     if (open) setOpen(false);
     location.hash = `#/app/${doc.id}/karten/max`;
   }
+  // Praxisfall: Max rechnet das Thema an einem echten Unternehmen durch – im Sylt-Stil, fachlich exakt
+  function askPractice(f) { submit(L(`Praxisfall: Zeig mir „${f}“ an der Tafel an einem echten, bekannten Unternehmen – Schritt für Schritt wie eine Klausuraufgabe, in deinem Sylt-Stil, aber fachlich exakt. Echte Zahlen nur, wenn du sie sicher kennst; sonst runde Beispielzahlen und das klar dazusagen.`, `Real case: show me “${f}” on the whiteboard with a real, well-known company – step by step like an exam task. Real figures only if you’re sure; otherwise round example numbers and say so.`), { show: L(`Praxisfall: ${f}`, `Real case: ${f}`), board: f }); }
   // „Quiz mich dazu“: Max baut 3 Fragen an die Tafel, liest jede vor, du antwortest, er erklärt – dann die nächste
-  function askQuiz(title) { const c = entryCtx(); if (c) { unlockAudio(); Entry.liveQuiz(c, { speak: t => sayStep(t) }); return; } submit(L(`Quiz mich zu „${title}“ – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.`, `Quiz me on “${title}” – one question at a time, wait for my answer each time and tell me if it’s right.`), { show: L('Quiz mich dazu', 'Quiz me on this') }); }
+  function askQuiz(title) { const c = entryCtx(); if (c) { unlockAudio(); Entry.liveQuiz(c, { speak: t => sayStep(t), practice: f => askPractice(f) }); return; } submit(L(`Quiz mich zu „${title}“ – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.`, `Quiz me on “${title}” – one question at a time, wait for my answer each time and tell me if it’s right.`), { show: L('Quiz mich dazu', 'Quiz me on this') }); }
   function askExample(title) { submit(L(`Rechne mir ein neues Beispiel zu „${title}“ Schritt für Schritt an der Tafel vor – mit anderen Zahlen.`, `Work through a new example on “${title}” step by step on the whiteboard – with different numbers.`), { show: L('Rechne mir ein Beispiel', 'Work me an example'), board: title }); }
   // Passendes Trainer-Modul zum Thema der Tafel (ruhiger Link am Ende)
   const TRN = [

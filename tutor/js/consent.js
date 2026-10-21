@@ -51,7 +51,7 @@
     + '.bmc h3{margin:0 0 6px;font-size:16px;letter-spacing:-.01em;font-weight:700}.bmc p{margin:0 0 14px;color:var(--ink2,#d4d4d8)}.bmc p a{color:inherit;text-underline-offset:3px}'
     + '.bmc .r{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bmc button{height:44px;border-radius:999px;font:650 14px Geist,-apple-system,sans-serif;cursor:pointer;border:1px solid var(--line2,#2e2e33);background:transparent;color:inherit;transition:transform .15s,filter .15s}'
     + '.bmc button:active{transform:scale(.97)}.bmc button.y{background:var(--inv,#f5f5f5);color:var(--onInv,#000);border-color:var(--inv,#f5f5f5)}.bmc button:hover{filter:brightness(1.08)}'
-    + '.bmc .s{display:none}'
+    + '.bmc .s{display:none}.bmc.bmc-dk{padding:14px 16px}.bmc.bmc-dk h3,.bmc.bmc-dk .l{display:none}.bmc.bmc-dk .s{display:inline}.bmc.bmc-dk p{margin:0 0 10px;font-size:13.5px}.bmc.bmc-dk button{height:38px}'
     // Handy: schmale Leiste unten (über der Navigationsleiste), ein, zwei Zeilen Text + zwei gleich große Knöpfe
     + '@media(max-width:600px),(pointer:coarse) and (max-height:500px){.bmc{left:12px;right:12px;bottom:calc(8px + env(safe-area-inset-bottom,0px));width:auto;max-width:560px;margin:0 auto;padding:18px 16px 16px;border-radius:22px;font-size:14px;line-height:1.45}'
     + 'html.m-boardpage .bmc{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}.bmc p{margin:0 0 14px;color:var(--ink2,#d4d4d8)}.bmc .r{gap:6px}.bmc button{height:44px;font-size:14px;white-space:nowrap;padding:0 8px}}'
@@ -81,8 +81,13 @@
   function place() {
     if (!box) return;
     var bb = document.querySelector('.bbar'), r = bb && bb.getBoundingClientRect();
-    box.style.bottom = r && r.height && r.top < innerHeight && matchMedia('(max-width:600px),(pointer:coarse) and (max-height:500px)').matches ? (innerHeight - r.top + 8) + 'px' : '';
+    var mob = matchMedia('(max-width:600px),(pointer:coarse) and (max-height:500px)').matches;
+    // Max-Führung (Leiste unten links) aktiv: Banner wird kompakt und sitzt darüber statt darunter
+    var dk = document.querySelector('.mx-dock'), dr = dk && dk.getBoundingClientRect(), dock = !!(dr && dr.height && dr.top < innerHeight && dr.left < 440);
+    box.classList.toggle('bmc-dk', dock);
+    box.style.bottom = dock ? (innerHeight - dr.top + 10) + 'px' : r && r.height && r.top < innerHeight && mob ? (innerHeight - r.top + 8) + 'px' : '';
   }
+  new MutationObserver(function () { if (box) place(); }).observe(document.body || document.documentElement, { childList: true });
   addEventListener('resize', place); addEventListener('hashchange', function () { setTimeout(place, 60); });
 
   // ---------- automatische Ereignisse (nur mit Einwilligung) ----------
