@@ -16,11 +16,11 @@ export function load() {
   return loading;
 }
 export const active = () => !!cur;
-// Sketch Designwechsel: Pink → empörter Satz, zurück zu Grün (nur direkt nach Pink) → Pointe. Sonst nichts.
+// Sketch Designwechsel: Gelb → empörter Satz, zurück zu Grün (nur direkt nach Gelb) → Pointe. Sonst nichts.
 export function designLine(from, to) {
   const d = (SK || []).find(s => s.design); if (!d) return null;
-  if (to === 'pink' && from !== 'pink') return d.design.pink || null;
-  if (to === 'gruen' && from === 'pink') return d.design.gruen || null;
+  if (to === 'gelb' && from !== 'gelb') return d.design.gelb || null;
+  if (to === 'gruen' && from === 'gelb') return d.design.gruen || null;
   return null;
 }
 export const sequential = () => !!(cur && !cur.pairs);
@@ -38,7 +38,7 @@ export function handle(text) {
     if (['stop', 'ende', 'reset', 'aus'].includes(arg)) { cur = null; idx = 0; if (arg !== 'reset') last = null; delete document.documentElement.dataset.creatorLabel; return { msg: arg === 'reset' ? 'Sketch zurückgesetzt – neuer Take mit /sketch …' : 'Sketch beendet – Max ist wieder der normale Tutor.' }; }
     const sk = SK.find(s => s.id === arg);
     if (!sk) return { msg: 'Sketche: ' + SK.map(s => '/sketch ' + s.id).join(' · ') };
-    if (sk.design) return { msg: 'Designwechsel ist immer bereit: Farbe auf Pink, dann zurück auf Grün.' };
+    if (sk.design) return { msg: 'Designwechsel ist immer bereit: Farbe auf Gelb, dann zurück auf Grün.' };
     cur = sk; idx = 0; last = sk.pairs ? null : sk;
     if (sk.pairs) { document.documentElement.dataset.creatorLabel = 'BWL Max'; }   // Screenshots: Markenname unter Max' Kopf
     else delete document.documentElement.dataset.creatorLabel;

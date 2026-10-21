@@ -1491,14 +1491,14 @@ export function mountAssistant() {
       p.then(u => KEEP.add(u)).catch(() => TTSC.delete(s));
     });
   }
-  // Creator Mode, Sketch Designwechsel: Farbe auf Pink / zurück auf Grün → Max sagt seinen Satz (Stimme + Sprechanimation)
+  // Creator Mode, Sketch Designwechsel: Farbe auf Gelb / zurück auf Grün → Max sagt seinen Satz (Stimme + Sprechanimation)
   let dressQ = Promise.resolve();   // Sätze laufen nacheinander, nie doppelt, nie übereinander
   addEventListener('bm:dressline', e => {
     const ln = Creator.designLine(e.detail.from, e.detail.to); if (!ln) return;
     let played = false;
     e.detail.line = { say: ln.say, play: () => { if (played) return dressQ; played = true; return (dressQ = dressQ.then(() => sayStep(ln.voice || ln.say)).catch(() => {})); } };
   });
-  if (getSession()) Creator.load().then(okC => { if (!okC) return; ['pink', 'gruen'].forEach(k => { const l = Creator.designLine(k === 'gruen' ? 'pink' : 'std', k); if (l) prefetchSpeech(l.voice || l.say); }); }).catch(() => {});
+  if (getSession()) Creator.load().then(okC => { if (!okC) return; ['gelb', 'gruen'].forEach(k => { const l = Creator.designLine(k === 'gruen' ? 'gelb' : 'std', k); if (l) prefetchSpeech(l.voice || l.say); }); }).catch(() => {});
   // Creator Mode: Weiter per Taste (→ oder Bild runter, auch Presenter-Fernbedienung) – Max muss nichts hören, kein Mikro nötig
   document.addEventListener('keydown', e => {
     if (!Creator.canKey() || e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;

@@ -45,7 +45,7 @@ export const ACCENTS = [
   ['bordeaux', 'Bordeaux', 'Burgundy', '#7b1e2e', '#a83346'],
   ['aubergine', 'Aubergine', 'Plum', '#4e2a5f', '#7a4a91'],
   ['graphit', 'Graphit', 'Graphite', '#3f4650', '#646d79'],
-  ['pink', 'Pink', 'Pink', '#e6007e', '#ff3ea5']   // nur im Creator Mode sichtbar (TikTok-Sketch)
+  ['gelb', 'Gelb', 'Yellow', '#d6c700', '#e3d400']   // nur im Creator Mode sichtbar (TikTok-Sketch)
 ];
 const ACC_KEY = 'tutor.accent';
 export const getAccent = () => document.documentElement.dataset.accent || '';
@@ -98,7 +98,7 @@ function openAccent(btn) {
   head.innerHTML = `<b>${L('Farbe anpassen', 'Choose your colour')}</b><small>${L('Knöpfe, Tabs & Fortschritt', 'Buttons, tabs & progress')}</small>`;
   const grid = document.createElement('div'); grid.className = 'acc-grid'; grid.setAttribute('role', 'radiogroup');
   let chosen = saved;
-  const sws = ACCENTS.filter(a => a[0] !== 'pink' || document.documentElement.dataset.creatorPink || saved === 'pink').map(([id, de, en, c, cd]) => {
+  const sws = ACCENTS.filter(a => a[0] !== 'gelb' || document.documentElement.dataset.creatorPink || saved === 'gelb').map(([id, de, en, c, cd]) => {
     const s = document.createElement('button');
     s.type = 'button'; s.className = 'acc-sw' + (id ? '' : ' std'); s.setAttribute('role', 'radio');
     s.style.setProperty('--c', c); s.style.setProperty('--cd', cd);
