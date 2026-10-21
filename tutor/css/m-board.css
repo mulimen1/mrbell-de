@@ -273,6 +273,7 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 .m-qol { flex: none; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; background: var(--panel2); font: 700 12px var(--mono); }
 .m-qot { min-width: 0; overflow-wrap: break-word; }
 .tafel .m-qwhy { margin: 10px 0 0; font-size: 14px; line-height: 1.5; color: var(--ink2); }
+.tafel .m-qwhy .m-qcalc { display: block; margin: 6px 0; font-size: 16px; color: var(--ink); font-variant-numeric: tabular-nums; }
 .m-qres, .m-xres { margin: 6px 0 14px; padding: 16px; border-radius: 16px; background: var(--panel2); }
 .m-qsc b { font-size: 30px; letter-spacing: -.03em; }
 .m-qsc span { color: var(--mute); font-weight: 600; }

@@ -276,6 +276,45 @@ const deNum = s => {
   else if (/^-?\d{1,3}(\.\d{3})+$/.test(m)) m = m.replace(/\./g, '');
   return parseFloat(m);
 };
+// Creator Mode (TikTok): festes Quiz im ganz normalen Quiz-Design an der Tafel. Max baut es „live“, liest jede Frage vor,
+// du tippst deine Antwort, Max erklärt die Lösung – erst danach erscheint die nächste Frage. Inhalte kommen vom Server.
+export async function fixedQuiz(c, data, { speak = async () => {} } = {}) {
+  const qs = (data.questions || []).filter(q => q && q.q && Array.isArray(q.a));
+  if (!qs.length) return;
+  c.t.querySelectorAll('.m-live-quiz').forEach(x => x.remove());
+  const { s } = section(c, 'quiz', data.title || L('Quiz', 'Quiz'));
+  s.classList.add('m-busy');
+  const sk = skeleton(s, L('Max baut dein Quiz – live …', 'Max is building your quiz – live …'));
+  await new Promise(r => setTimeout(r, 1700));
+  sk.remove(); s.classList.remove('m-busy');
+  let score = 0;
+  for (let qi = 0; qi < qs.length; qi++) {
+    const q = qs[qi];
+    const why = h('p', { class: 'm-qwhy', hidden: true });
+    let pick;
+    const picked = new Promise(r => { pick = r; });
+    const opts = q.a.map((o, oi) => h('button', { class: 'm-qo', type: 'button', onclick: () => pick(oi) }, h('span', { class: 'm-qol' }, String.fromCharCode(65 + oi)), h('span', { class: 'm-qot' }, o)));
+    const card = h('div', { class: 'm-q' }, h('div', { class: 'm-qn' }, `${L('Frage', 'Question')} ${qi + 1}/${qs.length}${q.cat ? ' · ' + q.cat : ''}`), h('p', { class: 'm-qq' }, q.q), h('div', { class: 'm-qos' }, opts), why);
+    writeIn(c, s, [card]);
+    requestAnimationFrame(() => scrollToEl(c, card));
+    await speak(q.q);
+    const oi = await picked;
+    card.classList.add('done');
+    const ok = oi === q.right; if (ok) score++;
+    opts.forEach((b, j) => { b.disabled = true; b.classList.toggle('ok', j === q.right); b.classList.toggle('no', j === oi && !ok); });
+    why.replaceChildren(h('b', {}, ok ? L('Richtig. ', 'Right. ') : L('Leider nein. ', 'Not quite. ')), ...(q.calc || []).flatMap(x => [h('b', { class: 'm-qcalc' }, x), ' ']), q.say || '');
+    why.hidden = false;
+    why.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)' });
+    requestAnimationFrame(() => scrollToEl(c, card));
+    await speak(q.say || '');
+    await new Promise(r => setTimeout(r, 500));
+  }
+  const n = qs.length;
+  const result = h('div', { class: 'm-qres' }, h('div', { class: 'm-qsc' }, h('b', {}, `${score}/${n}`), h('span', {}, L(' richtig', ' correct'))), data.outro ? h('p', { class: 'm-qdg' }, data.outro) : null);
+  writeIn(c, s, [result]);
+  requestAnimationFrame(() => scrollToEl(c, result));
+  if (data.outroSay) await speak(data.outroSay);
+}
 export { deNum };
 export function parseExercise(text) {
   const src = String(text || '').replace(/```[a-z]*\n?/gi, '');

@@ -1465,7 +1465,7 @@ export function mountAssistant() {
   function unlockAudio() { if (state === 'speak') return; try { audio.src = SILENT; audio.play().catch(() => {}); } catch (e) {} }
   // Vorlesen in Stücken: der erste Satz geht sofort los, der Rest wird geholt, während Max schon spricht
   function speechChunks(text) {
-    const sents = String(text).replace(/\s+/g, ' ').trim().match(/[^.!?…:;]+[.!?…:;]+["“”»«)]*\s*|[^.!?…:;]+$/g) || [text];
+    const sents = String(text).replace(/\s+/g, ' ').trim().match(/(?:[^.!?…:;]|[.:](?=\d))+[.!?…:;]+["“”»«)]*\s*|(?:[^.!?…:;]|[.:](?=\d))+$/g) || [text];
     const out = []; let cur = '';
     for (const s0 of sents) {
       const s1 = s0.trim(); if (!s1) continue;
@@ -1505,6 +1505,7 @@ export function mountAssistant() {
     if (r.prep) sketchDoc(r.prep).catch(() => {});   // Video-Skript schon beim Scharfschalten anlegen – dann startet der Plan direkt nach Max' Satz
     if (!r.step) { if (curEx && !curEx.done) dropEx(); setState('idle', r.msg); if (r.miss) afterAnswer(); return; }   // nicht erkannt: Frage verwerfen, Max hört direkt wieder zu
     const s = r.step;
+    if (s.quiz) [...(s.quiz.questions || []).flatMap(x => [x.q, x.say]), s.quiz.outroSay].filter(Boolean).forEach(prefetchSpeech);   // Quiz-Sätze sofort vorladen
     if (state === 'speak') { try { audio.pause(); } catch (e) {} }
     vTour = false; if (tourActive()) stopTour();
     unlockAudio(); if (!s.silent) prefetchSpeech(s.voice || s.say);
@@ -1520,7 +1521,11 @@ export function mountAssistant() {
       try { STAGE?.onAnswer?.(parse(raw)); } catch (e) {}
       if (my === gen && s.face) { fc.pulse(s.face, 2400); bf.pulse(s.face, 2400); }
     } finally { if (my === gen) ctrl = null; }
-    if (s.plan && my === gen) sketchPlan(s.plan);   // direkt nach dem gesprochenen Satz: echter Klausurplan mit Erstell-Animation
+    if (s.plan && my === gen) sketchPlan(s.plan);
+    if (s.quiz && my === gen) {   // Quiz im normalen Tafel-Design: Max baut es, liest vor, du antwortest, Max erklärt
+      let c = null; for (let k = 0; k < 40 && !(c = entryCtx()); k++) await new Promise(r => setTimeout(r, 150));
+      if (c && my === gen) await Entry.fixedQuiz(c, s.quiz, { speak: t => sayStep(t) });
+    }   // direkt nach dem gesprochenen Satz: echter Klausurplan mit Erstell-Animation
   }
   // eigenes Video-Skript (nie ein echtes Skript von dir – dessen Lernpfad und Plan bleiben unangetastet); einmalig echtes Kurzskript
   let sketchDocP = null;
