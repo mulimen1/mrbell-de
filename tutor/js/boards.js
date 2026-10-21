@@ -70,3 +70,16 @@ export async function instantReply(o) {
   try { if (window.BM) window.BM.track('Max gefragt', 'Sofort-Tafel'); } catch (e) {}
   return r;
 }
+
+// Klausurfragen-Tafel zum Thema (vorgefertigt, boards/klausur-<slug>.json) – null, wenn es keine gibt
+const kcache = new Map();
+export async function examReply(slug) {
+  if (!slug || lang !== 'de' || getOutLang() !== 'de') return null;
+  if (!kcache.has(slug)) kcache.set(slug, fetch(new URL(`../boards/klausur-${slug}.json`, import.meta.url), { credentials: 'same-origin' }).then(r => (r.ok ? r.json() : null)).then(j => (j && j.ok && /```tafel/.test(j.text || '') ? j : null)).catch(() => null));
+  const j = await Promise.race([kcache.get(slug), new Promise(r => setTimeout(() => r(null), 3000))]);
+  if (!j) { kcache.delete(slug); return null; }
+  const r = repairDeep(JSON.parse(JSON.stringify(j)));
+  delete r.quota; delete r.account;
+  r.instant = true;
+  return r;
+}

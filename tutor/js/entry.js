@@ -1,7 +1,7 @@
 // Themen-Einstieg (Google-Anzeige /?thema=…): aus der Tafel wird eine Lernseite, die zum Mitmachen zwingt.
 // Mini-Check nach dem ersten Absatz, Quiz und Übung live auf der Seite (ohne Konto), Max kommentiert beim Scrollen,
 // danach eine ehrliche Speichern-Karte. Alles läuft auf der Seite – nichts springt auf, kein Raumwechsel.
-import { h, ls } from './util.js';
+import { h, ls, ico } from './util.js';
 import { watchJob } from './ui.js';
 import { L } from './i18n.js';
 import { ask, getAccount } from './api.js';
@@ -72,8 +72,12 @@ const plain = html => String(html || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp
 export function enhance(c) {
   const t = c.t; if (!t || t.querySelector('.m-chk, .m-hook, .m-lad')) return;
   if (c.speak && c.practice) {   // Lern-Stufen: verstanden → Klausurfragen → echter Praxisfall (mit kostenlosem Konto)
-    const first0 = [...t.children].find(e => !e.classList.contains('tt') && !/^h\d$/.test(e.localName));
-    const lad = ladder(c); if (first0) first0.after(lad); else t.append(lad);
+    // erst nach Definition + erstem Beispiel/Karten (Ende erstes Drittel), sonst ergibt der Pfad keinen Sinn
+    const kids = [...t.children].filter(e => !e.matches('.tt, .m-bsw, .m-next, .m-lad, .source'));
+    let at = kids.findIndex((e, i) => i >= 1 && e.matches('.vs, table, .example, .kpis, .formel, .calc, .grid, ul, ol'));
+    if (at >= 0 && kids[at].matches('.example') && kids[at + 1] && !/^h\d$/.test(kids[at + 1].localName)) at++;   // Beispiel samt erster Rechnung
+    if (at < 0 || at > Math.max(2, Math.round(kids.length * .45))) at = Math.max(1, Math.round(kids.length / 3) - 1);
+    const lad = ladder(c); if (kids[at]) kids[at].after(lad); else t.append(lad);
     // dieselbe Karte am Ende der Tafel (statt „Karteikarten machen“)
     const nx = t.querySelector('.m-next'), lad2 = ladder(c); if (nx) nx.before(lad2); else t.append(lad2);
     watchScroll(c); return;
@@ -135,13 +139,13 @@ function ladder(c) {
     N.forEach(([lab, fn, face], i) => {
       if (i) path.append(h('span', { class: 'm-ladl' + (ok[i] ? ' on' : '') + (fresh[i] ? ' fresh' : '') + (i === cur ? ' next' : '') }, h('i')));
       const isCur = i === cur, lock = !ok[i] && !isCur;
-      const sym = ok[i] && i !== 3 ? (i === 0 ? face : '✓') : i === 3 && !acc && !ok[3] ? '🔒' : face || String(i);
+      const sym = i === 0 ? face : h('span', { class: 'm-ladico', html: ico(['', 'brain', 'exam', 'trophy'][i]) });
       const btn = h(fn && isCur ? 'button' : 'div', Object.assign({ class: 'm-ladn' + (ok[i] ? ' ok' : '') + (isCur ? ' cur' : '') + (lock ? ' lock' : '') + (fresh[i] ? ' fresh' : '') + (i === 3 ? ' m-ladz' : '') + (i === 0 ? ' m-lad0' : '') }, fn && isCur ? { type: 'button', 'aria-label': lab, onclick: () => fn() } : {}),
-        sym, isCur && fn ? h('em', { class: 'm-ladt' }, i === 3 && !acc ? L('Freischalten', 'Unlock') : L('Los', 'Go')) : null, fresh[i] ? fx(i === 3 ? 12 : 8) : null);
+        sym, isCur && fn ? h('em', { class: 'm-ladt' }, L('Los', 'Go')) : null, fresh[i] ? fx(i === 3 ? 12 : 8) : null);
       path.append(h('div', { class: 'm-ladc' }, btn, h('small', {}, lab)));
     });
     const sub = done ? L(`Sitzt. ${topic} kann in der Klausur kommen.`, `Done. Bring on the ${topic} exam question.`)
-      : cur === 2 ? L('Nächster Schritt: 3 Klausurfragen – Max fragt dich ab.', 'Next: 3 exam questions – Max quizzes you.')
+      : cur === 2 ? L('Nächster Schritt: echte Klausuraufgaben mit Musterlösung.', 'Next: real exam tasks with model solutions.')
       : L(`Letzter Schritt: ${topic} an einem echten Unternehmen – so wie es in der Klausur kommt. Dann sitzt es.`, `Last step: ${topic} at a real company – exam style.`);
     box.classList.toggle('done', done);
     box.replaceChildren(

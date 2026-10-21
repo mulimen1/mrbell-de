@@ -465,3 +465,12 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 .m-gatec .btn { width: 100%; min-height: 48px; }
 .m-gateb { border: 0; background: none; color: var(--mute); font: 600 13.5px var(--sans); cursor: pointer; padding: 6px; text-decoration: underline; text-underline-offset: 3px; }
 .ai-board.m-gated .tafel .m-bsw { position: relative; z-index: 7; }
+
+/* ruhig: nichts springt oder pulsiert – nur Füllen, Glanz auf vollen Strecken und Glow */
+.m-ladn.cur, .m-ladn.cur::before, .m-ladl.next i { animation: none !important; }
+.m-ladn.cur::before { display: none; }
+.m-ladl.next i { width: 26%; }
+.m-ladico { display: grid; place-items: center; }
+.m-ladico .ico, .m-ladico svg { width: 24px; height: 24px; }
+.m-ladn:not(.ok):not(.cur) .m-ladico { opacity: .75; }
+@media (max-width: 520px) { .m-ladico .ico, .m-ladico svg { width: 20px; height: 20px; } }

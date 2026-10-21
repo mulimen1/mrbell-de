@@ -22,7 +22,7 @@ import { prompt as maxPrompt, mode as maxMode } from './maxcfg.js';
 import { knowledge } from './know.js';
 import { keepBoards } from './lib.js';
 import { tour, tourActive, pauseTour, stopTour, boardSteps, pageMap, byMxId, spotText } from './cursor.js';
-import { hasInstant, instantReply } from './boards.js';
+import { hasInstant, instantReply, examReply } from './boards.js';
 import * as Creator from './creator.js';   // TikTok-Sketche (nur Gründer-Konto, serverseitig freigeschaltet)
 import * as Entry from './entry.js';   // Themen-Einstieg: Mini-Check, Live-Quiz, Live-Übung   // Sofort-Tafeln für Themen-Einstiege
 
@@ -923,7 +923,7 @@ export function mountAssistant() {
         h('button', { type: 'button', role: 'tab', 'aria-selected': String(on), class: on ? 'on' : '', onclick: () => { if (on) return; bIdx = boards.indexOf(mate); drawBoard(false); } }, lab))));
     ungate();
     bArea.replaceChildren(t); bArea.scrollTop = 0; bArea.dataset.b = String(bIdx); bArea.__b = b;
-    if (b.exam) { if (getAccount()) Entry.markLad(b.slug, { q: 1 }); else { const ms = b.seen ? 300 : 1900; b.seen = 1; setTimeout(() => gate(b), ms); } }
+    if (b.exam) { if (getAccount()) Entry.markLad(b.slug, { q: 1 }); else { const ms = b.seen ? 300 : 1800; b.seen = 1; setTimeout(() => gate(b), ms); } }
     if (write) t.classList.add('ai-write');
     else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) appear(t);
     stopTour(); drawTourBtn(); drawBMore(); root.classList.remove('m-bld');
@@ -1035,7 +1035,7 @@ export function mountAssistant() {
     const src = boards[bIdx]; if (!src) return;
     if (src.pairB && boards.includes(src.pairB)) { bIdx = boards.indexOf(src.pairB); drawBoard(false); openBoard(); return; }
     submit(L(`Klausurfragen zu „${f}“: Schreib an die Tafel 4 echte Klausuraufgaben auf Uni-BWL-Niveau – 1 Verständnisfrage, 2 Rechen- oder Buchungsaufgaben mit konkreten Zahlen, 1 Transferaufgabe –, jede mit Punktzahl. Darunter je die Musterlösung Schritt für Schritt. Im Chat nur ein kurzer Satz.`, `Exam questions on “${f}”: put 4 real university exam tasks on the board – 1 concept question, 2 calculation tasks with concrete numbers, 1 transfer task – each with points, then a step-by-step model solution for each. Only one short sentence in the chat.`),
-      { show: L(`Klausurfragen: ${f}`, `Exam questions: ${f}`), board: L(`Klausurfragen: ${f}`, `Exam questions: ${f}`), exam: src });
+      { show: L(`Klausurfragen: ${f}`, `Exam questions: ${f}`), board: L(`Klausurfragen: ${f}`, `Exam questions: ${f}`), exam: src, examSlug: src.slug });
   }
   var gateEl = null;
   function ungate() { board.classList.remove('m-gated'); if (gateEl) { gateEl.remove(); gateEl = null; } }
@@ -1227,7 +1227,7 @@ export function mountAssistant() {
     if (o.entry && curEx) { curEx.q.classList.add('auto'); curEx.a.classList.add('auto-a'); drawHist(); }
     ovNext = o.slug === 'bwl' || /Überblick|overview/i.test(String(o.board || ''));   // BWL-Überblick: Themen-Knöpfe am Ende
     const inst = !!(o.entry && hasInstant(o.slug));   // Sofort-Tafel (boards.js): kein Platzhalter, die Tafel ist gleich da
-    if (o.board && !inst) showBuilding(String(o.board));
+    if (o.board && !inst && !o.examSlug) showBuilding(String(o.board));
     const pasted = attachTx; if (pasted) { capQ.prepend(h('span', { class: 'ai-refq' }, L('Eingefügter Text · ', 'Pasted text · ') + pasted.length.toLocaleString('de-DE') + L(' Zeichen', ' chars'))); clearAttach(); }
     if (askRef) capQ.prepend(h('span', { class: 'ai-refq' }, L(`Zu ${askRef.i}/${askRef.n} · `, `Re ${askRef.i}/${askRef.n} · `) + (askRef.spot.length > 60 ? askRef.spot.slice(0, 59) + '…' : askRef.spot)));
     const ex = curEx;
@@ -1263,8 +1263,8 @@ export function mountAssistant() {
       else if (d) Object.assign(payload, { material: forChat(d, text + ' ' + visibleText(400)), docName: d.name });
       if (pasted) { payload.material = (payload.material ? payload.material + '\n\n' : '') + L('### Vom Nutzer eingefügter Text\n', '### Text pasted by the user\n') + pasted; payload.docName = payload.docName ? payload.docName + L(' + eingefügter Text', ' + pasted text') : L('Eingefügter Text', 'Pasted text'); }
       // >>> Sofort-Tafel (boards.js): Themen-Einstieg mit gespeicherter Tafel → kein KI-Aufruf, sonst live
-      let r = inst ? await instantReply(o) : null;
-      if (!r) { if (inst && o.board) showBuilding(String(o.board)); r = await ask('chat', payload, { signal: ctrl.signal }); }
+      let r = inst ? await instantReply(o) : o.examSlug ? await examReply(o.examSlug) : null;
+      if (!r) { if ((inst || o.examSlug) && o.board) showBuilding(String(o.board)); r = await ask('chat', payload, { signal: ctrl.signal }); }
       // <<< Sofort-Tafel
       if (my !== gen) return;
       const raw = String(r.text || '').slice(0, 12000);
@@ -1310,7 +1310,7 @@ export function mountAssistant() {
       if (ovNext || (wasBuilding && /Überblick|overview/i.test(buildTitle))) p.boards.forEach(b => overviewB.add(b));
       ovNext = false;
       if (ex && ex.entry) p.boards.forEach(b => { b.entry = true; b.slug = ex.slug; });
-      if (ex && ex.exam) p.boards.forEach(b => { b.exam = true; b.entry = true; b.pair = ex.exam; b.slug = ex.exam.slug; ex.exam.pairB = b; });
+      if (ex && ex.exam) p.boards.forEach(b => { b.exam = true; b.entry = true; b.pair = ex.exam; b.slug = ex.exam.slug; if (!ex.exam.pairB || !boards.includes(ex.exam.pairB)) ex.exam.pairB = b; });
       root.classList.remove('m-pchat');
       // Jede Tafel landet automatisch in der Bibliothek – mit Überschrift und Beschreibung
       const lastQ = [...hist].reverse().find(m => m.role === 'user')?.content || '';
