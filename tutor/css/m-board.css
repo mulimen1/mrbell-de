@@ -474,3 +474,24 @@ html.m-fsdoc, html.m-fsdoc body { overflow: hidden !important; }
 .m-ladico .ico, .m-ladico svg { width: 24px; height: 24px; }
 .m-ladn:not(.ok):not(.cur) .m-ladico { opacity: .75; }
 @media (max-width: 520px) { .m-ladico .ico, .m-ladico svg { width: 20px; height: 20px; } }
+/* Lernpfad v3: alle Punkte grün (offen = hellgrün), Icons schwarz als reine Linien */
+.m-ladico svg, .m-ladico svg * { fill: none !important; stroke: currentColor !important; stroke-width: 1.9 !important; stroke-linecap: round; stroke-linejoin: round; }
+.m-ladico svg g { stroke-width: 2.7 !important; }
+.m-ladn, .m-ladn.cur, .m-ladn.lock { background: #d4f1df; color: #0d1f14; box-shadow: 0 5px 0 #a9dcbd; opacity: 1; }
+.m-ladn.cur { box-shadow: 0 5px 0 #a9dcbd, 0 0 0 3px #2fb866; }
+.m-ladn.ok, .m-ladn.m-ladz.ok { background: #34c46b; color: #0d1f14; }
+.m-ladn.ok, .m-ladn.m-ladz.ok { animation: mladglow3 2.6s ease-in-out infinite; }
+.m-ladn.ok.fresh { animation: mladpop .6s cubic-bezier(.34,1.56,.64,1) .6s both, mladglow3 2.6s ease-in-out 1.3s infinite; }
+@keyframes mladglow3 { 0%, 100% { box-shadow: 0 5px 0 #23964f, 0 0 10px 1px rgba(52,196,107,.35); } 50% { box-shadow: 0 5px 0 #23964f, 0 0 22px 5px rgba(52,196,107,.55); } }
+.m-ladn:not(.ok):not(.cur) .m-ladico { opacity: 1; }
+.m-ladn.m-lad0 { font: 800 15px var(--sans); }
+.m-ladfx i, .m-ladz .m-ladfx i { background: #34c46b; }
+.m-ladl.on i { background: linear-gradient(90deg, #34c46b, #2fb866); }
+.m-ladl.next i { background: #8fd9ab; }
+.tafel .m-lad.done { border-color: #34c46b; box-shadow: 0 0 0 3px rgba(52,196,107,.15); }
+@media (prefers-reduced-motion: reduce) { .m-ladn.ok, .m-ladn.m-ladz.ok { animation: none; } }
+.m-ladico svg { background: none !important; border: 0 !important; border-radius: 0 !important; margin: 0 !important; max-height: none !important; width: 26px !important; height: 26px !important; }
+.m-ladn.m-lad0.ok { background: #34c46b; color: #0d1f14; }
+/* Karteikarten-Knopf oben: etwas hervorgehoben, aber ruhig */
+html.bm-entryb .rm-bar .m-dcards { border: 2px solid var(--ink); box-shadow: 0 2px 0 var(--ink); }
+html.bm-entryb .rm-bar .m-dcards:hover { box-shadow: 0 3px 0 var(--ink); }
