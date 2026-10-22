@@ -145,7 +145,28 @@ export function render(root) {
   async function loadQuota() {
     if (!getAccount()) return;
     const j = await hub('quota').catch(() => ({}));
+    adminKey(j && j.ok ? !!j.ready : false);
     if (j && j.ok) quotaEl.textContent = j.limit >= 999 ? L('Ohne Limit (Gründer)', 'No limit (founder)') : L(`Heute ${Math.max(0, j.limit - j.used)} von ${j.limit} Video-Transkripten übrig${j.pro ? '' : ' · Eigene Dateien zählen nicht dazu'}`, `${Math.max(0, j.limit - j.used)} of ${j.limit} video transcripts left today${j.pro ? '' : ' · your own files don’t count'}`);
+  }
+  // Nur Ben: Supadata-Schlüssel direkt hier eintragen (geht nur an unseren Server, wird nie angezeigt)
+  let keyBox = null;
+  async function adminKey(ready) {
+    const { isAdmin } = await import('./zahlen.js').catch(() => ({}));
+    if (!isAdmin || !isAdmin(getAccount())) return;
+    if (keyBox) keyBox.remove(); wrap.querySelectorAll('.vt-keylink').forEach(x => x.remove());
+    const inp = h('input', { class: 'vt-url', type: 'password', autocomplete: 'off', placeholder: L('Supadata-Schlüssel (sd_…)', 'Supadata key (sd_…)'), 'aria-label': 'Supadata' });
+    const msg = h('small', {});
+    const btn = h('button', { class: 'btn primary vt-go', type: 'button', onclick: async () => {
+      const key = inp.value.trim(); if (!key) return;
+      btn.disabled = true; msg.textContent = L('Prüfe …', 'Checking …');
+      const r = await hub('setkey', { key }).catch(() => ({}));
+      btn.disabled = false; inp.value = '';
+      msg.textContent = r.ok ? L('Gespeichert und von Supadata bestätigt – Video-Transkripte sind live.', 'Saved and confirmed – video transcripts are live.') : (r.fehler || L('Hat nicht geklappt.', 'Didn’t work.'));
+      if (r.ok) setTimeout(() => { keyBox && keyBox.remove(); keyBox = null; loadQuota(); }, 2500);
+    } }, L('Speichern', 'Save'));
+    keyBox = h('div', { class: 'vt-admin' }, h('b', {}, ready ? L('Supadata-Schlüssel ändern (nur du siehst das)', 'Change Supadata key (only you see this)') : L('Einrichtung: Supadata-Schlüssel eintragen (nur du siehst das)', 'Setup: enter Supadata key (only you see this)')), h('div', { class: 'vt-bar' }, inp, btn), msg);
+    if (ready) { const t = h('button', { class: 'linkbtn vt-keylink', type: 'button', onclick: () => { t.replaceWith(keyBox); } }, L('Supadata-Schlüssel ändern', 'Change Supadata key')); quotaEl.after(t); keyBox._t = t; }
+    else drop.before(keyBox);
   }
   loadQuota();
 

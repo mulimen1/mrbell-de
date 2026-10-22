@@ -4494,3 +4494,6 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 .vt-trh { display: flex; align-items: baseline; justify-content: space-between; }
 .vt-trh small { color: var(--mute); font-size: 12.5px; }
 .vt-tr .vt-prev { max-height: 420px; overflow: auto; overscroll-behavior: contain; }
+.vt-admin { display: grid; gap: 8px; margin: 0 0 16px; padding: 16px; border-radius: 16px; border: 1px solid #e0b400; background: color-mix(in srgb, #f2c200 8%, var(--panel)); }
+.vt-admin .vt-bar { width: 100%; margin: 0; }
+.vt-admin small { color: var(--mute); }
