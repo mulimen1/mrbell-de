@@ -5,7 +5,7 @@ import { h, ico, toast, ls } from '../util.js';
 import { L } from '../i18n.js';
 import { S, createDoc, save, onChange } from '../state.js';
 import { getAccount, getSession } from '../api.js';
-import { askLang, langPicker, langName } from '../srclang.js';
+import { askLang, langPicker, langName, detectLang } from '../srclang.js';
 
 const HUB = 'https://hub.mrbell.de/api/bwlmax/video';
 const LOGO = p => h('img', { class: 'vt-logo vt-' + p, src: `/tutor/img/brands/${p}.svg`, alt: { youtube: 'YouTube', tiktok: 'TikTok', instagram: 'Instagram' }[p] || p, width: 20, height: 20 });
@@ -38,6 +38,20 @@ function toPages(lines) {
   for (const l of lines) { const t = `[${mmss(l.t)}] ${l.x}\n`; if (cur.length + t.length > 3200 && cur) { pages.push(cur.trim()); cur = ''; } cur += t; }
   if (cur.trim()) pages.push(cur.trim());
   return pages.length ? pages : [''];
+}
+
+// Transkript in einer bestimmten Sprache holen (falls es die Spur gibt); zählt am selben Tag nicht doppelt
+async function relang(d, c) {
+  const v = d.video; if (!v || !v.url) return false;
+  if ((v.lang || '').slice(0, 2) === c) return true;
+  toast(L(`Ich hol das Transkript auf ${langName(c)} …`, `Fetching the transcript in ${langName(c)} …`), 2500);
+  const j = await hub('start', { url: v.url, lang: c }).catch(() => ({}));
+  let r = j;
+  if (j.ok && j.job) { for (let k = 0; k < 200 && r.ok && !r.done; k++) { await new Promise(x => setTimeout(x, 2500)); r = await hub('status', { job: j.job }); } }
+  if (!r.ok || !r.done || !r.data || !(r.data.lines || []).length) { toast(r.fehler || L('Das hat nicht geklappt.', 'That didn’t work.'), 4500); return false; }
+  if (r.data.langMissing) { toast(L(`Für dieses Video gibt es kein Transkript auf ${langName(c)}. Alles, was ich daraus erstelle, schreibe ich dir trotzdem auf ${langName(c)}.`, `There’s no ${langName(c)} transcript for this video. Everything I create from it will still be in ${langName(c)}.`), 5500); return false; }
+  d.video = r.data; d.pages = toPages(r.data.lines); d.chars = r.data.lines.reduce((a, l) => a + l.x.length, 0); d.srcLang = c; save(d);
+  return true;
 }
 
 // Ergebnis „machen“: vorhandene Werkzeuge mit genau diesem Transkript
@@ -195,12 +209,13 @@ export function render(root) {
       if (!j.ok || !j.done) throw new Error(j.fehler || L('Das hat nicht geklappt.', 'That didn’t work.'));
       const v = j.data;
       // Sprache: Standard = Sprache des Videos; nicht Deutsch → kurz fragen
-      const src = (v.lang || '').slice(0, 2).toLowerCase();
+      const src = detectLang(v.lines.slice(0, 40).map(l => l.x).join(' ')) || (v.lang || '').slice(0, 2).toLowerCase();   // Text zählt mehr als die Angabe der Plattform
       const out = src && src !== 'de' ? await askLang(src, { what: L('Ich erstelle dir alles standardmäßig in der Sprache des Videos. Du kannst aber auch eine andere wählen.', 'By default I create everything in the video’s language. You can pick another one too.') }) : (src || 'de');
       const title = (v.title || `${PLAT[v.platform] || 'Video'} · ${new Date().toLocaleDateString('de-DE')}`).slice(0, 120);
       const d = await createDoc({ name: title, pages: toPages(v.lines), chars: v.lines.reduce((a, l) => a + l.x.length, 0), extra: { kind: 'video', from: 'video', video: v, srcLang: src, outLang: out } });
       url.value = ''; say(L(`Fertig: „${title.slice(0, 70)}“ – unten liegt dein Transkript. Wähl, was du daraus machen willst.`, `Done: “${title.slice(0, 70)}” – your transcript is below. Pick what to make from it.`), 'ok');
       if (j.quota) quotaEl.textContent = L(`Heute ${Math.max(0, j.quota.limit - j.quota.used)} von ${j.quota.limit} Video-Transkripten übrig`, `${Math.max(0, j.quota.limit - j.quota.used)} of ${j.quota.limit} left today`);
+      if (out && out !== src) { if (await relang(d, out)) {} }
       openId = d.id; draw();
       setTimeout(() => listEl.querySelector('.vt-item.open')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
     } catch (e) {
@@ -226,7 +241,7 @@ export function render(root) {
       const lines = v.lines || (d.pages || []).join('\n').split('\n').filter(Boolean).map(x => ({ t: -1, x }));
       // Transkript immer komplett zum Nachlesen (mit Zeitstempeln), egal was daraus gemacht wird
       const prev = h('div', { class: 'vt-tr' }, h('div', { class: 'vt-trh' }, h('b', {}, L('Transkript', 'Transcript')), h('small', {}, L(`${lines.length} Abschnitte`, `${lines.length} sections`))), h('div', { class: 'vt-prev' }, lines.map(l => h('p', {}, l.t >= 0 ? h('span', { class: 'vt-ts' }, mmss(l.t)) : null, l.x))));
-      const langRow = h('div', { class: 'vt-lang' }, h('small', {}, L('Erstellen auf', 'Create in')), langPicker(d.srcLang || 'de', d.outLang || d.srcLang || 'de', c => { d.outLang = c; save(d); toast(L(`Alles Neue erstelle ich auf ${langName(c)}.`, `I’ll create everything new in ${langName(c)}.`)); }));
+      const langRow = h('div', { class: 'vt-lang' }, h('small', {}, L('Erstellen auf', 'Create in')), langPicker(d.srcLang || 'de', d.outLang || d.srcLang || 'de', async c => { d.outLang = c; save(d); if (d.video && await relang(d, c)) { draw(); toast(L(`Transkript und alles Neue jetzt auf ${langName(c)}.`, `Transcript and everything new now in ${langName(c)}.`)); } else if (!d.video) toast(L(`Alles Neue erstelle ich auf ${langName(c)}.`, `I’ll create everything new in ${langName(c)}.`)); }));
       return h('div', { class: 'vt-item open' }, head,
         h('div', { class: 'vt-ib' },
           h('div', { class: 'vt-acts' },
