@@ -1,4 +1,5 @@
 // Podcast: Zwei Stimmen sprechen über das Skript (Sprachausgabe des Geräts, kostenlos & offline)
+import { LANGS } from '../srclang.js';
 import { starBtn } from '../me.js';
 import { h, ico, uid, toast, modal, ls } from '../util.js';
 import { ask } from '../api.js';
@@ -64,11 +65,11 @@ function previewBtn(voice, getLang) {
 
 function intro(wrap, ctx) {
   const { doc } = ctx;
-  let len = 'kurz', focus = -1, tone = getSpice(), plang = getOutLang(), mvoice = ls.get('tutor.podVoice', 'max');
+  let len = 'kurz', focus = -1, tone = getSpice(), plang = (ctx.doc && (ctx.doc.outLang || ctx.doc.srcLang)) || getOutLang(), mvoice = ls.get('tutor.podVoice', 'max');
   const TONE_HINT = L({ 1: 'Komplett sachlich – wie eine gute Vorlesung zum Anhören.', 2: 'Locker, mit ein paar Sprüchen von Max.', 3: 'Max dreht auf: Sylt, Porsche, Papas Holding. Fachlich trotzdem exakt.' }, { 1: 'Strictly factual – like a good lecture to listen to.', 2: 'Relaxed, with a few quips from Max.', 3: 'Max goes all out: Sylt, the Porsche, Daddy’s holding company. Still spot-on content-wise.' });
   const hint = h('div', { class: 'eyebrow', style: { marginTop: '8px', textTransform: 'none', letterSpacing: 0 } }, TONE_HINT[tone]);
   const tones = SPICE.map(([k, l]) => { const c = h('button', { class: 'chip' + (k === tone ? ' on' : '') }, l); c.addEventListener('click', () => { tone = k; tones.forEach(x => x.classList.toggle('on', x === c)); hint.textContent = TONE_HINT[k]; }); return c; });
-  const langs = [['de', L('Deutsch', 'German')], ['en', 'English']].map(([k, l]) => { const c = h('button', { class: 'chip' + (k === plang ? ' on' : '') }, l); c.addEventListener('click', () => { plang = k; langs.forEach(x => x.classList.toggle('on', x === c)); }); return c; });
+  const langs = [['de', L('Deutsch', 'German')], ['en', 'English']].concat(!['de', 'en'].includes(plang) && LANGS[plang] ? [[plang, LANGS[plang][2]]] : []).map(([k, l]) => { const c = h('button', { class: 'chip' + (k === plang ? ' on' : '') }, l); c.addEventListener('click', () => { plang = k; langs.forEach(x => x.classList.toggle('on', x === c)); }); return c; });
   const mvs = MAXV.map(([k, l]) => { const c = h('span', { class: 'chip vchip' + (k === mvoice ? ' on' : ''), role: 'button', tabindex: 0 }, l, previewBtn(k, () => plang)); c.addEventListener('click', () => { mvoice = k; ls.set('tutor.podVoice', k); mvs.forEach(x => x.classList.toggle('on', x === c)); }); return c; });
   const lisa = h('span', { class: 'chip vchip on fixed' }, 'Lisa', previewBtn('lisa', () => plang));
   const sel = h('select', { class: 'field' }, h('option', { value: -1 }, L('Ganzes Skript', 'Whole script')), (doc.path?.chapters || []).map((c, i) => h('option', { value: i }, `${i + 1}. ${c.title}`)));

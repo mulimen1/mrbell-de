@@ -3,6 +3,7 @@
 // damit Karteikarten, Quiz & Co. direkt daraus entstehen können.
 import { h, ico, ls, toast, ago, uid } from '../util.js';
 import { L } from '../i18n.js';
+import { detectLang, askLang } from '../srclang.js';
 import { S, createDoc, openDoc, save, saveNow, refreshList } from '../state.js';
 import { ask } from '../api.js';
 import * as M from '../me.js';
@@ -278,6 +279,10 @@ function editor(wrap, doc) {
 
   async function make(photo) {
     const notes = ta.value.trim(), hasZ = (z.strokes || []).length > 0; if (notes.length < 25 && !(photo && notes.length) && !hasZ) return;
+    // Sprache der Notizen: Standard = gleiche Sprache; nicht Deutsch → vorher kurz fragen (einmal pro Entwurf)
+    const nl = detectLang(notes);
+    if (nl && nl !== 'de' && !draft.lang) draft.lang = await askLang(nl, { what: L('Ich schreib deine Mitschrift standardmäßig in der Sprache deiner Notizen. Du kannst aber auch eine andere wählen.', 'By default I write your notes up in the language you took them in. You can pick another one too.') });
+    const outL = draft.lang || nl || '';
     const busy = h('div', { class: 'ms-busy', role: 'status' },
       h('span', { html: '<svg class="ms-penani" viewBox="0 0 54 40" aria-hidden="true"><path class="w" d="M3 26c5-9 9-9 11 0s6 9 9 0 6-9 9 0 6 9 9 0 6-8 10-2"/></svg>' }),
       h('div', {}, h('b', {}, L('Max schreibt sauber ab …', 'Max is writing it up …')), h('small', {}, L('ordnet, korrigiert, zeichnet Skizzen – dauert ca. 15 Sekunden', 'sorting, correcting, sketching – takes about 15 seconds'))));
@@ -293,7 +298,7 @@ function editor(wrap, doc) {
         await finalize(t0, [t0 + (all ? '\n' + all : '')], { data: { titel: t0, kern: all, abschnitte: [], korrekturen: [], fragen: [] }, raw: notes, stil, blatt: { ...blatt }, fach: draft.fach, zeichnung: { strokes: z.strokes, h: z.h }, at: Date.now() });
         return;
       }
-      const r = await ask('mitschrift', Object.assign({ opts: Object.assign({ notes: all, fach: draft.fach, stil }, draft.video ? { quelle: 'video' } : {}) }, sk ? { material: forWhole(sk).slice(0, 30000), docName: sk.name } : {}));
+      const r = await ask('mitschrift', Object.assign(outL ? { lang: outL } : {}, { opts: Object.assign({ notes: all, fach: draft.fach, stil }, draft.video ? { quelle: 'video' } : {}) }, sk ? { material: forWhole(sk).slice(0, 30000), docName: sk.name } : {}));
       const data = clean(r.data);
       if (!data.abschnitte.length) throw new Error(L('Die Mitschrift kam leer an. Versuch es nochmal.', 'The notes came back empty. Please try again.'));
       const text = asText(data);

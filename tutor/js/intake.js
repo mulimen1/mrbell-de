@@ -9,6 +9,7 @@ import { readFile, isImage, imageToJpeg, pdfPages } from './ingest.js';
 import { isMedia } from './transcribe.js';
 import { createDoc, save, S } from './state.js';
 import * as M from './me.js';
+import { detectLang, langPicker, askLang, langName } from './srclang.js';
 
 const TYP = { stundenplan: L('Stundenplan', 'Timetable'), pruefungsplan: L('Prüfungsplan', 'Exam schedule'), vorlesung: L('Vorlesung', 'Lecture'), uebung: L('Übungsblatt', 'Problem set'), altklausur: L('Altklausur', 'Past exam'), mitschrift: L('Mitschrift', 'Notes'), zusammenfassung: L('Zusammenfassung', 'Summary'), sonstiges: L('Unterlagen', 'Material'), thema: L('Kurzskript', 'Short script') };
 const ARTS = ['Vorlesung', 'Übung', 'Tutorium', 'Seminar', 'Praktikum', 'Sonstiges'];
@@ -307,6 +308,8 @@ async function materialStep(ui, res, P, tool = null) {
   ui.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, h('h2', {}, (TYP[res.typ] || TYP.sonstiges) + L(' erkannt', ' recognised')))));
   // Werkzeug gewählt: nicht fragen, nur passend ins Fach legen (falls es das Fach schon gibt) und direkt bauen
   const exF = tool ? (M.findFach(res.fach_vorhanden) || M.findFach(res.fach)) : null;
+  const src0 = P.text && P.text.pages ? detectLang(P.text.pages.join('\n')) : '';   // Sprache des Skripts
+  res.srcLang = src0;
   const ans = tool ? (exF ? { name: clean(res.titel, 80), fach: exF.id, start: tool } : { skip: true, name: clean(res.titel, 80), start: tool }) : await placeModal(res, { prog, target: ui.target });
   let pages = P.text ? P.text.pages : null;
   if (ocr) {
@@ -319,12 +322,15 @@ async function materialStep(ui, res, P, tool = null) {
   }
   P.close && P.close();
   pages = (pages || []).map(x => String(x || '').trim());
+  // Sprache: Standard = Sprache des Materials; ist es nicht Deutsch und wurde noch nicht gewählt, kurz nachfragen
+  const srcLang = src0 || detectLang(pages.join('\n'));
+  if (!ans.lang && srcLang && srcLang !== 'de') ans.lang = await askLang(srcLang);
   if (pages.join('').length < 40) return fail(ui, L('Darauf konnte ich keinen Text erkennen. Probier ein schärferes Foto oder eine andere Datei.', 'I couldn’t find any text on it. Try a sharper photo or another file.'));
   if (!pages.some(Boolean)) pages = [''];
   const name = clean(ans.name || res.titel || P.name, 80) || L('Unterlagen', 'Material');
   // Kontingent leer? Speichern geht trotzdem – Max nimmt sich das Skript vor, sobald wieder Antworten da sind
   const q = currentQuota(), empty = res.noQuota || (q && q.limit && (q.limit - (q.used || 0)) <= 0);
-  const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, ocr ? { ocr: true } : {}, P.media ? { media: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}, empty ? { waiting: Date.now() } : {}) });
+  const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, srcLang ? { srcLang, outLang: ans.lang || srcLang } : ans.lang ? { outLang: ans.lang } : {}, ocr ? { ocr: true } : {}, P.media ? { media: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}, empty ? { waiting: Date.now() } : {}) });
   applyPlace(d, ans);
   ls.set('tutor.learn.doc', d.id);   // In „Lernen“ ist danach genau dieses Skript ausgewählt
   if (empty) {
@@ -347,7 +353,8 @@ export async function placeModal(res, { prog = null, target = null, topic = fals
     fach: ex ? ex.id : res.fach ? 'new' : '',
     ziel: res.ziel || term?.art || (exTerm ? exTerm.art : ''),
     datum: term?.datum || exTerm?.datum || '',
-    start: ''
+    start: '',
+    lang: res.srcLang || ''
   };
   if (st.ziel === 'verstehen') st.datum = '';
   const soon = st.datum && daysTo(st.datum) <= 28;
@@ -372,19 +379,24 @@ export async function placeModal(res, { prog = null, target = null, topic = fals
   const start = seg([['hub', L('Übersicht', 'Overview'), 'home'], ['tutor', L('Erklären', 'Explain'), 'chat'], ['plan', L('Lernplan', 'Study plan'), 'calendar'], ['karten', L('Karten', 'Cards'), 'cards'], ['quiz', 'Quiz', 'quiz']].filter(x => !topic || x[0] !== 'hub'), 'start');
   const progEl = prog && prog.n ? h('small', { class: 'ik-ocr' }, L(`Ich lese mit … Seite ${prog.done} von ${prog.n}`, `Reading along … page ${prog.done} of ${prog.n}`)) : null;
   if (prog) prog.el = progEl;
+  // Sprache: nicht Deutsch → aktiv fragen (oben, hervorgehoben); Deutsch → nur als Option (unten, ruhig)
+  const fremd = st.lang && st.lang !== 'de';
+  const langRow = st.lang ? h('div', { class: 'ik-q' + (fremd ? ' sl-ask-row' : ' sl-quiet') }, h('div', { class: 'ik-ql' }, fremd ? L(`${langName(st.lang)} erkannt – erstellen auf`, `${langName(st.lang)} detected – create in`) : L('Sprache', 'Language')), langPicker(st.lang, st.lang, c => { st.lang = c; })) : null;
   const body = h('div', { class: 'ik-place' },
+    fremd ? langRow : null,
     h('div', { class: 'ik-nw' }, name),
     h('div', { class: 'ik-q' }, h('div', { class: 'ik-ql' }, L('Fach', 'Subject')), h('div', {}, fach, newRow)),
     h('div', { class: 'ik-q' }, h('div', { class: 'ik-ql' }, L('Wofür?', 'What for?')), ziel),
     dRow,
     h('div', { class: 'ik-q' }, h('div', { class: 'ik-ql' }, L('Womit starten?', 'Start with?')), start),
+    fremd ? null : langRow,
     progEl);
   const uns = !res.offline && res.typ !== 'thema' ? (TYP[res.typ] || TYP.sonstiges) + L(' erkannt', ' recognised') + (ex ? ' · ' + ex.name : res.fach ? ' · ' + clean(res.fach, 40) : '') : topic ? L('Kurzskript fertig', 'Short script ready') : L('Neuer Stoff', 'New material');
   const r = await modal({ cls: 'ik-modal', eyebrow: uns, title: L('Wo gehört das hin?', 'Where does this go?'), text: L('Alles optional – du kannst das später jederzeit ändern.', 'All optional – you can change it any time.'), body,
     actions: [{ label: L('Überspringen', 'Skip'), value: 'skip' }, { label: L('Los geht’s', 'Let’s go'), value: 'ok', primary: true }] });
   if (prog) prog.el = null;
-  if (r !== 'ok') return { skip: true, name: name.value.trim(), start: target || (topic ? 'tutor' : 'hub') };
-  return { name: name.value.trim(), fach: st.fach === 'new2' ? (newName.value.trim() ? 'new' : '') : st.fach, newFach: st.fach === 'new' ? sug : st.fach === 'new2' ? clean(newName.value, 60) : '', kurz: clean(res.kuerzel, 12), ziel: st.ziel, datum: ['klausur', 'test', 'abgabe'].includes(st.ziel) ? isoOk(st.datum) : '', start: st.start };
+  if (r !== 'ok') return { skip: true, lang: st.lang || '', name: name.value.trim(), start: target || (topic ? 'tutor' : 'hub') };
+  return { lang: st.lang || '', name: name.value.trim(), fach: st.fach === 'new2' ? (newName.value.trim() ? 'new' : '') : st.fach, newFach: st.fach === 'new' ? sug : st.fach === 'new2' ? clean(newName.value, 60) : '', kurz: clean(res.kuerzel, 12), ziel: st.ziel, datum: ['klausur', 'test', 'abgabe'].includes(st.ziel) ? isoOk(st.datum) : '', start: st.start };
 }
 
 // Antworten umsetzen: Skript ins Fach, Termin eintragen

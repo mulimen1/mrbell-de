@@ -52,6 +52,8 @@ export async function ask(action, payload = {}, { signal, images } = {}) {
   const extra = {};
   const ses = getSession(); if (ses) extra.session = ses;
   if (payload.material != null && S.doc?.generated) extra.src = 'max';
+  // Inhalte in der Sprache des Skripts (gewählt beim Hochladen; Standard = Sprache des Materials)
+  if (payload.material != null && payload.lang == null && action !== 'analyse' && S.doc && (S.doc.outLang || S.doc.srcLang)) extra.lang = S.doc.outLang || S.doc.srcLang;
   const body = JSON.stringify({ action, device: device(), ui: lang, lang: getOutLang(), ...extra, ...payload });
   let j = await post(API_URL, body, signal);
   if (j.ok && j.job) {
