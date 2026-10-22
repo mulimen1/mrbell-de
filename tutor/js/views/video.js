@@ -14,6 +14,19 @@ const mmss = s => { s = Math.max(0, Math.round(s || 0)); const hh = Math.floor(s
 const PLAT = { youtube: 'YouTube', tiktok: 'TikTok', instagram: 'Instagram' };
 const esc = s => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
+// Gleiche Video-ID wie der Server (nur zum Wiedererkennen bereits abgeschriebener Videos)
+export function videoKey(raw) {
+  let u; try { u = new URL(String(raw || '').trim()); } catch (e) { return ''; }
+  const host = u.hostname.toLowerCase().replace(/^www\./, '').replace(/^m\./, ''), seg = u.pathname.split('/').filter(Boolean);
+  if (host === 'youtube.com' || host === 'music.youtube.com') { const id = seg[0] === 'watch' ? u.searchParams.get('v') : ['shorts', 'live', 'embed', 'v'].includes(seg[0]) ? seg[1] : ''; return /^[\w-]{11}$/.test(id || '') ? 'youtube:' + id : ''; }
+  if (host === 'youtu.be') return /^[\w-]{11}$/.test(seg[0] || '') ? 'youtube:' + seg[0] : '';
+  if (host === 'tiktok.com') { const i = seg.indexOf('video'); return i >= 0 && /^\d{8,25}$/.test(seg[i + 1] || '') ? 'tiktok:' + seg[i + 1] : ''; }
+  if (host === 'vm.tiktok.com' || host === 'vt.tiktok.com') return seg[0] ? 'tiktok:s:' + seg[0] : '';
+  if (host === 'instagram.com') { const k = ['reel', 'reels', 'p', 'tv'].includes(seg[0]) ? 0 : ['reel', 'reels', 'p', 'tv'].includes(seg[1]) ? 1 : -1; return k >= 0 && seg[k + 1] ? 'instagram:' + seg[k + 1] : ''; }
+  return '';
+}
+const keyOf = d => (d && d.video && d.video.platform ? d.video.platform + ':' + d.video.id : '');
+
 async function hub(op, extra) {
   const r = await fetch(HUB, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify(Object.assign({ session: getSession() || '', op }, extra || {})), cache: 'no-store' });
   let j = {}; try { j = await r.json(); } catch (e) {}
@@ -44,6 +57,10 @@ function toPages(lines) {
 async function relang(d, c) {
   const v = d.video; if (!v || !v.url) return false;
   if ((v.lang || '').slice(0, 2) === c) return true;
+  const { modal } = await import('../util.js');
+  const a = await modal({ title: L(`Transkript auf ${langName(c)} neu holen?`, `Fetch the transcript in ${langName(c)}?`), text: L('Das zählt als ein Video-Transkript für heute. Ohne neues Transkript erstelle ich dir alles Neue trotzdem auf ' + langName(c) + '.', 'This counts as one video transcript for today. Without it, I’ll still create everything new in ' + langName(c) + '.'),
+    actions: [{ label: L('Nur Inhalte umstellen', 'Just switch outputs'), value: 'no' }, { label: L('Ja, neu holen', 'Yes, fetch it'), value: 'yes', primary: true }] });
+  if (a !== 'yes') return false;
   toast(L(`Ich hol das Transkript auf ${langName(c)} …`, `Fetching the transcript in ${langName(c)} …`), 2500);
   const j = await hub('start', { url: v.url, lang: c }).catch(() => ({}));
   let r = j;
@@ -197,6 +214,16 @@ export function render(root) {
   async function start() {
     const u = url.value.trim(); if (!u || busy) return;
     if (!getAccount()) return gate();
+    // Schon abgeschrieben? Nicht einfach nochmal – erst fragen
+    const vk = videoKey(u);
+    const dup = vk ? S.list.map(x => (S.doc && S.doc.id === x.id ? S.doc : x)).filter(x => keyOf(x) === vk).sort((a, b) => (b.created || 0) - (a.created || 0))[0] : null;
+    if (dup) {
+      const { modal } = await import('../util.js');
+      const a = await modal({ eyebrow: L('Schon abgeschrieben', 'Already transcribed'), title: L('Dieses Video hast du schon transkribiert.', 'You’ve already transcribed this video.'),
+        text: L(`„${dup.name.slice(0, 80)}“ vom ${new Date(dup.created).toLocaleDateString('de-DE')} liegt unten bei deinen Transkripten. Nochmal abschreiben zählt als eins deiner Transkripte für heute.`, `“${dup.name.slice(0, 80)}” is below in your transcripts. Transcribing again counts as one of today’s transcripts.`),
+        actions: [{ label: L('Nochmal transkribieren', 'Transcribe again'), value: 'again' }, { label: L('Vorhandenes öffnen', 'Open existing'), value: 'open', primary: true }] });
+      if (a !== 'again') { url.value = ''; openId = dup.id; draw(); setTimeout(() => listEl.querySelector('.vt-item.open')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120); return; }
+    }
     busy = true; go.disabled = true;
     say(L('Max holt sich das Video …', 'Max is fetching the video …'), 'run');
     try {
@@ -212,10 +239,11 @@ export function render(root) {
       const src = detectLang(v.lines.slice(0, 40).map(l => l.x).join(' ')) || (v.lang || '').slice(0, 2).toLowerCase();   // Text zählt mehr als die Angabe der Plattform
       const out = src && src !== 'de' ? await askLang(src, { what: L('Ich erstelle dir alles standardmäßig in der Sprache des Videos. Du kannst aber auch eine andere wählen.', 'By default I create everything in the video’s language. You can pick another one too.') }) : (src || 'de');
       const title = (v.title || `${PLAT[v.platform] || 'Video'} · ${new Date().toLocaleDateString('de-DE')}`).slice(0, 120);
-      const d = await createDoc({ name: title, pages: toPages(v.lines), chars: v.lines.reduce((a, l) => a + l.x.length, 0), extra: { kind: 'video', from: 'video', video: v, srcLang: src, outLang: out } });
+      let d;
+      if (dup) { d = S.doc && S.doc.id === dup.id ? S.doc : dup; Object.assign(d, { name: title, pages: toPages(v.lines), chars: v.lines.reduce((a, l) => a + l.x.length, 0), video: v, srcLang: src, outLang: out }); save(d); }
+      else d = await createDoc({ name: title, pages: toPages(v.lines), chars: v.lines.reduce((a, l) => a + l.x.length, 0), extra: { kind: 'video', from: 'video', video: v, srcLang: src, outLang: out } });
       url.value = ''; say(L(`Fertig: „${title.slice(0, 70)}“ – unten liegt dein Transkript. Wähl, was du daraus machen willst.`, `Done: “${title.slice(0, 70)}” – your transcript is below. Pick what to make from it.`), 'ok');
       if (j.quota) quotaEl.textContent = L(`Heute ${Math.max(0, j.quota.limit - j.quota.used)} von ${j.quota.limit} Video-Transkripten übrig`, `${Math.max(0, j.quota.limit - j.quota.used)} of ${j.quota.limit} left today`);
-      if (out && out !== src) { if (await relang(d, out)) {} }
       openId = d.id; draw();
       setTimeout(() => listEl.querySelector('.vt-item.open')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
     } catch (e) {
@@ -227,7 +255,8 @@ export function render(root) {
   // ---------- Liste: Transkripte + hier hochgeladene Dateien ----------
   let openId = null;
   function draw() {
-    const docs = S.list.map(d => (S.doc && S.doc.id === d.id ? S.doc : d)).filter(d => d.kind === 'video' || d.from === 'video').sort((a, b) => (b.created || 0) - (a.created || 0));
+    const seenK = new Set();
+    const docs = S.list.map(d => (S.doc && S.doc.id === d.id ? S.doc : d)).filter(d => d.kind === 'video' || d.from === 'video').sort((a, b) => (b.created || 0) - (a.created || 0)).filter(d => { const k = keyOf(d); if (!k) return true; if (seenK.has(k)) return false; seenK.add(k); return true; });
     if (!docs.length) { listEl.replaceChildren(h('div', { class: 'vt-empty' }, L('Noch nichts hier. Füg oben einen Link ein oder zieh eine Datei rein.', 'Nothing here yet. Paste a link above or drop a file.'))); return; }
     listEl.replaceChildren(...docs.slice(0, 40).map(d => {
       const v = d.video || {}, open = d.id === openId;
