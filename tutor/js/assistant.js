@@ -1,6 +1,7 @@
 // Schwebender Max – ohne Chatbox. Kopf unten rechts → Antippen: schwebende Leiste, Max hört sofort zu.
 // Antworten kommen als Stimme + mitlaufender Untertitel, Erklärungen als Tafel direkt über der Seite,
 // Befehle (Quiz bauen, Tab öffnen …) führt er selbst aus. Tippen geht mit einem Klick oder einfach lostippen.
+import { wantsLibrary, libraryMaterial } from './library-search.js';
 import { starBtn as favStar, textKey as favKey, plain as plainT } from './me.js';
 import { h, ico, ls, sleep, toast, learningNow } from './util.js';
 import { face } from './face.js';
@@ -1261,6 +1262,7 @@ export function mountAssistant() {
       const mat = STAGE && STAGE.material ? STAGE.material(text) : null;
       if (mat) Object.assign(payload, mat);
       else if (d) Object.assign(payload, { material: forChat(d, text + ' ' + visibleText(400)), docName: d.name });
+      else if (!STAGE && wantsLibrary(text)) { const lm = libraryMaterial(text); if (lm) Object.assign(payload, lm); }   // auf Wunsch: alles Eigene durchsuchen
       if (pasted) { payload.material = (payload.material ? payload.material + '\n\n' : '') + L('### Vom Nutzer eingefügter Text\n', '### Text pasted by the user\n') + pasted; payload.docName = payload.docName ? payload.docName + L(' + eingefügter Text', ' + pasted text') : L('Eingefügter Text', 'Pasted text'); }
       // >>> Sofort-Tafel (boards.js): Themen-Einstieg mit gespeicherter Tafel → kein KI-Aufruf, sonst live
       let r = inst ? await instantReply(o) : o.examSlug ? await examReply(o.examSlug) : null;

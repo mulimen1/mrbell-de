@@ -282,7 +282,7 @@ export async function mountApp(parts) {
   // Neuer Stoff: läuft gerade Upload/Kurzskript, zeigt das die Seite schon; direkt geöffnet (Neuladen, Link) → Upload-Seite
   if (a === 'neu') { docbar(false); if (current.key === 'ingest' || current.key === 'topic') return; return page('neu', L('Neuer Stoff', 'Add material'), async root => { emptyState(root); }); }
   // „Max“ im Skript = Tutor-Raum mit genau diesem Skript
-  if (b === 'tutor' && S.list.some(d => d.id === a)) { ls.set('tutor.room.focus', [a]); location.replace('#/app/tutor'); return; }
+  if (b === 'tutor' && S.list.some(d => d.id === a)) { ls.set('tutor.room.focus', [a]); ls.set('tutor.room.focusAt', Date.now()); location.replace('#/app/tutor'); return; }
   if (!S.doc || S.doc.id !== a) {
     const d = await openDoc(a);
     if (!d) { toast(L('Dieses Skript gibt es auf diesem Gerät nicht mehr.', 'These slides are no longer on this device.')); go(''); return; }

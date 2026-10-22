@@ -1,6 +1,7 @@
 // Tutor-Raum – die Startseite. Max groß in der Mitte, rechts (aufklappbar) deine Skripte, unten das Eingabefeld.
 // Erst begrüßt er dich und sagt, was jetzt dran ist (Fortschritt diese Woche, was offen ist, sein Tipp).
 // Sobald ihr loslegt, rutscht er nach oben, das Gespräch und die Tafel übernehmen die Bühne. Mit Pausen und Session-Bilanz.
+import { wantsLibrary, libraryMaterial } from '../library-search.js';
 import { h, ico, ls, toast } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
 import { face, isAsleep } from '../face.js';
@@ -39,7 +40,7 @@ function startSession() { if (SES.on) return; Object.assign(SES, { on: true, t0:
 
 // Woran wir gerade arbeiten (Skripte im Fokus)
 const getFocus = () => (ls.get('tutor.room.focus', []) || []).filter(id => docById(id));
-const setFocus = ids => ls.set('tutor.room.focus', [...new Set(ids)].filter(id => docById(id)).slice(0, 4));
+const setFocus = ids => { ls.set('tutor.room.focus', [...new Set(ids)].filter(id => docById(id)).slice(0, 4)); ls.set('tutor.room.focusAt', Date.now()); };
 
 export function render(root, ctx = {}) {
   staleCheck();
@@ -126,6 +127,8 @@ export function render(root, ctx = {}) {
   if (document.querySelector('.ngreet') || ctx.arrive) headApi.hide();
 
   // ---------- Daten ----------
+  // Standard: ohne Skript. Nur ein gerade bewusst gewähltes/hochgeladenes Skript (letzte 2 Min.) bleibt verbunden
+  if (Date.now() - (+ls.get('tutor.room.focusAt', 0) || 0) > 120000) ls.set('tutor.room.focus', []);
   function focusDocs() { return getFocus().map(docById).filter(Boolean); }
   function nextExam() { return exams()[0] || null; }
   function context() {
@@ -139,7 +142,8 @@ export function render(root, ctx = {}) {
     return '[' + parts.join(' · ') + ']';
   }
   function material(text) {
-    const ds = focusDocs(); if (!ds.length) return null;
+    const ds = focusDocs();
+    if (!ds.length) return wantsLibrary(text) ? libraryMaterial(text) : null;   // auf Wunsch: alles Eigene durchsuchen
     if (ds.length === 1) return { material: forChat(ds[0], text), docName: ds[0].name };
     const per = Math.floor(48000 / ds.length);
     return { material: ds.map(d => { const all = fullText(d); return `### ${d.name}\n` + (all.length <= per ? all : topPages(d, text, per)); }).join('\n\n'), docName: ds.map(d => d.name).join(' + ') };
@@ -161,7 +165,7 @@ export function render(root, ctx = {}) {
       if (left <= 0) { out.push(L(`„${nm}“ ist sicher abgelegt. Für heute bin ich durch – morgen leg ich direkt damit los.`, `“${nm}” is safely stored. I’m done for today – tomorrow I’ll start right there.`)); return out.join(' '); }
       const d = S.doc && S.doc.id === waitDoc.id ? S.doc : waitDoc;
       d.waiting = null; waitDoc.waiting = null; saveNow(d).catch(() => {});
-      ls.set('tutor.room.focus', [d.id]);
+      ls.set('tutor.room.focus', [d.id]); ls.set('tutor.room.focusAt', Date.now());
       waitGreet = { at: Date.now(), text: L(`„${nm}“ hat auf uns gewartet – jetzt hab ich wieder Zeit. Womit fangen wir an: erklären, Karteikarten oder Quiz?`, `“${nm}” has been waiting for us – now I’ve got time again. Where do we start: explain it, flashcards or a quiz?`) };
       out.push(waitGreet.text);
       return out.join(' ');
@@ -344,8 +348,8 @@ export function render(root, ctx = {}) {
   function drawFocus() {
     const ds = focusDocs();
     focusRow.replaceChildren(...(ds.length
-      ? [h('span', { class: 'rm-fl2' }, L('Wir arbeiten mit', 'Working with')), ...ds.map(d => h('span', { class: 'rm-chip' }, h('span', { html: ico(d.generated ? 'bulb' : 'file') }), h('span', { class: 'rm-cn' }, d.name), h('button', { type: 'button', 'aria-label': L('Entfernen', 'Remove'), html: ico('x'), onclick: () => { setFocus(getFocus().filter(x => x !== d.id)); drawFocus(); drawRails(); drawSugg(); } })))]
-      : [h('span', { class: 'rm-fl2 soft' }, L('Ohne Skript – ich nehm mein BWL-Wissen. ', 'No slides – I’ll use my business knowledge. '), h('button', { class: 'linkbtn rm-fl3', type: 'button', onclick: () => toggleRail(true) }, L('Skript wählen', 'Pick slides')))]));
+      ? [h('span', { class: 'rm-fl2' }, L('Verbunden mit', 'Linked to')), ...ds.map(d => h('span', { class: 'rm-chip' }, h('span', { html: ico(d.generated ? 'bulb' : 'file') }), h('span', { class: 'rm-cn' }, d.name), h('button', { type: 'button', 'aria-label': L('Entfernen', 'Remove'), html: ico('x'), onclick: () => { setFocus(getFocus().filter(x => x !== d.id)); drawFocus(); drawRails(); drawSugg(); } })))]
+      : [h('span', { class: 'rm-fl2 soft' }, L('Kein Skript verbunden – ich nehm mein BWL-Wissen (und finde deine Unterlagen, wenn du danach fragst). ', 'No slides linked – I use my business knowledge (and find your material when you ask). '), h('button', { class: 'linkbtn rm-fl3', type: 'button', onclick: () => toggleRail(true) }, L('Mit vorhandenem Skript verbinden', 'Link existing slides')))]));
   }
   // Nur noch „Weiter, wo wir waren“ – die Skills stehen oben als Kacheln
   function drawSugg() {

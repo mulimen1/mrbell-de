@@ -11,9 +11,10 @@ import { fachOf } from '../me.js';
 
 const live = d => (S.doc && S.doc.id === d.id ? S.doc : d);
 const byUse = () => S.list.map(live).sort((a, b) => Math.max(b.used || 0, b.created || 0) - Math.max(a.used || 0, a.created || 0));
+// Standard: kein Skript gewählt. Nur direkt nach dem Hochladen ist das neue Skript einmal vorausgewählt.
+let selId = null;
 function pickDoc() {
-  const want = ls.get('tutor.learn.doc') || (ls.get('tutor.room.focus', []) || [])[0];
-  const d = S.list.find(x => x.id === want) || byUse()[0] || null;
+  const d = selId ? S.list.find(x => x.id === selId) : null;
   return d ? live(d) : null;
 }
 // Aus Lernen heraus geöffnet: oben gibt’s „← Lernen“ zurück
@@ -67,6 +68,7 @@ export function render(root) {
   const wrap = h('div', { class: 'view-in ln' });
   root.appendChild(wrap);
 
+  selId = ls.get('tutor.learn.doc') || null; ls.set('tutor.learn.doc', null);
   function draw() {
     const docs = byUse(), d = pickDoc();
     const need = (tab, hasIt) => async () => {
@@ -91,7 +93,7 @@ export function render(root) {
     const docCard = x => {
       const st = stats(x), on = d && x.id === d.id, f = fachOf(x.id);
       const bits = [st.due ? L(`${st.due} fällig`, `${st.due} due`) : st.cards ? L(`${st.cards} Karten`, `${st.cards} cards`) : null, st.lastScore != null ? L(`Quiz ${st.lastScore} %`, `Quiz ${st.lastScore}%`) : null, st.summary ? L('Zettel ✓', 'Sheet ✓') : null].filter(Boolean);
-      return h('button', { class: 'ln-dc' + (on ? ' on' : ''), type: 'button', 'aria-pressed': on ? 'true' : 'false', onclick: () => { ls.set('tutor.learn.doc', x.id); draw(); } },
+      return h('button', { class: 'ln-dc' + (on ? ' on' : ''), type: 'button', 'aria-pressed': on ? 'true' : 'false', onclick: () => { selId = on ? null : x.id; draw(); } },
         h('span', { class: 'ln-dct' }, h('span', { class: 'ln-dci', html: ico(x.generated ? 'bulb' : 'file') }), f ? h('span', { class: 'ln-dcf' }, f.kurz || f.name) : null, on ? h('span', { class: 'ln-dcon', html: ico('check') }) : null),
         h('b', {}, x.name),
         h('span', { class: 'ln-dcm' }, h('span', { class: 'ln-bar' }, h('i', { style: { width: st.m + '%' } })), h('small', {}, st.m + ' %')),
@@ -119,7 +121,7 @@ export function render(root) {
     ] : [
       // Ohne Skript trotzdem alle Werkzeuge zeigen – erst Stoff (Upload oder Thema), dann direkt das Werkzeug
       ...[['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['quiz', 'Quiz', 'quiz'], ['note', L('Lernzettel', 'Study sheet'), 'zettel'], ['headphones', 'Podcast', 'podcast'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['calendar', L('Lernplan', 'Study plan'), 'plan']]
-        .map(([ic, t, tab]) => T(ic, t, L('Skript, Video oder Thema', 'Slides, video or topic'), L('Erstellen', 'Create'), need(tab, false)))
+        .map(([ic, t, tab]) => T(ic, t, L('Eigenes Skript hier hochladen – oder Thema nennen', 'Upload your own slides here – or name a topic'), L('Erstellen', 'Create'), need(tab, false)))
     ];
     const trimmed = d ? (d.name.length > 46 ? d.name.slice(0, 45) + '…' : d.name) : '';
 
@@ -127,9 +129,9 @@ export function render(root) {
       h('header', { class: 'ln-head' },
         h('div', { class: 'eyebrow' }, L('Lernen', 'Learn')),
         h('h1', {}, L('Wie willst du heute lernen?', 'How do you want to study today?')),
-        h('p', { class: 'ln-sub' }, L('Wähl ein Skript – darunter siehst du, was schon fertig ist und was ich dir noch baue.', 'Pick your slides – below you’ll see what’s ready and what I can still build.'))),
+        h('p', { class: 'ln-sub' }, L('Kein Skript gewählt. Wähl oben ein vorhandenes Skript – oder lad dein eigenes direkt beim Lerntool hoch (Karteikarten, Quiz, Lernzettel …). Ohne Skript geht’s auch mit einem Thema.', 'No slides selected. Pick existing slides above – or upload your own right in the study tool (flashcards, quiz, study sheet …). Without slides, a topic works too.'))),
       h('section', { class: 'ln-grp first' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Deine Skripte', 'Your slides')), h('span', { class: 'eyebrow' }, docs.length ? L(`${docs.length} ${docs.length === 1 ? 'Skript' : 'Skripte'}`, `${docs.length} slides`) : '')), docs$),
-      h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, d ? h('h2', {}, L('Mit ', 'With '), h('span', { class: 'ln-q' }, `„${trimmed}“`), L(' lernen', '')) : h('h2', {}, L('Lernstoff aufbauen', 'Build your study material')), h('span', { class: 'eyebrow' }, L('Stoff aufbauen', 'Build it up'))),
+      h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, d ? h('h2', {}, L('Mit ', 'With '), h('span', { class: 'ln-q' }, `„${trimmed}“`), L(' lernen', '')) : h('h2', {}, L('Lerntools – mit eigenem Skript oder Thema', 'Study tools – with your own slides or a topic')), h('span', { class: 'eyebrow' }, L('Stoff aufbauen', 'Build it up'))),
         h('div', { class: 'ln-grid' }, tools)),
       h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Üben & Prüfen', 'Practise & test')), h('span', { class: 'eyebrow' }, L('Bis es sitzt', 'Until it sticks'))),
         h('div', { class: 'ln-grid' },
