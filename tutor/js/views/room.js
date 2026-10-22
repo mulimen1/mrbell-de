@@ -76,6 +76,8 @@ export function render(root, ctx = {}) {
   // zweimal: oben in der Leiste (Gespräch) und oben rechts in der Ecke (Startansicht)
   const mkStk = () => h('span', { class: 'rm-streak', role: 'img' }, h('span', { class: 'rm-fl', html: FLAME }), h('b', { class: 'rm-stn' }, '0'));
   const stk = mkStk(), stkHome = mkStk();
+  // Fortschritt: eigener Knopf im Tutor (nicht mehr oben in der Leiste)
+  const progBtn = () => h('a', { class: 'rm-prog', href: '#/app/fortschritt', title: L('Dein Fortschritt', 'Your progress') }, h('span', { html: ico('trophy') }), h('span', { class: 'rm-progl' }, L('Fortschritt', 'Progress')));
   const drawStreak = () => {
     let days = {}; try { days = M.activityDays(S.list || []); } catch (e) {}
     const today = !!days[M.dayKey()], n = M.streak(days);
@@ -87,7 +89,7 @@ export function render(root, ctx = {}) {
   };
   drawStreak(); const stkIv = setInterval(drawStreak, 30000); const offStk = onChange(drawStreak);
   const bar = h('div', { class: 'rm-bar' },
-    timer, h('span', { style: { flex: 1 } }), oldBtn, stk, cfgBtn(), skBtnBar,
+    timer, h('span', { style: { flex: 1 } }), oldBtn, stk, progBtn(), cfgBtn(), skBtnBar,
     h('button', { class: 'btn sm rm-end-b', type: 'button', onclick: () => endSession() }, L('Session beenden', 'End session')));
   const chatSlot = h('div', { class: 'rm-chat' });
   const boardSlot = h('div', { class: 'rm-board' });
@@ -100,7 +102,7 @@ export function render(root, ctx = {}) {
   const sugg = h('div', { class: 'rm-sugg' });
   const comp = h('div', { class: 'rm-comp' });
   const dock = h('div', { class: 'rm-dock' }, focusRow, sugg, comp);
-  const corner = h('div', { class: 'rm-corner' }, stkHome, cfgBtn(), skBtnHome);
+  const corner = h('div', { class: 'rm-corner' }, stkHome, progBtn(), cfgBtn(), skBtnHome);
   const drop = h('div', { class: 'rm-drop', hidden: true }, h('div', {}, h('span', { html: ico('file') }), h('b', {}, L('Loslassen – dann arbeiten wir damit.', 'Drop it – and we’ll work with it.'))));
   const stage = h('section', { class: 'rm-stage' }, corner, bar, scroll, talk, dock, drop);
   const right = h('aside', { class: 'rm-right', 'aria-label': L('Skripte', 'Slides') });

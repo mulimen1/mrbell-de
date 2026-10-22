@@ -330,7 +330,7 @@ async function materialStep(ui, res, P, tool = null) {
   const name = clean(ans.name || res.titel || P.name, 80) || L('Unterlagen', 'Material');
   // Kontingent leer? Speichern geht trotzdem – Max nimmt sich das Skript vor, sobald wieder Antworten da sind
   const q = currentQuota(), empty = res.noQuota || (q && q.limit && (q.limit - (q.used || 0)) <= 0);
-  const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, srcLang ? { srcLang, outLang: ans.lang || srcLang } : ans.lang ? { outLang: ans.lang } : {}, ocr ? { ocr: true } : {}, P.media ? { media: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}, empty ? { waiting: Date.now() } : {}) });
+  const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, (() => { const fr = ls.get('tutor.upFrom'); ls.set('tutor.upFrom', null); return fr ? { from: fr } : {}; })(), srcLang ? { srcLang, outLang: ans.lang || srcLang } : ans.lang ? { outLang: ans.lang } : {}, ocr ? { ocr: true } : {}, P.media ? { media: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}, empty ? { waiting: Date.now() } : {}) });
   applyPlace(d, ans);
   ls.set('tutor.learn.doc', d.id);   // In „Lernen“ ist danach genau dieses Skript ausgewählt
   if (empty) {

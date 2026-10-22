@@ -221,6 +221,8 @@ function editor(wrap, doc) {
   wrap.addEventListener('drop', e => { if (!hasF(e)) return; dzN = 0; wrap.classList.remove('ms-dragging'); ta.classList.remove('over'); const fl = [...(e.dataTransfer?.files || [])]; if (!fl.length) return; e.preventDefault(); e.stopPropagation(); takeFiles(fl); });
   if ((z.strokes || []).length) setTimeout(() => setDraw(false), 0);
   wrap.append(head, listBox, ed, dz);
+  // Aus „Videos“: Transkript übernehmen und direkt zur sauberen Mitschrift machen
+  try { const imp = JSON.parse(sessionStorage.getItem('tutor.msImport') || 'null'); if (imp && imp.text) { sessionStorage.removeItem('tutor.msImport'); ta.value = imp.text; draft.text = ta.value; if (imp.lang) draft.lang = imp.lang; keep(); setTimeout(() => make(true), 350); } } catch (e) {}
   keep();
   return () => { cleanup(); zp && zp.stop(); document.removeEventListener('visibilitychange', onHide); removeEventListener('pagehide', onHide); persist(true).then(() => refreshList()); };
 

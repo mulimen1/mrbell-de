@@ -15,6 +15,7 @@ const KIND = { vorlesung: L('Vorlesung', 'Lecture'), uebung: L('Übung', 'Exerci
 const TYPES = [
   ['unterlagen', L('Unterlagen', 'Materials'), 'file'],
   ['mitschriften', L('Mitschriften', 'Notes'), 'pen'],
+  ['videos', L('Video-Transkripte', 'Video transcripts'), 'video'],
   ['karten', L('Karteikarten', 'Flashcards'), 'cards'],
   ['quiz', L('Quiz', 'Quizzes'), 'quiz'],
   ['zettel', L('Lernzettel', 'Study sheets'), 'note'],
@@ -69,10 +70,10 @@ export function render(root, { tab: want = '' } = {}) {
   function collect() {
     const docs = S.list.map(live);
     data = { docs };
-    TYPES.forEach(([k]) => { data[k] = k === 'unterlagen' ? docs.filter(d => !d.ms) : k === 'mitschriften' ? docs.filter(d => d.ms).sort((a, b) => (b.used || b.created || 0) - (a.used || a.created || 0)) : items(k, docs); });
+    TYPES.forEach(([k]) => { data[k] = k === 'unterlagen' ? docs.filter(d => !d.ms && d.kind !== 'video') : k === 'videos' ? docs.filter(d => d.kind === 'video').sort((a, b) => (b.created || 0) - (a.created || 0)) : k === 'mitschriften' ? docs.filter(d => d.ms).sort((a, b) => (b.used || b.created || 0) - (a.used || a.created || 0)) : items(k, docs); });
   }
   const present = () => TYPES.filter(([k]) => data[k].length);
-  const made = () => present().filter(([k]) => k !== 'unterlagen' && k !== 'mitschriften');
+  const made = () => present().filter(([k]) => k !== 'unterlagen' && k !== 'mitschriften' && k !== 'videos');
 
   function draw() {
     if (!wrap.isConnected) return;
@@ -133,7 +134,7 @@ export function render(root, { tab: want = '' } = {}) {
     const headEl = h('div', { class: 'bib-sh' }, h('span', { class: 'bib-si', html: ico(ic) }), h('h3', {}, t), h('small', {}, String(all.length)), h('span', { style: { flex: 1 } }),
       limit && all.length > limit ? h('button', { class: 'bib-more', type: 'button', onclick: () => setFilter(k) }, L(`Alle ${all.length} anzeigen`, `Show all ${all.length}`), h('span', { html: ico('right') })) : null);
     if (k === 'unterlagen') return h('section', { class: 'bib-sec' }, headEl, docGroups(shown));
-    if (k === 'mitschriften') return h('section', { class: 'bib-sec' }, headEl, h('div', { class: 'sk-g' }, shown.map(docRow)));
+    if (k === 'mitschriften' || k === 'videos') return h('section', { class: 'bib-sec' }, headEl, h('div', { class: 'sk-g' }, shown.map(docRow)));
     const byDoc = new Map();
     shown.forEach(it => { if (!byDoc.has(it.d.id)) byDoc.set(it.d.id, []); byDoc.get(it.d.id).push(it); });
     const multi = byDoc.size > 1 && !limit;
@@ -164,7 +165,7 @@ export function render(root, { tab: want = '' } = {}) {
       return;
     }
     const nq = norm(q.trim());
-    const match = (k, it) => !nq || norm(k === 'unterlagen' || k === 'mitschriften' ? it.name + ' ' + (M.fachOf(it.id)?.name || '') : it.t + ' ' + it.d.name + ' ' + it.meta.join(' ')).includes(nq);
+    const match = (k, it) => !nq || norm(k === 'unterlagen' || k === 'mitschriften' || k === 'videos' ? it.name + ' ' + (M.fachOf(it.id)?.name || '') : it.t + ' ' + it.d.name + ' ' + it.meta.join(' ')).includes(nq);
     const show = TYPES.filter(([k]) => (filter === 'alles' || filter === k)).map(([k, t, ic]) => [k, t, ic, data[k].filter(it => match(k, it))]).filter(x => x[3].length);
     if (!show.length) { body.replaceChildren(h('div', { class: 'bib-none' }, L('Nichts gefunden.', 'Nothing found.'))); return; }
     const out = show.map(([k, t, ic, list]) => section(k, t, ic, list, { limit: filter === 'alles' && !nq ? PREVIEW : 0 }));

@@ -1,0 +1,225 @@
+// Videos → Lernstoff: Link von YouTube (auch Shorts), TikTok oder Instagram einfügen – oder eigene Datei hochladen.
+// Max schreibt ab (Server: Hub /api/bwlmax/video, 3 pro Tag kostenlos), erkennt die Sprache und macht daraus,
+// was man will: Lernzettel, Mitschrift im Füller-Look, Karteikarten, Quiz, Podcast, Erklärung.
+import { h, ico, toast, ls } from '../util.js';
+import { L } from '../i18n.js';
+import { S, createDoc, save, onChange } from '../state.js';
+import { getAccount, getSession } from '../api.js';
+import { askLang, langPicker, langName } from '../srclang.js';
+
+const HUB = 'https://hub.mrbell.de/api/bwlmax/video';
+const LOGO = p => h('img', { class: 'vt-logo vt-' + p, src: `/tutor/img/brands/${p}.svg`, alt: { youtube: 'YouTube', tiktok: 'TikTok', instagram: 'Instagram' }[p] || p, width: 20, height: 20 });
+export const brandRow = () => h('span', { class: 'vt-brands', 'aria-hidden': 'true' }, LOGO('youtube'), LOGO('tiktok'), LOGO('instagram'));
+const mmss = s => { s = Math.max(0, Math.round(s || 0)); const hh = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = String(s % 60).padStart(2, '0'); return hh ? `${hh}:${String(m).padStart(2, '0')}:${ss}` : `${m}:${ss}`; };
+const PLAT = { youtube: 'YouTube', tiktok: 'TikTok', instagram: 'Instagram' };
+const esc = s => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+async function hub(op, extra) {
+  const r = await fetch(HUB, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify(Object.assign({ session: getSession() || '', op }, extra || {})), cache: 'no-store' });
+  let j = {}; try { j = await r.json(); } catch (e) {}
+  if (!j.fehler && !j.ok && r.status >= 400) j.fehler = L('Das hat gerade nicht geklappt.', 'That didn’t work just now.');
+  return j;
+}
+
+// Was man aus dem Transkript machen kann (nur echte, vorhandene Werkzeuge)
+const MAKE = [
+  ['zettel', 'note', L('Lernzettel', 'Study sheet'), L('Zusammenfassung auf einer Seite', 'Summary on one page')],
+  ['mitschrift', 'pen', L('Mitschrift', 'Notes'), L('Sauber, im Füller-Look', 'Clean, fountain-pen look')],
+  ['erklaeren', 'board', L('Erklärung', 'Explanation'), L('Max erklärt’s an der Tafel', 'Max explains on the board')],
+  ['pfad', 'path', L('Übersicht', 'Overview'), L('Kapitel für Kapitel', 'Chapter by chapter')],
+  ['karten', 'cards', L('Karteikarten', 'Flashcards'), L('Zum Abfragen', 'To quiz yourself')],
+  ['quiz', 'quiz', 'Quiz', L('Mit Erklärung', 'With explanations')],
+  ['podcast', 'headphones', 'Podcast', L('Zum Anhören', 'To listen to')],
+];
+
+function toText(lines) { return lines.map(l => `[${mmss(l.t)}] ${l.x}`).join('\n'); }
+function toPages(lines) {
+  const pages = []; let cur = '';
+  for (const l of lines) { const t = `[${mmss(l.t)}] ${l.x}\n`; if (cur.length + t.length > 3200 && cur) { pages.push(cur.trim()); cur = ''; } cur += t; }
+  if (cur.trim()) pages.push(cur.trim());
+  return pages.length ? pages : [''];
+}
+
+// Ergebnis „machen“: vorhandene Werkzeuge mit genau diesem Transkript
+function make(d, kind) {
+  try { sessionStorage.setItem('tutor.backTo', 'video'); } catch (e) {}
+  if (kind === 'mitschrift') {
+    try { sessionStorage.setItem('tutor.msImport', JSON.stringify({ text: (d.pages || []).join('\n\n').slice(0, 30000), lang: d.outLang || d.srcLang || '', name: d.name })); } catch (e) {}
+    location.hash = '#/app/mitschrift'; return;
+  }
+  if (kind === 'erklaeren') {
+    ls.set('tutor.room.focus', [d.id]); ls.set('tutor.room.focusAt', Date.now());
+    ls.set('tutor.pendingAsk', L('Erklär mir die wichtigsten Inhalte aus diesem Video an der Tafel – Schritt für Schritt, mit Beispiel.', 'Explain the key content of this video on the board – step by step, with an example.'));
+    location.hash = '#/app/tutor'; return;
+  }
+  const tab = { zettel: 'zettel', pfad: 'pfad', karten: 'karten', quiz: 'quiz', podcast: 'podcast' }[kind];
+  location.hash = `#/app/${d.id}/${tab}/auto`;
+}
+
+// Transkript als PDF (Druckansicht → „Als PDF sichern“)
+function pdf(d) {
+  const v = d.video || {}, lines = v.lines || [];
+  const w = window.open('', '_blank'); if (!w) { toast(L('Bitte Pop-ups für bwlmax.de erlauben.', 'Please allow pop-ups for bwlmax.de.')); return; }
+  w.document.write(`<!doctype html><html lang="de"><head><meta charset="utf-8"><title>${esc(d.name)}</title><style>
+    body{font:15px/1.6 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:#111;max-width:760px;margin:40px auto;padding:0 24px}
+    h1{font-size:22px;margin:0 0 4px} .m{color:#666;font-size:13px;margin:0 0 24px} p{margin:0 0 10px} b{color:#555;font-variant-numeric:tabular-nums;font-weight:600;margin-right:8px}
+    .f{margin-top:28px;color:#999;font-size:12px}</style></head><body>
+    <h1>${esc(d.name)}</h1><p class="m">${esc(PLAT[v.platform] || L('Datei', 'File'))}${v.author ? ' · ' + esc(v.author) : ''}${v.dur ? ' · ' + mmss(v.dur) : ''}${v.url ? ' · ' + esc(v.url) : ''}</p>
+    ${lines.map(l => `<p><b>${mmss(l.t)}</b>${esc(l.x)}</p>`).join('')}
+    <p class="f">Transkript erstellt mit BWL Max · bwlmax.de · nur für eigene Lernzwecke</p>
+    <script>setTimeout(()=>print(),300)<\/script></body></html>`);
+  w.document.close();
+}
+
+// Vollbild-Ansicht
+function full(d) {
+  const v = d.video || {};
+  const close = () => { try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {} bg.remove(); removeEventListener('keydown', onKey); };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+  const copy = async () => { try { await navigator.clipboard.writeText(toText(v.lines || [])); toast(L('Transkript kopiert.', 'Transcript copied.')); } catch (e) { toast(L('Kopieren ging nicht.', 'Copy failed.')); } };
+  const body = h('div', { class: 'vt-fbody' }, (v.lines || []).map(l => h('p', {}, h('span', { class: 'vt-ts' }, mmss(l.t)), l.x)));
+  const bg = h('div', { class: 'vt-full', role: 'dialog', 'aria-modal': 'true' },
+    h('div', { class: 'vt-fhead' },
+      h('div', { class: 'vt-fti' }, v.platform ? LOGO(v.platform) : h('span', { html: ico('file') }), h('b', {}, d.name)),
+      h('div', { class: 'vt-fact' },
+        h('button', { class: 'btn sm', type: 'button', onclick: copy }, h('span', { html: ico('check') }), L('Kopieren', 'Copy')),
+        h('button', { class: 'btn sm', type: 'button', onclick: () => pdf(d) }, h('span', { html: ico('download') }), 'PDF'),
+        h('button', { class: 'btn sm', type: 'button', onclick: () => { try { document.fullscreenElement ? document.exitFullscreen() : bg.requestFullscreen(); } catch (e) {} } }, h('span', { html: ico('expand') }), L('Vollbild', 'Full screen')),
+        h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: close }))),
+    body);
+  document.body.append(bg); addEventListener('keydown', onKey);
+}
+
+export function render(root) {
+  const wrap = h('div', { class: 'view-in vt' }); root.appendChild(wrap);
+  const fileIn = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.pptx,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.heic,.heif,application/pdf,image/*,video/*,audio/*,.mp4,.mov,.m4v,.m4a,.mp3,.wav' });
+  fileIn.addEventListener('change', () => { const fl = [...(fileIn.files || [])]; fileIn.value = ''; if (fl.length) upload(fl); });
+  const url = h('input', { class: 'vt-url', type: 'url', inputmode: 'url', placeholder: L('Link einfügen – YouTube, Shorts, TikTok oder Instagram Reel', 'Paste a link – YouTube, Shorts, TikTok or Instagram Reel'), 'aria-label': L('Video-Link', 'Video link') });
+  const go = h('button', { class: 'btn primary vt-go', type: 'button', onclick: () => start() }, L('Abschreiben', 'Transcribe'));
+  url.addEventListener('keydown', e => { if (e.key === 'Enter') start(); });
+  url.addEventListener('paste', () => setTimeout(() => { if (/^https?:\/\//.test(url.value.trim())) start(); }, 60));
+  const status = h('div', { class: 'vt-status', hidden: true, role: 'status' });
+  const quotaEl = h('small', { class: 'vt-quota' });
+  const listEl = h('div', { class: 'vt-list' });
+
+  const drop = h('div', { class: 'vt-drop', tabindex: 0, role: 'button', 'aria-label': L('Datei oder Link hierher ziehen', 'Drop a file or link here'), onclick: e => { if (e.target === url || e.target === go || url.contains(e.target)) return; fileIn.click(); } },
+    h('div', { class: 'vt-dl' }, LOGO('youtube'), LOGO('tiktok'), LOGO('instagram'), h('span', { class: 'vt-dfile', html: ico('upload') })),
+    h('b', {}, L('Link oder Datei hierher ziehen', 'Drop a link or file here')),
+    h('small', {}, L('YouTube (auch Shorts), TikTok, Instagram Reels – oder deine eigene Datei: PDF, Foto, Word, PowerPoint, Video, Audio', 'YouTube (incl. Shorts), TikTok, Instagram Reels – or your own file: PDF, photo, Word, PowerPoint, video, audio')),
+    h('div', { class: 'vt-bar', onclick: e => e.stopPropagation() }, h('span', { class: 'vt-bari', html: ico('video') }), url, go),
+    h('button', { class: 'linkbtn vt-own', type: 'button', onclick: e => { e.stopPropagation(); fileIn.click(); } }, L('Eigene Datei auswählen', 'Choose your own file')), fileIn);
+  let dn = 0;
+  drop.addEventListener('dragenter', e => { e.preventDefault(); dn++; drop.classList.add('over'); });
+  drop.addEventListener('dragover', e => e.preventDefault());
+  drop.addEventListener('dragleave', () => { if (--dn <= 0) { dn = 0; drop.classList.remove('over'); } });
+  drop.addEventListener('drop', e => {
+    e.preventDefault(); dn = 0; drop.classList.remove('over');
+    const fl = [...(e.dataTransfer?.files || [])]; if (fl.length) return upload(fl);
+    const t = (e.dataTransfer?.getData('text/uri-list') || e.dataTransfer?.getData('text/plain') || '').trim().split(/\s+/)[0];
+    if (t) { url.value = t; start(); }
+  });
+
+  wrap.append(
+    h('header', { class: 'vt-head' },
+      h('div', { class: 'eyebrow' }, L('Videos & Dateien → Lernstoff', 'Videos & files → study material')),
+      h('h1', {}, L('Aus Lernvideos wird Lernstoff.', 'Turn study videos into study material.'), ' ', brandRow()),
+      h('p', { class: 'vt-sub' }, L('Viele Profs und die besten Lernvideos sind auf YouTube & Co. Mit deinem Konto schreibt Max dir täglich 3 Videos kostenlos ab – und macht daraus, genau wie aus deinen eigenen Dateien, Lernzettel, Mitschrift im Füller-Look, Karteikarten, Quiz oder Podcast.', 'Many profs and the best study videos are on YouTube & co. With your account Max transcribes 3 videos a day for free – and turns them, just like your own files, into study sheets, fountain-pen notes, flashcards, quizzes or podcasts.'))),
+    drop, status, quotaEl,
+    h('section', { class: 'vt-sec' }, h('div', { class: 'vt-sh' }, h('h2', {}, L('Deine Video-Transkripte', 'Your video transcripts')), h('a', { class: 'linkbtn', href: '#/app/bibliothek/videos' }, L('In der Bibliothek', 'In the library'))), listEl));
+
+  // ---------- Ohne Konto: kurz sehen, dann unscharf + kostenlos anmelden ----------
+  let gateEl = null;
+  function gate() {
+    if (getAccount() || gateEl) return;
+    wrap.classList.add('vt-locked');
+    gateEl = h('div', { class: 'vt-gate' }, h('div', { class: 'vt-gatec' },
+      h('div', { class: 'vt-dl' }, LOGO('youtube'), LOGO('tiktok'), LOGO('instagram')),
+      h('b', {}, L('Video-Transkripte freischalten', 'Unlock video transcripts')),
+      h('p', {}, L('Mit kostenlosem Konto: 3 Videos pro Tag abschreiben und daraus Lernzettel, Mitschrift, Karteikarten & Co. machen. Dauert 20 Sekunden.', 'With a free account: transcribe 3 videos a day and turn them into study sheets, notes, flashcards & more. Takes 20 seconds.')),
+      h('button', { class: 'btn primary', type: 'button', onclick: async () => { const { openAuth } = await import('../account.js'); await openAuth({ registerTitle: L('Video-Transkripte freischalten', 'Unlock video transcripts'), registerSub: L('Kostenlos. 3 Videos pro Tag.', 'Free. 3 videos a day.') }); if (getAccount()) { wrap.classList.remove('vt-locked'); gateEl.remove(); gateEl = null; loadQuota(); } } }, L('Kostenlos freischalten', 'Unlock for free'))));
+    wrap.append(gateEl);
+  }
+  if (!getAccount()) setTimeout(gate, 1100);
+
+  // ---------- Kontingent ----------
+  async function loadQuota() {
+    if (!getAccount()) return;
+    const j = await hub('quota').catch(() => ({}));
+    if (j && j.ok) quotaEl.textContent = j.limit >= 999 ? L('Ohne Limit (Gründer)', 'No limit (founder)') : L(`Heute ${Math.max(0, j.limit - j.used)} von ${j.limit} Video-Transkripten übrig${j.pro ? '' : ' · Eigene Dateien zählen nicht dazu'}`, `${Math.max(0, j.limit - j.used)} of ${j.limit} video transcripts left today${j.pro ? '' : ' · your own files don’t count'}`);
+  }
+  loadQuota();
+
+  // ---------- Eigene Datei: normaler Upload (mit Spracherkennung), landet ebenfalls hier ----------
+  async function upload(fl) {
+    if (!getAccount()) return gate();
+    ls.set('tutor.upFrom', 'video');
+    const m = await import('../app.js'); m.startUpload(fl);
+  }
+
+  // ---------- Link abschreiben ----------
+  let busy = false;
+  const say = (txt, kind) => { status.hidden = !txt; status.className = 'vt-status' + (kind ? ' ' + kind : ''); status.replaceChildren(...(kind === 'run' ? [h('span', { class: 'vt-spin' })] : []), h('span', {}, txt || '')); };
+  async function start() {
+    const u = url.value.trim(); if (!u || busy) return;
+    if (!getAccount()) return gate();
+    busy = true; go.disabled = true;
+    say(L('Max holt sich das Video …', 'Max is fetching the video …'), 'run');
+    try {
+      let j = await hub('start', { url: u });
+      const jobId = j.job;
+      if (j.ok && j.job) {
+        say(L(`Max hört zu${j.meta && j.meta.title ? ': „' + j.meta.title.slice(0, 60) + '“' : ''} … das dauert bei längeren Videos ein bis zwei Minuten.`, 'Max is listening … longer videos take a minute or two.'), 'run');
+        for (let k = 0; k < 400 && j.ok && !j.done; k++) { await new Promise(r => setTimeout(r, 2500)); j = await hub('status', { job: jobId }); }
+      }
+      if (!j.ok || !j.done) throw new Error(j.fehler || L('Das hat nicht geklappt.', 'That didn’t work.'));
+      const v = j.data;
+      // Sprache: Standard = Sprache des Videos; nicht Deutsch → kurz fragen
+      const src = (v.lang || '').slice(0, 2).toLowerCase();
+      const out = src && src !== 'de' ? await askLang(src, { what: L('Ich erstelle dir alles standardmäßig in der Sprache des Videos. Du kannst aber auch eine andere wählen.', 'By default I create everything in the video’s language. You can pick another one too.') }) : (src || 'de');
+      const title = (v.title || `${PLAT[v.platform] || 'Video'} · ${new Date().toLocaleDateString('de-DE')}`).slice(0, 120);
+      const d = await createDoc({ name: title, pages: toPages(v.lines), chars: v.lines.reduce((a, l) => a + l.x.length, 0), extra: { kind: 'video', from: 'video', video: v, srcLang: src, outLang: out } });
+      url.value = ''; say(L(`Fertig: „${title.slice(0, 70)}“ – unten liegt dein Transkript. Wähl, was du daraus machen willst.`, `Done: “${title.slice(0, 70)}” – your transcript is below. Pick what to make from it.`), 'ok');
+      if (j.quota) quotaEl.textContent = L(`Heute ${Math.max(0, j.quota.limit - j.quota.used)} von ${j.quota.limit} Video-Transkripten übrig`, `${Math.max(0, j.quota.limit - j.quota.used)} of ${j.quota.limit} left today`);
+      openId = d.id; draw();
+      setTimeout(() => listEl.querySelector('.vt-item.open')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+    } catch (e) {
+      say(e.message, 'err');
+      if (/Konto/.test(e.message)) gate();
+    } finally { busy = false; go.disabled = false; loadQuota(); }
+  }
+
+  // ---------- Liste: Transkripte + hier hochgeladene Dateien ----------
+  let openId = null;
+  function draw() {
+    const docs = S.list.map(d => (S.doc && S.doc.id === d.id ? S.doc : d)).filter(d => d.kind === 'video' || d.from === 'video').sort((a, b) => (b.created || 0) - (a.created || 0));
+    if (!docs.length) { listEl.replaceChildren(h('div', { class: 'vt-empty' }, L('Noch nichts hier. Füg oben einen Link ein oder zieh eine Datei rein.', 'Nothing here yet. Paste a link above or drop a file.'))); return; }
+    listEl.replaceChildren(...docs.slice(0, 40).map(d => {
+      const v = d.video || {}, open = d.id === openId;
+      const made = [d.summary ? L('Lernzettel', 'Study sheet') : null, (d.decks || []).some(x => (x.cards || []).length) ? L('Karteikarten', 'Flashcards') : null, (d.quizzes || []).length ? 'Quiz' : null, (d.podcasts || []).length ? 'Podcast' : null, d.path?.chapters?.length ? L('Übersicht', 'Overview') : null].filter(Boolean);
+      const meta = [v.platform ? PLAT[v.platform] : L('Eigene Datei', 'Own file'), v.dur ? mmss(v.dur) : null, d.outLang && d.outLang !== 'de' ? langName(d.outLang) : null, new Date(d.created).toLocaleDateString('de-DE', { day: 'numeric', month: 'short' })].filter(Boolean).join(' · ');
+      const head = h('button', { class: 'vt-ih', type: 'button', onclick: () => { openId = open ? null : d.id; draw(); } },
+        v.platform ? LOGO(v.platform) : h('span', { class: 'vt-fi', html: ico('file') }),
+        h('span', { class: 'vt-it' }, h('b', {}, d.name), h('small', {}, meta + (made.length ? ' · ' + made.join(', ') : ''))),
+        h('span', { class: 'vt-chev', html: ico(open ? 'up' : 'down') }));
+      if (!open) return h('div', { class: 'vt-item' }, head);
+      const lines = v.lines || (d.pages || []).join('\n').split('\n').filter(Boolean).map(x => ({ t: -1, x }));
+      // Transkript immer komplett zum Nachlesen (mit Zeitstempeln), egal was daraus gemacht wird
+      const prev = h('div', { class: 'vt-tr' }, h('div', { class: 'vt-trh' }, h('b', {}, L('Transkript', 'Transcript')), h('small', {}, L(`${lines.length} Abschnitte`, `${lines.length} sections`))), h('div', { class: 'vt-prev' }, lines.map(l => h('p', {}, l.t >= 0 ? h('span', { class: 'vt-ts' }, mmss(l.t)) : null, l.x))));
+      const langRow = h('div', { class: 'vt-lang' }, h('small', {}, L('Erstellen auf', 'Create in')), langPicker(d.srcLang || 'de', d.outLang || d.srcLang || 'de', c => { d.outLang = c; save(d); toast(L(`Alles Neue erstelle ich auf ${langName(c)}.`, `I’ll create everything new in ${langName(c)}.`)); }));
+      return h('div', { class: 'vt-item open' }, head,
+        h('div', { class: 'vt-ib' },
+          h('div', { class: 'vt-acts' },
+            d.video ? h('button', { class: 'btn sm', type: 'button', onclick: () => full(d) }, h('span', { html: ico('expand') }), L('Vollbild', 'Full screen')) : null,
+            d.video ? h('button', { class: 'btn sm', type: 'button', onclick: async () => { try { await navigator.clipboard.writeText(toText(v.lines)); toast(L('Transkript kopiert.', 'Transcript copied.')); } catch (e) {} } }, h('span', { html: ico('check') }), L('Kopieren', 'Copy')) : null,
+            d.video ? h('button', { class: 'btn sm', type: 'button', onclick: () => pdf(d) }, h('span', { html: ico('download') }), 'PDF') : h('a', { class: 'btn sm', href: `#/app/${d.id}/hub` }, L('Öffnen', 'Open')),
+            v.url ? h('a', { class: 'linkbtn', href: v.url, target: '_blank', rel: 'noopener noreferrer' }, L('Zum Video', 'Open video')) : null),
+          langRow,
+          h('div', { class: 'vt-mk' }, h('div', { class: 'vt-mkh' }, L('Was soll ich daraus machen?', 'What should I make from it?')),
+            h('div', { class: 'vt-mkg' }, MAKE.map(([k, ic, t, s]) => h('button', { class: 'vt-mkb', type: 'button', onclick: () => make(d, k) }, h('span', { class: 'vt-mki', html: ico(ic) }), h('b', {}, t), h('small', {}, s))))),
+          prev));
+    }));
+  }
+  draw();
+  const off = onChange(() => { if (wrap.isConnected) draw(); });
+  return () => { if (typeof off === 'function') off(); };
+}
