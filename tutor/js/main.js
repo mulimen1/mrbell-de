@@ -83,14 +83,22 @@ function initLanding() {
     setInterval(() => { if (!sp[0]?.isConnected) return; si = (si + 1) % 3; sp.forEach((x, k) => x.classList.toggle('on', k === si)); fs.forEach((f, k) => f.set(k === si ? (si === 2 ? 'smug' : si === 1 ? 'happy' : 'idle') : 'idle')); }, 2200);
   }
 
+  // Aus Lernvideos wird Lernstoff: Link mitnehmen, Transkript-Seite übernimmt (ohne Konto: kostenlos anmelden)
+  document.querySelectorAll('[data-vidform]').forEach(f => f.addEventListener('submit', e => {
+    e.preventDefault();
+    const v = (f.querySelector('input')?.value || '').trim();
+    try { if (v) sessionStorage.setItem('tutor.vidUrl', v); } catch (er) {}
+    location.hash = '#/app/video';
+  }));
+
   // Was Max kann – direkt im Hero sichtbar
   const fr = $('#featrow');
   if (fr) {
     // Die drei stärksten zuerst und größer, der Rest dezent
-    const TOP = [['board', L('Erklärt an der Tafel', 'Explains on the whiteboard'), 'tutor', L('Dein persönlicher Tutor, live', 'Your personal tutor, live')], ['pen', L('Live-Mitschrift', 'Live notes'), 'mitschrift', L('Tippen oder Foto → Füller oder Druckschrift', 'Type or snap → pen or print')], ['calendar', L('Bis zur Klausur begleitet', 'With you until the exam'), 'plan', L('Plan, Quiz, Probeklausur', 'Plan, quizzes, mock exam')]];
-    const REST = [['quiz', L('Quiz in 6 Formaten', 'Quizzes in 6 formats'), 'quiz'], ['whistle', L('BWL-Trainer', 'Business trainer'), 'trainer'], ['trophy', L('Wochen-Challenge', 'Weekly challenge'), 'challenge'], ['brain', L('Lernzettel & Mindmap', 'Study sheet & mind map'), 'zettel'], ['mic', L('Sprechen', 'Talk'), 'voice'], ['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['pod', 'Podcast', 'podcast']];
+    const TOP = [['board', L('Erklärt an der Tafel', 'Explains on the whiteboard'), 'tutor', L('Dein persönlicher Tutor, live', 'Your personal tutor, live')], ['pen', L('Live-Mitschrift', 'Live notes'), 'mitschrift', L('Tippen oder Foto → Füller oder Druckschrift', 'Type or snap → pen or print')], ['brands', L('Lernvideos → Lernstoff', 'Study videos → study material'), 'video', L('YouTube, TikTok, Instagram abschreiben', 'Transcribe YouTube, TikTok, Instagram')]];
+    const REST = [['calendar', L('Klausurplan', 'Exam plan'), 'plan'], ['quiz', L('Quiz in 6 Formaten', 'Quizzes in 6 formats'), 'quiz'], ['whistle', L('BWL-Trainer', 'Business trainer'), 'trainer'], ['trophy', L('Wochen-Challenge', 'Weekly challenge'), 'challenge'], ['brain', L('Lernzettel & Mindmap', 'Study sheet & mind map'), 'zettel'], ['mic', L('Sprechen', 'Talk'), 'voice'], ['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['pod', 'Podcast', 'podcast']];
     const rowT = h('div', { class: 'feattop' }), rowR = h('div', { class: 'featrest' });
-    TOP.forEach(([ic, t, key, sub], k) => rowT.appendChild(h('button', { class: 'feat big', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k }, onclick: () => tryFeature(key) }, h('span', { class: 'fi', html: ico(ic) }), h('span', { class: 'ft' }, h('b', {}, t), h('small', {}, sub)))));
+    TOP.forEach(([ic, t, key, sub], k) => rowT.appendChild(h('button', { class: 'feat big', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k }, onclick: () => tryFeature(key) }, (ic === 'brands' ? h('span', { class: 'fi fi-brands' }, ...['youtube', 'tiktok', 'instagram'].map(p => h('img', { src: `/tutor/img/brands/${p}.svg`, alt: '', width: 16, height: 16 }))) : h('span', { class: 'fi', html: ico(ic) })), h('span', { class: 'ft' }, h('b', {}, t), h('small', {}, sub)))));
     REST.forEach(([ic, t, key], k) => (key === 'pfad' && rowR.appendChild(h('span', { class: 'fbreak', 'aria-hidden': 'true' })), rowR).appendChild(h('button', { class: 'feat', type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k + 3 }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t, key === 'challenge' ? h('span', { class: 'lockb', 'data-lockb': '', title: L('Mit kostenlosem Konto', 'With a free account'), html: ico('lock') }) : null)));
     onAccount(a => document.querySelectorAll('#featrow [data-lockb]').forEach(x => { x.hidden = !!a; }));
     fr.append(rowT, rowR);

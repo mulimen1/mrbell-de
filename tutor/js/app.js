@@ -621,6 +621,7 @@ export async function tryFeature(key) {
   if (key === 'trainer') { location.hash = '#/app/trainer'; return; }
   if (key === 'mitschrift') { location.hash = '#/app/mitschrift'; return; }
   if (key === 'challenge') { location.hash = '#/app/challenge'; return; }
+  if (key === 'video') { location.hash = '#/app/video'; return; }
   const [title, text] = TRY[key] || TRY.tutor;
   // Karteikarten: nach Upload/Thema direkt bauen, ohne Fragen (Podcast, Quiz, Lernzettel fragen kurz nach Länge, Stimme …)
   if (key === 'karten') import('./create.js').then(m => m.setCreate(key, '*', ls.get('tutor.pers.' + key, null) || {})).catch(() => {});

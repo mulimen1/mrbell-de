@@ -167,10 +167,13 @@ export function render(root) {
       h('div', { class: 'vt-dl' }, LOGO('youtube'), LOGO('tiktok'), LOGO('instagram')),
       h('b', {}, L('Video-Transkripte freischalten', 'Unlock video transcripts')),
       h('p', {}, L('Mit kostenlosem Konto: 3 Videos pro Tag abschreiben und daraus Lernzettel, Mitschrift, Karteikarten & Co. machen. Dauert 20 Sekunden.', 'With a free account: transcribe 3 videos a day and turn them into study sheets, notes, flashcards & more. Takes 20 seconds.')),
-      h('button', { class: 'btn primary', type: 'button', onclick: async () => { const { openAuth } = await import('../account.js'); await openAuth({ registerTitle: L('Video-Transkripte freischalten', 'Unlock video transcripts'), registerSub: L('Kostenlos. 3 Videos pro Tag.', 'Free. 3 videos a day.') }); if (getAccount()) { wrap.classList.remove('vt-locked'); gateEl.remove(); gateEl = null; loadQuota(); } } }, L('Kostenlos freischalten', 'Unlock for free'))));
+      h('button', { class: 'btn primary', type: 'button', onclick: async () => { const { openAuth } = await import('../account.js'); await openAuth({ registerTitle: L('Video-Transkripte freischalten', 'Unlock video transcripts'), registerSub: L('Kostenlos. 3 Videos pro Tag.', 'Free. 3 videos a day.') }); if (getAccount()) { wrap.classList.remove('vt-locked'); gateEl.remove(); gateEl = null; loadQuota(); if (url.value.trim()) start(); } } }, L('Kostenlos freischalten', 'Unlock for free'))));
     wrap.append(gateEl);
   }
   if (!getAccount()) setTimeout(gate, 1100);
+  // Link von der Startseite übernehmen
+  let pre = ''; try { pre = sessionStorage.getItem('tutor.vidUrl') || ''; sessionStorage.removeItem('tutor.vidUrl'); } catch (e) {}
+  if (pre) { url.value = pre; if (getAccount()) setTimeout(() => start(), 300); else setTimeout(gate, 600); }
 
   // ---------- Kontingent ----------
   async function loadQuota() {

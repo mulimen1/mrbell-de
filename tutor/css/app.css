@@ -4497,3 +4497,27 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 .vt-admin { display: grid; gap: 8px; margin: 0 0 16px; padding: 16px; border-radius: 16px; border: 1px solid #e0b400; background: color-mix(in srgb, #f2c200 8%, var(--panel)); }
 .vt-admin .vt-bar { width: 100%; margin: 0; }
 .vt-admin small { color: var(--mute); }
+
+/* Startseite: Aus Lernvideos wird Lernstoff */
+.hvid { max-width: 720px; margin: 16px auto 0; padding: 22px 24px; border: 2px solid var(--ink); border-radius: var(--r2); background: var(--panel); box-shadow: var(--shadow); display: grid; gap: 8px; text-align: left; }
+.hvid-l { display: flex; align-items: center; gap: 10px; }
+.hvid-logos { display: flex; gap: 10px; }
+.hvid-logos img { width: 30px; height: 30px; display: block; }
+.hvid-new { margin-left: auto; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 99px; background: var(--inv); color: var(--onInv); }
+.hvid > b { font-size: clamp(21px, 3.2vw, 28px); letter-spacing: -.02em; line-height: 1.15; }
+.hvid-s { color: var(--mute); font-size: 14.5px; line-height: 1.45; }
+.hvid-bar { display: flex; gap: 8px; margin-top: 6px; }
+.hvid-bar input { flex: 1; min-width: 0; height: 48px; padding: 0 14px; border: 1.5px solid var(--line2); border-radius: 12px; background: var(--bg); color: var(--ink); font: inherit; font-size: 15px; }
+.hvid-bar input:focus { outline: none; border-color: var(--ink); }
+.hvid-bar .btn { height: 48px; flex: none; }
+.hvid-m { color: var(--mute); font-size: 12.5px; }
+@media (max-width: 520px) { .hvid { padding: 18px 16px; } .hvid-bar { flex-direction: column; } .hvid-bar .btn { width: 100%; } }
+.feat.big .fi.fi-brands { background: var(--panel); border: 1px solid var(--line2); display: flex; gap: 2px; width: auto; min-width: 40px; padding: 0 6px; }
+.feat.big .fi.fi-brands img { width: 15px; height: 15px; }
+.vidpin .vpdemo { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.vidpin .vp-logos { display: flex; gap: 14px; }
+.vidpin .vp-logos img { width: 40px; height: 40px; }
+:root[data-theme="dark"] .hvid-logos img[src*="tiktok"], :root[data-theme="dark"] .vp-logos img[src*="tiktok"], :root[data-theme="dark"] .fi-brands img[src*="tiktok"] { filter: invert(1); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hvid-logos img[src*="tiktok"], :root:not([data-theme="light"]) .vp-logos img[src*="tiktok"], :root:not([data-theme="light"]) .fi-brands img[src*="tiktok"] { filter: invert(1); } }
+.hvid .hvid-bar input { height: 48px !important; min-height: 48px; padding: 0 14px !important; font-size: 16px; }
+@media (max-width: 760px) { .hero .wrap > .hvid { order: 5; margin-top: 18px; } }
