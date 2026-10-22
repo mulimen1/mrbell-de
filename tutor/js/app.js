@@ -102,7 +102,7 @@ function buildShell() {
     navA('mitschrift', '#/app/mitschrift', 'pen', L('Mitschrift', 'Notes')),
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
     navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
-    h('a', { class: 'tn tn-vid', href: '#/app/video', 'data-tn': 'video' }, h('span', { html: ico('video') }), h('span', { class: 'tn-l' }, L('Videos', 'Videos')), h('span', { class: 'tn-brands', 'aria-hidden': 'true' }, ...['youtube', 'tiktok', 'instagram'].map(p => h('img', { src: `/tutor/img/brands/${p}.svg`, alt: '', width: 13, height: 13, class: 'tn-b tn-b-' + p })))),
+    h('a', { class: 'tn tn-vid', href: '#/app/video', 'data-tn': 'video' }, h('span', { html: ico('video') }), h('span', { class: 'tn-l' }, L('Transkript', 'Transcribe')), h('span', { class: 'tn-brands', 'aria-hidden': 'true' }, ...['youtube', 'tiktok', 'instagram'].map(p => h('img', { src: `/tutor/img/brands/${p}.svg`, alt: '', width: 13, height: 13, class: 'tn-b tn-b-' + p })))),
     Object.assign(navA('zahlen', '#/app/zahlen', 'chart', L('Zahlen', 'Numbers')), { hidden: true }));
   const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
@@ -197,7 +197,7 @@ const LERN_TOOLS = ['karten', 'quiz', 'zettel', 'podcast', 'pfad', 'plan', 'exam
 export function lernLast() {
   try { const h = sessionStorage.getItem('tutor.lernLast'); if (!h || h === '#/app/lernen') return null; const id = h.split('/')[2]; return S.list.some(d => d.id === id) ? h : null; } catch (e) { return null; }
 }
-const BACK = { lernen: ['#/app/lernen', L('Lernen', 'Learn')], video: ['#/app/video', L('Videos', 'Videos')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')] };
+const BACK = { lernen: ['#/app/lernen', L('Lernen', 'Learn')], video: ['#/app/video', L('Transkript', 'Transcribe')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')] };
 function backTarget() { try { const k = sessionStorage.getItem('tutor.backTo'); return BACK[k] ? { key: k, href: k === 'bibliothek' ? '#/app/bibliothek/' + (ls.get('tutor.bib.tab', 'alles') || 'alles') : BACK[k][0], label: BACK[k][1] } : null; } catch (e) { return null; } }
 function backToLearn() { return backTarget()?.key === 'lernen'; }
 function renderList() {
@@ -263,7 +263,7 @@ export async function mountApp(parts) {
   if (a === 'mitschrift') return page('mitschrift:' + (b || ''), L('Mitschrift', 'Notes'), async root => { const { render } = await import('./views/mitschrift.js'); return render(root, { id: b || '' }); });
   if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
   if (a === 'skripte') { location.replace('#/app/bibliothek/unterlagen'); return; }
-  if (a === 'video') return page('video', L('Videos', 'Videos'), async root => { const { render } = await import('./views/video.js'); return render(root); });
+  if (a === 'video') return page('video', L('Transkript', 'Transcribe'), async root => { const { render } = await import('./views/video.js'); return render(root); });
   if (a === 'bibliothek') return page('bibliothek', L('Bibliothek', 'Library'), async root => { const { render } = await import('./views/bibliothek.js'); return render(root, { tab: b || '' }); });
   // Tutor-Raum: die Startseite. Wer von woanders kommt, dem fliegt Max von unten rechts entgegen.
   if (!a || (a === 'me' && !b)) { location.replace('#/app/tutor'); return; }
