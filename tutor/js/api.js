@@ -65,6 +65,8 @@ export async function ask(action, payload = {}, { signal, images } = {}) {
   // Neues Konto: immer zählen (ohne Einwilligung nur die Anzahl, ohne Kennung und Ort)
   if (action === 'verify' && j.ok && j.fresh) { try { if (window.BM && window.BM.ok()) window.BM.track('Konto erstellt'); else fetch('/bm', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ ereignis: 'Konto erstellt', detail: '', seite: '/' }), keepalive: true, credentials: 'omit' }).catch(() => {}); } catch (x) {} }
   if (!j.ok) throw Object.assign(new ApiError(j.error || 'error', j.message || L('Das hat nicht geklappt.', 'That didn’t work.')), { suggest: j.suggest || '' });
+  // Inhaltsfilter: Max hat die Anfrage, das Bild oder das Material abgelehnt
+  if (JSON.stringify(j).includes('[[GESPERRT]]')) throw new ApiError('blocked', L('Dabei helfe ich nicht. BWL Max ist zum Lernen da – sexuelle, beleidigende oder extremistische Inhalte verarbeite ich nicht.', 'I can’t help with that. BWL Max is for studying – I don’t process sexual, insulting or extremist content.'));
   // Formel-Rohcode der KI reparieren (einfach escapte Befehle, $…$), bevor irgendetwas angezeigt wird
   return repairDeep(j);
 }
