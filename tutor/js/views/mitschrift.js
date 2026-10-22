@@ -15,7 +15,7 @@ import { pad, drawingEl, drawingJpeg } from '../mspad.js';
 
 const DKEY = 'tutor.ms.draft';
 let cssOn = false;
-function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=11', 'data-ms': '1' })); }
+function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=12', 'data-ms': '1' })); }
 
 export async function render(root, { id = '' } = {}) {
   css();
@@ -196,14 +196,23 @@ function editor(wrap, doc) {
   const foot = h('div', { class: 'ms-foot' }, st, seg, go);
   const body = h('div', { class: 'ms-body' }, ta, pal);
   // Bilder einfach reinziehen oder einfügen (⌘V) – Dateien wie PDF werden als Skript verbunden
-  const takeFiles = fl => { const imgs = fl.filter(f => /^image\//.test(f.type) || /\.(png|jpe?g|webp|heic|heif)$/i.test(f.name || '')); const docs = fl.filter(f => !imgs.includes(f)); if (imgs.length) fromPhotos(imgs.slice(0, 6)); else if (docs.length) addSkript(docs[0]); };
+  const takeFiles = fl => { const imgs = fl.filter(f => /^image\//.test(f.type) || /\.(png|jpe?g|webp|heic|heif)$/i.test(f.name || '')); const docs = fl.filter(f => !imgs.includes(f)); fromFiles(fl); };
   ta.addEventListener('dragover', e => { if (e.dataTransfer?.types?.includes('Files')) { e.preventDefault(); ta.classList.add('over'); } });
   ta.addEventListener('dragleave', () => ta.classList.remove('over'));
   // Drop aufs Schreibfeld übernimmt die ganze Seite (unten) – sonst käme das Foto doppelt an
   ta.addEventListener('paste', e => { const fl = [...(e.clipboardData?.files || [])]; if (fl.length) { e.preventDefault(); takeFiles(fl); } });
-  const ed = h('div', { class: 'ms-ed' }, fachEl, tools, bp, body, foot);
+  // Großer Bereich: Mitschrift hochladen (alles: PDF, Foto, Word, PowerPoint, Text, Video/Audio)
+  const upIn = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.pptx,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.heic,.heif,application/pdf,image/*,video/*,audio/*,.mp4,.mov,.m4v,.m4a,.mp3,.wav' });
+  upIn.addEventListener('change', () => { const fl = [...(upIn.files || [])]; upIn.value = ''; if (fl.length) fromFiles(fl); });
+  const up = h('div', { class: 'ms-up', role: 'button', tabindex: 0, onclick: () => upIn.click(), onkeydown: e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); upIn.click(); } } },
+    h('span', { class: 'ms-upi', html: ico('upload') }),
+    h('div', { class: 'ms-upt' }, h('b', {}, L('Mitschrift hochladen', 'Upload notes')), h('small', {}, L('PDF, Foto, Word, PowerPoint, Video – reinziehen oder klicken. Max macht daraus eine saubere Mitschrift, in der Sprache deines Materials.', 'PDF, photo, Word, PowerPoint, video – drop or click. Max turns it into clean notes, in the language of your material.'))),
+    h('span', { class: 'ms-upb' }, L('Datei wählen', 'Choose file')), upIn);
+  ['dragenter', 'dragover'].forEach(ev => up.addEventListener(ev, e => { if (e.dataTransfer?.types?.includes('Files')) up.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => up.addEventListener(ev, () => up.classList.remove('over')));
+  const ed = h('div', { class: 'ms-ed' }, fachEl, up, tools, bp, body, foot);
   // Foto irgendwo auf die Mitschrift-Seite ziehen → große Ablagefläche, loslassen → Max macht die saubere Mitschrift
-  const dz = h('div', { class: 'ms-dz', 'aria-hidden': 'true' }, h('div', { class: 'ms-dzi' }, h('span', { html: ico('camera') }), h('b', {}, L('Foto hier loslassen', 'Drop your photo here')), h('small', {}, L('Tafel, Folie oder Aufschrieb – Max schreibt es sauber ab', 'Board, slide or notes – Max writes it up neatly'))));
+  const dz = h('div', { class: 'ms-dz', 'aria-hidden': 'true' }, h('div', { class: 'ms-dzi' }, h('span', { html: ico('camera') }), h('b', {}, L('Hier loslassen', 'Drop it here')), h('small', {}, L('PDF, Foto, Word, PowerPoint oder Video – Max macht daraus deine Mitschrift', 'PDF, photo, Word, PowerPoint or video – Max turns it into your notes'))));
   let dzN = 0;
   const hasF = e => !!e.dataTransfer?.types?.includes('Files');
   wrap.addEventListener('dragenter', e => { if (!hasF(e)) return; e.preventDefault(); dzN++; wrap.classList.add('ms-dragging'); });
@@ -236,6 +245,44 @@ function editor(wrap, doc) {
       busy.replaceWith(foot); ta.readOnly = false;
       if (e && e.name === 'AbortError') return;
       import('../ui.js').then(m => m.apiError(e, () => fromVideo(file))).catch(() => toast(e.message));
+    }
+  }
+
+  // Datei(en) → Text → saubere Mitschrift (Sprache wird erkannt, bei Nicht-Deutsch fragt Max kurz)
+  async function fromFiles(fl) {
+    const isImg = f => /^image\//.test(f.type) || /\.(png|jpe?g|webp|heic|heif|gif)$/i.test(f.name || '');
+    const isAv = f => /^(video|audio)\//.test(f.type) || /\.(mp4|mov|m4v|webm|m4a|mp3|wav|aac|ogg)$/i.test(f.name || '');
+    const av = fl.find(isAv); if (av) return fromVideo(av);
+    const imgs = fl.filter(isImg), docs = fl.filter(f => !isImg(f) && !isAv(f));
+    if (!docs.length) return fromPhotos(imgs.slice(0, 9));
+    const sub = h('small', {}, L('Ich lese deine Datei …', 'Reading your file …'));
+    const busy = h('div', { class: 'ms-busy', role: 'status' },
+      h('span', { html: '<svg class="ms-penani" viewBox="0 0 54 40" aria-hidden="true"><path class="w" d="M3 26c5-9 9-9 11 0s6 9 9 0 6-9 9 0 6 9 9 0 6-8 10-2"/></svg>' }),
+      h('div', {}, h('b', {}, L('Max liest deine Unterlagen …', 'Max is reading your material …')), sub));
+    foot.replaceWith(busy); ta.readOnly = true;
+    try {
+      const { readFile, pdfPages, imageToJpeg } = await import('../ingest.js');
+      let text = '';
+      const pics = [];   // Bilder zum Abschreiben: Fotos + Seiten eingescannter PDFs
+      for (const f of imgs) pics.push(await imageToJpeg(f));
+      for (const f of docs.slice(0, 4)) {
+        const r = await readFile(f, () => {}, { soft: true });
+        if (r.scan) { const pp = await pdfPages(f); for (let i = 1; i <= Math.min(pp.n, 12) && pics.length < 15; i++) { sub.textContent = L(`Seite ${i} von ${Math.min(pp.n, 12)} …`, `Page ${i} of ${Math.min(pp.n, 12)} …`); pics.push(await pp.render(i)); } pp.close(); }
+        else text += (text ? '\n\n' : '') + r.pages.join('\n');
+      }
+      for (let i = 0; i < pics.length; i += 3) {
+        sub.textContent = L(`Ich schreib ab … ${Math.min(i + 3, pics.length)} von ${pics.length}`, `Transcribing … ${Math.min(i + 3, pics.length)} of ${pics.length}`);
+        const r = await ask('ocr', { opts: { imgs: Math.min(3, pics.length - i), from: i + 1 } }, { images: pics.slice(i, i + 3) });
+        text += '\n\n' + ((r.data && r.data.seiten) || []).map(String).join('\n\n');
+      }
+      text = text.trim().slice(0, 30000);
+      if (text.length < 15) throw new Error(L('Darin konnte ich keinen Text finden.', 'I couldn’t find any text in it.'));
+      ta.value = (ta.value.trim() ? ta.value.trim() + '\n\n' : '') + text; draft.text = ta.value; keep();
+      busy.replaceWith(foot); ta.readOnly = false;
+      make(true);
+    } catch (e) {
+      busy.replaceWith(foot); ta.readOnly = false;
+      import('../ui.js').then(m => m.apiError(e)).catch(() => toast(e.message));
     }
   }
 

@@ -270,3 +270,14 @@
 .ms-dzi b { font-size: 24px; }
 .ms-dzi small { font-size: 15px; opacity: .75; }
 @keyframes msDz { from { opacity: 0; } to { opacity: 1; } }
+/* Mitschrift hochladen: großer Bereich */
+.ms-up { display: flex; align-items: center; gap: 16px; margin: 0 0 14px; padding: 22px 22px; border: 2px dashed var(--line2, #d6d3c8); border-radius: 18px; background: var(--panel, #fff); cursor: pointer; transition: border-color .15s, background .15s, transform .15s; }
+.ms-up:hover, .ms-up:focus-visible, .ms-up.over { border-color: var(--accent, #1f5a3a); background: color-mix(in srgb, var(--accent, #1f5a3a) 6%, var(--panel, #fff)); outline: none; }
+.ms-up.over { transform: scale(1.01); }
+.ms-upi { flex: none; width: 52px; height: 52px; border-radius: 15px; display: grid; place-items: center; background: var(--inv, #1f3a2b); color: var(--onInv, #fff); }
+.ms-upi .ico { width: 24px; height: 24px; }
+.ms-upt { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.ms-upt b { font-size: 18px; letter-spacing: -.01em; }
+.ms-upt small { color: var(--mute, #6b6b6b); font-size: 14px; line-height: 1.45; }
+.ms-upb { flex: none; height: 40px; padding: 0 18px; border-radius: 999px; display: inline-flex; align-items: center; border: 1px solid var(--line2, #d6d3c8); font: 650 14px var(--sans, inherit); background: var(--panel, #fff); }
+@media (max-width: 600px) { .ms-up { padding: 16px; gap: 12px; } .ms-upb { display: none; } .ms-upi { width: 44px; height: 44px; } }
