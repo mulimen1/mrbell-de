@@ -76,7 +76,7 @@ export function enhance(c) {
     const lad = ladder(c), top = t.querySelector('h1, h2, .tt'); if (top) top.after(lad); else t.prepend(lad);
     // dieselbe Karte am Ende der Tafel (statt „Karteikarten machen“)
     const nx = t.querySelector('.m-next'), lad2 = ladder(c); if (nx) nx.before(lad2); else t.append(lad2);
-    watchScroll(c); return;
+    watchScroll(c); guestSignals(c, lad2); return;
   }
   const first = [...t.children].find(e => !e.classList.contains('tt') && !/^h\d$/.test(e.localName));   // erster Inhaltsblock (meist der erste Absatz)
   const hook = hookCard(c);
@@ -102,6 +102,32 @@ export function enhance(c) {
   const els = [box, hook].filter(Boolean);
   if (first) first.after(...els); else t.append(...els);
   watchScroll(c);
+}
+// Gäste auf der Themenseite: anonym zählen, ob sie bleiben und bis unten lesen; wer am Laptop gehen will, bekommt einmal die Klausurfragen angeboten
+function guestSignals(c, endEl) {
+  if (getAccount() || c.t._mSig) return; c.t._mSig = 1;
+  const tr = (e, d) => { try { window.BM && window.BM.track(e, d); } catch (x) {} };
+  const topic = String(c.topic || c.slug || '').slice(0, 30);
+  const t0 = Date.now();
+  setTimeout(() => { if (!getAccount() && document.visibilityState !== 'hidden') tr('Tafel 30 s offen', topic); }, 30000);
+  if (endEl && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); tr('Tafel zu Ende gelesen', topic); } }, { root: c.scroller || null, threshold: .3 });
+    io.observe(endEl);
+  }
+  if (!matchMedia('(pointer: fine) and (min-width: 761px)').matches) return;
+  let shown = false; try { shown = !!sessionStorage.getItem('tutor.exitOffer'); } catch (e) {}
+  const onOut = async e => {
+    if (shown || e.clientY > 8 || e.relatedTarget || getAccount() || Date.now() - t0 < 8000) return;
+    if (document.querySelector('.modal-bg, .m-rl')) return;
+    shown = true; try { sessionStorage.setItem('tutor.exitOffer', '1'); } catch (x) {}
+    document.removeEventListener('mouseout', onOut);
+    tr('Verlassen-Hinweis', topic);
+    const { openAuth } = await import('./account.js');
+    const ok = await openAuth({ registerTitle: L(`Bevor du gehst: Klausurfragen zu ${c.topic || 'diesem Thema'}`, `Before you go: exam questions on ${c.topic || 'this topic'}`),
+      registerSub: L('4 echte Klausuraufgaben mit Musterlösung – kostenlos, mit Google in zwei Klicks. Danach kannst du auch deine Vorlesungsfolien hochladen, und Max erklärt genau deinen Stoff.', '4 real exam tasks with model answers – free, two clicks with Google. Then upload your own lecture slides and Max explains exactly your material.'), why: 'Verlassen' });
+    if (ok && getAccount()) { const b = c.t.querySelector('.m-ladcta'); if (b) b.click(); }
+  };
+  document.addEventListener('mouseout', onOut);
 }
 // ---------- Lern-Stufen „Thema klausurfest machen“ ----------
 const LAD_K = c => 'tutor.lad.' + (c.slug || c.topic);

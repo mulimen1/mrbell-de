@@ -30,7 +30,7 @@
   function conv(label) { if (!ADS.id || !label || !ok()) return; ads(); try { window.gtag('event', 'conversion', { send_to: ADS.id + '/' + label }); } catch (e) {} }
   var sent = {};
   // Ohne Einwilligung: nur die reine Anzahl dieser Trichter-Schritte – ohne Cookie, ohne Kennung, ohne Ort
-  var ANON = ['Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht'];
+  var ANON = ['Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis'];
   function track(ereignis, detail, once) {
     if (!ok()) {
       if (ANON.indexOf(ereignis) < 0 || /(?:^|;\s*)mb_intern=1/.test(document.cookie)) return;
@@ -55,6 +55,10 @@
     // Handy: schmale Leiste unten (über der Navigationsleiste), ein, zwei Zeilen Text + zwei gleich große Knöpfe
     + '@media(max-width:600px),(pointer:coarse) and (max-height:500px){.bmc{left:12px;right:12px;bottom:calc(8px + env(safe-area-inset-bottom,0px));width:auto;max-width:560px;margin:0 auto;padding:18px 16px 16px;border-radius:22px;font-size:14px;line-height:1.45}'
     + 'html.m-boardpage .bmc{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}.bmc p{margin:0 0 14px;color:var(--ink2,#d4d4d8)}.bmc .r{gap:6px}.bmc button{height:44px;font-size:14px;white-space:nowrap;padding:0 8px}}'
+    // Laptop: schmale Leiste unten rechts (über der Tafel, nie über dem Eingabefeld) – eine Zeile Text, zwei kleine Knöpfe
+    + '@media(min-width:601px) and (pointer:fine){.bmc,.bmc.bmc-dk{left:auto;right:84px;bottom:16px!important;width:auto;max-width:min(640px,calc(100vw - 120px));display:flex;align-items:center;gap:14px;padding:8px 8px 8px 18px;border-radius:999px;font-size:13px;line-height:1.35}'
+    + '.bmc h3,.bmc .l,.bmc.bmc-dk h3,.bmc.bmc-dk .l{display:none}.bmc .s,.bmc.bmc-dk .s{display:inline}.bmc p,.bmc.bmc-dk p{margin:0;font-size:13px;flex:1;min-width:0}'
+    + '.bmc .r{display:flex;gap:6px;flex:none}.bmc button,.bmc.bmc-dk button{height:34px;padding:0 14px;font-size:13px;white-space:nowrap}}'
     + '@media (prefers-reduced-motion:reduce){.bmc,.bmc.out{animation:none}}';
   var box = null;
   function legal() { return /(^|\.)bwlmax\.de$/.test(location.hostname) ? '/datenschutz#analyse' : '/tutor/legal/datenschutz.html#analyse'; }
