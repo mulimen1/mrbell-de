@@ -231,6 +231,8 @@ function renderTabs(docId, tab) {
   shell.tabs.classList.remove('hidden');
 }
 
+// Gäste sehen eine aufgeräumte Oberfläche (keine Timer/Serie/Fortschritt/Einstellungen/Skripte/Session, oben rechts nichts)
+try { onAccount(a => document.documentElement.classList.toggle('bm-guest', !a)); document.documentElement.classList.toggle('bm-guest', !getAccount()); } catch (e) {}
 export async function mountApp(parts) {
   if (!shell) { buildShell(); await refreshList(); import('./mslink.js').then(m => { m.linkMitschriften(); import('./me.js').then(M => { let t = 0; M.onMe(() => { clearTimeout(t); t = setTimeout(m.linkMitschriften, 300); }); }); }).catch(() => {}); }
   shell.app.classList.remove('sideopen');
