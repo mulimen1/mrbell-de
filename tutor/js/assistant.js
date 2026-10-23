@@ -1242,7 +1242,9 @@ export function mountAssistant() {
     ctrl = new AbortController();
     try {
       // Ohne Konto: genau eine Antwort (Themen-Tafel oder erste Frage) – jede weitere Frage erst nach kostenlosem Konto, danach geht sie automatisch raus
-      if (!getAccount() && !o.entry && hist.some(m => m.role === 'assistant')) { try { window.BM && window.BM.track('Anmeldepflicht', 'Frage'); } catch (x) {} throw Object.assign(new Error('need_account'), { code: 'need_account', gate: true }); }
+      if (!getAccount() && !o.entry && hist.some(m => m.role === 'assistant')) { try { window.BM && window.BM.track('Anmeldepflicht', 'Frage'); } catch (x) {}
+        import('./account.js').then(m => m.openAuth({ title: L('Mit BWL Max kostenlos chatten', 'Chat with BWL Max for free'), registerTitle: L('Mit BWL Max kostenlos chatten', 'Chat with BWL Max for free'), sub: L('Kostenloses Konto – mit Google in zwei Klicks. Deine Frage schick ich danach sofort ab.', 'Free account – two clicks with Google. I’ll send your question right after.'), why: 'Frage', strong: true })).then(ok => { if (ok && getAccount()) submit(text, o); }).catch(() => {});
+        throw Object.assign(new Error('need_account'), { code: 'need_account', gate: true }); }
       const messages = hist.slice(-12).map(m => ({ role: m.role, content: m.role === 'assistant' ? forHistory(m.content) : m.content }));
       const TAFEL = L('[Tafel: Gib jedem Block an der Tafel (h3, p, ul, div.calc, div.step, div.result, table, svg) ein Attribut data-say mit genau einem kurzen Satz (höchstens 18 Wörter), warum dieser Schritt so ist – Max zeigt ihn dann mit seinem Cursor.]',
         '[Board: give every block on the board (h3, p, ul, div.calc, div.step, div.result, table, svg) a data-say attribute with exactly one short sentence (max 18 words) on why this step is the way it is – Max then points to it with his cursor.]');

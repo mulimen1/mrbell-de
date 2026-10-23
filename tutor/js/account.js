@@ -44,10 +44,10 @@ function spamBox(email) {
 }
 
 // mode: 'login' (E-Mail + Passwort) · 'register' (Konto erstellen, Mail bestätigen) · 'reset' (Passwort vergessen)
-export function openLogin({ title, mode = 'login', sub: sub0, why = '' } = {}) {
+export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong = false } = {}) {
   try { window.BM && window.BM.track('Anmeldefenster gesehen', why || (mode === 'register' ? 'Registrieren' : 'Anmelden')); } catch (e) {}
   return new Promise(resolve => {
-    const { bg, box, fEl, fc } = shell();
+    const { bg, box, fEl, fc } = shell(); if (strong) bg.classList.add('mbg-strong');
     const close = v => { if (bg.classList.contains('out')) return; bg.classList.add('out'); setTimeout(() => bg.remove(), 320); document.removeEventListener('keydown', onKey); resolve(v); };
     const onKey = e => { if (e.key === 'Escape') close(false); };
     document.addEventListener('keydown', onKey);
