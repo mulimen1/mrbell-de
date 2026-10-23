@@ -56,6 +56,61 @@ const SETS = {
     ['Woraus bestehen die Herstellkosten?', ['Materialkosten + Fertigungskosten', 'Materialkosten + Verwaltungsgemeinkosten', 'Selbstkosten + Gewinn'], 'Herstellkosten = Materialkosten + Fertigungskosten. Verwaltung und Vertrieb kommen erst danach dazu.'],
     ['Barverkaufspreis 220 €. Der Kunde bekommt 2 % Skonto. Wie hoch ist der Zielverkaufspreis?', ['224,49 €', '224,40 €', '215,60 €'], 'Die Falle: Skonto wird vom Zielverkaufspreis abgezogen, nicht vom Barverkaufspreis. Also rückwärts im Hundert rechnen: 220 € ÷ 0,98 = 224,49 € – nicht 220 € × 1,02.']
   ],
+  preiselastizitaet: [
+    ['Der Preis steigt um 10 %, die Absatzmenge sinkt um 20 %. Wie hoch ist die Preiselastizität (Betrag)?', ['2 – elastisch', '0,5 – unelastisch', '10'], 'Elastizität = Mengenänderung in % ÷ Preisänderung in % = 20 % ÷ 10 % = 2. Über 1 heißt elastisch.'],
+    ['Die Nachfrage ist unelastisch (Betrag unter 1). Was passiert bei einer Preiserhöhung mit dem Umsatz?', ['Er steigt', 'Er sinkt', 'Er bleibt gleich'], 'Die Menge sinkt prozentual weniger, als der Preis steigt – unterm Strich bleibt mehr Umsatz.'],
+    ['Der Preis sinkt um 5 %, die Absatzmenge steigt um genau 5 %. Was passiert mit dem Umsatz?', ['Er sinkt leicht', 'Er bleibt gleich', 'Er steigt leicht'], 'Die Falle: Prozente heben sich nicht einfach auf. 0,95 × 1,05 = 0,9975 – der Umsatz sinkt um 0,25 %.']
+  ],
+  leverage: [
+    ['Mehr Fremdkapital erhöht die Eigenkapitalrentabilität, wenn …', ['die Gesamtkapitalrentabilität über dem Fremdkapitalzins liegt', 'der Fremdkapitalzins über der Gesamtkapitalrentabilität liegt', 'das Fremdkapital zinslos ist – sonst nie'], 'Solange jeder geliehene Euro mehr erwirtschaftet, als er an Zinsen kostet, bleibt die Differenz beim Eigenkapital hängen.'],
+    ['Was ist das Leverage-Risiko?', ['Fällt die Gesamtkapitalrendite unter den FK-Zins, sinkt die EK-Rendite überproportional', 'Fremdkapitalzinsen steigen automatisch mit dem Gewinn', 'Eigenkapital wird zu Fremdkapital'], 'Der Hebel wirkt in beide Richtungen: Liegt die Rendite unter dem Zins, frisst der Zins einen Teil der EK-Rendite auf – je mehr FK, desto stärker.'],
+    ['Gesamtkapitalrentabilität 8 %, FK-Zins 5 %, Eigenkapital 100.000 €, Fremdkapital 100.000 €. Wie hoch ist die EK-Rentabilität?', ['11 %', '8 %', '3 %'], 'Die Falle: Es sind nicht einfach 8 %. EK-Rendite = 8 % + (8 % − 5 %) × FK/EK = 8 % + 3 % × 1 = 11 % (ohne Steuern).']
+  ],
+  amortisation: [
+    ['Wie berechnet man die Amortisationsdauer (Durchschnittsmethode)?', ['Anschaffungskosten ÷ jährlicher Rückfluss', 'Jährlicher Rückfluss ÷ Anschaffungskosten', 'Anschaffungskosten × Nutzungsdauer'], 'Du teilst, was du reinsteckst, durch das, was pro Jahr zurückkommt – dann weißt du, nach wie vielen Jahren das Geld wieder da ist.'],
+    ['Anschaffung 60.000 €, Rückfluss 15.000 € pro Jahr. Amortisationsdauer?', ['4 Jahre', '5 Jahre', '9 Jahre'], '60.000 € ÷ 15.000 € = 4 Jahre.'],
+    ['Investition A amortisiert sich in 2 Jahren, B in 4 Jahren. Welche ist wirtschaftlich besser?', ['Das lässt sich damit allein nicht sagen', 'A', 'B'], 'Die Falle: Die Amortisationsrechnung ignoriert alles nach der Amortisation. B kann danach noch viel mehr abwerfen. Sie misst vor allem das Risiko, nicht die Wirtschaftlichkeit.']
+  ],
+  zinsfuss: [
+    ['Der interne Zinsfuß ist der Zins, bei dem …', ['der Kapitalwert genau 0 ist', 'der Kapitalwert am höchsten ist', 'sich die Investition amortisiert hat'], 'Beim internen Zinsfuß sind Barwert der Rückflüsse und Anschaffung genau gleich – Kapitalwert 0.'],
+    ['Interner Zinsfuß 9 %, Kalkulationszins 6 %. Ist die Investition vorteilhaft?', ['Ja', 'Nein', 'Das lässt sich nicht sagen'], 'Die Investition verzinst sich mit 9 % – mehr als die geforderten 6 %. Also vorteilhaft.'],
+    ['Du investierst heute 100 € und bekommst in 2 Jahren 121 € zurück. Wie hoch ist der interne Zinsfuß?', ['10 %', '10,5 %', '21 %'], 'Die Falle: 21 % durch 2 Jahre sind nicht 10,5 %, weil Zinsen sich verzinsen. 100 € × 1,10 × 1,10 = 121 € – also 10 %.']
+  ],
+  annuitaet: [
+    ['Nach der Annuitätenmethode ist eine Investition vorteilhaft, wenn …', ['ihre Annuität größer als 0 ist', 'ihre Annuität kleiner als 0 ist', 'die Annuität den Anschaffungskosten entspricht'], 'Eine positive Annuität heißt: Jedes Jahr bleibt nach Verzinsung und Rückgewinnung des Kapitals ein Überschuss.'],
+    ['Was verteilt die Annuität gleichmäßig auf die Nutzungsdauer?', ['Den Kapitalwert', 'Die Anschaffungskosten ohne Zinsen', 'Den Umsatz'], 'Annuität = Kapitalwert × Wiedergewinnungsfaktor – der Kapitalwert als gleich hoher Jahresbetrag.'],
+    ['Eine Investition hat einen Kapitalwert von +10.000 €. Kann ihre Annuität negativ sein?', ['Nein, nie', 'Ja – bei sehr langer Nutzungsdauer', 'Ja – wenn der Zins hoch ist'], 'Die Falle: Die Annuität ist nur der Kapitalwert, umgerechnet in Jahresbeträge (× Wiedergewinnungsfaktor, der immer positiv ist). Gleiches Vorzeichen – immer.']
+  ],
+  abschreibung: [
+    ['Maschine 50.000 €, Nutzungsdauer 5 Jahre, linear. Wie hoch ist die jährliche Abschreibung?', ['10.000 €', '5.000 €', '50.000 €'], '50.000 € ÷ 5 Jahre = 10.000 € pro Jahr.'],
+    ['Was bildet die Abschreibung ab?', ['Den Wertverlust über die Nutzungsdauer', 'Die Rückzahlung eines Kredits', 'Eine Gewinnausschüttung'], 'Abschreibungen verteilen die Anschaffungskosten als Aufwand auf die Jahre, in denen das Gut genutzt wird.'],
+    ['Eine Maschine für 12.000 € wird am 1. Oktober gekauft, Nutzungsdauer 4 Jahre, linear. Abschreibung im Kaufjahr?', ['750 €', '3.000 €', '1.000 €'], 'Die Falle: Im Kaufjahr wird monatsgenau abgeschrieben. 3.000 € pro Jahr × 3/12 (Oktober bis Dezember) = 750 €.']
+  ],
+  bab: [
+    ['Was verteilt der Betriebsabrechnungsbogen?', ['Gemeinkosten auf die Kostenstellen', 'Einzelkosten auf die Kunden', 'Gewinne auf die Gesellschafter'], 'Der BAB verteilt die Gemeinkosten auf die Kostenstellen und liefert so die Zuschlagssätze.'],
+    ['Strom für die ganze Fabrik, ohne eigenen Zähler je Abteilung – was für Kosten sind das?', ['Gemeinkosten', 'Einzelkosten', 'Sondereinzelkosten'], 'Sie lassen sich keinem Produkt direkt zurechnen – Gemeinkosten, die per Schlüssel verteilt werden.'],
+    ['Materialgemeinkosten 20.000 €, Fertigungsmaterial 100.000 €. Wie hoch ist der MGK-Zuschlagssatz?', ['20 %', '16,7 %', '120 %'], 'Die Falle: Basis ist nur das Fertigungsmaterial, nicht Material plus Gemeinkosten. 20.000 € ÷ 100.000 € = 20 %.']
+  ],
+  rueckstellungen: [
+    ['Wo stehen Rückstellungen in der Bilanz?', ['Auf der Passivseite', 'Auf der Aktivseite', 'Gar nicht – nur in der GuV'], 'Rückstellungen sind Verpflichtungen, also Fremdkapital – Passivseite.'],
+    ['Wofür bildet man Rückstellungen?', ['Für Verpflichtungen, deren Höhe oder Fälligkeit unsicher ist', 'Für sicher bekannte Rechnungen', 'Für geplante Gewinne'], 'Steht die Schuld nach Höhe und Zeitpunkt fest, ist es eine Verbindlichkeit. Ist etwas davon unsicher, eine Rückstellung.'],
+    ['Ein Prozess droht, Schaden voraussichtlich 30.000 €, gezahlt wird erst nächstes Jahr. Wann entsteht der Aufwand in der GuV?', ['Jetzt – bei Bildung der Rückstellung', 'Erst bei der Zahlung', 'Gar nicht'], 'Die Falle: Nicht die Zahlung zählt. Der Aufwand gehört in das Jahr, in dem er verursacht wurde – deshalb bucht man jetzt die Rückstellung als Aufwand.']
+  ],
+  eigenkapitalrentabilitaet: [
+    ['Wie berechnet man die Eigenkapitalrentabilität?', ['Gewinn ÷ Eigenkapital', 'Eigenkapital ÷ Gewinn', 'Gewinn ÷ Umsatz'], 'EK-Rentabilität = Gewinn ÷ Eigenkapital × 100. Gewinn ÷ Umsatz wäre die Umsatzrentabilität.'],
+    ['Gewinn 20.000 €, Eigenkapital 200.000 €. EK-Rentabilität?', ['10 %', '20 %', '1 %'], '20.000 € ÷ 200.000 € = 0,1 = 10 %.'],
+    ['Das Unternehmen schüttet Geld aus und hat danach weniger Eigenkapital. Der Gewinn bleibt gleich. Was passiert mit der EK-Rentabilität?', ['Sie steigt', 'Sie sinkt', 'Sie bleibt gleich'], 'Die Falle: Weniger Eigenkapital klingt schlecht – aber gleicher Gewinn geteilt durch weniger EK ergibt eine höhere Rentabilität.']
+  ],
+  grenzkosten: [
+    ['Was sind Grenzkosten?', ['Die Kosten der nächsten zusätzlichen Einheit', 'Die Kosten aller Einheiten zusammen', 'Die Durchschnittskosten pro Stück'], 'Grenzkosten zeigen, um wie viel die Gesamtkosten steigen, wenn du eine Einheit mehr produzierst.'],
+    ['Kosten bei 100 Stück: 5.000 €, bei 101 Stück: 5.030 €. Grenzkosten der 101. Einheit?', ['30 €', '50 €', '49,80 €'], '5.030 € − 5.000 € = 30 €. Die 50 € wären die Durchschnittskosten.'],
+    ['Kostenfunktion K = 2.000 € + 10 € × Menge. Wie hoch sind die Grenzkosten bei 500 Stück?', ['10 €', '14 €', '4 €'], 'Die Falle: 14 € sind die Stückkosten (2.000 € ÷ 500 + 10 €). Die Fixkosten ändern sich bei einem Stück mehr aber nicht – die Grenzkosten sind immer 10 €.']
+  ],
+  porter: [
+    ['Was gehört zu Porters Five Forces?', ['Verhandlungsmacht der Lieferanten', 'Höhe der Unternehmenssteuern', 'Die Unternehmenskultur'], 'Die fünf Kräfte: Rivalität, neue Anbieter, Ersatzprodukte, Macht der Lieferanten und Macht der Kunden.'],
+    ['Viele kleine Kunden, wenige große Anbieter. Wie groß ist die Verhandlungsmacht der Kunden?', ['Eher gering', 'Eher hoch', 'Spielt keine Rolle'], 'Ein einzelner kleiner Kunde kann kaum Druck machen – die Macht liegt bei den wenigen Anbietern.'],
+    ['Für Kinobetreiber ist Netflix in Porters Modell …', ['eine Bedrohung durch Ersatzprodukte', 'Rivalität unter bestehenden Wettbewerbern', 'eine Bedrohung durch neue Anbieter'], 'Die Falle: Netflix betreibt keine Kinos – es ist kein direkter Konkurrent, sondern ein anderes Produkt, das dasselbe Bedürfnis erfüllt. Also ein Substitut.']
+  ],
   bilanzanalyse: [
     ['Wie berechnet man die Eigenkapitalquote?', ['Eigenkapital ÷ Gesamtkapital', 'Eigenkapital ÷ Fremdkapital', 'Gewinn ÷ Eigenkapital'], 'EK-Quote = Eigenkapital ÷ Gesamtkapital (Bilanzsumme). Gewinn ÷ EK wäre die Eigenkapitalrentabilität.'],
     ['Eigenkapital 400.000 €, Bilanzsumme 1.000.000 €. Wie hoch ist die EK-Quote?', ['40 %', '60 %', '25 %'], '400.000 € ÷ 1.000.000 € = 0,4 = 40 %.'],
@@ -136,4 +191,10 @@ export function miniCheck(c, { onExam } = {}) {
     requestAnimationFrame(() => { try { sum.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (x) {} });
   };
   return box;
+}
+
+// Kleiner Knopf direkt nach der ersten Erklärung: wer nur die Definition liest, sieht trotzdem den Mini-Check und springt per Klick hin
+export function miniTeaser(mc) {
+  return h('button', { class: 'm-mc-tz', type: 'button', onclick: () => { try { window.BM && window.BM.track('Mini-Check angeklickt', ''); } catch (x) {} mc.scrollIntoView({ behavior: 'smooth', block: 'start' }); mc.animate([{ boxShadow: '0 0 0 0 rgba(53,110,82,.55)' }, { boxShadow: '0 0 0 14px rgba(53,110,82,0)' }], { duration: 900, delay: 450 }); } },
+    h('span', { class: 'm-mc-tzi' }, '✓'), h('span', { class: 'm-mc-tzt' }, h('b', {}, L('Mini-Check: Hast du’s verstanden?', 'Mini check: did it click?')), h('small', {}, L('3 Fragen · 30 Sekunden', '3 questions · 30 seconds'))), h('span', { class: 'm-mc-tza' }, '↓'));
 }

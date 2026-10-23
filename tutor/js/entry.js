@@ -9,7 +9,7 @@ import { mathify, polishBoard, queueMath } from './math.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice } from './max.js';
 import { mode as maxMode } from './maxcfg.js';
-import { miniCheck, hasMiniCheck } from './minicheck.js';
+import { miniCheck, miniTeaser, hasMiniCheck } from './minicheck.js';
 export { hasMiniCheck };
 
 // ---------- Mini-Check: eine Frage pro Sofort-Tafel (fachlich geprüft, bewusst einfach und eindeutig) ----------
@@ -79,7 +79,7 @@ export function enhance(c) {
     const nx = t.querySelector('.m-next'), lad2 = ladder(c); if (nx) nx.before(lad2); else t.append(lad2);
     const mc = miniCheck(c, { onExam: () => { const b = lad2.querySelector('.m-ladcta'); if (b) b.click(); } });
     if (mc) { const kids = [...t.children], hs = kids.filter(e => e.localName === 'h3'); const first = kids.find(e => !e.classList.contains('tt') && !e.classList.contains('m-lad') && !/^h\d$/.test(e.localName));   // ans Ende des ersten Abschnitts (vor der zweiten Zwischenüberschrift)
-      if (hs[1]) hs[1].before(mc); else if (first) first.after(mc); else t.append(mc); }
+      if (hs[1]) { hs[1].before(mc); const p1 = kids.find(e => e.localName === 'p' && !e.classList.contains('tt')) || first; if (p1 && p1 !== mc.previousElementSibling) p1.after(miniTeaser(mc)); } else if (first) first.after(mc); else t.append(mc); }
     else { const lad = ladder(c), top = t.querySelector('h1, h2, .tt'); if (top) top.after(lad); else t.prepend(lad); }
     watchScroll(c); guestSignals(c, lad2); return;
   }
