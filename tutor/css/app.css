@@ -4653,3 +4653,24 @@ html.bm-guest .rm-bar .rm-skb, html.bm-guest .rm-bar .rm-end-b, html.bm-guest .t
 html.bm-guest .tn[data-tn="bibliothek"] { display: none !important; }
 @media (min-width: 761px) { html:not(.bm-guest) .tn-b { width: 15px; height: 15px; } html:not(.bm-guest) .tn-brands { gap: 4px; margin-left: 2px; } }
 html:not(.bm-guest) .tn-new { display: none !important; }
+
+/* Anmeldefenster: Max-Kopf sofort da (kein verspätetes Reinhüpfen), nirgends eine Scroll-Leiste, Werkzeug-Knöpfe dahinter */
+.modal.login .lface { animation: none !important; }
+.modal-bg, .modal-bg * { scrollbar-width: none; }
+.modal-bg ::-webkit-scrollbar, .modal-bg::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.modal { max-height: calc(100vh - 32px); overflow-x: hidden; }
+body:has(.modal-bg) .dk { visibility: hidden; }
+
+/* Navigation: angenehme Hover-Animation – leicht anheben, weicher Schatten, Icon-Feld wird grün und ploppt */
+@media (min-width: 761px) and (hover: hover) {
+  .tn { transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease, background-color .22s ease; }
+  .tn > span:has(> .ico) { transition: transform .25s cubic-bezier(.34,1.56,.64,1), background-color .2s ease, color .2s ease; }
+  .tn:not(.tn-tutor):hover { transform: translateY(-2px); background: var(--panel); box-shadow: 0 8px 18px -10px rgba(31,72,52,.45), inset 0 0 0 1px var(--line2); }
+  .tn:not(.tn-tutor):hover > span:has(> .ico) { transform: scale(1.08) rotate(-4deg); }
+  .tn.tn-tutor:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px rgba(31,72,52,.7); }
+  .tn:active { transform: translateY(0) scale(.97); }
+  .tn-brands .tn-b { transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+  .tn-vid:hover .tn-b { transform: translateY(-2px) scale(1.12); }
+  .tn-vid:hover .tn-b:nth-child(2) { transition-delay: .04s; } .tn-vid:hover .tn-b:nth-child(3) { transition-delay: .08s; }
+}
+@media (prefers-reduced-motion: reduce) { .tn, .tn > span, .tn-b { transition: none !important; transform: none !important; } }
