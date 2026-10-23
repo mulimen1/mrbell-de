@@ -4734,3 +4734,24 @@ body:has(.modal-bg) .dk { visibility: hidden; }
 /* Startseite Laptop: Top-3-Karten mit demselben kräftigen Rand wie am Handy */
 .hero .feattop .feat.big { border: 2px solid var(--ink); box-shadow: 0 3px 0 var(--ink); }
 .hero .feattop .feat.big:hover, .hero .feattop .feat.big.hl { box-shadow: 0 5px 0 var(--ink); }
+
+/* ===== Haptisches Feedback überall: Knöpfe, Chips, Karten heben sich weich an und geben beim Drücken nach ===== */
+:root { --spring: cubic-bezier(.34,1.56,.64,1); }
+.btn, .chip, .feat, .rm-tile, .rm-mc, .rm-skt, .ai-cmd, .tc-row, .m-mc-o, .m-mc-go, .m-mc-cta, .m-mc-tz, .navlogin, .navreg, .talkcta, .m-ladcta, .mq-chips .chip, .dropzone .btn {
+  transition: transform .22s var(--spring), box-shadow .22s ease, background-color .18s ease, border-color .18s ease, color .18s ease, filter .18s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover:not(:disabled), .chip:hover, .feat:not(.big):hover, .ai-cmd:hover, .talkcta:hover, .navreg:hover { transform: translateY(-2px); box-shadow: 0 8px 18px -10px rgba(0,0,0,.35); }
+  .btn.primary:hover:not(:disabled), .navreg:hover, .m-mc-go:hover:not(:disabled), .m-mc-cta:hover, .m-ladcta:hover { filter: brightness(1.08); }
+  .rm-tile:hover { transform: translateY(-3px); box-shadow: 0 14px 28px -16px rgba(0,0,0,.35); border-color: var(--ink); }
+  .rm-skt:hover { transform: translateY(-2px); }
+  .tc-row:hover .tc-ic { background: #1f4834; color: #fff; }
+  .tc-ic { transition: background-color .18s ease, color .18s ease, transform .22s var(--spring); }
+  .tc-row:hover .tc-ic { transform: scale(1.06); }
+  .navlogin:hover { transform: translateY(-1px); }
+}
+/* Drücken: kurz nachgeben (auch am Handy) */
+.btn:active:not(:disabled), .chip:active, .feat:active, .rm-tile:active, .rm-skt:active, .ai-cmd:active, .tc-row:active, .m-mc-o:active:not(:disabled), .m-mc-go:active:not(:disabled), .m-mc-cta:active, .m-mc-tz:active, .navlogin:active, .navreg:active, .talkcta:active, .m-ladcta:active {
+  transform: translateY(0) scale(.97) !important; transition-duration: .08s;
+}
+@media (prefers-reduced-motion: reduce) { .btn, .chip, .feat, .rm-tile, .ai-cmd, .tc-row, .m-mc-o, .navreg, .talkcta { transition: none !important; } }
