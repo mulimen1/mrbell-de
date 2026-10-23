@@ -60,10 +60,9 @@
   .asst-bub .asst-x { width: 22px; height: 22px; top: -4px; left: -4px; }
   .asst-bub .asst-bs { height: 26px; min-width: 26px; bottom: -4px; left: -6px; }
   /* … und weicht aus: beim Runterscrollen, solange ein Eingabefeld aktiv ist, und hinter der Seitenleiste */
-  html.m-bubhide .asst:not(.open) .asst-bub,
   html.m-bubfocus .asst:not(.open) .asst-bub,
   html.m-side .asst-bub { opacity: 0 !important; transform: translateY(18px) scale(.8) !important; pointer-events: none !important; }
-  html.m-bubhide .asst:not(.open) .asst-quip, html.m-bubfocus .asst:not(.open) .asst-quip { opacity: 0; pointer-events: none; }
+  html.m-bubfocus .asst:not(.open) .asst-quip { opacity: 0; pointer-events: none; }
 
   /* „Klick mich – …“: nur im einen kurzen Moment, den app.js freigibt */
   html:not(.m-pill) .asst-tip { opacity: 0 !important; pointer-events: none !important; animation: none !important; visibility: hidden; }
