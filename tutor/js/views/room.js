@@ -453,7 +453,7 @@ export function render(root, ctx = {}) {
       if (rest <= 0) done();
     }, 500);
   }
-  function endSession() {
+  function endSession() { import('../memory.js').then(m => m.flush()).catch(() => {});
     if (!SES.on) { goHome(); return; }
     const min = Math.max(1, Math.round(elapsed() / 60e3)), c = cfg();
     const goal = M.getMe().wochenziel || 150, wk = weekMinutes(0);

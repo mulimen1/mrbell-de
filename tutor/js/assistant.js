@@ -25,6 +25,7 @@ import { keepBoards } from './lib.js';
 import { tour, tourActive, pauseTour, stopTour, boardSteps, pageMap, byMxId, spotText } from './cursor.js';
 import { hasInstant, instantReply, examReply } from './boards.js';
 import * as Creator from './creator.js';   // TikTok-Sketche (nur Gründer-Konto, serverseitig freigeschaltet)
+import * as Mem from './memory.js';
 import * as Entry from './entry.js';   // Themen-Einstieg: Mini-Check, Live-Quiz, Live-Übung   // Sofort-Tafeln für Themen-Einstiege
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
@@ -722,7 +723,7 @@ export function mountAssistant() {
   dotsBtn.addEventListener('click', e => { e.stopPropagation(); moreBtn.click(); });
   moreBtn.addEventListener('click', e => { e.stopPropagation(); if (menu.hidden) { drawMenu(); menu.hidden = false; moreBtn.setAttribute('aria-expanded', 'true'); } else closeMenu(); });
   document.addEventListener('pointerdown', e => { if (!menu.hidden && !menu.contains(e.target) && !moreBtn.contains(e.target) && !dotsBtn.contains(e.target)) closeMenu(); });
-  function newTalk() { stopAll(true); hist = []; ls.set(CHAT, []); feedList.replaceChildren(); curEx = null; markLast(); dismissCap(); closeBoard(); toast(L('Neues Gespräch.', 'New conversation.')); }
+  function newTalk() { try { Mem.flush(); } catch (x) {} stopAll(true); hist = []; ls.set(CHAT, []); feedList.replaceChildren(); curEx = null; markLast(); dismissCap(); closeBoard(); toast(L('Neues Gespräch.', 'New conversation.')); }
 
   // ---------- Zustand ----------
   function setState(s, msg) {
@@ -1274,7 +1275,7 @@ export function mountAssistant() {
       const KURZ = spoken ? L('[Gesprochenes Gespräch: Antworte wie im echten Gespräch – höchstens 2–3 kurze Sätze, direkt auf den Punkt. Ausführliches gehört an die Tafel.]', '[Spoken conversation: answer like a real conversation – 2–3 short sentences max, straight to the point. Anything detailed goes on the board.]') : '';
       const pre = [ctxLine, KNOW, WECHSEL, REF, KURZ, maxPrompt(), TAFEL, SEITE].filter(Boolean).join('\n');
       if (pre) messages[messages.length - 1].content = pre + '\n' + text;
-      const payload = { messages, opts: Object.assign({ mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true }, o.entry ? { entry: true } : {}) };
+      const payload = { messages, opts: Object.assign({ mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true, mem: Mem.memOn() }, o.entry ? { entry: true } : {}) };
       const d = curDoc();
       const mat = STAGE && STAGE.material ? STAGE.material(text) : null;
       if (mat) Object.assign(payload, mat);
@@ -1288,6 +1289,7 @@ export function mountAssistant() {
       if (my !== gen) return;
       const raw = String(r.text || '').slice(0, 12000);
       hist.push({ role: 'assistant', content: raw });
+      try { Mem.remember('user', text); Mem.remember('assistant', raw); } catch (x) {}
       hist = hist.slice(-20); ls.set(CHAT, hist);
       ex.model = r.model || ''; ex.tools = r.tools || []; ex.src = d ? (d.generated ? 'max' : 'doc') : '';
       await answer(raw, my, spoken, ex);
