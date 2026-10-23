@@ -318,7 +318,7 @@ export function mountAssistant() {
   const pMax = h('button', { class: 'm-pmax', type: 'button', 'aria-label': L('Mit Max chatten', 'Chat with Max'), title: L('Frag Max', 'Ask Max'), onclick: () => pChat(!root.classList.contains('m-pchat')) }, pFace, h('span', { class: 'm-pmx', html: ico('x') }));
   // Ein Knopf neben Max: Karteikarten zum Thema – werden sofort erstellt, die erste ist gleich zu sehen
   let pCardsBusy = false;
-  const pCards = h('button', { class: 'm-pb m-pcards', type: 'button', onclick: async () => { const c = entryCtx(); if (!c || pCardsBusy) return; pCardsBusy = true; pCards.classList.add('busy'); try { await cardsFromBoard(c.b, c.topic); } finally { pCardsBusy = false; pCards.classList.remove('busy'); } } },
+  const pCards = h('button', { class: 'm-pb m-pcards', type: 'button', onclick: async () => { const c = entryCtx(); if (!c || pCardsBusy) return; if (!await guestOk(L('Karteikarten freischalten', 'Unlock flashcards'), 'Karteikarten')) return; pCardsBusy = true; pCards.classList.add('busy'); try { await cardsFromBoard(c.b, c.topic); } finally { pCardsBusy = false; pCards.classList.remove('busy'); } } },
     h('span', { class: 'm-pbi', html: ico('cards') }),
     h('span', { class: 'm-pbt' }, h('b', { class: 'm-pbl' }, L('Karteikarten erstellen', 'Make flashcards')), h('small', {}, L('Die BWL-Basics müssen sitzen.', 'Lock in the basics.'))),
     h('span', { class: 'm-pbs' }, L('Karteikarten', 'Flashcards')));
@@ -1013,6 +1013,14 @@ export function mountAssistant() {
     return h('div', { class: 'm-next' + (overview ? ' m-ov' : '') }, offer, h('p', { class: 'm-nt' }, overview ? L('Wo hakt’s? Tipp an:', 'Where are you stuck? Tap:') : L('Und jetzt?', 'What next?')), h('div', { class: 'm-nr' }, ...kids), trEl);
   }
   // Karteikarten aus der Tafel: als kleines Skript speichern und direkt im Karten-Bereich erstellen lassen
+  // Ohne Konto: erst kostenlos anmelden – bei Abbruch bleibt alles, wie es war
+  async function guestOk(title, why) {
+    if (getAccount()) return true;
+    try { window.BM && window.BM.track('Anmeldepflicht', why); } catch (x) {}
+    const { openAuth } = await import('./account.js');
+    const ok = await openAuth({ registerTitle: title, registerSub: L('Kostenlos, mit Google in zwei Klicks. Deine Tafel bleibt, wo sie ist.', 'Free, two clicks with Google. Your board stays right here.'), why });
+    return !!(ok && getAccount());
+  }
   async function cardsFromBoard(b, nm) {
     try { window.BM && window.BM.track('Karteikarten-Angebot', nm); } catch (e) {}
     let txt = '';
@@ -1058,7 +1066,7 @@ export function mountAssistant() {
   }
   function askPractice(f) { submit(L(`Praxisfall: Zeig mir „${f}“ an der Tafel an einem echten, bekannten Unternehmen – Schritt für Schritt wie eine Klausuraufgabe, in deinem Sylt-Stil, aber fachlich exakt. Echte Zahlen nur, wenn du sie sicher kennst; sonst runde Beispielzahlen und das klar dazusagen.`, `Real case: show me “${f}” on the whiteboard with a real, well-known company – step by step like an exam task. Real figures only if you’re sure; otherwise round example numbers and say so.`), { show: L(`Praxisfall: ${f}`, `Real case: ${f}`), board: f }); }
   // „Quiz mich dazu“: Max baut 3 Fragen an die Tafel, liest jede vor, du antwortest, er erklärt – dann die nächste
-  function askQuiz(title) { const c = entryCtx(); if (c) { unlockAudio(); Entry.liveQuiz(c, { speak: t => sayStep(t), practice: f => askPractice(f) }); return; } submit(L(`Quiz mich zu „${title}“ – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.`, `Quiz me on “${title}” – one question at a time, wait for my answer each time and tell me if it’s right.`), { show: L('Quiz mich dazu', 'Quiz me on this') }); }
+  async function askQuiz(title) { if (!await guestOk(L('Quiz freischalten', 'Unlock quiz'), 'Quiz')) return; const c = entryCtx(); if (c) { unlockAudio(); Entry.liveQuiz(c, { speak: t => sayStep(t), practice: f => askPractice(f) }); return; } submit(L(`Quiz mich zu „${title}“ – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.`, `Quiz me on “${title}” – one question at a time, wait for my answer each time and tell me if it’s right.`), { show: L('Quiz mich dazu', 'Quiz me on this') }); }
   function askExample(title) { submit(L(`Rechne mir ein neues Beispiel zu „${title}“ Schritt für Schritt an der Tafel vor – mit anderen Zahlen.`, `Work through a new example on “${title}” step by step on the whiteboard – with different numbers.`), { show: L('Rechne mir ein Beispiel', 'Work me an example'), board: title }); }
   // Passendes Trainer-Modul zum Thema der Tafel (ruhiger Link am Ende)
   const TRN = [
