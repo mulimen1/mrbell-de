@@ -500,3 +500,17 @@ html.bm-entryb .rm-bar .m-dcards:hover { box-shadow: 0 3px 0 var(--ink); }
 .tafel .m-ladcta:hover { filter: brightness(1.05); }
 .tafel .m-ladcta:active { transform: translateY(3px); box-shadow: 0 1px 0 #23964f; }
 .tafel .m-ladcta span { font-size: 17px; }
+/* Klausurpfad im Marken-Dunkelgrün (Kragenfarbe) statt Hellgrün */
+.m-ladn, .m-ladn.cur, .m-ladn.lock { background: #e2ebe6; color: #12291e; box-shadow: 0 5px 0 #c2d3c9; }
+.m-ladn.cur { box-shadow: 0 5px 0 #c2d3c9, 0 0 0 3px #356e52; }
+.m-ladn.ok, .m-ladn.m-ladz.ok, .m-ladn.m-lad0.ok { background: #356e52; color: #fff; box-shadow: 0 5px 0 #1f4834; }
+.m-ladn.ok, .m-ladn.m-ladz.ok { animation-name: mladglow4; }
+.m-ladn.ok.fresh { animation: mladpop .6s cubic-bezier(.34,1.56,.64,1) .6s both, mladglow4 2.6s ease-in-out 1.3s infinite; }
+@keyframes mladglow4 { 0%, 100% { box-shadow: 0 5px 0 #1f4834, 0 0 10px 1px rgba(53,110,82,.3); } 50% { box-shadow: 0 5px 0 #1f4834, 0 0 22px 5px rgba(53,110,82,.45); } }
+.m-ladfx i, .m-ladz .m-ladfx i { background: #356e52; }
+.m-ladl.on { box-shadow: 0 0 10px rgba(53,110,82,.35); }
+.m-ladl.on i { background: linear-gradient(90deg, #356e52, #2e6349); }
+.m-ladl.next i { background: #a9c4b5; }
+.tafel .m-lad.done { border-color: #356e52; box-shadow: 0 0 0 3px rgba(53,110,82,.15); }
+.tafel .m-ladcta { background: linear-gradient(180deg, #356e52, #1f4834); box-shadow: 0 3px 0 #12291e; }
+.tafel .m-ladcta:active { box-shadow: 0 1px 0 #12291e; }
