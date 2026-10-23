@@ -107,7 +107,7 @@ export function miniCheck(c, { onExam } = {}) {
     });
     go.hidden = true;
     const head = h('p', { class: 'm-mc-score' }, h('b', {}, L(`${score} von ${n} richtig.`, `${score} of ${n} correct.`)), ' ',
-      all ? L('Sauber – das sitzt.', 'Clean – that sticks.') : score ? L('Fast. Eine hat dich erwischt.', 'Close. One got you.') : L('Gut, dass das jetzt passiert und nicht in der Klausur.', 'Better now than in the exam.'));
+      all ? L('Sauber – das sitzt.', 'Clean – that sticks.') : n - score === 1 ? L('Fast. Eine hat dich erwischt.', 'Close. One got you.') : score ? L('Zwei haben dich erwischt.', 'Two got you.') : L('Gut, dass das jetzt passiert und nicht in der Klausur.', 'Better now than in the exam.'));
     sum.replaceChildren(head); sum.hidden = false;
     try { c.note(`[Mini-Check auf der Themenseite: ${score} von ${n} richtig]`); } catch (x) {}
     if (all) {

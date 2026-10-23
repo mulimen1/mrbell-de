@@ -78,7 +78,8 @@ export function enhance(c) {
     // Mini-Check (3 Fragen) direkt nach dem ersten Erklär-Block ersetzt die obere Lern-Stufen-Karte – die steht dann nur noch am Ende
     const nx = t.querySelector('.m-next'), lad2 = ladder(c); if (nx) nx.before(lad2); else t.append(lad2);
     const mc = miniCheck(c, { onExam: () => { const b = lad2.querySelector('.m-ladcta'); if (b) b.click(); } });
-    if (mc) { const first = [...t.children].find(e => !e.classList.contains('tt') && !e.classList.contains('m-lad') && !/^h\d$/.test(e.localName)); if (first) first.after(mc); else t.append(mc); }
+    if (mc) { const kids = [...t.children], hs = kids.filter(e => e.localName === 'h3'); const first = kids.find(e => !e.classList.contains('tt') && !e.classList.contains('m-lad') && !/^h\d$/.test(e.localName));   // ans Ende des ersten Abschnitts (vor der zweiten Zwischenüberschrift)
+      if (hs[1]) hs[1].before(mc); else if (first) first.after(mc); else t.append(mc); }
     else { const lad = ladder(c), top = t.querySelector('h1, h2, .tt'); if (top) top.after(lad); else t.prepend(lad); }
     watchScroll(c); guestSignals(c, lad2); return;
   }
