@@ -514,3 +514,34 @@ html.bm-entryb .rm-bar .m-dcards:hover { box-shadow: 0 3px 0 var(--ink); }
 .tafel .m-lad.done { border-color: #356e52; box-shadow: 0 0 0 3px rgba(53,110,82,.15); }
 .tafel .m-ladcta { background: linear-gradient(180deg, #356e52, #1f4834); box-shadow: 0 3px 0 #12291e; }
 .tafel .m-ladcta:active { box-shadow: 0 1px 0 #12291e; }
+
+/* Mini-Check auf Themenseiten: 3 Fragen, Ergebnis sofort, Auflösung mit Konto */
+.tafel .m-mc { margin: 22px 0 26px; padding: 20px 20px 18px; border-radius: 22px; border: 2px solid #356e52; background: linear-gradient(180deg, #f3f8f5, var(--panel)); box-shadow: 0 3px 0 #1f4834; }
+.tafel .m-mc-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.tafel .m-mc-h b { font-size: 18px; letter-spacing: -.01em; color: #1f4834; }
+.tafel .m-mc-h small { font-size: 12.5px; color: var(--mute); white-space: nowrap; }
+.tafel .m-mc-q { padding: 12px 0; border-top: 1px solid var(--line); }
+.tafel .m-mc-t { margin: 0 0 10px; font-weight: 600; line-height: 1.4; }
+.tafel .m-mc-os { display: grid; gap: 7px; }
+.tafel .m-mc-o { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 42px; padding: 8px 12px; text-align: left; border-radius: 13px; border: 1.5px solid var(--line2); background: var(--panel); color: var(--ink); font: 550 14.5px var(--sans); cursor: pointer; transition: border-color .15s, background-color .15s, transform .15s; }
+.tafel .m-mc-o:hover:not(:disabled) { border-color: #356e52; transform: translateY(-1px); }
+.tafel .m-mc-k { width: 24px; height: 24px; flex: none; display: grid; place-items: center; border-radius: 8px; background: var(--panel2); font: 700 12px var(--mono); }
+.tafel .m-mc-o.on { border-color: #1f4834; background: #e2ebe6; }
+.tafel .m-mc-o.on .m-mc-k { background: #1f4834; color: #fff; }
+.tafel .m-mc-o:disabled { cursor: default; }
+.tafel .m-mc-o.ok { border-color: #2f7d55; background: #e3f3ea; }
+.tafel .m-mc-o.ok .m-mc-k { background: #2f7d55; color: #fff; }
+.tafel .m-mc-o.no { border-color: #d0574b; background: #fbeceA; }
+.tafel .m-mc-o.no .m-mc-k { background: #d0574b; color: #fff; }
+.tafel .m-mc-q.right .m-mc-t::after { content: ' ✓'; color: #2f7d55; }
+.tafel .m-mc-q.wrong .m-mc-t::after { content: ' ✗'; color: #d0574b; }
+.tafel .m-mc-why { margin: 10px 0 0; font-size: 14px; color: var(--ink2, var(--ink)); line-height: 1.45; }
+.tafel .m-mc-why.blur { filter: blur(5px); user-select: none; pointer-events: none; }
+.tafel .m-mc-f { display: flex; justify-content: flex-end; padding-top: 6px; }
+.tafel .m-mc-go, .tafel .m-mc-cta { height: 46px; padding: 0 24px; border-radius: 999px; border: 0; background: linear-gradient(180deg, #356e52, #1f4834); color: #fff; font: 700 15px var(--sans); cursor: pointer; box-shadow: 0 3px 0 #163626; }
+.tafel .m-mc-go:disabled { opacity: .4; cursor: default; box-shadow: none; }
+.tafel .m-mc-sum { padding-top: 12px; border-top: 1px solid var(--line); display: grid; gap: 10px; justify-items: start; }
+.tafel .m-mc-score { margin: 0; font-size: 16px; } .tafel .m-mc-score b { font-size: 18px; }
+.tafel .m-mc-hint { margin: 0; color: var(--mute); font-size: 14px; }
+:root[data-theme="dark"] .tafel .m-mc { background: var(--panel); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tafel .m-mc { background: var(--panel); } }

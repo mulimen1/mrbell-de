@@ -9,6 +9,8 @@ import { mathify, polishBoard, queueMath } from './math.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice } from './max.js';
 import { mode as maxMode } from './maxcfg.js';
+import { miniCheck, hasMiniCheck } from './minicheck.js';
+export { hasMiniCheck };
 
 // ---------- Mini-Check: eine Frage pro Sofort-Tafel (fachlich geprüft, bewusst einfach und eindeutig) ----------
 export const CHECKS = {
@@ -70,12 +72,14 @@ const plain = html => String(html || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp
 
 // Mini-Check + Haken direkt nach dem ersten Absatz
 export function enhance(c) {
-  const t = c.t; if (!t || t.querySelector('.m-chk, .m-hook, .m-lad')) return;
+  const t = c.t; if (!t || t.querySelector('.m-chk, .m-hook, .m-lad, .m-mc')) return;
   if (c.speak && c.practice) {   // Lern-Stufen: verstanden → Klausurfragen → echter Praxisfall (mit kostenlosem Konto)
     // Google-Ads-Besucher scrollen kaum: der Pfad steht direkt unter dem Tafel-Titel
-    const lad = ladder(c), top = t.querySelector('h1, h2, .tt'); if (top) top.after(lad); else t.prepend(lad);
-    // dieselbe Karte am Ende der Tafel (statt „Karteikarten machen“)
+    // Mini-Check (3 Fragen) direkt nach dem ersten Erklär-Block ersetzt die obere Lern-Stufen-Karte – die steht dann nur noch am Ende
     const nx = t.querySelector('.m-next'), lad2 = ladder(c); if (nx) nx.before(lad2); else t.append(lad2);
+    const mc = miniCheck(c, { onExam: () => { const b = lad2.querySelector('.m-ladcta'); if (b) b.click(); } });
+    if (mc) { const first = [...t.children].find(e => !e.classList.contains('tt') && !e.classList.contains('m-lad') && !/^h\d$/.test(e.localName)); if (first) first.after(mc); else t.append(mc); }
+    else { const lad = ladder(c), top = t.querySelector('h1, h2, .tt'); if (top) top.after(lad); else t.prepend(lad); }
     watchScroll(c); guestSignals(c, lad2); return;
   }
   const first = [...t.children].find(e => !e.classList.contains('tt') && !/^h\d$/.test(e.localName));   // erster Inhaltsblock (meist der erste Absatz)

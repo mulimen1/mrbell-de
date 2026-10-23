@@ -1034,7 +1034,7 @@ export function mountAssistant() {
       const live = boards[bIdx] === b && bArea.querySelector('.tafel');
       const d = document.createElement('div');
       if (live) d.append(live.cloneNode(true)); else d.append(sanitize(b.html));
-      d.querySelectorAll('.m-chk, .m-hook, .m-next, .m-offer, button, script, style, .m-sec').forEach(n => n.remove());
+      d.querySelectorAll('.m-chk, .m-mc, .m-lad, .m-hook, .m-next, .m-offer, button, script, style, .m-sec').forEach(n => n.remove());
       d.querySelectorAll('br,p,li,h2,h3,h4,div,tr').forEach(n => n.append('\n'));
       txt = d.textContent.replace(/[ \t]+/g, ' ').replace(/\n\s*\n+/g, '\n').trim();
     } catch (e) {}
@@ -1322,7 +1322,8 @@ export function mountAssistant() {
     let txt = p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the board.') : p.cmds.length ? L('Mach ich.', 'On it.') : '…');
     // Themen-Einstieg (z. B. aus Google Ads): erklärt wird nur rechts an der Tafel – links steht nur ein kurzer Satz plus Kontrollfrage, damit man antwortet
     const calm = !!(ex && ex.entry && !ex.exam && p.boards.length);
-    if (calm) { const kq = (txt.match(/Kontrollfrage:\s*([\s\S]+)$/i) || [])[1]; txt = kq ? L(`Alles Wichtige steht rechts an der Tafel. Wenn du durch bist: ${kq.trim()}`, `Everything’s on the board on the right. When you’re done: ${kq.trim()}`) : L('Alles Wichtige steht rechts an der Tafel. Wenn was hakt, frag mich einfach hier.', 'Everything’s on the board on the right. If something’s unclear, just ask me here.'); }
+    if (calm && Entry.hasMiniCheck(ex.slug)) txt = L('Alles Wichtige steht rechts an der Tafel. Direkt unter dem ersten Absatz wartet ein Mini-Check – 3 Fragen, 30 Sekunden. Mal sehen, ob’s sitzt.', 'Everything’s on the board on the right. Right below the first paragraph there’s a mini check – 3 questions, 30 seconds.');
+    else if (calm) { const kq = (txt.match(/Kontrollfrage:\s*([\s\S]+)$/i) || [])[1]; txt = kq ? L(`Alles Wichtige steht rechts an der Tafel. Wenn du durch bist: ${kq.trim()}`, `Everything’s on the board on the right. When you’re done: ${kq.trim()}`) : L('Alles Wichtige steht rechts an der Tafel. Wenn was hakt, frag mich einfach hier.', 'Everything’s on the board on the right. If something’s unclear, just ask me here.'); }
     const aEl = ex.aTx;
     // Tafel(n) auf die Seite – und ins Skript, damit sie auch im Tafel-Tab liegen
     let t = null;
