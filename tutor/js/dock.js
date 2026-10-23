@@ -4,7 +4,7 @@ import { h, ico, ls } from './util.js';
 import { L } from './i18n.js';
 
 let mounted = false, dock, panel = null, which = '';
-const CSS_V = 9;
+const CSS_V = 10;
 
 const ICON = {
   calc: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.8" width="14" height="18.4" rx="2.6"/><rect x="8" y="5.8" width="8" height="3.6" rx=".8"/><path d="M8.6 13h.01M12 13h.01M15.4 13h.01M8.6 16.6h.01M12 16.6h.01M15.4 16.6h.01"/></svg>',
@@ -70,7 +70,7 @@ function place() {
   if (document.documentElement.classList.contains('mx-dress')) return;   // Max zieht sich gerade um – Dock bleibt stehen
   // Laptop mit Tafel im Tutor: Eingabe sitzt links, die Tafel geht bis ganz unten – Rechner/Lexikon über die Eingabe (rechte Kante)
   const side = document.querySelector('.room.dock-side .rm-comp');
-  dock.classList.toggle('side', !!side);   // Max' Chatverlauf liegt dort drüber – Knöpfe müssen klickbar bleiben
+  dock.classList.toggle('dk-side', !!side);   // Max' Chatverlauf liegt dort drüber – Knöpfe müssen klickbar bleiben
   if (side) { const cr = side.getBoundingClientRect(); if (cr.width > 100) { const rr = Math.round(innerWidth - cr.right), bb = Math.round(innerHeight - cr.top + 10); dock.style.right = rr + 'px'; dock.style.bottom = bb + 'px'; if (panel) { panel.style.setProperty('--dr', rr + 'px'); panel.style.setProperty('--db', bb + 'px'); } return; } }
   const bub = document.querySelector('.asst-bub');
   let r = null;
