@@ -4727,7 +4727,7 @@ body:has(.modal-bg) .dk { visibility: hidden; }
 /* Handy: „Tutor“ auf Grün weiß; Max unten rechts deutlich größer */
 @media (max-width: 760px) {
   html:not(.bm-guest) .tn.tn-tutor, html:not(.bm-guest) .tn.tn-tutor:hover { color: var(--onInv); }
-  .asst-bub { width: 112px !important; height: 112px !important; border-width: 1.5px; box-shadow: 0 18px 44px -16px rgba(0,0,0,.5), var(--shadow); }
-  .asst-bub .asst-bf { width: 90px !important; height: 90px !important; margin-top: 8px !important; }
+  html body .asst-bub { width: 112px !important; height: 112px !important; border-width: 1.5px; box-shadow: 0 18px 44px -16px rgba(0,0,0,.5), var(--shadow); }
+  html body .asst-bub .asst-bf { width: 90px !important; height: 90px !important; margin-top: 8px !important; }
   .app .view-in { padding-bottom: 150px; }
 }
