@@ -4562,3 +4562,20 @@ html.bm-guest .rm-timer, html.bm-guest .rm-streak, html.bm-guest .rm-prog, html.
 /* Gäste (v. a. aus Google Ads): nur Navigation links, Tafel, Max, Karteikarten – alles andere ausgeblendet */
 html.bm-guest .rm-bar .rm-timer, html.bm-guest .rm-bar .rm-streak, html.bm-guest .rm-bar .rm-prog, html.bm-guest .rm-bar .rm-gear, html.bm-guest .rm-bar .rm-old,
 html.bm-guest .rm-bar .rm-skb, html.bm-guest .rm-bar .rm-end-b, html.bm-guest .topbar .pal-btn, html.bm-guest .topbar .topset { display: none !important; }
+/* Laptop/Tablet: nur EINE große Leiste oben – überall, auch im Tutor-Raum und für angemeldete Nutzer.
+   Keine Linie, größere Bereiche, Karteikarten-Knopf rechts in derselben Leiste; Sprache/Hell-Dunkel in der Seitenleiste */
+@media (min-width: 761px) {
+  .topbar { height: 74px; border-bottom: 0; gap: 14px; padding: 0 22px; }
+  .topbar .side-tog { width: 46px; height: 46px; }
+  .topbar .side-tog .ico, .topbar .side-tog svg { width: 22px; height: 22px; }
+  .topnav { gap: 6px; }
+  .tn { height: 46px; padding: 0 18px; gap: 9px; font: 600 16px var(--sans); }
+  .tn .ico, .tn svg.ico { width: 19px; height: 19px; }
+  .tn .tn-b { width: 15px; height: 15px; }
+  .topbar .pal-btn, .topbar .topset { display: none !important; }
+  .side-mobset { display: flex; }
+  .rm-bar { position: fixed; top: 0; right: 22px; height: 74px; min-height: 0; padding: 0; border: 0 !important; background: none; z-index: 45; gap: 0; }
+  .rm-bar > :not(.m-dcards) { display: none !important; }
+  .rm-bar .m-dcards { min-height: 50px; padding: 0 22px 0 18px; font-size: 16px; }
+  .rm-bar .m-dcards .m-pbi .ico { width: 20px; height: 20px; }
+}
