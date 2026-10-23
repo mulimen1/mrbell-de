@@ -125,6 +125,7 @@ function buildShell() {
   cPanel.append(
     cRow('search', L('Suchen', 'Search'), () => import('./palette.js').then(m => m.openPalette()), h('kbd', {}, /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Strg K')),
     cRow('trophy', L('Fortschritt', 'Progress'), () => { location.hash = '#/app/fortschritt'; }),
+    cRow('clock', L('Letztes Gespräch', 'Last conversation'), () => { const go = () => { const b = document.querySelector('.rm-old'); if (b && !b.hidden) { if (!b.classList.contains('on')) b.click(); } else toast(L('Noch kein früheres Gespräch.', 'No earlier conversation yet.')); }; if (location.hash !== '#/app/tutor') { location.hash = '#/app/tutor'; setTimeout(go, 900); } else go(); }),
     cRow('tune', L('Max einstellen', 'Configure Max'), () => import('./maxcfg.js').then(m => m.openMaxCfg())),
     cRow('chat', L('Feedback geben', 'Give feedback'), () => openFeedback()),
     h('div', { class: 'tc-set' }, h('span', { class: 'tc-setl' }, L('Sprache · Farbe · Modus', 'Language · colour · mode')), h('div', { class: 'tc-setc' }, langSwitch(), h('button', { class: 'iconbtn', type: 'button', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }))));
