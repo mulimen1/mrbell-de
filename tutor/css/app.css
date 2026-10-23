@@ -4755,3 +4755,8 @@ body:has(.modal-bg) .dk { visibility: hidden; }
   transform: translateY(0) scale(.97) !important; transition-duration: .08s;
 }
 @media (prefers-reduced-motion: reduce) { .btn, .chip, .feat, .rm-tile, .ai-cmd, .tc-row, .m-mc-o, .navreg, .talkcta { transition: none !important; } }
+@media (hover: hover) and (pointer: fine) {
+  .featrow[data-in].in .feat:not(.big):hover { transform: translateY(-2px); }
+  .featrow[data-in].in .feat.big:hover { transform: translateY(-3px); }
+}
+.featrow[data-in].in .feat:active { transform: scale(.97) !important; }
