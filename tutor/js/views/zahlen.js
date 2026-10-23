@@ -157,9 +157,38 @@ function fbCard() {
   return card;
 }
 
+// ---------- Bot-Schutz (Cloudflare Turnstile) – geheimer Schlüssel geht nur an den Server, wird nie angezeigt ----------
+function tsCard() {
+  const card = h('section', { class: 'zl-pay', hidden: true });
+  const paint = r => {
+    if (!r || !r.ok) { card.hidden = true; return; }
+    card.hidden = false; card.classList.toggle('ready', !!r.set);
+    const inp = h('input', { class: 'field zp-in', type: 'password', autocomplete: 'off', spellcheck: 'false', autocapitalize: 'off', placeholder: L('Secret Key aus Cloudflare (0x4…)', 'Secret key from Cloudflare (0x4…)') });
+    const msg = h('small', { class: 'zp-err', role: 'alert' });
+    const save = h('button', { class: 'btn sm primary', type: 'button', onclick: async () => {
+      const key = inp.value.trim(); if (!key) return;
+      save.disabled = true; msg.textContent = L('Prüfe bei Cloudflare …', 'Checking with Cloudflare …');
+      try { const j = await ask('tsadmin', { opts: { op: 'set', key } }); inp.value = ''; paint(j); toast(L('Bot-Schutz ist aktiv.', 'Bot protection is on.')); }
+      catch (e) { save.disabled = false; inp.value = ''; msg.textContent = e.message; }
+    } }, L('Speichern', 'Save'));
+    const form = h('div', { class: 'zp-tsf', hidden: !!r.set }, h('div', { class: 'row', style: { gap: '8px', marginTop: '10px' } }, inp, save), msg);
+    card.replaceChildren(
+      h('div', { class: 'zp-row' },
+        h('span', { class: 'zp-ic', html: ico(r.set ? 'check' : 'lock') }),
+        h('div', { class: 'zp-tx' },
+          h('b', {}, r.set ? L('Bot-Schutz aktiv', 'Bot protection on') : L('Bot-Schutz einrichten', 'Set up bot protection')),
+          h('small', {}, r.set ? L(`Cloudflare Turnstile prüft jede Registrierung und jede Code-Mail.${r.n ? ` Heute ${r.n.ok || 0} durchgelassen, ${r.n.no || 0} geblockt.` : ''}`, `Cloudflare Turnstile checks every sign-up and code email.${r.n ? ` Today ${r.n.ok || 0} passed, ${r.n.no || 0} blocked.` : ''}`)
+            : L('Trag einmal den Secret Key deines Turnstile-Widgets ein. Bis dahin läuft alles wie bisher.', 'Enter your Turnstile widget’s secret key once. Until then everything works as before.'))),
+        h('div', { class: 'zp-act' }, r.set ? h('button', { class: 'btn sm ghost', type: 'button', onclick: () => { form.hidden = !form.hidden; } }, L('Schlüssel ändern', 'Change key')) : null)),
+      form);
+  };
+  ask('tsadmin', { opts: { op: 'status' } }).then(paint).catch(() => { card.hidden = true; });
+  return card;
+}
+
 export async function render(root) {
   const host = h('div', { class: 'zl-host' });
-  const wrap = h('div', { class: 'view-in zl' }, payCard(), promoCard(), host, fbCard());
+  const wrap = h('div', { class: 'view-in zl' }, payCard(), tsCard(), promoCard(), host, fbCard());
   root.appendChild(wrap);
   let s;
   try { s = await source(); }

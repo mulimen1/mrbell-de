@@ -4553,3 +4553,5 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 .pc-f input { height: 38px; padding: 0 10px; border: 1px solid var(--line2); border-radius: 10px; background: var(--bg); color: var(--ink); font: inherit; font-size: 14px; }
 .pc-f input:disabled { opacity: .6; }
 .pc-act { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
+.lts { display: flex; justify-content: center; }
+.lts:empty { display: none; }

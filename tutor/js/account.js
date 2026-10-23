@@ -6,6 +6,7 @@ import { ask, setAccount, getAccount, onAccount, getSession } from './api.js';
 import { face } from './face.js';
 import { L, LOCALE } from './i18n.js';
 import { getNick, setNick, nickField, greetSplash } from './nick.js';
+import { token as tsToken, preload as tsPreload } from './turnstile.js';
 
 const fmtDate = ts => new Date(ts).toLocaleDateString(LOCALE, { day: 'numeric', month: L('numeric', 'short') });
 // Ende der Inner-Circle-Zeit ohne den Puffer, den der Server bei Abos anhängt (sonst „8 Tage“ statt 7)
@@ -93,13 +94,14 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
       const hint = h('div', { class: 'lhint' }, h('span', { class: 'lck', html: ico('check') }), L('Mindestens 8 Zeichen', 'At least 8 characters'));
       p.inp.addEventListener('input', () => hint.classList.toggle('ok', p.inp.value.length >= 8));
       const err = h('div', { class: 'lerr', role: 'alert' });
-      const form = h('form', { class: 'lstack' }, em, p.el, hint, btn);
+      const tsBox = h('div', { class: 'lts' });
+      const form = h('form', { class: 'lstack' }, em, p.el, hint, tsBox, btn); tsPreload();
       form.addEventListener('submit', async e => {
         e.preventDefault(); email = em.value.trim(); pw = p.inp.value;
         if (pw.length < 8) { err.textContent = L('Dein Passwort braucht mindestens 8 Zeichen.', 'Your password needs at least 8 characters.'); p.inp.focus(); return; }
         busyBtn(btn, true, LBL); err.replaceChildren(); fc.set('think');
         try { window.BM && window.BM.track('Anmeldung begonnen', 'E-Mail'); } catch (x) {}
-        try { await ask('login', { opts: { email, password: pw, mode: 'register' } }); ls.set('tutor.lastEmail', email); codeStep('register'); }
+        try { const ts = await tsToken(tsBox); await ask('login', { opts: { email, password: pw, mode: 'register', ts } }); ls.set('tutor.lastEmail', email); codeStep('register'); }
         catch (e2) { fc.pulse('sad'); busyBtn(btn, false, LBL); err.replaceChildren(e2.message); if (e2.code === 'exists') err.append(' ', link(L('Zur Anmeldung →', 'Go to sign in →'), () => login())); }
       });
       box.replaceChildren(...head(L('Kostenloses Konto erstellen', 'Create your free account'), L('Kostenlos und in 30 Sekunden. Alles, was du ohne Konto gemacht hast, bleibt erhalten.', 'Free and done in 30 seconds. Everything you did without an account stays.')), gBox(), form, err,
@@ -115,12 +117,13 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
       const LBL = L('Code schicken', 'Send code');
       const btn = h('button', { class: 'btn primary lg lbtn', type: 'submit' }, LBL);
       const err = h('div', { class: 'lerr', role: 'alert' });
-      const form = h('form', { class: 'lstack' }, em, p.el, btn);
+      const tsBox = h('div', { class: 'lts' });
+      const form = h('form', { class: 'lstack' }, em, p.el, tsBox, btn); tsPreload();
       form.addEventListener('submit', async e => {
         e.preventDefault(); email = em.value.trim(); pw = p.inp.value;
         if (pw.length < 8) { err.textContent = L('Dein neues Passwort braucht mindestens 8 Zeichen.', 'Your new password needs at least 8 characters.'); p.inp.focus(); return; }
         busyBtn(btn, true, LBL); err.replaceChildren(); fc.set('think');
-        try { await ask('login', { opts: { email, password: pw, mode: 'reset' } }); ls.set('tutor.lastEmail', email); codeStep('reset'); }
+        try { const ts = await tsToken(tsBox); await ask('login', { opts: { email, password: pw, mode: 'reset', ts } }); ls.set('tutor.lastEmail', email); codeStep('reset'); }
         catch (e2) { fc.pulse('sad'); busyBtn(btn, false, LBL); err.replaceChildren(e2.message); if (e2.code === 'no_account') err.append(' ', link(L('Konto erstellen →', 'Create account →'), () => register())); }
       });
       box.replaceChildren(...head(L('Neues Passwort', 'New password'), L('Gib deine E-Mail und ein neues Passwort ein. Wir schicken dir einen Code zur Bestätigung.', 'Enter your email and a new password. We’ll send you a code to confirm.')), form, err,
@@ -131,7 +134,7 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
     // ---------- Code aus der Mail ----------
     const codeStep = m => {
       const inp = h('input', { class: 'field code', inputmode: 'numeric', autocomplete: 'one-time-code', maxlength: 6, placeholder: '······', 'aria-label': L('Code aus der E-Mail', 'Code from the email') });
-      const err = h('div', { class: 'lerr', role: 'alert' });
+      const err = h('div', { class: 'lerr', role: 'alert' }), tsBox = h('div', { class: 'lts' });
       const again = h('button', { class: 'btn sm ghost', type: 'button', disabled: true }, L('Neuen Code schicken', 'Send a new code'));
       let busy = false;
       const go = async () => {
@@ -149,14 +152,14 @@ export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
       inp.addEventListener('input', () => { inp.value = inp.value.replace(/\D/g, '').slice(0, 6); if (inp.value.length === 6) go(); });
       again.addEventListener('click', async () => {
         again.disabled = true;
-        try { await ask('login', { opts: { email, password: pw, mode: m } }); toast(L('Neuer Code ist unterwegs.', 'A new code is on its way.')); } catch (e) { err.textContent = e.message; }
+        try { const ts = await tsToken(tsBox); await ask('login', { opts: { email, password: pw, mode: m, ts } }); toast(L('Neuer Code ist unterwegs.', 'A new code is on its way.')); } catch (e) { err.textContent = e.message; }
         setTimeout(() => { again.disabled = false; }, 30000);
       });
       setTimeout(() => { again.disabled = false; }, 30000);
       box.replaceChildren(x(), fEl, h('h3', {}, m === 'register' ? L('Bestätige deine E-Mail', 'Confirm your email') : L('Check dein Postfach', 'Check your inbox')),
         h('p', {}, L('Wir haben dir einen 6-stelligen Code an ', 'We sent a 6-digit code to '), h('b', {}, email), L(' geschickt.', '.')),
         spamBox(email),
-        inp, err,
+        inp, err, tsBox,
         h('div', { class: 'row', style: { justifyContent: 'space-between' } }, h('button', { class: 'btn sm ghost', type: 'button', onclick: () => (m === 'reset' ? reset() : register()) }, L('Andere E-Mail', 'Different email')), again));
       fc.set('idle'); setTimeout(() => inp.focus(), 60);
     };
