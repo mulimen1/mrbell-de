@@ -4639,3 +4639,11 @@ html.bm-guest .rm-bar .rm-skb, html.bm-guest .rm-bar .rm-end-b, html.bm-guest .t
 }
 @media (min-width: 761px) and (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tn:not(.tn-tutor) > span:has(> .ico) { background: rgba(83,160,120,.22); color: #a9dcc0; } }
 @media (min-width: 761px) { :root[data-theme="dark"] .tn:not(.tn-tutor) > span:has(> .ico) { background: rgba(83,160,120,.22); color: #a9dcc0; } }
+
+/* Fenster: scrollt weiter, aber ohne graue Scroll-Leiste rechts */
+.modal { scrollbar-width: none; -ms-overflow-style: none; }
+.modal::-webkit-scrollbar { display: none; width: 0; height: 0; }
+/* Menü-Knopf: perfekt rund, ohne Unterkante */
+@media (min-width: 761px) {
+  .tc-btn { padding: 0; min-width: 0; aspect-ratio: 1; flex: none; box-shadow: 0 8px 20px -10px rgba(31,72,52,.75); }
+}
