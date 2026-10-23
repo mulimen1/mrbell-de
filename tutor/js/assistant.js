@@ -263,7 +263,7 @@ export function mountAssistant() {
       h('button', { class: 'btn sm', type: 'button', onclick: () => { askBoard(false); minBoard(true); } }, h('span', { html: SVG.min }), L('Zur Seite legen', 'Put aside')),
       h('button', { class: 'btn sm ghost', type: 'button', onclick: () => askBoard(false) }, L('Abbrechen', 'Cancel'))));
   // × schließt nur – jede Tafel liegt ohnehin in der Bibliothek. Löschen gibt’s separat (Papierkorb).
-  const bClose = h('button', { class: 'iconbtn ai-bclose', type: 'button', 'aria-label': L('Tafel schließen', 'Close board'), title: L('Schließen – bleibt in deiner Bibliothek', 'Close – it stays in your library'), html: ico('x'), onclick: () => { askBoard(false); stopTour(); closeBoard(); } });
+  const bClose = h('button', { class: 'iconbtn ai-bclose', type: 'button', 'aria-label': L('Tafel schließen', 'Close board'), title: L('Schließen – bleibt in deiner Bibliothek', 'Close – it stays in your library'), html: ico('x'), onclick: () => { askBoard(false); stopTour(); if (!MOB.matches && boards.length) { minBoard(true); return; } closeBoard(); } });
   const bDl = h('button', { class: 'iconbtn ai-bdl', type: 'button', 'aria-label': L('Tafel herunterladen', 'Download board'), title: L('Herunterladen (PDF)', 'Download (PDF)'), html: ico('download'), onclick: () => import('./export.js').then(E => {
     const b = boards[bIdx]; if (!b) return;
     E.pick(boards.length > 1 ? [{ label: L('Diese Tafel', 'This board'), sub: 'PDF', ic: 'board', fn: () => E.boardsPdf([b]) }, { label: L(`Alle ${boards.length} Tafeln`, `All ${boards.length} boards`), sub: 'PDF', ic: 'board', fn: () => E.boardsPdf(boards, (curDoc() || S.doc)?.name) }] : [{ label: 'PDF', ic: 'file', fn: () => E.boardsPdf([b]) }]);
@@ -316,7 +316,7 @@ export function mountAssistant() {
   const bGrab = h('div', { class: 'ai-grab', 'aria-hidden': 'true' }, h('i'));
   const board = h('section', { class: 'ai-board', role: 'region', 'aria-label': L('Max’ Tafel', 'Max’s board') },
     bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bDl, bDel, bFs, bMore, bMin, bClose), bMenu, bAsk, bArea, bSay);
-  const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', { class: 'm-btl' }, L('Tafel', 'Board')), h('span', { class: 'm-btm' }, L('Zurück zur Tafel', 'Back to the board')));
+  const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', { class: 'm-btl' }, L('Tafel öffnen', 'Open board')), h('span', { class: 'm-btm' }, L('Zurück zur Tafel', 'Back to the board')));
   // ---------- Handy: die Tafel ist die Seite ----------
   // Rechts unten Max (öffnet den Chat), daneben drei grüne Knöpfe: Quiz, Beispiel, passender Trainer
   const pFace = h('span', { class: 'm-pmf' });
@@ -1319,7 +1319,10 @@ export function mountAssistant() {
   async function answer(raw, my, spoken, ex) {
     if (ex && ex.a) ex.a.hidden = false;
     const p = parse(raw);
-    const txt = p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the board.') : p.cmds.length ? L('Mach ich.', 'On it.') : '…');
+    let txt = p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the board.') : p.cmds.length ? L('Mach ich.', 'On it.') : '…');
+    // Themen-Einstieg (z. B. aus Google Ads): erklärt wird nur rechts an der Tafel – links steht nur ein kurzer Satz plus Kontrollfrage, damit man antwortet
+    const calm = !!(ex && ex.entry && !ex.exam && p.boards.length);
+    if (calm) { const kq = (txt.match(/Kontrollfrage:?\s*([\s\S]+)$/i) || [])[1]; txt = kq ? L(`Alles Wichtige steht rechts an der Tafel. Wenn du durch bist: ${kq.trim()}`, `Everything’s on the board on the right. When you’re done: ${kq.trim()}`) : L('Alles Wichtige steht rechts an der Tafel. Wenn was hakt, frag mich einfach hier.', 'Everything’s on the board on the right. If something’s unclear, just ask me here.'); }
     const aEl = ex.aTx;
     // Tafel(n) auf die Seite – und ins Skript, damit sie auch im Tafel-Tab liegen
     let t = null;
@@ -1349,7 +1352,7 @@ export function mountAssistant() {
     if ((ex.tools && ex.tools.length) || p.boards.some(b => /class="(calc|step|result|bs|tkonto)"/.test(b.html))) extras.push(h('button', { class: 'ai-cmd link', type: 'button', onclick: () => submit(L('Gib mir eine Zwillingsaufgabe dazu: gleiche Struktur, neue Zahlen. Erst nur die Aufgabe – die Lösung zeigst du erst, wenn ich meine Antwort geschickt oder „Lösung“ geschrieben habe.', 'Give me a twin exercise: same structure, new numbers. Only the task first – show the solution only once I’ve sent my answer or typed “solution”.')) }, L('Zwillingsaufgabe', 'Twin exercise')));
     if (!STAGE && route().tab && route().tab !== 'room' && (p.boards.length || (p.text || '').length > 280)) extras.push(h('a', { class: 'ai-cmd link ai-room', href: '#/app/tutor', onclick: () => ls.set('tutor.room.continue', 1) }, h('span', { class: 'ck', html: ico('right') }), L('Im Tutor weitermachen', 'Continue in the tutor')));
     if (ex.model !== undefined) extras.push(aiTag(ex.tools, raw, ex.src));
-    ex.aX.replaceChildren(...(ex.sketch ? [] : extras));
+    ex.aX.replaceChildren(...(ex.sketch ? [] : calm ? (ex.model !== undefined ? extras.slice(-1) : []) : extras));
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);
     if (!open) unread(true);
     const willSpeak = spoken && cfg.spk && !!p.text;

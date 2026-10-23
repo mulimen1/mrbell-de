@@ -288,12 +288,17 @@ export function render(root, ctx = {}) {
     ];
     // Alles sofort sichtbar: vier große Kacheln, darunter eine ruhige Zeile mit dem Rest – kein Aufklappen
     const more = h('div', { class: 'rm-more2 on' }, h('span', { class: 'rm-mlab' }, L('Außerdem', 'Also')), MORE.map(([ic, t, fn]) => h('button', { class: 'chip rm-mc', type: 'button', onclick: fn }, h('span', { html: ico(ic) }), t)));
-    skills.replaceChildren(
+    // Ruhig: nur ein Knopf „Lernskills“ – Kacheln, Extras und die Sync-Frage erst nach dem Aufklappen
+    const body = h('div', { class: 'rm-skb2' },
       h('div', { class: 'rm-sk' }, SK.map(([ic, t, s2, fn], i) => h('button', { class: 'rm-tile', type: 'button', onclick: fn, style: { '--i': String(i) } },
         h('span', { class: 'rm-ti', html: ico(ic) }), h('b', {}, t), h('small', {}, s2)))),
-      more);
-    // Einmalige Frage (Synchronisierung) – nur solange sie offen ist
-    askSlot.replaceChildren(...[getAccount() ? syncAsk() : null].filter(Boolean));
+      more, ...[getAccount() ? syncAsk() : null].filter(Boolean));
+    let isOpen = false; try { isOpen = !!ls.get('tutor.skills.open'); } catch (e) {}
+    const tog = h('button', { class: 'rm-skt', type: 'button', 'aria-expanded': String(isOpen) }, h('span', { html: ico('brain') }), h('b', {}, L('Lernskills', 'Study skills')), h('span', { class: 'rm-skc', 'aria-hidden': 'true' }, '▾'));
+    const set = v => { isOpen = v; skills.classList.toggle('rm-skopen', v); tog.setAttribute('aria-expanded', String(v)); try { ls.set('tutor.skills.open', v ? 1 : 0); } catch (e) {} };
+    tog.onclick = () => set(!isOpen);
+    skills.replaceChildren(tog, body); set(isOpen);
+    askSlot.replaceChildren();
   }
 
 
