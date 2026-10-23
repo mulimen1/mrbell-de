@@ -290,6 +290,9 @@ export function mountAssistant() {
   function setFs(v) {
     v = !!v; const was = board.classList.contains('m-fs');
     if (v === was) return;
+    // Beim Rausgehen genau dorthin zurück, wo man vorher war (Seite, Tafel, Chat)
+    const scrollers = () => [...new Set([document.scrollingElement, bArea, ...[...document.querySelectorAll('body *')].filter(e => e.scrollTop > 0 || e.scrollLeft > 0)])].filter(Boolean);
+    if (v) fsPos = scrollers().map(e => [e, e.scrollTop, e.scrollLeft]);
     board.classList.toggle('m-fs', v); root.classList.toggle('m-fsr', v); document.documentElement.classList.toggle('m-fsdoc', v);
     bFs.innerHTML = v ? FS_OUT : FS_IN;
     const lb = v ? L('Vollbild beenden', 'Exit fullscreen') : L('Vollbild', 'Fullscreen'); bFs.setAttribute('aria-label', lb); bFs.title = lb;
@@ -300,7 +303,9 @@ export function mountAssistant() {
     // Formeln und Tabellen an die neue Breite anpassen
     const refit = () => { try { window.dispatchEvent(new Event('resize')); } catch (e) {} const t = bArea.querySelector('.tafel'); if (t) tableHints(t); };
     requestAnimationFrame(refit); setTimeout(refit, 350);
+    if (!v && fsPos) { const pos = fsPos; fsPos = null; const back = () => pos.forEach(([e, t, l]) => { e.scrollTop = t; e.scrollLeft = l; }); requestAnimationFrame(back); [120, 400, 800].forEach(ms => setTimeout(back, ms)); }
   }
+  let fsPos = null;
   document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && board.classList.contains('m-fs')) setFs(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && board.classList.contains('m-fs') && !document.fullscreenElement) setFs(false); });
   // Laptop: derselbe Knopf unten links auf der Tafel (nur Einstiegs-Tafeln)
