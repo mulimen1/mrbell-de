@@ -4676,3 +4676,5 @@ body:has(.modal-bg) .dk { visibility: hidden; }
 @media (prefers-reduced-motion: reduce) { .tn, .tn > span, .tn-b { transition: none !important; transform: none !important; } }
 /* Hover-Anheben wurde oben abgeschnitten (Navigation scrollt seitlich und schneidet sonst auch vertikal ab) – Luft geben */
 @media (min-width: 761px) { .topnav { padding: 10px 4px; margin: -10px 0; align-self: stretch; } }
+/* Hover-/Aktiv-Fläche: Ecken passend zum Icon-Feld (gleicher Abstand rundum statt Kreis um ein Quadrat) */
+@media (min-width: 761px) { .tn:not(.tn-tutor) { border-radius: 17px; padding-left: 7px; } }
