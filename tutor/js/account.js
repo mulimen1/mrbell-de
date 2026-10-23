@@ -44,7 +44,8 @@ function spamBox(email) {
 }
 
 // mode: 'login' (E-Mail + Passwort) · 'register' (Konto erstellen, Mail bestätigen) · 'reset' (Passwort vergessen)
-export function openLogin({ title, mode = 'login', sub: sub0 } = {}) {
+export function openLogin({ title, mode = 'login', sub: sub0, why = '' } = {}) {
+  try { window.BM && window.BM.track('Anmeldefenster gesehen', why || (mode === 'register' ? 'Registrieren' : 'Anmelden')); } catch (e) {}
   return new Promise(resolve => {
     const { bg, box, fEl, fc } = shell();
     const close = v => { if (bg.classList.contains('out')) return; bg.classList.add('out'); setTimeout(() => bg.remove(), 320); document.removeEventListener('keydown', onKey); resolve(v); };
@@ -199,7 +200,6 @@ export const openRegister = (o = {}) => openLogin(Object.assign({}, o, { mode: '
 // Gast ohne Konto in diesem Browser → Registrieren (mit „Schon ein Konto? Anmelden“); wer schon mal angemeldet war → Anmelden
 export const knownHere = () => !!(getAccount() || ls.get('tutor.lastEmail', ''));
 export function openAuth({ title, registerTitle, sub, registerSub, ...o } = {}) {
-  try { window.BM && window.BM.track('Anmeldefenster gesehen', knownHere() ? 'Anmelden' : 'Registrieren'); } catch (e) {}
   return knownHere() ? openLogin({ ...o, title, sub, mode: 'login' }) : openLogin({ ...o, title: registerTitle, sub: registerSub || sub, mode: 'register' });
 }
 

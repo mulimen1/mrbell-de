@@ -1241,6 +1241,8 @@ export function mountAssistant() {
     const my = ++gen, spoken = !!cfg.spk && viaVoice;
     ctrl = new AbortController();
     try {
+      // Ohne Konto: genau eine Antwort (Themen-Tafel oder erste Frage) – jede weitere Frage erst nach kostenlosem Konto, danach geht sie automatisch raus
+      if (!getAccount() && !o.entry && hist.some(m => m.role === 'assistant')) { try { window.BM && window.BM.track('Anmeldepflicht', 'Frage'); } catch (x) {} throw Object.assign(new Error('need_account'), { code: 'need_account', gate: true }); }
       const messages = hist.slice(-12).map(m => ({ role: m.role, content: m.role === 'assistant' ? forHistory(m.content) : m.content }));
       const TAFEL = L('[Tafel: Gib jedem Block an der Tafel (h3, p, ul, div.calc, div.step, div.result, table, svg) ein Attribut data-say mit genau einem kurzen Satz (höchstens 18 Wörter), warum dieser Schritt so ist – Max zeigt ihn dann mit seinem Cursor.]',
         '[Board: give every block on the board (h3, p, ul, div.calc, div.step, div.result, table, svg) a data-say attribute with exactly one short sentence (max 18 words) on why this step is the way it is – Max then points to it with his cursor.]');
@@ -1278,7 +1280,7 @@ export function mountAssistant() {
     } catch (e) {
       if (hist[hist.length - 1]?.role === 'user' && hist[hist.length - 1].content === text) hist.pop();
       // Konto nötig beim Einstieg oder in den ersten 90 Sekunden: kein Fenster, das alles blockiert – Max sagt es ruhig im Chat
-      const acc = e?.code === 'need_account' && (o.entry || performance.now() < 90000);
+      const acc = e?.code === 'need_account' && (o.entry || e.gate || performance.now() < 90000);
       const other = !acc && o.entry && e?.name !== 'AbortError' && !['cap', 'limit', 'need_account'].includes(e?.code);
       if ((acc || other) && ex && my === gen) {
         endBuilding(); setState('idle'); fc.pulse(acc ? 'happy' : 'sad', 900);

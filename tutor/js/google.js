@@ -35,7 +35,7 @@ export async function googleButton(el, onDone) {
             const r = await ask('glogin', { opts: { credential: resp.credential } });
             if (r.account?.email) ls.set('tutor.lastEmail', r.account.email);
             setAccount(r.account, r.session);
-            try { if (r.fresh && window.BM && window.BM.ok()) window.BM.track('Konto erstellt', 'Google'); } catch (e) {}
+            try { if (r.fresh && window.BM) window.BM.track('Konto erstellt', 'Google'); } catch (e) {}   // ohne Einwilligung: nur die Anzahl
             handler && handler(r);
           } catch (e) { toast(e.message || L('Die Anmeldung mit Google hat nicht geklappt.', 'Signing in with Google didn’t work.'), 5000); }
         }

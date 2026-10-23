@@ -30,7 +30,7 @@
   function conv(label) { if (!ADS.id || !label || !ok()) return; ads(); try { window.gtag('event', 'conversion', { send_to: ADS.id + '/' + label }); } catch (e) {} }
   var sent = {};
   // Ohne Einwilligung: nur die reine Anzahl dieser Trichter-Schritte – ohne Cookie, ohne Kennung, ohne Ort
-  var ANON = ['Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen'];
+  var ANON = ['Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht'];
   function track(ereignis, detail, once) {
     if (!ok()) {
       if (ANON.indexOf(ereignis) < 0 || /(?:^|;\s*)mb_intern=1/.test(document.cookie)) return;

@@ -150,7 +150,16 @@ function ladder(c) {
       done ? null : h('button', { class: 'm-ladcta', type: 'button', onclick: () => (cur === 2 ? go2() : go3()) },
         cur === 2 ? L('Zu den Klausurfragen', 'Go to exam questions') : L('Zum Praxisfall', 'Go to the real case'), h('span', { 'aria-hidden': 'true' }, '→')));
   };
-  const go2 = () => c.exam ? c.exam(topic) : liveQuiz(c, { speak: c.speak, practice: () => go3(), onDone: () => { ladSet(c, { q: 1 }); draw(); box.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
+  const go2 = async () => {
+    try { window.BM && window.BM.track('Klausurpfad geklickt', getAccount() ? 'Konto' : 'Gast'); } catch (x) {}
+    if (!getAccount()) {   // ohne Konto gibt's nur die Tafel – Klausurfragen erst mit kostenlosem Konto
+      const { openAuth } = await import('./account.js');
+      const ok = await openAuth({ registerTitle: L('Klausurfragen freischalten', 'Unlock exam questions'), registerSub: L('Kostenlos, mit Google in zwei Klicks. Deine Tafel bleibt, wo sie ist.', 'Free, two clicks with Google. Your board stays right here.'), why: 'Klausurfragen' });
+      if (!ok && !getAccount()) return;
+    }
+    return go2b();
+  };
+  const go2b = () => c.exam ? c.exam(topic) : liveQuiz(c, { speak: c.speak, practice: () => go3(), onDone: () => { ladSet(c, { q: 1 }); draw(); box.scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
   const go3 = async () => {
     if (!getAccount()) {
       c.say(L('Praxisfall gibt’s mit kostenlosem Konto. Dauert 20 Sekunden – deine Tafel bleibt, wo sie ist.', 'The real case comes with a free account. 20 seconds – your board stays right here.'), 4200);
