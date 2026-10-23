@@ -4680,3 +4680,40 @@ body:has(.modal-bg) .dk { visibility: hidden; }
 @media (min-width: 761px) { .tn:not(.tn-tutor) { border-radius: 17px; padding-left: 7px; } }
 .mc-memb { margin-top: 8px; border: 0; background: none; padding: 0; color: var(--ink); font: 600 13px var(--sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .mc-memt { margin: 8px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--panel2); font-size: 13px; line-height: 1.5; white-space: pre-line; }
+
+/* ===== Handy mit Konto: Bereiche groß wie am Laptop, rechts nur der grüne Menü-Knopf, keine Knopfreihe über Max ===== */
+@media (min-width: 761px) { .tc-mob { display: none !important; } }
+@media (max-width: 760px) {
+  html:not(.bm-guest) .topbar { height: 66px; gap: 6px; }
+  html:not(.bm-guest) .topbar .pal-btn, html:not(.bm-guest) .topbar .m-acts { display: none !important; }
+  html:not(.bm-guest) .tcorner { display: block; position: relative; flex: none; margin-left: 2px; }
+  html:not(.bm-guest) .tc-btn { width: 46px; height: 46px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; color: #fff; background: linear-gradient(180deg, #356e52, #1f4834); box-shadow: 0 8px 20px -10px rgba(31,72,52,.75); -webkit-tap-highlight-color: transparent; }
+  html:not(.bm-guest) .tc-btn .ico { width: 22px; height: 22px; }
+  html:not(.bm-guest) .tc-panel { position: absolute; z-index: 200; top: calc(100% + 10px); right: 0; width: min(300px, calc(100vw - 24px)); padding: 8px; border-radius: 20px; background: var(--panel); border: 1px solid var(--line2); box-shadow: 0 24px 60px -20px rgba(0,0,0,.35); animation: tcIn .18s cubic-bezier(.16,1,.3,1) both; }
+  html:not(.bm-guest) .tc-panel[hidden] { display: none; }
+  html:not(.bm-guest) .tc-row { width: 100%; display: flex; align-items: center; gap: 12px; height: 48px; padding: 0 12px; border: 0; border-radius: 13px; background: none; color: var(--ink); font: 650 16px var(--sans); text-align: left; -webkit-tap-highlight-color: transparent; }
+  html:not(.bm-guest) .tc-row:active { background: var(--panel2); }
+  html:not(.bm-guest) .tc-row kbd { display: none; }
+  html:not(.bm-guest) .tc-ic { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: #e2ebe6; color: #1f4834; flex: none; } html:not(.bm-guest) .tc-ic .ico { width: 17px; height: 17px; }
+  html:not(.bm-guest) .tc-set { margin-top: 6px; padding: 12px 12px 6px; border-top: 1px solid var(--line); }
+  html:not(.bm-guest) .tc-setl { display: block; font: 600 11px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); margin-bottom: 8px; }
+  html:not(.bm-guest) .tc-setc { display: flex; align-items: center; gap: 8px; }
+  html:not(.bm-guest) .tn { height: 48px; padding: 0 14px 0 6px; gap: 9px; font-size: 16.5px; font-weight: 650; color: var(--ink); border-radius: 16px; }
+  html:not(.bm-guest) .tn .ico { display: inline-block; width: 17px; height: 17px; }
+  html:not(.bm-guest) .tn:not(.tn-tutor) > span:has(> .ico) { width: 34px; height: 34px; border-radius: 11px; background: #e2ebe6; color: #1f4834; display: inline-grid; place-items: center; }
+  html:not(.bm-guest) .tn.on:not(.tn-tutor) > span:has(> .ico) { background: #1f4834; color: #fff; }
+  html:not(.bm-guest) .tn.tn-tutor { padding: 0 18px 0 6px; } html:not(.bm-guest) .tn-face { width: 36px; height: 36px; }
+  html:not(.bm-guest) .tn-new { display: none !important; }
+  html:not(.bm-guest) .rm-corner { display: none !important; }
+}
+:root[data-theme="dark"] .tc-ic { background: rgba(83,160,120,.22); color: #a9dcc0; }
+
+/* ===== Handy, Startseite ohne Konto: obere Leiste mit großem Logo ===== */
+@media (max-width: 760px) {
+  .nav { height: 74px; padding: 0 12px; gap: 6px; }
+  .nav .brand { font-size: 21px; gap: 9px; }
+  .nav .brand .mini { width: 44px; height: 44px; }
+  .nav [data-theme-toggle] { display: none; }
+  .nav .navlogin { font-size: 14.5px; padding: 8px 6px; }
+  .nav .navreg { height: 44px; padding: 0 14px; font-size: 14.5px; border-radius: 999px; }
+}

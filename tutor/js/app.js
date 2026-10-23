@@ -127,7 +127,10 @@ function buildShell() {
     cRow('trophy', L('Fortschritt', 'Progress'), () => { location.hash = '#/app/fortschritt'; }),
     cRow('clock', L('Letztes Gespräch', 'Last conversation'), () => { const go = () => { const b = document.querySelector('.rm-old'); if (b && !b.hidden) { if (!b.classList.contains('on')) b.click(); } else toast(L('Noch kein früheres Gespräch.', 'No earlier conversation yet.')); }; if (location.hash !== '#/app/tutor') { location.hash = '#/app/tutor'; setTimeout(go, 900); } else go(); }),
     cRow('tune', L('Max einstellen', 'Configure Max'), () => import('./maxcfg.js').then(m => m.openMaxCfg())),
+    cRow('file', L('Skripte', 'Slides'), () => { const go = () => { const b = document.querySelector('.rm-corner .rm-skb, .rm-skb'); if (b) b.click(); }; if (location.hash !== '#/app/tutor') { location.hash = '#/app/tutor'; setTimeout(go, 900); } else go(); }),
     cRow('chat', L('Feedback geben', 'Give feedback'), () => openFeedback()),
+    Object.assign(cRow('sidebar', L('Werkzeuge', 'Tools'), () => app.classList.toggle('sideopen')), { className: 'tc-row tc-mob' }),
+    Object.assign(cRow('lock', L('Konto', 'Account'), () => getAccount() ? openAccount() : openAuth()), { className: 'tc-row tc-mob' }),
     h('div', { class: 'tc-set' }, h('span', { class: 'tc-setl' }, L('Sprache · Farbe · Modus', 'Language · colour · mode')), h('div', { class: 'tc-setc' }, langSwitch(), h('button', { class: 'iconbtn', type: 'button', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }))));
   cBtn.addEventListener('click', e => { e.stopPropagation(); cSet(cPanel.hidden); });
   document.addEventListener('click', e => { if (!cPanel.hidden && !e.target.closest('.tcorner')) cSet(false); });
