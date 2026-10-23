@@ -72,12 +72,8 @@ const plain = html => String(html || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp
 export function enhance(c) {
   const t = c.t; if (!t || t.querySelector('.m-chk, .m-hook, .m-lad')) return;
   if (c.speak && c.practice) {   // Lern-Stufen: verstanden → Klausurfragen → echter Praxisfall (mit kostenlosem Konto)
-    // erst nach Definition + erstem Beispiel/Karten (Ende erstes Drittel), sonst ergibt der Pfad keinen Sinn
-    const kids = [...t.children].filter(e => !e.matches('.tt, .m-bsw, .m-next, .m-lad, .source'));
-    let at = kids.findIndex((e, i) => i >= 1 && e.matches('.vs, table, .example, .kpis, .formel, .calc, .grid, ul, ol'));
-    if (at >= 0 && kids[at].matches('.example') && kids[at + 1] && !/^h\d$/.test(kids[at + 1].localName)) at++;   // Beispiel samt erster Rechnung
-    if (at < 0 || at > Math.max(2, Math.round(kids.length * .45))) at = Math.max(1, Math.round(kids.length / 3) - 1);
-    const lad = ladder(c); if (kids[at]) kids[at].after(lad); else t.append(lad);
+    // Google-Ads-Besucher scrollen kaum: der Pfad steht direkt unter dem Tafel-Titel
+    const lad = ladder(c), top = t.querySelector('h1, h2, .tt'); if (top) top.after(lad); else t.prepend(lad);
     // dieselbe Karte am Ende der Tafel (statt „Karteikarten machen“)
     const nx = t.querySelector('.m-next'), lad2 = ladder(c); if (nx) nx.before(lad2); else t.append(lad2);
     watchScroll(c); return;

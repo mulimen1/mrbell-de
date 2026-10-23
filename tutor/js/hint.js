@@ -24,7 +24,8 @@ export function scheduleHint(delay = 25000) {
 
 function show() {
   const acc = getAccount(), phone = mob();
-  if (phone || acc) return;   // Handy: kein Laptop-Hinweis · Laptop mit Konto: nichts zu sagen
+  if (phone || acc) return;
+  if (document.querySelector('.m-lad')) return;   // Themen-Einstieg: der Klausurpfad an der Tafel übernimmt das   // Handy: kein Laptop-Hinweis · Laptop mit Konto: nichts zu sagen
   try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
   const title = phone ? L('Am Laptop oder iPad kann ich noch mehr', 'On a laptop or iPad I can do even more') : L('Noch mehr Fragen? Bleib gern hier.', 'More questions? Stick around.');
   const text = phone

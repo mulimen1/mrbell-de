@@ -102,7 +102,7 @@ function buildShell() {
     navA('mitschrift', '#/app/mitschrift', 'pen', L('Mitschrift', 'Notes')),
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
     navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
-    h('a', { class: 'tn tn-vid', href: '#/app/video', 'data-tn': 'video' }, h('span', { html: ico('video') }), h('span', { class: 'tn-l' }, L('Transkript', 'Transcribe')), h('span', { class: 'tn-brands', 'aria-hidden': 'true' }, ...['youtube', 'tiktok', 'instagram'].map(p => h('img', { src: `/tutor/img/brands/${p}.svg`, alt: '', width: 13, height: 13, class: 'tn-b tn-b-' + p })))),
+    h('a', { class: 'tn tn-vid', href: '#/app/video', 'data-tn': 'video' }, h('span', { html: ico('video') }), h('span', { class: 'tn-l' }, L('Transkript', 'Transcribe')), h('span', { class: 'tn-brands', 'aria-hidden': 'true' }, ...['youtube', 'tiktok', 'instagram'].map(p => h('img', { src: `/tutor/img/brands/${p}.svg`, alt: '', width: 13, height: 13, class: 'tn-b tn-b-' + p }))), h('span', { class: 'tn-new' }, L('NEU', 'NEW'))),
     Object.assign(navA('zahlen', '#/app/zahlen', 'chart', L('Zahlen', 'Numbers')), { hidden: true }));
   const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
