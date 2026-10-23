@@ -1674,6 +1674,11 @@ export function mountAssistant() {
   // ---------- Zuhören (mit Live-Mitschrift) ----------
   let listenTok = 0, anSrc = null, capTimer2 = 0, held = false;
   async function startListen({ followup = false } = {}) {
+    if (!getAccount()) {   // Gespräch per Stimme nur mit kostenlosem Konto
+      try { window.BM && window.BM.track('Anmeldepflicht', 'Sprechen'); } catch (x) {}
+      import('./account.js').then(m => m.openAuth({ title: L('Gespräch mit Max freischalten', 'Unlock talking to Max'), registerTitle: L('Gespräch mit Max freischalten', 'Unlock talking to Max'), sub: L('Kostenloses Konto – mit Google in zwei Klicks. Danach redest du einfach los.', 'Free account – two clicks with Google. Then just start talking.'), why: 'Sprechen', strong: true })).then(ok => { if (ok && getAccount()) startListen({ followup }); }).catch(() => {});
+      return;
+    }
     if (!open || typing) return;
     if (!(navigator.mediaDevices?.getUserMedia && window.MediaRecorder)) { setTyping(true); setState('idle', L('Hier kann ich nicht zuhören – tipp einfach.', 'I can’t listen here – just type.')); return; }
     if (state === 'speak' || state === 'think') stopAll(true);
