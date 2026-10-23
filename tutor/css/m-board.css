@@ -506,12 +506,12 @@ html.bm-entryb .rm-bar .m-dcards:hover { box-shadow: 0 3px 0 var(--ink); }
 .m-ladn.ok, .m-ladn.m-ladz.ok, .m-ladn.m-lad0.ok { background: var(--bmA); color: #fff; box-shadow: 0 5px 0 var(--bmB); }
 .m-ladn.ok, .m-ladn.m-ladz.ok { animation-name: mladglow4; }
 .m-ladn.ok.fresh { animation: mladpop .6s cubic-bezier(.34,1.56,.64,1) .6s both, mladglow4 2.6s ease-in-out 1.3s infinite; }
-@keyframes mladglow4 { 0%, 100% { box-shadow: 0 5px 0 var(--bmB), 0 0 10px 1px rgba(53,110,82,.3); } 50% { box-shadow: 0 5px 0 var(--bmB), 0 0 22px 5px rgba(53,110,82,.45); } }
+@keyframes mladglow4 { 0%, 100% { box-shadow: 0 5px 0 var(--bmB), 0 0 10px 1px color-mix(in srgb, var(--bmA) 30%, transparent); } 50% { box-shadow: 0 5px 0 var(--bmB), 0 0 22px 5px color-mix(in srgb, var(--bmA) 45%, transparent); } }
 .m-ladfx i, .m-ladz .m-ladfx i { background: var(--bmA); }
-.m-ladl.on { box-shadow: 0 0 10px rgba(53,110,82,.35); }
+.m-ladl.on { box-shadow: 0 0 10px color-mix(in srgb, var(--bmA) 35%, transparent); }
 .m-ladl.on i { background: linear-gradient(90deg, var(--bmA), var(--bmA)); }
 .m-ladl.next i { background: #a9c4b5; }
-.tafel .m-lad.done { border-color: var(--bmA); box-shadow: 0 0 0 3px rgba(53,110,82,.15); }
+.tafel .m-lad.done { border-color: var(--bmA); box-shadow: 0 0 0 3px color-mix(in srgb, var(--bmA) 15%, transparent); }
 .tafel .m-ladcta { background: linear-gradient(180deg, var(--bmA), var(--bmB)); box-shadow: 0 3px 0 #12291e; }
 .tafel .m-ladcta:active { box-shadow: 0 1px 0 #12291e; }
 

@@ -395,6 +395,6 @@ export function miniCheck(c, { onExam } = {}) {
 
 // Kleiner Knopf direkt nach der ersten Erklärung: wer nur die Definition liest, sieht trotzdem den Mini-Check und springt per Klick hin
 export function miniTeaser(mc) {
-  return h('button', { class: 'm-mc-tz', type: 'button', onclick: () => { try { window.BM && window.BM.track('Mini-Check angeklickt', ''); } catch (x) {} mc.scrollIntoView({ behavior: 'smooth', block: 'start' }); mc.animate([{ boxShadow: '0 0 0 0 rgba(53,110,82,.55)' }, { boxShadow: '0 0 0 14px rgba(53,110,82,0)' }], { duration: 900, delay: 450 }); } },
+  return h('button', { class: 'm-mc-tz', type: 'button', onclick: () => { try { window.BM && window.BM.track('Mini-Check angeklickt', ''); } catch (x) {} mc.scrollIntoView({ behavior: 'smooth', block: 'start' }); mc.animate([{ boxShadow: '0 0 0 0 color-mix(in srgb, var(--bmA) 55%, transparent)' }, { boxShadow: '0 0 0 14px color-mix(in srgb, var(--bmA) 0%, transparent)' }], { duration: 900, delay: 450 }); } },
     h('span', { class: 'm-mc-tzi' }, '✓'), h('span', { class: 'm-mc-tzt' }, h('b', {}, L('Mini-Check: Hast du’s verstanden?', 'Mini check: did it click?')), h('small', {}, L('3 Fragen · 30 Sekunden', '3 questions · 30 seconds'))), h('span', { class: 'm-mc-tza' }, '↓'));
 }
