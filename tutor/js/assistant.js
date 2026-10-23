@@ -1378,7 +1378,7 @@ export function mountAssistant() {
     hideQuip();
     const dockAt = () => (STAGE || open ? isl : bub).getBoundingClientRect();
     return tour(steps, Object.assign({ startAt: curStart(), dockAt, onAsk: ref => { if (!open) setOpen(true); setRef(ref); setTyping(true); } },
-      spoken && autoVoice() ? { voice: sayStep, onEnd: () => { vTour = false; try { audio.pause(); } catch (e) {} setState('idle'); if (spoken !== 'klick') afterAnswer(); } } : {}));
+      spoken ? Object.assign({ onEnd: () => { vTour = false; try { audio.pause(); } catch (e) {} setState('idle'); if (spoken !== 'klick') afterAnswer(); } }, autoVoice() ? { voice: sayStep } : {}) : {}));
   }
   // „Frage“ in der Cursor-Blase: Max weiß, welche Stelle gemeint ist
   let askRef = null;
