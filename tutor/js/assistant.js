@@ -1323,7 +1323,7 @@ export function mountAssistant() {
       const asPage = MOB.matches && !!(ex && ex.entry);   // Themenseite am Handy: steht sofort da, ohne Einblenden und ohne Hinweis
       if (!ex.sketch) keepBoards(p.boards, { doc: curDoc(), question: lastQ, answer: p.text, quiet: asPage });
       boards = boards.concat(p.boards).slice(-12); bIdx = boards.length - p.boards.length;
-      t = drawBoard(!asPage); openBoard(); whenWritten(t);
+      t = drawBoard(!asPage && !(ex && ex.entry)); openBoard(); whenWritten(t);   // Themen-Einstieg: Tafel steht sofort komplett da (kein Mitschreiben)
     }
     else if (boardOpen && !boardMin && !ex.ref && !tourActive() && !root.classList.contains('m-pchat')) minBoard(true, true);   // neue Antwort ohne Tafel: alte Tafel zur Seite – außer die Frage galt genau dieser Tafel
     // Befehle sofort ausführen, als kleine Häkchen unter der Antwort
@@ -1349,12 +1349,12 @@ export function mountAssistant() {
     } else {
       setState('idle'); fc.pulse('happy', 900);
       const pr = typeIt(aEl, txt, { scroll: capScroll });
-      if (t) { const t0 = performance.now(), dur = Math.max(1200, txt.split(/\s+/).length * 30); writeAlong(t, () => (performance.now() - t0) / dur); }
+      if (t && !(ex && ex.entry)) { const t0 = performance.now(), dur = Math.max(1200, txt.split(/\s+/).length * 30); writeAlong(t, () => (performance.now() - t0) / dur); }
       ex.done = true;
       await pr;
       if (my === gen) afterAnswer(p);
     }
-    if (my === gen) runTours(p, t, vTour); else vTour = false;
+    if (my === gen) runTours(p, t, vTour, !!(ex && ex.entry)); else vTour = false;
   }
   // ---------- Max-Cursor: Tafel Block für Block erklären, oder echte Stellen der Seite zeigen ----------
   function curStart() { const rf = STAGE ? [...document.querySelectorAll('.room .rm-fs')].find(e => e.getBoundingClientRect().width > 0) : null; const r = (rf || (open ? fEl : bubFace)).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height * .4 }; }
@@ -1457,8 +1457,8 @@ export function mountAssistant() {
   }
   function clearRef() { askRef = null; refChip.hidden = true; root.classList.remove('has-ref'); if (!attachTx) delete inp.dataset.phLock; }
   addEventListener('hashchange', () => { if (askRef) clearRef(); });
-  async function runTours(p, t, spoken) {
-    if (p.tour && p.tour.length) {
+  async function runTours(p, t, spoken, noAuto = false) {
+    if (p.tour && p.tour.length && !noAuto) {   // Themen-Einstieg: keine automatische Cursor-Führung – nur per Knopf
       const steps = p.tour.map(x => ({ el: byMxId(x.id), say: x.say })).filter(x => x.el);
       if (!steps.length) return;
       if (!STAGE && open) closeAnimated();   // Seite frei machen – Max zeigt direkt auf ihr
