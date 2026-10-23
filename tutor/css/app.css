@@ -4787,3 +4787,10 @@ button.view-back { cursor: pointer; font: 600 13.5px var(--sans); color: var(--i
 /* Lernskills: immer die volle, tiefe Akzentfarbe – zu und offen gleich */
 .rm-skt, .rm-skopen .rm-skt { background: var(--bmB); color: var(--onInv); border-color: var(--bmB); box-shadow: 0 3px 0 var(--bmC); }
 .rm-skt:hover { box-shadow: 0 5px 0 var(--bmC); }
+/* Themenseiten: Karteikarten-Knopf oben im Stil des Mini-Check-Hinweises (Akzentrand, helle Akzentfläche) */
+@media (min-width: 761px) {
+  html.bm-entryb .rm-bar .m-dcards { border: 2px solid var(--bmB) !important; background: var(--bmT2) !important; box-shadow: 0 3px 0 var(--bmB) !important; color: var(--ink); }
+  html.bm-entryb .rm-bar .m-dcards:hover { box-shadow: 0 5px 0 var(--bmB) !important; transform: translateY(-2px); }
+  html.bm-entryb .rm-bar .m-dcards .m-pbi { background: var(--bmB) !important; color: var(--onInv) !important; border-radius: 10px; }
+  html.bm-entryb .rm-bar .m-dcards .m-pbl { color: var(--bmB); }
+}

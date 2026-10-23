@@ -398,6 +398,12 @@ function dropAnywhere(el) {
 export async function startUpload(files) {
   files = files instanceof File ? [files] : [...(files || [])];
   if (!files.length) return;
+  // Ohne Konto (z. B. Google-Ads-Themenseite): nicht in die Einordnung springen, sondern kostenlos anmelden – danach geht's mit genau diesen Dateien weiter
+  if (!getAccount()) {
+    try { window.BM && window.BM.track('Anmeldepflicht', 'Upload'); } catch (x) {}
+    const ok = await openAuth({ registerTitle: L('Dein Skript hochladen – kostenlos', 'Upload your slides – free'), registerSub: L('Mit Google in zwei Klicks. Danach liest Max deine Datei und erklärt dir genau deinen Stoff.', 'Two clicks with Google. Then Max reads your file and explains exactly your material.'), why: 'Upload' });
+    if (!ok || !getAccount()) return;
+  }
   if (location.hash !== '#/app/neu') location.hash = '#/app/neu';
   if (!shell) { buildShell(); await refreshList(); }
   shell.tabs.replaceChildren(); docbar(false);
