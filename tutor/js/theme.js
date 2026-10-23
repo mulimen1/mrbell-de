@@ -44,10 +44,11 @@ export const ACCENTS = [
   ['cognac', 'Cognac', 'Cognac', '#7a4523', '#9c5c2c'],
   ['bordeaux', 'Bordeaux', 'Burgundy', '#7b1e2e', '#a83346'],
   ['aubergine', 'Aubergine', 'Plum', '#4e2a5f', '#7a4a91'],
-  ['graphit', 'Graphit', 'Graphite', '#3f4650', '#646d79'],
-  ['gelb', 'Gelb', 'Yellow', '#d6c700', '#e3d400']   // nur im Creator Mode sichtbar (TikTok-Sketch)
+  ['graphit', 'Graphit', 'Graphite', '#3f4650', '#646d79']
 ];
 const ACC_KEY = 'tutor.accent';
+// Gelb (nur für den TikTok-Sketch) gibt's nicht mehr – wer es noch gespeichert hat, bekommt wieder die Standardfarbe
+try { if (document.documentElement.dataset.accent === 'gelb' || localStorage.getItem(ACC_KEY) === 'gelb') { document.documentElement.dataset.accent = 'gruen'; localStorage.setItem(ACC_KEY, 'gruen'); document.documentElement.dataset.outfit = 'gruen'; } } catch (e) {}
 export const getAccent = () => document.documentElement.dataset.accent || '';
 function showAccent(id) { const H = document.documentElement; if (id) H.dataset.accent = id; else delete H.dataset.accent; }
 const remember = id => { try { localStorage.setItem(ACC_KEY, id || 'std'); } catch (e) {} };
