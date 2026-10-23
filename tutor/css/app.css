@@ -4648,11 +4648,6 @@ html.bm-guest .rm-bar .rm-skb, html.bm-guest .rm-bar .rm-end-b, html.bm-guest .t
   .tc-btn { padding: 0; min-width: 0; aspect-ratio: 1; flex: none; box-shadow: 0 8px 20px -10px rgba(31,72,52,.75); }
 }
 
-/* Logos wieder dezent, kein NEU-Schild; Gäste (Google-Ads-Landingpages) ohne Bibliothek */
-@media (min-width: 761px) { .tn-b { width: 15px; height: 15px; } .tn-brands { gap: 4px; margin-left: 2px; } }
-.tn-new { display: none !important; }
-html.bm-guest .tn[data-tn="bibliothek"] { display: none !important; }
-
 /* Gäste (Google-Ads-Landingpages): ohne Bibliothek, Logos groß + NEU bleiben.
    Mit Konto: Logos dezent, kein NEU-Schild */
 html.bm-guest .tn[data-tn="bibliothek"] { display: none !important; }
