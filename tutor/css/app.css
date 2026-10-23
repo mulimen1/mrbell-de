@@ -4652,3 +4652,9 @@ html.bm-guest .rm-bar .rm-skb, html.bm-guest .rm-bar .rm-end-b, html.bm-guest .t
 @media (min-width: 761px) { .tn-b { width: 15px; height: 15px; } .tn-brands { gap: 4px; margin-left: 2px; } }
 .tn-new { display: none !important; }
 html.bm-guest .tn[data-tn="bibliothek"] { display: none !important; }
+
+/* Gäste (Google-Ads-Landingpages): ohne Bibliothek, Logos groß + NEU bleiben.
+   Mit Konto: Logos dezent, kein NEU-Schild */
+html.bm-guest .tn[data-tn="bibliothek"] { display: none !important; }
+@media (min-width: 761px) { html:not(.bm-guest) .tn-b { width: 15px; height: 15px; } html:not(.bm-guest) .tn-brands { gap: 4px; margin-left: 2px; } }
+html:not(.bm-guest) .tn-new { display: none !important; }
