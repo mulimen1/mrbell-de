@@ -4731,3 +4731,6 @@ body:has(.modal-bg) .dk { visibility: hidden; }
   html body .asst-bub .asst-bf { width: 68px !important; height: 68px !important; margin-top: 6px !important; }
   .app .view-in { padding-bottom: 124px; }
 }
+/* Startseite Laptop: Top-3-Karten mit demselben kräftigen Rand wie am Handy */
+.hero .feattop .feat.big { border: 2px solid var(--ink); box-shadow: 0 3px 0 var(--ink); }
+.hero .feattop .feat.big:hover, .hero .feattop .feat.big.hl { box-shadow: 0 5px 0 var(--ink); }
