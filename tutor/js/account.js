@@ -52,7 +52,7 @@ export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong =
     const onKey = e => { if (e.key === 'Escape') close(false); };
     document.addEventListener('keydown', onKey);
     bg.addEventListener('click', e => { if (e.target === bg) close(false); });
-    const x = () => h('button', { class: 'iconbtn lx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(false) });
+    const x = () => h('button', { class: 'iconbtn lclose', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(false) });
     let email = ls.get('tutor.lastEmail', '') || getAccount()?.email || '', pw = '';
     let firstTitle = title, firstSub = sub0;
     const head = (t, sub) => { const tt = firstTitle || t, ss = firstSub || sub; firstTitle = null; firstSub = null; return [x(), fEl, h('h3', {}, tt), ss ? h('p', {}, ss) : null]; };

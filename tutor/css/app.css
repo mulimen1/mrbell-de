@@ -749,7 +749,7 @@ svg.draw .f2 { opacity: 0; } .in svg.draw .f2 { animation: fadeIn .8s ease 1.6s 
 .modal.login { position: relative; text-align: center; max-width: 420px; }
 .modal.login .lface { width: 76px; height: 76px; margin: 0 auto 12px; }
 .modal.login p { margin-bottom: 18px; }
-.modal.login .lx { position: absolute; top: 12px; right: 12px; }
+.modal.login .lclose { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; }
 .lform { display: flex; gap: 8px; }
 .lform .field { flex: 1; min-width: 0; }
 .field.code { text-align: center; font: 700 30px var(--mono); letter-spacing: .4em; padding: 12px 0 12px .4em; }
@@ -1992,7 +1992,7 @@ html.theme-vt *, html.theme-vt *::before, html.theme-vt *::after { transition: n
 .modal-bg:has(.modal.login) { animation: lbgin .45s ease both; }
 .modal.login { animation: lin .6s cubic-bezier(.16,1,.3,1) both; }
 .modal.login .lface { animation: lface .7s .12s cubic-bezier(.34,1.5,.64,1) both; }
-.modal.login > :not(.lface):not(.lx) { animation: lkid .55s cubic-bezier(.16,1,.3,1) both; }
+.modal.login > :not(.lface):not(.lclose) { animation: lkid .55s cubic-bezier(.16,1,.3,1) both; }
 .modal.login > :nth-child(3) { animation-delay: .16s; } .modal.login > :nth-child(4) { animation-delay: .22s; } .modal.login > :nth-child(5) { animation-delay: .28s; } .modal.login > :nth-child(n+6) { animation-delay: .34s; }
 .modal-bg.out { animation: lbgout .3s ease forwards; }
 .modal-bg.out .modal.login { animation: lout .3s cubic-bezier(.4,0,1,1) forwards; }

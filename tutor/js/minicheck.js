@@ -88,41 +88,45 @@ export function miniCheck(c, { onExam } = {}) {
   const box = h('section', { class: 'm-mc' },
     h('div', { class: 'm-mc-h' }, h('b', {}, L('Mini-Check: Hast du’s verstanden?', 'Mini check: did it click?')), h('small', {}, L('3 Fragen · 30 Sekunden', '3 questions · 30 seconds'))),
     ...items.map(x => x.el), h('div', { class: 'm-mc-f' }, go), sum);
+  // Auflösung: welche richtig/falsch war, die richtige Antwort und warum
   const reveal = () => {
     box.classList.add('open');
-    qs.forEach((q, i) => { items[i].btns[q.r].classList.add('ok'); items[i].why.hidden = false; items[i].why.classList.remove('blur'); });
-    sum.querySelector('.m-mc-lock')?.remove();
+    qs.forEach((q, i) => {
+      const ok = q.pick === q.r;
+      items[i].el.classList.add(ok ? 'right' : 'wrong');
+      items[i].btns[q.pick].classList.add(ok ? 'ok' : 'no');
+      items[i].btns[q.r].classList.add('ok');
+      items[i].why.hidden = false;
+    });
+    sum.querySelectorAll('.m-mc-lock, .m-mc-hint').forEach(x => x.remove());
+  };
+  const unlock = async (title, sub, why) => {
+    const { openAuth } = await import('./account.js');
+    const ok = await openAuth({ registerTitle: title, registerSub: sub, why });
+    return !!(ok && getAccount());
   };
   go.onclick = async () => {
     if (box.classList.contains('done')) return;
     box.classList.add('done');
     const score = qs.filter(q => q.pick === q.r).length, n = qs.length, all = score === n;
     tr('Mini-Check geprüft', `${score}/${n} ${topic}`);
-    qs.forEach((q, i) => {
-      const ok = q.pick === q.r;
-      items[i].el.classList.add(ok ? 'right' : 'wrong');
-      items[i].btns.forEach(b => { b.disabled = true; });
-      items[i].btns[q.pick].classList.add(ok ? 'ok' : 'no');
-      if (!ok) { items[i].why.hidden = false; items[i].why.classList.add('blur'); }
-    });
+    items.forEach(x => x.btns.forEach(b => { b.disabled = true; }));
     go.hidden = true;
     const head = h('p', { class: 'm-mc-score' }, h('b', {}, L(`${score} von ${n} richtig.`, `${score} of ${n} correct.`)), ' ',
-      all ? L('Sauber – das sitzt.', 'Clean – that sticks.') : n - score === 1 ? L('Fast. Eine hat dich erwischt.', 'Close. One got you.') : score ? L('Zwei haben dich erwischt.', 'Two got you.') : L('Gut, dass das jetzt passiert und nicht in der Klausur.', 'Better now than in the exam.'));
+      all ? L('Stark – das sitzt.', 'Strong – that sticks.') : n - score === 1 ? L('Fast. Eine hat dich erwischt.', 'Close. One got you.') : score ? L('Zwei haben dich erwischt.', 'Two got you.') : L('Gut, dass das jetzt passiert und nicht in der Klausur.', 'Better now than in the exam.'));
     sum.replaceChildren(head); sum.hidden = false;
     try { c.note(`[Mini-Check auf der Themenseite: ${score} von ${n} richtig]`); } catch (x) {}
-    if (all) {
+    if (getAccount()) {   // mit Konto: sofort alles
       reveal();
-      sum.append(h('button', { class: 'm-mc-cta', type: 'button', onclick: () => onExam && onExam() }, L('Jetzt die echten Klausuraufgaben →', 'Now the real exam tasks →')));
-    } else if (getAccount()) {
-      reveal();
-    } else {
-      const lock = h('button', { class: 'm-mc-cta m-mc-lock', type: 'button', onclick: async () => {
-        const { openAuth } = await import('./account.js');
-        const ok = await openAuth({ registerTitle: L('Sieh, was richtig gewesen wäre – und warum', 'See the right answer – and why'),
-          registerSub: L('Kostenlos, mit Google in zwei Klicks. Danach erklärt dir Max genau deinen Fehler – und auf Wunsch deine eigenen Vorlesungsfolien.', 'Free, two clicks with Google. Then Max explains exactly your mistake – and your own lecture slides if you like.'), why: 'Mini-Check' });
-        if (ok && getAccount()) reveal();
-      } }, L('Auflösung kostenlos freischalten', 'Unlock the answers for free'));
-      sum.append(h('p', { class: 'm-mc-hint' }, L('Was richtig gewesen wäre und warum, siehst du mit kostenlosem Konto.', 'The right answer and why – with a free account.')), lock);
+      if (all) sum.append(h('button', { class: 'm-mc-cta', type: 'button', onclick: () => onExam && onExam() }, L('Jetzt die echten Klausuraufgaben →', 'Now the real exam tasks →')));
+    } else if (all) {     // Gast, alles richtig: nichts verraten, sondern das nächste Level anbieten
+      sum.append(h('p', { class: 'm-mc-hint' }, L('Das war die Aufwärmrunde. Jetzt das echte Klausurniveau: 4 Aufgaben mit Musterlösung.', 'That was the warm-up. Now real exam level: 4 tasks with model answers.')),
+        h('button', { class: 'm-mc-cta m-mc-lock', type: 'button', onclick: () => onExam && onExam() }, L('Klausuraufgaben kostenlos freischalten →', 'Unlock exam tasks for free →')));
+    } else {              // Gast mit Fehler: weder welche falsch war noch die Lösung – erst mit Konto
+      sum.append(h('p', { class: 'm-mc-hint' }, L('Welche falsch war, was richtig gewesen wäre und warum, siehst du mit kostenlosem Konto.', 'Which one was wrong, the right answer and why – with a free account.')),
+        h('button', { class: 'm-mc-cta m-mc-lock', type: 'button', onclick: async () => {
+          if (await unlock(L('Sieh, welche falsch war – und warum', 'See which one was wrong – and why'), L('Kostenlos, mit Google in zwei Klicks. Danach erklärt dir Max genau deinen Fehler – und auf Wunsch deine eigenen Vorlesungsfolien.', 'Free, two clicks with Google. Then Max explains exactly your mistake – and your own lecture slides if you like.'), 'Mini-Check')) reveal();
+        } }, L('Auflösung kostenlos freischalten', 'Unlock the answers for free')));
     }
     requestAnimationFrame(() => { try { sum.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (x) {} });
   };
