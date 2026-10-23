@@ -412,7 +412,7 @@ export async function fixedQuiz(c, data, { speak = async () => {}, built = false
   }
   writeIn(c, s, [result]);
   requestAnimationFrame(() => scrollToEl(c, result));
-  const end = data.outroSay || (auto ? '' : (score === n ? L('Alle richtig. Stark.', 'All correct. Strong.') : L(`${score} von ${n} richtig.`, `${score} out of ${n} correct.`)));
+  const end = 'outroSay' in data ? data.outroSay : (auto ? '' : (score === n ? L('Alle richtig. Stark.', 'All correct. Strong.') : L(`${score} von ${n} richtig.`, `${score} out of ${n} correct.`)));
   if (end) await speak(end);
 }
 // Für alle: „Quiz mich dazu“ unter der Tafel – Max baut 3 Fragen zur Tafel und fragt dich Frage für Frage ab (mit Stimme)
