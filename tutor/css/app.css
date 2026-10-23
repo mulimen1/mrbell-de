@@ -4521,3 +4521,35 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hvid-logos img[src*="tiktok"], :root:not([data-theme="light"]) .vp-logos img[src*="tiktok"], :root:not([data-theme="light"]) .fi-brands img[src*="tiktok"] { filter: invert(1); } }
 .hvid .hvid-bar input { height: 48px !important; min-height: 48px; padding: 0 14px !important; font-size: 16px; }
 @media (max-width: 760px) { .hero .wrap > .hvid { order: 5; margin-top: 18px; } }
+
+/* Studenten-Promocode (Konto) */
+.promo { margin-top: 14px; padding: 16px; border: 1.5px solid var(--ink); border-radius: 18px; background: var(--panel); display: grid; gap: 10px; text-align: left; }
+.promo-h { display: grid; gap: 4px; } .promo-h b { font-size: 15.5px; } .promo-h small { color: var(--mute); font-size: 13px; line-height: 1.45; }
+.promo-row { display: flex; gap: 8px; }
+.promo-in { flex: 1; min-width: 0; height: 44px; padding: 0 12px; border: 1.5px solid var(--line2); border-radius: 12px; background: var(--bg); color: var(--ink); font: inherit; font-size: 16px; letter-spacing: .06em; text-transform: uppercase; }
+.promo-in::placeholder { text-transform: none; letter-spacing: 0; }
+.promo-in:focus { outline: none; border-color: var(--ink); }
+.promo-btn { height: 44px; flex: none; }
+.promo-msg { margin: 0; font-size: 13px; } .promo-msg:empty { display: none; } .promo-msg.err { color: #c0392b; }
+.promo.promo-on { grid-template-columns: auto 1fr; align-items: start; border-color: #34c46b; background: color-mix(in srgb, #34c46b 8%, var(--panel)); }
+.promo.promo-on p { margin: 4px 0 0; font-size: 13.5px; color: var(--mute); line-height: 1.45; } .promo.promo-on > p { margin: 0; }
+.promo-ic { width: 28px; height: 28px; border-radius: 50%; background: #34c46b; color: #fff; display: grid; place-items: center; } .promo-ic .ico { width: 16px; height: 16px; }
+@media (max-width: 480px) { .promo-row { flex-direction: column; } .promo-btn { width: 100%; } }
+/* Promocodes verwalten (Zahlen, nur Ben) */
+.zl-pc { margin: 0 0 18px; padding: 16px 18px; border-radius: 22px; border: 1px solid var(--line); background: var(--panel); display: grid; gap: 12px; }
+.zl-pc[hidden] { display: none; }
+.zl-pc .pc-new { margin-left: auto; }
+.pc-list { display: grid; gap: 8px; }
+.pc-it { padding: 12px 14px; border: 1px solid var(--line2); border-radius: 14px; display: grid; gap: 6px; } .pc-it.off { opacity: .65; }
+.pc-it small { color: var(--mute); font-size: 12.5px; }
+.pc-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pc-code { font-family: ui-monospace, Menlo, monospace; font-size: 15px; letter-spacing: .05em; }
+.pc-st { font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 99px; background: var(--line); }
+.pc-n { margin-left: auto; font-size: 13px; font-weight: 600; }
+.pc-btns { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.pc-form { padding: 14px; border: 1.5px solid var(--ink); border-radius: 14px; display: grid; gap: 10px; }
+.pc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.pc-f { display: grid; gap: 4px; font-size: 12px; color: var(--mute); }
+.pc-f input { height: 38px; padding: 0 10px; border: 1px solid var(--line2); border-radius: 10px; background: var(--bg); color: var(--ink); font: inherit; font-size: 14px; }
+.pc-f input:disabled { opacity: .6; }
+.pc-act { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }

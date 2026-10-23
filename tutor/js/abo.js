@@ -74,7 +74,7 @@ export async function openAbo() {
     h('div', { class: 'eyebrow', hidden: true }, L('Monatlich kündbar', 'Cancel monthly')),
     h('h3', { class: 'ic-name' }, 'Max’s Inner Circle'),
     trialBadge,
-    h('ul', { class: 'abo-feat' }, [L('Max ohne Limit (Fair Use)', 'Max without limits (fair use)'), L('Probeklausuren im Klausur-Stil', 'Mock exams in real exam style'), L('Längere Podcasts mit echten Stimmen', 'Longer podcasts with real voices'), L('Sync über alle Geräte', 'Sync across all devices')].map(t => h('li', {}, h('span', { html: ico('check') }), t))),
+    h('ul', { class: 'abo-feat' }, [L('Deutlich höhere Tageslimits (auch hier gibt es ein Limit)', 'Much higher daily limits (there is a limit here too)'), L('Probeklausuren im Klausur-Stil', 'Mock exams in real exam style'), L('Längere Podcasts mit echten Stimmen', 'Longer podcasts with real voices'), L('Sync über alle Geräte', 'Sync across all devices')].map(t => h('li', {}, h('span', { html: ico('check') }), t))),
     tl,
     h('div', { class: 'abo-price', hidden: true },
       h('div', {}, h('span', {}, L('Heute', 'Today')), today),

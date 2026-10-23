@@ -85,6 +85,54 @@ async function keys(paint) {
   return r;
 }
 
+// ---------- Promocodes (nur Ben; gespeichert und geprüft auf dem Server) ----------
+const dIn = ts => ts ? new Date(ts - new Date(ts).getTimezoneOffset() * 6e4).toISOString().slice(0, 10) : '';
+const dOut = (v, end) => v ? Date.parse(v + (end ? 'T23:59:59' : 'T00:00:00')) : 0;
+const dShow = ts => new Date(ts).toLocaleDateString('de-DE', { day: 'numeric', month: 'short', year: '2-digit' });
+function promoCard() {
+  const card = h('section', { class: 'zl-pc', hidden: true });
+  let codes = [], editing = null;
+  const run = async (opts) => { const r = await ask('promoadmin', { opts }); codes = r.codes || []; return r; };
+  const form = c => {
+    const isNew = !c;
+    const f = { code: h('input', { value: c ? c.code : '', disabled: !isNew, placeholder: 'z. B. UNI7', maxlength: 24, autocapitalize: 'characters' }),
+      name: h('input', { value: c ? c.name : '', placeholder: L('Uni / Community', 'University / community'), maxlength: 60 }),
+      days: h('input', { type: 'number', min: 1, max: 90, value: c ? c.days : 7 }),
+      max: h('input', { type: 'number', min: 0, value: c && c.max ? c.max : '', placeholder: L('unbegrenzt', 'unlimited') }),
+      from: h('input', { type: 'date', value: c ? dIn(c.from) : '' }),
+      to: h('input', { type: 'date', value: c ? dIn(c.to) : '' }),
+      active: h('input', { type: 'checkbox', checked: c ? c.active : false }) };
+    const err = h('p', { class: 'zp-err', role: 'alert' });
+    const lab = (t, el) => h('label', { class: 'pc-f' }, h('span', {}, t), el);
+    const save = h('button', { class: 'btn primary sm', type: 'submit' }, isNew ? L('Code anlegen', 'Create code') : L('Speichern', 'Save'));
+    return h('form', { class: 'pc-form', onsubmit: async e => {
+      e.preventDefault(); err.textContent = ''; save.disabled = true;
+      try { await run({ op: 'save', isNew, code: f.code.value, name: f.name.value, days: +f.days.value, max: +f.max.value || 0, from: dOut(f.from.value), to: dOut(f.to.value, true), active: f.active.checked }); editing = null; paint(); }
+      catch (x) { err.textContent = x.message || L('Hat nicht geklappt.', 'That didn’t work.'); save.disabled = false; }
+    } },
+      h('div', { class: 'pc-grid' }, lab(L('Code', 'Code'), f.code), lab(L('Name / Uni', 'Name / university'), f.name), lab(L('Pro-Tage', 'Pro days'), f.days), lab(L('Max. Einlösungen', 'Max. redemptions'), f.max), lab(L('Gültig ab', 'Valid from'), f.from), lab(L('Gültig bis', 'Valid until'), f.to)),
+      h('label', { class: 'pc-act' }, f.active, h('span', {}, L('Aktiv – Code funktioniert sofort', 'Active – code works right away'))),
+      err, h('div', { class: 'pc-btns' }, h('button', { class: 'btn sm ghost', type: 'button', onclick: () => { editing = null; paint(); } }, L('Abbrechen', 'Cancel')), save));
+  };
+  const state = c => !c.active ? L('Aus', 'Off') : c.to && Date.now() > c.to ? L('Abgelaufen', 'Expired') : c.from && Date.now() < c.from ? L('Geplant', 'Scheduled') : c.max && c.n >= c.max ? L('Ausgeschöpft', 'Used up') : L('Aktiv', 'Active');
+  const paint = () => {
+    card.hidden = false;
+    card.replaceChildren(
+      h('div', { class: 'zf-h' }, h('b', {}, L('Promocodes', 'Promo codes')), h('small', {}, codes.length ? L(`${codes.length} Codes · ${codes.reduce((s, c) => s + c.n, 0)} Einlösungen`, `${codes.length} codes · ${codes.reduce((s, c) => s + c.n, 0)} redemptions`) : L('Noch keine – leg einen an, sobald eine Uni-Community zusagt.', 'None yet – create one once a university community agrees.')),
+        editing ? null : h('button', { class: 'btn sm primary pc-new', type: 'button', onclick: () => { editing = 'new'; paint(); } }, L('+ Neuer Code', '+ New code'))),
+      editing === 'new' ? form(null) : null,
+      codes.length ? h('div', { class: 'pc-list' }, codes.map(c => editing === c.code ? form(c) : h('div', { class: 'pc-it' + (c.active ? '' : ' off') },
+        h('div', { class: 'pc-top' }, h('b', { class: 'pc-code' }, c.code), h('span', { class: 'pc-st' }, state(c)), h('span', { class: 'pc-n' }, L(`${c.n}${c.max ? ' / ' + c.max : ''} eingelöst`, `${c.n}${c.max ? ' / ' + c.max : ''} redeemed`))),
+        h('small', {}, [c.name, L(`${c.days} Tage Pro`, `${c.days} days Pro`), c.from ? L('ab ', 'from ') + dShow(c.from) : null, c.to ? L('bis ', 'until ') + dShow(c.to) : null, c.last ? L('zuletzt ', 'last ') + dShow(c.last) : null].filter(Boolean).join(' · ')),
+        h('div', { class: 'pc-btns' },
+          h('button', { class: 'btn sm ghost', type: 'button', onclick: async e => { e.target.disabled = true; try { await run({ op: 'toggle', code: c.code }); } catch (x) { toast(x.message); } paint(); } }, c.active ? L('Deaktivieren', 'Deactivate') : L('Aktivieren', 'Activate')),
+          h('button', { class: 'btn sm ghost', type: 'button', onclick: () => { editing = c.code; paint(); } }, L('Bearbeiten', 'Edit')),
+          c.n ? null : h('button', { class: 'btn sm ghost', type: 'button', onclick: async () => { try { await run({ op: 'del', code: c.code }); } catch (x) { toast(x.message); } paint(); } }, L('Löschen', 'Delete')))))) : null);
+  };
+  run({ op: 'list' }).then(paint).catch(() => {});
+  return card;
+}
+
 // ---------- Feedback – Ben liest jedes einzelne ----------
 const KIND = { fehlt: L('Fehlt', 'Missing'), nervt: L('Nervt', 'Annoying'), idee: L('Idee', 'Idea'), lob: L('Lob', 'Praise'), bewertung: L('Bewertung', 'Rating') };
 function fbCard() {
@@ -111,7 +159,7 @@ function fbCard() {
 
 export async function render(root) {
   const host = h('div', { class: 'zl-host' });
-  const wrap = h('div', { class: 'view-in zl' }, payCard(), host, fbCard());
+  const wrap = h('div', { class: 'view-in zl' }, payCard(), promoCard(), host, fbCard());
   root.appendChild(wrap);
   let s;
   try { s = await source(); }

@@ -5,7 +5,7 @@ import { h, ico } from './util.js';
 import { L } from './i18n.js';
 
 const BEN = () => [
-  ['chat', L('Max ohne Tageslimit', 'Max without a daily limit'), L('Fragen, Tafeln, Erklärungen – so viel du brauchst (Fair Use)', 'Questions, boards, explanations – as much as you need (fair use)')],
+  ['chat', L('Deutlich höhere Tageslimits', 'Much higher daily limits'), L('Mehr Fragen, Tafeln und Erklärungen pro Tag – auch Inner Circle hat ein Limit, nur ein deutlich höheres', 'More questions, boards and explanations a day – Inner Circle has a limit too, just a much higher one')],
   ['exam', L('Probeklausuren', 'Mock exams'), L('Im Klausur-Stil, mit Zeit, Punkten und Note', 'Real exam style, with time, points and a grade')],
   ['pod', L('Längere Podcasts', 'Longer podcasts'), L('Mit echten Stimmen – für Bahn, Gym, Spaziergang', 'With real voices – for the train, gym, a walk')],
   ['refresh', L('Sync auf allen Geräten', 'Sync on all devices'), L('Handy, Laptop, Tablet – alles ist immer da', 'Phone, laptop, tablet – everything’s always there')],
@@ -81,7 +81,7 @@ export function cancelFlow({ trial = false, end = 0 } = {}) {
     const onKey = e => { if (e.key === 'Escape') close(false); };
     const day = t => t ? new Date(t).toLocaleDateString(L('de-DE', 'en-GB'), { day: 'numeric', month: 'long' }) : '';
     const LOSE = [
-      ['chat', L('Max ohne Tageslimit', 'Max without a daily limit'), L('Zurück auf 40 Einheiten pro Tag', 'Back to 40 credits a day')],
+      ['chat', L('Deutlich höhere Tageslimits', 'Much higher daily limits'), L('Zurück zu den normalen Free-Limits', 'Back to the normal free limits')],
       ['exam', L('Probeklausuren', 'Mock exams'), L('Fallen weg', 'Gone')],
       ['pod', L('Längere Podcasts', 'Longer podcasts'), L('Fallen weg', 'Gone')],
       ['refresh', L('Sync auf allen Geräten', 'Sync on all devices'), L('Fällt weg', 'Gone')],

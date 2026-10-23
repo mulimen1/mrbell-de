@@ -244,6 +244,31 @@ export async function askNick() {
   setNick(c.nick, a); onAccountRefresh();
   if (c.nick) greetSplash(c.nick);
 }
+// Studenten-Promocode: Einlösen im Konto (geprüft wird nur auf dem Server)
+export function promoBox(a) {
+  if (a && a.promoUntil) return h('div', { class: 'promo promo-on' }, h('span', { class: 'promo-ic', html: ico('check') }),
+    h('p', {}, L(`Dein kostenloser Pro-Zugang endet am ${fmtDate(a.promoUntil)}. Danach kannst du BWL Max weiterhin kostenlos nutzen.`, `Your free Pro access ends on ${fmtDate(a.promoUntil)}. After that you can keep using BWL Max for free.`)));
+  if (!a || a.pro) return null;
+  const inp = h('input', { class: 'promo-in', type: 'text', autocomplete: 'off', autocapitalize: 'characters', spellcheck: 'false', maxlength: 24, placeholder: L('Promocode eingeben', 'Enter promo code'), 'aria-label': L('Promocode', 'Promo code') });
+  const msg = h('p', { class: 'promo-msg', role: 'status' });
+  const btn = h('button', { class: 'btn primary promo-btn', type: 'submit' }, L('Code einlösen', 'Redeem code'));
+  const box = h('form', { class: 'promo', onsubmit: async e => {
+    e.preventDefault(); const code = inp.value.trim(); if (!code) { inp.focus(); return; }
+    btn.disabled = true; msg.className = 'promo-msg'; msg.textContent = '';
+    try {
+      const r = await ask('promo', { opts: { code } });
+      if (r.account) setAccount(r.account);
+      box.replaceChildren(h('span', { class: 'promo-ic', html: ico('check') }), h('div', {},
+        h('b', {}, L(`Geschafft! Du hast ${r.days} Tage kostenlosen Zugang zu BWL Max Pro freigeschaltet.`, `Done! You’ve unlocked ${r.days} days of free access to BWL Max Pro.`)),
+        h('p', {}, L(`Bis ${fmtDate(r.until)}. Danach nutzt du BWL Max automatisch im kostenlosen Free-Tarif weiter. Kein Abo, keine Kreditkarte, keine Verpflichtungen.`, `Until ${fmtDate(r.until)}. After that you automatically continue on the free plan. No subscription, no credit card, no commitment.`))));
+      box.classList.add('promo-on');
+    } catch (er) { msg.className = 'promo-msg err'; msg.textContent = er.message || L('Hat nicht geklappt.', 'That didn’t work.'); btn.disabled = false; }
+  } },
+    h('div', { class: 'promo-h' }, h('b', {}, L('Studenten-Promocode', 'Student promo code')),
+      h('small', {}, L('Du hast einen Promocode von deiner Uni oder Fachschaft erhalten? Löse ihn hier ein und sichere dir kostenlosen Zugang zu BWL Max Pro.', 'Got a promo code from your university or student council? Redeem it here for free access to BWL Max Pro.'))),
+    h('div', { class: 'promo-row' }, inp, btn), msg);
+  return box;
+}
 function onAccountRefresh() { const a = getAccount(); if (a) setAccount(Object.assign({}, a)); }
 
 export async function openAccount() {
@@ -255,7 +280,8 @@ export async function openAccount() {
     h('div', { class: 'accrow' }, h('span', {}, L('Passwort', 'Password')), h('b', {}, a.hasPw === false ? L('noch nicht festgelegt', 'not set yet') : '••••••••', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); openLogin({ mode: 'reset', title: a.hasPw === false ? L('Passwort festlegen', 'Set a password') : L('Passwort ändern', 'Change password') }); } }, a.hasPw === false ? L('festlegen', 'set') : L('ändern', 'change')))),
     h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? h('span', {}, h('span', { class: 'ic-chip' }, h('span', { class: 'ic-lt' }, 'Inner Circle')), L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(proEnd(a))})`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(proEnd(a))})`)) : [L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'), ' ', h('button', { class: 'linkbtn', type: 'button', onclick: planSwitch }, L('wechseln', 'change'))])),
     aboRow(a),
-    h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))));
+    h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))),
+    promoBox(a));
   const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Deine Skripte bleiben auf diesem Gerät. Bei uns liegen deine E-Mail-Adresse und dein verschlüsseltes Passwort.', 'Your slides stay on this device. We store your email address and your encrypted password.'), body,
     actions: [{ label: L('Konto löschen', 'Delete account'), value: 'del' }, { label: L('Abmelden', 'Sign out'), value: 'out' }, { label: L('Fertig', 'Done'), value: null, primary: true }] });
   if (r === 'out') { try { await ask('logout'); } catch (e) {} setAccount(null, null); toast(L('Abgemeldet. Max wartet.', 'Signed out. Max will wait.')); location.hash = '#/'; }
