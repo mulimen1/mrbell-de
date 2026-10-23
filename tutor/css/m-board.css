@@ -501,8 +501,8 @@ html.bm-entryb .rm-bar .m-dcards:hover { box-shadow: 0 3px 0 var(--ink); }
 .tafel .m-ladcta:active { transform: translateY(3px); box-shadow: 0 1px 0 #23964f; }
 .tafel .m-ladcta span { font-size: 17px; }
 /* Klausurpfad im Marken-Dunkelgrün (Kragenfarbe) statt Hellgrün */
-.m-ladn, .m-ladn.cur, .m-ladn.lock { background: var(--bmT); color: #12291e; box-shadow: 0 5px 0 #c2d3c9; }
-.m-ladn.cur { box-shadow: 0 5px 0 #c2d3c9, 0 0 0 3px var(--bmA); }
+.m-ladn, .m-ladn.cur, .m-ladn.lock { background: var(--bmT); color: var(--bmC); box-shadow: 0 5px 0 color-mix(in srgb, var(--bmB) 22%, var(--panel)); }
+.m-ladn.cur { box-shadow: 0 5px 0 color-mix(in srgb, var(--bmB) 22%, var(--panel)), 0 0 0 3px var(--bmA); }
 .m-ladn.ok, .m-ladn.m-ladz.ok, .m-ladn.m-lad0.ok { background: var(--bmA); color: #fff; box-shadow: 0 5px 0 var(--bmB); }
 .m-ladn.ok, .m-ladn.m-ladz.ok { animation-name: mladglow4; }
 .m-ladn.ok.fresh { animation: mladpop .6s cubic-bezier(.34,1.56,.64,1) .6s both, mladglow4 2.6s ease-in-out 1.3s infinite; }
@@ -510,10 +510,10 @@ html.bm-entryb .rm-bar .m-dcards:hover { box-shadow: 0 3px 0 var(--ink); }
 .m-ladfx i, .m-ladz .m-ladfx i { background: var(--bmA); }
 .m-ladl.on { box-shadow: 0 0 10px color-mix(in srgb, var(--bmA) 35%, transparent); }
 .m-ladl.on i { background: linear-gradient(90deg, var(--bmA), var(--bmA)); }
-.m-ladl.next i { background: #a9c4b5; }
+.m-ladl.next i { background: color-mix(in srgb, var(--bmA) 38%, var(--panel)); }
 .tafel .m-lad.done { border-color: var(--bmA); box-shadow: 0 0 0 3px color-mix(in srgb, var(--bmA) 15%, transparent); }
-.tafel .m-ladcta { background: linear-gradient(180deg, var(--bmA), var(--bmB)); box-shadow: 0 3px 0 #12291e; }
-.tafel .m-ladcta:active { box-shadow: 0 1px 0 #12291e; }
+.tafel .m-ladcta { background: linear-gradient(180deg, var(--bmA), var(--bmB)); box-shadow: 0 3px 0 var(--bmC); }
+.tafel .m-ladcta:active { box-shadow: 0 1px 0 var(--bmC); }
 
 /* Mini-Check auf Themenseiten: 3 Fragen, Ergebnis sofort, Auflösung mit Konto */
 .tafel .m-mc { margin: 22px 0 26px; padding: 20px 20px 18px; border-radius: 22px; border: 2px solid var(--bmA); background: linear-gradient(180deg, var(--bmT2), var(--panel)); box-shadow: 0 3px 0 var(--bmB); }
