@@ -51,18 +51,14 @@ function place() {
     dock.classList.add('row'); dock.classList.toggle('hide', !on);
     if (rr && rr.width > 100) {
       // „Verlauf ansehen“ sitzt auch über dem Chatfeld – dann kommen Rechner/Lexikon eine Reihe darüber
-      let top = rr.top;
       const mh = document.querySelector('.asst.open .m-hist:not([hidden])'), hr = mh && getComputedStyle(mh).display !== 'none' && mh.getBoundingClientRect();
       if (hr && hr.height) {   // gleiche Reihe wie „Verlauf“: links Verlauf, rechts Rechner/Lexikon
-        dock.style.right = Math.round(Math.max(8, innerWidth - rr.right + 6)) + 'px'; dock.style.bottom = Math.round(innerHeight - hr.bottom) + 'px'; return;
+        dock.style.right = Math.round(Math.max(8, innerWidth - rr.right + 6)) + 'px'; dock.style.bottom = Math.round((parseFloat(getComputedStyle(isl).bottom) || 0) + isl.offsetHeight + Math.max(0, rr.top - hr.bottom)) + 'px'; return;
       }
-      // Max' letzte Antwort steht über dem Chatfeld: Knöpfe darüber; ist der ganze Verlauf offen (lang), Knöpfe ausblenden
-      const bubs = [...document.querySelectorAll('.asst .ai-feed .ai-bub')].filter(b => b.offsetParent && getComputedStyle(b).visibility !== 'hidden' && getComputedStyle(b).opacity !== '0').map(b => b.getBoundingClientRect()).filter(r => r.height > 10 && r.bottom > 0 && r.top < innerHeight);
-      if (bubs.length) { const ft = Math.min(...bubs.map(r => r.top)); if (ft < innerHeight * 0.32) { dock.classList.add('hide'); return; } top = Math.min(top, ft); }
-      // Max' Schließen-Knopf (rechts über dem Chatfeld) darf nicht über Rechner/Lexikon liegen – Knöpfe darüber
-      const px = document.querySelector('.asst .m-pmax'), pr = px && getComputedStyle(px).display !== 'none' && px.getBoundingClientRect();
-      if (pr && pr.height && pr.bottom > top - 52 && pr.top < top) top = Math.min(top, pr.top);
-      dock.style.right = Math.round(Math.max(8, innerWidth - rr.right + 6)) + 'px'; dock.style.bottom = Math.round(innerHeight - top + 8) + 'px';
+      // Fest über dem Chatfeld verankert (aus Layout-Werten, nicht aus der Bildschirmlage): springt nicht beim Ziehen/Scrollen
+      // und nicht, wenn Safari seine Leisten ein- oder ausblendet
+      const ib = parseFloat(getComputedStyle(isl).bottom) || 0;
+      dock.style.right = Math.round(Math.max(8, innerWidth - rr.right + 6)) + 'px'; dock.style.bottom = Math.round(ib + isl.offsetHeight + 8) + 'px';
     }
     return;
   }
