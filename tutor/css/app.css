@@ -4760,3 +4760,19 @@ body:has(.modal-bg) .dk { visibility: hidden; }
   .featrow[data-in].in .feat.big:hover { transform: translateY(-3px); }
 }
 .featrow[data-in].in .feat:active { transform: scale(.97) !important; }
+
+/* Zahnrad „Max einstellen“ am Eingabefeld: schwarz, clean, fällt auf ohne zu stören (nur mit Konto) */
+.ai-cfg { flex: none; width: 38px; height: 38px; margin-left: 4px; display: grid; place-items: center; padding: 0; border: 1.5px solid var(--ink); border-radius: 50%; background: var(--panel); color: var(--ink); cursor: pointer; transition: transform .25s var(--spring, ease), background-color .18s, color .18s; }
+.ai-cfg svg { width: 19px; height: 19px; transition: transform .5s var(--spring, ease); }
+@media (hover: hover) and (pointer: fine) { .ai-cfg:hover { background: var(--ink); color: var(--bg); transform: translateY(-1px); } .ai-cfg:hover svg { transform: rotate(60deg); } }
+.ai-cfg:active { transform: scale(.94); }
+html.bm-guest .ai-cfg { display: none; }
+@media (max-width: 600px) { .ai-cfg { width: 34px; height: 34px; margin-left: 2px; } .ai-cfg svg { width: 17px; height: 17px; } }
+
+/* Seitenleiste: Werkzeuge größer, schwarz, kräftige Icons; Schriftzug oben größer */
+.side-tools .doc-item { font-size: 15.5px; font-weight: 620; padding: 10px 10px; gap: 12px; color: var(--ink); border-radius: 12px; transition: background-color .15s, transform .2s var(--spring, ease); }
+.side-tools .doc-item .ico { width: 21px; height: 21px; opacity: 1; color: var(--ink); stroke-width: 2; }
+@media (hover: hover) and (pointer: fine) { .side-tools .doc-item:hover { background: var(--panel2); transform: translateX(2px); } }
+.side .top .brand { font-size: 21px; gap: 10px; letter-spacing: -.02em; }
+.side .top .brand .mini { width: 36px !important; height: 36px !important; }
+button.view-back { cursor: pointer; font: 600 13.5px var(--sans); color: var(--ink); background: var(--panel); }

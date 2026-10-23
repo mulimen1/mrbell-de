@@ -36,6 +36,9 @@ const VIEWS = {
 
 let shell = null;
 let current = { key: '', cleanup: null };
+// Vorherige Seite (für „Zurück“ auf Seiten ohne Reiter)
+let prevHash = '', curHash = location.hash;
+addEventListener('hashchange', () => { prevHash = curHash; curHash = location.hash; });
 let asstMod = null;   // schwebender Max (für den Kopf-Flug zwischen Tutor-Raum und unten rechts)
 
 // Alles, was „mit Max reden“ heißt, läuft über den schwebenden Max (wenn er nicht ausgeblendet ist)
@@ -277,7 +280,10 @@ export async function mountApp(parts) {
   shell.backEl.hidden = !back;
   if (back) { shell.backEl.href = back.href; shell.backEl.title = L('Zurück zu ', 'Back to ') + back.label; shell.backEl.lastChild.textContent = back.label; }
   const backLink = () => h('a', { class: 'view-back', href: back ? back.href : '#/app/lernen' }, h('span', { html: ico('left') }), L('Zurück zu ', 'Back to ') + (back ? back.label : L('Lernen', 'Learn')));
-  const page = (key, ttl, fn) => { docbar(false); shell.title.textContent = ttl; document.title = ttl + ' · BWL Max'; renderList(); return show(key, fromLearn && !(a === 'rechner' && b) ? async root => { const c2 = await fn(root); if (backTarget() && root.isConnected && !root.querySelector('.view-back')) root.prepend(backLink()); return c2; } : fn); };
+  // Seiten ohne eigenen Reiter oben (z. B. Fortschritt, Stundenplan): immer ein „Zurück“ dorthin, wo man herkam
+  const NAVA = ['lernen', 'mitschrift', 'faecher', 'bibliothek', 'video', 'zahlen', 'tutor', 'neu'];
+  const genBack = () => h('button', { class: 'view-back', type: 'button', onclick: () => { const p = prevHash; location.hash = p && p !== location.hash ? p : '#/app/tutor'; } }, h('span', { html: ico('left') }), L('Zurück', 'Back'));
+  const page = (key, ttl, fn) => { docbar(false); shell.title.textContent = ttl; document.title = ttl + ' · BWL Max'; renderList(); return show(key, fromLearn && !(a === 'rechner' && b) ? async root => { const c2 = await fn(root); if (backTarget() && root.isConnected && !root.querySelector('.view-back')) root.prepend(backLink()); return c2; } : !NAVA.includes(a) ? async root => { const c2 = await fn(root); if (root.isConnected && !root.querySelector('.view-back')) root.prepend(genBack()); return c2; } : fn); };
   if (a === 'trainer') return page('trainer:' + (b || ''), L('BWL-Trainer', 'Business trainer'), async root => {
     const { renderTrainer } = await import('./trainer.js');
     const wrap = h('div', { class: 'view-in' }); root.appendChild(wrap);
