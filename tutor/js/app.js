@@ -306,7 +306,8 @@ export async function mountApp(parts) {
   const SUBS = { me: ['', L('Mein Bereich', 'My space')], faecher: ['faecher', L('Fächer & Noten', 'Subjects & grades')], fortschritt: ['stats', L('Fortschritt', 'Progress')], stundenplan: ['plan', L('Stundenplan', 'Timetable')] };
   if (SUBS[a]) { const [sub, ttl] = SUBS[a]; return page('me:' + sub, ttl, async root => { const { render } = await import('./views/me.js'); return render(root, { sub, onLogin: () => openLogin({ title: L('Anmelden für deinen Bereich', 'Sign in for your space') }) }); }); }
   // Neuer Stoff: läuft gerade Upload/Kurzskript, zeigt das die Seite schon; direkt geöffnet (Neuladen, Link) → Upload-Seite
-  if (a === 'neu') { docbar(false); if (current.key === 'ingest' || current.key === 'topic') return; return page('neu', L('Neuer Stoff', 'Add material'), async root => { emptyState(root); }); }
+  // Kein Upload mehr aktiv (z. B. per Zurück-Taste oder nach Abbruch hierher): nicht auf der leeren Upload-Seite landen, sondern zurück in den Tutor
+  if (a === 'neu') { docbar(false); if (current.key === 'ingest' || current.key === 'topic') return; location.replace('#/app/tutor'); return; }
   // „Max“ im Skript = Tutor-Raum mit genau diesem Skript
   if (b === 'tutor' && S.list.some(d => d.id === a)) { ls.set('tutor.room.focus', [a]); ls.set('tutor.room.focusAt', Date.now()); location.replace('#/app/tutor'); return; }
   if (!S.doc || S.doc.id !== a) {
