@@ -4777,3 +4777,7 @@ button.view-back { cursor: pointer; font: 600 13.5px var(--sans); color: var(--i
 
 /* Akzentfarbe: alle grünen Flächen (Icon-Felder, Menü-Knopf, Tafel öffnen, Mini-Check …) folgen der gewählten Farbe */
 :root { --bmB: var(--inv); --bmA: color-mix(in srgb, var(--inv) 82%, #fff); --bmC: color-mix(in srgb, var(--inv) 72%, #000); --bmT: color-mix(in srgb, var(--inv) 13%, var(--panel)); --bmT2: color-mix(in srgb, var(--inv) 5%, var(--panel)); }
+/* Lernskills-Knopf in der gewählten Farbe */
+.rm-skt { border-color: var(--bmB); background: var(--bmT); color: var(--bmB); box-shadow: 0 3px 0 var(--bmB); }
+.rm-skt:hover { box-shadow: 0 5px 0 var(--bmB); }
+.rm-skopen .rm-skt { background: var(--bmB); color: var(--onInv); }
