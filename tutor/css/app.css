@@ -4724,3 +4724,10 @@ body:has(.modal-bg) .dk { visibility: hidden; }
   .nav .brand .bn { grid-column: 2; grid-row: 1; line-height: 1; align-self: end; }
   .nav .brand small { grid-column: 2; grid-row: 2; justify-self: start; align-self: start; display: inline-block; line-height: 1.2; font-size: 9.5px; padding: 1px 5px; }
 }
+/* Handy: „Tutor“ auf Grün weiß; Max unten rechts deutlich größer */
+@media (max-width: 760px) {
+  html:not(.bm-guest) .tn.tn-tutor, html:not(.bm-guest) .tn.tn-tutor:hover { color: var(--onInv); }
+  .asst-bub { width: 112px !important; height: 112px !important; border-width: 1.5px; box-shadow: 0 18px 44px -16px rgba(0,0,0,.5), var(--shadow); }
+  .asst-bub .asst-bf { width: 90px !important; height: 90px !important; margin-top: 8px !important; }
+  .app .view-in { padding-bottom: 150px; }
+}
