@@ -117,7 +117,22 @@ function buildShell() {
   // Handy: statt Leiste unten kleine Knöpfe rechts oben – Tools, (Suche = palBtn), Konto
   const accBtn = h('button', { class: 'm-act m-acc', type: 'button', 'aria-label': L('Konto', 'Account'), html: ico('lock'), onclick: () => getAccount() ? openAccount() : openAuth() });
   const mActs = h('div', { class: 'm-acts' }, h('button', { class: 'm-act m-tools', type: 'button', 'aria-label': 'Tools', html: ico('sidebar'), onclick: () => app.classList.toggle('sideopen') }), accBtn);
-  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn, mActs, topset), docbar, view);
+  // Laptop: oben rechts nur EIN grüner Knopf – klappt ein kleines Menü in der Ecke auf (Suchen, Fortschritt, Max einstellen, Feedback, Sprache, Farbe, Hell/Dunkel)
+  const cPanel = h('div', { class: 'tc-panel', role: 'menu', hidden: true });
+  const cBtn = h('button', { class: 'tc-btn', type: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false', 'aria-label': L('Menü', 'Menu'), title: L('Suchen, Fortschritt, Einstellungen', 'Search, progress, settings'), html: ico('menu') });
+  const cSet = v => { cPanel.hidden = !v; cBtn.setAttribute('aria-expanded', String(v)); cBtn.classList.toggle('on', v); };
+  const cRow = (ic, label, fn, extra) => h('button', { class: 'tc-row', type: 'button', role: 'menuitem', onclick: () => { cSet(false); fn(); } }, h('span', { class: 'tc-ic', html: ico(ic) }), h('span', {}, label), extra || null);
+  cPanel.append(
+    cRow('search', L('Suchen', 'Search'), () => import('./palette.js').then(m => m.openPalette()), h('kbd', {}, /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Strg K')),
+    cRow('trophy', L('Fortschritt', 'Progress'), () => { location.hash = '#/app/fortschritt'; }),
+    cRow('tune', L('Max einstellen', 'Configure Max'), () => import('./maxcfg.js').then(m => m.openMaxCfg())),
+    cRow('chat', L('Feedback geben', 'Give feedback'), () => openFeedback()),
+    h('div', { class: 'tc-set' }, h('span', { class: 'tc-setl' }, L('Sprache · Farbe · Modus', 'Language · colour · mode')), h('div', { class: 'tc-setc' }, langSwitch(), h('button', { class: 'iconbtn', type: 'button', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }))));
+  cBtn.addEventListener('click', e => { e.stopPropagation(); cSet(cPanel.hidden); });
+  document.addEventListener('click', e => { if (!cPanel.hidden && !e.target.closest('.tcorner')) cSet(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !cPanel.hidden) cSet(false); });
+  const tcorner = h('div', { class: 'tcorner' }, cBtn, cPanel);
+  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn, mActs, topset, tcorner), docbar, view);
   const bbar = bottomBar(() => app);
   const app = h('div', { class: 'app' + (ls.get('tutor.sideClosed', false) ? ' side-closed' : '') }, side, main, bbar);
   function setSide(open) { app.classList.toggle('side-closed', !open); ls.set('tutor.sideClosed', !open); sideBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }

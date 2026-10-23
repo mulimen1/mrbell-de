@@ -4588,7 +4588,44 @@ html.bm-guest .rm-bar .rm-skb, html.bm-guest .rm-bar .rm-end-b, html.bm-guest .t
 .rm-skt { display: inline-flex; align-items: center; gap: 9px; height: 46px; padding: 0 18px 0 16px; border-radius: 999px; border: 2px solid var(--ink); background: var(--panel); color: var(--ink); font: 700 15px var(--sans); cursor: pointer; box-shadow: 0 2px 0 var(--ink); }
 .rm-skt .ico { width: 18px; height: 18px; }
 .rm-skt:hover { box-shadow: 0 3px 0 var(--ink); }
-.rm-skc { transition: transform .2s; font-size: 13px; }
-.rm-skopen .rm-skc { transform: rotate(180deg); }
+.rm-sktc { transition: transform .2s; font-size: 13px; }
+.rm-skopen .rm-sktc { transform: rotate(180deg); }
 .rm-skb2 { display: none; width: 100%; }
 .rm-skopen .rm-skb2 { display: grid; gap: 10px; justify-items: center; animation: rmup .35s cubic-bezier(.16,1,.3,1) both; }
+
+/* ===== Laptop: größere, ruhigere obere Leiste – rechts nur ein grüner Menü-Knopf ===== */
+.tcorner { display: none; }
+@media (min-width: 761px) {
+  .topbar { height: 68px; gap: 14px; padding: 0 20px; }
+  .rm-bar { height: 68px; right: 88px; }
+  .topbar .pal-btn, .topbar .topset { display: none !important; }
+  .topnav { gap: 4px; }
+  .tn { height: 46px; padding: 0 16px; gap: 9px; font-size: 17px; font-weight: 650; }
+  .tn .ico { width: 21px; height: 21px; }
+  .tn.tn-tutor { padding: 0 20px 0 6px; gap: 10px; }
+  .tn-face { width: 34px; height: 34px; }
+  .tn-b { width: 22px; height: 22px; }
+  .tn-new { font-size: 11px; padding: 4px 7px; }
+  .side-tog { width: 44px; height: 44px; } .side-tog .ico { width: 22px; height: 22px; }
+  .tcorner { display: block; position: relative; margin-left: auto; flex: none; }
+  .tc-btn { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 999px; border: 0; cursor: pointer; color: #fff; background: linear-gradient(180deg, #356e52, #1f4834); box-shadow: 0 3px 0 #163626, 0 10px 22px -12px rgba(31,72,52,.7); }
+  .tc-btn .ico { width: 22px; height: 22px; }
+  .tc-btn:hover, .tc-btn.on { filter: brightness(1.1); }
+  .tc-panel { position: absolute; z-index: 200; top: calc(100% + 10px); right: 0; width: 290px; padding: 8px; border-radius: 20px; background: var(--panel); border: 1px solid var(--line2); box-shadow: 0 24px 60px -20px rgba(0,0,0,.35); transform-origin: top right; animation: tcIn .18s cubic-bezier(.16,1,.3,1) both; }
+  .tc-panel[hidden] { display: none; }
+  .tc-row { width: 100%; display: flex; align-items: center; gap: 12px; height: 46px; padding: 0 12px; border: 0; border-radius: 13px; background: none; color: var(--ink); font: 650 15px var(--sans); cursor: pointer; text-align: left; }
+  .tc-row:hover { background: var(--panel2); }
+  .tc-row kbd { margin-left: auto; font: 500 11px/1 var(--mono); padding: 4px 6px; border-radius: 6px; border: 1px solid var(--line2); color: var(--mute); }
+  .tc-ic { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: #e2ebe6; color: #1f4834; flex: none; } .tc-ic .ico { width: 17px; height: 17px; }
+  .tc-set { margin-top: 6px; padding: 12px 12px 6px; border-top: 1px solid var(--line); }
+  .tc-setl { display: block; font: 600 11px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); margin-bottom: 8px; }
+  .tc-setc { display: flex; align-items: center; gap: 8px; }
+  html.bm-guest .tcorner { display: none; }
+  html.bm-guest .rm-bar { right: 18px; }
+  /* Tutor-Startseite oben rechts: nur Flamme + Skripte-Heft (Fortschritt & Einstellungen sind im grünen Menü) */
+  .rm-corner .rm-prog, .rm-corner .rm-gear { display: none !important; }
+  .rm-corner { display: flex; gap: 8px; align-items: center; }
+  .rm-corner .rm-skl, .rm-corner .rm-skc { display: none; }
+  .rm-corner .rm-skb { padding: 0 12px; }
+}
+@keyframes tcIn { from { opacity: 0; transform: scale(.94) translateY(-4px); } to { opacity: 1; transform: none; } }
