@@ -48,7 +48,7 @@ export const ACCENTS = [
 ];
 const ACC_KEY = 'tutor.accent';
 // Gelb (nur für den TikTok-Sketch) gibt's nicht mehr – wer es noch gespeichert hat, bekommt wieder die Standardfarbe
-try { if (document.documentElement.dataset.accent === 'gelb' || localStorage.getItem(ACC_KEY) === 'gelb') { document.documentElement.dataset.accent = 'gruen'; localStorage.setItem(ACC_KEY, 'gruen'); document.documentElement.dataset.outfit = 'gruen'; } } catch (e) {}
+try { if (document.documentElement.dataset.accent === 'gelb' || localStorage.getItem(ACC_KEY) === 'gelb') { document.documentElement.dataset.accent = 'navy'; localStorage.setItem(ACC_KEY, 'navy'); document.documentElement.dataset.outfit = 'navy'; } } catch (e) {}
 export const getAccent = () => document.documentElement.dataset.accent || '';
 function showAccent(id) { const H = document.documentElement; if (id) H.dataset.accent = id; else delete H.dataset.accent; }
 const remember = id => { try { localStorage.setItem(ACC_KEY, id || 'std'); } catch (e) {} };
