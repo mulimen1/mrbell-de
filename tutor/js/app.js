@@ -240,6 +240,14 @@ export async function mountApp(parts) {
   // Gemerkt wohnt jetzt in der Bibliothek
   if (a === 'gemerkt') { location.replace('#/app/bibliothek/gemerkt'); return; }
   if (a === 'me' && b && OLD[b]) { location.replace('#/app/' + OLD[b]); return; }
+  // Ohne Konto gibt's nur den Tutor-Raum (Themen-Tafel + Max). Jeder andere Bereich: erst kostenloses Konto, danach geht's genau dorthin
+  if (!getAccount() && a && a !== 'tutor' && !(a === 'me' && !b)) {
+    const want = '#/app/' + parts.filter(Boolean).join('/');
+    location.replace('#/app/tutor');
+    openAuth({ title: L('Kostenloses Konto – dann geht’s weiter', 'Free account – then you’re in'), registerTitle: L('Kostenloses Konto – dann geht’s weiter', 'Free account – then you’re in'), sub: L('Mit Google in zwei Klicks. Alles, was du schon gemacht hast, bleibt erhalten.', 'Two clicks with Google. Everything you did stays.'), why: 'Bereich' })
+      .then(ok => { if (ok && getAccount()) location.hash = want; }).catch(() => {});
+    return;
+  }
   // Aus „Lernen“ gekommen? Dann gibt’s oben „← Lernen“ – bis man woanders hin wechselt
   if (!a || ['tutor', 'faecher', 'mitschrift', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen', 'zahlen', 'video'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
   const back = backTarget(), fromLearn = !!back;
@@ -276,14 +284,6 @@ export async function mountApp(parts) {
     // Handy ohne Konto: der große Tutor-Raum ist der Konto-Moment (Themenseiten und Max unten rechts bleiben frei)
     if (!ls.get('tutor.pendingAsk', null) && !/(^|\s)(m-boardpage|m-eboot)(\s|$)/.test(document.documentElement.className)) import('./roomlock.js').then(m => m.lockRoom()).catch(() => {});
     return page('room', 'Tutor', async root => { const { render } = await import('./views/room.js'); return render(root, { arrive }); });
-  }
-  // Ohne Konto gibt's nur den Tutor-Raum (Themen-Tafel + Max). Jeder andere Bereich: erst kostenloses Konto, danach geht's genau dorthin
-  if (!getAccount()) {
-    const want = '#/app/' + parts.filter(Boolean).join('/');
-    location.replace('#/app/tutor');
-    openAuth({ title: L('Kostenloses Konto – dann geht’s weiter', 'Free account – then you’re in'), registerTitle: L('Kostenloses Konto – dann geht’s weiter', 'Free account – then you’re in'), sub: L('Mit Google in zwei Klicks. Alles, was du schon gemacht hast, bleibt erhalten.', 'Two clicks with Google. Everything you did stays.'), why: 'Bereich' })
-      .then(ok => { if (ok && getAccount()) location.hash = want; }).catch(() => {});
-    return;
   }
   // Mein Bereich (nur Heute) und die festen Bereiche oben
   const SUBS = { me: ['', L('Mein Bereich', 'My space')], faecher: ['faecher', L('Fächer & Noten', 'Subjects & grades')], fortschritt: ['stats', L('Fortschritt', 'Progress')], stundenplan: ['plan', L('Stundenplan', 'Timetable')] };
