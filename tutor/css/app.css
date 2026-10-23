@@ -4674,3 +4674,5 @@ body:has(.modal-bg) .dk { visibility: hidden; }
   .tn-vid:hover .tn-b:nth-child(2) { transition-delay: .04s; } .tn-vid:hover .tn-b:nth-child(3) { transition-delay: .08s; }
 }
 @media (prefers-reduced-motion: reduce) { .tn, .tn > span, .tn-b { transition: none !important; transform: none !important; } }
+/* Hover-Anheben wurde oben abgeschnitten (Navigation scrollt seitlich und schneidet sonst auch vertikal ab) – Luft geben */
+@media (min-width: 761px) { .topnav { padding: 10px 4px; margin: -10px 0; align-self: stretch; } }
