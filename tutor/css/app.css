@@ -4629,3 +4629,13 @@ html.bm-guest .rm-bar .rm-skb, html.bm-guest .rm-bar .rm-end-b, html.bm-guest .t
   .rm-corner .rm-skb { padding: 0 12px; }
 }
 @keyframes tcIn { from { opacity: 0; transform: scale(.94) translateY(-4px); } to { opacity: 1; transform: none; } }
+
+/* Navigation: Kontrast statt Größe – schwarze Schrift, Icons in kleinen grünen Feldern */
+@media (min-width: 761px) {
+  .tn:not(.tn-tutor) { color: var(--ink); font-size: 16px; font-weight: 650; padding: 0 14px 0 6px; gap: 10px; }
+  .tn:not(.tn-tutor) > span:has(> .ico) { width: 32px; height: 32px; border-radius: 10px; background: #e2ebe6; color: #1f4834; }
+  .tn:not(.tn-tutor) .ico { width: 17px; height: 17px; }
+  .tn:not(.tn-tutor):hover > span:has(> .ico), .tn.on:not(.tn-tutor) > span:has(> .ico) { background: #1f4834; color: #fff; }
+}
+@media (min-width: 761px) and (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tn:not(.tn-tutor) > span:has(> .ico) { background: rgba(83,160,120,.22); color: #a9dcc0; } }
+@media (min-width: 761px) { :root[data-theme="dark"] .tn:not(.tn-tutor) > span:has(> .ico) { background: rgba(83,160,120,.22); color: #a9dcc0; } }
