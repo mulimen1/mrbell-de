@@ -1343,7 +1343,7 @@ export function mountAssistant() {
     // Gesprochene Antwort mit Tafel (Laptop): danach spricht Max die Tafel-Schritte selbst, der Cursor zeigt nur mit –
     // weiter zuhören erst, wenn er damit fertig ist
     vTour = false;   // Tafel-Führung startet nur noch per Klick auf den Cursor-Button (sonst zu viel auf einmal)
-    if (vTour) boardSteps(t).forEach(st => prefetchSpeech(st.say));
+    if (vTour && autoVoice()) boardSteps(t).forEach(st => prefetchSpeech(st.say));
     if (willSpeak) {
       await speak(ex.voice || p.text, my, txt, t, ex);   // Sketch: eigene Aussprache-Fassung möglich (z. B. „Proff“ statt „Prof.“)
     } else {
@@ -1359,7 +1359,10 @@ export function mountAssistant() {
   // ---------- Max-Cursor: Tafel Block für Block erklären, oder echte Stellen der Seite zeigen ----------
   function curStart() { const rf = STAGE ? [...document.querySelectorAll('.room .rm-fs')].find(e => e.getBoundingClientRect().width > 0) : null; const r = (rf || (open ? fEl : bubFace)).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height * .4 }; }
   // Max spricht einen Cursor-Schritt (gleiche Stimme, gleicher Zwischenspeicher wie die Antwort)
+  // Nie ungefragt vorlesen: Max spricht nur, wenn man selbst per Stimme mit ihm redet (oder im Creator Mode)
+  const autoVoice = () => viaVoice || Creator.active();
   async function sayStep(text) {
+    if (!autoVoice()) return;
     const my = gen;
     for (const c of speechChunks(speakMath(text, getOutLang() === 'en').slice(0, 600))) {
       let url; try { url = await (TTSC.get(c) || ttsUrl(c)); } catch (e) { return; }
@@ -1375,7 +1378,7 @@ export function mountAssistant() {
     hideQuip();
     const dockAt = () => (STAGE || open ? isl : bub).getBoundingClientRect();
     return tour(steps, Object.assign({ startAt: curStart(), dockAt, onAsk: ref => { if (!open) setOpen(true); setRef(ref); setTyping(true); } },
-      spoken ? { voice: sayStep, onEnd: () => { vTour = false; try { audio.pause(); } catch (e) {} setState('idle'); if (spoken !== 'klick') afterAnswer(); } } : {}));
+      spoken && autoVoice() ? { voice: sayStep, onEnd: () => { vTour = false; try { audio.pause(); } catch (e) {} setState('idle'); if (spoken !== 'klick') afterAnswer(); } } : {}));
   }
   // „Frage“ in der Cursor-Blase: Max weiß, welche Stelle gemeint ist
   let askRef = null;
