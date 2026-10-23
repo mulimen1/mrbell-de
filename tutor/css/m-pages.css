@@ -144,3 +144,9 @@
   .hero .wrap > .hvid { order: 9; margin-top: 28px; }
 }
 @media (max-width: 760px) { .hero .feat.big .fi { width: auto; min-width: 46px; padding: 0 8px; gap: 3px; } .hero .feat.big { gap: 14px; } }
+/* Handy: unter den Top 3 die übrigen Funktionen als Chips */
+@media (max-width: 760px) {
+  .hero .featrow .featrest { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 14px; }
+  .hero .featrow .featrest .fbreak { display: none; }
+  .hero .featrow .featrest .feat { height: 40px; font-size: 14px; padding: 0 13px 0 10px; }
+}
