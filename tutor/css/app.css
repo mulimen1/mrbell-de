@@ -4781,3 +4781,6 @@ button.view-back { cursor: pointer; font: 600 13.5px var(--sans); color: var(--i
 .rm-skt { border-color: var(--bmB); background: var(--bmT); color: var(--bmB); box-shadow: 0 3px 0 var(--bmB); }
 .rm-skt:hover { box-shadow: 0 5px 0 var(--bmB); }
 .rm-skopen .rm-skt { background: var(--bmB); color: var(--onInv); }
+/* Zahnrad ohne Kreis – nur das Zeichen */
+.ai-cfg { border: 0; background: transparent; border-radius: 10px; }
+@media (hover: hover) and (pointer: fine) { .ai-cfg:hover { background: transparent; color: var(--ink); } }
