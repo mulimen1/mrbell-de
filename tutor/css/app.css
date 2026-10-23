@@ -4559,3 +4559,6 @@ html[data-theme="light"] .zl-host { background: #000; border-radius: 26px; paddi
 .modal-bg.mbg-strong { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: color-mix(in srgb, var(--bg) 45%, transparent); }
 /* Gäste ohne Konto: nur das Wesentliche */
 html.bm-guest .rm-timer, html.bm-guest .rm-streak, html.bm-guest .rm-prog, html.bm-guest .rm-gear, html.bm-guest .rm-skb, html.bm-guest .rm-end-b, html.bm-guest .rm-old, html.bm-guest .pal-btn, html.bm-guest .topset { display: none !important; }
+/* Gäste (v. a. aus Google Ads): nur Navigation links, Tafel, Max, Karteikarten – alles andere ausgeblendet */
+html.bm-guest .rm-bar .rm-timer, html.bm-guest .rm-bar .rm-streak, html.bm-guest .rm-bar .rm-prog, html.bm-guest .rm-bar .rm-gear, html.bm-guest .rm-bar .rm-old,
+html.bm-guest .rm-bar .rm-skb, html.bm-guest .rm-bar .rm-end-b, html.bm-guest .topbar .pal-btn, html.bm-guest .topbar .topset { display: none !important; }
