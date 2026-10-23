@@ -1322,7 +1322,7 @@ export function mountAssistant() {
     let txt = p.text || (p.boards.length ? L('Schau an die Tafel.', 'Look at the board.') : p.cmds.length ? L('Mach ich.', 'On it.') : '…');
     // Themen-Einstieg (z. B. aus Google Ads): erklärt wird nur rechts an der Tafel – links steht nur ein kurzer Satz plus Kontrollfrage, damit man antwortet
     const calm = !!(ex && ex.entry && !ex.exam && p.boards.length);
-    if (calm) { const kq = (txt.match(/Kontrollfrage:?\s*([\s\S]+)$/i) || [])[1]; txt = kq ? L(`Alles Wichtige steht rechts an der Tafel. Wenn du durch bist: ${kq.trim()}`, `Everything’s on the board on the right. When you’re done: ${kq.trim()}`) : L('Alles Wichtige steht rechts an der Tafel. Wenn was hakt, frag mich einfach hier.', 'Everything’s on the board on the right. If something’s unclear, just ask me here.'); }
+    if (calm) { const kq = (txt.match(/Kontrollfrage:\s*([\s\S]+)$/i) || [])[1]; txt = kq ? L(`Alles Wichtige steht rechts an der Tafel. Wenn du durch bist: ${kq.trim()}`, `Everything’s on the board on the right. When you’re done: ${kq.trim()}`) : L('Alles Wichtige steht rechts an der Tafel. Wenn was hakt, frag mich einfach hier.', 'Everything’s on the board on the right. If something’s unclear, just ask me here.'); }
     const aEl = ex.aTx;
     // Tafel(n) auf die Seite – und ins Skript, damit sie auch im Tafel-Tab liegen
     let t = null;
