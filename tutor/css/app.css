@@ -4666,7 +4666,7 @@ body:has(.modal-bg) .dk { visibility: hidden; }
   .tn { transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease, background-color .22s ease; }
   .tn > span:has(> .ico) { transition: transform .25s cubic-bezier(.34,1.56,.64,1), background-color .2s ease, color .2s ease; }
   .tn:not(.tn-tutor):hover { transform: translateY(-2px); background: var(--panel); box-shadow: 0 8px 18px -10px rgba(31,72,52,.45), inset 0 0 0 1px var(--line2); }
-  .tn:not(.tn-tutor):hover > span:has(> .ico) { transform: scale(1.08) rotate(-4deg); }
+  .tn:not(.tn-tutor):hover > span:has(> .ico) { transform: scale(1.08); }
   .tn.tn-tutor:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px rgba(31,72,52,.7); }
   .tn:active { transform: translateY(0) scale(.97); }
   .tn-brands .tn-b { transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
