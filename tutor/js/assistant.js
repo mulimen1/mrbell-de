@@ -1811,7 +1811,11 @@ export function mountAssistant() {
   }
 
   // Wenn eine Tafel offen ist und man woanders hin navigiert: Tafel einklappen statt im Weg zu sein
-  addEventListener('hashchange', () => { if (boardOpen && !boardMin && MOB.matches) minBoard(true, true); });
+  addEventListener('hashchange', () => {
+    const ingest = location.hash === '#/app/neu';   // Upload-Einordnung braucht die ganze Fläche – Tafel und Einstiegs-Chat weg, auch am Laptop
+    if (boardOpen && !boardMin && (MOB.matches || ingest)) minBoard(true, true);
+    if (ingest) { try { setFeedOpen(false); } catch (e) {} root.classList.remove('m-entryb'); syncDCards(); }
+  });
 
   const QUIPS = L([
     ['Daytona, Batman-GMT oder Submariner – welche Rolex steht mir besser?', ['Daytona', 'Batman', 'Submariner'], ['Klassiker. Wie mein Kapitalwert: immer positiv.', 'Mutig. Papa sagt, Blau-Schwarz ist das neue Beige.', 'Zeitlos. Wie die doppelte Buchführung.'], [46, 22, 32]],
