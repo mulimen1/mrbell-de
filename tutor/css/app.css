@@ -4794,3 +4794,26 @@ button.view-back { cursor: pointer; font: 600 13.5px var(--sans); color: var(--i
   html.bm-entryb .rm-bar .m-dcards .m-pbi { background: var(--bmB) !important; color: var(--onInv) !important; border-radius: 10px; }
   html.bm-entryb .rm-bar .m-dcards .m-pbl { color: var(--bmB); }
 }
+
+/* ===== Startseite: Leiste oben größer/prominenter, mehr Farbe (Akzent) ===== */
+#landing .hero h1 .soft { color: var(--bmB); }
+#landing .pagebg .pspot { background: radial-gradient(560px circle at var(--mx, 50%) var(--my, 30%), color-mix(in srgb, var(--bmB) 16%, transparent), transparent 70%); }
+#landing .pagebg .pdots.hi { filter: none; }
+#landing .feat:not(.big) > span:not(.lockb) { color: var(--bmB); }
+#landing .feat:not(.big) { border-color: color-mix(in srgb, var(--bmB) 22%, var(--line2)); }
+@media (min-width: 761px) {
+  #landing .nav { height: 84px; padding: 0 32px; gap: 18px; background: color-mix(in srgb, var(--bg) 92%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--bmB) 14%, var(--line)); box-shadow: 0 10px 30px -24px color-mix(in srgb, var(--bmB) 60%, transparent); }
+  #landing .nav .brand { font-size: 25px; gap: 11px; }
+  #landing .nav .brand .mini { width: 50px; height: 50px; }
+  #landing .nav .brand small { font-size: 11px; padding: 2px 7px; }
+  #landing .nav .links { gap: 6px; margin-left: 28px; }
+  #landing .nav .links a { font-size: 17px; font-weight: 650; color: var(--ink); padding: 9px 14px; border-radius: 10px; }
+  #landing .nav .links a:hover { color: var(--bmB); background: var(--bmT); }
+  #landing .nav .navlogin { font-size: 17px; font-weight: 650; color: var(--ink); padding: 9px 14px; border-radius: 10px; }
+  #landing .nav .navlogin:hover { color: var(--bmB); background: var(--bmT); }
+  #landing .nav .navreg { height: 50px; padding: 0 24px; font-size: 17px; font-weight: 650; border-radius: 999px; box-shadow: 0 4px 0 var(--bmC); }
+  #landing .nav .navreg:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--bmC); }
+  #landing .nav .langsw button { font-size: 14px; padding: 5px 11px; }
+}
+#landing .hero .spot { background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 30%), color-mix(in srgb, var(--bmB) 14%, transparent), transparent 70%); }
+#landing .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(60% 55% at 50% 38%, color-mix(in srgb, var(--bmB) 9%, transparent), transparent 72%); }
