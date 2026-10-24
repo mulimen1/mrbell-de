@@ -1233,6 +1233,8 @@ export function mountAssistant() {
     if (o.sketchKey) { const sk = Creator.keyNext(); if (sk) playSketch(text, sk); return; }
     // Creator Mode (nur Gründer-Konten): Startsatz oder /sketch → feste Szene; danach ist jeder Satz der nächste Schritt
     { await Creator.load(); const sk = Creator.handle(text); if (sk) { playSketch(text, sk); return; } }
+    // Show-Modus zum Filmen (nur Gründer-Konto): „/show“ dunkel, „/show hell“ weiß
+    if (/^\/show\b/i.test(text)) { const z = await import('./views/zahlen.js'); if (z.isAdmin(getAccount())) { const m = await import('./show.js'); inp.value = ''; m.startShow(text.slice(5)); return; } }
     if (!pendingMap && TOURQ.test(text) && route().tab) { pageTour(); return; }
     vTour = false;
     if (tourActive()) pauseTour();   // Frage mitten in der Führung: Max hält an, antwortet, dann geht's per ▶ weiter

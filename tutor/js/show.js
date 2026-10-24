@@ -1,0 +1,359 @@
+// Show-Modus (nur Gründer-Konto): Max zeigt groß und animiert, was BWL Max mit einem Skript macht – zum Filmen.
+// Start im Tutor-Eingabefeld: „/show“ (schwarz/Navy), „/show neon“ oder „/show hell“. Steuerung: Enter/Leertaste/→ weiter, ← zurück,
+// R Szene neu, T hell/dunkel, M Ton aus, Esc beenden. Getippter Text erscheint groß als deine Frage, Enter geht weiter.
+// Inhalte stammen aus dem Skript „Banking and FinTech – Chapter 1: Conceptual foundations“ (HSB). Zahlen nur aus dem Skript.
+import { face } from './face.js';
+import { ask } from './api.js';
+import { getVoice } from './voice.js';
+
+const S = [
+  { id: 'intro', say: 'Banking und FinTech, Kapitel eins? Gib her. Ich hab es gelesen, bevor du Hallo sagen konntest.' },
+  { id: 'scan', say: 'Einundzwanzig Folien. Zehn Begriffe, die in der Klausur kommen. Der Rest ist Deko.' },
+  { id: 'tafel', say: 'Warum gibt es Banken überhaupt? Ohne Bank: fünf mal fünf, also fünfundzwanzig Verträge. Mit Bank: fünf plus fünf, also zehn. Das ist der ganze Trick.' },
+  { id: 'zahlen', say: 'Achtundfünfzig Prozent. Von jedem Euro, den eine deutsche Bank verdient, gehen achtundfünfzig Cent für Kosten drauf. Und die Filialen? Werden jedes Jahr weniger.' },
+  { id: 'mindmap', say: 'Die Transformationsfunktion. Liquidität, Information, Risiko. Wenn du diesen Baum kannst, hast du das halbe Kapitel.' },
+  { id: 'karten', say: 'Karteikarten. Vorne die Frage, hinten die Antwort. Genau so, wie sie in der Klausur gefragt wird.' },
+  { id: 'quiz', say: 'Jetzt du. Drei Fragen. Die dritte ist eine Falle. Natürlich.' },
+  { id: 'mitschrift', say: 'Deine Mitschrift sieht aus wie ein Tatort? Ich mach daraus was, das man lesen kann.' },
+  { id: 'podcast', say: 'Und für die Bahn: sechs Minuten Podcast. Lernen, ohne auf den Bildschirm zu schauen.' },
+  { id: 'sprechen', say: 'Kein Bock zu tippen? Dann red einfach mit mir. Ich hör zu. Meistens.' },
+  { id: 'outro', say: 'Kapitel eins sitzt. Kapitel zwei morgen. Gleiche Uhrzeit.' }
+];
+const TERMS = ['KWG', 'BaFin', 'Kreditinstitut', 'Finanzdienstleistungsinstitut', 'Bankgeschäfte', 'Transformationsfunktion', 'Asymmetrische Information', 'Transaktionskosten', 'Delegated Monitoring', 'Diamond 1984', 'Diversifikation', 'FinTech'];
+const SLIDES = ['Banking and FinTech', 'Structure', 'Key Figures', 'Structure', 'Credit institution (KWG)', 'Banking transactions', 'Financial services institution', 'Financial services §1 1b', 'Scientific concept', 'Assortment-oriented', 'Function-oriented', 'Terminological summary', 'Existence of banks', 'Neoclassical approaches', 'Diamond model', 'Delegated monitoring', 'Diversification', 'Financial services market', 'Structural change', 'Challenges today', 'Preview: FinTech'];
+const CARDS = [
+  ['Was ist ein Kreditinstitut nach § 1 Abs. 1 KWG?', 'Ein Unternehmen, das Bankgeschäfte gewerbsmäßig betreibt. Im Zweifel entscheidet die BaFin.'],
+  ['Was ist ein Finanzdienstleistungsinstitut?', 'Kein Kreditinstitut, erbringt aber gewerbsmäßig Finanzdienstleistungen für andere (§ 1 Abs. 1a KWG).'],
+  ['Delegated Monitoring (Diamond, 1984)?', 'Die Bank überwacht die Kreditnehmer stellvertretend für viele kleine Anleger. Diversifikation senkt ihr eigenes Ausfallrisiko.'],
+  ['Asymmetrische Information?', 'Eine Seite einer Transaktion weiß mehr als die andere – ein Grund, warum es Banken gibt.']
+];
+const QUIZ = [
+  ['Wer entscheidet im Zweifel, ob ein Bankgeschäft vorliegt?', ['BaFin', 'EZB', 'Bundesbank'], 0, 'Steht so in § 1 Abs. 1 KWG.'],
+  ['10 Kapitalnehmer, 10 Kapitalgeber – wie viele Verträge mit einer Bank dazwischen?', ['100', '20', '10'], 1, 'Mit Intermediär n + m = 10 + 10 = 20 statt n × m = 100.'],
+  ['Factoring ist laut KWG …', ['ein Bankgeschäft (§ 1 Abs. 1)', 'eine Finanzdienstleistung (§ 1 Abs. 1a)', 'gar nicht geregelt'], 1, 'Die Falle: Factoring klingt nach Kredit, steht aber bei den Finanzdienstleistungen.']
+];
+
+const CSS = `
+.sh{position:fixed;inset:0;z-index:2147483000;overflow:hidden;font-family:var(--sans,system-ui);cursor:none;
+ --g:#2f5584;--g2:#9db7da;--bg:#000;--ink:#f4f7ff;--mute:#8a93a8;--card:rgba(255,255,255,.05);--line:rgba(140,170,255,.22);--ok:#2fd27a;--no:#ff4d5e;
+ background:radial-gradient(1200px 700px at 70% 30%,rgba(31,58,95,.30),transparent 62%),radial-gradient(900px 600px at 15% 85%,rgba(31,58,95,.18),transparent 60%),#000;color:var(--ink)}
+.sh.light{--g:#1f3a5f;--g2:#3d6299;--bg:#ffffff;--ink:#0b1220;--mute:#5d6678;--card:rgba(31,58,95,.05);--line:rgba(31,58,95,.18);
+ background:radial-gradient(1200px 700px at 70% 30%,rgba(31,58,95,.10),transparent 60%),radial-gradient(900px 600px at 15% 85%,rgba(61,98,153,.08),transparent 60%),#fff}
+.sh.mouse{cursor:default}
+.sh.neon{--g:#4f8dff;--g2:#7cc4ff;--bg:#030509;background:radial-gradient(1200px 700px at 70% 30%,rgba(79,141,255,.16),transparent 60%),radial-gradient(900px 600px at 15% 85%,rgba(124,196,255,.10),transparent 60%),#030509}
+.sh.neon .grid{opacity:.18}
+.sh.neon .max{filter:drop-shadow(0 0 40px rgba(79,141,255,.35))}
+.sh.neon .tag i{background:var(--g);box-shadow:0 0 16px var(--g)}
+.sh.neon .chip{background:rgba(79,141,255,.14);box-shadow:0 0 24px -6px var(--g)}
+.sh.neon .scanl{box-shadow:0 0 30px 8px var(--g2)}
+.sh.neon .sl{background:linear-gradient(135deg,rgba(79,141,255,.25),rgba(124,196,255,.06))}
+.sh.neon .cover,.sh.neon .fc .ba{background:linear-gradient(135deg,var(--g),var(--g2));box-shadow:0 0 60px -10px var(--g)}
+.sh.neon .mic .core{box-shadow:0 0 80px var(--g)}
+.sh.neon .qz .o.ok{box-shadow:0 0 40px -10px var(--ok)}
+.sh.neon .you{box-shadow:0 20px 60px -20px var(--g)}
+.sh .grid{position:absolute;inset:-50%;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;opacity:.08;transform:perspective(900px) rotateX(58deg) translateY(10%);animation:shg 22s linear infinite;mask-image:radial-gradient(closest-side,#000,transparent)}
+@keyframes shg{to{background-position:0 640px}}
+.sh .max{position:absolute;left:4vw;bottom:9vh;width:30vh;height:30vh;transition:all .9s cubic-bezier(.16,1,.3,1);filter:drop-shadow(0 20px 50px rgba(0,0,0,.6))}
+.sh.light .max{filter:drop-shadow(0 20px 40px rgba(31,58,95,.25))}
+.sh .max.big{left:50%;bottom:50%;width:56vh;height:56vh;transform:translate(-50%,50%)}
+.sh .max.in{animation:shin 1.2s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes shin{from{transform:translate(-50%,160%) scale(.4) rotate(-14deg);opacity:0}}
+.sh .ring{position:absolute;inset:-12%;border-radius:50%;border:2px solid var(--g);opacity:0;}
+.sh .max.talk .ring{animation:shring 1.4s ease-out infinite}
+.sh .max.talk .ring.r2{animation-delay:.7s}
+@keyframes shring{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.35);opacity:0}}
+.sh .sub{position:absolute;left:50%;bottom:4.5vh;transform:translateX(-50%);width:min(1300px,88vw);text-align:center;font-weight:750;font-size:clamp(22px,2.6vw,46px);line-height:1.2;letter-spacing:-.02em;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.sh.light .sub{text-shadow:none}
+.sh .sub.shside{left:calc(4vw + 34vh);right:4vw;width:auto;transform:none;text-align:left;font-size:clamp(20px,2.2vw,40px)}
+.sh .mf>*:not(svg){display:none!important}
+.sh .net svg{max-height:27vh}
+.sh .sub span{opacity:.28;transition:opacity .15s,color .15s}.sh .sub span.on{opacity:1}.sh .sub span.hot{color:var(--g2)}
+.sh.light .sub span.hot{color:var(--g)}
+.sh .stage{position:absolute;left:38vh;right:4vw;top:7vh;bottom:22vh;display:grid;place-items:center}
+.sh .stage.full{left:4vw}
+.sh .h1{font-weight:800;font-size:clamp(34px,4.4vw,84px);letter-spacing:-.04em;line-height:1;margin:0 0 3vh}
+.sh .h1 em{font-style:normal;color:var(--g2)}.sh.light .h1 em{color:var(--g)}
+.sh .tag{display:inline-flex;align-items:center;gap:10px;font:600 15px var(--mono,monospace);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:2vh}
+.sh .tag i{width:10px;height:10px;border-radius:50%;background:var(--g2)}
+.sh .pop{animation:shpop .7s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes shpop{from{opacity:0;transform:translateY(24px) scale(.85)}}
+.sh .fade{animation:shfade .8s ease both}@keyframes shfade{from{opacity:0}}
+.sh .glass{background:var(--card);border:1px solid var(--line);border-radius:26px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 30px 80px -30px rgba(0,0,0,.6)}
+.sh.light .glass{background:#fff;box-shadow:0 30px 80px -30px rgba(31,58,95,.35)}
+/* Scan */
+.sh .slides{display:grid;grid-template-columns:repeat(7,1fr);gap:14px;width:min(1200px,100%);position:relative}
+.sh .sl{aspect-ratio:4/3;border-radius:12px;padding:10px;font:650 12px/1.25 var(--sans);color:var(--ink);background:linear-gradient(135deg,rgba(31,58,95,.55),rgba(31,58,95,.12));border:1px solid var(--line);display:flex;align-items:flex-end}
+.sh.light .sl{background:linear-gradient(135deg,rgba(31,58,95,.12),#fff)}
+.sh .scanl{position:absolute;left:-2%;right:-2%;height:4px;top:0;background:linear-gradient(90deg,transparent,var(--g2),transparent);box-shadow:0 0 14px 2px rgba(157,183,218,.35);animation:shscan 2.2s ease-in-out .9s 2 alternate both}
+@keyframes shscan{from{top:0}to{top:100%}}
+.sh .chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:4vh;max-width:1200px}
+.sh .chip{padding:12px 20px;border-radius:999px;font-weight:750;font-size:clamp(15px,1.25vw,22px);border:1.5px solid var(--g);background:rgba(31,58,95,.35)}
+.sh.light .chip{background:rgba(31,58,95,.06);box-shadow:none}
+/* Tafel */
+.sh .board{width:min(1250px,100%);padding:4vh 3vw;position:relative}
+.sh .net{display:grid;grid-template-columns:1fr 1fr;gap:4vw}
+.sh .net svg{width:100%;height:auto;overflow:visible}
+.sh .net h3{margin:0 0 1vh;font-size:clamp(18px,1.6vw,28px);font-weight:750}
+.sh .net small{color:var(--mute);font:600 15px var(--mono,monospace)}
+.sh .eq{margin-top:3vh;text-align:center;font-weight:800;font-size:clamp(30px,3.6vw,68px);letter-spacing:-.03em}
+.sh .eq b{color:var(--g2)}.sh.light .eq b{color:var(--g)}
+.sh .draw{stroke-dasharray:var(--L);stroke-dashoffset:var(--L);animation:shdraw 1.1s ease forwards}
+@keyframes shdraw{to{stroke-dashoffset:0}}
+/* Zahlen */
+.sh .kpis{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:2vw;width:min(1300px,100%)}
+.sh .kpi{padding:3.5vh 2vw}
+.sh .kpi .v{font-weight:800;font-size:clamp(48px,6vw,118px);letter-spacing:-.05em;line-height:1}
+.sh .kpi .l{color:var(--mute);font-weight:650;font-size:clamp(14px,1.15vw,20px);margin-top:1.2vh}
+.sh .kpi .s{font:600 12px var(--mono,monospace);color:var(--mute);margin-top:1.5vh;opacity:.8}
+.sh .gauge{width:100%;max-width:300px;display:block;margin:0 auto 1vh}
+.sh .bars{display:flex;align-items:flex-end;gap:10px;height:16vh;margin-top:2vh}
+.sh .bars i{flex:1;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--g2),var(--g));transform-origin:bottom;animation:shbar 1s cubic-bezier(.16,1,.3,1) both}
+@keyframes shbar{from{transform:scaleY(0)}}
+/* Mindmap */
+.sh .mm{width:min(1300px,100%);height:100%}
+.sh .mm text{font-family:var(--sans);font-weight:750;fill:var(--ink)}
+.sh .mm .nd{animation:shpop .7s cubic-bezier(.2,1.4,.4,1) both}
+/* Karten */
+.sh .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:2vw;width:min(1200px,100%)}
+.sh .fc{perspective:1400px;height:24vh}
+.sh .fc .in{position:relative;width:100%;height:100%;transition:transform .9s cubic-bezier(.2,1,.3,1);transform-style:preserve-3d}
+.sh .fc.flip .in{transform:rotateY(180deg)}
+.sh .fc .fa{background:#0d1424;border:1px solid var(--line)}.sh.light .fc .fa{background:#fff;box-shadow:0 20px 50px -25px rgba(31,58,95,.4)}
+.sh .fc .fa,.sh .fc .ba{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center;text-align:center;padding:2vw;font-weight:750;font-size:clamp(17px,1.5vw,28px);line-height:1.3;border-radius:24px}
+.sh .fc .ba{transform:rotateY(180deg);background:var(--g);color:#fff;font-weight:650}
+/* Quiz */
+.sh .qz{width:min(1150px,100%);padding:4vh 3vw}
+.sh .qz .q{font-weight:800;font-size:clamp(24px,2.6vw,48px);letter-spacing:-.02em;line-height:1.15;margin-bottom:3vh}
+.sh .qz .o{display:flex;align-items:center;gap:18px;padding:2vh 1.6vw;margin-top:1.4vh;border-radius:18px;border:1.5px solid var(--line);font-weight:700;font-size:clamp(18px,1.7vw,32px);transition:all .35s}
+.sh .qz .o b{display:grid;place-items:center;width:2.2em;height:2.2em;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:.8em}
+.sh .qz .o.ok{border-color:var(--ok);background:rgba(47,210,122,.14)}
+.sh .qz .o.no{border-color:var(--no);background:rgba(255,77,94,.14);animation:shshake .4s}
+@keyframes shshake{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.sh .qz .why{margin-top:2.4vh;color:var(--mute);font-weight:600;font-size:clamp(15px,1.3vw,24px)}
+.sh .timer{position:absolute;right:3vw;top:3vh;width:9vh;height:9vh}
+.sh .conf{position:absolute;width:12px;height:18px;top:-20px;border-radius:3px;animation:shconf 2.4s linear forwards}
+@keyframes shconf{to{transform:translate(var(--dx),110vh) rotate(720deg)}}
+.sh .qn{position:absolute;left:3vw;top:3vh;font:700 16px var(--mono,monospace);color:var(--mute);letter-spacing:.1em}
+/* Mitschrift */
+.sh .ms{display:grid;grid-template-columns:1fr 1fr;gap:3vw;width:min(1350px,100%);align-items:stretch}
+.sh .paper{padding:4vh 2.4vw;border-radius:20px;background:#fdfcf7;color:#1b2435;font-family:'BM Fueller','Caveat',cursive;font-size:clamp(22px,2vw,38px);line-height:1.35;transform:rotate(-1.5deg);box-shadow:0 30px 70px -30px rgba(0,0,0,.7);position:relative}
+.sh .paper s{opacity:.6}.sh .paper .ar{color:#c0392b}
+.sh .clean{padding:4vh 2.4vw}
+.sh .clean h4{margin:0 0 1.4vh;font-size:clamp(20px,1.8vw,32px);font-weight:800;color:var(--g2)}.sh.light .clean h4{color:var(--g)}
+.sh .clean li{margin:1vh 0;font-weight:600;font-size:clamp(16px,1.35vw,25px)}
+.sh .tw{opacity:0;transform:translateX(-14px);animation:shtw .7s ease forwards}
+@keyframes shtw{to{opacity:1;transform:none}}
+.sh .arrow{font-size:6vh;color:var(--g2);align-self:center}
+/* Podcast */
+.sh .pod{width:min(1150px,100%);padding:5vh 3vw;display:grid;gap:3vh}
+.sh .pod .top{display:flex;align-items:center;gap:2vw}
+.sh .cover{width:16vh;height:16vh;border-radius:22px;background:var(--g);display:grid;place-items:center;color:#fff;font-weight:800;font-size:3vh;text-align:center;line-height:1.05;box-shadow:0 20px 50px -20px rgba(0,0,0,.6)}
+.sh .wave{display:flex;align-items:center;gap:5px;height:16vh}
+.sh .wave i{flex:1;border-radius:99px;background:linear-gradient(180deg,var(--g2),var(--g));height:20%;animation:shwave 1s ease-in-out infinite alternate}
+@keyframes shwave{to{height:var(--h)}}
+.sh .prog{height:8px;border-radius:99px;background:var(--line);overflow:hidden}.sh .prog i{display:block;height:100%;width:0;background:var(--g2);animation:shprog 14s linear forwards}
+@keyframes shprog{to{width:38%}}
+/* Sprechen */
+.sh .mic{position:relative;width:34vh;height:34vh;display:grid;place-items:center}
+.sh .mic .c{position:absolute;inset:0;border-radius:50%;border:3px solid var(--g);animation:shring 1.8s ease-out infinite}
+.sh .mic .c:nth-child(2){animation-delay:.6s}.sh .mic .c:nth-child(3){animation-delay:1.2s}
+.sh .mic .core{width:13vh;height:13vh;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--g2));display:grid;place-items:center;box-shadow:0 20px 60px -15px rgba(0,0,0,.7)}
+.sh .mic svg{width:6vh;height:6vh;color:#fff}
+/* Outro */
+.sh .out{text-align:center}
+.sh .out .h1{font-size:clamp(50px,7vw,140px)}
+.sh .url{font:700 clamp(16px,1.4vw,24px) var(--mono,monospace);color:var(--mute);letter-spacing:.08em}
+/* Du-Eingabe */
+.sh .you{position:absolute;right:4vw;top:6vh;max-width:min(760px,60vw);padding:2vh 1.6vw;border-radius:22px 22px 6px 22px;font-weight:700;font-size:clamp(20px,2vw,36px);background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;box-shadow:0 20px 60px -20px rgba(0,0,0,.6);animation:shpop .5s cubic-bezier(.2,1.4,.4,1) both}
+.sh .typer{position:absolute;left:50%;transform:translateX(-50%);bottom:13vh;width:min(900px,70vw);display:flex;align-items:center;gap:14px;padding:1.6vh 1.4vw;border-radius:999px;font-size:clamp(18px,1.6vw,28px);font-weight:650;opacity:0;transition:opacity .25s}
+.sh .typer.on{opacity:1}
+.sh .typer .cur{width:3px;height:1.2em;background:var(--g2);animation:shblink 1s steps(1) infinite}
+@keyframes shblink{50%{opacity:0}}
+.sh .hint{position:absolute;right:16px;bottom:10px;font:600 11px var(--mono,monospace);color:var(--mute);opacity:0;transition:opacity .3s}
+.sh.mouse .hint{opacity:.7}
+`;
+
+const IC_MIC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>';
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+let root = null;
+export function isShowCmd(t) { return /^\/show\b/i.test(String(t || '').trim()); }
+
+export function startShow(arg) {
+  if (root) return;
+  const a = String(arg || ''), light = /hell|light|weiß|weiss/i.test(a), neon = /neon/i.test(a);
+  const host = el('div'); host.style.cssText = 'position:fixed;inset:0;z-index:2147483000';
+  const sr = host.attachShadow({ mode: 'open' });
+  const faceCss = [...document.querySelectorAll('style')].map(x => x.textContent).find(t => t.includes('.fz-mouth')) || '';
+  const st0 = el('style'); st0.textContent = CSS + '\n' + faceCss; sr.appendChild(st0);
+  root = el('div', 'sh' + (light ? ' light' : '') + (neon && !light ? ' neon' : ''));
+  root.innerHTML = '<div class="grid"></div><div class="stage"></div><div class="max big"><div class="ring"></div><div class="ring r2"></div><div class="mf" style="width:100%;height:100%"></div></div><div class="sub"></div><div class="typer glass"><span class="tx"></span><span class="cur"></span></div><div class="hint">Enter / Leertaste weiter · ← zurück · R neu · T hell/dunkel · N Neon · M Ton · Esc Ende</div>';
+  sr.appendChild(root); document.body.appendChild(host);
+  const stage = root.querySelector('.stage'), maxEl = root.querySelector('.max'), sub = root.querySelector('.sub'), typer = root.querySelector('.typer'), typTx = typer.querySelector('.tx');
+  const fc = face(root.querySelector('.mf'), { follow: true });
+  try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) {}
+
+  let idx = -1, typed = '', muted = false, tok = 0, mouseT = 0;
+  const audio = new Audio();
+  const cache = new Map();
+  const voice = getVoice();
+  const tts = text => { if (!cache.has(text)) cache.set(text, ask('tts', { text, opts: { voice } }).then(r => { const bin = atob(r.audio); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i); return URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' })); }).catch(() => null)); return cache.get(text); };
+  S.forEach(s => tts(s.say));   // alles vorladen, damit jeder Take sofort startet
+
+  // Untertitel Wort für Wort, im Takt der Stimme
+  async function say(text, my) {
+    const words = text.split(/\s+/);
+    sub.innerHTML = words.map(w => '<span class="' + (/\d|Prozent|Bank|Trick|Falle|Risiko|Podcast|Kapitel/i.test(w) ? 'hot' : '') + '">' + w + '</span>').join(' ');
+    const spans = [...sub.children];
+    const url = muted ? null : await tts(text);
+    if (my !== tok) return;
+    maxEl.classList.add('talk'); fc.set('talk');
+    let dur = Math.max(1.6, words.length * 0.36);
+    if (url) { audio.src = url; try { await audio.play(); } catch (e) {} await new Promise(r => { if (audio.duration) r(); else audio.onloadedmetadata = r; setTimeout(r, 800); }); if (audio.duration && isFinite(audio.duration)) dur = audio.duration; }
+    const t0 = performance.now();
+    await new Promise(res => {
+      const step = () => { if (my !== tok) return res(); const p = (performance.now() - t0) / (dur * 1000); const n = Math.min(spans.length, Math.ceil(p * spans.length)); spans.forEach((s, i) => s.classList.toggle('on', i < n)); if (p < 1) requestAnimationFrame(step); else res(); };
+      requestAnimationFrame(step);
+    });
+    if (my !== tok) return;
+    maxEl.classList.remove('talk'); fc.set('smug'); setTimeout(() => { if (my === tok) fc.set('idle'); }, 1400);
+  }
+
+  function setMax(mode) { sub.classList.toggle('shside', mode === 'small'); maxEl.classList.toggle('big', mode === 'big'); stage.classList.toggle('full', mode === 'hide'); maxEl.style.opacity = mode === 'hide' ? '0' : '1'; }
+
+  const SCENES = {
+    intro(my) { setMax('big'); maxEl.classList.remove('in'); void maxEl.offsetWidth; maxEl.classList.add('in'); stage.innerHTML = ''; },
+    scan(my) {
+      setMax('small');
+      stage.innerHTML = '<div style="width:100%;display:grid;justify-items:center"><div class="tag fade"><i></i>Skript gelesen · 21 Folien · Banking and FinTech</div><div class="slides">' + SLIDES.map((t, i) => '<div class="sl pop" style="animation-delay:' + (i * 45) + 'ms">' + (i + 1) + ' · ' + t + '</div>').join('') + '<div class="scanl"></div></div><div class="chips"></div></div>';
+      const ch = stage.querySelector('.chips');
+      TERMS.forEach((t, i) => setTimeout(() => { if (my !== tok) return; ch.appendChild(el('span', 'chip pop', t)); }, 2600 + i * 220));
+    },
+    tafel(my) {
+      setMax('small');
+      const W = 520, H = 330, n = 5, ys = [...Array(n)].map((_, i) => 30 + i * 67);
+      let a = '', b = '';
+      ys.forEach(y1 => ys.forEach(y2 => { a += '<line class="draw" style="--L:420;animation-delay:' + (Math.random() * 900 + 400) + 'ms" x1="120" y1="' + y1 + '" x2="400" y2="' + y2 + '" stroke="currentColor" stroke-width="1.6" opacity=".55"/>'; }));
+      ys.forEach(y => { b += '<line class="draw" style="--L:300;animation-delay:2400ms" x1="120" y1="' + y + '" x2="260" y2="165" stroke="currentColor" stroke-width="2.4"/><line class="draw" style="--L:300;animation-delay:2700ms" x1="400" y1="' + y + '" x2="260" y2="165" stroke="currentColor" stroke-width="2.4"/>'; });
+      const box = (x, y, t) => '<rect x="' + (x - 58) + '" y="' + (y - 17) + '" width="116" height="34" rx="9" fill="var(--card)" stroke="var(--g)" stroke-width="1.5"/><text x="' + x + '" y="' + (y + 6) + '" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">' + t + '</text>';
+      const sideL = ys.map((y, i) => box(60, y, 'Nehmer ' + (i + 1))).join(''), sideR = ys.map((y, i) => box(460, y, 'Geber ' + (i + 1))).join('');
+      const nm = n * n, npm = n + n;   // feste Rechnung, keine KI
+      stage.innerHTML = '<div class="board glass fade"><div class="tag"><i></i>An der Tafel · Neoklassischer Ansatz</div><div class="h1">Warum gibt es <em>Banken?</em></div><div class="net"><div><h3>Ohne Bank</h3><small>n × m Verträge</small><svg viewBox="0 0 ' + W + ' ' + H + '" style="color:var(--mute)">' + a + sideL + sideR + '</svg></div><div><h3>Mit Bank</h3><small>n + m Verträge</small><svg viewBox="0 0 ' + W + ' ' + H + '" style="color:var(--g2)">' + b + sideL + sideR + '<g class="pop" style="animation-delay:2.2s"><rect x="195" y="140" width="130" height="50" rx="14" fill="var(--g)"/><text x="260" y="171" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">Bank</text></g></svg></div></div><div class="eq pop" style="animation-delay:3.6s">' + n + ' × ' + n + ' = <b>' + nm + '</b> &nbsp;→&nbsp; ' + n + ' + ' + n + ' = <b>' + npm + '</b></div></div>';
+    },
+    zahlen(my) {
+      setMax('small');
+      stage.innerHTML = '<div style="width:100%;display:grid;justify-items:center"><div class="tag fade"><i></i>Key Figures aus deinem Skript</div><div class="kpis">'
+        + '<div class="kpi glass pop"><svg class="gauge" viewBox="0 0 200 110"><path d="M15 100 A85 85 0 0 1 185 100" fill="none" stroke="var(--line)" stroke-width="16" stroke-linecap="round"/><path class="gz" d="M15 100 A85 85 0 0 1 185 100" fill="none" stroke="url(#shgr)" stroke-width="16" stroke-linecap="round" style="stroke-dasharray:267;stroke-dashoffset:267;transition:stroke-dashoffset 2s cubic-bezier(.16,1,.3,1)"/><defs><linearGradient id="shgr"><stop offset="0" stop-color="var(--g)"/><stop offset="1" stop-color="var(--g2)"/></linearGradient></defs></svg><div class="v"><span data-n="58">0</span> %</div><div class="l">Cost-Income-Ratio, deutsche Banken</div><div class="s">Q3 2025 · ECB/Statista</div></div>'
+        + '<div class="kpi glass pop" style="animation-delay:.25s"><div class="v"><span data-n="127000">0</span></div><div class="l">Bankfilialen in der EU-27</div><div class="bars">' + [100, 97.5].map((h, i) => '<i style="height:' + h + '%;animation-delay:' + (0.6 + i * 0.3) + 's;opacity:' + (i ? 1 : .45) + '"></i>').join('') + '</div><div class="s">2024 · −2,5 % ggü. Vorjahr · EBF</div></div>'
+        + '<div class="kpi glass pop" style="animation-delay:.5s"><svg viewBox="0 0 240 140" style="width:100%"><polyline class="draw" style="--L:400;animation-delay:.9s" points="10,30 60,55 110,85 150,105 190,100 230,60" fill="none" stroke="var(--g2)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="230" cy="60" r="7" fill="var(--g2)" class="pop" style="animation-delay:2s"/></svg><div class="l" style="font-size:clamp(18px,1.6vw,30px);font-weight:800;color:var(--ink)">EZB-Zinsen</div><div class="l">2024 bis Mitte 2025 gesenkt, Juni 2026 wieder erhöht</div><div class="s">Verlauf schematisch · ECB</div></div>'
+        + '</div></div>';
+      setTimeout(() => { const g = stage.querySelector('.gz'); if (g) g.style.strokeDashoffset = String(267 * (1 - 0.58)); }, 400);
+      stage.querySelectorAll('[data-n]').forEach(s => { const to = +s.dataset.n, t0 = performance.now() + 300; const f = t => { if (my !== tok) return; const p = Math.max(0, Math.min(1, (t - t0) / 1800)), e = 1 - Math.pow(1 - p, 3); s.textContent = Math.round(to * e).toLocaleString('de-DE'); if (p < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); });
+    },
+    mindmap(my) {
+      setMax('small');
+      const N = [['Transformations-funktion', 600, 70, 0], ['Liquidität', 270, 200, 1], ['Information', 600, 200, 1], ['Risiko', 930, 200, 1], ['Fristen', 160, 330, 2], ['Losgrößen', 380, 330, 2], ['horizontal', 820, 330, 2], ['vertikal', 1040, 330, 2], ['positiv', 70, 450, 3], ['negativ', 250, 450, 3], ['Aktivseite', 950, 450, 3], ['Passivseite', 1130, 450, 3]];
+      const E = [[0, 1], [0, 2], [0, 3], [1, 4], [1, 5], [3, 6], [3, 7], [4, 8], [4, 9], [7, 10], [7, 11]];
+      let s = '<svg class="mm" viewBox="-20 0 1240 500" preserveAspectRatio="xMidYMid meet">';
+      E.forEach(([a, b], i) => { const A = N[a], B = N[b]; s += '<path class="draw" style="--L:400;animation-delay:' + (300 + B[3] * 700) + 'ms" d="M' + A[1] + ' ' + (A[2] + 26) + ' C' + A[1] + ' ' + (A[2] + 70) + ',' + B[1] + ' ' + (B[2] - 70) + ',' + B[1] + ' ' + (B[2] - 26) + '" fill="none" stroke="var(--g2)" stroke-width="3" opacity=".8"/>'; });
+      N.forEach(([t, x, y, d], i) => { const w = d === 0 ? 260 : d === 1 ? 200 : d === 2 ? 160 : 150, hh = d === 0 ? 62 : 50; const lines = t.split('-'); s += '<g class="nd" style="animation-delay:' + (d * 700) + 'ms;transform-origin:' + x + 'px ' + y + 'px"><rect x="' + (x - w / 2) + '" y="' + (y - hh / 2) + '" width="' + w + '" height="' + hh + '" rx="16" fill="' + (d === 0 ? 'var(--g)' : 'var(--card)') + '" stroke="var(--g)" stroke-width="2"/><text x="' + x + '" y="' + (y + (lines.length > 1 ? -2 : 7)) + '" text-anchor="middle" font-size="' + (d === 0 ? 22 : d === 1 ? 21 : 18) + '" style="fill:' + (d === 0 ? '#fff' : 'var(--ink)') + '">' + (lines.length > 1 ? lines[0] + '-</text><text x="' + x + '" y="' + (y + 20) + '" text-anchor="middle" font-size="22" style="fill:#fff">' + lines[1] : t) + '</text></g>'; });
+      stage.innerHTML = '<div style="width:100%;height:100%;display:grid;grid-template-rows:auto 1fr;justify-items:center"><div class="tag fade"><i></i>Mindmap · Function-oriented definition</div>' + s + '</svg></div>';
+    },
+    karten(my) {
+      setMax('small');
+      stage.innerHTML = '<div style="width:100%;display:grid;justify-items:center"><div class="tag fade"><i></i>Karteikarten · Kapitel 1</div><div class="cards">' + CARDS.map((c, i) => '<div class="fc pop" style="animation-delay:' + (i * 150) + 'ms"><div class="in"><div class="fa">' + c[0] + '</div><div class="ba">' + c[1] + '</div></div></div>').join('') + '</div></div>';
+      stage.querySelectorAll('.fc').forEach((c, i) => setTimeout(() => { if (my === tok) c.classList.add('flip'); }, 2600 + i * 1300));
+    },
+    quiz(my) {
+      setMax('small');
+      let qi = 0;
+      const draw = () => {
+        const [q, os, ok, why] = QUIZ[qi];
+        stage.innerHTML = '<div class="qz glass pop" style="position:relative"><div class="qn">FRAGE ' + (qi + 1) + ' / 3' + (qi === 2 ? ' · FALLE' : '') + '</div><svg class="timer" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="var(--line)" stroke-width="4"/><circle cx="20" cy="20" r="17" fill="none" stroke="var(--g2)" stroke-width="4" stroke-linecap="round" transform="rotate(-90 20 20)" style="stroke-dasharray:107;stroke-dashoffset:0;transition:stroke-dashoffset 12s linear" class="tm"/></svg><div class="q" style="margin-top:3vh">' + q + '</div>' + os.map((o, i) => '<div class="o" data-i="' + i + '"><b>' + (i + 1) + '</b>' + o + '</div>').join('') + '<div class="why"></div></div>';
+        setTimeout(() => { const t = stage.querySelector('.tm'); if (t) t.style.strokeDashoffset = '107'; }, 60);
+        stage.querySelectorAll('.o').forEach(o => o.onclick = () => pick(+o.dataset.i));
+      };
+      const pick = i => {
+        const [, , ok, why] = QUIZ[qi]; const os = stage.querySelectorAll('.o'); if (!os.length || stage.querySelector('.o.ok')) return;
+        os[ok].classList.add('ok'); if (i !== ok) { os[i].classList.add('no'); fc.pulse('smug', 1600); } else { fc.pulse('happy', 1600); confetti(); }
+        stage.querySelector('.why').textContent = why;
+      };
+      quizApi = { pick, next: () => { if (!stage.querySelector('.o.ok')) return false; if (qi < 2) { qi++; draw(); return true; } return false; } };
+      draw();
+    },
+    mitschrift(my) {
+      setMax('small');
+      stage.innerHTML = '<div style="width:100%;display:grid;justify-items:center"><div class="tag fade"><i></i>Mitschrift umwandeln</div><div class="ms">'
+        + '<div class="paper pop">Banken = Transf.fkt <span class="ar">→</span> Liq / Info / Risiko ??<br><s>Fristen pos.</s> Fristen: pos. + neg.<br>Diamond <u>1984</u>!! deleg. Monitoring<br>ohne Bank n·m, mit n+m <span class="ar">(Klausur!)</span><br>Factoring = FDL <s>nicht Bank</s> ✓</div>'
+        + '<div class="clean glass pop" style="animation-delay:.9s"><h4>Kapitel 1 · Sauber</h4><ul style="margin:0;padding-left:1.2em">'
+        + ['Transformationsfunktion: Liquidität, Information, Risiko', 'Fristentransformation: positiv und negativ', 'Delegated Monitoring nach Diamond (1984)', 'Verträge: ohne Bank n × m, mit Bank n + m', 'Factoring: Finanzdienstleistung (§ 1 Abs. 1a KWG)'].map((t, i) => '<li class="tw" style="animation-delay:' + (1.4 + i * 0.75) + 's">' + t + '</li>').join('') + '</ul></div></div></div>';
+    },
+    podcast(my) {
+      setMax('small');
+      stage.innerHTML = '<div class="pod glass pop"><div class="top"><div class="cover">BWL<br>Max<br>Pod</div><div style="flex:1;min-width:0"><div class="tag" style="margin:0 0 1vh"><i></i>Podcast · 6 Min</div><div class="h1" style="margin:0;font-size:clamp(28px,3vw,56px)">Warum es <em>Banken</em> gibt</div><div style="color:var(--mute);font-weight:650;margin-top:1vh">Kapitel 1 · Banking and FinTech</div></div></div><div class="wave">' + [...Array(64)].map((_, i) => '<i style="--h:' + (25 + Math.abs(Math.sin(i * 1.7)) * 75) + '%;animation-delay:' + (i % 8) * 0.09 + 's"></i>').join('') + '</div><div class="prog"><i></i></div></div>';
+    },
+    sprechen(my) {
+      setMax('small');
+      stage.innerHTML = '<div style="display:grid;justify-items:center;gap:4vh"><div class="tag fade"><i></i>Sprich mit Max</div><div class="mic"><div class="c"></div><div class="c"></div><div class="c"></div><div class="core">' + IC_MIC + '</div></div><div class="wave" style="width:min(700px,60vw);height:8vh">' + [...Array(40)].map((_, i) => '<i style="--h:' + (30 + Math.abs(Math.cos(i * 1.3)) * 70) + '%;animation-delay:' + (i % 6) * 0.11 + 's"></i>').join('') + '</div></div>';
+    },
+    outro(my) {
+      setMax('big');
+      stage.innerHTML = '';
+      setTimeout(() => { if (my !== tok) return; setMax('small'); stage.innerHTML = '<div class="out pop"><div class="h1">Kapitel 1 <em>sitzt.</em></div><div class="url">bwlmax.de</div></div>'; confetti(); }, 2600);
+    }
+  };
+  let quizApi = null;
+
+  function confetti() {
+    const cols = ['#2f5584', '#9db7da', '#2fd27a', '#ffffff', '#c9d6ea'];
+    for (let i = 0; i < 70; i++) { const c = el('i', 'conf'); c.style.left = Math.random() * 100 + 'vw'; c.style.background = cols[i % cols.length]; c.style.setProperty('--dx', (Math.random() * 200 - 100) + 'px'); c.style.animationDelay = Math.random() * 0.4 + 's'; root.appendChild(c); setTimeout(() => c.remove(), 3200); }
+  }
+
+  async function go(i) {
+    if (i < 0) i = 0; if (i >= S.length) { stop(); return; }
+    idx = i; const my = ++tok; quizApi = null;
+    try { audio.pause(); } catch (e) {}
+    maxEl.classList.remove('talk'); fc.set('idle'); sub.innerHTML = '';
+    root.querySelectorAll('.you').forEach(x => x.remove());
+    SCENES[S[i].id](my);
+    await wait(i === 0 ? 900 : 500);
+    if (my === tok) say(S[i].say, my);
+  }
+
+  function next() { if (quizApi && quizApi.next()) return; go(idx + 1); }
+  function onKey(e) {
+    if (e.key === 'Escape') { e.preventDefault(); stop(); return; }
+    if (e.key === 'ArrowRight') { e.preventDefault(); next(); return; }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx - 1); return; }
+    if (!typed && quizApi && /^[1-3]$/.test(e.key)) { e.preventDefault(); quizApi.pick(+e.key - 1); return; }
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (typed.trim()) { const t = typed.trim(); typed = ''; typTx.textContent = ''; typer.classList.remove('on'); const b = el('div', 'you', t.replace(/[<>&]/g, '')); root.appendChild(b); setTimeout(() => next(), 900); return; }
+      next(); return;
+    }
+    if (e.key === ' ' && !typed) { e.preventDefault(); next(); return; }
+    if (!typed && !e.metaKey && !e.ctrlKey) {
+      if (e.key === 'r' || e.key === 'R') { e.preventDefault(); go(idx); return; }
+      if (e.key === 't' || e.key === 'T') { e.preventDefault(); root.classList.toggle('light'); return; }
+      if (e.key === 'n' || e.key === 'N') { e.preventDefault(); root.classList.toggle('neon'); return; }
+      if (e.key === 'm' || e.key === 'M') { e.preventDefault(); muted = !muted; if (muted) try { audio.pause(); } catch (x) {} return; }
+    }
+    if (e.key === 'Backspace') { e.preventDefault(); typed = typed.slice(0, -1); }
+    else if (e.key.length === 1 && !e.metaKey && !e.ctrlKey) { e.preventDefault(); typed += e.key; }
+    else return;
+    typTx.textContent = typed; typer.classList.toggle('on', !!typed); fc.lookAt(0, 20, 600);
+  }
+  const onMove = () => { root.classList.add('mouse'); clearTimeout(mouseT); mouseT = setTimeout(() => root && root.classList.remove('mouse'), 1500); };
+  addEventListener('keydown', onKey, true);
+  root.addEventListener('mousemove', onMove);
+
+  function stop() {
+    tok++; try { audio.pause(); } catch (e) {}
+    removeEventListener('keydown', onKey, true);
+    try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+    cache.forEach(p => p.then(u => u && URL.revokeObjectURL(u)));
+    host.remove(); root = null;
+  }
+  go(0);
+}
