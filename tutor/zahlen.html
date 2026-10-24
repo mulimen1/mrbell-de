@@ -378,8 +378,9 @@ button { font: inherit; color: inherit; }
 
     var tr = d.basis.trichter || [], t0 = (tr[0] && tr[0][1]) || 0;
     var tx = d.basis.trExtra || {};
-    var fnote = '<div class="fnote"><span>Aus Google Ads <b>' + fmt(k.ads || 0) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>';
-    var trich = tr.concat([['Konto erstellt', d.konten.zeitraum]]).map(function (x, i, arr) {
+    var fnote = '<div class="fnote"><span>Aus Google Ads <b>' + fmt(tx.ads != null ? tx.ads : (k.ads || 0)) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>';
+    var trK = d.konten.trichter != null ? d.konten.trichter : d.konten.zeitraum;
+    var trich = tr.concat([['Konto erstellt', trK]]).map(function (x, i, arr) {
       var w = t0 ? 100 * x[1] / t0 : 0, pr = i && t0 ? Math.round(100 * x[1] / t0) : null;   // Anteil aller Besucher
       return '<div class="r"><span class="n">' + esc(x[0]) + '</span><span class="bar"><i style="width:' + Math.max(w ? 1.5 : 0, w).toFixed(1) + '%;animation-delay:' + (i * 70) + 'ms"></i><span class="num' + (w < 18 ? ' out" style="left:calc(' + Math.max(w, 1.5).toFixed(1) + '% + 8px)' : '') + '">' + fmt(x[1]) + '</span></span><span class="p">' + (pr == null ? '' : pr + ' %') + '</span></div>';
     }).join('');
@@ -450,7 +451,7 @@ button { font: inherit; color: inherit; }
     app.style.minHeight = firstDraw ? '' : app.offsetHeight + 'px';
     app.innerHTML =
       '<section class="grid g7">' + kpis + '</section>' +
-      '<section class="grid g21"><div class="card"><div class="hd"><h2>Vom Besuch zum Konto</h2><small>Wo sie abspringen · ' + esc(d.zeitraum.name) + '</small></div><div class="fun">' + trich + '</div>' + fnote + '</div>' +
+      '<section class="grid g21"><div class="card"><div class="hd"><h2>Vom Besuch zum Konto</h2><small>Wo sie abspringen · ' + (tx.ab ? 'seit ' + new Date(tx.ab).toLocaleString('de-DE', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) + ' Uhr' : esc(d.zeitraum.name)) + '</small></div><div class="fun">' + trich + '</div>' + fnote + '</div>' +
       '<div class="card"><div class="hd"><h2>Gerade passiert</h2><small>live</small></div><div class="feed" id="feed">' + feed + '</div></div></section>' +
       '<section class="grid"><div class="card"><div class="hd"><h2>Verlauf</h2><div class="leg"><span><i></i>Seitenaufrufe</span><span><i class="l2"></i>Besucher</span><span><i class="l3"></i>Aktiv</span></div></div><div class="chart" id="chart"></div></div></section>' +
       '<section class="grid g2"><div class="card"><div class="hd"><h2>Neue Konten</h2><small>' + esc(d.zeitraum.name) + '</small></div>' + konten + '</div>' +
