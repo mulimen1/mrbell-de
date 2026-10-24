@@ -19,6 +19,8 @@ const S = [
   { id: 'sprechen', say: 'Kein Bock zu tippen? Dann red einfach mit mir. Ich hör zu. Meistens.' },
   { id: 'outro', say: 'Kapitel eins sitzt. Kapitel zwei morgen. Gleiche Uhrzeit.' }
 ];
+const TABS = ['Tutor', 'Lernen', 'Mitschrift', 'Fächer', 'Transkript'];
+const TAB_OF = { mindmap: 'Lernen', karten: 'Lernen', quiz: 'Lernen', podcast: 'Lernen', mitschrift: 'Mitschrift' };
 const TERMS = ['KWG', 'BaFin', 'Kreditinstitut', 'Finanzdienstleistungsinstitut', 'Bankgeschäfte', 'Transformationsfunktion', 'Asymmetrische Information', 'Transaktionskosten', 'Delegated Monitoring', 'Diamond 1984', 'Diversifikation', 'FinTech'];
 const SLIDES = ['Banking and FinTech', 'Structure', 'Key Figures', 'Structure', 'Credit institution (KWG)', 'Banking transactions', 'Financial services institution', 'Financial services §1 1b', 'Scientific concept', 'Assortment-oriented', 'Function-oriented', 'Terminological summary', 'Existence of banks', 'Neoclassical approaches', 'Diamond model', 'Delegated monitoring', 'Diversification', 'Financial services market', 'Structural change', 'Challenges today', 'Preview: FinTech'];
 const CARDS = [
@@ -34,7 +36,7 @@ const QUIZ = [
 ];
 
 const CSS = `
-.sh{position:fixed;inset:0;z-index:2147483000;overflow:hidden;font-family:var(--sans,system-ui);cursor:none;
+.sh{position:fixed;inset:0;z-index:2147483000;overflow:hidden;font-family:var(--sans,system-ui);cursor:default;
  --g:#2f5584;--g2:#9db7da;--bg:#000;--ink:#f4f7ff;--mute:#8a93a8;--card:rgba(255,255,255,.05);--line:rgba(140,170,255,.22);--ok:#2fd27a;--no:#ff4d5e;
  background:radial-gradient(1200px 700px at 70% 30%,rgba(31,58,95,.30),transparent 62%),radial-gradient(900px 600px at 15% 85%,rgba(31,58,95,.18),transparent 60%),#000;color:var(--ink)}
 .sh.light{--g:#1f3a5f;--g2:#3d6299;--bg:#ffffff;--ink:#0b1220;--mute:#5d6678;--card:rgba(31,58,95,.05);--line:rgba(31,58,95,.18);
@@ -53,7 +55,7 @@ const CSS = `
 .sh.neon .you{box-shadow:0 20px 60px -20px var(--g)}
 .sh .grid{position:absolute;inset:-50%;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;opacity:.08;transform:perspective(900px) rotateX(58deg) translateY(10%);animation:shg 22s linear infinite;mask-image:radial-gradient(closest-side,#000,transparent)}
 @keyframes shg{to{background-position:0 640px}}
-.sh .max{position:absolute;left:4vw;bottom:9vh;width:30vh;height:30vh;transition:all .9s cubic-bezier(.16,1,.3,1);filter:drop-shadow(0 20px 50px rgba(0,0,0,.6))}
+.sh .max{position:absolute;left:3vw;bottom:calc(118px + 7vh);width:26vh;height:26vh;transition:all .9s cubic-bezier(.16,1,.3,1);filter:drop-shadow(0 20px 50px rgba(0,0,0,.6))}
 .sh.light .max{filter:drop-shadow(0 20px 40px rgba(31,58,95,.25))}
 .sh .max.big{left:50%;bottom:50%;width:56vh;height:56vh;transform:translate(-50%,50%)}
 .sh .max.in{animation:shin 1.2s cubic-bezier(.2,1.4,.4,1) both}
@@ -62,15 +64,19 @@ const CSS = `
 .sh .max.talk .ring{animation:shring 1.4s ease-out infinite}
 .sh .max.talk .ring.r2{animation-delay:.7s}
 @keyframes shring{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.35);opacity:0}}
-.sh .sub{position:absolute;left:50%;bottom:4.5vh;transform:translateX(-50%);width:min(1300px,88vw);text-align:center;font-weight:750;font-size:clamp(22px,2.6vw,46px);line-height:1.2;letter-spacing:-.02em;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.sh .sub{position:absolute;left:50%;bottom:calc(118px + 1.5vh);transform:translateX(-50%);width:min(1300px,88vw);text-align:center;font-weight:750;font-size:clamp(22px,2.6vw,46px);line-height:1.2;letter-spacing:-.02em;text-shadow:0 4px 30px rgba(0,0,0,.6)}
 .sh.light .sub{text-shadow:none}
-.sh .sub.shside{left:calc(4vw + 34vh);right:4vw;width:auto;transform:none;text-align:left;font-size:clamp(20px,2.2vw,40px)}
+.sh .sub.shside{left:calc(3vw + 29vh);right:4vw;width:auto;transform:none;text-align:left;font-size:clamp(20px,2.2vw,40px)}
 .sh .mf>*:not(svg){display:none!important}
-.sh .net svg{max-height:27vh}
+.sh .net svg{max-height:22vh}
+.sh .board .h1{font-size:clamp(30px,3.4vw,64px);margin-bottom:2vh}
+.sh .board{padding:3vh 2.4vw}
+.sh .board .eq{margin-top:1.6vh;font-size:clamp(26px,3vw,56px)}
 .sh .sub span{opacity:.28;transition:opacity .15s,color .15s}.sh .sub span.on{opacity:1}.sh .sub span.hot{color:var(--g2)}
 .sh.light .sub span.hot{color:var(--g)}
-.sh .stage{position:absolute;left:38vh;right:4vw;top:7vh;bottom:22vh;display:grid;place-items:center}
-.sh .stage.full{left:4vw}
+.sh .stage{position:absolute;left:calc(3vw + 29vh);right:3vw;top:calc(76px + 2vh);bottom:calc(118px + 15vh);display:grid;place-items:center}
+.sh .stage.full{left:3vw}
+.sh .max.big{bottom:calc(50% + 30px)}
 .sh .h1{font-weight:800;font-size:clamp(34px,4.4vw,84px);letter-spacing:-.04em;line-height:1;margin:0 0 3vh}
 .sh .h1 em{font-style:normal;color:var(--g2)}.sh.light .h1 em{color:var(--g)}
 .sh .tag{display:inline-flex;align-items:center;gap:10px;font:600 15px var(--mono,monospace);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:2vh}
@@ -164,12 +170,31 @@ const CSS = `
 .sh .out .h1{font-size:clamp(50px,7vw,140px)}
 .sh .url{font:700 clamp(16px,1.4vw,24px) var(--mono,monospace);color:var(--mute);letter-spacing:.08em}
 /* Du-Eingabe */
-.sh .you{position:absolute;right:4vw;top:6vh;max-width:min(760px,60vw);padding:2vh 1.6vw;border-radius:22px 22px 6px 22px;font-weight:700;font-size:clamp(20px,2vw,36px);background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;box-shadow:0 20px 60px -20px rgba(0,0,0,.6);animation:shpop .5s cubic-bezier(.2,1.4,.4,1) both}
-.sh .typer{position:absolute;left:50%;transform:translateX(-50%);bottom:13vh;width:min(900px,70vw);display:flex;align-items:center;gap:14px;padding:1.6vh 1.4vw;border-radius:999px;font-size:clamp(18px,1.6vw,28px);font-weight:650;opacity:0;transition:opacity .25s}
-.sh .typer.on{opacity:1}
-.sh .typer .cur{width:3px;height:1.2em;background:var(--g2);animation:shblink 1s steps(1) infinite}
+.sh .you{position:absolute;right:3vw;top:96px;z-index:4;max-width:min(760px,60vw);padding:2vh 1.6vw;border-radius:22px 22px 6px 22px;font-weight:700;font-size:clamp(20px,2vw,36px);background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;box-shadow:0 20px 60px -20px rgba(0,0,0,.6);animation:shpop .5s cubic-bezier(.2,1.4,.4,1) both}
+.sh .tbar{position:absolute;left:0;right:0;top:0;height:76px;display:flex;align-items:center;gap:10px;padding:0 3vw;border-bottom:1px solid var(--line);background:rgba(0,0,0,.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:3}
+.sh.light .tbar{background:rgba(255,255,255,.75)}
+.sh .tbar .br{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;margin-right:18px}
+.sh .tbar .br .bf{width:38px;height:38px}
+.sh .tbar .br small{font:700 9.5px var(--mono,monospace);letter-spacing:.1em;padding:2px 6px;border:1px solid var(--line);border-radius:6px;color:var(--mute)}
+.sh .tbar .tb{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font-weight:700;font-size:16px;color:var(--mute);transition:all .35s}
+.sh .tbar .tb.on{background:var(--g);color:#fff}
+.sh .tbar .sp{flex:1}
+.sh .tbar .doc{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:12px;border:1px solid var(--line);font:600 13px var(--sans);color:var(--ink)}
+.sh .tbar .doc i{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.sh .typer{position:absolute;left:50%;transform:translateX(-50%);bottom:24px;width:min(1180px,86vw);height:86px;display:flex;align-items:center;gap:14px;padding:0 12px 0 16px;border-radius:28px;font-size:clamp(18px,1.5vw,26px);font-weight:600;z-index:3}
+.sh .typer .att{display:inline-flex;align-items:center;gap:8px;height:52px;padding:0 16px;border-radius:16px;border:1.5px dashed var(--line);font-size:15px;font-weight:700;color:var(--ink);white-space:nowrap}
+.sh .typer .ph{color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sh .typer .tx{white-space:nowrap;overflow:hidden}
+.sh .typer .fl{flex:1;min-width:0;display:flex;align-items:center}
+.sh .typer .mk{display:inline-flex;align-items:center;gap:10px;height:58px;padding:0 24px;border-radius:999px;background:var(--g);color:#fff;font-weight:750;font-size:17px;white-space:nowrap}
+.sh .typer .mk svg{width:20px;height:20px}
+.sh .typer .snd{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--g);color:#fff;transition:transform .2s}
+.sh .typer .snd.go{animation:shsend .5s ease}
+@keyframes shsend{40%{transform:scale(.85)}70%{transform:scale(1.12)}}
+.sh .typer .snd svg{width:24px;height:24px}
+.sh .typer .cur{width:3px;height:1.2em;background:var(--ink);margin-left:2px;animation:shblink 1s steps(1) infinite;flex:none}
 @keyframes shblink{50%{opacity:0}}
-.sh .hint{position:absolute;right:16px;bottom:10px;font:600 11px var(--mono,monospace);color:var(--mute);opacity:0;transition:opacity .3s}
+.sh .hint{position:absolute;right:16px;bottom:4px;font:600 11px var(--mono,monospace);color:var(--mute);opacity:0;transition:opacity .3s}
 .sh.mouse .hint{opacity:.7}
 `;
 
@@ -188,10 +213,12 @@ export function startShow(arg) {
   const faceCss = [...document.querySelectorAll('style')].map(x => x.textContent).find(t => t.includes('.fz-mouth')) || '';
   const st0 = el('style'); st0.textContent = CSS + '\n' + faceCss; sr.appendChild(st0);
   root = el('div', 'sh' + (light ? ' light' : '') + (neon && !light ? ' neon' : ''));
-  root.innerHTML = '<div class="grid"></div><div class="stage"></div><div class="max big"><div class="ring"></div><div class="ring r2"></div><div class="mf" style="width:100%;height:100%"></div></div><div class="sub"></div><div class="typer glass"><span class="tx"></span><span class="cur"></span></div><div class="hint">Enter / Leertaste weiter · ← zurück · R neu · T hell/dunkel · N Neon · M Ton · Esc Ende</div>';
+  root.innerHTML = '<div class="grid"></div><div class="stage"></div><div class="max big"><div class="ring"></div><div class="ring r2"></div><div class="mf" style="width:100%;height:100%"></div></div><div class="tbar"><span class="br"><span class="bf"></span>BWL Max <small>BETA</small></span>' + TABS.map(t => '<span class="tb" data-t="' + t + '">' + t + '</span>').join('') + '<span class="sp"></span><span class="doc"><i></i>Chapter_1_Conceptual_Foundations.pdf · 21 Folien</span></div><div class="sub"></div><div class="typer glass"><span class="att">+ Dokument</span><span class="fl"><span class="ph">Frag Max zu Kapitel 1 – z. B. „Erklär mir Delegated Monitoring“</span><span class="tx"></span><span class="cur"></span></span><span class="mk">' + IC_MIC + 'Sprich mit Max</span><span class="snd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="hint">Enter / Leertaste weiter · ← zurück · R neu · T hell/dunkel · N Neon · M Ton · Esc Ende</div>';
   sr.appendChild(root); document.body.appendChild(host);
   const stage = root.querySelector('.stage'), maxEl = root.querySelector('.max'), sub = root.querySelector('.sub'), typer = root.querySelector('.typer'), typTx = typer.querySelector('.tx');
-  const fc = face(root.querySelector('.mf'), { follow: true });
+  const fc = face(root.querySelector('.mf'), { follow: true }); face(root.querySelector('.bf'), { follow: true });
+  const ph = typer.querySelector('.ph'), snd = typer.querySelector('.snd');
+  const tab = id => root.querySelectorAll('.tb').forEach(b => b.classList.toggle('on', b.dataset.t === (TAB_OF[id] || 'Tutor')));
   try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) {}
 
   let idx = -1, typed = '', muted = false, tok = 0, mouseT = 0;
@@ -316,7 +343,7 @@ export function startShow(arg) {
     try { audio.pause(); } catch (e) {}
     maxEl.classList.remove('talk'); fc.set('idle'); sub.innerHTML = '';
     root.querySelectorAll('.you').forEach(x => x.remove());
-    SCENES[S[i].id](my);
+    tab(S[i].id); SCENES[S[i].id](my);
     await wait(i === 0 ? 900 : 500);
     if (my === tok) say(S[i].say, my);
   }
@@ -329,7 +356,7 @@ export function startShow(arg) {
     if (!typed && quizApi && /^[1-3]$/.test(e.key)) { e.preventDefault(); quizApi.pick(+e.key - 1); return; }
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (typed.trim()) { const t = typed.trim(); typed = ''; typTx.textContent = ''; typer.classList.remove('on'); const b = el('div', 'you', t.replace(/[<>&]/g, '')); root.appendChild(b); setTimeout(() => next(), 900); return; }
+      if (typed.trim()) { const t = typed.trim(); typed = ''; typTx.textContent = ''; ph.style.display = ''; snd.classList.remove('go'); void snd.offsetWidth; snd.classList.add('go'); const b = el('div', 'you', t.replace(/[<>&]/g, '')); root.appendChild(b); setTimeout(() => next(), 900); return; }
       next(); return;
     }
     if (e.key === ' ' && !typed) { e.preventDefault(); next(); return; }
@@ -342,7 +369,7 @@ export function startShow(arg) {
     if (e.key === 'Backspace') { e.preventDefault(); typed = typed.slice(0, -1); }
     else if (e.key.length === 1 && !e.metaKey && !e.ctrlKey) { e.preventDefault(); typed += e.key; }
     else return;
-    typTx.textContent = typed; typer.classList.toggle('on', !!typed); fc.lookAt(0, 20, 600);
+    typTx.textContent = typed; ph.style.display = typed ? 'none' : ''; fc.lookAt(0, 20, 600);
   }
   const onMove = () => { root.classList.add('mouse'); clearTimeout(mouseT); mouseT = setTimeout(() => root && root.classList.remove('mouse'), 1500); };
   addEventListener('keydown', onKey, true);
