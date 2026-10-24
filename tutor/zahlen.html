@@ -25,13 +25,13 @@
 html, body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.45 var(--sans); -webkit-font-smoothing: antialiased; }
 body { min-height: 100dvh; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
 button { font: inherit; color: inherit; }
-.wrap { max-width: 1280px; margin: 0 auto; padding: 22px 24px 80px; }
+.wrap { max-width: none; margin: 0 auto; padding: 22px 24px 80px; }
 .num { font-variant-numeric: tabular-nums; }
 
 /* Kopf */
 .top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 82%, transparent); -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3); border-bottom: 1px solid transparent; transition: border-color .2s; }
 .top.scr { border-bottom-color: var(--line); }
-.top-in { max-width: 1280px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 14px; }
+.top-in { max-width: none; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 14px; }
 .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .brand img { width: 38px; height: 38px; border-radius: 12px; background: #fff; }
 .brand b { font-size: 17px; letter-spacing: -.02em; display: block; }
@@ -52,6 +52,13 @@ button { font: inherit; color: inherit; }
 .g7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .g2 { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
 .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.g21 { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); }
+.calm .card, .calm .fun .bar i, .calm .bars .r i::after { animation: none !important; }
+.chart { min-height: 220px; }
+.fnote { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.fnote span { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--line2); color: var(--ink2); font: 600 12px var(--sans); }
+.fnote b { font-family: var(--mono); color: var(--ink); }
 .card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; min-width: 0; overflow: hidden; animation: up .6s cubic-bezier(.16,1,.3,1) both; }
 @keyframes up { from { opacity: 0; transform: translateY(10px); } }
 .card h2 { margin: 0; font-size: 15px; font-weight: 650; letter-spacing: -.01em; }
@@ -85,7 +92,7 @@ button { font: inherit; color: inherit; }
 
 /* Trichter */
 .fun { display: grid; gap: 10px; }
-.fun .r { display: grid; grid-template-columns: 150px minmax(0, 1fr) 54px; align-items: center; gap: 12px; }
+.fun .r { display: grid; grid-template-columns: 180px minmax(0, 1fr) 54px; align-items: center; gap: 12px; }
 .fun .n { font-size: 13.5px; color: var(--ink2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fun .bar { height: 30px; border-radius: 9px; background: var(--card2); overflow: hidden; position: relative; }
 .fun .bar i { position: absolute; inset: 0 auto 0 0; background: var(--ink); border-radius: 9px; transform-origin: 0 50%; animation: grow 1s cubic-bezier(.16,1,.3,1) both; }
@@ -172,7 +179,8 @@ button { font: inherit; color: inherit; }
 
 @media (max-width: 1700px) { .g7 .kpi .d span:not(:only-child) { display: none; } }
 @media (max-width: 1100px) { .g7 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .g7 .kpi.big { grid-column: span 2; } }
-@media (max-width: 860px) { .g2, .g3 { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 1100px) { .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 860px) { .g2, .g3, .g4, .g21 { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 640px) {
   .wrap { padding: 10px 14px 60px; } .top-in { padding: 10px 14px; flex-wrap: wrap; gap: 10px; }
   .brand small { display: none; } .stand { display: none; }
@@ -355,23 +363,24 @@ button { font: inherit; color: inherit; }
     var bes = reihe.besuche || [], akt = reihe.aktiv || [], besR = d.besucherReihe || bes;
     var kontenVor = d.konten.vorher != null ? { konten: d.konten.vorher } : null;
     var K = [
-      ['eye', 'Aus Google Ads', k.ads || 0, 'ads', null],
-      ['user', 'Besucher (mit Cookies)', k.besucher, 'besucher', besR, true],
-      ['eye', 'Seitenaufrufe', k.besuche, 'besuche', bes],
-      ['userplus', 'Neue Konten', d.konten.zeitraum, 'konten', d.konten.reihe, false, kontenVor],
+      ['user', 'Besucher', k.personen || 0, 'personen', besR, true],
+      ['bolt', 'Klicks aus Google Ads', k.ads || 0, 'ads', null],
+      ['userplus', 'Neue Konten', d.konten.zeitraum, 'konten', d.konten.reihe, true, kontenVor],
+      ['check', 'Besucher → Konto', k.personen ? Math.round(1000 * d.konten.zeitraum / k.personen) / 10 : 0, 'quote', null],
       ['chat', 'Fragen an Max', k.fragen, 'fragen', akt],
       ['spark', 'Erstellt', k.erstellt, 'erstellt', akt],
-      ['check', 'Cookie-Quote', k.quote, 'quote', null],
       ['refresh', 'Kommen wieder', d.wieder || 0, 'wieder', null]
     ];
     var kpis = K.map(function (x, i) {
       var v = x[2] || 0, vv = x[6] !== undefined ? x[6] : vor;
-      return '<div class="card kpi' + (x[5] ? ' big' : '') + '" style="animation-delay:' + (i * 40) + 'ms"><div class="l">' + ico(x[0]) + esc(x[1]) + '</div><div class="v num">' + (x[3] === 'quote' ? String(v).replace('.', ',') + ' %' : fmt(v)) + '</div><div class="d">' + (x[3] === 'quote' ? '<span>stimmen zu</span>' : x[3] === 'wieder' ? '<span>von ' + fmt(d.mitKennung || 0) + ' mit Cookies</span>' : delta(x[3] === 'konten' ? 'konten' : x[3], v, vv)) + '</div>' + (x[4] ? spark(x[4]) : '<svg class="sp" viewBox="0 0 100 34"><rect x="0" y="14" width="100" height="6" rx="3" fill="#151517"/><rect x="0" y="14" width="' + Math.min(100, x[3] === 'wieder' ? 100 * v / Math.max(1, d.mitKennung || 0) : v) + '" height="6" rx="3" fill="#fff"/></svg>') + '</div>';
+      return '<div class="card kpi' + (x[5] ? ' big' : '') + '" style="animation-delay:' + (i * 40) + 'ms"><div class="l">' + ico(x[0]) + esc(x[1]) + '</div><div class="v num">' + (x[3] === 'quote' ? String(v).replace('.', ',') + ' %' : fmt(v)) + '</div><div class="d">' + (x[3] === 'quote' ? '<span>werden zu Konten</span>' : x[3] === 'ads' ? '<span>' + fmt(k.adsAufrufe || 0) + ' Aufrufe inkl. Neuladen</span>' : x[3] === 'personen' ? '<span>' + fmt(k.besuche || 0) + ' Seitenaufrufe</span>' : x[3] === 'wieder' ? '<span>von ' + fmt(d.mitKennung || 0) + ' mit Cookies</span>' : delta(x[3] === 'konten' ? 'konten' : x[3], v, vv)) + '</div>' + (x[4] ? spark(x[4]) : '<svg class="sp" viewBox="0 0 100 34"><rect x="0" y="14" width="100" height="6" rx="3" fill="#151517"/><rect x="0" y="14" width="' + Math.min(100, x[3] === 'wieder' ? 100 * v / Math.max(1, d.mitKennung || 0) : v) + '" height="6" rx="3" fill="#fff"/></svg>') + '</div>';
     }).join('');
 
     var tr = d.basis.trichter || [], t0 = (tr[0] && tr[0][1]) || 0;
+    var tx = d.basis.trExtra || {};
+    var fnote = '<div class="fnote"><span>Aus Google Ads <b>' + fmt(k.ads || 0) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>';
     var trich = tr.concat([['Konto erstellt', d.konten.zeitraum]]).map(function (x, i, arr) {
-      var w = t0 ? 100 * x[1] / t0 : 0, prev = i ? arr[i - 1][1] : 0, pr = i && prev ? Math.round(100 * x[1] / prev) : null;
+      var w = t0 ? 100 * x[1] / t0 : 0, pr = i && t0 ? Math.round(100 * x[1] / t0) : null;   // Anteil aller Besucher
       return '<div class="r"><span class="n">' + esc(x[0]) + '</span><span class="bar"><i style="width:' + Math.max(w ? 1.5 : 0, w).toFixed(1) + '%;animation-delay:' + (i * 70) + 'ms"></i><span class="num' + (w < 18 ? ' out" style="left:calc(' + Math.max(w, 1.5).toFixed(1) + '% + 8px)' : '') + '">' + fmt(x[1]) + '</span></span><span class="p">' + (pr == null ? '' : pr + ' %') + '</span></div>';
     }).join('');
 
@@ -433,22 +442,32 @@ button { font: inherit; color: inherit; }
     var sc = d.basis.scroll || {}, mitK = d.mitKennung || 0;
     var verhalten = bars([['50 % gescrollt', sc['50'] || 0], ['Bis ganz unten', sc['100'] || 0], ['Länger als 30 Sekunden', (d.basis.ereignisse || []).filter(function (x) { return x[0] === 'Länger als 30 Sekunden'; }).map(function (x) { return x[1]; })[0] || 0], ['Kommen wieder', d.wieder || 0]], Math.max(1, mitK));
 
+    // Beim stillen Aktualisieren: Scroll-Position, offene Details und Feed-Position behalten – nichts springt
+    var keep = [], n0 = app; while (n0) { if (n0.scrollTop) keep.push([n0, n0.scrollTop]); n0 = n0.parentNode || n0.host; }
+    var wy = window.scrollY, feedTop = ($id('feed') || {}).scrollTop || 0;
+    var openD = [].map.call(app.querySelectorAll('details.uad'), function (x) { return x.open; });
+    app.classList.toggle('calm', !firstDraw);
+    app.style.minHeight = firstDraw ? '' : app.offsetHeight + 'px';
     app.innerHTML =
       '<section class="grid g7">' + kpis + '</section>' +
-      '<section class="grid"><div class="card"><div class="hd"><h2>Verlauf</h2><div class="leg"><span><i></i>Seitenaufrufe</span><span><i class="l2"></i>Besucher</span><span><i class="l3"></i>Aktiv</span></div></div><div class="chart" id="chart"></div></div></section>' +
-      '<section class="grid g2"><div class="card"><div class="hd"><h2>Vom Besuch zum Konto</h2><small>Trichter · ' + esc(d.zeitraum.name) + '</small></div><div class="fun">' + trich + '</div></div>' +
+      '<section class="grid g21"><div class="card"><div class="hd"><h2>Vom Besuch zum Konto</h2><small>Wo sie abspringen · ' + esc(d.zeitraum.name) + '</small></div><div class="fun">' + trich + '</div>' + fnote + '</div>' +
       '<div class="card"><div class="hd"><h2>Gerade passiert</h2><small>live</small></div><div class="feed" id="feed">' + feed + '</div></div></section>' +
+      '<section class="grid"><div class="card"><div class="hd"><h2>Verlauf</h2><div class="leg"><span><i></i>Seitenaufrufe</span><span><i class="l2"></i>Besucher</span><span><i class="l3"></i>Aktiv</span></div></div><div class="chart" id="chart"></div></div></section>' +
       '<section class="grid g2"><div class="card"><div class="hd"><h2>Neue Konten</h2><small>' + esc(d.zeitraum.name) + '</small></div>' + konten + '</div>' +
-      '<div class="card"><div class="hd"><h2>Was genutzt wird</h2><small>Funktionen</small></div>' + nutz + '</div></section>' +
-      '<section class="grid"><div class="card"><div class="hd"><h2>Nutzer-Aktivität</h2><small>' + (limN ? '<span class="limb">' + limN + ' im Limit (7 Tage)</span> · ' : '') + 'Besuche je Konto · ohne Inhalte</small></div>' + aktiv + '</div></section>' +
-      '<section class="grid"><div class="card"><div class="hd"><h2>Wann sie kommen</h2><small>Seitenaufrufe je Wochentag & Stunde</small></div>' + heat + '</div></section>' +
-      '<section class="grid g3"><div class="card"><div class="hd"><h2>Woher</h2><small>Quelle</small></div>' + bars(d.basis.herkunft) + '</div>' +
+      '<div class="card"><div class="hd"><h2>Nutzer-Aktivität</h2><small>' + (limN ? '<span class="limb">' + limN + ' im Limit (7 Tage)</span> · ' : '') + 'Besuche je Konto · ohne Inhalte</small></div>' + aktiv + '</div></section>' +
+      '<section class="grid g4"><div class="card"><div class="hd"><h2>Was genutzt wird</h2><small>Funktionen</small></div>' + nutz + '</div>' +
+      '<div class="card"><div class="hd"><h2>Woher</h2><small>Seitenaufrufe</small></div>' + bars(d.basis.herkunft) + '</div>' +
       '<div class="card"><div class="hd"><h2>Geräte</h2><small>Anteil</small></div>' + geraete + '</div>' +
       '<div class="card"><div class="hd"><h2>Verhalten</h2><small>von ' + fmt(mitK) + ' mit Cookies</small></div>' + verhalten + '<div class="sub">Städte</div>' + bars(d.basis.staedte) + '</div></section>' +
+      '<section class="grid"><div class="card"><div class="hd"><h2>Wann sie kommen</h2><small>Seitenaufrufe je Wochentag & Stunde</small></div>' + heat + '</div></section>' +
       '<section class="grid"><div class="card"><div class="hd"><h2>Besucher-Wege</h2><small>Was jemand nacheinander gemacht hat</small></div><div id="wege">' + wege + '</div></div></section>' +
-      '<div class="foot">Gezählt wird ohne Inhalte. Wege, Orte und Wiederkehrer nur bei Besuchern, die Cookies erlaubt haben. · <span id="stand2"></span></div>';
+      '<div class="foot">Gezählt wird ohne Inhalte. Besucher: gleiches Gerät + gleicher Einstieg innerhalb von 30 Min. zählt einmal (Neuladen zählt nicht doppelt). Google-Ads-Klicks genauso – Google selbst meldet mit ein paar Stunden Verzögerung. Wege, Orte und Wiederkehrer nur bei Besuchern, die Cookies erlaubt haben (' + String(k.quote || 0).replace('.', ',') + ' %). · <span id="stand2"></span></div>';
 
     verlauf($id('chart'), achse, keys, bes, besR, akt);
+    [].forEach.call(app.querySelectorAll('details.uad'), function (x, i) { if (openD[i]) x.open = true; });
+    var fe = $id('feed'); if (fe && feedTop) fe.scrollTop = feedTop;
+    if (!firstDraw) { keep.forEach(function (x) { x[0].scrollTop = x[1]; }); if (window.scrollY !== wy) window.scrollTo(0, wy); }
+    app.style.minHeight = '';
     var mb = $id('more'); if (mb) mb.onclick = function () { showAllWege = !showAllWege; draw(); };
     firstDraw = false;
     tick();

@@ -188,7 +188,8 @@ function tsCard() {
 
 export async function render(root) {
   const host = h('div', { class: 'zl-host' });
-  const wrap = h('div', { class: 'view-in zl' }, payCard(), tsCard(), promoCard(), host, fbCard());
+  // Zahlen zuerst und über die volle Breite; Einstellungen (Inner Circle, Bot-Schutz, Promocodes) klein darunter
+  const wrap = h('div', { class: 'view-in zl' }, host, h('div', { class: 'zl-admin' }, payCard(), tsCard(), promoCard()), fbCard());
   root.appendChild(wrap);
   let s;
   try { s = await source(); }
