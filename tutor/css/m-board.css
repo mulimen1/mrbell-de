@@ -553,7 +553,7 @@ html.bm-entryb .rm-bar .m-dcards:hover { box-shadow: 0 3px 0 var(--ink); }
 @keyframes mcBob { 50% { transform: translateY(3px); } }
 :root[data-theme="dark"] .tafel .m-mc-tz { background: var(--panel); }
 /* Mini-Check-Hinweis: volle Akzentfarbe */
-.tafel .m-mc-tz { background: linear-gradient(180deg, var(--bmA), var(--bmB)); border-color: var(--bmB); box-shadow: 0 3px 0 var(--bmC); color: var(--onInv); }
+.tafel .m-mc-tz { background: var(--bmB); border-color: var(--bmB); box-shadow: 0 3px 0 var(--bmC); color: var(--onInv); }
 .tafel .m-mc-tz:hover { box-shadow: 0 5px 0 var(--bmC); }
 .tafel .m-mc-tzi { background: var(--onInv); color: var(--bmB); }
 .tafel .m-mc-tzt b, .tafel .m-mc-tza { color: var(--onInv); }
