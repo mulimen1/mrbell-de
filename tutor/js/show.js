@@ -194,6 +194,16 @@ const CSS = `
 .sh .typer .snd svg{width:24px;height:24px}
 .sh .typer .cur{width:3px;height:1.2em;background:var(--ink);margin-left:2px;animation:shblink 1s steps(1) infinite;flex:none}
 @keyframes shblink{50%{opacity:0}}
+.sh .mcur{position:absolute;left:0;top:0;z-index:6;pointer-events:none;opacity:0;transition:transform .95s cubic-bezier(.65,0,.25,1),opacity .4s;will-change:transform}
+.sh .mcur.on{opacity:1}
+.sh .mcur svg{width:42px;height:42px;display:block;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
+.sh .mcur b{position:absolute;left:30px;top:38px;padding:6px 14px;border-radius:10px 10px 10px 3px;background:var(--g);color:#fff;font:800 17px var(--sans);white-space:nowrap;box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}
+.sh.neon .mcur b{box-shadow:0 0 22px -4px var(--g)}
+.sh .mcur .rp{position:absolute;left:-14px;top:-14px;width:28px;height:28px;border-radius:50%;border:3px solid var(--g2);opacity:0}
+.sh .mcur.click .rp{animation:shrip .55s ease-out}
+.sh .mcur.click svg{transform:scale(.86);transition:transform .12s}
+@keyframes shrip{from{opacity:.9;transform:scale(.4)}to{opacity:0;transform:scale(2.4)}}
+.sh .hl{outline:3px solid var(--g2);outline-offset:6px;border-radius:14px;transition:outline-color .3s}
 .sh .hint{position:absolute;right:16px;bottom:4px;font:600 11px var(--mono,monospace);color:var(--mute);opacity:0;transition:opacity .3s}
 .sh.mouse .hint{opacity:.7}
 `;
@@ -213,7 +223,7 @@ export function startShow(arg) {
   const faceCss = [...document.querySelectorAll('style')].map(x => x.textContent).find(t => t.includes('.fz-mouth')) || '';
   const st0 = el('style'); st0.textContent = CSS + '\n' + faceCss; sr.appendChild(st0);
   root = el('div', 'sh' + (light ? ' light' : '') + (neon && !light ? ' neon' : ''));
-  root.innerHTML = '<div class="grid"></div><div class="stage"></div><div class="max big"><div class="ring"></div><div class="ring r2"></div><div class="mf" style="width:100%;height:100%"></div></div><div class="tbar"><span class="br"><span class="bf"></span>BWL Max <small>BETA</small></span>' + TABS.map(t => '<span class="tb" data-t="' + t + '">' + t + '</span>').join('') + '<span class="sp"></span><span class="doc"><i></i>Chapter_1_Conceptual_Foundations.pdf · 21 Folien</span></div><div class="sub"></div><div class="typer glass"><span class="att">+ Dokument</span><span class="fl"><span class="ph">Frag Max zu Kapitel 1 – z. B. „Erklär mir Delegated Monitoring“</span><span class="tx"></span><span class="cur"></span></span><span class="mk">' + IC_MIC + 'Sprich mit Max</span><span class="snd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="hint">Enter / Leertaste weiter · ← zurück · R neu · T hell/dunkel · N Neon · M Ton · Esc Ende</div>';
+  root.innerHTML = '<div class="grid"></div><div class="stage"></div><div class="max big"><div class="ring"></div><div class="ring r2"></div><div class="mf" style="width:100%;height:100%"></div></div><div class="tbar"><span class="br"><span class="bf"></span>BWL Max <small>BETA</small></span>' + TABS.map(t => '<span class="tb" data-t="' + t + '">' + t + '</span>').join('') + '<span class="sp"></span><span class="doc"><i></i>Chapter_1_Conceptual_Foundations.pdf · 21 Folien</span></div><div class="sub"></div><div class="typer glass"><span class="att">+ Dokument</span><span class="fl"><span class="ph">Frag Max zu Kapitel 1 – z. B. „Erklär mir Delegated Monitoring“</span><span class="tx"></span><span class="cur"></span></span><span class="mk">' + IC_MIC + 'Sprich mit Max</span><span class="snd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="mcur"><span class="rp"></span><svg viewBox="0 0 24 24"><path d="M4 2.5l15 9.2-6.6 1.3 3.9 7.2-2.9 1.5-3.9-7.3L4.6 19z" fill="#fff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg><b>Max</b></div><div class="hint">Enter / Leertaste weiter · ← zurück · R neu · T hell/dunkel · N Neon · M Ton · Esc Ende</div>';
   sr.appendChild(root); document.body.appendChild(host);
   const stage = root.querySelector('.stage'), maxEl = root.querySelector('.max'), sub = root.querySelector('.sub'), typer = root.querySelector('.typer'), typTx = typer.querySelector('.tx');
   const fc = face(root.querySelector('.mf'), { follow: true }); face(root.querySelector('.bf'), { follow: true });
@@ -247,6 +257,18 @@ export function startShow(arg) {
     maxEl.classList.remove('talk'); fc.set('smug'); setTimeout(() => { if (my === tok) fc.set('idle'); }, 1400);
   }
 
+  // Max' Mauszeiger: fährt zu dem, was er gerade erklärt, und klickt
+  const mcur = root.querySelector('.mcur');
+  function curTo(sel, opt = {}) {
+    const t = typeof sel === 'string' ? root.querySelector(sel) : sel; if (!t) return;
+    const r = t.getBoundingClientRect(), R = root.getBoundingClientRect();
+    const x = r.left - R.left + r.width * (opt.fx != null ? opt.fx : .5), y = r.top - R.top + r.height * (opt.fy != null ? opt.fy : .5);
+    mcur.classList.add('on'); mcur.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+    if (opt.hl) { root.querySelectorAll('.hl').forEach(e => e.classList.remove('hl')); t.classList.add('hl'); }
+  }
+  function curClick() { mcur.classList.remove('click'); void mcur.offsetWidth; mcur.classList.add('click'); }
+  function path(my, steps) { steps.forEach(([ms, sel, opt, click]) => setTimeout(() => { if (my !== tok) return; curTo(sel, opt || {}); if (click) setTimeout(() => { if (my === tok) curClick(); }, 950); }, ms)); }
+  const curOff = () => { mcur.classList.remove('on'); root.querySelectorAll('.hl').forEach(e => e.classList.remove('hl')); };
   function setMax(mode) { sub.classList.toggle('shside', mode === 'small'); maxEl.classList.toggle('big', mode === 'big'); stage.classList.toggle('full', mode === 'hide'); maxEl.style.opacity = mode === 'hide' ? '0' : '1'; }
 
   const SCENES = {
@@ -290,7 +312,7 @@ export function startShow(arg) {
     karten(my) {
       setMax('small');
       stage.innerHTML = '<div style="width:100%;display:grid;justify-items:center"><div class="tag fade"><i></i>Karteikarten · Kapitel 1</div><div class="cards">' + CARDS.map((c, i) => '<div class="fc pop" style="animation-delay:' + (i * 150) + 'ms"><div class="in"><div class="fa">' + c[0] + '</div><div class="ba">' + c[1] + '</div></div></div>').join('') + '</div></div>';
-      stage.querySelectorAll('.fc').forEach((c, i) => setTimeout(() => { if (my === tok) c.classList.add('flip'); }, 2600 + i * 1300));
+      stage.querySelectorAll('.fc').forEach((c, i) => setTimeout(() => { if (my === tok) c.classList.add('flip'); }, 2950 + i * 1300));
     },
     quiz(my) {
       setMax('small');
@@ -343,7 +365,19 @@ export function startShow(arg) {
     try { audio.pause(); } catch (e) {}
     maxEl.classList.remove('talk'); fc.set('idle'); sub.innerHTML = '';
     root.querySelectorAll('.you').forEach(x => x.remove());
-    tab(S[i].id); SCENES[S[i].id](my);
+    tab(S[i].id); curOff(); SCENES[S[i].id](my);
+    const P = {
+      scan: [[400, '.slides', { fx: .15, fy: .2 }], [1500, '.slides', { fx: .85, fy: .8 }], [3400, '.chips', { fx: .3 }]],
+      tafel: [[700, '.net > div:first-child svg', {}], [2600, '.net > div:last-child svg', { fx: .5, fy: .5 }, true], [4200, '.eq', { fx: .75 }]],
+      zahlen: [[600, '.kpi:nth-child(1) .v', {}], [2600, '.kpi:nth-child(2) .v', {}], [4600, '.kpi:nth-child(3) svg', { fx: .95, fy: .45 }]],
+      mindmap: [[500, '.mm', { fx: .5, fy: .14 }], [2200, '.mm', { fx: .23, fy: .4 }], [3800, '.mm', { fx: .77, fy: .4 }], [5400, '.mm', { fx: .86, fy: .9 }]],
+      karten: [[1900, '.fc:nth-child(1)', {}, true], [3200, '.fc:nth-child(2)', {}, true], [4500, '.fc:nth-child(3)', {}, true], [5800, '.fc:nth-child(4)', {}, true]],
+      quiz: [[600, '.qz .q', { fx: .1 }], [2200, '.qz .o[data-i="0"]', { fx: .2 }], [3000, '.qz .o[data-i="1"]', { fx: .2 }], [3800, '.qz .o[data-i="2"]', { fx: .2 }], [4800, '.timer', {}]],
+      mitschrift: [[500, '.paper', { fx: .3, fy: .3 }], [1700, '.paper', { fx: .6, fy: .7 }], [2600, '.clean', { fx: .2, fy: .25 }], [4200, '.clean', { fx: .4, fy: .8 }]],
+      podcast: [[700, '.cover', {}, true], [2200, '.wave', { fx: .3 }], [3600, '.prog', { fx: .38 }]],
+      sprechen: [[700, '.mic .core', {}, true]]
+    }[S[i].id];
+    if (P) path(my, P);
     await wait(i === 0 ? 900 : 500);
     if (my === tok) say(S[i].say, my);
   }
