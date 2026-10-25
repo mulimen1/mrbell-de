@@ -4,7 +4,7 @@ import { h, ico, ls } from './util.js';
 import { L } from './i18n.js';
 
 let mounted = false, dock, panel = null, which = '';
-const CSS_V = 10;
+const CSS_V = 11;
 
 const ICON = {
   calc: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.8" width="14" height="18.4" rx="2.6"/><rect x="8" y="5.8" width="8" height="3.6" rx=".8"/><path d="M8.6 13h.01M12 13h.01M15.4 13h.01M8.6 16.6h.01M12 16.6h.01M15.4 16.6h.01"/></svg>',
@@ -25,7 +25,7 @@ export function mountDock() {
   if (mounted) return; mounted = true;
   if (!document.querySelector('link[data-dock]')) document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/dock.css?v=' + CSS_V, 'data-dock': '1' }));
   const b = (k, label) => h('button', { type: 'button', class: 'dk-b', 'data-k': k, 'aria-label': label, title: label, 'aria-expanded': 'false', onclick: () => toggle(k) }, h('span', { class: 'dk-ic', html: ICON[k] }), h('span', { class: 'dk-l' }, label === L('Taschenrechner', 'Calculator') ? L('Rechner', 'Calculator') : L('Lexikon', 'Glossary')));
-  dock = h('div', { class: 'dk', role: 'toolbar', 'aria-label': L('Werkzeuge', 'Tools') }, b('calc', L('Taschenrechner', 'Calculator')), b('lex', L('BWL-Lexikon', 'Business glossary')));
+  dock = h('div', { class: 'dk', role: 'toolbar', 'aria-label': L('Werkzeuge', 'Tools') }, b('lex', L('BWL-Lexikon', 'Business glossary')), b('calc', L('Taschenrechner', 'Calculator')));   // nebeneinander über Max: links Lexikon, rechts Rechner
   document.body.appendChild(dock);
   place(); setInterval(place, 350); addEventListener('resize', place);
   // Max öffnet/schließt: sofort nachziehen (nicht erst beim nächsten Takt)

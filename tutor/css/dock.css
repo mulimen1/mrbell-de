@@ -151,3 +151,9 @@ html.bv-open .dk, html.ms-printing .dk { display: none; }
 .lx-sgt small { display: block; font-size: 12.5px; line-height: 1.4; color: var(--ink2); margin-top: 2px; }
 
 .dk.dk-side { z-index: 130; }
+/* Laptop: Lexikon und Rechner nebeneinander, mittig über Max; Fenster öffnet sich darüber */
+@media (min-width: 601px) {
+  .dk { flex-direction: row; gap: 10px; }
+  .dkp { right: var(--dr, 16px); bottom: calc(var(--db, 18px) + 56px); max-height: min(720px, calc(100vh - var(--db, 18px) - 80px)); }
+  .dkp.dkp-lex { height: min(620px, calc(100vh - var(--db, 18px) - 90px)); }
+}
