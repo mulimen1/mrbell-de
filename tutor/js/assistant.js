@@ -1293,7 +1293,8 @@ export function mountAssistant() {
       if (!getAccount() && !o.entry && hist.some(m => m.role === 'assistant')) { try { window.BM && window.BM.track('Anmeldepflicht', 'Frage'); } catch (x) {}
         import('./account.js').then(m => m.openAuth({ title: L('Mit BWL Max kostenlos chatten', 'Chat with BWL Max for free'), registerTitle: L('Mit BWL Max kostenlos chatten', 'Chat with BWL Max for free'), sub: L('Kostenloses Konto – mit Google in zwei Klicks. Deine Frage schick ich danach sofort ab.', 'Free account – two clicks with Google. I’ll send your question right after.'), why: 'Frage', strong: true })).then(ok => { if (ok && getAccount()) submit(text, o); }).catch(() => {});
         throw Object.assign(new Error('need_account'), { code: 'need_account', gate: true }); }
-      const messages = hist.slice(-12).map(m => ({ role: m.role, content: m.role === 'assistant' ? forHistory(m.content) : m.content }));
+      const messages = hist.slice(-13).map(m => ({ role: m.role, content: m.role === 'assistant' ? forHistory(m.content) : m.content }));
+      while (messages.length > 1 && messages[0].role !== 'user') messages.shift();   // Verlauf beginnt immer mit einer Nutzer-Nachricht (sonst setzt der Server ein „Hallo“ davor)
       const TAFEL = L('[Tafel: Gib jedem Block an der Tafel (h3, p, ul, div.calc, div.step, div.result, table, svg) ein Attribut data-say mit genau einem kurzen Satz (höchstens 18 Wörter), warum dieser Schritt so ist – Max zeigt ihn dann mit seinem Cursor.]',
         '[Board: give every block on the board (h3, p, ul, div.calc, div.step, div.result, table, svg) a data-say attribute with exactly one short sentence (max 18 words) on why this step is the way it is – Max then points to it with his cursor.]');
       const here = STAGE ? L('Tutor-Raum', 'Tutor room') : placeLabel(), before = ls.get('tutor.asst.lastPage');
@@ -1327,11 +1328,19 @@ export function mountAssistant() {
       const q1 = text.length > 1200 ? text.slice(0, 1200) + ' …' : text;
       messages[messages.length - 1].content = L('[Aktuelle Nachricht des Nutzers – darauf antwortest du:]', '[Current user message – answer this:]') + '\n' + q1 + (pre ? '\n\n' + pre : '') + '\n' + L('[Nachricht des Nutzers (dieselbe wie oben):]', '[User message (same as above):]') + '\n' + text;
       if (packs.length) {
-        const ack = L('Verstanden – ich halte mich daran.', 'Understood.');
-        const ruleMsgs = packs.flatMap((p, k) => [{ role: 'user', content: (k ? '' : L('[Regeln für deine nächste Antwort – nicht darauf antworten, nur befolgen:]\n', '[Rules for your next reply – do not answer these, just follow them:]\n')) + p }, { role: 'assistant', content: ack }]);
-        messages.splice(messages.length - 1, 0, ...ruleMsgs);
-        while (messages.length > 14) messages.shift();
-        while (messages.length && messages[0].role !== 'user') messages.shift();
+        // Server nimmt höchstens 14 Nachrichten – Regeln sollen keinen Verlauf verdrängen: erst an frühere (kurze) Nutzer-Nachrichten
+        // anhängen, nur wenn das nicht reicht, als eigenes Nachrichtenpaar.
+        const head = L('[Regeln für deine Antworten in diesem Gespräch – befolgen, nicht beantworten:]\n', '[Rules for your replies in this conversation – follow, do not answer:]\n'), tail = L('\n\n[Frühere Nachricht des Nutzers:]\n', '\n\n[Earlier user message:]\n');
+        const left = [];
+        const slots = messages.slice(0, -1).map((m, k) => k).filter(k => messages[k].role === 'user').reverse();
+        for (const p of packs) { const k = slots.find(k => messages[k].content.length + p.length + head.length + tail.length <= 3800 && !messages[k]._r); if (k == null) { left.push(p); continue; } messages[k] = { role: 'user', content: head + p + tail + messages[k].content, _r: 1 }; }
+        if (left.length) {
+          const ack = L('Verstanden – ich halte mich daran.', 'Understood.');
+          messages.splice(messages.length - 1, 0, ...left.flatMap(p => [{ role: 'user', content: head + p }, { role: 'assistant', content: ack }]));
+          while (messages.length > 14) messages.shift();
+          while (messages.length && messages[0].role !== 'user') messages.shift();
+        }
+        messages.forEach(m => { delete m._r; });
       }
       const payload = { messages, opts: Object.assign({ mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true, mem: Mem.memOn() }, o.entry ? { entry: true } : {}) };
       const d = curDoc();
