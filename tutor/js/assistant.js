@@ -1194,7 +1194,8 @@ export function mountAssistant() {
   }
   function cmdChip(c) {
     // Rückfrage mit Auswahl: antippen = sofort Tafel dazu, kein weiterer Klick
-    if (c.k === 'wahl') { const box = h('div', { class: 'ai-wahl' }); c.opts.forEach(o => box.appendChild(h('button', { class: 'ai-cmd tap', type: 'button', onclick: () => { box.querySelectorAll('button').forEach(x => { x.disabled = true; x.classList.toggle('on', x.textContent === o); }); submit(o); } }, o))); return box; }
+    if (c.k === 'wahl') { const box = h('div', { class: 'ai-wahl' }); c.opts.forEach(o => box.appendChild(h('button', { class: 'ai-cmd tap', type: 'button', onclick: () => { if (/^ich (schick|schreib|tipp|geb|sag)\w* dir (meine|die|mal)? ?(lösung|antwort|ergebnis)/i.test(o)) { inp.dataset.phLock = L('Deine Lösung …', 'Your answer …'); inp.placeholder = inp.dataset.phLock; try { inp.focus(); } catch (e) {} return; }   // „Ich schick dir meine Lösung“: nicht als Nachricht senden, sondern direkt ins Eingabefeld
+ box.querySelectorAll('button').forEach(x => { x.disabled = true; x.classList.toggle('on', x.textContent === o); }); submit(o); } }, o))); return box; }
     // Themen-Einstieg aus der Anzeige: Max bleibt im Raum – Werkzeuge nur als Angebot zum Antippen
     let stay = 0; try { stay = +sessionStorage.getItem('tutor.stay') || 0; } catch (e) {}
     const lastQ = ([...hist].reverse().find(m => m.role === 'user') || {}).content || '';
@@ -1275,6 +1276,7 @@ export function mountAssistant() {
     text = String(text || '').trim();
     const shown = String(o.show || text);
     if (!text || state === 'think') return;
+    if (inp.dataset.phLock === L('Deine Lösung …', 'Your answer …')) delete inp.dataset.phLock;
     // Creator Mode: feste Sketch-Szene statt KI (nur wenn der Server die Sketche für dieses Konto geliefert hat)
     if (o.sketchKey) { const sk = Creator.keyNext(); if (sk) playSketch(text, sk); return; }
     // Creator Mode (nur Gründer-Konten): Startsatz oder /sketch → feste Szene; danach ist jeder Satz der nächste Schritt

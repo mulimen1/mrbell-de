@@ -5172,3 +5172,5 @@ textarea.ai-in::placeholder { white-space: nowrap; overflow: hidden; text-overfl
 @media (min-width: 1000px) { #view:not(:has(> .room)) { padding-right: 80px; box-sizing: border-box; } }
 .xl.xl-detail .xl-head .xl-sub { display: none; }
 .xl.xl-detail .xl-head h1 { font-size: clamp(24px, 2.4vw, 30px); }
+/* Menü oben rechts immer über dem Seiteninhalt (die Container-Abfrage macht die Leiste zu eigener Ebene) */
+.topbar { position: relative; z-index: 44; }
