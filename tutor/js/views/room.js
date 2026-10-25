@@ -178,6 +178,7 @@ export function render(root, ctx = {}) {
     if (fresh1) {
       const nm = fresh1.name.length > 52 ? fresh1.name.slice(0, 51) + '…' : fresh1.name;
       const nc = (fresh1.decks || []).reduce((x, k) => x + (k.cards || []).length, 0);
+      if (!getFocus().length) { ls.set('tutor.room.focus', [fresh1.id]); ls.set('tutor.room.focusAt', Date.now()); setTimeout(() => { try { drawFocus(); } catch (e) {} }, 0); }   // Max sagt „hab ich gelesen“ → dann ist es auch verbunden (kein „Kein Skript verbunden“ darunter)
       out.push(nc ? L(`„${nm}“ hab ich gelesen – und deine ${nc} Karteikarten dazu liegen bereit.`, `I’ve read “${nm}” – and your ${nc} flashcards for it are ready.`) : L(`„${nm}“ hab ich schon gelesen.`, `I’ve already read “${nm}”.`));
       if (!justGreeted && getSpice() >= 2 && c.ton !== 'sachlich') out.push(nextSpruch());
       out.push(L('Was willst du daraus wissen?', 'What do you want to know from it?'));
