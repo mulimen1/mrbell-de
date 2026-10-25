@@ -140,7 +140,7 @@ export function mathify(root) {
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode(n) {
       if (!TEXQ.test(n.nodeValue)) return NodeFilter.FILTER_REJECT;
-      for (let p = n.parentNode; p && p !== root; p = p.parentNode) { if (p.nodeType === 1 && (SKIP.has(p.localName) || p.classList.contains('tex'))) return NodeFilter.FILTER_REJECT; }
+      for (let p = n.parentNode; p && p !== root; p = p.parentNode) { if (p.nodeType === 1 && (SKIP.has(p.localName) || p.classList.contains('tex') || p.classList.contains('nomath'))) return NodeFilter.FILTER_REJECT; }
       return NodeFilter.FILTER_ACCEPT;
     }
   });
@@ -223,7 +223,7 @@ function watch() {
     let any = false;
     for (const m of muts) for (const a of m.addedNodes) {
       const el = a.nodeType === 3 ? a.parentElement : a.nodeType === 1 ? a : null;
-      if (!el || !el.isConnected || el.closest('.tex, textarea, [contenteditable]')) continue;
+      if (!el || !el.isConnected || el.closest('.tex, textarea, [contenteditable], .nomath')) continue;   // .nomath: z. B. Excel-Bereich (Dateinamen mit _)
       if (a.nodeType === 1 && (a.matches('span.tex:not([data-ok])') || a.querySelector('span.tex:not([data-ok])'))) any = true;
       if (TEXQ.test(a.textContent || '')) mathify(el);
     }

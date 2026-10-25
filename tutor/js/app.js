@@ -106,6 +106,7 @@ function buildShell() {
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
     navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
     h('a', { class: 'tn tn-vid', href: '#/app/video', 'data-tn': 'video' }, h('span', { html: ico('video') }), h('span', { class: 'tn-l' }, L('Transkript', 'Transcribe')), h('span', { class: 'tn-brands', 'aria-hidden': 'true' }, ...['youtube', 'tiktok', 'instagram'].map(p => h('img', { src: `/tutor/img/brands/${p}.svg`, alt: '', width: 13, height: 13, class: 'tn-b tn-b-' + p }))), h('span', { class: 'tn-new' }, L('NEU', 'NEW'))),
+    h('a', { class: 'tn tn-xl', href: '#/app/excel', 'data-tn': 'excel', title: L('Excel-Vorlagen & Generator', 'Excel templates & generator') }, h('span', { class: 'tn-xlic', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" fill="#1D6F42"/><path d="M6.5 8.5h11M6.5 12h11M6.5 15.5h11M10.5 6v12" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>' }), h('span', { class: 'tn-l' }, 'Excel'), h('span', { class: 'tn-new tn-xlnew' }, L('NEU', 'NEW'))),
     Object.assign(navA('zahlen', '#/app/zahlen', 'chart', L('Zahlen', 'Numbers')), { hidden: true }));
   const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
@@ -226,7 +227,7 @@ function renderList() {
   if (!shell) return;
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
-  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video')};
+  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video'), excel: hs.startsWith('#/app/excel')};
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   requestAnimationFrame(navIntoView);
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
@@ -273,7 +274,7 @@ export async function mountApp(parts) {
     return;
   }
   // Aus „Lernen“ gekommen? Dann gibt’s oben „← Lernen“ – bis man woanders hin wechselt
-  if (!a || ['tutor', 'faecher', 'mitschrift', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen', 'zahlen', 'video'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
+  if (!a || ['tutor', 'faecher', 'mitschrift', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen', 'zahlen', 'video', 'excel'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
   const back = backTarget(), fromLearn = !!back;
   // Wo man in „Lernen“ zuletzt war (Übersicht oder ein Werkzeug wie Karteikarten) – „Lernen“ oben bringt einen genau dorthin zurück
   try { if (a === 'lernen') sessionStorage.setItem('tutor.lernLast', '#/app/lernen'); else if (a && LERN_TOOLS.includes(b) && S.list.some(d => d.id === a)) sessionStorage.setItem('tutor.lernLast', `#/app/${a}/${b}`); } catch (e) {}
@@ -281,7 +282,7 @@ export async function mountApp(parts) {
   if (back) { shell.backEl.href = back.href; shell.backEl.title = L('Zurück zu ', 'Back to ') + back.label; shell.backEl.lastChild.textContent = back.label; }
   const backLink = () => h('a', { class: 'view-back', href: back ? back.href : '#/app/lernen' }, h('span', { html: ico('left') }), L('Zurück zu ', 'Back to ') + (back ? back.label : L('Lernen', 'Learn')));
   // Seiten ohne eigenen Reiter oben (z. B. Fortschritt, Stundenplan): immer ein „Zurück“ dorthin, wo man herkam
-  const NAVA = ['lernen', 'mitschrift', 'faecher', 'bibliothek', 'video', 'zahlen', 'tutor', 'neu'];
+  const NAVA = ['lernen', 'mitschrift', 'faecher', 'bibliothek', 'video', 'excel', 'zahlen', 'tutor', 'neu'];
   const genBack = () => h('button', { class: 'view-back', type: 'button', onclick: () => { const p = prevHash; location.hash = p && p !== location.hash ? p : '#/app/tutor'; } }, h('span', { html: ico('left') }), L('Zurück', 'Back'));
   const page = (key, ttl, fn) => { docbar(false); shell.title.textContent = ttl; document.title = ttl + ' · BWL Max'; renderList(); return show(key, fromLearn && !(a === 'rechner' && b) ? async root => { const c2 = await fn(root); if (backTarget() && root.isConnected && !root.querySelector('.view-back')) root.prepend(backLink()); return c2; } : !NAVA.includes(a) ? async root => { const c2 = await fn(root); if (root.isConnected && !root.querySelector('.view-back')) root.prepend(genBack()); return c2; } : fn); };
   if (a === 'trainer') return page('trainer:' + (b || ''), L('BWL-Trainer', 'Business trainer'), async root => {
@@ -299,6 +300,7 @@ export async function mountApp(parts) {
   if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
   if (a === 'skripte') { location.replace('#/app/bibliothek/unterlagen'); return; }
   if (a === 'video') return page('video', L('Transkript', 'Transcribe'), async root => { const { render } = await import('./views/video.js'); return render(root); });
+  if (a === 'excel') return page('excel:' + (b || ''), L('Excel-Vorlagen & Generator', 'Excel templates & generator'), async root => { const { render } = await import('./views/excel.js'); return render(root, { arg: b || '' }); });
   if (a === 'bibliothek') return page('bibliothek', L('Bibliothek', 'Library'), async root => { const { render } = await import('./views/bibliothek.js'); return render(root, { tab: b || '' }); });
   // Tutor-Raum: die Startseite. Wer von woanders kommt, dem fliegt Max von unten rechts entgegen.
   if (!a || (a === 'me' && !b)) { location.replace('#/app/tutor'); return; }
