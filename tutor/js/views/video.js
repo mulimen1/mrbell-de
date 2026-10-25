@@ -9,7 +9,7 @@ import { askLang, langPicker, langName, detectLang } from '../srclang.js';
 
 const HUB = 'https://hub.mrbell.de/api/bwlmax/video';
 const LOGO = p => h('img', { class: 'vt-logo vt-' + p, src: `/tutor/img/brands/${p}.svg`, alt: { youtube: 'YouTube', tiktok: 'TikTok', instagram: 'Instagram' }[p] || p, width: 20, height: 20 });
-export const brandRow = () => h('span', { class: 'vt-brands', 'aria-hidden': 'true' }, LOGO('youtube'), LOGO('tiktok'), LOGO('instagram'));
+export const brandRow = () => h('span', { class: 'vt-brands', 'aria-hidden': 'true' }, LOGO('youtube'));
 const mmss = s => { s = Math.max(0, Math.round(s || 0)); const hh = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = String(s % 60).padStart(2, '0'); return hh ? `${hh}:${String(m).padStart(2, '0')}:${ss}` : `${m}:${ss}`; };
 const PLAT = { youtube: 'YouTube', tiktok: 'TikTok', instagram: 'Instagram' };
 const esc = s => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
