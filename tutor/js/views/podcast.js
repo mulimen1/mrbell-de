@@ -11,6 +11,8 @@ import { getOutLang, setOutLang, L } from '../i18n.js';
 import { autoOpts, srcPicker, goSource } from '../create.js';
 import { dlBtn, optsPodcast } from '../export.js';
 import { savedToast } from '../lib.js';
+import { beta } from '../beta.js';
+import { studio } from './podstudio.js';
 
 const synth = window.speechSynthesis;
 function voices() { return synth ? synth.getVoices().filter(v => /^de(-|_|$)/i.test(v.lang)) : []; }
@@ -131,6 +133,17 @@ function player(wrap, ctx, p) {
   const script = h('div', { class: 'script' }, lines);
   const w = wave();
   const rates = [0.9, 1, 1.25, 1.5].map(r => { const c = h('button', { class: 'chip' + (r === rate ? ' on' : '') }, L(r.toString().replace('.', ','), r.toString()) + '×'); c.addEventListener('click', () => { rate = r; audio.playbackRate = r; rates.forEach(x => x.classList.toggle('on', x === c)); if (playing && !real()) seek(idx); }); return c; });
+  // Neues Podcast-Studio (erst für Ben): Lisa & Max animiert, Live-Welle, Untertitel, Satz-Steuerung
+  const S = beta() ? studio(p, { toggle: () => playBtn.click(), seek: k => seek(k), idx: () => idx, playing: () => playing, real: () => !!real(), rate: () => rate, setRate: r => { rate = r; audio.playbackRate = r; rates.forEach(x => x.classList.toggle('on', x.textContent.startsWith(L(String(r).replace('.', ','), String(r))))); if (playing && !real()) seek(idx); } }) : null;
+  const acts = () => h('div', { style: { marginTop: '12px', display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap' } },
+    starBtn(() => ({ typ: 'podcast', titel: p.title, doc: ctx.doc.id, docName: ctx.doc.name, ref: p.id || p.title })),
+    dlBtn(() => optsPodcast(p, doc), { cls: 'btn sm ghost' }),
+    h('button', { class: 'btn sm ghost', onclick: async () => { const ok = await modal({ title: L('Folge löschen?', 'Delete episode?'), text: p.title, actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { stop(); doc.podcasts = doc.podcasts.filter(x => x !== p); save(doc); intro(wrap, ctx); } } }, h('span', { html: ico('trash') }), L('Löschen', 'Delete')));
+  if (S) {
+    wrap.replaceChildren(
+      h('button', { class: 'btn sm ghost', style: { marginBottom: '12px' }, onclick: () => { stop(); intro(wrap, ctx); } }, h('span', { html: ico('left') }), L('Alle Folgen', 'All episodes')),
+      h('div', { class: 'pod pod-st' }, h('div', {}, S.el, h('div', { class: 'eyebrow pstat-st' }, status), acts()), h('div', { class: 'pst-script' }, h('div', { class: 'eyebrow', style: { marginBottom: '8px' } }, L('Mitlesen · Satz antippen zum Springen', 'Read along · tap a line to jump')), script)));
+  } else
   wrap.replaceChildren(
     h('button', { class: 'btn sm ghost', style: { marginBottom: '12px' }, onclick: () => { stop(); intro(wrap, ctx); } }, h('span', { html: ico('left') }), L('Alle Folgen', 'All episodes')),
     h('div', { class: 'pod' },
@@ -149,6 +162,7 @@ function player(wrap, ctx, p) {
     lines.forEach((l, k) => l.classList.toggle('now', k === idx && (playing || idx > 0)));
     track.style.width = (100 * idx / p.lines.length) + '%';
     setStatus();
+    if (S) S.sync();
   };
   // ---- echte Stimmen (ElevenLabs), Zeile für Zeile, gecacht ----
   const fetchLine = k => {
@@ -170,6 +184,7 @@ function player(wrap, ctx, p) {
       for (let j = 1; j <= 2; j++) if (idx + j < p.lines.length) fetchLine(idx + j).catch(() => {});
       const bin = atob(b64); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
       const url = URL.createObjectURL(new Blob([u8], { type: 'audio/mpeg' }));
+      if (S) { S.hook(audio); S.resume(); }
       audio.src = url; audio.playbackRate = rate;
       audio.onended = () => { URL.revokeObjectURL(url); if (my !== token || !playing) return; idx++; setTimeout(playReal, 120); };
       await audio.play();
@@ -197,8 +212,8 @@ function player(wrap, ctx, p) {
   };
   const go = () => (real() ? playReal() : speak());
   const stop = () => { token++; playing = false; try { audio.pause(); } catch (e) {} try { synth && synth.cancel(); } catch (e) {} setUI(); };
-  const seek = k => { stop(); idx = Math.max(0, Math.min(p.lines.length - 1, k)); playing = true; go(); };
-  playBtn.addEventListener('click', () => { if (playing) stop(); else { playing = true; go(); } });
+  const seek = k => { if (S && real()) { S.hook(audio); S.resume(); } stop(); idx = Math.max(0, Math.min(p.lines.length - 1, k)); playing = true; go(); };
+  playBtn.addEventListener('click', () => { if (S && real()) { S.hook(audio); S.resume(); } if (playing) stop(); else { playing = true; go(); } });
   const keep = setInterval(() => { if (!wrap.isConnected) { clearInterval(keep); stop(); } }, 1000);
   setUI();
 }
