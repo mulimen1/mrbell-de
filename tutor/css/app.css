@@ -4933,8 +4933,7 @@ button.view-back { cursor: pointer; font: 600 13.5px var(--sans); color: var(--i
 /* Kopfzeile kompakter, damit alle Bereiche inkl. Excel auch auf Laptops sichtbar bleiben */
 @media (min-width: 761px) and (max-width: 1500px) {
   .topnav { gap: 2px; }
-  .tn { padding: 0 12px; gap: 7px; font-size: 16px; }
-  .tn:not(.tn-tutor):not(.tn-xl) > span:first-child:not(.tn-face) { display: none; }
+  html:not(.bm-guest) .tn { padding: 0 10px 0 5px; gap: 7px; font-size: 15.5px; }
   .tn-sep { margin: 0 6px; }
 }
 @media (min-width: 761px) and (max-width: 1180px) {
