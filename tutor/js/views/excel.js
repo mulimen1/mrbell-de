@@ -17,7 +17,7 @@ export function render(root, { arg = '' } = {}) {
   const tpl = arg && arg !== 'generator' ? byId(arg) : null;
   const tab = arg === 'generator' ? 'gen' : 'tpl';
   const head = h('header', { class: 'xl-head' },
-    h('div', { class: 'eyebrow' }, 'Excel-Vorlagen & Generator'),
+    h('div', { class: 'eyebrow' }, L('Excel-Helfer · Vorlagen & Generator', 'Excel helper · templates & generator')),
     h('h1', {}, icoXL('big'), L('Fertige Excel-Dateien. Echte Formeln.', 'Ready-made Excel files. Real formulas.')),
     h('p', { class: 'xl-sub' }, L(`Nimm eine der ${TEMPLATES.length} geprüften Vorlagen und trag nur die blauen Felder ein – Excel rechnet den Rest. Oder beschreib deine Aufgabe, und Max baut dir die Datei. Jede Formel wird vorher nachgerechnet.`, `Pick one of ${TEMPLATES.length} checked templates and fill in the blue cells – Excel does the rest. Or describe your task and Max builds the file. Every formula is checked first.`)));
   const tabs = h('div', { class: 'xl-tabs', role: 'tablist' },
