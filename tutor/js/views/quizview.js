@@ -62,9 +62,9 @@ function overview(wrap, ctx, pre) {
   const scopeBox = h('div', {}, h('label', { class: 'l' }, L('Umfang', 'Scope')), sel);
   const create = () => { if (pick.here()) return generate(wrap, ctx, st); if (pick.check()) return; goSource('quiz', pick.get(), { count: st.count, diff: st.diff, types: [...st.types], focus: -1 }); };
   const past = [...doc.quizzes].reverse();
-  wrap.replaceChildren(
-    h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, 'Quiz'), h('h2', {}, L('Teste dich – wie in der Klausur', 'Test yourself – just like the exam')), h('p', {}, L('Multiple Choice, Richtig/Falsch, Zuordnen, Reihenfolge, Lückentext und Rechenaufgaben.', 'Multiple choice, true/false, matching, ordering, fill-in-the-blank and calculations.')))),
-    h('div', { class: 'setup' },
+  // Schon Quizze da? Dann zuerst die (Weitermachen / Nochmal) – neues Quiz erst auf Klick, sonst erschlägt der Konfigurator
+  const headEl = h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, 'Quiz'), h('h2', {}, L('Teste dich – wie in der Klausur', 'Test yourself – just like the exam')), h('p', {}, L('Multiple Choice, Richtig/Falsch, Zuordnen, Reihenfolge, Lückentext und Rechenaufgaben.', 'Multiple choice, true/false, matching, ordering, fill-in-the-blank and calculations.'))));
+  const setupEl = h('div', { class: 'setup' },
       h('div', { class: 'sp-row' }, h('label', { class: 'l' }, L('Stoff', 'Material')), pick.el),
       h('div', { class: 'grid' },
         scopeBox,
@@ -73,12 +73,12 @@ function overview(wrap, ctx, pre) {
         h('div', { class: 'grid' }, h('div', {}, h('label', { class: 'l' }, L('Anzahl', 'Number of questions')), chips([[5, '5'], [8, '8'], [12, '12']], v => st.count === v, v => st.count = v))),
         h('div', { style: { marginTop: '18px' } }, h('label', { class: 'l' }, L('Fragetypen', 'Question types')),
           chips(TYPES.map(t => [t, TYPE_LABEL[t]]), v => st.types.has(v), v => { if (st.types.has(v) && st.types.size > 1) st.types.delete(v); else st.types.add(v); }))),
-      h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn(L('Quiz erstellen', 'Create quiz'), 'quiz', create, 'btn primary lg'))),
-    h('div', { class: 'hub', style: { marginTop: '16px' } },
+      h('div', { class: 'qactions' }, h('span', { class: 'sp' }), costBtn(L('Quiz erstellen', 'Create quiz'), 'quiz', create, 'btn primary lg')));
+  const hubEl = h('div', { class: 'hub', style: { marginTop: '16px' } },
       h('button', { class: 'tile half dark', onclick: () => exam(wrap, ctx) }, h('div', { class: 'ti', html: ico('exam') }), h('h3', {}, L('Klausur-Simulator', 'Exam simulator')), h('p', {}, L('Wie in der echten Klausur: Zeitlimit, Punkte je Aufgabe, Notenschlüssel – Auswertung erst am Ende.', 'Like the real exam: time limit, points per task, grading key – results only at the end.')), h('div', { class: 'foot' }, L('3 Einheiten · Dauer wählbar', '3 credits · choose duration'))),
       h('button', { class: 'tile half', disabled: !doc.mistakes.length, style: doc.mistakes.length ? null : { opacity: .55, cursor: 'default' }, onclick: () => doc.mistakes.length && run(wrap, ctx, { id: 'mistakes', title: L('Deine Fehler', 'Your mistakes'), questions: shuffle(doc.mistakes).slice(0, 12), mistakes: true }) },
-        h('div', { class: 'ti', html: ico('refresh') }), h('h3', {}, L('Fehler wiederholen', 'Review mistakes')), h('p', {}, doc.mistakes.length ? L(`${doc.mistakes.length} Fragen, die du falsch hattest. Richtig beantwortet fliegen sie raus.`, `${doc.mistakes.length} questions you got wrong. Answer them correctly and they’re gone.`) : L('Hier landen Fragen, die du falsch beantwortest.', 'Questions you get wrong end up here.')), h('div', { class: 'foot' }, L('Kostenlos', 'Free')))),
-    past.length ? h('div', { style: { marginTop: '26px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Deine Quizze – kostenlos wiederholen', 'Your quizzes – retake for free')),
+        h('div', { class: 'ti', html: ico('refresh') }), h('h3', {}, L('Fehler wiederholen', 'Review mistakes')), h('p', {}, doc.mistakes.length ? L(`${doc.mistakes.length} Fragen, die du falsch hattest. Richtig beantwortet fliegen sie raus.`, `${doc.mistakes.length} questions you got wrong. Answer them correctly and they’re gone.`) : L('Hier landen Fragen, die du falsch beantwortest.', 'Questions you get wrong end up here.')), h('div', { class: 'foot' }, L('Kostenlos', 'Free'))));
+  const pastEl = past.length ? h('div', { style: { marginTop: '26px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Deine Quizze – kostenlos wiederholen', 'Your quizzes – retake for free')),
       h('div', { class: 'list' }, past.map(q => {
         const best = q.results?.length ? Math.round(100 * Math.max(...q.results.map(r => r.score))) : null;
         return h('div', { class: 'li', onclick: () => run(wrap, ctx, q) }, h('span', { html: ico(q.exam ? 'exam' : 'quiz') }),
@@ -86,7 +86,12 @@ function overview(wrap, ctx, pre) {
           best != null ? h('span', { class: 'sc' }, best + ' %') : h('span', { class: 'tag' }, L('neu', 'new')),
           starBtn(() => ({ typ: 'quiz', titel: q.title, doc: doc.id, docName: doc.name, ref: q.id || q.title }), { cls: 'sm bare' }),
           dlBtn(() => optsQuiz(q, doc), { cls: 'iconbtn', text: false }));
-      }))) : null);
+      }))) : null;
+  if (past.length) {
+    const box = h('div', { class: 'qz-new', hidden: true }, setupEl);
+    const openB = h('button', { class: 'btn primary qz-newb', type: 'button', onclick: () => { box.hidden = !box.hidden; openB.classList.toggle('on', !box.hidden); if (!box.hidden) box.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } }, h('span', { html: ico('plus') }), L('Neues Quiz erstellen', 'Create a new quiz'));
+    wrap.replaceChildren(headEl, pastEl, h('div', { class: 'qz-row' }, openB), box, hubEl);
+  } else wrap.replaceChildren(headEl, setupEl, hubEl);
 }
 
 async function generate(wrap, ctx, st) {
