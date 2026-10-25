@@ -24,7 +24,7 @@ export function render(root, { arg = '' } = {}) {
     h('a', { class: 'xl-tab' + (tab === 'tpl' ? ' on' : ''), href: '#/app/excel', role: 'tab' }, h('span', { html: ico('library') }), L('Vorlagen', 'Templates'), h('b', {}, String(TEMPLATES.length))),
     h('a', { class: 'xl-tab' + (tab === 'gen' ? ' on' : ''), href: '#/app/excel/generator', role: 'tab' }, h('span', { html: ico('spark') }), L('Generator', 'Generator'), h('b', { class: 'xl-new' }, 'KI')));
   const body = h('div', { class: 'xl-body' });
-  wrap.append(head, tabs, body, h('p', { class: 'foot-tm' }, L('YouTube, TikTok, Instagram, Microsoft und Excel sind Marken ihrer jeweiligen Inhaber. BWL Max steht in keiner Verbindung zu diesen Unternehmen und wird von ihnen weder unterstützt noch gesponsert.', 'YouTube, TikTok, Instagram, Microsoft and Excel are trademarks of their respective owners. BWL Max is not affiliated with, endorsed or sponsored by these companies.')));
+  wrap.append(head, tabs, body, h('p', { class: 'foot-tm' }, L('Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.', 'Microsoft and Excel are trademarks of Microsoft Corporation. BWL Max is not affiliated with, endorsed or sponsored by Microsoft.')));
   if (tpl) openTemplate(body, tpl);
   else if (tab === 'gen') generator(body);
   else gallery(body);
