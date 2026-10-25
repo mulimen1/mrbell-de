@@ -5160,3 +5160,8 @@ textarea.ai-in { resize: none; line-height: 22px; padding-top: 11px !important; 
 /* Google-Ads-Landingpages: oben kein Karteikarten-Knopf, kein NEU bei Transkript (Excel-Helfer behält sein NEU) */
 .m-dcards { display: none !important; }
 .tn-vid .tn-new { display: none !important; }
+/* Excel-Helfer: NEU im alten Transkript-Stil (navy, weiße Schrift) – Landingpage und Konto */
+html .tn .tn-new.tn-xlnew, :root[data-theme="dark"] .tn .tn-new.tn-xlnew { display: inline-block !important; margin-left: 4px; padding: 3px 6px; border: 0; border-radius: 999px; background: var(--bmB); color: #fff; font-size: 10px; font-weight: 700; line-height: 1; letter-spacing: .06em; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tn .tn-new.tn-xlnew { color: #fff; } }
+@media (min-width: 761px) { html.bm-guest .tn .tn-new.tn-xlnew { font-size: 11px; padding: 4px 7px; } }
+.feat .ft-new { background: var(--bmB) !important; color: #fff !important; border: 0 !important; }

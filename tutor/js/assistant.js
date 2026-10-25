@@ -1210,7 +1210,23 @@ export function mountAssistant() {
   async function runCmd(c, chipEl) {
     const fail = msg => { chipEl.classList.remove('run'); chipEl.classList.add('no'); chipEl.replaceChildren(h('span', { class: 'ck', html: ico('x') }), msg); };
     const ok = () => { chipEl.classList.remove('run'); chipEl.classList.add('ok'); if (['go', 'make', 'trainer', 'topic'].includes(c.k) && feedOpen) setFeedOpen(false, { force: true }); };   // Seite frei machen
-    const d = curDoc() || S.doc;
+    // Kein Skript offen, aber Max meint ein vorhandenes („deine Karten zur Bilanz“): passendes Skript aus der Bibliothek nehmen
+    const findDoc = () => {
+      const lastQ = ([...hist].reverse().find(m => m.role === 'user') || {}).content || '';
+      const ans = (chipEl.closest('.ai-bub, .ai-a') || {}).textContent || '';
+      const norm = s => String(s).toLowerCase().replace(/[^a-zäöüß0-9 ]/g, ' ');
+      const qn = norm(lastQ), an = norm(ans);
+      let best = null, sc = 0;
+      for (const x of (S.list || [])) {
+        const w = norm(x.name).split(/\s+/).filter(t => t.length > 3);
+        if (!w.length) continue;
+        const s = w.filter(t => qn.includes(t)).length * 2 + w.filter(t => an.includes(t)).length;
+        const r = s / w.length + (Math.max(x.used || 0, x.created || 0) / 1e15);
+        if (s && r > sc) { sc = r; best = x; }
+      }
+      return best;
+    };
+    const d = curDoc() || S.doc || (c.doc ? findDoc() : null);
     if (c.doc && !d) {
       // Werkzeug ohne Skript: Stoff hochladen oder Thema nennen – danach entsteht direkt das Werkzeug
       if (c.k === 'make') { const m = await import('./app.js'); m.tryFeature(c.v === 'exam' ? 'quiz' : MAKE[c.v][0]); ok(); return; }
