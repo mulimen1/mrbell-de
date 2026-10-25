@@ -102,7 +102,7 @@ function study(wrap, ctx, items, title) {
   let i = 0, flipped = false, done = 0, again = 0;
   const stage = h('div', { class: 'fc-stage' });
   wrap.replaceChildren(h('button', { class: 'btn sm ghost', onclick: () => { cleanup(); overview(wrap, ctx); }, style: { marginBottom: '10px' } }, h('span', { html: ico('left') }), L('Karteikarten', 'Flashcards')),
-    h('div', { class: 'vh', style: { marginBottom: '6px' } }, h('div', {}, h('div', { class: 'eyebrow' }, L('Leertaste = umdrehen · 1–3 = bewerten', 'Space = flip · 1–3 = rate')), h('h2', { style: { fontSize: '24px' } }, title))), stage);
+    h('div', { class: 'vh', style: { marginBottom: '6px' } }, h('div', {}, h('div', { class: 'eyebrow' }, matchMedia('(pointer: coarse)').matches ? L('Tippen = umdrehen · wischen = bewerten', 'Tap = flip · swipe = rate') : L('Leertaste = umdrehen · 1–3 = bewerten', 'Space = flip · 1–3 = rate')), h('h2', { style: { fontSize: '24px' } }, title))), stage);
   const draw = () => {
     if (i >= queue.length) {
       const f = h('div', { class: 'face' });
@@ -128,9 +128,15 @@ function study(wrap, ctx, items, title) {
       stage.replaceChildren(card, h('div', { class: 'deckstats' }, h('span', {}, L(`${queue.length} Karten fertig`, `${queue.length} cards ready`))));
       return;
     }
-    const flip = () => { flipped = !flipped; card.classList.toggle('flipped', flipped); if (flipped) rate.style.visibility = 'visible'; };
+    const flip = () => { if (card._dragged) { card._dragged = false; return; } flipped = !flipped; card.classList.toggle('flipped', flipped); if (flipped) rate.style.visibility = 'visible'; };
     card.addEventListener('click', flip);
-    stage.replaceChildren(card, rate, h('div', { class: 'deckstats' }, h('span', {}, `${i + 1} / ${queue.length}`), h('span', {}, '·'), h('span', {}, L(`${done} erledigt`, `${done} done`))));
+    // Wischen (nach dem Umdrehen): rechts = gewusst, links = nochmal – wie bei Tinder/Quizlet
+    let sx = 0, sy = 0, dx = 0, drag = false;
+    card.addEventListener('pointerdown', e => { if (!flipped || e.button) return; sx = e.clientX; sy = e.clientY; dx = 0; drag = true; card.setPointerCapture?.(e.pointerId); card.style.transition = 'none'; });
+    card.addEventListener('pointermove', e => { if (!drag) return; dx = e.clientX - sx; if (Math.abs(e.clientY - sy) > 60 && Math.abs(dx) < 30) { drag = false; card.style.transform = ''; return; } card.style.transform = `translateX(${dx}px) rotate(${dx / 24}deg)`; card.classList.toggle('sw-ok', dx > 50); card.classList.toggle('sw-no', dx < -50); });
+    const end = () => { if (!drag) return; drag = false; card.style.transition = ''; if (Math.abs(dx) > 90) { card._dragged = true; const ok = dx > 0; card.style.transform = `translateX(${ok ? 140 : -140}%) rotate(${ok ? 18 : -18}deg)`; card.style.opacity = '0'; setTimeout(() => grade(ok ? 3 : 1), 220); } else { if (Math.abs(dx) > 6) card._dragged = true; card.style.transform = ''; card.classList.remove('sw-ok', 'sw-no'); } };
+    card.addEventListener('pointerup', end); card.addEventListener('pointercancel', end);
+    stage.replaceChildren(h('div', { class: 'fc-prog', 'aria-hidden': 'true' }, h('i', { style: { width: (100 * i / queue.length) + '%' } })), card, rate, h('div', { class: 'deckstats' }, h('span', {}, `${i + 1} / ${queue.length}`), h('span', {}, '·'), h('span', {}, L(`${done} erledigt`, `${done} done`))), i === 0 && !flipped ? h('div', { class: 'fc-swhint' }, L('Nach dem Umdrehen: nach rechts wischen = gewusst, nach links = nochmal', 'After flipping: swipe right = got it, left = again')) : null);
   };
   const grade = r => {
     const it = queue[i];
