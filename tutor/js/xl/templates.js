@@ -1,13 +1,17 @@
 // Die Excel-Vorlagen von BWL Max (Grundstock hier, weitere Bereiche in tpl-*.js). Blaue Felder = Eingaben, alles andere sind echte Excel-Formeln.
 // Rechenwege wie in Max' geprüften Rechnern (rechner-core.js) – Ergebnisse werden in den Tests dagegen geprüft.
 import { builder } from './core.js';
+import INVEST from './tpl-invest.js';
+import KOSTEN from './tpl-kosten.js';
+import REWE from './tpl-rewe.js';
+import OPS from './tpl-ops.js';
 
 const SUB = 'Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.';
 const range = (a, b) => { const o = []; for (let k = a; k <= b; k++) o.push(k); return o; };
 
 export const CATS = [['invest', 'Investition'], ['finanz', 'Finanzierung & Finanzmathematik'], ['kosten', 'Kosten- & Leistungsrechnung'], ['controlling', 'Controlling & Planung'], ['rewe', 'Buchführung & Jahresabschluss'], ['logistik', 'Beschaffung, Produktion & Logistik'], ['marketing', 'Marketing & Absatz']];
 
-export const TEMPLATES = [
+const BASE = [
   {
     id: 'kapitalwert', cat: 'invest', title: 'Kapitalwert & interner Zinsfuß', file: 'Kapitalwert_Interner_Zinsfuss.xlsx',
     desc: 'Lohnt sich die Investition? Barwerte, Kapitalwert, IZF und Entscheidung – bis 8 Jahre.', key: ['B22', 'B23'],
@@ -276,4 +280,7 @@ export const TEMPLATES = [
   }
 ];
 
+// Reihenfolge in der Galerie: nach Bereich (wie CATS), innerhalb des Bereichs Grundstock zuerst
+const ALL = [...BASE, ...INVEST, ...KOSTEN, ...REWE, ...OPS];
+export const TEMPLATES = CATS.flatMap(([c]) => ALL.filter(t => t.cat === c));
 export const byId = id => TEMPLATES.find(t => t.id === id);

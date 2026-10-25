@@ -308,8 +308,8 @@ async function aiText(prompt) {
   const r = await ask('chat', { messages: [{ role: 'user', content: prompt }], opts: { voice: false, assistant: true, entry: true } });
   return String(r.text || '');
 }
-// SUMMEWENN & Co. rechnet die Vorschau-Engine nicht exakt wie Excel – der Generator nutzt dafür SUMMENPRODUKT
-const BANNED = /^(SUMIF|SUMIFS|AVERAGEIF)$/;
+// SUMMEWENN (3 Argumente) und Vergleiche in SUMMENPRODUKT rechnet die Vorschau-Engine nicht wie Excel – der Generator nutzt SUMMEWENNS
+const BANNED = /^(SUMIF|AVERAGEIF)$/;
 function genPrompt(task, kind, E) {
   const fns = [...E.SUPPORTED].filter(f => !BANNED.test(f)).sort().join(', ');
   return `[Excel-Auftrag. Antworte AUSSCHLIESSLICH mit einem einzigen JSON-Objekt – kein Text davor oder danach, kein Markdown, keine Codeblöcke, keine Tafel.
@@ -326,6 +326,7 @@ Regeln:
 - Jede Zahl aus der Aufgabe wird eine Eingabe (e). Alles andere wird mit Formeln berechnet, nichts von Hand ausrechnen. Prozente als Dezimalzahl.
 - Aufbau: Titel (A1), Untertitel (A2), Abschnitt „Eingaben“, dann die Rechnung (Zeitreihen als Tabelle mit Kopfzeile k, eine Zeile pro Periode, höchstens 60 Perioden), dann Abschnitt „Ergebnis“ mit r-Zellen. Beschriftungen in Spalte A, Werte ab Spalte B.
 - Fachlich korrekt nach deutschem Uni-Standard (Investitionsrechnung, Kosten- und Leistungsrechnung, HGB). Fehlen Angaben, setz sinnvolle Beispielwerte als Eingabe und schreib einen Hinweis (h), dass man sie ersetzen soll.
+- Bedingte Summen nur mit SUMIFS(Summenbereich,Kriterienbereich,Kriterium), keine Vergleiche innerhalb von SUMPRODUCT.
 - Anzahlen (Jahre, Perioden, Stück) als Eingabe im Format int, Geldbeträge eur, Sätze pct.
 - Bevor du antwortest: Rechne jedes Ergebnis einmal im Kopf nach und prüfe jeden Zellbezug (zeigt er wirklich auf die gemeinte Zeile/Spalte?).
 - Höchstens 220 Zellen.]`;
@@ -364,7 +365,8 @@ async function toSpec(raw, E) {
     if (s === 'out' || s === 'res' || s === 'tot') {
       const f = normFormula(z[2]);
       if (!f || /[!\[\]{}]|https?:|INDIRECT|OFFSET/i.test(f)) { errors.push(ref + ': unzulässige Formel'); continue; }
-      if (/\b(SUMIFS?|AVERAGEIF)\s*\(/i.test(f)) { errors.push(ref + ': SUMIF/SUMIFS/AVERAGEIF nicht erlaubt – nutze SUMPRODUCT'); continue; }
+      if (/\b(SUMIF|AVERAGEIF)\s*\(/i.test(f)) { errors.push(ref + ': SUMIF/AVERAGEIF nicht erlaubt – nutze SUMIFS(Summenbereich,Kriterienbereich,Kriterium)'); continue; }
+      if (/SUMPRODUCT\s*\([^)]*[<>=]/i.test(f)) { errors.push(ref + ': keine Vergleiche in SUMPRODUCT – nutze SUMIFS oder COUNTIFS'); continue; }
       cells[ref] = { f, s, fmt };
     } else if (s === 'in') {
       let v = z[2]; if (typeof v === 'string') { const n = parseFloat(v.replace(/\./g, '').replace(',', '.').replace(/[^\d.\-e]/gi, '')); v = isFinite(n) ? n : v; }
