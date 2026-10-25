@@ -209,6 +209,7 @@ const CSS = `
 .sh .pdfc .pi{width:46px;height:54px;border-radius:10px;background:#e5484d;color:#fff;font:800 13px var(--sans);display:grid;place-items:center}
 .sh .pdfc b{display:block;font-size:16px}.sh .pdfc small{color:var(--mute);font-weight:650;font-size:13.5px}
 .sh .pdfc .ok{width:28px;height:28px;border-radius:50%;background:#2fd27a;color:#04130a;display:grid;place-items:center;font-weight:900}
+.sh.realbar .tbar{display:none}.sh.realbar .stage{top:3vh}.sh.realbar .you{top:2.4vh}.sh.realbar .pdfc{top:2.4vh}
 .sh .out{text-align:center}
 .sh .out .h1{font-size:clamp(50px,7vw,140px)}
 .sh .url{font:700 clamp(16px,1.4vw,24px) var(--mono,monospace);color:var(--mute);letter-spacing:.08em}
@@ -268,11 +269,18 @@ export function startShow(arg) {
   root = el('div', 'sh' + (light ? ' light' : '') + (neon && !light ? ' neon' : ''));
   root.innerHTML = '<div class="grid"></div><div class="stage"></div><div class="max big"><div class="lv"></div><div class="ring"></div><div class="ring r2"></div><div class="mf" style="width:100%;height:100%"></div></div><div class="tbar"><span class="br"><span class="bf"></span>BWL Max <small>BETA</small></span>' + TABS.map(t => '<span class="tb" data-t="' + t + '">' + t + '</span>').join('') + '<span class="sp"></span><span class="doc"><i></i>Chapter_1_Conceptual_Foundations.pdf · 21 Folien</span></div><div class="sub"></div><div class="typer glass"><span class="att">+ Dokument</span><span class="fl"><span class="ph">Frag Max zu Kapitel 1 – z. B. „Erklär mir Delegated Monitoring“</span><span class="tx"></span><span class="cur"></span></span><span class="mk">' + IC_MIC + 'Sprich mit Max</span><span class="snd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="mcur"><span class="rp"></span><svg viewBox="0 0 24 24"><path d="M4 2.5l15 9.2-6.6 1.3 3.9 7.2-2.9 1.5-3.9-7.3L4.6 19z" fill="#fff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg><b>Max</b></div><div class="hint">Enter / Leertaste weiter · ← zurück · R neu · T hell/dunkel · N Neon · M Ton · Esc Ende</div>';
   sr.appendChild(root); document.body.appendChild(host);
+  // Echte Kopfzeile der App bleibt 1:1 sichtbar (Tutor, Lernen, Mitschrift, Fächer, Bibliothek, Transkript …); die Show beginnt darunter
+  const bar = document.querySelector('.topbar'), br = bar && bar.getBoundingClientRect();
+  if (br && br.height && br.bottom > 0) { host.style.top = root.style.top = Math.round(br.bottom) + 'px'; root.classList.add('realbar'); }
+  const theme0 = document.documentElement.dataset.theme, setTheme = () => { document.documentElement.dataset.theme = root.classList.contains('light') ? 'light' : 'dark'; };
+  setTheme();
+  const TN = { Tutor: 'tutor', Lernen: 'lernen', Mitschrift: 'mitschrift', 'Fächer': 'faecher', Transkript: 'video' };
+  const tn0 = [...document.querySelectorAll('.topbar [data-tn]')].map(x => [x, x.classList.contains('on')]);
   const stage = root.querySelector('.stage'), maxEl = root.querySelector('.max'), sub = root.querySelector('.sub'), typer = root.querySelector('.typer'), typTx = typer.querySelector('.tx');
   const fc = face(root.querySelector('.mf'), { follow: true }); face(root.querySelector('.bf'), { follow: true });
   const ph = typer.querySelector('.ph'), snd = typer.querySelector('.snd'), mk = typer.querySelector('.mk');
   if (kosten) { const d = root.querySelector('.doc'); if (d) d.remove(); ph.textContent = 'Frag Max irgendwas aus BWL – oder drück aufs Mikro'; }
-  const tab = id => root.querySelectorAll('.tb').forEach(b => b.classList.toggle('on', b.dataset.t === (TAB_OF[id] || 'Tutor')));
+  const tab = id => { const t = TAB_OF[id] || 'Tutor'; root.querySelectorAll('.tb').forEach(b => b.classList.toggle('on', b.dataset.t === t)); tn0.forEach(([x]) => x.classList.toggle('on', x.dataset.tn === TN[t])); };
   try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) {}
 
   let idx = -1, typed = '', muted = false, tok = 0, mouseT = 0;
@@ -538,7 +546,7 @@ export function startShow(arg) {
     if (e.key === ' ' && !typed) { e.preventDefault(); next(); return; }
     if (!typed && !e.metaKey && !e.ctrlKey) {
       if (e.key === 'r' || e.key === 'R') { e.preventDefault(); go(idx); return; }
-      if (e.key === 't' || e.key === 'T') { e.preventDefault(); root.classList.toggle('light'); return; }
+      if (e.key === 't' || e.key === 'T') { e.preventDefault(); root.classList.toggle('light'); setTheme(); return; }
       if (e.key === 'n' || e.key === 'N') { e.preventDefault(); root.classList.toggle('neon'); return; }
       if (e.key === 'm' || e.key === 'M') { e.preventDefault(); muted = !muted; if (muted) try { audio.pause(); } catch (x) {} return; }
     }
@@ -557,6 +565,8 @@ export function startShow(arg) {
     removeEventListener('keydown', onKey, true);
     try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
     cache.forEach(p => p.then(u => u && URL.revokeObjectURL(u)));
+    if (theme0) document.documentElement.dataset.theme = theme0; else delete document.documentElement.dataset.theme;
+    tn0.forEach(([x, on]) => x.classList.toggle('on', on));
     host.remove(); root = null;
   }
   go(0);
