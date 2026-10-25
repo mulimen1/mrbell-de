@@ -227,7 +227,7 @@ function generator(body) {
   const recent = ls.get('tutor.xlgen.list', []) || [];
   if (recent.length) out.append(h('div', { class: 'xl-recent' }, h('b', {}, L('Deine letzten Dateien', 'Your recent files')), recent.map((r, i) => h('button', { type: 'button', class: 'chip', onclick: () => showResult(r.spec, r.title, r.file) }, icoXL(), r.title))));
 
-  const STEPS = [L('Max liest deine Aufgabe …', 'Max reads your task …'), L('Baut die Tabelle mit Eingaben und Formeln …', 'Builds the sheet with inputs and formulas …'), L('Rechnet jede Formel nach …', 'Checks every formula …')];
+  const STEPS = [L('Max liest deine Aufgabe …', 'Max reads your task …'), L('Baut die Tabelle mit Eingaben und Formeln …', 'Builds the sheet with inputs and formulas …'), L('Rechnet jede Formel nach …', 'Checks every formula …'), L('Zweite Prüfung: rechnet die Ergebnisse unabhängig nach …', 'Second check: recalculates the results independently …')];
   function step(i, extra) { status.hidden = false; status.replaceChildren(...STEPS.map((t, k) => h('div', { class: 'xl-step' + (k < i ? ' done' : k === i ? ' now' : '') }, h('i'), k === i && extra ? extra : t))); }
   async function run() {
     const text = ta.value.trim();
@@ -237,12 +237,22 @@ function generator(body) {
     try {
       const E = await engine();
       let spec = null, errs = [], raw = '';
-      for (let attempt = 0; attempt < 3 && !spec; attempt++) {
-        step(attempt ? 2 : 1, attempt ? L('Max korrigiert eine Formel …', 'Max is fixing a formula …') : null);
+      let checked = false, verifies = 0;
+      for (let attempt = 0; attempt < 4 && !(spec && checked); attempt++) {
+        step(attempt ? 2 : 1, attempt ? L('Max korrigiert die Tabelle …', 'Max is fixing the sheet …') : null);
         raw = await aiText(attempt ? repairPrompt(text, kind, raw, errs) : genPrompt(text, kind, E));
         step(2);
         const res = await toSpec(raw, E);
-        if (res.ok) spec = res.spec; else errs = res.errors;
+        if (!res.ok) { spec = null; errs = res.errors; continue; }
+        spec = res.spec;
+        // Doppelte Prüfung: zweiter, unabhängiger Durchgang rechnet die Ergebnisse ohne die Tabelle nach und prüft die Fachlogik
+        if (verifies >= 2) { checked = true; break; }
+        step(3); verifies++;
+        const v = await verify(text, spec, E).catch(() => null);
+        if (!v) { checked = true; spec.check = 'formeln'; break; }   // Prüfer nicht erreichbar: Formeln sind trotzdem nachgerechnet
+        if (v.ok) { checked = true; spec.check = 'doppelt'; break; }
+        errs = v.problems; console.debug('[xlgen] Prüfung:', errs);
+        if (attempt === 3) { spec = null; break; }
       }
       if (!spec) throw new Error(L('Die Tabelle hat die Prüfung nicht bestanden: ', 'The sheet did not pass the check: ') + errs.slice(0, 2).join(' · '));
       c.use(); drawCap(); status.hidden = true;
@@ -256,9 +266,37 @@ function generator(body) {
     go.disabled = !genCap().left;
   }
   function showResult(spec, title, file) {
-    out.replaceChildren(h('div', { class: 'xl-gnote' }, h('span', { html: ico('check') }), L('Vom Generator gebaut · alle Formeln nachgerechnet · Rechenweg bitte einmal kurz prüfen', 'Built by the generator · every formula recalculated · please double-check the method')), sheetView(spec, { title, file, keys: spec.keys, src: 'Generator' }));
+    out.replaceChildren(h('div', { class: 'xl-gnote' }, h('span', { html: ico('check') }), spec.check === 'doppelt' ? L('Doppelt geprüft: alle Formeln nachgerechnet und die Ergebnisse unabhängig ein zweites Mal gerechnet ✓', 'Double-checked: every formula recalculated and the results computed a second time independently ✓') : L('Alle Formeln nachgerechnet · Rechenweg bitte einmal kurz prüfen', 'Every formula recalculated · please double-check the method')), sheetView(spec, { title, file, keys: spec.keys, src: 'Generator' }));
     out.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+}
+// Zweite Prüfung: unabhängige Nachrechnung der Ergebnisse + Fachlogik
+async function verify(task, spec, E) {
+  const { values } = E.evaluate(spec.cells);
+  const inputs = Object.keys(spec.cells).filter(k => spec.cells[k].s === 'in').map(k => `${k} ${labelOf(spec.cells, k) || ''} = ${spec.cells[k].v}`).slice(0, 60);
+  const forms = sortRefs(Object.keys(spec.cells).filter(k => spec.cells[k].f != null)).map(k => `${k} [${labelOf(spec.cells, k) || ''}] = ${spec.cells[k].f}`).slice(0, 90);
+  const res = spec.keys.map(k => ({ k, l: labelOf(spec.cells, k) || k, v: values[k] }));
+  const prompt = `[Excel-Prüfung. Antworte AUSSCHLIESSLICH mit einem JSON-Objekt, ohne Text, ohne Markdown, ohne Tafel.
+Aufgabe des Studenten: „${task.slice(0, 1200).replace(/[\u0000-\u001f]/g, ' ')}“
+Eingaben der Tabelle:\n${inputs.join('\n')}
+Formeln der Tabelle:\n${forms.join('\n')}
+Rechne die folgenden Ergebnisse SELBST und unabhängig von den Formeln nach – so, wie es in einer deutschen BWL-Klausur richtig wäre, Schritt für Schritt im Kopf, mit den Zahlen der Aufgabe: ${res.map(r => `${r.k} („${r.l}“)`).join(', ')}.
+Prüfe außerdem: Setzt die Tabelle die Aufgabe fachlich richtig um (richtige Methode, richtige Basis, Vorzeichen, Perioden, Prozent als Dezimalzahl)? Fehlt etwas Wichtiges, das die Aufgabe verlangt?
+Format: {"werte":{"B9":8973.09},"fachlich_ok":true,"probleme":["konkreter Fehler mit Zelle und richtiger Formel"]}
+Bei Text-Ergebnissen (z. B. „vorteilhaft“) gib den Text an. Nur echte Fehler melden – keine Stilfragen.]`;
+  const t = String(await aiText(prompt) || '').replace(/```(json)?/gi, '');
+  const j = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1));
+  const problems = (Array.isArray(j.probleme) ? j.probleme : []).map(x => String(x).slice(0, 300)).filter(Boolean);
+  const w = j.werte || {};
+  for (const r of res) {
+    const a = r.v, b = typeof w[r.k] === 'string' ? parseFloat(String(w[r.k]).replace(/\./g, '').replace(',', '.').replace(/[^\d.\-e]/gi, '')) : w[r.k];
+    if (typeof a === 'number' && typeof b === 'number' && isFinite(b)) {
+      const tol = Math.max(0.05, Math.abs(a) * 0.005);
+      // Prozent vs. Dezimal nicht als Fehler werten
+      if (Math.abs(a - b) > tol && Math.abs(a * 100 - b) > tol * 100) problems.push(`${r.k} („${r.l}“): Tabelle ergibt ${a}, unabhängige Nachrechnung ergibt ${b} – Formel prüfen und korrigieren`);
+    }
+  }
+  return { ok: j.fachlich_ok !== false && !problems.length, problems: problems.length ? problems : ['Fachliche Umsetzung passt nicht zur Aufgabe'] };
 }
 async function aiText(prompt) {
   const r = await ask('chat', { messages: [{ role: 'user', content: prompt }], opts: { voice: false, assistant: true, entry: true } });
@@ -280,6 +318,8 @@ Regeln:
 - Jede Zahl aus der Aufgabe wird eine Eingabe (e). Alles andere wird mit Formeln berechnet, nichts von Hand ausrechnen. Prozente als Dezimalzahl.
 - Aufbau: Titel (A1), Untertitel (A2), Abschnitt „Eingaben“, dann die Rechnung (Zeitreihen als Tabelle mit Kopfzeile k, eine Zeile pro Periode, höchstens 60 Perioden), dann Abschnitt „Ergebnis“ mit r-Zellen. Beschriftungen in Spalte A, Werte ab Spalte B.
 - Fachlich korrekt nach deutschem Uni-Standard (Investitionsrechnung, Kosten- und Leistungsrechnung, HGB). Fehlen Angaben, setz sinnvolle Beispielwerte als Eingabe und schreib einen Hinweis (h), dass man sie ersetzen soll.
+- Anzahlen (Jahre, Perioden, Stück) als Eingabe im Format int, Geldbeträge eur, Sätze pct.
+- Bevor du antwortest: Rechne jedes Ergebnis einmal im Kopf nach und prüfe jeden Zellbezug (zeigt er wirklich auf die gemeinte Zeile/Spalte?).
 - Höchstens 220 Zellen.]`;
 }
 function repairPrompt(task, kind, raw, errs) {
