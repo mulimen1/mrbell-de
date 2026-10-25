@@ -4828,7 +4828,7 @@ button.view-back { cursor: pointer; font: 600 13.5px var(--sans); color: var(--i
 .zl-admin .zl-pc { grid-column: span 1; }
 @media (max-width: 1100px) { .zl-admin { grid-template-columns: minmax(0, 1fr); } }
 /* ---------- Excel-Vorlagen & Generator ---------- */
-.tn-xlic { display: inline-grid; place-items: center; } .tn-xlic svg { width: 18px; height: 18px; display: block; }
+.tn-xlic { display: inline-grid; place-items: center; margin-left: -1px; } .tn-xlic svg { width: 17px; height: 17px; display: block; }
 .tn .tn-xlnew { background: #1D6F42; }
 .xl { --xg: #1D6F42; --xgs: color-mix(in srgb, #1D6F42 10%, var(--panel)); --xb: #1F4E99; --xbs: color-mix(in srgb, #1F4E99 9%, var(--panel)); max-width: 1180px; margin: 0 auto; padding: 28px 24px 90px; }
 :root[data-theme="dark"] .xl { --xb: #8fb3ff; --xg: #3fbf7f; }
@@ -4936,11 +4936,11 @@ button.view-back { cursor: pointer; font: 600 13.5px var(--sans); color: var(--i
   .tn-sep { margin: 0 6px; }
 }
 @media (min-width: 761px) and (max-width: 1180px) {
-  html:not(.bm-guest) .tn { padding: 0 9px 0 5px; gap: 7px; }
   .tn-brands { display: none; }
   .tn.tn-tutor { padding: 0 14px 0 5px; }
 }
-@media (min-width: 761px) and (max-width: 1100px) { html:not(.bm-guest) .tn { padding: 0 7px 0 4px; gap: 6px; font-size: 15px; } .tn-sep { margin: 0 3px; } }
+@media (min-width: 761px) and (max-width: 1100px) { html:not(.bm-guest) .topbar { padding-left: 10px; padding-right: 12px; gap: 6px; } html:not(.bm-guest) .tn { padding: 0 9px 0 5px; gap: 7px; } html:not(.bm-guest) .tn.tn-tutor { padding: 0 12px 0 5px; } .tn-sep { margin: 0 3px; } }
+@media (min-width: 1281px) { html:not(.bm-guest) .tn { font-size: 17.5px; height: 50px; gap: 10px; } html:not(.bm-guest) .tn > span:first-child:not(.tn-face) { transform: scale(1.08); } }
 .tc-row[hidden], .xl-status[hidden], .xl-scroll[hidden] { display: none; }
 /* ---------- Max-Modus: animierte Mindmap an der Tafel ---------- */
 .mm2-wrap { margin: 6px 0 18px; }

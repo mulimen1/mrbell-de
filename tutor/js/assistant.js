@@ -47,7 +47,7 @@ function cmdOf(k, v) {
   v = (v || '').trim();
   if (k === 'go') return TAB[v] ? { k, v, label: L('Geöffnet: ', 'Opened: ') + TAB[v], doc: true } : null;
   if (k === 'make') return MAKE[v] ? { k, v, label: MAKE[v][1], doc: true } : null;
-  if (k === 'topic') return v.length > 1 ? { k, v, label: L(`Kurzskript zu „${v}“`, `Short script on “${v}”`) } : null;
+  if (k === 'topic') return v.length > 1 ? { k, v, label: L(`An der Tafel: „${v}“`, `On the board: “${v}”`) } : null;
   if (k === 'trainer') return TRAINERS[v] ? { k, v, label: TRAINERS[v] } : null;
   if (k === 'upload') return { k, label: L('Stoff hochladen', 'Upload material') };
   if (k === 'voice') return { k, label: L('Sprachmodus', 'Voice mode') };
@@ -1209,7 +1209,12 @@ export function mountAssistant() {
           btn.click();
         } else await nav(`#/app/${d.id}/${MAKE[c.v][0]}/auto`, true);
       }
-      else if (c.k === 'topic') { ls.set('tutor.target', c.target || null); if (!STAGE && open) closeAnimated(); const m = await import('./app.js'); m.startTopic(c.v); }
+      else if (c.k === 'topic') {   // „Lass uns X lernen“: kein Umweg über Skript + Einordnen – Max erklärt es sofort an der Tafel
+        if (c.target) { ls.set('tutor.target', c.target); if (!STAGE && open) closeAnimated(); const m = await import('./app.js'); m.startTopic(c.v); }   // Werkzeug (Quiz, Podcast …) braucht ein Skript
+        else { const q = L(`Erklär mir „${c.v}“ von Grund auf – mit Beispiel an der Tafel.`, `Explain “${c.v}” to me from scratch – with an example on the whiteboard.`);
+        if (STAGE) setTimeout(() => submit(q), 300);
+        else { ls.set('tutor.pendingAsk', q); if (open) closeAnimated(); location.hash = '#/app/tutor'; } }
+      }
       else if (c.k === 'trainer') await nav('#/app/trainer/' + c.v);
       else if (c.k === 'upload') { const f = document.getElementById('fileApp'); if (!f) { await nav('#/app'); } const f2 = await sleepUntil(() => document.getElementById('fileApp'), 2000); if (!f2) return fail(L('Upload gerade nicht möglich.', 'Upload not available right now.')); f2.click(); }
       else if (c.k === 'voice') {

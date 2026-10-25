@@ -119,6 +119,7 @@ const I = {
   check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   search: '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>',
   cmd: '<path d="M9 6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3z"/>',
+  sheet: '<rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M3.5 9.3h17M3.5 14.6h17M9.2 4v16M14.8 4v16"/>',
   chart: '<path d="M4 20h16"/><path d="M7 16v-5M12 16V6M17 16v-8"/>',
   library: '<path d="M5 4h3v16H5zM10 4h3v16h-3z"/><path d="m15.2 5.2 2.9-.8 3.6 15.3-2.9.8z"/>',
   spark: '<path d="M12 4.5l1.9 5.6 5.6 1.9-5.6 1.9-1.9 5.6-1.9-5.6L4.5 12l5.6-1.9z"/>',
