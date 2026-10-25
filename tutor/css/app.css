@@ -5221,7 +5221,7 @@ textarea.ai-in::placeholder { white-space: nowrap; overflow: hidden; text-overfl
 .tn-vid .tn-brands, .tn-xl .tn-xlic { background: #fff; border: 1px solid var(--line2); border-radius: 9px; padding: 3px 4px; box-shadow: 0 1px 3px rgba(15, 23, 42, .06); }
 
 /* Nav „Transkript“ als Bild: [YouTube] → [Lernzettel] – immer sichtbar, das Wort nur für Screenreader */
-.tn-flow { gap: 5px !important; }
+.tn-flow .tn-brands { margin-left: 0 !important; }   /* Abstand Icon → YouTube = Abstand Icon → Name bei den anderen */
 .tn-flow .tn-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 html:not(.x-none) .tn.tn-flow .tn-brands { display: inline-flex !important; }
 .tn-flow .tn-farr { display: grid; place-items: center; color: var(--muted, #667); }
@@ -5233,7 +5233,7 @@ html:not(.x-none) .tn.tn-flow .tn-brands { display: inline-flex !important; }
 .tn-flow.on .tn-farr, .tn-flow[aria-current] .tn-farr { color: var(--inv); }
 
 /* Nav „Transkript“ als Bild: [YouTube] → [Lernzettel] – immer sichtbar, das Wort nur für Screenreader */
-.tn-flow { gap: 5px !important; }
+/* (Abstand wie bei den anderen Bereichen) */
 .tn-flow .tn-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 html:not(.x-none) .tn.tn-flow .tn-brands { display: inline-flex !important; }
 .tn-flow .tn-farr { display: grid; place-items: center; color: var(--muted, #667); }
