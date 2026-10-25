@@ -5409,3 +5409,13 @@ html:has(.asst.multi) .rm-fl2, html:has(.asst.multi) .rm-fl3, html:has(.asst.mul
 .qz-row { display: flex; margin: 16px 0 4px; } .qz-new { margin-top: 10px; } .qz-newb.on { background: var(--panel2); color: var(--ink); }
 .ln-h2s { font-size: 14px; font-weight: 500; color: var(--mute); letter-spacing: 0; } @media (max-width: 600px) { .ln-h2s { display: none; } }
 @media (min-width: 641px) { #topicSlot.ts-top { max-width: 720px; margin: 26px auto 0; } #topicSlot.ts-top .askbar { margin: 0; box-shadow: 0 18px 40px -24px rgba(15,23,42,.35); } }
+/* Handy: Skript-Leiste zweizeilig – Name oben gut lesbar, Reiter darunter wischbar, aktiver Reiter im Blick */
+@media (max-width: 760px) {
+  .docbar { flex-wrap: wrap; row-gap: 4px; padding: 6px 10px 4px; }
+  .docbar .db-title { max-width: none !important; flex: 1 1 auto; font-size: 14px; min-width: 0; }
+  .docbar .tabs { margin-left: 0; flex: 1 1 100%; min-width: 0; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
+  .docbar .tabs::-webkit-scrollbar { display: none; }
+}
+/* Kein doppelter Max: hat die Seite ihren eigenen (Podcast-Studio, Excel-Trainer), tritt der kleine unten rechts zur Seite */
+@media (min-width: 761px) { html:has(#view .pst, #view .xt-coach) .asst:not(.open) .asst-bub, html:has(#view .pst, #view .xt-coach) .asst:not(.open) .asst-tip { opacity: 0 !important; pointer-events: none !important; transform: scale(.6) !important; } }
+@media (max-width: 760px) { html:has(#view .pst) .asst:not(.open) .asst-bub { opacity: 0 !important; pointer-events: none !important; } }
