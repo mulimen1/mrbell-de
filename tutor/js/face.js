@@ -57,15 +57,16 @@ export function face(el, opts = {}) {
 }
 
 class Face {
-  constructor(el, { follow = true, sleepy = false } = {}) {
-    this.el = el; el.__face = this; this.follow = follow; this.state = 'idle'; this.sleepy = sleepy;
-    el.classList.add('face');
+  constructor(el, { follow = true, sleepy = false, who = 'max' } = {}) {
+    this.el = el; el.__face = this; this.follow = follow; this.state = 'idle'; this.sleepy = sleepy; this.who = who;
+    el.classList.add('face'); if (who === 'marie') el.classList.add('fz-marie');
     const svg = document.createElementNS(NS, 'svg');
     svg.setAttribute('viewBox', '140 110 750 790');
     const u = 'm' + (++UID);
     svg.setAttribute('aria-hidden', 'true');
     svg.style.cssText = 'width:100%;height:100%;overflow:visible;display:block';
-    svg.innerHTML = COLLAR(u) + `
+    const marie = who === 'marie';
+    svg.innerHTML = (marie ? MARIE_TOP(u) + MARIE_BACK(u) : COLLAR(u)) + `
       <g class="fz-body">
         <ellipse class="fz-head" cx="512" cy="492" rx="262" ry="257"/>
         <g class="fz-look">
@@ -74,15 +75,16 @@ class Face {
             <rect class="fz-eye" x="388" y="474" width="55" height="89" rx="27.5"/>
             <rect class="fz-eye" x="583" y="474" width="55" height="89" rx="27.5"/>
             <path class="fz-happy" d="M388 528 Q415.5 482 443 528 M583 528 Q610.5 482 638 528"/>
+            ${marie ? '<path class="fz-lash" d="M390 494 Q370 482 360 462 M396 482 Q386 464 384 446 M636 494 Q656 482 666 462 M630 482 Q640 464 642 446"/>' : ''}
           </g>
           <circle class="fz-cheek" cx="360" cy="600" r="24"/><circle class="fz-cheek" cx="666" cy="600" r="24"/>
-          <path class="fz-mouth m-idle" d="M456 613 Q512 650 568 613"/>
+          ${marie ? '<path class="fz-mbrow" d="M380 436 Q412 410 450 422 M576 422 Q614 410 646 436"/><path class="fz-lips m-idle" d="M466 612 Q489 600 512 610 Q535 600 558 612 Q536 648 512 648 Q488 648 466 612 Z"/><path class="fz-lipline m-idle" d="M470 614 Q512 628 554 614"/>' : '<path class="fz-mouth m-idle" d="M456 613 Q512 650 568 613"/>'}
           <path class="fz-mouth m-happy" d="M450 604 Q512 680 574 604 Z"/>
           <path class="fz-mouth m-sad" d="M466 632 Q512 606 558 632"/>
           <path class="fz-mouth m-think" d="M470 624 Q512 624 556 618"/>
           <ellipse class="fz-talk" cx="512" cy="622" rx="30" ry="18"/>
         </g>
-        <image class="fz-hair" href="${HAIR_SRC}" x="162" y="131" width="709" height="399" preserveAspectRatio="none"/>
+        ${marie ? MARIE_FRONT(u) : `<image class="fz-hair" href="${HAIR_SRC}" x="162" y="131" width="709" height="399" preserveAspectRatio="none"/>`}
         <g class="fz-dots"><circle cx="812" cy="158" r="22"/><circle cx="858" cy="112" r="16"/><circle cx="894" cy="74" r="11"/></g>
       </g>`;
     el.replaceChildren(svg);
@@ -93,7 +95,7 @@ class Face {
     this.collar = svg.querySelector('.fz-collar');
     // Kopf erst zeigen, wenn die Haare da sind – nie ein kahler Max
     if (!HAIR_READY && HAIR_IMG.complete && HAIR_IMG.naturalWidth) HAIR_READY = true;
-    if (!HAIR_READY) {
+    if (!HAIR_READY && !marie) {
       svg.style.opacity = '0'; const t0 = performance.now();
       let shown = false;
       const show = () => { if (shown) return; shown = true; HAIR_READY = true; if (performance.now() - t0 > 60) svg.style.transition = 'opacity .18s ease'; svg.style.opacity = ''; };
@@ -186,6 +188,19 @@ const css = `
 :root[data-theme="dark"] .on-inv .face svg .fzc-shade, :root .tile.dark .face svg .fzc-shade { opacity: .2; }
 .face svg .fz-collar { transform-box: fill-box; transform-origin: 50% 100%; }
 .face svg .fz-eye { fill: #0a0a0a; transition: opacity .2s; }
+.face svg .fz-lash { fill: none; stroke: #0a0a0a; stroke-width: 11; stroke-linecap: round; transition: opacity .2s; }
+.face[data-state="happy"] svg .fz-lash { opacity: 0; }
+.face svg .fz-mbrow { fill: none; stroke: #3b1d0f; stroke-width: 12; stroke-linecap: round; transform-box: fill-box; transform-origin: center; transition: transform .3s cubic-bezier(.16,1,.3,1); }
+.face svg .fz-lips { fill: #c75b6e; stroke: #7e2a3a; stroke-width: 6; stroke-linejoin: round; transition: opacity .2s; }
+.face svg .fz-lipline { fill: none; stroke: #7e2a3a; stroke-width: 5; stroke-linecap: round; transition: opacity .2s; }
+.face[data-state]:not([data-state="idle"]):not([data-state="sleep"]) svg .fz-lips, .face[data-state]:not([data-state="idle"]):not([data-state="sleep"]) svg .fz-lipline { opacity: 0; }
+.fz-marie svg .m-happy { fill: #7a2232; stroke: #7e2a3a; }
+.fz-marie svg .fz-talk { fill: #6e1f2c; stroke: #c75b6e; stroke-width: 7; }
+.fz-marie svg .fz-cheek { fill: #e89aa6; }
+.fz-marie[data-state="happy"] svg .fz-mbrow { transform: translateY(-8px); }
+.fz-marie[data-state="sad"] svg .fz-mbrow { transform: translateY(6px) scaleY(-.6); }
+.fz-marie[data-state="think"] svg .fz-mbrow { transform: translateY(-5px) rotate(-4deg); }
+.fz-marie svg .fz-brow { display: none; }
 .face svg .fz-eyes { transform-box: fill-box; transform-origin: center; }
 .face svg .fz-brow { fill: none; stroke: #0a0a0a; stroke-width: 16; stroke-linecap: round; opacity: 0; transition: opacity .25s, transform .3s cubic-bezier(.16,1,.3,1); transform-box: fill-box; transform-origin: center; }
 .face svg .fz-happy { fill: none; stroke: #0a0a0a; stroke-width: 22; stroke-linecap: round; opacity: 0; transition: opacity .2s; }
@@ -259,3 +274,46 @@ function COLLAR(u) {
 
 // Farbwechsel mit Show (rausfliegen, umziehen, Spruch)
 import('./dress.js').catch(() => {});
+
+// ---------- Marie: gleiche Kopfform und Art wie Max – eigene Züge (Brauen, Wimpern, Lippen), lange kastanienbraune Wellen, Camel-Blazer, goldene Creolen ----------
+const HAIR_LINE = '#2a140a';
+function MARIE_BACK(u) {
+  return `<g class="fz-mback">
+<defs><linearGradient id="mhb${u}" x1="0" y1="200" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#83462a"/><stop offset=".5" stop-color="#65331d"/><stop offset="1" stop-color="#3e1d10"/></linearGradient></defs>
+<path fill="url(#mhb${u})" stroke="${HAIR_LINE}" stroke-width="11" stroke-linejoin="round" d="M512 188 C300 188 186 330 192 520 C196 600 178 660 186 720 C194 780 168 812 180 856 C196 900 262 912 300 892 C332 906 372 892 366 858 C340 804 328 720 334 640 L690 640 C696 720 684 804 658 858 C652 892 692 906 724 892 C762 912 828 900 844 856 C856 812 830 780 838 720 C846 660 828 600 832 520 C838 330 724 188 512 188 Z"/>
+<g fill="none" stroke-linecap="round">
+<path stroke="#2c150a" stroke-width="7" opacity=".5" d="M236 560 C222 640 240 700 226 770 C216 820 232 856 256 880 M292 660 C286 730 300 790 296 840 M788 560 C802 640 784 700 798 770 C808 820 792 856 768 880 M732 660 C738 730 724 790 728 840"/>
+<path stroke="#b8724a" stroke-width="10" opacity=".55" d="M214 600 C206 660 220 720 210 790 M810 600 C818 660 804 720 814 790"/>
+<path stroke="#e0a77c" stroke-width="5" opacity=".5" d="M222 640 C216 690 226 730 220 770 M802 640 C808 690 798 730 804 770"/>
+</g></g>`;
+}
+function MARIE_FRONT(u) {
+  return `<g class="fz-hair fz-mfront">
+<defs><linearGradient id="mhf${u}" x1="0" y1="200" x2="0" y2="620" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#95532f"/><stop offset=".55" stop-color="#733d22"/><stop offset="1" stop-color="#592c19"/></linearGradient></defs>
+<path fill="url(#mhf${u})" stroke="${HAIR_LINE}" stroke-width="11" stroke-linejoin="round" d="M598 206 C420 196 250 262 226 470 C218 540 226 600 246 652 C254 590 270 532 300 486 C340 424 410 384 476 352 C530 326 576 298 604 262 C640 306 698 338 744 382 C770 408 786 452 792 510 C812 336 742 214 598 206 Z"/>
+<g fill="none" stroke-linecap="round">
+<path stroke="#3a1b0d" stroke-width="7" opacity=".5" d="M598 270 C540 318 450 350 380 390 C330 420 296 470 274 540 M604 266 C640 316 700 350 746 392 M520 236 C430 250 330 300 280 380"/>
+<path stroke="#c98a5f" stroke-width="12" opacity=".75" d="M560 232 C470 238 370 280 318 340 M640 236 C690 258 732 296 756 344"/>
+<path stroke="#efb88d" stroke-width="6" opacity=".8" d="M548 250 C480 258 412 288 372 324 M650 256 C686 274 714 300 732 330"/>
+</g>
+<g fill="none" stroke="#d6a441" stroke-width="9"><circle cx="252" cy="636" r="22"/><circle cx="772" cy="636" r="22"/></g>
+<g fill="none" stroke="#f6dc8e" stroke-width="3.5" opacity=".95"><path d="M237 624 a22 22 0 0 1 15 -10"/><path d="M757 624 a22 22 0 0 1 15 -10"/></g>
+</g>`;
+}
+function MARIE_TOP(u) {
+  return `<g class="fz-collar fz-mtop">
+<defs>
+<linearGradient id="mbz${u}" x1="0" y1="690" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d6a96f"/><stop offset=".6" stop-color="#bb8852"/><stop offset="1" stop-color="#9b6a38"/></linearGradient>
+<linearGradient id="mts${u}" x1="0" y1="740" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2a2e35"/><stop offset="1" stop-color="#14171c"/></linearGradient>
+</defs>
+<path fill="#eef0f3" d="M440 680 L584 680 L580 790 L444 790 Z"/>
+<path fill="url(#mts${u})" stroke="#0b111a" stroke-width="5" d="M372 742 C430 790 594 790 652 742 L708 900 L316 900 Z"/>
+<path fill="none" stroke="#3d434d" stroke-width="3" opacity=".8" d="M404 768 C470 806 554 806 620 768"/>
+<path fill="url(#mbz${u})" stroke="#3a2412" stroke-width="5" stroke-linejoin="round" d="M300 900 C298 810 318 748 368 712 L404 744 L392 790 L452 900 Z"/>
+<path fill="url(#mbz${u})" stroke="#3a2412" stroke-width="5" stroke-linejoin="round" d="M724 900 C726 810 706 748 656 712 L620 744 L632 790 L572 900 Z"/>
+<path fill="none" stroke="#7a5228" stroke-width="4" opacity=".7" d="M404 744 L440 830 M620 744 L584 830"/>
+<path fill="none" stroke="#ecc995" stroke-width="3" opacity=".6" d="M372 724 C340 760 326 820 324 890 M652 724 C684 760 698 820 700 890"/>
+<path fill="none" stroke="#d6a441" stroke-width="4" d="M446 786 Q512 840 578 786"/>
+<circle cx="512" cy="826" r="8" fill="#e8bb57" stroke="#9a7426" stroke-width="2.5"/>
+</g>`;
+}

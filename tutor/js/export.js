@@ -163,7 +163,8 @@ export function pathPdf(doc) {
 
 // ---------- Podcast ----------
 export function podcastText(p) {
-  const t = p.lines.map(l => `${l.s}: ${l.t}`).join('\n\n');
+  const fixT = x => String(x || '').replace(/\bLisas\b/g, 'Maries').replace(/\bLisa\b/g, 'Marie');
+  const t = p.lines.map(l => `${l.s === 'Max' ? 'Max' : 'Marie'}: ${fixT(l.t)}`).join('\n\n');
   saveBlob(new Blob([p.title + '\n\n' + t], { type: 'text/plain;charset=utf-8' }), safe(p.title) + '.txt');
 }
 // MP3-Stücke sauber aneinanderhängen: ID3-Kopf und Xing/Info-Rahmen (Länge nur eines Stücks) weg
@@ -201,7 +202,7 @@ export async function podcastMp3(p, doc) {
   const worker = async () => {
     while (idx < miss.length && !err) {
       const k = miss[idx++], l = p.lines[k];
-      try { const r = await ask('podtts', { text: l.t, lang: p.lang || 'de', opts: { pod: p.id, voice: l.s === 'Max' ? p.voice : 'lisa' } }); p.audio[k] = r.audio; done++; prog(); }
+      try { const r = await ask('podtts', { text: String(l.t || '').replace(/\bLisas\b/g, 'Maries').replace(/\bLisa\b/g, 'Marie'), lang: p.lang || 'de', opts: { pod: p.id, voice: l.s === 'Max' ? p.voice : 'lisa' } }); p.audio[k] = r.audio; done++; prog(); }
       catch (e) { err = e; }
     }
   };

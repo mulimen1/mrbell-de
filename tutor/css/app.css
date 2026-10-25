@@ -5348,3 +5348,6 @@ html .tn.tn-flow .tn-b, html .tn.tn-flow:hover .tn-b, html .tn.tn-flow:active .t
 .ai-jump .ico { width: 18px; height: 18px; }
 /* Schmaler Chat neben der Tafel: „Dokument“ nur als Symbol, damit das Eingabefeld Platz hat */
 @media (min-width: 761px) { .asst.has-board:not(.board-min) .ai-att { font-size: 0; gap: 0; padding: 0 10px; } .asst.has-board:not(.board-min) .ai-att .ico, .asst.has-board:not(.board-min) .ai-att svg { width: 18px; height: 18px; } }
+.pst-marie.face { width: 82px; height: 82px; overflow: visible; background: #fff; }
+.pst-marie.drive .fz-talk, .pst-max.drive .fz-talk { animation: none !important; transition: transform .06s linear; }
+@media (max-width: 760px) { .pst-marie.face { width: 66px; height: 66px; } }

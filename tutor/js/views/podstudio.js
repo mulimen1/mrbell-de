@@ -4,30 +4,23 @@
 import { h, ico } from '../util.js';
 import { L } from '../i18n.js';
 import { face } from '../face.js';
+const fixT = t => String(t || '').replace(/\bLisas\b/g, 'Maries').replace(/\bLisa\b/g, 'Marie');
 
 const PREV = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14"/><path d="M18 5.5v13L9 12z"/></svg>';
 const NEXT = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14"/><path d="M6 5.5v13L15 12z"/></svg>';
 const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z" fill="currentColor"/></svg>';
 const PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="4" height="14" rx="1.3" fill="currentColor"/><rect x="13.5" y="5" width="4" height="14" rx="1.3" fill="currentColor"/></svg>';
-// Lisa im gleichen Strich wie Max: weißes Gesicht, schwarze Kontur, dunkler Bob
-const LISA = `<svg viewBox="0 0 200 200" aria-hidden="true">
-  <path class="ls-hairb" d="M30 112c-6-58 26-92 70-92s76 34 70 92c-2 22-8 40-16 52H46c-8-12-14-30-16-52z"/>
-  <ellipse class="ls-head" cx="100" cy="108" rx="58" ry="60"/>
-  <path class="ls-bang" d="M42 98c2-34 26-58 58-58 30 0 54 20 58 52-18-4-40-16-52-32-10 20-34 34-64 38z"/>
-  <ellipse class="ls-eye" cx="80" cy="112" rx="6" ry="8"/><ellipse class="ls-eye" cx="120" cy="112" rx="6" ry="8"/>
-  <path class="ls-smile" d="M86 140q14 11 28 0"/>
-  <ellipse class="ls-mouth" cx="100" cy="142" rx="10" ry="7"/>
-</svg>`;
 
 export function studio(p, api) {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const words = p.lines.map(l => Math.max(3, l.t.split(/\s+/).length));
   const total = words.reduce((a, b) => a + b, 0);
 
-  const lisaAv = h('div', { class: 'pst-av pst-lisa', html: LISA });
+  const lisaAv = h('div', { class: 'pst-av pst-marie' });
+  const lf = face(lisaAv, { follow: false, who: 'marie' });
   const maxAv = h('div', { class: 'pst-av pst-max' });
   const mf = face(maxAv, { follow: false });
-  const seatL = h('div', { class: 'pst-seat' }, h('div', { class: 'pst-ring' }, lisaAv), h('b', {}, 'Lisa'), h('small', {}, L('erklärt', 'explains')));
+  const seatL = h('div', { class: 'pst-seat' }, h('div', { class: 'pst-ring' }, lisaAv), h('b', {}, 'Marie'), h('small', {}, L('erklärt', 'explains')));
   const seatM = h('div', { class: 'pst-seat' }, h('div', { class: 'pst-ring' }, maxAv), h('b', {}, 'Max'), h('small', {}, L('fragt nach', 'asks')));
   const cv = h('canvas', { class: 'pst-viz', width: 360, height: 90, 'aria-hidden': 'true' });
   const who = h('b', { class: 'pst-who' });
@@ -39,7 +32,7 @@ export function studio(p, api) {
   const RATES = [1, 1.25, 1.5, 0.9];
   const rateB = h('button', { class: 'pst-rate', type: 'button', title: L('Tempo', 'Speed'), onclick: () => { const i = (RATES.indexOf(api.rate()) + 1) % RATES.length; api.setRate(RATES[i]); sync(); } });
   const time = h('span', { class: 'pst-time' });
-  const segs = p.lines.map((l, k) => h('i', { class: 'pst-seg ' + (l.s === 'Max' ? 'm' : 'l'), style: { flexGrow: words[k] }, title: `${l.s}: ${l.t.slice(0, 60)}`, onclick: () => api.seek(k) }));
+  const segs = p.lines.map((l, k) => h('i', { class: 'pst-seg ' + (l.s === 'Max' ? 'm' : 'l'), style: { flexGrow: words[k] }, title: `${l.s === 'Max' ? 'Max' : 'Marie'}: ${fixT(l.t).slice(0, 60)}`, onclick: () => api.seek(k) }));
   const prog = h('div', { class: 'pst-prog', role: 'slider', 'aria-label': L('Fortschritt', 'Progress'), tabindex: 0 }, segs);
   const el = h('section', { class: 'pst' + (reduce ? ' still' : '') },
     h('div', { class: 'pst-top' }, h('span', { class: 'pst-ey' }, h('span', { class: 'pst-live' }), L('BWL Max · Podcast', 'BWL Max · Podcast')), h('h3', {}, p.title)),
@@ -80,7 +73,7 @@ export function studio(p, api) {
     // Münder im Takt
     const open = playing ? Math.max(.25, Math.min(1.25, .3 + lvl * 1.4)) : 0;
     const m = maxAv.querySelector('.fz-talk'); if (m) m.style.transform = spk === 'Max' && playing ? `scaleY(${open})` : '';
-    const lm = lisaAv.querySelector('.ls-mouth'); if (lm) { lm.style.transform = `scaleY(${spk === 'Lisa' && playing ? open : 0})`; }
+    const lm = lisaAv.querySelector('.fz-talk'); if (lm) lm.style.transform = spk !== 'Max' && playing ? `scaleY(${open})` : '';
     el.style.setProperty('--lvl', playing ? lvl.toFixed(3) : 0);
   };
 
@@ -97,19 +90,20 @@ export function studio(p, api) {
     const left = Math.max(0, Math.round((total - doneW) / 150 * 60 / api.rate()));
     time.textContent = L(`Satz ${i + 1}/${p.lines.length} · noch ${left >= 60 ? Math.round(left / 60) + ' Min.' : left + ' s'}`, `Line ${i + 1}/${p.lines.length} · ${left >= 60 ? Math.round(left / 60) + ' min' : left + ' s'} left`);
     if (i !== lastIdx) {
-      lastIdx = i; who.textContent = spk; txt.textContent = l.t;
+      lastIdx = i; who.textContent = spk === 'Max' ? 'Max' : 'Marie'; txt.textContent = fixT(l.t);
       if (!reduce) cap.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.2,.8,.2,1)' });
     }
     // Max: spricht → Mund; hört zu → schaut zu Lisa
-    if (playing && spk === 'Max') { mf.set('talk'); maxAv.classList.add('drive'); }
-    else { maxAv.classList.remove('drive'); mf.set(playing ? 'idle' : 'idle'); if (playing) mf.lookAt(-40, 4, 1400); }
+    if (playing && spk === 'Max') { mf.set('talk'); maxAv.classList.add('drive'); lf.set('idle'); lisaAv.classList.remove('drive'); lf.lookAt(40, 4, 1400); }
+    else if (playing) { lf.set('talk'); lisaAv.classList.add('drive'); mf.set('idle'); maxAv.classList.remove('drive'); mf.lookAt(-40, 4, 1400); }
+    else { mf.set('idle'); lf.set('idle'); maxAv.classList.remove('drive'); lisaAv.classList.remove('drive'); }
     if (spk !== lastSpk && playing && !reduce) { const a = spk === 'Max' ? maxAv : lisaAv; a.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.07)' }, { transform: 'scale(1)' }], { duration: 380, easing: 'cubic-bezier(.34,1.56,.64,1)' }); }
     lastSpk = playing ? spk : '';
     if ('mediaSession' in navigator) { try { navigator.mediaSession.playbackState = playing ? 'playing' : 'paused'; } catch (e) {} }
   }
   if ('mediaSession' in navigator) {
     try {
-      navigator.mediaSession.metadata = new MediaMetadata({ title: p.title, artist: 'BWL Max · Lisa & Max', album: 'BWL Max Podcast', artwork: [{ src: '/tutor/img/max-fav-512.png', sizes: '512x512', type: 'image/png' }] });
+      navigator.mediaSession.metadata = new MediaMetadata({ title: p.title, artist: 'BWL Max · Marie & Max', album: 'BWL Max Podcast', artwork: [{ src: '/tutor/img/max-fav-512.png', sizes: '512x512', type: 'image/png' }] });
       navigator.mediaSession.setActionHandler('play', () => { if (!api.playing()) api.toggle(); });
       navigator.mediaSession.setActionHandler('pause', () => { if (api.playing()) api.toggle(); });
       navigator.mediaSession.setActionHandler('previoustrack', () => api.seek(api.idx() - 1));

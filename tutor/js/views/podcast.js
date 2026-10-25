@@ -15,6 +15,9 @@ import { beta } from '../beta.js';
 import { studio } from './podstudio.js';
 
 const synth = window.speechSynthesis;
+// Die Moderatorin heißt jetzt Marie (intern bleibt die Stimme „lisa“); alte Skripte sagen noch „Lisa“ – wird beim Anzeigen und Vorlesen ersetzt
+export const SPK = s => (s === 'Max' ? 'Max' : 'Marie');
+export const fixT = t => String(t || '').replace(/\bLisas\b/g, 'Maries').replace(/\bLisa\b/g, 'Marie');
 function voices() { return synth ? synth.getVoices().filter(v => /^de(-|_|$)/i.test(v.lang)) : []; }
 function pickVoices() {
   const vs = voices();
@@ -73,7 +76,7 @@ function intro(wrap, ctx) {
   const tones = SPICE.map(([k, l]) => { const c = h('button', { class: 'chip' + (k === tone ? ' on' : '') }, l); c.addEventListener('click', () => { tone = k; tones.forEach(x => x.classList.toggle('on', x === c)); hint.textContent = TONE_HINT[k]; }); return c; });
   const langs = [['de', L('Deutsch', 'German')], ['en', 'English']].concat(!['de', 'en'].includes(plang) && LANGS[plang] ? [[plang, LANGS[plang][2]]] : []).map(([k, l]) => { const c = h('button', { class: 'chip' + (k === plang ? ' on' : '') }, l); c.addEventListener('click', () => { plang = k; langs.forEach(x => x.classList.toggle('on', x === c)); }); return c; });
   const mvs = MAXV.map(([k, l]) => { const c = h('span', { class: 'chip vchip' + (k === mvoice ? ' on' : ''), role: 'button', tabindex: 0 }, l, previewBtn(k, () => plang)); c.addEventListener('click', () => { mvoice = k; ls.set('tutor.podVoice', k); mvs.forEach(x => x.classList.toggle('on', x === c)); }); return c; });
-  const lisa = h('span', { class: 'chip vchip on fixed' }, 'Lisa', previewBtn('lisa', () => plang));
+  const lisa = h('span', { class: 'chip vchip on fixed' }, 'Marie', previewBtn('lisa', () => plang));
   const sel = h('select', { class: 'field' }, h('option', { value: -1 }, L('Ganzes Skript', 'Whole script')), (doc.path?.chapters || []).map((c, i) => h('option', { value: i }, `${i + 1}. ${c.title}`)));
   sel.addEventListener('change', () => focus = +sel.value);
   // Stoff frei wählen: dieses oder ein anderes Skript, ein Thema oder eine eigene Datei
@@ -86,7 +89,7 @@ function intro(wrap, ctx) {
       h('div', { class: 'cover' }, h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .7 } }, L('BWL Max · KI-Podcast', 'BWL Max · AI podcast')), h('h3', {}, doc.name), wave()),
       h('div', {},
         h('div', { class: 'eyebrow' }, 'Podcast'), h('h2', { style: { fontSize: '30px', letterSpacing: '-.03em', margin: '6px 0 8px' } }, L('Dein Skript zum Anhören', 'Your slides as audio')),
-        h('p', { style: { color: 'var(--mute)', marginTop: 0 } }, L('Lisa erklärt, Max fragt nach – mit echten Stimmen, Beispielen und den typischen Fehlern. Perfekt für Bahn, Gym oder Spaziergang.', 'Lisa explains, Max asks follow-ups – with real voices, examples and the classic mistakes. Perfect for the train, the gym or a walk.')),
+        h('p', { style: { color: 'var(--mute)', marginTop: 0 } }, L('Marie erklärt, Max fragt nach – mit echten Stimmen, Beispielen und den typischen Fehlern. Perfekt für Bahn, Gym oder Spaziergang.', 'Marie explains, Max asks follow-ups – with real voices, examples and the classic mistakes. Perfect for the train, the gym or a walk.')),
         h('div', { class: 'setup', style: { marginTop: '18px' } },
           h('div', { class: 'sp-row' }, h('label', { class: 'l' }, L('Stoff', 'Material')), pick.el),
           h('div', { class: 'grid' }, scopeBox, h('div', {}, h('label', { class: 'l' }, L('Länge', 'Length')), h('div', { class: 'chips' }, lens))),
@@ -106,7 +109,7 @@ async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), m
   if (isGuest()) return lockedPreview(wrap, { kind: 'podcast', title: L('Dein Podcast – mit kostenlosem Konto', 'Your podcast – with a free account'), onUnlock: () => generate(wrap, ctx, len, focus, tone, plang, mvoice), back: () => intro(wrap, ctx) });
   const { doc } = ctx;
   const ch = focus >= 0 ? doc.path.chapters[focus] : null;
-  const ld = loading(wrap, L('Lisa und Max nehmen auf …', 'Lisa and Max are recording …'), L(['Schreibe das Skript', 'Baue Beispiele ein', 'Max sucht sich eine knifflige Frage', 'Fast fertig'], ['Writing the script', 'Adding examples', 'Max is picking a tricky question', 'Almost done']), 'podcast');
+  const ld = loading(wrap, L('Marie und Max nehmen auf …', 'Marie and Max are recording …'), L(['Schreibe das Skript', 'Baue Beispiele ein', 'Max sucht sich eine knifflige Frage', 'Fast fertig'], ['Writing the script', 'Adding examples', 'Max is picking a tricky question', 'Almost done']), 'podcast');
   try {
     const r = await ask('podcast', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, lang: plang, opts: { length: len, focus: ch ? ch.title : '', spice: tone } }, { signal: ld.signal });
     const lines = (r.data?.lines || []).filter(l => l && l.t).map(l => ({ s: /max/i.test(l.s) ? 'Max' : 'Lisa', t: String(l.t) }));
@@ -129,11 +132,11 @@ function player(wrap, ctx, p) {
   const track = h('i');
   const status = h('div', { class: 'eyebrow pstat', style: { marginTop: '10px', textTransform: 'none', letterSpacing: 0 } });
   const tbar = h('div', { class: 'ptrack', onclick: e => { const r = tbar.getBoundingClientRect(); seek(Math.floor((e.clientX - r.left) / r.width * p.lines.length)); } }, track);
-  const lines = p.lines.map((l, k) => h('div', { class: 'line', onclick: () => seek(k) }, h('span', { class: 'who' }, l.s), h('span', {}, l.t)));
+  const lines = p.lines.map((l, k) => h('div', { class: 'line', onclick: () => seek(k) }, h('span', { class: 'who' }, SPK(l.s)), h('span', {}, fixT(l.t))));
   const script = h('div', { class: 'script' }, lines);
   const w = wave();
   const rates = [0.9, 1, 1.25, 1.5].map(r => { const c = h('button', { class: 'chip' + (r === rate ? ' on' : '') }, L(r.toString().replace('.', ','), r.toString()) + '×'); c.addEventListener('click', () => { rate = r; audio.playbackRate = r; rates.forEach(x => x.classList.toggle('on', x === c)); if (playing && !real()) seek(idx); }); return c; });
-  // Neues Podcast-Studio (erst für Ben): Lisa & Max animiert, Live-Welle, Untertitel, Satz-Steuerung
+  // Neues Podcast-Studio (erst für Ben): Marie & Max animiert, Live-Welle, Untertitel, Satz-Steuerung
   const S = beta() ? studio(p, { toggle: () => playBtn.click(), seek: k => seek(k), idx: () => idx, playing: () => playing, real: () => !!real(), rate: () => rate, setRate: r => { rate = r; audio.playbackRate = r; rates.forEach(x => x.classList.toggle('on', x.textContent.startsWith(L(String(r).replace('.', ','), String(r))))); if (playing && !real()) seek(idx); } }) : null;
   const acts = () => h('div', { style: { marginTop: '12px', display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap' } },
     starBtn(() => ({ typ: 'podcast', titel: p.title, doc: ctx.doc.id, docName: ctx.doc.name, ref: p.id || p.title })),
@@ -155,7 +158,7 @@ function player(wrap, ctx, p) {
           dlBtn(() => optsPodcast(p, doc), { cls: 'btn sm ghost' }),
           h('button', { class: 'btn sm ghost', onclick: async () => { const ok = await modal({ title: L('Folge löschen?', 'Delete episode?'), text: p.title, actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { stop(); doc.podcasts = doc.podcasts.filter(x => x !== p); save(doc); intro(wrap, ctx); } } }, h('span', { html: ico('trash') }), L('Löschen', 'Delete')))),
       script));
-  const setStatus = () => { status.textContent = real() ? L(`Echte Stimmen: Lisa & ${p.voice === 'feiern' ? 'Max nach dem Feiern' : 'Max'}`, `Real voices: Lisa & ${p.voice === 'feiern' ? 'Max after the party' : 'Max'}`) : (synth && voices().length ? L('Gratis-Stimme deines Browsers', 'Your browser’s free voice') : L('Dein Browser hat keine Stimme – lies einfach mit.', 'Your browser has no voice – just read along.')); };
+  const setStatus = () => { status.textContent = real() ? L(`Echte Stimmen: Marie & ${p.voice === 'feiern' ? 'Max nach dem Feiern' : 'Max'}`, `Real voices: Marie & ${p.voice === 'feiern' ? 'Max after the party' : 'Max'}`) : (synth && voices().length ? L('Gratis-Stimme deines Browsers', 'Your browser’s free voice') : L('Dein Browser hat keine Stimme – lies einfach mit.', 'Your browser has no voice – just read along.')); };
   const setUI = () => {
     playBtn.innerHTML = ico(playing ? 'pause' : 'play');
     w.querySelectorAll('i').forEach(i => i.style.animationPlayState = playing ? 'running' : 'paused');
@@ -169,7 +172,7 @@ function player(wrap, ctx, p) {
     if (p.audio[k]) return Promise.resolve(p.audio[k]);
     if (pending.has(k)) return pending.get(k);
     const l = p.lines[k];
-    const pr = ask('podtts', { text: l.t, lang: p.lang || 'de', opts: { pod: p.id, voice: l.s === 'Max' ? p.voice : 'lisa' } })
+    const pr = ask('podtts', { text: fixT(l.t), lang: p.lang || 'de', opts: { pod: p.id, voice: l.s === 'Max' ? p.voice : 'lisa' } })
       .then(r => { p.audio[k] = r.audio; save(doc); pending.delete(k); return r.audio; })
       .catch(e => { pending.delete(k); throw e; });
     pending.set(k, pr); return pr;
@@ -200,7 +203,7 @@ function player(wrap, ctx, p) {
     const my = ++token;
     if (idx >= p.lines.length) { playing = false; idx = 0; setUI(); return; }
     const l = p.lines[idx];
-    const u = new SpeechSynthesisUtterance(l.t.replace(/€/g, p.lang === 'en' ? ' euros' : ' Euro').replace(/%/g, p.lang === 'en' ? ' percent' : ' Prozent'));
+    const u = new SpeechSynthesisUtterance(fixT(l.t).replace(/€/g, p.lang === 'en' ? ' euros' : ' Euro').replace(/%/g, p.lang === 'en' ? ' percent' : ' Prozent'));
     u.lang = p.lang === 'en' ? 'en-GB' : 'de-DE';
     const v = p.lang === 'en' ? null : V[l.s]; if (v) u.voice = v;
     u.rate = rate; u.pitch = (V.Lisa === V.Max || p.lang === 'en') ? (l.s === 'Max' ? .85 : 1.15) : 1;
