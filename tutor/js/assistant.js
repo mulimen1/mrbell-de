@@ -95,6 +95,8 @@ function parse(raw) {
   // Kein Skript, aber „mach mir einen Podcast zu X“: erst Kurzskript, danach direkt genau dieses Werkzeug
   const tp = cmds.find(c => c.k === 'topic'), mk = cmds.find(c => c.k === 'make');
   if (tp && mk) { tp.target = mk.v === 'exam' ? 'quiz' : MAKE[mk.v][0]; cmds.splice(cmds.indexOf(mk), 1); }
+  const gt = !mk && cmds.find(c => c.k === 'go' && c.v !== 'tutor' && c.v !== 'hub');   // „Kurzskript, dann Klausurplan/Lernpfad“: Thema anlegen und direkt dorthin
+  if (tp && gt) { tp.target = gt.v; cmds.splice(cmds.indexOf(gt), 1); }
   text = text.replace(/\[\[([a-z:]+)\]\]/g, (_, a) => { if (ACTS[a]) acts.push(a); return ''; });
   text = text.replace(/```[\s\S]*?```/g, '').replace(/\n{3,}/g, '\n\n').trim();
   return { text, boards, acts, cmds, tour: tourSteps };
@@ -1249,6 +1251,11 @@ export function mountAssistant() {
         } else { try { const cr = await import('./create.js'); cr.setCreate(MAKE[c.v][0], d.id, cr.quickOpts(MAKE[c.v][0])); } catch (e) {} await nav(`#/app/${d.id}/${MAKE[c.v][0]}/auto`, true); }
       }
       else if (c.k === 'topic') {   // „Lass uns X lernen“: kein Umweg über Skript + Einordnen – Max erklärt es sofort an der Tafel
+        if (c.target === 'plan') {   // Klausurdatum aus der Nachricht („am 20.11.“) gleich in den Plan übernehmen
+          const lq = ([...hist].reverse().find(m => m.role === 'user') || {}).content || '';
+          const dm = lq.match(/\b(\d{1,2})\.\s?(\d{1,2})\.(\s?(20\d\d|\d\d))?/);
+          if (dm) { const now = new Date(); let y = dm[4] ? +(dm[4].length === 2 ? '20' + dm[4] : dm[4]) : now.getFullYear(); const mk = (yy) => `${yy}-${String(+dm[2]).padStart(2, '0')}-${String(+dm[1]).padStart(2, '0')}`; let iso = mk(y); if (!dm[4] && new Date(iso) < now) iso = mk(y + 1); if (+dm[2] >= 1 && +dm[2] <= 12 && +dm[1] >= 1 && +dm[1] <= 31) ls.set('tutor.goal', Object.assign({}, ls.get('tutor.goal', null) || {}, { examDate: iso })); }
+        }
         if (c.target) { ls.set('tutor.target', c.target); try { const cr = await import('./create.js'); cr.setCreate(c.target, '*', cr.quickOpts(c.target)); } catch (e) {} if (!STAGE && open) closeAnimated(); const m = await import('./app.js'); m.startTopic(c.v); }   // Werkzeug (Quiz, Podcast …) braucht ein Skript
         else { const q = L(`Erklär mir „${c.v}“ von Grund auf – mit Beispiel an der Tafel.`, `Explain “${c.v}” to me from scratch – with an example on the whiteboard.`);
         if (STAGE) setTimeout(() => submit(q), 300);
