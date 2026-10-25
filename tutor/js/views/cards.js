@@ -109,6 +109,7 @@ function study(wrap, ctx, items, title) {
       stage.replaceChildren(h('div', { class: 'result-hero' }, f, h('div', { class: 'score' }, done), h('p', { style: { color: 'var(--mute)' } }, L(`Karten wiederholt${again ? ` · ${again}× nochmal` : ''}. Die nächsten kommen, wenn du sie fast vergessen hast.`, `cards reviewed${again ? ` · ${again}× again` : ''}. The next ones show up when you’ve almost forgotten them.`)),
         h('div', { style: { display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '16px' } }, h('button', { class: 'btn primary', onclick: () => { cleanup(); overview(wrap, ctx); } }, L('Fertig', 'Done')), h('button', { class: 'btn', onclick: () => ctx.go('quiz') }, L('Quiz machen', 'Take a quiz')))));
       const fc = face(f); setTimeout(() => fc.set('happy'), 150);
+      if (done >= 5) import('../util.js').then(u => u.confetti({ n: 50 })).catch(() => {});   // Runde geschafft
       return;
     }
     if (isGuest() && queue[i].d.cards.indexOf(queue[i].c) >= lim(queue[i].d)) return lockedRest(stage, { left: queue.length - i, what: L('Karten', 'cards'), onUnlock: draw });
@@ -142,7 +143,7 @@ function study(wrap, ctx, items, title) {
     const it = queue[i];
     schedule(it.c, r); haptic(r === 1 ? 'bad' : 'ok');
     if (r === 1) { again++; queue.splice(Math.min(queue.length, i + 4), 0, it); }
-    else done++;
+    else { done++; if (done % 5 === 0) { const df = document.querySelector('.asst-bub .face, .asst .face'); try { df && df.__face && df.__face.pulse('happy', 1300); } catch (e) {} toast(L(`${done} Karten sitzen. Weiter so.`, `${done} cards nailed. Keep going.`), 1800); } }
     i++; save(doc); draw();
   };
   const onKey = e => {

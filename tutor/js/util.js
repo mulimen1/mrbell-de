@@ -165,3 +165,17 @@ export function learningNow() {
   if (p[1] && LEARN_TABS.includes(p[2])) return true;                              // Karten, Quiz, Podcast, Lernzettel, Lernpfad, Max zum Skript
   return !!document.querySelector('.vmode, .qz-exam, .exam-run, .rm-timer:not([hidden])');
 }
+
+// Konfetti für echte Erfolge (Quiz ≥ 80 %, Karten-Runde geschafft) – kurz, leicht, respektiert „weniger Bewegung“
+export function confetti({ n = 70, ms = 1600 } = {}) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const box = document.createElement('div'); box.className = 'bm-conf'; box.setAttribute('aria-hidden', 'true');
+  const C = ['#1f3a5f', '#f2c46b', '#9cbeff', '#1D6F42', '#e8899a', '#ffffff'];
+  for (let i = 0; i < n; i++) {
+    const p = document.createElement('i'); const x = (Math.random() - .5) * innerWidth * .9, y = innerHeight * (.35 + Math.random() * .55), r = Math.random() * 720 - 360;
+    p.style.background = C[i % C.length]; p.style.left = '50%'; p.style.top = '28%'; if (i % 3 === 0) p.style.borderRadius = '50%';
+    box.appendChild(p);
+    p.animate([{ transform: 'translate(-50%, 0) rotate(0)', opacity: 1 }, { transform: `translate(calc(-50% + ${x * .55}px), ${-80 - Math.random() * 120}px) rotate(${r / 2}deg)`, opacity: 1, offset: .3 }, { transform: `translate(calc(-50% + ${x}px), ${y}px) rotate(${r}deg)`, opacity: 0 }], { duration: ms + Math.random() * 500, easing: 'cubic-bezier(.2,.7,.4,1)', fill: 'forwards' });
+  }
+  document.body.appendChild(box); setTimeout(() => box.remove(), ms + 700);
+}

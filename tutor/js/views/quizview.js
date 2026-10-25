@@ -1,6 +1,6 @@
 // Quiz, Probeklausur, Fehler wiederholen
 import { starBtn } from '../me.js';
-import { h, ico, uid, toast, fmt, shuffle, modal } from '../util.js';
+import { h, ico, uid, toast, fmt, shuffle, modal, confetti } from '../util.js';
 import { richText } from '../sanitize.js';
 import { face } from '../face.js';
 import { ask } from '../api.js';
@@ -193,6 +193,7 @@ function run(wrap, ctx, quiz) {
     const pts = qs.map((q, k) => ({ q, max: PUNKTE[q.type] || 2, got: Math.round(2 * (PUNKTE[q.type] || 2) * (res[k] ? res[k].score : 0)) / 2, r: res[k] }));
     const pMax = pts.reduce((a, x) => a + x.max, 0), pGot = pts.reduce((a, x) => a + x.got, 0), pm = quiz.pass || .5;
     const pScore = quiz.exam && pMax ? pGot / pMax : score, grade = noteFor(pScore, pm);
+    if ((quiz.exam ? pScore : score) >= .8) setTimeout(() => confetti(), 250);   // richtig gut → kurz feiern
     stage.replaceChildren(h('div', { class: 'result-hero' }, f,
       h('div', { class: 'score' }, quiz.exam ? `${String(pGot).replace('.', ',')} / ${pMax}` : Math.round(score * 100) + ' %'),
       quiz.exam ? h('p', { style: { fontSize: '18px', margin: '8px 0 0' } }, L(`${Math.round(pScore * 100)} % der Punkte · Note `, `${Math.round(pScore * 100)}% of points · grade `), h('b', {}, noteShow(grade)), grade === '5,0' ? L(' – nicht bestanden', ' – fail') : '') : null,

@@ -5420,3 +5420,7 @@ html:has(.asst.multi) .rm-fl2, html:has(.asst.multi) .rm-fl3, html:has(.asst.mul
 @media (min-width: 761px) { html:has(#view .pst, #view .xt-coach) .asst:not(.open) .asst-bub, html:has(#view .pst, #view .xt-coach) .asst:not(.open) .asst-tip { opacity: 0 !important; pointer-events: none !important; transform: scale(.6) !important; } }
 @media (max-width: 760px) { html:has(#view .pst) .asst:not(.open) .asst-bub { opacity: 0 !important; pointer-events: none !important; } }
 .vt-erracts { display: inline-flex; gap: 6px; margin-left: 10px; flex-wrap: wrap; }
+.bm-conf { position: fixed; inset: 0; pointer-events: none; z-index: 400; overflow: hidden; }
+.bm-conf i { position: absolute; width: 9px; height: 14px; border-radius: 2px; }
+/* Anzeigen-Gäste: kein „Kein Skript verbunden“-Hinweis (für sie irrelevant) */
+html.bm-guest .rm-focus { display: none !important; }
