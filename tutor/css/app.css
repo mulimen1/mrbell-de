@@ -5255,5 +5255,5 @@ html:not(.x-none) .tn.tn-flow .tn-farr .ico { display: block !important; width: 
 html:not(.x-none) .tn.tn-flow .tn-fsheet .ico { display: block !important; width: 22px !important; height: 22px !important; stroke: #1f3a5f; }
 /* Transkript-Knopf: vorne die Glühbirne im normalen Icon-Kästchen wie bei allen Bereichen („mir geht ein Licht auf“), dann YouTube › Lernzettel */
 /* Untertitel-Symbol = Transkript; auch wenn der Bereich offen ist: helles Kästchen, kein Dunkelblau */
-html .tn.tn-flow > span.tn-lead, html .tn.tn-flow.on > span.tn-lead, html .tn.tn-flow[aria-current] > span.tn-lead, html .tn.tn-flow:hover > span.tn-lead { background: color-mix(in srgb, var(--ink) 7%, transparent) !important; color: var(--ink) !important; }
-html .tn.tn-flow .tn-b, html .tn.tn-flow:hover .tn-b, html .tn.tn-flow:active .tn-b, html .tn.tn-flow > span, html .tn.tn-flow:hover > span, html .tn.tn-flow:active > span { transform: none !important; animation: none !important; transition: none !important; }
+html .tn.tn-flow > span.tn-lead, html .tn.tn-flow.on > span.tn-lead, html .tn.tn-flow:hover > span.tn-lead { background: var(--bmT) !important; color: var(--bmB) !important; }   /* genau wie die anderen Icon-Kästchen (Farbe, Größe); kein Dunkelblau */
+html .tn.tn-flow .tn-b, html .tn.tn-flow:hover .tn-b, html .tn.tn-flow:active .tn-b, html .tn.tn-flow > span:not(.tn-lead), html .tn.tn-flow:hover > span:not(.tn-lead), html .tn.tn-flow:active > span:not(.tn-lead) { transform: none !important; animation: none !important; transition: none !important; }
