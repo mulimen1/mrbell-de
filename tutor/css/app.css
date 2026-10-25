@@ -4970,3 +4970,18 @@ html.maxmode .room .rm-face.talking { animation: mmtalk 1.1s ease-in-out infinit
 
 /* Rückfrage mit Auswahl */
 .ai-wahl { display: flex; flex-wrap: wrap; gap: 6px; } .ai-wahl .ai-cmd.on { background: var(--accent, #1F3A5F); color: #fff; } .ai-wahl .ai-cmd:disabled:not(.on) { opacity: .45; }
+/* Excel-Galerie: Suche + Bereiche */
+.xl-filter { display: grid; gap: 12px; margin-bottom: 18px; }
+.xl-search { width: 100%; max-width: 520px; height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: 500 15px var(--sans); }
+.xl-search:focus { outline: 2px solid color-mix(in srgb, #1D6F42 45%, transparent); outline-offset: 1px; }
+.xl-cats .chip .xl-cn { margin-left: 6px; opacity: .6; font-weight: 600; }
+.xl-empty { color: var(--mute); margin: 8px 0 24px; }
+.xl-empty[hidden] { display: none; }
+/* Startseite: Excel-Kasten */
+.hxl .hvid-logos svg { display: block; }
+.hxl .hvid-new { background: #1D6F42; color: #fff; }
+.hxl-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 6px; }
+.hxl-row .chip { text-decoration: none; }
+.hxl-go { margin-left: auto; height: 44px; text-decoration: none; }
+@media (max-width: 520px) { .hxl-go { width: 100%; margin-left: 0; } }
+@media (max-width: 760px) { .hero .wrap > .hxl { order: 5; margin-top: 14px; } }

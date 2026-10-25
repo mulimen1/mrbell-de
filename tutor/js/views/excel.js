@@ -19,7 +19,7 @@ export function render(root, { arg = '' } = {}) {
   const head = h('header', { class: 'xl-head' },
     h('div', { class: 'eyebrow' }, 'Excel-Vorlagen & Generator'),
     h('h1', {}, icoXL('big'), L('Fertige Excel-Dateien. Echte Formeln.', 'Ready-made Excel files. Real formulas.')),
-    h('p', { class: 'xl-sub' }, L('Nimm eine der 10 geprüften Vorlagen und trag nur die blauen Felder ein – Excel rechnet den Rest. Oder beschreib deine Aufgabe, und Max baut dir die Datei. Jede Formel wird vorher nachgerechnet.', 'Pick one of 10 checked templates and fill in the blue cells – Excel does the rest. Or describe your task and Max builds the file. Every formula is checked first.')));
+    h('p', { class: 'xl-sub' }, L(`Nimm eine der ${TEMPLATES.length} geprüften Vorlagen und trag nur die blauen Felder ein – Excel rechnet den Rest. Oder beschreib deine Aufgabe, und Max baut dir die Datei. Jede Formel wird vorher nachgerechnet.`, `Pick one of ${TEMPLATES.length} checked templates and fill in the blue cells – Excel does the rest. Or describe your task and Max builds the file. Every formula is checked first.`)));
   const tabs = h('div', { class: 'xl-tabs', role: 'tablist' },
     h('a', { class: 'xl-tab' + (tab === 'tpl' ? ' on' : ''), href: '#/app/excel', role: 'tab' }, h('span', { html: ico('library') }), L('Vorlagen', 'Templates'), h('b', {}, String(TEMPLATES.length))),
     h('a', { class: 'xl-tab' + (tab === 'gen' ? ' on' : ''), href: '#/app/excel/generator', role: 'tab' }, h('span', { html: ico('spark') }), L('Generator', 'Generator'), h('b', { class: 'xl-new' }, 'KI')));
@@ -32,16 +32,22 @@ export function render(root, { arg = '' } = {}) {
 
 // ---------- Galerie ----------
 function gallery(body) {
-  let cat = '';
+  let cat = '', q = '';
   const grid = h('div', { class: 'xl-grid' });
-  const chips = h('div', { class: 'xl-cats' }, [['', L('Alle', 'All')], ...CATS].map(([k, t]) => h('button', { type: 'button', class: 'chip' + (k === cat ? ' on' : ''), onclick: e => { cat = k; chips.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === e.currentTarget)); draw(); } }, t)));
+  const n = k => TEMPLATES.filter(t => !k || t.cat === k).length;
+  const chips = h('div', { class: 'xl-cats' }, [['', L('Alle', 'All')], ...CATS.filter(([k]) => n(k))].map(([k, t]) => h('button', { type: 'button', class: 'chip' + (k === cat ? ' on' : ''), onclick: e => { cat = k; chips.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === e.currentTarget)); draw(); } }, t, h('small', { class: 'xl-cn' }, String(n(k))))));
+  const norm = x => String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const search = h('input', { class: 'xl-search', type: 'search', placeholder: L('Vorlage suchen – z. B. Kapitalwert, BAB, Skonto …', 'Search templates – e.g. NPV, cost centre …'), 'aria-label': L('Vorlage suchen', 'Search templates'), oninput: () => { q = norm(search.value.trim()); draw(); } });
+  const empty = h('p', { class: 'xl-empty', hidden: true }, L('Keine Vorlage gefunden – beschreib die Aufgabe einfach dem Generator.', 'No template found – just describe the task to the generator.'));
   const draw = () => {
-    grid.replaceChildren(...TEMPLATES.filter(t => !cat || t.cat === cat).map((t, i) => h('a', { class: 'xl-card', href: '#/app/excel/' + t.id, style: { '--d': (i * 40) + 'ms' } },
+    const list = TEMPLATES.filter(t => (!cat || t.cat === cat) && (!q || norm(t.title + ' ' + t.desc + ' ' + t.id).includes(q)));
+    empty.hidden = !!list.length;
+    grid.replaceChildren(...list.map((t, i) => h('a', { class: 'xl-card', href: '#/app/excel/' + t.id, style: { '--d': (Math.min(i, 12) * 40) + 'ms' } },
       thumb(t), h('div', { class: 'xl-cmeta' }, h('span', { class: 'xl-ccat' }, (CATS.find(c => c[0] === t.cat) || [, ''])[1]), h('b', {}, t.title), h('p', {}, t.desc),
         h('span', { class: 'xl-cgo' }, icoXL(), L('Öffnen & ausfüllen', 'Open & fill in'), h('span', { html: ico('right') }))))));
   };
   draw();
-  body.append(chips, grid, h('div', { class: 'xl-genad' }, h('div', {}, h('b', {}, L('Deine Aufgabe ist nicht dabei?', 'Your task isn’t here?')), h('p', {}, L('Beschreib sie dem Generator – Max baut dir eine eigene Excel-Datei mit echten Formeln.', 'Describe it to the generator – Max builds your own Excel file with real formulas.'))), h('a', { class: 'btn xl-btn', href: '#/app/excel/generator' }, h('span', { html: ico('spark') }), L('Zum Generator', 'Open generator'))));
+  body.append(h('div', { class: 'xl-filter' }, search, chips), grid, empty, h('div', { class: 'xl-genad' }, h('div', {}, h('b', {}, L('Deine Aufgabe ist nicht dabei?', 'Your task isn’t here?')), h('p', {}, L('Beschreib sie dem Generator – Max baut dir eine eigene Excel-Datei mit echten Formeln.', 'Describe it to the generator – Max builds your own Excel file with real formulas.'))), h('a', { class: 'btn xl-btn', href: '#/app/excel/generator' }, h('span', { html: ico('spark') }), L('Zum Generator', 'Open generator'))));
 }
 // Mini-Tabellenbild für die Karte (aus der echten Vorlage)
 function thumb(t) {

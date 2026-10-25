@@ -1,11 +1,11 @@
-// Die 10 Excel-Vorlagen von BWL Max. Blaue Felder = Eingaben, alles andere sind echte Excel-Formeln.
+// Die Excel-Vorlagen von BWL Max (Grundstock hier, weitere Bereiche in tpl-*.js). Blaue Felder = Eingaben, alles andere sind echte Excel-Formeln.
 // Rechenwege wie in Max' geprüften Rechnern (rechner-core.js) – Ergebnisse werden in den Tests dagegen geprüft.
 import { builder } from './core.js';
 
 const SUB = 'Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.';
 const range = (a, b) => { const o = []; for (let k = a; k <= b; k++) o.push(k); return o; };
 
-export const CATS = [['invest', 'Investition & Finanzierung'], ['kosten', 'Kosten- & Leistungsrechnung'], ['rewe', 'Rechnungswesen & Bilanz']];
+export const CATS = [['invest', 'Investition'], ['finanz', 'Finanzierung & Finanzmathematik'], ['kosten', 'Kosten- & Leistungsrechnung'], ['controlling', 'Controlling & Planung'], ['rewe', 'Buchführung & Jahresabschluss'], ['logistik', 'Beschaffung, Produktion & Logistik'], ['marketing', 'Marketing & Absatz']];
 
 export const TEMPLATES = [
   {
@@ -32,7 +32,7 @@ export const TEMPLATES = [
     }
   },
   {
-    id: 'annuitaet', cat: 'invest', title: 'Annuitätendarlehen & Tilgungsplan', file: 'Annuitaetendarlehen_Tilgungsplan.xlsx',
+    id: 'annuitaet', cat: 'finanz', title: 'Annuitätendarlehen & Tilgungsplan', file: 'Annuitaetendarlehen_Tilgungsplan.xlsx',
     desc: 'Rate, Zinsen und Tilgung Jahr für Jahr – Restschuld bis auf 0, bis 20 Jahre.', key: ['B10', 'B11'],
     build() {
       const b = builder(6).title('Annuitätendarlehen & Tilgungsplan', SUB);
