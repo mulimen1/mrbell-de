@@ -5257,3 +5257,5 @@ html:not(.x-none) .tn.tn-flow .tn-fsheet .ico { display: block !important; width
 /* Untertitel-Symbol = Transkript; auch wenn der Bereich offen ist: helles Kästchen, kein Dunkelblau */
 /* Transkript-Icon verhält sich exakt wie die anderen: hell, beim Drüberfahren und offen dunkelblau */
 html .tn.tn-flow .tn-b, html .tn.tn-flow:hover .tn-b, html .tn.tn-flow:active .tn-b, html .tn.tn-flow > span:not(.tn-lead), html .tn.tn-flow:hover > span:not(.tn-lead), html .tn.tn-flow:active > span:not(.tn-lead) { transform: none !important; animation: none !important; transition: none !important; }
+/* Mittlere Leistenbreite: Logo-Kacheln etwas kompakter, damit nichts abgeschnitten wird */
+@media (min-width: 761px) { @container tbar (max-width: 1280px) { html .tn-vid .tn-b-youtube, html .tn-xlic svg { width: 22px !important; height: 22px !important; } .tn-vid .tn-brands, .tn-xl .tn-xlic { padding: 3px !important; border-radius: 9px !important; } } }
