@@ -5000,3 +5000,9 @@ html .tn .tn-new.tn-xlnew { display: inline-block !important; margin-left: 2px; 
 /* Marken-Hinweis */
 .foot-tm { flex-basis: 100%; margin: 4px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--faint, var(--mute)); max-width: 760px; }
 .xl > .foot-tm, .vt > .foot-tm { margin: 40px 0 8px; }
+/* Marken-Hinweis: i neben der Überschrift */
+.tm-w { position: relative; display: inline-flex; vertical-align: middle; margin-left: 10px; }
+.tm-i { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line2, var(--line)); background: var(--panel); color: var(--mute); font: italic 700 13px/1 Georgia, serif; display: grid; place-items: center; cursor: pointer; padding: 0; }
+.tm-i:hover, .tm-w.on .tm-i { color: var(--ink); border-color: var(--ink); }
+.tm-pop { position: absolute; left: 0; top: 0; width: 300px; padding: 10px 12px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); box-shadow: var(--shadow, 0 8px 24px rgba(0,0,0,.12)); font: 500 12.5px/1.45 var(--sans); letter-spacing: 0; color: var(--mute); opacity: 0; visibility: hidden; transition: opacity .15s; z-index: 30; text-align: left; white-space: normal; }
+.tm-w:hover .tm-pop, .tm-w.on .tm-pop, .tm-i:focus-visible + .tm-pop { opacity: 1; visibility: visible; }

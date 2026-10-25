@@ -121,9 +121,12 @@ function full(d) {
   document.body.append(bg); addEventListener('keydown', onKey);
 }
 
+// Marken-Hinweis als kleines i neben der Überschrift (Hover/Klick öffnet die Erklärung daneben)
+const tmInfo = txt => { const pop = h('span', { class: 'tm-pop', role: 'tooltip' }, txt); const b = h('button', { class: 'tm-i', type: 'button', 'aria-label': L('Hinweis zu Marken', 'Trademark notice'), 'aria-expanded': 'false', onclick: e => { e.stopPropagation(); const on = !w.classList.contains('on'); w.classList.toggle('on', on); b.setAttribute('aria-expanded', String(on)); if (on) setTimeout(() => addEventListener('click', () => { w.classList.remove('on'); b.setAttribute('aria-expanded', 'false'); }, { once: true }), 0); } }, 'i'); const place = () => { const r = b.getBoundingClientRect(), W = Math.min(300, innerWidth - 24); pop.style.width = W + 'px'; let x = r.right + 10, y = r.top + r.height / 2 - 40; if (x + W > innerWidth - 12) { x = Math.max(12, Math.min(r.left + r.width / 2 - W / 2, innerWidth - W - 12)); y = r.bottom + 8; } const o = w.getBoundingClientRect(); pop.style.left = (x - o.left) + 'px'; pop.style.top = (Math.max(8, y) - o.top) + 'px'; }; const w = h('span', { class: 'tm-w', onmouseenter: place }, b, pop); b.addEventListener('click', place); b.addEventListener('focus', place); return w; };
+const TM = L('YouTube, TikTok und Instagram sind Marken ihrer jeweiligen Inhaber. BWL Max steht in keiner Verbindung zu diesen Plattformen und wird von ihnen weder unterstützt noch gesponsert.', 'YouTube, TikTok and Instagram are trademarks of their respective owners. BWL Max is not affiliated with, endorsed or sponsored by these platforms.');
 export function render(root) {
   const wrap = h('div', { class: 'view-in vt' }); root.appendChild(wrap);
-  setTimeout(() => wrap.appendChild(h('p', { class: 'foot-tm' }, L('YouTube, TikTok und Instagram sind Marken ihrer jeweiligen Inhaber. BWL Max steht in keiner Verbindung zu diesen Plattformen und wird von ihnen weder unterstützt noch gesponsert.', 'YouTube, TikTok and Instagram are trademarks of their respective owners. BWL Max is not affiliated with, endorsed or sponsored by these platforms.'))), 0);
+  setTimeout(() => wrap.appendChild(h('p', { class: 'foot-tm' }, TM)), 0);
   const fileIn = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.pptx,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.heic,.heif,application/pdf,image/*,video/*,audio/*,.mp4,.mov,.m4v,.m4a,.mp3,.wav' });
   fileIn.addEventListener('change', () => { const fl = [...(fileIn.files || [])]; fileIn.value = ''; if (fl.length) upload(fl); });
   const url = h('input', { class: 'vt-url', type: 'url', inputmode: 'url', placeholder: L('Link einfügen – YouTube, Shorts, TikTok oder Instagram Reel', 'Paste a link – YouTube, Shorts, TikTok or Instagram Reel'), 'aria-label': L('Video-Link', 'Video link') });
@@ -154,7 +157,7 @@ export function render(root) {
   wrap.append(
     h('header', { class: 'vt-head' },
       h('div', { class: 'eyebrow' }, L('Videos & Dateien → Lernstoff', 'Videos & files → study material')),
-      h('h1', {}, L('Aus Lernvideos wird Lernstoff.', 'Turn study videos into study material.'), ' ', brandRow()),
+      h('h1', {}, L('Aus Lernvideos wird Lernstoff.', 'Turn study videos into study material.'), ' ', brandRow(), tmInfo(TM)),
       h('p', { class: 'vt-sub' }, L('Viele Profs und die besten Lernvideos sind auf YouTube & Co. Mit deinem Konto schreibt Max dir täglich 3 Videos kostenlos ab – und macht daraus, genau wie aus deinen eigenen Dateien, Lernzettel, Mitschrift im Füller-Look, Karteikarten, Quiz oder Podcast.', 'Many profs and the best study videos are on YouTube & co. With your account Max transcribes 3 videos a day for free – and turns them, just like your own files, into study sheets, fountain-pen notes, flashcards, quizzes or podcasts.'))),
     drop, status, quotaEl,
     h('section', { class: 'vt-sec' }, h('div', { class: 'vt-sh' }, h('h2', {}, L('Deine Video-Transkripte', 'Your video transcripts')), h('a', { class: 'linkbtn', href: '#/app/bibliothek/videos' }, L('In der Bibliothek', 'In the library'))), listEl));

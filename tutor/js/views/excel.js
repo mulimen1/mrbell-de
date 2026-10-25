@@ -12,19 +12,22 @@ const icoXL = (cls = '') => h('span', { class: 'xl-ic ' + cls, html: XL_ICON });
 const DOWNLOAD_NEEDS_ACCOUNT = true;            // Vorschau für alle, Download mit kostenlosem Konto
 const GEN_FREE = 3, GEN_PRO = 25;               // Generator: so viele Dateien pro Tag
 
+// Marken-Hinweis als kleines i neben der Überschrift (Hover/Klick öffnet die Erklärung daneben)
+const tmInfo = txt => { const pop = h('span', { class: 'tm-pop', role: 'tooltip' }, txt); const b = h('button', { class: 'tm-i', type: 'button', 'aria-label': L('Hinweis zu Marken', 'Trademark notice'), 'aria-expanded': 'false', onclick: e => { e.stopPropagation(); const on = !w.classList.contains('on'); w.classList.toggle('on', on); b.setAttribute('aria-expanded', String(on)); if (on) setTimeout(() => addEventListener('click', () => { w.classList.remove('on'); b.setAttribute('aria-expanded', 'false'); }, { once: true }), 0); } }, 'i'); const place = () => { const r = b.getBoundingClientRect(), W = Math.min(300, innerWidth - 24); pop.style.width = W + 'px'; let x = r.right + 10, y = r.top + r.height / 2 - 40; if (x + W > innerWidth - 12) { x = Math.max(12, Math.min(r.left + r.width / 2 - W / 2, innerWidth - W - 12)); y = r.bottom + 8; } const o = w.getBoundingClientRect(); pop.style.left = (x - o.left) + 'px'; pop.style.top = (Math.max(8, y) - o.top) + 'px'; }; const w = h('span', { class: 'tm-w', onmouseenter: place }, b, pop); b.addEventListener('click', place); b.addEventListener('focus', place); return w; };
+const TM = L('Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.', 'Microsoft and Excel are trademarks of Microsoft Corporation. BWL Max is not affiliated with, endorsed or sponsored by Microsoft.');
 export function render(root, { arg = '' } = {}) {
   const wrap = h('div', { class: 'view-in xl nomath' }); root.appendChild(wrap);
   const tpl = arg && arg !== 'generator' ? byId(arg) : null;
   const tab = arg === 'generator' ? 'gen' : 'tpl';
   const head = h('header', { class: 'xl-head' },
     h('div', { class: 'eyebrow' }, L('Excel-Helfer · Vorlagen & Generator', 'Excel helper · templates & generator')),
-    h('h1', {}, icoXL('big'), L('Fertige Excel-Dateien. Echte Formeln.', 'Ready-made Excel files. Real formulas.')),
+    h('h1', {}, icoXL('big'), L('Fertige Excel-Dateien. Echte Formeln.', 'Ready-made Excel files. Real formulas.'), tmInfo(TM)),
     h('p', { class: 'xl-sub' }, L(`Nimm eine der ${TEMPLATES.length} geprüften Vorlagen und trag nur die blauen Felder ein – Excel rechnet den Rest. Oder beschreib deine Aufgabe, und Max baut dir die Datei. Jede Formel wird vorher nachgerechnet.`, `Pick one of ${TEMPLATES.length} checked templates and fill in the blue cells – Excel does the rest. Or describe your task and Max builds the file. Every formula is checked first.`)));
   const tabs = h('div', { class: 'xl-tabs', role: 'tablist' },
     h('a', { class: 'xl-tab' + (tab === 'tpl' ? ' on' : ''), href: '#/app/excel', role: 'tab' }, h('span', { html: ico('library') }), L('Vorlagen', 'Templates'), h('b', {}, String(TEMPLATES.length))),
     h('a', { class: 'xl-tab' + (tab === 'gen' ? ' on' : ''), href: '#/app/excel/generator', role: 'tab' }, h('span', { html: ico('spark') }), L('Generator', 'Generator'), h('b', { class: 'xl-new' }, 'KI')));
   const body = h('div', { class: 'xl-body' });
-  wrap.append(head, tabs, body, h('p', { class: 'foot-tm' }, L('Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.', 'Microsoft and Excel are trademarks of Microsoft Corporation. BWL Max is not affiliated with, endorsed or sponsored by Microsoft.')));
+  wrap.append(head, tabs, body, h('p', { class: 'foot-tm' }, TM));
   if (tpl) openTemplate(body, tpl);
   else if (tab === 'gen') generator(body);
   else gallery(body);
