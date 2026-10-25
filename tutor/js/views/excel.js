@@ -7,7 +7,7 @@ import { TEMPLATES, CATS, byId } from '../xl/templates.js';
 import { calc, engine, toXlsx, download, show, deFormula, colL, colN, split, bounds, labelOf, sortRefs, FMT, DE } from '../xl/core.js';
 
 // Eigenes Tabellen-Symbol (kein Microsoft-Logo): grünes Quadrat mit Raster
-export const XL_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" fill="#1D6F42"/><path d="M6.5 8.5h11M6.5 12h11M6.5 15.5h11M10.5 6v12" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>';
+export const XL_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif" letter-spacing="-.2">XLS</text></svg>';
 const icoXL = (cls = '') => h('span', { class: 'xl-ic ' + cls, html: XL_ICON });
 const DOWNLOAD_NEEDS_ACCOUNT = true;            // Vorschau für alle, Download mit kostenlosem Konto
 const GEN_FREE = 3, GEN_PRO = 25;               // Generator: so viele Dateien pro Tag
