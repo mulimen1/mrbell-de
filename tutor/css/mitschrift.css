@@ -281,3 +281,5 @@
 .ms-upt small { color: var(--mute, #6b6b6b); font-size: 14px; line-height: 1.45; }
 .ms-upb { flex: none; height: 40px; padding: 0 18px; border-radius: 999px; display: inline-flex; align-items: center; border: 1px solid var(--line2, #d6d3c8); font: 650 14px var(--sans, inherit); background: var(--panel, #fff); }
 @media (max-width: 600px) { .ms-up { padding: 16px; gap: 12px; } .ms-upb { display: none; } .ms-upi { width: 44px; height: 44px; } }
+/* Kleine Lücke zwischen „Mit Skript verbinden“ und dem Upload-Feld */
+.ms-fachw + .ms-up { margin-top: 12px; }

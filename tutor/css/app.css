@@ -4989,7 +4989,7 @@ html.maxmode .room .rm-face.talking { animation: mmtalk 1.1s ease-in-out infinit
 html .tn .tn-new.tn-xlnew { display: inline-block !important; margin-left: 2px; padding: 3px 6px; font-size: 9.5px; letter-spacing: .05em; background: color-mix(in srgb, #1D6F42 13%, transparent); color: #1D6F42; border: 1px solid color-mix(in srgb, #1D6F42 30%, transparent); }
 :root[data-theme="dark"] .tn .tn-new.tn-xlnew { color: #7fd3a3; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tn .tn-new.tn-xlnew { color: #7fd3a3; } }
-@media (min-width: 761px) and (max-width: 1060px) { html:not(.bm-guest) .tn { padding: 0 6px 0 4px; gap: 6px; font-size: 16px; } .tn-sep { display: none; } html:not(.bm-guest) .topbar { padding-left: 6px; padding-right: 8px; } html:not(.bm-guest) .tn.tn-tutor { padding: 0 11px 0 4px; } .tn-xl .tn-xlic { display: none; } html:not(.bm-guest) .topnav { gap: 0; } html:not(.bm-guest) .tn:not(.tn-tutor) > span:has(> .ico) { width: 31px; height: 31px; } }
+@media (min-width: 761px) and (max-width: 1060px) { html:not(.bm-guest) .tn { padding: 0 6px 0 4px; gap: 6px; font-size: 16px; } .tn-sep { display: none; } html:not(.bm-guest) .topbar { padding-left: 6px; padding-right: 8px; } html:not(.bm-guest) .tn.tn-tutor { padding: 0 11px 0 4px; } html:not(.bm-guest) .tn-xl .tn-xlic { display: none; } html:not(.bm-guest) .topnav { gap: 0; } html:not(.bm-guest) .tn:not(.tn-tutor) > span:has(> .ico) { width: 31px; height: 31px; } }
 /* Startseite: Excel-Helfer als vierte große Funktion */
 .feattop { grid-template-columns: repeat(2, 1fr); }
 @media (max-width: 760px) { .feattop { grid-template-columns: 1fr; } }
@@ -5006,3 +5006,5 @@ html .tn .tn-new.tn-xlnew { display: inline-block !important; margin-left: 2px; 
 .tm-i:hover, .tm-w.on .tm-i { color: var(--ink); border-color: var(--ink); }
 .tm-pop { position: absolute; left: 0; top: 0; width: 300px; padding: 10px 12px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); box-shadow: var(--shadow, 0 8px 24px rgba(0,0,0,.12)); font: 500 12.5px/1.45 var(--sans); letter-spacing: 0; color: var(--mute); opacity: 0; visibility: hidden; transition: opacity .15s; z-index: 30; text-align: left; white-space: normal; }
 .tm-w:hover .tm-pop, .tm-w.on .tm-pop, .tm-i:focus-visible + .tm-pop { opacity: 1; visibility: visible; }
+/* Ohne Konto (auch Google-Ads-Seiten): XLS-Zeichen so groß wie die YouTube/TikTok/Instagram-Logos */
+@media (min-width: 761px) { html.bm-guest .tn-xlic svg { width: 25px; height: 25px; } html.bm-guest .tn .tn-new.tn-xlnew { font-size: 10.5px; padding: 3px 7px; } }
