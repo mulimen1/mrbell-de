@@ -223,12 +223,11 @@ export default [
       b.lab('A5', 'Art: 1 = Ausgabe vorab (Aufwand) · 2 = Einnahme vorab (Ertrag)').inp('B5', 1, 'int', { min: 1, max: 2 });
       b.lab('A6', 'Gezahlter bzw. erhaltener Betrag').inp('B6', 1200, 'eur', { min: 0 });
       b.lab('A7', 'Leistungszeitraum: erster Monat (1 – 12)').inp('B7', 10, 'int', { min: 1, max: 12 });
-      b.lab('A8', 'Leistungszeitraum: Jahr des ersten Monats').inp('B8', 2025, 'txt', { min: 1990, max: 2100, int: true });
+      b.lab('A8', 'Jahr des ersten Monats: 0 = Jahr des Stichtags, −1 = Vorjahr, 1 = Folgejahr').inp('B8', 0, 'int', { min: -10, max: 10 });
       b.lab('A9', 'Laufzeit der Leistung in Monaten').inp('B9', 12, 'int', { min: 1, max: 120 });
       b.lab('A10', 'Bilanzstichtag: Monat (Ende des Geschäftsjahres)').inp('B10', 12, 'int', { min: 1, max: 12 });
-      b.lab('A11', 'Bilanzstichtag: Jahr').inp('B11', 2025, 'txt', { min: 1990, max: 2100, int: true });
       b.sec(13, 'Ergebnis');
-      const S = '($B$11*12+$B$10)', BG = '($B$8*12+$B$7)';
+      const S = '$B$10', BG = '($B$8*12+$B$7)';
       b.lab('A14', 'Monate im abgelaufenen Geschäftsjahr').fx('B14', 'B9-B15-B16', 'int');
       b.lab('A15', 'Monate nach dem Bilanzstichtag').fx('B15', `MAX(0,MIN(B9,${BG}+B9-1-${S}))`, 'int');
       b.lab('A16', 'Monate vor Beginn des Geschäftsjahres').fx('B16', `MAX(0,MIN(B9,${S}-11-${BG}))`, 'int');
