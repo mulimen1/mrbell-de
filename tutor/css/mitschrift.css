@@ -305,3 +305,11 @@
 .ms-head { align-items: flex-start !important; }
 .ms-hl .ms-hp { text-align: left !important; margin: 12px 0 0 !important; max-width: 56ch; }
 @media (max-width: 900px) { .ms-pvb { height: 240px; } }
+/* Laptop: Vorschau rechts daneben, Schreibfeld rückt direkt unter die Überschrift (keine leere Lücke) */
+@media (min-width: 1000px) {
+  .ms-head { display: block; position: relative; }
+  .ms-head .ms-pv { position: absolute; top: 0; right: 0; width: 320px; z-index: 2; }
+  .ms-hl { margin-right: 344px; }
+  .ms:has(.ms-pv.open) .ms-ed { margin-right: 344px; }
+  .ms-tools { flex-wrap: wrap; row-gap: 8px; overflow-x: visible; }
+}
