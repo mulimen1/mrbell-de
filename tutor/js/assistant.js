@@ -1224,10 +1224,10 @@ export function mountAssistant() {
           const btn = await sleepUntil(() => [...document.querySelectorAll('#view .tile h3')].find(x => /Probeklausur|Mock exam/.test(x.textContent))?.closest('button'));
           if (!btn) return fail(L('Probeklausur nicht gefunden.', 'Mock exam not found.'));
           btn.click();
-        } else await nav(`#/app/${d.id}/${MAKE[c.v][0]}/auto`, true);
+        } else { try { const cr = await import('./create.js'); cr.setCreate(MAKE[c.v][0], d.id, cr.quickOpts(MAKE[c.v][0])); } catch (e) {} await nav(`#/app/${d.id}/${MAKE[c.v][0]}/auto`, true); }
       }
       else if (c.k === 'topic') {   // „Lass uns X lernen“: kein Umweg über Skript + Einordnen – Max erklärt es sofort an der Tafel
-        if (c.target) { ls.set('tutor.target', c.target); if (!STAGE && open) closeAnimated(); const m = await import('./app.js'); m.startTopic(c.v); }   // Werkzeug (Quiz, Podcast …) braucht ein Skript
+        if (c.target) { ls.set('tutor.target', c.target); try { const cr = await import('./create.js'); cr.setCreate(c.target, '*', cr.quickOpts(c.target)); } catch (e) {} if (!STAGE && open) closeAnimated(); const m = await import('./app.js'); m.startTopic(c.v); }   // Werkzeug (Quiz, Podcast …) braucht ein Skript
         else { const q = L(`Erklär mir „${c.v}“ von Grund auf – mit Beispiel an der Tafel.`, `Explain “${c.v}” to me from scratch – with an example on the whiteboard.`);
         if (STAGE) setTimeout(() => submit(q), 300);
         else { ls.set('tutor.pendingAsk', q); if (open) closeAnimated(); location.hash = '#/app/tutor'; } }

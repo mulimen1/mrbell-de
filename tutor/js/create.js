@@ -43,6 +43,16 @@ const TITLE = {
   podcast: ['Podcast', L('Wie soll deine Folge klingen?', 'How should your episode sound?')],
 };
 
+// Direkt aus dem Chat mit Max („mach mir einen Podcast“): kein Zwischen-Fenster, Standard + zuletzt gewählte Einstellungen
+export function quickOpts(tab) { const D = defOf(tab); return D ? Object.assign({}, D, ls.get('tutor.pers.' + tab, null) || {}, { focus: -1 }) : {}; }
+function defOf(tab) {
+  return {
+    karten: { focus: -1, count: 16, art: 'mix' },
+    quiz: { focus: -1, count: 8, diff: 'mittel', types: ['mc', 'tf', 'match', 'order', 'cloze', 'num'] },
+    zettel: { len: 'kurz', art: 'mix' },
+    podcast: { focus: -1, len: 'kurz', lang: getOutLang(), tone: 2, voice: ls.get('tutor.podVoice', 'max') },
+  }[tab];
+}
 // Liefert die gewählten Optionen – oder null, wenn abgebrochen
 export async function personalise(tab, doc) {
   if (!TOOL[tab]) return {};

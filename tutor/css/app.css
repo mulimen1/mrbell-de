@@ -5157,3 +5157,6 @@ textarea.ai-in { resize: none; line-height: 22px; padding-top: 11px !important; 
 .asst[data-state="idle"] textarea.ai-in { border-radius: 23px; }
 /* Beim Tippen mehr Platz: „Sprich mit Max“ wird zum runden Mikro-Knopf */
 .asst.has-tx .ai-talk { padding: 0; width: 46px; justify-content: center; } .asst.has-tx .ai-talk .lbl { display: none; }
+/* Google-Ads-Landingpages: oben kein Karteikarten-Knopf, kein NEU bei Transkript (Excel-Helfer behält sein NEU) */
+.m-dcards { display: none !important; }
+.tn-vid .tn-new { display: none !important; }
