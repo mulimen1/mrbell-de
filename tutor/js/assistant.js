@@ -946,6 +946,7 @@ export function mountAssistant() {
     bPrev.hidden = bNext.hidden = boards.length < 2;
     const t = h('div', { class: 'tafel' }, h('h2', { class: 'tt' }, b.title));
     t.appendChild(polishBoard(sanitize(b.html)));
+    { const f = t.children[1], nz = x => String(x || '').toLowerCase().replace(/[^a-zäöüß0-9]+/g, ''); if (f && /^H[1-4]$/.test(f.tagName) && nz(f.textContent) === nz(b.title)) f.remove(); }   // KI wiederholt den Tafel-Titel als erste Überschrift → nur einmal zeigen
     MM.enhance(t); if (!write) MM.revealAll(t);   // Max-Modus: Übersicht als animierte Mindmap, Äste fliegen mit der Führung rein
     t.appendChild(nextChips(b));
     // Erklärung ⇄ Klausurfragen: Umschalter oben auf der Tafel
