@@ -5009,3 +5009,126 @@ html .tn .tn-new.tn-xlnew { display: inline-block !important; margin-left: 2px; 
 .tm-w:hover .tm-pop, .tm-w.on .tm-pop, .tm-i:focus-visible + .tm-pop { opacity: 1; visibility: visible; }
 /* Ohne Konto (auch Google-Ads-Seiten): XLS-Zeichen so groß wie die YouTube/TikTok/Instagram-Logos */
 @media (min-width: 761px) { html.bm-guest .tn-xlic svg { width: 25px; height: 25px; } html.bm-guest .tn .tn-new.tn-xlnew { font-size: 10.5px; padding: 3px 7px; } }
+/* ===================== Excel-Trainer ===================== */
+.xt { --xg: #1D6F42; --xgs: color-mix(in srgb, #1D6F42 12%, var(--panel)); }
+.xt-load { padding: 40px 0; color: var(--mute); }
+.xt-hero { display: flex; gap: 22px; align-items: center; padding: 22px 24px; border-radius: 22px; border: 1.5px solid var(--ink); box-shadow: 0 4px 0 var(--ink); background: linear-gradient(135deg, color-mix(in srgb, #1D6F42 9%, var(--panel)), var(--panel) 60%); margin-bottom: 18px; }
+.xt-hface { width: 96px; height: 96px; flex: none; }
+.xt-htx b { display: block; font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -.025em; margin-bottom: 6px; }
+.xt-htx p { margin: 0 0 12px; color: var(--mute); line-height: 1.5; max-width: 640px; }
+.xt-hst { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; color: var(--mute); font-size: 14px; }
+.xt-hst b { color: var(--ink); font-size: 17px; }
+.xt-go { margin-left: auto; }
+.xt-phone { font-size: 13.5px; color: var(--mute); margin: -6px 0 14px; }
+.xt-levels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 1100px) { .xt-levels { grid-template-columns: 1fr; } }
+.xt-lv { border: 1px solid var(--line); border-radius: 18px; background: var(--panel); overflow: hidden; }
+.xt-lv header { padding: 16px 16px 12px; background: color-mix(in srgb, var(--lc) 8%, var(--panel)); border-bottom: 1px solid var(--line); display: grid; gap: 3px; }
+.xt-lvn { font: 700 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--lc); }
+.xt-lv header b { font-size: 19px; letter-spacing: -.02em; }
+.xt-lv header small { color: var(--mute); font-size: 13px; line-height: 1.4; }
+.xt-bar { height: 6px; border-radius: 9px; background: color-mix(in srgb, var(--lc) 14%, transparent); margin-top: 8px; overflow: hidden; }
+.xt-bar i { display: block; height: 100%; background: var(--lc); border-radius: 9px; transition: width .5s; }
+.xt-lv ol { list-style: none; margin: 0; padding: 6px; display: grid; gap: 2px; }
+.xt-ls { width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 12px; border: 0; background: transparent; color: var(--ink); text-align: left; cursor: pointer; font: inherit; }
+.xt-ls:hover { background: color-mix(in srgb, var(--lc) 7%, var(--panel)); }
+.xt-lsn { width: 30px; height: 30px; flex: none; border-radius: 50%; display: grid; place-items: center; font: 700 13px var(--sans); background: var(--panel2, #f3f4f6); color: var(--mute); }
+.xt-ls.done .xt-lsn { background: var(--lc); color: #fff; }
+.xt-lst { flex: 1; min-width: 0; display: grid; gap: 1px; }
+.xt-lst b { font-size: 14.5px; } .xt-lst small { color: var(--mute); font-size: 12.5px; }
+.xt-lst em { font-style: normal; font-size: 10.5px; font-weight: 700; margin-left: 6px; padding: 2px 6px; border-radius: 99px; background: #f5c542; color: #3b2f00; vertical-align: 1px; }
+.xt-lsgo { color: var(--mute); } .xt-lsgo .ico { width: 16px; height: 16px; }
+.xt-stars { display: inline-flex; gap: 1px; color: color-mix(in srgb, var(--mute) 35%, transparent); font-size: 14px; }
+.xt-stars i { font-style: normal; } .xt-stars i.on { color: #f5b301; }
+.xt-stars.big { font-size: 40px; gap: 6px; margin: 6px 0 2px; } .xt-stars.big i.on { animation: xtstar .5s calc(var(--k) * .22s) cubic-bezier(.2, 1.6, .4, 1) both; }
+@keyframes xtstar { from { transform: scale(0) rotate(-40deg); opacity: 0; } to { transform: none; opacity: 1; } }
+.xt-cheat { margin-top: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); padding: 4px 16px; }
+.xt-cheat summary { cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 12px 0; font-weight: 650; }
+.xt-cheat summary .ico { width: 18px; height: 18px; } .xt-cheat summary small { margin-left: auto; color: var(--mute); font-weight: 500; }
+.xt-cheat table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 10px; }
+.xt-cheat td { padding: 7px 4px; border-top: 1px solid var(--line); } .xt-cheat td:last-child { text-align: right; }
+.xt-cheat p { color: var(--mute); font-size: 12.5px; }
+.xt-kc { display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; vertical-align: 1px; }
+.xt-kc i { font-style: normal; color: var(--mute); font-size: 11px; }
+.xt kbd { display: inline-block; min-width: 22px; padding: 2px 7px; border-radius: 7px; border: 1px solid var(--line2, var(--line)); border-bottom-width: 3px; background: var(--panel); color: var(--ink); font: 650 12.5px/1.35 var(--sans); text-align: center; }
+/* Spielfeld */
+.xt-play { position: relative; }
+.xt-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.xt-lvb { font: 700 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--lc); padding: 4px 9px; border-radius: 99px; background: color-mix(in srgb, var(--lc) 10%, transparent); }
+.xt-tt { font-size: 18px; letter-spacing: -.02em; }
+.xt-dots { display: flex; gap: 5px; } .xt-dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--line2, var(--line)); transition: background .3s, transform .3s; } .xt-dots i.ok { background: var(--xg); } .xt-dots i.now { background: var(--lc); transform: scale(1.35); }
+.xt-clock, .xt-xp { font: 700 13px var(--mono); padding: 5px 10px; border-radius: 10px; background: var(--panel2, #f3f4f6); }
+.xt-xp { color: var(--xg); } .xt-chal { font-weight: 700; color: #b45309; font-size: 13px; }
+.xt-stage { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 16px; align-items: start; }
+@media (max-width: 1000px) { .xt-stage { grid-template-columns: 1fr; } .xt-coach { order: -1; position: static !important; } }
+.xt-win { border: 1px solid var(--line2, var(--line)); border-radius: 14px; overflow: hidden; background: var(--panel); box-shadow: 0 18px 50px -26px rgba(15, 23, 42, .35); }
+.xt-wt { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: var(--xg); color: #fff; font-size: 12.5px; font-weight: 600; }
+.xt-wt > i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .45); } .xt-wt span { margin-left: 8px; } .xt-wt small { margin-left: auto; opacity: .7; font-weight: 500; }
+.xt-ribbon { display: flex; align-items: center; gap: 4px; padding: 6px 10px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, #1D6F42 4%, var(--panel)); overflow-x: auto; }
+.xt-rtab { font-size: 12px; font-weight: 700; color: var(--xg); border-bottom: 2px solid var(--xg); padding: 4px 6px; margin-right: 8px; }
+.xt-rb { height: 30px; min-width: 32px; padding: 0 8px; border-radius: 8px; border: 1px solid transparent; background: transparent; color: var(--ink); font: 600 13px var(--sans); cursor: pointer; white-space: nowrap; }
+.xt-rb:hover { background: var(--panel); border-color: var(--line); } .xt-rsep { width: 1px; height: 20px; background: var(--line); margin: 0 4px; }
+.xt-grid { outline: none; position: relative; }
+.xt-fbar { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.xt-nb { min-width: 56px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 6px; font: 600 12.5px var(--mono); text-align: center; }
+.xt-fbar > i { font: italic 600 13px Georgia, serif; color: var(--mute); }
+.xt-fx { flex: 1; min-height: 22px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 6px; font: 500 13px var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: text; }
+.xt-fx.f { color: #1F4E99; }
+.xt-scroll { overflow: auto; max-height: min(62vh, 560px); }
+.xt-inner { position: relative; width: max-content; min-width: 100%; }
+.xt-t { border-collapse: separate; border-spacing: 0; table-layout: fixed; font: 400 13.5px/1.25 var(--sans); user-select: none; -webkit-user-select: none; }
+.xt-t th { position: sticky; top: 0; z-index: 3; height: 24px; background: var(--panel2, #f3f4f6); color: var(--mute); font: 600 11.5px var(--mono); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line2, var(--line)); }
+.xt-t th.xt-rh { position: sticky; left: 0; z-index: 2; top: auto; border-bottom: 1px solid var(--line); }
+.xt-t th.xt-co { left: 0; z-index: 4; }
+.xt-t th.on { background: color-mix(in srgb, #1D6F42 18%, var(--panel2, #f3f4f6)); color: #1D6F42; }
+.xt-t td { height: 26px; padding: 0 6px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); white-space: nowrap; overflow: hidden; text-overflow: clip; cursor: cell; background: var(--panel); position: relative; }
+.xt-t td.n { text-align: right; font-variant-numeric: tabular-nums; } .xt-t td.b { font-weight: 700; } .xt-t td.err { color: #b91c1c; font-weight: 600; } .xt-t td.neg { color: #b91c1c; }
+.xt-t td.rg { background: color-mix(in srgb, #1D6F42 10%, var(--panel)); }
+.xt-t td.editing { padding: 0; overflow: visible; z-index: 6; }
+.xt-ed { width: 100%; min-width: 100%; height: 26px; border: 0; outline: 2px solid #1D6F42; outline-offset: -2px; padding: 0 6px; font: 400 13.5px var(--sans); background: var(--panel); color: var(--ink); box-shadow: 0 6px 18px -8px rgba(0, 0, 0, .35); }
+.xt-sel { position: absolute; z-index: 5; pointer-events: none; border: 2px solid #1D6F42; box-sizing: border-box; transition: left .06s, top .06s, width .06s, height .06s; }
+.xt-sel.multi { background: transparent; }
+.xt-fh { position: absolute; right: -5px; bottom: -5px; width: 9px; height: 9px; background: #1D6F42; border: 1.5px solid #fff; pointer-events: auto; cursor: crosshair; box-sizing: border-box; }
+.xt-fh::after { content: ''; position: absolute; inset: -6px; }
+.xt-ants { position: absolute; z-index: 4; pointer-events: none; border: 2px dashed #1D6F42; animation: xtants .7s linear infinite; box-sizing: border-box; }
+@keyframes xtants { 50% { border-color: color-mix(in srgb, #1D6F42 35%, transparent); } }
+.xt-prev { position: absolute; z-index: 4; pointer-events: none; border: 2px dashed #64748b; box-sizing: border-box; }
+.xt-tgt { position: absolute; z-index: 3; pointer-events: none; border-radius: 3px; box-shadow: 0 0 0 3px color-mix(in srgb, #f5b301 70%, transparent); background: color-mix(in srgb, #f5b301 9%, transparent); animation: xttgt 1.6s ease-in-out infinite; }
+@keyframes xttgt { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, #f5b301 25%, transparent); } }
+.xt-refs { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
+.xt-ref { position: absolute; border: 2px solid var(--rc); background: color-mix(in srgb, var(--rc) 8%, transparent); box-sizing: border-box; }
+.xt-msg { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 10; max-width: 90%; padding: 9px 14px; border-radius: 12px; background: var(--ink); color: var(--panel); font-size: 13.5px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .4); }
+.xt-msg.bad { background: #7f1d1d; color: #fff; }
+.xt-sheets { display: flex; gap: 2px; padding: 0 10px; border-top: 1px solid var(--line); background: var(--panel2, #f3f4f6); font-size: 12px; }
+.xt-sheets span { padding: 6px 12px; color: var(--mute); } .xt-sheets span.on { background: var(--panel); color: #1D6F42; font-weight: 700; border-bottom: 2px solid #1D6F42; }
+/* Max als Coach */
+.xt-coach { position: sticky; top: 76px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); padding: 16px; display: grid; gap: 12px; }
+.xt-chd { display: flex; align-items: center; gap: 10px; } .xt-face { width: 54px; height: 54px; flex: none; } .xt-chd b { display: block; } .xt-cnt { color: var(--mute); }
+.xt-say { position: relative; padding: 14px 15px; border-radius: 16px; background: color-mix(in srgb, #1F3A5F 6%, var(--panel)); border: 1px solid color-mix(in srgb, #1F3A5F 14%, transparent); font-size: 15px; line-height: 1.55; transition: background .25s, border-color .25s; }
+.xt-say::before { content: ''; position: absolute; top: -7px; left: 22px; width: 12px; height: 12px; background: inherit; border-left: inherit; border-top: inherit; transform: rotate(45deg); }
+.xt-say b { color: #1F3A5F; } :root[data-theme="dark"] .xt-say b { color: #9db7da; }
+.xt-say.ok { background: color-mix(in srgb, #1D6F42 12%, var(--panel)); border-color: color-mix(in srgb, #1D6F42 35%, transparent); }
+.xt-say.no { animation: xtshake .4s; }
+@keyframes xtshake { 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-3px); } }
+.xt-okc { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #1D6F42; color: #fff; margin-right: 7px; vertical-align: -5px; } .xt-okc .ico { width: 14px; height: 14px; }
+.xt-hint { display: flex; gap: 8px; padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, #f5b301 12%, var(--panel)); font-size: 13.5px; line-height: 1.5; } .xt-hint[hidden] { display: none; } .xt-hint .ico { width: 16px; height: 16px; flex: none; margin-top: 2px; }
+.xt-cbtn { display: flex; gap: 8px; }
+.xt-steps { list-style: none; margin: 0; padding: 10px 0 0; border-top: 1px solid var(--line); display: grid; gap: 6px; font-size: 12.5px; color: var(--mute); }
+.xt-steps li { display: flex; gap: 8px; align-items: flex-start; } .xt-steps li > i { font-style: normal; width: 18px; height: 18px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 10.5px; font-weight: 700; background: var(--panel2, #f3f4f6); }
+.xt-steps li.ok { color: var(--ink); } .xt-steps li.ok > i { background: #1D6F42; color: #fff; } .xt-steps li.now { color: var(--ink); font-weight: 600; } .xt-steps li.now > i { background: #f5b301; color: #3b2f00; }
+.xt-steps kbd { font-size: 10.5px; padding: 0 4px; min-width: 0; border-bottom-width: 2px; }
+/* Abschluss */
+.xt-ov { position: absolute; inset: 0; z-index: 30; display: grid; place-items: center; background: color-mix(in srgb, var(--bg, #fff) 70%, transparent); backdrop-filter: blur(4px); border-radius: 18px; }
+.xt-done { position: relative; width: min(460px, 92%); padding: 26px 26px 22px; border-radius: 22px; background: var(--panel); border: 1.5px solid var(--ink); box-shadow: 0 5px 0 var(--ink), 0 30px 70px -30px rgba(0, 0, 0, .5); text-align: center; display: grid; gap: 6px; justify-items: center; overflow: hidden; animation: xtpop .45s cubic-bezier(.2, 1.4, .4, 1) both; }
+@keyframes xtpop { from { transform: scale(.85); opacity: 0; } }
+.xt-done > small { font: 700 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: #1D6F42; } .xt-done > b { font-size: 22px; letter-spacing: -.02em; }
+.xt-done p { margin: 6px 0 0; color: var(--mute); line-height: 1.5; } .xt-d3 { color: var(--mute); font-size: 12.5px; }
+.xt-dst { display: flex; gap: 22px; margin: 6px 0; } .xt-dst span { display: grid; font-size: 12px; color: var(--mute); } .xt-dst b { font-size: 20px; color: var(--ink); }
+.xt-dbtn { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
+.xt-conf { position: absolute; inset: 0; pointer-events: none; overflow: hidden; } .xt-conf i { position: absolute; top: -10px; width: 8px; height: 12px; border-radius: 2px; animation: xtconf 2.2s ease-in forwards; }
+@keyframes xtconf { to { transform: translate(var(--dx), 520px) rotate(540deg); opacity: 0; } }
+@media (max-width: 760px) { .xt-hero { flex-direction: column; align-items: flex-start; } .xt-go { margin-left: 0; } .xt-scroll { max-height: 56vh; } }
+.xt-hst b { display: inline; margin-right: 3px; }
+.xl.xt-full { max-width: 1320px; padding-top: 16px; } .xl.xt-full > .xl-head, .xl.xt-full > .xl-tabs, .xl.xt-full > .foot-tm { display: none; }
+.xt-rb { flex: none; }
+@media (max-width: 760px) { .xt-steps, .xt-wt small, .xt-dots { display: none; } .xt-coach { padding: 12px; gap: 8px; } .xt-face { width: 40px; height: 40px; } .xt-say { font-size: 14.5px; padding: 11px 12px; } .xt-top { gap: 8px; } .xt-tt { font-size: 16px; } }
