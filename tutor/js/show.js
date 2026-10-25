@@ -40,10 +40,10 @@ const QUIZ = [
 // Läuft nach dem Mikro von allein durch (auto); Enter/→ springt weiter, Esc beendet.
 const KR = [
   { id: 'kstart', say: '' },
-  { id: 'kroast', say: 'Kostenrechnung. An einem Sonntag. Freiwillig. Respekt. Okay, ich bau dir eine Übersicht. Schau zu.', auto: true, keepYou: true },
+  { id: 'kroast', say: 'Kostenrechnung. An einem Sonntag. Freiwillig. Respekt. Kein Stress, ich erklär es dir an der Tafel. Schau zu und versuch mitzukommen.', auto: true, keepYou: true },
   { id: 'kmap', say: 'Kostenrechnung stellt genau drei Fragen. Kostenarten: Welche Kosten hab ich? Kostenstellen: Wo sind sie entstanden? Kostenträger: Wofür, also für welches Produkt? Drei Fragen. Selbst du schaffst das.', auto: true },
   { id: 'kfluss', say: 'Einzelkosten wie Material gehen direkt aufs Produkt. Gemeinkosten wie Miete und Strom laufen erst über die Kostenstellen und kommen per Zuschlag drauf. Schreib dir das auf. Nein, ernsthaft.', auto: true },
-  { id: 'kende', say: 'Kostenrechnung in einer Minute. Dein Prof braucht dafür ein Semester.' }
+  { id: 'kende', say: 'Die Tafel kriegst du als PDF, gratis. Kostenrechnung in einer Minute. Dein Prof braucht dafür ein Semester.' }
 ];
 const CSS = `
 .sh{position:fixed;inset:0;z-index:2147483000;overflow:hidden;font-family:var(--sans,system-ui);cursor:default;
@@ -197,6 +197,18 @@ const CSS = `
 .sh .kf .tok.z rect{fill:#2fd27a;stroke:#2fd27a}.sh .kf .tok.z text{fill:#04130a}
 .sh .kf .cell{fill:var(--card);stroke:var(--line);stroke-width:1.5}
 .sh .kf .cell.on{fill:var(--g);transition:fill .5s}
+.sh{--tfbg:rgba(255,255,255,.025);--dot:rgba(255,255,255,.09)}.sh.light{--tfbg:#fff;--dot:rgba(31,58,95,.16)}
+.sh .tf{width:100%;height:100%;display:grid;grid-template-rows:auto 1fr;border:1px solid var(--line);border-radius:26px;overflow:hidden;background:var(--tfbg);box-shadow:0 30px 80px -40px rgba(0,0,0,.45)}
+.sh .tf .tbb{display:flex;align-items:center;gap:12px;padding:12px 16px 12px 20px;border-bottom:1px solid var(--line);font-weight:750;font-size:17px}
+.sh .tf .tbb .ic{width:30px;height:30px;border-radius:9px;background:var(--g);display:grid;place-items:center}.sh .tf .tbb .ic svg{width:17px;height:17px;color:#fff}
+.sh .tf .tbb .tt{flex:1;min-width:0}.sh .tf .tbb .cnt{font:600 13px var(--mono,monospace);color:var(--mute)}
+.sh .tf .tbb .dl{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);transition:background .3s,color .3s}.sh .tf .tbb .dl svg{width:19px;height:19px}
+.sh .tf .tbb .dl.hit{background:var(--g);color:#fff}
+.sh .tf .ta{min-height:0;display:grid;place-items:center;padding:1.2vh 1.2vw;background-image:radial-gradient(var(--dot) 1.2px,transparent 1.5px);background-size:24px 24px}
+.sh .pdfc{position:absolute;right:3vw;top:100px;z-index:5;display:flex;align-items:center;gap:14px;padding:14px 18px 14px 14px;border-radius:20px;cursor:pointer}
+.sh .pdfc .pi{width:46px;height:54px;border-radius:10px;background:#e5484d;color:#fff;font:800 13px var(--sans);display:grid;place-items:center}
+.sh .pdfc b{display:block;font-size:16px}.sh .pdfc small{color:var(--mute);font-weight:650;font-size:13.5px}
+.sh .pdfc .ok{width:28px;height:28px;border-radius:50%;background:#2fd27a;color:#04130a;display:grid;place-items:center;font-weight:900}
 .sh .out{text-align:center}
 .sh .out .h1{font-size:clamp(50px,7vw,140px)}
 .sh .url{font:700 clamp(16px,1.4vw,24px) var(--mono,monospace);color:var(--mute);letter-spacing:.08em}
@@ -248,7 +260,7 @@ export function isShowCmd(t) { return /^\/show\b/i.test(String(t || '').trim());
 
 export function startShow(arg) {
   if (root) return;
-  const a = String(arg || ''), light = /hell|light|weiß|weiss/i.test(a), neon = /neon/i.test(a), kosten = /kosten/i.test(a), L = kosten ? KR : S;
+  const a = String(arg || ''), kosten = /kosten/i.test(a), light = /hell|light|weiß|weiss|white/i.test(a) || (kosten && !/dunkel|dark|schwarz|neon/i.test(a)), neon = /neon/i.test(a), L = kosten ? KR : S;   // „/show kosten“ startet weiß
   const host = el('div'); host.style.cssText = 'position:fixed;inset:0;z-index:2147483000';
   const sr = host.attachShadow({ mode: 'open' });
   const faceCss = [...document.querySelectorAll('style')].map(x => x.textContent).find(t => t.includes('.fz-mouth')) || '';
@@ -302,6 +314,13 @@ export function startShow(arg) {
   function path(my, steps) { steps.forEach(([ms, sel, opt, click]) => setTimeout(() => { if (my !== tok) return; curTo(sel, opt || {}); if (click) setTimeout(() => { if (my === tok) curClick(); }, 950); }, ms)); }
   const curOff = () => { mcur.classList.remove('on'); root.querySelectorAll('.hl').forEach(e => e.classList.remove('hl')); };
   function setMax(mode) { sub.classList.toggle('shside', mode === 'small'); maxEl.classList.toggle('big', mode === 'big'); stage.classList.toggle('full', mode === 'hide'); maxEl.style.opacity = mode === 'hide' ? '0' : '1'; }
+
+  const IC_BOARD = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>';
+  const IC_DL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>';
+  const tafel = (page, inner, first) => '<div class="tf' + (first ? ' pop' : '') + '"><div class="tbb"><span class="ic">' + IC_BOARD + '</span><span class="tt">Tafel · Kostenrechnung</span><span class="cnt">' + page + ' / 2</span><span class="dl" title="Herunterladen (PDF)">' + IC_DL + '</span></div><div class="ta">' + inner + '</div></div>';
+  // Echte PDF der Tafel (wie überall in der App: Druckfenster → Als PDF sichern)
+  const PDF_HTML = '<h2 class="tt">Kostenrechnung – Übersicht</h2><p>Die Kostenrechnung beantwortet drei Fragen:</p><h3>1. Kostenartenrechnung – Welche Kosten?</h3><ul><li><b>Einzelkosten</b> lassen sich einem Produkt direkt zurechnen (z. B. Material, Fertigungslohn).</li><li><b>Gemeinkosten</b> fallen für mehrere Produkte an (z. B. Miete, Strom).</li></ul><h3>2. Kostenstellenrechnung – Wo entstanden?</h3><ul><li>Gemeinkosten werden im <b>BAB</b> (Betriebsabrechnungsbogen) auf Kostenstellen verteilt.</li><li>Daraus ergeben sich <b>Zuschlagssätze</b> auf die Einzelkosten.</li></ul><h3>3. Kostenträgerrechnung – Wofür?</h3><ul><li><b>Kalkulation</b> (Stückrechnung): Selbstkosten und Preis pro Stück.</li><li><b>Kostenträgerzeitrechnung</b>: Kosten und Ergebnis pro Periode.</li></ul><h3>Merksatz</h3><p>Einzelkosten gehen direkt aufs Produkt, Gemeinkosten erst über die Kostenstellen und dann per Zuschlag.</p>';
+  const pdfNow = () => import('./export.js').then(E => E.boardsPdf([{ title: 'Kostenrechnung – Übersicht', html: PDF_HTML }], 'Kostenrechnung – Übersicht')).catch(() => {});
 
   const SCENES = {
     intro(my) { setMax('big'); maxEl.classList.remove('in'); void maxEl.offsetWidth; maxEl.classList.add('in'); stage.innerHTML = ''; },
@@ -396,7 +415,7 @@ export function startShow(arg) {
           + '<g class="fly" style="--fx:' + fx + ';--fy:' + fy + ';--fr:' + fr + ';animation-delay:' + ms + 'ms;transform-origin:' + x + 'px ' + y + 'px"><rect x="' + (x - w / 2) + '" y="' + (y - hh / 2) + '" width="' + w + '" height="' + hh + '" rx="16" fill="' + (d === 0 ? 'var(--g)' : 'var(--card)') + '" stroke="var(--g)" stroke-width="2"/>'
           + '<text x="' + x + '" y="' + (y + (d === 0 ? 10 : 8)) + '" text-anchor="middle" font-size="' + (d === 0 ? 30 : d === 1 ? 25 : d === 2 ? 20 : 18) + '" style="fill:' + (d === 0 ? '#fff' : 'var(--ink)') + '">' + t.replace('&', '&amp;') + '</text>'
           + (cap ? '<text class="cap" x="' + x + '" y="' + (y + 52) + '" text-anchor="middle" font-size="17">' + cap + '</text>' : '') + '</g>'; });
-      stage.innerHTML = '<div style="width:100%;height:100%;display:grid;grid-template-rows:auto 1fr;justify-items:center"><div class="tag fade"><i></i>Übersicht · Kostenrechnung</div>' + s + pl + '</svg></div>';
+      stage.innerHTML = tafel(1, s + pl + '</svg>', true);
       try { stage.querySelector('svg').setCurrentTime(0); } catch (e) {}
     },
     kfluss(my) {
@@ -417,7 +436,7 @@ export function startShow(arg) {
         + tk('', 'Miete', 120, 'M180 360 C 380 360, 420 300, 600 300', 4.4, 1.3) + tk('', 'Strom', 120, 'M180 430 C 380 430, 420 320, 600 320', 4.9, 1.3)
         + tk('z', '+ Zuschlag', 170, 'M640 300 C 780 300, 840 330, 1020 345', 7.1, 1.3)
         + '</svg>';
-      stage.innerHTML = '<div style="width:100%;height:100%;display:grid;grid-template-rows:auto 1fr;justify-items:center"><div class="tag fade"><i></i>So läuft das Geld · Einzel- vs. Gemeinkosten</div>' + s + '</div>';
+      stage.innerHTML = tafel(2, s, false);
       try { stage.querySelector('svg').setCurrentTime(0); } catch (e) {}
       const cl = [...stage.querySelectorAll('.cell')];
       cl.forEach((c, i) => setTimeout(() => { if (my === tok) c.classList.add('on'); }, 5600 + i * 140));
@@ -426,8 +445,10 @@ export function startShow(arg) {
       setTimeout(() => { if (my === tok) { fc.pulse('happy', 1400); } }, 8600);
     },
     kende(my) {
-      setMax('big'); stage.innerHTML = '';
-      setTimeout(() => { if (my !== tok) return; setMax('small'); stage.innerHTML = '<div class="out pop"><div class="h1">Kostenrechnung <em>sitzt.</em></div><div class="tag" style="justify-content:center;margin:1.5vh 0 2.5vh;font-size:clamp(16px,1.5vw,26px);color:var(--ink)">Für BWL- &amp; Wiwi-Studenten</div><div class="url">bwlmax.de</div></div>'; confetti(); }, 3200);
+      setMax('small');
+      // Tafel bleibt stehen, Max klickt auf Download, die PDF fliegt rein und bleibt
+      setTimeout(() => { if (my !== tok) return; const d = stage.querySelector('.dl'); if (d) { curTo(d); setTimeout(() => { if (my !== tok) return; curClick(); d.classList.add('hit'); const c = el('div', 'pdfc glass pop', '<span class="pi">PDF</span><span><b>Kostenrechnung_Tafel.pdf</b><small>2 Seiten · heruntergeladen</small></span><span class="ok">✓</span>'); c.onclick = pdfNow; root.appendChild(c); }, 1000); } }, 500);
+      setTimeout(() => { if (my !== tok) return; curOff(); stage.innerHTML = '<div class="out pop"><div class="h1">Kostenrechnung <em>sitzt.</em></div><div class="tag" style="justify-content:center;margin:1.5vh 0 2.5vh;font-size:clamp(16px,1.5vw,26px);color:var(--ink)">Für BWL- &amp; Wiwi-Studenten</div><div class="url">bwlmax.de</div></div>'; confetti(); }, 5200);
     },
     outro(my) {
       setMax('big');
@@ -448,6 +469,7 @@ export function startShow(arg) {
     try { audio.pause(); } catch (e) {}
     maxEl.classList.remove('talk'); fc.set('idle'); sub.innerHTML = '';
     if (!L[i].keepYou) root.querySelectorAll('.you').forEach(x => x.remove());
+    root.querySelectorAll('.pdfc').forEach(x => x.remove());
     tab(L[i].id); curOff(); SCENES[L[i].id](my);
     const P = {
       scan: [[400, '.slides', { fx: .15, fy: .2 }], [1500, '.slides', { fx: .85, fy: .8 }], [3400, '.chips', { fx: .3 }]],
