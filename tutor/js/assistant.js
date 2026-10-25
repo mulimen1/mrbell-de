@@ -1452,7 +1452,7 @@ export function mountAssistant() {
       boards = boards.concat(p.boards).slice(-12); bIdx = boards.length - p.boards.length;
       t = drawBoard(!asPage); openBoard(); whenWritten(t);
     }
-    else if (boardOpen && !boardMin && !ex.ref && !tourActive() && !root.classList.contains('m-pchat')) minBoard(true, true);   // neue Antwort ohne Tafel: alte Tafel zur Seite – außer die Frage galt genau dieser Tafel
+    else if (MOB.matches && boardOpen && !boardMin && !ex.ref && !tourActive() && !root.classList.contains('m-pchat')) minBoard(true, true);   // nur am Handy: am Laptop steht der Chat ja daneben, die Tafel bleibt offen   // neue Antwort ohne Tafel: alte Tafel zur Seite – außer die Frage galt genau dieser Tafel
     // Befehle sofort ausführen, als kleine Häkchen unter der Antwort
     const acts = p.acts.map(a => ({ a, href: ACTS[a][1](curDoc() || S.doc) })).filter(x => x.href);
     const extras = [...p.cmds.map(c => cmdChip(c)), ...acts.map(({ a, href }) => h('a', { class: 'ai-cmd link', href }, ACTS[a][0]))];
