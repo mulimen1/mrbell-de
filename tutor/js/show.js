@@ -1,10 +1,11 @@
 // Show-Modus (nur Gründer-Konto): Max zeigt groß und animiert, was BWL Max mit einem Skript macht – zum Filmen.
-// Start im Tutor-Eingabefeld: „/show“ (schwarz/Navy), „/show neon“ oder „/show hell“. Steuerung: Enter/Leertaste/→ weiter, ← zurück,
+// Start im Tutor-Eingabefeld: „/show“ (schwarz/Navy), „/show neon“, „/show hell“ oder „/show kosten“ (Mikro → Übersicht Kostenrechnung, auch mit neon/hell). Steuerung: Enter/Leertaste/→ weiter, ← zurück,
 // R Szene neu, T hell/dunkel, M Ton aus, Esc beenden. Getippter Text erscheint groß als deine Frage, Enter geht weiter.
 // Inhalte stammen aus dem Skript „Banking and FinTech – Chapter 1: Conceptual foundations“ (HSB). Zahlen nur aus dem Skript.
 import { face } from './face.js';
 import { ask } from './api.js';
 import { getVoice } from './voice.js';
+import { getMic, releaseMic } from './mic.js';
 
 const S = [
   { id: 'intro', say: 'Banking und FinTech, Kapitel eins? Gib her. Ich hab es gelesen, bevor du Hallo sagen konntest.' },
@@ -35,6 +36,15 @@ const QUIZ = [
   ['Factoring ist laut KWG …', ['ein Bankgeschäft (§ 1 Abs. 1)', 'eine Finanzdienstleistung (§ 1 Abs. 1a)', 'gar nicht geregelt'], 1, 'Die Falle: Factoring klingt nach Kredit, steht aber bei den Finanzdienstleistungen.']
 ];
 
+// „/show kosten“: Du drückst aufs Mikro, Max wird groß und hört zu, disst dich kurz und baut live eine Übersicht zur Kostenrechnung.
+// Läuft nach dem Mikro von allein durch (auto); Enter/→ springt weiter, Esc beendet.
+const KR = [
+  { id: 'kstart', say: '' },
+  { id: 'kroast', say: 'Kostenrechnung. An einem Sonntag. Freiwillig. Respekt. Okay, ich bau dir eine Übersicht. Schau zu.', auto: true, keepYou: true },
+  { id: 'kmap', say: 'Kostenrechnung stellt genau drei Fragen. Kostenarten: Welche Kosten hab ich? Kostenstellen: Wo sind sie entstanden? Kostenträger: Wofür, also für welches Produkt? Drei Fragen. Selbst du schaffst das.', auto: true },
+  { id: 'kfluss', say: 'Einzelkosten wie Material gehen direkt aufs Produkt. Gemeinkosten wie Miete und Strom laufen erst über die Kostenstellen und kommen per Zuschlag drauf. Schreib dir das auf. Nein, ernsthaft.', auto: true },
+  { id: 'kende', say: 'Kostenrechnung in einer Minute. Dein Prof braucht dafür ein Semester.' }
+];
 const CSS = `
 .sh{position:fixed;inset:0;z-index:2147483000;overflow:hidden;font-family:var(--sans,system-ui);cursor:default;
  --g:#2f5584;--g2:#9db7da;--bg:#000;--ink:#f4f7ff;--mute:#8a93a8;--card:rgba(255,255,255,.05);--line:rgba(140,170,255,.22);--ok:#2fd27a;--no:#ff4d5e;
@@ -166,6 +176,27 @@ const CSS = `
 .sh .mic .core{width:13vh;height:13vh;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--g2));display:grid;place-items:center;box-shadow:0 20px 60px -15px rgba(0,0,0,.7)}
 .sh .mic svg{width:6vh;height:6vh;color:#fff}
 /* Outro */
+.sh .max .lv{position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle,rgba(79,141,255,.45),rgba(79,141,255,.12) 45%,transparent 68%);opacity:0;transform:scale(calc(1 + var(--lv,0) * .7));transition:opacity .4s,transform .08s linear;pointer-events:none}
+.sh.listen .max .lv{opacity:1}
+.sh.listen .max .ring{animation:shring 1.4s ease-out infinite}.sh.listen .max .ring.r2{animation-delay:.7s}
+.sh .typer .mk{cursor:pointer;transition:background .3s,transform .2s}.sh .typer .mk.rec{background:#e5484d;animation:shrec 1.2s ease-in-out infinite}
+@keyframes shrec{50%{box-shadow:0 0 0 10px rgba(229,72,77,.18)}}
+.sh .fly{animation:shfly 1.05s cubic-bezier(.18,1.25,.35,1) both}
+@keyframes shfly{0%{opacity:0;transform:translate(var(--fx),var(--fy)) scale(.15) rotate(var(--fr));filter:blur(8px)}55%{opacity:1;filter:blur(0)}75%{transform:translate(0,0) scale(1.1) rotate(0)}100%{transform:none}}
+.sh .burst{fill:none;stroke:var(--g2);stroke-width:3;opacity:0;animation:shburst .9s ease-out forwards}
+@keyframes shburst{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(2.4)}}
+.sh .mm .cap{font-weight:650;fill:var(--mute)}
+.sh .mm .pulse{fill:var(--g2);filter:drop-shadow(0 0 6px var(--g2))}
+.sh.light .mm .pulse{fill:var(--g)}
+.sh .kf{width:min(1300px,100%);height:100%}
+.sh .kf text{font-family:var(--sans);font-weight:750;fill:var(--ink)}
+.sh .kf .hd{font-size:26px;font-weight:800}
+.sh .kf .sm{font-size:16px;font-weight:650;fill:var(--mute)}
+.sh .kf .chip rect{fill:var(--card);stroke:var(--g2);stroke-width:2}
+.sh .kf .tok rect{fill:var(--g);stroke:var(--g2);stroke-width:2}.sh .kf .tok text{fill:#fff;font-size:17px}
+.sh .kf .tok.z rect{fill:#2fd27a;stroke:#2fd27a}.sh .kf .tok.z text{fill:#04130a}
+.sh .kf .cell{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+.sh .kf .cell.on{fill:var(--g);transition:fill .5s}
 .sh .out{text-align:center}
 .sh .out .h1{font-size:clamp(50px,7vw,140px)}
 .sh .url{font:700 clamp(16px,1.4vw,24px) var(--mono,monospace);color:var(--mute);letter-spacing:.08em}
@@ -217,17 +248,18 @@ export function isShowCmd(t) { return /^\/show\b/i.test(String(t || '').trim());
 
 export function startShow(arg) {
   if (root) return;
-  const a = String(arg || ''), light = /hell|light|weiß|weiss/i.test(a), neon = /neon/i.test(a);
+  const a = String(arg || ''), light = /hell|light|weiß|weiss/i.test(a), neon = /neon/i.test(a), kosten = /kosten/i.test(a), L = kosten ? KR : S;
   const host = el('div'); host.style.cssText = 'position:fixed;inset:0;z-index:2147483000';
   const sr = host.attachShadow({ mode: 'open' });
   const faceCss = [...document.querySelectorAll('style')].map(x => x.textContent).find(t => t.includes('.fz-mouth')) || '';
   const st0 = el('style'); st0.textContent = CSS + '\n' + faceCss; sr.appendChild(st0);
   root = el('div', 'sh' + (light ? ' light' : '') + (neon && !light ? ' neon' : ''));
-  root.innerHTML = '<div class="grid"></div><div class="stage"></div><div class="max big"><div class="ring"></div><div class="ring r2"></div><div class="mf" style="width:100%;height:100%"></div></div><div class="tbar"><span class="br"><span class="bf"></span>BWL Max <small>BETA</small></span>' + TABS.map(t => '<span class="tb" data-t="' + t + '">' + t + '</span>').join('') + '<span class="sp"></span><span class="doc"><i></i>Chapter_1_Conceptual_Foundations.pdf · 21 Folien</span></div><div class="sub"></div><div class="typer glass"><span class="att">+ Dokument</span><span class="fl"><span class="ph">Frag Max zu Kapitel 1 – z. B. „Erklär mir Delegated Monitoring“</span><span class="tx"></span><span class="cur"></span></span><span class="mk">' + IC_MIC + 'Sprich mit Max</span><span class="snd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="mcur"><span class="rp"></span><svg viewBox="0 0 24 24"><path d="M4 2.5l15 9.2-6.6 1.3 3.9 7.2-2.9 1.5-3.9-7.3L4.6 19z" fill="#fff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg><b>Max</b></div><div class="hint">Enter / Leertaste weiter · ← zurück · R neu · T hell/dunkel · N Neon · M Ton · Esc Ende</div>';
+  root.innerHTML = '<div class="grid"></div><div class="stage"></div><div class="max big"><div class="lv"></div><div class="ring"></div><div class="ring r2"></div><div class="mf" style="width:100%;height:100%"></div></div><div class="tbar"><span class="br"><span class="bf"></span>BWL Max <small>BETA</small></span>' + TABS.map(t => '<span class="tb" data-t="' + t + '">' + t + '</span>').join('') + '<span class="sp"></span><span class="doc"><i></i>Chapter_1_Conceptual_Foundations.pdf · 21 Folien</span></div><div class="sub"></div><div class="typer glass"><span class="att">+ Dokument</span><span class="fl"><span class="ph">Frag Max zu Kapitel 1 – z. B. „Erklär mir Delegated Monitoring“</span><span class="tx"></span><span class="cur"></span></span><span class="mk">' + IC_MIC + 'Sprich mit Max</span><span class="snd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="mcur"><span class="rp"></span><svg viewBox="0 0 24 24"><path d="M4 2.5l15 9.2-6.6 1.3 3.9 7.2-2.9 1.5-3.9-7.3L4.6 19z" fill="#fff" stroke="#0b1220" stroke-width="1.4" stroke-linejoin="round"/></svg><b>Max</b></div><div class="hint">Enter / Leertaste weiter · ← zurück · R neu · T hell/dunkel · N Neon · M Ton · Esc Ende</div>';
   sr.appendChild(root); document.body.appendChild(host);
   const stage = root.querySelector('.stage'), maxEl = root.querySelector('.max'), sub = root.querySelector('.sub'), typer = root.querySelector('.typer'), typTx = typer.querySelector('.tx');
   const fc = face(root.querySelector('.mf'), { follow: true }); face(root.querySelector('.bf'), { follow: true });
-  const ph = typer.querySelector('.ph'), snd = typer.querySelector('.snd');
+  const ph = typer.querySelector('.ph'), snd = typer.querySelector('.snd'), mk = typer.querySelector('.mk');
+  if (kosten) { const d = root.querySelector('.doc'); if (d) d.remove(); ph.textContent = 'Frag Max irgendwas aus BWL – oder drück aufs Mikro'; }
   const tab = id => root.querySelectorAll('.tb').forEach(b => b.classList.toggle('on', b.dataset.t === (TAB_OF[id] || 'Tutor')));
   try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) {}
 
@@ -236,12 +268,12 @@ export function startShow(arg) {
   const cache = new Map();
   const voice = getVoice();
   const tts = text => { if (!cache.has(text)) cache.set(text, ask('tts', { text, opts: { voice } }).then(r => { const bin = atob(r.audio); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i); return URL.createObjectURL(new Blob([u8], { type: r.mime || 'audio/mpeg' })); }).catch(() => null)); return cache.get(text); };
-  S.forEach(s => tts(s.say));   // alles vorladen, damit jeder Take sofort startet
+  L.forEach(s => s.say && tts(s.say));   // alles vorladen, damit jeder Take sofort startet
 
   // Untertitel Wort für Wort, im Takt der Stimme
   async function say(text, my) {
     const words = text.split(/\s+/);
-    sub.innerHTML = words.map(w => '<span class="' + (/\d|Prozent|Bank|Trick|Falle|Risiko|Podcast|Kapitel/i.test(w) ? 'hot' : '') + '">' + w + '</span>').join(' ');
+    sub.innerHTML = words.map(w => '<span class="' + (/\d|Prozent|Bank|Trick|Falle|Risiko|Podcast|Kapitel|Kosten|Respekt|Sonntag|Semester|Zuschlag|direkt|ernsthaft/i.test(w) ? 'hot' : '') + '">' + w + '</span>').join(' ');
     const spans = [...sub.children];
     const url = muted ? null : await tts(text);
     if (my !== tok) return;
@@ -346,6 +378,57 @@ export function startShow(arg) {
       setMax('small');
       stage.innerHTML = '<div style="display:grid;justify-items:center;gap:4vh"><div class="tag fade"><i></i>Sprich mit Max</div><div class="mic"><div class="c"></div><div class="c"></div><div class="c"></div><div class="core">' + IC_MIC + '</div></div><div class="wave" style="width:min(700px,60vw);height:8vh">' + [...Array(40)].map((_, i) => '<i style="--h:' + (30 + Math.abs(Math.cos(i * 1.3)) * 70) + '%;animation-delay:' + (i % 6) * 0.11 + 's"></i>').join('') + '</div></div>';
     },
+    kstart(my) { setMax('small'); stage.innerHTML = '<div class="out fade"><div class="h1">Was lernen wir <em>heute?</em></div></div>'; },
+    kroast(my) { setMax('big'); stage.innerHTML = ''; fc.pulse('smug', 2600); },
+    kmap(my) {
+      setMax('small');
+      // [Text, x, y, Ebene, Einflug-Zeit ms, Untertitel]
+      const N = [['Kostenrechnung', 600, 60, 0, 200], ['Kostenarten', 200, 190, 1, 2300, 'Welche Kosten?'], ['Kostenstellen', 600, 190, 1, 4700, 'Wo entstanden?'], ['Kostenträger', 990, 190, 1, 7000, 'Wofür?'],
+        ['Einzelkosten', 100, 335, 2, 2900], ['Gemeinkosten', 300, 335, 2, 3300], ['BAB', 510, 335, 2, 5300], ['Zuschläge', 690, 335, 2, 5700], ['Kalkulation', 890, 335, 2, 7600], ['Pro Periode', 1090, 335, 2, 8000],
+        ['Material', 100, 455, 3, 3600], ['Miete & Strom', 300, 455, 3, 4000], ['Stückpreis', 890, 455, 3, 8500], ['Ergebnis', 1090, 455, 3, 8900]];
+      const E = [[0, 1], [0, 2], [0, 3], [1, 4], [1, 5], [2, 6], [2, 7], [3, 8], [3, 9], [4, 10], [5, 11], [8, 12], [9, 13]];
+      let s = '<svg class="mm" viewBox="-20 0 1240 520" preserveAspectRatio="xMidYMid meet">', pl = '';
+      E.forEach(([a, b], i) => { const A = N[a], B = N[b], d = 'M' + A[1] + ' ' + (A[2] + 26) + ' C' + A[1] + ' ' + (A[2] + 75) + ',' + B[1] + ' ' + (B[2] - 75) + ',' + B[1] + ' ' + (B[2] - 26), t = B[4] - 350;
+        s += '<path class="draw" style="--L:420;animation-delay:' + t + 'ms" d="' + d + '" fill="none" stroke="var(--g2)" stroke-width="3" opacity=".75"/>';
+        pl += '<circle class="pulse" r="5" opacity="0"><set attributeName="opacity" to="1" begin="' + (t + 900) / 1000 + 's"/><animateMotion dur="' + (1.6 + (i % 3) * .3) + 's" begin="' + (t + 900) / 1000 + 's" repeatCount="indefinite" path="' + d + '"/></circle>'; });
+      N.forEach(([t, x, y, d, ms, cap], i) => { const w = d === 0 ? 300 : d === 1 ? 240 : 170, hh = d === 0 ? 70 : d === 1 ? 58 : 50, fx = (-x - 200 + Math.random() * 200) + 'px', fy = (380 - y + Math.random() * 160) + 'px', fr = (Math.random() * 40 - 20) + 'deg';
+        s += '<circle class="burst" cx="' + x + '" cy="' + y + '" r="' + (w / 2.6) + '" style="animation-delay:' + (ms + 650) + 'ms;transform-origin:' + x + 'px ' + y + 'px"/>'
+          + '<g class="fly" style="--fx:' + fx + ';--fy:' + fy + ';--fr:' + fr + ';animation-delay:' + ms + 'ms;transform-origin:' + x + 'px ' + y + 'px"><rect x="' + (x - w / 2) + '" y="' + (y - hh / 2) + '" width="' + w + '" height="' + hh + '" rx="16" fill="' + (d === 0 ? 'var(--g)' : 'var(--card)') + '" stroke="var(--g)" stroke-width="2"/>'
+          + '<text x="' + x + '" y="' + (y + (d === 0 ? 10 : 8)) + '" text-anchor="middle" font-size="' + (d === 0 ? 30 : d === 1 ? 25 : d === 2 ? 20 : 18) + '" style="fill:' + (d === 0 ? '#fff' : 'var(--ink)') + '">' + t.replace('&', '&amp;') + '</text>'
+          + (cap ? '<text class="cap" x="' + x + '" y="' + (y + 52) + '" text-anchor="middle" font-size="17">' + cap + '</text>' : '') + '</g>'; });
+      stage.innerHTML = '<div style="width:100%;height:100%;display:grid;grid-template-rows:auto 1fr;justify-items:center"><div class="tag fade"><i></i>Übersicht · Kostenrechnung</div>' + s + pl + '</svg></div>';
+      try { stage.querySelector('svg').setCurrentTime(0); } catch (e) {}
+    },
+    kfluss(my) {
+      setMax('small');
+      const col = (x, t, sm) => '<g class="fly" style="--fx:-300px;--fy:200px;--fr:-8deg;animation-delay:' + (x / 3) + 'ms;transform-origin:' + (x + 140) + 'px 250px"><rect x="' + x + '" y="40" width="280" height="440" rx="26" fill="var(--card)" stroke="var(--line)" stroke-width="1.5"/><text class="hd" x="' + (x + 140) + '" y="90" text-anchor="middle">' + t + '</text><text class="sm" x="' + (x + 140) + '" y="118" text-anchor="middle">' + sm + '</text></g>';
+      const chip = (x, y, t, ms) => '<g class="chip fly" style="--fx:-120px;--fy:60px;--fr:6deg;animation-delay:' + ms + 'ms;transform-origin:' + x + 'px ' + y + 'px"><rect x="' + (x - 95) + '" y="' + (y - 24) + '" width="190" height="48" rx="14"/><text x="' + x + '" y="' + (y + 7) + '" text-anchor="middle" font-size="19">' + t + '</text></g>';
+      const tk = (cls, t, w, path, b, dur) => '<g class="tok ' + cls + '" opacity="0"><set attributeName="opacity" to="1" begin="' + b + 's"/><rect x="' + (-w / 2) + '" y="-21" width="' + w + '" height="42" rx="13"/><text x="0" y="6" text-anchor="middle">' + t + '</text><animateMotion dur="' + dur + 's" begin="' + b + 's" fill="freeze" calcMode="spline" keySplines=".6 0 .3 1" keyTimes="0;1" path="' + path + '"/><animate attributeName="opacity" from="1" to="0" dur=".35s" begin="' + (b + dur + .15) + 's" fill="freeze"/></g>';
+      let cells = ''; for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) cells += '<rect class="cell" data-c="' + (r * 3 + c) + '" x="' + (530 + c * 50) + '" y="' + (230 + r * 50) + '" width="42" height="42" rx="8"/>';
+      const s = '<svg class="kf" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid meet">'
+        + col(40, 'Kostenarten', 'Was kostet es?') + col(460, 'Kostenstellen', 'Wo fällt es an?') + col(880, 'Kostenträger', 'Wofür?')
+        + chip(180, 190, 'Material', 600) + chip(180, 260, 'Lohn', 800) + chip(180, 360, 'Miete', 1000) + chip(180, 430, 'Strom', 1200)
+        + '<g class="fly" style="--fx:0px;--fy:120px;--fr:0deg;animation-delay:1300ms;transform-origin:600px 300px">' + cells + '<text class="sm" x="605" y="410" text-anchor="middle">BAB</text></g>'
+        + '<g class="fly" style="--fx:200px;--fy:100px;--fr:10deg;animation-delay:1500ms;transform-origin:1020px 300px"><rect x="925" y="230" width="190" height="140" rx="22" fill="var(--g)"/><text x="1020" y="285" text-anchor="middle" font-size="24" style="fill:#fff">Produkt</text><text x="1020" y="330" text-anchor="middle" font-size="22" style="fill:#fff"><tspan class="kpr">0</tspan> €</text></g>'
+        + '<path d="M280 190 C 520 60, 760 60, 925 270" fill="none" stroke="var(--g2)" stroke-width="2.5" stroke-dasharray="8 8" opacity=".55" class="draw" style="--L:900;animation-delay:2000ms"/>'
+        + '<path d="M280 395 C 380 395, 420 300, 525 300" fill="none" stroke="var(--g2)" stroke-width="2.5" stroke-dasharray="8 8" opacity=".55" class="draw" style="--L:400;animation-delay:4300ms"/>'
+        + '<path d="M685 300 C 780 300, 840 330, 925 320" fill="none" stroke="#2fd27a" stroke-width="2.5" stroke-dasharray="8 8" opacity=".7" class="draw" style="--L:400;animation-delay:7000ms"/>'
+        + tk('', 'Material', 150, 'M180 190 C 520 60, 760 60, 1020 270', 2.2, 1.6) + tk('', 'Lohn', 110, 'M180 260 C 520 120, 760 120, 1020 300', 2.7, 1.6)
+        + tk('', 'Miete', 120, 'M180 360 C 380 360, 420 300, 600 300', 4.4, 1.3) + tk('', 'Strom', 120, 'M180 430 C 380 430, 420 320, 600 320', 4.9, 1.3)
+        + tk('z', '+ Zuschlag', 170, 'M640 300 C 780 300, 840 330, 1020 345', 7.1, 1.3)
+        + '</svg>';
+      stage.innerHTML = '<div style="width:100%;height:100%;display:grid;grid-template-rows:auto 1fr;justify-items:center"><div class="tag fade"><i></i>So läuft das Geld · Einzel- vs. Gemeinkosten</div>' + s + '</div>';
+      try { stage.querySelector('svg').setCurrentTime(0); } catch (e) {}
+      const cl = [...stage.querySelectorAll('.cell')];
+      cl.forEach((c, i) => setTimeout(() => { if (my === tok) c.classList.add('on'); }, 5600 + i * 140));
+      const pr = stage.querySelector('.kpr'), cnt = (from, to, at) => setTimeout(() => { const t0 = performance.now(); const f = t => { if (my !== tok) return; const p = Math.min(1, (t - t0) / 900), e = 1 - Math.pow(1 - p, 3); pr.textContent = Math.round(from + (to - from) * e); if (p < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); }, at);
+      cnt(0, 18, 3600); cnt(18, 30, 4100); cnt(30, 48, 8300);
+      setTimeout(() => { if (my === tok) { fc.pulse('happy', 1400); } }, 8600);
+    },
+    kende(my) {
+      setMax('big'); stage.innerHTML = '';
+      setTimeout(() => { if (my !== tok) return; setMax('small'); stage.innerHTML = '<div class="out pop"><div class="h1">Kostenrechnung <em>sitzt.</em></div><div class="tag" style="justify-content:center;margin:1.5vh 0 2.5vh;font-size:clamp(16px,1.5vw,26px);color:var(--ink)">Für BWL- &amp; Wiwi-Studenten</div><div class="url">bwlmax.de</div></div>'; confetti(); }, 3200);
+    },
     outro(my) {
       setMax('big');
       stage.innerHTML = '';
@@ -360,12 +443,12 @@ export function startShow(arg) {
   }
 
   async function go(i) {
-    if (i < 0) i = 0; if (i >= S.length) { stop(); return; }
+    if (i < 0) i = 0; if (i >= L.length) { stop(); return; }
     idx = i; const my = ++tok; quizApi = null;
     try { audio.pause(); } catch (e) {}
     maxEl.classList.remove('talk'); fc.set('idle'); sub.innerHTML = '';
-    root.querySelectorAll('.you').forEach(x => x.remove());
-    tab(S[i].id); curOff(); SCENES[S[i].id](my);
+    if (!L[i].keepYou) root.querySelectorAll('.you').forEach(x => x.remove());
+    tab(L[i].id); curOff(); SCENES[L[i].id](my);
     const P = {
       scan: [[400, '.slides', { fx: .15, fy: .2 }], [1500, '.slides', { fx: .85, fy: .8 }], [3400, '.chips', { fx: .3 }]],
       tafel: [[700, '.net > div:first-child svg', {}], [2600, '.net > div:last-child svg', { fx: .5, fy: .5 }, true], [4200, '.eq', { fx: .75 }]],
@@ -375,12 +458,48 @@ export function startShow(arg) {
       quiz: [[600, '.qz .q', { fx: .1 }], [2200, '.qz .o[data-i="0"]', { fx: .2 }], [3000, '.qz .o[data-i="1"]', { fx: .2 }], [3800, '.qz .o[data-i="2"]', { fx: .2 }], [4800, '.timer', {}]],
       mitschrift: [[500, '.paper', { fx: .3, fy: .3 }], [1700, '.paper', { fx: .6, fy: .7 }], [2600, '.clean', { fx: .2, fy: .25 }], [4200, '.clean', { fx: .4, fy: .8 }]],
       podcast: [[700, '.cover', {}, true], [2200, '.wave', { fx: .3 }], [3600, '.prog', { fx: .38 }]],
-      sprechen: [[700, '.mic .core', {}, true]]
-    }[S[i].id];
+      sprechen: [[700, '.mic .core', {}, true]],
+      kmap: [[400, '.mm', { fx: .5, fy: .12 }], [2400, '.mm', { fx: .177, fy: .37 }, true], [3700, '.mm', { fx: .097, fy: .88 }], [4800, '.mm', { fx: .5, fy: .37 }, true], [6000, '.mm', { fx: .427, fy: .64 }], [7100, '.mm', { fx: .815, fy: .37 }, true], [8700, '.mm', { fx: .895, fy: .88 }]],
+      kfluss: [[700, '.kf', { fx: .15, fy: .37 }], [2300, '.kf', { fx: .85, fy: .55 }, true], [4300, '.kf', { fx: .15, fy: .76 }], [5600, '.kf', { fx: .5, fy: .58 }, true], [7300, '.kf', { fx: .62, fy: .58 }], [8400, '.kf', { fx: .85, fy: .62 }, true]]
+    }[L[i].id];
     if (P) path(my, P);
     await wait(i === 0 ? 900 : 500);
-    if (my === tok) say(S[i].say, my);
+    if (my !== tok || !L[i].say) return;
+    await say(L[i].say, my);
+    if (L[i].auto && my === tok) { await wait(700); if (my === tok) go(i + 1); }
   }
+
+  // Mikro (Show): Max wird groß, hört zu, Pegel pulsiert; zweiter Klick oder Enter beendet. Erkannter Satz erscheint als deine Frage.
+  let rec = null, listening = false, ana = null, raf = 0, chunks = [];
+  async function listen() {
+    if (listening) return endListen();
+    listening = true; tok++; try { audio.pause(); } catch (e) {}
+    root.classList.add('listen'); mk.classList.add('rec'); stage.innerHTML = ''; curOff();
+    setMax('big'); maxEl.classList.remove('in'); void maxEl.offsetWidth; maxEl.classList.add('in'); fc.set('idle'); fc.lookAt(0, 30, 900);
+    sub.innerHTML = '<span class="on">Ich hör dir zu …</span>';
+    try {
+      const st = await getMic(); if (!listening) { releaseMic(); return; }
+      const ac = new (window.AudioContext || window.webkitAudioContext)(), src = ac.createMediaStreamSource(st); ana = ac.createAnalyser(); ana.fftSize = 512; src.connect(ana);
+      const buf = new Uint8Array(ana.fftSize); const loop = () => { if (!listening) { try { ac.close(); } catch (e) {} return; } ana.getByteTimeDomainData(buf); let m = 0; for (const v of buf) m = Math.max(m, Math.abs(v - 128)); maxEl.style.setProperty('--lv', Math.min(1, m / 50).toFixed(2)); raf = requestAnimationFrame(loop); }; loop();
+      const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4'].find(m => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || '';
+      chunks = []; rec = new MediaRecorder(st, mime ? { mimeType: mime } : undefined); rec.ondataavailable = e => e.data && e.data.size && chunks.push(e.data); rec.start(250);
+    } catch (e) { rec = null; }
+  }
+  async function endListen() {
+    if (!listening) return; listening = false; cancelAnimationFrame(raf); maxEl.style.setProperty('--lv', '0');
+    root.classList.remove('listen'); mk.classList.remove('rec'); sub.innerHTML = '';
+    let text = '';
+    if (rec) {
+      const r = rec; rec = null;
+      const blob = await new Promise(res => { r.onstop = () => res(new Blob(chunks, { type: r.mimeType || 'audio/webm' })); try { r.stop(); } catch (e) { res(null); } });
+      releaseMic();
+      if (blob && blob.size > 2000) { try { const b64 = await new Promise((res, rej) => { const f = new FileReader(); f.onload = () => res(String(f.result).split(',')[1] || ''); f.onerror = rej; f.readAsDataURL(blob); }); const q = await Promise.race([ask('stt', { audio: b64, mime: blob.type }), wait(5000).then(() => null)]); text = (q && q.text || '').trim(); } catch (e) {} }
+    }
+    if (!text) text = kosten ? 'Hey Max, erstell mir eine Übersicht zur Kostenrechnung.' : '';
+    if (text) { const b = el('div', 'you', text.replace(/[<>&]/g, '')); root.appendChild(b); }
+    setTimeout(() => next(), 700);
+  }
+  mk.addEventListener('click', listen);
 
   function next() { if (quizApi && quizApi.next()) return; go(idx + 1); }
   function onKey(e) {
@@ -390,6 +509,7 @@ export function startShow(arg) {
     if (!typed && quizApi && /^[1-3]$/.test(e.key)) { e.preventDefault(); quizApi.pick(+e.key - 1); return; }
     if (e.key === 'Enter') {
       e.preventDefault();
+      if (listening) { endListen(); return; }
       if (typed.trim()) { const t = typed.trim(); typed = ''; typTx.textContent = ''; ph.style.display = ''; snd.classList.remove('go'); void snd.offsetWidth; snd.classList.add('go'); const b = el('div', 'you', t.replace(/[<>&]/g, '')); root.appendChild(b); setTimeout(() => next(), 900); return; }
       next(); return;
     }
@@ -411,6 +531,7 @@ export function startShow(arg) {
 
   function stop() {
     tok++; try { audio.pause(); } catch (e) {}
+    if (listening) { listening = false; try { rec && rec.stop(); } catch (e) {} releaseMic(); }
     removeEventListener('keydown', onKey, true);
     try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
     cache.forEach(p => p.then(u => u && URL.revokeObjectURL(u)));
