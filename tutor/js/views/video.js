@@ -123,13 +123,13 @@ function full(d) {
 
 // Marken-Hinweis als kleines i neben der Überschrift (Hover/Klick öffnet die Erklärung daneben)
 const tmInfo = txt => { const pop = h('span', { class: 'tm-pop', role: 'tooltip' }, txt); const b = h('button', { class: 'tm-i', type: 'button', 'aria-label': L('Hinweis zu Marken', 'Trademark notice'), 'aria-expanded': 'false', onclick: e => { e.stopPropagation(); const on = !w.classList.contains('on'); w.classList.toggle('on', on); b.setAttribute('aria-expanded', String(on)); if (on) setTimeout(() => addEventListener('click', () => { w.classList.remove('on'); b.setAttribute('aria-expanded', 'false'); }, { once: true }), 0); } }, 'i'); const place = () => { const r = b.getBoundingClientRect(), W = Math.min(300, innerWidth - 24); pop.style.width = W + 'px'; let x = r.right + 10, y = r.top + r.height / 2 - 40; if (x + W > innerWidth - 12) { x = Math.max(12, Math.min(r.left + r.width / 2 - W / 2, innerWidth - W - 12)); y = r.bottom + 8; } const o = w.getBoundingClientRect(); pop.style.left = (x - o.left) + 'px'; pop.style.top = (Math.max(8, y) - o.top) + 'px'; }; const w = h('span', { class: 'tm-w', onmouseenter: place }, b, pop); b.addEventListener('click', place); b.addEventListener('focus', place); return w; };
-const TM = L('YouTube, TikTok und Instagram sind Marken ihrer jeweiligen Inhaber. BWL Max steht in keiner Verbindung zu diesen Plattformen und wird von ihnen weder unterstützt noch gesponsert.', 'YouTube, TikTok and Instagram are trademarks of their respective owners. BWL Max is not affiliated with, endorsed or sponsored by these platforms.');
+const TM = L('YouTube ist eine Marke von Google LLC. BWL Max steht in keiner Verbindung zu YouTube oder Google und wird von ihnen weder unterstützt noch gesponsert.', 'YouTube is a trademark of Google LLC. BWL Max is not affiliated with, endorsed or sponsored by YouTube or Google.');
 export function render(root) {
   const wrap = h('div', { class: 'view-in vt' }); root.appendChild(wrap);
   setTimeout(() => wrap.appendChild(h('p', { class: 'foot-tm' }, TM)), 0);
   const fileIn = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.pptx,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.heic,.heif,application/pdf,image/*,video/*,audio/*,.mp4,.mov,.m4v,.m4a,.mp3,.wav' });
   fileIn.addEventListener('change', () => { const fl = [...(fileIn.files || [])]; fileIn.value = ''; if (fl.length) upload(fl); });
-  const url = h('input', { class: 'vt-url', type: 'url', inputmode: 'url', placeholder: L('Link einfügen – YouTube, Shorts, TikTok oder Instagram Reel', 'Paste a link – YouTube, Shorts, TikTok or Instagram Reel'), 'aria-label': L('Video-Link', 'Video link') });
+  const url = h('input', { class: 'vt-url', type: 'url', inputmode: 'url', placeholder: L('YouTube-Link einfügen – auch Shorts', 'Paste a YouTube link – Shorts too'), 'aria-label': L('Video-Link', 'Video link') });
   const go = h('button', { class: 'btn primary vt-go', type: 'button', onclick: () => start() }, L('Abschreiben', 'Transcribe'));
   url.addEventListener('keydown', e => { if (e.key === 'Enter') start(); });
   url.addEventListener('paste', () => setTimeout(() => { if (/^https?:\/\//.test(url.value.trim())) start(); }, 60));
@@ -138,9 +138,9 @@ export function render(root) {
   const listEl = h('div', { class: 'vt-list' });
 
   const drop = h('div', { class: 'vt-drop', tabindex: 0, role: 'button', 'aria-label': L('Datei oder Link hierher ziehen', 'Drop a file or link here'), onclick: e => { if (e.target === url || e.target === go || url.contains(e.target)) return; fileIn.click(); } },
-    h('div', { class: 'vt-dl' }, LOGO('youtube'), LOGO('tiktok'), LOGO('instagram'), h('span', { class: 'vt-dfile', html: ico('upload') })),
+    h('div', { class: 'vt-dl vt-flow' }, h('span', { class: 'vt-tile' }, LOGO('youtube')), h('span', { class: 'vt-arrow', html: ico('right') }), h('span', { class: 'vt-tile vt-sheet', title: L('Lernzettel', 'Study sheet') }, h('span', { html: ico('note') }), h('small', {}, L('Lernzettel', 'Study sheet')))),
     h('b', {}, L('Link oder Datei hierher ziehen', 'Drop a link or file here')),
-    h('small', {}, L('YouTube (auch Shorts), TikTok, Instagram Reels – oder deine eigene Datei: PDF, Foto, Word, PowerPoint, Video, Audio', 'YouTube (incl. Shorts), TikTok, Instagram Reels – or your own file: PDF, photo, Word, PowerPoint, video, audio')),
+    h('small', {}, L('YouTube-Link (auch Shorts) – oder deine eigene Datei: PDF, Foto, Word, PowerPoint, Video, Audio', 'YouTube link (Shorts too) – or your own file: PDF, photo, Word, PowerPoint, video, audio')),
     h('div', { class: 'vt-bar', onclick: e => e.stopPropagation() }, h('span', { class: 'vt-bari', html: ico('video') }), url, go),
     h('button', { class: 'linkbtn vt-own', type: 'button', onclick: e => { e.stopPropagation(); fileIn.click(); } }, L('Eigene Datei auswählen', 'Choose your own file')), fileIn);
   let dn = 0;
@@ -158,7 +158,7 @@ export function render(root) {
     h('header', { class: 'vt-head' },
       h('div', { class: 'eyebrow' }, L('Videos & Dateien → Lernstoff', 'Videos & files → study material')),
       h('h1', {}, L('Aus Lernvideos wird Lernstoff.', 'Turn study videos into study material.'), ' ', brandRow(), tmInfo(TM)),
-      h('p', { class: 'vt-sub' }, L('Viele Profs und die besten Lernvideos sind auf YouTube & Co. Mit deinem Konto schreibt Max dir täglich 3 Videos kostenlos ab – und macht daraus, genau wie aus deinen eigenen Dateien, Lernzettel, Mitschrift im Füller-Look, Karteikarten, Quiz oder Podcast.', 'Many profs and the best study videos are on YouTube & co. With your account Max transcribes 3 videos a day for free – and turns them, just like your own files, into study sheets, fountain-pen notes, flashcards, quizzes or podcasts.'))),
+      h('p', { class: 'vt-sub' }, L('Viele Profs und die besten Lernvideos sind auf YouTube. Mit deinem Konto schreibt Max dir täglich 3 Videos kostenlos ab – und macht daraus, genau wie aus deinen eigenen Dateien, Lernzettel, Mitschrift im Füller-Look, Karteikarten, Quiz oder Podcast.', 'Many profs and the best study videos are on YouTube. With your account Max transcribes 3 videos a day for free – and turns them, just like your own files, into study sheets, fountain-pen notes, flashcards, quizzes or podcasts.'))),
     drop, status, quotaEl,
     h('section', { class: 'vt-sec' }, h('div', { class: 'vt-sh' }, h('h2', {}, L('Deine Video-Transkripte', 'Your video transcripts')), h('a', { class: 'linkbtn', href: '#/app/bibliothek/videos' }, L('In der Bibliothek', 'In the library'))), listEl));
 
@@ -168,7 +168,7 @@ export function render(root) {
     if (getAccount() || gateEl) return;
     wrap.classList.add('vt-locked');
     gateEl = h('div', { class: 'vt-gate' }, h('div', { class: 'vt-gatec' },
-      h('div', { class: 'vt-dl' }, LOGO('youtube'), LOGO('tiktok'), LOGO('instagram')),
+      h('div', { class: 'vt-dl vt-flow' }, h('span', { class: 'vt-tile' }, LOGO('youtube')), h('span', { class: 'vt-arrow', html: ico('right') }), h('span', { class: 'vt-tile vt-sheet', title: L('Lernzettel', 'Study sheet') }, h('span', { html: ico('note') }), h('small', {}, L('Lernzettel', 'Study sheet')))),
       h('b', {}, L('Video-Transkripte freischalten', 'Unlock video transcripts')),
       h('p', {}, L('Mit kostenlosem Konto: 3 Videos pro Tag abschreiben und daraus Lernzettel, Mitschrift, Karteikarten & Co. machen. Dauert 20 Sekunden.', 'With a free account: transcribe 3 videos a day and turn them into study sheets, notes, flashcards & more. Takes 20 seconds.')),
       h('button', { class: 'btn primary', type: 'button', onclick: async () => { const { openAuth } = await import('../account.js'); await openAuth({ registerTitle: L('Video-Transkripte freischalten', 'Unlock video transcripts'), registerSub: L('Kostenlos. 3 Videos pro Tag.', 'Free. 3 videos a day.') }); if (getAccount()) { wrap.classList.remove('vt-locked'); gateEl.remove(); gateEl = null; loadQuota(); if (url.value.trim()) start(); } } }, L('Kostenlos freischalten', 'Unlock for free'))));
