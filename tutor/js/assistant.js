@@ -1289,8 +1289,14 @@ export function mountAssistant() {
       let KNOW = ''; try { KNOW = knowledge(); } catch (e) {}
       const KURZ = spoken ? L('[Gesprochenes Gespräch: Antworte wie im echten Gespräch – höchstens 2–3 kurze Sätze, direkt auf den Punkt. Ausführliches gehört an die Tafel.]', '[Spoken conversation: answer like a real conversation – 2–3 short sentences max, straight to the point. Anything detailed goes on the board.]') : '';
       const PFLICHT = SEITE ? '' : L('[Tafel-Regel (immer): Will der Nutzer etwas erklärt bekommen, eine Übersicht, eine Zusammenfassung, Hilfe bei einer Aufgabe oder ein Thema lernen, antwortest du SOFORT mit einer Tafel (```tafel Titel … ```) – nicht erst fragen, ob du es an die Tafel schreiben sollst, und kein Kurzskript anlegen ([[topic:…]] nur zusammen mit Karteikarten, Quiz oder Podcast). Ist wirklich unklar, was gemeint ist, frag EINMAL ganz kurz zurück und hänge die Auswahl an: [[wahl:Option A|Option B|Option C]] (2–4 kurze Optionen, die jeweils als vollständiger Wunsch funktionieren, z. B. „Erklär mir die Vollkostenrechnung“). Keine Tafel nur bei Karteikarten, Podcast, Lernpfad, Quiz, Smalltalk oder einer reinen Ja/Nein-Frage.]', '[Board rule (always): if the user wants an explanation, overview, summary, help with a task or to learn a topic, answer IMMEDIATELY with a board (```tafel Title … ```) – do not ask whether to use the board and do not create a short script ([[topic:…]] only together with flashcards, quiz or podcast). If it is genuinely unclear, ask ONE short question and append the choices: [[wahl:Option A|Option B|Option C]] (2–4 short options, each a complete request). No board only for flashcards, podcast, study path, quiz, small talk or a plain yes/no question.]');
-      const pre = [ctxLine, KNOW, WECHSEL, REF, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', PFLICHT, TAFEL, SEITE].filter(Boolean).join('\n');
-      if (pre) messages[messages.length - 1].content = pre + '\n' + text;
+      // Der Server kürzt jede Nachricht auf 6000 Zeichen (von hinten) – damit die eigentliche Frage nie abgeschnitten wird,
+      // werden Seitenkontext und Wissen gekürzt, nicht die Regeln und nie die Frage.
+      const LIM = 5600, fixed = [WECHSEL, REF, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', PFLICHT, TAFEL].filter(Boolean);
+      let room = LIM - text.length - fixed.join('\n').length - 40;
+      const fit = x => { x = String(x || ''); if (room <= 0 || !x) return ''; const y = x.length > room ? x.slice(0, Math.max(0, room - 1)) + '…' : x; room -= y.length + 1; return y; };
+      const SEITE2 = fit(SEITE), ctx2 = fit(ctxLine), KNOW2 = fit(KNOW);
+      const pre = [ctx2, KNOW2, ...fixed, SEITE2].filter(Boolean).join('\n');
+      if (pre) messages[messages.length - 1].content = pre + '\n' + L('[Nachricht des Nutzers:]', '[User message:]') + '\n' + text;
       const payload = { messages, opts: Object.assign({ mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true, mem: Mem.memOn() }, o.entry ? { entry: true } : {}) };
       const d = curDoc();
       const mat = STAGE && STAGE.material ? STAGE.material(text) : null;
