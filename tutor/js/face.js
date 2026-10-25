@@ -280,11 +280,10 @@ const HAIR_LINE = '#2a140a';
 function MARIE_BACK(u) {
   return `<g class="fz-mback">
 <defs><linearGradient id="mhb${u}" x1="0" y1="200" x2="0" y2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#83462a"/><stop offset=".5" stop-color="#65331d"/><stop offset="1" stop-color="#3e1d10"/></linearGradient></defs>
-<path fill="url(#mhb${u})" stroke="${HAIR_LINE}" stroke-width="11" stroke-linejoin="round" d="M512 188 C300 188 186 330 192 520 C196 600 178 660 186 720 C194 780 168 812 180 856 C196 900 262 912 300 892 C332 906 372 892 366 858 C340 804 328 720 334 640 L690 640 C696 720 684 804 658 858 C652 892 692 906 724 892 C762 912 828 900 844 856 C856 812 830 780 838 720 C846 660 828 600 832 520 C838 330 724 188 512 188 Z"/>
+<path fill="url(#mhb${u})" stroke="${HAIR_LINE}" stroke-width="11" stroke-linejoin="round" d="M512 188 C300 188 186 330 192 520 C196 600 178 660 186 720 C190 790 168 832 172 880 L214 856 L238 900 L270 866 L306 898 L332 862 C348 858 360 850 356 836 C336 790 328 720 334 640 L690 640 C696 720 688 790 668 836 C664 850 676 858 692 862 L718 898 L754 866 L786 900 L810 856 L852 880 C856 832 834 790 838 720 C846 660 828 600 832 520 C838 330 724 188 512 188 Z"/>
 <g fill="none" stroke-linecap="round">
-<path stroke="#2c150a" stroke-width="7" opacity=".5" d="M236 560 C222 640 240 700 226 770 C216 820 232 856 256 880 M292 660 C286 730 300 790 296 840 M788 560 C802 640 784 700 798 770 C808 820 792 856 768 880 M732 660 C738 730 724 790 728 840"/>
-<path stroke="#b8724a" stroke-width="10" opacity=".55" d="M214 600 C206 660 220 720 210 790 M810 600 C818 660 804 720 814 790"/>
-<path stroke="#e0a77c" stroke-width="5" opacity=".5" d="M222 640 C216 690 226 730 220 770 M802 640 C808 690 798 730 804 770"/>
+<path stroke="#2a1309" stroke-width="7" opacity=".55" d="M232 560 C220 630 236 690 222 760 C214 806 222 846 238 880 M270 640 C262 710 276 770 268 830 M300 700 C296 760 304 810 300 860 M792 560 C804 630 788 690 802 760 C810 806 802 846 786 880 M754 640 C762 710 748 770 756 830 M724 700 C728 760 720 810 724 860"/>
+<path stroke="#a9653f" stroke-width="7" opacity=".55" d="M212 600 C204 660 216 720 206 790 M248 600 C242 660 252 720 246 780 M812 600 C820 660 808 720 818 790 M776 600 C782 660 772 720 778 780"/>
 </g></g>`;
 }
 function MARIE_FRONT(u) {
@@ -292,9 +291,9 @@ function MARIE_FRONT(u) {
 <defs><linearGradient id="mhf${u}" x1="0" y1="200" x2="0" y2="620" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#95532f"/><stop offset=".55" stop-color="#733d22"/><stop offset="1" stop-color="#592c19"/></linearGradient></defs>
 <path fill="url(#mhf${u})" stroke="${HAIR_LINE}" stroke-width="11" stroke-linejoin="round" d="M598 206 C420 196 250 262 226 470 C218 540 226 600 246 652 C254 590 270 532 300 486 C340 424 410 384 476 352 C530 326 576 298 604 262 C640 306 698 338 744 382 C770 408 786 452 792 510 C812 336 742 214 598 206 Z"/>
 <g fill="none" stroke-linecap="round">
-<path stroke="#3a1b0d" stroke-width="7" opacity=".5" d="M598 270 C540 318 450 350 380 390 C330 420 296 470 274 540 M604 266 C640 316 700 350 746 392 M520 236 C430 250 330 300 280 380"/>
-<path stroke="#c98a5f" stroke-width="12" opacity=".75" d="M560 232 C470 238 370 280 318 340 M640 236 C690 258 732 296 756 344"/>
-<path stroke="#efb88d" stroke-width="6" opacity=".8" d="M548 250 C480 258 412 288 372 324 M650 256 C686 274 714 300 732 330"/>
+<path stroke="#2e1509" stroke-width="7" opacity=".55" d="M598 270 C540 318 450 350 380 390 C330 420 296 470 274 540 M604 266 C640 316 700 350 746 392 C770 420 784 460 790 500 M540 230 C450 246 344 296 290 376 C268 410 254 450 246 500 M660 232 C700 256 738 290 762 330"/>
+<path stroke="#a96640" stroke-width="8" opacity=".6" d="M556 240 C470 250 380 290 330 344 M646 244 C690 266 726 300 748 340"/>
+<path stroke="#dba077" stroke-width="4.5" opacity=".55" d="M540 256 C480 264 420 290 384 320 M654 262 C684 278 708 300 724 324"/>
 </g>
 <g fill="none" stroke="#d6a441" stroke-width="9"><circle cx="252" cy="636" r="22"/><circle cx="772" cy="636" r="22"/></g>
 <g fill="none" stroke="#f6dc8e" stroke-width="3.5" opacity=".95"><path d="M237 624 a22 22 0 0 1 15 -10"/><path d="M757 624 a22 22 0 0 1 15 -10"/></g>
