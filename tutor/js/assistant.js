@@ -42,11 +42,12 @@ const ACTS = {
 // Steuerbefehle, die Max ans Ende seiner Antwort schreiben darf (opts.assistant)
 const TRAINERS = { buchung: L('Buchungssatz-Trainer', 'Booking entry trainer'), tkonten: L('T-Konten-Trainer', 'T-account trainer'), breakeven: L('Break-even-Trainer', 'Break-even trainer'), kapitalwert: L('Kapitalwert-Trainer', 'NPV trainer'), markt: L('Angebot & Nachfrage', 'Supply & demand'), bilanz: L('Bilanz-Trainer', 'Balance sheet trainer') };
 const MAKE = { quiz: ['quiz', L('Quiz wird erstellt', 'Building the quiz')], exam: ['quiz', L('Probeklausur wird erstellt', 'Building the mock exam')], karten: ['karten', L('Karteikarten werden erstellt', 'Making flashcards')], podcast: ['podcast', L('Podcast wird aufgenommen', 'Recording the podcast')], zettel: ['zettel', L('Lernzettel wird geschrieben', 'Writing the study sheet')], pfad: ['pfad', L('Lernpfad wird gebaut', 'Building the study path')] };
-const CMD = /\[\[(go|make|topic|trainer|upload|voice|lang|theme)(?::([^\]\n]{1,120}))?\]\]/g;
+const CMD = /\[\[(go|make|topic|trainer|upload|voice|lang|theme|wahl)(?::([^\]\n]{1,240}))?\]\]/g;
 function cmdOf(k, v) {
   v = (v || '').trim();
   if (k === 'go') return TAB[v] ? { k, v, label: L('Geöffnet: ', 'Opened: ') + TAB[v], doc: true } : null;
   if (k === 'make') return MAKE[v] ? { k, v, label: MAKE[v][1], doc: true } : null;
+  if (k === 'wahl') { const o = v.split('|').map(x => x.trim()).filter(Boolean).slice(0, 4).map(x => x.slice(0, 80)); return o.length >= 2 ? { k, opts: o, label: '' } : null; }
   if (k === 'topic') return v.length > 1 ? { k, v, label: L(`An der Tafel: „${v}“`, `On the board: “${v}”`) } : null;
   if (k === 'trainer') return TRAINERS[v] ? { k, v, label: TRAINERS[v] } : null;
   if (k === 'upload') return { k, label: L('Stoff hochladen', 'Upload material') };
@@ -1178,6 +1179,8 @@ export function mountAssistant() {
     await go();
   }
   function cmdChip(c) {
+    // Rückfrage mit Auswahl: antippen = sofort Tafel dazu, kein weiterer Klick
+    if (c.k === 'wahl') { const box = h('div', { class: 'ai-wahl' }); c.opts.forEach(o => box.appendChild(h('button', { class: 'ai-cmd tap', type: 'button', onclick: () => { box.querySelectorAll('button').forEach(x => { x.disabled = true; x.classList.toggle('on', x.textContent === o); }); submit(o); } }, o))); return box; }
     // Themen-Einstieg aus der Anzeige: Max bleibt im Raum – Werkzeuge nur als Angebot zum Antippen
     let stay = 0; try { stay = +sessionStorage.getItem('tutor.stay') || 0; } catch (e) {}
     const hold = stay && Date.now() - stay < 6e5 && ['go', 'trainer', 'make'].includes(c.k);
@@ -1285,7 +1288,8 @@ export function mountAssistant() {
       pendingMap = null;
       let KNOW = ''; try { KNOW = knowledge(); } catch (e) {}
       const KURZ = spoken ? L('[Gesprochenes Gespräch: Antworte wie im echten Gespräch – höchstens 2–3 kurze Sätze, direkt auf den Punkt. Ausführliches gehört an die Tafel.]', '[Spoken conversation: answer like a real conversation – 2–3 short sentences max, straight to the point. Anything detailed goes on the board.]') : '';
-      const pre = [ctxLine, KNOW, WECHSEL, REF, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', TAFEL, SEITE].filter(Boolean).join('\n');
+      const PFLICHT = SEITE ? '' : L('[Tafel-Regel (immer): Will der Nutzer etwas erklärt bekommen, eine Übersicht, eine Zusammenfassung, Hilfe bei einer Aufgabe oder ein Thema lernen, antwortest du SOFORT mit einer Tafel (```tafel Titel … ```) – nicht erst fragen, ob du es an die Tafel schreiben sollst, und kein Kurzskript anlegen ([[topic:…]] nur zusammen mit Karteikarten, Quiz oder Podcast). Ist wirklich unklar, was gemeint ist, frag EINMAL ganz kurz zurück und hänge die Auswahl an: [[wahl:Option A|Option B|Option C]] (2–4 kurze Optionen, die jeweils als vollständiger Wunsch funktionieren, z. B. „Erklär mir die Vollkostenrechnung“). Keine Tafel nur bei Karteikarten, Podcast, Lernpfad, Quiz, Smalltalk oder einer reinen Ja/Nein-Frage.]', '[Board rule (always): if the user wants an explanation, overview, summary, help with a task or to learn a topic, answer IMMEDIATELY with a board (```tafel Title … ```) – do not ask whether to use the board and do not create a short script ([[topic:…]] only together with flashcards, quiz or podcast). If it is genuinely unclear, ask ONE short question and append the choices: [[wahl:Option A|Option B|Option C]] (2–4 short options, each a complete request). No board only for flashcards, podcast, study path, quiz, small talk or a plain yes/no question.]');
+      const pre = [ctxLine, KNOW, WECHSEL, REF, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', PFLICHT, TAFEL, SEITE].filter(Boolean).join('\n');
       if (pre) messages[messages.length - 1].content = pre + '\n' + text;
       const payload = { messages, opts: Object.assign({ mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true, mem: Mem.memOn() }, o.entry ? { entry: true } : {}) };
       const d = curDoc();

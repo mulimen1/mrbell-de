@@ -109,7 +109,7 @@ export function render(root, ctx = {}) {
   const room = h('div', { class: 'room home' }, stage, right);
   // Laptop mit Tafel: Eingabe nur unter dem Gespräch (links) – die Tafel reicht rechts bis ganz nach unten
   const placeDock = () => {
-    const side = room.classList.contains('talk') && room.classList.contains('has-board') && innerWidth > 900 && !document.documentElement.classList.contains('maxmode');   // Max-Modus: Eingabe mittig unten
+    const side = room.classList.contains('talk') && room.classList.contains('has-board') && innerWidth > 900;
     if (side && dock.parentNode !== talkCol) talkCol.appendChild(dock);
     else if (!side && dock.parentNode !== stage) stage.insertBefore(dock, drop);
     room.classList.toggle('dock-side', side);
