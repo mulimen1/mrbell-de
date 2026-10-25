@@ -10,7 +10,12 @@ import { calc, engine, toXlsx, download, show, deFormula, colL, colN, split, bou
 export const XL_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif" letter-spacing="-.2">XLS</text></svg>';
 const icoXL = (cls = '') => h('span', { class: 'xl-ic ' + cls, html: XL_ICON });
 const DOWNLOAD_NEEDS_ACCOUNT = true;            // Vorschau für alle, Download mit kostenlosem Konto
-const GEN_FREE = 3, GEN_PRO = 25;               // Generator: so viele Dateien pro Tag
+const GEN_FREE = 1, GEN_PRO = 25;               // Generator: so viele KI-Dateien pro Tag (ohne Pro: 1)
+const DL_FREE = 2, DL_PRO = 200;                // Downloads pro Tag (ohne Pro: 2)
+const isPro = () => { const a = getAccount(); return !!(a && /pro/i.test(a.plan || '')); };
+function dlCap() { const d = new Date().toDateString(); const s = ls.get('tutor.xldl', null); const used = s && s.d === d ? s.n : 0; const max = isPro() ? DL_PRO : DL_FREE; return { used, max, left: Math.max(0, max - used), use: () => ls.set('tutor.xldl', { d, n: used + 1 }) }; }
+// Kontingent aufgebraucht: kurz erklären und Pro anbieten
+async function proWall(what) { const { modal } = await import('../util.js'); const a = await modal({ title: L('Für heute aufgebraucht', 'Used up for today'), text: what + L(' Mit Pro geht’s ohne Tageslimit weiter – oder morgen wieder kostenlos.', ' With Pro there’s no daily limit – or come back tomorrow for free.'), actions: [{ label: L('Morgen weiter', 'Tomorrow'), value: 'no' }, { label: L('Pro ansehen', 'See Pro'), value: 'pro', primary: true }] }); if (a === 'pro') { try { (await import('../abo.js')).openAbo(); } catch (e) {} } }               // Generator: so viele Dateien pro Tag
 
 // Marken-Hinweis als kleines i neben der Überschrift (Hover/Klick öffnet die Erklärung daneben)
 const tmInfo = txt => { const pop = h('span', { class: 'tm-pop', role: 'tooltip' }, txt); const b = h('button', { class: 'tm-i', type: 'button', 'aria-label': L('Hinweis zu Marken', 'Trademark notice'), 'aria-expanded': 'false', onclick: e => { e.stopPropagation(); const on = !w.classList.contains('on'); w.classList.toggle('on', on); b.setAttribute('aria-expanded', String(on)); if (on) setTimeout(() => addEventListener('click', () => { w.classList.remove('on'); b.setAttribute('aria-expanded', 'false'); }, { once: true }), 0); } }, 'i'); const place = () => { const r = b.getBoundingClientRect(), W = Math.min(300, innerWidth - 24); pop.style.width = W + 'px'; let x = r.right + 10, y = r.top + r.height / 2 - 40; if (x + W > innerWidth - 12) { x = Math.max(12, Math.min(r.left + r.width / 2 - W / 2, innerWidth - W - 12)); y = r.bottom + 8; } const o = w.getBoundingClientRect(); pop.style.left = (x - o.left) + 'px'; pop.style.top = (Math.max(8, y) - o.top) + 'px'; }; const w = h('span', { class: 'tm-w', onmouseenter: place }, b, pop); b.addEventListener('click', place); b.addEventListener('focus', place); return w; };
@@ -169,11 +174,12 @@ export function sheetView(spec, { title, file, keys = [], src = '' }) {
       await openAuth({ registerTitle: L('Excel-Datei kostenlos herunterladen', 'Download the Excel file for free'), registerSub: L('Mit kostenlosem Konto lädst du alle Vorlagen herunter – dauert 20 Sekunden.', 'With a free account you can download every template – takes 20 seconds.'), title: L('Anmelden zum Herunterladen', 'Sign in to download') });
       if (!getAccount()) return;
     }
+    const dc = dlCap(); if (!dc.left) { proWall(L(`Ohne Pro kannst du ${DL_FREE} Excel-Dateien pro Tag herunterladen.`, `Without Pro you can download ${DL_FREE} Excel files a day.`)); return; }
     dlBtn.disabled = true; const t0 = dlBtn.lastChild.textContent; dlBtn.lastChild.textContent = L('Datei wird gebaut …', 'Building file …');
     try {
       const r = await recalc(false);
       const blob = await toXlsx({ title, file, sheet: Object.assign({}, spec, { cells }), values: r.values, explain: spec.explain });
-      download(blob, file); toast(L('Excel-Datei ist heruntergeladen ✓', 'Excel file downloaded ✓'));
+      download(blob, file); dc.use(); const lf = dlCap().left; toast(isPro() ? L('Excel-Datei ist heruntergeladen ✓', 'Excel file downloaded ✓') : L(`Excel-Datei ist heruntergeladen ✓ · heute noch ${lf} von ${DL_FREE}`, `Excel file downloaded ✓ · ${lf} of ${DL_FREE} left today`));
       try { if (window.BM) window.BM.track('Excel heruntergeladen', src || 'Vorlage'); } catch (e) {}
     } catch (e) { toast(L('Das Herunterladen hat nicht geklappt. Bitte nochmal versuchen.', 'Download failed. Please try again.')); }
     dlBtn.disabled = false; dlBtn.lastChild.textContent = t0;
@@ -216,7 +222,7 @@ const EXAMPLES = [
   L('Plankostenrechnung: Plankosten 80.000 €, davon fix 30.000 €, Planbeschäftigung 2.000 Stunden, Istbeschäftigung 1.800 Stunden, Istkosten 76.000 € – Soll-Ist-Vergleich mit Verbrauchs- und Beschäftigungsabweichung.', 'Flexible budget: planned cost 80,000 €, 30,000 € fixed, planned 2,000 hours, actual 1,800 hours, actual cost 76,000 € – variance analysis.'),
   L('Optimale Bestellmenge: Jahresbedarf 12.000 Stück, bestellfixe Kosten 120 €, Einstandspreis 8 €, Lagerhaltungskostensatz 15 %. Andler-Formel und Kostenvergleich für 5 Bestellmengen.', 'EOQ: annual demand 12,000 units, order cost 120 €, unit price 8 €, holding rate 15 %. Andler formula and cost table for 5 order sizes.')
 ];
-function genCap() { const d = new Date().toDateString(); const s = ls.get('tutor.xlgen', null); const used = s && s.d === d ? s.n : 0; const acc = getAccount(); const max = acc && /pro/i.test(acc.plan || '') ? GEN_PRO : GEN_FREE; return { used, max, left: Math.max(0, max - used), use: () => ls.set('tutor.xlgen', { d, n: used + 1 }) }; }
+function genCap() { const d = new Date().toDateString(); const s = ls.get('tutor.xlgen', null); const used = s && s.d === d ? s.n : 0; const acc = getAccount(); const max = isPro() ? GEN_PRO : GEN_FREE; return { used, max, left: Math.max(0, max - used), use: () => ls.set('tutor.xlgen', { d, n: used + 1 }) }; }
 
 function generator(body) {
   const ta = h('textarea', { class: 'xl-ta', rows: 5, maxlength: 1500, placeholder: L('Beschreib deine Aufgabe mit allen Zahlen – z. B. „Kapitalwert einer Maschine: Anschaffung 50.000 €, 5 Jahre, Rückflüsse 14.000 € pro Jahr, Zins 6 %“', 'Describe your task with all numbers – e.g. “NPV of a machine: 50,000 € cost, 5 years, 14,000 € inflows per year, 6 % rate”') });
@@ -228,7 +234,7 @@ function generator(body) {
   const go = h('button', { type: 'button', class: 'btn xl-dl xl-go', onclick: () => run() }, h('span', { html: ico('spark') }), L('Excel generieren', 'Generate Excel'));
   const status = h('div', { class: 'xl-status', hidden: true, role: 'status' });
   const out = h('div', { class: 'xl-out' });
-  const drawCap = () => { const c = genCap(); capEl.textContent = c.left ? L(`Heute noch ${c.left} von ${c.max} kostenlos`, `${c.left} of ${c.max} free today`) : L('Für heute aufgebraucht – morgen geht’s weiter', 'Used up for today – back tomorrow'); go.disabled = !c.left; };
+  const drawCap = () => { const c = genCap(); capEl.textContent = c.left ? L(`Heute noch ${c.left} von ${c.max} kostenlos`, `${c.left} of ${c.max} free today`) : L('Für heute aufgebraucht – morgen geht’s weiter, mit Pro sofort', 'Used up for today – back tomorrow, or right away with Pro'); go.disabled = false; go.classList.toggle('xl-capped', !c.left); };
   drawCap();
   body.append(h('div', { class: 'xl-gen' },
     h('label', { class: 'xl-lab' }, L('1 · Was soll die Datei rechnen?', '1 · What should the file calculate?')), ta, ex,
@@ -245,7 +251,7 @@ function generator(body) {
   async function run() {
     const text = ta.value.trim();
     if (text.length < 15) { toast(L('Beschreib die Aufgabe etwas genauer – am besten mit allen Zahlen.', 'Describe the task in a bit more detail – ideally with all numbers.')); ta.focus(); return; }
-    const c = genCap(); if (!c.left) { drawCap(); return; }
+    const c = genCap(); if (!c.left) { drawCap(); proWall(L(`Ohne Pro baut dir Max ${GEN_FREE} Excel-Datei pro Tag mit KI. Die 60 Vorlagen kannst du weiter nutzen.`, `Without Pro, Max builds ${GEN_FREE} AI Excel file a day. The 60 templates stay available.`)); return; }
     go.disabled = true; out.replaceChildren(); step(0);
     try {
       const E = await engine();
@@ -276,7 +282,7 @@ function generator(body) {
     } catch (e) {
       status.hidden = false; status.replaceChildren(h('div', { class: 'xl-err' }, h('b', {}, L('Das hat nicht geklappt.', 'That didn’t work.')), h('span', {}, e.message || ''), h('button', { type: 'button', class: 'btn sm', onclick: () => run() }, L('Nochmal versuchen', 'Try again'))));
     }
-    go.disabled = !genCap().left;
+    drawCap();
   }
   function showResult(spec, title, file) {
     out.replaceChildren(h('div', { class: 'xl-gnote' }, h('span', { html: ico('check') }), spec.check === 'doppelt' ? L('Doppelt geprüft: alle Formeln nachgerechnet und die Ergebnisse unabhängig ein zweites Mal gerechnet ✓', 'Double-checked: every formula recalculated and the results computed a second time independently ✓') : L('Alle Formeln nachgerechnet · Rechenweg bitte einmal kurz prüfen', 'Every formula recalculated · please double-check the method')), sheetView(spec, { title, file, keys: spec.keys, src: 'Generator' }));

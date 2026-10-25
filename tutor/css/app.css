@@ -5259,3 +5259,5 @@ html:not(.x-none) .tn.tn-flow .tn-fsheet .ico { display: block !important; width
 html .tn.tn-flow .tn-b, html .tn.tn-flow:hover .tn-b, html .tn.tn-flow:active .tn-b, html .tn.tn-flow > span:not(.tn-lead), html .tn.tn-flow:hover > span:not(.tn-lead), html .tn.tn-flow:active > span:not(.tn-lead) { transform: none !important; animation: none !important; transition: none !important; }
 /* Mittlere Leistenbreite: Logo-Kacheln etwas kompakter, damit nichts abgeschnitten wird */
 @media (min-width: 761px) { @container tbar (max-width: 1280px) { html .tn-vid .tn-b-youtube, html .tn-xlic svg { width: 22px !important; height: 22px !important; } .tn-vid .tn-brands, .tn-xl .tn-xlic { padding: 3px !important; border-radius: 9px !important; } } }
+/* Handy: Lexikon/Rechner-Knöpfe über dem Chatfeld verdecken nicht die letzte Nachricht */
+@media (max-width: 600px) { html:has(.dk.row:not(.hide)) .asst.open .ai-feed .ai-fl { padding-bottom: 52px; } }
