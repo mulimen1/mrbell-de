@@ -283,3 +283,25 @@
 @media (max-width: 600px) { .ms-up { padding: 16px; gap: 12px; } .ms-upb { display: none; } .ms-upi { width: 44px; height: 44px; } }
 /* Kleine Lücke zwischen „Mit Skript verbinden“ und dem Upload-Feld */
 .ms-fachw + .ms-up { margin-top: 12px; }
+/* Oben: Schrift-Auswahl + Hauptknopf (gleiche Funktion wie unten) */
+.ms-topbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 14px; border-bottom: 1px solid var(--line2); background: color-mix(in srgb, var(--panel) 92%, var(--ink) 2%); }
+.ms-topbar .ms-tbl { font: 600 12px var(--sans); color: var(--mute); letter-spacing: .02em; }
+.ms-topbar .ms-tbsp { flex: 1; }
+@media (max-width: 560px) { .ms-topbar .ms-tbsp { display: none; } .ms-topbar .ms-gotop { width: 100%; justify-content: center; } }
+/* Vorschau oben rechts */
+.ms-head { flex-wrap: nowrap; }
+.ms-hl { flex: 1 1 auto; min-width: 0; }
+.ms-pv { flex: 0 0 320px; align-self: flex-start; border: 1px solid var(--line2); border-radius: 16px; background: var(--panel); overflow: hidden; }
+.ms-pvt { display: flex; align-items: center; gap: 8px; width: 100%; padding: 10px 12px; border: 0; background: transparent; color: var(--ink); font: 650 13.5px var(--sans); cursor: pointer; text-align: left; }
+.ms-pvt .ico { width: 16px; height: 16px; } .ms-pvt .ms-lch { margin-left: auto; transition: transform .2s; display: inline-grid; }
+.ms-pv.open .ms-pvt .ms-lch { transform: rotate(180deg); }
+.ms-pvbody[hidden] { display: none; }
+.ms-pvbody { padding: 0 10px 10px; }
+.ms-pvb { position: relative; height: 330px; overflow: hidden; border-radius: 10px; border: 1px solid var(--line2); pointer-events: none; }
+.ms-pvb::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 56px; background: linear-gradient(transparent, var(--panel)); }
+.ms-pvb > .ms-paper { width: 640px; max-width: none; margin: 0; transform: scale(var(--pvs, .47)); transform-origin: 0 0; box-shadow: none; }
+.ms-pvn { display: block; margin-top: 8px; color: var(--mute); font-size: 12px; line-height: 1.45; }
+@media (max-width: 900px) { .ms-head { flex-wrap: wrap; } .ms-pv { flex: 1 1 100%; } .ms-pvb { height: 300px; } }
+.ms-head { align-items: flex-start !important; }
+.ms-hl .ms-hp { text-align: left !important; margin: 12px 0 0 !important; max-width: 56ch; }
+@media (max-width: 900px) { .ms-pvb { height: 240px; } }

@@ -15,7 +15,7 @@ import { pad, drawingEl, drawingJpeg } from '../mspad.js';
 
 const DKEY = 'tutor.ms.draft';
 let cssOn = false;
-function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=13', 'data-ms': '1' })); }
+function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=14', 'data-ms': '1' })); }
 
 export async function render(root, { id = '' } = {}) {
   css();
@@ -78,9 +78,10 @@ function editor(wrap, doc) {
     ls.set(DKEY, { fach: draft.fach, stil: draft.stil, blatt: draft.blatt, text: '', docId: null });
     location.hash = '#/app/mitschrift/neu-' + Date.now().toString(36);
   } }, h('span', { html: ico('plus') }), L('Neue Mitschrift', 'New note'));
-  const head = h('div', { class: 'ms-head' },
+  const headL = h('div', { class: 'ms-hl' },
     h('div', { class: 'ms-ht' }, h('div', { class: 'eyebrow' }, L('Live-Mitschrift', 'Live notes')), h('h2', {}, L('Schreib einfach mit.', 'Just take notes.')), h('div', { class: 'ms-hbtns' }, listBtn, saveBtn, newBtn)),
       h('p', { class: 'ms-hp' }, L('Tipp in der Vorlesung drauflos oder fotografier Notizen und Tafel. Max macht daraus eine saubere Mitschrift – in Schreibschrift oder Druckschrift, mit Skizzen.', 'Type away during the lecture or snap your notes and the board. Max turns it into clean notes – in cursive or print, with sketches.')));
+  const head = h('div', { class: 'ms-head' }, headL);
 
   // Fach: einfach eintippen (muss kein angelegtes Fach sein). Vorhandene Fächer als Abkürzung daneben,
   // ein unbekannter Name bekommt einen kleinen Knopf „Als Fach anlegen“ – freiwillig.
@@ -143,7 +144,7 @@ function editor(wrap, doc) {
   ta.addEventListener('input', () => {
     const p = ta.selectionStart, v = ta.value, nv = v.replace(/->/g, '→').replace(/=>/g, '⇒').replace(/<-/g, '←');
     if (nv !== v) { ta.value = nv; const d = v.length - nv.length; ta.selectionStart = ta.selectionEnd = Math.max(0, p - d); }
-    draft.text = ta.value; keep(); if (go) go.disabled = !canGo();
+    draft.text = ta.value; keep(); if (go) setGo();
   });
   const changed = () => ta.dispatchEvent(new Event('input'));
   const ins = s => {
@@ -169,7 +170,7 @@ function editor(wrap, doc) {
   const drawBtn = h('button', { type: 'button', class: 'ms-tb ms-drawb', 'aria-expanded': 'false', onclick: () => setDraw(!ed.classList.contains('draw-on')) }, h('span', { html: '<svg class="ico" viewBox="0 0 24 24"><path d="M3 21c3-1 4-3 6-3s2 2 4 2 3-4 6-4"/><path d="m14 4 3 3-8 8H6v-3z"/></svg>' }), L('Zeichnen', 'Draw'));
   function setDraw(on) {
     ed.classList.toggle('draw-on', on); drawBtn.setAttribute('aria-expanded', String(on));
-    if (on && !zp) { zp = pad(z, blatt, () => { keep(); go.disabled = !canGo(); }); body.appendChild(zp.el); applyBlatt(zp.el.querySelector('.mz-host'), blatt); }
+    if (on && !zp) { zp = pad(z, blatt, () => { keep(); setGo(); }); body.appendChild(zp.el); applyBlatt(zp.el.querySelector('.mz-host'), blatt); }
     if (zp) requestAnimationFrame(() => { zp.fit(); if (on && innerWidth < 900) zp.el.scrollIntoView({ block: 'start', behavior: 'smooth' }); });
   }
   const camIn = h('input', { type: 'file', accept: 'image/*', multiple: true, class: 'sr' });
@@ -188,12 +189,34 @@ function editor(wrap, doc) {
     drawBtn, palBtn, blattBtn);
 
   let stil = draft.stil === 'druck' ? 'druck' : 'fueller';
-  const seg = h('div', { class: 'seg', role: 'radiogroup', 'aria-label': L('Schrift', 'Handwriting') });
-  const drawSeg = () => seg.replaceChildren(...[['fueller', L('Füller', 'Fountain pen')], ['druck', L('Druckschrift', 'Print')]].map(([k, n]) => h('button', { type: 'button', class: k === stil ? 'on' : '', role: 'radio', 'aria-checked': String(k === stil), onclick: () => { stil = draft.stil = k; drawSeg(); keep(); } }, n)));
-  drawSeg();
+  // Schrift-Auswahl und „Saubere Mitschrift machen“ gibt es oben und unten – eine Wahl, ein Knopf-Handler
+  const mkSeg = () => h('div', { class: 'seg', role: 'radiogroup', 'aria-label': L('Schrift', 'Handwriting') });
+  const seg = mkSeg(), segTop = mkSeg();
+  const drawSeg = () => [seg, segTop].forEach(sg => sg.replaceChildren(...[['fueller', L('Füller', 'Fountain pen')], ['druck', L('Druckschrift', 'Print')]].map(([k, n]) => h('button', { type: 'button', class: k === stil ? 'on' : '', role: 'radio', 'aria-checked': String(k === stil), onclick: () => { stil = draft.stil = k; drawSeg(); keep(); drawPv(); } }, n))));
   const st = h('span', { class: 'ms-st' });
-  const go = h('button', { type: 'button', class: 'btn primary ms-go', disabled: !canGo(), onclick: () => make() }, h('span', { html: ico('pen') }), L('Saubere Mitschrift machen', 'Make clean notes'));
+  const mkGo = cls => h('button', { type: 'button', class: 'btn primary ms-go' + (cls ? ' ' + cls : ''), disabled: !canGo(), title: L('Erst ein paar Zeilen schreiben oder eine Datei hochladen', 'Write a few lines or upload a file first'), onclick: () => make() }, h('span', { html: ico('pen') }), L('Saubere Mitschrift machen', 'Make clean notes'));
+  const go = mkGo(), goTop = mkGo('ms-gotop');
+  function setGo() { go.disabled = goTop.disabled = !canGo(); }
   const foot = h('div', { class: 'ms-foot' }, st, seg, go);
+  const topBar = h('div', { class: 'ms-topbar' }, h('span', { class: 'ms-tbl' }, L('Schrift', 'Handwriting')), segTop, h('span', { class: 'ms-tbsp' }), goTop);
+  // Vorschau oben rechts: so sieht das Ergebnis aus (echtes Blatt, gleiche Darstellung wie die fertige Mitschrift)
+  const PVK = 'tutor.ms.pv';
+  let pvOpen = ls.get(PVK, null) == null ? true : !!ls.get(PVK, 0);
+  if (ls.get(PVK, null) == null) ls.set(PVK, 0);   // nur beim ersten Mal offen
+  const pvBox = h('div', { class: 'ms-pvb' }), pvBody = h('div', { class: 'ms-pvbody' }, pvBox, h('small', { class: 'ms-pvn' }, L('Beispiel: so wird aus deinen schnellen Notizen eine Mitschrift – mit Formel, Merke-Kasten und Skizze.', 'Example: your quick notes become clean notes like this – with formula, key box and sketch.')));
+  const pvBtn = h('button', { type: 'button', class: 'ms-pvt', 'aria-expanded': String(pvOpen), onclick: () => { pvOpen = !pvOpen; ls.set(PVK, pvOpen ? 1 : 0); syncPv(); } }, h('span', { html: ico('note') }), L('So sieht deine Mitschrift aus', 'What your notes will look like'), h('span', { class: 'ms-lch', html: ico('down') }));
+  const pv = h('aside', { class: 'ms-pv' }, pvBtn, pvBody);
+  function syncPv() { pv.classList.toggle('open', pvOpen); pvBtn.setAttribute('aria-expanded', String(pvOpen)); pvBody.hidden = !pvOpen; if (pvOpen) drawPv(); }
+  function drawPv() {
+    if (!pvOpen) return;
+    const sample = { name: 'Break-even', created: Date.now(), ms: { stil, fach: draft.fach || L('Kostenrechnung', 'Cost accounting'), at: Date.now(), blatt: draft.blatt && draft.blatt.v === 3 ? draft.blatt : undefined, data: L(
+      { titel: 'Break-even-Analyse', kern: 'Ab welcher Menge deckt der Umsatz alle Kosten?', abschnitte: [{ h: 'Deckungsbeitrag', punkte: ['db = Preis − **variable Stückkosten**', 'Jedes Stück deckt erst Fixkosten, dann Gewinn'], formel: 'x_{BE} = K_f / db', merke: 'Unter dem Break-even macht jedes Stück trotzdem einen positiven DB.', bild: { typ: 'kurve', titel: 'Break-even-Punkt', x: 'Menge', y: '€', linien: [{ name: 'Umsatz', form: 'linear' }, { name: 'Kosten', form: 'linear' }] } }], korrekturen: [], fragen: [] },
+      { titel: 'Break-even analysis', kern: 'From which quantity does revenue cover all costs?', abschnitte: [{ h: 'Contribution margin', punkte: ['cm = price − **variable unit cost**', 'Each unit covers fixed costs first, then profit'], formel: 'x_{BE} = FC / cm', merke: 'Below break-even each unit still has a positive CM.', bild: { typ: 'kurve', titel: 'Break-even point', x: 'Quantity', y: '€', linien: [{ name: 'Revenue', form: 'linear' }, { name: 'Costs', form: 'linear' }] } }], korrekturen: [], fragen: [] }) } };
+    const p = paper(sample, false); pvBox.replaceChildren(p); fitPv();
+  }
+  const fitPv = () => { const p = pvBox.firstChild; if (!p) return; const w = pvBox.clientWidth || 300; p.style.setProperty('--pvs', String(w / 640)); };
+  const pvRO = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(fitPv) : null; if (pvRO) pvRO.observe(pvBox);
+  drawSeg();
   const body = h('div', { class: 'ms-body' }, ta, pal);
   // Bilder einfach reinziehen oder einfügen (⌘V) – Dateien wie PDF werden als Skript verbunden
   const takeFiles = fl => { const imgs = fl.filter(f => /^image\//.test(f.type) || /\.(png|jpe?g|webp|heic|heif)$/i.test(f.name || '')); const docs = fl.filter(f => !imgs.includes(f)); fromFiles(fl); };
@@ -210,7 +233,8 @@ function editor(wrap, doc) {
     h('span', { class: 'ms-upb' }, L('Datei wählen', 'Choose file')), upIn);
   ['dragenter', 'dragover'].forEach(ev => up.addEventListener(ev, e => { if (e.dataTransfer?.types?.includes('Files')) up.classList.add('over'); }));
   ['dragleave', 'drop'].forEach(ev => up.addEventListener(ev, () => up.classList.remove('over')));
-  const ed = h('div', { class: 'ms-ed' }, fachEl, up, tools, bp, body, foot);
+  const ed = h('div', { class: 'ms-ed' }, topBar, fachEl, up, tools, bp, body, foot);
+  head.append(pv); syncPv();
   // Foto irgendwo auf die Mitschrift-Seite ziehen → große Ablagefläche, loslassen → Max macht die saubere Mitschrift
   const dz = h('div', { class: 'ms-dz', 'aria-hidden': 'true' }, h('div', { class: 'ms-dzi' }, h('span', { html: ico('camera') }), h('b', {}, L('Hier loslassen', 'Drop it here')), h('small', {}, L('PDF, Foto, Word, PowerPoint oder Video – Max macht daraus deine Mitschrift', 'PDF, photo, Word, PowerPoint or video – Max turns it into your notes'))));
   let dzN = 0;
@@ -224,7 +248,7 @@ function editor(wrap, doc) {
   // Aus „Videos“: Transkript übernehmen und direkt zur sauberen Mitschrift machen
   try { const imp = JSON.parse(sessionStorage.getItem('tutor.msImport') || 'null'); if (imp && imp.text) { sessionStorage.removeItem('tutor.msImport'); ta.value = imp.text; draft.text = ta.value; if (imp.lang) draft.lang = imp.lang; keep(); setTimeout(() => make(true), 350); } } catch (e) {}
   keep();
-  return () => { cleanup(); zp && zp.stop(); document.removeEventListener('visibilitychange', onHide); removeEventListener('pagehide', onHide); persist(true).then(() => refreshList()); };
+  return () => { cleanup(); zp && zp.stop(); pvRO && pvRO.disconnect(); document.removeEventListener('visibilitychange', onHide); removeEventListener('pagehide', onHide); persist(true).then(() => refreshList()); };
 
   async function fromVideo(file) {
     const { getAccount } = await import('../api.js');
