@@ -11,6 +11,7 @@ import { forChat } from './retrieve.js';
 import { apiError, typeOut as typeIt, typePlaceholder, syncOut, aiTag } from './ui.js';
 import { liveWave } from './wave.js';
 import { startLive } from './livestt.js';
+import * as MM from './maxmode.js';
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { VOICES, getVoice, voiceChip } from './voice.js';
@@ -924,6 +925,7 @@ export function mountAssistant() {
     bPrev.hidden = bNext.hidden = boards.length < 2;
     const t = h('div', { class: 'tafel' }, h('h2', { class: 'tt' }, b.title));
     t.appendChild(polishBoard(sanitize(b.html)));
+    MM.enhance(t); if (!write) MM.revealAll(t);   // Max-Modus: Übersicht als animierte Mindmap, Äste fliegen mit der Führung rein
     t.appendChild(nextChips(b));
     // Erklärung ⇄ Klausurfragen: Umschalter oben auf der Tafel
     const mate = b.exam ? b.pair : b.pairB;
@@ -1234,6 +1236,7 @@ export function mountAssistant() {
     // Creator Mode (nur Gründer-Konten): Startsatz oder /sketch → feste Szene; danach ist jeder Satz der nächste Schritt
     { await Creator.load(); const sk = Creator.handle(text); if (sk) { playSketch(text, sk); return; } }
     // Show-Modus zum Filmen (nur Gründer-Konto): „/show“ dunkel, „/show hell“ weiß
+    if (MM.isCmd(text) && MM.allowed()) { inp.value = ''; MM.cmd(text); return; }   // Max-Modus an/aus (nur Gründer)
     if (/^\/show\b/i.test(text)) { const z = await import('./views/zahlen.js'); if (z.isAdmin(getAccount())) { const m = await import('./show.js'); inp.value = ''; m.startShow(text.slice(5)); return; } }
     if (!pendingMap && TOURQ.test(text) && route().tab) { pageTour(); return; }
     vTour = false;
@@ -1256,7 +1259,7 @@ export function mountAssistant() {
     try { STAGE?.onAsk?.(shown); } catch (e) {}
     if (pendingMap === LAZY_MAP) { await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))); const m = pageMap(); pendingMap = m.count ? m.text : null; }
     setState('think');
-    const my = ++gen, spoken = !!cfg.spk && viaVoice;
+    const my = ++gen, spoken = !!cfg.spk && (viaVoice || MM.on());   // Max-Modus: Max antwortet immer gesprochen
     ctrl = new AbortController();
     try {
       // Ohne Konto: genau eine Antwort (Themen-Tafel oder erste Frage) – jede weitere Frage erst nach kostenlosem Konto, danach geht sie automatisch raus
@@ -1277,7 +1280,7 @@ export function mountAssistant() {
       pendingMap = null;
       let KNOW = ''; try { KNOW = knowledge(); } catch (e) {}
       const KURZ = spoken ? L('[Gesprochenes Gespräch: Antworte wie im echten Gespräch – höchstens 2–3 kurze Sätze, direkt auf den Punkt. Ausführliches gehört an die Tafel.]', '[Spoken conversation: answer like a real conversation – 2–3 short sentences max, straight to the point. Anything detailed goes on the board.]') : '';
-      const pre = [ctxLine, KNOW, WECHSEL, REF, KURZ, maxPrompt(), TAFEL, SEITE].filter(Boolean).join('\n');
+      const pre = [ctxLine, KNOW, WECHSEL, REF, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', TAFEL, SEITE].filter(Boolean).join('\n');
       if (pre) messages[messages.length - 1].content = pre + '\n' + text;
       const payload = { messages, opts: Object.assign({ mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true, mem: Mem.memOn() }, o.entry ? { entry: true } : {}) };
       const d = curDoc();
@@ -1383,7 +1386,7 @@ export function mountAssistant() {
   function curStart() { const rf = STAGE ? [...document.querySelectorAll('.room .rm-fs')].find(e => e.getBoundingClientRect().width > 0) : null; const r = (rf || (open ? fEl : bubFace)).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height * .4 }; }
   // Max spricht einen Cursor-Schritt (gleiche Stimme, gleicher Zwischenspeicher wie die Antwort)
   // Nie ungefragt vorlesen: Max spricht nur, wenn man selbst per Stimme mit ihm redet (oder im Creator Mode)
-  const autoVoice = () => viaVoice || Creator.active();
+  const autoVoice = () => viaVoice || Creator.active() || MM.on();
   async function sayStep(text) {
     if (!autoVoice()) return;
     const my = gen;
@@ -1400,8 +1403,8 @@ export function mountAssistant() {
   function startTour(steps, spoken) {
     hideQuip();
     const dockAt = () => (STAGE || open ? isl : bub).getBoundingClientRect();
-    return tour(steps, Object.assign({ startAt: curStart(), dockAt, onAsk: ref => { if (!open) setOpen(true); setRef(ref); setTyping(true); } },
-      spoken ? Object.assign({ onEnd: () => { vTour = false; try { audio.pause(); } catch (e) {} setState('idle'); if (spoken !== 'klick') afterAnswer(); } }, autoVoice() ? { voice: sayStep } : {}) : {}));
+    return tour(steps, Object.assign({ startAt: curStart(), dockAt, onStep: s => MM.reveal(s.el), onAsk: ref => { if (!open) setOpen(true); setRef(ref); setTyping(true); } },
+      spoken ? Object.assign({ onEnd: () => { MM.revealAll(); vTour = false; try { audio.pause(); } catch (e) {} setState('idle'); if (spoken !== 'klick') afterAnswer(); } }, autoVoice() ? { voice: sayStep } : {}) : {}));
   }
   // „Frage“ in der Cursor-Blase: Max weiß, welche Stelle gemeint ist
   let askRef = null;
@@ -1493,6 +1496,7 @@ export function mountAssistant() {
     for (let k = 0; k < 40 && t.isConnected && t.querySelector('.ai-hide'); k++) await sleep(120);
     const steps = boardSteps(t);
     drawTourBtn();
+    if (MM.on()) { if (steps.length) { startTour(steps, true); return; } MM.revealAll(t); }   // Max-Modus: nach dem Spruch führt Max sofort gesprochen durch die Tafel
     if (spoken) { vTour = false; afterAnswer(); }
   }
   function drawTourBtn() { const st = boardSteps(bArea.querySelector('.tafel')); bTour.hidden = st.length < 2; }

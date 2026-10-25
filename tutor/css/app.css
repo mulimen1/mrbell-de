@@ -4943,3 +4943,26 @@ button.view-back { cursor: pointer; font: 600 13.5px var(--sans); color: var(--i
   .tn.tn-tutor { padding: 0 14px 0 5px; }
 }
 .xl-status[hidden], .xl-scroll[hidden] { display: none; }
+/* ---------- Max-Modus: animierte Mindmap an der Tafel ---------- */
+.mm2-wrap { margin: 6px 0 18px; }
+.mm2 { width: 100%; height: auto; display: block; overflow: visible; font-family: var(--sans); }
+.tafel .mm2 text { font-weight: 750; fill: var(--ink) !important; stroke: none !important; }
+.tafel .mm2 .mm2-rr { fill: #1F3A5F !important; stroke: none !important; } .tafel .mm2 .mm2-rt { fill: #fff !important; font-weight: 800; letter-spacing: -.02em; }
+.tafel .mm2 .mm2-br { fill: var(--panel) !important; stroke: #1F3A5F !important; stroke-width: 2.5 !important; }
+.tafel .mm2 .mm2-kr { fill: var(--panel2) !important; stroke: var(--line2) !important; stroke-width: 1.5 !important; } .tafel .mm2 .mm2-kt { font-weight: 650; fill: var(--ink2) !important; }
+.tafel .mm2 .mm2-l { fill: none !important; stroke: #9DB7DA !important; stroke-width: 3 !important; stroke-linecap: round; }
+.tafel .mm2-wrap svg.mm2 { background: none !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; max-height: none !important; }
+.tafel .mm2 .mx-hl .mm2-br, .tafel .mm2 .mx-hl .mm2-rr { stroke: #1D6F42 !important; stroke-width: 4 !important; }
+.mm2-root { animation: mm2pop .8s cubic-bezier(.2,1.4,.4,1) both; transform-box: fill-box; transform-origin: center; }
+.mm2-b.wait { opacity: 0; }
+.mm2-b.go .mm2-n { animation: mm2fly 1s cubic-bezier(.18,1.2,.35,1) both; transform-box: fill-box; transform-origin: center; }
+.mm2-b.go .mm2-l { stroke-dasharray: 100; stroke-dashoffset: 100; animation: mm2draw .7s ease forwards; animation-delay: var(--d, 0s); }
+.mm2-b.go .mm2-k { animation: mm2pop .6s cubic-bezier(.2,1.4,.4,1) both; animation-delay: var(--d, .5s); transform-box: fill-box; transform-origin: center; }
+@keyframes mm2fly { 0% { opacity: 0; transform: translate(var(--fx), var(--fy)) scale(.2) rotate(-14deg); filter: blur(6px); } 60% { opacity: 1; filter: blur(0); } 78% { transform: translate(0, 0) scale(1.08) rotate(0); } 100% { transform: none; } }
+@keyframes mm2pop { 0% { opacity: 0; transform: scale(.4); } 100% { opacity: 1; transform: none; } }
+@keyframes mm2draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .mm2-b.wait { opacity: 1; } .mm2 * { animation: none !important; stroke-dashoffset: 0 !important; } }
+/* Max-Modus: Max wird groß, sobald er zuhört */
+html.maxmode .room .rm-face { transition: scale .55s cubic-bezier(.2,1.3,.4,1); }
+html.maxmode .room .rm-face.listening { scale: 1.32; }
+.tafel .mm2 .mx-hl { outline: none !important; box-shadow: none !important; }

@@ -63,7 +63,7 @@ function vScroll(el, where) {
 }
 // steps: [{ el, say }] – el darf null sein (dann zeigt Max oben in die Mitte des Inhalts)
 // voice: (text) => Promise – Max spricht den Schritt selbst; die Blase zeigt dann nur „Max“, kein Text
-export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt, voice } = {}) {
+export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt, voice, onStep } = {}) {
   steps = (steps || []).filter(s => s && s.say);
   if (!steps.length) return null;
   if (active) active.stop(true);
@@ -211,6 +211,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt, voic
       if (out) { vScroll(s.el, mob() ? 'start' : 'center'); await new Promise(r2 => setTimeout(r2, 460)); }
     }
     if (dead || i !== n) return;
+    if (onStep) { try { const w = onStep(s, i); if (w && w.then) await w; } catch (e) {} if (dead || i !== n) return; }   // z. B. Max-Modus: Mindmap-Ast fliegt erst jetzt rein
     setHL(s.el);
     // Blasengröße steht vorher fest (unsichtbarer Volltext) – so springt nichts, während der Text reinläuft
     if (voice) {   // gesprochen: Cursor zeigt, Max sagt es – kein Text in der Blase
