@@ -378,7 +378,7 @@ button { font: inherit; color: inherit; }
 
     var tr = d.basis.trichter || [], t0 = (tr[0] && tr[0][1]) || 0;
     var tx = d.basis.trExtra || {};
-    var fnote = '<div class="fnote"><span>Aus Google Ads <b>' + fmt(tx.ads != null ? tx.ads : (k.ads || 0)) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>';
+    var fnote = '<div class="fnote">' + (tx.besucher != null ? '<span>Besucher gesamt <b>' + fmt(tx.besucher) + '</b></span><span>Tafel auf dem Handy <b>' + fmt(tx.handy || 0) + '</b></span>' : '') + '<span>Aus Google Ads <b>' + fmt(tx.ads != null ? tx.ads : (k.ads || 0)) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>';
     var trK = d.konten.trichter != null ? d.konten.trichter : d.konten.zeitraum;
     var trich = tr.concat([['Konto erstellt', trK]]).map(function (x, i, arr) {
       var w = t0 ? 100 * x[1] / t0 : 0, pr = i && t0 ? Math.round(100 * x[1] / t0) : null;   // Anteil aller Besucher
