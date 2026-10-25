@@ -39,7 +39,7 @@ const MAKE = [
   ['zettel', 'note', L('Lernzettel', 'Study sheet'), L('Zusammenfassung auf einer Seite', 'Summary on one page')],
   ['mitschrift', 'pen', L('Mitschrift', 'Notes'), L('Sauber, im Füller-Look', 'Clean, fountain-pen look')],
   ['erklaeren', 'board', L('Erklärung', 'Explanation'), L('Max erklärt’s an der Tafel', 'Max explains on the board')],
-  ['pfad', 'path', L('Übersicht', 'Overview'), L('Kapitel für Kapitel', 'Chapter by chapter')],
+  ['pfad', 'path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter')],
   ['karten', 'cards', L('Karteikarten', 'Flashcards'), L('Zum Abfragen', 'To quiz yourself')],
   ['quiz', 'quiz', 'Quiz', L('Mit Erklärung', 'With explanations')],
   ['podcast', 'headphones', 'Podcast', L('Zum Anhören', 'To listen to')],
@@ -73,7 +73,7 @@ async function relang(d, c) {
 
 // Ergebnis „machen“: vorhandene Werkzeuge mit genau diesem Transkript
 function make(d, kind) {
-  try { sessionStorage.setItem('tutor.backTo', 'video'); } catch (e) {}
+  try { sessionStorage.setItem('tutor.backTo', 'video'); sessionStorage.setItem('tutor.vidOpen', d.id); } catch (e) {}
   if (kind === 'mitschrift') {
     try { sessionStorage.setItem('tutor.msImport', JSON.stringify({ text: (d.pages || []).join('\n\n').slice(0, 30000), lang: d.outLang || d.srcLang || '', name: d.name })); } catch (e) {}
     location.hash = '#/app/mitschrift'; return;
@@ -260,14 +260,16 @@ export function render(root) {
   }
 
   // ---------- Liste: Transkripte + hier hochgeladene Dateien ----------
-  let openId = null;
+  // Zurück von Lernzettel, Quiz & Co.: das zuletzt benutzte Video ist gleich wieder offen und im Blick
+  let openId = null; try { openId = sessionStorage.getItem('tutor.vidOpen') || null; sessionStorage.removeItem('tutor.vidOpen'); } catch (e) {}
+  const backOpen = !!openId;
   function draw() {
     const seenK = new Set();
     const docs = S.list.map(d => (S.doc && S.doc.id === d.id ? S.doc : d)).filter(d => d.kind === 'video' || d.from === 'video').sort((a, b) => (b.created || 0) - (a.created || 0)).filter(d => { const k = keyOf(d); if (!k) return true; if (seenK.has(k)) return false; seenK.add(k); return true; });
     if (!docs.length) { listEl.replaceChildren(h('div', { class: 'vt-empty' }, L('Noch nichts hier. Füg oben einen Link ein oder zieh eine Datei rein.', 'Nothing here yet. Paste a link above or drop a file.'))); return; }
     listEl.replaceChildren(...docs.slice(0, 40).map(d => {
       const v = d.video || {}, open = d.id === openId;
-      const made = [d.summary ? L('Lernzettel', 'Study sheet') : null, (d.decks || []).some(x => (x.cards || []).length) ? L('Karteikarten', 'Flashcards') : null, (d.quizzes || []).length ? 'Quiz' : null, (d.podcasts || []).length ? 'Podcast' : null, d.path?.chapters?.length ? L('Übersicht', 'Overview') : null].filter(Boolean);
+      const made = [d.summary ? L('Lernzettel', 'Study sheet') : null, (d.decks || []).some(x => (x.cards || []).length) ? L('Karteikarten', 'Flashcards') : null, (d.quizzes || []).length ? 'Quiz' : null, (d.podcasts || []).length ? 'Podcast' : null, d.path?.chapters?.length ? L('Lernpfad', 'Study path') : null].filter(Boolean);
       const meta = [v.platform ? PLAT[v.platform] : L('Eigene Datei', 'Own file'), v.dur ? mmss(v.dur) : null, d.outLang && d.outLang !== 'de' ? langName(d.outLang) : null, new Date(d.created).toLocaleDateString('de-DE', { day: 'numeric', month: 'short' })].filter(Boolean).join(' · ');
       const head = h('button', { class: 'vt-ih', type: 'button', onclick: () => { openId = open ? null : d.id; draw(); } },
         v.platform ? LOGO(v.platform) : h('span', { class: 'vt-fi', html: ico('file') }),
@@ -292,6 +294,7 @@ export function render(root) {
     }));
   }
   draw();
+  if (backOpen) setTimeout(() => listEl.querySelector('.vt-item.open')?.scrollIntoView({ block: 'start' }), 80);
   const off = onChange(() => { if (wrap.isConnected) draw(); });
   return () => { if (typeof off === 'function') off(); };
 }

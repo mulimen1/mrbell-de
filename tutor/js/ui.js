@@ -345,7 +345,8 @@ export function aiTag(tools, raw = '', src = '') {
   let from = null;
   if (src) {
     const pages = [...new Set([...String(raw).matchAll(/\((?:S|p|pp)\. ?(\d+)(?:[–-](\d+))?\)/g)].map(m => +m[1]))].sort((a, b) => a - b).slice(0, 5);
-    from = pages.length
+    from = src === 'video' ? h('span', { class: 'aisrc', title: L('Die Antwort stützt sich auf das Transkript dieses Videos.', 'Based on this video’s transcript.') }, L('Aus dem Video', 'From the video'))
+      : pages.length
       ? h('span', { class: 'aisrc', title: L('Die Aussagen sind mit diesen Seiten belegt – zum Nachlesen.', 'Backed by these pages – check them yourself.') }, (src === 'max' ? L('Aus dem Kurzskript', 'From the short script') : L('Aus deinem Skript', 'From your slides')) + ' · ' + L('S. ', 'p. ') + pages.join(', '))
       : h('span', { class: 'aisrc gen', title: L('Dazu steht nichts Passendes im Skript – Max erklärt aus allgemeinem Fachwissen.', 'Nothing matching in the slides – Max explains from general knowledge.') }, L('Allgemeinwissen, nicht aus dem Skript', 'General knowledge, not from the slides'));
   }

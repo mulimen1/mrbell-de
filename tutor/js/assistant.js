@@ -1336,7 +1336,8 @@ export function mountAssistant() {
       // Ältere Nachrichten (außerhalb der 13, die der Server mitnimmt) als kurze Übersicht – so weiß Max auch, worum es vor 20 Nachrichten ging
       const older = hist.slice(0, Math.max(0, hist.length - 13)); let FRUEHER = '';
       if (older.length) { const parts = []; older.forEach(m => { if (m.role === 'user') parts.push(L('Nutzer: ', 'User: ') + m.content.replace(/\s+/g, ' ').slice(0, 110)); else { const t = (m.content.match(/```tafel[ \t]*([^\n]*)/) || [])[1]; parts.push(L('Max: ', 'Max: ') + (t ? L('Tafel „', 'board “') + t.trim().slice(0, 60) + L('“', '”') : m.content.replace(/```[\s\S]*?```/g, '').replace(/\s+/g, ' ').slice(0, 80))); } }); let sum = parts.join(' · '); if (sum.length > 1500) sum = '…' + sum.slice(-1500); FRUEHER = L('[Früher in diesem Gespräch (ältere Nachrichten, zur Orientierung): ', '[Earlier in this conversation: ') + sum + ']'; }
-      const RULES = [FRUEHER, JETZT, GESPROCHEN, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, PFLICHT, TAFEL].filter(Boolean);
+      const VD = (curDoc() || {}).video ? L('[Der verbundene Stoff ist das Transkript eines Videos. Sprich vom Video, nie von Seiten, Folien oder einem Skript; nenne Stellen mit Zeitstempel (z. B. „bei 1:20“) statt (S. x).]', '[The linked material is a video transcript. Talk about the video, never pages or slides; cite timestamps (e.g. “at 1:20”) instead of (p. x).]') : '';
+      const RULES = [FRUEHER, JETZT, VD, GESPROCHEN, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, PFLICHT, TAFEL].filter(Boolean);
       const packs = []; let cur = '';
       for (const r of RULES) { const r2 = r.length > 3300 ? r.slice(0, 3300) + '…]' : r; if (cur && (cur + '\n' + r2).length > 3400) { packs.push(cur); cur = r2; } else cur = cur ? cur + '\n' + r2 : r2; }
       if (cur) packs.push(cur);
@@ -1377,7 +1378,7 @@ export function mountAssistant() {
       hist.push({ role: 'assistant', content: raw });
       try { Mem.remember('user', text); Mem.remember('assistant', raw); } catch (x) {}
       hist = hist.slice(-40); ls.set(CHAT, hist);
-      ex.model = r.model || ''; ex.tools = r.tools || []; ex.src = d ? (d.generated ? 'max' : 'doc') : '';
+      ex.model = r.model || ''; ex.tools = r.tools || []; ex.src = d ? (d.video ? 'video' : d.generated ? 'max' : 'doc') : '';
       await answer(raw, my, spoken, ex);
       try { STAGE?.onAnswer?.(parse(raw)); } catch (e) {}
     } catch (e) {
