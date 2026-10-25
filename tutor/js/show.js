@@ -177,8 +177,8 @@ const CSS = `
 .sh .mic svg{width:6vh;height:6vh;color:#fff}
 /* Outro */
 .sh .max .lv{position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle,rgba(79,141,255,.45),rgba(79,141,255,.12) 45%,transparent 68%);opacity:0;transform:scale(calc(1 + var(--lv,0) * .7));transition:opacity .4s,transform .08s linear;pointer-events:none}
-.sh.listen .max .lv{opacity:1}
-.sh.listen .max .ring{animation:shring 1.4s ease-out infinite}.sh.listen .max .ring.r2{animation-delay:.7s}
+.sh .max .lv{display:none}
+.sh .max.big .ring{display:none}
 .sh .typer .mk{cursor:pointer;transition:background .3s,transform .2s}.sh .typer .mk.rec{background:#e5484d;animation:shrec 1.2s ease-in-out infinite}
 @keyframes shrec{50%{box-shadow:0 0 0 10px rgba(229,72,77,.18)}}
 .sh .fly{animation:shfly 1.05s cubic-bezier(.18,1.25,.35,1) both}
