@@ -431,8 +431,9 @@ export function route(d, ans) {
 // Kurzskript zu einem Thema: dieselben Fragen, danach weiter wie gewünscht
 export async function placeTopic(d, data, target) {
   const res = { typ: 'thema', titel: d.name, fach: clean(data && data.subject, 60), fach_vorhanden: '', termine: [], ziel: '' };
-  const exF = TOOLS.includes(target) ? M.findFach(res.fach) : null;
-  const ans = TOOLS.includes(target) ? (exF ? { name: d.name, fach: exF.id, start: target } : { skip: true, name: d.name, start: target }) : await placeModal(res, { target, topic: true });   // Werkzeug gewählt: keine Fragen
+  const direct = TOOLS.includes(target) || target === 'plan';   // Werkzeug oder Klausurplan schon gewählt (z. B. aus dem Chat): keine Zwischenfrage
+  const exF = direct ? M.findFach(res.fach) : null;
+  const ans = direct ? (exF ? { name: d.name, fach: exF.id, start: target } : { skip: true, name: d.name, start: target }) : await placeModal(res, { target, topic: true });   // Werkzeug gewählt: keine Fragen
   applyPlace(d, ans);
   ls.set('tutor.learn.doc', d.id);   // In „Lernen“ ist danach genau dieses Skript ausgewählt
   return ans;
