@@ -5408,3 +5408,4 @@ html:has(.asst.multi) .rm-fl2, html:has(.asst.multi) .rm-fl3, html:has(.asst.mul
 @media (max-width: 600px) { .rm-focus { padding-right: 196px; text-align: left; justify-content: flex-start; } }
 .qz-row { display: flex; margin: 16px 0 4px; } .qz-new { margin-top: 10px; } .qz-newb.on { background: var(--panel2); color: var(--ink); }
 .ln-h2s { font-size: 14px; font-weight: 500; color: var(--mute); letter-spacing: 0; } @media (max-width: 600px) { .ln-h2s { display: none; } }
+@media (min-width: 641px) { #topicSlot.ts-top { max-width: 720px; margin: 26px auto 0; } #topicSlot.ts-top .askbar { margin: 0; box-shadow: 0 18px 40px -24px rgba(15,23,42,.35); } }

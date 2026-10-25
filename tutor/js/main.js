@@ -119,6 +119,8 @@ function initLanding() {
 
   // Ohne Skript: Max erklärt ein Thema
   $('#topicSlot')?.appendChild(topicForm());
+  // Laptop: „Was soll ich dir erklären?“ direkt unter die Überschrift – wie bei ChatGPT sofort lostippen, statt 1900 px tiefer
+  if (matchMedia('(min-width: 641px)').matches) { const ts = $('#topicSlot'), fr = $('#featrow'); if (ts && fr && fr.parentElement) { fr.parentElement.insertBefore(ts, fr); ts.classList.add('ts-top'); } }
   // … und beim Themen-Einstieg legt Max direkt los (einmal pro Besuch und Thema)
   if (TH) {
     let done = ''; try { done = sessionStorage.getItem('tutor.themaDone') || ''; } catch (e) {}
