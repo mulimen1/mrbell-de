@@ -133,6 +133,8 @@ export function render(root) {
   const go = h('button', { class: 'btn primary vt-go', type: 'button', onclick: () => start() }, L('Abschreiben', 'Transcribe'));
   url.addEventListener('keydown', e => { if (e.key === 'Enter') start(); });
   url.addEventListener('paste', () => setTimeout(() => { if (/^https?:\/\//.test(url.value.trim())) start(); }, 60));
+  // Von Max aus dem Chat geschickt („mach mir aus dem Video …“): Link steht schon drin und läuft sofort los
+  try { const pre = sessionStorage.getItem('tutor.vid.url'); if (pre) { sessionStorage.removeItem('tutor.vid.url'); url.value = pre; setTimeout(() => start(), 350); } } catch (e) {}
   const status = h('div', { class: 'vt-status', hidden: true, role: 'status' });
   const quotaEl = h('small', { class: 'vt-quota' });
   const listEl = h('div', { class: 'vt-list' });

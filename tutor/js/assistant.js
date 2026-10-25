@@ -42,12 +42,15 @@ const ACTS = {
 // Steuerbefehle, die Max ans Ende seiner Antwort schreiben darf (opts.assistant)
 const TRAINERS = { buchung: L('Buchungssatz-Trainer', 'Booking entry trainer'), tkonten: L('T-Konten-Trainer', 'T-account trainer'), breakeven: L('Break-even-Trainer', 'Break-even trainer'), kapitalwert: L('Kapitalwert-Trainer', 'NPV trainer'), markt: L('Angebot & Nachfrage', 'Supply & demand'), bilanz: L('Bilanz-Trainer', 'Balance sheet trainer') };
 const MAKE = { quiz: ['quiz', L('Quiz wird erstellt', 'Building the quiz')], exam: ['quiz', L('Probeklausur wird erstellt', 'Building the mock exam')], karten: ['karten', L('Karteikarten werden erstellt', 'Making flashcards')], podcast: ['podcast', L('Podcast wird aufgenommen', 'Recording the podcast')], zettel: ['zettel', L('Lernzettel wird geschrieben', 'Writing the study sheet')], pfad: ['pfad', L('Lernpfad wird gebaut', 'Building the study path')] };
-const CMD = /\[\[(go|make|topic|trainer|upload|voice|lang|theme|wahl|excel)(?::([^\]\n]{1,1500}))?\]\]/g;
+// Bereiche außerhalb des Tutors, in die Max direkt führt ([[seite:video]], [[seite:video:LINK]] …)
+const SEITEN = { video: ['#/app/video', L('Transkript geöffnet', 'Transcripts opened')], mitschrift: ['#/app/mitschrift', L('Mitschrift geöffnet', 'Notes opened')], excel: ['#/app/excel', L('Excel-Helfer geöffnet', 'Excel helper opened')], lernen: ['#/app/lernen', L('Lernen geöffnet', 'Learn opened')], faecher: ['#/app/faecher', L('Fächer & Noten geöffnet', 'Subjects opened')], bibliothek: ['#/app/bibliothek', L('Bibliothek geöffnet', 'Library opened')], rechner: ['#/app/rechner', L('Rechner geöffnet', 'Calculators opened')], trainer: ['#/app/trainer', L('BWL-Trainer geöffnet', 'Trainer opened')], stundenplan: ['#/app/stundenplan', L('Stundenplan geöffnet', 'Timetable opened')] };
+const CMD = /\[\[(go|make|topic|trainer|upload|voice|lang|theme|wahl|excel|seite)(?::([^\]\n]{1,1500}))?\]\]/g;
 function cmdOf(k, v) {
   v = (v || '').trim();
   if (k === 'go') return TAB[v] ? { k, v, label: L('Geöffnet: ', 'Opened: ') + TAB[v], doc: true } : null;
   if (k === 'make') return MAKE[v] ? { k, v, label: MAKE[v][1], doc: true } : null;
   if (k === 'excel') { const [a, ...r] = v.split(':'); const rest = r.join(':').trim(); if (a === 'generator') return { k, v: 'generator', task: rest, label: L('Excel-Generator geöffnet', 'Excel generator opened') }; if (a === 'trainer') return { k, v: 'trainer', label: L('Excel-Trainer geöffnet', 'Excel trainer opened') }; return /^[a-z0-9]{3,30}$/.test(a) ? { k, v: a, label: L('Excel-Vorlage geöffnet', 'Excel template opened') } : null; }
+  if (k === 'seite') { const [a, ...r] = v.split(':'); const pg = SEITEN[a.trim()]; return pg ? { k, v: a.trim(), url: r.join(':').trim(), label: pg[1] } : null; }
   if (k === 'wahl') { const o = v.split('|').map(x => x.trim()).filter(Boolean).slice(0, 4).map(x => x.slice(0, 80)); return o.length >= 2 ? { k, opts: o, label: '' } : null; }
   if (k === 'topic') return v.length > 1 ? { k, v, label: L(`An der Tafel: „${v}“`, `On the board: “${v}”`) } : null;
   if (k === 'trainer') return TRAINERS[v] ? { k, v, label: TRAINERS[v] } : null;
@@ -87,6 +90,7 @@ function parse(raw) {
   let tourSteps = null;
   text = text.replace(/```zeigen[ \t]*\n?([\s\S]*?)(```|$)/g, (_, j) => { try { const a = JSON.parse(String(j).trim()); if (Array.isArray(a)) tourSteps = a.filter(x => x && x.id && x.say).slice(0, 10).map(x => ({ id: String(x.id), say: String(x.say).slice(0, 260) })); } catch (e) {} return '\n'; });
   const acts = [], cmds = [];
+  for (let i = 0; i < 4 && /(\[\[wahl:[^\]\n]*)\]\]\s*\[\[wahl:/.test(text); i++) text = text.replace(/(\[\[wahl:[^\]\n]*)\]\]\s*\[\[wahl:/g, '$1|');   // [[wahl:A]] [[wahl:B]] → eine Auswahl
   text = text.replace(CMD, (_, k, v) => { const c = cmdOf(k, v); if (c) cmds.push(c); return ''; });
   // Kein Skript, aber „mach mir einen Podcast zu X“: erst Kurzskript, danach direkt genau dieses Werkzeug
   const tp = cmds.find(c => c.k === 'topic'), mk = cmds.find(c => c.k === 'make');
@@ -1194,7 +1198,7 @@ export function mountAssistant() {
   }
   function cmdChip(c) {
     // Rückfrage mit Auswahl: antippen = sofort Tafel dazu, kein weiterer Klick
-    if (c.k === 'wahl') { const box = h('div', { class: 'ai-wahl' }); c.opts.forEach(o => box.appendChild(h('button', { class: 'ai-cmd tap', type: 'button', onclick: () => { if (/^ich (schick|schreib|tipp|geb|sag)\w* dir (meine|die|mal)? ?(lösung|antwort|ergebnis)/i.test(o)) { inp.dataset.phLock = L('Deine Lösung …', 'Your answer …'); inp.placeholder = inp.dataset.phLock; try { inp.focus(); } catch (e) {} return; }   // „Ich schick dir meine Lösung“: nicht als Nachricht senden, sondern direkt ins Eingabefeld
+    if (c.k === 'wahl') { const box = h('div', { class: 'ai-wahl' }); c.opts.forEach(o => box.appendChild(h('button', { class: 'ai-cmd tap', type: 'button', onclick: () => { if (/^(ich (schick|schreib|tipp|geb|sag)\w* dir (meine|die|mal)? ?(komplette |ganze )?(lösung|antwort|ergebnis)|hier (ist|sind|kommt|kommen) meine (komplette |ganze )?(lösung|antwort|ergebnis)|^meine (lösung|antwort|ergebnisse?) (prüfen|checken|schicken|abgeben))/i.test(o)) { inp.dataset.phLock = L('Deine Lösung …', 'Your answer …'); inp.placeholder = inp.dataset.phLock; try { inp.focus(); } catch (e) {} return; }   // „Ich schick dir meine Lösung“: nicht als Nachricht senden, sondern direkt ins Eingabefeld
  box.querySelectorAll('button').forEach(x => { x.disabled = true; x.classList.toggle('on', x.textContent === o); }); submit(o); } }, o))); return box; }
     // Themen-Einstieg aus der Anzeige: Max bleibt im Raum – Werkzeuge nur als Angebot zum Antippen
     let stay = 0; try { stay = +sessionStorage.getItem('tutor.stay') || 0; } catch (e) {}
@@ -1211,7 +1215,7 @@ export function mountAssistant() {
   }
   async function runCmd(c, chipEl) {
     const fail = msg => { chipEl.classList.remove('run'); chipEl.classList.add('no'); chipEl.replaceChildren(h('span', { class: 'ck', html: ico('x') }), msg); };
-    const ok = () => { chipEl.classList.remove('run'); chipEl.classList.add('ok'); if (['go', 'make', 'trainer', 'topic'].includes(c.k) && feedOpen) setFeedOpen(false, { force: true }); };   // Seite frei machen
+    const ok = () => { chipEl.classList.remove('run'); chipEl.classList.add('ok'); if (['go', 'make', 'trainer', 'topic', 'seite', 'excel'].includes(c.k) && feedOpen) setFeedOpen(false, { force: true }); };   // Seite frei machen
     // Kein Skript offen, aber Max meint ein vorhandenes („deine Karten zur Bilanz“): passendes Skript aus der Bibliothek nehmen
     const findDoc = () => {
       const lastQ = ([...hist].reverse().find(m => m.role === 'user') || {}).content || '';
@@ -1255,6 +1259,7 @@ export function mountAssistant() {
         else if (c.v === 'trainer') await nav('#/app/excel/trainer');
         else { const m = await import('./xl/templates.js'); if (!m.byId(c.v)) return fail(L('Diese Vorlage gibt’s nicht – schau in die Übersicht.', 'No such template.')); chipEl.lastChild.textContent = L('Vorlage geöffnet: ', 'Template opened: ') + m.byId(c.v).title; await nav('#/app/excel/' + c.v); }
       }
+      else if (c.k === 'seite') { if (c.v === 'video' && /^https?:\/\//.test(c.url || '')) { try { sessionStorage.setItem('tutor.vid.url', c.url); } catch (e) {} } await nav(SEITEN[c.v][0]); }
       else if (c.k === 'trainer') await nav('#/app/trainer/' + c.v);
       else if (c.k === 'upload') { const f = document.getElementById('fileApp'); if (!f) { await nav('#/app'); } const f2 = await sleepUntil(() => document.getElementById('fileApp'), 2000); if (!f2) return fail(L('Upload gerade nicht möglich.', 'Upload not available right now.')); f2.click(); }
       else if (c.k === 'voice') {
@@ -1339,8 +1344,9 @@ export function mountAssistant() {
       // Ältere Nachrichten (außerhalb der 13, die der Server mitnimmt) als kurze Übersicht – so weiß Max auch, worum es vor 20 Nachrichten ging
       const older = hist.slice(0, Math.max(0, hist.length - 13)); let FRUEHER = '';
       if (older.length) { const parts = []; older.forEach(m => { if (m.role === 'user') parts.push(L('Nutzer: ', 'User: ') + m.content.replace(/\s+/g, ' ').slice(0, 110)); else { const t = (m.content.match(/```tafel[ \t]*([^\n]*)/) || [])[1]; parts.push(L('Max: ', 'Max: ') + (t ? L('Tafel „', 'board “') + t.trim().slice(0, 60) + L('“', '”') : m.content.replace(/```[\s\S]*?```/g, '').replace(/\s+/g, ' ').slice(0, 80))); } }); let sum = parts.join(' · '); if (sum.length > 1500) sum = '…' + sum.slice(-1500); FRUEHER = L('[Früher in diesem Gespräch (ältere Nachrichten, zur Orientierung): ', '[Earlier in this conversation: ') + sum + ']'; }
+      const FEAT = L('[Was BWL Max alles kann (nutze es aktiv, sag nie, etwas davon ginge nicht): Erklären an der Tafel; Mitschrift im Füller-Look aus Tipp-Notizen oder Foto ([[seite:mitschrift]]); YouTube-Video → Transkript mit Zeitstempeln, daraus Lernzettel, Mitschrift, Karteikarten, Quiz oder Podcast ([[seite:video]], hat der Nutzer schon einen Link: [[seite:video:LINK]] – dann läuft es sofort los); Excel-Helfer mit 60 Vorlagen, Generator und Excel-Trainer; Karteikarten, Quiz, Podcast, Lernpfad, Lernzettel und Klausurplan aus Skript oder Thema; BWL-Trainer mit endlosen Aufgaben ([[seite:trainer]]); Rechner mit Rechenweg ([[seite:rechner]]); Fächer & Noten mit Notenziel ([[seite:faecher]]); Stundenplan ([[seite:stundenplan]]); Bibliothek mit allem Erstellten ([[seite:bibliothek]]). Fragt jemand, was du kannst, nenn kurz: Tafel, Mitschrift, YouTube-Video → Lernzettel, Excel-Helfer und Karteikarten/Quiz/Podcast. Bekommst du einen YouTube-Link, sag nicht, du könntest ihn nicht ansehen – sag, dass du das Video jetzt abschreibst, und setz [[seite:video:LINK]].]', '[What BWL Max can do: board explanations, notes ([[seite:mitschrift]]), YouTube video → transcript → study sheet, flashcards, quiz, podcast ([[seite:video:LINK]]), Excel helper, flashcards/quiz/podcast/study path/exam plan, trainer ([[seite:trainer]]), calculators ([[seite:rechner]]), subjects & grades ([[seite:faecher]]), library ([[seite:bibliothek]]).]');
       const VD = (curDoc() || {}).video ? L('[Der verbundene Stoff ist das Transkript eines Videos. Sprich vom Video, nie von Seiten, Folien oder einem Skript; nenne Stellen mit Zeitstempel (z. B. „bei 1:20“) statt (S. x).]', '[The linked material is a video transcript. Talk about the video, never pages or slides; cite timestamps (e.g. “at 1:20”) instead of (p. x).]') : '';
-      const RULES = [FRUEHER, JETZT, VD, GESPROCHEN, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, PFLICHT, TAFEL].filter(Boolean);
+      const RULES = [FRUEHER, JETZT, FEAT, VD, GESPROCHEN, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, PFLICHT, TAFEL].filter(Boolean);
       const packs = []; let cur = '';
       for (const r of RULES) { const r2 = r.length > 3300 ? r.slice(0, 3300) + '…]' : r; if (cur && (cur + '\n' + r2).length > 3400) { packs.push(cur); cur = r2; } else cur = cur ? cur + '\n' + r2 : r2; }
       if (cur) packs.push(cur);
