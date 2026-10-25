@@ -42,11 +42,12 @@ const ACTS = {
 // Steuerbefehle, die Max ans Ende seiner Antwort schreiben darf (opts.assistant)
 const TRAINERS = { buchung: L('Buchungssatz-Trainer', 'Booking entry trainer'), tkonten: L('T-Konten-Trainer', 'T-account trainer'), breakeven: L('Break-even-Trainer', 'Break-even trainer'), kapitalwert: L('Kapitalwert-Trainer', 'NPV trainer'), markt: L('Angebot & Nachfrage', 'Supply & demand'), bilanz: L('Bilanz-Trainer', 'Balance sheet trainer') };
 const MAKE = { quiz: ['quiz', L('Quiz wird erstellt', 'Building the quiz')], exam: ['quiz', L('Probeklausur wird erstellt', 'Building the mock exam')], karten: ['karten', L('Karteikarten werden erstellt', 'Making flashcards')], podcast: ['podcast', L('Podcast wird aufgenommen', 'Recording the podcast')], zettel: ['zettel', L('Lernzettel wird geschrieben', 'Writing the study sheet')], pfad: ['pfad', L('Lernpfad wird gebaut', 'Building the study path')] };
-const CMD = /\[\[(go|make|topic|trainer|upload|voice|lang|theme|wahl)(?::([^\]\n]{1,240}))?\]\]/g;
+const CMD = /\[\[(go|make|topic|trainer|upload|voice|lang|theme|wahl|excel)(?::([^\]\n]{1,1500}))?\]\]/g;
 function cmdOf(k, v) {
   v = (v || '').trim();
   if (k === 'go') return TAB[v] ? { k, v, label: L('Geöffnet: ', 'Opened: ') + TAB[v], doc: true } : null;
   if (k === 'make') return MAKE[v] ? { k, v, label: MAKE[v][1], doc: true } : null;
+  if (k === 'excel') { const [a, ...r] = v.split(':'); const rest = r.join(':').trim(); if (a === 'generator') return { k, v: 'generator', task: rest, label: L('Excel-Generator geöffnet', 'Excel generator opened') }; if (a === 'trainer') return { k, v: 'trainer', label: L('Excel-Trainer geöffnet', 'Excel trainer opened') }; return /^[a-z0-9]{3,30}$/.test(a) ? { k, v: a, label: L('Excel-Vorlage geöffnet', 'Excel template opened') } : null; }
   if (k === 'wahl') { const o = v.split('|').map(x => x.trim()).filter(Boolean).slice(0, 4).map(x => x.slice(0, 80)); return o.length >= 2 ? { k, opts: o, label: '' } : null; }
   if (k === 'topic') return v.length > 1 ? { k, v, label: L(`An der Tafel: „${v}“`, `On the board: “${v}”`) } : null;
   if (k === 'trainer') return TRAINERS[v] ? { k, v, label: TRAINERS[v] } : null;
@@ -168,7 +169,9 @@ export function mountAssistant() {
   const host = document.getElementById('app');
   if (!host) return null;
 
-  let hist = (ls.get(CHAT, []) || []).filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string').slice(-20);
+  // Antworten aus der Zeit, als Fragen abgeschnitten wurden („nur Seitenkontext angekommen“), fliegen raus – sonst wiederholt Max das Muster
+  const BROKEN = /(nur|wieder nur)( der| als)? Seitenkontext|Seitenkontext angekommen|keine (neue )?Frage (von dir )?(steckt|ist|kam)/i;
+  let hist = (ls.get(CHAT, []) || []).filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && !(m.role === 'assistant' && BROKEN.test(m.content))).slice(-20);
   let open = false, typing = false, state = 'idle', ctrl = null, gen = 0, viaVoice = false;
   let rec = null, stream = null, chunks = [], actx = null, raf = 0, lsess = null;
   let boards = [], bIdx = 0, boardOpen = false, boardMin = false, capTimer = 0;
@@ -903,12 +906,18 @@ export function mountAssistant() {
   // ---------- Tafel ----------
   // Knopf in der Nachricht: holt genau diese Tafel zurück – auch wenn sie gelöscht oder eingeklappt wurde
   function boardBtn(b) {
-    return h('button', { class: 'ai-cmd link bshow', type: 'button', title: b.title, onclick: () => {
+    const lab = h('span', { class: 'bshow-l' }), ttl = h('small', {}, b.title.length > 48 ? b.title.slice(0, 47) + '…' : b.title);
+    const btn = h('button', { class: 'ai-cmd bshow', type: 'button', title: b.title, onclick: () => {
+      if (isShown()) { minBoard(true); syncBtns(); return; }
       let i = boards.findIndex(x => x.title === b.title && x.html === b.html);
       if (i < 0) { boards.push(b); i = boards.length - 1; }
-      bIdx = i; drawBoard(false); openBoard();
-    } }, h('span', { class: 'ck', html: ico('board') }), L('Tafel: ', 'Board: ') + (b.title.length > 34 ? b.title.slice(0, 33) + '…' : b.title));
+      bIdx = i; drawBoard(false); openBoard(); syncBtns();
+    } }, h('span', { class: 'ck', html: ico('board') }), h('span', { class: 'bshow-t' }, lab, ttl));
+    const isShown = () => boardOpen && !boardMin && boards[bIdx] && boards[bIdx].title === b.title && boards[bIdx].html === b.html;
+    btn._sync = () => { const on = isShown(); lab.textContent = on ? L('Tafel schließen', 'Close board') : L('Tafel öffnen', 'Open board'); btn.classList.toggle('on', on); };
+    btn._sync(); return btn;
   }
+  function syncBtns() { document.querySelectorAll('.bshow').forEach(x => x._sync && x._sync()); }
   // Seite erscheint: Überschrift Buchstabe für Buchstabe, danach gleiten die Abschnitte nacheinander rein
   function appear(t) {
     const tt = t.querySelector('.tt'); if (!tt) return;
@@ -1121,7 +1130,7 @@ export function mountAssistant() {
   }
   function endBuilding() { bootDone(); if (!building) return; building = false; clearInterval(bldT); boardDone(); if (boards.length) drawBoard(false); else { bArea.replaceChildren(); closeBoard(); } }
   function closeBoard() { setFs(false); boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); syncLock(); boardHook(); }
-  function boardHook() { try { STAGE?.onBoard?.(boardOpen && !boardMin); } catch (e) {} syncPage(); placeHist(); setTimeout(placeHist, 700); }
+  function boardHook() { try { STAGE?.onBoard?.(boardOpen && !boardMin); } catch (e) {} syncPage(); placeHist(); setTimeout(placeHist, 700); try { syncBtns(); } catch (e) {} }
   // Tafel „schreibt mit“: Abschnitte erscheinen im Takt der Stimme
   function writeAlong(t, progress) {
     const kids = [...t.children].filter(k => !k.classList.contains('tt'));
@@ -1218,6 +1227,11 @@ export function mountAssistant() {
         if (STAGE) setTimeout(() => submit(q), 300);
         else { ls.set('tutor.pendingAsk', q); if (open) closeAnimated(); location.hash = '#/app/tutor'; } }
       }
+      else if (c.k === 'excel') {   // Max führt direkt in den Excel-Helfer: Vorlage, Generator (mit der Aufgabe, läuft sofort los) oder Trainer
+        if (c.v === 'generator') { try { sessionStorage.setItem('tutor.xlgen.task', c.task || ''); } catch (e) {} await nav('#/app/excel/generator'); }
+        else if (c.v === 'trainer') await nav('#/app/excel/trainer');
+        else { const m = await import('./xl/templates.js'); if (!m.byId(c.v)) return fail(L('Diese Vorlage gibt’s nicht – schau in die Übersicht.', 'No such template.')); chipEl.lastChild.textContent = L('Vorlage geöffnet: ', 'Template opened: ') + m.byId(c.v).title; await nav('#/app/excel/' + c.v); }
+      }
       else if (c.k === 'trainer') await nav('#/app/trainer/' + c.v);
       else if (c.k === 'upload') { const f = document.getElementById('fileApp'); if (!f) { await nav('#/app'); } const f2 = await sleepUntil(() => document.getElementById('fileApp'), 2000); if (!f2) return fail(L('Upload gerade nicht möglich.', 'Upload not available right now.')); f2.click(); }
       else if (c.k === 'voice') {
@@ -1288,15 +1302,20 @@ export function mountAssistant() {
       pendingMap = null;
       let KNOW = ''; try { KNOW = knowledge(); } catch (e) {}
       const KURZ = spoken ? L('[Gesprochenes Gespräch: Antworte wie im echten Gespräch – höchstens 2–3 kurze Sätze, direkt auf den Punkt. Ausführliches gehört an die Tafel.]', '[Spoken conversation: answer like a real conversation – 2–3 short sentences max, straight to the point. Anything detailed goes on the board.]') : '';
+      const JETZT = L('[Wichtig: Beantworte immer genau die aktuelle Nachricht des Nutzers (steht ganz unten). Frühere Themen nur, wenn sie sich darauf bezieht. Behaupte nie, eine Nachricht sei nicht angekommen. Kannst du etwas nicht, sag es klar in einem Satz und biete die beste Möglichkeit in BWL Max an.]', '[Important: always answer exactly the user’s current message (at the very bottom). Never claim a message did not arrive. If you cannot do something, say so in one sentence and offer the best option in BWL Max.]');
+      let XL = '';
+      if (/ex[ck]?[ce]?l|xls|tabell|vorlage|spreadsheet|sheet|formel/i.test(text)) { try { const m = await import('./xl/templates.js'); XL = L(`[Excel in BWL Max: Es gibt den Excel-Helfer mit ${m.TEMPLATES.length} geprüften Vorlagen (echte .xlsx mit Formeln zum Herunterladen), einen Excel-Generator (baut aus einer Aufgabe eine eigene .xlsx) und einen Excel-Trainer (Excel lernen mit Kürzeln). Will der Nutzer eine Excel-Datei: Passt eine Vorlage, öffne sie mit [[excel:ID]] und sag in 1–2 Sätzen, was er dort eintragen muss. Passt keine, öffne den Generator mit [[excel:generator:vollständige Aufgabe mit allen Zahlen]] – er baut die Datei sofort. Will er Excel lernen: [[excel:trainer]]. Erklär den Rechenweg zusätzlich kurz an der Tafel, wenn es hilft. Sag nie, du könntest keine Excel-Datei erstellen. Vorlagen-IDs: ${m.TEMPLATES.map(t => t.id).join(', ')}]`, `[Excel in BWL Max: open a matching template with [[excel:ID]], otherwise the generator with [[excel:generator:full task]], to learn Excel [[excel:trainer]]. Templates: ${m.TEMPLATES.map(t => t.id + ': ' + t.title).join('; ')}]`); } catch (e) {} }
       const PFLICHT = SEITE ? '' : L('[Tafel-Regel (immer): Will der Nutzer etwas erklärt bekommen, eine Übersicht, eine Zusammenfassung, Hilfe bei einer Aufgabe oder ein Thema lernen, antwortest du SOFORT mit einer Tafel (```tafel Titel … ```) – nicht erst fragen, ob du es an die Tafel schreiben sollst, und kein Kurzskript anlegen ([[topic:…]] nur zusammen mit Karteikarten, Quiz oder Podcast). Ist wirklich unklar, was gemeint ist, frag EINMAL ganz kurz zurück und hänge die Auswahl an: [[wahl:Option A|Option B|Option C]] (2–4 kurze Optionen, die jeweils als vollständiger Wunsch funktionieren, z. B. „Erklär mir die Vollkostenrechnung“). Keine Tafel nur bei Karteikarten, Podcast, Lernpfad, Quiz, Smalltalk oder einer reinen Ja/Nein-Frage.]', '[Board rule (always): if the user wants an explanation, overview, summary, help with a task or to learn a topic, answer IMMEDIATELY with a board (```tafel Title … ```) – do not ask whether to use the board and do not create a short script ([[topic:…]] only together with flashcards, quiz or podcast). If it is genuinely unclear, ask ONE short question and append the choices: [[wahl:Option A|Option B|Option C]] (2–4 short options, each a complete request). No board only for flashcards, podcast, study path, quiz, small talk or a plain yes/no question.]');
       // Der Server kürzt jede Nachricht auf 6000 Zeichen (von hinten) – damit die eigentliche Frage nie abgeschnitten wird,
       // werden Seitenkontext und Wissen gekürzt, nicht die Regeln und nie die Frage.
-      const LIM = 5600, fixed = [WECHSEL, REF, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', PFLICHT, TAFEL].filter(Boolean);
-      let room = LIM - text.length - fixed.join('\n').length - 40;
+      const LIM = 3700, fixed = [JETZT, WECHSEL, REF, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, PFLICHT, TAFEL].filter(Boolean);
+      let room = LIM - text.length - Math.min(text.length, 1202) - fixed.join('\n').length - 140;
       const fit = x => { x = String(x || ''); if (room <= 0 || !x) return ''; const y = x.length > room ? x.slice(0, Math.max(0, room - 1)) + '…' : x; room -= y.length + 1; return y; };
       const SEITE2 = fit(SEITE), ctx2 = fit(ctxLine), KNOW2 = fit(KNOW);
       const pre = [ctx2, KNOW2, ...fixed, SEITE2].filter(Boolean).join('\n');
-      if (pre) messages[messages.length - 1].content = pre + '\n' + L('[Nachricht des Nutzers:]', '[User message:]') + '\n' + text;
+      // Frage steht vorne UND hinten: Der Server kürzt lange Nachrichten von hinten – so kommt sie immer an
+      const q1 = text.length > 1200 ? text.slice(0, 1200) + ' …' : text;
+      if (pre) messages[messages.length - 1].content = L('[Aktuelle Nachricht des Nutzers – darauf antwortest du:]', '[Current user message – answer this:]') + '\n' + q1 + '\n\n' + pre + '\n' + L('[Nachricht des Nutzers (dieselbe wie oben):]', '[User message (same as above):]') + '\n' + text;
       const payload = { messages, opts: Object.assign({ mode: maxMode(), spice: getSpice(), voice: spoken, assistant: true, mem: Mem.memOn() }, o.entry ? { entry: true } : {}) };
       const d = curDoc();
       const mat = STAGE && STAGE.material ? STAGE.material(text) : null;
@@ -1371,10 +1390,6 @@ export function mountAssistant() {
     const acts = p.acts.map(a => ({ a, href: ACTS[a][1](curDoc() || S.doc) })).filter(x => x.href);
     const extras = [...p.cmds.map(c => cmdChip(c)), ...acts.map(({ a, href }) => h('a', { class: 'ai-cmd link', href }, ACTS[a][0]))];
     p.boards.forEach(b => extras.push(boardBtn(b)));
-    if (!(spoken && cfg.spk) && p.text && cfg.spk) extras.push(listenBtn(p.text, txt, ex));
-    if (p.text && p.text.length > 60) { const q = [...hist].reverse().find(m => m.role === 'user')?.content || ''; const d = curDoc(); extras.push(favChip({ typ: 'erklaerung', titel: (q || plainT(p.text)).slice(0, 90), doc: d?.id || '', docName: d?.name || '', ref: favKey(p.text), inhalt: plainT(p.text) })); }
-    // Vorgerechnete Lösung → Zwillingsaufgabe zum Selbstrechnen
-    if ((ex.tools && ex.tools.length) || p.boards.some(b => /class="(calc|step|result|bs|tkonto)"/.test(b.html))) extras.push(h('button', { class: 'ai-cmd link', type: 'button', onclick: () => submit(L('Gib mir eine Zwillingsaufgabe dazu: gleiche Struktur, neue Zahlen. Erst nur die Aufgabe – die Lösung zeigst du erst, wenn ich meine Antwort geschickt oder „Lösung“ geschrieben habe.', 'Give me a twin exercise: same structure, new numbers. Only the task first – show the solution only once I’ve sent my answer or typed “solution”.')) }, L('Zwillingsaufgabe', 'Twin exercise')));
     if (!STAGE && route().tab && route().tab !== 'room' && (p.boards.length || (p.text || '').length > 280)) extras.push(h('a', { class: 'ai-cmd link ai-room', href: '#/app/tutor', onclick: () => ls.set('tutor.room.continue', 1) }, h('span', { class: 'ck', html: ico('right') }), L('Im Tutor weitermachen', 'Continue in the tutor')));
     if (ex.model !== undefined) extras.push(aiTag(ex.tools, raw, ex.src));
     ex.aX.replaceChildren(...(ex.sketch ? [] : calm ? (ex.model !== undefined ? extras.slice(-1) : []) : extras));

@@ -7,6 +7,7 @@ import { Grid, MAC } from './grid.js';
 import { LESSONS, LEVELS } from './lessons.js';
 
 const STORE = 'tutor.xltrain';
+const DISCL = () => h('p', { class: 'xt-disc' }, h('b', {}, 'Nur zum Lernen. '), 'Hinweis: Der Excel-Trainer ist ein eigener Nachbau von BWL Max – keine Microsoft-Software und kein Microsoft-Produkt. Er dient ausschließlich dem Lernen und soll dir nur helfen. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert. Microsoft und Excel sind Marken der Microsoft Corporation.');
 const prog = () => { const p = ls.get(STORE, null); return p && p.done ? p : { done: {} }; };
 const saveProg = p => ls.set(STORE, p);
 
@@ -48,7 +49,8 @@ function overview(el) {
     h('div', { class: 'xt-hero' }, fEl,
       h('div', { class: 'xt-htx' }, h('b', {}, 'Excel lernen – mit Max.'), h('p', {}, 'Ein echter Excel-Nachbau, echte Tastenkürzel, echte BWL-Aufgaben. Max führt dich Schritt für Schritt – vom ersten =B2*C2 bis zum Tilgungsplan. Du machst es selbst, er sagt dir sofort, ob’s sitzt.'),
         h('div', { class: 'xt-hst' }, h('span', {}, h('b', {}, String(LESSONS.filter(l => done(l.id)).length)), ' / ' + total + ' Lektionen'), h('span', {}, h('b', {}, String(stars)), ' / ' + total * 3 + ' ★'),
-          h('button', { class: 'btn primary xt-go', type: 'button', onclick: () => play(el, next.id) }, h('span', { html: ico('right') }), stars ? 'Weiter: ' + next.title : 'Los geht’s')))),
+          h('button', { class: 'btn primary xt-go', type: 'button', onclick: () => stars ? play(el, next.id) : pickLevel(el) }, h('span', { html: ico('right') }), stars ? 'Weiter: ' + next.title : 'Los geht’s'), stars ? h('button', { class: 'btn ghost sm', type: 'button', onclick: () => pickLevel(el) }, 'Stufe wählen') : null))),
+    DISCL(),
     matchMedia('(pointer: coarse)').matches ? h('p', { class: 'xt-phone' }, 'Tipp: Am Laptop macht’s am meisten Sinn – dort funktionieren die Tastenkürzel wie im echten Excel.') : null,
     h('div', { class: 'xt-levels' }, LEVELS.map(lv => {
       const ls2 = LESSONS.filter(l => l.lvl === lv.n), got = ls2.filter(l => done(l.id)).length;
@@ -57,6 +59,16 @@ function overview(el) {
         h('ol', {}, ls2.map((l, i) => { const d = done(l.id); return h('li', {}, h('button', { type: 'button', class: 'xt-ls' + (d ? ' done' : ''), onclick: () => play(el, l.id) }, h('span', { class: 'xt-lsn' }, d ? '✓' : String(i + 1)), h('span', { class: 'xt-lst' }, h('b', {}, l.title, l.challenge ? h('em', {}, 'Challenge') : null), h('small', {}, l.desc)), d ? starRow(d.stars) : h('span', { class: 'xt-lsgo', html: ico('right') }))); })));
     })),
     cheat());
+}
+// Einstieg: Wie viel Excel kannst du schon? – dann direkt in der passenden Stufe loslegen
+function pickLevel(el) {
+  const OPTS = [[1, 'Noch nicht viel', 'Ich will die Basics: Eingeben, erste Formeln, Summe, Ausfüllen.'], [2, 'Formeln und SUMME kann ich', 'Zeig mir $-Bezüge, WENN, Prozente und schnelles Navigieren.'], [3, 'Ich bin schon fit', 'Direkt zu Kapitalwert, Tilgungsplan, INDEX/VERGLEICH und SUMMEWENNS.']];
+  const close = () => ov.remove();
+  const ov = h('div', { class: 'xt-pick', role: 'dialog', 'aria-label': 'Wie viel Excel kannst du schon?', onclick: e => { if (e.target === ov) close(); } },
+    h('div', { class: 'xt-pcard' }, h('b', {}, 'Wie viel Excel kannst du schon?'), h('p', {}, 'Ehrlich sein lohnt sich – du kannst jederzeit eine Stufe wechseln.'),
+      OPTS.map(([n, t, sub]) => { const lv = LEVELS.find(x => x.n === n); return h('button', { type: 'button', class: 'xt-popt', style: { '--lc': lv.col }, onclick: () => { close(); ls.set('tutor.xltrain.lvl', n); play(el, LESSONS.find(l => l.lvl === n).id); } }, h('span', { class: 'xt-lvn' }, 'Stufe ' + n + ' · ' + lv.title), h('strong', {}, t), h('small', {}, sub)); }),
+      h('button', { type: 'button', class: 'btn ghost sm', onclick: close }, 'Abbrechen')));
+  document.body.append(ov); setTimeout(() => ov.querySelector('.xt-popt')?.focus(), 30);
 }
 function cheat() {
   const R = [['Eingabe speichern, nach unten / rechts', 'enter', 'tab'], ['Zelle bearbeiten', 'f2', MAC ? 'ctrl+U' : null], ['Abbrechen', 'esc'], ['Rückgängig', 'mod+Z'], ['Kopieren / Einfügen', 'mod+C', 'mod+V'], ['Nach unten / rechts ausfüllen', 'mod+D', 'mod+R'], ['AutoSumme', 'autosum'], ['Bezug fixieren ($)', 'f4'], ['Euro / Prozent', 'fmt4', 'fmt5'], ['Fett', 'bold'], ['Ans Ende der Daten springen', 'mod+down', 'mod+right'], ['Bis zum Ende markieren', 'mod+shift+down']];
@@ -99,7 +111,7 @@ async function play(el, id) {
   const list = h('ol', { class: 'xt-steps' }, Ls.steps.map((s, k) => h('li', {}, h('i', {}, String(k + 1)), h('span', {}, rich(s.say.split(/[.:!?](\s|$)/)[0].replace(/\*\*/g, '').slice(0, 64))))));
   const coach = h('aside', { class: 'xt-coach' }, h('div', { class: 'xt-chd' }, fEl, h('div', {}, h('b', {}, 'Max'), cnt)), bubble, hintBox, h('div', { class: 'xt-cbtn' }, hintBtn, solveBtn), list);
   const stage = h('div', { class: 'xt-stage' }, win, coach);
-  const playEl = h('div', { class: 'xt-play' }, top, stage);
+  const playEl = h('div', { class: 'xt-play' }, top, stage, DISCL());
   el.replaceChildren(playEl);
   function showHint() { const st = Ls.steps[i]; hintBox.hidden = false; hintBox.replaceChildren(h('span', { html: ico('bulb') }), h('span', {}, rich(st.hint || 'Lies die Aufgabe nochmal Wort für Wort – jede Taste steht drin.'))); }
   function setStep(k) {

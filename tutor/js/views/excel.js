@@ -26,7 +26,7 @@ export function render(root, { arg = '' } = {}) {
   const tabs = h('div', { class: 'xl-tabs', role: 'tablist' },
     h('a', { class: 'xl-tab' + (tab === 'tpl' ? ' on' : ''), href: '#/app/excel', role: 'tab' }, h('span', { html: ico('library') }), L('Vorlagen', 'Templates'), h('b', {}, String(TEMPLATES.length))),
     h('a', { class: 'xl-tab' + (tab === 'gen' ? ' on' : ''), href: '#/app/excel/generator', role: 'tab' }, h('span', { html: ico('spark') }), L('Generator', 'Generator'), h('b', { class: 'xl-new' }, 'KI')),
-    h('a', { class: 'xl-tab' + (tab === 'train' ? ' on' : ''), href: '#/app/excel/trainer', role: 'tab' }, h('span', { html: ico('play') }), L('Trainer', 'Trainer'), h('b', { class: 'xl-new' }, L('NEU', 'NEW'))));
+    h('a', { class: 'xl-tab xl-tr' + (tab === 'train' ? ' on' : ''), href: '#/app/excel/trainer', role: 'tab' }, h('span', { html: ico('play') }), L('Trainer', 'Trainer'), h('b', { class: 'xl-new' }, L('NEU', 'NEW'))));
   const body = h('div', { class: 'xl-body' });
   wrap.append(head, tabs, body, h('p', { class: 'foot-tm' }, TM));
   if (tpl) openTemplate(body, tpl);
@@ -238,6 +238,8 @@ function generator(body) {
   const recent = ls.get('tutor.xlgen.list', []) || [];
   if (recent.length) out.append(h('div', { class: 'xl-recent' }, h('b', {}, L('Deine letzten Dateien', 'Your recent files')), recent.map((r, i) => h('button', { type: 'button', class: 'chip', onclick: () => showResult(r.spec, r.title, r.file) }, icoXL(), r.title))));
 
+  // Von Max geschickt: Aufgabe steht schon drin, der Generator legt sofort los
+  setTimeout(() => { let t = ''; try { t = sessionStorage.getItem('tutor.xlgen.task') || ''; sessionStorage.removeItem('tutor.xlgen.task'); } catch (e) {} if (t.trim().length >= 15) { ta.value = t.trim(); run(); } else if (t.trim()) { ta.value = t.trim(); ta.focus(); } }, 300);
   const STEPS = [L('Max liest deine Aufgabe …', 'Max reads your task …'), L('Baut die Tabelle mit Eingaben und Formeln …', 'Builds the sheet with inputs and formulas …'), L('Rechnet jede Formel nach …', 'Checks every formula …'), L('Zweite Prüfung: rechnet die Ergebnisse unabhängig nach …', 'Second check: recalculates the results independently …')];
   function step(i, extra) { status.hidden = false; status.replaceChildren(...STEPS.map((t, k) => h('div', { class: 'xl-step' + (k < i ? ' done' : k === i ? ' now' : '') }, h('i'), k === i && extra ? extra : t))); }
   async function run() {
