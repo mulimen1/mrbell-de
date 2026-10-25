@@ -297,7 +297,13 @@ export function render(root, ctx = {}) {
     const tog = h('button', { class: 'rm-skt', type: 'button', 'aria-expanded': String(isOpen) }, h('span', { html: ico('brain') }), h('b', {}, L('Lernskills', 'Study skills')), h('span', { class: 'rm-sktc', 'aria-hidden': 'true' }, '▾'));
     const set = v => { isOpen = v; skills.classList.toggle('rm-skopen', v); tog.setAttribute('aria-expanded', String(v)); };
     tog.onclick = () => set(!isOpen);
-    skills.replaceChildren(tog, body); set(isOpen);
+    // Leerer Chat wie bei ChatGPT: drei antippbare Startfragen – passend zum verbundenen Skript, sonst typische Klausurthemen
+    const d0 = focusDocs()[0];
+    const POOL = [['Erklär mir den Kapitalwert an einem Beispiel', 'Explain net present value with an example'], ['Wie bilde ich einen Buchungssatz?', 'How do I write a journal entry?'], ['Rechne mit mir einen Break-even durch', 'Work through a break-even with me'], ['Was ist der Unterschied zwischen Aufwand und Kosten?', 'What is the difference between expenses and costs?'], ['Erklär mir die Zuschlagskalkulation', 'Explain job-order costing'], ['Wie funktioniert die Bilanz?', 'How does the balance sheet work?']];
+    const day = new Date().getDate(), pick = [0, 1, 2].map(k => POOL[(day + k * 2) % POOL.length]);
+    const st = d0 ? [[`Erklär mir das Wichtigste aus „${d0.name}“`, `Explain the key points of “${d0.name}”`], [`Frag mich zu „${d0.name}“ ab`, `Quiz me on “${d0.name}”`], pick[0]] : pick;
+    const starters = h('div', { class: 'rm-start' }, st.map(([de, en]) => h('button', { class: 'chip rm-stc', type: 'button', onclick: () => ask(L(de, en)) }, L(de, en))));
+    skills.replaceChildren(starters, tog, body); set(isOpen);
     askSlot.replaceChildren();
   }
 
@@ -356,7 +362,7 @@ export function render(root, ctx = {}) {
     const ds = focusDocs();
     focusRow.replaceChildren(...(ds.length
       ? [h('span', { class: 'rm-fl2' }, L('Verbunden mit', 'Linked to')), ...ds.map(d => h('span', { class: 'rm-chip' }, h('span', { html: ico(d.generated ? 'bulb' : 'file') }), h('span', { class: 'rm-cn' }, d.name), h('button', { type: 'button', 'aria-label': L('Entfernen', 'Remove'), html: ico('x'), onclick: () => { setFocus(getFocus().filter(x => x !== d.id)); drawFocus(); drawRails(); drawSugg(); } })))]
-      : [h('span', { class: 'rm-fl2 soft' }, L('Kein Skript verbunden – ich nehm mein BWL-Wissen (und finde deine Unterlagen, wenn du danach fragst). ', 'No slides linked – I use my business knowledge (and find your material when you ask). '), h('button', { class: 'linkbtn rm-fl3', type: 'button', onclick: () => toggleRail(true) }, L('Mit vorhandenem Skript verbinden', 'Link existing slides')))]));
+      : [h('span', { class: 'rm-fl2 soft' }, matchMedia('(max-width: 600px)').matches ? L('Ohne Skript – mit BWL-Wissen. ', 'No slides – general knowledge. ') : L('Kein Skript verbunden – ich nehm mein BWL-Wissen (und finde deine Unterlagen, wenn du danach fragst). ', 'No slides linked – I use my business knowledge (and find your material when you ask). '), h('button', { class: 'linkbtn rm-fl3', type: 'button', onclick: () => toggleRail(true) }, matchMedia('(max-width: 600px)').matches ? L('Skript verbinden', 'Link slides') : L('Mit vorhandenem Skript verbinden', 'Link existing slides')))]));
   }
   // Nur noch „Weiter, wo wir waren“ – die Skills stehen oben als Kacheln
   function drawSugg() {

@@ -5400,3 +5400,9 @@ html:has(.asst.multi) .rm-fl2, html:has(.asst.multi) .rm-fl3, html:has(.asst.mul
 /* Handy: Session-Leiste – Beenden nur als Symbol-Breite, nichts läuft raus */
 @media (max-width: 600px) { .rm-end-b { max-width: 96px; overflow: hidden; text-overflow: ellipsis; } }
 @media (max-width: 760px) { .mtip2 { width: min(372px, calc(100vw - 20px)); max-width: none !important; } }
+/* Tutor leer: Startfragen */
+.rm-start { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 auto 14px; max-width: 680px; }
+.rm-start .rm-stc { height: auto; min-height: 38px; padding: 8px 14px; font-size: 14px; line-height: 1.3; text-align: center; white-space: normal; background: var(--panel); border: 1px solid var(--line2); box-shadow: 0 4px 14px -10px rgba(0,0,0,.3); }
+.rm-start .rm-stc:hover { border-color: var(--ink); }
+@media (max-width: 600px) { .rm-start { flex-direction: column; align-items: stretch; padding: 0 12px; } .rm-start .rm-stc { font-size: 13.5px; } }
+@media (max-width: 600px) { .rm-focus { padding-right: 196px; text-align: left; justify-content: flex-start; } }
