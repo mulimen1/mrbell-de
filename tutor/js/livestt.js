@@ -1,9 +1,14 @@
 // Live-Mitschrift: Während du sprichst, erscheint dein Text sofort (ElevenLabs Echtzeit, Einmal-Token vom Server).
 // Fällt das aus, nimmt der Aufrufer wie bisher die normale Aufnahme.
 import { ask } from './api.js';
+import { lang } from './i18n.js';
 
 const WS = 'wss://api.elevenlabs.io/v1/speech-to-text/realtime?model_id=scribe_v2_realtime&audio_format=pcm_16000&commit_strategy=manual&token=';
 const RATE = 16000;
+// Bessere Erkennung ohne Mehrkosten: Sprache fest vorgeben (keine Auto-Erkennung), Fachbegriffe als Schlüsselwörter, „äh“ raus, Hintergrund filtern
+// ElevenLabs: Begriffe höchstens 20 Zeichen (sonst lehnt der Dienst die Verbindung ab), höchstens 50 Stück
+const KEYTERMS = ['Soll an Haben', 'BWL', 'Wiwi', 'BWL Max', 'Kostenrechnung', 'Kosten- und Leistungsrechnung', 'Deckungsbeitrag', 'Break-even', 'Fixkosten', 'variable Kosten', 'Gemeinkosten', 'Einzelkosten', 'Zuschlagskalkulation', 'Betriebsabrechnungsbogen', 'BAB', 'Divisionskalkulation', 'Äquivalenzziffern', 'Kapitalwert', 'Kapitalwertmethode', 'interner Zinsfuß', 'Annuität', 'Annuitätenmethode', 'Amortisation', 'Amortisationsdauer', 'Abzinsungsfaktor', 'Barwert', 'Tilgungsplan', 'Disagio', 'Effektivzins', 'Skonto', 'WACC', 'CAPM', 'Leverage-Effekt', 'Abschreibung', 'AfA', 'degressiv', 'Bilanz', 'GuV', 'Aktiva', 'Passiva', 'Eigenkapital', 'Fremdkapital', 'Rückstellungen', 'Rechnungsabgrenzung', 'Umsatzsteuer', 'Vorsteuer', 'Buchungssatz', 'Soll', 'Haben', 'T-Konto', 'HGB', 'IFRS', 'Cashflow', 'EBIT', 'EBITDA', 'Liquidität', 'Rentabilität', 'Eigenkapitalrentabilität', 'ROI', 'Controlling', 'Plankostenrechnung', 'Grenzkosten', 'Grenzerlös', 'Preis-Absatz-Funktion', 'Cournot', 'Elastizität', 'Opportunitätskosten', 'Make-or-Buy', 'Marketing-Mix', 'SWOT', 'Porter', 'Andler', 'ABC-Analyse', 'Mikroökonomie', 'Makroökonomie', 'Excel', 'SVERWEIS', 'Klausur', 'Tafel', 'Mindmap', 'Karteikarten'];
+const params = () => '&language_code=' + (lang === 'en' ? 'en' : 'de') + '&no_verbatim=true&filter_background_audio=true' + KEYTERMS.filter(k => k.length <= 20).slice(0, 50).map(k => '&keyterms=' + encodeURIComponent(k)).join('');
 
 export function startLive(actx, stream, { onText = () => {} } = {}) {
   let ws = null, dead = false, committed = '', partial = '', sent = 0;
@@ -53,7 +58,7 @@ export function startLive(actx, stream, { onText = () => {} } = {}) {
     if (dead) throw new Error('audio');
     const r = await ask('live', {});
     if (dead) return;
-    ws = new WebSocket(WS + encodeURIComponent(r.token));
+    ws = new WebSocket(WS + encodeURIComponent(r.token) + params());
     if (dead) { try { ws.close(); } catch (e) {} return; }
     ws.onopen = () => { for (const m of queue) ws.send(m); sent += queue.length; queue = []; onOpen(); };
     ws.onmessage = e => {

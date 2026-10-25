@@ -5152,3 +5152,8 @@ html .tn .tn-new.tn-xlnew { display: inline-block !important; margin-left: 2px; 
 .xt-popt { display: grid; gap: 3px; text-align: left; padding: 14px 16px; border-radius: 16px; border: 1.5px solid var(--line); background: var(--panel); cursor: pointer; font: inherit; color: var(--ink); transition: border-color .15s, transform .15s; }
 .xt-popt:hover, .xt-popt:focus-visible { border-color: var(--lc); transform: translateY(-1px); outline: none; background: color-mix(in srgb, var(--lc) 6%, var(--panel)); }
 .xt-popt strong { font-size: 16px; } .xt-popt small { color: var(--mute); font-size: 13px; }
+/* Eingabe als mitwachsendes Textfeld (Shift + Enter = neue Zeile) */
+textarea.ai-in { resize: none; line-height: 22px; padding-top: 11px !important; padding-bottom: 11px !important; overflow-y: hidden; white-space: pre-wrap; word-break: break-word; box-sizing: border-box; scrollbar-width: thin; }
+.asst[data-state="idle"] textarea.ai-in { border-radius: 23px; }
+/* Beim Tippen mehr Platz: „Sprich mit Max“ wird zum runden Mikro-Knopf */
+.asst.has-tx .ai-talk { padding: 0; width: 46px; justify-content: center; } .asst.has-tx .ai-talk .lbl { display: none; }

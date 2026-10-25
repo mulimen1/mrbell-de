@@ -190,7 +190,9 @@ export function mountAssistant() {
   const moreBtn = h('button', { class: 'ai-fw', type: 'button', 'aria-label': L('Einstellungen: Stimme, neues Gespräch', 'Settings: voice, new conversation'), title: L('Stimme & Einstellungen', 'Voice & settings'), 'aria-haspopup': 'menu' }, fEl);
   const wave = liveWave(24);
   const stTx = h('span', { class: 'ai-st' });
-  const inp = h('input', { class: 'ai-in', type: 'text', enterkeyhint: 'send', autocomplete: 'off', maxlength: 1500, 'aria-label': L('Nachricht an Max', 'Message to Max') });
+  const inp = h('textarea', { class: 'ai-in', rows: 1, enterkeyhint: 'send', autocomplete: 'off', maxlength: 4000, spellcheck: 'true', 'aria-label': L('Nachricht an Max', 'Message to Max') });
+  // Wie im Chat gewohnt: Enter schickt ab, Shift + Enter macht eine neue Zeile, das Feld wächst mit (bis 6 Zeilen)
+  const grow = () => { inp.style.height = ''; const base = inp.clientHeight; if (inp.value && inp.scrollHeight > base + 2) inp.style.height = Math.min(inp.scrollHeight + 2, 170) + 'px'; inp.style.overflowY = inp.scrollHeight > 170 ? 'auto' : 'hidden'; };
   // Handy/Touch: kurzer Platzhalter, der ganz reinpasst (kein „Dokument reinziehen“)
   if (matchMedia('(pointer: coarse), (max-width: 600px)').matches) typePlaceholder(inp, L('Frag Max was …', 'Ask Max anything …'), []);
   else typePlaceholder(inp, L('Frag mich was …', 'Ask me anything …'),
@@ -685,10 +687,10 @@ export function mountAssistant() {
   }
   inp.addEventListener('focus', () => { typing = true; if (state === 'listen') stopListen('stop'); });
   inp.addEventListener('blur', () => { typing = false; });
-  inp.addEventListener('input', drawButtons);
-  inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); sendTyped(); } if (e.key === 'Escape') { e.preventDefault(); setTyping(false); } });
+  inp.addEventListener('input', () => { drawButtons(); grow(); root.classList.toggle('has-tx', !!inp.value.trim()); });
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); sendTyped(); } if (e.key === 'Escape') { e.preventDefault(); setTyping(false); } });
   sendBtn.addEventListener('click', () => sendTyped());
-  function sendTyped() { const t = inp.value.trim(); if (!t) { inp.focus(); return; } inp.value = ''; viaVoice = false; setTyping(false); submit(t); }
+  function sendTyped() { const t = inp.value.trim(); if (!t) { inp.focus(); return; } inp.value = ''; grow(); root.classList.remove('has-tx'); viaVoice = false; setTyping(false); submit(t); }
 
   // ---------- Knöpfe je nach Zustand ----------
   function drawButtons() {
@@ -1192,7 +1194,8 @@ export function mountAssistant() {
     if (c.k === 'wahl') { const box = h('div', { class: 'ai-wahl' }); c.opts.forEach(o => box.appendChild(h('button', { class: 'ai-cmd tap', type: 'button', onclick: () => { box.querySelectorAll('button').forEach(x => { x.disabled = true; x.classList.toggle('on', x.textContent === o); }); submit(o); } }, o))); return box; }
     // Themen-Einstieg aus der Anzeige: Max bleibt im Raum – Werkzeuge nur als Angebot zum Antippen
     let stay = 0; try { stay = +sessionStorage.getItem('tutor.stay') || 0; } catch (e) {}
-    const hold = stay && Date.now() - stay < 6e5 && ['go', 'trainer', 'make'].includes(c.k);
+    const lastQ = ([...hist].reverse().find(m => m.role === 'user') || {}).content || '';
+    const hold = (stay && Date.now() - stay < 6e5 && ['go', 'trainer', 'make'].includes(c.k)) || (c.k === 'trainer' && !/trainer|üben|ueben|trainier|aufgabe|rechner|interaktiv/i.test(lastQ));
     if (c.k === 'upload' || c.k === 'voice' || hold) {
       if (hold) { const b = h('button', { class: 'ai-cmd tap', type: 'button', onclick: () => { try { sessionStorage.removeItem('tutor.stay'); } catch (e) {} b.classList.remove('tap'); b.classList.add('run'); runCmd(c, b); } }, h('span', { class: 'ck', html: ico('right') }), c.label); return b; }
       const b = h('button', { class: 'ai-cmd tap', type: 'button', onclick: () => runCmd(c, b) }, h('span', { class: 'ck', html: ico(c.k === 'upload' ? 'upload' : 'mic') }), c.label);
@@ -1302,13 +1305,14 @@ export function mountAssistant() {
       pendingMap = null;
       let KNOW = ''; try { KNOW = knowledge(); } catch (e) {}
       const KURZ = spoken ? L('[Gesprochenes Gespräch: Antworte wie im echten Gespräch – höchstens 2–3 kurze Sätze, direkt auf den Punkt. Ausführliches gehört an die Tafel.]', '[Spoken conversation: answer like a real conversation – 2–3 short sentences max, straight to the point. Anything detailed goes on the board.]') : '';
-      const JETZT = L('[Wichtig: Beantworte immer genau die aktuelle Nachricht des Nutzers (steht ganz unten). Frühere Themen nur, wenn sie sich darauf bezieht. Behaupte nie, eine Nachricht sei nicht angekommen. Kannst du etwas nicht, sag es klar in einem Satz und biete die beste Möglichkeit in BWL Max an.]', '[Important: always answer exactly the user’s current message (at the very bottom). Never claim a message did not arrive. If you cannot do something, say so in one sentence and offer the best option in BWL Max.]');
+      const GESPROCHEN = viaVoice ? L('[Die Nachricht kommt aus der Spracherkennung: Falsch erkannte Wörter oder Fachbegriffe deutest du sinngemäß (z. B. „Vivi“ = Wiwi, „soll anhaben“ = Soll an Haben) – ohne darauf hinzuweisen.]', '[This message comes from speech recognition: interpret misrecognised words sensibly without mentioning it.]') : '';
+      const JETZT = L('[Wichtig: Schreib wie in einem guten Chat – natürlich, auf den Punkt, kein Textbaustein. Eine Kontrollfrage nur, wenn du gerade etwas Neues erklärt hast, nicht nach jeder Nachricht; höchstens ein kurzer Spruch pro Antwort und nicht immer dieselben Motive. Beantworte immer genau die aktuelle Nachricht des Nutzers (steht ganz unten). Frühere Themen nur, wenn sie sich darauf bezieht. Behaupte nie, eine Nachricht sei nicht angekommen. Kannst du etwas nicht, sag es klar in einem Satz und biete die beste Möglichkeit in BWL Max an.]', '[Important: always answer exactly the user’s current message (at the very bottom). Never claim a message did not arrive. If you cannot do something, say so in one sentence and offer the best option in BWL Max.]');
       let XL = '';
       if (/ex[ck]?[ce]?l|xls|tabell|vorlage|spreadsheet|sheet|formel/i.test(text)) { try { const m = await import('./xl/templates.js'); XL = L(`[Excel in BWL Max: Es gibt den Excel-Helfer mit ${m.TEMPLATES.length} geprüften Vorlagen (echte .xlsx mit Formeln zum Herunterladen), einen Excel-Generator (baut aus einer Aufgabe eine eigene .xlsx) und einen Excel-Trainer (Excel lernen mit Kürzeln). Will der Nutzer eine Excel-Datei: Passt eine Vorlage, öffne sie mit [[excel:ID]] und sag in 1–2 Sätzen, was er dort eintragen muss. Passt keine, öffne den Generator mit [[excel:generator:vollständige Aufgabe mit allen Zahlen]] – er baut die Datei sofort. Will er Excel lernen: [[excel:trainer]]. Erklär den Rechenweg zusätzlich kurz an der Tafel, wenn es hilft. Sag nie, du könntest keine Excel-Datei erstellen. Vorlagen-IDs: ${m.TEMPLATES.map(t => t.id).join(', ')}]`, `[Excel in BWL Max: open a matching template with [[excel:ID]], otherwise the generator with [[excel:generator:full task]], to learn Excel [[excel:trainer]]. Templates: ${m.TEMPLATES.map(t => t.id + ': ' + t.title).join('; ')}]`); } catch (e) {} }
       const PFLICHT = SEITE ? '' : L('[Tafel-Regel (immer): Will der Nutzer etwas erklärt bekommen, eine Übersicht, eine Zusammenfassung, Hilfe bei einer Aufgabe oder ein Thema lernen, antwortest du SOFORT mit einer Tafel (```tafel Titel … ```) – nicht erst fragen, ob du es an die Tafel schreiben sollst, und kein Kurzskript anlegen ([[topic:…]] nur zusammen mit Karteikarten, Quiz oder Podcast). Ist wirklich unklar, was gemeint ist, frag EINMAL ganz kurz zurück und hänge die Auswahl an: [[wahl:Option A|Option B|Option C]] (2–4 kurze Optionen, die jeweils als vollständiger Wunsch funktionieren, z. B. „Erklär mir die Vollkostenrechnung“). Keine Tafel nur bei Karteikarten, Podcast, Lernpfad, Quiz, Smalltalk oder einer reinen Ja/Nein-Frage.]', '[Board rule (always): if the user wants an explanation, overview, summary, help with a task or to learn a topic, answer IMMEDIATELY with a board (```tafel Title … ```) – do not ask whether to use the board and do not create a short script ([[topic:…]] only together with flashcards, quiz or podcast). If it is genuinely unclear, ask ONE short question and append the choices: [[wahl:Option A|Option B|Option C]] (2–4 short options, each a complete request). No board only for flashcards, podcast, study path, quiz, small talk or a plain yes/no question.]');
       // Der Server kürzt jede Nachricht auf 6000 Zeichen (von hinten) – damit die eigentliche Frage nie abgeschnitten wird,
       // werden Seitenkontext und Wissen gekürzt, nicht die Regeln und nie die Frage.
-      const LIM = 3700, fixed = [JETZT, WECHSEL, REF, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, PFLICHT, TAFEL].filter(Boolean);
+      const LIM = 3700, fixed = [JETZT, GESPROCHEN, WECHSEL, REF, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, PFLICHT, TAFEL].filter(Boolean);
       let room = LIM - text.length - Math.min(text.length, 1202) - fixed.join('\n').length - 140;
       const fit = x => { x = String(x || ''); if (room <= 0 || !x) return ''; const y = x.length > room ? x.slice(0, Math.max(0, room - 1)) + '…' : x; room -= y.length + 1; return y; };
       const SEITE2 = fit(SEITE), ctx2 = fit(ctxLine), KNOW2 = fit(KNOW);
@@ -1779,7 +1783,7 @@ export function mountAssistant() {
         const t = performance.now();
         if (t - t0 < 350) floor = Math.max(floor, rms * .9);
         if (rms > Math.max(.018, floor * 2.6)) { spoke = true; lastLoud = t; }
-        if (spoke && t - lastLoud > 1050) return stopListen();
+        if (spoke && t - lastLoud > 1600) return stopListen();   // 1,6 s Pause = fertig (vorher 1 s – hat beim Nachdenken mitten im Satz abgeschnitten)
         if (!spoke && t - t0 > quiet) return stopListen(true);
         raf = requestAnimationFrame(tick);
       };
