@@ -308,8 +308,10 @@ async function aiText(prompt) {
   const r = await ask('chat', { messages: [{ role: 'user', content: prompt }], opts: { voice: false, assistant: true, entry: true } });
   return String(r.text || '');
 }
+// SUMMEWENN & Co. rechnet die Vorschau-Engine nicht exakt wie Excel – der Generator nutzt dafür SUMMENPRODUKT
+const BANNED = /^(SUMIF|SUMIFS|AVERAGEIF)$/;
 function genPrompt(task, kind, E) {
-  const fns = [...E.SUPPORTED].sort().join(', ');
+  const fns = [...E.SUPPORTED].filter(f => !BANNED.test(f)).sort().join(', ');
   return `[Excel-Auftrag. Antworte AUSSCHLIESSLICH mit einem einzigen JSON-Objekt – kein Text davor oder danach, kein Markdown, keine Codeblöcke, keine Tafel.
 Baue eine saubere, klausurtaugliche Excel-Tabelle für diese Aufgabe eines BWL- oder Wiwi-Studenten${kind ? ` (Bereich: ${kind})` : ''}:
 „${task.replace(/[\u0000-\u001f]/g, ' ')}“
@@ -362,6 +364,7 @@ async function toSpec(raw, E) {
     if (s === 'out' || s === 'res' || s === 'tot') {
       const f = normFormula(z[2]);
       if (!f || /[!\[\]{}]|https?:|INDIRECT|OFFSET/i.test(f)) { errors.push(ref + ': unzulässige Formel'); continue; }
+      if (/\b(SUMIFS?|AVERAGEIF)\s*\(/i.test(f)) { errors.push(ref + ': SUMIF/SUMIFS/AVERAGEIF nicht erlaubt – nutze SUMPRODUCT'); continue; }
       cells[ref] = { f, s, fmt };
     } else if (s === 'in') {
       let v = z[2]; if (typeof v === 'string') { const n = parseFloat(v.replace(/\./g, '').replace(',', '.').replace(/[^\d.\-e]/gi, '')); v = isFinite(n) ? n : v; }
