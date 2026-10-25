@@ -5174,3 +5174,11 @@ textarea.ai-in::placeholder { white-space: nowrap; overflow: hidden; text-overfl
 .xl.xl-detail .xl-head h1 { font-size: clamp(24px, 2.4vw, 30px); }
 /* Menü oben rechts immer über dem Seiteninhalt (die Container-Abfrage macht die Leiste zu eigener Ebene) */
 .topbar { position: relative; z-index: 44; }
+/* „Du willst schon gehen?“ – Gründe zu bleiben */
+.xo-list { list-style: none; margin: 2px 0 12px; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: left; }
+.xo-list li { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 14px; background: color-mix(in srgb, var(--ink) 4%, transparent); border: 1px solid var(--line); }
+.xo-list .xo-i { flex: none; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); }
+.xo-list .xo-i svg, .xo-list .xo-i img { width: 20px; height: 20px; }
+.xo-list b { display: block; font-size: 13px; line-height: 1.2; }
+.mbg-sad .modal.login .lface { margin-bottom: 0; }
+.xo-list small { display: block; font-size: 11.5px; line-height: 1.3; color: var(--muted, #667); }

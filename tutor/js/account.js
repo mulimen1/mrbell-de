@@ -44,18 +44,19 @@ function spamBox(email) {
 }
 
 // mode: 'login' (E-Mail + Passwort) · 'register' (Konto erstellen, Mail bestätigen) · 'reset' (Passwort vergessen)
-export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong = false } = {}) {
+export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong = false, extra = null, mood = '' } = {}) {
   try { window.BM && window.BM.track('Anmeldefenster gesehen', why || (mode === 'register' ? 'Registrieren' : 'Anmelden')); } catch (e) {}
   return new Promise(resolve => {
     const { bg, box, fEl, fc } = shell(); if (strong) bg.classList.add('mbg-strong');
+    if (mood) { bg.classList.add('mbg-' + mood); setTimeout(() => { try { fc.set(mood); } catch (e) {} }, 250); }
     const close = v => { if (bg.classList.contains('out')) return; bg.classList.add('out'); setTimeout(() => bg.remove(), 320); document.removeEventListener('keydown', onKey); resolve(v); };
     const onKey = e => { if (e.key === 'Escape') close(false); };
     document.addEventListener('keydown', onKey);
     bg.addEventListener('click', e => { if (e.target === bg) close(false); });
     const x = () => h('button', { class: 'iconbtn lclose', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(false) });
     let email = ls.get('tutor.lastEmail', '') || getAccount()?.email || '', pw = '';
-    let firstTitle = title, firstSub = sub0;
-    const head = (t, sub) => { const tt = firstTitle || t, ss = firstSub || sub; firstTitle = null; firstSub = null; return [x(), fEl, h('h3', {}, tt), ss ? h('p', {}, ss) : null]; };
+    let firstTitle = title, firstSub = sub0, firstExtra = extra;
+    const head = (t, sub) => { const tt = firstTitle || t, ss = firstSub || sub, ex = firstExtra; firstTitle = null; firstSub = null; firstExtra = null; return [x(), fEl, h('h3', {}, tt), ss ? h('p', {}, ss) : null, ex]; };
     const mailInp = () => h('input', { class: 'field', type: 'email', autocomplete: 'email', inputmode: 'email', placeholder: L('E-Mail-Adresse', 'Email address'), value: email, 'aria-label': L('E-Mail-Adresse', 'Email address'), required: true });
     const link = (txt, fn) => h('button', { class: 'llink', type: 'button', onclick: fn }, txt);
     const busyBtn = (btn, on, label) => { btn.disabled = on; btn.textContent = on ? L('Einen Moment …', 'One moment …') : label; };
@@ -200,7 +201,7 @@ export const openRegister = (o = {}) => openLogin(Object.assign({}, o, { mode: '
 // Gast ohne Konto in diesem Browser → Registrieren (mit „Schon ein Konto? Anmelden“); wer schon mal angemeldet war → Anmelden
 export const knownHere = () => !!(getAccount() || ls.get('tutor.lastEmail', ''));
 export function openAuth({ title, registerTitle, sub, registerSub, ...o } = {}) {
-  return knownHere() ? openLogin({ ...o, title, sub, mode: 'login' }) : openLogin({ ...o, title: registerTitle, sub: registerSub || sub, mode: 'register' });
+  return knownHere() ? openLogin({ ...o, title: o.loginTitle || title, sub, mode: 'login' }) : openLogin({ ...o, title: registerTitle, sub: registerSub || sub, mode: 'register' });
 }
 
 // Neues Konto: kurze, optionale Frage nach dem Ziel (füllt später den Klausurplan vor)

@@ -128,8 +128,16 @@ function guestSignals(c, endEl) {
     document.removeEventListener('mouseout', onOut);
     tr('Verlassen-Hinweis', topic);
     const { openAuth } = await import('./account.js');
-    const ok = await openAuth({ registerTitle: L(`Bevor du gehst: Klausurfragen zu ${c.topic || 'diesem Thema'}`, `Before you go: exam questions on ${c.topic || 'this topic'}`),
-      registerSub: L('4 echte Klausuraufgaben mit Musterlösung – kostenlos, mit Google in zwei Klicks. Danach kannst du auch deine Vorlesungsfolien hochladen, und Max erklärt genau deinen Stoff.', '4 real exam tasks with model answers – free, two clicks with Google. Then upload your own lecture slides and Max explains exactly your material.'), why: 'Verlassen' });
+    // „Du willst schon gehen?“: trauriger Max + die stärksten Gründe zu bleiben (mit Symbolen)
+    const XLS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif">XLS</text></svg>';
+    const row = (icon, b, s) => h('li', {}, h('span', { class: 'xo-i', html: icon }), h('span', {}, h('b', {}, b), h('small', {}, s)));
+    const extra = h('ul', { class: 'xo-list' },
+      row(XLS, L('Excel-Helfer', 'Excel helper'), L('60 Vorlagen + Trainer', '60 templates + trainer')),
+      row(ico('exam'), L('Klausurfragen', 'Exam questions'), L('mit Musterlösung', 'with model answers')),
+      row('<img src="/tutor/img/brands/youtube.svg" alt="" width="20" height="20">', L('Video → Lernzettel', 'Video → study sheet'), L('Link rein, fertig', 'Paste a link, done')),
+      row(ico('cards'), L('Karteikarten & Podcast', 'Flashcards & podcast'), L('aus deinen Folien', 'from your slides')));
+    const ok = await openAuth({ registerTitle: L('Du willst schon gehen?', 'Leaving already?'), loginTitle: L('Du willst schon gehen?', 'Leaving already?'),
+      registerSub: L('Schade – für dein BWL-/Wiwi-Studium wartet noch so viel. Kostenlos, mit Google in zwei Klicks.', 'Shame – there’s so much more for your studies. Free, two clicks with Google.'), sub: L('Melde dich an – das wartet noch auf dich:', 'Sign in – this is still waiting for you:'), why: 'Verlassen', extra, mood: 'sad' });
     if (ok && getAccount()) { const b = c.t.querySelector('.m-ladcta'); if (b) b.click(); }
   };
   document.addEventListener('mouseout', onOut);
