@@ -233,7 +233,7 @@ function renderList() {
   if (!shell) return;
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
-  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn()), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video'), excel: hs.startsWith('#/app/excel')};
+  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn() && backTarget()?.key !== 'video'), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video') || (inDoc && backTarget()?.key === 'video'), excel: hs.startsWith('#/app/excel')};
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   requestAnimationFrame(navIntoView);
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
@@ -241,7 +241,7 @@ function renderList() {
   $$('[data-nav="challenge"]', shell.side).forEach(a => a.classList.toggle('on', hs.includes('/challenge')));
   $$('[data-nav="duell"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/duell')));
   $$('[data-nav="rechner"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/rechner')));
-  $$('[data-nav="exam"]', shell.side).forEach(a => a.classList.toggle('on', inDoc && hs.includes('/quiz')));
+  $$('[data-nav="exam"]', shell.side).forEach(a => a.classList.toggle('on', /\/(exam|probeklausur)\b/.test(hs)));   // Quiz-Reiter ist nicht der Klausur-Simulator
   $$('[data-lockb]', shell.side).forEach(x => { x.hidden = !!getAccount(); });
 }
 // Skript-Leiste (Name + Reiter) nur im Skript

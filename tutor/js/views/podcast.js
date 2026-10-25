@@ -158,7 +158,9 @@ function player(wrap, ctx, p) {
           dlBtn(() => optsPodcast(p, doc), { cls: 'btn sm ghost' }),
           h('button', { class: 'btn sm ghost', onclick: async () => { const ok = await modal({ title: L('Folge löschen?', 'Delete episode?'), text: p.title, actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { stop(); doc.podcasts = doc.podcasts.filter(x => x !== p); save(doc); intro(wrap, ctx); } } }, h('span', { html: ico('trash') }), L('Löschen', 'Delete')))),
       script));
-  const setStatus = () => { status.textContent = real() ? L(`Echte Stimmen: Marie & ${p.voice === 'feiern' ? 'Max nach dem Feiern' : 'Max'}`, `Real voices: Marie & ${p.voice === 'feiern' ? 'Max after the party' : 'Max'}`) : (synth && voices().length ? L('Gratis-Stimme deines Browsers', 'Your browser’s free voice') : L('Dein Browser hat keine Stimme – lies einfach mit.', 'Your browser has no voice – just read along.')); };
+  // Aktuelle Zeile nur innerhalb des Mitlese-Kastens scrollen – nie die ganze Seite (sonst rutscht der Player weg)
+  const scrollLine = () => { const el = lines[idx]; if (!el) return; const sc = script; if (sc.scrollHeight > sc.clientHeight + 4) { const top = el.getBoundingClientRect().top - sc.getBoundingClientRect().top + sc.scrollTop - sc.clientHeight / 3; sc.scrollTo({ top: Math.max(0, top), behavior: 'smooth' }); } };
+  const setStatus = () => { status.textContent = real() ? L(`Echte Stimmen: Marie & ${p.voice === 'feiern' ? 'Max nach dem Feiern' : 'Max'}`, `Real voices: Marie & ${p.voice === 'feiern' ? 'Max after the party' : 'Max'}`) : (synth && voices().length ? L('Gratis-Stimme deines Browsers', 'Your browser’s free voice') : L('Dein Browser hat keine Stimme – die Folge läuft zum Mitlesen.', 'Your browser has no voice – the episode runs as read-along.')); };
   const setUI = () => {
     playBtn.innerHTML = ico(playing ? 'pause' : 'play');
     w.querySelectorAll('i').forEach(i => i.style.animationPlayState = playing ? 'running' : 'paused');
@@ -180,7 +182,7 @@ function player(wrap, ctx, p) {
   const playReal = async () => {
     const my = ++token;
     if (idx >= p.lines.length) { playing = false; idx = 0; setUI(); return; }
-    setUI(); lines[idx].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    setUI(); scrollLine();
     try {
       const b64 = await fetchLine(idx);
       if (my !== token || !playing) return;
@@ -199,7 +201,15 @@ function player(wrap, ctx, p) {
   };
   // ---- Gratis-Stimme des Browsers ----
   const speak = () => {
-    if (!synth) { toast(L('Dein Browser kann nicht vorlesen.', 'Your browser can’t read aloud.')); playing = false; setUI(); return; }
+    // Keine Stimme im Browser: trotzdem wie Karaoke weiterlaufen (Zeile für Zeile im Lesetempo), statt stehen zu bleiben
+    if (!synth || !voices().length) {
+      const my = ++token;
+      if (idx >= p.lines.length) { playing = false; idx = 0; setUI(); return; }
+      setUI(); scrollLine();
+      const ms = Math.max(1800, fixT(p.lines[idx].t).split(/\s+/).length * 330 / rate);
+      setTimeout(() => { if (my !== token || !playing) return; idx++; speak(); }, ms);
+      return;
+    }
     const my = ++token;
     if (idx >= p.lines.length) { playing = false; idx = 0; setUI(); return; }
     const l = p.lines[idx];
@@ -210,13 +220,14 @@ function player(wrap, ctx, p) {
     u.onend = () => { if (my !== token || !playing) return; idx++; setUI(); setTimeout(speak, 220); };
     u.onerror = () => { if (my !== token) return; playing = false; setUI(); };
     synth.speak(u);
-    lines[idx].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    scrollLine();
     setUI();
   };
   const go = () => (real() ? playReal() : speak());
   const stop = () => { token++; playing = false; try { audio.pause(); } catch (e) {} try { synth && synth.cancel(); } catch (e) {} setUI(); };
   const seek = k => { if (S && real()) { S.hook(audio); S.resume(); } stop(); idx = Math.max(0, Math.min(p.lines.length - 1, k)); playing = true; go(); };
   playBtn.addEventListener('click', () => { if (S && real()) { S.hook(audio); S.resume(); } if (playing) stop(); else { playing = true; go(); } });
-  const keep = setInterval(() => { if (!wrap.isConnected) { clearInterval(keep); stop(); } }, 1000);
+  let awakeT = 0;
+  const keep = setInterval(() => { if (!wrap.isConnected) { clearInterval(keep); stop(); return; } if (playing && Date.now() - awakeT > 20000) { awakeT = Date.now(); dispatchEvent(new Event('wheel')); } }, 1000);   // beim Zuhören schläft Max nicht ein
   setUI();
 }

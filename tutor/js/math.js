@@ -125,7 +125,7 @@ function wordsOnly(tex) {
   return /\\text\s*\{/.test(tex) && !rest;
 }
 function mark(tex, display) {
-  if (wordsOnly(tex)) { const w = document.createElement('span'); w.className = 'tex-w'; w.textContent = texPlain(tex); return w; }
+  if (wordsOnly(tex)) { const w = document.createElement('span'); w.className = 'tex-w' + (display ? ' tex-wd' : ''); w.textContent = texPlain(tex); return w; }   // abgesetzte Wort-Formel bleibt eine eigene Zeile
   const el = document.createElement('span');
   el.className = 'tex';
   el.dataset.tex = tex;

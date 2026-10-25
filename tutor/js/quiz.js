@@ -39,7 +39,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = L(
   root.replaceChildren();
   const card = h('div', { class: 'qcard' + (compact ? ' compact' : '') });
   if (showType) card.appendChild(h('div', { class: 'qtype' }, h('span', { class: 'tag' }, TYPE_LABEL[q.type] || L('Frage', 'Question')), q.page ? h('span', { class: 'eyebrow' }, L('Seite ', 'Page ') + q.page) : null));
-  const qtext = q.type === 'cloze' ? null : h('div', { class: 'q' }, richText(q.q));
+  const qtext = q.type === 'cloze' ? null : h('div', { class: 'q' }, richText(q.type === 'mc' && (q.correct.length > 1 || /mehrere richtig/i.test(q.q)) ? String(q.q).replace(/\s*\((?:mehrere|mehrere Antworten) richtig\)/i, '') : q.q));
   if (qtext) card.appendChild(qtext);
   const area = h('div', { class: 'qarea' });
   card.appendChild(area);

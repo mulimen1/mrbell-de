@@ -77,7 +77,7 @@ function listView(wrap, ctx) {
       h('div', { class: 'node' }, c.done ? h('span', { html: ico('check') }) : String(i + 1).padStart(2, '0')),
       h('div', { class: 'body', role: 'button', tabindex: 0, onclick: () => ctx.go('pfad', String(i)), onkeydown: e => { if (e.key === 'Enter') ctx.go('pfad', String(i)); } },
         h('div', { style: { display: 'flex', justifyContent: 'space-between', gap: '10px', alignItems: 'center' } }, h('h3', {}, c.title),
-          h('span', { class: 'weight', title: L('Klausurrelevanz', 'Exam relevance') }, [1, 2, 3].map(k => h('i', { class: k <= c.weight ? 'on' : '' })))),
+          h('span', { class: 'weight', title: L('Klausurrelevanz', 'Exam relevance') }, h('small', { class: 'wl' }, L('Klausur', 'Exam')), [1, 2, 3].map(k => h('i', { class: k <= c.weight ? 'on' : '' })))),
         c.goal ? h('p', {}, c.goal) : null,
         h('div', { class: 'terms' }, h('span', { class: 'eyebrow', style: { alignSelf: 'center' } }, L(`S. ${c.pages[0]}–${c.pages[1] || c.pages[0]}`, `p. ${c.pages[0]}–${c.pages[1] || c.pages[0]}`)), c.terms.slice(0, 4).map(t => h('span', { class: 'tag' }, t)), c.done && c.score != null ? h('span', { class: 'tag', style: { marginLeft: 'auto' } }, Math.round(c.score * 100) + ' %') : null))))),
     h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'flex-end' } },

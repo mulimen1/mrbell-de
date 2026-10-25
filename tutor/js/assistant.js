@@ -200,7 +200,7 @@ export function mountAssistant() {
   const stTx = h('span', { class: 'ai-st' });
   const inp = h('textarea', { class: 'ai-in', rows: 1, enterkeyhint: 'send', autocomplete: 'off', maxlength: 4000, spellcheck: 'true', 'aria-label': L('Nachricht an Max', 'Message to Max') });
   // Wie im Chat gewohnt: Enter schickt ab, Shift + Enter macht eine neue Zeile, das Feld wächst mit (bis 6 Zeilen)
-  const grow = () => { inp.style.height = ''; const base = inp.clientHeight; if (inp.value && inp.scrollHeight > base + 2) inp.style.height = Math.min(inp.scrollHeight + 2, 170) + 'px'; inp.style.overflowY = inp.scrollHeight > 170 ? 'auto' : 'hidden'; };
+  const grow = () => { inp.style.height = ''; const base = inp.clientHeight; const multi = !!inp.value && inp.scrollHeight > base + 2; if (multi) inp.style.height = Math.min(inp.scrollHeight + 2, 170) + 'px'; inp.style.overflowY = inp.scrollHeight > 170 ? 'auto' : 'hidden'; try { root.classList.toggle('multi', multi); } catch (e) {} };   // mehrzeilig: Eingabeleiste wächst mit, nichts liegt mehr drüber
   // Handy/Touch: kurzer Platzhalter, der ganz reinpasst (kein „Dokument reinziehen“)
   if (matchMedia('(pointer: coarse), (max-width: 600px)').matches) typePlaceholder(inp, L('Frag Max was …', 'Ask Max anything …'), []);
   else typePlaceholder(inp, L('Frag mich was …', 'Ask me anything …'),

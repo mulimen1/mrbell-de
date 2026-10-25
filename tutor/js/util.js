@@ -69,9 +69,11 @@ export function toast(msg, ms = 2600) {
 }
 
 // Dialog
-export function modal({ title, text, body, actions = [], onAction, cls = '', eyebrow = '' }) {
+export function modal({ title, text, body, actions = [], onAction, cls = '', eyebrow = '', keep = false }) {
   return new Promise(resolve => {
-    const close = v => { bg.remove(); document.removeEventListener('keydown', onKey); resolve(v); };
+    const close = v => { bg.remove(); document.removeEventListener('keydown', onKey); removeEventListener('hashchange', onNav); resolve(v); };
+    const h0 = location.hash.split('?')[0], onNav = () => { if (!keep && location.hash.split('?')[0] !== h0) close(null); };   // Seite gewechselt: Fenster gehört nicht mehr dazu
+    setTimeout(() => addEventListener('hashchange', onNav), 0);
     const onKey = e => { if (e.key === 'Escape') close(null); };
     const bg = h('div', { class: 'modal-bg', onclick: e => { if (e.target === bg) close(null); } },
       h('div', { class: 'modal' + (cls ? ' ' + cls : ''), role: 'dialog', 'aria-modal': 'true' },
