@@ -598,7 +598,7 @@ function planView(wrap, ctx, { fresh = false } = {}) {
         h('button', { class: 'btn sm ghost', onclick: () => exportIcs(doc), title: L('Als .ics – passt in Google, Apple und Outlook', 'As .ics – works with Google, Apple and Outlook') }, h('span', { html: ico('download') }), L('In meinen Kalender', 'Add to my calendar')),
         h('button', { class: 'btn sm ghost', onclick: del }, h('span', { html: ico('trash') }), L('Plan löschen', 'Delete plan'))));
     wrap.classList.toggle('still', !first); first = false;
-    if (fresh) { fresh = false; toast(L(`Dein Plan steht: ${plan.studyDays} Lerntage. Fang mit „Heute“ an.`, `Your plan is ready: ${plan.studyDays} study days. Start with “Today”.`), 4000); }
+    if (fresh) { fresh = false; toast(p.todayT.length ? L(`Dein Plan steht: ${plan.studyDays} Lerntage. Fang mit „Heute“ an.`, `Your plan is ready: ${plan.studyDays} study days. Start with “Today”.`) : L(`Dein Plan steht: ${plan.studyDays} Lerntage. Heute ist frei – oder du ziehst schon was vor.`, `Your plan is ready: ${plan.studyDays} study days. Today is free – or get a head start.`), 4000); }
     const fcc = face(f, {});
     fcc.set(passed ? 'happy' : FACE[st] || 'idle');
     if (pulse) setTimeout(() => fcc.pulse(pulse, 1400), 60);

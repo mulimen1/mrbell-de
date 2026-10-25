@@ -5419,3 +5419,4 @@ html:has(.asst.multi) .rm-fl2, html:has(.asst.multi) .rm-fl3, html:has(.asst.mul
 /* Kein doppelter Max: hat die Seite ihren eigenen (Podcast-Studio, Excel-Trainer), tritt der kleine unten rechts zur Seite */
 @media (min-width: 761px) { html:has(#view .pst, #view .xt-coach) .asst:not(.open) .asst-bub, html:has(#view .pst, #view .xt-coach) .asst:not(.open) .asst-tip { opacity: 0 !important; pointer-events: none !important; transform: scale(.6) !important; } }
 @media (max-width: 760px) { html:has(#view .pst) .asst:not(.open) .asst-bub { opacity: 0 !important; pointer-events: none !important; } }
+.vt-erracts { display: inline-flex; gap: 6px; margin-left: 10px; flex-wrap: wrap; }

@@ -256,8 +256,11 @@ export function render(root) {
       openId = d.id; draw();
       setTimeout(() => listEl.querySelector('.vt-item.open')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
     } catch (e) {
-      say(e.message, 'err');
-      if (/Konto/.test(e.message)) gate();
+      // Fehler mit Ausweg: nochmal versuchen oder stattdessen eine Datei hochladen – nie nur „Das hat nicht geklappt“
+      const msg = e.message && !/^Das hat nicht geklappt\.?$/.test(e.message) ? e.message : L('Das Video konnte ich gerade nicht abschreiben – vielleicht ist es privat, altersbeschränkt oder hat keine Untertitel.', 'I couldn’t transcribe that video right now – it may be private, age-restricted or have no subtitles.');
+      say(msg, 'err');
+      if (!/Konto/.test(msg)) status.append(h('span', { class: 'vt-erracts' }, h('button', { class: 'btn sm', type: 'button', onclick: () => { if (!url.value) url.value = u; start(); } }, L('Nochmal', 'Try again')), h('button', { class: 'btn sm ghost', type: 'button', onclick: () => fileIn.click() }, L('Stattdessen Datei hochladen', 'Upload a file instead'))));
+      if (/Konto/.test(msg)) gate();
     } finally { busy = false; go.disabled = false; loadQuota(); }
   }
 
