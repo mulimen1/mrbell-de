@@ -5253,7 +5253,7 @@ html:not(.x-none) .tn.tn-flow > span.tn-farr { display: inline-grid !important; 
 html:not(.x-none) .tn.tn-flow > span.tn-fsheet { display: inline-grid !important; place-items: center; width: auto !important; height: auto !important; color: #1f3a5f !important; transform: none; }
 html:not(.x-none) .tn.tn-flow .tn-farr .ico { display: block !important; width: 16px !important; height: 16px !important; }
 html:not(.x-none) .tn.tn-flow .tn-fsheet .ico { display: block !important; width: 22px !important; height: 22px !important; stroke: #1f3a5f; }
-/* Transkript-Knopf: hinter YouTube eine Glühbirne im navy Kästchen („mir geht ein Licht auf“); keine Wackel-Animation am Logo */
-html:not(.x-none) .tn.tn-flow > span.tn-fsheet { background: var(--inv) !important; border-color: transparent !important; color: var(--onInv, #fff) !important; border-radius: 10px !important; padding: 5px !important; }
-html:not(.x-none) .tn.tn-flow .tn-fsheet .ico { stroke: var(--onInv, #fff) !important; width: 20px !important; height: 20px !important; }
+/* Transkript-Knopf: vorne die Glühbirne im normalen Icon-Kästchen wie bei allen Bereichen („mir geht ein Licht auf“), dann YouTube › Lernzettel */
+/* Untertitel-Symbol = Transkript; auch wenn der Bereich offen ist: helles Kästchen, kein Dunkelblau */
+html .tn.tn-flow > span.tn-lead, html .tn.tn-flow.on > span.tn-lead, html .tn.tn-flow[aria-current] > span.tn-lead, html .tn.tn-flow:hover > span.tn-lead { background: color-mix(in srgb, var(--ink) 7%, transparent) !important; color: var(--ink) !important; }
 html .tn.tn-flow .tn-b, html .tn.tn-flow:hover .tn-b, html .tn.tn-flow:active .tn-b, html .tn.tn-flow > span, html .tn.tn-flow:hover > span, html .tn.tn-flow:active > span { transform: none !important; animation: none !important; transition: none !important; }
