@@ -702,7 +702,10 @@ export function mountAssistant() {
   }
   inp.addEventListener('focus', () => { typing = true; if (state === 'listen') stopListen('stop'); });
   inp.addEventListener('blur', () => { typing = false; });
-  inp.addEventListener('input', () => { drawButtons(); grow(); root.classList.toggle('has-tx', !!inp.value.trim()); });
+  // Max hört zu: beim Tippen schaut er aufs Eingabefeld (wie ein echtes Gegenüber)
+  let lookT = 0;
+  const lookAtInput = () => { const now = Date.now(); if (now - lookT < 500) return; lookT = now; const r = inp.getBoundingClientRect(); document.querySelectorAll('.face').forEach(e => { const f = e.__face; if (!f || !e.getClientRects().length || f.state === 'talk' || f.state === 'think') return; const b = e.getBoundingClientRect(); const dx = (r.left + r.width / 2) - (b.left + b.width / 2), dy = (r.top + r.height / 2) - (b.top + b.height / 2); const d = Math.hypot(dx, dy) || 1; f.lookAt(dx / d * 40, dy / d * 24, 1600); }); };
+  inp.addEventListener('input', () => { drawButtons(); grow(); root.classList.toggle('has-tx', !!inp.value.trim()); if (inp.value.trim()) lookAtInput(); });
   inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); sendTyped(); } if (e.key === 'Escape') { e.preventDefault(); setTyping(false); } });
   sendBtn.addEventListener('click', () => sendTyped());
   function sendTyped() { const t = inp.value.trim(); if (!t) { inp.focus(); return; } inp.value = ''; grow(); root.classList.remove('has-tx'); viaVoice = false; setTyping(false); submit(t); }
