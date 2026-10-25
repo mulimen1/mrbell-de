@@ -511,7 +511,7 @@ export function render(root, ctx = {}) {
       onState: s => {
         working(s === 'think');
         fc.set(s === 'think' ? 'think' : s === 'speak' ? 'talk' : 'idle');
-        faceEl.classList.toggle('listening', s === 'listen'); faceEl.classList.toggle('talking', s === 'speak');
+        faceEl.classList.toggle('listening', s === 'listen'); faceEl.classList.toggle('talking', s === 'speak'); room.classList.toggle('mm-active', s !== 'idle');
         status.textContent = ({ listen: L('hört zu …', 'listening …'), think: L('überlegt …', 'thinking …'), speak: L('redet …', 'talking …') })[s] || (document.documentElement.dataset.creatorLabel || focusDocs()[0]?.name || L('dein Tutor', 'your tutor'));
       },
       onIsl: hh => { if (hh > 20) room.style.setProperty('--islh', Math.round(hh) + 'px'); },

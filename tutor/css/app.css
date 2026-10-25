@@ -4993,3 +4993,9 @@ html.maxmode .room .rm-face.talking { animation: mmtalk 1.1s ease-in-out infinit
   html.maxmode .room.talk .rm-dock { z-index: 140; bottom: 22px; }
 }
 @media (min-width: 901px) { html.maxmode .dk.mm-row { z-index: 150; } html.maxmode .asst.stage .ai-board .tafel { padding-bottom: 130px; } }
+/* Max-Modus: Max klein (ein Drittel), groß nur, wenn man mit ihm spricht/schreibt oder er antwortet/erklärt */
+@media (min-width: 901px) {
+  html.maxmode .room.talk.has-board .rm-fs.talk { width: 72px; height: 72px; transition: width .55s cubic-bezier(.2,1.3,.4,1), height .55s cubic-bezier(.2,1.3,.4,1); }
+  html.maxmode .room.talk.has-board.mm-active .rm-fs.talk, html.maxmode.mx-touring .room.talk.has-board .rm-fs.talk, html.maxmode.mm-typing .room.talk.has-board .rm-fs.talk { width: 200px; height: 200px; }
+  html.maxmode .room.talk.has-board .rm-face.listening { scale: 1; }
+}

@@ -73,3 +73,7 @@ export function reveal(el) {
 }
 export function revealAll(scope) { (scope || document).querySelectorAll('.mm2-b.wait').forEach(g => { g.classList.remove('wait'); g.classList.add('go'); }); }
 sync();
+// Tippt man Max etwas, wird er groß (Max-Modus)
+const isIn = e => !!(e.target && e.target.closest && e.target.closest('.ai-isl'));
+addEventListener('focusin', e => { if (isIn(e)) document.documentElement.classList.add('mm-typing'); });
+addEventListener('focusout', e => { if (isIn(e)) document.documentElement.classList.remove('mm-typing'); });
