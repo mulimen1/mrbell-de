@@ -20,6 +20,9 @@ export function takeCreate(tool, docId) {
 export async function autoOpts(tab, doc) {
   const o = takeCreate(tab, doc.id);
   if (o) return o;
+  // Kein Zwischenfenster mehr: sofort mit deinen letzten bzw. den Standard-Einstellungen loslegen – anpassen geht im Werkzeug selbst
+  const q = quickOpts(tab);
+  if (q && Object.keys(q).length) return q;
   return personalise(tab, doc);
 }
 
