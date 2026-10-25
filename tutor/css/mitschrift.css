@@ -313,3 +313,10 @@
   .ms:has(.ms-pv.open) .ms-ed { margin-right: 344px; }
   .ms-tools { flex-wrap: wrap; row-gap: 8px; overflow-x: visible; }
 }
+/* Laptop: Zeichen & Formen erst auf Knopfdruck (vorher erschlug die große Palette das Schreibfeld) */
+@media (min-width: 900px) {
+  .ms-ed:not(.pal-open) .ms-body { grid-template-columns: minmax(0, 1fr); }
+  .ms-ed:not(.pal-open) .mp { display: none !important; }
+  .ms-tools .ms-palb { display: inline-flex !important; }
+  .ms-palb[aria-expanded="true"] { background: var(--inv); color: var(--onInv); border-color: transparent; }
+}
