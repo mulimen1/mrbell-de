@@ -123,6 +123,7 @@ function full(d) {
 
 export function render(root) {
   const wrap = h('div', { class: 'view-in vt' }); root.appendChild(wrap);
+  setTimeout(() => wrap.appendChild(h('p', { class: 'foot-tm' }, L('YouTube, TikTok, Instagram, Microsoft und Excel sind Marken ihrer jeweiligen Inhaber. BWL Max steht in keiner Verbindung zu diesen Unternehmen und wird von ihnen weder unterstützt noch gesponsert.', 'YouTube, TikTok, Instagram, Microsoft and Excel are trademarks of their respective owners. BWL Max is not affiliated with, endorsed or sponsored by these companies.'))), 0);
   const fileIn = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.pptx,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.heic,.heif,application/pdf,image/*,video/*,audio/*,.mp4,.mov,.m4v,.m4a,.mp3,.wav' });
   fileIn.addEventListener('change', () => { const fl = [...(fileIn.files || [])]; fileIn.value = ''; if (fl.length) upload(fl); });
   const url = h('input', { class: 'vt-url', type: 'url', inputmode: 'url', placeholder: L('Link einfügen – YouTube, Shorts, TikTok oder Instagram Reel', 'Paste a link – YouTube, Shorts, TikTok or Instagram Reel'), 'aria-label': L('Video-Link', 'Video link') });
