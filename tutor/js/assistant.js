@@ -172,8 +172,8 @@ export function mountAssistant() {
   if (!host) return null;
 
   // Antworten aus der Zeit, als Fragen abgeschnitten wurden („nur Seitenkontext angekommen“), fliegen raus – sonst wiederholt Max das Muster
-  const BROKEN = /(nur|wieder nur)( der| als)? Seitenkontext|Seitenkontext angekommen|keine (neue )?Frage (von dir )?(steckt|ist|kam)/i;
-  let hist = (ls.get(CHAT, []) || []).filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && !(m.role === 'assistant' && BROKEN.test(m.content))).slice(-20);
+  const BROKEN = /(nur|wieder nur)( der| als)? Seitenkontext|Seitenkontext angekommen|keine (neue )?Frage (von dir )?(steckt|ist|kam)|(hast du mich|du hast mich) (dazu |da )?nichts gefragt|ungefragt (gezeigt|eingesetzt)|nur der Kontext angekommen/i;
+  let hist = (ls.get(CHAT, []) || []).filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && !(m.role === 'assistant' && BROKEN.test(m.content))).slice(-40);
   let open = false, typing = false, state = 'idle', ctrl = null, gen = 0, viaVoice = false;
   let rec = null, stream = null, chunks = [], actx = null, raf = 0, lsess = null;
   let boards = [], bIdx = 0, boardOpen = false, boardMin = false, capTimer = 0;
@@ -1317,7 +1317,10 @@ export function mountAssistant() {
       // werden Seitenkontext und Wissen gekürzt, nicht die Regeln und nie die Frage.
       // Der Server kürzt JEDE Nachricht auf rund 4.000 Zeichen. Darum: Regeln als eigene Nachricht(en) vor der Frage
       // (je ≤ 3.400 Zeichen, mit kurzer Bestätigung dazwischen), die aktuelle Nachricht selbst trägt nur Frage + Kontext.
-      const RULES = [JETZT, GESPROCHEN, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, PFLICHT, TAFEL].filter(Boolean);
+      // Ältere Nachrichten (außerhalb der 13, die der Server mitnimmt) als kurze Übersicht – so weiß Max auch, worum es vor 20 Nachrichten ging
+      const older = hist.slice(0, Math.max(0, hist.length - 13)); let FRUEHER = '';
+      if (older.length) { const parts = []; older.forEach(m => { if (m.role === 'user') parts.push(L('Nutzer: ', 'User: ') + m.content.replace(/\s+/g, ' ').slice(0, 110)); else { const t = (m.content.match(/```tafel[ \t]*([^\n]*)/) || [])[1]; parts.push(L('Max: ', 'Max: ') + (t ? L('Tafel „', 'board “') + t.trim().slice(0, 60) + L('“', '”') : m.content.replace(/```[\s\S]*?```/g, '').replace(/\s+/g, ' ').slice(0, 80))); } }); let sum = parts.join(' · '); if (sum.length > 1500) sum = '…' + sum.slice(-1500); FRUEHER = L('[Früher in diesem Gespräch (ältere Nachrichten, zur Orientierung): ', '[Earlier in this conversation: ') + sum + ']'; }
+      const RULES = [FRUEHER, JETZT, GESPROCHEN, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, PFLICHT, TAFEL].filter(Boolean);
       const packs = []; let cur = '';
       for (const r of RULES) { const r2 = r.length > 3300 ? r.slice(0, 3300) + '…]' : r; if (cur && (cur + '\n' + r2).length > 3400) { packs.push(cur); cur = r2; } else cur = cur ? cur + '\n' + r2 : r2; }
       if (cur) packs.push(cur);
@@ -1357,7 +1360,7 @@ export function mountAssistant() {
       const raw = String(r.text || '').slice(0, 12000);
       hist.push({ role: 'assistant', content: raw });
       try { Mem.remember('user', text); Mem.remember('assistant', raw); } catch (x) {}
-      hist = hist.slice(-20); ls.set(CHAT, hist);
+      hist = hist.slice(-40); ls.set(CHAT, hist);
       ex.model = r.model || ''; ex.tools = r.tools || []; ex.src = d ? (d.generated ? 'max' : 'doc') : '';
       await answer(raw, my, spoken, ex);
       try { STAGE?.onAnswer?.(parse(raw)); } catch (e) {}
