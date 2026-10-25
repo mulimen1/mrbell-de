@@ -5351,3 +5351,21 @@ html .tn.tn-flow .tn-b, html .tn.tn-flow:hover .tn-b, html .tn.tn-flow:active .t
 .pst-marie.face { width: 82px; height: 82px; overflow: visible; background: #fff; }
 .pst-marie.drive .fz-talk, .pst-max.drive .fz-talk { animation: none !important; transition: transform .06s linear; }
 @media (max-width: 760px) { .pst-marie.face { width: 66px; height: 66px; } }
+/* Bereichs-Leiste einklappen (nur Laptop) */
+.tb-fold { display: none; }
+.tb-pull { display: none; }
+@media (min-width: 761px) {
+  /* Griff zum Einklappen: kostet keinen Platz in der Leiste – unten mittig an der Kante, erscheint beim Drüberfahren */
+  .tb-fold { display: grid; place-items: center; position: absolute; left: 50%; bottom: -15px; transform: translateX(-50%); width: 44px; height: 16px; padding: 0; border-radius: 0 0 10px 10px; border: 1px solid var(--line2); border-top: 0; background: var(--panel); color: var(--mute); z-index: 5; opacity: 0; transition: opacity .2s; }
+  .tb-fold .ico { width: 14px; height: 14px; }
+  .topbar:hover .tb-fold, .tb-fold:focus-visible { opacity: 1; }
+  .tb-fold:hover { color: var(--ink); }
+  html.tb-hide .topbar { display: none; }
+  html.tb-hide .tb-pull { display: inline-flex; position: fixed; z-index: 95; top: 0; left: calc(50% + var(--sl, 0px) / 2); transform: translate(-50%, -6px); align-items: center; gap: 6px; height: 30px; padding: 4px 14px 0; border-radius: 0 0 14px 14px; border: 1px solid var(--line2); border-top: 0; background: var(--panel); color: var(--mute); font: 600 12.5px var(--sans); cursor: pointer; box-shadow: 0 8px 20px -12px rgba(0,0,0,.3); transition: transform .2s cubic-bezier(.2,.8,.2,1), color .15s; }
+  html.tb-hide .tb-pull:hover, html.tb-hide .tb-pull:focus-visible { transform: translate(-50%, 0); color: var(--ink); }
+  html.tb-hide .tb-pull .ico { width: 15px; height: 15px; }
+  html.tb-hide .ai-board, html.tb-hide .asst:not(.stage).has-board:not(.board-min) .ai-board { top: 22px !important; }
+  html.tb-hide .xt-coach { top: 16px; }
+}
+
+@media (min-width: 761px) { @container tbar (max-width: 1210px) { html:not(.bm-guest) .tn { padding-left: 4px !important; padding-right: 7px !important; } html:not(.bm-guest) .topnav { gap: 0 !important; } .tn-sep { margin: 0 2px !important; } } }

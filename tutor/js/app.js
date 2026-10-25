@@ -141,7 +141,12 @@ function buildShell() {
   document.addEventListener('click', e => { if (!cPanel.hidden && !e.target.closest('.tcorner')) cSet(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !cPanel.hidden) cSet(false); });
   const tcorner = h('div', { class: 'tcorner' }, cBtn, cPanel);
-  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn, mActs, topset, tcorner), docbar, view);
+  // Leiste einklappbar (Laptop): mehr Platz für Tafel & Lernen – oben mittig bleibt ein kleiner Griff zum Wiederholen
+  const tbSet = v => { document.documentElement.classList.toggle('tb-hide', v); ls.set('tutor.tbHide', v ? 1 : 0); dispatchEvent(new Event('resize')); };
+  const tbBtn = h('button', { class: 'iconbtn tb-fold', type: 'button', title: L('Leiste einklappen – mehr Platz', 'Collapse bar – more space'), 'aria-label': L('Leiste einklappen', 'Collapse bar'), html: '<svg class="ico" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>', onclick: () => tbSet(true) });
+  if (!document.querySelector('.tb-pull')) document.body.appendChild(h('button', { class: 'tb-pull', type: 'button', title: L('Leiste wieder einblenden', 'Show bar again'), 'aria-label': L('Bereiche einblenden', 'Show areas'), onclick: () => tbSet(false) }, h('span', { html: '<svg class="ico" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>' }), L('Bereiche', 'Areas')));
+  if (ls.get('tutor.tbHide', 0)) document.documentElement.classList.add('tb-hide');
+  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn, mActs, topset, tbBtn, tcorner), docbar, view);
   const bbar = bottomBar(() => app);
   const app = h('div', { class: 'app' + (ls.get('tutor.sideClosed', false) ? ' side-closed' : '') }, side, main, bbar);
   function setSide(open) { app.classList.toggle('side-closed', !open); ls.set('tutor.sideClosed', !open); sideBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
