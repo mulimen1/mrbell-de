@@ -227,6 +227,7 @@ function initLanding() {
 }
 
 // ---------- Router ----------
+let routed = false;
 async function route() {
   let hash = location.hash || '#/';
   const lm = hash.match(/^#\/login\/([A-Za-z0-9_-]{20,60})\/(\d{6})$/);
@@ -236,10 +237,13 @@ async function route() {
   // Angemeldet: keine Startseite, direkt in den eigenen Bereich
   if (getAccount() && (hash === '#/' || hash === '#' || hash === '#/app' || hash === '#/app/')) { history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor'; }
   // Themen-Einstieg (Google-Anzeige: ?thema=…): immer direkt in den großen Tutor-Raum – auch bei englischem Browser
-  if (hash === '#/' || hash === '#') {
+  // Neu laden auf der Anzeigen-Landingpage (Gast, ?thema=… schon gesehen): dieselbe Tafel wieder zeigen statt Konto-Sperre
+  const reload = !routed && !getAccount() && /^#\/app\/tutor\/?$/.test(hash);
+  routed = true;
+  if (hash === '#/' || hash === '#' || reload) {
     const T = landingTopic();
     let done = ''; try { done = sessionStorage.getItem('tutor.themaDone') || ''; } catch (e) {}
-    if (T && done !== T.slug) {
+    if (T && (done !== T.slug || reload)) {
       try { sessionStorage.setItem('tutor.themaDone', T.slug); sessionStorage.setItem('tutor.topicHead', T.name); sessionStorage.setItem('tutor.stay', String(Date.now())); } catch (e) {}
       // >>> Sofort-Tafel (boards.js): gespeicherte Tafel schon jetzt laden, Max sagt nicht „live“
       const IB = hasInstant(T.slug); if (IB) loadInstant(T.slug);
