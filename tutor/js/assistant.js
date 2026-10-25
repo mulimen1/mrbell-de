@@ -1459,6 +1459,19 @@ export function mountAssistant() {
     p.boards.forEach(b => extras.push(boardBtn(b)));
     if (!STAGE && route().tab && route().tab !== 'room' && (p.boards.length || (p.text || '').length > 280)) extras.push(h('a', { class: 'ai-cmd link ai-room', href: '#/app/tutor', onclick: () => ls.set('tutor.room.continue', 1) }, h('span', { class: 'ck', html: ico('right') }), L('Im Tutor weitermachen', 'Continue in the tutor')));
     if (ex.model !== undefined) extras.push(aiTag(ex.tools, raw, ex.src));
+    // Wie bei ChatGPT: unter jeder Antwort Kopieren, Nochmal, Einfacher, Kürzer, Beispiel – ein Klick statt neu tippen
+    if (!ex.sketch && !calm && ex.model !== undefined && p.text) {
+      const qb = (icon, label, fn) => h('button', { class: 'ai-act', type: 'button', title: label, 'aria-label': label, onclick: fn }, h('span', { html: icon }), h('span', { class: 'ai-actl' }, label));
+      const CP = '<svg class="ico" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>';
+      const RG = '<svg class="ico" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.6"/><path d="M20 4v7h-7"/></svg>';
+      const plainAns = txt.replace(/[*_#`]/g, '');
+      extras.push(h('div', { class: 'ai-acts' },
+        qb(CP, L('Kopieren', 'Copy'), e => { try { navigator.clipboard.writeText(plainAns); const b = e.currentTarget; b.classList.add('ok'); b.querySelector('.ai-actl').textContent = L('Kopiert', 'Copied'); setTimeout(() => { b.classList.remove('ok'); b.querySelector('.ai-actl').textContent = L('Kopieren', 'Copy'); }, 1600); } catch (x) {} }),
+        qb(RG, L('Nochmal anders', 'Try differently'), () => submit(L('Erklär das bitte nochmal anders – anderer Ansatz, anderes Beispiel.', 'Explain that again differently – another approach, another example.'))),
+        qb(ico('bulb'), L('Einfacher', 'Simpler'), () => submit(L('Erklär das nochmal einfacher, wie für jemanden ohne Vorwissen.', 'Explain that more simply, as if I had no background.'))),
+        qb(ico('note'), L('Kürzer', 'Shorter'), () => submit(L('Fass das kürzer zusammen – nur das Wichtigste für die Klausur.', 'Summarise that shorter – only what matters for the exam.'))),
+        qb(ico('calc'), L('Beispiel', 'Example'), () => submit(L('Gib mir dazu ein konkretes Rechenbeispiel aus der Praxis.', 'Give me a concrete worked example from practice.')))));
+    }
     ex.aX.replaceChildren(...(ex.sketch ? [] : calm ? (ex.model !== undefined ? extras.slice(-1) : []) : extras));
     srLive.textContent = txt.replace(/[*_#`]/g, '').slice(0, 600);
     if (!open) unread(true);
