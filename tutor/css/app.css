@@ -4933,15 +4933,15 @@ button.view-back { cursor: pointer; font: 600 13.5px var(--sans); color: var(--i
 /* Kopfzeile kompakter, damit alle Bereiche inkl. Excel auch auf Laptops sichtbar bleiben */
 @media (min-width: 761px) and (max-width: 1500px) {
   .topnav { gap: 2px; }
-  html:not(.bm-guest) .tn { padding: 0 10px 0 5px; gap: 7px; font-size: 15.5px; }
   .tn-sep { margin: 0 6px; }
 }
 @media (min-width: 761px) and (max-width: 1180px) {
-  .tn { padding: 0 9px; font-size: 15px; }
+  html:not(.bm-guest) .tn { padding: 0 9px 0 5px; gap: 7px; }
   .tn-brands { display: none; }
   .tn.tn-tutor { padding: 0 14px 0 5px; }
 }
-.xl-status[hidden], .xl-scroll[hidden] { display: none; }
+@media (min-width: 761px) and (max-width: 1100px) { html:not(.bm-guest) .tn { padding: 0 7px 0 4px; gap: 6px; font-size: 15px; } .tn-sep { margin: 0 3px; } }
+.tc-row[hidden], .xl-status[hidden], .xl-scroll[hidden] { display: none; }
 /* ---------- Max-Modus: animierte Mindmap an der Tafel ---------- */
 .mm2-wrap { margin: 6px 0 18px; }
 .mm2 { width: 100%; height: auto; display: block; overflow: visible; font-family: var(--sans); }

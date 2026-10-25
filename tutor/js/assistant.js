@@ -1259,7 +1259,7 @@ export function mountAssistant() {
     try { STAGE?.onAsk?.(shown); } catch (e) {}
     if (pendingMap === LAZY_MAP) { await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))); const m = pageMap(); pendingMap = m.count ? m.text : null; }
     setState('think');
-    const my = ++gen, spoken = !!cfg.spk && (viaVoice || MM.on());   // Max-Modus: Max antwortet immer gesprochen
+    const my = ++gen, spoken = !!cfg.spk && viaVoice;   // Gesprochen nur, wenn man selbst spricht – getippt wird getippt beantwortet (auch im Max-Modus)
     ctrl = new AbortController();
     try {
       // Ohne Konto: genau eine Antwort (Themen-Tafel oder erste Frage) – jede weitere Frage erst nach kostenlosem Konto, danach geht sie automatisch raus
@@ -1386,7 +1386,7 @@ export function mountAssistant() {
   function curStart() { const rf = STAGE ? [...document.querySelectorAll('.room .rm-fs')].find(e => e.getBoundingClientRect().width > 0) : null; const r = (rf || (open ? fEl : bubFace)).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height * .4 }; }
   // Max spricht einen Cursor-Schritt (gleiche Stimme, gleicher Zwischenspeicher wie die Antwort)
   // Nie ungefragt vorlesen: Max spricht nur, wenn man selbst per Stimme mit ihm redet (oder im Creator Mode)
-  const autoVoice = () => viaVoice || Creator.active() || MM.on();
+  const autoVoice = () => viaVoice || Creator.active();
   async function sayStep(text) {
     if (!autoVoice()) return;
     const my = gen;
@@ -1496,7 +1496,7 @@ export function mountAssistant() {
     for (let k = 0; k < 40 && t.isConnected && t.querySelector('.ai-hide'); k++) await sleep(120);
     const steps = boardSteps(t);
     drawTourBtn();
-    if (MM.on()) { if (steps.length) { startTour(steps, true); return; } MM.revealAll(t); }   // Max-Modus: nach dem Spruch führt Max sofort gesprochen durch die Tafel
+    if (MM.on()) { if (steps.length && autoVoice()) { startTour(steps, true); return; } MM.revealAll(t); }   // Max-Modus: gesprochen führt Max sofort durch die Tafel, getippt steht die Übersicht direkt da
     if (spoken) { vTour = false; afterAnswer(); }
   }
   function drawTourBtn() { const st = boardSteps(bArea.querySelector('.tafel')); bTour.hidden = st.length < 2; }
@@ -1813,6 +1813,7 @@ export function mountAssistant() {
     if (rec) stopListen('stop');
     if (ctrl) { try { ctrl.abort(); } catch (e) {} ctrl = null; }
     try { audio.pause(); } catch (e) {}
+    try { if (tourActive()) stopTour(); MM.revealAll(); } catch (e) {}
     setState('idle', quiet ? undefined : L('Gestoppt.', 'Stopped.'));
   }
 
