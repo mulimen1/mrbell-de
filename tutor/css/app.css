@@ -5168,3 +5168,7 @@ html .tn .tn-new.tn-xlnew, :root[data-theme="dark"] .tn .tn-new.tn-xlnew { displ
 /* Platzhalter im Chatfeld nie zweizeilig: einzeilig mit … statt umbrechen */
 textarea.ai-in:placeholder-shown { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 textarea.ai-in::placeholder { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Laptop: rechte Werkzeug-Knöpfe (Rechner, Notizen) liegen nie über Inhalt (z. B. Herunterladen im Excel-Helfer) */
+@media (min-width: 1000px) { #view:not(:has(> .room)) { padding-right: 60px; box-sizing: border-box; } }
+.xl.xl-detail .xl-head .xl-sub { display: none; }
+.xl.xl-detail .xl-head h1 { font-size: clamp(24px, 2.4vw, 30px); }
