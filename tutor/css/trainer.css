@@ -335,7 +335,7 @@
 .tr-phead { display: grid; grid-template-columns: 1fr minmax(240px, 320px); gap: 20px; align-items: end; }
 .tr-qw { position: relative; display: block; }
 .tr .tr-qw .ico { position: absolute; z-index: 1; left: 13px; top: 50%; transform: translateY(-50%); width: 17px; height: 17px; color: var(--faint); pointer-events: none; }
-.tr .tr-qw .tr-q { height: 44px; padding: 0 12px 0 40px; border-radius: 14px; width: 100%; font-size: 15px; box-shadow: none; outline: none; }
+.tr .tr-qw .tr-q { margin: 0; height: 44px; padding: 0 12px 0 40px; border-radius: 14px; width: 100%; font-size: 15px; box-shadow: none; outline: none; }
 .tr .tr-qw .tr-q:focus { border-color: var(--ink); box-shadow: none; }
 .tr-q::-webkit-search-cancel-button { cursor: pointer; }
 .tr-snip { color: var(--mute); font-style: italic; }
