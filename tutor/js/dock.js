@@ -62,7 +62,9 @@ function place() {
     }
     return;
   }
-  dock.classList.remove('row', 'hide');
+  dock.classList.remove('row', 'hide', 'mm-row');
+  // Max-Modus: Rechner und Lexikon nebeneinander, direkt rechts neben der Eingabe in der Mitte
+  if (document.documentElement.classList.contains('maxmode') && innerWidth > 900) { const c = document.querySelector('.room.talk .rm-comp'); const cr = c && c.getBoundingClientRect(); if (cr && cr.width > 100) { dock.classList.add('mm-row'); dock.style.right = Math.round(Math.max(8, innerWidth - cr.right - (dock.offsetWidth || 96) - 12)) + 'px'; dock.style.bottom = Math.round(innerHeight - cr.bottom + (cr.height - (dock.offsetHeight || 44)) / 2) + 'px'; return; } }
   if (document.documentElement.classList.contains('mx-dress')) return;   // Max zieht sich gerade um – Dock bleibt stehen
   // Laptop mit Tafel im Tutor: Eingabe sitzt links, die Tafel geht bis ganz unten – Rechner/Lexikon über die Eingabe (rechte Kante)
   const side = document.querySelector('.room.dock-side .rm-comp');
