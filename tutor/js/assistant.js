@@ -585,6 +585,7 @@ export function mountAssistant() {
   const tourKey = () => { const r = route(); if (r.tab === 'page') return r.page + (r.arg ? ':' + r.arg : ''); if (r.tab === 'trainer') return 'trainer:' + (r.trainer || ''); if (r.docId) return 'doc:' + r.tab; return r.tab || ''; };
   addEventListener('hashchange', () => { tipOff = false; tipKey = null; drawButtons(); setTimeout(drawButtons, 120); });
   bub.querySelector('.asst-tip').addEventListener('click', e => { if (e.target.closest('.tip-x') || !inApp()) return; e.preventDefault(); e.stopPropagation(); hideTip(); pageTour(); });
+  addEventListener('scroll', () => { if (root.classList.contains('tip-on') && root.classList.contains('tip-tour')) { hideTip(); tipOff = true; } }, { capture: true, passive: true });   // wer scrollt, hat sich orientiert
   setInterval(() => {
     const app = inApp();
     if (tipOff || (!app && ls.get('tutor.asst.seen'))) { if (root.classList.contains('tip-on')) hideTip(); return; }
@@ -604,7 +605,7 @@ export function mountAssistant() {
       }
       root.classList.add('tip-tour');
       tipTx.textContent = L('Klick mich – ich führ dich durch', 'Tap me – I’ll walk you through');
-      if (!root.classList.contains('tip-on') && now - tipVisSince >= 900) root.classList.add('tip-on');
+      if (!root.classList.contains('tip-on') && now - tipVisSince >= 900) { root.classList.add('tip-on'); clearTimeout(tipHideT); tipHideT = setTimeout(() => { hideTip(); tipOff = true; }, 8000); }   // nach 8 s weg – deckt sonst Inhalt zu
       return;
     }
     root.classList.remove('tip-tour'); tipTx.textContent = L('Klick mich – ich helf dir', 'Tap me – I’ll help you');

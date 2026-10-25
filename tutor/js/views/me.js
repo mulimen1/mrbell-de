@@ -317,7 +317,7 @@ export function recommend() {
 // ---------- Fächer & Noten ----------
 function subjects(body) {
   const me = M.getMe();
-  body.append(ttHero(), notenCard());
+  // Reihenfolge wie der Titel: erst Fächer, dann Noten, dann Stundenplan (der hat zusätzlich seinen eigenen Reiter)
   const grid = h('div', { class: 'me-subj' });
   for (const f of me.faecher) {
     const ds = (f.docs || []).map(docById).filter(Boolean);
@@ -349,7 +349,7 @@ function subjects(body) {
   }
   grid.append(h('button', { class: 'me-sc me-scadd', type: 'button', onclick: () => editFach(null) }, h('span', { html: ico('plus') }), h('b', {}, L('Fach anlegen', 'Add subject')), h('small', {}, L('z. B. Kostenrechnung, Klausur am 12.02.', 'e.g. Cost accounting, exam on 12 Feb'))));
   const loose = S.list.filter(d => !d.sample && !M.fachOf(d.id));
-  body.append(grid, loose.length && me.faecher.length ? h('div', { class: 'me-note' }, L(`${loose.length} ${loose.length === 1 ? 'Skript ist' : 'Skripte sind'} noch keinem Fach zugeordnet.`, `${loose.length} ${loose.length === 1 ? 'set of slides isn’t' : 'sets of slides aren’t'} assigned to a subject yet.`)) : null);
+  body.append(...[grid, loose.length && me.faecher.length ? h('div', { class: 'me-note' }, L(`${loose.length} ${loose.length === 1 ? 'Skript ist' : 'Skripte sind'} noch keinem Fach zugeordnet.`, `${loose.length} ${loose.length === 1 ? 'set of slides isn’t' : 'sets of slides aren’t'} assigned to a subject yet.`)) : null, notenCard(), ttHero()].filter(Boolean));
 }
 
 // ---------- Notenziel: „Welche Note brauche ich noch?“ ----------
