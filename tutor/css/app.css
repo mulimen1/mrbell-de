@@ -5342,3 +5342,9 @@ html .tn.tn-flow .tn-b, html .tn.tn-flow:hover .tn-b, html .tn.tn-flow:active .t
 .fc.sw-no .in { box-shadow: 0 0 0 3px color-mix(in srgb, #c0392b 55%, transparent); border-radius: inherit; }
 .fc-swhint { color: var(--faint, #99a); font-size: 12.5px; text-align: center; margin-top: 8px; }
 @media (pointer: fine) { .fc-swhint { display: none; } }
+/* „↓ Zum Ende“ im Chatverlauf */
+.ai-jump { position: sticky; bottom: 8px; left: 50%; display: grid; place-items: center; width: 36px; height: 36px; margin: -36px auto 0; border-radius: 50%; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); box-shadow: 0 8px 20px -8px rgba(0,0,0,.3); cursor: pointer; z-index: 3; }
+.ai-jump[hidden] { display: none; }
+.ai-jump .ico { width: 18px; height: 18px; }
+/* Schmaler Chat neben der Tafel: „Dokument“ nur als Symbol, damit das Eingabefeld Platz hat */
+@media (min-width: 761px) { .asst.has-board:not(.board-min) .ai-att { font-size: 0; gap: 0; padding: 0 10px; } .asst.has-board:not(.board-min) .ai-att .ico, .asst.has-board:not(.board-min) .ai-att svg { width: 18px; height: 18px; } }

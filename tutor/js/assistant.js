@@ -261,6 +261,11 @@ export function mountAssistant() {
   addEventListener('resize', placeHist);
   try { new ResizeObserver(() => placeHist()).observe(isl); } catch (e) {}
   const cap = h('div', { class: 'ai-feed' }, feedList, srLive);
+  // Mitlaufen nur, solange du unten bist – scrollst du hoch zum Nachlesen, springt nichts mehr; ein „↓“-Knopf holt dich zurück
+  let stick = true, progScroll = 0;
+  const jumpB = h('button', { class: 'ai-jump', type: 'button', hidden: true, 'aria-label': L('Zum Ende', 'Jump to latest'), html: '<svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>', onclick: () => { stick = true; jumpB.hidden = true; cap.scrollTo({ top: cap.scrollHeight, behavior: 'smooth' }); } });
+  cap.appendChild(jumpB);
+  cap.addEventListener('scroll', () => { if (Date.now() - progScroll < 120) return; const near = cap.scrollHeight - cap.scrollTop - cap.clientHeight < 80; stick = near; jumpB.hidden = near || cap.scrollHeight <= cap.clientHeight + 10; }, { passive: true });
   const seenBefore = !!ls.get('tutor.asst.seen');   // wer Max schon kennt, bekommt keine Begrüßung mehr
   let feedOpen = MOB.matches;   // Handy: Verlauf ist offen und geht nur zu, wenn man selbst auf „Verlauf schließen“ tippt
 
@@ -880,12 +885,13 @@ export function mountAssistant() {
   function endEx() { if (curEx) curEx.done = true; }
   function dropEx() { if (curEx && !curEx.done) { curEx.q.remove(); curEx.a.remove(); curEx = null; capQ = capA = capX = null; markLast(); } }
   function capQuestion(t, live = false) {
+    stick = true; jumpB.hidden = true;   // neue Frage: wieder mitlaufen
     showCap();
     if (!curEx || curEx.done) newEx(t, live);
     capQ.textContent = t; capQ.classList.toggle('live', live);
     capScroll();
   }
-  function capScroll() { requestAnimationFrame(() => {
+  function capScroll(force) { if (force === true) stick = true; if (!stick) { jumpB.hidden = false; return; } progScroll = Date.now(); requestAnimationFrame(() => { progScroll = Date.now();
     // Handy im Tutor-Raum: lange Antwort von oben lesbar lassen (nicht ans Ende springen, solange sie höher als der Platz ist)
     const la = STAGE && MOB.matches ? feedList.querySelector('.ai-bub.max.last:not([hidden])') : null;
     if (la && la.offsetHeight > cap.clientHeight - 24) { const q = la.previousElementSibling; const top = (q && q.classList.contains('me') && q.offsetHeight < 90 ? q.offsetTop : la.offsetTop) - 8; cap.scrollTop = Math.max(0, top); }

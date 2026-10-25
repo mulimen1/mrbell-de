@@ -73,6 +73,8 @@ let lastToast = 0;
 export function savedToast(kind, n = 1) {
   if (Date.now() - lastToast < 1500) return;   // nicht doppelt
   try { if (sessionStorage.getItem('bm.adEntry')) return; } catch (e) {}   // Einstieg über Google-Anzeige: nicht überfordern
+  // Tafeln entstehen ständig: der Hinweis kommt nur die ersten 2 Male – danach weiß man's, und er verdeckt sonst die Knöpfe unter der Tafel
+  if (kind === 'tafeln') { const n0 = +(ls.get('tutor.libToastN', 0) || 0); if (n0 >= 2) return; ls.set('tutor.libToastN', n0 + 1); }
   lastToast = Date.now();
   const go = h('a', { class: 'toast-undo', href: '#/app/bibliothek/' + kind }, L('Ansehen', 'View'));
   toast(h('span', { class: 'toast-row lib-toast' }, h('span', { class: 'lib-ok', 'aria-hidden': 'true', html: ico('check') }), (WHAT[kind] || WHAT.quiz)(n), go), 3600);
