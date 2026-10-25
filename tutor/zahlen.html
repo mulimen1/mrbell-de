@@ -99,6 +99,10 @@ button { font: inherit; color: inherit; }
 .fun .bar span { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font: 700 13px var(--mono); color: #000; mix-blend-mode: normal; }
 .fun .bar span.out { color: var(--ink); }
 .fun .p { font: 600 12px var(--mono); color: var(--mute); text-align: right; }
+.fun .r.weg .bar i { background: #e5484d; } .fun .r.weg .n, .fun .r.weg .p { color: #ff7b7f; } .fun .r.weg .bar span:not(.out) { color: #fff; }
+.card .hd .tm { display: inline-flex; align-self: center; gap: 2px; padding: 3px; border: 1px solid var(--line2); border-radius: 999px; margin-right: auto; margin-left: 14px; }
+.card .hd .tm button { height: 26px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: var(--mute); font: 600 12px var(--sans); cursor: pointer; }
+.card .hd .tm button.on { background: var(--ink); color: #000; }
 @keyframes grow { from { transform: scaleX(0); } }
 
 /* Feed */
@@ -220,7 +224,8 @@ button { font: inherit; color: inherit; }
   var API = (new URLSearchParams(location.search)).get('api') || 'https://hub.mrbell.de/api/bwlmax/zahlen';
   var app = $id('app'), segEl = $id('seg'), liveEl = $id('live'), standEl = $id('stand');
   var Z = (function () { try { return localStorage.getItem('zahlen.z') || '7'; } catch (e) { return '7'; } })();
-  var data = null, lastOk = 0, timer = 0, seenFeed = {}, firstDraw = true, showAllWege = false;
+  var data = null, lastOk = 0, timer = 0, seenFeed = {}, firstDraw = true, showAllWege = false, trMode = 'ads';
+  try { trMode = localStorage.getItem('zl.trmode') || 'ads'; } catch (e) {}
   var DE = new Intl.NumberFormat('de-DE');
   var fmt = function (n) { return DE.format(Math.round(n || 0)); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
@@ -376,13 +381,18 @@ button { font: inherit; color: inherit; }
       return '<div class="card kpi' + (x[5] ? ' big' : '') + '" style="animation-delay:' + (i * 40) + 'ms"><div class="l">' + ico(x[0]) + esc(x[1]) + '</div><div class="v num">' + (x[3] === 'quote' ? String(v).replace('.', ',') + ' %' : fmt(v)) + '</div><div class="d">' + (x[3] === 'quote' ? '<span>werden zu Konten</span>' : x[3] === 'ads' ? '<span>' + fmt(k.adsAufrufe || 0) + ' Aufrufe inkl. Neuladen</span>' : x[3] === 'personen' ? '<span>' + fmt(k.besuche || 0) + ' Seitenaufrufe</span>' : x[3] === 'wieder' ? '<span>von ' + fmt(d.mitKennung || 0) + ' mit Cookies</span>' : delta(x[3] === 'konten' ? 'konten' : x[3], v, vv)) + '</div>' + (x[4] ? spark(x[4]) : '<svg class="sp" viewBox="0 0 100 34"><rect x="0" y="14" width="100" height="6" rx="3" fill="#151517"/><rect x="0" y="14" width="' + Math.min(100, x[3] === 'wieder' ? 100 * v / Math.max(1, d.mitKennung || 0) : v) + '" height="6" rx="3" fill="#fff"/></svg>') + '</div>';
     }).join('');
 
-    var tr = d.basis.trichter || [], t0 = (tr[0] && tr[0][1]) || 0;
-    var tx = d.basis.trExtra || {};
-    var fnote = '<div class="fnote">' + (tx.besucher != null ? '<span>Besucher gesamt <b>' + fmt(tx.besucher) + '</b></span><span>Tafel auf dem Handy <b>' + fmt(tx.handy || 0) + '</b></span>' : '') + '<span>Aus Google Ads <b>' + fmt(tx.ads != null ? tx.ads : (k.ads || 0)) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>';
-    var trK = d.konten.trichter != null ? d.konten.trichter : d.konten.zeitraum;
-    var trich = tr.concat([['Konto erstellt', trK]]).map(function (x, i, arr) {
-      var w = t0 ? 100 * x[1] / t0 : 0, pr = i && t0 ? Math.round(100 * x[1] / t0) : null;   // Anteil aller Besucher
-      return '<div class="r"><span class="n">' + esc(x[0]) + '</span><span class="bar"><i style="width:' + Math.max(w ? 1.5 : 0, w).toFixed(1) + '%;animation-delay:' + (i * 70) + 'ms"></i><span class="num' + (w < 18 ? ' out" style="left:calc(' + Math.max(w, 1.5).toFixed(1) + '% + 8px)' : '') + '">' + fmt(x[1]) + '</span></span><span class="p">' + (pr == null ? '' : pr + ' %') + '</span></div>';
+    var adsM = trMode === 'ads' && !!d.basis.trichterAds;
+    var tr = (adsM ? d.basis.trichterAds : d.basis.trichter) || [], t0 = (tr[0] && tr[0][1]) || 0;
+    var tx = (adsM ? d.basis.trExtraAds : d.basis.trExtra) || {};
+    var fnote = adsM ? '<div class="fnote"><span>Besucher aus Google Ads <b>' + fmt(tx.besucher || 0) + '</b></span><span>Tafel auf dem Handy <b>' + fmt(tx.handy || 0) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>' : '<div class="fnote">' + (tx.besucher != null ? '<span>Besucher gesamt <b>' + fmt(tx.besucher) + '</b></span><span>Tafel auf dem Handy <b>' + fmt(tx.handy || 0) + '</b></span>' : '') + '<span>Aus Google Ads <b>' + fmt(tx.ads != null ? tx.ads : (k.ads || 0)) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>';
+    var trK = adsM ? (tx.konten || 0) : d.konten.trichter != null ? d.konten.trichter : d.konten.zeitraum;
+    var trL = tr.concat([['Konto erstellt', trK]]);
+    // Wer unter 30 s wieder weg war – immer direkt unter dem Einstieg, rot, Anteil aller Besucher
+    if (tx.weg != null) trL.splice(1, 0, ['Unter 30 s wieder weg', tx.weg, 'weg']);
+    var trich = trL.map(function (x, i, arr) {
+      var b0 = x[2] === 'weg' ? (tx.besucher || 0) : t0;
+      var w = b0 ? 100 * x[1] / b0 : 0, pr = i && b0 ? Math.round(100 * x[1] / b0) : null;   // Anteil am Einstieg (weg: an allen Besuchern)
+      return '<div class="r' + (x[2] === 'weg' ? ' weg' : '') + '"><span class="n">' + esc(x[0]) + '</span><span class="bar"><i style="width:' + Math.max(w ? 1.5 : 0, w).toFixed(1) + '%;animation-delay:' + (i * 70) + 'ms"></i><span class="num' + (w < 18 ? ' out" style="left:calc(' + Math.max(w, 1.5).toFixed(1) + '% + 8px)' : '') + '">' + fmt(x[1]) + '</span></span><span class="p">' + (pr == null ? '' : pr + ' %') + '</span></div>';
     }).join('');
 
     var feedList = (d.basis.letzte || []).filter(function (e) { return e.ereignis !== 'Gescrollt'; }).slice(0, 40);
@@ -451,7 +461,7 @@ button { font: inherit; color: inherit; }
     app.style.minHeight = firstDraw ? '' : app.offsetHeight + 'px';
     app.innerHTML =
       '<section class="grid g7">' + kpis + '</section>' +
-      '<section class="grid g21"><div class="card"><div class="hd"><h2>Vom Besuch zum Konto</h2><small>Wo sie abspringen · ' + (tx.ab ? 'seit ' + new Date(tx.ab).toLocaleString('de-DE', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) + ' Uhr' : esc(d.zeitraum.name)) + '</small></div><div class="fun">' + trich + '</div>' + fnote + '</div>' +
+      '<section class="grid g21"><div class="card"><div class="hd"><h2>Vom Besuch zum Konto</h2><span class="tm"><button data-tm="ads"' + (adsM ? ' class="on"' : '') + '>Nur Google Ads</button><button data-tm="alle"' + (adsM ? '' : ' class="on"') + '>Alle</button></span><small>Wo sie abspringen · ' + (tx.ab ? 'seit ' + new Date(tx.ab).toLocaleString('de-DE', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) + ' Uhr' : esc(d.zeitraum.name)) + '</small></div><div class="fun">' + trich + '</div>' + fnote + '</div>' +
       '<div class="card"><div class="hd"><h2>Gerade passiert</h2><small>live</small></div><div class="feed" id="feed">' + feed + '</div></div></section>' +
       '<section class="grid"><div class="card"><div class="hd"><h2>Verlauf</h2><div class="leg"><span><i></i>Seitenaufrufe</span><span><i class="l2"></i>Besucher</span><span><i class="l3"></i>Aktiv</span></div></div><div class="chart" id="chart"></div></div></section>' +
       '<section class="grid g2"><div class="card"><div class="hd"><h2>Neue Konten</h2><small>' + esc(d.zeitraum.name) + '</small></div>' + konten + '</div>' +
@@ -469,6 +479,7 @@ button { font: inherit; color: inherit; }
     var fe = $id('feed'); if (fe && feedTop) fe.scrollTop = feedTop;
     if (!firstDraw) { keep.forEach(function (x) { x[0].scrollTop = x[1]; }); if (window.scrollY !== wy) window.scrollTo(0, wy); }
     app.style.minHeight = '';
+    [].forEach.call(app.querySelectorAll('[data-tm]'), function (b) { b.onclick = function () { trMode = b.dataset.tm; try { localStorage.setItem('zl.trmode', trMode); } catch (e) {} draw(); }; });
     var mb = $id('more'); if (mb) mb.onclick = function () { showAllWege = !showAllWege; draw(); };
     firstDraw = false;
     tick();

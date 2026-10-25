@@ -4,6 +4,8 @@
   if (window.BM) return;
   // Google-Ads-/Themen-Landung (?thema=, gclid, utm): schmale Cookie-Leiste am Laptop – Startseite behält das normale Banner
   try { if (/[?&](thema|gclid|gbraid|wbraid|utm_source)=/.test(location.search) || sessionStorage.getItem('bm.adland')) { sessionStorage.setItem('bm.adland', '1'); document.documentElement.classList.add('bm-adland'); } } catch (e) {}
+  // Kam dieser Besuch über eine Google-Anzeige? (nur ein Ja/Nein für die Statistik, keine Kennung)
+  var GADS = false; try { var q = location.search; if (/[?&](gclid|gbraid|wbraid)=/.test(q) || /[?&]utm_source=(google|gads)(&|$)/i.test(q) && /[?&]utm_medium=[^&]*(cpc|paid|ads)/i.test(q)) sessionStorage.setItem('bm.gads', '1'); GADS = sessionStorage.getItem('bm.gads') === '1'; } catch (e) {}
   var KEY = 'bm.consent', EN = /^en/.test(document.documentElement.lang || '');
   var T = function (de, en) { return EN ? en : de; };
   var get = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
@@ -32,17 +34,17 @@
   function conv(label) { if (!ADS.id || !label || !ok()) return; ads(); try { window.gtag('event', 'conversion', { send_to: ADS.id + '/' + label }); } catch (e) {} }
   var sent = {};
   // Ohne Einwilligung: nur die reine Anzahl dieser Trichter-Schritte – ohne Cookie, ohne Kennung, ohne Ort
-  var ANON = ['Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt'];
+  var ANON = ['Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt', 'Länger als 30 Sekunden'];
   function track(ereignis, detail, once) {
     if (!ok()) {
       if (ANON.indexOf(ereignis) < 0 || /(?:^|;\s*)mb_intern=1/.test(document.cookie)) return;
-      try { fetch('/bm', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ ereignis: ereignis, detail: String(detail || '').slice(0, 30), seite: '/' }), keepalive: true, credentials: 'omit' }).catch(function () {}); } catch (e) {}
+      try { fetch('/bm', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ ereignis: ereignis, detail: String(detail || '').slice(0, 30), seite: '/', ads: GADS ? 1 : 0 }), keepalive: true, credentials: 'omit' }).catch(function () {}); } catch (e) {}
       return;
     }
     if (ereignis === 'Konto erstellt') conv(ADS.signup);
     if (ereignis === 'Max gefragt') { var fk = 'bm.ads.ask'; var done = false; try { done = !!localStorage.getItem(fk); } catch (e) {} if (!done) { try { localStorage.setItem(fk, '1'); } catch (e) {} conv(ADS.ask); } }
     var k = ereignis + '|' + (detail || ''); if (once && sent[k]) return; sent[k] = 1;
-    var body = JSON.stringify({ ereignis: String(ereignis).slice(0, 40), detail: String(detail || '').slice(0, 60), seite: seite() });
+    var body = JSON.stringify({ ereignis: String(ereignis).slice(0, 40), detail: String(detail || '').slice(0, 60), seite: seite(), ads: GADS ? 1 : 0 });
     try { fetch('/bm', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: body, keepalive: true, credentials: 'same-origin' }).catch(function () {}); } catch (e) {}
   }
 
@@ -101,7 +103,6 @@
   function start() {
     if (started || !ok()) return; started = true;
     ads();
-    setTimeout(function () { track('Länger als 30 Sekunden', '', true); }, 30000);
     var onScroll = function () {
       var land = document.getElementById('landing'); if (land && land.classList.contains('hidden')) return;
       var h = document.documentElement.scrollHeight - innerHeight; if (h < 200) return;
@@ -122,6 +123,8 @@
 
   window.BM = { track: track, open: open, ok: ok };
   document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-consent-open]')) { e.preventDefault(); open(); } });
+  // Wer nach 30 s noch da ist (auch ohne Einwilligung: reine Anzahl) – der Rest ist „unter 30 s wieder weg“
+  setTimeout(function () { track('Länger als 30 Sekunden', '', true); }, 30000);
   var init = function () { var c = get(); if (c === 'ja' && !hasCookie()) setCookie(); if (c !== 'ja' && c !== 'nein') setTimeout(open, 900); else start(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

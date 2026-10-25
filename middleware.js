@@ -102,7 +102,7 @@ const BM_ZIEL = 'https://hub.mrbell.de/n8n/webhook/bm-ping';
 const BM_EREIGNISSE = ['Anmeldefenster gesehen', 'Anmeldung begonnen', 'Analyse erlaubt', 'Gescrollt', 'Länger als 30 Sekunden', 'Max geöffnet', 'Max gefragt', 'Sprechen gestartet', 'Skript hochgeladen',
   'Beispiel geöffnet', 'Thema erklärt', 'Erstellt', 'Bereich geöffnet', 'Trainer geöffnet', 'Angemeldet', 'Spaßfrage beantwortet', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt'];
 // Ohne Einwilligung zählbar (ohne Kennung, ohne Ort): nur die reine Anzahl neuer Konten
-const BM_OHNE = ['Konto erstellt', 'Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt'];   // Trichter: reine Anzahl ohne Kennung und Ort
+const BM_OHNE = ['Konto erstellt', 'Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt', 'Länger als 30 Sekunden'];   // Trichter: reine Anzahl ohne Kennung und Ort
 function bmKennung(req) { const m = /(?:^|;\s*)bm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
 function bmMelden(daten, req, ctx, bwlmax) {
   if (intern(req)) return null;
@@ -122,7 +122,7 @@ function bmSeite(req, ctx, url, bwlmax, recht) {
   if (/prefetch|prerender/i.test((req.headers.get('sec-purpose') || '') + (req.headers.get('purpose') || '') + (req.headers.get('x-purpose') || ''))) return;
   // Herkunft: Kampagnen-Kennung schlägt Referrer (Google Ads ?gclid, ?utm_source=…, eigene Links ?ref=lmu1), Thema-Einstieg ins Detail
   const p = url.searchParams, ref = kurz(p.get('ref') || '', 30), utm = kurz(p.get('utm_source') || '', 20), thema = kurz(p.get('thema') || p.get('q') || '', 30);
-  const quelle = p.get('gclid') || /^(google|gads)$/i.test(utm) && /cpc|paid|ads/i.test(p.get('utm_medium') || '') ? 'Google Ads' : utm ? 'Kampagne: ' + utm : ref ? 'Link: ' + ref : '';
+  const quelle = p.get('gclid') || p.get('gbraid') || p.get('wbraid') || /^(google|gads)$/i.test(utm) && /cpc|paid|ads/i.test(p.get('utm_medium') || '') ? 'Google Ads' : utm ? 'Kampagne: ' + utm : ref ? 'Link: ' + ref : '';
   bmMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht ? (recht === 'impressum' ? 'Impressum' : 'Datenschutz') : (thema ? 'Thema: ' + thema : ''), seite: recht ? '/' + recht : (/^\/lernen/.test(url.pathname) ? kurz(url.pathname, 60) : '/'),
     herkunft: quelle || herkunft(req.headers.get('referer') || '', url), geraet: geraet(ua) }, req, ctx, bwlmax);
 }
@@ -134,7 +134,7 @@ async function bmEreignis(req, ctx, bwlmax) {
   const ereignis = kurz(d && d.ereignis, 40);
   if (BM_EREIGNISSE.indexOf(ereignis) < 0) return new Response(null, { status: 204 });
   if (!bmKennung(req) && BM_OHNE.indexOf(ereignis) < 0) return new Response(null, { status: 204 });
-  const offen = bmMelden({ ereignis: ereignis, detail: kurz(d.detail, 60), seite: kurz(d.seite, 60), herkunft: '', geraet: geraet(ua) }, req, ctx, bwlmax);
+  const offen = bmMelden({ ereignis: ereignis, detail: kurz(d.detail, 60), seite: kurz(d.seite, 60), herkunft: d && d.ads ? 'Google Ads' : '', geraet: geraet(ua) }, req, ctx, bwlmax);
   if (offen) await Promise.race([offen, new Promise(function (r) { setTimeout(r, 1500); })]);
   return new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store' } });
 }
