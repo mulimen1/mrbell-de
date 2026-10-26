@@ -158,11 +158,11 @@ class Face {
   }
   loop(t) {
     if (!this.el.isConnected) { faces.delete(this); clearTimeout(this._bt); return; }
-    const r = this.el.getBoundingClientRect();
+    let r = null;
     if (this.state === 'sleep') { this.tx = 0; this.ty = 14; }
     else if (this.forced && t < this.forced.until) { this.tx = this.forced.x; this.ty = this.forced.y; }
     else if (this.state === 'think') { this.tx = 22; this.ty = -22; }
-    else if (this.follow && pointer && t - pointer.t < 4000 && r.width) {
+    else if (this.follow && pointer && t - pointer.t < 4000 && (r = this.el.getBoundingClientRect()).width) {   // Position nur messen, wenn Max dem Zeiger folgt (sonst erzwingt jedes Bild ein Layout)
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const dx = pointer.x - cx, dy = pointer.y - cy, d = Math.hypot(dx, dy) || 1;
       const k = Math.min(1, d / 400);
