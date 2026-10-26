@@ -5766,3 +5766,22 @@ body.bm-tools-mode .dk { display: none !important; }
 @keyframes rmvarr { 0%, 48% { transform: none; color: var(--faint); } 56% { transform: translateX(3px); color: var(--inv); } 64%, 100% { transform: none; color: var(--mute); } }
 @keyframes rmvline { 0%, 52% { transform: scaleX(0); opacity: 0; } 62%, 92% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .rm-xlg i.hit, .rm-vdpl, .rm-vdbar i, .rm-vda, .rm-vds i { animation: none; } .rm-vdbar i { width: 100%; } }
+/* Tutor-Karten: Endprodukt ruhig zeigen (keine Animation neben der Tafel) */
+.room .rm-xlg i.hit, .room .rm-vdpl, .room .rm-vdbar i, .room .rm-vda, .room .rm-vds i { animation: none !important; }
+.room .rm-vdbar i { width: 100%; } .room .rm-vdpl { opacity: .6; transform: scale(.9); }
+/* Startseite: groß und animiert */
+.hvid .rm-vdp.big, .hvid .rm-xlp.big { height: auto; margin: 6px 0 4px; }
+.rm-vdp.big { grid-template-columns: minmax(0, 1.15fr) 30px minmax(0, 1fr); gap: 12px; }
+.rm-vdp.big .rm-vdv { height: 128px; border-radius: 14px; }
+.rm-vdp.big .rm-vdpl { width: 54px; height: 38px; border-radius: 10px; }
+.rm-vdp.big .rm-vdpl::after { left: 21px; top: 11px; border-left-width: 15px; border-top-width: 8px; border-bottom-width: 8px; }
+.rm-vdp.big .rm-vdbar { left: 12px; right: 12px; bottom: 10px; height: 5px; }
+.rm-vdp.big .rm-vda .ico { width: 26px; height: 26px; }
+.rm-vdp.big .rm-vds { height: 128px; border-radius: 14px; padding: 12px 14px; gap: 8px; }
+.rm-vdp.big .rm-vds b { font-size: 14px; }
+.rm-vdp.big .rm-vds i { height: 8px; border-radius: 5px; }
+.rm-xlp.big { font-size: 13.5px; gap: 6px; }
+.rm-xlp.big .rm-xlf { padding: 7px 10px; border-radius: 9px; }
+.rm-xlp.big .rm-xlg { grid-template-columns: 28px 1.3fr 1fr; border-radius: 10px; }
+.rm-xlp.big .rm-xlg i { padding: 6px 9px; }
+@media (max-width: 520px) { .rm-vdp.big .rm-vdv, .rm-vdp.big .rm-vds { height: 96px; } .rm-xlp.big { font-size: 12px; } }
