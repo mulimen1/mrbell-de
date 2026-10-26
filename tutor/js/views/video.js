@@ -140,7 +140,10 @@ export function render(root) {
   const listEl = h('div', { class: 'vt-list' });
 
   const drop = h('div', { class: 'vt-drop', tabindex: 0, role: 'button', 'aria-label': L('Datei oder Link hierher ziehen', 'Drop a file or link here'), onclick: e => { if (e.target === url || e.target === go || url.contains(e.target)) return; fileIn.click(); } },
-    h('div', { class: 'vt-dl vt-flow' }, h('span', { class: 'vt-tile' }, LOGO('youtube')), h('span', { class: 'vt-arrow', html: ico('right') }), h('span', { class: 'vt-tile vt-sheet', title: L('Lernzettel', 'Study sheet') }, h('span', { html: ico('note') }), h('small', {}, L('Lernzettel', 'Study sheet')))),
+    h('span', { class: 'rm-vdp big vt-anim', 'aria-hidden': 'true' },   // Video läuft durch → Lernzettel schreibt sich (wie auf der Startseite)
+      h('span', { class: 'rm-vdv' }, h('span', { class: 'rm-vdpl' }), h('span', { class: 'rm-vdbar' }, h('i'))),
+      h('span', { class: 'rm-vda', html: ico('right') }),
+      h('span', { class: 'rm-vds' }, h('b', {}, L('Lernzettel', 'Study sheet')), h('i'), h('i'), h('i', { class: 'hl' }), h('i'), h('i'))),
     h('b', {}, L('Link oder Datei hierher ziehen', 'Drop a link or file here')),
     h('small', {}, L('YouTube-Link (auch Shorts) – oder deine eigene Datei: PDF, Foto, Word, PowerPoint, Video, Audio', 'YouTube link (Shorts too) – or your own file: PDF, photo, Word, PowerPoint, video, audio')),
     h('div', { class: 'vt-bar', onclick: e => e.stopPropagation() }, h('span', { class: 'vt-bari', html: ico('video') }), url, go),
@@ -170,7 +173,10 @@ export function render(root) {
     if (getAccount() || gateEl) return;
     wrap.classList.add('vt-locked');
     gateEl = h('div', { class: 'vt-gate' }, h('div', { class: 'vt-gatec' },
-      h('div', { class: 'vt-dl vt-flow' }, h('span', { class: 'vt-tile' }, LOGO('youtube')), h('span', { class: 'vt-arrow', html: ico('right') }), h('span', { class: 'vt-tile vt-sheet', title: L('Lernzettel', 'Study sheet') }, h('span', { html: ico('note') }), h('small', {}, L('Lernzettel', 'Study sheet')))),
+      h('span', { class: 'rm-vdp big vt-anim', 'aria-hidden': 'true' },   // Video läuft durch → Lernzettel schreibt sich (wie auf der Startseite)
+      h('span', { class: 'rm-vdv' }, h('span', { class: 'rm-vdpl' }), h('span', { class: 'rm-vdbar' }, h('i'))),
+      h('span', { class: 'rm-vda', html: ico('right') }),
+      h('span', { class: 'rm-vds' }, h('b', {}, L('Lernzettel', 'Study sheet')), h('i'), h('i'), h('i', { class: 'hl' }), h('i'), h('i'))),
       h('b', {}, L('Video-Transkripte freischalten', 'Unlock video transcripts')),
       h('p', {}, L('Mit kostenlosem Konto: 3 Videos pro Tag abschreiben und daraus Lernzettel, Mitschrift, Karteikarten & Co. machen. Dauert 20 Sekunden.', 'With a free account: transcribe 3 videos a day and turn them into study sheets, notes, flashcards & more. Takes 20 seconds.')),
       h('button', { class: 'btn primary', type: 'button', onclick: async () => { const { openAuth } = await import('../account.js'); await openAuth({ registerTitle: L('Video-Transkripte freischalten', 'Unlock video transcripts'), registerSub: L('Kostenlos. 3 Videos pro Tag.', 'Free. 3 videos a day.') }); if (getAccount()) { wrap.classList.remove('vt-locked'); gateEl.remove(); gateEl = null; loadQuota(); if (url.value.trim()) start(); } } }, L('Kostenlos freischalten', 'Unlock for free'))));
