@@ -59,6 +59,101 @@ if (matchMedia('(pointer: fine) and (min-width: 761px)').matches) {
   document.addEventListener('mouseout', onOut);
 }
 
+// ---------- Anmelden direkt auf der Lernseite (Google oder E-Mail mit Code) – man verlässt die Seite nie ----------
+const getAcc = () => { try { return JSON.parse(localStorage.getItem('tutor.account') || 'null'); } catch (e) { return null; } };
+export function authModal({ title = 'Kostenlos weiterlernen', sub = 'Mit Google in zwei Klicks – du bleibst auf dieser Seite.', why = 'Lernseite', onDone } = {}) {
+  if (document.querySelector('.lms-bg')) return;
+  tr('Anmeldefenster gesehen', why);
+  const bg = document.createElement('div'); bg.className = 'lms-bg';
+  bg.innerHTML = `<div class="lms" role="dialog" aria-modal="true" aria-label="Anmelden"><button class="lmx-x" type="button" aria-label="Schließen">${ico('x')}</button><div class="lmx-face"></div><div class="lms-body"></div></div>`;
+  const body = bg.querySelector('.lms-body');
+  const close = () => { bg.classList.add('out'); setTimeout(() => bg.remove(), 260); document.removeEventListener('keydown', onKey); };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', onKey);
+  bg.addEventListener('click', e => { if (e.target === bg) close(); });
+  bg.querySelector('.lmx-x').onclick = close;
+  document.body.appendChild(bg);
+  let fc = null; const fEl = bg.querySelector('.lmx-face');
+  import('/tutor/js/face.js').then(m => { fc = m.face(fEl, { follow: false }); }).catch(() => { fEl.innerHTML = '<img src="/tutor/img/max-fav-192.png?v=8" alt="" width="92" height="92" style="border-radius:50%">'; });
+  const mood = (m, pulse) => { try { fc && (pulse ? fc.pulse(m) : fc.set(m)); } catch (e) {} };
+  let api = null, ts = null; const mods = () => Promise.all([import('/tutor/js/api.js'), import('/tutor/js/turnstile.js')]).then(([a, t]) => { api = a; ts = t; });
+  const ready = mods();
+  const done = r => { try { if (r.account?.email) localStorage.setItem('tutor.lastEmail', JSON.stringify(r.account.email)); } catch (e) {} mood('happy'); setTimeout(() => { close(); onDone && onDone(r.account || getAcc()); }, 450); };
+  let email = ''; try { email = JSON.parse(localStorage.getItem('tutor.lastEmail') || '""') || ''; } catch (e) {}
+  let pw = '';
+  const H = (t, ss) => `<h3>${t}</h3>${ss ? `<p>${ss}</p>` : ''}`;
+  const gBox = () => { const g = document.createElement('div'); g.className = 'lms-g'; import('/tutor/js/google.js').then(m => m.googleButton(g, r => { tr('Anmeldung begonnen', 'Google'); done(r); })).catch(() => { g.hidden = true; }); return g; };
+  const busy = (b, on, lbl) => { b.disabled = on; b.textContent = on ? 'Einen Moment …' : lbl; };
+  const view = (mode, first) => {
+    const reg = mode === 'register';
+    body.innerHTML = (first ? H(title, sub) : H(reg ? 'Kostenloses Konto erstellen' : 'Anmelden', reg ? 'Kostenlos und in 30 Sekunden.' : 'Schön, dass du wieder da bist.'))
+      + `<div class="lms-gw"></div><div class="lms-or"><span>oder mit E-Mail</span></div>
+      <form class="lms-f"><input class="lms-in" type="email" autocomplete="email" inputmode="email" placeholder="E-Mail-Adresse" required>
+      <input class="lms-in" type="password" autocomplete="${reg ? 'new-password' : 'current-password'}" placeholder="${reg ? 'Passwort (mind. 8 Zeichen)' : 'Passwort'}" required>
+      <div class="lms-ts"></div><button class="lms-go" type="submit">${reg ? 'Konto erstellen' : 'Anmelden'}</button></form>
+      <div class="lms-err" role="alert"></div>
+      <div class="lms-alt">${reg ? 'Schon ein Konto? <button type="button" class="lms-l">Anmelden</button>' : 'Noch kein Konto? <button type="button" class="lms-l">Konto erstellen</button> · <a href="/#/app/tutor" target="_blank" rel="noopener">Passwort vergessen?</a>'}</div>`;
+    body.querySelector('.lms-gw').append(gBox());
+    const [em, pi] = body.querySelectorAll('.lms-in'), f = body.querySelector('form'), btn = body.querySelector('.lms-go'), err = body.querySelector('.lms-err'), LBL = btn.textContent;
+    em.value = email;
+    body.querySelector('.lms-l').onclick = () => view(reg ? 'login' : 'register');
+    if (reg) ready.then(() => ts.preload());
+    f.addEventListener('submit', async e => {
+      e.preventDefault(); email = em.value.trim(); pw = pi.value;
+      if (!email || !pw) return;
+      if (reg && pw.length < 8) { err.textContent = 'Dein Passwort braucht mindestens 8 Zeichen.'; pi.focus(); return; }
+      busy(btn, true, LBL); err.textContent = ''; mood('think');
+      try {
+        await ready;
+        if (reg) {
+          tr('Anmeldung begonnen', 'E-Mail');
+          const t = await ts.token(body.querySelector('.lms-ts'));
+          await api.ask('login', { opts: { email, password: pw, mode: 'register', ts: t } });
+          code();
+        } else {
+          const r = await api.ask('pwlogin', { opts: { email, password: pw } });
+          api.setAccount(r.account, r.session); done(r);
+        }
+      } catch (e2) {
+        mood('sad', true); busy(btn, false, LBL); err.textContent = e2.message || 'Das hat nicht geklappt.';
+        if (e2.code === 'exists') { const l = document.createElement('button'); l.type = 'button'; l.className = 'lms-l'; l.textContent = ' Zur Anmeldung →'; l.onclick = () => view('login'); err.append(l); }
+      }
+    });
+    mood('idle');
+    if (matchMedia('(pointer: fine)').matches) setTimeout(() => (email ? pi : em).focus(), 80);
+  };
+  const code = () => {
+    body.innerHTML = H('Bestätige deine E-Mail', `Wir haben dir einen 6-stelligen Code an <b>${esc(email)}</b> geschickt. Keine Mail? Schau im Spam-Ordner nach.`)
+      + `<input class="lms-in lms-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="······" aria-label="Code aus der E-Mail"><div class="lms-err" role="alert"></div><div class="lms-ts"></div>
+      <div class="lms-alt"><button type="button" class="lms-l lms-back">Andere E-Mail</button> · <button type="button" class="lms-l lms-again" disabled>Neuen Code schicken</button></div>`;
+    const inp = body.querySelector('.lms-code'), err = body.querySelector('.lms-err'), again = body.querySelector('.lms-again');
+    let busyC = false;
+    body.querySelector('.lms-back').onclick = () => view('register');
+    setTimeout(() => { again.disabled = false; }, 30000);
+    again.onclick = async () => { again.disabled = true; try { const t = await ts.token(body.querySelector('.lms-ts')); await api.ask('login', { opts: { email, password: pw, mode: 'register', ts: t } }); err.textContent = 'Neuer Code ist unterwegs.'; } catch (e) { err.textContent = e.message; } setTimeout(() => { again.disabled = false; }, 30000); };
+    inp.addEventListener('input', async () => {
+      inp.value = inp.value.replace(/\D/g, '').slice(0, 6);
+      if (inp.value.length < 6 || busyC) return;
+      busyC = true; inp.disabled = true; mood('think'); err.textContent = '';
+      try { const r = await api.ask('verify', { opts: { email, code: inp.value } }); api.setAccount(r.account, r.session); pw = ''; done(r); }
+      catch (e) { busyC = false; inp.disabled = false; inp.value = ''; mood('sad', true); err.textContent = e.message; inp.focus(); }
+    });
+    mood('idle'); setTimeout(() => inp.focus(), 80);
+  };
+  view(email ? 'login' : 'register', true);
+}
+
+// Ohne Konto führt kein Knopf auf der Lernseite weg: Kopfzeile und Karten öffnen die Anmeldung hier – danach geht's dorthin, wo man hinwollte
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('a.lm-tn, a.lm-c, a.lm-cta, a.lm-live, a.lm-side, a.ln-max, a.lmx-go');
+  if (!a || getAcc() || e.metaKey || e.ctrlKey || e.shiftKey) return;
+  e.preventDefault();
+  const href = a.getAttribute('href'), exit = a.classList.contains('lmx-go');
+  if (exit) { const x = document.querySelector('.lmx-bg'); if (x) x.remove(); }
+  authModal({ title: 'Kostenlos weiterlernen', sub: `Mit Google in zwei Klicks – dann erklärt dir Max „${esc(name)}“ und alles andere.`, why: 'Lernseite ' + (a.dataset.k || (a.classList.contains('lm-tn') ? 'Kopf' : exit ? 'Verlassen' : 'Knopf')),
+    onDone: () => { if (!exit) location.href = href; } });
+}, true);
+
 // 3-Fragen-Test (wie am Google-Einstieg): Ergebnis sofort – welche falsch war und warum, sehen Gäste nach dem kostenlosen Konto.
 // Nach der Anmeldung schickt die App zurück auf diese Seite (?test=<Antworten>), dann wird hier sofort aufgelöst.
 (() => {
@@ -101,34 +196,11 @@ if (matchMedia('(pointer: fine) and (min-width: 761px)').matches) {
     else {
       const back = `/lernen/${slug}?test=${qs.map(q => q.pick).join('')}`;
       a.href = `/?thema=${encodeURIComponent(thema)}&konto=1&zurueck=${encodeURIComponent(back)}&utm_source=seo&utm_medium=lernen&utm_campaign=${encodeURIComponent(slug)}-test`;
-      a.addEventListener('click', e => { e.preventDefault(); tr('Lernseite Karte', slug + ':test-frei'); signIn(a.href); });
+      a.addEventListener('click', e => { e.preventDefault(); tr('Lernseite Karte', slug + ':test-frei'); signIn(); });
     }
   };
-  // Anmelden direkt hier auf der Seite (Google-Knopf) – danach sofort die Auflösung. E-Mail geht über die App und kommt danach hierher zurück.
-  const signIn = mailHref => {
-    if (document.querySelector('.lms-bg')) return;
-    const bg = el('div', 'lms-bg', `<div class="lms" role="dialog" aria-modal="true" aria-label="Kostenlos anmelden">
-      <button class="lmx-x" type="button" aria-label="Schließen">${ico('x')}</button>
-      <div class="lmx-face"></div>
-      <h3>Kostenlos anmelden für die Auflösung</h3>
-      <p>Mit Google in zwei Klicks – danach siehst du hier sofort, welche richtig war und warum.</p>
-      <div class="lms-g"></div>
-      <a class="lms-mail" href="${mailHref}">oder mit E-Mail anmelden</a>
-    </div>`);
-    const close = () => { bg.classList.add('out'); setTimeout(() => bg.remove(), 260); };
-    bg.addEventListener('click', e => { if (e.target === bg) close(); });
-    bg.querySelector('.lmx-x').onclick = close;
-    document.body.appendChild(bg);
-    const fEl = bg.querySelector('.lmx-face');
-    import('/tutor/js/face.js').then(m => m.face(fEl, { follow: false })).catch(() => { fEl.innerHTML = '<img src="/tutor/img/max-fav-192.png?v=8" alt="" width="92" height="92" style="border-radius:50%">'; });
-    const g = bg.querySelector('.lms-g');
-    import('/tutor/js/google.js').then(m => m.googleButton(g, r => {
-      acc = r.account || acc || { email: '' };
-      tr('Lernseite Karte', slug + ':test-angemeldet');
-      close(); reveal();
-      setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
-    })).catch(() => { g.hidden = true; });
-  };
+  const signIn = () => authModal({ title: 'Kostenlos anmelden für die Auflösung', sub: 'Mit Google in zwei Klicks – du bleibst hier und siehst sofort, welche richtig war und warum.', why: 'Lernseite Test',
+    onDone: a => { acc = a; tr('Lernseite Karte', slug + ':test-angemeldet'); reveal(); setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300); } });
   go.addEventListener('click', check);
   // Zurück von der Anmeldung: Antworten wieder eintragen und auflösen
   // Die Seite öffnet immer oben – nie direkt am Test (auch nicht über alte #test-Links)

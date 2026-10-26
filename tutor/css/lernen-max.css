@@ -204,3 +204,24 @@ header.lm-top2 .lm-b svg, header.lm-top2 .lm-b img { width: 24px !important; hei
 .lms .lmx-face { width: 92px; height: 92px; }
 .lms-g { width: 100%; min-height: 44px; display: flex; justify-content: center; }
 .lms-mail { color: var(--mute); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+/* Anmeldefenster auf der Lernseite */
+.lms-body { width: 100%; display: grid; gap: 10px; justify-items: stretch; text-align: center; }
+.lms-body h3 { margin: 2px 0 0; font-size: 22px; letter-spacing: -.02em; color: var(--ink); }
+.lms-body p { margin: 0 0 4px; color: var(--mute); font-size: 15px; line-height: 1.5; }
+.lms-gw { display: flex; justify-content: center; min-height: 44px; }
+.lms-or { display: flex; align-items: center; gap: 10px; color: var(--mute); font-size: 13px; }
+.lms-or::before, .lms-or::after { content: ''; flex: 1; height: 1px; background: var(--line2); }
+.lms-f { display: grid; gap: 9px; }
+.lms-in { width: 100%; box-sizing: border-box; height: 48px; padding: 0 14px; border-radius: 14px; border: 1px solid var(--line2); background: var(--bg); color: var(--ink); font: 500 16px 'Geist', sans-serif; outline: none; }
+.lms-in:focus { border-color: var(--inv); box-shadow: 0 0 0 3px color-mix(in srgb, var(--inv) 18%, transparent); }
+.lms-code { text-align: center; letter-spacing: .5em; font-size: 22px; font-weight: 700; }
+.lms-go { height: 50px; border: 0; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 650 16px 'Geist', sans-serif; cursor: pointer; }
+.lms-go:disabled { opacity: .6; cursor: default; }
+.lms-err { min-height: 0; color: #c2412d; font-size: 14px; line-height: 1.45; }
+.lms-err:empty { display: none; }
+.lms-alt { color: var(--mute); font-size: 14px; }
+.lms-alt a { color: var(--mute); }
+.lms-l { border: 0; background: none; padding: 0; color: var(--ink); font: 650 14px 'Geist', sans-serif; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.lms-l:disabled { color: var(--mute); cursor: default; }
+.lms-ts:empty { display: none; }
+.lms { max-height: calc(100vh - 32px); overflow: auto; }
