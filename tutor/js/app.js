@@ -351,7 +351,7 @@ function leaveView(key) {
     const fe = document.querySelector('.room .rm-face');
     if (fe && fe.style.visibility !== 'hidden') { const r = fe.getBoundingClientRect(); if (r.width) headRect = r; }
     try { if (asstMod && asstMod.isAssistantEnabled()) { ap = asstMod.mountAssistant(); if (ap && headRect) ap.holdBub(true); } } catch (e) {}
-    shell.app.classList.toggle('side-closed', !!ls.get('tutor.sideClosed', false));
+    // Seitenleiste bleibt so, wie sie im Tutor war (zu) – kein automatisches Aufklappen beim Bereichswechsel
   }
   try { current.cleanup && current.cleanup(); } catch (e) {}
   current = { key, cleanup: null };

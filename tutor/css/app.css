@@ -5424,3 +5424,7 @@ html:has(.asst.multi) .rm-fl2, html:has(.asst.multi) .rm-fl3, html:has(.asst.mul
 .bm-conf i { position: absolute; width: 9px; height: 14px; border-radius: 2px; }
 /* Anzeigen-Gäste: kein „Kein Skript verbunden“-Hinweis (für sie irrelevant) */
 html.bm-guest .rm-focus { display: none !important; }
+/* Excel: Platzhalter, bis das Vorschaubild nachgeladen ist */
+.xl-thumb.xl-thph { background: linear-gradient(90deg, #f3f5f8 0, #e9edf2 50%, #f3f5f8 100%); background-size: 200% 100%; animation: xlph 1.4s linear infinite; }
+@keyframes xlph { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .xl-thumb.xl-thph { animation: none; } }

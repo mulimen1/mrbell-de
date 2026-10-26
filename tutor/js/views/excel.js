@@ -42,7 +42,7 @@ export function render(root, { arg = '' } = {}) {
 
 // ---------- Galerie ----------
 function gallery(body) {
-  let cat = '', q = '';
+  let cat = '', q = '', first = true;
   const grid = h('div', { class: 'xl-grid' });
   const n = k => TEMPLATES.filter(t => !k || t.cat === k).length;
   const chips = h('div', { class: 'xl-cats' }, [['', L('Alle', 'All')], ...CATS.filter(([k]) => n(k))].map(([k, t]) => h('button', { type: 'button', class: 'chip' + (k === cat ? ' on' : ''), onclick: e => { cat = k; chips.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === e.currentTarget)); draw(); } }, t, h('small', { class: 'xl-cn' }, String(n(k))))));
@@ -52,9 +52,15 @@ function gallery(body) {
   const draw = () => {
     const list = TEMPLATES.filter(t => (!cat || t.cat === cat) && (!q || norm(t.title + ' ' + t.desc + ' ' + t.id).includes(q)));
     empty.hidden = !!list.length;
+    // Vorschaubilder erst nach Max' Flug und in kleinen Häppchen rechnen – sonst ruckelt der Wechsel aus dem Tutor
+    const slots = [];
     grid.replaceChildren(...list.map((t, i) => h('a', { class: 'xl-card', href: '#/app/excel/' + t.id, style: { '--d': (Math.min(i, 12) * 40) + 'ms' } },
-      thumb(t), h('div', { class: 'xl-cmeta' }, h('span', { class: 'xl-ccat' }, (CATS.find(c => c[0] === t.cat) || [, ''])[1]), h('b', {}, t.title), h('p', {}, t.desc),
+      (() => { const ph = h('div', { class: 'xl-thumb xl-thph' }); slots.push([ph, t]); return ph; })(), h('div', { class: 'xl-cmeta' }, h('span', { class: 'xl-ccat' }, (CATS.find(c => c[0] === t.cat) || [, ''])[1]), h('b', {}, t.title), h('p', {}, t.desc),
         h('span', { class: 'xl-cgo' }, icoXL(), L('Öffnen & ausfüllen', 'Open & fill in'), h('span', { html: ico('right') }))))));
+    const idle = window.requestIdleCallback || (f => setTimeout(() => f({ timeRemaining: () => 8 }), 16));
+    const tok = (grid._tok = (grid._tok || 0) + 1);
+    const pump = dl => { while (slots.length && (dl.timeRemaining() > 4 || !window.requestIdleCallback)) { if (grid._tok !== tok) return; const [ph, t] = slots.shift(); if (ph.isConnected) ph.replaceWith(thumb(t)); if (!window.requestIdleCallback) break; } if (slots.length && grid._tok === tok) idle(pump); };
+    setTimeout(() => idle(pump), first ? 950 : 0); first = false;
   };
   draw();
   body.append(h('div', { class: 'xl-filter' }, search, chips), grid, empty, h('div', { class: 'xl-genad' }, h('div', {}, h('b', {}, L('Deine Aufgabe ist nicht dabei?', 'Your task isn’t here?')), h('p', {}, L('Beschreib sie dem Generator – Max baut dir eine eigene Excel-Datei mit echten Formeln.', 'Describe it to the generator – Max builds your own Excel file with real formulas.'))), h('a', { class: 'btn xl-btn', href: '#/app/excel/generator' }, h('span', { html: ico('spark') }), L('Zum Generator', 'Open generator'))));
