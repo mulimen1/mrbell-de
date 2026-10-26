@@ -24,6 +24,10 @@ export const LERNEN = {
 "Ansoff-Matrix",
 "die Ansoff-Matrix – mit den vier Wachstumsstrategien an einem durchgespielten Unternehmensbeispiel"
 ],
+"aufwand-und-kosten": [
+"Auszahlung, Ausgabe, Aufwand und Kosten",
+"die Unterschiede zwischen Auszahlung, Ausgabe, Aufwand und Kosten – mit Geschäftsvorfällen zum Zuordnen und einer Abgrenzungsrechnung"
+],
 "balanced-scorecard": [
 "Balanced Scorecard",
 "die Balanced Scorecard mit ihren vier Perspektiven – an einem Beispiel mit Kennzahlen, Zielwerten und Ursache-Wirkungs-Kette"
@@ -55,6 +59,10 @@ export const LERNEN = {
 "bruttoinlandsprodukt": [
 "Bruttoinlandsprodukt (BIP)",
 "das Bruttoinlandsprodukt – mit einem Rechenbeispiel zu Verwendungsrechnung und realem BIP"
+],
+"buchungssaetze-uebungen": [
+"Buchungssätze Übungen",
+"Buchungssätze – mit weiteren Übungsaufgaben zu Umsatzsteuer, Skonto und Abschlussbuchungen"
 ],
 "buchungssatz": [
 "Buchungssätze",
@@ -144,6 +152,10 @@ export const LERNEN = {
 "Kostenvergleichsrechnung",
 "die Kostenvergleichsrechnung – mit kalkulatorischen Zinsen, Abschreibung und kritischer Menge an einem Beispiel"
 ],
+"latente-steuern": [
+"Latente Steuern",
+"latente Steuern nach § 274 HGB – mit einem durchgerechneten Beispiel zu aktiven und passiven latenten Steuern inklusive Buchungssätzen"
+],
 "leverage": [
 "Leverage-Effekt",
 "den Leverage-Effekt – mit einem Beispiel, wie sich die Eigenkapitalrentabilität bei steigender Verschuldung verändert"
@@ -183,6 +195,10 @@ export const LERNEN = {
 "pestel-analyse": [
 "PESTEL-Analyse",
 "die PESTEL-Analyse – mit einem durchgespielten Unternehmensbeispiel und der Abgrenzung zur SWOT-Analyse"
+],
+"plankostenrechnung": [
+"Plankostenrechnung",
+"die flexible Plankostenrechnung – mit Sollkosten, verrechneten Plankosten sowie Verbrauchs- und Beschäftigungsabweichung an einem durchgerechneten Beispiel"
 ],
 "porter": [
 "Porters Five Forces",
@@ -231,6 +247,10 @@ export const LERNEN = {
 "umsatzsteuer-vorsteuer-buchen": [
 "Umsatzsteuer und Vorsteuer buchen",
 "das Buchen von Umsatzsteuer und Vorsteuer – mit einem Beispiel zur Zahllast mit 19 % und 7 %"
+],
+"wacc": [
+"WACC (gewichtete Kapitalkosten)",
+"den WACC – mit einem durchgerechneten Beispiel von den CAPM-Eigenkapitalkosten bis zum gewichteten Kapitalkostensatz"
 ],
 "zinseszins": [
 "Zinseszins",

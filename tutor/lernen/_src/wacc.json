@@ -1,0 +1,120 @@
+{
+ "slug": "wacc",
+ "name": "WACC (gewichtete Kapitalkosten)",
+ "title": "WACC einfach erklärt – Formel, CAPM & Beispiel",
+ "meta": "WACC verstehen: Formel mit Marktwerten, Tax Shield, Eigenkapitalkosten per CAPM, durchgerechnetes Beispiel und typische Klausurfehler.",
+ "h1": "WACC (gewichtete Kapitalkosten) einfach erklärt",
+ "kurz": "Der WACC (Weighted Average Cost of Capital) ist der gewichtete Durchschnitt aus Eigen- und Fremdkapitalkosten eines Unternehmens. Gewichtet wird mit den Marktwerten von EK und FK, die Fremdkapitalkosten gehen nach Steuern ein (Tax Shield). Der WACC dient als Diskontierungszins für Kapitalwert und DCF-Bewertung.",
+ "keywords": [
+  "WACC",
+  "WACC Formel",
+  "WACC berechnen",
+  "gewichtete Kapitalkosten",
+  "WACC Beispiel",
+  "Tax Shield",
+  "CAPM Eigenkapitalkosten",
+  "WACC Marktwerte Buchwerte"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der WACC?",
+   "html": "<p>Ein Unternehmen finanziert sich aus zwei Töpfen: Eigenkapital der Aktionäre bzw. Gesellschafter und Fremdkapital von Banken oder Anleihegläubigern. Beide Geldgeber wollen eine Rendite. Die Gläubiger bekommen Zinsen, die Eigentümer erwarten eine Rendite aus Dividenden und Kurssteigerungen. Der <strong>WACC</strong> fasst beide Ansprüche zu einem einzigen Prozentsatz zusammen: Er sagt, wie viel Rendite das Unternehmen im Durchschnitt auf jeden investierten Euro erwirtschaften muss, damit alle Kapitalgeber zufrieden sind.</p><p>Daraus folgt die wichtigste Anwendung: Der WACC ist die <strong>Mindestrendite</strong> für Investitionen. Bringt ein Projekt weniger als den WACC, vernichtet es Wert, auch wenn es buchhalterisch einen Gewinn ausweist. Deshalb wird er in der <a href=\"/lernen/kapitalwertmethode\">Kapitalwertmethode</a> und bei der Unternehmensbewertung per DCF als Kalkulationszinssatz eingesetzt.</p><p>Wichtig für das Verständnis: Eigenkapital ist nicht „kostenlos“, nur weil keine Zinsen vereinbart sind. Die Eigentümer tragen das höhere Risiko und verlangen deshalb eine höhere Rendite als die Gläubiger. Diese erwartete Rendite sind die Eigenkapitalkosten, und sie sind fast immer der teurere Teil der Finanzierung. Ökonomisch sind sie <a href=\"/lernen/opportunitaetskosten\">Opportunitätskosten</a>: die Rendite, die die Eigentümer bei einer vergleichbar riskanten Alternative bekämen.</p>"
+  },
+  {
+   "h2": "Wie lautet die WACC-Formel?",
+   "html": "<div class=\"formel\">\\[ \\text{WACC} = \\frac{\\text{EK}}{V} \\cdot r_{EK} + \\frac{\\text{FK}}{V} \\cdot r_{FK} \\cdot (1 - s) \\]\\[ V = \\text{EK} + \\text{FK} \\]</div><ul><li><strong>EK</strong>: Marktwert des Eigenkapitals (bei börsennotierten Unternehmen: Aktienkurs \\( \\cdot \\) Anzahl Aktien)</li><li><strong>FK</strong>: Marktwert des verzinslichen Fremdkapitals</li><li><strong>\\( V \\)</strong>: Gesamtkapital zu Marktwerten</li><li><strong>\\( r_{EK} \\)</strong>: Eigenkapitalkosten (geforderte Rendite der Eigentümer)</li><li><strong>\\( r_{FK} \\)</strong>: Fremdkapitalkosten vor Steuern (Zinssatz)</li><li><strong>\\( s \\)</strong>: Ertragsteuersatz des Unternehmens</li></ul><p>Die beiden Brüche sind die Gewichte. Sie addieren sich immer zu 1, also 100 %. Das ist eine schnelle Kontrolle in der Klausur.</p><h3>Warum \\( (1 - s) \\)? Der Tax Shield</h3><p>Fremdkapitalzinsen sind steuerlich Aufwand und mindern den zu versteuernden Gewinn. Zahlt ein Unternehmen 100 € Zinsen bei einem Steuersatz von 30 %, sinkt seine Steuerlast um 30 €. Effektiv kostet der Kredit also nur 70 €. Diese Steuerersparnis heißt <strong>Tax Shield</strong> (Steuerschild). Für Dividenden gibt es diesen Effekt nicht, weil sie aus dem bereits versteuerten Gewinn gezahlt werden. Deshalb steht \\( (1 - s) \\) nur beim Fremdkapital.</p><h3>Eigenkapitalkosten mit dem CAPM</h3><p>\\( r_{EK} \\) lässt sich nicht aus einem Vertrag ablesen. Standardweg ist das Capital Asset Pricing Model (CAPM):</p><div class=\"formel\">\\[ r_{EK} = r_f + \\beta \\cdot (r_M - r_f) \\]</div><ul><li><strong>\\( r_f \\)</strong>: risikoloser Zins, z. B. Rendite langlaufender Staatsanleihen bester Bonität</li><li><strong>\\( \\beta \\)</strong>: Beta, misst das systematische Risiko der Aktie im Vergleich zum Gesamtmarkt (\\( \\beta = 1 \\): schwankt wie der Markt; \\( \\beta \\gt 1 \\): stärker)</li><li><strong>\\( r_M - r_f \\)</strong>: Marktrisikoprämie, die Mehrrendite des Marktportfolios gegenüber der risikolosen Anlage</li></ul><p>Die Logik: Eigentümer bekommen den risikolosen Zins plus eine Prämie für das Risiko, das sie nicht wegdiversifizieren können. Je höher das Beta, desto höher die Prämie.</p>"
+  },
+  {
+   "h2": "Beispiel: WACC Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p><strong>Aufgabe:</strong> Für die fiktive Kessler Maschinenbau AG sollen die gewichteten Kapitalkosten bestimmt werden. Alle Werte sind <strong>Annahmen für die Übung</strong>, keine aktuellen Marktdaten:</p><table><thead><tr><th>Größe</th><th>Annahme</th></tr></thead><tbody><tr><td>Aktien im Umlauf</td><td>2 Mio. Stück</td></tr><tr><td>Aktienkurs</td><td>30 €</td></tr><tr><td>Buchwert des Eigenkapitals</td><td>25 Mio. €</td></tr><tr><td>Marktwert des Fremdkapitals</td><td>40 Mio. €</td></tr><tr><td>Fremdkapitalzins \\( r_{FK} \\)</td><td>5 %</td></tr><tr><td>Steuersatz \\( s \\)</td><td>30 %</td></tr><tr><td>Risikoloser Zins \\( r_f \\)</td><td>3 %</td></tr><tr><td>Beta \\( \\beta \\)</td><td>1,2</td></tr><tr><td>Marktrisikoprämie \\( r_M - r_f \\)</td><td>5,5 %</td></tr></tbody></table><ol><li><strong>Eigenkapitalkosten per CAPM:</strong> \\( r_{EK} = 3\\,\\% + 1{,}2 \\cdot 5{,}5\\,\\% = 3\\,\\% + 6{,}6\\,\\% = 9{,}6\\,\\% \\)</li><li><strong>Fremdkapitalkosten nach Steuern:</strong> \\( r_{FK} \\cdot (1 - s) = 5\\,\\% \\cdot (1 - 0{,}3) = 3{,}5\\,\\% \\)</li><li><strong>Marktwert des Eigenkapitals:</strong> \\( \\text{EK} = 2\\text{ Mio.} \\cdot 30\\text{ €} = 60\\text{ Mio. €} \\). Der Buchwert von 25 Mio. € spielt für die Gewichtung keine Rolle.</li><li><strong>Gesamtkapital und Gewichte:</strong> \\( V = 60 + 40 = 100\\text{ Mio. €} \\), also \\( \\frac{\\text{EK}}{V} = \\frac{60}{100} = 0{,}6 \\) und \\( \\frac{\\text{FK}}{V} = \\frac{40}{100} = 0{,}4 \\). Kontrolle: \\( 0{,}6 + 0{,}4 = 1 \\).</li><li><strong>WACC:</strong> \\( \\text{WACC} = 0{,}6 \\cdot 9{,}6\\,\\% + 0{,}4 \\cdot 3{,}5\\,\\% = 5{,}76\\,\\% + 1{,}40\\,\\% = 7{,}16\\,\\% \\)</li></ol><p><strong>Ergebnis:</strong> Die Kessler AG muss mit ihren Investitionen im Durchschnitt mindestens 7,16 % erwirtschaften, um Eigen- und Fremdkapitalgeber angemessen zu bedienen.</p><p><strong>Was der Tax Shield bringt:</strong> Ohne Steuern ergäbe sich \\( 0{,}6 \\cdot 9{,}6\\,\\% + 0{,}4 \\cdot 5\\,\\% = 7{,}76\\,\\% \\). Die Steuerersparnis senkt den WACC also um 0,6 Prozentpunkte. In Euro: \\( 40\\text{ Mio. €} \\cdot 5\\,\\% \\cdot 30\\,\\% = 0{,}6\\text{ Mio. €} \\) weniger Steuern pro Jahr.</p></div>"
+  },
+  {
+   "h2": "Wie setzt man den WACC als Diskontierungszins ein?",
+   "html": "<p>Der WACC ist der Zinssatz, mit dem du die Zahlungsströme eines Projekts oder des ganzen Unternehmens abzinst. Voraussetzung: Das Projekt hat ungefähr das gleiche Risiko wie das bisherige Geschäft und wird in der gleichen Kapitalstruktur finanziert.</p><div class=\"beispiel\"><p><strong>Fortsetzung (Annahmen):</strong> Die Kessler AG prüft eine neue Fertigungslinie. Anschaffung 10 Mio. €, Rückflüsse 4 Mio. € pro Jahr über drei Jahre. Abgezinst wird mit dem WACC von 7,16 %.</p><table><thead><tr><th>\\( t \\)</th><th>Zahlung</th><th>Abzinsungsfaktor (7,16 %)</th><th>Barwert</th></tr></thead><tbody><tr><td>0</td><td>−10,0 Mio. €</td><td>1,0000</td><td>−10,0000 Mio. €</td></tr><tr><td>1</td><td>4,0 Mio. €</td><td>0,9332</td><td>3,7328 Mio. €</td></tr><tr><td>2</td><td>4,0 Mio. €</td><td>0,8708</td><td>3,4832 Mio. €</td></tr><tr><td>3</td><td>4,0 Mio. €</td><td>0,8126</td><td>3,2504 Mio. €</td></tr><tr><td></td><td></td><td><strong>Kapitalwert</strong></td><td><strong>0,4664 Mio. €</strong></td></tr></tbody></table><p>Der Kapitalwert ist mit rund 466.400 € positiv: Die Linie verdient mehr als die Kapitalkosten und schafft Wert. (Ohne gerundete Faktoren: 466.653 €.)</p></div><p>Bei der <strong>DCF-Bewertung</strong> (Entity-Ansatz) läuft es genauso, nur mit den freien Cashflows des gesamten Unternehmens: Ihr Barwert, abgezinst mit dem WACC, ergibt den Gesamtunternehmenswert. Zieht man davon den Marktwert des Fremdkapitals ab, erhält man den Wert des Eigenkapitals. Was ein freier <a href=\"/lernen/cashflow\">Cashflow</a> ist, solltest du dafür sicher können.</p><div class=\"merke\">Projektrendite über WACC = Wertschaffung. Projektrendite unter WACC = Wertvernichtung. Anders gesagt: Ist der <a href=\"/lernen/interner-zinsfuss\">interne Zinsfuß</a> größer als der WACC, ist der Kapitalwert positiv.</div><p>Achtung bei Projekten mit deutlich anderem Risiko: Ein riskantes Auslandsprojekt mit dem Konzern-WACC zu bewerten, macht es zu attraktiv. Dann nimmt man einen projektspezifischen Zinssatz, etwa mit dem Beta vergleichbarer Unternehmen.</p>"
+  },
+  {
+   "h2": "Warum Marktwerte statt Buchwerte?",
+   "html": "<p>Der WACC soll die Rendite abbilden, die Kapitalgeber <em>heute</em> für ihr gebundenes Kapital verlangen. Ein Aktionär, der die Aktie heute für 30 € kauft, will eine Rendite auf diese 30 €, nicht auf den historischen Buchwert in der <a href=\"/lernen/bilanz\">Bilanz</a>. Das bilanzielle Eigenkapital spiegelt eingezahltes Kapital und thesaurierte Gewinne wider, aber weder stille Reserven noch den Wert künftiger Ertragsaussichten.</p><p>Im Beispiel liegt der Buchwert des Eigenkapitals bei 25 Mio. €, der Marktwert bei 60 Mio. €. Mit Buchwerten wäre das Gesamtkapital nur 65 Mio. € und die Gewichtung kippt: </p><div class=\"formel\">\\[ \\text{WACC}_{\\text{Buchwert}} = \\frac{25}{65} \\cdot 9{,}6\\,\\% + \\frac{40}{65} \\cdot 3{,}5\\,\\% \\approx 3{,}69\\,\\% + 2{,}15\\,\\% = 5{,}85\\,\\% \\]</div><p>Das sind 1,31 Prozentpunkte weniger als der richtige WACC von 7,16 %. Die Fertigungslinie hätte damit einen Kapitalwert von rund 0,72 Mio. € statt 0,47 Mio. €. Wer mit Buchwerten rechnet, unterschätzt meist den Anteil des teuren Eigenkapitals und rechnet sich Projekte schön.</p><p>Beim Fremdkapital weichen Markt- und Buchwert in der Regel weniger stark ab. In vielen Klausuren wird deshalb der Buchwert des Fremdkapitals als Näherung für den Marktwert verwendet. Steht ein Marktwert in der Aufgabe, nimm den.</p>"
+  },
+  {
+   "h2": "Wie hängen Verschuldung und WACC zusammen?",
+   "html": "<p>Auf den ersten Blick scheint die Sache einfach: Fremdkapital ist billiger als Eigenkapital, also müsste mehr Verschuldung den WACC senken. Ganz so einfach ist es nicht. Mit steigender Verschuldung tragen die Eigentümer ein höheres Risiko, weil die Zinsen zuerst bedient werden. Ihr Beta steigt und damit \\( r_{EK} \\). Das ist derselbe Mechanismus wie beim <a href=\"/lernen/leverage-effekt\">Leverage-Effekt</a>: Mehr Hebel bedeutet höhere, aber schwankendere Eigenkapitalrendite.</p><ul><li><strong>Ohne Steuern (Modigliani-Miller):</strong> Der Anstieg von \\( r_{EK} \\) gleicht den Vorteil des billigeren Fremdkapitals exakt aus. Der WACC bleibt unabhängig vom <a href=\"/lernen/eigenkapitalquote\">Verschuldungsgrad</a> konstant.</li><li><strong>Mit Steuern:</strong> Der Tax Shield wächst mit dem Fremdkapital, der WACC sinkt mit zunehmender Verschuldung.</li><li><strong>In der Realität:</strong> Ab einer gewissen Verschuldung steigen Insolvenzrisiko, Zinsaufschläge der Banken und Kosten finanzieller Schwierigkeiten. Der WACC sinkt dann nicht weiter, sondern steigt wieder. Es entsteht ein U-förmiger Verlauf mit einer optimalen Kapitalstruktur im Tiefpunkt.</li></ul><p>Für die Klausur reicht meist diese Argumentationskette: billigeres Fremdkapital, steigende Eigenkapitalkosten, Steuervorteil und ab einem Punkt steigende Risikokosten.</p>"
+  },
+  {
+   "h2": "Vorteile, Grenzen und Abgrenzung",
+   "html": "<h3>Vorteile</h3><ul><li>Ein einziger, gut begründeter Kalkulationszins statt eines gegriffenen Wertes.</li><li>Berücksichtigt die Ansprüche aller Kapitalgeber und den Steuervorteil des Fremdkapitals.</li><li>Standard in Praxis und Literatur, etwa bei DCF-Bewertungen und wertorientierter Steuerung.</li></ul><h3>Grenzen</h3><ul><li>Die Eingangsgrößen sind Schätzungen: Beta, Marktrisikoprämie und Zielkapitalstruktur lassen Spielraum. Kleine Änderungen verschieben den WACC deutlich.</li><li>Für nicht börsennotierte Unternehmen gibt es keinen Aktienkurs. Marktwert und Beta müssen über Vergleichsunternehmen geschätzt werden.</li><li>Der WACC unterstellt eine konstante Kapitalstruktur und ein Risiko wie im Bestandsgeschäft.</li></ul><h3>Abgrenzung</h3><p>Der WACC ist ein <strong>Kapitalkostensatz</strong>, keine Rentabilitätskennzahl. Die <a href=\"/lernen/eigenkapitalrentabilitaet\">Eigenkapitalrentabilität</a> zeigt, was tatsächlich erwirtschaftet wurde, der WACC, was mindestens verlangt wird. Vergleicht man beide (bzw. die Gesamtkapitalrendite mit dem WACC), sieht man, ob ein Unternehmen Wert schafft.</p>"
+  }
+ ],
+ "fehler": [
+  "Steuern beim Fremdkapital vergessen. Die Fremdkapitalkosten gehen nach Steuern ein: \\( r_{FK} \\cdot (1 - s) \\). Den Faktor \\( (1 - s) \\) aber nur beim Fremdkapital anwenden, nie bei den Eigenkapitalkosten.",
+  "Mit Buchwerten statt Marktwerten gewichten. Für das Eigenkapital zählt Kurs mal Aktienanzahl, nicht das bilanzielle Eigenkapital. Mit Buchwerten wird der WACC meist zu niedrig.",
+  "Prozent und Dezimalzahl mischen. Entweder alles in Prozent (\\( 0{,}6 \\cdot 9{,}6\\,\\% \\)) oder alles dezimal (\\( 0{,}6 \\cdot 0{,}096 \\)), aber nicht \\( 0{,}6 \\cdot 9{,}6 \\) und \\( 0{,}4 \\cdot 0{,}035 \\) addieren. Beim Steuerfaktor gilt: \\( 1 - 0{,}3 \\), nicht \\( 1 - 30 \\).",
+  "Im CAPM die Marktrendite statt der Marktrisikoprämie mit Beta multiplizieren. Ist \\( r_M \\) gegeben, musst du zuerst \\( r_M - r_f \\) bilden: \\( r_{EK} = r_f + \\beta \\cdot (r_M - r_f) \\).",
+  "Gewichte nicht kontrollieren. \\( \\frac{\\text{EK}}{V} + \\frac{\\text{FK}}{V} \\) muss 1 ergeben. Wer durch das Eigenkapital statt durch \\( V \\) teilt, rechnet mit dem Verschuldungsgrad statt mit der Fremdkapitalquote."
+ ],
+ "faq": [
+  {
+   "q": "Was sagt der WACC aus?",
+   "a": "Der WACC gibt an, welche Rendite ein Unternehmen auf sein investiertes Kapital mindestens erzielen muss, um Eigen- und Fremdkapitalgeber zu bedienen. Projekte mit einer Rendite über dem WACC schaffen Wert, Projekte darunter vernichten Wert."
+  },
+  {
+   "q": "Warum werden die Fremdkapitalkosten beim WACC nach Steuern angesetzt?",
+   "a": "Weil Fremdkapitalzinsen den steuerpflichtigen Gewinn mindern. Ein Teil der Zinslast wird so durch geringere Steuern ausgeglichen (Tax Shield). Die effektiven Kosten sind deshalb \\( r_{FK} \\cdot (1 - s) \\)."
+  },
+  {
+   "q": "Wie berechnet man die Eigenkapitalkosten für den WACC?",
+   "a": "Meist mit dem CAPM: \\( r_{EK} = r_f + \\beta \\cdot (r_M - r_f) \\). Man addiert zum risikolosen Zins eine Risikoprämie, die vom Beta der Aktie und der Marktrisikoprämie abhängt."
+  },
+  {
+   "q": "Sinkt der WACC, wenn ein Unternehmen mehr Fremdkapital aufnimmt?",
+   "a": "Zunächst meist ja, vor allem wegen des Steuervorteils. Gleichzeitig steigen aber die Eigenkapitalkosten und ab einer hohen Verschuldung auch die Fremdkapitalzinsen. Ab einem bestimmten Punkt steigt der WACC deshalb wieder."
+  },
+  {
+   "q": "Ist der WACC dasselbe wie der Kalkulationszinssatz?",
+   "a": "Der WACC ist eine Möglichkeit, den Kalkulationszinssatz zu bestimmen, und in Unternehmen die gängigste. Er passt aber nur für Projekte mit ähnlichem Risiko wie das Gesamtunternehmen; für riskantere Projekte braucht man einen höheren Zinssatz."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "EK-Marktwert 70 Mio. €, FK-Marktwert 30 Mio. €, \\( r_{EK} = 10\\,\\% \\), \\( r_{FK} = 6\\,\\% \\), Steuersatz 25 %. Wie hoch ist der WACC?",
+   "o": [
+    "8,80 %",
+    "7,95 %",
+    "8,35 %",
+    "9,55 %"
+   ],
+   "r": 2,
+   "e": "\\( 0{,}7 \\cdot 10\\,\\% + 0{,}3 \\cdot 6\\,\\% \\cdot 0{,}75 = 7\\,\\% + 1{,}35\\,\\% = 8{,}35\\,\\% \\). 8,80 % wäre ohne Tax Shield gerechnet."
+  },
+  {
+   "q": "Risikoloser Zins 2 %, Beta 0,8, Marktrisikoprämie 6 %. Wie hoch sind die Eigenkapitalkosten nach CAPM?",
+   "o": [
+    "6,8 %",
+    "8,0 %",
+    "4,8 %",
+    "7,6 %"
+   ],
+   "r": 0,
+   "e": "\\( r_{EK} = 2\\,\\% + 0{,}8 \\cdot 6\\,\\% = 2\\,\\% + 4{,}8\\,\\% = 6{,}8\\,\\% \\). 4,8 % wäre nur die Risikoprämie ohne risikolosen Zins."
+  },
+  {
+   "q": "Womit wird das Eigenkapital in der WACC-Formel korrekt gewichtet?",
+   "o": [
+    "Mit dem bilanziellen Eigenkapital laut HGB",
+    "Mit dem gezeichneten Kapital",
+    "Mit dem Jahresüberschuss",
+    "Mit dem Marktwert (Aktienkurs mal Anzahl Aktien)"
+   ],
+   "r": 3,
+   "e": "Kapitalgeber verlangen eine Rendite auf den heutigen Wert ihres Kapitals. Deshalb zählen Marktwerte, nicht historische Buchwerte."
+  }
+ ],
+ "verwandt": [
+  "kapitalwertmethode",
+  "leverage-effekt",
+  "interner-zinsfuss",
+  "eigenkapitalrentabilitaet",
+  "barwert-abzinsen"
+ ],
+ "ask": "den WACC – mit einem durchgerechneten Beispiel von den CAPM-Eigenkapitalkosten bis zum gewichteten Kapitalkostensatz"
+}

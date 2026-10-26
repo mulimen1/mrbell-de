@@ -1,0 +1,120 @@
+{
+  "slug": "plankostenrechnung",
+  "name": "Plankostenrechnung",
+  "title": "Plankostenrechnung einfach erklärt – mit Beispiel",
+  "meta": "Plankostenrechnung verständlich: starr vs. flexibel, Sollkosten, verrechnete Plankosten, Verbrauchs- und Beschäftigungsabweichung – mit Rechenbeispiel.",
+  "h1": "Plankostenrechnung einfach erklärt",
+  "kurz": "Die Plankostenrechnung legt für jede Kostenstelle im Voraus fest, welche Kosten bei einer geplanten Beschäftigung anfallen dürfen, und vergleicht sie am Periodenende mit den Istkosten. Die flexible Plankostenrechnung passt die Vorgabe über die Sollkosten \\( K_{\\text{soll}} = K_f + k_v \\cdot x_{\\text{ist}} \\) an die tatsächliche Beschäftigung an und zerlegt die Abweichung in Verbrauchs- und Beschäftigungsabweichung.",
+  "keywords": [
+    "plankostenrechnung",
+    "flexible plankostenrechnung",
+    "starre plankostenrechnung",
+    "sollkosten berechnen",
+    "verrechnete plankosten",
+    "verbrauchsabweichung",
+    "beschäftigungsabweichung",
+    "plankostenverrechnungssatz"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist die Plankostenrechnung?",
+      "html": "<p>Die Ist- und Normalkostenrechnung schauen zurück: Sie erfassen, was angefallen ist, und verteilen es auf Kostenstellen und Produkte. Die <strong>Plankostenrechnung</strong> dreht die Blickrichtung um. Vor Beginn der Periode legst du für jede Kostenstelle fest, welche Kosten bei einer bestimmten Leistung anfallen <em>dürfen</em>. Am Ende vergleichst du diese Vorgabe mit den tatsächlichen Kosten. Aus einem Abrechnungsinstrument wird so ein <strong>Kontrollinstrument</strong>: Du erkennst, wo unwirtschaftlich gearbeitet wurde und warum.</p><p>Damit die Rechnung funktioniert, brauchst du pro Kostenstelle drei Planwerte:</p><ul><li><strong>Bezugsgröße und Planbeschäftigung \\( x_p \\):</strong> der Maßstab für die Leistung der Kostenstelle, etwa Fertigungsstunden, Maschinenstunden oder Stückzahl, und die geplante Menge davon,</li><li><strong>Plankosten \\( K_p \\):</strong> die Kosten, die bei der Planbeschäftigung anfallen sollen,</li><li><strong>Aufteilung in fix und variabel:</strong> welcher Teil der Plankosten unabhängig von der Beschäftigung ist (\\( K_f \\)) und welcher sich mit ihr ändert (\\( K_{v,p} \\)). Das ist die Kostenauflösung aus dem Thema <a href=\"/lernen/fixe-und-variable-kosten\">fixe und variable Kosten</a>.</li></ul><p>Alle Istkosten werden dabei zu <strong>Planpreisen</strong> bewertet. So stecken Preisschwankungen beim Einkauf nicht in der Kostenstellenkontrolle, denn für die Einkaufspreise kann der Meister der Fertigung nichts. Preisabweichungen werden getrennt ermittelt.</p><div class=\"merke\">Plankostenrechnung = Vorgabe vor der Periode + Soll-Ist-Vergleich danach. Ihr Hauptzweck ist die Kontrolle der Wirtschaftlichkeit in den Kostenstellen.</div>"
+    },
+    {
+      "h2": "Starre oder flexible Plankostenrechnung – was ist der Unterschied?",
+      "html": "<h3>Starre Plankostenrechnung</h3><p>Die starre Variante plant die Kosten nur für <em>eine</em> Beschäftigung und trennt nicht in fix und variabel. Daraus ergibt sich ein Plankostenverrechnungssatz, mit dem die Kosten auf die tatsächliche Leistung verrechnet werden. Am Ende gibt es genau eine Abweichung:</p><div class=\"formel\">\\[ \\text{Gesamtabweichung} = K_{\\text{ist}} - K_{\\text{verr}} \\]</div><p>Das Problem: Weicht die Istbeschäftigung von der Planbeschäftigung ab, siehst du nicht, ob die Abweichung durch Verschwendung oder einfach durch geringere Auslastung entstanden ist. Die Fixkosten fallen ja auch bei weniger Stunden voll an. Die starre Plankostenrechnung ist einfach, aber für die Kontrolle nur bei nahezu konstanter Beschäftigung brauchbar.</p><h3>Flexible Plankostenrechnung auf Vollkostenbasis</h3><p>Die flexible Variante trennt die Plankosten in fix und variabel. Dadurch kannst du für <em>jede</em> Istbeschäftigung ausrechnen, welche Kosten angemessen gewesen wären: die <strong>Sollkosten</strong>. Mit ihnen lässt sich die Gesamtabweichung in zwei Teile zerlegen, die völlig unterschiedliche Ursachen haben. Das ist der Standard in Lehrbüchern und Klausuren, und auf ihn konzentriert sich der Rest dieser Seite.</p><table><thead><tr><th></th><th>starr</th><th>flexibel (Vollkosten)</th></tr></thead><tbody><tr><td>Trennung fix/variabel</td><td>nein</td><td>ja</td></tr><tr><td>Sollkosten</td><td>nein</td><td>ja</td></tr><tr><td>Abweichungen</td><td>nur Gesamtabweichung</td><td>Verbrauchs- und Beschäftigungsabweichung</td></tr><tr><td>Kontrollaussage</td><td>schwach</td><td>gut</td></tr></tbody></table>"
+    },
+    {
+      "h2": "Welche Formeln brauchst du?",
+      "html": "<p>Die flexible Plankostenrechnung arbeitet mit vier Kostengrößen. Wenn du diese sauber auseinanderhältst, ist jede Klausuraufgabe Routine.</p><div class=\"formel\">\\[ \\text{Plankostenverrechnungssatz} = \\frac{K_p}{x_p} \\]\\[ k_v = \\frac{K_p - K_f}{x_p} \\]\\[ K_{\\text{soll}} = K_f + k_v \\cdot x_{\\text{ist}} \\]\\[ K_{\\text{verr}} = \\frac{K_p}{x_p} \\cdot x_{\\text{ist}} \\]</div><ul><li><strong>Plankosten \\( K_p \\):</strong> Vorgabe für die Planbeschäftigung, eine feste Zahl.</li><li><strong>Sollkosten \\( K_{\\text{soll}} \\):</strong> die Plankosten, umgerechnet auf die Istbeschäftigung. Die Fixkosten bleiben voll drin, nur der variable Teil wird angepasst. Grafisch eine Gerade mit Achsenabschnitt \\( K_f \\).</li><li><strong>Verrechnete Plankosten \\( K_{\\text{verr}} \\):</strong> was über den Plankostenverrechnungssatz auf die Produkte weiterverrechnet wird. Weil der Satz auch Fixkosten pro Stunde enthält, tut diese Rechnung so, als wären alle Kosten variabel. Grafisch eine Ursprungsgerade.</li><li><strong>Istkosten \\( K_{\\text{ist}} \\):</strong> tatsächlicher Verbrauch, bewertet zu Planpreisen.</li></ul><p>Daraus folgen die beiden Abweichungen:</p><div class=\"formel\">\\[ \\text{Verbrauchsabweichung} = K_{\\text{ist}} - K_{\\text{soll}} \\]\\[ \\text{Beschäftigungsabweichung} = K_{\\text{soll}} - K_{\\text{verr}} \\]\\[ \\text{Gesamtabweichung} = K_{\\text{ist}} - K_{\\text{verr}} = \\text{VA} + \\text{BA} \\]</div><p>Die Beschäftigungsabweichung kannst du auch direkt über die Fixkosten berechnen, denn nur sie verursachen den Unterschied zwischen Sollkosten- und Verrechnungsgerade:</p><div class=\"formel\">\\[ \\text{BA} = K_f \\cdot \\left(1 - \\frac{x_{\\text{ist}}}{x_p}\\right) \\]</div>"
+    },
+    {
+      "h2": "Beispiel: flexible Plankostenrechnung Schritt für Schritt",
+      "html": "<div class=\"beispiel\"><p>Die Kostenstelle Montage eines Möbelherstellers plant für den Monat März mit 2.000 Fertigungsstunden. Die Plankosten betragen 100.000 €, davon sind 40.000 € fix (Gehälter, Abschreibungen, Raumkosten). Tatsächlich werden nur 1.600 Stunden geleistet. Die Istkosten, bewertet zu Planpreisen, betragen 92.000 €.</p><p><strong>Schritt 1: Plankostenverrechnungssatz und variable Kosten pro Stunde</strong><br>\\( \\text{PKVS} = \\frac{100.000\\text{ €}}{2.000\\text{ h}} = 50 \\) € pro Stunde<br>\\( k_v = \\frac{100.000 - 40.000}{2.000} = \\frac{60.000}{2.000} = 30 \\) € pro Stunde</p><p><strong>Schritt 2: Sollkosten bei Istbeschäftigung</strong><br>\\( K_{\\text{soll}} = 40.000 + 30 \\cdot 1.600 = 40.000 + 48.000 = 88.000 \\) €</p><p><strong>Schritt 3: Verrechnete Plankosten</strong><br>\\( K_{\\text{verr}} = 50 \\cdot 1.600 = 80.000 \\) €</p><p><strong>Schritt 4: Abweichungen</strong><br>Verbrauchsabweichung: \\( 92.000 - 88.000 = 4.000 \\) €<br>Beschäftigungsabweichung: \\( 88.000 - 80.000 = 8.000 \\) €<br>Gesamtabweichung: \\( 92.000 - 80.000 = 12.000 \\) €, Probe: \\( 4.000 + 8.000 = 12.000 \\) € ✓</p><p><strong>Kontrolle über die Fixkosten:</strong> \\( 40.000 \\cdot \\left(1 - \\frac{1.600}{2.000}\\right) = 40.000 \\cdot 0{,}2 = 8.000 \\) € ✓</p><table><thead><tr><th>Größe</th><th>Rechnung</th><th>€</th></tr></thead><tbody><tr><td>Plankosten</td><td>vorgegeben bei 2.000 h</td><td>100.000</td></tr><tr><td>Istkosten</td><td>gegeben bei 1.600 h</td><td>92.000</td></tr><tr><td>Sollkosten</td><td>\\( 40.000 + 30 \\cdot 1.600 \\)</td><td>88.000</td></tr><tr><td>verrechnete Plankosten</td><td>\\( 50 \\cdot 1.600 \\)</td><td>80.000</td></tr><tr><td>Verbrauchsabweichung</td><td>Ist − Soll</td><td>+4.000</td></tr><tr><td>Beschäftigungsabweichung</td><td>Soll − verrechnet</td><td>+8.000</td></tr></tbody></table></div><p>Ein naiver Vergleich hätte übrigens ein falsches Bild geliefert: Istkosten 92.000 € gegen Plankosten 100.000 € sieht nach 8.000 € Einsparung aus. In Wahrheit hat die Kostenstelle für 1.600 Stunden 4.000 € mehr verbraucht als vorgesehen. Genau deshalb vergleichst du Istkosten immer mit den Sollkosten, nie mit den Plankosten.</p>"
+    },
+    {
+      "h2": "Wie interpretiert man Verbrauchs- und Beschäftigungsabweichung?",
+      "html": "<h3>Verbrauchsabweichung</h3><p>Sie zeigt, ob die Kostenstelle für die tatsächlich erbrachte Leistung mehr oder weniger verbraucht hat als geplant. Positive Werte bedeuten Mehrverbrauch (ungünstig), negative Werte Minderverbrauch (günstig). Mögliche Ursachen: Ausschuss, Materialverschwendung, längere Bearbeitungszeiten, ineffiziente Abläufe, aber auch unrealistische Planwerte. Weil Preiseffekte durch die Bewertung zu Planpreisen herausgerechnet sind, ist die Verbrauchsabweichung die Größe, für die der Kostenstellenleiter verantwortlich ist. Im Beispiel muss die Montage 4.000 € Mehrverbrauch erklären.</p><h3>Beschäftigungsabweichung</h3><p>Sie hat mit Wirtschaftlichkeit nichts zu tun. Sie entsteht, weil der Plankostenverrechnungssatz Fixkosten anteilig pro Stunde verrechnet. Bei Unterbeschäftigung werden deshalb weniger Fixkosten weiterverrechnet als tatsächlich anfallen: Im Beispiel werden von 40.000 € Fixkosten nur \\( 20 \\cdot 1.600 = 32.000 \\) € auf die Produkte verrechnet, 8.000 € bleiben hängen. Das sind die <strong>Leerkosten</strong> der ungenutzten Kapazität.</p><ul><li>\\( x_{\\text{ist}} < x_p \\) (Unterbeschäftigung): BA positiv, Fixkostenunterdeckung, ungünstig,</li><li>\\( x_{\\text{ist}} > x_p \\) (Überbeschäftigung): BA negativ, Fixkostenüberdeckung,</li><li>\\( x_{\\text{ist}} = x_p \\): BA ist null.</li></ul><p>Hätte die Montage 2.200 Stunden gearbeitet, lägen die Sollkosten bei \\( 40.000 + 30 \\cdot 2.200 = 106.000 \\) € und die verrechneten Plankosten bei \\( 50 \\cdot 2.200 = 110.000 \\) €. Die Beschäftigungsabweichung wäre \\( 106.000 - 110.000 = -4.000 \\) €. Verantwortlich ist hier nicht die Kostenstelle, sondern meist Absatz oder Produktionsplanung.</p><div class=\"merke\">Vorzeichen-Regel (Ist minus Soll, Soll minus verrechnet): positiv = ungünstig, negativ = günstig. Manche Lehrbücher rechnen genau andersherum (Soll minus Ist). Nimm die Konvention deiner Vorlesung und schreib die Wertung immer in Worten dazu.</div>"
+    },
+    {
+      "h2": "Was ist die Grenzplankostenrechnung?",
+      "html": "<p>Die flexible Plankostenrechnung auf Vollkostenbasis hat einen Konstruktionsfehler: Sie proportionalisiert Fixkosten. Die Beschäftigungsabweichung ist deshalb eine rechnerische Größe, die aus der Verteilung der Fixkosten entsteht, nicht aus einem echten Kostenproblem. Für Entscheidungen wie Preisuntergrenzen oder Zusatzaufträge sind proportionalisierte Fixkosten sogar irreführend.</p><p>Die <strong>Grenzplankostenrechnung</strong> (flexible Plankostenrechnung auf Teilkostenbasis) zieht die Konsequenz: Auf die Produkte werden nur die variablen Plankosten verrechnet, die Fixkosten gehen als Block direkt in das Betriebsergebnis, wie in der <a href=\"/lernen/deckungsbeitrag\">Deckungsbeitragsrechnung</a>. Der Verrechnungssatz ist dann \\( k_v \\), also im Beispiel 30 € pro Stunde. Verrechnete Plankosten und variable Sollkosten sind identisch: \\( 30 \\cdot 1.600 = 48.000 \\) €. Eine Beschäftigungsabweichung gibt es nicht mehr, nur noch die Verbrauchsabweichung auf die variablen Kosten. Fallen die Fixkosten wie geplant mit 40.000 € an, sind die variablen Istkosten 52.000 €, und die Verbrauchsabweichung bleibt bei \\( 52.000 - 48.000 = 4.000 \\) €.</p><p>In der Praxis ist die Grenzplankostenrechnung in Deutschland das verbreitetste Plankostensystem, weil sie Kontrolle und kurzfristige Entscheidungsrechnung verbindet. In der Klausur wird sie meist als Weiterentwicklung abgefragt: Warum entfällt die Beschäftigungsabweichung? Weil keine Fixkosten mehr über einen Satz verrechnet werden.</p>"
+    },
+    {
+      "h2": "Vorteile, Nachteile und Einordnung",
+      "html": "<p><strong>Vorteile der flexiblen Plankostenrechnung:</strong></p><ul><li>echte Wirtschaftlichkeitskontrolle je Kostenstelle über den Soll-Ist-Vergleich,</li><li>klare Verantwortung: Verbrauchsabweichung bei der Kostenstelle, Beschäftigungsabweichung bei Absatz und Planung,</li><li>stabile Verrechnungssätze für die Kalkulation über das Jahr, unabhängig von Zufallsschwankungen der Istkosten,</li><li>macht Leerkosten ungenutzter Kapazität sichtbar.</li></ul><p><strong>Nachteile:</strong></p><ul><li>hoher Planungsaufwand: Jede Kostenart jeder Kostenstelle muss geplant und in fix und variabel aufgelöst werden,</li><li>die Qualität steht und fällt mit der Planung; unrealistische Vorgaben erzeugen Scheinabweichungen,</li><li>auf Vollkostenbasis werden Fixkosten proportionalisiert, was für kurzfristige Entscheidungen ungeeignet ist,</li><li>lineare Kostenverläufe sind eine Vereinfachung, die nur in einem begrenzten Beschäftigungsbereich gilt.</li></ul><p><strong>Einordnung:</strong> Die Plankostenrechnung baut auf der Kostenstellenrechnung auf, wie du sie aus dem <a href=\"/lernen/betriebsabrechnungsbogen\">Betriebsabrechnungsbogen</a> kennst, und ist ein Kernbaustein des Controllings innerhalb der <a href=\"/lernen/kostenrechnung\">Kostenrechnung</a>. Die Plankostenverrechnungssätze fließen als Zuschlags- oder Stundensätze in die Kalkulation ein.</p>"
+    }
+  ],
+  "fehler": [
+    "Beschäftigungsabweichung mit Istkosten rechnen: Die Istkosten haben in der BA nichts zu suchen. Richtig ist \\( \\text{BA} = K_{\\text{soll}} - K_{\\text{verr}} \\); die Istkosten tauchen nur in der Verbrauchsabweichung auf.",
+    "Istkosten mit Plankosten statt mit Sollkosten vergleichen: Plankosten gelten nur für die Planbeschäftigung. Bei abweichender Beschäftigung musst du erst die Sollkosten berechnen, sonst hältst du Minderauslastung für Sparsamkeit.",
+    "Sollkosten mit dem vollen Plankostenverrechnungssatz rechnen: \\( 50 \\cdot 1.600 \\) sind die verrechneten Plankosten, nicht die Sollkosten. In den Sollkosten stehen die Fixkosten als Block plus \\( k_v \\cdot x_{\\text{ist}} \\).",
+    "Variable Kosten pro Einheit falsch ermitteln: \\( k_v \\) ist der variable Teil der Plankosten geteilt durch die Planbeschäftigung, nicht durch die Istbeschäftigung.",
+    "Vorzeichen ohne Wertung hinschreiben: Eine Abweichung von 8.000 € sagt nichts, solange nicht klar ist, ob sie günstig oder ungünstig ist. Schreib die Rechenrichtung und die Interpretation (Mehrverbrauch, Leerkosten) immer dazu."
+  ],
+  "faq": [
+    {
+      "q": "Was ist der Unterschied zwischen Plankosten und Sollkosten?",
+      "a": "Plankosten sind die Kostenvorgabe für die geplante Beschäftigung und damit eine feste Zahl. Sollkosten sind die Plankosten, umgerechnet auf die tatsächliche Beschäftigung: Fixkosten bleiben gleich, die variablen Kosten werden mit der Istbeschäftigung multipliziert. Für den Soll-Ist-Vergleich nimmst du immer die Sollkosten."
+    },
+    {
+      "q": "Wie berechnet man die Verbrauchsabweichung?",
+      "a": "Verbrauchsabweichung = Istkosten minus Sollkosten, wobei die Istkosten zu Planpreisen bewertet sind. Ein positiver Wert bedeutet Mehrverbrauch und ist ungünstig, ein negativer Wert Minderverbrauch. Sie zeigt die Wirtschaftlichkeit der Kostenstelle."
+    },
+    {
+      "q": "Wie berechnet man die Beschäftigungsabweichung?",
+      "a": "Beschäftigungsabweichung = Sollkosten minus verrechnete Plankosten. Alternativ rechnest du Fixkosten mal (1 minus Istbeschäftigung durch Planbeschäftigung). Bei Unterbeschäftigung ist sie positiv und zeigt nicht gedeckte Fixkosten, also Leerkosten."
+    },
+    {
+      "q": "Warum gibt es in der Grenzplankostenrechnung keine Beschäftigungsabweichung?",
+      "a": "In der Grenzplankostenrechnung werden nur variable Kosten über den Verrechnungssatz auf die Produkte verrechnet. Verrechnete Plankosten und Sollkosten stimmen dann überein, weil keine Fixkosten proportionalisiert werden. Die Fixkosten gehen als Block ins Ergebnis."
+    },
+    {
+      "q": "Was ist der Plankostenverrechnungssatz?",
+      "a": "Der Plankostenverrechnungssatz ist der Quotient aus Plankosten und Planbeschäftigung, zum Beispiel 100.000 € durch 2.000 Stunden gleich 50 € pro Stunde. Mit ihm werden die Kosten der Kostenstelle auf die tatsächlich erbrachte Leistung verrechnet. Auf Vollkostenbasis enthält er fixe und variable Kosten."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Planbeschäftigung 1.000 h, Plankosten 60.000 €, davon 20.000 € fix. Istbeschäftigung 800 h. Wie hoch sind die Sollkosten?",
+      "o": [
+        "48.000 €",
+        "52.000 €",
+        "60.000 €",
+        "32.000 €"
+      ],
+      "r": 1,
+      "e": "\\( k_v = \\frac{60.000 - 20.000}{1.000} = 40 \\) €, also \\( K_{\\text{soll}} = 20.000 + 40 \\cdot 800 = 52.000 \\) €."
+    },
+    {
+      "q": "Gleiche Kostenstelle: Wie hoch ist die Beschäftigungsabweichung?",
+      "o": [
+        "12.000 €",
+        "8.000 €",
+        "0 €",
+        "4.000 €"
+      ],
+      "r": 3,
+      "e": "Verrechnete Plankosten \\( 60 \\cdot 800 = 48.000 \\) €, BA \\( = 52.000 - 48.000 = 4.000 \\) €. Kontrolle: \\( 20.000 \\cdot 0{,}2 = 4.000 \\) €."
+    },
+    {
+      "q": "Welche Abweichung zeigt, ob eine Kostenstelle wirtschaftlich gearbeitet hat?",
+      "o": [
+        "Die Verbrauchsabweichung",
+        "Die Beschäftigungsabweichung",
+        "Die Differenz zwischen Plan- und Istkosten",
+        "Die Preisabweichung"
+      ],
+      "r": 0,
+      "e": "Die Verbrauchsabweichung vergleicht Istkosten mit den Sollkosten für die tatsächliche Leistung. Die Beschäftigungsabweichung entsteht nur durch Auslastungsschwankungen."
+    }
+  ],
+  "verwandt": [
+    "fixe-und-variable-kosten",
+    "kostenrechnung",
+    "betriebsabrechnungsbogen",
+    "deckungsbeitrag",
+    "maschinenstundensatz"
+  ],
+  "ask": "die flexible Plankostenrechnung – mit Sollkosten, verrechneten Plankosten sowie Verbrauchs- und Beschäftigungsabweichung an einem durchgerechneten Beispiel"
+}
