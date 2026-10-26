@@ -5528,3 +5528,26 @@ html.bm-guest .rm-focus { display: none !important; }
 .uv-mno { padding: 12px; color: var(--mute); }
 .uv-mf { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 4px 2px; border-top: 1px solid var(--line); }
 @media (max-width: 760px) { .uv-top { flex-direction: column; align-items: stretch; } .uv-pbtn { max-width: none; width: 100%; } .uv-menu { width: auto; } }
+
+/* ---------- Üben: alle Trainer, Max führt Station für Station ---------- */
+.ub { max-width: 1080px; }
+.ub-hero { display: grid; gap: 16px; margin: 4px 0 28px; padding: 22px; border-radius: 26px; border: 1px solid var(--line); background: color-mix(in srgb, var(--inv) 4%, var(--panel)); }
+.ub-greet { display: flex; align-items: center; gap: 16px; }
+.ub-face { width: 84px; height: 84px; flex: none; }
+.ub-path { display: flex; gap: 6px; flex-wrap: wrap; }
+.ub-dot { flex: 1 1 0; min-width: 14px; height: 8px; border-radius: 99px; background: var(--line); }
+.ub-dot.ok { background: var(--inv); } .ub-dot.cur { background: color-mix(in srgb, var(--inv) 45%, var(--line)); animation: ubpulse 1.6s ease-in-out infinite; }
+@keyframes ubpulse { 50% { opacity: .55; } }
+.ub-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+.ub-cta .btn { gap: 8px; } .ub-xl .ico { color: #1D6F42; } .ub-xln { font-size: 12px; color: var(--mute); font-weight: 650; margin-left: 2px; }
+.ub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.ub-t { display: grid; gap: 4px; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); text-decoration: none; transition: transform .15s, border-color .15s; }
+.ub-t:hover { transform: translateY(-2px); border-color: var(--inv); }
+.ub-ta { font: 650 10.5px var(--mono, var(--sans)); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); } .ub-t b { font-size: 15px; letter-spacing: -.01em; } .ub-ts { font-size: 12.5px; color: var(--mute); }
+.ub-g { max-width: 1000px; }
+.ub-guide { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 14px; margin: 6px 0 18px; padding: 12px 16px; border-radius: 20px; border: 1px solid var(--line); background: color-mix(in srgb, var(--panel) 92%, transparent); backdrop-filter: blur(10px); box-shadow: 0 10px 30px -22px rgba(0,0,0,.4); }
+.ub-gface { width: 54px; height: 54px; flex: none; }
+.ub-gt { display: grid; gap: 3px; flex: 1; min-width: 0; } .ub-gt b { font-size: 16px; letter-spacing: -.015em; } .ub-gt small { color: var(--mute); font-size: 13px; }
+.ub-gbar { height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; margin-top: 4px; } .ub-gbar i { display: block; height: 100%; width: 0; background: var(--inv); border-radius: 99px; transition: width .4s cubic-bezier(.2,.9,.3,1); }
+@media (max-width: 600px) { .ub-hero { padding: 16px; } .ub-face { width: 60px; height: 60px; } .ub-guide { flex-wrap: wrap; } .ub-gface { width: 42px; height: 42px; } }
+.ub-guide [hidden] { display: none !important; }

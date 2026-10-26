@@ -87,7 +87,7 @@ function buildShell() {
         homeBeta() ? null : tool('button', { onclick: () => talkToMax() }, 'mic', L('Sprich mit mir', 'Talk to me')),
         tool('button', { onclick: () => topicPrompt() }, 'bulb', L('Ich erklär dir ein Thema', 'I’ll explain a topic')),
         tool('button', { onclick: () => examTool(), 'data-nav': 'exam' }, 'exam', L('Klausur-Simulator', 'Exam simulator')),
-        tool('a', { href: '#/app/trainer', 'data-nav': 'trainer' }, 'whistle', L('BWL-Trainer', 'Business trainer')),
+        tool('a', { href: homeBeta() ? '#/app/ueben' : '#/app/trainer', 'data-nav': 'trainer' }, 'whistle', L('BWL-Trainer', 'Business trainer')),
         tool('a', { href: '#/app/trainer/buchung', 'data-nav': 'foto', onclick: () => setTimeout(() => toast(L('Löse die Aufgabe auf Papier und tipp unten auf „Foto deiner Lösung“ – ich trag sie ein und du prüfst.', 'Solve it on paper and tap “Photo of your solution” below – I’ll fill it in and you check.'), 5200), 400) }, 'camera', L('Fotocheck Buchungssätze', 'Photo check: entries')),
         tool('a', { href: '#/app/rechner', 'data-nav': 'rechner' }, 'calc', L('Rechner', 'Calculators')),
         tool('a', { href: '#/app/challenge', 'data-nav': 'challenge' }, 'trophy', L('Wochen-Challenge', 'Weekly challenge'), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
@@ -103,7 +103,7 @@ function buildShell() {
   const tnFace = h('span', { class: 'tn-face' });
   const topnav = h('nav', { class: 'topnav', 'aria-label': L('Bereiche', 'Sections') },
     h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor' }, tnFace, h('span', { class: 'tn-l' }, homeBeta() ? 'Start' : 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
-    homeBeta() ? null : navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
+    homeBeta() ? navA('ueben', '#/app/ueben', 'whistle', L('Üben', 'Practice')) : navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
     navA('mitschrift', '#/app/mitschrift', 'pen', L('Mitschrift', 'Notes')),
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
     homeBeta() ? h('a', { class: 'tn tn-lib', href: '#/app/bibliothek', 'data-tn': 'bibliothek' }, h('span', { html: ico('library') }), h('span', { class: 'tn-l tn-l2' }, h('span', {}, L('Bibliothek', 'Library')), h('small', { class: 'tn-cnt', hidden: true }))) : navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
@@ -238,14 +238,14 @@ const LERN_TOOLS = ['karten', 'quiz', 'zettel', 'podcast', 'pfad', 'plan', 'exam
 export function lernLast() {
   try { const h = sessionStorage.getItem('tutor.lernLast'); if (!h || h === '#/app/lernen') return null; const id = h.split('/')[2]; return S.list.some(d => d.id === id) ? h : null; } catch (e) { return null; }
 }
-const BACK = { lernen: ['#/app/lernen', L('Lernen', 'Learn')], video: ['#/app/video', L('Transkript', 'Transcribe')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')] };
+const BACK = { lernen: ['#/app/lernen', L('Lernen', 'Learn')], video: ['#/app/video', L('Transkript', 'Transcribe')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')], ueben: ['#/app/ueben', L('Üben', 'Practice')] };
 function backTarget() { try { const k = sessionStorage.getItem('tutor.backTo'); return BACK[k] ? { key: k, href: k === 'bibliothek' ? '#/app/bibliothek/' + (ls.get('tutor.bib.tab', 'alles') || 'alles') : BACK[k][0], label: BACK[k][1] } : null; } catch (e) { return null; } }
 function backToLearn() { return backTarget()?.key === 'lernen'; }
 function renderList() {
   if (!shell) return;
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
-  const tn = { tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn() && backTarget()?.key !== 'video'), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video') || (inDoc && backTarget()?.key === 'video'), excel: hs.startsWith('#/app/excel')};
+  const tn = { ueben: hs.startsWith('#/app/ueben') || (backTarget()?.key === 'ueben' && /^#\/app\/(trainer|excel\/trainer|challenge|duell|rechner)/.test(hs)), tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn() && backTarget()?.key !== 'video'), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video') || (inDoc && backTarget()?.key === 'video'), excel: hs.startsWith('#/app/excel')};
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   requestAnimationFrame(navIntoView);
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
@@ -292,7 +292,7 @@ export async function mountApp(parts) {
     return;
   }
   // Aus „Lernen“ gekommen? Dann gibt’s oben „← Lernen“ – bis man woanders hin wechselt
-  if (!a || ['tutor', 'faecher', 'mitschrift', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen', 'zahlen', 'video', 'excel'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
+  if (!a || ['tutor', 'ueben', 'faecher', 'mitschrift', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen', 'zahlen', 'video', 'excel'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
   const back = backTarget(), fromLearn = !!back;
   // Wo man in „Lernen“ zuletzt war (Übersicht oder ein Werkzeug wie Karteikarten) – „Lernen“ oben bringt einen genau dorthin zurück
   try { if (a === 'lernen') sessionStorage.setItem('tutor.lernLast', '#/app/lernen'); else if (a && LERN_TOOLS.includes(b) && S.list.some(d => d.id === a)) sessionStorage.setItem('tutor.lernLast', `#/app/${a}/${b}`); } catch (e) {}
@@ -300,7 +300,7 @@ export async function mountApp(parts) {
   if (back) { shell.backEl.href = back.href; shell.backEl.title = L('Zurück zu ', 'Back to ') + back.label; shell.backEl.lastChild.textContent = back.label; }
   const backLink = () => h('a', { class: 'view-back', href: back ? back.href : '#/app/lernen' }, h('span', { html: ico('left') }), L('Zurück zu ', 'Back to ') + (back ? back.label : L('Lernen', 'Learn')));
   // Seiten ohne eigenen Reiter oben (z. B. Fortschritt, Stundenplan): immer ein „Zurück“ dorthin, wo man herkam
-  const NAVA = ['lernen', 'mitschrift', 'faecher', 'bibliothek', 'video', 'excel', 'zahlen', 'tutor', 'neu'];
+  const NAVA = ['lernen', 'ueben', 'mitschrift', 'faecher', 'bibliothek', 'video', 'excel', 'zahlen', 'tutor', 'neu'];
   const genBack = () => h('button', { class: 'view-back', type: 'button', onclick: () => { const p = prevHash; location.hash = p && p !== location.hash ? p : '#/app/tutor'; } }, h('span', { html: ico('left') }), L('Zurück', 'Back'));
   const page = (key, ttl, fn) => { docbar(false); shell.title.textContent = ttl; document.title = ttl + ' · BWL Max'; renderList(); return show(key, fromLearn && !(a === 'rechner' && b) ? async root => { const c2 = await fn(root); if (backTarget() && root.isConnected && !root.querySelector('.view-back')) root.prepend(backLink()); return c2; } : !NAVA.includes(a) && b ? async root => { const c2 = await fn(root); if (root.isConnected && !root.querySelector('.view-back, [class*="-back"], a[href="#/app/' + a + '"]')) root.prepend(genBack()); return c2; } : fn); };   // nur ein Zurück je Ebene: Startseiten aus der Seitenleiste brauchen keins, Unterseiten mit eigenem „Alle …“ auch nicht
   if (a === 'trainer') return page('trainer:' + (b || ''), L('BWL-Trainer', 'Business trainer'), async root => {
@@ -315,6 +315,7 @@ export async function mountApp(parts) {
   if (a === 'zahlen') { const z = await import('./views/zahlen.js'); if (!z.isAdmin(getAccount())) { location.replace('#/app/tutor'); return; } }
   if (a === 'zahlen') return page('zahlen', L('Zahlen', 'Numbers'), async root => { const { render } = await import('./views/zahlen.js'); return render(root); });
   if (a === 'mitschrift') return page('mitschrift:' + (b || ''), L('Mitschrift', 'Notes'), async root => { const { render } = await import('./views/mitschrift.js'); return render(root, { id: b || '' }); });
+  if (a === 'ueben') return page('ueben:' + (b || ''), L('Üben', 'Practice'), async root => { const { render } = await import('./views/ueben.js'); return render(root, { sub: b || '' }); });
   if (a === 'lernen' && homeBeta()) { location.replace('#/app/tutor'); return; }   // Lernen steckt jetzt in der Übersicht
   if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
   if (a === 'skripte') { location.replace('#/app/bibliothek/unterlagen'); return; }
