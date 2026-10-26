@@ -258,6 +258,16 @@ async function route() {
     }
   }
   if (!topicEntry) document.documentElement.classList.remove('m-eboot');   // kein Themen-Einstieg: Startseite normal zeigen
+  // Vom Test auf einer Lernseite: nach der Anmeldung zurück auf die Seite, dort wird sofort aufgelöst (?zurueck=/lernen/…)
+  try {
+    const zb = new URLSearchParams(location.search).get('zurueck');
+    if (zb && /^\/lernen\/[a-z0-9-]+\?test=\d+#test$/.test(zb) && !getAccount()) localStorage.setItem('bm.lmBack', JSON.stringify({ u: zb, t: Date.now() }));
+    const lb = JSON.parse(localStorage.getItem('bm.lmBack') || 'null');
+    if (lb) {
+      if (Date.now() - lb.t > 30 * 60e3) localStorage.removeItem('bm.lmBack');
+      else onAccount(acc => { if (acc && localStorage.getItem('bm.lmBack')) { localStorage.removeItem('bm.lmBack'); setTimeout(() => { location.href = lb.u; }, 500); } });
+    }
+  } catch (e) {}
   const inApp = hash.startsWith('#/app');
   $('#landing').classList.toggle('hidden', inApp);
   $('#app').classList.toggle('hidden', !inApp);

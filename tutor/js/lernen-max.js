@@ -58,3 +58,62 @@ if (matchMedia('(pointer: fine) and (min-width: 761px)').matches) {
   };
   document.addEventListener('mouseout', onOut);
 }
+
+// 3-Fragen-Test (wie am Google-Einstieg): Ergebnis sofort – welche falsch war und warum, sehen Gäste nach dem kostenlosen Konto.
+// Nach der Anmeldung schickt die App zurück auf diese Seite (?test=<Antworten>), dann wird hier sofort aufgelöst.
+(() => {
+  const box = document.querySelector('.lm-check'); if (!box) return;
+  let acc = null; try { acc = JSON.parse(localStorage.getItem('tutor.account') || 'null'); } catch (e) {}
+  const qs = [...box.querySelectorAll('.lm-q')].map(el => ({ el, r: +el.dataset.r, pick: -1, btns: [...el.querySelectorAll('.lm-o')], why: el.querySelector('.lm-why') }));
+  const go = box.querySelector('.lm-go'), sum = box.querySelector('.lm-sum');
+  const PRAISE = ['Stark – genau so.', 'Sitzt.', 'Respekt – die erwischt fast jeden.'];
+  qs.forEach(q => q.btns.forEach((b, i) => b.addEventListener('click', () => {
+    if (box.classList.contains('done')) return;
+    q.pick = i; q.btns.forEach((x, j) => x.classList.toggle('on', j === i));
+    go.disabled = qs.some(x => x.pick < 0);
+  })));
+  const reveal = () => {
+    box.classList.add('open');
+    qs.forEach((q, i) => {
+      const ok = q.pick === q.r;
+      q.btns[q.pick].classList.add(ok ? 'ok' : 'no'); q.btns[q.r].classList.add('ok');
+      if (ok && !q.why.dataset.p) { q.why.insertAdjacentHTML('afterbegin', `<b>${PRAISE[i % 3]}</b> `); q.why.dataset.p = '1'; }
+      q.why.hidden = false; q.why.classList.remove('blur');
+    });
+    sum.querySelectorAll('.lm-lock').forEach(x => x.remove());
+  };
+  const el = (tag, cls, html) => { const x = document.createElement(tag); x.className = cls; x.innerHTML = html; return x; };
+  const check = () => {
+    if (box.classList.contains('done')) return;
+    box.classList.add('done');
+    const n = qs.length, score = qs.filter(q => q.pick === q.r).length, all = score === n;
+    tr('Lernseite Karte', `${slug}:test-${score}/${n}`);
+    qs.forEach(q => q.btns.forEach(b => { b.disabled = true; }));
+    go.parentElement.hidden = true;
+    sum.replaceChildren(el('p', 'lm-score', `<b>${score} von ${n} richtig.</b> ` + (all ? 'Stark – das sitzt.' : n - score === 1 ? 'Fast. Eine hat dich erwischt.' : score ? 'Zwei haben dich erwischt.' : 'Gut, dass das jetzt passiert und nicht in der Klausur.')));
+    sum.hidden = false;
+    if (acc) { reveal(); if (all) sum.append(el('a', 'lm-cta2', 'Jetzt die echten Klausuraufgaben →')).href = `/?thema=${encodeURIComponent(thema)}&ziel=quiz&utm_source=seo&utm_medium=lernen&utm_campaign=${encodeURIComponent(slug)}-test`; }
+    else if (all) {
+      sum.append(el('p', 'lm-hint lm-lock', 'Das war die Aufwärmrunde. Jetzt das echte Klausurniveau: Aufgaben mit Musterlösung.'));
+      const a = sum.appendChild(el('a', 'lm-cta2 lm-lock', 'Klausuraufgaben kostenlos freischalten →'));
+      a.href = `/?thema=${encodeURIComponent(thema)}&ziel=quiz&utm_source=seo&utm_medium=lernen&utm_campaign=${encodeURIComponent(slug)}-test`;
+      a.addEventListener('click', () => tr('Lernseite Karte', slug + ':test-weiter'));
+    } else {
+      qs.forEach(q => { q.why.hidden = false; q.why.classList.add('blur'); });
+      sum.append(el('p', 'lm-hint lm-lock', 'Welche falsch war, was richtig gewesen wäre und warum, siehst du mit kostenlosem Konto – mit Google in zwei Klicks.'));
+      const back = `/lernen/${slug}?test=${qs.map(q => q.pick).join('')}#test`;
+      const a = sum.appendChild(el('a', 'lm-cta2 lm-lock', 'Auflösung kostenlos freischalten'));
+      a.href = `/?thema=${encodeURIComponent(thema)}&konto=1&zurueck=${encodeURIComponent(back)}&utm_source=seo&utm_medium=lernen&utm_campaign=${encodeURIComponent(slug)}-test`;
+      a.addEventListener('click', () => tr('Lernseite Karte', slug + ':test-frei'));
+    }
+  };
+  go.addEventListener('click', check);
+  // Zurück von der Anmeldung: Antworten wieder eintragen und auflösen
+  const pre = new URLSearchParams(location.search).get('test');
+  if (pre && /^\d+$/.test(pre) && pre.length === qs.length && acc) {
+    qs.forEach((q, i) => { q.pick = Math.min(+pre[i], q.btns.length - 1); q.btns[q.pick].classList.add('on'); });
+    check();
+    try { history.replaceState(null, '', location.pathname + '#test'); } catch (e) {}
+    setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+  }
+})();

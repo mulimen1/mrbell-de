@@ -99,3 +99,37 @@ main.ln section.lm-tools { border-top: 0; }
   .lm-xlp { font-size: 9px; height: 54px; } .lm-xlg { grid-template-columns: 0 1.1fr 1fr; } .lm-xlg i.hd:not(:first-child) { padding: 0; border: 0; font-size: 0; } .lm-xlg i { padding: 3px 4px; }
   .lm-vdp { height: 54px; grid-template-columns: minmax(0, 1fr) 10px minmax(0, 1fr); gap: 4px; } .lm-vds b { font-size: 8px !important; }
 }
+
+/* ---------- Neues Layout (Seiten mit 3-Fragen-Test) ---------- */
+.lm-top2 .lm-tutor { height: 42px; padding: 0 18px 0 5px; font-size: 15px; gap: 9px; }
+.lm-top2 .lm-tutor img { width: 32px; height: 32px; }
+.lm-top2 .lm-tn:not(.lm-tutor) { font-size: 14px; }
+@media (max-width: 520px) { .lm-top2 .lm-tutor { height: 40px; padding: 0 14px 0 4px; } }
+.lm-tools2 { margin-top: 0; }
+
+/* ---------- 3-Fragen-Test ---------- */
+.lm-check { margin: 4px 0 14px; padding: 18px 18px 16px !important; border: 1px solid var(--line); border-radius: 20px; background: var(--bg); box-shadow: 0 14px 34px -26px rgba(0,0,0,.4); }
+.lm-ch { display: grid; gap: 2px; margin-bottom: 14px; }
+.lm-ch b { font-size: 18px; letter-spacing: -.02em; color: var(--ink); }
+.lm-ch small { color: var(--mute); font-size: 13px; }
+.lm-q { padding: 12px 0 14px; border-top: 1px solid var(--line); }
+.lm-qt { margin: 0 0 9px; font-size: 15px; line-height: 1.5; color: var(--ink); }
+.lm-os { display: grid; gap: 7px; }
+.lm-o { display: flex; align-items: flex-start; gap: 10px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line2); background: var(--bg); color: var(--ink); font: 500 14.5px/1.4 'Geist', sans-serif; cursor: pointer; transition: border-color .15s, background .15s; }
+.lm-o:hover:not(:disabled) { border-color: var(--inv); }
+.lm-o .k { flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; background: var(--panel); color: var(--mute); font-size: 12px; font-weight: 700; }
+.lm-o.on { border-color: var(--inv); background: color-mix(in srgb, var(--inv) 7%, var(--bg)); }
+.lm-o.on .k { background: var(--inv); color: var(--onInv); }
+.lm-o:disabled { cursor: default; }
+.lm-o.ok { border-color: #1f8a4c; background: color-mix(in srgb, #1f8a4c 10%, var(--bg)); }
+.lm-o.ok .k { background: #1f8a4c; color: #fff; }
+.lm-o.no { border-color: #c2412d; background: color-mix(in srgb, #c2412d 9%, var(--bg)); }
+.lm-o.no .k { background: #c2412d; color: #fff; }
+.lm-why { margin: 10px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--panel); font-size: 14px; line-height: 1.55; color: var(--ink); }
+.lm-why.blur { filter: blur(5px); user-select: none; pointer-events: none; }
+.lm-cf { padding-top: 6px; }
+.lm-go, .lm-cta2 { display: flex; align-items: center; justify-content: center; width: 100%; height: 48px; border: 0; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 650 15px 'Geist', sans-serif; cursor: pointer; text-decoration: none; }
+.lm-go:disabled { opacity: .35; cursor: default; }
+.lm-sum { display: grid; gap: 10px; padding-top: 8px; }
+.lm-score { margin: 0; font-size: 16px; color: var(--ink); }
+.lm-hint { margin: 0; color: var(--mute); font-size: 14px; line-height: 1.5; }
