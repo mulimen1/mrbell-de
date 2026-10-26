@@ -261,7 +261,7 @@ async function route() {
   // Vom Test auf einer Lernseite: nach der Anmeldung zurück auf die Seite, dort wird sofort aufgelöst (?zurueck=/lernen/…)
   try {
     const zb = new URLSearchParams(location.search).get('zurueck');
-    if (zb && /^\/lernen\/[a-z0-9-]+\?test=\d+#test$/.test(zb) && !getAccount()) localStorage.setItem('bm.lmBack', JSON.stringify({ u: zb, t: Date.now() }));
+    if (zb && /^\/lernen\/[a-z0-9-]+\?test=\d+(#test)?$/.test(zb) && !getAccount()) localStorage.setItem('bm.lmBack', JSON.stringify({ u: zb, t: Date.now() }));
     const lb = JSON.parse(localStorage.getItem('bm.lmBack') || 'null');
     if (lb) {
       if (Date.now() - lb.t > 30 * 60e3) localStorage.removeItem('bm.lmBack');

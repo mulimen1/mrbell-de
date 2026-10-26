@@ -101,7 +101,7 @@ if (matchMedia('(pointer: fine) and (min-width: 761px)').matches) {
     } else {
       qs.forEach(q => { q.why.hidden = false; q.why.classList.add('blur'); });
       sum.append(el('p', 'lm-hint lm-lock', 'Welche falsch war, was richtig gewesen wäre und warum, siehst du mit kostenlosem Konto – mit Google in zwei Klicks.'));
-      const back = `/lernen/${slug}?test=${qs.map(q => q.pick).join('')}#test`;
+      const back = `/lernen/${slug}?test=${qs.map(q => q.pick).join('')}`;
       const a = sum.appendChild(el('a', 'lm-cta2 lm-lock', 'Auflösung kostenlos freischalten'));
       a.href = `/?thema=${encodeURIComponent(thema)}&konto=1&zurueck=${encodeURIComponent(back)}&utm_source=seo&utm_medium=lernen&utm_campaign=${encodeURIComponent(slug)}-test`;
       a.addEventListener('click', () => tr('Lernseite Karte', slug + ':test-frei'));
@@ -109,11 +109,13 @@ if (matchMedia('(pointer: fine) and (min-width: 761px)').matches) {
   };
   go.addEventListener('click', check);
   // Zurück von der Anmeldung: Antworten wieder eintragen und auflösen
+  // Die Seite öffnet immer oben – nie direkt am Test (auch nicht über alte #test-Links)
+  if (location.hash === '#test') { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} scrollTo(0, 0); }
   const pre = new URLSearchParams(location.search).get('test');
   if (pre && /^\d+$/.test(pre) && pre.length === qs.length && acc) {
     qs.forEach((q, i) => { q.pick = Math.min(+pre[i], q.btns.length - 1); q.btns[q.pick].classList.add('on'); });
     check();
-    try { history.replaceState(null, '', location.pathname + '#test'); } catch (e) {}
+    try { history.replaceState(null, '', location.pathname); } catch (e) {}
     setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
   }
 })();
