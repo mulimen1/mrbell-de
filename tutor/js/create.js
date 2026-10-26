@@ -140,7 +140,7 @@ export async function personalise(tab, doc, { fresh = false, langP = null } = {}
     cls: 'ik-modal ik-pers', eyebrow: L('Kurz personalisieren · ', 'Quick setup · ') + eyebrow, title,
     // Gerade hochgeladen: Datei steht fest, dafür Sprache wählen (erkannte Sprache vorausgewählt)
     body: h('div', { class: 'ik-place' }, fresh ? row(L('Datei', 'File'), h('div', { class: 'ik-file1' }, h('span', { html: ico('file') }), h('b', {}, doc.name))) : row(L('Stoff', 'Material'), pick.el), fresh ? langRow() : null, body.filter(Boolean)),
-    actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: [L('Erstellen', 'Create'), cost ? h('span', { class: 'k', title: L('KI-Einheiten', 'AI credits') }, cost) : null], value: 'ok', primary: true }],
+    actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Erstellen', 'Create'), value: 'ok', primary: true }],
     onAction: v => { if (v === 'ok' && !fresh && pick.check()) return false; }
   });
   if (r !== 'ok') return null;
