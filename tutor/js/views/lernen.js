@@ -92,6 +92,32 @@ function explainDoc(d) {
   location.hash = `#/app/${d.id}/hub`;
   setTimeout(() => import('../app.js').then(m => m.viaMax(a => a.ask(L('Erklär mir das Wichtigste aus dem Skript an der Tafel – Schritt für Schritt, mit Beispiel.', 'Explain the key points of the slides on the board – step by step, with an example.'), { show: L(`Erklär mir „${d.name}“ an der Tafel.`, `Explain “${d.name}” on the board.`), fs: true }))), 700);
 }
+// Startseite: Unterlagen als Auswahl oben rechts (statt großer Karten)
+function docPicker(docs, d, onPick) {
+  const lab = d ? (d.name.length > 30 ? d.name.slice(0, 29) + '…' : d.name) : L('Unterlage wählen', 'Pick material');
+  const btn = h('button', { class: 'uv-pbtn' + (d ? ' on' : ''), type: 'button', 'aria-haspopup': 'listbox', 'aria-expanded': 'false' },
+    h('span', { class: 'uv-pi', html: ico('file') }), h('span', { class: 'uv-pt' }, h('small', {}, L('Deine Unterlagen', 'Your material') + (docs.length ? ` · ${docs.length}` : '')), h('b', {}, lab)), h('span', { class: 'uv-pc', html: ico('down') }));
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (document.querySelector('.uv-menu')) { document.querySelector('.uv-menu').remove(); btn.setAttribute('aria-expanded', 'false'); return; }
+    const q = h('input', { class: 'uv-ms', type: 'search', placeholder: L('Suchen …', 'Search …'), 'aria-label': L('Unterlagen suchen', 'Search material') });
+    const list = h('div', { class: 'uv-ml', role: 'listbox' });
+    const item = x => { const f = fachOf(x.id), on = d && x.id === d.id; return h('button', { class: 'uv-mi' + (on ? ' on' : ''), type: 'button', role: 'option', 'aria-selected': on ? 'true' : 'false', onclick: () => { close(); onPick(x.id); } }, h('span', { class: 'uv-pi', html: ico(x.kind === 'video' ? 'captions' : x.generated ? 'bulb' : 'file') }), h('span', { class: 'uv-mt' }, h('b', {}, x.name), h('small', {}, [f ? (f.kurz || f.name) : null, mastery(x) + ' %'].filter(Boolean).join(' · '))), on ? h('span', { class: 'uv-mck', html: ico('check') }) : null); };
+    const fill = () => { const t = q.value.trim().toLowerCase(); const xs = docs.filter(x => !t || x.name.toLowerCase().includes(t)); list.replaceChildren(...(xs.length ? xs.slice(0, 60).map(item) : [h('small', { class: 'uv-mno' }, L('Nichts gefunden.', 'Nothing found.'))])); };
+    q.addEventListener('input', fill); fill();
+    const menu = h('div', { class: 'uv-menu' },
+      docs.length > 6 ? q : null, list,
+      h('div', { class: 'uv-mf' },
+        d ? h('button', { class: 'linkbtn', type: 'button', onclick: () => { close(); onPick(null); } }, L('Ohne Unterlage', 'No material')) : h('span'),
+        h('label', { class: 'btn sm primary', for: 'fileApp', onclick: () => setTimeout(close, 0) }, h('span', { html: ico('plus') }), L('Neu hochladen', 'Upload new'))));
+    const close = () => { menu.remove(); btn.setAttribute('aria-expanded', 'false'); document.removeEventListener('click', out); document.removeEventListener('keydown', esc); };
+    const out = ev => { if (!menu.contains(ev.target)) close(); };
+    const esc = ev => { if (ev.key === 'Escape') close(); };
+    btn.parentElement.appendChild(menu); btn.setAttribute('aria-expanded', 'true');
+    setTimeout(() => { document.addEventListener('click', out); document.addEventListener('keydown', esc); if (docs.length > 6) q.focus(); }, 0);
+  });
+  return btn;
+}
 export function render(root, o = {}) {
   const home = !!o.home;
   const wrap = h('div', { class: 'view-in ln' + (home ? ' uv' : '') });
@@ -100,7 +126,7 @@ export function render(root, o = {}) {
   selId = ls.get('tutor.learn.doc') || null; ls.set('tutor.learn.doc', null);
   // Übersicht: wer schon Unterlagen hat, lernt direkt mit der zuletzt genutzten weiter (abwählbar)
   if (home && !selId && S.list.length) selId = byUse()[0].id;
-  let hero = null;
+  let hero = null; const pickSlot = h('div', { class: 'uv-pick' });
   if (home) {
     const g = greeting(), fEl = h('span', { class: 'uv-face' });
     const topic = h('input', { class: 'uv-tin', type: 'text', maxlength: 120, placeholder: L('Oder Thema eingeben, z. B. Kapitalwertmethode', 'Or type a topic, e.g. net present value'), enterkeyhint: 'go', 'aria-label': L('Thema', 'Topic') });
@@ -111,7 +137,7 @@ export function render(root, o = {}) {
       h('small', {}, L('Skript, Folien, Mitschrift, Übungsblatt, Altklausur, Buch, Screenshot oder Video – Max arbeitet mit allem.', 'Slides, notes, problem sets, past exams, books, screenshots or videos – Max works with all of it.'), h('span', { class: 'uv-hint' }, L(` Hierher ziehen oder Screenshot mit ${PASTE} einfügen.`, ` Drop here or paste a screenshot with ${PASTE}.`))),
       h('span', { class: 'btn primary uv-dbtn' }, h('span', { html: ico('plus') }), L('Datei wählen', 'Choose file'))));
     hero = h('header', { class: 'uv-hero' },
-      h('div', { class: 'uv-greet' }, fEl, h('div', { class: 'uv-bub' }, h('b', {}, g.head), g.sub ? h('small', {}, g.sub) : null)),
+      h('div', { class: 'uv-top' }, h('div', { class: 'uv-greet' }, fEl, h('div', { class: 'uv-bub' }, h('b', {}, g.head), g.sub ? h('small', {}, g.sub) : null)), pickSlot),
       drop, tForm);
     face(fEl, {});
   }
@@ -173,13 +199,14 @@ export function render(root, o = {}) {
         .map(([ic, t, tab, sub]) => T(ic, t, sub, L('Erstellen', 'Create'), need(tab, false)))
     ];
     const trimmed = d ? (d.name.length > 46 ? d.name.slice(0, 45) + '…' : d.name) : '';
+    if (home) pickSlot.replaceChildren(docPicker(docs, d, id => { selId = id; draw(); }));
 
     wrap.replaceChildren(
       hero || h('header', { class: 'ln-head' },
         h('div', { class: 'eyebrow' }, L('Lernen', 'Learn')),
         h('h1', {}, L('Wie willst du heute lernen?', 'How do you want to study today?')),
         h('p', { class: 'ln-sub' }, d ? L(`Du lernst gerade mit „${trimmed}“ – unten findest du alles dazu. Anderes Skript? Einfach oben antippen.`, `You’re studying “${trimmed}” – everything for it is below. Other slides? Just tap one above.`) : L('Kein Skript gewählt. Wähl oben ein vorhandenes Skript – oder lad dein eigenes direkt beim Lerntool hoch (Karteikarten, Quiz, Lernzettel …). Ohne Skript geht’s auch mit einem Thema.', 'No slides selected. Pick existing slides above – or upload your own right in the study tool (flashcards, quiz, study sheet …). Without slides, a topic works too.'))),
-      h('section', { class: 'ln-grp first' + (home && !docs.length ? ' uv-nodocs' : '') }, h('div', { class: 'ln-gh' }, h('h2', {}, home ? L('Deine Unterlagen', 'Your material') : L('Deine Skripte', 'Your slides')), h('span', { class: 'eyebrow' }, docs.length ? L(`${docs.length} ${docs.length === 1 ? 'Skript' : 'Skripte'}`, `${docs.length} slides`) : '')), docs$),
+      home ? null : h('section', { class: 'ln-grp first' }, h('div', { class: 'ln-gh' }, h('h2', {}, home ? L('Deine Unterlagen', 'Your material') : L('Deine Skripte', 'Your slides')), h('span', { class: 'eyebrow' }, docs.length ? L(`${docs.length} ${docs.length === 1 ? 'Skript' : 'Skripte'}`, `${docs.length} slides`) : '')), docs$),
       h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, d ? h('h2', {}, L('Mit ', 'With '), h('span', { class: 'ln-q' }, `„${trimmed}“`), L(' lernen', '')) : h('h2', {}, L('Lerntools', 'Study tools'), h('small', { class: 'ln-h2s' }, L(' · mit deinem Skript oder einem Thema', ' · with your slides or a topic'))), h('span', { class: 'eyebrow' }, L('Stoff aufbauen', 'Build it up'))),
         h('div', { class: 'ln-grid' }, board, tools)),
       h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Üben & Prüfen', 'Practise & test')), h('span', { class: 'eyebrow' }, L('Bis es sitzt', 'Until it sticks'))),

@@ -27,7 +27,8 @@ import { tour, tourActive, pauseTour, stopTour, boardSteps, pageMap, byMxId, spo
 import { hasInstant, instantReply, examReply } from './boards.js';
 import * as Creator from './creator.js';   // TikTok-Sketche (nur Gründer-Konto, serverseitig freigeschaltet)
 import * as Mem from './memory.js';
-import * as Entry from './entry.js';   // Themen-Einstieg: Mini-Check, Live-Quiz, Live-Übung   // Sofort-Tafeln für Themen-Einstiege
+import * as Entry from './entry.js';
+import { homeBeta } from './beta.js';   // Themen-Einstieg: Mini-Check, Live-Quiz, Live-Übung   // Sofort-Tafeln für Themen-Einstiege
 
 const KEY = 'tutor.assistant', CHAT = 'tutor.assistant.chat';
 const M = 12;                       // Mindestabstand zum Rand
@@ -277,14 +278,14 @@ export function mountAssistant() {
   const bPrev = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Vorherige Tafel', 'Previous board'), html: ico('left'), onclick: () => goBoard(-1) });
   const bNext = h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Nächste Tafel', 'Next board'), html: ico('right'), onclick: () => goBoard(1) });
   const bTour = h('button', { class: 'iconbtn ai-btour', type: 'button', hidden: true, 'aria-label': L('Max zeigt’s dir', 'Max shows you'), 'data-tip': L('Max zeigt’s dir', 'Max shows you'), html: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5 18.5 11 12.4 12.4 9.6 18.6z"/></svg>', onclick: () => { const st = boardSteps(bArea.querySelector('.tafel')); if (st.length) { st.forEach(x => prefetchSpeech(x.say)); startTour(st, cfg.spk ? 'klick' : false); } } });
-  const bMin = h('button', { class: 'iconbtn ai-bmin', type: 'button', 'aria-label': L('Tafel minimieren', 'Minimise board'), title: L('Minimieren – liegt dann griffbereit am Rand', 'Minimise – stays at the edge'), html: SVG.min, onclick: () => minBoard(true) });
+  const bMin = h('button', { class: 'iconbtn ai-bmin', type: 'button', 'aria-label': L('Tafel minimieren', 'Minimise board'), title: L('Minimieren – liegt dann griffbereit am Rand', 'Minimise – stays at the edge'), html: SVG.min, onclick: () => { park = true; minBoard(true); } });
   const bAsk = h('div', { class: 'ai-bask', hidden: true, role: 'alertdialog', 'aria-label': L('Tafel löschen?', 'Delete board?') },
     h('b', {}, L('Tafel löschen?', 'Delete this board?')),
     h('p', {}, L('Sie verschwindet dann auch aus deiner Bibliothek. Nur zumachen? Tipp auf ×.', 'It will also disappear from your library. Just want to close it? Tap ×.')),
     h('div', { class: 'ai-bask-r' },
       h('button', { class: 'btn sm ai-del', type: 'button', onclick: () => { askBoard(false); deleteBoard(); } }, L('Löschen', 'Delete')),
       h('button', { class: 'btn sm ai-delall', type: 'button', onclick: () => { askBoard(false); deleteAllBoards(); } }, h('span', { html: ico('trash') }), h('span', { class: 'ai-dan' })),
-      h('button', { class: 'btn sm', type: 'button', onclick: () => { askBoard(false); minBoard(true); } }, h('span', { html: SVG.min }), L('Zur Seite legen', 'Put aside')),
+      h('button', { class: 'btn sm', type: 'button', onclick: () => { askBoard(false); park = true; minBoard(true); } }, h('span', { html: SVG.min }), L('Zur Seite legen', 'Put aside')),
       h('button', { class: 'btn sm ghost', type: 'button', onclick: () => askBoard(false) }, L('Abbrechen', 'Cancel'))));
   // × schließt nur – jede Tafel liegt ohnehin in der Bibliothek. Löschen gibt’s separat (Papierkorb).
   const bClose = h('button', { class: 'iconbtn ai-bclose', type: 'button', 'aria-label': L('Tafel schließen', 'Close board'), title: L('Schließen – bleibt in deiner Bibliothek', 'Close – it stays in your library'), html: ico('x'), onclick: () => { askBoard(false); stopTour(); if (!MOB.matches && boards.length) { minBoard(true); return; } closeBoard(); } });
@@ -340,7 +341,9 @@ export function mountAssistant() {
   const bGrab = h('div', { class: 'ai-grab', 'aria-hidden': 'true' }, h('i'));
   const board = h('section', { class: 'ai-board', role: 'region', 'aria-label': L('Max’ Tafel', 'Max’s board') },
     bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bDl, bDel, bFs, bMore, bMin, bClose), bMenu, bAsk, bArea, bSay);
-  const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', { class: 'm-btl' }, L('Tafel öffnen', 'Open board')), h('span', { class: 'm-btm' }, L('Zurück zur Tafel', 'Back to the board')));
+  const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', { class: 'm-btl' }, L('Tafel öffnen', 'Open board')), h('span', { class: 'm-btm' }, L('Zurück zur Tafel', 'Back to the board')),
+    h('span', { class: 'ai-btx', role: 'button', tabindex: '0', 'aria-label': L('Schließen – bleibt in deiner Bibliothek', 'Close – stays in your library'), title: L('Schließen – bleibt in deiner Bibliothek', 'Close – stays in your library'), html: ico('x'), onclick: e => { e.stopPropagation(); closeBoard(); toast(L('Tafel liegt in deiner Bibliothek.', 'The board is in your library.'), 2400); } }));
+  let park = false;   // nur wer selbst auf „–“ tippt, parkt die Tafel am Rand – sonst wird sie geschlossen (liegt in der Bibliothek)
   // ---------- Handy: die Tafel ist die Seite ----------
   // Rechts unten Max (öffnet den Chat), daneben drei grüne Knöpfe: Quiz, Beispiel, passender Trainer
   const pFace = h('span', { class: 'm-pmf' });
@@ -1000,6 +1003,7 @@ export function mountAssistant() {
     });
   }
   function minBoard(v, quiet) {
+    if (v && !park && homeBeta() && !MOB.matches && !STAGE && boardOpen) { closeBoard(); return; }
     // Zur Seite legen: Tafel gleitet nach rechts raus, am Rand bleibt ein „Tafel“-Griff zum Zurückholen
     if (v && !quiet && !boardMin && boardOpen && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const an = board.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateX(70px) scale(.97)' }], { duration: 260, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
@@ -1007,7 +1011,7 @@ export function mountAssistant() {
       return;
     }
     if (v) setFs(false);
-    boardMin = !!v; root.classList.toggle('board-min', boardMin); if (v) root.classList.remove('ai-wide'); askBoard(false); syncLock(); boardHook();
+    boardMin = !!v; root.classList.toggle('board-min', boardMin); if (v) { root.classList.remove('ai-wide'); park = false; } askBoard(false); syncLock(); boardHook();
     if (!quiet && !v) board.animate([{ opacity: 0, transform: 'translateX(30px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
   }
   function askBoard(v) {

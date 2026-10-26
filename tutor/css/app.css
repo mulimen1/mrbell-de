@@ -5169,7 +5169,8 @@ html .tn .tn-new.tn-xlnew, :root[data-theme="dark"] .tn .tn-new.tn-xlnew { displ
 textarea.ai-in:placeholder-shown { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 textarea.ai-in::placeholder { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* Laptop: rechte Werkzeug-Knöpfe (Rechner, Notizen) liegen nie über Inhalt (z. B. Herunterladen im Excel-Helfer) */
-@media (min-width: 1000px) { #view:not(:has(> .room)) { padding-right: 80px; box-sizing: border-box; } }
+/* Max schwebt über der Seite – kein reservierter Streifen rechts mehr; unten Platz, damit nichts dauerhaft unter ihm liegt */
+@media (min-width: 1000px) { #view:not(:has(> .room)) .view-in { padding-bottom: 150px; } }
 .xl.xl-detail .xl-head .xl-sub { display: none; }
 .xl.xl-detail .xl-head h1 { font-size: clamp(24px, 2.4vw, 30px); }
 /* Menü oben rechts immer über dem Seiteninhalt (die Container-Abfrage macht die Leiste zu eigener Ebene) */
@@ -5494,3 +5495,36 @@ html.bm-guest .rm-focus { display: none !important; }
 .rm-chip .ico { width: 15px; height: 15px; color: var(--inv); }
 /* Eingeloggt: YouTube- und Excel-Logo in der Leiste kleiner (Landingpages bleiben groß) */
 @media (min-width: 761px) { html:not(.bm-guest) .tn-vid .tn-b-youtube.tn-b-youtube, html:not(.bm-guest) .tn-xlic.tn-xlic svg { width: 18px !important; height: 18px !important; } html:not(.bm-guest) .tn-vid .tn-brands.tn-brands, html:not(.bm-guest) .tn-xl .tn-xlic.tn-xlic { padding: 3px !important; border-radius: 8px !important; } }
+/* Geparkte Tafel (nach „–“): waagerecht oben rechts, mit X zum Schließen (bleibt in der Bibliothek) */
+@media (min-width: 601px) {
+  .asst:not(.stage).has-board.board-min .ai-btab { top: 82px !important; bottom: auto !important; right: 18px !important; transform: none !important; writing-mode: horizontal-tb; border-radius: 999px; border: 1px solid var(--line2); padding: 8px 8px 8px 16px; gap: 10px; }
+  .asst:not(.stage) .ai-btab .ico { transform: none; }
+}
+.ai-btx { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; margin-left: 2px; color: inherit; opacity: .75; }
+.ai-btx:hover { opacity: 1; background: color-mix(in srgb, currentColor 14%, transparent); }
+.ai-btx .ico { width: 14px !important; height: 14px !important; transform: none !important; }
+.asst.stage .ai-btx { display: none; }
+/* Bibliothek: kleiner Zähler „N erstellt“ unter dem Namen */
+.tn-l2 { display: inline-grid; line-height: 1.05; }
+.tn-l2 .tn-cnt { font: 650 10.5px var(--sans); letter-spacing: .01em; color: var(--mute); margin-top: 1px; display: block; transform-origin: left center; }
+.tn-l2 .tn-cnt[hidden] { display: none; }
+.tn.on .tn-l2 .tn-cnt { color: inherit; opacity: .75; }
+/* Start: Unterlagen-Auswahl oben rechts */
+.uv-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.uv-pick { position: relative; flex: none; }
+.uv-pbtn { display: inline-flex; align-items: center; gap: 10px; max-width: 320px; padding: 8px 12px 8px 8px; border-radius: 16px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: inherit; cursor: pointer; text-align: left; box-shadow: 0 4px 16px -12px rgba(0,0,0,.3); transition: border-color .15s; }
+.uv-pbtn:hover, .uv-pbtn[aria-expanded="true"] { border-color: var(--inv); }
+.uv-pi { width: 34px; height: 34px; flex: none; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--inv) 10%, var(--panel)); color: var(--inv); } .uv-pi .ico { width: 17px; height: 17px; }
+.uv-pbtn.on .uv-pi { background: var(--inv); color: #fff; }
+.uv-pt { display: grid; min-width: 0; } .uv-pt small { font-size: 11.5px; color: var(--mute); font-weight: 600; } .uv-pt b { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.uv-pc .ico { width: 16px; height: 16px; color: var(--mute); }
+.uv-menu { position: absolute; right: 0; top: calc(100% + 8px); z-index: 120; width: min(380px, calc(100vw - 32px)); max-height: min(460px, 70vh); display: grid; grid-template-rows: auto 1fr auto; gap: 6px; padding: 8px; border-radius: 18px; background: var(--panel); border: 1px solid var(--line2); box-shadow: 0 24px 60px -24px rgba(0,0,0,.45); animation: rmpop .25s cubic-bezier(.3,1.4,.5,1) both; }
+.uv-ms { border: 1px solid var(--line); border-radius: 12px; padding: 9px 12px; font: 500 14px var(--sans); background: var(--bg); color: var(--ink); outline: 0; } .uv-ms:focus { border-color: var(--inv); }
+.uv-ml { overflow: auto; display: grid; gap: 2px; align-content: start; min-height: 0; }
+.uv-mi { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 12px; border: 0; background: transparent; color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.uv-mi:hover { background: var(--panel2); } .uv-mi.on { background: color-mix(in srgb, var(--inv) 8%, var(--panel)); }
+.uv-mt { display: grid; min-width: 0; flex: 1; } .uv-mt b { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .uv-mt small { font-size: 12px; color: var(--mute); }
+.uv-mck .ico { width: 16px; height: 16px; color: var(--inv); }
+.uv-mno { padding: 12px; color: var(--mute); }
+.uv-mf { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 4px 2px; border-top: 1px solid var(--line); }
+@media (max-width: 760px) { .uv-top { flex-direction: column; align-items: stretch; } .uv-pbtn { max-width: none; width: 100%; } .uv-menu { left: 0; right: 0; width: auto; } }

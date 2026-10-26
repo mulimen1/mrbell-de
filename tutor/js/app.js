@@ -13,6 +13,7 @@ import { applyThemeButtons } from './theme.js';
 import { feedbackButton, openFeedback } from './feedback.js';
 import { fly } from './flight.js';
 import { homeBeta } from './beta.js';
+import { looseBoards } from './lib.js';
 
 const TABS = [
   ['hub', L('Übersicht', 'Overview'), 'home'],
@@ -101,11 +102,11 @@ function buildShell() {
   const navA = (key, href, ic, label) => h('a', { class: 'tn', href, 'data-tn': key }, h('span', { html: ico(ic) }), h('span', { class: 'tn-l' }, label));
   const tnFace = h('span', { class: 'tn-face' });
   const topnav = h('nav', { class: 'topnav', 'aria-label': L('Bereiche', 'Sections') },
-    h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor' }, tnFace, h('span', { class: 'tn-l' }, homeBeta() ? L('Übersicht', 'Overview') : 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
+    h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor' }, tnFace, h('span', { class: 'tn-l' }, homeBeta() ? 'Start' : 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
     homeBeta() ? null : navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
     navA('mitschrift', '#/app/mitschrift', 'pen', L('Mitschrift', 'Notes')),
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
-    navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
+    homeBeta() ? h('a', { class: 'tn tn-lib', href: '#/app/bibliothek', 'data-tn': 'bibliothek' }, h('span', { html: ico('library') }), h('span', { class: 'tn-l tn-l2' }, h('span', {}, L('Bibliothek', 'Library')), h('small', { class: 'tn-cnt', hidden: true }))) : navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
     // Transkript: Untertitel-Symbol, Wort, YouTube-Logo (in weißer Kachel)
     h('a', { class: 'tn tn-vid tn-flow', href: '#/app/video', 'data-tn': 'video', title: L('YouTube-Video → Lernzettel, Mitschrift, Karteikarten', 'YouTube video → study sheet, notes, flashcards') }, h('span', { class: 'tn-lead', html: ico('captions') }), h('span', { class: 'tn-l' }, L('Transkript', 'Transcribe')), h('span', { class: 'tn-brands', 'aria-hidden': 'true' }, h('img', { src: '/tutor/img/brands/youtube.svg', alt: '', width: 13, height: 13, class: 'tn-b tn-b-youtube' })), h('span', { class: 'tn-new' }, L('NEU', 'NEW'))),
     h('a', { class: 'tn tn-xl', href: '#/app/excel', 'data-tn': 'excel', title: L('Excel-Helfer: 60 geprüfte Vorlagen & Generator', 'Excel helper: 60 checked templates & generator') }, h('span', { html: ico('sheet') }), h('span', { class: 'tn-l' }, L('Excel-Helfer', 'Excel helper')), h('span', { class: 'tn-xlic', 'aria-hidden': 'true', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif" letter-spacing="-.2">XLS</text></svg>' }), h('span', { class: 'tn-new tn-xlnew' }, L('NEU', 'NEW'))));
@@ -162,6 +163,16 @@ function buildShell() {
   phoneShell(topnav, app);
   mobileTip();
   onChange(renderList);
+  // Bibliothek oben: wie viel man schon erstellt hat (Karteikarten-Stapel, Quiz, Lernzettel, Podcasts, Tafeln) – zählt mit
+  const libCount = () => {
+    const el = document.querySelector('.topnav .tn-cnt'); if (!el) return;
+    let n = 0;
+    try { for (const d of S.list) { n += (d.decks || []).filter(x => (x.cards || []).length).length + (d.quizzes || []).length + (d.summary ? 1 : 0) + (d.podcasts || []).length + (d.boards || []).filter(b => b && b.html).length; } n += looseBoards().filter(b => b && b.html).length; } catch (e) {}
+    const was = +(el.dataset.n || 0); el.dataset.n = String(n);
+    el.hidden = !n; el.textContent = L(`${n} erstellt`, `${n} created`);
+    if (n > was && was) el.animate([{ transform: 'scale(1.35)', color: 'var(--inv)' }, { transform: 'none' }], { duration: 600, easing: 'cubic-bezier(.3,1.6,.5,1)' });
+  };
+  onChange(() => setTimeout(libCount, 50)); setTimeout(libCount, 300); addEventListener('storage', libCount); setInterval(libCount, 4000);
   applyThemeButtons();
   // Schwebender Max-Assistent (überall in der App)
   import('./assistant.js').then(m => { asstMod = m; m.mountAssistant && m.mountAssistant(); }).catch(e => console.warn(e));
@@ -325,7 +336,7 @@ export async function mountApp(parts) {
         if (did) { location.replace(`#/app/${did}/hub`); setTimeout(() => viaMax(m => m.ask(t, o)), 700); return; }
         setTimeout(() => viaMax(m => m.ask(t, o)), 700);
       }
-      return page('uebersicht', L('Übersicht', 'Overview'), async root => { const { render } = await import('./views/lernen.js'); return render(root, { home: true }); });
+      return page('uebersicht', 'Start', async root => { const { render } = await import('./views/lernen.js'); return render(root, { home: true }); });
     }
   }
   if (a === 'tutor') {
@@ -737,7 +748,7 @@ function legalHref(name) { return /(^|\.)bwlmax\.de$/.test(location.hostname) ? 
 function bottomBar(getApp) {
   const item = (key, ic, label, act) => h(typeof act === 'string' ? 'a' : 'button', Object.assign({ class: 'bb-i', 'data-bb': key }, typeof act === 'string' ? { href: act } : { type: 'button', onclick: act }), h('span', { class: 'bb-ic', html: ico(ic) }), h('span', { class: 'bb-t' }, label));
   const bar = h('nav', { class: 'bbar', 'aria-label': L('Hauptnavigation', 'Main navigation') },
-    (() => { const f = h('span', { class: 'bb-ic bb-face' }); const el = h('a', { class: 'bb-i bb-tutor', 'data-bb': 'tutor', href: '#/app/tutor' }, f, h('span', { class: 'bb-t' }, homeBeta() ? L('Übersicht', 'Overview') : 'Tutor')); face(f, { follow: false }); return el; })(),
+    (() => { const f = h('span', { class: 'bb-ic bb-face' }); const el = h('a', { class: 'bb-i bb-tutor', 'data-bb': 'tutor', href: '#/app/tutor' }, f, h('span', { class: 'bb-t' }, homeBeta() ? 'Start' : 'Tutor')); face(f, { follow: false }); return el; })(),
     item('bibliothek', 'library', L('Bibliothek', 'Library'), '#/app/bibliothek'),
     Object.assign(item('side', 'sidebar', 'Tools', () => getApp().classList.toggle('sideopen')), { className: 'bb-i bb-side' }),
     item('search', 'search', L('Suche', 'Search'), () => import('./palette.js').then(m => m.openPalette())),
