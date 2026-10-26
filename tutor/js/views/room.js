@@ -99,7 +99,8 @@ export function render(root, ctx = {}) {
   const topicEl = topicHead ? h('h1', { class: 'rm-topic' }, L('Für BWL- & Wiwi-', 'For business & economics '), h('span', {}, L('Studenten.', 'students.'))) : null;
   // Themen-Einstieg ohne Chat (Beta): links statt Gespräch die stärksten Werkzeuge – „Was du daraus machen kannst“
   const toolsMode = !!topicHead && homeBeta() && innerWidth > 900;
-  const toolsEl = toolsMode ? entryTools(topicHead) : null;
+  const toolsEl = toolsMode ? entryTools(topicHead) : null; let toolsAsks = 0;
+  if (toolsMode) document.body.classList.add('bm-tools-mode');
   const talkCol = h('div', { class: 'rm-col' }, topicEl, h('div', { class: 'rm-th-wrap' }, talkSlot, toolsMode ? null : status), toolsEl, chatSlot);
   const talk = h('div', { class: 'rm-talk' }, talkCol, boardSlot);
   const focusRow = h('div', { class: 'rm-focus' });
@@ -123,6 +124,9 @@ export function render(root, ctx = {}) {
   const room = h('div', { class: 'room home' + (toolsMode ? ' rm-tools-mode' : '') }, stage, right);
   // Laptop mit Tafel: Eingabe nur unter dem Gespräch (links) – die Tafel reicht rechts bis ganz nach unten
   const placeDock = () => {
+    // Themen-Einstieg: Eingabe sitzt links unter den Karten (über ihr: Lexikon, Rechner, Ablage)
+    const tslot = toolsEl && room.classList.contains('rm-tools-mode') ? toolsEl.querySelector('.rm-tslot') : null;
+    if (tslot) { if (dock.parentNode !== tslot) tslot.appendChild(dock); return; }
     const side = room.classList.contains('talk') && room.classList.contains('has-board') && innerWidth > 900;
     if (side && dock.parentNode !== talkCol) talkCol.appendChild(dock);
     else if (!side && dock.parentNode !== stage) stage.insertBefore(dock, drop);
@@ -580,7 +584,11 @@ export function render(root, ctx = {}) {
       slots: { composer: comp, chat: chatSlot, board: boardSlot },
       doc: () => focusDocs()[0] || null,
       context, material,
-      onAsk: q => { lastQ = q || ''; if (mode !== 'talk') goTalk(); startSession(); SES.asks++; },
+      onAsk: q => {
+        lastQ = q || ''; if (mode !== 'talk') goTalk(); startSession(); SES.asks++;
+        // Themen-Einstieg: die erste Frage ist die Tafel selbst – sobald man selbst schreibt, wird links das Gespräch
+        if (toolsEl && room.classList.contains('rm-tools-mode') && ++toolsAsks > 1 && getAccount()) { room.classList.remove('rm-tools-mode'); document.body.classList.remove('bm-tools-mode'); toolsEl.remove(); placeDock(); }
+      },
       onAnswer: p => { if (p && p.boards) SES.boards += p.boards.length; },
       // Tafel von außen geöffnet (z. B. aus der Bibliothek): erst in den Gesprächsmodus, sonst bleibt sie unsichtbar
       onBoard: v => { if (v && mode !== 'talk') goTalk(); room.classList.toggle('has-board', !!v && mode === 'talk'); },
@@ -642,7 +650,7 @@ export function render(root, ctx = {}) {
   MOB.addEventListener?.('change', onMq);
 
   return () => {
-    stopped = true; if (window.__bmStage) window.__bmStage = null; clearInterval(iv); clearInterval(thIv); clearInterval(workT); clearTimeout(thT); removeEventListener('hashchange', onHash);
+    stopped = true; document.body.classList.remove('bm-tools-mode'); if (window.__bmStage) window.__bmStage = null; clearInterval(iv); clearInterval(thIv); clearInterval(workT); clearTimeout(thT); removeEventListener('hashchange', onHash);
     off1(); off2(); off3(); offStk(); clearInterval(stkIv); removeEventListener('maxcfg:change', onCfg); MOB.removeEventListener?.('change', onMq);
     document.removeEventListener('dragover', onOver); document.removeEventListener('dragleave', onLeave); document.removeEventListener('drop', onDrop);
     document.querySelector('.rm-sheet')?.remove();
@@ -651,7 +659,9 @@ export function render(root, ctx = {}) {
   };
 }
 
-// Werkzeug-Karten neben der Themen-Tafel: Quiz, Karteikarten, Podcast zum Thema – und eigene Unterlagen
+// Werkzeug-Karten neben der Themen-Tafel – wie im „Du willst schon gehen?“-Fenster (das konvertiert):
+// Excel-Helfer · Klausurfragen · Karteikarten & Podcast · Video → Lernzettel. Darunter Lexikon/Rechner, Ablage und das Schreibfeld.
+const XLS_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif">XLS</text></svg>';
 function entryTools(topic) {
   const tool = (target, label) => async () => {
     if (!getAccount()) {
@@ -662,15 +672,34 @@ function entryTools(topic) {
     ls.set('tutor.target', target);
     import('../app.js').then(m => m.startTopic(topic));
   };
-  const card = (ic, t, sub, fn, cls = '') => h('button', { class: 'rm-tc' + cls, type: 'button', onclick: fn }, h('span', { class: 'rm-tci', html: ico(ic) }), h('b', {}, t), h('small', {}, sub), h('span', { class: 'rm-tcg', html: ico('right') }));
-  const short = topic.length > 34 ? topic.slice(0, 33) + '…' : topic;
+  const short = topic.length > 30 ? topic.slice(0, 29) + '…' : topic;
+  const card = (icon, t, sub, fn, cls = '', extra = null) => h('button', { class: 'rm-tc ' + cls, type: 'button', onclick: fn },
+    h('span', { class: 'rm-tci', html: icon }), h('b', {}, t), h('small', {}, sub), extra, h('span', { class: 'rm-tcg', html: ico('right') }));
+  // kleine Vorschau: so sieht der Excel-Helfer aus (Formel + Zellen)
+  const xlPrev = h('span', { class: 'rm-xlp', 'aria-hidden': 'true' },
+    h('span', { class: 'rm-xlf' }, h('i', {}, 'fx'), '=NBW(8%;B2:B6)+B1'),
+    h('span', { class: 'rm-xlg' }, ...['1', 'Invest', '-50.000', '2', 'Kapitalwert', '5.312 €'].map((x, i) => h('i', { class: (i % 3 === 0 ? 'hd' : '') + (i === 5 ? ' hit' : '') }, x))));
+  // Vorschau: Video läuft durch → zack, fertiger Lernzettel (Endlosschleife)
+  const vidPrev = h('span', { class: 'rm-vdp', 'aria-hidden': 'true' },
+    h('span', { class: 'rm-vdv' }, h('span', { class: 'rm-vdpl' }), h('span', { class: 'rm-vdbar' }, h('i'))),
+    h('span', { class: 'rm-vda', html: ico('right') }),
+    h('span', { class: 'rm-vds' }, h('b', {}, L('Lernzettel', 'Study sheet')), h('i'), h('i'), h('i', { class: 'hl' }), h('i')));
+  const dk = k => () => document.querySelector(`.dk .dk-b[data-k="${k}"]`)?.click();
+  const strip = h('label', { class: 'rm-tdrop', for: 'fileApp' },
+    h('span', { class: 'rm-tdi', html: ico('upload') }),
+    h('span', { class: 'rm-tdt' }, h('b', {}, L('Deine Unterlagen hier reinziehen', 'Drop your material here')), h('small', {}, L('Skript, Altklausur, Mitschrift, Video – Max macht alles daraus', 'Slides, past exams, notes, video – Max makes it all'))),
+    h('span', { class: 'btn sm' }, h('span', { html: ico('plus') }), L('Datei', 'File')));
   return h('div', { class: 'rm-tools' },
     h('div', { class: 'rm-tbub' }, h('b', {}, L('Die Tafel ist erst der Anfang.', 'The board is just the start.')), h('span', {}, L('Mach aus jedem Thema alles, was du für die Klausur brauchst – mit deinen Unterlagen oder ohne.', 'Turn any topic into everything you need for the exam – with your material or without.'))),
     h('div', { class: 'rm-tgrid' },
-      card('quiz', L('Klausurfragen', 'Exam questions'), L(`Quiz zu „${short}“ – mit Erklärung zu jeder Antwort`, `Quiz on “${short}” – every answer explained`), tool('quiz', L('Dein Quiz – kostenlos', 'Your quiz – free'))),
-      card('cards', L('Karteikarten', 'Flashcards'), L('Wiederholen, kurz bevor du’s vergisst', 'Review right before you forget'), tool('karten', L('Deine Karteikarten – kostenlos', 'Your flashcards – free'))),
-      card('headphones', 'Podcast', L('Marie & Max erklären’s dir zum Anhören', 'Marie & Max explain it for listening'), tool('podcast', L('Dein Podcast – kostenlos', 'Your podcast – free'))),
-      card('upload', L('Deine Unterlagen', 'Your material'), L('Skript, Altklausur, Mitschrift, Video – Max macht alles daraus', 'Slides, past exams, notes, video – Max makes it all'), () => document.getElementById('fileApp')?.click(), ' up')),
-    h('div', { class: 'rm-tmore' }, h('span', {}, L('Außerdem:', 'Also:')),
-      h('a', { href: '#/app/video' }, L('YouTube-Video abschreiben', 'Transcribe a YouTube video')), h('a', { href: '#/app/excel' }, L('Excel-Helfer', 'Excel helper')), h('a', { href: '#/app/mitschrift' }, L('Live-Mitschrift', 'Live notes'))));
+      card(XLS_SVG, L('Excel-Helfer', 'Excel helper'), L('60 Vorlagen + Trainer', '60 templates + trainer'), () => { location.hash = '#/app/excel'; }, 'rm-tcx', xlPrev),
+      card('<img src="/tutor/img/brands/youtube.svg" alt="" width="26" height="26">', L('Video → Lernzettel', 'Video → study sheet'), L('YouTube-Link rein, fertig', 'Paste a YouTube link, done'), () => { location.hash = '#/app/video'; }, 'rm-tcy', vidPrev),
+      card(ico('exam'), L('Klausurfragen', 'Exam questions'), L(`Zu „${short}“ – mit Musterlösung`, `On “${short}” – with model answers`), tool('quiz', L('Deine Klausurfragen – kostenlos', 'Your exam questions – free'))),
+      card(ico('cards'), L('Karteikarten & Podcast', 'Flashcards & podcast'), L('Aus dem Thema oder deinen Folien', 'From the topic or your slides'), tool('karten', L('Deine Karteikarten – kostenlos', 'Your flashcards – free')))),
+    h('div', { class: 'rm-tbot' },
+      h('div', { class: 'rm-tdk' },
+        h('button', { class: 'rm-tdb', type: 'button', onclick: dk('lex') }, h('span', { class: 'rm-tdbi', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9.2 12.6 11 7.4h.1l1.8 5.2M9.8 11h2.6"/><path d="M14.6 9.2h2"/></svg>' }), L('BWL-Lexikon', 'Glossary')),
+        h('button', { class: 'rm-tdb', type: 'button', onclick: dk('calc') }, h('span', { class: 'rm-tdbi', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.8" width="14" height="18.4" rx="2.6"/><rect x="8" y="5.8" width="8" height="3.6" rx=".8"/><path d="M8.6 13h.01M12 13h.01M15.4 13h.01M8.6 16.6h.01M12 16.6h.01M15.4 16.6h.01"/></svg>' }), L('Rechner', 'Calculator'))),
+      strip,
+      h('div', { class: 'rm-tslot' })));
 }

@@ -237,7 +237,9 @@ async function route() {
   // Direkt zur Anmeldung (z. B. von bwlmax.de/zahlen) – danach geht’s dorthin zurück
   if (hash === '#/anmelden') { history.replaceState(null, '', location.pathname + '#/'); hash = '#/'; if (getAccount()) { const z = sessionStorage.getItem('tutor.after'); if (z) { sessionStorage.removeItem('tutor.after'); location.href = z; return; } } else setTimeout(() => openLogin(), 350); }
   // Angemeldet: keine Startseite, direkt in den eigenen Bereich
-  if (getAccount() && (hash === '#/' || hash === '#' || hash === '#/app' || hash === '#/app/')) { history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor'; }
+  // Eingeloggt über eine Google-Anzeige (?thema=…): nicht zur leeren Startseite, sondern unten in den Themen-Einstieg (Tafel zum Thema)
+  const adT = (() => { try { const T = landingTopic(); return T && sessionStorage.getItem('tutor.themaDone') !== T.slug ? T : null; } catch (e) { return null; } })();
+  if (getAccount() && !adT && (hash === '#/' || hash === '#' || hash === '#/app' || hash === '#/app/')) { history.replaceState(null, '', location.pathname + location.search + '#/app/tutor'); hash = '#/app/tutor'; }
   // Themen-Einstieg (Google-Anzeige: ?thema=…): immer direkt in den großen Tutor-Raum – auch bei englischem Browser
   // Neu laden auf der Anzeigen-Landingpage (Gast, ?thema=… schon gesehen): dieselbe Tafel wieder zeigen statt Konto-Sperre
   const reload = !routed && !getAccount() && /^#\/app\/tutor\/?$/.test(hash);

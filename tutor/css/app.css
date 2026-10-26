@@ -5711,3 +5711,58 @@ html.bm-guest .rm-focus { display: none !important; }
 .uv-opt.main small, .ub-pc.hot small, .rm-tlt.main small, .ub-sim.hot small { color: var(--mute); }
 .uv-opt.main .uv-oi, .ub-pc.hot .ub-pci, .rm-tlt.main .rm-tli, .ub-sim.hot .ub-pci { background: var(--panel2); color: var(--inv); }
 .ub-pc.hot .ub-pcg .ico, .ub-sim.hot .ub-pcg .ico { color: var(--mute); }
+/* Themen-Einstieg (Google): Karten wie im Verlassen-Fenster + Lexikon/Rechner, Ablage und Schreibfeld links unten */
+.room.rm-tools-mode .rm-dock { display: block !important; position: static !important; width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; transform: none !important; }
+.room.rm-tools-mode .rm-dock > .rm-focus, .room.rm-tools-mode .rm-dock > .rm-sugg { display: none !important; }
+body.bm-tools-mode .dk { display: none !important; }
+.rm-tc .rm-tci { background: var(--panel2); color: var(--inv); }
+.rm-tc .rm-tci svg { width: 24px; height: 24px; }
+.rm-tc.rm-tcx .rm-tci, .rm-tc.rm-tcy .rm-tci { background: #fff; border: 1px solid var(--line); }
+.rm-tc.rm-tcx .rm-tci svg { width: 28px; height: 28px; }
+.rm-tc.rm-tcx { min-height: 0; }
+.rm-xlp { display: grid; gap: 4px; width: 100%; margin-top: 6px; font: 600 10.5px/1.2 var(--mono); }
+.rm-xlf { display: flex; gap: 6px; align-items: center; padding: 3px 6px; border-radius: 6px; background: var(--panel2); color: var(--ink); white-space: nowrap; overflow: hidden; }
+.rm-xlf i { font-style: italic; color: #1D6F42; font-weight: 800; }
+.rm-xlg { display: grid; grid-template-columns: 16px 1fr 1fr; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.rm-xlg i { font-style: normal; padding: 2px 5px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
+.rm-xlg i.hd { background: var(--panel2); color: var(--mute); text-align: center; }
+.rm-xlg i.hit { background: color-mix(in srgb, #1D6F42 14%, var(--panel)); color: #1D6F42; font-weight: 800; outline: 1.5px solid #1D6F42; outline-offset: -1.5px; }
+.rm-tbot { display: grid; gap: 10px; margin-top: 2px; }
+.rm-tdk { display: flex; gap: 8px; }
+.rm-tdb { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 14px 0 10px; border-radius: 999px; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); font: 650 13.5px var(--sans); cursor: pointer; transition: border-color .15s, transform .15s; }
+.rm-tdb:hover { border-color: var(--inv); transform: translateY(-1px); }
+.rm-tdbi svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; display: block; }
+.rm-tdrop { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 18px; border: 1.5px dashed color-mix(in srgb, var(--inv) 40%, var(--line2)); background: color-mix(in srgb, var(--inv) 4%, var(--panel)); cursor: pointer; transition: border-color .15s, background .15s; }
+.rm-tdrop:hover { border-color: var(--inv); background: color-mix(in srgb, var(--inv) 7%, var(--panel)); }
+.rm-tdi { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--inv); color: #fff; } .rm-tdi .ico { width: 20px; height: 20px; }
+.rm-tdt { display: grid; min-width: 0; } .rm-tdt b { font-size: 14.5px; } .rm-tdt small { color: var(--mute); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rm-tdrop .btn { pointer-events: none; }
+.room.rm-tools-mode .rm-tools { gap: 10px; }
+.room.rm-tools-mode .rm-tbub { padding: 11px 16px; }
+.room.rm-tools-mode .rm-tbub b { font-size: 17px; } .room.rm-tools-mode .rm-tbub span { font-size: 13.5px; }
+.room.rm-tools-mode .rm-tc { min-height: 0; padding: 13px 14px 12px; gap: 3px; }
+.room.rm-tools-mode .rm-tc .rm-tci { width: 38px; height: 38px; margin-bottom: 3px; }
+.room.rm-tools-mode .rm-xlp { margin-top: 4px; }
+/* Einstieg: gleich große Karten, Vorschauen ziehen den Blick */
+.room.rm-tools-mode .rm-tgrid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
+.room.rm-tools-mode .rm-tc { width: 100%; height: 100%; }
+.rm-xlp, .rm-vdp { height: 58px; }
+.rm-xlg i.hit { animation: rmxhit 3.6s ease-in-out infinite; }
+@keyframes rmxhit { 0%, 35% { color: transparent; background: var(--panel); } 45%, 90% { color: #1D6F42; background: color-mix(in srgb, #1D6F42 16%, var(--panel)); } 100% { color: transparent; } }
+.rm-vdp { display: grid; grid-template-columns: minmax(0, 1fr) 16px minmax(0, 1fr); gap: 6px; align-items: center; width: 100%; margin-top: 4px; }
+.rm-vdv { position: relative; height: 100%; border-radius: 8px; background: linear-gradient(135deg, #1b1b22, #3a3a46); overflow: hidden; display: grid; place-items: center; }
+.rm-vdpl { width: 22px; height: 15px; border-radius: 4px; background: #ff0033; position: relative; animation: rmvplay 3.6s ease-in-out infinite; }
+.rm-vdpl::after { content: ''; position: absolute; left: 8.5px; top: 4px; border-left: 6px solid #fff; border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent; }
+.rm-vdbar { position: absolute; left: 6px; right: 6px; bottom: 5px; height: 3px; border-radius: 3px; background: rgba(255,255,255,.25); overflow: hidden; }
+.rm-vdbar i { display: block; height: 100%; width: 0; background: #ff0033; animation: rmvbar 3.6s linear infinite; }
+.rm-vda { color: var(--mute); display: grid; place-items: center; animation: rmvarr 3.6s ease-in-out infinite; } .rm-vda .ico { width: 15px; height: 15px; }
+.rm-vds { height: 100%; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); padding: 5px 7px; display: grid; align-content: start; gap: 3px; overflow: hidden; }
+.rm-vds b { font: 800 9.5px var(--sans); color: var(--inv); letter-spacing: .01em; }
+.rm-vds i { display: block; height: 4px; border-radius: 3px; background: var(--line2); transform-origin: left; animation: rmvline 3.6s ease-out infinite; }
+.rm-vds i:nth-of-type(2) { width: 80%; animation-delay: .08s; } .rm-vds i:nth-of-type(3) { width: 92%; animation-delay: .16s; } .rm-vds i:nth-of-type(4) { width: 60%; animation-delay: .24s; }
+.rm-vds i.hl { background: color-mix(in srgb, #f5c400 70%, var(--line2)); }
+@keyframes rmvbar { 0% { width: 0; } 50%, 100% { width: 100%; } }
+@keyframes rmvplay { 0%, 45% { transform: none; opacity: 1; } 55%, 90% { transform: scale(.85); opacity: .5; } 100% { transform: none; opacity: 1; } }
+@keyframes rmvarr { 0%, 48% { transform: none; color: var(--faint); } 56% { transform: translateX(3px); color: var(--inv); } 64%, 100% { transform: none; color: var(--mute); } }
+@keyframes rmvline { 0%, 52% { transform: scaleX(0); opacity: 0; } 62%, 92% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .rm-xlg i.hit, .rm-vdpl, .rm-vdbar i, .rm-vda, .rm-vds i { animation: none; } .rm-vdbar i { width: 100%; } }
