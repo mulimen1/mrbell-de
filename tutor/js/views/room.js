@@ -17,6 +17,7 @@ import * as MC from '../maxcfg.js';
 import { recommend, exams, weekMinutes, syncAsk, startChecklist } from './me.js';
 import { fly, setRoomHead } from '../flight.js';
 import { thoughtFor } from '../thoughts.js';
+import { homeBeta } from '../beta.js';
 
 // Skript, das bei leerem Kontingent kam: Begrüßung bleibt für diese Sitzung stehen, auch wenn der Raum neu zeichnet
 let waitGreet = null;
@@ -96,7 +97,10 @@ export function render(root, ctx = {}) {
   // Gespräch: Max' Kopf bleibt groß oben, darunter das Gespräch; rechts daneben die Tafel
   let topicHead = ''; try { topicHead = sessionStorage.getItem('tutor.topicHead') || ''; sessionStorage.removeItem('tutor.topicHead'); } catch (e) {}
   const topicEl = topicHead ? h('h1', { class: 'rm-topic' }, L('Für BWL- & Wiwi-', 'For business & economics '), h('span', {}, L('Studenten.', 'students.'))) : null;
-  const talkCol = h('div', { class: 'rm-col' }, topicEl, h('div', { class: 'rm-th-wrap' }, talkSlot, status), chatSlot);
+  // Themen-Einstieg ohne Chat (Beta): links statt Gespräch die stärksten Werkzeuge – „Was du daraus machen kannst“
+  const toolsMode = !!topicHead && homeBeta() && innerWidth > 900;
+  const toolsEl = toolsMode ? entryTools(topicHead) : null;
+  const talkCol = h('div', { class: 'rm-col' }, topicEl, h('div', { class: 'rm-th-wrap' }, talkSlot, toolsMode ? null : status), toolsEl, chatSlot);
   const talk = h('div', { class: 'rm-talk' }, talkCol, boardSlot);
   const focusRow = h('div', { class: 'rm-focus' });
   const sugg = h('div', { class: 'rm-sugg' });
@@ -106,7 +110,7 @@ export function render(root, ctx = {}) {
   const drop = h('div', { class: 'rm-drop', hidden: true }, h('div', {}, h('span', { html: ico('file') }), h('b', {}, L('Loslassen – dann arbeiten wir damit.', 'Drop it – and we’ll work with it.'))));
   const stage = h('section', { class: 'rm-stage' }, corner, bar, scroll, talk, dock, drop);
   const right = h('aside', { class: 'rm-right', 'aria-label': L('Skripte', 'Slides') });
-  const room = h('div', { class: 'room home' }, stage, right);
+  const room = h('div', { class: 'room home' + (toolsMode ? ' rm-tools-mode' : '') }, stage, right);
   // Laptop mit Tafel: Eingabe nur unter dem Gespräch (links) – die Tafel reicht rechts bis ganz nach unten
   const placeDock = () => {
     const side = room.classList.contains('talk') && room.classList.contains('has-board') && innerWidth > 900;
@@ -575,4 +579,28 @@ export function render(root, ctx = {}) {
     setRoomHead(null);
     if (api && staged) api.unstage();
   };
+}
+
+// Werkzeug-Karten neben der Themen-Tafel: Quiz, Karteikarten, Podcast zum Thema – und eigene Unterlagen
+function entryTools(topic) {
+  const tool = (target, label) => async () => {
+    if (!getAccount()) {
+      const { openAuth } = await import('../account.js');
+      const ok = await openAuth({ title: label, registerTitle: label, sub: L('Kostenlos mit Google in zwei Klicks – danach baut Max es dir sofort.', 'Free with Google in two clicks – then Max builds it right away.') }).catch(() => false);
+      if (!ok || !getAccount()) return;
+    }
+    ls.set('tutor.target', target);
+    import('../app.js').then(m => m.startTopic(topic));
+  };
+  const card = (ic, t, sub, fn, cls = '') => h('button', { class: 'rm-tc' + cls, type: 'button', onclick: fn }, h('span', { class: 'rm-tci', html: ico(ic) }), h('b', {}, t), h('small', {}, sub), h('span', { class: 'rm-tcg', html: ico('right') }));
+  const short = topic.length > 34 ? topic.slice(0, 33) + '…' : topic;
+  return h('div', { class: 'rm-tools' },
+    h('div', { class: 'rm-tbub' }, h('b', {}, L('Die Tafel ist erst der Anfang.', 'The board is just the start.')), h('span', {}, L('Mach aus jedem Thema alles, was du für die Klausur brauchst – mit deinen Unterlagen oder ohne.', 'Turn any topic into everything you need for the exam – with your material or without.'))),
+    h('div', { class: 'rm-tgrid' },
+      card('quiz', L('Klausurfragen', 'Exam questions'), L(`Quiz zu „${short}“ – mit Erklärung zu jeder Antwort`, `Quiz on “${short}” – every answer explained`), tool('quiz', L('Dein Quiz – kostenlos', 'Your quiz – free'))),
+      card('cards', L('Karteikarten', 'Flashcards'), L('Wiederholen, kurz bevor du’s vergisst', 'Review right before you forget'), tool('karten', L('Deine Karteikarten – kostenlos', 'Your flashcards – free'))),
+      card('headphones', 'Podcast', L('Marie & Max erklären’s dir zum Anhören', 'Marie & Max explain it for listening'), tool('podcast', L('Dein Podcast – kostenlos', 'Your podcast – free'))),
+      card('upload', L('Deine Unterlagen', 'Your material'), L('Skript, Altklausur, Mitschrift, Video – Max macht alles daraus', 'Slides, past exams, notes, video – Max makes it all'), () => document.getElementById('fileApp')?.click(), ' up')),
+    h('div', { class: 'rm-tmore' }, h('span', {}, L('Außerdem:', 'Also:')),
+      h('a', { href: '#/app/video' }, L('YouTube-Video abschreiben', 'Transcribe a YouTube video')), h('a', { href: '#/app/excel' }, L('Excel-Helfer', 'Excel helper')), h('a', { href: '#/app/mitschrift' }, L('Live-Mitschrift', 'Live notes'))));
 }

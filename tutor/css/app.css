@@ -5428,3 +5428,67 @@ html.bm-guest .rm-focus { display: none !important; }
 .xl-thumb.xl-thph { background: linear-gradient(90deg, #f3f5f8 0, #e9edf2 50%, #f3f5f8 100%); background-size: 200% 100%; animation: xlph 1.4s linear infinite; }
 @keyframes xlph { to { background-position: -200% 0; } }
 @media (prefers-reduced-motion: reduce) { .xl-thumb.xl-thph { animation: none; } }
+
+/* ---------- Übersicht (ohne Chat): Max begrüßt, darunter Hochladen + Werkzeuge ---------- */
+.ln.uv { max-width: 1080px; }
+.uv-hero { display: grid; gap: 14px; margin: 4px 0 26px; }
+.uv-greet { display: flex; align-items: center; gap: 16px; }
+.uv-face { width: 84px; height: 84px; flex: none; }
+.uv-bub { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 14px 18px; box-shadow: 0 6px 22px -14px rgba(0,0,0,.25); display: grid; gap: 3px; animation: rmpop .45s cubic-bezier(.3,1.5,.5,1) both; }
+.uv-bub::before { content: ''; position: absolute; left: -7px; top: 50%; width: 12px; height: 12px; background: var(--panel); border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: translateY(-50%) rotate(45deg); }
+.uv-bub b { font-size: clamp(18px, 2vw, 22px); letter-spacing: -.02em; line-height: 1.25; }
+.uv-bub small { color: var(--mute); font-size: 13.5px; font-weight: 600; }
+.uv-drop { display: grid; justify-items: center; text-align: center; gap: 8px; padding: 30px 24px 26px; border-radius: 24px; border: 2px dashed color-mix(in srgb, var(--inv) 38%, var(--line2)); background: color-mix(in srgb, var(--inv) 3%, var(--panel)); cursor: pointer; transition: border-color .15s, background .15s, transform .15s; }
+.uv-drop:hover { border-color: var(--inv); background: color-mix(in srgb, var(--inv) 6%, var(--panel)); }
+.uv-drop.ln-over { border-style: solid; border-color: var(--inv); background: color-mix(in srgb, var(--inv) 10%, var(--panel)); transform: scale(1.01); }
+.uv-di { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; background: var(--inv); color: #fff; }
+.uv-di .ico { width: 26px; height: 26px; }
+.uv-drop b { font-size: clamp(20px, 2.2vw, 26px); letter-spacing: -.025em; }
+.uv-drop small { color: var(--mute); font-size: 14px; max-width: 640px; line-height: 1.45; }
+.uv-dbtn { margin-top: 6px; pointer-events: none; }
+.uv-topic { display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); }
+.uv-topic:focus-within { border-color: var(--inv); box-shadow: 0 0 0 3px color-mix(in srgb, var(--inv) 14%, transparent); }
+.uv-topic > span .ico { width: 18px; height: 18px; color: var(--mute); }
+.uv-tin { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: 500 15.5px var(--sans); color: var(--ink); padding: 8px 0; }
+.uv-topic .btn { border-radius: 999px; flex: none; }
+.ln.uv .ln-grid .uv-board { grid-column: span 2; background: color-mix(in srgb, var(--inv) 7%, var(--panel)); border-color: color-mix(in srgb, var(--inv) 30%, var(--line)); }
+.ln.uv .uv-nodocs { display: none; }
+@media (max-width: 900px) { .ln.uv .ln-grid .uv-board { grid-column: span 2; } }
+@media (max-width: 600px) {
+  .uv-face { width: 60px; height: 60px; } .uv-greet { gap: 12px; } .uv-bub { padding: 11px 14px; } .uv-bub b { font-size: 16.5px; }
+  .uv-drop { padding: 22px 16px 20px; } .uv-drop small { font-size: 13px; }
+  .uv-topic { flex-wrap: wrap; border-radius: 18px; padding: 8px 8px 8px 14px; } .uv-topic .btn { width: 100%; }
+}
+
+/* ---------- Themen-Einstieg ohne Chat: links die Werkzeuge ---------- */
+.room.rm-tools-mode .rm-chat, .room.rm-tools-mode .rm-dock, .room.rm-tools-mode .rm-bar { display: none !important; }
+.rm-tools { display: grid; gap: 14px; width: 100%; max-width: 520px; margin: 4px auto 0; }
+.rm-tbub { position: relative; display: grid; gap: 4px; padding: 14px 18px; border-radius: 18px; background: var(--panel); border: 1px solid var(--line); box-shadow: 0 6px 22px -14px rgba(0,0,0,.25); text-align: center; animation: rmpop .45s cubic-bezier(.3,1.5,.5,1) both; }
+.rm-tbub::before { content: ''; position: absolute; left: 50%; top: -7px; width: 12px; height: 12px; background: var(--panel); border-left: 1px solid var(--line); border-top: 1px solid var(--line); transform: translateX(-50%) rotate(45deg); }
+.rm-tbub b { font-size: 18px; letter-spacing: -.02em; } .rm-tbub span { color: var(--mute); font-size: 14px; line-height: 1.45; }
+.rm-tgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rm-tc { position: relative; display: grid; gap: 5px; align-content: start; justify-items: start; text-align: left; padding: 16px 16px 15px; min-height: 132px; border-radius: 18px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; font: inherit; transition: transform .15s, border-color .15s, box-shadow .15s; animation: rmpop .45s cubic-bezier(.3,1.5,.5,1) both; }
+.rm-tc:nth-child(2) { animation-delay: .06s; } .rm-tc:nth-child(3) { animation-delay: .12s; } .rm-tc:nth-child(4) { animation-delay: .18s; }
+.rm-tc:hover { transform: translateY(-2px); border-color: var(--inv); box-shadow: 0 10px 26px -16px rgba(0,0,0,.35); }
+.rm-tci { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--inv); color: #fff; margin-bottom: 4px; } .rm-tci .ico { width: 20px; height: 20px; }
+.rm-tc b { font-size: 16px; letter-spacing: -.015em; } .rm-tc small { color: var(--mute); font-size: 13px; line-height: 1.4; }
+.rm-tcg { position: absolute; right: 14px; top: 16px; color: var(--faint); } .rm-tcg .ico { width: 16px; height: 16px; } .rm-tc:hover .rm-tcg { color: var(--inv); }
+.rm-tc.up { border-style: dashed; border-width: 1.5px; background: color-mix(in srgb, var(--inv) 4%, var(--panel)); } .rm-tc.up .rm-tci { background: var(--panel); color: var(--inv); border: 1.5px solid var(--inv); }
+.rm-tmore { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; font-size: 13px; color: var(--mute); }
+.rm-tmore a { color: var(--ink); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--line2); } .rm-tmore a:hover { border-color: var(--inv); }
+/* Erklärung aus der Übersicht: Tafel groß wie eine eigene Seite, Max-Gespräch bleibt darunter */
+@media (min-width: 901px) { .asst.ai-wide:not(.stage).has-board:not(.board-min) .ai-board { width: min(1040px, calc(100vw - 300px)) !important; } .asst.ai-wide .ai-board .tafel { max-width: 860px; margin-inline: auto; } }
+@media (max-width: 600px) { .uv-hint { display: none; } }
+/* Anhang in der eigenen Nachricht (wie bei ChatGPT): Bild als Vorschau, Datei als Karte */
+.ai-bub.me.has-att { display: grid; gap: 8px; justify-items: end; }
+.ai-att { display: inline-flex; align-items: center; gap: 10px; max-width: 280px; padding: 8px 12px 8px 8px; border-radius: 14px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); text-align: left; font: inherit; }
+.ai-att-i { width: 38px; height: 38px; flex: none; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--inv) 10%, var(--panel)); color: var(--inv); } .ai-att-i .ico { width: 18px; height: 18px; }
+.ai-att-t { display: grid; min-width: 0; } .ai-att-t b { font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ai-att-t small { font-size: 12px; color: var(--mute); font-weight: 500; }
+.ai-att.img { padding: 0; overflow: hidden; cursor: zoom-in; border-radius: 14px; }
+.ai-att.img img { display: block; max-width: 200px; max-height: 160px; object-fit: cover; }
+.ai-lbox { position: fixed; inset: 0; z-index: 400; background: rgba(0,0,0,.72); display: grid; place-items: center; gap: 10px; align-content: center; cursor: zoom-out; animation: fadein .2s both; }
+.ai-lbox img { max-width: min(92vw, 900px); max-height: 80vh; border-radius: 12px; box-shadow: 0 30px 80px rgba(0,0,0,.5); } .ai-lbox small { color: #fff; font-size: 13px; }
+/* „Verbunden mit“: deutlich sichtbar statt Mini-Chip */
+.rm-fl2 { font-size: 13.5px; font-weight: 600; }
+.rm-chip { height: 36px; padding: 0 4px 0 12px; font-size: 14px; max-width: 340px; background: color-mix(in srgb, var(--inv) 8%, var(--panel)); border: 1.5px solid var(--inv); box-shadow: 0 4px 14px -8px rgba(0,0,0,.3); }
+.rm-chip .ico { width: 15px; height: 15px; color: var(--inv); }

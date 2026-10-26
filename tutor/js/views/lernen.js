@@ -7,7 +7,9 @@ import { L } from '../i18n.js';
 import { S, onChange, mastery } from '../state.js';
 import { dueCards } from './cards.js';
 import { planSummary } from './plan.js';
-import { fachOf } from '../me.js';
+import { fachOf, getMe } from '../me.js';
+import { face } from '../face.js';
+import { getAccount } from '../api.js';
 
 const live = d => (S.doc && S.doc.id === d.id ? S.doc : d);
 const byUse = () => S.list.map(live).sort((a, b) => Math.max(b.used || 0, b.created || 0) - Math.max(a.used || 0, a.created || 0));
@@ -64,11 +66,55 @@ function dropable(el) {
   el.addEventListener('drop', e => { e.preventDefault(); e.stopPropagation(); n = 0; el.classList.remove('ln-over'); const f = e.dataTransfer?.files; if (f && f.length) import('../app.js').then(m => m.startUpload([...f])); });
   return el;
 }
-export function render(root) {
-  const wrap = h('div', { class: 'view-in ln' });
+// Übersicht (Startseite ohne Chat): Max begrüßt, darunter Hochladen und alle Werkzeuge
+const PASTE = /Mac|iPhone|iPad/i.test(navigator.platform || navigator.userAgent || '') ? '⌘V' : L('Strg+V', 'Ctrl+V');
+function greeting() {
+  const a = getAccount() || {}, nick = String(a.nick || '').trim(), hr = new Date().getHours(), n = nick ? ' ' + nick : '';
+  const pick = arr => arr[Math.floor(Date.now() / 36e5) % arr.length];
+  const head = hr < 5 ? pick([L(`Noch wach${n}? Respekt. Dann lass es wenigstens zählen.`, `Still up${n}? Respect. Make it count.`)])
+    : hr < 11 ? pick([L(`Moin${n}. Kaffee steht? Dann lass uns was wegarbeiten.`, `Morning${n}. Coffee ready? Let’s get stuff done.`), L(`Moin${n}. Früh dran – das machen nur die, die später entspannt sind.`, `Morning${n}. Early bird – the ones who relax later.`)])
+    : hr < 14 ? pick([L(`Mahlzeit${n}. Kurz was Sinnvolles vor der Pause?`, `Hey${n}. Something useful before the break?`)])
+    : hr < 18 ? pick([L(`Da bist du ja${n}. Nachmittagstief? Nicht mit mir.`, `There you are${n}. Afternoon slump? Not on my watch.`), L(`Hey${n}. Lass uns die Klausur schon mal nervös machen.`, `Hey${n}. Let’s make the exam nervous.`)])
+    : pick([L(`Guten Abend${n}. Eine Runde noch – dann hast du’s dir verdient.`, `Evening${n}. One more round – then you’ve earned it.`)]);
+  // Was heute ansteht: fällige Karten, nächste Klausur
+  let due = 0; try { due = S.list.map(live).reduce((s2, d) => s2 + ((d.decks || []).some(x => (x.cards || []).length) ? dueCards(d).length : 0), 0); } catch (e) {}
+  let exam = null; try { const t0 = new Date().toLocaleDateString('sv-SE'); (getMe().faecher || []).forEach(f => { if (f.klausur && f.klausur >= t0 && (!exam || f.klausur < exam.d)) exam = { d: f.klausur, n: f.kurz || f.name }; }); } catch (e) {}
+  const days = exam ? Math.round((new Date(exam.d) - new Date(new Date().toLocaleDateString('sv-SE'))) / 864e5) : null;
+  const bits = [exam ? (days === 0 ? L(`${exam.n}: Klausur ist heute`, `${exam.n}: exam is today`) : L(`${exam.n}: Klausur in ${tage(days)}`, `${exam.n}: exam in ${tage(days)}`)) : null, due ? L(`${due} Karten fällig`, `${due} cards due`) : null].filter(Boolean);
+  return { head, sub: bits.join(' · ') };
+}
+function explainTopic(topic) {
+  const t = String(topic || '').trim(); if (!t) return;
+  import('../app.js').then(m => m.viaMax(a => a.ask(L(`Erklär mir „${t}“ von Grund auf – mit Beispiel an der Tafel.`, `Explain “${t}” to me from scratch – with an example on the board.`), { show: t, fs: true })));
+}
+function explainDoc(d) {
+  fromHere();
+  location.hash = `#/app/${d.id}/hub`;
+  setTimeout(() => import('../app.js').then(m => m.viaMax(a => a.ask(L('Erklär mir das Wichtigste aus dem Skript an der Tafel – Schritt für Schritt, mit Beispiel.', 'Explain the key points of the slides on the board – step by step, with an example.'), { show: L(`Erklär mir „${d.name}“ an der Tafel.`, `Explain “${d.name}” on the board.`), fs: true }))), 700);
+}
+export function render(root, o = {}) {
+  const home = !!o.home;
+  const wrap = h('div', { class: 'view-in ln' + (home ? ' uv' : '') });
   root.appendChild(wrap);
 
   selId = ls.get('tutor.learn.doc') || null; ls.set('tutor.learn.doc', null);
+  // Übersicht: wer schon Unterlagen hat, lernt direkt mit der zuletzt genutzten weiter (abwählbar)
+  if (home && !selId && S.list.length) selId = byUse()[0].id;
+  let hero = null;
+  if (home) {
+    const g = greeting(), fEl = h('span', { class: 'uv-face' });
+    const topic = h('input', { class: 'uv-tin', type: 'text', maxlength: 120, placeholder: L('Oder Thema eingeben, z. B. Kapitalwertmethode', 'Or type a topic, e.g. net present value'), enterkeyhint: 'go', 'aria-label': L('Thema', 'Topic') });
+    const tForm = h('form', { class: 'uv-topic', onsubmit: e => { e.preventDefault(); explainTopic(topic.value); topic.value = ''; } }, h('span', { html: ico('board') }), topic, h('button', { class: 'btn sm', type: 'submit' }, L('An der Tafel erklären', 'Explain on the board')));
+    const drop = dropable(h('label', { class: 'uv-drop', for: 'fileApp' },
+      h('span', { class: 'uv-di', html: ico('upload') }),
+      h('b', {}, L('Lad hoch, womit du lernst', 'Upload what you study with')),
+      h('small', {}, L('Skript, Folien, Mitschrift, Übungsblatt, Altklausur, Buch, Screenshot oder Video – Max arbeitet mit allem.', 'Slides, notes, problem sets, past exams, books, screenshots or videos – Max works with all of it.'), h('span', { class: 'uv-hint' }, L(` Hierher ziehen oder Screenshot mit ${PASTE} einfügen.`, ` Drop here or paste a screenshot with ${PASTE}.`))),
+      h('span', { class: 'btn primary uv-dbtn' }, h('span', { html: ico('plus') }), L('Datei wählen', 'Choose file'))));
+    hero = h('header', { class: 'uv-hero' },
+      h('div', { class: 'uv-greet' }, fEl, h('div', { class: 'uv-bub' }, h('b', {}, g.head), g.sub ? h('small', {}, g.sub) : null)),
+      drop, tForm);
+    face(fEl, {});
+  }
   function draw() {
     const docs = byUse(), d = pickDoc();
     const need = (tab, hasIt) => async () => {
@@ -111,6 +157,8 @@ export function render(root) {
     const st = d ? stats(d) : null;
     const T = (ic, t, status, action, fn, live2) => h('button', { class: 'ln-tile' + (live2 ? ' has' : ''), type: 'button', onclick: fn },
       h('span', { class: 'ln-ti', html: ico(ic) }), h('b', {}, t), h('small', { class: 'ln-st' }, status), h('span', { class: 'ln-act' }, action, h('span', { html: ico('right') })));
+    const board = home ? T('board', L('An der Tafel erklären', 'Explain on the board'), d ? L('Max erklärt dir dein Skript Schritt für Schritt', 'Max explains your slides step by step') : L('Thema oder Skript – Max baut dir die Erklärseite', 'Topic or slides – Max builds the explainer'), L('Erklären', 'Explain'), () => { const doc = pickDoc(); if (doc) explainDoc(doc); else wrap.querySelector('.uv-tin')?.focus(); }) : null;
+    if (board) board.classList.add('uv-board');
     const tools = d ? [
       T('cards', L('Karteikarten', 'Flashcards'), st.cards ? L(`${st.cards} Karten · ${st.due} fällig`, `${st.cards} cards · ${st.due} due`) : L('Noch keine – ich erstell sie dir', 'None yet – I’ll make them'), st.due ? L('Jetzt wiederholen', 'Review now') : st.cards ? L('Öffnen', 'Open') : L('Erstellen', 'Create'), need('karten', st.cards > 0), st.cards > 0),
       T('quiz', 'Quiz', st.quizzes ? L(`${st.quizzes} Quiz` + (st.lastScore != null ? ` · zuletzt ${st.lastScore} %` : ''), `${st.quizzes} quizzes` + (st.lastScore != null ? ` · last ${st.lastScore}%` : '')) : L('Fragen mit Erklärung – zeigt, wo’s hakt', 'Questions with explanations'), st.quizzes ? L('Öffnen', 'Open') : L('Erstellen', 'Create'), need('quiz', st.quizzes > 0), st.quizzes > 0),
@@ -127,13 +175,13 @@ export function render(root) {
     const trimmed = d ? (d.name.length > 46 ? d.name.slice(0, 45) + '…' : d.name) : '';
 
     wrap.replaceChildren(
-      h('header', { class: 'ln-head' },
+      hero || h('header', { class: 'ln-head' },
         h('div', { class: 'eyebrow' }, L('Lernen', 'Learn')),
         h('h1', {}, L('Wie willst du heute lernen?', 'How do you want to study today?')),
         h('p', { class: 'ln-sub' }, d ? L(`Du lernst gerade mit „${trimmed}“ – unten findest du alles dazu. Anderes Skript? Einfach oben antippen.`, `You’re studying “${trimmed}” – everything for it is below. Other slides? Just tap one above.`) : L('Kein Skript gewählt. Wähl oben ein vorhandenes Skript – oder lad dein eigenes direkt beim Lerntool hoch (Karteikarten, Quiz, Lernzettel …). Ohne Skript geht’s auch mit einem Thema.', 'No slides selected. Pick existing slides above – or upload your own right in the study tool (flashcards, quiz, study sheet …). Without slides, a topic works too.'))),
-      h('section', { class: 'ln-grp first' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Deine Skripte', 'Your slides')), h('span', { class: 'eyebrow' }, docs.length ? L(`${docs.length} ${docs.length === 1 ? 'Skript' : 'Skripte'}`, `${docs.length} slides`) : '')), docs$),
+      h('section', { class: 'ln-grp first' + (home && !docs.length ? ' uv-nodocs' : '') }, h('div', { class: 'ln-gh' }, h('h2', {}, home ? L('Deine Unterlagen', 'Your material') : L('Deine Skripte', 'Your slides')), h('span', { class: 'eyebrow' }, docs.length ? L(`${docs.length} ${docs.length === 1 ? 'Skript' : 'Skripte'}`, `${docs.length} slides`) : '')), docs$),
       h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, d ? h('h2', {}, L('Mit ', 'With '), h('span', { class: 'ln-q' }, `„${trimmed}“`), L(' lernen', '')) : h('h2', {}, L('Lerntools', 'Study tools'), h('small', { class: 'ln-h2s' }, L(' · mit deinem Skript oder einem Thema', ' · with your slides or a topic'))), h('span', { class: 'eyebrow' }, L('Stoff aufbauen', 'Build it up'))),
-        h('div', { class: 'ln-grid' }, tools)),
+        h('div', { class: 'ln-grid' }, board, tools)),
       h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Üben & Prüfen', 'Practise & test')), h('span', { class: 'eyebrow' }, L('Bis es sitzt', 'Until it sticks'))),
         h('div', { class: 'ln-grid' },
           T('exam', L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel', 'With time, points and grading'), L('Starten', 'Start'), async () => { if (await gated('exam')) return; fromHere(); import('../app.js').then(m => m.examTool()); }),
@@ -141,7 +189,7 @@ export function render(root) {
           T('camera', L('Fotocheck Buchungssätze', 'Photo check: entries'), L('Auf Papier lösen, Foto machen, fertig', 'Solve on paper, snap a photo'), L('Starten', 'Start'), () => go('#/app/trainer/buchung')),
           T('calc', L('Rechner', 'Calculators'), L('Exakt gerechnet, mit Rechenweg', 'Exact, with the workings'), L('Öffnen', 'Open'), () => go('#/app/rechner')),
           T('trophy', L('Wochen-Challenge', 'Weekly challenge'), L('Jede Woche neu – mit Rangliste', 'New every week – with a leaderboard'), L('Mitmachen', 'Join'), () => go('#/app/challenge')))),
-      h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Mit Max', 'With Max')), h('span', { class: 'eyebrow' }, L('Erklären lassen', 'Get it explained'))),
+      home ? null : h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Mit Max', 'With Max')), h('span', { class: 'eyebrow' }, L('Erklären lassen', 'Get it explained'))),
         h('div', { class: 'ln-grid' },
           T('board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Cursor und Warum', 'Step by step, with the why'), L('Loslegen', 'Start'), () => inRoom(api => api.prefill(L('Erklär mir an der Tafel: ', 'Explain on the board: ')))),
           T('chat', L('Abfragen', 'Quiz me'), L('Eine Frage nach der anderen', 'One question at a time'), L('Loslegen', 'Start'), () => inRoom(api => api.ask(L('Frag mich ab – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.', 'Quiz me – one question at a time, wait for my answer each time and tell me if it’s right.')))),
@@ -152,5 +200,8 @@ export function render(root) {
   draw();
   let redrawT = 0;
   const off = onChange(() => { clearTimeout(redrawT); redrawT = setTimeout(() => { if (wrap.isConnected) draw(); }, 80); });
-  return () => { clearTimeout(redrawT); if (typeof off === 'function') off(); };
+  // Übersicht: Screenshot einfügen (⌘V) = hochladen
+  const onPaste = e => { if (!home || e.target.closest?.('input, textarea, [contenteditable]')) return; const fs = [...(e.clipboardData?.files || [])]; if (fs.length) { e.preventDefault(); import('../app.js').then(m => m.startUpload(fs)); } };
+  document.addEventListener('paste', onPaste);
+  return () => { clearTimeout(redrawT); document.removeEventListener('paste', onPaste); if (typeof off === 'function') off(); };
 }

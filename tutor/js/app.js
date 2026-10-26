@@ -12,6 +12,7 @@ import { exportAll, importAll, wipe } from './db.js';
 import { applyThemeButtons } from './theme.js';
 import { feedbackButton, openFeedback } from './feedback.js';
 import { fly } from './flight.js';
+import { homeBeta } from './beta.js';
 
 const TABS = [
   ['hub', L('Übersicht', 'Overview'), 'home'],
@@ -82,7 +83,7 @@ function buildShell() {
       h('label', { class: 'btn primary side-new', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')), fileIn,
       h('div', { class: 'grp' }, 'Tools'),
       h('div', { class: 'side-tools' },
-        tool('button', { onclick: () => talkToMax() }, 'mic', L('Sprich mit mir', 'Talk to me')),
+        homeBeta() ? null : tool('button', { onclick: () => talkToMax() }, 'mic', L('Sprich mit mir', 'Talk to me')),
         tool('button', { onclick: () => topicPrompt() }, 'bulb', L('Ich erklär dir ein Thema', 'I’ll explain a topic')),
         tool('button', { onclick: () => examTool(), 'data-nav': 'exam' }, 'exam', L('Klausur-Simulator', 'Exam simulator')),
         tool('a', { href: '#/app/trainer', 'data-nav': 'trainer' }, 'whistle', L('BWL-Trainer', 'Business trainer')),
@@ -100,8 +101,8 @@ function buildShell() {
   const navA = (key, href, ic, label) => h('a', { class: 'tn', href, 'data-tn': key }, h('span', { html: ico(ic) }), h('span', { class: 'tn-l' }, label));
   const tnFace = h('span', { class: 'tn-face' });
   const topnav = h('nav', { class: 'topnav', 'aria-label': L('Bereiche', 'Sections') },
-    h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor' }, tnFace, h('span', { class: 'tn-l' }, 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
-    navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
+    h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor' }, tnFace, h('span', { class: 'tn-l' }, homeBeta() ? L('Übersicht', 'Overview') : 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
+    homeBeta() ? null : navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
     navA('mitschrift', '#/app/mitschrift', 'pen', L('Mitschrift', 'Notes')),
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
     navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
@@ -303,6 +304,7 @@ export async function mountApp(parts) {
   if (a === 'zahlen') { const z = await import('./views/zahlen.js'); if (!z.isAdmin(getAccount())) { location.replace('#/app/tutor'); return; } }
   if (a === 'zahlen') return page('zahlen', L('Zahlen', 'Numbers'), async root => { const { render } = await import('./views/zahlen.js'); return render(root); });
   if (a === 'mitschrift') return page('mitschrift:' + (b || ''), L('Mitschrift', 'Notes'), async root => { const { render } = await import('./views/mitschrift.js'); return render(root, { id: b || '' }); });
+  if (a === 'lernen' && homeBeta()) { location.replace('#/app/tutor'); return; }   // Lernen steckt jetzt in der Übersicht
   if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
   if (a === 'skripte') { location.replace('#/app/bibliothek/unterlagen'); return; }
   if (a === 'video') return page('video', L('Transkript', 'Transcribe'), async root => { const { render } = await import('./views/video.js'); return render(root); });
@@ -310,6 +312,22 @@ export async function mountApp(parts) {
   if (a === 'bibliothek') return page('bibliothek', L('Bibliothek', 'Library'), async root => { const { render } = await import('./views/bibliothek.js'); return render(root, { tab: b || '' }); });
   // Tutor-Raum: die Startseite. Wer von woanders kommt, dem fliegt Max von unten rechts entgegen.
   if (!a || (a === 'me' && !b)) { location.replace('#/app/tutor'); return; }
+  // Neue Übersicht (Beta): kein Chat-Raum mehr – Max begrüßt, darunter Hochladen und alle Werkzeuge.
+  // Themen-Einstiege (Anzeigen/Lernseiten) laufen weiter über den Raum; Erklär-Wünsche (z. B. nach dem Hochladen) gehen an die Tafel.
+  if (a === 'tutor' && homeBeta() && getAccount()) {
+    const pend = ls.get('tutor.pendingAsk', null);
+    if (!(pend && typeof pend === 'object' && pend.entry)) {
+      if (pend) {
+        ls.set('tutor.pendingAsk', null);
+        const fc = ls.get('tutor.room.focus', null), fAt = ls.get('tutor.room.focusAt', 0);
+        const did = Array.isArray(fc) && fc[0] && Date.now() - (fAt || 0) < 5 * 60e3 && S.list.some(d => d.id === fc[0]) ? fc[0] : null;
+        const t = typeof pend === 'object' ? pend.t : pend, o = Object.assign({}, typeof pend === 'object' ? pend : {}, { fs: true });
+        if (did) { location.replace(`#/app/${did}/hub`); setTimeout(() => viaMax(m => m.ask(t, o)), 700); return; }
+        setTimeout(() => viaMax(m => m.ask(t, o)), 700);
+      }
+      return page('uebersicht', L('Übersicht', 'Overview'), async root => { const { render } = await import('./views/lernen.js'); return render(root, { home: true }); });
+    }
+  }
   if (a === 'tutor') {
     let arrive = null;
     if (current.key && current.key !== 'room' && asstMod && asstMod.isAssistantEnabled() && !document.querySelector('.ngreet, .asst.covered, .asst.off, .asst.nobub')) {
@@ -719,7 +737,7 @@ function legalHref(name) { return /(^|\.)bwlmax\.de$/.test(location.hostname) ? 
 function bottomBar(getApp) {
   const item = (key, ic, label, act) => h(typeof act === 'string' ? 'a' : 'button', Object.assign({ class: 'bb-i', 'data-bb': key }, typeof act === 'string' ? { href: act } : { type: 'button', onclick: act }), h('span', { class: 'bb-ic', html: ico(ic) }), h('span', { class: 'bb-t' }, label));
   const bar = h('nav', { class: 'bbar', 'aria-label': L('Hauptnavigation', 'Main navigation') },
-    (() => { const f = h('span', { class: 'bb-ic bb-face' }); const el = h('a', { class: 'bb-i bb-tutor', 'data-bb': 'tutor', href: '#/app/tutor' }, f, h('span', { class: 'bb-t' }, 'Tutor')); face(f, { follow: false }); return el; })(),
+    (() => { const f = h('span', { class: 'bb-ic bb-face' }); const el = h('a', { class: 'bb-i bb-tutor', 'data-bb': 'tutor', href: '#/app/tutor' }, f, h('span', { class: 'bb-t' }, homeBeta() ? L('Übersicht', 'Overview') : 'Tutor')); face(f, { follow: false }); return el; })(),
     item('bibliothek', 'library', L('Bibliothek', 'Library'), '#/app/bibliothek'),
     Object.assign(item('side', 'sidebar', 'Tools', () => getApp().classList.toggle('sideopen')), { className: 'bb-i bb-side' }),
     item('search', 'search', L('Suche', 'Search'), () => import('./palette.js').then(m => m.openPalette())),

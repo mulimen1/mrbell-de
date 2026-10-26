@@ -1,5 +1,6 @@
 // Upload-Intelligenz: Was auch immer reinkommt (PDF, PowerPoint, Word, Foto, Screenshot, Scan) – Max erkennt, was es ist,
 // und sortiert es ein: Stundenplan → Kurse, Prüfungsplan → Termine, Lernstoff → Skript im richtigen Fach mit Ziel und Datum.
+import { homeBeta } from './beta.js';
 import { h, ico, toast, modal, ls, sleep, uid } from './util.js';
 import { L, LOCALE } from './i18n.js';
 import { face } from './face.js';
@@ -360,7 +361,7 @@ export async function placeModal(res, { prog = null, target = null, topic = fals
   };
   if (st.ziel === 'verstehen') st.datum = '';
   const soon = st.datum && daysTo(st.datum) <= 28;
-  st.start = !target && ls.get('tutor.attach.room') && !topic && res.typ !== 'altklausur' ? 'tutor' : target && ['tutor', 'plan', 'quiz', 'karten', 'podcast', 'zettel', 'pfad'].includes(target) ? target : topic ? 'tutor' : res.typ === 'altklausur' ? 'quiz' : res.typ === 'uebung' ? 'tutor' : soon ? 'plan' : 'hub';
+  st.start = !target && (ls.get('tutor.attach.room') || homeBeta()) && !topic && res.typ !== 'altklausur' ? 'tutor' : target && ['tutor', 'plan', 'quiz', 'karten', 'podcast', 'zettel', 'pfad'].includes(target) ? target : topic ? 'tutor' : res.typ === 'altklausur' ? 'quiz' : res.typ === 'uebung' ? 'tutor' : soon ? 'plan' : 'hub';
 
   const name = h('input', { class: 'ik-name', value: clean(res.titel, 80), maxlength: 80, spellcheck: 'false', 'aria-label': L('Name', 'Name') });
   const sug = res.fach && !ex ? clean(res.fach, 60) : '';
@@ -378,7 +379,7 @@ export async function placeModal(res, { prog = null, target = null, topic = fals
   const syncDate = () => { dRow.hidden = !['klausur', 'test', 'abgabe'].includes(st.ziel); };
   const ziel = seg([['klausur', L('Klausur', 'Exam')], ['test', L('Test', 'Test')], ['abgabe', L('Abgabe', 'Deadline')], ['verstehen', L('Nur verstehen', 'Just understand')]], 'ziel', syncDate);
   syncDate();
-  const start = seg([['hub', L('Übersicht', 'Overview'), 'home'], ['tutor', L('Erklären', 'Explain'), 'chat'], ['plan', L('Lernplan', 'Study plan'), 'calendar'], ['karten', L('Karten', 'Cards'), 'cards'], ['quiz', 'Quiz', 'quiz']].filter(x => !topic || x[0] !== 'hub'), 'start');
+  const start = seg((homeBeta() ? [['tutor', L('Erklären', 'Explain'), 'board'], ['hub', L('Alle Werkzeuge', 'All tools'), 'home']] : [['hub', L('Übersicht', 'Overview'), 'home'], ['tutor', L('Erklären', 'Explain'), 'chat']]).concat([['plan', L('Lernplan', 'Study plan'), 'calendar'], ['karten', L('Karten', 'Cards'), 'cards'], ['quiz', 'Quiz', 'quiz']]).filter(x => !topic || x[0] !== 'hub'), 'start');
   const progEl = prog && prog.n ? h('small', { class: 'ik-ocr' }, L(`Ich lese mit … Seite ${prog.done} von ${prog.n}`, `Reading along … page ${prog.done} of ${prog.n}`)) : null;
   if (prog) prog.el = progEl;
   // Sprache: nicht Deutsch → aktiv fragen (oben, hervorgehoben); Deutsch → nur als Option (unten, ruhig)

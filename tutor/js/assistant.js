@@ -1007,7 +1007,7 @@ export function mountAssistant() {
       return;
     }
     if (v) setFs(false);
-    boardMin = !!v; root.classList.toggle('board-min', boardMin); askBoard(false); syncLock(); boardHook();
+    boardMin = !!v; root.classList.toggle('board-min', boardMin); if (v) root.classList.remove('ai-wide'); askBoard(false); syncLock(); boardHook();
     if (!quiet && !v) board.animate([{ opacity: 0, transform: 'translateX(30px)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
   }
   function askBoard(v) {
@@ -1162,7 +1162,7 @@ export function mountAssistant() {
     openBoard();
   }
   function endBuilding() { bootDone(); if (!building) return; building = false; clearInterval(bldT); boardDone(); if (boards.length) drawBoard(false); else { bArea.replaceChildren(); closeBoard(); } }
-  function closeBoard() { setFs(false); boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min'); syncLock(); boardHook(); }
+  function closeBoard() { setFs(false); boardOpen = false; boardMin = false; root.classList.remove('has-board', 'board-min', 'ai-wide'); syncLock(); boardHook(); }
   function boardHook() { try { STAGE?.onBoard?.(boardOpen && !boardMin); } catch (e) {} syncPage(); placeHist(); setTimeout(placeHist, 700); try { syncBtns(); } catch (e) {} }
   // Tafel „schreibt mit“: Abschnitte erscheinen im Takt der Stimme
   function writeAlong(t, progress) {
@@ -1333,7 +1333,7 @@ export function mountAssistant() {
     const pasted = attachTx; if (pasted) { capQ.prepend(h('span', { class: 'ai-refq' }, L('Eingefügter Text · ', 'Pasted text · ') + pasted.length.toLocaleString('de-DE') + L(' Zeichen', ' chars'))); clearAttach(); }
     if (askRef) capQ.prepend(h('span', { class: 'ai-refq' }, L(`Zu ${askRef.i}/${askRef.n} · `, `Re ${askRef.i}/${askRef.n} · `) + (askRef.spot.length > 60 ? askRef.spot.slice(0, 59) + '…' : askRef.spot)));
     const ex = curEx;
-    if (ex) { ex.entry = !!o.entry; ex.slug = o.slug || ''; ex.exam = o.exam || null; }
+    if (ex) { ex.entry = !!o.entry; ex.slug = o.slug || ''; ex.exam = o.exam || null; ex.fs = !!o.fs; }
     const ctxLine = pageContext() + (entryNotes.length ? '\n' + entryNotes.splice(0).join('\n') : '');
     if (o.att && capQ) { const c = attCard(o.att); if (c) { capQ.classList.add('has-att'); capQ.prepend(c); } }
     hist.push(Object.assign({ role: 'user', content: text }, o.att ? { att: o.att } : {}));
@@ -1472,6 +1472,7 @@ export function mountAssistant() {
       if (!ex.sketch) keepBoards(p.boards, { doc: curDoc(), question: lastQ, answer: p.text, quiet: asPage });
       boards = boards.concat(p.boards).slice(-12); bIdx = boards.length - p.boards.length;
       t = drawBoard(!asPage); openBoard(); whenWritten(t);
+      root.classList.toggle('ai-wide', !!(ex && ex.fs && !MOB.matches));   // aus der Übersicht: Erklärung groß, wie eine eigene Seite
     }
     else if (MOB.matches && boardOpen && !boardMin && !ex.ref && !tourActive() && !root.classList.contains('m-pchat')) minBoard(true, true);   // nur am Handy: am Laptop steht der Chat ja daneben, die Tafel bleibt offen   // neue Antwort ohne Tafel: alte Tafel zur Seite – außer die Frage galt genau dieser Tafel
     // Befehle sofort ausführen, als kleine Häkchen unter der Antwort
