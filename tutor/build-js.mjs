@@ -33,5 +33,13 @@ h = h.replace(/<script type="module" src="\/tutor\/js(b)?\/main[^"]*"><\/script>
 if (!h.includes(url(main))) throw new Error('main-Script in index.html nicht gefunden');
 if (/<!--jsb-->[\s\S]*?<!--\/jsb-->/.test(h)) h = h.replace(/<!--jsb-->[\s\S]*?<!--\/jsb-->/, `<!--jsb-->${tags}<!--/jsb-->`);
 else h = h.replace(`<script type="module" src="${url(main)}"></script>`, m => `<!--jsb-->${tags}<!--/jsb-->` + m);
+// CSS: die beim Start blockierenden Stylesheets minifiziert nach jsb/ (Quelle bleibt tutor/css/*.css)
+for (const name of ['app', 'm-shell', 'm-board', 'm-pages', 'trainer']) {
+  const c = await build({ absWorkingDir: T, entryPoints: [`css/${name}.css`], bundle: false, minify: true, write: false, outdir: OUT, entryNames: `${name}-[hash]`, logLevel: 'warning', legalComments: 'none' });
+  const f = c.outputFiles[0]; fs.writeFileSync(f.path, f.contents);
+  const re = new RegExp(`/tutor/(css/${name}\\.css\\?v=[0-9]+|jsb/${name}-[A-Z0-9]+\\.css)`);
+  if (!re.test(h)) throw new Error(`${name}.css nicht in index.html`);
+  h = h.replace(re, '/tutor/' + rel(f.path));
+}
 fs.writeFileSync(ix, h);
 console.log('Bundle:', url(main), '·', Object.keys(outs).length, 'Dateien ·', pre.size, 'vorgeladen');
