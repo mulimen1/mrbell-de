@@ -73,6 +73,8 @@ const plain = html => String(html || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp
 // Mini-Check + Haken direkt nach dem ersten Absatz
 export function enhance(c) {
   const t = c.t; if (!t || t.querySelector('.m-chk, .m-hook, .m-lad, .m-mc')) return;
+  // Lernseite (bwlmax.de/lernen/…): der ausführliche Erklärtext steht unter der Tafel – im HTML für Google, sichtbar beim Weiterscrollen
+  try { const art = document.getElementById('seo-art'); if (art && window.BM_LP && !art.dataset.on) { art.dataset.on = '1'; (c.scroller || t.parentElement).append(art); } } catch (e) {}
   if (c.speak && c.practice) {   // Lern-Stufen: verstanden → Klausurfragen → echter Praxisfall (mit kostenlosem Konto)
     // Google-Ads-Besucher scrollen kaum: der Pfad steht direkt unter dem Tafel-Titel
     // Mini-Check (3 Fragen) direkt nach dem ersten Erklär-Block ersetzt die obere Lern-Stufen-Karte – die steht dann nur noch am Ende
