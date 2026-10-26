@@ -133,3 +133,27 @@ main.ln section.lm-tools { border-top: 0; }
 .lm-sum { display: grid; gap: 10px; padding-top: 8px; }
 .lm-score { margin: 0; font-size: 16px; color: var(--ink); }
 .lm-hint { margin: 0; color: var(--mute); font-size: 14px; line-height: 1.5; }
+
+/* ---------- Breites Layout (Seiten mit 3-Fragen-Test): Text und Kopfzeile über fast die ganze Seite ---------- */
+main.ln.ln-wide { max-width: 1400px; }
+main.ln.ln-wide { font-size: 18px; }
+main.ln.ln-wide p, main.ln.ln-wide li { font-size: 18px; line-height: 1.7; }
+main.ln.ln-wide h1 { font-size: clamp(36px, 5.4vw, 64px); }
+main.ln.ln-wide section h2 { font-size: 28px; }
+main.ln.ln-wide .ln-kurz p { font-size: 19px; }
+main.ln.ln-wide .lm-qt { font-size: 17px; }
+main.ln.ln-wide .lm-o { font-size: 16px; padding: 12px 14px; }
+main.ln.ln-wide .lm-ch b { font-size: 21px; }
+@media (min-width: 1000px) {
+  .lm-top2 .lm-nav { justify-content: space-between; gap: 8px; }
+  .lm-top2 .lm-sep { display: none; }
+  .lm-top2 .lm-tn, .lm-top2 .lm-tn:not(.lm-tutor) { height: 46px; padding: 0 14px; font-size: 16.5px; gap: 9px; }
+  .lm-top2 .lm-tn .ico { width: 18px; height: 18px; padding: 7px; }
+  .lm-top2 .lm-tutor { height: 48px; padding: 0 20px 0 5px; font-size: 16.5px; }
+  .lm-top2 .lm-tutor img { width: 38px; height: 38px; }
+  .lm-top2 { padding-top: 12px; padding-bottom: 12px; }
+}
+.lm-top2 { padding-left: max(16px, calc((100vw - 1400px) / 2)); padding-right: max(16px, calc((100vw - 1400px) / 2)); }
+main.ln.ln-wide .lm-ch small { font-size: 14.5px; }
+main.ln.ln-wide .lm-why, main.ln.ln-wide .lm-hint { font-size: 16px; }
+main.ln.ln-wide .lm-score { font-size: 18px; }
