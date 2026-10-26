@@ -847,6 +847,17 @@ export function mountAssistant() {
     const all = [...feedList.children]; while (all.length > 40) all.shift().remove();
     drawTog();
   }
+  // Anhang in der Nachricht (wie bei ChatGPT): Screenshot als Vorschaubild, Datei als Karte
+  function attCard(id) {
+    const d = (S.list || []).find(x => x.id === id); if (!d) return null;
+    const n = (d.pages || []).length;
+    const meta = d.src === 'bild' ? L('Bild', 'Image') : d.kind === 'video' || d.from === 'video' ? L('Video-Transkript', 'Video transcript') : d.src === 'scan' ? L(`Scan · ${n} ${n === 1 ? 'Seite' : 'Seiten'}`, `Scan · ${n} ${n === 1 ? 'page' : 'pages'}`) : L(`${n} ${n === 1 ? 'Seite' : 'Seiten'}`, `${n} ${n === 1 ? 'page' : 'pages'}`);
+    if (d.thumb) {
+      const img = h('img', { src: d.thumb, alt: d.name, loading: 'lazy' });
+      return h('button', { class: 'ai-att img', type: 'button', title: d.name, onclick: e => { e.stopPropagation(); const bg = h('div', { class: 'ai-lbox', onclick: () => bg.remove() }, h('img', { src: d.thumb, alt: d.name }), h('small', {}, d.name)); document.body.appendChild(bg); } }, img);
+    }
+    return h('div', { class: 'ai-att file' }, h('span', { class: 'ai-att-i', html: ico('file') }), h('span', { class: 'ai-att-t' }, h('b', {}, d.name), h('small', {}, meta)));
+  }
   function bubPair(qText, live) {
     const q = h('div', { class: 'ai-bub me' + (live ? ' live' : '') }, qText);
     const aTx = h('div', { class: 'ai-a' }), aX = h('div', { class: 'ai-x' });
@@ -917,7 +928,7 @@ export function mountAssistant() {
   }
   // Verlauf beim Start (zum Nachlesen)
   hist.slice(-12).forEach((m, i, arr) => {
-    if (m.role === 'user') { const nx = arr[i + 1]; const pr = bubPair(m.content.replace(/^\[[^\]]*\]\n/, '')); if (nx?.role === 'assistant') { const px = parse(nx.content); pr.a.hidden = false; pr.aTx.appendChild(richText(px.text || (px.boards.length ? L('Schau an die Tafel.', 'Look at the board.') : '…'))); px.boards.forEach(b => pr.aX.appendChild(boardBtn(b))); } pr.done = true; }
+    if (m.role === 'user') { const nx = arr[i + 1]; const pr = bubPair(m.content.replace(/^\[[^\]]*\]\n/, '')); if (m.att) { const c = attCard(m.att); if (c) { pr.q.classList.add('has-att'); pr.q.prepend(c); } } if (nx?.role === 'assistant') { const px = parse(nx.content); pr.a.hidden = false; pr.aTx.appendChild(richText(px.text || (px.boards.length ? L('Schau an die Tafel.', 'Look at the board.') : '…'))); px.boards.forEach(b => pr.aX.appendChild(boardBtn(b))); } pr.done = true; }
   });
   setFeedOpen(feedOpen);
   function capIdleLater() {}
@@ -1324,7 +1335,8 @@ export function mountAssistant() {
     const ex = curEx;
     if (ex) { ex.entry = !!o.entry; ex.slug = o.slug || ''; ex.exam = o.exam || null; }
     const ctxLine = pageContext() + (entryNotes.length ? '\n' + entryNotes.splice(0).join('\n') : '');
-    hist.push({ role: 'user', content: text });
+    if (o.att && capQ) { const c = attCard(o.att); if (c) { capQ.classList.add('has-att'); capQ.prepend(c); } }
+    hist.push(Object.assign({ role: 'user', content: text }, o.att ? { att: o.att } : {}));
     try { STAGE?.onAsk?.(shown); } catch (e) {}
     if (pendingMap === LAZY_MAP) { await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))); const m = pageMap(); pendingMap = m.count ? m.text : null; }
     setState('think');

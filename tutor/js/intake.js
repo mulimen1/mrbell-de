@@ -320,6 +320,7 @@ async function materialStep(ui, res, P, tool = null) {
     clearInterval(tick); scr.stop();
     if (P.total > P.n) toast(L(`Die ersten ${P.n} von ${P.total} Seiten sind drin.`, `The first ${P.n} of ${P.total} pages are in.`), 4200);
   }
+  const thumb = await smallThumb(P);   // kleines Vorschaubild für den Chat (Screenshot/Foto/Scan)
   P.close && P.close();
   pages = (pages || []).map(x => String(x || '').trim());
   // Sprache: Standard = Sprache des Materials; ist es nicht Deutsch und wurde noch nicht gewählt, kurz nachfragen
@@ -330,8 +331,9 @@ async function materialStep(ui, res, P, tool = null) {
   const name = clean(ans.name || res.titel || P.name, 80) || L('Unterlagen', 'Material');
   // Kontingent leer? Speichern geht trotzdem – Max nimmt sich das Skript vor, sobald wieder Antworten da sind
   const q = currentQuota(), empty = res.noQuota || (q && q.limit && (q.limit - (q.used || 0)) <= 0);
-  const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, (() => { const fr = ls.get('tutor.upFrom'); ls.set('tutor.upFrom', null); return fr ? { from: fr } : {}; })(), srcLang ? { srcLang, outLang: ans.lang || srcLang } : ans.lang ? { outLang: ans.lang } : {}, ocr ? { ocr: true } : {}, P.media ? { media: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}, empty ? { waiting: Date.now() } : {}) });
+  const d = await createDoc({ name, pages, chars: pages.join('').length, extra: Object.assign({ kind: res.typ }, (() => { const fr = ls.get('tutor.upFrom'); ls.set('tutor.upFrom', null); return fr ? { from: fr } : {}; })(), srcLang ? { srcLang, outLang: ans.lang || srcLang } : ans.lang ? { outLang: ans.lang } : {}, thumb ? { thumb } : {}, P.kind ? { src: P.kind } : {}, ocr ? { ocr: true } : {}, P.media ? { media: true } : {}, res.thema ? { thema: clean(res.thema, 80) } : {}, empty ? { waiting: Date.now() } : {}) });
   applyPlace(d, ans);
+  if (ans && res.note && res.note.text) ans.note = res.note.text;
   ls.set('tutor.learn.doc', d.id);   // In „Lernen“ ist danach genau dieses Skript ausgewählt
   if (empty) {
     ls.set('tutor.room.focus', [d.id]); ls.set('tutor.room.focusAt', Date.now()); ls.set('tutor.attach.room', null);
@@ -358,7 +360,7 @@ export async function placeModal(res, { prog = null, target = null, topic = fals
   };
   if (st.ziel === 'verstehen') st.datum = '';
   const soon = st.datum && daysTo(st.datum) <= 28;
-  st.start = target && ['tutor', 'plan', 'quiz', 'karten', 'podcast', 'zettel', 'pfad'].includes(target) ? target : topic ? 'tutor' : res.typ === 'altklausur' ? 'quiz' : res.typ === 'uebung' ? 'tutor' : soon ? 'plan' : 'hub';
+  st.start = !target && ls.get('tutor.attach.room') && !topic && res.typ !== 'altklausur' ? 'tutor' : target && ['tutor', 'plan', 'quiz', 'karten', 'podcast', 'zettel', 'pfad'].includes(target) ? target : topic ? 'tutor' : res.typ === 'altklausur' ? 'quiz' : res.typ === 'uebung' ? 'tutor' : soon ? 'plan' : 'hub';
 
   const name = h('input', { class: 'ik-name', value: clean(res.titel, 80), maxlength: 80, spellcheck: 'false', 'aria-label': L('Name', 'Name') });
   const sug = res.fach && !ex ? clean(res.fach, 60) : '';
@@ -419,7 +421,21 @@ export function applyPlace(d, ans) {
 export function route(d, ans) {
   const s = ans && ans.start || 'hub';
   // Aus dem Chat reingezogen/eingefügt: zurück in den Tutor-Raum, mit genau diesem Skript (außer man wählt aktiv etwas anderes)
-  if (ls.get('tutor.attach.room')) { ls.set('tutor.attach.room', null); if (['hub', 'tutor', ''].includes(s)) { ls.set('tutor.room.focus', [d.id]); ls.set('tutor.room.focusAt', Date.now()); return '#/app/tutor'; } }
+  if (ls.get('tutor.attach.room')) {
+    ls.set('tutor.attach.room', null);
+    if (s === 'tutor' || s === '') {
+      ls.set('tutor.room.focus', [d.id]); ls.set('tutor.room.focusAt', Date.now());
+      const note = String(ans && ans.note || '').trim();
+      const img = d.src === 'bild';
+      const t = note && note.length > 6 && !/^Das ist (mein|eine|ein) /.test(note) ? note + L(' – erklär es mir an der Tafel.', ' – explain it on the board.')
+        : d.kind === 'uebung' ? L('Geh mit mir die erste Aufgabe durch – erst den Ansatz, dann den Lösungsweg Schritt für Schritt an der Tafel.', 'Walk me through the first exercise – approach first, then the solution step by step on the board.')
+        : d.kind === 'altklausur' ? L('Welche Aufgabentypen kommen in dieser Klausur vor, und wie gehe ich sie an? Zeig es an der Tafel.', 'Which kinds of tasks are in this exam, and how do I tackle them? Show it on the board.')
+        : img ? L('Erklär mir, was auf dem Bild steht – an der Tafel, Schritt für Schritt, mit Beispiel.', 'Explain what’s in the image – on the board, step by step, with an example.')
+        : L('Erklär mir das Wichtigste aus der Datei an der Tafel – Schritt für Schritt, mit Beispiel.', 'Explain the key points of the file on the board – step by step, with an example.');
+      ls.set('tutor.pendingAsk', { t, show: note && note.length > 6 && !/^Das ist (mein|eine|ein) /.test(note) ? note : L('Erklär mir das an der Tafel.', 'Explain this on the board.'), att: d.id });
+      return '#/app/tutor';
+    }
+  }
   if (s === 'tutor') { ls.set('tutor.pendingAsk', d.kind === 'uebung' ? L('Geh mit mir die erste Aufgabe durch – erst den Ansatz, dann den Lösungsweg Schritt für Schritt.', 'Walk me through the first exercise – approach first, then the solution step by step.') : d.kind === 'altklausur' ? L('Welche Aufgabentypen kommen in dieser Klausur vor, und wie gehe ich sie an?', 'Which kinds of tasks are in this exam, and how do I tackle them?') : L('Erklär mir das wichtigste Thema aus dem Skript an der Tafel – mit Beispiel.', 'Explain the most important topic from the slides on the whiteboard – with an example.')); return `#/app/${d.id}/tutor`; }
   if (s === 'plan') return `#/app/${d.id}/plan`;
   if (s === 'karten') return `#/app/${d.id}/karten/auto`;
@@ -485,4 +501,18 @@ function fail(ui, msg, retry) {
   ui.view.replaceChildren(h('div', { class: 'view-in' }, h('div', { class: 'ingest' }, f, h('h2', { style: { margin: 0 } }, L('Da hakt was.', 'Something’s off.')), h('div', { class: 'sub' }, msg),
     h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' } }, retry ? h('button', { class: 'btn primary', type: 'button', onclick: retry }, L('Nochmal versuchen', 'Try again')) : null, retry ? h('label', { class: 'btn', for: 'fileApp', onclick: keep }, L('Andere Datei', 'Different file')) : lab))));
   const fc = face(f); fc.set('sad');
+}
+
+// Kleines Vorschaubild (max. 360 px) – nur für Bilder und Scans, damit der Anhang im Chat zu sehen ist
+async function smallThumb(P) {
+  try {
+    let b64 = P.thumbs && P.thumbs[0] && P.thumbs[0].data;
+    if (!b64 && P.img && (P.kind === 'scan' || P.kind === 'bild')) { const r = await P.img(0); b64 = r && r.data; }
+    if (!b64) return '';
+    const im = new Image(); im.src = 'data:image/jpeg;base64,' + b64; await im.decode();
+    const k = Math.min(1, 360 / Math.max(im.naturalWidth, im.naturalHeight));
+    const cv = document.createElement('canvas'); cv.width = Math.max(1, Math.round(im.naturalWidth * k)); cv.height = Math.max(1, Math.round(im.naturalHeight * k));
+    cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height);
+    return cv.toDataURL('image/jpeg', 0.72);
+  } catch (e) { return ''; }
 }
