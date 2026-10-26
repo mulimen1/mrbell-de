@@ -5384,7 +5384,7 @@ html:has(.asst.multi) .rm-fl2, html:has(.asst.multi) .rm-fl3, html:has(.asst.mul
 /* Laptop-Hinweis in der Konto-Wand nur am Handy */
 @media (min-width: 761px) { .m-laptop { display: none !important; } }
 /* Lernpfad: Relevanz-Punkte als erkennbares Label statt „•••“-Menü */
-.weight .wl { font: 600 10.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mute); margin-right: 5px; }
+.weight .wlab { font: 600 10.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mute); margin-right: 5px; }
 .weight { display: inline-flex; align-items: center; gap: 3px; }
 /* Podcast-Studio: Zeitangabe bricht nicht um */
 .pst-time { white-space: nowrap; }
