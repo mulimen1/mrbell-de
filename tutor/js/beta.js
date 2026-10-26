@@ -2,7 +2,7 @@
 // Freischalten für alle: ALL = true. Zum Testen auf einem anderen Gerät: localStorage 'tutor.beta' = '1'.
 import { getAccount } from './api.js';
 
-const ALL = false;
+const ALL = true;
 const FOUNDER = ['bendeschler0@gmail.com'];
 export function beta() {
   if (ALL) return true;
