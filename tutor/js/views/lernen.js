@@ -110,10 +110,15 @@ function docPicker(docs, d, onPick) {
       h('div', { class: 'uv-mf' },
         d ? h('button', { class: 'linkbtn', type: 'button', onclick: () => { close(); onPick(null); } }, L('Ohne Unterlage', 'No material')) : h('span'),
         h('label', { class: 'btn sm primary', for: 'fileApp', onclick: () => setTimeout(close, 0) }, h('span', { html: ico('plus') }), L('Neu hochladen', 'Upload new'))));
-    const close = () => { menu.remove(); btn.setAttribute('aria-expanded', 'false'); document.removeEventListener('click', out); document.removeEventListener('keydown', esc); };
+    const close = () => { menu._off && menu._off(); menu.remove(); btn.setAttribute('aria-expanded', 'false'); document.removeEventListener('click', out); document.removeEventListener('keydown', esc); };
     const out = ev => { if (!menu.contains(ev.target)) close(); };
     const esc = ev => { if (ev.key === 'Escape') close(); };
-    btn.parentElement.appendChild(menu); btn.setAttribute('aria-expanded', 'true');
+    // Als eigene Ebene über der Seite (nicht im Seitenfluss) – sonst schieben sich die Kacheln darüber
+    const place = () => { const r = btn.getBoundingClientRect(), phone = innerWidth <= 760; Object.assign(menu.style, phone ? { left: '16px', right: '16px', top: (r.bottom + 8) + 'px' } : { right: Math.max(12, innerWidth - r.right) + 'px', top: (r.bottom + 8) + 'px' }); menu.style.maxHeight = Math.max(220, innerHeight - r.bottom - 24) + 'px'; };
+    document.body.appendChild(menu); place(); btn.setAttribute('aria-expanded', 'true');
+    const onScroll = ev => { if (!menu.contains(ev.target)) close(); };
+    addEventListener('scroll', onScroll, true); addEventListener('resize', place);
+    menu._off = () => { removeEventListener('scroll', onScroll, true); removeEventListener('resize', place); };
     setTimeout(() => { document.addEventListener('click', out); document.addEventListener('keydown', esc); if (docs.length > 6) q.focus(); }, 0);
   });
   return btn;

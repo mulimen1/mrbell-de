@@ -5518,7 +5518,7 @@ html.bm-guest .rm-focus { display: none !important; }
 .uv-pbtn.on .uv-pi { background: var(--inv); color: #fff; }
 .uv-pt { display: grid; min-width: 0; } .uv-pt small { font-size: 11.5px; color: var(--mute); font-weight: 600; } .uv-pt b { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .uv-pc .ico { width: 16px; height: 16px; color: var(--mute); }
-.uv-menu { position: absolute; right: 0; top: calc(100% + 8px); z-index: 120; width: min(380px, calc(100vw - 32px)); max-height: min(460px, 70vh); display: grid; grid-template-rows: auto 1fr auto; gap: 6px; padding: 8px; border-radius: 18px; background: var(--panel); border: 1px solid var(--line2); box-shadow: 0 24px 60px -24px rgba(0,0,0,.45); animation: rmpop .25s cubic-bezier(.3,1.4,.5,1) both; }
+.uv-menu { position: fixed; z-index: 300; width: min(400px, calc(100vw - 32px)); max-height: min(460px, 70vh); display: grid; grid-template-rows: auto 1fr auto; gap: 6px; padding: 8px; border-radius: 18px; background: var(--panel); border: 1px solid var(--line2); box-shadow: 0 24px 60px -24px rgba(0,0,0,.45); animation: rmpop .25s cubic-bezier(.3,1.4,.5,1) both; }
 .uv-ms { border: 1px solid var(--line); border-radius: 12px; padding: 9px 12px; font: 500 14px var(--sans); background: var(--bg); color: var(--ink); outline: 0; } .uv-ms:focus { border-color: var(--inv); }
 .uv-ml { overflow: auto; display: grid; gap: 2px; align-content: start; min-height: 0; }
 .uv-mi { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 12px; border: 0; background: transparent; color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
@@ -5527,4 +5527,4 @@ html.bm-guest .rm-focus { display: none !important; }
 .uv-mck .ico { width: 16px; height: 16px; color: var(--inv); }
 .uv-mno { padding: 12px; color: var(--mute); }
 .uv-mf { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 4px 2px; border-top: 1px solid var(--line); }
-@media (max-width: 760px) { .uv-top { flex-direction: column; align-items: stretch; } .uv-pbtn { max-width: none; width: 100%; } .uv-menu { left: 0; right: 0; width: auto; } }
+@media (max-width: 760px) { .uv-top { flex-direction: column; align-items: stretch; } .uv-pbtn { max-width: none; width: 100%; } .uv-menu { width: auto; } }
