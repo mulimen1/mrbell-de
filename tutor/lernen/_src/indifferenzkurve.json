@@ -1,0 +1,116 @@
+{
+ "slug": "indifferenzkurve",
+ "name": "Indifferenzkurve",
+ "title": "Indifferenzkurve einfach erklärt – mit Beispiel",
+ "meta": "Indifferenzkurve verständlich: Definition, Eigenschaften, Steigung, Sonderfälle Substitute und Komplemente – mit durchgerechnetem Beispiel für die Klausur.",
+ "h1": "Indifferenzkurve einfach erklärt",
+ "kurz": "Eine Indifferenzkurve verbindet alle Güterbündel, die einem Haushalt genau denselben Nutzen stiften – zwischen ihnen ist er indifferent. Bei normalen Gütern fällt sie, ist konvex zum Ursprung, und weiter außen liegende Kurven stehen für ein höheres Nutzenniveau. Bei der Nutzenfunktion \\( U = x \\cdot y \\) lautet die Kurve zum Niveau 24 zum Beispiel \\( y = \\frac{24}{x} \\).",
+ "keywords": [
+  "indifferenzkurve",
+  "indifferenzkurve berechnen",
+  "indifferenzkurve eigenschaften",
+  "indifferenzkurven schneiden sich nicht",
+  "indifferenzkurve konvex",
+  "indifferenzkurve perfekte substitute",
+  "indifferenzkurve komplemente",
+  "indifferenzkurvenschar"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist eine Indifferenzkurve?",
+   "html": "<p>In der Haushaltstheorie fragst du, wie ein Konsument zwischen zwei Gütern wählt. Dafür brauchst du zuerst eine Beschreibung seiner <strong>Präferenzen</strong>, also was er wie gut findet – unabhängig davon, was er sich leisten kann. Genau das leistet die <strong>Indifferenzkurve</strong>.</p><p>Sie ist die Menge aller Güterbündel \\( (x, y) \\), die dem Haushalt den gleichen Nutzen bringen. „Indifferent“ heißt: Er ist zwischen diesen Bündeln gleichgültig. Ob er 2 Kinobesuche und 12 Pizzen oder 6 Kinobesuche und 4 Pizzen hat, ist ihm genau gleich lieb.</p><p>Zeichnest du für jedes Nutzenniveau eine eigene Kurve, entsteht eine <strong>Indifferenzkurvenschar</strong> (Indifferenzkurvenkarte). Sie ist wie eine Höhenlinienkarte eines Berges: Jede Linie steht für eine „Nutzenhöhe“, und je weiter du nach rechts oben kommst, desto höher bist du.</p><div class=\\\"merke\\\">Indifferenzkurve = alle Güterkombinationen mit gleichem Nutzen. Sie beschreibt nur, was der Haushalt <em>will</em> – was er sich leisten <em>kann</em>, zeigt erst die <a href=\\\"/lernen/budgetgerade\\\">Budgetgerade</a>.</div><p>Wichtig für das Verständnis: Die Theorie ist <strong>ordinal</strong>. Es zählt nur die Rangfolge der Bündel, nicht die Höhe der Nutzenzahl. Ob du die Präferenzen mit \\( U = x \\cdot y \\) oder mit \\( U = \\ln x + \\ln y \\) beschreibst, ändert an der Form der Kurven nichts – nur die Beschriftung der Niveaus ist eine andere.</p>"
+  },
+  {
+   "h2": "Welche Annahmen und Eigenschaften gelten?",
+   "html": "<p>Damit Indifferenzkurven die typische Form haben, unterstellt man „gut erzogene“ Präferenzen. Aus diesen Annahmen folgen die vier Eigenschaften, die in fast jeder Klausur abgefragt werden:</p><ol><li><strong>Negative Steigung:</strong> Aus der Nichtsättigung („mehr ist besser“) folgt: Gibst du etwas von \\( x \\) ab, musst du mit mehr \\( y \\) entschädigt werden, sonst sinkt der Nutzen.</li><li><strong>Höhere Kurven = höherer Nutzen:</strong> Ein Bündel rechts oberhalb einer Kurve enthält von mindestens einem Gut mehr und vom anderen nicht weniger, also wird es vorgezogen.</li><li><strong>Kein Schneiden:</strong> Zwei Indifferenzkurven können sich nicht schneiden. Der Schnittpunkt läge auf beiden Kurven und müsste dann zwei verschiedene Nutzenniveaus gleichzeitig haben. Das widerspricht der Transitivität der Präferenzen.</li><li><strong>Konvex zum Ursprung:</strong> Haushalte mögen Mischungen lieber als Extreme. Je weniger du von einem Gut hast, desto mehr vom anderen verlangst du für eine weitere abgegebene Einheit. Die Kurve wird nach rechts flacher.</li></ol><p>Hinter Punkt 4 steckt die abnehmende <a href=\\\"/lernen/grenzrate-der-substitution\\\">Grenzrate der Substitution</a>: Sie misst, wie viele Einheiten von \\( y \\) der Haushalt für eine zusätzliche Einheit von \\( x \\) hergibt, und entspricht dem Betrag der Steigung der Indifferenzkurve.</p>"
+  },
+  {
+   "h2": "Wie berechnet man eine Indifferenzkurve?",
+   "html": "<p>Gegeben ist eine Nutzenfunktion \\( U(x, y) \\) und ein Nutzenniveau \\( \\bar{U} \\). Du setzt beides gleich und löst nach \\( y \\) auf. Das Ergebnis ist die Gleichung der Indifferenzkurve:</p><div class=\\\"formel\\\">\\[ U(x, y) = \\bar{U} \\;\\Rightarrow\\; y = f(x) \\]</div><p>Für die oft verwendete Cobb-Douglas-Funktion \\( U = x \\cdot y \\) ergibt das eine Hyperbel:</p><div class=\\\"formel\\\">\\[ x \\cdot y = \\bar{U} \\;\\Rightarrow\\; y = \\frac{\\bar{U}}{x} \\]</div><p>Die Steigung bekommst du durch Ableiten nach \\( x \\):</p><div class=\\\"formel\\\">\\[ \\frac{dy}{dx} = -\\frac{\\bar{U}}{x^2} = -\\frac{y}{x} \\]</div><p>Die Steigung ist negativ und ihr Betrag \\( \\frac{y}{x} \\) wird kleiner, je größer \\( x \\) ist – genau die Konvexität aus dem vorigen Abschnitt.</p>"
+  },
+  {
+   "h2": "Beispiel: Indifferenzkurve Schritt für Schritt",
+   "html": "<div class=\\\"beispiel\\\"><p>Mia gibt ihr Freizeitbudget für Kinobesuche (\\( x \\)) und Pizzen (\\( y \\)) aus. Ihre Präferenzen lassen sich mit \\( U = x \\cdot y \\) beschreiben. Wir zeichnen die Indifferenzkurve für das Nutzenniveau 24.</p><p><strong>Schritt 1: Gleichung aufstellen</strong><br>\\( x \\cdot y = 24 \\Rightarrow y = \\frac{24}{x} \\)</p><p><strong>Schritt 2: Wertetabelle</strong></p><table><thead><tr><th>Kino \\( x \\)</th><th>Pizza \\( y \\)</th><th>Pizzen, die Mia für 1 Kinobesuch mehr hergibt (Durchschnitt)</th></tr></thead><tbody><tr><td>2</td><td>12</td><td>–</td></tr><tr><td>3</td><td>8</td><td>\\( \\frac{12 - 8}{1} = 4 \\)</td></tr><tr><td>4</td><td>6</td><td>\\( \\frac{8 - 6}{1} = 2 \\)</td></tr><tr><td>6</td><td>4</td><td>\\( \\frac{6 - 4}{2} = 1 \\)</td></tr><tr><td>8</td><td>3</td><td>\\( \\frac{4 - 3}{2} = 0{,}5 \\)</td></tr><tr><td>12</td><td>2</td><td>\\( \\frac{3 - 2}{4} = 0{,}25 \\)</td></tr></tbody></table><p>Alle sechs Bündel liefern \\( U = 24 \\). Mias Tauschbereitschaft fällt aber stark: Bei 2 Kinobesuchen opfert sie für einen weiteren noch 4 Pizzen, bei 8 Kinobesuchen nur noch eine halbe Pizza pro Kinobesuch.</p><p><strong>Schritt 3: Steigung in einem Punkt</strong><br>Im Punkt \\( (4, 6) \\): \\( \\frac{dy}{dx} = -\\frac{6}{4} = -1{,}5 \\). Mia würde dort für ein kleines Stück mehr Kino 1,5 Pizzen je Kinoeinheit hergeben.</p><p><strong>Schritt 4: Andere Bündel einordnen</strong></p><ul><li>\\( (5, 5) \\): \\( U = 25 > 24 \\), liegt oberhalb der Kurve, wird vorgezogen.</li><li>\\( (1, 20) \\): \\( U = 20 < 24 \\), liegt unterhalb – obwohl es insgesamt 21 Güter sind, mehr als die 10 in \\( (4, 6) \\).</li><li>Mischung aus \\( (2, 12) \\) und \\( (12, 2) \\): der Mittelpunkt \\( (7, 7) \\) bringt \\( U = 49 \\). Die Mischung schlägt beide Extreme deutlich – das ist Konvexität in Zahlen.</li></ul></div><p>Der Punkt \\( (1, 20) \\) ist eine beliebte Klausurfalle: Die Summe der Gütermengen sagt nichts über den Nutzen. Entscheidend ist allein, auf welcher Indifferenzkurve ein Bündel liegt.</p>"
+  },
+  {
+   "h2": "Welche Sonderfälle von Indifferenzkurven gibt es?",
+   "html": "<p>Nicht alle Präferenzen sind „gut erzogen“. Drei Sonderfälle solltest du zeichnen und erkennen können:</p><table><thead><tr><th>Fall</th><th>Nutzenfunktion (Beispiel)</th><th>Form der Indifferenzkurve</th><th>Grenzrate der Substitution</th></tr></thead><tbody><tr><td>Perfekte Substitute (z. B. zwei Mineralwassermarken)</td><td>\\( U = x + y \\)</td><td>Gerade mit Steigung \\( -1 \\)</td><td>konstant</td></tr><tr><td>Perfekte Komplemente (linker und rechter Schuh)</td><td>\\( U = \\min(x, y) \\)</td><td>L-förmig, Knick auf der Diagonale</td><td>im Knick nicht definiert</td></tr><tr><td>Neutrales Gut (dir egal)</td><td>\\( U = y \\)</td><td>waagerechte Gerade</td><td>null</td></tr></tbody></table><p>Bei <strong>perfekten Substituten</strong> tauscht der Haushalt immer im gleichen Verhältnis, egal wie viel er schon hat. Bei \\( U = 2x + y \\) wäre ein \\( x \\) stets zwei \\( y \\) wert, die Kurven sind Geraden mit Steigung \\( -2 \\).</p><p>Bei <strong>perfekten Komplementen</strong> bringt ein zusätzliches Gut allein gar nichts: 3 linke und 5 rechte Schuhe sind genauso gut wie 3 Paare. Deshalb verlaufen die Kurven waagerecht bzw. senkrecht aus dem Knick heraus.</p><p>Liegt ein <strong>Ungut</strong> vor (etwas, das stört, wie Lärm), steigt die Indifferenzkurve: Für mehr Lärm brauchst du mehr vom guten Gut als Ausgleich.</p>"
+  },
+  {
+   "h2": "Wofür braucht man die Indifferenzkurve?",
+   "html": "<p>Die Indifferenzkurve ist ein Baustein der mikroökonomischen Haushaltstheorie. Allein trifft sie keine Entscheidung. Erst mit der Budgetgeraden kombiniert entsteht das <a href=\\\"/lernen/haushaltsoptimum\\\">Haushaltsoptimum</a>: der Punkt, an dem die höchste noch erreichbare Indifferenzkurve die Budgetgerade gerade berührt.</p><p>Darauf bauen weitere Klausurthemen auf: Preis-Konsum-Kurve und Nachfragekurve, Einkommens- und Substitutionseffekt (Slutsky, Hicks) sowie die Herleitung der Nachfrage im Modell von <a href=\\\"/lernen/angebot-und-nachfrage\\\">Angebot und Nachfrage</a>.</p><p><strong>Abgrenzung:</strong></p><ul><li>Die <a href=\\\"/lernen/grenznutzen\\\">Grenznutzen</a>-Theorie nach Gossen arbeitet kardinal, also mit messbaren Nutzeneinheiten. Die Indifferenzkurvenanalyse kommt mit einer Rangordnung aus und ist deshalb das allgemeinere Konzept.</li><li>Die Isoquante aus der <a href=\\\"/lernen/produktionsfunktion\\\">Produktionsfunktion</a> sieht gleich aus, verbindet aber Faktorkombinationen mit gleicher Output-Menge. Dort sind die Zahlen kardinal, 100 Stück sind wirklich doppelt so viel wie 50.</li></ul><p><strong>Grenzen des Modells:</strong> Es arbeitet mit zwei Gütern, unterstellt stabile und vollständige Präferenzen und ignoriert Gewohnheiten, Herdenverhalten oder begrenzte Rationalität. Für Klausuren und als Denkwerkzeug ist es trotzdem unverzichtbar.</p>"
+  }
+ ],
+ "fehler": [
+  "Indifferenzkurven sich schneiden lassen: Wenn du mehrere Kurven zeichnest, dürfen sie sich nie berühren oder schneiden, sonst widersprichst du der Transitivität. Zeichne sie als „verschachtelte“ Hyperbeln.",
+  "Indifferenzkurve mit Budgetgerade verwechseln: Die Indifferenzkurve zeigt gleichen Nutzen und hängt nur von den Präferenzen ab. Preise und Einkommen tauchen in ihr nicht auf.",
+  "Nutzen über die Summe der Güter vergleichen: \\( (1, 20) \\) ist bei \\( U = x \\cdot y \\) schlechter als \\( (4, 6) \\), obwohl es mehr Güter sind. Setze immer in die Nutzenfunktion ein.",
+  "Nutzenzahlen kardinal deuten: Kurve 48 ist nicht „doppelt so gut“ wie Kurve 24. Nur die Rangfolge zählt, weil der Nutzen ordinal gemessen wird.",
+  "Konkave statt konvexe Kurve zeichnen: Die normale Indifferenzkurve ist zum Ursprung hin gewölbt (bauchig nach unten links) und wird nach rechts flacher, nicht steiler."
+ ],
+ "faq": [
+  {
+   "q": "Warum können sich Indifferenzkurven nicht schneiden?",
+   "a": "Im Schnittpunkt läge ein Bündel auf zwei Kurven mit unterschiedlichem Nutzen. Dann wäre der Haushalt zwischen diesem Bündel und Bündeln beider Kurven indifferent und müsste über die Transitivität auch zwei Kurven gleich gut finden, obwohl eine davon mehr Güter enthält. Das ist ein Widerspruch."
+  },
+  {
+   "q": "Warum ist die Indifferenzkurve konvex?",
+   "a": "Weil die Grenzrate der Substitution abnimmt: Je mehr ein Haushalt von einem Gut schon hat, desto weniger ist er bereit, vom anderen Gut für eine weitere Einheit herzugeben. Dahinter steckt die Vorliebe für ausgewogene Mischungen statt Extreme."
+  },
+  {
+   "q": "Was bedeutet eine weiter außen liegende Indifferenzkurve?",
+   "a": "Sie steht für ein höheres Nutzenniveau. Jedes Bündel darauf enthält im Vergleich zu einem Bündel auf einer inneren Kurve mehr von mindestens einem Gut, deshalb wird es bei Nichtsättigung vorgezogen."
+  },
+  {
+   "q": "Wie sieht die Indifferenzkurve bei perfekten Substituten aus?",
+   "a": "Als fallende Gerade. Der Haushalt tauscht die Güter immer im gleichen Verhältnis, die Grenzrate der Substitution ist konstant. Bei U = x + y hat die Gerade die Steigung minus 1."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Indifferenzkurve und Isoquante?",
+   "a": "Die Indifferenzkurve verbindet Güterbündel mit gleichem Nutzen eines Haushalts, die Isoquante Faktorkombinationen mit gleicher Produktionsmenge eines Unternehmens. Die Form ist ähnlich, aber Nutzen ist nur ordinal, Output dagegen kardinal messbar."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Nutzenfunktion \\( U = x \\cdot y \\). Welches Bündel liegt auf derselben Indifferenzkurve wie \\( (3, 10) \\)?",
+   "o": [
+    "\\( (5, 8) \\)",
+    "\\( (10, 3) \\)",
+    "\\( (6, 7) \\)",
+    "\\( (2, 11) \\)"
+   ],
+   "r": 1,
+   "e": "\\( 3 \\cdot 10 = 30 \\) und \\( 10 \\cdot 3 = 30 \\). Die anderen ergeben 40, 42 und 22."
+  },
+  {
+   "q": "Welche Annahme sorgt dafür, dass sich Indifferenzkurven nicht schneiden?",
+   "o": [
+    "Konvexität",
+    "Abnehmender Grenznutzen",
+    "Kardinale Nutzenmessung",
+    "Transitivität der Präferenzen"
+   ],
+   "r": 3,
+   "e": "Ein Schnittpunkt würde über die Transitivität zu einem Widerspruch führen: Zwei unterschiedlich gute Kurven müssten gleich gut sein."
+  },
+  {
+   "q": "Wie sieht die Indifferenzkurve bei \\( U = \\min(x, y) \\) aus?",
+   "o": [
+    "Fallende Gerade",
+    "L-förmig mit Knick auf der Winkelhalbierenden",
+    "Konvexe Hyperbel",
+    "Waagerechte Gerade"
+   ],
+   "r": 1,
+   "e": "Das sind perfekte Komplemente: Nur Paare stiften Nutzen, ein Überschuss eines Gutes bringt nichts."
+  }
+ ],
+ "verwandt": [
+  "grenzrate-der-substitution",
+  "budgetgerade",
+  "haushaltsoptimum",
+  "grenznutzen",
+  "produktionsfunktion"
+ ],
+ "ask": "die Indifferenzkurve – mit ihren Eigenschaften, Sonderfällen und einem durchgerechneten Beispiel zur Nutzenfunktion U = x · y"
+}

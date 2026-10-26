@@ -1,0 +1,116 @@
+{
+  "slug": "kostenfunktion",
+  "name": "Kostenfunktion",
+  "title": "Kostenfunktion einfach erklärt – mit Beispiel",
+  "meta": "Kostenfunktion verständlich erklärt: linearer und ertragsgesetzlicher Verlauf, Stückkosten, Betriebsminimum und Betriebsoptimum – mit Rechenbeispiel.",
+  "h1": "Kostenfunktion einfach erklärt",
+  "kurz": "Eine Kostenfunktion \\( K(x) \\) beschreibt, wie die Gesamtkosten eines Betriebs von der Ausbringungsmenge \\( x \\) abhängen. Sie besteht aus Fixkosten und variablen Kosten. Der Verlauf kann linear, progressiv, degressiv oder s-förmig (ertragsgesetzlich) sein. Aus ihr leitest du Stückkosten, Grenzkosten, Betriebsminimum und Betriebsoptimum ab.",
+  "keywords": [
+    "kostenfunktion",
+    "kostenfunktion aufstellen",
+    "ertragsgesetzliche kostenfunktion",
+    "betriebsminimum betriebsoptimum",
+    "durchschnittliche variable kosten",
+    "stückkostenfunktion",
+    "kostenverlauf",
+    "lineare kostenfunktion"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist eine Kostenfunktion?",
+      "html": "<p>Eine Kostenfunktion ordnet jeder Produktionsmenge \\( x \\) die Gesamtkosten \\( K(x) \\) zu, die bei dieser Menge in einer Periode anfallen. Sie ist das zentrale Werkzeug, mit dem du in der Kosten- und Preistheorie rechnest: Fast jede Klausuraufgabe zu Stückkosten, Gewinnmaximum oder <a href=\"/lernen/preisuntergrenze\">Preisuntergrenze</a> beginnt mit einer Kostenfunktion.</p><p>Jede Kostenfunktion setzt sich aus zwei Teilen zusammen:</p><div class=\"formel\">\\[ K(x) = K_f + K_v(x) \\]</div><ul><li><strong>Fixkosten \\( K_f \\):</strong> der Teil ohne \\( x \\) – fällt auch bei \\( x = 0 \\) an (Miete, Gehälter, Versicherung).</li><li><strong>variable Kosten \\( K_v(x) \\):</strong> alle Terme mit \\( x \\) – sie entstehen erst durch die Produktion.</li></ul><p>Die Grundlagen zur Trennung findest du bei <a href=\"/lernen/fixe-und-variable-kosten\">fixen und variablen Kosten</a>. Hier geht es darum, welche Formen eine Kostenfunktion annehmen kann und was du aus ihr herausrechnest.</p><div class=\"merke\">Fixkosten erkennst du in jeder Kostenfunktion am Absolutglied: Setze \\( x = 0 \\) ein – was übrig bleibt, ist \\( K_f \\).</div>"
+    },
+    {
+      "h2": "Welche Verläufe von Kostenfunktionen gibt es?",
+      "html": "<p>Wie die variablen Kosten mit der Menge wachsen, bestimmt die Form der Funktion:</p><table><thead><tr><th>Verlauf</th><th>Typische Funktion</th><th>Bedeutung</th></tr></thead><tbody><tr><td>linear (proportional)</td><td>\\( K(x) = K_f + k_v \\cdot x \\)</td><td>jedes Stück kostet gleich viel zusätzlich</td></tr><tr><td>degressiv (unterproportional)</td><td>z. B. \\( K(x) = K_f + a \\cdot \\sqrt{x} \\)</td><td>zusätzliche Stücke werden billiger, etwa durch Mengenrabatte oder Lerneffekte</td></tr><tr><td>progressiv (überproportional)</td><td>z. B. \\( K(x) = K_f + a \\cdot x^2 \\)</td><td>zusätzliche Stücke werden teurer, etwa durch Überstundenzuschläge oder Verschleiß</td></tr><tr><td>s-förmig (ertragsgesetzlich)</td><td>\\( K(x) = a x^3 - b x^2 + c x + K_f \\)</td><td>erst degressiv, dann progressiv</td></tr></tbody></table><p>In der <strong>betrieblichen Praxis</strong> und in der <a href=\"/lernen/kostenrechnung\">Kostenrechnung</a> arbeitest du fast immer linear – innerhalb der normalen Kapazität ist das eine gute Näherung. Die <strong>s-förmige Funktion</strong> stammt aus der Produktionstheorie (Ertragsgesetz): Bei wenig Auslastung arbeiten die Faktoren ineffizient, dann spielt sich die Produktion ein, und nahe der Kapazitätsgrenze steigen die Zusatzkosten wieder stark. Sie ist die klassische Klausurfunktion in Mikroökonomie und Kostentheorie.</p>"
+    },
+    {
+      "h2": "Welche Funktionen leitet man aus der Kostenfunktion ab?",
+      "html": "<p>Aus \\( K(x) \\) entstehen vier abgeleitete Funktionen, die du sicher beherrschen musst:</p><div class=\"formel\">\\[ \\text{Grenzkosten: } K'(x) \\]\\[ \\text{Stückkosten (DTK): } k(x) = \\frac{K(x)}{x} \\]\\[ \\text{durchschnittliche variable Kosten (DVK): } k_v(x) = \\frac{K_v(x)}{x} \\]\\[ \\text{durchschnittliche Fixkosten: } k_f(x) = \\frac{K_f}{x} \\]</div><p>Daraus ergeben sich die drei markanten Punkte des s-förmigen Verlaufs:</p><ul><li><strong>Kostenkehre (Wendepunkt):</strong> \\( K''(x) = 0 \\). Hier sind die Grenzkosten minimal, ab hier steigen die Kosten progressiv.</li><li><strong>Betriebsminimum:</strong> Minimum der DVK. Dort gilt \\( K'(x) = k_v(x) \\). Der Preis an dieser Stelle ist die kurzfristige Preisuntergrenze.</li><li><strong>Betriebsoptimum:</strong> Minimum der Stückkosten. Dort gilt \\( K'(x) = k(x) \\). Der Preis an dieser Stelle ist die langfristige Preisuntergrenze.</li></ul><p>Die Reihenfolge ist immer gleich: Kostenkehre &lt; Betriebsminimum &lt; Betriebsoptimum. Die Grenzkostenkurve schneidet erst die DVK-Kurve und dann die Stückkostenkurve jeweils in deren Tiefpunkt. Wie du mit den <a href=\"/lernen/grenzkosten\">Grenzkosten</a> das Gewinnmaximum bestimmst, steht auf der eigenen Seite dazu.</p>"
+    },
+    {
+      "h2": "Beispiel: Betriebsminimum und Betriebsoptimum berechnen",
+      "html": "<div class=\"beispiel\"><p>Eine Schreinerei fertigt Esstische. Ihre monatlichen Kosten folgen der Funktion</p><div class=\"formel\">\\[ K(x) = 0{,}02x^3 - 3x^2 + 180x + 10.000 \\]</div><p>(\\( x \\) = Tische pro Monat, \\( K \\) in €). Gesucht sind Fixkosten, Kostenkehre, Betriebsminimum und Betriebsoptimum.</p><p><strong>Schritt 1: Fixkosten und variable Kosten</strong><br>\\( K_f = 10.000 \\) €, \\( K_v(x) = 0{,}02x^3 - 3x^2 + 180x \\)</p><p><strong>Schritt 2: Kostenkehre</strong><br>\\( K'(x) = 0{,}06x^2 - 6x + 180 \\), \\( K''(x) = 0{,}12x - 6 = 0 \\Rightarrow x = 50 \\) Tische<br>Grenzkosten dort: \\( K'(50) = 150 - 300 + 180 = 30 \\) €</p><p><strong>Schritt 3: Betriebsminimum</strong><br>\\( k_v(x) = 0{,}02x^2 - 3x + 180 \\)<br>\\( k_v'(x) = 0{,}04x - 3 = 0 \\Rightarrow x = 75 \\) Tische<br>\\( k_v(75) = 112{,}5 - 225 + 180 = 67{,}50 \\) €<br>Probe: \\( K'(75) = 337{,}5 - 450 + 180 = 67{,}50 \\) € ✓</p><p><strong>Schritt 4: Betriebsoptimum</strong><br>\\( k(x) = 0{,}02x^2 - 3x + 180 + \\frac{10.000}{x} \\)<br>\\( k'(x) = 0{,}04x - 3 - \\frac{10.000}{x^2} = 0 \\)<br>Einsetzen von \\( x = 100 \\): \\( 4 - 3 - 1 = 0 \\) ✓ (die Gleichung ist kubisch, in der Klausur wird meist ein Wert zum Prüfen vorgegeben)<br>\\( k(100) = 200 - 300 + 180 + 100 = 180{,}00 \\) €<br>Probe: \\( K'(100) = 600 - 600 + 180 = 180{,}00 \\) € ✓</p><table><thead><tr><th>Tische \\( x \\)</th><th>\\( K(x) \\)</th><th>\\( K'(x) \\)</th><th>DVK</th><th>Stückkosten</th></tr></thead><tbody><tr><td>25</td><td>12.937,50 €</td><td>67,50 €</td><td>117,50 €</td><td>517,50 €</td></tr><tr><td>50</td><td>14.000,00 €</td><td>30,00 €</td><td>80,00 €</td><td>280,00 €</td></tr><tr><td>75</td><td>15.062,50 €</td><td>67,50 €</td><td>67,50 €</td><td>200,83 €</td></tr><tr><td>100</td><td>18.000,00 €</td><td>180,00 €</td><td>80,00 €</td><td>180,00 €</td></tr><tr><td>125</td><td>24.687,50 €</td><td>367,50 €</td><td>117,50 €</td><td>197,50 €</td></tr></tbody></table></div><p><strong>Interpretation:</strong> Liegt der Marktpreis eines Tisches über 180 €, deckt die Schreinerei bei der richtigen Menge alle Kosten. Zwischen 67,50 € und 180 € deckt sie die variablen Kosten und einen Teil der Fixkosten – kurzfristig produziert sie weiter, langfristig nicht. Unter 67,50 € verliert sie mit jedem Tisch zusätzlich Geld und stellt besser sofort ein.</p>"
+    },
+    {
+      "h2": "Wie stellt man eine lineare Kostenfunktion auf?",
+      "html": "<p>Oft bekommst du keine fertige Funktion, sondern zwei Beobachtungen aus der Buchhaltung. Dann rechnest du mit dem Differenzenquotienten (auch Hoch-Tief-Methode genannt):</p><div class=\"formel\">\\[ k_v = \\frac{K_2 - K_1}{x_2 - x_1} \\qquad K_f = K_1 - k_v \\cdot x_1 \\]</div><p>Beispiel: Im März fielen bei 400 Stück 23.000 € Kosten an, im April bei 600 Stück 29.000 €.</p><p>\\( k_v = \\frac{29.000 - 23.000}{600 - 400} = \\frac{6.000}{200} = 30 \\) € je Stück<br>\\( K_f = 23.000 - 30 \\cdot 400 = 11.000 \\) €<br>Kostenfunktion: \\( K(x) = 11.000 + 30x \\). Probe mit April: \\( 11.000 + 30 \\cdot 600 = 29.000 \\) € ✓</p><p>Bei einer linearen Funktion sind Grenzkosten und DVK identisch und konstant (hier 30 €). Es gibt kein Betriebsminimum im Inneren – die Stückkosten sinken bis zur Kapazitätsgrenze, weil sich die Fixkosten auf immer mehr Stück verteilen. Das ist die Fixkostendegression. Darauf baut auch der <a href=\"/lernen/break-even-point\">Break-even-Point</a> auf.</p>"
+    },
+    {
+      "h2": "Wofür braucht man die Kostenfunktion – und wo sind die Grenzen?",
+      "html": "<ul><li><strong>Preisuntergrenzen:</strong> Betriebsminimum und Betriebsoptimum liefern die kurz- und langfristige Preisuntergrenze.</li><li><strong>Gewinnmaximum:</strong> Zusammen mit der Erlösfunktion bestimmst du über Grenzkosten = Grenzerlös die optimale Menge.</li><li><strong>Planung und Kontrolle:</strong> Die lineare Funktion ist Basis für Budgets und für die <a href=\"/lernen/plankostenrechnung\">Plankostenrechnung</a>.</li><li><strong>Entscheidungen:</strong> Kapazitätserweiterung, Zusatzaufträge oder Make-or-Buy beruhen auf dem Verlauf der Kosten.</li></ul><p><strong>Grenzen:</strong> Jede Kostenfunktion ist ein Modell. Sie gilt nur für eine Periode, eine gegebene Kapazität und konstante Faktorpreise. In der Realität springen manche Fixkosten bei Mengenänderungen (sprungfixe Kosten), und Kosten sinken bei Rückgang oft langsamer, als sie gestiegen sind. Außerdem sind die Parameter geschätzt: Wer aus zwei Monatswerten eine Funktion ableitet, übernimmt jeden Zufall dieser Monate.</p>"
+    }
+  ],
+  "fehler": [
+    "Fixkosten in die DVK einrechnen: Die durchschnittlichen variablen Kosten enthalten nur \\( K_v(x) \\) geteilt durch \\( x \\). Das Absolutglied \\( K_f \\) gehört nur in die Stückkosten \\( k(x) \\).",
+    "Betriebsminimum und Betriebsoptimum verwechseln: Das Betriebsminimum ist das Minimum der DVK (kurzfristige Preisuntergrenze), das Betriebsoptimum das Minimum der gesamten Stückkosten (langfristige Preisuntergrenze). Das Optimum liegt immer bei der größeren Menge.",
+    "Das Minimum der Gesamtkosten \\( K(x) \\) suchen: Eine Kostenfunktion steigt mit \\( x \\) immer an. Gesucht ist das Minimum der Stückkosten- bzw. DVK-Funktion, nicht von \\( K(x) \\).",
+    "Beim Ableiten der Stückkosten den Fixkostenterm falsch behandeln: Die Ableitung von \\( \\frac{K_f}{x} \\) ist \\( -\\frac{K_f}{x^2} \\), nicht null.",
+    "Den Wendepunkt als Betriebsminimum ausgeben: Bei \\( K''(x) = 0 \\) sind die Grenzkosten minimal, nicht die DVK. Im Beispiel liegt die Kostenkehre bei 50 Tischen, das Betriebsminimum erst bei 75."
+  ],
+  "faq": [
+    {
+      "q": "Wie stellt man eine Kostenfunktion auf?",
+      "a": "Bei linearem Verlauf brauchst du zwei Wertepaare aus Menge und Kosten. Die variablen Stückkosten sind die Kostendifferenz geteilt durch die Mengendifferenz, die Fixkosten erhältst du, indem du einen Punkt einsetzt. Aus 400 Stück zu 23.000 € und 600 Stück zu 29.000 € ergibt sich zum Beispiel K(x) = 11.000 + 30x."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Betriebsminimum und Betriebsoptimum?",
+      "a": "Das Betriebsminimum ist die Menge mit den niedrigsten durchschnittlichen variablen Kosten; der Preis dort ist die kurzfristige Preisuntergrenze. Das Betriebsoptimum ist die Menge mit den niedrigsten Stückkosten inklusive Fixkosten; der Preis dort ist die langfristige Preisuntergrenze."
+    },
+    {
+      "q": "Was ist eine ertragsgesetzliche Kostenfunktion?",
+      "a": "Das ist eine s-förmige Kostenfunktion dritten Grades. Die Kosten steigen zuerst unterproportional, ab dem Wendepunkt (Kostenkehre) überproportional. Sie folgt aus dem Ertragsgesetz, nach dem der Mehrertrag eines zusätzlich eingesetzten Faktors erst steigt und dann sinkt."
+    },
+    {
+      "q": "Woran erkennt man die Fixkosten in einer Kostenfunktion?",
+      "a": "Die Fixkosten sind das Absolutglied, also der Summand ohne x. Setzt du x = 0 ein, bleibt genau dieser Wert übrig. In K(x) = 0,02x³ − 3x² + 180x + 10.000 sind das 10.000 €."
+    },
+    {
+      "q": "Warum schneidet die Grenzkostenkurve die Stückkostenkurve im Minimum?",
+      "a": "Solange die Kosten des nächsten Stücks unter den bisherigen Durchschnittskosten liegen, ziehen sie den Durchschnitt nach unten. Liegen sie darüber, ziehen sie ihn nach oben. Der Durchschnitt ist daher genau dort am kleinsten, wo Grenzkosten und Durchschnittskosten gleich sind."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Gegeben ist \\( K(x) = 0{,}5x^2 + 20x + 800 \\). Wie hoch sind die Fixkosten?",
+      "o": [
+        "20 €",
+        "800 €",
+        "820 €",
+        "0,5 €"
+      ],
+      "r": 1,
+      "e": "Fixkosten sind das Absolutglied ohne \\( x \\): \\( K(0) = 800 \\) €."
+    },
+    {
+      "q": "Bei 1.000 Stück betragen die Kosten 50.000 €, bei 1.500 Stück 60.000 €. Wie lautet die lineare Kostenfunktion?",
+      "o": [
+        "\\( K(x) = 50x \\)",
+        "\\( K(x) = 40.000 + 10x \\)",
+        "\\( K(x) = 30.000 + 20x \\)",
+        "\\( K(x) = 20.000 + 30x \\)"
+      ],
+      "r": 2,
+      "e": "\\( k_v = \\frac{60.000 - 50.000}{1.500 - 1.000} = 20 \\) €, \\( K_f = 50.000 - 20 \\cdot 1.000 = 30.000 \\) €."
+    },
+    {
+      "q": "Für \\( K(x) = 0{,}01x^3 - 2x^2 + 150x + 5.000 \\): Bei welcher Menge liegt das Betriebsminimum?",
+      "o": [
+        "\\( x = 66{,}7 \\)",
+        "\\( x = 50 \\)",
+        "\\( x = 200 \\)",
+        "\\( x = 100 \\)"
+      ],
+      "r": 3,
+      "e": "DVK: \\( k_v(x) = 0{,}01x^2 - 2x + 150 \\). Ableitung \\( 0{,}02x - 2 = 0 \\Rightarrow x = 100 \\). Die 66,7 wären der Wendepunkt (Kostenkehre)."
+    }
+  ],
+  "verwandt": [
+    "fixe-und-variable-kosten",
+    "grenzkosten",
+    "preisuntergrenze",
+    "break-even-point",
+    "sprungfixe-kosten"
+  ],
+  "ask": "die Kostenfunktion – Verläufe, Stückkosten, Betriebsminimum und Betriebsoptimum an einem durchgerechneten Beispiel"
+}

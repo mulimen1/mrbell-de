@@ -1,0 +1,112 @@
+{
+ "slug": "varianz-standardabweichung",
+ "name": "Varianz und Standardabweichung",
+ "title": "Standardabweichung und Varianz berechnen – mit Beispiel",
+ "meta": "Standardabweichung und Varianz einfach erklärt: Formeln, n oder n−1, Verschiebungssatz und Variationskoeffizient – mit Schritt-für-Schritt-Beispiel.",
+ "h1": "Varianz und Standardabweichung einfach erklärt",
+ "kurz": "Varianz und Standardabweichung messen, wie stark Werte um ihren Mittelwert streuen. Die Varianz ist der Durchschnitt der quadrierten Abweichungen vom Mittelwert, die Standardabweichung ist die Wurzel daraus und hat deshalb dieselbe Einheit wie die Daten. Für eine Stichprobe teilst du durch n − 1 statt durch n.",
+ "keywords": [
+  "standardabweichung",
+  "varianz",
+  "standardabweichung berechnen",
+  "varianz berechnen",
+  "empirische varianz",
+  "stichprobenvarianz n-1",
+  "variationskoeffizient",
+  "verschiebungssatz"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was messen Varianz und Standardabweichung?",
+   "html": "<p>Der Mittelwert sagt dir, wo die Daten im Durchschnitt liegen, aber nicht, wie weit sie auseinanderliegen. Zwei Filialen können beide im Schnitt 1.000 € Tagesumsatz machen, die eine ziemlich gleichmäßig, die andere mit wilden Ausschlägen. Für Personalplanung, Lager oder Risikobewertung ist dieser Unterschied entscheidend.</p><p>Genau das messen die <strong>Streuungsmaße</strong>:</p><ul><li><strong>Varianz:</strong> durchschnittliche quadrierte Abweichung vom Mittelwert. Durch das Quadrieren zählen Abweichungen nach oben und unten gleich, und große Abweichungen fallen besonders stark ins Gewicht.</li><li><strong>Standardabweichung:</strong> die Wurzel aus der Varianz. Sie hat wieder die Einheit der Daten (Euro statt Euro²) und lässt sich deshalb direkt interpretieren: typische Abweichung vom Mittelwert.</li></ul><p>Warum quadrieren statt einfach die Abweichungen zu mitteln? Weil sich positive und negative Abweichungen vom Mittelwert immer exakt zu null addieren. Die Summe der Abweichungen ist als Streuungsmaß also unbrauchbar.</p><div class=\"merke\">Varianz = mittlere quadrierte Abweichung. Standardabweichung = Wurzel aus der Varianz, in derselben Einheit wie die Daten.</div>"
+  },
+  {
+   "h2": "Welche Formeln gelten? n oder n − 1?",
+   "html": "<p>Zuerst brauchst du den arithmetischen Mittelwert \\( \\bar{x} = \\frac{1}{n} \\sum_{i=1}^{n} x_i \\). Dann gibt es zwei Varianten der Varianz, und genau hier passieren die meisten Klausurfehler.</p><h3>Empirische Varianz (Grundgesamtheit, deskriptiv)</h3><div class=\"formel\">\\[ s^2 = \\frac{1}{n} \\sum_{i=1}^{n} (x_i - \\bar{x})^2 \\]</div><p>Verwende sie, wenn deine Daten die <strong>vollständige</strong> Menge sind, die dich interessiert, etwa alle fünf Arbeitstage einer bestimmten Woche, und du sie nur beschreiben willst. In der Wahrscheinlichkeitsrechnung entspricht dem die Varianz \\( \\sigma^2 \\) einer Zufallsvariablen um ihren <a href=\"/lernen/erwartungswert\">Erwartungswert</a>.</p><h3>Stichprobenvarianz (korrigiert, induktiv)</h3><div class=\"formel\">\\[ s^{*2} = \\frac{1}{n-1} \\sum_{i=1}^{n} (x_i - \\bar{x})^2 \\qquad s^* = \\sqrt{s^{*2}} \\]</div><p>Verwende sie, wenn deine Daten eine <strong>Stichprobe</strong> sind und du auf die Streuung der Grundgesamtheit schließen willst. Der Grund für \\( n - 1 \\): Der Stichprobenmittelwert liegt per Konstruktion besonders nah an den eigenen Daten, die Abweichungen fallen daher systematisch etwas zu klein aus. Die Division durch \\( n - 1 \\) gleicht das aus und macht den Schätzer erwartungstreu.</p><p>Die Bezeichnungen sind nicht einheitlich: Manche Lehrbücher schreiben \\( \\tilde{s}^2 \\) für die Version mit \\( n \\) und \\( s^2 \\) für die mit \\( n - 1 \\). Achte darauf, was dein Skript verwendet. Excel unterscheidet ebenso: VAR.P und STABW.N teilen durch \\( n \\), VAR.S und STABW.S durch \\( n - 1 \\).</p><h3>Verschiebungssatz</h3><div class=\"formel\">\\[ s^2 = \\frac{1}{n} \\sum_{i=1}^{n} x_i^2 - \\bar{x}^2 \\]</div><p>Er spart Rechenarbeit, wenn die Abweichungen krumme Zahlen ergeben: Mittelwert der Quadrate minus Quadrat des Mittelwerts.</p>"
+  },
+  {
+   "h2": "Beispiel: Standardabweichung Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p>Ein Café-Betreiber hat zwei Standorte und notiert eine Woche lang (Montag bis Freitag) die Tagesumsätze in €:</p><p>Standort A (Innenstadt): 1.040, 860, 1.180, 920, 1.000<br>Standort B (Campus): 480, 720, 650, 550, 600</p><p><strong>Schritt 1: Mittelwerte</strong><br>\\( \\bar{x}_A = \\frac{1.040 + 860 + 1.180 + 920 + 1.000}{5} = \\frac{5.000}{5} = 1.000 \\) €<br>\\( \\bar{x}_B = \\frac{3.000}{5} = 600 \\) €</p><p><strong>Schritt 2: Abweichungen und Quadrate für Standort A</strong></p><table><thead><tr><th>Tag</th><th>\\( x_i \\)</th><th>\\( x_i - \\bar{x} \\)</th><th>\\( (x_i - \\bar{x})^2 \\)</th></tr></thead><tbody><tr><td>Mo</td><td>1.040</td><td>40</td><td>1.600</td></tr><tr><td>Di</td><td>860</td><td>−140</td><td>19.600</td></tr><tr><td>Mi</td><td>1.180</td><td>180</td><td>32.400</td></tr><tr><td>Do</td><td>920</td><td>−80</td><td>6.400</td></tr><tr><td>Fr</td><td>1.000</td><td>0</td><td>0</td></tr><tr><td><strong>Summe</strong></td><td>5.000</td><td>0</td><td><strong>60.000</strong></td></tr></tbody></table><p><strong>Schritt 3: Varianz und Standardabweichung A</strong><br>Als Beschreibung dieser Woche: \\( s^2 = \\frac{60.000}{5} = 12.000 \\) €², \\( s = \\sqrt{12.000} \\approx 109{,}54 \\) €<br>Als Stichprobe für typische Wochen: \\( s^{*2} = \\frac{60.000}{4} = 15.000 \\) €², \\( s^* = \\sqrt{15.000} \\approx 122{,}47 \\) €</p><p><strong>Kontrolle mit dem Verschiebungssatz:</strong> Mittelwert der Quadrate \\( \\frac{1.040^2 + 860^2 + 1.180^2 + 920^2 + 1.000^2}{5} = \\frac{5.060.000}{5} = 1.012.000 \\), also \\( s^2 = 1.012.000 - 1.000^2 = 12.000 \\) €² ✓</p><p><strong>Schritt 4: Standort B</strong><br>Abweichungen: −120, 120, 50, −50, 0. Quadratsumme: \\( 14.400 + 14.400 + 2.500 + 2.500 + 0 = 33.800 \\)<br>\\( s^{*2} = \\frac{33.800}{4} = 8.450 \\) €², \\( s^* = \\sqrt{8.450} \\approx 91{,}92 \\) €</p><p><strong>Schritt 5: Variationskoeffizient</strong> (Stichprobenwerte)<br>\\( V_A = \\frac{122{,}47}{1.000} \\approx 12{,}2\\,\\% \\) und \\( V_B = \\frac{91{,}92}{600} \\approx 15{,}3\\,\\% \\)</p></div><p>Absolut streut Standort A stärker (122 € gegenüber 92 €). Bezogen auf das Umsatzniveau schwankt aber der Campus-Standort mehr: Seine Standardabweichung beträgt 15,3 % des Mittelwerts, in der Innenstadt nur 12,2 %. Für die Personalplanung am Campus heißt das: relativ mehr Puffer einplanen.</p>"
+  },
+  {
+   "h2": "Wie interpretiert man die Standardabweichung?",
+   "html": "<p>Die Standardabweichung ist die <strong>typische Abweichung</strong> eines Wertes vom Mittelwert. Im Beispiel liegt der Tagesumsatz in der Innenstadt typischerweise etwa 122 € über oder unter 1.000 €, also grob zwischen 878 € und 1.122 €.</p><p>Sind die Daten annähernd <a href=\"/lernen/normalverteilung\">normalverteilt</a>, gilt die Faustregel:</p><ul><li>rund 68 % der Werte liegen im Bereich \\( \\bar{x} \\pm 1s \\),</li><li>rund 95 % im Bereich \\( \\bar{x} \\pm 2s \\),</li><li>rund 99,7 % im Bereich \\( \\bar{x} \\pm 3s \\).</li></ul><p>Bei fünf Werten ist diese Regel natürlich nur ein grober Anhaltspunkt, bei großen Datensätzen ist sie ein starkes Werkzeug, etwa für <a href=\"/lernen/konfidenzintervall\">Konfidenzintervalle</a>.</p><h3>Was passiert bei linearen Transformationen?</h3><div class=\"formel\">\\[ y_i = a + b \\cdot x_i \\Rightarrow s_y^2 = b^2 \\cdot s_x^2 \\quad \\text{und} \\quad s_y = |b| \\cdot s_x \\]</div><p>Ein konstanter Aufschlag \\( a \\) verschiebt alle Werte gleich und ändert die Streuung nicht. Ein Faktor \\( b \\) wirkt auf die Standardabweichung einfach, auf die Varianz quadratisch. Steigen in der Innenstadt alle Umsätze um 10 %, wächst \\( s^* \\) von 122,47 € auf rund 134,72 €, die Varianz aber um 21 % von 15.000 auf 18.150 €².</p>"
+  },
+  {
+   "h2": "Wo braucht man Varianz und Standardabweichung in BWL und VWL?",
+   "html": "<ul><li><strong>Finanzierung und Kapitalmarkt:</strong> Die Standardabweichung der Renditen heißt <em>Volatilität</em> und ist das klassische Risikomaß. Die <a href=\"/lernen/portfoliotheorie\">Portfoliotheorie</a> zeigt, wie sich durch Mischung von Anlagen die Varianz senken lässt, solange die Renditen nicht perfekt zusammenhängen.</li><li><strong>Qualitätsmanagement:</strong> Ob ein Prozess stabil läuft, misst man an der Streuung um den Sollwert, etwa bei <a href=\"/lernen/six-sigma\">Six Sigma</a>, dessen Name direkt auf die Standardabweichung \\( \\sigma \\) verweist.</li><li><strong>Logistik:</strong> Die Schwankung der Nachfrage bestimmt den Sicherheitsbestand, und in der <a href=\"/lernen/xyz-analyse\">XYZ-Analyse</a> sortiert der Variationskoeffizient Artikel nach Vorhersagbarkeit.</li><li><strong>Statistik:</strong> Varianzen sind die Bausteine von Kovarianz und <a href=\"/lernen/korrelation\">Korrelation</a>, Regression und Hypothesentests.</li></ul><h3>Abgrenzung zu anderen Streuungsmaßen</h3><table><thead><tr><th>Maß</th><th>Vorteil</th><th>Nachteil</th></tr></thead><tbody><tr><td>Spannweite</td><td>sehr einfach</td><td>nutzt nur zwei Werte, extrem ausreißeranfällig</td></tr><tr><td>mittlere absolute Abweichung</td><td>anschaulich</td><td>mathematisch unhandlich</td></tr><tr><td>Varianz</td><td>gute Recheneigenschaften, Basis vieler Verfahren</td><td>Einheit im Quadrat, schwer zu deuten</td></tr><tr><td>Standardabweichung</td><td>gleiche Einheit wie die Daten</td><td>reagiert stark auf Ausreißer</td></tr><tr><td>Variationskoeffizient</td><td>vergleicht Reihen mit unterschiedlichem Niveau</td><td>nur bei positiven Daten mit Mittelwert deutlich über null sinnvoll</td></tr></tbody></table>"
+  }
+ ],
+ "fehler": [
+  "Durch n statt n − 1 teilen (oder umgekehrt): Lies in der Aufgabe, ob eine Stichprobe vorliegt und auf die Grundgesamtheit geschlossen werden soll. Dann gilt \\( n - 1 \\), sonst \\( n \\).",
+  "Standardabweichung aus der Summe der Abweichungen bilden: Die Abweichungen vom Mittelwert summieren sich immer zu null. Erst quadrieren, dann summieren, dann teilen, dann Wurzel ziehen.",
+  "Einheit der Varianz vergessen: Die Varianz von Euro-Beträgen hat die Einheit €². Erst die Standardabweichung ist wieder in Euro und direkt interpretierbar.",
+  "Im Verschiebungssatz \\( \\frac{1}{n} \\sum x_i^2 \\) mit \\( (\\bar{x})^2 \\) verwechseln: Erst jeden Wert quadrieren und mitteln, dann das Quadrat des Mittelwerts abziehen. Außerdem liefert er direkt nur die Version mit n; für die Stichprobe mit \\( \\frac{n}{n-1} \\) multiplizieren.",
+  "Streuung zweier Reihen mit unterschiedlichem Niveau über die Standardabweichung vergleichen: Dafür ist der Variationskoeffizient \\( V = \\frac{s}{\\bar{x}} \\) da."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man die Standardabweichung?",
+   "a": "Berechne den Mittelwert, ziehe ihn von jedem Wert ab und quadriere die Abweichungen. Summiere die Quadrate und teile durch n (Grundgesamtheit) oder n − 1 (Stichprobe), das ist die Varianz. Die Standardabweichung ist die Wurzel daraus."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Varianz und Standardabweichung?",
+   "a": "Die Varianz ist der Durchschnitt der quadrierten Abweichungen und hat deshalb die Einheit im Quadrat. Die Standardabweichung ist die Wurzel aus der Varianz und hat dieselbe Einheit wie die Daten. Inhaltlich messen beide dasselbe, die Standardabweichung ist nur leichter zu deuten."
+  },
+  {
+   "q": "Wann teilt man durch n − 1?",
+   "a": "Durch n − 1 teilst du, wenn deine Daten eine Stichprobe sind und du die Varianz der Grundgesamtheit schätzen willst. So wird der Schätzer erwartungstreu. Beschreibst du nur die vorliegenden Daten oder kennst du die gesamte Grundgesamtheit, teilst du durch n."
+  },
+  {
+   "q": "Was ist eine gute Standardabweichung?",
+   "a": "Einen allgemein guten Wert gibt es nicht, weil die Standardabweichung vom Niveau und der Einheit der Daten abhängt. Für Vergleiche nutzt du den Variationskoeffizienten, also die Standardabweichung geteilt durch den Mittelwert. Ob die Streuung akzeptabel ist, hängt dann vom Zweck ab, etwa Toleranzen in der Produktion."
+  },
+  {
+   "q": "Kann die Varianz negativ sein?",
+   "a": "Nein. Sie ist eine Summe von Quadraten geteilt durch eine positive Zahl und damit immer mindestens null. Null ist sie nur, wenn alle Werte gleich sind. Ein negatives Ergebnis ist immer ein Rechenfehler, oft im Verschiebungssatz."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Die Werte 4, 6, 8 bilden die Grundgesamtheit. Wie hoch ist die Varianz (Division durch n)?",
+   "o": [
+    "4",
+    "2",
+    "\\( \\frac{8}{3} \\approx 2{,}67 \\)",
+    "\\( \\sqrt{8} \\)"
+   ],
+   "r": 2,
+   "e": "Mittelwert 6, Quadratsumme \\( 4 + 0 + 4 = 8 \\), Varianz \\( \\frac{8}{3} \\approx 2{,}67 \\). 4 wäre die Stichprobenvarianz mit \\( n - 1 = 2 \\)."
+  },
+  {
+   "q": "Alle Werte einer Reihe werden um 50 € erhöht. Was passiert mit der Standardabweichung?",
+   "o": [
+    "Sie steigt um 50 €",
+    "Sie bleibt gleich",
+    "Sie steigt um \\( \\sqrt{50} \\) €",
+    "Sie sinkt"
+   ],
+   "r": 1,
+   "e": "Ein konstanter Aufschlag verschiebt alle Werte und den Mittelwert gleich. Die Abweichungen und damit die Streuung ändern sich nicht."
+  },
+  {
+   "q": "Reihe X: Mittelwert 200, Standardabweichung 30. Reihe Y: Mittelwert 50, Standardabweichung 10. Welche streut relativ stärker?",
+   "o": [
+    "X, weil 30 größer als 10 ist",
+    "Beide gleich",
+    "Nicht vergleichbar",
+    "Y, weil ihr Variationskoeffizient 20 % gegenüber 15 % beträgt"
+   ],
+   "r": 3,
+   "e": "\\( V_X = \\frac{30}{200} = 15\\,\\% \\), \\( V_Y = \\frac{10}{50} = 20\\,\\% \\). Relativ zum Niveau streut Y stärker."
+  }
+ ],
+ "verwandt": [
+  "erwartungswert",
+  "normalverteilung",
+  "korrelation",
+  "portfoliotheorie",
+  "konfidenzintervall"
+ ],
+ "ask": "die Varianz und Standardabweichung – mit dem Unterschied zwischen n und n−1, Verschiebungssatz und Variationskoeffizient an einem durchgerechneten Beispiel"
+}

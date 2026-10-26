@@ -1,0 +1,116 @@
+{
+ "slug": "spieltheorie",
+ "name": "Spieltheorie",
+ "title": "Spieltheorie einfach erklärt – Grundbegriffe mit Beispiel",
+ "meta": "Spieltheorie verständlich: Auszahlungsmatrix, dominante Strategien, Spielbaum und Rückwärtsinduktion – mit zwei durchgerechneten Klausurbeispielen.",
+ "h1": "Spieltheorie einfach erklärt",
+ "kurz": "Die Spieltheorie analysiert Entscheidungen, bei denen das Ergebnis jedes Beteiligten auch von den Entscheidungen der anderen abhängt. Ein Spiel besteht aus Spielern, Strategien und Auszahlungen. Simultane Spiele löst man mit der Auszahlungsmatrix über dominante Strategien und Nash-Gleichgewicht, sequenzielle Spiele mit dem Spielbaum und der Rückwärtsinduktion.",
+ "keywords": [
+  "spieltheorie",
+  "spieltheorie einfach erklärt",
+  "auszahlungsmatrix",
+  "dominante strategie",
+  "rückwärtsinduktion",
+  "spielbaum",
+  "teilspielperfektes gleichgewicht",
+  "strategische interaktion"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist Spieltheorie?",
+   "html": "<p>In vielen Modellen der Mikroökonomie entscheidet jeder für sich: Ein Haushalt maximiert seinen Nutzen bei gegebenen Preisen, ein Anbieter im Polypol nimmt den Marktpreis hin. Sobald aber wenige Akteure aufeinandertreffen, reicht das nicht mehr. Ob sich eine Preissenkung lohnt, hängt davon ab, ob der Konkurrent mitzieht. Genau diese <strong>strategische Interaktion</strong> untersucht die <strong>Spieltheorie</strong>.</p><p>Ein Spiel wird durch drei Elemente beschrieben:</p><ul><li><strong>Spieler:</strong> die Entscheidungsträger, z. B. zwei Unternehmen, eine Gewerkschaft und ein Arbeitgeberverband oder zwei Staaten.</li><li><strong>Strategien:</strong> die Handlungsmöglichkeiten jedes Spielers, z. B. Preis hoch oder niedrig, Markteintritt ja oder nein.</li><li><strong>Auszahlungen:</strong> das Ergebnis für jeden Spieler bei jeder Kombination von Strategien, meist Gewinne in Euro oder Nutzenwerte.</li></ul><p>Die Grundannahme lautet: Alle Spieler sind <strong>rational</strong>, wollen ihre eigene Auszahlung maximieren und wissen, dass die anderen ebenfalls rational sind. Die Spieltheorie ist das Werkzeug, mit dem man das <a href=\"/lernen/oligopol\">Oligopol</a> analysiert, aber auch Tarifverhandlungen, Auktionen, Klimaabkommen oder Preiskriege.</p><div class=\"merke\">Spieltheorie fragt nicht „Was ist für mich am besten?“, sondern „Was ist für mich am besten, wenn ich berücksichtige, was die anderen tun werden?“</div>"
+  },
+  {
+   "h2": "Welche Arten von Spielen gibt es?",
+   "html": "<p>Für die Klausur solltest du Spiele nach vier Merkmalen einordnen können:</p><table><thead><tr><th>Merkmal</th><th>Ausprägungen</th><th>Darstellung bzw. Lösung</th></tr></thead><tbody><tr><td>Zeitliche Abfolge</td><td>simultan (gleichzeitig) oder sequenziell (nacheinander)</td><td>simultan: Auszahlungsmatrix (Normalform); sequenziell: Spielbaum (extensive Form)</td></tr><tr><td>Bindende Absprachen</td><td>kooperativ oder nicht-kooperativ</td><td>im Grundstudium fast immer nicht-kooperativ</td></tr><tr><td>Summe der Auszahlungen</td><td>Nullsummenspiel oder Nicht-Nullsummenspiel</td><td>wirtschaftliche Situationen sind meist keine Nullsummenspiele</td></tr><tr><td>Wiederholung</td><td>einmalig oder wiederholt</td><td>Wiederholung kann Kooperation stabilisieren</td></tr></tbody></table><p>Ein Nullsummenspiel liegt vor, wenn der Gewinn des einen genau der Verlust des anderen ist, etwa beim Pokern. Bei Preiskämpfen dagegen können beide verlieren und bei Kooperation beide gewinnen, deshalb sind sie Nicht-Nullsummenspiele.</p>"
+  },
+  {
+   "h2": "Wie löst man ein simultanes Spiel?",
+   "html": "<p>Bei simultanen Spielen schreibst du die Auszahlungen in eine Matrix. Konvention: Zeilenspieler zuerst, Spaltenspieler danach, also (Auszahlung Zeile, Auszahlung Spalte). Dann gehst du in dieser Reihenfolge vor:</p><ol><li><strong>Dominante Strategien suchen:</strong> Eine Strategie ist streng dominant, wenn sie für einen Spieler <em>bei jeder</em> Strategie des Gegners besser ist als jede andere. Ein rationaler Spieler wählt sie immer.</li><li><strong>Dominierte Strategien streichen:</strong> Eine Strategie, die immer schlechter ist als eine andere, spielt kein rationaler Spieler. Du streichst sie und schaust dir das verkleinerte Spiel erneut an (iterierte Elimination).</li><li><strong>Nash-Gleichgewicht bestimmen:</strong> Bleibt danach mehr als eine Kombination übrig, suchst du die Kombinationen, bei denen jeder Spieler die beste Antwort auf den anderen spielt. Wie das genau geht, zeigt die Seite zum <a href=\"/lernen/nash-gleichgewicht\">Nash-Gleichgewicht</a>.</li></ol><p>Das bekannteste simultane Spiel ist das <a href=\"/lernen/gefangenendilemma\">Gefangenendilemma</a>, in dem beide Spieler eine dominante Strategie haben, die sie gemeinsam schlechter stellt.</p>"
+  },
+  {
+   "h2": "Beispiel 1: Werbung und Preis im simultanen Spiel",
+   "html": "<div class=\"beispiel\"><p>Zwei regionale Brauereien planen gleichzeitig ihre Strategie für die Grillsaison. Nordbräu (Zeilen) wählt ein kleines oder großes Werbebudget, Südbräu (Spalten) einen niedrigen, mittleren oder hohen Preis. Auszahlungen in Tsd. € Gewinn (Nordbräu, Südbräu):</p><table><thead><tr><th></th><th>niedrig</th><th>mittel</th><th>hoch</th></tr></thead><tbody><tr><td><strong>klein</strong></td><td>(4, 7)</td><td>(6, 6)</td><td>(7, 3)</td></tr><tr><td><strong>groß</strong></td><td>(5, 5)</td><td>(8, 6)</td><td>(9, 2)</td></tr></tbody></table><p><strong>Schritt 1: Hat Nordbräu eine dominante Strategie?</strong><br>Vergleich groß gegen klein in jeder Spalte: \\( 5 > 4 \\), \\( 8 > 6 \\), \\( 9 > 7 \\). „Groß“ ist streng dominant. Nordbräu wirbt also groß, egal was Südbräu macht.</p><p><strong>Schritt 2: Hat Südbräu eine dominante Strategie?</strong><br>Gegen „klein“ ist niedrig am besten (7), gegen „groß“ mittel (6). Also keine dominante Strategie. Aber „hoch“ ist streng dominiert durch „mittel“: \\( 6 > 3 \\) und \\( 6 > 2 \\). Hoch fällt weg.</p><p><strong>Schritt 3: Iterierte Elimination</strong><br>Südbräu weiß, dass Nordbräu rational ist und groß wählt. In der Zeile „groß“ vergleicht Südbräu nur noch niedrig (5) und mittel (6) und wählt mittel.</p><p><strong>Ergebnis:</strong> (groß, mittel) mit Gewinnen von 8 Tsd. € für Nordbräu und 6 Tsd. € für Südbräu. Probe: Nordbräu kann sich bei „mittel“ nicht verbessern (\\( 6 < 8 \\)), Südbräu bei „groß“ auch nicht (\\( 5 < 6 \\), \\( 2 < 6 \\)). Es ist das einzige Nash-Gleichgewicht.</p></div><p>Beachte: Südbräu findet sein Ergebnis nur, weil es sich in Nordbräu hineinversetzt. Das ist der Kern spieltheoretischen Denkens.</p>"
+  },
+  {
+   "h2": "Beispiel 2: Markteintritt im Spielbaum (Rückwärtsinduktion)",
+   "html": "<p>Bei sequenziellen Spielen ziehen die Spieler nacheinander, und der Spätere kennt den Zug des Früheren. Du zeichnest einen <strong>Spielbaum</strong> und löst ihn von hinten nach vorne. Diese Methode heißt <strong>Rückwärtsinduktion</strong>.</p><div class=\"beispiel\"><p>Ein Start-up (S) überlegt, in den Markt eines etablierten Lieferdienstes (L) einzutreten. Bleibt S draußen, verdient L 10 Mio. €, S nichts. Tritt S ein, entscheidet L danach: Preiskampf oder dulden. Auszahlungen in Mio. € (S, L):</p><ul><li>S bleibt draußen: (0, 10)</li><li>S tritt ein, L duldet: (4, 6)</li><li>S tritt ein, L startet Preiskampf: (−2, 3)</li></ul><p><strong>Schritt 1: letzter Zug zuerst.</strong> Ist S eingetreten, vergleicht L: dulden bringt 6, Preiskampf 3. Wegen \\( 6 > 3 \\) duldet L.</p><p><strong>Schritt 2: einen Zug zurück.</strong> S weiß das und vergleicht: Eintritt bringt 4 (weil L dulden wird), draußen bleiben 0. Wegen \\( 4 > 0 \\) tritt S ein.</p><p><strong>Ergebnis:</strong> Eintritt und Dulden, Auszahlungen (4, 6).</p></div><p>Spannend ist die Drohung: L kündigt vorher an, jeden Eintritt mit einem Preiskampf zu bestrafen. Würde S das glauben, bliebe es draußen, und L bekäme 10 statt 6. In der Matrixdarstellung ist (draußen, Preiskampf) tatsächlich auch ein Nash-Gleichgewicht. Die Drohung ist aber <strong>nicht glaubwürdig</strong>: Steht S erst einmal im Markt, schadet sich L mit dem Preiskampf selbst. Das Gleichgewicht, das nur glaubwürdige Züge enthält, heißt <strong>teilspielperfektes Gleichgewicht</strong>. Glaubwürdig würde die Drohung erst durch eine Selbstbindung, etwa durch Überkapazitäten, die L bei einem Eintritt ohnehin auslasten will.</p>"
+  },
+  {
+   "h2": "Wo wird Spieltheorie angewendet – und wo sind die Grenzen?",
+   "html": "<p><strong>Anwendungen in BWL und VWL:</strong></p><ul><li>Preis- und Mengenwettbewerb im Oligopol (Cournot-, Bertrand- und Stackelberg-Modell),</li><li>Kartelle und ihre Instabilität, Kronzeugenregelungen,</li><li>Markteintrittsabschreckung und Kapazitätsentscheidungen,</li><li>Auktionen, Verhandlungen und Verträge zwischen Prinzipal und Agent,</li><li>Bereitstellung <a href=\"/lernen/oeffentliche-gueter\">öffentlicher Güter</a> und Umweltabkommen (Trittbrettfahrerproblem).</li></ul><p><strong>Grenzen:</strong></p><ul><li>Die Rationalitätsannahme ist streng. Experimente zeigen, dass Menschen oft fairer oder kooperativer handeln, als das Modell vorhersagt.</li><li>Auszahlungen müssen bekannt und in einer Zahl ausdrückbar sein; in der Realität sind sie unsicher.</li><li>Viele Spiele haben mehrere Gleichgewichte. Welches eintritt, sagt die Theorie dann nicht eindeutig.</li></ul><p><strong>Abgrenzung:</strong> Diese Seite bietet den Überblick über Begriffe und Lösungsmethoden. Das Lösungskonzept selbst inklusive gemischter Strategien wird beim Nash-Gleichgewicht vertieft, das wichtigste Anwendungsbeispiel mit wiederholten Spielen beim Gefangenendilemma.</p>"
+  }
+ ],
+ "fehler": [
+  "Auszahlungen in der Matrix vertauschen: Der erste Wert gehört dem Zeilenspieler, der zweite dem Spaltenspieler. Wer beim Vergleich die falsche Zahl nimmt, findet falsche dominante Strategien.",
+  "Beim Dominanztest in Zeilen statt in Spalten vergleichen: Für den Zeilenspieler vergleichst du seine Auszahlungen innerhalb einer Spalte (bei gleicher Strategie des Gegners), für den Spaltenspieler innerhalb einer Zeile.",
+  "„Keine dominante Strategie“ mit „keine Lösung“ gleichsetzen: Auch ohne dominante Strategie kann man dominierte Strategien streichen oder das Nash-Gleichgewicht über beste Antworten bestimmen.",
+  "Spielbaum von vorne lösen: Bei sequenziellen Spielen beginnst du immer beim letzten Zug. Wer vorne anfängt, glaubt unglaubwürdige Drohungen und landet im falschen Gleichgewicht.",
+  "Nullsummenspiel und Nicht-Nullsummenspiel verwechseln: Ein Preiskampf, bei dem beide verlieren, ist kein Nullsummenspiel, denn die Summe der Auszahlungen ändert sich mit den Strategien."
+ ],
+ "faq": [
+  {
+   "q": "Was ist Spieltheorie einfach erklärt?",
+   "a": "Spieltheorie untersucht Entscheidungen, bei denen das eigene Ergebnis von den Entscheidungen anderer abhängt. Man beschreibt die Situation mit Spielern, Strategien und Auszahlungen und sucht nach dem Verhalten, das rationale Spieler wählen. Typische Anwendungen sind Oligopole, Kartelle und Verhandlungen."
+  },
+  {
+   "q": "Was ist eine dominante Strategie?",
+   "a": "Eine Strategie ist dominant, wenn sie für einen Spieler bei jeder möglichen Strategie des Gegners mindestens so gut und mindestens einmal besser ist als jede Alternative. Bei streng dominanten Strategien ist sie sogar immer echt besser. Ein rationaler Spieler wählt eine dominante Strategie, ohne über den Gegner nachdenken zu müssen."
+  },
+  {
+   "q": "Was ist Rückwärtsinduktion?",
+   "a": "Rückwärtsinduktion ist die Lösungsmethode für sequenzielle Spiele. Man bestimmt zuerst die optimale Entscheidung beim letzten Zug, setzt dieses Ergebnis ein und geht Zug für Zug zum Anfang zurück. So erhält man das teilspielperfekte Gleichgewicht."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen simultanen und sequenziellen Spielen?",
+   "a": "Bei simultanen Spielen entscheiden alle Spieler gleichzeitig oder ohne die Entscheidung der anderen zu kennen; man stellt sie als Matrix dar. Bei sequenziellen Spielen ziehen die Spieler nacheinander und kennen die vorherigen Züge; man stellt sie als Spielbaum dar und löst sie per Rückwärtsinduktion."
+  },
+  {
+   "q": "Was ist eine unglaubwürdige Drohung?",
+   "a": "Eine Drohung ist unglaubwürdig, wenn der Drohende sie im Ernstfall gar nicht ausführen würde, weil er sich damit selbst schaden würde. Rationale Gegner ignorieren solche Drohungen. Das teilspielperfekte Gleichgewicht schließt sie aus."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Nordbräu erhält bei „groß“ 5, 8, 9 und bei „klein“ 4, 6, 7 (je nach Preis von Südbräu). Was gilt?",
+   "o": [
+    "„Klein“ ist dominant",
+    "Es gibt keine dominante Strategie",
+    "„Groß“ ist streng dominant",
+    "Beide Strategien sind gleich gut"
+   ],
+   "r": 2,
+   "e": "In jeder Spalte ist „groß“ besser: \\( 5 > 4 \\), \\( 8 > 6 \\), \\( 9 > 7 \\). Damit ist „groß“ streng dominant."
+  },
+  {
+   "q": "Markteintrittsspiel: Draußen (0, 10), Eintritt und Dulden (4, 6), Eintritt und Preiskampf (−2, 3). Was ist das teilspielperfekte Gleichgewicht?",
+   "o": [
+    "Eintritt, Dulden",
+    "Draußen, Preiskampf",
+    "Eintritt, Preiskampf",
+    "Draußen, Dulden"
+   ],
+   "r": 0,
+   "e": "Rückwärtsinduktion: Nach Eintritt duldet der Platzhirsch (\\( 6 > 3 \\)). Das Start-up erwartet 4 statt 0 und tritt ein."
+  },
+  {
+   "q": "Welches Spiel ist ein Nullsummenspiel?",
+   "o": [
+    "Ein Preiskampf, bei dem beide Firmen Verlust machen",
+    "Ein Kartell, bei dem beide mehr verdienen",
+    "Eine Wette, bei der der Verlierer dem Gewinner 100 € zahlt",
+    "Ein Klimaabkommen"
+   ],
+   "r": 2,
+   "e": "Bei der Wette ist die Summe der Auszahlungen immer null: +100 € und −100 €. Bei Preiskampf und Kartell hängt die Summe von den Strategien ab."
+  }
+ ],
+ "verwandt": [
+  "nash-gleichgewicht",
+  "gefangenendilemma",
+  "oligopol",
+  "marktformen",
+  "oeffentliche-gueter"
+ ],
+ "ask": "die Spieltheorie – mit Auszahlungsmatrix, dominanten Strategien und Rückwärtsinduktion im Spielbaum an durchgerechneten Beispielen"
+}

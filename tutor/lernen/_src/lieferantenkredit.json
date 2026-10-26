@@ -1,0 +1,116 @@
+{
+  "slug": "lieferantenkredit",
+  "name": "Lieferantenkredit (Skonto als Zins)",
+  "title": "Lieferantenkredit: Skonto als Jahreszins berechnen",
+  "meta": "Lieferantenkredit einfach erklärt: Warum Skonto auslassen über 37 % Zinsen kosten kann – mit Formel, Beispielrechnung, Kreditvergleich und Klausurfallen.",
+  "h1": "Lieferantenkredit einfach erklärt",
+  "kurz": "Ein Lieferantenkredit entsteht, wenn ein Lieferant dir ein Zahlungsziel einräumt und du die Ware erst später bezahlst. Er wirkt kostenlos, ist aber teuer: Wer das angebotene Skonto nicht nutzt, zahlt den Skontobetrag als Preis für die zusätzlichen Kredittage. Umgerechnet auf ein Jahr ergeben sich oft Zinssätze von über 30 %.",
+  "keywords": [
+    "lieferantenkredit",
+    "skonto jahreszins",
+    "lieferantenkredit berechnen",
+    "lieferantenkredit zinssatz",
+    "skonto effektiver jahreszins",
+    "skonto formel 360",
+    "lieferantenkredit vorteile nachteile",
+    "skonto oder kontokorrentkredit"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist ein Lieferantenkredit?",
+      "html": "<p>Ein <strong>Lieferantenkredit</strong> (auch Lieferkredit, Warenkredit oder Handelskredit) entsteht automatisch, wenn ein Lieferant Ware liefert und dir erlaubt, erst später zu zahlen. Typische Zahlungsbedingung auf einer Rechnung: „Zahlbar innerhalb von 40 Tagen netto, bei Zahlung innerhalb von 10 Tagen 3 % Skonto.“</p><p>Bis zur Zahlung finanziert der Lieferant also einen Teil deines Umlaufvermögens. In der <a href=\"/lernen/bilanz\">Bilanz</a> steht der Kredit als „Verbindlichkeiten aus Lieferungen und Leistungen“ auf der Passivseite. In der Systematik der <a href=\"/lernen/finanzierungsarten\">Finanzierungsarten</a> gehört er zur kurzfristigen Außen- und Fremdfinanzierung.</p><p>Das Besondere: Es gibt keinen Kreditvertrag, keine ausgewiesenen Zinsen und meist keine formelle Bonitätsprüfung. Die Sicherheit für den Lieferanten ist in der Regel ein <strong>Eigentumsvorbehalt</strong> – die Ware gehört ihm, bis sie bezahlt ist.</p><div class=\"merke\">Der Lieferantenkredit ist nicht kostenlos. Sein Preis ist das Skonto, auf das du verzichtest, wenn du erst am Ende des Zahlungsziels zahlst.</div>"
+    },
+    {
+      "h2": "Warum ist Skonto ein Zins?",
+      "html": "<p>Vergleiche die beiden Möglichkeiten, die dir die Rechnung bietet:</p><ul><li><strong>Am letzten Tag der Skontofrist zahlen:</strong> Du zahlst den Rechnungsbetrag minus Skonto.</li><li><strong>Am letzten Tag des Zahlungsziels zahlen:</strong> Du zahlst den vollen Betrag, hast das Geld aber länger.</li></ul><p>Wer auf Skonto verzichtet, behält den gekürzten Betrag also nur für die Tage zwischen Skontofrist und Zahlungsziel länger – und zahlt dafür den Skontobetrag obendrauf. Wirtschaftlich ist das ein Kredit über den <em>gekürzten</em> Betrag mit der Laufzeit <em>Zahlungsziel minus Skontofrist</em>. Die ersten Tage bis zum Ende der Skontofrist sind dagegen gratis, denn in dieser Zeit kostet dich das Warten nichts.</p><p>Daraus folgt eine wichtige Praxisregel: Wer Skonto nutzt, zahlt am letzten Tag der Skontofrist, nicht sofort. Wer auf Skonto verzichtet, zahlt am letzten Tag des Zahlungsziels, nicht früher.</p>"
+    },
+    {
+      "h2": "Wie berechnet man den Zinssatz des Lieferantenkredits?",
+      "html": "<p>Der Skontobetrag ist der Zins, der gekürzte Rechnungsbetrag ist das Kapital, die Differenz der Fristen ist die Laufzeit. Hochgerechnet auf ein Bankjahr mit 360 Tagen ergibt sich:</p><div class=\"formel\">\\[ i_{\\text{Lieferantenkredit}} = \\frac{\\text{Skontosatz}}{100\\,\\% - \\text{Skontosatz}} \\cdot \\frac{360}{\\text{Zahlungsziel} - \\text{Skontofrist}} \\]</div><p>Viele Lehrbücher nutzen zusätzlich eine <strong>Faustformel</strong>, die den Skontosatz vereinfacht auf den vollen Rechnungsbetrag bezieht:</p><div class=\"formel\">\\[ i_{\\text{Faust}} \\approx \\frac{\\text{Skontosatz} \\cdot 360}{\\text{Zahlungsziel} - \\text{Skontofrist}} \\]</div><p>Die Faustformel unterschätzt den Zinssatz leicht, weil sie im Nenner 100 % statt 100 % minus Skonto verwendet. Für eine schnelle Entscheidung reicht sie, in der Klausur nimmst du die exakte Formel, wenn nicht ausdrücklich die Näherung verlangt ist. Manche Professoren rechnen mit 365 Tagen – die Methode bleibt gleich, nur der Faktor ändert sich.</p><p>Beide Formeln rechnen mit einfacher Verzinsung. Würdest du den Lieferantenkredit das ganze Jahr immer wieder neu „aufnehmen“, käme ein Zinseszinseffekt hinzu und der effektive Jahreszins läge noch höher. Wie der Unterschied zwischen nominalem und effektivem Zins zustande kommt, erklärt die Seite zum <a href=\"/lernen/effektivzins\">Effektivzins</a>.</p>"
+    },
+    {
+      "h2": "Beispiel: Skonto ziehen oder Lieferantenkredit nutzen?",
+      "html": "<div class=\"beispiel\"><p>Ein Fahrradhändler erhält eine Rechnung über 50.000 € (der Einfachheit halber ohne Umsatzsteuer). Zahlungsbedingung: 3 % Skonto bei Zahlung innerhalb von 10 Tagen, sonst 40 Tage netto. Auf dem Geschäftskonto ist kein Guthaben, er könnte aber seinen <a href=\"/lernen/kontokorrentkredit\">Kontokorrentkredit</a> zu 11 % p. a. nutzen.</p><p><strong>Schritt 1: Skontobetrag und Zahlbetrag</strong><br>\\( 50.000 \\cdot 3\\,\\% = 1.500 \\) € Skonto<br>\\( 50.000 - 1.500 = 48.500 \\) € Zahlbetrag bei Skontoabzug</p><p><strong>Schritt 2: Laufzeit des Lieferantenkredits</strong><br>\\( 40 - 10 = 30 \\) Tage</p><p><strong>Schritt 3: Jahreszins des Lieferantenkredits</strong><br>Exakt: \\( \\frac{3}{97} \\cdot \\frac{360}{30} = 0{,}030928 \\cdot 12 \\approx 37{,}11\\,\\% \\)<br>Faustformel: \\( \\frac{3 \\cdot 360}{30} = 36\\,\\% \\)</p><p><strong>Schritt 4: Vergleich mit dem Kontokorrentkredit</strong><br>Der Händler zahlt am 10. Tag 48.500 € aus dem Kontokorrent und gleicht das Konto nach 30 Tagen aus:<br>\\( 48.500 \\cdot 11\\,\\% \\cdot \\frac{30}{360} \\approx 444{,}58 \\) € Zinsen</p><p><strong>Schritt 5: Vorteil des Skontoabzugs</strong><br>\\( 1.500 - 444{,}58 = 1.055{,}42 \\) €</p><table><thead><tr><th>Variante</th><th>Zahlung</th><th>Kosten</th></tr></thead><tbody><tr><td>Lieferantenkredit (Zahlung am Tag 40)</td><td>50.000,00 €</td><td>1.500,00 € entgangenes Skonto</td></tr><tr><td>Skonto + Kontokorrent (Zahlung am Tag 10)</td><td>48.500,00 € + 444,58 € Zinsen</td><td>444,58 €</td></tr></tbody></table><p>Ergebnis: Der Händler sollte Skonto ziehen, obwohl er dafür einen Kredit braucht. Er spart 1.055,42 €. Kontrolle über die Zinssätze: 11 % sind deutlich weniger als 37,11 %, also ist der Bankkredit die günstigere Finanzierung ✓</p></div><p>Die Entscheidungsregel lautet allgemein: Solange eine andere Finanzierung billiger ist als der Zinssatz des Lieferantenkredits, nutzt du Skonto. Bei den üblichen Bedingungen ist das fast immer der Fall.</p>"
+    },
+    {
+      "h2": "Was ändert sich, wenn das Zahlungsziel länger ist?",
+      "html": "<p>Der Zinssatz hängt stark von der Laufzeit ab. Bleiben 3 % Skonto und 10 Tage Skontofrist gleich, das Zahlungsziel steigt aber auf 60 Tage, dann gilt:</p><div class=\"formel\">\\[ \\frac{3}{97} \\cdot \\frac{360}{60 - 10} = \\frac{3}{97} \\cdot 7{,}2 \\approx 22{,}27\\,\\% \\]</div><p>Der verzichtete Skontobetrag verteilt sich auf mehr Kredittage, der Kredit wird pro Jahr billiger. Umgekehrt wird es extrem teuer, wenn das Fenster klein ist: Bei 2 % Skonto innerhalb von 14 Tagen und 30 Tagen Ziel liegst du schon bei \\( \\frac{2}{98} \\cdot \\frac{360}{16} \\approx 45{,}92\\,\\% \\).</p><p>Manche Unternehmen „verlängern“ den Lieferantenkredit, indem sie einfach nach dem Zahlungsziel zahlen. Rechnerisch sinkt der Zinssatz dann weiter, praktisch drohen Mahnungen, Verzugszinsen, schlechtere Konditionen und im schlimmsten Fall Lieferstopp. In einer Klausur rechnest du deshalb immer mit dem vereinbarten Zahlungsziel.</p>"
+    },
+    {
+      "h2": "Vor- und Nachteile des Lieferantenkredits",
+      "html": "<table><thead><tr><th>Vorteile</th><th>Nachteile</th></tr></thead><tbody><tr><td>schnell und formlos, kein Kreditantrag</td><td>sehr hoher impliziter Zinssatz</td></tr><tr><td>meist keine banküblichen Sicherheiten nötig (Eigentumsvorbehalt reicht)</td><td>Abhängigkeit vom Lieferanten</td></tr><tr><td>wächst automatisch mit dem Einkaufsvolumen</td><td>nur kurzfristig, an einzelne Lieferungen gebunden</td></tr><tr><td>schont die Kreditlinie bei der Bank</td><td>Zahlungsverzug schadet der Lieferbeziehung</td></tr></tbody></table><p>Sinnvoll ist der Lieferantenkredit vor allem dann, wenn ein Unternehmen keine anderen Finanzierungsquellen mehr hat, etwa weil die Kreditlinie ausgeschöpft ist, oder wenn kein Skonto angeboten wird – dann ist das Zahlungsziel tatsächlich gratis und du solltest es voll ausnutzen. Für die <a href=\"/lernen/liquiditaetsplanung\">Liquiditätsplanung</a> ist er ein wichtiger Hebel: Zahlungsziele bei Lieferanten verschieben Auszahlungen nach hinten.</p><h3>Abgrenzung zu verwandten Begriffen</h3><ul><li><strong>Skonto buchen:</strong> Wie du Skonto mit Vorsteuerkorrektur verbuchst, gehört in die Buchführung und steht unter <a href=\"/lernen/skonto-buchen\">Skonto buchen</a>. Hier geht es um die Finanzierungsentscheidung.</li><li><strong>Kundenkredit (Kundenanzahlung):</strong> Das Gegenstück – hier zahlt der Kunde vorab und finanziert damit den Lieferanten.</li><li><strong>Factoring:</strong> Der Lieferant verkauft seine Forderung aus dem Lieferantenkredit an eine Factoringgesellschaft, um selbst schneller an Geld zu kommen.</li></ul>"
+    }
+  ],
+  "fehler": [
+    "Mit dem vollen Zahlungsziel als Laufzeit rechnen: Die Kredittage sind nur Zahlungsziel minus Skontofrist, denn bis zum Ende der Skontofrist kostet das Warten nichts. Bei 10 und 40 Tagen also 30 Tage, nicht 40.",
+    "Den Skontosatz auf 100 % statt auf 100 % minus Skonto beziehen und das als exakten Wert ausgeben: Das ist die Faustformel. Exakt ist \\( \\frac{3}{97} \\), weil nur der gekürzte Betrag finanziert wird.",
+    "Den Skontoertrag mit den Zinsen auf den vollen Rechnungsbetrag vergleichen: Aufgenommen wird nur der Zahlbetrag nach Skonto, also 48.500 € statt 50.000 €.",
+    "Den Lieferantenkredit für kostenlos halten, weil keine Zinsen auf der Rechnung stehen: Der Preis ist das entgangene Skonto. Kostenlos ist das Zahlungsziel nur, wenn kein Skonto angeboten wird.",
+    "Sofort statt am letzten Tag der Skontofrist zahlen: Das verschenkt zinsfreie Tage. Optimal zahlst du entweder am letzten Skontotag oder am letzten Tag des Zahlungsziels."
+  ],
+  "faq": [
+    {
+      "q": "Wie berechnet man den Zinssatz eines Lieferantenkredits?",
+      "a": "Du teilst den Skontosatz durch 100 % minus Skontosatz und multiplizierst mit 360 geteilt durch die Differenz aus Zahlungsziel und Skontofrist. Bei 3 % Skonto, 10 Tagen Skontofrist und 40 Tagen Ziel ergibt das rund 37,11 % pro Jahr. Die Faustformel Skontosatz mal 360 durch Tagesdifferenz liefert 36 %."
+    },
+    {
+      "q": "Warum ist der Lieferantenkredit so teuer?",
+      "a": "Weil du den Skontobetrag schon für wenige zusätzliche Kredittage bezahlst. 3 % für 30 Tage entsprechen hochgerechnet einem Jahreszins von über 37 %. Ein Kontokorrentkredit ist zwar auch teurer als ein Darlehen, liegt aber in aller Regel deutlich darunter."
+    },
+    {
+      "q": "Wann lohnt sich ein Lieferantenkredit?",
+      "a": "Wenn kein Skonto angeboten wird, ist das Zahlungsziel kostenlos und du solltest es ausnutzen. Mit Skonto lohnt sich der Lieferantenkredit nur, wenn keine billigere Finanzierung verfügbar ist, etwa weil die Kreditlinie bei der Bank ausgeschöpft ist."
+    },
+    {
+      "q": "Ist der Lieferantenkredit Eigen- oder Fremdkapital?",
+      "a": "Fremdkapital. Er steht in der Bilanz als Verbindlichkeit aus Lieferungen und Leistungen und zählt zur kurzfristigen Außenfinanzierung. Gesichert wird er meist über einen Eigentumsvorbehalt an der gelieferten Ware."
+    },
+    {
+      "q": "Rechnet man beim Skonto-Zinssatz mit 360 oder 365 Tagen?",
+      "a": "In den meisten deutschen Lehrbüchern und Klausuren mit 360 Tagen (Bankjahr). Manche Dozenten verlangen 365 Tage. Die Methode bleibt gleich, nur der Faktor in der Formel ändert sich, daher immer die Vorgabe in der Aufgabe prüfen."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Zahlungsbedingung: 2 % Skonto bei Zahlung innerhalb von 10 Tagen, Zahlungsziel 30 Tage. Wie lange läuft der Lieferantenkredit?",
+      "o": [
+        "30 Tage",
+        "10 Tage",
+        "20 Tage",
+        "40 Tage"
+      ],
+      "r": 2,
+      "e": "Kredittage sind Zahlungsziel minus Skontofrist: \\( 30 - 10 = 20 \\) Tage. Die ersten 10 Tage sind ohnehin kostenlos."
+    },
+    {
+      "q": "Wie hoch ist der exakte Jahreszins bei 2 % Skonto, 10 Tagen Skontofrist und 30 Tagen Zahlungsziel (360 Tage)?",
+      "o": [
+        "ca. 36,73 %",
+        "36,00 %",
+        "ca. 24,49 %",
+        "ca. 72,00 %"
+      ],
+      "r": 0,
+      "e": "\\( \\frac{2}{98} \\cdot \\frac{360}{20} \\approx 36{,}73\\,\\% \\). 36 % wäre die Faustformel, 24,49 % entsteht, wenn man fälschlich mit 30 statt 20 Kredittagen rechnet."
+    },
+    {
+      "q": "Ein Unternehmen kann Skonto (Lieferantenkredit-Zins 37 %) nur mit einem Kontokorrentkredit zu 12 % finanzieren. Was ist richtig?",
+      "o": [
+        "Auf Skonto verzichten, weil ein Kredit nötig wäre",
+        "Es ist egal, beide Varianten kosten gleich viel",
+        "Nur bei Faustformel-Zins unter 12 % Skonto ziehen",
+        "Skonto ziehen und mit dem Kontokorrent finanzieren"
+      ],
+      "r": 3,
+      "e": "Der Bankkredit kostet 12 %, der Lieferantenkredit rund 37 %. Die günstigere Finanzierung gewinnt, also Skonto ziehen und kurzfristig über das Kontokorrent zahlen."
+    }
+  ],
+  "verwandt": [
+    "skonto-buchen",
+    "kontokorrentkredit",
+    "finanzierungsarten",
+    "effektivzins",
+    "liquiditaetsplanung"
+  ],
+  "ask": "den Lieferantenkredit – wie man aus Skonto den Jahreszins berechnet und entscheidet, ob sich Skontoziehen mit Bankkredit lohnt"
+}

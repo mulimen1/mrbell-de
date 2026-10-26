@@ -1,0 +1,116 @@
+{
+  "slug": "kapitalerhoehung",
+  "name": "Kapitalerhöhung",
+  "title": "Kapitalerhöhung einfach erklärt – Bezugsrecht & Beispiel",
+  "meta": "Kapitalerhöhung verständlich erklärt: Arten nach AktG, Bezugsverhältnis, Mischkurs und Wert des Bezugsrechts, Buchung mit Agio – mit Rechenbeispiel.",
+  "h1": "Kapitalerhöhung einfach erklärt",
+  "kurz": "Bei einer Kapitalerhöhung wird das gezeichnete Kapital einer Kapitalgesellschaft erhöht, meist durch Ausgabe neuer Aktien gegen Einlagen. Das Unternehmen erhält frisches Eigenkapital, die Altaktionäre bekommen ein Bezugsrecht, damit ihr Anteil nicht verwässert. Daneben gibt es genehmigtes und bedingtes Kapital sowie die Kapitalerhöhung aus Gesellschaftsmitteln ohne Geldzufluss.",
+  "keywords": [
+    "kapitalerhöhung",
+    "bezugsrecht berechnen",
+    "mischkurs kapitalerhöhung",
+    "bezugsverhältnis",
+    "kapitalerhöhung aus gesellschaftsmitteln",
+    "genehmigtes kapital",
+    "bedingtes kapital",
+    "kapitalerhöhung buchen"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist eine Kapitalerhöhung?",
+      "html": "<p>Eine <strong>Kapitalerhöhung</strong> ist die Erhöhung des gezeichneten Kapitals einer Kapitalgesellschaft – bei der AG des Grundkapitals, bei der GmbH des Stammkapitals. Im Normalfall geben die Eigentümer neues Geld in die Gesellschaft und erhalten dafür neue Anteile. Das ist der Kern der Beteiligungsfinanzierung, also der Außen- und Eigenfinanzierung in der Matrix der <a href=\"/lernen/finanzierungsarten\">Finanzierungsarten</a>.</p><p>Typische Anlässe sind große Investitionen, Übernahmen, der Abbau von Schulden oder die Stärkung der <a href=\"/lernen/eigenkapitalquote\">Eigenkapitalquote</a> nach Verlusten. Gegenüber einem Kredit hat frisches Eigenkapital zwei Vorteile: Es steht unbefristet zur Verfügung und verursacht keine festen Zinszahlungen. Der Preis: Neue Anteile verteilen künftige Gewinne und Stimmrechte auf mehr Köpfe.</p><p>Weil das gezeichnete Kapital in der Satzung steht, ist jede Kapitalerhöhung eine Satzungsänderung. Bei der AG beschließt sie die Hauptversammlung mit mindestens drei Vierteln des vertretenen Grundkapitals (§ 182 AktG), bei der GmbH die Gesellschafterversammlung mit drei Vierteln der abgegebenen Stimmen, notariell beurkundet (§§ 53, 55 GmbHG). Wirksam wird sie mit der Eintragung ins Handelsregister.</p>"
+    },
+    {
+      "h2": "Welche Arten der Kapitalerhöhung gibt es?",
+      "html": "<p>Das Aktiengesetz unterscheidet vier Formen. Die ersten drei bringen der AG neues Geld, die vierte nicht.</p><table><thead><tr><th>Art</th><th>Kern</th><th>Geld fließt zu?</th></tr></thead><tbody><tr><td>Ordentliche Kapitalerhöhung (§§ 182 ff. AktG)</td><td>Hauptversammlung beschließt Ausgabe neuer Aktien gegen Einlagen</td><td>ja</td></tr><tr><td>Genehmigtes Kapital (§§ 202 ff. AktG)</td><td>Hauptversammlung ermächtigt den Vorstand, das Kapital innerhalb von höchstens fünf Jahren bis zu einem Betrag zu erhöhen; Grenze: die Hälfte des Grundkapitals</td><td>ja</td></tr><tr><td>Bedingte Kapitalerhöhung (§§ 192 ff. AktG)</td><td>Kapital wird nur so weit erhöht, wie Umtausch- oder Bezugsrechte ausgeübt werden, etwa aus Wandelanleihen oder Mitarbeiteroptionen</td><td>ja</td></tr><tr><td>Kapitalerhöhung aus Gesellschaftsmitteln (§§ 207 ff. AktG)</td><td>Rücklagen werden in gezeichnetes Kapital umgewandelt, Aktionäre erhalten Berichtigungsaktien („Gratisaktien“)</td><td>nein</td></tr></tbody></table><p>Das genehmigte Kapital ist in der Praxis besonders wichtig, weil der Vorstand damit schnell auf günstige Marktphasen reagieren kann, ohne eine Hauptversammlung einzuberufen. Die Kapitalerhöhung aus Gesellschaftsmitteln ist dagegen eine reine Umbuchung im Eigenkapital: Die <a href=\"/lernen/ruecklagen\">Rücklagen</a> sinken, das gezeichnete Kapital steigt um denselben Betrag, die Bilanzsumme bleibt gleich. Man nennt sie deshalb auch nominelle Kapitalerhöhung.</p>"
+    },
+    {
+      "h2": "Bezugsrecht, Bezugsverhältnis und Mischkurs",
+      "html": "<p>Neue Aktien werden meist unter dem aktuellen Börsenkurs ausgegeben, damit die Kapitalerhöhung sicher platziert wird. Dadurch sinkt der Kurs nach der Emission. Damit die Altaktionäre weder Vermögen noch Stimmrechtsanteil verlieren, steht ihnen ein <strong>Bezugsrecht</strong> zu (§ 186 AktG): Sie dürfen die neuen Aktien im Verhältnis ihres bisherigen Anteils zuerst kaufen – oder das Bezugsrecht an der Börse verkaufen.</p><p>Die Klausurformeln mit \\( a \\) = Zahl der alten Aktien, \\( n \\) = Zahl der neuen Aktien, \\( K_a \\) = Kurs der alten Aktie und \\( K_n \\) = Ausgabekurs der neuen Aktie:</p><div class=\"formel\">\\[ \\text{Bezugsverhältnis} = a : n \\]\\[ K_m = \\frac{a \\cdot K_a + n \\cdot K_n}{a + n} \\]\\[ B = K_a - K_m = \\frac{K_a - K_n}{\\frac{a}{n} + 1} \\]</div><p>\\( K_m \\) ist der rechnerische Mischkurs nach der Kapitalerhöhung, \\( B \\) der rechnerische Wert eines Bezugsrechts. Jede alte Aktie bringt genau ein Bezugsrecht, für eine neue Aktie brauchst du \\( \\frac{a}{n} \\) Bezugsrechte.</p><p>Das Bezugsrecht kann ausgeschlossen werden, etwa wenn die neuen Aktien an einen strategischen Investor gehen. Dafür braucht es einen sachlichen Grund und eine Dreiviertelmehrheit. Bei börsennotierten Gesellschaften ist ein vereinfachter Ausschluss möglich, wenn die Barkapitalerhöhung höchstens 20 % des Grundkapitals beträgt und der Ausgabebetrag den Börsenkurs nicht wesentlich unterschreitet (§ 186 Abs. 3 Satz 4 AktG, Stand 2026; bis Ende 2023 lag die Grenze bei 10 %).</p>"
+    },
+    {
+      "h2": "Beispiel: Kapitalerhöhung gegen Einlagen durchrechnen",
+      "html": "<div class=\"beispiel\"><p>Die Solar AG hat ein Grundkapital von 10.000.000 €, eingeteilt in 10.000.000 Stückaktien (rechnerischer Anteil am Grundkapital 1 € je Aktie). Der Börsenkurs liegt bei 48 €. Für eine neue Fabrik beschließt die Hauptversammlung eine Kapitalerhöhung im Verhältnis 4 : 1 zum Ausgabekurs von 36 €.</p><p><strong>Schritt 1: Zahl der neuen Aktien und Emissionserlös</strong><br>\\( \\frac{10.000.000}{4} = 2.500.000 \\) neue Aktien<br>\\( 2.500.000 \\cdot 36 = 90.000.000 \\) € Mittelzufluss (vor Emissionskosten)</p><p><strong>Schritt 2: Aufteilung im Eigenkapital</strong><br>Gezeichnetes Kapital: \\( 2.500.000 \\cdot 1 = 2.500.000 \\) €<br>Kapitalrücklage (Agio): \\( 2.500.000 \\cdot (36 - 1) = 87.500.000 \\) €</p><p>Buchungssatz: Bank 90.000.000 € an Gezeichnetes Kapital 2.500.000 € und Kapitalrücklage 87.500.000 €.</p><p><strong>Schritt 3: Mischkurs</strong><br>\\( K_m = \\frac{4 \\cdot 48 + 1 \\cdot 36}{4 + 1} = \\frac{228}{5} = 45{,}60 \\) €</p><p><strong>Schritt 4: Wert des Bezugsrechts</strong><br>\\( B = \\frac{48 - 36}{\\frac{4}{1} + 1} = \\frac{12}{5} = 2{,}40 \\) €<br>Probe: \\( 48 - 45{,}60 = 2{,}40 \\) € ✓</p><p><strong>Schritt 5: Was passiert mit einer Aktionärin mit 400 Aktien?</strong><br>Vorher: \\( 400 \\cdot 48 = 19.200 \\) €</p><table><thead><tr><th></th><th>Variante A: Bezugsrecht ausüben</th><th>Variante B: Bezugsrechte verkaufen</th></tr></thead><tbody><tr><td>Aktien danach</td><td>500</td><td>400</td></tr><tr><td>Wert der Aktien</td><td>\\( 500 \\cdot 45{,}60 = 22.800 \\) €</td><td>\\( 400 \\cdot 45{,}60 = 18.240 \\) €</td></tr><tr><td>Zahlung / Erlös</td><td>−3.600 € (100 × 36 €)</td><td>+960 € (400 × 2,40 €)</td></tr><tr><td>Vermögen netto</td><td>19.200 €</td><td>19.200 €</td></tr></tbody></table></div><p>Das Ergebnis ist der Kern jeder Klausuraufgabe: Rechnerisch verliert die Aktionärin nichts, egal ob sie mitzieht oder verkauft. Der Kursrückgang von 48 € auf 45,60 € wird genau durch den Wert des Bezugsrechts ausgeglichen. Verlieren würde sie nur, wenn sie die Bezugsrechte verfallen lässt – dann fehlen ihr 960 €. In Variante B sinkt außerdem ihr Stimmrechtsanteil von 0,0040 % auf 0,0032 %, weil sich das Kapital auf 12.500.000 Aktien verteilt.</p>"
+    },
+    {
+      "h2": "Kapitalerhöhung aus Gesellschaftsmitteln: kein frisches Geld",
+      "html": "<p>Angenommen, die Solar AG wandelt stattdessen 1.000.000 € ihrer Gewinnrücklagen in Grundkapital um und gibt Berichtigungsaktien im Verhältnis 10 : 1 aus. Die Aktionäre zahlen nichts, das Unternehmen erhält nichts. Weil derselbe Unternehmenswert danach auf mehr Aktien verteilt ist, sinkt der Kurs rechnerisch:</p><div class=\"formel\">\\[ K_{\\text{neu}} = \\frac{10 \\cdot 48}{10 + 1} \\approx 43{,}64 \\text{ €} \\]</div><p>Wer vorher 10 Aktien zu 48 € hatte (480 €), hat danach 11 Aktien zu rund 43,64 € – wieder 480 €. Die „Gratisaktie“ ist also nicht gratis, sondern ein Aktiensplit mit Umbuchung im Eigenkapital. Sinnvoll ist sie, um einen hohen Kurs optisch zu senken (bessere Handelbarkeit) oder um Rücklagen dauerhaft an das Unternehmen zu binden, weil gezeichnetes Kapital strenger gegen Ausschüttung geschützt ist.</p>"
+    },
+    {
+      "h2": "Vor- und Nachteile und Abgrenzung",
+      "html": "<table><thead><tr><th>Vorteile</th><th>Nachteile</th></tr></thead><tbody><tr><td>unbefristetes Kapital ohne feste Zinsen und Tilgung</td><td>Verwässerung von Stimmrecht und Gewinn je Aktie</td></tr><tr><td>höhere Eigenkapitalquote, bessere Bonität für spätere Kredite</td><td>hohe Emissionskosten (Banken, Prospekt, Beratung)</td></tr><tr><td>Agio stärkt die Kapitalrücklage</td><td>Eigenkapitalgeber verlangen eine höhere Rendite als Kreditgeber</td></tr><tr><td>Verluste werden ohne Insolvenzrisiko getragen</td><td>abhängig von der Börsenlage; Ankündigung drückt oft den Kurs</td></tr></tbody></table><p>Ob sich Eigenkapital lohnt, hängt auch vom <a href=\"/lernen/leverage-effekt\">Leverage-Effekt</a> ab: Solange die Gesamtkapitalrendite über dem Fremdkapitalzins liegt, steigert zusätzliches Fremdkapital die Eigenkapitalrendite – eine Kapitalerhöhung senkt sie dann rechnerisch, verringert aber das Risiko.</p><h3>Abgrenzung</h3><ul><li><strong>Selbstfinanzierung:</strong> Einbehaltene Gewinne erhöhen das Eigenkapital ebenfalls, aber von innen und ohne neue Anteile.</li><li><strong>Kapitalherabsetzung:</strong> das Gegenstück, etwa zur Verlustdeckung oder Rückzahlung an Aktionäre.</li><li><strong>Organe der AG:</strong> Wer was beschließt (Hauptversammlung, Vorstand, Aufsichtsrat), steht unter <a href=\"/lernen/aktiengesellschaft\">Aktiengesellschaft und ihre Organe</a>.</li></ul>"
+    }
+  ],
+  "fehler": [
+    "Den gesamten Emissionserlös als gezeichnetes Kapital buchen: Nur der Nennbetrag bzw. rechnerische Anteil geht ins gezeichnete Kapital, das Aufgeld (Agio) kommt in die Kapitalrücklage. Im Beispiel 2,5 Mio. € und 87,5 Mio. €.",
+    "Das Bezugsverhältnis umdrehen: 4 : 1 bedeutet 4 alte Aktien (bzw. Bezugsrechte) für 1 neue Aktie. In der Bezugsrechtsformel steht deshalb \\( \\frac{a}{n} = 4 \\), nicht \\( \\frac{1}{4} \\).",
+    "Den Mischkurs als einfachen Durchschnitt aus altem Kurs und Ausgabekurs berechnen: \\( \\frac{48 + 36}{2} = 42 \\) € ist falsch. Die Kurse müssen mit der Zahl der Aktien gewichtet werden, das ergibt 45,60 €.",
+    "Behaupten, Altaktionäre verlieren durch die Kapitalerhöhung Geld: Rechnerisch gleicht der Wert des Bezugsrechts den Kursrückgang genau aus. Verlust entsteht nur, wenn man das Bezugsrecht verfallen lässt.",
+    "Die Kapitalerhöhung aus Gesellschaftsmitteln als Finanzierung werten: Es fließt kein Geld zu. Sie ist eine Umbuchung von Rücklagen in gezeichnetes Kapital, die Bilanzsumme bleibt gleich."
+  ],
+  "faq": [
+    {
+      "q": "Wie berechnet man den Wert des Bezugsrechts?",
+      "a": "Du teilst die Differenz aus altem Kurs und Ausgabekurs durch das Bezugsverhältnis plus 1. Bei einem Kurs von 48 €, einem Ausgabekurs von 36 € und einem Verhältnis von 4 : 1 ergibt das 12 € geteilt durch 5, also 2,40 €. Alternativ ziehst du vom alten Kurs den Mischkurs ab."
+    },
+    {
+      "q": "Was ist der Mischkurs bei einer Kapitalerhöhung?",
+      "a": "Der Mischkurs ist der rechnerische Kurs nach der Kapitalerhöhung. Er ergibt sich als gewichteter Durchschnitt aus dem Kurs der alten Aktien und dem Ausgabekurs der neuen Aktien, gewichtet mit ihrer Anzahl. Der tatsächliche Börsenkurs kann davon abweichen."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen genehmigtem und bedingtem Kapital?",
+      "a": "Beim genehmigten Kapital ermächtigt die Hauptversammlung den Vorstand, das Kapital innerhalb von höchstens fünf Jahren selbst zu erhöhen. Beim bedingten Kapital wird es nur so weit erhöht, wie Inhaber von Wandelanleihen oder Aktienoptionen ihre Rechte ausüben. Beim genehmigten Kapital entscheidet also der Vorstand über den Zeitpunkt, beim bedingten Kapital die Rechteinhaber."
+    },
+    {
+      "q": "Wie bucht man eine Kapitalerhöhung?",
+      "a": "Bei Ausgabe über dem Nennbetrag lautet der Buchungssatz: Bank an Gezeichnetes Kapital (Nennbetrag) und Kapitalrücklage (Agio). Bei einer Kapitalerhöhung aus Gesellschaftsmitteln bucht man dagegen Rücklagen an Gezeichnetes Kapital, ohne Bankbewegung."
+    },
+    {
+      "q": "Sind Gratisaktien wirklich gratis?",
+      "a": "Nein. Bei einer Kapitalerhöhung aus Gesellschaftsmitteln fließt kein Geld zu, der Unternehmenswert verteilt sich nur auf mehr Aktien. Der Kurs sinkt entsprechend, sodass das Vermögen der Aktionäre rechnerisch gleich bleibt."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Bei welcher Form der Kapitalerhöhung fließt der Gesellschaft kein neues Geld zu?",
+      "o": [
+        "Ordentliche Kapitalerhöhung",
+        "Kapitalerhöhung aus Gesellschaftsmitteln",
+        "Genehmigtes Kapital",
+        "Bedingte Kapitalerhöhung"
+      ],
+      "r": 1,
+      "e": "Bei der Kapitalerhöhung aus Gesellschaftsmitteln werden nur Rücklagen in gezeichnetes Kapital umgebucht. Die Aktionäre erhalten Berichtigungsaktien, zahlen aber nichts ein."
+    },
+    {
+      "q": "Kurs der alten Aktie 60 €, Ausgabekurs 45 €, Bezugsverhältnis 2 : 1. Wie hoch ist der rechnerische Wert des Bezugsrechts?",
+      "o": [
+        "7,50 €",
+        "15,00 €",
+        "3,00 €",
+        "5,00 €"
+      ],
+      "r": 3,
+      "e": "\\( B = \\frac{60 - 45}{\\frac{2}{1} + 1} = \\frac{15}{3} = 5 \\) €. Probe über den Mischkurs: \\( \\frac{2 \\cdot 60 + 45}{3} = 55 \\) €, und \\( 60 - 55 = 5 \\) €."
+    },
+    {
+      "q": "Eine AG gibt 1.000.000 neue Aktien (rechnerischer Anteil 1 €) zu 25 € aus. Wie viel wird in die Kapitalrücklage gebucht?",
+      "o": [
+        "24.000.000 €",
+        "25.000.000 €",
+        "1.000.000 €",
+        "0 €"
+      ],
+      "r": 0,
+      "e": "Ins gezeichnete Kapital gehen \\( 1.000.000 \\cdot 1 = 1.000.000 \\) €, das Agio von \\( 1.000.000 \\cdot (25 - 1) = 24.000.000 \\) € in die Kapitalrücklage."
+    }
+  ],
+  "verwandt": [
+    "finanzierungsarten",
+    "aktiengesellschaft",
+    "ruecklagen",
+    "eigenkapitalquote",
+    "leverage-effekt"
+  ],
+  "ask": "die Kapitalerhöhung – Arten nach Aktiengesetz, Bezugsverhältnis, Mischkurs und Wert des Bezugsrechts sowie die Buchung mit Agio an einem Beispiel"
+}

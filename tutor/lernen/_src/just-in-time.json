@@ -1,0 +1,115 @@
+{
+ "slug": "just-in-time",
+ "name": "Just in Time (JIT)",
+ "title": "Just in Time einfach erklärt – mit Rechenbeispiel",
+ "meta": "Just in Time verständlich erklärt: Prinzip, Voraussetzungen, Just in Sequence, Vor- und Nachteile – mit Kostenvergleich JIT vs. Lagerhaltung als Beispiel.",
+ "h1": "Just in Time einfach erklärt",
+ "kurz": "Just in Time (JIT) ist ein Beschaffungs- und Produktionsprinzip, bei dem Material genau dann in der benötigten Menge angeliefert wird, wenn es in der Produktion gebraucht wird. Lagerbestände und Kapitalbindung sinken drastisch. Der Preis dafür: häufigere Lieferungen, enge Abhängigkeit vom Lieferanten und ein hohes Risiko, wenn eine Lieferung ausfällt.",
+ "keywords": [
+  "just in time",
+  "just in time produktion",
+  "jit prinzip",
+  "just in sequence",
+  "just in time vor und nachteile",
+  "fertigungssynchrone beschaffung",
+  "jit beispiel"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was bedeutet Just in Time?",
+   "html": "<p><strong>Just in Time</strong> heißt wörtlich „gerade rechtzeitig“. Das Material kommt nicht ins Lager, sondern direkt an die Linie – in der Menge, die gerade verbaut wird, und zu dem Zeitpunkt, zu dem sie gebraucht wird. Im deutschen Lehrbuch heißt das auch <strong>fertigungssynchrone Beschaffung</strong>.</p><p>Das Konzept stammt aus dem Toyota-Produktionssystem und ist ein Kernbaustein des <a href=\"/lernen/lean-management\">Lean Managements</a>. Die Grundidee: Lager sind Verschwendung. Sie binden Kapital, brauchen Fläche und verdecken Probleme wie unzuverlässige Lieferanten oder Qualitätsmängel, weil man im Notfall einfach ins Lager greift.</p><p>JIT folgt dem <strong>Pull-Prinzip</strong>: Der tatsächliche Verbrauch löst den Nachschub aus, nicht eine Prognose. In der Fabrik wird das oft mit <strong>Kanban</strong> umgesetzt – leere Behälter oder Karten signalisieren der vorgelagerten Stelle, dass nachgeliefert werden soll.</p><div class=\"merke\">Just in Time ersetzt das Lager durch einen perfekt getakteten Materialfluss. Das spart Kapital, macht die Produktion aber abhängig von pünktlichen Lieferungen.</div>"
+  },
+  {
+   "h2": "Was ist der Unterschied zwischen Just in Time und Just in Sequence?",
+   "html": "<p><strong>Just in Sequence (JIS)</strong> ist die Steigerung von JIT: Die Teile kommen nicht nur zur richtigen Zeit, sondern auch in der richtigen <em>Reihenfolge</em>. Ein Sitzhersteller liefert die Sitze exakt in der Abfolge, in der die Fahrzeuge mit ihrer individuellen Ausstattung (Farbe, Bezug, Sitzheizung) über das Band laufen. Der Monteur greift einfach den nächsten Sitz.</p><table><thead><tr><th>Merkmal</th><th>Lagerbeschaffung</th><th>Just in Time</th><th>Just in Sequence</th></tr></thead><tbody><tr><td>Lieferrhythmus</td><td>Wochen bis Monate</td><td>täglich bis stündlich</td><td>stündlich, teils minütlich</td></tr><tr><td>Bestand</td><td>hoch</td><td>sehr gering</td><td>nahezu null</td></tr><tr><td>Reihenfolge</td><td>egal</td><td>egal</td><td>exakt nach Produktionsplan</td></tr><tr><td>Risiko bei Störung</td><td>gering</td><td>hoch</td><td>sehr hoch</td></tr></tbody></table><p>Typisch ist JIS für variantenreiche, großvolumige Teile in der Automobilindustrie: Sitze, Cockpits, Stoßfänger. Lieferanten siedeln sich dafür oft in Zulieferparks direkt neben dem Werk an.</p>"
+  },
+  {
+   "h2": "Welche Voraussetzungen braucht Just in Time?",
+   "html": "<p>JIT funktioniert nicht überall. Diese Bedingungen sollten erfüllt sein:</p><ul><li><strong>Planbarer, gleichmäßiger Bedarf:</strong> Ideal sind Teile mit stabilem Verbrauch – in der <a href=\"/lernen/xyz-analyse\">XYZ-Analyse</a> also X-Teile.</li><li><strong>Hoher Wert:</strong> Je teurer das Teil, desto mehr spart der Lagerabbau. Klassisch sind deshalb AX-Teile aus der Kombination mit der <a href=\"/lernen/abc-analyse\">ABC-Analyse</a> die JIT-Kandidaten.</li><li><strong>Zuverlässiger Lieferant</strong> mit hoher Liefertreue und Qualität. Eine Wareneingangsprüfung ist bei JIT kaum möglich, der Lieferant garantiert die Qualität selbst.</li><li><strong>Kurze, sichere Transportwege</strong> und enge Datenanbindung (Lieferabrufe per EDI).</li><li><strong>Langfristige Partnerschaft</strong> mit Rahmenverträgen statt ständigem Lieferantenwechsel.</li></ul><p>Für billige Kleinteile wie Schrauben (C-Teile) lohnt sich der Aufwand dagegen nicht. Hier ist ein Lager mit Bestellpunktverfahren oder ein Kanban-Regal günstiger.</p><h3>Kanban als Steuerungsinstrument</h3><p>Innerhalb der Fabrik wird JIT oft mit Kanban gesteuert. Zwischen zwei Stationen kreist eine feste Zahl von Behältern. Ist ein Behälter leer, geht er mit seiner Karte zurück zur vorgelagerten Station – das ist der Auftrag, genau diesen Behälter wieder zu füllen. Ohne Karte wird nicht produziert. Die Zahl der Behälter begrenzt so automatisch den Bestand zwischen den Stationen. Will man Bestände weiter senken, nimmt man einen Behälter aus dem Kreislauf und sieht, wo es zuerst hakt.</p>"
+  },
+  {
+   "h2": "Beispiel: Lohnt sich Just in Time? Kostenvergleich",
+   "html": "<div class=\"beispiel\"><p>Ein Fahrzeughersteller braucht pro Jahr 48.000 Sitzgarnituren zu je 250 €. Gerechnet wird mit 240 Produktionstagen, also 200 Garnituren pro Tag. Lagerhaltungskostensatz (Zinsen auf gebundenes Kapital, Schwund, Versicherung): 12 % pro Jahr.</p><p><strong>Variante A – Lagerbeschaffung:</strong> 12 Lieferungen à 4.000 Stück, Sicherheitsbestand 1.000 Stück, Lagerfläche 40.000 € pro Jahr, Transport 400 € je Lieferung.<br><strong>Variante B – Just in Time:</strong> tägliche Lieferung à 200 Stück, Sicherheitsbestand 50 Stück, Pufferfläche 5.000 € pro Jahr, Transport 180 € je Lieferung, der Lieferant verlangt 1 € Aufschlag pro Garnitur.</p><p><strong>Schritt 1: Durchschnittlicher Bestand</strong><br>A: \\( \\frac{4.000}{2} + 1.000 = 3.000 \\) Stück<br>B: \\( \\frac{200}{2} + 50 = 150 \\) Stück</p><p><strong>Schritt 2: Gebundenes Kapital und Kapital-/Lagerkosten</strong><br>A: \\( 3.000 \\cdot 250 = 750.000 \\) €; \\( 750.000 \\cdot 12\\,\\% = 90.000 \\) €<br>B: \\( 150 \\cdot 250 = 37.500 \\) €; \\( 37.500 \\cdot 12\\,\\% = 4.500 \\) €</p><p><strong>Schritt 3: Transportkosten</strong><br>A: \\( 12 \\cdot 400 = 4.800 \\) €<br>B: \\( 240 \\cdot 180 = 43.200 \\) €</p><p><strong>Schritt 4: JIT-Aufschlag</strong><br>B: \\( 48.000 \\cdot 1 = 48.000 \\) €</p><table><thead><tr><th>Kostenposition</th><th>A: Lager</th><th>B: JIT</th></tr></thead><tbody><tr><td>Kapital- und Lagerkosten</td><td>90.000 €</td><td>4.500 €</td></tr><tr><td>Lagerfläche</td><td>40.000 €</td><td>5.000 €</td></tr><tr><td>Transport</td><td>4.800 €</td><td>43.200 €</td></tr><tr><td>Preisaufschlag</td><td>0 €</td><td>48.000 €</td></tr><tr><td><strong>Summe</strong></td><td><strong>134.800 €</strong></td><td><strong>100.700 €</strong></td></tr></tbody></table><p>JIT spart \\( 134.800 - 100.700 = 34.100 \\) € pro Jahr.</p><p><strong>Schritt 5: Risiko einpreisen</strong><br>Eine Stunde Bandstillstand kostet das Werk 60.000 € an entgangenem Deckungsbeitrag. Wie viel Stillstand verträgt die Ersparnis?<br>\\( \\frac{34.100}{60.000} \\cdot 60 \\text{ min} \\approx 34 \\text{ min} \\) pro Jahr</p></div><p>Ergebnis: Rechnerisch ist JIT klar günstiger, aber schon gut eine halbe Stunde Stillstand pro Jahr frisst die Ersparnis auf. Die Entscheidung hängt also an der Liefertreue des Lieferanten. Nebenbei steigt die Lagerumschlagshäufigkeit von \\( \\frac{48.000}{3.000} = 16 \\) auf \\( \\frac{48.000}{150} = 320 \\) – mehr dazu bei den <a href=\"/lernen/lagerkennzahlen\">Lagerkennzahlen</a>.</p>"
+  },
+  {
+   "h2": "Vor- und Nachteile von Just in Time",
+   "html": "<p><strong>Vorteile:</strong></p><ul><li>Geringe Bestände, weniger gebundenes Kapital, bessere Liquidität,</li><li>weniger Lagerfläche, weniger Schwund und Veralterung,</li><li>Probleme werden sofort sichtbar und müssen gelöst werden – ein Treiber für kontinuierliche Verbesserung (Kaizen),</li><li>kürzere Durchlaufzeiten.</li></ul><p><strong>Nachteile:</strong></p><ul><li>Hohe Abhängigkeit vom Lieferanten; ein Ausfall stoppt sofort die Produktion,</li><li>anfällig für Streiks, Staus, Unwetter, Grenzkontrollen und globale Krisen,</li><li>mehr Transporte, also mehr Verkehr und Emissionen,</li><li>der Lagerbestand wird oft nur zum Lieferanten verschoben, der ihn über höhere Preise weiterberechnet,</li><li>Mengenrabatte für große Bestellungen entfallen.</li></ul><p>Nach den Lieferkettenstörungen der vergangenen Jahre setzen viele Unternehmen auf eine Mischform: JIT für stabile, gut planbare Teile, dazu strategische Sicherheitsbestände für kritische Komponenten („Just in Case“).</p>"
+  },
+  {
+   "h2": "Abgrenzung zur optimalen Bestellmenge",
+   "html": "<p>Die <a href=\"/lernen/optimale-bestellmenge\">Andler-Formel</a> wägt fixe Bestellkosten gegen Lagerkosten ab und kommt oft auf größere Lose. JIT stellt diese Logik auf den Kopf: Statt Bestellkosten als gegeben hinzunehmen, werden sie durch Rahmenverträge, automatische Abrufe und kurze Wege so weit gesenkt, dass sich kleine Lose lohnen. Sinken die fixen Kosten pro Bestellung gegen null, sinkt auch die optimale Bestellmenge gegen null – die Andler-Formel bestätigt JIT also, sobald die Bestellkosten klein genug sind.</p><p>Vom <strong>Bestellpunktverfahren</strong> unterscheidet sich JIT dadurch, dass es gar keinen nennenswerten Lagerbestand gibt, der einen Meldebestand erreichen könnte. Der Nachschub wird direkt vom Produktionsplan oder vom Verbrauch an der Linie gesteuert.</p>"
+  }
+ ],
+ "fehler": [
+  "Just in Time mit „gar kein Bestand“ gleichsetzen: Auch bei JIT gibt es einen kleinen Puffer für wenige Stunden oder Tage. Der Bestand wird minimiert, nicht abgeschafft.",
+  "JIT für alle Teile empfehlen: Geeignet sind vor allem hochwertige Teile mit gleichmäßigem Bedarf (AX-Teile). Für billige C-Teile oder stark schwankende Z-Teile ist Lagerhaltung meist günstiger.",
+  "Im Kostenvergleich nur die Lagerkosten betrachten: Mehr Transporte, Preisaufschläge des Lieferanten und das Stillstandsrisiko gehören in die Rechnung, sonst sieht JIT immer besser aus, als es ist.",
+  "Just in Time und Just in Sequence verwechseln: JIT bedeutet richtige Menge zur richtigen Zeit, JIS zusätzlich in der exakten Reihenfolge der Produktion.",
+  "Den durchschnittlichen Lagerbestand ohne Sicherheitsbestand berechnen: Er ist halbe Liefermenge plus Sicherheitsbestand, im Beispiel \\( \\frac{4.000}{2} + 1.000 = 3.000 \\) Stück, nicht 2.000."
+ ],
+ "faq": [
+  {
+   "q": "Was ist Just in Time einfach erklärt?",
+   "a": "Just in Time bedeutet, dass Material genau dann und genau in der Menge angeliefert wird, in der es in der Produktion gebraucht wird. Statt eines großen Lagers gibt es einen getakteten Materialfluss vom Lieferanten direkt ans Band. Das spart Lager- und Kapitalkosten, macht die Produktion aber abhängig von pünktlichen Lieferungen."
+  },
+  {
+   "q": "Welche Unternehmen nutzen Just in Time?",
+   "a": "Am bekanntesten ist die Automobilindustrie, wo Sitze, Cockpits oder Reifen just in time oder sogar just in sequence ans Band kommen. Auch Elektronikfertigung, Lebensmittelhandel mit Frischware und Systemgastronomie arbeiten nach dem Prinzip."
+  },
+  {
+   "q": "Was sind die Nachteile von Just in Time?",
+   "a": "Der größte Nachteil ist die Anfälligkeit für Störungen: Bleibt eine Lieferung aus, steht die Produktion. Dazu kommen mehr Transporte, eine starke Abhängigkeit vom Lieferanten und oft höhere Einkaufspreise, weil der Lieferant die Lagerhaltung übernimmt."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Just in Time und Kanban?",
+   "a": "Just in Time ist das Ziel: Material genau dann bereitstellen, wenn es gebraucht wird. Kanban ist ein Werkzeug, um dieses Ziel zu erreichen – Karten oder leere Behälter melden der vorgelagerten Stelle den Verbrauch und lösen Nachschub aus."
+  },
+  {
+   "q": "Für welche Teile eignet sich Just in Time?",
+   "a": "Für Teile mit hohem Wert und gleichmäßigem, gut planbarem Bedarf, also AX-Teile aus der kombinierten ABC-XYZ-Analyse. Außerdem sollte der Lieferant zuverlässig und räumlich nah sein. Billige oder stark schwankende Teile lagert man besser."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Für welche Teile eignet sich Just in Time am besten?",
+   "o": [
+    "C-Teile mit unregelmäßigem Bedarf",
+    "A-Teile mit gleichmäßigem Bedarf",
+    "Ersatzteile mit seltenem Bedarf",
+    "Alle Teile gleichermaßen"
+   ],
+   "r": 1,
+   "e": "JIT lohnt sich, wenn viel Kapital gebunden ist (A-Teil) und der Bedarf gut planbar ist (X-Teil). Bei unregelmäßigem Bedarf wäre das Ausfallrisiko zu hoch."
+  },
+  {
+   "q": "Ein Teil kostet 80 €, Liefermenge 1.000 Stück, Sicherheitsbestand 200 Stück, Lagerhaltungskostensatz 10 %. Wie hoch sind die jährlichen Kapital- und Lagerkosten?",
+   "o": [
+    "5.600 €",
+    "9.600 €",
+    "4.000 €",
+    "8.000 €"
+   ],
+   "r": 0,
+   "e": "Durchschnittlicher Bestand \\( \\frac{1.000}{2} + 200 = 700 \\) Stück, gebundenes Kapital \\( 700 \\cdot 80 = 56.000 \\) €, davon 10 % ergeben 5.600 €."
+  },
+  {
+   "q": "Was unterscheidet Just in Sequence von Just in Time?",
+   "o": [
+    "JIS liefert seltener",
+    "JIS liefert ohne Lieferabruf",
+    "JIS liefert in größeren Losen",
+    "JIS liefert zusätzlich in der Reihenfolge der Produktion"
+   ],
+   "r": 3,
+   "e": "Bei Just in Sequence kommen die Teile nicht nur pünktlich, sondern exakt in der Reihenfolge, in der die Produkte am Band gefertigt werden."
+  }
+ ],
+ "verwandt": [
+  "lean-management",
+  "supply-chain-management",
+  "optimale-bestellmenge",
+  "lagerkennzahlen",
+  "kaizen"
+ ],
+ "ask": "das Just-in-Time-Prinzip – Voraussetzungen, Just in Sequence, Vor- und Nachteile und einen Kostenvergleich mit klassischer Lagerhaltung"
+}

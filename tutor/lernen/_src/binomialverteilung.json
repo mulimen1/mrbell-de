@@ -1,0 +1,111 @@
+{
+ "slug": "binomialverteilung",
+ "name": "Binomialverteilung",
+ "title": "Binomialverteilung einfach erklärt – mit Beispiel",
+ "meta": "Binomialverteilung verständlich: Formel, Voraussetzungen, Erwartungswert und Varianz – durchgerechnet an Vertrieb und Überbuchung, mit Klausurfallen.",
+ "h1": "Binomialverteilung einfach erklärt",
+ "kurz": "Die Binomialverteilung gibt an, mit welcher Wahrscheinlichkeit bei \\( n \\) unabhängigen Versuchen mit gleicher Erfolgswahrscheinlichkeit \\( p \\) genau \\( k \\) Erfolge eintreten. Die Formel lautet \\( P(X = k) = \\binom{n}{k} \\cdot p^k \\cdot (1-p)^{n-k} \\). Ihr Erwartungswert ist \\( n \\cdot p \\), ihre Varianz \\( n \\cdot p \\cdot (1-p) \\).",
+ "keywords": [
+  "binomialverteilung",
+  "binomialverteilung formel",
+  "binomialverteilung berechnen",
+  "binomialverteilung erwartungswert",
+  "binomialverteilung varianz",
+  "bernoulli-experiment",
+  "binomialkoeffizient",
+  "binomialverteilung mindestens"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist die Binomialverteilung?",
+   "html": "<p>Viele Situationen in der Wirtschaft haben genau zwei Ausgänge: Ein Kunde kauft oder kauft nicht, eine Rechnung wird bezahlt oder fällt aus, ein Fluggast erscheint oder nicht, ein Bauteil ist in Ordnung oder defekt. Ein einzelner solcher Versuch heißt <strong>Bernoulli-Experiment</strong>. Den Ausgang, für den du dich interessierst, nennst du „Erfolg“, auch wenn er wirtschaftlich ein Misserfolg ist, etwa ein Zahlungsausfall.</p><p>Wiederholst du so ein Experiment \\( n \\)-mal, zählt die Zufallsvariable \\( X \\) die Anzahl der Erfolge. Sie ist <strong>binomialverteilt</strong>, man schreibt \\( X \\sim B(n, p) \\). Die Binomialverteilung ist diskret: \\( X \\) kann nur die Werte \\( 0, 1, 2, \\dots, n \\) annehmen.</p><h3>Voraussetzungen</h3><ul><li>Die Anzahl der Versuche \\( n \\) steht vorher fest.</li><li>Jeder Versuch hat genau zwei Ausgänge.</li><li>Die Erfolgswahrscheinlichkeit \\( p \\) ist bei jedem Versuch gleich.</li><li>Die Versuche sind voneinander unabhängig.</li></ul><p>Die letzten beiden Punkte prüfen Klausuren gern. Ziehst du ohne Zurücklegen aus einer kleinen Grundgesamtheit, etwa 5 Rechnungen aus einem Stapel von 20, ändert sich \\( p \\) nach jedem Zug. Dann gilt die <em>hypergeometrische</em> Verteilung. Ist die Grundgesamtheit groß im Vergleich zur Stichprobe, ist die Binomialverteilung eine gute Näherung.</p>"
+  },
+  {
+   "h2": "Wie lautet die Formel der Binomialverteilung?",
+   "html": "<div class=\\\"formel\\\">\\[ P(X = k) = \\binom{n}{k} \\cdot p^k \\cdot (1-p)^{n-k} \\]\\[ \\binom{n}{k} = \\frac{n!}{k! \\cdot (n-k)!} \\]</div><p>Die Formel hat drei Bausteine, die du einzeln verstehen solltest:</p><ul><li>\\( p^k \\): Wahrscheinlichkeit, dass \\( k \\) bestimmte Versuche Erfolge sind,</li><li>\\( (1-p)^{n-k} \\): Wahrscheinlichkeit, dass die übrigen \\( n-k \\) Versuche Misserfolge sind,</li><li>\\( \\binom{n}{k} \\) (Binomialkoeffizient, „n über k“): Anzahl der Möglichkeiten, die \\( k \\) Erfolge auf die \\( n \\) Versuche zu verteilen. Auf dem Taschenrechner meist die Taste nCr.</li></ul><p>Für Kennzahlen der Verteilung gibt es fertige Formeln:</p><div class=\\\"formel\\\">\\[ E(X) = n \\cdot p \\]\\[ \\operatorname{Var}(X) = n \\cdot p \\cdot (1-p) \\]\\[ \\sigma = \\sqrt{n \\cdot p \\cdot (1-p)} \\]</div><p>Für „höchstens“ und „mindestens“ addierst du Einzelwahrscheinlichkeiten oder nutzt die kumulierte Tabelle \\( F(k) = P(X \\leq k) \\). Bei „mindestens eins“ ist das Gegenereignis fast immer der kürzeste Weg:</p><div class=\\\"formel\\\">\\[ P(X \\geq 1) = 1 - P(X = 0) = 1 - (1-p)^n \\]\\[ P(X \\geq k) = 1 - P(X \\leq k-1) \\]</div>"
+  },
+  {
+   "h2": "Beispiel: Abschlüsse im Telefonvertrieb",
+   "html": "<div class=\\\"beispiel\\\"><p>Eine Vertriebsmitarbeiterin eines Software-Anbieters ruft an einem Tag 12 Bestandskunden an, um ein Upgrade zu verkaufen. Erfahrungsgemäß sagen 15 % der Kunden zu, die Gespräche beeinflussen sich nicht gegenseitig. Also gilt \\( X \\sim B(12;\\ 0{,}15) \\).</p><p><strong>Schritt 1: Genau 2 Abschlüsse</strong><br>\\( \\binom{12}{2} = \\frac{12 \\cdot 11}{2} = 66 \\)<br>\\( P(X = 2) = 66 \\cdot 0{,}15^2 \\cdot 0{,}85^{10} = 66 \\cdot 0{,}0225 \\cdot 0{,}1969 \\approx 0{,}2924 \\)</p><p><strong>Schritt 2: Mindestens 1 Abschluss</strong><br>\\( P(X = 0) = 0{,}85^{12} \\approx 0{,}1422 \\)<br>\\( P(X \\geq 1) = 1 - 0{,}1422 = 0{,}8578 \\)<br>An etwa 14 % der Tage geht sie trotz 12 Gesprächen leer aus. Das ist reiner Zufall, kein Leistungsabfall.</p><p><strong>Schritt 3: Mindestens 3 Abschlüsse</strong><br>\\( P(X = 1) = 12 \\cdot 0{,}15 \\cdot 0{,}85^{11} \\approx 0{,}3012 \\)<br>\\( P(X \\leq 2) = 0{,}1422 + 0{,}3012 + 0{,}2924 = 0{,}7358 \\)<br>\\( P(X \\geq 3) = 1 - 0{,}7358 = 0{,}2642 \\)</p><p><strong>Schritt 4: Erwartungswert und Streuung</strong><br>\\( E(X) = 12 \\cdot 0{,}15 = 1{,}8 \\) Abschlüsse<br>\\( \\operatorname{Var}(X) = 12 \\cdot 0{,}15 \\cdot 0{,}85 = 1{,}53 \\), \\( \\sigma = \\sqrt{1{,}53} \\approx 1{,}24 \\)<br>Bei 200 € Provision je Abschluss beträgt die erwartete Tagesprovision \\( 200 \\cdot 1{,}8 = 360 \\) €.</p></div><p>Für die Führungskraft heißt das: Eine Zielvorgabe von „mindestens 3 Abschlüssen pro Tag“ würde die Mitarbeiterin nur an gut einem Viertel der Tage erreichen, obwohl sie genau den Durchschnitt liefert. Wer Vertriebsziele setzt, sollte die Streuung kennen.</p>"
+  },
+  {
+   "h2": "Anwendung: Lohnt sich Überbuchen?",
+   "html": "<p>Fluggesellschaften, Hotels und Fahrdienste verkaufen mehr Plätze, als sie haben, weil nicht alle Kunden erscheinen. Mit der Binomialverteilung lässt sich prüfen, ob das wirtschaftlich sinnvoll ist.</p><div class=\\\"beispiel\\\"><p>Ein Flughafen-Shuttle hat 8 Plätze. Ein Ticket kostet 40 € und wird bei Nichterscheinen nicht erstattet. Jeder Fahrgast erscheint unabhängig mit 85 % Wahrscheinlichkeit. Muss ein Fahrgast abgewiesen werden, zahlt der Betreiber 100 € Entschädigung.</p><p><strong>9 Tickets:</strong> Problematisch ist nur, wenn alle 9 erscheinen: \\( P(X = 9) = 0{,}85^9 \\approx 0{,}2316 \\). Erwartete Entschädigung: \\( 100 \\cdot 0{,}2316 = 23{,}16 \\) €. Das 9. Ticket bringt also im Mittel \\( 40 - 23{,}16 = 16{,}84 \\) € zusätzlich.</p><p><strong>10 Tickets:</strong> \\( P(X = 9) \\approx 0{,}3474 \\) (ein Fahrgast zu viel), \\( P(X = 10) \\approx 0{,}1969 \\) (zwei zu viel). Erwartete Entschädigung: \\( 100 \\cdot (1 \\cdot 0{,}3474 + 2 \\cdot 0{,}1969) \\approx 74{,}12 \\) €. Das 10. Ticket erhöht die erwartete Entschädigung um rund 50,96 €, bringt aber nur 40 € ein.</p><p><strong>Ergebnis:</strong> Ein Ticket überbuchen lohnt sich, zwei nicht.</p></div><p>Hier greifen Binomialverteilung und <a href=\\\"/lernen/erwartungswert\\\">Erwartungswert</a> ineinander: Die Verteilung liefert die Wahrscheinlichkeiten, der Erwartungswert bewertet sie in Euro. Dieselbe Logik der Grenzbetrachtung kennst du aus der Kostenrechnung bei den <a href=\\\"/lernen/grenzkosten\\\">Grenzkosten</a>.</p>"
+  },
+  {
+   "h2": "Abgrenzung und Näherungen",
+   "html": "<table><thead><tr><th>Verteilung</th><th>Wann?</th></tr></thead><tbody><tr><td>Binomialverteilung</td><td>feste Anzahl unabhängiger Versuche, konstantes \\( p \\), Ziehen mit Zurücklegen</td></tr><tr><td>hypergeometrische Verteilung</td><td>Ziehen ohne Zurücklegen aus kleiner Grundgesamtheit</td></tr><tr><td>Poisson-Verteilung</td><td>Anzahl seltener Ereignisse pro Zeitraum, Näherung für großes \\( n \\) und kleines \\( p \\)</td></tr><tr><td>Normalverteilung</td><td>Näherung für großes \\( n \\), Faustregel \\( n \\cdot p \\cdot (1-p) > 9 \\)</td></tr></tbody></table><p>Die Näherung durch die <a href=\\\"/lernen/normalverteilung\\\">Normalverteilung</a> wird wichtig, sobald \\( n \\) groß wird. Prüft ein Onlineshop, wie viele von 2.000 Bestellungen retourniert werden, und liegt die Quote bei 30 %, ist \\( 2.000 \\cdot 0{,}3 \\cdot 0{,}7 = 420 > 9 \\). Statt hunderte Einzelwahrscheinlichkeiten zu addieren, rechnest du mit \\( \\mu = 600 \\) und \\( \\sigma = \\sqrt{420} \\approx 20{,}49 \\).</p><div class=\\\"merke\\\">Binomialverteilung = zählen, wie oft bei n unabhängigen Ja/Nein-Versuchen mit gleichem p „Ja“ herauskommt.</div>"
+  }
+ ],
+ "fehler": [
+  "„Mindestens“ falsch übersetzen: \\( P(X \\geq 3) = 1 - P(X \\leq 2) \\), nicht \\( 1 - P(X \\leq 3) \\). Schreib dir die Gegenmenge vorher ausdrücklich hin.",
+  "Den Binomialkoeffizienten vergessen: \\( 0{,}15^2 \\cdot 0{,}85^{10} \\) ist nur die Wahrscheinlichkeit für eine bestimmte Reihenfolge. Erst mit \\( \\binom{12}{2} = 66 \\) erfasst du alle Reihenfolgen.",
+  "Den Exponenten der Gegenwahrscheinlichkeit falsch setzen: Bei \\( k \\) Erfolgen gibt es \\( n-k \\) Misserfolge, also \\( (1-p)^{n-k} \\) und nicht \\( (1-p)^n \\).",
+  "Die Binomialverteilung ohne Prüfung der Voraussetzungen anwenden: Bei Ziehen ohne Zurücklegen aus einer kleinen Grundgesamtheit oder bei abhängigen Versuchen ist sie falsch.",
+  "Varianz und Standardabweichung verwechseln: \\( n \\cdot p \\cdot (1-p) \\) ist die Varianz. Für \\( \\sigma \\) musst du noch die Wurzel ziehen."
+ ],
+ "faq": [
+  {
+   "q": "Wann ist eine Zufallsvariable binomialverteilt?",
+   "a": "Wenn sie zählt, wie oft bei einer festen Anzahl unabhängiger Versuche ein bestimmtes Ereignis eintritt, und jeder Versuch nur zwei Ausgänge mit konstanter Erfolgswahrscheinlichkeit hat. Typisch sind Kauf oder Nichtkauf, defekt oder in Ordnung, erscheint oder erscheint nicht."
+  },
+  {
+   "q": "Wie berechnet man den Erwartungswert der Binomialverteilung?",
+   "a": "Der Erwartungswert ist Anzahl der Versuche mal Erfolgswahrscheinlichkeit, also n mal p. Bei 12 Gesprächen mit 15 Prozent Abschlussquote erwartest du 1,8 Abschlüsse."
+  },
+  {
+   "q": "Wie berechnet man die Wahrscheinlichkeit für mindestens einen Erfolg?",
+   "a": "Am schnellsten über das Gegenereignis: 1 minus die Wahrscheinlichkeit für null Erfolge, also 1 minus (1 minus p) hoch n. Bei 12 Versuchen mit p = 0,15 sind das 1 minus 0,85 hoch 12, rund 85,8 Prozent."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Binomialverteilung und hypergeometrischer Verteilung?",
+   "a": "Die Binomialverteilung setzt eine konstante Erfolgswahrscheinlichkeit voraus, wie beim Ziehen mit Zurücklegen. Die hypergeometrische Verteilung gilt beim Ziehen ohne Zurücklegen, bei dem sich die Wahrscheinlichkeit nach jedem Zug ändert. Bei großer Grundgesamtheit und kleiner Stichprobe liefern beide fast dieselben Ergebnisse."
+  },
+  {
+   "q": "Was bedeutet n über k?",
+   "a": "Der Binomialkoeffizient n über k gibt an, auf wie viele Arten man k Elemente aus n auswählen kann, ohne auf die Reihenfolge zu achten. In der Binomialformel zählt er, wie viele Reihenfolgen von Erfolgen und Misserfolgen zum gleichen Ergebnis führen."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Ein Onlineshop weiß: 20 % der Besucher eines Produkts kaufen. Wie hoch ist die Wahrscheinlichkeit, dass von 5 Besuchern genau einer kauft?",
+   "o": [
+    "20,00 %",
+    "32,77 %",
+    "8,19 %",
+    "40,96 %"
+   ],
+   "r": 3,
+   "e": "\\( P(X = 1) = \\binom{5}{1} \\cdot 0{,}2 \\cdot 0{,}8^4 = 5 \\cdot 0{,}2 \\cdot 0{,}4096 = 0{,}4096 \\)."
+  },
+  {
+   "q": "10 % aller Rechnungen eines Großhändlers werden zu spät bezahlt. Wie wahrscheinlich ist es, dass von 10 Rechnungen mindestens eine zu spät kommt?",
+   "o": [
+    "65,13 %",
+    "34,87 %",
+    "10,00 %",
+    "100 %"
+   ],
+   "r": 0,
+   "e": "\\( P(X \\geq 1) = 1 - 0{,}9^{10} \\approx 1 - 0{,}3487 = 0{,}6513 \\)."
+  },
+  {
+   "q": "Wie groß ist die Varianz von \\( X \\sim B(50;\\ 0{,}2) \\)?",
+   "o": [
+    "10",
+    "2,83",
+    "8",
+    "40"
+   ],
+   "r": 2,
+   "e": "\\( \\operatorname{Var}(X) = 50 \\cdot 0{,}2 \\cdot 0{,}8 = 8 \\). 10 wäre der Erwartungswert, 2,83 die Standardabweichung."
+  }
+ ],
+ "verwandt": [
+  "erwartungswert",
+  "normalverteilung",
+  "varianz-standardabweichung",
+  "hypothesentest"
+ ],
+ "ask": "die Binomialverteilung – mit Formel, Erwartungswert, Varianz und einem durchgerechneten Beispiel aus dem Vertrieb"
+}

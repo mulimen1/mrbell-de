@@ -1,0 +1,116 @@
+{
+  "slug": "konfidenzintervall",
+  "name": "Konfidenzintervall",
+  "title": "Konfidenzintervall einfach erklärt – mit Beispiel",
+  "meta": "Konfidenzintervall verständlich erklärt: Formel für Mittelwert und Anteil, z oder t, Interpretation und Stichprobenumfang – mit Beispiel.",
+  "h1": "Konfidenzintervall einfach erklärt",
+  "kurz": "Ein Konfidenzintervall ist ein Bereich um einen Schätzwert aus der Stichprobe, der den unbekannten wahren Parameter der Grundgesamtheit mit einer vorgegebenen Sicherheit (meist 95 %) überdeckt. Für den Mittelwert gilt: Stichprobenmittel plus/minus kritischer Wert mal Standardfehler. Je größer die Stichprobe, desto schmaler das Intervall.",
+  "keywords": [
+    "konfidenzintervall",
+    "konfidenzintervall berechnen",
+    "konfidenzintervall formel",
+    "konfidenzniveau 95",
+    "konfidenzintervall interpretieren",
+    "konfidenzintervall anteilswert",
+    "stichprobenumfang berechnen",
+    "standardfehler"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist ein Konfidenzintervall?",
+      "html": "<p>Wenn ein Onlineshop aus 25 Bestellungen einen durchschnittlichen Warenkorb von 48 € ermittelt, ist das eine <strong>Punktschätzung</strong>. Sie ist fast sicher nicht exakt der wahre Durchschnitt aller Bestellungen – eine andere Stichprobe hätte vielleicht 46 € oder 51 € ergeben. Wie weit du dieser Zahl trauen kannst, sagt die Punktschätzung nicht.</p><p>Das <strong>Konfidenzintervall</strong> (auch Vertrauensintervall) ist eine <strong>Intervallschätzung</strong>: Es gibt einen Bereich an, der so konstruiert ist, dass er den wahren Wert mit einer festgelegten Wahrscheinlichkeit überdeckt. Diese Wahrscheinlichkeit heißt <strong>Konfidenzniveau</strong> \\( 1 - \\alpha \\), üblich sind 90 %, 95 % und 99 %.</p><p>Für die Praxis ist das enorm nützlich. Ein Controller, der den Umsatz pro Kunde schätzt, will nicht nur einen Wert, sondern auch wissen, wie unsicher er ist. Ein Intervall von 47 € bis 49 € erlaubt eine ganz andere Planung als eines von 30 € bis 66 €.</p><div class=\"merke\">Punktschätzung + Fehlermarge = Konfidenzintervall. Die Fehlermarge zeigt, wie genau deine Stichprobe ist.</div>"
+    },
+    {
+      "h2": "Wie lautet die Formel für das Konfidenzintervall?",
+      "html": "<p>Alle Konfidenzintervalle folgen demselben Bauplan:</p><div class=\"formel\">\\[ \\text{Schätzwert} \\pm \\text{kritischer Wert} \\cdot \\text{Standardfehler} \\]</div><h3>Mittelwert, σ bekannt (z-Intervall)</h3><div class=\"formel\">\\[ \\left[ \\bar{x} - z_{1-\\alpha/2} \\cdot \\frac{\\sigma}{\\sqrt{n}} \\, ; \\; \\bar{x} + z_{1-\\alpha/2} \\cdot \\frac{\\sigma}{\\sqrt{n}} \\right] \\]</div><h3>Mittelwert, σ unbekannt (t-Intervall)</h3><div class=\"formel\">\\[ \\left[ \\bar{x} - t_{n-1;\\,1-\\alpha/2} \\cdot \\frac{s}{\\sqrt{n}} \\, ; \\; \\bar{x} + t_{n-1;\\,1-\\alpha/2} \\cdot \\frac{s}{\\sqrt{n}} \\right] \\]</div><h3>Anteilswert (für große n)</h3><div class=\"formel\">\\[ \\hat{p} \\pm z_{1-\\alpha/2} \\cdot \\sqrt{\\frac{\\hat{p} \\cdot (1 - \\hat{p})}{n}} \\]</div><p>Die kritischen Werte der <a href=\"/lernen/normalverteilung\">Normalverteilung</a> für die gängigen Niveaus:</p><table><thead><tr><th>Konfidenzniveau</th><th>α</th><th>\\( z_{1-\\alpha/2} \\)</th></tr></thead><tbody><tr><td>90 %</td><td>10 %</td><td>1,645</td></tr><tr><td>95 %</td><td>5 %</td><td>1,960</td></tr><tr><td>99 %</td><td>1 %</td><td>2,576</td></tr></tbody></table><p>Ist σ unbekannt und die Stichprobe klein, nimmst du die t-Verteilung mit n − 1 Freiheitsgraden. Sie hat breitere Ränder, weil zusätzlich die Schätzung von σ unsicher ist – das Intervall wird breiter. Ab etwa n > 30 erlauben viele Skripte die Näherung mit z. Die Anteilsformel setzt eine ausreichend große Stichprobe voraus; eine gängige Faustregel ist \\( n \\cdot \\hat{p} \\cdot (1 - \\hat{p}) > 9 \\).</p>"
+    },
+    {
+      "h2": "Beispiel: Durchschnittlicher Warenkorb im Onlineshop",
+      "html": "<div class=\"beispiel\"><p>Ein Onlineshop für Kaffeezubehör zieht 25 zufällige Bestellungen. Durchschnittlicher Warenkorb: \\( \\bar{x} = 48 \\) €, Stichprobenstandardabweichung s = 10 €. Gesucht ist das 95-%-Konfidenzintervall für den durchschnittlichen Warenkorb aller Bestellungen. Die Warenkorbwerte seien annähernd normalverteilt.</p><p><strong>Schritt 1: Welche Verteilung?</strong><br>σ ist unbekannt und n = 25 ist klein, also t-Verteilung mit \\( 25 - 1 = 24 \\) Freiheitsgraden: \\( t_{24;\\,0{,}975} = 2{,}064 \\).</p><p><strong>Schritt 2: Standardfehler</strong><br>\\( \\frac{s}{\\sqrt{n}} = \\frac{10}{\\sqrt{25}} = 2 \\) €</p><p><strong>Schritt 3: Fehlermarge</strong><br>\\( 2{,}064 \\cdot 2 = 4{,}128 \\approx 4{,}13 \\) €</p><p><strong>Schritt 4: Intervall</strong><br>\\( [48 - 4{,}13 \\, ; \\, 48 + 4{,}13] = [43{,}87 \\text{ €} \\, ; \\, 52{,}13 \\text{ €}] \\)</p><p><strong>Vergleich:</strong> Wäre σ = 10 € aus langjährigen Daten bekannt, nähmest du \\( z_{0{,}975} = 1{,}96 \\): Fehlermarge \\( 1{,}96 \\cdot 2 = 3{,}92 \\) €, Intervall [44,08 € ; 51,92 €]. Das t-Intervall ist etwas breiter, weil die Unsicherheit über σ eingepreist wird.</p></div><p><strong>Interpretation:</strong> Mit 95 % Konfidenz liegt der durchschnittliche Warenkorb aller Bestellungen zwischen 43,87 € und 52,13 €. Plant das Management eine Versandkostenfrei-Grenze oder rechnet es den <a href=\"/lernen/customer-lifetime-value\">Customer Lifetime Value</a> durch, sollte es mit dieser Bandbreite statt nur mit 48 € rechnen.</p>"
+    },
+    {
+      "h2": "Konfidenzintervall für einen Anteil und den nötigen Stichprobenumfang",
+      "html": "<div class=\"beispiel\"><p>Der Shop fragt 400 zufällig ausgewählte Kunden, ob sie ein Kaffee-Abo abschließen würden. 120 sagen ja.</p><p><strong>Schritt 1: Anteil</strong><br>\\( \\hat{p} = \\frac{120}{400} = 0{,}30 \\). Faustregel: \\( 400 \\cdot 0{,}3 \\cdot 0{,}7 = 84 > 9 \\) ✓</p><p><strong>Schritt 2: Standardfehler</strong><br>\\( \\sqrt{\\frac{0{,}3 \\cdot 0{,}7}{400}} = \\sqrt{0{,}000525} \\approx 0{,}0229 \\)</p><p><strong>Schritt 3: Intervall (95 %)</strong><br>\\( 0{,}30 \\pm 1{,}96 \\cdot 0{,}0229 = 0{,}30 \\pm 0{,}0449 \\Rightarrow [25{,}5\\,\\% \\, ; \\, 34{,}5\\,\\%] \\)</p></div><p>Damit kann der Shop das Potenzial für das Abo realistisch einschätzen: zwischen gut einem Viertel und gut einem Drittel der Kunden.</p><p><strong>Wie groß muss die Stichprobe sein?</strong> Löst du die Fehlermarge \\( e = z \\cdot \\frac{\\sigma}{\\sqrt{n}} \\) nach n auf, erhältst du den Mindestumfang. Will der Shop den durchschnittlichen Warenkorb bei σ = 10 € auf ±2 € genau schätzen (95 %):</p><div class=\"formel\">\\[ n \\ge \\left( \\frac{z_{1-\\alpha/2} \\cdot \\sigma}{e} \\right)^2 = \\left( \\frac{1{,}96 \\cdot 10}{2} \\right)^2 = 96{,}04 \\Rightarrow n = 97 \\]</div><p>Immer aufrunden, sonst wird die gewünschte Genauigkeit knapp verfehlt. Beachte das Wurzelgesetz: Für eine halb so große Fehlermarge brauchst du die <strong>vierfache</strong> Stichprobe.</p>"
+    },
+    {
+      "h2": "Wie interpretiert man ein Konfidenzintervall richtig?",
+      "html": "<p>Hier passieren die meisten Fehler. Der wahre Mittelwert μ ist eine feste, unbekannte Zahl – er „schwankt“ nicht. Zufällig ist das Intervall, weil es von der Stichprobe abhängt. Die korrekte Deutung lautet deshalb:</p><p><em>Würde man das Verfahren sehr oft mit neuen Stichproben wiederholen, würden etwa 95 % der so berechneten Intervalle den wahren Wert enthalten.</em></p><p>In Klausuren reicht meist die Kurzform „Mit 95 % Konfidenz liegt der wahre Mittelwert zwischen … und …“. Vermeide aber die Aussage, μ liege „mit 95 % Wahrscheinlichkeit“ in genau diesem einen berechneten Intervall, wenn dein Prof Wert auf saubere Formulierung legt.</p><p>Die Breite des Intervalls hängt von drei Stellschrauben ab:</p><ul><li><strong>Konfidenzniveau:</strong> Mehr Sicherheit (99 % statt 95 %) macht das Intervall breiter.</li><li><strong>Streuung:</strong> Je größer σ bzw. s (siehe <a href=\"/lernen/varianz-standardabweichung\">Standardabweichung</a>), desto breiter.</li><li><strong>Stichprobenumfang:</strong> Größeres n macht es schmaler, aber nur mit der Wurzel.</li></ul>"
+    },
+    {
+      "h2": "Konfidenzintervall und Hypothesentest: der Unterschied",
+      "html": "<p>Beide Verfahren nutzen dieselben Bausteine, beantworten aber unterschiedliche Fragen. Das Konfidenzintervall fragt: <em>Wo liegt der wahre Wert vermutlich?</em> Der <a href=\"/lernen/hypothesentest\">Hypothesentest</a> fragt: <em>Ist ein bestimmter behaupteter Wert mit den Daten vereinbar?</em></p><p>Der Zusammenhang ist direkt: Ein zweiseitiger Test von \\( H_0: \\mu = \\mu_0 \\) zum Niveau α lehnt genau dann ab, wenn \\( \\mu_0 \\) nicht im \\( (1 - \\alpha) \\)-Konfidenzintervall liegt. Behauptet der Shopbetreiber, der Durchschnittswarenkorb liege bei 55 €, widerlegen die Daten das bei α = 5 %, denn 55 € liegt außerhalb von [43,87 € ; 52,13 €]. Eine Behauptung von 50 € dagegen kann nicht abgelehnt werden.</p><p><strong>Vorteile</strong> des Intervalls: Es zeigt Lage und Genauigkeit auf einen Blick und ist für Entscheider intuitiver als ein p-Wert. <strong>Grenzen:</strong> Es setzt eine echte Zufallsstichprobe voraus. Gegen systematische Fehler – etwa wenn nur Stammkunden befragt werden – hilft auch das schönste Intervall nicht; es misst ausschließlich den Zufallsfehler.</p>"
+    }
+  ],
+  "fehler": [
+    "Bei kleiner Stichprobe und unbekanntem σ mit z statt t rechnen: Dann ist das Intervall zu schmal. Bei n = 25 ist der kritische Wert 2,064 statt 1,96.",
+    "Den einseitigen kritischen Wert nehmen: Für ein 95-%-Intervall brauchst du \\( z_{0{,}975} = 1{,}96 \\), weil auf jeder Seite 2,5 % abgeschnitten werden – nicht 1,645.",
+    "Die Wurzel aus n vergessen: Der Standardfehler ist \\( \\frac{s}{\\sqrt{n}} \\), nicht \\( \\frac{s}{n} \\) und nicht s allein.",
+    "Beim Stichprobenumfang abrunden: Aus 96,04 wird 97, nicht 96 – sonst ist die geforderte Genauigkeit nicht erreicht.",
+    "Das Intervall als Bereich für einzelne Werte deuten: Es gilt für den Mittelwert. Einzelne Bestellungen streuen viel stärker, ein Warenkorb von 70 € ist trotz Intervall [43,87 € ; 52,13 €] völlig normal."
+  ],
+  "faq": [
+    {
+      "q": "Was sagt ein 95-%-Konfidenzintervall aus?",
+      "a": "Es ist ein Bereich, der nach einem Verfahren berechnet wurde, das bei vielen Wiederholungen in 95 % der Fälle den wahren Parameter enthält. Vereinfacht: Mit 95 % Konfidenz liegt der wahre Wert in diesem Bereich."
+    },
+    {
+      "q": "Wann nimmt man beim Konfidenzintervall z und wann t?",
+      "a": "Die z-Werte der Standardnormalverteilung nimmst du, wenn σ bekannt ist oder die Stichprobe groß ist (Faustregel n > 30). Ist σ unbekannt und die Stichprobe klein, nimmst du die t-Verteilung mit n − 1 Freiheitsgraden."
+    },
+    {
+      "q": "Warum wird ein Konfidenzintervall breiter, wenn das Konfidenzniveau steigt?",
+      "a": "Mehr Sicherheit verlangt einen größeren kritischen Wert, etwa 2,576 statt 1,96 bei 99 % statt 95 %. Damit wächst die Fehlermarge. Mehr Sicherheit kostet also Genauigkeit, solange die Stichprobe gleich groß bleibt."
+    },
+    {
+      "q": "Wie berechne ich den nötigen Stichprobenumfang?",
+      "a": "Du stellst die Formel für die Fehlermarge nach n um: n ist mindestens das Quadrat aus kritischem Wert mal σ geteilt durch die gewünschte Fehlermarge. Das Ergebnis rundest du immer auf die nächste ganze Zahl auf."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Konfidenzniveau und Signifikanzniveau?",
+      "a": "Sie ergänzen sich zu 100 %. Ein Konfidenzniveau von 95 % entspricht einem Signifikanzniveau α von 5 %. Beim Intervall betonst du die Sicherheit, beim Test die Irrtumswahrscheinlichkeit."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Wie verändert sich die Breite eines Konfidenzintervalls, wenn der Stichprobenumfang vervierfacht wird (sonst alles gleich)?",
+      "o": [
+        "Sie halbiert sich.",
+        "Sie viertelt sich.",
+        "Sie verdoppelt sich.",
+        "Sie bleibt gleich."
+      ],
+      "r": 0,
+      "e": "Der Standardfehler enthält \\( \\sqrt{n} \\) im Nenner. Viermal so viele Beobachtungen bedeuten \\( \\sqrt{4} = 2 \\), also eine halb so breite Fehlermarge."
+    },
+    {
+      "q": "n = 100, \\( \\bar{x} = 80 \\) €, σ = 15 € (bekannt). Wie lautet das 95-%-Konfidenzintervall?",
+      "o": [
+        "[77,53 € ; 82,47 €]",
+        "[50,60 € ; 109,40 €]",
+        "[78,50 € ; 81,50 €]",
+        "[77,06 € ; 82,94 €]"
+      ],
+      "r": 3,
+      "e": "Standardfehler \\( \\frac{15}{\\sqrt{100}} = 1{,}5 \\), Fehlermarge \\( 1{,}96 \\cdot 1{,}5 = 2{,}94 \\), also [77,06 € ; 82,94 €]. 77,53/82,47 entsteht mit dem einseitigen Wert 1,645."
+    },
+    {
+      "q": "Ein 95-%-Intervall für die durchschnittliche Lieferzeit ist [27 ; 33] Minuten. Was lässt sich zum zweiseitigen Test von \\( H_0: \\mu = 35 \\) bei α = 5 % sagen?",
+      "o": [
+        "H0 kann nicht abgelehnt werden.",
+        "Ohne p-Wert ist keine Aussage möglich.",
+        "H0 wird abgelehnt, weil 35 außerhalb des Intervalls liegt.",
+        "H0 wird nur bei α = 1 % abgelehnt."
+      ],
+      "r": 2,
+      "e": "Ein zweiseitiger Test zum Niveau α lehnt H0 genau dann ab, wenn der Hypothesenwert außerhalb des (1 − α)-Konfidenzintervalls liegt."
+    }
+  ],
+  "verwandt": [
+    "hypothesentest",
+    "normalverteilung",
+    "varianz-standardabweichung",
+    "erwartungswert",
+    "marktforschung"
+  ],
+  "ask": "das Konfidenzintervall – Formel für Mittelwert und Anteil, z- oder t-Verteilung, richtige Interpretation und Stichprobenumfang an einem Beispiel"
+}

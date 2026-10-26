@@ -1,0 +1,116 @@
+{
+ "slug": "multiplikator",
+ "name": "Multiplikator (Keynes)",
+ "title": "Multiplikator (Keynes) einfach erklärt – mit Beispiel",
+ "meta": "Keynesianischer Multiplikator verständlich: Formel, Ausgaben- und Steuermultiplikator, Haavelmo-Theorem und ein durchgerechnetes Beispiel für die Klausur.",
+ "h1": "Multiplikator (Keynes) einfach erklärt",
+ "kurz": "Der keynesianische Multiplikator gibt an, um wie viel das Volkseinkommen steigt, wenn eine autonome Nachfragekomponente wie Staatsausgaben oder Investitionen um 1 € zunimmt. Jede Ausgabe wird zum Einkommen eines anderen, der davon wieder einen Teil ausgibt. Im einfachen Modell gilt \\( k = \\frac{1}{1-c} \\), mit \\( c \\) als marginaler Konsumquote.",
+ "keywords": [
+  "multiplikator",
+  "keynesianischer multiplikator",
+  "multiplikatoreffekt",
+  "multiplikator formel",
+  "staatsausgabenmultiplikator",
+  "steuermultiplikator",
+  "haavelmo theorem",
+  "marginale konsumquote"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der Multiplikator?",
+   "html": "<p>Der <strong>Multiplikator</strong> ist eine der zentralen Ideen von John Maynard Keynes. Er beantwortet die Frage: Wenn der Staat zusätzlich 50 Mrd. € ausgibt, wie stark wächst dann das Volkseinkommen? Die überraschende Antwort lautet: um mehr als 50 Mrd. €.</p><p>Der Grund ist eine Kettenreaktion. Baut der Staat eine Brücke, erhält die Baufirma 50 Mrd. € als Einnahmen. Daraus werden Löhne, Gewinne und Vorleistungen bezahlt, also Einkommen anderer Leute. Diese geben einen Teil davon für Konsum aus, zum Beispiel im Supermarkt. Der Supermarkt zahlt wiederum Löhne und Gewinne aus, die erneut teilweise konsumiert werden. Jede Runde ist kleiner als die vorherige, weil ein Teil des Einkommens gespart wird. Am Ende ist das Volkseinkommen um ein <em>Vielfaches</em> des ursprünglichen Impulses gestiegen.</p><p>Wie groß dieses Vielfache ist, hängt nur davon ab, wie viel von jedem zusätzlichen Euro wieder ausgegeben wird. Das misst die <strong>marginale Konsumquote</strong> \\( c \\): Steigt das verfügbare Einkommen um 1 €, steigt der Konsum um \\( c \\) €. Der Rest \\( s = 1 - c \\) ist die marginale Sparquote.</p><div class=\"merke\">Der Multiplikator funktioniert nur, wenn es unausgelastete Kapazitäten gibt: Firmen müssen die zusätzliche Nachfrage mit mehr Produktion bedienen können, ohne einfach die Preise zu erhöhen. Deshalb ist er ein Instrument für Rezessionen, nicht für Boomphasen.</div>"
+  },
+  {
+   "h2": "Wie lautet die Formel für den Multiplikator?",
+   "html": "<p>Ausgangspunkt ist das einfache keynesianische Modell einer geschlossenen Volkswirtschaft mit Staat. Die gesamtwirtschaftliche Nachfrage besteht aus Konsum, Investitionen und Staatsausgaben, der Konsum hängt vom verfügbaren Einkommen ab:</p><div class=\"formel\">\\[ Y = C + I + G \\]\\[ C = C_a + c \\cdot (Y - T) \\]</div><p>Dabei ist \\( C_a \\) der autonome Konsum (der auch ohne Einkommen stattfindet) und \\( T \\) eine Pauschalsteuer. Setzt du ein und löst nach \\( Y \\) auf, erhältst du das Gleichgewichtseinkommen:</p><div class=\"formel\">\\[ Y^* = \\frac{1}{1-c} \\cdot \\left( C_a - c \\cdot T + I + G \\right) \\]</div><p>Der Bruch vor der Klammer ist der <strong>Ausgabenmultiplikator</strong>. Er gilt für jede autonome Ausgabe gleichermaßen, also für \\( \\Delta G \\), \\( \\Delta I \\) und \\( \\Delta C_a \\):</p><div class=\"formel\">\\[ k_G = \\frac{\\Delta Y}{\\Delta G} = \\frac{1}{1-c} = \\frac{1}{s} \\]</div><p>Für Steuern ergibt sich ein anderer Wert, weil eine Steuersenkung nicht direkt Nachfrage ist. Sie erhöht erst das verfügbare Einkommen, und davon wird nur der Anteil \\( c \\) ausgegeben. Der <strong>Steuermultiplikator</strong> ist deshalb kleiner und negativ:</p><div class=\"formel\">\\[ k_T = \\frac{\\Delta Y}{\\Delta T} = -\\frac{c}{1-c} \\]</div><p>Woher kommt \\( \\frac{1}{1-c} \\)? Summiere die Runden: \\( \\Delta G \\cdot (1 + c + c^2 + c^3 + \\dots) \\). Das ist eine geometrische Reihe, deren Summe für \\( 0 < c < 1 \\) genau \\( \\frac{1}{1-c} \\) beträgt.</p>"
+  },
+  {
+   "h2": "Beispiel: Multiplikator Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p>Eine Volkswirtschaft (Werte in Mrd. €) hat den autonomen Konsum \\( C_a = 100 \\), die marginale Konsumquote \\( c = 0{,}8 \\), Investitionen \\( I = 200 \\), Staatsausgaben \\( G = 300 \\) und eine Pauschalsteuer \\( T = 250 \\).</p><p><strong>Schritt 1: Gleichgewichtseinkommen</strong><br>\\( Y = 100 + 0{,}8 \\cdot (Y - 250) + 200 + 300 = 400 + 0{,}8 \\cdot Y \\)<br>\\( 0{,}2 \\cdot Y = 400 \\Rightarrow Y^* = 2.000 \\)</p><p>Probe: Konsum \\( C = 100 + 0{,}8 \\cdot 1.750 = 1.500 \\), Nachfrage \\( 1.500 + 200 + 300 = 2.000 \\) ✓</p><p><strong>Schritt 2: Multiplikatoren</strong><br>\\( k_G = \\frac{1}{1-0{,}8} = 5 \\) und \\( k_T = -\\frac{0{,}8}{0{,}2} = -4 \\)</p><p><strong>Schritt 3: Der Staat erhöht seine Ausgaben um 50</strong><br>\\( \\Delta Y = 5 \\cdot 50 = 250 \\Rightarrow Y^* = 2.250 \\)</p><p><strong>Schritt 4: Stattdessen Steuererhöhung um 50</strong><br>\\( \\Delta Y = -4 \\cdot 50 = -200 \\Rightarrow Y^* = 1.800 \\)</p><p><strong>Schritt 5: Beides gleichzeitig (ausgeglichenes Budget)</strong><br>\\( \\Delta Y = 250 - 200 = 50 \\Rightarrow Y^* = 2.050 \\)</p><table><thead><tr><th>Runde</th><th>zusätzliche Nachfrage</th><th>Rechnung</th></tr></thead><tbody><tr><td>1</td><td>50,00</td><td>Staatsauftrag</td></tr><tr><td>2</td><td>40,00</td><td>\\( 0{,}8 \\cdot 50 \\)</td></tr><tr><td>3</td><td>32,00</td><td>\\( 0{,}8 \\cdot 40 \\)</td></tr><tr><td>4</td><td>25,60</td><td>\\( 0{,}8 \\cdot 32 \\)</td></tr><tr><td>…</td><td>…</td><td>gegen null</td></tr><tr><td>Summe</td><td>250,00</td><td>\\( \\frac{50}{1-0{,}8} \\)</td></tr></tbody></table></div><p>Nach vier Runden sind erst 147,60 Mrd. € zusammen, nach sechs Runden 184,46 Mrd. €. Die vollen 250 Mrd. € werden nur im Grenzwert erreicht. In der Realität braucht der Prozess also Zeit, und er wird unterwegs durch weitere Sickerverluste gebremst.</p><p>Kontrolle über Sparen und Investieren: Im neuen Gleichgewicht nach Schritt 3 beträgt das verfügbare Einkommen \\( 2.250 - 250 = 2.000 \\), der Konsum \\( 100 + 0{,}8 \\cdot 2.000 = 1.700 \\) und die Ersparnis 300. Dann gilt \\( S + T = 300 + 250 = 550 = I + G = 200 + 350 \\) ✓.</p>"
+  },
+  {
+   "h2": "Was besagt das Haavelmo-Theorem?",
+   "html": "<p>Schritt 5 im Beispiel ist kein Zufall. Erhöht der Staat Ausgaben und Steuern um denselben Betrag, bleibt das Budget ausgeglichen, und trotzdem steigt das Einkommen, und zwar genau um diesen Betrag. Das ist das <strong>Haavelmo-Theorem</strong>, auch Multiplikator des ausgeglichenen Budgets genannt:</p><div class=\"formel\">\\[ k_G + k_T = \\frac{1}{1-c} - \\frac{c}{1-c} = \\frac{1-c}{1-c} = 1 \\]</div><p>Die Intuition: Der Staat gibt die 50 Mrd. € vollständig aus, die Haushalte hätten von den 50 Mrd. € Steuern nur 80 % ausgegeben. Unterm Strich bleibt ein Nachfrageimpuls übrig. Für die Klausur heißt das: Ein ausgeglichenes Budget ist nicht automatisch konjunkturneutral.</p>"
+  },
+  {
+   "h2": "Warum ist der Multiplikator in der Realität kleiner?",
+   "html": "<p>Mit \\( c = 0{,}8 \\) ergibt das Lehrbuchmodell einen Multiplikator von 5. Empirische Schätzungen für Staatsausgaben liegen meist deutlich niedriger, oft um 1 herum, je nach Land und Konjunkturlage. Dafür gibt es drei Gründe, die du in der Klausur nennen solltest:</p><ul><li><strong>Einkommensabhängige Steuern \\( t \\):</strong> Von jedem zusätzlichen Euro Einkommen geht ein Teil an den Staat, bevor konsumiert wird.</li><li><strong>Importe \\( m \\):</strong> Ein Teil der Nachfrage fließt ins Ausland und schafft dort Einkommen statt im Inland.</li><li><strong>Zinsanstieg und Verdrängung:</strong> Höhere Staatsnachfrage kann die Zinsen steigen lassen und private Investitionen verdrängen (Crowding-out). Das zeigt erst das <a href=\"/lernen/is-lm-modell\">IS-LM-Modell</a>, in dem auch der Geldmarkt berücksichtigt wird.</li></ul><p>Die ersten beiden Effekte stehen im erweiterten Multiplikator der offenen Volkswirtschaft:</p><div class=\"formel\">\\[ k = \\frac{1}{1 - c \\cdot (1-t) + m} \\]</div><p>Mit \\( c = 0{,}8 \\), Steuersatz \\( t = 0{,}25 \\) und Importquote \\( m = 0{,}1 \\) erhältst du \\( k = \\frac{1}{1 - 0{,}6 + 0{,}1} = \\frac{1}{0{,}5} = 2 \\). Der Multiplikator schrumpft von 5 auf 2. Gleichzeitig wirken Steuern und Importe als <strong>automatische Stabilisatoren</strong>: Sie dämpfen auch Abschwünge.</p>"
+  },
+  {
+   "h2": "Wie wird der Multiplikator in der Wirtschaftspolitik genutzt?",
+   "html": "<p>Der Multiplikator ist das Hauptargument für nachfrageorientierte <a href=\"/lernen/fiskalpolitik\">Fiskalpolitik</a>. Steckt die Wirtschaft in einer Rezession, sollen Konjunkturpakete die fehlende private Nachfrage ersetzen und über die Multiplikatorwirkung ein Vielfaches an Einkommen und Beschäftigung erzeugen. Aus den Formeln folgt dabei eine klare Rangfolge: Staatsausgaben wirken stärker als Steuersenkungen gleicher Höhe, weil bei der Steuersenkung ein Teil gespart wird. Zielgerichtete Transfers an Haushalte mit hoher Konsumquote wirken stärker als Entlastungen für Haushalte, die das Geld überwiegend sparen.</p><p><strong>Kritik und Grenzen:</strong></p><ul><li>Das Modell unterstellt starre Preise und freie Kapazitäten. Bei Vollbeschäftigung führt zusätzliche Nachfrage vor allem zu <a href=\"/lernen/inflation\">Inflation</a>.</li><li>Haushalte könnten künftige Steuererhöhungen zur Schuldentilgung erwarten und mehr sparen (Ricardianische Äquivalenz).</li><li>Wirkungsverzögerungen: Bis ein Paket beschlossen und umgesetzt ist, kann der Abschwung vorbei sein.</li></ul><p><strong>Abgrenzung:</strong> Der Investitionsmultiplikator ist dieselbe Formel, nur mit \\( \\Delta I \\) als Auslöser. Der <em>Geldschöpfungsmultiplikator</em> der Geldtheorie hat mit dem keynesianischen Multiplikator nichts zu tun, er beschreibt, wie Banken aus Zentralbankgeld Buchgeld schaffen. Der Akzelerator schließlich wirkt in umgekehrter Richtung: Er erklärt, wie Nachfrageänderungen Investitionen auslösen, und ergibt zusammen mit dem Multiplikator Erklärungen für den <a href=\"/lernen/konjunkturzyklus\">Konjunkturzyklus</a>.</p>"
+  }
+ ],
+ "fehler": [
+  "Steuermultiplikator wie den Ausgabenmultiplikator behandeln: Eine Steuersenkung um 50 wirkt nicht mit \\( k = 5 \\), sondern mit \\( \\frac{c}{1-c} = 4 \\), weil die Haushalte im ersten Schritt einen Teil der Entlastung sparen.",
+  "Konsumquote und Sparquote vertauschen: Im Nenner steht \\( 1 - c \\), also die marginale Sparquote. Bei \\( c = 0{,}8 \\) ist \\( k = \\frac{1}{0{,}2} = 5 \\), nicht \\( \\frac{1}{0{,}8} = 1{,}25 \\).",
+  "Haavelmo-Theorem übersehen: Steigen Staatsausgaben und Steuern um je 50, ist der Effekt nicht null, sondern \\( \\Delta Y = 50 \\), weil der Budgetmultiplikator genau 1 beträgt.",
+  "Durchschnittliche statt marginale Konsumquote einsetzen: Im Beispiel ist \\( \\frac{C}{Y - T} = \\frac{1.500}{1.750} \\approx 0{,}857 \\). Für den Multiplikator zählt aber nur, was von einem zusätzlichen Euro konsumiert wird, also \\( c = 0{,}8 \\).",
+  "Den Multiplikator unbegrenzt anwenden: Er gilt nur bei freien Kapazitäten und konstanten Zinsen. In Klausuren mit Geldmarkt (IS-LM) fällt der Effekt durch Crowding-out kleiner aus."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man den Multiplikator?",
+   "a": "Im einfachen keynesianischen Modell teilst du 1 durch die marginale Sparquote, also k = 1 / (1 − c). Bei einer marginalen Konsumquote von 0,8 ergibt das 5. Die Einkommensänderung ist dann der Multiplikator mal der Änderung der autonomen Ausgabe."
+  },
+  {
+   "q": "Warum ist der Steuermultiplikator kleiner als der Ausgabenmultiplikator?",
+   "a": "Staatsausgaben sind sofort Nachfrage. Eine Steuersenkung erhöht dagegen nur das verfügbare Einkommen, von dem die Haushalte lediglich den Anteil c konsumieren. Deshalb fällt die erste Runde weg, und der Steuermultiplikator beträgt c / (1 − c) mit negativem Vorzeichen."
+  },
+  {
+   "q": "Was sagt das Haavelmo-Theorem aus?",
+   "a": "Erhöht der Staat Ausgaben und Steuern um denselben Betrag, steigt das Volkseinkommen genau um diesen Betrag. Der Multiplikator des ausgeglichenen Budgets ist 1, weil Ausgaben- und Steuermultiplikator sich bis auf 1 aufheben."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Multiplikator und Akzelerator?",
+   "a": "Der Multiplikator beschreibt, wie eine zusätzliche Ausgabe das Einkommen mehrfach erhöht. Der Akzelerator beschreibt die umgekehrte Richtung: Eine Änderung der Nachfrage löst überproportionale Investitionen aus. Zusammen können beide Konjunkturschwankungen erklären."
+  },
+  {
+   "q": "Wie groß ist der Multiplikator in der Realität?",
+   "a": "Deutlich kleiner als im Lehrbuchmodell, weil Steuern, Importe und Zinsreaktionen einen Teil der Nachfrage abfangen. Empirische Schätzungen für Staatsausgaben liegen häufig in der Größenordnung von 1, in tiefen Rezessionen mit Nullzinsen eher darüber."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Die marginale Konsumquote beträgt 0,75. Wie groß ist der Ausgabenmultiplikator im einfachen Modell?",
+   "o": [
+    "1,33",
+    "3",
+    "4",
+    "0,25"
+   ],
+   "r": 2,
+   "e": "\\( k = \\frac{1}{1-0{,}75} = \\frac{1}{0{,}25} = 4 \\)."
+  },
+  {
+   "q": "Gleiche Volkswirtschaft (\\( c = 0{,}75 \\)): Der Staat senkt die Pauschalsteuer um 20 Mrd. €. Um wie viel steigt das Einkommen?",
+   "o": [
+    "60 Mrd. €",
+    "80 Mrd. €",
+    "20 Mrd. €",
+    "15 Mrd. €"
+   ],
+   "r": 0,
+   "e": "Steuermultiplikator \\( \\frac{0{,}75}{0{,}25} = 3 \\), also \\( \\Delta Y = 3 \\cdot 20 = 60 \\) Mrd. €. 80 Mrd. € wären der Effekt zusätzlicher Staatsausgaben."
+  },
+  {
+   "q": "Staatsausgaben und Pauschalsteuern steigen beide um 30 Mrd. €. Was passiert mit dem Volkseinkommen?",
+   "o": [
+    "Es bleibt gleich",
+    "Es sinkt um 30 Mrd. €",
+    "Es steigt um das Vierfache",
+    "Es steigt um 30 Mrd. €"
+   ],
+   "r": 3,
+   "e": "Haavelmo-Theorem: Der Multiplikator des ausgeglichenen Budgets ist 1, unabhängig von der Konsumquote."
+  }
+ ],
+ "verwandt": [
+  "fiskalpolitik",
+  "is-lm-modell",
+  "konjunkturzyklus",
+  "bruttoinlandsprodukt",
+  "wirtschaftskreislauf"
+ ],
+ "ask": "den keynesianischen Multiplikator – mit Ausgaben- und Steuermultiplikator und dem Haavelmo-Theorem an einem durchgerechneten Beispiel"
+}

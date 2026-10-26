@@ -1,0 +1,116 @@
+{
+ "slug": "degressive-abschreibung",
+ "name": "Degressive Abschreibung",
+ "title": "Degressive Abschreibung 2026 – Formel, Satz & Beispiel",
+ "meta": "Degressive Abschreibung einfach erklärt: 30 % und dreifacher Höchstsatz (Stand 2026), Wechsel zur linearen AfA, Abschreibungsplan zum Nachrechnen.",
+ "h1": "Degressive Abschreibung einfach erklärt",
+ "kurz": "Bei der degressiven Abschreibung wird jedes Jahr ein fester Prozentsatz vom Restbuchwert abgeschrieben, sodass die Beträge von Jahr zu Jahr sinken. Steuerlich ist sie für bewegliche Wirtschaftsgüter erlaubt, die vom 01.07.2025 bis 31.12.2027 angeschafft werden: höchstens 30 % und höchstens das Dreifache des linearen Satzes (Stand 2026). Weil der Restwert nie null wird, wechselt man später zur linearen Methode.",
+ "keywords": [
+  "degressive abschreibung",
+  "degressive afa",
+  "degressive abschreibung berechnen",
+  "degressive afa 2026",
+  "geometrisch degressive abschreibung",
+  "wechsel degressiv linear",
+  "degressive abschreibung beispiel",
+  "arithmetisch degressive abschreibung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist die degressive Abschreibung?",
+   "html": "<p>Die <a href=\"/lernen/abschreibung\">Abschreibung</a> verteilt die Anschaffungskosten eines Anlageguts über seine Nutzungsdauer. Bei der linearen Methode ist jeder Jahresbetrag gleich hoch. Die <strong>degressive Abschreibung</strong> dagegen schreibt am Anfang viel und später wenig ab. Dahinter steht eine realistische Beobachtung: Ein Lkw oder ein Laptop verliert in den ersten Jahren deutlich mehr Wert als gegen Ende, und gleichzeitig steigen mit dem Alter die Reparaturkosten. Sinkende Abschreibungen plus steigende Reparaturen ergeben über die Jahre eine gleichmäßigere Gesamtbelastung.</p><p>Es gibt zwei Varianten:</p><ul><li><strong>geometrisch-degressiv:</strong> ein fester Prozentsatz vom jeweiligen Restbuchwert. Das ist die Methode des Steuerrechts und die, die in Klausuren fast immer gemeint ist.</li><li><strong>arithmetisch-degressiv (digital):</strong> die Beträge sinken jedes Jahr um denselben Euro-Betrag. Handelsrechtlich zulässig, steuerlich nicht.</li></ul><div class=\"merke\">Degressiv heißt: gleicher Prozentsatz, aber auf eine immer kleinere Basis. Deshalb sinken die Beträge, und der Buchwert erreicht ohne Methodenwechsel nie null.</div>"
+  },
+  {
+   "h2": "Welche Formel und welcher Höchstsatz gelten (Stand 2026)?",
+   "html": "<p>Für die geometrisch-degressive Methode brauchst du nur zwei Formeln:</p><div class=\"formel\">\\[ \\text{AfA}_t = \\text{Restbuchwert}_{t-1} \\cdot s \\]\\[ \\text{Restbuchwert}_t = \\text{Restbuchwert}_{t-1} - \\text{AfA}_t \\]</div><p>Der Satz \\( s \\) ist im Steuerrecht gedeckelt. Nach § 7 Abs. 2 EStG gilt für bewegliche Wirtschaftsgüter des Anlagevermögens, die vom 01.07.2025 bis zum 31.12.2027 angeschafft oder hergestellt werden (Stand 2026):</p><div class=\"formel\">\\[ s = \\min\\left(3 \\cdot \\frac{100\\,\\%}{\\text{Nutzungsdauer}};\\ 30\\,\\%\\right) \\]</div><table><thead><tr><th>Nutzungsdauer</th><th>linearer Satz</th><th>dreifach</th><th>zulässiger degressiver Satz</th></tr></thead><tbody><tr><td>5 Jahre</td><td>20 %</td><td>60 %</td><td>30 %</td></tr><tr><td>8 Jahre</td><td>12,5 %</td><td>37,5 %</td><td>30 %</td></tr><tr><td>10 Jahre</td><td>10 %</td><td>30 %</td><td>30 %</td></tr><tr><td>12 Jahre</td><td>8,33 %</td><td>25 %</td><td>25 %</td></tr><tr><td>15 Jahre</td><td>6,67 %</td><td>20 %</td><td>20 %</td></tr></tbody></table><p>Bis zu einer Nutzungsdauer von zehn Jahren greift also die 30-%-Grenze, darüber die Dreifach-Grenze.</p><p>Wichtig für die Einordnung: Die degressive AfA ist im Steuerrecht seit Jahren nur befristet erlaubt und wurde immer wieder mit anderen Sätzen eingeführt, zuletzt als Konjunkturmaßnahme. Für Güter, die außerhalb eines solchen Zeitfensters angeschafft werden, bleibt steuerlich nur die lineare AfA. Gebäude, immaterielle Wirtschaftsgüter und geringwertige Wirtschaftsgüter fallen nicht unter diese Regel. In Klausuren wird häufig ein Satz vorgegeben; dann rechnest du mit diesem.</p>"
+  },
+  {
+   "h2": "Beispiel: degressive Abschreibung mit Wechsel zur linearen Methode",
+   "html": "<div class=\"beispiel\"><p>Die Brenner Logistik GmbH kauft im Januar 2026 einen Gabelstapler für 60.000 € (Anschaffungskosten inkl. Lieferung). Nutzungsdauer laut AfA-Tabelle: 8 Jahre.</p><p><strong>Schritt 1: Satz bestimmen</strong><br>linear: \\( \\frac{100\\,\\%}{8} = 12{,}5\\,\\% \\), dreifach: \\( 3 \\cdot 12{,}5\\,\\% = 37{,}5\\,\\% \\), Deckel 30 %. Also \\( s = 30\\,\\% \\).</p><p><strong>Schritt 2: Abschreibungsplan</strong> mit Vergleich zur linearen AfA auf den Restbuchwert</p><table><thead><tr><th>Jahr</th><th>Buchwert Anfang</th><th>degressiv 30 %</th><th>linear auf Rest</th><th>AfA</th><th>Buchwert Ende</th></tr></thead><tbody><tr><td>1</td><td>60.000,00</td><td>18.000,00</td><td>7.500,00</td><td>18.000,00</td><td>42.000,00</td></tr><tr><td>2</td><td>42.000,00</td><td>12.600,00</td><td>6.000,00</td><td>12.600,00</td><td>29.400,00</td></tr><tr><td>3</td><td>29.400,00</td><td>8.820,00</td><td>4.900,00</td><td>8.820,00</td><td>20.580,00</td></tr><tr><td>4</td><td>20.580,00</td><td>6.174,00</td><td>4.116,00</td><td>6.174,00</td><td>14.406,00</td></tr><tr><td>5</td><td>14.406,00</td><td>4.321,80</td><td>3.601,50</td><td>4.321,80</td><td>10.084,20</td></tr><tr><td>6</td><td>10.084,20</td><td>3.025,26</td><td>3.361,40</td><td>3.361,40</td><td>6.722,80</td></tr><tr><td>7</td><td>6.722,80</td><td>–</td><td>3.361,40</td><td>3.361,40</td><td>3.361,40</td></tr><tr><td>8</td><td>3.361,40</td><td>–</td><td>3.361,40</td><td>3.361,40</td><td>0,00</td></tr></tbody></table><p>Die Spalte „linear auf Rest“ ist Restbuchwert durch Restnutzungsdauer, etwa in Jahr 6: \\( \\frac{10.084{,}20}{3} = 3.361{,}40 \\) €.</p><p><strong>Schritt 3: Wechselzeitpunkt</strong><br>In Jahr 5 ist degressiv noch höher (4.321,80 € gegen 3.601,50 €), in Jahr 6 erstmals linear (3.361,40 € gegen 3.025,26 €). Ab Jahr 6 wird linear abgeschrieben, und der Buchwert erreicht nach acht Jahren genau null.</p><p><strong>Schritt 4: Probe</strong><br>\\( 18.000 + 12.600 + 8.820 + 6.174 + 4.321{,}80 + 3 \\cdot 3.361{,}40 = 60.000 \\) € ✓</p><p><strong>Buchungssatz Jahr 1:</strong> Abschreibungen auf Sachanlagen an Betriebs- und Geschäftsausstattung 18.000 €.</p></div>"
+  },
+  {
+   "h2": "Wann wechselt man von degressiv zu linear?",
+   "html": "<p>Gewechselt wird, sobald die lineare AfA auf den Restbuchwert mindestens so hoch ist wie die degressive. Steuerlich ist dieser Wechsel nach § 7 Abs. 3 EStG erlaubt, der umgekehrte Weg von linear zu degressiv dagegen nicht. Nach dem Wechsel gilt:</p><div class=\"formel\">\\[ \\text{AfA}_{\\text{linear}} = \\frac{\\text{Restbuchwert}}{\\text{Restnutzungsdauer}} \\]</div><p>Du musst den Wechselzeitpunkt nicht durch Probieren finden. Linear ist genau dann mindestens so hoch wie degressiv, wenn \\( \\frac{\\text{RBW}}{\\text{RND}} \\geq \\text{RBW} \\cdot s \\) gilt. Der Restbuchwert kürzt sich heraus:</p><div class=\"formel\">\\[ \\text{Wechsel, sobald } \\text{RND} \\leq \\frac{1}{s} \\]</div><p>Bei 30 % ist \\( \\frac{1}{0{,}3} \\approx 3{,}33 \\). Gewechselt wird also, sobald die Restnutzungsdauer zu Jahresbeginn höchstens drei Jahre beträgt. Beim Gabelstapler ist das in Jahr 6 der Fall (Jahre 6, 7 und 8 verbleiben). Bei einem Satz von 25 % ist es ab einer Restnutzungsdauer von vier Jahren so weit, bei 20 % ab fünf Jahren.</p><p><strong>Unterjährige Anschaffung:</strong> Auch degressiv wird im ersten Jahr nur zeitanteilig abgeschrieben, der Anschaffungsmonat zählt voll. Hätte Brenner den Stapler im Mai gekauft, wären es im ersten Jahr \\( 18.000 \\cdot \\frac{8}{12} = 12.000 \\) € und im zweiten Jahr \\( (60.000 - 12.000) \\cdot 0{,}3 = 14.400 \\) €.</p>"
+  },
+  {
+   "h2": "Arithmetisch-degressive Abschreibung (digitale Methode)",
+   "html": "<p>Handelsrechtlich ist auch die arithmetisch-degressive Methode erlaubt, die in manchen Vorlesungen noch abgefragt wird. Die Jahre werden rückwärts nummeriert und die Anschaffungskosten im Verhältnis dieser Ziffern verteilt:</p><div class=\"formel\">\\[ \\text{Degressionsbetrag} = \\frac{\\text{AK}}{1 + 2 + \\dots + n} = \\frac{\\text{AK}}{\\frac{n(n+1)}{2}} \\]\\[ \\text{AfA}_t = \\text{Degressionsbetrag} \\cdot (n - t + 1) \\]</div><p>Für den Gabelstapler: \\( 1 + 2 + \\dots + 8 = 36 \\), Degressionsbetrag \\( \\frac{60.000}{36} = 1.666{,}67 \\) €. Im ersten Jahr werden \\( 8 \\cdot 1.666{,}67 = 13.333{,}33 \\) € abgeschrieben, im zweiten \\( 7 \\cdot 1.666{,}67 = 11.666{,}67 \\) €, im letzten 1.666,67 €. Der Buchwert erreicht automatisch null, ein Methodenwechsel ist nicht nötig. Steuerlich ist die Methode nicht zulässig.</p>"
+  },
+  {
+   "h2": "Vorteile, Nachteile und Handels- vs. Steuerbilanz",
+   "html": "<p><strong>Vorteile:</strong></p><ul><li>bildet den tatsächlichen Wertverlust vieler Güter (Fahrzeuge, Technik) besser ab als linear,</li><li>senkt in den ersten Jahren den steuerpflichtigen Gewinn und verschiebt Steuerzahlungen in die Zukunft: Nach drei Jahren hat Brenner \\( 39.420 - 22.500 = 16.920 \\) € mehr abgeschrieben als linear. Bei 30 % Steuerlast sind das \\( 16.920 \\cdot 0{,}3 = 5.076 \\) € Steuern, die später gezahlt werden,</li><li>bessere Liquidität in der Anfangsphase einer Investition.</li></ul><p><strong>Nachteile:</strong></p><ul><li>keine echte Steuerersparnis, sondern nur eine Verschiebung: In den späten Jahren ist die AfA niedriger und der Gewinn entsprechend höher,</li><li>niedrigere Gewinne und Buchwerte am Anfang verschlechtern Kennzahlen wie Umsatzrendite oder <a href=\"/lernen/eigenkapitalquote\">Eigenkapitalquote</a>,</li><li>aufwendiger: Wechselzeitpunkt berechnen, Befristung und Höchstsatz im Steuerrecht beachten.</li></ul><p><strong>Handelsbilanz und Steuerbilanz:</strong> Im HGB gibt es keinen gesetzlichen Höchstsatz, die Methode muss nur dem tatsächlichen Werteverzehr entsprechen und beibehalten werden. Das Steuerrecht erlaubt die degressive AfA unabhängig davon, wie in der Handelsbilanz abgeschrieben wird. Schreibt ein Unternehmen handelsrechtlich linear und steuerlich degressiv ab, entstehen unterschiedliche Buchwerte und damit <a href=\"/lernen/latente-steuern\">latente Steuern</a>. Für Entscheidungen in der Kostenrechnung spielt das alles keine Rolle: Dort wird die kalkulatorische Abschreibung meist linear vom Wiederbeschaffungswert gerechnet.</p>"
+  }
+ ],
+ "fehler": [
+  "Den degressiven Satz auf die Anschaffungskosten statt auf den Restbuchwert anwenden: Dann wäre die AfA jedes Jahr gleich hoch, also linear. Der Satz bezieht sich immer auf den Buchwert zu Jahresbeginn.",
+  "Den Höchstsatz pauschal mit 30 % ansetzen: Es gilt das Minimum aus 30 % und dem Dreifachen des linearen Satzes. Bei 12 Jahren Nutzungsdauer sind das nur 25 %, bei 15 Jahren 20 % (Stand 2026).",
+  "Den Wechsel zur linearen Methode vergessen: Ohne Wechsel bleibt nach Ablauf der Nutzungsdauer ein Restbuchwert stehen. Beim Gabelstapler wären es nach acht Jahren degressiv noch über 3.400 €.",
+  "Nach dem Wechsel die ursprüngliche lineare AfA nehmen: Linear wird dann der Restbuchwert durch die Restnutzungsdauer geteilt, im Beispiel 3.361,40 € statt 7.500 €.",
+  "Im Anschaffungsjahr den vollen Jahresbetrag ansetzen: Auch degressiv wird zeitanteilig abgeschrieben, der Anschaffungsmonat zählt voll mit."
+ ],
+ "faq": [
+  {
+   "q": "Ist die degressive Abschreibung 2026 erlaubt?",
+   "a": "Ja, steuerlich für bewegliche Wirtschaftsgüter des Anlagevermögens, die vom 01.07.2025 bis 31.12.2027 angeschafft oder hergestellt werden (Stand 2026). Der Satz beträgt höchstens 30 % und höchstens das Dreifache des linearen Satzes. Handelsrechtlich ist sie zulässig, wenn sie den tatsächlichen Werteverzehr abbildet."
+  },
+  {
+   "q": "Wie berechnet man die degressive Abschreibung?",
+   "a": "Du multiplizierst den Restbuchwert zu Jahresbeginn mit dem degressiven Satz. Im ersten Jahr ist der Restbuchwert gleich den Anschaffungskosten. Den Abschreibungsbetrag ziehst du ab und erhältst den neuen Restbuchwert für das nächste Jahr."
+  },
+  {
+   "q": "Wann wechselt man von degressiver zu linearer Abschreibung?",
+   "a": "Sobald die lineare Abschreibung auf den Restbuchwert mindestens so hoch ist wie die degressive. Das ist der Fall, wenn die Restnutzungsdauer höchstens 1 geteilt durch den degressiven Satz beträgt, bei 30 % also ab drei verbleibenden Jahren."
+  },
+  {
+   "q": "Kann man von linearer zu degressiver Abschreibung wechseln?",
+   "a": "Steuerlich nein. Erlaubt ist nur der Wechsel von degressiv zu linear. Wer ein Wirtschaftsgut einmal linear abschreibt, bleibt bei der linearen Methode."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen geometrisch- und arithmetisch-degressiver Abschreibung?",
+   "a": "Geometrisch-degressiv rechnet einen festen Prozentsatz vom Restbuchwert, die Beträge sinken prozentual. Arithmetisch-degressiv lässt die Beträge jedes Jahr um denselben Euro-Betrag sinken. Steuerlich ist nur die geometrische Variante erlaubt."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Anschaffungskosten 90.000 €, Nutzungsdauer 15 Jahre, Anschaffung im Januar 2026. Wie hoch ist die maximale degressive AfA im ersten Jahr?",
+   "o": [
+    "27.000 €",
+    "6.000 €",
+    "22.500 €",
+    "18.000 €"
+   ],
+   "r": 3,
+   "e": "Linear wären \\( 6{,}67\\,\\% \\), dreifach \\( 20\\,\\% \\). Das liegt unter 30 %, also gilt 20 %: \\( 90.000 \\cdot 0{,}2 = 18.000 \\) €."
+  },
+  {
+   "q": "Ein Restbuchwert von 20.000 € wird mit 25 % degressiv abgeschrieben. Wie hoch ist der Restbuchwert nach einem weiteren Jahr?",
+   "o": [
+    "15.000 €",
+    "5.000 €",
+    "16.000 €",
+    "12.500 €"
+   ],
+   "r": 0,
+   "e": "\\( 20.000 \\cdot 0{,}25 = 5.000 \\) € AfA, neuer Restbuchwert \\( 20.000 - 5.000 = 15.000 \\) €."
+  },
+  {
+   "q": "Degressiver Satz 25 %. Ab welcher Restnutzungsdauer lohnt sich der Wechsel zur linearen AfA?",
+   "o": [
+    "5 Jahre",
+    "3 Jahre",
+    "4 Jahre",
+    "Nie, degressiv ist immer höher"
+   ],
+   "r": 2,
+   "e": "Gewechselt wird, sobald \\( \\text{RND} \\leq \\frac{1}{0{,}25} = 4 \\) Jahre. Bei genau vier Jahren sind beide Beträge gleich hoch."
+  }
+ ],
+ "verwandt": [
+  "abschreibung",
+  "geringwertige-wirtschaftsgueter",
+  "anschaffungskosten",
+  "latente-steuern",
+  "kalkulatorische-kosten"
+ ],
+ "ask": "die degressive Abschreibung – mit Höchstsatz, Abschreibungsplan und dem Wechsel zur linearen Methode an einem durchgerechneten Beispiel"
+}

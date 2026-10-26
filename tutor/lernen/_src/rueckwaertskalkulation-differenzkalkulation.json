@@ -1,0 +1,112 @@
+{
+  "slug": "rueckwaertskalkulation-differenzkalkulation",
+  "name": "Rückwärts- und Differenzkalkulation",
+  "title": "Rückwärtskalkulation & Differenzkalkulation – Beispiel",
+  "meta": "Rückwärtskalkulation und Differenzkalkulation einfach erklärt: vom Marktpreis zum maximalen Einkaufspreis und zum echten Gewinn – mit Rechenbeispiel.",
+  "h1": "Rückwärtskalkulation und Differenzkalkulation einfach erklärt",
+  "kurz": "Bei der Rückwärtskalkulation ist der Verkaufspreis vom Markt vorgegeben und du rechnest das Kalkulationsschema von unten nach oben zurück bis zum maximal zulässigen Einkaufspreis. Bei der Differenzkalkulation sind Einkaufs- und Verkaufspreis bekannt: Du rechnest vorwärts bis zu den Selbstkosten, rückwärts bis zum Barverkaufspreis, und die Differenz ist der tatsächliche Gewinn.",
+  "keywords": [
+    "rückwärtskalkulation",
+    "differenzkalkulation",
+    "rückwärtskalkulation handel",
+    "maximaler einkaufspreis",
+    "auf hundert rechnen",
+    "gewinn berechnen kalkulation",
+    "rückwärtskalkulation beispiel",
+    "differenzkalkulation beispiel"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was sind Rückwärts- und Differenzkalkulation?",
+      "html": "<p>In der <a href=\"/lernen/handelskalkulation\">Vorwärtskalkulation</a> setzt der Händler seinen Preis selbst: Einkaufspreis plus Kosten plus Gewinn. In vielen Märkten funktioniert das nicht, weil die Konkurrenz den Preis vorgibt. Dann drehst du die Frage um:</p><ul><li><strong>Rückwärtskalkulation:</strong> „Der Markt zahlt 149 €. Wie viel darf ich beim Lieferanten höchstens zahlen, damit Kosten und geplanter Gewinn gedeckt sind?“ Gegeben ist der Verkaufspreis, gesucht der maximale Listeneinkaufspreis.</li><li><strong>Differenzkalkulation:</strong> „Der Markt zahlt 149 €, der Lieferant verlangt 112 €. Was bleibt mir?“ Gegeben sind beide Preise, gesucht ist der tatsächliche Gewinn – als Betrag und in Prozent der Selbstkosten.</li></ul><p>Beide nutzen dasselbe Schema wie die Vorwärtskalkulation. Der Unterschied liegt allein in der Rechenrichtung, und genau dabei ändern sich die Prozentrechnungen. Das gleiche Prinzip funktioniert auch in der Industrie mit dem Schema der <a href=\"/lernen/zuschlagskalkulation\">Zuschlagskalkulation</a>.</p>"
+    },
+    {
+      "h2": "Wie ändern sich die Prozentrechnungen beim Rückwärtsrechnen?",
+      "html": "<p>Jeder Prozentsatz hat eine feste Basis. Rechnest du rückwärts, bleibt die Basis gleich, aber du kommst von der anderen Seite. Deshalb dreht sich die Rechenart um:</p><table><thead><tr><th>Position</th><th>Basis (= 100 %)</th><th>vorwärts</th><th>rückwärts</th></tr></thead><tbody><tr><td>Kundenrabatt</td><td>Listenverkaufspreis</td><td>im Hundert aufschlagen</td><td>vom Hundert abziehen</td></tr><tr><td>Kundenskonto</td><td>Zielverkaufspreis</td><td>im Hundert aufschlagen</td><td>vom Hundert abziehen</td></tr><tr><td>Gewinn</td><td>Selbstkosten</td><td>vom Hundert aufschlagen</td><td>auf Hundert herausrechnen</td></tr><tr><td>Handlungskosten</td><td>Bezugspreis</td><td>vom Hundert aufschlagen</td><td>auf Hundert herausrechnen</td></tr><tr><td>Liefererskonto</td><td>Zieleinkaufspreis</td><td>vom Hundert abziehen</td><td>im Hundert aufschlagen</td></tr><tr><td>Liefererrabatt</td><td>Listeneinkaufspreis</td><td>vom Hundert abziehen</td><td>im Hundert aufschlagen</td></tr></tbody></table><p>Als Formeln für die beiden kritischen Fälle:</p><div class=\"formel\">\\[ \\text{auf Hundert: } \\text{Selbstkosten} = \\frac{\\text{Barverkaufspreis}}{1 + \\text{Gewinnsatz}} \\]\\[ \\text{im Hundert: } \\text{Zieleinkaufspreis} = \\frac{\\text{Bareinkaufspreis}}{1 - \\text{Skontosatz}} \\]</div><div class=\"merke\">Rückwärts gilt: Was vorwärts addiert wurde, wird herausgerechnet (teilen durch 1 + p). Was vorwärts abgezogen wurde, wird zurückgerechnet (teilen durch 1 − p). Nur Kundenrabatt und Kundenskonto ziehst du rückwärts einfach vom Hundert ab.</div>"
+    },
+    {
+      "h2": "Beispiel: Rückwärtskalkulation Schritt für Schritt",
+      "html": "<div class=\"beispiel\"><p>Ein Elektronikhändler will kabellose Kopfhörer ins Sortiment nehmen. Vergleichbare Modelle kosten im Markt 149,00 € netto (Listenverkaufspreis). Kalkulationsdaten: Kundenrabatt 10 %, Kundenskonto 2 %, Gewinnzuschlag 15 %, Handlungskostenzuschlag 30 %, Bezugskosten 2,50 € je Stück, Liefererskonto 2 %, Liefererrabatt 20 %. Wie hoch darf der Listeneinkaufspreis höchstens sein?</p><table><thead><tr><th>Position</th><th>Rechnung</th><th>Betrag</th></tr></thead><tbody><tr><td>Listenverkaufspreis</td><td></td><td>149,00 €</td></tr><tr><td>− Kundenrabatt 10 % v. H.</td><td>\\( 149{,}00 \\cdot 0{,}10 \\)</td><td>14,90 €</td></tr><tr><td>= Zielverkaufspreis</td><td></td><td>134,10 €</td></tr><tr><td>− Kundenskonto 2 % v. H.</td><td>\\( 134{,}10 \\cdot 0{,}02 \\)</td><td>2,68 €</td></tr><tr><td><strong>= Barverkaufspreis</strong></td><td></td><td><strong>131,42 €</strong></td></tr><tr><td>− Gewinn 15 % a. H.</td><td>\\( 131{,}42 - \\frac{131{,}42}{1{,}15} \\)</td><td>17,14 €</td></tr><tr><td><strong>= Selbstkosten</strong></td><td></td><td><strong>114,28 €</strong></td></tr><tr><td>− Handlungskosten 30 % a. H.</td><td>\\( 114{,}28 - \\frac{114{,}28}{1{,}30} \\)</td><td>26,37 €</td></tr><tr><td><strong>= Bezugspreis</strong></td><td></td><td><strong>87,91 €</strong></td></tr><tr><td>− Bezugskosten</td><td></td><td>2,50 €</td></tr><tr><td>= Bareinkaufspreis</td><td></td><td>85,41 €</td></tr><tr><td>+ Liefererskonto 2 % i. H.</td><td>\\( \\frac{85{,}41}{0{,}98} - 85{,}41 \\)</td><td>1,74 €</td></tr><tr><td>= Zieleinkaufspreis</td><td></td><td>87,15 €</td></tr><tr><td>+ Liefererrabatt 20 % i. H.</td><td>\\( \\frac{87{,}15}{0{,}80} - 87{,}15 \\)</td><td>21,79 €</td></tr><tr><td><strong>= maximaler Listeneinkaufspreis</strong></td><td></td><td><strong>108,94 €</strong></td></tr></tbody></table><p><strong>Probe vorwärts:</strong> \\( 108{,}94 \\cdot 0{,}80 = 87{,}15 \\) €, \\( 87{,}15 \\cdot 0{,}98 = 85{,}41 \\) €, plus 2,50 € ergibt 87,91 €. \\( 87{,}91 \\cdot 1{,}30 = 114{,}28 \\) € und \\( 114{,}28 \\cdot 1{,}15 = 131{,}42 \\) €. ✓</p><p><strong>Was der typische Fehler kostet:</strong> Wer den Gewinn mit 15 % vom Barverkaufspreis abzieht, erhält \\( 131{,}42 \\cdot 0{,}85 = 111{,}71 \\) € statt 114,28 € Selbstkosten. Damit fällt auch der maximale Listeneinkaufspreis zu niedrig aus, und der Händler lehnt womöglich ein Angebot ab, das ihm in Wahrheit die geplanten 15 % gebracht hätte.</p></div><p>Interpretation: Zahlt der Händler mehr als 108,94 € Listeneinkaufspreis, kann er die Kopfhörer zum Marktpreis nur noch mit weniger als 15 % Gewinn verkaufen. Der Wert ist seine Verhandlungsobergrenze gegenüber dem Lieferanten.</p>"
+    },
+    {
+      "h2": "Beispiel: Differenzkalkulation Schritt für Schritt",
+      "html": "<p>Der Lieferant bietet die Kopfhörer zu 112,00 € Listeneinkaufspreis an – mehr als die errechneten 108,94 €. Wie viel Gewinn bleibt tatsächlich übrig, wenn der Händler trotzdem zum Marktpreis von 149,00 € verkauft?</p><div class=\"beispiel\"><p><strong>Schritt 1: Vorwärts bis zu den Selbstkosten</strong></p><table><thead><tr><th>Position</th><th>Rechnung</th><th>Betrag</th></tr></thead><tbody><tr><td>Listeneinkaufspreis</td><td></td><td>112,00 €</td></tr><tr><td>− Liefererrabatt 20 %</td><td>\\( 112{,}00 \\cdot 0{,}20 \\)</td><td>22,40 €</td></tr><tr><td>− Liefererskonto 2 %</td><td>\\( 89{,}60 \\cdot 0{,}02 \\)</td><td>1,79 €</td></tr><tr><td>= Bareinkaufspreis</td><td></td><td>87,81 €</td></tr><tr><td>+ Bezugskosten</td><td></td><td>2,50 €</td></tr><tr><td>= Bezugspreis</td><td></td><td>90,31 €</td></tr><tr><td>+ Handlungskosten 30 %</td><td>\\( 90{,}31 \\cdot 0{,}30 \\)</td><td>27,09 €</td></tr><tr><td><strong>= Selbstkosten</strong></td><td></td><td><strong>117,40 €</strong></td></tr></tbody></table><p><strong>Schritt 2: Rückwärts bis zum Barverkaufspreis</strong><br>Wie oben: \\( 149{,}00 \\to 134{,}10 \\to 131{,}42 \\) €.</p><p><strong>Schritt 3: Differenz bilden</strong></p><div class=\"formel\">\\[ \\text{Gewinn} = 131{,}42 - 117{,}40 = 14{,}02 \\text{ €} \\]\\[ \\text{Gewinn in \\%} = \\frac{14{,}02}{117{,}40} \\cdot 100 \\approx 11{,}94\\,\\% \\]</div></div><p>Der Händler verdient also 14,02 € je Stück, das sind nur 11,94 % statt der geplanten 15 %. Ein Verlust ist es nicht, aber er sollte nachverhandeln. Damit der Zieleinkaufspreis bei 112,00 € Listenpreis auf die maximal zulässigen 87,15 € sinkt, bräuchte er einen Rabatt von \\( 1 - \\frac{87{,}15}{112{,}00} \\approx 22{,}2\\,\\% \\) statt 20 %.</p><p>Wichtig: Der Prozentsatz bezieht sich auf die <strong>Selbstkosten</strong>, nicht auf den Verkaufspreis. Nur so ist er mit dem geplanten Gewinnzuschlag vergleichbar.</p>"
+    },
+    {
+      "h2": "Wann nutzt man welche Kalkulation?",
+      "html": "<table><thead><tr><th>Situation</th><th>gegeben</th><th>gesucht</th><th>Verfahren</th></tr></thead><tbody><tr><td>neuer, exklusiver Artikel</td><td>Einkaufspreis</td><td>Verkaufspreis</td><td>Vorwärtskalkulation</td></tr><tr><td>Konkurrenz bestimmt den Preis</td><td>Verkaufspreis</td><td>maximaler Einkaufspreis</td><td>Rückwärtskalkulation</td></tr><tr><td>Angebot liegt vor, Preis steht fest</td><td>beide Preise</td><td>Gewinn</td><td>Differenzkalkulation</td></tr></tbody></table><p>Die Rückwärtskalkulation ist im Kern marktorientiert: Sie folgt derselben Logik wie das <a href=\"/lernen/target-costing\">Target Costing</a> in der Industrie, bei dem aus einem Zielpreis die erlaubten Kosten abgeleitet werden. Die Differenzkalkulation ist ein Kontrollinstrument, etwa vor einer Aktion mit Sonderpreisen oder bei einem Lieferantenwechsel.</p><p><strong>Grenzen:</strong> Beide Verfahren arbeiten mit Vollkosten. Ein Gewinn unter Plan oder sogar ein kleiner Verlust kann kurzfristig trotzdem sinnvoll sein, wenn der Artikel Kunden ins Geschäft bringt oder freie Kapazitäten nutzt – dann sind die Fixkosten in den Handlungskosten ohnehin da. Für schnelle Rechnungen im Sortiment fasst man die Zuschläge zu einem einzigen Wert zusammen, siehe <a href=\"/lernen/handelsspanne-kalkulationsfaktor\">Handelsspanne und Kalkulationsfaktor</a>.</p>"
+    }
+  ],
+  "fehler": [
+    "Den Gewinn rückwärts vom Hundert abziehen: Der Gewinnzuschlag bezieht sich auf die Selbstkosten, also musst du auf Hundert rechnen und den Barverkaufspreis durch 1,15 teilen statt mit 0,85 zu multiplizieren.",
+    "Kundenrabatt und Kundenskonto rückwärts im Hundert rechnen: Rückwärts startest du genau bei ihrer Basis, dem Listen- bzw. Zielverkaufspreis, und ziehst sie einfach vom Hundert ab.",
+    "Liefererrabatt und Liefererskonto rückwärts einfach aufschlagen: Ihre Basis ist der höhere Einkaufspreis, den du suchst, also teilst du durch 0,98 bzw. 0,80 (im Hundert).",
+    "Bezugskosten beim Rückwärtsrechnen mitprozentuieren: Sie sind ein fester Betrag je Stück und werden nach dem Herausrechnen der Handlungskosten einfach abgezogen.",
+    "In der Differenzkalkulation den Gewinn auf den Verkaufspreis beziehen: Vergleichbar mit dem geplanten Gewinnzuschlag ist nur der Gewinn in Prozent der Selbstkosten."
+  ],
+  "faq": [
+    {
+      "q": "Was ist der Unterschied zwischen Rückwärtskalkulation und Differenzkalkulation?",
+      "a": "Bei der Rückwärtskalkulation kennst du nur den Verkaufspreis und rechnest bis zum höchstmöglichen Einkaufspreis zurück. Bei der Differenzkalkulation kennst du Einkaufs- und Verkaufspreis und rechnest von beiden Seiten bis zur Mitte. Die Differenz zwischen Barverkaufspreis und Selbstkosten ist dann der tatsächliche Gewinn."
+    },
+    {
+      "q": "Was bedeutet „auf Hundert“ rechnen?",
+      "a": "Auf Hundert rechnest du, wenn der gegebene Wert bereits den Zuschlag enthält, also über 100 % liegt. Ein Barverkaufspreis mit 15 % Gewinn entspricht 115 % der Selbstkosten, also teilst du durch 1,15. In der Rückwärtskalkulation betrifft das den Gewinn und die Handlungskosten."
+    },
+    {
+      "q": "Wie berechnet man den Gewinn in der Differenzkalkulation in Prozent?",
+      "a": "Du teilst den Gewinn in Euro durch die Selbstkosten und multiplizierst mit 100. Bei 14,02 € Gewinn und 117,40 € Selbstkosten sind das rund 11,94 %. Die Basis Selbstkosten ist wichtig, damit der Wert mit dem geplanten Gewinnzuschlag vergleichbar ist."
+    },
+    {
+      "q": "Wann wendet man die Rückwärtskalkulation an?",
+      "a": "Immer dann, wenn der Verkaufspreis durch den Markt, die Konkurrenz oder eine Preisempfehlung festliegt. Der Händler ermittelt so, wie viel er beim Einkauf höchstens zahlen darf, und nutzt den Wert als Obergrenze für Verhandlungen mit Lieferanten."
+    },
+    {
+      "q": "Kann die Differenzkalkulation einen Verlust ergeben?",
+      "a": "Ja. Liegen die Selbstkosten über dem Barverkaufspreis, ist die Differenz negativ und der Artikel bringt auf Vollkostenbasis Verlust. Ob man ihn trotzdem führt, hängt davon ab, ob er seine variablen Kosten deckt und welche Rolle er im Sortiment spielt."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Welche Größe ist bei der Rückwärtskalkulation gegeben?",
+      "o": [
+        "der Listeneinkaufspreis",
+        "der Gewinn in Euro",
+        "der Verkaufspreis",
+        "die Selbstkosten"
+      ],
+      "r": 2,
+      "e": "Der Verkaufspreis ist vom Markt vorgegeben. Gesucht ist der höchstmögliche Einkaufspreis."
+    },
+    {
+      "q": "Barverkaufspreis 92 €, Gewinnzuschlag 15 %. Wie hoch sind die Selbstkosten?",
+      "o": [
+        "78,20 €",
+        "80,00 €",
+        "105,80 €",
+        "77,00 €"
+      ],
+      "r": 1,
+      "e": "Auf Hundert: \\( \\frac{92}{1{,}15} = 80 \\) €. 78,20 € wäre fälschlich vom Hundert abgezogen."
+    },
+    {
+      "q": "Bareinkaufspreis 49 €, Liefererskonto 2 %. Wie hoch ist der Zieleinkaufspreis in der Rückwärtskalkulation?",
+      "o": [
+        "49,98 €",
+        "48,02 €",
+        "51,00 €",
+        "50,00 €"
+      ],
+      "r": 3,
+      "e": "Im Hundert: \\( \\frac{49}{0{,}98} = 50 \\) €. Das Skonto wird vom Zieleinkaufspreis gewährt, der also 100 % ist."
+    }
+  ],
+  "verwandt": [
+    "handelskalkulation",
+    "handelsspanne-kalkulationsfaktor",
+    "zuschlagskalkulation",
+    "target-costing",
+    "preisuntergrenze"
+  ],
+  "ask": "die Rückwärtskalkulation und die Differenzkalkulation – mit vom, auf und im Hundert an einem durchgerechneten Handelsbeispiel"
+}

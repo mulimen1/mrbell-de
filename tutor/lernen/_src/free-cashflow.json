@@ -1,0 +1,112 @@
+{
+ "slug": "free-cashflow",
+ "name": "Free Cashflow",
+ "title": "Free Cashflow einfach erklärt – Formel und Beispiel",
+ "meta": "Free Cashflow berechnen: aus dem operativen Cashflow oder ab EBIT, FCFF vs. FCFE, Working Capital, Capex – mit durchgerechnetem Beispiel und Klausurfallen.",
+ "h1": "Free Cashflow einfach erklärt",
+ "kurz": "Der Free Cashflow ist das Geld, das nach Bezahlung des laufenden Geschäfts und der nötigen Investitionen übrig bleibt und an die Kapitalgeber fließen kann. Vereinfacht gilt \\( \\text{FCF} = \\text{operativer Cashflow} - \\text{Investitionsauszahlungen} \\). Für die Unternehmensbewertung rechnet man meist ab EBIT: \\( \\text{FCF} = \\text{EBIT} \\cdot (1-s) + \\text{AfA} - \\text{Capex} - \\Delta \\text{WC} \\).",
+ "keywords": [
+  "free cashflow",
+  "free cashflow berechnen",
+  "free cashflow formel",
+  "free cashflow beispiel",
+  "fcff fcfe unterschied",
+  "free cashflow to firm",
+  "freier cashflow",
+  "free cashflow ebit"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der Free Cashflow?",
+   "html": "<p>Der <a href=\"/lernen/cashflow\">Cashflow</a> aus laufender Geschäftstätigkeit zeigt, wie viel Geld das Kerngeschäft erwirtschaftet. Ein Teil davon ist aber nicht „frei“: Maschinen nutzen sich ab, Software muss erneuert werden, Wachstum braucht neue Anlagen. Erst was nach diesen Investitionen übrig bleibt, kann das Unternehmen an Eigen- und Fremdkapitalgeber auszahlen – als Dividende, Zins oder Tilgung. Das ist der <strong>Free Cashflow</strong> (FCF, freier Cashflow).</p><p>Er beantwortet die Frage, die Investoren, Banken und Käufer eines Unternehmens am meisten interessiert: <em>Wie viel Geld wirft das Geschäft wirklich ab, ohne dass es dafür neues Kapital braucht?</em> Deshalb ist der Free Cashflow die zentrale Rechengröße im <a href=\"/lernen/dcf-verfahren\">DCF-Verfahren</a> der Unternehmensbewertung.</p><p>Das Tückische: „Free Cashflow“ ist kein gesetzlich definierter Begriff. Es gibt mehrere Varianten, und Klausuren prüfen genau, ob du sie auseinanderhältst:</p><ul><li><strong>Einfacher Free Cashflow:</strong> operativer Cashflow minus Investitions-Cashflow, direkt aus der Kapitalflussrechnung.</li><li><strong>Free Cashflow to Firm (FCFF, Entity-FCF):</strong> steht <em>allen</em> Kapitalgebern zur Verfügung, also vor Zinsen und Tilgung, so als wäre das Unternehmen rein eigenfinanziert.</li><li><strong>Free Cashflow to Equity (FCFE, Flow to Equity):</strong> steht nur den <em>Eigentümern</em> zur Verfügung, also nach Zinsen und nach Kreditaufnahme bzw. Tilgung.</li></ul><div class=\"merke\">Free Cashflow = was nach laufendem Geschäft und notwendigen Investitionen für die Kapitalgeber übrig bleibt. Frag immer: Frei für wen – alle Kapitalgeber (FCFF) oder nur die Eigentümer (FCFE)?</div>"
+  },
+  {
+   "h2": "Wie lautet die Formel für den Free Cashflow?",
+   "html": "<h3>Weg 1: aus der Kapitalflussrechnung</h3><div class=\"formel\">\\[ \\text{FCF} = \\text{Cashflow aus laufender Geschäftstätigkeit} - \\text{Investitionsauszahlungen (netto)} \\]</div><p>Netto heißt: Einzahlungen aus dem Verkauf von Anlagen werden abgezogen. Der Weg ist schnell, das Ergebnis hängt aber davon ab, ob die gezahlten Zinsen im operativen Cashflow stecken oder im Finanzierungs-Cashflow. Das ist je nach Rechnungslegung und Ermittlungsweg unterschiedlich.</p><h3>Weg 2: Free Cashflow to Firm ab EBIT</h3><div class=\"formel\">\\[ \\text{FCFF} = \\underbrace{\\text{EBIT} \\cdot (1 - s)}_{\\text{NOPAT}} + \\text{Abschreibungen} - \\text{Capex} - \\Delta \\text{Working Capital} \\]</div><ul><li><strong>EBIT · (1 − s):</strong> Steuern werden so berechnet, als gäbe es keine Zinsen (fiktive Steuer auf das operative Ergebnis). Das Ergebnis heißt NOPAT.</li><li><strong>+ Abschreibungen:</strong> mindern den Gewinn, sind aber keine Auszahlung. Mehr dazu bei <a href=\"/lernen/ebit-ebitda\">EBIT und EBITDA</a>.</li><li><strong>− Capex</strong> (Capital Expenditures): Auszahlungen für Sachanlagen und immaterielle Vermögenswerte.</li><li><strong>− Δ Working Capital:</strong> Steigen Vorräte und Forderungen stärker als die Lieferantenverbindlichkeiten, ist Geld gebunden. Ein Anstieg des <a href=\"/lernen/working-capital\">Working Capital</a> wird abgezogen, ein Rückgang addiert.</li></ul><h3>Vom FCFF zum FCFE</h3><div class=\"formel\">\\[ \\text{FCFE} = \\text{FCFF} - \\text{Zinsen} \\cdot (1 - s) + \\text{Nettokreditaufnahme} \\]</div><p>Die Zinsen werden nach Steuern abgezogen, weil sie die Steuerlast senken. Nimmt das Unternehmen netto neue Kredite auf, steht den Eigentümern mehr Geld zur Verfügung; tilgt es, weniger.</p>"
+  },
+  {
+   "h2": "Beispiel: Free Cashflow Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p>Ein Hersteller von Industriepumpen hat im Geschäftsjahr folgende Werte (in Tausend Euro, T€): Umsatz 12.000, EBIT 2.400, Zinsaufwand 300, Steuersatz 30 %, Abschreibungen 600, Investitionsauszahlungen (Capex) 900. Das Working Capital ist um 200 gestiegen, weil ein Großkunde später zahlt. Kredite wurden netto um 100 getilgt.</p><p><strong>Schritt 1: NOPAT</strong><br>\\( 2.400 \\cdot (1 - 0{,}3) = 1.680 \\) T€</p><p><strong>Schritt 2: Free Cashflow to Firm</strong><br>\\( \\text{FCFF} = 1.680 + 600 - 900 - 200 = 1.180 \\) T€</p><p><strong>Schritt 3: Gegenprobe über den operativen Cashflow</strong> (indirekt, Zinsen im operativen Bereich)<br>Jahresüberschuss: \\( (2.400 - 300) \\cdot (1 - 0{,}3) = 1.470 \\) T€<br>Operativer Cashflow: \\( 1.470 + 600 - 200 = 1.870 \\) T€<br>Einfacher FCF: \\( 1.870 - 900 = 970 \\) T€</p><p><strong>Schritt 4: Warum 970 und nicht 1.180?</strong> Der Unterschied sind genau die Zinsen nach Steuern: \\( 300 \\cdot (1 - 0{,}3) = 210 \\) T€, und \\( 1.180 - 210 = 970 \\) ✓. Der einfache FCF ist hier schon nach Zinsen gerechnet, der FCFF davor.</p><p><strong>Schritt 5: Free Cashflow to Equity</strong><br>\\( \\text{FCFE} = 1.180 - 210 + (-100) = 870 \\) T€</p><table><thead><tr><th>Größe</th><th>T€</th><th>steht zur Verfügung für</th></tr></thead><tbody><tr><td>FCFF</td><td>1.180</td><td>Eigen- und Fremdkapitalgeber</td></tr><tr><td>einfacher FCF (nach Zinsen)</td><td>970</td><td>Tilgung und Eigentümer</td></tr><tr><td>FCFE</td><td>870</td><td>nur Eigentümer (z. B. Dividende)</td></tr></tbody></table></div><p>Der Pumpenhersteller verdient 1.470 T€ Jahresüberschuss, könnte aber höchstens 870 T€ ausschütten, ohne neue Schulden zu machen oder Reserven anzugreifen. Die Lücke erklären die Investitionen über Abschreibungsniveau (900 statt 600), das gebundene Working Capital und die Tilgung.</p>"
+  },
+  {
+   "h2": "Was sagt der Free Cashflow aus?",
+   "html": "<p>Ein dauerhaft positiver Free Cashflow heißt: Das Unternehmen finanziert sich selbst und kann Kapitalgeber bedienen. Ob ein Wert gut ist, zeigt aber erst der Vergleich. Zwei gängige Kennzahlen:</p><div class=\"formel\">\\[ \\text{FCF-Marge} = \\frac{\\text{FCF}}{\\text{Umsatz}} \\qquad \\text{Cash Conversion} = \\frac{\\text{FCF}}{\\text{Jahresüberschuss}} \\]</div><p>Im Beispiel liegt die FCF-Marge (auf Basis FCFF) bei \\( \\frac{1.180}{12.000} \\approx 9{,}8\\,\\% \\). Die Cash Conversion (einfacher FCF zu Jahresüberschuss) beträgt \\( \\frac{970}{1.470} \\approx 66\\,\\% \\): Von jedem Euro Gewinn kommen rund 66 Cent als freies Geld an. Werte weit unter 100 % über mehrere Jahre sind ein Hinweis, dass Gewinne in Forderungen, Vorräten oder Anlagen hängen bleiben.</p><p><strong>Negativer Free Cashflow ist nicht automatisch schlecht.</strong> Ein wachsendes Unternehmen investiert mehr, als es abschreibt, und baut Working Capital auf. Entscheidend ist, ob diese Investitionen später höhere Cashflows bringen. Bedenklich wird es, wenn der FCF negativ ist, obwohl kaum investiert wird – dann trägt das Kerngeschäft sich nicht.</p><div class=\"merke\">Capex dauerhaft deutlich über den Abschreibungen = Wachstum oder Nachholbedarf. Capex dauerhaft unter den Abschreibungen = das Unternehmen lebt von der Substanz, der FCF ist geschönt.</div>"
+  },
+  {
+   "h2": "Abgrenzung: Free Cashflow, Cashflow, EBITDA und Gewinn",
+   "html": "<table><thead><tr><th>Größe</th><th>berücksichtigt Investitionen?</th><th>berücksichtigt Steuern?</th><th>Typischer Zweck</th></tr></thead><tbody><tr><td>EBITDA</td><td>nein</td><td>nein</td><td>operative Ertragskraft vor Abschreibungen</td></tr><tr><td>Jahresüberschuss</td><td>nur über Abschreibungen</td><td>ja</td><td>Erfolg nach HGB</td></tr><tr><td>operativer Cashflow</td><td>nein</td><td>ja</td><td>Innenfinanzierungskraft</td></tr><tr><td>Free Cashflow</td><td>ja, als Auszahlung</td><td>ja</td><td>Ausschüttungsfähigkeit, Unternehmensbewertung</td></tr></tbody></table><p>Der FCF ist schwerer zu schönen als der Gewinn, weil Bewertungswahlrechte bei Abschreibungen oder Rückstellungen keinen Einfluss haben. Ganz frei von Gestaltung ist er aber nicht: Wer Investitionen verschiebt oder Lieferanten zum Stichtag später bezahlt, erhöht kurzfristig den FCF, ohne dass das Geschäft besser läuft.</p><p>In der Bewertung gehört zu jedem FCF-Begriff ein passender Zinssatz: Der FCFF wird mit dem <a href=\"/lernen/wacc\">WACC</a> abgezinst und liefert den Wert des Gesamtunternehmens, der FCFE mit den Eigenkapitalkosten und liefert direkt den Wert des Eigenkapitals. Wer FCFE mit dem WACC abzinst, mischt zwei Welten und erhält ein falsches Ergebnis.</p>"
+  }
+ ],
+ "fehler": [
+  "Steuern vom EBIT mit den tatsächlich gezahlten Steuern rechnen: Für den FCFF brauchst du die fiktive Steuer auf das EBIT, also \\( \\text{EBIT} \\cdot (1 - s) \\). Die echten Steuern sind wegen der Zinsen niedriger; dieser Vorteil steckt beim Entity-Ansatz im WACC.",
+  "Anstieg des Working Capital addieren: Mehr Vorräte und Forderungen binden Geld und werden abgezogen. Nur ein Rückgang des Working Capital erhöht den Free Cashflow.",
+  "Abschreibungen statt Capex abziehen: Abschreibungen werden addiert, weil sie nicht zahlungswirksam sind. Abgezogen werden die tatsächlichen Investitionsauszahlungen.",
+  "FCFF und FCFE verwechseln: Der FCFF ist vor Zinsen und Tilgung, der FCFE danach. Lies in der Aufgabe genau, für wen der Cashflow frei sein soll, und kombiniere ihn mit dem passenden Zinssatz.",
+  "Zinsen doppelt abziehen: Stammt der operative Cashflow aus einer Rechnung ab Jahresüberschuss, sind die Zinsen schon drin. Ziehst du sie für den FCFE noch einmal ab, rechnest du sie doppelt."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man den Free Cashflow?",
+   "a": "Am einfachsten: operativer Cashflow minus Nettoinvestitionen aus der Kapitalflussrechnung. Für die Unternehmensbewertung rechnet man ab EBIT: EBIT mal (1 minus Steuersatz), plus Abschreibungen, minus Investitionsauszahlungen, minus Anstieg des Working Capital. Das Ergebnis ist der Free Cashflow to Firm."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen FCFF und FCFE?",
+   "a": "Der Free Cashflow to Firm steht allen Kapitalgebern zur Verfügung und wird vor Zinsen und Tilgung berechnet. Der Free Cashflow to Equity steht nur den Eigentümern zu, also nach Zinsen nach Steuern und nach Kreditaufnahme oder Tilgung. Der FCFF wird mit dem WACC, der FCFE mit den Eigenkapitalkosten abgezinst."
+  },
+  {
+   "q": "Ist ein negativer Free Cashflow schlecht?",
+   "a": "Nicht unbedingt. Wachsende Unternehmen investieren oft mehr, als sie abschreiben, und bauen Vorräte und Forderungen auf, was den Free Cashflow drückt. Kritisch ist ein dauerhaft negativer Wert ohne erkennbare Investitionen, weil sich das Kerngeschäft dann nicht selbst trägt."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Cashflow und Free Cashflow?",
+   "a": "Der operative Cashflow zeigt den Geldüberschuss aus dem laufenden Geschäft. Der Free Cashflow zieht davon zusätzlich die Investitionsauszahlungen ab. Er zeigt damit, was nach dem Erhalt und Ausbau des Geschäfts wirklich für Kapitalgeber übrig bleibt."
+  },
+  {
+   "q": "Was ist Capex?",
+   "a": "Capex steht für Capital Expenditures, also Auszahlungen für Investitionen in Sachanlagen und immaterielle Vermögenswerte wie Maschinen, Gebäude oder Software. Beim Free Cashflow werden sie als Auszahlung abgezogen. Im Gegenzug werden die nicht zahlungswirksamen Abschreibungen wieder addiert."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Operativer Cashflow 500 T€, Investitionsauszahlungen 320 T€, Erlöse aus Anlagenverkauf 40 T€. Wie hoch ist der einfache Free Cashflow?",
+   "o": [
+    "180 T€",
+    "220 T€",
+    "860 T€",
+    "140 T€"
+   ],
+   "r": 1,
+   "e": "Nettoinvestitionen \\( 320 - 40 = 280 \\) T€, also \\( \\text{FCF} = 500 - 280 = 220 \\) T€. 180 T€ wären ohne Verkaufserlöse gerechnet."
+  },
+  {
+   "q": "EBIT 1.000, Steuersatz 30 %, Abschreibungen 200, Capex 250, Working Capital steigt um 50. Wie hoch ist der FCFF?",
+   "o": [
+    "700",
+    "800",
+    "600",
+    "900"
+   ],
+   "r": 2,
+   "e": "\\( 1.000 \\cdot 0{,}7 + 200 - 250 - 50 = 600 \\). Wer den Anstieg des Working Capital addiert, landet bei 700."
+  },
+  {
+   "q": "Mit welchem Zinssatz wird der Free Cashflow to Equity abgezinst?",
+   "o": [
+    "Mit den Eigenkapitalkosten",
+    "Mit dem WACC",
+    "Mit dem Fremdkapitalzins nach Steuern",
+    "Mit dem risikolosen Zins"
+   ],
+   "r": 0,
+   "e": "Der FCFE gehört allein den Eigentümern, also wird er mit deren Renditeforderung, den Eigenkapitalkosten, abgezinst. Der WACC gehört zum FCFF."
+  }
+ ],
+ "verwandt": [
+  "cashflow",
+  "dcf-verfahren",
+  "working-capital",
+  "ebit-ebitda",
+  "wacc"
+ ],
+ "ask": "den Free Cashflow – mit FCFF und FCFE, der Rechnung ab EBIT und einem durchgerechneten Beispiel"
+}

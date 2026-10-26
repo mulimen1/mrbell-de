@@ -1,0 +1,119 @@
+{
+ "slug": "wechselkurs",
+ "name": "Wechselkurs",
+ "title": "Wechselkurs einfach erklärt – Notierung & Kaufkraftparität",
+ "meta": "Wechselkurs verständlich: Mengen- und Preisnotierung, Auf- und Abwertung, Kaufkraftparität und realer Wechselkurs – mit durchgerechnetem Beispiel.",
+ "h1": "Wechselkurs einfach erklärt",
+ "kurz": "Der Wechselkurs ist der Preis einer Währung in Einheiten einer anderen. Der Euro wird in Mengennotierung angegeben (1 € = 1,10 USD), der Kehrwert ist die Preisnotierung (1 USD ≈ 0,91 €). Steigt der Kurs in Mengennotierung, wertet der Euro auf: Exporte werden im Ausland teurer, Importe billiger.",
+ "keywords": [
+  "wechselkurs",
+  "mengennotierung preisnotierung",
+  "aufwertung abwertung",
+  "wechselkurs berechnen",
+  "kaufkraftparität",
+  "realer wechselkurs",
+  "flexible und feste wechselkurse"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist ein Wechselkurs?",
+   "html": "<p>Der <strong>Wechselkurs</strong> ist das Austauschverhältnis zweier Währungen, also der Preis einer Währung ausgedrückt in einer anderen. Er entsteht am Devisenmarkt aus Angebot und Nachfrage nach Währungen. Wer amerikanische Waren kauft, braucht Dollar und fragt Dollar nach; wer als US-Unternehmen deutsche Maschinen kauft, braucht Euro. Der Wechselkurs ist damit nichts anderes als ein Marktpreis, nur dass das gehandelte „Gut“ Geld ist. Die Logik kennst du aus dem Thema <a href=\"/lernen/angebot-und-nachfrage\">Angebot und Nachfrage</a>.</p><p>Für die VWL ist der Wechselkurs das Scharnier zwischen Inland und Ausland. Er entscheidet, wie teuer deutsche Exporte im Ausland und ausländische Importe in Deutschland sind. Damit wirkt er auf Exporte, Importe, Inflation und Beschäftigung und taucht in Klausuren in Außenwirtschaft, Geldpolitik und Makroökonomik auf.</p><div class=\"merke\">Wechselkurs = Preis einer Währung in Einheiten einer anderen Währung. Bevor du rechnest, klär immer, welche Währung im Zähler und welche im Nenner steht.</div>"
+  },
+  {
+   "h2": "Mengennotierung und Preisnotierung: Wie wird der Wechselkurs angegeben?",
+   "html": "<p>Ein und derselbe Kurs lässt sich auf zwei Arten schreiben. Genau hier entstehen die meisten Klausurfehler.</p><table><thead><tr><th></th><th>Mengennotierung</th><th>Preisnotierung</th></tr></thead><tbody><tr><td>Frage</td><td>Wie viele Einheiten Fremdwährung bekomme ich für 1 €?</td><td>Wie viel Euro kostet 1 Einheit Fremdwährung?</td></tr><tr><td>Beispiel</td><td>1 € = 1,10 USD</td><td>1 USD = 0,9091 €</td></tr><tr><td>Einheit</td><td>USD pro €</td><td>€ pro USD</td></tr></tbody></table><p>Beide Angaben sind Kehrwerte voneinander:</p><div class=\"formel\">\\[ e_{\\text{Preis}} = \\frac{1}{e_{\\text{Menge}}} \\qquad \\text{z. B. } \\frac{1}{1{,}10} \\approx 0{,}9091 \\text{ € pro USD} \\]</div><p>Seit Einführung des Euro wird er in der Mengennotierung angegeben, wie es auch die EZB bei ihren Referenzkursen tut. Viele VWL-Lehrbücher, vor allem solche nach angelsächsischem Vorbild, arbeiten dagegen mit der Preisnotierung aus Sicht des Inlands. Lies deshalb in jeder Aufgabe zuerst die Einheit.</p><h3>Umrechnen</h3><div class=\"formel\">\\[ \\text{Betrag in USD} = \\text{Betrag in €} \\cdot e_{\\text{Menge}} \\qquad \\text{Betrag in €} = \\frac{\\text{Betrag in USD}}{e_{\\text{Menge}}} \\]</div>"
+  },
+  {
+   "h2": "Was bedeuten Aufwertung und Abwertung?",
+   "html": "<p>Eine Währung <strong>wertet auf</strong>, wenn sie mehr Fremdwährung wert ist als vorher, und sie <strong>wertet ab</strong>, wenn sie weniger wert ist. Was das in Zahlen heißt, hängt von der Notierung ab:</p><ul><li><strong>Mengennotierung</strong> (USD pro €): Steigt der Kurs, wertet der Euro auf. Aus 1,10 wird 1,25: Für 1 € gibt es mehr Dollar.</li><li><strong>Preisnotierung</strong> (€ pro USD): Steigt der Kurs, wertet der Euro <em>ab</em>. Aus 0,91 wird 0,95: Ein Dollar kostet mehr Euro.</li></ul><p>Eine Aufwertung des Euro ist immer zugleich eine Abwertung des Dollar. Die Prozentsätze sind dabei nicht gleich groß, weil sie sich auf unterschiedliche Basen beziehen.</p><h3>Folgen für Außenhandel</h3><table><thead><tr><th></th><th>Aufwertung des Euro</th><th>Abwertung des Euro</th></tr></thead><tbody><tr><td>deutsche Exporte im Ausland</td><td>teurer, Exportmenge sinkt tendenziell</td><td>billiger, Exportmenge steigt tendenziell</td></tr><tr><td>Importe in Euro</td><td>billiger</td><td>teurer</td></tr><tr><td>Preisniveau im Inland</td><td>dämpfend (billigere Importe)</td><td>treibend (importierte Inflation)</td></tr><tr><td>wer profitiert</td><td>Importeure, Urlauber im Ausland</td><td>Exporteure, Tourismus im Inland</td></tr></tbody></table><p>Der Einfluss auf die Preise ist ein wichtiger Kanal für die <a href=\"/lernen/inflation\">Inflation</a>: Verteuert eine Euro-Abwertung Öl und Gas, die in Dollar gehandelt werden, steigen die Preise in Deutschland, ohne dass sich im Inland etwas geändert hat.</p>"
+  },
+  {
+   "h2": "Beispiel: Aufwertung des Euro durchrechnen",
+   "html": "<div class=\"beispiel\"><p>Ein Maschinenbauer aus Baden-Württemberg verkauft eine Verpackungsmaschine für 50.000 € in die USA. Gleichzeitig bezieht er eine Software-Lizenz von einem US-Anbieter für 1.100 USD. Der Kurs steigt im Laufe des Jahres von 1 € = 1,10 USD auf 1 € = 1,25 USD.</p><p><strong>Schritt 1: Preisnotierung bestimmen</strong><br>\\( \\frac{1}{1{,}10} \\approx 0{,}9091 \\) € pro USD vorher, \\( \\frac{1}{1{,}25} = 0{,}80 \\) € pro USD nachher.</p><p><strong>Schritt 2: Ausmaß der Aufwertung</strong><br>Euro: \\( \\frac{1{,}25}{1{,}10} - 1 \\approx +13{,}64\\,\\% \\)<br>Dollar: \\( \\frac{0{,}80}{0{,}9091} - 1 = -12{,}00\\,\\% \\)</p><p><strong>Schritt 3: Exportpreis in den USA</strong><br>vorher \\( 50.000 \\cdot 1{,}10 = 55.000 \\) USD, nachher \\( 50.000 \\cdot 1{,}25 = 62.500 \\) USD</p><p><strong>Schritt 4: Importpreis in Euro</strong><br>vorher \\( \\frac{1.100}{1{,}10} = 1.000 \\) €, nachher \\( \\frac{1.100}{1{,}25} = 880 \\) €</p><table><thead><tr><th>Größe</th><th>1,10 USD/€</th><th>1,25 USD/€</th></tr></thead><tbody><tr><td>Preisnotierung</td><td>0,9091 €/USD</td><td>0,80 €/USD</td></tr><tr><td>Maschine in den USA</td><td>55.000 USD</td><td>62.500 USD</td></tr><tr><td>Lizenz in Euro</td><td>1.000 €</td><td>880 €</td></tr></tbody></table></div><p>Die Maschine wird für US-Kunden um 7.500 USD teurer, obwohl der Hersteller seinen Preis nicht angefasst hat. Hält er den Dollarpreis bei 55.000 USD, um wettbewerbsfähig zu bleiben, erhält er nur noch \\( \\frac{55.000}{1{,}25} = 44.000 \\) €, also 6.000 € weniger. Die Lizenz wird dagegen 120 € billiger. Für ein exportstarkes Land überwiegt meist der erste Effekt: Eine starke Aufwertung belastet die Exportwirtschaft.</p>"
+  },
+  {
+   "h2": "Kaufkraftparität: Was ist der „richtige“ Wechselkurs?",
+   "html": "<h3>Absolute Kaufkraftparität</h3><p>Die Theorie der <strong>Kaufkraftparität</strong> (KKP) sagt: Langfristig sollte ein Euro im In- und Ausland gleich viel kaufen können. Sonst lohnt sich Arbitrage, also billig einkaufen und teuer verkaufen, bis sich die Preise angleichen. Der KKP-Kurs ergibt sich aus den Preisen eines identischen Warenkorbs:</p><div class=\"formel\">\\[ e_{\\text{KKP}} = \\frac{P_{\\text{Ausland}}}{P_{\\text{Inland}}} \\]</div><div class=\"beispiel\"><p>Ein Warenkorb kostet in Deutschland 200 € und in den USA 240 USD. Daraus folgt \\( e_{\\text{KKP}} = \\frac{240}{200} = 1{,}20 \\) USD pro €. Der Marktkurs liegt aber bei 1,10. Für 200 € bekommst du nur 220 USD, der Korb in den USA kostet 240 USD. Gemessen an der KKP ist der Euro um \\( \\frac{1{,}10}{1{,}20} - 1 \\approx -8{,}33\\,\\% \\) <strong>unterbewertet</strong>.</p><p>Derselbe Befund über den <strong>realen Wechselkurs</strong>: \\( q = e \\cdot \\frac{P_{\\text{Inland}}}{P_{\\text{Ausland}}} = 1{,}10 \\cdot \\frac{200}{240} \\approx 0{,}9167 \\). Liegt \\( q \\) unter 1, sind deutsche Güter in gemeinsamer Währung gerechnet billiger als amerikanische, und die deutsche Wettbewerbsfähigkeit ist hoch.</p></div><h3>Relative Kaufkraftparität</h3><p>Die schwächere, realistischere Version betrachtet nur Veränderungen: Das Land mit der höheren Inflation wertet ab, und zwar ungefähr um die Inflationsdifferenz.</p><div class=\"formel\">\\[ e_{t+1} = e_t \\cdot \\frac{1 + \\pi_{\\text{Ausland}}}{1 + \\pi_{\\text{Inland}}} \\]</div><p>Bei 2 % Inflation in Deutschland und 4 % in den USA: \\( 1{,}10 \\cdot \\frac{1{,}04}{1{,}02} \\approx 1{,}1216 \\) USD pro €. Der Euro wertet um rund 1,96 % auf, näherungsweise die Inflationsdifferenz von 2 Prozentpunkten.</p><p>Kurzfristig erklärt die KKP Wechselkurse schlecht: Viele Güter sind nicht handelbar (Haarschnitt, Miete), es gibt Zölle und Transportkosten, und Kapitalströme bewegen weit mehr Geld als der Warenhandel.</p>"
+  },
+  {
+   "h2": "Was bestimmt den Wechselkurs kurzfristig?",
+   "html": "<p>Am Devisenmarkt dominieren Finanzanleger. Die wichtigsten Einflussgrößen:</p><ul><li><strong>Zinsdifferenz:</strong> Steigen die Zinsen im Euroraum relativ zu den USA, legen Anleger mehr Geld in Euro an, die Nachfrage nach Euro steigt, der Euro wertet auf. Deshalb bewegen Entscheidungen der <a href=\"/lernen/geldpolitik\">Geldpolitik</a> den Wechselkurs oft sofort.</li><li><strong>Inflationserwartungen:</strong> Höhere erwartete Inflation lässt eine Währung tendenziell abwerten (siehe relative KKP).</li><li><strong>Leistungsbilanz:</strong> Exportüberschüsse erzeugen Nachfrage nach der eigenen Währung. Wie die Ströme erfasst werden, zeigt die <a href=\"/lernen/zahlungsbilanz\">Zahlungsbilanz</a>.</li><li><strong>Erwartungen und Risiko:</strong> In Krisen fließt Kapital in als sicher geltende Währungen wie Dollar oder Schweizer Franken.</li></ul>"
+  },
+  {
+   "h2": "Flexible oder feste Wechselkurse?",
+   "html": "<p>Bei <strong>flexiblen Wechselkursen</strong> bildet sich der Kurs frei am Markt, wie zwischen Euro und Dollar. Bei <strong>festen Wechselkursen</strong> legt die Zentralbank eine Parität fest und verteidigt sie durch Käufe und Verkäufe von Devisen. Dazwischen liegen Bandbreitensysteme und gesteuertes Floating.</p><table><thead><tr><th></th><th>flexibel</th><th>fest</th></tr></thead><tbody><tr><td>Vorteil</td><td>Anpassung an Schocks über den Kurs, eigenständige Geldpolitik</td><td>Planungssicherheit für Exporteure, kein Kursrisiko</td></tr><tr><td>Nachteil</td><td>Kursschwankungen, Absicherungskosten</td><td>Zentralbank verliert Zinsautonomie, Gefahr spekulativer Attacken</td></tr></tbody></table><p>Dahinter steht das <strong>Trilemma der Währungspolitik</strong>: Ein Land kann nur zwei der drei Ziele fester Wechselkurs, freier Kapitalverkehr und eigenständige Geldpolitik zugleich erreichen. Der Euroraum hat sich nach außen für freien Kapitalverkehr und eigene Geldpolitik entschieden, also für flexible Kurse. Innerhalb des Euroraums gibt es dagegen gar keine Wechselkurse mehr.</p>"
+  }
+ ],
+ "fehler": [
+  "Notierung verwechseln: Ein steigender Kurs bedeutet nur in der Mengennotierung (USD pro €) eine Aufwertung des Euro. In der Preisnotierung (€ pro USD) heißt ein steigender Kurs Abwertung. Schreib die Einheit immer dazu.",
+  "Beim Umrechnen falsch multiplizieren: Von Euro in Dollar wird mit dem Mengenkurs multipliziert, von Dollar in Euro dividiert. Probe: 1.100 USD bei 1,10 USD/€ müssen weniger als 1.100 € ergeben, nämlich \\( \\frac{1.100}{1{,}10} = 1.000 \\) €.",
+  "Auf- und Abwertungsprozente gleichsetzen: Wertet der Euro um 13,64 % auf, wertet der Dollar nicht um 13,64 % ab, sondern um 12 %, weil sich die Prozente auf verschiedene Basen beziehen.",
+  "Aufwertung pauschal als „gut“ werten: Eine Aufwertung stärkt die Kaufkraft im Ausland, belastet aber die Exporteure. Ob sie gut ist, hängt von der Perspektive ab, und genau diese Abwägung wollen Prüfer sehen.",
+  "KKP als kurzfristige Prognose nutzen: Die Kaufkraftparität beschreibt eine langfristige Tendenz. Kurzfristig dominieren Zinsdifferenzen und Erwartungen."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen Mengennotierung und Preisnotierung?",
+   "a": "Die Mengennotierung gibt an, wie viel Fremdwährung man für eine Einheit Inlandswährung bekommt, etwa 1 € = 1,10 USD. Die Preisnotierung gibt an, wie viel Inlandswährung eine Einheit Fremdwährung kostet, etwa 1 USD = 0,9091 €. Beide sind Kehrwerte voneinander."
+  },
+  {
+   "q": "Ist ein hoher Wechselkurs gut oder schlecht?",
+   "a": "Das kommt auf die Perspektive an. Ein starker Euro macht Importe und Urlaub im Ausland billiger und dämpft die Inflation. Für Exporteure ist er ungünstig, weil ihre Produkte im Ausland teurer werden."
+  },
+  {
+   "q": "Wie berechnet man Auf- und Abwertung in Prozent?",
+   "a": "Man teilt den neuen Kurs durch den alten und zieht 1 ab, und zwar in der Notierung der Währung, deren Wertänderung man sucht. Steigt der Euro von 1,10 auf 1,25 USD, sind das rund 13,64 % Aufwertung des Euro. Der Dollar wertet dabei um 12 % ab."
+  },
+  {
+   "q": "Was sagt die Kaufkraftparität aus?",
+   "a": "Nach der Kaufkraftparität soll eine Währung im In- und Ausland gleich viel kaufen können. Der KKP-Kurs ergibt sich aus dem Preis eines Warenkorbs im Ausland geteilt durch den Preis im Inland. Die relative Version besagt, dass Länder mit höherer Inflation abwerten."
+  },
+  {
+   "q": "Was ist der reale Wechselkurs?",
+   "a": "Der reale Wechselkurs berücksichtigt neben dem nominalen Kurs die Preisniveaus beider Länder. Er zeigt, wie teuer inländische Güter im Vergleich zu ausländischen sind, und misst damit die preisliche Wettbewerbsfähigkeit."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Der Kurs ändert sich von 1 € = 1,20 USD auf 1 € = 1,08 USD. Was ist passiert?",
+   "o": [
+    "Der Euro hat aufgewertet",
+    "Der Dollar hat abgewertet",
+    "Der Euro hat um 10 % abgewertet",
+    "Der Euro hat um 11,11 % abgewertet"
+   ],
+   "r": 2,
+   "e": "In Mengennotierung sinkt der Kurs, also wertet der Euro ab: \\( \\frac{1{,}08}{1{,}20} - 1 = -10\\,\\% \\). Der Dollar wertet dabei auf."
+  },
+  {
+   "q": "Ein Warenkorb kostet in Deutschland 100 € und in der Schweiz 105 CHF. Der Marktkurs ist 1 € = 0,95 CHF. Wie ist der Euro laut absoluter KKP bewertet?",
+   "o": [
+    "korrekt bewertet",
+    "unterbewertet",
+    "überbewertet",
+    "Das lässt sich ohne Inflationsraten nicht sagen"
+   ],
+   "r": 1,
+   "e": "KKP-Kurs \\( = \\frac{105}{100} = 1{,}05 \\) CHF pro €. Am Markt gibt es nur 0,95 CHF, also ist der Euro gemessen an der KKP unterbewertet."
+  },
+  {
+   "q": "Welche Folge hat eine Abwertung des Euro typischerweise?",
+   "o": [
+    "Importe werden billiger",
+    "Die Inflation im Euroraum sinkt",
+    "Deutsche Exporte werden im Ausland billiger",
+    "Urlaub in den USA wird billiger"
+   ],
+   "r": 2,
+   "e": "Bei einer Abwertung bekommt man für einen Euro weniger Fremdwährung. Deutsche Waren werden für ausländische Käufer billiger, Importe dagegen teurer."
+  }
+ ],
+ "verwandt": [
+  "zahlungsbilanz",
+  "geldpolitik",
+  "inflation",
+  "komparativer-kostenvorteil",
+  "angebot-und-nachfrage"
+ ],
+ "ask": "den Wechselkurs – Mengen- und Preisnotierung, Auf- und Abwertung und die Kaufkraftparität an einem durchgerechneten Beispiel"
+}

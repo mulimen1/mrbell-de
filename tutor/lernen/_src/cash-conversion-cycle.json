@@ -1,0 +1,116 @@
+{
+ "slug": "cash-conversion-cycle",
+ "name": "Cash Conversion Cycle",
+ "title": "Cash Conversion Cycle einfach erklärt – mit Beispiel",
+ "meta": "Cash Conversion Cycle einfach erklärt: Formel mit DIO, DSO und DPO, Rechenbeispiel, freigesetzte Liquidität in Euro und typische Klausurfehler.",
+ "h1": "Cash Conversion Cycle einfach erklärt",
+ "kurz": "Der Cash Conversion Cycle (CCC) gibt an, wie viele Tage zwischen der Bezahlung der Lieferanten und dem Zahlungseingang vom Kunden liegen. Er berechnet sich als \\( \\text{CCC} = \\text{DIO} + \\text{DSO} - \\text{DPO} \\), also Lagerdauer plus Kundenziel minus Lieferantenziel. Je kürzer der Zyklus, desto weniger Kapital ist im Umlaufvermögen gebunden.",
+ "keywords": [
+  "cash conversion cycle",
+  "cash conversion cycle formel",
+  "cash conversion cycle berechnen",
+  "geldumschlagsdauer",
+  "dso dio dpo",
+  "days sales outstanding",
+  "days payables outstanding",
+  "cash to cash cycle"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der Cash Conversion Cycle?",
+   "html": "<p>Der <strong>Cash Conversion Cycle</strong> (CCC, deutsch: Geldumschlagsdauer oder Cash-to-Cash-Zyklus) misst, wie viele Tage vergehen, bis ein Euro, den ein Unternehmen an seine Lieferanten zahlt, über den Verkauf wieder auf dem Konto ist. In dieser Zeit muss das Unternehmen das Geld selbst vorfinanzieren.</p><p>Stell dir den Weg des Geldes bei einem Händler vor: Er kauft Ware ein, die eine Zeit lang im Lager liegt. Dann verkauft er sie, oft auf Rechnung, und wartet auf die Zahlung des Kunden. Gleichzeitig zahlt er seine eigenen Lieferanten nicht sofort, sondern nutzt deren Zahlungsziel. Der CCC fasst diese drei Zeitspannen zu einer Zahl zusammen:</p><ul><li>Wie lange liegt die Ware im Lager? (Lagerdauer)</li><li>Wie lange warten wir auf das Geld der Kunden? (Forderungslaufzeit)</li><li>Wie lange lassen wir uns von Lieferanten finanzieren? (Lieferantenziel)</li></ul><p>Je kürzer der Zyklus, desto weniger Kapital ist gebunden und desto weniger muss das Unternehmen über Bank oder Eigenkapital finanzieren. Während das <a href=\"/lernen/working-capital\">Working Capital</a> das gebundene Kapital in Euro angibt, zeigt der CCC dieselbe Kapitalbindung als Zeitspanne in Tagen.</p>"
+  },
+  {
+   "h2": "Wie lautet die Formel für den Cash Conversion Cycle?",
+   "html": "<div class=\"formel\">\\[ \\text{CCC} = \\text{DIO} + \\text{DSO} - \\text{DPO} \\]</div><p>Die drei Bausteine:</p><div class=\"formel\">\\[ \\text{DIO} = \\frac{\\text{Vorräte}}{\\text{Materialaufwand bzw. Wareneinsatz}} \\cdot 365 \\]\\[ \\text{DSO} = \\frac{\\text{Forderungen LuL}}{\\text{Umsatzerlöse}} \\cdot 365 \\]\\[ \\text{DPO} = \\frac{\\text{Verbindlichkeiten LuL}}{\\text{Materialaufwand bzw. Wareneinsatz}} \\cdot 365 \\]</div><ul><li><strong>DIO</strong> (Days Inventory Outstanding): durchschnittliche Lagerdauer in Tagen. Das ist der Kehrwert der Lagerumschlagshäufigkeit mal 365, mehr dazu bei den <a href=\"/lernen/lagerkennzahlen\">Lagerkennzahlen</a>.</li><li><strong>DSO</strong> (Days Sales Outstanding): durchschnittliches Kundenziel, also wie lange Kunden für die Zahlung brauchen.</li><li><strong>DPO</strong> (Days Payables Outstanding): durchschnittliches Lieferantenziel, also wie lange das Unternehmen selbst bis zur Zahlung wartet.</li></ul><p>Warum steht beim DSO der Umsatz im Nenner, bei DIO und DPO aber der Wareneinsatz? Weil Vorräte und Lieferantenverbindlichkeiten zu Einkaufspreisen bewertet sind, Forderungen dagegen zu Verkaufspreisen. Jeder Bestand wird mit dem Strom verglichen, der in derselben Bewertung fließt. In manchen Lehrbüchern wird mit 360 Tagen gerechnet; nimm, was deine Vorlesung vorgibt.</p><p>Die Summe aus DIO und DSO heißt <strong>operativer Zyklus</strong> (Operating Cycle): die Zeit vom Wareneingang bis zum Zahlungseingang. Zieht man davon das Lieferantenziel ab, bleibt die Zeit, die das Unternehmen selbst finanzieren muss.</p>"
+  },
+  {
+   "h2": "Beispiel: Cash Conversion Cycle Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p>Ein Fahrradhändler mit Werkstatt und Firmenkundengeschäft (Dienstradleasing) hat folgende Jahreswerte:</p><table><thead><tr><th>Größe</th><th>€</th></tr></thead><tbody><tr><td>Umsatzerlöse</td><td>3.650.000</td></tr><tr><td>Wareneinsatz</td><td>2.555.000</td></tr><tr><td>Vorräte (Durchschnitt)</td><td>420.000</td></tr><tr><td>Forderungen LuL (Durchschnitt)</td><td>300.000</td></tr><tr><td>Verbindlichkeiten LuL (Durchschnitt)</td><td>175.000</td></tr></tbody></table><p><strong>Schritt 1: Lagerdauer (DIO)</strong><br>\\( \\text{DIO} = \\frac{420.000}{2.555.000} \\cdot 365 = 60 \\) Tage</p><p><strong>Schritt 2: Kundenziel (DSO)</strong><br>\\( \\text{DSO} = \\frac{300.000}{3.650.000} \\cdot 365 = 30 \\) Tage</p><p><strong>Schritt 3: Lieferantenziel (DPO)</strong><br>\\( \\text{DPO} = \\frac{175.000}{2.555.000} \\cdot 365 = 25 \\) Tage</p><p><strong>Schritt 4: Cash Conversion Cycle</strong><br>\\( \\text{CCC} = 60 + 30 - 25 = 65 \\) Tage<br>Operativer Zyklus: \\( 60 + 30 = 90 \\) Tage</p></div><p>Ein Fahrrad liegt im Schnitt zwei Monate im Laden, danach wartet der Händler einen Monat auf sein Geld. Seine Lieferanten bezahlt er nach 25 Tagen. Für 65 Tage muss er jeden eingekauften Euro also selbst vorstrecken. Bei einem täglichen Wareneinsatz von \\( \\frac{2.555.000}{365} = 7.000 \\) € ist das eine Menge Geld.</p>"
+  },
+  {
+   "h2": "Wie viel Geld setzt ein kürzerer Zyklus frei?",
+   "html": "<p>Der große Vorteil des CCC: Jeder eingesparte Tag lässt sich direkt in Euro umrechnen. Dafür multiplizierst du die eingesparten Tage mit dem Tageswert der jeweiligen Bezugsgröße.</p><div class=\"beispiel\"><p>Der Fahrradhändler plant drei Maßnahmen:</p><ol><li><strong>Lager straffen:</strong> Saisonware früher abverkaufen, DIO sinkt um 10 Tage auf 50.<br>Freigesetzt: \\( 10 \\cdot \\frac{2.555.000}{365} = 10 \\cdot 7.000 = 70.000 \\) €</li><li><strong>Schneller kassieren:</strong> Firmenkunden bekommen 2 % Skonto bei Zahlung in 10 Tagen, DSO sinkt um 5 Tage auf 25.<br>Freigesetzt: \\( 5 \\cdot \\frac{3.650.000}{365} = 5 \\cdot 10.000 = 50.000 \\) €</li><li><strong>Später zahlen:</strong> Mit dem Großhändler wird ein längeres Zahlungsziel vereinbart, DPO steigt um 10 Tage auf 35.<br>Freigesetzt: \\( 10 \\cdot 7.000 = 70.000 \\) €</li></ol><p>Neuer Zyklus: \\( \\text{CCC} = 50 + 25 - 35 = 40 \\) Tage<br>Insgesamt freigesetzte Liquidität: \\( 70.000 + 50.000 + 70.000 = 190.000 \\) €<br>Bei 8 % Finanzierungskosten spart das \\( 190.000 \\cdot 0{,}08 = 15.200 \\) € Zinsen pro Jahr.</p></div><p>Achtung beim Kundenskonto: Die 2 % kosten den Händler auch Geld. Ob sich das lohnt, hängt davon ab, wie viele Kunden das Angebot nutzen. Umgekehrt solltest du beim Strecken der eigenen Lieferantenzahlungen nie ein Skonto verfallen lassen. Ein Lieferantenkredit ohne Skontonutzung ist auf das Jahr gerechnet oft teurer als jeder Bankkredit (siehe <a href=\"/lernen/lieferantenkredit\">Lieferantenkredit</a>).</p>"
+  },
+  {
+   "h2": "Wie interpretiert man den Cash Conversion Cycle?",
+   "html": "<ul><li><strong>Positiver CCC:</strong> Das Unternehmen finanziert sein Umlaufvermögen teilweise selbst. Je höher der Wert, desto mehr Kapital ist gebunden. Typisch für Industrie, Maschinenbau und Großhandel.</li><li><strong>CCC nahe null:</strong> Lieferanten finanzieren Lager und Kundenforderungen fast vollständig.</li><li><strong>Negativer CCC:</strong> Kunden zahlen, bevor die Lieferanten bezahlt werden müssen. Das Geschäft erzeugt Liquidität, je mehr es wächst. Typisch für Lebensmittelhandel, Discounter, Onlinehändler mit Vorkasse und Abo-Modelle.</li></ul><p>Ein absoluter Zielwert ist wenig sinnvoll, weil die Branchen zu verschieden sind: Ein Möbelhersteller mit Einzelfertigung wird nie auf die Werte eines Supermarkts kommen. Aussagekraft bekommt der CCC durch den <strong>Zeitvergleich</strong> (steigt der Zyklus über die Jahre?) und den <strong>Branchenvergleich</strong>. Steigt der CCC, wächst der Finanzierungsbedarf überproportional, und das drückt den <a href=\"/lernen/cashflow\">Cashflow</a>, selbst wenn der Gewinn stimmt.</p><div class=\"merke\">Kurzer CCC = wenig gebundenes Kapital = geringerer Finanzierungsbedarf. Ein steigender CCC ist ein Frühwarnsignal für Liquiditätsengpässe.</div>"
+  },
+  {
+   "h2": "Vorteile, Grenzen und Abgrenzung",
+   "html": "<p><strong>Vorteile:</strong></p><ul><li>verbindet Lager, Vertrieb und Einkauf in einer Kennzahl, die jeder Abteilung ihren Beitrag zeigt,</li><li>Tage sind anschaulicher als Euro-Beträge und über Unternehmensgrößen hinweg vergleichbar,</li><li>Verbesserungen lassen sich direkt in freigesetzte Liquidität und eingesparte Zinsen umrechnen.</li></ul><p><strong>Grenzen:</strong></p><ul><li><strong>Stichtagswerte:</strong> Mit Jahresendbeständen statt Durchschnittswerten wird der CCC bei Saisongeschäft stark verzerrt. Ein Fahrradhändler hat im Dezember ganz andere Bestände als im April.</li><li><strong>Umsatzsteuer:</strong> Forderungen und Lieferantenverbindlichkeiten enthalten die Umsatzsteuer, Umsatz und Wareneinsatz in der GuV nicht. DSO und DPO fallen dadurch etwas zu hoch aus. Für Vergleiche über die Zeit ist das unproblematisch, solange du einheitlich rechnest.</li><li><strong>Optimierung um jeden Preis:</strong> Zu niedrige Lagerbestände gefährden die Lieferfähigkeit, zu strenge Zahlungsziele vergraulen Kunden, zu lange Lieferantenziele belasten die Beziehung oder kosten Skonto.</li></ul><p><strong>Abgrenzung:</strong> Die <a href=\"/lernen/liquiditaetsgrade\">Liquiditätsgrade</a> vergleichen Bestände zu einem Stichtag. Der CCC ist dagegen eine Umschlagskennzahl, die Bestände ins Verhältnis zu Jahresgrößen der GuV setzt und deshalb etwas über Geschwindigkeit aussagt. Das Working Capital ist die Euro-Seite, der CCC die Tage-Seite derselben Kapitalbindung.</p>"
+  }
+ ],
+ "fehler": [
+  "DPO addieren statt abziehen: Das Lieferantenziel verkürzt die Zeit, die das Unternehmen selbst finanzieren muss. Richtig ist \\( \\text{CCC} = \\text{DIO} + \\text{DSO} - \\text{DPO} \\).",
+  "Überall den Umsatz in den Nenner setzen: Vorräte und Lieferantenverbindlichkeiten sind zu Einkaufspreisen bewertet und gehören deshalb ins Verhältnis zum Wareneinsatz bzw. Materialaufwand. Mit dem Umsatz werden DIO und DPO zu klein.",
+  "Ein höheres DPO immer als Verbesserung werten: Wenn das längere Lieferantenziel durch verfallene Skonti erkauft wird, verbessert sich der CCC zwar rechnerisch, wird aber sehr teuer finanziert.",
+  "Stichtagsbestände bei Saisongeschäft verwenden: Nimm, wenn möglich, Durchschnittsbestände (Anfangs- plus Endbestand durch zwei), sonst verzerrt der Bilanzstichtag das Ergebnis.",
+  "Eingesparte Tage mit dem falschen Tageswert in Euro umrechnen: Ein Tag DSO entspricht dem Tagesumsatz, ein Tag DIO oder DPO dem täglichen Wareneinsatz."
+ ],
+ "faq": [
+  {
+   "q": "Was ist ein guter Cash Conversion Cycle?",
+   "a": "Grundsätzlich gilt: je kürzer, desto besser, solange Lieferfähigkeit und Kundenbeziehungen nicht leiden. Einen allgemeinen Richtwert gibt es nicht, weil die Branchen sehr unterschiedlich sind. Aussagekräftig ist der Vergleich mit Vorjahren und mit Wettbewerbern derselben Branche."
+  },
+  {
+   "q": "Kann der Cash Conversion Cycle negativ sein?",
+   "a": "Ja. Das ist der Fall, wenn Kunden schneller zahlen und die Ware schneller verkauft wird, als das Unternehmen seine Lieferanten bezahlen muss. Typisch ist das im Lebensmittelhandel und bei Onlinehändlern mit Vorkasse: Sie arbeiten mit dem Geld ihrer Lieferanten."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Cash Conversion Cycle und Operating Cycle?",
+   "a": "Der Operating Cycle ist DIO plus DSO, also die Zeit vom Wareneingang bis zum Zahlungseingang vom Kunden. Der Cash Conversion Cycle zieht davon das Lieferantenziel DPO ab und zeigt nur die Zeit, die das Unternehmen selbst finanzieren muss."
+  },
+  {
+   "q": "Rechnet man den Cash Conversion Cycle mit 360 oder 365 Tagen?",
+   "a": "Beides kommt vor. In der Praxis und in vielen Geschäftsberichten wird mit 365 Tagen gerechnet, einige deutsche Lehrbücher nutzen das Bankjahr mit 360 Tagen. Wichtig ist nur, dass du innerhalb einer Rechnung einheitlich bleibst und der Vorgabe der Aufgabe folgst."
+  },
+  {
+   "q": "Wie hängen Cash Conversion Cycle und Working Capital zusammen?",
+   "a": "Beide messen die Kapitalbindung im Umlaufvermögen. Das operative Working Capital gibt sie in Euro an, der Cash Conversion Cycle in Tagen. Sinkt der CCC bei gleichem Geschäftsvolumen, sinkt auch das operative Working Capital und Liquidität wird frei."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "DIO 45 Tage, DSO 40 Tage, DPO 30 Tage. Wie lang ist der Cash Conversion Cycle?",
+   "o": [
+    "115 Tage",
+    "85 Tage",
+    "55 Tage",
+    "35 Tage"
+   ],
+   "r": 2,
+   "e": "\\( 45 + 40 - 30 = 55 \\) Tage. 115 Tage entstünden, wenn man DPO addiert, 85 Tage sind der Operating Cycle."
+  },
+  {
+   "q": "Umsatz 7.300.000 €, Forderungen LuL 600.000 €. Wie hoch ist der DSO (365 Tage)?",
+   "o": [
+    "30 Tage",
+    "12,2 Tage",
+    "60 Tage",
+    "Rund 41,5 Tage"
+   ],
+   "r": 0,
+   "e": "\\( \\frac{600.000}{7.300.000} \\cdot 365 = 30 \\) Tage. Kunden zahlen im Schnitt nach einem Monat."
+  },
+  {
+   "q": "Ein Händler verlängert sein Lieferantenziel um 20 Tage, verzichtet dafür aber auf 3 % Skonto. Wie ist das zu bewerten?",
+   "o": [
+    "Uneingeschränkt positiv, weil der CCC sinkt",
+    "Neutral, weil sich am Umsatz nichts ändert",
+    "Rechnerisch sinkt der CCC, aber die Finanzierung ist sehr teuer",
+    "Negativ, weil der CCC steigt"
+   ],
+   "r": 2,
+   "e": "Der CCC sinkt um 20 Tage. Der Verzicht auf 3 % Skonto für 20 Tage Aufschub entspricht aber einem Jahreszins von deutlich über 50 %. Billiger wäre fast jeder Bankkredit."
+  }
+ ],
+ "verwandt": [
+  "working-capital",
+  "lagerkennzahlen",
+  "lieferantenkredit",
+  "liquiditaetsgrade",
+  "cashflow"
+ ],
+ "ask": "den Cash Conversion Cycle mit DIO, DSO und DPO – an einem durchgerechneten Beispiel inklusive freigesetzter Liquidität"
+}

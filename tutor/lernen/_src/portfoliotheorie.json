@@ -1,0 +1,120 @@
+{
+ "slug": "portfoliotheorie",
+ "name": "Portfoliotheorie (Markowitz)",
+ "title": "Portfoliotheorie nach Markowitz – Diversifikation erklärt",
+ "meta": "Portfoliotheorie nach Markowitz verständlich: Rendite, Risiko, Korrelation, Diversifikation, Minimum-Varianz-Portfolio – mit Rechenbeispiel.",
+ "h1": "Portfoliotheorie nach Markowitz einfach erklärt",
+ "kurz": "Die Portfoliotheorie nach Harry Markowitz zeigt, wie Anleger Wertpapiere kombinieren, um für ein gegebenes Risiko die höchste erwartete Rendite zu erzielen. Kern ist die Diversifikation: Solange die Korrelation der Renditen kleiner als 1 ist, ist das Portfoliorisiko geringer als der gewichtete Durchschnitt der Einzelrisiken.",
+ "keywords": [
+  "portfoliotheorie",
+  "diversifikation",
+  "markowitz portfoliotheorie",
+  "minimum varianz portfolio",
+  "effizienzlinie",
+  "portfoliorisiko berechnen",
+  "korrelation portfolio",
+  "portfolio standardabweichung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was besagt die Portfoliotheorie?",
+   "html": "<p>Die <strong>Portfoliotheorie</strong> (auch Portfolio-Selection-Theorie) geht auf Harry Markowitz zurück, der sie 1952 veröffentlichte und dafür später den Wirtschaftsnobelpreis erhielt. Ihre Grundidee: Ein Wertpapier darf man nicht isoliert beurteilen, sondern nur nach seinem Beitrag zum Gesamtportfolio. Ein riskantes Papier kann das Risiko des Portfolios sogar senken, wenn es sich anders bewegt als der Rest.</p><p>Markowitz beschreibt jede Anlage mit zwei Größen:</p><ul><li><strong>Rendite</strong> als <a href=\"/lernen/erwartungswert\">Erwartungswert</a> \\( \\mu \\),</li><li><strong>Risiko</strong> als Streuung der Rendite, gemessen mit der <a href=\"/lernen/varianz-standardabweichung\">Standardabweichung</a> \\( \\sigma \\) (Volatilität).</li></ul><p>Der Anleger ist <strong>risikoavers</strong>: Bei gleicher Rendite zieht er das geringere Risiko vor, bei gleichem Risiko die höhere Rendite. Daraus folgt das sogenannte \\( \\mu \\)-\\( \\sigma \\)-Prinzip.</p><div class=\"merke\">Nicht alle Eier in einen Korb: Diversifikation senkt das Risiko, ohne dass du automatisch auf Rendite verzichten musst.</div>"
+  },
+  {
+   "h2": "Welche Formeln brauchst du für zwei Wertpapiere?",
+   "html": "<p>Bei zwei Anlagen A und B mit den Anteilen \\( w_A \\) und \\( w_B = 1 - w_A \\) gilt für die erwartete Rendite einfach der gewichtete Durchschnitt:</p><div class=\"formel\">\\[ \\mu_P = w_A \\cdot \\mu_A + w_B \\cdot \\mu_B \\]</div><p>Beim Risiko ist das nicht so. Die Varianz enthält einen Zusatzterm mit dem Korrelationskoeffizienten \\( \\rho_{AB} \\):</p><div class=\"formel\">\\[ \\sigma_P^2 = w_A^2 \\sigma_A^2 + w_B^2 \\sigma_B^2 + 2\\, w_A w_B\\, \\rho_{AB}\\, \\sigma_A \\sigma_B \\]\\[ \\sigma_P = \\sqrt{\\sigma_P^2} \\]</div><p>Der Ausdruck \\( \\rho_{AB} \\sigma_A \\sigma_B \\) ist die Kovarianz \\( \\text{Cov}(A,B) \\). Die <a href=\"/lernen/korrelation\">Korrelation</a> liegt zwischen −1 und +1 und entscheidet, wie viel Diversifikation bringt. Das Portfolio mit dem kleinsten Risiko, das <strong>Minimum-Varianz-Portfolio (MVP)</strong>, findest du mit:</p><div class=\"formel\">\\[ w_A^{\\text{MVP}} = \\frac{\\sigma_B^2 - \\rho_{AB}\\,\\sigma_A \\sigma_B}{\\sigma_A^2 + \\sigma_B^2 - 2\\,\\rho_{AB}\\,\\sigma_A \\sigma_B} \\]</div>"
+  },
+  {
+   "h2": "Beispiel: Aktienfonds und Anleihefonds kombinieren",
+   "html": "<div class=\"beispiel\"><p>Du kannst in einen Aktienfonds A und einen Anleihefonds B investieren. Erwartete Renditen: \\( \\mu_A = 8\\,\\% \\), \\( \\mu_B = 4\\,\\% \\). Risiken: \\( \\sigma_A = 20\\,\\% \\), \\( \\sigma_B = 10\\,\\% \\). Korrelation \\( \\rho_{AB} = 0{,}2 \\).</p><p><strong>Schritt 1: Portfolio 50/50 – Rendite</strong><br>\\( \\mu_P = 0{,}5 \\cdot 8\\,\\% + 0{,}5 \\cdot 4\\,\\% = 6\\,\\% \\)</p><p><strong>Schritt 2: Portfolio 50/50 – Risiko</strong><br>\\( \\sigma_P^2 = 0{,}25 \\cdot 0{,}04 + 0{,}25 \\cdot 0{,}01 + 2 \\cdot 0{,}25 \\cdot 0{,}2 \\cdot 0{,}2 \\cdot 0{,}1 \\)<br>\\( \\sigma_P^2 = 0{,}01 + 0{,}0025 + 0{,}002 = 0{,}0145 \\)<br>\\( \\sigma_P = \\sqrt{0{,}0145} \\approx 12{,}04\\,\\% \\)</p><p>Der gewichtete Durchschnitt der Einzelrisiken wäre \\( 0{,}5 \\cdot 20\\,\\% + 0{,}5 \\cdot 10\\,\\% = 15\\,\\% \\). Die Diversifikation spart also knapp 3 Prozentpunkte Risiko, bei unveränderter Rendite.</p><p><strong>Schritt 3: Minimum-Varianz-Portfolio</strong><br>\\( w_A = \\frac{0{,}01 - 0{,}2 \\cdot 0{,}2 \\cdot 0{,}1}{0{,}04 + 0{,}01 - 2 \\cdot 0{,}2 \\cdot 0{,}2 \\cdot 0{,}1} = \\frac{0{,}006}{0{,}042} \\approx 14{,}29\\,\\% \\)<br>\\( \\mu_{\\text{MVP}} = 0{,}1429 \\cdot 8\\,\\% + 0{,}8571 \\cdot 4\\,\\% \\approx 4{,}57\\,\\% \\)<br>\\( \\sigma_{\\text{MVP}} = \\sqrt{0{,}009143} \\approx 9{,}56\\,\\% \\)</p><table><thead><tr><th>Anteil Aktienfonds</th><th>\\( \\mu_P \\)</th><th>\\( \\sigma_P \\)</th></tr></thead><tbody><tr><td>0 %</td><td>4,00 %</td><td>10,00 %</td></tr><tr><td>14,29 % (MVP)</td><td>4,57 %</td><td>9,56 %</td></tr><tr><td>25 %</td><td>5,00 %</td><td>9,81 %</td></tr><tr><td>50 %</td><td>6,00 %</td><td>12,04 %</td></tr><tr><td>75 %</td><td>7,00 %</td><td>15,69 %</td></tr><tr><td>100 %</td><td>8,00 %</td><td>20,00 %</td></tr></tbody></table></div><p>Das überraschende Ergebnis: Wer nur den „sicheren“ Anleihefonds hält, trägt 10 % Risiko für 4 % Rendite. Mischt er gut 14 % des riskanteren Aktienfonds bei, sinkt das Risiko auf 9,56 % und die Rendite steigt auf 4,57 %. Das reine Anleiheportfolio ist damit <strong>ineffizient</strong>.</p>"
+  },
+  {
+   "h2": "Welche Rolle spielt die Korrelation?",
+   "html": "<p>Halte im Beispiel die Anteile bei 50/50 und verändere nur die Korrelation. Die Rendite bleibt immer 6 %, das Risiko nicht:</p><table><thead><tr><th>Korrelation \\( \\rho \\)</th><th>\\( \\sigma_P \\) bei 50/50</th><th>Diversifikationseffekt</th></tr></thead><tbody><tr><td>+1</td><td>15,00 %</td><td>keiner, Risiko = gewichteter Durchschnitt</td></tr><tr><td>+0,2</td><td>12,04 %</td><td>deutlich</td></tr><tr><td>0</td><td>11,18 %</td><td>stärker</td></tr><tr><td>−1</td><td>5,00 %</td><td>maximal</td></tr></tbody></table><p>Bei \\( \\rho = -1 \\) lässt sich das Risiko sogar ganz beseitigen: mit \\( w_A = \\frac{\\sigma_B}{\\sigma_A + \\sigma_B} = \\frac{10}{30} \\approx 33{,}3\\,\\% \\) ist \\( \\sigma_P = 0 \\). Perfekt negativ korrelierte Anlagen gibt es in der Realität aber praktisch nicht.</p><div class=\"merke\">Diversifikation wirkt bei jeder Korrelation kleiner als +1. Je niedriger die Korrelation, desto stärker der Effekt.</div>"
+  },
+  {
+   "h2": "Was ist die Effizienzlinie?",
+   "html": "<p>Trägst du alle möglichen Mischungen in ein Diagramm mit \\( \\sigma \\) auf der x-Achse und \\( \\mu \\) auf der y-Achse ein, entsteht eine nach links gewölbte Kurve. Ihr linkester Punkt ist das MVP. Der Teil <strong>oberhalb</strong> des MVP heißt <strong>Effizienzlinie</strong> (Efficient Frontier): Hier gibt es kein Portfolio, das bei gleichem Risiko mehr Rendite bietet. Alle Punkte unterhalb des MVP sind ineffizient, denn zu jedem gibt es ein Portfolio mit gleichem Risiko und höherer Rendite.</p><p>Welches effiziente Portfolio ein Anleger wählt, hängt von seiner Risikoneigung ab. Die Theorie sagt nur, welche Portfolios <em>nicht</em> gewählt werden sollten. Nimmt man eine risikolose Anlage hinzu, etwa zu 2 %, wird die Wahl eindeutiger: Optimal ist das riskante Portfolio mit der höchsten Sharpe-Ratio \\( \\frac{\\mu_P - r_f}{\\sigma_P} \\). Im Beispiel hat das 50/50-Portfolio \\( \\frac{6\\,\\% - 2\\,\\%}{12{,}04\\,\\%} \\approx 0{,}33 \\), das MVP nur \\( \\frac{4{,}57\\,\\% - 2\\,\\%}{9{,}56\\,\\%} \\approx 0{,}27 \\). Daraus entsteht die Kapitalmarktlinie, auf der das <a href=\"/lernen/capm\">CAPM</a> aufbaut.</p>"
+  },
+  {
+   "h2": "Systematisches und unsystematisches Risiko",
+   "html": "<p>Mit vielen Wertpapieren sinkt das Portfoliorisiko immer weiter, aber nicht auf null. Übrig bleibt das <strong>systematische Risiko</strong> (Marktrisiko): Konjunktur, Zinsen, Krisen treffen alle Anlagen gleichzeitig. Wegdiversifizieren lässt sich nur das <strong>unsystematische Risiko</strong> (unternehmensspezifisch), etwa ein Produktrückruf oder ein Managementfehler.</p><p>Daraus folgt eine wichtige Konsequenz, die das CAPM aufgreift: Der Markt bezahlt nur für systematisches Risiko. Wer unsystematisches Risiko trägt, obwohl er es kostenlos wegdiversifizieren könnte, bekommt dafür keine Prämie.</p>"
+  },
+  {
+   "h2": "Kritik und Einordnung",
+   "html": "<p><strong>Stärken:</strong></p><ul><li>erklärt mathematisch, warum Diversifikation funktioniert,</li><li>Grundlage moderner Asset Allocation, von Indexfonds bis zu Pensionskassen,</li><li>Ausgangspunkt für CAPM und Kapitalkostenberechnung wie im <a href=\"/lernen/wacc\">WACC</a>.</li></ul><p><strong>Schwächen:</strong></p><ul><li>Renditen, Volatilitäten und Korrelationen sind Schätzungen aus Vergangenheitsdaten; kleine Fehler verschieben die optimalen Gewichte stark,</li><li>Korrelationen steigen gerade in Krisen, wenn man Diversifikation am meisten braucht,</li><li>Risiko nur als Standardabweichung zu messen behandelt Gewinne und Verluste gleich,</li><li>Transaktionskosten und Steuern bleiben unberücksichtigt, das Modell ist einperiodig.</li></ul><p><strong>Abgrenzung:</strong> Die Portfoliotheorie ist ein normatives Modell für den einzelnen Anleger. Das CAPM ist ein Gleichgewichtsmodell für den ganzen Markt, das aus ihr abgeleitet wird. Die BCG-Matrix wird manchmal Portfolio-Analyse genannt, hat aber mit Markowitz nichts zu tun: Sie ordnet Geschäftsfelder nach Marktwachstum und Marktanteil.</p>"
+  }
+ ],
+ "fehler": [
+  "Risiko wie die Rendite gewichten: \\( \\sigma_P \\) ist nicht \\( w_A \\sigma_A + w_B \\sigma_B \\). Das gilt nur bei \\( \\rho = 1 \\). Sonst musst du über die Varianz mit Kovarianzterm rechnen.",
+  "Prozentwerte falsch quadrieren: 20 % zum Quadrat ist 0,04 (als Dezimalzahl) und nicht 400. Rechne konsequent in Dezimalzahlen und wandle erst am Ende zurück.",
+  "Den Faktor 2 im Kovarianzterm vergessen: Der Term \\( 2\\, w_A w_B \\rho \\sigma_A \\sigma_B \\) taucht doppelt auf, weil A mit B und B mit A zusammenwirken.",
+  "Am Ende die Wurzel vergessen: Die Formel liefert die Varianz. Gefragt ist meist die Standardabweichung, also \\( \\sqrt{\\sigma_P^2} \\).",
+  "Das risikoärmste Einzelpapier für effizient halten: Ein Portfolio aus nur der risikoärmsten Anlage liegt bei \\( \\rho < \\frac{\\sigma_B}{\\sigma_A} \\) unterhalb des MVP und ist ineffizient."
+ ],
+ "faq": [
+  {
+   "q": "Was ist Diversifikation einfach erklärt?",
+   "a": "Diversifikation bedeutet, das Vermögen auf mehrere Anlagen zu verteilen, die sich nicht genau gleich entwickeln. Verluste einer Anlage werden teilweise durch andere ausgeglichen. Dadurch sinkt das Gesamtrisiko, ohne dass die erwartete Rendite sinken muss."
+  },
+  {
+   "q": "Was ist das Minimum-Varianz-Portfolio?",
+   "a": "Das Minimum-Varianz-Portfolio ist die Mischung der Anlagen mit dem kleinsten möglichen Risiko. Es ist der linkeste Punkt der Portfoliokurve im Rendite-Risiko-Diagramm und trennt den effizienten vom ineffizienten Teil."
+  },
+  {
+   "q": "Warum sinkt das Risiko durch Diversifikation nicht auf null?",
+   "a": "Nur das unternehmensspezifische, unsystematische Risiko lässt sich wegdiversifizieren. Das systematische Marktrisiko, etwa durch Konjunktur oder Zinsänderungen, trifft alle Anlagen gleichzeitig und bleibt bestehen."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Portfoliotheorie und CAPM?",
+   "a": "Die Portfoliotheorie zeigt einem einzelnen Anleger, wie er effiziente Portfolios bildet. Das CAPM baut darauf auf und erklärt, welche Rendite der Markt im Gleichgewicht für systematisches Risiko, gemessen mit dem Beta-Faktor, verlangt."
+  },
+  {
+   "q": "Bei welcher Korrelation ist Diversifikation am stärksten?",
+   "a": "Bei einer Korrelation von minus 1. Dann lässt sich mit den richtigen Anteilen das Risiko sogar vollständig beseitigen. Bei plus 1 gibt es keinen Diversifikationseffekt, das Portfoliorisiko ist dann der gewichtete Durchschnitt der Einzelrisiken."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Zwei Aktien mit \\( \\sigma_A = 30\\,\\% \\) und \\( \\sigma_B = 30\\,\\% \\), Korrelation 0, Anteile je 50 %. Wie hoch ist \\( \\sigma_P \\)?",
+   "o": [
+    "30,0 %",
+    "15,0 %",
+    "21,2 %",
+    "0 %"
+   ],
+   "r": 2,
+   "e": "\\( \\sigma_P^2 = 0{,}25 \\cdot 0{,}09 + 0{,}25 \\cdot 0{,}09 = 0{,}045 \\), also \\( \\sigma_P = \\sqrt{0{,}045} \\approx 21{,}2\\,\\% \\)."
+  },
+  {
+   "q": "Welche Aussage zur Effizienzlinie stimmt?",
+   "o": [
+    "Sie umfasst alle Portfolios unterhalb des Minimum-Varianz-Portfolios",
+    "Auf ihr bietet kein anderes Portfolio bei gleichem Risiko mehr Rendite",
+    "Sie enthält nur Portfolios ohne Risiko",
+    "Auf ihr ist die Korrelation immer −1"
+   ],
+   "r": 1,
+   "e": "Effizient sind die Portfolios oberhalb des MVP: Zu ihnen gibt es kein Portfolio mit gleichem Risiko und höherer Rendite."
+  },
+  {
+   "q": "Welches Risiko lässt sich durch Diversifikation beseitigen?",
+   "o": [
+    "Das Zinsänderungsrisiko des Marktes",
+    "Das systematische Risiko",
+    "Das Konjunkturrisiko",
+    "Das unsystematische Risiko"
+   ],
+   "r": 3,
+   "e": "Nur das unternehmensspezifische, unsystematische Risiko verschwindet in einem breit gestreuten Portfolio."
+  }
+ ],
+ "verwandt": [
+  "capm",
+  "varianz-standardabweichung",
+  "korrelation",
+  "erwartungswert",
+  "wacc"
+ ],
+ "ask": "die Portfoliotheorie nach Markowitz – mit Portfoliorisiko, Korrelation und Minimum-Varianz-Portfolio an einem durchgerechneten Zwei-Anlagen-Beispiel"
+}

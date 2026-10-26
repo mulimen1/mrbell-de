@@ -1,0 +1,115 @@
+{
+ "slug": "xyz-analyse",
+ "name": "XYZ-Analyse",
+ "title": "XYZ-Analyse einfach erklärt – mit Beispiel und Matrix",
+ "meta": "XYZ-Analyse verständlich: Variationskoeffizient berechnen, X-, Y- und Z-Teile einteilen, ABC-XYZ-Matrix nutzen – mit Rechenbeispiel Schritt für Schritt.",
+ "h1": "XYZ-Analyse einfach erklärt",
+ "kurz": "Die XYZ-Analyse teilt Artikel nach der Regelmäßigkeit ihres Verbrauchs in drei Klassen ein: X-Teile werden gleichmäßig verbraucht und sind gut vorhersagbar, Y-Teile schwanken, Z-Teile werden unregelmäßig gebraucht. Gemessen wird das meist mit dem Variationskoeffizienten, also der Standardabweichung des Verbrauchs geteilt durch den Mittelwert.",
+ "keywords": [
+  "xyz analyse",
+  "xyz analyse variationskoeffizient",
+  "abc xyz analyse",
+  "abc xyz matrix",
+  "xyz analyse beispiel",
+  "x teile y teile z teile",
+  "xyz analyse berechnen"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist eine XYZ-Analyse?",
+   "html": "<p>Die <a href=\"/lernen/abc-analyse\">ABC-Analyse</a> sagt dir, welche Artikel wertmäßig wichtig sind. Sie sagt dir aber nicht, ob du den Bedarf dieser Artikel gut planen kannst. Genau das ergänzt die <strong>XYZ-Analyse</strong>: Sie bewertet die <strong>Vorhersagegenauigkeit des Verbrauchs</strong>.</p><table><thead><tr><th>Klasse</th><th>Verbrauch</th><th>Vorhersagegenauigkeit</th><th>Beispiel</th></tr></thead><tbody><tr><td>X</td><td>konstant, kaum Schwankung</td><td>hoch</td><td>Schrauben in der Serienfertigung</td></tr><tr><td>Y</td><td>schwankend, z. B. saisonal oder mit Trend</td><td>mittel</td><td>Verpackung, Betriebsstoffe</td></tr><tr><td>Z</td><td>unregelmäßig, sporadisch</td><td>gering</td><td>Ersatzteile, Sonderanfertigungen</td></tr></tbody></table><p>Die Einteilung entscheidet, wie ein Artikel beschafft wird: X-Teile kann man knapp und automatisch nachbestellen, Z-Teile brauchen entweder einen Puffer oder werden erst bei konkretem Bedarf beschafft.</p><div class=\"merke\">ABC fragt: Wie viel Wert steckt im Artikel? XYZ fragt: Wie gut kann ich vorhersagen, wann und wie viel ich davon brauche?</div>"
+  },
+  {
+   "h2": "Wie berechnet man den Variationskoeffizienten?",
+   "html": "<p>Die Schwankung des Verbrauchs misst du mit der <a href=\"/lernen/varianz-standardabweichung\">Standardabweichung</a>. Weil Artikel aber ganz unterschiedliche Mengen haben, kannst du Standardabweichungen nicht direkt vergleichen. Eine Schwankung von 13 Stück ist bei 400 Schrauben pro Monat lächerlich, bei 110 Litern Öl schon spürbar. Deshalb setzt man sie ins Verhältnis zum Mittelwert:</p><div class=\"formel\">\\[ \\bar{x} = \\frac{1}{n} \\sum_{t=1}^{n} x_t \\]\\[ \\sigma = \\sqrt{\\frac{1}{n} \\sum_{t=1}^{n} (x_t - \\bar{x})^2} \\]\\[ \\text{VK} = \\frac{\\sigma}{\\bar{x}} \\cdot 100\\,\\% \\]</div><p>Dabei ist \\( x_t \\) der Verbrauch in Periode \\( t \\) und \\( n \\) die Zahl der Perioden. Die meisten Lehrbücher teilen bei der XYZ-Analyse durch \\( n \\). Teilst du durch \\( n - 1 \\) (Stichproben-Standardabweichung), wird der Wert etwas größer – nimm, was in deiner Vorlesung verwendet wird.</p><h3>Vorgehen in fünf Schritten</h3><ol><li>Verbrauchsmengen je Artikel für mehrere gleich lange Perioden erfassen, etwa 6 oder 12 Monate.</li><li>Mittelwert des Verbrauchs berechnen.</li><li>Standardabweichung berechnen.</li><li>Variationskoeffizient bilden.</li><li>Mit den Klassengrenzen vergleichen und X, Y oder Z zuordnen.</li></ol><p>Wichtig ist, dass alle Artikel mit demselben Zeitraum und derselben Periodenlänge betrachtet werden. Sonst vergleichst du Äpfel mit Birnen.</p><h3>Klassengrenzen</h3><p>Feste Grenzen gibt es nicht. Häufig verwendet werden:</p><ul><li>X: VK bis 10 %</li><li>Y: VK über 10 % bis 25 %</li><li>Z: VK über 25 %</li></ul><p>Manche Lehrbücher setzen die Grenzen bei 25 % und 50 %. In der Klausur sind die Grenzen in der Regel vorgegeben.</p>"
+  },
+  {
+   "h2": "Beispiel: XYZ-Analyse Schritt für Schritt",
+   "html": "<div class=\"beispiel\"><p>Ein Hersteller von Landmaschinen erfasst den Monatsverbrauch von fünf Artikeln über ein Halbjahr:</p><table><thead><tr><th>Artikel</th><th>Jan</th><th>Feb</th><th>Mär</th><th>Apr</th><th>Mai</th><th>Jun</th></tr></thead><tbody><tr><td>Schrauben M8 (Stück)</td><td>400</td><td>420</td><td>380</td><td>410</td><td>390</td><td>400</td></tr><tr><td>Hydrauliköl (Liter)</td><td>90</td><td>110</td><td>130</td><td>100</td><td>120</td><td>110</td></tr><tr><td>Versandkartons (Stück)</td><td>800</td><td>1.000</td><td>600</td><td>900</td><td>700</td><td>800</td></tr><tr><td>Ersatzmotor (Stück)</td><td>0</td><td>3</td><td>0</td><td>0</td><td>5</td><td>1</td></tr><tr><td>Stahlblech (Tonnen)</td><td>50</td><td>52</td><td>48</td><td>49</td><td>51</td><td>50</td></tr></tbody></table><p>Ausführlich gerechnet für das <strong>Hydrauliköl</strong>:</p><p><strong>Schritt 1: Mittelwert</strong><br>\\( \\bar{x} = \\frac{90 + 110 + 130 + 100 + 120 + 110}{6} = \\frac{660}{6} = 110 \\) Liter</p><p><strong>Schritt 2: Abweichungen und Quadrate</strong><br>Abweichungen: −20, 0, +20, −10, +10, 0<br>Quadrate: 400, 0, 400, 100, 100, 0 → Summe 1.000</p><p><strong>Schritt 3: Varianz und Standardabweichung</strong><br>\\( \\sigma^2 = \\frac{1.000}{6} \\approx 166{,}67 \\)<br>\\( \\sigma = \\sqrt{166{,}67} \\approx 12{,}91 \\) Liter</p><p><strong>Schritt 4: Variationskoeffizient</strong><br>\\( \\text{VK} = \\frac{12{,}91}{110} \\cdot 100\\,\\% \\approx 11{,}7\\,\\% \\Rightarrow \\) Y-Teil</p><p><strong>Schritt 5: Alle Artikel</strong> (gleiches Vorgehen)</p><table><thead><tr><th>Artikel</th><th>Mittelwert</th><th>σ</th><th>VK</th><th>Klasse</th></tr></thead><tbody><tr><td>Stahlblech</td><td>50</td><td>1,29</td><td>2,6 %</td><td>X</td></tr><tr><td>Schrauben M8</td><td>400</td><td>12,91</td><td>3,2 %</td><td>X</td></tr><tr><td>Hydrauliköl</td><td>110</td><td>12,91</td><td>11,7 %</td><td>Y</td></tr><tr><td>Versandkartons</td><td>800</td><td>129,10</td><td>16,1 %</td><td>Y</td></tr><tr><td>Ersatzmotor</td><td>1,5</td><td>1,89</td><td>126,2 %</td><td>Z</td></tr></tbody></table></div><p>Schau auf Schrauben und Öl: Beide haben exakt dieselbe Standardabweichung von 12,91. Trotzdem sind die Schrauben X und das Öl Y, weil 12,91 bei einem Mittelwert von 400 viel weniger ins Gewicht fällt als bei 110. Genau deshalb klassifiziert man nach dem Variationskoeffizienten und nicht nach der Standardabweichung. Der Ersatzmotor ist ein typisches Z-Teil: In drei von sechs Monaten wird er gar nicht gebraucht, dann plötzlich fünfmal.</p>"
+  },
+  {
+   "h2": "Wie kombiniert man ABC- und XYZ-Analyse?",
+   "html": "<p>Ihre volle Stärke entfaltet die XYZ-Analyse in Kombination mit der ABC-Analyse. Jeder Artikel landet in einem von neun Feldern:</p><table><thead><tr><th></th><th>X (gut planbar)</th><th>Y (schwankend)</th><th>Z (unregelmäßig)</th></tr></thead><tbody><tr><td><strong>A (hoher Wert)</strong></td><td>Just in Time, enge Lieferantenbindung</td><td>bedarfsgesteuert, genaue Prognose</td><td>Einzelbeschaffung bei Bedarf</td></tr><tr><td><strong>B (mittlerer Wert)</strong></td><td>bedarfsgesteuert</td><td>Mischformen</td><td>Einzelbeschaffung oder kleiner Puffer</td></tr><tr><td><strong>C (geringer Wert)</strong></td><td>verbrauchsgesteuert, automatisch</td><td>Vorratshaltung</td><td>Vorratshaltung mit Puffer</td></tr></tbody></table><p>Die beiden Extreme solltest du für die Klausur kennen:</p><ul><li><strong>AX-Teile:</strong> teuer und gut planbar – ideal für <a href=\"/lernen/just-in-time\">Just in Time</a>. Hier lohnt sich jeder Euro, der nicht im Lager liegt, und das Ausfallrisiko ist kalkulierbar.</li><li><strong>CZ-Teile:</strong> billig und unberechenbar – einfach ein paar mehr auf Lager legen. Ein großzügiger Sicherheitsbestand kostet wenig und erspart Planungsaufwand.</li></ul><p>Schwierig sind <strong>AZ-Teile</strong> wie der Ersatzmotor, falls er teuer ist: Lagerhaltung bindet viel Kapital, Einzelbeschaffung kann zu langen Ausfällen führen. Hier wird meist individuell entschieden, etwa mit Rahmenverträgen und garantierten Lieferzeiten.</p>"
+  },
+  {
+   "h2": "Wofür nutzt man die XYZ-Analyse?",
+   "html": "<ul><li><strong>Dispositionsverfahren wählen:</strong> X- und Y-Teile lassen sich gut verbrauchsgesteuert disponieren, etwa mit dem <a href=\"/lernen/bestellpunktverfahren\">Bestellpunktverfahren</a>. Z-Teile werden besser auftragsbezogen beschafft.</li><li><strong>Sicherheitsbestände bemessen:</strong> Je höher die Schwankung, desto höher muss der Puffer sein, um denselben Servicegrad zu halten.</li><li><strong>Prognoseverfahren auswählen:</strong> Für X-Teile genügt ein gleitender Durchschnitt, Y-Teile brauchen Verfahren mit Trend oder Saison, für Z-Teile sind Prognosen kaum sinnvoll.</li><li><strong>Lieferantenstrategie:</strong> Bei X-Teilen lohnen sich langfristige Lieferabrufe, bei Z-Teilen eher flexible Rahmenverträge.</li></ul><p>In der Praxis wird die Einteilung regelmäßig wiederholt, etwa jährlich oder quartalsweise. Artikel wandern zwischen den Klassen: Ein neues Produkt startet oft als Z-Teil, wird mit wachsendem, stabilem Absatz zum X-Teil und rutscht am Ende seines Lebenszyklus wieder in Y oder Z. Wer die Klassen nicht aktualisiert, steuert mit veralteten Regeln.</p>"
+  },
+  {
+   "h2": "Vor- und Nachteile der XYZ-Analyse",
+   "html": "<p><strong>Vorteile:</strong> einfach zu berechnen, braucht nur Verbrauchsdaten, schließt die Lücke der ABC-Analyse und liefert eine klare Grundlage für die Wahl von Beschaffungs- und Prognoseverfahren.</p><p><strong>Nachteile:</strong></p><ul><li>Die Klassengrenzen sind willkürlich, schon ein anderer Grenzwert verschiebt Artikel in eine andere Klasse.</li><li>Das Ergebnis hängt vom Betrachtungszeitraum und von der Periodenlänge ab. Wochenwerte schwanken stärker als Monatswerte.</li><li>Ein klarer Trend oder eine Saison erhöht den VK, obwohl der Verbrauch eigentlich gut vorhersagbar ist.</li><li>Es zählt nur die Vergangenheit; neue Produkte haben keine Datenbasis.</li><li>Bei sehr kleinen Mittelwerten wird der VK schnell riesig und wenig aussagekräftig.</li></ul>"
+  }
+ ],
+ "fehler": [
+  "Nach der Standardabweichung statt nach dem Variationskoeffizienten einteilen: Im Beispiel haben Schrauben und Öl dieselbe Standardabweichung (12,91), sind aber X und Y. Vergleichbar wird die Schwankung erst relativ zum Mittelwert.",
+  "XYZ mit ABC verwechseln: ABC teilt nach Wert ein, XYZ nach der Regelmäßigkeit des Verbrauchs. Ein billiges Teil kann ein X-Teil sein, ein teures ein Z-Teil.",
+  "Bei der Varianz die Quadrate vergessen oder die Abweichungen einfach addieren: Die Summe der Abweichungen vom Mittelwert ist immer null. Erst quadrieren, dann mitteln, dann die Wurzel ziehen.",
+  "Den Variationskoeffizienten als Dezimalzahl mit Prozentgrenzen vergleichen: \\( \\frac{12{,}91}{110} = 0{,}117 \\) ist 11,7 %, nicht 0,117 %. Immer mit 100 % multiplizieren, bevor du klassifizierst.",
+  "AX-Teile auf Vorrat legen und CZ-Teile just in time beschaffen: Genau umgekehrt. Teure, planbare Teile eignen sich für JIT, billige, unberechenbare Teile für Vorratshaltung."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen ABC- und XYZ-Analyse?",
+   "a": "Die ABC-Analyse teilt Artikel nach ihrem wertmäßigen Anteil am Gesamtverbrauch ein, die XYZ-Analyse nach der Regelmäßigkeit und Vorhersagbarkeit ihres Verbrauchs. Zusammen ergeben sie eine Matrix mit neun Feldern, aus der sich passende Beschaffungsstrategien ableiten lassen."
+  },
+  {
+   "q": "Wie berechnet man die XYZ-Analyse?",
+   "a": "Für jeden Artikel berechnest du aus den Verbrauchswerten mehrerer Perioden den Mittelwert und die Standardabweichung. Der Variationskoeffizient ist die Standardabweichung geteilt durch den Mittelwert in Prozent. Anhand vorgegebener Grenzen, etwa 10 und 25 Prozent, ordnest du den Artikel X, Y oder Z zu."
+  },
+  {
+   "q": "Welche Grenzen gelten bei der XYZ-Analyse?",
+   "a": "Es gibt keine einheitlichen Grenzen. Verbreitet sind X bis 10 Prozent, Y bis 25 Prozent und Z darüber; andere Quellen verwenden 25 und 50 Prozent. Unternehmen legen die Grenzen passend zu ihrem Sortiment fest, in Klausuren werden sie meist vorgegeben."
+  },
+  {
+   "q": "Was sind AX-Teile?",
+   "a": "AX-Teile haben einen hohen Wertanteil und einen gleichmäßigen, gut planbaren Verbrauch. Sie sind die klassischen Kandidaten für Just-in-Time-Beschaffung, weil hier die Einsparung bei der Kapitalbindung am größten und das Ausfallrisiko am besten kalkulierbar ist."
+  },
+  {
+   "q": "Warum nimmt man den Variationskoeffizienten und nicht die Standardabweichung?",
+   "a": "Die Standardabweichung ist eine absolute Größe in der Mengeneinheit des Artikels. Eine Schwankung von 13 Stück ist bei 400 Stück Verbrauch klein, bei 110 Stück spürbar. Der Variationskoeffizient setzt die Schwankung ins Verhältnis zum Mittelwert und macht Artikel so vergleichbar."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Ein Artikel hat einen Mittelwert von 200 Stück und eine Standardabweichung von 30 Stück. Wie lautet die Klasse bei den Grenzen 10 % und 25 %?",
+   "o": [
+    "X",
+    "Z",
+    "Y",
+    "Das lässt sich ohne Wert nicht sagen"
+   ],
+   "r": 2,
+   "e": "\\( \\text{VK} = \\frac{30}{200} \\cdot 100\\,\\% = 15\\,\\% \\). Das liegt zwischen 10 % und 25 %, also Y."
+  },
+  {
+   "q": "Welche Beschaffungsstrategie passt am besten zu einem CZ-Teil?",
+   "o": [
+    "Vorratshaltung mit großzügigem Puffer",
+    "Just in Time",
+    "Just in Sequence",
+    "Tägliche Einzelbestellung mit Prognose"
+   ],
+   "r": 0,
+   "e": "CZ-Teile sind billig und unregelmäßig. Ein Puffer kostet wenig Kapital und spart Planungsaufwand, Just in Time wäre wegen des unberechenbaren Bedarfs riskant."
+  },
+  {
+   "q": "Was misst die XYZ-Analyse?",
+   "o": [
+    "Den Wertanteil eines Artikels am Gesamtverbrauch",
+    "Den Deckungsbeitrag pro Artikel",
+    "Die Lagerumschlagshäufigkeit",
+    "Die Regelmäßigkeit und Vorhersagbarkeit des Verbrauchs"
+   ],
+   "r": 3,
+   "e": "Die XYZ-Analyse bewertet, wie gleichmäßig ein Artikel verbraucht wird. Den Wertanteil misst die ABC-Analyse."
+  }
+ ],
+ "verwandt": [
+  "abc-analyse",
+  "varianz-standardabweichung",
+  "just-in-time",
+  "bestellpunktverfahren",
+  "optimale-bestellmenge"
+ ],
+ "ask": "die XYZ-Analyse – Variationskoeffizient berechnen, X-, Y- und Z-Teile einteilen und die ABC-XYZ-Matrix an einem Beispiel"
+}

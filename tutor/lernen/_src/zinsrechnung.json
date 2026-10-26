@@ -1,0 +1,120 @@
+{
+ "slug": "zinsrechnung",
+ "name": "Zinsrechnung",
+ "title": "Zinsrechnung einfach erklärt – Tageszinsen mit Beispiel",
+ "meta": "Zinsrechnung einfach erklärt: Zinsformel für Jahre, Monate und Tage, Zinstage nach der deutschen Methode 30/360 und Umstellen – mit Rechenbeispiel.",
+ "h1": "Zinsrechnung einfach erklärt",
+ "kurz": "Die Zinsrechnung ermittelt, wie viele Zinsen ein Kapital bei einem Jahreszinssatz in einer bestimmten Zeit bringt. Bei einfacher Verzinsung gilt für Tage \\(Z = \\frac{K \\cdot p \\cdot t}{100 \\cdot 360}\\), wobei nach der deutschen Methode jeder Monat 30 und das Jahr 360 Tage hat. 18.000 € zu 2,5 % für 155 Tage bringen so 193,75 € Zinsen.",
+ "keywords": [
+  "zinsrechnung",
+  "zinsformel",
+  "tageszinsen berechnen",
+  "zinstage berechnen",
+  "deutsche zinsmethode 30/360",
+  "einfache verzinsung",
+  "zinssatz berechnen",
+  "unterjährige verzinsung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist Zinsrechnung?",
+   "html": "<p>Zinsen sind der Preis dafür, dass jemand Geld für eine bestimmte Zeit überlässt. Die <strong>Zinsrechnung</strong> beantwortet die Frage: Wie viel Zinsen bringt (oder kostet) ein Kapital \\(K\\) bei einem Zinssatz \\(p\\) über eine Zeit \\(t\\)? Gemeint ist in Klausuren mit „Zinsrechnung“ fast immer die <strong>einfache Verzinsung</strong>: Die Zinsen werden nur auf das ursprüngliche Kapital berechnet und nicht wieder mitverzinst.</p><p>Das passt immer dann, wenn die Laufzeit unter einem Jahr liegt oder die Zinsen regelmäßig ausgezahlt werden: Festgeld über wenige Monate, ein kurzfristiger Lieferantenkredit, Verzugszinsen auf eine offene Rechnung, Tageszinsen auf einem Kontokorrentkonto. Bleiben die Zinsen über mehrere Jahre stehen und werden selbst verzinst, bist du beim <a href=\"/lernen/zinseszins\">Zinseszins</a>, der exponentiell statt linear wächst.</p><p>Die Zinsrechnung ist im Kern eine Prozentrechnung mit Zeitfaktor. Der Zinssatz gilt immer <strong>pro Jahr</strong> (p. a.), solange nichts anderes dasteht. Läuft das Geld nur 155 Tage, bekommst du nur den entsprechenden Anteil der Jahreszinsen.</p>"
+  },
+  {
+   "h2": "Welche Formeln brauchst du?",
+   "html": "<p>Die Grundformel für Jahreszinsen und ihre zwei unterjährigen Varianten:</p><div class=\"formel\">\\[ Z = \\frac{K \\cdot p \\cdot n}{100} \\quad \\text{(Jahre)} \\]\\[ Z = \\frac{K \\cdot p \\cdot m}{100 \\cdot 12} \\quad \\text{(Monate)} \\]\\[ Z = \\frac{K \\cdot p \\cdot t}{100 \\cdot 360} \\quad \\text{(Tage)} \\]</div><ul><li>\\(Z\\) = Zinsen in Euro</li><li>\\(K\\) = Kapital (Anfangskapital)</li><li>\\(p\\) = Zinssatz in Prozent pro Jahr (bei 2,5 % also 2,5); rechnest du mit \\(i = \\frac{p}{100}\\), entfällt die 100 im Nenner</li><li>\\(n, m, t\\) = Laufzeit in Jahren, Monaten oder Tagen</li></ul><p>Mit dem Endkapital nach einfacher Verzinsung rechnest du so:</p><div class=\"formel\">\\[ K_t = K \\cdot \\left(1 + i \\cdot \\frac{t}{360}\\right) \\]</div><p>Die Tagesformel lässt sich nach jeder Größe umstellen. Genau das wird in Klausuren gern verlangt:</p><div class=\"formel\">\\[ K = \\frac{Z \\cdot 100 \\cdot 360}{p \\cdot t} \\qquad p = \\frac{Z \\cdot 100 \\cdot 360}{K \\cdot t} \\qquad t = \\frac{Z \\cdot 100 \\cdot 360}{K \\cdot p} \\]</div><div class=\"merke\">Merke: In der Tagesformel steht immer „mal 100 mal 360“ auf der einen Seite. Wer sich die Grundformel merkt, kann jede Umstellung in einer Zeile herleiten.</div>"
+  },
+  {
+   "h2": "Wie zählt man die Zinstage? Die deutsche Methode 30/360",
+   "html": "<p>Bei Tageszinsen ist die Laufzeit die eigentliche Fehlerquelle. Nach der <strong>deutschen (kaufmännischen) Zinsmethode</strong> hat jeder Monat 30 Tage und das Jahr 360 Tage. Dazu zwei Zählregeln:</p><ul><li>Der erste Tag wird nicht mitgezählt, der letzte Tag schon (oder umgekehrt, aber nie beide).</li><li>Ein 31. zählt wie der 30. eines Monats.</li></ul><p>Daraus ergibt sich eine einfache Rechnung für die Zinstage zwischen zwei Daten:</p><div class=\"formel\">\\[ t = (J_2 - J_1) \\cdot 360 + (M_2 - M_1) \\cdot 30 + (T_2 - T_1) \\]</div><p>Neben der deutschen Methode gibt es zwei weitere Konventionen, die du kennen solltest:</p><table><thead><tr><th>Methode</th><th>Tage im Monat</th><th>Tage im Jahr</th><th>Typische Verwendung</th></tr></thead><tbody><tr><td>deutsch (30/360)</td><td>30</td><td>360</td><td>Lehrbuch, Sparbuch, viele Darlehen</td></tr><tr><td>Euro-Zinsmethode (act/360)</td><td>kalendergenau</td><td>360</td><td>Geldmarkt, Festgeld, Tagesgeld</td></tr><tr><td>englisch (act/365)</td><td>kalendergenau</td><td>365</td><td>Verzugszinsen, Anleihen</td></tr></tbody></table><p>Steht in der Aufgabe nichts anderes, rechnest du in deutschen Klausuren mit 30/360.</p>"
+  },
+  {
+   "h2": "Beispiel: Tageszinsen Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p>Eine Malerfirma parkt einen Auftragsvorschuss von <strong>18.000 €</strong> als Festgeld vom <strong>15.03.</strong> bis zum <strong>20.08.</strong> desselben Jahres zu <strong>2,5 % p. a.</strong> Wie viele Zinsen bekommt sie nach deutscher Methode?</p><ol><li>Zinstage: \\(t = (8 - 3) \\cdot 30 + (20 - 15) = 150 + 5 = 155\\) Tage.</li><li>Zinsen: \\(Z = \\frac{18.000 \\cdot 2{,}5 \\cdot 155}{100 \\cdot 360} = 193{,}75\\) €.</li><li>Endkapital: \\(K_t = 18.000 + 193{,}75 = 18.193{,}75\\) €.</li><li>Plausibilitätscheck: Ein ganzes Jahr brächte \\(18.000 \\cdot 0{,}025 = 450\\) €, pro Tag also 1,25 €. Mal 155 Tage ergibt wieder 193,75 €.</li></ol><p>Dieselbe Anlage nach den anderen Methoden (kalendergenau sind es 158 Tage):</p><table><thead><tr><th>Methode</th><th>Tage</th><th>Rechnung</th><th>Zinsen</th></tr></thead><tbody><tr><td>30/360</td><td>155</td><td>\\(\\frac{18.000 \\cdot 2{,}5 \\cdot 155}{36.000}\\)</td><td>193,75 €</td></tr><tr><td>act/360</td><td>158</td><td>\\(\\frac{18.000 \\cdot 2{,}5 \\cdot 158}{36.000}\\)</td><td>197,50 €</td></tr><tr><td>act/365</td><td>158</td><td>\\(\\frac{18.000 \\cdot 2{,}5 \\cdot 158}{36.500}\\)</td><td>194,79 €</td></tr></tbody></table><p>Ergebnis: Die Methode macht hier fast 4 € Unterschied. Bei Millionenbeträgen am Geldmarkt ist das kein Rundungsfehler mehr, sondern Geld.</p></div>"
+  },
+  {
+   "h2": "Kapital, Zinssatz oder Laufzeit gesucht: Umstellen mit Beispiel",
+   "html": "<p>Oft sind die Zinsen gegeben und eine andere Größe fehlt. Drei Mini-Aufgaben mit derselben Grundformel:</p><div class=\"beispiel\"><ol><li><strong>Zinssatz gesucht:</strong> Ein Lieferant verlangt für eine Stundung von 4.800 € über 75 Tage 60 € Zinsen. \\(p = \\frac{60 \\cdot 100 \\cdot 360}{4.800 \\cdot 75} = 6\\,\\%\\) p. a.</li><li><strong>Laufzeit gesucht:</strong> Wie lange müssen 12.000 € zu 3 % liegen, damit 150 € Zinsen anfallen? \\(t = \\frac{150 \\cdot 100 \\cdot 360}{12.000 \\cdot 3} = 150\\) Tage, also 5 Monate.</li><li><strong>Kapital gesucht:</strong> Welches Kapital bringt in 80 Tagen bei 4,5 % genau 90 € Zinsen? \\(K = \\frac{90 \\cdot 100 \\cdot 360}{4{,}5 \\cdot 80} = 9.000\\) €.</li><li><strong>Monatszinsen:</strong> 9.000 € für 7 Monate zu 4 %: \\(Z = \\frac{9.000 \\cdot 4 \\cdot 7}{1.200} = 210\\) €.</li></ol></div><h3>Rückrechnung vom Endkapital</h3><p>Kennst du nur den Endbetrag inklusive Zinsen, teilst du durch den Zinsfaktor. Aus dem Festgeld oben: \\(K = \\frac{18.193{,}75}{1 + 0{,}025 \\cdot \\frac{155}{360}} = 18.000\\) €. Wer stattdessen 2,5 % anteilig vom Endbetrag abzieht, landet bei rund 17.997,91 € und liegt falsch, weil die Zinsen auf das Anfangskapital berechnet wurden, nicht auf das Endkapital. Das ist dieselbe Logik wie beim <a href=\"/lernen/barwert-abzinsen\">Abzinsen</a>, nur linear statt exponentiell.</p>"
+  },
+  {
+   "h2": "Unterjährige Verzinsung: einfache Zinsen innerhalb des Jahres",
+   "html": "<p>Bei Sparkonten werden Zinsen meist einmal am Jahresende gutgeschrieben. Innerhalb des Jahres gibt es also keine Zinseszinsen, sondern einfache Zinsen für die Monate oder Tage. Liegt Geld über einen Jahreswechsel hinweg, kombinierst du beides: einfache Zinsen für die angebrochenen Jahre, Zinseszins für die vollen Jahre. Das heißt <strong>gemischte Verzinsung</strong>.</p><div class=\"beispiel\"><p>10.000 € liegen vom 01.10.2025 bis zum 01.04.2027 zu 3 % auf einem Konto mit Gutschrift am 31.12.</p><ol><li>2025, 3 Monate einfach: \\(10.000 \\cdot \\left(1 + 0{,}03 \\cdot \\frac{3}{12}\\right) = 10.075{,}00\\) €</li><li>2026, volles Jahr mit Zinseszins: \\(10.075{,}00 \\cdot 1{,}03 = 10.377{,}25\\) €</li><li>2027, 3 Monate einfach: \\(10.377{,}25 \\cdot \\left(1 + 0{,}03 \\cdot \\frac{3}{12}\\right) \\approx 10.455{,}08\\) €</li></ol><p>Zum Vergleich: rein einfach über 1,5 Jahre wären es 10.450,00 €, rein exponentiell mit \\(1{,}03^{1{,}5}\\) rund 10.453,36 €.</p></div><p>Werden die Zinsen dagegen monatlich oder vierteljährlich gutgeschrieben und mitverzinst, ist das unterjährige Verzinsung mit Zinseszins. Dann steigt der tatsächliche Jahreszins über den Nominalzins; wie man den berechnet, zeigt die Seite zum <a href=\"/lernen/effektivzins\">Effektivzins</a>.</p>"
+  },
+  {
+   "h2": "Wo brauchst du die Zinsrechnung in der BWL?",
+   "html": "<ul><li><strong>Lieferantenkredit:</strong> Wer Skonto nicht nutzt, zahlt implizit Zinsen für die gewonnenen Tage. Der Jahreszins dahinter wird mit genau dieser Tagesformel hochgerechnet, siehe <a href=\"/lernen/lieferantenkredit\">Lieferantenkredit</a>.</li><li><strong>Kontokorrent:</strong> Sollzinsen fallen nur auf den genutzten Saldo und nur für die Tage im Minus an. Banken rechnen dafür klassisch mit Zinszahlen: \\(\\# = \\frac{K \\cdot t}{100}\\) und Zinsteiler \\(\\frac{360}{p}\\). Im Beispiel: \\(\\frac{27.900}{144} = 193{,}75\\) €.</li><li><strong>Verzugszinsen:</strong> Nach § 288 BGB betragen sie 5 Prozentpunkte über dem Basiszinssatz, bei Geschäften ohne Verbraucherbeteiligung 9 Prozentpunkte. Der Basiszinssatz wird halbjährlich angepasst, deshalb immer den aktuellen Wert nehmen.</li><li><strong>Jahresabschluss:</strong> Zinsen, die wirtschaftlich ins alte Jahr gehören, aber erst im neuen gezahlt werden, grenzt du zeitanteilig ab – mit Monats- oder Tageszinsen.</li></ul><p><strong>Abgrenzung:</strong> Einfache Zinsen wachsen linear, \\(K \\cdot (1 + i \\cdot n)\\). Ab etwa einem Jahr Laufzeit mit stehen gelassenen Zinsen ist die einfache Formel zu niedrig, dann gilt \\(K \\cdot (1+i)^n\\). Unter einem Jahr liefert die einfache Rechnung bei einmaliger Gutschrift das exakte Ergebnis.</p>"
+  }
+ ],
+ "fehler": [
+  "Laufzeit in Tagen einsetzen, aber durch 100 statt durch \\(100 \\cdot 360\\) teilen: Der Zinssatz gilt pro Jahr. Bei Tagen musst du die Jahreszinsen immer auf \\(\\frac{t}{360}\\) herunterbrechen.",
+  "Beide Randtage mitzählen: Vom 15.03. bis 20.08. sind es 155 Zinstage, nicht 156. Zähle den ersten Tag nicht mit, den letzten schon.",
+  "Kalendertage statt 30/360 zählen, obwohl nichts angegeben ist: In deutschen Klausuren gilt ohne Hinweis die deutsche Methode mit 30 Tagen pro Monat. Ein 31. wird wie der 30. behandelt.",
+  "Vom Endkapital zurückrechnen, indem man die Zinsen davon abzieht: \\(18.193{,}75 \\cdot (1 - 0{,}025 \\cdot \\frac{155}{360})\\) ist falsch. Richtig ist Teilen durch den Zinsfaktor \\(1 + 0{,}025 \\cdot \\frac{155}{360}\\).",
+  "Einfache Zinsen über mehrere Jahre nehmen, obwohl die Zinsen stehen bleiben: Werden Zinsen jährlich gutgeschrieben und mitverzinst, gilt ab dem zweiten Jahr die Zinseszinsformel."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man Zinsen für Tage?",
+   "a": "Du multiplizierst Kapital, Zinssatz und Zinstage und teilst durch 100 mal 360. Beispiel: 18.000 € zu 2,5 % für 155 Tage ergeben 18.000 mal 2,5 mal 155 geteilt durch 36.000, also 193,75 €. Die Tage zählst du nach der deutschen Methode mit 30 Tagen pro Monat."
+  },
+  {
+   "q": "Warum hat das Zinsjahr nur 360 Tage?",
+   "a": "Das ist eine kaufmännische Konvention, die das Rechnen vereinfacht: Jeder Monat hat 30 Tage, das Jahr 360. Sie stammt aus der Zeit vor Taschenrechnern, weil 360 durch viele Zahlen teilbar ist. Heute gibt es daneben die Euro-Zinsmethode (echte Tage durch 360) und die englische Methode (echte Tage durch 365)."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Zinsrechnung und Zinseszinsrechnung?",
+   "a": "Bei der einfachen Zinsrechnung werden Zinsen nur auf das Anfangskapital berechnet, das Kapital wächst linear. Bei der Zinseszinsrechnung werden die Zinsen dem Kapital zugeschlagen und in den Folgeperioden mitverzinst, das Kapital wächst exponentiell. Für Laufzeiten unter einem Jahr mit einmaliger Gutschrift sind beide Ergebnisse gleich."
+  },
+  {
+   "q": "Wie rechne ich den Zinssatz aus, wenn Zinsen, Kapital und Tage gegeben sind?",
+   "a": "Stelle die Tagesformel um: Zinssatz gleich Zinsen mal 100 mal 360, geteilt durch Kapital mal Tage. Für 60 € Zinsen auf 4.800 € in 75 Tagen ergibt das 6 % pro Jahr. Prüfe das Ergebnis immer, indem du es in die Ausgangsformel einsetzt."
+  },
+  {
+   "q": "Wie viele Zinstage hat der Februar nach deutscher Methode?",
+   "a": "Auch der Februar zählt mit 30 Tagen. Endet die Laufzeit am letzten Februartag, wird in vielen Lehrbüchern auf den 30. aufgerundet, andere zählen nur bis zum 28. oder 29. Steht in der Aufgabe nichts dazu, schreib deine Annahme kurz dazu."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Wie viele Zinstage liegen nach deutscher Methode zwischen dem 10.04. und dem 31.07. desselben Jahres?",
+   "o": [
+    "112",
+    "110",
+    "111",
+    "120"
+   ],
+   "r": 1,
+   "e": "Der 31. zählt wie der 30.: \\(t = (7-4) \\cdot 30 + (30 - 10) = 110\\) Tage. 112 wären die kalendergenauen Tage."
+  },
+  {
+   "q": "Ein Kredit über 6.000 € läuft 120 Tage zu 9 % p. a. (30/360). Wie hoch sind die Zinsen?",
+   "o": [
+    "540 €",
+    "18 €",
+    "180 €",
+    "1.800 €"
+   ],
+   "r": 2,
+   "e": "\\(Z = \\frac{6.000 \\cdot 9 \\cdot 120}{100 \\cdot 360} = 180\\) €. 540 € wären die Zinsen für ein ganzes Jahr."
+  },
+  {
+   "q": "Ein Guthaben ist nach 90 Tagen zu 4 % (30/360) auf 10.100 € angewachsen. Wie hoch war das Anfangskapital?",
+   "o": [
+    "10.000,00 €",
+    "9.999,00 €",
+    "9.900,00 €",
+    "10.001,00 €"
+   ],
+   "r": 0,
+   "e": "Teilen durch den Zinsfaktor: \\(\\frac{10.100}{1 + 0{,}04 \\cdot \\frac{90}{360}} = \\frac{10.100}{1{,}01} = 10.000\\) €. Wer 1 % vom Endbetrag abzieht, kommt fälschlich auf 9.999 €."
+  }
+ ],
+ "verwandt": [
+  "zinseszins",
+  "barwert-abzinsen",
+  "effektivzins",
+  "lieferantenkredit",
+  "kontokorrentkredit"
+ ],
+ "ask": "die Zinsrechnung – Tageszinsen nach der deutschen Methode 30/360, das Umstellen der Zinsformel und die unterjährige Verzinsung an einem Beispiel"
+}

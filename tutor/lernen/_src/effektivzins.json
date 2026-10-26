@@ -1,0 +1,116 @@
+{
+ "slug": "effektivzins",
+ "name": "Effektivzins",
+ "title": "Effektivzins einfach erklärt – Berechnung mit Beispiel",
+ "meta": "Effektivzins verständlich: Unterschied zum Sollzins, Disagio, Faustformel, exakte Berechnung und unterjährige Zahlung – mit zwei Kreditangeboten.",
+ "h1": "Effektivzins einfach erklärt",
+ "kurz": "Der Effektivzins (effektiver Jahreszins) gibt die tatsächlichen jährlichen Kosten eines Kredits in Prozent an. Anders als der Sollzins (Nominalzins) berücksichtigt er auch Disagio, preisrelevante Nebenkosten und unterjährige Zahlungen. Er ist der Zinssatz, bei dem der Barwert aller Rückzahlungen genau dem ausgezahlten Betrag entspricht, und macht Kreditangebote vergleichbar.",
+ "keywords": [
+  "effektivzins",
+  "effektivzins berechnen",
+  "effektiver jahreszins",
+  "effektivzins formel",
+  "sollzins effektivzins unterschied",
+  "nominalzins effektivzins",
+  "effektivzins disagio",
+  "effektivverzinsung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der Effektivzins?",
+   "html": "<p>Ein Kreditangebot nennt meist zuerst den <strong>Sollzins</strong>, früher Nominalzins genannt. Er gibt an, wie viel Prozent Zinsen pro Jahr auf die Darlehensschuld berechnet werden. Was der Kredit dich wirklich kostet, zeigt er aber nicht, denn er ignoriert alles, was neben den Zinsen anfällt oder den Zahlungsrhythmus verändert.</p><p>Der <strong>Effektivzins</strong> fasst alle preisbestimmenden Faktoren in einer einzigen Prozentzahl zusammen. Er ist die Antwort auf die Frage: <em>Zu welchem Jahreszins habe ich mir dieses Geld tatsächlich geliehen?</em> Damit wird er zum einzig fairen Vergleichsmaßstab zwischen Angeboten mit unterschiedlichen Konditionen.</p><p>Für Verbraucherkredite ist die Angabe gesetzlich vorgeschrieben (Stand 2026: § 16 Preisangabenverordnung). Der Darlehensgeber muss die Gesamtkosten als jährlichen Prozentsatz des Nettodarlehensbetrags angeben, bezeichnet als „effektiver Jahreszins“, auf zwei Nachkommastellen gerundet. Die Berechnungsmethode steht in der Anlage zur Verordnung.</p><div class=\"merke\">Sollzins = Preis für das Geld laut Vertrag. Effektivzins = was der Kredit unterm Strich pro Jahr kostet. Vergleiche Angebote immer über den Effektivzins.</div>"
+  },
+  {
+   "h2": "Warum liegt der Effektivzins über dem Sollzins?",
+   "html": "<p>Drei Effekte treiben den Effektivzins über den Sollzins:</p><ul><li><strong>Disagio (Damnum):</strong> Die Bank zahlt nicht den vollen Darlehensbetrag aus, sondern zum Beispiel nur 96 %. Du zahlst aber Zinsen und Tilgung auf 100 %. Das Disagio ist im Grunde ein vorweggenommener Zins.</li><li><strong>Kosten, die Voraussetzung für den Kredit sind:</strong> etwa Vermittlungsgebühren oder ein Pflichtkonto. Nicht eingerechnet werden laut Preisangabenverordnung unter anderem Notar- und Grundbuchkosten sowie freiwillige Zusatzversicherungen. Laufzeitunabhängige Bearbeitungsentgelte in vorformulierten Kreditverträgen hat der BGH für unwirksam erklärt (2014 bei Verbraucher-, 2017 bei Unternehmerdarlehen).</li><li><strong>Unterjährige Zahlungen:</strong> Zahlst du Zinsen monatlich statt am Jahresende, gibst du das Geld früher her. Das verteuert den Kredit, auch ohne jede Gebühr.</li></ul><p>Beim Disagio kommt ein vierter Effekt dazu: die <strong>Laufzeit</strong>. Dieselben 4 % Disagio verteilen sich auf fünf Jahre anders als auf zwei. Je kürzer der Kredit läuft, desto stärker schlägt das Disagio pro Jahr durch.</p>"
+  },
+  {
+   "h2": "Wie berechnet man den Effektivzins?",
+   "html": "<h3>Exakt: Barwert der Zahlungen = Auszahlungsbetrag</h3><p>Der Effektivzins ist der Zinssatz \\( r \\), bei dem die abgezinsten Rückzahlungen genau dem Betrag entsprechen, den du tatsächlich erhalten hast:</p><div class=\"formel\">\\[ \\text{Auszahlung} = \\sum_{t=1}^{n} \\frac{Z_t}{(1+r)^t} \\]</div><p>\\( Z_t \\) sind alle Zahlungen an die Bank in Jahr \\( t \\): Zinsen, Tilgung, eingerechnete Kosten. Das ist dieselbe Rechnung wie beim <a href=\"/lernen/interner-zinsfuss\">internen Zinsfuß</a>, nur aus Sicht des Kreditnehmers. Ab drei Perioden lässt sich die Gleichung nicht mehr nach \\( r \\) auflösen. Du probierst zwei Zinssätze aus und interpolierst linear.</p><h3>Näherung: Faustformel für Fälligkeitsdarlehen</h3><p>Wird das Darlehen am Ende in einer Summe getilgt, liefert diese Faustformel einen schnellen Näherungswert:</p><div class=\"formel\">\\[ r_{\\text{eff}} \\approx \\frac{\\text{Sollzins} + \\frac{\\text{Disagio in \\%}}{\\text{Laufzeit}}}{\\text{Auszahlungskurs}} \\]</div><p>Die Idee: Das Disagio wird gleichmäßig auf die Jahre verteilt und alles auf das tatsächlich erhaltene Geld bezogen. Weil die Formel den Zinseszinseffekt ignoriert, überschätzt sie den Effektivzins leicht.</p><h3>Unterjährige Zahlungen</h3><p>Wird der Zins in \\( m \\) Teilperioden pro Jahr fällig, rechnest du den Periodenzins mit Zinseszins auf ein Jahr hoch:</p><div class=\"formel\">\\[ r_{\\text{eff}} = \\left(1 + \\frac{i_{\\text{Soll}}}{m}\\right)^m - 1 \\]</div><p>Die gleiche Formel kennst du aus der <a href=\"/lernen/zinseszins\">Zinseszinsrechnung</a> für Guthaben. Beim Kredit wirkt sie gegen dich.</p>"
+  },
+  {
+   "h2": "Beispiel: zwei Kreditangebote vergleichen",
+   "html": "<div class=\"beispiel\"><p>Eine GmbH braucht für 5 Jahre ein Darlehen über 100.000 €, getilgt am Laufzeitende in einer Summe (Fälligkeitsdarlehen). Die Zinsen werden jährlich nachträglich gezahlt.</p><table><thead><tr><th></th><th>Angebot A</th><th>Angebot B</th></tr></thead><tbody><tr><td>Sollzins</td><td>4,0 %</td><td>4,8 %</td></tr><tr><td>Auszahlung</td><td>96 % (Disagio 4.000 €)</td><td>100 %</td></tr><tr><td>Zinsen pro Jahr</td><td>4.000 €</td><td>4.800 €</td></tr></tbody></table><p><strong>Angebot B:</strong> Ohne Disagio und mit jährlicher Zahlung entspricht der Effektivzins dem Sollzins: <strong>4,80 %</strong>.</p><p><strong>Angebot A, Schritt 1 – Faustformel:</strong><br>\\( r_{\\text{eff}} \\approx \\frac{4\\,\\% + \\frac{4\\,\\%}{5}}{0{,}96} = \\frac{4{,}8\\,\\%}{0{,}96} = 5{,}00\\,\\% \\)</p><p><strong>Schritt 2 – exakt, Zahlungsreihe aufstellen:</strong> Heute fließen 96.000 € zu. In den Jahren 1 bis 4 zahlst du je 4.000 €, in Jahr 5 dann 104.000 €.</p><p><strong>Schritt 3 – zwei Zinssätze ausprobieren:</strong><br>Barwert der Rückzahlungen bei 4,9 %: 96.092,68 € (zu hoch, also Zins zu niedrig)<br>Barwert der Rückzahlungen bei 5,0 %: 95.670,52 € (zu niedrig, also Zins zu hoch)</p><p><strong>Schritt 4 – linear interpolieren:</strong><br>\\( r_{\\text{eff}} = 4{,}9\\,\\% + \\frac{96.092{,}68 - 96.000}{96.092{,}68 - 95.670{,}52} \\cdot 0{,}1\\,\\% = 4{,}9\\,\\% + \\frac{92{,}68}{422{,}16} \\cdot 0{,}1\\,\\% \\approx 4{,}92\\,\\% \\)</p><p><strong>Ergebnis:</strong> Angebot A kostet effektiv <strong>4,92 %</strong> und ist damit teurer als Angebot B mit 4,80 %, obwohl sein Sollzins 0,8 Prozentpunkte niedriger ist.</p></div><p>Beachte, was passiert wäre, wenn du in der Faustformel das Teilen durch 0,96 vergessen hättest: Du kämst auf 4,8 % und würdest beide Angebote für gleich teuer halten. Der Nenner ist entscheidend, weil du nur 96.000 € bekommst, aber 4.000 € Zinsen zahlst.</p><p><strong>Laufzeiteffekt:</strong> Tilgt die GmbH Angebot A schon nach 3 Jahren vollständig und wird das Disagio nicht anteilig erstattet, steigt der Effektivzins auf rund 5,48 %. Die 4.000 € Disagio verteilen sich dann auf weniger Jahre.</p>"
+  },
+  {
+   "h2": "Unterjährige Zahlung: der versteckte Aufschlag",
+   "html": "<div class=\"beispiel\"><p>Ein Ratenkredit hat einen Sollzins von 6 % pro Jahr, die Zinsen werden monatlich berechnet, also 0,5 % pro Monat. Weitere Kosten gibt es nicht.</p><p>\\( r_{\\text{eff}} = \\left(1 + \\frac{0{,}06}{12}\\right)^{12} - 1 = 1{,}005^{12} - 1 = 0{,}061678 \\approx 6{,}17\\,\\% \\)</p></div><p>Der Effektivzins liegt 0,17 Prozentpunkte über dem Sollzins, ganz ohne Gebühren. Grund: Jede Monatsrate verringert sofort dein verfügbares Geld, und die Zinsen der ersten Monate wirken wie Zinseszins zugunsten der Bank. Umgekehrt gilt: Wer einen monatlichen Zins von 0,5 % einfach mal 12 nimmt, unterschätzt die Kosten.</p><p>Für Geldanlagen funktioniert die Rechnung genauso. Dort heißt das Ergebnis meist <em>Effektivverzinsung</em> oder Rendite, und ein höherer Wert ist gut für dich.</p>"
+  },
+  {
+   "h2": "Einordnung, Grenzen und Abgrenzung",
+   "html": "<p><strong>Wofür der Effektivzins taugt:</strong></p><ul><li>Vergleich von Kreditangeboten mit unterschiedlichem Sollzins, Disagio und Zahlungsrhythmus,</li><li>Vergleich von Finanzierungsalternativen, etwa Bankkredit gegen Skontoverzicht beim <a href=\"/lernen/lieferantenkredit\">Lieferantenkredit</a>, dessen Effektivzins oft über 30 % liegt,</li><li>Prüfung, ob ein „0 %-Angebot“ wirklich kostenlos ist: Wer bei Barzahlung Rabatt bekommen würde, zahlt bei Ratenzahlung versteckte Zinsen.</li></ul><p><strong>Grenzen:</strong></p><ul><li>Er unterstellt, dass der Kredit wie vereinbart bis zum Ende läuft. Sondertilgungen oder vorzeitige Rückzahlung verändern ihn.</li><li>Bei variablem Zins wird angenommen, dass der Zins auf dem Anfangsniveau bleibt. Der echte Effektivzins steht erst am Ende fest.</li><li>Kosten, die nicht eingerechnet werden müssen, etwa eine freiwillige Restschuldversicherung, musst du selbst dazurechnen.</li></ul><p><strong>Abgrenzung:</strong> Der <em>Sollzins</em> ist der vertragliche Rechenzins, der Effektivzins die tatsächliche Belastung. Der <em>Realzins</em> ist etwas anderes: Er bereinigt einen Zins um die <a href=\"/lernen/inflation\">Inflation</a>. Ein Kredit kann also gleichzeitig einen Effektivzins von 5 % und einen Realzins von 3 % haben, wenn die Inflation 2 % beträgt (Näherung). Und wie sich ein Annuitätendarlehen Jahr für Jahr in Zins und Tilgung aufteilt, zeigt der <a href=\"/lernen/tilgungsplan\">Tilgungsplan</a>.</p>"
+  }
+ ],
+ "fehler": [
+  "In der Faustformel nicht durch den Auszahlungskurs teilen: \\( 4\\,\\% + \\frac{4\\,\\%}{5} = 4{,}8\\,\\% \\) ist noch nicht der Effektivzins. Weil nur 96 % ausgezahlt werden, musst du noch durch 0,96 teilen.",
+  "Monatszins einfach mal 12 nehmen: 0,5 % pro Monat sind nicht 6 % effektiv, sondern \\( 1{,}005^{12} - 1 \\approx 6{,}17\\,\\% \\). Unterjährige Zinsen immer mit Zinseszins hochrechnen.",
+  "Angebote nach dem Sollzins auswählen: Ein niedriger Sollzins mit hohem Disagio kann teurer sein als ein höherer Sollzins ohne Disagio. Entscheidend ist der Effektivzins.",
+  "Das Disagio auf den Auszahlungsbetrag statt auf den Nennbetrag beziehen: Zinsen und Tilgung laufen auf den Darlehensnennbetrag (100.000 €), ausgezahlt werden nur 96.000 €. Bei der Zahlungsreihe steht heute der Auszahlungsbetrag, später der volle Nennbetrag.",
+  "Die Laufzeit ignorieren: Dasselbe Disagio ergibt bei kürzerer Laufzeit einen höheren Effektivzins, weil es sich auf weniger Jahre verteilt."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen Sollzins und Effektivzins?",
+   "a": "Der Sollzins ist der vertraglich vereinbarte Zinssatz auf die Darlehensschuld. Der Effektivzins rechnet zusätzlich Disagio, kreditbedingte Kosten und unterjährige Zahlungen ein und zeigt die tatsächlichen jährlichen Kosten. Deshalb ist er bei Krediten meist höher als der Sollzins."
+  },
+  {
+   "q": "Wie berechnet man den Effektivzins mit Disagio?",
+   "a": "Exakt suchst du den Zinssatz, bei dem der Barwert aller Rückzahlungen dem ausgezahlten Betrag entspricht, meist durch Probieren und lineare Interpolation. Als Näherung für Fälligkeitsdarlehen gilt: Sollzins plus Disagio geteilt durch Laufzeit, das Ganze geteilt durch den Auszahlungskurs."
+  },
+  {
+   "q": "Was gehört in den effektiven Jahreszins?",
+   "a": "Nach der Preisangabenverordnung gehören Zinsen und alle Kosten hinein, die Voraussetzung für den Kredit sind, etwa Vermittlungskosten oder ein Pflichtkonto (Stand 2026). Nicht enthalten sind zum Beispiel Notar- und Grundbuchkosten und freiwillige Versicherungen."
+  },
+  {
+   "q": "Kann der Effektivzins niedriger als der Sollzins sein?",
+   "a": "Bei üblichen Krediten nicht. Möglich ist es nur in Sonderfällen, etwa wenn mehr als 100 % ausgezahlt werden oder Zinsen seltener als jährlich und ohne Zinseszins fällig werden. Bei Anleihen, die unter pari gekauft werden, liegt die Effektivverzinsung dagegen über dem Kupon."
+  },
+  {
+   "q": "Warum ist der Effektivzins bei monatlicher Zahlung höher?",
+   "a": "Weil jede Monatsrate früher fällig wird als eine Jahreszahlung. Das Geld fehlt dir früher, und die Bank kann die erhaltenen Zinsen bereits wieder anlegen. Rechnerisch ergibt sich der Effektivzins als 1 plus Monatszins hoch 12 minus 1."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Fälligkeitsdarlehen, Sollzins 5 %, Auszahlung 98 %, Laufzeit 4 Jahre. Wie hoch ist der Effektivzins nach der Faustformel?",
+   "o": [
+    "5,50 %",
+    "5,61 %",
+    "5,10 %",
+    "7,14 %"
+   ],
+   "r": 1,
+   "e": "\\( \\frac{5\\,\\% + \\frac{2\\,\\%}{4}}{0{,}98} = \\frac{5{,}5\\,\\%}{0{,}98} \\approx 5{,}61\\,\\% \\). 5,50 % entsteht, wenn man nicht durch den Auszahlungskurs teilt."
+  },
+  {
+   "q": "Ein Kredit kostet 1 % Zinsen pro Monat. Wie hoch ist der effektive Jahreszins?",
+   "o": [
+    "12,00 %",
+    "1,00 %",
+    "11,36 %",
+    "12,68 %"
+   ],
+   "r": 3,
+   "e": "\\( 1{,}01^{12} - 1 = 0{,}1268 = 12{,}68\\,\\% \\). Einfaches Multiplizieren mit 12 übersieht den Zinseszinseffekt."
+  },
+  {
+   "q": "Welches Kreditangebot (je 5 Jahre, Fälligkeitsdarlehen, jährliche Zinszahlung) ist am günstigsten?",
+   "o": [
+    "4,9 % Sollzins, 100 % Auszahlung",
+    "4,0 % Sollzins, 96 % Auszahlung",
+    "Beide sind gleich teuer",
+    "Das hängt nur von der Höhe des Darlehens ab"
+   ],
+   "r": 0,
+   "e": "Das Angebot mit Disagio kommt effektiv auf rund 4,92 % und ist damit etwas teurer als 4,9 % ohne Disagio. Der niedrigere Sollzins täuscht."
+  }
+ ],
+ "verwandt": [
+  "interner-zinsfuss",
+  "zinseszins",
+  "tilgungsplan",
+  "lieferantenkredit",
+  "zinsrechnung"
+ ],
+ "ask": "den Effektivzins – Unterschied zum Sollzins, Disagio, Faustformel und exakte Berechnung an zwei Kreditangeboten"
+}

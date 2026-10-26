@@ -1,0 +1,112 @@
+{
+  "slug": "lagrange",
+  "name": "Lagrange-Methode (Optimierung unter Nebenbedingungen)",
+  "title": "Lagrange-Methode einfach erklärt – mit Beispiel",
+  "meta": "Lagrange-Methode verständlich erklärt: Lagrange-Funktion aufstellen, ableiten, Gleichungssystem lösen und λ als Schattenpreis deuten – mit Wiwi-Beispiel.",
+  "h1": "Lagrange-Methode einfach erklärt",
+  "kurz": "Die Lagrange-Methode löst Optimierungsprobleme mit Nebenbedingung, etwa maximale Produktion bei festem Budget. Man bildet die Lagrange-Funktion aus Zielfunktion plus λ mal umgestellter Nebenbedingung, setzt alle partiellen Ableitungen gleich null und löst das Gleichungssystem. Der Lagrange-Multiplikator λ gibt an, wie stark sich der optimale Zielwert ändert, wenn die Nebenbedingung um eine Einheit gelockert wird.",
+  "keywords": [
+    "lagrange",
+    "lagrange methode",
+    "lagrange funktion",
+    "lagrange multiplikator",
+    "optimierung unter nebenbedingungen",
+    "lagrange schattenpreis",
+    "minimalkostenkombination",
+    "lagrange cobb douglas"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist die Lagrange-Methode?",
+      "html": "<p>Fast jede ökonomische Entscheidung ist ein Optimierungsproblem mit Beschränkung: Ein Haushalt will seinen Nutzen maximieren, hat aber nur ein begrenztes Einkommen. Ein Unternehmen will möglichst viel produzieren, darf aber nur ein bestimmtes Budget für Maschinen und Personal ausgeben. Oder es soll eine feste Menge zu minimalen Kosten herstellen.</p><p>Ohne Nebenbedingung würdest du einfach die Ableitung null setzen. Mit Nebenbedingung geht das nicht, weil die Variablen nicht mehr frei wählbar sind. Die <strong>Lagrange-Methode</strong> (nach Joseph-Louis Lagrange) löst das elegant: Sie baut die Nebenbedingung mit einem zusätzlichen Faktor λ (Lambda) in die Zielfunktion ein. Aus einem Problem mit Beschränkung wird so ein Problem ohne Beschränkung, das du mit partiellen Ableitungen lösen kannst.</p><p>Der Bonus: Der <strong>Lagrange-Multiplikator λ</strong> hat eine ökonomische Bedeutung. Er zeigt, wie viel dir eine Lockerung der Beschränkung wert ist – etwa wie viel mehr Output ein zusätzlicher Euro Budget bringt.</p><div class=\"merke\">Lagrange = Zielfunktion optimieren, während die Nebenbedingung exakt eingehalten wird. λ misst den Wert der knappen Ressource.</div>"
+    },
+    {
+      "h2": "Wie stellt man die Lagrange-Funktion auf?",
+      "html": "<p>Gegeben ist eine Zielfunktion \\( f(x, y) \\), die unter der Nebenbedingung \\( g(x, y) = c \\) maximiert oder minimiert werden soll. Das Vorgehen in vier Schritten:</p><ol><li><strong>Nebenbedingung auf null bringen:</strong> \\( c - g(x, y) = 0 \\).</li><li><strong>Lagrange-Funktion bilden:</strong> Zielfunktion plus λ mal umgestellte Nebenbedingung.</li><li><strong>Partielle Ableitungen nach allen Variablen und nach λ bilden und gleich null setzen</strong> (Bedingungen erster Ordnung).</li><li><strong>Gleichungssystem lösen:</strong> Meist teilst du die ersten beiden Gleichungen durcheinander, damit λ verschwindet, und setzt das Ergebnis in die Nebenbedingung ein.</li></ol><div class=\"formel\">\\[ \\mathcal{L}(x, y, \\lambda) = f(x, y) + \\lambda \\cdot \\big( c - g(x, y) \\big) \\]\\[ \\frac{\\partial \\mathcal{L}}{\\partial x} = 0, \\quad \\frac{\\partial \\mathcal{L}}{\\partial y} = 0, \\quad \\frac{\\partial \\mathcal{L}}{\\partial \\lambda} = c - g(x, y) = 0 \\]</div><p>Die Ableitung nach λ liefert immer wieder die Nebenbedingung – so ist garantiert, dass die Lösung sie einhält. Ob du \\( + \\lambda (c - g) \\) oder \\( - \\lambda (g - c) \\) schreibst, ist egal, beides ist identisch. Bei \\( + \\lambda (g - c) \\) kommt dasselbe Optimum heraus, nur λ hat dann das umgekehrte Vorzeichen.</p>"
+    },
+    {
+      "h2": "Beispiel: Maximale Produktion bei festem Budget",
+      "html": "<div class=\"beispiel\"><p>Ein Hersteller von Fahrradrahmen produziert mit Maschinenstunden K und Arbeitsstunden A nach der Cobb-Douglas-<a href=\"/lernen/produktionsfunktion\">Produktionsfunktion</a> \\( Q = 2 \\cdot K^{0{,}5} \\cdot A^{0{,}5} \\). Eine Maschinenstunde kostet 40 €, eine Arbeitsstunde 10 €. Pro Tag stehen 2.000 € zur Verfügung. Wie viele Stunden von jedem Faktor maximieren den Output?</p><p><strong>Schritt 1: Problem formulieren</strong><br>Maximiere \\( Q = 2 K^{0{,}5} A^{0{,}5} \\) unter \\( 40K + 10A = 2.000 \\).</p><p><strong>Schritt 2: Lagrange-Funktion</strong><br>\\( \\mathcal{L} = 2 K^{0{,}5} A^{0{,}5} + \\lambda \\cdot (2.000 - 40K - 10A) \\)</p><p><strong>Schritt 3: Partielle Ableitungen null setzen</strong><br>(I) \\( \\frac{\\partial \\mathcal{L}}{\\partial K} = K^{-0{,}5} A^{0{,}5} - 40\\lambda = 0 \\)<br>(II) \\( \\frac{\\partial \\mathcal{L}}{\\partial A} = K^{0{,}5} A^{-0{,}5} - 10\\lambda = 0 \\)<br>(III) \\( \\frac{\\partial \\mathcal{L}}{\\partial \\lambda} = 2.000 - 40K - 10A = 0 \\)</p><p><strong>Schritt 4: λ eliminieren</strong><br>(I) und (II) nach λ umstellen und gleichsetzen bzw. (I) durch (II) teilen:<br>\\( \\frac{K^{-0{,}5} A^{0{,}5}}{K^{0{,}5} A^{-0{,}5}} = \\frac{40}{10} \\Rightarrow \\frac{A}{K} = 4 \\Rightarrow A = 4K \\)</p><p><strong>Schritt 5: In die Nebenbedingung einsetzen</strong><br>\\( 40K + 10 \\cdot 4K = 2.000 \\Rightarrow 80K = 2.000 \\Rightarrow K = 25 \\)<br>\\( A = 4 \\cdot 25 = 100 \\)</p><p><strong>Schritt 6: Output und λ</strong><br>\\( Q = 2 \\cdot \\sqrt{25} \\cdot \\sqrt{100} = 2 \\cdot 5 \\cdot 10 = 100 \\) Rahmen<br>Aus (I): \\( \\lambda = \\frac{\\sqrt{100 / 25}}{40} = \\frac{2}{40} = 0{,}05 \\)<br>Probe mit (II): \\( \\lambda = \\frac{\\sqrt{25 / 100}}{10} = \\frac{0{,}5}{10} = 0{,}05 \\) ✓<br>Probe Budget: \\( 40 \\cdot 25 + 10 \\cdot 100 = 1.000 + 1.000 = 2.000 \\) € ✓</p></div><p><strong>Ergebnis:</strong> Optimal sind 25 Maschinenstunden und 100 Arbeitsstunden, damit lassen sich 100 Rahmen pro Tag fertigen. Auffällig: Je 1.000 € fließen in jeden Faktor. Das ist kein Zufall, sondern typisch für Cobb-Douglas – der Budgetanteil eines Faktors entspricht seinem Exponenten (hier je 0,5).</p>"
+    },
+    {
+      "h2": "Was bedeutet der Lagrange-Multiplikator λ?",
+      "html": "<p>λ ist der <strong>Schattenpreis</strong> der Nebenbedingung. Er gibt näherungsweise an, um wie viel sich der optimale Zielwert ändert, wenn die Beschränkung um eine Einheit gelockert wird:</p><div class=\"formel\">\\[ \\lambda = \\frac{\\partial Q^*}{\\partial B} \\]</div><p>Im Beispiel ist λ = 0,05: Jeder zusätzliche Euro Budget bringt rund 0,05 Rahmen mehr. Erhöht der Hersteller das Tagesbudget um 100 € auf 2.100 €, steigt der Output um etwa \\( 100 \\cdot 0{,}05 = 5 \\) auf 105 Rahmen. Nachrechnen bestätigt das: Mit je 1.050 € pro Faktor sind \\( K = 26{,}25 \\) und \\( A = 105 \\), also \\( Q = 2 \\cdot \\sqrt{26{,}25 \\cdot 105} = 105 \\). Hier ist es sogar exakt, weil diese Produktionsfunktion konstante Skalenerträge hat; im Allgemeinen ist λ nur eine lokale Näherung.</p><p>Bedingungen (I) und (II) lassen sich noch anders lesen: \\( \\lambda = \\frac{\\text{Grenzprodukt von } K}{\\text{Preis von } K} = \\frac{\\text{Grenzprodukt von } A}{\\text{Preis von } A} \\). Im Optimum bringt der letzte Euro in jedem Faktor denselben Zusatzoutput. Gleichbedeutend: Die Grenzrate der technischen Substitution entspricht dem Faktorpreisverhältnis. Im Haushaltsmodell ist das die bekannte Bedingung, dass die <a href=\"/lernen/grenzrate-der-substitution\">Grenzrate der Substitution</a> gleich dem Preisverhältnis ist – das <a href=\"/lernen/haushaltsoptimum\">Haushaltsoptimum</a> wird mit genau derselben Methode berechnet.</p>"
+    },
+    {
+      "h2": "Wo wird die Lagrange-Methode in Wiwi eingesetzt?",
+      "html": "<ul><li><strong>Nutzenmaximierung:</strong> Nutzenfunktion unter der <a href=\"/lernen/budgetgerade\">Budgetgerade</a> maximieren, λ ist dann der Grenznutzen des Einkommens.</li><li><strong>Minimalkostenkombination:</strong> Das duale Problem zum Beispiel: Kosten \\( 40K + 10A \\) minimieren unter der Bedingung, dass genau 100 Rahmen produziert werden. Lösung wieder K = 25, A = 100, Kosten 2.000 €. λ entspricht dann den Grenzkosten – hier 20 € pro zusätzlichem Rahmen, also der Kehrwert von 0,05.</li><li><strong>Portfoliooptimierung:</strong> Risiko minimieren unter der Bedingung, dass die Gewichte sich zu 1 addieren und eine Zielrendite erreicht wird.</li><li><strong>Mehrere Produkte und Kapazitäten:</strong> Mit zusätzlichen Nebenbedingungen bekommt jede ihr eigenes λ.</li></ul><h3>Lagrange oder Einsetzungsmethode?</h3><p>Ist die Nebenbedingung linear und leicht nach einer Variable aufzulösen, kannst du sie auch direkt in die Zielfunktion einsetzen und dann normal ableiten. Im Beispiel: \\( A = 200 - 4K \\) einsetzen und \\( Q(K) \\) maximieren führt ebenfalls zu K = 25. Die Lagrange-Methode lohnt sich, wenn die Nebenbedingung schwer aufzulösen ist, wenn es mehrere Variablen oder Nebenbedingungen gibt – und vor allem, wenn nach dem Schattenpreis gefragt ist, den das Einsetzen nicht liefert.</p><p><strong>Grenzen:</strong> Die Bedingungen erster Ordnung liefern nur Kandidaten. Ob es wirklich ein Maximum oder Minimum ist, zeigt die geränderte Hesse-Matrix bzw. die Krümmung der Funktionen; bei den üblichen Klausurfunktionen (Cobb-Douglas, lineare Budgetgerade) ist das in der Regel erfüllt. Ungleichungen wie „höchstens 2.000 €“ behandelt man streng genommen mit den Kuhn-Tucker-Bedingungen – reicht das Budget nicht ohnehin aus, wird es im Optimum aber voll ausgeschöpft und die Lagrange-Methode passt.</p>"
+    }
+  ],
+  "fehler": [
+    "Die Ableitung nach λ vergessen: Ohne sie fehlt die Nebenbedingung im Gleichungssystem, und das System ist nicht lösbar. Drei Variablen brauchen drei Gleichungen.",
+    "Beim Ableiten der Potenzen patzen: Die Ableitung von \\( 2K^{0{,}5} \\) nach K ist \\( K^{-0{,}5} \\), nicht \\( 2K^{-0{,}5} \\) und nicht \\( K^{0{,}5} \\). Den Faktor 2 mal 0,5 sauber verrechnen.",
+    "Beim Teilen der Gleichungen das Preisverhältnis umdrehen: Gleichung (I) durch (II) ergibt links das Verhältnis der Grenzprodukte von K zu A und rechts das Preisverhältnis von K zu A. Beide Seiten müssen in derselben Reihenfolge stehen.",
+    "λ als Preis oder Menge deuten: λ ist die Veränderung des optimalen Zielwerts pro Einheit Lockerung der Nebenbedingung, etwa zusätzlicher Output pro Euro Budget. Die Einheit hängt von Zielfunktion und Nebenbedingung ab.",
+    "Arbeit mit L abkürzen und mit der Lagrange-Funktion verwechseln: Benenne die Lagrange-Funktion eindeutig, zum Beispiel mit einem geschwungenen L, oder nutze für Arbeit ein anderes Symbol."
+  ],
+  "faq": [
+    {
+      "q": "Wofür braucht man die Lagrange-Methode?",
+      "a": "Um Funktionen mit mehreren Variablen zu maximieren oder zu minimieren, wenn eine Nebenbedingung eingehalten werden muss. Typische Wiwi-Anwendungen sind Nutzenmaximierung bei gegebenem Einkommen, Outputmaximierung bei festem Budget und Kostenminimierung bei vorgegebener Produktionsmenge."
+    },
+    {
+      "q": "Was gibt der Lagrange-Multiplikator an?",
+      "a": "Er gibt an, um wie viel sich der optimale Wert der Zielfunktion ändert, wenn die Nebenbedingung um eine Einheit gelockert wird. Deshalb heißt er auch Schattenpreis. Bei der Nutzenmaximierung ist λ der Grenznutzen des Einkommens."
+    },
+    {
+      "q": "Wie löst man das Gleichungssystem bei Lagrange am schnellsten?",
+      "a": "Stelle die ersten beiden Bedingungen jeweils nach λ um und setze sie gleich, oder teile sie durcheinander. So fällt λ heraus und du bekommst eine Beziehung zwischen den Variablen, etwa A = 4K. Diese setzt du in die Nebenbedingung ein."
+    },
+    {
+      "q": "Muss man die Bedingung zweiter Ordnung prüfen?",
+      "a": "Streng genommen ja, denn die Bedingungen erster Ordnung liefern nur Kandidaten für ein Optimum. Das geht über die geränderte Hesse-Matrix. In vielen Einführungsklausuren mit Cobb-Douglas-Funktionen und linearer Budgetgerade wird darauf verzichtet; achte darauf, was in deiner Aufgabe verlangt ist."
+    },
+    {
+      "q": "Spielt das Vorzeichen in der Lagrange-Funktion eine Rolle?",
+      "a": "Für die optimalen Werte der Variablen nicht. Nur das Vorzeichen von λ dreht sich, wenn du die Nebenbedingung andersherum einsetzt. Mit der Schreibweise Zielfunktion plus λ mal (c minus g) ist λ bei der Budgetbeschränkung positiv und direkt als Schattenpreis interpretierbar."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Welche Gleichung liefert die partielle Ableitung der Lagrange-Funktion nach λ?",
+      "o": [
+        "Die Grenzrate der Substitution",
+        "Die Nebenbedingung",
+        "Den Wert der Zielfunktion im Optimum",
+        "Die Bedingung zweiter Ordnung"
+      ],
+      "r": 1,
+      "e": "Die Ableitung nach λ ergibt \\( c - g(x, y) = 0 \\), also genau die Nebenbedingung. So wird sichergestellt, dass das Optimum sie einhält."
+    },
+    {
+      "q": "Maximiere \\( U = x \\cdot y \\) unter \\( 2x + 4y = 80 \\). Wie lautet das Optimum?",
+      "o": [
+        "x = 10, y = 15",
+        "x = 20, y = 20",
+        "x = 40, y = 0",
+        "x = 20, y = 10"
+      ],
+      "r": 3,
+      "e": "Aus \\( \\frac{y}{x} = \\frac{2}{4} \\) folgt \\( x = 2y \\). Eingesetzt: \\( 4y + 4y = 80 \\Rightarrow y = 10 \\), \\( x = 20 \\). Probe: \\( 2 \\cdot 20 + 4 \\cdot 10 = 80 \\)."
+    },
+    {
+      "q": "Bei einer Outputmaximierung unter Budgetbeschränkung ergibt sich λ = 0,4. Was bedeutet das?",
+      "o": [
+        "Ein zusätzlicher Euro Budget erhöht den maximalen Output um etwa 0,4 Einheiten.",
+        "40 % des Budgets fließen in den ersten Faktor.",
+        "Eine zusätzliche Outputeinheit kostet 0,40 €.",
+        "Der Output steigt um 40 %, wenn sich das Budget verdoppelt."
+      ],
+      "r": 0,
+      "e": "λ ist der Schattenpreis der Budgetbeschränkung: die Änderung des optimalen Outputs pro Euro zusätzlichem Budget. Die Grenzkosten wären der Kehrwert, also 2,50 € pro Einheit."
+    }
+  ],
+  "verwandt": [
+    "haushaltsoptimum",
+    "produktionsfunktion",
+    "grenzrate-der-substitution",
+    "budgetgerade",
+    "kostenfunktion"
+  ],
+  "ask": "die Lagrange-Methode – Lagrange-Funktion aufstellen, Gleichungssystem lösen und den Multiplikator λ als Schattenpreis deuten an einem Wiwi-Beispiel"
+}

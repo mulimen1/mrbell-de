@@ -1,0 +1,116 @@
+{
+ "slug": "target-costing",
+ "name": "Target Costing (Zielkostenrechnung)",
+ "title": "Target Costing einfach erklärt – mit Beispiel",
+ "meta": "Target Costing verständlich: Allowable und Drifting Costs, Zielkostenspaltung, Zielkostenindex und Zielkostenkontrolldiagramm – mit Rechenbeispiel.",
+ "h1": "Target Costing einfach erklärt",
+ "kurz": "Target Costing (Zielkostenrechnung) dreht die Kalkulation um: Statt Kosten plus Gewinnaufschlag zu rechnen, startet man beim Preis, den der Markt zahlt. Davon zieht man den Zielgewinn ab und erhält die erlaubten Kosten: \\( \\text{Allowable Costs} = \\text{Zielpreis} - \\text{Zielgewinn} \\). Diese werden nach Kundennutzen auf Funktionen und Komponenten verteilt und schon in der Entwicklung durchgesetzt.",
+ "keywords": [
+  "target costing",
+  "zielkostenrechnung",
+  "allowable costs drifting costs",
+  "zielkostenindex",
+  "zielkostenspaltung",
+  "zielkostenkontrolldiagramm",
+  "target costing beispiel",
+  "market into company"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist Target Costing?",
+   "html": "<p>Die klassische Kalkulation fragt: Was kostet das Produkt, und welchen Preis müssen wir deshalb verlangen? Das ist das Kostenplusverfahren. Im Wettbewerb funktioniert das oft nicht, denn der Kunde zahlt nicht deine Kosten, sondern das, was ihm das Produkt wert ist. <strong>Target Costing</strong> stellt die Frage deshalb andersherum: <em>Was darf das Produkt kosten, damit wir es zum Marktpreis mit Gewinn verkaufen können?</em></p><p>Der entscheidende Punkt ist der Zeitpunkt. Target Costing setzt in der <strong>Entwicklungsphase</strong> an, denn dort werden je nach Schätzung 70 bis 80 % der späteren Kosten festgelegt: Material, Bauteile, Fertigungsverfahren. Ist das Produkt erst in Serie, lassen sich die Kosten kaum noch bewegen. Target Costing ist deshalb kein Kalkulationsverfahren für bestehende Produkte, sondern ein Instrument des Kostenmanagements im <a href=\"/lernen/produktlebenszyklus\">Produktlebenszyklus</a> ganz am Anfang.</p><p>Entwickelt wurde der Ansatz in der japanischen Autoindustrie. Heute nutzen ihn vor allem Hersteller in Märkten mit hartem Preiswettbewerb: Automobil und Zulieferer, Elektronik, Haushaltsgeräte.</p><div class=\"merke\">Kostenplus: Kosten + Gewinn = Preis. Target Costing: Preis − Gewinn = erlaubte Kosten.</div>"
+  },
+  {
+   "h2": "Allowable Costs, Drifting Costs und Zielkosten – die Begriffe",
+   "html": "<p>Im Target Costing tauchen drei Kostengrößen auf, die du sauber trennen musst:</p><ul><li><strong>Allowable Costs (erlaubte Kosten):</strong> Zielpreis minus Zielgewinn. Mehr darf das Produkt aus Marktsicht nicht kosten.</li><li><strong>Drifting Costs (Standardkosten):</strong> was das Produkt mit heutiger Technik und heutigen Abläufen kosten würde. Sie werden aus der bestehenden Kostenrechnung geschätzt.</li><li><strong>Target Costs (Zielkosten):</strong> der verbindliche Kostenrahmen, den das Management festlegt. Meist entsprechen sie den Allowable Costs; ist die Lücke zu groß, kann ein Wert zwischen Allowable und Drifting Costs gesetzt werden, der in mehreren Stufen abgebaut wird.</li></ul><div class=\"formel\">\\[ \\text{Allowable Costs} = \\text{Zielpreis} - \\text{Zielgewinn} \\]\\[ \\text{Ziellücke} = \\text{Drifting Costs} - \\text{Allowable Costs} \\]\\[ \\text{Zielkostenindex} = \\frac{\\text{Nutzenanteil}}{\\text{Kostenanteil}} \\]</div><p>Der Zielpreis wird je nach Variante unterschiedlich gefunden. Der Standard ist <strong>Market into Company</strong>: Marktforschung ermittelt, was Kunden zu zahlen bereit sind. Daneben gibt es Out of Competitor (Orientierung an Konkurrenzpreisen), Out of Standard Costs (Abschlag von den eigenen Standardkosten) und Into and Out of Company (Mischform). In der Klausur ist fast immer Market into Company gemeint.</p>"
+  },
+  {
+   "h2": "Wie läuft Target Costing ab? Die Zielkostenspaltung",
+   "html": "<p>Die Allowable Costs für das ganze Produkt nützen der Entwicklung wenig. Ein Ingenieur muss wissen, was <em>sein</em> Bauteil kosten darf. Deshalb werden die Zielkosten auf Komponenten heruntergebrochen. Das geht in fünf Schritten:</p><ol><li><strong>Zielpreis und Allowable Costs</strong> bestimmen.</li><li><strong>Funktionen gewichten:</strong> Kunden bewerten, wie wichtig ihnen die einzelnen Produktfunktionen sind (zusammen 100 %).</li><li><strong>Funktionskostenmatrix:</strong> Die Entwicklung schätzt, welchen Anteil jede Komponente zur Erfüllung jeder Funktion beiträgt.</li><li><strong>Teilgewichte (Nutzenanteile) der Komponenten</strong> berechnen: Funktionsgewicht mal Beitrag, über alle Funktionen summiert.</li><li><strong>Zielkostenindex</strong> bilden und Komponenten mit Handlungsbedarf erkennen.</li></ol><p>Die Idee dahinter: Jede Komponente soll so viel kosten dürfen, wie sie zum Kundennutzen beiträgt. Ein Bauteil, das 40 % der Kosten verursacht, aber nur 33 % des Nutzens stiftet, ist zu teuer.</p>"
+  },
+  {
+   "h2": "Beispiel: Target Costing Schritt für Schritt",
+   "html": "<div class=\"beispiel\"><p>Ein Gartengerätehersteller entwickelt einen Akku-Rasenmäher. Die Marktforschung ergibt einen Zielpreis von 400 € netto. Die Geschäftsleitung verlangt eine Umsatzrendite von 15 %. Mit heutiger Technik würde das Gerät 380 € kosten.</p><p><strong>Schritt 1: Allowable Costs und Ziellücke</strong><br>Zielgewinn: \\( 400 \\cdot 15\\,\\% = 60 \\) €<br>Allowable Costs: \\( 400 - 60 = 340 \\) €<br>Ziellücke: \\( 380 - 340 = 40 \\) €, das sind \\( \\frac{40}{380} \\approx 10{,}5\\,\\% \\) der Drifting Costs</p><p><strong>Schritt 2 bis 4: Funktionen, Matrix und Nutzenanteile</strong><br>Kunden gewichten Schnittleistung mit 40 %, Akkulaufzeit mit 30 %, Bedienkomfort mit 20 % und Design mit 10 %. Die Matrix zeigt, wie viel Prozent jeder Funktion eine Komponente erfüllt:</p><table><thead><tr><th>Komponente</th><th>Schnitt (40 %)</th><th>Laufzeit (30 %)</th><th>Komfort (20 %)</th><th>Design (10 %)</th><th>Nutzenanteil</th></tr></thead><tbody><tr><td>Motor und Messer</td><td>70 %</td><td>20 %</td><td>10 %</td><td>0 %</td><td>36 %</td></tr><tr><td>Akku</td><td>20 %</td><td>70 %</td><td>20 %</td><td>0 %</td><td>33 %</td></tr><tr><td>Gehäuse und Griff</td><td>0 %</td><td>0 %</td><td>50 %</td><td>80 %</td><td>18 %</td></tr><tr><td>Elektronik</td><td>10 %</td><td>10 %</td><td>20 %</td><td>20 %</td><td>13 %</td></tr></tbody></table><p>Nutzenanteil Motor: \\( 0{,}4 \\cdot 70\\,\\% + 0{,}3 \\cdot 20\\,\\% + 0{,}2 \\cdot 10\\,\\% + 0{,}1 \\cdot 0\\,\\% = 36\\,\\% \\)</p><p><strong>Schritt 5: Zielkostenindex und Zielkosten je Komponente</strong></p><table><thead><tr><th>Komponente</th><th>Drifting Costs</th><th>Kostenanteil</th><th>Nutzenanteil</th><th>ZKI</th><th>Zielkosten</th><th>Differenz</th></tr></thead><tbody><tr><td>Motor und Messer</td><td>114 €</td><td>30 %</td><td>36 %</td><td>1,20</td><td>122,40 €</td><td>+8,40 €</td></tr><tr><td>Akku</td><td>152 €</td><td>40 %</td><td>33 %</td><td>0,83</td><td>112,20 €</td><td>−39,80 €</td></tr><tr><td>Gehäuse und Griff</td><td>76 €</td><td>20 %</td><td>18 %</td><td>0,90</td><td>61,20 €</td><td>−14,80 €</td></tr><tr><td>Elektronik</td><td>38 €</td><td>10 %</td><td>13 %</td><td>1,30</td><td>44,20 €</td><td>+6,20 €</td></tr><tr><td><strong>Summe</strong></td><td>380 €</td><td>100 %</td><td>100 %</td><td></td><td>340,00 €</td><td>−40,00 €</td></tr></tbody></table><p>Zielkosten Akku: \\( 33\\,\\% \\cdot 340 = 112{,}20 \\) €, ZKI Akku: \\( \\frac{33\\,\\%}{40\\,\\%} = 0{,}825 \\approx 0{,}83 \\)</p></div><p><strong>Interpretation:</strong> Der Akku ist das Problem. Er verursacht 40 % der Kosten, liefert aber nur 33 % des Nutzens, und muss um fast 40 € billiger werden, etwa durch eine andere Zellchemie oder einen Standard-Akku aus dem Gerätesystem. Motor und Elektronik haben einen ZKI über 1: Hier darf eher mehr ausgegeben werden, weil Kunden diese Funktionen besonders schätzen.</p>"
+  },
+  {
+   "h2": "Wie liest man das Zielkostenkontrolldiagramm?",
+   "html": "<p>Ein ZKI von exakt 1 ist in der Praxis unrealistisch. Deshalb legt das Management eine <strong>Zielkostenzone</strong> fest, in der Abweichungen toleriert werden. Im Zielkostenkontrolldiagramm steht auf der x-Achse der Nutzenanteil, auf der y-Achse der Kostenanteil. Die Ideallinie ist die Winkelhalbierende (ZKI = 1). Die Zone wird meist so begrenzt:</p><div class=\"formel\">\\[ y_{\\text{oben}} = \\sqrt{x^2 + q^2} \\qquad y_{\\text{unten}} = \\sqrt{x^2 - q^2} \\]</div><p>Der Parameter \\( q \\) bestimmt die Breite der Zone. Bei kleinen Anteilen ist die Zone relativ breit, bei großen eng, denn bei teuren Komponenten wiegt jede Abweichung schwerer. Mit \\( q = 10 \\) ergibt sich im Beispiel:</p><ul><li>Akku: obere Grenze \\( \\sqrt{33^2 + 10^2} \\approx 34{,}5\\,\\% \\), tatsächlicher Kostenanteil 40 %. <strong>Oberhalb der Zone, zu teuer.</strong></li><li>Motor und Messer: untere Grenze \\( \\sqrt{36^2 - 10^2} \\approx 34{,}6\\,\\% \\), Kostenanteil 30 %. <strong>Unterhalb der Zone</strong>, die Funktion ist möglicherweise unterentwickelt.</li><li>Gehäuse (18 % / 20 %, obere Grenze ca. 20,6 %) und Elektronik (13 % / 10 %, untere Grenze ca. 8,3 %) liegen innerhalb der Zone.</li></ul><div class=\"merke\">ZKI kleiner 1: Komponente zu teuer, Kosten senken. ZKI größer 1: Komponente zu günstig im Verhältnis zum Nutzen, eventuell verbessern.</div>"
+  },
+  {
+   "h2": "Vorteile, Nachteile und Abgrenzung",
+   "html": "<p><strong>Vorteile:</strong></p><ul><li>konsequente Marktorientierung: Das Produkt wird für einen Preis entwickelt, den Kunden zahlen,</li><li>Kosten werden dort beeinflusst, wo sie entstehen, nämlich in der Entwicklung,</li><li>klare, messbare Kostenziele für jedes Team und jede Komponente,</li><li>Entwicklung, Einkauf, Vertrieb und <a href=\"/lernen/controlling\">Controlling</a> arbeiten an einem gemeinsamen Ziel.</li></ul><p><strong>Nachteile:</strong></p><ul><li>Kundenbefragung und Funktionskostenmatrix beruhen auf Schätzungen, kleine Änderungen der Gewichte verschieben die Zielkosten deutlich,</li><li>Gemeinkosten lassen sich schwer auf Komponenten herunterbrechen; hier hilft die <a href=\"/lernen/prozesskostenrechnung\">Prozesskostenrechnung</a>,</li><li>hoher Abstimmungsaufwand und Druck auf Lieferanten,</li><li>Gefahr, an der Qualität zu sparen, wenn die Ziellücke zu groß ist.</li></ul><p><strong>Abgrenzung:</strong> Die <a href=\"/lernen/rueckwaertskalkulation-differenzkalkulation\">Rückwärtskalkulation</a> im Handel rechnet ebenfalls vom Verkaufspreis zurück, ermittelt aber nur einen einzigen maximalen Einkaufspreis für eine bestehende Ware. Target Costing verteilt die Zielkosten zusätzlich nach Kundennutzen auf Komponenten und steuert damit die Produktentwicklung. Nach dem Serienstart übernimmt Kaizen Costing die laufende, schrittweise Kostensenkung.</p>"
+  }
+ ],
+ "fehler": [
+  "Zielgewinn vom Kostenwert statt vom Zielpreis berechnen: Ist eine Umsatzrendite vorgegeben, beziehst du sie auf den Zielpreis. \\( 15\\,\\% \\) von 400 € sind 60 €, nicht 15 % von 380 €.",
+  "Allowable Costs und Drifting Costs verwechseln: Allowable Costs kommen vom Markt (Preis minus Gewinn), Drifting Costs von der eigenen Technik. Die Differenz ist die Ziellücke.",
+  "Den Zielkostenindex falsch herum bilden: ZKI ist Nutzenanteil durch Kostenanteil. Ein Wert unter 1 heißt zu teuer, nicht zu günstig.",
+  "Zielkosten je Komponente auf Basis der Drifting Costs berechnen: Die Zielkosten einer Komponente sind ihr Nutzenanteil mal Allowable Costs bzw. Target Costs, also 33 % von 340 € und nicht von 380 €.",
+  "Die Spaltensumme der Funktionskostenmatrix nicht prüfen: Jede Funktion muss zu 100 % von den Komponenten erfüllt werden, und die Nutzenanteile müssen zusammen 100 % ergeben."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen Allowable Costs und Drifting Costs?",
+   "a": "Allowable Costs sind die vom Markt erlaubten Kosten, also Zielpreis minus Zielgewinn. Drifting Costs sind die Kosten, die mit heutiger Technik und heutigen Prozessen entstehen würden. Die Differenz ist die Ziellücke, die durch Entwicklung und Einkauf geschlossen werden muss."
+  },
+  {
+   "q": "Was sagt der Zielkostenindex aus?",
+   "a": "Der Zielkostenindex teilt den Nutzenanteil einer Komponente durch ihren Kostenanteil. Bei 1 stehen Kosten und Kundennutzen im Gleichgewicht. Unter 1 ist die Komponente zu teuer, über 1 im Verhältnis zum Nutzen günstig."
+  },
+  {
+   "q": "Was bedeutet Market into Company?",
+   "a": "Market into Company ist die Grundform des Target Costing. Der Zielpreis wird aus Marktforschung und Zahlungsbereitschaft der Kunden abgeleitet und als Vorgabe in das Unternehmen getragen. Andere Varianten orientieren sich an Konkurrenzpreisen oder an den eigenen Standardkosten."
+  },
+  {
+   "q": "Ist Target Costing ein Kalkulationsverfahren?",
+   "a": "Nicht im engeren Sinn. Target Costing ist ein Konzept des strategischen Kostenmanagements, das in der Produktentwicklung ansetzt. Es nutzt Kalkulationsdaten, verfolgt aber das Ziel, ein Produkt so zu gestalten, dass es den Marktpreis mit Gewinn erreicht."
+  },
+  {
+   "q": "Was passiert, wenn die Ziellücke nicht geschlossen werden kann?",
+   "a": "Dann setzt das Management Zielkosten zwischen Allowable und Drifting Costs und plant den Abbau der Lücke in Stufen, zum Beispiel über Kaizen Costing nach Serienstart. Ist auch das unrealistisch, wird das Produkt umkonzipiert oder gar nicht erst eingeführt."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Zielpreis 250 €, geforderte Umsatzrendite 12 %, Drifting Costs 235 €. Wie groß ist die Ziellücke?",
+   "o": [
+    "15 €",
+    "30 €",
+    "28,20 €",
+    "5 €"
+   ],
+   "r": 0,
+   "e": "Zielgewinn \\( 250 \\cdot 12\\,\\% = 30 \\) €, Allowable Costs \\( 250 - 30 = 220 \\) €, Ziellücke \\( 235 - 220 = 15 \\) €. 30 € wäre der Zielgewinn, nicht die Lücke."
+  },
+  {
+   "q": "Eine Komponente hat einen Kostenanteil von 25 % und einen Nutzenanteil von 20 %. Was gilt?",
+   "o": [
+    "ZKI 1,25, Komponente zu günstig",
+    "ZKI 0,8, Komponente zu teuer",
+    "ZKI 0,8, Komponente zu günstig",
+    "ZKI 1,25, Komponente zu teuer"
+   ],
+   "r": 1,
+   "e": "\\( \\text{ZKI} = \\frac{20\\,\\%}{25\\,\\%} = 0{,}8 \\). Die Komponente kostet mehr, als sie an Nutzen stiftet, und muss günstiger werden."
+  },
+  {
+   "q": "In welcher Phase entfaltet Target Costing die größte Wirkung?",
+   "o": [
+    "In der Serienfertigung",
+    "In der Degenerationsphase",
+    "In der Entwicklungsphase",
+    "Beim Jahresabschluss"
+   ],
+   "r": 2,
+   "e": "In der Entwicklung werden Material, Bauteile und Verfahren festgelegt und damit der Großteil der späteren Kosten. Danach sind Kosten kaum noch beeinflussbar."
+  }
+ ],
+ "verwandt": [
+  "prozesskostenrechnung",
+  "rueckwaertskalkulation-differenzkalkulation",
+  "produktlebenszyklus",
+  "controlling",
+  "kostenrechnung"
+ ],
+ "ask": "Target Costing – mit Allowable Costs, Drifting Costs, Zielkostenspaltung und Zielkostenindex an einem durchgerechneten Beispiel"
+}

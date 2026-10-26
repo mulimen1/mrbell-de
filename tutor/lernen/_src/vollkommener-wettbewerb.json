@@ -1,0 +1,116 @@
+{
+ "slug": "vollkommener-wettbewerb",
+ "name": "Vollkommener Wettbewerb (Polypol)",
+ "title": "Vollkommener Wettbewerb (Polypol) einfach erklärt",
+ "meta": "Vollkommener Wettbewerb verständlich: Bedingungen, Preis = Grenzkosten, Betriebsminimum, Betriebsoptimum und langfristiges Gleichgewicht – mit Beispiel.",
+ "h1": "Vollkommener Wettbewerb einfach erklärt",
+ "kurz": "Vollkommener Wettbewerb ist ein Polypol auf einem vollkommenen Markt: viele kleine Anbieter verkaufen ein homogenes Gut an viele Nachfrager, alle sind vollständig informiert und der Marktzutritt ist frei. Jeder Anbieter ist Preisnehmer und produziert dort, wo \\( p = GK(x) \\) gilt. Langfristig sinkt der Preis auf das Minimum der Stückkosten, der Gewinn wird null.",
+ "keywords": [
+  "vollkommener wettbewerb",
+  "polypol",
+  "vollkommene konkurrenz",
+  "preisnehmer",
+  "preis gleich grenzkosten",
+  "betriebsminimum betriebsoptimum",
+  "langfristiges gleichgewicht vollkommener wettbewerb",
+  "polypol gewinnmaximum"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist vollkommener Wettbewerb?",
+   "html": "<p><strong>Vollkommener Wettbewerb</strong> (auch vollkommene Konkurrenz) ist das Referenzmodell der Mikroökonomie. Es kombiniert zwei Dinge: die <strong>Marktform Polypol</strong> (viele Anbieter, viele Nachfrager, jeder mit winzigem Marktanteil) und einen <strong>vollkommenen Markt</strong>. Einen Überblick über alle Marktformen findest du unter <a href=\"/lernen/marktformen\">Marktformen</a>.</p><p>Ein Markt gilt als vollkommen, wenn diese Bedingungen erfüllt sind:</p><ul><li><strong>Homogene Güter:</strong> Alle Anbieter verkaufen ein aus Sicht der Käufer identisches Produkt.</li><li><strong>Keine Präferenzen:</strong> weder sachlich (Marke, Qualität), persönlich (Sympathie für den Verkäufer), räumlich (kurzer Weg) noch zeitlich (schnellere Lieferung).</li><li><strong>Vollständige Markttransparenz:</strong> Jeder kennt alle Preise und Angebote.</li><li><strong>Unendlich schnelle Reaktion:</strong> Käufer und Verkäufer passen sich sofort an Preisänderungen an.</li><li><strong>Freier Marktzutritt und -austritt</strong> (für das langfristige Gleichgewicht entscheidend).</li></ul><p>Die Folge: Auf dem Markt kann es nur <strong>einen einzigen Preis</strong> geben. Verlangt ein Anbieter auch nur einen Cent mehr, verliert er sofort alle Kunden, weil jeder das gleiche Produkt woanders billiger bekommt. Einen Markt, der alle Bedingungen exakt erfüllt, gibt es nicht. Am nächsten kommen Börsen für standardisierte Güter wie Weizen oder Rohöl einer bestimmten Sorte.</p><div class=\"merke\">Vollkommener Wettbewerb = Polypol + vollkommener Markt. Jeder einzelne Anbieter ist Preisnehmer (Mengenanpasser): Er kann nur seine Menge wählen, den Preis nimmt er vom Markt.</div>"
+  },
+  {
+   "h2": "Warum gilt im Polypol Preis = Grenzkosten?",
+   "html": "<p>Weil der einzelne Anbieter den Preis nicht beeinflussen kann, ist seine Preis-Absatz-Funktion eine <strong>Waagerechte</strong> in Höhe des Marktpreises. Jede zusätzliche Einheit bringt genau den Preis ein. Erlös und Grenzerlös sind deshalb:</p><div class=\"formel\">\\[ E(x) = p \\cdot x \\qquad GE(x) = E'(x) = p \\]</div><p>Den Gewinn \\( G(x) = p \\cdot x - K(x) \\) maximierst du, indem du die erste Ableitung null setzt:</p><div class=\"formel\">\\[ G'(x) = p - K'(x) = 0 \\;\\Rightarrow\\; p = GK(x) \\]</div><p>Der Anbieter dehnt seine Menge so lange aus, bis die <a href=\"/lernen/grenzkosten\">Grenzkosten</a> der letzten Einheit genau dem Preis entsprechen. Zwei Nebenbedingungen gehören dazu: Die Grenzkosten müssen an dieser Stelle <strong>steigen</strong> (sonst ist es ein Minimum), und der Preis muss mindestens die variablen Stückkosten decken.</p><p>Für die Analyse brauchst du drei Stückkostengrößen aus der <a href=\"/lernen/kostenfunktion\">Kostenfunktion</a>:</p><div class=\"formel\">\\[ k_v(x) = \\frac{K_v(x)}{x} \\qquad k(x) = \\frac{K(x)}{x} \\qquad GK(x) = K'(x) \\]</div><ul><li><strong>Betriebsminimum:</strong> Minimum der variablen Stückkosten \\( k_v \\). Dort schneidet die Grenzkostenkurve die \\( k_v \\)-Kurve. Der Preis an dieser Stelle ist die <a href=\"/lernen/preisuntergrenze\">kurzfristige Preisuntergrenze</a>.</li><li><strong>Betriebsoptimum:</strong> Minimum der gesamten Stückkosten \\( k \\). Dort schneidet die Grenzkostenkurve die \\( k \\)-Kurve. Der Preis an dieser Stelle ist die langfristige Preisuntergrenze, also die Gewinnschwelle.</li></ul><p>Die <strong>individuelle Angebotskurve</strong> ist damit der steigende Ast der Grenzkostenkurve ab dem Betriebsminimum. Die Marktangebotskurve entsteht, indem du die Mengen aller Anbieter bei jedem Preis horizontal addierst.</p>"
+  },
+  {
+   "h2": "Beispiel: Gewinnmaximum, Betriebsminimum und Betriebsoptimum",
+   "html": "<div class=\"beispiel\"><p>Eine kleine Mühle verkauft Weizenmehl (Standardtype, homogen) auf einem Markt mit sehr vielen Anbietern. Ihre Kostenfunktion lautet (x in Tonnen pro Woche, Kosten in Euro):</p><p>\\( K(x) = 0{,}5x^3 - 6x^2 + 30x + 128 \\)</p><p><strong>Schritt 1: Stückkosten und Grenzkosten aufstellen</strong><br>\\( k_v(x) = 0{,}5x^2 - 6x + 30 \\)<br>\\( k(x) = 0{,}5x^2 - 6x + 30 + \\frac{128}{x} \\)<br>\\( GK(x) = 1{,}5x^2 - 12x + 30 \\)</p><p><strong>Schritt 2: Betriebsminimum</strong><br>\\( k_v'(x) = x - 6 = 0 \\Rightarrow x = 6 \\) Tonnen<br>\\( k_v(6) = 18 - 36 + 30 = 12 \\) € je Tonne. Probe: \\( GK(6) = 54 - 72 + 30 = 12 \\) € ✓</p><p><strong>Schritt 3: Betriebsoptimum</strong><br>\\( k'(x) = x - 6 - \\frac{128}{x^2} = 0 \\Rightarrow x^3 - 6x^2 - 128 = 0 \\). Einsetzen zeigt \\( x = 8 \\): \\( 512 - 384 - 128 = 0 \\) ✓<br>\\( k(8) = 32 - 48 + 30 + 16 = 30 \\) € je Tonne. Probe: \\( GK(8) = 96 - 96 + 30 = 30 \\) € ✓</p><p><strong>Schritt 4: Gewinnmaximum beim Marktpreis 60 €</strong><br>\\( 1{,}5x^2 - 12x + 30 = 60 \\Rightarrow x^2 - 8x - 20 = 0 \\Rightarrow x = 10 \\) (die Lösung \\( x = -2 \\) entfällt)<br>Erlös: \\( 60 \\cdot 10 = 600 \\) €, Kosten: \\( K(10) = 500 - 600 + 300 + 128 = 328 \\) €<br>Gewinn: \\( 600 - 328 = 272 \\) €</p><table><thead><tr><th>Marktpreis</th><th>Menge (p = GK)</th><th>Erlös</th><th>Gesamtkosten</th><th>Gewinn</th><th>Entscheidung</th></tr></thead><tbody><tr><td>60 €</td><td>10 t</td><td>600 €</td><td>328 €</td><td>+272 €</td><td>produzieren, Gewinn</td></tr><tr><td>30 €</td><td>8 t</td><td>240 €</td><td>240 €</td><td>0 €</td><td>Gewinnschwelle (Betriebsoptimum)</td></tr><tr><td>19,50 €</td><td>7 t</td><td>136,50 €</td><td>215,50 €</td><td>−79 €</td><td>kurzfristig weiter produzieren</td></tr><tr><td>12 €</td><td>6 t</td><td>72 €</td><td>200 €</td><td>−128 €</td><td>Betriebsminimum, Stilllegung gleich gut</td></tr></tbody></table><p>Bei 19,50 € macht die Mühle Verlust, produziert kurzfristig aber trotzdem: Der Erlös von 136,50 € deckt die variablen Kosten von \\( K_v(7) = 87{,}50 \\) € und trägt 49 € zu den Fixkosten bei. Bei Stilllegung wären die vollen Fixkosten von 128 € verloren, der Verlust also größer.</p></div>"
+  },
+  {
+   "h2": "Kurzfristiges und langfristiges Gleichgewicht",
+   "html": "<p>Kurzfristig ist die Zahl der Anbieter fest. Ob sie Gewinn oder Verlust machen, hängt davon ab, wo der Marktpreis relativ zum Betriebsoptimum liegt. Langfristig kommt der <strong>freie Marktzutritt</strong> ins Spiel, und das ändert alles.</p><p>Angenommen, alle Mühlen haben die Kostenfunktion aus dem Beispiel und die Marktnachfrage lautet \\( x_N = 2.000 - 20p \\). Beim Preis 60 € werden \\( 2.000 - 20 \\cdot 60 = 800 \\) Tonnen nachgefragt. Jede Mühle liefert 10 Tonnen, also sind gerade \\( \\frac{800}{10} = 80 \\) Mühlen am Markt, und jede verdient 272 € pro Woche.</p><p>Diese Gewinne locken neue Anbieter an. Das Marktangebot steigt, der Preis sinkt, die Gewinne schrumpfen. Der Zustrom stoppt erst, wenn niemand mehr einen Gewinn erzielt, also beim Preis im Betriebsoptimum:</p><div class=\"formel\">\\[ p_{\\text{lang}} = \\min k(x) = 30 \\text{ €} \\qquad x_N = 2.000 - 20 \\cdot 30 = 1.400 \\text{ t} \\qquad n = \\frac{1.400}{8} = 175 \\text{ Mühlen} \\]</div><p>Im langfristigen Gleichgewicht gilt damit gleichzeitig:</p><div class=\"formel\">\\[ p = GK = \\min k \\quad \\Rightarrow \\quad G = 0 \\]</div><p>„Gewinn null“ ist hier der <em>ökonomische</em> Gewinn. Die Kostenfunktion enthält auch die Verzinsung des eingesetzten Kapitals und einen Lohn für den Unternehmer (also <a href=\"/lernen/opportunitaetskosten\">Opportunitätskosten</a>). Die Mühlen verdienen also genau so viel, dass sich das Weitermachen gerade noch lohnt, aber nicht mehr. Umgekehrt gilt: Liegt der Preis unter 30 €, scheiden Anbieter aus, bis er wieder bei 30 € liegt.</p>"
+  },
+  {
+   "h2": "Warum gilt vollkommener Wettbewerb als effizient?",
+   "html": "<p>Das Modell ist nicht wegen seines Realismus so wichtig, sondern weil es zwei Effizienzeigenschaften hat, an denen alle anderen Marktformen gemessen werden:</p><ul><li><strong>Allokative Effizienz:</strong> Es gilt \\( p = GK \\). Der Preis zeigt, was den Käufern die letzte Einheit wert ist, die Grenzkosten, was sie die Gesellschaft kostet. Es wird also genau so lange produziert, wie der Nutzen einer Einheit ihre Kosten übersteigt. Die Summe aus <a href=\"/lernen/konsumentenrente-produzentenrente\">Konsumenten- und Produzentenrente</a> ist maximal, es gibt keinen Wohlfahrtsverlust.</li><li><strong>Produktive Effizienz:</strong> Langfristig produziert jeder Anbieter im Betriebsoptimum, also zu den niedrigsten möglichen Stückkosten.</li></ul><p>Der Kontrast zum <a href=\"/lernen/monopol\">Monopol</a> macht das deutlich: Der Monopolist setzt Grenzerlös gleich Grenzkosten und verlangt einen Preis über den Grenzkosten. Er bietet weniger an, der Preis ist höher, und es entsteht ein Wohlfahrtsverlust. Im Oligopol liegt das Ergebnis meist zwischen beiden Extremen.</p><div class=\"merke\">Polypol: \\( p = GK \\). Monopol: \\( GE = GK \\) und \\( p > GK \\). Genau dieser Unterschied ist der Kern vieler Klausuraufgaben zur Marktformenlehre.</div>"
+  },
+  {
+   "h2": "Grenzen des Modells und Abgrenzung",
+   "html": "<p>Die Annahmen sind streng, und in der Realität ist fast immer mindestens eine verletzt:</p><ul><li><strong>Produktdifferenzierung:</strong> Marken, Service oder Standort schaffen Präferenzen. Dann liegt ein unvollkommener Markt vor, und Anbieter haben einen kleinen preispolitischen Spielraum (Gutenberg spricht vom akquisitorischen Potenzial). Man spricht vom <strong>unvollkommenen Polypol</strong> oder monopolistischer Konkurrenz.</li><li><strong>Informationsprobleme:</strong> Käufer kennen nicht alle Preise; Suchkosten verhindern den Einheitspreis.</li><li><strong>Skaleneffekte:</strong> Sinken die Stückkosten über große Mengenbereiche, setzen sich wenige große Anbieter durch, und der Markt wird zum Oligopol.</li><li><strong>Marktversagen:</strong> Bei externen Effekten oder öffentlichen Gütern führt selbst vollkommener Wettbewerb nicht zum gesellschaftlichen Optimum, weil die Grenzkosten des Anbieters nicht alle Kosten enthalten.</li></ul><p><strong>Abgrenzung:</strong> Das Thema <a href=\"/lernen/angebot-und-nachfrage\">Angebot und Nachfrage</a> beschreibt den Markt als Ganzes, also wie aus Angebots- und Nachfragekurve Gleichgewichtspreis und -menge entstehen. Vollkommener Wettbewerb schaut eine Ebene tiefer: Woher kommt die Angebotskurve, und wie verhält sich der einzelne Anbieter? Beide Modelle passen zusammen, denn die Marktangebotskurve ist die Summe der Grenzkostenkurven aller Anbieter.</p>"
+  }
+ ],
+ "fehler": [
+  "Grenzerlös wie im Monopol ableiten: Im Polypol ist der Preis eine Konstante, also gilt \\( GE = p \\). Wer eine fallende Preis-Absatz-Funktion für den einzelnen Anbieter ansetzt, rechnet das falsche Modell.",
+  "Betriebsminimum und Betriebsoptimum verwechseln: Das Betriebsminimum ist das Minimum der variablen Stückkosten (kurzfristige Preisuntergrenze), das Betriebsoptimum das Minimum der gesamten Stückkosten (langfristige Preisuntergrenze, Gewinnschwelle).",
+  "Bei Verlust sofort stilllegen: Kurzfristig wird weiter produziert, solange der Preis über dem Minimum der variablen Stückkosten liegt, weil jeder Euro Deckungsbeitrag die Fixkosten mitfinanziert.",
+  "Die falsche Lösung von \\( p = GK(x) \\) nehmen: Die quadratische Gleichung hat oft zwei Lösungen. Gewinnmaximal ist nur die Menge auf dem steigenden Ast der Grenzkostenkurve, die kleinere Lösung ist ein Gewinnminimum.",
+  "„Langfristig Gewinn null“ als „Unternehmen verdienen nichts“ deuten: Gemeint ist der ökonomische Gewinn nach Abzug aller Opportunitätskosten. Kapital und Unternehmer werden marktüblich entlohnt."
+ ],
+ "faq": [
+  {
+   "q": "Was sind die Bedingungen für vollkommenen Wettbewerb?",
+   "a": "Viele kleine Anbieter und Nachfrager (Polypol), homogene Güter, keine sachlichen, persönlichen, räumlichen oder zeitlichen Präferenzen, vollständige Markttransparenz, sofortige Reaktion auf Preisänderungen und freier Marktzutritt. Sind diese Bedingungen erfüllt, gibt es nur einen einzigen Marktpreis."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Polypol und vollkommenem Wettbewerb?",
+   "a": "Polypol beschreibt nur die Zahl der Marktteilnehmer: viele Anbieter und viele Nachfrager. Vollkommener Wettbewerb verlangt zusätzlich einen vollkommenen Markt mit homogenen Gütern, Transparenz und ohne Präferenzen. Ein Polypol mit Markenprodukten ist ein unvollkommenes Polypol."
+  },
+  {
+   "q": "Warum ist ein Anbieter im Polypol Preisnehmer?",
+   "a": "Sein Marktanteil ist so klein, dass seine Menge den Marktpreis nicht beeinflusst. Würde er mehr als den Marktpreis verlangen, kaufen alle Kunden das identische Produkt bei der Konkurrenz. Er kann deshalb nur die Menge anpassen und heißt auch Mengenanpasser."
+  },
+  {
+   "q": "Wie lautet die Gewinnmaximierungsbedingung im Polypol?",
+   "a": "Preis gleich Grenzkosten. Weil jede zusätzliche Einheit genau den Marktpreis einbringt, lohnt sich die Ausweitung der Menge, bis die Grenzkosten den Preis erreichen. Zusätzlich muss der Preis mindestens die variablen Stückkosten decken."
+  },
+  {
+   "q": "Warum ist der Gewinn im vollkommenen Wettbewerb langfristig null?",
+   "a": "Solange Gewinne entstehen, treten wegen des freien Marktzutritts neue Anbieter ein. Das Angebot steigt und der Preis sinkt, bis er dem Minimum der Stückkosten entspricht. Dort ist der ökonomische Gewinn null, Kapital und Arbeit des Unternehmers sind aber marktüblich entlohnt."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Kostenfunktion \\( K(x) = 0{,}5x^3 - 6x^2 + 30x + 128 \\). Wo liegt die kurzfristige Preisuntergrenze?",
+   "o": [
+    "30 €",
+    "14 €",
+    "12 €",
+    "6 €"
+   ],
+   "r": 2,
+   "e": "Minimum von \\( k_v(x) = 0{,}5x^2 - 6x + 30 \\) bei \\( x = 6 \\): \\( k_v(6) = 12 \\) €. 6 ist die Menge, nicht der Preis; 30 € ist die langfristige Preisuntergrenze."
+  },
+  {
+   "q": "Was gilt im langfristigen Gleichgewicht bei vollkommenem Wettbewerb?",
+   "o": [
+    "Preis = Grenzerlös > Grenzkosten",
+    "Preis = Grenzkosten = minimale Stückkosten",
+    "Preis = minimale variable Stückkosten",
+    "Preis > Grenzkosten, Gewinn positiv"
+   ],
+   "r": 1,
+   "e": "Freier Marktzutritt drückt den Preis bis auf das Betriebsoptimum. Dort gilt p = GK = min k und der ökonomische Gewinn ist null."
+  },
+  {
+   "q": "Ein Polypolist hat Fixkosten von 128 €. Beim aktuellen Preis beträgt sein Verlust 79 €. Was soll er kurzfristig tun?",
+   "o": [
+    "Sofort stilllegen, weil er Verlust macht",
+    "Den Preis erhöhen",
+    "Die Menge auf null senken und die Fixkosten kündigen",
+    "Weiter produzieren, weil der Verlust kleiner als die Fixkosten ist"
+   ],
+   "r": 3,
+   "e": "Bei Stilllegung wären 128 € Fixkosten verloren. Ein Verlust von 79 € heißt: Der Erlös deckt die variablen Kosten und 49 € der Fixkosten. Den Preis kann er als Preisnehmer nicht beeinflussen."
+  }
+ ],
+ "verwandt": [
+  "marktformen",
+  "monopol",
+  "angebot-und-nachfrage",
+  "konsumentenrente-produzentenrente",
+  "preisuntergrenze"
+ ],
+ "ask": "den vollkommenen Wettbewerb im Polypol – mit Preis gleich Grenzkosten, Betriebsminimum, Betriebsoptimum und langfristigem Gleichgewicht an einem durchgerechneten Beispiel"
+}

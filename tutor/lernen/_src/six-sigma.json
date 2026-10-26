@@ -1,0 +1,116 @@
+{
+ "slug": "six-sigma",
+ "name": "Six Sigma",
+ "title": "Six Sigma einfach erklärt – DMAIC, DPMO und Beispiel",
+ "meta": "Six Sigma verständlich: DMAIC-Zyklus, DPMO, Sigma-Niveau, Prozessfähigkeit Cp und Cpk und die Belt-Rollen – mit komplett durchgerechnetem Beispiel.",
+ "h1": "Six Sigma einfach erklärt",
+ "kurz": "Six Sigma ist ein Qualitätsmanagement-Ansatz, der Prozessstreuung mit statistischen Methoden so weit senkt, dass kaum noch Fehler entstehen. Ein Prozess auf Six-Sigma-Niveau erzeugt höchstens 3,4 Fehler pro Million Fehlermöglichkeiten. Verbesserungsprojekte laufen nach dem DMAIC-Zyklus: Define, Measure, Analyze, Improve, Control, und werden von geschulten Green und Black Belts geleitet.",
+ "keywords": [
+  "six sigma",
+  "dmaic",
+  "dpmo berechnen",
+  "sigma niveau",
+  "prozessfähigkeit cp cpk",
+  "six sigma green belt black belt",
+  "lean six sigma",
+  "3,4 fehler pro million"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist Six Sigma?",
+   "html": "<p><strong>Six Sigma</strong> wurde Mitte der 1980er-Jahre bei Motorola entwickelt und in den 1990ern vor allem durch General Electric bekannt. Die Grundidee: Fehler entstehen, weil Prozesse streuen. Ein Abfüllautomat füllt nicht immer exakt 500 g ab, eine Lieferung braucht mal zwei, mal fünf Tage. Je stärker die Streuung, desto öfter landet ein Ergebnis außerhalb dessen, was der Kunde akzeptiert.</p><p>Der griechische Buchstabe \\( \\sigma \\) steht für die <a href=\\\"/lernen/varianz-standardabweichung\\\">Standardabweichung</a>, also das Maß der Streuung. „Six Sigma“ bedeutet: Zwischen dem Mittelwert des Prozesses und der nächsten Toleranzgrenze passen sechs Standardabweichungen. Dann ist die Streuung so klein im Verhältnis zur Toleranz, dass Fehler praktisch nicht mehr vorkommen.</p><p>Six Sigma ist mehr als eine Kennzahl. Es ist ein projektorientiertes Managementsystem mit festen Rollen, einem standardisierten Vorgehen und einem klaren Fokus auf messbare finanzielle Ergebnisse. Jedes Projekt startet mit einem konkreten Problem, das Kunden spüren und das Geld kostet.</p><div class=\\\"merke\\\">Six Sigma senkt Streuung, nicht nur den Mittelwert. Ein Prozess, der im Durchschnitt passt, aber stark schwankt, produziert trotzdem Fehler.</div>"
+  },
+  {
+   "h2": "Wie funktioniert der DMAIC-Zyklus?",
+   "html": "<p>Bestehende Prozesse werden in fünf Phasen verbessert:</p><table><thead><tr><th>Phase</th><th>Leitfrage</th><th>Typische Werkzeuge</th></tr></thead><tbody><tr><td><strong>D</strong>efine</td><td>Welches Problem lösen wir für welchen Kunden?</td><td>Projektauftrag, SIPOC, Voice of the Customer, CTQ-Merkmale</td></tr><tr><td><strong>M</strong>easure</td><td>Wie gut ist der Prozess heute?</td><td>Datenerhebung, Messsystemanalyse, DPMO, Prozessfähigkeit</td></tr><tr><td><strong>A</strong>nalyze</td><td>Was sind die Ursachen?</td><td>Ishikawa-Diagramm, Pareto-Analyse, Hypothesentests, Regression</td></tr><tr><td><strong>I</strong>mprove</td><td>Wie beseitigen wir die Ursachen?</td><td>Lösungsauswahl, Versuchsplanung, Pilotierung, Poka Yoke</td></tr><tr><td><strong>C</strong>ontrol</td><td>Wie halten wir das neue Niveau?</td><td>Regelkarten, Standards, Kontrollplan, Übergabe an den Prozesseigner</td></tr></tbody></table><p>Für die Entwicklung neuer Produkte oder Prozesse gibt es eine Variante, <strong>DMADV</strong> (Define, Measure, Analyze, Design, Verify), auch unter dem Begriff Design for Six Sigma bekannt.</p><h3>Die Rollen: Champion und Belts</h3><p>Angelehnt an Kampfsport-Gürtel unterscheidet Six Sigma mehrere Qualifikationsstufen. Der <strong>Champion</strong> ist eine Führungskraft, die Projekte auswählt und Ressourcen sichert. <strong>Master Black Belts</strong> schulen und coachen, <strong>Black Belts</strong> leiten Projekte in Vollzeit, <strong>Green Belts</strong> arbeiten neben ihrer Linienaufgabe in Projekten mit oder leiten kleinere, <strong>Yellow Belts</strong> kennen die Grundlagen.</p>"
+  },
+  {
+   "h2": "Wie berechnet man DPMO und das Sigma-Niveau?",
+   "html": "<p>Die Leistung eines Prozesses misst Six Sigma in Fehlern pro Million Fehlermöglichkeiten:</p><div class=\\\"formel\\\">\\[ \\text{DPU} = \\frac{\\text{Fehler}}{\\text{Einheiten}} \\]\\[ \\text{DPMO} = \\frac{\\text{Fehler}}{\\text{Einheiten} \\cdot \\text{Fehlermöglichkeiten je Einheit}} \\cdot 1.000.000 \\]</div><p>Aus dem DPMO-Wert liest man das <strong>Sigma-Niveau</strong> aus einer Tabelle ab. Sie enthält eine Besonderheit: Motorola beobachtete, dass sich der Mittelwert eines Prozesses langfristig um etwa 1,5 Standardabweichungen verschiebt. Die übliche Tabelle rechnet diese Verschiebung bereits ein. Deshalb entsprechen sechs Sigma 3,4 DPMO und nicht etwa 0,002.</p><table><thead><tr><th>Sigma-Niveau</th><th>DPMO (mit 1,5σ-Verschiebung)</th><th>Ausbeute</th></tr></thead><tbody><tr><td>2</td><td>308.538</td><td>69,1 %</td></tr><tr><td>3</td><td>66.807</td><td>93,3 %</td></tr><tr><td>4</td><td>6.210</td><td>99,38 %</td></tr><tr><td>5</td><td>233</td><td>99,977 %</td></tr><tr><td>6</td><td>3,4</td><td>99,99966 %</td></tr></tbody></table><h3>Prozessfähigkeit Cp und Cpk</h3><p>Bei messbaren Merkmalen wie Gewicht oder Länge vergleicht man die Toleranz mit der Streuung. OSG und USG sind obere und untere Spezifikationsgrenze, \\( \\mu \\) der Mittelwert:</p><div class=\\\"formel\\\">\\[ C_p = \\frac{\\text{OSG} - \\text{USG}}{6\\sigma} \\]\\[ C_{pk} = \\min\\left(\\frac{\\text{OSG} - \\mu}{3\\sigma};\\ \\frac{\\mu - \\text{USG}}{3\\sigma}\\right) \\]</div><p>\\( C_p \\) misst nur, ob die Streuung grundsätzlich in die Toleranz passt. \\( C_{pk} \\) berücksichtigt zusätzlich, ob der Prozess mittig liegt. Ein exakt zentrierter Six-Sigma-Prozess hat \\( C_p = C_{pk} = 2 \\). In vielen Branchen gilt \\( C_{pk} \\geq 1{,}33 \\) als Mindestanforderung an einen fähigen Prozess.</p>"
+  },
+  {
+   "h2": "Beispiel: Six Sigma Schritt für Schritt",
+   "html": "<div class=\\\"beispiel\\\"><p><strong>Teil 1: Versandprozess eines Onlineshops.</strong> Ein Händler für Müsli und Nüsse verschickt im Monat 8.000 Pakete. Pro Paket gibt es vier Fehlermöglichkeiten: falscher Artikel, falsche Menge, beschädigte Ware, verspätete Übergabe an den Paketdienst. Im Monat zählt das Team 96 Fehler.</p><p><strong>Schritt 1: DPU und DPMO</strong><br>\\( \\text{DPU} = \\frac{96}{8.000} = 0{,}012 \\)<br>\\( \\text{DPMO} = \\frac{96}{8.000 \\cdot 4} \\cdot 1.000.000 = \\frac{96}{32.000} \\cdot 1.000.000 = 3.000 \\)</p><p><strong>Schritt 2: Sigma-Niveau</strong><br>3.000 DPMO liegen zwischen 4σ (6.210) und 5σ (233). Genau gerechnet ergibt sich ein Sigma-Niveau von rund 4,2.</p><p><strong>Schritt 3: DMAIC</strong><br>Die Pareto-Analyse zeigt: Zwei Drittel der Fehler sind verwechselte Artikel bei ähnlich aussehenden Tüten. Improve: Barcode-Scan beim Packen, der bei falschem Artikel blockiert (Poka Yoke). Danach treten nur noch 12 Fehler pro Monat auf: \\( \\frac{12}{32.000} \\cdot 1.000.000 = 375 \\) DPMO, rund 4,9 Sigma.</p><p><strong>Teil 2: Abfüllanlage.</strong> Der Shop füllt 500-g-Tüten selbst ab. Toleranz: 495 g bis 505 g. Messungen ergeben einen Mittelwert von 501 g und eine Standardabweichung von 1,2 g.</p><p><strong>Schritt 4: Cp</strong><br>\\( C_p = \\frac{505 - 495}{6 \\cdot 1{,}2} = \\frac{10}{7{,}2} \\approx 1{,}39 \\)</p><p><strong>Schritt 5: Cpk</strong><br>\\( \\frac{505 - 501}{3 \\cdot 1{,}2} = \\frac{4}{3{,}6} \\approx 1{,}11 \\) und \\( \\frac{501 - 495}{3{,}6} = \\frac{6}{3{,}6} \\approx 1{,}67 \\)<br>\\( C_{pk} = \\min(1{,}11;\\ 1{,}67) = 1{,}11 \\)</p><p><strong>Ergebnis:</strong> Die Streuung würde in die Toleranz passen (\\( C_p \\) 1,39), aber der Prozess liegt 1 g zu hoch und ist mit \\( C_{pk} \\) 1,11 nicht fähig im Sinne von 1,33. Erste Maßnahme: Anlage auf 500 g zentrieren, dann \\( C_{pk} = C_p \\approx 1{,}39 \\). Für echtes Six-Sigma-Niveau (\\( C_p = 2 \\)) müsste die Standardabweichung auf \\( \\frac{10}{12} \\approx 0{,}83 \\) g sinken.</p></div>"
+  },
+  {
+   "h2": "Wann setzt man Six Sigma ein?",
+   "html": "<p>Six Sigma eignet sich für wiederholte Prozesse mit messbaren Ergebnissen und hohen Fehlerkosten: Fertigung, Logistik, Banken (Kreditbearbeitung), Versicherungen (Schadenabwicklung), Krankenhäuser (Medikationsfehler), Callcenter. Weniger geeignet ist es für einmalige, kreative Aufgaben, bei denen es nichts zu zählen gibt.</p><p>Typische Ziele lassen sich gut in eine <a href=\\\"/lernen/balanced-scorecard\\\">Balanced Scorecard</a> übernehmen, etwa eine Reklamationsquote in der Prozessperspektive. Statistisch stützt sich Six Sigma auf die <a href=\\\"/lernen/normalverteilung\\\">Normalverteilung</a>: Das Sigma-Niveau setzt voraus, dass das Merkmal annähernd normalverteilt ist.</p>"
+  },
+  {
+   "h2": "Vorteile, Nachteile und Abgrenzung",
+   "html": "<p><strong>Vorteile:</strong></p><ul><li>Entscheidungen beruhen auf Daten statt auf Meinungen,</li><li>klare Struktur durch DMAIC, Ergebnisse sind vergleichbar,</li><li>Fokus auf Kundennutzen und messbare Einsparungen,</li><li>einheitliche Sprache durch DPMO und Sigma-Niveau, auch zwischen Fertigung und Verwaltung.</li></ul><p><strong>Nachteile:</strong></p><ul><li>hoher Schulungs- und Projektaufwand, für kleine Unternehmen oft zu schwergewichtig,</li><li>die 1,5σ-Verschiebung ist ein Erfahrungswert, kein Naturgesetz,</li><li>Fokus auf bestehende Prozesse kann radikale Neuerungen bremsen,</li><li>Gefahr einer Zertifikatskultur, bei der Belts wichtiger werden als Ergebnisse.</li></ul><p><strong>Abgrenzung zu Lean und Kaizen:</strong> <a href=\"/lernen/lean-management\">Lean Management</a> fragt „Wo verschwenden wir Zeit und Material?“ und macht Prozesse schneller. Six Sigma fragt „Wo streut der Prozess und warum?“ und macht ihn zuverlässiger. <a href=\"/lernen/kaizen\">Kaizen</a> lebt von vielen kleinen Ideen aller Mitarbeitenden, Six Sigma von wenigen großen Projekten mit Expertinnen und Experten. In der Praxis werden Lean und Six Sigma häufig zu Lean Six Sigma verbunden.</p>"
+  }
+ ],
+ "fehler": [
+  "Fehler durch Einheiten statt durch Fehlermöglichkeiten teilen: 96 Fehler bei 8.000 Paketen sind DPU 0,012, aber DPMO berücksichtigt auch die Fehlermöglichkeiten je Einheit. Ohne den Faktor 4 kommst du auf 12.000 statt 3.000 DPMO.",
+  "Glauben, 6σ bedeute 3,4 Fehler pro Million nach reiner Normalverteilung: Die 3,4 DPMO entstehen nur mit der eingerechneten Mittelwertverschiebung um 1,5σ, also bei 4,5σ Abstand zur Grenze. Ohne Verschiebung wären es rund 0,002 DPMO.",
+  "Cp und Cpk verwechseln: Cp ignoriert die Lage des Mittelwerts. Liegt der Prozess nicht mittig, ist Cpk kleiner, und nur Cpk sagt, ob tatsächlich innerhalb der Toleranz produziert wird.",
+  "Beim Cpk die falsche Seite nehmen: Cpk ist das Minimum beider Seiten, also der Abstand zur nähergelegenen Grenze. Wer den Mittelwert der beiden Seiten nimmt, überschätzt die Fähigkeit.",
+  "DMAIC-Phasen in falscher Reihenfolge nennen oder Control vergessen: Ohne die Control-Phase fällt der Prozess nach Projektende oft auf das alte Niveau zurück."
+ ],
+ "faq": [
+  {
+   "q": "Was bedeutet Six Sigma einfach erklärt?",
+   "a": "Six Sigma ist eine Methode, Prozesse so stabil zu machen, dass fast keine Fehler mehr entstehen. Ziel sind höchstens 3,4 Fehler pro Million Fehlermöglichkeiten. Verbessert wird in Projekten nach dem DMAIC-Zyklus, gestützt auf Daten und Statistik."
+  },
+  {
+   "q": "Wofür steht DMAIC?",
+   "a": "DMAIC steht für Define, Measure, Analyze, Improve und Control. Erst wird das Problem definiert, dann der Ist-Zustand gemessen, die Ursachen analysiert, Lösungen umgesetzt und das neue Niveau abgesichert."
+  },
+  {
+   "q": "Warum entsprechen 6 Sigma 3,4 Fehlern pro Million?",
+   "a": "Weil die Six-Sigma-Tabelle eine langfristige Verschiebung des Prozessmittelwerts um 1,5 Standardabweichungen einrechnet. Effektiv liegen dann noch 4,5 Sigma zwischen Mittelwert und Toleranzgrenze, und die Fläche jenseits davon beträgt etwa 3,4 pro Million."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Green Belt und Black Belt?",
+   "a": "Ein Black Belt leitet Six-Sigma-Projekte meist in Vollzeit und beherrscht die statistischen Werkzeuge vertieft. Ein Green Belt arbeitet neben seiner eigentlichen Aufgabe in Projekten mit oder leitet kleinere Projekte. Inhalte und Dauer der Ausbildung sind nicht einheitlich geregelt."
+  },
+  {
+   "q": "Was ist Lean Six Sigma?",
+   "a": "Lean Six Sigma kombiniert Lean Management, das Verschwendung und Wartezeiten beseitigt, mit Six Sigma, das Streuung und Fehler reduziert. Prozesse sollen dadurch zugleich schneller und zuverlässiger werden. Der DMAIC-Zyklus bleibt das Projektgerüst."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "1.000 Rechnungen mit je 5 Fehlermöglichkeiten enthalten 20 Fehler. Wie hoch ist der DPMO-Wert?",
+   "o": [
+    "20.000",
+    "4.000",
+    "200",
+    "2.000"
+   ],
+   "r": 1,
+   "e": "\\( \\text{DPMO} = \\frac{20}{1.000 \\cdot 5} \\cdot 1.000.000 = 4.000 \\). Das entspricht etwa 4,2 Sigma."
+  },
+  {
+   "q": "Toleranz 90 bis 110 mm, Mittelwert 104 mm, Standardabweichung 2 mm. Wie hoch ist Cpk?",
+   "o": [
+    "1,67",
+    "2,33",
+    "1,00",
+    "1,33"
+   ],
+   "r": 2,
+   "e": "\\( \\frac{110 - 104}{3 \\cdot 2} = 1{,}00 \\) und \\( \\frac{104 - 90}{6} \\approx 2{,}33 \\). Cpk ist das Minimum, also 1,00. Cp wäre \\( \\frac{20}{12} \\approx 1{,}67 \\)."
+  },
+  {
+   "q": "In welcher DMAIC-Phase werden Ursachen mit Ishikawa-Diagramm und Pareto-Analyse gesucht?",
+   "o": [
+    "Analyze",
+    "Define",
+    "Measure",
+    "Control"
+   ],
+   "r": 0,
+   "e": "In Analyze werden die Ursachen des Problems ermittelt und mit Daten überprüft. Measure erfasst vorher den Ist-Zustand."
+  }
+ ],
+ "verwandt": [
+  "lean-management",
+  "kaizen",
+  "normalverteilung",
+  "varianz-standardabweichung",
+  "balanced-scorecard"
+ ],
+ "ask": "Six Sigma – mit DMAIC-Zyklus, DPMO, Sigma-Niveau sowie Cp und Cpk an einem durchgerechneten Beispiel"
+}

@@ -1,0 +1,116 @@
+{
+ "slug": "rentenbarwertfaktor",
+ "name": "Rentenbarwertfaktor",
+ "title": "Rentenbarwertfaktor einfach erklärt – Formel & Beispiel",
+ "meta": "Rentenbarwertfaktor verständlich: Formel, nachschüssig und vorschüssig, ewige Rente, Rente aus Kapital berechnen, Tabelle und durchgerechnetes Beispiel.",
+ "h1": "Rentenbarwertfaktor einfach erklärt",
+ "kurz": "Der Rentenbarwertfaktor (RBF) rechnet eine Reihe gleich hoher, jährlicher Zahlungen in ihren heutigen Wert um: Barwert = Zahlung · RBF. Er lautet \\( \\text{RBF} = \\frac{(1+i)^n - 1}{i \\cdot (1+i)^n} \\) und ist die Summe aller Abzinsungsfaktoren von Jahr 1 bis \\( n \\). Sein Kehrwert ist der Kapitalwiedergewinnungsfaktor (Annuitätenfaktor).",
+ "keywords": [
+  "rentenbarwertfaktor",
+  "rentenbarwertfaktor formel",
+  "rentenbarwertfaktor tabelle",
+  "barwert einer rente",
+  "rentenbarwert berechnen",
+  "vorschüssige rente",
+  "ewige rente",
+  "diskontierungssummenfaktor"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der Rentenbarwertfaktor?",
+   "html": "<p>In Finanzmathematik und Investitionsrechnung tauchen ständig Zahlungsreihen auf, bei denen jedes Jahr derselbe Betrag fließt: Mieteinnahmen, Leasingraten, Rentenzahlungen, gleichbleibende Rückflüsse einer Investition. Willst du wissen, was so eine Reihe <em>heute</em> wert ist, könntest du jede Zahlung einzeln abzinsen, wie beim <a href=\"/lernen/barwert-abzinsen\">Barwert</a>. Bei 20 Zahlungen ist das mühsam.</p><p>Der <strong>Rentenbarwertfaktor</strong> erledigt das in einem Schritt. Er ist die Summe aller Abzinsungsfaktoren und sagt dir: <em>Was sind 1 € pro Jahr über \\( n \\) Jahre bei Zins \\( i \\) heute wert?</em> Multiplizierst du ihn mit der jährlichen Zahlung, hast du den Barwert der ganzen Reihe. In Lehrbüchern heißt er auch <strong>Diskontierungssummenfaktor</strong> (DSF).</p><p>Der Faktor setzt drei Dinge voraus:</p><ul><li>alle Zahlungen sind <strong>gleich hoch</strong>,</li><li>sie fallen in <strong>gleichen Abständen</strong> an, normalerweise jährlich,</li><li>der Zins ist über die gesamte Laufzeit <strong>konstant</strong>.</li></ul><p>Die Standardformel gilt für <strong>nachschüssige</strong> Zahlungen, also jeweils am Jahresende. Das ist in Klausuren der Normalfall, wenn nichts anderes dasteht.</p><div class=\"merke\">Rentenbarwert = jährliche Zahlung · RBF. Der RBF ist nichts anderes als die Summe der Abzinsungsfaktoren für Jahr 1 bis \\( n \\).</div>"
+  },
+  {
+   "h2": "Wie lautet die Formel des Rentenbarwertfaktors?",
+   "html": "<div class=\"formel\">\\[ \\text{RBF}_{i,n} = \\frac{(1+i)^n - 1}{i \\cdot (1+i)^n} = \\frac{1 - (1+i)^{-n}}{i} = \\sum_{t=1}^{n} (1+i)^{-t} \\]</div><p>Beide Bruchformen sind gleichwertig, die zweite ist im Taschenrechner oft schneller. Die Summenform zeigt, woher die Formel kommt: Sie ist die geschlossene Lösung einer geometrischen Reihe. Aus dem RBF lassen sich die verwandten Faktoren direkt ableiten:</p><table><thead><tr><th>Fall</th><th>Formel</th></tr></thead><tbody><tr><td>nachschüssige Rente (Standard)</td><td>\\( R_0 = Z \\cdot \\text{RBF} \\)</td></tr><tr><td>vorschüssige Rente (Zahlung am Jahresanfang)</td><td>\\( R_0 = Z \\cdot \\text{RBF} \\cdot (1+i) \\)</td></tr><tr><td>ewige Rente (\\( n \\to \\infty \\))</td><td>\\( R_0 = \\frac{Z}{i} \\)</td></tr><tr><td>um \\( k \\) Jahre aufgeschobene Rente</td><td>\\( R_0 = Z \\cdot \\text{RBF} \\cdot (1+i)^{-k} \\)</td></tr><tr><td>Kapitalwiedergewinnungsfaktor</td><td>\\( \\text{KWF} = \\frac{1}{\\text{RBF}} \\)</td></tr><tr><td>Rentenendwertfaktor</td><td>\\( \\text{REF} = \\frac{(1+i)^n - 1}{i} = \\text{RBF} \\cdot (1+i)^n \\)</td></tr></tbody></table><p>Warum mal \\( (1+i) \\) bei der vorschüssigen Rente? Jede Zahlung kommt ein Jahr früher und wird deshalb ein Jahr weniger abgezinst. Und warum \\( \\frac{Z}{i} \\) bei der ewigen Rente? Weil \\( (1+i)^{-n} \\) für sehr lange Laufzeiten gegen null geht und von der Formel nur \\( \\frac{1}{i} \\) übrig bleibt.</p>"
+  },
+  {
+   "h2": "Beispiel: Einmalzahlung oder Rente?",
+   "html": "<div class=\"beispiel\"><p>Jonas verlässt seinen Arbeitgeber und darf wählen: <strong>100.000 € Abfindung sofort</strong> oder <strong>10 Jahre lang 12.000 € pro Jahr</strong>, jeweils am Jahresende. Er könnte Geld zu 5 % anlegen. Nominal sind es 120.000 € gegen 100.000 €, aber das Geld kommt später.</p><p><strong>Schritt 1: Rentenbarwertfaktor</strong><br>\\( \\text{RBF}_{5\\%,10} = \\frac{1{,}05^{10} - 1}{0{,}05 \\cdot 1{,}05^{10}} = \\frac{0{,}628895}{0{,}081445} = 7{,}7217 \\)</p><p><strong>Schritt 2: Barwert der Rente</strong><br>\\( R_0 = 12.000 \\cdot 7{,}7217 = 92.660{,}40 \\) €</p><p><strong>Schritt 3: Vergleich</strong><br>\\( 92.660{,}40 \\text{ €} < 100.000 \\text{ €} \\Rightarrow \\) Jonas nimmt die Einmalzahlung. Sie ist heute 7.339,60 € mehr wert.</p><p><strong>Variante vorschüssig:</strong> Würde die Rente jeweils am Jahresanfang gezahlt, ergäbe sich \\( 92.660{,}40 \\cdot 1{,}05 = 97.293{,}42 \\) €. Immer noch weniger als 100.000 €.</p><p><strong>Kritische Rente:</strong> Ab welcher Jahreszahlung wäre die Rente gleichwertig?<br>\\( Z = \\frac{100.000}{7{,}7217} = 12.950{,}52 \\) €</p><p><strong>Kritischer Zins:</strong> Gesucht ist der Zins, bei dem \\( \\text{RBF} = \\frac{100.000}{12.000} = 8{,}3333 \\) gilt. Das lässt sich nur durch Probieren lösen und ergibt rund 3,46 %. Kann Jonas sein Geld nur zu weniger als 3,46 % anlegen, wäre die Rente die bessere Wahl.</p></div><p>Das Beispiel zeigt den Kern: Der Rentenbarwert hängt stark vom Zins ab. Ein niedriger Zins macht spätere Zahlungen wertvoller, ein hoher Zins drückt ihren Barwert. Genau deshalb musst du in jeder Aufgabe zuerst klären, welcher Zins der richtige Vergleichsmaßstab ist.</p>"
+  },
+  {
+   "h2": "Rückwärts rechnen: Welche Rente bringt ein Kapital?",
+   "html": "<p>Oft ist nicht die Rente gegeben, sondern das Kapital. Dann stellst du die Formel nach \\( Z \\) um und teilst durch den RBF, das ist dasselbe wie die Multiplikation mit dem KWF:</p><div class=\"formel\">\\[ Z = \\frac{R_0}{\\text{RBF}} = R_0 \\cdot \\text{KWF} \\]</div><div class=\"beispiel\"><p><strong>Kapitalverzehr:</strong> Eine Rentnerin hat 300.000 € angespart und will das Geld in 20 Jahren komplett aufbrauchen. Das Restkapital wird zu 4 % verzinst. Wie viel kann sie jedes Jahresende entnehmen?</p><p>\\( \\text{RBF}_{4\\%,20} = \\frac{1 - 1{,}04^{-20}}{0{,}04} = 13{,}5903 \\)<br>\\( Z = \\frac{300.000}{13{,}5903} = 22.074{,}57 \\) €</p><p>Insgesamt entnimmt sie \\( 20 \\cdot 22.074{,}57 = 441.491{,}40 \\) €. Die Differenz zu 300.000 € sind die Zinsen auf das noch nicht verbrauchte Kapital.</p><p><strong>Aufgeschobene Rente:</strong> Zurück zu Jonas. Angenommen, die zehn Zahlungen à 12.000 € beginnen erst am Ende von Jahr 4 statt am Ende von Jahr 1. Der RBF liefert dann den Wert zum Ende von Jahr 3, also musst du noch drei Jahre abzinsen:<br>\\( R_0 = \\frac{92.660{,}40}{1{,}05^3} = \\frac{92.660{,}40}{1{,}157625} = 80.043{,}54 \\) €</p></div><p>Genau diese Umkehrung steckt auch hinter der Annuität eines Kredits im <a href=\"/lernen/tilgungsplan\">Tilgungsplan</a>: Darlehensbetrag mal KWF ergibt die gleichbleibende Rate.</p>"
+  },
+  {
+   "h2": "Rentenbarwertfaktor-Tabelle: wovon hängt er ab?",
+   "html": "<p>In Klausuren ohne finanzmathematischen Taschenrechner bekommst du oft eine Tabelle. So sieht ein Ausschnitt aus (auf vier Stellen gerundet):</p><table><thead><tr><th>Laufzeit \\( n \\)</th><th>3 %</th><th>5 %</th><th>8 %</th></tr></thead><tbody><tr><td>5 Jahre</td><td>4,5797</td><td>4,3295</td><td>3,9927</td></tr><tr><td>10 Jahre</td><td>8,5302</td><td>7,7217</td><td>6,7101</td></tr><tr><td>15 Jahre</td><td>11,9379</td><td>10,3797</td><td>8,5595</td></tr><tr><td>20 Jahre</td><td>14,8775</td><td>12,4622</td><td>9,8181</td></tr><tr><td>unendlich</td><td>33,3333</td><td>20,0000</td><td>12,5000</td></tr></tbody></table><p>Drei Muster solltest du kennen, sie helfen beim Plausibilisieren:</p><ul><li><strong>Der RBF ist immer kleiner als \\( n \\)</strong>, solange der Zins positiv ist. Zehn Zahlungen von 1 € sind heute weniger als 10 € wert. Steht bei dir ein RBF über der Laufzeit, hast du dich verrechnet.</li><li><strong>Höherer Zins, kleinerer RBF:</strong> Spätere Zahlungen werden stärker abgezinst.</li><li><strong>Längere Laufzeit, größerer RBF, aber mit abnehmendem Zuwachs:</strong> Der Faktor nähert sich der Obergrenze \\( \\frac{1}{i} \\). Bei 5 % bringen die Jahre 11 bis 20 zusammen nur noch 4,74 zusätzlich, unendlich viele weitere Jahre nur 7,54.</li></ul>"
+  },
+  {
+   "h2": "Wo braucht man den Rentenbarwertfaktor?",
+   "html": "<p><strong>Investitionsrechnung:</strong> Bringt eine Investition jedes Jahr gleich hohe Rückflüsse, berechnest du den Kapitalwert mit einem einzigen Faktor. Eine Maschine kostet 50.000 € und spart 5 Jahre lang je 12.000 €, Kalkulationszins 8 %:<br>\\( C_0 = -50.000 + 12.000 \\cdot 3{,}9927 = -2.087{,}60 \\) €. Die Investition lohnt sich nicht. Mehr dazu bei der <a href=\"/lernen/kapitalwertmethode\">Kapitalwertmethode</a>.</p><p><strong>Weitere Anwendungen:</strong></p><ul><li>Unternehmensbewertung: Barwert konstanter Überschüsse, bei unbegrenzter Laufzeit als ewige Rente,</li><li>Kauf oder Miete, Kauf oder Leasing: Barwert der Raten mit dem Kaufpreis vergleichen,</li><li>Altersvorsorge: Welches Kapital braucht man für eine bestimmte Rente?</li><li>Bewertung von Anleihen: die Kuponzahlungen sind eine Rente, dazu kommt der abgezinste Rückzahlungsbetrag.</li></ul><p><strong>Abgrenzung:</strong> Der <em>Abzinsungsfaktor</em> zinst eine einzelne Zahlung ab, der RBF eine ganze Reihe gleicher Zahlungen. Der <em>KWF</em> geht den umgekehrten Weg und verteilt einen heutigen Betrag auf gleich hohe Jahresbeträge, das ist die Grundlage der <a href=\"/lernen/annuitaetenmethode\">Annuitätenmethode</a>. Sind die Zahlungen unterschiedlich hoch, hilft der RBF nicht, dann musst du jede Zahlung einzeln abzinsen.</p>"
+  }
+ ],
+ "fehler": [
+  "Vorschüssig und nachschüssig verwechseln: Die Standardformel unterstellt Zahlungen am Jahresende. Kommt die erste Zahlung sofort, musst du mit \\( (1+i) \\) multiplizieren oder die heutige Zahlung separat addieren und den RBF nur für \\( n - 1 \\) Jahre nehmen.",
+  "Rentenbarwertfaktor und Kapitalwiedergewinnungsfaktor vertauschen: Für den Barwert einer Rente multiplizierst du mit dem RBF (Wert größer als 1), für die Rate aus einem Kapital mit dem KWF (Wert kleiner als 1). Plausibilitätscheck: Der Barwert muss kleiner sein als die Summe der Zahlungen.",
+  "Prozent nicht in Dezimalzahl umrechnen: In die Formel gehört 0,05, nicht 5. Mit 5 bekommst du einen RBF nahe 0,2, was bei 10 Jahren offensichtlich unsinnig ist.",
+  "Aufgeschobene Rente nicht weiter abzinsen: Der RBF liefert den Wert eine Periode vor der ersten Zahlung. Beginnt die Rente erst in Jahr 4, musst du das Ergebnis noch um 3 Jahre abzinsen.",
+  "Den RBF bei ungleichen Zahlungen verwenden: Er funktioniert nur, wenn alle Zahlungen gleich hoch sind. Steigt die Zahlung jährlich, musst du einzeln abzinsen."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen Rentenbarwertfaktor und Abzinsungsfaktor?",
+   "a": "Der Abzinsungsfaktor bringt eine einzelne künftige Zahlung auf den heutigen Wert. Der Rentenbarwertfaktor macht das für eine ganze Reihe gleich hoher Zahlungen auf einmal und ist genau die Summe der einzelnen Abzinsungsfaktoren."
+  },
+  {
+   "q": "Wie berechnet man den Rentenbarwertfaktor im Taschenrechner?",
+   "a": "Am schnellsten mit der Form (1 − (1 + i) hoch −n) geteilt durch i. Bei 5 % und 10 Jahren also 1 minus 1,05 hoch −10, das ergibt 0,3861, geteilt durch 0,05 ergibt 7,7217."
+  },
+  {
+   "q": "Was ist der Kehrwert des Rentenbarwertfaktors?",
+   "a": "Der Kehrwert ist der Kapitalwiedergewinnungsfaktor, auch Annuitätenfaktor genannt. Er verteilt einen heutigen Betrag auf gleich hohe jährliche Zahlungen und wird für Kreditraten und die Annuitätenmethode verwendet."
+  },
+  {
+   "q": "Wie berechnet man den Barwert einer ewigen Rente?",
+   "a": "Du teilst die jährliche Zahlung durch den Zinssatz. 12.000 € pro Jahr bei 5 % sind heute 240.000 € wert. Das ist der Grenzwert des Rentenbarwertfaktors für unendliche Laufzeit."
+  },
+  {
+   "q": "Wann ist eine Rente vorschüssig?",
+   "a": "Wenn die Zahlungen jeweils zu Beginn einer Periode fließen, etwa Mieten oder Leasingraten am Monatsanfang. Der Barwert ist dann um den Faktor 1 plus i höher als bei nachschüssiger Zahlung, weil jede Zahlung eine Periode früher kommt."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Wie hoch ist der Rentenbarwertfaktor für 3 Jahre bei 10 %?",
+   "o": [
+    "3,3100",
+    "2,4869",
+    "2,7355",
+    "0,4021"
+   ],
+   "r": 1,
+   "e": "\\( \\frac{1 - 1{,}1^{-3}}{0{,}1} = \\frac{1 - 0{,}75131}{0{,}1} = 2{,}4869 \\). Probe: \\( 0{,}90909 + 0{,}82645 + 0{,}75131 = 2{,}48685 \\). 3,3100 wäre der Rentenendwertfaktor."
+  },
+  {
+   "q": "Eine Investition bringt 6 Jahre lang je 10.000 € am Jahresende. RBF bei 6 % = 4,9173. Wie hoch ist der Barwert der Rückflüsse?",
+   "o": [
+    "60.000 €",
+    "52.123,38 €",
+    "56.600 €",
+    "49.173 €"
+   ],
+   "r": 3,
+   "e": "\\( 10.000 \\cdot 4{,}9173 = 49.173 \\) €. 52.123,38 € wäre der vorschüssige Barwert (\\( \\cdot 1{,}06 \\))."
+  },
+  {
+   "q": "Was passiert mit dem Rentenbarwertfaktor, wenn der Zinssatz steigt?",
+   "o": [
+    "Er sinkt",
+    "Er steigt",
+    "Er bleibt gleich, nur die Laufzeit zählt",
+    "Er steigt erst und sinkt dann"
+   ],
+   "r": 0,
+   "e": "Bei höherem Zins wird jede künftige Zahlung stärker abgezinst, also sinkt die Summe der Abzinsungsfaktoren. Obergrenze ist immer \\( \\frac{1}{i} \\)."
+  }
+ ],
+ "verwandt": [
+  "barwert-abzinsen",
+  "kapitalwertmethode",
+  "annuitaetenmethode",
+  "tilgungsplan",
+  "zinseszins"
+ ],
+ "ask": "den Rentenbarwertfaktor – mit Formel, vorschüssiger und ewiger Rente und einem durchgerechneten Beispiel"
+}

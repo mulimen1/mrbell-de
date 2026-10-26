@@ -1,0 +1,115 @@
+{
+ "slug": "erwartungswert",
+ "name": "Erwartungswert",
+ "title": "Erwartungswert berechnen – einfach erklärt mit Beispiel",
+ "meta": "Erwartungswert einfach erklärt: Formel, Rechenregeln und ein durchgerechnetes Beispiel zur Standortwahl – plus typische Klausurfehler und Übungsfragen.",
+ "h1": "Erwartungswert einfach erklärt",
+ "kurz": "Der Erwartungswert \\( E(X) \\) ist der Wert, den eine Zufallsvariable im Durchschnitt annimmt, wenn sich das Zufallsexperiment sehr oft wiederholt. Bei diskreten Zufallsvariablen multiplizierst du jeden möglichen Wert mit seiner Wahrscheinlichkeit und addierst alles: \\( E(X) = \\sum x_i \\cdot p_i \\). In der BWL bewertet man damit unsichere Gewinne, Kosten oder Absatzmengen.",
+ "keywords": [
+  "erwartungswert",
+  "erwartungswert berechnen",
+  "erwartungswert formel",
+  "erwartungswert diskrete zufallsvariable",
+  "erwartungswert beispiel",
+  "erwartungswert rechenregeln",
+  "erwartungswert statistik",
+  "bayes-regel entscheidung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist der Erwartungswert?",
+   "html": "<p>Viele wirtschaftliche Größen stehen vorher nicht fest: der Absatz im nächsten Monat, der Gewinn eines Projekts, die Zahl der Kunden, die eine Rechnung nicht bezahlen. In der Statistik beschreibt man so eine Größe als <strong>Zufallsvariable</strong> \\( X \\). Sie kann verschiedene Werte \\( x_i \\) annehmen, jeden mit einer bestimmten Wahrscheinlichkeit \\( p_i \\).</p><p>Der <strong>Erwartungswert</strong> \\( E(X) \\), oft auch \\( \\mu \\) genannt, ist der <em>wahrscheinlichkeitsgewichtete Durchschnitt</em> aller möglichen Werte. Er beantwortet die Frage: Was kommt auf lange Sicht pro Durchgang im Mittel heraus? Wiederholst du ein Zufallsexperiment sehr oft, nähert sich der Durchschnitt der beobachteten Ergebnisse dem Erwartungswert an. Das ist das <strong>Gesetz der großen Zahlen</strong>.</p><p>Wichtig: Der Erwartungswert muss selbst kein möglicher Wert sein. Beim fairen Würfel ist \\( E(X) = 3{,}5 \\), obwohl niemand jemals eine 3,5 würfelt. Er ist auch nicht der wahrscheinlichste Wert, das wäre der Modus.</p><div class=\\\"merke\\\">Erwartungswert = langfristiger Durchschnitt pro Durchgang = Summe aus „Wert mal Wahrscheinlichkeit“.</div>"
+  },
+  {
+   "h2": "Wie berechnet man den Erwartungswert?",
+   "html": "<h3>Diskrete Zufallsvariable</h3><p>Nimmt \\( X \\) nur abzählbar viele Werte an (Stückzahlen, Szenarien, Kundenanzahl), gilt:</p><div class=\\\"formel\\\">\\[ E(X) = \\sum_{i=1}^{n} x_i \\cdot p_i = x_1 \\cdot p_1 + x_2 \\cdot p_2 + \\dots + x_n \\cdot p_n \\]</div><p>Voraussetzung: Die Wahrscheinlichkeiten sind vollständig, also \\( \\sum p_i = 1 \\). Prüf das in der Klausur immer zuerst, denn hier verstecken Aufgabensteller gern eine fehlende Wahrscheinlichkeit, die du als Rest ausrechnen musst.</p><h3>Stetige Zufallsvariable</h3><p>Kann \\( X \\) jeden Wert in einem Intervall annehmen (Umsatz, Zeit, Gewicht), ersetzt das Integral die Summe und die Dichtefunktion \\( f(x) \\) die Wahrscheinlichkeiten:</p><div class=\\\"formel\\\">\\[ E(X) = \\int_{-\\infty}^{\\infty} x \\cdot f(x)\\, dx \\]</div><p>In Wiwi-Klausuren rechnest du das selten von Hand. Für die gängigen Verteilungen kennst du den Erwartungswert direkt: Bei der <a href=\\\"/lernen/binomialverteilung\\\">Binomialverteilung</a> ist er \\( n \\cdot p \\), bei der <a href=\\\"/lernen/normalverteilung\\\">Normalverteilung</a> ist er der Parameter \\( \\mu \\).</p><h3>Rechenschema</h3><p>Für diskrete Aufgaben lohnt sich immer eine kleine Tabelle mit drei Spalten: Wert \\( x_i \\), Wahrscheinlichkeit \\( p_i \\), Produkt \\( x_i \\cdot p_i \\). Die Summe der letzten Spalte ist der Erwartungswert. Die Summe der mittleren Spalte muss 1 ergeben.</p>"
+  },
+  {
+   "h2": "Beispiel: Erwartungswert bei der Standortwahl",
+   "html": "<div class=\\\"beispiel\\\"><p>Ein Foodtruck-Betreiber muss sich für einen Samstag entscheiden: <strong>Standort A</strong> ist ein Open-Air-Festival mit hoher Standgebühr, <strong>Standort B</strong> ein überdachter Platz in der Innenstadt. Der Tagesgewinn hängt vom Wetter ab. Laut Wetterdienst gilt: Sonne mit 50 %, bewölkt mit 30 %, Regen mit 20 %.</p><table><thead><tr><th>Wetter</th><th>\\( p_i \\)</th><th>Gewinn A</th><th>Gewinn B</th></tr></thead><tbody><tr><td>Sonne</td><td>0,5</td><td>4.000 €</td><td>2.000 €</td></tr><tr><td>bewölkt</td><td>0,3</td><td>1.500 €</td><td>1.600 €</td></tr><tr><td>Regen</td><td>0,2</td><td>−1.000 €</td><td>1.200 €</td></tr></tbody></table><p><strong>Schritt 1: Wahrscheinlichkeiten prüfen</strong><br>\\( 0{,}5 + 0{,}3 + 0{,}2 = 1 \\) ✓</p><p><strong>Schritt 2: Erwartungswert Standort A</strong><br>\\( E(A) = 4.000 \\cdot 0{,}5 + 1.500 \\cdot 0{,}3 + (-1.000) \\cdot 0{,}2 = 2.000 + 450 - 200 = 2.250 \\) €</p><p><strong>Schritt 3: Erwartungswert Standort B</strong><br>\\( E(B) = 2.000 \\cdot 0{,}5 + 1.600 \\cdot 0{,}3 + 1.200 \\cdot 0{,}2 = 1.000 + 480 + 240 = 1.720 \\) €</p><p><strong>Schritt 4: Entscheidung nach dem Erwartungswert</strong><br>Standort A bringt im Mittel 530 € mehr pro Samstag. Wer viele Samstage so entscheidet, fährt mit A besser.</p></div><p>Bevor du A ankreuzt, lohnt ein zweiter Blick: Bei A schwankt der Gewinn zwischen −1.000 € und 4.000 €, bei B nur zwischen 1.200 € und 2.000 €. Die <a href=\\\"/lernen/varianz-standardabweichung\\\">Standardabweichung</a> liegt bei A bei rund 1.952,56 €, bei B bei rund 312,41 €. Der Erwartungswert allein sagt über dieses Risiko nichts aus.</p><p><strong>Erweiterung mit Regenversicherung:</strong> Für 350 € kann der Betreiber eine Versicherung kaufen, die bei Regen 1.500 € zahlt. Die erwartete Auszahlung ist \\( 1.500 \\cdot 0{,}2 = 300 \\) €, die Versicherung kostet ihn also im Mittel 50 €. Mit Versicherung sinkt der Erwartungswert von A auf \\( 2.250 - 50 = 2.200 \\) €, dafür steigt der schlechteste Fall von −1.000 € auf \\( -1.000 + 1.500 - 350 = 150 \\) €. Genau so verdienen Versicherer Geld: Für den Kunden ist der Erwartungswert negativ, er bezahlt für weniger Risiko.</p>"
+  },
+  {
+   "h2": "Welche Rechenregeln gelten für den Erwartungswert?",
+   "html": "<p>Mit vier Regeln löst du die meisten Klausuraufgaben, ohne jedes Mal neu zu summieren:</p><div class=\\\"formel\\\">\\[ E(a \\cdot X + b) = a \\cdot E(X) + b \\]\\[ E(X + Y) = E(X) + E(Y) \\]\\[ E(X \\cdot Y) = E(X) \\cdot E(Y) \\quad \\text{nur bei Unabhängigkeit} \\]\\[ E\\big(g(X)\\big) \\neq g\\big(E(X)\\big) \\quad \\text{im Allgemeinen} \\]</div><ul><li><strong>Linearität:</strong> Verkauft der Foodtruck pro Samstag im Mittel 400 Portionen zu 9 € und zahlt 500 € Standgebühr, ist der erwartete Erlös nach Gebühr \\( 9 \\cdot 400 - 500 = 3.100 \\) €. Du musst dafür nicht die ganze Verteilung neu durchrechnen.</li><li><strong>Summenregel:</strong> Der erwartete Gesamtgewinn aus zwei Standorten ist die Summe der Einzelerwartungswerte, und zwar auch dann, wenn beide vom selben Wetter abhängen.</li><li><strong>Produktregel:</strong> Preis und Absatzmenge sind oft voneinander abhängig. Dann ist der erwartete Umsatz <em>nicht</em> einfach erwarteter Preis mal erwartete Menge.</li><li><strong>Nichtlineare Funktionen:</strong> Hier entstehen die teuersten Fehler. Eine Bäckerei backt 100 Brötchen. Die Nachfrage ist mit je 50 % 80 oder 120 Stück, im Mittel also 100. Verkauft werden aber höchstens 100, also \\( E(\\text{Absatz}) = 0{,}5 \\cdot 80 + 0{,}5 \\cdot 100 = 90 \\) Stück, nicht 100. Die Kapazitätsgrenze kappt nur die guten Tage.</li></ul>"
+  },
+  {
+   "h2": "Wann reicht der Erwartungswert für eine Entscheidung?",
+   "html": "<p>Wählst du die Alternative mit dem höchsten Erwartungswert, wendest du die <strong>Bayes-Regel</strong> (auch μ-Prinzip) an. Sie ist sinnvoll, wenn eine Entscheidung oft wiederholt wird, die einzelnen Beträge im Verhältnis zum Vermögen klein sind und Verluste nicht existenzbedrohend sind. Ein Versandhändler, der täglich tausende Bestellungen bearbeitet, darf Retourenkosten getrost mit dem Erwartungswert planen.</p><p>Bei einmaligen, großen Entscheidungen greift die Regel zu kurz. Ein Foodtruck-Betreiber, dem ein Verlust von 1.000 € die Miete kostet, ist <em>risikoscheu</em> und wird B oder A mit Versicherung vorziehen. Formal berücksichtigt das die <strong>μ-σ-Regel</strong>, die Erwartungswert und Standardabweichung gemeinsam bewertet. Sie ist die Grundlage der <a href=\\\"/lernen/portfoliotheorie\\\">Portfoliotheorie</a>, in der Anleger Rendite gegen Risiko abwägen.</p><div class=\\\"merke\\\">Der Erwartungswert misst die Lage, nicht das Risiko. Für eine vollständige Entscheidung brauchst du mindestens noch die Streuung.</div>"
+  },
+  {
+   "h2": "Erwartungswert, Mittelwert, Median: Was ist der Unterschied?",
+   "html": "<table><thead><tr><th>Begriff</th><th>Grundlage</th><th>Bedeutung</th></tr></thead><tbody><tr><td>Erwartungswert \\( E(X) \\)</td><td>Wahrscheinlichkeitsmodell</td><td>theoretischer Durchschnitt der Zufallsvariable</td></tr><tr><td>arithmetisches Mittel \\( \\bar{x} \\)</td><td>beobachtete Daten</td><td>Durchschnitt einer Stichprobe, Schätzer für \\( E(X) \\)</td></tr><tr><td>Median</td><td>Modell oder Daten</td><td>Wert, der die Verteilung in zwei Hälften teilt</td></tr><tr><td>Modus</td><td>Modell oder Daten</td><td>wahrscheinlichster bzw. häufigster Wert</td></tr></tbody></table><p>Der Mittelwert gehört zur beschreibenden Statistik, der Erwartungswert zur Wahrscheinlichkeitsrechnung. Hat der Foodtruck an zehn vergangenen Samstagen im Schnitt 2.100 € verdient, ist das ein <em>Mittelwert</em>. Er schätzt den Erwartungswert, ist aber nicht dasselbe. Bei schiefen Verteilungen, etwa Einkommen oder Schadenshöhen, liegen Erwartungswert und Median oft weit auseinander.</p>"
+  }
+ ],
+ "fehler": [
+  "Wahrscheinlichkeiten nicht prüfen: Ergeben sie nicht 1, fehlt ein Szenario oder du hast dich verrechnet. Ergänze die fehlende Wahrscheinlichkeit als Rest \\( 1 - \\sum p_i \\), bevor du rechnest.",
+  "Durch die Anzahl der Szenarien teilen: \\( \\frac{4.000 + 1.500 - 1.000}{3} \\) ist der ungewichtete Durchschnitt und nur bei gleich wahrscheinlichen Werten richtig. Gewichte immer mit \\( p_i \\).",
+  "Negative Werte vergessen: Verluste gehen mit Minuszeichen in die Summe ein. Wer den Regentag mit +1.000 € statt −1.000 € rechnet, liegt beim Foodtruck um 400 € daneben.",
+  "\\( E(g(X)) = g(E(X)) \\) annehmen: Bei Kapazitätsgrenzen, Quadraten oder Kehrwerten darfst du die Funktion nicht einfach auf den Erwartungswert anwenden. Rechne \\( g(x_i) \\) für jeden Wert und gewichte dann.",
+  "Den Erwartungswert als wahrscheinlichsten Wert interpretieren: Er ist ein langfristiger Durchschnitt und kann sogar ein Wert sein, der nie auftritt."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man den Erwartungswert?",
+   "a": "Du multiplizierst jeden möglichen Wert der Zufallsvariable mit seiner Wahrscheinlichkeit und addierst alle Produkte. Vorher prüfst du, ob die Wahrscheinlichkeiten zusammen 1 ergeben. Bei stetigen Zufallsvariablen tritt an die Stelle der Summe ein Integral über x mal Dichte."
+  },
+  {
+   "q": "Kann der Erwartungswert negativ sein?",
+   "a": "Ja. Sind Verluste groß oder wahrscheinlich genug, ist der Erwartungswert negativ. Das gilt zum Beispiel für Lotto oder Versicherungen aus Sicht des Kunden: Im Mittel zahlt er mehr ein, als er herausbekommt."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Erwartungswert und Mittelwert?",
+   "a": "Der Erwartungswert ist eine theoretische Größe, die aus einer Wahrscheinlichkeitsverteilung folgt. Der Mittelwert wird aus beobachteten Daten berechnet und dient als Schätzer für den Erwartungswert. Je größer die Stichprobe, desto näher liegt der Mittelwert in der Regel am Erwartungswert."
+  },
+  {
+   "q": "Was sagt der Erwartungswert über das Risiko aus?",
+   "a": "Nichts. Zwei Alternativen können denselben Erwartungswert haben und völlig unterschiedlich stark schwanken. Für das Risiko brauchst du Varianz oder Standardabweichung."
+  },
+  {
+   "q": "Wie lautet der Erwartungswert der Binomialverteilung?",
+   "a": "Der Erwartungswert einer binomialverteilten Zufallsvariable ist n mal p, also Anzahl der Versuche mal Erfolgswahrscheinlichkeit. Bei 200 Kunden mit je 3 Prozent Kaufwahrscheinlichkeit erwartest du 6 Käufe."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Ein Projekt bringt mit 60 % Wahrscheinlichkeit 50.000 € Gewinn und mit 40 % einen Verlust von 20.000 €. Wie hoch ist der Erwartungswert?",
+   "o": [
+    "15.000 €",
+    "22.000 €",
+    "30.000 €",
+    "38.000 €"
+   ],
+   "r": 1,
+   "e": "\\( 50.000 \\cdot 0{,}6 + (-20.000) \\cdot 0{,}4 = 30.000 - 8.000 = 22.000 \\) €."
+  },
+  {
+   "q": "Der erwartete Absatz beträgt \\( E(X) = 500 \\) Stück. Der Gewinn ist \\( G = 12 \\cdot X - 4.000 \\). Wie hoch ist der erwartete Gewinn?",
+   "o": [
+    "6.000 €",
+    "500 €",
+    "2.000 €",
+    "−3.988 €"
+   ],
+   "r": 2,
+   "e": "Linearität: \\( E(G) = 12 \\cdot 500 - 4.000 = 2.000 \\) €."
+  },
+  {
+   "q": "Welche Aussage über den Erwartungswert ist richtig?",
+   "o": [
+    "Er ist immer der wahrscheinlichste Wert.",
+    "Er muss einer der möglichen Werte sein.",
+    "Er berücksichtigt die Streuung der Ergebnisse.",
+    "Er ist der langfristige Durchschnitt pro Durchgang."
+   ],
+   "r": 3,
+   "e": "Der Erwartungswert ist der wahrscheinlichkeitsgewichtete Durchschnitt. Er kann ein unmöglicher Wert sein und sagt nichts über die Streuung."
+  }
+ ],
+ "verwandt": [
+  "varianz-standardabweichung",
+  "binomialverteilung",
+  "normalverteilung",
+  "portfoliotheorie"
+ ],
+ "ask": "den Erwartungswert – mit Formel, Rechenregeln und einem durchgerechneten Beispiel zu einer Entscheidung unter Unsicherheit"
+}

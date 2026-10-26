@@ -1,0 +1,116 @@
+{
+ "slug": "monopol",
+ "name": "Monopol",
+ "title": "Monopol einfach erklärt – Cournot-Punkt mit Beispiel",
+ "meta": "Monopol verständlich: Grenzerlös = Grenzkosten, Cournot-Punkt, Monopolpreis, Wohlfahrtsverlust und Lerner-Index – mit durchgerechnetem Beispiel.",
+ "h1": "Monopol einfach erklärt",
+ "kurz": "Ein Monopol ist eine Marktform mit nur einem Anbieter und vielen Nachfragern. Der Monopolist ist Preissetzer: Er wählt die Menge, bei der Grenzerlös gleich Grenzkosten ist, und liest den Preis an der Preis-Absatz-Funktion ab (Cournot-Punkt). Im Vergleich zum Wettbewerb ist der Preis höher, die Menge kleiner, und es entsteht ein Wohlfahrtsverlust.",
+ "keywords": [
+  "monopol",
+  "cournot punkt",
+  "monopolpreis berechnen",
+  "grenzerlös gleich grenzkosten",
+  "angebotsmonopol",
+  "natürliches monopol",
+  "wohlfahrtsverlust monopol",
+  "monopol gewinnmaximierung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist ein Monopol?",
+   "html": "<p>Ein <strong>Monopol</strong> (genauer: Angebotsmonopol) liegt vor, wenn ein einziger Anbieter vielen Nachfragern gegenübersteht. Im Schema der <a href=\"/lernen/marktformen\">Marktformen</a> ist es das Gegenstück zum Polypol. Der entscheidende Unterschied: Der Monopolist hat keine Konkurrenten, auf die die Kunden ausweichen könnten. Er sieht sich deshalb der gesamten, fallenden Marktnachfrage gegenüber und kann den Preis selbst festlegen. Er ist <strong>Preissetzer</strong>, nicht Preisnehmer.</p><p>Frei schalten und walten kann er trotzdem nicht. Er kann entweder den Preis oder die Menge bestimmen, aber nicht beides. Setzt er einen hohen Preis, verkauft er weniger. Diese Abhängigkeit beschreibt die <strong>Preis-Absatz-Funktion</strong> \\( p(x) \\), also die Nachfragekurve aus Sicht des Anbieters.</p><h3>Wie entstehen Monopole?</h3><ul><li><strong>Rechtliche Schranken:</strong> Patente, Lizenzen, staatliche Konzessionen.</li><li><strong>Natürliches Monopol:</strong> Bei sehr hohen Fixkosten und sinkenden Durchschnittskosten (Schienennetz, Stromnetz, Wasserleitungen) kann ein Anbieter den Markt billiger versorgen als mehrere.</li><li><strong>Kontrolle über knappe Ressourcen</strong> oder starke Netzwerkeffekte, bei denen ein Produkt umso wertvoller wird, je mehr Menschen es nutzen.</li></ul>"
+  },
+  {
+   "h2": "Wie bestimmt der Monopolist Preis und Menge?",
+   "html": "<p>Der Monopolist maximiert seinen Gewinn \\( G(x) = E(x) - K(x) \\). Leitest du nach der Menge ab und setzt null, erhältst du die zentrale Bedingung:</p><div class=\"formel\">\\[ GE(x) = GK(x) \\]</div><p>Der <strong>Grenzerlös</strong> GE ist der zusätzliche Erlös aus einer weiteren Einheit, die <a href=\"/lernen/grenzkosten\">Grenzkosten</a> GK sind die zusätzlichen Kosten. Solange eine weitere Einheit mehr Erlös als Kosten bringt, lohnt sie sich.</p><p>Der Knackpunkt: Beim Monopolisten ist der Grenzerlös <strong>kleiner als der Preis</strong>. Will er eine Einheit mehr verkaufen, muss er den Preis senken, und zwar für alle Einheiten, nicht nur für die zusätzliche. Bei einer linearen Preis-Absatz-Funktion gilt:</p><div class=\"formel\">\\[ p(x) = a - b x \\quad \\Rightarrow \\quad E(x) = a x - b x^2 \\quad \\Rightarrow \\quad GE(x) = a - 2 b x \\]</div><p>Die Grenzerlöskurve hat also dieselbe Achsenschnittstelle wie die Preis-Absatz-Funktion, aber die <strong>doppelte Steigung</strong>. Das Vorgehen in drei Schritten:</p><ol><li>GE und GK bestimmen und gleichsetzen, daraus folgt die gewinnmaximale Menge \\( x^* \\).</li><li>\\( x^* \\) in die Preis-Absatz-Funktion einsetzen, daraus folgt der Preis \\( p^* \\). Nicht in die GK- oder GE-Funktion!</li><li>Gewinn berechnen: \\( G = p^* \\cdot x^* - K(x^*) \\).</li></ol><p>Der Punkt \\( (x^*, p^*) \\) auf der Preis-Absatz-Funktion heißt <strong>Cournot-Punkt</strong>.</p>"
+  },
+  {
+   "h2": "Beispiel: Cournot-Punkt berechnen",
+   "html": "<div class=\"beispiel\"><p>Ein Unternehmen hält das Patent auf einen Schnelltest. Die Preis-Absatz-Funktion lautet \\( p = 100 - 2x \\) (p in € pro Stück, x in Tausend Stück). Die Kostenfunktion ist \\( K = 400 + 20x \\) (in Tausend €), die Grenzkosten sind also konstant 20 €.</p><p><strong>Schritt 1: Erlös und Grenzerlös</strong><br>\\( E = (100 - 2x) \\cdot x = 100x - 2x^2 \\Rightarrow GE = 100 - 4x \\)</p><p><strong>Schritt 2: GE = GK</strong><br>\\( 100 - 4x = 20 \\Rightarrow x^* = \\frac{80}{4} = 20 \\) Tausend Stück</p><p><strong>Schritt 3: Preis an der Preis-Absatz-Funktion ablesen</strong><br>\\( p^* = 100 - 2 \\cdot 20 = 60 \\) €</p><p><strong>Schritt 4: Gewinn</strong><br>\\( E = 60 \\cdot 20 = 1.200 \\), \\( K = 400 + 20 \\cdot 20 = 800 \\)<br>\\( G = 1.200 - 800 = 400 \\) Tausend €</p><p><strong>Vergleich mit Wettbewerb:</strong> Unter vollständiger Konkurrenz gälte Preis = Grenzkosten: \\( 100 - 2x = 20 \\Rightarrow x = 40 \\), \\( p = 20 \\) €.</p><table><thead><tr><th></th><th>Monopol</th><th>Wettbewerb</th></tr></thead><tbody><tr><td>Menge (Tsd. Stück)</td><td>20</td><td>40</td></tr><tr><td>Preis</td><td>60 €</td><td>20 €</td></tr><tr><td>Konsumentenrente (Tsd. €)</td><td>\\( \\frac{1}{2} \\cdot 20 \\cdot 40 = 400 \\)</td><td>\\( \\frac{1}{2} \\cdot 40 \\cdot 80 = 1.600 \\)</td></tr><tr><td>Produzentenrente (Tsd. €)</td><td>\\( (60 - 20) \\cdot 20 = 800 \\)</td><td>0</td></tr><tr><td>Wohlfahrtsverlust (Tsd. €)</td><td>\\( \\frac{1}{2} \\cdot 40 \\cdot 20 = 400 \\)</td><td>0</td></tr></tbody></table></div><p>Die Gesamtwohlfahrt sinkt von 1.600 auf \\( 400 + 800 = 1.200 \\) Tausend €. 800 Tausend € wandern von den Konsumenten zum Monopolisten (Umverteilung), 400 Tausend € gehen komplett verloren: Das sind Tests, die Kunden zu einem Preis zwischen 20 € und 60 € gekauft hätten und die zu den Grenzkosten von 20 € produzierbar wären, aber nicht verkauft werden. Mehr zu den Renten findest du unter <a href=\"/lernen/konsumentenrente-produzentenrente\">Konsumenten- und Produzentenrente</a>. Beachte: Die Produzentenrente ist der Deckungsbeitrag. Nach Abzug der Fixkosten von 400 bleibt der Gewinn von 400.</p>"
+  },
+  {
+   "h2": "Wie hängen Monopolpreis und Preiselastizität zusammen?",
+   "html": "<p>Der Grenzerlös lässt sich mit der <a href=\"/lernen/preiselastizitaet\">Preiselastizität</a> der Nachfrage \\( \\varepsilon \\) ausdrücken (Amoroso-Robinson-Relation):</p><div class=\"formel\">\\[ GE = p \\cdot \\left(1 + \\frac{1}{\\varepsilon}\\right) \\]</div><p>Daraus folgen zwei Klausurklassiker:</p><ul><li><strong>Der Monopolist produziert nur im elastischen Bereich</strong> (\\( |\\varepsilon| > 1 \\)). Bei unelastischer Nachfrage ist der Grenzerlös negativ. Dann könnte er mit weniger Menge und höherem Preis mehr Erlös und gleichzeitig weniger Kosten haben.</li><li><strong>Je unelastischer die Nachfrage, desto höher der Aufschlag.</strong> Das misst der Lerner-Index:</li></ul><div class=\"formel\">\\[ L = \\frac{p - GK}{p} = \\frac{1}{|\\varepsilon|} \\]</div><p>Im Beispiel: \\( \\varepsilon = \\frac{dx}{dp} \\cdot \\frac{p}{x} = -\\frac{1}{2} \\cdot \\frac{60}{20} = -1{,}5 \\). Lerner-Index: \\( \\frac{60 - 20}{60} = \\frac{2}{3} \\approx 0{,}67 \\), und tatsächlich \\( \\frac{1}{1{,}5} = \\frac{2}{3} \\). Der Monopolist schlägt also zwei Drittel des Preises auf die Grenzkosten auf. Im Wettbewerb wäre der Lerner-Index null.</p><div class=\"merke\">Gewinnmaximum ist nicht Umsatzmaximum. Den Umsatz maximiert der Monopolist bei GE = 0, also bei \\( x = 25 \\) und \\( p = 50 \\) €. Der Gewinn wäre dort nur \\( 1.250 - 900 = 350 \\) statt 400.</div>"
+  },
+  {
+   "h2": "Warum ist ein Monopol problematisch und wie reagiert der Staat?",
+   "html": "<p>Das Monopol ist ein klassischer Fall von <a href=\"/lernen/marktversagen\">Marktversagen</a>: Zu wenig Menge, zu hoher Preis, Wohlfahrtsverlust. Dazu kommen dynamische Probleme. Ohne Wettbewerbsdruck fehlt oft der Anreiz, effizient zu arbeiten oder Qualität zu verbessern, und Unternehmen investieren Ressourcen in den Erhalt ihrer Stellung (Lobbying, Marktabschottung).</p><p><strong>Es gibt aber auch Argumente für Monopole:</strong></p><ul><li>Patente sind ein befristetes Monopol, das Innovation überhaupt erst lohnend macht.</li><li>Beim natürlichen Monopol wären mehrere parallele Netze Verschwendung. Hier wird nicht das Monopol verboten, sondern reguliert, etwa über Preis- oder Entgeltvorgaben.</li><li>Monopolgewinne können Forschung finanzieren (Schumpeter-Argument).</li></ul><p><strong>Rechtlicher Rahmen (Stand 2026):</strong> Verboten ist in Deutschland nicht die marktbeherrschende Stellung an sich, sondern ihr <strong>Missbrauch</strong> (§ 19 GWB, auf EU-Ebene Art. 102 AEUV). Nach § 18 Abs. 4 GWB wird vermutet, dass ein Unternehmen marktbeherrschend ist, wenn es mindestens 40 Prozent Marktanteil hat. Zuständig ist das Bundeskartellamt, das auch Fusionen prüft, die eine solche Stellung erst schaffen würden.</p>"
+  },
+  {
+   "h2": "Abgrenzung: Monopol, Oligopol, Polypol und Preisdifferenzierung",
+   "html": "<table><thead><tr><th></th><th>Polypol</th><th>Oligopol</th><th>Monopol</th></tr></thead><tbody><tr><td>Anbieter</td><td>viele</td><td>wenige</td><td>einer</td></tr><tr><td>Preisverhalten</td><td>Preisnehmer</td><td>strategisch, abhängig von Konkurrenten</td><td>Preissetzer</td></tr><tr><td>Optimumregel</td><td>\\( p = GK \\)</td><td>je nach Modell</td><td>\\( GE = GK \\)</td></tr><tr><td>Preis gegenüber GK</td><td>gleich</td><td>dazwischen</td><td>darüber</td></tr></tbody></table><p>Im <a href=\"/lernen/vollkommener-wettbewerb\">vollkommenen Wettbewerb</a> ist der Grenzerlös gleich dem Preis, weil das einzelne Unternehmen den Marktpreis nicht beeinflusst. Im <a href=\"/lernen/oligopol\">Oligopol</a> muss jeder Anbieter die Reaktion der wenigen Konkurrenten einkalkulieren, das Monopol kennt dieses Problem nicht.</p><p>Diese Seite behandelt den Monopolisten mit <strong>einem</strong> Einheitspreis. Kann er unterschiedlichen Kundengruppen unterschiedliche Preise abverlangen, schöpft er zusätzliche Konsumentenrente ab. Wie das funktioniert, zeigt die <a href=\"/lernen/preisdifferenzierung\">Preisdifferenzierung</a>.</p>"
+  }
+ ],
+ "fehler": [
+  "Preis an der falschen Kurve ablesen: Nach GE = GK setzt du \\( x^* \\) in die Preis-Absatz-Funktion ein, nicht in die Grenzerlös- oder Grenzkostenfunktion. Im Beispiel wären das sonst 20 € statt 60 €.",
+  "Grenzerlös mit Preis verwechseln: Beim Monopolisten ist \\( GE = a - 2bx \\), nicht \\( a - bx \\). Wer die doppelte Steigung vergisst, landet bei der Wettbewerbsmenge.",
+  "Monopolist setzt den höchstmöglichen Preis: Falsch. Er maximiert den Gewinn, nicht den Preis. Ein höherer Preis kostet Absatz, deshalb liegt das Optimum im Cournot-Punkt.",
+  "Gewinnmaximum mit Umsatzmaximum gleichsetzen: Der Umsatz ist bei GE = 0 maximal, der Gewinn bei GE = GK. Nur wenn die Grenzkosten null sind, fallen beide Punkte zusammen.",
+  "Wohlfahrtsverlust mit Monopolgewinn verwechseln: Der Monopolgewinn ist Umverteilung von Konsumenten zum Anbieter. Der Wohlfahrtsverlust ist das Dreieck zwischen Nachfragekurve und Grenzkosten im Bereich zwischen Monopol- und Wettbewerbsmenge."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Cournot-Punkt?",
+   "a": "Der Cournot-Punkt ist die gewinnmaximale Preis-Mengen-Kombination des Monopolisten. Die Menge ergibt sich aus Grenzerlös gleich Grenzkosten, den Preis liest man an der Preis-Absatz-Funktion ab. Er ist nach dem französischen Ökonomen Antoine Augustin Cournot benannt."
+  },
+  {
+   "q": "Warum ist der Grenzerlös im Monopol kleiner als der Preis?",
+   "a": "Um eine zusätzliche Einheit zu verkaufen, muss der Monopolist den Preis für alle Einheiten senken. Der Grenzerlös ist daher der Preis der zusätzlichen Einheit minus der Erlösverlust bei allen bisherigen Einheiten. Bei linearer Nachfrage hat die Grenzerlöskurve die doppelte Steigung."
+  },
+  {
+   "q": "Was ist ein natürliches Monopol?",
+   "a": "Ein natürliches Monopol liegt vor, wenn ein einziger Anbieter den gesamten Markt kostengünstiger versorgen kann als mehrere, meist wegen sehr hoher Fixkosten und sinkender Durchschnittskosten. Typische Beispiele sind Strom-, Gas- und Schienennetze. Sie werden statt durch Wettbewerb durch Regulierung kontrolliert."
+  },
+  {
+   "q": "Sind Monopole in Deutschland verboten?",
+   "a": "Nein, eine marktbeherrschende Stellung ist nicht verboten, wohl aber ihr Missbrauch, etwa durch überhöhte Preise oder das Behindern von Wettbewerbern. Das regeln § 19 GWB und Art. 102 AEUV. Das Bundeskartellamt kann außerdem Fusionen untersagen, die zu Marktbeherrschung führen würden."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Monopol und Monopson?",
+   "a": "Beim Monopol gibt es nur einen Anbieter, beim Monopson (Nachfragemonopol) nur einen Nachfrager. Ein Monopson kann den Einkaufspreis drücken, etwa ein einziger großer Arbeitgeber in einer Region gegenüber den Arbeitnehmern."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Preis-Absatz-Funktion \\( p = 80 - x \\), konstante Grenzkosten 20 €. Welcher Preis maximiert den Monopolgewinn?",
+   "o": [
+    "20 €",
+    "40 €",
+    "60 €",
+    "50 €"
+   ],
+   "r": 3,
+   "e": "\\( GE = 80 - 2x = 20 \\Rightarrow x = 30 \\), Preis an der Preis-Absatz-Funktion: \\( p = 80 - 30 = 50 \\) €."
+  },
+  {
+   "q": "In welchem Bereich der Nachfragekurve produziert ein gewinnmaximierender Monopolist?",
+   "o": [
+    "Im elastischen Bereich, |ε| > 1",
+    "Im unelastischen Bereich, |ε| < 1",
+    "Genau bei |ε| = 1",
+    "Das hängt allein von den Fixkosten ab"
+   ],
+   "r": 0,
+   "e": "Bei unelastischer Nachfrage ist der Grenzerlös negativ. Weil die Grenzkosten positiv sind, kann GE = GK nur im elastischen Bereich gelten."
+  },
+  {
+   "q": "Die Fixkosten eines Monopolisten steigen. Wie ändert sich der gewinnmaximale Preis?",
+   "o": [
+    "Er steigt um die anteiligen Fixkosten",
+    "Er sinkt",
+    "Er bleibt gleich",
+    "Er steigt nur, wenn die Nachfrage unelastisch ist"
+   ],
+   "r": 2,
+   "e": "Fixkosten beeinflussen weder Grenzerlös noch Grenzkosten. Der Cournot-Punkt bleibt gleich, nur der Gewinn sinkt."
+  }
+ ],
+ "verwandt": [
+  "marktformen",
+  "oligopol",
+  "vollkommener-wettbewerb",
+  "preisdifferenzierung",
+  "konsumentenrente-produzentenrente"
+ ],
+ "ask": "das Monopol – mit Cournot-Punkt, Grenzerlös gleich Grenzkosten und Wohlfahrtsverlust an einem durchgerechneten Beispiel"
+}

@@ -1,0 +1,116 @@
+{
+  "slug": "korrelation",
+  "name": "Korrelation",
+  "title": "Korrelation einfach erklärt – Koeffizient mit Beispiel",
+  "meta": "Korrelation verständlich erklärt: Korrelationskoeffizient nach Bravais-Pearson berechnen, interpretieren, Spearman und Kausalität – mit Rechenbeispiel.",
+  "h1": "Korrelation einfach erklärt",
+  "kurz": "Die Korrelation misst Stärke und Richtung des linearen Zusammenhangs zwischen zwei metrischen Merkmalen. Der Korrelationskoeffizient nach Bravais-Pearson r liegt immer zwischen −1 und +1: Werte nahe +1 bedeuten einen starken positiven, Werte nahe −1 einen starken negativen und Werte nahe 0 keinen linearen Zusammenhang. Korrelation beweist keine Kausalität.",
+  "keywords": [
+    "korrelation",
+    "korrelationskoeffizient",
+    "korrelationskoeffizient berechnen",
+    "bravais pearson",
+    "korrelation interpretieren",
+    "rangkorrelation spearman",
+    "korrelation und kausalität",
+    "kovarianz"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist Korrelation?",
+      "html": "<p>Mit der Korrelation beantwortest du eine typische Frage der Wirtschaftsstatistik: <strong>Bewegen sich zwei Merkmale gemeinsam?</strong> Steigt der Umsatz, wenn mehr für Werbung ausgegeben wird? Sinkt die Nachfrage, wenn der Preis steigt? Hängt das Gehalt mit der Berufserfahrung zusammen?</p><p>Die Korrelation liefert dafür eine einzige Zahl, den <strong>Korrelationskoeffizienten</strong>. Er sagt dir zwei Dinge:</p><ul><li><strong>Richtung:</strong> Positiv heißt „je mehr, desto mehr“ (Werbung und Umsatz), negativ heißt „je mehr, desto weniger“ (Preis und Absatzmenge).</li><li><strong>Stärke:</strong> Je näher der Betrag an 1 liegt, desto enger liegen die Punkte im Streudiagramm an einer Geraden.</li></ul><p>Wichtig ist das Wort <em>linear</em>. Der Pearson-Koeffizient erkennt nur Zusammenhänge, die sich durch eine Gerade beschreiben lassen. Ein U-förmiger Zusammenhang – etwa zwischen Lagerbestand und Gesamtkosten – kann trotz perfekter Abhängigkeit ein r nahe 0 liefern.</p><div class=\"merke\">Korrelation misst, wie eng zwei Merkmale linear zusammenhängen – nicht, ob das eine das andere verursacht.</div>"
+    },
+    {
+      "h2": "Wie berechnet man den Korrelationskoeffizienten?",
+      "html": "<p>Grundlage ist die <strong>Kovarianz</strong>. Sie misst, ob die Abweichungen beider Merkmale vom jeweiligen Mittelwert in dieselbe Richtung zeigen. Ihr Problem: Sie hängt von den Einheiten ab. Rechnest du Umsatz in Euro statt in Tausend Euro, wird die Kovarianz tausendmal größer – über die Stärke sagt sie also wenig. Deshalb teilt man durch beide <a href=\"/lernen/varianz-standardabweichung\">Standardabweichungen</a> und erhält eine einheitenlose Kennzahl:</p><div class=\"formel\">\\[ s_{xy} = \\frac{1}{n} \\sum_{i=1}^{n} (x_i - \\bar{x})(y_i - \\bar{y}) \\]\\[ r = \\frac{s_{xy}}{s_x \\cdot s_y} = \\frac{\\sum_{i=1}^{n} (x_i - \\bar{x})(y_i - \\bar{y})}{\\sqrt{\\sum_{i=1}^{n} (x_i - \\bar{x})^2 \\cdot \\sum_{i=1}^{n} (y_i - \\bar{y})^2}} \\]</div><p>Die rechte Form ist für Klausuren am praktischsten: Die Faktoren \\( \\frac{1}{n} \\) bzw. \\( \\frac{1}{n-1} \\) kürzen sich heraus, du brauchst nur drei Summen. Ob dein Skript Kovarianz und Standardabweichung mit n oder mit n − 1 definiert, ist für r also egal – solange du überall dieselbe Variante nimmst.</p><p>Für die Interpretation gilt in vielen Lehrbüchern diese grobe Faustregel (die Grenzen variieren je nach Skript):</p><table><thead><tr><th>Betrag von r</th><th>Interpretation</th></tr></thead><tbody><tr><td>unter 0,2</td><td>kein bzw. sehr schwacher linearer Zusammenhang</td></tr><tr><td>0,2 bis unter 0,5</td><td>schwacher Zusammenhang</td></tr><tr><td>0,5 bis unter 0,8</td><td>mittlerer Zusammenhang</td></tr><tr><td>ab 0,8</td><td>starker Zusammenhang</td></tr></tbody></table>"
+    },
+    {
+      "h2": "Beispiel: Werbeausgaben und Umsatz",
+      "html": "<div class=\"beispiel\"><p>Eine Bäckereikette testet in sechs Filialen unterschiedlich hohe lokale Werbebudgets und notiert den Monatsumsatz (jeweils in Tausend Euro):</p><table><thead><tr><th>Filiale</th><th>Werbung x</th><th>Umsatz y</th><th>\\( x_i - \\bar{x} \\)</th><th>\\( y_i - \\bar{y} \\)</th><th>Produkt</th><th>\\( (x_i - \\bar{x})^2 \\)</th><th>\\( (y_i - \\bar{y})^2 \\)</th></tr></thead><tbody><tr><td>A</td><td>2</td><td>42</td><td>−4</td><td>−12</td><td>48</td><td>16</td><td>144</td></tr><tr><td>B</td><td>4</td><td>45</td><td>−2</td><td>−9</td><td>18</td><td>4</td><td>81</td></tr><tr><td>C</td><td>5</td><td>52</td><td>−1</td><td>−2</td><td>2</td><td>1</td><td>4</td></tr><tr><td>D</td><td>7</td><td>50</td><td>1</td><td>−4</td><td>−4</td><td>1</td><td>16</td></tr><tr><td>E</td><td>8</td><td>64</td><td>2</td><td>10</td><td>20</td><td>4</td><td>100</td></tr><tr><td>F</td><td>10</td><td>71</td><td>4</td><td>17</td><td>68</td><td>16</td><td>289</td></tr><tr><td><strong>Summe</strong></td><td>36</td><td>324</td><td>0</td><td>0</td><td><strong>152</strong></td><td><strong>42</strong></td><td><strong>634</strong></td></tr></tbody></table><p><strong>Schritt 1: Mittelwerte</strong><br>\\( \\bar{x} = \\frac{36}{6} = 6 \\) und \\( \\bar{y} = \\frac{324}{6} = 54 \\) (Tausend Euro).</p><p><strong>Schritt 2: Abweichungen und Produkte</strong><br>Siehe Tabelle. Kontrolle: Die Abweichungen summieren sich jeweils zu 0.</p><p><strong>Schritt 3: Korrelationskoeffizient</strong><br>\\( r = \\frac{152}{\\sqrt{42 \\cdot 634}} = \\frac{152}{\\sqrt{26.628}} = \\frac{152}{163{,}18} \\approx 0{,}93 \\)</p><p><strong>Schritt 4: Probe über Kovarianz und Standardabweichungen</strong> (Variante mit 1/n)<br>\\( s_{xy} = \\frac{152}{6} \\approx 25{,}33 \\), \\( s_x = \\sqrt{\\frac{42}{6}} \\approx 2{,}646 \\), \\( s_y = \\sqrt{\\frac{634}{6}} \\approx 10{,}279 \\)<br>\\( r = \\frac{25{,}33}{2{,}646 \\cdot 10{,}279} \\approx 0{,}93 \\) ✓</p><p><strong>Schritt 5: Bestimmtheitsmaß</strong><br>\\( r^2 = 0{,}9315^2 \\approx 0{,}87 \\)</p></div><p><strong>Interpretation:</strong> Mit r ≈ 0,93 besteht ein starker positiver linearer Zusammenhang: Filialen mit mehr Werbung erzielen tendenziell mehr Umsatz. Das Bestimmtheitsmaß sagt, dass rund 87 % der Streuung der Umsätze durch einen linearen Zusammenhang mit den Werbeausgaben erklärt werden können. Wie viel Umsatz ein zusätzlicher Werbe-Euro bringt, verrät r dagegen nicht – dafür brauchst du die Steigung einer <a href=\"/lernen/regression\">linearen Regression</a>.</p>"
+    },
+    {
+      "h2": "Was ist die Rangkorrelation nach Spearman?",
+      "html": "<p>Pearson setzt metrische Daten voraus und reagiert empfindlich auf Ausreißer. Hast du nur Rangfolgen (Kundenzufriedenheit „sehr gut“ bis „mangelhaft“, Platzierungen im Ranking) oder einen monotonen, aber nicht linearen Zusammenhang, nimmst du den <strong>Rangkorrelationskoeffizienten nach Spearman</strong>. Du ersetzt die Werte durch ihre Ränge und rechnest mit den Rangdifferenzen \\( d_i \\):</p><div class=\"formel\">\\[ r_s = 1 - \\frac{6 \\cdot \\sum_{i=1}^{n} d_i^2}{n \\cdot (n^2 - 1)} \\]</div><p>Diese Kurzformel gilt nur, wenn keine Bindungen (gleiche Werte) auftreten. Im Beispiel haben die Werbebudgets die Ränge 1 bis 6. Bei den Umsätzen tauschen nur Filiale C (52, Rang 4) und D (50, Rang 3) die Plätze. Damit ist \\( \\sum d_i^2 = 1 + 1 = 2 \\) und</p><div class=\"formel\">\\[ r_s = 1 - \\frac{6 \\cdot 2}{6 \\cdot (36 - 1)} = 1 - \\frac{12}{210} \\approx 0{,}94 \\]</div><p>Auch nach Rängen zeigt sich ein starker positiver Zusammenhang. Spearman ist etwas höher als Pearson, weil er nur die Reihenfolge bewertet, nicht wie gerade die Punkte liegen.</p>"
+    },
+    {
+      "h2": "Korrelation und Kausalität: Was darf man folgern?",
+      "html": "<p>Der wichtigste Satz der ganzen Korrelationsrechnung: <strong>Korrelation ist keine Kausalität.</strong> Ein hohes r zeigt nur, dass zwei Merkmale gemeinsam variieren. Für den Zusammenhang gibt es mehrere mögliche Erklärungen:</p><ul><li><strong>x beeinflusst y:</strong> Werbung steigert den Umsatz.</li><li><strong>y beeinflusst x (umgekehrte Kausalität):</strong> Umsatzstarke Filialen bekommen mehr Werbebudget, weil sich das Management dort mehr verspricht.</li><li><strong>Drittvariable (Scheinkorrelation):</strong> Filialen in Innenstadtlage haben mehr Laufkundschaft und werden zugleich stärker beworben. Die Lage treibt beides.</li><li><strong>Zufall:</strong> Bei nur sechs Beobachtungen kann ein hohes r auch zufällig entstehen. Ob es statistisch gesichert ist, prüfst du mit einem <a href=\"/lernen/hypothesentest\">Hypothesentest</a>.</li></ul><p>Ein Klassiker zur Scheinkorrelation: Eisverkäufe und Sonnenbrände korrelieren positiv – verursacht durch das Wetter. In der Ökonomie passiert das ständig, weil viele Größen mit der Konjunktur oder mit der Zeit gemeinsam wachsen. Zwei Zeitreihen mit Trend, etwa Umsatz eines Unternehmens und Bevölkerungszahl, korrelieren fast immer hoch, ohne dass ein Zusammenhang besteht.</p><p>Kausale Aussagen erlauben erst kontrollierte Experimente (etwa ein A/B-Test mit zufällig ausgewählten Filialen) oder ökonometrische Verfahren, die Drittvariablen berücksichtigen.</p>"
+    },
+    {
+      "h2": "Korrelation, Kovarianz und Regression: der Unterschied",
+      "html": "<table><thead><tr><th>Kennzahl</th><th>Wertebereich</th><th>Aussage</th></tr></thead><tbody><tr><td>Kovarianz \\( s_{xy} \\)</td><td>beliebig, mit Einheit</td><td>nur die Richtung ist sinnvoll interpretierbar</td></tr><tr><td>Korrelationskoeffizient r</td><td>−1 bis +1</td><td>Richtung und Stärke des linearen Zusammenhangs, symmetrisch in x und y</td></tr><tr><td>Bestimmtheitsmaß \\( r^2 \\)</td><td>0 bis 1</td><td>Anteil der erklärten Streuung</td></tr><tr><td>Regressionssteigung b</td><td>beliebig, mit Einheit</td><td>um wie viel y im Schnitt steigt, wenn x um eine Einheit steigt</td></tr></tbody></table><p>Korrelation ist symmetrisch: r zwischen Werbung und Umsatz ist dasselbe wie zwischen Umsatz und Werbung. Die Regression unterscheidet dagegen zwischen abhängiger und unabhängiger Variable und liefert eine Prognosegleichung. In der Finanzwirtschaft begegnet dir die Korrelation wieder bei der <a href=\"/lernen/portfoliotheorie\">Portfoliotheorie</a>: Je niedriger die Korrelation zweier Aktien, desto stärker sinkt das Risiko durch Diversifikation.</p><p><strong>Vorteile</strong> des Korrelationskoeffizienten: leicht zu berechnen, einheitenlos und damit vergleichbar, schnell interpretierbar. <strong>Grenzen:</strong> erfasst nur lineare Zusammenhänge, ist ausreißeranfällig (ein einzelner Extremwert kann r stark verändern), sagt nichts über Ursache und Wirkung und nichts über die Größe des Effekts.</p>"
+    }
+  ],
+  "fehler": [
+    "Aus einem hohen r auf Ursache und Wirkung schließen: r zeigt nur gemeinsame Bewegung. Nenne in der Klausur immer mögliche Drittvariablen oder umgekehrte Kausalität.",
+    "r = 0 als „kein Zusammenhang“ deuten: Es gibt dann nur keinen linearen Zusammenhang. Ein U-förmiger Zusammenhang kann trotzdem perfekt sein – schau dir das Streudiagramm an.",
+    "Die Stärke an der Kovarianz ablesen: Die Kovarianz hängt von den Einheiten ab. Für die Stärke musst du durch beide Standardabweichungen teilen und r berechnen.",
+    "n und n − 1 mischen: Wer die Kovarianz mit 1/n und die Standardabweichungen mit 1/(n − 1) rechnet, bekommt ein falsches r. Nimm überall dieselbe Variante oder gleich die Formel mit den drei Summen.",
+    "Den Koeffizienten mit der Steigung verwechseln: r = 0,93 heißt nicht, dass jeder Werbe-Euro 0,93 € Umsatz bringt. Die Effektgröße liefert erst die Regression."
+  ],
+  "faq": [
+    {
+      "q": "Was sagt der Korrelationskoeffizient aus?",
+      "a": "Er gibt Richtung und Stärke des linearen Zusammenhangs zweier metrischer Merkmale an. Das Vorzeichen zeigt die Richtung, der Betrag die Stärke. Werte nahe +1 oder −1 bedeuten, dass die Punkte im Streudiagramm eng an einer Geraden liegen."
+    },
+    {
+      "q": "Ab wann ist eine Korrelation stark?",
+      "a": "Als grobe Faustregel gilt ein Betrag ab etwa 0,8 als stark, zwischen 0,5 und 0,8 als mittel und unter 0,5 als schwach. Die genauen Grenzen unterscheiden sich je nach Lehrbuch, und in den Sozialwissenschaften gelten oft schon kleinere Werte als bedeutsam."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Pearson und Spearman?",
+      "a": "Pearson misst den linearen Zusammenhang metrischer Daten. Spearman arbeitet mit Rängen und misst, ob ein monotoner Zusammenhang besteht. Spearman eignet sich für ordinale Daten und ist robuster gegenüber Ausreißern."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Korrelation und Regression?",
+      "a": "Die Korrelation misst nur, wie eng zwei Merkmale linear zusammenhängen, und ist symmetrisch. Die Regression schätzt eine Gerade mit Achsenabschnitt und Steigung, unterscheidet zwischen abhängiger und unabhängiger Variable und erlaubt Prognosen."
+    },
+    {
+      "q": "Was bedeutet ein negativer Korrelationskoeffizient?",
+      "a": "Ein negatives r bedeutet: Steigt das eine Merkmal, sinkt das andere tendenziell. Ein typisches Beispiel aus der Ökonomie ist der Zusammenhang zwischen Preis und Absatzmenge. Die Stärke liest du am Betrag ab, r = −0,9 ist also ein starker Zusammenhang."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Welche Aussage über den Korrelationskoeffizienten nach Bravais-Pearson ist richtig?",
+      "o": [
+        "Er kann Werte größer als 1 annehmen, wenn die Daten stark streuen.",
+        "Er misst Stärke und Richtung des linearen Zusammenhangs.",
+        "Er gibt an, um wie viel y steigt, wenn x um 1 steigt.",
+        "Ein Wert von 0 beweist, dass die Merkmale unabhängig sind."
+      ],
+      "r": 1,
+      "e": "r liegt immer zwischen −1 und +1 und misst nur den linearen Zusammenhang. Die Steigung liefert die Regression, und r = 0 schließt nichtlineare Zusammenhänge nicht aus."
+    },
+    {
+      "q": "Gegeben sind \\( \\sum (x_i - \\bar{x})(y_i - \\bar{y}) = 60 \\), \\( \\sum (x_i - \\bar{x})^2 = 25 \\) und \\( \\sum (y_i - \\bar{y})^2 = 400 \\). Wie groß ist r?",
+      "o": [
+        "0,15",
+        "0,6",
+        "2,4",
+        "0,36"
+      ],
+      "r": 1,
+      "e": "\\( r = \\frac{60}{\\sqrt{25 \\cdot 400}} = \\frac{60}{100} = 0{,}6 \\). 0,36 wäre das Bestimmtheitsmaß \\( r^2 \\)."
+    },
+    {
+      "q": "Städte mit mehr Filialen einer Fast-Food-Kette haben auch mehr Arztpraxen (r = 0,85). Was ist die beste Erklärung?",
+      "o": [
+        "Fast Food macht krank, deshalb braucht es mehr Ärzte.",
+        "Ärzte essen besonders viel Fast Food.",
+        "Der Zusammenhang ist rein zufällig, weil r unter 0,9 liegt.",
+        "Eine Drittvariable wie die Einwohnerzahl treibt beide Größen."
+      ],
+      "r": 3,
+      "e": "Größere Städte haben mehr Einwohner und damit mehr Filialen und mehr Arztpraxen. Das ist eine klassische Scheinkorrelation durch eine Drittvariable."
+    }
+  ],
+  "verwandt": [
+    "regression",
+    "varianz-standardabweichung",
+    "hypothesentest",
+    "portfoliotheorie",
+    "erwartungswert"
+  ],
+  "ask": "die Korrelation – den Korrelationskoeffizienten nach Bravais-Pearson und Spearman an einem Beispiel berechnen und richtig interpretieren"
+}

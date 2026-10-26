@@ -1,0 +1,111 @@
+{
+  "slug": "statische-dynamische-investitionsrechnung",
+  "name": "Statische und dynamische Investitionsrechnung",
+  "title": "Statische und dynamische Investitionsrechnung erklärt",
+  "meta": "Statische und dynamische Investitionsrechnung im Vergleich: alle Verfahren, Unterschiede, Vor- und Nachteile – mit Beispiel, in dem das Ergebnis kippt.",
+  "h1": "Statische und dynamische Investitionsrechnung einfach erklärt",
+  "kurz": "Statische Investitionsrechnungen arbeiten mit Durchschnittswerten einer Periode und ignorieren, wann Zahlungen anfallen. Dazu gehören Kosten-, Gewinn- und Rentabilitätsvergleich sowie die statische Amortisationsrechnung. Dynamische Verfahren wie Kapitalwert, interner Zinsfuß und Annuität betrachten alle Zahlungen über die gesamte Nutzungsdauer und zinsen sie auf einen Zeitpunkt ab.",
+  "keywords": [
+    "statische investitionsrechnung",
+    "dynamische investitionsrechnung",
+    "statische und dynamische investitionsrechnung unterschied",
+    "investitionsrechnung verfahren",
+    "rentabilitätsvergleichsrechnung",
+    "statische verfahren vor- und nachteile",
+    "dynamische amortisation"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist der Unterschied zwischen statischer und dynamischer Investitionsrechnung?",
+      "html": "<p>Mit der Investitionsrechnung prüfst du, ob sich eine Investition lohnt oder welche von mehreren Alternativen die beste ist. Die Verfahren teilen sich in zwei Familien, die sich in einer Frage unterscheiden: <strong>Spielt es eine Rolle, wann das Geld fließt?</strong></p><table><thead><tr><th></th><th>statisch</th><th>dynamisch</th></tr></thead><tbody><tr><td>Betrachtung</td><td>eine durchschnittliche Periode</td><td>gesamte Nutzungsdauer, Periode für Periode</td></tr><tr><td>Rechengrößen</td><td>Kosten, Erlöse, Gewinne (KLR-Größen)</td><td>Ein- und Auszahlungen</td></tr><tr><td>Zeitpunkt der Zahlungen</td><td>egal</td><td>entscheidend, über Ab- bzw. Aufzinsung</td></tr><tr><td>Zinsen</td><td>pauschal als kalkulatorische Zinsen</td><td>über den Kalkulationszinssatz in jedem Jahr</td></tr><tr><td>Aufwand</td><td>gering</td><td>höher, braucht Zahlungsreihe</td></tr></tbody></table><div class=\"merke\">Statisch fragt: Wie sieht ein typisches Jahr aus? Dynamisch fragt: Was ist die ganze Zahlungsreihe heute wert?</div>"
+    },
+    {
+      "h2": "Welche Verfahren gibt es?",
+      "html": "<h3>Statische Verfahren</h3><ul><li><strong><a href=\"/lernen/kostenvergleichsrechnung\">Kostenvergleichsrechnung</a>:</strong> wählt die Alternative mit den niedrigsten durchschnittlichen Kosten pro Jahr oder Stück. Erlöse bleiben außen vor.</li><li><strong><a href=\"/lernen/gewinnvergleichsrechnung\">Gewinnvergleichsrechnung</a>:</strong> wählt den höchsten durchschnittlichen Gewinn; vorteilhaft ab einem Gewinn über null.</li><li><strong>Rentabilitätsvergleichsrechnung:</strong> setzt den Gewinn vor kalkulatorischen Zinsen ins Verhältnis zum durchschnittlich gebundenen Kapital. Vorteilhaft, wenn die Rendite über dem Kalkulationszins liegt.</li><li><strong>Statische Amortisationsrechnung:</strong> Wie viele Jahre dauert es, bis die Anschaffungsauszahlung über die Rückflüsse wieder da ist?</li></ul><h3>Dynamische Verfahren</h3><ul><li><strong><a href=\"/lernen/kapitalwertmethode\">Kapitalwertmethode</a>:</strong> Summe aller abgezinsten Zahlungen; vorteilhaft bei \\( C_0 > 0 \\).</li><li><strong>Interner Zinsfuß:</strong> der Zinssatz, bei dem der Kapitalwert genau null ist; vorteilhaft, wenn er über dem Kalkulationszins liegt.</li><li><strong>Annuitätenmethode:</strong> verteilt den Kapitalwert gleichmäßig auf die Jahre; vorteilhaft bei positiver Annuität.</li><li><strong>Dynamische Amortisationsrechnung:</strong> wie die statische, aber mit abgezinsten Rückflüssen.</li></ul><p>Die Formeln für die Kernverfahren im Vergleich:</p><div class=\"formel\">\\[ \\text{Rentabilität} = \\frac{\\varnothing\\,\\text{Gewinn} + \\text{kalk. Zinsen}}{\\varnothing\\,\\text{gebundenes Kapital}} \\cdot 100\\,\\% \\qquad \\varnothing\\,\\text{Kapital} = \\frac{I_0 + L}{2} \\]\\[ C_0 = -I_0 + \\sum_{t=1}^{n} \\frac{R_t}{(1+i)^t} \\]</div><p>Dabei ist \\( I_0 \\) die Anschaffungsauszahlung, \\( L \\) der Liquidationserlös, \\( R_t \\) der Rückfluss im Jahr \\( t \\) und \\( i \\) der Kalkulationszins.</p>"
+    },
+    {
+      "h2": "Beispiel: Gleiche Rückflüsse, anderes Timing",
+      "html": "<div class=\"beispiel\"><p>Eine Druckerei kann eine von zwei Maschinen anschaffen. Beide kosten 100.000 €, laufen 4 Jahre, haben keinen Restwert und bringen in Summe 120.000 € Rückflüsse. Nur die Verteilung unterscheidet sich. Kalkulationszins: 8 %.</p><table><thead><tr><th>Jahr</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody><tr><td>Maschine A</td><td>40.000 €</td><td>35.000 €</td><td>25.000 €</td><td>20.000 €</td></tr><tr><td>Maschine B</td><td>20.000 €</td><td>25.000 €</td><td>35.000 €</td><td>40.000 €</td></tr></tbody></table><p><strong>Schritt 1: Statische Rechnung (für A und B identisch)</strong><br>∅ Rückfluss: \\( \\frac{120.000}{4} = 30.000 \\) €<br>Abschreibung: \\( \\frac{100.000}{4} = 25.000 \\) €<br>∅ gebundenes Kapital: \\( \\frac{100.000 + 0}{2} = 50.000 \\) €, kalk. Zinsen \\( 50.000 \\cdot 8\\,\\% = 4.000 \\) €<br>∅ Gewinn: \\( 30.000 - 25.000 - 4.000 = 1.000 \\) € → vorteilhaft<br>Rentabilität: \\( \\frac{1.000 + 4.000}{50.000} = 10\\,\\% \\) > 8 % → vorteilhaft<br>Amortisationsdauer (Durchschnittsmethode): \\( \\frac{100.000}{30.000} \\approx 3{,}33 \\) Jahre</p><p><strong>Schritt 2: Dynamische Rechnung – Kapitalwert</strong><br>Abzinsungsfaktoren bei 8 %: 0,9259; 0,8573; 0,7938; 0,7350 (Barwerte unten exakt gerechnet und auf Cent gerundet)</p><table><thead><tr><th>Jahr</th><th>Barwert A</th><th>Barwert B</th></tr></thead><tbody><tr><td>1</td><td>37.037,04 €</td><td>18.518,52 €</td></tr><tr><td>2</td><td>30.006,86 €</td><td>21.433,47 €</td></tr><tr><td>3</td><td>19.845,81 €</td><td>27.784,13 €</td></tr><tr><td>4</td><td>14.700,60 €</td><td>29.401,19 €</td></tr><tr><td><strong>Summe</strong></td><td><strong>101.590,31 €</strong></td><td><strong>97.137,31 €</strong></td></tr></tbody></table><p>\\( C_{0,A} = 101.590{,}31 - 100.000 = 1.590{,}31 \\) € → vorteilhaft<br>\\( C_{0,B} = 97.137{,}31 - 100.000 = -2.862{,}69 \\) € → nicht vorteilhaft</p><p><strong>Schritt 3: Dynamische Amortisation</strong><br>A: Nach 3 Jahren fehlen noch \\( 100.000 - 86.889{,}71 = 13.110{,}29 \\) €, im 4. Jahr kommen 14.700,60 € → \\( 3 + \\frac{13.110{,}29}{14.700{,}60} \\approx 3{,}89 \\) Jahre<br>B: Auch nach 4 Jahren sind erst 97.137,31 € zurück – keine Amortisation innerhalb der Nutzungsdauer.</p></div><p><strong>Interpretation:</strong> Die statischen Verfahren erklären beide Maschinen für gleich gut und beide für vorteilhaft. Die dynamische Rechnung zeigt: Nur A lohnt sich. B bringt das Geld so spät zurück, dass es bei 8 % Mindestverzinsung nicht reicht. Der Grund ist der Zeitwert des Geldes – 40.000 € im ersten Jahr kannst du sofort wieder anlegen, 40.000 € im vierten Jahr nicht.</p>"
+    },
+    {
+      "h2": "Wann nimmt man welches Verfahren?",
+      "html": "<p><strong>Statische Verfahren</strong> passen, wenn</p><ul><li>die Rückflüsse über die Jahre ungefähr gleich hoch sind,</li><li>die Nutzungsdauer kurz und der Zinseffekt klein ist,</li><li>es um schnelle Vorauswahl oder kleine Ersatzinvestitionen geht,</li><li>keine verlässliche Zahlungsreihe vorliegt, aber Kosten aus der Kostenrechnung.</li></ul><p><strong>Dynamische Verfahren</strong> sind Pflicht, wenn</p><ul><li>die Zahlungen stark schwanken oder zu unterschiedlichen Zeiten anfallen,</li><li>die Investition lange läuft und viel Kapital bindet,</li><li>Alternativen mit unterschiedlicher Nutzungsdauer verglichen werden,</li><li>die Entscheidung finanzwirtschaftlich fundiert sein muss, etwa für Banken oder Investoren.</li></ul><h3>Kommen die dynamischen Verfahren immer zum selben Ergebnis?</h3><p>Bei einer einzelnen Investition mit normaler Zahlungsreihe (erst Auszahlung, dann nur Rückflüsse) ja: Ist der Kapitalwert positiv, ist auch die Annuität positiv und der interne Zinsfuß liegt über dem Kalkulationszins. Beim <strong>Vergleich mehrerer Alternativen</strong> kann die Rangfolge aber abweichen, etwa wenn sich Kapitaleinsatz oder Laufzeit stark unterscheiden. Dann entscheidet im Zweifel der Kapitalwert, weil er den absoluten Vermögenszuwachs misst. Der interne Zinsfuß ist eine Prozentzahl und sagt nichts darüber, auf wie viel Kapital sich diese Rendite bezieht.</p><p>In der Praxis nutzt man oft beides: die Amortisationsdauer als Risikoindikator („Wie schnell ist das Geld zurück?“) und den Kapitalwert für die eigentliche Entscheidung. Beim Rechnen mit gleichbleibenden Rückflüssen hilft der <a href=\"/lernen/rentenbarwertfaktor\">Rentenbarwertfaktor</a>.</p>"
+    },
+    {
+      "h2": "Vor- und Nachteile im Überblick",
+      "html": "<table><thead><tr><th></th><th>Statische Verfahren</th><th>Dynamische Verfahren</th></tr></thead><tbody><tr><td>Vorteile</td><td>einfach, schnell, wenig Daten nötig; Werte direkt aus der Kostenrechnung</td><td>berücksichtigen den Zeitwert des Geldes; betrachten die gesamte Laufzeit; theoretisch fundiert</td></tr><tr><td>Nachteile</td><td>ignorieren den Zahlungszeitpunkt; nur eine Durchschnittsperiode; Annahmen zu Abschreibung und Zinsen pauschal</td><td>brauchen eine Prognose aller Zahlungen; Ergebnis hängt stark vom Kalkulationszins ab; aufwendiger</td></tr></tbody></table><p>Beide Familien teilen ein Problem: Sie rechnen mit Prognosen. Eine perfekt abgezinste Zahlungsreihe ist nur so gut wie die Schätzung der Rückflüsse. Dynamische Verfahren sind deshalb genauer, aber nicht automatisch richtiger. Wer unsicher ist, prüft mit einer Sensitivitätsanalyse, wie stark das Ergebnis auf geänderte Annahmen reagiert.</p><p>Zudem bewerten beide nur, was sich in Geld ausdrücken lässt. Qualitative Faktoren wie Umweltwirkung, Flexibilität oder Abhängigkeit von einem Lieferanten fließen nicht ein – dafür gibt es ergänzende Verfahren wie die Nutzwertanalyse.</p>"
+    }
+  ],
+  "fehler": [
+    "Bei der statischen Rentabilität den Gewinn nach kalkulatorischen Zinsen verwenden: In den Zähler gehört der Gewinn plus kalkulatorische Zinsen, sonst rechnest du die Zinsen doppelt heraus und die Rendite wird zu niedrig.",
+    "Das durchschnittlich gebundene Kapital mit den vollen Anschaffungskosten gleichsetzen: Bei linearer Abschreibung ist im Schnitt nur \\( \\frac{I_0 + L}{2} \\) gebunden.",
+    "Statische Verfahren für ungleichmäßige Zahlungsreihen nehmen und das Ergebnis für endgültig halten: Bei unterschiedlichem Timing können statische und dynamische Verfahren zu gegensätzlichen Entscheidungen kommen.",
+    "In dynamischen Verfahren mit Kosten und Abschreibungen rechnen: Dynamische Verfahren arbeiten mit Ein- und Auszahlungen. Die Anschaffung steht als Auszahlung in \\( t = 0 \\), eine Abschreibung kommt nicht zusätzlich vor.",
+    "Die Amortisationsdauer als Rentabilitätsmaß deuten: Sie sagt nur, wie schnell das Geld zurück ist, nicht, wie viel die Investition danach noch bringt."
+  ],
+  "faq": [
+    {
+      "q": "Welche statischen Investitionsrechnungsverfahren gibt es?",
+      "a": "Es gibt vier: die Kostenvergleichsrechnung, die Gewinnvergleichsrechnung, die Rentabilitätsvergleichsrechnung und die statische Amortisationsrechnung. Alle arbeiten mit Durchschnittswerten einer Periode und berücksichtigen den Zeitpunkt der Zahlungen nicht."
+    },
+    {
+      "q": "Welche dynamischen Verfahren der Investitionsrechnung gibt es?",
+      "a": "Die wichtigsten sind die Kapitalwertmethode, die Methode des internen Zinsfußes, die Annuitätenmethode und die dynamische Amortisationsrechnung. Sie betrachten alle Ein- und Auszahlungen über die gesamte Nutzungsdauer und machen sie durch Abzinsen vergleichbar."
+    },
+    {
+      "q": "Warum sind dynamische Verfahren genauer?",
+      "a": "Weil sie den Zeitwert des Geldes berücksichtigen: Ein Euro heute ist mehr wert als ein Euro in vier Jahren, weil man ihn zwischenzeitlich anlegen kann. Statische Verfahren behandeln frühe und späte Zahlungen gleich und können deshalb zu falschen Entscheidungen führen, wenn das Timing der Rückflüsse unterschiedlich ist."
+    },
+    {
+      "q": "Warum nutzen Unternehmen trotzdem statische Verfahren?",
+      "a": "Sie sind schnell, verständlich und brauchen nur Daten, die aus der Kostenrechnung ohnehin vorliegen. Für kleine Investitionen mit gleichmäßigen Rückflüssen und kurzer Laufzeit ist der Fehler gering. Häufig dienen sie als Vorauswahl, bevor die engere Wahl dynamisch geprüft wird."
+    },
+    {
+      "q": "Ist die Amortisationsrechnung statisch oder dynamisch?",
+      "a": "Beides ist möglich. Die statische Variante teilt die Anschaffungsauszahlung durch den durchschnittlichen Rückfluss oder kumuliert die nominalen Rückflüsse. Die dynamische Variante kumuliert die abgezinsten Rückflüsse und dauert deshalb immer etwas länger."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Welches Verfahren gehört zu den dynamischen Verfahren?",
+      "o": [
+        "Gewinnvergleichsrechnung",
+        "Rentabilitätsvergleichsrechnung",
+        "Annuitätenmethode",
+        "Kostenvergleichsrechnung"
+      ],
+      "r": 2,
+      "e": "Die Annuitätenmethode baut auf dem Kapitalwert auf und berücksichtigt damit den Zeitpunkt der Zahlungen."
+    },
+    {
+      "q": "Anschaffung 80.000 €, kein Restwert, ∅ Gewinn 6.000 €, kalkulatorische Zinsen 3.200 €. Wie hoch ist die statische Rentabilität?",
+      "o": [
+        "7,5 %",
+        "23 %",
+        "11,5 %",
+        "15 %"
+      ],
+      "r": 1,
+      "e": "∅ Kapital \\( \\frac{80.000}{2} = 40.000 \\) €; \\( \\frac{6.000 + 3.200}{40.000} = 23\\,\\% \\). 11,5 % entstünde mit den vollen 80.000 € im Nenner."
+    },
+    {
+      "q": "Zwei Investitionen haben dieselbe Anschaffung und dieselbe Summe an Rückflüssen, A bekommt das Geld früher. Was gilt?",
+      "o": [
+        "Statisch und dynamisch sind beide gleich gut",
+        "Dynamisch ist B besser, weil spätere Zahlungen höher verzinst werden",
+        "Statisch ist A besser",
+        "Statisch gleich, dynamisch ist A besser"
+      ],
+      "r": 3,
+      "e": "Statische Verfahren sehen nur Durchschnitte. Abgezinst sind frühe Rückflüsse mehr wert, daher hat A den höheren Kapitalwert."
+    }
+  ],
+  "verwandt": [
+    "kapitalwertmethode",
+    "kostenvergleichsrechnung",
+    "gewinnvergleichsrechnung",
+    "amortisationsrechnung",
+    "interner-zinsfuss"
+  ],
+  "ask": "den Unterschied zwischen statischer und dynamischer Investitionsrechnung – mit einem Beispiel, in dem beide zu unterschiedlichen Ergebnissen kommen"
+}

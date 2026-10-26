@@ -1,0 +1,120 @@
+{
+  "slug": "personalbedarfsplanung",
+  "name": "Personalbedarfsplanung",
+  "title": "Personalbedarfsplanung einfach erklärt – mit Beispiel",
+  "meta": "Personalbedarfsplanung verständlich erklärt: Brutto- und Nettopersonalbedarf, Reservebedarf, Methoden und ein komplett durchgerechnetes Beispiel.",
+  "h1": "Personalbedarfsplanung einfach erklärt",
+  "kurz": "Die Personalbedarfsplanung ermittelt, wie viele Mitarbeitende mit welcher Qualifikation zu welchem Zeitpunkt an welchem Ort gebraucht werden. Rechnerisch zieht man vom Bruttopersonalbedarf den fortgeschriebenen Personalbestand ab und erhält den Nettopersonalbedarf. Ist er positiv, muss eingestellt werden, ist er negativ, besteht ein Freisetzungsbedarf.",
+  "keywords": [
+    "personalbedarfsplanung",
+    "nettopersonalbedarf berechnen",
+    "bruttopersonalbedarf",
+    "personalbedarf berechnen",
+    "reservebedarf",
+    "ersatzbedarf neubedarf",
+    "quantitative personalbedarfsplanung",
+    "personalbedarfsplanung methoden"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist Personalbedarfsplanung?",
+      "html": "<p>Ein Unternehmen braucht zur richtigen Zeit die richtigen Leute: Zu wenig Personal führt zu Überstunden, langen Wartezeiten und verlorenen Aufträgen, zu viel Personal zu Kosten ohne Gegenleistung. Die <strong>Personalbedarfsplanung</strong> ist deshalb der erste Schritt der gesamten Personalplanung. Auf ihr bauen Personalbeschaffung, Personalentwicklung und gegebenenfalls Personalabbau auf.</p><p>Der Personalbedarf hat vier Dimensionen:</p><ul><li><strong>quantitativ:</strong> Wie viele Mitarbeitende (meist in Vollzeitäquivalenten, VZÄ)?</li><li><strong>qualitativ:</strong> Mit welchen Qualifikationen und Kompetenzen?</li><li><strong>zeitlich:</strong> Ab wann und für wie lange?</li><li><strong>örtlich:</strong> An welchem Standort, in welcher Abteilung?</li></ul><p>Ausgangspunkt sind immer die übrigen Pläne: Absatz- und Produktionsplan bestimmen die Arbeitsmenge, die <a href=\"/lernen/budgetierung\">Budgetierung</a> den finanziellen Rahmen. In Betrieben mit Betriebsrat muss der Arbeitgeber diesen nach § 92 BetrVG rechtzeitig und umfassend über die Personalplanung unterrichten.</p>"
+    },
+    {
+      "h2": "Welche Arten von Personalbedarf gibt es?",
+      "html": "<table><thead><tr><th>Bedarfsart</th><th>Ursache</th><th>Beispiel</th></tr></thead><tbody><tr><td>Einsatzbedarf</td><td>Arbeitsmenge, die regulär erledigt werden muss</td><td>Anrufe im Kundenservice</td></tr><tr><td>Reservebedarf</td><td>Ausfälle durch Krankheit, Weiterbildung, Urlaub</td><td>Zuschlag von 10 % auf den Einsatzbedarf</td></tr><tr><td>Ersatzbedarf</td><td>Mitarbeitende scheiden aus</td><td>Ruhestand, Kündigung, Elternzeit</td></tr><tr><td>Neubedarf</td><td>zusätzliche Aufgaben oder Mengen</td><td>neuer Standort, Wachstum</td></tr><tr><td>Freisetzungsbedarf</td><td>Bestand übersteigt Bedarf</td><td>Automatisierung, Auftragsrückgang</td></tr></tbody></table><p>Einsatz- und Reservebedarf ergeben zusammen den <strong>Bruttopersonalbedarf</strong>, also die Zahl, die im Planungszeitpunkt insgesamt gebraucht wird. Ersatz- und Neubedarf zeigen dagegen, warum sich die Lücke zum Bestand verändert.</p>"
+    },
+    {
+      "h2": "Wie berechnet man den Nettopersonalbedarf?",
+      "html": "<p>Das Grundschema der quantitativen Personalbedarfsplanung hat drei Stufen:</p><div class=\"formel\">\\[ \\text{Bruttopersonalbedarf} = \\text{Einsatzbedarf} + \\text{Reservebedarf} \\]\\[ \\text{fortgeschriebener Bestand} = \\text{aktueller Bestand} - \\text{Abgänge} + \\text{feststehende Zugänge} \\]\\[ \\text{Nettopersonalbedarf} = \\text{Bruttopersonalbedarf} - \\text{fortgeschriebener Bestand} \\]</div><p>Den <strong>Einsatzbedarf</strong> bestimmst du je nach Datenlage mit unterschiedlichen Methoden:</p><ul><li><strong>Arbeitszeitmethode (Kennzahlenmethode):</strong> Arbeitsmenge mal Zeit je Einheit, geteilt durch die Jahresarbeitszeit einer Vollzeitkraft. Sie ist das Standardverfahren in Klausuren.</li><li><strong>Stellenplanmethode:</strong> Bestimmte Stellen sind unabhängig von der Menge besetzt, etwa eine Teamleitung je Team oder eine Pforte, die rund um die Uhr besetzt sein muss.</li><li><strong>Schätzverfahren:</strong> Führungskräfte oder Fachleute schätzen den Bedarf, etwa wenn es keine Vergangenheitsdaten gibt. Schnell, aber subjektiv.</li><li><strong>Trend- und Regressionsverfahren:</strong> Der Bedarf wird aus der Entwicklung einer Bezugsgröße wie dem Umsatz fortgeschrieben.</li></ul><p>Der Reservebedarf wird meist als Prozentzuschlag auf den Einsatzbedarf gerechnet. Manche Lehrbücher teilen stattdessen durch \\( (1 - \\text{Ausfallquote}) \\) – das ergibt einen etwas höheren Wert. Nimm die Variante, die deine Vorlesung verwendet.</p>"
+    },
+    {
+      "h2": "Beispiel: Personalbedarf berechnen",
+      "html": "<div class=\"beispiel\"><p>Der Kundenservice eines Onlineshops plant das nächste Jahr. Daten:</p><ul><li>erwartete Anrufe: 192.000, durchschnittliche Bearbeitungszeit inkl. Nacharbeit 6 Minuten</li><li>Jahresarbeitszeit einer Vollzeitkraft nach Urlaub und Feiertagen: 1.600 Stunden</li><li>Ausfallzuschlag für Krankheit und Weiterbildung: 10 %</li><li>zusätzlich eine Teamleitung (Stellenplan)</li><li>aktueller Bestand: 13,0 VZÄ</li><li>bekannte Abgänge: 1 Kollegin geht in Rente (1,0 VZÄ), 1 Kollege geht für das ganze Jahr in Elternzeit (1,0 VZÄ), 1 Vollzeitkraft wechselt auf 50 % Teilzeit (0,5 VZÄ)</li><li>feststehender Zugang: Übernahme einer Auszubildenden in Vollzeit (1,0 VZÄ)</li></ul><p><strong>Schritt 1: Arbeitsmenge in Stunden</strong><br>\\( \\frac{192.000 \\cdot 6\\text{ min}}{60} = 19.200 \\) Stunden</p><p><strong>Schritt 2: Einsatzbedarf</strong><br>\\( \\frac{19.200\\text{ h}}{1.600\\text{ h}} = 12{,}0 \\) VZÄ</p><p><strong>Schritt 3: Reservebedarf und Bruttopersonalbedarf</strong><br>Reserve: \\( 12{,}0 \\cdot 10\\,\\% = 1{,}2 \\) VZÄ<br>Brutto: \\( 12{,}0 + 1{,}2 + 1{,}0 \\text{ (Teamleitung)} = 14{,}2 \\) VZÄ</p><p><strong>Schritt 4: Fortgeschriebener Bestand</strong><br>\\( 13{,}0 - (1{,}0 + 1{,}0 + 0{,}5) + 1{,}0 = 11{,}5 \\) VZÄ</p><p><strong>Schritt 5: Nettopersonalbedarf</strong><br>\\( 14{,}2 - 11{,}5 = 2{,}7 \\) VZÄ</p><table><thead><tr><th>Position</th><th>VZÄ</th></tr></thead><tbody><tr><td>Einsatzbedarf</td><td>12,0</td></tr><tr><td>+ Reservebedarf</td><td>1,2</td></tr><tr><td>+ Stellenplan (Teamleitung)</td><td>1,0</td></tr><tr><td>= Bruttopersonalbedarf</td><td>14,2</td></tr><tr><td>− fortgeschriebener Bestand</td><td>11,5</td></tr><tr><td><strong>= Nettopersonalbedarf</strong></td><td><strong>2,7</strong></td></tr></tbody></table></div><p><strong>Interpretation:</strong> Es fehlen 2,7 Vollzeitstellen, zum Beispiel zwei Vollzeitkräfte und eine Teilzeitkraft mit 70 %. Davon ist 1,0 VZÄ nur vorübergehend nötig, weil der Kollege aus der Elternzeit zurückkommt – hier passt eine befristete Einstellung. Mit der Ausfallquoten-Variante \\( \\frac{12{,}0}{1 - 0{,}1} \\approx 13{,}33 \\) VZÄ läge der Bruttobedarf bei rund 14,33 und der Nettobedarf bei rund 2,83 VZÄ.</p>"
+    },
+    {
+      "h2": "Wie gehst du bei einer Klausuraufgabe vor?",
+      "html": "<p>Personalbedarfsaufgaben sind fast immer gleich aufgebaut. Mit dieser Reihenfolge machst du keine Folgefehler:</p><ol><li><strong>Arbeitsmenge in Stunden umrechnen:</strong> Stückzahl oder Fallzahl mal Zeit je Einheit. Achte auf die Einheit – Minuten müssen durch 60 geteilt werden.</li><li><strong>Jahresarbeitszeit je Vollzeitkraft bestimmen,</strong> falls sie nicht gegeben ist: Arbeitstage mal tägliche Arbeitszeit. Bei 200 Arbeitstagen nach Abzug von Wochenenden, Feiertagen und Urlaub und 8 Stunden am Tag sind das \\( 200 \\cdot 8 = 1.600 \\) Stunden, also genau der Wert aus dem Beispiel.</li><li><strong>Einsatzbedarf berechnen</strong> und Stellen aus dem Stellenplan addieren.</li><li><strong>Reservebedarf aufschlagen</strong> – aber nur für Ausfälle, die noch nicht in der Jahresarbeitszeit abgezogen sind. Wer Urlaub schon bei den Arbeitstagen abgezogen hat, darf ihn nicht noch einmal im Zuschlag ansetzen.</li><li><strong>Bestand fortschreiben</strong> mit allen bekannten Abgängen und nur den <em>feststehenden</em> Zugängen. Geplante, aber noch nicht unterschriebene Einstellungen gehören nicht dazu – sie sind ja gerade das Ergebnis der Planung.</li><li><strong>Nettobedarf bilden und interpretieren:</strong> positiv heißt beschaffen, negativ heißt freisetzen; dazu gehört ein Satz, ob der Bedarf dauerhaft oder befristet ist.</li></ol>"
+    },
+    {
+      "h2": "Qualitative Personalbedarfsplanung",
+      "html": "<p>Die Zahl allein reicht nicht. Die qualitative Planung fragt, welche Anforderungen die Stellen künftig stellen und ob die vorhandenen Mitarbeitenden sie erfüllen. Typisches Vorgehen:</p><ol><li>Anforderungsprofile der Stellen erstellen (Fachwissen, Methoden-, Sozialkompetenz).</li><li>Fähigkeitsprofile der Mitarbeitenden erheben, etwa aus Mitarbeitergesprächen.</li><li>Profile abgleichen: Lücken werden durch Weiterbildung, interne Versetzung oder externe Einstellung geschlossen.</li></ol><p>Im Beispiel könnte der Onlineshop einen Live-Chat einführen. Quantitativ sinken dann vielleicht die Telefonminuten, qualitativ braucht er aber Leute, die schriftlich sicher und schnell formulieren. Welche Stellen es überhaupt gibt und wie sie angeordnet sind, legen die <a href=\"/lernen/organisationsformen\">Organisationsformen</a> fest.</p>"
+    },
+    {
+      "h2": "Probleme und Grenzen der Personalbedarfsplanung",
+      "html": "<ul><li><strong>Prognoseunsicherheit:</strong> Der Plan ist nur so gut wie die Absatzprognose. Schon 10 % mehr Anrufe als erwartet bedeuten im Beispiel 1,2 VZÄ zusätzlichen Einsatzbedarf.</li><li><strong>Schwankungen im Jahresverlauf:</strong> Ein Jahresdurchschnitt verdeckt Spitzen wie das Weihnachtsgeschäft. Dafür braucht es Schichtplanung, Aushilfen oder Arbeitszeitkonten.</li><li><strong>Zeitverzug:</strong> Zwischen Feststellung des Bedarfs und erstem Arbeitstag vergehen oft Monate. Die Planung muss deshalb weit genug in die Zukunft reichen.</li><li><strong>Menschen sind keine Rechengröße:</strong> Motivation, Erfahrung und Teamklima beeinflussen die Leistung stark, tauchen in der Formel aber nicht auf. Welche Bedürfnisse Mitarbeitende antreiben, beschreibt etwa die <a href=\"/lernen/maslow-beduerfnispyramide\">Maslowsche Bedürfnispyramide</a>.</li></ul><p>Personalbedarfsplanung ist daher kein einmaliger Rechenschritt, sondern wird laufend mit Ist-Werten abgeglichen – eine typische Aufgabe des <a href=\"/lernen/controlling\">Controllings</a>.</p>"
+    }
+  ],
+  "fehler": [
+    "Den aktuellen statt den fortgeschriebenen Bestand abziehen: Bekannte Abgänge und feststehende Zugänge bis zum Planungszeitpunkt müssen vorher berücksichtigt werden.",
+    "Köpfe statt Vollzeitäquivalente rechnen: Wechselt jemand auf 50 % Teilzeit, ist er weiterhin ein Kopf, aber es fehlen 0,5 VZÄ.",
+    "Den Reservebedarf vergessen: Die reine Arbeitsmenge geteilt durch die Sollarbeitszeit unterstellt, dass niemand krank wird oder zur Weiterbildung geht.",
+    "Brutto- und Nettopersonalbedarf verwechseln: Brutto ist der gesamte Bedarf, netto nur die Lücke zum Bestand. Eingestellt wird der Nettobedarf.",
+    "Einen negativen Nettopersonalbedarf als Rechenfehler werten: Er bedeutet Personalüberdeckung, also einen Freisetzungsbedarf, der etwa über Fluktuation oder Versetzungen abgebaut werden kann."
+  ],
+  "faq": [
+    {
+      "q": "Wie berechnet man den Nettopersonalbedarf?",
+      "a": "Zuerst bestimmst du den Bruttopersonalbedarf aus Einsatzbedarf und Reservebedarf. Dann schreibst du den aktuellen Bestand fort, indem du bekannte Abgänge abziehst und feststehende Zugänge addierst. Bruttobedarf minus fortgeschriebener Bestand ergibt den Nettopersonalbedarf."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Ersatzbedarf und Neubedarf?",
+      "a": "Ersatzbedarf entsteht, wenn Mitarbeitende ausscheiden und ihre Stellen wieder besetzt werden müssen, etwa durch Rente oder Kündigung. Neubedarf entsteht durch zusätzliche Aufgaben, zum Beispiel Wachstum oder einen neuen Standort."
+    },
+    {
+      "q": "Was ist der Reservebedarf?",
+      "a": "Der Reservebedarf deckt Ausfallzeiten wie Krankheit, Weiterbildung oder Urlaub ab, soweit sie nicht schon in der Sollarbeitszeit stecken. Er wird meist als prozentualer Zuschlag auf den Einsatzbedarf berechnet."
+    },
+    {
+      "q": "Welche Methoden der Personalbedarfsplanung gibt es?",
+      "a": "Die wichtigsten sind die Arbeitszeit- bzw. Kennzahlenmethode, die Stellenplanmethode, Schätzverfahren und statistische Trend- oder Regressionsverfahren. In Klausuren wird fast immer die Kennzahlenmethode mit Arbeitsmenge, Zeit je Einheit und Jahresarbeitszeit verlangt."
+    },
+    {
+      "q": "Was bedeutet ein negativer Nettopersonalbedarf?",
+      "a": "Dann ist mehr Personal vorhanden als gebraucht wird, es besteht eine Personalüberdeckung. Das Unternehmen kann sie zum Beispiel durch natürliche Fluktuation, Versetzungen, Arbeitszeitverkürzung oder im letzten Schritt durch Kündigungen abbauen."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Bruttopersonalbedarf 30 VZÄ, aktueller Bestand 28 VZÄ, Abgänge 3 VZÄ, feststehende Zugänge 1 VZÄ. Wie hoch ist der Nettopersonalbedarf?",
+      "o": [
+        "2 VZÄ",
+        "4 VZÄ",
+        "5 VZÄ",
+        "1 VZÄ"
+      ],
+      "r": 1,
+      "e": "Fortgeschriebener Bestand: \\( 28 - 3 + 1 = 26 \\). Nettobedarf: \\( 30 - 26 = 4 \\) VZÄ."
+    },
+    {
+      "q": "Eine Abteilung muss 24.000 Arbeitsstunden leisten, eine Vollzeitkraft arbeitet 1.600 Stunden im Jahr, der Reservezuschlag beträgt 8 %. Wie hoch ist der Bruttopersonalbedarf?",
+      "o": [
+        "15,0 VZÄ",
+        "13,8 VZÄ",
+        "16,2 VZÄ",
+        "16,0 VZÄ"
+      ],
+      "r": 2,
+      "e": "Einsatzbedarf \\( \\frac{24.000}{1.600} = 15{,}0 \\) VZÄ, plus 8 % Reserve: \\( 15{,}0 \\cdot 1{,}08 = 16{,}2 \\) VZÄ."
+    },
+    {
+      "q": "Ein Unternehmen eröffnet eine neue Filiale und braucht dafür fünf zusätzliche Stellen. Welche Bedarfsart ist das?",
+      "o": [
+        "Neubedarf",
+        "Ersatzbedarf",
+        "Reservebedarf",
+        "Freisetzungsbedarf"
+      ],
+      "r": 0,
+      "e": "Die Stellen entstehen durch zusätzliche Aufgaben und ersetzen niemanden – das ist Neubedarf."
+    }
+  ],
+  "verwandt": [
+    "budgetierung",
+    "controlling",
+    "organisationsformen",
+    "maslow-beduerfnispyramide",
+    "unternehmensziele"
+  ],
+  "ask": "die Personalbedarfsplanung – Brutto- und Nettopersonalbedarf mit Reservebedarf an einem durchgerechneten Beispiel"
+}

@@ -1,0 +1,116 @@
+{
+ "slug": "bestellpunktverfahren",
+ "name": "Bestellpunktverfahren und Sicherheitsbestand",
+ "title": "Bestellpunktverfahren & Sicherheitsbestand – mit Beispiel",
+ "meta": "Bestellpunktverfahren einfach erklärt: Meldebestand, Sicherheitsbestand und Höchstbestand berechnen, Unterschied zum Bestellrhythmusverfahren, Beispiel.",
+ "h1": "Bestellpunktverfahren und Sicherheitsbestand einfach erklärt",
+ "kurz": "Beim Bestellpunktverfahren wird immer dann nachbestellt, wenn der Lagerbestand den Meldebestand (Bestellpunkt) erreicht. Der Meldebestand ist so bemessen, dass der Vorrat genau für die Wiederbeschaffungszeit reicht: Tagesverbrauch mal Wiederbeschaffungszeit plus Sicherheitsbestand. Der Sicherheitsbestand ist der eiserne Puffer gegen Verbrauchsschwankungen und Lieferverzögerungen.",
+ "keywords": [
+  "bestellpunktverfahren",
+  "sicherheitsbestand",
+  "meldebestand berechnen",
+  "sicherheitsbestand berechnen",
+  "bestellpunkt formel",
+  "höchstbestand",
+  "bestellrhythmusverfahren",
+  "mindestbestand"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist das Bestellpunktverfahren?",
+   "html": "<p>Wer ein Lager führt, muss zwei Fragen beantworten: <strong>Wie viel</strong> bestelle ich, und <strong>wann</strong> bestelle ich? Die Menge beantwortet zum Beispiel die <a href=\"/lernen/optimale-bestellmenge\">optimale Bestellmenge</a>. Den Zeitpunkt bestimmt das <strong>Bestellpunktverfahren</strong>.</p><p>Die Idee: Für jeden Artikel wird ein <strong>Meldebestand</strong> festgelegt (auch Bestellpunkt oder Bestellbestand). Sobald der Bestand diese Marke erreicht, wird eine Bestellung ausgelöst. Der Meldebestand ist genau so hoch, dass die Ware bis zum Eintreffen der neuen Lieferung reicht – und dann noch der Sicherheitsbestand übrig ist.</p><p>Das Verfahren ist <strong>verbrauchsgesteuert</strong>: Bestellt wird, wenn tatsächlich verbraucht wurde, nicht nach festem Kalender. Wird viel verkauft, kommt die Bestellung früher; wird wenig verkauft, später. Die Bestellmenge bleibt dabei in der Regel gleich.</p><div class=\"merke\">Beim Bestellpunktverfahren ist die Bestellmenge fest und der Bestellzeitpunkt variabel. Ausgelöst wird die Bestellung durch das Erreichen des Meldebestands.</div>"
+  },
+  {
+   "h2": "Welche Formeln brauchst du?",
+   "html": "<p>Vier Bestandsgrößen gehören zusammen:</p><div class=\"formel\">\\[ \\text{Meldebestand} = \\text{Tagesverbrauch} \\cdot \\text{Wiederbeschaffungszeit} + \\text{Sicherheitsbestand} \\]\\[ \\text{Höchstbestand} = \\text{Sicherheitsbestand} + \\text{Bestellmenge} \\]\\[ \\varnothing\\,\\text{Lagerbestand} = \\text{Sicherheitsbestand} + \\frac{\\text{Bestellmenge}}{2} \\]</div><ul><li><strong>Tagesverbrauch:</strong> durchschnittlicher Verbrauch pro Tag (Jahresbedarf geteilt durch Arbeitstage).</li><li><strong>Wiederbeschaffungszeit:</strong> Zeit von der Bestellauslösung bis die Ware eingelagert und verfügbar ist – also inklusive Bestellbearbeitung, Lieferzeit und Wareneingangsprüfung.</li><li><strong>Sicherheitsbestand</strong> (auch Mindestbestand oder eiserner Bestand): wird im Normalfall nie angetastet. Er deckt höheren Verbrauch oder verspätete Lieferungen ab.</li><li><strong>Höchstbestand:</strong> Bestand direkt nach dem Wareneingang, wenn alles planmäßig läuft.</li></ul><h3>Mit welchem Bestand wird verglichen?</h3><p>Mit dem Meldebestand vergleicht man nicht einfach den physischen Lagerbestand, sondern den <strong>disponiblen Bestand</strong>: Lagerbestand plus bereits bestellte, noch nicht gelieferte Ware minus Mengen, die schon für Aufträge reserviert sind. Sonst würde das System nach jeder Entnahme unterhalb des Meldebestands erneut bestellen, obwohl die Lieferung längst unterwegs ist – und das Lager würde mit Doppelbestellungen überlaufen.</p><p>Achtung, Begriffswirrwarr: Manche Lehrbücher nennen den Meldebestand „Mindestbestand“, andere verwenden „Mindestbestand“ für den Sicherheitsbestand. Halte dich an die Begriffe deiner Vorlesung und schau im Zweifel auf die Formel.</p>"
+  },
+  {
+   "h2": "Wie berechnet man den Sicherheitsbestand?",
+   "html": "<h3>Variante 1: Pauschal über Sicherheitstage</h3><p>Die einfachste und in Klausuren häufigste Methode: Der Sicherheitsbestand soll den Verbrauch einer bestimmten Anzahl von Tagen abdecken.</p><div class=\"formel\">\\[ \\text{Sicherheitsbestand} = \\text{Tagesverbrauch} \\cdot \\text{Sicherheitstage} \\]</div><p>Vorteil: leicht verständlich, deckt auch Lieferverzögerungen ab. Nachteil: Wie stark der Verbrauch schwankt, spielt keine Rolle.</p><h3>Variante 2: Statistisch über den Servicegrad</h3><p>Ist der Tagesverbrauch näherungsweise normalverteilt, kann man den Puffer so wählen, dass in einem bestimmten Anteil der Bestellzyklen kein Fehlbestand auftritt (α-Servicegrad):</p><div class=\"formel\">\\[ \\text{SB} = z \\cdot \\sigma_{\\text{Tag}} \\cdot \\sqrt{\\text{WBZ}} \\]</div><p>Dabei ist \\( \\sigma_{\\text{Tag}} \\) die Standardabweichung des Tagesverbrauchs, WBZ die Wiederbeschaffungszeit in Tagen und \\( z \\) der Wert der <a href=\"/lernen/normalverteilung\">Standardnormalverteilung</a> zum gewünschten Servicegrad: gerundet 1,65 für 95 %, 2,33 für 99 %. Die Wurzel kommt daher, dass sich bei unabhängigen Tagen die Varianzen addieren, nicht die Standardabweichungen. Diese Formel berücksichtigt nur Verbrauchsschwankungen, keine Lieferverzögerungen.</p>"
+  },
+  {
+   "h2": "Beispiel: Meldebestand und Sicherheitsbestand berechnen",
+   "html": "<div class=\"beispiel\"><p>Ein Onlinehändler für Fahrradteile verkauft im Schnitt 40 Bremsscheiben pro Arbeitstag. Die Wiederbeschaffungszeit beträgt 6 Arbeitstage, bestellt werden immer 800 Stück. Der Sicherheitsbestand soll 3 Tage Verbrauch abdecken.</p><p><strong>Schritt 1: Sicherheitsbestand</strong><br>\\( \\text{SB} = 40 \\cdot 3 = 120 \\) Stück</p><p><strong>Schritt 2: Meldebestand</strong><br>\\( \\text{MB} = 40 \\cdot 6 + 120 = 240 + 120 = 360 \\) Stück</p><p><strong>Schritt 3: Höchstbestand</strong><br>\\( \\text{HB} = 120 + 800 = 920 \\) Stück</p><p><strong>Schritt 4: Durchschnittlicher Lagerbestand</strong><br>\\( 120 + \\frac{800}{2} = 520 \\) Stück</p><p><strong>Schritt 5: Ablauf eines Zyklus prüfen</strong><br>Vom Höchstbestand bis zum Meldebestand: \\( \\frac{920 - 360}{40} = 14 \\) Tage<br>Während der Wiederbeschaffungszeit verbraucht: \\( 40 \\cdot 6 = 240 \\) Stück → bei Eintreffen sind noch \\( 360 - 240 = 120 \\) Stück da, genau der Sicherheitsbestand ✓<br>Nach dem Wareneingang: \\( 120 + 800 = 920 \\) Stück, ein Zyklus dauert \\( 14 + 6 = 20 \\) Tage \\( = \\frac{800}{40} \\) ✓</p><p><strong>Schritt 6: Statistischer Sicherheitsbestand zum Vergleich</strong><br>Die Standardabweichung des Tagesverbrauchs beträgt 8 Stück.<br>95 %: \\( 1{,}65 \\cdot 8 \\cdot \\sqrt{6} \\approx 32{,}3 \\Rightarrow 33 \\) Stück<br>99 %: \\( 2{,}33 \\cdot 8 \\cdot \\sqrt{6} \\approx 45{,}7 \\Rightarrow 46 \\) Stück<br>Meldebestand mit 95 %: \\( 240 + 33 = 273 \\) Stück</p></div><p><strong>Interpretation:</strong> Gegen reine Nachfrageschwankungen würden schon 33 Stück für 95 % Lieferbereitschaft reichen. Die pauschalen 120 Stück sind deutlich mehr – dafür decken sie auch ab, dass der Lieferant bis zu 3 Tage zu spät kommt (\\( 3 \\cdot 40 = 120 \\)). Welcher Puffer richtig ist, hängt also davon ab, wovor du dich schützen willst. Sicherheitsbestand kostet Geld: Bei 120 statt 33 Stück liegen dauerhaft 87 Scheiben mehr im Lager. Wie das auf die Kapitalbindung wirkt, zeigen die <a href=\"/lernen/lagerkennzahlen\">Lagerkennzahlen</a>.</p>"
+  },
+  {
+   "h2": "Bestellpunktverfahren oder Bestellrhythmusverfahren?",
+   "html": "<p>Die Alternative ist das <strong>Bestellrhythmusverfahren</strong>: Bestellt wird in festen Abständen, etwa jeden Montag, und zwar die Menge, die den Bestand wieder auf ein Sollniveau auffüllt.</p><table><thead><tr><th>Merkmal</th><th>Bestellpunktverfahren</th><th>Bestellrhythmusverfahren</th></tr></thead><tbody><tr><td>Bestellzeitpunkt</td><td>variabel (Meldebestand erreicht)</td><td>fest (z. B. wöchentlich)</td></tr><tr><td>Bestellmenge</td><td>meist fest</td><td>variabel (Auffüllen auf Sollbestand)</td></tr><tr><td>Bestandsüberwachung</td><td>laufend nach jeder Entnahme</td><td>nur zum Prüftermin</td></tr><tr><td>Sicherheitsbestand</td><td>deckt nur die Wiederbeschaffungszeit ab</td><td>muss Prüfintervall plus Wiederbeschaffungszeit abdecken</td></tr><tr><td>geeignet für</td><td>wertvolle Teile, schwankender Bedarf</td><td>viele Artikel beim selben Lieferanten, Sammelbestellungen</td></tr></tbody></table><p>Mit Warenwirtschaftssystemen ist die laufende Überwachung kein Problem mehr, deshalb ist das Bestellpunktverfahren heute Standard. Das Rhythmusverfahren spielt seine Stärke aus, wenn Touren oder Sammelbestellungen ohnehin festen Terminen folgen.</p>"
+  },
+  {
+   "h2": "Wann passt das Verfahren – und wo sind die Grenzen?",
+   "html": "<p>Das Bestellpunktverfahren eignet sich für Artikel mit einigermaßen regelmäßigem Verbrauch, also X- und Y-Teile aus der <a href=\"/lernen/xyz-analyse\">XYZ-Analyse</a>. Bei sporadischem Bedarf (Z-Teile) liefert der Durchschnitt keine sinnvolle Planungsgrundlage; hier wird besser auftragsbezogen beschafft.</p><p><strong>Vorteile:</strong> reagiert automatisch auf Verbrauchsänderungen, gute Lieferbereitschaft, einfach im System zu hinterlegen.</p><p><strong>Nachteile:</strong> Der Meldebestand gilt nur, solange Verbrauch und Wiederbeschaffungszeit stimmen – ändert sich die Nachfrage dauerhaft, muss er neu berechnet werden. Die laufende Bestandskontrolle braucht saubere Lagerbuchungen. Und viele einzeln ausgelöste Bestellungen können Transportkosten erhöhen.</p><p>Abgrenzung zu <a href=\"/lernen/just-in-time\">Just in Time</a>: Dort gibt es kaum Lagerbestand, der einen Meldebestand erreichen könnte; der Nachschub folgt direkt dem Produktionsplan.</p>"
+  }
+ ],
+ "fehler": [
+  "Den Sicherheitsbestand im Meldebestand vergessen: Der Meldebestand ist Tagesverbrauch mal Wiederbeschaffungszeit plus Sicherheitsbestand. Ohne ihn wäre das Lager beim Eintreffen der Ware planmäßig leer.",
+  "Höchstbestand als Meldebestand plus Bestellmenge rechnen: Wenn die Ware eintrifft, ist der Bestand schon auf den Sicherheitsbestand gesunken. Richtig ist Sicherheitsbestand plus Bestellmenge, im Beispiel 920 statt 1.160 Stück.",
+  "Durchschnittlichen Lagerbestand ohne Sicherheitsbestand angeben: Er beträgt Sicherheitsbestand plus halbe Bestellmenge, also 520 und nicht 400 Stück.",
+  "Kalendertage und Arbeitstage mischen: Ist der Verbrauch pro Arbeitstag angegeben, muss auch die Wiederbeschaffungszeit in Arbeitstagen rechnen. Sonst wird der Meldebestand zu hoch oder zu niedrig.",
+  "Beim statistischen Sicherheitsbestand mit der Wiederbeschaffungszeit multiplizieren statt mit ihrer Wurzel: Die Standardabweichung über mehrere Tage wächst mit \\( \\sqrt{\\text{WBZ}} \\), weil sich Varianzen addieren."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man den Meldebestand?",
+   "a": "Meldebestand gleich Tagesverbrauch mal Wiederbeschaffungszeit plus Sicherheitsbestand. Bei 40 Stück pro Tag, 6 Tagen Wiederbeschaffungszeit und 120 Stück Sicherheitsbestand liegt der Meldebestand bei 360 Stück. Erreicht der Bestand diesen Wert, wird bestellt."
+  },
+  {
+   "q": "Wie berechnet man den Sicherheitsbestand?",
+   "a": "Am einfachsten als Tagesverbrauch mal Sicherheitstage, zum Beispiel 40 Stück mal 3 Tage gleich 120 Stück. Statistisch berechnet man ihn als z-Wert des gewünschten Servicegrads mal Standardabweichung des Tagesverbrauchs mal Wurzel aus der Wiederbeschaffungszeit."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Meldebestand und Mindestbestand?",
+   "a": "Der Meldebestand ist die Marke, bei der eine Bestellung ausgelöst wird. Der Mindestbestand ist meist ein anderes Wort für den Sicherheitsbestand, also den Puffer, der normalerweise nicht unterschritten wird. Einige Lehrbücher verwenden die Begriffe aber anders, deshalb immer auf die Formel achten."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Bestellpunkt- und Bestellrhythmusverfahren?",
+   "a": "Beim Bestellpunktverfahren wird bestellt, sobald der Meldebestand erreicht ist; der Zeitpunkt ist variabel, die Menge meist fest. Beim Bestellrhythmusverfahren wird in festen Abständen bestellt und die Menge so gewählt, dass der Bestand auf ein Sollniveau aufgefüllt wird."
+  },
+  {
+   "q": "Warum braucht man einen Sicherheitsbestand?",
+   "a": "Weil Verbrauch und Lieferzeit nie exakt planbar sind. Verkauft man mehr als erwartet oder kommt der Lieferant zu spät, verhindert der Sicherheitsbestand einen Fehlbestand. Er kostet allerdings Lagerplatz und bindet Kapital, deshalb sollte er nicht größer sein als nötig."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Tagesverbrauch 25 Stück, Wiederbeschaffungszeit 8 Tage, Sicherheitsbestand 50 Stück. Wie hoch ist der Meldebestand?",
+   "o": [
+    "200 Stück",
+    "250 Stück",
+    "75 Stück",
+    "400 Stück"
+   ],
+   "r": 1,
+   "e": "\\( 25 \\cdot 8 + 50 = 250 \\) Stück. 200 Stück wäre der Meldebestand ohne Sicherheitsbestand."
+  },
+  {
+   "q": "Sicherheitsbestand 100 Stück, Bestellmenge 600 Stück, Meldebestand 340 Stück. Wie hoch ist der Höchstbestand?",
+   "o": [
+    "940 Stück",
+    "600 Stück",
+    "700 Stück",
+    "400 Stück"
+   ],
+   "r": 2,
+   "e": "Höchstbestand = Sicherheitsbestand + Bestellmenge = \\( 100 + 600 = 700 \\) Stück. Der Meldebestand spielt dafür keine Rolle, weil das Lager bis zum Wareneingang auf den Sicherheitsbestand sinkt."
+  },
+  {
+   "q": "Was ist beim Bestellpunktverfahren typischerweise fest?",
+   "o": [
+    "Die Bestellmenge",
+    "Der Bestellzeitpunkt",
+    "Der Tagesverbrauch",
+    "Die Zahl der Bestellungen pro Jahr"
+   ],
+   "r": 0,
+   "e": "Die Bestellmenge ist fest, der Zeitpunkt richtet sich nach dem Verbrauch. Beim Bestellrhythmusverfahren ist es umgekehrt."
+  }
+ ],
+ "verwandt": [
+  "optimale-bestellmenge",
+  "lagerkennzahlen",
+  "xyz-analyse",
+  "just-in-time",
+  "normalverteilung"
+ ],
+ "ask": "das Bestellpunktverfahren – Meldebestand, Sicherheitsbestand und Höchstbestand an einem durchgerechneten Lagerbeispiel"
+}

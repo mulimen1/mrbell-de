@@ -1,0 +1,116 @@
+{
+ "slug": "prozesskostenrechnung",
+ "name": "Prozesskostenrechnung",
+ "title": "Prozesskostenrechnung einfach erklärt – mit Beispiel",
+ "meta": "Prozesskostenrechnung verständlich: lmi- und lmn-Prozesse, Kostentreiber, Prozesskostensatz, Umlagesatz und Vergleich zum Zuschlag – mit Beispiel.",
+ "h1": "Prozesskostenrechnung einfach erklärt",
+ "kurz": "Die Prozesskostenrechnung verteilt Gemeinkosten indirekter Bereiche wie Einkauf, Logistik oder Verwaltung nicht per pauschalem Zuschlag, sondern nach der tatsächlichen Inanspruchnahme von Prozessen. Für jede Tätigkeit wird ein Kostentreiber bestimmt und ein Prozesskostensatz berechnet: \\( \\text{Prozesskostensatz} = \\frac{\\text{Prozesskosten}}{\\text{Prozessmenge}} \\). So tragen aufwendige Kleinserien und Varianten ihre wahren Kosten.",
+ "keywords": [
+  "prozesskostenrechnung",
+  "prozesskostensatz berechnen",
+  "lmi lmn",
+  "kostentreiber",
+  "umlagesatz prozesskostenrechnung",
+  "prozesskostenrechnung beispiel",
+  "allokationseffekt komplexitätseffekt degressionseffekt",
+  "activity based costing"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist die Prozesskostenrechnung?",
+   "html": "<p>In der klassischen <a href=\"/lernen/zuschlagskalkulation\">Zuschlagskalkulation</a> werden die Materialgemeinkosten als Prozentsatz auf die Materialeinzelkosten verteilt. Das unterstellt: Ein Produkt mit teurem Material verursacht viel Einkaufsarbeit, eins mit billigem Material wenig. Für den Einkauf zählt aber nicht der Wert, sondern wie oft bestellt, geprüft und eingelagert wird. Eine Kleinserie mit vielen Sonderteilen macht ein Vielfaches an Arbeit, obwohl ihr Materialwert gering ist.</p><p>Genau hier setzt die <strong>Prozesskostenrechnung</strong> an (englisch Activity Based Costing). Sie zerlegt die Arbeit der indirekten Bereiche in <strong>Tätigkeiten und Prozesse</strong> und verteilt deren Kosten nach dem, was die Prozesse wirklich auslöst: dem <strong>Kostentreiber</strong> (Cost Driver). Bestellen kostet pro Bestellung, Prüfen pro Lieferung, Rüsten pro Rüstvorgang.</p><p>Hintergrund ist die Verschiebung der Kostenstruktur: Durch Automatisierung sind die Fertigungslöhne gesunken, die <a href=\"/lernen/einzelkosten-gemeinkosten\">Gemeinkosten</a> in Planung, Logistik, Qualitätssicherung und Verwaltung gestiegen. Zuschlagssätze von mehreren hundert Prozent sind dann eher Zufall als Verursachung.</p><div class=\"merke\">Die Prozesskostenrechnung ist eine Vollkostenrechnung für die indirekten Bereiche. Sie ersetzt den pauschalen Zuschlag durch Verrechnung nach Prozessmengen.</div>"
+  },
+  {
+   "h2": "Wie ist die Prozesskostenrechnung aufgebaut? lmi, lmn und Kostentreiber",
+   "html": "<p>Die Prozesskostenrechnung läuft in vier Schritten ab:</p><ol><li><strong>Tätigkeitsanalyse:</strong> In jeder Kostenstelle wird erhoben, welche Tätigkeiten anfallen und wie viel Kapazität (meist Personaljahre) sie binden.</li><li><strong>Teilprozesse bilden und einteilen:</strong> Hängt die Menge eines Prozesses von der Leistung ab, ist er <strong>leistungsmengeninduziert (lmi)</strong>, zum Beispiel „Bestellung aufgeben“. Fällt er unabhängig davon an, ist er <strong>leistungsmengenneutral (lmn)</strong>, zum Beispiel „Abteilung leiten“.</li><li><strong>Prozesskostensätze berechnen:</strong> Für jeden lmi-Prozess werden die Kosten durch die Prozessmenge geteilt. Die lmn-Kosten werden über einen Umlagesatz auf die lmi-Prozesse verteilt.</li><li><strong>Hauptprozesse und Kalkulation:</strong> Zusammengehörige Teilprozesse aus mehreren Kostenstellen werden zu Hauptprozessen gebündelt (etwa „Material beschaffen“) und den Produkten nach Inanspruchnahme zugerechnet.</li></ol><div class=\"formel\">\\[ \\text{Prozesskostensatz (lmi)} = \\frac{\\text{Kosten des lmi-Prozesses}}{\\text{Prozessmenge}} \\]\\[ \\text{Umlagesatz (lmn)} = \\frac{\\text{Kosten der lmn-Prozesse}}{\\text{Kosten aller lmi-Prozesse}} \\]\\[ \\text{Gesamtprozesskostensatz} = \\text{Prozesskostensatz} \\cdot (1 + \\text{Umlagesatz}) \\]</div><p>Für lmn-Prozesse gibt es keinen Kostentreiber, deshalb werden sie proportional zu den lmi-Kosten verteilt. Manche Lehrbücher nennen das auch „Zuschlag der lmn-Kosten“.</p>"
+  },
+  {
+   "h2": "Beispiel: Prozesskostensätze Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p>Ein Hersteller von Elektrowerkzeugen hat in der Kostenstelle Beschaffung Gemeinkosten von 300.000 € pro Jahr. Die Tätigkeitsanalyse ergibt drei Teilprozesse:</p><table><thead><tr><th>Teilprozess</th><th>Art</th><th>Kostentreiber</th><th>Prozessmenge</th><th>Kosten</th></tr></thead><tbody><tr><td>Material bestellen</td><td>lmi</td><td>Anzahl Bestellungen</td><td>1.200</td><td>144.000 €</td></tr><tr><td>Wareneingang prüfen</td><td>lmi</td><td>Anzahl Lieferungen</td><td>1.600</td><td>96.000 €</td></tr><tr><td>Abteilung leiten</td><td>lmn</td><td>–</td><td>–</td><td>60.000 €</td></tr></tbody></table><p><strong>Schritt 1: Prozesskostensätze (lmi)</strong><br>Bestellen: \\( \\frac{144.000\\text{ €}}{1.200} = 120 \\) € pro Bestellung<br>Prüfen: \\( \\frac{96.000\\text{ €}}{1.600} = 60 \\) € pro Lieferung</p><p><strong>Schritt 2: Umlagesatz (lmn)</strong><br>\\( \\frac{60.000}{144.000 + 96.000} = \\frac{60.000}{240.000} = 25\\,\\% \\)</p><p><strong>Schritt 3: Gesamtprozesskostensätze</strong><br>Bestellen: \\( 120 \\cdot 1{,}25 = 150 \\) € pro Bestellung<br>Prüfen: \\( 60 \\cdot 1{,}25 = 75 \\) € pro Lieferung</p><p><strong>Schritt 4: Kalkulation zweier Produkte</strong><br>Der Standard-Akkuschrauber läuft in Großserie: 10.000 Stück, Materialeinzelkosten 50 € pro Stück, 200 Bestellungen und 160 Lieferungen im Jahr. Der Spezial-Bohrhammer ist eine Kleinserie: 1.000 Stück, Materialeinzelkosten 100 € pro Stück, aber viele Sonderteile mit 300 Bestellungen und 240 Lieferungen.</p><p>Standard: \\( 200 \\cdot 150 + 160 \\cdot 75 = 42.000 \\) €, pro Stück \\( \\frac{42.000}{10.000} = 4{,}20 \\) €<br>Spezial: \\( 300 \\cdot 150 + 240 \\cdot 75 = 63.000 \\) €, pro Stück \\( \\frac{63.000}{1.000} = 63{,}00 \\) €</p><p><strong>Vergleich mit der Zuschlagskalkulation:</strong> Die gesamten Materialeinzelkosten des Unternehmens betragen 1.500.000 €. Der klassische MGK-Zuschlag wäre \\( \\frac{300.000}{1.500.000} = 20\\,\\% \\).</p><table><thead><tr><th>Produkt</th><th>Zuschlagskalkulation</th><th>Prozesskostenrechnung</th></tr></thead><tbody><tr><td>Standard</td><td>\\( 50 \\cdot 20\\,\\% = 10{,}00 \\) €</td><td>4,20 €</td></tr><tr><td>Spezial</td><td>\\( 100 \\cdot 20\\,\\% = 20{,}00 \\) €</td><td>63,00 €</td></tr></tbody></table></div><p>Die Zuschlagskalkulation belastet den Standard-Akkuschrauber mit 5,80 € zu viel Beschaffungskosten pro Stück und den Spezial-Bohrhammer mit 43,00 € zu wenig. Das Massenprodukt subventioniert die Kleinserie, und das Unternehmen merkt es nicht.</p>"
+  },
+  {
+   "h2": "Welche Effekte zeigt die Prozesskostenrechnung?",
+   "html": "<p>In Klausuren werden drei Effekte abgefragt, die du am Beispiel direkt erklären kannst:</p><h3>Allokationseffekt</h3><p>Gemeinkosten werden anders auf die Produkte verteilt, weil der Bezugsgröße Materialwert jetzt die tatsächliche Prozessinanspruchnahme gegenübersteht. Im Beispiel wandern Beschaffungskosten vom Standard- zum Spezialprodukt. Wertvolles Material mit wenig Bestellaufwand wird entlastet, billiges Material mit viel Aufwand belastet.</p><h3>Komplexitätseffekt</h3><p>Varianten und Sonderteile verursachen überproportional viele Prozesse. Der Spezial-Bohrhammer hat nur ein Zehntel der Stückzahl, löst aber mehr Bestellungen aus als der Standard. Die Zuschlagskalkulation verteilt diese Komplexitätskosten auf alle Produkte, die Prozesskostenrechnung ordnet sie dem Verursacher zu.</p><h3>Degressionseffekt</h3><p>Viele Prozesskosten hängen an der Zahl der Vorgänge, nicht an der Stückzahl. Verdoppelt sich die Losgröße des Spezial-Bohrhammers auf 2.000 Stück bei gleich vielen Bestellungen und Lieferungen, sinken die Prozesskosten pro Stück auf \\( \\frac{63.000}{2.000} = 31{,}50 \\) €. Beim Zuschlag blieben es stur 20 € pro Stück, egal wie groß das Los ist.</p><div class=\"merke\">Allokation = andere Verteilung, Komplexität = Varianten kosten mehr, Degression = große Lose verteilen die Prozesskosten auf mehr Stück.</div>"
+  },
+  {
+   "h2": "Wofür nutzt man die Prozesskostenrechnung?",
+   "html": "<ul><li><strong>Genauere Kalkulation:</strong> realistischere Selbstkosten, vor allem bei breitem Sortiment mit Groß- und Kleinserien.</li><li><strong>Variantenpolitik:</strong> Sie zeigt, welche Varianten sich wegen ihres Prozessaufwands nicht lohnen, und liefert Argumente für Mindestbestellmengen oder Variantenaufschläge.</li><li><strong>Gemeinkostenmanagement:</strong> Prozesskostensätze machen sichtbar, was ein Vorgang kostet. 150 € pro Bestellung motivieren zu Rahmenverträgen und Sammelbestellungen.</li><li><strong>Target Costing:</strong> Wer Zielkosten für ein neues Produkt einhalten will, braucht verlässliche Gemeinkosten je Funktion. Die Prozesskostenrechnung ist deshalb ein typischer Baustein im <a href=\"/lernen/target-costing\">Target Costing</a>.</li></ul><p>Die Prozesskostenrechnung ersetzt die Kostenstellenrechnung nicht, sondern baut auf ihr auf. Die Kosten je Kostenstelle stammen aus dem <a href=\"/lernen/betriebsabrechnungsbogen\">Betriebsabrechnungsbogen</a>, die Prozesskostenrechnung verteilt sie nur feiner weiter. Im Fertigungsbereich bleibt es meist bei Maschinen- und Lohnsätzen, weil dort die klassischen Bezugsgrößen gut passen.</p>"
+  },
+  {
+   "h2": "Vorteile, Nachteile und Abgrenzung",
+   "html": "<p><strong>Vorteile:</strong></p><ul><li>verursachungsgerechtere Verteilung der Gemeinkosten indirekter Bereiche,</li><li>deckt Quersubventionierung zwischen Groß- und Kleinserien auf,</li><li>macht Kosten pro Vorgang transparent und damit steuerbar,</li><li>gute Grundlage für strategische Sortiments- und Variantenentscheidungen.</li></ul><p><strong>Nachteile:</strong></p><ul><li>hoher Aufwand für Tätigkeitsanalyse und laufende Erfassung der Prozessmengen,</li><li>die lmn-Kosten werden doch wieder pauschal umgelegt,</li><li>sie ist eine Vollkostenrechnung: Die meisten Prozesskosten sind kurzfristig fix (Personal), ein Prozesskostensatz von 150 € heißt nicht, dass eine Bestellung weniger 150 € spart,</li><li>Kostentreiber bilden die Wirklichkeit nur näherungsweise ab, eine Bestellung ist nicht gleich der anderen.</li></ul><p><strong>Abgrenzung:</strong> Die Zuschlagskalkulation verteilt Gemeinkosten wertabhängig, die Prozesskostenrechnung mengenabhängig nach Vorgängen. Die Deckungsbeitragsrechnung trennt fixe und variable Kosten für kurzfristige Entscheidungen; das tut die Prozesskostenrechnung nicht. Für die Frage, ob ein Zusatzauftrag angenommen werden soll, ist sie deshalb das falsche Werkzeug.</p>"
+  }
+ ],
+ "fehler": [
+  "lmn-Kosten mit eigenem Kostentreiber verrechnen: Leistungsmengenneutrale Prozesse haben keinen Kostentreiber. Sie werden über den Umlagesatz im Verhältnis der lmi-Kosten auf die lmi-Prozesse verteilt.",
+  "Umlagesatz auf die Gesamtkosten statt auf die lmi-Kosten beziehen: Der Nenner sind nur die Kosten der lmi-Prozesse, im Beispiel 240.000 € und nicht 300.000 €. Sonst ergibt sich 20 % statt 25 %.",
+  "Prozesskostensatz mit dem lmi-Satz statt dem Gesamtprozesskostensatz rechnen: Für die Kalkulation brauchst du den Satz inklusive lmn-Umlage, sonst bleiben die Leitungskosten unverteilt.",
+  "Prozesskosten pro Stück mit der Stückzahl statt mit der Prozessmenge rechnen: Erst Prozessmenge des Produkts mal Gesamtprozesskostensatz, dann durch die Stückzahl teilen.",
+  "Prozesskostensätze als variable Kosten behandeln: Sie enthalten überwiegend fixe Personalkosten. Für kurzfristige Entscheidungen wie Zusatzaufträge oder Preisuntergrenzen sind sie ungeeignet."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen lmi und lmn?",
+   "a": "Leistungsmengeninduzierte Prozesse (lmi) hängen von der Menge der Vorgänge ab und haben einen Kostentreiber, etwa die Zahl der Bestellungen. Leistungsmengenneutrale Prozesse (lmn) fallen unabhängig davon an, etwa die Abteilungsleitung. lmn-Kosten werden über einen Umlagesatz auf die lmi-Prozesse verteilt."
+  },
+  {
+   "q": "Was ist ein Kostentreiber?",
+   "a": "Ein Kostentreiber (Cost Driver) ist die Bezugsgröße, die die Menge eines Prozesses und damit seine Kosten bestimmt. Beispiele sind Anzahl der Bestellungen, Lieferungen, Rüstvorgänge oder Kundenaufträge. Er ersetzt in der Prozesskostenrechnung die wertabhängige Zuschlagsbasis."
+  },
+  {
+   "q": "Wie berechnet man den Prozesskostensatz?",
+   "a": "Prozesskostensatz gleich Kosten des lmi-Prozesses geteilt durch die Prozessmenge. Dazu kommt der Umlagesatz für die lmn-Kosten, der Gesamtprozesskostensatz ist also Prozesskostensatz mal (1 plus Umlagesatz). Im Beispiel ergibt das 150 € pro Bestellung."
+  },
+  {
+   "q": "Ist die Prozesskostenrechnung eine Teil- oder Vollkostenrechnung?",
+   "a": "Sie ist eine Vollkostenrechnung. Sie verteilt alle Gemeinkosten der indirekten Bereiche auf die Produkte, auch die fixen Personalkosten. Für kurzfristige Entscheidungen auf Basis variabler Kosten nimmt man weiter die Deckungsbeitragsrechnung."
+  },
+  {
+   "q": "Was sind Hauptprozesse?",
+   "a": "Hauptprozesse bündeln sachlich zusammengehörige Teilprozesse aus mehreren Kostenstellen, zum Beispiel Bestellen im Einkauf und Prüfen im Wareneingang zum Hauptprozess Material beschaffen. Sie haben einen gemeinsamen Kostentreiber und vereinfachen die Kalkulation."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Ein lmi-Prozess kostet 80.000 € bei 2.000 Vorgängen. Die lmn-Kosten der Kostenstelle betragen 20 % der lmi-Kosten. Wie hoch ist der Gesamtprozesskostensatz?",
+   "o": [
+    "40 €",
+    "48 €",
+    "50 €",
+    "32 €"
+   ],
+   "r": 1,
+   "e": "\\( \\frac{80.000}{2.000} = 40 \\) € pro Vorgang, mit Umlage \\( 40 \\cdot 1{,}2 = 48 \\) €."
+  },
+  {
+   "q": "Welcher Prozess ist typischerweise leistungsmengenneutral?",
+   "o": [
+    "Angebote erstellen",
+    "Wareneingang prüfen",
+    "Rüstvorgänge durchführen",
+    "Abteilung leiten"
+   ],
+   "r": 3,
+   "e": "Die Leitung fällt unabhängig von der Zahl der Vorgänge an und hat keinen Kostentreiber. Die anderen Prozesse wachsen mit ihrer Prozessmenge."
+  },
+  {
+   "q": "Was beschreibt der Degressionseffekt der Prozesskostenrechnung?",
+   "o": [
+    "Prozesskosten pro Stück sinken bei größeren Losen",
+    "Gemeinkosten werden vom Massenprodukt zur Variante verschoben",
+    "Varianten verursachen überproportional viele Prozesse",
+    "Der Zuschlagssatz sinkt mit steigenden Einzelkosten"
+   ],
+   "r": 0,
+   "e": "Viele Prozesskosten hängen an der Zahl der Vorgänge. Größere Lose verteilen sie auf mehr Stück, während der Zuschlag pro Stück konstant bliebe."
+  }
+ ],
+ "verwandt": [
+  "zuschlagskalkulation",
+  "betriebsabrechnungsbogen",
+  "einzelkosten-gemeinkosten",
+  "kostenstellenrechnung",
+  "target-costing"
+ ],
+ "ask": "die Prozesskostenrechnung – mit lmi- und lmn-Prozessen, Prozesskostensätzen und einem Vergleich zur Zuschlagskalkulation an einem durchgerechneten Beispiel"
+}

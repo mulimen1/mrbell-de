@@ -1,0 +1,116 @@
+{
+ "slug": "netzplantechnik",
+ "name": "Netzplantechnik",
+ "title": "Netzplantechnik einfach erklärt – mit Beispiel",
+ "meta": "Netzplantechnik verständlich: FAZ, FEZ, SAZ, SEZ, Gesamtpuffer, freier Puffer und kritischer Pfad – mit komplett durchgerechnetem Netzplan.",
+ "h1": "Netzplantechnik einfach erklärt",
+ "kurz": "Die Netzplantechnik stellt ein Projekt als Netz aus Vorgängen und ihren Abhängigkeiten dar. Mit Vorwärtsrechnung (früheste Termine) und Rückwärtsrechnung (späteste Termine) ermittelst du die Projektdauer, die Pufferzeiten jedes Vorgangs und den kritischen Pfad: die Kette von Vorgängen ohne Puffer, deren Verzögerung das ganze Projekt verzögert.",
+ "keywords": [
+  "netzplantechnik",
+  "netzplan erstellen",
+  "kritischer pfad",
+  "gesamtpuffer freier puffer",
+  "faz fez saz sez",
+  "vorgangsknotennetz",
+  "netzplan berechnen",
+  "netzplan übung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist Netzplantechnik?",
+   "html": "<p>Die <strong>Netzplantechnik</strong> ist ein Verfahren der Projektplanung. Sie zerlegt ein Projekt in einzelne <strong>Vorgänge</strong> (Arbeitspakete mit einer Dauer) und legt fest, welcher Vorgang auf welchen warten muss. Daraus entsteht ein Netz, in dem du ablesen kannst, wann das Projekt frühestens fertig ist, welche Vorgänge zeitlichen Spielraum haben und welche nicht.</p><p>Gegenüber einer simplen Aufgabenliste oder einem Balkendiagramm hat der Netzplan einen entscheidenden Vorteil: Er macht die <strong>Abhängigkeiten</strong> sichtbar. Ein Gantt-Diagramm zeigt dir, wann etwas stattfindet; der Netzplan zeigt dir, <em>warum</em> es nicht früher stattfinden kann und was passiert, wenn es sich verschiebt.</p><p>Begriffe und Darstellung sind in Deutschland in der DIN 69900 beschrieben. Historisch gibt es drei Grundverfahren:</p><ul><li><strong>CPM</strong> (Critical Path Method): Vorgangspfeilnetz, Vorgänge als Pfeile, feste Dauern,</li><li><strong>MPM</strong> (Metra-Potenzial-Methode): Vorgangsknotennetz, Vorgänge als Kästchen, feste Dauern,</li><li><strong>PERT</strong>: Ereignisknotennetz mit drei Zeitschätzungen (optimistisch, wahrscheinlich, pessimistisch).</li></ul><p>In Klausuren und in der Praxis ist heute fast immer das <strong>Vorgangsknotennetz</strong> gemeint. Jeder Vorgang ist ein Kästchen, die Pfeile zeigen die Reihenfolge (Normalfolge: Ende des Vorgängers vor Anfang des Nachfolgers). Die Netzplantechnik ist damit ein Werkzeug der <a href=\\\"/lernen/aufbauorganisation-ablauforganisation\\\">Ablauforganisation</a> für einmalige Vorhaben.</p>"
+  },
+  {
+   "h2": "Wie ist ein Netzplan aufgebaut?",
+   "html": "<p>Jeder Knoten im Vorgangsknotennetz enthält dieselben Felder:</p><table><thead><tr><th>Kürzel</th><th>Bedeutung</th></tr></thead><tbody><tr><td>D</td><td>Dauer des Vorgangs</td></tr><tr><td>FAZ</td><td>frühester Anfangszeitpunkt</td></tr><tr><td>FEZ</td><td>frühester Endzeitpunkt</td></tr><tr><td>SAZ</td><td>spätester Anfangszeitpunkt</td></tr><tr><td>SEZ</td><td>spätester Endzeitpunkt</td></tr><tr><td>GP</td><td>Gesamtpuffer</td></tr><tr><td>FP</td><td>freier Puffer</td></tr></tbody></table><p>Gerechnet wird in zwei Durchgängen. Die <strong>Vorwärtsrechnung</strong> läuft vom Start zum Ende und liefert die frühesten Termine, die <strong>Rückwärtsrechnung</strong> läuft vom Ende zum Start und liefert die spätesten Termine:</p><div class=\\\"formel\\\">\\[ \\text{FAZ} = \\max(\\text{FEZ aller Vorgänger}), \\quad \\text{FEZ} = \\text{FAZ} + D \\]\\[ \\text{SEZ} = \\min(\\text{SAZ aller Nachfolger}), \\quad \\text{SAZ} = \\text{SEZ} - D \\]</div><p>Für den Startvorgang gilt FAZ = 0, für den Endvorgang setzt du SEZ = FEZ (wenn kein anderer Endtermin vorgegeben ist). Danach folgen die Puffer:</p><div class=\\\"formel\\\">\\[ \\text{GP} = \\text{SAZ} - \\text{FAZ} = \\text{SEZ} - \\text{FEZ} \\]\\[ \\text{FP} = \\min(\\text{FAZ aller Nachfolger}) - \\text{FEZ} \\]</div><div class=\\\"merke\\\">Vorwärts nimmst du das Maximum, rückwärts das Minimum. Ein Vorgang kann erst starten, wenn der langsamste Vorgänger fertig ist, und muss so früh fertig sein, dass der eiligste Nachfolger rechtzeitig starten kann.</div>"
+  },
+  {
+   "h2": "Beispiel: Netzplan Schritt für Schritt berechnen",
+   "html": "<div class=\"beispiel\"><p>Ein Fahrradhändler mit drei Filialen führt ein neues Warenwirtschaftssystem ein. Das Projekt besteht aus neun Vorgängen (Dauer in Arbeitstagen):</p><table><thead><tr><th>Vorgang</th><th>Beschreibung</th><th>Vorgänger</th><th>Dauer (Tage)</th></tr></thead><tbody><tr><td>A</td><td>Anforderungen aufnehmen</td><td>–</td><td>4</td></tr><tr><td>B</td><td>Anbieter auswählen</td><td>A</td><td>6</td></tr><tr><td>C</td><td>Hardware bestellen und liefern lassen</td><td>A</td><td>7</td></tr><tr><td>D</td><td>Hardware installieren</td><td>C</td><td>3</td></tr><tr><td>E</td><td>Software konfigurieren</td><td>B</td><td>8</td></tr><tr><td>F</td><td>Daten migrieren</td><td>E</td><td>5</td></tr><tr><td>G</td><td>Mitarbeitende schulen</td><td>B</td><td>4</td></tr><tr><td>H</td><td>Testlauf</td><td>D, F</td><td>3</td></tr><tr><td>I</td><td>Go-live</td><td>G, H</td><td>1</td></tr></tbody></table><p><strong>Schritt 1: Vorwärtsrechnung</strong><br>A startet bei 0 und endet bei \\( 0 + 4 = 4 \\). B und C hängen nur an A, also FAZ = 4: B endet bei \\( 4 + 6 = 10 \\), C bei \\( 4 + 7 = 11 \\). D folgt auf C: \\( 11 + 3 = 14 \\). E und G folgen auf B: E endet bei \\( 10 + 8 = 18 \\), G bei \\( 10 + 4 = 14 \\). F folgt auf E: \\( 18 + 5 = 23 \\).<br>H hat zwei Vorgänger, D (FEZ 14) und F (FEZ 23). Es zählt das Maximum: \\( \\text{FAZ}_H = \\max(14; 23) = 23 \\), FEZ \\( = 26 \\). Für I gilt \\( \\max(14; 26) = 26 \\), FEZ \\( = 27 \\). <strong>Das Projekt dauert 27 Arbeitstage.</strong></p><p><strong>Schritt 2: Rückwärtsrechnung</strong><br>I: SEZ = 27, SAZ \\( = 27 - 1 = 26 \\). G und H haben nur I als Nachfolger: SEZ = 26. Also SAZ\\(_H = 23 \\), SAZ\\(_G = 22 \\). D und F haben nur H als Nachfolger: SEZ = 23, also SAZ\\(_D = 20 \\), SAZ\\(_F = 18 \\). E: SEZ = 18, SAZ = 10. C: SEZ = 20, SAZ = 13.<br>B hat zwei Nachfolger, E (SAZ 10) und G (SAZ 22). Es zählt das Minimum: \\( \\text{SEZ}_B = \\min(10; 22) = 10 \\), SAZ = 4. Für A gilt \\( \\min(4; 13) = 4 \\), SAZ = 0.</p><p><strong>Schritt 3: Puffer</strong><br>C: \\( \\text{GP} = 13 - 4 = 9 \\), aber \\( \\text{FP} = \\text{FAZ}_D - \\text{FEZ}_C = 11 - 11 = 0 \\).<br>D: \\( \\text{GP} = 20 - 11 = 9 \\), \\( \\text{FP} = 23 - 14 = 9 \\).<br>G: \\( \\text{GP} = 22 - 10 = 12 \\), \\( \\text{FP} = 26 - 14 = 12 \\).</p><table><thead><tr><th>Vorgang</th><th>D</th><th>FAZ</th><th>FEZ</th><th>SAZ</th><th>SEZ</th><th>GP</th><th>FP</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>4</td><td>0</td><td>4</td><td>0</td><td>4</td><td>0</td><td>0</td></tr><tr><td><strong>B</strong></td><td>6</td><td>4</td><td>10</td><td>4</td><td>10</td><td>0</td><td>0</td></tr><tr><td>C</td><td>7</td><td>4</td><td>11</td><td>13</td><td>20</td><td>9</td><td>0</td></tr><tr><td>D</td><td>3</td><td>11</td><td>14</td><td>20</td><td>23</td><td>9</td><td>9</td></tr><tr><td><strong>E</strong></td><td>8</td><td>10</td><td>18</td><td>10</td><td>18</td><td>0</td><td>0</td></tr><tr><td><strong>F</strong></td><td>5</td><td>18</td><td>23</td><td>18</td><td>23</td><td>0</td><td>0</td></tr><tr><td>G</td><td>4</td><td>10</td><td>14</td><td>22</td><td>26</td><td>12</td><td>12</td></tr><tr><td><strong>H</strong></td><td>3</td><td>23</td><td>26</td><td>23</td><td>26</td><td>0</td><td>0</td></tr><tr><td><strong>I</strong></td><td>1</td><td>26</td><td>27</td><td>26</td><td>27</td><td>0</td><td>0</td></tr></tbody></table><p><strong>Ergebnis:</strong> Der kritische Pfad ist A → B → E → F → H → I mit \\( 4 + 6 + 8 + 5 + 3 + 1 = 27 \\) Tagen. Alle Vorgänge darauf haben den Gesamtpuffer 0.</p></div>"
+  },
+  {
+   "h2": "Was sagen Gesamtpuffer und freier Puffer aus?",
+   "html": "<p>Die beiden Puffer beantworten unterschiedliche Fragen, und genau hier verlieren viele in der Klausur Punkte.</p><ul><li><strong>Gesamtpuffer:</strong> Um wie viel darf sich ein Vorgang verschieben, ohne dass sich das <em>Projektende</em> verschiebt? Er gilt unter der Annahme, dass alle Vorgänger früh und alle Nachfolger spät liegen. Er ist ein gemeinsamer Puffer des ganzen Pfads.</li><li><strong>Freier Puffer:</strong> Um wie viel darf sich ein Vorgang verschieben, ohne dass sich der <em>früheste Start eines Nachfolgers</em> verschiebt? Er gehört dem Vorgang allein.</li></ul><p>Im Beispiel sieht man das am Pfad C → D. Beide haben einen Gesamtpuffer von 9 Tagen, aber das sind nicht 18 Tage Spielraum, sondern dieselben 9 Tage. Verzögert sich die Hardwarelieferung C um 5 Tage, ist das Projekt nicht in Gefahr, doch D startet erst an Tag 16 und hat nur noch 4 Tage Puffer. Weil C einen freien Puffer von 0 hat, wirkt jede Verzögerung von C sofort auf D.</p><p>Was passiert bei Verzögerungen auf dem kritischen Pfad? Braucht die Softwarekonfiguration E zwei Tage länger, verschiebt sich alles dahinter, und das Projekt endet an Tag 29. Wer das Projekt beschleunigen will, muss deshalb kritische Vorgänge verkürzen. Ein schnellerer Schulungsanbieter für G bringt null Tage, eine Beschleunigung der Datenmigration F dagegen bringt jeden gesparten Tag, solange F auf dem kritischen Pfad bleibt. Wird der Strang E → F insgesamt um mehr als 9 Tage gekürzt, wird der Weg über C → D mit 18 Tagen der längste, und ein neuer kritischer Pfad entsteht.</p><div class=\\\"merke\\\">Kritischer Vorgang: GP = 0. Freier Puffer 0 heißt nicht automatisch kritisch. Den Gesamtpuffer eines Pfads darfst du nur einmal verbrauchen.</div>"
+  },
+  {
+   "h2": "Wofür nutzt man die Netzplantechnik?",
+   "html": "<p>Netzpläne lohnen sich überall dort, wo viele Arbeitspakete mit Abhängigkeiten zu einem festen Termin fertig werden müssen: Bau- und Anlagenprojekte, Produktentwicklung, IT-Einführungen, Messeauftritte, Umzüge. Typische Einsatzzwecke:</p><ul><li><strong>Terminplanung:</strong> realistisches Projektende statt Bauchgefühl,</li><li><strong>Engpasssteuerung:</strong> Projektleitung schaut täglich auf den kritischen Pfad, nicht auf alle Vorgänge gleichzeitig,</li><li><strong>Ressourcenplanung:</strong> Vorgänge mit Puffer lassen sich verschieben, um Personalspitzen zu glätten,</li><li><strong>Projektkontrolle:</strong> Soll-Ist-Vergleich der Termine, Teil des Projekt-<a href=\\\"/lernen/controlling\\\">Controllings</a>.</li></ul><p>Der Netzplan ist dabei nur so gut wie die Eingaben. Die Dauern sind Schätzungen; bei großer Unsicherheit arbeitet PERT mit drei Schätzwerten und der gewichteten Erwartung \\( \\frac{o + 4m + p}{6} \\). Kosten und Kapazitäten bildet der klassische Netzplan nicht ab. Dafür brauchst du ergänzend eine Kosten- und Ressourcenplanung, etwa im Rahmen der <a href=\\\"/lernen/budgetierung\\\">Budgetierung</a>.</p>"
+  },
+  {
+   "h2": "Vorteile, Nachteile und Abgrenzung",
+   "html": "<p><strong>Vorteile:</strong></p><ul><li>zeigt Abhängigkeiten und den kritischen Pfad eindeutig,</li><li>liefert für jeden Vorgang den zeitlichen Spielraum,</li><li>macht die Folgen von Verzögerungen sofort berechenbar,</li><li>zwingt zur sauberen Zerlegung des Projekts in Arbeitspakete.</li></ul><p><strong>Nachteile:</strong></p><ul><li>bei großen Projekten unübersichtlich und nur mit Software sinnvoll pflegbar,</li><li>deterministische Dauern täuschen Sicherheit vor,</li><li>Ressourcenkonflikte bleiben unberücksichtigt: Zwei Vorgänge können parallel geplant sein, obwohl sie dieselbe Person brauchen,</li><li>wenig geeignet für agile Projekte, deren Inhalt sich laufend ändert.</li></ul><p><strong>Abgrenzung zum Gantt-Diagramm:</strong> Das Balkendiagramm stellt Vorgänge auf einer Zeitachse dar und ist leichter lesbar, zeigt Abhängigkeiten aber nur, wenn man sie nachträglich einzeichnet. In der Praxis rechnet man mit dem Netzplan und kommuniziert mit dem Gantt-Diagramm. Projektziele selbst legst du vorher fest, etwa nach den <a href=\\\"/lernen/smart-ziele\\\">SMART-Kriterien</a>; der Netzplan sagt dir dann, ob der Termin erreichbar ist.</p>"
+  }
+ ],
+ "fehler": [
+  "In der Vorwärtsrechnung das Minimum nehmen: Hat ein Vorgang mehrere Vorgänger, zählt der späteste FEZ, also das Maximum. Umgekehrt nimmst du in der Rückwärtsrechnung beim Vorgang mit mehreren Nachfolgern den kleinsten SAZ.",
+  "Freien Puffer und Gesamtpuffer verwechseln: Der Gesamtpuffer bezieht sich auf das Projektende (SAZ − FAZ), der freie Puffer auf den frühesten Start der Nachfolger. Ein Vorgang mit freiem Puffer 0 kann trotzdem einen großen Gesamtpuffer haben.",
+  "Gesamtpuffer entlang eines Pfads addieren: Haben zwei hintereinanderliegende Vorgänge je 9 Tage Gesamtpuffer, teilen sie sich diese 9 Tage. Wer sie zu 18 addiert, verplant Puffer, der nicht existiert.",
+  "Zählweise mischen: Manche Lehrbücher starten bei 0 und rechnen \\( \\text{FEZ} = \\text{FAZ} + D \\), andere starten bei Tag 1 und rechnen \\( \\text{FEZ} = \\text{FAZ} + D - 1 \\) mit FAZ des Nachfolgers = FEZ + 1. Beides ist richtig, aber nur konsequent durchgezogen. Nimm die Variante deiner Vorlesung.",
+  "Den kritischen Pfad als längsten Pfad nach Anzahl der Vorgänge bestimmen: Entscheidend ist die Summe der Dauern, nicht wie viele Kästchen hintereinander stehen."
+ ],
+ "faq": [
+  {
+   "q": "Wie erkennt man den kritischen Pfad im Netzplan?",
+   "a": "Der kritische Pfad besteht aus allen Vorgängen mit einem Gesamtpuffer von 0, also FAZ gleich SAZ. Er ist der längste Weg durch das Netz, gemessen an der Summe der Dauern, und bestimmt die Projektdauer. Jede Verzögerung auf diesem Pfad verschiebt das Projektende."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Gesamtpuffer und freiem Puffer?",
+   "a": "Der Gesamtpuffer sagt, wie weit sich ein Vorgang verschieben darf, ohne das Projektende zu gefährden. Der freie Puffer sagt, wie weit er sich verschieben darf, ohne den frühesten Anfang eines Nachfolgers zu verzögern. Der freie Puffer ist deshalb nie größer als der Gesamtpuffer."
+  },
+  {
+   "q": "Kann ein Netzplan mehrere kritische Pfade haben?",
+   "a": "Ja. Wenn zwei Wege durch das Netz genau gleich lang sind, sind beide kritisch. Das ist für die Projektleitung besonders heikel, weil sich dann Verzögerungen auf zwei Strängen sofort auf das Ende auswirken."
+  },
+  {
+   "q": "Was bedeutet ein negativer Puffer?",
+   "a": "Ein negativer Puffer entsteht, wenn ein fester Endtermin vorgegeben ist, der früher liegt als das rechnerische Projektende. Die Rückwärtsrechnung startet dann vom vorgegebenen Termin, und auf dem kritischen Pfad fehlen entsprechend viele Tage. Das Projekt muss gekürzt werden, sonst wird der Termin verfehlt."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen CPM, MPM und PERT?",
+   "a": "CPM stellt Vorgänge als Pfeile dar, MPM als Knoten, beide mit festen Dauern. PERT arbeitet mit Ereignisknoten und drei Zeitschätzungen je Vorgang, um Unsicherheit abzubilden. In deutschen Klausuren ist meist das Vorgangsknotennetz nach MPM gemeint."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Vorgang X hat zwei Vorgänger mit FEZ 12 und FEZ 17. Wie hoch ist der FAZ von X?",
+   "o": [
+    "12",
+    "14,5",
+    "17",
+    "29"
+   ],
+   "r": 2,
+   "e": "In der Vorwärtsrechnung zählt das Maximum der FEZ aller Vorgänger: X kann erst starten, wenn beide fertig sind, also bei 17."
+  },
+  {
+   "q": "Ein Vorgang hat FAZ 6, SAZ 10 und FEZ 9. Sein einziger Nachfolger hat FAZ 9. Wie groß sind Gesamtpuffer und freier Puffer?",
+   "o": [
+    "GP 3, FP 0",
+    "GP 4, FP 0",
+    "GP 4, FP 4",
+    "GP 0, FP 4"
+   ],
+   "r": 1,
+   "e": "\\( \\text{GP} = 10 - 6 = 4 \\), \\( \\text{FP} = 9 - 9 = 0 \\). Der Vorgang hat Spielraum bis zum Projektende, schiebt bei jeder Verzögerung aber sofort seinen Nachfolger."
+  },
+  {
+   "q": "Woran erkennst du einen kritischen Vorgang?",
+   "o": [
+    "Er hat die längste Dauer im Projekt",
+    "Sein freier Puffer ist 0",
+    "Er hat mehrere Vorgänger",
+    "Sein Gesamtpuffer ist 0"
+   ],
+   "r": 3,
+   "e": "Kritisch ist ein Vorgang genau dann, wenn sein Gesamtpuffer 0 ist. Ein freier Puffer von 0 reicht nicht, wie Vorgang C im Beispiel zeigt."
+  }
+ ],
+ "verwandt": [
+  "aufbauorganisation-ablauforganisation",
+  "smart-ziele",
+  "controlling",
+  "budgetierung",
+  "lean-management"
+ ],
+ "ask": "die Netzplantechnik – mit Vorwärts- und Rückwärtsrechnung, Gesamtpuffer, freiem Puffer und kritischem Pfad an einem durchgerechneten Projekt"
+}

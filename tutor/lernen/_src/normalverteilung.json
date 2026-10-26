@@ -1,0 +1,116 @@
+{
+ "slug": "normalverteilung",
+ "name": "Normalverteilung",
+ "title": "Normalverteilung einfach erklärt – mit Beispiel",
+ "meta": "Normalverteilung verständlich: Glockenkurve, z-Wert, Φ-Tabelle und Quantile – Schritt für Schritt an einem Beispiel aus der Produktion erklärt.",
+ "h1": "Normalverteilung einfach erklärt",
+ "kurz": "Die Normalverteilung ist eine stetige, symmetrische Wahrscheinlichkeitsverteilung mit glockenförmiger Dichte. Sie wird vollständig durch den Erwartungswert \\( \\mu \\) und die Standardabweichung \\( \\sigma \\) beschrieben. Wahrscheinlichkeiten berechnest du, indem du mit \\( z = \\frac{x - \\mu}{\\sigma} \\) standardisierst und den Wert \\( \\Phi(z) \\) in der Tabelle der Standardnormalverteilung abliest.",
+ "keywords": [
+  "normalverteilung",
+  "standardnormalverteilung",
+  "normalverteilung berechnen",
+  "z-wert berechnen",
+  "normalverteilung tabelle",
+  "normalverteilung beispiel",
+  "glockenkurve",
+  "quantil normalverteilung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist die Normalverteilung?",
+   "html": "<p>Die <strong>Normalverteilung</strong> (auch Gauß-Verteilung) beschreibt Größen, die um einen Mittelwert schwanken, wobei kleine Abweichungen häufig und große selten sind. Ihre Dichte hat die bekannte <strong>Glockenform</strong>. Typische Beispiele aus der Wirtschaft: Füllmengen in der Produktion, Messfehler, Tagesumsätze großer Filialen oder näherungsweise die Renditen breit gestreuter Aktienportfolios.</p><p>Man schreibt \\( X \\sim N(\\mu, \\sigma^2) \\). Zwei Parameter reichen, um die Verteilung vollständig festzulegen:</p><ul><li><strong>\\( \\mu \\)</strong> ist der <a href=\\\"/lernen/erwartungswert\\\">Erwartungswert</a>. Er legt fest, wo die Glocke ihr Maximum hat.</li><li><strong>\\( \\sigma \\)</strong> ist die <a href=\\\"/lernen/varianz-standardabweichung\\\">Standardabweichung</a>. Sie bestimmt, wie breit und flach die Glocke ist. Achtung: In \\( N(\\mu, \\sigma^2) \\) steht die Varianz, nicht die Standardabweichung.</li></ul><p>Warum gerade diese Verteilung so wichtig ist, erklärt der <strong>Zentrale Grenzwertsatz</strong>: Summen und Mittelwerte vieler unabhängiger Einflüsse sind annähernd normalverteilt, egal wie die einzelnen Einflüsse verteilt sind. Deshalb basieren Konfidenzintervalle und viele Tests auf ihr.</p>"
+  },
+  {
+   "h2": "Welche Eigenschaften hat die Normalverteilung?",
+   "html": "<p>Die Dichtefunktion lautet:</p><div class=\\\"formel\\\">\\[ f(x) = \\frac{1}{\\sigma \\sqrt{2\\pi}} \\cdot e^{-\\frac{1}{2}\\left(\\frac{x - \\mu}{\\sigma}\\right)^2} \\]</div><p>Auswendig lernen musst du sie meist nicht, wohl aber ihre Eigenschaften:</p><ul><li>symmetrisch um \\( \\mu \\): Erwartungswert, Median und Modus fallen zusammen,</li><li>die Fläche unter der Kurve ist 1, Wahrscheinlichkeiten sind Flächen,</li><li>für jeden einzelnen Wert gilt \\( P(X = a) = 0 \\), deshalb ist es egal, ob du \\( < \\) oder \\( \\leq \\) schreibst,</li><li>Wendepunkte bei \\( \\mu - \\sigma \\) und \\( \\mu + \\sigma \\).</li></ul><p>Für eine schnelle Einschätzung hilft die <strong>68-95-99,7-Regel</strong>:</p><table><thead><tr><th>Intervall</th><th>Anteil der Werte</th></tr></thead><tbody><tr><td>\\( \\mu \\pm 1\\sigma \\)</td><td>ca. 68,3 %</td></tr><tr><td>\\( \\mu \\pm 2\\sigma \\)</td><td>ca. 95,4 %</td></tr><tr><td>\\( \\mu \\pm 3\\sigma \\)</td><td>ca. 99,7 %</td></tr></tbody></table>"
+  },
+  {
+   "h2": "Wie rechnet man mit der Standardnormalverteilung?",
+   "html": "<p>Für jede Kombination aus \\( \\mu \\) und \\( \\sigma \\) eine eigene Tabelle zu drucken, wäre unmöglich. Deshalb wird jede Normalverteilung in die <strong>Standardnormalverteilung</strong> \\( N(0, 1) \\) übersetzt. Ihre Verteilungsfunktion heißt \\( \\Phi(z) \\) und steht in jeder Formelsammlung.</p><div class=\\\"formel\\\">\\[ z = \\frac{x - \\mu}{\\sigma} \\]\\[ P(X \\leq x) = \\Phi(z) \\]\\[ \\Phi(-z) = 1 - \\Phi(z) \\]\\[ P(a \\leq X \\leq b) = \\Phi\\left(\\frac{b - \\mu}{\\sigma}\\right) - \\Phi\\left(\\frac{a - \\mu}{\\sigma}\\right) \\]</div><p>Der z-Wert sagt dir, wie viele Standardabweichungen ein Wert vom Erwartungswert entfernt liegt. Für die umgekehrte Frage („Welcher Wert wird nur mit 5 % unterschritten?“) brauchst du das <strong>Quantil</strong>: Du suchst in der Tabelle das \\( z \\) zur gewünschten Wahrscheinlichkeit und rechnest zurück:</p><div class=\\\"formel\\\">\\[ x = \\mu + z \\cdot \\sigma \\]</div><p>Die meisten Tabellen enthalten nur positive z-Werte. Negative z-Werte löst du über die Symmetrie \\( \\Phi(-z) = 1 - \\Phi(z) \\).</p>"
+  },
+  {
+   "h2": "Beispiel: Füllmengen in einer Kaffeerösterei",
+   "html": "<div class=\\\"beispiel\\\"><p>Eine Kaffeerösterei füllt 500-g-Packungen ab. Die Füllmenge \\( X \\) ist normalverteilt mit \\( \\mu = 505 \\) g und \\( \\sigma = 4 \\) g. Pro Jahr laufen 1 Mio. Packungen vom Band, ein Gramm Kaffee kostet die Rösterei 0,02 €.</p><p><strong>Schritt 1: Wie viele Packungen sind unterfüllt?</strong><br>\\( z = \\frac{500 - 505}{4} = -1{,}25 \\)<br>\\( P(X < 500) = \\Phi(-1{,}25) = 1 - \\Phi(1{,}25) = 1 - 0{,}8944 = 0{,}1056 \\)<br>Gut 10,6 % der Packungen enthalten weniger als 500 g.</p><p><strong>Schritt 2: Anteil zwischen 500 g und 510 g</strong><br>\\( z_1 = -1{,}25 \\), \\( z_2 = \\frac{510 - 505}{4} = 1{,}25 \\)<br>\\( P(500 \\leq X \\leq 510) = 0{,}8944 - 0{,}1056 = 0{,}7888 \\), also rund 78,9 %.</p><p><strong>Schritt 3: Anteil über 513 g</strong><br>\\( z = \\frac{513 - 505}{4} = 2 \\Rightarrow P(X > 513) = 1 - \\Phi(2) = 1 - 0{,}9772 = 0{,}0228 \\), rund 2,3 %.</p><p><strong>Schritt 4: Sollwert für höchstens 2 % Unterfüllung</strong><br>Die interne Vorgabe lautet: Höchstens 2 % der Packungen dürfen unter 500 g liegen. Gesucht ist das \\( \\mu \\), bei dem 500 g das 2-%-Quantil ist. Aus der Tabelle: \\( \\Phi(2{,}054) \\approx 0{,}98 \\), also liegt 500 g bei \\( z = -2{,}054 \\).<br>\\( \\mu = 500 + 2{,}054 \\cdot 4 \\approx 508{,}2 \\) g</p><p><strong>Schritt 5: Was kostet das?</strong><br>Die Maschine muss im Mittel 3,2 g mehr abfüllen als bisher:<br>\\( 3{,}2 \\cdot 1.000.000 \\cdot 0{,}02 = 64.000 \\) € pro Jahr</p></div><p>Spannend ist die Alternative: Gelingt es, die Streuung der Abfüllanlage auf \\( \\sigma = 2{,}5 \\) g zu senken, reicht ein Sollwert von \\( 500 + 2{,}054 \\cdot 2{,}5 \\approx 505{,}1 \\) g. Gegenüber 508,2 g spart das 3,1 g pro Packung, also \\( 3{,}1 \\cdot 1.000.000 \\cdot 0{,}02 = 62.000 \\) € pro Jahr. Weniger Streuung ist bares Geld, genau das ist die Grundidee von <a href=\\\"/lernen/six-sigma\\\">Six Sigma</a>.</p>"
+  },
+  {
+   "h2": "Wo braucht man die Normalverteilung in Wiwi?",
+   "html": "<ul><li><strong>Schließende Statistik:</strong> Das <a href=\\\"/lernen/konfidenzintervall\\\">Konfidenzintervall</a> für einen Mittelwert und viele Hypothesentests nutzen die Normalverteilung, weil Stichprobenmittelwerte nach dem Zentralen Grenzwertsatz annähernd normalverteilt sind.</li><li><strong>Finanzierung:</strong> Renditen werden oft als normalverteilt modelliert, etwa im μ-σ-Ansatz der Portfoliotheorie oder beim Value at Risk. Beispiel: Ein Depot über 100.000 € hat eine erwartete Jahresrendite von 6 % bei \\( \\sigma = 15\\,\\% \\). Das 5-%-Quantil der Rendite liegt bei \\( 6\\,\\% - 1{,}645 \\cdot 15\\,\\% \\approx -18{,}7\\,\\% \\). Mit 95 % Wahrscheinlichkeit verliert das Depot im Jahr also nicht mehr als rund 18.700 €, mit 5 % Wahrscheinlichkeit aber mehr.</li><li><strong>Qualität und Produktion:</strong> Toleranzgrenzen, Ausschussquoten und Sollwerte wie im Beispiel.</li><li><strong>Näherung der Binomialverteilung:</strong> Bei großem \\( n \\) lässt sich die <a href=\\\"/lernen/binomialverteilung\\\">Binomialverteilung</a> durch \\( N(np,\\ np(1-p)) \\) annähern. Als Faustregel gilt meist \\( np(1-p) > 9 \\).</li></ul>"
+  },
+  {
+   "h2": "Grenzen der Normalverteilung",
+   "html": "<p>Die Normalverteilung ist ein Modell, kein Naturgesetz. In drei Situationen solltest du skeptisch sein:</p><ul><li><strong>Keine negativen Werte:</strong> Absatzmengen, Preise oder Wartezeiten können nicht negativ sein. Liegt \\( \\mu \\) nur ein bis zwei \\( \\sigma \\) über null, liefert die Normalverteilung spürbare Wahrscheinlichkeiten für unmögliche Werte.</li><li><strong>Schiefe Verteilungen:</strong> Einkommen, Unternehmensgrößen oder Schadenshöhen haben einen langen rechten Ausläufer. Hier passt eher eine schiefe Verteilung.</li><li><strong>Extreme Ereignisse:</strong> An Finanzmärkten treten starke Kursstürze deutlich häufiger auf, als die Normalverteilung vorhersagt (fat tails). Wer Risiken nur mit ihr misst, unterschätzt Crash-Risiken.</li></ul><div class=\\\"merke\\\">Standardisieren, Tabelle ablesen, Symmetrie nutzen: Mit diesen drei Schritten löst du fast jede Klausuraufgabe zur Normalverteilung.</div>"
+  }
+ ],
+ "fehler": [
+  "\\( \\sigma^2 \\) mit \\( \\sigma \\) verwechseln: Steht in der Aufgabe \\( N(505, 16) \\), ist die Varianz 16 und die Standardabweichung 4. Teile beim Standardisieren immer durch \\( \\sigma \\), nie durch \\( \\sigma^2 \\).",
+  "Die Gegenwahrscheinlichkeit vergessen: Die Tabelle liefert \\( P(X \\leq x) \\). Für „mehr als“ rechnest du \\( 1 - \\Phi(z) \\).",
+  "Negative z-Werte direkt in der Tabelle suchen: Die meisten Tabellen haben nur positive Werte. Nutze \\( \\Phi(-1{,}25) = 1 - \\Phi(1{,}25) \\).",
+  "Beim Quantil das falsche Vorzeichen nehmen: Soll ein Wert nur mit 2 % unterschritten werden, liegt er links von \\( \\mu \\), also \\( z = -2{,}054 \\). Skizziere die Glocke und markiere die gesuchte Fläche, bevor du rechnest.",
+  "Intervallwahrscheinlichkeiten addieren statt subtrahieren: \\( P(a \\leq X \\leq b) = \\Phi(z_b) - \\Phi(z_a) \\), nicht die Summe."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man den z-Wert?",
+   "a": "Du ziehst vom Wert x den Erwartungswert ab und teilst durch die Standardabweichung. Der z-Wert gibt an, wie viele Standardabweichungen x vom Mittelwert entfernt liegt. Mit ihm liest du die Wahrscheinlichkeit in der Tabelle der Standardnormalverteilung ab."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Normalverteilung und Standardnormalverteilung?",
+   "a": "Die Standardnormalverteilung ist der Spezialfall mit Erwartungswert 0 und Standardabweichung 1. Jede Normalverteilung lässt sich durch Standardisieren in sie umrechnen. Deshalb reicht eine einzige Tabelle für alle Normalverteilungen."
+  },
+  {
+   "q": "Was besagt die 68-95-99,7-Regel?",
+   "a": "Bei einer Normalverteilung liegen etwa 68,3 Prozent der Werte innerhalb einer Standardabweichung um den Erwartungswert, etwa 95,4 Prozent innerhalb von zwei und etwa 99,7 Prozent innerhalb von drei Standardabweichungen. Sie eignet sich für schnelle Abschätzungen ohne Tabelle."
+  },
+  {
+   "q": "Wie liest man die Tabelle der Normalverteilung ab?",
+   "a": "Die Zeile enthält den z-Wert bis zur ersten Nachkommastelle, die Spalte die zweite Nachkommastelle. Am Schnittpunkt steht die Wahrscheinlichkeit, dass eine standardnormalverteilte Größe kleiner oder gleich z ist. Für z = 1,25 suchst du Zeile 1,2 und Spalte 0,05 und findest 0,8944."
+  },
+  {
+   "q": "Warum ist die Wahrscheinlichkeit für einen einzelnen Wert null?",
+   "a": "Die Normalverteilung ist stetig, Wahrscheinlichkeiten entsprechen Flächen unter der Dichte. Über einem einzelnen Punkt gibt es keine Fläche. Sinnvoll sind daher nur Wahrscheinlichkeiten für Intervalle."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Der Tagesumsatz einer Filiale ist normalverteilt mit \\( \\mu = 12.000 \\) € und \\( \\sigma = 2.000 \\) €. Wie groß ist der z-Wert für 15.000 €?",
+   "o": [
+    "0,67",
+    "1,5",
+    "3",
+    "−1,5"
+   ],
+   "r": 1,
+   "e": "\\( z = \\frac{15.000 - 12.000}{2.000} = 1{,}5 \\)."
+  },
+  {
+   "q": "Gleiche Filiale. Wie wahrscheinlich ist ein Tagesumsatz über 15.000 €? (\\( \\Phi(1{,}5) = 0{,}9332 \\))",
+   "o": [
+    "93,32 %",
+    "43,32 %",
+    "6,68 %",
+    "1,5 %"
+   ],
+   "r": 2,
+   "e": "\\( P(X > 15.000) = 1 - \\Phi(1{,}5) = 1 - 0{,}9332 = 0{,}0668 \\)."
+  },
+  {
+   "q": "Welche Angabe beschreibt bei \\( X \\sim N(100, 25) \\) die Standardabweichung?",
+   "o": [
+    "5",
+    "25",
+    "100",
+    "625"
+   ],
+   "r": 0,
+   "e": "Der zweite Parameter ist die Varianz \\( \\sigma^2 = 25 \\), also \\( \\sigma = \\sqrt{25} = 5 \\)."
+  }
+ ],
+ "verwandt": [
+  "varianz-standardabweichung",
+  "erwartungswert",
+  "konfidenzintervall",
+  "binomialverteilung",
+  "six-sigma"
+ ],
+ "ask": "die Normalverteilung – mit Standardisierung, Φ-Tabelle und Quantilen an einem durchgerechneten Beispiel"
+}

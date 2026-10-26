@@ -1,0 +1,115 @@
+{
+ "slug": "preisuntergrenze",
+ "name": "Preisuntergrenze (kurz- und langfristig)",
+ "title": "Preisuntergrenze berechnen – kurz- und langfristig",
+ "meta": "Preisuntergrenze einfach erklärt: kurzfristig, langfristig, liquiditätsorientiert und bei Engpass mit Opportunitätskosten – mit durchgerechnetem Beispiel.",
+ "h1": "Preisuntergrenze einfach erklärt",
+ "kurz": "Die Preisuntergrenze ist der niedrigste Preis, zu dem sich ein Auftrag gerade noch lohnt. Kurzfristig, bei freier Kapazität, liegt sie bei den variablen Stückkosten \\( k_v \\). Langfristig müssen alle Kosten gedeckt sein, sie entspricht den Selbstkosten pro Stück \\( k_v + \\frac{K_f}{x} \\). Bei einem Engpass kommen die Opportunitätskosten verdrängter Aufträge hinzu.",
+ "keywords": [
+  "preisuntergrenze",
+  "kurzfristige preisuntergrenze",
+  "langfristige preisuntergrenze",
+  "liquiditätsorientierte preisuntergrenze",
+  "preisuntergrenze berechnen",
+  "preisuntergrenze engpass",
+  "zusatzauftrag annehmen"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist die Preisuntergrenze?",
+   "html": "<p>Ein Kunde fragt an, ob du ihm 1.500 Stück zu einem Sonderpreis lieferst. Der Preis liegt unter deinen Selbstkosten. Ablehnen? Nicht unbedingt. Die <strong>Preisuntergrenze (PUG)</strong> beantwortet genau diese Frage: Welchen Preis muss ein Auftrag mindestens bringen, damit das Unternehmen durch ihn nicht schlechter dasteht als ohne ihn?</p><p>Die Antwort hängt vom <strong>Zeithorizont</strong> und von der <strong>Kapazitätssituation</strong> ab. Kurzfristig sind die Fixkosten da, egal ob du den Auftrag annimmst oder nicht. Sie sind für die Entscheidung irrelevant. Langfristig muss jedes Produkt aber auch seine Fixkosten verdienen, sonst geht der Betrieb an Substanz und Ersatzinvestitionen pleite. Ist die Kapazität voll ausgelastet, kostet ein neuer Auftrag zusätzlich das, was du an anderer Stelle nicht mehr verdienst.</p><p>Die Preisuntergrenze ist ein Werkzeug der Teilkostenrechnung. Du brauchst eine saubere Trennung in <a href=\"/lernen/fixe-und-variable-kosten\">fixe und variable Kosten</a>, sonst lässt sie sich nicht bestimmen.</p><div class=\"merke\">Die Preisuntergrenze ist kein Angebotspreis, sondern eine Schmerzgrenze. Liegt der gebotene Preis darüber, verbessert der Auftrag das Ergebnis, liegt er darunter, verschlechtert er es.</div>"
+  },
+  {
+   "h2": "Welche Preisuntergrenzen gibt es? Die Formeln",
+   "html": "<table><thead><tr><th>Art</th><th>Situation</th><th>Preisuntergrenze</th></tr></thead><tbody><tr><td>kurzfristig</td><td>freie Kapazität, Fixkosten bleiben ohnehin</td><td>\\( k_v \\)</td></tr><tr><td>langfristig</td><td>alle Kosten müssen gedeckt werden</td><td>\\( k_v + \\frac{K_f}{x} \\)</td></tr><tr><td>liquiditätsorientiert</td><td>Zahlungsfähigkeit sichern</td><td>\\( k_v + \\frac{K_{f,\\text{auszahlungswirksam}}}{x} \\)</td></tr><tr><td>bei Engpass</td><td>Kapazität voll, andere Aufträge werden verdrängt</td><td>\\( k_v + \\text{Opportunitätskosten pro Stück} \\)</td></tr></tbody></table><p><strong>Kurzfristige PUG:</strong> Bei jedem Preis über den variablen Stückkosten bleibt ein positiver Stückdeckungsbeitrag, der Fixkosten deckt. Genau bei \\( p = k_v \\) ist der <a href=\"/lernen/deckungsbeitrag\">Deckungsbeitrag</a> null.</p><p><strong>Langfristige PUG:</strong> Hier deckt der Preis die vollen Selbstkosten pro Stück. Die Fixkosten werden auf die geplante Normalmenge verteilt, nicht auf die Maximalkapazität.</p><p><strong>Liquiditätsorientierte PUG:</strong> Ein Teil der Fixkosten führt nicht zu Auszahlungen, vor allem Abschreibungen und kalkulatorische Kosten. In einer Krise reicht es vorübergehend, wenn der Preis die auszahlungswirksamen Kosten deckt. Dann bleibt das Unternehmen zahlungsfähig, verzehrt aber seine Substanz. Sie liegt zwischen kurz- und langfristiger PUG.</p><p><strong>PUG bei Engpass:</strong> Wer einen neuen Auftrag annimmt, muss einen bestehenden zurückstellen. Dessen entgangener Deckungsbeitrag sind die <a href=\"/lernen/opportunitaetskosten\">Opportunitätskosten</a>.</p><div class=\"formel\">\\[ \\text{PUG}_{\\text{Engpass}} = k_v + \\text{Engpassbedarf pro Stück} \\cdot \\text{relativer DB des verdrängten Produkts} \\]</div>"
+  },
+  {
+   "h2": "Beispiel: kurz-, langfristige und liquiditätsorientierte Preisuntergrenze",
+   "html": "<div class=\"beispiel\"><p>Eine Holzspielzeug-Manufaktur stellt Spielküchen her. Verkaufspreis 120 €, variable Stückkosten 60 €. Die Fixkosten betragen 320.000 € pro Jahr, davon 120.000 € Abschreibungen. Geplant und verkauft werden 8.000 Stück, die Kapazität liegt bei 10.000 Stück.</p><p><strong>Kurzfristige Preisuntergrenze</strong><br>\\( \\text{PUG}_{\\text{kurz}} = k_v = 60 \\) €</p><p><strong>Langfristige Preisuntergrenze</strong><br>\\( \\text{PUG}_{\\text{lang}} = 60 + \\frac{320.000}{8.000} = 60 + 40 = 100 \\) €</p><p><strong>Liquiditätsorientierte Preisuntergrenze</strong><br>Auszahlungswirksame Fixkosten: \\( 320.000 - 120.000 = 200.000 \\) €<br>\\( \\text{PUG}_{\\text{liq}} = 60 + \\frac{200.000}{8.000} = 60 + 25 = 85 \\) €</p><p><strong>Zusatzauftrag:</strong> Eine Kita-Kette bietet für 1.500 Spielküchen 70 € pro Stück. Die freie Kapazität beträgt \\( 10.000 - 8.000 = 2.000 \\) Stück, der Auftrag passt also hinein. Da 70 € über der kurzfristigen PUG von 60 € liegen, steigt der Gewinn um \\( (70 - 60) \\cdot 1.500 = 15.000 \\) €.</p><table><thead><tr><th></th><th>ohne Auftrag</th><th>mit Auftrag</th></tr></thead><tbody><tr><td>Deckungsbeitrag</td><td>\\( 60 \\cdot 8.000 = 480.000 \\) €</td><td>\\( 480.000 + 10 \\cdot 1.500 = 495.000 \\) €</td></tr><tr><td>Fixkosten</td><td>320.000 €</td><td>320.000 €</td></tr><tr><td>Gewinn</td><td>160.000 €</td><td>175.000 €</td></tr></tbody></table></div><p>Obwohl 70 € deutlich unter den Selbstkosten von 100 € liegen, lohnt sich der Auftrag. Die Vollkostenrechnung hätte ihn mit einem scheinbaren Verlust von 30 € pro Stück abgelehnt und damit 15.000 € Gewinn verschenkt.</p>"
+  },
+  {
+   "h2": "Preisuntergrenze bei Engpass: Opportunitätskosten richtig rechnen",
+   "html": "<p>Vor Weihnachten ist die CNC-Fräse der Manufaktur voll ausgelastet. Jetzt kostet jeder neue Auftrag Fräsezeit, die anderen Produkten fehlt. Welche Produkte verdrängt werden, entscheidet der <strong>relative Deckungsbeitrag</strong> (DB pro Engpasseinheit), den du aus dem <a href=\"/lernen/optimales-produktionsprogramm\">optimalen Produktionsprogramm</a> kennst: Verdrängt wird zuerst das Produkt mit dem niedrigsten relativen DB.</p><div class=\"beispiel\"><p>Auf der Fräse laufen Spielküchen (DB 60 €, 1,0 Fräsestunde, relativer DB 60 €/h) und Kaufläden (Preis 90 €, \\( k_v \\) 45 €, DB 45 €, 1,5 Fräsestunden). Ein Händler fragt 150 Puppenhäuser an. Variable Kosten 75 € pro Stück, Fräsebedarf 3 Stunden pro Stück.</p><p><strong>Schritt 1: Relativer DB des Kaufladens</strong><br>\\( \\frac{45\\text{ €}}{1{,}5\\text{ h}} = 30 \\) € pro Stunde, also niedriger als bei der Spielküche. Die Kaufläden werden verdrängt.</p><p><strong>Schritt 2: Opportunitätskosten pro Puppenhaus</strong><br>\\( 3\\text{ h} \\cdot 30\\text{ €/h} = 90 \\) €</p><p><strong>Schritt 3: Preisuntergrenze</strong><br>\\( \\text{PUG} = 75 + 90 = 165 \\) €</p><p><strong>Probe:</strong> 150 Puppenhäuser brauchen \\( 150 \\cdot 3 = 450 \\) Stunden. Dafür entfallen \\( \\frac{450}{1{,}5} = 300 \\) Kaufläden mit \\( 300 \\cdot 45 = 13.500 \\) € DB. Pro Puppenhaus sind das \\( \\frac{13.500}{150} = 90 \\) € ✓</p></div><p>Ohne Engpass läge die PUG der Puppenhäuser bei 75 €. Mit Engpass liegt sie mehr als doppelt so hoch. Wer das übersieht, nimmt einen Auftrag zu 120 € an, der pro Stück 45 € Gewinn vernichtet.</p><div class=\"merke\">Ist nur ein Teil der benötigten Kapazität frei, rechnest du gemischt: Für die freie Kapazität gilt \\( k_v \\), nur für den Teil, der verdrängt, kommen Opportunitätskosten dazu.</div>"
+  },
+  {
+   "h2": "Wann nutzt man welche Preisuntergrenze?",
+   "html": "<ul><li><strong>Kurzfristige PUG:</strong> Zusatzaufträge bei Unterauslastung, Restposten, Saisontiefs. Voraussetzung: Die Fixkosten ändern sich durch den Auftrag nicht, und der Sonderpreis zieht keine Preissenkungen bei Stammkunden nach sich.</li><li><strong>Langfristige PUG:</strong> Kalkulation des Normalsortiments, Preisverhandlungen über Rahmenverträge, Entscheidung, ob ein Produkt dauerhaft im Programm bleibt.</li><li><strong>Liquiditätsorientierte PUG:</strong> Krisensituationen, in denen es zunächst nur um das Überleben geht. Dauerhaft darunter zu verkaufen, ist nicht möglich.</li><li><strong>PUG bei Engpass:</strong> voll ausgelastete Anlagen, Hochsaison, knappe Fachkräfte.</li></ul><p>Bezugsrahmen ist immer die Frage: Was ändert sich, wenn ich den Auftrag annehme? Alles, was sich nicht ändert, gehört nicht in die Rechnung. Das ist dieselbe Logik wie bei der <a href=\"/lernen/make-or-buy\">Make-or-Buy-Entscheidung</a>, wo du mit der Preisobergrenze für den Fremdbezug arbeitest.</p>"
+  },
+  {
+   "h2": "Grenzen und typische Denkfehler",
+   "html": "<p>Die kurzfristige PUG ist gefährlich, wenn man sie als Dauerlösung nutzt. Wer jeden Auftrag knapp über \\( k_v \\) annimmt, deckt seine Fixkosten nie. Außerdem gibt es Nebenwirkungen, die in der Rechnung nicht auftauchen:</p><ul><li>Stammkunden erfahren vom Sonderpreis und fordern ihn auch,</li><li>der Zusatzauftrag blockiert Kapazität, die später für besser bezahlte Aufträge fehlt,</li><li>Fixkosten sind langfristig nicht fix: Bei dauerhaft mehr Menge steigen sie sprunghaft, etwa durch eine zweite Schicht.</li></ul><p>Auch die langfristige PUG hat einen Haken: Sie hängt von der Menge ab. Bei 6.000 statt 8.000 Stück lägen die fixen Stückkosten bei \\( \\frac{320.000}{6.000} \\approx 53{,}33 \\) € und die langfristige PUG bei rund 113,33 €. Sinkender Absatz treibt also die rechnerische Untergrenze nach oben, und höhere Preise würden den Absatz weiter drücken. Deshalb rechnet man mit der Normalmenge und nicht mit dem Istabsatz eines schlechten Jahres.</p>"
+  }
+ ],
+ "fehler": [
+  "Fixkosten in die kurzfristige Preisuntergrenze einrechnen: Bei freier Kapazität fallen die Fixkosten unabhängig vom Auftrag an. Die kurzfristige PUG sind nur die variablen Stückkosten.",
+  "Bei Engpass mit dem absoluten statt dem relativen Deckungsbeitrag rechnen: Die Opportunitätskosten sind Engpassbedarf des neuen Produkts mal relativer DB des verdrängten Produkts, nicht einfach dessen Stück-DB.",
+  "Das falsche Produkt als verdrängt annehmen: Verdrängt wird das Produkt mit dem niedrigsten relativen Deckungsbeitrag, nicht das mit dem niedrigsten absoluten DB oder Preis.",
+  "Fixkosten bei der langfristigen PUG auf die Maximalkapazität verteilen: Verteilt wird auf die geplante Normalmenge. Mit 10.000 statt 8.000 Stück würdest du die PUG zu niedrig ansetzen.",
+  "Abschreibungen bei der liquiditätsorientierten PUG mitrechnen: Abschreibungen und kalkulatorische Kosten führen nicht zu Auszahlungen und bleiben draußen."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen kurzfristiger und langfristiger Preisuntergrenze?",
+   "a": "Die kurzfristige Preisuntergrenze deckt nur die variablen Stückkosten, weil die Fixkosten kurzfristig ohnehin anfallen. Die langfristige Preisuntergrenze deckt alle Kosten, also variable Stückkosten plus anteilige Fixkosten pro Stück. Langfristig kann ein Unternehmen nur überleben, wenn alle Kosten gedeckt sind."
+  },
+  {
+   "q": "Wann sollte man einen Zusatzauftrag annehmen?",
+   "a": "Bei freier Kapazität lohnt sich ein Zusatzauftrag, wenn sein Preis über den variablen Stückkosten liegt und die Fixkosten unverändert bleiben. Zusätzlich solltest du prüfen, ob Stammkunden niedrigere Preise fordern könnten. Bei Engpass muss der Preis auch die Opportunitätskosten decken."
+  },
+  {
+   "q": "Was ist die liquiditätsorientierte Preisuntergrenze?",
+   "a": "Sie deckt die variablen Kosten und den auszahlungswirksamen Teil der Fixkosten, aber keine Abschreibungen. Damit bleibt das Unternehmen zahlungsfähig. Sie liegt zwischen kurz- und langfristiger Preisuntergrenze und taugt nur als vorübergehende Krisenlösung."
+  },
+  {
+   "q": "Wie berechnet man die Preisuntergrenze bei einem Engpass?",
+   "a": "Preisuntergrenze gleich variable Stückkosten plus Opportunitätskosten. Die Opportunitätskosten sind der Engpassbedarf des neuen Produkts mal der relative Deckungsbeitrag des Produkts, das verdrängt wird. Verdrängt wird das Produkt mit dem niedrigsten DB pro Engpasseinheit."
+  },
+  {
+   "q": "Ist die Preisuntergrenze gleich dem Break-even-Preis?",
+   "a": "Die langfristige Preisuntergrenze entspricht dem Preis, bei dem die geplante Menge genau die Gewinnschwelle erreicht. Die kurzfristige Preisuntergrenze liegt dagegen darunter, bei den variablen Stückkosten. Beim Break-even-Point fragt man meist umgekehrt nach der Menge bei gegebenem Preis."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Variable Stückkosten 24 €, Fixkosten 90.000 €, Normalmenge 6.000 Stück, freie Kapazität vorhanden. Wie hoch ist die kurzfristige Preisuntergrenze?",
+   "o": [
+    "39 €",
+    "15 €",
+    "24 €",
+    "30 €"
+   ],
+   "r": 2,
+   "e": "Bei freier Kapazität zählen nur die variablen Kosten: 24 €. Die langfristige PUG wäre \\( 24 + \\frac{90.000}{6.000} = 39 \\) €."
+  },
+  {
+   "q": "Gleiche Daten: Wie hoch ist die langfristige Preisuntergrenze?",
+   "o": [
+    "24 €",
+    "39 €",
+    "15 €",
+    "54 €"
+   ],
+   "r": 1,
+   "e": "\\( 24 + \\frac{90.000}{6.000} = 24 + 15 = 39 \\) €."
+  },
+  {
+   "q": "Engpass Maschine: Ein neues Produkt hat \\( k_v \\) = 50 € und braucht 2 h. Verdrängt wird ein Produkt mit DB 40 € bei 4 h. Wie hoch ist die PUG?",
+   "o": [
+    "70 €",
+    "90 €",
+    "130 €",
+    "60 €"
+   ],
+   "r": 0,
+   "e": "Relativer DB des verdrängten Produkts: \\( \\frac{40}{4} = 10 \\) € pro Stunde. Opportunitätskosten \\( 2 \\cdot 10 = 20 \\) €, PUG \\( 50 + 20 = 70 \\) €."
+  }
+ ],
+ "verwandt": [
+  "deckungsbeitrag",
+  "fixe-und-variable-kosten",
+  "optimales-produktionsprogramm",
+  "opportunitaetskosten",
+  "break-even-point"
+ ],
+ "ask": "die Preisuntergrenze – kurzfristig, langfristig, liquiditätsorientiert und bei Engpass mit Opportunitätskosten an einem durchgerechneten Beispiel"
+}

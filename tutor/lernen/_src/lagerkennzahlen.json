@@ -1,0 +1,120 @@
+{
+ "slug": "lagerkennzahlen",
+ "name": "Lagerumschlagshäufigkeit und Lagerkennzahlen",
+ "title": "Lagerumschlagshäufigkeit berechnen – Lagerkennzahlen",
+ "meta": "Lagerumschlagshäufigkeit, durchschnittlicher Lagerbestand, Lagerdauer, Lagerzinssatz und Reichweite verständlich erklärt – mit durchgerechnetem Beispiel.",
+ "h1": "Lagerumschlagshäufigkeit und Lagerkennzahlen einfach erklärt",
+ "kurz": "Die Lagerumschlagshäufigkeit gibt an, wie oft der durchschnittliche Lagerbestand in einer Periode verbraucht bzw. verkauft und wieder ersetzt wird: \\( \\text{UH} = \\frac{\\text{Wareneinsatz}}{\\text{Ø Lagerbestand}} \\). Aus ihr folgen die durchschnittliche Lagerdauer \\( \\frac{360}{\\text{UH}} \\) und der Lagerzinssatz. Je höher der Umschlag, desto weniger Kapital ist im Lager gebunden.",
+ "keywords": [
+  "lagerumschlagshäufigkeit",
+  "durchschnittlicher lagerbestand",
+  "lagerumschlagshäufigkeit berechnen",
+  "durchschnittliche lagerdauer",
+  "lagerzinssatz",
+  "lagerreichweite",
+  "lagerkennzahlen",
+  "umschlagshäufigkeit formel"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was sind Lagerkennzahlen?",
+   "html": "<p>Jeder Artikel, der im Lager liegt, hat Geld gekostet, das noch nicht zurückgeflossen ist. Dazu kommen Miete, Personal, Versicherung, Schwund und das Risiko, dass Ware veraltet. Lagerkennzahlen messen, wie viel Kapital im Lager gebunden ist und wie schnell es wieder zu Umsatz wird. Sie sind ein klassisches Thema in Materialwirtschaft, Controlling und Rechnungswesen.</p><table><thead><tr><th>Kennzahl</th><th>Frage, die sie beantwortet</th></tr></thead><tbody><tr><td>Durchschnittlicher Lagerbestand</td><td>Wie viel liegt im Mittel auf Lager?</td></tr><tr><td>Lagerumschlagshäufigkeit</td><td>Wie oft wird dieser Bestand pro Jahr umgeschlagen?</td></tr><tr><td>Durchschnittliche Lagerdauer</td><td>Wie viele Tage liegt ein Artikel im Schnitt im Lager?</td></tr><tr><td>Lagerzinssatz und Lagerzinsen</td><td>Was kostet das gebundene Kapital?</td></tr><tr><td>Lagerreichweite</td><td>Wie lange reicht der aktuelle Bestand noch?</td></tr></tbody></table><p>Die Kennzahlen bauen aufeinander auf. Alles beginnt beim durchschnittlichen Lagerbestand – und genau dort passieren die meisten Fehler.</p>"
+  },
+  {
+   "h2": "Wie berechnet man den durchschnittlichen Lagerbestand?",
+   "html": "<p>Der Lagerbestand schwankt über das Jahr. Für die Kennzahlen brauchst du deshalb einen Mittelwert. Je nachdem, welche Daten gegeben sind, gibt es drei Formeln:</p><div class=\"formel\">\\[ \\text{Ø Lagerbestand} = \\frac{\\text{Anfangsbestand} + \\text{Endbestand}}{2} \\]\\[ \\text{Ø Lagerbestand} = \\frac{\\text{Anfangsbestand} + 4 \\text{ Quartalsendbestände}}{5} \\]\\[ \\text{Ø Lagerbestand} = \\frac{\\text{Anfangsbestand} + 12 \\text{ Monatsendbestände}}{13} \\]</div><p>Die erste Formel ist die schnellste, aber die ungenaueste: Sie kennt nur zwei Stichtage. Hat ein Betrieb ein starkes Saisongeschäft, liegt der Bestand zwischen den Stichtagen oft ganz woanders. Merke dir den Nenner über die Zahl der Werte: Der Anfangsbestand kommt immer dazu, darum steht dort 5 bzw. 13 und nicht 4 bzw. 12.</p><p>Der Bestand wird in der Regel mit <strong>Einstandspreisen</strong> (Handel) bzw. Anschaffungs- oder Herstellungskosten (Industrie) bewertet. Alternativ rechnest du in Mengeneinheiten, wenn es um einen einzelnen Artikel geht. Die Bestände selbst stammen aus der Inventur oder aus der laufenden Lagerbuchhaltung.</p>"
+  },
+  {
+   "h2": "Lagerumschlagshäufigkeit, Lagerdauer und Lagerzinssatz: die Formeln",
+   "html": "<div class=\"formel\">\\[ \\text{Lagerumschlagshäufigkeit} = \\frac{\\text{Wareneinsatz (Materialverbrauch)}}{\\text{Ø Lagerbestand}} \\]\\[ \\text{Ø Lagerdauer} = \\frac{360}{\\text{Lagerumschlagshäufigkeit}} \\]\\[ \\text{Lagerzinssatz} = \\frac{\\text{Jahreszinssatz} \\cdot \\text{Ø Lagerdauer}}{360} \\]\\[ \\text{Lagerzinsen} = \\text{Ø Lagerbestand} \\cdot \\text{Jahreszinssatz} \\]</div><p>Zähler und Nenner der Umschlagshäufigkeit müssen auf derselben Wertbasis stehen. Der Lagerbestand ist zu Einstandspreisen bewertet, also gehört in den Zähler der <strong>Wareneinsatz</strong> (verkaufte Ware zu Einstandspreisen) und nicht der Umsatz zu Verkaufspreisen. In der Industrie nimmst du für Roh-, Hilfs- und Betriebsstoffe den Materialverbrauch. Auf Mengenbasis lautet die Formel entsprechend Abgang in Stück durch Ø Bestand in Stück.</p><p>Die 360 Tage sind die kaufmännische Konvention in deutschen Klausuren; manche Lehrbücher und Geschäftsberichte rechnen mit 365. Halte dich an die Vorgabe deiner Vorlesung.</p><p>Der <strong>Lagerzinssatz</strong> rechnet den Jahreszins auf die Zeit um, die eine Ware im Schnitt im Lager liegt. Er sagt dir, wie viel Prozent vom Wareneinsatz das gebundene Kapital kostet. Dazu kommt die <strong>Lagerreichweite</strong>:</p><div class=\"formel\">\\[ \\text{Lagerreichweite in Tagen} = \\frac{\\text{Lagerbestand}}{\\text{Ø Tagesverbrauch}} \\]</div>"
+  },
+  {
+   "h2": "Beispiel: Lagerumschlagshäufigkeit Schritt für Schritt",
+   "html": "<div class=\"beispiel\"><p>Ein Großhändler für Fahrradzubehör hat folgende Lagerbestände (zu Einstandspreisen):</p><table><thead><tr><th>Stichtag</th><th>Bestand</th></tr></thead><tbody><tr><td>01.01. (Anfangsbestand)</td><td>84.000 €</td></tr><tr><td>31.03.</td><td>96.000 €</td></tr><tr><td>30.06.</td><td>120.000 €</td></tr><tr><td>30.09.</td><td>72.000 €</td></tr><tr><td>31.12. (Endbestand)</td><td>78.000 €</td></tr></tbody></table><p>Der Wareneinsatz des Jahres beträgt 1.080.000 €, der Umsatz 1.500.000 €. Der kalkulatorische Zinssatz liegt bei 8 % pro Jahr.</p><p><strong>Schritt 1: Durchschnittlicher Lagerbestand</strong><br>\\( \\text{Ø LB} = \\frac{84.000 + 96.000 + 120.000 + 72.000 + 78.000}{5} = \\frac{450.000}{5} = 90.000 \\) €</p><p><strong>Schritt 2: Lagerumschlagshäufigkeit</strong><br>\\( \\text{UH} = \\frac{1.080.000}{90.000} = 12 \\)<br>Der Durchschnittsbestand wird also zwölfmal im Jahr verkauft und ersetzt.</p><p><strong>Schritt 3: Durchschnittliche Lagerdauer</strong><br>\\( \\frac{360}{12} = 30 \\) Tage</p><p><strong>Schritt 4: Lagerzinssatz und Lagerzinsen</strong><br>\\( \\text{Lagerzinssatz} = \\frac{8\\,\\% \\cdot 30}{360} \\approx 0{,}67\\,\\% \\)<br>\\( \\text{Lagerzinsen} = 90.000 \\cdot 8\\,\\% = 7.200 \\) €<br>Probe über den Wareneinsatz: \\( 1.080.000 \\cdot \\frac{8\\,\\% \\cdot 30}{360} = 7.200 \\) € ✓</p><p><strong>Schritt 5: Reichweite des Endbestands</strong><br>\\( \\text{Ø Tagesverbrauch} = \\frac{1.080.000}{360} = 3.000 \\) €<br>\\( \\text{Reichweite} = \\frac{78.000}{3.000} = 26 \\) Tage</p></div><p><strong>Zum Vergleich die Schnellformel:</strong> \\( \\frac{84.000 + 78.000}{2} = 81.000 \\) € ergibt \\( \\text{UH} = \\frac{1.080.000}{81.000} \\approx 13{,}33 \\) und eine Lagerdauer von 27 Tagen. Weil der Sommerbestand von 120.000 € unter den Tisch fällt, sieht das Lager besser aus, als es ist. Und wer den Umsatz statt des Wareneinsatzes nimmt, kommt sogar auf \\( \\frac{1.500.000}{90.000} \\approx 16{,}67 \\) – ein reiner Rechenfehler, denn Umsatz und Bestand sind dann unterschiedlich bewertet.</p>"
+  },
+  {
+   "h2": "Wie interpretiert man die Lagerumschlagshäufigkeit?",
+   "html": "<p>Eine <strong>hohe Umschlagshäufigkeit</strong> (kurze Lagerdauer) bedeutet: wenig gebundenes Kapital, geringe Lagerzinsen, weniger Platzbedarf, geringeres Risiko von Veralterung und Schwund. Eine <strong>niedrige Umschlagshäufigkeit</strong> deutet auf zu hohe Bestände, Ladenhüter oder schlechte Disposition hin.</p><p>Höher ist aber nicht automatisch besser. Wer den Bestand zu stark drückt, riskiert Lieferengpässe, Fehlmengenkosten und verärgerte Kunden. Häufigere, kleinere Bestellungen erhöhen zudem die Bestellkosten – genau diesen Zielkonflikt löst die <a href=\"/lernen/optimale-bestellmenge\">optimale Bestellmenge</a>. Wie viel Puffer nötig ist, regelt das <a href=\"/lernen/bestellpunktverfahren\">Bestellpunktverfahren mit Sicherheitsbestand</a>.</p><p>Aussagekraft bekommt die Kennzahl erst im <strong>Vergleich</strong>: mit Vorjahren, mit anderen Filialen oder mit Betrieben derselben Branche. Ein Lebensmittelhändler mit frischer Ware schlägt sein Lager naturgemäß viel öfter um als ein Juwelier oder ein Ersatzteillager für Maschinen. Ein branchenübergreifender Vergleich ist deshalb wertlos.</p><div class=\"merke\">Umschlagshäufigkeit hoch = Lagerdauer kurz = wenig Kapitalbindung. Interpretieren nur im Zeit- oder Branchenvergleich, nie isoliert.</div>"
+  },
+  {
+   "h2": "Was bringt ein schnellerer Lagerumschlag?",
+   "html": "<p>Steigt die Umschlagshäufigkeit bei gleichem Wareneinsatz, sinkt der nötige Durchschnittsbestand. Das freigesetzte Kapital kann Kredite ablösen oder investiert werden.</p><div class=\"formel\">\\[ \\text{Kapitalfreisetzung} = \\frac{\\text{Wareneinsatz}}{\\text{UH}_{\\text{alt}}} - \\frac{\\text{Wareneinsatz}}{\\text{UH}_{\\text{neu}}} \\]</div><p>Im Beispiel will der Großhändler den Umschlag durch bessere Disposition von 12 auf 15 steigern:</p><ul><li>neuer Ø Bestand: \\( \\frac{1.080.000}{15} = 72.000 \\) €,</li><li>Kapitalfreisetzung: \\( 90.000 - 72.000 = 18.000 \\) €,</li><li>Zinsersparnis: \\( 18.000 \\cdot 8\\,\\% = 1.440 \\) € pro Jahr,</li><li>neue Lagerdauer: \\( \\frac{360}{15} = 24 \\) Tage.</li></ul><p>Dazu kommen Einsparungen bei Lagerfläche, Versicherung und Abschreibungen auf veraltete Ware, die in den Zinsen noch gar nicht enthalten sind. Hebel sind etwa eine <a href=\"/lernen/abc-analyse\">ABC-Analyse</a>, um die teuren A-Artikel eng zu steuern, kürzere Lieferzeiten oder Just-in-Time-Belieferung.</p>"
+  },
+  {
+   "h2": "Grenzen und Abgrenzung zu verwandten Kennzahlen",
+   "html": "<ul><li><strong>Stichtagsproblem:</strong> Der Durchschnitt ist nur so gut wie die Stichtage. Externe Analysten kennen oft nur Anfangs- und Endbestand aus der Bilanz; Unternehmen können den Bestand zum Bilanzstichtag gezielt niedrig halten.</li><li><strong>Gesamtkennzahl verschleiert Einzelartikel:</strong> Eine gute Gesamtquote kann Ladenhüter verdecken, die von Schnelldrehern ausgeglichen werden. Sinnvoll ist eine Auswertung je Artikelgruppe.</li><li><strong>Bewertung:</strong> Ändern sich Einstandspreise stark, verzerren sie wertbasierte Kennzahlen. Für einzelne Artikel ist die Mengenrechnung sauberer.</li></ul><p><strong>Abgrenzung:</strong> In der Bilanzanalyse heißt die Lagerdauer oft <em>Days Inventory Outstanding</em> (DIO) und wird meist mit 365 Tagen und den Umsatzkosten berechnet. Sie ist ein Baustein des <a href=\"/lernen/cash-conversion-cycle\">Cash Conversion Cycle</a>, der zusätzlich Kunden- und Lieferantenziel berücksichtigt. Die Vorräte selbst sind Teil des <a href=\"/lernen/working-capital\">Working Capital</a>.</p>"
+  }
+ ],
+ "fehler": [
+  "Umsatz statt Wareneinsatz in den Zähler setzen: Der Lagerbestand ist zu Einstandspreisen bewertet, also muss auch der Zähler zu Einstandspreisen bewertet sein. Mit dem Umsatz wird die Umschlagshäufigkeit systematisch zu hoch.",
+  "Beim Durchschnittsbestand falsch teilen: Anfangsbestand plus 4 Quartalsendbestände sind 5 Werte, also durch 5 teilen; Anfangsbestand plus 12 Monatsendbestände durch 13.",
+  "Lagerdauer mit dem Bestand statt mit der Umschlagshäufigkeit rechnen: Die Lagerdauer ist \\( \\frac{360}{\\text{UH}} \\), nicht 360 geteilt durch den Durchschnittsbestand.",
+  "Lagerzinsen mit dem Lagerzinssatz auf den Lagerbestand rechnen: Der Lagerzinssatz bezieht sich auf den Wareneinsatz. Auf den Durchschnittsbestand wendest du den Jahreszinssatz an – beide Wege liefern dasselbe Ergebnis.",
+  "Eine hohe Umschlagshäufigkeit pauschal als gut bewerten: Zu niedrige Bestände führen zu Fehlmengen und höheren Bestellkosten. Schreib in der Klausur immer beide Seiten dazu."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man die Lagerumschlagshäufigkeit?",
+   "a": "Du teilst den Wareneinsatz (bzw. Materialverbrauch) einer Periode durch den durchschnittlichen Lagerbestand, beide zu Einstandspreisen bewertet. Bei 1.080.000 € Wareneinsatz und 90.000 € Durchschnittsbestand ergibt sich eine Umschlagshäufigkeit von 12."
+  },
+  {
+   "q": "Wie berechnet man den durchschnittlichen Lagerbestand?",
+   "a": "Im einfachsten Fall als Mittelwert aus Anfangs- und Endbestand. Genauer ist der Durchschnitt aus Anfangsbestand und den 4 Quartalsendbeständen (geteilt durch 5) oder den 12 Monatsendbeständen (geteilt durch 13). Je mehr Stichtage, desto besser werden Saisonschwankungen erfasst."
+  },
+  {
+   "q": "Was sagt die durchschnittliche Lagerdauer aus?",
+   "a": "Sie gibt an, wie viele Tage ein Artikel im Durchschnitt im Lager liegt, bevor er verkauft oder verbraucht wird. Man berechnet sie als 360 geteilt durch die Lagerumschlagshäufigkeit. Je kürzer die Lagerdauer, desto kürzer ist das Kapital gebunden."
+  },
+  {
+   "q": "Was ist der Lagerzinssatz?",
+   "a": "Der Lagerzinssatz ist der Jahreszinssatz, umgerechnet auf die durchschnittliche Lagerdauer: Jahreszinssatz mal Lagerdauer geteilt durch 360. Er zeigt, wie viel Prozent des Wareneinsatzes die Kapitalbindung im Lager kostet."
+  },
+  {
+   "q": "Ist eine hohe Lagerumschlagshäufigkeit immer gut?",
+   "a": "Nicht unbedingt. Sie senkt Kapitalbindung und Lagerkosten, aber zu knappe Bestände erhöhen das Risiko von Lieferengpässen und die Bestellkosten. Was angemessen ist, hängt stark von der Branche ab."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Anfangsbestand 40.000 €, Quartalsendbestände 50.000 €, 60.000 €, 30.000 € und 45.000 €. Wie hoch ist der durchschnittliche Lagerbestand?",
+   "o": [
+    "56.250 €",
+    "42.500 €",
+    "45.000 €",
+    "37.500 €"
+   ],
+   "r": 2,
+   "e": "\\( \\frac{40.000 + 50.000 + 60.000 + 30.000 + 45.000}{5} = \\frac{225.000}{5} = 45.000 \\) €. 56.250 € entsteht, wenn man durch 4 statt durch 5 teilt."
+  },
+  {
+   "q": "Wareneinsatz 540.000 €, durchschnittlicher Lagerbestand 60.000 €. Wie lang ist die durchschnittliche Lagerdauer (360 Tage)?",
+   "o": [
+    "9 Tage",
+    "40 Tage",
+    "60 Tage",
+    "90 Tage"
+   ],
+   "r": 1,
+   "e": "\\( \\text{UH} = \\frac{540.000}{60.000} = 9 \\), Lagerdauer \\( \\frac{360}{9} = 40 \\) Tage."
+  },
+  {
+   "q": "Was passiert, wenn die Lagerumschlagshäufigkeit bei gleichem Wareneinsatz steigt?",
+   "o": [
+    "Der durchschnittliche Lagerbestand sinkt und Kapital wird frei",
+    "Die Lagerdauer steigt",
+    "Der Lagerzinssatz steigt",
+    "Der Wareneinsatz sinkt automatisch"
+   ],
+   "r": 0,
+   "e": "Bei gleichem Wareneinsatz bedeutet ein höherer Umschlag einen kleineren Durchschnittsbestand. Lagerdauer und Lagerzinssatz sinken, Kapital wird freigesetzt."
+  }
+ ],
+ "verwandt": [
+  "optimale-bestellmenge",
+  "abc-analyse",
+  "bestellpunktverfahren",
+  "cash-conversion-cycle",
+  "working-capital"
+ ],
+ "ask": "die Lagerumschlagshäufigkeit mit durchschnittlichem Lagerbestand, Lagerdauer, Lagerzinssatz und Reichweite an einem durchgerechneten Beispiel"
+}

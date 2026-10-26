@@ -1,0 +1,110 @@
+{
+ "slug": "lorenzkurve-gini-koeffizient",
+ "name": "Lorenzkurve und Gini-Koeffizient",
+ "title": "Lorenzkurve und Gini-Koeffizient – einfach erklärt",
+ "meta": "Lorenzkurve und Gini-Koeffizient verständlich: Wertetabelle, Kurve zeichnen, Gini mit der Trapezformel berechnen und richtig deuten – mit Beispiel.",
+ "h1": "Lorenzkurve und Gini-Koeffizient einfach erklärt",
+ "kurz": "Die Lorenzkurve zeigt, welcher Anteil am Gesamteinkommen auf die ärmsten x Prozent der Bevölkerung entfällt. Je weiter sie unter der Gleichverteilungsgeraden liegt, desto ungleicher ist die Verteilung. Der Gini-Koeffizient fasst das in einer Zahl zusammen: Fläche zwischen Gerade und Lorenzkurve geteilt durch die gesamte Dreiecksfläche, mit Werten zwischen 0 (völlige Gleichheit) und 1 (maximale Ungleichheit).",
+ "keywords": [
+  "lorenzkurve gini koeffizient",
+  "lorenzkurve",
+  "gini koeffizient berechnen",
+  "gini koeffizient",
+  "lorenzkurve zeichnen",
+  "normierter gini koeffizient",
+  "einkommensverteilung messen"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was zeigt die Lorenzkurve?",
+   "html": "<p>Die <strong>Lorenzkurve</strong> ist das Standardwerkzeug, um eine <strong>Konzentration</strong> sichtbar zu machen, meistens die Verteilung von Einkommen oder Vermögen. Du sortierst alle Merkmalsträger aufsteigend, vom kleinsten zum größten Einkommen, und trägst dann ab:</p><ul><li>auf der x-Achse den <strong>kumulierten Anteil der Merkmalsträger</strong> (z. B. die ärmsten 20 %, 40 %, …),</li><li>auf der y-Achse den <strong>kumulierten Anteil an der Merkmalssumme</strong> (z. B. Anteil am Gesamteinkommen).</li></ul><p>Beide Achsen laufen von 0 bis 1 bzw. 0 % bis 100 %. Die Kurve beginnt immer in \\( (0;0) \\) und endet in \\( (1;1) \\).</p><ul><li>Bei <strong>völliger Gleichverteilung</strong> haben die ärmsten 20 % genau 20 % des Einkommens: Die Lorenzkurve ist die Diagonale, die <strong>Gleichverteilungsgerade</strong>.</li><li>Bei <strong>Ungleichheit</strong> haben die ärmsten 20 % weniger als 20 %: Die Kurve hängt unter der Diagonalen durch. Je stärker sie durchhängt, desto ungleicher die Verteilung.</li></ul><p>Weil die Werte aufsteigend sortiert werden, ist die Lorenzkurve immer <strong>monoton steigend und konvex</strong> (sie wird nach rechts immer steiler). Eine Kurve über der Diagonalen ist ein sicheres Zeichen für einen Rechenfehler, meist eine vergessene Sortierung.</p>"
+  },
+  {
+   "h2": "Wie berechnet man den Gini-Koeffizienten?",
+   "html": "<p>Der <strong>Gini-Koeffizient</strong> \\( G \\) misst, wie groß die Fläche \\( A \\) zwischen Gleichverteilungsgerade und Lorenzkurve im Verhältnis zur gesamten Fläche unter der Diagonalen ist. Diese Dreiecksfläche ist immer 0,5.</p><div class=\"formel\">\\[ G = \\frac{A}{0{,}5} = 2A = 1 - 2B \\]</div><p>Dabei ist \\( B \\) die Fläche unter der Lorenzkurve. Weil die Lorenzkurve bei klassierten Daten aus Geradenstücken besteht, berechnest du \\( B \\) als Summe von Trapezen. Daraus folgt die Rechenformel für die Klausur:</p><div class=\"formel\">\\[ G = 1 - \\sum_{k=1}^{n} (u_k - u_{k-1}) \\cdot (v_k + v_{k-1}) \\]</div><ul><li>\\( u_k \\): kumulierter Anteil der Merkmalsträger bis Gruppe \\( k \\), mit \\( u_0 = 0 \\),</li><li>\\( v_k \\): kumulierter Anteil an der Merkmalssumme bis Gruppe \\( k \\), mit \\( v_0 = 0 \\).</li></ul><p>Bei \\( n \\) einzelnen Merkmalsträgern kann \\( G \\) höchstens \\( \\frac{n-1}{n} \\) erreichen, weil auch bei maximaler Ungleichheit einer alles hat und die Kurve erst am letzten Punkt hochspringt. Damit der Wert zwischen 0 und 1 liegt, gibt es den <strong>normierten Gini-Koeffizienten</strong>:</p><div class=\"formel\">\\[ G^* = \\frac{n}{n-1} \\cdot G \\]</div><p>Bei großen Datensätzen wie ganzen Ländern ist der Unterschied vernachlässigbar, bei fünf Haushalten in einer Klausuraufgabe nicht.</p>"
+  },
+  {
+   "h2": "Beispiel: Lorenzkurve und Gini Schritt für Schritt",
+   "html": "<div class=\"beispiel\"><p>Fünf Haushalte in einer kleinen Gemeinde haben folgende Jahreseinkommen (in Tsd. €): 40, 10, 100, 20, 30.</p><p><strong>Schritt 1: Sortieren und Summe bilden</strong><br>Aufsteigend: 10, 20, 30, 40, 100. Summe: \\( 10 + 20 + 30 + 40 + 100 = 200 \\)</p><p><strong>Schritt 2: Wertetabelle aufstellen</strong></p><table><thead><tr><th>Haushalt</th><th>Einkommen</th><th>\\( u_k \\)</th><th>Anteil</th><th>\\( v_k \\)</th><th>\\( (u_k - u_{k-1})(v_k + v_{k-1}) \\)</th></tr></thead><tbody><tr><td>1</td><td>10</td><td>0,2</td><td>0,05</td><td>0,05</td><td>\\( 0{,}2 \\cdot 0{,}05 = 0{,}01 \\)</td></tr><tr><td>2</td><td>20</td><td>0,4</td><td>0,10</td><td>0,15</td><td>\\( 0{,}2 \\cdot 0{,}20 = 0{,}04 \\)</td></tr><tr><td>3</td><td>30</td><td>0,6</td><td>0,15</td><td>0,30</td><td>\\( 0{,}2 \\cdot 0{,}45 = 0{,}09 \\)</td></tr><tr><td>4</td><td>40</td><td>0,8</td><td>0,20</td><td>0,50</td><td>\\( 0{,}2 \\cdot 0{,}80 = 0{,}16 \\)</td></tr><tr><td>5</td><td>100</td><td>1,0</td><td>0,50</td><td>1,00</td><td>\\( 0{,}2 \\cdot 1{,}50 = 0{,}30 \\)</td></tr><tr><td><strong>Summe</strong></td><td>200</td><td></td><td>1,00</td><td></td><td><strong>0,60</strong></td></tr></tbody></table><p><strong>Schritt 3: Lorenzkurve lesen</strong><br>Die ärmsten 40 % haben 15 % des Einkommens, die ärmsten 80 % genau die Hälfte. Der reichste Haushalt allein bezieht 50 %.</p><p><strong>Schritt 4: Gini berechnen</strong><br>\\( G = 1 - 0{,}60 = 0{,}40 \\)<br>Kontrolle über die Flächen: \\( B = \\frac{0{,}60}{2} = 0{,}30 \\), \\( A = 0{,}5 - 0{,}30 = 0{,}20 \\), \\( G = \\frac{0{,}20}{0{,}5} = 0{,}40 \\) ✓</p><p><strong>Schritt 5: Normieren</strong><br>\\( G^* = \\frac{5}{4} \\cdot 0{,}40 = 0{,}50 \\)</p><p><strong>Schritt 6: Umverteilung.</strong> Der reichste Haushalt gibt 20 Tsd. € an den ärmsten ab: Einkommen 30, 20, 30, 40, 80, sortiert 20, 30, 30, 40, 80. Kumuliert: 0,10; 0,25; 0,40; 0,60; 1,00.<br>\\( G = 1 - 0{,}2 \\cdot (0{,}10 + 0{,}35 + 0{,}65 + 1{,}00 + 1{,}60) = 1 - 0{,}2 \\cdot 3{,}70 = 0{,}26 \\)</p></div><p>Achte in Schritt 6 darauf, nach der Umverteilung <strong>neu zu sortieren</strong>: Der ehemals ärmste Haushalt hat jetzt 30 und steht nicht mehr an erster Stelle. Die Gesamtsumme bleibt 200, nur die Verteilung ändert sich, und der Gini sinkt deutlich.</p>"
+  },
+  {
+   "h2": "Wie interpretiert man den Gini-Koeffizienten?",
+   "html": "<ul><li>\\( G = 0 \\): völlige Gleichverteilung, die Lorenzkurve ist die Diagonale.</li><li>\\( G \\) nahe 1 (bzw. \\( G^* = 1 \\)): maximale Konzentration, einer hat alles.</li><li>Dazwischen gilt: je höher, desto ungleicher.</li></ul><p>Zur Einordnung: Der Gini-Koeffizient der Nettoeinkommen (nach Steuern und Transfers, je Haushaltsmitglied gewichtet) liegt in Deutschland seit Jahren bei rund 0,3. Bei den Markteinkommen vor Umverteilung ist er deutlich höher, beim Vermögen liegt er weit darüber, weil Vermögen viel stärker konzentriert ist als Einkommen. Der Vergleich von Markt- und Nettoeinkommen zeigt, wie stark Steuern und Sozialtransfers umverteilen.</p><div class=\"merke\">Der Gini-Koeffizient ist ein Maß der relativen Konzentration. Verdoppeln sich alle Einkommen, bleibt er gleich. Über das Wohlstandsniveau sagt er nichts.</div><p>Eine wichtige Eigenschaft für die Klausur ist das <strong>Transferprinzip</strong> (Pigou-Dalton): Jede Umverteilung von einem reicheren zu einem ärmeren Haushalt senkt den Gini-Koeffizienten, solange der Geber danach nicht ärmer ist als der Empfänger. Im Beispiel (100 → 80, 10 → 30) ist das erfüllt, und der Gini sinkt von 0,40 auf 0,26.</p>"
+  },
+  {
+   "h2": "Grenzen und Abgrenzung",
+   "html": "<p>Der Gini-Koeffizient ist beliebt, weil er eine einzige Zahl liefert. Genau das ist auch seine Schwäche:</p><ul><li><strong>Gleicher Gini, andere Verteilung:</strong> Zwei Lorenzkurven können sich schneiden und trotzdem dieselbe Fläche einschließen. Die eine Gesellschaft hat dann vielleicht eine sehr arme Unterschicht, die andere eine sehr reiche Spitze. Die Kurve zeigt diesen Unterschied, die Zahl nicht.</li><li><strong>Mitte stärker gewichtet:</strong> Der Gini reagiert besonders auf Verschiebungen in der Mitte der Verteilung, weniger auf Veränderungen an den Rändern. Ergänzend nutzt man Quintilsverhältnisse wie S80/S20 (Einkommen der reichsten 20 % durch das der ärmsten 20 %), im Beispiel \\( \\frac{100}{10} = 10 \\).</li><li><strong>Datenbasis:</strong> Ob Haushalte oder Personen, Brutto oder Netto, Einkommen oder Vermögen: Gini-Werte sind nur vergleichbar, wenn dieselbe Abgrenzung verwendet wird.</li><li><strong>Klassierte Daten:</strong> Liegen nur Gruppen vor, unterstellt die Trapezformel Gleichverteilung innerhalb jeder Gruppe. Der berechnete Gini unterschätzt die tatsächliche Ungleichheit dann leicht.</li></ul><p>Die Lorenzkurve ist dabei nicht auf Einkommen beschränkt. In der BWL zeigt dieselbe Logik in der <a href=\"/lernen/abc-analyse\">ABC-Analyse</a>, dass wenige Artikel den Großteil des Umsatzwerts ausmachen, und in der Wettbewerbsanalyse misst man so die Konzentration von <a href=\"/lernen/marktvolumen-marktpotenzial\">Marktanteilen</a>. Inhaltlich ist die Verteilungsfrage eng mit den Zielen der Wirtschaftspolitik verbunden, etwa der gerechten Einkommensverteilung als Erweiterung des <a href=\"/lernen/magisches-viereck\">magischen Vierecks</a>. Für die Streuung um einen Mittelwert, also ohne Konzentrationsbegriff, sind <a href=\"/lernen/varianz-standardabweichung\">Varianz und Standardabweichung</a> das passende Maß.</p>"
+  }
+ ],
+ "fehler": [
+  "Nicht aufsteigend sortieren: Die Lorenzkurve braucht die Werte vom kleinsten zum größten. Wer in der gegebenen Reihenfolge kumuliert, bekommt eine Kurve, die über die Diagonale ragen kann.",
+  "Anteile statt kumulierter Anteile abtragen: Auf die y-Achse gehört \\( v_k \\), also die aufsummierten Anteile. Der letzte Punkt muss immer \\( (1;1) \\) sein.",
+  "In der Trapezformel \\( v_{k-1} \\) vergessen: Jeder Summand ist Breite mal Summe aus aktuellem und vorherigem kumuliertem Anteil. Nur \\( v_k \\) zu nehmen, ergibt einen falschen Gini.",
+  "Normierten und nicht normierten Gini verwechseln: Bei wenigen Merkmalsträgern unterscheiden sie sich deutlich (0,40 gegenüber 0,50 im Beispiel). Lies genau, welcher gefragt ist.",
+  "Gini als Armutsmaß deuten: Ein niedriger Gini heißt nur, dass gleichmäßig verteilt ist. Auch ein armes Land kann einen niedrigen Gini haben."
+ ],
+ "faq": [
+  {
+   "q": "Was sagt ein Gini-Koeffizient von 0,3 aus?",
+   "a": "Ein Wert von 0,3 bedeutet eine mäßige Ungleichheit: Die Fläche zwischen Gleichverteilungsgerade und Lorenzkurve macht 30 % der Dreiecksfläche aus. Für Nettoeinkommen in Deutschland liegt der Wert seit Jahren in dieser Größenordnung. Für sich genommen sagt die Zahl nichts darüber, wo in der Verteilung die Ungleichheit liegt."
+  },
+  {
+   "q": "Wie zeichnet man eine Lorenzkurve?",
+   "a": "Sortiere die Werte aufsteigend, bilde die kumulierten Anteile der Merkmalsträger und der Merkmalssumme und trage sie als Punkte ein. Verbinde die Punkte, beginnend bei (0;0) und endend bei (1;1), mit geraden Linien. Zeichne die Diagonale als Vergleich ein."
+  },
+  {
+   "q": "Was ist der normierte Gini-Koeffizient?",
+   "a": "Bei n Merkmalsträgern kann der normale Gini höchstens (n−1)/n erreichen. Der normierte Gini multipliziert deshalb mit n/(n−1), damit der Maximalwert genau 1 ist. Bei großen Datensätzen sind beide praktisch gleich."
+  },
+  {
+   "q": "Kann der Gini-Koeffizient größer als 1 sein?",
+   "a": "Nein, solange alle Werte nicht negativ sind. Er liegt dann zwischen 0 und 1. Nur wenn negative Einkommen oder Vermögen vorkommen, etwa Schulden, kann rechnerisch ein Wert über 1 entstehen."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Lorenzkurve und Gini-Koeffizient?",
+   "a": "Die Lorenzkurve ist die grafische Darstellung der gesamten Verteilung. Der Gini-Koeffizient fasst sie in einer einzigen Zahl zusammen, nämlich dem doppelten Flächeninhalt zwischen Diagonale und Kurve. Die Kurve enthält mehr Information, der Gini ist leichter zu vergleichen."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Die Lorenzkurve einer Verteilung fällt genau mit der Diagonalen zusammen. Wie hoch ist der Gini-Koeffizient?",
+   "o": [
+    "1",
+    "0,5",
+    "0",
+    "nicht bestimmbar"
+   ],
+   "r": 2,
+   "e": "Auf der Diagonalen gilt völlige Gleichverteilung, die Fläche A ist null, also \\( G = 0 \\)."
+  },
+  {
+   "q": "Fläche unter der Lorenzkurve \\( B = 0{,}35 \\). Wie hoch ist der Gini-Koeffizient?",
+   "o": [
+    "0,30",
+    "0,35",
+    "0,65",
+    "0,15"
+   ],
+   "r": 0,
+   "e": "\\( G = 1 - 2B = 1 - 0{,}70 = 0{,}30 \\)."
+  },
+  {
+   "q": "Vier Personen, eine besitzt alles, die anderen nichts. Wie hoch ist der nicht normierte Gini?",
+   "o": [
+    "1",
+    "0,25",
+    "0,8",
+    "0,75"
+   ],
+   "r": 3,
+   "e": "Maximal möglich bei n Merkmalsträgern ist \\( \\frac{n-1}{n} = \\frac{3}{4} = 0{,}75 \\). Normiert ergibt sich 1."
+  }
+ ],
+ "verwandt": [
+  "varianz-standardabweichung",
+  "abc-analyse",
+  "magisches-viereck",
+  "bruttoinlandsprodukt"
+ ],
+ "ask": "die Lorenzkurve und den Gini-Koeffizienten – mit Wertetabelle, Trapezformel und normiertem Gini an einem durchgerechneten Beispiel"
+}

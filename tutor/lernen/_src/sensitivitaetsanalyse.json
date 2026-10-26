@@ -1,0 +1,115 @@
+{
+ "slug": "sensitivitaetsanalyse",
+ "name": "Sensitivitätsanalyse",
+ "title": "Sensitivitätsanalyse einfach erklärt – mit Beispiel",
+ "meta": "Sensitivitätsanalyse einfach erklärt: kritische Werte, ±10-%-Test und Tornado-Rangfolge – mit durchgerechnetem Investitionsbeispiel und Klausurfallen.",
+ "h1": "Sensitivitätsanalyse einfach erklärt",
+ "kurz": "Die Sensitivitätsanalyse prüft, wie stark das Ergebnis einer Rechnung, etwa der Kapitalwert einer Investition, auf Änderungen einzelner Eingangsgrößen reagiert. Entweder variierst du jede Größe um einen festen Prozentsatz, oder du berechnest ihren kritischen Wert, bei dem die Entscheidung kippt. So erkennst du, welche Annahmen besonders genau geprüft werden müssen.",
+ "keywords": [
+  "sensitivitätsanalyse",
+  "sensitivitätsanalyse beispiel",
+  "kritische werte berechnen",
+  "sensitivitätsanalyse kapitalwert",
+  "sensitivitätsanalyse investitionsrechnung",
+  "tornado diagramm",
+  "sensitivitätsanalyse szenarioanalyse unterschied"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist eine Sensitivitätsanalyse?",
+   "html": "<p>Jede Investitionsrechnung steht auf Prognosen: Absatzmenge, Preis, Kosten, Nutzungsdauer, Zinssatz. Keine davon ist sicher. Ein positiver <a href=\"/lernen/kapitalwertmethode\">Kapitalwert</a> sagt nur: <em>Wenn</em> alle Annahmen eintreffen, lohnt sich die Investition. Die <strong>Sensitivitätsanalyse</strong> (Empfindlichkeitsanalyse) fragt weiter: Was passiert, wenn eine Annahme nicht eintrifft – und bei welcher Annahme tut ein Fehler am meisten weh?</p><p>Das Grundprinzip ist <strong>ceteris paribus</strong>: Du veränderst immer nur eine Eingangsgröße und hältst alle anderen auf ihrem Planwert. So isolierst du den Einfluss jeder einzelnen Größe auf das Ergebnis. Das Ergebnis kann der Kapitalwert sein, aber genauso ein Gewinn, eine Amortisationsdauer oder ein Nutzwert.</p><p>Es gibt zwei Fragestellungen, die in Klausuren beide vorkommen:</p><ul><li><strong>Methode 1 – Auswirkung:</strong> Wie stark ändert sich das Ergebnis, wenn eine Größe um einen festen Betrag (z. B. ±10 %) abweicht?</li><li><strong>Methode 2 – kritischer Wert:</strong> Wie weit darf eine Größe abweichen, bis die Entscheidung kippt, also der Kapitalwert genau null wird?</li></ul><div class=\"merke\">Sensitivitätsanalyse = eine Größe ändern, alle anderen festhalten, Wirkung aufs Ergebnis messen. Je kleiner der Spielraum bis zum kritischen Wert, desto riskanter die Annahme.</div>"
+  },
+  {
+   "h2": "Welche Formeln brauchst du?",
+   "html": "<p>Für eine Investition mit gleichbleibenden jährlichen Rückflüssen lässt sich der Kapitalwert über den <a href=\"/lernen/rentenbarwertfaktor\">Rentenbarwertfaktor</a> kompakt schreiben. Zerlegt man den Rückfluss in seine Bestandteile, sieht man alle Stellschrauben auf einen Blick:</p><div class=\"formel\">\\[ C_0 = -I_0 + \\big(x \\cdot (p - k_v) - K_f\\big) \\cdot \\text{RBF}_{i,n} \\]\\[ \\text{RBF}_{i,n} = \\frac{(1+i)^n - 1}{i \\cdot (1+i)^n} \\]</div><p>Dabei ist \\( x \\) die jährliche Absatzmenge, \\( p \\) der Preis, \\( k_v \\) die variablen Auszahlungen je Stück und \\( K_f \\) die fixen Auszahlungen pro Jahr. Für den kritischen Wert setzt du \\( C_0 = 0 \\) und löst nach der gesuchten Größe auf. Zuerst bestimmst du den Rückfluss, der gerade noch reicht:</p><div class=\"formel\">\\[ \\text{CF}_{\\text{krit}} = \\frac{I_0}{\\text{RBF}_{i,n}} \\]</div><p>Daraus folgen die kritischen Werte der Einzelgrößen, etwa</p><div class=\"formel\">\\[ x_{\\text{krit}} = \\frac{\\text{CF}_{\\text{krit}} + K_f}{p - k_v} \\qquad p_{\\text{krit}} = k_v + \\frac{\\text{CF}_{\\text{krit}} + K_f}{x} \\]</div><p>Der kritische Zinssatz ist der <a href=\"/lernen/interner-zinsfuss\">interne Zinsfuß</a>. Er lässt sich nicht nach \\( i \\) auflösen, sondern nur durch Probieren bzw. Interpolation finden.</p>"
+  },
+  {
+   "h2": "Beispiel: Sensitivitätsanalyse einer Investition",
+   "html": "<div class=\"beispiel\"><p>Ein Hersteller von Gartenmöbeln prüft eine neue Fertigungslinie. Anschaffung 100.000 €, Nutzungsdauer 5 Jahre, Kalkulationszins 8 %, kein Restwert. Geplant sind 4.000 Stück pro Jahr zu 25 €, variable Auszahlungen 15 € je Stück, fixe Auszahlungen 12.000 € pro Jahr.</p><p><strong>Schritt 1: Basiswert</strong><br>\\( \\text{CF} = 4.000 \\cdot (25 - 15) - 12.000 = 28.000 \\) € pro Jahr<br>\\( \\text{RBF}_{8\\%,5} = \\frac{1{,}08^5 - 1}{0{,}08 \\cdot 1{,}08^5} \\approx 3{,}99271 \\)<br>\\( C_0 = -100.000 + 28.000 \\cdot 3{,}99271 \\approx 11.795{,}88 \\) €. Die Investition lohnt sich – im Plan.</p><p><strong>Schritt 2 (Methode 1): jede Größe um 10 % verschlechtern bzw. verbessern</strong></p><table><thead><tr><th>Größe</th><th>ungünstig (10 %)</th><th>\\( C_0 \\) ungünstig</th><th>\\( C_0 \\) günstig</th><th>Spannweite</th></tr></thead><tbody><tr><td>Preis</td><td>22,50 €</td><td>−28.131,22 €</td><td>51.722,98 €</td><td>79.854,20 €</td></tr><tr><td>variable Auszahlung</td><td>16,50 €</td><td>−12.160,38 €</td><td>35.752,14 €</td><td>47.912,52 €</td></tr><tr><td>Absatzmenge</td><td>3.600 Stück</td><td>−4.174,96 €</td><td>27.766,72 €</td><td>31.941,68 €</td></tr><tr><td>Anschaffung</td><td>110.000 €</td><td>1.795,88 €</td><td>21.795,88 €</td><td>20.000,00 €</td></tr><tr><td>fixe Auszahlungen</td><td>13.200 €</td><td>7.004,63 €</td><td>16.587,13 €</td><td>9.582,50 €</td></tr></tbody></table><p>Sortiert nach Spannweite ergibt sich die Rangfolge, die man grafisch als <strong>Tornado-Diagramm</strong> zeichnet: Preis vor variablen Auszahlungen vor Menge vor Anschaffung vor Fixkosten.</p><p><strong>Schritt 3 (Methode 2): kritische Werte</strong><br>\\( \\text{CF}_{\\text{krit}} = \\frac{100.000}{3{,}99271} \\approx 25.045{,}65 \\) €<br>Preis: \\( p_{\\text{krit}} = 15 + \\frac{25.045{,}65 + 12.000}{4.000} \\approx 24{,}26 \\) €, also nur −2,95 % Spielraum<br>Menge: \\( x_{\\text{krit}} = \\frac{37.045{,}65}{10} \\approx 3.705 \\) Stück, also −7,39 %<br>Anschaffung: \\( I_{\\text{krit}} = 28.000 \\cdot 3{,}99271 \\approx 111.795{,}88 \\) €, also +11,80 %<br>Variable Auszahlung: \\( 25 - 9{,}26 = 15{,}74 \\) €, also +4,92 %; fixe Auszahlungen: \\( 40.000 - 25.045{,}65 = 14.954{,}35 \\) €, also +24,62 %<br>Kalkulationszins: Der Kapitalwert wird bei rund 12,38 % null (interner Zinsfuß).</p></div><p>Beide Methoden zeigen dasselbe Bild: Die Investition steht und fällt mit dem Preis. Sinkt er von 25 € auf 24,26 €, ist der ganze Kapitalwert weg. Die Fixkosten dürften dagegen um fast ein Viertel steigen.</p>"
+  },
+  {
+   "h2": "Wie interpretiert man das Ergebnis?",
+   "html": "<p>Die Sensitivitätsanalyse liefert keine neue Entscheidung, sondern eine <strong>Risikolandkarte</strong>. Aus dem Beispiel folgt:</p><ul><li><strong>Kritische Größen zuerst absichern:</strong> Der Preis hat nur knapp 3 % Spielraum. Bevor investiert wird, sollte der Vertrieb belegen, dass 25 € am Markt durchsetzbar sind, etwa über Rahmenverträge mit Baumärkten.</li><li><strong>Hebel verstehen:</strong> Der Preis wirkt so stark, weil eine Preisänderung voll auf den Deckungsbeitrag durchschlägt. 10 % weniger Preis sind 2,50 € weniger Deckungsbeitrag, das sind 25 % des Deckungsbeitrags von 10 €.</li><li><strong>Unkritische Größen nicht überplanen:</strong> Ob die Fixkosten 12.000 € oder 13.000 € betragen, ändert an der Entscheidung nichts. Hier lohnt kein großer Prognoseaufwand.</li></ul><p>Die kritische Menge ist übrigens nichts anderes als ein dynamischer <a href=\"/lernen/break-even-point\">Break-even-Point</a>: die Absatzmenge, bei der die Investition genau ihre Anschaffung plus 8 % Verzinsung einspielt. Ein statischer Break-even mit Abschreibung 20.000 € und Durchschnittszinsen \\( 50.000 \\cdot 8\\,\\% = 4.000 \\) € käme auf \\( \\frac{12.000 + 20.000 + 4.000}{10} = 3.600 \\) Stück. Die dynamische Rechnung liegt mit 3.705 Stück höher, weil sie Zinseszinsen und den zeitlichen Anfall der Rückflüsse exakt berücksichtigt.</p><div class=\"merke\">Kleiner Spielraum bis zum kritischen Wert = sensible Größe = Prognose absichern. Großer Spielraum = robuste Größe.</div>"
+  },
+  {
+   "h2": "Sensitivitätsanalyse, Szenarioanalyse und Monte-Carlo – wo ist der Unterschied?",
+   "html": "<p>Die drei Verfahren werden oft verwechselt, gehen aber unterschiedlich mit Unsicherheit um:</p><table><thead><tr><th>Verfahren</th><th>Was wird verändert?</th><th>Ergebnis</th></tr></thead><tbody><tr><td>Sensitivitätsanalyse</td><td>eine Größe, alle anderen konstant</td><td>Einfluss je Größe, kritische Werte</td></tr><tr><td>Szenarioanalyse</td><td>mehrere Größen gleichzeitig zu stimmigen Bündeln (Best, Base, Worst Case)</td><td>wenige Kapitalwerte für ganze Zukunftsbilder</td></tr><tr><td>Monte-Carlo-Simulation</td><td>alle unsicheren Größen zufällig nach Wahrscheinlichkeitsverteilungen, tausendfach</td><td>Verteilung des Kapitalwerts, z. B. Wahrscheinlichkeit für \\( C_0 < 0 \\)</td></tr></tbody></table><p>Im Worst Case des Beispiels könnten etwa Preis −5 % und Menge −5 % gleichzeitig eintreten. Das Szenario rechnet beides zusammen, die Sensitivitätsanalyse nie. Auch die Nutzwertanalyse lässt sich so prüfen: In der <a href=\"/lernen/nutzwertanalyse\">Nutzwertanalyse</a> verschiebt man Gewichte und schaut, ab wann die Rangfolge der Alternativen kippt.</p>"
+  },
+  {
+   "h2": "Vorteile und Grenzen",
+   "html": "<p><strong>Vorteile:</strong></p><ul><li>einfach durchzuführen, auf jede Rechnung anwendbar (Kapitalwert, Gewinn, Nutzwert),</li><li>zeigt, welche Prognosen wirklich zählen, und lenkt den Planungsaufwand dorthin,</li><li>kritische Werte sind anschaulich: „Der Preis darf höchstens um 2,95 % sinken“ versteht jeder im Vorstand.</li></ul><p><strong>Grenzen:</strong></p><ul><li>Ceteris paribus ist unrealistisch: Sinkt der Preis, steigt oft die Menge. Abhängigkeiten zwischen Größen bleiben unberücksichtigt,</li><li>keine Aussage über Wahrscheinlichkeiten: Ein kleiner Spielraum ist harmlos, wenn die Größe vertraglich fix ist,</li><li>die Wahl der Variationsbreite (±10 % für alle) ist willkürlich; manche Größen schwanken real viel stärker als andere,</li><li>die Methode bewertet nur, sie trifft keine Entscheidung. Ob ein Risiko akzeptabel ist, bleibt Managementurteil.</li></ul>"
+  }
+ ],
+ "fehler": [
+  "Mehrere Größen gleichzeitig ändern: Das ist eine Szenarioanalyse. In der Sensitivitätsanalyse wird immer nur eine Größe variiert, alle anderen bleiben auf dem Planwert.",
+  "Kritischen Wert über den Kapitalwert statt über den Rückfluss suchen: Setze \\( C_0 = 0 \\), berechne zuerst \\( \\text{CF}_{\\text{krit}} = \\frac{I_0}{\\text{RBF}} \\) und löse dann nach der Einzelgröße auf. Wer den Kapitalwert direkt auf den Preis verteilt, vergisst das Abzinsen.",
+  "Prozentuale Abweichung falsch beziehen: Der Spielraum wird immer auf den Planwert bezogen, also (24,26 − 25) / 25 = −2,95 %, nicht auf den kritischen Wert.",
+  "Wichtigste Größe am absoluten Betrag ablesen: Entscheidend ist nicht, welche Größe in Euro am größten ist, sondern welche den kleinsten prozentualen Spielraum hat bzw. die größte Spannweite erzeugt.",
+  "Kritischen Zins als Kalkulationszins verwechseln: Der kritische Zins ist der interne Zinsfuß. Er sagt, bis zu welchem Kapitalkostensatz die Investition noch lohnt, nicht welchen Zins man ansetzen soll."
+ ],
+ "faq": [
+  {
+   "q": "Was ist ein kritischer Wert in der Sensitivitätsanalyse?",
+   "a": "Der kritische Wert ist der Wert einer Eingangsgröße, bei dem das Ergebnis genau die Entscheidungsschwelle erreicht, beim Kapitalwert also null wird. Alle anderen Größen bleiben dabei auf ihrem Planwert. Der Abstand zwischen Plan- und kritischem Wert zeigt den Sicherheitsspielraum."
+  },
+  {
+   "q": "Wie berechnet man eine Sensitivitätsanalyse?",
+   "a": "Zuerst rechnest du das Ergebnis mit allen Planwerten. Dann änderst du nacheinander jeweils eine Eingangsgröße, etwa um plus und minus 10 Prozent, und rechnest das Ergebnis neu. Alternativ setzt du das Ergebnis auf die Entscheidungsschwelle und löst nach der Größe auf, um den kritischen Wert zu erhalten."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Sensitivitätsanalyse und Szenarioanalyse?",
+   "a": "Die Sensitivitätsanalyse ändert immer nur eine Größe und hält alle anderen konstant. Die Szenarioanalyse ändert mehrere Größen gleichzeitig zu stimmigen Zukunftsbildern wie Best Case und Worst Case. Beide zeigen Risiken, aber aus unterschiedlichem Blickwinkel."
+  },
+  {
+   "q": "Was zeigt ein Tornado-Diagramm?",
+   "a": "Ein Tornado-Diagramm stellt für jede Eingangsgröße als Balken dar, wie weit das Ergebnis bei ungünstiger und günstiger Abweichung schwankt. Die Balken werden nach Länge sortiert, die einflussreichste Größe steht oben. So entsteht die typische Trichterform."
+  },
+  {
+   "q": "Warum ist der Preis oft die sensibelste Größe?",
+   "a": "Eine Preisänderung wirkt voll auf den Deckungsbeitrag jeder verkauften Einheit, ohne dass sich Kosten mitbewegen. Ist der Deckungsbeitrag im Verhältnis zum Preis klein, führt schon eine kleine prozentuale Preissenkung zu einem großen prozentualen Einbruch des Rückflusses."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Was kennzeichnet die Sensitivitätsanalyse im Unterschied zur Szenarioanalyse?",
+   "o": [
+    "Es werden Wahrscheinlichkeiten für jede Größe angesetzt",
+    "Es werden Best und Worst Case gerechnet",
+    "Es wird nur der interne Zinsfuß berechnet",
+    "Es wird jeweils nur eine Eingangsgröße verändert, die übrigen bleiben konstant"
+   ],
+   "r": 3,
+   "e": "Ceteris paribus ist das Kennzeichen der Sensitivitätsanalyse. Mehrere Größen gleichzeitig zu ändern ist eine Szenarioanalyse."
+  },
+  {
+   "q": "Anschaffung 60.000 €, RBF 4,0, jährlicher Rückfluss 18.000 €. Wie hoch ist der kritische Rückfluss?",
+   "o": [
+    "15.000 €",
+    "18.000 €",
+    "12.000 €",
+    "14.400 €"
+   ],
+   "r": 0,
+   "e": "\\( \\text{CF}_{\\text{krit}} = \\frac{60.000}{4{,}0} = 15.000 \\) €. Der Rückfluss darf also um \\( \\frac{3.000}{18.000} \\approx 16{,}7\\,\\% \\) sinken."
+  },
+  {
+   "q": "Preis 50 €, kritischer Preis 47 €; Menge 1.000 Stück, kritische Menge 880 Stück. Welche Größe ist sensibler?",
+   "o": [
+    "Die Menge, weil 120 Stück mehr sind als 3 €",
+    "Der Preis, weil er nur 6 % Spielraum hat, die Menge 12 %",
+    "Beide gleich, weil beide den Kapitalwert auf null bringen",
+    "Das lässt sich ohne Kapitalwert nicht sagen"
+   ],
+   "r": 1,
+   "e": "Verglichen werden relative Spielräume: Preis \\( \\frac{3}{50} = 6\\,\\% \\), Menge \\( \\frac{120}{1.000} = 12\\,\\% \\). Der kleinere Spielraum macht den Preis zur sensibleren Größe."
+  }
+ ],
+ "verwandt": [
+  "kapitalwertmethode",
+  "interner-zinsfuss",
+  "break-even-point",
+  "nutzwertanalyse",
+  "rentenbarwertfaktor"
+ ],
+ "ask": "die Sensitivitätsanalyse – mit kritischen Werten, ±10-%-Variation und Tornado-Rangfolge an einem durchgerechneten Investitionsbeispiel"
+}

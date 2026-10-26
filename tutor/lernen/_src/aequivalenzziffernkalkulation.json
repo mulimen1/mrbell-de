@@ -1,0 +1,115 @@
+{
+ "slug": "aequivalenzziffernkalkulation",
+ "name": "Äquivalenzziffernkalkulation",
+ "title": "Äquivalenzziffernkalkulation einfach erklärt – mit Beispiel",
+ "meta": "Äquivalenzziffernkalkulation verständlich: Recheneinheiten, Kosten pro RE, Stückkosten je Sorte, mehrstufig und mit mehreren Ziffernreihen – mit Beispiel.",
+ "h1": "Äquivalenzziffernkalkulation einfach erklärt",
+ "kurz": "Die Äquivalenzziffernkalkulation ist eine Form der Divisionskalkulation für Sortenfertigung. Jede Sorte erhält eine Äquivalenzziffer, die ihr Kostenverhältnis zu einer Einheitssorte (Ziffer 1) angibt. Mengen mal Ziffern ergeben Recheneinheiten; die Kosten pro Recheneinheit mal Äquivalenzziffer liefern die Stückkosten jeder Sorte: \\( k_i = \\frac{K}{\\sum RE} \\cdot \\text{ÄZ}_i \\).",
+ "keywords": [
+  "äquivalenzziffernkalkulation",
+  "äquivalenzziffern berechnen",
+  "recheneinheiten berechnen",
+  "sortenfertigung kalkulation",
+  "mehrstufige äquivalenzziffernkalkulation",
+  "äquivalenzziffernkalkulation beispiel",
+  "einheitssorte"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist die Äquivalenzziffernkalkulation?",
+   "html": "<p>Die <a href=\"/lernen/divisionskalkulation\">Divisionskalkulation</a> funktioniert nur, wenn alle Stücke gleich sind: Gesamtkosten durch Menge, fertig. Viele Betriebe stellen aber <strong>Sorten</strong> her, also Varianten eines Grundprodukts aus demselben Material auf denselben Anlagen: Papier in verschiedenen Grammaturen, Bleche in verschiedenen Stärken, Ziegel in verschiedenen Formaten. Die Sorten verursachen ähnliche, aber nicht gleiche Kosten. Einfach durch die Gesamtmenge zu teilen, wäre falsch, denn dann kostet das dicke Blech so viel wie das dünne.</p><p>Die <strong>Äquivalenzziffernkalkulation</strong> löst das Problem mit einem Trick: Sie rechnet alle Sorten auf eine gemeinsame Einheit um. Eine Sorte wird zur <strong>Einheitssorte</strong> mit der Ziffer 1. Jede andere Sorte bekommt eine <strong>Äquivalenzziffer (ÄZ)</strong>, die sagt, wie viel teurer oder günstiger sie im Verhältnis ist. Eine Sorte mit ÄZ 1,5 verursacht 50 % mehr Kosten als die Einheitssorte. Danach ist die Rechnung wieder eine einfache Division.</p><p>Wichtig für die Einordnung: Die Äquivalenzziffernkalkulation ist ein Verfahren der <a href=\"/lernen/kostentraegerrechnung\">Kostenträgerrechnung</a> auf Vollkostenbasis. Sie verteilt alle Kosten, ohne zwischen Einzel- und Gemeinkosten zu unterscheiden.</p><div class=\"merke\">Äquivalenzziffernkalkulation = Divisionskalkulation mit Gewichtung. Sie passt, wenn Sorten ähnlich, aber nicht gleich teuer sind und die Kosten in einem festen Verhältnis zueinander stehen.</div>"
+  },
+  {
+   "h2": "Wie funktioniert die Äquivalenzziffernkalkulation? Das Schema",
+   "html": "<p>Die Rechnung läuft immer in denselben fünf Schritten. Am übersichtlichsten ist eine Tabelle mit einer Zeile pro Sorte.</p><ol><li>Einheitssorte festlegen und Äquivalenzziffern bestimmen.</li><li>Recheneinheiten (RE) je Sorte bilden.</li><li>Recheneinheiten addieren.</li><li>Kosten pro Recheneinheit berechnen.</li><li>Stückkosten und Sortenkosten je Sorte ermitteln.</li></ol><div class=\"formel\">\\[ RE_i = x_i \\cdot \\text{ÄZ}_i \\]\\[ \\text{Kosten pro RE} = \\frac{K}{\\sum_{i} RE_i} \\]\\[ k_i = \\text{Kosten pro RE} \\cdot \\text{ÄZ}_i \\]\\[ K_i = k_i \\cdot x_i = \\text{Kosten pro RE} \\cdot RE_i \\]</div><p>Dabei ist \\( x_i \\) die Menge der Sorte \\( i \\), \\( K \\) die Gesamtkosten der Periode, \\( k_i \\) die Stückkosten und \\( K_i \\) die Sortenkosten. Die Kosten pro RE sind nichts anderes als die Stückkosten der Einheitssorte.</p><p>Als Probe müssen sich die Sortenkosten wieder zu den Gesamtkosten addieren. Diese Kontrolle kostet zehn Sekunden und fängt fast jeden Rechenfehler ab.</p>"
+  },
+  {
+   "h2": "Beispiel: Äquivalenzziffernkalkulation Schritt für Schritt",
+   "html": "<div class=\"beispiel\"><p>Eine Papierfabrik stellt Kopierpapier in drei Grammaturen her und verkauft es in Paketen à 500 Blatt. Im Quartal fallen <strong>Herstellkosten von 504.000 €</strong> an. Einheitssorte ist das 80-g-Papier. Das 100-g-Papier verursacht 20 % mehr Kosten (ÄZ 1,2), das 120-g-Papier 50 % mehr (ÄZ 1,5).</p><p><strong>Schritt 1 und 2: Recheneinheiten bilden</strong><br>80 g: \\( 60.000 \\cdot 1{,}0 = 60.000 \\) RE<br>100 g: \\( 30.000 \\cdot 1{,}2 = 36.000 \\) RE<br>120 g: \\( 20.000 \\cdot 1{,}5 = 30.000 \\) RE</p><p><strong>Schritt 3: Summe der RE</strong><br>\\( 60.000 + 36.000 + 30.000 = 126.000 \\) RE</p><p><strong>Schritt 4: Kosten pro RE</strong><br>\\( \\frac{504.000\\text{ €}}{126.000\\text{ RE}} = 4{,}00 \\) € pro RE</p><p><strong>Schritt 5: Stückkosten je Sorte</strong><br>80 g: \\( 4{,}00 \\cdot 1{,}0 = 4{,}00 \\) €<br>100 g: \\( 4{,}00 \\cdot 1{,}2 = 4{,}80 \\) €<br>120 g: \\( 4{,}00 \\cdot 1{,}5 = 6{,}00 \\) €</p><table><thead><tr><th>Sorte</th><th>Menge (Pakete)</th><th>ÄZ</th><th>RE</th><th>Stückkosten</th><th>Sortenkosten</th></tr></thead><tbody><tr><td>80 g</td><td>60.000</td><td>1,0</td><td>60.000</td><td>4,00 €</td><td>240.000 €</td></tr><tr><td>100 g</td><td>30.000</td><td>1,2</td><td>36.000</td><td>4,80 €</td><td>144.000 €</td></tr><tr><td>120 g</td><td>20.000</td><td>1,5</td><td>30.000</td><td>6,00 €</td><td>120.000 €</td></tr><tr><td><strong>Summe</strong></td><td>110.000</td><td></td><td>126.000</td><td></td><td><strong>504.000 €</strong></td></tr></tbody></table><p>Probe: \\( 240.000 + 144.000 + 120.000 = 504.000 \\) € ✓</p></div><p>Hättest du naiv \\( \\frac{504.000}{110.000} \\approx 4{,}58 \\) € für jedes Paket gerechnet, wäre das 80-g-Papier um 0,58 € zu teuer kalkuliert und das 120-g-Papier um 1,42 € zu billig. Genau diese Quersubventionierung verhindert die Äquivalenzziffer.</p>"
+  },
+  {
+   "h2": "Mehrstufige Äquivalenzziffernkalkulation: Produktion ungleich Absatz",
+   "html": "<p>Im Beispiel wurde mehr produziert als verkauft. Dann darfst du nicht alle Kosten über dieselbe Menge verteilen. Die Herstellkosten gehören zur <strong>produzierten</strong> Menge, die Verwaltungs- und Vertriebskosten zur <strong>abgesetzten</strong> Menge. Diese Trennung kennst du aus der mehrstufigen Divisionskalkulation, hier kommt nur die Gewichtung dazu.</p><div class=\"beispiel\"><p>Verkauft wurden 55.000 Pakete 80 g, 30.000 Pakete 100 g und 15.000 Pakete 120 g, zusammen 100.000 Pakete. Die Verwaltungs- und Vertriebskosten betragen 90.000 €. Weil Lager, Versand und Verwaltung pro Paket unabhängig von der Grammatur gleich viel Aufwand machen, gilt hier für alle Sorten die Ziffer 1.</p><p>Vertriebskosten pro Paket: \\( \\frac{90.000\\text{ €}}{100.000} = 0{,}90 \\) €</p><table><thead><tr><th>Sorte</th><th>Herstellkosten/Stück</th><th>+ Vw/Vt/Stück</th><th>Selbstkosten/Stück</th></tr></thead><tbody><tr><td>80 g</td><td>4,00 €</td><td>0,90 €</td><td>4,90 €</td></tr><tr><td>100 g</td><td>4,80 €</td><td>0,90 €</td><td>5,70 €</td></tr><tr><td>120 g</td><td>6,00 €</td><td>0,90 €</td><td>6,90 €</td></tr></tbody></table><p>Auf Lager gehen 5.000 Pakete 80 g und 5.000 Pakete 120 g. Bewertet werden sie nur mit den Herstellkosten: \\( 5.000 \\cdot 4{,}00 + 5.000 \\cdot 6{,}00 = 50.000 \\) €. Vertriebskosten haben im Lagerbestand nichts zu suchen, denn verkauft ist ja noch nichts.</p></div><p>Merke dir die Logik: Jede Kostenart wird über die Menge und die Ziffer verteilt, die ihren Anfall wirklich erklärt. Das kann für jede Stufe eine andere Ziffernreihe sein.</p>"
+  },
+  {
+   "h2": "Woher kommen die Äquivalenzziffern – und was bringen mehrere Ziffernreihen?",
+   "html": "<p>In der Klausur sind die Ziffern meist gegeben, in der Praxis musst du sie herleiten. Sie sollen das Verhältnis widerspiegeln, in dem die Sorten Kosten verursachen. Typische Grundlagen sind Materialverbrauch, Gewicht, Fläche, Maschinenlaufzeit oder Arbeitszeit pro Stück. Braucht ein Paket 120-g-Papier 1,5-mal so viel Zellstoff wie ein Paket 80-g-Papier, liegt eine Ziffer von 1,5 nahe.</p><p>Das Problem: Eine einzige Ziffer unterstellt, dass <em>alle</em> Kosten im selben Verhältnis anfallen. Das stimmt selten. Beim Papier hängt das Material am Gewicht, die Maschinenzeit aber kaum. Dann rechnest du mit <strong>mehreren Ziffernreihen</strong> und verteilst jeden Kostenblock getrennt.</p><div class=\"beispiel\"><p>Von den 504.000 € sind 306.000 € Materialkosten und 198.000 € Fertigungskosten. Material verteilst du nach Gewicht (ÄZ 1,0 / 1,25 / 1,5), Fertigung nach Maschinenzeit, die für alle Grammaturen gleich ist (ÄZ 1,0).</p><p>Material-RE: \\( 60.000 \\cdot 1{,}0 + 30.000 \\cdot 1{,}25 + 20.000 \\cdot 1{,}5 = 127.500 \\) RE, also \\( \\frac{306.000}{127.500} = 2{,}40 \\) € pro RE.<br>Fertigungs-RE: 110.000 RE, also \\( \\frac{198.000}{110.000} = 1{,}80 \\) € pro RE.</p><table><thead><tr><th>Sorte</th><th>Material</th><th>Fertigung</th><th>Stückkosten</th><th>mit einer Ziffernreihe</th></tr></thead><tbody><tr><td>80 g</td><td>\\( 2{,}40 \\cdot 1{,}0 = 2{,}40 \\) €</td><td>1,80 €</td><td>4,20 €</td><td>4,00 €</td></tr><tr><td>100 g</td><td>\\( 2{,}40 \\cdot 1{,}25 = 3{,}00 \\) €</td><td>1,80 €</td><td>4,80 €</td><td>4,80 €</td></tr><tr><td>120 g</td><td>\\( 2{,}40 \\cdot 1{,}5 = 3{,}60 \\) €</td><td>1,80 €</td><td>5,40 €</td><td>6,00 €</td></tr></tbody></table><p>Probe: \\( 4{,}20 \\cdot 60.000 + 4{,}80 \\cdot 30.000 + 5{,}40 \\cdot 20.000 = 504.000 \\) € ✓</p></div><p>Die genauere Rechnung zeigt: Mit nur einer Ziffernreihe war das 120-g-Papier um 0,60 € pro Paket zu teuer kalkuliert, das 80-g-Papier um 0,20 € zu billig. Wer auf dieser Basis Preise setzt, verliert beim schweren Papier Kunden und verschenkt beim leichten Marge.</p>"
+  },
+  {
+   "h2": "Wann passt die Äquivalenzziffernkalkulation – und wann nicht?",
+   "html": "<p><strong>Geeignet</strong> ist das Verfahren für Sortenfertigung: Brauereien, Ziegeleien, Walzwerke, Sägewerke, Papier- und Textilhersteller. Voraussetzung ist, dass die Sorten auf denselben Anlagen aus ähnlichem Material entstehen und ihre Kosten in einem stabilen Verhältnis stehen.</p><p><strong>Vorteile:</strong></p><ul><li>wenig Aufwand, keine Trennung in Einzel- und Gemeinkosten und kein BAB nötig,</li><li>deutlich genauer als die einfache Division bei unterschiedlichen Sorten,</li><li>leicht nachvollziehbar und mit mehreren Ziffernreihen gut verfeinerbar.</li></ul><p><strong>Nachteile:</strong></p><ul><li>das Ergebnis ist nur so gut wie die Ziffern; geschätzte oder veraltete Ziffern verschieben Kosten unbemerkt zwischen den Sorten,</li><li>es werden auch Fixkosten proportional verteilt, für kurzfristige Preisentscheidungen ist das ungeeignet,</li><li>bei sehr unterschiedlichen Produkten versagt das Verfahren.</li></ul><p><strong>Abgrenzung:</strong> Unterscheiden sich die Produkte stark in Material und Arbeitsgängen, ist die <a href=\"/lernen/zuschlagskalkulation\">Zuschlagskalkulation</a> die richtige Wahl, die Einzelkosten direkt zurechnet und nur die Gemeinkosten per Zuschlag verteilt. Entstehen mehrere Produkte zwangsläufig in einem Prozess (etwa Benzin und Heizöl in der Raffinerie), spricht man von Kuppelproduktion, die eigene Verfahren hat. Für die Grundlagen zu Einzel- und Gemeinkosten lohnt der Blick auf <a href=\"/lernen/einzelkosten-gemeinkosten\">Einzelkosten und Gemeinkosten</a>.</p>"
+  }
+ ],
+ "fehler": [
+  "Stückkosten mit den Recheneinheiten statt mit der Äquivalenzziffer berechnen: \\( k_i = \\text{Kosten pro RE} \\cdot \\text{ÄZ}_i \\). Kosten pro RE mal RE ergibt die Sortenkosten, nicht die Stückkosten.",
+  "Kosten durch die Summe der Mengen statt durch die Summe der Recheneinheiten teilen: Der Nenner sind immer die RE. Sonst erhältst du einen Durchschnittspreis, der die Gewichtung wieder aufhebt.",
+  "Bei Produktion ungleich Absatz alle Kosten über eine Menge verteilen: Herstellkosten gehören zur produzierten Menge, Verwaltungs- und Vertriebskosten zur abgesetzten Menge. Der Lagerbestand wird nur mit Herstellkosten bewertet.",
+  "Äquivalenzziffern falsch umrechnen, wenn eine andere Sorte Einheitssorte werden soll: Alle Ziffern werden durch die Ziffer der neuen Einheitssorte geteilt. Die Stückkosten ändern sich dadurch nicht, nur die Kosten pro RE.",
+  "Die Probe weglassen: Die Summe der Sortenkosten muss exakt die Gesamtkosten ergeben. Weicht sie ab, steckt ein Fehler bei RE oder Stückkosten."
+ ],
+ "faq": [
+  {
+   "q": "Was ist eine Einheitssorte?",
+   "a": "Die Einheitssorte ist die Bezugssorte mit der Äquivalenzziffer 1. Meist nimmt man die Hauptsorte mit der größten Menge. Alle anderen Ziffern drücken das Kostenverhältnis zu dieser Sorte aus, und die Kosten pro Recheneinheit entsprechen ihren Stückkosten."
+  },
+  {
+   "q": "Was sind Recheneinheiten bei der Äquivalenzziffernkalkulation?",
+   "a": "Recheneinheiten sind die mit der Äquivalenzziffer gewichteten Mengen, also Menge mal Ziffer. Sie machen unterschiedliche Sorten vergleichbar, als ob nur die Einheitssorte produziert worden wäre. Die Gesamtkosten werden durch die Summe der Recheneinheiten geteilt."
+  },
+  {
+   "q": "Ändert sich das Ergebnis, wenn ich eine andere Einheitssorte wähle?",
+   "a": "Nein. Wenn du alle Ziffern durch die Ziffer der neuen Einheitssorte teilst, ändern sich die Recheneinheiten und die Kosten pro RE, die Stückkosten jeder Sorte bleiben aber exakt gleich. Die Wahl der Einheitssorte ist reine Bequemlichkeit."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Divisionskalkulation und Äquivalenzziffernkalkulation?",
+   "a": "Die einfache Divisionskalkulation teilt die Gesamtkosten durch die Menge und setzt gleiche Produkte voraus. Die Äquivalenzziffernkalkulation gewichtet die Mengen vorher mit Ziffern und eignet sich damit für ähnliche, aber unterschiedlich teure Sorten. Sie ist eine Sonderform der Divisionskalkulation."
+  },
+  {
+   "q": "Wann braucht man mehrere Äquivalenzziffernreihen?",
+   "a": "Wenn verschiedene Kostenblöcke in unterschiedlichem Verhältnis anfallen, zum Beispiel Material nach Gewicht und Fertigung nach Maschinenzeit. Dann verteilst du jeden Block mit seiner eigenen Ziffernreihe und addierst die Stückkosten. Das Ergebnis ist genauer als mit einer einzigen Ziffer."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Gesamtkosten 90.000 €. Sorte A: 10.000 Stück, ÄZ 1,0. Sorte B: 5.000 Stück, ÄZ 1,6. Wie hoch sind die Stückkosten von B?",
+   "o": [
+    "6,00 €",
+    "4,00 €",
+    "9,60 €",
+    "8,00 €"
+   ],
+   "r": 2,
+   "e": "RE: \\( 10.000 + 5.000 \\cdot 1{,}6 = 18.000 \\). Kosten pro RE: \\( \\frac{90.000}{18.000} = 5{,}00 \\) €. Stückkosten B: \\( 5{,}00 \\cdot 1{,}6 = 8{,}00 \\) €."
+  },
+  {
+   "q": "Es wurde mehr produziert als verkauft. Über welche Menge verteilst du die Vertriebskosten?",
+   "o": [
+    "Über die produzierte Menge",
+    "Über die abgesetzte Menge",
+    "Über die Summe der Recheneinheiten der Produktion",
+    "Über die Lagerbestandsmenge"
+   ],
+   "r": 1,
+   "e": "Vertriebskosten entstehen nur für verkaufte Stücke. Herstellkosten verteilst du über die produzierte Menge, Vertriebskosten über die abgesetzte."
+  },
+  {
+   "q": "Bisher ist A Einheitssorte, B hat ÄZ 1,5. Nun soll B Einheitssorte werden. Welche Ziffer bekommt A?",
+   "o": [
+    "0,67 (gerundet), die Stückkosten bleiben gleich",
+    "1,5, weil das Verhältnis gleich bleibt",
+    "0,5, weil B um 0,5 teurer ist",
+    "1,0, weil A die größere Menge hat"
+   ],
+   "r": 0,
+   "e": "Alle Ziffern werden durch die neue Bezugsziffer geteilt: \\( \\frac{1{,}0}{1{,}5} \\approx 0{,}67 \\). Das Kostenverhältnis und die Stückkosten ändern sich nicht."
+  }
+ ],
+ "verwandt": [
+  "divisionskalkulation",
+  "zuschlagskalkulation",
+  "kostentraegerrechnung",
+  "einzelkosten-gemeinkosten",
+  "kostenrechnung"
+ ],
+ "ask": "die Äquivalenzziffernkalkulation – mit Recheneinheiten, Kosten pro RE und Stückkosten je Sorte an einem durchgerechneten Beispiel"
+}

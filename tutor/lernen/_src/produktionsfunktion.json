@@ -1,0 +1,120 @@
+{
+ "slug": "produktionsfunktion",
+ "name": "Produktionsfunktion",
+ "title": "Produktionsfunktion einfach erklärt – mit Beispiel",
+ "meta": "Produktionsfunktion verständlich: Ertragsgesetz mit vier Phasen, Grenz- und Durchschnittsertrag, Cobb-Douglas, Leontief und Skalenerträge – mit Beispiel.",
+ "h1": "Produktionsfunktion einfach erklärt",
+ "kurz": "Eine Produktionsfunktion beschreibt, welche Ausbringungsmenge maximal mit bestimmten Einsatzmengen der Produktionsfaktoren erreicht werden kann: \\( x = f(r_1, \\dots, r_n) \\). Man unterscheidet substitutionale Funktionen wie das Ertragsgesetz und die Cobb-Douglas-Funktion, bei denen Faktoren sich ersetzen können, und limitationale wie die Leontief-Funktion mit festen Einsatzverhältnissen.",
+ "keywords": [
+  "produktionsfunktion",
+  "ertragsgesetz",
+  "ertragsgesetzliche produktionsfunktion",
+  "cobb-douglas-produktionsfunktion",
+  "limitationale produktionsfunktion",
+  "grenzertrag durchschnittsertrag",
+  "skalenerträge",
+  "vier phasen ertragsgesetz"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist eine Produktionsfunktion?",
+   "html": "<p>Eine <strong>Produktionsfunktion</strong> beschreibt den technischen Zusammenhang zwischen dem Einsatz von Produktionsfaktoren und der maximal möglichen Ausbringungsmenge. Allgemein schreibt man:</p><div class=\"formel\">\\[ x = f(r_1, r_2, \\dots, r_n) \\]</div><p>Dabei ist \\( x \\) die Ausbringung (Output) und \\( r_1 \\) bis \\( r_n \\) sind die Faktoreinsatzmengen (Input), etwa Arbeitsstunden, Maschinenstunden oder Material. Welche Faktoren es gibt und wie man sie einteilt, steht bei den <a href=\"/lernen/produktionsfaktoren\">Produktionsfaktoren</a>. Die Produktionsfunktion fragt dagegen: <em>Wie viel</em> kommt heraus, wenn man <em>wie viel</em> hineinsteckt?</p><p>Wichtig ist das Wort „maximal“. Die Produktionsfunktion zeigt nur technisch effiziente Kombinationen. Wer mit denselben Faktoren weniger produziert, verschwendet etwas, und das bildet die Funktion nicht ab. Preise spielen noch keine Rolle. Sie kommen erst in der <a href=\"/lernen/kostenfunktion\">Kostenfunktion</a> dazu, die aus der Produktionsfunktion abgeleitet wird.</p><p>Man unterscheidet zwei Blickwinkel:</p><ul><li><strong>Partielle Faktorvariation (kurzfristig):</strong> Nur ein Faktor wird verändert, alle anderen bleiben konstant. Beispiel: mehr Arbeitskräfte an denselben Maschinen.</li><li><strong>Totale Faktorvariation (langfristig):</strong> Alle Faktoren werden im gleichen Verhältnis verändert. Hier geht es um Skalenerträge.</li></ul><div class=\"merke\">Produktionsfunktion = Input-Output-Beziehung in Mengen. Erst mit Faktorpreisen wird daraus eine Kostenfunktion.</div>"
+  },
+  {
+   "h2": "Welche Typen von Produktionsfunktionen gibt es?",
+   "html": "<p>Die entscheidende Frage ist, ob sich Faktoren gegenseitig ersetzen können.</p><ul><li><strong>Substitutional:</strong> Ein Faktor kann zumindest teilweise durch einen anderen ersetzt werden. Weniger Arbeit lässt sich durch mehr Kapital ausgleichen. Die Kombinationen, die dieselbe Menge ergeben, bilden eine gekrümmte <strong>Isoquante</strong>.</li><li><strong>Limitational:</strong> Die Faktoren müssen in einem festen Verhältnis eingesetzt werden. Ein Fahrrad braucht genau einen Rahmen und zwei Laufräder, ein dritter Laufradsatz bringt kein weiteres Rad.</li></ul><table><thead><tr><th>Typ</th><th>Faktorbeziehung</th><th>Typische Form</th></tr></thead><tbody><tr><td>Ertragsgesetz (Typ A)</td><td>substitutional</td><td>s-förmiger Ertragsverlauf, ein Faktor variabel</td></tr><tr><td>Cobb-Douglas (neoklassisch)</td><td>substitutional</td><td>\\( x = c \\cdot r_1^{\\alpha} \\cdot r_2^{\\beta} \\)</td></tr><tr><td>Leontief</td><td>limitational</td><td>\\( x = \\min\\left(\\frac{r_1}{a_1}, \\frac{r_2}{a_2}\\right) \\)</td></tr><tr><td>Gutenberg (Typ B)</td><td>limitational</td><td>Verbrauch hängt von Maschine und Leistungsintensität ab</td></tr></tbody></table><p>Die ertragsgesetzliche Funktion stammt ursprünglich aus der Landwirtschaft: Mehr Dünger auf demselben Feld steigert den Ertrag erst stark, dann immer weniger, irgendwann schadet er. Gutenberg hat dagegen gezeigt, dass in der Industrie meist feste Verbrauchsmengen pro Maschine gelten, die nur von der Intensität abhängen, mit der eine Maschine läuft.</p>"
+  },
+  {
+   "h2": "Welche Kennzahlen leitet man aus der Produktionsfunktion ab?",
+   "html": "<p>Bei partieller Variation eines Faktors \\( r \\) brauchst du drei Größen:</p><div class=\"formel\">\\[ \\text{Gesamtertrag: } x(r) \\]\\[ \\text{Grenzertrag (Grenzproduktivität): } x'(r) = \\frac{dx}{dr} \\]\\[ \\text{Durchschnittsertrag: } e(r) = \\frac{x(r)}{r} \\]</div><p>Der Grenzertrag sagt, wie viel eine zusätzliche Faktoreinheit mehr bringt. Der Durchschnittsertrag ist die Produktivität pro eingesetzter Einheit. Es gilt immer: Wo der Durchschnittsertrag sein Maximum hat, schneidet ihn die Grenzertragskurve. Solange der Grenzertrag über dem Durchschnitt liegt, zieht er den Durchschnitt nach oben, liegt er darunter, zieht er ihn nach unten.</p><p>Bei zwei substitutionalen Faktoren kommt die <strong>Grenzrate der technischen Substitution</strong> dazu. Sie gibt an, wie viele Einheiten von Faktor 2 eine zusätzliche Einheit von Faktor 1 ersetzt, ohne dass sich die Ausbringung ändert:</p><div class=\"formel\">\\[ \\text{GRTS} = \\frac{\\partial x / \\partial r_1}{\\partial x / \\partial r_2} \\]</div><p>Das ist das Produktionsgegenstück zur <a href=\"/lernen/grenzrate-der-substitution\">Grenzrate der Substitution</a> aus der Haushaltstheorie.</p>"
+  },
+  {
+   "h2": "Beispiel: ertragsgesetzliche Produktionsfunktion durchrechnen",
+   "html": "<div class=\"beispiel\"><p>Eine Gärtnerei kann auf ihrer festen Gewächshausfläche unterschiedlich viele Arbeitskräfte \\( r \\) einsetzen. Die Tagesernte in Kilogramm folgt der Funktion</p><p>\\( x(r) = -r^3 + 12r^2 + 60r \\)</p><p><strong>Schritt 1: Grenzertrag und Durchschnittsertrag</strong><br>\\( x'(r) = -3r^2 + 24r + 60 \\)<br>\\( e(r) = \\frac{x(r)}{r} = -r^2 + 12r + 60 \\)</p><p><strong>Schritt 2: Maximum des Grenzertrags (Wendepunkt)</strong><br>\\( x''(r) = -6r + 24 = 0 \\Rightarrow r = 4 \\). Dort ist \\( x'(4) = -48 + 96 + 60 = 108 \\) kg.</p><p><strong>Schritt 3: Maximum des Durchschnittsertrags</strong><br>\\( e'(r) = -2r + 12 = 0 \\Rightarrow r = 6 \\). Dort ist \\( e(6) = -36 + 72 + 60 = 96 \\) kg und auch \\( x'(6) = -108 + 144 + 60 = 96 \\) kg. Grenz- und Durchschnittsertrag sind gleich, wie es sein muss.</p><p><strong>Schritt 4: Maximum des Gesamtertrags</strong><br>\\( x'(r) = 0 \\Rightarrow -3(r^2 - 8r - 20) = -3(r - 10)(r + 2) = 0 \\Rightarrow r = 10 \\). Ertrag: \\( x(10) = -1.000 + 1.200 + 600 = 800 \\) kg.</p><table><thead><tr><th>Arbeitskräfte \\( r \\)</th><th>Ertrag \\( x \\)</th><th>Grenzertrag \\( x' \\)</th><th>Durchschnittsertrag \\( e \\)</th></tr></thead><tbody><tr><td>2</td><td>160</td><td>96</td><td>80</td></tr><tr><td>4</td><td>368</td><td>108</td><td>92</td></tr><tr><td>6</td><td>576</td><td>96</td><td>96</td></tr><tr><td>8</td><td>736</td><td>60</td><td>92</td></tr><tr><td>10</td><td>800</td><td>0</td><td>80</td></tr><tr><td>11</td><td>781</td><td>−39</td><td>71</td></tr></tbody></table></div><p>Die elfte Arbeitskraft senkt die Ernte sogar: Die Leute stehen sich im Gewächshaus im Weg. Genau das meint das <strong>Gesetz vom abnehmenden Ertragszuwachs</strong>: Steigert man nur einen Faktor bei festen anderen Faktoren, sinkt der Grenzertrag ab einem bestimmten Punkt.</p>"
+  },
+  {
+   "h2": "Die vier Phasen des Ertragsgesetzes",
+   "html": "<table><thead><tr><th>Phase</th><th>Bereich im Beispiel</th><th>Kennzeichen</th></tr></thead><tbody><tr><td>I</td><td>\\( 0 < r \\leq 4 \\)</td><td>Grenzertrag steigt bis zum Maximum (Wendepunkt)</td></tr><tr><td>II</td><td>\\( 4 < r \\leq 6 \\)</td><td>Grenzertrag sinkt, liegt aber noch über dem Durchschnittsertrag, der bis zu seinem Maximum steigt</td></tr><tr><td>III</td><td>\\( 6 < r \\leq 10 \\)</td><td>Durchschnittsertrag sinkt, Grenzertrag bleibt positiv bis null, Gesamtertrag erreicht sein Maximum</td></tr><tr><td>IV</td><td>\\( r > 10 \\)</td><td>Grenzertrag negativ, Gesamtertrag sinkt</td></tr></tbody></table><p>Ein rational handelnder Betrieb produziert in Phase III. In Phase IV wäre es unsinnig, weil man mit weniger Einsatz mehr ernten könnte. In den Phasen I und II steigt die Produktivität jeder Arbeitskraft noch, wenn man weitere einstellt, es wäre also verschenkt, dort stehen zu bleiben. Wo genau in Phase III das Optimum liegt, entscheiden erst die Preise: Man stellt so lange ein, bis der zusätzliche Erlös einer Arbeitskraft ihren Lohn nicht mehr deckt.</p>"
+  },
+  {
+   "h2": "Cobb-Douglas und Leontief: Skalenerträge und feste Einsatzverhältnisse",
+   "html": "<div class=\"beispiel\"><p><strong>Cobb-Douglas:</strong> Ein Betrieb produziert nach \\( x = 2 \\cdot A^{0{,}5} \\cdot K^{0{,}5} \\) mit Arbeit \\( A = 16 \\) und Kapital \\( K = 25 \\).</p><p>Ausbringung: \\( x = 2 \\cdot \\sqrt{16} \\cdot \\sqrt{25} = 2 \\cdot 4 \\cdot 5 = 40 \\)<br>Verdoppelung beider Faktoren: \\( x = 2 \\cdot \\sqrt{32} \\cdot \\sqrt{50} = 2 \\cdot \\sqrt{1.600} = 80 \\). Die Ausbringung verdoppelt sich ebenfalls: <strong>konstante Skalenerträge</strong>, weil die Exponenten zusammen 1 ergeben.</p><p>Grenzprodukte: \\( \\frac{\\partial x}{\\partial A} = A^{-0{,}5} \\cdot K^{0{,}5} = \\frac{5}{4} = 1{,}25 \\) und \\( \\frac{\\partial x}{\\partial K} = A^{0{,}5} \\cdot K^{-0{,}5} = \\frac{4}{5} = 0{,}8 \\)<br>\\( \\text{GRTS} = \\frac{1{,}25}{0{,}8} = 1{,}5625 \\): Eine zusätzliche Arbeitseinheit ersetzt hier gut 1,56 Einheiten Kapital.</p><p><strong>Leontief:</strong> Eine Fahrradmontage hat 50 Rahmen und 120 Laufräder. \\( x = \\min\\left(\\frac{50}{1}, \\frac{120}{2}\\right) = \\min(50, 60) = 50 \\) Fahrräder. 20 Laufräder bleiben ungenutzt, mehr Laufräder bringen nichts.</p></div><p>Für die Skalenerträge der Cobb-Douglas-Funktion gilt bei \\( \\alpha + \\beta \\): größer 1 steigende, gleich 1 konstante, kleiner 1 sinkende Skalenerträge. Verwechsle das nicht mit dem Ertragsgesetz: Abnehmende Grenzerträge eines einzelnen Faktors sind kein Widerspruch zu konstanten Skalenerträgen. Im Beispiel sinkt das Grenzprodukt der Arbeit, wenn man nur \\( A \\) erhöht, die Skalenerträge bleiben trotzdem konstant.</p>"
+  },
+  {
+   "h2": "Wofür braucht man die Produktionsfunktion?",
+   "html": "<p>Die Produktionsfunktion ist das Fundament der Kostentheorie. Multiplizierst du die nötigen Faktormengen mit ihren Preisen, erhältst du die Kosten für jede Ausbringung. Aus dem s-förmigen Ertragsgesetz entsteht so die s-förmige Kostenfunktion mit erst fallenden, dann steigenden <a href=\"/lernen/grenzkosten\">Grenzkosten</a>, aus der Leontief-Funktion eine lineare Kostenfunktion. Bei substitutionalen Faktoren suchst du außerdem die kostenminimale Kombination auf einer Isoquante, die <strong>Minimalkostenkombination</strong>. Mathematisch löst man das mit der <a href=\"/lernen/lagrange\">Lagrange-Methode</a>.</p><p><strong>Grenzen:</strong> Reale Produktionsprozesse lassen sich selten mit einer glatten Funktion beschreiben. Die Funktionen setzen eine gegebene Technik und homogene Faktoren voraus, technischer Fortschritt verschiebt sie. In der Industrie ist das Ertragsgesetz eher die Ausnahme. Für Klausuren bleibt die Produktionsfunktion trotzdem zentral, weil sich an ihr Grenz- und Durchschnittsdenken sauber üben lässt.</p>"
+  }
+ ],
+ "fehler": [
+  "Grenzertrag und Durchschnittsertrag verwechseln: Der Grenzertrag ist die Ableitung \\( x'(r) \\), der Durchschnittsertrag ist \\( \\frac{x(r)}{r} \\). Im Maximum des Durchschnittsertrags sind beide gleich groß.",
+  "Den Wendepunkt mit dem Maximum des Gesamtertrags verwechseln: Am Wendepunkt ist der Grenzertrag maximal (\\( x'' = 0 \\)). Das Maximum des Gesamtertrags liegt dort, wo der Grenzertrag null ist (\\( x' = 0 \\)).",
+  "Abnehmende Grenzerträge mit sinkenden Skalenerträgen gleichsetzen: Grenzerträge betreffen die Erhöhung eines einzelnen Faktors, Skalenerträge die proportionale Erhöhung aller Faktoren. Eine Cobb-Douglas-Funktion kann beides zugleich haben: sinkende Grenzerträge und konstante Skalenerträge.",
+  "Bei limitationaler Produktion mit dem reichlicheren Faktor rechnen: Die Ausbringung bestimmt immer der knappste Faktor, also das Minimum der möglichen Mengen.",
+  "Phase IV für den Bereich mit sinkendem Grenzertrag halten: Der Grenzertrag sinkt schon ab dem Wendepunkt. Phase IV beginnt erst, wenn er negativ wird und der Gesamtertrag fällt."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen substitutionaler und limitationaler Produktionsfunktion?",
+   "a": "Bei einer substitutionalen Produktionsfunktion können sich Faktoren gegenseitig ersetzen, dieselbe Menge lässt sich mit verschiedenen Kombinationen herstellen. Bei einer limitationalen Produktionsfunktion ist das Einsatzverhältnis technisch fest, mehr von nur einem Faktor erhöht die Ausbringung nicht."
+  },
+  {
+   "q": "Was besagt das Ertragsgesetz?",
+   "a": "Wird ein Produktionsfaktor bei konstanten übrigen Faktoren immer weiter erhöht, nehmen die Ertragszuwächse ab einem bestimmten Punkt ab und werden schließlich negativ. Der Gesamtertrag verläuft dadurch s-förmig mit einem Maximum."
+  },
+  {
+   "q": "Wie erkennt man die Skalenerträge einer Cobb-Douglas-Funktion?",
+   "a": "Man addiert die Exponenten der Faktoren. Ist die Summe größer als 1, liegen steigende Skalenerträge vor, bei genau 1 konstante und bei kleiner als 1 sinkende. Der Vorfaktor spielt dafür keine Rolle."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Produktionsfunktion und Kostenfunktion?",
+   "a": "Die Produktionsfunktion verknüpft Faktormengen mit der Ausbringungsmenge, ganz ohne Preise. Die Kostenfunktion bewertet die nötigen Faktormengen mit ihren Preisen und zeigt die Kosten in Abhängigkeit von der Ausbringung. Sie wird aus der Produktionsfunktion abgeleitet."
+  },
+  {
+   "q": "In welcher Phase des Ertragsgesetzes produziert ein Unternehmen?",
+   "a": "In Phase III, also zwischen dem Maximum des Durchschnittsertrags und dem Maximum des Gesamtertrags. Davor würde zusätzlicher Einsatz die Produktivität noch erhöhen, danach sinkt der Gesamtertrag. Den genauen Punkt bestimmen die Faktor- und Produktpreise."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Für \\( x(r) = -r^3 + 9r^2 + 48r \\): Bei welchem Faktoreinsatz ist der Grenzertrag maximal?",
+   "o": [
+    "\\( r = 3 \\)",
+    "\\( r = 4{,}5 \\)",
+    "\\( r = 8 \\)",
+    "\\( r = 6 \\)"
+   ],
+   "r": 0,
+   "e": "\\( x'(r) = -3r^2 + 18r + 48 \\), \\( x''(r) = -6r + 18 = 0 \\Rightarrow r = 3 \\). Bei \\( r = 4{,}5 \\) liegt das Maximum des Durchschnittsertrags, bei \\( r = 8 \\) das Maximum des Gesamtertrags."
+  },
+  {
+   "q": "\\( x = 5 \\cdot A^{0{,}4} \\cdot K^{0{,}4} \\). Welche Skalenerträge liegen vor?",
+   "o": [
+    "steigende",
+    "konstante",
+    "sinkende",
+    "keine Aussage möglich"
+   ],
+   "r": 2,
+   "e": "Die Exponentensumme ist \\( 0{,}4 + 0{,}4 = 0{,}8 < 1 \\), also sinkende Skalenerträge. Der Vorfaktor 5 ändert daran nichts."
+  },
+  {
+   "q": "Ein Tisch braucht 1 Platte und 4 Beine. Vorhanden sind 30 Platten und 100 Beine. Wie viele Tische lassen sich bauen?",
+   "o": [
+    "30",
+    "100",
+    "130",
+    "25"
+   ],
+   "r": 3,
+   "e": "Limitationale Produktion: \\( \\min\\left(\\frac{30}{1}, \\frac{100}{4}\\right) = \\min(30, 25) = 25 \\). Die Beine sind der Engpass."
+  }
+ ],
+ "verwandt": [
+  "kostenfunktion",
+  "produktionsfaktoren",
+  "grenzkosten",
+  "lagrange",
+  "grenzrate-der-substitution"
+ ],
+ "ask": "die Produktionsfunktion – Ertragsgesetz mit Grenz- und Durchschnittsertrag, die vier Phasen sowie Cobb-Douglas und Leontief an einem Beispiel"
+}

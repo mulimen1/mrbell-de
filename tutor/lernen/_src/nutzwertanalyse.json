@@ -1,0 +1,116 @@
+{
+ "slug": "nutzwertanalyse",
+ "name": "Nutzwertanalyse",
+ "title": "Nutzwertanalyse einfach erklärt – mit Beispiel",
+ "meta": "Nutzwertanalyse Schritt für Schritt: Kriterien gewichten, Punkte vergeben, Nutzwert berechnen – mit Rechenbeispiel, K.-o.-Kriterien und Klausurfallen.",
+ "h1": "Nutzwertanalyse einfach erklärt",
+ "kurz": "Die Nutzwertanalyse ist ein Entscheidungsverfahren für Alternativen, die sich nicht allein in Euro vergleichen lassen. Du bewertest jede Alternative pro Kriterium mit Punkten, multiplizierst sie mit der Gewichtung des Kriteriums und addierst die Teilnutzen zum Gesamtnutzwert \\( N = \\sum g_j \\cdot e_j \\). Die Alternative mit dem höchsten Nutzwert wird gewählt.",
+ "keywords": [
+  "nutzwertanalyse",
+  "nutzwertanalyse beispiel",
+  "nutzwertanalyse gewichtung",
+  "nutzwertanalyse berechnen",
+  "nutzwertanalyse vor- und nachteile",
+  "scoring modell",
+  "entscheidungsmatrix",
+  "nutzwertanalyse lieferantenauswahl"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist eine Nutzwertanalyse?",
+   "html": "<p>Viele Entscheidungen im Unternehmen lassen sich nicht sauber in Euro ausdrücken. Bei der Wahl eines Lieferanten zählen Preis, Qualität, Liefertreue und Nachhaltigkeit, bei der Standortwahl Miete, Verkehrsanbindung und Fachkräfte vor Ort. Die <strong>Nutzwertanalyse</strong> (auch Scoring-Modell, Punktbewertungsverfahren oder Entscheidungsmatrix) macht solche Alternativen vergleichbar: Sie übersetzt alle Kriterien in eine gemeinsame Punkteskala und gewichtet sie nach ihrer Bedeutung.</p><p>Das Ergebnis ist eine einzige Kennzahl je Alternative, der <strong>Nutzwert</strong>. Er hat keine Einheit und keinen absoluten Sinn – ein Nutzwert von 7,3 heißt nicht „73 % gut“. Er dient nur dem Vergleich: höherer Nutzwert, bessere Alternative, gemessen an <em>deinen</em> Kriterien und <em>deinen</em> Gewichten.</p><p>Im Unterschied zur <a href=\"/lernen/kostenvergleichsrechnung\">Kostenvergleichsrechnung</a> oder zur Kapitalwertmethode ist die Nutzwertanalyse ein <strong>qualitatives</strong> bzw. gemischtes Verfahren. Sie ersetzt die Investitionsrechnung nicht, sondern ergänzt sie um alles, was sich nicht in Zahlungsströme packen lässt.</p><div class=\"merke\">Nutzwertanalyse = mehrere Kriterien, eine gemeinsame Punkteskala, Gewichtung nach Bedeutung, Summe der gewichteten Punkte entscheidet.</div>"
+  },
+  {
+   "h2": "Wie läuft eine Nutzwertanalyse ab?",
+   "html": "<p>In Klausuren wird fast immer dieses Schema in sechs Schritten erwartet:</p><ol><li><strong>Alternativen festlegen</strong> und <strong>K.-o.-Kriterien</strong> prüfen: Wer eine Mindestanforderung nicht erfüllt, fliegt vorher raus und wird gar nicht erst bepunktet.</li><li><strong>Bewertungskriterien bestimmen.</strong> Sie müssen überschneidungsfrei sein (nicht „Preis“ und „Kosten pro Stück“ gleichzeitig) und sich auf das Entscheidungsziel beziehen.</li><li><strong>Kriterien gewichten.</strong> Die Gewichte \\( g_j \\) summieren sich auf 100 % bzw. 1. Hilfreich ist ein paarweiser Vergleich (Präferenzmatrix), bei dem du jedes Kriterium gegen jedes andere antreten lässt.</li><li><strong>Punkteskala festlegen</strong>, zum Beispiel 1 bis 10 oder 0 bis 5, und für jedes Kriterium beschreiben, wann es wie viele Punkte gibt.</li><li><strong>Alternativen bewerten:</strong> Erfüllungsgrad \\( e_{ij} \\) jeder Alternative \\( i \\) bei jedem Kriterium \\( j \\) vergeben, dann Teilnutzen berechnen.</li><li><strong>Nutzwerte addieren</strong>, Rangfolge bilden und das Ergebnis auf Stabilität prüfen.</li></ol><div class=\"formel\">\\[ \\text{Teilnutzen}_{ij} = g_j \\cdot e_{ij} \\]\\[ N_i = \\sum_{j=1}^{m} g_j \\cdot e_{ij} \\quad \\text{mit} \\quad \\sum_{j=1}^{m} g_j = 1 \\]</div><p>Wichtig für Schritt 4: Die Skala muss so gepolt sein, dass <strong>mehr Punkte immer besser</strong> bedeutet. Beim Preis heißt das: Der günstigste Anbieter bekommt die meisten Punkte. Am saubersten ist eine Umrechnungsregel (Transformationsfunktion), die aus der Messgröße die Punkte ableitet, statt Punkte nach Bauchgefühl zu vergeben.</p>"
+  },
+  {
+   "h2": "Beispiel: Nutzwertanalyse zur Lieferantenauswahl",
+   "html": "<div class=\"beispiel\"><p>Ein Fahrradhersteller sucht einen Lieferanten für Aluminiumrahmen. Vier Anbieter liegen vor. Anbieter D hat keine Qualitätszertifizierung – das ist ein <strong>K.-o.-Kriterium</strong>, D scheidet aus. A, B und C werden bewertet. Die Gewichte hat die Einkaufsleitung festgelegt: Preis 35 %, Qualität 30 %, Liefertreue 20 %, Nachhaltigkeit 15 % (Summe 100 % ✓).</p><p><strong>Schritt 1: Preis in Punkte umrechnen.</strong> Die Rahmen kosten bei A 80 €, bei B 110 €, bei C 90 €. Regel: \\( \\text{Punkte} = 10 - \\frac{\\text{Preis} - 60}{10} \\), also 1 Punkt Abzug je 10 € über 60 €.<br>A: \\( 10 - \\frac{80 - 60}{10} = 8 \\), B: \\( 10 - \\frac{110 - 60}{10} = 5 \\), C: \\( 10 - \\frac{90 - 60}{10} = 7 \\)</p><p><strong>Schritt 2: übrige Kriterien bepunkten</strong> (Skala 1–10, aus Musterprüfung, Lieferhistorie und Nachhaltigkeitsbericht) und <strong>Teilnutzen berechnen</strong>:</p><table><thead><tr><th>Kriterium</th><th>Gewicht</th><th>A Punkte</th><th>A TN</th><th>B Punkte</th><th>B TN</th><th>C Punkte</th><th>C TN</th></tr></thead><tbody><tr><td>Preis</td><td>0,35</td><td>8</td><td>2,80</td><td>5</td><td>1,75</td><td>7</td><td>2,45</td></tr><tr><td>Qualität</td><td>0,30</td><td>5</td><td>1,50</td><td>9</td><td>2,70</td><td>7</td><td>2,10</td></tr><tr><td>Liefertreue</td><td>0,20</td><td>6</td><td>1,20</td><td>8</td><td>1,60</td><td>7</td><td>1,40</td></tr><tr><td>Nachhaltigkeit</td><td>0,15</td><td>4</td><td>0,60</td><td>7</td><td>1,05</td><td>9</td><td>1,35</td></tr><tr><td><strong>Nutzwert</strong></td><td>1,00</td><td></td><td><strong>6,10</strong></td><td></td><td><strong>7,10</strong></td><td></td><td><strong>7,30</strong></td></tr></tbody></table><p><strong>Schritt 3: Nutzwert C nachrechnen</strong><br>\\( N_C = 0{,}35 \\cdot 7 + 0{,}30 \\cdot 7 + 0{,}20 \\cdot 7 + 0{,}15 \\cdot 9 = 2{,}45 + 2{,}10 + 1{,}40 + 1{,}35 = 7{,}30 \\)</p><p><strong>Ergebnis:</strong> Rangfolge C (7,30) vor B (7,10) vor A (6,10). Lieferant C erhält den Zuschlag.</p></div><p>Auffällig: B ist bei zwei von vier Kriterien der Beste und bei keinem der Schlechteste, verliert aber trotzdem. Der Grund ist das hohe Gewicht des Preises, bei dem B deutlich zurückliegt. C gewinnt als ausgewogener Allrounder. Genau solche Ergebnisse, die man „nach Gefühl“ anders entschieden hätte, macht die Nutzwertanalyse sichtbar und begründbar.</p>"
+  },
+  {
+   "h2": "Wie stabil ist das Ergebnis?",
+   "html": "<p>C liegt nur 0,20 Punkte vor B. Bevor du in der Klausur „C ist die beste Alternative“ hinschreibst, lohnt ein Blick darauf, wie empfindlich das Ergebnis auf die Gewichte reagiert. Verschiebe testweise Gewicht vom Preis zur Qualität. Pro Prozentpunkt gewinnt B \\( 0{,}01 \\cdot (9 - 5) = 0{,}04 \\) Punkte, C dagegen \\( 0{,}01 \\cdot (7 - 7) = 0 \\). Der Vorsprung von 0,20 ist also nach</p><div class=\"formel\">\\[ \\frac{0{,}20}{0{,}04} = 5 \\text{ Prozentpunkten} \\]</div><p>aufgebraucht. Bei Preis 30 % und Qualität 35 % liegen B und C gleichauf bei 7,30. Gewichtet man Preis mit 25 % und Qualität mit 40 %, gewinnt B mit 7,50 gegen 7,30.</p><p>Das heißt nicht, dass die Analyse wertlos ist. Es heißt: Die Entscheidung hängt an der Frage, wie wichtig der Einkaufspreis gegenüber der Rahmenqualität wirklich ist. Diese Frage muss das Management bewusst beantworten. Systematisch untersucht man das mit einer <a href=\"/lernen/sensitivitaetsanalyse\">Sensitivitätsanalyse</a>: Welche Gewichtsänderung kippt die Rangfolge? Ist der kritische Wert klein, ist das Ergebnis wackelig.</p><div class=\"merke\">Liegen zwei Nutzwerte eng beieinander, ist das kein klarer Sieg. Prüfe, ab welcher Gewichtsverschiebung die Rangfolge kippt, und schreib das in der Klausur als Würdigung dazu.</div>"
+  },
+  {
+   "h2": "Wie gewichtet man die Kriterien?",
+   "html": "<p>Die Gewichtung ist der heikelste Teil, weil sie das Ergebnis am stärksten steuert. Drei gängige Wege:</p><ul><li><strong>Direkte Vergabe:</strong> Ein Team verteilt 100 Prozentpunkte auf die Kriterien. Schnell, aber anfällig für Bauchgefühl.</li><li><strong>Paarweiser Vergleich (Präferenzmatrix):</strong> Jedes Kriterium wird gegen jedes andere verglichen; der Sieger bekommt einen Punkt. Bei 4 Kriterien gibt es \\( \\frac{4 \\cdot 3}{2} = 6 \\) Vergleiche. Das Gewicht ist der Anteil eines Kriteriums an allen vergebenen Punkten. Achtung: Ein Kriterium ohne Sieg hätte das Gewicht null, obwohl man es ja für relevant hält. Viele Lehrbücher geben daher jedem Kriterium einen Grundpunkt oder vergeben 2/1/0 für wichtiger/gleich/unwichtiger.</li><li><strong>Stufenweise Gewichtung:</strong> Erst Oberkriterien gewichten (z. B. wirtschaftlich 60 %, technisch 40 %), dann die Unterkriterien innerhalb jeder Gruppe. Das Endgewicht ist das Produkt, etwa \\( 0{,}6 \\cdot 0{,}5 = 0{,}3 \\).</li></ul><p>Egal welcher Weg: Lege Gewichte und Punkteregeln <strong>vor</strong> der Bewertung der Alternativen fest. Wer erst bepunktet und dann gewichtet, schiebt die Gewichte unbewusst so hin, dass der Favorit gewinnt.</p>"
+  },
+  {
+   "h2": "Vorteile, Nachteile und Abgrenzung",
+   "html": "<p><strong>Vorteile:</strong></p><ul><li>bezieht qualitative Kriterien ein, die in Kosten- oder Kapitalwertrechnungen fehlen,</li><li>zwingt zu einer klaren Struktur und macht die Entscheidung nachvollziehbar und dokumentierbar,</li><li>flexibel für fast jede Auswahlentscheidung: Lieferant, Standort, Software, Bewerber, Projekt,</li><li>Gruppen können sich auf Kriterien und Gewichte einigen, bevor über Favoriten gestritten wird.</li></ul><p><strong>Nachteile:</strong></p><ul><li>Gewichte und Punkte sind subjektiv; die scheinbare Genauigkeit (7,30 gegen 7,10) täuscht,</li><li>sie unterstellt, dass Schwächen bei einem Kriterium durch Stärken bei einem anderen ausgeglichen werden können (Kompensation). Wo das nicht geht, braucht es K.-o.-Kriterien,</li><li>sie behandelt Punkte, als wären sie metrisch skaliert, obwohl der Abstand zwischen 6 und 7 Punkten selten genau messbar ist,</li><li>überschneidende Kriterien zählen denselben Aspekt doppelt.</li></ul><p><strong>Abgrenzung:</strong> Die <a href=\"/lernen/swot-analyse\">SWOT-Analyse</a> sammelt und ordnet Einflussfaktoren, bewertet aber keine Alternativen gegeneinander. Die <a href=\"/lernen/abc-analyse\">ABC-Analyse</a> klassifiziert Objekte nach ihrem Wertanteil, sie wählt nichts aus. Bei einer <a href=\"/lernen/make-or-buy\">Make-or-Buy-Entscheidung</a> ist die Nutzwertanalyse oft die zweite Stufe: Erst wird der Kostenvergleich gerechnet, dann ergänzt man Abhängigkeit, Know-how-Schutz und Qualität per Scoring. Diese Kombination aus monetärer Rechnung und Nutzwertanalyse ist in der Praxis und in Fallstudien-Klausuren der Standard.</p>"
+  }
+ ],
+ "fehler": [
+  "Gewichte summieren sich nicht auf 100 %: Prüfe immer \\( \\sum g_j = 1 \\). Sonst liegt der Nutzwert nicht mehr auf der Punkteskala, und meist steckt ein Tippfehler dahinter, der die Gewichtsverhältnisse verzerrt.",
+  "Kosten-Kriterien falsch gepolt: Beim Preis bekommt der günstigste Anbieter die meisten Punkte, nicht der teuerste. Gib die Umrechnungsregel immer mit an.",
+  "K.-o.-Kriterien mitbepunkten: Eine Alternative, die eine Mindestanforderung verfehlt, wird vorher ausgeschlossen. Sonst kann sie mit Stärken bei anderen Kriterien trotzdem gewinnen.",
+  "Nutzwert als Prozent oder Euro deuten: Ein Nutzwert von 7,30 ist eine dimensionslose Vergleichszahl. Aussagekräftig ist nur die Rangfolge und der Abstand zwischen den Alternativen.",
+  "Knappes Ergebnis ohne Würdigung: Liegen die Nutzwerte eng beieinander, gehört in die Antwort, dass schon kleine Gewichtsänderungen die Rangfolge kippen können."
+ ],
+ "faq": [
+  {
+   "q": "Wie berechnet man den Nutzwert?",
+   "a": "Du multiplizierst für jedes Kriterium die Punkte einer Alternative mit dem Gewicht des Kriteriums und erhältst den Teilnutzen. Die Summe aller Teilnutzen ist der Nutzwert der Alternative. Die Alternative mit dem höchsten Nutzwert wird gewählt."
+  },
+  {
+   "q": "Welche Punkteskala nimmt man bei der Nutzwertanalyse?",
+   "a": "Üblich sind Skalen von 1 bis 10, 0 bis 10 oder 1 bis 5. Wichtig ist nicht die Skala, sondern dass sie für alle Kriterien gleich ist, dass mehr Punkte immer besser bedeuten und dass vorher festgelegt wird, wofür es wie viele Punkte gibt."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Nutzwertanalyse und Kostenvergleichsrechnung?",
+   "a": "Die Kostenvergleichsrechnung vergleicht Alternativen nur über ihre Kosten in Euro. Die Nutzwertanalyse bezieht zusätzlich nicht monetäre Kriterien wie Qualität, Image oder Nachhaltigkeit ein und rechnet alles in dimensionslose Punkte um. Oft werden beide kombiniert."
+  },
+  {
+   "q": "Was sind K.-o.-Kriterien in der Nutzwertanalyse?",
+   "a": "K.-o.-Kriterien sind Mindestanforderungen, die jede Alternative erfüllen muss, etwa eine Zertifizierung oder eine maximale Lieferzeit. Wer sie verfehlt, wird vor der Bewertung ausgeschlossen. So verhindert man, dass ein unverzichtbarer Mangel durch gute Punkte an anderer Stelle ausgeglichen wird."
+  },
+  {
+   "q": "Was sind die Nachteile der Nutzwertanalyse?",
+   "a": "Gewichte und Punkte beruhen auf subjektiven Einschätzungen und lassen sich bewusst oder unbewusst manipulieren. Außerdem wird unterstellt, dass Schwächen durch Stärken ausgeglichen werden können. Das Ergebnis wirkt genauer, als es ist, besonders wenn die Nutzwerte eng beieinander liegen."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Gewichte: Kriterium 1 mit 60 %, Kriterium 2 mit 40 %. Alternative X erhält 6 und 9 Punkte. Wie hoch ist ihr Nutzwert?",
+   "o": [
+    "7,5",
+    "7,2",
+    "15",
+    "7,0"
+   ],
+   "r": 1,
+   "e": "\\( 0{,}6 \\cdot 6 + 0{,}4 \\cdot 9 = 3{,}6 + 3{,}6 = 7{,}2 \\). 7,5 wäre der ungewichtete Durchschnitt."
+  },
+  {
+   "q": "Ein Anbieter erfüllt eine zwingende Zertifizierung nicht, hat aber in allen anderen Kriterien Bestwerte. Wie gehst du vor?",
+   "o": [
+    "Er gewinnt, weil er den höchsten Nutzwert hat",
+    "Er bekommt beim Kriterium Zertifizierung 0 Punkte und bleibt im Vergleich",
+    "Er wird als K.-o.-Fall vorab ausgeschlossen",
+    "Man erhöht das Gewicht der Zertifizierung, bis er verliert"
+   ],
+   "r": 2,
+   "e": "Eine Mindestanforderung ist ein K.-o.-Kriterium. Wer sie nicht erfüllt, wird vor der Bewertung ausgeschlossen, damit der Mangel nicht durch andere Stärken kompensiert wird."
+  },
+  {
+   "q": "Was bedeutet ein Nutzwert von 8,2 bei einer Skala von 1 bis 10?",
+   "o": [
+    "Die Alternative erfüllt 82 % aller Anforderungen",
+    "Die Alternative ist im Vergleich besser als eine mit 7,5, gemessen an den gewählten Gewichten",
+    "Die Alternative bringt 8,2 % Rendite",
+    "Die Alternative ist objektiv sehr gut"
+   ],
+   "r": 1,
+   "e": "Der Nutzwert ist eine dimensionslose Vergleichsgröße. Er sagt nur etwas über die Rangfolge der Alternativen unter den gewählten Kriterien und Gewichten aus."
+  }
+ ],
+ "verwandt": [
+  "sensitivitaetsanalyse",
+  "kostenvergleichsrechnung",
+  "make-or-buy",
+  "swot-analyse",
+  "statische-dynamische-investitionsrechnung"
+ ],
+ "ask": "die Nutzwertanalyse – mit Gewichtung, Punkteskala, K.-o.-Kriterien und einem durchgerechneten Beispiel zur Lieferantenauswahl"
+}

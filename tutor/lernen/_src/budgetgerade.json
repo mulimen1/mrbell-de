@@ -1,0 +1,116 @@
+{
+ "slug": "budgetgerade",
+ "name": "Budgetgerade",
+ "title": "Budgetgerade einfach erklärt – Formel und Beispiel",
+ "meta": "Budgetgerade verständlich: Formel, Achsenabschnitte, Steigung als Preisverhältnis, Verschiebung bei Einkommens- und Preisänderung – mit Rechenbeispiel.",
+ "h1": "Budgetgerade einfach erklärt",
+ "kurz": "Die Budgetgerade (Bilanzgerade) zeigt alle Güterbündel, die ein Haushalt mit seinem Einkommen gerade noch kaufen kann: \\( p_x \\cdot x + p_y \\cdot y = m \\). Ihre Achsenabschnitte sind \\( \\frac{m}{p_x} \\) und \\( \\frac{m}{p_y} \\), ihre Steigung \\( -\\frac{p_x}{p_y} \\). Ein höheres Einkommen verschiebt sie parallel, eine Preisänderung dreht sie.",
+ "keywords": [
+  "budgetgerade",
+  "budgetgerade berechnen",
+  "budgetgerade formel",
+  "budgetgerade steigung",
+  "bilanzgerade",
+  "budgetgerade verschiebung",
+  "budgetgerade preisänderung",
+  "budgetrestriktion"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist die Budgetgerade?",
+   "html": "<p>In der Haushaltstheorie hat jeder Konsument zwei Seiten: Was er gerne hätte, beschreiben seine Präferenzen und die <a href=\\\"/lernen/indifferenzkurve\\\">Indifferenzkurve</a>. Was er sich leisten kann, beschreibt die <strong>Budgetgerade</strong>, auch Bilanzgerade oder Budgetrestriktion genannt.</p><p>Sie verbindet alle Kombinationen zweier Güter \\( x \\) und \\( y \\), bei denen der Haushalt sein gesamtes Einkommen \\( m \\) genau ausgibt. Unterstellt wird: Es gibt nur zwei Güter (oder ein Gut und „alles andere“), die Preise sind fest vorgegeben, der Haushalt kann sie nicht beeinflussen, und er spart nicht.</p><ul><li><strong>Auf</strong> der Budgetgeraden: Das Einkommen wird komplett ausgegeben.</li><li><strong>Unterhalb</strong> (Richtung Ursprung): Das Bündel ist bezahlbar, es bleibt Geld übrig.</li><li><strong>Oberhalb</strong>: Das Bündel ist nicht finanzierbar.</li></ul><p>Die Gerade und die Fläche darunter heißen zusammen <strong>Budgetmenge</strong> (Konsummöglichkeitenmenge).</p><div class=\\\"merke\\\">Budgetgerade = Grenze des Machbaren. Sie hängt nur von Einkommen und Preisen ab, nie von den Vorlieben des Haushalts.</div>"
+  },
+  {
+   "h2": "Wie lautet die Formel der Budgetgeraden?",
+   "html": "<p>Ausgaben für \\( x \\) plus Ausgaben für \\( y \\) gleich Einkommen:</p><div class=\\\"formel\\\">\\[ p_x \\cdot x + p_y \\cdot y = m \\]</div><p>Zum Zeichnen löst du nach \\( y \\) auf, denn \\( y \\) steht auf der senkrechten Achse:</p><div class=\\\"formel\\\">\\[ y = \\frac{m}{p_y} - \\frac{p_x}{p_y} \\cdot x \\]</div><p>Daraus liest du alles Wichtige ab:</p><table><thead><tr><th>Größe</th><th>Formel</th><th>Bedeutung</th></tr></thead><tbody><tr><td>Achsenabschnitt \\( y \\)</td><td>\\( \\frac{m}{p_y} \\)</td><td>alles Geld für Gut \\( y \\)</td></tr><tr><td>Achsenabschnitt \\( x \\)</td><td>\\( \\frac{m}{p_x} \\)</td><td>alles Geld für Gut \\( x \\)</td></tr><tr><td>Steigung</td><td>\\( -\\frac{p_x}{p_y} \\)</td><td>Preisverhältnis</td></tr></tbody></table><p>Die Steigung ist der Kern: Ihr Betrag sagt, auf wie viele Einheiten von \\( y \\) du verzichten musst, um eine Einheit \\( x \\) mehr zu kaufen. Das sind die <a href=\\\"/lernen/opportunitaetskosten\\\">Opportunitätskosten</a> von \\( x \\), gemessen in \\( y \\) – der Markt legt dieses Tauschverhältnis fest.</p>"
+  },
+  {
+   "h2": "Beispiel: Budgetgerade berechnen und zeichnen",
+   "html": "<div class=\\\"beispiel\\\"><p>Jonas hat im Monat 120 € für Freizeit. Er gibt es für Kinobesuche (\\( x \\), 12 € pro Besuch) und Döner (\\( y \\), 6 € pro Stück) aus.</p><p><strong>Schritt 1: Budgetgleichung</strong><br>\\( 12x + 6y = 120 \\)</p><p><strong>Schritt 2: Nach \\( y \\) auflösen</strong><br>\\( y = \\frac{120}{6} - \\frac{12}{6} \\cdot x = 20 - 2x \\)</p><p><strong>Schritt 3: Achsenabschnitte</strong><br>Nur Döner: \\( \\frac{120}{6} = 20 \\) Döner<br>Nur Kino: \\( \\frac{120}{12} = 10 \\) Kinobesuche</p><p><strong>Schritt 4: Steigung deuten</strong><br>Steigung \\( -\\frac{12}{6} = -2 \\): Jeder zusätzliche Kinobesuch kostet Jonas 2 Döner.</p><p><strong>Schritt 5: Bündel prüfen</strong></p><table><thead><tr><th>Bündel (Kino, Döner)</th><th>Ausgaben</th><th>Lage</th></tr></thead><tbody><tr><td>(6, 8)</td><td>\\( 12 \\cdot 6 + 6 \\cdot 8 = 120 \\) €</td><td>auf der Geraden</td></tr><tr><td>(4, 10)</td><td>\\( 12 \\cdot 4 + 6 \\cdot 10 = 108 \\) €</td><td>darunter, 12 € übrig</td></tr><tr><td>(7, 7)</td><td>\\( 12 \\cdot 7 + 6 \\cdot 7 = 126 \\) €</td><td>darüber, nicht bezahlbar</td></tr></tbody></table></div><p>Zum Zeichnen reichen die beiden Achsenpunkte \\( (0, 20) \\) und \\( (10, 0) \\), die du verbindest. Achte darauf, welches Gut auf welcher Achse steht – davon hängt ab, welcher Preis in der Steigung im Zähler steht.</p>"
+  },
+  {
+   "h2": "Wie verschiebt sich die Budgetgerade?",
+   "html": "<h3>Einkommensänderung: Parallelverschiebung</h3><p>Steigt Jonas’ Budget auf 150 €, ändern sich beide Achsenabschnitte, das Preisverhältnis aber nicht:</p><div class=\\\"formel\\\">\\[ \\frac{150}{12} = 12{,}5 \\text{ Kino}, \\qquad \\frac{150}{6} = 25 \\text{ Döner}, \\qquad \\text{Steigung } -2 \\]</div><p>Die Gerade verschiebt sich parallel nach außen. Bei sinkendem Einkommen entsprechend parallel nach innen.</p><h3>Preisänderung: Drehung</h3><p>Senkt das Kino den Preis auf 8 €, ändert sich nur der Achsenabschnitt von \\( x \\), der von \\( y \\) bleibt bei 20 Döner:</p><div class=\\\"formel\\\">\\[ \\frac{120}{8} = 15 \\text{ Kino}, \\qquad \\text{Steigung } -\\frac{8}{6} \\approx -1{,}33 \\]</div><p>Die Gerade dreht sich um den Punkt \\( (0, 20) \\) nach außen und wird flacher. Ein Kinobesuch kostet jetzt nur noch \\( 1\\tfrac{1}{3} \\) Döner. Will Jonas weiter 4 Kinobesuche machen, bleiben ihm statt 12 jetzt \\( \\frac{120 - 4 \\cdot 8}{6} \\approx 14{,}67 \\) Döner – die Preissenkung wirkt wie ein Einkommensgewinn.</p><h3>Alles verdoppelt sich</h3><p>Steigen beide Preise und das Einkommen um denselben Faktor, etwa durch allgemeine <a href=\\\"/lernen/inflation\\\">Inflation</a> mit passender Lohnanpassung, bleibt die Budgetgerade exakt gleich: \\( \\frac{240}{24} = 10 \\) und \\( \\frac{240}{12} = 20 \\). Real hat sich nichts geändert. Steigen dagegen nur beide Preise im gleichen Verhältnis, das Einkommen aber nicht, verschiebt sich die Gerade parallel nach innen.</p><table><thead><tr><th>Änderung</th><th>Wirkung</th></tr></thead><tbody><tr><td>\\( m \\) steigt</td><td>Parallelverschiebung nach außen</td></tr><tr><td>\\( p_x \\) sinkt</td><td>Drehung um den \\( y \\)-Achsenabschnitt nach außen</td></tr><tr><td>\\( p_y \\) steigt</td><td>Drehung um den \\( x \\)-Achsenabschnitt nach innen</td></tr><tr><td>\\( m, p_x, p_y \\) gleich stark</td><td>keine Veränderung</td></tr></tbody></table>"
+  },
+  {
+   "h2": "Sonderfälle: Mengenrabatt, Gutschein, Rationierung",
+   "html": "<p>In der Klausur tauchen gern Budgetgeraden mit Knick auf. Das Prinzip ist immer gleich: Du rechnest abschnittsweise.</p><p><strong>Mengenrabatt:</strong> Angenommen, der Dönerladen bietet an, dass ab dem 6. Döner jeder nur noch 3 € kostet. Bis 5 Döner gilt die alte Gerade mit Steigung \\( -2 \\). Beim Punkt \\( y = 5 \\) hat Jonas 30 € ausgegeben und kann mit den restlichen 90 € noch \\( \\frac{90}{12} = 7{,}5 \\) Kinobesuche machen. Ab dort wird die Gerade steiler (Steigung \\( -\\frac{12}{3} = -4 \\)), weil Döner billiger werden. Ohne Kino kommt er auf \\( 5 + \\frac{90}{3} = 35 \\) Döner. Die Gerade verläuft also von \\( (10, 0) \\) über den Knick \\( (7{,}5;\\, 5) \\) bis \\( (0, 35) \\).</p><p><strong>Sachgutschein:</strong> Bekommt Jonas 2 Freikarten fürs Kino, verschiebt sich die Gerade um 2 Einheiten nach rechts, aber er kann maximal 20 Döner kaufen. Es entsteht ein waagerechtes Stück bei \\( y = 20 \\) von \\( x = 0 \\) bis \\( x = 2 \\).</p><p><strong>Rationierung:</strong> Darf jemand höchstens eine Menge \\( \\bar{x} \\) kaufen, wird die Budgetmenge rechts von \\( \\bar{x} \\) senkrecht abgeschnitten.</p>"
+  },
+  {
+   "h2": "Einordnung: Budgetgerade, Indifferenzkurve und Optimum",
+   "html": "<p>Die Budgetgerade allein sagt nicht, welches Bündel Jonas kauft – sie zeigt nur die Auswahl. Welches Bündel er wählt, entscheiden seine Präferenzen. Erst die Kombination beider ergibt das <a href=\\\"/lernen/haushaltsoptimum\\\">Haushaltsoptimum</a>: der Punkt, an dem die Budgetgerade eine Indifferenzkurve gerade berührt. Dort ist die <a href=\\\"/lernen/grenzrate-der-substitution\\\">Grenzrate der Substitution</a> gleich dem Preisverhältnis \\( \\frac{p_x}{p_y} \\). Die Steigung der Budgetgeraden ist also die halbe Bedingung für das Optimum.</p><p><strong>Abgrenzung zu ähnlichen Geraden:</strong></p><ul><li>Die <a href=\\\"/lernen/produktionsmoeglichkeitenkurve\\\">Produktionsmöglichkeitenkurve</a> zeigt, was eine Volkswirtschaft mit ihren Ressourcen herstellen kann. Sie ist meist konkav, weil Ressourcen nicht gleich gut für beide Güter geeignet sind. Die Budgetgerade ist dagegen immer eine Gerade, weil die Marktpreise konstant sind.</li><li>Die Isokostenlinie aus der Produktionstheorie ist das Gegenstück beim Unternehmen: gleiche Kosten für verschiedene Faktorkombinationen, mit dem Faktorpreisverhältnis als Steigung.</li></ul><p><strong>Grenzen:</strong> Feste Preise, kein Sparen, keine Kredite und nur zwei Güter sind starke Vereinfachungen. Für das Verständnis von Nachfrage, Preis- und Einkommenseffekten reicht das Modell aber aus.</p>"
+  }
+ ],
+ "fehler": [
+  "Steigung falsch herum: Steht \\( y \\) auf der senkrechten Achse, ist die Steigung \\( -\\frac{p_x}{p_y} \\), also der Preis des Gutes auf der waagerechten Achse im Zähler. Wer \\( -\\frac{p_y}{p_x} \\) schreibt, verliert in der Klausur schnell die halbe Aufgabe.",
+  "Achsenabschnitte vertauschen: Der Schnittpunkt mit der \\( x \\)-Achse ist \\( \\frac{m}{p_x} \\), nicht \\( \\frac{m}{p_y} \\). Prüfe: Wenn alles Geld in \\( x \\) fließt, teilst du durch den Preis von \\( x \\).",
+  "Bei einer Preisänderung parallel verschieben: Ändert sich nur ein Preis, dreht sich die Gerade um den Achsenabschnitt des anderen Gutes. Parallel verschiebt sie sich nur bei Einkommensänderungen oder wenn beide Preise im gleichen Verhältnis steigen.",
+  "Budgetgerade und Indifferenzkurve vermischen: Die Budgetgerade hat nichts mit Nutzen zu tun. Sie hängt nur von \\( m \\), \\( p_x \\) und \\( p_y \\) ab.",
+  "Knick bei Mengenrabatt übersehen: Gilt ab einer Menge ein anderer Preis, musst du die Gerade abschnittsweise rechnen und den Knickpunkt bestimmen, sonst stimmt der Achsenabschnitt nicht."
+ ],
+ "faq": [
+  {
+   "q": "Was gibt die Steigung der Budgetgeraden an?",
+   "a": "Sie ist das negative Preisverhältnis der beiden Güter. Ihr Betrag zeigt, auf wie viele Einheiten des Gutes auf der senkrechten Achse man verzichten muss, um eine Einheit des Gutes auf der waagerechten Achse mehr zu kaufen. Das ist das Tauschverhältnis, das der Markt vorgibt."
+  },
+  {
+   "q": "Wie verändert sich die Budgetgerade bei steigendem Einkommen?",
+   "a": "Sie verschiebt sich parallel nach außen. Beide Achsenabschnitte werden größer, das Preisverhältnis und damit die Steigung bleiben gleich."
+  },
+  {
+   "q": "Was passiert mit der Budgetgeraden, wenn ein Preis sinkt?",
+   "a": "Sie dreht sich nach außen, und zwar um den Achsenabschnitt des Gutes, dessen Preis gleich bleibt. Sinkt der Preis von x, wandert der x-Achsenabschnitt nach rechts und die Gerade wird flacher."
+  },
+  {
+   "q": "Ist Budgetgerade dasselbe wie Bilanzgerade?",
+   "a": "Ja. Budgetgerade, Bilanzgerade und Budgetrestriktion meinen dasselbe. Welcher Begriff verwendet wird, hängt vom Lehrbuch ab."
+  },
+  {
+   "q": "Was ist die Budgetmenge?",
+   "a": "Die Budgetmenge umfasst alle Bündel, die sich der Haushalt leisten kann, also die Budgetgerade selbst und alle Punkte darunter bis zum Ursprung. Auf der Geraden wird das Einkommen vollständig ausgegeben."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Einkommen 200 €, \\( p_x = 10 \\) €, \\( p_y = 4 \\) €. Wie lautet die Budgetgerade, aufgelöst nach \\( y \\)?",
+   "o": [
+    "\\( y = 20 - 2{,}5x \\)",
+    "\\( y = 50 - 0{,}4x \\)",
+    "\\( y = 50 - 2{,}5x \\)",
+    "\\( y = 20 - 0{,}4x \\)"
+   ],
+   "r": 2,
+   "e": "Achsenabschnitt \\( \\frac{200}{4} = 50 \\), Steigung \\( -\\frac{10}{4} = -2{,}5 \\)."
+  },
+  {
+   "q": "Der Preis von \\( y \\) steigt, alles andere bleibt gleich. Was passiert?",
+   "o": [
+    "Die Gerade dreht sich um den \\( x \\)-Achsenabschnitt nach innen",
+    "Die Gerade verschiebt sich parallel nach innen",
+    "Die Gerade dreht sich um den \\( y \\)-Achsenabschnitt nach innen",
+    "Nichts, nur das Optimum ändert sich"
+   ],
+   "r": 0,
+   "e": "Der maximale Konsum von \\( x \\) (\\( \\frac{m}{p_x} \\)) bleibt gleich, nur \\( \\frac{m}{p_y} \\) sinkt. Die Gerade wird flacher und dreht sich nach innen."
+  },
+  {
+   "q": "Einkommen und alle Preise steigen um 10 %. Wie verändert sich die Budgetgerade?",
+   "o": [
+    "Parallel nach außen",
+    "Parallel nach innen",
+    "Sie wird steiler",
+    "Gar nicht"
+   ],
+   "r": 3,
+   "e": "Achsenabschnitte und Preisverhältnis bleiben gleich, weil Zähler und Nenner mit demselben Faktor wachsen."
+  }
+ ],
+ "verwandt": [
+  "indifferenzkurve",
+  "haushaltsoptimum",
+  "grenzrate-der-substitution",
+  "opportunitaetskosten",
+  "produktionsmoeglichkeitenkurve"
+ ],
+ "ask": "die Budgetgerade – mit Formel, Steigung als Preisverhältnis und den Verschiebungen bei Einkommens- und Preisänderungen an einem durchgerechneten Beispiel"
+}

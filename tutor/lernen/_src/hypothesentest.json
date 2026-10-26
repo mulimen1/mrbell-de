@@ -1,0 +1,116 @@
+{
+  "slug": "hypothesentest",
+  "name": "Hypothesentest",
+  "title": "Hypothesentest einfach erklärt – mit Beispiel",
+  "meta": "Hypothesentest verständlich erklärt: Nullhypothese, Signifikanzniveau, Teststatistik, p-Wert und Fehler 1. und 2. Art – mit durchgerechnetem Gauß-Test.",
+  "h1": "Hypothesentest einfach erklärt",
+  "kurz": "Ein Hypothesentest prüft anhand einer Stichprobe, ob eine Behauptung über die Grundgesamtheit (die Nullhypothese H0) verworfen werden kann. Dazu berechnet man eine Teststatistik und vergleicht sie mit einem kritischen Wert, der sich aus dem Signifikanzniveau α ergibt. Liegt die Teststatistik im Ablehnungsbereich oder ist der p-Wert kleiner als α, wird H0 abgelehnt.",
+  "keywords": [
+    "hypothesentest",
+    "nullhypothese alternativhypothese",
+    "signifikanzniveau",
+    "p-wert",
+    "fehler 1. und 2. art",
+    "gauß-test",
+    "t-test",
+    "einseitiger zweiseitiger test"
+  ],
+  "abschnitte": [
+    {
+      "h2": "Was ist ein Hypothesentest?",
+      "html": "<p>In der Wirtschaft werden ständig Behauptungen aufgestellt: Ein Lieferdienst verspricht eine durchschnittliche Lieferzeit von höchstens 30 Minuten, ein Abfüller garantiert 500 ml pro Flasche, das Marketing behauptet, die neue Kampagne habe die Conversion-Rate erhöht. Alle Kunden, alle Flaschen oder alle Bestellungen zu prüfen, ist zu teuer. Also ziehst du eine Stichprobe – und musst entscheiden, ob die Abweichung, die du darin siehst, nur Zufall ist oder ein echtes Signal.</p><p>Genau diese Entscheidung formalisiert der <strong>Hypothesentest</strong>. Die Logik ist ein Widerspruchsbeweis mit Restrisiko: Du nimmst zunächst an, die Behauptung stimmt (Nullhypothese). Dann fragst du: Wie wahrscheinlich wäre ein Stichprobenergebnis wie meines, wenn die Nullhypothese wahr wäre? Ist das sehr unwahrscheinlich, verwirfst du sie.</p><div class=\"merke\">Ein Test kann die Nullhypothese nur ablehnen oder nicht ablehnen – „bestätigen“ oder „beweisen“ kann er sie nie.</div>"
+    },
+    {
+      "h2": "Nullhypothese, Alternativhypothese und Signifikanzniveau",
+      "html": "<p><strong>Nullhypothese \\( H_0 \\):</strong> der Status quo bzw. die Behauptung, die du widerlegen willst. Sie enthält immer das Gleichheitszeichen (=, ≤ oder ≥).</p><p><strong>Alternativhypothese \\( H_1 \\):</strong> das, was du nachweisen willst. Nur sie kann durch den Test „statistisch gesichert“ werden.</p><p>Je nach Fragestellung unterscheidest du drei Testvarianten:</p><table><thead><tr><th>Test</th><th>Hypothesen</th><th>Ablehnungsbereich</th></tr></thead><tbody><tr><td>rechtsseitig</td><td>\\( H_0: \\mu \\le \\mu_0 \\), \\( H_1: \\mu > \\mu_0 \\)</td><td>\\( z > z_{1-\\alpha} \\)</td></tr><tr><td>linksseitig</td><td>\\( H_0: \\mu \\ge \\mu_0 \\), \\( H_1: \\mu < \\mu_0 \\)</td><td>\\( z < -z_{1-\\alpha} \\)</td></tr><tr><td>zweiseitig</td><td>\\( H_0: \\mu = \\mu_0 \\), \\( H_1: \\mu \\ne \\mu_0 \\)</td><td>\\( |z| > z_{1-\\alpha/2} \\)</td></tr></tbody></table><p>Das <strong>Signifikanzniveau α</strong> legst du vor dem Test fest, üblich sind 5 % oder 1 %. Es ist die maximale Wahrscheinlichkeit, mit der du H0 ablehnst, obwohl sie stimmt. Die kritischen Werte stammen aus der <a href=\"/lernen/normalverteilung\">Standardnormalverteilung</a>: \\( z_{0{,}95} = 1{,}645 \\), \\( z_{0{,}975} = 1{,}96 \\), \\( z_{0{,}99} = 2{,}326 \\).</p>"
+    },
+    {
+      "h2": "Wie läuft ein Hypothesentest ab? Die fünf Schritte",
+      "html": "<ol><li><strong>Hypothesen formulieren:</strong> H0 und H1, ein- oder zweiseitig.</li><li><strong>Signifikanzniveau festlegen:</strong> zum Beispiel α = 5 %.</li><li><strong>Teststatistik wählen und berechnen:</strong> beim Test auf den Mittelwert mit bekannter Standardabweichung σ der Gauß-Test.</li><li><strong>Kritischen Wert bzw. Ablehnungsbereich bestimmen.</strong></li><li><strong>Entscheiden und im Sachzusammenhang interpretieren.</strong></li></ol><div class=\"formel\">\\[ z = \\frac{\\bar{x} - \\mu_0}{\\frac{\\sigma}{\\sqrt{n}}} \\]</div><p>Der Nenner \\( \\frac{\\sigma}{\\sqrt{n}} \\) ist der Standardfehler des Mittelwerts: Er misst, wie stark Stichprobenmittelwerte um den wahren Mittelwert schwanken. Ist σ unbekannt, ersetzt du σ durch die Stichprobenstandardabweichung s und vergleichst mit der t-Verteilung mit n − 1 Freiheitsgraden (t-Test). Ab etwa n > 30 liegen t- und Normalverteilung so nah beieinander, dass viele Skripte dann mit z-Werten rechnen lassen.</p>"
+    },
+    {
+      "h2": "Beispiel: Hält der Lieferdienst sein Versprechen?",
+      "html": "<div class=\"beispiel\"><p>Ein Lieferdienst wirbt damit, dass Bestellungen im Durchschnitt <strong>höchstens 30 Minuten</strong> unterwegs sind. Ein Restaurantpartner zweifelt daran und wertet 49 zufällig ausgewählte Lieferungen aus: durchschnittliche Lieferzeit 32,1 Minuten. Aus langjährigen Daten ist die Standardabweichung mit σ = 6 Minuten bekannt. Test bei α = 5 %.</p><p><strong>Schritt 1: Hypothesen</strong><br>Der Partner will nachweisen, dass es länger dauert. Das gehört in H1:<br>\\( H_0: \\mu \\le 30 \\) gegen \\( H_1: \\mu > 30 \\) (rechtsseitiger Test)</p><p><strong>Schritt 2: Signifikanzniveau</strong><br>α = 0,05</p><p><strong>Schritt 3: Teststatistik</strong><br>Standardfehler: \\( \\frac{6}{\\sqrt{49}} = \\frac{6}{7} \\approx 0{,}857 \\) Minuten<br>\\( z = \\frac{32{,}1 - 30}{\\frac{6}{7}} = \\frac{2{,}1 \\cdot 7}{6} = 2{,}45 \\)</p><p><strong>Schritt 4: Kritischer Wert</strong><br>Rechtsseitig bei 5 %: \\( z_{0{,}95} = 1{,}645 \\). Ablehnungsbereich: z > 1,645.</p><p><strong>Schritt 5: Entscheidung</strong><br>\\( 2{,}45 > 1{,}645 \\Rightarrow H_0 \\) wird abgelehnt.</p><p><strong>Alternativ über den p-Wert:</strong> \\( p = P(Z > 2{,}45) \\approx 0{,}0071 \\), also 0,71 %. Weil \\( 0{,}0071 < 0{,}05 \\), wird H0 ebenfalls abgelehnt. Sogar bei α = 1 % (kritischer Wert 2,326) wäre das Ergebnis signifikant.</p></div><p><strong>Interpretation:</strong> Auf dem 5-%-Niveau ist statistisch gesichert, dass die durchschnittliche Lieferzeit über 30 Minuten liegt. Wäre das Werbeversprechen wahr, würde ein Stichprobenmittel von 32,1 Minuten oder mehr nur in etwa 0,7 % der Fälle auftreten.</p><p><strong>Der Stichprobenumfang macht den Unterschied:</strong> Hätte der Partner nur 9 Lieferungen gemessen, wäre der Standardfehler \\( \\frac{6}{\\sqrt{9}} = 2 \\) und \\( z = \\frac{2{,}1}{2} = 1{,}05 < 1{,}645 \\). Dieselbe Abweichung von 2,1 Minuten wäre dann nicht signifikant – H0 könnte nicht abgelehnt werden. Ohne bekanntes σ (t-Test mit s = 6 und 48 Freiheitsgraden) wäre der kritische Wert 1,677; auch dann würde H0 bei n = 49 abgelehnt.</p>"
+    },
+    {
+      "h2": "Fehler 1. Art und Fehler 2. Art",
+      "html": "<p>Weil du nur eine Stichprobe hast, kann jede Testentscheidung falsch sein:</p><table><thead><tr><th>Entscheidung</th><th>H0 ist wahr</th><th>H0 ist falsch</th></tr></thead><tbody><tr><td>H0 ablehnen</td><td>Fehler 1. Art (Wahrscheinlichkeit α)</td><td>richtig (Teststärke \\( 1 - \\beta \\))</td></tr><tr><td>H0 nicht ablehnen</td><td>richtig</td><td>Fehler 2. Art (Wahrscheinlichkeit β)</td></tr></tbody></table><p>Im Beispiel wäre ein <strong>Fehler 1. Art</strong>, dem Lieferdienst Wortbruch vorzuwerfen, obwohl er sein Versprechen hält. Ein <strong>Fehler 2. Art</strong> wäre, die zu langen Lieferzeiten zu übersehen.</p><p>Beide Fehler hängen zusammen: Senkst du α von 5 % auf 1 %, wird der Ablehnungsbereich kleiner – du lehnst seltener zu Unrecht ab, übersiehst aber häufiger echte Abweichungen (β steigt). Beide Fehler gleichzeitig senken kannst du nur mit einem größeren Stichprobenumfang. Welcher Fehler teurer ist, ist eine betriebswirtschaftliche Frage: In der Qualitätskontrolle von Medikamenten wählt man ein kleines α, bei einem schnellen Marketingtest darf es großzügiger sein.</p>"
+    },
+    {
+      "h2": "Hypothesentest, Konfidenzintervall und p-Wert richtig einordnen",
+      "html": "<p>Ein zweiseitiger Test zum Niveau α und ein <a href=\"/lernen/konfidenzintervall\">Konfidenzintervall</a> zum Niveau \\( 1 - \\alpha \\) sind zwei Seiten derselben Medaille: H0: \\( \\mu = \\mu_0 \\) wird genau dann abgelehnt, wenn \\( \\mu_0 \\) außerhalb des Intervalls liegt. Das Intervall zeigt zusätzlich, in welchem Bereich der wahre Wert plausibel liegt.</p><p>Neben dem Gauß- und t-Test für Mittelwerte gibt es Tests für Anteile (etwa: Liegt die Reklamationsquote über 2 %?), für den Vergleich zweier Gruppen (A/B-Test zweier Werbemittel), den Chi-Quadrat-Test für Zusammenhänge zwischen kategorialen Merkmalen und Tests auf Signifikanz einer <a href=\"/lernen/korrelation\">Korrelation</a> oder eines Regressionskoeffizienten. Das Grundschema ist immer dasselbe.</p><p><strong>Grenzen:</strong> „Signifikant“ heißt nicht „wirtschaftlich relevant“. Bei sehr großen Stichproben wird auch eine Abweichung von wenigen Sekunden signifikant, obwohl sie niemanden stört. Umgekehrt beweist ein nicht signifikantes Ergebnis nicht, dass H0 stimmt – vielleicht war die Stichprobe nur zu klein. Und der p-Wert ist nicht die Wahrscheinlichkeit, dass H0 wahr ist, sondern die Wahrscheinlichkeit für ein mindestens so extremes Ergebnis unter der Annahme, dass H0 wahr ist.</p>"
+    }
+  ],
+  "fehler": [
+    "Die zu beweisende Aussage in H0 schreiben: Was du nachweisen willst, gehört in H1. H0 ist die Gegenposition und enthält immer das Gleichheitszeichen.",
+    "„H0 wird angenommen“ oder „H0 ist bewiesen“ schreiben: Korrekt ist „H0 kann nicht abgelehnt werden“. Ein nicht signifikantes Ergebnis ist kein Beweis für H0.",
+    "Beim einseitigen Test den zweiseitigen kritischen Wert nehmen: Bei α = 5 % ist der kritische Wert einseitig 1,645 und zweiseitig 1,96. Prüfe an der Formulierung („höchstens“, „mindestens“, „weicht ab“), welcher Test gefragt ist.",
+    "Im Nenner σ statt σ geteilt durch Wurzel n verwenden: Die Teststatistik für den Mittelwert nutzt den Standardfehler \\( \\frac{\\sigma}{\\sqrt{n}} \\). Ohne die Wurzel wird z viel zu klein.",
+    "Den p-Wert als Wahrscheinlichkeit für H0 deuten: Er gibt an, wie wahrscheinlich ein so extremes Ergebnis wäre, wenn H0 stimmt – nicht, wie wahrscheinlich H0 stimmt."
+  ],
+  "faq": [
+    {
+      "q": "Was ist der p-Wert einfach erklärt?",
+      "a": "Der p-Wert ist die Wahrscheinlichkeit, ein Stichprobenergebnis zu erhalten, das mindestens so stark gegen H0 spricht wie das beobachtete – vorausgesetzt, H0 ist wahr. Ist er kleiner als das Signifikanzniveau α, wird H0 abgelehnt."
+    },
+    {
+      "q": "Wann verwende ich einen einseitigen und wann einen zweiseitigen Test?",
+      "a": "Einseitig testest du, wenn nur eine Richtung interessiert, etwa „Die Lieferzeit liegt über 30 Minuten“. Zweiseitig testest du, wenn jede Abweichung relevant ist, etwa „Die Füllmenge weicht von 500 ml ab“. Die Richtung muss vor dem Blick auf die Daten feststehen."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Gauß-Test und t-Test?",
+      "a": "Der Gauß-Test setzt voraus, dass die Standardabweichung σ der Grundgesamtheit bekannt ist, und nutzt die Standardnormalverteilung. Beim t-Test ist σ unbekannt und wird durch s aus der Stichprobe geschätzt, kritische Werte kommen aus der t-Verteilung mit n − 1 Freiheitsgraden."
+    },
+    {
+      "q": "Was bedeutet ein Signifikanzniveau von 5 Prozent?",
+      "a": "Es bedeutet, dass du höchstens mit 5 % Wahrscheinlichkeit eine wahre Nullhypothese fälschlich ablehnst. Das ist die Wahrscheinlichkeit für den Fehler 1. Art, die du vor dem Test festlegst."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Fehler 1. Art und Fehler 2. Art?",
+      "a": "Ein Fehler 1. Art liegt vor, wenn du H0 ablehnst, obwohl sie wahr ist; seine Wahrscheinlichkeit ist höchstens α. Ein Fehler 2. Art liegt vor, wenn du H0 beibehältst, obwohl sie falsch ist; seine Wahrscheinlichkeit heißt β. Bei festem Stichprobenumfang steigt β, wenn du α senkst."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Ein Hersteller will nachweisen, dass seine neue Maschine im Schnitt weniger als 4 Minuten pro Stück braucht. Wie lauten die Hypothesen?",
+      "o": [
+        "\\( H_0: \\mu < 4 \\), \\( H_1: \\mu \\ge 4 \\)",
+        "\\( H_0: \\mu = 4 \\), \\( H_1: \\mu \\ne 4 \\)",
+        "\\( H_0: \\mu \\ge 4 \\), \\( H_1: \\mu < 4 \\)",
+        "\\( H_0: \\mu \\le 4 \\), \\( H_1: \\mu > 4 \\)"
+      ],
+      "r": 2,
+      "e": "Was nachgewiesen werden soll, steht in H1. Also \\( H_1: \\mu < 4 \\), und H0 enthält das Gleichheitszeichen: \\( \\mu \\ge 4 \\)."
+    },
+    {
+      "q": "Gegeben: \\( \\mu_0 = 100 \\), \\( \\bar{x} = 104 \\), σ = 20, n = 64. Wie groß ist die Teststatistik z?",
+      "o": [
+        "1,6",
+        "0,2",
+        "12,8",
+        "3,2"
+      ],
+      "r": 0,
+      "e": "Standardfehler \\( \\frac{20}{\\sqrt{64}} = 2{,}5 \\), also \\( z = \\frac{104 - 100}{2{,}5} = 1{,}6 \\). 0,2 entsteht, wenn man die Wurzel aus n vergisst."
+    },
+    {
+      "q": "Ein Test liefert p = 0,03. Was folgt daraus?",
+      "o": [
+        "H0 ist mit 3 % Wahrscheinlichkeit wahr.",
+        "Bei α = 5 % wird H0 abgelehnt, bei α = 1 % nicht.",
+        "H0 wird bei jedem üblichen Niveau abgelehnt.",
+        "Das Ergebnis ist wirtschaftlich bedeutsam."
+      ],
+      "r": 1,
+      "e": "H0 wird abgelehnt, wenn p < α. 0,03 < 0,05, aber 0,03 > 0,01. Der p-Wert ist keine Wahrscheinlichkeit für H0 und sagt nichts über wirtschaftliche Relevanz."
+    }
+  ],
+  "verwandt": [
+    "konfidenzintervall",
+    "normalverteilung",
+    "varianz-standardabweichung",
+    "korrelation",
+    "regression"
+  ],
+  "ask": "den Hypothesentest – Nullhypothese, Signifikanzniveau, Teststatistik, p-Wert und Fehler 1. und 2. Art an einem durchgerechneten Gauß-Test"
+}

@@ -1,0 +1,116 @@
+{
+ "slug": "grenzrate-der-substitution",
+ "name": "Grenzrate der Substitution",
+ "title": "Grenzrate der Substitution (GRS) – einfach erklärt",
+ "meta": "Grenzrate der Substitution verständlich: Formel über Grenznutzen, Berechnung, abnehmende GRS und Vergleich mit dem Preisverhältnis – mit Beispiel.",
+ "h1": "Grenzrate der Substitution einfach erklärt",
+ "kurz": "Die Grenzrate der Substitution (GRS) gibt an, auf wie viele Einheiten von Gut \\( y \\) ein Haushalt für eine zusätzliche Einheit von Gut \\( x \\) verzichten würde, ohne dass sich sein Nutzen ändert. Sie entspricht dem Betrag der Steigung der Indifferenzkurve und dem Verhältnis der Grenznutzen: \\( GRS = \\frac{GN_x}{GN_y} \\).",
+ "keywords": [
+  "grenzrate der substitution",
+  "grs berechnen",
+  "grenzrate der substitution formel",
+  "abnehmende grenzrate der substitution",
+  "grs indifferenzkurve",
+  "grenzrate der substitution cobb douglas",
+  "mrs mikroökonomie",
+  "grenzrate der technischen substitution"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was ist die Grenzrate der Substitution?",
+   "html": "<p>Die <strong>Grenzrate der Substitution</strong> (GRS, englisch <em>marginal rate of substitution</em>, MRS) misst die <strong>Tauschbereitschaft</strong> eines Haushalts. Sie beantwortet die Frage: Wie viel von Gut \\( y \\) gibt jemand höchstens her, um eine Einheit mehr von Gut \\( x \\) zu bekommen, und zwar so, dass er danach genauso zufrieden ist wie vorher?</p><p>„Genauso zufrieden“ bedeutet: Man bewegt sich entlang einer <a href=\\\"/lernen/indifferenzkurve\\\">Indifferenzkurve</a>. Die GRS ist deshalb nichts anderes als der Betrag der Steigung dieser Kurve in einem bestimmten Punkt.</p><ul><li>Ist die GRS groß, ist dem Haushalt \\( x \\) im Moment viel wert: Er würde viel \\( y \\) dafür opfern.</li><li>Ist die GRS klein, hat er schon reichlich \\( x \\) und gibt kaum noch \\( y \\) dafür her.</li></ul><div class=\\\"merke\\\">GRS = subjektiver Tauschkurs des Haushalts: „So viele Einheiten \\( y \\) ist mir eine Einheit \\( x \\) gerade wert.“</div>"
+  },
+  {
+   "h2": "Welche Formel hat die Grenzrate der Substitution?",
+   "html": "<p>Entlang einer Indifferenzkurve bleibt der Nutzen konstant. Ändern sich \\( x \\) und \\( y \\) ein kleines Stück, muss die Nutzenänderung null sein (totales Differential):</p><div class=\\\"formel\\\">\\[ dU = \\frac{\\partial U}{\\partial x} \\, dx + \\frac{\\partial U}{\\partial y} \\, dy = 0 \\]</div><p>Nach \\( \\frac{dy}{dx} \\) umgestellt ergibt sich die wichtigste Formel des Themas:</p><div class=\\\"formel\\\">\\[ GRS = -\\frac{dy}{dx} = \\frac{\\partial U / \\partial x}{\\partial U / \\partial y} = \\frac{GN_x}{GN_y} \\]</div><p>Die GRS ist also das Verhältnis der <a href=\\\"/lernen/grenznutzen\\\">Grenznutzen</a>. Das ist intuitiv: Bringt eine Einheit \\( x \\) dreimal so viel zusätzlichen Nutzen wie eine Einheit \\( y \\), gibt der Haushalt für ein \\( x \\) drei \\( y \\) her.</p><p><strong>Zur Schreibweise:</strong> Manche Lehrbücher definieren die GRS als \\( \\frac{dy}{dx} \\), also mit negativem Vorzeichen, andere als Betrag. Inhaltlich ist es dasselbe. Auch die Indizes (\\( GRS_{xy} \\) oder \\( GRS_{yx} \\)) werden unterschiedlich verwendet. Schreib in der Klausur kurz dazu, welche Richtung du meinst.</p><table><thead><tr><th>Nutzenfunktion</th><th>\\( GN_x \\)</th><th>\\( GN_y \\)</th><th>GRS</th></tr></thead><tbody><tr><td>\\( U = x \\cdot y \\)</td><td>\\( y \\)</td><td>\\( x \\)</td><td>\\( \\frac{y}{x} \\)</td></tr><tr><td>\\( U = x \\cdot y^2 \\)</td><td>\\( y^2 \\)</td><td>\\( 2xy \\)</td><td>\\( \\frac{y}{2x} \\)</td></tr><tr><td>\\( U = x^a \\cdot y^b \\)</td><td>\\( a x^{a-1} y^b \\)</td><td>\\( b x^a y^{b-1} \\)</td><td>\\( \\frac{a}{b} \\cdot \\frac{y}{x} \\)</td></tr><tr><td>\\( U = 2x + y \\)</td><td>\\( 2 \\)</td><td>\\( 1 \\)</td><td>\\( 2 \\) (konstant)</td></tr></tbody></table>"
+  },
+  {
+   "h2": "Beispiel: Grenzrate der Substitution berechnen",
+   "html": "<div class=\\\"beispiel\\\"><p>Tom verteilt sein Budget auf Kaffee (\\( x \\), in Bechern) und Croissants (\\( y \\)). Seine Präferenzen: \\( U = x \\cdot y^2 \\). Er hat aktuell 2 Kaffee und 6 Croissants.</p><p><strong>Schritt 1: Nutzenniveau</strong><br>\\( U = 2 \\cdot 6^2 = 72 \\)</p><p><strong>Schritt 2: Grenznutzen</strong><br>\\( GN_x = y^2 = 36 \\), \\( GN_y = 2xy = 2 \\cdot 2 \\cdot 6 = 24 \\)</p><p><strong>Schritt 3: GRS im Punkt (2, 6)</strong><br>\\( GRS = \\frac{36}{24} = 1{,}5 \\) bzw. mit der Kurzformel \\( \\frac{y}{2x} = \\frac{6}{4} = 1{,}5 \\)<br>Tom würde für einen weiteren Becher Kaffee 1,5 Croissants hergeben.</p><p><strong>Schritt 4: Probe mit einer kleinen Änderung</strong><br>Auf der Indifferenzkurve gilt \\( y = \\sqrt{\\frac{72}{x}} \\). Bei \\( x = 2{,}01 \\) ist \\( y \\approx 5{,}9851 \\). Steigung: \\( \\frac{5{,}9851 - 6}{0{,}01} \\approx -1{,}49 \\) ✓</p><p><strong>Schritt 5: GRS entlang derselben Kurve</strong></p><table><thead><tr><th>Bündel (Kaffee, Croissants)</th><th>Nutzen</th><th>GRS \\( = \\frac{y}{2x} \\)</th></tr></thead><tbody><tr><td>(2, 6)</td><td>72</td><td>1,5</td></tr><tr><td>(4,5; 4)</td><td>72</td><td>\\( \\frac{4}{9} \\approx 0{,}44 \\)</td></tr><tr><td>(8, 3)</td><td>72</td><td>\\( \\frac{3}{16} = 0{,}1875 \\)</td></tr></tbody></table></div><p>Je mehr Kaffee Tom schon hat, desto weniger Croissants ist ihm ein weiterer Becher wert: Die GRS sinkt von 1,5 auf unter 0,2. Zwischen den Punkten \\( (2, 6) \\) und \\( (8, 3) \\) liegt die durchschnittliche Tauschrate bei \\( \\frac{3}{6} = 0{,}5 \\) – ein Mittelwert, der weder am Anfang noch am Ende der Strecke stimmt. Darum misst die GRS den Tauschkurs immer <em>in einem Punkt</em>.</p>"
+  },
+  {
+   "h2": "Warum nimmt die Grenzrate der Substitution ab?",
+   "html": "<p>Die abnehmende GRS ist die ökonomische Begründung dafür, dass Indifferenzkurven konvex zum Ursprung verlaufen. Je mehr ein Haushalt von \\( x \\) hat und je weniger von \\( y \\), desto knapper wird \\( y \\) für ihn und desto weniger gibt er davon her. Haushalte bevorzugen ausgewogene Mischungen gegenüber Extremen.</p><p>Bei Cobb-Douglas-Funktionen siehst du das direkt an der Formel: Steigt \\( x \\) und sinkt \\( y \\) entlang der Kurve, wird \\( \\frac{y}{x} \\) kleiner.</p><p><strong>Ausnahmen:</strong></p><ul><li><strong>Perfekte Substitute</strong> (\\( U = 2x + y \\)): GRS konstant 2, die Indifferenzkurve ist eine Gerade.</li><li><strong>Perfekte Komplemente</strong> (\\( U = \\min(x, y) \\)): Auf dem waagerechten Ast ist die GRS null, auf dem senkrechten unendlich, im Knick nicht definiert.</li></ul><p>Ein häufiges Missverständnis: Die abnehmende GRS folgt nicht zwingend aus dem abnehmenden Grenznutzen. Die GRS ist ein ordinales Konzept und bleibt bei jeder streng monoton steigenden Transformation der Nutzenfunktion gleich. Nimmst du statt \\( U = x \\cdot y^2 \\) die Funktion \\( \\ln U = \\ln x + 2 \\ln y \\), erhältst du \\( GN_x = \\frac{1}{x} \\), \\( GN_y = \\frac{2}{y} \\) und wieder \\( GRS = \\frac{y}{2x} \\).</p>"
+  },
+  {
+   "h2": "GRS und Preisverhältnis: der Weg zum Optimum",
+   "html": "<p>Die GRS ist der Tauschkurs <em>im Kopf</em> des Haushalts, das Preisverhältnis \\( \\frac{p_x}{p_y} \\) ist der Tauschkurs <em>am Markt</em> (Betrag der Steigung der <a href=\\\"/lernen/budgetgerade\\\">Budgetgeraden</a>). Solange beide auseinanderfallen, kann sich der Haushalt durch Umschichten verbessern:</p><div class=\\\"formel\\\">\\[ GRS > \\frac{p_x}{p_y} \\Rightarrow \\text{mehr } x \\text{ kaufen}, \\qquad GRS < \\frac{p_x}{p_y} \\Rightarrow \\text{mehr } y \\text{ kaufen} \\]</div><p>Tom hat 36 € Budget, Kaffee kostet 2 €, ein Croissant 4 €. Das Preisverhältnis ist \\( \\frac{2}{4} = 0{,}5 \\).</p><table><thead><tr><th>Bündel auf der Budgetgeraden</th><th>GRS</th><th>Vergleich</th><th>Nutzen</th></tr></thead><tbody><tr><td>(2, 8)</td><td>\\( \\frac{8}{4} = 2 \\)</td><td>\\( > 0{,}5 \\): mehr Kaffee</td><td>128</td></tr><tr><td>(6, 6)</td><td>\\( \\frac{6}{12} = 0{,}5 \\)</td><td>\\( = 0{,}5 \\): optimal</td><td>216</td></tr><tr><td>(14, 2)</td><td>\\( \\frac{2}{28} \\approx 0{,}07 \\)</td><td>\\( < 0{,}5 \\): mehr Croissants</td><td>56</td></tr></tbody></table><p>Im Punkt (2, 8) gibt Tom innerlich 2 Croissants für einen Kaffee her, am Markt kostet ihn ein Kaffee aber nur ein halbes Croissant – also lohnt sich der Tausch. Im Optimum (6, 6) gilt \\( GRS = \\frac{p_x}{p_y} \\). Wie man dieses Optimum systematisch herleitet, etwa mit der <a href=\\\"/lernen/lagrange\\\">Lagrange-Methode</a>, steht beim <a href=\\\"/lernen/haushaltsoptimum\\\">Haushaltsoptimum</a>.</p>"
+  },
+  {
+   "h2": "Abgrenzung: GRS und Grenzrate der technischen Substitution",
+   "html": "<p>Dasselbe Konzept gibt es auf der Unternehmensseite. Die <strong>Grenzrate der technischen Substitution</strong> (GRTS) misst, wie viel eines Produktionsfaktors (etwa Kapital) durch eine zusätzliche Einheit eines anderen (etwa Arbeit) ersetzt werden kann, ohne dass die Produktionsmenge sinkt. Sie ist die Steigung der Isoquante und das Verhältnis der Grenzproduktivitäten – mehr dazu bei der <a href=\\\"/lernen/produktionsfunktion\\\">Produktionsfunktion</a>.</p><table><thead><tr><th></th><th>GRS</th><th>GRTS</th></tr></thead><tbody><tr><td>Akteur</td><td>Haushalt</td><td>Unternehmen</td></tr><tr><td>Kurve</td><td>Indifferenzkurve</td><td>Isoquante</td></tr><tr><td>Verhältnis von</td><td>Grenznutzen</td><td>Grenzproduktivitäten</td></tr><tr><td>Messung</td><td>ordinal</td><td>kardinal (Stückzahlen)</td></tr><tr><td>Optimum</td><td>GRS = Güterpreisverhältnis</td><td>GRTS = Faktorpreisverhältnis</td></tr></tbody></table><p>Grenze des Konzepts: Die GRS setzt stetige, teilbare Güter und stabile Präferenzen voraus. Bei unteilbaren Gütern wie einem Auto ist „eine kleine Einheit mehr“ nur näherungsweise sinnvoll.</p>"
+  }
+ ],
+ "fehler": [
+  "GRS mit dem Preisverhältnis gleichsetzen: Die GRS beschreibt die Präferenzen und gilt in jedem Punkt der Indifferenzkurve. Gleich dem Preisverhältnis ist sie nur im Optimum.",
+  "Bruch umdrehen: \\( GRS = \\frac{GN_x}{GN_y} \\), also der Grenznutzen des Gutes auf der waagerechten Achse im Zähler. Wer \\( \\frac{GN_y}{GN_x} \\) rechnet, bekommt bei \\( U = x \\cdot y^2 \\) im Punkt (2, 6) den Kehrwert \\( \\frac{2}{3} \\) statt 1,5.",
+  "Durchschnittliche statt marginaler Tauschrate: Die Steigung zwischen zwei weit auseinanderliegenden Punkten ist nicht die GRS. Die GRS gilt für einen Punkt und wird über Ableitungen berechnet.",
+  "Vorzeichen durcheinanderbringen: Die Steigung der Indifferenzkurve ist negativ, die GRS wird meist als positiver Betrag angegeben. Bleib bei einer Konvention und vergleiche nur Gleiches mit Gleichem.",
+  "Beim Ableiten falsch nach der Variable differenzieren: Bei \\( U = x \\cdot y^2 \\) ist \\( GN_y = 2xy \\), nicht \\( y^2 \\) oder \\( 2y \\). Das \\( x \\) bleibt als Konstante stehen."
+ ],
+ "faq": [
+  {
+   "q": "Was sagt die Grenzrate der Substitution aus?",
+   "a": "Sie zeigt, wie viele Einheiten eines Gutes ein Haushalt höchstens für eine zusätzliche Einheit eines anderen Gutes hergibt, ohne dass sich sein Nutzen ändert. Sie ist der subjektive Tauschkurs zwischen zwei Gütern."
+  },
+  {
+   "q": "Wie berechnet man die Grenzrate der Substitution?",
+   "a": "Du leitest die Nutzenfunktion nach x und nach y ab und teilst die beiden Grenznutzen: GRS gleich Grenznutzen von x durch Grenznutzen von y. Bei U gleich x mal y ergibt das y durch x."
+  },
+  {
+   "q": "Warum ist die Grenzrate der Substitution abnehmend?",
+   "a": "Je mehr ein Haushalt von einem Gut schon besitzt und je weniger vom anderen, desto weniger ist er bereit, vom knapper werdenden Gut herzugeben. Das macht die Indifferenzkurve konvex zum Ursprung."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen GRS und Preisverhältnis?",
+   "a": "Die GRS ist die persönliche Tauschbereitschaft des Haushalts, das Preisverhältnis der Tauschkurs am Markt. Im Haushaltsoptimum sind beide gleich; vorher lohnt es sich, zum relativ günstigeren Gut umzuschichten."
+  },
+  {
+   "q": "Was ist die Grenzrate der technischen Substitution?",
+   "a": "Das Gegenstück in der Produktionstheorie: Sie gibt an, wie viel eines Produktionsfaktors durch eine Einheit eines anderen ersetzt werden kann, ohne dass der Output sinkt. Sie entspricht der Steigung der Isoquante."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "\\( U = x \\cdot y \\). Wie hoch ist die GRS im Punkt \\( (4, 10) \\)?",
+   "o": [
+    "0,4",
+    "2,5",
+    "40",
+    "6"
+   ],
+   "r": 1,
+   "e": "\\( GRS = \\frac{GN_x}{GN_y} = \\frac{y}{x} = \\frac{10}{4} = 2{,}5 \\). Die 0,4 wären der umgedrehte Bruch."
+  },
+  {
+   "q": "\\( U = x^2 \\cdot y \\). Wie lautet die GRS?",
+   "o": [
+    "\\( \\frac{y}{2x} \\)",
+    "\\( \\frac{2x}{y} \\)",
+    "\\( 2xy \\)",
+    "\\( \\frac{2y}{x} \\)"
+   ],
+   "r": 3,
+   "e": "\\( GN_x = 2xy \\), \\( GN_y = x^2 \\), also \\( GRS = \\frac{2xy}{x^2} = \\frac{2y}{x} \\)."
+  },
+  {
+   "q": "Die GRS beträgt 3, das Preisverhältnis \\( \\frac{p_x}{p_y} \\) ist 1. Was sollte der Haushalt tun?",
+   "o": [
+    "Mehr von y kaufen",
+    "Nichts ändern",
+    "Mehr von x kaufen",
+    "Weniger von beiden kaufen"
+   ],
+   "r": 2,
+   "e": "Der Haushalt würde für ein x drei y hergeben, am Markt kostet es nur ein y. Umschichten zu x erhöht den Nutzen."
+  }
+ ],
+ "verwandt": [
+  "indifferenzkurve",
+  "haushaltsoptimum",
+  "grenznutzen",
+  "budgetgerade",
+  "lagrange"
+ ],
+ "ask": "die Grenzrate der Substitution – mit Formel über die Grenznutzen, einem durchgerechneten Beispiel und dem Vergleich mit dem Preisverhältnis"
+}
