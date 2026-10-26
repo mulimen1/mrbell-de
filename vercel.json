@@ -114,6 +114,16 @@
       "destination": "/tutor/lernen/:slug.html"
     },
     {
+      "source": "/ueber/:slug([a-z0-9-]+)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?bwlmax\\.de"
+        }
+      ],
+      "destination": "/tutor/ueber/:slug.html"
+    },
+    {
       "source": "/favicon.ico",
       "has": [
         {
