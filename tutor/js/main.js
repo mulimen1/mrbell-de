@@ -265,6 +265,7 @@ async function route() {
   if (inApp) {
     const parts = hash.slice(2).split('/').filter(Boolean);
     await mountApp(parts.slice(1));
+    import('./comeback.js').then(m => m.maybeWelcomeBack()).catch(() => {});
   } else {
     document.title = L('BWL Max – dein persönlicher Tutor: Tafel, Live-Mitschrift & Klausurvorbereitung', 'BWL Max – your personal tutor: whiteboard, live notes & exam prep');
     if (EN) document.querySelector('meta[name="description"]')?.setAttribute('content', 'Upload your course material – slides, notes or past exams – and learn with BWL Max, the AI tutor that writes on the whiteboard: explanations, quizzes, flashcards, study paths, podcasts and a practice trainer. Free, no sign-up.');

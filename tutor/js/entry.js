@@ -81,6 +81,8 @@ export function enhance(c) {
     if (mc) { const kids = [...t.children], hs = kids.filter(e => e.localName === 'h3'); const first = kids.find(e => !e.classList.contains('tt') && !e.classList.contains('m-lad') && !/^h\d$/.test(e.localName));   // ans Ende des ersten Abschnitts (vor der zweiten Zwischenüberschrift)
       if (hs[1]) { hs[1].before(mc); const p1 = kids.find(e => e.localName === 'p' && !e.classList.contains('tt')) || first; if (p1 && p1 !== mc.previousElementSibling) p1.after(miniTeaser(mc)); } else if (first) first.after(mc); else t.append(mc); }
     else { const lad = ladder(c), top = t.querySelector('h1, h2, .tt'); if (top) top.after(lad); else t.prepend(lad); }
+    // Handy: unter der Tafel dieselben Karten wie am Laptop (Excel, Video → Lernzettel, Klausurfragen, Karteikarten) + Lexikon/Rechner, Ablage, Schreibfeld
+    if (matchMedia('(max-width: 900px)').matches) import('./entrycards.js').then(m => { const nx = t.nextElementSibling; if (nx && nx.classList.contains('rm-tools-m')) return; t.after(m.entryTools(c.topic || 'BWL', { mobile: true, ask: c.ask })); }).catch(() => {});   // außerhalb der Tafel (deren Stile würden die Karten verbiegen)
     watchScroll(c); guestSignals(c, lad2); return;
   }
   const first = [...t.children].find(e => !e.classList.contains('tt') && !/^h\d$/.test(e.localName));   // erster Inhaltsblock (meist der erste Absatz)

@@ -386,7 +386,7 @@ export function mountAssistant() {
   function entryCtx() {
     const b = boards[bIdx], t = bArea.querySelector('.tafel'); if (!b || !t || building) return null;
     const tr = trainerFor(b.title + ' ' + (b.slug || '') + ' ' + buildTitle), [topic, stem] = topicOf(b, tr);
-    return { t, b, slug: b.slug || '', topic, stem, trainer: tr ? tr[0] : '', scroller: bArea, say: pSay, think: pThink, note: n => { entryNotes.push(n); if (entryNotes.length > 6) entryNotes.shift(); }, busy: pBusy, back: () => backTo(b), speak: t => sayStep(t), practice: f => askPractice(f), exam: f => askExam(f) };
+    return { t, b, slug: b.slug || '', topic, stem, trainer: tr ? tr[0] : '', scroller: bArea, say: pSay, think: pThink, note: n => { entryNotes.push(n); if (entryNotes.length > 6) entryNotes.shift(); }, busy: pBusy, back: () => backTo(b), speak: t => sayStep(t), practice: f => askPractice(f), exam: f => askExam(f), ask: q => { setOpen(true); submit(q, {}); } };
   }
   function drawPage(b) {
     const c = b ? entryCtx() : null;
