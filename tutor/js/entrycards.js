@@ -30,7 +30,7 @@ export function entryTools(topic, { mobile = false, ask = null } = {}) {
   const dk = k => () => document.querySelector(`.dk .dk-b[data-k="${k}"]`)?.click();
   const strip = h('label', { class: 'rm-tdrop', for: 'fileApp' },
     h('span', { class: 'rm-tdi', html: ico('upload') }),
-    h('span', { class: 'rm-tdt' }, h('b', {}, mobile ? L('Deine Unterlagen hochladen', 'Upload your material') : L('Deine Unterlagen hier reinziehen', 'Drop your material here')), h('small', {}, L('Skript, Altklausur, Mitschrift, Video – Max macht alles daraus', 'Slides, past exams, notes, video – Max makes it all'))),
+    h('span', { class: 'rm-tdt' }, h('b', {}, mobile ? L('Deine Unterlagen hochladen', 'Upload your material') : [h('span', { class: 'rm-tdl' }, L('Deine Unterlagen hier reinziehen', 'Drop your material here')), h('span', { class: 'rm-tds' }, L('Unterlagen reinziehen', 'Drop material'))]), h('small', {}, L('Skript, Altklausur, Mitschrift, Video – Max macht alles daraus', 'Slides, past exams, notes, video – Max makes it all'))),
     h('span', { class: 'btn sm' }, h('span', { html: ico('plus') }), L('Datei', 'File')));
   // Handy: eigenes Schreibfeld unter den Karten (schickt die Frage an Max)
   const askForm = () => { const inp = h('input', { class: 'rm-mask', type: 'text', enterkeyhint: 'send', maxlength: 400, placeholder: L(`Frag Max zu „${short}“ …`, `Ask Max about “${short}” …`), 'aria-label': L('Frage an Max', 'Question for Max') });
