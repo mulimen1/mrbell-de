@@ -5839,3 +5839,29 @@ body.bm-tools-mode .dk { display: none !important; }
 .rm-tds { display: none; }
 @media (max-height: 860px) { .room.rm-tools-mode .rm-tdl { display: none; } .room.rm-tools-mode .rm-tds { display: inline; } }
 @media (max-height: 860px) { .room.rm-tools-mode .rm-tdrop .btn { font-size: 0; gap: 0; width: 28px; padding: 0; justify-content: center; } }
+/* Google-Einstieg, niedrige Bildschirme (überschreibt die Ein-Zeilen-Variante): Lexikon/Rechner rechts, Ablage groß in eigener Zeile, Schreibfeld darunter */
+@media (max-height: 860px) {
+  .room.rm-tools-mode .rm-tbot { grid-template-columns: minmax(0, 1fr); }
+  .room.rm-tools-mode .rm-tdk { grid-column: 1; justify-content: flex-end; }
+  .room.rm-tools-mode .rm-tdrop { grid-column: 1; padding: 11px 12px 11px 12px; grid-template-columns: 38px minmax(0, 1fr) auto; gap: 12px; border-radius: 16px; }
+  .room.rm-tools-mode .rm-tdi { width: 38px; height: 38px; border-radius: 11px; }
+  .room.rm-tools-mode .rm-tdt small { display: block; }
+  .room.rm-tools-mode .rm-tdt b { font-size: 14.5px; }
+  .room.rm-tools-mode .rm-tdl { display: inline; } .room.rm-tools-mode .rm-tds { display: none; }
+  .room.rm-tools-mode .rm-tdrop .btn { font-size: 13px; gap: 6px; width: auto; height: 32px; padding: 0 12px; }
+  .room.rm-tools-mode .rm-tslot { grid-column: 1; margin-top: 10px; }
+}
+/* … und damit das Schreibfeld darunter Platz hat: auf niedrigen Bildschirmen Vorschauen flacher, Überschrift und Max kleiner */
+@media (max-height: 860px) {
+  .room.rm-tools-mode .rm-xlp, .room.rm-tools-mode .rm-vdp { height: 56px; }
+  .room.rm-tools-mode .rm-tgrid { gap: 8px; }
+  .room.rm-tools-mode .rm-tc { padding: 10px 12px 9px; }
+  .room.rm-tools-mode .rm-tc .rm-tci { width: 32px; height: 32px; margin-bottom: 1px; }
+}
+@media (max-height: 820px) {
+  .room.rm-tools-mode .rm-topic { display: none; }
+  .room.rm-tools-mode .rm-face { transform: scale(.5); margin-bottom: -50px; }
+}
+@media (max-height: 760px) {
+  .room.rm-tools-mode .rm-th-wrap { display: none; }
+}
