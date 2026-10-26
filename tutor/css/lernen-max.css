@@ -1,0 +1,101 @@
+/* BWL Max — Lernseiten wie der Google-Einstieg: Bereiche oben, vier Karten, Verlassen-Fenster */
+
+/* ---------- Kopfzeile wie in der App ---------- */
+.lm-top { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 14px; padding: 10px max(16px, calc((100vw - 1180px) / 2)); background: color-mix(in srgb, var(--bg) 88%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.lm-brand { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; flex: none; }
+.lm-brand b { font-size: 17px; letter-spacing: -.02em; }
+.lm-nav { display: flex; align-items: center; gap: 2px; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.lm-nav::-webkit-scrollbar { display: none; }
+.lm-tn { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 11px; border-radius: 999px; color: var(--ink); font: 620 13.5px 'Geist', sans-serif; text-decoration: none; white-space: nowrap; transition: background .15s; }
+.lm-tn:hover { background: var(--panel); }
+.lm-tn .ico { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; padding: 6px; box-sizing: content-box; border-radius: 9px; background: color-mix(in srgb, var(--inv) 8%, var(--panel)); color: var(--inv); }
+.lm-tutor { background: var(--inv); color: var(--onInv); padding: 0 14px 0 4px; height: 38px; }
+.lm-tutor:hover { background: var(--inv); filter: brightness(1.1); }
+.lm-tutor img { width: 30px; height: 30px; border-radius: 50%; background: #fff; }
+.lm-sep { width: 1px; height: 22px; background: var(--line2); margin: 0 6px; flex: none; }
+.lm-b { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: #fff; border: 1px solid var(--line); }
+.lm-b img, .lm-b .xls { width: 15px; height: 15px; }
+.lm-new { padding: 3px 6px; border-radius: 999px; background: #1D6F42; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .06em; line-height: 1; }
+.lm-cta { flex: none; display: inline-flex; align-items: center; height: 38px; padding: 0 16px; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 650 13.5px 'Geist', sans-serif; text-decoration: none; white-space: nowrap; }
+.lm-cta:hover { filter: brightness(1.1); }
+@media (max-width: 860px) { .lm-brand b { display: none; } .lm-cta { padding: 0 12px; font-size: 13px; } .lm-top { gap: 8px; } }
+@media (max-width: 520px) { .lm-brand { display: none; } .lm-tn { padding: 0 8px; } .lm-cta { height: 34px; } }
+
+/* ---------- Die vier Karten ---------- */
+.lm-tools { display: grid; gap: 12px; margin: 6px 0 34px; padding: 0 !important; }
+.lm-hd { display: flex; align-items: center; gap: 14px; }
+.lm-hd img { flex: none; width: 64px; height: 64px; border-radius: 50%; background: #fff; border: 1px solid var(--line); }
+.lm-bub { position: relative; flex: 1; display: grid; gap: 2px; padding: 12px 16px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line); }
+.lm-bub::before { content: ''; position: absolute; left: -7px; top: 50%; width: 12px; height: 12px; background: var(--panel); border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: translateY(-50%) rotate(45deg); }
+.lm-bub b { font-size: 18px; letter-spacing: -.02em; color: var(--ink); }
+.lm-bub span { color: var(--mute); font-size: 14.5px; line-height: 1.45; }
+.lm-live { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px 14px 20px; border-radius: 18px; background: var(--inv); color: var(--onInv); text-decoration: none; font-size: 15.5px; font-weight: 600; transition: transform .2s cubic-bezier(.16,1,.3,1), filter .2s; }
+.lm-live:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.lm-live b { flex: none; padding: 9px 14px; border-radius: 999px; background: var(--onInv); color: var(--inv); font-size: 14px; white-space: nowrap; }
+.lm-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.lm-c { position: relative; display: grid; align-content: start; justify-items: start; gap: 3px; padding: 15px 15px 14px; border-radius: 18px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); text-decoration: none; transition: transform .15s, border-color .15s, box-shadow .15s; }
+.lm-c:hover { transform: translateY(-2px); border-color: var(--inv); box-shadow: 0 10px 26px -16px rgba(0,0,0,.35); }
+.lm-ci { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--panel); color: var(--inv); margin-bottom: 4px; border: 1px solid var(--line); }
+.lm-ci .ico { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.lm-ci .xls { width: 27px; height: 27px; } .lm-ci img { width: 26px; height: 26px; }
+.lm-c b { font-size: 16px; letter-spacing: -.015em; } .lm-c small { color: var(--mute); font-size: 13px; line-height: 1.4; }
+.lm-cg { position: absolute; right: 14px; top: 16px; color: var(--mute); } .lm-cg .ico { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+.lm-c:hover .lm-cg { color: var(--inv); }
+@media (max-width: 560px) { .lm-c { padding: 12px 11px; } .lm-c b { font-size: 14.5px; } .lm-c small { font-size: 12px; } .lm-ci { width: 34px; height: 34px; } .lm-live { flex-direction: column; align-items: stretch; text-align: center; } .lm-hd img { width: 52px; height: 52px; } .lm-bub b { font-size: 16px; } .lm-bub span { font-size: 13.5px; } }
+
+/* Vorschau Excel: Formel → Ergebnis erscheint grün */
+.lm-xlp, .lm-vdp { width: 100%; height: 62px; margin-top: 6px; }
+.lm-xlp { display: grid; gap: 4px; font: 600 10.5px/1.2 ui-monospace, 'SF Mono', Menlo, monospace; }
+.lm-xlf { display: flex; gap: 6px; align-items: center; padding: 3px 7px; border-radius: 6px; background: var(--panel); white-space: nowrap; overflow: hidden; }
+.lm-xlf i { font-style: italic; color: #1D6F42; font-weight: 800; }
+.lm-xlg { display: grid; grid-template-columns: 18px 1.25fr 1fr; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.lm-xlg i { font-style: normal; padding: 3px 6px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lm-xlg i.hd { background: var(--panel); color: var(--mute); text-align: center; }
+.lm-xlg i.hit { color: #1D6F42; background: color-mix(in srgb, #1D6F42 14%, var(--bg)); font-weight: 800; outline: 1.5px solid #1D6F42; outline-offset: -1.5px; animation: lmhit 3.6s ease-in-out infinite; }
+@keyframes lmhit { 0%, 35% { color: transparent; background: var(--bg); } 45%, 90% { color: #1D6F42; background: color-mix(in srgb, #1D6F42 16%, var(--bg)); } 100% { color: transparent; } }
+/* Vorschau Video → Lernzettel */
+.lm-vdp { display: grid; grid-template-columns: minmax(0, 1fr) 16px minmax(0, 1fr); gap: 6px; align-items: center; }
+.lm-vdv { position: relative; height: 100%; border-radius: 8px; background: linear-gradient(135deg, #1b1b22, #3a3a46); overflow: hidden; display: grid; place-items: center; }
+.lm-vdpl { width: 24px; height: 17px; border-radius: 5px; background: #ff0033; position: relative; animation: lmplay 3.6s ease-in-out infinite; }
+.lm-vdpl::after { content: ''; position: absolute; left: 9.5px; top: 4.5px; border-left: 6px solid #fff; border-top: 4px solid transparent; border-bottom: 4px solid transparent; }
+.lm-vdbar { position: absolute; left: 6px; right: 6px; bottom: 5px; height: 3px; border-radius: 3px; background: rgba(255,255,255,.25); overflow: hidden; }
+.lm-vdbar i { display: block; height: 100%; width: 0; background: #ff0033; animation: lmbar 3.6s linear infinite; }
+.lm-vda { color: var(--mute); display: grid; place-items: center; animation: lmarr 3.6s ease-in-out infinite; } .lm-vda .ico { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
+.lm-vds { height: 100%; box-sizing: border-box; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); padding: 5px 7px; display: grid; align-content: start; gap: 4px; overflow: hidden; }
+.lm-vds b { font-size: 9.5px !important; font-weight: 800; color: var(--inv); }
+.lm-vds i { display: block; height: 4px; border-radius: 3px; background: var(--line2); transform-origin: left; animation: lmline 3.6s ease-out infinite; }
+.lm-vds i:nth-of-type(2) { width: 80%; animation-delay: .08s; } .lm-vds i:nth-of-type(3) { width: 92%; animation-delay: .16s; } .lm-vds i:nth-of-type(4) { width: 60%; animation-delay: .24s; }
+.lm-vds i.hl { background: color-mix(in srgb, #f5c400 70%, var(--line2)); }
+@keyframes lmbar { 0% { width: 0; } 50%, 100% { width: 100%; } }
+@keyframes lmplay { 0%, 45% { transform: none; opacity: 1; } 55%, 90% { transform: scale(.85); opacity: .5; } 100% { transform: none; opacity: 1; } }
+@keyframes lmarr { 0%, 48% { transform: none; } 56% { transform: translateX(3px); color: var(--inv); } 64%, 100% { transform: none; } }
+@keyframes lmline { 0%, 52% { transform: scaleX(0); opacity: 0; } 62%, 92% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .lm-xlg i.hit, .lm-vdpl, .lm-vdbar i, .lm-vda, .lm-vds i { animation: none; } .lm-vdbar i { width: 100%; } }
+
+/* ---------- „Du willst schon gehen?“ ---------- */
+.lmx-bg { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; background: color-mix(in srgb, var(--bg) 55%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); animation: lmxin .25s ease both; }
+.lmx-bg.out { opacity: 0; transition: opacity .25s; }
+.lmx { position: relative; width: min(440px, 100%); display: grid; justify-items: center; text-align: center; gap: 10px; padding: 26px 24px 22px; border-radius: 26px; background: var(--bg); border: 1px solid var(--line2); box-shadow: 0 30px 70px -30px rgba(0,0,0,.5); animation: lmxpop .45s cubic-bezier(.3,1.4,.5,1) both; }
+.lmx-face { width: 92px; height: 92px; }
+.lmx h3 { margin: 0; font-size: 24px; letter-spacing: -.025em; color: var(--ink); }
+.lmx p { margin: 0; color: var(--mute); font-size: 15px; line-height: 1.5; }
+.lmx ul { list-style: none; margin: 6px 0 2px; padding: 0; width: 100%; display: grid; gap: 8px; text-align: left; }
+.lmx li { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); }
+.lmx li .i { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--bg); border: 1px solid var(--line); color: var(--inv); }
+.lmx li .i .ico { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.lmx li .i .xls, .lmx li .i img { width: 22px; height: 22px; }
+.lmx li b { display: block; font-size: 14.5px; color: var(--ink); } .lmx li small { color: var(--mute); font-size: 12.5px; }
+.lmx-go { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; height: 50px; border-radius: 999px; background: var(--inv); color: var(--onInv); font: 650 15.5px 'Geist', sans-serif; text-decoration: none; margin-top: 4px; }
+.lmx-go img { width: 20px; height: 20px; background: #fff; border-radius: 50%; padding: 3px; }
+.lmx-go:hover { filter: brightness(1.1); }
+.lmx-no { background: none; border: 0; color: var(--mute); font: 500 13.5px 'Geist', sans-serif; cursor: pointer; padding: 6px; }
+.lmx-no:hover { color: var(--ink); }
+.lmx-x { position: absolute; right: 12px; top: 12px; width: 34px; height: 34px; border-radius: 50%; border: 0; background: none; color: var(--mute); cursor: pointer; display: grid; place-items: center; }
+.lmx-x:hover { background: var(--panel); color: var(--ink); }
+@keyframes lmxin { from { opacity: 0; } }
+@keyframes lmxpop { from { opacity: 0; transform: translateY(14px) scale(.96); } }
+main.ln section.lm-tools { border-top: 0; }
+@media (max-width: 560px) {
+  .lm-xlp { font-size: 9px; height: 54px; } .lm-xlg { grid-template-columns: 0 1.1fr 1fr; } .lm-xlg i.hd:not(:first-child) { padding: 0; border: 0; font-size: 0; } .lm-xlg i { padding: 3px 4px; }
+  .lm-vdp { height: 54px; grid-template-columns: minmax(0, 1fr) 10px minmax(0, 1fr); gap: 4px; } .lm-vds b { font-size: 8px !important; }
+}

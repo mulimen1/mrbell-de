@@ -266,6 +266,19 @@ async function route() {
     const parts = hash.slice(2).split('/').filter(Boolean);
     await mountApp(parts.slice(1));
     import('./comeback.js').then(m => m.maybeWelcomeBack()).catch(() => {});
+    // Von den Lernseiten: ?konto=1 → direkt die kostenlose Anmeldung (mit Google); ?ziel=quiz|karten → Klausurfragen/Karteikarten zum Thema
+    try {
+      const sp = new URLSearchParams(location.search), z = sp.get('ziel'), k = sp.get('konto');
+      const key = 'bm.lmGo|' + location.search;
+      if ((z || k) && !sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, '1');
+        setTimeout(async () => {
+          const T = landingTopic(), nm = T ? T.name : 'BWL';
+          if (z === 'quiz' || z === 'karten') { const m = await import('./entrycards.js'); m.runTool(z, nm, z === 'quiz' ? L(`Deine Klausurfragen zu „${nm}“ – kostenlos`, 'Your exam questions – free') : L(`Deine Karteikarten zu „${nm}“ – kostenlos`, 'Your flashcards – free')); }
+          else if (!getAccount()) { const { openAuth } = await import('./account.js'); openAuth({ registerTitle: L('Kostenlos weiterlernen', 'Keep learning for free'), loginTitle: L('Willkommen zurück', 'Welcome back'), registerSub: L(`Mit Google in zwei Klicks – dann erklärt dir Max „${nm}“ und alles andere.`, 'Two clicks with Google.'), why: 'Lernseite' }); }
+        }, 1400);
+      }
+    } catch (e) {}
   } else {
     document.title = L('BWL Max – dein persönlicher Tutor: Tafel, Live-Mitschrift & Klausurvorbereitung', 'BWL Max – your personal tutor: whiteboard, live notes & exam prep');
     if (EN) document.querySelector('meta[name="description"]')?.setAttribute('content', 'Upload your course material – slides, notes or past exams – and learn with BWL Max, the AI tutor that writes on the whiteboard: explanations, quizzes, flashcards, study paths, podcasts and a practice trainer. Free, no sign-up.');

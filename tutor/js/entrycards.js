@@ -5,16 +5,18 @@ import { getAccount } from './api.js';
 // Werkzeug-Karten neben der Themen-Tafel – wie im „Du willst schon gehen?“-Fenster (das konvertiert):
 // Excel-Helfer · Klausurfragen · Karteikarten & Podcast · Video → Lernzettel. Darunter Lexikon/Rechner, Ablage und das Schreibfeld.
 const XLS_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif">XLS</text></svg>';
+// Klausurfragen/Karteikarten zum Thema: ohne Konto erst kostenlos anmelden, dann baut Max es sofort (auch von den Lernseiten: ?ziel=quiz|karten)
+export async function runTool(target, topic, label) {
+  if (!getAccount()) {
+    const { openAuth } = await import('./account.js');
+    const ok = await openAuth({ title: label, registerTitle: label, sub: L('Kostenlos mit Google in zwei Klicks – danach baut Max es dir sofort.', 'Free with Google in two clicks – then Max builds it right away.') }).catch(() => false);
+    if (!ok || !getAccount()) return;
+  }
+  ls.set('tutor.target', target);
+  import('./app.js').then(m => m.startTopic(topic));
+}
 export function entryTools(topic, { mobile = false, ask = null } = {}) {
-  const tool = (target, label) => async () => {
-    if (!getAccount()) {
-      const { openAuth } = await import('./account.js');
-      const ok = await openAuth({ title: label, registerTitle: label, sub: L('Kostenlos mit Google in zwei Klicks – danach baut Max es dir sofort.', 'Free with Google in two clicks – then Max builds it right away.') }).catch(() => false);
-      if (!ok || !getAccount()) return;
-    }
-    ls.set('tutor.target', target);
-    import('./app.js').then(m => m.startTopic(topic));
-  };
+  const tool = (target, label) => () => runTool(target, topic, label);
   const short = topic.length > 30 ? topic.slice(0, 29) + '…' : topic;
   const card = (icon, t, sub, fn, cls = '', extra = null) => h('button', { class: 'rm-tc ' + cls, type: 'button', onclick: fn },
     h('span', { class: 'rm-tci', html: icon }), h('b', {}, t), h('small', {}, sub), extra, h('span', { class: 'rm-tcg', html: ico('right') }));
