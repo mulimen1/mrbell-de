@@ -327,7 +327,25 @@ export function render(root, ctx = {}) {
         search: S.list.length > 6, rows: docsAll().map(x => ({ ic: x.kind === 'video' ? 'captions' : x.generated ? 'bulb' : 'file', t: x.name, sub: (x.pages || []).length ? L(`${x.pages.length} Seiten`, `${x.pages.length} pages`) : '', on: cur && cur.id === x.id, fn: () => { connect(x.id); then && then(x); } })),
         empty: L('Noch keine Unterlagen – lad etwas hoch.', 'No material yet – upload something.'),
         footer: close => [h('span', { class: 'uv-mfl' }, L('Woraus soll Max das bauen?', 'What should Max build it from?')), h('label', { class: 'btn sm primary', for: 'fileApp', onclick: () => setTimeout(close, 0) }, h('span', { html: ico('plus') }), L('Neu hochladen', 'Upload new'))] }));
-      const run = (tab, el) => { if (cur) return tool(tab)(); pickFor(el, () => setTimeout(() => tool(tab)(), 60)); };
+      // Erst Einstellungen (Popup), dann bauen – gibt's das schon, öffnet es direkt
+      const run2 = async tab => {
+        const d = focusDocs()[0]; if (!d) return;
+        const exists = HAS[tab] ? HAS[tab](d) : tab === 'pfad' ? !!d.path : tab === 'plan' ? !!d.plan : tab === 'quiz' ? (d.quizzes || []).length > 0 : false;
+        if (exists) return tool(tab)();
+        const C = await import('../create.js');
+        const o = await C.personalise(tab, d, { fresh: true }); if (!o) return;
+        if (tab === 'plan') { try { sessionStorage.setItem('tutor.planPre', JSON.stringify({ o: C.specPlan(o), at: Date.now() })); } catch (e) {} location.hash = `#/app/${d.id}/plan`; return; }
+        if (tab !== 'pfad') C.setCreate(tab, d.id, o);
+        location.hash = `#/app/${d.id}/${tab}/auto`;
+      };
+      const run = (tab, el) => { if (cur) return run2(tab); pickFor(el, () => setTimeout(() => run2(tab), 60)); };
+      const board = async el => {
+        if (!cur) return pickFor(el, () => setTimeout(() => board(el), 60));
+        const d = focusDocs()[0]; if (!d) return;
+        const C = await import('../create.js');
+        const o = await C.personalise('tutor', d, { fresh: true }); if (!o) return;
+        const pr = C.specPrompt(o, d.name); ask(pr.t, { show: pr.show });
+      };
       // Leiste: verbunden (groß, deutlich) – oder Ablage zum Reinziehen
       const thumbOf = d => d.thumb ? h('img', { src: d.thumb, alt: '' }) : h('span', { html: ico(d.kind === 'video' ? 'captions' : d.generated ? 'bulb' : 'file') });
       const mat = cur
@@ -342,7 +360,7 @@ export function render(root, ctx = {}) {
           h('label', { class: 'btn sm primary', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Datei wählen', 'Choose file')),
           S.list.length ? h('button', { class: 'btn sm', type: 'button', onclick: e => { e.stopPropagation(); pickFor(e.currentTarget); } }, L('Vorhandene', 'Existing'), h('span', { html: ico('down') })) : null);
       const T2 = [
-        ['board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Beispiel', 'Step by step, with an example'), () => SK[0][3]()],
+        ['board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Beispiel', 'Step by step, with an example'), e => board(e.currentTarget)],
         ['note', L('Lernzettel', 'Study sheet'), L('Alles auf einer Seite', 'All on one page'), 'zettel'],
         ['cards', L('Karteikarten', 'Flashcards'), L('Wiederholen, bis es sitzt', 'Review until it sticks'), 'karten'],
         ['quiz', 'Quiz', L('Klausurfragen mit Erklärung', 'Exam questions, explained'), 'quiz'],
@@ -350,7 +368,7 @@ export function render(root, ctx = {}) {
         ['path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter'), 'pfad'],
         ['calendar', L('Klausurplan', 'Exam plan'), L('Tag für Tag zur Klausur', 'Day by day to the exam'), 'plan'],
         ['spark', L('Ich erklär dir ein Thema', 'Explain a topic'), L('Ohne Skript – nur das Thema', 'No slides – just the topic'), () => import('../app.js').then(m => m.topicPrompt())]];
-      const grid = h('div', { class: 'rm-tl' }, T2.map(([ic, t, sub, act], i) => h('button', { class: 'rm-tlt' + (i === 0 ? ' main' : ''), type: 'button', style: { '--i': String(i) }, onclick: e => (typeof act === 'string' ? run(act, e.currentTarget) : act()) }, h('span', { class: 'rm-tli', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))));
+      const grid = h('div', { class: 'rm-tl' }, T2.map(([ic, t, sub, act], i) => h('button', { class: 'rm-tlt' + (i === 0 ? ' main' : ''), type: 'button', style: { '--i': String(i) }, onclick: e => (typeof act === 'string' ? run(act, e.currentTarget) : act(e)) }, h('span', { class: 'rm-tli', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))));
       skills.replaceChildren(h('div', { class: 'rm-tools2' }, mat, grid));
       drawPickers();
     } else { skills.replaceChildren(tog, body); set(isOpen); }

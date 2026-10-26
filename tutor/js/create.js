@@ -5,7 +5,7 @@ import { L, getOutLang } from './i18n.js';
 import { COST } from './api.js';
 import { SPICE } from './max.js';
 import { S, save } from './state.js';
-import { langPicker } from './srclang.js';
+import { langPicker, langName } from './srclang.js';
 import { ACCEPT } from './ingest.js';
 
 export function setCreate(tool, docId, opts) { ls.set('tutor.create', { tool, doc: docId, opts: opts || {}, at: Date.now() }); }
@@ -59,6 +59,7 @@ function defOf(tab) {
 }
 // Liefert die gewählten Optionen – oder null, wenn abgebrochen
 export async function personalise(tab, doc, { fresh = false, langP = null } = {}) {
+  if (SPEC[tab]) return specs(tab, doc, { langP });
   if (!TOOL[tab]) return {};
   const chapters = doc?.path?.chapters || [];
   const DEF = {
@@ -203,4 +204,79 @@ export async function goSource(tab, src, opts) {
   const m = await import('./app.js');
   if (src.kind === 'topic') return m.startTopic(src.topic);
   if (src.kind === 'file') return m.startUpload(src.files);
+}
+
+// ---------- Beta: Einstellungen auch für Tafel, Lernpfad, Klausurplan und Mitschrift – erst „Erstellen“ startet ----------
+const SPEC = {
+  tutor: [L('Tafel', 'Board'), L('Was soll Max dir erklären?', 'What should Max explain?')],
+  pfad: [L('Lernpfad', 'Study path'), L('Wie soll dein Lernpfad sein?', 'What should your study path be like?')],
+  plan: [L('Klausurplan', 'Exam plan'), L('Wann ist deine Klausur?', 'When is your exam?')],
+  mitschrift: [L('Mitschrift', 'Notes'), L('Wie soll deine Mitschrift sein?', 'What should your notes be like?')],
+};
+const dk = d => d.toLocaleDateString('sv-SE');
+async function specs(tab, doc, { langP = null } = {}) {
+  const prev = ls.get('tutor.spec.' + tab, null) || {};
+  const st = Object.assign({ style: 'schritt', depth: 'normal', minutes: 60, days: 'werktags' }, prev);
+  const row = (label, ctl, hint) => h('div', { class: 'ik-q' }, h('div', { class: 'ik-ql' }, label), h('div', { class: 'ik-qc' }, ctl, hint || null));
+  const seg = (opts, key) => {
+    const w = h('div', { class: 'ik-seg' });
+    const paint = () => w.querySelectorAll('button').forEach(b => b.classList.toggle('on', String(st[key]) === b.dataset.v));
+    opts.forEach(([v, t]) => w.append(h('button', { type: 'button', 'data-v': String(v), onclick: () => { st[key] = v; paint(); } }, t)));
+    paint(); return w;
+  };
+  let picked = false;
+  const box = h('div', { class: 'ik-langbox' });
+  const paintLang = src => box.replaceChildren(langPicker(src || 'de', st.outLang, c => { st.outLang = c; picked = true; }));
+  st.outLang = (doc && (doc.outLang || doc.srcLang)) || 'de'; paintLang(doc && doc.srcLang);
+  if (langP) langP.then(src => { if (!src || !box.isConnected) return; if (!picked) st.outLang = src; paintLang(src); }).catch(() => {});
+  const fileRow = doc && doc.name ? row(L('Datei', 'File'), h('div', { class: 'ik-file1' }, h('span', { html: ico('file') }), h('b', {}, doc.name))) : null;
+  let body = [];
+  if (tab === 'tutor') {
+    const inp = h('input', { class: 'field', maxlength: 160, placeholder: L('Leer lassen = das Wichtigste aus der Datei', 'Leave empty = the key points of the file'), oninput: e => { st.topic = e.target.value; } });
+    st.topic = '';
+    body = [row(L('Thema', 'Topic'), inp),
+      row(L('Wie', 'How'), seg([['schritt', L('Schritt für Schritt', 'Step by step')], ['kurz', L('Kurzer Überblick', 'Quick overview')], ['rechnen', L('Mit Rechenaufgabe', 'With a worked task')]], 'style'))];
+  } else if (tab === 'pfad') {
+    const P = await import('./pathsrc.js');
+    st.ps = { mainName: (doc && doc.name) || L('Deine Datei', 'Your file'), mainW: (doc && doc.pathW) || 2, src: ((doc && doc.pathSrc) || []).map(x => Object.assign({}, x)) };
+    body = [row(L('Quellen', 'Sources'), P.srcEditor(st.ps, { exclude: doc && doc.id }), h('small', { class: 'ik-hint' }, L('Mehrere Skripte, Dateien oder Themen – mit Gewichtung. Max baut daraus einen Pfad.', 'Several slides, files or topics – with weighting. Max builds one path from them.'))),
+      row(L('Tiefe', 'Depth'), seg([['kompakt', L('Kompakt', 'Compact')], ['normal', L('Normal', 'Normal')], ['gruendlich', L('Gründlich', 'Thorough')]], 'depth'))];
+  } else if (tab === 'plan') {
+    const g = ls.get('tutor.goal', null), t = dk(new Date());
+    const def = g && g.examDate && g.examDate > t ? g.examDate : dk(new Date(Date.now() + 21 * 864e5));
+    st.exam = prev.exam && prev.exam > t ? prev.exam : def;
+    const date = h('input', { class: 'field', type: 'date', min: t, value: st.exam, onchange: e => { st.exam = e.target.value; } });
+    body = [row(L('Klausur am', 'Exam on'), date),
+      row(L('Pro Tag', 'Per day'), seg([[30, '30 Min.'], [60, '1 Std.'], [90, '1,5 Std.'], [120, '2 Std.']], 'minutes')),
+      row(L('Lerntage', 'Study days'), seg([['werktags', L('Mo–Fr', 'Mon–Fri')], ['alle', L('Jeden Tag', 'Every day')]], 'days'))];
+  }
+  const [eyebrow, title] = SPEC[tab];
+  const r = await modal({
+    cls: 'ik-modal ik-pers' + (tab === 'pfad' ? ' ik-wide' : ''), eyebrow: L('Kurz einstellen · ', 'Quick setup · ') + eyebrow, title,
+    body: h('div', { class: 'ik-place' }, fileRow, row(L('Sprache', 'Language'), box), body),
+    actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Erstellen', 'Create'), value: 'ok', primary: true }],
+    onAction: v => { if (v !== 'ok') return; if (tab === 'plan' && !(st.exam > dk(new Date()))) return false; if (st.ps && st.ps.src.some(x => x.loading)) return false; }
+  });
+  if (r !== 'ok') return null;
+  const keep = Object.assign({}, st); delete keep.topic; delete keep.outLang; delete keep.ps; ls.set('tutor.spec.' + tab, keep);
+  if (doc && doc.id) applySpec(tab, doc, st);
+  return st;
+}
+// Aus den Einstellungen: Auftrag an Max (Tafel) bzw. Plan-Optionen
+export function specPrompt(o, docName) {
+  const what = (o.topic || '').trim();
+  const base = o.style === 'kurz' ? L(`Gib mir einen kurzen Überblick über ${what ? '„' + what + '“' : 'das Wichtigste aus „' + docName + '“'} an der Tafel.`, `Give me a quick overview of ${what ? '“' + what + '”' : 'the key points of “' + docName + '”'} on the board.`)
+    : o.style === 'rechnen' ? L(`Rechne mir zu ${what ? '„' + what + '“' : 'dem wichtigsten Thema aus „' + docName + '“'} eine typische Klausuraufgabe Schritt für Schritt an der Tafel vor – danach eine Zwillingsaufgabe für mich.`, `Walk me through a typical exam task on ${what ? '“' + what + '”' : 'the key topic of “' + docName + '”'} step by step on the board – then give me a twin task.`)
+    : L(`Erklär mir ${what ? '„' + what + '“' : 'das Wichtigste aus „' + docName + '“'} an der Tafel – Schritt für Schritt, mit Beispiel.`, `Explain ${what ? '“' + what + '”' : 'the key points of “' + docName + '”'} on the board – step by step, with an example.`);
+  const lang = o.outLang && o.outLang !== (getOutLang() || 'de') ? L(` Antworte auf ${langName(o.outLang)}.`, ` Answer in ${langName(o.outLang)}.`) : '';
+  return { t: base + lang, show: what ? L(`Erklär mir „${what}“ an der Tafel.`, `Explain “${what}” on the board.`) : L('Erklär mir das an der Tafel.', 'Explain this on the board.') };
+}
+export function specPlan(o) { return { exam: o.exam, weekdays: o.days === 'alle' ? [0, 1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5], minutes: o.minutes || 60, goal: null }; }
+
+// Einstellungen an der Unterlage festmachen (Sprache, Lernpfad-Quellen/Tiefe)
+export function applySpec(tab, doc, o) {
+  if (!doc || !o) return;
+  if (o.outLang) doc.outLang = o.outLang;
+  if (tab === 'pfad') { doc.pathDepth = o.depth || 'normal'; if (o.ps) { doc.pathW = o.ps.mainW || 2; doc.pathSrc = o.ps.src.filter(x => !x.loading).map(x => { const c = Object.assign({}, x); delete c.loading; return c; }); } }
+  save(doc);
 }

@@ -5683,3 +5683,31 @@ html.bm-guest .rm-focus { display: none !important; }
 .vt-tile.vt-sheet span { display: grid; } .vt-tile.vt-sheet .ico { width: 56px !important; height: 56px !important; stroke-width: 1.6; }
 .vt-tile.vt-sheet small { position: absolute; top: calc(100% + 7px); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 13px; font-weight: 700; color: var(--ink); }
 .vt-flow { margin-bottom: 30px; }
+/* Lernpfad-Quellen (Popup + Lernpfad-Ansicht) */
+.modal.ik-modal.ik-wide { width: min(720px, 100%); }
+.ps { display: grid; gap: 10px; min-width: 0; }
+.ps-list { display: grid; gap: 6px; }
+.ps-row { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto 30px; gap: 10px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+.ps-ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--panel2); color: var(--inv); }
+.ps-ic .ico { width: 18px; height: 18px; }
+.ps-t { display: grid; min-width: 0; }
+.ps-t b { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ps-t small { font-size: 12px; color: var(--mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ps-w { flex-wrap: nowrap; gap: 4px; }
+.ps-w button { padding: 4px 10px; font-size: 12px; }
+.ps-x { width: 30px; height: 30px; }
+.ps-add { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.ps-add label.btn { cursor: pointer; }
+.ps-tw { display: flex; gap: 6px; flex: 1 1 240px; min-width: 0; }
+.ps-tin { flex: 1; min-width: 0; height: 34px; padding: 0 12px; font-size: 13.5px; }
+.ps-panel { margin-top: 26px; padding: 18px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); display: grid; gap: 14px; }
+.ps-head { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+.ps-head h3 { margin: 0 0 3px; font-size: 17px; }
+.ps-head small { color: var(--mute); font-size: 13px; }
+.ps-panel .ps-row { background: var(--bg); }
+@media (max-width: 640px) { .ps-row { grid-template-columns: 30px minmax(0, 1fr) 28px; } .ps-row .ps-w { grid-column: 2 / 3; grid-row: 2; } .ps-row .ps-x { grid-column: 3; grid-row: 1; } }
+/* Keine navy gefüllten Hervorhebungs-Kacheln mehr (Üben, Wettkampf, Tutor-Werkzeuge, Upload-Optionen) */
+.uv-opt.main, .ub-pc.hot, .rm-tlt.main, .ub-sim.hot { background: var(--panel); color: var(--ink); border-color: var(--line2); }
+.uv-opt.main small, .ub-pc.hot small, .rm-tlt.main small, .ub-sim.hot small { color: var(--mute); }
+.uv-opt.main .uv-oi, .ub-pc.hot .ub-pci, .rm-tlt.main .rm-tli, .ub-sim.hot .ub-pci { background: var(--panel2); color: var(--inv); }
+.ub-pc.hot .ub-pcg .ico, .ub-sim.hot .ub-pcg .ico { color: var(--mute); }

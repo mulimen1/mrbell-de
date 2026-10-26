@@ -9,21 +9,25 @@ import { sanitize } from '../sanitize.js';
 import { dlBtn, pathPdf } from '../export.js';
 import { renderQuestion, normalize, explainPrompt } from '../quiz.js';
 import { L } from '../i18n.js';
+import { homeBeta } from '../beta.js';
+import { pathMaterial, pathPages, pageLabel, carryProgress, srcEditor, busySrc, hasSrc } from '../pathsrc.js';
 
 let pathJob = null;
 export function generatePath(doc) {
   if (isGuest()) return Promise.reject(Object.assign(new Error(L('Der Lernpfad gibt’s mit kostenlosem Konto.', 'The study path comes with a free account.')), { code: 'need_account' }));
   if (pathJob && pathJob.id === doc.id) return pathJob.p;
   const all = fullText(doc);
-  const material = all.length <= 60000 ? all : outline(doc);
+  const material = pathMaterial(doc) || (all.length <= 60000 ? all : outline(doc));
+  const NP = pathPages(doc).length, old = doc.path, oldL = doc.lessons;
   const p = ask('path', { material, docName: doc.name }).then(r => {
     const d = r.data || {};
     const chapters = (d.chapters || []).filter(c => c && c.title).map((c, i) => ({
       title: String(c.title), goal: String(c.goal || ''), terms: (c.terms || []).slice(0, 6).map(String),
-      pages: Array.isArray(c.pages) ? c.pages.map(n => parseInt(n) || 1) : [1, doc.pages.length], weight: Math.min(3, Math.max(1, parseInt(c.weight) || 2)),
+      pages: Array.isArray(c.pages) ? c.pages.map(n => Math.min(NP, parseInt(n) || 1)) : [1, NP], weight: Math.min(3, Math.max(1, parseInt(c.weight) || 2)),
       done: false, score: null, started: false
     }));
     if (!chapters.length) throw new Error(L('Ich konnte keine Kapitel erkennen. Versuch es nochmal.', 'I couldn’t find any chapters. Please try again.'));
+    if (old) doc.lessons = carryProgress(old, oldL, chapters);   // neu eingearbeitet: Fortschritt bleibt
     doc.path = { title: d.title || doc.name, subject: d.subject || '', summary: d.summary || '', chapters, created: Date.now() };
     save(doc);
     return doc.path;
@@ -52,7 +56,7 @@ function intro(wrap, ctx) {
     wrap.replaceChildren();
     wrap.appendChild(h('div', { class: 'empty' }, f, h('h2', {}, L('Dein Lernpfad', 'Your study path')),
       h('p', {}, L('Ich teile dein Skript in sinnvolle Kapitel – mit kurzen Lektionen, Kontrollfragen und einer Aufgabe auf Klausurniveau.', 'I split your slides into sensible chapters – with short lessons, check questions and an exam-level exercise.')),
-      costBtn(L('Lernpfad erstellen', 'Create study path'), 'path', () => waitPath(wrap, ctx, true), 'btn primary lg')));
+      costBtn(L('Lernpfad erstellen', 'Create study path'), 'path', async () => { if (homeBeta()) { const C = await import('../create.js'); if (!(await C.personalise('pfad', ctx.doc))) return; } waitPath(wrap, ctx, true); }, 'btn primary lg')));
     face(f);
   }
 }
@@ -79,10 +83,32 @@ function listView(wrap, ctx) {
         h('div', { style: { display: 'flex', justifyContent: 'space-between', gap: '10px', alignItems: 'center' } }, h('h3', {}, c.title),
           h('span', { class: 'weight', title: L('Klausurrelevanz', 'Exam relevance') }, h('small', { class: 'wlab' }, L('Klausur', 'Exam')), [1, 2, 3].map(k => h('i', { class: k <= c.weight ? 'on' : '' })))),
         c.goal ? h('p', {}, c.goal) : null,
-        h('div', { class: 'terms' }, h('span', { class: 'eyebrow', style: { alignSelf: 'center' } }, L(`S. ${c.pages[0]}–${c.pages[1] || c.pages[0]}`, `p. ${c.pages[0]}–${c.pages[1] || c.pages[0]}`)), c.terms.slice(0, 4).map(t => h('span', { class: 'tag' }, t)), c.done && c.score != null ? h('span', { class: 'tag', style: { marginLeft: 'auto' } }, Math.round(c.score * 100) + ' %') : null))))),
+        h('div', { class: 'terms' }, h('span', { class: 'eyebrow', style: { alignSelf: 'center' } }, pageLabel(doc, c.pages[0], c.pages[1])), c.terms.slice(0, 4).map(t => h('span', { class: 'tag' }, t)), c.done && c.score != null ? h('span', { class: 'tag', style: { marginLeft: 'auto' } }, Math.round(c.score * 100) + ' %') : null))))),
+    homeBeta() ? srcPanel(wrap, ctx) : null,
     h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'flex-end' } },
       dlBtn(() => [{ label: 'PDF', sub: L('Kapitel, Ziele und deine Lektionen', 'Chapters, goals and your lessons'), ic: 'file', fn: () => pathPdf(ctx.doc) }], { cls: 'btn sm ghost' }),
       h('button', { class: 'btn sm ghost', onclick: async () => { const ok = await modal({ title: L('Lernpfad neu erstellen?', 'Rebuild study path?'), text: L('Dein Fortschritt im Lernpfad wird zurückgesetzt. Quizze und Karten bleiben.', 'Your study path progress will be reset. Quizzes and flashcards stay.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Neu erstellen', 'Rebuild'), value: true, primary: true }] }); if (!ok) return; ctx.doc.path = null; ctx.doc.lessons = {}; save(ctx.doc); waitPath(wrap, ctx, true); } }, h('span', { html: ico('refresh') }), L('Neu erstellen', 'Rebuild'))));
+}
+
+// Quellen des Lernpfads: weitere Dateien, Skripte und Themen hinzufügen, Gewichtung ändern – Max arbeitet sie neu ein
+function srcPanel(wrap, ctx) {
+  const { doc } = ctx;
+  const sig = () => JSON.stringify([doc.pathW || 2, (doc.pathSrc || []).map(s => [s.id, s.weight])]);
+  const st = { mainName: doc.name, mainW: doc.pathW || 2, src: (doc.pathSrc || []).map(s => Object.assign({}, s)) };
+  const base = sig();
+  const now = () => JSON.stringify([st.mainW || 2, st.src.map(s => [s.id, s.weight])]);
+  const btn = h('button', { class: 'btn primary', type: 'button', hidden: true, onclick: async () => {
+    if (busySrc(st)) return toast(L('Moment – die Datei wird noch gelesen.', 'One moment – still reading the file.'));
+    const prev = { w: doc.pathW, src: doc.pathSrc };
+    doc.pathW = st.mainW; doc.pathSrc = st.src.map(s => { const o = Object.assign({}, s); delete o.loading; return o; }); save(doc);
+    const ld = loading(wrap, L('Ich arbeite die neuen Quellen ein …', 'Working in the new sources …'), L(['Lese alle Quellen', 'Führe Überschneidungen zusammen', 'Gewichte nach deinen Vorgaben', 'Dein Fortschritt bleibt'], ['Reading all sources', 'Merging overlaps', 'Weighting as you set it', 'Your progress stays']), 'path');
+    try { await ld.race(generatePath(doc)); ld.stop(); wrap.replaceChildren(); listView(wrap, ctx); freshen(wrap); toast(L('Lernpfad aktualisiert.', 'Study path updated.')); }
+    catch (e) { ld.stop(false); doc.pathW = prev.w; doc.pathSrc = prev.src; save(doc); listView(wrap, ctx); apiError(e); }
+  } }, h('span', { html: ico('refresh') }), L('In den Lernpfad einarbeiten', 'Work into the study path'));
+  const ed = srcEditor(st, { exclude: doc.id, onChange: () => { btn.hidden = now() === base; } });
+  return h('section', { class: 'ps-panel' },
+    h('div', { class: 'ps-head' }, h('div', {}, h('h3', {}, L('Quellen & Gewichtung', 'Sources & weighting')), h('small', {}, L('Weitere Dateien, Skripte oder Themen hinzufügen – Max baut sie sinnvoll in deinen Pfad ein. Dein Fortschritt bleibt.', 'Add more files, slides or topics – Max works them into your path. Your progress stays.'))), btn),
+    ed);
 }
 
 function chapterView(wrap, ctx, idx) {
@@ -91,7 +117,7 @@ function chapterView(wrap, ctx, idx) {
   const feyn = h('div');
   wrap.replaceChildren(
     h('a', { class: 'btn sm ghost', href: `#/app/${doc.id}/pfad`, style: { marginBottom: '10px' } }, h('span', { html: ico('left') }), L('Lernpfad', 'Study path')),
-    h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L(`Kapitel ${idx + 1} · S. ${c.pages[0]}–${c.pages[1] || c.pages[0]}`, `Chapter ${idx + 1} · p. ${c.pages[0]}–${c.pages[1] || c.pages[0]}`)), h('h2', {}, c.title), c.goal ? h('p', {}, c.goal) : null)),
+    h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L(`Kapitel ${idx + 1} · `, `Chapter ${idx + 1} · `) + pageLabel(doc, c.pages[0], c.pages[1])), h('h2', {}, c.title), c.goal ? h('p', {}, c.goal) : null)),
     h('div', { class: 'hub' },
       h('button', { class: 'tile big dark', onclick: () => lesson(wrap, ctx, idx) },
         h('div', { class: 'ti', html: ico('board') }), h('h3', {}, doc.lessons[idx] ? (c.done ? L('Lektion wiederholen', 'Repeat lesson') : L('Lektion fortsetzen', 'Continue lesson')) : L('Lektion starten', 'Start lesson')),
@@ -111,7 +137,7 @@ async function lesson(wrap, ctx, idx) {
   if (!doc.lessons[idx]) {
     const ld = loading(wrap, L('Ich bereite die Lektion vor …', 'Preparing your lesson …'), L(['Lese die Kapitelseiten', 'Zeichne die Tafel', 'Überlege mir Kontrollfragen', 'Baue eine Klausuraufgabe'], ['Reading the chapter pages', 'Drawing the whiteboard', 'Thinking up check questions', 'Building an exam exercise']), 'lesson');
     try {
-      const r = await ask('lesson', { material: forChapter(doc, c), docName: doc.name, opts: { chapter: L(`${c.title} (Seiten ${c.pages[0]}–${c.pages[1] || c.pages[0]})`, `${c.title} (pages ${c.pages[0]}–${c.pages[1] || c.pages[0]})`), goal: c.goal } }, { signal: ld.signal });
+      const r = await ask('lesson', { material: forChapter(doc, c), docName: doc.name, opts: { chapter: `${c.title} (${hasSrc(doc) ? pageLabel(doc, c.pages[0], c.pages[1]) : L(`Seiten ${c.pages[0]}–${c.pages[1] || c.pages[0]}`, `pages ${c.pages[0]}–${c.pages[1] || c.pages[0]}`)})`, goal: c.goal } }, { signal: ld.signal });
       const les = r.data || {};
       const slides = (les.slides || []).filter(s => s && s.html).map(s => ({ title: String(s.title || ''), html: String(s.html), check: normalize(s.check) }));
       if (!slides.length) throw new Error(L('Die Lektion war leer. Versuch es nochmal.', 'The lesson came back empty. Please try again.'));

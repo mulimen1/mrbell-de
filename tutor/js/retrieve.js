@@ -2,6 +2,7 @@
 const FULL_LIMIT = 60000;      // bis hierhin geht das ganze Skript mit (wird gecacht -> günstig)
 const CHUNK_LIMIT = 30000;
 
+import { pathPages } from './pathsrc.js';
 const STOP = new Set('der die das und oder ein eine einer eines einem einen ist sind war wird werden mit von zu im in am an auf für bei aus als auch nicht nur noch wie was wer wo es sie er ich du wir ihr man den dem des sich so dass da dann wenn aber bzw z b zb kann können muss soll über unter nach vor durch um mehr sehr hier the of and to a in is'.split(' '));
 const tok = s => String(s).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').split(/[^a-z0-9äöüß]+/).filter(w => w.length > 2 && !STOP.has(w));
 
@@ -68,6 +69,7 @@ export function topPages(doc, query, limit = CHUNK_LIMIT) {
 
 // Für Kapitel: ganzes Skript, wenn es klein genug ist (dann greift der Cache), sonst nur die Kapitelseiten
 export function forChapter(doc, ch) {
+  if (doc && doc.pathSrc && doc.pathSrc.length) doc = Object.assign({}, doc, { pages: pathPages(doc) });   // Lernpfad aus mehreren Quellen
   const all = fullText(doc);
   if (all.length <= FULL_LIMIT) return all;
   const [a, b] = Array.isArray(ch?.pages) ? ch.pages : [1, doc.pages.length];

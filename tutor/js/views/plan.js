@@ -361,6 +361,9 @@ export async function render(root, ctx) {
     }
   }
   if (ctx.doc.plan) return planView(wrap, ctx);
+  // Beta: Einstellungen kamen schon im Popup (Klausurdatum, Zeit pro Tag, Lerntage) → direkt bauen
+  { let o = null; try { o = JSON.parse(sessionStorage.getItem('tutor.planPre') || 'null'); sessionStorage.removeItem('tutor.planPre'); } catch (e) {}
+    if (o && o.o && Date.now() - (o.at || 0) < 30 * 60e3) { ls.set('tutor.planPrefs', { weekdays: o.o.weekdays, minutes: o.o.minutes }); return ctx.doc.path ? finishCreate(wrap, ctx, o.o) : withPath(wrap, ctx, o.o); } }
   if (pathPending(ctx.doc)) {
     const ld = loading(wrap, L('Max baut gerade deinen Lernpfad …', 'Max is building your study path …'), [], 'path');
     try { await ld.race(generatePath(ctx.doc)); } catch (e) {}

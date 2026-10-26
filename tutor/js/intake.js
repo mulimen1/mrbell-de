@@ -354,8 +354,19 @@ async function materialStep(ui, res, P, tool = null) {
     if (!o) { location.hash = `#/app/${d.id}/hub`; return; }
     C.setCreate(tool, d.id, o); location.hash = `#/app/${d.id}/${tool}/auto`; return;
   }
+  // Beta: Tafel, Lernpfad, Klausurplan, Mitschrift – Einstellungen kamen schon vor dem Hochladen
+  let spre = null, C2 = null;
+  if (tool && ['tutor', 'pfad', 'plan', 'mitschrift'].includes(tool) && homeBeta()) {
+    const pre = ls.get('tutor.pers.pre', null); ls.set('tutor.pers.pre', null);
+    if (pre && pre.tool === tool && Date.now() - pre.at < 30 * 60e3) {
+      spre = pre.o; C2 = await import('./create.js'); C2.applySpec(tool, d, spre);
+      if (tool === 'plan') try { sessionStorage.setItem('tutor.planPre', JSON.stringify({ o: C2.specPlan(spre), at: Date.now() })); } catch (e) {}
+    }
+  }
   if (tool && TOOLS.includes(tool)) ls.set('tutor.addon', { doc: d.id, tool, at: Date.now() });   // nach dem Werkzeug: Lernplan als Extra anbieten
-  location.hash = route(d, ans);
+  const target = route(d, ans);
+  if (spre && tool === 'tutor') { const pr = C2.specPrompt(spre, d.name), pa = ls.get('tutor.pendingAsk', null); ls.set('tutor.pendingAsk', pa && typeof pa === 'object' ? Object.assign(pa, pr) : pr); }
+  location.hash = target;
 }
 
 // Fragen: Fach · Wofür · Wann · Womit starten – alles vorausgefüllt und optional

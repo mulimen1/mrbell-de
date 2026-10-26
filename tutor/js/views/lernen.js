@@ -163,7 +163,7 @@ export function stagedPanel(files, { onClose, chat = false } = {}) {
   const up = key => { if (chat) ls.set('tutor.attach.room', 1); ls.set('tutor.target', key); import('../app.js').then(m => m.startUpload(files)); };
   // Beta: Karten/Quiz/Lernzettel/Podcast – Einstellungen sofort hier (man bleibt auf der Seite), erst „Erstellen“ lädt hoch und baut
   const go = async key => {
-    if (!(homeBeta() && ['karten', 'quiz', 'zettel', 'podcast'].includes(key))) return up(key);
+    if (!(homeBeta() && ['karten', 'quiz', 'zettel', 'podcast', 'tutor', 'pfad', 'plan', 'mitschrift'].includes(key))) return up(key);
     const f0 = files[0];
     const langP = /\.(pdf|pptx|docx|txt|md)$/i.test(f0.name || '') || /pdf|text\//.test(f0.type || '')
       ? Promise.all([import('../ingest.js'), import('../srclang.js')]).then(([I, S2]) => I.readFile(f0, () => {}, { soft: true }).then(r => S2.detectLang((r.pages || []).slice(0, 12).join('\n')))).catch(() => null)
