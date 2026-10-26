@@ -106,7 +106,17 @@ export function render(root, ctx = {}) {
   const sugg = h('div', { class: 'rm-sugg' });
   const comp = h('div', { class: 'rm-comp' });
   const dock = h('div', { class: 'rm-dock' }, focusRow, sugg, comp);
-  const corner = h('div', { class: 'rm-corner' }, stkHome, progBtn(), cfgBtn(), skBtnHome);
+  const pickers = h('div', { class: 'rm-pickers uv-pick' });
+  const corner = h('div', { class: 'rm-corner' }, homeBeta() ? pickers : null, stkHome, progBtn(), cfgBtn(), homeBeta() ? null : skBtnHome);
+  // Oben rechts: „Bereits erstellt“ und „Deine Unterlagen“ (gewählte Unterlage = mit Max verbunden)
+  function drawPickers() {
+    if (!homeBeta()) return;
+    import('./lernen.js').then(m => {
+      const docs = S.list.map(x => (S.doc && S.doc.id === x.id ? S.doc : x)).sort((a, b) => Math.max(b.used || 0, b.created || 0) - Math.max(a.used || 0, a.created || 0));
+      const d = focusDocs()[0] || null;
+      pickers.replaceChildren(m.madePicker(docs), m.docPicker(docs, d, id => { setFocus(id ? [id] : []); drawFocus(); drawRails(); drawTeaser(); drawSugg(); }));
+    }).catch(() => {});
+  }
   const drop = h('div', { class: 'rm-drop', hidden: true }, h('div', {}, h('span', { html: ico('file') }), h('b', {}, L('Loslassen – dann arbeiten wir damit.', 'Drop it – and we’ll work with it.'))));
   const stage = h('section', { class: 'rm-stage' }, corner, bar, scroll, talk, dock, drop);
   const right = h('aside', { class: 'rm-right', 'aria-label': L('Skripte', 'Slides') });
@@ -308,7 +318,23 @@ export function render(root, ctx = {}) {
     const day = new Date().getDate(), pick = [0, 1, 2].map(k => POOL[(day + k * 2) % POOL.length]);
     const st = d0 ? [[`Erklär mir das Wichtigste aus „${d0.name}“`, `Explain the key points of “${d0.name}”`], [`Frag mich zu „${d0.name}“ ab`, `Quiz me on “${d0.name}”`], pick[0]] : pick;
     const starters = h('div', { class: 'rm-start' }, st.map(([de, en]) => h('button', { class: 'chip rm-stc', type: 'button', onclick: () => ask(L(de, en)) }, L(de, en))));
-    skills.replaceChildren(starters, tog, body); set(isOpen);
+    if (homeBeta()) {
+      // Alle Erstell-Werkzeuge direkt sichtbar – für das verbundene Skript, sonst fürs zuletzt genutzte bzw. nach dem Hochladen
+      const wd = workDoc();
+      const T2 = [
+        ['board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Beispiel', 'Step by step, with an example'), SK[0][3]],
+        ['note', L('Lernzettel', 'Study sheet'), L('Alles auf einer Seite', 'All on one page'), tool('zettel')],
+        ['cards', L('Karteikarten', 'Flashcards'), L('Wiederholen, bis es sitzt', 'Review until it sticks'), tool('karten')],
+        ['quiz', 'Quiz', L('Klausurfragen mit Erklärung', 'Exam questions, explained'), tool('quiz')],
+        ['headphones', 'Podcast', L('Marie & Max zum Anhören', 'Marie & Max to listen to'), tool('podcast')],
+        ['path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter'), tool('pfad')],
+        ['calendar', L('Klausurplan', 'Exam plan'), L('Tag für Tag zur Klausur', 'Day by day to the exam'), tool('plan')],
+        ['upload', L('Hochladen', 'Upload'), L('Skript, Foto, Video …', 'Slides, photo, video …'), () => document.getElementById('fileApp')?.click()]];
+      const head = h('div', { class: 'rm-tlh' }, h('span', {}, wd ? L('Max baut dir aus ', 'Max builds from ') : L('Max baut dir', 'Max builds you')), wd ? h('b', {}, `„${wd.name.length > 40 ? wd.name.slice(0, 39) + '…' : wd.name}“`) : null);
+      const grid = h('div', { class: 'rm-tl' }, T2.map(([ic, t, sub, fn], i) => h('button', { class: 'rm-tlt' + (i === 0 ? ' main' : i === T2.length - 1 ? ' up' : ''), type: 'button', onclick: fn, style: { '--i': String(i) } }, h('span', { class: 'rm-tli', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))));
+      skills.replaceChildren(starters, h('div', { class: 'rm-tools2' }, head, grid));
+      drawPickers();
+    } else { skills.replaceChildren(starters, tog, body); set(isOpen); }
     askSlot.replaceChildren();
   }
 
@@ -316,7 +342,7 @@ export function render(root, ctx = {}) {
   // ---------- Skripte (rechts, aufklappbar) ----------
   function skriptList(onPick) {
     const foc = new Set(getFocus());
-    const docs = S.list.slice().sort((a, b) => (b.used || 0) - (a.used || 0)).slice(0, 60);
+    const docs = S.list.map(x => (S.doc && S.doc.id === x.id ? S.doc : x)).sort((a, b) => (b.used || 0) - (a.used || 0)).slice(0, 60);
     if (!docs.length) return h('div', { class: 'rm-empty' }, h('label', { class: 'rm-dropz', for: 'fileApp' }, h('span', { html: ico('upload') }), h('b', {}, L('Erstes Skript hochladen', 'Upload your first slides')), h('small', {}, L('PDF, PowerPoint, Word, Foto', 'PDF, PowerPoint, Word, photo'))),
       h('button', { class: 'btn sm ghost', type: 'button', onclick: () => import('../app.js').then(m => m.startSample()) }, L('Erst mal das Beispiel', 'Try the example first')));
     return h('div', { class: 'rm-sl' }, docs.map(d => {
@@ -492,7 +518,7 @@ export function render(root, ctx = {}) {
     e.preventDefault(); drop.hidden = true; room.classList.remove('dragging');
     const id = e.dataTransfer.getData('text/x-bwlmax-doc');
     if (id) { const d = docById(id); if (d) addDoc(d, true); return; }
-    const fs = [...(e.dataTransfer.files || [])]; if (fs.length) { ls.set('tutor.attach.room', 1); import('../app.js').then(m => m.startUpload(fs)); }
+    const fs = [...(e.dataTransfer.files || [])]; if (fs.length) { if (homeBeta()) stageRoom(fs); else { ls.set('tutor.attach.room', 1); import('../app.js').then(m => m.startUpload(fs)); } }
   };
   document.addEventListener('dragover', onOver); document.addEventListener('dragleave', onLeave); document.addEventListener('drop', onDrop);
 
@@ -563,8 +589,13 @@ export function render(root, ctx = {}) {
   }));
   else if (!document.querySelector('.ngreet') && !reduce()) faceEl.animate([{ opacity: 0, transform: 'scale(.6) translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 650, easing: 'cubic-bezier(.2,1.3,.4,1)' });
 
+  // Hochgeladen (Ziehen, Einfügen, „+“): im Tutor bleiben, Datei zeigen und wählen lassen, was Max daraus macht
+  function stageRoom(fs) {
+    import('./lernen.js').then(m => { const p = m.stagedPanel(fs, { chat: true, onClose: () => { askSlot.replaceChildren(); room.classList.remove('rm-staging'); } }); if (!p) return; if (mode !== 'home') goHome(); room.classList.add('rm-staging'); askSlot.replaceChildren(p); p.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); });
+  }
+  if (homeBeta()) window.__bmStage = fs => { if (!room.isConnected) return false; stageRoom(fs); return true; };
   const off1 = M.onMe(() => { drawRails(); if (mode === 'home') { drawTeaser(); drawSugg(); } drawFocus(); });
-  const off2 = onChange(() => { drawRails(); drawFocus(); });
+  const off2 = onChange(() => { drawRails(); drawFocus(); drawPickers(); });
   const off3 = onAccount(() => { if (mode === 'home') speak(speechText()); });
   const onCfg = () => { if (SES.on) planPause(); tick(); };
   addEventListener('maxcfg:change', onCfg);
@@ -572,7 +603,7 @@ export function render(root, ctx = {}) {
   MOB.addEventListener?.('change', onMq);
 
   return () => {
-    stopped = true; clearInterval(iv); clearInterval(thIv); clearInterval(workT); clearTimeout(thT); removeEventListener('hashchange', onHash);
+    stopped = true; if (window.__bmStage) window.__bmStage = null; clearInterval(iv); clearInterval(thIv); clearInterval(workT); clearTimeout(thT); removeEventListener('hashchange', onHash);
     off1(); off2(); off3(); offStk(); clearInterval(stkIv); removeEventListener('maxcfg:change', onCfg); MOB.removeEventListener?.('change', onMq);
     document.removeEventListener('dragover', onOver); document.removeEventListener('dragleave', onLeave); document.removeEventListener('drop', onDrop);
     document.querySelector('.rm-sheet')?.remove();

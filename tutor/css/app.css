@@ -5611,3 +5611,19 @@ html.bm-guest .rm-focus { display: none !important; }
 .bib-hl { animation: bibhl 2.4s ease both; border-radius: 14px; }
 @keyframes bibhl { 0%, 60% { box-shadow: 0 0 0 3px var(--inv); background: color-mix(in srgb, var(--inv) 8%, var(--panel)); } 100% { box-shadow: 0 0 0 0 transparent; } }
 @media (max-width: 760px) { .uv-pick { flex-direction: column; align-items: stretch; } }
+/* Tutor: alle Erstell-Werkzeuge direkt unter Max */
+.rm-tools2 { width: 100%; max-width: 1000px; margin: 14px auto 0; display: grid; gap: 10px; }
+.rm-tlh { text-align: center; font-size: 14px; color: var(--mute); } .rm-tlh b { color: var(--ink); }
+.rm-tl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.rm-tlt { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 10px; align-items: center; text-align: left; padding: 11px 12px; border-radius: 16px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: inherit; cursor: pointer; transition: transform .15s, border-color .15s, box-shadow .15s; animation: rmpop .4s cubic-bezier(.3,1.5,.5,1) both; animation-delay: calc(var(--i, 0) * 30ms); }
+.rm-tlt:hover { transform: translateY(-2px); border-color: var(--inv); box-shadow: 0 10px 24px -16px rgba(0,0,0,.35); }
+.rm-tli { grid-row: span 2; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--inv) 10%, var(--panel)); color: var(--inv); } .rm-tli .ico { width: 17px; height: 17px; }
+.rm-tlt b { font-size: 14px; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .rm-tlt small { font-size: 11.5px; color: var(--mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rm-tlt.main { background: var(--inv); color: #fff; border-color: var(--inv); } .rm-tlt.main small { color: rgba(255,255,255,.75); } .rm-tlt.main .rm-tli { background: rgba(255,255,255,.16); color: #fff; }
+.rm-tlt.up { border-style: dashed; }
+.rm-pickers { margin-right: 6px; }
+.rm-ask .uv-staged { max-width: 860px; margin: 12px auto 0; text-align: left; }
+@media (max-width: 900px) { .rm-tl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .rm-pickers { display: none; } }
+.room.rm-staging .rm-tools2, .room.rm-staging .rm-start { display: none; }
+.rm-ask .uv-opt { padding: 10px 12px; } .rm-ask .uv-opt small { display: none; } .rm-ask .uv-oi { margin-bottom: 2px; }

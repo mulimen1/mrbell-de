@@ -114,7 +114,7 @@ function popMenu(btn, { search = false, rows, empty, footer }) {
 const pickBtn = (ic, top, main, on) => h('button', { class: 'uv-pbtn' + (on ? ' on' : ''), type: 'button', 'aria-haspopup': 'listbox', 'aria-expanded': 'false' },
   h('span', { class: 'uv-pi', html: ico(ic) }), h('span', { class: 'uv-pt' }, h('small', {}, top), h('b', {}, main)), h('span', { class: 'uv-pc', html: ico('down') }));
 // Startseite: Unterlagen als Auswahl oben rechts (statt großer Karten)
-function docPicker(docs, d, onPick) {
+export function docPicker(docs, d, onPick) {
   const lab = d ? (d.name.length > 30 ? d.name.slice(0, 29) + '…' : d.name) : L('Unterlage wählen', 'Pick material');
   const btn = pickBtn('file', L('Deine Unterlagen', 'Your material') + (docs.length ? ` · ${docs.length}` : ''), lab, !!d);
   btn.addEventListener('click', e => {
@@ -127,7 +127,7 @@ function docPicker(docs, d, onPick) {
 // Startseite: alles, was Max schon gebaut hat – ein Klick führt genau dorthin in der Bibliothek
 const MADE = [['karten', 'cards'], ['quiz', 'quiz'], ['zettel', 'note'], ['podcasts', 'headphones'], ['tafeln', 'board']];
 function madeCount(docs) { let n = 0; for (const d of docs) n += (d.decks || []).filter(x => (x.cards || []).length).length + (d.quizzes || []).length + (d.summary ? 1 : 0) + (d.podcasts || []).length + (d.boards || []).filter(b => b && b.html).length; return n; }
-function madePicker(docs) {
+export function madePicker(docs) {
   const btn = pickBtn('library', L('Bereits erstellt', 'Already made'), L(`${madeCount(docs)} Einträge`, `${madeCount(docs)} items`), false);
   btn.classList.add('uv-made');
   btn.addEventListener('click', async e => {
@@ -140,6 +140,27 @@ function madePicker(docs) {
       footer: close => [h('span'), h('a', { class: 'btn sm', href: '#/app/bibliothek', onclick: () => close() }, L('Ganze Bibliothek', 'Whole library'), h('span', { html: ico('right') }))] });
   });
   return btn;
+}
+export const OPTS = [
+  ['tutor', 'board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Beispiel', 'Step by step, with an example')],
+  ['zettel', 'note', L('Lernzettel', 'Study sheet'), L('Das Wichtigste auf einer Seite', 'The essentials on one page')],
+  ['karten', 'cards', L('Karteikarten', 'Flashcards'), L('Wiederholen, bis es sitzt', 'Review until it sticks')],
+  ['quiz', 'quiz', 'Quiz', L('Klausurfragen mit Erklärung', 'Exam questions, explained')],
+  ['podcast', 'headphones', 'Podcast', L('Marie & Max zum Anhören', 'Marie & Max to listen to')],
+  ['pfad', 'path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter')],
+  ['plan', 'calendar', L('Klausurplan', 'Exam plan'), L('Tag für Tag bis zur Klausur', 'Day by day to the exam')],
+  ['mitschrift', 'pen', L('Mitschrift', 'Notes'), L('Sauber abgeschrieben & ergänzt', 'Cleanly written up')]];
+const kb = n => n > 1048576 ? (n / 1048576).toFixed(1).replace('.', ',') + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
+// Hochgeladene Datei zeigen + „Lass uns damit lernen“ + was Max daraus machen soll (Start und Tutor)
+export function stagedPanel(files, { onClose, chat = false } = {}) {
+  files = [...(files || [])].filter(Boolean); if (!files.length) return null;
+  const thumbs = files.slice(0, 4).map(f => /^image\//.test(f.type) ? h('span', { class: 'uv-sf img' }, h('img', { src: URL.createObjectURL(f), alt: '' })) : h('span', { class: 'uv-sf' }, h('span', { class: 'uv-sfi', html: ico(/video|audio/.test(f.type) ? 'play' : 'file') }), h('span', { class: 'uv-sft' }, h('b', {}, f.name), h('small', {}, kb(f.size)))));
+  const go = key => { if (chat) ls.set('tutor.attach.room', 1); ls.set('tutor.target', key); import('../app.js').then(m => m.startUpload(files)); };
+  return h('div', { class: 'uv-staged' },
+    h('div', { class: 'uv-sh' }, h('span', { class: 'uv-ok', html: ico('check') }), h('div', {}, h('b', {}, L('Lass uns damit lernen.', 'Let’s study with it.')), h('small', {}, L('Wähl aus, was Max daraus machen soll – er liest die Datei und legt sofort los.', 'Pick what Max should make – he reads the file and starts right away.'))),
+      h('button', { class: 'iconbtn uv-sx', type: 'button', 'aria-label': L('Andere Datei', 'Other file'), title: L('Andere Datei', 'Other file'), html: ico('x'), onclick: () => onClose && onClose() })),
+    h('div', { class: 'uv-sfs' }, thumbs, files.length > 4 ? h('span', { class: 'uv-sf more' }, '+' + (files.length - 4)) : null),
+    h('div', { class: 'uv-opts' }, OPTS.map(([k, ic, t, sub], i) => h('button', { class: 'uv-opt' + (i === 0 ? ' main' : ''), type: 'button', style: { '--i': String(i) }, onclick: () => go(k) }, h('span', { class: 'uv-oi', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))));
 }
 export function render(root, o = {}) {
   const home = !!o.home;
@@ -161,27 +182,7 @@ export function render(root, o = {}) {
       h('span', { class: 'btn primary uv-dbtn' }, h('span', { html: ico('plus') }), L('Datei wählen', 'Choose file'))), files => stageFiles(files));
     // Hochgeladen? Auf der Seite bleiben: Datei zeigen und fragen, was Max daraus machen soll
     const dropWrap = h('div', { class: 'uv-dropw' }, drop);
-    const OPTS = [
-      ['tutor', 'board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Beispiel', 'Step by step, with an example')],
-      ['zettel', 'note', L('Lernzettel', 'Study sheet'), L('Das Wichtigste auf einer Seite', 'The essentials on one page')],
-      ['karten', 'cards', L('Karteikarten', 'Flashcards'), L('Wiederholen, bis es sitzt', 'Review until it sticks')],
-      ['quiz', 'quiz', 'Quiz', L('Klausurfragen mit Erklärung', 'Exam questions, explained')],
-      ['podcast', 'headphones', 'Podcast', L('Marie & Max zum Anhören', 'Marie & Max to listen to')],
-      ['pfad', 'path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter')],
-      ['plan', 'calendar', L('Klausurplan', 'Exam plan'), L('Tag für Tag bis zur Klausur', 'Day by day to the exam')],
-      ['mitschrift', 'pen', L('Mitschrift', 'Notes'), L('Sauber abgeschrieben & ergänzt', 'Cleanly written up')]];
-    const kb = n => n > 1048576 ? (n / 1048576).toFixed(1).replace('.', ',') + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
-    stageFiles = files => {
-      files = [...files].filter(Boolean); if (!files.length) return;
-      const thumbs = files.slice(0, 4).map(f => /^image\//.test(f.type) ? h('span', { class: 'uv-sf img' }, h('img', { src: URL.createObjectURL(f), alt: '' })) : h('span', { class: 'uv-sf' }, h('span', { class: 'uv-sfi', html: ico(/video|audio/.test(f.type) ? 'play' : 'file') }), h('span', { class: 'uv-sft' }, h('b', {}, f.name), h('small', {}, kb(f.size)))));
-      const go = key => { ls.set('tutor.target', key); import('../app.js').then(m => m.startUpload(files)); };
-      dropWrap.replaceChildren(h('div', { class: 'uv-staged' },
-        h('div', { class: 'uv-sh' }, h('span', { class: 'uv-ok', html: ico('check') }), h('div', {}, h('b', {}, L('Lass uns damit lernen.', 'Let’s study with it.')), h('small', {}, L('Wähl aus, was Max daraus machen soll – er liest die Datei und legt sofort los.', 'Pick what Max should make – he reads the file and starts right away.'))),
-          h('button', { class: 'iconbtn uv-sx', type: 'button', 'aria-label': L('Andere Datei', 'Other file'), title: L('Andere Datei', 'Other file'), html: ico('x'), onclick: () => dropWrap.replaceChildren(drop) })),
-        h('div', { class: 'uv-sfs' }, thumbs, files.length > 4 ? h('span', { class: 'uv-sf more' }, '+' + (files.length - 4)) : null),
-        h('div', { class: 'uv-opts' }, OPTS.map(([k, ic, t, sub], i) => h('button', { class: 'uv-opt' + (i === 0 ? ' main' : ''), type: 'button', style: { '--i': String(i) }, onclick: () => go(k) }, h('span', { class: 'uv-oi', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))))));
-      dropWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    };
+    stageFiles = files => { const p = stagedPanel(files, { onClose: () => dropWrap.replaceChildren(drop) }); if (!p) return; dropWrap.replaceChildren(p); dropWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); };
     hero = h('header', { class: 'uv-hero' },
       h('div', { class: 'uv-top' }, h('div', { class: 'uv-greet' }, fEl, h('div', { class: 'uv-bub' }, h('b', {}, g.head), g.sub ? h('small', {}, g.sub) : null)), pickSlot),
       dropWrap, tForm);
