@@ -5678,3 +5678,8 @@ html.bm-guest .rm-focus { display: none !important; }
 
 /* Üben: Inhalt endet über Max (schwebt unten rechts) */
 @media (min-width: 761px) { .app .view-in.ub { padding-bottom: 260px; } }
+/* Transkript: Lernzettel-Beschriftung unter der Karte, Symbol größer */
+.vt-tile.vt-sheet { position: relative; }
+.vt-tile.vt-sheet span { display: grid; } .vt-tile.vt-sheet .ico { width: 56px !important; height: 56px !important; stroke-width: 1.6; }
+.vt-tile.vt-sheet small { position: absolute; top: calc(100% + 7px); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 13px; font-weight: 700; color: var(--ink); }
+.vt-flow { margin-bottom: 30px; }
