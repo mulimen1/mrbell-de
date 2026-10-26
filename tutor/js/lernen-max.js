@@ -95,14 +95,39 @@ if (matchMedia('(pointer: fine) and (min-width: 761px)').matches) {
     go.parentElement.hidden = true;
     sum.replaceChildren(el('p', 'lm-score', `<b>${score} von ${n} richtig.</b> ` + (all ? 'Stark – das sitzt.' : n - score === 1 ? 'Fast. Eine hat dich erwischt.' : score ? 'Zwei haben dich erwischt.' : 'Gut, dass das jetzt passiert und nicht in der Klausur.')));
     sum.hidden = false;
-    if (!acc) sum.append(el('p', 'lm-hint lm-lock', 'Welche richtig und welche falsch war – und warum – siehst du mit kostenlosem Konto. Mit Google in zwei Klicks, danach landest du genau hier.'));
-    const a = sum.appendChild(el('a', 'lm-cta2 lm-lock', 'Auflösung ansehen'));
+    if (!acc) sum.append(el('p', 'lm-hint lm-lock', 'Welche richtig und welche falsch war – und warum – siehst du mit kostenlosem Konto. Mit Google in zwei Klicks – du bleibst auf dieser Seite.'));
+    const a = sum.appendChild(el('a', 'lm-cta2 lm-lock', acc ? 'Auflösung ansehen' : 'Kostenlos anmelden für die Auflösung'));
     if (acc) { a.href = '#'; a.addEventListener('click', e => { e.preventDefault(); reveal(); }); }
     else {
       const back = `/lernen/${slug}?test=${qs.map(q => q.pick).join('')}`;
       a.href = `/?thema=${encodeURIComponent(thema)}&konto=1&zurueck=${encodeURIComponent(back)}&utm_source=seo&utm_medium=lernen&utm_campaign=${encodeURIComponent(slug)}-test`;
-      a.addEventListener('click', () => tr('Lernseite Karte', slug + ':test-frei'));
+      a.addEventListener('click', e => { e.preventDefault(); tr('Lernseite Karte', slug + ':test-frei'); signIn(a.href); });
     }
+  };
+  // Anmelden direkt hier auf der Seite (Google-Knopf) – danach sofort die Auflösung. E-Mail geht über die App und kommt danach hierher zurück.
+  const signIn = mailHref => {
+    if (document.querySelector('.lms-bg')) return;
+    const bg = el('div', 'lms-bg', `<div class="lms" role="dialog" aria-modal="true" aria-label="Kostenlos anmelden">
+      <button class="lmx-x" type="button" aria-label="Schließen">${ico('x')}</button>
+      <div class="lmx-face"></div>
+      <h3>Kostenlos anmelden für die Auflösung</h3>
+      <p>Mit Google in zwei Klicks – danach siehst du hier sofort, welche richtig war und warum.</p>
+      <div class="lms-g"></div>
+      <a class="lms-mail" href="${mailHref}">oder mit E-Mail anmelden</a>
+    </div>`);
+    const close = () => { bg.classList.add('out'); setTimeout(() => bg.remove(), 260); };
+    bg.addEventListener('click', e => { if (e.target === bg) close(); });
+    bg.querySelector('.lmx-x').onclick = close;
+    document.body.appendChild(bg);
+    const fEl = bg.querySelector('.lmx-face');
+    import('/tutor/js/face.js').then(m => m.face(fEl, { follow: false })).catch(() => { fEl.innerHTML = '<img src="/tutor/img/max-fav-192.png?v=8" alt="" width="92" height="92" style="border-radius:50%">'; });
+    const g = bg.querySelector('.lms-g');
+    import('/tutor/js/google.js').then(m => m.googleButton(g, r => {
+      acc = r.account || acc || { email: '' };
+      tr('Lernseite Karte', slug + ':test-angemeldet');
+      close(); reveal();
+      setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+    })).catch(() => { g.hidden = true; });
   };
   go.addEventListener('click', check);
   // Zurück von der Anmeldung: Antworten wieder eintragen und auflösen
