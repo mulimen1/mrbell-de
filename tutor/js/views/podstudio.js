@@ -103,7 +103,7 @@ export function studio(p, api) {
   }
   if ('mediaSession' in navigator) {
     try {
-      navigator.mediaSession.metadata = new MediaMetadata({ title: p.title, artist: 'BWL Max · Marie & Max', album: 'BWL Max Podcast', artwork: [{ src: '/tutor/img/max-fav-512.png', sizes: '512x512', type: 'image/png' }] });
+      navigator.mediaSession.metadata = new MediaMetadata({ title: p.title, artist: 'BWL Max · Marie & Max', album: 'BWL Max Podcast', artwork: [{ src: '/tutor/img/bm-fav-512.png?v=10', sizes: '512x512', type: 'image/png' }] });
       navigator.mediaSession.setActionHandler('play', () => { if (!api.playing()) api.toggle(); });
       navigator.mediaSession.setActionHandler('pause', () => { if (api.playing()) api.toggle(); });
       navigator.mediaSession.setActionHandler('previoustrack', () => api.seek(api.idx() - 1));

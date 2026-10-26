@@ -46,7 +46,7 @@ function show() {
   el = h('div', { class: 'm-rl', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Kostenloses Konto', 'Free account') },
     h('button', { class: 'm-rl-x', type: 'button', 'aria-label': L('Schließen und zurück', 'Close and go back'), onclick: back }, h('span', { html: ico('x') })),
     h('div', { class: 'm-rl-card' },
-      h('img', { class: 'm-rl-face', src: '/tutor/img/max-fav-192.png', alt: '' }),
+      h('img', { class: 'm-rl-face', src: '/tutor/img/bm-fav-192.png?v=10', alt: '' }),
       h('h2', {}, L('Dein persönlicher Tutor wartet.', 'Your personal tutor is waiting.')),
       h('p', {}, L('Mit kostenlosem Konto chattest du mit Max, lädst dein Skript hoch und er baut dir Karteikarten, Quiz und Lernplan.', 'With a free account you chat with Max, upload your slides and he builds flashcards, quizzes and a study plan.')),
       g,

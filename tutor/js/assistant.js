@@ -1094,7 +1094,7 @@ export function mountAssistant() {
     if (getAccount() || bArea.__b !== b || gateEl) return;
     board.classList.add('m-gated');
     gateEl = h('div', { class: 'm-gate' }, h('div', { class: 'm-gatec' },
-      h('img', { src: '/tutor/img/max-fav-192.png', alt: '' }),
+      h('img', { src: '/tutor/img/bm-fav-192.png?v=10', alt: '' }),
       h('b', {}, L('Klausurfragen freischalten', 'Unlock exam questions')),
       h('p', {}, L('Einfach kostenlos anmelden – dauert 20 Sekunden. Deine Tafeln bleiben, wo sie sind.', 'Just sign up for free – takes 20 seconds. Your boards stay right here.')),
       h('button', { class: 'btn primary', type: 'button', onclick: async () => {

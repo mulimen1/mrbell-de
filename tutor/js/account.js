@@ -331,7 +331,7 @@ function showNotice(text) {
   const bg = h('div', { class: 'modal-bg ntc-bg' });
   const close = () => { bg.remove(); ask('noticeok').catch(() => {}); };
   bg.append(h('div', { class: 'modal ntc', role: 'dialog', 'aria-modal': 'true' },
-    h('img', { src: '/tutor/img/max-fav-192.png', alt: '', style: 'width:64px;height:64px;border-radius:18px;display:block;margin:0 auto 12px' }),
+    h('img', { src: '/tutor/img/bm-fav-192.png?v=10', alt: '', style: 'width:64px;height:64px;border-radius:18px;display:block;margin:0 auto 12px' }),
     h('p', { style: 'margin:0 0 18px;font-size:15.5px;line-height:1.55;text-align:center;white-space:pre-line' }, text),
     h('button', { class: 'btn primary', type: 'button', style: 'width:100%;min-height:46px', onclick: close }, L('Alles klar', 'Got it'))));
   bg.addEventListener('click', e => { if (e.target === bg) close(); });
