@@ -93,7 +93,7 @@ async function guided(root) {
   const skip = h('button', { class: 'linkbtn', type: 'button' }, L('Station überspringen', 'Skip station'));
   const guide = h('div', { class: 'ub-guide' }, fEl, h('div', { class: 'ub-gt' }, txt, sub, h('div', { class: 'ub-gbar' }, bar)), next, skip);
   const body = h('div', { class: 'ub-gbody' });
-  wrap.append(h('a', { class: 'view-back', href: '#/app/ueben' }, h('span', { html: ico('left') }), L('Zurück zu Üben', 'Back to practice')), guide, body);
+  wrap.append(h('a', { class: 'view-back', href: '#/app/ueben' }, h('span', { html: ico('left') }), L('Zurück zum Training', 'Back to training')), guide, body);
   const fc = face(fEl, {});
   let iv = 0;
   const draw = () => {

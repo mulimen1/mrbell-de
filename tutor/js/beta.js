@@ -14,7 +14,7 @@ export function beta() {
 }
 
 // Neue Übersicht ohne Chat (Werkzeuge zuerst) – erst nur für Ben bzw. mit ?beta=1, danach HOME_ALL = true
-const HOME_ALL = false;
+const HOME_ALL = true;
 export function homeBeta() {
   if (HOME_ALL) return true;
   try { if (localStorage.getItem('tutor.beta') === '1') return true; } catch (e) {}
