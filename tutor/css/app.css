@@ -5551,3 +5551,33 @@ html.bm-guest .rm-focus { display: none !important; }
 .ub-gbar { height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; margin-top: 4px; } .ub-gbar i { display: block; height: 100%; width: 0; background: var(--inv); border-radius: 99px; transition: width .4s cubic-bezier(.2,.9,.3,1); }
 @media (max-width: 600px) { .ub-hero { padding: 16px; } .ub-face { width: 60px; height: 60px; } .ub-guide { flex-wrap: wrap; } .ub-gface { width: 42px; height: 42px; } }
 .ub-guide [hidden] { display: none !important; }
+/* Start kompakter: Werkzeuge schon beim Öffnen sichtbar */
+.ln.uv .uv-hero { gap: 10px; margin-bottom: 18px; }
+.ln.uv .uv-face { width: 64px; height: 64px; }
+.ln.uv .uv-bub { padding: 10px 16px; } .ln.uv .uv-bub b { font-size: clamp(16px, 1.6vw, 19px); }
+.ln.uv .uv-drop { grid-template-columns: auto 1fr auto; justify-items: start; text-align: left; align-items: center; gap: 4px 16px; padding: 18px 20px; }
+.ln.uv .uv-drop .uv-di { grid-row: span 2; width: 46px; height: 46px; }
+.ln.uv .uv-drop b { font-size: clamp(17px, 1.7vw, 20px); } .ln.uv .uv-drop small { font-size: 13px; }
+.ln.uv .uv-drop .uv-dbtn { grid-column: 3; grid-row: 1 / span 2; margin: 0; }
+.uv-pbtn { padding: 5px 10px 5px 5px; border-radius: 12px; gap: 8px; max-width: 260px; }
+.uv-pbtn .uv-pi { width: 28px; height: 28px; border-radius: 8px; } .uv-pbtn .uv-pi .ico { width: 15px; height: 15px; }
+.uv-pt small { font-size: 10.5px; } .uv-pt b { font-size: 13px; }
+.ln.uv .ln-grp { margin-top: 18px; }
+/* Hochgeladen: Datei + „Lass uns damit lernen“ + Optionen */
+.uv-staged { display: grid; gap: 14px; padding: 18px; border-radius: 22px; border: 2px solid var(--inv); background: color-mix(in srgb, var(--inv) 4%, var(--panel)); animation: rmpop .35s cubic-bezier(.3,1.4,.5,1) both; }
+.uv-sh { display: flex; align-items: center; gap: 12px; } .uv-sh > div { flex: 1; display: grid; gap: 2px; } .uv-sh b { font-size: 19px; letter-spacing: -.02em; } .uv-sh small { color: var(--mute); font-size: 13.5px; }
+.uv-ok { width: 36px; height: 36px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--inv); color: #fff; } .uv-ok .ico { width: 18px; height: 18px; }
+.uv-sfs { display: flex; gap: 8px; flex-wrap: wrap; }
+.uv-sf { display: inline-flex; align-items: center; gap: 10px; max-width: 320px; padding: 8px 12px 8px 8px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); }
+.uv-sf.img { padding: 0; overflow: hidden; } .uv-sf.img img { display: block; height: 72px; max-width: 160px; object-fit: cover; }
+.uv-sf.more { padding: 8px 14px; font-weight: 700; color: var(--mute); }
+.uv-sfi { width: 36px; height: 36px; flex: none; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--inv) 10%, var(--panel)); color: var(--inv); } .uv-sfi .ico { width: 17px; height: 17px; }
+.uv-sft { display: grid; min-width: 0; } .uv-sft b { font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .uv-sft small { font-size: 12px; color: var(--mute); }
+.uv-opts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.uv-opt { display: grid; gap: 3px; justify-items: start; text-align: left; padding: 12px 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: inherit; cursor: pointer; transition: transform .15s, border-color .15s, box-shadow .15s; animation: rmpop .4s cubic-bezier(.3,1.5,.5,1) both; animation-delay: calc(var(--i, 0) * 35ms); }
+.uv-opt:hover { transform: translateY(-2px); border-color: var(--inv); box-shadow: 0 10px 24px -16px rgba(0,0,0,.35); }
+.uv-oi { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: color-mix(in srgb, var(--inv) 10%, var(--panel)); color: var(--inv); margin-bottom: 4px; } .uv-oi .ico { width: 16px; height: 16px; }
+.uv-opt b { font-size: 14.5px; } .uv-opt small { font-size: 12px; color: var(--mute); line-height: 1.35; }
+.uv-opt.main { background: var(--inv); color: #fff; border-color: var(--inv); } .uv-opt.main small { color: rgba(255,255,255,.78); } .uv-opt.main .uv-oi { background: rgba(255,255,255,.16); color: #fff; }
+@media (max-width: 900px) { .uv-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .ln.uv .uv-drop { grid-template-columns: auto 1fr; } .ln.uv .uv-drop .uv-dbtn { grid-column: 1 / -1; grid-row: auto; justify-self: stretch; justify-content: center; } }

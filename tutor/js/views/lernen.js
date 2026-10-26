@@ -58,12 +58,12 @@ function stats(d) {
 const tage = n => (n === 1 ? L('1 Tag', '1 day') : L(`${n} Tagen`, `${n} days`));
 
 // Datei direkt auf die Karte ziehen: deutlich sichtbar, dann geht's wie beim Hochladen weiter
-function dropable(el) {
+function dropable(el, onFiles) {
   let n = 0;
   el.addEventListener('dragenter', e => { if (!e.dataTransfer?.types?.includes('Files')) return; e.preventDefault(); n++; el.classList.add('ln-over'); });
   el.addEventListener('dragover', e => { if (e.dataTransfer?.types?.includes('Files')) e.preventDefault(); });
   el.addEventListener('dragleave', () => { if (--n <= 0) { n = 0; el.classList.remove('ln-over'); } });
-  el.addEventListener('drop', e => { e.preventDefault(); e.stopPropagation(); n = 0; el.classList.remove('ln-over'); const f = e.dataTransfer?.files; if (f && f.length) import('../app.js').then(m => m.startUpload([...f])); });
+  el.addEventListener('drop', e => { e.preventDefault(); e.stopPropagation(); n = 0; el.classList.remove('ln-over'); const f = e.dataTransfer?.files; if (f && f.length) { if (onFiles) onFiles([...f]); else import('../app.js').then(m => m.startUpload([...f])); } });
   return el;
 }
 // Übersicht (Startseite ohne Chat): Max begrüßt, darunter Hochladen und alle Werkzeuge
@@ -131,7 +131,7 @@ export function render(root, o = {}) {
   selId = ls.get('tutor.learn.doc') || null; ls.set('tutor.learn.doc', null);
   // Übersicht: wer schon Unterlagen hat, lernt direkt mit der zuletzt genutzten weiter (abwählbar)
   if (home && !selId && S.list.length) selId = byUse()[0].id;
-  let hero = null; const pickSlot = h('div', { class: 'uv-pick' });
+  let hero = null, stageFiles = null; const pickSlot = h('div', { class: 'uv-pick' });
   if (home) {
     const g = greeting(), fEl = h('span', { class: 'uv-face' });
     const topic = h('input', { class: 'uv-tin', type: 'text', maxlength: 120, placeholder: L('Oder Thema eingeben, z. B. Kapitalwertmethode', 'Or type a topic, e.g. net present value'), enterkeyhint: 'go', 'aria-label': L('Thema', 'Topic') });
@@ -140,10 +140,33 @@ export function render(root, o = {}) {
       h('span', { class: 'uv-di', html: ico('upload') }),
       h('b', {}, L('Lad hoch, womit du lernst', 'Upload what you study with')),
       h('small', {}, L('Skript, Folien, Mitschrift, Übungsblatt, Altklausur, Buch, Screenshot oder Video – Max arbeitet mit allem.', 'Slides, notes, problem sets, past exams, books, screenshots or videos – Max works with all of it.'), h('span', { class: 'uv-hint' }, L(` Hierher ziehen oder Screenshot mit ${PASTE} einfügen.`, ` Drop here or paste a screenshot with ${PASTE}.`))),
-      h('span', { class: 'btn primary uv-dbtn' }, h('span', { html: ico('plus') }), L('Datei wählen', 'Choose file'))));
+      h('span', { class: 'btn primary uv-dbtn' }, h('span', { html: ico('plus') }), L('Datei wählen', 'Choose file'))), files => stageFiles(files));
+    // Hochgeladen? Auf der Seite bleiben: Datei zeigen und fragen, was Max daraus machen soll
+    const dropWrap = h('div', { class: 'uv-dropw' }, drop);
+    const OPTS = [
+      ['tutor', 'board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Beispiel', 'Step by step, with an example')],
+      ['zettel', 'note', L('Lernzettel', 'Study sheet'), L('Das Wichtigste auf einer Seite', 'The essentials on one page')],
+      ['karten', 'cards', L('Karteikarten', 'Flashcards'), L('Wiederholen, bis es sitzt', 'Review until it sticks')],
+      ['quiz', 'quiz', 'Quiz', L('Klausurfragen mit Erklärung', 'Exam questions, explained')],
+      ['podcast', 'headphones', 'Podcast', L('Marie & Max zum Anhören', 'Marie & Max to listen to')],
+      ['pfad', 'path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter')],
+      ['plan', 'calendar', L('Klausurplan', 'Exam plan'), L('Tag für Tag bis zur Klausur', 'Day by day to the exam')],
+      ['mitschrift', 'pen', L('Mitschrift', 'Notes'), L('Sauber abgeschrieben & ergänzt', 'Cleanly written up')]];
+    const kb = n => n > 1048576 ? (n / 1048576).toFixed(1).replace('.', ',') + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
+    stageFiles = files => {
+      files = [...files].filter(Boolean); if (!files.length) return;
+      const thumbs = files.slice(0, 4).map(f => /^image\//.test(f.type) ? h('span', { class: 'uv-sf img' }, h('img', { src: URL.createObjectURL(f), alt: '' })) : h('span', { class: 'uv-sf' }, h('span', { class: 'uv-sfi', html: ico(/video|audio/.test(f.type) ? 'play' : 'file') }), h('span', { class: 'uv-sft' }, h('b', {}, f.name), h('small', {}, kb(f.size)))));
+      const go = key => { ls.set('tutor.target', key); import('../app.js').then(m => m.startUpload(files)); };
+      dropWrap.replaceChildren(h('div', { class: 'uv-staged' },
+        h('div', { class: 'uv-sh' }, h('span', { class: 'uv-ok', html: ico('check') }), h('div', {}, h('b', {}, L('Lass uns damit lernen.', 'Let’s study with it.')), h('small', {}, L('Wähl aus, was Max daraus machen soll – er liest die Datei und legt sofort los.', 'Pick what Max should make – he reads the file and starts right away.'))),
+          h('button', { class: 'iconbtn uv-sx', type: 'button', 'aria-label': L('Andere Datei', 'Other file'), title: L('Andere Datei', 'Other file'), html: ico('x'), onclick: () => dropWrap.replaceChildren(drop) })),
+        h('div', { class: 'uv-sfs' }, thumbs, files.length > 4 ? h('span', { class: 'uv-sf more' }, '+' + (files.length - 4)) : null),
+        h('div', { class: 'uv-opts' }, OPTS.map(([k, ic, t, sub], i) => h('button', { class: 'uv-opt' + (i === 0 ? ' main' : ''), type: 'button', style: { '--i': String(i) }, onclick: () => go(k) }, h('span', { class: 'uv-oi', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))))));
+      dropWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
     hero = h('header', { class: 'uv-hero' },
       h('div', { class: 'uv-top' }, h('div', { class: 'uv-greet' }, fEl, h('div', { class: 'uv-bub' }, h('b', {}, g.head), g.sub ? h('small', {}, g.sub) : null)), pickSlot),
-      drop, tForm);
+      dropWrap, tForm);
     face(fEl, {});
   }
   function draw() {
@@ -214,7 +237,7 @@ export function render(root, o = {}) {
       home ? null : h('section', { class: 'ln-grp first' }, h('div', { class: 'ln-gh' }, h('h2', {}, home ? L('Deine Unterlagen', 'Your material') : L('Deine Skripte', 'Your slides')), h('span', { class: 'eyebrow' }, docs.length ? L(`${docs.length} ${docs.length === 1 ? 'Skript' : 'Skripte'}`, `${docs.length} slides`) : '')), docs$),
       h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, d ? h('h2', {}, L('Mit ', 'With '), h('span', { class: 'ln-q' }, `„${trimmed}“`), L(' lernen', '')) : h('h2', {}, L('Lerntools', 'Study tools'), h('small', { class: 'ln-h2s' }, L(' · mit deinem Skript oder einem Thema', ' · with your slides or a topic'))), h('span', { class: 'eyebrow' }, L('Stoff aufbauen', 'Build it up'))),
         h('div', { class: 'ln-grid' }, board, tools)),
-      h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Üben & Prüfen', 'Practise & test')), h('span', { class: 'eyebrow' }, L('Bis es sitzt', 'Until it sticks'))),
+      home ? null : h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Üben & Prüfen', 'Practise & test')), h('span', { class: 'eyebrow' }, L('Bis es sitzt', 'Until it sticks'))),
         h('div', { class: 'ln-grid' },
           T('exam', L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel', 'With time, points and grading'), L('Starten', 'Start'), async () => { if (await gated('exam')) return; fromHere(); import('../app.js').then(m => m.examTool()); }),
           T('whistle', L('BWL-Trainer', 'Business trainer'), L('Aufgaben ohne Ende, sofort korrigiert', 'Endless exercises, corrected instantly'), L('Trainieren', 'Train'), () => go('#/app/trainer')),
@@ -233,7 +256,8 @@ export function render(root, o = {}) {
   let redrawT = 0;
   const off = onChange(() => { clearTimeout(redrawT); redrawT = setTimeout(() => { if (wrap.isConnected) draw(); }, 80); });
   // Übersicht: Screenshot einfügen (⌘V) = hochladen
-  const onPaste = e => { if (!home || e.target.closest?.('input, textarea, [contenteditable]')) return; const fs = [...(e.clipboardData?.files || [])]; if (fs.length) { e.preventDefault(); import('../app.js').then(m => m.startUpload(fs)); } };
+  const onPaste = e => { if (!home || e.target.closest?.('input, textarea, [contenteditable]')) return; const fs = [...(e.clipboardData?.files || [])]; if (fs.length) { e.preventDefault(); stageFiles ? stageFiles(fs) : import('../app.js').then(m => m.startUpload(fs)); } };
+  if (home) window.__bmStage = fs => { if (!wrap.isConnected || !stageFiles) return false; stageFiles(fs); return true; };
   document.addEventListener('paste', onPaste);
-  return () => { clearTimeout(redrawT); document.removeEventListener('paste', onPaste); if (typeof off === 'function') off(); };
+  return () => { clearTimeout(redrawT); document.removeEventListener('paste', onPaste); if (window.__bmStage) window.__bmStage = null; if (typeof off === 'function') off(); };
 }

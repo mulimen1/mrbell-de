@@ -59,7 +59,7 @@ export function go(path) { location.hash = '#/app' + (path ? '/' + path : ''); }
 function buildShell() {
   const root = $('#app');
   const fileIn = h('input', { type: 'file', class: 'sr', accept: ACCEPT, id: 'fileApp', multiple: true });
-  fileIn.addEventListener('change', () => { if (fileIn.files.length) startUpload([...fileIn.files]); fileIn.value = ''; });
+  fileIn.addEventListener('change', () => { if (fileIn.files.length) { const fs = [...fileIn.files]; if (!(window.__bmStage && window.__bmStage(fs))) startUpload(fs); } fileIn.value = ''; });   // Startseite: Datei erst zeigen, dann wählen, was daraus wird
   // Screenshot einfügen (⌘V / Strg+V) – landet direkt in der Einordnung
   document.addEventListener('paste', e => {
     if (!location.hash.startsWith('#/app') || current.key === 'ingest') return;
