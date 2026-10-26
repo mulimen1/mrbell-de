@@ -40,6 +40,17 @@ export async function render(root, { sub = '' } = {}) {
   const pcard = (ic, t, sub2, go, tone) => h(typeof go === 'string' ? 'a' : 'button', Object.assign({ class: 'ub-pc' + (tone ? ' ' + tone : '') }, typeof go === 'string' ? { href: go, onclick: fromHere } : { type: 'button', onclick: go }),
     h('span', { class: 'ub-pci', html: ico(ic) }), h('span', { class: 'ub-pct' }, h('b', {}, t), h('small', {}, sub2)), h('span', { class: 'ub-pcg', html: ico('right') }));
 
+  const { XL_ICON: XL } = await import('./excel.js');
+  // Prüfungssimulation: Klausur-Simulator und Quiz – wie in der echten Prüfung
+  const big = (ic, t, sub, go, hot) => h('button', { class: 'ub-sim' + (hot ? ' hot' : ''), type: 'button', onclick: () => { fromHere(); go(); } }, h('span', { class: 'ub-pci', html: ic }), h('span', { class: 'ub-pct' }, h('b', {}, t), h('small', {}, sub)), h('span', { class: 'ub-pcg', html: ico('right') }));
+  const quizGo = () => { let id = null; try { const f = JSON.parse(localStorage.getItem('tutor.room.focus') || '[]'); id = f[0]; } catch (e) {} import('../state.js').then(st => { const d = id && st.S.list.find(x => x.id === id); if (d) location.hash = `#/app/${d.id}/quiz`; else import('../app.js').then(m => m.tryFeature('quiz')); }); };
+  const sim = h('div', { class: 'ub-simrow' },
+    big(ico('exam'), L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel – wie in echt', 'With time, points and grading – like the real thing'), () => import('../app.js').then(m => m.examTool()), true),
+    big(ico('quiz'), 'Quiz', L('Klausurfragen mit Erklärung zu jeder Antwort', 'Exam questions with every answer explained'), quizGo));
+  // Excel-Trainer als eigene Trainer-Karte
+  const xlCard = h('a', { class: 'tr-card ub-tc ub-xlc', href: '#/app/excel/trainer', onclick: fromHere },
+    h('div', { class: 'tr-ico', html: XL }), h('div', { class: 'eyebrow' }, 'Excel'), h('h3', null, L('Excel-Trainer', 'Excel trainer')), h('p', null, L('Echter Excel-Nachbau, echte Tastenkürzel, echte BWL-Aufgaben – Max führt dich Schritt für Schritt.', 'A real Excel replica, real shortcuts, real business tasks – Max guides you step by step.')),
+    h('div', { class: 'tr-card-f' }, h('span', null, xl.of ? L(`${xl.n} von ${xl.of} Lektionen`, `${xl.n} of ${xl.of} lessons`) : L('Noch nicht geübt', 'Not practised yet'))));
   const left = h('div', { class: 'ub-left' },
     h('header', { class: 'ub-hero' },
       h('div', { class: 'ub-greet' }, fEl, h('div', { class: 'uv-bub' },
@@ -48,9 +59,11 @@ export async function render(root, { sub = '' } = {}) {
       h('div', { class: 'ub-path' }, PATH.map((id, k) => h('span', { class: 'ub-dot' + (k < doneN ? ' ok' : k === doneN ? ' cur' : ''), title: byId(id)?.title || id }))),
       h('div', { class: 'ub-cta' },
         h('a', { class: 'btn primary lg', href: '#/app/ueben/pfad', onclick: fromHere }, h('span', { html: ico('play') }), finished ? L('Nochmal von vorn', 'Start over') : doneN ? L(`Weiter: ${cur.title}`, `Continue: ${cur.title}`) : L('Geführt starten', 'Start guided')),
-        h('a', { class: 'btn lg', href: '#/app/excel/trainer', onclick: fromHere }, h('span', { class: 'ub-xl', html: ico('sheet') }), L('Excel-Trainer', 'Excel trainer'), xl.of ? h('small', { class: 'ub-xln' }, `${xl.n}/${xl.of}`) : null))),
-    h('div', { class: 'ln-gh ub-h' }, h('h2', {}, 'Trainer'), h('span', { class: 'eyebrow' }, L(`${T.length} Themen`, `${T.length} topics`))),
-    h('div', { class: 'tr-grid ub-tgrid' }, PATH.map(byId).filter(Boolean).concat(T.filter(x => !PATH.includes(x.id))).map(tcard)));
+        h('a', { class: 'btn lg', href: '#/app/excel/trainer', onclick: fromHere }, h('span', { class: 'ub-xl', html: XL }), L('Excel-Trainer', 'Excel trainer'), xl.of ? h('small', { class: 'ub-xln' }, `${xl.n}/${xl.of}`) : null))),
+    h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfungssimulation', 'Exam simulation')), h('span', { class: 'eyebrow' }, L('Wie in der echten Klausur', 'Like the real exam'))),
+    sim,
+    h('div', { class: 'ln-gh ub-h ub-h2' }, h('h2', {}, 'Trainer'), h('span', { class: 'eyebrow' }, L(`${T.length + 1} Themen`, `${T.length + 1} topics`))),
+    h('div', { class: 'tr-grid ub-tgrid' }, PATH.map(byId).filter(Boolean).concat(T.filter(x => !PATH.includes(x.id))).map(tcard), xlCard));
   // Prüfen: irgendwas aus der BWL hochladen (Foto, Screenshot, PDF deiner Lösung) – Max korrigiert
   const upIn = h('input', { type: 'file', class: 'sr', accept: 'image/*,application/pdf,.pdf,.doc,.docx,.ppt,.pptx,.txt', multiple: true });
   const check = fs => { fs = [...(fs || [])]; if (!fs.length) return; fromHere(); ls.set('tutor.target', 'check'); import('../app.js').then(m => m.startUpload(fs)); };
@@ -63,7 +76,6 @@ export async function render(root, { sub = '' } = {}) {
     upCard,
     pcard('camera', L('Buchungssätze fotografieren', 'Photograph booking entries'), L('Auf Papier lösen, Foto machen – Max prüft', 'Solve on paper, snap it – Max checks'), '#/app/trainer/buchung'),
     pcard('calc', L('Rechner', 'Calculators'), L('Exakt gerechnet, mit Rechenweg', 'Exact, with the workings'), '#/app/rechner'),
-    pcard('exam', L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel – wie in echt', 'With time, points and grading – like the real thing'), () => { fromHere(); import('../app.js').then(m => m.examTool()); }),
     h('div', { class: 'ln-gh ub-h ub-h2' }, h('h2', {}, L('Wettkampf', 'Compete'))),
     pcard('spark', L('BWL-Duell', 'Business duel'), L('1 gegen 1 – wer weiß mehr?', '1 vs 1 – who knows more?'), '#/app/duell', 'hot'),
     pcard('trophy', L('Wochen-Challenge', 'Weekly challenge'), L('Jede Woche neu – mit Rangliste', 'New every week – with a leaderboard'), '#/app/challenge'));

@@ -415,10 +415,12 @@ export function render(root, ctx = {}) {
       : [h('span', { class: 'rm-fl2 soft' }, matchMedia('(max-width: 600px)').matches ? L('Ohne Skript – mit BWL-Wissen. ', 'No slides – general knowledge. ') : L('Kein Skript verbunden – ich nehm mein BWL-Wissen (und finde deine Unterlagen, wenn du danach fragst). ', 'No slides linked – I use my business knowledge (and find your material when you ask). '), h('button', { class: 'linkbtn rm-fl3', type: 'button', onclick: () => toggleRail(true) }, matchMedia('(max-width: 600px)').matches ? L('Skript verbinden', 'Link slides') : L('Mit vorhandenem Skript verbinden', 'Link existing slides')))]));
   }
   // Nur noch „Weiter, wo wir waren“ – die Skills stehen oben als Kacheln
+  // Links über der Eingabe: „Verlauf“ – klappt das bisherige Gespräch auf und wieder zu
   function drawSugg() {
-    if (mode !== 'home' || !api || !api.hasHistory()) { sugg.replaceChildren(); return; }
-    const q = api.lastQuestion(); if (!q) { sugg.replaceChildren(); return; }
-    sugg.replaceChildren(h('button', { class: 'chip rm-q', type: 'button', onclick: () => goTalk({ mark: false, show: true }) }, h('span', { html: ico('refresh') }), L('Weiter: ', 'Continue: ') + (q.length > 40 ? q.slice(0, 39) + '…' : q)));
+    if (!api || !api.hasHistory()) { sugg.replaceChildren(); return; }
+    const open = mode === 'talk';
+    sugg.replaceChildren(h('button', { class: 'rm-hist' + (open ? ' on' : ''), type: 'button', 'aria-expanded': String(open), onclick: () => { if (mode === 'talk') goHome(); else goTalk({ mark: false, show: true }); drawSugg(); } },
+      h('span', { html: ico('clock') }), L('Verlauf', 'History'), h('span', { class: 'rm-hc', html: ico(open ? 'up' : 'down') })));
   }
 
   // ---------- Gespräch ----------
