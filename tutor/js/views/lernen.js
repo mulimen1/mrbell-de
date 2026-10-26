@@ -10,6 +10,7 @@ import { planSummary } from './plan.js';
 import { fachOf, getMe } from '../me.js';
 import { face } from '../face.js';
 import { getAccount } from '../api.js';
+import { homeBeta } from '../beta.js';
 
 const live = d => (S.doc && S.doc.id === d.id ? S.doc : d);
 const byUse = () => S.list.map(live).sort((a, b) => Math.max(b.used || 0, b.created || 0) - Math.max(a.used || 0, a.created || 0));
@@ -159,7 +160,20 @@ export function stagedPanel(files, { onClose, chat = false } = {}) {
   const thumbs = files.slice(0, 4).map(f => h('span', { class: 'uv-sf' },
     /^image\//.test(f.type) ? h('span', { class: 'uv-sfi img' }, h('img', { src: URL.createObjectURL(f), alt: '' })) : h('span', { class: 'uv-sfi', html: ico(/video|audio/.test(f.type) ? 'play' : 'file') }),
     h('span', { class: 'uv-sft' }, h('b', {}, f.name), h('small', {}, kind(f) + ' · ' + kb(f.size)))));
-  const go = key => { if (chat) ls.set('tutor.attach.room', 1); ls.set('tutor.target', key); import('../app.js').then(m => m.startUpload(files)); };
+  const up = key => { if (chat) ls.set('tutor.attach.room', 1); ls.set('tutor.target', key); import('../app.js').then(m => m.startUpload(files)); };
+  // Beta: Karten/Quiz/Lernzettel/Podcast – Einstellungen sofort hier (man bleibt auf der Seite), erst „Erstellen“ lädt hoch und baut
+  const go = async key => {
+    if (!(homeBeta() && ['karten', 'quiz', 'zettel', 'podcast'].includes(key))) return up(key);
+    const f0 = files[0];
+    const langP = /\.(pdf|pptx|docx|txt|md)$/i.test(f0.name || '') || /pdf|text\//.test(f0.type || '')
+      ? Promise.all([import('../ingest.js'), import('../srclang.js')]).then(([I, S2]) => I.readFile(f0, () => {}, { soft: true }).then(r => S2.detectLang((r.pages || []).slice(0, 12).join('\n')))).catch(() => null)
+      : null;
+    const C = await import('../create.js');
+    const o = await C.personalise(key, { name: f0.name }, { fresh: true, langP });
+    if (!o) return;   // X / Abbrechen: nichts passiert, Datei bleibt hier liegen
+    ls.set('tutor.pers.pre', { tool: key, o, at: Date.now() });
+    up(key);
+  };
   return h('div', { class: 'uv-staged' },
     h('div', { class: 'uv-sh' }, h('span', { class: 'uv-ok', html: ico('check') }), h('div', {}, h('b', {}, L('Lass uns damit lernen.', 'Let’s study with it.')), h('small', {}, L('Wähl aus, was Max daraus machen soll – er liest die Datei und legt sofort los.', 'Pick what Max should make – he reads the file and starts right away.'))),
       h('button', { class: 'iconbtn uv-sx', type: 'button', 'aria-label': L('Andere Datei', 'Other file'), title: L('Andere Datei', 'Other file'), html: ico('x'), onclick: () => onClose && onClose() })),

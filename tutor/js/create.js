@@ -58,7 +58,7 @@ function defOf(tab) {
   }[tab];
 }
 // Liefert die gewählten Optionen – oder null, wenn abgebrochen
-export async function personalise(tab, doc, { fresh = false } = {}) {
+export async function personalise(tab, doc, { fresh = false, langP = null } = {}) {
   if (!TOOL[tab]) return {};
   const chapters = doc?.path?.chapters || [];
   const DEF = {
@@ -127,10 +127,19 @@ export async function personalise(tab, doc, { fresh = false } = {}) {
   }
   const cost = COST[TOOL[tab]] || 0;
   const [eyebrow, title] = TITLE[tab];
+  // Sprache: erkannte vorausgewählt; kommt die Erkennung erst nach dem Öffnen (Datei wird noch gelesen), wird nachgezogen – solange man nichts selbst gewählt hat
+  let picked = false;
+  const langRow = () => {
+    const box = h('div', { class: 'ik-langbox' });
+    const paint = src => box.replaceChildren(langPicker(src || 'de', st.outLang, c => { st.outLang = c; picked = true; }));
+    st.outLang = doc.outLang || doc.srcLang || 'de'; paint(doc.srcLang);
+    if (langP) langP.then(src => { if (!src || !box.isConnected) return; if (!picked) st.outLang = src; paint(src); }).catch(() => {});
+    return row(L('Sprache', 'Language'), box);
+  };
   const r = await modal({
     cls: 'ik-modal ik-pers', eyebrow: L('Kurz personalisieren · ', 'Quick setup · ') + eyebrow, title,
     // Gerade hochgeladen: Datei steht fest, dafür Sprache wählen (erkannte Sprache vorausgewählt)
-    body: h('div', { class: 'ik-place' }, fresh ? row(L('Datei', 'File'), h('div', { class: 'ik-file1' }, h('span', { html: ico('file') }), h('b', {}, doc.name))) : row(L('Stoff', 'Material'), pick.el), fresh ? row(L('Sprache', 'Language'), langPicker(doc.srcLang || 'de', st.outLang = (doc.outLang || doc.srcLang || 'de'), c => { st.outLang = c; })) : null, body.filter(Boolean)),
+    body: h('div', { class: 'ik-place' }, fresh ? row(L('Datei', 'File'), h('div', { class: 'ik-file1' }, h('span', { html: ico('file') }), h('b', {}, doc.name))) : row(L('Stoff', 'Material'), pick.el), fresh ? langRow() : null, body.filter(Boolean)),
     actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: [L('Erstellen', 'Create'), cost ? h('span', { class: 'k', title: L('KI-Einheiten', 'AI credits') }, cost) : null], value: 'ok', primary: true }],
     onAction: v => { if (v === 'ok' && !fresh && pick.check()) return false; }
   });
@@ -138,7 +147,7 @@ export async function personalise(tab, doc, { fresh = false } = {}) {
   const keep = Object.assign({}, st); delete keep.focus;
   ls.set('tutor.pers.' + tab, keep);
   if (tab === 'podcast') ls.set('tutor.podVoice', st.voice);
-  if (fresh) { if (st.outLang && st.outLang !== doc.outLang) { doc.outLang = st.outLang; save(doc); } delete keep.outLang; return st; }
+  if (fresh) { if (doc.id && st.outLang && st.outLang !== doc.outLang) { doc.outLang = st.outLang; save(doc); } return st; }
   if (!pick.here()) { st.focus = -1; goSource(tab, pick.get(), st); return null; }
   return st;
 }
