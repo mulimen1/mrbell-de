@@ -12,6 +12,7 @@ import { review } from '../fsrs.js';
 import { autoOpts, personalise } from '../create.js';
 import { dlBtn, optsDeck } from '../export.js';
 import { savedToast } from '../lib.js';
+import { homeBeta } from '../beta.js';
 
 const DAY = 864e5;
 export function dueCards(doc, now = Date.now()) { return doc.decks.flatMap(d => d.cards.map(c => ({ c, d }))).filter(x => (x.c.due || 0) <= now); }
@@ -101,7 +102,7 @@ function study(wrap, ctx, items, title) {
   if (isGuest()) { const free = x => x.d.cards.indexOf(x.c) < lim(x.d); queue = [...items.filter(free), ...items.filter(x => !free(x))].slice(0, 40); }
   let i = 0, flipped = false, done = 0, again = 0;
   const stage = h('div', { class: 'fc-stage' });
-  wrap.replaceChildren(h('button', { class: 'btn sm ghost', onclick: () => { cleanup(); overview(wrap, ctx); }, style: { marginBottom: '10px' } }, h('span', { html: ico('left') }), L('Karteikarten', 'Flashcards')),
+  wrap.replaceChildren(homeBeta() ? null : h('button', { class: 'btn sm ghost', onclick: () => { cleanup(); overview(wrap, ctx); }, style: { marginBottom: '10px' } }, h('span', { html: ico('left') }), L('Karteikarten', 'Flashcards')),
     h('div', { class: 'vh', style: { marginBottom: '6px' } }, h('div', {}, h('div', { class: 'eyebrow' }, matchMedia('(pointer: coarse)').matches ? L('Tippen = umdrehen · wischen = bewerten', 'Tap = flip · swipe = rate') : L('Leertaste = umdrehen · 1–3 = bewerten', 'Space = flip · 1–3 = rate')), h('h2', { style: { fontSize: '24px' } }, title))), stage);
   const draw = () => {
     if (i >= queue.length) {
@@ -121,7 +122,7 @@ function study(wrap, ctx, items, title) {
         h('div', { class: 'b' }, cardBack(c))));
     // Drei klare Knöpfe, keine Abstände – den Rest plant die Wiederholung im Hintergrund
     const rate = h('div', { class: 'rate r3', style: { visibility: 'hidden' } }, [[1, L('Nochmal', 'Again'), 'k1'], [2, L('Unsicher', 'Not sure'), 'k2'], [3, L('Gewusst', 'Got it'), 'k3']].map(([r, l, k]) =>
-      h('button', { class: 'btn ' + k + (r === 3 ? ' primary' : ''), type: 'button', onclick: () => grade(r) }, l)));
+      h('button', { class: 'btn ' + k + (r === 3 ? ' primary' : ''), type: 'button', onclick: () => gradeFly(r) }, l)));
     // Aus Max' Tafel ohne Konto: Karte steht da, aber üben (umdrehen) gibt's mit kostenlosem Konto
     if (isGuest() && queue[i].d.guestGate) {
       const lock = () => { if (!isGuest()) return draw(); lockedRest(stage, { left: queue.length, what: L('Karten', 'cards'), title: L('Deine Karten sind fertig', 'Your cards are ready'), text: L('Damit du üben kannst und alles gespeichert bleibt: kostenlos anmelden. Dauert 30 Sekunden – danach fragt Max dich ab, bevor du’s vergisst.', 'To practise and keep everything saved: sign up for free. Takes 30 seconds – then Max quizzes you before you forget.'), onUnlock: draw }); };
@@ -137,7 +138,18 @@ function study(wrap, ctx, items, title) {
     card.addEventListener('pointermove', e => { if (!drag) return; dx = e.clientX - sx; if (Math.abs(e.clientY - sy) > 60 && Math.abs(dx) < 30) { drag = false; card.style.transform = ''; return; } card.style.transform = `translateX(${dx}px) rotate(${dx / 24}deg)`; card.classList.toggle('sw-ok', dx > 50); card.classList.toggle('sw-no', dx < -50); });
     const end = () => { if (!drag) return; drag = false; card.style.transition = ''; if (Math.abs(dx) > 90) { card._dragged = true; const ok = dx > 0; card.style.transform = `translateX(${ok ? 140 : -140}%) rotate(${ok ? 18 : -18}deg)`; card.style.opacity = '0'; setTimeout(() => grade(ok ? 3 : 1), 220); } else { if (Math.abs(dx) > 6) card._dragged = true; card.style.transform = ''; card.classList.remove('sw-ok', 'sw-no'); } };
     card.addEventListener('pointerup', end); card.addEventListener('pointercancel', end);
-    stage.replaceChildren(h('div', { class: 'fc-prog', 'aria-hidden': 'true' }, h('i', { style: { width: (100 * i / queue.length) + '%' } })), card, rate, h('div', { class: 'deckstats' }, h('span', {}, `${i + 1} / ${queue.length}`), h('span', {}, '·'), h('span', {}, L(`${done} erledigt`, `${done} done`))), i === 0 && !flipped ? h('div', { class: 'fc-swhint' }, L('Nach dem Umdrehen: nach rechts wischen = gewusst, nach links = nochmal', 'After flipping: swipe right = got it, left = again')) : null);
+    if (!RM && i > 0) requestAnimationFrame(() => card.animate([{ opacity: 0, transform: 'translateY(22px) scale(.92)' }, { opacity: 1, transform: 'none' }], { duration: 360, easing: 'cubic-bezier(.2,1.2,.35,1)' }));
+    stage.replaceChildren(h('div', { class: 'fc-prog', 'aria-hidden': 'true' }, h('i', { style: { width: (100 * i / queue.length) + '%' } })), h('div', { class: 'fc-stack' + (queue.length - i > 1 ? ' more' : '') }, card), rate, h('div', { class: 'deckstats' }, h('span', {}, `${i + 1} / ${queue.length}`), h('span', {}, '·'), h('span', {}, L(`${done} erledigt`, `${done} done`))), i === 0 && !flipped ? h('div', { class: 'fc-swhint' }, L('Nach dem Umdrehen: nach rechts wischen = gewusst, nach links = nochmal', 'After flipping: swipe right = got it, left = again')) : null);
+  };
+  // Karte fliegt raus: rechts = gewusst, links = nochmal, nach oben = unsicher – dann kommt die nächste vom Stapel
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let flying = false;
+  const gradeFly = r => {
+    if (flying) return; const c = stage.querySelector('.fc'); if (!c || RM) return grade(r);
+    flying = true; c.classList.toggle('sw-ok', r === 3); c.classList.toggle('sw-no', r === 1);
+    const x = r === 3 ? 135 : r === 1 ? -135 : 0, y = r === 2 ? -95 : 0, rot = r === 3 ? 16 : r === 1 ? -16 : 0;
+    c.animate([{ transform: 'none', opacity: 1 }, { transform: `translate(${x}%, ${y}%) rotate(${rot}deg)`, opacity: 0 }], { duration: 340, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' })
+      .finished.catch(() => {}).then(() => { flying = false; grade(r); });
   };
   const grade = r => {
     const it = queue[i];
@@ -150,7 +162,7 @@ function study(wrap, ctx, items, title) {
     if (!stage.isConnected) return cleanup();
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     if (e.code === 'Space') { e.preventDefault(); stage.querySelector('.fc')?.click(); }
-    else if (flipped && ['1', '2', '3'].includes(e.key)) grade(+e.key);
+    else if (flipped && ['1', '2', '3'].includes(e.key)) gradeFly(+e.key);
   };
   const cleanup = () => document.removeEventListener('keydown', onKey);
   document.addEventListener('keydown', onKey);

@@ -327,7 +327,8 @@ async function materialStep(ui, res, P, tool = null) {
   pages = (pages || []).map(x => String(x || '').trim());
   // Sprache: Standard = Sprache des Materials; ist es nicht Deutsch und wurde noch nicht gewählt, kurz nachfragen
   const srcLang = src0 || detectLang(pages.join('\n'));
-  if (!ans.lang && srcLang && srcLang !== 'de') ans.lang = await askLang(srcLang);
+  const PERS = ['karten', 'quiz', 'zettel', 'podcast'];
+  if (!ans.lang && srcLang && srcLang !== 'de' && !(tool && PERS.includes(tool) && homeBeta())) ans.lang = await askLang(srcLang);   // Beta: Sprache steht im Einstellungsfenster danach
   if (pages.join('').length < 40) return fail(ui, L('Darauf konnte ich keinen Text erkennen. Probier ein schärferes Foto oder eine andere Datei.', 'I couldn’t find any text on it. Try a sharper photo or another file.'));
   if (!pages.some(Boolean)) pages = [''];
   const name = clean(ans.name || res.titel || P.name, 80) || L('Unterlagen', 'Material');
@@ -342,6 +343,14 @@ async function materialStep(ui, res, P, tool = null) {
     location.hash = '#/app/tutor';
     setTimeout(() => import('./ic.js').then(m => m.quotaWait(d.name)), 700);
     return;
+  }
+  // Beta: nach dem Hochladen erst kurz einstellen (Sprache, Anzahl, Schwierigkeit …), dann „Erstellen“
+  if (tool && PERS.includes(tool) && homeBeta()) {
+    ls.set('tutor.attach.room', null);
+    const C = await import('./create.js');
+    const o = await C.personalise(tool, d, { fresh: true });
+    if (!o) { location.hash = `#/app/${d.id}/hub`; return; }
+    C.setCreate(tool, d.id, o); location.hash = `#/app/${d.id}/${tool}/auto`; return;
   }
   if (tool && TOOLS.includes(tool)) ls.set('tutor.addon', { doc: d.id, tool, at: Date.now() });   // nach dem Werkzeug: Lernplan als Extra anbieten
   location.hash = route(d, ans);

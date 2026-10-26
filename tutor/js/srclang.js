@@ -84,7 +84,7 @@ export function langPicker(src, cur, onPick) {
     h('option', { value: '' }, L('Andere …', 'Other …')),
     Object.keys(LANGS).filter(c => !opts.includes(c)).map(c => h('option', { value: c }, `${LANGS[c][2]} · ${langName(c)}`)));
   const paint = () => { w.querySelectorAll('button').forEach(b => { const on = b.dataset.v === cur; b.classList.toggle('on', on); b.setAttribute('aria-checked', String(on)); }); sel.value = opts.includes(cur) ? '' : cur; };
-  opts.forEach(c => w.append(h('button', { type: 'button', role: 'radio', 'data-v': c, onclick: () => { cur = c; paint(); onPick(c); } }, c === src && c !== 'de' ? `${langName(c)} · ${L('erkannt', 'detected')}` : langName(c))));
+  opts.forEach(c => w.append(h('button', { type: 'button', role: 'radio', 'data-v': c, onclick: () => { cur = c; paint(); onPick(c); } }, c === src ? `${langName(c)} · ${L('erkannt', 'detected')}` : langName(c))));
   sel.addEventListener('change', () => { if (sel.value) { cur = sel.value; paint(); onPick(cur); } });
   w.append(sel);
   paint();

@@ -347,13 +347,15 @@ export async function mountApp(parts) {
     if (!d) { toast(L('Dieses Skript gibt es auf diesem Gerät nicht mehr.', 'These slides are no longer on this device.')); go(''); return; }
   }
   const tab = VIEWS[b] ? b : 'hub';
-  docbar(true);
+  docbar(!homeBeta() || tab === 'hub');   // Beta: in Karteikarten, Quiz & Co. keine verwirrende Reiterleiste
   shell.title.replaceChildren(h('span', { html: ico('file') }), h('b', {}, S.doc.name), h('span', { class: 'db-ch', html: ico('down') }));
   document.title = `${S.doc.name} · BWL Max`;
   renderTabs(a, tab);
   renderList();
   return show(`${a}:${tab}:${c || ''}`, async root => {
     const mod = await VIEWS[tab]();
+    // Beta: oben ein deutlicher Weg zurück in die Bibliothek (statt Reiterleiste)
+    if (homeBeta() && tab !== 'hub') { const BT = { karten: 'karten', quiz: 'quiz', zettel: 'zettel', podcast: 'podcasts' }; root.appendChild(h('a', { class: 'ub-libback', href: '#/app/bibliothek/' + (BT[tab] || 'alles') }, h('span', { html: ico('left') }), L('Zur Bibliothek', 'To the library'), h('small', {}, S.doc.name))); }
     return mod.render(root, { doc: S.doc, arg: c ? decodeURIComponent(c) : null, go: (t, x) => go(`${S.doc.id}/${t}${x ? '/' + encodeURIComponent(x) : ''}`), ask: askTutorAbout });
   });
 }
