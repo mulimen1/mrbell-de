@@ -5581,3 +5581,23 @@ html.bm-guest .rm-focus { display: none !important; }
 .uv-opt.main { background: var(--inv); color: #fff; border-color: var(--inv); } .uv-opt.main small { color: rgba(255,255,255,.78); } .uv-opt.main .uv-oi { background: rgba(255,255,255,.16); color: #fff; }
 @media (max-width: 900px) { .uv-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) { .ln.uv .uv-drop { grid-template-columns: auto 1fr; } .ln.uv .uv-drop .uv-dbtn { grid-column: 1 / -1; grid-row: auto; justify-self: stretch; justify-content: center; } }
+/* Üben zweispaltig: links Trainer, rechts Prüfen & Wettkampf */
+.ub { max-width: 1240px; }
+.ub-cols { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start; }
+.ub-left { min-width: 0; } .ub-left .ub-hero { margin-bottom: 22px; }
+.ub-h { margin: 0 0 12px; } .ub-h h2 { font-size: 22px; }
+.ub-tgrid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.ub-tc { text-decoration: none; color: var(--ink); min-height: 186px; animation: rmpop .45s cubic-bezier(.3,1.4,.5,1) both; }
+.ub-tc .tr-ico { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; background: color-mix(in srgb, var(--inv) 10%, var(--panel)); color: var(--inv); margin-bottom: 6px; }
+.ub-tc .tr-ico .ico { width: 22px; height: 22px; }
+.ub-tc:hover { border-color: var(--inv); } .ub-tc:hover .tr-ico { background: var(--inv); color: #fff; }
+.ub-tc p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-size: 13.5px; }
+.ub-ok { margin-left: auto; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--inv); color: #fff; font: 700 11px var(--sans); }
+.ub-right { position: sticky; top: 12px; display: grid; gap: 10px; }
+.ub-pc { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 18px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); text-decoration: none; font: inherit; text-align: left; cursor: pointer; transition: transform .15s, border-color .15s, box-shadow .15s; }
+.ub-pc:hover { transform: translateY(-2px); border-color: var(--inv); box-shadow: 0 12px 28px -18px rgba(0,0,0,.35); }
+.ub-pci { width: 44px; height: 44px; flex: none; border-radius: 13px; display: grid; place-items: center; background: color-mix(in srgb, var(--inv) 10%, var(--panel)); color: var(--inv); } .ub-pci .ico { width: 21px; height: 21px; }
+.ub-pct { display: grid; gap: 2px; flex: 1; min-width: 0; } .ub-pct b { font-size: 15.5px; letter-spacing: -.01em; } .ub-pct small { font-size: 12.5px; color: var(--mute); line-height: 1.35; }
+.ub-pcg .ico { width: 16px; height: 16px; color: var(--faint); } .ub-pc:hover .ub-pcg .ico { color: var(--inv); }
+.ub-pc.hot { background: var(--inv); color: #fff; border-color: var(--inv); } .ub-pc.hot small { color: rgba(255,255,255,.78); } .ub-pc.hot .ub-pci { background: rgba(255,255,255,.16); color: #fff; } .ub-pc.hot .ub-pcg .ico { color: #fff; }
+@media (max-width: 1100px) { .ub-cols { grid-template-columns: 1fr; } .ub-right { position: static; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); } .ub-right .ub-h { grid-column: 1 / -1; } }

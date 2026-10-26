@@ -30,10 +30,17 @@ export async function render(root, { sub = '' } = {}) {
   try { const x = ls.get('tutor.xltrain', null); const m = await import('../xl/lessons.js'); xl = { n: Object.keys((x && x.done) || {}).length, of: m.LESSONS.length }; } catch (e) {}
   if (!wrap.isConnected) return;
 
-  const card = (ic, t, sub2, href, extra) => h('a', { class: 'ln-tile', href, onclick: fromHere }, h('span', { class: 'ln-ti', html: ico(ic) }), h('b', {}, t), h('small', { class: 'ln-st' }, sub2), extra || null);
-  const tcard = x => { const s = all[x.id] || {}; return h('a', { class: 'ub-t', href: '#/app/trainer/' + x.id, onclick: fromHere }, h('small', { class: 'ub-ta' }, x.area), h('b', {}, x.title), h('span', { class: 'ub-ts' }, s.correct ? L(`${s.correct} gelöst`, `${s.correct} solved`) : L('Noch nicht geübt', 'Not practised yet'))); };
+  const svg = d => `<svg viewBox="0 0 24 24" class="ico" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  // Trainer-Karten im Stil des Trainer-Bereichs: Symbol, Fach, Titel, Beschreibung, Stand
+  const tcard = (x, i) => { const s = all[x.id] || {}, k = PATH.indexOf(x.id);
+    return h('a', { class: 'tr-card ub-tc', href: '#/app/trainer/' + x.id, onclick: fromHere, style: `animation-delay:${i * 25}ms` },
+      h('div', { class: 'tr-ico', html: svg(x.icon || '') }), h('div', { class: 'eyebrow' }, x.area), h('h3', null, x.title), h('p', null, x.desc),
+      h('div', { class: 'tr-card-f' }, s.attempts ? [h('span', null, L(`${s.correct | 0} gelöst`, `${s.correct | 0} solved`)), h('span', null, L(`Serie ${s.streak | 0}`, `Streak ${s.streak | 0}`))] : h('span', null, L('Noch nicht geübt', 'Not practised yet')), k >= 0 && k < doneN ? h('span', { class: 'ub-ok' }, '✓') : null)); };
+  // Prüfen & Wettkampf: rechte Spalte
+  const pcard = (ic, t, sub2, go, tone) => h(typeof go === 'string' ? 'a' : 'button', Object.assign({ class: 'ub-pc' + (tone ? ' ' + tone : '') }, typeof go === 'string' ? { href: go, onclick: fromHere } : { type: 'button', onclick: go }),
+    h('span', { class: 'ub-pci', html: ico(ic) }), h('span', { class: 'ub-pct' }, h('b', {}, t), h('small', {}, sub2)), h('span', { class: 'ub-pcg', html: ico('right') }));
 
-  wrap.replaceChildren(
+  const left = h('div', { class: 'ub-left' },
     h('header', { class: 'ub-hero' },
       h('div', { class: 'ub-greet' }, fEl, h('div', { class: 'uv-bub' },
         h('b', {}, finished ? L('Alle Stationen geschafft. Respekt – jetzt kommt die Klausur.', 'All stations done. Respect – bring on the exam.') : doneN ? L(`Weiter geht’s: Station ${doneN + 1} von ${PATH.length} – ${cur.title}.`, `Let’s go on: station ${doneN + 1} of ${PATH.length} – ${cur.title}.`) : L('Ich führ dich durch die BWL – Station für Station, bis es sitzt.', 'I’ll guide you through business – station by station, until it sticks.')),
@@ -42,15 +49,16 @@ export async function render(root, { sub = '' } = {}) {
       h('div', { class: 'ub-cta' },
         h('a', { class: 'btn primary lg', href: '#/app/ueben/pfad', onclick: fromHere }, h('span', { html: ico('play') }), finished ? L('Nochmal von vorn', 'Start over') : doneN ? L(`Weiter: ${cur.title}`, `Continue: ${cur.title}`) : L('Geführt starten', 'Start guided')),
         h('a', { class: 'btn lg', href: '#/app/excel/trainer', onclick: fromHere }, h('span', { class: 'ub-xl', html: ico('sheet') }), L('Excel-Trainer', 'Excel trainer'), xl.of ? h('small', { class: 'ub-xln' }, `${xl.n}/${xl.of}`) : null))),
-    h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Alle Themen', 'All topics')), h('span', { class: 'eyebrow' }, L(`${T.length} Trainer`, `${T.length} trainers`))),
-      h('div', { class: 'ub-grid' }, PATH.map(byId).filter(Boolean).concat(T.filter(x => !PATH.includes(x.id))).map(tcard))),
-    h('section', { class: 'ln-grp' }, h('div', { class: 'ln-gh' }, h('h2', {}, L('Prüfen & Wettkampf', 'Test & compete')), h('span', { class: 'eyebrow' }, L('Wie in echt', 'Like the real thing'))),
-      h('div', { class: 'ln-grid' },
-        h('button', { class: 'ln-tile', type: 'button', onclick: () => { fromHere(); import('../app.js').then(m => m.examTool()); } }, h('span', { class: 'ln-ti', html: ico('exam') }), h('b', {}, L('Klausur-Simulator', 'Exam simulator')), h('small', { class: 'ln-st' }, L('Mit Zeit, Punkten und Notenschlüssel', 'With time, points and grading'))),
-        card('camera', L('Fotocheck Buchungssätze', 'Photo check: entries'), L('Auf Papier lösen, Foto machen, fertig', 'Solve on paper, snap a photo'), '#/app/trainer/buchung'),
-        card('trophy', L('Wochen-Challenge', 'Weekly challenge'), L('Jede Woche neu – mit Rangliste', 'New every week – with a leaderboard'), '#/app/challenge'),
-        card('spark', L('BWL-Duell', 'Business duel'), L('1 gegen 1 – wer weiß mehr?', '1 vs 1 – who knows more?'), '#/app/duell'),
-        card('calc', L('Rechner', 'Calculators'), L('Exakt gerechnet, mit Rechenweg', 'Exact, with the workings'), '#/app/rechner'))));
+    h('div', { class: 'ln-gh ub-h' }, h('h2', {}, 'Trainer'), h('span', { class: 'eyebrow' }, L(`${T.length} Themen`, `${T.length} topics`))),
+    h('div', { class: 'tr-grid ub-tgrid' }, PATH.map(byId).filter(Boolean).concat(T.filter(x => !PATH.includes(x.id))).map(tcard)));
+  const right = h('aside', { class: 'ub-right' },
+    h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfen & Wettkampf', 'Test & compete'))),
+    pcard('exam', L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel – wie in echt', 'With time, points and grading – like the real thing'), () => { fromHere(); import('../app.js').then(m => m.examTool()); }, 'hot'),
+    pcard('camera', L('Fotocheck Buchungssätze', 'Photo check: entries'), L('Auf Papier lösen, Foto machen – Max prüft', 'Solve on paper, snap it – Max checks'), '#/app/trainer/buchung'),
+    pcard('spark', L('BWL-Duell', 'Business duel'), L('1 gegen 1 – wer weiß mehr?', '1 vs 1 – who knows more?'), '#/app/duell'),
+    pcard('trophy', L('Wochen-Challenge', 'Weekly challenge'), L('Jede Woche neu – mit Rangliste', 'New every week – with a leaderboard'), '#/app/challenge'),
+    pcard('calc', L('Rechner', 'Calculators'), L('Exakt gerechnet, mit Rechenweg', 'Exact, with the workings'), '#/app/rechner'));
+  wrap.replaceChildren(h('div', { class: 'ub-cols' }, left, right));
   face(fEl, {});
 }
 
