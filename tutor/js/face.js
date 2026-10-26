@@ -6,9 +6,9 @@ import { ACCENTS } from './theme.js';
 const NS = 'http://www.w3.org/2000/svg';
 const faces = new Set();
 // Haare einmal vorladen und dekodieren, damit jeder Kopf sofort mit Frisur erscheint
-const HAIR_SRC = '/tutor/img/max-hair.webp';
+const HAIR_SRC = '/tutor/img/max-hair.webp?v=2';
 const HAIR_IMG = new Image(); HAIR_IMG.src = HAIR_SRC;
-const COLLAR_SRC = '/tutor/img/max-collar.webp?v=4';
+const COLLAR_SRC = '/tutor/img/max-collar.webp?v=5';
 const COLLAR_IMG = new Image(); COLLAR_IMG.src = COLLAR_SRC;
 let UID = 0;
 // Max zieht an, was du als Farbe wählst: Pullover-Töne aus Farbton/Sättigung der Akzentfarbe, Helligkeit wie beim grünen Original.
