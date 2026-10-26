@@ -98,10 +98,10 @@ function prepare(src) {
 
 // ---------- 2a) Vom Werkzeug aus: nur lesen (mit Fortschritt), keine Fragen ----------
 const TOOLS = ['karten', 'quiz', 'podcast', 'zettel', 'pfad'];
-const DIRECT = [...TOOLS, 'tutor', 'plan', 'mitschrift'];   // auf der Startseite schon gewählt: keine Fragen, direkt bauen
-const TOOLNAME = { tutor: L('die Erklärung', 'the explanation'), plan: L('den Klausurplan', 'the exam plan'), mitschrift: L('die Mitschrift', 'the notes'), karten: L('Karteikarten', 'flashcards'), quiz: L('das Quiz', 'quiz'), podcast: L('den Podcast', 'podcast'), zettel: L('den Lernzettel', 'study sheet'), pfad: L('den Lernpfad', 'study path') };
+const DIRECT = [...TOOLS, 'tutor', 'plan', 'mitschrift', 'check'];   // auf der Startseite schon gewählt: keine Fragen, direkt bauen
+const TOOLNAME = { check: L('die Korrektur', 'the check'), tutor: L('die Erklärung', 'the explanation'), plan: L('den Klausurplan', 'the exam plan'), mitschrift: L('die Mitschrift', 'the notes'), karten: L('Karteikarten', 'flashcards'), quiz: L('das Quiz', 'quiz'), podcast: L('den Podcast', 'podcast'), zettel: L('den Lernzettel', 'study sheet'), pfad: L('den Lernpfad', 'study path') };
 async function readStep(view, prep, tool) {
-  const scr = busy(view, L(`Ich lese dein Skript für ${tool === 'karten' ? 'die ' : ''}${TOOLNAME[tool]} …`, `Reading your slides for the ${TOOLNAME[tool]} …`), [L('Ich lese jede Seite …', 'Reading every page …'), L('Gleich geht’s los …', 'Almost there …')]);
+  const scr = busy(view, tool === 'check' ? L('Ich les mir das genau an …', 'Taking a close look …') : L(`Ich lese dein Skript für ${tool === 'karten' ? 'die ' : ''}${TOOLNAME[tool]} …`, `Reading your slides for the ${TOOLNAME[tool]} …`), [L('Ich lese jede Seite …', 'Reading every page …'), L('Gleich geht’s los …', 'Almost there …')]);
   const upd = st => scr.sub(st.p >= 1 ? L('Gelesen', 'Read') : (st.label || L('Lese …', 'Reading …')) + (st.p ? ` ${Math.round(st.p * 100)} %` : ''), st.p);
   prep.onp = upd; upd(prep);
   try { await prep.done; } catch (e) {}
@@ -440,6 +440,7 @@ export function route(d, ans) {
   }
   if (s === 'tutor') { ls.set('tutor.pendingAsk', d.kind === 'uebung' ? L('Geh mit mir die erste Aufgabe durch – erst den Ansatz, dann den Lösungsweg Schritt für Schritt.', 'Walk me through the first exercise – approach first, then the solution step by step.') : d.kind === 'altklausur' ? L('Welche Aufgabentypen kommen in dieser Klausur vor, und wie gehe ich sie an?', 'Which kinds of tasks are in this exam, and how do I tackle them?') : L('Erklär mir das wichtigste Thema aus dem Skript an der Tafel – mit Beispiel.', 'Explain the most important topic from the slides on the whiteboard – with an example.')); return `#/app/${d.id}/tutor`; }
   if (s === 'plan') return `#/app/${d.id}/plan`;
+  if (s === 'check') { ls.set('tutor.pendingAsk', L('Prüf, was ich hochgeladen habe: Ist meine Lösung richtig? Geh Schritt für Schritt durch, markier jeden Fehler mit dem Grund und zeig die richtige Lösung an der Tafel. Steht nur die Aufgabe drin, löse sie Schritt für Schritt.', 'Check what I uploaded: is my answer right? Go through it step by step, mark every mistake with the reason and show the correct solution on the board. If it is only the task, solve it step by step.')); return `#/app/${d.id}/tutor`; }
   if (s === 'mitschrift') { try { sessionStorage.setItem('tutor.msImport', JSON.stringify({ text: (d.pages || []).join('\n\n').slice(0, 30000), lang: d.outLang || d.srcLang || '', name: d.name })); } catch (e) {} return '#/app/mitschrift'; }
   if (s === 'karten') return `#/app/${d.id}/karten/auto`;
   if (s === 'quiz') return `#/app/${d.id}/quiz/auto`;

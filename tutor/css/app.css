@@ -5505,8 +5505,8 @@ html.bm-guest .rm-focus { display: none !important; }
 .ai-btx .ico { width: 14px !important; height: 14px !important; transform: none !important; }
 .asst.stage .ai-btx { display: none; }
 /* Bibliothek: kleiner Zähler „N erstellt“ unter dem Namen */
-.tn-l2 { display: inline-grid; line-height: 1.05; }
-.tn-l2 .tn-cnt { font: 650 10.5px var(--sans); letter-spacing: .01em; color: var(--mute); margin-top: 1px; display: block; transform-origin: left center; }
+.tn-l2 { display: inline-flex; align-items: center; gap: 6px; line-height: inherit; }
+.tn-l2 .tn-cnt { font: 650 11px var(--sans); letter-spacing: .01em; color: var(--mute); padding: 2px 7px; border-radius: 99px; background: var(--panel2); display: inline-block; white-space: nowrap; transform-origin: center; }
 .tn-l2 .tn-cnt[hidden] { display: none; }
 .tn.on .tn-l2 .tn-cnt { color: inherit; opacity: .75; }
 /* Start: Unterlagen-Auswahl oben rechts */
@@ -5601,3 +5601,13 @@ html.bm-guest .rm-focus { display: none !important; }
 .ub-pcg .ico { width: 16px; height: 16px; color: var(--faint); } .ub-pc:hover .ub-pcg .ico { color: var(--inv); }
 .ub-pc.hot { background: var(--inv); color: #fff; border-color: var(--inv); } .ub-pc.hot small { color: rgba(255,255,255,.78); } .ub-pc.hot .ub-pci { background: rgba(255,255,255,.16); color: #fff; } .ub-pc.hot .ub-pcg .ico { color: #fff; }
 @media (max-width: 1100px) { .ub-cols { grid-template-columns: 1fr; } .ub-right { position: static; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); } .ub-right .ub-h { grid-column: 1 / -1; } }
+/* Prüfen: Upload-Karte „Lösung prüfen lassen“ */
+.ub-up { display: flex; align-items: center; gap: 12px; padding: 16px 14px; border-radius: 18px; border: 2px dashed color-mix(in srgb, var(--inv) 45%, var(--line2)); background: color-mix(in srgb, var(--inv) 5%, var(--panel)); color: var(--ink); font: inherit; text-align: left; cursor: pointer; transition: border-color .15s, background .15s, transform .15s; }
+.ub-up:hover, .ub-up.over { border-color: var(--inv); border-style: solid; background: color-mix(in srgb, var(--inv) 10%, var(--panel)); transform: translateY(-2px); }
+.ub-up .ub-pci { background: var(--inv); color: #fff; }
+.ub-h2 { margin-top: 14px; }
+.tb-fold, .tb-pull { display: none !important; }
+.uv-pick { display: flex; gap: 8px; align-items: center; }
+.bib-hl { animation: bibhl 2.4s ease both; border-radius: 14px; }
+@keyframes bibhl { 0%, 60% { box-shadow: 0 0 0 3px var(--inv); background: color-mix(in srgb, var(--inv) 8%, var(--panel)); } 100% { box-shadow: 0 0 0 0 transparent; } }
+@media (max-width: 760px) { .uv-pick { flex-direction: column; align-items: stretch; } }

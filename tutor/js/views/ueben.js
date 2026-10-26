@@ -51,13 +51,22 @@ export async function render(root, { sub = '' } = {}) {
         h('a', { class: 'btn lg', href: '#/app/excel/trainer', onclick: fromHere }, h('span', { class: 'ub-xl', html: ico('sheet') }), L('Excel-Trainer', 'Excel trainer'), xl.of ? h('small', { class: 'ub-xln' }, `${xl.n}/${xl.of}`) : null))),
     h('div', { class: 'ln-gh ub-h' }, h('h2', {}, 'Trainer'), h('span', { class: 'eyebrow' }, L(`${T.length} Themen`, `${T.length} topics`))),
     h('div', { class: 'tr-grid ub-tgrid' }, PATH.map(byId).filter(Boolean).concat(T.filter(x => !PATH.includes(x.id))).map(tcard)));
+  // Prüfen: irgendwas aus der BWL hochladen (Foto, Screenshot, PDF deiner Lösung) – Max korrigiert
+  const upIn = h('input', { type: 'file', class: 'sr', accept: 'image/*,application/pdf,.pdf,.doc,.docx,.ppt,.pptx,.txt', multiple: true });
+  const check = fs => { fs = [...(fs || [])]; if (!fs.length) return; fromHere(); ls.set('tutor.target', 'check'); import('../app.js').then(m => m.startUpload(fs)); };
+  upIn.addEventListener('change', () => { check(upIn.files); upIn.value = ''; });
+  const upCard = h('button', { class: 'ub-up', type: 'button', onclick: () => upIn.click() },
+    h('span', { class: 'ub-pci', html: ico('upload') }), h('span', { class: 'ub-pct' }, h('b', {}, L('Lösung prüfen lassen', 'Get your answer checked')), h('small', {}, L('Foto, Screenshot oder PDF – egal welches BWL-Thema. Max korrigiert Schritt für Schritt.', 'Photo, screenshot or PDF – any business topic. Max corrects it step by step.'))), upIn);
+  { let n = 0; upCard.addEventListener('dragenter', e => { if (!e.dataTransfer?.types?.includes('Files')) return; e.preventDefault(); n++; upCard.classList.add('over'); }); upCard.addEventListener('dragover', e => e.preventDefault()); upCard.addEventListener('dragleave', () => { if (--n <= 0) { n = 0; upCard.classList.remove('over'); } }); upCard.addEventListener('drop', e => { e.preventDefault(); n = 0; upCard.classList.remove('over'); check(e.dataTransfer?.files); }); }
   const right = h('aside', { class: 'ub-right' },
-    h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfen & Wettkampf', 'Test & compete'))),
-    pcard('exam', L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel – wie in echt', 'With time, points and grading – like the real thing'), () => { fromHere(); import('../app.js').then(m => m.examTool()); }, 'hot'),
-    pcard('camera', L('Fotocheck Buchungssätze', 'Photo check: entries'), L('Auf Papier lösen, Foto machen – Max prüft', 'Solve on paper, snap it – Max checks'), '#/app/trainer/buchung'),
-    pcard('spark', L('BWL-Duell', 'Business duel'), L('1 gegen 1 – wer weiß mehr?', '1 vs 1 – who knows more?'), '#/app/duell'),
-    pcard('trophy', L('Wochen-Challenge', 'Weekly challenge'), L('Jede Woche neu – mit Rangliste', 'New every week – with a leaderboard'), '#/app/challenge'),
-    pcard('calc', L('Rechner', 'Calculators'), L('Exakt gerechnet, mit Rechenweg', 'Exact, with the workings'), '#/app/rechner'));
+    h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfen', 'Check'))),
+    upCard,
+    pcard('camera', L('Buchungssätze fotografieren', 'Photograph booking entries'), L('Auf Papier lösen, Foto machen – Max prüft', 'Solve on paper, snap it – Max checks'), '#/app/trainer/buchung'),
+    pcard('calc', L('Rechner', 'Calculators'), L('Exakt gerechnet, mit Rechenweg', 'Exact, with the workings'), '#/app/rechner'),
+    pcard('exam', L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel – wie in echt', 'With time, points and grading – like the real thing'), () => { fromHere(); import('../app.js').then(m => m.examTool()); }),
+    h('div', { class: 'ln-gh ub-h ub-h2' }, h('h2', {}, L('Wettkampf', 'Compete'))),
+    pcard('spark', L('BWL-Duell', 'Business duel'), L('1 gegen 1 – wer weiß mehr?', '1 vs 1 – who knows more?'), '#/app/duell', 'hot'),
+    pcard('trophy', L('Wochen-Challenge', 'Weekly challenge'), L('Jede Woche neu – mit Rangliste', 'New every week – with a leaderboard'), '#/app/challenge'));
   wrap.replaceChildren(h('div', { class: 'ub-cols' }, left, right));
   face(fEl, {});
 }

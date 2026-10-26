@@ -93,33 +93,51 @@ function explainDoc(d) {
   setTimeout(() => import('../app.js').then(m => m.viaMax(a => a.ask(L('Erklär mir das Wichtigste aus dem Skript an der Tafel – Schritt für Schritt, mit Beispiel.', 'Explain the key points of the slides on the board – step by step, with an example.'), { show: L(`Erklär mir „${d.name}“ an der Tafel.`, `Explain “${d.name}” on the board.`), fs: true }))), 700);
 }
 // Startseite: Unterlagen als Auswahl oben rechts (statt großer Karten)
+// Auswahl-Menü als eigene Ebene über der Seite (für „Deine Unterlagen“ und „Bereits erstellt“)
+function popMenu(btn, { search = false, rows, empty, footer }) {
+  if (document.querySelector('.uv-menu')) { document.querySelector('.uv-menu').remove(); return; }
+  const q = h('input', { class: 'uv-ms', type: 'search', placeholder: L('Suchen …', 'Search …'), 'aria-label': L('Suchen', 'Search') });
+  const list = h('div', { class: 'uv-ml', role: 'listbox' });
+  const fill = () => { const t = q.value.trim().toLowerCase(); const xs = rows.filter(r => !t || r.t.toLowerCase().includes(t)); list.replaceChildren(...(xs.length ? xs.slice(0, 80).map(r => h('button', { class: 'uv-mi' + (r.on ? ' on' : ''), type: 'button', role: 'option', 'aria-selected': r.on ? 'true' : 'false', onclick: () => { close(); r.fn(); } }, h('span', { class: 'uv-pi', html: ico(r.ic) }), h('span', { class: 'uv-mt' }, h('b', {}, r.t), r.sub ? h('small', {}, r.sub) : null), r.on ? h('span', { class: 'uv-mck', html: ico('check') }) : null)) : [h('small', { class: 'uv-mno' }, empty || L('Nichts gefunden.', 'Nothing found.'))])); };
+  q.addEventListener('input', fill); fill();
+  const menu = h('div', { class: 'uv-menu' }, search ? q : null, list, footer ? h('div', { class: 'uv-mf' }, footer(() => close())) : null);
+  const close = () => { menu._off && menu._off(); menu.remove(); btn.setAttribute('aria-expanded', 'false'); document.removeEventListener('click', out); document.removeEventListener('keydown', esc); };
+  const out = ev => { if (!menu.contains(ev.target)) close(); };
+  const esc = ev => { if (ev.key === 'Escape') close(); };
+  const place = () => { const r = btn.getBoundingClientRect(), phone = innerWidth <= 760; Object.assign(menu.style, phone ? { left: '16px', right: '16px', top: (r.bottom + 8) + 'px' } : { right: Math.max(12, innerWidth - r.right) + 'px', top: (r.bottom + 8) + 'px' }); menu.style.maxHeight = Math.max(220, innerHeight - r.bottom - 24) + 'px'; };
+  document.body.appendChild(menu); place(); btn.setAttribute('aria-expanded', 'true');
+  const onScroll = ev => { if (!menu.contains(ev.target)) close(); };
+  addEventListener('scroll', onScroll, true); addEventListener('resize', place);
+  menu._off = () => { removeEventListener('scroll', onScroll, true); removeEventListener('resize', place); };
+  setTimeout(() => { document.addEventListener('click', out); document.addEventListener('keydown', esc); if (search) q.focus(); }, 0);
+}
+const pickBtn = (ic, top, main, on) => h('button', { class: 'uv-pbtn' + (on ? ' on' : ''), type: 'button', 'aria-haspopup': 'listbox', 'aria-expanded': 'false' },
+  h('span', { class: 'uv-pi', html: ico(ic) }), h('span', { class: 'uv-pt' }, h('small', {}, top), h('b', {}, main)), h('span', { class: 'uv-pc', html: ico('down') }));
+// Startseite: Unterlagen als Auswahl oben rechts (statt großer Karten)
 function docPicker(docs, d, onPick) {
   const lab = d ? (d.name.length > 30 ? d.name.slice(0, 29) + '…' : d.name) : L('Unterlage wählen', 'Pick material');
-  const btn = h('button', { class: 'uv-pbtn' + (d ? ' on' : ''), type: 'button', 'aria-haspopup': 'listbox', 'aria-expanded': 'false' },
-    h('span', { class: 'uv-pi', html: ico('file') }), h('span', { class: 'uv-pt' }, h('small', {}, L('Deine Unterlagen', 'Your material') + (docs.length ? ` · ${docs.length}` : '')), h('b', {}, lab)), h('span', { class: 'uv-pc', html: ico('down') }));
+  const btn = pickBtn('file', L('Deine Unterlagen', 'Your material') + (docs.length ? ` · ${docs.length}` : ''), lab, !!d);
   btn.addEventListener('click', e => {
     e.stopPropagation();
-    if (document.querySelector('.uv-menu')) { document.querySelector('.uv-menu').remove(); btn.setAttribute('aria-expanded', 'false'); return; }
-    const q = h('input', { class: 'uv-ms', type: 'search', placeholder: L('Suchen …', 'Search …'), 'aria-label': L('Unterlagen suchen', 'Search material') });
-    const list = h('div', { class: 'uv-ml', role: 'listbox' });
-    const item = x => { const f = fachOf(x.id), on = d && x.id === d.id; return h('button', { class: 'uv-mi' + (on ? ' on' : ''), type: 'button', role: 'option', 'aria-selected': on ? 'true' : 'false', onclick: () => { close(); onPick(x.id); } }, h('span', { class: 'uv-pi', html: ico(x.kind === 'video' ? 'captions' : x.generated ? 'bulb' : 'file') }), h('span', { class: 'uv-mt' }, h('b', {}, x.name), h('small', {}, [f ? (f.kurz || f.name) : null, mastery(x) + ' %'].filter(Boolean).join(' · '))), on ? h('span', { class: 'uv-mck', html: ico('check') }) : null); };
-    const fill = () => { const t = q.value.trim().toLowerCase(); const xs = docs.filter(x => !t || x.name.toLowerCase().includes(t)); list.replaceChildren(...(xs.length ? xs.slice(0, 60).map(item) : [h('small', { class: 'uv-mno' }, L('Nichts gefunden.', 'Nothing found.'))])); };
-    q.addEventListener('input', fill); fill();
-    const menu = h('div', { class: 'uv-menu' },
-      docs.length > 6 ? q : null, list,
-      h('div', { class: 'uv-mf' },
-        d ? h('button', { class: 'linkbtn', type: 'button', onclick: () => { close(); onPick(null); } }, L('Ohne Unterlage', 'No material')) : h('span'),
-        h('label', { class: 'btn sm primary', for: 'fileApp', onclick: () => setTimeout(close, 0) }, h('span', { html: ico('plus') }), L('Neu hochladen', 'Upload new'))));
-    const close = () => { menu._off && menu._off(); menu.remove(); btn.setAttribute('aria-expanded', 'false'); document.removeEventListener('click', out); document.removeEventListener('keydown', esc); };
-    const out = ev => { if (!menu.contains(ev.target)) close(); };
-    const esc = ev => { if (ev.key === 'Escape') close(); };
-    // Als eigene Ebene über der Seite (nicht im Seitenfluss) – sonst schieben sich die Kacheln darüber
-    const place = () => { const r = btn.getBoundingClientRect(), phone = innerWidth <= 760; Object.assign(menu.style, phone ? { left: '16px', right: '16px', top: (r.bottom + 8) + 'px' } : { right: Math.max(12, innerWidth - r.right) + 'px', top: (r.bottom + 8) + 'px' }); menu.style.maxHeight = Math.max(220, innerHeight - r.bottom - 24) + 'px'; };
-    document.body.appendChild(menu); place(); btn.setAttribute('aria-expanded', 'true');
-    const onScroll = ev => { if (!menu.contains(ev.target)) close(); };
-    addEventListener('scroll', onScroll, true); addEventListener('resize', place);
-    menu._off = () => { removeEventListener('scroll', onScroll, true); removeEventListener('resize', place); };
-    setTimeout(() => { document.addEventListener('click', out); document.addEventListener('keydown', esc); if (docs.length > 6) q.focus(); }, 0);
+    popMenu(btn, { search: docs.length > 6, rows: docs.map(x => { const f = fachOf(x.id); return { ic: x.kind === 'video' ? 'captions' : x.generated ? 'bulb' : 'file', t: x.name, sub: [f ? (f.kurz || f.name) : null, mastery(x) + ' %'].filter(Boolean).join(' · '), on: d && x.id === d.id, fn: () => onPick(x.id) }; }),
+      footer: close => [d ? h('button', { class: 'linkbtn', type: 'button', onclick: () => { close(); onPick(null); } }, L('Ohne Unterlage', 'No material')) : h('span'), h('label', { class: 'btn sm primary', for: 'fileApp', onclick: () => setTimeout(close, 0) }, h('span', { html: ico('plus') }), L('Neu hochladen', 'Upload new'))] });
+  });
+  return btn;
+}
+// Startseite: alles, was Max schon gebaut hat – ein Klick führt genau dorthin in der Bibliothek
+const MADE = [['karten', 'cards'], ['quiz', 'quiz'], ['zettel', 'note'], ['podcasts', 'headphones'], ['tafeln', 'board']];
+function madeCount(docs) { let n = 0; for (const d of docs) n += (d.decks || []).filter(x => (x.cards || []).length).length + (d.quizzes || []).length + (d.summary ? 1 : 0) + (d.podcasts || []).length + (d.boards || []).filter(b => b && b.html).length; return n; }
+function madePicker(docs) {
+  const btn = pickBtn('library', L('Bereits erstellt', 'Already made'), L(`${madeCount(docs)} Einträge`, `${madeCount(docs)} items`), false);
+  btn.classList.add('uv-made');
+  btn.addEventListener('click', async e => {
+    e.stopPropagation();
+    const B = await import('./bibliothek.js');
+    const name = Object.fromEntries(B.TYPES.map(([k, n]) => [k, n]));
+    const rows = MADE.flatMap(([k, ic]) => B.items(k, docs).map(it => ({ k, ic, it }))).sort((a, b) => (b.it.at || 0) - (a.it.at || 0))
+      .map(({ k, ic, it }) => ({ ic, t: it.t, sub: [name[k], it.d && it.d.name && !it.loose ? it.d.name : null].filter(Boolean).join(' · '), fn: () => { try { sessionStorage.setItem('tutor.bib.hl', it.t); sessionStorage.setItem('tutor.backTo', 'bibliothek'); } catch (x) {} location.hash = '#/app/bibliothek/' + k; } }));
+    popMenu(btn, { search: rows.length > 6, rows, empty: L('Noch nichts erstellt – wähl unten ein Werkzeug.', 'Nothing made yet – pick a tool below.'),
+      footer: close => [h('span'), h('a', { class: 'btn sm', href: '#/app/bibliothek', onclick: () => close() }, L('Ganze Bibliothek', 'Whole library'), h('span', { html: ico('right') }))] });
   });
   return btn;
 }
@@ -227,7 +245,7 @@ export function render(root, o = {}) {
         .map(([ic, t, tab, sub]) => T(ic, t, sub, L('Erstellen', 'Create'), need(tab, false)))
     ];
     const trimmed = d ? (d.name.length > 46 ? d.name.slice(0, 45) + '…' : d.name) : '';
-    if (home) pickSlot.replaceChildren(docPicker(docs, d, id => { selId = id; draw(); }));
+    if (home) pickSlot.replaceChildren(madePicker(docs), docPicker(docs, d, id => { selId = id; draw(); }));
 
     wrap.replaceChildren(
       hero || h('header', { class: 'ln-head' },

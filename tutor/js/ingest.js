@@ -51,14 +51,19 @@ async function readPdf(file, onProgress) {
   for (let i = 1; i <= doc.numPages; i++) {
     const p = await doc.getPage(i);
     const tc = await p.getTextContent();
-    let out = '', lastY = null;
+    let out = '', lastY = null, lastEnd = null;
     for (const it of tc.items) {
       if (!('str' in it)) continue;
-      const y = it.transform ? it.transform[5] : null;
+      const y = it.transform ? it.transform[5] : null, x = it.transform ? it.transform[4] : null;
+      const fz = it.transform ? (Math.hypot(it.transform[0], it.transform[1]) || it.height || 10) : 10;
       if (lastY != null && y != null && Math.abs(y - lastY) > 2) out += '\n';
-      else if (out && !out.endsWith(' ') && !out.endsWith('\n') && it.str && !it.str.startsWith(' ')) out += ' ';
+      else if (out && !out.endsWith(' ') && !out.endsWith('\n') && it.str && !it.str.startsWith(' ')) {
+        // Schreibschrift-Schriften liefern Wortstücke: nur ein Leerzeichen, wenn wirklich eine Lücke da ist
+        const gap = x != null && lastEnd != null ? x - lastEnd : null;
+        if (gap == null || gap > fz * 0.2) out += ' ';
+      }
       out += it.str;
-      if (it.hasEOL) out += '\n';
+      if (it.hasEOL) { out += '\n'; lastEnd = null; } else lastEnd = x != null ? x + (it.width || 0) : null;
       lastY = y;
     }
     pages.push(out);

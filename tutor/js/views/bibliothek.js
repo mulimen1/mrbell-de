@@ -12,7 +12,7 @@ import { getAccount } from '../api.js';
 
 const KIND = { vorlesung: L('Vorlesung', 'Lecture'), uebung: L('Übung', 'Exercise'), altklausur: L('Altklausur', 'Past exam'), mitschrift: L('Mitschrift', 'Notes'), zusammenfassung: L('Zusammenfassung', 'Summary'), sonstiges: '' };
 // Reihenfolge der Bereiche
-const TYPES = [
+export const TYPES = [
   ['unterlagen', L('Unterlagen', 'Materials'), 'file'],
   ['mitschriften', L('Mitschriften', 'Notes'), 'pen'],
   ['videos', L('Video-Transkripte', 'Video transcripts'), 'video'],
@@ -37,7 +37,7 @@ async function inRoom(fn) {
 }
 
 // Alle Einträge eines Bereichs
-function items(type, docs) {
+export function items(type, docs) {
   const out = [];
   for (const d of docs) {
     if (type === 'karten') (d.decks || []).forEach(x => { if (!(x.cards || []).length) return; const due = dueCards({ ...d, decks: [x] }).length; out.push({ exp: () => E.pick(E.optsDeck([x], d)), d, t: x.title, at: x.created || d.created, meta: [L(`${x.cards.length} Karten`, `${x.cards.length} cards`)], pill: due ? L(`${due} fällig`, `${due} due`) : null, hot: due > 0, href: `#/app/${d.id}/karten${x.chapter != null && d.path?.chapters?.[x.chapter] ? '/k' + x.chapter : ''}`, del: () => { d.decks = d.decks.filter(y => y !== x); } }); });
@@ -186,6 +186,11 @@ export function render(root, { tab: want = '' } = {}) {
 
   history.replaceState(null, '', '#/app/bibliothek' + (filter !== 'alles' ? '/' + filter : ''));
   draw();
+  // Von der Startseite („Bereits erstellt“) gekommen: genau diesen Eintrag zeigen und kurz aufleuchten lassen
+  try {
+    const hl = sessionStorage.getItem('tutor.bib.hl');
+    if (hl) { sessionStorage.removeItem('tutor.bib.hl'); setTimeout(() => { const r = [...wrap.querySelectorAll('.bib-r, .sk-r')].find(x => x.textContent.includes(hl)); if (r) { r.scrollIntoView({ behavior: 'smooth', block: 'center' }); r.classList.add('bib-hl'); setTimeout(() => r.classList.remove('bib-hl'), 2600); } }, 250); }
+  } catch (e) {}
   if (filter === 'alles' && location.hash !== '#/app/bibliothek') history.replaceState(null, '', '#/app/bibliothek');
   // Gleiche Seite, anderer Filter in der Adresse (z. B. Link auf …/bibliothek/tafeln)
   const onHash = () => { const m = location.hash.match(/^#\/app\/bibliothek(?:\/([a-z]+))?$/); if (m && m[1] && m[1] !== filter) { filter = m[1]; ls.set('tutor.bib.tab', filter); draw(); } };
