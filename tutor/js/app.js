@@ -169,7 +169,7 @@ function buildShell() {
     let n = 0;
     try { for (const d of S.list) { n += (d.decks || []).filter(x => (x.cards || []).length).length + (d.quizzes || []).length + (d.summary ? 1 : 0) + (d.podcasts || []).length + (d.boards || []).filter(b => b && b.html).length; } n += looseBoards().filter(b => b && b.html).length; } catch (e) {}
     const was = +(el.dataset.n || 0); el.dataset.n = String(n);
-    el.hidden = !n; el.textContent = L(`${n} erstellt`, `${n} created`);
+    el.hidden = !n; el.textContent = String(n); el.title = L(`${n} erstellt`, `${n} created`);
     if (n > was && was) el.animate([{ transform: 'scale(1.35)', color: 'var(--inv)' }, { transform: 'none' }], { duration: 600, easing: 'cubic-bezier(.3,1.6,.5,1)' });
   };
   onChange(() => setTimeout(libCount, 50)); setTimeout(libCount, 300); addEventListener('storage', libCount); setInterval(libCount, 4000);

@@ -5506,7 +5506,7 @@ html.bm-guest .rm-focus { display: none !important; }
 .asst.stage .ai-btx { display: none; }
 /* Bibliothek: kleiner Zähler „N erstellt“ unter dem Namen */
 .tn-l2 { display: inline-flex; align-items: center; gap: 6px; line-height: inherit; }
-.tn-l2 .tn-cnt { font: 650 11px var(--sans); letter-spacing: .01em; color: var(--mute); padding: 2px 7px; border-radius: 99px; background: var(--panel2); display: inline-block; white-space: nowrap; transform-origin: center; }
+.tn-l2 .tn-cnt { font: 650 11px var(--sans); letter-spacing: .01em; color: var(--mute); padding: 1px 6px; min-width: 18px; text-align: center; border-radius: 99px; background: var(--panel2); display: inline-block; white-space: nowrap; transform-origin: center; }
 .tn-l2 .tn-cnt[hidden] { display: none; }
 .tn.on .tn-l2 .tn-cnt { color: inherit; opacity: .75; }
 /* Start: Unterlagen-Auswahl oben rechts */
@@ -5675,3 +5675,6 @@ html.bm-guest .rm-focus { display: none !important; }
 .fc-stack.more::before, .fc-stack.more::after { content: ''; position: absolute; left: 50%; bottom: -8px; width: calc(100% - 28px); max-width: 640px; height: 100%; transform: translateX(-50%); border-radius: 22px; background: var(--panel); border: 1px solid var(--line); z-index: 0; }
 .fc-stack.more::after { bottom: -16px; width: calc(100% - 56px); max-width: 600px; opacity: .6; z-index: -1; }
 .fc-stack > .fc { position: relative; z-index: 1; }
+
+/* Üben: Inhalt endet über Max (schwebt unten rechts) */
+@media (min-width: 761px) { .app .view-in.ub { padding-bottom: 260px; } }
