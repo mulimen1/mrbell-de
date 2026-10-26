@@ -5815,3 +5815,11 @@ body.bm-tools-mode .dk { display: none !important; }
 @media (max-width: 760px) { .cb-card { left: 12px; right: 12px; width: auto; top: 70px; } }
 .vt-drop .rm-vdp.vt-anim { width: min(460px, 100%); height: auto; margin: 0 auto 12px; }
 .vt-drop .rm-vds { text-align: left; justify-items: start; } .vt-drop .rm-vds i { justify-self: stretch; }
+/* Google-Einstieg links: alles passt über das Schreibfeld – Ablage kompakter */
+.room.rm-tools-mode .rm-tdrop { grid-template-columns: 32px minmax(0, 1fr) auto; gap: 10px; padding: 7px 8px 7px 10px; border-radius: 14px; }
+.room.rm-tools-mode .rm-tdi { width: 32px; height: 32px; border-radius: 10px; } .room.rm-tools-mode .rm-tdi .ico { width: 17px; height: 17px; }
+.room.rm-tools-mode .rm-tdt b { font-size: 13.5px; } .room.rm-tools-mode .rm-tdt small { font-size: 11.5px; }
+.room.rm-tools-mode .rm-tdrop .btn { height: 30px; padding: 0 12px; }
+.room.rm-tools-mode .rm-tbot { gap: 8px; }
+.room.rm-tools-mode .rm-tdb { height: 32px; }
+@media (max-height: 860px) { .room.rm-tools-mode .rm-face { transform: scale(.8); transform-origin: top center; margin-bottom: -20px; } .room.rm-tools-mode .rm-tbub span { display: none; } }
