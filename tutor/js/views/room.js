@@ -114,7 +114,7 @@ export function render(root, ctx = {}) {
     import('./lernen.js').then(m => {
       const docs = S.list.map(x => (S.doc && S.doc.id === x.id ? S.doc : x)).sort((a, b) => Math.max(b.used || 0, b.created || 0) - Math.max(a.used || 0, a.created || 0));
       const d = focusDocs()[0] || null;
-      pickers.replaceChildren(m.madePicker(docs), m.docPicker(docs, d, id => { setFocus(id ? [id] : []); drawFocus(); drawRails(); drawTeaser(); drawSugg(); }));
+      pickers.replaceChildren(m.madePicker(docs));
     }).catch(() => {});
   }
   const drop = h('div', { class: 'rm-drop', hidden: true }, h('div', {}, h('span', { html: ico('file') }), h('b', {}, L('Loslassen – dann arbeiten wir damit.', 'Drop it – and we’ll work with it.'))));
@@ -189,7 +189,7 @@ export function render(root, ctx = {}) {
     // Lage in einem Satz – frisch hochgeladenes Skript zuerst: Max kennt es schon
     const ex = nextExam(), due = S.list.reduce((x, d) => x + dueCards(d).length, 0);
     const fresh1 = S.list.filter(d => !d.sample && Date.now() - (d.created || 0) < 3 * 3600e3).sort((a, b) => b.created - a.created)[0];
-    if (fresh1) {
+    if (fresh1 && !(homeBeta() && !getFocus().includes(fresh1.id))) {   // Beta: Max verbindet nie heimlich – nur was sichtbar verbunden ist
       const nm = fresh1.name.length > 52 ? fresh1.name.slice(0, 51) + '…' : fresh1.name;
       const nc = (fresh1.decks || []).reduce((x, k) => x + (k.cards || []).length, 0);
       if (!getFocus().length) { ls.set('tutor.room.focus', [fresh1.id]); ls.set('tutor.room.focusAt', Date.now()); setTimeout(() => { try { drawFocus(); } catch (e) {} }, 0); }   // Max sagt „hab ich gelesen“ → dann ist es auch verbunden (kein „Kein Skript verbunden“ darunter)
@@ -319,20 +319,39 @@ export function render(root, ctx = {}) {
     const st = d0 ? [[`Erklär mir das Wichtigste aus „${d0.name}“`, `Explain the key points of “${d0.name}”`], [`Frag mich zu „${d0.name}“ ab`, `Quiz me on “${d0.name}”`], pick[0]] : pick;
     const starters = h('div', { class: 'rm-start' }, st.map(([de, en]) => h('button', { class: 'chip rm-stc', type: 'button', onclick: () => ask(L(de, en)) }, L(de, en))));
     if (homeBeta()) {
-      // Alle Erstell-Werkzeuge direkt sichtbar – für das verbundene Skript, sonst fürs zuletzt genutzte bzw. nach dem Hochladen
-      const wd = workDoc();
+      // Werkzeuge arbeiten NUR mit der Unterlage, die oben sichtbar verbunden ist – sonst fragt Max kurz, womit
+      const cur = focusDocs()[0] || null;
+      const docsAll = () => S.list.map(x => (S.doc && S.doc.id === x.id ? S.doc : x)).sort((a, b) => Math.max(b.used || 0, b.created || 0) - Math.max(a.used || 0, a.created || 0));
+      const connect = id => { setFocus(id ? [id] : []); drawFocus(); drawRails(); drawTeaser(); drawSugg(); };
+      const pickFor = (anchor, then) => import('./lernen.js').then(m => m.popMenu(anchor, {
+        search: S.list.length > 6, rows: docsAll().map(x => ({ ic: x.kind === 'video' ? 'captions' : x.generated ? 'bulb' : 'file', t: x.name, sub: (x.pages || []).length ? L(`${x.pages.length} Seiten`, `${x.pages.length} pages`) : '', on: cur && cur.id === x.id, fn: () => { connect(x.id); then && then(x); } })),
+        empty: L('Noch keine Unterlagen – lad etwas hoch.', 'No material yet – upload something.'),
+        footer: close => [h('span', { class: 'uv-mfl' }, L('Woraus soll Max das bauen?', 'What should Max build it from?')), h('label', { class: 'btn sm primary', for: 'fileApp', onclick: () => setTimeout(close, 0) }, h('span', { html: ico('plus') }), L('Neu hochladen', 'Upload new'))] }));
+      const run = (tab, el) => { if (cur) return tool(tab)(); pickFor(el, () => setTimeout(() => tool(tab)(), 60)); };
+      // Leiste: verbunden (groß, deutlich) – oder Ablage zum Reinziehen
+      const thumbOf = d => d.thumb ? h('img', { src: d.thumb, alt: '' }) : h('span', { html: ico(d.kind === 'video' ? 'captions' : d.generated ? 'bulb' : 'file') });
+      const mat = cur
+        ? h('div', { class: 'rm-mat on' },
+          h('span', { class: 'rm-mi' }, thumbOf(cur)),
+          h('span', { class: 'rm-mt' }, h('small', {}, L('Max arbeitet gerade mit', 'Max is working with')), h('b', {}, cur.name), h('small', { class: 'rm-mm' }, [(cur.pages || []).length ? L(`${cur.pages.length} Seiten`, `${cur.pages.length} pages`) : null, L('Werkzeuge unten bauen daraus', 'The tools below build from it')].filter(Boolean).join(' · '))),
+          h('button', { class: 'btn sm', type: 'button', onclick: e => { e.stopPropagation(); pickFor(e.currentTarget); } }, L('Wechseln', 'Switch'), h('span', { html: ico('down') })),
+          h('button', { class: 'iconbtn rm-mx', type: 'button', title: L('Trennen', 'Disconnect'), 'aria-label': L('Trennen', 'Disconnect'), html: ico('x'), onclick: () => connect(null) }))
+        : h('div', { class: 'rm-mat empty' },
+          h('span', { class: 'rm-mi', html: ico('upload') }),
+          h('span', { class: 'rm-mt' }, h('b', {}, L('Alles, was du lernst, einfach hier reinziehen', 'Drop anything you study right here')), h('small', {}, L('Skript, Folien, Mitschrift, Altklausur, Buch, Screenshot oder Video – oder eine vorhandene Unterlage wählen.', 'Slides, notes, past exams, books, screenshots or video – or pick existing material.'))),
+          h('label', { class: 'btn sm primary', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Datei wählen', 'Choose file')),
+          S.list.length ? h('button', { class: 'btn sm', type: 'button', onclick: e => { e.stopPropagation(); pickFor(e.currentTarget); } }, L('Vorhandene', 'Existing'), h('span', { html: ico('down') })) : null);
       const T2 = [
-        ['board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Beispiel', 'Step by step, with an example'), SK[0][3]],
-        ['note', L('Lernzettel', 'Study sheet'), L('Alles auf einer Seite', 'All on one page'), tool('zettel')],
-        ['cards', L('Karteikarten', 'Flashcards'), L('Wiederholen, bis es sitzt', 'Review until it sticks'), tool('karten')],
-        ['quiz', 'Quiz', L('Klausurfragen mit Erklärung', 'Exam questions, explained'), tool('quiz')],
-        ['headphones', 'Podcast', L('Marie & Max zum Anhören', 'Marie & Max to listen to'), tool('podcast')],
-        ['path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter'), tool('pfad')],
-        ['calendar', L('Klausurplan', 'Exam plan'), L('Tag für Tag zur Klausur', 'Day by day to the exam'), tool('plan')],
-        ['upload', L('Hochladen', 'Upload'), L('Skript, Foto, Video …', 'Slides, photo, video …'), () => document.getElementById('fileApp')?.click()]];
-      const head = h('div', { class: 'rm-tlh' }, h('span', {}, wd ? L('Max baut dir aus ', 'Max builds from ') : L('Max baut dir', 'Max builds you')), wd ? h('b', {}, `„${wd.name.length > 40 ? wd.name.slice(0, 39) + '…' : wd.name}“`) : null);
-      const grid = h('div', { class: 'rm-tl' }, T2.map(([ic, t, sub, fn], i) => h('button', { class: 'rm-tlt' + (i === 0 ? ' main' : i === T2.length - 1 ? ' up' : ''), type: 'button', onclick: fn, style: { '--i': String(i) } }, h('span', { class: 'rm-tli', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))));
-      skills.replaceChildren(starters, h('div', { class: 'rm-tools2' }, head, grid));
+        ['board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Beispiel', 'Step by step, with an example'), () => SK[0][3]()],
+        ['note', L('Lernzettel', 'Study sheet'), L('Alles auf einer Seite', 'All on one page'), 'zettel'],
+        ['cards', L('Karteikarten', 'Flashcards'), L('Wiederholen, bis es sitzt', 'Review until it sticks'), 'karten'],
+        ['quiz', 'Quiz', L('Klausurfragen mit Erklärung', 'Exam questions, explained'), 'quiz'],
+        ['headphones', 'Podcast', L('Marie & Max zum Anhören', 'Marie & Max to listen to'), 'podcast'],
+        ['path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter'), 'pfad'],
+        ['calendar', L('Klausurplan', 'Exam plan'), L('Tag für Tag zur Klausur', 'Day by day to the exam'), 'plan'],
+        ['spark', L('Ich erklär dir ein Thema', 'Explain a topic'), L('Ohne Skript – nur das Thema', 'No slides – just the topic'), () => import('../app.js').then(m => m.topicPrompt())]];
+      const grid = h('div', { class: 'rm-tl' }, T2.map(([ic, t, sub, act], i) => h('button', { class: 'rm-tlt' + (i === 0 ? ' main' : ''), type: 'button', style: { '--i': String(i) }, onclick: e => (typeof act === 'string' ? run(act, e.currentTarget) : act()) }, h('span', { class: 'rm-tli', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))));
+      skills.replaceChildren(starters, h('div', { class: 'rm-tools2' }, mat, grid));
       drawPickers();
     } else { skills.replaceChildren(starters, tog, body); set(isOpen); }
     askSlot.replaceChildren();

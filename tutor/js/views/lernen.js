@@ -94,7 +94,7 @@ function explainDoc(d) {
 }
 // Startseite: Unterlagen als Auswahl oben rechts (statt großer Karten)
 // Auswahl-Menü als eigene Ebene über der Seite (für „Deine Unterlagen“ und „Bereits erstellt“)
-function popMenu(btn, { search = false, rows, empty, footer }) {
+export function popMenu(btn, { search = false, rows, empty, footer }) {
   if (document.querySelector('.uv-menu')) { document.querySelector('.uv-menu').remove(); return; }
   const q = h('input', { class: 'uv-ms', type: 'search', placeholder: L('Suchen …', 'Search …'), 'aria-label': L('Suchen', 'Search') });
   const list = h('div', { class: 'uv-ml', role: 'listbox' });
@@ -154,7 +154,11 @@ const kb = n => n > 1048576 ? (n / 1048576).toFixed(1).replace('.', ',') + ' MB'
 // Hochgeladene Datei zeigen + „Lass uns damit lernen“ + was Max daraus machen soll (Start und Tutor)
 export function stagedPanel(files, { onClose, chat = false } = {}) {
   files = [...(files || [])].filter(Boolean); if (!files.length) return null;
-  const thumbs = files.slice(0, 4).map(f => /^image\//.test(f.type) ? h('span', { class: 'uv-sf img' }, h('img', { src: URL.createObjectURL(f), alt: '' })) : h('span', { class: 'uv-sf' }, h('span', { class: 'uv-sfi', html: ico(/video|audio/.test(f.type) ? 'play' : 'file') }), h('span', { class: 'uv-sft' }, h('b', {}, f.name), h('small', {}, kb(f.size)))));
+  // Jede Datei klar sichtbar: Vorschau (Bild) bzw. Typ-Symbol, Name, Art und Größe
+  const kind = f => /^image\//.test(f.type) ? L('Bild / Screenshot', 'Image / screenshot') : /pdf/i.test(f.type) || /\.pdf$/i.test(f.name) ? 'PDF' : /video/.test(f.type) ? 'Video' : /audio/.test(f.type) ? 'Audio' : /presentation|\.pptx?$/i.test(f.type + f.name) ? 'PowerPoint' : /word|\.docx?$/i.test(f.type + f.name) ? 'Word' : (f.name.split('.').pop() || '').toUpperCase();
+  const thumbs = files.slice(0, 4).map(f => h('span', { class: 'uv-sf' },
+    /^image\//.test(f.type) ? h('span', { class: 'uv-sfi img' }, h('img', { src: URL.createObjectURL(f), alt: '' })) : h('span', { class: 'uv-sfi', html: ico(/video|audio/.test(f.type) ? 'play' : 'file') }),
+    h('span', { class: 'uv-sft' }, h('b', {}, f.name), h('small', {}, kind(f) + ' · ' + kb(f.size)))));
   const go = key => { if (chat) ls.set('tutor.attach.room', 1); ls.set('tutor.target', key); import('../app.js').then(m => m.startUpload(files)); };
   return h('div', { class: 'uv-staged' },
     h('div', { class: 'uv-sh' }, h('span', { class: 'uv-ok', html: ico('check') }), h('div', {}, h('b', {}, L('Lass uns damit lernen.', 'Let’s study with it.')), h('small', {}, L('Wähl aus, was Max daraus machen soll – er liest die Datei und legt sofort los.', 'Pick what Max should make – he reads the file and starts right away.'))),
