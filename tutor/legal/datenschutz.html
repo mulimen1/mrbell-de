@@ -9,7 +9,7 @@
 <link rel="icon" href="/tutor/img/bm-fav.ico?v=10" sizes="48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="/tutor/img/bm-fav-96.png?v=10">
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tutor/css/legal.css?v=3">
+<link rel="stylesheet" href="/tutor/css/legal.css?v=4">
 <script>try{var t=sessionStorage.getItem('tutor.theme');if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}var c='navy';try{var v=localStorage.getItem('tutor.accent');if(v!=null)c=v}catch(e){}if(c&&c!=='std'&&/^[a-z]{3,12}$/.test(c))document.documentElement.dataset.accent=c;</script>
 </head>
 <body>
@@ -31,6 +31,34 @@
     <div><span class="i">4</span><p><b>Keine Werbung in der App, keine Werbe-Tracker ohne deine Einwilligung.</b> Personenbezogen mitgezählt wird nur, wenn du es im Cookie-Banner erlaubst – und auch dann nie, was du schreibst. Google-Dienste werden nur geladen, wenn du einwilligst oder dich selbst mit Google anmeldest.</p></div>
   </div>
 
+
+  <section class="lg-flow" id="ablauf" aria-label="So läuft eine Frage an Max">
+    <h2>So läuft eine Frage an Max</h2>
+    <p>Am Beispiel: Du lädst dein Skript hoch und fragst Max etwas dazu. Jeder Schritt, wo deine Daten sind und was davon bleibt.</p>
+    <ol class="lg-steps">
+      <li><span class="n">1</span><b>Dein Gerät</b><small>Dein Skript wird direkt in deinem Browser gelesen und bleibt dort. Die Datei wird nicht hochgeladen.</small></li>
+      <li><span class="n">2</span><b>Nur der Ausschnitt</b><small>Dein Browser schickt deine Frage und die passenden Stellen aus dem Skript, nie die ganze Datei.</small></li>
+      <li><span class="n">3</span><b>Unser Server</b><small>OVH, Rechenzentrum in Frankreich (EU). Er reicht die Anfrage weiter und speichert weder Frage noch Antwort.</small></li>
+      <li><span class="n">4</span><b>Die KI</b><small>Claude von Anthropic erstellt die Antwort. Daten aus der API werden nicht zum Training genutzt.</small></li>
+      <li><span class="n">5</span><b>Zurück zu dir</b><small>Die Antwort landet in deinem Browser. Der Verlauf liegt nur bei dir und lässt sich jederzeit löschen.</small></li>
+    </ol>
+  </section>
+
+  <section class="lg-where" id="wo" aria-label="Was wo liegt">
+    <h2>Was wo liegt</h2>
+    <div class="lg-cols">
+      <div class="lg-col"><h3>Nur auf deinem Gerät</h3><ul>
+        <li>Hochgeladene Dokumente und Skripte</li><li>Lernstand, Quizze, Karteikarten, Lernzettel</li><li>Verlauf mit Max</li><li>Video-Transkripte</li><li>Einstellungen</li></ul>
+        <p class="f">Löschen: in der App unter „Daten &amp; Sicherung“ oder über die Websitedaten deines Browsers.</p></div>
+      <div class="lg-col"><h3>Bei uns, Server in Frankreich</h3><ul>
+        <li>Konto: E-Mail und Passwort nur als Hash, wenn du eins anlegst</li><li>Zähler fürs Tageslimit, jede Nacht gelöscht</li><li>„Mein Bereich“, nur wenn du „Auf allen Geräten“ einschaltest</li><li>Analyse, nur mit Einwilligung, nach 30 Tagen gelöscht</li></ul>
+        <p class="f">Löschen: Konto in der App löschen oder Mail an kontakt@bwlmax.de.</p></div>
+      <div class="lg-col lg-col-no"><h3>Speichern wir nie</h3><ul>
+        <li>Deine Fragen und Chats</li><li>Ausschnitte aus deinen Skripten</li><li>Sprachaufnahmen</li><li>Zahlungsdaten (die gibst du direkt bei Stripe ein)</li><li>Abgelehnte Anfragen</li></ul>
+        <p class="f">Kein Verkauf von Daten, keine Werbung in der App, kein Profil über dich.</p></div>
+    </div>
+  </section>
+
   <ol class="lg-toc">
     <li><a href="#verantwortlich">Verantwortlicher</a></li>
     <li><a href="#hosting">Aufruf der Website</a></li>
@@ -41,9 +69,11 @@
     <li><a href="#konto">Konto (freiwillig)</a></li>
     <li><a href="#analyse">Analyse &amp; Cookie-Banner</a></li>
     <li><a href="#drittland">Übermittlung in die USA</a></li>
+    <li><a href="#dienste">Dienstleister im Überblick</a></li>
     <li><a href="#dauer">Speicherdauer im Überblick</a></li>
     <li><a href="#rechte">Deine Rechte</a></li>
     <li><a href="#sonst">Sonstiges</a></li>
+    <li><a href="#fragen">Häufige Fragen</a></li>
   </ol>
 
   <section id="verantwortlich">
@@ -139,6 +169,23 @@
     <p>Vercel, Anthropic, ElevenLabs, Resend und Postmark sitzen in den USA; Google (nur bei Einwilligung in die Anzeigenmessung, Punkt 8, oder wenn du dich mit Google anmeldest, Punkt 7) und Stripe (Punkt 7 a) verarbeiten Daten teils ebenfalls dort. An Supadata werden keine personenbezogenen Daten übermittelt (Punkt 4). Die Übermittlung stützt sich auf den Angemessenheitsbeschluss der EU-Kommission zum EU-US Data Privacy Framework, soweit der Anbieter dort zertifiziert ist, und zusätzlich auf die EU-Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO), die Bestandteil der Auftragsverarbeitungsverträge mit diesen Anbietern sind.</p>
   </section>
 
+
+  <section id="dienste">
+    <h2>Dienstleister im Überblick</h2>
+    <p>Alle Dienste, die bei BWL Max Daten verarbeiten können, auf einen Blick. Die Einzelheiten stehen in den Punkten oben.</p>
+    <div class="lg-tw"><table>
+      <tr><th>Dienst</th><th>Wofür</th><th>Sitz</th><th>Wann</th></tr>
+      <tr><td>Vercel</td><td>Auslieferung der Website</td><td>USA</td><td>Bei jedem Aufruf</td></tr>
+      <tr><td>OVH</td><td>Unser Server (n8n)</td><td>Frankreich (EU)</td><td>Bei Anfragen an Max, Konto, Tageslimit</td></tr>
+      <tr><td>Anthropic (Claude)</td><td>KI-Antworten</td><td>USA</td><td>Wenn du Max fragst oder etwas erstellen lässt</td></tr>
+      <tr><td>ElevenLabs</td><td>Sprechen, Vorlesen, Tonspur abschreiben</td><td>USA</td><td>Nur wenn du sprichst, vorlesen lässt oder Audio/Video abschreibst</td></tr>
+      <tr><td>Supadata</td><td>Video-Transkripte aus Links</td><td>evtl. außerhalb der EU</td><td>Nur ohne Untertitel; erhält keine Daten über dich</td></tr>
+      <tr><td>Resend / Postmark</td><td>Code-Mails zum Konto</td><td>USA (Versand bei Resend über Irland)</td><td>Bei Anmeldung und Passwort-Zurücksetzen</td></tr>
+      <tr><td>Google</td><td>Anmeldung mit Google, Anzeigenmessung</td><td>Irland</td><td>Nur bei Google-Anmeldung oder mit Einwilligung</td></tr>
+      <tr><td>Stripe</td><td>Zahlung Inner Circle</td><td>Irland</td><td>Nur wenn du den Inner Circle abschließt</td></tr>
+    </table></div>
+  </section>
+
   <section id="dauer">
     <h2>10. Speicherdauer im Überblick</h2>
     <table>
@@ -171,6 +218,16 @@
     <h2>12. Sonstiges</h2>
     <p>Schriftarten und Bilder – auch die Logos von YouTube, TikTok und Instagram – liegen auf unserem eigenen Webspace. Es werden keine Google Fonts, Social-Media-Plugins, eingebetteten Videos oder Werbenetzwerke eingebunden; Links zu YouTube, TikTok oder Instagram öffnen die Plattform erst, wenn du sie anklickst – dann gilt deren Datenschutzerklärung. Eine automatisierte Entscheidungsfindung im Sinne von Art. 22 DSGVO findet nicht statt. Es gibt keine Pflicht, Daten bereitzustellen; ohne die jeweils nötigen Daten funktionieren nur die betreffenden Funktionen nicht.</p>
     <p>Wenn sich BWL Max ändert, passen wir diese Erklärung an. Es gilt immer die hier veröffentlichte Fassung.</p>
+  </section>
+
+  <section id="fragen" class="lg-faq">
+    <h2>Häufige Fragen</h2>
+    <details><summary>Sieht jemand meine hochgeladenen Dokumente?</summary><p>Nein. Dateien mit Text (PDF, PowerPoint, Word, Text) werden in deinem Browser gelesen und nicht auf unseren Server hochgeladen. Für eine Antwort gehen nur die passenden Ausschnitte an die KI, gespeichert wird davon bei uns nichts. Ausnahme: Fotos, Scans und Zeichnungen schickt dein Browser zum Lesen an die KI (Punkt 4).</p></details>
+    <details><summary>Werden meine Unterlagen zum KI-Training genutzt?</summary><p>Nein. Wir nutzen Claude über die Schnittstelle von Anthropic, und Anthropic nutzt Daten aus dieser Schnittstelle nicht zum Training seiner Modelle.</p></details>
+    <details><summary>Kann ich BWL Max ohne Konto nutzen?</summary><p>Ja. Ein Konto ist freiwillig. Ohne Konto liegt alles nur in deinem Browser, und unser Server kennt nur eine zufällige Gerätekennung für das Tageslimit.</p></details>
+    <details><summary>Wo steht euer Server?</summary><p>Unser eigener Server läuft bei OVH in einem Rechenzentrum in Frankreich, also in der EU. Welche Dienste zusätzlich beteiligt sind, steht in der Übersicht „Dienstleister im Überblick“.</p></details>
+    <details><summary>Wie lösche ich alles?</summary><p>Daten auf deinem Gerät löschst du in der App unter „Daten &amp; Sicherung“ oder über die Websitedaten deines Browsers. Dein Konto kannst du in der App selbst löschen, oder du schreibst an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a>, dann löschen wir es vollständig.</p></details>
+    <details><summary>Ich habe eine Frage zum Datenschutz. Wen frage ich?</summary><p>Schreib an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a>. Das gilt auch für Hochschulen und Lehrende, die BWL Max ihren Studierenden empfehlen möchten und vorher Fragen haben.</p></details>
   </section>
 </main>
 <footer>
