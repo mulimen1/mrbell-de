@@ -6,6 +6,7 @@ const FIN = ['NPV', 'IRR', 'MIRR', 'PMT', 'IPMT', 'PPMT', 'SLN', 'DDB', 'DB', 'S
 const functions = {};
 const FE = FormulaParser.FormulaError;
 for (const n of FIN) if (typeof F[n] === 'function') functions[n] = (...args) => { const r = F[n](...args.map(a => (a && typeof a === 'object' && 'value' in a) ? a.value : a)); if (r instanceof Error) throw (FE.VALUE || new FE('#VALUE!')); return r; };
+// IRR wird im Bundle (xlcalc@2.mjs) durch eine robuste Variante ersetzt: alle Lösungen −99,9999 % … 10.000 %, keine -> #ZAHL!, kein Endlos-Newton.
 export const SUPPORTED = new Set(['SUM', 'IF', 'IFERROR', 'AND', 'OR', 'NOT', 'ROUND', 'ABS', 'INDEX', 'SUMPRODUCT', 'COUNTIF', 'CONCATENATE', ...Object.keys(functions)]);
 export const colL = c => { let s = ''; while (c > 0) { const m = (c - 1) % 26; s = String.fromCharCode(65 + m) + s; c = Math.floor((c - 1) / 26); } return s; };
 export const colN = s => { let c = 0; for (const ch of s) c = c * 26 + ch.charCodeAt(0) - 64; return c; };

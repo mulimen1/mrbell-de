@@ -51,7 +51,7 @@ export default [
       range(6, 20).forEach((r, k) => { const d = D[k];
         if (d) b.inp('A' + r, d[0], 'txt').inp('B' + r, d[1], 'num', { min: 0 }).inp('C' + r, d[2], 'eur', { min: 0 });
         else b.inp('A' + r, null, 'txt').inp('B' + r, null, 'num').inp('C' + r, null, 'eur');
-        b.fx('D' + r, `IF(OR(COUNTA(A${r})=0,COUNT(B${r}:C${r})<2),"",ROUND(B${r}*C${r},2))`, 'eur')
+        b.fx('D' + r, `IF(OR(COUNTA(A${r})=0,COUNT(B${r}:C${r})<2),"",ROUND(ROUND(B${r}*C${r}*100,6),0)/100)`, 'eur')
           .fx('E' + r, `IF(D${r}="","",COUNTIF($F$6:$F$20,">"&F${r})+COUNTIF($F$6:F${r},F${r}))`, 'int')
           .fx('F' + r, `IF(D${r}="",-1,D${r})`, 'num'); });
       b.lab('A21', 'Summe').tot('D21', 'SUM(D6:D20)', 'eur');
@@ -63,18 +63,18 @@ export default [
       b.th(27, ['Rang', 'Artikel', 'Menge', 'Verbrauchswert', 'Wertanteil', 'Wertanteil kumuliert', 'Mengenanteil', 'Klasse']);
       range(1, 15).forEach(k => { const r = 27 + k, e = `A${r}=""`, m = `MATCH(A${r},$E$6:$E$20,0)`;
         b.fx('A' + r, `IF(${k}<=$B$25,${k},"")`, 'int').fx('B' + r, `IF(${e},"",INDEX($A$6:$A$20,${m}))`, 'txt').fx('C' + r, `IF(${e},"",INDEX($B$6:$B$20,${m}))`, 'num')
-          .fx('D' + r, `IF(${e},"",LARGE($D$6:$D$20,${k}))`, 'eur').fx('E' + r, `IF(${e},"",IF($D$21=0,0,D${r}/$D$21))`, 'pct')
-          .fx('F' + r, `IF(${e},"",IF($D$21=0,0,SUM($D$28:D${r})/$D$21))`, 'pct').fx('G' + r, `IF(${e},"",IF($C$43=0,0,C${r}/$C$43))`, 'pct')
-          .fx('H' + r, `IF(${e},"",IF(OR(A${r}=1,ROUND(F${r},8)<=ROUND($B$23,8)),"A",IF(ROUND(F${r},8)<=ROUND($B$24,8),"B","C")))`, 'txt'); });
-      b.lab('A43', 'Summe').tot('C43', 'SUM(C28:C42)', 'num').tot('D43', 'SUM(D28:D42)', 'eur').tot('E43', 'SUM(E28:E42)', 'pct').tot('G43', 'SUM(G28:G42)', 'pct');
+          .fx('D' + r, `IF(${e},"",LARGE($D$6:$D$20,${k}))`, 'eur').fx('E' + r, `IF(${e},"",IF($D$21=0,"–",D${r}/$D$21))`, 'pct')
+          .fx('F' + r, `IF(${e},"",IF($D$21=0,"–",SUM($D$28:D${r})/$D$21))`, 'pct').fx('G' + r, `IF(${e},"",IF($C$43=0,"–",C${r}/$C$43))`, 'pct')
+          .fx('H' + r, `IF(${e},"",IF($D$21=0,"–",IF(OR(A${r}=1,ROUND(F${r},8)<=ROUND($B$23,8)),"A",IF(ROUND(F${r},8)<=ROUND($B$24,8),"B","C"))))`, 'txt'); });
+      b.lab('A43', 'Summe').tot('C43', 'SUM(C28:C42)', 'num').tot('D43', 'SUM(D28:D42)', 'eur').tot('E43', 'IF($D$21=0,"–",SUM(E28:E42))', 'pct').tot('G43', 'IF($C$43=0,"–",SUM(G28:G42))', 'pct');
       b.sec(44, '4. Ergebnis je Klasse');
       b.th(45, ['Klasse', 'Anzahl Artikel', 'Anteil an Artikeln', 'Verbrauchswert', 'Wertanteil', 'Mengenanteil']);
       ['A', 'B', 'C'].forEach((K, j) => { const r = 46 + j, S = j === 0 ? 'res' : 'fx';
-        b.txt('A' + r, K + '-Güter').fx('B' + r, `COUNTIF($H$28:$H$42,"${K}")`, 'int').fx('C' + r, `IF($B$25=0,0,B${r}/$B$25)`, 'pct')
-          .fx('D' + r, `SUMIFS($D$28:$D$42,$H$28:$H$42,"${K}")`, 'eur')[S]('E' + r, `IF($D$21=0,0,D${r}/$D$21)`, 'pct')[S]('F' + r, `IF($C$43=0,0,SUMIFS($C$28:$C$42,$H$28:$H$42,"${K}")/$C$43)`, 'pct'); });
+        b.txt('A' + r, K + '-Güter').fx('B' + r, `IF($D$21=0,"–",COUNTIF($H$28:$H$42,"${K}"))`, 'int').fx('C' + r, `IF($D$21=0,"–",B${r}/$B$25)`, 'pct')
+          .fx('D' + r, `IF($D$21=0,"–",SUMIFS($D$28:$D$42,$H$28:$H$42,"${K}"))`, 'eur')[S]('E' + r, `IF($D$21=0,"–",D${r}/$D$21)`, 'pct')[S]('F' + r, `IF($D$21=0,"–",SUMIFS($C$28:$C$42,$H$28:$H$42,"${K}")/$C$43)`, 'pct'); });
       b.cells.B46.s = 'res';
-      b.lab('A49', 'Gesamt').tot('B49', 'SUM(B46:B48)', 'int').tot('C49', 'SUM(C46:C48)', 'pct').tot('D49', 'SUM(D46:D48)', 'eur').tot('E49', 'SUM(E46:E48)', 'pct').tot('F49', 'SUM(F46:F48)', 'pct');
-      b.note('A51', 'Einteilung: Ein Artikel ist A-Gut, solange der kumulierte Wertanteil die A-Grenze nicht überschreitet (der wertvollste Artikel ist immer A), danach B bis zur B-Grenze, der Rest C. Gleiche Verbrauchswerte behalten die Reihenfolge der Eingabe.');
+      b.lab('A49', 'Gesamt').tot('B49', 'B25', 'int').tot('C49', 'IF(B25=0,"–",B49/B25)', 'pct').tot('D49', 'D21', 'eur').tot('E49', 'IF($D$21=0,"–",D49/$D$21)', 'pct').tot('F49', 'IF($C$43=0,"–",C43/$C$43)', 'pct');
+      b.note('A51', 'Einteilung: Ein Artikel ist A-Gut, solange der kumulierte Wertanteil die A-Grenze nicht überschreitet (der wertvollste Artikel ist immer A), danach B bis zur B-Grenze, der Rest C. Gleiche Verbrauchswerte behalten die Reihenfolge der Eingabe. Ist der Gesamtverbrauchswert 0, sind Wertanteile und Klassen nicht bestimmbar („–“).');
       return { name: 'ABC-Analyse', cols: [24, 22, 14, 17, 13, 17, 15, 10], cells: b.cells, merges: b.merges,
         explain: { D6: 'Verbrauchswert = Jahresverbrauch × Preis je Einheit (auf Cent gerundet).', E6: 'Rang = Anzahl größerer Verbrauchswerte + 1; bei Gleichstand zählt die Reihenfolge der Eingabe (zweites ZÄHLENWENN).', D28: 'KGRÖSSTE holt den k-größten Verbrauchswert, INDEX/VERGLEICH den Artikel mit Rang k – so wird ohne SORTIEREN absteigend sortiert.', H28: 'Klasse nach kumuliertem Wertanteil und den Grenzen aus Abschnitt 2.' } };
     }
@@ -96,8 +96,8 @@ export default [
       b.sec(25, 'Ergebnis');
       b.lab('A26', 'Ø Lagerbestand (AB + 12 Monatsendbestände) / 13').res('B26', 'SUM(B11:B23)/13', 'eur');
       b.lab('A27', 'Ø Lagerbestand vereinfacht (AB + EB) / 2').fx('B27', '(B11+B23)/2', 'eur');
-      b.lab('A28', 'Umschlagshäufigkeit').res('B28', 'IF(OR(B26=0,B5=0),"–",B5/B26)', 'x2').txt('C28', 'Wareneinsatz / Ø Lagerbestand');
-      b.lab('A29', 'Ø Lagerdauer (Tage)').res('B29', 'IF(B28="–","–",B7/B28)', 'num').txt('C29', 'Tage pro Jahr / Umschlagshäufigkeit');
+      b.lab('A28', 'Umschlagshäufigkeit').res('B28', 'IF(B26=0,"–",B5/B26)', 'x2').txt('C28', 'Wareneinsatz / Ø Lagerbestand');
+      b.lab('A29', 'Ø Lagerdauer (Tage)').res('B29', 'IFERROR(B7/B28,"–")', 'num').txt('C29', 'Tage pro Jahr / Umschlagshäufigkeit');
       b.lab('A30', 'Lagerzinssatz').fx('B30', 'IF(B29="–","–",B6*B29/B7)', 'pct').txt('C30', 'Marktzins × Ø Lagerdauer / Tage pro Jahr');
       b.lab('A31', 'Lagerzinsen').res('B31', 'IF(B30="–","–",B26*B30)', 'eur').txt('C31', 'Ø Lagerbestand × Lagerzinssatz');
       [28, 29, 30, 31].forEach(r => b.merge(`C${r}:D${r}`));
@@ -282,9 +282,9 @@ export default [
         b.fx('A' + r, `IF(${k}<=$B$28,${k},"")`, 'int').fx('B' + r, `IF(${e},"",$B$26^(A${r}-1))`, 'pct').fx('C' + r, `IF(${e},"",$B$25*B${r})`, 'eur')
           .fx('D' + r, `IF(${e},"",1/(1+$B$27)^A${r})`, 'f4').fx('E' + r, `IF(${e},"",C${r}*D${r})`, 'eur'); });
       b.lab('A41', 'CLV brutto (Summe der Barwerte)').fx('B41', 'SUM(E31:E40)', 'eur');
-      b.lab('A42', '− Akquisitionskosten je Kunde (CAC)').fx('B42', 'IF(B21="–",0,B21)', 'eur');
-      b.lab('A43', 'Customer Lifetime Value (netto)').res('B43', 'B41-B42', 'eur');
-      b.lab('A44', 'Verhältnis CLV brutto / CAC').fx('B44', 'IF(B42=0,"–",B41/B42)', 'x2');
+      b.lab('A42', '− Akquisitionskosten je Kunde (CAC)').fx('B42', 'B21', 'eur');
+      b.lab('A43', 'Customer Lifetime Value (netto)').res('B43', 'IFERROR(B41-B42,"–")', 'eur');
+      b.lab('A44', 'Verhältnis CLV brutto / CAC').fx('B44', 'IFERROR(B41/B42,"–")', 'x2');
       b.note('A46', 'Im ersten Jahr ist der Neukunde sicher Kunde; danach bleibt er jedes Jahr mit der Bindungsrate. Der DB fällt jeweils am Jahresende an: Barwert = DB · r^(t−1) / (1 + i)^t.');
       return { name: 'Marketing-KPIs', cols: [50, 18, 17, 17, 17, 14], cells: b.cells, merges: b.merges,
         explain: { B11: 'Marktanteil = eigener Umsatz / Marktvolumen.', B12: 'Relativer Marktanteil = eigener Marktanteil / Marktanteil des stärksten Konkurrenten (über 1 = Marktführer).', B43: 'CLV = Σ DB · r^(t−1) / (1 + i)^t − Akquisitionskosten: abgezinster Wert aller künftigen Deckungsbeiträge eines Kunden.' } };
@@ -438,9 +438,9 @@ export default [
       b.sec(21, '3. Break-even je Produkt (bei gleichem Sortimentsmix)');
       b.th(22, ['Produkt', 'Umsatzanteil', 'Break-even-Umsatz', 'Break-even-Menge', 'Planmenge']);
       range(8, 12).forEach((s, k) => { const r = 23 + k, e = `E${s}=""`;
-        b.fx('A' + r, `IF(${e},"",A${s})`, 'txt').fx('B' + r, `IF(${e},"",IF($E$13=0,0,E${s}/$E$13))`, 'pct').fx('C' + r, `IF(OR(${e},NOT(${ok})),"",$B$17*B${r})`, 'eur')
-          .fx('D' + r, `IF(C${r}="","",IF(B${s}=0,"–",C${r}/B${s}))`, 'num').fx('E' + r, `IF(${e},"",D${s})`, 'num'); });
-      b.lab('A28', 'Summe').tot('B28', 'SUM(B23:B27)', 'pct').tot('C28', 'SUM(C23:C27)', 'eur');
+        b.fx('A' + r, `IF(${e},"",A${s})`, 'txt').fx('B' + r, `IF(${e},"",IF($E$13=0,"–",E${s}/$E$13))`, 'pct').fx('C' + r, `IF(${e},"",IF(${ok},$B$17*B${r},"–"))`, 'eur')
+          .fx('D' + r, `IF(${e},"",IFERROR(C${r}/B${s},"–"))`, 'num').fx('E' + r, `IF(${e},"",D${s})`, 'num'); });
+      b.lab('A28', 'Summe').tot('B28', 'IF(E13=0,"–",SUM(B23:B27))', 'pct').tot('C28', `IF(${ok},SUM(C23:C27),"–")`, 'eur');
       b.note('A30', 'Der Break-even-Umsatz gilt nur, solange der Sortimentsmix (Umsatzanteile) wie geplant bleibt. Break-even-Menge je Produkt = Break-even-Umsatz × Umsatzanteil / Preis.');
       return { name: 'Break-even Mehrprodukt', cols: [34, 16, 19, 18, 16, 17, 12], cells: b.cells, merges: b.merges,
         explain: { G13: 'Ø DB-Quote = Summe der Deckungsbeiträge / Summe der Umsatzerlöse (gewichtet mit dem Sortimentsmix).', B17: 'Break-even-Umsatz = Fixkosten / Ø DB-Quote.', C23: 'Anteil des Produkts am Break-even-Umsatz entsprechend seinem Umsatzanteil im Plan.' } };

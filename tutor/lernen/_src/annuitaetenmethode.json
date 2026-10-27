@@ -45,7 +45,7 @@
     }
   ],
   "fehler": [
-    "Der KWF wird mit dem Rentenbarwertfaktor verwechselt. Der KWF ist immer kleiner als 1 (bei \\(n \\gt 1\\)), der RBF größer als 1. Wer den Kapitalwert mit dem RBF multipliziert, erhält einen viel zu hohen Wert.",
+    "Der KWF wird mit dem Rentenbarwertfaktor verwechselt. Beide sind Kehrwerte voneinander: \\(\\text{KWF} = \\frac{1}{\\text{RBF}}\\). Bei üblichen Zinssätzen (für \\(n \\geq 2\\) unter rund 60 %) ist der KWF kleiner als 1 und der RBF größer als 1 – wer den Kapitalwert mit dem RBF multipliziert, erhält dann einen viel zu hohen Wert.",
     "Für alle Alternativen wird derselbe KWF verwendet. Der Faktor hängt von der Nutzungsdauer ab – jede Investition bekommt ihren eigenen KWF mit ihrem eigenen \\(n\\).",
     "Die Annuität wird ohne vorherige Berechnung des Kapitalwerts direkt aus dem durchschnittlichen Rückfluss gebildet. Das funktioniert nur bei gleich hohen Rückflüssen; sonst musst du erst \\(C_0\\) berechnen.",
     "Bei unterschiedlicher Laufzeit wird nach dem höheren Kapitalwert entschieden, obwohl die Aufgabe den Annuitätenvergleich verlangt. Lies genau, welches Kriterium gefragt ist, und nenne die Wiederholungsannahme.",

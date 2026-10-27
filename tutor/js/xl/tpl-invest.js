@@ -5,6 +5,27 @@ import { builder } from './core.js';
 const SUB = 'Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.';
 const range = (a, b) => { const o = []; for (let k = a; k <= b; k++) o.push(k); return o; };
 
+// Hilfsrechnung interner Zinsfuß (für Kapitalwert & Kapitalwertvergleich). Jahr steht in Spalte A, Zahlungen t = 0 … 8 in Spalte Z ab Zeile r0.
+// V: Vorzeichen ohne Nullen (fortgeschrieben) → Anzahl Vorzeichenwechsel. G: Vorzeichen des Kapitalwerts bei 1 + i = 10^k (k = −6; −5,5; … 6) → grenzt
+// 1 + IZF auf eine halbe Zehnerpotenz ein, q = Untergrenze. S: Reihe skaliert mit q (Z_t / q^t) – ihr Zins liegt nahe 0, sodass Excels Newton-Verfahren sicher konvergiert:
+// IZF = q · (1 + IKV(S)) − 1. Ergebnis nur bei genau einem Vorzeichenwechsel (Normalinvestition).
+export function izfHilfe(b, { Z, r0, V, G, S, lab, out, top }) {
+  const R = range(0, 8).map(t => r0 + t), last = R[8], rg = c => `${c}${r0}:${c}${last}`, K = range(0, 24), gl = r0 + 24;
+  const [N, KK, Q, IZF] = range(0, 3).map(k => out + (top + k));
+  if (lab) ['Anzahl Vorzeichenwechsel', 'Rasterpunkte unter 1 + IZF', 'Skalierungsfaktor q (Untergrenze 1 + IZF)', 'IZF (Hilfswert)'].forEach((t, k) => b.lab(lab + (top + k), t));
+  const qa = '$' + Q.replace(/(\d+)$/, '$$$1');
+  R.forEach((r, t) => b.fx(V + r, t === 0 ? `SIGN(${Z}${r})` : `IF(${Z}${r}=0,${V}${r - 1},SIGN(${Z}${r}))`, 'int').fx(S + r, `IFERROR(${Z}${r}/${qa}^A${r},"–")`, 'num'));
+  K.forEach(j => b.fx(G + (r0 + j), `SIGN(${Z}${r0}+NPV(POWER(10,${j / 2 - 6})-1,${Z}${r0 + 1}:${Z}${last}))`, 'int'));
+  b.fx(N, `(SUMPRODUCT(${V}${r0}:${V}${last - 1},${V}${r0}:${V}${last - 1})-SUMPRODUCT(${V}${r0}:${V}${last - 1},${V}${r0 + 1}:${V}${last}))/2`, 'int');
+  b.fx(KK, `IF(${V}${last}>0,COUNTIF(${G}${r0}:${G}${gl},">0"),COUNTIF(${G}${r0}:${G}${gl},"<0"))`, 'int');
+  b.fx(Q, `POWER(10,(${KK}-1)/2-6)`, 'f4');
+  // Skaliert liegt der Zins zwischen 0 und 216 %. Startwert −1 % (links davon, nicht genau 0 – sonst bricht LibreOffice beim Startwert ab), Ersatz 50 %. Gültig nur Lösungen > −100 %.
+  const x = g => `${Q}*(1+IRR(${rg(S)},${g}))-1`, ok = g => `IF(${x(g)}>-1,${x(g)},1/0)`;
+  b.fx(IZF, `IF(${N}<>1,"–",IFERROR(${ok(-0.01)},IFERROR(${ok(0.5)},"nicht bestimmbar")))`, 'pct');
+  return { N, IZF };
+}
+export const izfText = ({ N, IZF }) => `IF(${N}=0,"kein IZF (kein Vorzeichenwechsel)",IF(${N}>1,"nicht eindeutig (mehrere Vorzeichenwechsel)",${IZF}))`;
+
 export default [
   {
     id: 'gewinnvergleich', cat: 'invest', title: 'Gewinnvergleichsrechnung', file: 'Gewinnvergleichsrechnung.xlsx',
@@ -26,7 +47,7 @@ export default [
       b.lab('A21', '= Gesamtkosten'); P.forEach(X => b.tot(X + 21, `${X}19+${X}20`, 'eur'));
       b.lab('A22', 'Umsatzerlöse'); P.forEach(X => b.fx(X + 22, `${X}12*${X}13`, 'eur'));
       b.lab('A23', '= Durchschnittsgewinn p. a.'); P.forEach(X => b.res(X + 23, `${X}22-${X}21`, 'eur'));
-      b.lab('A24', 'Gewinn je Stück'); P.forEach(X => b.fx(X + 24, `IF(${X}13=0,0,${X}23/${X}13)`, 'eur'));
+      b.lab('A24', 'Gewinn je Stück'); P.forEach(X => b.fx(X + 24, `IFERROR(${X}23/${X}13,"–")`, 'eur'));
       b.lab('A25', 'Gewinnschwelle (Stück)'); P.forEach(X => b.fx(X + 25, `IF(${X}12-${X}11<=0,"keine",${X}19/(${X}12-${X}11))`, 'num'));
       b.sec(27, 'Ergebnis');
       b.lab('A28', 'Vorteilhafte Anlage (höherer Gewinn)').res('B28', 'IF(ROUND(B23-C23,2)>0,"Anlage A",IF(ROUND(B23-C23,2)<0,"Anlage B","Beide gleich gut"))', 'txt').merge('B28:C28');
@@ -108,15 +129,19 @@ export default [
       const A = [30000, 30000, 30000, 30000, 30000, 0, 0, 0], B = [20000, 20000, 20000, 20000, 0, 0, 0, 0];
       range(1, 8).forEach(t => { const r = 11 + t, d = `/(1+$B$5)^A${r}`;
         b.txt('A' + r, t, { fmt: 'int' }).inp('B' + r, A[t - 1], 'eur').fx('C' + r, `B${r}${d}`, 'eur').inp('D' + r, B[t - 1], 'eur').fx('E' + r, `D${r}${d}`, 'eur').fx('F' + r, `B${r}-D${r}`, 'eur').fx('G' + r, `F${r}${d}`, 'eur'); });
+      // Hilfsrechnung IZF je Reihe (Spalten I–Q, Hilfswerte S–V), siehe izfHilfe
+      b.th(10, ['Vorz. A', 'Vorz. C₀ bei 1+i=10^k A (k=−6…6)', 'Skaliert A', 'Vorz. B', 'Vorz. C₀ bei 1+i=10^k B', 'Skaliert B', 'Vorz. A − B', 'Vorz. C₀ bei 1+i=10^k A − B', 'Skaliert A − B', '', 'Hilfswert IZF', 'A', 'B', 'A − B'], 9);
+      const H = [['B', 'I', 'J', 'K', 'T', 'S'], ['D', 'L', 'M', 'N', 'U', null], ['F', 'O', 'P', 'Q', 'V', null]].map(([Z, V, G, S, out, lab]) => izfHilfe(b, { Z, r0: 11, V, G, S, lab, out, top: 11 }));
       b.sec(21, 'Ergebnis');
       b.th(22, ['', 'Alternative A', 'Alternative B', 'Differenz A − B']);
       b.lab('A23', 'Kapitalwert C₀').res('B23', 'NPV(B5,B12:B19)+B11', 'eur').res('C23', 'NPV(B5,D12:D19)+D11', 'eur').fx('D23', 'NPV(B5,F12:F19)+F11', 'eur');
-      b.lab('A24', 'Interner Zinsfuß').fx('B24', 'IFERROR(IRR(B11:B19),"nicht bestimmbar")', 'pct').fx('C24', 'IFERROR(IRR(D11:D19),"nicht bestimmbar")', 'pct').fx('D24', 'IFERROR(IRR(F11:F19),"nicht bestimmbar")', 'pct');
+      b.lab('A24', 'Interner Zinsfuß').fx('B24', izfText(H[0]), 'pct').fx('C24', izfText(H[1]), 'pct').fx('D24', izfText(H[2]), 'pct');
       b.lab('A26', 'Entscheidung').res('B26', 'IF(AND(ROUND(B23,2)<=0,ROUND(C23,2)<=0),"Keine Alternative vorteilhaft (beide C₀ ≤ 0)",IF(ROUND(B23-C23,2)>0,"Alternative A (höherer Kapitalwert)",IF(ROUND(B23-C23,2)<0,"Alternative B (höherer Kapitalwert)","Beide gleichwertig")))', 'txt').merge('B26:G26');
       b.lab('A27', 'Differenzinvestition (A − B)').fx('B27', 'IF(ROUND(D23,2)>0,"lohnt sich: Mehreinsatz von A bringt C₀ > 0",IF(ROUND(D23,2)<0,"lohnt sich nicht: B ist besser","neutral (C₀ = 0)"))', 'txt').merge('B27:G27');
       b.note('A29', 'Der Kapitalwert der Differenzinvestition = C₀(A) − C₀(B). Unterschiedliche Kapitaleinsätze und Laufzeiten gleicht der Kapitalwert aus: Die Differenz wird implizit zum Kalkulationszins angelegt (vollkommener Kapitalmarkt).');
       b.note('A30', 'Der Vergleich der internen Zinsfüße kann zu einer anderen (falschen) Rangfolge führen – maßgeblich ist der höhere Kapitalwert.');
-      return { name: 'Kapitalwertvergleich', cols: [30, 16, 16, 16, 16, 17, 18], cells: b.cells, merges: b.merges,
+      b.note('A31', 'IZF nur bei Normalinvestition (genau ein Vorzeichenwechsel) – sonst gibt es keinen oder mehrere Zinsfüße. Hilfsrechnung rechts (Spalten I–V): Vorzeichenwechsel zählen, IZF per Kapitalwert bei 1 + i = 10^k auf eine halbe Zehnerpotenz eingrenzen (Untergrenze q) und Reihe mit q skalieren, damit Excel auch extreme IZF findet (IZF = q · (1 + IKV der skalierten Reihe) − 1).');
+      return { name: 'Kapitalwertvergleich', cols: [30, 16, 16, 16, 16, 17, 18, 3, 9, 16, 12, 9, 16, 12, 11, 18, 14, 3, 28, 13, 13, 13], cells: b.cells, merges: b.merges,
         explain: { B23: 'NBW zinst ab Jahr 1 ab – die Anschaffungsauszahlung aus t = 0 wird separat addiert.', D23: 'Kapitalwert der Differenzzahlungsreihe A − B; entspricht C₀(A) − C₀(B).', D24: 'IZF der Differenzinvestition (Fisher-Schnittpunkt): Bei diesem Kalkulationszins haben A und B denselben Kapitalwert.' } };
     }
   },
@@ -210,7 +235,7 @@ export default [
       b.lab('A12', 'Disagio in €').fx('B12', 'B5*B8', 'eur');
       b.lab('A13', 'Auszahlungsbetrag').fx('B13', 'B5-B12-B9', 'eur');
       b.lab('A14', 'Annuität (auf den Nennbetrag)').fx('B14', 'PMT(B6,B7,-B5)', 'eur');
-      b.lab('A15', 'Effektivzins p. a.').res('B15', 'IF(B13<=0,"nicht bestimmbar",IFERROR(RATE(B7,-B14,B13),"nicht bestimmbar"))', 'pct');
+      b.lab('A15', 'Effektivzins p. a.').res('B15', 'IF(B13<=0,"nicht bestimmbar",IFERROR(RATE(B7,-B14,B13,0,0,B14/B13),"nicht bestimmbar"))', 'pct');
       b.lab('A16', 'Summe aller Raten').fx('B16', 'B14*B7', 'eur');
       b.lab('A17', 'Kreditkosten gesamt (Raten − Auszahlung)').fx('B17', 'B16-B13', 'eur');
       b.sec(19, 'Nominal- vs. Effektivzins bei unterjähriger Verzinsung');

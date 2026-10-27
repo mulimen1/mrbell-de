@@ -22,11 +22,17 @@ export const FMT = {
   stk: { x: '#,##0 "Stück"', d: v => nf(0).format(v) + ' Stück' },
   txt: { x: '@', d: v => String(v) }
 };
+const DEC = { eur: 2, eur0: 0, pct: 2, pct1: 1, num: 2, int: 0, f4: 4, x2: 2, yrs: 2, stk: 0 };
 export function show(v, fmt) {
   if (v == null || v === '') return '';
   if (typeof v === 'object' && v.error) return v.error === '#DIV/0!' ? '#DIV/0!' : v.error === '#NAME?' ? '#NAME?' : '#WERT!';
   if (typeof v === 'boolean') return v ? 'WAHR' : 'FALSCH';
-  if (typeof v === 'number') { if (!isFinite(v)) return '#ZAHL!'; const f = FMT[fmt] || (Number.isInteger(v) ? FMT.int : FMT.num); return f.d(Math.abs(v) < 5e-10 ? 0 : v); }
+  if (typeof v === 'number') {
+    if (!isFinite(v)) return '#ZAHL!';
+    const key = FMT[fmt] ? fmt : (Number.isInteger(v) ? 'int' : 'num'), f = FMT[key];
+    const tiny = 0.5 * 10 ** -(DEC[key] ?? 2) / (key === 'pct' || key === 'pct1' ? 100 : 1);   // auf null gerundet -> ohne Minus („−0,00“ vermeiden)
+    return f.d(Math.abs(v) < tiny ? 0 : v);
+  }
   return String(v);
 }
 
@@ -74,7 +80,7 @@ export function bounds(cells) { let mr = 1, mc = 1; for (const k of Object.keys(
 
 // ---------- Rechnen ----------
 let engP = null;
-export const engine = () => engP || (engP = import('/tutor/vendor/xlcalc@1.mjs'));
+export const engine = () => engP || (engP = import('/tutor/vendor/xlcalc@2.mjs'));
 export async function calc(cells) { const E = await engine(); return E.evaluate(cells); }
 
 // ---------- .xlsx schreiben (ExcelJS, MIT) ----------

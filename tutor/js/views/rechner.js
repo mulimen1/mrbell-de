@@ -5,9 +5,11 @@ import { TOOLS_IMPL as T } from '../rechner-core.js';
 import * as M from '../me.js';
 
 const nf = (d = 2) => new Intl.NumberFormat(LOCALE, { minimumFractionDigits: d, maximumFractionDigits: d });
-const eur = x => x == null ? '–' : nf(2).format(x) + ' €';
-const pct = (x, d = 2) => x == null ? '–' : nf(d).format(x * 100) + ' %';
-const num = (x, d = 2) => x == null ? '–' : new Intl.NumberFormat(LOCALE, { maximumFractionDigits: d }).format(x);
+const z0 = (x, d) => (Math.abs(x) < 0.5 * 10 ** -d ? 0 : x);   // gerundet null -> ohne Minuszeichen (kein „−0,00“)
+const eur = x => x == null ? '–' : nf(2).format(z0(x, 2)) + ' €';
+const pct = (x, d = 2) => x == null ? '–' : nf(d).format(z0(x * 100, d)) + ' %';
+const pc = x => x == null ? '–' : nf(2).format(z0(x, 2)) + ' %';   // Wert schon in Prozent
+const num = (x, d = 2) => x == null ? '–' : new Intl.NumberFormat(LOCALE, { maximumFractionDigits: d }).format(z0(x, d));
 const list = s => String(s || '').split(/[;\n]+|\s{2,}|(?<=\d)\s+(?=-?\d)/).map(x => x.trim()).filter(Boolean).map(parseNum);
 
 // Felder: [key, label, typ, extra]; typ: n (Zahl), l (Liste), s (Auswahl), b (ja/nein)
@@ -19,9 +21,9 @@ const CALC = [
     ex: { anlagevermoegen: '600.000', vorraete: '150.000', forderungen: '120.000', liquide_mittel: '30.000', eigenkapital: '300.000', langfristiges_fk: '280.000', kurzfristiges_fk: '320.000', umsatz: '1.200.000', jahresueberschuss: '45.000', zinsaufwand: '18.000' },
     run: v => T.bilanz(v), show: showBilanz },
   { k: 'kapitalwert', ic: 'calc', t: L('Kapitalwert & interner Zinsfuß', 'NPV & IRR'), s: L('Barwerte je Jahr, Kapitalwert, IRR exakt und per Interpolation.', 'Present values per year, NPV, IRR exact and interpolated.'),
-    groups: [['', [['anschaffungsauszahlung', L('Anschaffungsauszahlung \\(I_0\\)', 'Initial investment \\(I_0\\)'), 'n', '€'], ['zinssatz_prozent', L('Kalkulationszins', 'Discount rate'), 'n', '%'], ['zahlungen', L('Rückflüsse ab Jahr 1 (mit ; trennen)', 'Cash flows from year 1 (separate with ;)'), 'l', '€'], ['restwert', L('Restwert (optional)', 'Salvage value (optional)'), 'n', '€']]]],
-    ex: { anschaffungsauszahlung: '100.000', zinssatz_prozent: '8', zahlungen: '30.000; 35.000; 40.000; 25.000', restwert: '' },
-    run: v => { const a = T.kapitalwert(v), b = T.interner_zinsfuss(v); return Object.assign(a, { irr: b.interner_zinsfuss_prozent }); }, show: showKW },
+    groups: [['', [['anschaffungsauszahlung', L('Anschaffungsauszahlung \\(I_0\\)', 'Initial investment \\(I_0\\)'), 'n', '€'], ['zinssatz_prozent', L('Kalkulationszins', 'Discount rate'), 'n', '%'], ['zahlungen', L('Rückflüsse ab Jahr 1 (mit ; trennen)', 'Cash flows from year 1 (separate with ;)'), 'l', '€'], ['restwert', L('Restwert (optional)', 'Salvage value (optional)'), 'n', '€'], ['versuchszinssaetze_prozent', L('Versuchszinssätze für die Interpolation (optional, i₁; i₂)', 'Trial rates for interpolation (optional, i₁; i₂)'), 'l', '%']]]],
+    ex: { anschaffungsauszahlung: '100.000', zinssatz_prozent: '8', zahlungen: '30.000; 35.000; 40.000; 25.000', restwert: '', versuchszinssaetze_prozent: '' },
+    run: v => { const a = T.kapitalwert(v), b = T.interner_zinsfuss(v); return Object.assign(a, { irr: b.interner_zinsfuss_prozent, irr_alle: b.loesungen_prozent, irr_hinweis: b.hinweis, interpolation: b.interpolation }); }, show: showKW },
   { k: 'annuitaet', ic: 'calendar', t: L('Annuität & Tilgungsplan', 'Annuity & repayment plan'), s: L('Rate, Kapitalwiedergewinnungsfaktor, Zins und Tilgung je Jahr.', 'Payment, capital recovery factor, interest and principal per year.'),
     groups: [['', [['kapital', L('Darlehen / Barwert', 'Loan / present value'), 'n', '€'], ['zinssatz_prozent', L('Zinssatz', 'Interest rate'), 'n', '%'], ['laufzeit_jahre', L('Laufzeit in Jahren', 'Term in years'), 'n', '']]]],
     ex: { kapital: '50.000', zinssatz_prozent: '5', laufzeit_jahre: '5' }, run: v => T.annuitaet(Object.assign({ tilgungsplan: true }, v)), show: showAnn },
@@ -29,8 +31,8 @@ const CALC = [
     groups: [['', [['fixkosten', L('Fixkosten', 'Fixed costs'), 'n', '€'], ['preis', L('Preis je Stück', 'Price per unit'), 'n', '€'], ['variable_stueckkosten', L('Variable Stückkosten', 'Variable cost per unit'), 'n', '€'], ['menge', L('Geplante Menge (optional)', 'Planned volume (optional)'), 'n', L('Stk.', 'pcs')], ['zielgewinn', L('Zielgewinn (optional)', 'Target profit (optional)'), 'n', '€']]]],
     ex: { fixkosten: '50.000', preis: '120', variable_stueckkosten: '70', menge: '1.500', zielgewinn: '' }, run: v => T.break_even(v), show: showBE },
   { k: 'abschreibung', ic: 'down', t: L('Abschreibung', 'Depreciation'), s: L('Linear, geometrisch-degressiv mit Wechsel, digital, leistungsabhängig.', 'Straight-line, declining balance with switch, sum-of-years, units.'),
-    groups: [['', [['anschaffungskosten', L('Anschaffungskosten', 'Cost'), 'n', '€'], ['nutzungsdauer_jahre', L('Nutzungsdauer (Jahre)', 'Useful life (years)'), 'n', ''], ['methode', L('Methode', 'Method'), 's', [['linear', L('linear', 'straight-line')], ['geometrisch_degressiv', L('geometrisch-degressiv', 'declining balance')], ['arithmetisch_degressiv', L('arithmetisch-degressiv (digital)', 'sum-of-years')]]], ['satz_prozent', L('Satz (nur degressiv)', 'Rate (declining only)'), 'n', '%'], ['restwert', L('Restwert (optional)', 'Residual value (optional)'), 'n', '€'], ['monate_erstes_jahr', L('Monate im 1. Jahr (optional)', 'Months in year 1 (optional)'), 'n', '']]]],
-    ex: { anschaffungskosten: '60.000', nutzungsdauer_jahre: '6', methode: 'geometrisch_degressiv', satz_prozent: '25', restwert: '', monate_erstes_jahr: '' }, run: v => T.abschreibung(v), show: showAfA },
+    groups: [['', [['anschaffungskosten', L('Anschaffungskosten', 'Cost'), 'n', '€'], ['nutzungsdauer_jahre', L('Nutzungsdauer (Jahre)', 'Useful life (years)'), 'n', ''], ['methode', L('Methode', 'Method'), 's', [['linear', L('linear', 'straight-line')], ['geometrisch_degressiv', L('geometrisch-degressiv', 'declining balance')], ['arithmetisch_degressiv', L('arithmetisch-degressiv (digital)', 'sum-of-years')], ['leistung', L('leistungsabhängig', 'units of production')]]], ['satz_prozent', L('Satz (nur geometrisch-degressiv)', 'Rate (declining balance only)'), 'n', '%'], ['restwert', L('Restwert (optional)', 'Residual value (optional)'), 'n', '€'], ['monate_erstes_jahr', L('Monate im 1. Jahr (optional)', 'Months in year 1 (optional)'), 'n', ''], ['leistung_gesamt', L('Gesamtleistung (nur leistungsabhängig)', 'Total output (units method only)'), 'n', ''], ['leistung_je_jahr', L('Leistung je Jahr (nur leistungsabhängig, mit ; trennen)', 'Output per year (units method only, separate with ;)'), 'l', '']]]],
+    ex: { anschaffungskosten: '60.000', nutzungsdauer_jahre: '6', methode: 'geometrisch_degressiv', satz_prozent: '25', restwert: '', monate_erstes_jahr: '', leistung_gesamt: '', leistung_je_jahr: '' }, run: v => T.abschreibung(v), show: showAfA },
   { k: 'zuschlag', ic: 'note', t: L('Zuschlagskalkulation', 'Job order costing'), s: L('Vom Material bis zum Listenverkaufspreis – Schema wie in der Klausur.', 'From materials to list price – exam-style scheme.'),
     groups: [[L('Kosten', 'Costs'), [['materialeinzelkosten', 'MEK', 'n', '€'], ['mgk_prozent', L('MGK-Zuschlag', 'Material overhead'), 'n', '%'], ['fertigungseinzelkosten', L('FEK (Fertigungslöhne)', 'Direct labour'), 'n', '€'], ['fgk_prozent', L('FGK-Zuschlag', 'Production overhead'), 'n', '%'], ['vwgk_prozent', L('VwGK-Zuschlag', 'Admin overhead'), 'n', '%'], ['vtgk_prozent', L('VtGK-Zuschlag', 'Sales overhead'), 'n', '%']]],
       [L('Verkauf (optional)', 'Sales (optional)'), [['gewinn_prozent', L('Gewinnzuschlag', 'Profit mark-up'), 'n', '%'], ['kundenskonto_prozent', L('Kundenskonto', 'Cash discount'), 'n', '%'], ['vertreterprovision_prozent', L('Vertreterprovision', 'Commission'), 'n', '%'], ['kundenrabatt_prozent', L('Kundenrabatt', 'Customer discount'), 'n', '%']]]],
@@ -148,17 +150,18 @@ function table(cols, rows) {
 }
 function showBilanz(r) {
   const groups = {}; r.kennzahlen.forEach(k => { (groups[k.gruppe] ||= []).push(k); });
-  const val = k => k.euro ? eur(k.wert) : k.prozent ? pct(k.wert, 1) : num(k.wert, 2) + (k.faktor ? ' : 1' : '');
+  const val = k => k.euro ? eur(k.wert) : k.prozent ? pct(k.wert, 2) : nf(2).format(z0(k.wert, 2)) + (k.faktor ? ' : 1' : '');
   return [
-    r.ausgeglichen ? null : h('div', { class: 'rc-warn' }, L(`Aktiva (${eur(r.bilanzsumme_aktiva)}) und Passiva (${eur(r.bilanzsumme_passiva)}) sind nicht gleich – prüf die Zahlen. Gerechnet wird mit dem Gesamtkapital.`, `Assets (${eur(r.bilanzsumme_aktiva)}) and liabilities (${eur(r.bilanzsumme_passiva)}) don’t match – check the numbers.`)),
+    r.ausgeglichen ? null : h('div', { class: 'rc-warn' }, L(`Aktiva (${eur(r.bilanzsumme_aktiva)}) und Passiva (${eur(r.bilanzsumme_passiva)}) sind nicht gleich. Kennzahlen auf das Gesamtkapital wären so nicht eindeutig – prüf zuerst die Zahlen.`, `Assets (${eur(r.bilanzsumme_aktiva)}) and liabilities (${eur(r.bilanzsumme_passiva)}) don’t match. Ratios based on total capital wouldn’t be meaningful – check the numbers first.`)),
     h('div', { class: 'rc-bigs' }, big(L('Bilanzsumme', 'Total assets'), eur(r.bilanzsumme_aktiva)), big(L('Umlaufvermögen', 'Current assets'), eur(r.umlaufvermoegen)), big(L('Fremdkapital', 'Liabilities'), eur(r.fremdkapital))),
     ...Object.entries(groups).map(([g, ks]) => h('div', { class: 'rc-kg' }, h('div', { class: 'rc-kgh' }, g), ks.map(k => h('div', { class: 'rc-k' + (k.ok === true ? ' ok' : k.ok === false ? ' bad' : '') },
       h('div', { class: 'rc-kn' }, h('b', {}, String(k.name).replace(/ ([IV]{1,3})$/, '\u00a0$1')), h('small', {}, texFormel(k.formel))), h('div', { class: 'rc-kv' }, h('b', {}, val(k)), k.regel ? h('small', {}, (k.ok ? '✓ ' : k.ok === false ? '⚠ ' : '') + k.regel) : null))))),
     h('p', { class: 'rc-note' }, L('Faustregeln sind Orientierung, keine Gesetze – Branche und Geschäftsmodell zählen mit.', 'Rules of thumb are guidance, not laws – industry and business model matter.'))];
 }
 function showKW(r) {
-  return [h('div', { class: 'rc-bigs' }, big(L('Kapitalwert \\(C_0\\)', 'NPV \\(C_0\\)'), eur(r.kapitalwert), String(r.urteil || '').replace(/\(C0 ([<>=]) 0\)/, (m, op) => '\\((C_0 ' + op + ' 0)\\)')), big(L('Interner Zinsfuß', 'IRR'), r.irr == null ? '–' : num(r.irr, 2) + ' %'), big(L('Summe der Barwerte', 'Sum of present values'), eur(r.summe_barwerte))),
-    table([['jahr', L('Jahr', 'Year')], ['zahlung', L('Rückfluss', 'Cash flow'), eur], ['abzinsungsfaktor', L('Abzinsungsfaktor', 'Discount factor'), x => num(x, 6), 'lo'], ['barwert', L('Barwert', 'Present value'), eur]], r.jahre), formula(r.formel)];
+  return [h('div', { class: 'rc-bigs' }, big(L('Kapitalwert \\(C_0\\)', 'NPV \\(C_0\\)'), eur(r.kapitalwert), String(r.urteil || '').replace(/\(C0 ([<>=]) 0\)/, (m, op) => '\\((C_0 ' + op + ' 0)\\)')), big(L('Interner Zinsfuß', 'IRR'), r.irr == null ? (r.irr_alle && r.irr_alle.length > 1 ? L('nicht eindeutig', 'not unique') : '–') : pc(r.irr), r.irr == null ? (r.irr_alle && r.irr_alle.length > 1 ? L('mehrere Lösungen: ', 'several solutions: ') + r.irr_alle.map(pc).join('; ') : L('kein IZF zwischen −99 % und 1000 %', 'no IRR between −99% and 1000%')) : null), big(L('Summe der Barwerte', 'Sum of present values'), eur(r.summe_barwerte))),
+    r.interpolation ? h('p', { class: 'rc-note' }, r.interpolation.ergebnis_prozent == null ? r.interpolation.hinweis : L(`Interpolation: \\(C_1 = ${eur(r.interpolation.kapitalwert_1)}\\) bei ${pc(r.interpolation.i1_prozent)}, \\(C_2 = ${eur(r.interpolation.kapitalwert_2)}\\) bei ${pc(r.interpolation.i2_prozent)} → \\(r \\approx\\) ${pc(r.interpolation.ergebnis_prozent)} (Näherung)`, `Interpolation: \\(C_1 = ${eur(r.interpolation.kapitalwert_1)}\\) at ${pc(r.interpolation.i1_prozent)}, \\(C_2 = ${eur(r.interpolation.kapitalwert_2)}\\) at ${pc(r.interpolation.i2_prozent)} → \\(r \\approx\\) ${pc(r.interpolation.ergebnis_prozent)} (approximation)`) + (r.interpolation.hinweis ? ' ' + r.interpolation.hinweis : '')) : null,
+    table([['jahr', L('Jahr', 'Year')], ['zahlung', L('Rückfluss', 'Cash flow'), eur], ['abzinsungsfaktor', L('Abzinsungsfaktor', 'Discount factor'), x => nf(6).format(x), 'lo'], ['barwert', L('Barwert', 'Present value'), eur]], r.jahre), formula(r.formel)];
 }
 function showAnn(r) {
   return [h('div', { class: 'rc-bigs' }, big(L('Annuität pro Jahr', 'Annual payment'), eur(r.annuitaet)), big('KWF', num(r.kapitalwiedergewinnungsfaktor, 6))),
@@ -166,29 +169,29 @@ function showAnn(r) {
 }
 function showBE(r) {
   if (r.hinweis) return h('div', { class: 'rc-warn' }, r.hinweis);
-  return [h('div', { class: 'rc-bigs' }, big(L('Break-even-Menge', 'Break-even volume'), num(r.break_even_menge, 2) + L(' Stk.', ' pcs'), L(`aufgerundet ${r.break_even_menge_aufgerundet} Stück`, `rounded up ${r.break_even_menge_aufgerundet} units`)), big(L('Break-even-Umsatz', 'Break-even revenue'), eur(r.break_even_umsatz)), big(L('DB je Stück', 'CM per unit'), eur(r.db_stueck), L(`DB-Quote ${num(r.db_quote_prozent, 2)} %`, `CM ratio ${num(r.db_quote_prozent, 2)}%`))),
-    r.menge != null ? table([['k', ''], ['v', '', x => x]], [{ k: L('Umsatz', 'Revenue'), v: eur(r.umsatz) }, { k: L('Variable Kosten', 'Variable costs'), v: eur(r.variable_kosten) }, { k: L('Deckungsbeitrag', 'Contribution margin'), v: eur(r.deckungsbeitrag_gesamt) }, { k: L('Gewinn', 'Profit'), v: eur(r.gewinn), _cls: 'sum' }, { k: L('Sicherheitsabstand', 'Margin of safety'), v: num(r.sicherheitsabstand_prozent, 2) + ' %' }]) : null,
+  return [h('div', { class: 'rc-bigs' }, big(L('Break-even-Menge', 'Break-even volume'), num(r.break_even_menge, 2) + L(' Stk.', ' pcs'), L(`aufgerundet ${r.break_even_menge_aufgerundet} Stück`, `rounded up ${r.break_even_menge_aufgerundet} units`)), big(L('Break-even-Umsatz', 'Break-even revenue'), eur(r.break_even_umsatz)), big(L('DB je Stück', 'CM per unit'), eur(r.db_stueck), L(`DB-Quote ${pc(r.db_quote_prozent)}`, `CM ratio ${pc(r.db_quote_prozent)}`))),
+    r.menge != null ? table([['k', ''], ['v', '', x => x]], [{ k: L('Umsatz', 'Revenue'), v: eur(r.umsatz) }, { k: L('Variable Kosten', 'Variable costs'), v: eur(r.variable_kosten) }, { k: L('Deckungsbeitrag', 'Contribution margin'), v: eur(r.deckungsbeitrag_gesamt) }, { k: L('Gewinn', 'Profit'), v: eur(r.gewinn), _cls: 'sum' }, { k: L('Sicherheitsabstand', 'Margin of safety'), v: pc(r.sicherheitsabstand_prozent) }]) : null,
     r.menge_fuer_zielgewinn != null ? h('p', { class: 'rc-note' }, L(`Für den Zielgewinn brauchst du ${num(r.menge_fuer_zielgewinn, 2)} Stück.`, `For the target profit you need ${num(r.menge_fuer_zielgewinn, 2)} units.`)) : null, formula(r.formel)];
 }
 function showAfA(r) {
   return [r.jaehrliche_abschreibung != null ? h('div', { class: 'rc-bigs' }, big(L('Jährliche AfA', 'Annual depreciation'), eur(r.jaehrliche_abschreibung))) : r.wechseljahr ? h('div', { class: 'rc-bigs' }, big(L('Wechsel zur linearen AfA', 'Switch to straight-line'), L(`im Jahr ${r.wechseljahr}`, `in year ${r.wechseljahr}`))) : null,
-    table([['jahr', L('Jahr', 'Year')], ['buchwert_anfang', L('Buchwert Anfang', 'Opening book value'), eur, 'lo'], ['abschreibung', L('Abschreibung', 'Depreciation'), eur], ['buchwert_ende', L('Buchwert Ende', 'Closing book value'), eur]].concat(r.plan.some(x => x.methode) ? [['methode', L('Methode', 'Method')]] : []), r.plan), formula(r.formel)];
+    table([['jahr', L('Jahr', 'Year')]].concat(r.plan.some(x => x.leistung != null) ? [['leistung', L('Leistung', 'Output'), x => num(x, 2)]] : [], [['buchwert_anfang', L('Buchwert Anfang', 'Opening book value'), eur, 'lo'], ['abschreibung', L('Abschreibung', 'Depreciation'), eur], ['buchwert_ende', L('Buchwert Ende', 'Closing book value'), eur]], r.plan.some(x => x.methode) ? [['methode', L('Methode', 'Method')]] : []), r.plan), formula(r.formel)];
 }
 function showZK(r) {
   return [table([['k', L('Position', 'Item')], ['v', L('Betrag', 'Amount'), eur]], r.schema.map(([k, v]) => ({ k, v, _cls: /^=/.test(k) ? 'sum' : '' }))), h('p', { class: 'rc-note' }, r.hinweis)];
 }
 function showFM(r) {
-  if (r.effektiver_jahreszins_prozent != null) return [h('div', { class: 'rc-bigs' }, big(L('Effektiver Jahreszins', 'Effective annual rate'), num(r.effektiver_jahreszins_prozent, 4) + ' %')), formula(r.formel)];
+  if (r.effektiver_jahreszins_prozent != null) return [h('div', { class: 'rc-bigs' }, big(L('Effektiver Jahreszins', 'Effective annual rate'), pc(r.effektiver_jahreszins_prozent))), formula(r.formel)];
   return [h('div', { class: 'rc-bigs' }, big(L('Ergebnis', 'Result'), eur(r.ergebnis)), big(r.faktor_name, num(r.faktor, 6))), formula(r.formel)];
 }
 function showESt(r) {
-  return [h('div', { class: 'rc-bigs' }, big(L('Einkommensteuer', 'Income tax'), eur(r.einkommensteuer), r.tarif), big(L('Durchschnittssteuersatz', 'Average rate'), num(r.durchschnittssteuersatz_prozent, 2) + ' %'), big(L('Grenzsteuersatz', 'Marginal rate'), num(r.grenzsteuersatz_prozent, 2) + ' %')),
+  return [h('div', { class: 'rc-bigs' }, big(L('Einkommensteuer', 'Income tax'), eur(r.einkommensteuer), r.tarif), big(L('Durchschnittssteuersatz', 'Average rate'), pc(r.durchschnittssteuersatz_prozent)), big(L('Grenzsteuersatz', 'Marginal rate'), pc(r.grenzsteuersatz_prozent))),
     h('p', { class: 'rc-note' }, `${r.quelle} · ${L('Tarifzone', 'zone')} ${r.tarifzone} · ${L('Grundfreibetrag', 'basic allowance')} ${eur(r.grundfreibetrag)} · ${r.hinweis}`)];
 }
 function showStat(r) {
   const rows = [[L('n', 'n'), r.n], [L('Mittelwert', 'Mean'), r.mittelwert], [L('Median', 'Median'), r.median], [L('Modus', 'Mode'), r.modus ? r.modus.join('; ') : '–'], [L('Spannweite', 'Range'), r.spannweite], [L('Varianz (Grundgesamtheit)', 'Variance (population)'), r.varianz_grundgesamtheit], [L('Standardabweichung (GG)', 'Std. dev. (population)'), r.std_grundgesamtheit], [L('Varianz (Stichprobe)', 'Variance (sample)'), r.varianz_stichprobe], [L('Standardabweichung (Stichprobe)', 'Std. dev. (sample)'), r.std_stichprobe], [L('Variationskoeffizient', 'Coefficient of variation'), r.variationskoeffizient]];
-  if (r.regression) rows.push([L('Korrelation r', 'Correlation r'), r.korrelation_r], [L('Regression \\(\\hat{y} = a + b \\cdot x\\)', 'Regression \\(\\hat{y} = a + b \\cdot x\\)'), `a = ${num(r.regression.achsenabschnitt_a, 4)} · b = ${num(r.regression.steigung_b, 4)}`], ['\\(R^{2}\\)', r.regression.bestimmtheitsmass_r2]);
-  return table([['k', ''], ['v', '', x => typeof x === 'number' ? num(x, 4) : (x ?? '–')]], rows.map(([k, v]) => ({ k, v })));
+  if (r.regression) rows.push([L('Korrelation r', 'Correlation r'), r.korrelation_r], [L('Regression \\(\\hat{y} = a + b \\cdot x\\)', 'Regression \\(\\hat{y} = a + b \\cdot x\\)'), r.regression.steigung_b == null ? '–' : `a = ${num(r.regression.achsenabschnitt_a, 4)} · b = ${num(r.regression.steigung_b, 4)}`], ['\\(R^{2}\\)', r.regression.bestimmtheitsmass_r2]);
+  return [table([['k', ''], ['v', '', x => typeof x === 'number' ? num(x, 4) : (x ?? '–')]], rows.map(([k, v]) => ({ k, v }))), r.hinweis ? h('p', { class: 'rc-note' }, r.hinweis) : null];
 }
 function showWL(r) {
   return [h('div', { class: 'rc-bigs' }, big(L('Gesamtaufwand', 'Total workload'), num(r.gesamt_stunden, 0) + ' h'), big(L('Selbststudium', 'Self-study'), num(r.selbststudium_stunden, 0) + ' h', L(`Präsenz ${num(r.praesenz_stunden, 0)} h`, `contact ${num(r.praesenz_stunden, 0)} h`)), r.pro_woche_bis_klausur != null ? big(L('Pro Woche bis zur Klausur', 'Per week until the exam'), num(r.pro_woche_bis_klausur, 1) + ' h') : null), formula(r.formel)];

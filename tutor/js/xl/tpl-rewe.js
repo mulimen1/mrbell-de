@@ -170,9 +170,9 @@ export default [
       b.lab('A17', 'Tageswert je Stück am Bilanzstichtag (z. B. Wiederbeschaffungskosten)').inp('B17', 11.5, 'eur', { min: 0 });
       b.sec(19, 'Bewertung des Endbestands');
       b.th(20, ['Verfahren', 'Preis je Stück', 'Wert zu AK', 'Wert zum Tageswert', 'Bilanzansatz (strenges NWP)', 'Abschreibung auf Tageswert', 'Verbrauch zu AK']);
-      b.lab('A21', 'Gewogener Durchschnitt (periodisch)').fx('B21', 'IFERROR(D13/B13,0)', 'f4').fx('C21', 'IF($B$16<0,"–",$B$16*B21)', 'eur').fx('D21', 'IF($B$16<0,"–",$B$16*$B$17)', 'eur')
+      b.lab('A21', 'Gewogener Durchschnitt (periodisch)').fx('B21', 'IFERROR(D13/B13,"–")', 'f4').fx('C21', 'IF($B$16<0,"–",IF($B$16=0,0,$B$16*B21))', 'eur').fx('D21', 'IF($B$16<0,"–",$B$16*$B$17)', 'eur')
         .res('E21', 'IF($B$16<0,"–",MIN(C21,D21))', 'eur').fx('F21', 'IF($B$16<0,"–",C21-E21)', 'eur').fx('G21', 'IF($B$16<0,"–",$D$13-C21)', 'eur');
-      b.lab('A22', 'FIFO (first in – first out)').fx('B22', 'IFERROR(F13/E13,0)', 'f4').fx('C22', 'IF($B$16<0,"–",F13)', 'eur').fx('D22', 'IF($B$16<0,"–",$B$16*$B$17)', 'eur')
+      b.lab('A22', 'FIFO (first in – first out)').fx('B22', 'IFERROR(F13/E13,"–")', 'f4').fx('C22', 'IF($B$16<0,"–",F13)', 'eur').fx('D22', 'IF($B$16<0,"–",$B$16*$B$17)', 'eur')
         .res('E22', 'IF($B$16<0,"–",MIN(C22,D22))', 'eur').fx('F22', 'IF($B$16<0,"–",C22-E22)', 'eur').fx('G22', 'IF($B$16<0,"–",$D$13-C22)', 'eur');
       b.note('A24', 'Durchschnitt: Gesamtwert / Gesamtmenge aus Anfangsbestand und allen Zugängen (§ 240 Abs. 4 HGB). FIFO: Der Endbestand stammt aus den letzten Zugängen (§ 256 HGB). Strenges Niederstwertprinzip im Umlaufvermögen (§ 253 Abs. 4 HGB): Liegt der Tageswert darunter, muss auf ihn abgeschrieben werden.');
       b.note('A25', 'Preis je Stück bei FIFO = Durchschnittspreis der Endbestandsmenge. Zugänge in zeitlicher Reihenfolge eintragen, leere Zugänge auf 0 lassen.');
@@ -202,12 +202,12 @@ export default [
       b.lab('A18', 'Verzinsung des Kapitalanteils'); G.forEach(X => b.fx(X + 18, `${X}12*$B$6`, 'eur')); b.fx('F18', 'SUM(B18:E18)', 'eur');
       b.lab('A19', '+ Tätigkeitsvergütung'); G.forEach(X => b.fx(X + 19, `${X}13`, 'eur')); b.fx('F19', 'SUM(B19:E19)', 'eur');
       b.lab('A20', '= Vorabgewinn'); G.forEach(X => b.tot(X + 20, `${X}18+${X}19`, 'eur')); b.tot('F20', 'SUM(B20:E20)', 'eur');
-      b.lab('A21', '+ Anteil am Restgewinn (nach Quoten)'); G.forEach(X => b.fx(X + 21, `IF($F$14=0,0,($B$5-$F$20)*${X}14/$F$14)`, 'eur')); b.fx('F21', 'SUM(B21:E21)', 'eur');
-      b.lab('A22', '= Gewinnanteil gesamt'); G.forEach(X => b.res(X + 22, `${X}20+${X}21`, 'eur')); b.res('F22', 'SUM(B22:E22)', 'eur');
-      b.lab('A23', 'Anteil am Jahresgewinn'); G.forEach(X => b.fx(X + 23, `IF($B$5=0,0,${X}22/$B$5)`, 'pct1')); b.fx('F23', 'IF($B$5=0,0,F22/$B$5)', 'pct1');
+      b.lab('A21', '+ Anteil am Restgewinn (nach Quoten)'); G.forEach(X => b.fx(X + 21, `IF($F$14=0,IF(ROUND($B$5-$F$20,2)=0,0,"–"),($B$5-$F$20)*${X}14/$F$14)`, 'eur')); b.fx('F21', 'IF(COUNTIF(B21:E21,"–")>0,"–",SUM(B21:E21))', 'eur');
+      b.lab('A22', '= Gewinnanteil gesamt'); G.forEach(X => b.res(X + 22, `IFERROR(${X}20+${X}21,"–")`, 'eur')); b.res('F22', 'IF(COUNTIF(B22:E22,"–")>0,"–",SUM(B22:E22))', 'eur');
+      b.lab('A23', 'Anteil am Jahresgewinn'); G.forEach(X => b.fx(X + 23, `IFERROR(${X}22/$B$5,"–")`, 'pct1')); b.fx('F23', 'IFERROR(F22/$B$5,"–")', 'pct1');
       b.sec(25, 'Prüfung');
       b.lab('A26', 'Restgewinn nach Vorabgewinn').res('B26', 'B5-F20', 'eur');
-      b.lab('A27', 'Prüfung').fx('B27', 'IF(ROUND(F22-B5,2)=0,"✓ Verteilt = Jahresgewinn","✗ Nicht voll verteilt – Summe der Quoten ist 0")', 'txt').merge('B27:F27');
+      b.lab('A27', 'Prüfung').fx('B27', 'IFERROR(IF(ROUND(F22-B5,2)=0,"✓ Verteilt = Jahresgewinn","✗ Nicht voll verteilt"),"✗ Restgewinn nicht verteilbar – Summe der Quoten ist 0")', 'txt').merge('B27:F27');
       b.note('A29', 'Rechtslage seit 01.01.2024 (MoPeG): Die frühere gesetzliche Regel des § 121 HGB a. F. (4 % auf den Kapitalanteil, Rest nach Köpfen) gilt nicht mehr. Fehlt eine vertragliche Regelung, richtet sich der Anteil nach § 120 Abs. 1 HGB i. V. m. § 709 Abs. 3 BGB: nach den vereinbarten Beteiligungsverhältnissen, sonst nach dem Verhältnis der vereinbarten Werte der Beiträge, sonst zu gleichen Teilen.');
       b.note('A30', 'Diese Vorlage rechnet die vertragliche Regelung aus der Aufgabe: Kapitalverzinsung und Tätigkeitsvergütung vorab, Rest nach Quoten (nach Köpfen: überall 1; nach Kapital: Kapitalanteile als Quote). Ein negativer Rest wird ebenfalls nach Quoten verteilt. Verzinsung ohne zeitanteilige Einlagen/Entnahmen.');
       return { name: 'Gewinnverteilung', cols: [46, 17, 17, 17, 17, 17], cells: b.cells, merges: b.merges,
@@ -235,7 +235,7 @@ export default [
       b.lab('A18', 'Rechnungsabgrenzungsposten zum Bilanzstichtag').res('B18', 'B6*B15/B9', 'eur');
       b.lab('A19', 'Bilanzposten').res('B19', 'IF(ROUND(B18,2)=0,"kein RAP nötig",IF(B5=1,"Aktiver RAP (Aktivseite)","Passiver RAP (Passivseite)"))', 'txt').merge('B19:E19');
       b.lab('A20', 'Abschlussbuchung (Zahlung zuvor voll erfolgswirksam gebucht)').fx('B20', 'IF(ROUND(B18,2)=0,"–",IF(B5=1,"Aktive Rechnungsabgrenzung an Aufwandskonto","Ertragskonto an Passive Rechnungsabgrenzung"))', 'txt').merge('B20:E20');
-      b.lab('A21', 'Auflösung im folgenden Geschäftsjahr').fx('B21', 'B6*MIN(12,B15)/B9', 'eur');
+      b.lab('A21', 'Auflösung im folgenden Geschäftsjahr').fx('B21', `B6*MAX(0,MIN(${BG}+B9-1,${S}+12)-MAX(${BG},${S}+1)+1)/B9`, 'eur');
       b.lab('A22', 'Rest für spätere Geschäftsjahre').fx('B22', 'B18-B21', 'eur');
       b.note('A24', 'RAP nach § 250 HGB: Zahlung vor dem Stichtag für Aufwand bzw. Ertrag einer bestimmten Zeit danach. Monatsgenau – der erste Monat zählt voll. Monate vor dem Geschäftsjahr gehören in frühere Jahre.');
       return { name: 'Rechnungsabgrenzung', cols: [56, 18, 16, 16, 16], cells: b.cells, merges: b.merges,
@@ -256,11 +256,11 @@ export default [
       b.th(15, ['Kennzahl', 'Wert', 'Formel']);
       b.lab('A16', 'Working Capital').res('B16', 'B7+B8+B9+B10-B11-B12', 'eur').txt('C16', 'Umlaufvermögen − kurzfristige Verbindlichkeiten');
       b.lab('A17', 'Net Working Capital (operativ)').res('B17', 'B7+B8-B11', 'eur').txt('C17', 'Vorräte + Forderungen LuL − Verbindlichkeiten LuL');
-      b.lab('A18', 'DSO – Kundenziel (Tage)').fx('B18', 'IF(B5=0,0,B8/B5*B13)', 'num').txt('C18', 'Forderungen LuL / Umsatzerlöse × Tage');
-      b.lab('A19', 'DIO – Lagerdauer (Tage)').fx('B19', 'IF(B6=0,0,B7/B6*B13)', 'num').txt('C19', 'Vorräte / Umsatzkosten × Tage');
-      b.lab('A20', 'DPO – Lieferantenziel (Tage)').fx('B20', 'IF(B6=0,0,B11/B6*B13)', 'num').txt('C20', 'Verbindlichkeiten LuL / Umsatzkosten × Tage');
-      b.lab('A21', 'Cash Conversion Cycle (Tage)').res('B21', 'B18+B19-B20', 'num').txt('C21', 'DSO + DIO − DPO');
-      b.lab('A22', 'Einschätzung').fx('B22', 'IF(B21<0,"Negativ: Lieferanten finanzieren das Umlaufvermögen mit",CONCATENATE("Kapital ist rund ",ROUND(B21,0)," Tage im Umsatzprozess gebunden"))', 'txt').merge('B22:C22');
+      b.lab('A18', 'DSO – Kundenziel (Tage)').fx('B18', 'IFERROR(B8/B5*B13,"–")', 'num').txt('C18', 'Forderungen LuL / Umsatzerlöse × Tage');
+      b.lab('A19', 'DIO – Lagerdauer (Tage)').fx('B19', 'IFERROR(B7/B6*B13,"–")', 'num').txt('C19', 'Vorräte / Umsatzkosten × Tage');
+      b.lab('A20', 'DPO – Lieferantenziel (Tage)').fx('B20', 'IFERROR(B11/B6*B13,"–")', 'num').txt('C20', 'Verbindlichkeiten LuL / Umsatzkosten × Tage');
+      b.lab('A21', 'Cash Conversion Cycle (Tage)').res('B21', 'IFERROR(B18+B19-B20,"–")', 'num').txt('C21', 'DSO + DIO − DPO');
+      b.lab('A22', 'Einschätzung').fx('B22', 'IF(OR(B5=0,B6=0),"Nicht bestimmbar: Umsatzerlöse bzw. Umsatzkosten sind 0",IF(ROUND(B21,2)<0,"Negativ: Lieferanten finanzieren das Umlaufvermögen mit",CONCATENATE("Kapital ist rund ",ROUND(B21,0)," Tage im Umsatzprozess gebunden")))', 'txt').merge('B22:C22');
       b.note('A24', 'Für Durchschnittswerte (Anfangs- + Schlussbestand) / 2 eintragen. Forderungen enthalten Umsatzsteuer – manche Lehrbücher nehmen deshalb den Bruttoumsatz, und das DPO teils auf Basis des Wareneinkaufs. In der Klausur die Vorgabe der Aufgabe nutzen.');
       return { name: 'Cash Conversion Cycle', cols: [46, 18, 50], cells: b.cells, merges: b.merges,
         explain: { B18: 'Days Sales Outstanding: Wie lange Kunden im Schnitt bis zur Zahlung brauchen.', B21: 'Cash Conversion Cycle = DSO + DIO − DPO: Tage zwischen Bezahlen der Lieferanten und Geldeingang vom Kunden.' } };
@@ -278,11 +278,11 @@ export default [
       b.sec(18, 'Ergebnis');
       b.th(19, ['Kennzahl', 'Wert', 'Marge (vom Umsatz)', 'Rechnung']);
       b.lab('A20', 'Gesamtleistung').fx('B20', 'B5+B6+B7', 'eur').txt('D20', 'Umsatz ± Bestandsveränderung + aktivierte Eigenleistungen');
-      b.lab('A21', 'EBITDA').res('B21', 'B20+B8-B9-B10-B12-B13', 'eur').res('C21', 'IF(B5=0,0,B21/B5)', 'pct').txt('D21', 'Gesamtleistung + sonst. Erträge − Material − Personal − sonst. Aufwand − sonst. Steuern');
-      b.lab('A22', 'EBIT').res('B22', 'B21-B11', 'eur').res('C22', 'IF(B5=0,0,B22/B5)', 'pct').txt('D22', 'EBITDA − Abschreibungen');
+      b.lab('A21', 'EBITDA').res('B21', 'B20+B8-B9-B10-B12-B13', 'eur').res('C21', 'IFERROR(B21/B5,"–")', 'pct').txt('D21', 'Gesamtleistung + sonst. Erträge − Material − Personal − sonst. Aufwand − sonst. Steuern');
+      b.lab('A22', 'EBIT').res('B22', 'B21-B11', 'eur').res('C22', 'IFERROR(B22/B5,"–")', 'pct').txt('D22', 'EBITDA − Abschreibungen');
       b.lab('A23', 'Finanzergebnis').fx('B23', 'B14-B15', 'eur').txt('D23', 'Zinserträge − Zinsaufwendungen');
-      b.lab('A24', 'EBT').res('B24', 'B22+B23', 'eur').res('C24', 'IF(B5=0,0,B24/B5)', 'pct').txt('D24', 'EBIT + Finanzergebnis');
-      b.lab('A25', 'Jahresüberschuss / Jahresfehlbetrag').tot('B25', 'B24-B16', 'eur').tot('C25', 'IF(B5=0,0,B25/B5)', 'pct').txt('D25', 'EBT − Ertragsteuern');
+      b.lab('A24', 'EBT').res('B24', 'B22+B23', 'eur').res('C24', 'IFERROR(B24/B5,"–")', 'pct').txt('D24', 'EBIT + Finanzergebnis');
+      b.lab('A25', 'Jahresüberschuss / Jahresfehlbetrag').tot('B25', 'B24-B16', 'eur').tot('C25', 'IFERROR(B25/B5,"–")', 'pct').txt('D25', 'EBT − Ertragsteuern');
       b.note('A27', 'EBIT, EBITDA und EBT sind nicht gesetzlich definiert. Hier: sonstige Steuern zählen zum operativen Ergebnis, nur Ertragsteuern und Zinsen werden herausgerechnet. In der Klausur die Definition der Aufgabe nutzen.');
       return { name: 'EBITDA-EBIT', cols: [48, 17, 17, 70], cells: b.cells, merges: b.merges,
         explain: { B21: 'EBITDA = Ergebnis vor Zinsen, Ertragsteuern und Abschreibungen.', B22: 'EBIT = EBITDA − Abschreibungen = operatives Ergebnis vor Zinsen und Ertragsteuern.', C22: 'EBIT-Marge = EBIT / Umsatzerlöse.' } };
@@ -301,7 +301,7 @@ export default [
       range(6, 19).forEach(r => { const tot = r >= 14 ? 19 : 13;
         if (IN[r]) { b.lab('A' + r, IN[r][0]).inp('B' + r, IN[r][1], 'eur', { min: 0 }).inp('C' + r, IN[r][2], 'eur', { min: 0 }); }
         else { b.lab('A' + r, SUMS[r][0]).tot('B' + r, SUMS[r][1].replace(/X/g, 'B'), 'eur').tot('C' + r, SUMS[r][1].replace(/X/g, 'C'), 'eur'); }
-        b.fx('D' + r, `C${r}-B${r}`, 'eur').fx('E' + r, `IF(B${r}=0,"–",D${r}/B${r})`, 'pct1').fx('F' + r, `IF(B$${tot}=0,0,B${r}/B$${tot})`, 'pct1').fx('G' + r, `IF(C$${tot}=0,0,C${r}/C$${tot})`, 'pct1'); });
+        b.fx('D' + r, `C${r}-B${r}`, 'eur').fx('E' + r, `IF(B${r}=0,"–",D${r}/B${r})`, 'pct1').fx('F' + r, `IF(B$${tot}=0,"–",B${r}/B$${tot})`, 'pct1').fx('G' + r, `IF(C$${tot}=0,"–",C${r}/C$${tot})`, 'pct1'); });
       b.lab('A20', 'Bilanz ausgeglichen?').fx('B20', 'IF(ROUND(B13-B19,2)=0,"✓","✗ Aktiva ≠ Passiva")', 'txt').fx('C20', 'IF(ROUND(C13-C19,2)=0,"✓","✗ Aktiva ≠ Passiva")', 'txt');
       b.sec(22, 'Bewegungsbilanz');
       b.th(23, ['Position', 'Mittelverwendung', 'Mittelherkunft', 'Art der Veränderung']);

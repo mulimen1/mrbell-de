@@ -11,11 +11,13 @@ const MON = LL(['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'A
 
 /* ================= Grundbausteine ================= */
 const _nf = new Map();
+// Kaufmännisch runden auf d Stellen – auf dem Dezimalwert, nicht auf der Binärdarstellung (21,875 → 21,88; 1,005 → 1,01)
+const rundKfm = (v, d) => { if (!(Math.abs(v) < 1e15)) return v; const [m, e] = Math.abs(v).toPrecision(Math.abs(v) < 1e9 ? 12 : 15).split('e'), r = Number(Math.round(Number(m + 'e' + ((+e || 0) + d))) + 'e-' + d); return v < 0 ? -r : r; };
 function fmt(v, d = 2, min = d) {
   if (!Number.isFinite(v)) return '–';
   const k = d + ':' + min;
   if (!_nf.has(k)) _nf.set(k, new Intl.NumberFormat(LOCALE, { minimumFractionDigits: min, maximumFractionDigits: d }));
-  return _nf.get(k).format(Math.abs(v) < 0.5 * 10 ** -d ? 0 : v).replace('-', '−');
+  return _nf.get(k).format(Math.abs(v) < 0.5 * 10 ** -d ? 0 : rundKfm(v, d)).replace('-', '−');
 }
 const eur = (v, d = 2) => fmt(v, d) + ' €';
 const eur0 = v => fmt(v, 0) + ' €';
@@ -27,7 +29,7 @@ const fmtK = v => Math.abs(v) >= 10000 ? fmt(v / 1000, 0) + LL(' Tsd.', 'k') : 
 const ri = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const pick = a => a[Math.floor(Math.random() * a.length)];
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-const r2 = v => Math.round(v * 100) / 100;
+const r2 = v => rundKfm(v, 2);
 const near = (a, b, tol = 0.005) => Math.abs(a - b) <= tol + 1e-9;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const sum = a => a.reduce((s, v) => s + v, 0);
@@ -319,7 +321,8 @@ const fmtAns = t => (t.unit === '€' ? eur(t.ans, t.dec) : fmt(t.ans, t.dec) + 
 function numView(body, task) {
   const id = uid('n');
   const inp = h('input', { class: 'field tr-numin', id, type: 'text', inputmode: 'decimal', autocomplete: 'off', spellcheck: 'false', placeholder: '0' });
-  body.append(h('div', { class: 'tr-numrow' }, h('label', { for: id, class: 'tr-lbl' }, task.label), h('div', { class: 'tr-numwrap' }, inp, task.unit ? h('span', { class: 'tr-unit' }, task.unit) : null)));
+  const d = task.dec ?? 2, rund = d === 0 ? LL('als ganze Zahl', 'as a whole number') : d === 1 ? LL('auf 1 Nachkommastelle gerundet', 'rounded to 1 decimal place') : LL(`auf ${d} Nachkommastellen gerundet`, `rounded to ${d} decimal places`);
+  body.append(h('div', { class: 'tr-numrow' }, h('label', { for: id, class: 'tr-lbl' }, task.label), h('div', { class: 'tr-numwrap' }, inp, task.unit ? h('span', { class: 'tr-unit' }, task.unit) : null)), h('div', { class: 'tr-mute tr-small tr-rund' }, LL('Ergebnis ', 'Answer ') + rund));
   inp.addEventListener('input', () => inp.classList.remove('tr-in-bad', 'tr-in-ok'));
   if (finePointer()) setTimeout(() => inp.isConnected && inp.focus({ preventScroll: true }), 30);
   return {
@@ -347,7 +350,7 @@ function numCheck(task, raw) {
 const numCfg = gen => ({
   gen, view: numView, check: numCheck,
   solution: t => h('div', null, solBlock(t.steps), t.note ? h('p', null, t.note) : null),
-  after: t => solBlock(t.steps),
+  after: t => h('div', null, solBlock(t.steps), t.note ? h('p', null, t.note) : null),   // Deutung (Urteil, Marktführer …) auch nach richtiger Antwort
   attempt: (a, t) => `${a || LL('(leer)', '(empty)')} ${t.unit || ''}`.trim(),
 });
 
@@ -896,8 +899,8 @@ function beExplore(stage) {
     chart.draw();
     const db = be.db(P.p, P.kv), xs = be.bep(P.kf, P.p, P.kv), g = be.profit(P.kf, P.p, P.kv, P.x), ss = be.safety(P.x, xs);
     kp.replaceChildren(kpi(LL('Stück-DB', 'Unit CM'), eur(db), LL('\\(p - k_v\\)', '\\(p - \\text{vc}\\)')), kpi(LL('Break-even-Menge', 'Break-even quantity'), Number.isFinite(xs) ? fmt(xs, 0) + LL(' Stück', ' units') : '–', Number.isFinite(xs) ? fmt(xs, 2) + LL(' exakt', ' exact') : LL('DB ≤ 0', 'CM ≤ 0')),
-      kpi(LL('Break-even-Umsatz', 'Break-even revenue'), Number.isFinite(xs) ? eur0(xs * P.p) : '–', '\\(p \\cdot x^{*}\\)'), kpi(g >= 0 ? LL('Gewinn', 'Profit') : LL('Verlust', 'Loss'), eur0(Math.abs(g)), LL(`bei ${fmt(P.x, 0)} Stück`, `at ${fmt(P.x, 0)} units`)),
-      kpi(LL('Sicherheitsstrecke', 'Margin of safety'), Number.isFinite(ss) && Number.isFinite(xs) ? fmt(ss * 100, 1) + LL(' %', '%') : '–', Number.isFinite(xs) ? LL(`${fmt(P.x - xs, 0)} Stück Puffer`, `${fmt(P.x - xs, 0)} units buffer`) : ''));
+      kpi(LL('Break-even-Umsatz', 'Break-even revenue'), Number.isFinite(xs) ? eur(xs * P.p) : '–', '\\(p \\cdot x^{*}\\)'), kpi(g >= 0 ? LL('Gewinn', 'Profit') : LL('Verlust', 'Loss'), eur(Math.abs(g)), LL(`bei ${fmt(P.x, 0)} Stück`, `at ${fmt(P.x, 0)} units`)),
+      kpi(LL('Sicherheitsstrecke', 'Margin of safety'), Number.isFinite(ss) && Number.isFinite(xs) ? fmt(ss * 100, 2) + LL(' %', '%') : '–', Number.isFinite(xs) ? LL(`${fmt(P.x - xs, 0)} Stück Puffer`, `${fmt(P.x - xs, 0)} units buffer`) : ''));
     note.textContent = db <= 0 ? LL('Der Preis deckt nicht einmal die variablen Stückkosten – es gibt keinen Break-even-Punkt.', 'The price doesn’t even cover the variable cost per unit – there is no break-even point.') : xs > BE_XMAX ? LL(`Der Break-even liegt bei ${fmt(xs, 0)} Stück – außerhalb des Diagramms.`, `Break-even is at ${fmt(xs, 0)} units – outside the chart.`) : '';
   }
   stage.append(h('div', { class: 'tr-explore' }, h('div', { class: 'tr-panel' }, sl.map(s => s.el)), h('div', { class: 'tr-chartwrap' }, box, note)), kp);
@@ -985,20 +988,23 @@ const BEVEN = {
 export const inv = {
   npv: (cf, i) => cf.reduce((s, c, t) => s + c / (1 + i) ** t, 0),
   annuity(kw, i, n) { if (n <= 0) return NaN; if (Math.abs(i) < 1e-12) return kw / n; const q = (1 + i) ** n; return (kw * (i * q)) / (q - 1); },
-  irr(cf) {
+  irr(cf) {   // alle Lösungen zwischen −99 % und 1000 %: feines Raster (dicht bei −99 %), dann Bisektion
+    if (cf.every(c => c === 0)) return [];
     const f = r => inv.npv(cf, r), roots = [];
-    let a = -0.95, fa = f(a);
-    for (let k = 1; k <= 1580; k++) {
-      const b = -0.95 + k * 0.0025, fb = f(b);
+    const g = k => -0.99 + (Math.exp((k / 6000) * Math.log(1100)) - 1) * 0.01;
+    let a = g(0), fa = f(a);
+    if (fa === 0) roots.push(a);
+    for (let k = 1; k <= 6000; k++) {
+      const b = g(k), fb = f(b);
       if (fb === 0) roots.push(b);
       else if (fa * fb < 0) {
         let lo = a, hi = b, flo = fa;
-        for (let j = 0; j < 80; j++) { const mid = (lo + hi) / 2, fm = f(mid); if (flo * fm <= 0) hi = mid; else { lo = mid; flo = fm; } }
+        for (let j = 0; j < 200; j++) { const mid = (lo + hi) / 2, fm = f(mid); if (fm === 0 || hi - lo < 1e-15) { lo = hi = mid; break; } if (flo * fm < 0) hi = mid; else { lo = mid; flo = fm; } }
         roots.push((lo + hi) / 2);
       }
       a = b; fa = fb;
     }
-    return roots;
+    return roots.filter((r, k, x) => k === 0 || Math.abs(r - x[k - 1]) > 1e-9);
   },
   payback(cf, i = 0) {
     if (cf[0] >= 0) return 0;
@@ -1063,7 +1069,7 @@ function kwExplore(stage) {
     tfoot.replaceChildren(h('tr', null, h('td', { colspan: 2 }, LL('Kapitalwert', 'NPV')), h('td', { class: 'tr-fac' }), h('td', { class: 'n', colspan: 2 }, h('b', null, eur(cum)))));
     const n = S.cf.length - 1, ann = inv.annuity(cum, S.i, n), roots = inv.irr(S.cf), ps = inv.payback(S.cf, 0), pd = inv.payback(S.cf, S.i);
     const yr = v => (v == null ? LL('nicht in der Laufzeit', 'not within the term') : fmt(v, 2) + LL(' Jahre', ' years'));
-    kp.replaceChildren(kpi(LL('Kapitalwert', 'NPV'), eur0(cum), cum >= 0 ? LL('vorteilhaft (KW ≥ 0)', 'worthwhile (NPV ≥ 0)') : LL('nicht vorteilhaft', 'not worthwhile')), kpi(LL('Annuität', 'Annuity'), eur0(ann), LL(`pro Jahr über ${n} Jahre`, `per year over ${n} years`)),
+    kp.replaceChildren(kpi(LL('Kapitalwert', 'NPV'), eur(cum), cum >= 0 ? LL('vorteilhaft (KW ≥ 0)', 'worthwhile (NPV ≥ 0)') : LL('nicht vorteilhaft', 'not worthwhile')), kpi(LL('Annuität', 'Annuity'), eur(ann), LL(`pro Jahr über ${n} Jahre`, `per year over ${n} years`)),
       kpi(LL('Interner Zinsfuß', 'Internal rate of return'), roots.length ? fmt(roots[0] * 100, 2) + LL(' %', '%') : LL('keiner', 'none'), roots.length > 1 ? LL(`mehrere Lösungen (${roots.length})`, `multiple solutions (${roots.length})`) : roots.length ? (roots[0] > S.i ? LL('liegt über i', 'above i') : LL('liegt unter i', 'below i')) : LL('kein Vorzeichenwechsel', 'no sign change')),
       kpi(LL('Amortisation statisch', 'Static payback'), yr(ps), LL('kumuliert, unverzinst', 'cumulative, undiscounted')), kpi(LL('Amortisation dynamisch', 'Dynamic payback'), yr(pd), LL('kumulierte Barwerte', 'cumulative present values')));
   }
@@ -1080,7 +1086,7 @@ function kwGen() {
   const cfText = cf => cf.map((c, t) => `t${t}: ${fmt(c, 0)} €`).join(' · ');
   if (type === 'kw') {
     const n = ri(3, 4), i = pick([4, 5, 6, 8, 10, 12]) / 100, cf = flows(n), ans = inv.npv(cf, i);
-    return numTask({ q: LL(`Eine Investition hat folgende Zahlungen: ${cfText(cf)}. Berechne den Kapitalwert bei einem Kalkulationszins von ${pctS(i)}.`, `An investment has the following cash flows: ${cfText(cf)}. Calculate the NPV at a discount rate of ${pctS(i)}.`), label: LL('Kapitalwert', 'NPV'), unit: '€', ans, tol: Math.max(2, -cf[0] * 0.0001),
+    return numTask({ q: LL(`Eine Investition hat folgende Zahlungen: ${cfText(cf)}. Berechne den Kapitalwert bei einem Kalkulationszins von ${pctS(i)}.`, `An investment has the following cash flows: ${cfText(cf)}. Calculate the NPV at a discount rate of ${pctS(i)}.`), label: LL('Kapitalwert', 'NPV'), unit: '€', ans, tol: cf.slice(1).reduce((u, c) => u + Math.abs(c), 0) * 0.00005 + 0.01   /* größtmöglicher Fehler durch auf 4 Stellen gerundete Abzinsungsfaktoren */,
       traps: [[sum(cf), LL('Du hast die Rückflüsse nicht abgezinst. Jede Zahlung muss mit \\((1 + i)^{-t}\\) auf t = 0 bezogen werden.', 'You didn’t discount the inflows. Every cash flow must be brought back to t = 0 with \\((1 + i)^{-t}\\).'), 'abzins'], [ans - cf[0], LL('Die Anschaffungsauszahlung in t = 0 fehlt – zieh sie vom Barwert der Rückflüsse ab.', 'The initial outlay at t = 0 is missing – subtract it from the present value of the inflows.'), 'i0'],
         [cf[0] + sum(cf.slice(1).map((c, t) => c / (1 + i) ** (t + 2))), LL('Dein Abzinsungsexponent ist um ein Jahr verschoben: Die Zahlung in t wird mit \\((1 + i)^{-t}\\) abgezinst.', 'Your discounting exponent is off by one year: the cash flow at t is discounted with \\((1 + i)^{-t}\\).'), 'expo'], [cf[0] + sum(cf.slice(1).map((c, t) => c * (1 + i) ** (t + 1))), LL('Du hast aufgezinst statt abgezinst. Teile durch \\((1 + i)^{t}\\).', 'You compounded instead of discounting. Divide by \\((1 + i)^{t}\\).'), 'aufzins']],
       hints: [LL('Kapitalwert = Summe aller Barwerte: \\(C_0 = \\sum Z_t \\cdot (1 + i)^{-t}\\), inklusive der Auszahlung in t = 0.', 'NPV = sum of all present values: \\(C_0 = \\sum \\text{CF}_t \\cdot (1 + i)^{-t}\\), including the outlay at t = 0.'), LL(`Der Abzinsungsfaktor für t = 1 ist \\(\\frac{1}{${fmt(1 + i, 2)}} = ${fmt(1 / (1 + i), 4)}\\).`, `The discount factor for t = 1 is \\(\\frac{1}{${fmt(1 + i, 2)}} = ${fmt(1 / (1 + i), 4)}\\).`)], steps: [...discLines(cf, i), LL(`Kapitalwert = ${eur(ans)}`, `NPV = ${eur(ans)}`)],
@@ -1103,7 +1109,7 @@ function kwGen() {
     return numTask({ q: LL(`Eine Investition kostet ${eur0(I0)} und bringt nach einem Jahr ${eur0(c1)} sowie nach zwei Jahren ${eur0(c2)} ein. Berechne den internen Zinsfuß in % (eine Nachkommastelle).`, `An investment costs ${eur0(I0)} and returns ${eur0(c1)} after one year and ${eur0(c2)} after two years. Calculate the internal rate of return in % (one decimal place).`), label: LL('Interner Zinsfuß', 'Internal rate of return'), unit: '%', ans, dec: 1, tol: 0.06,
       traps: [[ans / 100, LL('Gib den Zinssatz in Prozent an, z. B. 8,5 statt 0,085.', 'Give the rate as a percentage, e.g. 8.5 instead of 0.085.'), 'einheit'], [((c1 + c2 - I0) / I0) * 100, LL('Das ist die Gesamtrendite ohne Zeitwert. Gesucht ist der Zins, bei dem der Kapitalwert genau 0 ist.', 'That’s the total return ignoring the time value of money. You’re looking for the rate at which the NPV is exactly 0.'), 'abzins']],
       hints: [LL('Der interne Zinsfuß ist der Zins, bei dem der Kapitalwert genau 0 wird.', 'The internal rate of return is the rate at which the NPV becomes exactly 0.'), LL(`Setze \\(q = 1 + r\\): \\(-${fmt(I0, 0)} \\cdot q^{2} + ${fmt(c1, 0)} \\cdot q + ${fmt(c2, 0)} = 0\\) und löse die quadratische Gleichung.`, `Set \\(q = 1 + r\\): \\(-${fmt(I0, 0)} \\cdot q^{2} + ${fmt(c1, 0)} \\cdot q + ${fmt(c2, 0)} = 0\\) and solve the quadratic equation.`)],
-      steps: [`\\(0 = -${fmt(I0, 0)} + \\frac{${fmt(c1, 0)}}{q} + \\frac{${fmt(c2, 0)}}{q^{2}}\\)`, `\\(\\Leftrightarrow\\ ${fmt(I0, 0)}\\,q^{2} - ${fmt(c1, 0)}\\,q - ${fmt(c2, 0)} = 0\\)`, `\\(q = \\frac{${fmt(c1, 0)} + \\sqrt{${fmt(c1, 0)}^{2} + 4 \\cdot ${fmt(I0, 0)} \\cdot ${fmt(c2, 0)}}}{2 \\cdot ${fmt(I0, 0)}} = ${fmt(1 + ans / 100, 5)}\\)`, LL(`IZF = ${fmt(ans, 2)} %`, `IRR = ${fmt(ans, 2)}%`)] });
+      steps: [`\\(0 = -${fmt(I0, 0)} + \\frac{${fmt(c1, 0)}}{q} + \\frac{${fmt(c2, 0)}}{q^{2}}\\)`, `\\(\\Leftrightarrow\\ ${fmt(I0, 0)}\\,q^{2} - ${fmt(c1, 0)}\\,q - ${fmt(c2, 0)} = 0\\)`, `\\(q = \\frac{${fmt(c1, 0)} + \\sqrt{${fmt(c1, 0)}^{2} + 4 \\cdot ${fmt(I0, 0)} \\cdot ${fmt(c2, 0)}}}{2 \\cdot ${fmt(I0, 0)}} = ${fmt(1 + ans / 100, 5)}\\)`, LL(`IZF = ${fmt(ans, 4)} % \u2248 ${fmt(ans, 1)} %`, `IRR = ${fmt(ans, 4)}% \u2248 ${fmt(ans, 1)}%`)] });
   }
   let cf, i, pd, ps;
   do { i = pick([5, 6, 8, 10]) / 100; cf = flows(5); pd = inv.payback(cf, i); ps = inv.payback(cf, 0); } while (pd == null || Math.ceil(pd) === Math.ceil(ps));
@@ -1131,10 +1137,10 @@ export function market(S) {
     Object.assign(r, { x, pc, pp, kr: 0.5 * (a - pc) * x, pr: 0.5 * (pp - c) * x, st: t * x, wv: 0.5 * t * (xe - x), binding: true });
   } else if (S.pol === 'max' && S.pv < pe) {
     const x = Math.max(0, (S.pv - c) / d), D = a - b * x;
-    Object.assign(r, { x, pc: S.pv, pp: S.pv, kr: (a - S.pv) * x - 0.5 * b * x * x, pr: 0.5 * (S.pv - c) * x, wv: 0.5 * (D - S.pv) * (xe - x), gap: Math.max(0, (a - S.pv) / b - x), binding: true });
+    Object.assign(r, { x, pc: S.pv, pp: S.pv, kr: (a - S.pv) * x - 0.5 * b * x * x, pr: 0.5 * (S.pv - c) * x, wv: 0.5 * (D - (c + d * x)) * (xe - x), gap: Math.max(0, (a - S.pv) / b - x), binding: true });
   } else if (S.pol === 'min' && S.pv > pe) {
     const x = Math.max(0, (a - S.pv) / b), Sx = c + d * x;
-    Object.assign(r, { x, pc: S.pv, pp: S.pv, kr: 0.5 * (a - S.pv) * x, pr: (S.pv - c) * x - 0.5 * d * x * x, wv: 0.5 * (S.pv - Sx) * (xe - x), gap: Math.max(0, (S.pv - c) / d - x), binding: true });
+    Object.assign(r, { x, pc: S.pv, pp: S.pv, kr: 0.5 * (a - S.pv) * x, pr: (S.pv - c) * x - 0.5 * d * x * x, wv: 0.5 * ((a - b * x) - Sx) * (xe - x), gap: Math.max(0, (S.pv - c) / d - x), binding: true });
   }
   return r;
 }
@@ -1225,9 +1231,9 @@ function marktExplore(stage) {
     const R = market(st);
     const list = [kpi(LL('Gleichgewicht', 'Equilibrium'), `\\(p^{*}\\) ${eur(R.pe, 1)}`, `\\(x^{*} = ${fmt(R.xe, 1)}\\)`)];
     if (R.binding) list.push(kpi(LL('Gehandelte Menge', 'Quantity traded'), fmt(R.x, 1), st.pol === 'tax' ? LL(`Käufer zahlen ${eur(R.pc, 1)}, Anbieter erhalten ${eur(R.pp, 1)}`, `Buyers pay ${eur(R.pc, 1)}, sellers receive ${eur(R.pp, 1)}`) : st.pol === 'max' ? LL(`Nachfrageüberhang ${fmt(R.gap, 1)}`, `Excess demand ${fmt(R.gap, 1)}`) : LL(`Angebotsüberhang ${fmt(R.gap, 1)}`, `Excess supply ${fmt(R.gap, 1)}`)));
-    list.push(kpi(LL('Konsumentenrente', 'Consumer surplus'), eur0(R.kr)), kpi(LL('Produzentenrente', 'Producer surplus'), eur0(R.pr)));
-    if (st.pol === 'tax') list.push(kpi(LL('Steueraufkommen', 'Tax revenue'), eur0(R.st)));
-    list.push(kpi(LL('Wohlfahrtsverlust', 'Deadweight loss'), eur0(R.wv), R.wv > 0 ? LL('schraffierte Fläche', 'hatched area') : LL('kein Verlust', 'no loss')));
+    list.push(kpi(LL('Konsumentenrente', 'Consumer surplus'), eur(R.kr)), kpi(LL('Produzentenrente', 'Producer surplus'), eur(R.pr)));
+    if (st.pol === 'tax') list.push(kpi(LL('Steueraufkommen', 'Tax revenue'), eur(R.st)));
+    list.push(kpi(LL('Wohlfahrtsverlust', 'Deadweight loss'), eur(R.wv), R.wv > 0 ? LL('schraffierte Fläche', 'hatched area') : LL('kein Verlust', 'no loss')));
     kp.replaceChildren(...list);
     note.textContent = (st.pol === 'max' || st.pol === 'min') && !R.binding ? LL(`Der ${st.pol === 'max' ? 'Höchstpreis liegt über' : 'Mindestpreis liegt unter'} dem Gleichgewichtspreis – er ist nicht bindend.`, `The ${st.pol === 'max' ? 'price ceiling is above' : 'price floor is below'} the equilibrium price – it is not binding.`) : LL('Tipp: Zieh eine Kurve direkt im Diagramm, um sie zu verschieben.', 'Tip: drag a curve directly in the chart to shift it.');
   }
@@ -1568,11 +1574,11 @@ function mktGen() {
       steps: [`\\(\\frac{${fmt(mv, 0)}}{${fmt(mp, 0)}} \\cdot 100 = ${pm(s)}\\)`] }); }
   if (t === 'elast') { const p0 = ri(10, 80), p1 = p0 + pick([-1, 1]) * ri(1, Math.max(1, Math.floor(p0 / 4))), x0 = ri(10, 90) * 100, x1 = Math.max(100, x0 + (p1 > p0 ? -1 : 1) * ri(1, 40) * 50);
     const e = ((x1 - x0) / x0) / ((p1 - p0) / p0);
-    return nt({ q: Q(`Ein Café erhöht/senkt den Preis für einen Flat White von ${eur(p0 / 10 * 1)} auf ${eur(p1 / 10)}. Der Absatz ändert sich dadurch von ${fmt(x0, 0)} auf ${fmt(x1, 0)} Stück pro Monat. Berechne die Preiselastizität der Nachfrage.`, `A café changes the price of a flat white from ${eur(p0 / 10)} to ${eur(p1 / 10)}. Sales change from ${fmt(x0, 0)} to ${fmt(x1, 0)} units per month. Calculate the price elasticity of demand.`), label: Q('Preiselastizität', 'Price elasticity'), unit: '', ans: e, dec: 2, tol: 0.02,
+    return nt({ q: Q(`Ein Café ${p1 > p0 ? 'erhöht' : 'senkt'} den Preis für einen Flat White von ${eur(p0 / 10)} auf ${eur(p1 / 10)}. Der Absatz ändert sich dadurch von ${fmt(x0, 0)} auf ${fmt(x1, 0)} Stück pro Monat. Berechne die Preiselastizität der Nachfrage.`, `A café ${p1 > p0 ? 'raises' : 'lowers'} the price of a flat white from ${eur(p0 / 10)} to ${eur(p1 / 10)}. Sales change from ${fmt(x0, 0)} to ${fmt(x1, 0)} units per month. Calculate the price elasticity of demand.`), label: Q('Preiselastizität', 'Price elasticity'), unit: '', ans: e, dec: 2, tol: 0.02,
       traps: [[1 / e, Q('Zähler und Nenner vertauscht: \\(\\text{Elastizität} = \\frac{\\text{prozentuale Mengenänderung}}{\\text{prozentuale Preisänderung}}\\).', 'Swapped: \\(\\text{elasticity} = \\frac{\\%\\text{ change in quantity}}{\\%\\text{ change in price}}\\).'), 'formel'], [-e, Q('Vorzeichen beachten: Bei normaler Nachfrage ist die Elastizität negativ.', 'Mind the sign: for normal demand the elasticity is negative.'), 'vz']],
       hints: [Q('Rechne zuerst die prozentuale Mengen- und die prozentuale Preisänderung aus.', 'First compute the % change in quantity and the % change in price.'), Q('\\(\\varepsilon = \\frac{\\%\\Delta\\text{Menge}}{\\%\\Delta\\text{Preis}}\\).', '\\(\\varepsilon = \\frac{\\%\\Delta\\text{quantity}}{\\%\\Delta\\text{price}}\\).')],
       steps: [`\\(\\%\\Delta x = \\frac{${fmt(x1, 0)} - ${fmt(x0, 0)}}{${fmt(x0, 0)}} = ${pm((x1 - x0) / x0 * 100, 2)}\\)`, `\\(\\%\\Delta p = \\frac{${em(p1 / 10)} - ${em(p0 / 10)}}{${em(p0 / 10)}} = ${pm((p1 - p0) / p0 * 100, 2)}\\)`, `\\(\\varepsilon = ${fmt(e, 2)}\\)`],
-      note: Math.abs(e) > 1 ? Q('\\(|\\varepsilon| > 1\\): elastische Nachfrage – Kunden reagieren stark auf den Preis.', '\\(|\\varepsilon| > 1\\): elastic demand – customers react strongly to price.') : Q('\\(|\\varepsilon| < 1\\): unelastische Nachfrage.', '\\(|\\varepsilon| < 1\\): inelastic demand.') }); }
+      note: Math.abs(Math.abs(e) - 1) < 1e-9 ? Q('\\(|\\varepsilon| = 1\\): proportional-elastische Nachfrage – Menge und Preis ändern sich prozentual gleich stark.', '\\(|\\varepsilon| = 1\\): unit-elastic demand.') : Math.abs(e) > 1 ? Q('\\(|\\varepsilon| > 1\\): elastische Nachfrage – Kunden reagieren stark auf den Preis.', '\\(|\\varepsilon| > 1\\): elastic demand – customers react strongly to price.') : Q('\\(|\\varepsilon| < 1\\): unelastische Nachfrage.', '\\(|\\varepsilon| < 1\\): inelastic demand.') }); }
   if (t === 'clv') { const k = ri(15, 80), f = ri(2, 12), j = ri(2, 6), m = ri(15, 45), clv = k * f * j * m / 100;
     return nt({ q: Q(`Eine Kundin kauft im Schnitt ${f}-mal pro Jahr für ${eur0(k)} ein und bleibt ${j} Jahre Kundin. Die Marge liegt bei ${m} %. Wie hoch ist ihr Customer Lifetime Value (ohne Abzinsung)?`, `A customer buys ${f} times a year for ${eur0(k)} on average and stays for ${j} years. The margin is ${m} %. What is her customer lifetime value (no discounting)?`), label: 'CLV', unit: '€', ans: clv, dec: 2,
       traps: [[k * f * j, Q('Das ist der Umsatz über die Kundenbeziehung – der CLV rechnet mit dem Deckungsbeitrag (Marge).', 'That’s revenue over the relationship – CLV uses the margin.'), 'marge']],
@@ -1627,12 +1633,12 @@ function afaGen() {
   const ak = ri(6, 120) * 1000, nd = pick([4, 5, 6, 8, 10]), t = pick(['lin', 'rbw', 'prt', 'degr', 'leist']);
   if (t === 'lin') { const a = ak / nd; return nt({ q: Q(`Eine Maschine kostet ${eur0(ak)} (Anschaffungskosten), Nutzungsdauer ${nd} Jahre, kein Restwert. Wie hoch ist die jährliche lineare Abschreibung?`, `A machine costs ${eur0(ak)}, useful life ${nd} years, no residual value. What is the annual straight-line depreciation?`), label: Q('AfA pro Jahr', 'Depreciation per year'), unit: '€', ans: a,
     hints: [Q('Linear: Anschaffungskosten gleichmäßig auf die Nutzungsdauer verteilen.', 'Straight-line: spread the cost evenly over the useful life.')], steps: [`\\(\\frac{${em0(ak)}}{${nd}} = ${em(a)}\\)`] }); }
-  if (t === 'rbw') { const j = ri(1, nd - 1), r = ak - ak / nd * j; return nt({ q: Q(`Anschaffungskosten ${eur0(ak)}, lineare Abschreibung über ${nd} Jahre. Wie hoch ist der Restbuchwert nach ${j} vollen Jahren?`, `Cost ${eur0(ak)}, straight-line over ${nd} years. What is the carrying amount after ${j} full years?`), label: Q('Restbuchwert', 'Carrying amount'), unit: '€', ans: r,
+  if (t === 'rbw') { const j = ri(1, nd - 1), r = ak - ak / nd * j; return nt({ q: Q(`Anschaffungskosten ${eur0(ak)}, lineare Abschreibung über ${nd} Jahre. Wie hoch ist der Restbuchwert nach ${j} ${j === 1 ? 'vollen Jahr' : 'vollen Jahren'}?`, `Cost ${eur0(ak)}, straight-line over ${nd} years. What is the carrying amount after ${j} full years?`), label: Q('Restbuchwert', 'Carrying amount'), unit: '€', ans: r,
     traps: [[ak / nd * j, Q('Das ist die kumulierte Abschreibung – der Restbuchwert ist das, was übrig bleibt.', 'That’s accumulated depreciation – the carrying amount is what remains.'), 'rest']], hints: [Q('\\(\\text{Restbuchwert} = \\text{AK} - \\text{AfA pro Jahr} \\cdot \\text{abgelaufene Jahre}\\).', '\\(\\text{Carrying amount} = \\text{cost} - \\text{annual depreciation} \\cdot \\text{years}\\).')], steps: [`\\(${em0(ak)} - ${em(ak / nd)} \\cdot ${j} = ${em(r)}\\)`] }); }
   if (t === 'prt') { const m = ri(1, 12), a = ak / nd * (13 - m) / 12; return nt({ q: Q(`Ein Firmenwagen wird am ${ri(1, 28)}. ${MON[m - 1]} angeschafft: ${eur0(ak)}, Nutzungsdauer ${nd} Jahre, linear. Wie hoch ist die Abschreibung im Anschaffungsjahr (monatsgenau, pro rata temporis)?`, `A company car is bought in ${MON[m - 1]}: ${eur0(ak)}, useful life ${nd} years, straight-line. What is the depreciation in the year of acquisition (pro rata by month)?`), label: Q('AfA im 1. Jahr', 'Depreciation year 1'), unit: '€', ans: a,
     traps: [[ak / nd, Q('Volle Jahres-AfA – im Anschaffungsjahr wird nur ab dem Anschaffungsmonat abgeschrieben.', 'Full-year amount – in the first year you only depreciate from the month of acquisition.'), 'prt'], [ak / nd * (12 - m) / 12, Q('Der Anschaffungsmonat zählt voll mit.', 'The month of acquisition counts in full.'), 'monat']],
     hints: [Q('Pro rata temporis: \\(\\text{Jahres-AfA} \\cdot \\frac{\\text{Monate ab Anschaffung}}{12}\\) (inkl. Anschaffungsmonat).', 'Pro rata: \\(\\text{annual depreciation} \\cdot \\frac{\\text{months from acquisition}}{12}\\) (incl. that month).')], steps: [`\\(\\frac{${em0(ak)}}{${nd}} = ${em(ak / nd)}\\)`, `\\(${em(ak / nd)} \\cdot \\frac{${13 - m}}{12} = ${em(a)}\\)`] }); }
-  if (t === 'degr') { const p = pick([20, 25]), j = ri(2, 3); let w = ak; const L = []; for (let i = 1; i <= j; i++) { const d = w * p / 100; L.push(`${Q('Jahr', 'Year')} ${i}: \\(${em(w)} \\cdot ${p}\\,\\% = ${em(d)}\\) → \\(${em(w - d)}\\)`); w -= d; }
+  if (t === 'degr') { const p = pick([20, 25]), j = ri(2, 3); let w = ak; const L = []; for (let i = 1; i <= j; i++) { const d = r2(w * p / 100); L.push(`${Q('Jahr', 'Year')} ${i}: \\(${em(w)} \\cdot ${p}\\,\\% = ${em(d)}\\) → \\(${em(w - d)}\\)`); w -= d; }
     return nt({ q: Q(`Anschaffungskosten ${eur0(ak)}, geometrisch-degressive Abschreibung mit ${p} % vom jeweiligen Restbuchwert. Wie hoch ist der Restbuchwert nach ${j} Jahren?`, `Cost ${eur0(ak)}, declining-balance depreciation at ${p} % of the carrying amount. What is the carrying amount after ${j} years?`), label: Q('Restbuchwert', 'Carrying amount'), unit: '€', ans: w,
       traps: [[ak - ak * p / 100 * j, Q('Du hast jedes Jahr vom ursprünglichen Wert abgeschrieben. Degressiv heißt: immer vom aktuellen Restbuchwert.', 'You used the original cost each year. Declining balance always uses the current carrying amount.'), 'basis']],
       hints: [Q('Jedes Jahr wird der Prozentsatz auf den Restbuchwert des Vorjahres angewendet.', 'Each year apply the rate to the previous carrying amount.')], steps: L }); }
@@ -1645,7 +1651,8 @@ const AFA = Object.assign({ explain: Q(`<p>Abschreibungen verteilen die Anschaff
 /* ---- Handelskalkulation ---- */
 function kalkGen() {
   const lep = ri(20, 400), rab = pick([5, 10, 15, 20]), sko = pick([2, 3]), bzk = ri(1, 15), hkz = pick([20, 25, 30, 40]), gz = pick([10, 15, 20]), vsko = pick([2, 3]), vrab = pick([0, 5, 10]);
-  const zep = lep * (1 - rab / 100), bep = zep * (1 - sko / 100), bzp = bep + bzk, sk = bzp * (1 + hkz / 100), bvp = sk * (1 + gz / 100), zvp = bvp / (1 - vsko / 100), lvp = zvp / (1 - vrab / 100);
+  // jede Stufe des Kalkulationsschemas auf Cent gerundet – so, wie sie in der Lösung steht und in der Klausur gerechnet wird
+  const zep = r2(lep * (1 - rab / 100)), bep = r2(zep * (1 - sko / 100)), bzp = r2(bep + bzk), sk = r2(bzp * (1 + hkz / 100)), bvp = r2(sk * (1 + gz / 100)), zvp = r2(bvp / (1 - vsko / 100)), lvp = r2(zvp / (1 - vrab / 100));
   const t = pick(['bzp', 'lvp', 'kz', 'hs']);
   const data = Q(`Listeneinkaufspreis ${eur(lep)}, Liefererrabatt ${rab} %, Liefererskonto ${sko} %, Bezugskosten ${eur(bzk)}.`, `List purchase price ${eur(lep)}, supplier discount ${rab} %, cash discount ${sko} %, delivery costs ${eur(bzk)}.`);
   if (t === 'bzp') return nt({ q: data + Q(' Wie hoch ist der Bezugspreis (Einstandspreis)?', ' What is the landed cost (purchase price incl. delivery)?'), label: Q('Bezugspreis', 'Landed cost'), unit: '€', ans: bzp,
@@ -1681,9 +1688,9 @@ function lagGen() {
     hints: [Q('\\(\\text{Ø Lagerbestand} = \\frac{\\text{Anfangsbestand} + \\text{Endbestand}}{2}\\).', '\\(\\text{Average stock} = \\frac{\\text{opening} + \\text{closing}}{2}\\).')], steps: [`\\(\\frac{${fmt(ab, 0)} + ${fmt(eb, 0)}}{2} = ${fmt(dlb, 0)}\\)`] });
   if (t === 'uh') return nt({ q: Q(`Jahresverbrauch ${fmt(ve, 0)} Stück, durchschnittlicher Lagerbestand ${fmt(dlb, 0)} Stück. Wie hoch ist die Umschlagshäufigkeit?`, `Annual usage ${fmt(ve, 0)} units, average stock ${fmt(dlb, 0)} units. What is the inventory turnover?`), label: Q('Umschlagshäufigkeit', 'Turnover'), unit: '', ans: uh, dec: 2, tol: 0.01,
     traps: [[dlb / ve, Q('Umgedreht: \\(\\frac{\\text{Verbrauch}}{\\text{Ø Bestand}}\\).', 'Flipped: \\(\\frac{\\text{usage}}{\\text{average stock}}\\).'), 'formel']], hints: [Q('\\(\\text{Umschlagshäufigkeit} = \\frac{\\text{Jahresverbrauch}}{\\text{Ø Lagerbestand}}\\).', '\\(\\text{Turnover} = \\frac{\\text{annual usage}}{\\text{average stock}}\\).')], steps: [`\\(\\frac{${fmt(ve, 0)}}{${fmt(dlb, 0)}} = ${fmt(uh, 2)}\\)`] });
-  const ld = 360 / uh;
-  return nt({ q: Q(`Die Umschlagshäufigkeit eines Artikels beträgt ${fmt(uh, 2)}. Wie viele Tage liegt die Ware im Durchschnitt auf Lager (360 Tage)?`, `An item’s inventory turnover is ${fmt(uh, 2)}. How many days does stock sit in the warehouse on average (360 days)?`), label: Q('Ø Lagerdauer', 'Average days'), unit: Q('Tage', 'days'), ans: ld, dec: 1, tol: 0.1,
-    hints: [Q('\\(\\text{Ø Lagerdauer} = \\frac{360}{\\text{Umschlagshäufigkeit}}\\).', '\\(\\text{Average days} = \\frac{360}{\\text{turnover}}\\).')], steps: [`\\(\\frac{360}{${fmt(uh, 2)}} = ${fmt(ld, 1)}\\)`] });
+  const uhS = r2(uh), ld = 360 / uhS;   // mit der Umschlagshäufigkeit rechnen, die in der Aufgabe steht
+  return nt({ q: Q(`Die Umschlagshäufigkeit eines Artikels beträgt ${fmt(uhS, 2)}. Wie viele Tage liegt die Ware im Durchschnitt auf Lager (360 Tage)?`, `An item’s inventory turnover is ${fmt(uhS, 2)}. How many days does stock sit in the warehouse on average (360 days)?`), label: Q('Ø Lagerdauer', 'Average days'), unit: Q('Tage', 'days'), ans: ld, dec: 1, tol: 0.1,
+    hints: [Q('\\(\\text{Ø Lagerdauer} = \\frac{360}{\\text{Umschlagshäufigkeit}}\\).', '\\(\\text{Average days} = \\frac{360}{\\text{turnover}}\\).')], steps: [`\\(\\frac{360}{${fmt(uhS, 2)}} = ${fmt(ld, 1)}\\)`] });
 }
 const LAG = Object.assign({ explain: Q(`<p>Beschaffung und Lager: so viel wie nötig, so wenig wie möglich.</p><ul><li>Andler: \\(\\sqrt{\\frac{200 \\cdot M \\cdot K_b}{p \\cdot z}}\\)</li><li>Meldebestand: \\(\\text{Tagesverbrauch} \\cdot \\text{Wiederbeschaffungszeit} + \\text{eiserner Bestand}\\)</li><li>Ø Lagerbestand: \\(\\frac{\\text{AB} + \\text{EB}}{2}\\) · Umschlagshäufigkeit: \\(\\frac{\\text{Verbrauch}}{\\text{Ø Bestand}}\\) · Lagerdauer: \\(\\frac{360}{\\text{UH}}\\)</li></ul>`, `<p>Purchasing and inventory: as much as needed, as little as possible.</p><ul><li>EOQ: \\(\\sqrt{\\frac{200 \\cdot D \\cdot S}{p \\cdot h}}\\)</li><li>Reorder point: \\(\\text{daily usage} \\cdot \\text{lead time} + \\text{safety stock}\\)</li><li>Average stock: \\(\\frac{\\text{opening} + \\text{closing}}{2}\\) · turnover: \\(\\frac{\\text{usage}}{\\text{avg stock}}\\) · days: \\(\\frac{360}{\\text{turnover}}\\)</li></ul>`) }, mkCfg(lagGen));
 
@@ -1732,8 +1739,9 @@ const PROD = Object.assign({ explain: Q(`<p>Produktion und Personal: Wie effizie
 /* ---- VWL · Makroökonomie ---- */
 function makGen() {
   const t = pick(['infl', 'real', 'rz', 'alq', 'mult']);
-  if (t === 'infl') { const a = ri(1000, 1300) / 10, b = r2(a * (1 + ri(-5, 90) / 1000)), i = (b - a) / a * 100;
-    return nt({ q: Q(`Der Verbraucherpreisindex steigt von ${fmt(a, 1)} auf ${fmt(b, 1)} Punkte. Wie hoch ist die Inflationsrate?`, `The consumer price index rises from ${fmt(a, 1)} to ${fmt(b, 1)} points. What is the inflation rate?`), label: Q('Inflationsrate', 'Inflation rate'), unit: '%', ans: i, dec: 2, tol: 0.02,
+  if (t === 'infl') { const a = ri(1000, 1300) / 10; let b; do { b = Math.round(a * (1 + ri(-5, 90) / 1000) * 10) / 10; } while (b === a);   // neuer Index genau so gerundet, wie er in der Aufgabe steht
+    const i = (b - a) / a * 100, up = b > a;
+    return nt({ q: Q(`Der Verbraucherpreisindex ${up ? 'steigt' : 'sinkt'} von ${fmt(a, 1)} auf ${fmt(b, 1)} Punkte. Wie hoch ist die Inflationsrate?${up ? '' : ' (negativ = Deflation)'}`, `The consumer price index ${up ? 'rises' : 'falls'} from ${fmt(a, 1)} to ${fmt(b, 1)} points. What is the inflation rate?${up ? '' : ' (negative = deflation)'}`), label: Q('Inflationsrate', 'Inflation rate'), unit: '%', ans: i, dec: 2, tol: 0.02,
       traps: [[b - a, Q('Das ist die Veränderung in Indexpunkten, nicht in Prozent.', 'That’s the change in index points, not percent.'), 'punkte']], hints: [Q('\\(\\text{Inflationsrate} = \\frac{\\text{VPI}_{\\text{neu}} - \\text{VPI}_{\\text{alt}}}{\\text{VPI}_{\\text{alt}}} \\cdot 100\\).', '\\(\\text{Inflation} = \\frac{\\text{CPI}_{\\text{new}} - \\text{CPI}_{\\text{old}}}{\\text{CPI}_{\\text{old}}} \\cdot 100\\).')], steps: [`\\(\\frac{${fmt(b, 1)} - ${fmt(a, 1)}}{${fmt(a, 1)}} \\cdot 100 = ${pm(i, 2)}\\)`] }); }
   if (t === 'real') { const n = ri(10, 80) / 10, p = ri(5, 60) / 10, r = ((1 + n / 100) / (1 + p / 100) - 1) * 100;
     return nt({ q: Q(`Das nominale BIP wächst um ${pc(n)}, der BIP-Deflator steigt um ${pc(p)}. Wie hoch ist das reale Wirtschaftswachstum (exakt)?`, `Nominal GDP grows by ${pc(n)}, the GDP deflator rises by ${pc(p)}. What is real growth (exact)?`), label: Q('Reales Wachstum', 'Real growth'), unit: '%', ans: r, dec: 2, tol: 0.02,

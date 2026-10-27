@@ -1,7 +1,7 @@
 // Die Excel-Vorlagen von BWL Max (Grundstock hier, weitere Bereiche in tpl-*.js). Blaue Felder = Eingaben, alles andere sind echte Excel-Formeln.
 // Rechenwege wie in Max' geprüften Rechnern (rechner-core.js) – Ergebnisse werden in den Tests dagegen geprüft.
 import { builder } from './core.js';
-import INVEST from './tpl-invest.js';
+import INVEST, { izfHilfe, izfText } from './tpl-invest.js';
 import KOSTEN from './tpl-kosten.js';
 import REWE from './tpl-rewe.js';
 import OPS from './tpl-ops.js';
@@ -25,13 +25,17 @@ const BASE = [
       b.txt('A10', 0, { fmt: 'int' }).fx('B10', '-B5', 'eur').fx('C10', '1/(1+$B$6)^A10', 'f4').fx('D10', 'B10*C10', 'eur').fx('E10', 'D10', 'eur');
       const cf = [15000, 15000, 15000, 15000, 15000, 0, 0, 0];
       range(1, 8).forEach(t => { const r = 10 + t; b.txt('A' + r, t, { fmt: 'int' }).inp('B' + r, cf[t - 1], 'eur').fx('C' + r, `1/(1+$B$6)^A${r}`, 'f4').fx('D' + r, `B${r}*C${r}`, 'eur').fx('E' + r, `E${r - 1}+D${r}`, 'eur'); });
+      // Hilfsrechnung IZF (Spalten G–I, Hilfswerte K–L), siehe izfHilfe in tpl-invest.js
+      b.th(9, ['Vorzeichen (ohne Nullen)', 'Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6)', 'Skalierte Zahlung', '', 'Hilfswert IZF', 'Wert'], 7);
+      const iz = izfHilfe(b, { Z: 'B', r0: 10, V: 'G', G: 'H', S: 'I', lab: 'K', out: 'L', top: 10 });
       b.sec(20, 'Ergebnis');
       b.lab('A21', 'Summe der Barwerte (Jahr 1 – 8)').fx('B21', 'SUM(D11:D18)', 'eur');
       b.lab('A22', 'Kapitalwert C₀').res('B22', 'NPV(B6,B11:B18)+B10', 'eur');
-      b.lab('A23', 'Interner Zinsfuß').res('B23', 'IFERROR(IRR(B10:B18),"nicht bestimmbar")', 'pct');
+      b.lab('A23', 'Interner Zinsfuß').res('B23', izfText(iz), 'pct');
       b.lab('A24', 'Entscheidung').res('B24', 'IF(B22>0,"Vorteilhaft (C₀ > 0)",IF(B22<0,"Nicht vorteilhaft (C₀ < 0)","Indifferent (C₀ = 0)"))', 'txt').merge('B24:E24');
       b.note('A26', 'Jahre ohne Rückfluss einfach auf 0 lassen. Ein Restwert gehört in die Zahlung des letzten Jahres.');
-      return { name: 'Kapitalwert', cols: [34, 18, 18, 18, 22], cells: b.cells, merges: b.merges,
+      b.note('A27', 'IZF nur bei Normalinvestition (genau ein Vorzeichenwechsel) – sonst gibt es keinen oder mehrere Zinsfüße. Hilfsrechnung rechts (Spalten G–L): Vorzeichenwechsel zählen, IZF per Kapitalwert bei 1 + i = 10^k auf eine halbe Zehnerpotenz eingrenzen (Untergrenze q) und Reihe mit q skalieren, damit Excel auch extreme IZF findet (IZF = q · (1 + IKV der skalierten Reihe) − 1).');
+      return { name: 'Kapitalwert', cols: [34, 18, 18, 18, 22, 3, 14, 24, 16, 3, 28, 16], cells: b.cells, merges: b.merges,
         explain: { B22: 'NBW zinst ab Jahr 1 ab – deshalb wird die Zahlung aus t = 0 (negativ) separat addiert. C₀ > 0: Investition lohnt sich.', B23: 'Der Zinssatz, bei dem der Kapitalwert genau 0 ist. Liegt er über dem Kalkulationszins, ist die Investition vorteilhaft.', C10: 'Abzinsungsfaktor (1 + i)^−t' } };
     }
   },
@@ -95,11 +99,11 @@ const BASE = [
       b.lab('A18', '= Fixkosten gesamt').tot('B18', 'B15+B16+B17', 'eur').tot('C18', 'C15+C16+C17', 'eur');
       b.lab('A19', 'Variable Kosten').fx('B19', 'B11*B12', 'eur').fx('C19', 'C11*C12', 'eur');
       b.lab('A20', '= Gesamtkosten').res('B20', 'B18+B19', 'eur').res('C20', 'C18+C19', 'eur');
-      b.lab('A21', 'Kosten je Stück').fx('B21', 'IF(B12=0,0,B20/B12)', 'eur').fx('C21', 'IF(C12=0,0,C20/C12)', 'eur');
+      b.lab('A21', 'Kosten je Stück').fx('B21', 'IFERROR(B20/B12,"–")', 'eur').fx('C21', 'IFERROR(C20/C12,"–")', 'eur');
       b.sec(23, 'Ergebnis');
       b.lab('A24', 'Günstigere Anlage').res('B24', 'IF(B20<C20,"Anlage A",IF(C20<B20,"Anlage B","Beide gleich teuer"))', 'txt').merge('B24:C24');
       b.lab('A25', 'Kostenvorteil pro Jahr').fx('B25', 'ABS(B20-C20)', 'eur');
-      b.lab('A26', 'Kritische Menge (Stück)').res('B26', 'IF(B11=C11,"keine – gleiche variable Kosten",(C18-B18)/(B11-C11))', 'int');
+      b.lab('A26', 'Kritische Menge (Stück)').res('B26', 'IF(B11=C11,"keine – gleiche variable Kosten",IF((C18-B18)/(B11-C11)<0,"keine – eine Anlage ist immer günstiger",(C18-B18)/(B11-C11)))', 'int');
       b.note('A28', 'Kritische Menge: Ab hier kippt der Kostenvorteil. Kalkulatorische Zinsen auf das durchschnittlich gebundene Kapital (AK + Restwert) / 2.');
       return { name: 'Kostenvergleich', cols: [36, 19, 19], cells: b.cells, merges: b.merges,
         explain: { B15: 'Kalkulatorische AfA = (Anschaffungskosten − Restwert) / Nutzungsdauer.', B16: 'Kalkulatorische Zinsen = (AK + Restwert) / 2 × Zinssatz.', B26: 'Menge, bei der beide Anlagen gleich viel kosten: (Fix_B − Fix_A) / (kv_A − kv_B).' } };
@@ -116,10 +120,10 @@ const BASE = [
       b.lab('A7', 'Variable Kosten je Stück').inp('B7', 30, 'eur', { min: 0 });
       b.lab('A8', 'Geplante Absatzmenge (Stück)').inp('B8', 4000, 'int', { min: 0 });
       b.sec(10, 'Ergebnis');
-      b.lab('A11', 'Deckungsbeitrag je Stück').fx('B11', 'B6-B7', 'eur');
-      b.lab('A12', 'Deckungsbeitragsquote').fx('B12', 'IF(B6=0,0,B11/B6)', 'pct');
+      b.lab('A11', 'Deckungsbeitrag je Stück').fx('B11', 'ROUND(B6-B7,10)', 'eur');
+      b.lab('A12', 'Deckungsbeitragsquote').fx('B12', 'IFERROR(B11/B6,"–")', 'pct');
       b.lab('A13', 'Break-even-Menge (exakt)').fx('B13', 'IF(B11<=0,"kein Break-even",B5/B11)', 'num');
-      b.lab('A14', 'Break-even-Menge (aufgerundet)').res('B14', 'IF(B11<=0,"kein Break-even",ROUNDUP(B5/B11,0))', 'stk');
+      b.lab('A14', 'Break-even-Menge (aufgerundet)').res('B14', 'IF(B11<=0,"kein Break-even",ROUNDUP(ROUND(B5/B11,6),0))', 'stk');
       b.lab('A15', 'Break-even-Umsatz').fx('B15', 'IF(B11<=0,"–",B5/B11*B6)', 'eur');
       b.lab('A16', 'Gewinn bei geplanter Menge').res('B16', 'B8*B11-B5', 'eur');
       b.lab('A17', 'Sicherheitsabstand').fx('B17', 'IF(OR(B11<=0,B8=0),"–",(B8-B5/B11)/B8)', 'pct');
@@ -176,11 +180,11 @@ const BASE = [
       L(16, '= Selbstkosten'); b.tot('C16', 'C12+C13+C14+C15', 'eur');
       L(17, '+ Gewinnzuschlag'); b.inp('B17', 0.12, 'pct', { min: 0 }).fx('C17', 'C16*B17', 'eur');
       L(18, '= Barverkaufspreis'); b.tot('C18', 'C16+C17', 'eur');
-      L(19, '+ Kundenskonto (im Hundert)'); b.inp('B19', 0.02, 'pct', { min: 0, max: 0.5 }).fx('C19', 'C21*B19', 'eur');
-      L(20, '+ Vertreterprovision (im Hundert)'); b.inp('B20', 0, 'pct', { min: 0, max: 0.5 }).fx('C20', 'C21*B20', 'eur');
-      L(21, '= Zielverkaufspreis'); b.tot('C21', 'C18/(1-B19-B20)', 'eur');
-      L(22, '+ Kundenrabatt (im Hundert)'); b.inp('B22', 0.10, 'pct', { min: 0, max: 0.9 }).fx('C22', 'C23-C21', 'eur');
-      L(23, '= Listenverkaufspreis (netto)'); b.res('C23', 'C21/(1-B22)', 'eur');
+      L(19, '+ Kundenskonto (im Hundert)'); b.inp('B19', 0.02, 'pct', { min: 0, max: 0.5 }).fx('C19', 'IFERROR(C21*B19,"–")', 'eur');
+      L(20, '+ Vertreterprovision (im Hundert)'); b.inp('B20', 0, 'pct', { min: 0, max: 0.5 }).fx('C20', 'IFERROR(C21*B20,"–")', 'eur');
+      L(21, '= Zielverkaufspreis'); b.tot('C21', 'IF(B19+B20>=1,"–",C18/(1-B19-B20))', 'eur');
+      L(22, '+ Kundenrabatt (im Hundert)'); b.inp('B22', 0.10, 'pct', { min: 0, max: 0.9 }).fx('C22', 'IFERROR(C23-C21,"–")', 'eur');
+      L(23, '= Listenverkaufspreis (netto)'); b.res('C23', 'IFERROR(C21/(1-B22),"–")', 'eur');
       b.note('A25', 'VwGK und VtGK auf Basis der Herstellkosten. Skonto und Provision im Hundert vom Zielverkaufspreis, Rabatt im Hundert vom Listenverkaufspreis.');
       return { name: 'Kalkulation', cols: [42, 14, 18], cells: b.cells, merges: b.merges,
         explain: { C21: 'Skonto und Provision werden vom Zielverkaufspreis gerechnet (im Hundert): Barverkaufspreis / (1 − Skonto − Provision).', C23: 'Rabatt im Hundert: Zielverkaufspreis / (1 − Rabatt).' } };
@@ -205,10 +209,10 @@ const BASE = [
       b.lab('A25', 'Fertigungslöhne (Fertigungseinzelkosten)').inp('B25', 120000, 'eur', { min: 0 });
       b.lab('A26', 'Herstellkosten (MEK + MGK + FL + FGK)').fx('B26', 'B24+C21+B25+D21', 'eur');
       b.th(28, ['Zuschlagssatz', 'Wert', 'Basis']);
-      b.lab('A29', 'Materialgemeinkosten-Zuschlag').res('B29', 'IF(B24=0,0,C21/B24)', 'pct').txt('C29', 'MGK / Materialeinzelkosten');
-      b.lab('A30', 'Fertigungsgemeinkosten-Zuschlag').res('B30', 'IF(B25=0,0,D21/B25)', 'pct').txt('C30', 'FGK / Fertigungslöhne');
-      b.lab('A31', 'Verwaltungsgemeinkosten-Zuschlag').res('B31', 'IF(B26=0,0,E21/B26)', 'pct').txt('C31', 'VwGK / Herstellkosten');
-      b.lab('A32', 'Vertriebsgemeinkosten-Zuschlag').res('B32', 'IF(B26=0,0,F21/B26)', 'pct').txt('C32', 'VtGK / Herstellkosten');
+      b.lab('A29', 'Materialgemeinkosten-Zuschlag').res('B29', 'IFERROR(C21/B24,"–")', 'pct').txt('C29', 'MGK / Materialeinzelkosten');
+      b.lab('A30', 'Fertigungsgemeinkosten-Zuschlag').res('B30', 'IFERROR(D21/B25,"–")', 'pct').txt('C30', 'FGK / Fertigungslöhne');
+      b.lab('A31', 'Verwaltungsgemeinkosten-Zuschlag').res('B31', 'IFERROR(E21/B26,"–")', 'pct').txt('C31', 'VwGK / Herstellkosten');
+      b.lab('A32', 'Vertriebsgemeinkosten-Zuschlag').res('B32', 'IFERROR(F21/B26,"–")', 'pct').txt('C32', 'VtGK / Herstellkosten');
       [29, 30, 31, 32].forEach(r => b.merge(`C${r}:E${r}`));
       b.note('A34', 'Herstellkosten ohne Bestandsveränderungen (Herstellkosten der Erzeugung = des Umsatzes). Jede Zeile im Schlüssel muss 100 % ergeben.');
       return { name: 'BAB', cols: [38, 16, 13, 13, 13, 13, 12, 11], cells: b.cells, merges: b.merges,
@@ -235,7 +239,7 @@ const BASE = [
           .fx('D' + r, k === 1 ? `IF(${e},"",$B$5)` : `IF(${e},"",F${r - 1})`, 'eur')
           .fx('E' + r, `IF(${e},"",MIN(MAX(${D}*$B$8,(${D}-$B$7)/${rest}),${D}-$B$7))`, 'eur')
           .fx('F' + r, `IF(${e},"",${D}-E${r})`, 'eur')
-          .fx('G' + r, `IF(${e},"",IF((${D}-$B$7)/${rest}>=${D}*$B$8,"linear","degressiv"))`, 'txt'); });
+          .fx('G' + r, `IF(${e},"",IF(ROUND((${D}-$B$7)/${rest}-${D}*$B$8,6)>=0,"linear","degressiv"))`, 'txt'); });
       return { name: 'Abschreibung', cols: [34, 16, 17, 17, 16, 17, 13], cells: b.cells, merges: b.merges,
         explain: { E17: 'Degressiv: Restbuchwert × Satz. Sobald Restbuchwert / Restnutzungsdauer größer ist, wird linear weiter abgeschrieben.', B12: 'Lineare AfA = (Anschaffungskosten − Restwert) / Nutzungsdauer.' } };
     }
@@ -258,22 +262,24 @@ const BASE = [
       b.lab('A16', 'Zinsaufwand').inp('B16', 12000, 'eur', { min: 0 });
       b.sec(18, 'Kennzahlen');
       b.th(19, ['Kennzahl', 'Wert', 'Formel', 'Einschätzung']);
+      // Gesamtkapital = Summe Passiva (EK + FK, D10). Nicht definierte Kennzahlen (Division durch 0) zeigen „–“ statt 0.
       const K = [
-        ['Eigenkapitalquote', 'IFERROR(D6/B10,0)', 'pct', 'Eigenkapital / Gesamtkapital', 'IF(B20>=0.3,"solide (≥ 30 %)","eher niedrig (< 30 %)")'],
-        ['Fremdkapitalquote', 'IFERROR((D7+D8)/B10,0)', 'pct', 'Fremdkapital / Gesamtkapital', ''],
-        ['Verschuldungsgrad', 'IFERROR((D7+D8)/D6,0)', 'x2', 'Fremdkapital / Eigenkapital', 'IF(B22<=2,"vertretbar (≤ 2)","hoch (> 2)")'],
-        ['Anlagendeckungsgrad I', 'IFERROR(D6/B6,0)', 'pct', 'Eigenkapital / Anlagevermögen', 'IF(B23>=1,"AV voll durch EK gedeckt","unter 100 %")'],
-        ['Anlagendeckungsgrad II', 'IFERROR((D6+D7)/B6,0)', 'pct', '(EK + langfr. FK) / Anlagevermögen', 'IF(B24>=1,"goldene Bilanzregel erfüllt","goldene Bilanzregel verletzt")'],
-        ['Liquidität 1. Grades', 'IFERROR(B9/D8,0)', 'pct', 'Liquide Mittel / kurzfr. FK', 'IF(B25>=0.2,"ok (≥ 20 %)","knapp (< 20 %)")'],
-        ['Liquidität 2. Grades', 'IFERROR((B9+B8)/D8,0)', 'pct', '(Liquide Mittel + Forderungen) / kurzfr. FK', 'IF(B26>=1,"ok (≥ 100 %)","kritisch (< 100 %)")'],
-        ['Liquidität 3. Grades', 'IFERROR((B7+B8+B9)/D8,0)', 'pct', 'Umlaufvermögen / kurzfr. FK', 'IF(B27>=1.2,"ok (≥ 120 %)","knapp (< 120 %)")'],
-        ['Eigenkapitalrentabilität', 'IFERROR(B15/D6,0)', 'pct', 'Jahresüberschuss / Eigenkapital', ''],
-        ['Gesamtkapitalrentabilität', 'IFERROR((B15+B16)/B10,0)', 'pct', '(Jahresüberschuss + Zinsaufwand) / Gesamtkapital', ''],
-        ['Umsatzrentabilität', 'IFERROR(B15/B14,0)', 'pct', 'Jahresüberschuss / Umsatzerlöse', ''],
-        ['Kapitalumschlag', 'IFERROR(B14/B10,0)', 'x2', 'Umsatzerlöse / Gesamtkapital', ''],
-        ['Return on Investment (ROI)', 'B30*B31', 'pct', 'Umsatzrentabilität × Kapitalumschlag', '']];
+        ['Eigenkapitalquote', 'IFERROR(D6/D10,"–")', 'pct', 'Eigenkapital / Gesamtkapital', 'IF(D10=0,"nicht bestimmbar (kein Kapital)",IF(B20>=0.3,"solide (≥ 30 %)","eher niedrig (< 30 %)"))'],
+        ['Fremdkapitalquote', 'IFERROR((D7+D8)/D10,"–")', 'pct', 'Fremdkapital / Gesamtkapital', ''],
+        ['Verschuldungsgrad', 'IFERROR((D7+D8)/D6,"–")', 'x2', 'Fremdkapital / Eigenkapital', 'IF(D6=0,IF(D7+D8=0,"nicht bestimmbar (kein Kapital)","nicht definiert – kein Eigenkapital"),IF(B22<=2,"vertretbar (≤ 2)","hoch (> 2)"))'],
+        ['Anlagendeckungsgrad I', 'IFERROR(D6/B6,"–")', 'pct', 'Eigenkapital / Anlagevermögen', 'IF(B6=0,"nicht bestimmbar (kein Anlagevermögen)",IF(B23>=1,"AV voll durch EK gedeckt","unter 100 %"))'],
+        ['Anlagendeckungsgrad II', 'IFERROR((D6+D7)/B6,"–")', 'pct', '(EK + langfr. FK) / Anlagevermögen', 'IF(B6=0,"nicht bestimmbar (kein Anlagevermögen)",IF(B24>=1,"goldene Bilanzregel erfüllt","goldene Bilanzregel verletzt"))'],
+        ['Liquidität 1. Grades', 'IFERROR(B9/D8,"–")', 'pct', 'Liquide Mittel / kurzfr. FK', 'IF(D8=0,"nicht bestimmbar (kein kurzfr. FK)",IF(B25>=0.2,"ok (≥ 20 %)","knapp (< 20 %)"))'],
+        ['Liquidität 2. Grades', 'IFERROR((B9+B8)/D8,"–")', 'pct', '(Liquide Mittel + Forderungen) / kurzfr. FK', 'IF(D8=0,"nicht bestimmbar (kein kurzfr. FK)",IF(B26>=1,"ok (≥ 100 %)","kritisch (< 100 %)"))'],
+        ['Liquidität 3. Grades', 'IFERROR((B7+B8+B9)/D8,"–")', 'pct', 'Umlaufvermögen / kurzfr. FK', 'IF(D8=0,"nicht bestimmbar (kein kurzfr. FK)",IF(B27>=1.2,"ok (≥ 120 %)","knapp (< 120 %)"))'],
+        ['Eigenkapitalrentabilität', 'IFERROR(B15/D6,"–")', 'pct', 'Jahresüberschuss / Eigenkapital', ''],
+        ['Gesamtkapitalrentabilität', 'IFERROR((B15+B16)/D10,"–")', 'pct', '(Jahresüberschuss + Zinsaufwand) / Gesamtkapital', ''],
+        ['Umsatzrentabilität', 'IFERROR(B15/B14,"–")', 'pct', 'Jahresüberschuss / Umsatzerlöse', ''],
+        ['Kapitalumschlag', 'IFERROR(B14/D10,"–")', 'x2', 'Umsatzerlöse / Gesamtkapital', ''],
+        ['Return on Investment (ROI)', 'IFERROR(B30*B31,IFERROR(B15/D10,"–"))', 'pct', 'Umsatzrentabilität × Kapitalumschlag (= JÜ / Gesamtkapital)', '']];
       K.forEach(([t, f, fm, txt, ev], k) => { const r = 20 + k; b.lab('A' + r, t).res('B' + r, f, fm).txt('C' + r, txt); if (ev) b.fx('D' + r, ev, 'txt'); });
       b.note('A34', 'Richtwerte sind Faustregeln aus der Literatur – je nach Branche weichen sie ab.');
+      b.note('A35', 'Gesamtkapital = Summe Passiva (EK + FK). Weichen Aktiva und Passiva ab (Zeile 11 ✗), erst die Bilanz korrigieren – sonst sind die Kennzahlen nicht aussagekräftig. „–“ = nicht definiert (Division durch 0).');
       return { name: 'Kennzahlen', cols: [32, 17, 40, 30], cells: b.cells, merges: b.merges,
         explain: { B20: 'Anteil des Eigenkapitals am Gesamtkapital.', B24: 'Goldene Bilanzregel: langfristiges Vermögen langfristig finanziert.', B32: 'ROI nach DuPont: Umsatzrentabilität × Kapitalumschlag = Jahresüberschuss / Gesamtkapital.' } };
     }

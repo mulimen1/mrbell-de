@@ -48,10 +48,10 @@ export default [
       const S = [['Sorte A', 1, 10000], ['Sorte B', 1.2, 5000], ['Sorte C', 0.8, 7500], ['Sorte D', 1.5, 4000], ['', 0, 0], ['', 0, 0]];
       S.forEach(([n, z, m], k) => { const r = 8 + k, e = `A${r}=""`;
         b.inp('A' + r, n, 'txt').inp('B' + r, z, 'num', { min: 0 }).inp('C' + r, m, 'int', { min: 0 })
-          .fx('D' + r, `IF(${e},"",B${r}*C${r})`, 'num').res('E' + r, `IF(${e},"",B${r}*$B$17)`, 'eur').fx('F' + r, `IF(${e},"",E${r}*C${r})`, 'eur'); });
-      b.lab('A14', 'Summe').tot('C14', 'SUM(C8:C13)', 'int').tot('D14', 'SUM(D8:D13)', 'num').tot('F14', 'SUM(F8:F13)', 'eur');
+          .fx('D' + r, `IF(${e},"",B${r}*C${r})`, 'num').res('E' + r, `IF(${e},"",IF($D$14=0,"–",B${r}*$B$17))`, 'eur').fx('F' + r, `IF(${e},"",IF($D$14=0,"–",E${r}*C${r}))`, 'eur'); });
+      b.lab('A14', 'Summe').tot('C14', range(8, 13).map(r => `IF(A${r}="",0,C${r})`).join('+'), 'int').tot('D14', 'SUM(D8:D13)', 'num').tot('F14', 'IF(D14=0,"–",SUM(F8:F13))', 'eur');
       b.sec(16, 'Ergebnis');
-      b.lab('A17', 'Kosten je Recheneinheit').res('B17', 'IF(D14=0,0,B5/D14)', 'eur');
+      b.lab('A17', 'Kosten je Recheneinheit').res('B17', 'IF(D14=0,"–",B5/D14)', 'eur');
       b.lab('A18', 'Probe: Summe Sortenkosten = Gesamtkosten?').fx('B18', 'IF(D14=0,"–",IF(ROUND(F14-B5,2)=0,"✓ stimmt","✗ weicht ab"))', 'txt').merge('B18:C18');
       b.note('A20', 'Die Bezugssorte bekommt die Äquivalenzziffer 1. Zeilen ohne Sortenname werden nicht mitgerechnet.');
       return { name: 'Aequivalenzziffern', cols: [26, 16, 15, 20, 16, 18], cells: b.cells, merges: b.merges,
@@ -114,9 +114,9 @@ export default [
       b.sec(22, 'Verteilungsmethode (Marktwertmethode)');
       b.th(23, ['Kuppelprodukt', 'Marktwert (Menge × Preis)', 'Anteil', 'Kostenanteil', 'Kosten je Einheit']);
       range(0, 3).forEach(k => { const r = 24 + k, s = 8 + k, e = `A${s}=""`;
-        b.fx('A' + r, `IF(${e},"",A${s})`, 'txt').fx('B' + r, `IF(${e},"",B${s}*C${s})`, 'eur').fx('C' + r, `IF(${e},"",IF($B$28=0,0,B${r}/$B$28))`, 'pct')
-          .fx('D' + r, `IF(${e},"",C${r}*$B$5)`, 'eur').res('E' + r, `IF(${e},"",IF(B${s}=0,"–",D${r}/B${s}))`, 'eur'); });
-      b.lab('A28', 'Summe').tot('B28', 'SUM(B24:B27)', 'eur').tot('C28', 'SUM(C24:C27)', 'pct').tot('D28', 'SUM(D24:D27)', 'eur');
+        b.fx('A' + r, `IF(${e},"",A${s})`, 'txt').fx('B' + r, `IF(${e},"",B${s}*C${s})`, 'eur').fx('C' + r, `IF(${e},"",IF($B$28=0,"–",B${r}/$B$28))`, 'pct')
+          .fx('D' + r, `IF(${e},"",IF($B$28=0,"–",C${r}*$B$5))`, 'eur').res('E' + r, `IF(${e},"",IF(OR($B$28=0,B${s}=0),"–",D${r}/B${s}))`, 'eur'); });
+      b.lab('A28', 'Summe').tot('B28', 'SUM(B24:B27)', 'eur').tot('C28', 'IF(B28=0,"–",SUM(C24:C27))', 'pct').tot('D28', 'IF(B28=0,"–",SUM(D24:D27))', 'eur');
       b.note('A30', 'Restwertmethode: Nebenprodukte werden mit ihrem Nettoerlös bewertet, der Rest der Kuppelkosten trägt das Hauptprodukt. Verteilungsmethode: Kuppelkosten im Verhältnis der Marktwerte (Menge × Marktpreis) auf alle Produkte.');
       return { name: 'Kuppelkalkulation', cols: [44, 20, 20, 24, 18], cells: b.cells, merges: b.merges,
         explain: { D19: 'Restkosten = Kuppelkosten − Σ (Erlöse − Weiterverarbeitungs-/Vertriebskosten) der Nebenprodukte.', D20: 'Herstellkosten je Einheit des Hauptprodukts = Restkosten / Menge des Hauptprodukts.', D24: 'Kostenanteil = Kuppelkosten × Marktwert des Produkts / Summe der Marktwerte.' } };
@@ -146,9 +146,9 @@ export default [
       L(19, '+ Kundenrabatt (im Hundert)'); b.inp('B19', 0.1, 'pct', { min: 0, max: 0.9 }).fx('C19', 'C20-C18', 'eur');
       L(20, '= Listenverkaufspreis (netto)'); b.res('C20', 'C18/(1-B19)', 'eur');
       b.sec(22, 'Kennzahlen');
-      L(23, 'Kalkulationszuschlag ((LVP − Bezugspreis) / Bezugspreis)'); b.res('C23', 'IF(C11=0,0,(C20-C11)/C11)', 'pct');
-      L(24, 'Kalkulationsfaktor (LVP / Bezugspreis)'); b.res('C24', 'IF(C11=0,0,C20/C11)', 'f4');
-      L(25, 'Handelsspanne ((LVP − Bezugspreis) / LVP)'); b.res('C25', 'IF(C20=0,0,(C20-C11)/C20)', 'pct');
+      L(23, 'Kalkulationszuschlag ((LVP − Bezugspreis) / Bezugspreis)'); b.res('C23', 'IF(C11=0,"–",(C20-C11)/C11)', 'pct');
+      L(24, 'Kalkulationsfaktor (LVP / Bezugspreis)'); b.res('C24', 'IF(C11=0,"–",C20/C11)', 'f4');
+      L(25, 'Handelsspanne ((LVP − Bezugspreis) / LVP)'); b.res('C25', 'IF(C20=0,"–",(C20-C11)/C20)', 'pct');
       b.note('A27', 'Rabatt und Skonto des Lieferers vom Hundert, Kundenskonto und Provision im Hundert vom Zielverkaufspreis, Kundenrabatt im Hundert vom Listenverkaufspreis.');
       return { name: 'Vorwaertskalkulation', cols: [52, 12, 18], cells: b.cells, merges: b.merges,
         explain: { C11: 'Bezugspreis = Bareinkaufspreis + Bezugskosten.', C18: 'Zielverkaufspreis = Barverkaufspreis / (1 − Skonto − Provision).', C24: 'Kalkulationsfaktor = Listenverkaufspreis / Bezugspreis = 1 + Kalkulationszuschlag.' } };
@@ -178,9 +178,9 @@ export default [
       L(19, '+ Liefererrabatt (im Hundert)'); b.inp('B19', 0.2, 'pct', { min: 0, max: 0.9 }).fx('C19', 'IF(C16<0,"–",C20-C18)', 'eur');
       L(20, '= Höchster Listeneinkaufspreis'); b.res('C20', 'IF(C16<0,"nicht möglich – Bezugskosten zu hoch",C18/(1-B19))', 'eur');
       b.sec(22, 'Kennzahlen');
-      L(23, 'Kalkulationszuschlag ((LVP − Bezugspreis) / Bezugspreis)'); b.fx('C23', 'IF(C14=0,0,(C5-C14)/C14)', 'pct');
-      L(24, 'Kalkulationsfaktor (LVP / Bezugspreis)'); b.fx('C24', 'IF(C14=0,0,C5/C14)', 'f4');
-      L(25, 'Handelsspanne ((LVP − Bezugspreis) / LVP)'); b.fx('C25', 'IF(C5=0,0,(C5-C14)/C5)', 'pct');
+      L(23, 'Kalkulationszuschlag ((LVP − Bezugspreis) / Bezugspreis)'); b.fx('C23', 'IF(C14=0,"–",(C5-C14)/C14)', 'pct');
+      L(24, 'Kalkulationsfaktor (LVP / Bezugspreis)'); b.fx('C24', 'IF(C14=0,"–",C5/C14)', 'f4');
+      L(25, 'Handelsspanne ((LVP − Bezugspreis) / LVP)'); b.fx('C25', 'IF(C5=0,"–",(C5-C14)/C5)', 'pct');
       b.note('A27', 'Rückwärts kehren sich die Rechenwege um: Zuschläge „auf“ einen Wert werden jetzt im Hundert herausgerechnet (÷ (1 + Satz)), Abzüge „vom“ Wert werden auf Hundert hochgerechnet (÷ (1 − Satz)).');
       return { name: 'Rueckwaertskalkulation', cols: [52, 12, 18], cells: b.cells, merges: b.merges,
         explain: { C12: 'Selbstkosten = Barverkaufspreis / (1 + Gewinnzuschlag).', C14: 'Bezugspreis = Selbstkosten / (1 + Handlungskostenzuschlag).', C20: 'Listeneinkaufspreis = Bareinkaufspreis / (1 − Skonto) / (1 − Rabatt).' } };
@@ -200,21 +200,22 @@ export default [
       b.lab('A10', 'Istkosten zu Istpreisen (0 = nicht gegeben)').inp('B10', 47000, 'eur', { min: 0 });
       b.sec(12, 'Plankostenverrechnungssatz und Sollkosten');
       b.lab('A13', 'Variable Plankosten').fx('B13', 'B6-B7', 'eur');
-      b.lab('A14', 'Plankostenverrechnungssatz (Plankosten / Planbeschäftigung)').fx('B14', 'IF(B5=0,0,B6/B5)', 'eur');
-      b.lab('A15', 'Variabler Plankostensatz').fx('B15', 'IF(B5=0,0,B13/B5)', 'eur');
-      b.lab('A16', 'Beschäftigungsgrad').fx('B16', 'IF(B5=0,0,B8/B5)', 'pct');
-      b.lab('A17', 'Verrechnete Plankosten (Satz × Istbeschäftigung)').fx('B17', 'B14*B8', 'eur');
+      b.lab('A14', 'Plankostenverrechnungssatz (Plankosten / Planbeschäftigung)').fx('B14', 'IF(B5=0,"–",B6/B5)', 'eur');
+      b.lab('A15', 'Variabler Plankostensatz').fx('B15', 'IF(B5=0,"–",B13/B5)', 'eur');
+      b.lab('A16', 'Beschäftigungsgrad').fx('B16', 'IF(B5=0,"–",B8/B5)', 'pct');
+      b.lab('A17', 'Verrechnete Plankosten (Satz × Istbeschäftigung)').fx('B17', 'IF(B5=0,"–",B14*B8)', 'eur');
       b.lab('A18', 'Istkosten (zu Istpreisen, sonst zu Planpreisen)').fx('B18', 'IF(B10=0,B9,B10)', 'eur');
-      b.lab('A19', 'Sollkosten (fixe Plankosten + var. Satz × Istbeschäftigung)').res('B19', 'B7+B15*B8', 'eur');
+      b.lab('A19', 'Sollkosten (fixe Plankosten + var. Satz × Istbeschäftigung)').res('B19', 'IF(B5=0,"–",B7+B15*B8)', 'eur');
       b.sec(21, 'Abweichungsanalyse');
       b.th(22, ['Abweichung', 'Betrag', 'Berechnung', 'Bewertung']);
-      const ev = r => `IF(ROUND(B${r},2)>0,"ungünstig (Kosten über Plan)",IF(ROUND(B${r},2)<0,"günstig (Kosten unter Plan)","keine Abweichung"))`;
+      const ev0 = r => `IF(ROUND(B${r},2)>0,"ungünstig (Kosten über Plan)",IF(ROUND(B${r},2)<0,"günstig (Kosten unter Plan)","keine Abweichung"))`;
+      const ev = r => r === 23 ? ev0(r) : `IF($B$5=0,"nicht bestimmbar (Planbeschäftigung 0)",${ev0(r)})`;
       b.lab('A23', 'Preisabweichung').res('B23', 'IF(B10=0,0,B10-B9)', 'eur').txt('C23', 'Istkosten (Istpreise) − Istkosten (Planpreise)').fx('D23', ev(23), 'txt');
-      b.lab('A24', 'Verbrauchsabweichung').res('B24', 'B9-B19', 'eur').txt('C24', 'Istkosten (Planpreise) − Sollkosten').fx('D24', ev(24), 'txt');
-      b.lab('A25', 'Beschäftigungsabweichung').res('B25', 'B19-B17', 'eur').txt('C25', 'Sollkosten − verrechnete Plankosten')
-        .fx('D25', 'IF(ROUND(B25,2)>0,"Unterbeschäftigung – Fixkosten nicht voll verrechnet",IF(ROUND(B25,2)<0,"Überbeschäftigung – Fixkosten überdeckt","keine Abweichung"))', 'txt');
-      b.lab('A26', 'Gesamtabweichung').res('B26', 'B23+B24+B25', 'eur').txt('C26', 'Istkosten − verrechnete Plankosten').fx('D26', ev(26), 'txt');
-      b.lab('A27', 'Probe').fx('B27', 'IF(ROUND(B26-(B18-B17),2)=0,"✓ stimmt","✗")', 'txt');
+      b.lab('A24', 'Verbrauchsabweichung').res('B24', 'IF(B5=0,"–",B9-B19)', 'eur').txt('C24', 'Istkosten (Planpreise) − Sollkosten').fx('D24', ev(24), 'txt');
+      b.lab('A25', 'Beschäftigungsabweichung').res('B25', 'IF(B5=0,"–",B19-B17)', 'eur').txt('C25', 'Sollkosten − verrechnete Plankosten')
+        .fx('D25', 'IF(B5=0,"nicht bestimmbar (Planbeschäftigung 0)",IF(ROUND(B25,2)>0,"Unterbeschäftigung – Fixkosten nicht voll verrechnet",IF(ROUND(B25,2)<0,"Überbeschäftigung – Fixkosten überdeckt","keine Abweichung")))', 'txt');
+      b.lab('A26', 'Gesamtabweichung').res('B26', 'IF(B5=0,"–",B23+B24+B25)', 'eur').txt('C26', 'Istkosten − verrechnete Plankosten').fx('D26', ev(26), 'txt');
+      b.lab('A27', 'Probe').fx('B27', 'IF(B5=0,"nicht prüfbar – Planbeschäftigung 0",IF(ROUND(B26-(B18-B17),2)=0,"✓ stimmt","✗"))', 'txt');
       b.note('A29', 'Die Beschäftigungsabweichung ist kein Kostenstellen-Verschulden: Sie zeigt nur, dass die fixen Kosten bei abweichender Beschäftigung zu viel oder zu wenig verrechnet wurden (= fixe Plankosten × (1 − Beschäftigungsgrad)).');
       return { name: 'Plankosten', cols: [56, 17, 42, 46], cells: b.cells, merges: b.merges,
         explain: { B19: 'Sollkosten = fixe Plankosten + variabler Plankostensatz × Istbeschäftigung.', B24: 'Verbrauchsabweichung = Istkosten zu Planpreisen − Sollkosten.', B25: 'Beschäftigungsabweichung = Sollkosten − verrechnete Plankosten.' } };
@@ -361,24 +362,24 @@ export default [
       const isLmi = r => `IFERROR(MATCH("lmi",B${r},0),0)=1`, isLmn = r => `IFERROR(MATCH("lmn",B${r},0),0)=1`;
       T.forEach(([n, a, d, m, c], k) => { const r = 6 + k;
         b.inp('A' + r, n, 'txt').inp('B' + r, a, 'txt').inp('C' + r, d, 'txt').inp('D' + r, m, 'num', { min: 0 }).inp('E' + r, c, 'eur', { min: 0 })
-          .fx('F' + r, `IF(${isLmi(r)},IF(D${r}=0,0,E${r}/D${r}),"")`, 'eur').fx('G' + r, `IF(${isLmi(r)},F${r}*$B$12,"")`, 'eur')
-          [k === 0 ? 'res' : 'fx']('H' + r, `IF(${isLmi(r)},F${r}+G${r},"")`, 'eur'); });
+          .fx('F' + r, `IF(${isLmi(r)},IF(D${r}=0,"–",E${r}/D${r}),"")`, 'eur').fx('G' + r, `IF(${isLmi(r)},IF(OR(D${r}=0,$B$11=0),"–",F${r}*$B$12),"")`, 'eur')
+          [k === 0 ? 'res' : 'fx']('H' + r, `IF(${isLmi(r)},IF(OR(D${r}=0,$B$11=0),"–",F${r}+G${r}),"")`, 'eur'); });
       b.lab('A10', 'Summe Prozesskosten').tot('E10', 'SUM(E6:E9)', 'eur');
       b.lab('A11', 'davon leistungsmengeninduziert (lmi) / -neutral (lmn)')
         .fx('B11', `IF(${isLmi(6)},E6,0)+IF(${isLmi(7)},E7,0)+IF(${isLmi(8)},E8,0)+IF(${isLmi(9)},E9,0)`, 'eur')
         .fx('C11', `IF(${isLmn(6)},E6,0)+IF(${isLmn(7)},E7,0)+IF(${isLmn(8)},E8,0)+IF(${isLmn(9)},E9,0)`, 'eur');
-      b.lab('A12', 'Umlagefaktor (lmn-Kosten / lmi-Kosten)').fx('B12', 'IF(B11=0,0,C11/B11)', 'pct');
+      b.lab('A12', 'Umlagefaktor (lmn-Kosten / lmi-Kosten)').fx('B12', 'IF(B11=0,"–",C11/B11)', 'pct');
       b.sec(14, '2. Prozesskosten je Produkt');
       b.th(15, ['Teilprozess (lmi)', 'Gesamtprozesskostensatz', 'Prozessmenge Produkt A', 'Prozesskosten A', 'Prozessmenge Produkt B', 'Prozesskosten B']);
       const Q = [[200, 300], [150, 250], [10, 40], [0, 0]];
       Q.forEach(([qa, qb], k) => { const r = 16 + k, s = 6 + k;
         b.fx('A' + r, `IF(${isLmi(s)},A${s},"")`, 'txt').fx('B' + r, `IF(${isLmi(s)},H${s},"")`, 'eur')
-          .inp('C' + r, qa, 'num', { min: 0 }).fx('D' + r, `IF(${isLmi(s)},C${r}*B${r},"")`, 'eur')
-          .inp('E' + r, qb, 'num', { min: 0 }).fx('F' + r, `IF(${isLmi(s)},E${r}*B${r},"")`, 'eur'); });
-      b.lab('A20', 'Summe Prozesskosten je Produkt').tot('D20', 'SUM(D16:D19)', 'eur').tot('F20', 'SUM(F16:F19)', 'eur');
+          .inp('C' + r, qa, 'num', { min: 0 }).fx('D' + r, `IF(${isLmi(s)},IF(B${r}="–","–",C${r}*B${r}),"")`, 'eur')
+          .inp('E' + r, qb, 'num', { min: 0 }).fx('F' + r, `IF(${isLmi(s)},IF(B${r}="–","–",E${r}*B${r}),"")`, 'eur'); });
+      b.lab('A20', 'Summe Prozesskosten je Produkt').tot('D20', 'IF(COUNTIF(H6:H9,"–")>0,"–",SUM(D16:D19))', 'eur').tot('F20', 'IF(COUNTIF(H6:H9,"–")>0,"–",SUM(F16:F19))', 'eur');
       b.lab('A21', 'Produktionsmenge (Stück)').inp('D21', 10000, 'int', { min: 0 }).inp('F21', 5000, 'int', { min: 0 });
-      b.lab('A22', 'Prozesskosten je Stück').res('D22', 'IF(D21=0,"–",D20/D21)', 'eur').res('F22', 'IF(F21=0,"–",F20/F21)', 'eur');
-      b.lab('A23', 'Nicht auf A oder B verrechnete Prozesskosten').fx('D23', 'E10-D20-F20', 'eur');
+      b.lab('A22', 'Prozesskosten je Stück').res('D22', 'IF(OR(D20="–",D21=0),"–",D20/D21)', 'eur').res('F22', 'IF(OR(F20="–",F21=0),"–",F20/F21)', 'eur');
+      b.lab('A23', 'Nicht auf A oder B verrechnete Prozesskosten').fx('D23', 'IF(D20="–","–",E10-D20-F20)', 'eur');
       b.note('A25', 'Art genau „lmi“ oder „lmn“ eintragen. lmn-Kosten werden im Verhältnis der lmi-Prozesskosten umgelegt. Prozessmengen in Teil 2 gelten nur für lmi-Prozesse; nutzen A und B alle Prozessmengen, ist Zeile 23 = 0.');
       return { name: 'Prozesskosten', cols: [30, 16, 22, 16, 16, 18, 16, 18], cells: b.cells, merges: b.merges,
         explain: { F6: 'Prozesskostensatz (lmi) = Prozesskosten / Prozessmenge.', G6: 'Umlagesatz = lmi-Satz × lmn-Kosten / lmi-Kosten.', D22: 'Prozesskosten je Stück = Σ (Prozessmenge × Gesamtprozesskostensatz) / Stückzahl.' } };
