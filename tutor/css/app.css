@@ -5932,3 +5932,9 @@ div.rechen-warn { display: block; margin: 6px 0; }
 .vt-btn .vt-go svg, .vt-btn .vt-s svg { display: block; }
 .vt-btn { min-height: 0 !important; height: auto !important; padding: 7px 12px 7px 11px !important; gap: 8px !important; font-weight: 600 !important; font-size: 13.5px !important; width: auto !important; }
 .vt-btn .vt-go, .vt-btn .vt-s { height: 16px !important; width: auto !important; } .vt-btn .vt-go svg, .vt-btn .vt-s svg { width: 15px !important; height: 15px !important; }
+/* Fenster: Hauptknopf = zurück, Link zur Erklärseite schmal */
+.vt-modal .row { margin-top: 4px; }
+.vt-modal .vt-back { width: 100%; justify-content: center; }
+.vt-more { display: inline-flex !important; align-items: center; gap: 4px; margin: 0 0 6px; font-size: 13.5px; font-weight: 600; color: #17663a !important; text-decoration: none; background: none !important; border: 0 !important; padding: 0 !important; box-shadow: none !important; }
+.vt-more:hover { text-decoration: underline; }
+.vt-more svg { width: 14px; height: 14px; }

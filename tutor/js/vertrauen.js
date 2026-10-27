@@ -32,7 +32,8 @@ function punkte(kind) {
   ];
 }
 
-export function openVertrauen(kind = 'max') {
+// zurueck: Beschriftung des Hauptknopfs (zurück dorthin, wo man herkam)
+export function openVertrauen(kind = 'max', zurueck = '') {
   const body = h('div', { class: 'vt-body' },
     h('p', { class: 'vt-lead' }, kind === 'excel'
       ? L('Ja. Nicht, weil wir es hoffen – sondern weil wir jede Formel nachrechnen.', 'Yes. Not because we hope so – because we recalculate every formula.')
@@ -40,13 +41,14 @@ export function openVertrauen(kind = 'max') {
     h('ul', { class: 'vt-list' }, punkte(kind).map(([i, t, x]) => h('li', {}, h('span', { class: 'vt-i', 'aria-hidden': 'true', html: IC[i] }), h('span', {}, h('b', {}, t), h('span', {}, x))))),
     kind === 'excel' ? null : h('p', { class: 'vt-note' }, L('Der Algorithmus prüft die Mathematik. Fachliche Aussagen prüft er nicht – wie wir Inhalte prüfen, steht in unseren ', 'The algorithm checks the maths. It doesn’t check subject-matter statements – how we review content is explained in our '), h('a', { href: '/ueber/redaktion', target: '_blank', rel: 'noopener' }, L('Redaktionsgrundsätzen', 'editorial principles')), '.'),
     h('p', { class: 'vt-note' }, L('Trotz aller Prüfung können Fehler nie ganz ausgeschlossen werden. Wir übernehmen keine Gewähr für die Richtigkeit, die Haftung richtet sich nach unseren ', 'Despite all checks, mistakes can never be ruled out entirely. We give no guarantee of correctness; liability is governed by our '), h('a', { href: '/agb', target: '_blank', rel: 'noopener' }, L('AGB', 'terms')), '.'),
-    h('a', { class: 'btn primary vt-more', href: SEITE(), target: '_blank', rel: 'noopener' }, L('So funktioniert unser Rechen-Algorithmus', 'How our calculation algorithm works'), h('span', { html: IC.pfeil })));
+    h('a', { class: 'vt-more', href: SEITE(), target: '_blank', rel: 'noopener' }, L('So funktioniert unser Rechen-Algorithmus', 'How our calculation algorithm works'), h('span', { html: IC.pfeil })));
   try { if (window.BM) window.BM.track('Vertrauen geöffnet', kind); } catch (e) {}
-  return modal({ cls: 'vt-modal', eyebrow: L('Rechen-Algorithmus', 'Calculation algorithm'), title: kind === 'excel' ? L('Kannst du unseren Excel-Formeln vertrauen?', 'Can you trust our Excel formulas?') : L('Kannst du den Rechnungen von Max vertrauen?', 'Can you trust Max’s calculations?'), body });
+  const back = zurueck || (kind === 'excel' ? L('Zurück zum Excel-Helfer', 'Back to the Excel helper') : L('Zurück zum Tutor', 'Back to the tutor'));
+  return modal({ cls: 'vt-modal', actions: [{ label: back, value: 1, primary: true, cls: 'vt-back' }], eyebrow: L('Rechen-Algorithmus', 'Calculation algorithm'), title: kind === 'excel' ? L('Kannst du unseren Excel-Formeln vertrauen?', 'Can you trust our Excel formulas?') : L('Kannst du den Rechnungen von Max vertrauen?', 'Can you trust Max’s calculations?'), body });
 }
 
 // Knopf (dezent): öffnet das Fenster
-export function vertrauenBtn(kind = 'max', { klein = false } = {}) {
+export function vertrauenBtn(kind = 'max', { klein = false, zurueck = '' } = {}) {
   const txt = kind === 'excel' ? L('Warum unsere Formeln stimmen', 'Why our formulas are right') : L('Warum du den Rechnungen von Max vertrauen kannst', 'Why you can trust Max’s maths');
-  return h('button', { class: 'vt-btn' + (klein ? ' sm' : ''), type: 'button', onclick: e => { e.stopPropagation(); openVertrauen(kind); } }, h('span', { class: 'vt-s', html: SCHILD }), h('span', {}, txt), h('span', { class: 'vt-go', html: IC.pfeil }));
+  return h('button', { class: 'vt-btn' + (klein ? ' sm' : ''), type: 'button', onclick: e => { e.stopPropagation(); openVertrauen(kind, zurueck); } }, h('span', { class: 'vt-s', html: SCHILD }), h('span', {}, txt), h('span', { class: 'vt-go', html: IC.pfeil }));
 }
