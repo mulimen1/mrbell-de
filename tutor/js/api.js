@@ -3,6 +3,7 @@ import { ls, uid } from './util.js';
 import { S } from './state.js';
 import { lang, getOutLang, L } from './i18n.js';
 import { repairDeep } from './math.js';
+import { rechenGate } from './rechengate.js';
 
 export const API_URL = (window.TUTOR_API || 'https://hub.mrbell.de/n8n/webhook/tutor-ki-7c41e2');
 // Lange KI-Arbeit läuft in einem eigenen Schritt: erst Auftrag (schnell, zählt Kontingent), dann Ausführung
@@ -47,8 +48,13 @@ export function setAccount(a, session) {
 const EV = { analyse: ['Upload eingeordnet'], ocr: ['Foto abgeschrieben'], topic: ['Thema erklärt'], quiz: ['Erstellt', 'Quiz'], exam: ['Erstellt', 'Probeklausur'], cards: ['Erstellt', 'Karteikarten'], path: ['Erstellt', 'Lernpfad'],
   lesson: ['Erstellt', 'Lektion'], podcast: ['Erstellt', 'Podcast'], summary: ['Erstellt', 'Lernzettel & Mindmap'], live: ['Sprechen gestartet'], verify: ['Angemeldet'] };
 // images: [{mime, data}] gehen nur im zweiten Schritt mit (Upload-Analyse, Foto-Abschrift)
-export async function ask(action, payload = {}, { signal, images } = {}) {
-  try { const e = action === 'chat' ? ['Max gefragt', payload.opts && payload.opts.assistant ? 'Assistent' : 'Chat'] : EV[action]; if (e && window.BM) window.BM.track(e[0], e[1] || ''); } catch (x) {}
+// Jede Antwort von Max mit Erklärungen/Rechnungen läuft durch das Rechen-Gate (rechengate.js) – ohne Ausnahme.
+export async function ask(action, payload = {}, opt = {}) {
+  const j = await askRaw(action, payload, opt);
+  return rechenGate(action, payload, j, (a, p, o) => askRaw(a, p, { ...o, intern: true }), { signal: opt.signal });
+}
+async function askRaw(action, payload = {}, { signal, images, intern } = {}) {
+  if (!intern) try { const e = action === 'chat' ? ['Max gefragt', payload.opts && payload.opts.assistant ? 'Assistent' : 'Chat'] : EV[action]; if (e && window.BM) window.BM.track(e[0], e[1] || ''); } catch (x) {}
   const extra = {};
   const ses = getSession(); if (ses) extra.session = ses;
   if (payload.material != null && S.doc?.generated) extra.src = 'max';
