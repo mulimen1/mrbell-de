@@ -143,7 +143,7 @@ function inHtml(s, pos) {
 const abzeichen = (s, pos) => inHtml(s, pos) ? `<span class="rechen-warn-mini" title="${WARNUNG().slice(2)}">⚠</span>` : ' ⚠';
 function bannerSetzen(s) {
   if (!/⚠/.test(s) || s.includes(WARNUNG())) return s;
-  const div = `<div class="rechen-warn">${WARNUNG()}</div>`;
+  const div = `<div class="rechen-warn">${WARNUNG().replace(/^⚠\s*/, '')}</div>`;
   if (/```tafel/.test(s)) {   // Chat: in jede Tafel mit ⚠ ein Banner (vor das schließende ```), im Text außerhalb eins am Ende
     let aussenHat = false;
     const t = s.replace(/(```tafel[^\n]*\n)([\s\S]*?)(```|$)/g, (m, a, body, c) => /rechen-warn-mini/.test(body) ? a + body.replace(/\s*$/, '\n') + div + '\n' + c : m);

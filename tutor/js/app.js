@@ -769,7 +769,8 @@ function openSideMenu(anchor, focus = '') {
     h('div', { class: 'sm-g sm-legal' + (focus === 'recht' ? ' focus' : '') },
       h('div', { class: 'sm-h' }, L('Rechtliches', 'Legal')),
       ln(L('Impressum', 'Legal notice'), 'impressum'), ln(L('Datenschutz', 'Privacy'), 'datenschutz'), ln(L('AGB', 'Terms'), 'agb'), ln(L('Widerrufsbelehrung', 'Right of withdrawal'), 'widerruf'),
-      ln(L('Vertrag widerrufen', 'Withdraw from contract'), 'widerrufen'), ln(L('Verträge kündigen', 'Cancel contracts'), 'kuendigen')));
+      ln(L('Vertrag widerrufen', 'Withdraw from contract'), 'widerrufen'), ln(L('Verträge kündigen', 'Cancel contracts'), 'kuendigen'),
+      h('a', { class: 'sm-it sm-l', href: lang === 'en' ? '/ueber/calculation-algorithm' : '/ueber/rechen-algorithmus', target: '_blank', rel: 'noopener' }, L('Rechen-Algorithmus & Haftung', 'Calculation algorithm & liability'))));
   document.body.appendChild(menu);
   const r = anchor.getBoundingClientRect(), mh = menu.offsetHeight, mw = menu.offsetWidth;
   menu.style.left = Math.max(8, Math.min(innerWidth - mw - 8, r.right - mw)) + 'px';

@@ -87,3 +87,13 @@ td .katex, li .katex, p .katex { white-space: nowrap; }
   footer a, footer button { display: inline-flex; align-items: center; min-height: 40px; }
 }
 @media print { .ln-max, .ln-quiz { display: none; } }
+
+/* Vertrauen: geprüft vom Rechen-Algorithmus (unter dem Rechenbeispiel) */
+.ln-algo { display: flex; align-items: center; gap: 12px; margin: 18px 0 4px; padding: 12px 14px; border: 1.5px solid #cfe9d9; border-radius: 12px; background: #f3fbf6; color: #17663a; text-decoration: none; transition: border-color .15s, box-shadow .15s; }
+.ln-algo:hover { border-color: #2f9a5c; box-shadow: 0 4px 14px -6px rgba(23, 102, 58, .4); }
+.ln-algo span { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.ln-algo b { font-size: 14.5px; color: #17663a; }
+.ln-algo small { font-size: 13px; color: #3f6b52; }
+.ln-algo .go { flex: none; opacity: .75; transition: transform .15s; }
+.ln-algo:hover .go { transform: translateX(2px); }
+.ln-algo, .ln-algo * { text-decoration: none !important; }

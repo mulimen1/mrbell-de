@@ -342,7 +342,7 @@ const TOOLNAME = { rechne: 'Rechner', kapitalwert: 'Kapitalwert', interner_zinsf
 export function aiTag(tools, raw = '', src = '', rp = null) {
   const t = Array.isArray(tools) ? tools.filter(x => TOOLNAME[x]) : [];
   // Rechen-Algorithmus: geprüfte Rechnungen dieser Antwort (Klick → Erklärung)
-  const rk = rp && rp.rechnungen > 0 ? h('button', { class: 'aiok vt-tag' + (rp.offen ? ' warn' : ''), type: 'button', title: L('Was heißt das?', 'What does this mean?'), onclick: e => { e.stopPropagation(); import('./vertrauen.js').then(m => m.openVertrauen('max')); } }, rp.offen ? '⚠ ' + L('Nicht alles bestätigt', 'Not everything verified') : '✓ ' + (rp.rechnungen === 1 ? L('Rechnung geprüft', 'Calculation verified') : L(`${rp.rechnungen} Rechnungen geprüft`, `${rp.rechnungen} calculations verified`))) : null;
+  const rk = rp && rp.rechnungen > 0 ? h('button', { class: 'aiok vt-tag' + (rp.offen ? ' warn' : ''), type: 'button', title: L('Was heißt das?', 'What does this mean?'), onclick: e => { e.stopPropagation(); import('./vertrauen.js').then(m => m.openVertrauen('max')); } }, rp.offen ? L('Nicht alles bestätigt', 'Not everything verified') : (rp.rechnungen === 1 ? L('Rechnung geprüft', 'Calculation verified') : L(`${rp.rechnungen} Rechnungen geprüft`, `${rp.rechnungen} calculations verified`))) : null;
   const ok = rk ? rk : t.length ? h('span', { class: 'aiok', title: L('Die Zahlen hat ein festes Rechenprogramm ausgerechnet, nicht die KI: ', 'The numbers were computed by a fixed calculator, not by the AI: ') + t.map(x => TOOLNAME[x]).join(', ') }, '✓ ' + L('Zahlen exakt nachgerechnet', 'Numbers verified by calculator')) : null;
   let from = null;
   if (src) {
