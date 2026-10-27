@@ -1424,7 +1424,7 @@ export function mountAssistant() {
       hist.push({ role: 'assistant', content: raw });
       try { Mem.remember('user', text); Mem.remember('assistant', raw); } catch (x) {}
       hist = hist.slice(-40); ls.set(CHAT, hist);
-      ex.model = r.model || ''; ex.tools = r.tools || []; ex.src = d ? (d.video ? 'video' : d.generated ? 'max' : 'doc') : '';
+      ex.model = r.model || ''; ex.tools = r.tools || []; ex.rp = r.rechenpruefung || null; ex.src = d ? (d.video ? 'video' : d.generated ? 'max' : 'doc') : '';
       await answer(raw, my, spoken, ex);
       try { STAGE?.onAnswer?.(parse(raw)); } catch (e) {}
     } catch (e) {
@@ -1484,7 +1484,7 @@ export function mountAssistant() {
     const extras = [...p.cmds.map(c => cmdChip(c)), ...acts.map(({ a, href }) => h('a', { class: 'ai-cmd link', href }, ACTS[a][0]))];
     p.boards.forEach(b => extras.push(boardBtn(b)));
     if (!STAGE && route().tab && route().tab !== 'room' && (p.boards.length || (p.text || '').length > 280)) extras.push(h('a', { class: 'ai-cmd link ai-room', href: '#/app/tutor', onclick: () => ls.set('tutor.room.continue', 1) }, h('span', { class: 'ck', html: ico('right') }), L('Im Tutor weitermachen', 'Continue in the tutor')));
-    if (ex.model !== undefined) extras.push(aiTag(ex.tools, raw, ex.src));
+    if (ex.model !== undefined) extras.push(aiTag(ex.tools, raw, ex.src, ex.rp));
     // Wie bei ChatGPT: unter jeder Antwort Kopieren, Nochmal, Einfacher, Kürzer, Beispiel – ein Klick statt neu tippen
     if (!ex.sketch && !calm && ex.model !== undefined && p.text) {
       const qb = (icon, label, fn) => h('button', { class: 'ai-act', type: 'button', title: label, 'aria-label': label, onclick: fn }, h('span', { html: icon }), h('span', { class: 'ai-actl' }, label));

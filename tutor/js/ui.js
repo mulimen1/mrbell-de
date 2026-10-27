@@ -339,9 +339,11 @@ export function modelName(id) {
 }
 const TOOLNAME = { rechne: 'Rechner', kapitalwert: 'Kapitalwert', interner_zinsfuss: 'Interner Zinsfuß', annuitaet: 'Annuität', finanzmathe: 'Zinsrechnung', abschreibung: 'Abschreibung', break_even: 'Break-even', deckungsbeitrag: 'Deckungsbeitrag', zuschlagskalkulation: 'Zuschlagskalkulation', einkommensteuer: 'Einkommensteuer (§ 32a EStG)', statistik: 'Statistik' };
 // Herkunft: src = 'doc' (Skript mitgeschickt) / 'max' (Max' eigenes Kurzskript) / '' (ohne Skript). Seiten kommen aus den (S. x)-Belegen.
-export function aiTag(tools, raw = '', src = '') {
+export function aiTag(tools, raw = '', src = '', rp = null) {
   const t = Array.isArray(tools) ? tools.filter(x => TOOLNAME[x]) : [];
-  const ok = t.length ? h('span', { class: 'aiok', title: L('Die Zahlen hat ein festes Rechenprogramm ausgerechnet, nicht die KI: ', 'The numbers were computed by a fixed calculator, not by the AI: ') + t.map(x => TOOLNAME[x]).join(', ') }, '✓ ' + L('Zahlen exakt nachgerechnet', 'Numbers verified by calculator')) : null;
+  // Rechen-Algorithmus: geprüfte Rechnungen dieser Antwort (Klick → Erklärung)
+  const rk = rp && rp.rechnungen > 0 ? h('button', { class: 'aiok vt-tag' + (rp.offen ? ' warn' : ''), type: 'button', title: L('Was heißt das?', 'What does this mean?'), onclick: e => { e.stopPropagation(); import('./vertrauen.js').then(m => m.openVertrauen('max')); } }, rp.offen ? '⚠ ' + L('Nicht alles bestätigt', 'Not everything verified') : '✓ ' + (rp.rechnungen === 1 ? L('Rechnung geprüft', 'Calculation verified') : L(`${rp.rechnungen} Rechnungen geprüft`, `${rp.rechnungen} calculations verified`))) : null;
+  const ok = rk ? rk : t.length ? h('span', { class: 'aiok', title: L('Die Zahlen hat ein festes Rechenprogramm ausgerechnet, nicht die KI: ', 'The numbers were computed by a fixed calculator, not by the AI: ') + t.map(x => TOOLNAME[x]).join(', ') }, '✓ ' + L('Zahlen exakt nachgerechnet', 'Numbers verified by calculator')) : null;
   let from = null;
   if (src) {
     const pages = [...new Set([...String(raw).matchAll(/\((?:S|p|pp)\. ?(\d+)(?:[–-](\d+))?\)/g)].map(m => +m[1]))].sort((a, b) => a - b).slice(0, 5);

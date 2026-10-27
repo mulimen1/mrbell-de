@@ -1,5 +1,6 @@
 // Excel-Vorlagen & Generator: 10 geprüfte Vorlagen mit echten Formeln (nur blaue Felder ausfüllen)
 // und ein Generator, der aus der Aufgabe eine Tabelle baut – jede Formel wird vor dem Download im Browser nachgerechnet.
+import { vertrauenBtn } from '../vertrauen.js';
 import { h, ico, toast, ls } from '../util.js';
 import { L } from '../i18n.js';
 import { getAccount, ask } from '../api.js';
@@ -28,6 +29,7 @@ export function render(root, { arg = '' } = {}) {
     h('div', { class: 'eyebrow' }, L('Excel-Helfer · Vorlagen, Generator & Trainer', 'Excel helper · templates, generator & trainer')),
     h('h1', {}, icoXL('big'), L('Fertige Excel-Dateien. Echte Formeln.', 'Ready-made Excel files. Real formulas.'), tmInfo(TM)),
     h('p', { class: 'xl-sub' }, L(`Nimm eine der ${TEMPLATES.length} geprüften Vorlagen und trag nur die blauen Felder ein – Excel rechnet den Rest. Oder beschreib deine Aufgabe, und Max baut dir die Datei – jede Formel doppelt nachgerechnet. Und im Trainer lernst du Excel selbst, Schritt für Schritt mit Max.`, `Pick one of ${TEMPLATES.length} checked templates and fill in the blue cells – Excel does the rest. Or describe your task and Max builds the file. Every formula is checked first.`)));
+  head.append(h('div', { class: 'vt-row left' }, vertrauenBtn('excel')));
   const tabs = h('div', { class: 'xl-tabs', role: 'tablist' },
     h('a', { class: 'xl-tab' + (tab === 'tpl' ? ' on' : ''), href: '#/app/excel', role: 'tab' }, h('span', { html: ico('library') }), L('Vorlagen', 'Templates'), h('b', {}, String(TEMPLATES.length))),
     h('a', { class: 'xl-tab' + (tab === 'gen' ? ' on' : ''), href: '#/app/excel/generator', role: 'tab' }, h('span', { html: ico('spark') }), L('Generator', 'Generator'), h('b', { class: 'xl-new' }, 'KI')),

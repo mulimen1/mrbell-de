@@ -19,6 +19,7 @@ import { fly, setRoomHead } from '../flight.js';
 import { thoughtFor } from '../thoughts.js';
 import { homeBeta } from '../beta.js';
 import { entryTools } from '../entrycards.js';
+import { vertrauenBtn } from '../vertrauen.js';
 
 // Skript, das bei leerem Kontingent kam: Begrüßung bleibt für diese Sitzung stehen, auch wenn der Raum neu zeichnet
 let waitGreet = null;
@@ -374,7 +375,7 @@ export function render(root, ctx = {}) {
         ['calendar', L('Klausurplan', 'Exam plan'), L('Tag für Tag zur Klausur', 'Day by day to the exam'), 'plan'],
         ['spark', L('Ich erklär dir ein Thema', 'Explain a topic'), L('Ohne Skript – nur das Thema', 'No slides – just the topic'), () => import('../app.js').then(m => m.topicPrompt())]];
       const grid = h('div', { class: 'rm-tl' }, T2.map(([ic, t, sub, act], i) => h('button', { class: 'rm-tlt' + (i === 0 ? ' main' : ''), type: 'button', style: { '--i': String(i) }, onclick: e => (typeof act === 'string' ? run(act, e.currentTarget) : act(e)) }, h('span', { class: 'rm-tli', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))));
-      skills.replaceChildren(h('div', { class: 'rm-tools2' }, mat, grid));
+      skills.replaceChildren(h('div', { class: 'rm-tools2' }, h('div', { class: 'vt-row' }, vertrauenBtn('max')), mat, grid));
       drawPickers();
     } else { skills.replaceChildren(tog, body); set(isOpen); }
     askSlot.replaceChildren();
