@@ -4,6 +4,7 @@
 import { h, ico } from './util.js';
 import { L } from './i18n.js';
 import { getAccount } from './api.js';
+import { legalNote } from './legalnote.js';
 
 const isPhone = () => matchMedia('(max-width: 600px)').matches;
 let el = null, timer = 0;
@@ -52,7 +53,7 @@ function show() {
       g,
       h('button', { class: 'm-rl-b', type: 'button', onclick: () => auth('register') }, L('Kostenloses Konto erstellen', 'Create a free account')),
       h('button', { class: 'm-rl-l', type: 'button', onclick: () => auth('login') }, L('Ich hab schon ein Konto', 'I already have an account')),
-      h('small', {}, isPhone() ? L('Tipp: Am Laptop meldest du dich genauso an – dort hast du Tafel und Chat nebeneinander.', 'Tip: sign in the same way on your laptop – board and chat side by side.') : L('Am Handy meldest du dich genauso an – Max ist überall dabei.', 'Sign in the same way on your phone – Max comes along everywhere.'))));
+      h('small', {}, isPhone() ? L('Tipp: Am Laptop meldest du dich genauso an – dort hast du Tafel und Chat nebeneinander.', 'Tip: sign in the same way on your laptop – board and chat side by side.') : L('Am Handy meldest du dich genauso an – Max ist überall dabei.', 'Sign in the same way on your phone – Max comes along everywhere.')), legalNote(true)));
   document.body.append(el);
 }
 

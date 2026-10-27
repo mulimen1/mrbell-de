@@ -7,6 +7,7 @@ import { face } from './face.js';
 import { L, LOCALE } from './i18n.js';
 import { getNick, setNick, nickField, greetSplash } from './nick.js';
 import { token as tsToken, preload as tsPreload } from './turnstile.js';
+import { legalNote } from './legalnote.js';
 
 const fmtDate = ts => new Date(ts).toLocaleDateString(LOCALE, { day: 'numeric', month: L('numeric', 'short') });
 // Ende der Inner-Circle-Zeit ohne den Puffer, den der Server bei Abos anhängt (sonst „8 Tage“ statt 7)
@@ -84,7 +85,7 @@ export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong =
         }
       });
       box.replaceChildren(...head(L('Anmelden', 'Sign in'), L('Schön, dass du wieder da bist.', 'Good to have you back.')), gBox(), form, err,
-        h('div', { class: 'lalt' }, L('Noch kein Konto? ', 'No account yet? '), link(L('Konto erstellen', 'Create account'), () => register())));
+        h('div', { class: 'lalt' }, L('Noch kein Konto? ', 'No account yet? '), link(L('Konto erstellen', 'Create account'), () => register())), legalNote(false));
       fc.set('idle'); if (!matchMedia('(pointer: coarse)').matches) setTimeout(() => (email ? p.inp : em).focus(), 60);
     };
 
@@ -109,7 +110,7 @@ export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong =
       box.replaceChildren(...head(L('Kostenloses Konto erstellen', 'Create your free account'), L('Kostenlos und in 30 Sekunden. Alles, was du ohne Konto gemacht hast, bleibt erhalten.', 'Free and done in 30 seconds. Everything you did without an account stays.')), gBox(), form, err,
         h('p', { class: 'm-laptop' }, L('Erstell dein Konto jetzt – am Laptop meldest du dich einfach an und lernst weiter.', 'Create your account now – on your laptop just sign in and keep learning.')),
         h('div', { class: 'lalt' }, L('Schon ein Konto? ', 'Already have an account? '), link(L('Anmelden', 'Sign in'), () => login())),
-        h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Passwort wird verschlüsselt gespeichert. Deine Skripte bleiben auf deinem Gerät.', 'Your password is stored encrypted. Your slides stay on your device.')));
+        h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Passwort wird verschlüsselt gespeichert. Deine Skripte bleiben auf deinem Gerät.', 'Your password is stored encrypted. Your slides stay on your device.')), legalNote(true));
       fc.set('idle'); if (!matchMedia('(pointer: coarse)').matches) setTimeout(() => em.focus(), 60);
     };
 

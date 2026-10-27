@@ -5865,3 +5865,9 @@ body.bm-tools-mode .dk { display: none !important; }
 @media (max-height: 760px) {
   .room.rm-tools-mode .rm-th-wrap { display: none; }
 }
+
+/* Anmeldung: Hinweis auf AGB und Datenschutzerklärung (alle Stellen, an denen man ein Konto anlegt) */
+.lterms { margin: 10px 0 0; font-size: 12px; line-height: 1.5; color: var(--mute); text-align: center; }
+.lterms a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.lterms a:hover { color: var(--ink); }
+.m-rl .lterms { margin-top: 12px; }
