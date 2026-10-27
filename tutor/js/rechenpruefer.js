@@ -62,6 +62,54 @@ function fmtDe(q, d, tex) {   // tex: Dezimalkomma als {,}
   return (neg ? '-' : '') + ip + (d ? (tex ? '{,}' : ',') + fp : '');
 }
 
+/* ================= Zahlformate Deutsch/Englisch ================= */
+// Max mischt in englischen Antworten oft beide Formate („30.000“, „1{,}08“, „27{,}777.78“). Jede Zahl bekommt ihre möglichen
+// Lesarten; gerechnet wird mit der wahrscheinlichsten, bei Widerspruch werden die anderen Lesarten probiert.
+let SPR = 'de';
+function lesarten(x) {
+  x = x.replace(/\{,\}/g, ',').replace(/\{\.\}/g, '.');
+  const mk = (ip, fp) => ({ q: Q.dec((ip || '0') + (fp ? '.' + fp : '')), d: fp ? fp.length : 0 });
+  const hasC = x.includes(','), hasD = x.includes('.');
+  if (!hasC && !hasD) return [mk(x)];
+  if (hasC && hasD) {
+    const lc = x.lastIndexOf(','), ld = x.lastIndexOf('.');
+    const [tz, dz] = ld > lc ? [',', '.'] : ['.', ','], k = Math.max(lc, ld), ip = x.slice(0, k), fp = x.slice(k + 1);
+    if (ip.includes(dz) || !ip.split(tz).slice(1).every(g => g.length === 3)) throw NN;
+    return [mk(ip.split(tz).join(''), fp)];
+  }
+  const sep = hasC ? ',' : '.', g = x.split(sep);
+  const tausend = g.slice(1).every(y => y.length === 3) && g[0].length <= 3 && g[0] !== '0' && g[0] !== '';
+  if (g.length > 2) { if (tausend) return [mk(g.join(''))]; throw NN; }
+  const dez = mk(g[0], g[1]);
+  if (!tausend) return [dez];
+  const th = mk(g.join(''));
+  // Deutsch: eindeutig („1.250“ = Tausender, „1,250“ = Dezimal). Englisch (Max mischt dort beide Formate): beide Lesarten,
+  // „1,250“ = Tausender zuerst; „1.250“ = Tausender zuerst (Max schreibt auch in englischen Antworten oft 30.000)
+  if (SPR !== 'en') return sep === '.' ? [th] : [dez];
+  // Dezimal-Lesart nur, wo sie plausibel ist (1,025 / 12.375 – nicht 2,000 oder 30.000): sonst würden Fehler um Faktor 1000 durchrutschen
+  return g[0].length <= 2 && !g[1].endsWith('0') ? [th, dez] : [th];
+}
+const NUMMIX = /\d+(?:(?:\{,\}|\{\.\}|[.,])\d+)*/g;
+// Englischer Stil einer Zahl? (Dezimalpunkt, Komma als Tausender) – damit Korrekturen im selben Format geschrieben werden
+function enStil(tok) {
+  const x = tok.replace(/\{,\}/g, ',');
+  if (/\d,\d{3}\.\d|\d\.\d{1,2}$|\d\.\d{4,}$|^\d{1,3}(,\d{3})+$/.test(x) && !/\d\.\d{3}(?!\d)/.test(x.replace(/\.\d{1,2}$/, ''))) return SPR === 'en' || /\d,\d{3}\.\d/.test(x) || /\d\.\d{1,2}$/.test(x);
+  return false;
+}
+// Stil einer vorhandenen Zahl beibehalten (Max mischt): 'de' | 'en' | null (unbestimmt → Sprache der Antwort)
+function stilVon(tok) {
+  const x = tok.replace(/^[−-]\s*/, '');
+  if (/\d,\d{3}\.\d|\d\{,\}\d{3}\.\d|^\d+\.\d{1,2}$|^\d+\.\d{4,}$/.test(x)) return 'en';
+  if (/\d\.\d{3},\d|(?:\{,\}|,)\d{1,2}$|(?:\{,\}|,)\d{4,}$|^\d{1,3}(?:\.\d{3})+$/.test(x)) return 'de';
+  return null;
+}
+const enFuer = tok => { const st = stilVon(tok); return st ? st === 'en' : SPR === 'en'; };
+function fmtNum(q, d, tex, en) {
+  if (!en) return fmtDe(q, d, tex);
+  const de = fmtDe(q, d, false);   // 1.234,56 → 1,234.56 (TeX: 1{,}234.56)
+  return de.replace(/[.,]/g, c => (c === '.' ? '\u0001' : '.')).replace(/\u0001/g, tex ? '{,}' : ',');
+}
+
 /* ================= TeX → Rechenausdruck ================= */
 const UNITS = new Set(['€', 'EUR', 'Mio', 'Mrd', 'Tsd', 'Stück', 'Stk', 'h', 'Tage', 'Jahre', 'Jahr', '%', 'm', 'kg', 't', 'Std', 'ME', 'GE', 'Mio. €', 'Mrd. €', 'Tsd. €', '€/Stück', '€/Stk', 'Punkte', 'Prozentpunkte', 'Monate', 'Minuten', 'min', 'km', 'l', 'Liter', 'Euro', 'Stück/Jahr', 'Stunden', 'Pkt', '€/h', 'qm', 'm²', 'm³', 'Tage/Jahr', 'Wochen', 'Personen', 'Mitarbeiter', 'Kunden']);
 function brace(s, i) {
@@ -105,8 +153,11 @@ function texToExpr(t) {
 // expr: Zahlen deutsch (1.234,5), + - * / : ^ ( ) % R(a,n); Modus: 'pct' (% = /100) | 'weg' (% ignorieren) | 'rel' (a − p % = a·(1−p))
 // derived: Set von Zahlwerten (String), die als gerundete Zwischenwerte gelten → liefert Toleranz
 const NUMRE = /\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?|\d+\.\d+/g;
-function evaluate(expr, mode, derived) {
+function evaluate(expr, mode, derived, wahl) {
   let e = expr.replace(/\s+/g, '');
+  // Zahlen in eine eindeutige Form bringen (Lesart je Zahl: wahl[i] oder die wahrscheinlichste)
+  let amb = 0; const klassen = new Set();
+  e = e.replace(NUMMIX, tok => { const l = lesarten(tok); let k = 0; if (l.length > 1) { const kl = /[.]|\{\.\}/.test(tok) ? 0 : 1; klassen.add(kl); k = wahl ? (wahl[kl] || 0) % l.length : 0; } const r = l[k]; const str = r.q.n.toString().replace('-', ''); const ab = r.q.abs(); const z = ab.mul(pow10(r.d)); const ganz = (z.n / z.d).toString().padStart(r.d + 1, '0'); return r.d ? ganz.slice(0, -r.d) + ',' + ganz.slice(-r.d) : ganz; });
   if (mode === 'rel') { const e2 = e.replace(/(\d[\d.,]*)([+-])(\d[\d.,]*)%/g, '($1*(1$2$3/100))'); if (e2 === e) throw NN; e = e2; }
   if (!e || /[A-Za-zÄÖÜäöüß_]/.test(e.replace(/R\(/g, '('))) throw NN;
   if (/[<>!=?&|]/.test(e)) throw NN;
@@ -157,11 +208,41 @@ function evaluate(expr, mode, derived) {
     for (const s of [1, -1]) { try { const w = run({ k: L.k, q: s > 0 ? L.q.add(half(L.d)) : L.q.sub(half(L.d)) }); const x = w.sub(v).abs(); if (x.cmp(dv) > 0) dv = x; } catch (e) {} }
     tol = tol.add(dv);
   }
-  return { v, tol, lits };
+  amb = klassen.size ? 2 : 0;
+  return { v, tol, lits, amb };
 }
+// Gibt es eine Lesart-Kombination, unter der A = B gilt? (Toleranz: Rundung der Zahl rechts)
+function kombiOk(exA, exB) {
+  let ra, rb; try { ra = evaluate(exA, 'pct'); rb = evaluate(exB, 'pct'); } catch (e) { return false; }
+  if (!ra.amb && !rb.amb) return false;
+  const nums = exB.match(NUMMIX) || [];
+  for (const ka of kombis(ra.amb)) for (const kb of kombis(rb.amb)) for (const ma of ['pct', 'weg']) for (const mb of ['pct', 'weg']) {
+    let a, b; try { a = evaluate(exA, ma, null, ka); b = evaluate(exB, mb, null, kb); } catch (e) { continue; }
+    if (a.div0 || b.div0) continue;
+    let d = null; if (nums.length === 1) { const l = lesarten(nums[0]); d = l[(l.length > 1 ? kb[/[.]|\{\.\}/.test(nums[0]) ? 0 : 1] || 0 : 0) % l.length].d; }
+    const u = mb === 'pct' && /%/.test(exB) ? new Q(1n, 100n) : ONE;
+    const dd = a.v.sub(b.v).abs();
+    if (d != null && (dd.cmp(half(d).mul(u)) < 0 || roundQ(a.v.div(u), d).mul(u).cmp(b.v) === 0)) return true;
+    if (dd.cmp(b.v.abs().mul(new Q(1n, 10n ** 9n)).add(new Q(1n, 10n ** 12n))) <= 0) return true;
+  }
+  return false;
+}
+// Werte von A (pct, weg, rel) in der Lesart, die dem gezeigten Ergebnis am nächsten kommt (für die Korrektur)
+function besteLesart(exA, bVal) {
+  let ra; try { ra = evaluate(exA, 'pct'); } catch (e) { return null; }
+  if (!ra.amb || !bVal) return null;
+  let best = null, bd = Infinity; const y = Math.abs(bVal.toNumber()) + 1e-12;
+  for (const k of kombis(ra.amb)) {
+    const vs = ['pct', 'weg', 'rel'].map(md => { try { const r = evaluate(exA, md, null, k); return r.div0 ? null : r.v; } catch (e) { return null; } });
+    for (const v of vs) if (v) { const dist = Math.abs(Math.log10(Math.abs(v.toNumber()) + 1e-12) - Math.log10(y)); if (dist < bd) { bd = dist; best = vs; } }
+  }
+  return best;
+}
+// alle Lesart-Kombinationen eines Ausdrucks (höchstens 32)
+function kombis(n) { return n ? [[0, 0], [1, 0], [0, 1], [1, 1]] : [[0, 0]]; }   // [Punkt-Zahlen, Komma-Zahlen]
 const qkey = q => q.n + '/' + q.d;
 let TRACE = null, EXAKT = new Set(), ERGEBNISSE = new Set();   // TRACE: geprüfte Ergebnisstellen (für Tests); EXAKT: Werte, die exakt aus einer Rechnung folgen
-const numKeys = x => { const out = []; for (const m of String(x).replace(/\{,\}/g, ',').matchAll(/(?<![\d.,])(\d{1,3}(?:\.\d{3})+|\d+)(?:,(\d+))?(?![\d]|[.,]\d)/g)) out.push(qkey(Q.dec(m[1].replace(/\./g, '') + (m[2] ? '.' + m[2] : '')))); return out; };
+const numKeys = x => { const out = []; for (const m of String(x).matchAll(/(?<![\d.,}])\d+(?:(?:\{,\}|[.,])\d+)*(?![\d]|[.,]\d)/g)) { try { for (const l of lesarten(m[0])) out.push(qkey(l.q)); } catch (e) {} } return out; };
 
 /* ================= Literal (reine Zahl, ggf. mit %) ================= */
 function literal(part) {
@@ -169,8 +250,9 @@ function literal(part) {
   p = p.replace(/\\(?:text|mathrm)\{\s*[A-Za-zÄÖÜäöüß./ ]+\}\s*$/, '').trimEnd();
   p = p.trim().replace(/−/g, '-').replace(/\\[,;!: ]|~/g, '').replace(/\{,\}/g, ',');
   p = p.replace(/\\(?:text|mathrm)\{\s*[^{}\d]*\}/g, '').replace(/\\%/g, '%').replace(/€/g, '').replace(/\s+/g, ' ').trim().replace(/^\+/, '').trim();
-  const m = /^(-?)(\d{1,3}(?:\.\d{3})+|\d+)(?:,(\d+))?\s*(%)?$/.exec(p); if (!m) return null;
-  return { q: Q.dec((m[1] ? '-' : '') + m[2].replace(/\./g, '') + (m[3] ? '.' + m[3] : '')), d: (m[3] || '').length, pct: !!m[4] };
+  const m = /^(-?)(\d+(?:[.,]\d+)*)\s*(%)?$/.exec(p); if (!m) return null;
+  let l; try { l = lesarten(m[2])[0]; } catch (e) { return null; }
+  return { q: m[1] ? l.q.neg() : l.q, d: l.d, pct: !!m[3] };
 }
 const fein = (q, d) => !q.isZero() && half(d).cmp(q.abs().mul(new Q(25n, 10000n))) <= 0;
 
@@ -205,11 +287,11 @@ function ltolA(l, mode) { return l && l.d > 0 && (ERGEBNISSE.has(qkey(l.q)) || E
 function ltol(l, mode) { if (!l || EXAKT.has(qkey(l.pct && mode === 'pct' ? l.q.div(HUNDRED) : l.q)) || EXAKT.has(qkey(l.q))) return ZERO; const t = half(l.d); return l.pct && mode === 'pct' ? t.div(HUNDRED) : t; }
 
 function eingabeAlternative(expr, b, tol, kand) {
-  const re = /\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?/g; const pos = [...expr.matchAll(re)];
+  const pos = [...expr.matchAll(NUMMIX)];
   for (const m of pos) {
-    const alt = m[0].replace(/\./g, '').replace(',', '.');
+    let alt; try { alt = lesarten(m[0])[0].q; } catch (e) { continue; }
     for (const c of kand) {
-      if (Q.dec(alt).cmp(c) === 0) continue;
+      if (alt.cmp(c) === 0) continue;
       const z = c.n * 10n ** 12n / c.d; if (c.n * 10n ** 12n % c.d) continue;   // nur endliche Dezimalzahlen
       const str = (z < 0n ? '-' : '') + ((z < 0n ? -z : z) / 10n ** 12n).toString() + ',' + ((z < 0n ? -z : z) % 10n ** 12n).toString().padStart(12, '0');
       const e2 = expr.slice(0, m.index) + str + expr.slice(m.index + m[0].length);
@@ -309,10 +391,8 @@ function checkTex(tex, ctx, after, derived) {
         if (/ungerundet/.test(ctx + after.slice(0, 120)) && a.sub(b).abs().cmp(b.abs().div(HUNDRED)) <= 0) ok = true;
         if ((auf || ab) && b.d === 1n && a.d !== 1n) { const fl = a.n / a.d - (a.n < 0n && a.n % a.d ? 1n : 0n); if ((ab && b.n === fl) || (auf && b.n === fl + 1n)) ok = true; }
       }
-      if (!ok && /\d\{,\}\d{3}(?!\d|\{,\})/.test(s1 + ' ' + s2) && !/\{,\}(?!\d{3}(?!\d))|\d\.\d{3}(?!\d)/.test(s1 + ' ' + s2)) {
-        try { const en = x => evaluate(texToExpr(x.replace(/(\d)\{,\}(\d{3})(?!\d|\{,\})/g, '$1$2')), 'pct'); const a = en(s1), b = en(s2); const bl2 = literal(s2.replace(/(\d)\{,\}(\d{3})(?!\d|\{,\})/g, '$1$2')); if (!a.div0 && !b.div0 && a.v.sub(b.v).abs().cmp(ltol(bl2, 'pct').add(new Q(1n, 10n ** 9n))) <= 0) ok = true; } catch (e) {}
-      }
-      if (TRACE && B.lit) { const lead = s2.match(/^\s*/)[0].length; const nm = /[−-]?\s*\d[\d.]*(?:\{,\}\d+|,\d+)?/.exec(s2.slice(lead)); if (nm) TRACE.push({ start: B.start + lead + nm.index, end: B.start + lead + nm.index + nm[0].length, tex: true }); }
+      if (!ok && A.ex && B.ex && kombiOk(A.ex, B.ex)) ok = true;   // andere Lesart der Zahlen (deutsch/englisch gemischt)
+      if (TRACE && B.lit) { const lead = s2.match(/^\s*/)[0].length; const nm = /[−-]?\s*\d+(?:(?:\{,\}|[.,])\d+)*/.exec(s2.slice(lead)); if (nm) TRACE.push({ start: B.start + lead + nm.index, end: B.start + lead + nm.index + nm[0].length, tex: true }); }
       if (neg) { if (ok) out.push({ art: 'ungleich-aber-gleich', text: `${s1.trim()} ≠ ${s2.trim()}`, start: A.start, end: B.start + s2.length }); continue; }
       if (ok) continue;
       // Gegenprobe: alle gezeigten Dezimalwerte als gerundet → nur Rundungs-Inkonsistenz?
@@ -326,14 +406,15 @@ function checkTex(tex, ctx, after, derived) {
       derived.clear(); saved.forEach(x => derived.add(x));
       // Korrektur: rechte Seite ist eine reine Zahl, links eindeutig gerechnet (Modus pct) → richtigen Wert einsetzen
       const f = { art, text: `${s1.trim()} ${opB} ${s2.trim()}`, start: A.start, end: B.start + s2.length, bvon: B.start, inputs: numKeys(s1), aExpr: A.ex, bWert: B.v.pct && B.v.pct !== 'DIV0' ? B.v.pct : null, bTol: ltol(B.lit, 'pct') };
-      if (B.lit) { const lead = s2.match(/^\s*/)[0].length; const nm = /[−-]?\s*\d{1,3}(?:\.\d{3})+(?:\{,\}\d+|,\d+)?|[−-]?\s*\d+(?:\{,\}\d+|,\d+)?/.exec(s2.trimEnd().slice(lead)); if (nm) f.bspan = { start: B.start + lead + nm.index, end: B.start + lead + nm.index + nm[0].length, alt: nm[0] }; }
+      if (B.lit) { const lead = s2.match(/^\s*/)[0].length; const nm = /[−-]?\s*\d+(?:(?:\{,\}|[.,])\d+)*/.exec(s2.trimEnd().slice(lead)); if (nm) f.bspan = { start: B.start + lead + nm.index, end: B.start + lead + nm.index + nm[0].length, alt: nm[0] }; }
       const val = art === 'rechnung-falsch' && B.lit ? korrWert([A.v.pct, A.v.weg, A.v.rel], B.lit, scales, after.slice(0, 80) + ' ' + ctx.slice(-60)) : null;
       if (val) {
         const lead = s2.match(/^\s*/)[0].length, body = s2.trimEnd();
-        const numM = /[−-]?\s*\d{1,3}(?:\.\d{3})+(?:\{,\}\d+|,\d+)?|[−-]?\s*\d+(?:\{,\}\d+|,\d+)?/.exec(body.slice(lead));
+        const numM = /[−-]?\s*\d+(?:(?:\{,\}|[.,])\d+)*/.exec(body.slice(lead));
         if (numM) {
+          const tokB = numM[0].replace(/^[−-]?\s*/, ''), en = enFuer(tokB);
           const useTex = /\{,\}/.test(numM[0]) || !/,/.test(numM[0]);
-          const sg = (numM[0].trim().match(/^[−-]/) || [])[0] || (/^\s*-/.test(s2) ? '-' : '-'); const rep = fmtDe(val, B.lit.d, useTex).replace(/^-/, sg);
+          const sg = (numM[0].trim().match(/^[−-]/) || [])[0] || (/^\s*-/.test(s2) ? '-' : '-'); const rep = fmtNum(val, B.lit.d, useTex, en).replace(/^-/, sg);
           f.fix = { start: B.start + lead + numM.index, end: B.start + lead + numM.index + numM[0].length, alt: numM[0], neu: rep };
         }
       }
@@ -345,15 +426,15 @@ function checkTex(tex, ctx, after, derived) {
 
 /* ================= Rechnungen im Fließtext ================= */
 // Ketten wie „5 · 3 = 15“, „3.000 ÷ 60.000 · 100 = 5,0 %“, „15 % von 200 € = 30 €“, „100 / 0,40 = 250 € “, „√(800.000 / 2) = 632 Stück“
-const P_UNIT_RE = /^\s?(€\/(?:Stück|Stk\.?|h|ME|Jahr|Monat|Kunde)|Stück\/(?:Jahr|Monat|Tag)|€|%|Euro|Prozentpunkte|Prozent|Stück|Stk\.?|Std\.?|h(?![\wäöü])|Tage[n]?(?![\wäöü])|Jahre[n]?(?![\wäöü])|Monate[n]?(?![\wäöü])|Punkte(?![\wäöü])|Pp\.?|ME(?![\wäöü])|GE(?![\wäöü])|Mio\.?(?:\s?€)?|Mrd\.?(?:\s?€)?|Tsd\.?(?:\s?€)?)/;
-const WORD_OPS = [['geteilt durch', '/'], ['durch', '/'], ['mal', '*'], ['plus', '+'], ['minus', '-']];
+const P_UNIT_RE = /^\s?((?:units?|pieces?|years?|days?|months?|hours?|percent(?:age points)?|pp|USD|EUR|\$)(?![\wäöü])|€\/(?:Stück|Stk\.?|h|ME|Jahr|Monat|Kunde)|Stück\/(?:Jahr|Monat|Tag)|€|%|Euro|Prozentpunkte|Prozent|Stück|Stk\.?|Std\.?|h(?![\wäöü])|Tage[n]?(?![\wäöü])|Jahre[n]?(?![\wäöü])|Monate[n]?(?![\wäöü])|Punkte(?![\wäöü])|Pp\.?|ME(?![\wäöü])|GE(?![\wäöü])|Mio\.?(?:\s?€)?|Mrd\.?(?:\s?€)?|Tsd\.?(?:\s?€)?)/;
+const WORD_OPS = [['geteilt durch', '/'], ['durch', '/'], ['mal', '*'], ['plus', '+'], ['minus', '-'], ['divided by', '/'], ['times', '*'], ['multiplied by', '*']];
 function tokProse(t) {
   const toks = []; let i = 0;
   const isSp = c => c === ' ' || c === '\t' || c === ' ' || c === ' ';
   while (i < t.length) {
     const c = t[i];
     if (isSp(c)) { i++; continue; }
-    const m = /^(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)/.exec(t.slice(i, i + 40));
+    const m = /^\d+(?:[.,]\d+)*/.exec(t.slice(i, i + 40));
     if (m && !/[\d\wÄÖÜäöüß]/.test(t[i - 1] || '')) {
       let j = i + m[0].length;
       if (/^[.,:]\d/.test(t.slice(j, j + 2)) && !(t[j] === ':' )) { toks.push({ t: 'x', s: i, e: j + 2 }); i = j + 2; continue; }   // Datum/Version
@@ -376,8 +457,8 @@ function tokProse(t) {
       const rest = t.slice(i, i + 20);
       const wo = WORD_OPS.find(([k]) => rest.startsWith(k) && !/[\wäöü]/.test(rest[k.length] || ''));
       if (wo) { toks.push({ t: 'op', op: wo[1], s: i, e: i + wo[0].length, word: true }); i += wo[0].length; continue; }
-      if (w[0] === 'von') { toks.push({ t: 'von', s: i, e: i + 3 }); i += 3; continue; }
-      if (/^(ergibt|ergeben|macht)$/.test(w[0])) { toks.push({ t: 'rel', rel: '=', s: i, e: i + w[0].length }); i += w[0].length; continue; }
+      if (w[0] === 'von' || w[0] === 'of') { toks.push({ t: 'von', s: i, e: i + w[0].length }); i += w[0].length; continue; }
+      if (/^(ergibt|ergeben|macht|equals|gives|makes)$/.test(w[0])) { toks.push({ t: 'rel', rel: '=', s: i, e: i + w[0].length }); i += w[0].length; continue; }
       if (w[0] === 'x' && toks.length && toks[toks.length - 1].t === 'n') { toks.push({ t: 'op', op: '*', s: i, e: i + 1 }); i++; continue; }
       toks.push({ t: 'w', s: i, e: i + w[0].length }); i += w[0].length; continue;
     }
@@ -448,7 +529,7 @@ function checkProse(text, derived) {
       const res = {}; for (const md of ['pct', 'weg']) { res['A' + md] = val(A, md); res['B' + md] = val(B, md); }
       if (res.Apct === 'DIV0') { out.push({ art: 'division-durch-null', text: text.slice(A.s, B.e), start: A.s, end: B.e }); continue; }
       if (!res.Apct || !res.Bpct || res.Bpct === 'DIV0') continue;
-      const bl = B.single ? { q: Q.dec((B.neg ? '-' : '') + B.tok.num.replace(/\./g, '').replace(',', '.')), d: (B.tok.num.split(',')[1] || '').length } : null;
+      let bl = null; if (B.single) { try { const l = lesarten(B.tok.num)[0]; bl = { q: B.neg ? l.q.neg() : l.q, d: l.d }; } catch (e) { continue; } }
       if (TRACE && bl) TRACE.push({ start: B.neg ? B.s : B.tok.s, end: B.tok.ne });
       let ok = false;
       for (const ma of ['pct', 'weg']) for (const mb of ['pct', 'weg']) {
@@ -460,10 +541,7 @@ function checkProse(text, derived) {
         if (bl && roundQ(a.v.div(u), bl.d).mul(u).cmp(b.v) === 0) ok = true;
         if (bl && bl.d === 0 && a.v.d !== 1n) { const umf = text.slice(B.e, B.e + 60) + ' ' + text.slice(Math.max(0, A.s - 60), A.s); const auf = /aufgerundet|aufrunden|aufzurunden/.test(umf), ab = /abgerundet|abrunden|abzurunden|ganze[n]? (?:Stück|Einheiten|Zahl)|volle[n]? (?:Stück|Jahre|Monate)/.test(umf); const fl = a.v.n / a.v.d - (a.v.n < 0n ? 1n : 0n); if ((ab && b.v.cmp(new Q(fl)) === 0) || (auf && b.v.cmp(new Q(fl + 1n)) === 0)) ok = true; }
       }
-      if (!ok && /\d,\d{3}(?![\d,])/.test(A.expr + ' ' + B.expr) && !/,(?!\d{3}(?!\d))|\d\.\d{3}(?!\d)/.test(A.expr + ' ' + B.expr)) {   // englische Schreibweise 5,000 = 5000?
-        const en = x => ({ ...x, expr: x.expr.replace(/(\d),(\d{3})(?![\d,])/g, '$1$2') });
-        for (const ma of ['pct', 'weg']) for (const mb of ['pct', 'weg']) { const a = val(en(A), ma), b = val(en(B), mb); if (!a || !b || a === 'DIV0' || b === 'DIV0') continue; const u = B.pct && mb === 'pct' ? new Q(1n, 100n) : ONE; const t = a.tol.add(b.tol).add(B.single ? half(B.tok.num.includes(',') && !/,\d{3}$/.test(B.tok.num) ? B.tok.num.split(',')[1].length : 0).mul(u) : ZERO); if (a.v.sub(b.v).abs().cmp(t.add(new Q(1n, 10n ** 9n))) <= 0) ok = true; }
-      }
+      if (!ok && kombiOk(A.expr, B.expr)) ok = true;   // andere Lesart der Zahlen (deutsch/englisch gemischt)
       if (ok) continue;
       let art = 'rechnung-falsch';
       {   // nur gerundete Zwischenwerte (z. B. 54,55 + 49,59) → Rundungsdifferenz, keine falsche Rechnung
@@ -481,7 +559,7 @@ function checkProse(text, derived) {
       if (bl) { const st = B.neg ? B.s : B.tok.s; f.bspan = { start: st, end: B.tok.ne, alt: text.slice(st, B.tok.ne) }; }
       if (bl && art === 'rechnung-falsch') {   // Korrektur: Wert in der Darstellung von B (mit/ohne %), nur bei eindeutiger Lesart
         const c = korrWert(['pct', 'weg'].map(md => res['A' + md] && res['A' + md] !== 'DIV0' ? res['A' + md].v : null), { ...bl, pct: B.pct }, [ONE], text.slice(B.e, B.e + 80) + ' ' + text.slice(Math.max(0, A.s - 60), A.s));
-        if (c) { const sg = B.neg ? text[B.s] : '−'; const rep = fmtDe(c, bl.d, false).replace(/^-/, sg); const st = B.neg ? B.s : B.tok.s; f.fix = { start: st, end: B.tok.ne, alt: text.slice(st, B.tok.ne), neu: rep }; }
+        if (c) { const sg = B.neg ? text[B.s] : '−'; const rep = fmtNum(c, bl.d, false, enFuer(B.tok.num)).replace(/^-/, sg); const st = B.neg ? B.s : B.tok.s; f.fix = { start: st, end: B.tok.ne, alt: text.slice(st, B.tok.ne), neu: rep }; }
       }
       out.push(f);
     }
@@ -495,21 +573,23 @@ const AMT = /(?<![\d.,])(\d{1,3}(?:\.\d{3})+|\d+)(?:,(\d{1,2}))?(?![\d.]|,\d)/g;
 const unesc = s => s.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 function amounts(side) {
   side = side.replace(/\(\s*\d{3,5}\s*\)/g, '').replace(/\d+(?:,\d+)?\s*%/g, '').replace(/\b(?:19|7)\s*%?\s*(?:USt|VSt)/g, '').replace(/\b(?:aLuL|LuL|GuV|AfA|BGA|SBK|EBK)\b/g, '').replace(/\b\d{1,2}\.\s?\d{1,2}\.(?:\s?\d{2,4})?/g, '');
-  const out = []; for (const m of side.matchAll(AMT)) out.push(Q.dec(m[1].replace(/\./g, '') + (m[2] ? '.' + m[2] : ''))); return out;
+  const out = []; for (const m of side.matchAll(/(?<![\d.,])\d+(?:[.,]\d+)*(?![\d]|[.,]\d)/g)) { try { out.push(lesarten(m[0])[0].q); } catch (e) {} } return out;
 }
 const sumQ = a => a.reduce((s, x) => s.add(x), ZERO);
+const STOP_EN = /\b(?:is|are|was|were|be|been|the|a|an|of|for|from|with|when|if|you|we|they|it|this|that|in|on|at|by|per|each|then|so|step|pays|paid|buys|bought|sells|sold|book|booked|goes|transfer|transfers|want|how|why|what)\b/i;
 const STOP = /\b(?:wird|werden|ist|sind|bucht|gebucht|zahlt|überweist|kauft|verkauft|du|man|wenn|weil|dass|der|die|das|den|dem|des|ein|eine|einen|einem|einer|am|im|in|von|mit|bei|pro|je|auf|zu|für|nach|aus|Schritt)\b/;
 function checkBuchung(seg, out) {
+  const AN = SPR === 'en' ? ' to ' : ' an ', anRe = SPR === 'en' ? / to /g : / an /g;
   let t = unesc(seg.replace(/<[^>]+>/g, ' ')).replace(/\u00a0/g, ' ').replace(/−/g, '-').replace(/\s+/g, ' ').trim();
-  if (!t.includes(' an ') || /\\\(|\\frac|=/.test(t)) return;
-  const s0 = t.split(' an ')[0]; if (s0.includes(': ')) t = s0.split(': ').pop() + ' an ' + t.split(' an ').slice(1).join(' an ');
-  if ((t.match(/ an /g) || []).length > 1) {
-    const parts = t.split(/\s(?:und|sowie|,)\s(?=[A-ZÄÖÜ][^,]*?\d[^,]*? an )/);
-    if (parts.length > 1 && parts.every(x => x.includes(' an '))) { parts.forEach(x => checkBuchung(x, out)); return; }
+  if (!t.includes(AN) || /\\\(|\\frac|=/.test(t)) return;
+  const s0 = t.split(AN)[0]; if (s0.includes(': ')) t = s0.split(': ').pop() + AN + t.split(AN).slice(1).join(AN);
+  if ((t.match(anRe) || []).length > 1) {
+    const parts = t.split(SPR === 'en' ? /\s(?:and|,)\s(?=[A-Z][^,]*?\d[^,]*? to )/ : /\s(?:und|sowie|,)\s(?=[A-ZÄÖÜ][^,]*?\d[^,]*? an )/);
+    if (parts.length > 1 && parts.every(x => x.includes(AN))) { parts.forEach(x => checkBuchung(x, out)); return; }
   }
-  const i = t.indexOf(' an '), soll = t.slice(0, i), haben = t.slice(i + 4);
+  const i = t.indexOf(AN), soll = t.slice(0, i), haben = t.slice(i + AN.length);
   if (!/^[A-ZÄÖÜ]/.test(soll) || !/^\s*[A-ZÄÖÜ]/.test(haben)) return;
-  if (STOP.test(soll + ' ' + haben.split(',')[0])) return;
+  if ((SPR === 'en' ? STOP_EN : STOP).test(soll + ' ' + haben.split(',')[0])) return;
   const a = amounts(soll), b = amounts(haben); if (!a.length || !b.length) return;
   if (sumQ(a).cmp(sumQ(b))) out.push({ art: 'buchung-soll-ungleich-haben', text: t.slice(0, 220), soll: sumQ(a).toNumber(), haben: sumQ(b).toNumber() });
 }
@@ -530,8 +610,9 @@ function checkTables(s, out) {
     const heads = [...tb.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/g)].map(x => x[1].replace(/<[^>]+>/g, '').trim());
     const hl = heads.map(h => h.toLowerCase());
     const rows = [...tb.matchAll(/<tr[\s\S]*?<\/tr>/g)].map(r => [...r[0].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map(c => unesc(c[1].replace(/<[^>]+>/g, '')).trim())).filter(r => r.length);
-    if (hl.includes('soll') && hl.includes('haben')) {
-      const si = hl.indexOf('soll'), hi = hl.indexOf('haben');
+    const sw = hl.includes('soll') ? 'soll' : 'debit', hw = hl.includes('haben') ? 'haben' : 'credit';
+    if (hl.includes(sw) && hl.includes(hw)) {
+      const si = hl.indexOf(sw), hi = hl.indexOf(hw);
       for (const r of rows) { if (r.length <= Math.max(si, hi) || r.length !== heads.length) continue; const a = amounts(r[si]), b = amounts(r[hi]); if (a.length && b.length && sumQ(a).cmp(sumQ(b))) out.push({ art: 'buchung-soll-ungleich-haben', text: 'Tabellenzeile ' + r.join(' | ') }); }
     }
     checkSumRows(heads, rows, out);
@@ -541,7 +622,7 @@ function checkTables(s, out) {
 function cellNum(c) { const t = c.replace(/[€%\s]|\u00a0|Stück|Stk\.?/g, '').replace(/−/g, '-'); const p = parseDe(t); return p; }
 function checkSumRows(heads, rows, out) {
   if (heads.some(h => /gewicht|punkte|bewertung|score|faktor/i.test(h))) return;   // Nutzwert-/Scoringtabellen: gewichtete Summen
-  const isSum = r => /^\s*(Summe|Σ|Bilanzsumme|Summe Aktiva|Summe Passiva|Summe Soll|Summe Haben)\s*:?\s*$/i.test(r[0] || '');
+  const isSum = r => /^\s*(Summe|Σ|Bilanzsumme|Summe Aktiva|Summe Passiva|Summe Soll|Summe Haben|Total|Sum|Total assets|Total liabilities|Total debit|Total credit)\s*:?\s*$/i.test(r[0] || '');
   const unitOf = c => (/€/.test(c) ? '€' : /%/.test(c) ? '%' : /Stück|Stk/.test(c) ? 'Stk' : '');
   for (let k = 0; k < rows.length; k++) {
     if (!isSum(rows[k])) continue;
@@ -568,15 +649,16 @@ function checkTafelBs(s, out) {
   const betr = t => amounts(unesc(t.replace(/<[^>]+>/g, ' ')));
   for (const grp of s.match(/(?:<div class="bs">[\s\S]*?<\/div>\s*)+/g) || []) {
     const zeilen = [...grp.matchAll(/<div class="bs">([\s\S]*?)<\/div>/g)].map(x => x[1]);
-    const saetze = [];
+    const saetze = []; let offen = [];   // Soll-Zeilen ohne „an“ vor dem eigentlichen Buchungssatz (mehrzeilige Buchung)
     for (let z of zeilen) {
       z = z.trim().replace(/^\s*(?:[a-z]\)|[①-⑩]|\d+\.)\s*/, '');
-      if (/^<span>\s*und an\s*<\/span>/.test(z)) { if (saetze.length) saetze[saetze.length - 1][1].push(...betr([...z.matchAll(/<em>([\s\S]*?)<\/em>/g)].map(x => x[1]).join(' '))); continue; }
-      if (!z.includes('<span>an</span>')) continue;
-      const [links, ...r] = z.split('<span>an</span>'), rechts = r.join('<span>an</span>');
+      if (/^<span>\s*(?:und an|and to)\s*<\/span>/.test(z)) { if (saetze.length) saetze[saetze.length - 1][1].push(...betr([...z.matchAll(/<em>([\s\S]*?)<\/em>/g)].map(x => x[1]).join(' '))); continue; }
+      if (!z.includes((SPR === 'en' ? '<span>to</span>' : '<span>an</span>'))) { const em = [...z.matchAll(/<em>([\s\S]*?)<\/em>/g)]; if (em.length === 1 && !/<span>/.test(z)) offen.push(...betr(em[0][1])); else offen = []; continue; }
+      const [links, ...r] = z.split((SPR === 'en' ? '<span>to</span>' : '<span>an</span>')), rechts = r.join((SPR === 'en' ? '<span>to</span>' : '<span>an</span>'));
       const el = [...links.matchAll(/<em>([\s\S]*?)<\/em>/g)].map(x => x[1]), er = [...rechts.matchAll(/<em>([\s\S]*?)<\/em>/g)].map(x => x[1]);
-      const nsoll = (links.match(/<span>\s*und\s*<\/span>/g) || []).length + 1, nhaben = (rechts.match(/<span>\s*und\s*<\/span>/g) || []).length + 1;
-      if (el.length) { saetze.push([betr(el.join(' ')), betr(er.join(' ')), false]); continue; }
+      const nsoll = (links.match(/<span>\s*(?:und|and)\s*<\/span>/g) || []).length + 1, nhaben = (rechts.match(/<span>\s*(?:und|and)\s*<\/span>/g) || []).length + 1;
+      if (el.length) { saetze.push([offen.concat(betr(el.join(' '))), betr(er.join(' ')), false]); offen = []; continue; }
+      offen = [];
       if (er.length === 1) {
         const txt = er[0];
         if (txt.includes('=')) { const tot = betr(txt.split('=').pop()), parts = betr(txt.split('=')[0]); if (tot.length && parts.length && sumQ(parts).cmp(tot[0])) out.push({ art: 'buchung-soll-ungleich-haben', text: 'Tafel: ' + txt }); saetze.push([tot, tot, false]); continue; }
@@ -596,11 +678,24 @@ function maskIntent(s) { return s.replace(ABSICHT, m => ' '.repeat(m.length)); }
 
 // opts.kontext: weiterer Text (z. B. die Frage/Aufgabe des Nutzers) – Zahlen daraus gelten als gegeben.
 // opts.trace: Array, in das alle geprüften Ergebnisstellen geschrieben werden (Tests).
-export function pruefe(data, { skipKeys, kontext, trace } = {}) {
+export function pruefe(data, { skipKeys, kontext, trace, sprache } = {}) {
+  SPR = sprache === 'en' ? 'en' : 'de';
+  const grund = sprache === 'en' ? 'en' : sprache === 'de' ? 'de' : null;
+  const sprOf = x => { const en = (x.match(/\b(?:the|and|of|is|are|with|you|for|to|this|that|per|year|cost|price)\b/gi) || []).length, de = (x.match(/\b(?:der|die|das|und|ist|mit|für|du|ein|eine|pro|Jahr|Kosten|Preis|wird)\b/g) || []).length; return en > de * 2 && en >= 2 ? 'en' : de > en * 2 && de >= 2 ? 'de' : null; };
+  // je Text: Feld „…_en“, erkannte Sprache, Sprache der Antwort, Zahlformat
+  const sprVon = (path, s0) => {
+    const pfadEn = path.some(k => typeof k === 'string' && /(?:^|_)en$/.test(k));
+    const formEn = /\d,\d{3}\.\d{1,2}(?!\d)|\d\{,\}\d{3}\.\d/.test(s0) && !/\d\.\d{3},\d|\d\{,\}\d{1,2}(?!\d)/.test(s0);
+    return pfadEn ? 'en' : sprOf(s0) || grund || (formEn ? 'en' : 'de');;
+  };
   const strs = strings(data).filter(([p]) => !(skipKeys && p.some(k => skipKeys.includes(k))));
-  const derived = derivedValues(strs);
+  // Zahlen für die Erkennung gerundeter Zwischenergebnisse einheitlich deutsch schreiben (englische Antworten)
+  const kanon = (x, spr) => { SPR = spr; return x.replace(NUMMIX, tok => { try { const l = lesarten(tok)[0]; const z = l.q.abs().mul(pow10(l.d)); const g = (z.n / z.d).toString().padStart(l.d + 1, '0'); return l.d ? g.slice(0, -l.d) + ',' + g.slice(-l.d) : g; } catch (e) { return tok; } }); };
+  const strsDe = strs.map(([p, x]) => [p, kanon(x, sprVon(p, x))]);
+  SPR = sprache === 'en' ? 'en' : 'de';
+  const derived = derivedValues(strsDe);
   EXAKT = new Set(); ERGEBNISSE = new Set();
-  for (const [, x] of strs) for (const m of x.replace(/\{,\}/g, ',').replace(/\\approx/g, '≈').replace(/\\[,;!]|\\quad/g, ' ').matchAll(/(?:=|≈)\s*[−-]?\s*(\d{1,3}(?:\.\d{3})+|\d+),(\d+)/g)) ERGEBNISSE.add(qkey(Q.dec(m[1].replace(/\./g, '') + '.' + m[2])));
+  for (const [, x] of strsDe) for (const m of x.replace(/\{,\}/g, ',').replace(/\\approx/g, '≈').replace(/\\[,;!]|\\quad/g, ' ').matchAll(/(?:=|≈)\s*[−-]?\s*(\d{1,3}(?:\.\d{3})+|\d+),(\d+)/g)) ERGEBNISSE.add(qkey(Q.dec(m[1].replace(/\./g, '') + '.' + m[2])));
   // Wie oft kommt jeder Zahlwert vor? (Eingaben einer Rechnung, die sonst nirgends stehen, könnten selbst der Fehler sein)
   const anz = new Map(); for (const [, x] of strs.concat([[[], String(kontext || '')]])) {
     for (const k of numKeys(x)) anz.set(k, (anz.get(k) || 0) + 1);
@@ -612,6 +707,7 @@ export function pruefe(data, { skipKeys, kontext, trace } = {}) {
   const befunde = []; const stats = { formeln: 0, fliesstext: 0, buchungen: 0 };
   for (const [path, s0] of strs) {
     if (!/\d/.test(s0)) continue;
+    SPR = sprVon(path, s0);
     const s = maskIntent(s0);
     let m; TEXRE.lastIndex = 0;
     const texSpans = [];
@@ -666,7 +762,7 @@ export function pruefe(data, { skipKeys, kontext, trace } = {}) {
     for (const k of numKeys(kt)) kand.add(k);
     for (const m of kt.replace(/\{,\}/g, ',').replace(/\\%/g, '%').replace(/\s/g, '').matchAll(/(\d+(?:,\d+)?)%/g)) { const q = Q.dec(m[1].replace(',', '.')).div(HUNDRED); kand.add(qkey(q)); kand.add(qkey(ONE.add(q))); kand.add(qkey(ONE.sub(q))); }
     const kq = [...kand].slice(0, 400).map(k => { const [n, d] = k.split('/'); return new Q(BigInt(n), BigInt(d)); });
-    for (const f of befunde) if (f.fix && f.aExpr && f.bWert && eingabeAlternative(f.aExpr, f.bWert, f.bTol, kq.filter(c => !f.fix || qkey(c) !== qkey(Q.dec(f.fix.alt.replace(/[−-]\s*/, '-').replace(/\{,\}/g, ',').replace(/\./g, '').replace(',', '.')))))) { f.fixUnsicher = f.fix; f.eingabeVerdacht = true; delete f.fix; }
+    for (const f of befunde) if (f.fix && f.aExpr && f.bWert && eingabeAlternative(f.aExpr, f.bWert, f.bTol, kq.filter(c => { let ks = []; try { ks = lesarten(f.fix.alt.replace(/^[−-]\s*/, '')).map(l => qkey(l.q)); } catch (e) {} return !ks.includes(qkey(c.abs())); }))) { f.fixUnsicher = f.fix; f.eingabeVerdacht = true; delete f.fix; }
   }
   return { befunde, stats };
 }
@@ -766,4 +862,6 @@ function optionHas(o, r) {
   return false;
 }
 
+// alle möglichen Zahlwerte eines Tokens (für die Abdeckungsprüfung im Gate)
+export function zahlWerte(tok, sprache) { const alt = SPR; SPR = sprache === 'en' ? 'en' : 'de'; try { return lesarten(String(tok).replace(/^[−-]\s*/, '')).map(l => (/^[−-]/.test(String(tok)) ? -1 : 1) * l.q.toNumber()); } catch (e) { return []; } finally { SPR = alt; } }
 export const _intern = { tokProse, readExpr, Q, evaluate, texToExpr, literal, checkTex, checkProse, parseDe, fmtDe, roundQ, maskIntent };

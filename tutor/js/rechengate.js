@@ -4,8 +4,11 @@
 //  3. Notbremse: Was dann immer noch nicht stimmt, wird nicht als Zahl gezeigt – an der Stelle steht WARNUNG
 //     (auch bei Folgeschritten, die damit weiterrechnen); Quizfragen/Karten mit falscher Rechnung fallen raus.
 // Gezählt wird nur anonym (Anzahl, Art) – kein Inhalt.
-import { pruefe, korrigiere, pruefeQuiz, BLOCKIEREND } from './rechenpruefer.js';
-import { L } from './i18n.js';
+import { pruefe, korrigiere, pruefeQuiz, BLOCKIEREND, zahlWerte } from './rechenpruefer.js';
+import { getOutLang } from './i18n.js';
+// Hinweise in der Sprache der Inhalte (Max’ Antwort), nicht der Oberfläche
+let SPRACHE = null;
+const L = (de, en) => ((SPRACHE || (typeof getOutLang === 'function' ? getOutLang() : 'de')) === 'en' && en != null ? en : de);
 
 // Antworten mit Erklärungen/Rechnungen von Max. Nicht: Foto-Abschrift, Upload-Analyse, Transkription, Sprache, Konto …
 export const GEPRUEFT = new Set(['chat', 'topic', 'quiz', 'exam', 'cards', 'summary', 'lesson', 'path', 'podcast', 'grade', 'mitschrift']);
@@ -66,28 +69,28 @@ function lauf(action, data, kontext, zitat, opts = {}) {
 
 // Abdeckung: Jede Ergebniszahl (mit €, %, Stück …) im sichtbaren Text muss belegt sein – als geprüftes Rechenergebnis
 // (sichtbar oder im versteckten Rechenweg), als Wert aus dem Rechner des Servers (j.belege) oder als Angabe aus der Frage.
-const ZAHL_EINHEIT = /(?<![\d.,}])([−-]?\d{1,3}(?:\.\d{3})+(?:,\d+)?|[−-]?\d+(?:,\d+)?)(\s*(?:€|%|Euro|Stück|Stk\.?|Prozent|Prozentpunkte|Tage|Jahre|Monate|Mio\.?|Mrd\.?))/g;
-function deZahl(x) { const t = String(x).replace(/\{,\}/g, ',').replace(/[−]/g, '-').replace(/\s/g, ''); if (!/^-?\d{1,3}(\.\d{3})+(,\d+)?$|^-?\d+(,\d+)?$/.test(t)) return NaN; return +t.replace(/\./g, '').replace(',', '.'); }
+const ZAHL_EINHEIT = /(?<![\d.,}])([−-]?\d+(?:[.,]\d+)*)(\s*(?:€|%|Euro|Stück|Stk\.?|Prozent|Prozentpunkte|Tage|Jahre|Monate|Mio\.?|Mrd\.?|units?|pieces?|years?|days?|months?|percent|million|billion))|(?:€|\$|EUR\s?)\s?([−-]?\d+(?:[.,]\d+)*)/g;
+const deZahl = x => zahlWerte(String(x).replace(/\{,\}/g, ',').replace(/\s/g, ''), SPRACHE);
 function abdeckung(data, kontext, belege) {
   const werte = [];
-  const add = x => { const v = typeof x === 'number' ? x : deZahl(x); if (isFinite(v)) werte.push(v); };
+  const add = x => { for (const v of (typeof x === 'number' ? [x] : deZahl(x))) if (isFinite(v)) werte.push(v); };
   (belege || []).forEach(add);
-  const trace = []; pruefe(data, { kontext, trace });
+  const trace = []; pruefe(data, { kontext, trace, sprache: SPRACHE });
   for (const t of trace) { const s = get(data, t.path); if (typeof s === 'string') add(s.slice(t.start, t.end)); }
   const alle = []; (function walk(o, p) { if (typeof o === 'string') alle.push([p, o]); else if (o && typeof o === 'object') for (const k of Object.keys(o)) walk(o[k], p.concat(Array.isArray(o) ? +k : k)); })(data, []);
   // Operanden in Formeln und alle Zahlen der Frage/des Materials gelten als gegeben
-  for (const [, s] of alle) for (const m of (s.match(/\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]/g) || []).join(' ').replace(/\{,\}/g, ',').matchAll(/\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?/g)) add(m[0]);
-  for (const m of String(kontext || '').matchAll(/\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?/g)) add(m[0]);
+  for (const [, s] of alle) for (const m of (s.match(/\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]/g) || []).join(' ').replace(/\{,\}/g, ',').matchAll(/\d+(?:[.,]\d+)*/g)) add(m[0]);
+  for (const m of String(kontext || '').matchAll(/\d+(?:[.,]\d+)*/g)) add(m[0]);
   const out = [];
   for (const [p, s] of alle) {
     if (p[0] === '__rechenweg') continue;
     const sicht = s.replace(/\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]/g, x => ' '.repeat(x.length)).replace(/<[^>]*>/g, x => ' '.repeat(x.length));
     for (const m of sicht.matchAll(ZAHL_EINHEIT)) {
-      const v = deZahl(m[1]); if (!isFinite(v)) continue;
-      const dez = (m[1].split(',')[1] || '').length, ulp = 0.5 * 10 ** -dez + 1e-9;
+      const tok = m[1] || m[3]; const vs = deZahl(tok); if (!vs.length) continue;
+      const lst = tok.match(/[.,](\d+)$/), dez = lst && !(lst[1].length === 3 && vs.length > 1) ? lst[1].length : 0, ulp = 0.5 * 10 ** -dez + 1e-9;
       const vor = sicht.slice(Math.max(0, m.index - 25), m.index);
-      const ca = /(rund|etwa|ca\.|circa|knapp|gut|fast|über|unter|ungefähr|≈|~)\s*$/i.test(vor) ? Math.abs(v) * 0.05 : 0;
-      const ok = werte.some(b => Math.abs(b - v) <= ulp + ca || Math.abs(b * 100 - v) <= ulp + ca || Math.abs(b / 1e6 - v) <= ulp + ca || Math.abs(b / 1e9 - v) <= ulp + ca);
+      const ca = /(rund|etwa|ca\.|circa|knapp|gut|fast|über|unter|ungefähr|about|around|roughly|approximately|almost|nearly|over|under|≈|~)\s*$/i.test(vor);
+      const ok = vs.some(v => werte.some(b => Math.abs(b - v) <= ulp + Math.abs(v) * (ca ? 0.05 : 0) || Math.abs(b * 100 - v) <= ulp + Math.abs(v) * (ca ? 0.05 : 0) || Math.abs(b / 1e6 - v) <= ulp + Math.abs(v) * (ca ? 0.05 : 0) || Math.abs(b / 1e9 - v) <= ulp + Math.abs(v) * (ca ? 0.05 : 0)));
       if (!ok) out.push({ art: 'zahl-ohne-rechenweg', path: p, text: s.slice(Math.max(0, m.index - 40), m.index + m[0].length + 10).replace(/\s+/g, ' ').trim(), bspan: { start: m.index, end: m.index + m[0].length, alt: m[0] } });
     }
   }
@@ -110,7 +113,7 @@ async function kiNachbesserung(raw, data, rest, signal, timeout = KI_TIMEOUT) {
   }
   if (!felder.size) return null;
   const teile = [...felder.entries()].map(([id, x]) => `### ${id}${x.json ? ' (JSON-Objekt – gib es als JSON-Objekt zurück, gleiche Felder)' : ''}\nFEHLER:\n- ${x.fehler.join('\n- ')}\nTEXT:\n${x.text}`).join('\n\n');
-  const prompt = `RECHENKORREKTUR (interne Prüfung, keine Erklärung an den Nutzer). Ein Rechenprüfer hat in deinem Text Fehler gefunden. Korrigiere NUR die Rechnungen: rechne jede genannte Stelle neu und passe alle Folgeschritte und Ergebnisse an, die davon abhängen. Format, Formeln (\\( … \\)), HTML und Wortlaut sonst unverändert lassen. Antworte AUSSCHLIESSLICH mit JSON: {"f0": "vollständiger korrigierter Text", …} für jede ID.\n\n${teile}`;
+  const prompt = `RECHENKORREKTUR (interne Prüfung, keine Erklärung an den Nutzer). Ein Rechenprüfer hat in deinem Text Fehler gefunden. Korrigiere NUR die Rechnungen: rechne jede genannte Stelle neu und passe alle Folgeschritte und Ergebnisse an, die davon abhängen. Format, Formeln (\\( … \\)), HTML, Sprache und Wortlaut sonst unverändert lassen; auf Englisch Zahlen im englischen Format (1,234.56). Antworte AUSSCHLIESSLICH mit JSON: {"f0": "vollständiger korrigierter Text", …} für jede ID.\n\n${teile}`;
   const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), timeout);
   if (signal) signal.addEventListener('abort', () => ctrl.abort(), { once: true });
   try {
@@ -255,8 +258,12 @@ function track(art, detail) { try { if (window.BM) window.BM.track('Rechenprüfu
 export async function rechenGate(action, payload, j, raw, { signal } = {}) {
   if (!GEPRUEFT.has(action) || !j || !j.ok || (payload.opts && payload.opts.rechenkorrektur)) return j;
   const t0 = (typeof performance !== 'undefined' ? performance : Date).now();
+  // Sprache der Antwort: ausdrücklich angefordert, sonst am Text erkannt, sonst Einstellung
+  const txt = JSON.stringify(j.text != null ? j.text : j.data || '').replace(/<[^>]+>|\\\(.*?\\\)/g, ' ');
+  const nEn = (txt.match(/\b(?:the|and|of|is|are|with|you|for|this|that|your|which)\b/gi) || []).length, nDe = (txt.match(/\b(?:der|die|das|und|ist|mit|für|du|ein|eine|nicht|wird|dein)\b/g) || []).length;
+  try { SPRACHE = payload.lang === 'en' || payload.lang === 'de' ? payload.lang : nEn > nDe * 2 && nEn >= 3 ? 'en' : nDe > nEn * 2 && nDe >= 3 ? 'de' : getOutLang() === 'en' ? 'en' : 'de'; } catch (e) { SPRACHE = 'de'; }
   const T = teil(action, j); const { zitat, kontext } = nutzerText(action, payload);
-  const ext = { rw: !!j.rw, belege: Array.isArray(j.belege) ? j.belege : [] };   // vom Server: Rechenweg-Regel aktiv, Werte aus dem Rechner
+  const ext = { rw: !!j.rw, belege: Array.isArray(j.belege) ? j.belege : [], sprache: SPRACHE };   // vom Server: Rechenweg-Regel aktiv, Werte aus dem Rechner
   let data, r;
   try { data = T.get(); r = lauf(action, data, kontext, zitat, ext); }
   catch (e) { track('Fehler', String(e && e.message || e).slice(0, 60)); return { ...j, rechenpruefung: { status: 'fehler' } }; }
@@ -282,7 +289,7 @@ export async function rechenGate(action, payload, j, raw, { signal } = {}) {
   } finally { rechnetNach(false); }
   if (r.rest.length) { info.offen = r.rest.length; data = notbremse(action, data, r.rest); track('Notbremse', r.rest.map(f => f.art).join(',')); }
   else if (info.korrigiert) track('korrigiert', String(info.korrigiert));
-  try { const trace = []; pruefe(data, { kontext, trace }); info.rechnungen = trace.length; } catch (e) {}
+  try { const trace = []; pruefe(data, { kontext, trace, sprache: SPRACHE }); info.rechnungen = trace.length; } catch (e) {}
   info.ms = Math.round((typeof performance !== 'undefined' ? performance : Date).now() - t0);
   return { ...T.set(data), rechenpruefung: info };
 }
