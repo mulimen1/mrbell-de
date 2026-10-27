@@ -367,7 +367,10 @@ function bsRender(bs) {
   for (const r of p.rows) {
     const row = document.createElement('div'); row.className = 'm-bsr ' + (r.side === 'S' ? 'm-s' : 'm-h');
     if (r.side === 'H') row.append(sp('m-an', 'an'));
-    row.append(sp('m-acc', r.acc.replace(/\s+/g, ' ')), sp('m-amt', r.amt.replace(/ /g, NBSP)));
+    const warn = /⚠/.test(r.acc + r.amt);   // Rechen-Gate: Buchung nicht bestätigt
+    const acc = sp('m-acc', r.acc.replace(/\s*⚠\s*/g, ' ').replace(/\s+/g, ' ').trim());
+    if (warn) { const w = sp('rechen-warn-mini', '⚠'); w.title = 'Unser Rechen-Algorithmus konnte das nicht bestätigen – bitte nachrechnen.'; acc.append(w); }
+    row.append(acc, sp('m-amt', r.amt.replace(/\s*⚠\s*/g, '').replace(/ /g, NBSP)));
     g.append(row);
   }
   bs.replaceChildren(g, ...p.foot.map(f => sp('m-bsf', f.replace(/(\d) €/g, '$1' + NBSP + '€'))));

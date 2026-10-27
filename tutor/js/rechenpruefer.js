@@ -641,11 +641,20 @@ export function pruefe(data, { skipKeys, kontext, trace } = {}) {
       if (tr) for (const x of tr) trace.push({ path, ...x }); TRACE = null; }
     // Buchungen
     const bq = [];
-    for (const seg of (s.match(/<(?:em|li|p|td|strong|code)[^>]*>[\s\S]*?<\/(?:em|li|p|td|strong|code)>/g) || [s])) for (const piece of seg.split(/;\s|\.\s(?=[A-ZÄÖÜ])|<br\s*\/?>/)) checkBuchung(piece, bq);
-    if (s.includes('<table')) checkTables(s, bq);
-    if (/^\s*\|.*\|\s*$/m.test(s)) checkTables(mdTables(s), bq);
-    if (s.includes('class="bs"')) checkTafelBs(s, bq);
-    if (!s.includes('<')) for (const piece of s.split(/[;:]\s|\.\s(?=[A-ZÄÖÜ])|\n|→/)) checkBuchung(piece, bq);
+    // pos = Stelle direkt hinter dem betroffenen Element (dort setzt die Notbremse ihren Hinweis)
+    const posAb = (n0, pos) => { for (let i = n0; i < bq.length; i++) if (bq[i].pos == null) bq[i].pos = pos; };
+    const segs = [...s.matchAll(/<(em|li|p|td|strong|code)\b[^>]*>[\s\S]*?<\/\1>/g)];
+    for (const seg of (segs.length ? segs : [Object.assign([s], { index: 0 })])) {
+      const n0 = bq.length;
+      for (const piece of seg[0].split(/;\s|\.\s(?=[A-ZÄÖÜ])|<br\s*\/?>/)) checkBuchung(piece, bq);
+      // Hinweis hinter das umschließende Block-Element (li/p/td) bzw. die Tafel-Zeile
+      let end = seg.index + seg[0].length; const blk = /<\/(li|p|td|div)>/.exec(s.slice(end)); if (/^(em|strong|code)$/.test(seg[1] || '') && blk && blk.index < 400) end += blk.index + blk[0].length;
+      posAb(n0, end);
+    }
+    if (s.includes('<table')) for (const tb of s.matchAll(/<table[\s\S]*?<\/table>/g)) { const n0 = bq.length; checkTables(tb[0], bq); posAb(n0, tb.index + tb[0].length); }
+    if (/^\s*\|.*\|\s*$/m.test(s)) for (const tb of s.matchAll(/(?:^[ \t]*\|.*\|[ \t]*(?:\n|$))+/gm)) { const n0 = bq.length; checkTables(mdTables(tb[0]), bq); posAb(n0, tb.index + tb[0].length); }
+    if (s.includes('class="bs"')) for (const g of s.matchAll(/(?:<div class="bs">[\s\S]*?<\/div>\s*)+/g)) { const n0 = bq.length; checkTafelBs(g[0], bq); posAb(n0, g.index + g[0].trimEnd().length - '</div>'.length); }   // ⚠ in die letzte Buchungszeile
+    if (!s.includes('<')) { const re = /[;:]\s|\.\s(?=[A-ZÄÖÜ])|\n|→/g; let a = 0, m; const stueck = []; while ((m = re.exec(s))) { stueck.push([a, m.index]); a = m.index + m[0].length; } stueck.push([a, s.length]); for (const [x, y] of stueck) { const n0 = bq.length; checkBuchung(s.slice(x, y), bq); posAb(n0, y); } }
     for (const f of bq) { f.path = path; f.ort = 'buchung'; stats.buchungen++; befunde.push(f); }
   }
   // Korrektur nur, wenn alle Eingaben der Rechnung verankert sind (stehen auch woanders / sind übliche Konstanten)
@@ -697,7 +706,7 @@ export function korrigiere(data, opts = {}) {
           if (sameSign) for (let j = i; j < strs.length; j++) {
             const p = strs[j][0], s2 = getAt(cur, p), from = j === i ? f.fix.start + f.fix.neu.length : 0;
             // kurze Werte (z. B. 16) nur dort ersetzen, wo sie sichtbar weitergerechnet werden (in Formeln / neben Rechenzeichen)
-            const markant = vs[0].replace(/\D/g, '').replace(/^0+/, '').length >= 4 || /[,}]\d/.test(vs[0]);
+            const markant = vs[0].replace(/\D/g, '').replace(/^0+/, '').length >= 4 || /[,}]\d/.test(vs[0]) || f.path[0] === '__rechenweg';   // versteckter Rechenweg: der Wert steht genau dafür im Text
             const tex = []; for (const m of s2.matchAll(/\\\(([\s\S]+?)\\\)|\\\[([\s\S]+?)\\\]/g)) tex.push([m.index, m.index + m[0].length]);
             const inRechnung = (pos, len) => markant || tex.some(([x, y]) => pos >= x && pos < y) || /[·×*\/+\-−=:]\s*$/.test(s2.slice(Math.max(0, pos - 3), pos)) || /^\s*[·×*\/+\-−=:]/.test(s2.slice(pos + len, pos + len + 3));
             let u = s2.slice(from); for (const v of vs) u = u.replace(reOf(v), (m0, off) => inRechnung(from + off, m0.length) ? neuFor(v) : m0);

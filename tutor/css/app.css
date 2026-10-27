@@ -5871,3 +5871,16 @@ body.bm-tools-mode .dk { display: none !important; }
 .lterms a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .lterms a:hover { color: var(--ink); }
 .m-rl .lterms { margin-top: 12px; }
+
+/* Rechen-Gate: Hinweis, wenn eine Rechnung nicht bestätigt werden konnte, und „Max rechnet nach …“ */
+.rechen-warn { display: inline-block; margin: 2px 0 2px 4px; padding: 2px 9px; border-radius: 8px; font-size: .86em; font-weight: 600; line-height: 1.45; color: #8a4b00; background: #fff3dc; border: 1px solid #f3cf8e; white-space: normal; }
+div.rechen-warn { display: block; margin: 6px 0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .rechen-warn { color: #ffd38a; background: #3a2a10; border-color: #6b4d1c; } }
+:root[data-theme="dark"] .rechen-warn { color: #ffd38a; background: #3a2a10; border-color: #6b4d1c; }
+.rechen-pill { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 9999; padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--ink, #1d2b4f); color: var(--onInv, #fff); box-shadow: 0 6px 24px rgba(0,0,0,.18); animation: rechenPuls 1.4s ease-in-out infinite; }
+@keyframes rechenPuls { 50% { opacity: .65; } }
+.rechen-warn-mini { display: inline-block; margin: 0 3px; padding: 0 6px; border-radius: 6px; font-size: .85em; font-weight: 700; color: #8a4b00; background: #fff3dc; border: 1px solid #f3cf8e; cursor: help; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .rechen-warn-mini { color: #ffd38a; background: #3a2a10; border-color: #6b4d1c; } }
+:root[data-theme="dark"] .rechen-warn-mini { color: #ffd38a; background: #3a2a10; border-color: #6b4d1c; }
+.tafel .bs span.rechen-warn-mini, .bs span.rechen-warn-mini, .calc span.rechen-warn-mini { display: inline-block; margin: 0 0 0 6px; padding: 0 6px; border-radius: 6px; font-family: inherit; font-size: .85em; font-weight: 700; line-height: 1.4; letter-spacing: 0; text-transform: none; color: #8a4b00; background: #fff3dc; border: 1px solid #f3cf8e; vertical-align: 1px; }
+.m-acc .rechen-warn-mini, .bs .m-acc span.rechen-warn-mini { color: #8a4b00 !important; font-family: inherit !important; }

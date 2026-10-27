@@ -59,10 +59,12 @@ export function richText(s) {
   const frag = document.createDocumentFragment();
   // Formeln über mehrere Zeilen zusammenhalten
   fixStray(String(s || '')).replace(/\\\[[\s\S]+?\\\]/g, m => m.replace(/\n/g, ' ')).split('\n').forEach((line, i, arr) => {
-    const parts = line.split(/(\*\*[^*]+\*\*|\((?:S|p|pp)\. ?\d+(?:[–-]\d+)?\))/g);
+    const parts = line.split(/(\*\*[^*]+\*\*|\((?:S|p|pp)\. ?\d+(?:[–-]\d+)?\)|⚠ (?:Unser Rechen-Algorithmus|Our calculation algorithm)[^.]*\.|⚠)/g);
     for (const p of parts) {
       if (!p) continue;
       if (p.startsWith('**') && p.endsWith('**')) { const b = document.createElement('b'); b.textContent = p.slice(2, -2); frag.appendChild(b); }
+      else if (p === '⚠') { const w = document.createElement('span'); w.className = 'rechen-warn-mini'; w.title = 'Unser Rechen-Algorithmus konnte das nicht bestätigen – bitte nachrechnen.'; w.textContent = '⚠'; frag.appendChild(w); }
+      else if (/^⚠ (?:Unser Rechen-Algorithmus|Our calculation algorithm)/.test(p)) { const w = document.createElement('span'); w.className = 'rechen-warn'; w.textContent = p; frag.appendChild(w); }
       else if (/^\((?:S|p|pp)\. ?\d+/.test(p)) { const c = document.createElement('span'); c.className = 'cite'; c.textContent = p.slice(1, -1); frag.appendChild(c); }
       else frag.appendChild(document.createTextNode(p));
     }

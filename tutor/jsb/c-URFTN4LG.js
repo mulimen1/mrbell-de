@@ -1,0 +1,1 @@
+import{a,b,c,d,e,f,g,h,i,j}from"./c-5TGSE4WQ.js";import"./c-I56YGMLE.js";import"./c-QCDMVYQ4.js";import"./c-3EONW2SG.js";import"./c-U4RZMFOW.js";import"./c-WFERUHG3.js";import"./c-K6ZOD4IB.js";export{c as checkNick,a as getNick,j as greetOnLoad,i as greetSplash,e as gruss,f as hallo,g as halloText,h as nextSpruch,d as nickField,b as setNick};
