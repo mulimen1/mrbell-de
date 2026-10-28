@@ -227,3 +227,37 @@ header.lm-top2 .lm-b svg, header.lm-top2 .lm-b img { width: 24px !important; hei
 .lms { max-height: calc(100vh - 32px); overflow: auto; }
 /* Neues Design: Icon-Quadrate ohne Marke voll blau */
 :root[data-nv] .lmx li .i:has(> .ico) { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; border-color: transparent !important; }
+/* Neues Design (data-nv): Kopfleiste über die volle Breite, deutlich größer, helles Markenblau */
+@media (min-width: 1100px) {
+  :root[data-nv] header.lm-top { padding: 0 28px !important; height: 92px !important; gap: 18px !important; box-sizing: border-box; position: sticky; }
+  :root[data-nv] header.lm-top.lm-top2 { position: fixed; }
+  :root[data-nv] body:has(> header.lm-top2) { padding-top: 92px; }
+  :root[data-nv] .lm-brand b { font-size: 22px; }
+  :root[data-nv] .lm-brand img { width: 42px; height: 42px; }
+  :root[data-nv] .lm-nav { justify-content: space-between !important; gap: 6px !important; padding: 10px 6px !important; }
+  :root[data-nv] .lm-tn, :root[data-nv] header.lm-top2 .lm-tn:not(.lm-tutor) { height: 58px !important; padding: 0 16px 0 8px !important; gap: 12px !important; font: 650 19px 'Geist', sans-serif !important; border-radius: 18px !important; }
+  :root[data-nv] .lm-tn .ico, :root[data-nv] header.lm-top2 .lm-tn .ico { width: 22px !important; height: 22px !important; padding: 10px !important; border-radius: 12px !important; }
+  :root[data-nv] .lm-tutor, :root[data-nv] header.lm-top2 .lm-tutor { height: 64px !important; padding: 0 26px 0 8px !important; font: 750 21px 'Geist', sans-serif !important; border-radius: 999px !important; }
+  :root[data-nv] .lm-tutor img, :root[data-nv] header.lm-top2 .lm-tutor img { width: 48px !important; height: 48px !important; }
+  :root[data-nv] .lm-b { width: 32px !important; height: 32px !important; }
+  :root[data-nv] .lm-b img, :root[data-nv] .lm-b .xls { width: 20px !important; height: 20px !important; }
+  :root[data-nv] .lm-new { font-size: 12px; padding: 4px 8px; }
+  :root[data-nv] .lm-cta { height: 60px !important; padding: 0 28px !important; font: 700 19px 'Geist', sans-serif !important; }
+  :root[data-nv] .lm-sep { display: none !important; }
+}
+:root[data-nv] .lm-tutor, :root[data-nv] .lm-cta { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; box-shadow: 0 8px 20px -12px rgba(20, 60, 150, .7); }
+:root[data-nv] .lm-tn:not(.lm-tutor) .ico { background: linear-gradient(180deg, #e3edfb, #d2e2f8) !important; color: #1f63cc !important; }
+:root[data-nv] .lm-tn:not(.lm-tutor):hover .ico { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; }
+:root[data-nv] .lm-tn:not(.lm-tutor):hover { background: transparent !important; }
+@media (min-width: 1100px) and (max-width: 1699px) {
+  :root[data-nv] header.lm-top { height: 80px !important; padding: 0 20px !important; gap: 10px !important; }
+  :root[data-nv] .lm-tn, :root[data-nv] header.lm-top2 .lm-tn:not(.lm-tutor) { height: 50px !important; padding: 0 8px 0 5px !important; gap: 8px !important; font-size: 15.5px !important; }
+  :root[data-nv] .lm-tn .ico, :root[data-nv] header.lm-top2 .lm-tn .ico { width: 18px !important; height: 18px !important; padding: 8px !important; }
+  :root[data-nv] .lm-tutor, :root[data-nv] header.lm-top2 .lm-tutor { height: 54px !important; padding: 0 18px 0 6px !important; font-size: 18px !important; }
+  :root[data-nv] .lm-tutor img, :root[data-nv] header.lm-top2 .lm-tutor img { width: 40px !important; height: 40px !important; }
+  :root[data-nv] .lm-brand b { font-size: 19px; } :root[data-nv] .lm-brand img { width: 36px; height: 36px; }
+  :root[data-nv] .lm-cta { height: 50px !important; padding: 0 20px !important; font-size: 16px !important; }
+  :root[data-nv] .lm-b { width: 26px !important; height: 26px !important; } :root[data-nv] .lm-b img, :root[data-nv] .lm-b .xls { width: 16px !important; height: 16px !important; }
+  :root[data-nv] body:has(> header.lm-top2) { padding-top: 80px; }
+}
+@media (min-width: 1100px) and (max-width: 1360px) { :root[data-nv] .lm-brand b { display: none; } }
