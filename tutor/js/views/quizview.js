@@ -152,10 +152,12 @@ function run(wrap, ctx, quiz) {
   const count = h('span', { class: 'qcount' });
   const timer = h('span', { class: 'qcount' });
   const stage = h('div');
+  // Zurück zur vorherigen Frage (nochmal ansehen oder neu beantworten)
+  const backQ = h('button', { class: 'qback', type: 'button', disabled: true, onclick: () => { if (i > 0 && !finished) { i--; step(); } } }, h('span', { html: ico('left') }), L('Vorherige', 'Previous'));
   const fwrap = h('div', { class: 'face', style: { width: '36px', height: '36px' } });
   const fc = face(fwrap);
   wrap.replaceChildren(h('div', { class: 'qwrap' },
-    h('div', { class: 'qtop' }, h('button', { class: 'iconbtn', 'aria-label': L('Beenden', 'Quit'), html: ico('x'), onclick: () => { clearInterval(wrap._timer); overview(wrap, ctx); } }), h('div', { class: 'qprog' }, prog), count, timer, fwrap),
+    h('div', { class: 'qtop' }, h('button', { class: 'iconbtn', 'aria-label': L('Beenden', 'Quit'), html: ico('x'), onclick: () => { clearInterval(wrap._timer); overview(wrap, ctx); } }), backQ, h('div', { class: 'qprog' }, prog), count, timer, fwrap),
     stage));
   if (quiz.exam) {
     const end = Date.now() + (quiz.minutes || 45) * 60e3;
@@ -172,8 +174,9 @@ function run(wrap, ctx, quiz) {
     if (isGuest() && !quiz.mistakes && i >= GUEST_QUIZ) { count.textContent = `${i} / ${qs.length}`; return lockedRest(stage, { left: qs.length - i, what: L('Fragen', 'questions'), onUnlock: step }); }
     prog.style.width = (100 * i / qs.length) + '%';
     count.textContent = `${i + 1} / ${qs.length}`;
+    backQ.disabled = i === 0;
     const q = qs[i], idx = i;
-    const r = renderQuestion(stage, q, { face: fc, silent: !!(quiz.exam && quiz.silent), onNext: () => { i++; step(); }, nextLabel: i + 1 < qs.length ? L('Weiter', 'Next') : L('Ergebnis', 'Result'), onAsk: (q, rr) => ctx.ask(explainPrompt(q, rr)) });
+    const r = renderQuestion(stage, q, { face: fc, silent: !!(quiz.exam && quiz.silent), onNext: () => { i++; step(); }, nextLabel: i + 1 < qs.length ? L('Weiter', 'Next') : L('Ergebnis', 'Result'), onAsk: (q, rr) => ctx.ask(explainPrompt(q, rr)), onHelp: q2 => ctx.ask(L(`Ich bin bei dieser Quizfrage unsicher. Gib mir einen kurzen Denkanstoß, ohne die Lösung zu verraten: „${q2.q}“`, `I’m unsure about this quiz question. Give me a short hint without revealing the answer: “${q2.q}”`)) });
     r.result.then(x => {
       res[idx] = x; track(x.correct);
       const key = q.q;

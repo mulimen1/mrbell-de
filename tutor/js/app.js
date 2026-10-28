@@ -248,7 +248,7 @@ const LERN_TOOLS = ['karten', 'quiz', 'zettel', 'podcast', 'pfad', 'plan', 'exam
 export function lernLast() {
   try { const h = sessionStorage.getItem('tutor.lernLast'); if (!h || h === '#/app/lernen') return null; const id = h.split('/')[2]; return S.list.some(d => d.id === id) ? h : null; } catch (e) { return null; }
 }
-const BACK = { tools: ['#/app/tools', L('Klausur-Tools', 'Exam tools')], lernen: ['#/app/lernen', L('Lernen', 'Learn')], video: ['#/app/video', L('Transkript', 'Transcribe')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')], ueben: ['#/app/ueben', L('Training', 'Training')] };
+const BACK = { tutor: ['#/app/tutor', L('Tutor', 'Tutor')], tools: ['#/app/tools', L('Klausur-Tools', 'Exam tools')], lernen: ['#/app/lernen', L('Lernen', 'Learn')], video: ['#/app/video', L('Transkript', 'Transcribe')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')], ueben: ['#/app/ueben', L('Training', 'Training')] };
 function backTarget() { try { const k = sessionStorage.getItem('tutor.backTo'); return BACK[k] ? { key: k, href: k === 'bibliothek' ? '#/app/bibliothek/' + (ls.get('tutor.bib.tab', 'alles') || 'alles') : BACK[k][0], label: BACK[k][1] } : null; } catch (e) { return null; } }
 function backToLearn() { return backTarget()?.key === 'lernen'; }
 function renderList() {
@@ -372,8 +372,18 @@ export async function mountApp(parts) {
   return show(`${a}:${tab}:${c || ''}`, async root => {
     const mod = await VIEWS[tab]();
     // Beta: oben ein deutlicher Weg zurück in die Bibliothek (statt Reiterleiste)
-    if (homeBeta() && tab !== 'hub') { const BT = { karten: 'karten', quiz: 'quiz', zettel: 'zettel', podcast: 'podcasts' }; root.appendChild(h('a', { class: 'ub-libback', href: '#/app/bibliothek/' + (BT[tab] || 'alles') }, h('span', { html: ico('left') }), L('Zur Bibliothek', 'To the library'), h('small', {}, S.doc.name))); }
-    return mod.render(root, { doc: S.doc, arg: c ? decodeURIComponent(c) : null, go: (t, x) => go(`${S.doc.id}/${t}${x ? '/' + encodeURIComponent(x) : ''}`), ask: askTutorAbout });
+    // Beta: oben immer ein deutlicher Weg zurück – dahin, wo man herkam (Tutor, Lernen, Klausur-Tools), sonst in die Bibliothek
+    let pill = null;
+    if (homeBeta() && tab !== 'hub') {
+      const BT = { karten: 'karten', quiz: 'quiz', zettel: 'zettel', podcast: 'podcasts' }, bt = backTarget();
+      const from = bt && ['tutor', 'ueben', 'tools', 'lernen', 'video'].includes(bt.key) ? bt : null;
+      pill = h('a', { class: 'ub-libback', href: from ? from.href : '#/app/bibliothek/' + (BT[tab] || 'alles') }, h('span', { html: ico('left') }), from ? L('Zurück zu ', 'Back to ') + from.label : L('Zur Bibliothek', 'To the library'), h('small', {}, S.doc.name));
+      root.appendChild(pill);
+    }
+    const out = await mod.render(root, { doc: S.doc, arg: c ? decodeURIComponent(c) : null, go: (t, x) => go(`${S.doc.id}/${t}${x ? '/' + encodeURIComponent(x) : ''}`), ask: askTutorAbout });
+    // Manche Ansichten bauen ihren Bereich neu auf – der Zurück-Knopf bleibt trotzdem oben
+    if (pill) { const keep = () => { if (root.isConnected && !pill.isConnected) root.prepend(pill); }; keep(); [300, 900, 2000].forEach(t => setTimeout(keep, t)); new MutationObserver(keep).observe(root, { childList: true }); }
+    return out;
   });
 }
 

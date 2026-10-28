@@ -35,7 +35,7 @@ export function normalize(q) {
 
 // Eine Frage rendern. Gibt Promise<{correct, score}> zurück, sobald geprüft wurde.
 // silent: Klausurbedingungen – keine Rückmeldung pro Aufgabe, direkt weiter; ausgewertet wird am Ende
-export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = L('Weiter', 'Next'), onNext, showType = true, face, silent = false } = {}) {
+export function renderQuestion(root, q, { compact = false, onAsk, onHelp, nextLabel = L('Weiter', 'Next'), onNext, showType = true, face, silent = false } = {}) {
   root.replaceChildren();
   const card = h('div', { class: 'qcard' + (compact ? ' compact' : '') });
   if (showType) card.appendChild(h('div', { class: 'qtype' }, h('span', { class: 'tag' }, TYPE_LABEL[q.type] || L('Frage', 'Question')), q.page ? h('span', { class: 'eyebrow' }, L('Seite ', 'Page ') + q.page) : null));
@@ -53,7 +53,9 @@ export function renderQuestion(root, q, { compact = false, onAsk, nextLabel = L(
   const result = new Promise(r => { resolve = r; });
   const checkBtn = h('button', { class: 'btn primary', disabled: true }, silent ? L('Antwort speichern ', 'Save answer ') : L('Prüfen ', 'Check '), h('span', { class: 'k' }, '↵'));
   const skipBtn = h('button', { class: 'btn ghost' }, silent ? L('Überspringen', 'Skip') : L('Weiß ich nicht', 'I don’t know'));
-  actions.append(skipBtn, h('span', { class: 'sp' }), checkBtn);
+  // Unsicher? Max gibt einen Denkanstoß – ohne die Lösung zu verraten
+  const helpBtn = onHelp && !silent ? h('button', { class: 'btn ghost qhelp', type: 'button', onclick: () => onHelp(q) }, h('span', { html: ico('chat') }), L('Max fragen', 'Ask Max')) : null;
+  actions.append(skipBtn, helpBtn || '', h('span', { class: 'sp' }), checkBtn);
 
   let api; // { ready(), check() -> {correct, score} }
   const setReady = v => { checkBtn.disabled = !v; };

@@ -113,7 +113,8 @@ export async function render(root, { sub = '' } = {}) {
       lec('#/app/video', YT, L('YouTube-Video → Lernstoff', 'YouTube video → study material'), L('Link rein – Transkript, Lernzettel, Karteikarten und Quiz raus.', 'Paste a link – get transcript, study sheet, flashcards and quiz.'), ['#ff6b6b', '#d63031']));
     const guide = h('aside', { class: 'ub-guide' }, hero);
     const SECS = [
-      ['stoff', 'brain', L('Aus deinem Stoff lernen', 'Learn from your material'), ['#9b7cf0', '#5b3fc4'], () => [h('div', { class: 'ub-stoff' }, h('div', { class: 'ub-sl' }, grid, lecRow), guide)]],
+      ['stoff', 'brain', L('Aus deinem Stoff lernen', 'Learn from your material'), ['#9b7cf0', '#5b3fc4'], () => [h('div', { class: 'ub-stoff' }, h('div', { class: 'ub-sl' }, grid), guide)]],
+      ['vl', 'board', L('Aus der Vorlesung', 'From the lecture'), ['#7a8cf7', '#3f4fd6'], () => [lecRow]],
       ['sim', 'exam', L('Prüfungssimulation', 'Exam simulation'), ['#f47ba0', '#c8336f'], () => [sim]],
       ['check', 'check', L('Korrektur', 'Correction'), ['#3fc1c9', '#0e7f8e'], () => [h('div', { class: 'ub-grid2' }, ...[...right.children].filter(e => !e.classList.contains('ub-h') && !e.classList.contains('ln-gh')))]],
       ['wk', 'trophy', L('Wettkampf', 'Compete'), ['#f7c948', '#d18e06'], () => [h('div', { class: 'ub-simrow' }, wk[1], wk[2])]],

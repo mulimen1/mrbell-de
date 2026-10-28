@@ -136,7 +136,7 @@ function studio(root, kind, { popup = false } = {}) {
   const MAXSRC = 6;
   const docs = S.list.filter(d => !d.sample); const list = (docs.length ? docs : S.list).slice(0, 40);
   // ---- Bausteine ----
-  const seg = (opts, k, multi) => { const w = h('div', { class: 'ks-seg', style: SC[k] ? { '--s1': SC[k][0], '--s2': SC[k][1] } : null }); const on = v => multi ? st[k].includes(v) : String(st[k]) === String(v);
+  const seg = (opts, k, multi) => { const w = h('div', { class: 'ks-seg' + (multi ? ' ks-multi' : ''), style: SC[k] ? { '--s1': SC[k][0], '--s2': SC[k][1] } : null }); const on = v => multi ? st[k].includes(v) : String(st[k]) === String(v);
     const paint = () => w.querySelectorAll('button').forEach(b => b.classList.toggle('on', on(JSON.parse(b.dataset.v))));
     opts.forEach(([v, t]) => w.append(h('button', { type: 'button', 'data-v': JSON.stringify(v), onclick: () => { if (multi) st[k] = st[k].includes(v) ? (st[k].length > 1 ? st[k].filter(x => x !== v) : st[k]) : [...st[k], v].sort(); else st[k] = v; paint(); check(); } }, t)));
     paint(); return w; };
@@ -204,7 +204,7 @@ function studio(root, kind, { popup = false } = {}) {
   const saveSt = () => { const keep = Object.assign({}, st); delete keep.focus; delete keep.topic; ls.set(K.key, keep); if (kind === 'podcast') ls.set('tutor.podVoice', st.voice); };
   async function start() {
     saveSt();
-    try { sessionStorage.setItem('tutor.backTo', K.area === 'tools' && !location.hash.startsWith('#/app/ueben') ? 'tools' : 'ueben'); } catch (e) {}
+    try { sessionStorage.setItem('tutor.backTo', popup && /^#\/app\/tutor/.test(location.hash) ? 'tutor' : K.area === 'tools' && !location.hash.startsWith('#/app/ueben') ? 'tools' : 'ueben'); } catch (e) {}
     const C = await import('../create.js');
     const o = Object.assign({}, st);
     const prime = id => {

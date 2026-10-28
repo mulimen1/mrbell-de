@@ -7840,3 +7840,42 @@ html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 3; min-
 .ub-lecg { width: 36px; height: 36px; flex: none; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--l2); } .ub-lecg .ico { color: var(--l2); width: 18px; height: 18px; }
 @media (max-width: 700px) { .ub-lecs { grid-template-columns: 1fr; } html:root body .ub-lt.ub-big .ub-ltc, html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 1; } html:root body .ub-lt.ub-big .ub-ltc:first-child { grid-column: span 2; } }
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-stoff > .ub-guide { align-self: start; position: sticky; top: 84px; } html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-hero { margin: 0 !important; }
+/* Werkzeug-Karte: Start immer sichtbar, Einstellungen klarer getrennt, Mehrfachauswahl mit Haken */
+.ks-head { padding: 20px 26px 16px !important; gap: 14px !important; }
+.ks-head h1 { font-size: clamp(24px, 2.6vw, 32px) !important; margin: 0 0 4px !important; }
+.ks-head p { font-size: 14.5px !important; }
+.ks-ic { width: 54px !important; height: 54px !important; border-radius: 17px !important; } .ks-ic .ico { width: 26px !important; height: 26px !important; }
+.ks-col { padding: 18px 26px !important; }
+.ks-docs { max-height: 172px !important; }
+.ks-foot { position: sticky; bottom: 0; z-index: 4; padding: 14px 26px 16px !important; background: rgba(251,250,247,.94) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 0 0 30px 30px; }
+.ks-go { height: 52px !important; }
+/* Popup: ganze Karte passt in den Bildschirm, innen scrollt nur der Inhalt */
+.ks-modal .ks-card { display: flex; flex-direction: column; max-height: calc(100vh - 40px); max-height: calc(100dvh - 40px); }
+.ks-modal .ks-cols { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; }
+.ks-modal .ks-min { padding: 20px 18px; }
+/* Einstellungen: mehr Luft, klare Trennung */
+.ks-rows { gap: 0 !important; }
+.ks-row { padding: 13px 0; border-bottom: 1px dashed rgba(0,0,0,.08); }
+.ks-row:first-child { padding-top: 2px; } .ks-row:last-child { border-bottom: 0; }
+.ks-row .ks-l { font-size: 14.5px !important; }
+.ks-seg { gap: 7px !important; }
+/* Mehrfachauswahl: Kreis mit Haken, der reinspringt */
+.ks-multi button { display: inline-flex !important; align-items: center; gap: 7px; padding-left: 9px !important; }
+.ks-multi button::before { content: ""; width: 16px; height: 16px; flex: none; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--s2, #888) 55%, #bbb); background: #fff; box-sizing: border-box; transition: background .2s, border-color .2s, transform .2s; }
+.ks-multi button.on::before { border-color: #fff; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231c7a47' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 11px no-repeat; animation: kscheck .32s cubic-bezier(.3,1.6,.5,1); }
+@keyframes kscheck { 0% { transform: scale(.4); } 70% { transform: scale(1.18); } 100% { transform: scale(1); } }
+@media (max-width: 600px) { .ks-foot { border-radius: 0 0 24px 24px; } .ks-modal .ks-card { max-height: none; } .ks-modal .ks-cols { overflow: visible; } }
+.ub-sec .ub-lecs .ub-lech { display: none; }
+.ub-sec .ub-lec { min-height: 150px; padding: 26px 24px; } .ub-sec .ub-lect b { font-size: 21px; } .ub-sec .ub-lect small { font-size: 14.5px; } .ub-sec .ub-leci { width: 66px; height: 66px; border-radius: 20px; } .ub-sec .ub-leci .ico { width: 32px; height: 32px; }
+/* Quiz: Knöpfe professioneller – Prüfen/Weiter mit Verlauf, Zurück zur vorherigen Frage, Max fragen */
+html:root[data-nv][data-nv][data-nv][data-nv] body .qcard .qactions .btn.primary { height: 50px; padding: 0 26px !important; border-radius: 999px !important; border: 0 !important; color: #fff !important; font-weight: 800 !important; font-size: 16px !important; background: linear-gradient(110deg, #4b2bb3, #8a5cf0) !important; box-shadow: 0 14px 28px -14px rgba(91,63,196,.9) !important; transition: transform .15s, opacity .2s, box-shadow .2s; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .qcard .qactions .btn.primary:hover:not(:disabled) { transform: translateY(-2px); }
+html:root[data-nv][data-nv][data-nv][data-nv] body .qcard .qactions .btn.primary:disabled { opacity: .38 !important; box-shadow: none !important; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .qcard .qactions .btn.primary .k { margin-left: 6px; padding: 2px 7px; border-radius: 8px; background: rgba(255,255,255,.22) !important; color: #fff !important; border: 0 !important; font-size: 12px; }
+html:root[data-nv] body .qcard .qactions .btn.ghost { border-radius: 999px !important; font-weight: 700 !important; }
+.qhelp { color: #5b3fc4 !important; } .qhelp .ico { width: 17px; height: 17px; }
+.qback { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px 0 10px; border-radius: 999px; background: #fff; border: 1px solid rgba(0,0,0,.08); font: 700 13.5px var(--sans); color: #3d3d45; box-shadow: 0 6px 14px -10px rgba(0,0,0,.3); flex: none; }
+.qback .ico { width: 16px; height: 16px; } .qback:hover:not(:disabled) { color: #5b3fc4; border-color: #5b3fc4; } .qback:disabled { opacity: .35; cursor: default; }
+html:root[data-nv] body .qcard { border-radius: 26px !important; box-shadow: 0 30px 60px -40px rgba(30,20,70,.5) !important; border: 1px solid rgba(0,0,0,.05) !important; }
+.kt-studio:not(.ks-pop) .ks-card { overflow: clip; } .kt-studio:not(.ks-pop) .ks-foot { box-shadow: 0 -12px 24px -20px rgba(30,20,70,.35); }
+@media (min-width: 701px) { .kt-studio:not(.ks-pop) .ks-foot { padding-right: 150px !important; } }
