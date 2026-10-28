@@ -79,22 +79,3 @@ if (H.dataset.ben && H.dataset.nv && !matchMedia('(prefers-reduced-motion: reduc
   tick();
 }
 
-// Test nur Ben: Hintergründe zum Durchklicken (gemerkt auf diesem Gerät). Ausblenden mit x, zurück per Doppelklick unten links.
-if (H.dataset.ben && H.dataset.nv) {
-  const BG = [['Beige 1', '#fbfaf7'], ['Beige 2', '#f8f6f1'], ['Beige 3', '#f5f2ec'], ['Beige 4', '#f2eee6'], ['Beige 5', '#efe9df'], ['Beige 6', '#ebe4d8'],
-    ['Beige 7', '#e6ddcf'], ['Beige 8', '#e0d5c4'], ['Beige 9', '#d8ccb8'], ['Beige 10', '#cfc1aa'],
-    ['Greige', '#efede8'], ['Greige 2', '#e7e4dd'], ['Sand', '#f3eee4'], ['Leinen', '#f4f0e8'], ['Creme', '#f7f3ea'], ['Hafer', '#ece6da'],
-    ['Grau 5', '#dfe1e5']];
-  let cur = BG[3][1]; try { cur = localStorage.getItem('bm.bg') || cur; } catch (e) {}
-  const set = v => H.style.setProperty('--benbg', v); set(cur);
-  const mount = () => { if (!document.body) return setTimeout(mount, 80);
-    let hide = false; try { hide = localStorage.getItem('bm.bgHide') === '1'; } catch (e) {}
-    const box = document.createElement('div'); box.className = 'bgpick'; box.hidden = hide;
-    BG.forEach(([n, c]) => { const b = document.createElement('button'); b.type = 'button'; b.innerHTML = '<i></i>' + n; b.firstChild.style.background = c; if (c === cur) b.className = 'on';
-      b.onclick = () => { cur = c; set(c); try { localStorage.setItem('bm.bg', c); } catch (e) {} box.querySelectorAll('button:not(.x)').forEach(x => x.classList.toggle('on', x === b)); }; box.appendChild(b); });
-    const x = document.createElement('button'); x.type = 'button'; x.className = 'x'; x.textContent = '×'; x.title = 'Ausblenden';
-    x.onclick = () => { box.hidden = true; try { localStorage.setItem('bm.bgHide', '1'); } catch (e) {} }; box.appendChild(x);
-    document.body.appendChild(box);
-    addEventListener('keydown', e => { if (e.altKey && e.key.toLowerCase() === 'h') { box.hidden = !box.hidden; try { localStorage.setItem('bm.bgHide', box.hidden ? '1' : '0'); } catch (x) {} } }); };
-  mount();
-}

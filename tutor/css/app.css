@@ -6329,3 +6329,17 @@ html[data-ben][data-nv]:not([data-theme="dark"]) body, html[data-ben][data-nv]:n
 .bgpick { width: 116px !important; }
 .bgpick { top: 90px !important; max-height: calc(100vh - 110px); overflow-y: auto; }
 html[data-ben][data-nv]:root .app .topbar { border-bottom: 0 !important; box-shadow: none !important; background: transparent !important; }
+/* Neues Design für alle: Beige 5 als Hintergrund, kräftiges Punkteraster, Kopfleiste ohne Linie */
+html:root[data-nv]:not([data-theme="dark"]) body { background: #efe9df !important; }
+html:root[data-nv]:not([data-theme="dark"]) .app .main { background-color: #efe9df !important; background-image: radial-gradient(rgba(0, 0, 0, .3) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; }
+html:root[data-nv][data-theme="dark"] .app .main { background-image: radial-gradient(rgba(255, 255, 255, .16) 1.3px, transparent 1.7px) !important; }
+html:root[data-nv] .app .topbar { border-bottom: 0 !important; box-shadow: none !important; background: transparent !important; }
+html[data-ben][data-nv] .bg3d { display: none !important; }
+html[data-ben][data-nv] .app .main { background-image: radial-gradient(rgba(0, 0, 0, .3) 1.3px, transparent 1.7px) !important; background-color: #efe9df !important; }
+html:root[data-nv]:not([data-theme="dark"]) #landing, html:root[data-nv]:not([data-theme="dark"]) #landing .pagebg { background-color: #efe9df; }
+/* „Zurück zum alten Design“ unter „Bereits erstellt“ */
+.rm-olddesign { display: none; }
+html:root[data-nv]:not(.bm-guest) .rm-corner { flex-wrap: wrap; justify-content: flex-end; }
+html:root[data-nv]:not(.bm-guest) .rm-olddesign { display: block; order: 10; flex-basis: 100%; text-align: right; border: 0; background: none; padding: 4px 6px 0; color: var(--mute); font: 600 12.5px var(--sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+html:root[data-nv]:not(.bm-guest) .rm-olddesign:hover { color: var(--ink); }
+html:root[data-nv]:not([data-theme="dark"]) #landing .nav { background: rgba(239, 233, 223, .85) !important; border-bottom: 0 !important; }
