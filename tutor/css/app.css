@@ -7815,3 +7815,28 @@ html:root body .me-sym button:not(.on) .ico { color: #3d3d45 !important; }
 html:root body .ub-lt.ub-big .ub-ltc, html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 2; min-height: 210px; }
 .ub-ltc[data-lt="pen"] { --hf1: #ff7b7b; --hf2: #d63031; }
 @media (max-width: 700px) { html:root body .ub-lt.ub-big .ub-ltc, html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 1; min-height: 160px; } html:root body .ub-lt.ub-big .ub-ltc:first-child { grid-column: span 1; } }
+/* Seitenleiste aufgeräumt: kleine Icon-Knöpfe statt großer Karten */
+html.side-slim .side .grp, html.side-slim .side .side-tools:empty { display: none !important; }
+html.side-slim .side .side-fb { display: none !important; }
+.side-ibs { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 4px 2px 10px; }
+.side-ib { all: unset; box-sizing: border-box; cursor: pointer; width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: #fff; border: 1px solid rgba(0,0,0,.06); box-shadow: 0 6px 16px -12px rgba(30,20,70,.5); color: #3d3d45; transition: transform .15s, background .2s, color .2s; }
+.side-ib .ico { width: 19px; height: 19px; }
+.side-ib:hover { transform: translateY(-2px); color: #fff; background: linear-gradient(135deg, #8a5cf0, #5b3fc4); }
+.side-ib[hidden] { display: none; }
+.side-ibl { margin-left: auto; }
+.side-ibl .langsw, .side-ibl [role="group"] { transform: scale(.92); transform-origin: right center; }
+html.side-slim .side .side-acc { margin-top: 4px; }
+html.side-slim .side .side-ib [data-icc] { background: none !important; box-shadow: none !important; }
+/* Lernen: wieder 5 Stoff-Karten (2 groß + 3), darunter „Aus der Vorlesung“ */
+html:root body .ub-lt.ub-big .ub-ltc { grid-column: span 2; min-height: 200px; }
+html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 3; min-height: 220px; }
+.ub-sl { display: grid; gap: 16px; align-content: start; }
+.ub-lecs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ub-lech { grid-column: 1 / -1; font: 700 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #6a6a75; margin-top: 4px; }
+.ub-lec { display: flex; align-items: center; gap: 14px; padding: 18px 18px; border-radius: 24px; text-decoration: none; color: #fff; background: linear-gradient(135deg, var(--l1), var(--l2)); box-shadow: 0 18px 36px -22px var(--l2); transition: transform .15s, box-shadow .2s; }
+.ub-lec:hover { transform: translateY(-3px); box-shadow: 0 24px 44px -20px var(--l2); }
+.ub-leci { width: 54px; height: 54px; flex: none; border-radius: 17px; display: grid; place-items: center; background: rgba(255,255,255,.2); color: #fff; } .ub-leci .ico { width: 26px; height: 26px; color: #fff; }
+.ub-lect { flex: 1; min-width: 0; display: grid; gap: 4px; } .ub-lect b { font-size: 18px; font-weight: 800; letter-spacing: -.02em; color: #fff; } .ub-lect small { font-size: 13.5px; line-height: 1.4; color: rgba(255,255,255,.88); }
+.ub-lecg { width: 36px; height: 36px; flex: none; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--l2); } .ub-lecg .ico { color: var(--l2); width: 18px; height: 18px; }
+@media (max-width: 700px) { .ub-lecs { grid-template-columns: 1fr; } html:root body .ub-lt.ub-big .ub-ltc, html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 1; } html:root body .ub-lt.ub-big .ub-ltc:first-child { grid-column: span 2; } }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-stoff > .ub-guide { align-self: start; position: sticky; top: 84px; } html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-hero { margin: 0 !important; }

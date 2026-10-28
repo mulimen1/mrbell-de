@@ -77,7 +77,6 @@ export async function render(root, { sub = '' } = {}) {
       ['cards', L('Karteikarten', 'Flashcards'), L('Bis es sitzt', 'Until it sticks')],
       ['headphones', 'Podcast', L('Marie & Max', 'Marie & Max')],
       ['path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter')],
-      ['pen', L('Live-Mitschrift', 'Live notes'), L('In der Vorlesung mitschreiben', 'Take notes in the lecture')],
     ].map(([ic, t, sub]) => h('button', { class: 'ub-ltc', type: 'button', 'data-lt': ic, onclick: () => { if (ic === 'pen') { location.hash = '#/app/mitschrift'; return; } location.hash = '#/app/ueben/' + ({ board: 'tafel', note: 'zettel', cards: 'karten', headphones: 'podcast', path: 'lernpfad' })[ic]; } }, h('span', { class: 'ub-lti', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))),
     h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfungssimulation', 'Exam simulation')), h('span', { class: 'eyebrow' }, L('Wie in der echten Klausur', 'Like the real exam'))),
     sim,
@@ -106,9 +105,15 @@ export async function render(root, { sub = '' } = {}) {
     grid.classList.add('ub-big');
     const DESC = { board: L('Max erklärt jedes Thema Schritt für Schritt – mit Beispiel und Rechenweg.', 'Max explains any topic step by step – with example and workings.'), note: L('Alles Wichtige auf einer Seite, plus Mindmap.', 'Everything important on one page, plus a mind map.'), cards: L('Wiederholen mit System, bis es sitzt.', 'Systematic review until it sticks.'), headphones: L('Marie & Max zum Anhören – für Bahn und Gym.', 'Marie & Max to listen to – for train and gym.'), path: L('Kapitel für Kapitel mit Lektionen und Checks.', 'Chapter by chapter with lessons and checks.'), pen: L('Tippen oder Foto – Max macht daraus eine saubere Mitschrift.', 'Type or snap a photo – Max turns it into clean notes.') };
     grid.querySelectorAll('.ub-ltc').forEach(c => { const sm = c.querySelector('small'); if (sm && DESC[c.dataset.lt]) sm.textContent = DESC[c.dataset.lt]; });
+    // Aus der Vorlesung: Live-Mitschrift und YouTube-Transkript – eigene, hervorgehobene Reihe
+    const lec = (href, ic, t, sub, c) => h('a', { class: 'ub-lec', href, style: { '--l1': c[0], '--l2': c[1] } }, h('span', { class: 'ub-leci', html: ic }), h('span', { class: 'ub-lect' }, h('b', {}, t), h('small', {}, sub)), h('span', { class: 'ub-lecg', html: ico('right') }));
+    const YT = '<svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"/><path d="M10 9v6l5-3z" fill="#d63031"/></svg>';
+    const lecRow = h('div', { class: 'ub-lecs' }, h('div', { class: 'ub-lech' }, L('Aus der Vorlesung', 'From the lecture')),
+      lec('#/app/mitschrift', ico('pen'), L('Live mitschreiben', 'Live notes'), L('In der Vorlesung tippen oder Tafel fotografieren – Max macht daraus eine saubere Mitschrift.', 'Type in the lecture or snap the board – Max turns it into clean notes.'), ['#7a8cf7', '#3f4fd6']),
+      lec('#/app/video', YT, L('YouTube-Video → Lernstoff', 'YouTube video → study material'), L('Link rein – Transkript, Lernzettel, Karteikarten und Quiz raus.', 'Paste a link – get transcript, study sheet, flashcards and quiz.'), ['#ff6b6b', '#d63031']));
     const guide = h('aside', { class: 'ub-guide' }, hero);
     const SECS = [
-      ['stoff', 'brain', L('Aus deinem Stoff lernen', 'Learn from your material'), ['#9b7cf0', '#5b3fc4'], () => [h('div', { class: 'ub-stoff' }, h('div', { class: 'ub-sl' }, grid), guide)]],
+      ['stoff', 'brain', L('Aus deinem Stoff lernen', 'Learn from your material'), ['#9b7cf0', '#5b3fc4'], () => [h('div', { class: 'ub-stoff' }, h('div', { class: 'ub-sl' }, grid, lecRow), guide)]],
       ['sim', 'exam', L('Prüfungssimulation', 'Exam simulation'), ['#f47ba0', '#c8336f'], () => [sim]],
       ['check', 'check', L('Korrektur', 'Correction'), ['#3fc1c9', '#0e7f8e'], () => [h('div', { class: 'ub-grid2' }, ...[...right.children].filter(e => !e.classList.contains('ub-h') && !e.classList.contains('ln-gh')))]],
       ['wk', 'trophy', L('Wettkampf', 'Compete'), ['#f7c948', '#d18e06'], () => [h('div', { class: 'ub-simrow' }, wk[1], wk[2])]],

@@ -780,10 +780,17 @@ function sideExtras(tool) {
   // Test (nur Bens Konto): oben die zwei großen Einträge Bibliothek und Transkript, darunter Suchen; Hell/Dunkel und Sprache unten
   if (H.dataset.nv) {
     const hero = (href, nav, icon, title, sub) => { const a = tool('a', { href, 'data-nav': nav }, icon, title); a.classList.add('side-hero'); a.append(h('small', { class: 'side-hero-s' }, sub)); return a; };
-    sideExtras.bottom = [h('div', { class: 'side-set' }, theme, lang)];
-    return [hero('#/app/mitschrift', 'mitschrift', 'pen', L('Live mitschreiben', 'Live notes'), L('In der Vorlesung, getippt oder Foto', 'In the lecture, typed or photo')),
-      hero('#/app/video', 'video', 'captions', L('Aus YouTube-Video', 'From a YouTube video'), L('Transkript → Lernstoff', 'Transcript → study material')),
-      tool('button', { onclick: () => import('./palette.js').then(m => m.openPalette()) }, 'search', L('Suchen', 'Search')), zahlen];
+    // Aufgeräumt: nur noch kleine Icon-Knöpfe – Suchen, Zahlen, Hell/Dunkel, Feedback, Sprache. Mitschrift & YouTube wohnen jetzt in „Lernen“
+    const ib = (icon, label, attrs) => h(attrs.href ? 'a' : 'button', Object.assign({ class: 'side-ib', title: label, 'aria-label': label }, attrs.href ? {} : { type: 'button' }, attrs), h('span', { html: ico(icon) }));
+    const zIb = ib('chart', L('Zahlen', 'Numbers'), { href: '#/app/zahlen', 'data-nav': 'zahlen' }); zIb.hidden = true;
+    onAccount(a => import('./views/zahlen.js').then(m => { zIb.hidden = !m.isAdmin(a); }).catch(() => {}));
+    const thIb = ib(dark() ? 'sun' : 'moon', dark() ? L('Heller Modus', 'Light mode') : L('Dunkler Modus', 'Dark mode'), { onclick: () => { theme.click(); thIb.querySelector('span').innerHTML = ico(dark() ? 'sun' : 'moon'); thIb.title = dark() ? L('Heller Modus', 'Light mode') : L('Dunkler Modus', 'Dark mode'); } });
+    sideExtras.bottom = [h('div', { class: 'side-ibs' },
+      ib('search', L('Suchen', 'Search'), { onclick: () => import('./palette.js').then(m => m.openPalette()) }), zIb, thIb,
+      ib('chat', L('Feedback geben', 'Give feedback'), { onclick: () => openFeedback() }),
+      h('span', { class: 'side-ibl' }, langSwitch()))];
+    document.documentElement.classList.add('side-slim');
+    return [];
   }
   return [
     zahlen,
