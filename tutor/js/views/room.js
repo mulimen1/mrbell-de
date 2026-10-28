@@ -4,6 +4,8 @@
 import { wantsLibrary, libraryMaterial } from '../library-search.js';
 import { h, ico, ls, toast } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
+import { accentDot } from '../theme.js';
+import { adsLanding } from '../ui.js';
 import { face, isAsleep } from '../face.js';
 import { S, mastery, onChange, saveNow } from '../state.js';
 import { getAccount, onAccount, currentQuota } from '../api.js';
@@ -106,7 +108,7 @@ export function render(root, ctx = {}) {
   const thWrap = h('div', { class: 'rm-th-wrap' }, talkSlot, toolsMode ? null : status);
   // Themen-Einstieg: Max groß links neben seiner Sprechblase (statt klein darüber)
   const tbub = toolsEl && toolsEl.querySelector('.rm-tbub');
-  if (tbub && document.documentElement.dataset.nv) { const row = h('div', { class: 'rm-thead' }); tbub.before(row); row.append(thWrap, tbub); }
+  // (früher: Max links neben der Blase – jetzt mittig, Blase darunter)
   const headRow = !!(tbub && tbub.parentElement && tbub.parentElement.classList.contains('rm-thead'));
   const talkCol = h('div', { class: 'rm-col' }, topicEl, headRow ? null : thWrap, toolsEl, chatSlot);
   const talk = h('div', { class: 'rm-talk' }, talkCol, boardSlot);
@@ -118,7 +120,7 @@ export function render(root, ctx = {}) {
   const nvProg = () => { const b = progBtn(); if (document.documentElement.dataset.nv) { b.classList.add('rm-prog-nv'); b.firstChild.innerHTML = ico('chart'); } return b; };
   const nvOn = !!document.documentElement.dataset.nv;
   const oldBtnNv = h('button', { class: 'rm-olddesign', type: 'button', onclick: () => import('../skin.js').then(m => m.switchDesign(!nvOn, 'Tutor')) }, nvOn ? L('Zurück zum alten Design', 'Back to the old design') : L('Zum neuen Design', 'Switch to the new design'));
-  const corner = h('div', { class: 'rm-corner' }, document.documentElement.dataset.nv ? nvProg() : null, getAccount() ? oldBtnNv : null, homeBeta() ? pickers : null, stkHome, document.documentElement.dataset.nv ? null : progBtn(), cfgBtn(), homeBeta() ? null : skBtnHome);
+  const corner = h('div', { class: 'rm-corner' }, document.documentElement.dataset.nv ? nvProg() : null, getAccount() ? oldBtnNv : null, homeBeta() ? pickers : null, document.documentElement.dataset.nv ? h('span', { class: 'rm-stkw' }, stkHome, accentDot()) : stkHome, document.documentElement.dataset.nv ? null : progBtn(), cfgBtn(), homeBeta() ? null : skBtnHome);
   // Oben rechts: „Bereits erstellt“ und „Deine Unterlagen“ (gewählte Unterlage = mit Max verbunden)
   function drawPickers() {
     if (!homeBeta()) return;
@@ -232,6 +234,7 @@ export function render(root, ctx = {}) {
   // ---------- Gedankenblasen: Max denkt laut (ab und zu, nicht bei jeder Antwort) ----------
   let lastThought = Date.now() - 20000, thT = 0;
   function think(force) {
+    if (adsLanding()) return;
     if (stopped || isAsleep() || document.hidden || room.querySelector('.rm-ov') || document.documentElement.classList.contains('mx-touring')) return;
     if (!force && Date.now() - lastThought < 45000) return;
     lastThought = Date.now();
@@ -258,6 +261,7 @@ export function render(root, ctx = {}) {
     return [first[Math.floor(Math.random() * first.length)], ...thinkLines('voice', [L('Ich sortier das kurz …', 'Sorting this out …'), L('Gleich hab ich’s …', 'Almost there …')])];
   }
   function showThought(text, { stay = false } = {}) {
+    if (adsLanding()) return;
     const el = mode === 'home' ? thoughtHome : thoughtBar, other = el === thoughtHome ? thoughtBar : thoughtHome;
     other.hidden = true;
     const fresh = el.hidden || el.classList.contains('out');

@@ -6,6 +6,8 @@ import { say, thinkLines } from './max.js';
 import { L } from './i18n.js';
 import { richText } from './sanitize.js';
 
+// Google-Anzeigen-Landung (?thema=, gclid …): dort denkt Max nie laut – keine Gedankenblasen
+export const adsLanding = () => /[?&](thema|gclid|gbraid|wbraid)=|[?&]utm_source=google/.test(location.search);
 // Gedankenblase neben Max' Kopf (die drei Denk-Punkte führen hinein)
 export function thought(faceEl, kind = 'generic', fallback = []) {
   const bub = h('div', { class: 'thought', 'aria-live': 'polite' });
@@ -13,6 +15,7 @@ export function thought(faceEl, kind = 'generic', fallback = []) {
   faceEl.replaceWith(wrap); wrap.append(faceEl, bub);
   const lines = thinkLines(kind, fallback);
   let i = 0;
+  if (adsLanding()) bub.style.display = 'none';
   const show = () => {
     if (!bub.isConnected) return clearInterval(iv);
     bub.textContent = lines[i++ % lines.length];

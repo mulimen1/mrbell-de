@@ -17,8 +17,9 @@ function ripple(x, y, big) {
   layer().appendChild(r); setTimeout(() => r.remove(), 700);
 }
 // Funken: ein paar Punkte fliegen sternförmig raus
-function burst(x, y, { n = 10, colors = ['#2a7fe8', '#5fb4ff', '#8fd0ff', '#21b46b'], dist = 46 } = {}) {
+function burst(x, y, { n = 10, colors, dist = 46 } = {}) {
   const l = layer();
+  if (!colors) { const cs = getComputedStyle(H); colors = [cs.getPropertyValue('--nb').trim() || '#2a7fe8', cs.getPropertyValue('--nb3').trim() || '#5fb4ff', '#8fd0ff', '#21b46b']; }
   for (let i = 0; i < n; i++) {
     const p = document.createElement('i'); p.className = 'fx-sp';
     const a = (Math.PI * 2 * i) / n + Math.random() * .5, d = dist * (.65 + Math.random() * .6);

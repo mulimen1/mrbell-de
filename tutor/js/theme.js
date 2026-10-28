@@ -46,6 +46,9 @@ export const ACCENTS = [
   ['aubergine', 'Aubergine', 'Plum', '#4e2a5f', '#7a4a91'],
   ['graphit', 'Graphit', 'Graphite', '#3f4650', '#646d79']
 ];
+// Neues Design: dieselben Plätze, aber knallige Neon-Töne (Navy = das Neonblau)
+const NEON = { navy: ['Neonblau', 'Neon blue', '#2a7fe8'], kobalt: ['Indigo', 'Indigo', '#6a5cff'], petrol: ['Türkis', 'Turquoise', '#0bb4c9'], gruen: ['Neongrün', 'Neon green', '#16c060'], oliv: ['Limette', 'Lime', '#62b40c'], cognac: ['Orange', 'Orange', '#ff7a1a'], bordeaux: ['Rot', 'Red', '#ff2e4d'], aubergine: ['Lila', 'Purple', '#a24dff'], graphit: ['Pink', 'Pink', '#f0368f'], '': ['Schwarz', 'Black', '#26262b'] };
+const NV_ORDER = ['navy', 'kobalt', 'aubergine', 'graphit', 'bordeaux', 'cognac', 'oliv', 'gruen', 'petrol', ''];
 const ACC_KEY = 'tutor.accent';
 // Gelb (nur für den TikTok-Sketch) gibt's nicht mehr – wer es noch gespeichert hat, bekommt wieder die Standardfarbe
 try { if (document.documentElement.dataset.accent === 'gelb' || localStorage.getItem(ACC_KEY) === 'gelb') { document.documentElement.dataset.accent = 'navy'; localStorage.setItem(ACC_KEY, 'navy'); document.documentElement.dataset.outfit = 'navy'; } } catch (e) {}
@@ -90,6 +93,15 @@ function accentButton() {
 }
 let accClose = null;
 function closeAccent() { if (accClose) accClose(); }
+// Farbknopf für den Tutor (neues Design: unter der Flamme)
+export function accentDot() {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'rm-acc'; b.setAttribute('data-accent-btn', '');
+  b.setAttribute('aria-label', L('Farbe wählen', 'Choose colour')); b.title = L('Farbe ändern', 'Change colour');
+  b.setAttribute('aria-haspopup', 'dialog'); b.setAttribute('aria-expanded', 'false');
+  b.onclick = e => { e.stopPropagation(); document.querySelector('.acc-pop') ? closeAccent() : openAccent(b); };
+  return b;
+}
 function openAccent(btn) {
   closeAccent();
   const saved = getAccent();
@@ -99,9 +111,11 @@ function openAccent(btn) {
   head.innerHTML = `<b>${L('Farbe anpassen', 'Choose your colour')}</b><small>${L('Knöpfe, Tabs & Fortschritt', 'Buttons, tabs & progress')}</small>`;
   const grid = document.createElement('div'); grid.className = 'acc-grid'; grid.setAttribute('role', 'radiogroup');
   let chosen = saved;
-  const sws = ACCENTS.filter(a => a[0] !== 'gelb' || document.documentElement.dataset.creatorPink || saved === 'gelb').map(([id, de, en, c, cd]) => {
+  const nv = !!document.documentElement.dataset.nv;
+  const list = nv ? NV_ORDER.map(id => { const [de, en, c] = NEON[id]; return [id, de, en, c, c]; }) : ACCENTS.filter(a => a[0] !== 'gelb' || document.documentElement.dataset.creatorPink || saved === 'gelb');
+  const sws = list.map(([id, de, en, c, cd]) => {
     const s = document.createElement('button');
-    s.type = 'button'; s.className = 'acc-sw' + (id ? '' : ' std'); s.setAttribute('role', 'radio');
+    s.type = 'button'; s.className = 'acc-sw' + (id || nv ? '' : ' std'); s.setAttribute('role', 'radio');
     s.style.setProperty('--c', c); s.style.setProperty('--cd', cd);
     s.setAttribute('aria-checked', String(id === saved)); s.setAttribute('aria-label', L(de, en));
     s.innerHTML = `<i>${ico('check')}</i><span>${L(de, en)}</span>`;

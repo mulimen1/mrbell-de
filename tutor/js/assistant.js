@@ -8,7 +8,7 @@ import { face } from './face.js';
 import { ask, onQuota, currentQuota, getAccount, getSession } from './api.js';
 import { S, save, createDoc } from './state.js';
 import { forChat } from './retrieve.js';
-import { apiError, typeOut as typeIt, typePlaceholder, syncOut, aiTag } from './ui.js';
+import { apiError, typeOut as typeIt, typePlaceholder, syncOut, aiTag, adsLanding } from './ui.js';
 import { liveWave } from './wave.js';
 import { startLive } from './livestt.js';
 import * as MM from './maxmode.js';
@@ -360,7 +360,7 @@ export function mountAssistant() {
   const pDim = h('div', { class: 'm-pdim', 'aria-hidden': 'true', onclick: () => pChat(false) });
   let pBubT = 0, pThinkT = 0;
   function pSay(text, ms = 4000) {
-    if (!pageOn || !text) return;
+    if (!pageOn || !text || adsLanding()) return;
     clearTimeout(pBubT); pBub.textContent = text; pBub.hidden = false;
     pBub.classList.remove('in'); void pBub.offsetWidth; pBub.classList.add('in');
     if (ms) pBubT = setTimeout(() => { if (!pThinkT) pBub.hidden = true; }, ms);
@@ -1109,7 +1109,7 @@ export function mountAssistant() {
     if (getAccount() || bArea.__b !== b || gateEl) return;
     board.classList.add('m-gated');
     gateEl = h('div', { class: 'm-gate' }, h('div', { class: 'm-gatec' },
-      h('img', { src: '/tutor/img/bm-fav-192.png?v=11', alt: '' }),
+      h('img', { src: '/tutor/img/bm-fav-192.png?v=20', alt: '' }),
       h('b', {}, L('Klausurfragen freischalten', 'Unlock exam questions')),
       h('p', {}, L('Einfach kostenlos anmelden – dauert 20 Sekunden. Deine Tafeln bleiben, wo sie sind.', 'Just sign up for free – takes 20 seconds. Your boards stay right here.')),
       h('button', { class: 'btn primary', type: 'button', onclick: async () => {

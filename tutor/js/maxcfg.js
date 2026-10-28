@@ -1,7 +1,7 @@
 // Max konfigurieren: wie er mit dir redet, wie er dir etwas beibringt, worauf er achtet, wie tief er geht – und wann Pause ist.
 // Gespeichert in „Mein Bereich“ (synchronisiert). Jede Frage an Max bekommt die Einstellungen als kurze Anweisung mit.
 import { h, ico, modal, toast } from './util.js';
-import { L } from './i18n.js';
+import { L, getOutLang, setOutLang } from './i18n.js';
 import { face } from './face.js';
 import * as M from './me.js';
 import { getSpice, setSpice } from './max.js';
@@ -67,7 +67,7 @@ export function prompt() {
 // ---------- Dialog ----------
 export async function openMaxCfg() {
   const c = getCfg(); c.fokus = [...(c.fokus || [])];
-  let spice = getSpice(), mem = Mem.memOn() ? 1 : 0;
+  let spice = getSpice(), outL = getOutLang(), mem = Mem.memOn() ? 1 : 0;
   const memOut = h('p', { class: 'mc-memt', hidden: true });
   const memBtn = h('button', { type: 'button', class: 'mc-memb', onclick: async () => { memBtn.disabled = true; const t = await Mem.memText(); memOut.textContent = t || L('Noch nichts – Max merkt sich etwas, sobald ihr ein Gespräch geführt habt.', 'Nothing yet – Max remembers something once you’ve had a conversation.'); memOut.hidden = false; memBtn.hidden = true; } }, L('Ansehen, was Max sich gemerkt hat', 'See what Max remembers'));
   const fEl = h('div', { class: 'mc-face' });
@@ -102,6 +102,7 @@ export async function openMaxCfg() {
     h('div', { class: 'mc-two' },
       h('div', {}, lab(L('Wie tief?', 'How deep?')), seg(Object.entries(NIVEAU), () => c.niveau, v => { c.niveau = v; })),
       h('div', {}, lab(L('Sprüche', 'Jokes')), seg(SPRUECHE, () => spice, v => { spice = v; fc.pulse(v === 3 ? 'smug' : 'happy', 900); }))),
+    h('div', {}, lab(L('Sprache', 'Language'), L('In welcher Sprache Max antwortet und Inhalte erstellt', 'Which language Max answers and creates content in')), seg([['de', 'Deutsch'], ['en', 'English']], () => outL, v => { outL = v; })),
     h('div', {}, lab(L('Pausen', 'Breaks'), L('Max sagt dir, wann du kurz rausgehst', 'Max tells you when to step away')), seg(PAUSEN, () => c.pause, v => { c.pause = v; })),
     getAccount() ? h('div', {}, lab(L('Gedächtnis', 'Memory'), L('Max merkt sich, woran ihr gearbeitet habt und wo es hakt – nur für dich, auf all deinen Geräten. Aus = Notiz wird gelöscht.', 'Max remembers what you worked on and where you got stuck – only for you, on all your devices. Off = note is deleted.')), seg([[1, L('An', 'On')], [0, L('Aus', 'Off')]], () => mem, v => { mem = v; }), memBtn, memOut) : null);
   const fc = face(fEl, {}); paint();
@@ -110,6 +111,7 @@ export async function openMaxCfg() {
   if (r !== 'ok') return false;
   M.updateMe(m => { m.maxcfg = { ton: c.ton, methode: c.methode, fokus: c.fokus, niveau: c.niveau, pause: c.pause }; });
   setSpice(spice);
+  if (outL !== getOutLang()) setOutLang(outL);
   if ((mem === 1) !== Mem.memOn()) Mem.setMemOn(mem === 1);
   toast(({ locker: L('Läuft. So mag ich das.', 'Done. That’s how I like it.'), freundlich: L('Alles klar – wir machen das ganz entspannt.', 'Got it – we’ll keep it relaxed.'), sachlich: L('Gespeichert.', 'Saved.'), streng: L('Gut. Ab jetzt wird gearbeitet.', 'Good. Now we work.') })[c.ton] || L('Gespeichert.', 'Saved.'));
   dispatchEvent(new CustomEvent('maxcfg:change'));
