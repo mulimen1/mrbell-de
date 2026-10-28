@@ -558,3 +558,30 @@ html.bm-entryb .rm-bar .m-dcards:hover { box-shadow: 0 3px 0 var(--ink); }
 .tafel .m-mc-tzi { background: var(--onInv); color: var(--bmB); }
 .tafel .m-mc-tzt b, .tafel .m-mc-tza { color: var(--onInv); }
 .tafel .m-mc-tzt small { color: color-mix(in srgb, var(--onInv) 78%, transparent); }
+
+/* Neues Design: Lern-Leiter auf der Tafel farbig – jede Stufe ihre Farbe (Start blau, Verstanden türkis, Klausurfragen lila, Klausurfest gold) */
+html[data-nv] .tafel .m-ladc:nth-child(1) { --lc1: #5aa2f7; --lc2: #1a5fc4; }
+html[data-nv] .tafel .m-ladc:nth-child(3) { --lc1: #3fc1c9; --lc2: #0e7f8e; }
+html[data-nv] .tafel .m-ladc:nth-child(5) { --lc1: #9b7cf0; --lc2: #5b3fc4; }
+html[data-nv] .tafel .m-ladc:nth-child(7) { --lc1: #f7c948; --lc2: #d18e06; }
+html[data-nv] .tafel .m-ladn.ok, html[data-nv] .tafel .m-ladn.m-ladz.ok { background: linear-gradient(135deg, var(--lc1), var(--lc2)) !important; color: #fff !important; box-shadow: 0 5px 0 color-mix(in srgb, var(--lc2) 75%, #000) !important; }
+html[data-nv] .tafel .m-ladn.cur { background: #fff !important; color: var(--lc2) !important; box-shadow: 0 0 0 3px var(--lc1), 0 5px 0 color-mix(in srgb, var(--lc2) 60%, #000) !important; }
+html[data-nv] .tafel .m-ladn.lock { background: color-mix(in srgb, var(--lc1) 18%, #fff) !important; color: var(--lc2) !important; }
+html[data-nv] .tafel .m-ladc:has(.cur) small { color: var(--lc2); }
+html[data-nv] .tafel .m-ladl:nth-child(2) i { background: linear-gradient(90deg, #1a5fc4, #0e7f8e) !important; }
+html[data-nv] .tafel .m-ladl:nth-child(4) i { background: linear-gradient(90deg, #0e7f8e, #5b3fc4) !important; }
+html[data-nv] .tafel .m-ladl:nth-child(6) i { background: linear-gradient(90deg, #5b3fc4, #d18e06) !important; }
+html[data-nv] .tafel .m-ladcta { background: linear-gradient(110deg, #5b3fc4, #7d5ce6 55%, #9b7cf0) !important; box-shadow: 0 5px 0 #452f9a, 0 14px 26px -14px #5b3fc4 !important; color: #fff !important; }
+html[data-nv] .tafel .m-lad.done .m-ladcta, html[data-nv] .tafel .m-lad:has(.m-ladc:nth-child(7) .cur) .m-ladcta { background: linear-gradient(110deg, #d18e06, #f0b429) !important; box-shadow: 0 5px 0 #a06d00 !important; }
+/* „Wo hakt’s?“-Themen: jede Pille mit eigenem Farbpunkt, die erste farbig gefüllt */
+html[data-nv] .tafel .m-next.m-ov button:not(.btn) { position: relative; padding-left: 30px !important; }
+html[data-nv] .tafel .m-next.m-ov button:not(.btn)::before { content: ""; position: absolute; left: 13px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; background: linear-gradient(135deg, var(--pc1, #5aa2f7), var(--pc2, #1a5fc4)); }
+html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+1) { --pc1: #5aa2f7; --pc2: #1a5fc4; }
+html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+2) { --pc1: #f39b52; --pc2: #d9601c; }
+html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+3) { --pc1: #9b7cf0; --pc2: #5b3fc4; }
+html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+4) { --pc1: #3fc1c9; --pc2: #0e7f8e; }
+html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+5) { --pc1: #f47ba0; --pc2: #c8336f; }
+html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+6) { --pc1: #f7c948; --pc2: #d18e06; }
+html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+7) { --pc1: #7a8cf7; --pc2: #3f4fd6; }
+html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+8) { --pc1: #ff7b7b; --pc2: #d63031; }
+html[data-nv] .tafel .m-next.m-ov button:not(.btn):hover { border-color: var(--pc2) !important; color: var(--pc2) !important; }
