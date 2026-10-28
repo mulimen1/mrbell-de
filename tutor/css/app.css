@@ -6585,3 +6585,17 @@ html:root[data-nv] body .room .rm-tl .rm-tlt:hover { background: #fff !important
 html:root[data-nv][data-theme="dark"] body .room .rm-tl .rm-tlt { background: #15161a !important; border-color: #26282e !important; }
 /* Kontrast: weiße Schrift auf Blau – Tutor-Knopf und „Sprich mit Max“ eine Stufe tiefer */
 html:root[data-nv] body .tn.tn-tutor, html:root[data-nv] body .ai-talk, html:root[data-nv] body .lm-tutor, html:root[data-nv] body .lm-cta { background-image: linear-gradient(180deg, var(--nb2), var(--nbd)) !important; }
+/* Test nur Bens Konto: Transkript in der Mitschrift, Kopfleiste in zwei Gruppen (Lernen | Werkzeuge) */
+html[data-ben] .topnav .tn[data-tn="video"] { display: none !important; }
+html[data-ben] .topnav .tn[data-tn="tutor"] { order: 0; } html[data-ben] .topnav .tn-sep { order: 1; }
+html[data-ben] .topnav .tn[data-tn="ueben"] { order: 2; } html[data-ben] .topnav .tn[data-tn="faecher"] { order: 3; } html[data-ben] .topnav .tn[data-tn="bibliothek"] { order: 4; }
+html[data-ben] .topnav .tn[data-tn="mitschrift"] { order: 6; margin-left: 28px; position: relative; } html[data-ben] .topnav .tn[data-tn="excel"] { order: 7; }
+html[data-ben] .topnav .tn[data-tn="mitschrift"]::before { content: ""; position: absolute; left: -16px; top: 22%; bottom: 22%; width: 2px; border-radius: 2px; background: rgba(0,0,0,.12); }
+html[data-ben] .topnav .tn[data-tn="mitschrift"]::after { content: ""; width: 20px; height: 20px; margin-left: 2px; border-radius: 6px; background: #fff url(/tutor/img/brands/youtube.svg) center / 15px no-repeat; box-shadow: inset 0 0 0 1px rgba(15,23,42,.12); flex: none; }
+.ms-sw { display: inline-flex; gap: 4px; padding: 4px; margin: 0 0 16px; border-radius: 999px; background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: 0 8px 20px -16px rgba(0,0,0,.4); }
+.ms-sw-i { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px 0 12px; border-radius: 999px; text-decoration: none; color: var(--ink); font: 650 15px var(--sans); }
+.ms-sw-i .ico { width: 17px; height: 17px; }
+.ms-sw-i.on { background: linear-gradient(180deg, var(--nb2, #1f6fe0), var(--nbd, #1a5fc4)); color: #fff; }
+.ms-sw-i:not(.on):hover { background: var(--nbl, #e3edfb); }
+.ms-sw-i img { border-radius: 4px; background: #fff; }
+:root[data-theme="dark"] .ms-sw { background: #16171b; border-color: #2a2c33; }

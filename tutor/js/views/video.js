@@ -2,6 +2,7 @@
 // Max schreibt ab (Server: Hub /api/bwlmax/video, 3 pro Tag kostenlos), erkennt die Sprache und macht daraus,
 // was man will: Lernzettel, Mitschrift im Füller-Look, Karteikarten, Quiz, Podcast, Erklärung.
 import { h, ico, toast, ls } from '../util.js';
+import { msSwitch } from '../msswitch.js';
 import { L } from '../i18n.js';
 import { S, createDoc, save, onChange } from '../state.js';
 import { getAccount, getSession } from '../api.js';
@@ -126,6 +127,7 @@ const tmInfo = txt => { const pop = h('span', { class: 'tm-pop', role: 'tooltip'
 const TM = L('YouTube ist eine Marke von Google LLC. BWL Max steht in keiner Verbindung zu YouTube oder Google und wird von ihnen weder unterstützt noch gesponsert.', 'YouTube is a trademark of Google LLC. BWL Max is not affiliated with, endorsed or sponsored by YouTube or Google.');
 export function render(root) {
   const wrap = h('div', { class: 'view-in vt' }); root.appendChild(wrap);
+  { const sw = msSwitch('video'); if (sw) wrap.appendChild(sw); }
   setTimeout(() => wrap.appendChild(h('p', { class: 'foot-tm' }, TM)), 0);
   const fileIn = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.pptx,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.heic,.heif,application/pdf,image/*,video/*,audio/*,.mp4,.mov,.m4v,.m4a,.mp3,.wav' });
   fileIn.addEventListener('change', () => { const fl = [...(fileIn.files || [])]; fileIn.value = ''; if (fl.length) upload(fl); });

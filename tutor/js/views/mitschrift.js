@@ -2,6 +2,7 @@
 // handschriftliche Mitschrift (Füller oder Druckschrift) mit Skizzen. Wird als Unterlage im Fach gespeichert,
 // damit Karteikarten, Quiz & Co. direkt daraus entstehen können.
 import { h, ico, ls, toast, ago, uid } from '../util.js';
+import { msSwitch } from '../msswitch.js';
 import { L } from '../i18n.js';
 import { detectLang, askLang } from '../srclang.js';
 import { S, createDoc, openDoc, save, saveNow, refreshList } from '../state.js';
@@ -82,6 +83,7 @@ function editor(wrap, doc) {
     h('div', { class: 'ms-ht' }, h('div', { class: 'eyebrow' }, L('Live-Mitschrift', 'Live notes')), h('h2', {}, L('Schreib einfach mit.', 'Just take notes.')), h('div', { class: 'ms-hbtns' }, listBtn, saveBtn, newBtn)),
       h('p', { class: 'ms-hp' }, L('Tipp in der Vorlesung drauflos oder fotografier Notizen und Tafel. Max macht daraus eine saubere Mitschrift – in Schreibschrift oder Druckschrift, mit Skizzen.', 'Type away during the lecture or snap your notes and the board. Max turns it into clean notes – in cursive or print, with sketches.')));
   const head = h('div', { class: 'ms-head' }, headL);
+  { const sw = msSwitch('live'); if (sw) headL.prepend(sw); }
 
   // Fach: einfach eintippen (muss kein angelegtes Fach sein). Vorhandene Fächer als Abkürzung daneben,
   // ein unbekannter Name bekommt einen kleinen Knopf „Als Fach anlegen“ – freiwillig.
