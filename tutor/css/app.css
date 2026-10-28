@@ -6584,14 +6584,19 @@ html:root[data-nv] body .room .rm-tl .rm-tlt { background: #f6f2ea !important; b
 html:root[data-nv] body .room .rm-tl .rm-tlt:hover { background: #fff !important; border-color: var(--nb) !important; box-shadow: 0 10px 24px -16px rgba(0,0,0,.35) !important; }
 html:root[data-nv][data-theme="dark"] body .room .rm-tl .rm-tlt { background: #15161a !important; border-color: #26282e !important; }
 /* Kontrast: weiße Schrift auf Blau – Tutor-Knopf und „Sprich mit Max“ eine Stufe tiefer */
-html:root[data-nv] body .tn.tn-tutor, html:root[data-nv] body .ai-talk, html:root[data-nv] body .lm-tutor, html:root[data-nv] body .lm-cta { background-image: linear-gradient(180deg, var(--nb2), var(--nbd)) !important; }
-/* Test nur Bens Konto: Transkript in der Mitschrift, Kopfleiste in zwei Gruppen (Lernen | Werkzeuge) */
-html[data-ben] .topnav .tn[data-tn="video"] { display: none !important; }
+/* Hero-Knöpfe (Tutor, Sprich mit Max): satter Farbverlauf, der beim Drüberfahren weiterwandert – kein Pulsieren */
+html:root[data-nv] body :is(.tn.tn-tutor, .ai-talk, .lm-tutor, .lm-cta) { background-color: var(--nb2) !important; background-image: linear-gradient(115deg, var(--nbd) 0%, var(--nb2) 38%, var(--nb) 68%, color-mix(in srgb, var(--nb) 70%, #fff) 100%) !important; background-size: 180% 100% !important; background-position: 0% 0 !important; background-repeat: no-repeat !important; border-color: transparent !important; color: #fff !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 10px 24px -12px color-mix(in srgb, var(--nb2) 85%, transparent) !important; transition: background-position .5s cubic-bezier(.2,.8,.2,1), transform .2s, box-shadow .2s !important; animation: none !important; }
+html:root[data-nv] body :is(.tn.tn-tutor, .ai-talk, .lm-tutor, .lm-cta):hover { background-position: 100% 0 !important; transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,.32), 0 14px 30px -12px color-mix(in srgb, var(--nb2) 90%, transparent) !important; }
+html:root[data-nv] body :is(.tn.tn-tutor, .ai-talk, .lm-tutor, .lm-cta):active { transform: translateY(0) scale(.98); }
+/* Test nur Bens Konto: Kopfleiste Tutor | Mitschrift (mit Transkript), Fächer ‖ Training, Excel-Helfer; Bibliothek in der Seitenleiste */
+html[data-ben] .topnav .tn[data-tn="video"], html[data-ben] .topnav .tn[data-tn="bibliothek"] { display: none !important; }
 html[data-ben] .topnav .tn[data-tn="tutor"] { order: 0; } html[data-ben] .topnav .tn-sep { order: 1; }
-html[data-ben] .topnav .tn[data-tn="ueben"] { order: 2; } html[data-ben] .topnav .tn[data-tn="faecher"] { order: 3; } html[data-ben] .topnav .tn[data-tn="bibliothek"] { order: 4; }
-html[data-ben] .topnav .tn[data-tn="mitschrift"] { order: 6; margin-left: 28px; position: relative; } html[data-ben] .topnav .tn[data-tn="excel"] { order: 7; }
-html[data-ben] .topnav .tn[data-tn="mitschrift"]::before { content: ""; position: absolute; left: -16px; top: 22%; bottom: 22%; width: 2px; border-radius: 2px; background: rgba(0,0,0,.12); }
-html[data-ben] .topnav .tn[data-tn="mitschrift"]::after { content: ""; width: 20px; height: 20px; margin-left: 2px; border-radius: 6px; background: #fff url(/tutor/img/brands/youtube.svg) center / 15px no-repeat; box-shadow: inset 0 0 0 1px rgba(15,23,42,.12); flex: none; }
+html[data-ben] .topnav .tn[data-tn="mitschrift"] { order: 2; } html[data-ben] .topnav .tn[data-tn="faecher"] { order: 3; }
+html[data-ben] .topnav .tn[data-tn="ueben"] { order: 5; margin-left: 30px; position: relative; } html[data-ben] .topnav .tn[data-tn="excel"] { order: 6; }
+html[data-ben] .topnav .tn[data-tn="ueben"]::before { content: ""; position: absolute; left: -17px; top: 18%; bottom: 18%; width: 2px; border-radius: 2px; background: rgba(0,0,0,.18); }
+html[data-ben][data-theme="dark"] .topnav .tn[data-tn="ueben"]::before { background: rgba(255,255,255,.2); }
+html[data-ben] .topnav { justify-content: flex-start !important; gap: 10px !important; }
+html[data-ben] .room .rm-tl { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 .ms-sw { display: inline-flex; gap: 4px; padding: 4px; margin: 0 0 16px; border-radius: 999px; background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: 0 8px 20px -16px rgba(0,0,0,.4); }
 .ms-sw-i { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px 0 12px; border-radius: 999px; text-decoration: none; color: var(--ink); font: 650 15px var(--sans); }
 .ms-sw-i .ico { width: 17px; height: 17px; }
@@ -6599,3 +6604,12 @@ html[data-ben] .topnav .tn[data-tn="mitschrift"]::after { content: ""; width: 20
 .ms-sw-i:not(.on):hover { background: var(--nbl, #e3edfb); }
 .ms-sw-i img { border-radius: 4px; background: #fff; }
 :root[data-theme="dark"] .ms-sw { background: #16171b; border-color: #2a2c33; }
+/* Test nur Bens Konto: Seitenleiste – Bibliothek und Transkript als große Einträge oben, Hell/Dunkel und Sprache unten */
+html[data-ben] .side .side-hero { display: grid !important; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: center; min-height: 66px; padding: 12px 14px !important; }
+html[data-ben] .side .side-hero > span:first-child { grid-row: 1 / 3; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(115deg, var(--nbd), var(--nb2) 45%, var(--nb)); color: #fff; }
+html[data-ben] .side .side-hero > span:first-child .ico, html[data-ben] .side .side-hero > span:first-child svg { width: 21px; height: 21px; color: #fff; }
+html[data-ben] .side .side-hero .nm { font-size: 16.5px; font-weight: 750; align-self: end; }
+html[data-ben] .side .side-hero .side-hero-s { grid-column: 2; font-size: 12.5px; color: var(--mute); align-self: start; line-height: 1.3; }
+html[data-ben] .side .side-hero[data-nav="bibliothek"] { border: 1.5px solid color-mix(in srgb, var(--nb) 45%, transparent) !important; }
+html[data-ben] .side .side-set { display: grid; gap: 8px; margin-bottom: 10px; }
+html[data-ben] .room .rm-tl .rm-tlt small { display: none; } html[data-ben] .room .rm-tl .rm-tlt { padding: 10px 12px !important; min-height: 0 !important; } html[data-ben] .room .rm-tl { gap: 8px !important; }

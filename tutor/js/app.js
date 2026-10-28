@@ -95,10 +95,10 @@ function buildShell() {
         tool('a', { href: '#/app/rechner', 'data-nav': 'rechner' }, 'calc', L('Rechner', 'Calculators')),
         tool('a', { href: '#/app/challenge', 'data-nav': 'challenge' }, 'trophy', L('Wochen-Challenge', 'Weekly challenge'), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
         tool('a', { href: '#/app/duell', 'data-nav': 'duell' }, 'spark', L('BWL-Duell', 'Business duel'), h('span', { class: 'newb' }, L('Neu', 'New')))]),
-        document.documentElement.dataset.nv ? tool('a', { href: '#/app/fortschritt', 'data-nav': 'fortschritt' }, 'chart', L('Fortschritt', 'Progress')) : null,
+        document.documentElement.dataset.nv && !document.documentElement.dataset.ben ? tool('a', { href: '#/app/fortschritt', 'data-nav': 'fortschritt' }, 'chart', L('Fortschritt', 'Progress')) : null,
         ...(document.documentElement.dataset.nv ? sideExtras(tool) : []))),
     // Unten: klein und ruhig – Sprache, Konto, Menü; Kündigen bleibt sichtbar (§ 312k BGB)
-    h('div', { class: 'bottom' }, quotaEl,
+    h('div', { class: 'bottom' }, ...(sideExtras.bottom || []), quotaEl,
       h('button', { class: 'side-fb', type: 'button', onclick: () => openFeedback() }, h('span', { class: 'side-fb-i', html: ico('chat') }), h('span', {}, h('b', {}, L('Feedback geben', 'Give feedback')), h('small', {}, L('Was fehlt? Was nervt? Wir lesen alles.', 'Missing something? Annoyed? We read it all.')))),
       outLangSwitch(),
       h('div', { class: 'side-acc' }, accountChip(), sideMenuBtn()),
@@ -107,7 +107,7 @@ function buildShell() {
   const navA = (key, href, ic, label) => h('a', { class: 'tn', href, 'data-tn': key }, h('span', { html: ico(ic) }), h('span', { class: 'tn-l' }, label));
   const tnFace = h('span', { class: 'tn-face' });
   const topnav = h('nav', { class: 'topnav', 'aria-label': L('Bereiche', 'Sections') },
-    h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor' }, tnFace, h('span', { class: 'tn-l' }, 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
+    h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor', onclick: tutorFromAd }, tnFace, h('span', { class: 'tn-l' }, 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
     homeBeta() ? navA('ueben', '#/app/ueben', 'whistle', L('Training', 'Training')) : navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
     navA('mitschrift', '#/app/mitschrift', 'pen', L('Mitschrift', 'Notes')),
     navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
@@ -729,6 +729,14 @@ function outLangSwitch() {
 
 // Sprache der Oberfläche: DE | EN
 // Neues Design: Suchen, Max einstellen, Hell/Dunkel und Sprache sitzen in der Seitenleiste statt oben rechts
+// Auf Google-Anzeigen- und Lernseiten führt „Tutor“ weg von der Themen-Tafel in den richtigen Tutorbereich; Gäste melden sich dort an
+function tutorFromAd(e) {
+  if (!(adsLanding() || window.BM_LP) || e.metaKey || e.ctrlKey) return;
+  e.preventDefault();
+  try { sessionStorage.removeItem('tutor.topicHead'); } catch (x) {}
+  const base = /(^|\.)bwlmax\.de$/.test(location.hostname) ? '/' : '/tutor/index.html';
+  location.href = base + '?' + (getAccount() ? '' : 'konto=1&') + 'utm_source=anzeige&utm_medium=tutor-knopf#/app/tutor';
+}
 function sideExtras(tool) {
   const H = document.documentElement;
   const dark = () => H.dataset.theme ? H.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
@@ -741,12 +749,21 @@ function sideExtras(tool) {
   const zahlen = tool('a', { href: '#/app/zahlen', 'data-nav': 'zahlen' }, 'chart', L('Zahlen', 'Numbers'));
   zahlen.hidden = true;
   onAccount(a => import('./views/zahlen.js').then(m => { zahlen.hidden = !m.isAdmin(a); }).catch(() => {}));
+  const lang = h('div', { class: 'side-lang' }, h('span', { html: ico('chat') }), h('span', { class: 'nm' }, L('Sprache', 'Language')), langSwitch());
+  // Test (nur Bens Konto): oben die zwei großen Einträge Bibliothek und Transkript, darunter Suchen; Hell/Dunkel und Sprache unten
+  if (H.dataset.ben) {
+    const hero = (href, nav, icon, title, sub) => { const a = tool('a', { href, 'data-nav': nav }, icon, title); a.classList.add('side-hero'); a.append(h('small', { class: 'side-hero-s' }, sub)); return a; };
+    sideExtras.bottom = [h('div', { class: 'side-set' }, theme, lang)];
+    return [hero('#/app/bibliothek', 'bibliothek', 'library', L('Bibliothek', 'Library'), L('Alles, was du erstellt hast', 'Everything you created')),
+      hero('#/app/video', 'video', 'captions', L('Transkript', 'Transcribe'), L('YouTube-Video → Lernstoff', 'YouTube video → study material')),
+      tool('button', { onclick: () => import('./palette.js').then(m => m.openPalette()) }, 'search', L('Suchen', 'Search')), zahlen];
+  }
   return [
     zahlen,
     tool('button', { onclick: () => import('./palette.js').then(m => m.openPalette()) }, 'search', L('Suchen', 'Search')),
     tool('button', { onclick: () => import('./maxcfg.js').then(m => m.openMaxCfg()) }, 'tune', L('Max einstellen', 'Configure Max')),
     theme,
-    h('div', { class: 'side-lang' }, h('span', { html: ico('chat') }), h('span', { class: 'nm' }, L('Sprache', 'Language')), langSwitch()),
+    lang,
   ];
 }
 function langSwitch() {
