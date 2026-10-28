@@ -31,7 +31,13 @@ export async function autoOpts(tab, doc) {
 const DIFF_TXT = { leicht: L('Niveau: Einsteiger – einfache Sprache, alles von Grund auf, viele Beispiele', 'Level: beginner – plain language, everything from scratch, many examples'), mittel: L('Niveau: mittel – solide Grundlagen vorausgesetzt', 'Level: medium – solid basics assumed'), schwer: L('Niveau: fortgeschritten – anspruchsvoll, mit Transferfragen und Sonderfällen', 'Level: advanced – demanding, with transfer questions and edge cases'), klausur: L('Niveau: Klausurniveau – wie in einer echten Hochschulklausur', 'Level: exam level – like a real university exam') };
 export function wishHint(o, inline = false) {
   if (!o) return '';
-  const parts = [DIFF_TXT[o.diff] || '', (o.wish || '').trim() ? L('Extra-Wunsch: ', 'Extra request: ') + String(o.wish).trim().slice(0, 300) : ''].filter(Boolean);
+  const X = {
+    mix: { rechnen: L('Aufgaben: überwiegend Rechenaufgaben mit vollständigem Rechenweg', 'Tasks: mostly calculation tasks with full workings'), theorie: L('Aufgaben: überwiegend Theorie- und Verständnisfragen', 'Tasks: mostly theory and comprehension questions'), mc: L('Aufgaben: überwiegend Multiple Choice', 'Tasks: mostly multiple choice'), fall: L('Aufgaben: Fallstudien mit Text und Teilaufgaben', 'Tasks: case studies with text and sub-tasks') }[o.mix],
+    aids: { keine: L('Hilfsmittel: keine', 'Aids: none'), rechner: L('Hilfsmittel: nur Taschenrechner', 'Aids: calculator only'), formel: L('Hilfsmittel: Taschenrechner und Formelsammlung', 'Aids: calculator and formula sheet') }[o.aids],
+    ex: { uni: L('Stil: Universitätsklausur', 'Style: university exam'), fh: L('Stil: Hochschul-/FH-Klausur, praxisnah', 'Style: university of applied sciences, practical'), ihk: L('Stil: IHK-Prüfung', 'Style: chamber of commerce exam') }[o.exstyle],
+    q: { gemischt: '', anwendung: L('Fragen: anwendungsorientiert, mit Mini-Fällen', 'Questions: applied, with mini cases'), definition: L('Fragen: Definitionen und Begriffe', 'Questions: definitions and terms'), rechnen: L('Fragen: viele Rechenfragen', 'Questions: many calculation questions') }[o.qmix],
+  };
+  const parts = [DIFF_TXT[o.diff] || '', X.mix || '', X.aids || '', X.ex || '', X.q || '', (o.wish || '').trim() ? L('Extra-Wunsch: ', 'Extra request: ') + String(o.wish).trim().slice(0, 300) : ''].filter(Boolean);
   if (!parts.length) return '';
   return inline ? ' ' + parts.join('. ') + '.' : L(`[Wünsche: ${parts.join('; ')}.]\n\n`, `[Requests: ${parts.join('; ')}.]\n\n`);
 }

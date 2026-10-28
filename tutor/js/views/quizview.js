@@ -42,7 +42,7 @@ export async function render(root, ctx) {
     const o = await autoOpts('quiz', ctx.doc); if (!wrap.isConnected) return;
     if (!o) { wrap.remove(); return render(root, Object.assign({}, ctx, { arg: null })); }
     const types = (o.types || TYPES).filter(t => TYPES.includes(t));
-    generate(wrap, ctx, { count: o.count || 8, diff: o.diff || 'mittel', types: new Set(types.length ? types : TYPES), focus: o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : -1 });
+    generate(wrap, ctx, { count: o.count || 8, diff: o.diff || 'mittel', types: new Set(types.length ? types : TYPES), focus: o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : -1, wish: o.wish || '', qmix: o.qmix || '' });
   }
   else if (ctx.arg === 'exam') { overview(wrap, ctx, pre); exam(wrap, ctx); }
   else if (ctx.arg && ctx.arg.startsWith('q-') && ctx.doc.quizzes.some(q => q.id === ctx.arg.slice(2))) { history.replaceState(null, '', location.hash.replace(/\/q-[^/]*$/, '')); run(wrap, ctx, ctx.doc.quizzes.find(q => q.id === ctx.arg.slice(2))); }
@@ -99,7 +99,7 @@ async function generate(wrap, ctx, st) {
   const ch = st.focus >= 0 ? doc.path.chapters[st.focus] : null;
   const ld = loading(wrap, L('Ich schreibe dein Quiz …', 'Writing your quiz …'), L(['Lese das Skript', 'Denke mir knifflige Fragen aus', 'Baue typische Fehler als Antworten ein', 'Rechne die Aufgaben zweimal nach'], ['Reading the slides', 'Thinking up tricky questions', 'Building in typical mistakes as answers', 'Double-checking the calculations']), 'quiz');
   try {
-    const r = await ask('quiz', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, opts: { count: st.count, difficulty: st.diff, types: [...st.types], focus: ch ? L(`Kapitel „${ch.title}“ (S. ${ch.pages[0]}–${ch.pages[1]})`, `Chapter “${ch.title}” (p. ${ch.pages[0]}–${ch.pages[1]})`) : '' } }, { signal: ld.signal });
+    const r = await ask('quiz', { material: wishHint({ wish: st.wish, qmix: st.qmix }) + (ch ? forChapter(doc, ch) : forWhole(doc)), docName: doc.name, opts: { count: st.count, difficulty: st.diff, types: [...st.types], focus: ch ? L(`Kapitel „${ch.title}“ (S. ${ch.pages[0]}–${ch.pages[1]})`, `Chapter “${ch.title}” (p. ${ch.pages[0]}–${ch.pages[1]})`) : '' } }, { signal: ld.signal });
     const qs = (r.data?.questions || []).map(normalize).filter(Boolean);
     if (qs.length < 2) throw new Error(L('Das Quiz ist nicht vollständig angekommen. Versuch es nochmal.', 'The quiz didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: ch ? ch.title : (r.data.title || 'Quiz'), questions: qs, diff: st.diff, created: Date.now(), results: [] };
@@ -134,7 +134,7 @@ async function exam(wrap, ctx) {
   const ld = loading(wrap, L('Ich stelle deine Probeklausur zusammen …', 'Putting your mock exam together …'), L(['Wähle die wichtigsten Themen', 'Schreibe Rechenaufgaben', 'Baue Transferfragen', 'Prüfe alle Lösungen', 'Gleich geschafft'], ['Picking the key topics', 'Writing calculations', 'Building transfer questions', 'Checking all solutions', 'Almost done']), 'exam');
   try {
     const fch = cfg.focus >= 0 && doc.path?.chapters?.[cfg.focus];
-    const r = await ask('exam', Object.assign({ material: wishHint({ wish: cfg.wish }) + (fch ? forChapter(doc, fch) : forWhole(doc)), docName: doc.name, opts: { count: cfg.count, difficulty: cfg.diff || 'klausur' } }, cfg.lang ? { lang: cfg.lang } : {}), { signal: ld.signal });
+    const r = await ask('exam', Object.assign({ material: wishHint(cfg) + (fch ? forChapter(doc, fch) : forWhole(doc)), docName: doc.name, opts: { count: cfg.count, difficulty: cfg.diff || 'klausur' } }, cfg.lang ? { lang: cfg.lang } : {}), { signal: ld.signal });
     const qs = (r.data?.questions || []).map(normalize).filter(Boolean);
     if (qs.length < 4) throw new Error(L('Die Probeklausur ist nicht vollständig angekommen. Versuch es nochmal.', 'The mock exam didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: L('Probeklausur · ', 'Mock exam · ') + new Date().toLocaleDateString(LOCALE), questions: qs, diff: 'Klausur', exam: true, minutes: cfg.minutes, pass: cfg.pass, silent: cfg.silent, created: Date.now(), results: [] };

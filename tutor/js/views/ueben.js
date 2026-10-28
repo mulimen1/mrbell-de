@@ -20,7 +20,7 @@ async function trainers() { const m = await import('../trainer.js'); return m.TR
 
 export async function render(root, { sub = '' } = {}) {
   if (sub === 'pfad') return guided(root);
-  if (['tafel', 'zettel', 'karten', 'podcast', 'lernpfad'].includes(sub)) { const m = await import('./tools.js'); return m.learnPick(root, sub); }
+  if (['tafel', 'zettel', 'karten', 'podcast', 'lernpfad', 'quiz', 'simulator'].includes(sub)) { const m = await import('./tools.js'); return m.learnPick(root, sub); }
   const wrap = h('div', { class: 'view-in ub' }); root.appendChild(wrap);
   if (document.documentElement.dataset.nv) root.insertBefore(h('div', { class: 'view-in kt-headrow' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Lernen', 'Learn')), h('h1', {}, L('Üben, prüfen, gewinnen. ', 'Practise, check, win. '), h('span', {}, L('Bis es sitzt.', 'Until it sticks.'))))), wrap);   // Test: klare Überschrift
   const T = await trainers(); if (!wrap.isConnected) return;
@@ -51,8 +51,8 @@ export async function render(root, { sub = '' } = {}) {
   const big = (ic, t, sub, go, hot) => h('button', { class: 'ub-sim' + (hot ? ' hot' : ''), type: 'button', onclick: () => { fromHere(); go(); } }, h('span', { class: 'ub-pci', html: ic }), h('span', { class: 'ub-pct' }, h('b', {}, t), h('small', {}, sub)), h('span', { class: 'ub-pcg', html: ico('right') }));
   const quizGo = () => { let id = null; try { const f = JSON.parse(localStorage.getItem('tutor.room.focus') || '[]'); id = f[0]; } catch (e) {} import('../state.js').then(st => { const d = id && st.S.list.find(x => x.id === id); if (d) location.hash = `#/app/${d.id}/quiz`; else import('../app.js').then(m => m.tryFeature('quiz')); }); };
   const sim = h('div', { class: 'ub-simrow' },
-    big(ico('exam'), L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel – wie in echt', 'With time, points and grading – like the real thing'), () => import('../app.js').then(m => m.examTool()), true),
-    big(ico('quiz'), 'Quiz', L('Klausurfragen mit Erklärung zu jeder Antwort', 'Exam questions with every answer explained'), quizGo));
+    big(ico('exam'), L('Klausur-Simulator', 'Exam simulator'), L('Mit Zeit, Punkten und Notenschlüssel – wie in echt', 'With time, points and grading – like the real thing'), () => { location.hash = '#/app/ueben/simulator'; }, true),
+    big(ico('quiz'), 'Quiz', L('Klausurfragen mit Erklärung zu jeder Antwort', 'Exam questions with every answer explained'), () => { location.hash = '#/app/ueben/quiz'; }));
   // Excel-Trainer als eigene Trainer-Karte
   const xlCard = h('a', { class: 'tr-card ub-tc ub-xlc', href: '#/app/excel/trainer', onclick: fromHere },
     h('div', { class: 'tr-ico', html: XL }), h('div', { class: 'eyebrow' }, 'Excel'), h('h3', null, L('Excel-Trainer', 'Excel trainer')), h('p', null, L('Echter Excel-Nachbau, echte Tastenkürzel, echte BWL-Aufgaben – Max führt dich Schritt für Schritt.', 'A real Excel replica, real shortcuts, real business tasks – Max guides you step by step.')),

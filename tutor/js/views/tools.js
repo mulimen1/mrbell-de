@@ -80,13 +80,20 @@ async function lexikon(root) {
 // Gilt für Klausur-Simulator, Klausurplan (Klausur-Tools) und Tafel, Lernzettel, Karteikarten, Podcast, Lernpfad (Lernen)
 const DIFF = [['leicht', L('Einsteiger', 'Beginner')], ['mittel', L('Mittel', 'Medium')], ['schwer', L('Fortgeschritten', 'Advanced')], ['klausur', L('Klausurniveau', 'Exam level')]];
 const LANGS = [['de', 'Deutsch'], ['en', 'English']];
+// Jede Einstellung hat ihre eigene Farbe – sonst sieht man nicht, was wozu gehört
+const SC = { lang: ['#5aa2f7', '#1a5fc4'], diff: ['#9b7cf0', '#5b3fc4'], len: ['#f39b52', '#d9601c'], art: ['#3fc1c9', '#0e7f8e'], count: ['#f47ba0', '#c8336f'], tone: ['#ff7b7b', '#d63031'], voice: ['#7a8cf7', '#3f4fd6'], style: ['#3fc1c9', '#0e7f8e'], depth: ['#4cc38a', '#1c7a47'],
+  minutes: ['#f39b52', '#d9601c'], pass: ['#4cc38a', '#1c7a47'], weekdays: ['#3fc1c9', '#0e7f8e'], goal: ['#f47ba0', '#c8336f'], types: ['#3fc1c9', '#0e7f8e'], qmix: ['#f7c948', '#d18e06'], mix: ['#3fc1c9', '#0e7f8e'], aids: ['#7a8cf7', '#3f4fd6'], exstyle: ['#ff7b7b', '#d63031'] };
+const QT = [['mc', 'Multiple Choice'], ['tf', L('Richtig/Falsch', 'True/False')], ['match', L('Zuordnen', 'Matching')], ['order', L('Reihenfolge', 'Ordering')], ['cloze', L('Lückentext', 'Fill in')], ['num', L('Rechenaufgabe', 'Calculation')]];
 const T = {
   simulator: { area: 'tools', tab: 'quiz', target: 'quiz', icon: 'exam', c: ['#9b7cf0', '#5b3fc4'], eyebrow: L('Klausur-Simulator', 'Exam simulator'), h: [L('Probeklausur. ', 'Mock exam. '), L('Wie in echt.', 'Like the real thing.')],
     lead: L('Echte Klausur aus deinem Stoff – mit Zeitlimit, Punkten, Note und Musterlösung.', 'A real exam from your material – time limit, points, grade and model answers.'),
-    key: 'tutor.examCfg', def: { diff: 'klausur', minutes: 60, count: 12, pass: .5, silent: true, lang: getOutLang(), wish: '' }, cta: L('Klausur starten', 'Start exam'), wish: true, chapters: true },
+    key: 'tutor.examCfg', def: { diff: 'klausur', minutes: 60, count: 12, pass: .5, silent: true, lang: getOutLang(), mix: 'gemischt', aids: 'rechner', exstyle: 'uni', wish: '' }, cta: L('Klausur starten', 'Start exam'), wish: true, chapters: true },
   plan: { area: 'tools', tab: 'plan', target: 'plan', icon: 'calendar', c: ['#f39b52', '#d9601c'], eyebrow: L('Klausurplan', 'Exam plan'), h: [L('Tag für Tag ', 'Day by day '), L('bis zur Klausur.', 'to the exam.')],
     lead: L('Max verteilt deinen Stoff auf die Tage bis zur Klausur – mit Wiederholungen und Probeklausur am Ende.', 'Max spreads your material over the days until the exam – with reviews and a mock exam at the end.'),
     key: 'tutor.planPrefs', def: { exam: new Date(Date.now() + 21 * 864e5).toLocaleDateString('sv-SE'), minutes: 60, weekdays: [0, 1, 2, 3, 4], goal: null, lang: getOutLang() }, cta: L('Plan erstellen', 'Create plan') },
+  quiz: { area: 'ueben', tab: 'quiz', target: 'quiz', icon: 'quiz', c: ['#9b7cf0', '#5b3fc4'], eyebrow: 'Quiz', h: [L('Klausurfragen ', 'Exam questions '), L('mit Erklärung.', 'with explanations.')],
+    lead: L('Max stellt dir Fragen aus deinem Stoff – in sechs Formaten, jede Antwort erklärt.', 'Max quizzes you on your material – six formats, every answer explained.'),
+    key: 'tutor.pers.quiz', def: { count: 8, diff: 'mittel', types: ['mc', 'tf', 'match', 'order', 'cloze', 'num'], qmix: 'gemischt', lang: getOutLang(), wish: '' }, cta: L('Quiz starten', 'Start quiz'), wish: true, chapters: true },
   tafel: { area: 'ueben', tab: 'tutor', target: 'tutor', icon: 'board', c: ['#5aa2f7', '#1a5fc4'], eyebrow: L('An der Tafel erklären', 'Explain on the board'), h: [L('Max erklärt’s ', 'Max explains it '), L('an der Tafel.', 'on the board.')],
     lead: L('Max erklärt dir das Thema an der Tafel – Schritt für Schritt, mit Beispiel. Nachfragen jederzeit.', 'Max explains the topic on the board – step by step, with an example. Ask follow-ups any time.'),
     key: 'tutor.spec.tutor', def: { style: 'schritt', diff: 'mittel', lang: getOutLang(), topic: '', wish: '' }, cta: L('Erklärung starten', 'Start explanation'), wish: true },
@@ -113,11 +120,11 @@ function studio(root, kind) {
   let doc = null, files = null;
   const docs = S.list.filter(d => !d.sample); const list = (docs.length ? docs : S.list).slice(0, 40);
   // ---- Bausteine ----
-  const seg = (opts, k, multi) => { const w = h('div', { class: 'ks-seg' }); const on = v => multi ? st[k].includes(v) : String(st[k]) === String(v);
+  const seg = (opts, k, multi) => { const w = h('div', { class: 'ks-seg', style: SC[k] ? { '--s1': SC[k][0], '--s2': SC[k][1] } : null }); const on = v => multi ? st[k].includes(v) : String(st[k]) === String(v);
     const paint = () => w.querySelectorAll('button').forEach(b => b.classList.toggle('on', on(JSON.parse(b.dataset.v))));
     opts.forEach(([v, t]) => w.append(h('button', { type: 'button', 'data-v': JSON.stringify(v), onclick: () => { if (multi) st[k] = st[k].includes(v) ? (st[k].length > 1 ? st[k].filter(x => x !== v) : st[k]) : [...st[k], v].sort(); else st[k] = v; paint(); check(); } }, t)));
     paint(); return w; };
-  const row = (label, el, cls) => h('div', { class: 'ks-row' + (cls ? ' ' + cls : '') }, h('label', { class: 'ks-l' }, label), el);
+  const row = (label, el, cls) => h('div', { class: 'ks-row' + (cls ? ' ' + cls : ''), style: el && el.style && el.style.getPropertyValue('--s1') ? { '--rs1': el.style.getPropertyValue('--s1'), '--rs2': el.style.getPropertyValue('--s2') } : null }, h('label', { class: 'ks-l' }, label), el);
   // ---- Stoff: Drag & Drop, eigene Skripte, Thema ----
   const fin = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.ppt,.pptx,.doc,.docx,.txt,.md,image/*' });
   const dzT = h('b', {}, L('Datei hier reinziehen', 'Drop a file here')), dzS = h('small', {}, L('oder klicken – PDF, PowerPoint, Word, Foto', 'or click – PDF, PowerPoint, Word, photo'));
@@ -140,7 +147,12 @@ function studio(root, kind) {
   const date = h('input', { type: 'date', class: 'ks-in', value: st.exam, min: new Date(Date.now() + 864e5).toLocaleDateString('sv-SE'), oninput: () => { st.exam = date.value; check(); } });
   const silent = h('input', { type: 'checkbox', checked: st.silent || null, onchange: () => { st.silent = silent.checked; } });
   const own = {
-    simulator: () => [row(L('Schwierigkeit', 'Difficulty'), seg(DIFF, 'diff')), row(L('Dauer', 'Duration'), seg([[30, '30'], [45, '45'], [60, '60'], [90, '90'], [120, '120 Min.']], 'minutes')), row(L('Aufgaben', 'Tasks'), seg([[8, '8'], [12, '12'], [14, '14']], 'count')), row(L('Bestanden ab', 'Pass mark'), seg([[.4, '40 %'], [.5, '50 %'], [.6, '60 %']], 'pass')),
+    quiz: () => [row(L('Schwierigkeit', 'Difficulty'), seg(DIFF, 'diff')), row(L('Fragen', 'Questions'), seg([[5, '5'], [8, '8'], [12, '12'], [16, '16'], [20, '20']], 'count')),
+      row(L('Fragetypen', 'Question types'), seg(QT, 'types', true)), row(L('Art der Fragen', 'Question style'), seg([['gemischt', L('Gemischt', 'Mixed')], ['anwendung', L('Anwendung', 'Applied')], ['definition', L('Begriffe', 'Terms')], ['rechnen', L('Rechnen', 'Calculation')]], 'qmix'))],
+    simulator: () => [row(L('Schwierigkeit', 'Difficulty'), seg(DIFF, 'diff')),
+      row(L('Aufgabenart', 'Task type'), seg([['gemischt', L('Gemischt', 'Mixed')], ['rechnen', L('Rechenaufgaben', 'Calculations')], ['theorie', L('Theorie', 'Theory')], ['mc', 'Multiple Choice'], ['fall', L('Fallstudie', 'Case study')]], 'mix')),
+      row(L('Prüfungsstil', 'Exam style'), seg([['uni', L('Uni', 'University')], ['fh', L('FH / Hochschule', 'Applied sciences')], ['ihk', 'IHK']], 'exstyle')),
+      row(L('Hilfsmittel', 'Aids'), seg([['keine', L('Keine', 'None')], ['rechner', L('Taschenrechner', 'Calculator')], ['formel', L('+ Formelsammlung', '+ Formula sheet')]], 'aids')), row(L('Dauer', 'Duration'), seg([[30, '30'], [45, '45'], [60, '60'], [90, '90'], [120, '120 Min.']], 'minutes')), row(L('Aufgaben', 'Tasks'), seg([[8, '8'], [12, '12'], [14, '14']], 'count')), row(L('Bestanden ab', 'Pass mark'), seg([[.4, '40 %'], [.5, '50 %'], [.6, '60 %']], 'pass')),
       row('', h('label', { class: 'ks-chk' }, silent, h('span', {}, L('Klausurbedingungen: keine Hilfe, Auswertung erst am Ende', 'Exam conditions: no help, results at the end'))))],
     plan: () => [row(L('Klausurdatum', 'Exam date'), date), row(L('Pro Tag', 'Per day'), seg([[30, '30 Min.'], [60, '1 Std.'], [90, '1,5 Std.'], [120, '2 Std.'], [180, '3 Std.']], 'minutes')), row(L('Lerntage', 'Study days'), seg([[0, 'Mo'], [1, 'Di'], [2, 'Mi'], [3, 'Do'], [4, 'Fr'], [5, 'Sa'], [6, 'So']], 'weekdays', true)), row(L('Zielnote', 'Target grade'), seg([[null, L('Egal', 'Any')], [.95, '1,0'], [.85, '1,7'], [.75, '2,3'], [.65, '3,0'], [.5, L('Bestehen', 'Pass')]], 'goal'))],
     tafel: () => [row(L('Schwierigkeit', 'Difficulty'), seg(DIFF, 'diff')), row(L('Wie', 'How'), seg([['schritt', L('Schritt für Schritt', 'Step by step')], ['kurz', L('Kurzer Überblick', 'Quick overview')], ['rechnen', L('Mit Rechenaufgabe', 'With a worked task')]], 'style'))],
@@ -160,7 +172,7 @@ function studio(root, kind) {
   const saveSt = () => { const keep = Object.assign({}, st); delete keep.focus; delete keep.topic; ls.set(K.key, keep); if (kind === 'podcast') ls.set('tutor.podVoice', st.voice); };
   async function start() {
     saveSt();
-    try { sessionStorage.setItem('tutor.backTo', K.area === 'tools' ? 'tools' : 'ueben'); } catch (e) {}
+    try { sessionStorage.setItem('tutor.backTo', K.area === 'tools' && !location.hash.startsWith('#/app/ueben') ? 'tools' : 'ueben'); } catch (e) {}
     const C = await import('../create.js');
     const o = Object.assign({}, st);
     const prime = id => {
@@ -180,7 +192,8 @@ function studio(root, kind) {
     const A = await import('../app.js');
     if (files) A.startUpload(files); else A.startTopic(st.topic);
   }
-  const back = K.area === 'tools' ? toolsBack() : h('a', { class: 'kt-back kt-backl', href: '#/app/ueben' }, h('span', { html: ico('left') }), L('Zurück zu Lernen', 'Back to Learn'));
+  const inLearn = location.hash.startsWith('#/app/ueben');
+  const back = K.area === 'tools' && !inLearn ? toolsBack() : h('a', { class: 'kt-back kt-backl', href: '#/app/ueben' }, h('span', { html: ico('left') }), L('Zurück zu Lernen', 'Back to Learn'));
   const wishRow = K.wish ? row(L('Extra-Wunsch', 'Extra request'), wishIn, 'ks-full') : null;
   wrap.append(back,
     h('section', { class: 'ks-card' },
