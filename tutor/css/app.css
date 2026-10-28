@@ -6153,3 +6153,5 @@ html:root[data-nv][data-accent][data-nv] { --nv-glow: 0 6px 16px -9px rgba(20, 6
 :root[data-nv] :is(.tn-xlic svg, .rm-tci svg:not(.ico), .vt-logo, .xl-ic svg) { filter: none !important; }
 :root[data-nv] :is(.tn-new, .ub-ok) { box-shadow: none !important; }
 :root[data-nv] .rm-xlg i.hit { box-shadow: none !important; }
+/* Testdesign: Excel-Logo (oben + Karte) mit dezentem grünem Schein – nur das Logo, nicht die Karte */
+:root[data-nv] :is(.tn-xlic svg, .rm-tc.rm-tcx .rm-tci svg) { filter: drop-shadow(0 0 4px rgba(31, 191, 106, .6)) drop-shadow(0 1px 7px rgba(29, 111, 66, .32)) !important; }
