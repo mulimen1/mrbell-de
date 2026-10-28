@@ -99,3 +99,23 @@ if (H.dataset.nv) {
   addEventListener('resize', align, { passive: true });
   setInterval(align, 700);
 }
+
+// Lesbarkeit: Text, der direkt auf dem Punkte-Hintergrund steht (keine Karte dahinter), bekommt einen weichen Hof in
+// Hintergrundfarbe – die Punkte verschwinden hinter den Buchstaben. Gilt automatisch für jede Seite der App.
+if (H.dataset.nv) {
+  const TXT = 'p, h1, h2, h3, h4, .eyebrow, small, li, label, span.lead, .vh > div > div';
+  const opaque = el => { const c = getComputedStyle(el); return (c.backgroundColor !== 'rgba(0, 0, 0, 0)' && c.backgroundColor !== 'transparent') || c.backgroundImage !== 'none'; };
+  const scan = () => {
+    const main = document.querySelector('.app > .main'); if (!main) return;
+    main.querySelectorAll(TXT).forEach(el => {
+      if (el.classList.contains('on-dots') || el.dataset.dk === '1' || !el.textContent.trim() || !el.getClientRects().length) return;
+      let e = el, dots = false;
+      while (e && e !== main) { if (e !== el && opaque(e)) break; if (e === el && opaque(e)) break; e = e.parentElement; }
+      dots = e === main;
+      if (dots) el.classList.add('on-dots'); else el.dataset.dk = '1';
+    });
+  };
+  let t = 0; const later = () => { clearTimeout(t); t = setTimeout(scan, 250); };
+  new MutationObserver(later).observe(document.documentElement, { childList: true, subtree: true });
+  addEventListener('hashchange', later); later();
+}

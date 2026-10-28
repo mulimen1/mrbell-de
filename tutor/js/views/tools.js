@@ -1,7 +1,7 @@
 // Klausur-Tools: Übersicht über alle Werkzeuge für die Klausur. Excel-Helfer groß oben, darunter Klausurplan,
 // Klausur-Simulator, Rechner und BWL-Lexikon als Karten.
 import { h, ico, ls } from '../util.js';
-import { L } from '../i18n.js';
+import { L, getOutLang } from '../i18n.js';
 import { S } from '../state.js';
 const fromTools = () => { try { sessionStorage.setItem('tutor.backTo', 'tools'); } catch (e) {} };
 export const toolsBack = () => h('a', { class: 'kt-back', href: '#/app/tools' }, h('span', { html: ico('left') }), L('Zurück zu Klausur-Tools', 'Back to exam tools'));
@@ -55,14 +55,53 @@ function docPick(root, sub) {
   const wrap = h('div', { class: 'view-in kt kt-sub' }); root.appendChild(wrap);
   const docs = S.list.filter(d => !d.sample);
   const list = (docs.length ? docs : S.list).slice(0, 30);
-  const upload = h('label', { class: 'kt-doc kt-up', for: 'fileApp', onclick: () => ls.set('tutor.target', K.target) },
-    h('span', { class: 'kt-di', html: ico('upload') }), h('span', {}, h('b', {}, L('Skript hochladen', 'Upload slides')), h('small', {}, L('PDF, PowerPoint, Word oder Foto – danach geht’s direkt los', 'PDF, PowerPoint, Word or photo – then it starts right away'))));
+  // Einstellungen (gemerkt pro Gerät)
+  const isSim = sub === 'simulator';
+  const today = new Date(); const iso = d => d.toLocaleDateString('sv-SE');
+  const st = Object.assign(isSim ? { minutes: 60, count: 12, pass: .5, silent: true, diff: 'klausur', lang: getOutLang(), focus: -1 } : { exam: iso(new Date(Date.now() + 21 * 864e5)), minutes: 60, weekdays: [0, 1, 2, 3, 4], goal: null },
+    ls.get(isSim ? 'tutor.examCfg' : 'tutor.planPrefs', {}) || {}, isSim ? { focus: -1 } : {});
+  let doc = null;
+  const seg = (opts, key, multi) => { const w = h('div', { class: 'kt-seg' }); const paint = () => w.querySelectorAll('button').forEach(b => { const v = JSON.parse(b.dataset.v); b.classList.toggle('on', multi ? st[key].includes(v) : st[key] === v); });
+    opts.forEach(([v, t]) => w.append(h('button', { type: 'button', 'data-v': JSON.stringify(v), onclick: () => { if (multi) { st[key] = st[key].includes(v) ? st[key].filter(x => x !== v) : [...st[key], v].sort(); } else st[key] = v; paint(); check(); } }, t))); paint(); return w; };
+  const row = (label, el, hint) => h('div', { class: 'kt-opt' }, h('div', { class: 'kt-ol' }, h('b', {}, label), hint ? h('small', {}, hint) : null), el);
+  const focusSel = h('select', { class: 'kt-sel', onchange: () => { st.focus = +focusSel.value; } });
+  const drawFocus = () => { const chs = (doc && doc.path && doc.path.chapters) || []; focusSel.replaceChildren(h('option', { value: -1 }, L('Ganzes Skript', 'Whole script')), ...chs.map((c, i) => h('option', { value: i }, c.title || L('Kapitel ', 'Chapter ') + (i + 1)))); focusSel.disabled = !chs.length; };
+  const silent = h('input', { type: 'checkbox', checked: st.silent || null, onchange: () => { st.silent = silent.checked; } });
+  const date = h('input', { type: 'date', class: 'kt-sel', value: st.exam, min: iso(new Date(Date.now() + 864e5)), oninput: () => { st.exam = date.value; check(); } });
+  const opts = isSim ? [
+    row(L('Schwierigkeit', 'Difficulty'), seg([['leicht', L('Leicht', 'Easy')], ['mittel', L('Mittel', 'Medium')], ['schwer', L('Schwer', 'Hard')], ['klausur', L('Klausurniveau', 'Exam level')]], 'diff')),
+    row(L('Dauer', 'Duration'), seg([[30, '30 Min.'], [45, '45 Min.'], [60, '60 Min.'], [90, '90 Min.'], [120, '120 Min.']], 'minutes')),
+    row(L('Aufgaben', 'Tasks'), seg([[8, '8'], [12, '12'], [14, '14']], 'count')),
+    row(L('Bestanden ab', 'Pass mark'), seg([[.4, '40 %'], [.45, '45 %'], [.5, '50 %'], [.6, '60 %']], 'pass')),
+    row(L('Sprache der Klausur', 'Exam language'), seg([['de', 'Deutsch'], ['en', 'English']], 'lang')),
+    row(L('Schwerpunkt', 'Focus'), focusSel, L('Erst nach Skript-Auswahl', 'After choosing slides')),
+    h('label', { class: 'kt-chk' }, silent, h('span', {}, L('Klausurbedingungen: keine Hilfe, Auswertung erst am Ende', 'Exam conditions: no help, results only at the end')))
+  ] : [
+    row(L('Klausurdatum', 'Exam date'), date),
+    row(L('Lernzeit pro Tag', 'Study time per day'), seg([[30, '30 Min.'], [60, '1 Std.'], [90, '1,5 Std.'], [120, '2 Std.'], [180, '3 Std.']], 'minutes')),
+    row(L('Lerntage', 'Study days'), seg([[0, 'Mo'], [1, 'Di'], [2, 'Mi'], [3, 'Do'], [4, 'Fr'], [5, 'Sa'], [6, 'So']], 'weekdays', true)),
+    row(L('Zielnote', 'Target grade'), seg([[null, L('Egal', 'Any')], [.95, '1,0'], [.85, '1,7'], [.75, '2,3'], [.65, '3,0'], [.5, L('Bestehen', 'Pass')]], 'goal'))
+  ];
+  const go = h('button', { class: 'kt-start', type: 'button', disabled: true, onclick: () => start() }, h('span', { html: ico(K.icon) }), K.cta);
+  const hint = h('small', { class: 'kt-hint' });
+  const check = () => { const ok = !!doc && (isSim || (st.exam && st.weekdays.length)); go.disabled = !ok; hint.textContent = !doc ? L('Wähl zuerst ein Skript oder lad eins hoch.', 'Choose or upload slides first.') : (!isSim && !st.weekdays.length) ? L('Mindestens ein Lerntag.', 'At least one study day.') : L('Alles bereit.', 'All set.'); };
+  const saveSt = () => { if (isSim) ls.set('tutor.examCfg', { minutes: st.minutes, count: st.count, pass: st.pass, silent: st.silent, diff: st.diff, lang: st.lang, focus: st.focus }); else ls.set('tutor.planPrefs', { exam: st.exam, minutes: st.minutes, weekdays: st.weekdays, goal: st.goal }); };
+  const prime = () => { saveSt(); if (isSim) ls.set('tutor.examGo', Date.now()); else try { sessionStorage.setItem('tutor.planPre', JSON.stringify({ at: Date.now(), o: { exam: st.exam, weekdays: st.weekdays, minutes: st.minutes, goal: st.goal } })); } catch (e) {} };
+  const start = () => { if (!doc) return; prime(); location.hash = K.go(doc); };
+  const docEls = list.map(d => h('button', { class: 'kt-doc', type: 'button', onclick: e => { doc = d; docBox.querySelectorAll('.kt-doc').forEach(x => x.classList.toggle('on', x === e.currentTarget)); if (isSim) { st.focus = -1; drawFocus(); } check(); } },
+    h('span', { class: 'kt-di', html: ico('file') }), h('span', {}, h('b', {}, d.name || L('Skript', 'Slides')), h('small', {}, d.path && d.path.chapters ? d.path.chapters.length + L(' Kapitel', ' chapters') : L('Skript', 'Slides'))), h('span', { class: 'kt-dok', html: ico('check') })));
+  const upload = h('label', { class: 'kt-doc kt-up', for: 'fileApp', onclick: () => { prime(); ls.set('tutor.target', K.target); } },
+    h('span', { class: 'kt-di', html: ico('upload') }), h('span', {}, h('b', {}, L('Neues Skript hochladen', 'Upload new slides')), h('small', {}, L('PDF, PowerPoint, Word oder Foto – mit deinen Einstellungen geht’s direkt los', 'PDF, PowerPoint, Word or photo – starts right away with your settings'))));
+  const docBox = h('div', { class: 'kt-docs' }, ...docEls, upload);
   wrap.append(toolsBack(),
     h('div', { class: 'kt-subhead kt-' + K.tone }, h('span', { class: 'kt-ci', html: ico(K.icon) }), h('div', {}, h('div', { class: 'eyebrow' }, K.eyebrow), h('h1', {}, K.h[0], h('span', {}, K.h[1])))),
     h('p', { class: 'kt-lead' }, K.lead),
-    h('div', { class: 'kt-facts' }, K.facts.map(([i, t]) => h('span', { class: 'kt-fact' }, h('span', { html: ico(i) }), t))),
-    h('h2', { class: 'kt-h2' }, list.length ? L('Für welches Skript?', 'Which slides?') : L('Zuerst dein Skript', 'Your slides first')),
-    h('div', { class: 'kt-docs' }, ...list.map(d => h('a', { class: 'kt-doc', href: K.go(d) }, h('span', { class: 'kt-di', html: ico('file') }), h('span', {}, h('b', {}, d.name || L('Skript', 'Slides')), h('small', {}, K.cta)), h('span', { class: 'kt-dg', html: ico('right') }))), upload));
+    h('div', { class: 'kt-steps' },
+      h('section', { class: 'kt-step' }, h('div', { class: 'kt-sn' }, '1'), h('div', { class: 'kt-sb' }, h('h2', { class: 'kt-h2' }, L('Skript wählen', 'Choose slides')), docBox)),
+      h('section', { class: 'kt-step' }, h('div', { class: 'kt-sn' }, '2'), h('div', { class: 'kt-sb' }, h('h2', { class: 'kt-h2' }, L('Einstellungen', 'Settings')), h('div', { class: 'kt-opts' }, ...opts))),
+      h('section', { class: 'kt-step kt-go3' }, h('div', { class: 'kt-sn' }, '3'), h('div', { class: 'kt-sb' }, go, hint))));
+  if (isSim) drawFocus();
+  check();
 }
 
 // ---------- BWL-Lexikon: eigene Seite mit Suche, Fachgebieten und A–Z ----------

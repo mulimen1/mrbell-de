@@ -111,6 +111,8 @@ async function generate(wrap, ctx, st) {
 // Klausur-Simulator: Dauer, Umfang, Bestehensgrenze und echte Klausurbedingungen einstellen
 async function examSetup() {
   const pre = lsq.get('tutor.examCfg', null) || { minutes: 60, count: 12, pass: .5, silent: true };
+  // Von der Klausur-Simulator-Seite: Einstellungen schon gewählt → direkt los
+  { const g = lsq.get('tutor.examGo', 0); if (g && Date.now() - g < 30 * 60e3) { lsq.set('tutor.examGo', 0); return Object.assign({ minutes: 60, count: 12, pass: .5, silent: true }, pre); } }
   const st = Object.assign({}, pre);
   const seg = (opts, key) => { const w = h('div', { class: 'ik-seg' }); const paint = () => w.querySelectorAll('button').forEach(b => b.classList.toggle('on', String(st[key]) === b.dataset.v)); opts.forEach(([v, t]) => w.append(h('button', { type: 'button', 'data-v': String(v), onclick: () => { st[key] = v; paint(); } }, t))); paint(); return w; };
   const silent = h('input', { type: 'checkbox', checked: st.silent || null });
@@ -131,7 +133,8 @@ async function exam(wrap, ctx) {
   const cfg = await examSetup(); if (!cfg) return;
   const ld = loading(wrap, L('Ich stelle deine Probeklausur zusammen …', 'Putting your mock exam together …'), L(['Wähle die wichtigsten Themen', 'Schreibe Rechenaufgaben', 'Baue Transferfragen', 'Prüfe alle Lösungen', 'Gleich geschafft'], ['Picking the key topics', 'Writing calculations', 'Building transfer questions', 'Checking all solutions', 'Almost done']), 'exam');
   try {
-    const r = await ask('exam', { material: forWhole(doc), docName: doc.name, opts: { count: cfg.count, difficulty: 'klausur' } }, { signal: ld.signal });
+    const fch = cfg.focus >= 0 && doc.path?.chapters?.[cfg.focus];
+    const r = await ask('exam', Object.assign({ material: fch ? forChapter(doc, fch) : forWhole(doc), docName: doc.name, opts: { count: cfg.count, difficulty: cfg.diff || 'klausur' } }, cfg.lang ? { lang: cfg.lang } : {}), { signal: ld.signal });
     const qs = (r.data?.questions || []).map(normalize).filter(Boolean);
     if (qs.length < 4) throw new Error(L('Die Probeklausur ist nicht vollständig angekommen. Versuch es nochmal.', 'The mock exam didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: L('Probeklausur · ', 'Mock exam · ') + new Date().toLocaleDateString(LOCALE), questions: qs, diff: 'Klausur', exam: true, minutes: cfg.minutes, pass: cfg.pass, silent: cfg.silent, created: Date.now(), results: [] };
