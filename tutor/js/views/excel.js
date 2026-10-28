@@ -47,7 +47,7 @@ function gallery(body) {
   let cat = '', q = '', first = true;
   const grid = h('div', { class: 'xl-grid' });
   const n = k => TEMPLATES.filter(t => !k || t.cat === k).length;
-  const chips = h('div', { class: 'xl-cats' }, [['', L('Alle', 'All')], ...CATS.filter(([k]) => n(k))].map(([k, t]) => h('button', { type: 'button', class: 'chip' + (k === cat ? ' on' : ''), onclick: e => { cat = k; chips.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === e.currentTarget)); draw(); } }, t, h('small', { class: 'xl-cn' }, String(n(k))))));
+  const chips = h('div', { class: 'xl-cats' }, [['', L('Alle', 'All')], ...CATS.filter(([k]) => n(k))].map(([k, t]) => h('button', { type: 'button', 'data-cat': k || 'alle', class: 'chip' + (k === cat ? ' on' : ''), onclick: e => { cat = k; chips.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === e.currentTarget)); draw(); } }, t, h('small', { class: 'xl-cn' }, String(n(k))))));
   const norm = x => String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const search = h('input', { class: 'xl-search', type: 'search', placeholder: L('Vorlage suchen – z. B. Kapitalwert, BAB, Skonto …', 'Search templates – e.g. NPV, cost centre …'), 'aria-label': L('Vorlage suchen', 'Search templates'), oninput: () => { q = norm(search.value.trim()); draw(); } });
   const empty = h('p', { class: 'xl-empty', hidden: true }, L('Keine Vorlage gefunden – beschreib die Aufgabe einfach dem Generator.', 'No template found – just describe the task to the generator.'));
@@ -56,7 +56,7 @@ function gallery(body) {
     empty.hidden = !!list.length;
     // Vorschaubilder erst nach Max' Flug und in kleinen Häppchen rechnen – sonst ruckelt der Wechsel aus dem Tutor
     const slots = [];
-    grid.replaceChildren(...list.map((t, i) => h('a', { class: 'xl-card', href: '#/app/excel/' + t.id, style: { '--d': (Math.min(i, 12) * 40) + 'ms' } },
+    grid.replaceChildren(...list.map((t, i) => h('a', { class: 'xl-card', 'data-cat': t.cat, href: '#/app/excel/' + t.id, style: { '--d': (Math.min(i, 12) * 40) + 'ms' } },
       (() => { const ph = h('div', { class: 'xl-thumb xl-thph' }); slots.push([ph, t]); return ph; })(), h('div', { class: 'xl-cmeta' }, h('span', { class: 'xl-ccat' }, (CATS.find(c => c[0] === t.cat) || [, ''])[1]), h('b', {}, t.title), h('p', {}, t.desc),
         h('span', { class: 'xl-cgo' }, icoXL(), L('Öffnen & ausfüllen', 'Open & fill in'), h('span', { html: ico('right') }))))));
     // Vorschaubild erst, wenn die Karte gleich ins Bild kommt – einzeln, nie während eines Scroll-Frames, und nur einmal gebaut

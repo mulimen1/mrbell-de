@@ -6810,3 +6810,41 @@ html:root[data-nv][data-ben] body .side .side-tools .doc-item:not(.side-hero) > 
 html:root[data-nv][data-ben] body .side .side-set .doc-item > span:first-child, html:root[data-nv][data-ben] body .side .side-set .side-lang > span:first-child { width: 34px; height: 34px; border-radius: 10px; display: inline-grid; place-items: center; color: #fff !important; flex: none; background: linear-gradient(135deg, #f39b52, #d9601c); }
 html:root[data-nv][data-ben] body .side .side-set .side-lang > span:first-child { background: linear-gradient(135deg, #f47ba0, #c8336f); }
 html:root[data-nv][data-ben] body .side .side-set :is(.doc-item, .side-lang) > span:first-child .ico { color: #fff !important; width: 18px; height: 18px; }
+/* Startseite: Funktions-Icons in denselben satten Farben wie in der App */
+html:root[data-nv] #featrow .feat { --fc1: #5aa2f7; --fc2: #1a5fc4; }
+html:root[data-nv] #featrow .feat[data-k="tutor"] { --fc1: #5aa2f7; --fc2: #1a5fc4; }
+html:root[data-nv] #featrow .feat[data-k="mitschrift"] { --fc1: #7a8cf7; --fc2: #3f4fd6; }
+html:root[data-nv] #featrow .feat[data-k="plan"] { --fc1: #f39b52; --fc2: #d9601c; }
+html:root[data-nv] #featrow .feat[data-k="quiz"] { --fc1: #9b7cf0; --fc2: #5b3fc4; }
+html:root[data-nv] #featrow .feat[data-k="trainer"] { --fc1: #3fc1c9; --fc2: #0e7f8e; }
+html:root[data-nv] #featrow .feat[data-k="challenge"] { --fc1: #f7c948; --fc2: #d18e06; }
+html:root[data-nv] #featrow .feat[data-k="zettel"] { --fc1: #f47ba0; --fc2: #c8336f; }
+html:root[data-nv] #featrow .feat[data-k="voice"] { --fc1: #ff7b7b; --fc2: #d63031; }
+html:root[data-nv] #featrow .feat[data-k="karten"] { --fc1: #3fc1c9; --fc2: #0e7f8e; }
+html:root[data-nv] #featrow .feat[data-k="pfad"] { --fc1: #7a8cf7; --fc2: #3f4fd6; }
+html:root[data-nv] #featrow .feat[data-k="podcast"] { --fc1: #f47ba0; --fc2: #c8336f; }
+html:root[data-nv][data-nv] body #featrow .featrest .feat > span:first-child, html:root[data-nv][data-nv] body #featrow .feattop .feat:not([data-k="video"]):not([data-k="excel"]) > .fi { width: 38px !important; height: 38px !important; border-radius: 12px !important; display: inline-grid !important; place-items: center; background: linear-gradient(135deg, var(--fc1), var(--fc2)) !important; color: #fff !important; box-shadow: 0 8px 16px -10px var(--fc2) !important; flex: none; }
+html:root[data-nv][data-nv] body #featrow .featrest .feat > span:first-child .ico, html:root[data-nv][data-nv] body #featrow .featrest .feat > span:first-child svg, html:root[data-nv][data-nv] body #featrow .feattop .feat > .fi .ico { width: 20px !important; height: 20px !important; color: #fff !important; }
+html:root[data-nv][data-nv] body #featrow .featrest .feat { padding: 6px 18px 6px 7px !important; }
+/* Excel-Vorlagen: jede Kategorie mit eigener Farbe (Kategorie-Pille, Leiste oben, Chip), Excel-Grün bleibt beim Öffnen */
+html:root[data-nv] :is(.xl-card, .xl-cats .chip)[data-cat="invest"] { --xc1: #5aa2f7; --xc2: #1a5fc4; }
+html:root[data-nv] :is(.xl-card, .xl-cats .chip)[data-cat="finanz"] { --xc1: #9b7cf0; --xc2: #5b3fc4; }
+html:root[data-nv] :is(.xl-card, .xl-cats .chip)[data-cat="kosten"] { --xc1: #f39b52; --xc2: #d9601c; }
+html:root[data-nv] :is(.xl-card, .xl-cats .chip)[data-cat="controlling"] { --xc1: #3fc1c9; --xc2: #0e7f8e; }
+html:root[data-nv] :is(.xl-card, .xl-cats .chip)[data-cat="rewe"] { --xc1: #f47ba0; --xc2: #c8336f; }
+html:root[data-nv] :is(.xl-card, .xl-cats .chip)[data-cat="logistik"] { --xc1: #f7c948; --xc2: #d18e06; }
+html:root[data-nv] :is(.xl-card, .xl-cats .chip)[data-cat="marketing"] { --xc1: #ff7b7b; --xc2: #d63031; }
+html:root[data-nv] .xl-cats .chip[data-cat="alle"] { --xc1: #2b8a57; --xc2: #1D6F42; }
+html:root[data-nv] .xl-card[data-cat] { position: relative; border-radius: 20px !important; }
+html:root[data-nv] .xl-card[data-cat]::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, var(--xc1), var(--xc2)); z-index: 1; }
+html:root[data-nv] .xl-card[data-cat] .xl-ccat { display: inline-block; color: var(--xc2) !important; background: color-mix(in srgb, var(--xc1) 14%, #fff); padding: 3px 9px; border-radius: 999px; letter-spacing: .06em; }
+html:root[data-nv] .xl-card[data-cat]:hover { border-color: var(--xc2) !important; box-shadow: 0 18px 40px -22px color-mix(in srgb, var(--xc2) 60%, transparent) !important; }
+html:root[data-nv] .xl-card[data-cat] .xl-thumb i.k-in { background: var(--xc2) !important; opacity: .5; }
+html:root[data-nv] .xl-cats .chip[data-cat] { background: #fff !important; border: 1px solid rgba(0,0,0,.08) !important; color: #222 !important; padding-left: 8px !important; }
+html:root[data-nv] .xl-cats .chip[data-cat]::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--xc1), var(--xc2)); margin-right: 7px; flex: none; }
+html:root[data-nv] .xl-cats .chip[data-cat].on { background: linear-gradient(135deg, var(--xc1), var(--xc2)) !important; color: #fff !important; border-color: transparent !important; }
+html:root[data-nv] .xl-cats .chip[data-cat].on::before { background: #fff; }
+html:root[data-nv] .xl-cats .chip[data-cat].on .xl-cn { color: rgba(255,255,255,.85) !important; }
+:root[data-theme="dark"] .xl-card[data-cat] .xl-ccat { background: color-mix(in srgb, var(--xc1) 18%, #15161a); color: var(--xc1) !important; }
+:root[data-theme="dark"] .xl-cats .chip[data-cat]:not(.on) { background: #16171b !important; color: #e6e6e9 !important; }
+html:root[data-nv] .xl-card[data-cat] .xl-ccat { width: fit-content; justify-self: start; align-self: flex-start; }
