@@ -7533,3 +7533,36 @@ html:root body .ub-ltc .ub-lti .ico { color: #fff !important; }
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-ltc:hover { background: linear-gradient(135deg, var(--hf1), var(--hf2)) !important; border-color: transparent !important; box-shadow: 0 16px 34px -16px var(--hf2) !important; }
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-ltc:hover :is(b, small) { color: #fff !important; }
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-ltc:hover .ub-lti { background: rgba(255,255,255,.22) !important; box-shadow: none !important; }
+/* Führung neu: Max groß links, Sprechblase daneben, Rest dunkel, Stelle hell */
+html.gt-on .gt-spot { box-shadow: 0 0 0 200vmax rgba(12, 9, 26, .64) !important; }
+.gt-max { position: fixed; z-index: 140; left: 22px; bottom: 22px; display: flex; align-items: flex-end; gap: 14px; pointer-events: none; opacity: 0; transform: translateY(24px) scale(.96); transition: opacity .35s ease, transform .45s cubic-bezier(.22,1,.36,1), left .5s cubic-bezier(.22,1,.36,1); max-width: calc(100vw - 44px); }
+.gt-max.in { opacity: 1; transform: none; }
+.gt-max.right { left: auto; right: 22px; flex-direction: row-reverse; }
+.gt-face { width: 170px; height: 180px; flex: none; filter: drop-shadow(0 18px 30px rgba(0,0,0,.45)); }
+.gt-bub { pointer-events: auto; position: relative; width: min(440px, calc(100vw - 230px)); margin-bottom: 70px; padding: 16px 18px 12px; border-radius: 24px 24px 24px 8px; background: linear-gradient(135deg, #2b1a66 0%, #4b2bb3 55%, #7a4fe6 100%); color: #fff; box-shadow: 0 30px 70px -24px rgba(75,43,179,.9), 0 0 0 1px rgba(255,255,255,.14) inset; }
+.gt-max.right .gt-bub { border-radius: 24px 24px 8px 24px; }
+.gt-bub::before { content: ""; position: absolute; left: -9px; bottom: 16px; width: 18px; height: 18px; background: #3a2190; transform: rotate(45deg); border-radius: 3px; }
+.gt-max.right .gt-bub::before { left: auto; right: -9px; background: #6a44d8; }
+.gt-bub.pop { animation: gtpop .36s cubic-bezier(.3,1.4,.5,1) both; }
+@keyframes gtpop { from { opacity: .4; transform: scale(.94) translateY(6px); } }
+.gt-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.gt-top b { font: 800 13px var(--sans); letter-spacing: .02em; padding: 3px 10px; border-radius: 999px; background: #fff; color: #4b2bb3; }
+.gt-n { font: 600 12px var(--mono); color: rgba(255,255,255,.7); }
+.gt-txt { margin: 0; min-height: 4.5em; font: 600 17px/1.5 var(--sans); text-wrap: pretty; }
+.gt-bar { height: 3px; border-radius: 3px; background: rgba(255,255,255,.18); margin: 10px 0 10px; overflow: hidden; }
+.gt-bar i { display: block; height: 100%; background: linear-gradient(90deg, #f47ba0, #fff); transform-origin: 0 50%; transform: scaleX(0); }
+.gt-ctl { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.gt-b { all: unset; box-sizing: border-box; cursor: pointer; height: 36px; min-width: 36px; padding: 0 12px; border-radius: 999px; display: inline-grid; place-items: center; font: 700 14px var(--sans); color: #fff; background: rgba(255,255,255,.14); transition: background .15s, transform .15s; }
+.gt-b:hover { background: rgba(255,255,255,.26); } .gt-b:disabled { opacity: .35; cursor: default; }
+.gt-b.gt-next { background: #fff; color: #4b2bb3; padding: 0 18px; }
+.gt-b.gt-next:hover { transform: translateX(2px); background: #fff; }
+.gt-b.gt-end { margin-left: auto; background: transparent; color: rgba(255,255,255,.75); font-weight: 600; }
+.gt-b.gt-end:hover { color: #fff; background: rgba(255,255,255,.12); }
+.gt-max.paused .gt-bar i { opacity: .4; }
+html.gt-on :is(.asst-bub, .asst-quip, .asst-tip, .asst-back, .hn) { visibility: hidden !important; }
+@media (max-width: 700px) {
+  .gt-max { left: 10px; right: 10px; bottom: 10px; flex-direction: column; align-items: flex-start; gap: 0; }
+  .gt-max.right { right: 10px; flex-direction: column; }
+  .gt-face { width: 92px; height: 98px; margin-left: 6px; }
+  .gt-bub { width: 100%; margin: -8px 0 0; border-radius: 22px; } .gt-bub::before { display: none; }
+  .gt-txt { font-size: 15.5px; min-height: 3em; } }

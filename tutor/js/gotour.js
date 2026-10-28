@@ -43,32 +43,9 @@ export function goSplash() {
 const pick = (...sels) => { for (const s of sels) { const e = document.querySelector(s); if (e && e.getClientRects().length) return e; } return null; };
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
-// Scheinwerfer: alles andere wird leicht abgedunkelt, die gezeigte Stelle bekommt einen wandernden Farbring
-function spotlight() {
-  const sp = h('div', { class: 'gt-spot', 'aria-hidden': 'true' });
-  document.body.appendChild(sp);
-  let raf = 0, on = true, last = '';
-  const loop = () => {
-    if (!on) return;
-    const el = document.querySelector('.mx-hl');
-    if (el && el.getClientRects().length) {
-      const r = el.getBoundingClientRect(), pad = 10;
-      const rad = Math.min(30, Math.max(14, (parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0) + pad));
-      const k = [r.left - pad, r.top - pad, r.width + 2 * pad, r.height + 2 * pad, rad].map(Math.round).join(',');
-      if (k !== last) { last = k; const [x, y, w, hh, rr] = k.split(',').map(Number); Object.assign(sp.style, { transform: `translate(${x}px, ${y}px)`, width: w + 'px', height: hh + 'px', borderRadius: rr + 'px' }); }
-      sp.classList.add('on');
-    } else sp.classList.remove('on');
-    raf = requestAnimationFrame(loop);
-  };
-  raf = requestAnimationFrame(loop);
-  return () => { on = false; cancelAnimationFrame(raf); sp.classList.remove('on'); sp.classList.add('out'); setTimeout(() => sp.remove(), 400); };
-}
-
 export async function goTour() {
-  const { tour, tourActive } = await import('./cursor.js');
-  if (tourActive()) return;
-  const H = document.documentElement;
-  H.classList.add('bm-gotour');
+  if (live) return;
+  try { const c = await import('./cursor.js'); c.stopTour(); } catch (e) {}
   const S = [
     { at: '#/app/tutor', sel: ['.topnav'], say: L('BWL Max hat vier Bereiche: Tutor, Fächer & Bibliothek, Lernen und Klausur-Tools. Ich zeig dir alle. Zwei Minuten – normalerweise kostet meine Zeit mehr.', 'BWL Max has four areas: tutor, subjects & library, learn and exam tools. I’ll show you all of them. Two minutes – my time is usually more expensive.') },
     { at: '#/app/tutor', sel: ['.ai-isl'], say: L('Hier fragst du mich alles zu BWL – tippen oder einfach reinsprechen. Ich erkläre es dir an der Tafel, mit Rechenweg und Beispiel.', 'Ask me anything about business here – type or just talk. I explain it on the whiteboard, with workings and an example.') },
@@ -88,19 +65,108 @@ export async function goTour() {
     { at: '#/app/tools', sel: ['.kt-grid', '.kt-card'], say: L('Dazu Klausurplan, Simulator, Rechner und Lexikon. Ich plane bis zur Prüfung und frag dich vorher ab wie der Prof. Nur charmanter.', 'Plus exam plan, simulator, calculators and glossary. I plan until the exam and quiz you like the professor. Just more charming.') },
     { at: '#/app/tutor', sel: ['.ai-isl'], say: L('Das war’s. Jetzt du: frag mich irgendwas zu BWL. Mit kostenlosem Konto merk ich mir alles – sonst vergess ich dich. Wäre schade. Für dich.', 'That’s it. Your turn: ask me anything about business. With a free account I remember everything – otherwise I forget you. Would be a shame. For you.') },
   ];
-  const offSpot = spotlight();
-  return tour(S, {
-    keepOnNav: true,
-    onStep: async s => {
-      if (location.hash.split('?')[0] !== s.at) { location.hash = s.at; await wait(1200); }
-      s.el = pick(...s.sel);
-      [450, 1000].forEach(t => setTimeout(() => dispatchEvent(new Event('resize')), t));   // Elemente, die noch reinfahren: Blase neu ausrichten
-      if (s.el) { const r = s.el.getBoundingClientRect(); if (r.top < 70 || r.bottom > innerHeight - 140) { s.el.scrollIntoView({ block: 'center', behavior: 'smooth' }); await wait(500); } }
-    },
-    onEnd: () => {
-      offSpot();
-      H.classList.remove('bm-gotour');
-      if (!/^#\/app\/tutor/.test(location.hash)) location.hash = '#/app/tutor';
-    },
-  });
+  return runTour(S);
+}
+
+// ---------- Max groß links, Sprechblasen, Rest dunkel, gezeigte Stelle hell ----------
+let live = null;
+function runTour(S) {
+  if (live) live.end(true);
+  const H = document.documentElement;
+  const sp = h('div', { class: 'gt-spot', 'aria-hidden': 'true' });
+  const fEl = h('div', { class: 'gt-face' });
+  const txt = h('p', { class: 'gt-txt' }), num = h('span', { class: 'gt-n' });
+  const bar = h('div', { class: 'gt-bar' }, h('i', {}));
+  const B = (cls, label, fn, title) => h('button', { class: 'gt-b ' + cls, type: 'button', title: title || label, 'aria-label': title || label, onclick: fn }, label);
+  const SPEEDS = [1, 1.5, 2];
+  let speed = +(ss('bm.tourSpeed') || 1); if (!SPEEDS.includes(speed)) speed = 1;
+  const bBack = B('gt-back', '‹', () => go(i - 1), L('Zurück', 'Back'));
+  const bPlay = B('gt-pp', '', () => (paused ? resume() : pause()), L('Pause / Weiter', 'Pause / play'));
+  const bNext = B('gt-next', L('Weiter', 'Next'), () => go(i + 1));
+  const bSpd = B('gt-spd', speed + '×', () => { speed = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length]; ss('bm.tourSpeed', String(speed)); bSpd.textContent = speed + '×'; if (!paused && done) schedule(); }, L('Tempo', 'Speed'));
+  const bEnd = B('gt-end', L('Beenden', 'End'), () => end());
+  const bub = h('div', { class: 'gt-bub', role: 'status', 'aria-live': 'polite' }, h('div', { class: 'gt-top' }, h('b', {}, 'Max'), num), txt, bar, h('div', { class: 'gt-ctl' }, bBack, bPlay, bNext, bSpd, bEnd));
+  const box = h('div', { class: 'gt-max' }, fEl, bub);
+  document.body.append(sp, box);
+  H.classList.add('bm-gotour', 'gt-on');
+  const fc = face(fEl, { follow: false });
+  requestAnimationFrame(() => box.classList.add('in'));
+  let i = -1, paused = false, dead = false, hold = 0, typing = 0, done = false, el = null, raf = 0, t0 = 0, dur = 1;
+
+  const loop = () => {
+    if (dead) return;
+    if (el && el.isConnected && el.getClientRects().length) {
+      const r = el.getBoundingClientRect(), pad = 10;
+      const rad = Math.min(30, Math.max(14, (parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0) + pad));
+      Object.assign(sp.style, { transform: `translate(${Math.round(r.left - pad)}px, ${Math.round(r.top - pad)}px)`, width: Math.round(r.width + 2 * pad) + 'px', height: Math.round(r.height + 2 * pad) + 'px', borderRadius: Math.round(rad) + 'px' });
+      sp.classList.add('on');
+      // Max weicht aus: liegt die Stelle unten links, wandert er nach rechts
+      const M = box.getBoundingClientRect(), mw = M.width, mh = M.height, H0 = innerHeight;
+      const ov = (l, rr) => Math.max(0, Math.min(r.right, rr) - Math.max(r.left, l)) * Math.max(0, Math.min(r.bottom, H0 - 22) - Math.max(r.top, H0 - 22 - mh));
+      const oL = ov(22, 22 + mw), oR = ov(innerWidth - 22 - mw, innerWidth - 22);
+      if (oL > oR * 1.15) box.classList.add('right'); else if (oR > oL * 1.15) box.classList.remove('right');
+    } else { Object.assign(sp.style, { transform: `translate(${innerWidth / 2}px, ${innerHeight / 2}px)`, width: '0px', height: '0px' }); sp.classList.add('on'); }   // beim Wechsel bleibt alles dunkel
+    if (done && !paused) bar.firstChild.style.transform = `scaleX(${Math.min(1, (performance.now() - t0) / dur)})`;
+    raf = requestAnimationFrame(loop);
+  };
+  raf = requestAnimationFrame(loop);
+
+  const drawCtl = () => { bPlay.textContent = paused ? '▶' : '❚❚'; box.classList.toggle('paused', paused); num.textContent = `${i + 1} / ${S.length}`; bBack.disabled = i <= 0; bNext.textContent = i >= S.length - 1 ? L('Fertig', 'Done') : L('Weiter', 'Next'); };
+  const readMs = () => Math.max(1700, (S[i]?.say || '').split(/\s+/).length * 170 + 400) / speed;
+  function schedule() { clearTimeout(hold); t0 = performance.now(); dur = readMs(); hold = setTimeout(() => go(i + 1), dur); }
+  function type(text) {
+    clearInterval(typing); done = false; bar.firstChild.style.transform = 'scaleX(0)';
+    txt.dataset.full = text; txt.textContent = '';
+    fc.set('talk');
+    let n = 0;
+    return new Promise(res => { typing = setInterval(() => { if (paused) return; n = Math.min(text.length, n + Math.ceil(3 * speed)); txt.textContent = text.slice(0, n); if (n >= text.length) { clearInterval(typing); fc.set('idle'); done = true; res(); } }, 16); });
+  }
+  async function go(n) {
+    if (dead) return;
+    clearTimeout(hold); clearInterval(typing);
+    if (n < 0) n = 0;
+    if (n >= S.length) return end();
+    i = n; drawCtl();
+    const s = S[i];
+    el = null; txt.textContent = ''; txt.dataset.full = '';
+    if (location.hash.split('?')[0] !== s.at) { location.hash = s.at; await wait(1100); if (dead || i !== n) return; }
+    el = pick(...s.sel);
+    if (el) {
+      // Stelle soll oben frei stehen – unten links sitzt Max mit seiner Blase
+      const r = el.getBoundingClientRect(), mh = box.getBoundingClientRect().height || 300;
+      if (r.top < 70 || (r.bottom > innerHeight - mh - 30 && r.height < innerHeight - mh - 140)) {
+        const keep = el.style.scrollMarginTop; el.style.scrollMarginTop = '110px';
+        el.scrollIntoView({ block: 'start', behavior: 'smooth' }); await wait(480); el.style.scrollMarginTop = keep;
+        if (dead || i !== n) return;
+      }
+    }
+    bub.classList.remove('pop'); void bub.offsetWidth; bub.classList.add('pop');
+    await type(s.say);
+    if (dead || i !== n) return;
+    if (!paused) schedule();
+  }
+  function pause() { paused = true; clearTimeout(hold); drawCtl(); }
+  function resume() { paused = false; drawCtl(); if (done) schedule(); }
+  function end(quick) {
+    if (dead) return; dead = true;
+    clearTimeout(hold); clearInterval(typing); cancelAnimationFrame(raf);
+    removeEventListener('keydown', onKey, true);
+    H.classList.remove('bm-gotour', 'gt-on');
+    sp.classList.remove('on'); box.classList.remove('in');
+    setTimeout(() => { sp.remove(); box.remove(); }, quick ? 0 : 380);
+    live = null;
+    if (!/^#\/app\/tutor/.test(location.hash)) location.hash = '#/app/tutor';
+  }
+  const onKey = e => {
+    if (e.key === 'Escape') { e.preventDefault(); end(); return; }
+    const a = document.activeElement; if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+    if (false) {}
+    else if (e.key === ' ') { e.preventDefault(); paused ? resume() : pause(); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1); }
+  };
+  addEventListener('keydown', onKey, true);
+  live = { end };
+  setTimeout(() => go(0), 350);
+  return live;
 }
