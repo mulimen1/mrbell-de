@@ -6545,3 +6545,8 @@ html[data-nv] .ai-btour[data-tip]::after { display: none; }
 @keyframes aiTourPulse { 0% { box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--nb) 80%, transparent), 0 0 0 0 color-mix(in srgb, var(--nb) 45%, transparent); } 70%, 100% { box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--nb) 80%, transparent), 0 0 0 10px transparent; } }
 @media (max-width: 600px) { html[data-nv] .ai-btl { display: none; } html[data-nv] .ai-btour:not([hidden]) { padding: 0 10px !important; } }
 @media (prefers-reduced-motion: reduce) { html[data-nv] .ai-btour { animation: none !important; } }
+/* Startseite: Funktions-Chips mit mehr Luft zwischen den Zeilen und Chips */
+html:root[data-nv] .hero .featrest { gap: 9px 14px !important; margin-top: 26px; }
+.hero .lp-trust { margin-top: 34px; }
+html:root[data-nv] .hero .featrest .fbreak { margin: 0 !important; }
+#gehirn .ra-h1, #gehirn .ra-lead { margin-left: auto !important; margin-right: auto !important; text-align: center !important; } #gehirn .ra-h1 { max-width: none !important; width: 100%; }
