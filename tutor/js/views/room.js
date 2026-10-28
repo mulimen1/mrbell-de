@@ -390,7 +390,7 @@ export function render(root, ctx = {}) {
         ...(document.documentElement.dataset.ben ? [['captions', L('Aus YouTube-Video', 'From a YouTube video'), L('Link rein – Lernzettel raus', 'Paste a link – get a study sheet'), () => { location.hash = '#/app/video'; }]] : [])];
       // Test (nur Bens Konto): Pyramide – oben 3 (Tafel, Lernzettel, Karteikarten), unten 5 (Klausurplan, Quiz, Podcast, Lernpfad, YouTube); „Ich erklär dir ein Thema“ entfällt
       if (document.documentElement.dataset.ben) { const by = k => T2.find(x => x[0] === k); const yt = by('captions'); if (yt) yt[1] = L('YouTube-Video', 'YouTube video'); T2.splice(0, T2.length, ...['board', 'note', 'cards', 'calendar', 'quiz', 'headphones', 'path', 'captions'].map(by).filter(Boolean)); }
-      const grid = h('div', { class: 'rm-tl' }, T2.map(([ic, t, sub, act], i) => h('button', { class: 'rm-tlt' + (i === 0 ? ' main' : ''), type: 'button', style: { '--i': String(i) }, onclick: e => (typeof act === 'string' ? run(act, e.currentTarget) : act(e)) }, h('span', { class: 'rm-tli', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))));
+      const grid = h('div', { class: 'rm-tl' }, T2.map(([ic, t, sub, act], i) => h('button', { class: 'rm-tlt' + (i === 0 ? ' main' : ''), 'data-ic': ic, type: 'button', style: { '--i': String(i) }, onclick: e => (typeof act === 'string' ? run(act, e.currentTarget) : act(e)) }, h('span', { class: 'rm-tli', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))));
       skills.replaceChildren(h('div', { class: 'rm-tools2' }, h('div', { class: 'vt-row' }, vertrauenBtn('max')), mat, grid));
       drawPickers();
     } else { skills.replaceChildren(tog, body); set(isOpen); }

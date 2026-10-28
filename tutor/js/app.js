@@ -114,7 +114,7 @@ function buildShell() {
     homeBeta() ? h('a', { class: 'tn tn-lib', href: '#/app/bibliothek', 'data-tn': 'bibliothek' }, h('span', { html: ico('library') }), h('span', { class: 'tn-l tn-l2' }, h('span', {}, L('Bibliothek', 'Library')), h('small', { class: 'tn-cnt', hidden: true }))) : navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
     // Transkript: Untertitel-Symbol, Wort, YouTube-Logo (in weißer Kachel)
     h('a', { class: 'tn tn-vid tn-flow', href: '#/app/video', 'data-tn': 'video', title: L('YouTube-Video → Lernzettel, Mitschrift, Karteikarten', 'YouTube video → study sheet, notes, flashcards') }, h('span', { class: 'tn-lead', html: ico('captions') }), h('span', { class: 'tn-l' }, L('Transkript', 'Transcribe')), h('span', { class: 'tn-brands', 'aria-hidden': 'true' }, h('img', { src: '/tutor/img/brands/youtube.svg', alt: '', width: 13, height: 13, class: 'tn-b tn-b-youtube' })), h('span', { class: 'tn-new' }, L('NEU', 'NEW'))),
-    h('a', { class: 'tn tn-xl', href: document.documentElement.dataset.ben ? '#/app/tools' : '#/app/excel', 'data-tn': 'excel', title: L('Excel-Helfer: 60 geprüfte Vorlagen & Generator', 'Excel helper: 60 checked templates & generator') }, h('span', { html: ico(document.documentElement.dataset.ben ? 'apps' : 'sheet') }), h('span', { class: 'tn-l' }, document.documentElement.dataset.ben ? L('Klausur-Tools', 'Exam tools') : L('Excel-Helfer', 'Excel helper')), h('span', { class: 'tn-xlic', 'aria-hidden': 'true', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif" letter-spacing="-.2">XLS</text></svg>' }), h('span', { class: 'tn-new tn-xlnew' }, L('NEU', 'NEW'))));
+    h('a', { class: 'tn tn-xl', href: document.documentElement.dataset.ben ? '#/app/tools' : '#/app/excel', 'data-tn': 'excel', title: L('Excel-Helfer: 60 geprüfte Vorlagen & Generator', 'Excel helper: 60 checked templates & generator') }, h('span', { html: ico(document.documentElement.dataset.ben ? 'wrench' : 'sheet') }), h('span', { class: 'tn-l' }, document.documentElement.dataset.ben ? L('Klausur-Tools', 'Exam tools') : L('Excel-Helfer', 'Excel helper')), h('span', { class: 'tn-xlic', 'aria-hidden': 'true', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif" letter-spacing="-.2">XLS</text></svg>' }), h('span', { class: 'tn-new tn-xlnew' }, L('NEU', 'NEW'))));
   const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
   const backEl = h('a', { class: 'db-back', href: '#/app/lernen', hidden: true, title: L('Zurück zu Lernen', 'Back to Learn') }, h('span', { html: ico('left') }), h('span', {}, L('Lernen', 'Learn')));
@@ -247,7 +247,7 @@ const LERN_TOOLS = ['karten', 'quiz', 'zettel', 'podcast', 'pfad', 'plan', 'exam
 export function lernLast() {
   try { const h = sessionStorage.getItem('tutor.lernLast'); if (!h || h === '#/app/lernen') return null; const id = h.split('/')[2]; return S.list.some(d => d.id === id) ? h : null; } catch (e) { return null; }
 }
-const BACK = { lernen: ['#/app/lernen', L('Lernen', 'Learn')], video: ['#/app/video', L('Transkript', 'Transcribe')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')], ueben: ['#/app/ueben', L('Training', 'Training')] };
+const BACK = { tools: ['#/app/tools', L('Klausur-Tools', 'Exam tools')], lernen: ['#/app/lernen', L('Lernen', 'Learn')], video: ['#/app/video', L('Transkript', 'Transcribe')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')], ueben: ['#/app/ueben', L('Training', 'Training')] };
 function backTarget() { try { const k = sessionStorage.getItem('tutor.backTo'); return BACK[k] ? { key: k, href: k === 'bibliothek' ? '#/app/bibliothek/' + (ls.get('tutor.bib.tab', 'alles') || 'alles') : BACK[k][0], label: BACK[k][1] } : null; } catch (e) { return null; } }
 function backToLearn() { return backTarget()?.key === 'lernen'; }
 function renderList() {
@@ -255,7 +255,7 @@ function renderList() {
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
   const tn = { ueben: hs.startsWith('#/app/ueben') || (backTarget()?.key === 'ueben' && /^#\/app\/(trainer|excel\/trainer|challenge|duell|rechner)/.test(hs)), tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn() && backTarget()?.key !== 'video'), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video') || (inDoc && backTarget()?.key === 'video'), excel: hs.startsWith('#/app/excel') || hs.startsWith('#/app/tools')};
-  if (document.documentElement.dataset.ben) { tn.faecher = tn.faecher || !!tn.bibliothek || hs.startsWith('#/app/bibliothek'); tn.ueben = tn.ueben || /^#\/app\/(trainer|rechner|challenge|duell)/.test(hs); }   // Test: vier Bereiche
+  if (document.documentElement.dataset.ben) { tn.faecher = tn.faecher || !!tn.bibliothek || hs.startsWith('#/app/bibliothek'); tn.ueben = (tn.ueben || /^#\/app\/(trainer|challenge|duell)/.test(hs)) && !hs.startsWith('#/app/rechner'); tn.excel = tn.excel || hs.startsWith('#/app/rechner'); }   // Test: vier Bereiche
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   requestAnimationFrame(navIntoView);
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
@@ -302,7 +302,8 @@ export async function mountApp(parts) {
     return;
   }
   // Aus „Lernen“ gekommen? Dann gibt’s oben „← Lernen“ – bis man woanders hin wechselt
-  if (!a || ['tutor', 'ueben', 'faecher', 'mitschrift', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen', 'zahlen', 'video', 'excel'].includes(a)) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
+  let bkTools = false; try { bkTools = sessionStorage.getItem('tutor.backTo') === 'tools'; } catch (e) {}
+  if (!a || ['tutor', 'ueben', 'faecher', 'mitschrift', 'skripte', 'bibliothek', 'gemerkt', 'fortschritt', 'me', 'stundenplan', 'lernen', 'zahlen', 'video', 'excel', 'tools'].includes(a) && !(bkTools && (a === 'excel'))) { try { sessionStorage.removeItem('tutor.backTo'); } catch (e) {} }
   const back = backTarget(), fromLearn = !!back;
   // Wo man in „Lernen“ zuletzt war (Übersicht oder ein Werkzeug wie Karteikarten) – „Lernen“ oben bringt einen genau dorthin zurück
   try { if (a === 'lernen') sessionStorage.setItem('tutor.lernLast', '#/app/lernen'); else if (a && LERN_TOOLS.includes(b) && S.list.some(d => d.id === a)) sessionStorage.setItem('tutor.lernLast', `#/app/${a}/${b}`); } catch (e) {}
@@ -330,7 +331,7 @@ export async function mountApp(parts) {
   if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
   if (a === 'skripte') { location.replace('#/app/bibliothek/unterlagen'); return; }
   if (a === 'video') return page('video', L('Transkript', 'Transcribe'), async root => { const { render } = await import('./views/video.js'); return render(root); });
-  if (a === 'tools') return page('tools', L('Klausur-Tools', 'Exam tools'), async root => { const { render } = await import('./views/tools.js'); return render(root); });
+  if (a === 'tools') return page('tools:' + (b || ''), L('Klausur-Tools', 'Exam tools'), async root => { const { render } = await import('./views/tools.js'); return render(root, { sub: b || '' }); });
   if (a === 'excel') return page('excel:' + (b || ''), L('Excel-Vorlagen & Generator', 'Excel templates & generator'), async root => { const { render } = await import('./views/excel.js'); return render(root, { arg: b || '' }); });
   if (a === 'bibliothek') return page('bibliothek', L('Bibliothek', 'Library'), async root => { const { render } = await import('./views/bibliothek.js'); return render(root, { tab: b || '' }); });
   // Tutor-Raum: die Startseite. Wer von woanders kommt, dem fliegt Max von unten rechts entgegen.
@@ -666,7 +667,7 @@ function navIntoView() {
 }
 
 // Nach Upload/Thema: direkt zur gewählten Funktion (vom „Ausprobieren“ auf der Startseite)
-const AUTO_TABS = { quiz: 'quiz', karten: 'karten', podcast: 'podcast', zettel: 'zettel', pfad: 'pfad' };
+const AUTO_TABS = { quiz: 'quiz', karten: 'karten', podcast: 'podcast', zettel: 'zettel', pfad: 'pfad', plan: 'plan' };
 function afterCreate(d) {
   const t = ls.get('tutor.target', null); ls.set('tutor.target', null);
   if (t === 'tutor') { ls.set('tutor.pendingAsk', L('Erklär mir das wichtigste Thema aus dem Skript an der Tafel – mit Beispiel.', 'Explain the most important topic from the slides on the whiteboard – with an example.')); return `#/app/${d.id}/tutor`; }
