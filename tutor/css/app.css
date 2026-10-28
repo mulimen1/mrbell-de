@@ -6120,3 +6120,17 @@ html:root[data-nv][data-accent][data-nv] { --nv-shine: linear-gradient(105deg, t
 :root[data-nv] .vt-modal .row .vt-more { border-color: #2f9a5c !important; background: #f2faf5 !important; color: #17663a !important; box-shadow: 0 2px 8px -3px rgba(23, 102, 58, .35) !important; }
 :root[data-nv] .vt-list .vt-i { background: #eef8f1 !important; color: #17663a !important; }
 :root[data-nv] .aitag .vt-tag:not(.warn) { color: #17663a; }
+
+/* Testdesign: Flächen leicht dunkler, Glow und Hintergrund-Schimmer etwas dunkelblauer (nach Feedback) */
+:root[data-nv] :is(.rm-tc .rm-tci:has(> .ico), .rm-tli, .rm-ti, .ln-ti, .sk-i, .rm-si, .tn > span:has(> .ico), .rm-tdi, .rm-mat.empty .rm-mi, .vt-i) { background: linear-gradient(135deg, #d9e8fa, #c3d8f3) !important; color: #1a5fc4 !important; }
+:root[data-nv] .vt-list .vt-i { background: #e3f1e8 !important; color: #17663a !important; }
+:root[data-nv] :is(.rm-tdrop, .rm-mat.empty) { background: linear-gradient(135deg, #eaf1fb, #dde9f8) !important; border-color: color-mix(in srgb, #1f5fbf 42%, var(--line2)) !important; }
+:root[data-nv] .tafel .m-mc { background: linear-gradient(180deg, #e6eef9, var(--panel)) !important; border-color: #4b84d6 !important; box-shadow: 0 3px 0 #1d5bb8 !important; }
+:root[data-nv] .room .rm-stage { background: radial-gradient(1000px 560px at 50% 0%, #e2ecf9 0%, transparent 70%), radial-gradient(rgba(30, 90, 190, .11) 1px, transparent 1.4px) 0 0 / 26px 26px !important; }
+html:root[data-nv][data-accent][data-nv] { --nv-glow: 0 6px 16px -10px rgba(22, 70, 160, .55); --nv-glow2: 0 10px 22px -12px rgba(22, 70, 160, .6); }
+:root[data-nv] :is(.rm-bubble, .rm-tbub, .ai-board, .modal, .ai-isl, .tc-panel) { box-shadow: 0 16px 40px -30px rgba(22, 70, 160, .4), 0 1px 6px -4px rgba(22, 70, 160, .14) !important; }
+:root[data-nv] :is(.rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card, .rm-mat, .rm-tdrop) { box-shadow: 0 10px 26px -22px rgba(22, 70, 160, .35); }
+:root[data-nv] :is(.rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card):hover { box-shadow: 0 14px 30px -22px rgba(22, 70, 160, .55) !important; }
+:root[data-nv][data-theme="dark"] :is(.rm-tc .rm-tci:has(> .ico), .rm-tli, .rm-ti, .ln-ti, .sk-i, .rm-si, .tn > span:has(> .ico), .rm-tdi, .rm-mat.empty .rm-mi) { background: rgba(74, 157, 255, .16) !important; color: #9fcbff !important; }
+:root[data-nv][data-theme="dark"] :is(.rm-tdrop, .rm-mat.empty, .tafel .m-mc) { background: var(--panel) !important; }
+:root[data-nv][data-theme="dark"] .room .rm-stage { background: radial-gradient(1000px 560px at 50% 0%, rgba(74,157,255,.10) 0%, transparent 70%), radial-gradient(rgba(74, 157, 255, .12) 1px, transparent 1.4px) 0 0 / 26px 26px !important; }
