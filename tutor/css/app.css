@@ -6197,3 +6197,35 @@ html:root[data-nv][data-accent][data-nv] :is(.tab.on, .seg button.on, .langsw bu
 html:root[data-nv][data-accent][data-nv] .bib-tab.on small { background: #fff !important; color: #1a5fc4 !important; }
 html:root[data-nv][data-accent][data-nv] :is(.bib-si, .zb, .ub-ok, .rm-skn, .ln-badge, .me-badge, .ch-ico, .me-ci, .uv-di, .ai-dzi, .plan .badge, .mi .badge, .ln-dcon, .ln-dc.on .ln-dci, .rm-s.on .rm-si, .pal-i.ask .pal-ic, .bib-p.hot, .doc-item .newb, .vt-dfile, .me-m .ico) { background: #e3edfb !important; color: #1a5fc4 !important; box-shadow: none !important; }
 html:root[data-nv][data-accent][data-nv] :is(.fx-adj, .fx-seg button.on, .ub-up .ub-pci, .ub-pc.hot, .ub-sim.hot) { background: #e3edfb !important; color: #1a5fc4 !important; border-color: #b9d3f4 !important; box-shadow: none !important; }
+
+/* Neues Design: Fortschritt-Knopf im Tutor neben „Bereits erstellt“ (nur mit Konto) */
+html:root[data-nv] .rm-corner .rm-prog.rm-prog-nv { display: inline-flex !important; height: 46px; padding: 0 14px 0 8px; border-radius: 14px; gap: 9px; font: 650 14px var(--sans); border: 1px solid var(--line2); background: var(--panel); box-shadow: 0 6px 18px -14px rgba(20, 60, 150, .5); }
+html:root[data-nv] .rm-prog-nv > span:first-child { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: #e3edfb; color: #1a5fc4; transition: background .2s, color .2s; }
+html:root[data-nv] .rm-prog-nv:hover { border-color: #8fb8ee; transform: translateY(-1px); }
+html:root[data-nv] .rm-prog-nv:hover > span:first-child { background: linear-gradient(180deg, #3388f0, #1f6fe0); color: #fff; }
+html.bm-guest .rm-prog-nv { display: none !important; }
+/* Neues Design: Kopfleiste größer, über die ganze Breite verteilt */
+@media (min-width: 1200px) {
+  html:root[data-nv] .topnav { justify-content: space-between; gap: 6px !important; padding-right: 12px; }
+  html:root[data-nv] .topbar { height: 76px !important; }
+  html:root[data-nv] .tn { height: 48px !important; font-size: 17.5px !important; gap: 10px !important; }
+  html:root[data-nv] .tn > span:has(> .ico) { width: 38px !important; height: 38px !important; }
+  html:root[data-nv] .tn > span:has(> .ico) .ico { width: 20px !important; height: 20px !important; }
+  html:root[data-nv] .tn.tn-tutor { height: 54px !important; font-size: 19px !important; padding: 0 22px 0 6px !important; }
+  html:root[data-nv] .tn-face { width: 42px !important; height: 42px !important; }
+  html:root[data-nv] .tn-b, html:root[data-nv] .tn-xlic svg { width: 24px !important; height: 24px !important; }
+  html:root[data-nv] .tn-sep { display: none; }
+}
+@media (min-width: 1200px) and (max-width: 1599px) {
+  html:root[data-nv]:not(.bm-guest) .tn { font-size: 16px !important; gap: 8px !important; padding: 0 8px 0 4px !important; height: 44px !important; }
+  html:root[data-nv]:not(.bm-guest) .tn > span:has(> .ico) { width: 34px !important; height: 34px !important; }
+  html:root[data-nv]:not(.bm-guest) .tn.tn-tutor { font-size: 18px !important; height: 50px !important; padding: 0 18px 0 5px !important; }
+  html:root[data-nv]:not(.bm-guest) .tn-face { width: 38px !important; height: 38px !important; }
+  html:root[data-nv]:not(.bm-guest) .topnav { gap: 2px !important; padding-right: 16px; }
+}
+html:root[data-nv]:not(.bm-guest) .tcorner { margin-left: 62px !important; }
+/* Neues Design: Funktionen auf der Startseite deutlich sichtbarer – weiße Kacheln, dunkle Schrift, Icon im blauen Quadrat */
+html:root[data-nv] .featrest .feat { background: var(--panel) !important; color: var(--ink) !important; opacity: 1 !important; border: 1px solid #c9d9f0 !important; box-shadow: 0 8px 20px -14px rgba(20, 60, 150, .45); font-weight: 650 !important; font-size: 16px !important; height: auto !important; min-height: 50px; padding: 6px 16px 6px 7px !important; gap: 10px !important; }
+html:root[data-nv] .featrest .feat > span:first-child { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: #e3edfb; color: #1a5fc4; flex: none; }
+html:root[data-nv] .featrest .feat:hover, html:root[data-nv] .featrest .feat.hl { border-color: #5f9be6 !important; transform: translateY(-2px); box-shadow: 0 14px 28px -16px rgba(20, 60, 150, .6); }
+html:root[data-nv] .featrest .feat:hover > span:first-child, html:root[data-nv] .featrest .feat.hl > span:first-child { background: linear-gradient(180deg, #3388f0, #1f6fe0); color: #fff; }

@@ -115,7 +115,8 @@ export function render(root, ctx = {}) {
   const comp = h('div', { class: 'rm-comp' });
   const dock = h('div', { class: 'rm-dock' }, focusRow, sugg, comp);
   const pickers = h('div', { class: 'rm-pickers uv-pick' });
-  const corner = h('div', { class: 'rm-corner' }, homeBeta() ? pickers : null, stkHome, progBtn(), cfgBtn(), homeBeta() ? null : skBtnHome);
+  const nvProg = () => { const b = progBtn(); if (document.documentElement.dataset.nv) { b.classList.add('rm-prog-nv'); b.firstChild.innerHTML = ico('chart'); } return b; };
+  const corner = h('div', { class: 'rm-corner' }, document.documentElement.dataset.nv ? nvProg() : null, homeBeta() ? pickers : null, stkHome, document.documentElement.dataset.nv ? null : progBtn(), cfgBtn(), homeBeta() ? null : skBtnHome);
   // Oben rechts: „Bereits erstellt“ und „Deine Unterlagen“ (gewählte Unterlage = mit Max verbunden)
   function drawPickers() {
     if (!homeBeta()) return;
