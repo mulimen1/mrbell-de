@@ -6161,7 +6161,6 @@ html:root[data-nv][data-accent][data-nv] { --nv-glow: 0 6px 16px -9px rgba(20, 6
 :root[data-nv][data-theme="dark"] .tn:not(.tn-tutor) > span:has(> .ico) { background: rgba(74, 157, 255, .16) !important; color: #9fcbff !important; }
 /* Themen-Einstieg: Max' Satz sticht raus */
 .room.rm-tools-mode .rm-tbub b { font-size: 20px; font-weight: 800; letter-spacing: -.02em; line-height: 1.2; }
-:root[data-nv] .room.rm-tools-mode .rm-tbub b { background: linear-gradient(90deg, #0d1b33 0%, #1f6fe0 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 /* Testdesign: kein blauer Schimmer und kein Raster mehr im Hintergrund */
 html:root[data-nv] .room .rm-stage, html:root[data-nv][data-theme="dark"] .room .rm-stage { background: none !important; }
 /* Testdesign: keine großflächigen hellblauen Hintergründe mehr – nur Rahmen; Menü oben rechts schwarz-weiß */
@@ -6171,3 +6170,17 @@ html:root[data-nv] :is(.rm-tdrop, .rm-mat.empty):hover, html:root[data-nv] .room
 html:root[data-nv] :is(.rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card):hover { background: var(--panel) !important; }
 html:root[data-nv][data-accent][data-nv] .tcorner .tc-btn { background: var(--panel) !important; background-image: none !important; color: var(--ink) !important; border: 1px solid var(--line2) !important; box-shadow: none !important; }
 html:root[data-nv][data-accent][data-nv] .tcorner .tc-btn:hover, html:root[data-nv][data-accent][data-nv] .tcorner .tc-btn.on { border-color: var(--ink) !important; filter: none !important; transform: translateY(-1px); }
+/* Testdesign: kräftiges Dunkelblau nur noch für „Tutor“. Sprich mit Max, Datei-Knöpfe, Upload-/Karten-Icons: hell getönt, beim Drüberfahren dunkelblau */
+html:root[data-nv][data-accent][data-nv] :is(.btn.primary, .side .side-new, .ik-go, .vt-back) { background-image: none !important; background: linear-gradient(180deg, #e8f1fc, #d6e6fa) !important; color: #1a5fc4 !important; border: 1px solid #b9d3f4 !important; box-shadow: none !important; filter: none !important; }
+html:root[data-nv][data-accent][data-nv] :is(.btn.primary, .side .side-new, .ik-go, .vt-back):hover { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; border-color: transparent !important; }
+html:root[data-nv][data-accent][data-nv] :is(.rm-tc .rm-tci:has(> .ico), .rm-tli, .rm-ti, .ln-ti, .rm-tdi, .rm-mat.empty .rm-mi, .rm-si) { background: linear-gradient(180deg, #e3edfb, #d2e2f8) !important; color: #1f63cc !important; box-shadow: none !important; }
+html:root[data-nv][data-accent][data-nv] :is(.rm-tc:hover .rm-tci:has(> .ico), .rm-tlt:hover .rm-tli, .rm-tile:hover .rm-ti, .ln-tile:hover .ln-ti, .rm-tdrop:hover .rm-tdi, .rm-mat.empty:hover .rm-mi) { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; }
+/* Testdesign Hierarchie: 1) Tutor + Sprich mit Max kräftig blau  2) aktueller Bereich/Auswahl hellblau  3) Rest neutral */
+html:root[data-nv][data-accent][data-nv] .tn.on:not(.tn-tutor) { background: var(--panel) !important; color: var(--ink) !important; box-shadow: inset 0 0 0 1px var(--line2) !important; }
+html:root[data-nv][data-accent][data-nv] .tn.on:not(.tn-tutor) > span:has(> .ico) { background: linear-gradient(180deg, #e3edfb, #d2e2f8) !important; color: #1f63cc !important; }
+html:root[data-nv][data-accent][data-nv] .tn:not(.tn-tutor):hover > span:has(> .ico) { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; }
+html:root[data-nv][data-accent][data-nv] :is(.chip.on, .seg .on, .tabs .on) { background: linear-gradient(180deg, #e8f1fc, #d6e6fa) !important; color: #1a5fc4 !important; border-color: #b9d3f4 !important; box-shadow: none !important; }
+
+/* Hinweis neues Design */
+.sk-modal p { color: var(--ink2); }
+.sk-fb { border: 0; background: none; padding: 0; color: var(--inv); font: 650 14px var(--sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
