@@ -7566,3 +7566,28 @@ html.gt-on :is(.asst-bub, .asst-quip, .asst-tip, .asst-back, .hn) { visibility: 
   .gt-face { width: 92px; height: 98px; margin-left: 6px; }
   .gt-bub { width: 100%; margin: -8px 0 0; border-radius: 22px; } .gt-bub::before { display: none; }
   .gt-txt { font-size: 15.5px; min-height: 3em; } }
+/* Führung: vier Plätze – immer da, wo die helle Stelle nicht ist */
+.gt-max { transition: opacity .35s ease, transform .45s cubic-bezier(.22,1,.36,1) !important; }
+.gt-max[data-pos="bl"] { left: 22px; right: auto; top: auto; bottom: 22px; flex-direction: row; align-items: flex-end; }
+.gt-max[data-pos="br"] { left: auto; right: 22px; top: auto; bottom: 22px; flex-direction: row-reverse; align-items: flex-end; }
+.gt-max[data-pos="tl"] { left: 22px; right: auto; top: 84px; bottom: auto; flex-direction: row; align-items: flex-start; }
+.gt-max[data-pos="tr"] { left: auto; right: 22px; top: 84px; bottom: auto; flex-direction: row-reverse; align-items: flex-start; }
+.gt-max[data-pos^="t"] .gt-bub { margin: 60px 0 0; }
+.gt-max[data-pos^="t"] .gt-face { width: 130px; height: 138px; }
+.gt-max[data-pos="br"] .gt-bub, .gt-max[data-pos="tr"] .gt-bub { border-radius: 24px 24px 8px 24px; }
+.gt-max[data-pos="br"] .gt-bub::before, .gt-max[data-pos="tr"] .gt-bub::before { left: auto; right: -9px; background: #6a44d8; }
+.gt-max[data-pos^="t"] .gt-bub::before { bottom: auto; top: 22px; }
+.gt-max[data-pos="tl"] .gt-bub { border-radius: 8px 24px 24px 24px; } .gt-max[data-pos="tr"] .gt-bub { border-radius: 24px 8px 24px 24px; }
+@media (max-width: 700px) {
+  .gt-max, .gt-max[data-pos] { left: 10px !important; right: 10px !important; flex-direction: row !important; align-items: flex-end !important; gap: 8px; max-width: none; }
+  .gt-max[data-pos^="b"] { top: auto !important; bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important; }
+  .gt-max[data-pos^="t"] { top: 64px !important; bottom: auto !important; align-items: flex-start !important; }
+  .gt-face, .gt-max[data-pos^="t"] .gt-face { width: 58px; height: 62px; margin: 0; flex: none; }
+  .gt-bub, .gt-max[data-pos^="t"] .gt-bub { width: auto; flex: 1; min-width: 0; margin: 0 !important; padding: 12px 13px 10px; border-radius: 20px !important; }
+  .gt-bub::before { display: none; }
+  .gt-txt { font-size: 14.5px; line-height: 1.45; min-height: 2.9em; }
+  .gt-bar { margin: 8px 0; }
+  .gt-b { height: 34px; min-width: 34px; padding: 0 10px; font-size: 13px; }
+  .gt-b.gt-next { padding: 0 14px; }
+  .gt-b.gt-end { padding: 0 8px; } }
+html.gt-on :is(.dk, .dk-b, .dkp) { visibility: hidden !important; }

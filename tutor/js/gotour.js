@@ -47,23 +47,15 @@ export async function goTour() {
   if (live) return;
   try { const c = await import('./cursor.js'); c.stopTour(); } catch (e) {}
   const S = [
-    { at: '#/app/tutor', sel: ['.topnav'], say: L('BWL Max hat vier Bereiche: Tutor, Fächer & Bibliothek, Lernen und Klausur-Tools. Ich zeig dir alle. Zwei Minuten – normalerweise kostet meine Zeit mehr.', 'BWL Max has four areas: tutor, subjects & library, learn and exam tools. I’ll show you all of them. Two minutes – my time is usually more expensive.') },
-    { at: '#/app/tutor', sel: ['.ai-isl'], say: L('Hier fragst du mich alles zu BWL – tippen oder einfach reinsprechen. Ich erkläre es dir an der Tafel, mit Rechenweg und Beispiel.', 'Ask me anything about business here – type or just talk. I explain it on the whiteboard, with workings and an example.') },
-    { at: '#/app/tutor', sel: ['.rm-mat', '.rm-tools2'], say: L('Skript, Folien, Altklausur oder YouTube-Video reinziehen – ich lese mit und weiß danach, was dein Prof sehen will.', 'Drop in slides, notes, past exams or a YouTube video – I read along and know what your professor wants to see.') },
-    { at: '#/app/tutor', sel: ['.rm-tl', '.rm-tools2'], say: L('Daraus bau ich dir Tafel-Erklärung, Lernzettel, Karteikarten, Quiz, Podcast, Lernpfad und Klausurplan. In Sekunden, nicht in Nächten.', 'From that I build whiteboard explanations, study sheets, flashcards, quizzes, podcasts, study paths and an exam plan. In seconds, not nights.') },
-    { at: '#/app/tutor', sel: ['[data-tn="faecher"]'], say: L('Fächer & Bibliothek: deine Skripte, Mitschriften und alles, was ich dir gebaut hab – sauber nach Fach sortiert.', 'Subjects & library: your slides, notes and everything I built for you – neatly sorted by subject.') },
-    { at: '#/app/bibliothek', sel: ['#view h1', '#view'], say: L('Hier landet alles automatisch. Ordnung hab ich von Papa. Den Rest auch.', 'Everything lands here automatically. I got the tidiness from Dad. Everything else too.') },
-    { at: '#/app/bibliothek', sel: ['[data-tn="ueben"]'], say: L('Lernen: hier wird aus Verstehen Können.', 'Learn: this is where understanding turns into skill.') },
-    { at: '#/app/ueben', sel: ['.ub-lt', '.ub-hs'], say: L('Aus deinem Stoff lernen: Tafel, Lernzettel, Karteikarten, Podcast mit Marie und mir, Lernpfad. Ein Klick, ich bau’s.', 'Learn from your material: whiteboard, study sheet, flashcards, a podcast with Marie and me, study path. One click, I build it.') },
-    { at: '#/app/ueben', sel: ['.ub-hero'], say: L('Der geführte Lernweg: 14 Stationen, ich sag dir, wann es sitzt. Abkürzungen gibt’s nicht. Nur mich.', 'The guided path: 14 stations, I tell you when it sticks. No shortcuts. Just me.') },
-    { at: '#/app/ueben', sel: ['.ub-simrow', '.ub-h'], say: L('Klausur-Simulator und Quiz: Prüfung wie echt – nur dass ich fairer bewerte als dein Prof.', 'Exam simulator and quiz: real exam conditions – except I grade fairer than your professor.') },
-    { at: '#/app/ueben', sel: ['[data-tn="excel"]'], say: L('Und jetzt das, worum dich die anderen beneiden werden: die Klausur-Tools.', 'And now the part the others will envy you for: the exam tools.') },
-    { at: '#/app/tools', sel: ['.kt-hero', '#view h1'], say: L('Das Herzstück: der Excel-Helfer. Schau genau hin, das hat sonst keiner.', 'The centrepiece: the Excel helper. Look closely – nobody else has this.') },
-    { at: '#/app/excel', sel: ['.xl-head', '#view h1'], say: L('60 geprüfte Excel-Vorlagen mit echten Formeln. Kapitalwert, Break-even, Abschreibung, Kennzahlen – alles drin. Keine Makros, kein Hokuspokus.', '60 checked Excel templates with real formulas. NPV, break-even, depreciation, ratios – all in. No macros, no hocus-pocus.') },
-    { at: '#/app/excel', sel: ['.xl-card'], say: L('Datei auf, blaue Zellen ausfüllen, der Rest rechnet sich – mit Rechenweg. Wie mein Depot. Nur ohne Verluste.', 'Open the file, fill the blue cells, the rest calculates itself – with workings. Like my portfolio. Minus the losses.') },
-    { at: '#/app/excel', sel: ['.xl-tab:nth-child(2)', '.xl-tabs'], say: L('Nichts Passendes dabei? Generator: Aufgabe beschreiben, ich bau dir die Excel-Datei. Doppelt nachgerechnet.', 'Nothing fitting? Generator: describe your task and I build the Excel file. Double-checked.') },
-    { at: '#/app/tools', sel: ['.kt-grid', '.kt-card'], say: L('Dazu Klausurplan, Simulator, Rechner und Lexikon. Ich plane bis zur Prüfung und frag dich vorher ab wie der Prof. Nur charmanter.', 'Plus exam plan, simulator, calculators and glossary. I plan until the exam and quiz you like the professor. Just more charming.') },
-    { at: '#/app/tutor', sel: ['.ai-isl'], say: L('Das war’s. Jetzt du: frag mich irgendwas zu BWL. Mit kostenlosem Konto merk ich mir alles – sonst vergess ich dich. Wäre schade. Für dich.', 'That’s it. Your turn: ask me anything about business. With a free account I remember everything – otherwise I forget you. Would be a shame. For you.') },
+    { at: '#/app/tutor', sel: ['.topnav'], say: L('Vier Bereiche, alles für dein Studium. Ich zeig dir kurz, was wo ist. Kurz, weil meine Zeit teuer ist.', 'Four areas, everything for your degree. I’ll quickly show you what’s where. Quickly, because my time is expensive.') },
+    { at: '#/app/tutor', sel: ['.ai-isl'], say: L('Hier fragst du mich alles zu BWL – tippen oder reinsprechen. Ich erklär’s an der Tafel, mit Rechenweg.', 'Ask me anything about business here – type or talk. I explain it on the whiteboard, with workings.') },
+    { at: '#/app/tutor', sel: ['.rm-tl', '.rm-tools2'], say: L('Skript rein, und ich bau dir Lernzettel, Karteikarten, Quiz, Podcast und Klausurplan. In Sekunden.', 'Drop in your slides and I build study sheets, flashcards, quizzes, podcasts and an exam plan. In seconds.') },
+    { at: '#/app/bibliothek', sel: ['#view h1', '#view'], say: L('Fächer & Bibliothek: alles, was du hochlädst und ich dir baue – sauber nach Fach sortiert.', 'Subjects & library: everything you upload and I build – neatly sorted by subject.') },
+    { at: '#/app/ueben', sel: ['.ub-lt', '.ub-hs'], say: L('Lernen: Tafel, Lernzettel, Karteikarten, Podcast, Lernpfad. Ein Klick, ich bau’s.', 'Learn: whiteboard, study sheet, flashcards, podcast, study path. One click, I build it.') },
+    { at: '#/app/ueben', sel: ['.ub-simrow', '.ub-h'], say: L('Klausur-Simulator und Quiz. Wie die echte Prüfung – nur fairer bewertet.', 'Exam simulator and quiz. Like the real exam – just graded fairer.') },
+    { at: '#/app/excel', sel: ['.xl-head', '#view h1'], say: L('Klausur-Tools: 60 geprüfte Excel-Vorlagen mit echten Formeln. Hat sonst keiner.', 'Exam tools: 60 checked Excel templates with real formulas. Nobody else has that.') },
+    { at: '#/app/excel', sel: ['.xl-card'], say: L('Blaue Zellen ausfüllen, der Rest rechnet sich. Wie mein Depot. Nur ohne Verluste.', 'Fill the blue cells, the rest calculates itself. Like my portfolio. Minus the losses.') },
+    { at: '#/app/tutor', sel: ['.ai-isl'], say: L('Das war’s. Jetzt du – frag mich was. Mit kostenlosem Konto merk ich mir alles.', 'That’s it. Your turn – ask me something. With a free account I remember everything.') },
   ];
   return runTour(S);
 }
@@ -86,7 +78,7 @@ function runTour(S) {
   const bSpd = B('gt-spd', speed + '×', () => { speed = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length]; ss('bm.tourSpeed', String(speed)); bSpd.textContent = speed + '×'; if (!paused && done) schedule(); }, L('Tempo', 'Speed'));
   const bEnd = B('gt-end', L('Beenden', 'End'), () => end());
   const bub = h('div', { class: 'gt-bub', role: 'status', 'aria-live': 'polite' }, h('div', { class: 'gt-top' }, h('b', {}, 'Max'), num), txt, bar, h('div', { class: 'gt-ctl' }, bBack, bPlay, bNext, bSpd, bEnd));
-  const box = h('div', { class: 'gt-max' }, fEl, bub);
+  const box = h('div', { class: 'gt-max', 'data-pos': 'bl' }, fEl, bub);
   document.body.append(sp, box);
   H.classList.add('bm-gotour', 'gt-on');
   const fc = face(fEl, { follow: false });
@@ -101,25 +93,37 @@ function runTour(S) {
       Object.assign(sp.style, { transform: `translate(${Math.round(r.left - pad)}px, ${Math.round(r.top - pad)}px)`, width: Math.round(r.width + 2 * pad) + 'px', height: Math.round(r.height + 2 * pad) + 'px', borderRadius: Math.round(rad) + 'px' });
       sp.classList.add('on');
       // Max weicht aus: liegt die Stelle unten links, wandert er nach rechts
-      const M = box.getBoundingClientRect(), mw = M.width, mh = M.height, H0 = innerHeight;
-      const ov = (l, rr) => Math.max(0, Math.min(r.right, rr) - Math.max(r.left, l)) * Math.max(0, Math.min(r.bottom, H0 - 22) - Math.max(r.top, H0 - 22 - mh));
-      const oL = ov(22, 22 + mw), oR = ov(innerWidth - 22 - mw, innerWidth - 22);
-      if (oL > oR * 1.15) box.classList.add('right'); else if (oR > oL * 1.15) box.classList.remove('right');
+      place(r);
     } else { Object.assign(sp.style, { transform: `translate(${innerWidth / 2}px, ${innerHeight / 2}px)`, width: '0px', height: '0px' }); sp.classList.add('on'); }   // beim Wechsel bleibt alles dunkel
     if (done && !paused) bar.firstChild.style.transform = `scaleX(${Math.min(1, (performance.now() - t0) / dur)})`;
     raf = requestAnimationFrame(loop);
   };
   raf = requestAnimationFrame(loop);
 
+  // Platz für Max + Blase: nie über der hellen Stelle. Reihenfolge: unten links, unten rechts, oben links, oben rechts
+  const POS = ['bl', 'br', 'tl', 'tr'];
+  let posK = 'bl';
+  function place(r) {
+    const mob = innerWidth <= 700, W = innerWidth, H0 = innerHeight;
+    const bw = box.offsetWidth, bh = box.offsetHeight, m = mob ? 10 : 22, top = mob ? 64 : 84;
+    const rect = k => { const x = mob || k[1] === 'l' ? m : W - m - bw, y = k[0] === 'b' ? H0 - m - bh : top; return { l: x, t: y, r: x + bw, b: y + bh }; };
+    const pad = 14, R = { l: r.left - pad, t: r.top - pad, r: r.right + pad, b: r.bottom + pad };
+    const ov = q => Math.max(0, Math.min(q.r, R.r) - Math.max(q.l, R.l)) * Math.max(0, Math.min(q.b, R.b) - Math.max(q.t, R.t));
+    const keys = mob ? ['bl', 'tl'] : POS;
+    if (ov(rect(posK)) === 0 && keys.includes(posK)) return;
+    let best = keys[0], bo = Infinity;
+    for (const k of keys) { const o = ov(rect(k)); if (o < bo) { bo = o; best = k; } if (o === 0) break; }
+    if (best !== posK) { posK = best; box.dataset.pos = best; }
+  }
   const drawCtl = () => { bPlay.textContent = paused ? '▶' : '❚❚'; box.classList.toggle('paused', paused); num.textContent = `${i + 1} / ${S.length}`; bBack.disabled = i <= 0; bNext.textContent = i >= S.length - 1 ? L('Fertig', 'Done') : L('Weiter', 'Next'); };
-  const readMs = () => Math.max(1700, (S[i]?.say || '').split(/\s+/).length * 170 + 400) / speed;
+  const readMs = () => Math.max(1500, (S[i]?.say || '').split(/\s+/).length * 140 + 300) / speed;
   function schedule() { clearTimeout(hold); t0 = performance.now(); dur = readMs(); hold = setTimeout(() => go(i + 1), dur); }
   function type(text) {
     clearInterval(typing); done = false; bar.firstChild.style.transform = 'scaleX(0)';
     txt.dataset.full = text; txt.textContent = '';
     fc.set('talk');
     let n = 0;
-    return new Promise(res => { typing = setInterval(() => { if (paused) return; n = Math.min(text.length, n + Math.ceil(3 * speed)); txt.textContent = text.slice(0, n); if (n >= text.length) { clearInterval(typing); fc.set('idle'); done = true; res(); } }, 16); });
+    return new Promise(res => { typing = setInterval(() => { if (paused) return; n = Math.min(text.length, n + Math.ceil(4 * speed)); txt.textContent = text.slice(0, n); if (n >= text.length) { clearInterval(typing); fc.set('idle'); done = true; res(); } }, 16); });
   }
   async function go(n) {
     if (dead) return;
@@ -129,7 +133,7 @@ function runTour(S) {
     i = n; drawCtl();
     const s = S[i];
     el = null; txt.textContent = ''; txt.dataset.full = '';
-    if (location.hash.split('?')[0] !== s.at) { location.hash = s.at; await wait(1100); if (dead || i !== n) return; }
+    if (location.hash.split('?')[0] !== s.at) { location.hash = s.at; await wait(850); if (dead || i !== n) return; }
     el = pick(...s.sel);
     if (el) {
       // Stelle soll oben frei stehen – unten links sitzt Max mit seiner Blase
