@@ -7,6 +7,7 @@ import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
 import { accountChip, refreshAccount, openLogin, openAccount, openAuth } from './account.js';
 import { getOutLang, setOutLang, L, LOCALE, lang, setLang } from './i18n.js';
 import { canSwitch } from './skin.js';
+import { landingTopic } from './themen.js';
 import { lines as maxLines, getSpice } from './max.js';
 import { apiError, thought, isPhone, overlayBusy, LAPTOP_LINE, adsLanding } from './ui.js';
 import { exportAll, importAll, wipe } from './db.js';
@@ -297,7 +298,8 @@ export async function mountApp(parts) {
   if (!getAccount() && a && a !== 'tutor' && !(a === 'me' && !b)) {
     const want = '#/app/' + parts.filter(Boolean).join('/');
     location.replace('#/app/tutor');
-    openAuth({ title: L('Kostenloses Konto – dann geht’s weiter', 'Free account – then you’re in'), registerTitle: L('Kostenloses Konto – dann geht’s weiter', 'Free account – then you’re in'), sub: L('Mit Google in zwei Klicks. Alles, was du schon gemacht hast, bleibt erhalten.', 'Two clicks with Google. Everything you did stays.'), why: 'Bereich' })
+    const A = authFor(a, b);
+    openAuth({ title: A.t, registerTitle: A.t, sub: A.s, why: 'Bereich' })
       .then(ok => { if (ok && getAccount()) location.hash = want; }).catch(() => {});
     return;
   }
@@ -731,6 +733,25 @@ function outLangSwitch() {
 
 // Sprache der Oberfläche: DE | EN
 // Neues Design: Suchen, Max einstellen, Hell/Dunkel und Sprache sitzen in der Seitenleiste statt oben rechts
+// Anmeldefenster passend zum Bereich – auf Anzeigen-/Lernseiten mit dem Thema, nach dem gesucht wurde
+function authFor(a, b) {
+  let T = null; try { T = landingTopic(); } catch (e) {}
+  if (!T && window.BM_LP) T = { name: window.BM_LP.title ? String(window.BM_LP.title).split(/[:|–]/)[0].trim() : '' };
+  const th = T && T.name && T.name !== 'BWL' ? T.name : '';
+  const z = th ? L(` zu ${th}`, ` on ${th}`) : '';
+  const M = {
+    bibliothek: [L('Deine Bibliothek – kostenlos', 'Your library – free'), L(`Alles, was Max dir${z} erstellt, landet sauber sortiert hier. Mit Google in zwei Klicks.`, `Everything Max creates for you${z} lands here, neatly sorted. Two clicks with Google.`)],
+    faecher: [L('Deine Fächer – kostenlos', 'Your subjects – free'), L('Klausurtermine, Prüfungsreife, Notenziel – alles im Blick. Mit Google in zwei Klicks.', 'Exam dates, readiness, target grade – all in view. Two clicks with Google.')],
+    ueben: [th ? L(`${th} üben, bis es sitzt – kostenlos`, `Practise ${th} until it sticks – free`) : L('Lernen, bis es sitzt – kostenlos', 'Learn until it sticks – free'), L('Trainer, Quiz, Klausur-Simulator und BWL-Duell. Mit Google in zwei Klicks.', 'Trainer, quiz, exam simulator and duel. Two clicks with Google.')],
+    tools: [L('Deine Klausur-Tools – kostenlos', 'Your exam tools – free'), L(`Excel-Helfer, Klausurplan, Simulator, Rechner und Lexikon${z}. Mit Google in zwei Klicks.`, `Excel helper, exam plan, simulator, calculators and glossary${z}. Two clicks with Google.`)],
+    excel: [L('Dein Excel-Helfer – kostenlos', 'Your Excel helper – free'), L('60 geprüfte Vorlagen mit echten Formeln. Mit Google in zwei Klicks.', '60 checked templates with real formulas. Two clicks with Google.')],
+    rechner: [L('Deine BWL-Rechner – kostenlos', 'Your calculators – free'), L('Exakt gerechnet, mit Rechenweg zum Abschreiben. Mit Google in zwei Klicks.', 'Exact results with the full working. Two clicks with Google.')],
+    mitschrift: [L('Deine Mitschrift – kostenlos', 'Your notes – free'), L('Tippen oder Foto – Max macht daraus eine saubere Mitschrift. Mit Google in zwei Klicks.', 'Type or snap – Max turns it into clean notes. Two clicks with Google.')],
+    video: [L('YouTube-Video → Lernstoff – kostenlos', 'YouTube video → study material – free'), L(`Link rein, Lernzettel raus${z}. Mit Google in zwei Klicks.`, `Paste a link, get a study sheet${z}. Two clicks with Google.`)]
+  };
+  const m = M[a] || [th ? L(`Weiter mit ${th} – kostenlos`, `Continue with ${th} – free`) : L('Kostenloses Konto – dann geht’s weiter', 'Free account – then you’re in'), L('Mit Google in zwei Klicks. Alles, was du schon gemacht hast, bleibt erhalten.', 'Two clicks with Google. Everything you did stays.')];
+  return { t: m[0], s: m[1] };
+}
 // Auf Google-Anzeigen- und Lernseiten führt „Tutor“ weg von der Themen-Tafel in den richtigen Tutorbereich; Gäste melden sich dort an
 function tutorFromAd(e) {
   if (!(adsLanding() || window.BM_LP) || e.metaKey || e.ctrlKey) return;

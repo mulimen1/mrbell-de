@@ -12,6 +12,8 @@ const stats = () => { try { return JSON.parse(localStorage.getItem('tutor.traine
 const solved = id => (stats()[id] || {}).correct | 0;
 const state = () => { const s = ls.get(KEY, null); return s && typeof s.i === 'number' ? s : { i: 0, base: solved(PATH[0]), done: [] }; };
 const setState = s => ls.set(KEY, s);
+// Test (nur Bens Konto): jede Trainer-Karte bekommt ihre eigene Icon-Farbe nach Fachgebiet
+const TONE = { buchung: 'blue', tkonten: 'blue', bilanz: 'blue', abschreibung: 'blue', kennzahlen: 'cyan', lager: 'cyan', kalkulation: 'orange', breakeven: 'orange', kapitalwert: 'yellow', finanzierung: 'yellow', produktion: 'pink', marketing: 'red', markt: 'purple', makro: 'indigo' };
 const fromHere = () => { try { sessionStorage.setItem('tutor.backTo', 'ueben'); } catch (e) {} };
 
 async function trainers() { const m = await import('../trainer.js'); return m.TRAINERS; }
@@ -19,8 +21,10 @@ async function trainers() { const m = await import('../trainer.js'); return m.TR
 export async function render(root, { sub = '' } = {}) {
   if (sub === 'pfad') return guided(root);
   const wrap = h('div', { class: 'view-in ub' }); root.appendChild(wrap);
-  if (document.documentElement.dataset.ben) root.insertBefore(h('div', { class: 'view-in kt-headrow' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Lernen', 'Learn')), h('h1', {}, L('Üben, prüfen, gewinnen. ', 'Practise, check, win. '), h('span', {}, L('Bis es sitzt.', 'Until it sticks.'))))), wrap);   // Test: klare Überschrift
+  if (document.documentElement.dataset.nv) root.insertBefore(h('div', { class: 'view-in kt-headrow' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Lernen', 'Learn')), h('h1', {}, L('Üben, prüfen, gewinnen. ', 'Practise, check, win. '), h('span', {}, L('Bis es sitzt.', 'Until it sticks.'))))), wrap);   // Test: klare Überschrift
   const T = await trainers(); if (!wrap.isConnected) return;
+  const BEN = !!document.documentElement.dataset.nv;
+  if (BEN) wrap.classList.add('nvp-ub');
   const byId = id => T.find(t => t.id === id);
   const st = state(), cur = byId(PATH[Math.min(st.i, PATH.length - 1)]);
   const all = stats(), total = Object.values(all).reduce((a, s) => a + (s.correct | 0), 0);
@@ -34,7 +38,7 @@ export async function render(root, { sub = '' } = {}) {
   const svg = d => `<svg viewBox="0 0 24 24" class="ico" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
   // Trainer-Karten im Stil des Trainer-Bereichs: Symbol, Fach, Titel, Beschreibung, Stand
   const tcard = (x, i) => { const s = all[x.id] || {}, k = PATH.indexOf(x.id);
-    return h('a', { class: 'tr-card ub-tc', href: '#/app/trainer/' + x.id, onclick: fromHere, style: `animation-delay:${i * 25}ms` },
+    return h('a', Object.assign({ class: 'tr-card ub-tc', href: '#/app/trainer/' + x.id, onclick: fromHere, style: `animation-delay:${i * 25}ms` }, BEN ? { 'data-tone': TONE[x.id] || 'blue' } : {}),
       h('div', { class: 'tr-ico', html: svg(x.icon || '') }), h('div', { class: 'eyebrow' }, x.area), h('h3', null, x.title), h('p', null, x.desc),
       h('div', { class: 'tr-card-f' }, s.attempts ? [h('span', null, L(`${s.correct | 0} gelöst`, `${s.correct | 0} solved`)), h('span', null, L(`Serie ${s.streak | 0}`, `Streak ${s.streak | 0}`))] : h('span', null, L('Noch nicht geübt', 'Not practised yet')), k >= 0 && k < doneN ? h('span', { class: 'ub-ok' }, '✓') : null)); };
   // Prüfen & Wettkampf: rechte Spalte
@@ -52,9 +56,13 @@ export async function render(root, { sub = '' } = {}) {
   const xlCard = h('a', { class: 'tr-card ub-tc ub-xlc', href: '#/app/excel/trainer', onclick: fromHere },
     h('div', { class: 'tr-ico', html: XL }), h('div', { class: 'eyebrow' }, 'Excel'), h('h3', null, L('Excel-Trainer', 'Excel trainer')), h('p', null, L('Echter Excel-Nachbau, echte Tastenkürzel, echte BWL-Aufgaben – Max führt dich Schritt für Schritt.', 'A real Excel replica, real shortcuts, real business tasks – Max guides you step by step.')),
     h('div', { class: 'tr-card-f' }, h('span', null, xl.of ? L(`${xl.n} von ${xl.of} Lektionen`, `${xl.n} of ${xl.of} lessons`) : L('Noch nicht geübt', 'Not practised yet'))));
+  // Trainer: bei Ben als eigener, voll breiter Bereich unter Lernweg und Seitenspalte (drei Spalten statt zwei)
+  const trSec = [h('div', { class: 'ln-gh ub-h ub-h2' + (BEN ? ' nvp-trh' : '') }, h('h2', {}, 'Trainer'), h('span', { class: 'eyebrow' }, L(`${T.length + 1} Themen`, `${T.length + 1} topics`))),
+    h('div', { class: 'tr-grid ub-tgrid' }, PATH.map(byId).filter(Boolean).concat(T.filter(x => !PATH.includes(x.id))).map(tcard), xlCard)];
   const left = h('div', { class: 'ub-left' },
     h('header', { class: 'ub-hero' },
       h('div', { class: 'ub-greet' }, fEl, h('div', { class: 'uv-bub' },
+        BEN ? h('div', { class: 'nvp-ubtag' }, h('span', { class: 'nvp-ubtagi', html: ico('path') }), finished ? L('Geführter Lernweg · geschafft', 'Guided path · done') : L(`Geführter Lernweg · Station ${doneN + 1} von ${PATH.length}`, `Guided path · station ${doneN + 1} of ${PATH.length}`)) : null,
         h('b', {}, finished ? L('Alle Stationen geschafft. Respekt – jetzt kommt die Klausur.', 'All stations done. Respect – bring on the exam.') : doneN ? L(`Weiter geht’s: Station ${doneN + 1} von ${PATH.length} – ${cur.title}.`, `Let’s go on: station ${doneN + 1} of ${PATH.length} – ${cur.title}.`) : L('Ich führ dich durch die BWL – Station für Station, bis es sitzt.', 'I’ll guide you through business – station by station, until it sticks.')),
         h('small', {}, total ? L(`${total} Aufgaben gelöst · ${GOAL} richtige pro Station`, `${total} tasks solved · ${GOAL} correct per station`) : L(`${PATH.length} Stationen · je ${GOAL} richtige Aufgaben · sofort korrigiert`, `${PATH.length} stations · ${GOAL} correct tasks each · instant feedback`)))),
       h('div', { class: 'ub-path' }, PATH.map((id, k) => h('span', { class: 'ub-dot' + (k < doneN ? ' ok' : k === doneN ? ' cur' : ''), title: byId(id)?.title || id }))),
@@ -63,8 +71,7 @@ export async function render(root, { sub = '' } = {}) {
         h('a', { class: 'btn lg', href: '#/app/excel/trainer', onclick: fromHere }, h('span', { class: 'ub-xl', html: XL }), L('Excel-Trainer', 'Excel trainer'), xl.of ? h('small', { class: 'ub-xln' }, `${xl.n}/${xl.of}`) : null))),
     h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfungssimulation', 'Exam simulation')), h('span', { class: 'eyebrow' }, L('Wie in der echten Klausur', 'Like the real exam'))),
     sim,
-    h('div', { class: 'ln-gh ub-h ub-h2' }, h('h2', {}, 'Trainer'), h('span', { class: 'eyebrow' }, L(`${T.length + 1} Themen`, `${T.length + 1} topics`))),
-    h('div', { class: 'tr-grid ub-tgrid' }, PATH.map(byId).filter(Boolean).concat(T.filter(x => !PATH.includes(x.id))).map(tcard), xlCard));
+    ...(BEN ? [] : trSec));
   // Prüfen: irgendwas aus der BWL hochladen (Foto, Screenshot, PDF deiner Lösung) – Max korrigiert
   const upIn = h('input', { type: 'file', class: 'sr', accept: 'image/*,application/pdf,.pdf,.doc,.docx,.ppt,.pptx,.txt', multiple: true });
   const check = fs => { fs = [...(fs || [])]; if (!fs.length) return; fromHere(); ls.set('tutor.target', 'check'); import('../app.js').then(m => m.startUpload(fs)); };
@@ -72,15 +79,18 @@ export async function render(root, { sub = '' } = {}) {
   const upCard = h('button', { class: 'ub-up', type: 'button', onclick: () => upIn.click() },
     h('span', { class: 'ub-pci', html: ico('upload') }), h('span', { class: 'ub-pct' }, h('b', {}, L('Lösung prüfen lassen', 'Get your answer checked')), h('small', {}, L('Foto, Screenshot oder PDF – egal welches BWL-Thema. Max korrigiert Schritt für Schritt.', 'Photo, screenshot or PDF – any business topic. Max corrects it step by step.'))), upIn);
   { let n = 0; upCard.addEventListener('dragenter', e => { if (!e.dataTransfer?.types?.includes('Files')) return; e.preventDefault(); n++; upCard.classList.add('over'); }); upCard.addEventListener('dragover', e => e.preventDefault()); upCard.addEventListener('dragleave', () => { if (--n <= 0) { n = 0; upCard.classList.remove('over'); } }); upCard.addEventListener('drop', e => { e.preventDefault(); n = 0; upCard.classList.remove('over'); check(e.dataTransfer?.files); }); }
+  const wk = [h('div', { class: 'ln-gh ub-h ub-h2' + (BEN ? ' nvp-wkh' : '') }, h('h2', {}, L('Wettkampf', 'Compete'))),
+    pcard('spark', L('BWL-Duell', 'Business duel'), L('1 gegen 1 – wer weiß mehr?', '1 vs 1 – who knows more?'), '#/app/duell', 'hot'),
+    pcard('trophy', L('Wochen-Challenge', 'Weekly challenge'), L('Jede Woche neu – mit Rangliste', 'New every week – with a leaderboard'), '#/app/challenge')];
   const right = h('aside', { class: 'ub-right' },
     h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfen', 'Check'))),
     upCard,
     pcard('camera', L('Buchungssätze fotografieren', 'Photograph booking entries'), L('Auf Papier lösen, Foto machen – Max prüft', 'Solve on paper, snap it – Max checks'), '#/app/trainer/buchung'),
     pcard('calc', L('Rechner', 'Calculators'), L('Exakt gerechnet, mit Rechenweg', 'Exact, with the workings'), '#/app/rechner'),
-    h('div', { class: 'ln-gh ub-h ub-h2' }, h('h2', {}, L('Wettkampf', 'Compete'))),
-    pcard('spark', L('BWL-Duell', 'Business duel'), L('1 gegen 1 – wer weiß mehr?', '1 vs 1 – who knows more?'), '#/app/duell', 'hot'),
-    pcard('trophy', L('Wochen-Challenge', 'Weekly challenge'), L('Jede Woche neu – mit Rangliste', 'New every week – with a leaderboard'), '#/app/challenge'));
-  wrap.replaceChildren(h('div', { class: 'ub-cols' }, left, right));
+    ...(BEN ? [] : wk));
+  // Test Ben: Wettkampf links unter der Prüfungssimulation (zwei Karten nebeneinander) – beide Spalten etwa gleich hoch
+  if (BEN) left.append(wk[0], h('div', { class: 'ub-simrow nvp-wkrow' }, wk[1], wk[2]));
+  wrap.replaceChildren(h('div', { class: 'ub-cols' }, left, right), ...(BEN ? [h('section', { class: 'nvp-trsec' }, ...trSec)] : []));
   face(fEl, {});
 }
 

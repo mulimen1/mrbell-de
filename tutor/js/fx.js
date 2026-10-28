@@ -119,3 +119,25 @@ if (H.dataset.nv) {
   new MutationObserver(later).observe(document.documentElement, { childList: true, subtree: true });
   addEventListener('hashchange', later); later();
 }
+
+// Farbige Icons überall: jedes Icon-Kästchen (Span/Div mit genau einem Icon, eigener Hintergrund, 24–80 px) bekommt
+// data-icc=<Icon-Name>; app.css färbt es nach Bedeutung (Quiz lila, Karteikarten türkis, Klausurplan orange …).
+if (H.dataset.nv) {
+  const opaqueBg = c => (c.backgroundColor !== 'rgba(0, 0, 0, 0)' && c.backgroundColor !== 'transparent') || c.backgroundImage !== 'none';
+  const tag = () => {
+    document.querySelectorAll('svg.ico').forEach(svg => {
+      const box = svg.parentElement; if (!box || box.dataset.icc !== undefined || box.dataset.icn === '1') return;
+      if (!/^(SPAN|DIV|I)$/.test(box.tagName) || box.children.length !== 1 || box.textContent.trim()) { box.dataset.icn = '1'; return; }
+      if (box.closest('.tn-tutor, .ai-talk, .lm-cta, .lm-tutor, .btn, .kt-start, .kt-go, .kt-sec, .rm-acc, .topbar .iconbtn, .side-col, .side-tog')) { box.dataset.icn = '1'; return; }
+      const r = box.getBoundingClientRect(); if (!r.width) return;
+      const c = getComputedStyle(box);
+      if (r.width < 24 || r.width > 80 || !opaqueBg(c)) { box.dataset.icn = '1'; return; }
+      const n = [...svg.classList].find(k => k.startsWith('i-')); const nm = n ? n.slice(2) : '';
+      if (/^(right|left|up|down|x|plus|menu|send|check)$/.test(nm) || box.closest('[class*="chev"], [class*="-go"]')) { box.dataset.icn = '1'; return; }
+      box.dataset.icc = nm;
+    });
+  };
+  let t2 = 0; const later2 = () => { clearTimeout(t2); t2 = setTimeout(tag, 300); };
+  new MutationObserver(later2).observe(document.documentElement, { childList: true, subtree: true });
+  addEventListener('hashchange', later2); later2();
+}

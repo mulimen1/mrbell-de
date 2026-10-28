@@ -26,7 +26,7 @@ const sameName = (t, f) => { const a = nrm(t), b = nrm(f.name), k = nrm(f.kurz);
 const bisZu = a => a === 'test' ? L('zum Test', 'the test') : a === 'abgabe' ? L('zur Abgabe', 'the deadline') : a === 'referat' ? L('zum Referat', 'the presentation') : L('zur Klausur', 'the exam');
 
 export function render(root, { sub = '', onLogin } = {}) {
-  const wrap = h('div', { class: 'view-in me' });
+  const wrap = h('div', { class: 'view-in me' + (sub === 'faecher' && document.documentElement.dataset.nv ? ' nvp-me' : '') });
   root.appendChild(wrap);
   { const sw = sub === 'faecher' && libSwitch('faecher'); if (sw) root.insertBefore(sw, wrap); }
   // Am Wochenende zeigt der Stundenplan gleich die kommende Woche
@@ -173,7 +173,12 @@ const HEADS = {
 };
 function pageHead(tab) {
   const [t, p] = HEADS[tab];
-  const head = h('div', { class: 'vh me-ph' }, h('div', {}, h('h2', {}, t), h('p', {}, p)));
+  // Test (nur Bens Konto): Fächer-Kopf wie bei den Klausur-Tools – große Überschrift, Text auf Karte
+  const head = tab === 'faecher' && document.documentElement.dataset.nv
+    ? h('div', { class: 'nvp-bh' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Fächer & Bibliothek', 'Subjects & library')), h('h1', {}, L('Deine Fächer. ', 'Your subjects. '), h('span', {}, L('Jede Klausur im Blick.', 'Every exam in sight.')))),
+      h('div', { class: 'nvp-bhr' }, h('p', { class: 'nvp-lead' }, L('Klausur-Countdown, Prüfungsreife und deine Noten – Max sagt dir pro Fach, was als Nächstes dran ist.', 'Exam countdown, readiness and your grades – Max tells you what’s next for each subject.')),
+        h('button', { class: 'kt-go nvp-go', type: 'button', onclick: () => editFach(null) }, h('span', { html: ico('plus') }), L('Fach anlegen', 'Add subject'))))
+    : h('div', { class: 'vh me-ph' }, h('div', {}, h('h2', {}, t), h('p', {}, p)));
   if (tab !== 'faecher' && tab !== 'plan') return head;
   // Fächer und Stundenplan sind ein Bereich – oben umschalten
   const sw = h('div', { class: 'bib-tabs me-sw', role: 'tablist' }, [['faecher', L('Fächer & Noten', 'Subjects & grades'), 'brain', '#/app/faecher'], ['plan', L('Stundenplan', 'Timetable'), 'calendar', '#/app/stundenplan']].map(([k, n, ic, href]) =>
@@ -321,6 +326,8 @@ function subjects(body) {
   const me = M.getMe();
   // Reihenfolge wie der Titel: erst Fächer, dann Noten, dann Stundenplan (der hat zusätzlich seinen eigenen Reiter)
   const grid = h('div', { class: 'me-subj' });
+  const BEN = !!document.documentElement.dataset.nv, TONES = ['orange', 'blue', 'purple', 'cyan', 'pink', 'yellow'];
+  let fi = 0;
   for (const f of me.faecher) {
     const ds = (f.docs || []).map(docById).filter(Boolean);
     const iso = f.klausur || ds.map(d => d.plan?.exam).filter(Boolean).sort()[0];
@@ -334,7 +341,7 @@ function subjects(body) {
       : rf.neu ? { t: L(`${rf.neu} neue Karten lernen`, `Learn ${rf.neu} new cards`), href: `#/app/${d0.id}/karten` }
       : !rf.cards ? { t: L('Karteikarten erstellen', 'Create flashcards'), href: `#/app/${d0.id}/karten` }
       : { t: L('Quiz zur Kontrolle', 'Check yourself with a quiz'), href: `#/app/${d0.id}/quiz` };
-    grid.append(h('article', { class: 'me-sc' },
+    grid.append(h('article', { class: 'me-sc', 'data-tone': BEN ? TONES[fi++ % TONES.length] : null },
       h('div', { class: 'me-sch' }, h('span', { class: 'me-badge' }, (f.kurz || f.name).slice(0, 3).toUpperCase()), h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Bearbeiten', 'Edit'), html: ico('tune'), onclick: () => editFach(f) })),
       h('h3', {}, f.name),
       h('div', { class: 'me-scd' }, graded ? h('span', {}, L('Note ', 'Grade '), h('b', {}, N.fmt(+graded.note))) : dl == null ? h('span', { class: 'me-muted' }, L('Kein Klausurtermin', 'No exam date')) : dl < 0 ? h('span', { class: 'me-muted' }, L(`${M.artName(f.klausurArt)} vorbei`, `${M.artName(f.klausurArt)} over`)) : h('span', {}, h('b', {}, String(dl)), (dl === 1 ? L(' Tag bis ', ' day to ') : L(' Tage bis ', ' days to ')) + bisZu(f.klausurArt))),
@@ -349,9 +356,18 @@ function subjects(body) {
       h('div', { class: 'me-scdocs' }, ds.length ? ds.map(d => h('a', { class: 'chip', href: `#/app/${d.id}/hub` }, h('span', { html: ico('file') }), d.name.length > 26 ? d.name.slice(0, 25) + '…' : d.name))
         : h('button', { class: 'chip', type: 'button', onclick: () => editFach(f) }, h('span', { html: ico('plus') }), L('Skripte zuordnen', 'Assign slides')))));
   }
-  grid.append(h('button', { class: 'me-sc me-scadd', type: 'button', onclick: () => editFach(null) }, h('span', { html: ico('plus') }), h('b', {}, L('Fach anlegen', 'Add subject')), h('small', {}, L('z. B. Kostenrechnung, Klausur am 12.02.', 'e.g. Cost accounting, exam on 12 Feb'))));
+  // Test Ben: noch kein Fach → große Einstiegskarte statt einzelner Plus-Kachel
+  const benEmpty = BEN && !me.faecher.length ? h('section', { class: 'nvp-empty nvp-fempty' },
+    h('div', { class: 'nvp-el' },
+      h('span', { class: 'nvp-eb' }, h('span', { class: 'nvp-ebi', html: ico('brain') }), L('Noch kein Fach', 'No subject yet')),
+      h('h2', {}, L('Leg dein erstes Fach an', 'Add your first subject')),
+      h('p', {}, L('Name und Klausurtermin reichen. Dann zählt Max runter, zeigt dir die Prüfungsreife und plant mit, was bis wann sitzen muss.', 'A name and exam date are enough. Max then counts down, shows your readiness and plans what has to stick by when.')),
+      h('div', { class: 'kt-btns' }, h('button', { class: 'kt-go nvp-go', type: 'button', onclick: () => editFach(null) }, h('span', { html: ico('plus') }), L('Fach anlegen', 'Add subject')))),
+    h('div', { class: 'nvp-facts' }, [['calendar', 'orange', L('Klausur-Countdown', 'Exam countdown'), L('Tage bis zur Klausur, immer im Blick', 'Days to the exam, always in sight')], ['check', 'purple', L('Prüfungsreife', 'Exam readiness'), L('Wie viel vom Stoff schon sicher sitzt', 'How much of the material already sticks')], ['trophy', 'cyan', L('Notenziel', 'Grade goal'), L('Was du für deine Wunschnote brauchst', 'What you need for your target grade')]].map(([ic, tone, t, sub]) =>
+      h('div', { class: 'nvp-kind', 'data-tone': tone }, h('span', { class: 'nvp-ki', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))))) : null;
+  if (!benEmpty) grid.append(h('button', { class: 'me-sc me-scadd', type: 'button', onclick: () => editFach(null) }, h('span', { html: ico('plus') }), h('b', {}, L('Fach anlegen', 'Add subject')), h('small', {}, L('z. B. Kostenrechnung, Klausur am 12.02.', 'e.g. Cost accounting, exam on 12 Feb'))));
   const loose = S.list.filter(d => !d.sample && !M.fachOf(d.id));
-  body.append(...[grid, loose.length && me.faecher.length ? h('div', { class: 'me-note' }, L(`${loose.length} ${loose.length === 1 ? 'Skript ist' : 'Skripte sind'} noch keinem Fach zugeordnet.`, `${loose.length} ${loose.length === 1 ? 'set of slides isn’t' : 'sets of slides aren’t'} assigned to a subject yet.`)) : null, notenCard(), ttHero()].filter(Boolean));
+  body.append(...[benEmpty || grid, loose.length && me.faecher.length ? h('div', { class: 'me-note' }, L(`${loose.length} ${loose.length === 1 ? 'Skript ist' : 'Skripte sind'} noch keinem Fach zugeordnet.`, `${loose.length} ${loose.length === 1 ? 'set of slides isn’t' : 'sets of slides aren’t'} assigned to a subject yet.`)) : null, notenCard(), ttHero()].filter(Boolean));
 }
 
 // ---------- Notenziel: „Welche Note brauche ich noch?“ ----------

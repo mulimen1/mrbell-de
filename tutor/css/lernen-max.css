@@ -345,3 +345,17 @@ html:root[data-nv] body > footer a:hover { color: var(--nb2, #1f6fe0); }
 html:root[data-nv][data-theme="dark"] body > footer { background: #131418; color: #a5a5ab; }
 html:root[data-nv][data-theme="dark"] body > footer > span:first-child, html:root[data-nv][data-theme="dark"] body > footer a { color: #e6e6e9; }
 @media (max-width: 600px) { html:root[data-nv] body > footer { padding: 16px 18px; gap: 4px 16px; } html:root[data-nv] body > footer .sp { flex-basis: 100%; height: 0; } }
+/* Kopfleiste der Lern-/Über-/Gehirn-Seiten wie in der App: vier Bereiche über die volle Breite, bunte Icons */
+html:root[data-nv] body header.lm-top4 { display: flex !important; align-items: center; gap: 12px !important; }
+html:root[data-nv] body header.lm-top4 .lm-nav { flex: 1 1 auto; display: flex !important; gap: 10px !important; overflow: visible !important; justify-content: stretch !important; }
+html:root[data-nv] body header.lm-top4 .lm-nav > .lm-tn { flex: 1 1 0; justify-content: center; min-width: 0; height: 50px !important; font-size: 16px !important; font-weight: 700 !important; padding: 0 12px 0 6px !important; }
+html:root[data-nv] body header.lm-top4 .lm-tutor { background: linear-gradient(110deg, #1a5fc4 0%, #1f6fe0 38%, #2a7fe8 72%, #7db4f2 100%) !important; color: #fff !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 12px 26px -12px rgba(31,111,224,.9) !important; }
+html:root[data-nv] body header.lm-top4 .lm-ic { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; color: #fff; flex: none; }
+html:root[data-nv] body header.lm-top4 .lm-ic .ico { width: 20px !important; height: 20px !important; padding: 0 !important; background: none !important; color: #fff !important; }
+html:root[data-nv] body header.lm-top4 .lm-orange .lm-ic { background: linear-gradient(135deg, #f39b52, #d9601c); box-shadow: 0 8px 16px -10px #d9601c; }
+html:root[data-nv] body header.lm-top4 .lm-lila .lm-ic { background: linear-gradient(135deg, #9b7cf0, #5b3fc4); box-shadow: 0 8px 16px -10px #5b3fc4; }
+html:root[data-nv] body header.lm-top4 .lm-pink .lm-ic { background: linear-gradient(135deg, #f47ba0, #c8336f); box-shadow: 0 8px 16px -10px #c8336f; }
+html:root[data-nv] body header.lm-top4 .lm-tn:not(.lm-tutor):hover .lm-ic { filter: brightness(1.06); }
+html:root[data-nv] body header.lm-top4 .lm-cta { flex: none; }
+@media (max-width: 1100px) { html:root[data-nv] body header.lm-top4 .lm-b, html:root[data-nv] body header.lm-top4 .lm-new { display: none !important; } html:root[data-nv] body header.lm-top4 .lm-brand b { display: none; } }
+@media (max-width: 860px) { html:root[data-nv] body header.lm-top4 .lm-nav { overflow-x: auto !important; justify-content: flex-start !important; } html:root[data-nv] body header.lm-top4 .lm-nav > .lm-tn { flex: 0 0 auto; height: 44px !important; font-size: 14.5px !important; } html:root[data-nv] body header.lm-top4 .lm-ic { width: 30px; height: 30px; } }

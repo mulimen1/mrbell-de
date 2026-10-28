@@ -23,6 +23,9 @@ export const TYPES = [
   ['podcasts', 'Podcasts', 'pod'],
   ['tafeln', L('Tafeln', 'Boards'), 'board'],
 ];
+// Test (nur Bens Konto): jede Bereichsart mit eigener Icon-Farbe
+const TONE = { alles: 'orange', gemerkt: 'yellow', unterlagen: 'blue', mitschriften: 'indigo', videos: 'red', karten: 'cyan', quiz: 'purple', zettel: 'yellow', podcasts: 'pink', tafeln: 'green' };
+const BEN = () => !!document.documentElement.dataset.nv;
 const PREVIEW = 4; // in „Alles“: so viele je Bereich, Rest über „Alle anzeigen“
 const live = d => (S.doc && S.doc.id === d.id ? S.doc : d);
 const NO_DOC = { id: '', name: L('Ohne Skript', 'No slides') };
@@ -66,7 +69,13 @@ export function render(root, { tab: want = '' } = {}) {
     h('div', {}, h('div', { class: 'eyebrow' }, L('Bibliothek', 'Library')), h('h2', {}, L('Alles an einem Ort', 'Everything in one place')),
       h('p', {}, L('Deine Unterlagen und alles, was Max daraus für dich gebaut hat.', 'Your materials and everything Max built from them for you.'))),
     h('label', { class: 'btn primary', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')));
-  wrap.append(head, chipsEl, tools, body);
+  // Test Ben: Kopf wie bei den Klausur-Tools – große Überschrift, Text auf Karte, oranger Knopf
+  const benHead = () => h('div', { class: 'nvp-bh' },
+    h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Fächer & Bibliothek', 'Subjects & library')), h('h1', {}, L('Dein Stoff. ', 'Your material. '), h('span', {}, L('Alles an einem Ort.', 'All in one place.')))),
+    h('div', { class: 'nvp-bhr' }, h('p', { class: 'nvp-lead' }, L('Deine Unterlagen und alles, was Max daraus für dich gebaut hat – sauber nach Fach und Skript sortiert.', 'Your materials and everything Max built from them – neatly sorted by subject and slides.')),
+      h('label', { class: 'kt-go nvp-go', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material'))));
+  if (BEN()) wrap.classList.add('nvp-bib');
+  wrap.append(BEN() ? benHead() : head, chipsEl, tools, body);
 
   let data = {};
   function collect() {
@@ -90,8 +99,8 @@ export function render(root, { tab: want = '' } = {}) {
     const all = [...fav, ...have];
     const one = all.length < 2 && filter !== 'gemerkt';
     chipsEl.hidden = one;
-    chipsEl.replaceChildren(...(one ? [] : [['alles', L('Alles', 'All'), 'grid'], ...all].map(([k, t, ic]) => h('button', { type: 'button', role: 'tab', class: 'bib-tab' + (k === filter ? ' on' : ''), 'aria-selected': k === filter ? 'true' : 'false', onclick: () => k !== filter && setFilter(k) },
-      k === 'alles' ? null : h('span', { html: ico(ic) }), h('span', {}, t), k === 'alles' ? null : h('small', {}, String(data[k].length))))));
+    chipsEl.replaceChildren(...(one ? [] : [['alles', L('Alles', 'All'), 'grid'], ...all].map(([k, t, ic]) => h('button', { type: 'button', role: 'tab', class: 'bib-tab' + (k === filter ? ' on' : ''), 'data-tone': BEN() ? TONE[k] : null, 'aria-selected': k === filter ? 'true' : 'false', onclick: () => k !== filter && setFilter(k) },
+      k === 'alles' ? (BEN() ? h('span', { html: ico('apps') }) : null) : h('span', { html: ico(ic) }), h('span', {}, t), k === 'alles' ? null : h('small', {}, String(data[k].length))))));
     const total = have.reduce((a, [k]) => a + data[k].length, 0);
     tools.hidden = total < 4 || filter === 'gemerkt';
     if (tools.hidden && q) { q = ''; search.value = ''; }
@@ -133,17 +142,18 @@ export function render(root, { tab: want = '' } = {}) {
   function section(k, t, ic, list, { limit = 0 } = {}) {
     const all = list;
     const shown = limit ? all.slice(0, limit) : all;
+    const sec = (...kids) => h('section', { class: 'bib-sec', 'data-tone': BEN() ? TONE[k] : null }, ...kids);
     const headEl = h('div', { class: 'bib-sh' }, h('span', { class: 'bib-si', html: ico(ic) }), h('h3', {}, t), h('small', {}, String(all.length)), h('span', { style: { flex: 1 } }),
       limit && all.length > limit ? h('button', { class: 'bib-more', type: 'button', onclick: () => setFilter(k) }, L(`Alle ${all.length} anzeigen`, `Show all ${all.length}`), h('span', { html: ico('right') })) : null);
-    if (k === 'unterlagen') return h('section', { class: 'bib-sec' }, headEl, docGroups(shown));
-    if (k === 'mitschriften' || k === 'videos') return h('section', { class: 'bib-sec' }, headEl, h('div', { class: 'sk-g' }, shown.map(docRow)));
+    if (k === 'unterlagen') return sec(headEl, docGroups(shown));
+    if (k === 'mitschriften' || k === 'videos') return sec(headEl, h('div', { class: 'sk-g' }, shown.map(docRow)));
     const byDoc = new Map();
     shown.forEach(it => { if (!byDoc.has(it.d.id)) byDoc.set(it.d.id, []); byDoc.get(it.d.id).push(it); });
     const multi = byDoc.size > 1 && !limit;
     const groups = [...byDoc.values()].map(g => h('div', { class: 'sk-g' },
       multi ? h('div', { class: 'zh' }, h('b', {}, short(g[0].d.name, 60)), h('small', {}, g.length === 1 ? L('1 Eintrag', '1 item') : L(`${g.length} Einträge`, `${g.length} items`))) : null,
       g.map(it => itemRow(it, ic, !multi))));
-    return h('section', { class: 'bib-sec' }, headEl, multi ? groups : h('div', { class: 'sk-g' }, shown.map(it => itemRow(it, ic, true))));
+    return sec(headEl, multi ? groups : h('div', { class: 'sk-g' }, shown.map(it => itemRow(it, ic, true))));
   }
   function docGroups(docs) {
     const me = M.getMe();
@@ -161,6 +171,7 @@ export function render(root, { tab: want = '' } = {}) {
     if (filter === 'gemerkt') { const el = h('div', { class: 'bib-favs' }); body.replaceChildren(el); import('./me.js').then(m => m.favsPane(el)); return; }
     // Noch gar nichts hochgeladen
     if (!data.docs.length && !made().length) {
+      if (BEN()) { body.replaceChildren(benEmpty(), intro()); return; }
       body.replaceChildren(h('div', { class: 'sk-empty' }, h('label', { class: 'sk-drop', for: 'fileApp' }, h('span', { html: ico('upload') }), h('b', {}, L('Datei, Foto oder Screenshot hier rein', 'Drop a file, photo or screenshot here')), matchMedia('(pointer: coarse), (max-width: 600px)').matches ? null : h('small', {}, L('oder in der App einfach ⌘V / Strg+V', 'or just ⌘V / Ctrl+V in the app'))),
         h('button', { class: 'btn', type: 'button', onclick: () => import('../app.js').then(m => m.topicPrompt()) }, h('span', { html: ico('bulb') }), L('Kein Skript? Nenn mir ein Thema', 'No slides? Give me a topic'))),
         intro());
@@ -176,8 +187,29 @@ export function render(root, { tab: want = '' } = {}) {
     body.replaceChildren(...out);
   }
 
+  // Test Ben: leerer Zustand als Hero-Karte – links erklären + Knöpfe, rechts die Ablagefläche
+  function benEmpty() {
+    const touch = matchMedia('(pointer: coarse), (max-width: 600px)').matches;
+    return h('section', { class: 'nvp-empty' },
+      h('div', { class: 'nvp-el' },
+        h('span', { class: 'nvp-eb' }, h('span', { class: 'nvp-ebi', html: ico('library') }), L('Noch leer', 'Still empty')),
+        h('h2', {}, L('Lad deinen ersten Stoff hoch', 'Upload your first material')),
+        h('p', {}, L('Skript, Altklausur, Mitschrift oder einfach ein Foto vom Tafelbild – Max liest alles und baut dir daraus Karteikarten, Quizze und Lernzettel.', 'Slides, past exam, notes or just a photo of the board – Max reads it all and builds flashcards, quizzes and study sheets from it.')),
+        h('div', { class: 'kt-btns' },
+          h('label', { class: 'kt-go nvp-go', for: 'fileApp' }, h('span', { html: ico('upload') }), L('Datei auswählen', 'Choose file')),
+          h('button', { class: 'kt-sec nvp-sec', type: 'button', onclick: () => import('../app.js').then(m => m.topicPrompt()) }, h('span', { html: ico('bulb') }), L('Kein Skript? Nenn mir ein Thema', 'No slides? Give me a topic')))),
+      h('label', { class: 'sk-drop nvp-drop', for: 'fileApp' }, h('span', { class: 'nvp-dri', html: ico('upload') }), h('b', {}, L('Datei, Foto oder Screenshot hier rein', 'Drop a file, photo or screenshot here')),
+        h('small', {}, touch ? L('PDF, PowerPoint, Word oder Foto', 'PDF, PowerPoint, Word or photo') : L('PDF, PowerPoint, Word, Foto – oder einfach ⌘V / Strg+V', 'PDF, PowerPoint, Word, photo – or just ⌘V / Ctrl+V'))));
+  }
   // Erklärung, solange Max noch nichts erstellt hat
   function intro() {
+    if (BEN()) {
+      const kinds = [['cards', 'cyan', L('Karteikarten', 'Flashcards'), L('Wiederholung genau dann, wenn du sie brauchst', 'Reviews exactly when you need them')], ['quiz', 'purple', L('Quizze', 'Quizzes'), L('Klausurfragen mit Erklärung zu jeder Antwort', 'Exam questions, every answer explained')], ['note', 'yellow', L('Lernzettel', 'Study sheets'), L('Das Wichtigste auf einer Seite', 'The essentials on one page')], ['pod', 'pink', 'Podcasts', L('Dein Stoff zum Anhören, unterwegs', 'Your material to listen to on the go')], ['board', 'blue', L('Tafelbilder', 'Boards'), L('Erklärungen von Max, gespeichert', 'Max’s explanations, saved')]];
+      return h('section', { class: 'nvp-intro' },
+        h('div', { class: 'nvp-ih' }, h('h3', {}, L('Hier landet alles, was Max für dich erstellt', 'Everything Max makes for you lands here')), h('p', {}, L('Automatisch gespeichert und nach Skript sortiert – sobald du das Erste erstellst, taucht es hier auf.', 'Saved automatically and sorted by slides – as soon as you create your first one, it shows up here.'))),
+        h('div', { class: 'nvp-kinds' }, kinds.map(([ic, tone, t, sub]) => h('div', { class: 'nvp-kind', 'data-tone': tone }, h('span', { class: 'nvp-ki', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))),
+        data.docs.length ? h('a', { class: 'kt-go nvp-go', href: '#/app/lernen' }, h('span', { html: ico('spark') }), L('Jetzt etwas erstellen', 'Create something now')) : null);
+    }
     const kinds = [['cards', L('Karteikarten', 'Flashcards')], ['quiz', L('Quizze', 'Quizzes')], ['note', L('Lernzettel', 'Study sheets')], ['pod', 'Podcasts'], ['board', L('Tafelbilder', 'Boards')]];
     return h('div', { class: 'bib-intro' },
       h('div', { class: 'bib-ik' }, kinds.map(([ic, t]) => h('span', { class: 'bib-kc' }, h('span', { html: ico(ic) }), t))),

@@ -148,7 +148,7 @@ const I = {
   whistle: '<path d="M10 6v4"/><path d="M21 6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-5.675A7 7 0 1 1 9 6z"/>',
   expand: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
 };
-export const ico = (n, cls = '') => `<svg class="ico ${cls}" viewBox="0 0 24 24" aria-hidden="true">${I[n] || ''}</svg>`;
+export const ico = (n, cls = '') => `<svg class="ico i-${n} ${cls}" viewBox="0 0 24 24" aria-hidden="true">${I[n] || ''}</svg>`;
 export const icoEl = (n, cls) => { const s = document.createElement('span'); s.style.display = 'contents'; s.innerHTML = ico(n, cls); return s.firstChild; };
 
 // Haptik (Android über navigator.vibrate; iPhone-Safari kann es nicht). Abschaltbar, respektiert „Bewegung reduzieren“.
