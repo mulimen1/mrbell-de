@@ -1,0 +1,1 @@
+import{a as n,c,l as r,r as s}from"./c-WFBQXWYO.js";import{d as o}from"./c-U4RZMFOW.js";function M(){if(!n().faecher?.length)return;let e=[];for(let f of o.list){if(!f.ms||!f.ms.fach||r(f.id))continue;let t=s(f.ms.fach);t&&e.push([t.id,f.id])}e.length&&c(f=>e.forEach(([t,d])=>{let i=f.faecher.find(h=>h.id===t);i&&(i.docs=[...new Set([...i.docs||[],d])])}))}export{M as a};

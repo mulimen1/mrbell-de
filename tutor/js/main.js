@@ -10,6 +10,7 @@ import { onAccount, getAccount } from './api.js';
 import { applyThemeButtons } from './theme.js';
 import { lines as maxLines } from './max.js';
 import { EN, L, setLang, lang } from './i18n.js';
+import './fx.js';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
