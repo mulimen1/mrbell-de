@@ -52,7 +52,7 @@ function backLabel() {
 }
 function tutorTitle() {
   let th = ''; try { th = sessionStorage.getItem('tutor.lastTopic') || ''; } catch (e) {}
-  return th && th !== 'BWL' ? L(`Dein Tutor für ${th} wartet.`, `Your ${th} tutor is waiting.`) : L('Dein persönlicher Tutor wartet.', 'Your personal tutor is waiting.');
+  return th && th !== 'BWL' ? L(`Dein Tutor für ${th} wartet.`, `Your ${th} tutor is waiting.`) : L('Max wartet auf dich.', 'Max is waiting for you.');
 }
 function show() {
   if (getAccount() || el) return;

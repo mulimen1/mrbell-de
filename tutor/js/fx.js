@@ -141,3 +141,10 @@ if (H.dataset.nv) {
   new MutationObserver(later2).observe(document.documentElement, { childList: true, subtree: true });
   addEventListener('hashchange', later2); later2();
 }
+
+// Popups ohne X: Klick daneben schließt (bei Fenstern mit Hintergrund macht das der Hintergrund selbst)
+document.addEventListener('pointerdown', e => {
+  document.querySelectorAll('.kg-x, .cb-x, .hn-x, .mt2x, .dkp-x').forEach(x => {
+    const box = x.parentElement; if (box && !box.contains(e.target)) setTimeout(() => x.click(), 0);
+  });
+}, true);

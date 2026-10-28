@@ -98,12 +98,14 @@ function initLanding() {
   const fr = $('#featrow');
   if (fr) {
     // Die drei stärksten zuerst und größer, der Rest dezent
-    const TOP = [['board', L('Erklärt an der Tafel', 'Explains on the whiteboard'), 'tutor', L('Dein persönlicher Tutor, live', 'Your personal tutor, live')], ['pen', L('Live-Mitschrift', 'Live notes'), 'mitschrift', L('Tippen oder Foto → Füller oder Druckschrift', 'Type or snap → pen or print')], ['brands', L('Lernvideos → Lernstoff', 'Study videos → study material'), 'video', L('YouTube-Videos abschreiben', 'Transcribe YouTube videos')], ['xls', L('Excel-Helfer', 'Excel helper'), 'excel', L('60 Vorlagen + Generator', '60 templates + generator')]];
+    const TOP = [['board', L('Erklärt an der Tafel', 'Explains on the whiteboard'), 'tutor', L('Max erklärt jedes Thema live', 'Max explains any topic live')], ['pen', L('Live-Mitschrift', 'Live notes'), 'mitschrift', L('Tippen oder Foto → Füller oder Druckschrift', 'Type or snap → pen or print')], ['brands', L('Lernvideos → Lernstoff', 'Study videos → study material'), 'video', L('YouTube-Videos abschreiben', 'Transcribe YouTube videos')], ['xls', L('Excel-Helfer', 'Excel helper'), 'excel', L('60 Vorlagen + Generator', '60 templates + generator')]];
     const REST = [['calendar', L('Klausurplan', 'Exam plan'), 'plan'], ['quiz', L('Quiz in 6 Formaten', 'Quizzes in 6 formats'), 'quiz'], ['whistle', L('BWL-Trainer', 'Business trainer'), 'trainer'], ['trophy', L('Wochen-Challenge', 'Weekly challenge'), 'challenge'], ['brain', L('Lernzettel & Mindmap', 'Study sheet & mind map'), 'zettel'], ['mic', L('Sprechen', 'Talk'), 'voice'], ['cards', L('Karteikarten', 'Flashcards'), 'karten'], ['path', L('Lernpfad', 'Study path'), 'pfad'], ['pod', 'Podcast', 'podcast']];
     const rowT = h('div', { class: 'feattop' }), rowR = h('div', { class: 'featrest' });
     TOP.forEach(([ic, t, key, sub], k) => rowT.appendChild(h('button', { class: 'feat big', 'data-k': key, type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k }, onclick: () => key === 'excel' ? (location.hash = '#/app/excel') : tryFeature(key) }, (ic === 'xls' ? h('span', { class: 'fi fi-xls', html: XLS_SVG }) : ic === 'brands' ? h('span', { class: 'fi fi-brands fi-yt' }, ...['youtube'].map(p => h('img', { src: `/tutor/img/brands/${p}.svg`, alt: '', width: 16, height: 16 }))) : h('span', { class: 'fi', html: ico(ic) })), h('span', { class: 'ft' }, h('b', {}, t, key === 'excel' ? h('span', { class: 'ft-new' }, L('NEU', 'NEW')) : null), h('small', {}, sub)))));
     REST.forEach(([ic, t, key], k) => ((k === 4 || k === 7) && rowR.appendChild(h('span', { class: 'fbreak', 'aria-hidden': 'true' })), rowR).appendChild(h('button', { class: 'feat', 'data-k': key, type: 'button', title: L('Ausprobieren', 'Try it'), style: { '--k': k + 3 }, onclick: () => tryFeature(key) }, h('span', { html: ico(ic) }), t, key === 'challenge' ? h('span', { class: 'lockb', 'data-lockb': '', title: L('Mit kostenlosem Konto', 'With a free account'), html: ico('lock') }) : null)));
     onAccount(a => document.querySelectorAll('#featrow [data-lockb]').forEach(x => { x.hidden = !!a; }));
+    // Neues Design: Tools zuerst, „Frag Max“ als Zweitweg darunter
+    if (document.documentElement.dataset.nv) { const ml = document.querySelector('.hero .mq-l'), ts = document.querySelector('.hero .ts-top'); const after = fr.parentElement.querySelector('.lp-trust') || fr; if (ts) after.after(ts); if (ml && ts) ts.before(ml); }
     fr.append(rowT, rowR);
     // Umrandung läuft durch alle Funktionen: erst die drei großen, dann die kleinen (die Zeile wischt mit)
     const fs = [...rowT.children, ...rowR.children].filter(x => x.tagName === "BUTTON"); let fi = 0;
@@ -122,7 +124,7 @@ function initLanding() {
   // Ohne Skript: Max erklärt ein Thema
   $('#topicSlot')?.appendChild(topicForm());
   // Laptop: „Was soll ich dir erklären?“ direkt unter die Überschrift – wie bei ChatGPT sofort lostippen, statt 1900 px tiefer
-  if (matchMedia('(min-width: 641px)').matches) { const ts = $('#topicSlot'), fr = $('#featrow'); if (ts && fr && fr.parentElement) { fr.parentElement.insertBefore(ts, fr); ts.classList.add('ts-top'); } }
+  if (matchMedia('(min-width: 641px)').matches) { const ts = $('#topicSlot'), fr = $('#featrow'); if (ts && fr && fr.parentElement) { if (document.documentElement.dataset.nv) { const after = fr.parentElement.querySelector('.lp-trust') || fr; after.after(ts); const ml = document.querySelector('.hero .mq-l'); if (ml) ts.before(ml); } else fr.parentElement.insertBefore(ts, fr); ts.classList.add('ts-top'); } }
   // … und beim Themen-Einstieg legt Max direkt los (einmal pro Besuch und Thema)
   if (TH) {
     let done = ''; try { done = sessionStorage.getItem('tutor.themaDone') || ''; } catch (e) {}
@@ -294,8 +296,8 @@ async function route() {
       }
     } catch (e) {}
   } else {
-    document.title = L('BWL Max – dein persönlicher Tutor: Tafel, Live-Mitschrift & Klausurvorbereitung', 'BWL Max – your personal tutor: whiteboard, live notes & exam prep');
-    if (EN) document.querySelector('meta[name="description"]')?.setAttribute('content', 'Upload your course material – slides, notes or past exams – and learn with BWL Max, the AI tutor that writes on the whiteboard: explanations, quizzes, flashcards, study paths, podcasts and a practice trainer. Free, no sign-up.');
+    document.title = L('BWL Max – die Lernplattform fürs BWL-Studium: Excel-Helfer, Klausurplan & Tafel', 'BWL Max – the learning platform for business students: Excel helpers, exam plan & whiteboard');
+    if (EN) document.querySelector('meta[name="description"]')?.setAttribute('content', 'BWL Max is the learning platform for business students: 60 Excel templates with real formulas, exam plan, exam simulator, flashcards, live notes and explanations on the whiteboard. Free to start.');
     initLanding();
     import('./assistant.js').then(m => m.mountAssistant && m.mountAssistant()).catch(e => console.warn(e));
     import('./dock.js').then(m => m.mountDock()).catch(e => console.warn(e));

@@ -106,7 +106,7 @@ export async function openMaxCfg() {
     h('div', {}, lab(L('Pausen', 'Breaks'), L('Max sagt dir, wann du kurz rausgehst', 'Max tells you when to step away')), seg(PAUSEN, () => c.pause, v => { c.pause = v; })),
     getAccount() ? h('div', {}, lab(L('Gedächtnis', 'Memory'), L('Max merkt sich, woran ihr gearbeitet habt und wo es hakt – nur für dich, auf all deinen Geräten. Aus = Notiz wird gelöscht.', 'Max remembers what you worked on and where you got stuck – only for you, on all your devices. Off = note is deleted.')), seg([[1, L('An', 'On')], [0, L('Aus', 'Off')]], () => mem, v => { mem = v; }), memBtn, memOut) : null);
   const fc = face(fEl, {}); paint();
-  const r = await modal({ cls: 'mc-modal', eyebrow: L('Max konfigurieren', 'Configure Max'), title: L('Wie soll dein Tutor ticken?', 'How should your tutor tick?'), body,
+  const r = await modal({ cls: 'mc-modal', eyebrow: L('Max konfigurieren', 'Configure Max'), title: L('Wie soll Max ticken?', 'How should your tutor tick?'), body,
     actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'ok', primary: true }] });
   if (r !== 'ok') return false;
   M.updateMe(m => { m.maxcfg = { ton: c.ton, methode: c.methode, fokus: c.fokus, niveau: c.niveau, pause: c.pause }; });

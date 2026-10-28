@@ -585,3 +585,9 @@ html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+6) { --pc1: #f
 html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+7) { --pc1: #7a8cf7; --pc2: #3f4fd6; }
 html[data-nv] .tafel .m-next.m-ov button:not(.btn):nth-of-type(8n+8) { --pc1: #ff7b7b; --pc2: #d63031; }
 html[data-nv] .tafel .m-next.m-ov button:not(.btn):hover { border-color: var(--pc2) !important; color: var(--pc2) !important; }
+/* Klausurfest: echtes Gold, Pokal schwarz */
+html[data-nv] .tafel .m-ladc:nth-child(7) { --lc1: #f3d36b; --lc2: #c99a1b; }
+html[data-nv] .tafel .m-ladc:nth-child(7) .m-ladn { background: linear-gradient(135deg, #f6dc7d 0%, #e2b33c 45%, #b8860b 100%) !important; color: #141414 !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 5px 0 #8a6408 !important; opacity: 1 !important; }
+html[data-nv] .tafel .m-ladc:nth-child(7) .m-ladn.lock { filter: saturate(.85); opacity: .85 !important; }
+html[data-nv] .tafel .m-ladc:nth-child(7) .m-ladn .ico { color: #141414 !important; stroke: #141414 !important; }
+html[data-nv] .tafel .m-ladl:nth-child(6) i { background: linear-gradient(90deg, #5b3fc4, #c99a1b) !important; }

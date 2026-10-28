@@ -56,7 +56,7 @@ export async function render(root, ctx) {
   const spiceSel = h('select', { class: 'field spice', title: L('Arroganz-Level', 'Arrogance level'), 'aria-label': L('Arroganz-Level', 'Arrogance level') }, SPICE.map(([v, l]) => h('option', { value: v, selected: v === getSpice() }, (matchMedia('(max-width: 760px)').matches ? '' : L('Arroganz: ', 'Arrogance: ')) + l)));
   spiceSel.addEventListener('change', () => { setSpice(+spiceSel.value); fc.pulse(+spiceSel.value === 3 ? 'smug' : 'happy', 1200); });
   const chatcol = h('section', { class: 'chatcol' },
-    h('div', { class: 'chathead' }, fEl, h('div', { style: { flex: 1, minWidth: 0 } }, h('b', {}, NAME), h('span', {}, L('KI-Tutor · kennt „' + doc.name + '“', 'AI tutor · knows “' + doc.name + '”'))), spiceSel,
+    h('div', { class: 'chathead' }, fEl, h('div', { style: { flex: 1, minWidth: 0 } }, h('b', {}, NAME), h('span', {}, L('Max · kennt „' + doc.name + '“', 'Max · knows “' + doc.name + '”'))), spiceSel,
       h('button', { class: 'btn sm talkbtn', type: 'button', onclick: talk }, h('span', { html: ico('mic') }), h('span', { class: 'lbl' }, L('Sprechen', 'Talk'))),
       h('button', { class: 'iconbtn mob-only', 'aria-label': L('Tafel zeigen', 'Show whiteboard'), html: ico('board'), onclick: () => showBoard(true) })),
     msgs, sugg,

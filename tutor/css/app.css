@@ -7420,3 +7420,30 @@ html[data-nv] *::selection { text-shadow: none !important; background: color-mix
 .kt-back:hover { background: #fdeaf1 !important; }
 /* Sneak Peek: Bereich ohne Konto kurz sehen, aber nicht anklicken */
 html.m-peek .app > .main, html.m-peek .app > .side { pointer-events: none !important; user-select: none; }
+/* Startseite: Tools stehen im Mittelpunkt – große bunte Tool-Karten direkt unter der Überschrift, „Frag Max“ als Zweitweg darunter */
+@media (min-width: 761px) {
+  html:root[data-nv] #landing .hero .wrap > .featrow { order: 3 !important; margin-top: 34px !important; width: 100%; max-width: 1080px; }
+  html:root[data-nv] #landing .hero .wrap > .mq-l { order: 5 !important; margin-top: 30px !important; font-size: 15px !important; color: var(--mute) !important; }
+  html:root[data-nv] #landing .hero .wrap > :is(#topicSlot, .mq-in, .mq-form, form.mq) { order: 5 !important; }
+  html:root[data-nv] #landing .hero .wrap > .lp-trust { order: 6 !important; }
+}
+html:root[data-nv] #landing .feattop { display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 14px !important; max-width: 1080px; margin: 0 auto; }
+html:root[data-nv] #landing .feattop .feat.big { display: grid !important; grid-template-columns: 1fr; justify-items: start; align-content: start; gap: 10px; text-align: left; padding: 20px 20px 18px !important; min-height: 150px; border-radius: 22px !important; border: 1px solid rgba(0,0,0,.07) !important; box-shadow: 0 14px 34px -24px rgba(0,0,0,.45) !important; background: #fff !important; transition: transform .2s, box-shadow .2s, border-color .2s; }
+html:root[data-nv] #landing .feattop .feat.big:hover { transform: translateY(-3px); box-shadow: 0 22px 44px -24px rgba(0,0,0,.5) !important; border-color: color-mix(in srgb, var(--fc2, #1a5fc4) 40%, transparent) !important; }
+html:root[data-nv][data-nv] body #landing .feattop .feat.big > .fi { width: 52px !important; height: 52px !important; border-radius: 16px !important; }
+html:root[data-nv][data-nv] body #landing .feattop .feat.big > .fi .ico, html:root[data-nv][data-nv] body #landing .feattop .feat.big > .fi svg { width: 26px !important; height: 26px !important; }
+html:root[data-nv] #landing .feattop .feat.big b, html:root[data-nv] #landing .feattop .feat.big .ft { font-size: 18px !important; letter-spacing: -.015em; }
+html:root[data-nv] #landing .feat[data-k="video"] { --fc2: #d63031; } html:root[data-nv] #landing .feat[data-k="excel"] { --fc2: #1D6F42; }
+@media (max-width: 1000px) { html:root[data-nv] #landing .feattop { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+@media (max-width: 760px) { html:root[data-nv] #landing .feattop .feat.big { min-height: 0; padding: 14px !important; } }
+html:root[data-nv] #landing .feattop .feat.big > * { margin: 0 !important; }
+html:root[data-nv] #landing .feattop .feat.big { grid-template-rows: auto auto auto; }
+html:root[data-nv] #landing .hero .mq-l { margin: 30px auto 10px !important; font-size: 15px !important; color: var(--mute) !important; }
+/* Startseite: kein „Erklär mir …“-Feld mehr – die Tools sind der Einstieg */
+html:root[data-nv] #landing .hero :is(#topicSlot, .mq-l, .mq-chips) { display: none !important; }
+html:root[data-nv] #landing .hero .featrow { margin-top: 30px !important; }
+/* Ads-Landings: Untertext in der Sprechblase gut lesbar */
+html:root .room .rm-tbub span, html:root .room.rm-tools-mode .rm-tbub span { font-size: 19px !important; line-height: 1.5 !important; color: #3d3d45 !important; }
+@media (max-width: 760px) { html:root .room .rm-tbub span, html:root .room.rm-tools-mode .rm-tbub span { font-size: 16.5px !important; } }
+/* Popups: kein Schließen-X mehr – zu geht's per Klick daneben oder Esc */
+html:root :is(.modal > .mx, .lclose, .m-rl-x, .lmx-x, .kg-x, .cb-x, .hn-x, .mt2x, .dkp-x) { display: none !important; }

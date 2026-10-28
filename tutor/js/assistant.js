@@ -874,8 +874,8 @@ export function mountAssistant() {
     if (ls.get('tutor.asst.greeted') || seenBefore || hist.length) { ls.set('tutor.asst.greeted', 1); return; } ls.set('tutor.asst.greeted', 1);
     const gTx = h('div', { class: 'ai-a' });
     let gText = (L(
-      'Moin, ich bin Max – dein KI-Tutor hier. Ich seh, was du auf der Seite gerade machst, und führ dich durch: Frag mich alles, ich erklär’s dir an der Tafel, öffne Sachen für dich und bau dir Quiz, Karteikarten oder einen Klausurplan. Schreib einfach los – oder tipp auf **Sprich mit Max**.',
-      'Hey, I’m Max – your AI tutor here. I can see what you’re doing on the page and I’ll guide you: ask me anything, I’ll explain it on the whiteboard, open things for you and build quizzes, flashcards or an exam plan. Just type – or tap **Talk to Max**.'));
+      'Moin, ich bin Max. Ich seh, was du auf der Seite gerade machst, und führ dich durch: Frag mich alles, ich erklär’s dir an der Tafel, öffne Sachen für dich und bau dir Quiz, Karteikarten oder einen Klausurplan. Schreib einfach los – oder tipp auf **Sprich mit Max**.',
+      'Hey, I’m Max. I can see what you’re doing on the page and I’ll guide you: ask me anything, I’ll explain it on the whiteboard, open things for you and build quizzes, flashcards or an exam plan. Just type – or tap **Talk to Max**.'));
     // Spracheingabe startet schon: kein „tipp auf Sprich mit Max“
     if (voice) gText = gText.replace(/ Schreib einfach los[\s\S]*$/, ' Leg los, ich hör zu.').replace(/ Just type[\s\S]*$/, ' Go ahead, I’m listening.');
     const g = h('div', { class: 'ai-bub max last greet' }, gTx);
