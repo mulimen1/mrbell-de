@@ -296,12 +296,13 @@ export async function mountApp(parts) {
   if (a === 'me' && b && OLD[b]) { location.replace('#/app/' + OLD[b]); return; }
   // Ohne Konto gibt's nur den Tutor-Raum (Themen-Tafel + Max). Jeder andere Bereich: erst kostenloses Konto, danach geht's genau dorthin
   if (!getAccount() && a && a !== 'tutor' && !(a === 'me' && !b)) {
-    const want = '#/app/' + parts.filter(Boolean).join('/');
-    location.replace('#/app/tutor');
+    // Sneak Peek: Bereich kurz zeigen (nicht klickbar), dann unscharf + Anmeldefenster passend zum Bereich – man bleibt hier
     const A = authFor(a, b);
-    openAuth({ title: A.t, registerTitle: A.t, sub: A.s, why: 'Bereich' })
-      .then(ok => { if (ok && getAccount()) location.hash = want; }).catch(() => {});
-    return;
+    const NM = { tutor: L('zum Tutor', 'to the tutor'), bibliothek: L('zur Bibliothek', 'to the library'), faecher: L('zu den Fächern', 'to subjects'), ueben: L('zu Lernen', 'to Learn'), tools: L('zu den Klausur-Tools', 'to exam tools'), excel: L('zum Excel-Helfer', 'to the Excel helper'), rechner: L('zu den Rechnern', 'to the calculators'), mitschrift: L('zur Mitschrift', 'to notes'), video: L('zum Transkript', 'to transcripts') };
+    let th = ''; try { th = sessionStorage.getItem('tutor.lastTopic') || (landingTopic() || {}).name || ''; } catch (e) {}
+    const pk = (prevHash.match(/^#\/app\/([^/?]+)/) || [])[1];
+    const back = (!pk || pk === 'tutor') && th && th !== 'BWL' ? { label: L(`Zurück zu ${th}`, `Back to ${th}`), href: '#/app/tutor' } : pk === 'tutor' && th && th !== 'BWL' ? { label: L(`Zurück zu ${th}`, `Back to ${th}`), href: prevHash } : pk && NM[pk] ? { label: L('Zurück ', 'Back ') + NM[pk], href: prevHash } : { label: L('Zurück zum Tutor', 'Back to the tutor'), href: '#/app/tutor' };
+    import('./roomlock.js').then(m => m.lockArea({ t: A.t, s: A.s, back })).catch(() => {});
   }
   // Aus „Lernen“ gekommen? Dann gibt’s oben „← Lernen“ – bis man woanders hin wechselt
   let bkTools = false; try { bkTools = sessionStorage.getItem('tutor.backTo') === 'tools'; } catch (e) {}
@@ -758,7 +759,8 @@ function tutorFromAd(e) {
   e.preventDefault();
   try { sessionStorage.removeItem('tutor.topicHead'); } catch (x) {}
   const base = /(^|\.)bwlmax\.de$/.test(location.hostname) ? '/' : '/tutor/index.html';
-  location.href = base + '?' + (getAccount() ? '' : 'konto=1&') + 'utm_source=anzeige&utm_medium=tutor-knopf#/app/tutor';
+  try { const T = landingTopic(); if (T && T.name) sessionStorage.setItem('tutor.lastTopic', T.name); } catch (x) {}
+  location.href = base + '?utm_source=anzeige&utm_medium=tutor-knopf#/app/tutor';
 }
 function sideExtras(tool) {
   const H = document.documentElement;

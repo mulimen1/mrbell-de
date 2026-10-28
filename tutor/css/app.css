@@ -7418,3 +7418,5 @@ html[data-nv] *::selection { text-shadow: none !important; background: color-mix
 .kt-card.kt-plan:hover { border-color: color-mix(in srgb, #d9601c 40%, transparent); } .kt-card.kt-sim:hover { border-color: color-mix(in srgb, #5b3fc4 40%, transparent); } .kt-card.kt-lex:hover { border-color: color-mix(in srgb, #c8336f 40%, transparent); }
 .kt-back { color: #c8336f !important; border-color: color-mix(in srgb, #c8336f 35%, transparent) !important; }
 .kt-back:hover { background: #fdeaf1 !important; }
+/* Sneak Peek: Bereich ohne Konto kurz sehen, aber nicht anklicken */
+html.m-peek .app > .main, html.m-peek .app > .side { pointer-events: none !important; user-select: none; }
