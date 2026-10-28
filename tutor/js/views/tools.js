@@ -139,3 +139,74 @@ async function lexikon(root) {
   q.addEventListener('input', () => { lim = 40; draw(); });
   draw();
 }
+
+// ---------- Lernen: Tafel, Lernzettel, Karteikarten, Podcast, Lernpfad – eigene Seite statt Sprung in den Tutor ----------
+// 1. Skript wählen oder hochladen · 2. Einstellungen · 3. Erstellen
+const LK = {
+  tafel: { tab: 'tutor', icon: 'board', tone: 'lt-board', eyebrow: L('An der Tafel erklären', 'Explain on the board'), h: [L('Max erklärt’s ', 'Max explains it '), L('an der Tafel.', 'on the board.')],
+    lead: L('Wähl dein Skript – Max erklärt dir das Thema an der Tafel, Schritt für Schritt und mit Beispiel. Du kannst jederzeit nachfragen.', 'Pick your slides – Max explains the topic on the board, step by step with an example. Ask follow-ups any time.'),
+    def: { style: 'schritt', topic: '' }, cta: L('Erklärung starten', 'Start explanation') },
+  zettel: { tab: 'zettel', icon: 'note', tone: 'lt-note', eyebrow: L('Lernzettel', 'Study sheet'), h: [L('Alles Wichtige ', 'Everything important '), L('auf einer Seite.', 'on one page.')],
+    lead: L('Max fasst dein Skript zu einem Lernzettel zusammen – Definitionen, Formeln, Rechenwege und typische Klausurfallen.', 'Max condenses your slides into a study sheet – definitions, formulas, workings and typical exam traps.'),
+    def: { len: 'kurz', art: 'mix' }, cta: L('Lernzettel erstellen', 'Create study sheet') },
+  karten: { tab: 'karten', icon: 'cards', tone: 'lt-cards', eyebrow: L('Karteikarten', 'Flashcards'), h: [L('Wiederholen, ', 'Review '), L('bis es sitzt.', 'until it sticks.')],
+    lead: L('Max baut dir Karteikarten aus deinem Skript – mit Wiederholung im richtigen Abstand, damit es bis zur Klausur hängen bleibt.', 'Max builds flashcards from your slides – with spaced repetition so it sticks until the exam.'),
+    def: { count: 16, art: 'mix' }, cta: L('Karteikarten erstellen', 'Create flashcards') },
+  podcast: { tab: 'podcast', icon: 'headphones', tone: 'lt-pod', eyebrow: 'Podcast', h: [L('Marie & Max ', 'Marie & Max '), L('zum Anhören.', 'to listen to.')],
+    lead: L('Aus deinem Skript wird ein Podcast: Marie fragt, Max erklärt. Perfekt für Bahn, Gym oder die Schlange beim Bäcker.', 'Your slides become a podcast: Marie asks, Max explains. Perfect for the train, the gym or the queue at the bakery.'),
+    def: { len: 'kurz', lang: getOutLang(), tone: 2, voice: 'max' }, cta: L('Podcast erstellen', 'Create podcast') },
+  lernpfad: { tab: 'pfad', icon: 'path', tone: 'lt-path', eyebrow: L('Lernpfad', 'Study path'), h: [L('Kapitel für Kapitel ', 'Chapter by chapter '), L('zum Ziel.', 'to the goal.')],
+    lead: L('Max teilt dein Skript in Kapitel mit kurzen Lektionen und Checks auf. Du arbeitest dich Schritt für Schritt durch.', 'Max splits your slides into chapters with short lessons and checks. You work through step by step.'),
+    def: { depth: 'normal' }, cta: L('Lernpfad erstellen', 'Create study path') },
+};
+export function learnPick(root, kind) {
+  const K = LK[kind]; if (!K) { location.replace('#/app/ueben'); return; }
+  const wrap = h('div', { class: 'view-in kt kt-sub kt-learn' }); root.appendChild(wrap);
+  const docs = S.list.filter(d => !d.sample);
+  const list = (docs.length ? docs : S.list).slice(0, 30);
+  const key = K.tab === 'tutor' || K.tab === 'pfad' ? 'tutor.spec.' + K.tab : 'tutor.pers.' + K.tab;
+  const st = Object.assign({}, K.def, ls.get(key, {}) || {}); st.focus = -1;
+  if (kind === 'tafel') st.topic = '';
+  let doc = null;
+  const seg = (opts, k) => { const w = h('div', { class: 'kt-seg' }); const paint = () => w.querySelectorAll('button').forEach(b => b.classList.toggle('on', String(st[k]) === b.dataset.v));
+    opts.forEach(([v, t]) => w.append(h('button', { type: 'button', 'data-v': String(v), onclick: () => { st[k] = v; paint(); } }, t))); paint(); return w; };
+  const row = (label, el, hint) => h('div', { class: 'kt-opt' }, h('div', { class: 'kt-ol' }, h('b', {}, label), hint ? h('small', {}, hint) : null), el);
+  const opts = {
+    tafel: [row(L('Thema', 'Topic'), h('input', { class: 'kt-sel kt-in', maxlength: 160, placeholder: L('Leer lassen = das Wichtigste aus dem Skript', 'Leave empty = the key points of the slides'), oninput: e => { st.topic = e.target.value; } })),
+      row(L('Wie', 'How'), seg([['schritt', L('Schritt für Schritt', 'Step by step')], ['kurz', L('Kurzer Überblick', 'Quick overview')], ['rechnen', L('Mit Rechenaufgabe', 'With a worked task')]], 'style'))],
+    zettel: [row(L('Länge', 'Length'), seg([['kurz', L('Kurz · 1 Seite', 'Short · 1 page')], ['lang', L('Ausführlich', 'Detailed')]], 'len')),
+      row(L('Art', 'Style'), seg([['mix', L('Ausgewogen', 'Balanced')], ['begriffe', L('Begriffe', 'Terms')], ['formeln', L('Formeln & Rechenwege', 'Formulas & workings')], ['klausur', L('Klausurfokus', 'Exam focus')]], 'art'))],
+    karten: [row(L('Anzahl', 'Number'), seg([[10, '10'], [16, '16'], [24, '24']], 'count')),
+      row(L('Schwerpunkt', 'Focus'), seg([['mix', L('Gemischt', 'Mixed')], ['begriffe', L('Begriffe', 'Terms')], ['formeln', L('Formeln & Rechnen', 'Formulas & maths')], ['klausur', L('Klausurfragen', 'Exam questions')]], 'art'))],
+    podcast: [row(L('Länge', 'Length'), seg([['kurz', L('Kurz · ~5 Min.', 'Short · ~5 min')], ['lang', L('Lang · ~10 Min.', 'Long · ~10 min')]], 'len')),
+      row(L('Sprache', 'Language'), seg([['de', 'Deutsch'], ['en', 'English']], 'lang')),
+      row(L('Ton', 'Tone'), seg([[1, L('Sachlich', 'Factual')], [2, L('Locker', 'Relaxed')], [3, L('Max dreht auf', 'Max goes wild')]], 'tone'))],
+    lernpfad: [row(L('Tiefe', 'Depth'), seg([['kompakt', L('Kompakt', 'Compact')], ['normal', L('Normal', 'Normal')], ['gruendlich', L('Gründlich', 'Thorough')]], 'depth'))],
+  }[kind];
+  const go = h('button', { class: 'kt-start', type: 'button', disabled: true, onclick: () => start() }, h('span', { html: ico(K.icon) }), K.cta);
+  const hint = h('small', { class: 'kt-hint' });
+  const check = () => { go.disabled = !doc; hint.textContent = doc ? '' : L('Wähl zuerst ein Skript oder lad eins hoch.', 'Choose or upload slides first.'); };
+  const saveSt = () => { const keep = Object.assign({}, st); delete keep.focus; delete keep.topic; ls.set(key, keep); if (kind === 'podcast' && st.voice) ls.set('tutor.podVoice', st.voice); };
+  const start = async () => {
+    if (!doc) return; saveSt();
+    try { sessionStorage.setItem('tutor.backTo', 'ueben'); } catch (e) {}
+    const C = await import('../create.js');
+    if (kind === 'tafel') { const pr = C.specPrompt(st, doc.name); ls.set('tutor.pendingAsk', { t: pr.t, show: pr.show }); location.hash = `#/app/${doc.id}/tutor`; return; }
+    if (kind === 'lernpfad') { C.applySpec('pfad', doc, { depth: st.depth }); location.hash = `#/app/${doc.id}/pfad/auto`; return; }
+    C.setCreate(K.tab, doc.id, Object.assign({}, st, { focus: -1 }));
+    location.hash = `#/app/${doc.id}/${K.tab}/auto`;
+  };
+  const docEls = list.map(d => h('button', { class: 'kt-doc', type: 'button', onclick: e => { doc = d; docBox.querySelectorAll('.kt-doc').forEach(x => x.classList.toggle('on', x === e.currentTarget)); check(); } },
+    h('span', { class: 'kt-di', html: ico('file') }), h('span', {}, h('b', {}, d.name || L('Skript', 'Slides')), h('small', {}, d.path && d.path.chapters ? d.path.chapters.length + L(' Kapitel', ' chapters') : L('Skript', 'Slides'))), h('span', { class: 'kt-dok', html: ico('check') })));
+  const upload = h('label', { class: 'kt-doc kt-up', for: 'fileApp', onclick: () => { saveSt(); ls.set('tutor.target', K.tab); try { sessionStorage.setItem('tutor.backTo', 'ueben'); } catch (e) {} } },
+    h('span', { class: 'kt-di', html: ico('upload') }), h('span', {}, h('b', {}, L('Neues Skript hochladen', 'Upload new slides')), h('small', {}, L('PDF, PowerPoint, Word oder Foto – mit deinen Einstellungen geht’s direkt los', 'PDF, PowerPoint, Word or photo – starts right away with your settings'))));
+  const docBox = h('div', { class: 'kt-docs' }, ...docEls, upload);
+  wrap.append(h('a', { class: 'kt-back kt-backl', href: '#/app/ueben' }, h('span', { html: ico('left') }), L('Zurück zu Lernen', 'Back to Learn')),
+    h('div', { class: 'kt-subhead kt-' + K.tone }, h('span', { class: 'kt-ci', html: ico(K.icon) }), h('div', {}, h('div', { class: 'eyebrow' }, K.eyebrow), h('h1', {}, K.h[0], h('span', {}, K.h[1])))),
+    h('p', { class: 'kt-lead' }, K.lead),
+    h('div', { class: 'kt-steps' },
+      h('section', { class: 'kt-step' }, h('div', { class: 'kt-sn' }, '1'), h('div', { class: 'kt-sb' }, h('h2', { class: 'kt-h2' }, L('Skript wählen', 'Choose slides')), docBox)),
+      h('section', { class: 'kt-step' }, h('div', { class: 'kt-sn' }, '2'), h('div', { class: 'kt-sb' }, h('h2', { class: 'kt-h2' }, L('Einstellungen', 'Settings')), h('div', { class: 'kt-opts' }, ...opts))),
+      h('section', { class: 'kt-step kt-go3' }, h('div', { class: 'kt-sn' }, '3'), h('div', { class: 'kt-sb' }, go, hint))));
+  check();
+}

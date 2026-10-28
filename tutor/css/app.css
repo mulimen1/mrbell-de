@@ -7591,3 +7591,14 @@ html.gt-on :is(.asst-bub, .asst-quip, .asst-tip, .asst-back, .hn) { visibility: 
   .gt-b.gt-next { padding: 0 14px; }
   .gt-b.gt-end { padding: 0 8px; } }
 html.gt-on :is(.dk, .dk-b, .dkp) { visibility: hidden !important; }
+/* Lernen-Werkzeugseiten (Tafel, Lernzettel, Karteikarten, Podcast, Lernpfad) */
+.kt-lt-board { --lt1: #5aa2f7; --lt2: #1a5fc4; } .kt-lt-note { --lt1: #f7c948; --lt2: #d18e06; } .kt-lt-cards { --lt1: #3fc1c9; --lt2: #0e7f8e; } .kt-lt-pod { --lt1: #f47ba0; --lt2: #c8336f; } .kt-lt-path { --lt1: #7a8cf7; --lt2: #3f4fd6; }
+html:root body .kt-learn .kt-subhead[class*="kt-lt-"] .kt-ci { background: linear-gradient(135deg, var(--lt1), var(--lt2)) !important; box-shadow: 0 10px 20px -12px var(--lt2) !important; color: #fff !important; }
+html:root body .kt-learn .kt-subhead[class*="kt-lt-"] h1 span { color: var(--lt2) !important; }
+html:root[data-nv] body .kt-learn .kt-back.kt-backl { color: #5b3fc4 !important; }
+html:root[data-nv] body .kt-learn .kt-start { background: linear-gradient(110deg, #4b2bb3, #8a5cf0) !important; color: #fff !important; }
+html:root[data-nv] body .kt-learn .kt-start:disabled { opacity: .45; }
+html:root[data-nv] body .kt-learn .kt-doc.on { border-color: #6a3fd6 !important; box-shadow: 0 0 0 3px rgba(106,63,214,.22) !important; }
+html:root[data-nv] body .kt-learn .kt-dok { background: #6a3fd6 !important; }
+html:root[data-nv] body .kt-learn .kt-seg button.on { background: #5b3fc4 !important; color: #fff !important; border-color: #5b3fc4 !important; }
+.kt-in { width: min(420px, 100%); }

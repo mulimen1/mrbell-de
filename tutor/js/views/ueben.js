@@ -20,6 +20,7 @@ async function trainers() { const m = await import('../trainer.js'); return m.TR
 
 export async function render(root, { sub = '' } = {}) {
   if (sub === 'pfad') return guided(root);
+  if (['tafel', 'zettel', 'karten', 'podcast', 'lernpfad'].includes(sub)) { const m = await import('./tools.js'); return m.learnPick(root, sub); }
   const wrap = h('div', { class: 'view-in ub' }); root.appendChild(wrap);
   if (document.documentElement.dataset.nv) root.insertBefore(h('div', { class: 'view-in kt-headrow' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Lernen', 'Learn')), h('h1', {}, L('Üben, prüfen, gewinnen. ', 'Practise, check, win. '), h('span', {}, L('Bis es sitzt.', 'Until it sticks.'))))), wrap);   // Test: klare Überschrift
   const T = await trainers(); if (!wrap.isConnected) return;
@@ -76,7 +77,7 @@ export async function render(root, { sub = '' } = {}) {
       ['cards', L('Karteikarten', 'Flashcards'), L('Bis es sitzt', 'Until it sticks')],
       ['headphones', 'Podcast', L('Marie & Max', 'Marie & Max')],
       ['path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter')],
-    ].map(([ic, t, sub]) => h('button', { class: 'ub-ltc', type: 'button', 'data-lt': ic, onclick: () => { fromHere(); try { sessionStorage.setItem('tutor.roomTool', ic); } catch (e) {} location.hash = '#/app/tutor'; } }, h('span', { class: 'ub-lti', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))),
+    ].map(([ic, t, sub]) => h('button', { class: 'ub-ltc', type: 'button', 'data-lt': ic, onclick: () => { location.hash = '#/app/ueben/' + ({ board: 'tafel', note: 'zettel', cards: 'karten', headphones: 'podcast', path: 'lernpfad' })[ic]; } }, h('span', { class: 'ub-lti', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))),
     h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfungssimulation', 'Exam simulation')), h('span', { class: 'eyebrow' }, L('Wie in der echten Klausur', 'Like the real exam'))),
     sim,
     ...(BEN ? [] : trSec));
