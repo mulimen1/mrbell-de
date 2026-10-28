@@ -6579,3 +6579,9 @@ html:root[data-nv] #landing :is(.hero p.sub, p.lead, .section .wrap > p), html:r
 html:root[data-nv][data-theme="dark"] #landing :is(.hero p.sub, p.lead, .section .wrap > p), html:root[data-nv][data-theme="dark"] #gehirn .ra-lead { background: radial-gradient(closest-side, #0b0b0c 78%, rgba(11,11,12,0)) !important; }
 @media (max-width: 600px) { html:root[data-nv] #landing :is(.hero p.sub, p.lead, .section .wrap > p), html:root[data-nv] #gehirn .ra-lead { padding: 16px 18px !important; background: radial-gradient(closest-side, #ebe4d8 85%, rgba(235,228,216,0)) !important; } }
 html:root[data-nv] #gehirn .ra-h1 span, html:root[data-nv] #landing .section h2 :is(span, em) { text-shadow: none !important; }
+/* Hierarchie im Tutor: die 8 Schnellkacheln flacher – deckend (keine Punkte dahinter), aber ohne Schatten und in zartem Beige statt hartem Weiß; Fokus liegt auf Ablage und Schreibfeld */
+html:root[data-nv] body .room .rm-tl .rm-tlt { background: #f6f2ea !important; box-shadow: none !important; border: 1px solid #e4ddcf !important; }
+html:root[data-nv] body .room .rm-tl .rm-tlt:hover { background: #fff !important; border-color: var(--nb) !important; box-shadow: 0 10px 24px -16px rgba(0,0,0,.35) !important; }
+html:root[data-nv][data-theme="dark"] body .room .rm-tl .rm-tlt { background: #15161a !important; border-color: #26282e !important; }
+/* Kontrast: weiße Schrift auf Blau – Tutor-Knopf und „Sprich mit Max“ eine Stufe tiefer */
+html:root[data-nv] body .tn.tn-tutor, html:root[data-nv] body .ai-talk, html:root[data-nv] body .lm-tutor, html:root[data-nv] body .lm-cta { background-image: linear-gradient(180deg, var(--nb2), var(--nbd)) !important; }
