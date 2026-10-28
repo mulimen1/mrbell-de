@@ -348,7 +348,11 @@ html:root[data-nv][data-theme="dark"] body > footer > span:first-child, html:roo
 /* Kopfleiste der Lern-/Über-/Gehirn-Seiten wie in der App: vier Bereiche über die volle Breite, bunte Icons */
 html:root[data-nv] body header.lm-top4 { display: flex !important; align-items: center; gap: 12px !important; }
 html:root[data-nv] body header.lm-top4 .lm-nav { flex: 1 1 auto; display: flex !important; gap: 10px !important; overflow: visible !important; justify-content: stretch !important; }
-html:root[data-nv] body header.lm-top4 .lm-nav > .lm-tn { flex: 1 1 0; justify-content: center; min-width: 0; height: 50px !important; font-size: 16px !important; font-weight: 700 !important; padding: 0 12px 0 6px !important; }
+html:root[data-nv] body header.lm-top4 { height: 76px !important; padding: 0 20px !important; }
+html:root[data-nv] body header.lm-top4 .lm-nav > .lm-tn { flex: 1 1 0; justify-content: center; min-width: 0; height: 52px !important; font-size: 17px !important; font-weight: 700 !important; padding: 0 14px 0 8px !important; border-radius: 17px !important; gap: 10px !important; }
+html:root[data-nv] body header.lm-top4 .lm-nav > .lm-tutor { border-radius: 999px !important; font-weight: 800 !important; }
+html:root[data-nv] body header.lm-top4 .lm-tutor img { width: 38px !important; height: 38px !important; }
+html:root[data-nv] body header.lm-top4 .lm-ic { width: 38px !important; height: 38px !important; border-radius: 12px !important; }
 html:root[data-nv] body header.lm-top4 .lm-tutor { background: linear-gradient(110deg, #1a5fc4 0%, #1f6fe0 38%, #2a7fe8 72%, #7db4f2 100%) !important; color: #fff !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 12px 26px -12px rgba(31,111,224,.9) !important; }
 html:root[data-nv] body header.lm-top4 .lm-ic { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; color: #fff; flex: none; }
 html:root[data-nv] body header.lm-top4 .lm-ic .ico { width: 20px !important; height: 20px !important; padding: 0 !important; background: none !important; color: #fff !important; }

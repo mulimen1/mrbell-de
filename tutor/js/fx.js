@@ -100,24 +100,24 @@ if (H.dataset.nv) {
   setInterval(align, 700);
 }
 
-// Lesbarkeit: Text, der direkt auf dem Punkte-Hintergrund steht (keine Karte dahinter), bekommt einen weichen Hof in
-// Hintergrundfarbe – die Punkte verschwinden hinter den Buchstaben. Gilt automatisch für jede Seite der App.
+// Lesbarkeit: Text, der direkt auf dem Punkte-Hintergrund steht (keine Karte dahinter), bekommt eine weiche Fläche in
+// Hintergrundfarbe – die Punkte verschwinden an dieser Stelle. Gilt automatisch für jede Seite (App, Startseite, Anzeigen).
 if (H.dataset.nv) {
-  const TXT = 'p, h1, h2, h3, h4, .eyebrow, small, li, label, span.lead, .vh > div > div';
+  const TXT = 'p, h1, h2, h3, h4, .eyebrow, small, li, label, span.lead, blockquote, figcaption, .vh > div > div, .lead, .sub, .mq-l';
   const opaque = el => { const c = getComputedStyle(el); return (c.backgroundColor !== 'rgba(0, 0, 0, 0)' && c.backgroundColor !== 'transparent') || c.backgroundImage !== 'none'; };
+  const isDots = el => el === document.body || el === H || /radial-gradient/.test(getComputedStyle(el).backgroundImage) && getComputedStyle(el).backgroundSize.includes('22px');
   const scan = () => {
-    const main = document.querySelector('.app > .main'); if (!main) return;
-    main.querySelectorAll(TXT).forEach(el => {
+    document.querySelectorAll(TXT).forEach(el => {
       if (el.classList.contains('on-dots') || el.dataset.dk === '1' || !el.textContent.trim() || !el.getClientRects().length) return;
-      let e = el, dots = false;
-      while (e && e !== main) { if (e !== el && opaque(e)) break; if (e === el && opaque(e)) break; e = e.parentElement; }
-      dots = e === main;
-      if (dots) el.classList.add('on-dots'); else el.dataset.dk = '1';
+      if (el.closest('.on-dots') && el.closest('.on-dots') !== el) { el.dataset.dk = '1'; return; }
+      let e = el;
+      while (e && e !== H) { if (opaque(e) && e !== el) break; if (e === el && opaque(e)) break; e = e.parentElement; }
+      if (!e || e === H || (e !== el && isDots(e))) { el.classList.add('on-dots'); if (getComputedStyle(el).textAlign === 'center') el.classList.add('odc'); } else el.dataset.dk = '1';
     });
   };
   let t = 0; const later = () => { clearTimeout(t); t = setTimeout(scan, 250); };
   new MutationObserver(later).observe(document.documentElement, { childList: true, subtree: true });
-  addEventListener('hashchange', later); later();
+  addEventListener('hashchange', later); addEventListener('load', later); later();
 }
 
 // Farbige Icons überall: jedes Icon-Kästchen (Span/Div mit genau einem Icon, eigener Hintergrund, 24–80 px) bekommt

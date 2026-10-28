@@ -7403,3 +7403,9 @@ html:root[data-nv][data-nv][data-nv][data-nv] body [data-icc][data-icc][data-icc
 html:root[data-nv][data-nv][data-nv][data-nv] body [data-icc][data-icc][data-icc][data-icc]:not([data-icc=""]) .ico { color: #fff !important; stroke: currentColor; }
 html:root[data-nv] body .rm-tdb .rm-tdbi[data-icc] { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; }
 html:root[data-nv] body .rm-tdb .rm-tdbi[data-icc] svg { width: 18px; height: 18px; stroke: #fff; fill: none; }
+/* Text auf den Punkten: weiche, randlose Fläche in Hintergrundfarbe dahinter – an dieser Stelle keine Punkte */
+html:root[data-nv] body .on-dots { background-color: #ebe4d8 !important; box-shadow: 0 0 16px 12px #ebe4d8 !important; border-radius: 12px; text-shadow: none !important; }
+html:root[data-nv] body :is(h1, h2, h3).on-dots, html:root[data-nv] body .eyebrow.on-dots { width: fit-content; max-width: 100%; }
+html:root[data-nv] body .on-dots :is(span, em, b) { text-shadow: none !important; }
+html:root[data-nv][data-theme="dark"] body .on-dots { background-color: #0b0b0c !important; box-shadow: 0 0 16px 12px #0b0b0c !important; }
+html:root[data-nv] body .on-dots.odc { margin-left: auto !important; margin-right: auto !important; }
