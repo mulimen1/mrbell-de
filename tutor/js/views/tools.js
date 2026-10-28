@@ -112,8 +112,21 @@ const T = {
 };
 export const docPick = (root, sub) => studio(root, sub);
 export const learnPick = (root, kind) => studio(root, kind);
-function studio(root, kind) {
-  const K = T[kind]; if (!K) { location.replace('#/app/ueben'); return; }
+// Als Popup (aus dem Tutor-Raum): gleiche Karte, über der Seite – zu per Klick daneben oder Esc
+export function openStudio(kind) {
+  if (!T[kind] || document.querySelector('.ks-modal')) return;
+  const bg = h('div', { class: 'ks-modal', role: 'dialog', 'aria-modal': 'true' });
+  const inner = h('div', { class: 'ks-min' }); bg.append(inner);
+  const close = () => { bg.classList.add('out'); setTimeout(() => bg.remove(), 220); removeEventListener('keydown', onKey); removeEventListener('hashchange', close); };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+  bg.addEventListener('click', e => { if (e.target === bg || e.target === inner) close(); });
+  addEventListener('keydown', onKey); addEventListener('hashchange', close);
+  document.body.append(bg);
+  studio(inner, kind, { popup: true });
+  requestAnimationFrame(() => bg.classList.add('in'));
+}
+function studio(root, kind, { popup = false } = {}) {
+  const K = T[kind]; if (!K) { if (!popup) location.replace('#/app/ueben'); return; }
   const wrap = h('div', { class: 'view-in kt kt-sub kt-studio', style: { '--c1': K.c[0], '--c2': K.c[1] } }); root.appendChild(wrap);
   const st = Object.assign({}, K.def, ls.get(K.key, {}) || {}); st.focus = -1; st.topic = ''; st.wish = st.wish || '';
   if (!LANGS.some(x => x[0] === st.lang)) st.lang = 'de';
@@ -245,7 +258,7 @@ function studio(root, kind) {
   const back = K.area === 'tools' && !inLearn ? toolsBack() : h('a', { class: 'kt-back kt-backl', href: '#/app/ueben' }, h('span', { html: ico('left') }), L('Zurück zu Lernen', 'Back to Learn'));
   const wishRow = K.wish ? row(L('Extra-Wunsch', 'Extra request'), wishIn, 'ks-full') : null;
   const card = h('section', { class: 'ks-card' });
-  wrap.append(back, card);
+  if (popup) { wrap.classList.add('ks-pop'); wrap.append(card); } else wrap.append(back, card);
   card.append(
       h('header', { class: 'ks-head' }, h('span', { class: 'ks-ic', html: ico(K.icon) }), h('div', {}, h('div', { class: 'eyebrow' }, K.eyebrow), h('h1', {}, K.h[0], h('span', {}, K.h[1])), h('p', {}, K.lead))),
       h('div', { class: 'ks-cols' },

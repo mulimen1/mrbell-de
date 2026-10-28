@@ -7693,3 +7693,11 @@ html:root[data-nv] body .kt-hero .kt-sec[href$="/trainer"]::after { content: "NE
 .ks-busy li.ok .ks-bi { border: 0; background: #1c7a47; box-shadow: inset 0 0 0 4px #1c7a47; }
 @keyframes ksspin { to { transform: rotate(360deg); } }
 .ks-berr { color: #d63031; font-weight: 600; } .ks-berr:empty { display: none; }
+/* Werkzeug-Karte als Popup */
+.ks-modal { position: fixed; inset: 0; z-index: 150; overflow: auto; background: rgba(18, 14, 34, .5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; transition: opacity .22s ease; }
+.ks-modal.in { opacity: 1; } .ks-modal.out { opacity: 0; }
+.ks-min { min-height: 100%; display: grid; place-items: center; padding: 28px 18px; box-sizing: border-box; }
+.ks-modal .kt-studio.ks-pop { width: min(1080px, 100%); margin: 0; padding: 0; }
+.ks-modal .ks-card { margin: 0; transform: translateY(14px) scale(.98); transition: transform .3s cubic-bezier(.22,1,.36,1); box-shadow: 0 40px 100px -30px rgba(10,6,30,.6); }
+.ks-modal.in .ks-card { transform: none; }
+@media (max-width: 600px) { .ks-min { padding: 10px; place-items: start center; } }
