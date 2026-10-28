@@ -296,7 +296,7 @@ export async function mountApp(parts) {
   if (a === 'gemerkt') { location.replace('#/app/bibliothek/gemerkt'); return; }
   if (a === 'me' && b && OLD[b]) { location.replace('#/app/' + OLD[b]); return; }
   // Ohne Konto gibt's nur den Tutor-Raum (Themen-Tafel + Max). Jeder andere Bereich: erst kostenloses Konto, danach geht's genau dorthin
-  if (!getAccount() && a && a !== 'tutor' && !(a === 'me' && !b)) {
+  if (!getAccount() && a && a !== 'tutor' && !(a === 'me' && !b) && !document.documentElement.classList.contains('bm-gotour')) {
     // Sneak Peek: Bereich kurz zeigen (nicht klickbar), dann unscharf + Anmeldefenster passend zum Bereich – man bleibt hier
     const A = authFor(a, b);
     const NM = { tutor: L('zum Tutor', 'to the tutor'), bibliothek: L('zur Bibliothek', 'to the library'), faecher: L('zu den Fächern', 'to subjects'), ueben: L('zu Lernen', 'to Learn'), tools: L('zu den Klausur-Tools', 'to exam tools'), excel: L('zum Excel-Helfer', 'to the Excel helper'), rechner: L('zu den Rechnern', 'to the calculators'), mitschrift: L('zur Mitschrift', 'to notes'), video: L('zum Transkript', 'to transcripts') };
@@ -348,6 +348,7 @@ export async function mountApp(parts) {
     if (current.key !== 'room') shell.app.classList.add('side-closed');   // im Raum ist links Platz für die Fächer
     // Handy ohne Konto: der große Tutor-Raum ist der Konto-Moment (Themenseiten und Max unten rechts bleiben frei)
     if (!ls.get('tutor.pendingAsk', null) && !/(^|\s)(m-boardpage|m-eboot)(\s|$)/.test(document.documentElement.className)) import('./roomlock.js').then(m => m.lockRoom()).catch(() => {});
+    import('./gotour.js').then(m => { if (m.goMode()) m.goSplash(); }).catch(() => {});
     return page('room', 'Tutor', async root => { const { render } = await import('./views/room.js'); return render(root, { arrive }); });
   }
   // Mein Bereich (nur Heute) und die festen Bereiche oben

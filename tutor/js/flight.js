@@ -4,7 +4,8 @@ import { face } from './face.js';
 
 const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 // schneller Start, lange weiche Landung
-const ease = u => { const a = 1 - u; return 1 - a * a * a * (1 + 1.6 * u); };
+// gleichmäßig: sanft an, zügig durch, sanft auf – kein langes Nachkriechen am Ende (wirkte wie Ruckeln)
+const ease = u => (u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
 // to darf eine Funktion sein: dann wird das Ziel in jedem Bild neu gemessen – wandert die Seite während des Flugs
@@ -45,7 +46,9 @@ export function fly(from, to, { dur = 900, arc = .26, state = 'idle', z = 160, l
       const r = target(); if (r && r.width) last = r;
       const tf = at(u, last);
       el.style.transform = tf; trail.push(tf);
-      ghosts.forEach((g, k) => { const tr = trail[trail.length - 1 - 2 * (k + 1)]; if (tr) { g.style.transform = tr; g.style.visibility = ''; } });
+      // Schatten nur, solange er schnell fliegt – beim Abbremsen sähen sie wie Doppelbilder aus
+      const gv = Math.max(0, Math.min(1, (1 - u) / .35)) * Math.min(1, u / .12);
+      ghosts.forEach((g, k) => { const tr = trail[trail.length - 1 - 2 * (k + 1)]; if (tr) { g.style.transform = tr; g.style.visibility = ''; g.style.opacity = String((k ? .08 : .18) * gv); } });
       if (u < 1) { requestAnimationFrame(frame); return; }
       // Gelandet: exakt auf dem Ziel. Das echte Gesicht erscheint darunter, die Kopie bleibt kurz drüber und geht dann.
       ghosts.forEach(g => g.remove());

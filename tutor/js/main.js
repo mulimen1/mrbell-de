@@ -143,6 +143,8 @@ function initLanding() {
   // Anmelden (dezent in der Navigation)
   const nl = $('[data-login]');
   if (nl) nl.addEventListener('click', () => getAccount() ? openAccount() : openLogin());
+  // „Los geht’s“: ohne Anmeldung in den Tutor – Max begrüßt groß und bietet die Führung an
+  $$('[data-go]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); if (!getAccount()) import('./gotour.js').then(m => m.startGo()).finally(() => { location.hash = '#/app/tutor'; }); else location.hash = '#/app/tutor'; }));
   const nr = $('[data-register]');
   if (nr) nr.addEventListener('click', () => getAccount() ? (location.hash = '#/app/tutor') : openLogin({ mode: 'register' }));
   onAccount(a => { if (a) { let z = null; try { z = sessionStorage.getItem('tutor.after'); } catch (e) {} if (z && /^\/[a-z]+$/.test(z)) { sessionStorage.removeItem('tutor.after'); setTimeout(() => { location.href = z; }, 700); } }

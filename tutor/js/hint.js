@@ -16,7 +16,7 @@ export function scheduleHint(delay = 25000) {
     // nicht über Begrüßung, Dialoge oder Anmeldung legen – dann kurz später nochmal
     // Handy: nicht über eine offene Tafel legen (deckt sonst Titel und Knöpfe ab) – kommt, sobald die Tafel zu oder eingeklappt ist
     const boardUp = mob() && document.querySelector('.asst.has-board:not(.board-min)');
-    if (document.hidden || boardUp || [...document.querySelectorAll('.ngreet, .modal-bg, .acc-modal')].some(e => e.getClientRects().length) || Date.now() - t0 < delay) return setTimeout(tryShow, 4000);
+    if (document.hidden || boardUp || document.documentElement.classList.contains('mx-touring') || [...document.querySelectorAll('.ngreet, .modal-bg, .acc-modal')].some(e => e.getClientRects().length) || Date.now() - t0 < delay) return setTimeout(tryShow, 4000);
     show();
   };
   setTimeout(tryShow, delay);

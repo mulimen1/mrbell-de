@@ -7457,10 +7457,42 @@ html:root[data-nv] body :is(.ln-gh h2, h2.kt-h2, .ub-h h2, .lx-h2, .sec-h2)::bef
 html:root[data-nv] body :is(#seo-art section > h2, main.ln section > h2)::before { content: ""; display: inline-block; vertical-align: middle; width: 12px; height: 12px; margin: -3px 12px 0 0; border-radius: 4px; background: linear-gradient(135deg, var(--sqa), var(--sqb)); box-shadow: 0 4px 10px -4px var(--sqb); }
 /* Header-Bereiche: beim Drüberfahren mit der Bereichsfarbe füllen, im aktiven Bereich bleibt nur der Rahmen */
 html:root[data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]) { transition: background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease, transform .15s !important; }
-html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="faecher"]:not(.on):hover { --tnf: linear-gradient(135deg, #f39b52, #d9601c); --tns: #d9601c; }
-html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="ueben"]:not(.on):hover { --tnf: linear-gradient(135deg, #9b7cf0, #5b3fc4); --tns: #5b3fc4; }
-html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="excel"]:not(.on):hover { --tnf: linear-gradient(135deg, #f47ba0, #c8336f); --tns: #c8336f; }
-html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]):not(.on):hover { background: var(--tnf) !important; border-color: transparent !important; color: #fff !important; box-shadow: 0 10px 24px -12px var(--tns) !important; }
-html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]):not(.on):hover :is(.tn-l, span:not(:has(> .ico)):not(.tn-new):not(.tn-xlic)) { color: #fff !important; }
-html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]):not(.on):hover > span:has(> .ico) { background: rgba(255,255,255,.22) !important; box-shadow: none !important; }
-html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="excel"]:not(.on):hover .tn-new { background: #fff !important; color: #c8336f !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="faecher"]:hover { --tnf: linear-gradient(135deg, #f39b52, #d9601c); --tns: #d9601c; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="ueben"]:hover { --tnf: linear-gradient(135deg, #9b7cf0, #5b3fc4); --tns: #5b3fc4; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="excel"]:hover { --tnf: linear-gradient(135deg, #f47ba0, #c8336f); --tns: #c8336f; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]):hover { background: var(--tnf) !important; border-color: transparent !important; color: #fff !important; box-shadow: 0 10px 24px -12px var(--tns) !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]):hover :is(.tn-l, span:not(:has(> .ico)):not(.tn-new):not(.tn-xlic)) { color: #fff !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]):hover > span:has(> .ico) { background: rgba(255,255,255,.22) !important; box-shadow: none !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="excel"]:hover .tn-new { background: #fff !important; color: #c8336f !important; }
+/* „Los geht’s“ – der Hero-Knopf: lila Verlauf, sticht aus dem Blau heraus */
+.go-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 46px; padding: 0 24px; border-radius: 999px; font: 800 16px/1 var(--sans); letter-spacing: -.01em; color: #fff !important; text-decoration: none !important; white-space: nowrap; background: linear-gradient(110deg, #4b2bb3 0%, #6a3fd6 40%, #8a5cf0 75%, #b597ff 100%); box-shadow: 0 1px 0 rgba(255,255,255,.35) inset, 0 12px 28px -10px rgba(91,63,196,.75); transition: transform .15s, box-shadow .2s, filter .2s; }
+.go-btn::after { content: ""; width: 18px; height: 18px; flex: none; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat; transition: transform .2s; }
+.go-btn:hover { transform: translateY(-2px); filter: saturate(1.1) brightness(1.04); box-shadow: 0 1px 0 rgba(255,255,255,.35) inset, 0 18px 36px -12px rgba(91,63,196,.85); }
+.go-btn:hover::after { transform: translateX(3px); }
+.go-btn.go-lg { height: 64px; padding: 0 38px; font-size: 21px; }
+.go-btn.go-lg::after { width: 22px; height: 22px; }
+.nav .go-btn.navgo { margin-left: 8px; height: 48px; padding: 0 26px; font-size: 17px; }
+.go-band { padding: 26px 0 34px; }
+.go-band .go-card { max-width: 720px; margin: 0 auto; padding: 30px 28px 26px; border-radius: 28px; background: #fff; border: 1px solid rgba(91,63,196,.16); box-shadow: 0 24px 60px -36px rgba(91,63,196,.45); display: grid; justify-items: center; gap: 16px; text-align: center; }
+.go-band .go-k { margin: 0; font-size: clamp(19px, 2.2vw, 24px); font-weight: 800; letter-spacing: -.02em; line-height: 1.3; color: #17171c; }
+.go-band small { color: #5d5d68; font-size: 14px; }
+:root[data-theme="dark"] .go-band .go-card { background: #1b1a22; border-color: #3a2f66; }
+:root[data-theme="dark"] .go-band .go-k { color: #f2f0fa; } :root[data-theme="dark"] .go-band small { color: #a9a6b8; }
+/* Header-Links: farbig, aber klar unter „Los geht’s“ */
+html:root .nav .links a { position: relative; display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 999px; font-weight: 600; color: #3d3d45; transition: background .2s, color .2s; }
+html:root .nav .links a::before { content: ""; width: 8px; height: 8px; border-radius: 3px; background: linear-gradient(135deg, var(--la), var(--lb)); }
+html:root .nav .links a:nth-child(1) { --la: #5aa2f7; --lb: #1a5fc4; --lt: #eaf2fe; --lc: #1a5fc4; }
+html:root .nav .links a:nth-child(2) { --la: #3fc1c9; --lb: #0e7f8e; --lt: #e6f6f7; --lc: #0e7f8e; }
+html:root .nav .links a:nth-child(3) { --la: #f39b52; --lb: #d9601c; --lt: #fdf0e6; --lc: #b04d14; }
+html:root .nav .links a:nth-child(4) { --la: #f47ba0; --lb: #c8336f; --lt: #fde9f0; --lc: #a82a5c; }
+html:root .nav .links a:hover { background: var(--lt); color: var(--lc); }
+:root[data-theme="dark"] .nav .links a { color: #d6d4e0; }
+@media (max-width: 760px) { .nav .go-btn.navgo { height: 38px; padding: 0 16px; font-size: 14px; } .nav .go-btn.navgo::after { width: 14px; height: 14px; } .go-btn.go-lg { height: 56px; padding: 0 30px; font-size: 18px; } .go-band .go-card { padding: 24px 18px 20px; } }
+.go-tourw { display: flex; justify-content: center; margin: 16px 0 6px; }
+.go-tourw .go-btn.go-lg { height: 58px; padding: 0 32px; font-size: 19px; }
+html.bm-gotour .go-tourw { visibility: hidden; }
+/* Seitenleiste: Hover füllt mit der Icon-Farbe */
+html:root[data-nv] body .side [data-hf] { transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .side [data-hf]:hover { background: linear-gradient(135deg, var(--hf1), var(--hf2)) !important; border-color: transparent !important; color: #fff !important; box-shadow: 0 10px 22px -12px var(--hf2) !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .side [data-hf]:hover :is(b, small, span:not([data-icc]), strong, p, em) { color: #fff !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .side [data-hf]:hover [data-icc][data-icc][data-icc][data-icc] { background: rgba(255,255,255,.22) !important; box-shadow: none !important; }

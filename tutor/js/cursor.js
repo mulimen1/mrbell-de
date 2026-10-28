@@ -63,7 +63,7 @@ function vScroll(el, where) {
 }
 // steps: [{ el, say }] – el darf null sein (dann zeigt Max oben in die Mitte des Inhalts)
 // voice: (text) => Promise – Max spricht den Schritt selbst; die Blase zeigt dann nur „Max“, kein Text
-export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt, voice, onStep } = {}) {
+export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt, voice, onStep, keepOnNav = false } = {}) {
   steps = (steps || []).filter(s => s && s.say);
   if (!steps.length) return null;
   if (active) active.stop(true);
@@ -257,7 +257,7 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt, voic
     else if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); }
     else if (e.key === 'ArrowLeft') { e.preventDefault(); go(Math.max(0, i - 1)); }
   };
-  const onHash = () => stop(true);
+  const onHash = () => { if (!keepOnNav) stop(true); };   // Bereichs-Tour wechselt selbst die Seiten
   addEventListener('keydown', onKey, true);
   addEventListener('hashchange', onHash);
   addEventListener('scroll', relayout, { capture: true, passive: true });

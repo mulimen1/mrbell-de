@@ -13,6 +13,7 @@ let area = null;   // { t, s, re } – Sneak Peek eines anderen Bereichs (Biblio
 export function lockRoom({ delay = 1000 } = {}) {
   clearTimeout(timer);
   if (getAccount()) return;
+  try { if (sessionStorage.getItem('bm.go')) return; } catch (e) {}   // über „Los geht’s“ gekommen: Tutor ist frei, gesperrt wird erst beim Rest
   area = null;
   timer = setTimeout(show, delay);
 }

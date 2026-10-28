@@ -148,3 +148,13 @@ document.addEventListener('pointerdown', e => {
     const box = x.parentElement; if (box && !box.contains(e.target)) setTimeout(() => x.click(), 0);
   });
 }, true);
+
+// Seitenleiste: beim Drüberfahren füllt sich ein Eintrag mit der Farbe seines Icons (nur solange die Maus drauf ist)
+document.addEventListener('pointerover', e => {
+  const t = e.target.closest && e.target.closest('.side a, .side button, .side .side-row');
+  if (!t || t.dataset.hf || !t.closest('.side')) return;
+  const ic = t.querySelector('[data-icc]:not([data-icc=""])'); if (!ic || ic === t) return;
+  const cs = getComputedStyle(ic), a = cs.getPropertyValue('--ic1').trim(), b = cs.getPropertyValue('--ic2').trim();
+  if (!a || !b) return;
+  t.dataset.hf = '1'; t.style.setProperty('--hf1', a); t.style.setProperty('--hf2', b);
+}, { passive: true });

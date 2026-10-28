@@ -19,6 +19,7 @@ import * as M from '../me.js';
 import * as MC from '../maxcfg.js';
 import { recommend, exams, weekMinutes, syncAsk, startChecklist } from './me.js';
 import { fly, setRoomHead } from '../flight.js';
+import { goMode, goWelcomeText, goTour } from '../gotour.js';
 import { thoughtFor } from '../thoughts.js';
 import { homeBeta } from '../beta.js';
 import { entryTools } from '../entrycards.js';
@@ -68,7 +69,7 @@ export function render(root, ctx = {}) {
   const cfgBtn = () => h('button', { class: 'rm-gear', type: 'button', onclick: () => MC.openMaxCfg(), title: L('Max konfigurieren – Ton, Methode, Fokus, Pausen', 'Configure Max – tone, method, focus, breaks'), 'aria-label': L('Max konfigurieren', 'Configure Max'), html: ico('tune') });
   const skills = h('div', { class: 'rm-skills' });
   const askSlot = h('div', { class: 'rm-ask' });
-  const hero = h('div', { class: 'rm-hero' }, heroSlot, h('div', { class: 'rm-bubble' }, say), skills, askSlot);
+  const hero = h('div', { class: 'rm-hero' }, heroSlot, h('div', { class: 'rm-bubble' }, say), goMode() ? h('div', { class: 'go-tourw' }, h('button', { class: 'go-btn go-lg go-tour', type: 'button', onclick: () => goTour() }, L('Zeig mir BWL Max', 'Show me BWL Max'))) : null, skills, askSlot);
   const scroll = h('div', { class: 'rm-scroll' }, hero);
   const status = h('small', { class: 'rm-st' });
   const timer = h('span', { class: 'rm-timer', hidden: true });
@@ -184,6 +185,7 @@ export function render(root, ctx = {}) {
 
   // ---------- Max spricht (Begrüßung, Lage, Tipp, Spruch) ----------
   function speechText() {
+    if (goMode()) return goWelcomeText();
     const c = cfg(), a = getAccount(), nick = getNick(a);
     let fresh = 0; try { fresh = +sessionStorage.getItem('tutor.justGreeted') || 0; } catch (e) {}
     const justGreeted = Date.now() - fresh < 20000;
@@ -649,7 +651,7 @@ export function render(root, ctx = {}) {
   if (!SES.on) speak(pend0 && typeof pend0 === 'object' && pend0.wait ? pend0.wait : speechText());
   if (ctx.arrive) requestAnimationFrame(() => requestAnimationFrame(async () => {
     if (stopped) return;
-    const flew = await fly(ctx.arrive, () => faceEl.getBoundingClientRect(), { dur: 900 });
+    const flew = await fly(ctx.arrive, () => faceEl.getBoundingClientRect(), { dur: 800 });
     headApi.show(flew);
   }));
   else if (!document.querySelector('.ngreet') && !reduce()) faceEl.animate([{ opacity: 0, transform: 'scale(.6) translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 650, easing: 'cubic-bezier(.2,1.3,.4,1)' });
