@@ -6096,3 +6096,27 @@ html:root[data-nv][data-theme="dark"] { --inv: #4a9dff; --acc-ink: #9fcbff; --ac
 .room.rm-tools-mode .rm-tgrid { flex: 1 1 auto; max-height: 470px; grid-auto-rows: minmax(auto, 1fr); }
 .room.rm-tools-mode .rm-tbot { margin-top: auto; padding-bottom: 14px; }
 @media (max-height: 760px) { .room.rm-tools-mode .rm-thead .rm-th-wrap { display: block; } .room.rm-tools-mode .rm-thead .rm-fs.talk { width: 84px; height: 84px; } }
+
+/* Testdesign ruhiger (nach Feedback): gleiches Blau, aber weniger Glow, klare Hierarchie, Grün bleibt für „geprüft“ */
+html:root[data-nv][data-accent][data-nv], html:root[data-nv]:not([data-accent]) { --nv-g: linear-gradient(180deg, #3d92f7 0%, #2a7fe8 55%, #1f6fe0 100%); --nv-g2: linear-gradient(135deg, #2f86f0, #4a9ff8);
+  --nv-glow: 0 6px 16px -10px rgba(31, 111, 224, .55); --nv-glow2: 0 10px 22px -12px rgba(31, 111, 224, .6); }
+/* kein Atmen mehr um „Sprich mit Max“, Glanzstreif nur noch zart */
+:root[data-nv] .ai-talk:not(:hover) { animation: none !important; }
+html:root[data-nv][data-accent][data-nv] { --nv-shine: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.16) 50%, transparent 60%); }
+/* Hover: flacher, präziser – minimal heben, etwas dunkler statt heller */
+:root[data-nv][data-accent] :is(.btn.primary, .ai-talk, .tn.tn-tutor, .side .side-new, .ik-go, .vt-back, .tc-btn):hover { transform: translateY(-1px); filter: brightness(.94); }
+:root[data-nv] :is(.rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card):hover { transform: translateY(-2px) !important; box-shadow: 0 14px 30px -22px rgba(31, 111, 224, .5) !important; }
+:root[data-nv] :is(.rm-bubble, .rm-tbub, .ai-board, .modal, .ai-isl, .tc-panel) { box-shadow: 0 16px 40px -30px rgba(31, 111, 224, .35), 0 1px 6px -4px rgba(31, 111, 224, .12) !important; }
+/* Hierarchie: Überschriften wieder dunkel, Ablage-Icon nur getönt – kräftiges Blau nur für Hauptaktionen */
+:root[data-nv] .tafel .m-mc-h b, :root[data-nv] .m-mc-h b { color: var(--ink) !important; }
+:root[data-nv] :is(.rm-tdi, .rm-mat.empty .rm-mi) { background-image: none !important; background: linear-gradient(135deg, #e8f3ff, #d3e8ff) !important; color: #1f6fe0 !important; box-shadow: none !important; }
+/* Leuchten bei Grün/Excel etwas zurück */
+:root[data-nv] :is(.tn-xlic svg, .rm-tci svg:not(.ico), .vt-logo, .xl-ic svg) { filter: drop-shadow(0 0 2px rgba(31, 191, 106, .35)); }
+:root[data-nv] :is(.tn-new, .ub-ok) { box-shadow: 0 0 6px -2px rgba(31, 191, 106, .55); }
+:root[data-nv] { --nx-green-glow: 0 0 0 1px rgba(31, 191, 106, .3), 0 6px 16px -10px rgba(31, 191, 106, .5); }
+/* Vertrauen bleibt Grün (= geprüft) */
+:root[data-nv] .vt-btn { border-color: #2f9a5c !important; color: #17663a !important; box-shadow: 0 2px 8px -3px rgba(23, 102, 58, .35) !important; }
+:root[data-nv] .vt-btn:hover { background: #effaf3 !important; }
+:root[data-nv] .vt-modal .row .vt-more { border-color: #2f9a5c !important; background: #f2faf5 !important; color: #17663a !important; box-shadow: 0 2px 8px -3px rgba(23, 102, 58, .35) !important; }
+:root[data-nv] .vt-list .vt-i { background: #eef8f1 !important; color: #17663a !important; }
+:root[data-nv] .aitag .vt-tag:not(.warn) { color: #17663a; }
