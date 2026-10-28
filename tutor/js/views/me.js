@@ -178,6 +178,10 @@ function pageHead(tab) {
     ? h('div', { class: 'nvp-bh' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Fächer & Bibliothek', 'Subjects & library')), h('h1', {}, L('Deine Fächer. ', 'Your subjects. '), h('span', {}, L('Jede Klausur im Blick.', 'Every exam in sight.')))),
       h('div', { class: 'nvp-bhr' }, h('p', { class: 'nvp-lead' }, L('Klausur-Countdown, Prüfungsreife und deine Noten – Max sagt dir pro Fach, was als Nächstes dran ist.', 'Exam countdown, readiness and your grades – Max tells you what’s next for each subject.')),
         h('button', { class: 'kt-go nvp-go', type: 'button', onclick: () => editFach(null) }, h('span', { html: ico('plus') }), L('Fach anlegen', 'Add subject'))))
+    : tab === 'stats' && document.documentElement.dataset.nv
+    ? h('div', { class: 'nvp-bh fx-head' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Fortschritt', 'Progress')), h('h1', {}, L('Dein Fortschritt. ', 'Your progress. '), h('span', {}, L('Jeden Tag ein Stück.', 'A little every day.')))),
+      h('div', { class: 'nvp-bhr' }, h('p', { class: 'nvp-lead' }, L('Was du schon geschafft hast, wo deine Hochs und Tiefs liegen – und was als Nächstes dran ist.', 'What you’ve achieved, where your highs and lows are – and what’s next.')),
+        h('button', { class: 'kt-go nvp-go', type: 'button', onclick: () => import('./fortschritt.js').then(m => m.openGoals()) }, h('span', { html: ico('trophy') }), L('Ziele stecken', 'Set goals'))))
     : h('div', { class: 'vh me-ph' }, h('div', {}, h('h2', {}, t), h('p', {}, p)));
   if (tab !== 'faecher' && tab !== 'plan') return head;
   // Fächer und Stundenplan sind ein Bereich – oben umschalten

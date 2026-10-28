@@ -7960,7 +7960,7 @@ html.side-slim .side .bottom > .side-ibs, html.side-slim .side .bottom > .olang 
 .srk-ic svg { width: 21px; height: 21px; }
 .srk.hot .srk-ic { background: linear-gradient(135deg, #d98cff, #8b5cf6 50%, #4f3bd6); box-shadow: 0 8px 18px -8px #6d4be6; animation: srglow 2.4s ease-in-out infinite; }
 .srk.hot .srk-ic svg { animation: srtw 2.4s ease-in-out infinite; }
-.srk.cold .srk-ic { background: linear-gradient(135deg, #b8b6c4, #8a8a95); box-shadow: none; }
+.srk.cold .srk-ic { background: linear-gradient(135deg, #b18cff, #5b3fc4); box-shadow: 0 8px 16px -10px #5b3fc4; }
 @keyframes srglow { 50% { box-shadow: 0 8px 22px -6px #f39b52, 0 0 0 4px rgba(247,201,72,.18); } }
 @keyframes srtw { 50% { transform: scale(1.12) rotate(8deg); } }
 .srk-mid { display: grid; gap: 4px; min-width: 112px; }
@@ -8200,3 +8200,7 @@ html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .fx-gq .ik-seg butto
 html:root .fx-kpis .fx-adj { display: none !important; }
 .fx-trc { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .fx-gl { paint-order: stroke; stroke: #fdfcfa; stroke-width: 5px; stroke-linejoin: round; }
+
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .fx-head .kt-head h1 span { -webkit-text-fill-color: transparent !important; background: linear-gradient(90deg, #2a7fe8, #7b4fe0); -webkit-background-clip: text; color: transparent; }
+
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .fx-head .kt-go { background: linear-gradient(135deg, #2a7fe8, #7b4fe0) !important; box-shadow: 0 12px 26px -14px #5b3fc4 !important; color: #fff !important; }
