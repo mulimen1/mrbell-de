@@ -104,9 +104,10 @@ export function render(root, ctx = {}) {
     let days = {}; try { days = M.activityDays(S.list || []); } catch (e) {}
     const n = M.streak(days), today = !!days[M.dayKey()];
     let wk = 0; try { wk = weekMinutes(0); } catch (e) {}
-    const goal = M.getMe().wochenziel || 150, pct = Math.min(100, Math.round(100 * wk / goal));
+    const goal = M.getMe().wochenziel || 600, pct = Math.min(100, Math.round(100 * wk / goal));
     srN.textContent = String(n); srL.textContent = n === 1 ? L('Tag Serie', 'day streak') : L('Tage Serie', 'day streak');
-    srFill.style.width = Math.max(4, pct) + '%'; srTxt.textContent = pct >= 100 ? L('Wochenziel geschafft', 'Weekly goal done') : L(`Woche: ${pct} %`, `Week: ${pct}%`);
+    const noGoal = !(M.getMe().fortschritt || {}).setup; srEl.classList.toggle('nogoal', noGoal);
+    srFill.style.width = Math.max(4, pct) + '%'; srTxt.textContent = noGoal ? L('Steck dir dein Ziel →', 'Set your goal →') : pct >= 100 ? L('Wochenziel geschafft', 'Weekly goal done') : L(`Woche: ${pct} %`, `Week: ${pct}%`);
     srEl.classList.toggle('hot', today && n > 0); srEl.classList.toggle('cold', !today); srEl.classList.toggle('done', pct >= 100);
     srEl.title = !n ? L('Heute anfangen – jeder Tag zählt.', 'Start today – every day counts.') : today ? L(`${n} Tage am Stück. Heute schon dabei.`, `${n} days in a row. Done for today.`) : L(`${n} Tage Serie – heute noch lernen, sonst ist sie weg.`, `${n}-day streak – study today to keep it.`);
   };
@@ -585,7 +586,7 @@ export function render(root, ctx = {}) {
   function endSession() { import('../memory.js').then(m => m.flush()).catch(() => {});
     if (!SES.on) { goHome(); return; }
     const min = Math.max(1, Math.round(elapsed() / 60e3)), c = cfg();
-    const goal = M.getMe().wochenziel || 150, wk = weekMinutes(0);
+    const goal = M.getMe().wochenziel || 600, wk = weekMinutes(0);
     const f = h('div', { class: 'rm-ovface' });
     const big = (n, t) => h('div', { class: 'rm-big' }, h('b', {}, String(n)), h('span', {}, t));
     const head = min >= 20 ? (({ streng: L(`${min} Minuten. Ordentlich.`, `${min} minutes. Solid.`), sachlich: L(`${min} Minuten gelernt.`, `${min} minutes studied.`) })[c.ton] || L(`Stark. ${min} Minuten im Kasten.`, `Strong. ${min} minutes in the bag.`)) : L(`${min} ${min === 1 ? 'Minute' : 'Minuten'} – zählt alles.`, `${min} minute${min === 1 ? '' : 's'} – it all counts.`);

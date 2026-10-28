@@ -17,7 +17,7 @@ const level = m => m >= 90 ? 4 : m >= 45 ? 3 : m >= 15 ? 2 : m > 0 ? 1 : 0;
 const fmtBig = m => m < 60 ? L(`${m} Min.`, `${m} min`) : (Math.round(m / 6) / 10).toLocaleString(LOCALE) + L(' Std.', ' h');
 
 // ---------- Einstellungen (synchronisiert über „Mein Bereich“) ----------
-const DEF = { kpis: ['serie', 'woche', 'karten', 'quote'], tage: 5, karten: 20, view: 'monat' };
+const DEF = { kpis: ['serie', 'woche', 'karten', 'quote'], tage: 5, karten: 20, view: 'monat', range: '7' };
 const cfg = () => Object.assign({}, DEF, M.getMe().fortschritt || {});
 const setCfg = patch => M.updateMe(m => { m.fortschritt = Object.assign({}, DEF, m.fortschritt || {}, patch); });
 
@@ -42,7 +42,7 @@ function data() {
   let fest = 0, themen = 0, rs = [];
   for (const f of me.faecher) { const ds = (f.docs || []).map(docById).filter(Boolean); if (!ds.length) continue; const r = reife(ds, f.klausur ? new Date(f.klausur + 'T08:00').getTime() : 0); fest += r.fest; themen += r.themen; if (r.hasData) rs.push(r.score); }
   const ch = own.flatMap(d => d.path?.chapters || []);
-  return { days, st, best, wMin, wDays, totMin, learned, learnedW, cardsToday, ans, cor, quote: ans ? Math.round(100 * cor / ans) : 0, fest, themen, reife: rs.length ? Math.round(rs.reduce((a, x) => a + x, 0) / rs.length) : 0, hasReife: !!rs.length, chDone: ch.filter(c => c.done).length, chTot: ch.length, lernTage: keys.length, goal: me.wochenziel || 150 };
+  return { days, st, best, wMin, wDays, totMin, learned, learnedW, cardsToday, ans, cor, quote: ans ? Math.round(100 * cor / ans) : 0, fest, themen, reife: rs.length ? Math.round(rs.reduce((a, x) => a + x, 0) / rs.length) : 0, hasReife: !!rs.length, chDone: ch.filter(c => c.done).length, chTot: ch.length, lernTage: keys.length, goal: me.wochenziel || 600 };
 }
 const KPI = {
   serie: { t: L('Tage Serie', 'day streak'), v: p => p.st, s: p => p.best > p.st ? L(`Rekord: ${p.best}`, `Record: ${p.best}`) : p.st ? L('Das ist dein Rekord.', 'That’s your record.') : L('Heute anfangen?', 'Start today?'), ic: 'spark' },
@@ -61,9 +61,10 @@ let lastAnim = 0;
 export function render(body) {
   const animate = !reduce() && Date.now() - lastAnim > 4000;
   if (animate) lastAnim = Date.now();
+  body.classList.add('fx-root');
   const p = data(), c = cfg();
   const seen = ls.get('tutor.progSeen', null);
-  body.append(kpiRow(p, c, seen, animate), calendar(p, c, animate, seen), planCard(p, c, animate));
+  body.append(...(c.setup ? [] : [goalNudge()]), trend(p, c, animate), kpiRow(p, c, seen, animate), planCard(p, c, animate));
   // Zurück zum Tutor (ganz oben)
   const back = h('a', { class: 'fx-back', href: '#/app/tutor' }, h('span', { html: ico('left') }), L('Zurück zum Tutor', 'Back to the tutor'));
   requestAnimationFrame(() => { const top = body.parentElement || body; top.prepend(back); });
@@ -79,12 +80,12 @@ export async function openCustomize() {
     const b = h('button', { type: 'button', class: 'chip' + (sel.has(k) ? ' on' : ''), onclick: () => { if (sel.has(k)) { if (sel.size > 1) sel.delete(k); } else { if (sel.size >= 4) { toast(L('Höchstens 4 – nimm erst eine raus.', 'At most 4 – remove one first.')); return; } sel.add(k); } b.classList.toggle('on', sel.has(k)); } }, h('span', { html: ico(d.ic) }), d.t);
     return b;
   }));
-  const st = { goal: me.wochenziel || 150, tage: c.tage, karten: c.karten, view: c.view };
+  const st = { goal: me.wochenziel || 600, tage: c.tage, karten: c.karten, view: c.view };
   const seg = (opts, key, f = x => x) => { const w = h('div', { class: 'ik-seg' }); const paint = () => w.querySelectorAll('button').forEach(b => b.classList.toggle('on', String(st[key]) === b.dataset.v)); opts.forEach(v => w.append(h('button', { type: 'button', 'data-v': String(v), onclick: () => { st[key] = v; paint(); } }, f(v)))); paint(); return w; };
   const body = h('div', { class: 'ik-place' },
     h('div', { class: 'me-lab' }, L('Deine Zahlen oben (bis zu 4)', 'Your numbers on top (up to 4)')), chips,
     h('div', { class: 'me-lab', style: { marginTop: '6px' } }, L('Dein Plan', 'Your plan')),
-    h('div', { class: 'ik-q' }, h('div', { class: 'ik-ql' }, L('Lernzeit pro Woche', 'Study time per week')), seg([60, 120, 180, 300, 420, 600], 'goal', M.fmtMin)),
+    h('div', { class: 'ik-q' }, h('div', { class: 'ik-ql' }, L('Lernzeit pro Woche', 'Study time per week')), seg([300, 420, 600, 900, 1200, 1800], 'goal', M.fmtMin)),
     h('div', { class: 'ik-q' }, h('div', { class: 'ik-ql' }, L('Lerntage pro Woche', 'Study days per week')), seg([3, 4, 5, 6, 7], 'tage')),
     h('div', { class: 'ik-q' }, h('div', { class: 'ik-ql' }, L('Karten pro Tag', 'Cards per day')), seg([10, 20, 30, 50, 80], 'karten')),
     h('div', { class: 'ik-q' }, h('div', { class: 'ik-ql' }, L('Kalender', 'Calendar')), seg(['monat', 'wochen'], 'view', v => v === 'monat' ? L('Monat', 'Month') : L('18 Wochen', '18 weeks'))),
@@ -93,7 +94,7 @@ export async function openCustomize() {
   if (r !== 'ok') return;
   lastAnim = 0;
   M.updateMe(m => { m.wochenziel = st.goal; m.fortschritt = Object.assign({}, DEF, m.fortschritt || {}, { kpis: Object.keys(KPI).filter(k => sel.has(k)), tage: st.tage, karten: st.karten, view: st.view }); });
-  toast(L('Gespeichert – dein Fortschritt, dein Plan.', 'Saved – your progress, your plan.'));
+  rerenderFx(); toast(L('Gespeichert – dein Fortschritt, dein Plan.', 'Saved – your progress, your plan.'));
 }
 
 // ---------- 1) Große Zahlen, zählen hoch ----------
@@ -187,3 +188,83 @@ function planCard(p, c, animate) {
         h('div', { class: 'fx-gt' }, h('div', { class: 'fx-gl' }, h('b', {}, r.t), h('span', {}, `${r.f(r.have)} / ${r.f(r.want)}`)), h('div', { class: 'fx-gb' }, fill)));
     })));
 }
+
+
+// ---------- Lernkurve: Hochs und Tiefs, Zeitraum wählbar (Standard: 7 Tage) ----------
+const RANGES = [['7', L('7 Tage', '7 days')], ['30', L('1 Monat', '1 month')], ['90', L('3 Monate', '3 months')], ['126', L('18 Wochen', '18 weeks')]];
+const hFmt = m => { const x = m / 60; return x >= 10 ? Math.round(x).toLocaleString(LOCALE) : (Math.round(x * 10) / 10).toLocaleString(LOCALE); };
+function trend(p, c, animate) {
+  const wrap = h('section', { class: 'me-card fx-tr' });
+  const draw = (anim) => {
+    const range = cfg().range || '7', nD = +range, weekly = nD > 31;
+    const end = dayStart(), days = [];
+    for (let i = nD - 1; i >= 0; i--) { const d = new Date(end); d.setDate(end.getDate() - i); days.push({ d, k: M.dayKey(d), m: p.days[M.dayKey(d)] || 0 }); }
+    let pts;
+    if (weekly) { pts = []; for (let i = 0; i < days.length; i += 7) { const ch = days.slice(i, i + 7); pts.push({ m: ch.reduce((a, x) => a + x.m, 0), d: ch[0].d, lab: ch[0].d.toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' }) }); } }
+    else pts = days.map(x => ({ m: x.m, d: x.d, lab: nD <= 7 ? x.d.toLocaleDateString(LOCALE, { weekday: 'short' }) : String(x.d.getDate()) }));
+    const tot = days.reduce((a, x) => a + x.m, 0), act = days.filter(x => x.m > 0).length;
+    const dayGoal = Math.round(p.goal / Math.max(1, c.tage || 5)), goal = weekly ? p.goal : dayGoal;
+    const avg = weekly ? tot / Math.max(1, pts.length) : tot / nD;
+    const W = 1000, H = 230, X0 = 46, T0 = 24, raw = Math.max(goal * 1.2, ...pts.map(x => x.m), 30) / 60;
+    const stepH = [.25, .5, 1, 2, 2.5, 5, 10, 20].find(v => v * 4 >= raw) || 40, mx = stepH * 4 * 60;
+    const xs = i => X0 + (W - X0 - 12) * (pts.length === 1 ? .5 : i / (pts.length - 1)), ys = m => T0 + H - H * Math.min(m, mx) / mx;
+    const P = pts.map((x, i) => [xs(i), ys(x.m)]);
+    const line = P.map((q, i) => { if (!i) return `M${q[0]},${q[1]}`; const o = P[i - 1], cx = (o[0] + q[0]) / 2; return `C${cx},${o[1]} ${cx},${q[1]} ${q[0]},${q[1]}`; }).join(' ');
+    let grid = ''; for (let k = 0; k <= 4; k++) { const v = mx * k / 4, y = ys(v); grid += `<line x1="${X0}" x2="${W - 12}" y1="${y}" y2="${y}" stroke="#efe9df"/><text x="${X0 - 10}" y="${y + 4}" text-anchor="end" class="fx-ty">${hFmt(v)} h</text>`; }
+    const gy = ys(goal), best = pts.reduce((b, x, i) => x.m > pts[b].m ? i : b, 0);
+    const lStep = Math.max(1, Math.ceil(pts.length / (nD <= 7 ? 7 : 10)));
+    const labs = pts.map((x, i) => (i % lStep === 0 && (pts.length - 1 - i >= lStep / 2 || i === pts.length - 1)) || i === pts.length - 1 ? `<text x="${xs(i)}" y="${T0 + H + 22}" text-anchor="middle" class="fx-tx">${x.lab}</text>` : '').join('');
+    const dots = P.map((q, i) => { const last = i === P.length - 1, hit = pts[i].m >= goal && pts[i].m > 0; return `<circle cx="${q[0]}" cy="${q[1]}" r="${last ? 7 : hit ? 5.5 : 4}" class="fx-pt${last ? ' last' : hit ? ' hit' : ''}"><title>${pts[i].d.toLocaleDateString(LOCALE, { weekday: 'short', day: 'numeric', month: 'short' })}${weekly ? L(' (Woche)', ' (week)') : ''}: ${M.fmtMin(pts[i].m)}</title></circle>`; }).join('');
+    const tag = pts[best].m > 0 ? (() => { const tx = L(weekly ? 'Bestwoche ' : 'Bester Tag ', weekly ? 'Best week ' : 'Best day ') + hFmt(pts[best].m) + L(' Std.', ' h'), w = tx.length * 7.4 + 28, x = Math.min(W - 12 - w / 2, Math.max(X0 + w / 2, P[best][0])); return `<g transform="translate(${x},${Math.max(T0 + 6, P[best][1] - 18)})"><rect x="${-w / 2}" y="-28" width="${w}" height="26" rx="13" fill="#17171c"/><text y="-10" text-anchor="middle" class="fx-tag">${tx}</text></g>`; })() : '';
+    const svg = `<svg class="fx-chart${anim ? ' anim' : ''}" viewBox="0 0 ${W} ${T0 + H + 30}" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="fxf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b6cf0" stop-opacity=".3"/><stop offset="1" stop-color="#5b6cf0" stop-opacity="0"/></linearGradient><linearGradient id="fxl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a7fe8"/><stop offset="1" stop-color="#7b4fe0"/></linearGradient></defs>${grid}
+      <path class="fx-area" d="${line} L${P[P.length - 1][0]},${T0 + H} L${P[0][0]},${T0 + H} Z" fill="url(#fxf)"/>
+      <line x1="${X0}" x2="${W - 12}" y1="${gy}" y2="${gy}" class="fx-goal"/><text x="${X0 + 8}" y="${gy - 8}" class="fx-gl">${L('Ziel ', 'Goal ')}${hFmt(goal)} h${weekly ? L(' / Woche', ' / week') : L(' / Tag', ' / day')}</text>
+      <path class="fx-line" d="${line}" fill="none" stroke="url(#fxl)" stroke-width="3.5" stroke-linecap="round" pathLength="1"/>${dots}${tag}${labs}</svg>`;
+    const strip = h('div', { class: 'fx-strip', style: { gridTemplateColumns: `repeat(${days.length}, 1fr)` } }, days.map(x => h('i', { class: 'l' + level(x.m), title: `${x.d.toLocaleDateString(LOCALE, { weekday: 'short', day: 'numeric', month: 'short' })}: ${x.m ? M.fmtMin(x.m) : L('nichts', 'nothing')}` })));
+    const seg = h('div', { class: 'fx-seg fx-rng' }, RANGES.map(([v, t]) => h('button', { type: 'button', class: v === range ? 'on' : '', onclick: () => { if (v !== range) { setCfgQuiet({ range: v }); draw(true); } } }, t)));
+    const title = { 7: L('Deine letzten 7 Tage', 'Your last 7 days'), 30: L('Dein letzter Monat', 'Your last month'), 90: L('Deine letzten 3 Monate', 'Your last 3 months'), 126: L('Deine letzten 18 Wochen', 'Your last 18 weeks') }[range];
+    wrap.replaceChildren(
+      h('div', { class: 'fx-trh' },
+        h('div', {}, h('h3', {}, title), h('p', {}, weekly ? L('Lernstunden pro Woche – darunter jeder einzelne Tag', 'Study hours per week – each day below') : L('Lernstunden pro Tag – Hochs und Tiefs auf einen Blick', 'Study hours per day – highs and lows at a glance')), h('div', { class: 'fx-trc' }, seg, h('button', { type: 'button', class: 'fx-trset', onclick: openGoals }, h('span', { html: ico('tune') }), L('Ziele', 'Goals')))),
+        h('div', { class: 'fx-trk' },
+          h('div', { class: 'big' }, h('b', {}, hFmt(tot), h('span', {}, L(' Std.', ' h'))), h('small', {}, L('gelernt in diesem Zeitraum', 'studied in this period'))),
+          h('div', {}, h('b', {}, String(p.st)), h('small', {}, p.st === 1 ? L('Tag Serie', 'day streak') : L('Tage Serie', 'day streak'))),
+          h('div', {}, h('b', {}, hFmt(avg) + L(' Std.', ' h')), h('small', {}, weekly ? L('Ø pro Woche', 'avg per week') : L('Ø pro Tag', 'avg per day'))),
+          h('div', {}, h('b', {}, `${act}/${nD}`), h('small', {}, L('Lerntage', 'study days'))))),
+      h('div', { class: 'fx-chw', html: svg }), strip,
+      h('div', { class: 'fx-trf' }, h('span', {}, L('Volle Punkte = Ziel geschafft · gestrichelt = dein Ziel', 'Filled dots = goal reached · dashed = your goal'))));
+  };
+  draw(animate);
+  return wrap;
+}
+
+// ---------- Ziel stecken: 4 Fragen, nicht mehr – der Rest unter „Mehr anpassen“ ----------
+function goalNudge() {
+  return h('button', { type: 'button', class: 'fx-nudge', onclick: openGoals },
+    h('span', { class: 'fx-ndi', html: ico('trophy') }),
+    h('span', { class: 'fx-ndt' }, h('b', {}, L('Steck dir dein Lernziel', 'Set your study goal')), h('small', {}, L('4 kurze Fragen – danach zeigt dir Max jeden Tag, ob du auf Kurs bist.', '4 quick questions – then Max shows you every day whether you’re on track.'))),
+    h('span', { class: 'fx-ndb' }, L('Los geht’s', 'Let’s go'), h('span', { html: ico('right') })));
+}
+export async function openGoals() {
+  const me = M.getMe(), c = cfg();
+  const st = { ziel: c.ziel || 'gut', tagMin: c.tagMin || Math.round((me.wochenziel || 600) / Math.max(1, c.tage || 5) / 15) * 15 || 120, tage: c.tage || 5, karten: c.karten || 20 };
+  const sum = h('div', { class: 'fx-gsum' });
+  const paintSum = () => sum.replaceChildren(h('span', {}, L('Dein Wochenziel', 'Your weekly goal')), h('b', {}, M.fmtMin(st.tagMin * st.tage)), h('small', {}, L(`${st.tage} Tage × ${M.fmtMin(st.tagMin)}`, `${st.tage} days × ${M.fmtMin(st.tagMin)}`)));
+  const seg = (opts, key, f = x => x) => { const w = h('div', { class: 'ik-seg' }); const paint = () => w.querySelectorAll('button').forEach(b => b.classList.toggle('on', String(st[key]) === b.dataset.v)); opts.forEach(v => { const [val, lab] = Array.isArray(v) ? v : [v, f(v)]; w.append(h('button', { type: 'button', 'data-v': String(val), onclick: () => { st[key] = val; paint(); paintSum(); } }, lab)); }); paint(); return w; };
+  const q = (n, t, ctl, c2) => h('div', { class: 'fx-gq', style: { '--qc': c2 } }, h('span', { class: 'fx-gn' }, String(n)), h('div', {}, h('div', { class: 'fx-gt' }, t), ctl));
+  paintSum();
+  const body = h('div', { class: 'ik-place fx-goals-m' },
+    q(1, L('Was ist dein Ziel?', 'What’s your goal?'), seg([['bestehen', L('Bestehen', 'Pass')], ['gut', L('Gute Note', 'Good grade')], ['top', L('1,0 – ganz oben', 'Top grade')]], 'ziel'), '#2a7fe8'),
+    q(2, L('Wie lange willst du an einem Lerntag lernen?', 'How long per study day?'), seg([30, 60, 90, 120, 180, 240], 'tagMin', M.fmtMin), '#7b4fe0'),
+    q(3, L('An wie vielen Tagen pro Woche?', 'How many days a week?'), seg([3, 4, 5, 6, 7], 'tage'), '#c8336f'),
+    q(4, L('Wie viele Karteikarten pro Tag?', 'How many flashcards a day?'), seg([10, 20, 30, 50], 'karten'), '#1c7a47'),
+    sum,
+    h('button', { type: 'button', class: 'fx-more', onclick: () => { document.querySelector('.modal-bg .ik-modal')?.closest('.modal-bg')?.remove(); openCustomize(); } }, L('Mehr anpassen: Zahlen oben, Kalender …', 'More: numbers on top, calendar …'), h('span', { html: ico('right') })));
+  const r = await modal({ cls: 'ik-modal fx-gmod', eyebrow: L('Fortschritt', 'Progress'), title: L('Steck dir dein Lernziel', 'Set your study goal'), body, actions: [{ label: L('Später', 'Later'), value: null }, { label: L('Ziel speichern', 'Save goal'), value: 'ok', primary: true }] });
+  if (r !== 'ok') return;
+  lastAnim = 0;
+  M.updateMe(m => { m.wochenziel = st.tagMin * st.tage; m.fortschritt = Object.assign({}, DEF, m.fortschritt || {}, { tage: st.tage, karten: st.karten, tagMin: st.tagMin, ziel: st.ziel, setup: Date.now() }); });
+  rerenderFx(); toast(L('Ziel steht. Max hält dich dran.', 'Goal set. Max keeps you on it.'));
+}
+
+function rerenderFx() { const b = document.querySelector('.fx-root'); if (b) { b.replaceChildren(); render(b); } }

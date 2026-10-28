@@ -162,7 +162,7 @@ class Face {
     if (this.state === 'sleep') { this.tx = 0; this.ty = 14; }
     else if (this.forced && t < this.forced.until) { this.tx = this.forced.x; this.ty = this.forced.y; }
     else if (this.state === 'think') { this.tx = 22; this.ty = -22; }
-    else if (this.follow && pointer && t - pointer.t < 4000 && (r = this.el.getBoundingClientRect()).width) {   // Position nur messen, wenn Max dem Zeiger folgt (sonst erzwingt jedes Bild ein Layout)
+    else if (this.follow && pointer && t - pointer.t < 4000 && (r = (this._r && t - this._rt < 350) ? this._r : (this._rt = t, this._r = this.el.getBoundingClientRect())).width) {   // Rechteck nur alle 350 ms messen – sonst erzwingt jeder Kopf in jedem Bild ein Layout (Ruckeln beim Fliegen)   // Position nur messen, wenn Max dem Zeiger folgt (sonst erzwingt jedes Bild ein Layout)
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const dx = pointer.x - cx, dy = pointer.y - cy, d = Math.hypot(dx, dy) || 1;
       const k = Math.min(1, d / 400);
@@ -174,8 +174,9 @@ class Face {
       this.tx = this.idleLook.x; this.ty = this.idleLook.y;
     }
     this.lx += (this.tx - this.lx) * .12; this.ly += (this.ty - this.ly) * .12;
-    this.look.setAttribute('transform', `translate(${this.lx.toFixed(1)} ${this.ly.toFixed(1)})`);
-    this.hair.setAttribute('transform', `translate(${(this.lx * .25).toFixed(1)} ${(this.ly * .15).toFixed(1)})`);
+    const a1 = `translate(${this.lx.toFixed(1)} ${this.ly.toFixed(1)})`, a2 = `translate(${(this.lx * .25).toFixed(1)} ${(this.ly * .15).toFixed(1)})`;
+    if (a1 !== this._a1) { this._a1 = a1; this.look.setAttribute('transform', a1); }   // nur schreiben, wenn sich was ändert
+    if (a2 !== this._a2) { this._a2 = a2; this.hair.setAttribute('transform', a2); }
     requestAnimationFrame(this.loop);
   }
 }

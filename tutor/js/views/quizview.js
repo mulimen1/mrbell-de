@@ -14,6 +14,7 @@ import { L, LOCALE } from '../i18n.js';
 import { autoOpts, srcPicker, goSource, wishHint } from '../create.js';
 import { dlBtn, optsQuiz } from '../export.js';
 import { savedToast } from '../lib.js';
+import { quizReview } from '../quizreview.js';
 
 const TYPES = ['mc', 'tf', 'match', 'order', 'cloze', 'num'];
 const DIFF = [['leicht', L('Leicht', 'Easy')], ['mittel', L('Mittel', 'Medium')], ['schwer', L('Schwer', 'Hard')], ['klausur', L('Klausur', 'Exam level')]];
@@ -62,7 +63,7 @@ function overview(wrap, ctx, pre) {
   const scopeBox = h('div', {}, h('label', { class: 'l' }, L('Umfang', 'Scope')), sel);
   const create = () => { if (pick.here()) return generate(wrap, ctx, st); if (pick.check()) return; goSource('quiz', pick.get(), { count: st.count, diff: st.diff, types: [...st.types], focus: -1 }); };
   const past = [...doc.quizzes].reverse();
-  // Schon Quizze da? Dann zuerst die (Weitermachen / Nochmal) – neues Quiz erst auf Klick, sonst erschlägt der Konfigurator
+  // Schon Quizzes da? Dann zuerst die (Weitermachen / Nochmal) – neues Quiz erst auf Klick, sonst erschlägt der Konfigurator
   const headEl = h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, 'Quiz'), h('h2', {}, L('Teste dich – wie in der Klausur', 'Test yourself – just like the exam')), h('p', {}, L('Multiple Choice, Richtig/Falsch, Zuordnen, Reihenfolge, Lückentext und Rechenaufgaben.', 'Multiple choice, true/false, matching, ordering, fill-in-the-blank and calculations.'))));
   const setupEl = h('div', { class: 'setup' },
       h('div', { class: 'sp-row' }, h('label', { class: 'l' }, L('Stoff', 'Material')), pick.el),
@@ -78,7 +79,7 @@ function overview(wrap, ctx, pre) {
       h('button', { class: 'tile half dark', onclick: () => exam(wrap, ctx) }, h('div', { class: 'ti', html: ico('exam') }), h('h3', {}, L('Klausur-Simulator', 'Exam simulator')), h('p', {}, L('Wie in der echten Klausur: Zeitlimit, Punkte je Aufgabe, Notenschlüssel – Auswertung erst am Ende.', 'Like the real exam: time limit, points per task, grading key – results only at the end.')), h('div', { class: 'foot' }, L('3 Einheiten · Dauer wählbar', '3 credits · choose duration'))),
       h('button', { class: 'tile half', disabled: !doc.mistakes.length, style: doc.mistakes.length ? null : { opacity: .55, cursor: 'default' }, onclick: () => doc.mistakes.length && run(wrap, ctx, { id: 'mistakes', title: L('Deine Fehler', 'Your mistakes'), questions: shuffle(doc.mistakes).slice(0, 12), mistakes: true }) },
         h('div', { class: 'ti', html: ico('refresh') }), h('h3', {}, L('Fehler wiederholen', 'Review mistakes')), h('p', {}, doc.mistakes.length ? L(`${doc.mistakes.length} Fragen, die du falsch hattest. Richtig beantwortet fliegen sie raus.`, `${doc.mistakes.length} questions you got wrong. Answer them correctly and they’re gone.`) : L('Hier landen Fragen, die du falsch beantwortest.', 'Questions you get wrong end up here.')), h('div', { class: 'foot' }, L('Kostenlos', 'Free'))));
-  const pastEl = past.length ? h('div', { style: { marginTop: '26px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Deine Quizze – kostenlos wiederholen', 'Your quizzes – retake for free')),
+  const pastEl = past.length ? h('div', { style: { marginTop: '26px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Deine Quizzes – kostenlos wiederholen', 'Your quizzes – retake for free')),
       h('div', { class: 'list' }, past.map(q => {
         const best = q.results?.length ? Math.round(100 * Math.max(...q.results.map(r => r.score))) : null;
         return h('div', { class: 'li', onclick: () => run(wrap, ctx, q) }, h('span', { html: ico(q.exam ? 'exam' : 'quiz') }),
@@ -104,7 +105,7 @@ async function generate(wrap, ctx, st) {
     if (qs.length < 2) throw new Error(L('Das Quiz ist nicht vollständig angekommen. Versuch es nochmal.', 'The quiz didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: ch ? ch.title : (r.data.title || 'Quiz'), questions: qs, diff: st.diff, created: Date.now(), results: [] };
     doc.quizzes.push(quiz); save(doc);
-    ld.stop(); run(wrap, ctx, quiz); freshen(wrap); savedToast('quiz');
+    ld.stop(); run(wrap, ctx, quiz); freshen(wrap); savedToast('quiz', 1, { href: `#/app/${doc.id}/quiz/q-${quiz.id}`, base: `#/app/${doc.id}/quiz` });
   } catch (e) { ld.stop(false); overview(wrap, ctx, st.focus); apiError(e, () => generate(wrap, ctx, st)); }
 }
 
@@ -139,7 +140,7 @@ async function exam(wrap, ctx) {
     if (qs.length < 4) throw new Error(L('Die Probeklausur ist nicht vollständig angekommen. Versuch es nochmal.', 'The mock exam didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: L('Probeklausur · ', 'Mock exam · ') + new Date().toLocaleDateString(LOCALE), questions: qs, diff: 'Klausur', exam: true, minutes: cfg.minutes, pass: cfg.pass, silent: cfg.silent, created: Date.now(), results: [] };
     doc.quizzes.push(quiz); save(doc);
-    ld.stop(); run(wrap, ctx, quiz); freshen(wrap); savedToast('quiz');
+    ld.stop(); run(wrap, ctx, quiz); freshen(wrap); savedToast('quiz', 1, { href: `#/app/${doc.id}/quiz/q-${quiz.id}`, base: `#/app/${doc.id}/quiz` });
   } catch (e) { ld.stop(false); overview(wrap, ctx); apiError(e, () => exam(wrap, ctx)); }
 }
 
@@ -200,18 +201,33 @@ function run(wrap, ctx, quiz) {
     const pMax = pts.reduce((a, x) => a + x.max, 0), pGot = pts.reduce((a, x) => a + x.got, 0), pm = quiz.pass || .5;
     const pScore = quiz.exam && pMax ? pGot / pMax : score, grade = noteFor(pScore, pm);
     if ((quiz.exam ? pScore : score) >= .8) setTimeout(() => confetti(), 250);   // richtig gut → kurz feiern
-    stage.replaceChildren(h('div', { class: 'result-hero' }, f,
-      h('div', { class: 'score' }, quiz.exam ? `${String(pGot).replace('.', ',')} / ${pMax}` : Math.round(score * 100) + ' %'),
-      quiz.exam ? h('p', { style: { fontSize: '18px', margin: '8px 0 0' } }, L(`${Math.round(pScore * 100)} % der Punkte · Note `, `${Math.round(pScore * 100)}% of points · grade `), h('b', {}, noteShow(grade)), grade === '5,0' ? L(' – nicht bestanden', ' – fail') : '') : null,
+    // Ergebnis: Karte mit Ring, Zahlen und klaren nächsten Schritten – darunter jede Frage zum Aufklappen
+    wrap.querySelector('.qtop')?.classList.add('qtop-done');
+    const pctV = Math.round(100 * (quiz.exam ? pScore : score));
+    const nOk = res.filter(r => r && r.correct).length, nSkip = qs.length - res.filter(r => r && !r.skipped).length, nBad = qs.length - nOk - nSkip;
+    const tone = pctV >= 80 ? 'top' : pctV >= 50 ? 'mid' : 'low';
+    const R = 54, C = 2 * Math.PI * R;
+    const ringEl = h('div', { class: 'qres-ring ' + tone, html: `<svg viewBox="0 0 128 128" aria-hidden="true"><defs><linearGradient id="qrg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="s1"/><stop offset="1" class="s2"/></linearGradient></defs><circle cx="64" cy="64" r="${R}" fill="none" stroke="#efeae2" stroke-width="12"/><circle class="qres-arc" cx="64" cy="64" r="${R}" fill="none" stroke="url(#qrg)" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 ${C}" transform="rotate(-90 64 64)"/></svg>` },
+      h('div', { class: 'qres-v' }, h('b', {}, quiz.exam ? `${String(pGot).replace('.', ',')}/${pMax}` : pctV + ' %'), h('small', {}, quiz.exam ? L('Punkte', 'points') : L('richtig', 'correct'))));
+    setTimeout(() => { const arc = ringEl.querySelector('.qres-arc'); if (arc) arc.setAttribute('stroke-dasharray', `${C * pctV / 100} ${C}`); }, 120);
+    const head = tone === 'top' ? L('Stark. Das sitzt.', 'Strong. That’s locked in.') : tone === 'mid' ? L('Solide – da geht noch was.', 'Solid – there’s more in it.') : L('Noch nicht – aber jetzt weißt du, wo.', 'Not yet – but now you know where.');
+    const stat = (cls, n, t) => h('span', { class: 'qres-s ' + cls }, h('b', {}, String(n)), t);
+    stage.replaceChildren(h('div', { class: 'qres' },
+      h('div', { class: 'qres-card' },
+        h('div', { class: 'qres-l' }, ringEl, h('div', { class: 'qres-face' }, f)),
+        h('div', { class: 'qres-r' },
+          h('div', { class: 'eyebrow' }, quiz.exam ? L('Probeklausur', 'Mock exam') : L('Quiz geschafft', 'Quiz done')),
+          h('h2', {}, head),
+          quiz.exam ? h('p', { class: 'qres-note' }, L(`${pctV} % der Punkte · Note `, `${pctV}% of points · grade `), h('b', {}, noteShow(grade)), grade === '5,0' ? L(' – nicht bestanden', ' – fail') : '') : null,
+          h('div', { class: 'qres-st' }, stat('ok', nOk, L('richtig', 'correct')), stat('bad', nBad, L('falsch', 'wrong')), nSkip ? stat('skip', nSkip, L('übersprungen', 'skipped')) : null),
+          h('div', { class: 'qres-act' },
+            doc.mistakes.length ? h('button', { class: 'btn primary qres-main', onclick: () => run(wrap, ctx, { id: 'mistakes', title: L('Deine Fehler', 'Your mistakes'), questions: shuffle(doc.mistakes).slice(0, 12), mistakes: true }) }, h('span', { html: ico('refresh') }), L(`Fehler wiederholen · ${doc.mistakes.length}`, `Review mistakes · ${doc.mistakes.length}`)) : null,
+            h('button', { class: 'btn', onclick: () => run(wrap, ctx, quiz) }, L('Nochmal', 'Again')),
+            quiz.id !== 'mistakes' ? dlBtn(() => optsQuiz(quiz, doc), { cls: 'btn' }) : null,
+            h('button', { class: 'btn ghost', onclick: () => overview(wrap, ctx) }, L('Fertig', 'Done'))))),
       quiz.exam ? examSheet(pts, pScore, pm, grade) : null,
-      h('p', { style: { color: 'var(--mute)' } }, L(`${answered.filter(r => r.correct).length} von ${qs.length} richtig.`, `${answered.filter(r => r.correct).length} of ${qs.length} correct.`) + (doc.mistakes.length ? L(` ${doc.mistakes.length} Fragen liegen in deinen Fehlern.`, ` ${doc.mistakes.length} questions are in your mistakes.`) : '')),
-      h('div', { style: { display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '16px' } },
-        h('button', { class: 'btn primary', onclick: () => overview(wrap, ctx) }, L('Fertig', 'Done')),
-        h('button', { class: 'btn', onclick: () => run(wrap, ctx, quiz) }, L('Nochmal', 'Again')),
-        quiz.id !== 'mistakes' ? dlBtn(() => optsQuiz(quiz, doc), { cls: 'btn' }) : null,
-        doc.mistakes.length ? h('button', { class: 'btn', onclick: () => run(wrap, ctx, { id: 'mistakes', title: L('Deine Fehler', 'Your mistakes'), questions: shuffle(doc.mistakes).slice(0, 12), mistakes: true }) }, L('Fehler wiederholen', 'Review mistakes')) : null),
-      !lsq.get('tutor.feedbackGiven', 0) && score >= .5 ? h('div', { style: { marginTop: '14px' } }, feedbackButton('btn sm')) : null,
-      h('div', { class: 'qlist' }, qs.map((q, k) => h('div', {}, h('span', { class: 'm' }, res[k]?.correct ? '✓' : '✗'), h('span', {}, q.type === 'cloze' ? q.q.replace(/___+/g, '…') : q.q))))));
+      !lsq.get('tutor.feedbackGiven', 0) && score >= .5 ? h('div', { class: 'qres-fb' }, feedbackButton('btn sm')) : null,
+      quizReview(qs, res, { onAsk: (q, rr) => ctx.ask(explainPrompt(q, rr)) })));
     const fcc = face(f); setTimeout(() => fcc.set(score >= .6 ? 'happy' : 'sad'), 200);
   };
   step();

@@ -262,6 +262,7 @@ export function render(root) {
       url.value = ''; say(L(`Fertig: „${title.slice(0, 70)}“ – unten liegt dein Transkript. Wähl, was du daraus machen willst.`, `Done: “${title.slice(0, 70)}” – your transcript is below. Pick what to make from it.`), 'ok');
       if (j.quota) quotaEl.textContent = L(`Heute ${Math.max(0, j.quota.limit - j.quota.used)} von ${j.quota.limit} Video-Transkripten übrig`, `${Math.max(0, j.quota.limit - j.quota.used)} of ${j.quota.limit} left today`);
       openId = d.id; draw();
+      import('../lib.js').then(m => m.markMade('video', { href: '#/app/video', name: title })).catch(() => {});
       setTimeout(() => listEl.querySelector('.vt-item.open')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
     } catch (e) {
       // Fehler mit Ausweg: nochmal versuchen oder stattdessen eine Datei hochladen – nie nur „Das hat nicht geklappt“

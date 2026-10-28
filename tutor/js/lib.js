@@ -70,10 +70,14 @@ const WHAT = {
   podcasts: () => L('Podcast in der Bibliothek gespeichert', 'Podcast saved to your library'),
 };
 let lastToast = 0;
-export function savedToast(kind, n = 1) {
-  // „Gerade erstellt“ merken – oben rechts bleibt ein paar Minuten ein Weg zurück dorthin, auch wenn man woanders hingeht
-  if (kind !== 'tafeln') ls.set('tutor.justMade', { kind, at: Date.now(), href: location.hash.split('?')[0].replace(/\/auto$/, ''), name: (S.doc && S.doc.name) || '' });
+// „Gerade erstellt“ merken – egal was, egal wo: oben rechts bleibt 5 Minuten ein Weg dorthin, danach ein Punkt an der Bibliothek, bis man's geöffnet hat
+export function markMade(kind, o = {}) {
+  const base = (o.base || o.href || location.hash.split('?')[0]).replace(/\/(auto|exam|fehler)$/, '');
+  ls.set('tutor.justMade', { kind, at: Date.now(), href: o.href || base, base, name: o.name != null ? o.name : ((S.doc && S.doc.name) || ''), seen: false });
   try { window.dispatchEvent(new Event('bm:justmade')); } catch (e) {}
+}
+export function savedToast(kind, n = 1, o = {}) {
+  if (kind !== 'tafeln') markMade(kind, o);
   if (Date.now() - lastToast < 1500) return;   // nicht doppelt
   try { if (sessionStorage.getItem('bm.adEntry')) return; } catch (e) {}   // Einstieg über Google-Anzeige: nicht überfordern
   // Tafeln entstehen ständig: der Hinweis kommt nur die ersten 2 Male – danach weiß man's, und er verdeckt sonst die Knöpfe unter der Tafel

@@ -92,7 +92,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, onHelp, nextLa
           const w = q.why[oi];
           if (w && (sel.has(oi) || q.correct.includes(oi))) b.querySelector('.tx').appendChild(h('span', { class: 'why' }, w));
         });
-        return { correct: ok, score: ok ? 1 : Math.max(0, (hit - miss) / q.correct.length) * .5, given: [...sel].map(i => q.options[i]).join(' / ') };
+        return { correct: ok, score: ok ? 1 : Math.max(0, (hit - miss) / q.correct.length) * .5, given: [...sel].map(i => q.options[i]).join(' / '), pick: [...sel] };
       }
     };
   }
@@ -113,7 +113,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, onHelp, nextLa
         [bt, bf].forEach(b => b.classList.add('locked'));
         (q.correct ? bt : bf).classList.add('right'); if (!ok) (q.correct ? bf : bt).classList.add('wrong');
         bt.classList.remove('sel'); bf.classList.remove('sel');
-        return { correct: ok, score: ok ? 1 : 0, given: v == null ? '' : (v ? L('richtig', 'true') : L('falsch', 'false')) };
+        return { correct: ok, score: ok ? 1 : 0, given: v == null ? '' : (v ? L('richtig', 'true') : L('falsch', 'false')), pick: v };
       }
     };
   }
@@ -156,7 +156,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, onHelp, nextLa
         }
         lEls.forEach((e, k) => { if (!lEls[k].classList.contains('right')) { const r = q.pairs[left[k].i][1]; e.appendChild(h('span', { class: 'why', style: { display: 'block', fontSize: '12.5px', marginTop: '6px', opacity: .8 } }, '→ ' + r)); } });
         const given = [...link].map(([lk, rk]) => `${left[lk].t} → ${right[rk].t}${left[lk].i === right[rk].i ? L(' (richtig)', ' (correct)') : L(' (falsch)', ' (wrong)')}`).join('\n');
-        return { correct: good === left.length, score: good / left.length, given };
+        return { correct: good === left.length, score: good / left.length, given, pick: [...link].map(([lk, rk]) => [left[lk].i, right[rk].i]) };
       }
     };
   }
@@ -203,7 +203,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, onHelp, nextLa
         let good = 0;
         [...list.children].forEach((el, k) => { const ok = cur[k].i === k; if (ok) good++; el.classList.add(ok ? 'right' : 'wrong'); el.querySelector('.mv').remove(); });
         if (good < cur.length) list.appendChild(h('div', { class: 'feedback', style: { marginTop: '6px' } }, h('b', {}, L('Richtige Reihenfolge', 'Correct order')), h('ol', { style: { margin: '8px 0 0', paddingLeft: '20px' } }, q.items.map(t => h('li', {}, t)))));
-        return { correct: good === cur.length, score: good / cur.length, given: cur.map((c, k) => `${k + 1}. ${c.t}`).join('\n') };
+        return { correct: good === cur.length, score: good / cur.length, given: cur.map((c, k) => `${k + 1}. ${c.t}`).join('\n'), pick: cur.map(c => c.i) };
       }
     };
   }
@@ -251,7 +251,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, onHelp, nextLa
           if (!ok) g.after(h('b', { style: { margin: '0 4px', fontSize: '15px' } }, '→ ' + q.blanks[i]));
         });
         chips.forEach(c => c.classList.add('used'));
-        return { correct: good === gaps.length, score: good / gaps.length, given: fills.map(f => f == null ? L('(leer)', '(empty)') : words[f].w).join(' / ') };
+        return { correct: good === gaps.length, score: good / gaps.length, given: fills.map(f => f == null ? L('(leer)', '(empty)') : words[f].w).join(' / '), pick: fills.map(f => f == null ? null : words[f].w) };
       }
     };
   }
@@ -271,7 +271,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, onHelp, nextLa
         let note = '';
         if (!ok && q.unit && /%/.test(q.unit) && Math.abs(v * 100 - a) <= tol) { ok = true; note = L('Stimmt – in Prozent wären das ', 'Correct – as a percentage that’s ') + fmt(a) + ' %.'; }
         inp.disabled = true; inp.style.borderColor = 'var(--ink)'; if (!ok) inp.style.borderStyle = 'dashed';
-        return { correct: ok, score: ok ? 1 : 0, note, given: inp.value };
+        return { correct: ok, score: ok ? 1 : 0, note, given: inp.value, pick: inp.value };
       }
     };
   }

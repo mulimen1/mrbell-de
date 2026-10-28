@@ -349,7 +349,9 @@ async function materialStep(ui, res, P, tool = null) {
     ls.set('tutor.attach.room', null);
     const C = await import('./create.js');
     const pre = ls.get('tutor.pers.pre', null); ls.set('tutor.pers.pre', null);
-    const o = pre && pre.tool === tool && Date.now() - pre.at < 30 * 60e3 ? pre.o : await C.personalise(tool, d, { fresh: true });
+    // Schon in der Werkzeug-Karte eingestellt (Lernen/Tutor-Lerntools)? Dann nicht nochmal fragen
+    const cc = ls.get('tutor.create', null), stu = cc && cc.tool === tool && cc.doc === '*' && Date.now() - (cc.at || 0) < 90 * 60e3 ? Object.assign({}, cc.opts || {}) : null;
+    const o = stu || (pre && pre.tool === tool && Date.now() - pre.at < 30 * 60e3 ? pre.o : await C.personalise(tool, d, { fresh: true }));
     if (o && pre && o === pre.o && o.outLang && o.outLang !== d.outLang) { d.outLang = o.outLang; await save(d); }
     if (!o) { location.hash = `#/app/${d.id}/hub`; return; }
     C.setCreate(tool, d.id, o); location.hash = `#/app/${d.id}/${tool}/auto`; return;

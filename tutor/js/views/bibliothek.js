@@ -128,7 +128,7 @@ export function render(root, { tab: want = '' } = {}) {
   const docRow = d => {
     const due = dueCards(d).length, m = mastery(d);
     const n = (d.decks || []).length + (d.quizzes || []).length + (d.summary ? 1 : 0) + (d.podcasts || []).length;
-    const delB = h('button', { class: 'iconbtn sk-del', type: 'button', 'aria-label': L('Löschen', 'Delete'), html: ico('trash'), onclick: async e => { e.preventDefault(); e.stopPropagation(); const ok = await modal({ title: L('Skript löschen?', 'Delete these slides?'), text: L(`„${d.name}“ und alles dazu (Quizze, Karten, Chat) wird von diesem Gerät gelöscht.`, `“${d.name}” and everything with it (quizzes, flashcards, chat) will be deleted from this device.`), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { await removeDoc(d.id); draw(); } } });
+    const delB = h('button', { class: 'iconbtn sk-del', type: 'button', 'aria-label': L('Löschen', 'Delete'), html: ico('trash'), onclick: async e => { e.preventDefault(); e.stopPropagation(); const ok = await modal({ title: L('Skript löschen?', 'Delete these slides?'), text: L(`„${d.name}“ und alles dazu (Quizzes, Karten, Chat) wird von diesem Gerät gelöscht.`, `“${d.name}” and everything with it (quizzes, flashcards, chat) will be deleted from this device.`), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { await removeDoc(d.id); draw(); } } });
     return h('a', { class: 'sk-r', href: d.ms ? `#/app/mitschrift/${d.id}` : `#/app/${d.id}/hub`, onclick: fromHere },
       h('span', { class: 'sk-i', html: ico(d.ms ? 'pen' : (d.media || d.video) ? 'video' : d.generated ? 'bulb' : 'file') }),
       h('span', { class: 'sk-t' }, h('b', {}, d.name), h('small', {}, [d.ms && d.ms.draft ? L('Entwurf', 'Draft') : null, KIND[d.kind] || (d.generated ? L('Kurzskript', 'Short script') : d.sample ? L('Beispiel', 'Example') : ''), (d.video ? [{ youtube: 'YouTube', tiktok: 'TikTok', instagram: 'Instagram' }[d.video.platform] || 'Video', d.video.dur ? `${Math.floor(d.video.dur / 60)}:${String(Math.round(d.video.dur % 60)).padStart(2, '0')}` : null].filter(Boolean).join(' · ') : d.pages?.length === 1 ? L('1 Seite', '1 page') : (d.pages?.length || 0) + L(' Seiten', ' pages')), n ? L(`${n} erstellt`, `${n} made`) : null, L('geöffnet ', 'opened ') + ago(d.used || d.created)].filter(Boolean).join(' · '))),
@@ -194,7 +194,7 @@ export function render(root, { tab: want = '' } = {}) {
       h('div', { class: 'nvp-el' },
         h('span', { class: 'nvp-eb' }, h('span', { class: 'nvp-ebi', html: ico('library') }), L('Noch leer', 'Still empty')),
         h('h2', {}, L('Lad deinen ersten Stoff hoch', 'Upload your first material')),
-        h('p', {}, L('Skript, Altklausur, Mitschrift oder einfach ein Foto vom Tafelbild – Max liest alles und baut dir daraus Karteikarten, Quizze und Lernzettel.', 'Slides, past exam, notes or just a photo of the board – Max reads it all and builds flashcards, quizzes and study sheets from it.')),
+        h('p', {}, L('Skript, Altklausur, Mitschrift oder einfach ein Foto vom Tafelbild – Max liest alles und baut dir daraus Karteikarten, Quizzes und Lernzettel.', 'Slides, past exam, notes or just a photo of the board – Max reads it all and builds flashcards, quizzes and study sheets from it.')),
         h('div', { class: 'kt-btns' },
           h('label', { class: 'kt-go nvp-go', for: 'fileApp' }, h('span', { html: ico('upload') }), L('Datei auswählen', 'Choose file')),
           h('button', { class: 'kt-sec nvp-sec', type: 'button', onclick: () => import('../app.js').then(m => m.topicPrompt()) }, h('span', { html: ico('bulb') }), L('Kein Skript? Nenn mir ein Thema', 'No slides? Give me a topic')))),
@@ -204,17 +204,17 @@ export function render(root, { tab: want = '' } = {}) {
   // Erklärung, solange Max noch nichts erstellt hat
   function intro() {
     if (BEN()) {
-      const kinds = [['cards', 'cyan', L('Karteikarten', 'Flashcards'), L('Wiederholung genau dann, wenn du sie brauchst', 'Reviews exactly when you need them')], ['quiz', 'purple', L('Quizze', 'Quizzes'), L('Klausurfragen mit Erklärung zu jeder Antwort', 'Exam questions, every answer explained')], ['note', 'yellow', L('Lernzettel', 'Study sheets'), L('Das Wichtigste auf einer Seite', 'The essentials on one page')], ['pod', 'pink', 'Podcasts', L('Dein Stoff zum Anhören, unterwegs', 'Your material to listen to on the go')], ['board', 'blue', L('Tafelbilder', 'Boards'), L('Erklärungen von Max, gespeichert', 'Max’s explanations, saved')]];
+      const kinds = [['cards', 'cyan', L('Karteikarten', 'Flashcards'), L('Wiederholung genau dann, wenn du sie brauchst', 'Reviews exactly when you need them')], ['quiz', 'purple', L('Quizzes', 'Quizzes'), L('Klausurfragen mit Erklärung zu jeder Antwort', 'Exam questions, every answer explained')], ['note', 'yellow', L('Lernzettel', 'Study sheets'), L('Das Wichtigste auf einer Seite', 'The essentials on one page')], ['pod', 'pink', 'Podcasts', L('Dein Stoff zum Anhören, unterwegs', 'Your material to listen to on the go')], ['board', 'blue', L('Tafelbilder', 'Boards'), L('Erklärungen von Max, gespeichert', 'Max’s explanations, saved')]];
       return h('section', { class: 'nvp-intro' },
         h('div', { class: 'nvp-ih' }, h('h3', {}, L('Hier landet alles, was Max für dich erstellt', 'Everything Max makes for you lands here')), h('p', {}, L('Automatisch gespeichert und nach Skript sortiert – sobald du das Erste erstellst, taucht es hier auf.', 'Saved automatically and sorted by slides – as soon as you create your first one, it shows up here.'))),
         h('div', { class: 'nvp-kinds' }, kinds.map(([ic, tone, t, sub]) => h('div', { class: 'nvp-kind', 'data-tone': tone }, h('span', { class: 'nvp-ki', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))),
         data.docs.length ? h('a', { class: 'kt-go nvp-go', href: '#/app/lernen' }, h('span', { html: ico('spark') }), L('Jetzt etwas erstellen', 'Create something now')) : null);
     }
-    const kinds = [['cards', L('Karteikarten', 'Flashcards')], ['quiz', L('Quizze', 'Quizzes')], ['note', L('Lernzettel', 'Study sheets')], ['pod', 'Podcasts'], ['board', L('Tafelbilder', 'Boards')]];
+    const kinds = [['cards', L('Karteikarten', 'Flashcards')], ['quiz', L('Quizzes', 'Quizzes')], ['note', L('Lernzettel', 'Study sheets')], ['pod', 'Podcasts'], ['board', L('Tafelbilder', 'Boards')]];
     return h('div', { class: 'bib-intro' },
       h('div', { class: 'bib-ik' }, kinds.map(([ic, t]) => h('span', { class: 'bib-kc' }, h('span', { html: ico(ic) }), t))),
       h('h3', {}, L('Hier landet alles, was Max für dich erstellt', 'Everything Max makes for you lands here')),
-      h('p', {}, L('Karteikarten, Quizze, Lernzettel, Podcasts und Tafelbilder – automatisch gespeichert und sauber nach Skript sortiert. Sobald du das Erste erstellst, taucht es hier auf.', 'Flashcards, quizzes, study sheets, podcasts and boards – saved automatically and neatly sorted by slides. As soon as you create your first one, it shows up here.')),
+      h('p', {}, L('Karteikarten, Quizzes, Lernzettel, Podcasts und Tafelbilder – automatisch gespeichert und sauber nach Skript sortiert. Sobald du das Erste erstellst, taucht es hier auf.', 'Flashcards, quizzes, study sheets, podcasts and boards – saved automatically and neatly sorted by slides. As soon as you create your first one, it shows up here.')),
       data.docs.length ? h('a', { class: 'btn primary', href: '#/app/lernen' }, h('span', { html: ico('spark') }), L('Jetzt etwas erstellen', 'Create something now')) : null);
   }
 

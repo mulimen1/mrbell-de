@@ -2050,14 +2050,10 @@ export function mountAssistant() {
   let stageRO = null, islRO = null, stageTick = 0, keepBoard = false;
   function placeStage() {
     if (!STAGE || !STAGE.slots) return;
-    const put = (k, el) => {
-      if (!el || !el.isConnected) return;
-      const r = el.getBoundingClientRect();
-      root.style.setProperty(`--${k}l`, r.left + 'px'); root.style.setProperty(`--${k}t`, r.top + 'px');
-      root.style.setProperty(`--${k}w`, r.width + 'px'); root.style.setProperty(`--${k}h`, r.height + 'px');
-      root.style.setProperty(`--${k}b`, (innerHeight - r.bottom) + 'px');
-    };
-    put('sc', STAGE.slots.composer); put('sf', STAGE.slots.chat); put('sb', STAGE.slots.board);
+    // Erst alles messen, dann schreiben – und nur, was sich geändert hat (sonst Layout in jedem Bild → Ruckeln)
+    const rs = [['sc', STAGE.slots.composer], ['sf', STAGE.slots.chat], ['sb', STAGE.slots.board]].map(([k, el]) => el && el.isConnected ? [k, el.getBoundingClientRect()] : null).filter(Boolean);
+    const pv = placeStage.pv || (placeStage.pv = {});
+    for (const [k, r] of rs) for (const [s2, v] of [['l', r.left], ['t', r.top], ['w', r.width], ['h', r.height], ['b', innerHeight - r.bottom]]) { const n = `--${k}${s2}`, val = v + 'px'; if (pv[n] !== val) { pv[n] = val; root.style.setProperty(n, val); } }
   }
   function burst(ms = 700) { cancelAnimationFrame(stageTick); const t0 = performance.now(); const f = () => { placeStage(); if (STAGE && performance.now() - t0 < ms) stageTick = requestAnimationFrame(f); }; f(); }
   addEventListener('resize', () => { if (STAGE) burst(300); });

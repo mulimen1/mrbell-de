@@ -145,7 +145,7 @@ export function buildPlan(doc, opts, old = null) {
       while (restCore.length && s.used + restCore[0].t.minutes <= cap * 1.1) { const t = restCore.shift().t; s.tasks.push(t); s.used += t.minutes; }
       tail.push(s);
     }
-    // Übrige Pflicht-Quizze auf den leichtesten Lerntag
+    // Übrige Pflicht-Quizzes auf den leichtesten Lerntag
     restCore.forEach(x => { const ok = slots.filter((s, d) => d >= x.avail - 1); if (!ok.length) return; const s = ok.reduce((a, b) => b.used < a.used ? b : a, ok[0]); s.tasks.push(x.t); s.used += x.t.minutes; s.buffer = false; });
     if (light >= 0) {
       const tasks = [mk('cards', null, MIN.cards), mk('sheet', null, MIN.sheet)];
@@ -479,6 +479,7 @@ function finishCreate(wrap, ctx, opts) {
   const { doc } = ctx;
   doc.plan = buildPlan(doc, opts); try { window.BM && window.BM.track('Erstellt', 'Klausurplan'); } catch (e) {}
   save(doc);
+  import('../lib.js').then(m => m.markMade('plan', { href: `#/app/${doc.id}/plan`, name: doc.name })).catch(() => {});
   planView(wrap, ctx, { fresh: true });
 }
 
@@ -548,7 +549,7 @@ function planView(wrap, ctx, { fresh = false } = {}) {
     };
     if (passed) {
       todayCard.append(h('div', { class: 'pl-ch' }, h('h3', {}, L('Wie geht’s weiter?', 'What’s next?'))),
-        h('p', { class: 'pl-empty' }, L('Nächste Klausur? Erstell einfach einen neuen Plan. Deine Karteikarten und Quizze bleiben.', 'Next exam? Just create a new plan. Your flashcards and quizzes stay.')),
+        h('p', { class: 'pl-empty' }, L('Nächste Klausur? Erstell einfach einen neuen Plan. Deine Karteikarten und Quizzes bleiben.', 'Next exam? Just create a new plan. Your flashcards and quizzes stay.')),
         h('div', { class: 'pl-row' }, h('button', { class: 'btn primary', onclick: () => { doc.plan = null; save(doc); wizard(wrap, ctx); } }, L('Neuen Plan erstellen', 'Create a new plan'))));
     } else if (p.daysLeft === 0) {
       todayCard.append(h('div', { class: 'pl-ch' }, h('h3', {}, L('Heute: Klausur', 'Today: the exam')), h('span', { class: 'tag' }, fmtShort(today))),
@@ -575,7 +576,7 @@ function planView(wrap, ctx, { fresh = false } = {}) {
       const w = weakest(doc);
       goalBody = h('div', {},
         h('div', { class: 'pl-est' }, h('span', {}, L('Auf Kurs für', 'On course for')), h('b', {}, estLabel(fc.proj))),
-        goal != null ? h('p', { class: 'pl-gv', 'data-ok': ok }, ok === 'ok' ? L(`Dein Ziel ${goalLabel(goal)} ist in Reichweite. Plan durchziehen.`, `Your goal (${goalLabel(goal)}) is within reach. Stick to the plan.`) : ok === 'close' ? L(`Knapp unter deinem Ziel ${goalLabel(goal)}. Quizze bringen hier am meisten.`, `Just below your goal (${goalLabel(goal)}). Quizzes help most here.`) : L(`Bis ${goalLabel(goal)} fehlt noch was. Für dein Ziel brauchst du in Quizzen um die ${Math.round(goal * 100)} %.`, `There’s still a gap to ${goalLabel(goal)}. For your goal you need around ${Math.round(goal * 100)}% in quizzes.`)) : null,
+        goal != null ? h('p', { class: 'pl-gv', 'data-ok': ok }, ok === 'ok' ? L(`Dein Ziel ${goalLabel(goal)} ist in Reichweite. Plan durchziehen.`, `Your goal (${goalLabel(goal)}) is within reach. Stick to the plan.`) : ok === 'close' ? L(`Knapp unter deinem Ziel ${goalLabel(goal)}. Quizzes bringen hier am meisten.`, `Just below your goal (${goalLabel(goal)}). Quizzes help most here.`) : L(`Bis ${goalLabel(goal)} fehlt noch was. Für dein Ziel brauchst du in Quizzen um die ${Math.round(goal * 100)} %.`, `There’s still a gap to ${goalLabel(goal)}. For your goal you need around ${Math.round(goal * 100)}% in quizzes.`)) : null,
         w && w.sc < .85 ? h('button', { class: 'pl-lever', onclick: () => ctx.go('quiz', 'k' + w.i) }, h('span', {}, L('Größter Hebel', 'Biggest lever')), h('b', {}, w.c.title), h('span', { html: ico('right') })) : null,
         h('p', { class: 'pl-fine' }, fc.sure ? L('Max’ Schätzung aus Quiz-Ergebnissen, Lernstand und Tempo. Keine Garantie.', 'Max’s estimate from quiz scores, mastery and pace. No guarantee.') : L('Grobe Schätzung – nach zwei Quizzen wird sie genauer.', 'Rough estimate – it gets sharper after two quizzes.')));
     }
@@ -671,7 +672,7 @@ function planView(wrap, ctx, { fresh = false } = {}) {
     planView(wrap, ctx);
   }
   async function del() {
-    const ok = await modal({ title: L('Plan löschen?', 'Delete plan?'), text: L('Dein Klausurplan wird gelöscht. Lernpfad, Quizze und Karten bleiben.', 'Your exam plan will be deleted. Study path, quizzes and flashcards stay.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] });
+    const ok = await modal({ title: L('Plan löschen?', 'Delete plan?'), text: L('Dein Klausurplan wird gelöscht. Lernpfad, Quizzes und Karten bleiben.', 'Your exam plan will be deleted. Study path, quizzes and flashcards stay.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] });
     if (!ok) return;
     doc.plan = null; save(doc);
     wizard(wrap, ctx);

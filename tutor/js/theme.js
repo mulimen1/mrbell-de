@@ -50,6 +50,9 @@ export const ACCENTS = [
 const NEON = { navy: ['Blau', 'Blue', '#2a7fe8'], kobalt: ['Indigo', 'Indigo', '#4840b5'], petrol: ['Petrol', 'Teal', '#0e7a88'], gruen: ['Grün', 'Green', '#1c7a47'], oliv: ['Oliv', 'Olive', '#5f7f20'], cognac: ['Orange', 'Orange', '#cc611b'], bordeaux: ['Rot', 'Red', '#bf2b38'], aubergine: ['Lila', 'Purple', '#673ab0'], graphit: ['Pink', 'Pink', '#b3305f'], '': ['Schwarz', 'Black', '#26262b'] };
 const NV_ORDER = ['navy', 'kobalt', 'aubergine', 'graphit', 'bordeaux', 'cognac', 'oliv', 'gruen', 'petrol', ''];
 const ACC_KEY = 'tutor.accent';
+// Für Menüs: Standardfarbe (BWL-Max-Blau) getrennt, der Rest nach Farbton sortiert
+export const ACC_STD = 'navy';
+export const accentChoices = () => NV_ORDER.map(id => { const [de, en, c] = NEON[id]; return { id, de, en, c }; });
 // Gelb (nur für den TikTok-Sketch) gibt's nicht mehr – wer es noch gespeichert hat, bekommt wieder die Standardfarbe
 try { if (document.documentElement.dataset.accent === 'gelb' || localStorage.getItem(ACC_KEY) === 'gelb') { document.documentElement.dataset.accent = 'navy'; localStorage.setItem(ACC_KEY, 'navy'); document.documentElement.dataset.outfit = 'navy'; } } catch (e) {}
 export const getAccent = () => document.documentElement.dataset.accent || '';

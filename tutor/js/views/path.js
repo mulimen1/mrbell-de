@@ -30,6 +30,7 @@ export function generatePath(doc) {
     if (old) doc.lessons = carryProgress(old, oldL, chapters);   // neu eingearbeitet: Fortschritt bleibt
     doc.path = { title: d.title || doc.name, subject: d.subject || '', summary: d.summary || '', chapters, created: Date.now() };
     save(doc);
+    import('../lib.js').then(m => m.markMade('pfad', { href: `#/app/${doc.id}/pfad`, name: doc.name })).catch(() => {});
     return doc.path;
   }).finally(() => { pathJob = null; });
   pathJob = { id: doc.id, p };
@@ -87,7 +88,7 @@ function listView(wrap, ctx) {
     homeBeta() ? srcPanel(wrap, ctx) : null,
     h('div', { style: { marginTop: '18px', display: 'flex', gap: '8px', justifyContent: 'flex-end' } },
       dlBtn(() => [{ label: 'PDF', sub: L('Kapitel, Ziele und deine Lektionen', 'Chapters, goals and your lessons'), ic: 'file', fn: () => pathPdf(ctx.doc) }], { cls: 'btn sm ghost' }),
-      h('button', { class: 'btn sm ghost', onclick: async () => { const ok = await modal({ title: L('Lernpfad neu erstellen?', 'Rebuild study path?'), text: L('Dein Fortschritt im Lernpfad wird zurückgesetzt. Quizze und Karten bleiben.', 'Your study path progress will be reset. Quizzes and flashcards stay.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Neu erstellen', 'Rebuild'), value: true, primary: true }] }); if (!ok) return; ctx.doc.path = null; ctx.doc.lessons = {}; save(ctx.doc); waitPath(wrap, ctx, true); } }, h('span', { html: ico('refresh') }), L('Neu erstellen', 'Rebuild'))));
+      h('button', { class: 'btn sm ghost', onclick: async () => { const ok = await modal({ title: L('Lernpfad neu erstellen?', 'Rebuild study path?'), text: L('Dein Fortschritt im Lernpfad wird zurückgesetzt. Quizzes und Karten bleiben.', 'Your study path progress will be reset. Quizzes and flashcards stay.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Neu erstellen', 'Rebuild'), value: true, primary: true }] }); if (!ok) return; ctx.doc.path = null; ctx.doc.lessons = {}; save(ctx.doc); waitPath(wrap, ctx, true); } }, h('span', { html: ico('refresh') }), L('Neu erstellen', 'Rebuild'))));
 }
 
 // Quellen des Lernpfads: weitere Dateien, Skripte und Themen hinzufügen, Gewichtung ändern – Max arbeitet sie neu ein

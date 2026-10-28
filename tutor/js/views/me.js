@@ -120,14 +120,14 @@ function hero(a, compact = false) {
 const stat = (b, s) => h('span', {}, h('b', {}, String(b)), s);
 // Wochenziel als Balken (Länge statt Zahlenwand); antippen = Ziel ändern
 function weekGoal(wk) {
-  const goal = M.getMe().wochenziel || 150, pct = Math.min(100, Math.round(100 * wk / goal));
+  const goal = M.getMe().wochenziel || 600, pct = Math.min(100, Math.round(100 * wk / goal));
   return h('button', { class: 'me-wkgoal' + (wk >= goal ? ' done' : ''), type: 'button', title: L('Wochenziel ändern', 'Change weekly goal'), onclick: editGoal },
     h('span', { class: 'me-wkt' }, h('b', {}, M.fmtMin(wk)), L(` von ${M.fmtMin(goal)} diese Woche`, ` of ${M.fmtMin(goal)} this week`)),
     h('span', { class: 'me-wkbar' }, h('i', { style: { width: pct + '%' } })));
 }
 async function editGoal() {
-  const cur = M.getMe().wochenziel || 150;
-  const opts = [60, 90, 120, 150, 210, 300, 420, 600];
+  const cur = M.getMe().wochenziel || 600;
+  const opts = [180, 300, 420, 600, 900, 1200, 1500, 1800];
   const sel = h('div', { class: 'me-goals' }, opts.map(m => h('button', { class: 'chip' + (m === cur ? ' on' : ''), type: 'button', onclick: e => { sel.querySelectorAll('.chip').forEach(c => c.classList.remove('on')); e.currentTarget.classList.add('on'); sel.dataset.v = m; } }, M.fmtMin(m))));
   sel.dataset.v = cur;
   const r = await modal({ title: L('Wie viel willst du pro Woche lernen?', 'How much do you want to study per week?'), text: L('Faustregel: 1 ECTS ≈ 25–30 Stunden Arbeit. Lieber realistisch starten und steigern.', 'Rule of thumb: 1 ECTS ≈ 25–30 hours of work. Start realistic, then raise it.'), body: sel, actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'ok', primary: true }] });
@@ -718,7 +718,7 @@ function stats(body) {
 const kpi = (b, t, s) => h('div', { class: 'me-kpi' }, h('b', {}, String(b)), h('span', {}, t), h('small', {}, s));
 // Lernzeit pro Woche als Balken gegen das Wochenziel – Länge statt Graustufen
 function weeksCard() {
-  const goal = M.getMe().wochenziel || 150;
+  const goal = M.getMe().wochenziel || 600;
   const ws = [...Array(8)].map((_, i) => ({ off: i - 7, m: weekMinutes(i - 7) }));
   const top = Math.max(goal, ...ws.map(w => w.m), 1);
   const lbl = off => off === 0 ? L('diese', 'this') : off === -1 ? L('letzte', 'last') : L(`KW ${isoWeek(new Date(Date.now() + off * 7 * 864e5))}`, `W${isoWeek(new Date(Date.now() + off * 7 * 864e5))}`);

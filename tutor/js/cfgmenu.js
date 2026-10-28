@@ -3,7 +3,7 @@
 import { h, ico } from './util.js';
 import { L } from './i18n.js';
 import { onAccount } from './api.js';
-import { ACCENTS, getAccent, setAccent } from './theme.js';
+import { getAccent, setAccent, accentChoices, ACC_STD } from './theme.js';
 
 const H = document.documentElement;
 const dark = () => H.dataset.theme ? H.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
@@ -28,7 +28,16 @@ async function open(btn) {
     try { sessionStorage.setItem('tutor.theme', next); } catch (e) {} setTimeout(() => H.classList.remove('theme-fade'), 900);
     sw.classList.toggle('on', next === 'dark'); thTxt.textContent = next === 'dark' ? L('An', 'On') : L('Aus', 'Off');
   });
-  const accs = h('div', { class: 'cfg-acc' }, ...ACCENTS.map(([id, de, en, c1, c2]) => h('button', { type: 'button', class: 'cfg-dot' + (getAccent() === id ? ' on' : ''), title: L(de, en), 'aria-label': L(de, en), style: { background: `linear-gradient(135deg, ${c2}, ${c1})` }, onclick: e => { setAccent(id, e.currentTarget); accs.querySelectorAll('.cfg-dot').forEach(x => x.classList.toggle('on', x === e.currentTarget)); } })));
+  // Farbe: oben die BWL-Max-Standardfarbe für sich, darunter – abgetrennt – die anderen, nach Farbton sortiert
+  const all = accentChoices(), std = all.find(a => a.id === ACC_STD), rest = all.filter(a => a.id !== ACC_STD);
+  const nameEl = h('small', { class: 'cfg-accn' });
+  const paintAcc = () => { const cur = getAccent(); accs.querySelectorAll('[data-acc]').forEach(x => x.classList.toggle('on', x.dataset.acc === cur)); const a = all.find(x => x.id === cur); nameEl.textContent = a ? (a.id === ACC_STD ? L('Standard', 'Default') : L(a.de, a.en)) : ''; };
+  const pick = (id, el) => { setAccent(id, el); setTimeout(paintAcc, 30); };
+  const accs = h('div', { class: 'cfg-acc' },
+    h('button', { type: 'button', class: 'cfg-std', 'data-acc': std.id, style: { '--c': std.c }, onclick: e => pick(std.id, e.currentTarget) }, h('i', { class: 'cfg-stdd' }, h('span', { html: ico('check') })), h('span', {}, h('b', {}, L('BWL-Max-Blau', 'BWL Max blue')), h('small', {}, L('Standardfarbe', 'Default colour')))),
+    h('div', { class: 'cfg-accsep' }, h('span', {}, L('Oder deine Farbe', 'Or your colour')), nameEl),
+    h('div', { class: 'cfg-dots' }, rest.map(a => h('button', { type: 'button', class: 'cfg-dot', 'data-acc': a.id, title: L(a.de, a.en), 'aria-label': L(a.de, a.en), style: { '--c': a.c }, onclick: e => pick(a.id, e.currentTarget) }, h('span', { html: ico('check') })))));
+  paintAcc();
   const menu = h('div', { class: 'uv-menu cfg-menu', role: 'menu' },
     h('div', { class: 'cfg-h' }, L('Einstellungen', 'Settings')),
     row('globe', L('Sprache der Seite', 'Site language'), A.langSwitch()),

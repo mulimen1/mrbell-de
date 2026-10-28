@@ -416,22 +416,39 @@ const AREA_OF = hs => {
   if (a === 'faecher' || a === 'stundenplan') return { l: a === 'stundenplan' ? L('Stundenplan', 'Timetable') : L('Fächer', 'Subjects'), c: '#d9601c' };
   return null;
 };
-const MADE = { karten: L('Karteikarten', 'Flashcards'), quiz: 'Quiz', zettel: L('Lernzettel', 'Study sheet'), podcasts: 'Podcast', podcast: 'Podcast' };
+const MADE = { karten: L('Karteikarten', 'Flashcards'), quiz: 'Quiz', zettel: L('Lernzettel', 'Study sheet'), podcasts: 'Podcast', podcast: 'Podcast', plan: L('Klausurplan', 'Exam plan'), pfad: L('Lernpfad', 'Study path'), mitschrift: L('Mitschrift', 'Notes'), video: L('Transkript', 'Transcript') };
+const MADE_MS = 5 * 60e3;
 let madeEl = null;
+// Gerade Erstelltes: 5 Minuten oben rechts (Öffnen klappt immer), danach – solange nicht geöffnet – ein pulsierender Punkt an der Bibliothek
 function justMadeChip() {
   if (!document.documentElement.dataset.nv) return;
   const j = ls.get('tutor.justMade', null), hs = location.hash.split('?')[0];
-  const on = j && Date.now() - (j.at || 0) < 12 * 60e3 && j.href && hs !== j.href && !hs.startsWith(j.href + '/');
+  const base = j && (j.base || j.href);
+  const here = j && base && (hs === base || hs === j.href || hs.startsWith(base + '/'));
+  // Erst wenn man einmal woanders war und wieder hinkommt, gilt es als angesehen (beim Erstellen ist man ja noch dort)
+  if (j && !here && !j.left && !j.seen) { j.left = true; ls.set('tutor.justMade', j); }
+  if (j && here && j.left && !j.seen) { j.seen = true; ls.set('tutor.justMade', j); }
+  const age = j ? Date.now() - (j.at || 0) : 1e12;
+  const on = j && !j.seen && !j.hidden && age < MADE_MS && j.href && !here;
+  document.documentElement.classList.toggle('bm-newlib', !!(j && !j.seen && age < 3 * 864e5 && (age >= MADE_MS || j.hidden)));
   if (!on) { if (madeEl) { madeEl.remove(); madeEl = null; } return; }
+  const go = e => {
+    e.preventDefault();
+    const x = ls.get('tutor.justMade', null); if (x) { x.seen = true; ls.set('tutor.justMade', x); }
+    if (location.hash === j.href) forceRerender(), dispatchEvent(new HashChangeEvent('hashchange')); else location.hash = j.href;
+    if (madeEl) { madeEl.remove(); madeEl = null; }
+    document.documentElement.classList.remove('bm-newlib');
+  };
   const el = h('div', { class: 'made-chip', role: 'status' },
-    h('a', { class: 'made-go', href: j.href }, h('span', { class: 'made-ok', html: ico('check') }), h('span', { class: 'made-t' }, h('small', {}, L('Gerade erstellt', 'Just created')), h('b', {}, (MADE[j.kind] || L('Dein Material', 'Your material')) + (j.name ? ' · ' + j.name : ''))), h('span', { class: 'made-open' }, L('Öffnen', 'Open'), h('span', { html: ico('right') }))),
-    h('button', { class: 'made-hide', type: 'button', onclick: () => { ls.set('tutor.justMade', null); justMadeChip(); } }, L('Ausblenden', 'Hide')));
+    h('a', { class: 'made-go', href: j.href, onclick: go }, h('span', { class: 'made-ok', html: ico('check') }), h('span', { class: 'made-t' }, h('small', {}, L('Gerade erstellt', 'Just created')), h('b', {}, (MADE[j.kind] || L('Dein Material', 'Your material')) + (j.name ? ' · ' + j.name : ''))), h('span', { class: 'made-open' }, L('Öffnen', 'Open'), h('span', { html: ico('right') }))),
+    h('button', { class: 'made-hide', type: 'button', onclick: () => { const x = ls.get('tutor.justMade', null); if (x) { x.hidden = true; ls.set('tutor.justMade', x); } justMadeChip(); } }, L('Ausblenden', 'Hide')));
   if (madeEl) madeEl.replaceWith(el); else document.body.appendChild(el);
   madeEl = el;
 }
 addEventListener('hashchange', () => setTimeout(justMadeChip, 60));
 addEventListener('bm:justmade', () => setTimeout(justMadeChip, 60));
-setInterval(justMadeChip, 30e3);
+setInterval(justMadeChip, 15e3);
+setTimeout(justMadeChip, 800);
 function backPill(root) {
   if (!document.documentElement.dataset.nv || !root || !root.isConnected) return;
   const hs = location.hash.split('?')[0], ar = AREA_OF(hs);
@@ -528,7 +545,7 @@ async function settings() {
     h('button', { class: 'btn', onclick: async () => { const b = await exportAll(); const a = h('a', { href: URL.createObjectURL(b), download: `${L('BWL-Max-Sicherung', 'BWL-Max-Backup')}-${new Date().toISOString().slice(0, 10)}.bwlmax` }); document.body.appendChild(a); a.click(); a.remove(); toast(L('Sicherung gespeichert – liegt in deinen Downloads.', 'Backup saved – it’s in your downloads.')); } }, h('span', { html: ico('download') }), L('Lernstand als Datei sichern', 'Back up your progress as a file')),
     h('label', { class: 'btn' }, imp, h('span', { html: ico('upload') }), L('Gesicherten Lernstand wiederherstellen', 'Restore a backup')),
     h('button', { class: 'btn', onclick: async () => {
-      const ok = await modal({ title: L('Wirklich alles löschen?', 'Really delete everything?'), text: L('Alle Skripte, Quizze, Karten und Chats werden von diesem Gerät gelöscht. Das lässt sich nicht rückgängig machen.', 'All slides, quizzes, flashcards and chats will be deleted from this device. This can’t be undone.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Alles löschen', 'Delete everything'), value: true, primary: true }] });
+      const ok = await modal({ title: L('Wirklich alles löschen?', 'Really delete everything?'), text: L('Alle Skripte, Quizzes, Karten und Chats werden von diesem Gerät gelöscht. Das lässt sich nicht rückgängig machen.', 'All slides, quizzes, flashcards and chats will be deleted from this device. This can’t be undone.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Alles löschen', 'Delete everything'), value: true, primary: true }] });
       if (ok) { await wipe(); location.hash = '#/'; location.reload(); }
     } }, h('span', { html: ico('trash') }), L('Alles auf diesem Gerät löschen', 'Delete everything on this device')));
   imp.addEventListener('change', async () => {

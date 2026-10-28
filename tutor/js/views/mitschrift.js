@@ -18,6 +18,7 @@ const DKEY = 'tutor.ms.draft';
 let cssOn = false;
 function css() { if (cssOn || document.querySelector('link[data-ms]')) return; cssOn = true; document.head.appendChild(h('link', { rel: 'stylesheet', href: '/tutor/css/mitschrift.css?v=16', 'data-ms': '1' })); }
 
+const MS_SPK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c.6 3.9 2.6 5.9 6.5 6.5-3.9.6-5.9 2.6-6.5 6.5-.6-3.9-2.6-5.9-6.5-6.5 3.9-.6 5.9-2.6 6.5-6.5Z" fill="currentColor"/><path d="M18.5 14.5c.3 1.8 1.2 2.7 3 3-1.8.3-2.7 1.2-3 3-.3-1.8-1.2-2.7-3-3 1.8-.3 2.7-1.2 3-3Z" fill="currentColor" opacity=".7"/></svg>';
 export async function render(root, { id = '' } = {}) {
   css();
   const wrap = h('div', { class: 'view-in ms' }); root.appendChild(wrap);
@@ -80,7 +81,7 @@ function editor(wrap, doc) {
     location.hash = '#/app/mitschrift/neu-' + Date.now().toString(36);
   } }, h('span', { html: ico('plus') }), L('Neue Mitschrift', 'New note'));
   const headL = h('div', { class: 'ms-hl' },
-    h('div', { class: 'ms-ht' }, h('div', { class: 'eyebrow' }, L('Live-Mitschrift', 'Live notes')), h('h2', {}, L('Schreib einfach mit.', 'Just take notes.')), h('div', { class: 'ms-hbtns' }, listBtn, saveBtn, newBtn)),
+    h('div', { class: 'ms-ht' }, h('div', { class: 'eyebrow' }, L('Live-Mitschrift', 'Live notes')), h('h2', { class: 'ms-h2' }, L('Schreib einfach mit. ', 'Just take notes. '), h('span', {}, L('Max macht’s sauber.', 'Max makes it clean.'))), h('div', { class: 'ms-hbtns' }, listBtn, saveBtn, newBtn)),
       h('p', { class: 'ms-hp' }, L('Tipp in der Vorlesung drauflos oder fotografier Notizen und Tafel. Max macht daraus eine saubere Mitschrift – in Schreibschrift oder Druckschrift, mit Skizzen.', 'Type away during the lecture or snap your notes and the board. Max turns it into clean notes – in cursive or print, with sketches.')));
   const head = h('div', { class: 'ms-head' }, headL);
   { const sw = msSwitch('live'); if (sw) headL.prepend(sw); }
@@ -196,11 +197,13 @@ function editor(wrap, doc) {
   const seg = mkSeg(), segTop = mkSeg();
   const drawSeg = () => [seg, segTop].forEach(sg => sg.replaceChildren(...[['fueller', L('Füller', 'Fountain pen')], ['druck', L('Druckschrift', 'Print')]].map(([k, n]) => h('button', { type: 'button', class: k === stil ? 'on' : '', role: 'radio', 'aria-checked': String(k === stil), onclick: () => { stil = draft.stil = k; drawSeg(); keep(); drawPv(); } }, n))));
   const st = h('span', { class: 'ms-st' });
-  const mkGo = cls => h('button', { type: 'button', class: 'btn primary ms-go' + (cls ? ' ' + cls : ''), disabled: !canGo(), title: L('Erst ein paar Zeilen schreiben oder eine Datei hochladen', 'Write a few lines or upload a file first'), onclick: () => make() }, h('span', { html: ico('pen') }), L('Saubere Mitschrift machen', 'Make clean notes'));
+  const mkGo = cls => h('button', { type: 'button', class: 'btn primary ms-go' + (cls ? ' ' + cls : ''), disabled: !canGo(), title: L('Erst ein paar Zeilen schreiben oder eine Datei hochladen', 'Write a few lines or upload a file first'), onclick: () => make() }, h('span', { class: 'ms-gosp', html: MS_SPK }), L('Mit Max erstellen', 'Create with Max'));
   const go = mkGo(), goTop = mkGo('ms-gotop');
   function setGo() { go.disabled = goTop.disabled = !canGo(); }
-  const foot = h('div', { class: 'ms-foot' }, st, seg, go);
-  const topBar = h('div', { class: 'ms-topbar' }, h('span', { class: 'ms-tbl' }, L('Schrift', 'Handwriting')), segTop, h('span', { class: 'ms-tbsp' }), goTop);
+  // Klar machen: das Ergebnis schreibt Max (KI) – du wählst nur die Schrift
+  const maxLbl = () => h('span', { class: 'ms-maxl' }, h('span', { class: 'ms-maxi', html: MS_SPK }), h('span', {}, h('b', {}, L('Max erstellt dir', 'Max creates')), h('small', {}, L('saubere Mitschrift in', 'clean notes in'))));
+  const foot = h('div', { class: 'ms-foot' }, st, maxLbl(), seg, go);
+  const topBar = h('div', { class: 'ms-topbar' }, maxLbl(), segTop, h('span', { class: 'ms-tbsp' }), goTop);
   // Vorschau oben rechts: so sieht das Ergebnis aus (echtes Blatt, gleiche Darstellung wie die fertige Mitschrift)
   const PVK = 'tutor.ms.pv';
   let pvOpen = ls.get(PVK, null) == null ? true : !!ls.get(PVK, 0);
@@ -347,6 +350,7 @@ function editor(wrap, doc) {
     ls.set(DKEY, { fach: draft.fach, text: '', stil: ms.stil, at: 0, skript: draft.skript, blatt: { ...blatt }, docId: null });
     const id = doc.id; doc = null; draft.text = ''; draft.zeichnung = { strokes: [], h: 1250 };   // nichts mehr als Entwurf nachspeichern
     const to = '#/app/mitschrift/' + id;
+    import('../lib.js').then(m => m.markMade('mitschrift', { href: to, name })).catch(() => {});
     if (location.hash !== to) { location.hash = to; return; }
     // Adresse ist schon die des Entwurfs: Blatt direkt hier zeigen
     const d = await openDoc(id); window.scrollTo(0, 0); wrap.replaceChildren(); sheetView(wrap, d);

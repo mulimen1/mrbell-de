@@ -24,7 +24,6 @@ export function fly(from, to, { dur = 900, arc = .26, state = 'idle', z = 160, l
   { const dx = first.left + first.width / 2 - sx, dy = first.top + first.height / 2 - sy, d = Math.hypot(dx, dy) || 1; fc.lookAt(dx / d * 42, dy / d * 24, dur + 300); }
   // Nachzieh-Schatten: zwei blasse Kopien, die ein paar Bilder hinterherhängen
   const ghosts = [1, 2].map(k => { const g = mk('ghost face'); g.dataset.state = state; const svg = el.querySelector('svg'); if (svg) g.appendChild(svg.cloneNode(true)); g.style.opacity = String(k === 1 ? .18 : .08); g.style.visibility = 'hidden'; document.body.insertBefore(g, el); return g; });
-  const trail = [];
   const at = (u, r) => {
     const t = ease(u), m = 1 - t;
     const ex = r.left + r.width / 2, ey = r.top + r.height / 2;
@@ -39,24 +38,26 @@ export function fly(from, to, { dur = 900, arc = .26, state = 'idle', z = 160, l
     return `translate(${(x - size / 2).toFixed(2)}px, ${(y - hs / 2).toFixed(2)}px) rotate(${rot.toFixed(2)}deg) scale(${(w / size).toFixed(4)})`;
   };
   el.style.transform = at(0, first);
+  // Flug läuft im Compositor (Web Animations): bleibt flüssig, auch wenn die neue Seite gerade aufgebaut wird.
+  // Ziel wird am Anfang gemessen; hat es sich bis zur Landung verschoben, gleitet der Kopf die letzten Pixel nach.
+  const N = Math.max(24, Math.round(dur / 16));
+  const kf = [...Array(N + 1)].map((_, i) => ({ transform: at(i / N, first) }));
+  const gk = k => kf.map((f, i) => { const u = i / N, gv = Math.max(0, Math.min(1, (1 - u) / .35)) * Math.min(1, u / .12); return { transform: f.transform, opacity: (k ? .08 : .18) * gv }; });
+  const anim = el.animate(kf, { duration: dur, easing: 'linear', fill: 'forwards' });
+  ghosts.forEach((g, k) => { g.style.visibility = ''; g.animate(gk(k), { duration: dur, delay: 34 * (k + 1), easing: 'linear', fill: 'both' }); });
   return new Promise(res => {
-    const t0 = performance.now(); let last = first;
-    const frame = now => {
-      const u = Math.min(1, (now - t0) / dur);
-      const r = target(); if (r && r.width) last = r;
-      const tf = at(u, last);
-      el.style.transform = tf; trail.push(tf);
-      // Schatten nur, solange er schnell fliegt – beim Abbremsen sähen sie wie Doppelbilder aus
-      const gv = Math.max(0, Math.min(1, (1 - u) / .35)) * Math.min(1, u / .12);
-      ghosts.forEach((g, k) => { const tr = trail[trail.length - 1 - 2 * (k + 1)]; if (tr) { g.style.transform = tr; g.style.visibility = ''; g.style.opacity = String((k ? .08 : .18) * gv); } });
-      if (u < 1) { requestAnimationFrame(frame); return; }
-      // Gelandet: exakt auf dem Ziel. Das echte Gesicht erscheint darunter, die Kopie bleibt kurz drüber und geht dann.
+    let done = false;
+    const finish = () => {
+      if (done) return; done = true;
       ghosts.forEach(g => g.remove());
-      res(true);
-      // Echtes Gesicht steht deckungsgleich darunter: Kopie nach zwei Bildern weg, kein Überblenden (sonst doppelte Kontur)
-      requestAnimationFrame(() => requestAnimationFrame(() => el.remove()));
+      const r = target();
+      const off = r && r.width && Math.hypot(r.left - first.left, r.top - first.top, r.width - first.width) > 1.5;
+      const end = () => { res(true); requestAnimationFrame(() => requestAnimationFrame(() => el.remove())); };
+      if (!off) return end();
+      const fix = el.animate([{ transform: kf[N].transform }, { transform: at(1, r) }], { duration: 160, easing: 'cubic-bezier(.3,0,.2,1)', fill: 'forwards' });
+      fix.onfinish = end; setTimeout(end, 400);
     };
-    requestAnimationFrame(frame);
+    anim.onfinish = finish; setTimeout(finish, dur + 500);
   });
 }
 
