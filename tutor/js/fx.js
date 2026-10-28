@@ -79,24 +79,12 @@ if (H.dataset.ben && H.dataset.nv && !matchMedia('(prefers-reduced-motion: reduc
   tick();
 }
 
-// Test nur Ben: Hintergrund-Varianten zum Durchklicken (gemerkt auf diesem Gerät)
-if (H.dataset.ben && H.dataset.nv) {
-  const BG = [['sand-blau', 'linear-gradient(180deg,#f7f6f3,#eef3fa)'], ['grau-blau', 'linear-gradient(160deg,#f3f4f6,#edf2fa)'], ['blau-lila', 'linear-gradient(135deg,#eef3fa,#f1effa)'], ['mint-blau', 'linear-gradient(135deg,#eef5f2,#edf2fa)'], ['grau', '#f1f2f4'], ['sand', '#f8f6f2'], ['blau', '#eef3fa'], ['salbei', '#eff3ef']];
-  let cur = 'sand-blau'; try { cur = localStorage.getItem('bm.bg') || cur; } catch (e) {}
-  H.dataset.bg = cur;
-  const mount = () => { if (!document.body) return setTimeout(mount, 80);
-    const box = document.createElement('div'); box.className = 'bgpick'; box.innerHTML = '<span>Hintergrund</span>';
-    BG.forEach(([k, c]) => { const b = document.createElement('button'); b.type = 'button'; b.title = k; b.style.background = c; if (k === cur) b.className = 'on';
-      b.onclick = () => { cur = k; H.dataset.bg = k; try { localStorage.setItem('bm.bg', k); } catch (e) {} box.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); }; box.appendChild(b); });
-    document.body.appendChild(box); };
-  mount();
-}
-
 // Test nur Ben: Hintergründe zum Durchklicken (gemerkt auf diesem Gerät). Ausblenden mit x, zurück per Doppelklick unten links.
 if (H.dataset.ben && H.dataset.nv) {
-  const BG = [['Grau hell', '#f5f6f7'], ['Grau', '#f0f1f3'], ['Grau stark', '#e8eaed'], ['Beige hell', '#faf8f4'], ['Beige', '#f6f2ea'], ['Beige stark', '#efe8db'],
-    ['Blau hell', '#f1f5fb'], ['Salbei', '#eff3ef'], ['Grau→Blau', 'linear-gradient(160deg,#f3f4f6,#edf2fa)'], ['Beige→Blau', 'linear-gradient(180deg,#f8f6f1,#eef3fa)'], ['Blau→Lila', 'linear-gradient(135deg,#eef3fa,#f2f0fa)'], ['Mint→Blau', 'linear-gradient(135deg,#eef5f2,#edf2fa)']];
-  let cur = BG[1][1]; try { cur = localStorage.getItem('bm.bg') || cur; } catch (e) {}
+  const BG = [['Grau 1', '#f7f7f8'], ['Grau 2', '#f2f3f4'], ['Grau 3', '#eceef0'], ['Grau 4', '#e6e8eb'], ['Grau 5', '#dfe1e5'], ['Grau 6', '#d6d9dd'],
+    ['Grau 7', '#cbced3'], ['Grau 8', '#bcc0c6'], ['Grau 9', '#a9adb4'], ['Grau 10', '#8f939a'], ['Grau 11', '#6f7379'], ['Grau 12', '#4d5056'],
+    ['Matt warm', '#e9e7e4'], ['Matt kühl', '#e4e8ec'], ['Grau→Blau', 'linear-gradient(160deg,#f3f4f6,#edf2fa)']];
+  let cur = BG[2][1]; try { cur = localStorage.getItem('bm.bg') || cur; } catch (e) {}
   const set = v => H.style.setProperty('--benbg', v); set(cur);
   const mount = () => { if (!document.body) return setTimeout(mount, 80);
     let hide = false; try { hide = localStorage.getItem('bm.bgHide') === '1'; } catch (e) {}

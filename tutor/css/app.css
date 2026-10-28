@@ -6327,3 +6327,4 @@ html[data-ben][data-nv]:not([data-theme="dark"]) body, html[data-ben][data-nv]:n
 .bgpick button { grid-template-columns: 30px 1fr; align-items: center; justify-items: start; gap: 6px; width: 100%; text-align: left; white-space: nowrap; }
 .bgpick i { width: 30px; height: 22px; }
 .bgpick { width: 116px !important; }
+.bgpick { top: 90px !important; max-height: calc(100vh - 110px); overflow-y: auto; }
