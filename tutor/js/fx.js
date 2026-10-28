@@ -81,10 +81,11 @@ if (H.dataset.ben && H.dataset.nv && !matchMedia('(prefers-reduced-motion: reduc
 
 // Test nur Ben: Hintergründe zum Durchklicken (gemerkt auf diesem Gerät). Ausblenden mit x, zurück per Doppelklick unten links.
 if (H.dataset.ben && H.dataset.nv) {
-  const BG = [['Grau 1', '#f7f7f8'], ['Grau 2', '#f2f3f4'], ['Grau 3', '#eceef0'], ['Grau 4', '#e6e8eb'], ['Grau 5', '#dfe1e5'], ['Grau 6', '#d6d9dd'],
-    ['Grau 7', '#cbced3'], ['Grau 8', '#bcc0c6'], ['Grau 9', '#a9adb4'], ['Grau 10', '#8f939a'], ['Grau 11', '#6f7379'], ['Grau 12', '#4d5056'],
-    ['Matt warm', '#e9e7e4'], ['Matt kühl', '#e4e8ec'], ['Grau→Blau', 'linear-gradient(160deg,#f3f4f6,#edf2fa)']];
-  let cur = BG[2][1]; try { cur = localStorage.getItem('bm.bg') || cur; } catch (e) {}
+  const BG = [['Beige 1', '#fbfaf7'], ['Beige 2', '#f8f6f1'], ['Beige 3', '#f5f2ec'], ['Beige 4', '#f2eee6'], ['Beige 5', '#efe9df'], ['Beige 6', '#ebe4d8'],
+    ['Beige 7', '#e6ddcf'], ['Beige 8', '#e0d5c4'], ['Beige 9', '#d8ccb8'], ['Beige 10', '#cfc1aa'],
+    ['Greige', '#efede8'], ['Greige 2', '#e7e4dd'], ['Sand', '#f3eee4'], ['Leinen', '#f4f0e8'], ['Creme', '#f7f3ea'], ['Hafer', '#ece6da'],
+    ['Grau 5', '#dfe1e5']];
+  let cur = BG[3][1]; try { cur = localStorage.getItem('bm.bg') || cur; } catch (e) {}
   const set = v => H.style.setProperty('--benbg', v); set(cur);
   const mount = () => { if (!document.body) return setTimeout(mount, 80);
     let hide = false; try { hide = localStorage.getItem('bm.bgHide') === '1'; } catch (e) {}
