@@ -6267,3 +6267,13 @@ html:root[data-nv] .ai-board .ai-ba.dots, html:root[data-nv] .boardarea.dots { b
 /* Neues Design: Punkte nur auf freier Fläche – keine Karte, kein Feld, keine Leiste ist durchsichtig */
 html:root[data-nv] :is(.rm-dropz, .sk-drop, .me-sc.me-scadd, .tt-drop, .ms-pvb, .ms-skl, .ms-foot, .btn.sm:not(.primary), .iconbtn, .ai-isl, .ai-bub, .asst-quip, .rm-tbub, .rm-bubble, .topbar, .tn:not(.tn-tutor), .chip, .rm-tdb, .bib-tab, .vt-btn, .fx-back, .rm-skb, .rm-streak, .rm-prog, .ub-pc, .tr-card, .feat) { background-color: var(--panel) !important; }
 html:root[data-nv] .ai-isl { --gl: var(--panel) !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+/* Test nur Ben: Lichtkegel-Punkte schwarz (dunkel: weiß), kein Blau; dunkel auch ohne Hover leicht sichtbar; auch hinter der Kopfleiste */
+html[data-ben][data-nv] .bg3d-near { background-image: radial-gradient(rgba(0, 0, 0, .5) 1.4px, transparent 1.8px); }
+html[data-ben][data-nv] .bg3d-glow { display: none; }
+html[data-ben][data-nv][data-theme="dark"] .bg3d-near { background-image: radial-gradient(rgba(255, 255, 255, .55) 1.4px, transparent 1.8px); }
+html[data-ben][data-nv][data-theme="dark"] .bg3d-far { background-image: radial-gradient(rgba(255, 255, 255, .13) 1px, transparent 1.3px); }
+html[data-ben][data-nv] .topbar { background-color: transparent !important; }
+html[data-ben][data-nv]:root .app .topbar.topbar { background-color: transparent !important; }
+/* Dunkel: Icon-Kästchen getönt statt hell */
+html:root[data-nv][data-accent][data-nv][data-theme="dark"] :is(.rm-tc .rm-tci:has(> .ico), .rm-tli, .rm-ti, .ln-ti, .rm-tdi, .rm-mat.empty .rm-mi, .rm-si, .tn:not(.tn-tutor) > span:has(> .ico), .rm-prog-nv > span:first-child) { background: rgba(74, 157, 255, .18) !important; color: #9fcbff !important; }
+html:root[data-nv][data-accent][data-nv][data-theme="dark"] :is(.btn.primary, .side .side-new, .ik-go, .vt-back) { background: rgba(74, 157, 255, .18) !important; color: #cfe4ff !important; border-color: rgba(74, 157, 255, .45) !important; }
