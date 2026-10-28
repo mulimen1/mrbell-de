@@ -7496,3 +7496,22 @@ html:root[data-nv] body .side [data-hf] { transition: background .2s ease, color
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .side [data-hf]:hover { background: linear-gradient(135deg, var(--hf1), var(--hf2)) !important; border-color: transparent !important; color: #fff !important; box-shadow: 0 10px 22px -12px var(--hf2) !important; }
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .side [data-hf]:hover :is(b, small, span:not([data-icc]), strong, p, em) { color: #fff !important; }
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .side [data-hf]:hover [data-icc][data-icc][data-icc][data-icc] { background: rgba(255,255,255,.22) !important; box-shadow: none !important; }
+/* Führung „Zeig mir BWL Max“: Scheinwerfer + wandernder Farbring statt Kasten, Blase in Lila */
+.go-btn { border: 0 !important; outline: none; -webkit-appearance: none; appearance: none; cursor: pointer; }
+.go-btn:focus-visible { outline: 3px solid #b597ff; outline-offset: 3px; }
+@property --gta { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.gt-spot { position: fixed; left: 0; top: 0; z-index: 125; pointer-events: none; opacity: 0; box-shadow: 0 0 0 200vmax rgba(22, 16, 44, .34); transition: transform .55s cubic-bezier(.22,1,.36,1), width .55s cubic-bezier(.22,1,.36,1), height .55s cubic-bezier(.22,1,.36,1), border-radius .55s, opacity .35s ease; }
+.gt-spot.on { opacity: 1; } .gt-spot.out { opacity: 0; }
+.gt-spot::before { content: ""; position: absolute; inset: -3px; border-radius: inherit; padding: 3px; background: conic-gradient(from var(--gta), #8a5cf0, #f47ba0, #f39b52, #5aa2f7, #8a5cf0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: gtspin 3s linear infinite; }
+.gt-spot::after { content: ""; position: absolute; inset: -3px; border-radius: inherit; box-shadow: 0 0 34px 4px rgba(138, 92, 240, .55), 0 0 70px 10px rgba(244, 123, 160, .22); animation: gtglow 2.2s ease-in-out infinite; }
+@keyframes gtspin { to { --gta: 360deg; } }
+@keyframes gtglow { 50% { opacity: .55; } }
+html.bm-gotour .mx-hl { outline: none !important; box-shadow: none !important; }
+html.bm-gotour .mx-say { background: linear-gradient(135deg, #2b1a66 0%, #4b2bb3 55%, #7a4fe6 100%) !important; color: #fff !important; border: 0 !important; border-radius: 22px !important; padding: 14px 18px 15px !important; box-shadow: 0 24px 60px -20px rgba(75, 43, 179, .8), 0 0 0 1px rgba(255,255,255,.12) inset !important; max-width: min(360px, calc(100vw - 20px)) !important; }
+html.bm-gotour .mx-txt { font: 600 15.5px/1.5 var(--sans) !important; }
+html.bm-gotour .mx-tag { background: #fff !important; color: #4b2bb3 !important; font-weight: 800 !important; box-shadow: 0 8px 20px -8px rgba(75,43,179,.7) !important; }
+html.bm-gotour .mx-ptr path { fill: #6a3fd6 !important; stroke: #fff !important; }
+html.bm-gotour .mx-dock { background: #fff !important; border: 1px solid rgba(91,63,196,.2) !important; box-shadow: 0 24px 60px -24px rgba(75,43,179,.7) !important; }
+html.bm-gotour .mx-live { background: linear-gradient(135deg, #8a5cf0, #f47ba0) !important; }
+html.bm-gotour .mx-next { background: linear-gradient(110deg, #4b2bb3, #8a5cf0) !important; color: #fff !important; box-shadow: 0 10px 22px -10px rgba(91,63,196,.8); }
+@media (prefers-reduced-motion: reduce) { .gt-spot::before, .gt-spot::after { animation: none; } .gt-spot { transition: opacity .2s; } }
