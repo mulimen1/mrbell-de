@@ -117,12 +117,16 @@ export function openStudio(kind) {
   if (!T[kind] || document.querySelector('.ks-modal')) return;
   const bg = h('div', { class: 'ks-modal', role: 'dialog', 'aria-modal': 'true' });
   const inner = h('div', { class: 'ks-min' }); bg.append(inner);
+  // Deutlich zurück – genau dahin, wo man war (Popup schließt sich)
+  const here = /^#\/app\/tutor/.test(location.hash) ? L('Tutor', 'Tutor') : /^#\/app\/ueben/.test(location.hash) ? L('Lernen', 'Learn') : L('vorherigen Seite', 'previous page');
+  const backB = h('button', { type: 'button', class: 'bk-pill ks-back', style: { '--bk': '#1a5fc4' }, onclick: () => close() }, h('span', { html: ico('left') }), L('Zurück zu ', 'Back to ') + here);
   const close = () => { bg.classList.add('out'); setTimeout(() => bg.remove(), 220); removeEventListener('keydown', onKey); removeEventListener('hashchange', close); };
   const onKey = e => { if (e.key === 'Escape') close(); };
   bg.addEventListener('click', e => { if (e.target === bg || e.target === inner) close(); });
   addEventListener('keydown', onKey); addEventListener('hashchange', close);
   document.body.append(bg);
   studio(inner, kind, { popup: true });
+  inner.querySelector('.kt-studio')?.prepend(backB);
   requestAnimationFrame(() => bg.classList.add('in'));
 }
 function studio(root, kind, { popup = false } = {}) {
