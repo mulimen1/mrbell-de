@@ -6184,3 +6184,16 @@ html:root[data-nv][data-accent][data-nv] :is(.chip.on, .seg .on, .tabs .on) { ba
 /* Hinweis neues Design */
 .sk-modal p { color: var(--ink2); }
 .sk-fb { border: 0; background: none; padding: 0; color: var(--inv); font: 650 14px var(--sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+/* Neues Design: Icon-Quadrate (Klausurfragen, Karteikarten) im „Du willst schon gehen?“-Fenster voll blau */
+:root[data-nv] .xo-i:has(> .ico) { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; border-color: transparent !important; }
+/* Neues Design: Icons auf Startseite weiß auf Blau; Einstiegskarten (Klausurfragen, Karteikarten) voll blau; Farbwahl aus (Marke ist fest blau) */
+:root[data-nv] .lock { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; }
+:root[data-nv] .lock .ico, :root[data-nv] .lock svg { stroke: #fff !important; color: #fff !important; }
+html:root[data-nv][data-accent][data-nv] .rm-tc .rm-tci:has(> .ico) { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; }
+:root[data-nv] .acc-btn { display: none !important; }
+/* Neues Design – Hierarchie überall: Auswahl, Reiter, Abzeichen und Abschnitts-Icons nur getönt (nicht voll blau).
+   Voll blau bleiben: Tutor, Sprich mit Max, Senden, eigene Chat-Nachrichten, Fortschrittsbalken. */
+html:root[data-nv][data-accent][data-nv] :is(.tab.on, .seg button.on, .langsw button.on, .me-tab.on, .bib-tab.on, .ik-seg button.on, .du-topic.on, .me-fchips .chip.on, .me-switch.on, .spicebar span.on) { background: #e6effb !important; color: #1a5fc4 !important; border-color: #b9d3f4 !important; box-shadow: none !important; }
+html:root[data-nv][data-accent][data-nv] .bib-tab.on small { background: #fff !important; color: #1a5fc4 !important; }
+html:root[data-nv][data-accent][data-nv] :is(.bib-si, .zb, .ub-ok, .rm-skn, .ln-badge, .me-badge, .ch-ico, .me-ci, .uv-di, .ai-dzi, .plan .badge, .mi .badge, .ln-dcon, .ln-dc.on .ln-dci, .rm-s.on .rm-si, .pal-i.ask .pal-ic, .bib-p.hot, .doc-item .newb, .vt-dfile, .me-m .ico) { background: #e3edfb !important; color: #1a5fc4 !important; box-shadow: none !important; }
+html:root[data-nv][data-accent][data-nv] :is(.fx-adj, .fx-seg button.on, .ub-up .ub-pci, .ub-pc.hot, .ub-sim.hot) { background: #e3edfb !important; color: #1a5fc4 !important; border-color: #b9d3f4 !important; box-shadow: none !important; }

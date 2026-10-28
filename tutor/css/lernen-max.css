@@ -225,3 +225,5 @@ header.lm-top2 .lm-b svg, header.lm-top2 .lm-b img { width: 24px !important; hei
 .lms-l:disabled { color: var(--mute); cursor: default; }
 .lms-ts:empty { display: none; }
 .lms { max-height: calc(100vh - 32px); overflow: auto; }
+/* Neues Design: Icon-Quadrate ohne Marke voll blau */
+:root[data-nv] .lmx li .i:has(> .ico) { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; border-color: transparent !important; }

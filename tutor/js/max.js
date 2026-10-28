@@ -3,7 +3,7 @@ import { ls } from './util.js';
 import { L, EN } from './i18n.js';
 
 export const SPICE = [[1, L('Seriös', 'Serious')], [2, 'Spicy'], [3, L('Voll Sylt', 'Full Sylt')]];
-export const getSpice = () => { const v = +ls.get('tutor.spice', 2); return v >= 1 && v <= 3 ? v : 2; };
+export const getSpice = () => { const v = +ls.get('tutor.spice', 3); return v >= 1 && v <= 3 ? v : 3; };
 export const setSpice = v => ls.set('tutor.spice', v);
 export const NAME = 'BWL Max';
 

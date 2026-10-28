@@ -15,6 +15,15 @@ export async function runTool(target, topic, label) {
   ls.set('tutor.target', target);
   import('./app.js').then(m => m.startTopic(topic));
 }
+// Excel-Helfer / Video: Gäste melden sich erst an (persönlicher Titel), dann geht's direkt dorthin
+async function gateGo(hash, label) {
+  if (!getAccount()) {
+    const { openAuth } = await import('./account.js');
+    const ok = await openAuth({ title: label, registerTitle: label, sub: L('Kostenlos mit Google in zwei Klicks – danach geht’s sofort los.', 'Free with Google in two clicks – then you’re straight in.') }).catch(() => false);
+    if (!ok || !getAccount()) return;
+  }
+  location.hash = hash;
+}
 export function entryTools(topic, { mobile = false, ask = null } = {}) {
   const tool = (target, label) => () => runTool(target, topic, label);
   const short = topic.length > 30 ? topic.slice(0, 29) + '…' : topic;
@@ -40,8 +49,8 @@ export function entryTools(topic, { mobile = false, ask = null } = {}) {
   return h('div', { class: 'rm-tools' + (mobile ? ' rm-tools-m' : '') },
     h('div', { class: 'rm-tbub' }, h('b', {}, L('Moin, ich bin Max aus Sylt. Die Tafel ist erst der Anfang.', 'Moin, I’m Max from Sylt. The board is just the start.')), h('span', {}, L('Ich mach dir aus jedem Thema alles, was du für die Klausur brauchst – mit deinen Unterlagen oder ohne. Ausreden nehm ich keine an.', 'I’ll turn any topic into everything you need for the exam – with your material or without. Excuses not accepted.'))),
     h('div', { class: 'rm-tgrid' },
-      card(XLS_SVG, L('Excel-Helfer', 'Excel helper'), L('60 Vorlagen + Trainer', '60 templates + trainer'), () => { location.hash = '#/app/excel'; }, 'rm-tcx', xlPrev),
-      card('<img src="/tutor/img/brands/youtube.svg" alt="" width="26" height="26">', L('Video → Lernzettel', 'Video → study sheet'), L('YouTube-Link rein, fertig', 'Paste a YouTube link, done'), () => { location.hash = '#/app/video'; }, 'rm-tcy', vidPrev),
+      card(XLS_SVG, L('Excel-Helfer', 'Excel helper'), L('60 Vorlagen + Trainer', '60 templates + trainer'), () => gateGo('#/app/excel', L('Dein Excel-Helfer – kostenlos', 'Your Excel helper – free')), 'rm-tcx', xlPrev),
+      card('<img src="/tutor/img/brands/youtube.svg" alt="" width="26" height="26">', L('Video → Lernzettel', 'Video → study sheet'), L('YouTube-Link rein, fertig', 'Paste a YouTube link, done'), () => gateGo('#/app/video', L('Dein Video-Lernzettel – kostenlos', 'Your video study sheet – free')), 'rm-tcy', vidPrev),
       card(ico('exam'), L('Klausurfragen', 'Exam questions'), L(`Zu „${short}“ – mit Musterlösung`, `On “${short}” – with model answers`), tool('quiz', L('Deine Klausurfragen – kostenlos', 'Your exam questions – free'))),
       card(ico('cards'), L('Karteikarten & Podcast', 'Flashcards & podcast'), L('Aus dem Thema oder deinen Folien', 'From the topic or your slides'), tool('karten', L('Deine Karteikarten – kostenlos', 'Your flashcards – free')))),
     h('div', { class: 'rm-tbot' },
