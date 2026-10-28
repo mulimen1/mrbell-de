@@ -143,7 +143,9 @@ function buildShell() {
   cBtn.addEventListener('click', e => { e.stopPropagation(); cSet(cPanel.hidden); });
   document.addEventListener('click', e => { if (!cPanel.hidden && !e.target.closest('.tcorner')) cSet(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !cPanel.hidden) cSet(false); });
-  const tcorner = h('div', { class: 'tcorner' }, cBtn, cPanel);
+  // Hell/Dunkel direkt neben dem Menü (Testdesign, nur data-nv sichtbar)
+  const tcTheme = h('button', { class: 'iconbtn tc-theme', type: 'button', 'data-theme-toggle': '', 'data-no-accent': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark'), title: L('Hell/Dunkel', 'Light/Dark') });
+  const tcorner = h('div', { class: 'tcorner' }, tcTheme, cBtn, cPanel);
   // Leiste einklappbar (Laptop): mehr Platz für Tafel & Lernen – oben mittig bleibt ein kleiner Griff zum Wiederholen
   const tbSet = v => { document.documentElement.classList.toggle('tb-hide', v); ls.set('tutor.tbHide', v ? 1 : 0); dispatchEvent(new Event('resize')); };
   const tbBtn = h('button', { class: 'iconbtn tb-fold', type: 'button', title: L('Leiste einklappen – mehr Platz', 'Collapse bar – more space'), 'aria-label': L('Leiste einklappen', 'Collapse bar'), html: '<svg class="ico" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>', onclick: () => tbSet(true) });

@@ -4,7 +4,7 @@ import { L } from './i18n.js';
 export function applyThemeButtons() {
   $$('[data-theme-toggle]').forEach(b => {
     // Farbpalette sitzt direkt neben Hell/Dunkel (überall, wo es den Knopf gibt)
-    if (!(b.previousElementSibling && b.previousElementSibling.hasAttribute('data-accent-btn'))) b.before(accentButton());
+    if (!b.hasAttribute('data-no-accent') && !(b.previousElementSibling && b.previousElementSibling.hasAttribute('data-accent-btn'))) b.before(accentButton());
     syncAccent();
     const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
     b.innerHTML = ico(dark ? 'sun' : 'moon');
