@@ -7669,3 +7669,27 @@ html:root[data-nv] body .kt-hero .kt-sec[href$="/trainer"] { height: 56px !impor
 html:root[data-nv] body .kt-hero .kt-sec[href$="/trainer"] .ico { color: #fff !important; }
 html:root[data-nv] body .kt-hero .kt-sec[href$="/trainer"]::after { content: "NEU"; margin-left: 4px; padding: 3px 8px; border-radius: 999px; background: #fff; color: #5b3fc4; font: 800 11px var(--sans); letter-spacing: .04em; }
 @media (prefers-reduced-motion: reduce) { html:root[data-nv] body .kt-hero .kt-go::after { animation: none; } }
+/* Stoff kombinieren */
+.ks-picked { display: grid; gap: 8px; margin-bottom: 14px; }
+.ks-ph { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; } .ks-ph b { font-size: 14.5px; color: var(--c2); } .ks-ph small { color: #6a6a75; }
+.ks-pempty { padding: 12px 14px; border-radius: 14px; background: #f6f5f1; color: #5d5d68; font-size: 13.5px; line-height: 1.45; }
+.ks-pi { display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 12px; border-radius: 14px; background: #fff; border: 1px solid color-mix(in srgb, var(--c2) 35%, transparent); box-shadow: 0 6px 16px -12px var(--c2); animation: gtpop .3s ease both; }
+.ks-pic { width: 32px; height: 32px; flex: none; border-radius: 10px; display: grid; place-items: center; color: #fff; }
+.ks-p-doc .ks-pic { background: linear-gradient(135deg, #5aa2f7, #1a5fc4); } .ks-p-file .ks-pic { background: linear-gradient(135deg, #f39b52, #d9601c); } .ks-p-topic .ks-pic { background: linear-gradient(135deg, #9b7cf0, #5b3fc4); }
+.ks-pic .ico { width: 16px; height: 16px; color: #fff; }
+.ks-pt { flex: 1; min-width: 0; display: grid; gap: 1px; } .ks-pt b { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .ks-pt small { font-size: 12px; color: #6a6a75; }
+.ks-prm { all: unset; cursor: pointer; flex: none; padding: 6px 10px; border-radius: 999px; font: 650 12px var(--sans); color: #8a8a95; } .ks-prm:hover { background: #f3f2ee; color: #c8336f; }
+.ks-dn { display: grid; } .ks-dn small { font-weight: 500; font-size: 12px; color: #8a8a95; }
+.ks-trow { display: flex; gap: 8px; } .ks-trow .ks-in { flex: 1; margin: 0 !important; }
+.ks-add { all: unset; cursor: pointer; flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 0 16px; border-radius: 14px; font: 700 14px var(--sans); color: #fff; background: linear-gradient(135deg, var(--c1), var(--c2)); } .ks-add .ico { width: 16px; height: 16px; color: #fff; }
+.ks-note { display: block; margin-top: 8px; color: #c8336f; font-weight: 600; }
+.ks-card { position: relative; }
+.ks-card.busy > :not(.ks-busy) { filter: blur(3px); opacity: .5; pointer-events: none; }
+.ks-busy { position: absolute; z-index: 5; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(420px, calc(100% - 32px)); padding: 22px 24px; border-radius: 22px; background: #fff; box-shadow: 0 30px 70px -30px rgba(30,20,70,.6); display: grid; gap: 12px; }
+.ks-busy b { font-size: 17px; } .ks-busy ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.ks-busy li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #3d3d45; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ks-bi { width: 16px; height: 16px; flex: none; border-radius: 50%; border: 2px solid #ddd; }
+.ks-busy li.run .ks-bi { border-color: var(--c2); border-top-color: transparent; animation: ksspin .8s linear infinite; }
+.ks-busy li.ok .ks-bi { border: 0; background: #1c7a47; box-shadow: inset 0 0 0 4px #1c7a47; }
+@keyframes ksspin { to { transform: rotate(360deg); } }
+.ks-berr { color: #d63031; font-weight: 600; } .ks-berr:empty { display: none; }

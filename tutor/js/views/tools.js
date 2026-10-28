@@ -117,7 +117,10 @@ function studio(root, kind) {
   const wrap = h('div', { class: 'view-in kt kt-sub kt-studio', style: { '--c1': K.c[0], '--c2': K.c[1] } }); root.appendChild(wrap);
   const st = Object.assign({}, K.def, ls.get(K.key, {}) || {}); st.focus = -1; st.topic = ''; st.wish = st.wish || '';
   if (!LANGS.some(x => x[0] === st.lang)) st.lang = 'de';
-  let doc = null, files = null;
+  // Stoff: beliebig viele Quellen – Skripte, Dateien, Themen. Mehrere → Max baut daraus ein Kombi-Skript
+  const src = [];   // { k: 'doc'|'file'|'topic', d?, f?, t? }
+  let doc = null;   // genau ein Skript und sonst nichts → direkt damit
+  const MAXSRC = 6;
   const docs = S.list.filter(d => !d.sample); const list = (docs.length ? docs : S.list).slice(0, 40);
   // ---- Bausteine ----
   const seg = (opts, k, multi) => { const w = h('div', { class: 'ks-seg', style: SC[k] ? { '--s1': SC[k][0], '--s2': SC[k][1] } : null }); const on = v => multi ? st[k].includes(v) : String(st[k]) === String(v);
@@ -125,23 +128,39 @@ function studio(root, kind) {
     opts.forEach(([v, t]) => w.append(h('button', { type: 'button', 'data-v': JSON.stringify(v), onclick: () => { if (multi) st[k] = st[k].includes(v) ? (st[k].length > 1 ? st[k].filter(x => x !== v) : st[k]) : [...st[k], v].sort(); else st[k] = v; paint(); check(); } }, t)));
     paint(); return w; };
   const row = (label, el, cls) => h('div', { class: 'ks-row' + (cls ? ' ' + cls : ''), style: el && el.style && el.style.getPropertyValue('--s1') ? { '--rs1': el.style.getPropertyValue('--s1'), '--rs2': el.style.getPropertyValue('--s2') } : null }, h('label', { class: 'ks-l' }, label), el);
-  // ---- Stoff: Drag & Drop, eigene Skripte, Thema ----
-  const fin = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.ppt,.pptx,.doc,.docx,.txt,.md,image/*' });
-  const dzT = h('b', {}, L('Datei hier reinziehen', 'Drop a file here')), dzS = h('small', {}, L('oder klicken – PDF, PowerPoint, Word, Foto', 'or click – PDF, PowerPoint, Word, photo'));
-  const dz = h('button', { type: 'button', class: 'ks-drop', onclick: () => fin.click() }, h('span', { class: 'ks-di', html: ico('upload') }), h('span', { class: 'ks-dt' }, dzT, dzS));
-  const setFiles = fs => { fs = [...(fs || [])]; if (!fs.length) return; files = fs; doc = null; st.topic = ''; topic.value = ''; paintDocs(); dz.classList.add('on'); dzT.textContent = fs.length === 1 ? fs[0].name : L(`${fs.length} Dateien`, `${fs.length} files`); dzS.textContent = L('Bereit – wird beim Start hochgeladen', 'Ready – uploads when you start'); drawScope(); check(); };
-  fin.addEventListener('change', () => { setFiles(fin.files); fin.value = ''; });
-  { let n = 0; dz.addEventListener('dragenter', e => { e.preventDefault(); n++; dz.classList.add('over'); }); dz.addEventListener('dragover', e => e.preventDefault()); dz.addEventListener('dragleave', () => { if (--n <= 0) { n = 0; dz.classList.remove('over'); } }); dz.addEventListener('drop', e => { e.preventDefault(); e.stopPropagation(); n = 0; dz.classList.remove('over'); setFiles(e.dataTransfer.files); }); }
+  // ---- Stoff: Drag & Drop, eigene Skripte, Themen – kombinierbar ----
+  const fin = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.pptx,.docx,.txt,.md,image/*' });
+  const dz = h('button', { type: 'button', class: 'ks-drop', onclick: () => fin.click() }, h('span', { class: 'ks-di', html: ico('upload') }), h('span', { class: 'ks-dt' }, h('b', {}, L('Dateien hier reinziehen', 'Drop files here')), h('small', {}, L('oder klicken – PDF, PowerPoint, Word, Text, Foto · mehrere möglich', 'or click – PDF, PowerPoint, Word, text, photo · several allowed'))));
+  const full = () => { if (src.length < MAXSRC) return false; note(L(`Maximal ${MAXSRC} Quellen auf einmal.`, `At most ${MAXSRC} sources at once.`)); return true; };
+  const noteEl = h('small', { class: 'ks-note', hidden: true });
+  const note = t => { noteEl.textContent = t; noteEl.hidden = !t; clearTimeout(note.t); if (t) note.t = setTimeout(() => { noteEl.hidden = true; }, 4000); };
+  const addFiles = fs => { for (const f of [...(fs || [])]) { if (full()) break; if (!src.some(x => x.k === 'file' && x.f.name === f.name && x.f.size === f.size)) src.push({ k: 'file', f }); } sync(); };
+  fin.addEventListener('change', () => { addFiles(fin.files); fin.value = ''; });
+  { let n = 0; dz.addEventListener('dragenter', e => { e.preventDefault(); n++; dz.classList.add('over'); }); dz.addEventListener('dragover', e => e.preventDefault()); dz.addEventListener('dragleave', () => { if (--n <= 0) { n = 0; dz.classList.remove('over'); } }); dz.addEventListener('drop', e => { e.preventDefault(); e.stopPropagation(); n = 0; dz.classList.remove('over'); addFiles(e.dataTransfer.files); }); }
   const docBox = h('div', { class: 'ks-docs' });
-  const paintDocs = () => docBox.querySelectorAll('.ks-doc').forEach(b => b.classList.toggle('on', !!doc && b.dataset.id === doc.id));
-  list.forEach(d => docBox.append(h('button', { type: 'button', class: 'ks-doc', 'data-id': d.id, onclick: () => { doc = doc && doc.id === d.id ? null : d; files = null; dz.classList.remove('on'); dzT.textContent = L('Datei hier reinziehen', 'Drop a file here'); dzS.textContent = L('oder klicken – PDF, PowerPoint, Word, Foto', 'or click – PDF, PowerPoint, Word, photo'); st.topic = ''; topic.value = ''; if (doc && (doc.outLang || doc.srcLang) && LANGS.some(x => x[0] === (doc.outLang || doc.srcLang))) { st.lang = doc.outLang || doc.srcLang; langSeg.replaceWith(langSeg = seg(LANGS, 'lang')); } paintDocs(); drawScope(); check(); } },
-    h('span', { class: 'ks-dic', html: ico(d.kind === 'video' ? 'captions' : 'file') }), h('span', { class: 'ks-dn' }, d.name || L('Skript', 'Slides')), h('span', { class: 'ks-ok', html: ico('check') }))));
-  const topic = h('input', { class: 'ks-in', type: 'text', maxlength: 120, placeholder: L('Oder ein Thema – z. B. Kapitalwertmethode', 'Or a topic – e.g. net present value'), oninput: () => { st.topic = topic.value.trim(); if (st.topic) { doc = null; files = null; dz.classList.remove('on'); paintDocs(); drawScope(); } check(); } });
+  list.forEach(d => docBox.append(h('button', { type: 'button', class: 'ks-doc', 'data-id': d.id, onclick: () => { const i = src.findIndex(x => x.k === 'doc' && x.d.id === d.id); if (i >= 0) src.splice(i, 1); else if (!full()) src.push({ k: 'doc', d }); sync(); } },
+    h('span', { class: 'ks-dic', html: ico(d.kind === 'video' ? 'captions' : 'file') }), h('span', { class: 'ks-dn' }, d.name || L('Skript', 'Slides'), h('small', {}, (d.pages || []).length ? (d.pages.length === 1 ? L('1 Seite', '1 page') : L(`${d.pages.length} Seiten`, `${d.pages.length} pages`)) : '')), h('span', { class: 'ks-ok', html: ico('check') }))));
+  const topic = h('input', { class: 'ks-in', type: 'text', maxlength: 120, placeholder: L('Thema hinzufügen – z. B. Kapitalwertmethode', 'Add a topic – e.g. net present value'), onkeydown: e => { if (e.key === 'Enter') { e.preventDefault(); addTopic(); } } });
+  const addTopic = () => { const t = topic.value.trim(); if (!t || full()) return; if (!src.some(x => x.k === 'topic' && x.t.toLowerCase() === t.toLowerCase())) src.push({ k: 'topic', t }); topic.value = ''; sync(); };
+  const topicRow = h('div', { class: 'ks-trow' }, topic, h('button', { type: 'button', class: 'ks-add', onclick: addTopic }, h('span', { html: ico('plus') }), L('Hinzufügen', 'Add')));
+  const picked = h('div', { class: 'ks-picked' });
+  const srcName = x => x.k === 'doc' ? (x.d.name || L('Skript', 'Slides')) : x.k === 'file' ? x.f.name : x.t;
+  const srcSub = x => x.k === 'doc' ? L('Skript', 'Slides') + ((x.d.pages || []).length ? ' · ' + x.d.pages.length + (x.d.pages.length === 1 ? L(' Seite', ' page') : L(' Seiten', ' pages')) : '') : x.k === 'file' ? L('Datei · wird beim Start gelesen', 'File · read on start') : L('Thema · Max schreibt ein Kurzskript', 'Topic · Max writes a short script');
+  function sync() {
+    docBox.querySelectorAll('.ks-doc').forEach(b => b.classList.toggle('on', src.some(x => x.k === 'doc' && x.d.id === b.dataset.id)));
+    picked.replaceChildren(...(src.length ? [h('div', { class: 'ks-ph' }, h('b', {}, src.length === 1 ? L('Ausgewählt', 'Selected') : L(`${src.length} Quellen – Max kombiniert sie`, `${src.length} sources – Max combines them`)), src.length > 1 ? h('small', {}, L('zu einem Kombi-Skript', 'into one combined script')) : null),
+      ...src.map((x, i) => h('div', { class: 'ks-pi ks-p-' + x.k }, h('span', { class: 'ks-pic', html: ico(x.k === 'doc' ? 'file' : x.k === 'file' ? 'upload' : 'spark') }), h('span', { class: 'ks-pt' }, h('b', {}, srcName(x)), h('small', {}, srcSub(x))),
+        h('button', { type: 'button', class: 'ks-prm', 'aria-label': L('Entfernen', 'Remove'), title: L('Entfernen', 'Remove'), onclick: () => { src.splice(i, 1); sync(); } }, L('Entfernen', 'Remove'))))] : [h('div', { class: 'ks-pempty' }, L('Noch nichts ausgewählt – zieh Dateien rein, tipp Skripte an oder füg ein Thema hinzu. Du kannst alles kombinieren.', 'Nothing selected yet – drop files, tap slides or add a topic. You can combine everything.'))]));
+    doc = src.length === 1 && src[0].k === 'doc' ? src[0].d : null;
+    if (doc && (doc.outLang || doc.srcLang) && LANGS.some(x => x[0] === (doc.outLang || doc.srcLang)) && langSeg) { st.lang = doc.outLang || doc.srcLang; const n2 = seg(LANGS, 'lang'); langSeg.replaceWith(n2); langSeg = n2; }
+    if (typeof drawScope === 'function') drawScope();
+    check();
+  }
   // ---- Einstellungen ----
   let langSeg = seg(LANGS, 'lang');
   const scopeSel = h('select', { class: 'ks-in', onchange: () => { st.focus = +scopeSel.value; } });
   const scopeRow = row(L('Umfang', 'Scope'), scopeSel); scopeRow.hidden = true;
-  const drawScope = () => { const chs = (K.chapters && doc && doc.path && doc.path.chapters) || []; st.focus = -1; scopeRow.hidden = !chs.length; scopeSel.replaceChildren(h('option', { value: -1 }, L('Ganzes Skript', 'Whole script')), ...chs.map((c, i) => h('option', { value: i }, `${i + 1}. ${c.title || L('Kapitel', 'Chapter')}`))); };
+  function drawScope() { const chs = (K.chapters && doc && doc.path && doc.path.chapters) || []; st.focus = -1; scopeRow.hidden = !chs.length; scopeSel.replaceChildren(h('option', { value: -1 }, L('Ganzes Skript', 'Whole script')), ...chs.map((c, i) => h('option', { value: i }, `${i + 1}. ${c.title || L('Kapitel', 'Chapter')}`))); }
   const wishIn = h('textarea', { class: 'ks-in ks-wish', rows: 2, maxlength: 300, placeholder: L('Extra-Wunsch an Max (optional) – z. B. „mehr Rechenbeispiele“, „Fokus auf Kapitel 3“', 'Extra request for Max (optional) – e.g. “more worked examples”'), oninput: () => { st.wish = wishIn.value; } });
   wishIn.value = st.wish || '';
   const date = h('input', { type: 'date', class: 'ks-in', value: st.exam, min: new Date(Date.now() + 864e5).toLocaleDateString('sv-SE'), oninput: () => { st.exam = date.value; check(); } });
@@ -164,10 +183,10 @@ function studio(root, kind) {
   const go = h('button', { class: 'ks-go', type: 'button', disabled: true, onclick: () => start() }, h('span', { html: ico(K.icon) }), K.cta);
   const hint = h('small', { class: 'ks-hint' });
   function check() {
-    const has = !!(doc || files || st.topic);
+    const has = src.length > 0;
     const ok = has && (kind !== 'plan' || (st.exam && st.weekdays.length));
     go.disabled = !ok;
-    hint.textContent = !has ? L('Wähl ein Skript, zieh eine Datei rein oder nenn ein Thema.', 'Pick slides, drop a file or name a topic.') : doc ? L('Mit „', 'With “') + doc.name + L('“', '”') : files ? L('Mit deiner Datei', 'With your file') : L('Zum Thema „', 'On “') + st.topic + L('“', '”');
+    hint.textContent = !has ? L('Wähl Stoff aus – einzeln oder kombiniert.', 'Choose material – single or combined.') : src.length === 1 ? L('Mit „', 'With “') + srcName(src[0]) + L('“', '”') : L(`Kombiniert aus ${src.length} Quellen`, `Combined from ${src.length} sources`);
   }
   const saveSt = () => { const keep = Object.assign({}, st); delete keep.focus; delete keep.topic; ls.set(K.key, keep); if (kind === 'podcast') ls.set('tutor.podVoice', st.voice); };
   async function start() {
@@ -181,26 +200,57 @@ function studio(root, kind) {
       else if (kind === 'tafel') { const pr = C.specPrompt(o, (doc && doc.name) || st.topic || ''); ls.set('tutor.pendingAsk', { t: pr.t + C.wishHint(o, true), show: pr.show }); }
       else if (kind !== 'lernpfad') C.setCreate(K.tab, id, o);
     };
-    if (doc) {
-      if (st.lang && doc.outLang !== st.lang) { doc.outLang = st.lang; save(doc); }
-      if (kind === 'lernpfad') C.applySpec('pfad', doc, { depth: st.depth });
-      prime(doc.id);
-      location.hash = kind === 'simulator' ? `#/app/${doc.id}/quiz/exam` : kind === 'plan' ? `#/app/${doc.id}/plan` : kind === 'tafel' ? `#/app/${doc.id}/tutor` : `#/app/${doc.id}/${K.tab}/auto`;
-      return;
-    }
-    prime('*'); ls.set('tutor.target', K.target);
+    const runDoc = d => {
+      if (st.lang && d.outLang !== st.lang) { d.outLang = st.lang; save(d); }
+      if (kind === 'lernpfad') C.applySpec('pfad', d, { depth: st.depth });
+      prime(d.id);
+      location.hash = kind === 'simulator' ? `#/app/${d.id}/quiz/exam` : kind === 'plan' ? `#/app/${d.id}/plan` : kind === 'tafel' ? `#/app/${d.id}/tutor` : `#/app/${d.id}/${K.tab}/auto`;
+    };
+    if (doc) return runDoc(doc);
     const A = await import('../app.js');
-    if (files) A.startUpload(files); else A.startTopic(st.topic);
+    if (src.length === 1) { prime('*'); ls.set('tutor.target', K.target); if (src[0].k === 'file') A.startUpload([src[0].f]); else A.startTopic(src[0].t); return; }
+    // Mehrere Quellen: jede lesen, dann ein Kombi-Skript bauen – mit klaren Quellen-Markierungen, damit Max alles abdeckt
+    const box = h('div', { class: 'ks-busy' }), steps = src.map(x => h('li', {}, h('span', { class: 'ks-bi' }), srcName(x)));
+    box.append(h('b', {}, L('Max kombiniert deinen Stoff …', 'Max is combining your material …')), h('ol', {}, ...steps), h('small', { class: 'ks-berr' }));
+    go.disabled = true; card.classList.add('busy'); card.append(box);
+    const fail = msg => { box.querySelector('.ks-berr').textContent = msg; card.classList.remove('busy'); setTimeout(() => { box.remove(); check(); }, 4200); };
+    try {
+      const [{ readFile }, St, api] = await Promise.all([import('../ingest.js'), import('../state.js'), import('../api.js')]);
+      const parts = [];
+      for (let i = 0; i < src.length; i++) {
+        const x = src[i]; steps[i].classList.add('run');
+        let name = srcName(x), pages;
+        if (x.k === 'doc') pages = x.d.pages || [];
+        else if (x.k === 'file') {
+          if (/^image\//.test(x.f.type || '') || /\.(png|jpe?g|webp|heic|heif|gif)$/i.test(x.f.name)) throw new Error(L(`„${x.f.name}“ ist ein Foto – Fotos gehen einzeln, nicht im Kombi-Skript.`, `“${x.f.name}” is a photo – photos work on their own, not in a combined script.`));
+          const r = await readFile(x.f); pages = r.pages; name = r.name;
+          await St.createDoc({ name: r.name, pages: r.pages, chars: r.chars });   // landet auch einzeln in der Bibliothek
+        } else {
+          const r = await api.ask('topic', { opts: { topic: x.t, spice: 2 } });
+          pages = (r.data?.pages || []).map(String).filter(p => p.trim().length > 20);
+          if (pages.length < 1) throw new Error(L(`Zu „${x.t}“ kam kein Text zurück.`, `No text came back for “${x.t}”.`));
+          await St.createDoc({ name: String(r.data.title || x.t).slice(0, 80), pages, chars: pages.join('').length, generated: true, topic: x.t });
+        }
+        if (!pages.length) throw new Error(L(`„${name}“ ist leer.`, `“${name}” is empty.`));
+        parts.push({ name, pages });
+        steps[i].classList.remove('run'); steps[i].classList.add('ok');
+      }
+      const pages = parts.flatMap(pp => pp.pages.map((t, j) => `【${L('Quelle', 'Source')}: ${pp.name} · ${L('S.', 'p.')} ${j + 1}】\n${t}`));
+      const nm = L('Kombi: ', 'Combined: ') + parts.map(pp => pp.name).join(' + ');
+      const d = await St.createDoc({ name: nm.length > 90 ? nm.slice(0, 88) + '…' : nm, pages, chars: pages.join('').length, extra: { combo: parts.map(pp => pp.name) } });
+      runDoc(d);
+    } catch (e) { steps.forEach(li => li.classList.remove('run')); fail(e.message || L('Das hat nicht geklappt.', 'That didn’t work.')); }
   }
   const inLearn = location.hash.startsWith('#/app/ueben');
   const back = K.area === 'tools' && !inLearn ? toolsBack() : h('a', { class: 'kt-back kt-backl', href: '#/app/ueben' }, h('span', { html: ico('left') }), L('Zurück zu Lernen', 'Back to Learn'));
   const wishRow = K.wish ? row(L('Extra-Wunsch', 'Extra request'), wishIn, 'ks-full') : null;
-  wrap.append(back,
-    h('section', { class: 'ks-card' },
+  const card = h('section', { class: 'ks-card' });
+  wrap.append(back, card);
+  card.append(
       h('header', { class: 'ks-head' }, h('span', { class: 'ks-ic', html: ico(K.icon) }), h('div', {}, h('div', { class: 'eyebrow' }, K.eyebrow), h('h1', {}, K.h[0], h('span', {}, K.h[1])), h('p', {}, K.lead))),
       h('div', { class: 'ks-cols' },
-        h('div', { class: 'ks-col' }, h('h2', { class: 'ks-h' }, L('Dein Stoff', 'Your material')), dz, fin, list.length ? h('div', { class: 'ks-or' }, L('oder aus deinen Skripten', 'or from your slides')) : null, list.length ? docBox : null, topic),
+        h('div', { class: 'ks-col' }, h('h2', { class: 'ks-h' }, L('Dein Stoff', 'Your material')), picked, dz, fin, list.length ? h('div', { class: 'ks-or' }, L('Deine Skripte – mehrere antippen zum Kombinieren', 'Your slides – tap several to combine')) : null, list.length ? docBox : null, h('div', { class: 'ks-or' }, L('Thema', 'Topic')), topicRow, noteEl),
         h('div', { class: 'ks-col' }, h('h2', { class: 'ks-h' }, L('Einstellungen', 'Settings')), h('div', { class: 'ks-rows' }, row(L('Sprache', 'Language'), langSeg), scopeRow, ...own, wishRow))),
-      h('footer', { class: 'ks-foot' }, hint, go)));
-  check();
+      h('footer', { class: 'ks-foot' }, hint, go));
+  sync();
 }
