@@ -61,3 +61,20 @@ addEventListener('drop', e => {
   if (!on() || !e.dataTransfer || !(e.dataTransfer.files && e.dataTransfer.files.length || [...(e.dataTransfer.types || [])].includes('text/x-bwlmax-doc'))) return;
   burst(e.clientX, e.clientY, { n: 14, dist: 64 }); ripple(e.clientX, e.clientY, true); buzz(18);
 }, true);
+
+// Test (nur Bens Konto, data-ben): Punkte-Hintergrund mit Tiefe – Lichtkegel folgt der Maus, Punkte darin blau und
+// leicht größer, zwei Ebenen verschieben sich minimal gegeneinander (Parallaxe). Ruhig, nichts blinkt.
+if (H.dataset.ben && H.dataset.nv && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const mk = c => { const d = document.createElement('div'); d.className = c; d.setAttribute('aria-hidden', 'true'); return d; };
+  const bg = mk('bg3d'); bg.append(mk('bg3d-far'), mk('bg3d-near'), mk('bg3d-glow'));
+  const put = () => { if (!document.body) return setTimeout(put, 50); document.body.prepend(bg); };
+  put();
+  let tx = innerWidth / 2, ty = innerHeight * .3, x = tx, y = ty, raf = 0;
+  const tick = () => { x += (tx - x) * .08; y += (ty - y) * .08;
+    const nx = x / innerWidth - .5, ny = y / innerHeight - .5;
+    bg.style.setProperty('--mx', x + 'px'); bg.style.setProperty('--my', y + 'px');
+    bg.style.setProperty('--px', (nx * -10) + 'px'); bg.style.setProperty('--py', (ny * -10) + 'px');
+    raf = Math.abs(tx - x) + Math.abs(ty - y) > .5 ? requestAnimationFrame(tick) : 0; };
+  addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; if (!raf) raf = requestAnimationFrame(tick); }, { passive: true });
+  tick();
+}
