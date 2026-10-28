@@ -6088,3 +6088,11 @@ html:root[data-nv][data-theme="dark"] { --inv: #4a9dff; --acc-ink: #9fcbff; --ac
 :root[data-nv] .tc-theme { display: grid; position: absolute; right: calc(100% + 10px); top: 50%; margin-top: -21px; place-items: center; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line2); background: var(--panel); color: var(--ink); transition: transform .35s var(--nv-spring, ease), border-color .2s, box-shadow .3s; }
 :root[data-nv] .tc-theme:hover { transform: translateY(-2px) rotate(0deg); border-color: var(--acc-line); color: var(--inv); box-shadow: 0 10px 22px -14px rgba(47, 134, 240, .7); }
 :root[data-nv] .tc-theme .ico { width: 19px; height: 19px; }
+
+/* Themen-Einstieg (Landingpage): linke Spalte füllt die Höhe – Max oben mit Luft, Karten wachsen mit, Ablage + Schreibfeld ganz unten */
+.room.rm-tools-mode .rm-col { height: 100%; }
+.room.rm-tools-mode .rm-tools { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; max-width: none; }
+.room.rm-tools-mode .rm-thead, .room.rm-tools-mode .rm-tools > .rm-tbub { margin-bottom: 14px; }
+.room.rm-tools-mode .rm-tgrid { flex: 1 1 auto; max-height: 470px; grid-auto-rows: minmax(auto, 1fr); }
+.room.rm-tools-mode .rm-tbot { margin-top: auto; padding-bottom: 14px; }
+@media (max-height: 760px) { .room.rm-tools-mode .rm-thead .rm-th-wrap { display: block; } .room.rm-tools-mode .rm-thead .rm-fs.talk { width: 84px; height: 84px; } }
