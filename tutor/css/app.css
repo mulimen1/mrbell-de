@@ -6247,3 +6247,7 @@ html:root[data-nv] .rm-corner .rm-prog.rm-prog-nv { padding: 0 8px !important; w
 /* Zurück zum Tutor (Fortschritt) */
 .fx-back { width: fit-content; align-self: flex-start; justify-self: start; display: inline-flex; align-items: center; gap: 6px; margin: 0 0 10px; padding: 7px 14px 7px 10px; border-radius: 999px; border: 1px solid var(--line2); color: var(--ink); text-decoration: none; font: 600 14px var(--sans); background: var(--panel); }
 .fx-back:hover { border-color: var(--ink); } .fx-back .ico { width: 16px; height: 16px; }
+/* Neues Design: Punkte-Hintergrund wie auf der Startseite in der ganzen App */
+html:root[data-nv] .app .main { background-color: var(--bg); background-image: radial-gradient(rgba(0, 0, 0, .085) 1px, transparent 1.3px); background-size: 22px 22px; background-attachment: fixed; }
+html:root[data-nv][data-theme="dark"] .app .main { background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1.3px); }
+html:root[data-nv] .app .main :is(#view, .view, .room, .rm-stage) { background-color: transparent; }
