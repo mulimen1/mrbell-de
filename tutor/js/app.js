@@ -248,7 +248,7 @@ const LERN_TOOLS = ['karten', 'quiz', 'zettel', 'podcast', 'pfad', 'plan', 'exam
 export function lernLast() {
   try { const h = sessionStorage.getItem('tutor.lernLast'); if (!h || h === '#/app/lernen') return null; const id = h.split('/')[2]; return S.list.some(d => d.id === id) ? h : null; } catch (e) { return null; }
 }
-const BACK = { tutor: ['#/app/tutor', L('Tutor', 'Tutor')], tools: ['#/app/tools', L('Klausur-Tools', 'Exam tools')], lernen: ['#/app/lernen', L('Lernen', 'Learn')], video: ['#/app/video', L('Transkript', 'Transcribe')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')], ueben: ['#/app/ueben', L('Training', 'Training')] };
+const BACK = { tutor: ['#/app/tutor', L('Tutor', 'Tutor')], tools: ['#/app/tools', L('Klausur-Tools', 'Exam tools')], lernen: ['#/app/lernen', L('Lernen', 'Learn')], video: ['#/app/video', L('Transkript', 'Transcribe')], bibliothek: ['#/app/bibliothek', L('Bibliothek', 'Library')], ueben: ['#/app/ueben', L('Lernen', 'Learn')] };
 function backTarget() { try { const k = sessionStorage.getItem('tutor.backTo'); return BACK[k] ? { key: k, href: k === 'bibliothek' ? '#/app/bibliothek/' + (ls.get('tutor.bib.tab', 'alles') || 'alles') : BACK[k][0], label: BACK[k][1] } : null; } catch (e) { return null; } }
 function backToLearn() { return backTarget()?.key === 'lernen'; }
 function renderList() {
