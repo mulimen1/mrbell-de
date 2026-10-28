@@ -99,7 +99,28 @@ export async function render(root, { sub = '' } = {}) {
     ...(BEN ? [] : wk));
   // Test Ben: Wettkampf links unter der Prüfungssimulation (zwei Karten nebeneinander) – beide Spalten etwa gleich hoch
   if (BEN) left.append(wk[0], h('div', { class: 'ub-simrow nvp-wkrow' }, wk[1], wk[2]));
-  wrap.replaceChildren(h('div', { class: 'ub-cols' }, left, right), ...(BEN ? [h('section', { class: 'nvp-trsec' }, ...trSec)] : []));
+  if (BEN) {
+    // Lernen neu: Unter-Bereiche oben (wie die Bereiche im Header), wichtigstes zuerst
+    const hero = left.querySelector('.ub-hero'), grid = left.querySelector('.ub-lt');
+    grid.classList.add('ub-big');
+    const DESC = { board: L('Max erklärt jedes Thema Schritt für Schritt – mit Beispiel und Rechenweg.', 'Max explains any topic step by step – with example and workings.'), note: L('Alles Wichtige auf einer Seite, plus Mindmap.', 'Everything important on one page, plus a mind map.'), cards: L('Wiederholen mit System, bis es sitzt.', 'Systematic review until it sticks.'), headphones: L('Marie & Max zum Anhören – für Bahn und Gym.', 'Marie & Max to listen to – for train and gym.'), path: L('Kapitel für Kapitel mit Lektionen und Checks.', 'Chapter by chapter with lessons and checks.') };
+    grid.querySelectorAll('.ub-ltc').forEach(c => { const sm = c.querySelector('small'); if (sm && DESC[c.dataset.lt]) sm.textContent = DESC[c.dataset.lt]; });
+    const guide = h('aside', { class: 'ub-guide' }, hero);
+    const SECS = [
+      ['stoff', 'brain', L('Aus deinem Stoff lernen', 'Learn from your material'), ['#9b7cf0', '#5b3fc4'], () => [h('div', { class: 'ub-stoff' }, h('div', { class: 'ub-sl' }, grid), guide)]],
+      ['sim', 'exam', L('Prüfungssimulation', 'Exam simulation'), ['#f47ba0', '#c8336f'], () => [sim]],
+      ['check', 'check', L('Prüfen', 'Check'), ['#3fc1c9', '#0e7f8e'], () => [h('div', { class: 'ub-grid2' }, ...[...right.children].filter(e => !e.classList.contains('ub-h') && !e.classList.contains('ln-gh')))]],
+      ['wk', 'trophy', L('Wettkampf', 'Compete'), ['#f7c948', '#d18e06'], () => [h('div', { class: 'ub-simrow' }, wk[1], wk[2])]],
+      ['tr', 'path', 'Trainer', ['#5aa2f7', '#1a5fc4'], () => trSec.slice(1)],
+    ];
+    let cur = 'stoff'; try { cur = sessionStorage.getItem('tutor.ubTab') || 'stoff'; } catch (e) {}
+    if (!SECS.some(x => x[0] === cur)) cur = 'stoff';
+    const body = h('div', { class: 'ub-body' });
+    const tabs = h('nav', { class: 'ub-tabs', 'aria-label': L('Bereiche in Lernen', 'Sections in Learn') }, ...SECS.map(([k, ic, t, c]) => h('button', { type: 'button', class: 'ub-tab', 'data-k': k, style: { '--t1': c[0], '--t2': c[1] }, onclick: () => show(k) }, h('span', { class: 'ub-ti', html: ico(ic) }), h('span', {}, t))));
+    const show = k => { cur = k; try { sessionStorage.setItem('tutor.ubTab', k); } catch (e) {} tabs.querySelectorAll('.ub-tab').forEach(b => b.classList.toggle('on', b.dataset.k === k)); const S2 = SECS.find(x => x[0] === k); body.replaceChildren(h('div', { class: 'ub-sec', style: { '--t1': S2[3][0], '--t2': S2[3][1] } }, h('h2', { class: 'ub-sh' }, S2[2]), ...S2[4]())); };
+    wrap.replaceChildren(tabs, body);
+    show(cur);
+  } else wrap.replaceChildren(h('div', { class: 'ub-cols' }, left, right));
   face(fEl, {});
 }
 

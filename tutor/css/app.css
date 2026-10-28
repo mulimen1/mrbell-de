@@ -7701,3 +7701,49 @@ html:root[data-nv] body .kt-hero .kt-sec[href$="/trainer"]::after { content: "NE
 .ks-modal .ks-card { margin: 0; transform: translateY(14px) scale(.98); transition: transform .3s cubic-bezier(.22,1,.36,1); box-shadow: 0 40px 100px -30px rgba(10,6,30,.6); }
 .ks-modal.in .ks-card { transform: none; }
 @media (max-width: 600px) { .ks-min { padding: 10px; place-items: start center; } }
+/* Lernen: Unter-Bereiche */
+.ub-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin: 4px 0 22px; }
+.ub-tab { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 20px 0 8px; border-radius: 999px; background: #fff; border: 2px solid transparent; box-shadow: 0 10px 24px -18px rgba(30,20,70,.5); font: 750 15.5px var(--sans); color: #17171c; transition: background .2s, color .2s, border-color .2s, transform .15s; }
+.ub-ti { width: 38px; height: 38px; border-radius: 999px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--t1), var(--t2)); } .ub-ti .ico { width: 19px; height: 19px; color: #fff; }
+.ub-tab:hover { background: linear-gradient(135deg, var(--t1), var(--t2)); color: #fff; } .ub-tab:hover .ub-ti { background: rgba(255,255,255,.22); }
+.ub-tab.on { border-color: var(--t2); color: var(--t2); } .ub-tab.on:hover { color: #fff; }
+.ub-sh { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+.ub-sh::before { content: ""; width: 13px; height: 13px; border-radius: 4px; background: linear-gradient(135deg, var(--t1), var(--t2)); }
+.ub-stoff { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; align-items: stretch; }
+html:root body .ub-lt.ub-big { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; margin: 0; }
+html:root body .ub-lt.ub-big .ub-ltc { grid-column: span 2; min-height: 200px; padding: 24px 16px 20px; gap: 8px; border-radius: 26px; justify-items: start; text-align: left; }
+html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 3; min-height: 220px; }
+html:root body .ub-lt.ub-big .ub-lti { width: 68px; height: 68px; border-radius: 20px; margin-bottom: 8px; } html:root body .ub-lt.ub-big .ub-lti .ico { width: 32px; height: 32px; }
+html:root body .ub-lt.ub-big b { font-size: 20px; } html:root body .ub-lt.ub-big small { font-size: 14px; line-height: 1.45; }
+html:root body .ub-lt.ub-big .ub-ltc::after { content: "→"; margin-top: auto; font-weight: 800; font-size: 18px; color: var(--hf2); }
+html:root body .ub-lt.ub-big .ub-ltc:hover::after { color: #fff; }
+/* Geführter Lernweg als Hochkant-Karte */
+.ub-guide { display: flex; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-hero { flex: 1; display: flex !important; flex-direction: column; align-items: center; text-align: center; gap: 16px; margin: 0 !important; padding: 26px 22px !important; border-radius: 28px !important; color: #fff; background: radial-gradient(120% 70% at 50% 0%, #7a4fe6 0%, #4b2bb3 55%, #2b1a66 100%) !important; border: 0 !important; box-shadow: 0 30px 60px -30px rgba(75,43,179,.9) !important; position: relative; overflow: hidden; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-hero::before { content: ""; position: absolute; inset: -40% -40% auto auto; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(244,123,160,.45), transparent 70%); }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-greet { display: flex !important; flex-direction: column; align-items: center; gap: 12px; position: relative; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-face { width: 104px !important; height: 104px !important; background: #fff; border-radius: 28px; padding: 6px; box-shadow: 0 14px 30px -14px rgba(0,0,0,.5); }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .uv-bub { background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; color: #fff !important; display: grid; gap: 8px; justify-items: center; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .uv-bub b { color: #fff !important; font-size: 19px !important; line-height: 1.3; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .uv-bub small { color: rgba(255,255,255,.75) !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .nvp-ubtag { background: rgba(255,255,255,.16) !important; color: #fff !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .nvp-ubtag .ico, html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .nvp-ubtagi { color: #fff !important; background: transparent !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-path { display: flex !important; flex-wrap: wrap; justify-content: center; gap: 6px; position: relative; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-dot { width: 14px !important; height: 14px !important; border-radius: 50% !important; background: rgba(255,255,255,.22) !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-dot.ok { background: #7fe0a8 !important; } html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-dot.cur { background: #fff !important; box-shadow: 0 0 0 4px rgba(255,255,255,.25); }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta { display: grid !important; gap: 10px; width: 100%; margin-top: auto; position: relative; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .btn { width: 100%; justify-content: center; height: 52px; border-radius: 999px !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .btn.primary { background: #fff !important; color: #4b2bb3 !important; font-weight: 800 !important; border: 0 !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .btn:not(.primary) { background: rgba(255,255,255,.14) !important; color: #fff !important; border: 1px solid rgba(255,255,255,.3) !important; }
+.ub-grid2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+@media (max-width: 1100px) { .ub-stoff { grid-template-columns: 1fr; } .ub-guide .ub-hero { min-height: 0; } }
+@media (max-width: 700px) { html:root body .ub-lt.ub-big { grid-template-columns: repeat(2, minmax(0, 1fr)); } html:root body .ub-lt.ub-big .ub-ltc, html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 1; min-height: 170px; padding: 16px 12px; } html:root body .ub-lt.ub-big .ub-ltc:first-child { grid-column: span 2; } .ub-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-left: -4px; padding: 4px; } .ub-tab { flex: none; height: 46px; font-size: 14px; } }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide { background: none !important; padding: 0 !important; border: 0 !important; box-shadow: none !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-dot { flex: none !important; width: 13px !important; min-width: 0 !important; height: 13px !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-path { max-width: 240px; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .uv-bub b { font-size: 20px !important; letter-spacing: -.02em; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .btn.primary { background: #fff !important; color: #4b2bb3 !important; box-shadow: 0 12px 26px -12px rgba(0,0,0,.5) !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .btn.primary .ico { color: #4b2bb3 !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .btn:not(.primary) { background: rgba(255,255,255,.14) !important; color: #fff !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .btn:not(.primary) * { color: #fff !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .ub-xln { background: rgba(255,255,255,.22) !important; color: #fff !important; }
