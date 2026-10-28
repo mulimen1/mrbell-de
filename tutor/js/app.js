@@ -372,17 +372,7 @@ export async function mountApp(parts) {
   return show(`${a}:${tab}:${c || ''}`, async root => {
     const mod = await VIEWS[tab]();
     // Beta: oben ein deutlicher Weg zurück in die Bibliothek (statt Reiterleiste)
-    // Beta: oben immer ein deutlicher Weg zurück – dahin, wo man herkam (Tutor, Lernen, Klausur-Tools), sonst in die Bibliothek
-    let pill = null;
-    if (homeBeta() && tab !== 'hub') {
-      const BT = { karten: 'karten', quiz: 'quiz', zettel: 'zettel', podcast: 'podcasts' }, bt = backTarget();
-      const from = bt && ['tutor', 'ueben', 'tools', 'lernen', 'video'].includes(bt.key) ? bt : null;
-      pill = h('a', { class: 'ub-libback', href: from ? from.href : '#/app/bibliothek/' + (BT[tab] || 'alles') }, h('span', { html: ico('left') }), from ? L('Zurück zu ', 'Back to ') + from.label : L('Zur Bibliothek', 'To the library'), h('small', {}, S.doc.name));
-      root.appendChild(pill);
-    }
     const out = await mod.render(root, { doc: S.doc, arg: c ? decodeURIComponent(c) : null, go: (t, x) => go(`${S.doc.id}/${t}${x ? '/' + encodeURIComponent(x) : ''}`), ask: askTutorAbout });
-    // Manche Ansichten bauen ihren Bereich neu auf – der Zurück-Knopf bleibt trotzdem oben
-    if (pill) { const keep = () => { if (root.isConnected && !pill.isConnected) root.prepend(pill); }; keep(); [300, 900, 2000].forEach(t => setTimeout(keep, t)); new MutationObserver(keep).observe(root, { childList: true }); }
     return out;
   });
 }
@@ -407,10 +397,38 @@ async function show(key, fn) {
   root.replaceChildren();
   root.scrollTop = 0;
   after();
-  try { const c = await fn(root); if (current.key === key) current.cleanup = typeof c === 'function' ? c : null; }
+  try { const c = await fn(root); if (current.key === key) current.cleanup = typeof c === 'function' ? c : null; backPill(root); }
   catch (e) { console.error(e); root.replaceChildren(h('div', { class: 'empty' }, h('h2', {}, L('Da ist was schiefgelaufen.', 'Something went wrong.')), h('p', {}, String(e.message || e)), h('button', { class: 'btn', onclick: () => location.reload() }, L('Neu laden', 'Reload')))); }
 }
 export function forceRerender() { current.force = true; }
+
+// ---------- Zurück – überall gleich groß und deutlich, immer dahin, wo man herkam ----------
+// Bereichsseiten (Tutor, Lernen, Klausur-Tools, Bibliothek, Fächer) merken sich als Herkunft.
+// Alle anderen Seiten (Werkzeuge, Skripte, Mitschrift, YouTube, Rechner, Trainer …) zeigen oben „Zurück zu …“.
+const AREA_OF = hs => {
+  const m = String(hs).match(/^#\/app\/([^/?]+)(?:\/([^/?]+))?/); if (!m) return null;
+  const [, a, b] = m;
+  if (a === 'tutor') return { l: L('Tutor', 'Tutor'), c: '#1a5fc4' };
+  if (a === 'ueben') return { l: L('Lernen', 'Learn'), c: '#5b3fc4', own: !!b && b !== 'pfad' };
+  if (a === 'tools') return { l: L('Klausur-Tools', 'Exam tools'), c: '#c8336f', own: !!b };
+  if (a === 'bibliothek') return { l: L('Bibliothek', 'Library'), c: '#d9601c' };
+  if (a === 'faecher' || a === 'stundenplan') return { l: a === 'stundenplan' ? L('Stundenplan', 'Timetable') : L('Fächer', 'Subjects'), c: '#d9601c' };
+  return null;
+};
+function backPill(root) {
+  if (!document.documentElement.dataset.nv || !root || !root.isConnected) return;
+  const hs = location.hash.split('?')[0], ar = AREA_OF(hs);
+  let from = null; try { from = JSON.parse(sessionStorage.getItem('tutor.navFrom') || 'null'); } catch (e) {}
+  if (ar) { if (!ar.own) try { sessionStorage.setItem('tutor.navFrom', JSON.stringify({ h: hs, l: ar.l, c: ar.c })); } catch (e) {} return; }
+  if (/^#\/app\/(neu)?$/.test(hs)) return;
+  if (root.querySelector('.kt-back')) return;   // Seite hat schon ihren großen Zurück-Knopf
+  const inDoc = !!(S.doc && hs.includes(S.doc.id));
+  if (!from || from.h === hs) from = inDoc ? { h: '#/app/bibliothek', l: L('Bibliothek', 'Library'), c: '#d9601c' } : { h: '#/app/tutor', l: L('Tutor', 'Tutor'), c: '#1a5fc4' };
+  root.querySelectorAll(':scope > .ub-libback, :scope .view-back').forEach(e => e.remove());
+  const pill = h('a', { class: 'bk-pill', href: from.h, style: { '--bk': from.c } }, h('span', { html: ico('left') }), L('Zurück zu ', 'Back to ') + from.l, inDoc ? h('small', {}, S.doc.name) : null);
+  const keep = () => { if (root.isConnected && !pill.isConnected && location.hash.split('?')[0] === hs) root.prepend(pill); };
+  keep(); new MutationObserver(keep).observe(root, { childList: true });
+}
 
 // Aus Quiz/Trainer heraus: Frage an den Tutor schicken
 export async function askTutorAbout(text, { confirm = true } = {}) {
@@ -800,7 +818,29 @@ function sideExtras(tool) {
       ib('chat', L('Feedback geben', 'Give feedback'), { onclick: () => openFeedback() }),
       h('span', { class: 'side-ibl' }, langSwitch()))];
     document.documentElement.classList.add('side-slim');
-    return [];
+    // Der freie Platz arbeitet mit: nächste Klausur, nächster Kurs heute, zuletzt geöffnete Skripte – ein Klick und du bist wieder drin
+    const box = h('div', { class: 'side-now' });
+    const draw = async () => {
+      let M = null; try { M = await import('./me.js'); } catch (e) {}
+      const parts = [];
+      if (M) {
+        const me = M.getMe(), today = M.dayKey();
+        const ex = (me.faecher || []).flatMap(f => M.termineOf(f).filter(t => t.datum >= today).map(t => ({ f, t }))).sort((x, y) => x.t.datum.localeCompare(y.t.datum))[0];
+        if (ex) {
+          const days = Math.round((new Date(ex.t.datum + 'T12:00') - new Date(today + 'T12:00')) / 864e5);
+          parts.push(h('a', { class: 'sn-ex', href: '#/app/faecher' }, h('b', { class: 'sn-n' }, String(days)), h('span', {}, h('small', {}, days === 1 ? L('Tag bis', 'day until') : L('Tage bis', 'days until')), h('b', {}, M.artName(ex.t.art) + ' ' + ex.f.name))));
+        }
+        const now = Date.now(), next = M.sessionsOn(new Date()).find(x => x.e > now);
+        if (next) parts.push(h('a', { class: 'sn-row', href: '#/app/stundenplan' }, h('span', { class: 'sn-i', html: ico('calendar') }), h('span', {}, h('small', {}, next.s <= now ? L('Läuft gerade', 'On now') : L('Heute ', 'Today ') + new Date(next.s).toLocaleTimeString(LOCALE, { hour: '2-digit', minute: '2-digit' })), h('b', {}, next.t))));
+      }
+      const recent = S.list.filter(d => !d.sample).sort((a2, b2) => (b2.used || 0) - (a2.used || 0)).slice(0, 4);
+      if (recent.length) parts.push(h('div', { class: 'sn-h' }, L('Weitermachen', 'Continue')), ...recent.map(d => h('a', { class: 'sn-row', href: `#/app/${d.id}/hub` }, h('span', { class: 'sn-i', html: ico(d.combo ? 'spark' : d.kind === 'video' ? 'captions' : 'file') }), h('span', {}, h('b', {}, d.name), h('small', {}, d.used ? ago(d.used) : '')))));
+      if (!parts.length) parts.push(h('a', { class: 'sn-empty', href: '#/app/faecher' }, h('span', { class: 'sn-i', html: ico('plus') }), h('span', {}, h('b', {}, L('Leg dein erstes Fach an', 'Add your first subject')), h('small', {}, L('Dann zählt Max bis zur Klausur runter', 'Max then counts down to the exam')))));
+      box.replaceChildren(...parts);
+    };
+    draw(); onChange(() => draw()); import('./me.js').then(M => M.onMe(() => draw())).catch(() => {});
+    setInterval(() => { if (!document.hidden) draw(); }, 5 * 60e3);
+    return [box];
   }
   return [
     zahlen,

@@ -88,6 +88,18 @@ export function modal({ title, text, body, actions = [], onAction, cls = '', eye
 
 // Icons (Linien, 24er Raster)
 const I = {
+  books: '<path d="M4 19.5h16"/><rect x="5" y="14" width="14" height="4" rx="1"/><rect x="6.5" y="9.5" width="12" height="4" rx="1"/><rect x="4.5" y="5" width="13" height="4" rx="1"/>',
+  grad: '<path d="m2.5 9 9.5-4.5L21.5 9 12 13.5z"/><path d="M6.5 11v4.5c0 1.5 2.5 3 5.5 3s5.5-1.5 5.5-3V11"/><path d="M21.5 9v5"/>',
+  ball: '<circle cx="12" cy="12" r="9"/><path d="m12 7.5 3.8 2.8-1.5 4.5H9.7l-1.5-4.5z"/><path d="M12 3v4.5M20.4 9.5l-4.6.8M17.5 19l-3.2-4.2M6.5 19l3.2-4.2M3.6 9.5l4.6.8"/>',
+  flask: '<path d="M9.5 3h5M10 3v6L4.8 18.2A1.8 1.8 0 0 0 6.4 21h11.2a1.8 1.8 0 0 0 1.6-2.8L14 9V3"/><path d="M7.3 14.5h9.4"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9S14.6 18.4 12 21c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/>',
+  scale: '<path d="M12 4v16M7 20h10M5 7h14"/><path d="m5 7-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/>',
+  briefcase: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 12.5h18"/>',
+  laptop: '<rect x="4.5" y="5" width="15" height="10" rx="1.5"/><path d="M2.5 19h19l-1.6-3.5H4.1z"/>',
+  euro: '<path d="M17.5 6.2A7 7 0 1 0 17.5 17.8"/><path d="M4 10h9M4 14h9"/>',
+  leaf: '<path d="M5 19c0-8 5.5-14 15-14 0 9.5-6 15-14 15"/><path d="M5 19 13 11"/>',
+  people: '<circle cx="9" cy="8" r="3.2"/><path d="M3 19.5c.6-3.3 3-5 6-5s5.4 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.6c2.3.2 4 1.7 4.5 4.4"/>',
+  rocket: '<path d="M12 15c-1.5-1.5-2.5-3.5-2.5-6.5C9.5 5 11 3 12 2c1 1 2.5 3 2.5 6.5 0 3-1 5-2.5 6.5z"/><path d="M9.6 11 6.5 13l-.5 4 3.5-1.5M14.4 11l3.1 2 .5 4-3.5-1.5M12 15v3"/>',
   upload: '<path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>',
   file: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
   chat: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12Z"/>',

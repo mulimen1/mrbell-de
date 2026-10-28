@@ -450,7 +450,7 @@ async function editProfil() {
 // ---------- Eigene Farben & Symbole für Fächer und Kurse ----------
 export const PAL = { blau: ['#5aa2f7', '#1a5fc4'], indigo: ['#7a8cf7', '#3f4fd6'], lila: ['#9b7cf0', '#5b3fc4'], pink: ['#f47ba0', '#c8336f'], rot: ['#ff7b7b', '#d63031'], orange: ['#f39b52', '#d9601c'], gelb: ['#f7c948', '#d18e06'], limette: ['#a3d94a', '#5f8f12'], gruen: ['#4cc38a', '#1c7a47'], petrol: ['#3fc1c9', '#0e7f8e'], braun: ['#c9a27a', '#8a5a2b'], schiefer: ['#94a3b8', '#475569'] };
 const PALN = { blau: L('Blau', 'Blue'), indigo: 'Indigo', lila: L('Lila', 'Purple'), pink: 'Pink', rot: L('Rot', 'Red'), orange: 'Orange', gelb: L('Gelb', 'Yellow'), limette: L('Limette', 'Lime'), gruen: L('Grün', 'Green'), petrol: L('Petrol', 'Teal'), braun: L('Braun', 'Brown'), schiefer: L('Schiefer', 'Slate') };
-const SYM = ['book', 'calc', 'chart', 'calendar', 'brain', 'sheet', 'bulb', 'star', 'trophy', 'path', 'spark', 'library', 'cards', 'quiz'];
+const SYM = ['book', 'books', 'grad', 'calc', 'chart', 'euro', 'briefcase', 'scale', 'globe', 'laptop', 'flask', 'leaf', 'people', 'rocket', 'ball', 'brain', 'bulb', 'calendar', 'sheet', 'star', 'trophy', 'path', 'spark', 'quiz'];
 function swatches(cur, onPick, autoLabel) {
   const w = h('div', { class: 'me-sw' });
   const paint = v => w.querySelectorAll('button').forEach(b => b.classList.toggle('on', (b.dataset.v || '') === (v || '')));
@@ -479,6 +479,15 @@ async function editFach(f) {
   const sw = swatches(farbe, v => { farbe = v; sym.recolor(); drawPrev(); }, L('Auto', 'Auto'));
   name.addEventListener('input', drawPrev); kurz.addEventListener('input', drawPrev); drawPrev();
   const docs = S.list.filter(d => !d.sample);
+  // Neue Skripte direkt hier hinzufügen (Datei wählen oder reinziehen) – werden beim Speichern gelesen und diesem Fach zugeordnet
+  const pend = [];
+  const upIn = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.pptx,.docx,.txt,.md' });
+  const upList = h('div', { class: 'me-upl' });
+  const drawUp = () => upList.replaceChildren(...pend.map((f, i) => h('div', { class: 'me-upi' }, h('span', { html: ico('file') }), h('b', {}, f.name), h('button', { type: 'button', class: 'me-uprm', onclick: () => { pend.splice(i, 1); drawUp(); } }, L('Entfernen', 'Remove')))));
+  const addUp = fs => { [...(fs || [])].forEach(f => { if (!pend.some(x => x.name === f.name && x.size === f.size)) pend.push(f); }); drawUp(); };
+  upIn.addEventListener('change', () => { addUp(upIn.files); upIn.value = ''; });
+  const upZone = h('button', { type: 'button', class: 'me-upz', onclick: () => upIn.click() }, h('span', { class: 'me-upzi', html: ico('upload') }), h('span', {}, h('b', {}, L('Neue Skripte hinzufügen', 'Add new slides')), h('small', {}, L('Dateien reinziehen oder klicken – PDF, PowerPoint, Word, Text', 'Drop files or click – PDF, PowerPoint, Word, text'))), upIn);
+  { let n = 0; upZone.addEventListener('dragenter', e => { e.preventDefault(); n++; upZone.classList.add('over'); }); upZone.addEventListener('dragover', e => e.preventDefault()); upZone.addEventListener('dragleave', () => { if (--n <= 0) { n = 0; upZone.classList.remove('over'); } }); upZone.addEventListener('drop', e => { e.preventDefault(); e.stopPropagation(); n = 0; upZone.classList.remove('over'); addUp(e.dataTransfer.files); }); }
   const checks = docs.map(d => { const other = M.getMe().faecher.find(x => x.id !== f.id && (x.docs || []).includes(d.id)); const c = h('input', { type: 'checkbox', checked: (f.docs || []).includes(d.id) || null }); return [d, c, h('label', { class: 'me-chk' }, c, h('span', {}, d.name), other ? h('small', {}, L(`bei ${other.name}`, `in ${other.name}`)) : null)]; });
   const body = h('div', { class: 'me-form' },
     h('div', { class: 'me-fhead' }, prev, h('label', {}, h('span', {}, L('Fach', 'Subject')), name)),
@@ -486,7 +495,7 @@ async function editFach(f) {
     h('div', {}, h('span', { class: 'me-lab' }, L('Farbe', 'Colour')), sw),
     h('div', {}, h('span', { class: 'me-lab' }, L('Symbol', 'Symbol')), sym),
     h('div', {}, h('span', { class: 'me-lab' }, L('Nächster Prüfungstermin', 'Next exam date')), h('div', { class: 'me-row2 me-artrow' }, artSel, date)),
-    docs.length ? h('div', {}, h('span', { class: 'me-lab' }, L('Skripte in diesem Fach', 'Slides in this subject')), h('div', { class: 'me-chks' }, checks.map(x => x[2]))) : h('p', { class: 'me-muted' }, L('Sobald du Skripte hochlädst, kannst du sie hier zuordnen.', 'Once you upload slides, you can assign them here.')));
+    h('div', {}, h('span', { class: 'me-lab' }, L('Skripte in diesem Fach', 'Slides in this subject')), docs.length ? h('div', { class: 'me-chks' }, checks.map(x => x[2])) : null, upZone, upList));
   const actions = [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: isNew ? L('Anlegen', 'Add') : L('Speichern', 'Save'), value: 'save', primary: true }];
   if (!isNew) actions.unshift({ label: L('Löschen', 'Delete'), value: 'del' });
   const r = await modal({ title: isNew ? L('Neues Fach', 'New subject') : f.name, body, actions,
@@ -494,6 +503,14 @@ async function editFach(f) {
   if (r === 'del') { const ok = await modal({ title: L(`„${f.name}“ löschen?`, `Delete “${f.name}”?`), text: L('Deine Skripte bleiben, nur das Fach verschwindet.', 'Your slides stay – only the subject goes.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) M.delFach(f.id); return; }
   if (r !== 'save') return;
   const chosen = checks.filter(x => x[1].checked).map(x => x[0].id);
+  if (pend.length) {
+    toast(L(`Ich lese ${pend.length} ${pend.length === 1 ? 'Datei' : 'Dateien'} …`, `Reading ${pend.length} file${pend.length === 1 ? '' : 's'} …`));
+    const [{ readFile }, St] = await Promise.all([import('../ingest.js'), import('../state.js')]);
+    for (const file of pend) {
+      try { const r = await readFile(file); const d = await St.createDoc({ name: r.name, pages: r.pages, chars: r.chars }); chosen.push(d.id); }
+      catch (e) { toast(L(`„${file.name}“: `, `“${file.name}”: `) + (e.message || L('konnte nicht gelesen werden.', 'could not be read.'))); }
+    }
+  }
   // ein Skript gehört zu genau einem Fach
   M.updateMe(m => { m.faecher.forEach(x => { if (x.id !== f.id) x.docs = (x.docs || []).filter(id => !chosen.includes(id)); }); });
   // Termin: alter Haupttermin raus, neuer rein (weitere Tests/Abgaben bleiben)
