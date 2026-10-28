@@ -331,3 +331,17 @@ html:root[data-nv][data-theme="dark"] body main.ln .lg-toc a { background: #1b1d
 html:root[data-nv] body main.ln section.ln-cat { padding-top: 34px; }
 html:root[data-nv] body main.ln section.ln-cat > h2 { font-size: 26px; letter-spacing: -.02em; }
 html:root[data-nv] body main.ln .ln-rel a small:first-child { display: inline-grid; place-items: center; min-width: 26px; height: 22px; padding: 0 6px; border-radius: 7px; background: var(--nbl); color: var(--nbd); font: 700 11.5px ui-monospace, Menlo, monospace; margin: 0 0 8px; }
+@media (min-width: 861px) and (max-width: 1300px) {
+  html:root[data-nv] body .lm-tn, html:root[data-nv] body header.lm-top2 .lm-tn:not(.lm-tutor) { padding: 0 10px 0 5px !important; gap: 6px !important; font-size: 14.5px !important; height: 44px !important; }
+  html:root[data-nv] body .lm-new, html:root[data-nv] body .lm-b { display: none !important; }
+  html:root[data-nv] body .lm-cta { padding: 0 14px !important; font-size: 14.5px !important; height: 44px !important; }
+  html:root[data-nv] body header.lm-top { padding: 0 14px !important; gap: 8px !important; }
+}
+/* Fußzeile als klare weiße Leiste: links Marke, rechts Links in einer Reihe */
+html:root[data-nv] body > footer { max-width: 1120px; width: calc(100% - 32px); box-sizing: border-box; margin: 10px auto 40px; padding: 20px 28px; border: 0; border-radius: 22px; background: #fff; box-shadow: 0 18px 44px -32px rgba(0,0,0,.35); display: flex; align-items: center; flex-wrap: wrap; gap: 10px 22px; font-size: 14.5px; color: #55524b; }
+html:root[data-nv] body > footer > span:first-child { font-weight: 650; color: #111; }
+html:root[data-nv] body > footer a { color: #3d3a35; font-weight: 550; }
+html:root[data-nv] body > footer a:hover { color: var(--nb2, #1f6fe0); }
+html:root[data-nv][data-theme="dark"] body > footer { background: #131418; color: #a5a5ab; }
+html:root[data-nv][data-theme="dark"] body > footer > span:first-child, html:root[data-nv][data-theme="dark"] body > footer a { color: #e6e6e9; }
+@media (max-width: 600px) { html:root[data-nv] body > footer { padding: 16px 18px; gap: 4px 16px; } html:root[data-nv] body > footer .sp { flex-basis: 100%; height: 0; } }

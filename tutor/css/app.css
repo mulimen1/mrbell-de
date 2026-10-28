@@ -6567,3 +6567,15 @@ html:root[data-nv]:not(.bm-guest) .rm-corner:has(.rm-acc) .rm-oldwrap .rm-olddes
 :root[data-nv] .acc-pop .acc-sw:not(.std) > i { box-shadow: inset 0 0 0 1px rgba(0,0,0,.08) !important; }
 :root[data-nv] .acc-pop .acc-sw[aria-checked="true"] > i { box-shadow: 0 0 0 2.5px var(--panel), 0 0 0 4.5px var(--c) !important; }
 .rm-acc, .rm-acc:hover, .rm-acc[aria-expanded="true"] { box-shadow: 0 0 0 2px var(--panel, #fff), 0 0 0 3px var(--line2) !important; }
+/* Text direkt auf den Punkten (ohne Karte): dunkler und mit einem weichen Hof in Hintergrundfarbe, damit die Punkte die Buchstaben nicht stören */
+html:root[data-nv] #landing :is(.hero p.sub, .mq-l, p.lead, .section .wrap > p, .eyebrow, .section h2, .final p, .final h2), html:root[data-nv] #gehirn :is(.ra-lead, .ra-eye, .ra-h1), html:root[data-nv] .room.rm-tools-mode .rm-topic {
+  text-shadow: 0 0 2px #ebe4d8, 0 0 4px #ebe4d8, 0 0 8px #ebe4d8, 0 0 12px #ebe4d8;
+}
+html:root[data-nv] #landing :is(.hero p.sub, p.lead, .section .wrap > p, .final p), html:root[data-nv] #gehirn .ra-lead { color: #3d3a35 !important; }
+html:root[data-nv][data-theme="dark"] #landing :is(.hero p.sub, .mq-l, p.lead, .section .wrap > p, .eyebrow, .section h2, .final p, .final h2), html:root[data-nv][data-theme="dark"] #gehirn :is(.ra-lead, .ra-eye, .ra-h1) { text-shadow: 0 0 2px #0b0b0c, 0 0 4px #0b0b0c, 0 0 8px #0b0b0c, 0 0 12px #0b0b0c; }
+html:root[data-nv][data-theme="dark"] #landing :is(.hero p.sub, p.lead, .section .wrap > p, .final p), html:root[data-nv][data-theme="dark"] #gehirn .ra-lead { color: #c9c9ce !important; }
+/* Längere Texte auf den Punkten: weicher, randloser Fleck in Hintergrundfarbe dahinter – keine Karte, aber die Punkte verschwinden hinter dem Text */
+html:root[data-nv] #landing :is(.hero p.sub, p.lead, .section .wrap > p), html:root[data-nv] #gehirn .ra-lead { background: radial-gradient(closest-side, #ebe4d8 78%, rgba(235,228,216,0)) !important; padding: 22px 48px !important; box-sizing: border-box; }
+html:root[data-nv][data-theme="dark"] #landing :is(.hero p.sub, p.lead, .section .wrap > p), html:root[data-nv][data-theme="dark"] #gehirn .ra-lead { background: radial-gradient(closest-side, #0b0b0c 78%, rgba(11,11,12,0)) !important; }
+@media (max-width: 600px) { html:root[data-nv] #landing :is(.hero p.sub, p.lead, .section .wrap > p), html:root[data-nv] #gehirn .ra-lead { padding: 16px 18px !important; background: radial-gradient(closest-side, #ebe4d8 85%, rgba(235,228,216,0)) !important; } }
+html:root[data-nv] #gehirn .ra-h1 span, html:root[data-nv] #landing .section h2 :is(span, em) { text-shadow: none !important; }
