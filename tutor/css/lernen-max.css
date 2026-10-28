@@ -263,3 +263,4 @@ header.lm-top2 .lm-b svg, header.lm-top2 .lm-b img { width: 24px !important; hei
 @media (min-width: 1100px) and (max-width: 1360px) { :root[data-nv] .lm-brand b { display: none; } }
 :root[data-nv]:not([data-theme="dark"]) body { background: #ebe4d8; }
 :root[data-nv]:not([data-theme="dark"]) header.lm-top, :root[data-nv]:not([data-theme="dark"]) header.lm-top.lm-top2 { background: #ebe4d8 !important; }
+:root[data-nv] header.lm-top, :root[data-nv] header.lm-top.lm-top2 { border-bottom: 0 !important; box-shadow: none !important; background-color: #ebe4d8 !important; background-image: radial-gradient(rgba(0,0,0,.3) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; }

@@ -116,8 +116,9 @@ export function render(root, ctx = {}) {
   const dock = h('div', { class: 'rm-dock' }, focusRow, sugg, comp);
   const pickers = h('div', { class: 'rm-pickers uv-pick' });
   const nvProg = () => { const b = progBtn(); if (document.documentElement.dataset.nv) { b.classList.add('rm-prog-nv'); b.firstChild.innerHTML = ico('chart'); } return b; };
-  const oldBtnNv = document.documentElement.dataset.nv ? h('button', { class: 'rm-olddesign', type: 'button', onclick: () => import('../skin.js').then(m => m.switchDesign(false, 'Tutor')) }, L('Zurück zum alten Design', 'Back to the old design')) : null;
-  const corner = h('div', { class: 'rm-corner' }, document.documentElement.dataset.nv ? nvProg() : null, oldBtnNv, homeBeta() ? pickers : null, stkHome, document.documentElement.dataset.nv ? null : progBtn(), cfgBtn(), homeBeta() ? null : skBtnHome);
+  const nvOn = !!document.documentElement.dataset.nv;
+  const oldBtnNv = h('button', { class: 'rm-olddesign', type: 'button', onclick: () => import('../skin.js').then(m => m.switchDesign(!nvOn, 'Tutor')) }, nvOn ? L('Zurück zum alten Design', 'Back to the old design') : L('Zum neuen Design', 'Switch to the new design'));
+  const corner = h('div', { class: 'rm-corner' }, document.documentElement.dataset.nv ? nvProg() : null, getAccount() ? oldBtnNv : null, homeBeta() ? pickers : null, stkHome, document.documentElement.dataset.nv ? null : progBtn(), cfgBtn(), homeBeta() ? null : skBtnHome);
   // Oben rechts: „Bereits erstellt“ und „Deine Unterlagen“ (gewählte Unterlage = mit Max verbunden)
   function drawPickers() {
     if (!homeBeta()) return;
