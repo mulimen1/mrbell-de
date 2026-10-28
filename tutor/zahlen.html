@@ -10,8 +10,8 @@
 <meta name="apple-mobile-web-app-title" content="Zahlen">
 <title>Zahlen · BWL Max</title>
 <link rel="manifest" href="/tutor/zahlen.webmanifest">
-<link rel="icon" type="image/png" sizes="96x96" href="/tutor/img/bm-fav-96.png?v=10">
-<link rel="apple-touch-icon" href="/tutor/img/bm-fav-180.png?v=10">
+<link rel="icon" type="image/png" sizes="96x96" href="/tutor/img/bm-fav-96.png?v=11">
+<link rel="apple-touch-icon" href="/tutor/img/bm-fav-180.png?v=11">
 <style>
 @font-face { font-family: "Geist"; src: url("/tutor/fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
 @font-face { font-family: "Geist Mono"; src: url("/tutor/fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
@@ -204,7 +204,7 @@ button { font: inherit; color: inherit; }
 <body>
 <header class="top" id="top">
   <div class="top-in">
-    <div class="brand"><img src="/tutor/img/bm-fav-96.png?v=10" alt=""><div><b>Zahlen</b><small>BWL Max · live</small></div></div>
+    <div class="brand"><img src="/tutor/img/bm-fav-96.png?v=11" alt=""><div><b>Zahlen</b><small>BWL Max · live</small></div></div>
     <span class="live zero" id="live"><i></i><span class="num">–</span></span>
     <span class="sp"></span>
     <span class="stand" id="stand"></span>
@@ -495,7 +495,7 @@ button { font: inherit; color: inherit; }
 
   // ---------- Zustände ----------
   function gate(title, text, actions) {
-    app.innerHTML = '<div class="gate"><div class="box"><img src="/tutor/img/bm-fav-192.png?v=10" alt=""><h1>' + esc(title) + '</h1><p>' + text + '</p><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px">' + (actions || '') + '</div></div></div>';
+    app.innerHTML = '<div class="gate"><div class="box"><img src="/tutor/img/bm-fav-192.png?v=11" alt=""><h1>' + esc(title) + '</h1><p>' + text + '</p><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px">' + (actions || '') + '</div></div></div>';
   }
   function skeleton() {
     app.innerHTML = '<section class="grid g7">' + Array(7).join('<div class="skel" style="height:132px"></div>') + '<div class="skel" style="height:132px"></div></section><section class="grid"><div class="skel" style="height:320px"></div></section><section class="grid g2"><div class="skel" style="height:300px"></div><div class="skel" style="height:300px"></div></section>';

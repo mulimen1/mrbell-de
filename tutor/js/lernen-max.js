@@ -43,7 +43,7 @@ function exitOffer() {
   // Trauriger Max (dieselbe Figur wie in der App); klappt das nicht, bleibt das Bild
   const fEl = bg.querySelector('.lmx-face');
   import('/tutor/js/face.js').then(m => { const f = m.face(fEl, { follow: false }); setTimeout(() => { try { f.set('sad'); } catch (e) {} }, 250); })
-    .catch(() => { fEl.innerHTML = '<img src="/tutor/img/max-fav-192.png?v=8" alt="" width="92" height="92" style="border-radius:50%">'; });
+    .catch(() => { fEl.innerHTML = '<img src="/tutor/img/max-fav-192.png?v=9" alt="" width="92" height="92" style="border-radius:50%">'; });
 }
 
 // Am Laptop: Maus verlässt das Fenster nach oben (Tab schließen / zurück) – einmal pro Besuch, frühestens nach 8 Sekunden
@@ -74,7 +74,7 @@ export function authModal({ title = 'Kostenlos weiterlernen', sub = 'Mit Google 
   bg.querySelector('.lmx-x').onclick = close;
   document.body.appendChild(bg);
   let fc = null; const fEl = bg.querySelector('.lmx-face');
-  import('/tutor/js/face.js').then(m => { fc = m.face(fEl, { follow: false }); }).catch(() => { fEl.innerHTML = '<img src="/tutor/img/max-fav-192.png?v=8" alt="" width="92" height="92" style="border-radius:50%">'; });
+  import('/tutor/js/face.js').then(m => { fc = m.face(fEl, { follow: false }); }).catch(() => { fEl.innerHTML = '<img src="/tutor/img/max-fav-192.png?v=9" alt="" width="92" height="92" style="border-radius:50%">'; });
   const mood = (m, pulse) => { try { fc && (pulse ? fc.pulse(m) : fc.set(m)); } catch (e) {} };
   let api = null, ts = null; const mods = () => Promise.all([import('/tutor/js/api.js'), import('/tutor/js/turnstile.js')]).then(([a, t]) => { api = a; ts = t; });
   const ready = mods();
