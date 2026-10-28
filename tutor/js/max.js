@@ -10,7 +10,7 @@ export const NAME = 'BWL Max';
 const DE = {
   greet: {
     1: ['Hi, ich bin Max. Ich erkläre dir deine Vorlesung an der Tafel.', 'Aus deinem Skript mache ich Quiz, Karteikarten und einen Podcast.', 'Klausur bald? Ich baue dir einen Lernpfad.', 'Kein Skript da? Sag mir das Thema, ich schreibe dir eins.', 'Du kannst auch einfach mit mir reden.'],
-    2: ['Moin aus Sylt. Ich bin Max – der beste Tutor, den du im Internet finden wirst.', 'Skript rein, Quiz raus. Effizienz hab ich von Papa.', 'Karteikarten, Podcast, Lernpfad – mach ich zwischen zwei Golfrunden.', 'Reden geht auch. Wie ein Podcast, nur mit besserem Haar.', 'Ich erklär dir das an der Tafel. Ich hab Zeit, der Porsche steht eh in der Werkstatt.', 'Kein Skript dabei? Ich auch nie. Nenn mir das Thema, ich regel das.', 'Deine Klausur ist mein neues Hobby. Polo war mir zu anstrengend.', 'Lernpfad? Hab ich gebaut, bevor du „Lernpfad“ googeln konntest.'],
+    2: ['Moin aus Sylt. Ich bin Max – der beste Tutor, den du im Internet finden wirst. Lock in.', 'Skript rein, Quiz raus. Effizienz hab ich von Papa.', 'Karteikarten, Podcast, Lernpfad – mach ich zwischen zwei Golfrunden.', 'Reden geht auch. Wie ein Podcast, nur mit besserem Haar.', 'Ich erklär dir das an der Tafel. Ich hab Zeit, der Porsche steht eh in der Werkstatt.', 'Kein Skript dabei? Ich auch nie. Nenn mir das Thema, ich regel das. Ausreden nehm ich keine an.', 'Deine Klausur ist mein neues Hobby. Polo war mir zu anstrengend. Durchfallen ist ab heute keine Option.', 'Lernpfad? Hab ich gebaut, bevor du „Lernpfad“ googeln konntest.'],
     3: ['Moin aus Sylt. Ich bin Max – der beste Tutor im ganzen Internet. Sagt Papa, und Papa irrt nie.', 'Skript rein, Quiz raus. Effizienz hab ich von Papa.', 'Karteikarten, Podcast, Lernpfad – mach ich zwischen zwei Golfrunden.', 'Reden geht auch. Wie ein Podcast, nur mit besserem Haar.', 'Papa wollte dir einen Nachhilfelehrer bezahlen. Ich bin billiger und hab bessere Haare.', 'Ich hab Bilanzen gelesen, bevor ich lesen konnte. Sagt zumindest Mama.', 'Mein Quarter-Zip kostet mehr als dein Semesterticket. Meine Erklärungen sind trotzdem gratis.', 'Kein Skript? Nenn mir ein Thema. Ich diktier dir eins – vom Boot aus.']
   },
   welcome: {
@@ -25,12 +25,12 @@ const DE = {
   },
   right: {
     1: ['Richtig.', 'Genau so.', 'Sitzt.', 'Stark.'],
-    2: ['Richtig. Fast so gut wie ich.', 'Sauber. Das gibt Rendite.', 'Sitzt. Next.', 'Stark. Ich bin beeindruckt. Fast.'],
+    2: ['Richtig. Fast so gut wie ich.', 'Sauber. Das gibt Rendite.', 'Sitzt. Next.', 'Stark. Ich bin beeindruckt. Fast.', 'Na also. Geht doch, wenn du willst.'],
     3: ['Korrekt. Du darfst mit nach Sylt.', 'Sauber. Papa wäre stolz. Auf mich.', 'Richtig. Ich hätt’s schneller gehabt.', 'Exzellent. Das ist Holding-Niveau.']
   },
   wrong: {
     1: ['Noch nicht ganz.', 'Knapp daneben.', 'Fast.'],
-    2: ['Knapp daneben. Passiert den Besten. Mir nicht, aber egal.', 'Nope. Aber wir kriegen das hin.', 'Noch nicht ganz. Schau dir die Erklärung an.'],
+    2: ['Knapp daneben. Passiert den Besten. Mir nicht, aber egal.', 'Nope. Lies die Erklärung, und zwar richtig.', 'Daneben. Das üben wir, bis es sitzt – keine Diskussion.'],
     3: ['Autsch. Aber keine Sorge, ich hab auch mal falsch geparkt.', 'Leider nein. Das kostet dich einen Flat White.', 'Daneben. Wir arbeiten dran – ich bin ja da.']
   },
   limit: {
