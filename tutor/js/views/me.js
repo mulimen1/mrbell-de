@@ -1,5 +1,6 @@
 // Mein Bereich: Heute · Fächer · Stundenplan · Favoriten · Statistik. Denkt mit: Max sagt, was jetzt dran ist.
 import { h, ico, ls, modal, toast, ago, uid } from '../util.js';
+import { libSwitch } from '../msswitch.js';
 import { L, LOCALE, EN } from '../i18n.js';
 import { face } from '../face.js';
 import { S, mastery } from '../state.js';
@@ -27,6 +28,7 @@ const bisZu = a => a === 'test' ? L('zum Test', 'the test') : a === 'abgabe' ? L
 export function render(root, { sub = '', onLogin } = {}) {
   const wrap = h('div', { class: 'view-in me' });
   root.appendChild(wrap);
+  { const sw = sub === 'faecher' && libSwitch('faecher'); if (sw) root.insertBefore(sw, wrap); }
   // Am Wochenende zeigt der Stundenplan gleich die kommende Woche
   let weekOff = [0, 6].includes(new Date().getDay()) ? 1 : 0, favFilter = 'all';
   const draw = () => {

@@ -110,7 +110,7 @@ function buildShell() {
     h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor', onclick: tutorFromAd }, tnFace, h('span', { class: 'tn-l' }, 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
     homeBeta() ? navA('ueben', '#/app/ueben', 'whistle', L('Training', 'Training')) : navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
     navA('mitschrift', '#/app/mitschrift', 'pen', L('Mitschrift', 'Notes')),
-    navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
+    document.documentElement.dataset.ben ? navA('faecher', '#/app/bibliothek', 'library', L('Fächer & Bibliothek', 'Subjects & library')) : navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
     homeBeta() ? h('a', { class: 'tn tn-lib', href: '#/app/bibliothek', 'data-tn': 'bibliothek' }, h('span', { html: ico('library') }), h('span', { class: 'tn-l tn-l2' }, h('span', {}, L('Bibliothek', 'Library')), h('small', { class: 'tn-cnt', hidden: true }))) : navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
     // Transkript: Untertitel-Symbol, Wort, YouTube-Logo (in weißer Kachel)
     h('a', { class: 'tn tn-vid tn-flow', href: '#/app/video', 'data-tn': 'video', title: L('YouTube-Video → Lernzettel, Mitschrift, Karteikarten', 'YouTube video → study sheet, notes, flashcards') }, h('span', { class: 'tn-lead', html: ico('captions') }), h('span', { class: 'tn-l' }, L('Transkript', 'Transcribe')), h('span', { class: 'tn-brands', 'aria-hidden': 'true' }, h('img', { src: '/tutor/img/brands/youtube.svg', alt: '', width: 13, height: 13, class: 'tn-b tn-b-youtube' })), h('span', { class: 'tn-new' }, L('NEU', 'NEW'))),
@@ -255,7 +255,7 @@ function renderList() {
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
   const tn = { ueben: hs.startsWith('#/app/ueben') || (backTarget()?.key === 'ueben' && /^#\/app\/(trainer|excel\/trainer|challenge|duell|rechner)/.test(hs)), tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn() && backTarget()?.key !== 'video'), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video') || (inDoc && backTarget()?.key === 'video'), excel: hs.startsWith('#/app/excel')};
-  if (document.documentElement.dataset.ben) tn.mitschrift = tn.mitschrift || hs.startsWith('#/app/video');   // Test: Transkript gehört zur Mitschrift
+  if (document.documentElement.dataset.ben) { tn.faecher = tn.faecher || !!tn.bibliothek || hs.startsWith('#/app/bibliothek'); tn.ueben = tn.ueben || /^#\/app\/(trainer|rechner|challenge|duell)/.test(hs); }   // Test: vier Bereiche
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   requestAnimationFrame(navIntoView);
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
@@ -754,8 +754,8 @@ function sideExtras(tool) {
   if (H.dataset.ben) {
     const hero = (href, nav, icon, title, sub) => { const a = tool('a', { href, 'data-nav': nav }, icon, title); a.classList.add('side-hero'); a.append(h('small', { class: 'side-hero-s' }, sub)); return a; };
     sideExtras.bottom = [h('div', { class: 'side-set' }, theme, lang)];
-    return [hero('#/app/bibliothek', 'bibliothek', 'library', L('Bibliothek', 'Library'), L('Alles, was du erstellt hast', 'Everything you created')),
-      hero('#/app/video', 'video', 'captions', L('Transkript', 'Transcribe'), L('YouTube-Video → Lernstoff', 'YouTube video → study material')),
+    return [hero('#/app/mitschrift', 'mitschrift', 'pen', L('Live mitschreiben', 'Live notes'), L('In der Vorlesung, getippt oder Foto', 'In the lecture, typed or photo')),
+      hero('#/app/video', 'video', 'captions', L('Aus YouTube-Video', 'From a YouTube video'), L('Transkript → Lernstoff', 'Transcript → study material')),
       tool('button', { onclick: () => import('./palette.js').then(m => m.openPalette()) }, 'search', L('Suchen', 'Search')), zahlen];
   }
   return [

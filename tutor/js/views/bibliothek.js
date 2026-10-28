@@ -2,6 +2,7 @@
 // Nur Bereiche, die es wirklich gibt (kein leerer „Podcasts“-Ordner). Jeder Bereich: klare Überschrift,
 // darunter nach Skript sortiert, neueste zuerst. Filter-Chips und Suche erst, wenn es etwas zu filtern gibt.
 import { h, ico, ago, modal, ls, toast } from '../util.js';
+import { libSwitch } from '../msswitch.js';
 import { L } from '../i18n.js';
 import { S, removeDoc, mastery, saveNow, refreshList, onChange } from '../state.js';
 import { dueCards } from './cards.js';
@@ -53,6 +54,7 @@ export function items(type, docs) {
 
 export function render(root, { tab: want = '' } = {}) {
   const wrap = h('div', { class: 'view-in sk bib' }); root.appendChild(wrap);
+  { const sw = libSwitch('bibliothek'); if (sw) root.insertBefore(sw, wrap); }
   let filter = want || ls.get('tutor.bib.tab', 'alles') || 'alles', q = '';
   const setFilter = f => { filter = f; ls.set('tutor.bib.tab', f); history.replaceState(null, '', '#/app/bibliothek/' + f); draw(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
 
