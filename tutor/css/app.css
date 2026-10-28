@@ -6665,3 +6665,22 @@ html:root[data-nv][data-ben]:not(.bm-guest) body .topnav .tn.tn.tn, html:root[da
 @media (max-width: 860px) { .kt-hero { grid-template-columns: 1fr; padding: 20px; } .kt-grid { grid-template-columns: 1fr; } }
 .kt-headrow { padding-bottom: 0 !important; margin-bottom: -10px; } .kt-headrow .kt-head { margin-bottom: 0; }
 .view-in.kt-headrow { max-width: 1240px; }
+/* Test Ben: Schnellkacheln als Pyramide – 3 oben, 5 unten */
+html[data-ben] .room .rm-tl { grid-template-columns: repeat(15, minmax(0, 1fr)) !important; }
+html[data-ben] .room .rm-tl .rm-tlt:nth-child(-n+3) { grid-column: span 5; }
+html[data-ben] .room .rm-tl .rm-tlt:nth-child(n+4) { grid-column: span 3; }
+html[data-ben] .room .rm-tl .rm-tlt:nth-child(n+4) b { font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Verlauf: nur noch die Uhr, als runder Knopf direkt links neben dem Schreibfeld (nicht mehr über den Kacheln) */
+@media (min-width: 901px) {
+  html:root[data-nv] .room .rm-dock { position: relative; }
+  html:root[data-nv] .room .rm-dock > .rm-sugg { position: absolute; left: auto !important; width: auto !important; max-width: none !important; right: calc(100% + 12px); bottom: 14px; top: 0; display: flex; align-items: center; margin: 0 !important; padding: 0 !important; z-index: 2; }
+  html:root[data-nv] .room .rm-dock > .rm-sugg .rm-hist { width: 50px; height: 50px; padding: 0; justify-content: center; gap: 0; font-size: 0; border-radius: 50%; background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: 0 8px 20px -14px rgba(0,0,0,.45); }
+  html:root[data-nv] .room .rm-dock > .rm-sugg .rm-hist .ico { width: 22px; height: 22px; }
+  html:root[data-nv] .room .rm-dock > .rm-sugg .rm-hist .rm-hc { display: none; }
+  html:root[data-nv] .room .rm-dock > .rm-sugg .rm-hist.on { background: var(--nbl); border-color: var(--nb); color: var(--nb2); }
+  html:root[data-nv][data-theme="dark"] .room .rm-dock > .rm-sugg .rm-hist { background: #16171b; border-color: #2a2c33; }
+}
+/* Pyramide unten: Icon über dem Namen, damit nichts abgeschnitten wird */
+html[data-ben] .room .rm-tl .rm-tlt:nth-child(n+4) { display: flex !important; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; padding: 10px 6px !important; }
+html[data-ben] .room .rm-tl .rm-tlt:nth-child(n+4) b { white-space: normal; overflow: visible; text-overflow: clip; font-size: 14px; line-height: 1.2; }
+@media (min-width: 901px) { html:root[data-nv] .room.rm-tools-mode .rm-dock > .rm-sugg { position: static; } }
