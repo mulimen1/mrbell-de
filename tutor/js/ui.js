@@ -186,7 +186,8 @@ export async function apiError(e, retry) {
     return;
   }
   const r = await modal({ title: L('Das hat nicht geklappt', 'That didn’t work'), text: (e && e.message) || L('Unbekannter Fehler.', 'Unknown error.'), actions: retry ? [{ label: L('Schließen', 'Close'), value: false }, { label: L('Nochmal versuchen', 'Try again'), value: true, primary: true }] : [{ label: 'OK', value: false, primary: true }] });
-  if (r && retry) retry();
+  // Nochmal: nach dem Schließen des Fensters starten (sonst geht der Klick im Schließen unter) – Fehler beim Neustart sichtbar machen
+  if (r && retry) setTimeout(() => { try { const p = retry(); if (p && p.catch) p.catch(err => apiError(err, retry)); } catch (err) { apiError(err, retry); } }, 60);
 }
 
 // Knopf mit Kostenangabe

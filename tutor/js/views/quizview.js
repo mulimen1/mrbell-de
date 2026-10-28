@@ -252,5 +252,5 @@ function examSheet(pts, pScore, pm, grade) {
     h('details', { class: 'xs-d' }, h('summary', {}, L('Lösungen ansehen', 'See solutions')),
       h('div', { class: 'xs-sol' }, pts.map((x, k) => h('div', { class: 'xs-s' }, h('b', {}, `${k + 1}. `, String(x.q.type === 'cloze' ? x.q.q.replace(/___+/g, '…') : x.q.q).slice(0, 160)),
         x.q.type === 'num' ? h('p', {}, L('Lösung: ', 'Solution: '), h('b', {}, fmt(x.q.answer) + (x.q.unit ? ' ' + x.q.unit : ''))) : x.q.type === 'mc' ? h('p', {}, L('Richtig: ', 'Correct: '), (x.q.correct || []).map(i => x.q.options[i]).join(' · ')) : x.q.type === 'tf' ? h('p', {}, L('Richtig: ', 'Correct: '), x.q.correct ? L('wahr', 'true') : L('falsch', 'false')) : x.q.type === 'cloze' ? h('p', {}, L('Lücken: ', 'Gaps: '), (x.q.blanks || []).join(' · ')) : null,
-        x.q.solution ? h('div', { class: 'sol' }, String(x.q.solution).replace(/<br\s*\/?>/g, '\n')) : null, x.q.explain ? h('p', { class: 'xs-e' }, richText(x.q.explain)) : null)))));
+        x.q.solution ? h('div', { class: 'sol' }, richText(String(x.q.solution).replace(/<br\s*\/?>/g, '\n'))) : null, x.q.explain ? h('p', { class: 'xs-e' }, richText(x.q.explain)) : null)))));
 }

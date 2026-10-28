@@ -103,7 +103,7 @@ if (H.dataset.nv) {
 // Lesbarkeit: Text, der direkt auf dem Punkte-Hintergrund steht (keine Karte dahinter), bekommt eine weiche Fläche in
 // Hintergrundfarbe – die Punkte verschwinden an dieser Stelle. Gilt automatisch für jede Seite (App, Startseite, Anzeigen).
 if (H.dataset.nv) {
-  const TXT = 'p, h1, h2, h3, h4, .eyebrow, small, li, label, span.lead, blockquote, figcaption, .vh > div > div, .lead, .sub, .mq-l';
+  const TXT = 'p, h1, h2, h3, h4, .eyebrow, small, li, label, span.lead, blockquote, figcaption, .vh > div > div, .lead, .sub, .mq-l, .deckstats, .bk-via, .fc-swhint, .pstat, .qcount, .fx-sum, .ld-sub, .loading > div, .ingest .sub';
   const opaque = el => { const c = getComputedStyle(el); return (c.backgroundColor !== 'rgba(0, 0, 0, 0)' && c.backgroundColor !== 'transparent') || c.backgroundImage !== 'none'; };
   const isDots = el => el === document.body || el === H || /radial-gradient/.test(getComputedStyle(el).backgroundImage) && getComputedStyle(el).backgroundSize.includes('22px');
   const scan = () => {

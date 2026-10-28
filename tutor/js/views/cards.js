@@ -142,7 +142,7 @@ function study(wrap, ctx, items, title) {
     const card = h('div', { class: 'fc', tabindex: 0, role: 'button', 'aria-label': L('Karte umdrehen', 'Flip card') },
       h('div', { class: 'in' },
         h('div', { class: 'f' }, richText(c.front), h('span', { class: 'hint' }, L('Tippen zum Umdrehen', 'Tap to flip')), c.page ? h('span', { class: 'pg' }, L('S. ', 'p. ') + c.page) : null),
-        h('div', { class: 'b' }, cardBack(c), ctx.ask ? h('button', { type: 'button', class: 'fc-ask', onclick: e => { e.stopPropagation(); ctx.ask(L(`Erklär mir diese Karteikarte genauer, mit Beispiel: „${c.front}“ – Antwort: „${c.back}“`, `Explain this flashcard in more detail, with an example: “${c.front}” – answer: “${c.back}”`)); } }, h('span', { html: ico('chat') }), L('Max erklärt’s', 'Max explains')) : null)));
+        h('div', { class: 'b' }, h('div', { class: 'fc-q' }, richText(c.front)), cardBack(c), ctx.ask ? h('button', { type: 'button', class: 'fc-ask', onclick: e => { e.stopPropagation(); ctx.ask(L(`Erklär mir diese Karteikarte genauer, mit Beispiel: „${c.front}“ – Antwort: „${c.back}“`, `Explain this flashcard in more detail, with an example: “${c.front}” – answer: “${c.back}”`)); } }, h('span', { html: ico('chat') }), L('Max erklärt’s', 'Max explains')) : null)));
     // Drei klare Knöpfe, keine Abstände – den Rest plant die Wiederholung im Hintergrund
     // Unter jedem Knopf: wann die Karte wiederkommt (wie bei Anki) – dann weiß man, was die Bewertung bewirkt
     const when = r => { try { const t = JSON.parse(JSON.stringify(c)); review(t, r, Date.now(), examAt); return label(t.ivl, t.due); } catch (e) { return ''; } };

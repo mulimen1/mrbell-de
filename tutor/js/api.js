@@ -50,7 +50,16 @@ const EV = { analyse: ['Upload eingeordnet'], ocr: ['Foto abgeschrieben'], topic
 // images: [{mime, data}] gehen nur im zweiten Schritt mit (Upload-Analyse, Foto-Abschrift)
 // Jede Antwort von Max mit Erklärungen/Rechnungen läuft durch das Rechen-Gate (rechengate.js) – ohne Ausnahme.
 export async function ask(action, payload = {}, opt = {}) {
-  const j = await askRaw(action, payload, opt);
+  // Kam von der KI nichts zurück (überlastet, Zeitlimit, leere Antwort)? Einmal still nochmal – meist klappt's direkt.
+  let j;
+  for (let t = 0; ; t++) {
+    try { j = await askRaw(action, payload, { ...opt, intern: opt.intern || t > 0 }); break; }
+    catch (e) {
+      if (t >= 1 || !e || !['ai', 'server', 'job'].includes(e.code) || (opt.signal && opt.signal.aborted)) throw e;
+      await new Promise(r => setTimeout(r, 1800));
+      if (opt.signal && opt.signal.aborted) throw e;
+    }
+  }
   return rechenGate(action, payload, j, (a, p, o) => askRaw(a, p, { ...o, intern: true }), { signal: opt.signal });
 }
 async function askRaw(action, payload = {}, { signal, images, intern } = {}) {

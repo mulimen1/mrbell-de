@@ -298,7 +298,7 @@ export function renderQuestion(root, q, { compact = false, onAsk, onHelp, nextLa
       r.note ? h('p', {}, r.note) : null,
       q.type === 'num' && !r.correct ? h('p', {}, h('b', {}, L('Lösung: ', 'Solution: ') + fmt(q.answer) + (q.unit ? ' ' + q.unit : ''))) : null,
       q.explain ? h('p', {}, richText(q.explain)) : null,
-      q.type === 'num' && q.solution ? h('div', { class: 'sol' }, String(q.solution).replace(/<br\s*\/?>/g, '\n')) : null,
+      q.type === 'num' && q.solution ? h('div', { class: 'sol' }, richText(String(q.solution).replace(/<br\s*\/?>/g, '\n'))) : null,
       q.page ? h('div', { class: 'src' }, (S.doc?.generated ? L('Quelle: Kurzskript, S. ', 'Source: short script, p. ') : L('Quelle: dein Stoff, S. ', 'Source: your material, p. ')) + q.page) : null);
     fb.replaceChildren(f);
     actions.replaceChildren();

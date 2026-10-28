@@ -57,7 +57,7 @@ function answerView(q, r) {
     return h('div', { class: 'qr-num' },
       h('div', { class: 'qr-nb ' + (r && r.correct ? 'right' : 'wrong') }, h('small', {}, L('Deine Antwort', 'Your answer')), h('b', {}, p ? String(p) + (q.unit ? ' ' + q.unit : '') : '–')),
       h('div', { class: 'qr-nb right' }, h('small', {}, L('Lösung', 'Solution')), h('b', {}, fmt(q.answer) + (q.unit ? ' ' + q.unit : ''))),
-      q.solution ? h('div', { class: 'sol qr-sol' }, String(q.solution).replace(/<br\s*\/?>/g, '\n')) : null);
+      q.solution ? h('div', { class: 'sol qr-sol' }, richText(String(q.solution).replace(/<br\s*\/?>/g, '\n'))) : null);
   }
   return null;
 }
