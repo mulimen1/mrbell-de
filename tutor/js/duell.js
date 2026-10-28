@@ -95,7 +95,7 @@ function lobby(ctx) {
   const list = h('div', { class: 'du-list' });
   wrap.replaceChildren(
     h('section', { class: 'du-hero' }, h('div', { class: 'du-glow' }),
-      fEl,
+      h('div', { class: 'du-vs' }, h('div', { class: 'du-vsp' }, avatar(ls.get(NAME, '') || L('Du', 'You'), true), h('small', {}, L('Du', 'You'))), h('div', { class: 'du-vsm' }, fEl, h('b', {}, 'VS')), h('div', { class: 'du-vsp' }, avatar('?'), h('small', {}, L('Dein Gegner', 'Opponent')))),
       h('div', { class: 'eyebrow' }, L('BWL-Duell · 1 gegen 1', 'Business duel · 1 vs 1')),
       h('h1', {}, L('Wer weiß mehr – du oder deine Kommilitonen?', 'Who knows more – you or your classmates?')),
       h('p', {}, L('Drei Runden, je drei Fragen, 20 Sekunden pro Frage. Du spielst deine Runde und schickst den Link – dein Gegner spielt, wann er will. Ohne Anmeldung.', 'Three rounds, three questions each, 20 seconds per question. Play your round and send the link – your opponent plays whenever they like. No sign-up.')),

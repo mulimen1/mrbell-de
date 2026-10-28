@@ -7988,3 +7988,43 @@ html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-trtop .ub-guide 
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-trtop .ub-guide .ub-cta { width: auto; min-width: 260px; margin: 0; }
 @media (max-width: 700px) { html:root body .ub-lt.ub-big .ub-ltc, html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 1 !important; } }
 .ub-tabs { gap: 8px !important; } .ub-tab { height: 48px !important; padding: 0 16px 0 6px !important; font-size: 14.5px !important; gap: 8px !important; } .ub-ti { width: 36px !important; height: 36px !important; }
+/* ===== Wochen-Challenge: Arena-Look ===== */
+html:root[data-nv] body .ch-hero { border: 0 !important; color: #fff; background: radial-gradient(120% 90% at 85% 0%, rgba(247,201,72,.35), transparent 55%), radial-gradient(90% 80% at 0% 100%, rgba(244,123,160,.35), transparent 60%), linear-gradient(135deg, #1d1446 0%, #3a2190 55%, #5b3fc4 100%) !important; box-shadow: 0 40px 90px -40px rgba(43,26,102,.9) !important; }
+html:root[data-nv] body .ch-hero .ch-glow, html:root[data-nv] body .ch-hero .ch-dots { opacity: .35; }
+html:root[data-nv] body .ch-hero h1 { color: #fff !important; font-weight: 850 !important; }
+html:root[data-nv] body .ch-hero h1, html:root[data-nv] body .ch-hero p, html:root[data-nv] body .ch-hero .eyebrow { text-shadow: none; }
+html:root[data-nv] body .ch-hero p { color: rgba(255,255,255,.82) !important; }
+html:root[data-nv] body .ch-hero .eyebrow { color: #f7c948 !important; }
+html:root[data-nv] body .ch-hero .ch-trophy { background: linear-gradient(135deg, #f7c948, #d18e06) !important; box-shadow: 0 14px 34px -10px rgba(247,201,72,.75) !important; animation: srglow 2.6s ease-in-out infinite; }
+html:root[data-nv] body .ch-hero .ch-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+html:root[data-nv] body .ch-hero .ch-meta > span { padding: 12px 16px; border-radius: 16px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(6px); color: rgba(255,255,255,.75) !important; }
+html:root[data-nv] body .ch-hero .ch-meta b { color: #fff !important; }
+html:root[data-nv] body .ch-hero .ch-cta .btn.primary { height: 60px !important; padding: 0 32px !important; border-radius: 999px !important; border: 0 !important; font-size: 18px !important; font-weight: 850 !important; color: #2b1a00 !important; background: linear-gradient(110deg, #f7c948, #f39b52) !important; box-shadow: 0 18px 36px -14px rgba(243,155,82,.9) !important; }
+html:root[data-nv] body .ch-hero .ch-cta .btn.primary .ico { color: #2b1a00 !important; }
+html:root[data-nv] body .ch-hero .ch-cta small { color: rgba(255,255,255,.7) !important; }
+html:root[data-nv] body .ch-hero .ch-side { border-radius: 22px; padding: 20px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); }
+html:root[data-nv] body .ch-hero .ch-side .eyebrow, html:root[data-nv] body .ch-hero .ch-side small { color: rgba(255,255,255,.75) !important; }
+html:root[data-nv] body .ch-hb i { background: linear-gradient(180deg, #b79cff, #6a3fd6) !important; }
+html:root[data-nv] body .ch-hb.best i { background: linear-gradient(180deg, #f7c948, #d18e06) !important; box-shadow: 0 0 22px rgba(247,201,72,.5); }
+html:root[data-nv] body .ch-hb span { color: rgba(255,255,255,.7) !important; }
+html:root[data-nv] body .ch-hero .ch-fachs .chip { background: rgba(255,255,255,.12) !important; color: #fff !important; border-color: rgba(255,255,255,.18) !important; }
+/* ===== BWL-Duell: Du vs. Gegner ===== */
+html:root[data-nv] body .du-hero { color: #fff; border: 0 !important; background: radial-gradient(90% 80% at 100% 0%, rgba(247,201,72,.35), transparent 60%), linear-gradient(135deg, #c8336f 0%, #9b2a8a 45%, #4b2bb3 100%) !important; box-shadow: 0 40px 80px -36px rgba(155,42,138,.85) !important; padding-top: 30px !important; }
+html:root[data-nv] body .du-hero .du-glow { opacity: .4; }
+html:root[data-nv] body .du-hero h1 { color: #fff !important; } html:root[data-nv] body .du-hero p { color: rgba(255,255,255,.85) !important; } html:root[data-nv] body .du-hero .eyebrow { color: #ffd98a !important; }
+.du-vs { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 0 auto 14px; }
+.du-vsp { display: grid; justify-items: center; gap: 6px; } .du-vsp small { font: 700 12px var(--sans); color: rgba(255,255,255,.85); }
+.du-vsp .du-av { width: 64px !important; height: 64px !important; font-size: 26px !important; border-radius: 22px !important; background: #fff !important; color: #c8336f !important; box-shadow: 0 12px 26px -12px rgba(0,0,0,.5); border: 0 !important; }
+.du-vsp:last-child .du-av { background: rgba(255,255,255,.16) !important; color: #fff !important; border: 2px dashed rgba(255,255,255,.55) !important; animation: duwait 1.8s ease-in-out infinite; }
+@keyframes duwait { 50% { transform: translateY(-3px) rotate(-3deg); } }
+.du-vsm { display: grid; justify-items: center; gap: 2px; } .du-vsm .du-face { width: 78px !important; height: 82px !important; margin: 0 !important; }
+.du-vsm b { font: 900 22px/1 var(--sans); letter-spacing: .04em; color: #2b1a00; background: linear-gradient(135deg, #f7c948, #f39b52); padding: 5px 12px; border-radius: 10px; transform: rotate(-4deg); box-shadow: 0 8px 18px -8px rgba(0,0,0,.5); }
+html:root[data-nv] body .du-hero .du-start input, html:root[data-nv] body .du-hero .du-start .field { height: 56px !important; border-radius: 999px !important; border: 0 !important; background: rgba(255,255,255,.95) !important; font-size: 16px !important; }
+html:root[data-nv] body .du-hero .du-start .btn.primary { height: 56px !important; padding: 0 30px !important; border-radius: 999px !important; border: 0 !important; font-weight: 850 !important; font-size: 17px !important; color: #2b1a00 !important; background: linear-gradient(110deg, #f7c948, #f39b52) !important; box-shadow: 0 16px 30px -14px rgba(0,0,0,.55) !important; }
+html:root[data-nv] body .du-hero .du-err { color: #ffe1ea !important; }
+html:root[data-nv] body .du-li { border-radius: 20px !important; padding: 14px 16px !important; background: #fff !important; border: 1px solid rgba(0,0,0,.05) !important; box-shadow: 0 12px 26px -20px rgba(30,20,70,.5) !important; transition: transform .15s; }
+html:root[data-nv] body .du-li:hover { transform: translateY(-2px); }
+html:root[data-nv] body .du-li .du-av { background: linear-gradient(135deg, #f47ba0, #c8336f) !important; color: #fff !important; border: 0 !important; }
+html:root[data-nv] body .du-li-st { padding: 5px 11px; border-radius: 999px; background: #f3f2ee; font-weight: 700 !important; font-size: 12.5px !important; }
+html:root[data-nv] body .du-li-st.hot { background: linear-gradient(135deg, #f7c948, #f39b52) !important; color: #2b1a00 !important; }
+html:root[data-nv] body .du-li-sc { font: 850 17px var(--sans) !important; letter-spacing: -.02em; }
