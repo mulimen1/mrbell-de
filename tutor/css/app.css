@@ -6595,9 +6595,7 @@ html[data-ben] .topnav .tn-sep { display: none !important; }
 html[data-ben] .topnav .tn:not([hidden]) { flex: 1 1 0; justify-content: center; min-width: 0; }
 html[data-ben] .topnav .tn[data-tn="tutor"] { order: 0; flex-grow: 1; }
 html[data-ben] .topnav .tn[data-tn="faecher"] { order: 2; } html[data-ben] .topnav .tn[data-tn="ueben"] { order: 3; }
-html[data-ben] .topnav .tn[data-tn="excel"] { order: 5; margin-left: 26px; position: relative; overflow: visible; }
-html[data-ben] .topnav .tn[data-tn="excel"]::before { content: ""; position: absolute; left: -20px; top: 16%; bottom: 16%; width: 2px; border-radius: 2px; background: rgba(0,0,0,.2); }
-html[data-ben][data-theme="dark"] .topnav .tn[data-tn="excel"]::before { background: rgba(255,255,255,.22); }
+html[data-ben] .topnav .tn[data-tn="excel"] { order: 5; }
 /* Test Ben: Bereiche – Tutor mit cleanem Zwei-Farben-Verlauf, die anderen als ruhige weiße Karten mit Verlaufs-Icon */
 html:root[data-ben] body .topnav .tn.tn-tutor, html:root[data-ben] body .topnav .tn.tn-tutor.on, html:root[data-ben] body .topnav .tn.tn-tutor:hover { font-size: 17px !important; font-weight: 800 !important; background: linear-gradient(110deg, var(--nbd) 0%, var(--nb2) 38%, var(--nb) 72%, color-mix(in srgb, var(--nb) 62%, #fff) 100%) !important; color: #fff !important; border: 0 !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 0 rgba(0,0,0,.14), 0 12px 26px -12px color-mix(in srgb, var(--nb2) 90%, transparent) !important; transition: transform .2s, box-shadow .2s, filter .2s !important; }
 html:root[data-ben] body .topnav .tn.tn-tutor:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,.34), 0 14px 30px -12px color-mix(in srgb, var(--nbd) 90%, transparent) !important; }
@@ -6630,3 +6628,40 @@ html[data-ben] .room .rm-tl .rm-tlt small { display: none; } html[data-ben] .roo
 html:root[data-ben] body .topnav .tn { height: 52px !important; padding-top: 0 !important; padding-bottom: 0 !important; }
 html:root[data-ben] body .topnav .tn .tn-face { width: 38px !important; height: 38px !important; }
 html:root[data-nv][data-ben]:not(.bm-guest) body .topnav .tn.tn.tn, html:root[data-nv][data-ben]:not(.bm-guest) body .topnav .tn.tn-tutor.tn-tutor { height: 52px !important; font-size: 17px !important; padding: 0 14px 0 8px !important; }
+/* Klausur-Tools (Übersicht) */
+.kt { max-width: 1080px; margin: 0 auto; }
+.kt-head { margin: 6px 0 22px; }
+.kt-head h1 { font-size: clamp(30px, 4vw, 46px); letter-spacing: -.035em; line-height: 1.05; margin: 8px 0 0; }
+.kt-head h1 span { color: var(--nb2, var(--inv)); }
+.kt-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 26px; align-items: center; padding: 28px; border-radius: 26px; background: #fff; border: 1.5px solid color-mix(in srgb, #1D6F42 30%, transparent); box-shadow: 0 24px 50px -34px rgba(29,111,66,.55); margin-bottom: 18px; }
+.kt-badges { display: flex; align-items: center; gap: 10px; }
+.kt-xls svg { width: 46px; height: 46px; display: block; filter: drop-shadow(0 6px 12px rgba(29,111,66,.35)); }
+.kt-new { font: 800 12px var(--sans); letter-spacing: .06em; text-transform: uppercase; color: #fff; background: #1D6F42; padding: 4px 9px; border-radius: 999px; }
+.kt-hl h2 { font-size: clamp(26px, 3vw, 34px); letter-spacing: -.03em; margin: 14px 0 8px; }
+.kt-hl p { color: var(--mute); font-size: 15.5px; line-height: 1.55; margin: 0 0 18px; }
+.kt-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.kt-go, .kt-sec { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px 0 14px; border-radius: 999px; font: 700 15px var(--sans); text-decoration: none; transition: transform .15s, box-shadow .2s, background .2s; }
+.kt-go .ico, .kt-sec .ico { width: 17px; height: 17px; }
+.kt-go { color: #fff; background: linear-gradient(115deg, #165c36, #1D6F42 45%, #2b8a57); box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 22px -12px rgba(29,111,66,.8); }
+.kt-sec { color: #17663a; background: #eef7f1; border: 1px solid #cfe7d8; }
+.kt-go:hover, .kt-sec:hover { transform: translateY(-1px); }
+.kt-hr { display: block; text-decoration: none; color: inherit; border-radius: 18px; padding: 14px; background: #f6faf7; border: 1px solid #dcebe1; }
+.kt-hr .rm-xlp.big { height: auto; margin: 0; }
+.kt-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.kt-card { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: auto 1fr; column-gap: 16px; row-gap: 4px; align-items: center; padding: 20px 22px; border-radius: 22px; background: #fff; border: 1px solid rgba(0,0,0,.06); box-shadow: 0 10px 26px -20px rgba(0,0,0,.4); transition: transform .2s, box-shadow .2s, border-color .2s; }
+.kt-card:hover { transform: translateY(-2px); box-shadow: 0 18px 36px -20px rgba(0,0,0,.45); border-color: color-mix(in srgb, var(--nb) 35%, transparent); }
+.kt-ci { grid-row: 1 / 4; width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, color-mix(in srgb, var(--nb) 80%, #fff), var(--nbd)); box-shadow: 0 10px 20px -12px var(--nbd); }
+.kt-ci .ico { width: 26px; height: 26px; }
+.kt-card b { font-size: 18px; letter-spacing: -.015em; }
+.kt-card small { color: var(--mute); font-size: 14px; line-height: 1.45; }
+.kt-cg { display: inline-flex; align-items: center; gap: 4px; font: 700 14px var(--sans); color: var(--nb2); margin-top: 4px; }
+.kt-cg .ico { width: 15px; height: 15px; transition: transform .2s; } .kt-card:hover .kt-cg .ico { transform: translateX(3px); }
+.kt-plan .kt-ci { background: linear-gradient(135deg, #f39b52, #d9601c); box-shadow: 0 10px 20px -12px #d9601c; }
+.kt-sim .kt-ci { background: linear-gradient(135deg, #9b7cf0, #5b3fc4); box-shadow: 0 10px 20px -12px #5b3fc4; }
+.kt-lex .kt-ci { background: linear-gradient(135deg, #3fc1c9, #0e7f8e); box-shadow: 0 10px 20px -12px #0e7f8e; }
+:root[data-theme="dark"] :is(.kt-hero, .kt-card) { background: #15161a; border-color: #2a2c33; }
+:root[data-theme="dark"] .kt-hr { background: #10241a; border-color: #1f3a2a; }
+:root[data-theme="dark"] .kt-sec { background: #12261b; border-color: #2c6b46; color: #7fd8a4; }
+@media (max-width: 860px) { .kt-hero { grid-template-columns: 1fr; padding: 20px; } .kt-grid { grid-template-columns: 1fr; } }
+.kt-headrow { padding-bottom: 0 !important; margin-bottom: -10px; } .kt-headrow .kt-head { margin-bottom: 0; }
+.view-in.kt-headrow { max-width: 1240px; }

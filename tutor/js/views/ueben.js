@@ -19,6 +19,7 @@ async function trainers() { const m = await import('../trainer.js'); return m.TR
 export async function render(root, { sub = '' } = {}) {
   if (sub === 'pfad') return guided(root);
   const wrap = h('div', { class: 'view-in ub' }); root.appendChild(wrap);
+  if (document.documentElement.dataset.ben) root.insertBefore(h('div', { class: 'view-in kt-headrow' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Lernen', 'Learn')), h('h1', {}, L('Üben, prüfen, gewinnen. ', 'Practise, check, win. '), h('span', {}, L('Bis es sitzt.', 'Until it sticks.'))))), wrap);   // Test: klare Überschrift
   const T = await trainers(); if (!wrap.isConnected) return;
   const byId = id => T.find(t => t.id === id);
   const st = state(), cur = byId(PATH[Math.min(st.i, PATH.length - 1)]);
