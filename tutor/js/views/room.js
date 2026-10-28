@@ -103,7 +103,12 @@ export function render(root, ctx = {}) {
   const toolsMode = !!topicHead && homeBeta() && innerWidth > 900;
   const toolsEl = toolsMode ? entryTools(topicHead) : null; let toolsAsks = 0;
   if (toolsMode) document.body.classList.add('bm-tools-mode');
-  const talkCol = h('div', { class: 'rm-col' }, topicEl, h('div', { class: 'rm-th-wrap' }, talkSlot, toolsMode ? null : status), toolsEl, chatSlot);
+  const thWrap = h('div', { class: 'rm-th-wrap' }, talkSlot, toolsMode ? null : status);
+  // Themen-Einstieg: Max groß links neben seiner Sprechblase (statt klein darüber)
+  const tbub = toolsEl && toolsEl.querySelector('.rm-tbub');
+  if (tbub && document.documentElement.dataset.nv) { const row = h('div', { class: 'rm-thead' }); tbub.before(row); row.append(thWrap, tbub); }
+  const headRow = !!(tbub && tbub.parentElement && tbub.parentElement.classList.contains('rm-thead'));
+  const talkCol = h('div', { class: 'rm-col' }, topicEl, headRow ? null : thWrap, toolsEl, chatSlot);
   const talk = h('div', { class: 'rm-talk' }, talkCol, boardSlot);
   const focusRow = h('div', { class: 'rm-focus' });
   const sugg = h('div', { class: 'rm-sugg' });
@@ -589,7 +594,7 @@ export function render(root, ctx = {}) {
       onAsk: q => {
         lastQ = q || ''; if (mode !== 'talk') goTalk(); startSession(); SES.asks++;
         // Themen-Einstieg: die erste Frage ist die Tafel selbst – sobald man selbst schreibt, wird links das Gespräch
-        if (toolsEl && room.classList.contains('rm-tools-mode') && ++toolsAsks > 1 && getAccount()) { room.classList.remove('rm-tools-mode'); document.body.classList.remove('bm-tools-mode'); toolsEl.remove(); placeDock(); }
+        if (toolsEl && room.classList.contains('rm-tools-mode') && ++toolsAsks > 1 && getAccount()) { room.classList.remove('rm-tools-mode'); document.body.classList.remove('bm-tools-mode'); if (headRow) talkCol.insertBefore(thWrap, toolsEl); toolsEl.remove(); placeDock(); }
       },
       onAnswer: p => { if (p && p.boards) SES.boards += p.boards.length; },
       // Tafel von außen geöffnet (z. B. aus der Bibliothek): erst in den Gesprächsmodus, sonst bleibt sie unsichtbar

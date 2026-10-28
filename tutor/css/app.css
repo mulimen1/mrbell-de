@@ -5953,3 +5953,74 @@ div.rechen-warn { display: block; margin: 6px 0; }
 :root[data-theme="dark"] .vt-modal .row .vt-more { background: #12261b !important; border-color: #2c6b46 !important; color: #7fd8a4 !important; }
 @media (max-width: 600px) { .vt-modal .row .vt-more { font-size: 13px; letter-spacing: -.01em; white-space: nowrap; padding: 0 8px !important; gap: 3px; } }
 @media (max-width: 400px) { .vt-modal .row .vt-more > span { display: none; } }
+
+/* =====================================================================================
+   „Navy plus“: Marke bleibt Navy – aber mit Tiefe, Glanz und Belohnung bei jeder Berührung.
+   Verlauf von hellerem Königsblau in die Akzentfarbe, weicher Schein, Lichtstreif beim Drüberfahren,
+   federndes Drücken. Gilt für jede Akzentfarbe (abgeleitet aus --inv), Schwarz/Weiß bleibt schlicht.
+   ===================================================================================== */
+:root[data-nv][data-accent] {
+  --nv-hi: color-mix(in srgb, var(--inv) 72%, #5b9bff);
+  --nv-lo: color-mix(in srgb, var(--inv) 88%, #000);
+  --nv-g: linear-gradient(180deg, var(--nv-hi) 0%, var(--inv) 58%, var(--nv-lo) 100%);
+  --nv-g2: linear-gradient(135deg, var(--nv-hi) 0%, var(--inv) 70%);
+  --nv-shine: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.26) 50%, transparent 62%);
+  --nv-glow: 0 10px 26px -12px color-mix(in srgb, var(--inv) 85%, transparent);
+  --nv-glow2: 0 16px 34px -12px color-mix(in srgb, var(--nv-hi) 80%, transparent);
+  --nv-spring: cubic-bezier(.34, 1.56, .64, 1);
+}
+/* Hauptknöpfe: Verlauf + Glanzkante + Lichtstreif */
+:root[data-nv][data-accent] :is(.btn.primary, .ai-talk, .tn.tn-tutor, .side .side-new, .ik-go, .vt-back, .rm-tdi, .tc-btn) {
+  background-image: var(--nv-shine), var(--nv-g) !important; background-size: 260% 100%, 100% 100% !important; background-position: 140% 0, 0 0 !important; background-repeat: no-repeat !important;
+  border-color: transparent; box-shadow: inset 0 1px 0 rgba(255,255,255,.22), var(--nv-glow);
+  transition: background-position .75s cubic-bezier(.2,.8,.2,1), transform .35s var(--nv-spring), box-shadow .3s ease, filter .2s;
+}
+:root[data-nv][data-accent] :is(.btn.primary, .ai-talk, .tn.tn-tutor, .side .side-new, .ik-go, .vt-back, .tc-btn):hover {
+  background-position: -40% 0, 0 0 !important; transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.28), var(--nv-glow2); filter: saturate(1.12) brightness(1.05);
+}
+:root[data-nv][data-accent] :is(.btn.primary, .ai-talk, .tn.tn-tutor, .side .side-new, .ik-go, .vt-back, .tc-btn):active { transform: translateY(0) scale(.96); transition-duration: .08s; box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 4px 12px -8px color-mix(in srgb, var(--inv) 90%, transparent); }
+/* „Sprich mit Max“ atmet leise – lädt zum Klicken ein */
+@keyframes nvBreath { 0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,.22), var(--nv-glow); } 50% { box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 0 6px color-mix(in srgb, var(--nv-hi) 16%, transparent), var(--nv-glow2); } }
+:root[data-nv][data-accent] .ai-talk:not(:hover) { animation: nvBreath 3.6s ease-in-out infinite; }
+/* Schriftzug BWL Max mit Verlauf */
+:root[data-nv][data-accent] .brand { background: linear-gradient(100deg, var(--inv) 0%, color-mix(in srgb, var(--inv) 55%, #5b9bff) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+:root[data-nv][data-accent] .brand small { -webkit-text-fill-color: var(--mute); }
+:root[data-nv][data-theme="dark"][data-accent] .brand { background-image: linear-gradient(100deg, #fff 0%, color-mix(in srgb, var(--inv) 50%, #fff) 60%, var(--nv-hi) 100%); }
+/* Karten & Kacheln: heben sich, Rand und Schein in der Markenfarbe, Icon füllt sich mit dem Verlauf und federt */
+:root[data-nv][data-accent] :is(.rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card) { transition: transform .4s var(--nv-spring), border-color .2s, box-shadow .3s ease, background .2s; }
+:root[data-nv][data-accent] :is(.rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card):hover { transform: translateY(-4px); border-color: var(--acc-line); box-shadow: 0 18px 38px -22px color-mix(in srgb, var(--inv) 70%, transparent), 0 0 0 4px color-mix(in srgb, var(--inv) 6%, transparent); background: linear-gradient(180deg, color-mix(in srgb, var(--inv) 4%, var(--panel)), var(--panel)); }
+:root[data-nv][data-accent] :is(.rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card):active { transform: translateY(-1px) scale(.985); transition-duration: .1s; }
+:root[data-nv][data-accent] :is(.rm-tli, .rm-ti, .rm-tc .rm-tci, .ln-ti) { transition: background .25s, color .25s, transform .45s var(--nv-spring), box-shadow .3s; }
+:root[data-nv][data-accent] :is(.rm-tlt:hover .rm-tli, .rm-tile:hover .rm-ti, .rm-tc:hover .rm-tci:has(> .ico), .ln-tile:hover .ln-ti) { background: var(--nv-g2) !important; color: #fff !important; transform: scale(1.1) rotate(-6deg); box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--inv) 80%, transparent); }
+:root[data-nv][data-accent] .rm-tc:hover .rm-tci img { transform: scale(1.04); }
+/* Icon-Kacheln ruhend: leicht getönt statt grau */
+:root[data-nv][data-accent] :is(.rm-tc .rm-tci:has(> .ico), .rm-tli) { background: linear-gradient(135deg, color-mix(in srgb, var(--nv-hi) 10%, var(--panel)), color-mix(in srgb, var(--nv-hi) 20%, var(--panel))) !important; color: var(--inv) !important; }
+/* Navigation: Icon-Kästchen beim Drüberfahren im Verlauf, federnd */
+:root[data-nv][data-accent] .tn > span:has(> .ico) { transition: background .2s, color .2s, transform .4s var(--nv-spring); }
+:root[data-nv][data-accent] .tn:not(.tn-tutor):hover > span:has(> .ico), :root[data-nv][data-accent] .tn.on:not(.tn-tutor) > span:has(> .ico) { background: var(--nv-g2) !important; color: #fff; transform: scale(1.08) rotate(-4deg); }
+/* Ablage (reinziehen): getönt, Rand leuchtet beim Drüberfahren */
+:root[data-nv][data-accent] :is(.rm-tdrop, .rm-mat.empty) { border: 1.5px dashed color-mix(in srgb, var(--inv) 38%, var(--line2)); background: linear-gradient(135deg, color-mix(in srgb, var(--inv) 5%, var(--panel)), color-mix(in srgb, var(--nv-hi) 8%, var(--panel))); transition: border-color .2s, box-shadow .3s, transform .35s var(--nv-spring); }
+:root[data-nv][data-accent] :is(.rm-tdrop, .rm-mat.empty):hover { border-color: var(--inv); border-style: solid; box-shadow: 0 0 0 4px color-mix(in srgb, var(--inv) 8%, transparent), 0 14px 30px -20px color-mix(in srgb, var(--inv) 80%, transparent); transform: translateY(-2px); }
+:root[data-nv][data-accent] :is(.rm-tdrop, .rm-mat.empty):hover :is(.rm-tdi, .rm-mi) { transform: translateY(-2px) scale(1.06); }
+:root[data-nv][data-accent] :is(.rm-tdi, .rm-mi) { transition: transform .45s var(--nv-spring), background-position .75s; }
+:root[data-nv][data-accent] .rm-mat.empty .rm-mi { background-image: var(--nv-g2); color: #fff; border: 0; }
+/* Kleine Knöpfe (Lexikon, Rechner, Datei): Rand und Text in der Farbe beim Drüberfahren */
+:root[data-nv][data-accent] :is(.rm-tdb, .btn:not(.primary)) { transition: border-color .2s, color .2s, transform .35s var(--nv-spring), box-shadow .3s; }
+:root[data-nv][data-accent] :is(.rm-tdb, .btn:not(.primary)):hover { border-color: var(--acc-line); color: var(--inv); transform: translateY(-2px); box-shadow: 0 10px 22px -16px color-mix(in srgb, var(--inv) 80%, transparent); }
+/* Hintergrund: nicht mehr nur weiß – zwei ganz zarte Farbschleier */
+:root[data-nv][data-accent] .room .rm-stage { background: radial-gradient(900px 520px at 12% -8%, color-mix(in srgb, var(--inv) 7%, transparent), transparent 62%), radial-gradient(760px 520px at 105% 108%, color-mix(in srgb, var(--nv-hi) 7%, transparent), transparent 60%); }
+/* Sprechblase von Max: weicher Schein */
+:root[data-nv][data-accent] :is(.rm-bubble, .rm-tbub) { box-shadow: 0 24px 60px -36px color-mix(in srgb, var(--inv) 60%, transparent), 0 1px 0 rgba(255,255,255,.6) inset; }
+@media (prefers-reduced-motion: reduce) { :root[data-nv][data-accent] .ai-talk { animation: none !important; } :root[data-nv][data-accent] * { transition-duration: .01ms !important; } }
+
+/* Offenes Menü oben rechts liegt über der Tafel */
+.topbar.tc-open { position: relative; z-index: 130; }
+
+/* Themen-Einstieg: Max groß links neben seiner Sprechblase */
+.rm-thead { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 16px; }
+.rm-thead .rm-th-wrap { padding: 0; }
+.room.rm-tools-mode .rm-thead .rm-fs.talk { width: clamp(96px, 15vh, 132px); height: clamp(96px, 15vh, 132px); }
+.room.rm-tools-mode .rm-thead .rm-face { transform: none !important; margin: 0 !important; }
+.rm-thead .rm-tbub { text-align: left; padding: 16px 20px; }
+.rm-thead .rm-tbub::before { left: -7px; top: 50%; transform: translateY(-50%) rotate(-45deg); }
+.rm-thead .rm-tbub b { font-size: 20px; }

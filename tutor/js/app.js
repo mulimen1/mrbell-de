@@ -126,7 +126,8 @@ function buildShell() {
   // Laptop: oben rechts nur EIN grüner Knopf – klappt ein kleines Menü in der Ecke auf (Suchen, Fortschritt, Max einstellen, Feedback, Sprache, Farbe, Hell/Dunkel)
   const cPanel = h('div', { class: 'tc-panel', role: 'menu', hidden: true });
   const cBtn = h('button', { class: 'tc-btn', type: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false', 'aria-label': L('Menü', 'Menu'), title: L('Suchen, Fortschritt, Einstellungen', 'Search, progress, settings'), html: ico('menu') });
-  const cSet = v => { cPanel.hidden = !v; cBtn.setAttribute('aria-expanded', String(v)); cBtn.classList.toggle('on', v); };
+  // Offenes Menü liegt über der Tafel (die Leiste bekommt solange eine höhere Ebene)
+  const cSet = v => { cPanel.hidden = !v; cBtn.setAttribute('aria-expanded', String(v)); cBtn.classList.toggle('on', v); cBtn.closest('.topbar')?.classList.toggle('tc-open', v); };
   const cRow = (ic, label, fn, extra) => h('button', { class: 'tc-row', type: 'button', role: 'menuitem', onclick: () => { cSet(false); fn(); } }, h('span', { class: 'tc-ic', html: ico(ic) }), h('span', {}, label), extra || null);
   cPanel.append(
     cRow('search', L('Suchen', 'Search'), () => import('./palette.js').then(m => m.openPalette()), h('kbd', {}, /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Strg K')),
