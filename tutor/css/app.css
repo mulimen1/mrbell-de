@@ -6562,3 +6562,4 @@ html:root[data-nv]:not(.bm-guest) .rm-corner:has(.rm-acc) .rm-oldwrap .rm-olddes
 /* Excel-Vorlagen: flüssig scrollen – Karten außerhalb des Bilds nicht zeichnen, kein Dauer-Schimmer auf den Platzhaltern */
 .xl-card { content-visibility: auto; contain-intrinsic-size: auto 330px; }
 .xl-thumb.xl-thph { animation: none !important; background: var(--panel2, #f3f5f8) !important; }
+@media (max-width: 760px) { .hero .wrap > .lp-trust { order: 5; margin: 26px auto 6px; font-size: 15px; padding: 12px 16px 12px 12px; } .hero .wrap > .lp-trust .ic { width: 32px; height: 32px; } }
