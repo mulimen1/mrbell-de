@@ -7,7 +7,7 @@ export function msSwitch(active) {
   const it = (key, href, icon, label, extra) => h('a', { class: 'ms-sw-i' + (key === active ? ' on' : ''), href, 'aria-current': key === active ? 'page' : 'false' }, h('span', { html: ico(icon) }), h('span', {}, label), extra || null);
   return h('nav', { class: 'ms-sw', 'aria-label': L('Mitschrift', 'Notes') },
     it('live', '#/app/mitschrift', 'pen', L('Live mitschreiben', 'Live notes')),
-    it('video', '#/app/video', 'captions', L('Aus Video (YouTube)', 'From video (YouTube)'), h('img', { src: '/tutor/img/brands/youtube.svg', alt: '', width: 18, height: 18 })));
+    it('video', '#/app/video', 'captions', L('Aus Video (YouTube)', 'From video (YouTube)'), h('span', { class: 'yt-chip' }, h('img', { src: '/tutor/img/brands/youtube-color.svg', alt: '', width: 20, height: 20 }))));
 }
 // Test (nur Bens Konto): „Fächer & Bibliothek“ ist ein Bereich – oben ein Umschalter
 export function libSwitch(active) {

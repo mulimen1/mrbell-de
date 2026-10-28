@@ -138,7 +138,7 @@ function guestSignals(c, endEl) {
     const extra = h('ul', { class: 'xo-list' },
       row(XLS, L('Excel-Helfer', 'Excel helper'), L('60 Vorlagen + Trainer', '60 templates + trainer')),
       row(ico('exam'), L('Klausurfragen', 'Exam questions'), L('mit Musterlösung', 'with model answers')),
-      row('<img src="/tutor/img/brands/youtube.svg" alt="" width="20" height="20">', L('Video → Lernzettel', 'Video → study sheet'), L('Link rein, fertig', 'Paste a link, done')),
+      row('<img src="/tutor/img/brands/youtube-color.svg" alt="" width="20" height="20">', L('Video → Lernzettel', 'Video → study sheet'), L('Link rein, fertig', 'Paste a link, done')),
       row(ico('cards'), L('Karteikarten & Podcast', 'Flashcards & podcast'), L('aus deinen Folien', 'from your slides')));
     const ok = await openAuth({ registerTitle: L('Du willst schon gehen?', 'Leaving already?'), loginTitle: L('Du willst schon gehen?', 'Leaving already?'),
       registerSub: L('Schade – für dein BWL-/Wiwi-Studium wartet noch so viel. Kostenlos, mit Google in zwei Klicks.', 'Shame – there’s so much more for your studies. Free, two clicks with Google.'), sub: L('Melde dich an – das wartet noch auf dich:', 'Sign in – this is still waiting for you:'), why: 'Verlassen', extra, mood: 'sad' });
