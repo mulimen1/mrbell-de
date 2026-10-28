@@ -88,12 +88,14 @@ function buildShell() {
         // Testdesign (nur Bens Konto): schlanke Liste – Trainer, Rechner, Challenge, Duell, Fortschritt
         document.documentElement.dataset.nv ? null : tool('button', { onclick: () => topicPrompt() }, 'bulb', L('Ich erklär dir ein Thema', 'I’ll explain a topic')),
         document.documentElement.dataset.nv ? null : tool('button', { onclick: () => examTool(), 'data-nav': 'exam' }, 'exam', L('Klausur-Simulator', 'Exam simulator')),
+        ...(document.documentElement.dataset.nv ? [] : [
         tool('a', { href: homeBeta() ? '#/app/ueben' : '#/app/trainer', 'data-nav': 'trainer' }, 'whistle', L('BWL-Trainer', 'Business trainer')),
         document.documentElement.dataset.nv ? null : tool('a', { href: '#/app/trainer/buchung', 'data-nav': 'foto', onclick: () => setTimeout(() => toast(L('Löse die Aufgabe auf Papier und tipp unten auf „Foto deiner Lösung“ – ich trag sie ein und du prüfst.', 'Solve it on paper and tap “Photo of your solution” below – I’ll fill it in and you check.'), 5200), 400) }, 'camera', L('Fotocheck Buchungssätze', 'Photo check: entries')),
         tool('a', { href: '#/app/rechner', 'data-nav': 'rechner' }, 'calc', L('Rechner', 'Calculators')),
         tool('a', { href: '#/app/challenge', 'data-nav': 'challenge' }, 'trophy', L('Wochen-Challenge', 'Weekly challenge'), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
-        tool('a', { href: '#/app/duell', 'data-nav': 'duell' }, 'spark', L('BWL-Duell', 'Business duel'), h('span', { class: 'newb' }, L('Neu', 'New'))),
-        document.documentElement.dataset.nv ? tool('a', { href: '#/app/fortschritt', 'data-nav': 'fortschritt' }, 'chart', L('Fortschritt', 'Progress')) : null)),
+        tool('a', { href: '#/app/duell', 'data-nav': 'duell' }, 'spark', L('BWL-Duell', 'Business duel'), h('span', { class: 'newb' }, L('Neu', 'New')))]),
+        document.documentElement.dataset.nv ? tool('a', { href: '#/app/fortschritt', 'data-nav': 'fortschritt' }, 'chart', L('Fortschritt', 'Progress')) : null,
+        ...(document.documentElement.dataset.nv ? sideExtras(tool) : []))),
     // Unten: klein und ruhig – Sprache, Konto, Menü; Kündigen bleibt sichtbar (§ 312k BGB)
     h('div', { class: 'bottom' }, quotaEl,
       h('button', { class: 'side-fb', type: 'button', onclick: () => openFeedback() }, h('span', { class: 'side-fb-i', html: ico('chat') }), h('span', {}, h('b', {}, L('Feedback geben', 'Give feedback')), h('small', {}, L('Was fehlt? Was nervt? Wir lesen alles.', 'Missing something? Annoyed? We read it all.')))),
@@ -724,6 +726,22 @@ function outLangSwitch() {
 }
 
 // Sprache der Oberfläche: DE | EN
+// Neues Design: Suchen, Max einstellen, Hell/Dunkel und Sprache sitzen in der Seitenleiste statt oben rechts
+function sideExtras(tool) {
+  const H = document.documentElement;
+  const dark = () => H.dataset.theme ? H.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const thLabel = h('span', { class: 'nm' });
+  const thIco = h('span');
+  const sync = () => { thLabel.textContent = dark() ? L('Heller Modus', 'Light mode') : L('Dunkler Modus', 'Dark mode'); thIco.innerHTML = ico(dark() ? 'sun' : 'moon'); };
+  sync();
+  const theme = h('button', { class: 'doc-item', type: 'button', onclick: () => { const next = dark() ? 'light' : 'dark'; H.classList.add('theme-fade'); H.dataset.theme = next; try { sessionStorage.setItem('tutor.theme', next); } catch (e) {} setTimeout(() => H.classList.remove('theme-fade'), 900); sync(); } }, thIco, thLabel);
+  return [
+    tool('button', { onclick: () => import('./palette.js').then(m => m.openPalette()) }, 'search', L('Suchen', 'Search')),
+    tool('button', { onclick: () => import('./maxcfg.js').then(m => m.openMaxCfg()) }, 'tune', L('Max einstellen', 'Configure Max')),
+    theme,
+    h('div', { class: 'side-lang' }, h('span', { html: ico('chat') }), h('span', { class: 'nm' }, L('Sprache', 'Language')), langSwitch()),
+  ];
+}
 function langSwitch() {
   return h('div', { class: 'langsw', role: 'group', 'aria-label': L('Sprache', 'Language') },
     [['de', 'DE'], ['en', 'EN']].map(([k, l]) => h('button', { type: 'button', class: k === lang ? 'on' : '', 'data-setlang': k, 'aria-pressed': k === lang ? 'true' : 'false', onclick: () => {

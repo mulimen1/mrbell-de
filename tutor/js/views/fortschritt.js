@@ -64,6 +64,9 @@ export function render(body) {
   const p = data(), c = cfg();
   const seen = ls.get('tutor.progSeen', null);
   body.append(kpiRow(p, c, seen, animate), calendar(p, c, animate, seen), planCard(p, c, animate));
+  // Zurück zum Tutor (ganz oben)
+  const back = h('a', { class: 'fx-back', href: '#/app/tutor' }, h('span', { html: ico('left') }), L('Zurück zum Tutor', 'Back to the tutor'));
+  requestAnimationFrame(() => { const top = body.parentElement || body; top.prepend(back); });
   // Schnappschuss für „+X seit letztem Mal“
   const snap = { at: Date.now(), today: M.dayKey(), todayMin: p.days[M.dayKey()] || 0 };
   for (const k of Object.keys(KPI)) snap[k] = KPI[k].v(p);

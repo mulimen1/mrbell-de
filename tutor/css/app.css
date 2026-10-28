@@ -6229,3 +6229,21 @@ html:root[data-nv] .featrest .feat { background: var(--panel) !important; color:
 html:root[data-nv] .featrest .feat > span:first-child { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: #e3edfb; color: #1a5fc4; flex: none; }
 html:root[data-nv] .featrest .feat:hover, html:root[data-nv] .featrest .feat.hl { border-color: #5f9be6 !important; transform: translateY(-2px); box-shadow: 0 14px 28px -16px rgba(20, 60, 150, .6); }
 html:root[data-nv] .featrest .feat:hover > span:first-child, html:root[data-nv] .featrest .feat.hl > span:first-child { background: linear-gradient(180deg, #3388f0, #1f6fe0); color: #fff; }
+/* Neues Design: Funktions-Chips auf der Startseite – Icon groß und frei (kein Kästchen), Hover hebt nur die Kachel */
+html:root[data-nv] .featrest .feat > span:first-child { width: auto !important; height: auto !important; background: none !important; color: #1f6fe0 !important; border-radius: 0 !important; }
+html:root[data-nv] .featrest .feat > span:first-child .ico, html:root[data-nv] .featrest .feat > span:first-child svg { width: 28px !important; height: 28px !important; }
+html:root[data-nv] .featrest .feat:hover > span:first-child, html:root[data-nv] .featrest .feat.hl > span:first-child { background: none !important; color: #1f6fe0 !important; }
+html:root[data-nv] .featrest .feat { padding: 6px 18px 6px 14px !important; gap: 10px !important; }
+html:root[data-nv] .featrest .feat.hl { background: var(--panel) !important; color: var(--ink) !important; }
+/* Neues Design, eingeloggt: Menü und Hell/Dunkel oben raus (sitzen jetzt links), Bereiche nutzen die ganze Breite */
+html:root[data-nv]:not(.bm-guest) .tcorner { display: none !important; }
+html:root[data-nv]:not(.bm-guest) .topnav { padding-right: 20px !important; }
+.side-lang { display: flex; align-items: center; gap: 10px; padding: 6px 10px; color: var(--ink); font-size: 15px; }
+.side-lang .nm { flex: 1; }
+.side-lang > span:first-child { display: flex; } .side-lang > span:first-child .ico { width: 18px; height: 18px; }
+/* Fortschritt-Knopf im Tutor: nur das Symbol */
+html:root[data-nv] .rm-prog-nv .rm-progl { display: none !important; }
+html:root[data-nv] .rm-corner .rm-prog.rm-prog-nv { padding: 0 8px !important; width: 46px; justify-content: center; }
+/* Zurück zum Tutor (Fortschritt) */
+.fx-back { width: fit-content; align-self: flex-start; justify-self: start; display: inline-flex; align-items: center; gap: 6px; margin: 0 0 10px; padding: 7px 14px 7px 10px; border-radius: 999px; border: 1px solid var(--line2); color: var(--ink); text-decoration: none; font: 600 14px var(--sans); background: var(--panel); }
+.fx-back:hover { border-color: var(--ink); } .fx-back .ico { width: 16px; height: 16px; }
