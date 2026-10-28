@@ -6148,8 +6148,8 @@ html:root[data-nv][data-accent][data-nv] { --nv-glow: 0 6px 16px -9px rgba(20, 6
 .rm-tc.rm-tcy .rm-tci img { width: 34px; height: 34px; display: block; }
 .rm-tc.rm-tcx .rm-tci svg { width: 32px; height: 32px; }
 
-/* Testdesign: Excel etwas mehr Neon (Karte, Logo oben, NEU) – im Rahmen */
-:root[data-nv] .rm-tc.rm-tcx { border-color: rgba(31, 191, 106, .45); box-shadow: 0 0 0 1px rgba(31, 191, 106, .12), 0 12px 28px -20px rgba(31, 191, 106, .55); }
-:root[data-nv] .rm-tc.rm-tcx:hover { border-color: rgba(31, 191, 106, .75); box-shadow: 0 0 0 3px rgba(31, 191, 106, .12), 0 16px 32px -20px rgba(31, 191, 106, .7) !important; }
-:root[data-nv] :is(.tn-xlic svg, .rm-tc.rm-tcx .rm-tci svg) { filter: drop-shadow(0 0 5px rgba(31, 191, 106, .55)) !important; }
-:root[data-nv] .tn-xlnew { box-shadow: 0 0 10px -1px rgba(31, 191, 106, .75) !important; }
+
+/* Testdesign: Excel ohne Glow (Logo oben, Karte, NEU) */
+:root[data-nv] :is(.tn-xlic svg, .rm-tci svg:not(.ico), .vt-logo, .xl-ic svg) { filter: none !important; }
+:root[data-nv] :is(.tn-new, .ub-ok) { box-shadow: none !important; }
+:root[data-nv] .rm-xlg i.hit { box-shadow: none !important; }
