@@ -1,0 +1,1 @@
+import{a}from"./c-S6A6E5C2.js";import"./c-PDYQKPSP.js";import"./c-ILLKZF66.js";import"./c-OVX7NP3R.js";import"./c-R4TJT4OS.js";import"./c-EUFSF62R.js";import"./c-OFPKBKBD.js";export{a as linkMitschriften};

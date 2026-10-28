@@ -6593,14 +6593,20 @@ html[data-ben] .topnav .tn:is([data-tn="video"], [data-tn="bibliothek"], [data-t
 html[data-ben] .topnav { display: flex !important; justify-content: stretch !important; gap: 12px !important; flex: 1 1 auto; width: 100%; }
 html[data-ben] .topnav .tn-sep { display: none !important; }
 html[data-ben] .topnav .tn:not([hidden]) { flex: 1 1 0; justify-content: center; min-width: 0; }
-html[data-ben] .topnav .tn[data-tn="tutor"] { order: 0; flex-grow: 1.25; }
+html[data-ben] .topnav .tn[data-tn="tutor"] { order: 0; flex-grow: 1; }
 html[data-ben] .topnav .tn[data-tn="faecher"] { order: 2; } html[data-ben] .topnav .tn[data-tn="ueben"] { order: 3; }
 html[data-ben] .topnav .tn[data-tn="excel"] { order: 5; margin-left: 26px; position: relative; overflow: visible; }
 html[data-ben] .topnav .tn[data-tn="excel"]::before { content: ""; position: absolute; left: -20px; top: 16%; bottom: 16%; width: 2px; border-radius: 2px; background: rgba(0,0,0,.2); }
 html[data-ben][data-theme="dark"] .topnav .tn[data-tn="excel"]::before { background: rgba(255,255,255,.22); }
-/* Tutor: juicy – größer, satter Verlauf (dunkel links → hell rechts) mit Glanzkante */
-html:root[data-ben] body .topnav .tn.tn-tutor, html:root[data-ben] body .topnav .tn.tn-tutor.on, html:root[data-ben] body .topnav .tn.tn-tutor:hover { font-size: 19px !important; font-weight: 800 !important; letter-spacing: -.01em; background: linear-gradient(110deg, var(--nbd) 0%, var(--nb2) 38%, var(--nb) 72%, color-mix(in srgb, var(--nb) 62%, #fff) 100%) !important; color: #fff !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 0 rgba(0,0,0,.14), 0 12px 26px -12px color-mix(in srgb, var(--nb2) 90%, transparent) !important; }
-html:root[data-ben] body .topnav .tn.tn-tutor:hover { filter: brightness(1.06) saturate(1.05); transform: translateY(-1px); }
+/* Test Ben: Bereiche – Tutor mit cleanem Zwei-Farben-Verlauf, die anderen als ruhige weiße Karten mit Verlaufs-Icon */
+html:root[data-ben] body .topnav .tn.tn-tutor, html:root[data-ben] body .topnav .tn.tn-tutor.on, html:root[data-ben] body .topnav .tn.tn-tutor:hover { font-size: 17px !important; font-weight: 800 !important; background: linear-gradient(110deg, var(--nbd) 0%, var(--nb2) 38%, var(--nb) 72%, color-mix(in srgb, var(--nb) 62%, #fff) 100%) !important; color: #fff !important; border: 0 !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 0 rgba(0,0,0,.14), 0 12px 26px -12px color-mix(in srgb, var(--nb2) 90%, transparent) !important; transition: transform .2s, box-shadow .2s, filter .2s !important; }
+html:root[data-ben] body .topnav .tn.tn-tutor:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,.34), 0 14px 30px -12px color-mix(in srgb, var(--nbd) 90%, transparent) !important; }
+html:root[data-ben] body .topnav .tn:not(.tn-tutor) { background: #fff !important; border: 1px solid rgba(0,0,0,.06) !important; box-shadow: 0 6px 18px -14px rgba(0,0,0,.4) !important; font-size: 17px !important; font-weight: 700 !important; color: #111 !important; transition: transform .2s, box-shadow .2s, border-color .2s !important; }
+html:root[data-ben] body .topnav .tn:not(.tn-tutor):hover { transform: translateY(-1px); box-shadow: 0 12px 26px -14px rgba(0,0,0,.45) !important; border-color: color-mix(in srgb, var(--nb) 35%, transparent) !important; }
+html:root[data-ben] body .topnav .tn:not(.tn-tutor).on { border: 1.5px solid color-mix(in srgb, var(--nb) 60%, transparent) !important; color: var(--nbd) !important; }
+html:root[data-ben] body .topnav .tn:not(.tn-tutor) > span:has(> .ico) { width: 38px !important; height: 38px !important; border-radius: 12px !important; background: linear-gradient(135deg, var(--nbl), color-mix(in srgb, var(--nbl) 40%, #fff)) !important; color: var(--nb2) !important; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--nb) 14%, transparent); transition: background .25s, color .25s; }
+html:root[data-ben] body .topnav .tn:not(.tn-tutor):is(:hover, .on) > span:has(> .ico) { background: linear-gradient(135deg, color-mix(in srgb, var(--nb) 82%, #fff), var(--nbd)) !important; color: #fff !important; }
+html:root[data-ben][data-theme="dark"] body .topnav .tn:not(.tn-tutor) { background: #16171b !important; color: #f2f2f3 !important; border-color: #2a2c33 !important; }
 html[data-ben] .topnav .tn > span:has(> .ico), html[data-ben] .topnav .tn-xlic, html[data-ben] .topnav .tn-face { flex: none !important; }
 html[data-ben] .room .rm-tl { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 .ms-swrow { padding-bottom: 0 !important; margin-bottom: -6px; }
@@ -6620,3 +6626,7 @@ html[data-ben] .side .side-hero .side-hero-s { grid-column: 2; font-size: 12.5px
 html[data-ben] .side .side-hero[data-nav="bibliothek"] { border: 1.5px solid color-mix(in srgb, var(--nb) 45%, transparent) !important; }
 html[data-ben] .side .side-set { display: grid; gap: 8px; margin-bottom: 10px; }
 html[data-ben] .room .rm-tl .rm-tlt small { display: none; } html[data-ben] .room .rm-tl .rm-tlt { padding: 10px 12px !important; min-height: 0 !important; } html[data-ben] .room .rm-tl { gap: 8px !important; }
+/* Test Ben: alle vier Bereiche gleich groß – Tutor sticht nur durch das Design heraus */
+html:root[data-ben] body .topnav .tn { height: 52px !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+html:root[data-ben] body .topnav .tn .tn-face { width: 38px !important; height: 38px !important; }
+html:root[data-nv][data-ben]:not(.bm-guest) body .topnav .tn.tn.tn, html:root[data-nv][data-ben]:not(.bm-guest) body .topnav .tn.tn-tutor.tn-tutor { height: 52px !important; font-size: 17px !important; padding: 0 14px 0 8px !important; }
