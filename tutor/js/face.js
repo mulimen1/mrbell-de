@@ -324,3 +324,15 @@ function MARIE_TOP(u) {
 <circle cx="512" cy="826" r="8" fill="#e8bb57" stroke="#9a7426" stroke-width="2.5"/>
 </g>`;
 }
+
+// Max zieht sich mit der Farbe um (neues Design): SVG-Filter für den Pullover. CSS-Filterfunktionen wie hue-rotate()
+// greifen in Safari nicht auf SVG-Elementen – url(#…) auf einen SVG-Filter schon. app.css wählt per data-accent.
+(function outfitFilters() {
+  if (typeof document === 'undefined' || document.getElementById('fzo-defs')) return;
+  const F = { kobalt: [28, .9, .92], aubergine: [58, .85, .85], graphit: [113, .85, .9], bordeaux: [150, 1.25, .72], cognac: [178, 1.1, .9], oliv: [-128, .75, .8], gruen: [-72, .8, .82], petrol: [-30, .85, .85] };
+  const lin = (sl, ic = 0) => ['R', 'G', 'B'].map(c => `<feFunc${c} type="linear" slope="${sl}" intercept="${ic}"/>`).join('');
+  let d = Object.entries(F).map(([k, [hr, sa, br]]) => `<filter id="fzo-${k}" color-interpolation-filters="sRGB"><feColorMatrix type="hueRotate" values="${hr}"/><feColorMatrix type="saturate" values="${sa}"/><feComponentTransfer>${lin(br)}</feComponentTransfer></filter>`).join('');
+  d += `<filter id="fzo-std" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values="0"/><feComponentTransfer>${lin(.54, -.1)}</feComponentTransfer></filter>`;
+  const put = () => { if (!document.body) return setTimeout(put, 30); if (document.getElementById('fzo-defs')) return; const w = document.createElement('div'); w.innerHTML = `<svg id="fzo-defs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs>${d}</defs></svg>`; document.body.appendChild(w.firstChild); };
+  put();
+})();

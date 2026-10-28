@@ -6,6 +6,13 @@ const H = document.documentElement;
 let had = false; try { had = !!(localStorage.getItem('tutor.greetDay') || localStorage.getItem('tutor.account')); } catch (e) {}
 const track = (e, d) => { try { if (window.BM) window.BM.track(e, d); } catch (x) {} };
 export const isNew = () => !!H.dataset.nv;
+// „Zurück zum alten Design“ nur für Konten, die das alte Design noch kennen (vor dem Umstieg am 28.10.2026 angelegt).
+// Wer gerade im alten Design ist, kommt immer zurück zum neuen.
+const CUT = Date.parse('2026-10-28T00:00:00+01:00');
+export function canSwitch() {
+  if (!isNew()) return true;
+  try { const a = JSON.parse(localStorage.getItem('tutor.account') || 'null'); const t = a && a.since ? Date.parse(a.since) : NaN; return !!a && t < CUT; } catch (e) { return false; }
+}
 export function switchDesign(toNew = !isNew(), why = 'Menü') {
   try { localStorage.setItem('bm.skin', toNew ? 'neu' : 'alt'); localStorage.setItem('bm.skinNote', '1'); } catch (e) {}
   track('Design gewechselt', (toNew ? 'neu' : 'alt') + ' · ' + why);

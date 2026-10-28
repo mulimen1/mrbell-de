@@ -6,8 +6,9 @@ import { ACCEPT } from './ingest.js';
 import { onQuota, currentQuota, ask, getAccount, onAccount } from './api.js';
 import { accountChip, refreshAccount, openLogin, openAccount, openAuth } from './account.js';
 import { getOutLang, setOutLang, L, LOCALE, lang, setLang } from './i18n.js';
+import { canSwitch } from './skin.js';
 import { lines as maxLines, getSpice } from './max.js';
-import { apiError, thought, isPhone, overlayBusy, LAPTOP_LINE } from './ui.js';
+import { apiError, thought, isPhone, overlayBusy, LAPTOP_LINE, adsLanding } from './ui.js';
 import { exportAll, importAll, wipe } from './db.js';
 import { applyThemeButtons } from './theme.js';
 import { feedbackButton, openFeedback } from './feedback.js';
@@ -141,7 +142,7 @@ function buildShell() {
     cRow('tune', L('Max einstellen', 'Configure Max'), () => import('./maxcfg.js').then(m => m.openMaxCfg())),
     cRow('file', L('Skripte', 'Slides'), () => { const go = () => { const b = document.querySelector('.rm-corner .rm-skb, .rm-skb'); if (b) b.click(); }; if (location.hash !== '#/app/tutor') { location.hash = '#/app/tutor'; setTimeout(go, 900); } else go(); }),
     cRow('chat', L('Feedback geben', 'Give feedback'), () => openFeedback()),
-    cRow('spark', document.documentElement.dataset.nv ? L('Altes Design (Testphase)', 'Old design (test phase)') : L('Neues Design testen', 'Try the new design'), () => import('./skin.js').then(m => m.switchDesign())),
+    canSwitch() && cRow('spark', document.documentElement.dataset.nv ? L('Altes Design (Testphase)', 'Old design (test phase)') : L('Neues Design testen', 'Try the new design'), () => import('./skin.js').then(m => m.switchDesign())),
     Object.assign(cRow('sidebar', L('Werkzeuge', 'Tools'), () => app.classList.toggle('sideopen')), { className: 'tc-row tc-mob' }),
     Object.assign(cRow('lock', L('Konto', 'Account'), () => getAccount() ? openAccount() : openAuth()), { className: 'tc-row tc-mob' }),
     h('div', { class: 'tc-set' }, h('span', { class: 'tc-setl' }, L('Sprache · Farbe · Modus', 'Language · colour · mode')), h('div', { class: 'tc-setc' }, langSwitch(), h('button', { class: 'iconbtn', type: 'button', 'data-theme-toggle': '', 'aria-label': L('Hell/Dunkel', 'Light/Dark') }))));
@@ -579,7 +580,7 @@ export async function startTopic(topic) {
 
 // Am Handy genau einmal (pro Browser) ein kleiner Tipp oben links: am Laptop/iPad ist die Tafel neben dem Chat
 function mobileTip() {
-  if (!isPhone() || ls.get('tutor.mobileTip2', 0)) return;
+  if (!isPhone() || ls.get('tutor.mobileTip2', 0) || window.BM_LP || adsLanding()) return;   // Lern-/Anzeigenseiten: kein Tipp über der Tafel
   const t0 = Date.now();
   const tryShow = () => {
     if (ls.get('tutor.mobileTip2', 0) || !isPhone()) return;
@@ -793,7 +794,7 @@ function openSideMenu(anchor, focus = '') {
     h('div', { class: 'sm-g' },
       it(L('Feedback geben', 'Give feedback'), openFeedback, 'star'),
       it(L('Daten & Sicherung', 'Data & backup'), settings, 'download'),
-      it(document.documentElement.dataset.nv ? L('Altes Design (Testphase)', 'Old design (test phase)') : L('Neues Design testen', 'Try the new design'), () => import('./skin.js').then(m => m.switchDesign()), 'spark'),
+      canSwitch() && it(document.documentElement.dataset.nv ? L('Altes Design (Testphase)', 'Old design (test phase)') : L('Neues Design testen', 'Try the new design'), () => import('./skin.js').then(m => m.switchDesign()), 'spark'),
       asst),
     h('div', { class: 'sm-sep' }),
     h('div', { class: 'sm-g sm-legal' + (focus === 'recht' ? ' focus' : '') },

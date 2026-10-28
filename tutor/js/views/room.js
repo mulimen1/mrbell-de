@@ -6,6 +6,7 @@ import { h, ico, ls, toast } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
 import { accentDot } from '../theme.js';
 import { adsLanding } from '../ui.js';
+import { canSwitch } from '../skin.js';
 import { face, isAsleep } from '../face.js';
 import { S, mastery, onChange, saveNow } from '../state.js';
 import { getAccount, onAccount, currentQuota } from '../api.js';
@@ -100,7 +101,7 @@ export function render(root, ctx = {}) {
   const boardSlot = h('div', { class: 'rm-board' });
   // Gespräch: Max' Kopf bleibt groß oben, darunter das Gespräch; rechts daneben die Tafel
   let topicHead = ''; try { topicHead = sessionStorage.getItem('tutor.topicHead') || ''; sessionStorage.removeItem('tutor.topicHead'); } catch (e) {}
-  const topicEl = topicHead ? h('h1', { class: 'rm-topic' }, L('Für BWL- & Wiwi-', 'For business & economics '), h('span', {}, L('Studenten.', 'students.'))) : null;
+  const topicEl = topicHead ? h('div', { class: 'rm-topic', role: 'heading', 'aria-level': '2' }, L('Für BWL- & Wiwi-', 'For business & economics '), h('span', {}, L('Studenten.', 'students.'))) : null;
   // Themen-Einstieg ohne Chat (Beta): links statt Gespräch die stärksten Werkzeuge – „Was du daraus machen kannst“
   const toolsMode = !!topicHead && homeBeta() && innerWidth > 900;
   const toolsEl = toolsMode ? entryTools(topicHead) : null; let toolsAsks = 0;
@@ -120,7 +121,7 @@ export function render(root, ctx = {}) {
   const nvProg = () => { const b = progBtn(); if (document.documentElement.dataset.nv) { b.classList.add('rm-prog-nv'); b.firstChild.innerHTML = ico('chart'); } return b; };
   const nvOn = !!document.documentElement.dataset.nv;
   const oldBtnNv = h('button', { class: 'rm-olddesign', type: 'button', onclick: () => import('../skin.js').then(m => m.switchDesign(!nvOn, 'Tutor')) }, nvOn ? L('Zurück zum alten Design', 'Back to the old design') : L('Zum neuen Design', 'Switch to the new design'));
-  const corner = h('div', { class: 'rm-corner' }, document.documentElement.dataset.nv ? nvProg() : null, getAccount() ? oldBtnNv : null, homeBeta() ? pickers : null, document.documentElement.dataset.nv ? h('span', { class: 'rm-stkw' }, stkHome, accentDot()) : stkHome, document.documentElement.dataset.nv ? null : progBtn(), cfgBtn(), homeBeta() ? null : skBtnHome);
+  const corner = h('div', { class: 'rm-corner' }, document.documentElement.dataset.nv ? nvProg() : null, getAccount() && canSwitch() ? h('div', { class: 'rm-oldwrap' }, oldBtnNv) : null, homeBeta() ? pickers : null, document.documentElement.dataset.nv ? h('span', { class: 'rm-stkw' }, stkHome, accentDot()) : stkHome, document.documentElement.dataset.nv ? null : progBtn(), cfgBtn(), homeBeta() ? null : skBtnHome);
   // Oben rechts: „Bereits erstellt“ und „Deine Unterlagen“ (gewählte Unterlage = mit Max verbunden)
   function drawPickers() {
     if (!homeBeta()) return;

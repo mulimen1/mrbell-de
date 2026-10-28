@@ -46,8 +46,8 @@ export const ACCENTS = [
   ['aubergine', 'Aubergine', 'Plum', '#4e2a5f', '#7a4a91'],
   ['graphit', 'Graphit', 'Graphite', '#3f4650', '#646d79']
 ];
-// Neues Design: dieselben Plätze, aber knallige Neon-Töne (Navy = das Neonblau)
-const NEON = { navy: ['Neonblau', 'Neon blue', '#2a7fe8'], kobalt: ['Indigo', 'Indigo', '#6a5cff'], petrol: ['Türkis', 'Turquoise', '#0bb4c9'], gruen: ['Neongrün', 'Neon green', '#16c060'], oliv: ['Limette', 'Lime', '#62b40c'], cognac: ['Orange', 'Orange', '#ff7a1a'], bordeaux: ['Rot', 'Red', '#ff2e4d'], aubergine: ['Lila', 'Purple', '#a24dff'], graphit: ['Pink', 'Pink', '#f0368f'], '': ['Schwarz', 'Black', '#26262b'] };
+// Neues Design: dieselben Plätze, satte Farben (Navy = das Markenblau)
+const NEON = { navy: ['Blau', 'Blue', '#2a7fe8'], kobalt: ['Indigo', 'Indigo', '#4f46c8'], petrol: ['Petrol', 'Teal', '#0f8a9a'], gruen: ['Grün', 'Green', '#1e8a4f'], oliv: ['Oliv', 'Olive', '#6b8e23'], cognac: ['Orange', 'Orange', '#dd6a1c'], bordeaux: ['Rot', 'Red', '#d02c3c'], aubergine: ['Lila', 'Purple', '#7440c4'], graphit: ['Pink', 'Pink', '#c8336f'], '': ['Schwarz', 'Black', '#26262b'] };
 const NV_ORDER = ['navy', 'kobalt', 'aubergine', 'graphit', 'bordeaux', 'cognac', 'oliv', 'gruen', 'petrol', ''];
 const ACC_KEY = 'tutor.accent';
 // Gelb (nur für den TikTok-Sketch) gibt's nicht mehr – wer es noch gespeichert hat, bekommt wieder die Standardfarbe

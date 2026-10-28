@@ -271,6 +271,8 @@ async function route() {
     }
   } catch (e) {}
   const inApp = hash.startsWith('#/app');
+  // Lernseite ohne Startseiten-Teil: wer zur Startseite will, kommt auf die echte Startseite
+  if (!inApp && window.BM_LP && !document.querySelector('#landing > *')) { location.href = '/'; return; }
   $('#landing').classList.toggle('hidden', inApp);
   $('#app').classList.toggle('hidden', !inApp);
   document.body.style.overflow = inApp ? 'hidden' : '';

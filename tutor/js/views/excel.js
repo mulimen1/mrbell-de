@@ -59,16 +59,25 @@ function gallery(body) {
     grid.replaceChildren(...list.map((t, i) => h('a', { class: 'xl-card', href: '#/app/excel/' + t.id, style: { '--d': (Math.min(i, 12) * 40) + 'ms' } },
       (() => { const ph = h('div', { class: 'xl-thumb xl-thph' }); slots.push([ph, t]); return ph; })(), h('div', { class: 'xl-cmeta' }, h('span', { class: 'xl-ccat' }, (CATS.find(c => c[0] === t.cat) || [, ''])[1]), h('b', {}, t.title), h('p', {}, t.desc),
         h('span', { class: 'xl-cgo' }, icoXL(), L('Öffnen & ausfüllen', 'Open & fill in'), h('span', { html: ico('right') }))))));
-    const idle = window.requestIdleCallback || (f => setTimeout(() => f({ timeRemaining: () => 8 }), 16));
-    const tok = (grid._tok = (grid._tok || 0) + 1);
-    const pump = dl => { while (slots.length && (dl.timeRemaining() > 4 || !window.requestIdleCallback)) { if (grid._tok !== tok) return; const [ph, t] = slots.shift(); if (ph.isConnected) ph.replaceWith(thumb(t)); if (!window.requestIdleCallback) break; } if (slots.length && grid._tok === tok) idle(pump); };
-    setTimeout(() => idle(pump), first ? 950 : 0); first = false;
+    // Vorschaubild erst, wenn die Karte gleich ins Bild kommt – einzeln, nie während eines Scroll-Frames, und nur einmal gebaut
+    if (grid._io) grid._io.disconnect();
+    const byEl = new Map(slots.map(([ph, t]) => [ph, t]));
+    const queue = []; let busy = false;
+    const flush = () => { busy = false; const ph = queue.shift(); if (!ph) return; const t = byEl.get(ph); if (ph.isConnected && t) ph.replaceWith(thumb(t)); if (queue.length) { busy = true; requestAnimationFrame(() => setTimeout(flush, 0)); } };
+    const io = grid._io = 'IntersectionObserver' in window ? new IntersectionObserver(es => { for (const e of es) if (e.isIntersecting) { io.unobserve(e.target); queue.push(e.target); } if (queue.length && !busy) { busy = true; setTimeout(flush, first0 ? 900 : 0); first0 = false; } }, { rootMargin: '250px 0px' }) : null;
+    let first0 = first; first = false;
+    if (io) slots.forEach(([ph]) => io.observe(ph)); else slots.forEach(([ph, t]) => ph.replaceWith(thumb(t)));
   };
   draw();
   body.append(h('div', { class: 'xl-filter' }, search, chips), grid, empty, h('div', { class: 'xl-genad' }, h('div', {}, h('b', {}, L('Deine Aufgabe ist nicht dabei?', 'Your task isn’t here?')), h('p', {}, L('Beschreib sie dem Generator – Max baut dir eine eigene Excel-Datei mit echten Formeln.', 'Describe it to the generator – Max builds your own Excel file with real formulas.'))), h('a', { class: 'btn xl-btn', href: '#/app/excel/generator' }, h('span', { html: ico('spark') }), L('Zum Generator', 'Open generator'))));
 }
 // Mini-Tabellenbild für die Karte (aus der echten Vorlage)
+const THUMBS = new Map();
 function thumb(t) {
+  const c = THUMBS.get(t.id); if (c) return c.cloneNode(true);
+  const el = thumbBuild(t); THUMBS.set(t.id, el); return el.cloneNode(true);
+}
+function thumbBuild(t) {
   const s = t.build(), { rows, cols } = bounds(s.cells), R = Math.min(rows, 14), C = Math.min(cols, 6);
   const g = h('div', { class: 'xl-thumb', style: { gridTemplateColumns: `repeat(${C}, 1fr)` } });
   for (let r = 3; r <= R; r++) for (let c = 1; c <= C; c++) { const x = s.cells[colL(c) + r]; g.append(h('i', { class: x ? 'k-' + (x.s || 'txt') : '' })); }

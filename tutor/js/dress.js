@@ -16,6 +16,19 @@ const LINES = {
   aubergine: ['Aubergine. Geschmack hast du ja nicht – aber ich trag’s mit Würde.', 'Plum. No taste at all – but I wear it with dignity.'],
   graphit: ['Graphit. Grau wie dein Konto am Monatsende. Steht mir trotzdem.', 'Graphite. Grey like your bank account at month’s end. Still suits me.']
 };
+// Neues Design: eigene Sprüche passend zu den neuen Farbnamen
+const LINES_NV = {
+  navy: ['Blau. Der Klassiker. Wie ich: zeitlos und unterschätzt.', 'Blue. The classic. Like me: timeless and underrated.'],
+  std: ['Schwarz. Ich seh aus wie ein Unternehmensberater um 2 Uhr nachts.', 'Black. I look like a consultant at 2 a.m.'],
+  kobalt: ['Indigo. Sehr Start-up. Fehlt nur noch die Series A.', 'Indigo. Very start-up. All that’s missing is the Series A.'],
+  petrol: ['Petrol. Klingt nach Tankstelle, steht mir aber leider gut.', 'Teal. Sounds like a gas station, but sadly it suits me.'],
+  oliv: ['Oliv. Ich seh aus wie ein BWLer beim Bund. Na gut.', 'Olive. I look like a business student in the army. Fine.'],
+  gruen: ['Grün. Wie meine Zahlen. Immer.', 'Green. Like my numbers. Always.'],
+  cognac: ['Orange. Mutig. Fast so mutig wie dein Lernplan.', 'Orange. Bold. Almost as bold as your study plan.'],
+  bordeaux: ['Rot. Wie die Zahlen meiner Konkurrenz.', 'Red. Like my competitors’ numbers.'],
+  aubergine: ['Lila. Geschmack hast du ja nicht – aber ich trag’s mit Würde.', 'Purple. No taste at all – but I wear it with dignity.'],
+  graphit: ['Pink. Steht mir. Mir steht alles.', 'Pink. Suits me. Everything suits me.']
+};
 const OUT = [['Ich zieh mich kurz um – warte eine Sekunde.', 'Let me change real quick – one sec.'], ['Moment, ich zieh mich schnell um.', 'Hold on, quick outfit change.'], ['Sekunde – so kann ich nicht rumlaufen.', 'One sec – I can’t walk around like this.']];
 
 const CSS = `
@@ -95,6 +108,6 @@ async function run(el) {
   H.classList.remove('mx-dress'); asst && asst.classList.remove('mx-busy');
   const ln = creatorLine(from0, to);
   if (ln) { say(el, ln.say, Math.max(3500, ln.say.length * 75)); ln.play(); return; }   // Stimme läuft weiter, Max ist schon wieder frei für den nächsten Farbwechsel
-  const q = LINES[to] || LINES.aubergine;
+  const q = (document.documentElement.dataset.nv && LINES_NV[to]) || LINES[to] || LINES.aubergine;
   say(el, L(q[0], q[1]), 5200); pulse(el, 'smug', 1800);
 }
