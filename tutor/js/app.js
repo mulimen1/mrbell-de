@@ -409,12 +409,29 @@ const AREA_OF = hs => {
   const m = String(hs).match(/^#\/app\/([^/?]+)(?:\/([^/?]+))?/); if (!m) return null;
   const [, a, b] = m;
   if (a === 'tutor') return { l: L('Tutor', 'Tutor'), c: '#1a5fc4' };
-  if (a === 'ueben') return { l: L('Lernen', 'Learn'), c: '#5b3fc4', own: !!b && b !== 'pfad' };
+  if (a === 'ueben' && b === 'pfad') return null;
+  if (a === 'ueben') return { l: L('Lernen', 'Learn'), c: '#5b3fc4', own: !!b };
   if (a === 'tools') return { l: L('Klausur-Tools', 'Exam tools'), c: '#c8336f', own: !!b };
   if (a === 'bibliothek') return { l: L('Bibliothek', 'Library'), c: '#d9601c' };
   if (a === 'faecher' || a === 'stundenplan') return { l: a === 'stundenplan' ? L('Stundenplan', 'Timetable') : L('Fächer', 'Subjects'), c: '#d9601c' };
   return null;
 };
+const MADE = { karten: L('Karteikarten', 'Flashcards'), quiz: 'Quiz', zettel: L('Lernzettel', 'Study sheet'), podcasts: 'Podcast', podcast: 'Podcast' };
+let madeEl = null;
+function justMadeChip() {
+  if (!document.documentElement.dataset.nv) return;
+  const j = ls.get('tutor.justMade', null), hs = location.hash.split('?')[0];
+  const on = j && Date.now() - (j.at || 0) < 12 * 60e3 && j.href && hs !== j.href && !hs.startsWith(j.href + '/');
+  if (!on) { if (madeEl) { madeEl.remove(); madeEl = null; } return; }
+  const el = h('div', { class: 'made-chip', role: 'status' },
+    h('a', { class: 'made-go', href: j.href }, h('span', { class: 'made-ok', html: ico('check') }), h('span', { class: 'made-t' }, h('small', {}, L('Gerade erstellt', 'Just created')), h('b', {}, (MADE[j.kind] || L('Dein Material', 'Your material')) + (j.name ? ' · ' + j.name : ''))), h('span', { class: 'made-open' }, L('Öffnen', 'Open'), h('span', { html: ico('right') }))),
+    h('button', { class: 'made-hide', type: 'button', onclick: () => { ls.set('tutor.justMade', null); justMadeChip(); } }, L('Ausblenden', 'Hide')));
+  if (madeEl) madeEl.replaceWith(el); else document.body.appendChild(el);
+  madeEl = el;
+}
+addEventListener('hashchange', () => setTimeout(justMadeChip, 60));
+addEventListener('bm:justmade', () => setTimeout(justMadeChip, 60));
+setInterval(justMadeChip, 30e3);
 function backPill(root) {
   if (!document.documentElement.dataset.nv || !root || !root.isConnected) return;
   const hs = location.hash.split('?')[0], ar = AREA_OF(hs);
@@ -425,10 +442,14 @@ function backPill(root) {
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
   if (!from || from.h === hs) from = inDoc ? { h: '#/app/bibliothek', l: L('Bibliothek', 'Library'), c: '#d9601c' } : { h: '#/app/tutor', l: L('Tutor', 'Tutor'), c: '#1a5fc4' };
   root.querySelectorAll(':scope > .ub-libback, :scope .view-back').forEach(e => e.remove());
+  // genau EIN Zurück-Knopf: alte Knöpfe und alte Wächter weg, bevor ein neuer kommt
+  if (pillObs) { pillObs.disconnect(); pillObs = null; }
+  document.querySelectorAll('.bk-pill').forEach(e => e.remove());
   const pill = h('a', { class: 'bk-pill', href: from.h, style: { '--bk': from.c } }, h('span', { html: ico('left') }), L('Zurück zu ', 'Back to ') + from.l, inDoc ? h('small', {}, S.doc.name) : null);
-  const keep = () => { if (root.isConnected && !pill.isConnected && location.hash.split('?')[0] === hs) root.prepend(pill); };
-  keep(); new MutationObserver(keep).observe(root, { childList: true });
+  const keep = () => { if (location.hash.split('?')[0] !== hs) { if (pillObs) { pillObs.disconnect(); pillObs = null; } return; } if (root.isConnected && !pill.isConnected && !root.querySelector('.bk-pill')) root.prepend(pill); };
+  keep(); pillObs = new MutationObserver(keep); pillObs.observe(root, { childList: true });
 }
+let pillObs = null;
 
 // Aus Quiz/Trainer heraus: Frage an den Tutor schicken
 export async function askTutorAbout(text, { confirm = true } = {}) {

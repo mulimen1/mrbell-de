@@ -7913,3 +7913,19 @@ html[data-nv] .docbar .db-back { display: none !important; }
 .yt-chip { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: #fff; box-shadow: 0 2px 6px -3px rgba(0,0,0,.35); flex: none; }
 .yt-chip img { display: block; width: 20px; height: 20px; border-radius: 0 !important; background: none !important; }
 .ms-sw-i:has(.yt-chip) { padding-right: 6px; gap: 10px; } .ms-sw-i.on:has(.yt-chip) { padding-right: 6px; } .ms-sw-i .yt-chip { margin-right: 0; }
+/* „Gerade erstellt“ – oben rechts ein paar Minuten lang */
+.made-chip { position: fixed; z-index: 120; top: 84px; right: 18px; display: flex; align-items: center; gap: 4px; padding: 6px; border-radius: 20px; background: #fff; border: 1px solid rgba(28,122,71,.25); box-shadow: 0 20px 44px -22px rgba(20,60,40,.55); animation: gtpop .35s cubic-bezier(.3,1.4,.5,1) both; max-width: min(420px, calc(100vw - 36px)); }
+.made-go { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 4px 8px 4px 4px; border-radius: 15px; text-decoration: none; color: #17171c; }
+.made-go:hover { background: #effaf3; }
+.made-ok { width: 34px; height: 34px; flex: none; border-radius: 11px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, #4cc38a, #1c7a47); } .made-ok .ico { width: 17px; height: 17px; color: #fff; }
+.made-t { display: grid; min-width: 0; } .made-t small { font: 650 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: #1c7a47; } .made-t b { font: 750 14px var(--sans); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.made-open { display: inline-flex; align-items: center; gap: 4px; flex: none; padding: 6px 10px; border-radius: 999px; background: #1c7a47; color: #fff; font: 750 12.5px var(--sans); } .made-open .ico { width: 14px; height: 14px; color: #fff; }
+.made-hide { all: unset; cursor: pointer; flex: none; padding: 6px 8px; border-radius: 999px; font: 600 11.5px var(--sans); color: #8a8a95; } .made-hide:hover { background: #f3f2ee; }
+html.gt-on .made-chip, html.m-rlock .made-chip { display: none; }
+@media (max-width: 600px) { .made-chip { top: auto; bottom: 86px; right: 10px; left: 10px; max-width: none; } }
+/* Umschalter: Icons exakt mittig neben dem Text */
+.ms-sw-i > span:first-child { display: grid; place-items: center; width: 20px; height: 20px; flex: none; }
+.ms-sw-i > span:first-child .ico { display: block; width: 18px; height: 18px; }
+.ms-sw-i > span:nth-child(2) { display: inline-flex; align-items: center; line-height: 1; height: 100%; }
+.ms-sw-i { line-height: 1; }
+html[data-nv] .fx-back { display: none !important; }

@@ -3,7 +3,7 @@
 // Nach dem Speichern kommt eine kleine Meldung „In der Bibliothek gespeichert · Ansehen“.
 import { h, ico, ls, toast } from './util.js';
 import { L } from './i18n.js';
-import { save } from './state.js';
+import { save, S } from './state.js';
 
 const LOOSE = 'tutor.lib.boards', MAX_LOOSE = 60;
 const clean = s => String(s || '').replace(/\s+/g, ' ').trim();
@@ -71,6 +71,9 @@ const WHAT = {
 };
 let lastToast = 0;
 export function savedToast(kind, n = 1) {
+  // „Gerade erstellt“ merken – oben rechts bleibt ein paar Minuten ein Weg zurück dorthin, auch wenn man woanders hingeht
+  if (kind !== 'tafeln') ls.set('tutor.justMade', { kind, at: Date.now(), href: location.hash.split('?')[0].replace(/\/auto$/, ''), name: (S.doc && S.doc.name) || '' });
+  try { window.dispatchEvent(new Event('bm:justmade')); } catch (e) {}
   if (Date.now() - lastToast < 1500) return;   // nicht doppelt
   try { if (sessionStorage.getItem('bm.adEntry')) return; } catch (e) {}   // Einstieg über Google-Anzeige: nicht überfordern
   // Tafeln entstehen ständig: der Hinweis kommt nur die ersten 2 Male – danach weiß man's, und er verdeckt sonst die Knöpfe unter der Tafel
