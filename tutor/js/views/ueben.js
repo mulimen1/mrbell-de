@@ -69,6 +69,14 @@ export async function render(root, { sub = '' } = {}) {
       h('div', { class: 'ub-cta' },
         h('a', { class: 'btn primary lg', href: '#/app/ueben/pfad', onclick: fromHere }, h('span', { html: ico('play') }), finished ? L('Nochmal von vorn', 'Start over') : doneN ? L(`Weiter: ${cur.title}`, `Continue: ${cur.title}`) : L('Geführt starten', 'Start guided')),
         h('a', { class: 'btn lg', href: '#/app/excel/trainer', onclick: fromHere }, h('span', { class: 'ub-xl', html: XL }), L('Excel-Trainer', 'Excel trainer'), xl.of ? h('small', { class: 'ub-xln' }, `${xl.n}/${xl.of}`) : null))),
+    h('div', { class: 'ln-gh ub-h ub-hs' }, h('h2', {}, L('Aus deinem Stoff lernen', 'Learn from your material')), h('span', { class: 'eyebrow' }, L('Max baut es dir in Sekunden', 'Max builds it in seconds'))),
+    h('div', { class: 'ub-lt' }, [
+      ['board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt', 'Step by step')],
+      ['note', L('Lernzettel', 'Study sheet'), L('Alles auf einer Seite', 'All on one page')],
+      ['cards', L('Karteikarten', 'Flashcards'), L('Bis es sitzt', 'Until it sticks')],
+      ['headphones', 'Podcast', L('Marie & Max', 'Marie & Max')],
+      ['path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter')],
+    ].map(([ic, t, sub]) => h('button', { class: 'ub-ltc', type: 'button', 'data-lt': ic, onclick: () => { fromHere(); try { sessionStorage.setItem('tutor.roomTool', ic); } catch (e) {} location.hash = '#/app/tutor'; } }, h('span', { class: 'ub-lti', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))),
     h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfungssimulation', 'Exam simulation')), h('span', { class: 'eyebrow' }, L('Wie in der echten Klausur', 'Like the real exam'))),
     sim,
     ...(BEN ? [] : trSec));

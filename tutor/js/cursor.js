@@ -179,9 +179,11 @@ export function tour(steps, { onAsk, onEnd, startAt, label = 'Max', dockAt, voic
     if (s && s.el) {
       // Stelle weg (Seite gewechselt, Tafel zu/eingeklappt) → Führung sofort beenden, nicht irgendwo rumhängen
       if (!s.el.isConnected || !s.el.getClientRects().length) { stop(true); return; }
+      if (pos.dx == null || pos.dy == null) layout();   // Stelle kam erst nach dem Seitenwechsel dazu
       const r = s.el.getBoundingClientRect();
       tx = r.left + pos.dx; ty2 = r.top + pos.dy;
     } else if (s) { tx = pos.ax ?? tx; ty2 = pos.ay ?? ty2; }
+    if (!Number.isFinite(x) || !Number.isFinite(y)) { x = tx; y = ty2; }
     if (reduce()) { x = tx; y = ty2; } else { x += (tx - x) * .16; y += (ty2 - y) * .16; }
     cur.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
     if (pos.k === 'mob') { say.style.left = (M - x).toFixed(1) + 'px'; say.style.top = (pos.cy - y).toFixed(1) + 'px'; }

@@ -395,6 +395,9 @@ export function render(root, ctx = {}) {
       const grid = h('div', { class: 'rm-tl' }, T2.map(([ic, t, sub, act], i) => h('button', { class: 'rm-tlt' + (i === 0 ? ' main' : ''), 'data-ic': ic, type: 'button', style: { '--i': String(i) }, onclick: e => (typeof act === 'string' ? run(act, e.currentTarget) : act(e)) }, h('span', { class: 'rm-tli', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))));
       skills.replaceChildren(h('div', { class: 'rm-tools2' }, h('div', { class: 'vt-row' }, vertrauenBtn('max')), mat, grid));
       drawPickers();
+      // Aus „Lernen“ gekommen (Tafel, Lernzettel, Karteikarten, Podcast, Lernpfad): Werkzeug direkt starten
+      let rt = null; try { rt = sessionStorage.getItem('tutor.roomTool'); sessionStorage.removeItem('tutor.roomTool'); } catch (e) {}
+      if (rt) setTimeout(() => grid.querySelector(`[data-ic="${rt}"]`)?.click(), 450);
     } else { skills.replaceChildren(tog, body); set(isOpen); }
     askSlot.replaceChildren();
   }

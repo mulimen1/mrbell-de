@@ -151,8 +151,8 @@ document.addEventListener('pointerdown', e => {
 
 // Seitenleiste: beim Drüberfahren füllt sich ein Eintrag mit der Farbe seines Icons (nur solange die Maus drauf ist)
 document.addEventListener('pointerover', e => {
-  const t = e.target.closest && e.target.closest('.side a, .side button, .side .side-row');
-  if (!t || t.dataset.hf || !t.closest('.side')) return;
+  const t = e.target.closest && e.target.closest('.side a, .side button, .side .side-row, .ub-ltc');
+  if (!t || t.dataset.hf) return;
   const ic = t.querySelector('[data-icc]:not([data-icc=""])'); if (!ic || ic === t) return;
   const cs = getComputedStyle(ic), a = cs.getPropertyValue('--ic1').trim(), b = cs.getPropertyValue('--ic2').trim();
   if (!a || !b) return;
