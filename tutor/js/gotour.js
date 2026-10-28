@@ -134,6 +134,7 @@ function runTour(S) {
     const s = S[i];
     el = null; txt.textContent = ''; txt.dataset.full = '';
     if (location.hash.split('?')[0] !== s.at) { location.hash = s.at; await wait(850); if (dead || i !== n) return; }
+    if (s.sel.includes('.rm-tl')) { const b = document.querySelector('.rm-tkb:not(.open)'); if (b) { b.click(); await wait(450); if (dead || i !== n) return; } }
     el = pick(...s.sel);
     if (el) {
       // Stelle soll oben frei stehen – unten links sitzt Max mit seiner Blase
