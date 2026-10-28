@@ -6248,12 +6248,12 @@ html:root[data-nv] .rm-corner .rm-prog.rm-prog-nv { padding: 0 8px !important; w
 .fx-back { width: fit-content; align-self: flex-start; justify-self: start; display: inline-flex; align-items: center; gap: 6px; margin: 0 0 10px; padding: 7px 14px 7px 10px; border-radius: 999px; border: 1px solid var(--line2); color: var(--ink); text-decoration: none; font: 600 14px var(--sans); background: var(--panel); }
 .fx-back:hover { border-color: var(--ink); } .fx-back .ico { width: 16px; height: 16px; }
 /* Neues Design: Punkte-Hintergrund wie auf der Startseite in der ganzen App */
-html:root[data-nv] .app .main { background-color: var(--bg); background-image: radial-gradient(rgba(0, 0, 0, .085) 1px, transparent 1.3px); background-size: 22px 22px; background-attachment: fixed; }
-html:root[data-nv][data-theme="dark"] .app .main { background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1.3px); }
-html:root[data-nv] .app .main :is(#view, .view, .room, .rm-stage) { background-color: transparent; }
+html:root[data-nv] .app > .main { background-color: var(--bg); background-image: radial-gradient(rgba(0, 0, 0, .085) 1px, transparent 1.3px); background-size: 22px 22px; background-attachment: fixed; }
+html:root[data-nv][data-theme="dark"] .app > .main { background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1.3px); }
+html:root[data-nv] .app > .main :is(#view, .view, .room, .rm-stage) { background-color: transparent; }
 
 /* Test nur Ben (data-ben): Hintergrund mit Tiefe */
-html[data-ben][data-nv] .app .main { background-image: none !important; background-color: transparent !important; }
+html[data-ben][data-nv] .app > .main { background-image: none !important; background-color: transparent !important; }
 html[data-ben][data-nv] body { background: var(--bg); }
 .bg3d { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 html[data-ben][data-nv] .app { position: relative; z-index: 1; }
@@ -6331,11 +6331,11 @@ html[data-ben][data-nv]:not([data-theme="dark"]) body, html[data-ben][data-nv]:n
 html[data-ben][data-nv]:root .app .topbar { border-bottom: 0 !important; box-shadow: none !important; background: transparent !important; }
 /* Neues Design für alle: Beige 5 als Hintergrund, kräftiges Punkteraster, Kopfleiste ohne Linie */
 html:root[data-nv]:not([data-theme="dark"]) body { background: #ebe4d8 !important; }
-html:root[data-nv]:not([data-theme="dark"]) .app .main { background-color: #ebe4d8 !important; background-image: radial-gradient(rgba(0, 0, 0, .3) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; }
-html:root[data-nv][data-theme="dark"] .app .main { background-image: radial-gradient(rgba(255, 255, 255, .16) 1.3px, transparent 1.7px) !important; }
+html:root[data-nv]:not([data-theme="dark"]) .app > .main { background-color: #ebe4d8 !important; background-image: radial-gradient(rgba(0, 0, 0, .3) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; }
+html:root[data-nv][data-theme="dark"] .app > .main { background-image: radial-gradient(rgba(255, 255, 255, .16) 1.3px, transparent 1.7px) !important; }
 html:root[data-nv] .app .topbar { border-bottom: 0 !important; box-shadow: none !important; background: transparent !important; }
 html[data-ben][data-nv] .bg3d { display: none !important; }
-html[data-ben][data-nv] .app .main { background-image: radial-gradient(rgba(0, 0, 0, .3) 1.3px, transparent 1.7px) !important; background-color: #ebe4d8 !important; }
+html[data-ben][data-nv] .app > .main { background-image: radial-gradient(rgba(0, 0, 0, .3) 1.3px, transparent 1.7px) !important; background-color: #ebe4d8 !important; }
 html:root[data-nv]:not([data-theme="dark"]) #landing, html:root[data-nv]:not([data-theme="dark"]) #landing .pagebg { background-color: #ebe4d8; }
 /* „Zurück zum alten Design“ unter „Bereits erstellt“ */
 .rm-olddesign { display: none; }
@@ -6346,4 +6346,14 @@ html:root[data-nv]:not([data-theme="dark"]) #landing .nav { background: rgba(235
 html:not(.bm-guest) .rm-corner { flex-wrap: wrap; justify-content: flex-end; }
 html:not(.bm-guest) .rm-olddesign { display: block; order: 10; flex-basis: 100%; text-align: right; border: 0; background: none; padding: 4px 6px 0; color: var(--mute); font: 600 12.5px var(--sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 html:not([data-nv]):not(.bm-guest) .rm-olddesign { color: var(--ink); font-weight: 700; }
-html:root[data-nv] body .app .main > .topbar.topbar { background: transparent !important; border-bottom: 0 !important; box-shadow: none !important; }
+html:root[data-nv] body .app > .main > .topbar.topbar { background: transparent !important; border-bottom: 0 !important; box-shadow: none !important; }
+/* Tutor-Kachel „An der Tafel erklären“ deckend wie die anderen */
+html:root[data-nv] .rm-tlt, html:root[data-nv] .rm-tlt.main { background: var(--panel) !important; background-image: none !important; color: var(--ink) !important; opacity: 1 !important; border: 1px solid var(--line) !important; box-shadow: 0 10px 26px -20px rgba(20, 60, 150, .42) !important; }
+html:root[data-nv] .rm-tlt.main small { color: var(--mute) !important; }
+/* Startseite: derselbe Hintergrund wie in der App (Beige 6 + kräftiges Punkteraster) */
+html:root[data-nv]:not([data-theme="dark"]) #landing .pagebg { background-color: #ebe4d8 !important; background-image: radial-gradient(rgba(0, 0, 0, .3) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; }
+html:root[data-nv] #landing .pagebg > * { display: none !important; }
+html:root[data-nv][data-theme="dark"] #landing .pagebg { background-color: var(--bg) !important; background-image: radial-gradient(rgba(255, 255, 255, .16) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; }
+html:root[data-nv]:not([data-theme="dark"]) #landing .nav { background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+html:root[data-nv][data-theme="dark"] body { background: #0b0b0c !important; }
+html:root[data-nv][data-theme="dark"] .app > .main { background-color: #0b0b0c !important; background-image: radial-gradient(rgba(255, 255, 255, .16) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; }
