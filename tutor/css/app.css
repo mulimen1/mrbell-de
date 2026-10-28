@@ -7409,3 +7409,12 @@ html:root[data-nv] body :is(h1, h2, h3).on-dots, html:root[data-nv] body .eyebro
 html:root[data-nv] body .on-dots :is(span, em, b) { text-shadow: none !important; }
 html:root[data-nv][data-theme="dark"] body .on-dots { background-color: #0b0b0c !important; box-shadow: 0 0 16px 12px #0b0b0c !important; }
 html:root[data-nv] body .on-dots.odc { margin-left: auto !important; margin-right: auto !important; }
+/* Markieren ohne Schein: Hof-Schatten beim Markieren abschalten */
+::selection { text-shadow: none !important; }
+html[data-nv] *::selection { text-shadow: none !important; background: color-mix(in srgb, var(--nb, #2a7fe8) 28%, transparent); color: inherit; }
+/* Klausur-Tools durchgehend in Pink (wie das Icon oben), Karten-Links in der Farbe der jeweiligen Karte */
+.kt .kt-head h1 span { color: #c8336f; }
+.kt-plan .kt-cg { color: #d9601c; } .kt-sim .kt-cg { color: #5b3fc4; } .kt-calc .kt-cg { color: #1a5fc4; } .kt-lex .kt-cg { color: #c8336f; }
+.kt-card.kt-plan:hover { border-color: color-mix(in srgb, #d9601c 40%, transparent); } .kt-card.kt-sim:hover { border-color: color-mix(in srgb, #5b3fc4 40%, transparent); } .kt-card.kt-lex:hover { border-color: color-mix(in srgb, #c8336f 40%, transparent); }
+.kt-back { color: #c8336f !important; border-color: color-mix(in srgb, #c8336f 35%, transparent) !important; }
+.kt-back:hover { background: #fdeaf1 !important; }
