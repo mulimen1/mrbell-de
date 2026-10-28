@@ -6142,3 +6142,14 @@ html:root[data-nv][data-accent][data-nv] { --nv-glow: 0 6px 16px -9px rgba(20, 6
 :root[data-nv] :is(.rm-bubble, .rm-tbub, .ai-board, .modal, .ai-isl, .tc-panel) { box-shadow: 0 16px 40px -28px rgba(20, 60, 150, .5), 0 1px 6px -4px rgba(20, 60, 150, .18) !important; }
 :root[data-nv] :is(.rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card, .rm-mat, .rm-tdrop) { box-shadow: 0 10px 26px -20px rgba(20, 60, 150, .42); }
 :root[data-nv] :is(.rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card):hover { box-shadow: 0 14px 30px -20px rgba(20, 60, 150, .6) !important; }
+
+/* Excel-/YouTube-Karte: Logo frei stehend statt im grauen Kästchen */
+.rm-tc.rm-tcx .rm-tci, .rm-tc.rm-tcy .rm-tci { background: transparent !important; border: 0 !important; box-shadow: none !important; width: auto !important; justify-content: start; }
+.rm-tc.rm-tcy .rm-tci img { width: 34px; height: 34px; display: block; }
+.rm-tc.rm-tcx .rm-tci svg { width: 32px; height: 32px; }
+
+/* Testdesign: Excel etwas mehr Neon (Karte, Logo oben, NEU) – im Rahmen */
+:root[data-nv] .rm-tc.rm-tcx { border-color: rgba(31, 191, 106, .45); box-shadow: 0 0 0 1px rgba(31, 191, 106, .12), 0 12px 28px -20px rgba(31, 191, 106, .55); }
+:root[data-nv] .rm-tc.rm-tcx:hover { border-color: rgba(31, 191, 106, .75); box-shadow: 0 0 0 3px rgba(31, 191, 106, .12), 0 16px 32px -20px rgba(31, 191, 106, .7) !important; }
+:root[data-nv] :is(.tn-xlic svg, .rm-tc.rm-tcx .rm-tci svg) { filter: drop-shadow(0 0 5px rgba(31, 191, 106, .55)) !important; }
+:root[data-nv] .tn-xlnew { box-shadow: 0 0 10px -1px rgba(31, 191, 106, .75) !important; }
