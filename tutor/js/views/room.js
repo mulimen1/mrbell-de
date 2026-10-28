@@ -5,6 +5,7 @@ import { wantsLibrary, libraryMaterial } from '../library-search.js';
 import { h, ico, ls, toast } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
 import { accentDot } from '../theme.js';
+import { cfgButton } from '../cfgmenu.js';
 import { adsLanding } from '../ui.js';
 import { canSwitch } from '../skin.js';
 import { face, isAsleep } from '../face.js';
@@ -94,6 +95,22 @@ export function render(root, ctx = {}) {
       : L(`${n} ${n === 1 ? 'Tag' : 'Tage'} Lernserie – heute noch lernen, sonst ist sie weg.`, `${n}-day streak – study today to keep it.`);
     for (const x of [stk, stkHome]) { x.title = t; x.setAttribute('aria-label', t); }
   };
+  // Neu: Serie + Wochenziel als ein Element (statt Flamme) – verbunden mit dem Fortschritt
+  const SPK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c.6 3.9 2.6 5.9 6.5 6.5-3.9.6-5.9 2.6-6.5 6.5-.6-3.9-2.6-5.9-6.5-6.5 3.9-.6 5.9-2.6 6.5-6.5Z" fill="currentColor"/><path d="M18.5 14.5c.3 1.8 1.2 2.7 3 3-1.8.3-2.7 1.2-3 3-.3-1.8-1.2-2.7-3-3 1.8-.3 2.7-1.2 3-3Z" fill="currentColor" opacity=".7"/></svg>';
+  const srN = h('b', { class: 'srk-n' }, '0'), srL = h('small', { class: 'srk-l' }), srFill = h('i'), srTxt = h('small', { class: 'srk-w' });
+  const srEl = h('a', { class: 'srk', href: '#/app/fortschritt', title: L('Dein Fortschritt', 'Your progress') },
+    h('span', { class: 'srk-ic', html: SPK }), h('span', { class: 'srk-mid' }, h('span', { class: 'srk-top' }, srN, srL), h('span', { class: 'srk-bar' }, srFill), srTxt), h('span', { class: 'srk-go', html: ico('chart') }));
+  const drawSr = () => {
+    let days = {}; try { days = M.activityDays(S.list || []); } catch (e) {}
+    const n = M.streak(days), today = !!days[M.dayKey()];
+    let wk = 0; try { wk = weekMinutes(0); } catch (e) {}
+    const goal = M.getMe().wochenziel || 150, pct = Math.min(100, Math.round(100 * wk / goal));
+    srN.textContent = String(n); srL.textContent = n === 1 ? L('Tag Serie', 'day streak') : L('Tage Serie', 'day streak');
+    srFill.style.width = Math.max(4, pct) + '%'; srTxt.textContent = pct >= 100 ? L('Wochenziel geschafft', 'Weekly goal done') : L(`Woche: ${pct} %`, `Week: ${pct}%`);
+    srEl.classList.toggle('hot', today && n > 0); srEl.classList.toggle('cold', !today); srEl.classList.toggle('done', pct >= 100);
+    srEl.title = !n ? L('Heute anfangen – jeder Tag zählt.', 'Start today – every day counts.') : today ? L(`${n} Tage am Stück. Heute schon dabei.`, `${n} days in a row. Done for today.`) : L(`${n} Tage Serie – heute noch lernen, sonst ist sie weg.`, `${n}-day streak – study today to keep it.`);
+  };
+  drawSr(); const srIv = setInterval(drawSr, 30000); const offSr = onChange(drawSr); const offSr2 = M.onMe(drawSr);
   drawStreak(); const stkIv = setInterval(drawStreak, 30000); const offStk = onChange(drawStreak);
   const bar = h('div', { class: 'rm-bar' },
     timer, h('span', { style: { flex: 1 } }), oldBtn, stk, progBtn(), cfgBtn(), skBtnBar,
@@ -122,7 +139,7 @@ export function render(root, ctx = {}) {
   const nvProg = () => { const b = progBtn(); if (document.documentElement.dataset.nv) { b.classList.add('rm-prog-nv'); b.firstChild.innerHTML = ico('chart'); } return b; };
   const nvOn = !!document.documentElement.dataset.nv;
   const oldBtnNv = h('button', { class: 'rm-olddesign', type: 'button', onclick: () => import('../skin.js').then(m => m.switchDesign(!nvOn, 'Tutor')) }, nvOn ? L('Zurück zum alten Design', 'Back to the old design') : L('Zum neuen Design', 'Switch to the new design'));
-  const corner = h('div', { class: 'rm-corner' }, document.documentElement.dataset.nv ? nvProg() : null, getAccount() && canSwitch() ? h('div', { class: 'rm-oldwrap' }, oldBtnNv) : null, homeBeta() ? pickers : null, document.documentElement.dataset.nv ? h('span', { class: 'rm-stkw' }, stkHome, accentDot()) : stkHome, document.documentElement.dataset.nv ? null : progBtn(), cfgBtn(), homeBeta() ? null : skBtnHome);
+  const corner = h('div', { class: 'rm-corner' }, document.documentElement.dataset.nv ? srEl : null, getAccount() && canSwitch() ? h('div', { class: 'rm-oldwrap' }, oldBtnNv) : null, homeBeta() ? pickers : null, document.documentElement.dataset.nv ? null : stkHome, document.documentElement.dataset.nv ? null : progBtn(), document.documentElement.dataset.nv ? cfgButton() : cfgBtn(), homeBeta() ? null : skBtnHome);
   // Oben rechts: „Bereits erstellt“ und „Deine Unterlagen“ (gewählte Unterlage = mit Max verbunden)
   function drawPickers() {
     if (!homeBeta()) return;
@@ -683,7 +700,7 @@ export function render(root, ctx = {}) {
 
   return () => {
     stopped = true; document.body.classList.remove('bm-tools-mode'); if (window.__bmStage) window.__bmStage = null; clearInterval(iv); clearInterval(thIv); clearInterval(workT); clearTimeout(thT); removeEventListener('hashchange', onHash);
-    off1(); off2(); off3(); offStk(); clearInterval(stkIv); removeEventListener('maxcfg:change', onCfg); MOB.removeEventListener?.('change', onMq);
+    off1(); off2(); off3(); offStk(); clearInterval(stkIv); offSr(); offSr2 && offSr2(); clearInterval(srIv); removeEventListener('maxcfg:change', onCfg); MOB.removeEventListener?.('change', onMq);
     document.removeEventListener('dragover', onOver); document.removeEventListener('dragleave', onLeave); document.removeEventListener('drop', onDrop);
     document.querySelector('.rm-sheet')?.remove();
     setRoomHead(null);

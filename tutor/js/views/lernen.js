@@ -96,12 +96,13 @@ function explainDoc(d) {
 // Startseite: Unterlagen als Auswahl oben rechts (statt großer Karten)
 // Auswahl-Menü als eigene Ebene über der Seite (für „Deine Unterlagen“ und „Bereits erstellt“)
 export function popMenu(btn, { search = false, rows, empty, footer }) {
-  if (document.querySelector('.uv-menu')) { document.querySelector('.uv-menu').remove(); return; }
+  { const ex = document.querySelector('.uv-menu'); if (ex) { const same = ex._btn === btn; ex._close ? ex._close() : ex.remove(); if (same) return; } }
   const q = h('input', { class: 'uv-ms', type: 'search', placeholder: L('Suchen …', 'Search …'), 'aria-label': L('Suchen', 'Search') });
   const list = h('div', { class: 'uv-ml', role: 'listbox' });
   const fill = () => { const t = q.value.trim().toLowerCase(); const xs = rows.filter(r => !t || r.t.toLowerCase().includes(t)); list.replaceChildren(...(xs.length ? xs.slice(0, 80).map(r => h('button', { class: 'uv-mi' + (r.on ? ' on' : ''), type: 'button', role: 'option', 'aria-selected': r.on ? 'true' : 'false', onclick: () => { close(); r.fn(); } }, h('span', { class: 'uv-pi', html: ico(r.ic) }), h('span', { class: 'uv-mt' }, h('b', {}, r.t), r.sub ? h('small', {}, r.sub) : null), r.on ? h('span', { class: 'uv-mck', html: ico('check') }) : null)) : [h('small', { class: 'uv-mno' }, empty || L('Nichts gefunden.', 'Nothing found.'))])); };
   q.addEventListener('input', fill); fill();
   const menu = h('div', { class: 'uv-menu' }, search ? q : null, list, footer ? h('div', { class: 'uv-mf' }, footer(() => close())) : null);
+  menu._btn = btn;
   const close = () => { menu._off && menu._off(); menu.remove(); btn.setAttribute('aria-expanded', 'false'); document.removeEventListener('click', out); document.removeEventListener('keydown', esc); };
   const out = ev => { if (!menu.contains(ev.target)) close(); };
   const esc = ev => { if (ev.key === 'Escape') close(); };
@@ -110,6 +111,7 @@ export function popMenu(btn, { search = false, rows, empty, footer }) {
   const onScroll = ev => { if (!menu.contains(ev.target)) close(); };
   addEventListener('scroll', onScroll, true); addEventListener('resize', place);
   menu._off = () => { removeEventListener('scroll', onScroll, true); removeEventListener('resize', place); };
+  menu._close = close;
   setTimeout(() => { document.addEventListener('click', out); document.addEventListener('keydown', esc); if (search) q.focus(); }, 0);
 }
 const pickBtn = (ic, top, main, on) => h('button', { class: 'uv-pbtn' + (on ? ' on' : ''), type: 'button', 'aria-haspopup': 'listbox', 'aria-expanded': 'false' },

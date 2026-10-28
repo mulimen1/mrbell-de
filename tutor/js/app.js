@@ -773,7 +773,7 @@ export async function tryFeature(key) {
 }
 
 // „Max antwortet auf …“ – Sprache der Inhalte
-function outLangSwitch() {
+export function outLangSwitch() {
   const cur = getOutLang();
   const btns = [['de', 'Deutsch'], ['en', 'English']].map(([k, l]) => {
     const b = h('button', { type: 'button', class: k === cur ? 'on' : '' }, l);
@@ -871,7 +871,7 @@ function sideExtras(tool) {
     lang,
   ];
 }
-function langSwitch() {
+export function langSwitch() {
   return h('div', { class: 'langsw', role: 'group', 'aria-label': L('Sprache', 'Language') },
     [['de', 'DE'], ['en', 'EN']].map(([k, l]) => h('button', { type: 'button', class: k === lang ? 'on' : '', 'data-setlang': k, 'aria-pressed': k === lang ? 'true' : 'false', onclick: () => {
       if (k === lang) return;
