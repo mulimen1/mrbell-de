@@ -95,7 +95,7 @@ function buildShell() {
         tool('a', { href: '#/app/rechner', 'data-nav': 'rechner' }, 'calc', L('Rechner', 'Calculators')),
         tool('a', { href: '#/app/challenge', 'data-nav': 'challenge' }, 'trophy', L('Wochen-Challenge', 'Weekly challenge'), h('span', { class: 'lockb', 'data-lockb': '', html: ico('lock') })),
         tool('a', { href: '#/app/duell', 'data-nav': 'duell' }, 'spark', L('BWL-Duell', 'Business duel'), h('span', { class: 'newb' }, L('Neu', 'New')))]),
-        document.documentElement.dataset.nv && !document.documentElement.dataset.ben ? tool('a', { href: '#/app/fortschritt', 'data-nav': 'fortschritt' }, 'chart', L('Fortschritt', 'Progress')) : null,
+        document.documentElement.dataset.nv && !document.documentElement.dataset.nv ? tool('a', { href: '#/app/fortschritt', 'data-nav': 'fortschritt' }, 'chart', L('Fortschritt', 'Progress')) : null,
         ...(document.documentElement.dataset.nv ? sideExtras(tool) : []))),
     // Unten: klein und ruhig – Sprache, Konto, Menü; Kündigen bleibt sichtbar (§ 312k BGB)
     h('div', { class: 'bottom' }, ...(sideExtras.bottom || []), quotaEl,
@@ -108,13 +108,13 @@ function buildShell() {
   const tnFace = h('span', { class: 'tn-face' });
   const topnav = h('nav', { class: 'topnav', 'aria-label': L('Bereiche', 'Sections') },
     h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor', onclick: tutorFromAd }, tnFace, h('span', { class: 'tn-l' }, 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
-    homeBeta() ? navA('ueben', '#/app/ueben', document.documentElement.dataset.ben ? 'brain' : 'whistle', document.documentElement.dataset.ben ? L('Lernen', 'Learn') : L('Training', 'Training')) : navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
+    homeBeta() ? navA('ueben', '#/app/ueben', document.documentElement.dataset.nv ? 'brain' : 'whistle', document.documentElement.dataset.nv ? L('Lernen', 'Learn') : L('Training', 'Training')) : navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
     navA('mitschrift', '#/app/mitschrift', 'pen', L('Mitschrift', 'Notes')),
-    document.documentElement.dataset.ben ? navA('faecher', '#/app/bibliothek', 'library', L('Fächer & Bibliothek', 'Subjects & library')) : navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
+    document.documentElement.dataset.nv ? navA('faecher', '#/app/bibliothek', 'library', L('Fächer & Bibliothek', 'Subjects & library')) : navA('faecher', '#/app/faecher', 'brain', L('Fächer', 'Subjects')),
     homeBeta() ? h('a', { class: 'tn tn-lib', href: '#/app/bibliothek', 'data-tn': 'bibliothek' }, h('span', { html: ico('library') }), h('span', { class: 'tn-l tn-l2' }, h('span', {}, L('Bibliothek', 'Library')), h('small', { class: 'tn-cnt', hidden: true }))) : navA('bibliothek', '#/app/bibliothek', 'library', L('Bibliothek', 'Library')),
     // Transkript: Untertitel-Symbol, Wort, YouTube-Logo (in weißer Kachel)
     h('a', { class: 'tn tn-vid tn-flow', href: '#/app/video', 'data-tn': 'video', title: L('YouTube-Video → Lernzettel, Mitschrift, Karteikarten', 'YouTube video → study sheet, notes, flashcards') }, h('span', { class: 'tn-lead', html: ico('captions') }), h('span', { class: 'tn-l' }, L('Transkript', 'Transcribe')), h('span', { class: 'tn-brands', 'aria-hidden': 'true' }, h('img', { src: '/tutor/img/brands/youtube.svg', alt: '', width: 13, height: 13, class: 'tn-b tn-b-youtube' })), h('span', { class: 'tn-new' }, L('NEU', 'NEW'))),
-    h('a', { class: 'tn tn-xl', href: document.documentElement.dataset.ben ? '#/app/tools' : '#/app/excel', 'data-tn': 'excel', title: L('Excel-Helfer: 60 geprüfte Vorlagen & Generator', 'Excel helper: 60 checked templates & generator') }, h('span', { html: ico(document.documentElement.dataset.ben ? 'wrench' : 'sheet') }), h('span', { class: 'tn-l' }, document.documentElement.dataset.ben ? L('Klausur-Tools', 'Exam tools') : L('Excel-Helfer', 'Excel helper')), h('span', { class: 'tn-xlic', 'aria-hidden': 'true', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif" letter-spacing="-.2">XLS</text></svg>' }), h('span', { class: 'tn-new tn-xlnew' }, L('NEU', 'NEW'))));
+    h('a', { class: 'tn tn-xl', href: document.documentElement.dataset.nv ? '#/app/tools' : '#/app/excel', 'data-tn': 'excel', title: L('Excel-Helfer: 60 geprüfte Vorlagen & Generator', 'Excel helper: 60 checked templates & generator') }, h('span', { html: ico(document.documentElement.dataset.nv ? 'wrench' : 'sheet') }), h('span', { class: 'tn-l' }, document.documentElement.dataset.nv ? L('Klausur-Tools', 'Exam tools') : L('Excel-Helfer', 'Excel helper')), h('span', { class: 'tn-xlic', 'aria-hidden': 'true', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif" letter-spacing="-.2">XLS</text></svg>' }), h('span', { class: 'tn-new tn-xlnew' }, L('NEU', 'NEW'))));
   const title = h('button', { class: 'db-title', type: 'button', onclick: e => openDocSwitch(e.currentTarget) });
   const tabs = h('nav', { class: 'tabs', role: 'tablist' });
   const backEl = h('a', { class: 'db-back', href: '#/app/lernen', hidden: true, title: L('Zurück zu Lernen', 'Back to Learn') }, h('span', { html: ico('left') }), h('span', {}, L('Lernen', 'Learn')));
@@ -255,7 +255,7 @@ function renderList() {
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
   const tn = { ueben: hs.startsWith('#/app/ueben') || (backTarget()?.key === 'ueben' && /^#\/app\/(trainer|excel\/trainer|challenge|duell|rechner)/.test(hs)), tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn() && backTarget()?.key !== 'video'), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video') || (inDoc && backTarget()?.key === 'video'), excel: hs.startsWith('#/app/excel') || hs.startsWith('#/app/tools')};
-  if (document.documentElement.dataset.ben) { tn.faecher = tn.faecher || !!tn.bibliothek || hs.startsWith('#/app/bibliothek'); tn.ueben = (tn.ueben || /^#\/app\/(trainer|challenge|duell)/.test(hs)) && !hs.startsWith('#/app/rechner'); tn.excel = tn.excel || hs.startsWith('#/app/rechner'); }   // Test: vier Bereiche
+  if (document.documentElement.dataset.nv) { tn.faecher = tn.faecher || !!tn.bibliothek || hs.startsWith('#/app/bibliothek'); tn.ueben = (tn.ueben || /^#\/app\/(trainer|challenge|duell)/.test(hs)) && !hs.startsWith('#/app/rechner'); tn.excel = tn.excel || hs.startsWith('#/app/rechner'); }   // Test: vier Bereiche
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
   requestAnimationFrame(navIntoView);
   $$('[data-nav="trainer"]', shell.side).forEach(a => a.classList.toggle('on', hs.startsWith('#/app/trainer') && !hs.startsWith('#/app/trainer/buchung')));
@@ -326,7 +326,7 @@ export async function mountApp(parts) {
   if (a === 'zahlen') { const z = await import('./views/zahlen.js'); if (!z.isAdmin(getAccount())) { location.replace('#/app/tutor'); return; } }
   if (a === 'zahlen') return page('zahlen', L('Zahlen', 'Numbers'), async root => { const { render } = await import('./views/zahlen.js'); return render(root); });
   if (a === 'mitschrift') return page('mitschrift:' + (b || ''), L('Mitschrift', 'Notes'), async root => { const { render } = await import('./views/mitschrift.js'); return render(root, { id: b || '' }); });
-  if (a === 'ueben') return page('ueben:' + (b || ''), document.documentElement.dataset.ben ? L('Lernen', 'Learn') : L('Training', 'Training'), async root => { const { render } = await import('./views/ueben.js'); return render(root, { sub: b || '' }); });
+  if (a === 'ueben') return page('ueben:' + (b || ''), document.documentElement.dataset.nv ? L('Lernen', 'Learn') : L('Training', 'Training'), async root => { const { render } = await import('./views/ueben.js'); return render(root, { sub: b || '' }); });
   if (a === 'lernen' && homeBeta()) { location.replace('#/app/tutor'); return; }   // Lernen steckt jetzt im Tutor
   if (a === 'lernen') return page('lernen', L('Lernen', 'Learn'), async root => { const { render } = await import('./views/lernen.js'); return render(root); });
   if (a === 'skripte') { location.replace('#/app/bibliothek/unterlagen'); return; }
@@ -753,7 +753,7 @@ function sideExtras(tool) {
   onAccount(a => import('./views/zahlen.js').then(m => { zahlen.hidden = !m.isAdmin(a); }).catch(() => {}));
   const lang = h('div', { class: 'side-lang' }, h('span', { html: ico('chat') }), h('span', { class: 'nm' }, L('Sprache', 'Language')), langSwitch());
   // Test (nur Bens Konto): oben die zwei großen Einträge Bibliothek und Transkript, darunter Suchen; Hell/Dunkel und Sprache unten
-  if (H.dataset.ben) {
+  if (H.dataset.nv) {
     const hero = (href, nav, icon, title, sub) => { const a = tool('a', { href, 'data-nav': nav }, icon, title); a.classList.add('side-hero'); a.append(h('small', { class: 'side-hero-s' }, sub)); return a; };
     sideExtras.bottom = [h('div', { class: 'side-set' }, theme, lang)];
     return [hero('#/app/mitschrift', 'mitschrift', 'pen', L('Live mitschreiben', 'Live notes'), L('In der Vorlesung, getippt oder Foto', 'In the lecture, typed or photo')),

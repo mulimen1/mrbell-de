@@ -6400,12 +6400,12 @@ html:root[data-nv]:not(.bm-guest) .rm-corner:has(.rm-acc) .rm-olddesign { paddin
 }
 /* Test nur Bens Konto: Bereich-Knöpfe im Konto 1:1 wie auf der Google-Ads-Seite (ab Laptop-Breite, sonst passt die Leiste nicht) */
 @media (min-width: 1340px) {
-  html:root[data-nv][data-ben]:not(.bm-guest) body .topnav { gap: 6px !important; padding-right: 12px !important; }
-  html:root[data-nv][data-ben]:not(.bm-guest) body .tn:not(.tn-tutor) { height: 48px !important; font-size: 17.5px !important; font-weight: 650 !important; padding: 0 14px 0 7px !important; gap: 10px !important; border-radius: 17px !important; }
-  html:root[data-nv][data-ben]:not(.bm-guest) body .tn:not(.tn-tutor) > span:has(> .ico) { width: 38px !important; height: 38px !important; transform: none !important; }
-  html:root[data-nv][data-ben]:not(.bm-guest) body .tn.tn-tutor { height: 54px !important; font-size: 19px !important; padding: 0 22px 0 6px !important; gap: 10px !important; }
-  html:root[data-nv][data-ben]:not(.bm-guest) body .tn-face { width: 42px !important; height: 42px !important; }
-  html:root[data-nv][data-ben]:not(.bm-guest) body .tn-vid .tn-b-youtube, html:root[data-nv][data-ben]:not(.bm-guest) body .tn-xlic svg { width: 24px !important; height: 24px !important; }
+  html:root[data-nv][data-nv]:not(.bm-guest) body .topnav { gap: 6px !important; padding-right: 12px !important; }
+  html:root[data-nv][data-nv]:not(.bm-guest) body .tn:not(.tn-tutor) { height: 48px !important; font-size: 17.5px !important; font-weight: 650 !important; padding: 0 14px 0 7px !important; gap: 10px !important; border-radius: 17px !important; }
+  html:root[data-nv][data-nv]:not(.bm-guest) body .tn:not(.tn-tutor) > span:has(> .ico) { width: 38px !important; height: 38px !important; transform: none !important; }
+  html:root[data-nv][data-nv]:not(.bm-guest) body .tn.tn-tutor { height: 54px !important; font-size: 19px !important; padding: 0 22px 0 6px !important; gap: 10px !important; }
+  html:root[data-nv][data-nv]:not(.bm-guest) body .tn-face { width: 42px !important; height: 42px !important; }
+  html:root[data-nv][data-nv]:not(.bm-guest) body .tn-vid .tn-b-youtube, html:root[data-nv][data-nv]:not(.bm-guest) body .tn-xlic svg { width: 24px !important; height: 24px !important; }
 }
 /* Google-Ads-Einstieg (Laptop): alles mittig – Überschrift, Max, Blase darunter, zwei schlanke Karten, Lexikon/Rechner als Icons */
 .room.rm-tools-mode .rm-col { text-align: center; }
@@ -6589,24 +6589,24 @@ html:root[data-nv] body :is(.tn.tn-tutor, .ai-talk, .lm-tutor, .lm-cta) { backgr
 html:root[data-nv] body :is(.tn.tn-tutor, .ai-talk, .lm-tutor, .lm-cta):hover { background-position: 100% 0 !important; transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,.32), 0 14px 30px -12px color-mix(in srgb, var(--nb2) 90%, transparent) !important; }
 html:root[data-nv] body :is(.tn.tn-tutor, .ai-talk, .lm-tutor, .lm-cta):active { transform: translateY(0) scale(.98); }
 /* Test nur Bens Konto: vier Bereiche über die volle Breite – Tutor | Fächer & Bibliothek | Training ‖ Excel-Helfer */
-html[data-ben] .topnav .tn:is([data-tn="video"], [data-tn="bibliothek"], [data-tn="mitschrift"]) { display: none !important; }
-html[data-ben] .topnav { display: flex !important; justify-content: stretch !important; gap: 12px !important; flex: 1 1 auto; width: 100%; }
-html[data-ben] .topnav .tn-sep { display: none !important; }
-html[data-ben] .topnav .tn:not([hidden]) { flex: 1 1 0; justify-content: center; min-width: 0; }
-html[data-ben] .topnav .tn[data-tn="tutor"] { order: 0; flex-grow: 1; }
-html[data-ben] .topnav .tn[data-tn="faecher"] { order: 2; } html[data-ben] .topnav .tn[data-tn="ueben"] { order: 3; }
-html[data-ben] .topnav .tn[data-tn="excel"] { order: 5; }
+html[data-nv] .topnav .tn:is([data-tn="video"], [data-tn="bibliothek"], [data-tn="mitschrift"]) { display: none !important; }
+html[data-nv] .topnav { display: flex !important; justify-content: stretch !important; gap: 12px !important; flex: 1 1 auto; width: 100%; }
+html[data-nv] .topnav .tn-sep { display: none !important; }
+html[data-nv] .topnav .tn:not([hidden]) { flex: 1 1 0; justify-content: center; min-width: 0; }
+html[data-nv] .topnav .tn[data-tn="tutor"] { order: 0; flex-grow: 1; }
+html[data-nv] .topnav .tn[data-tn="faecher"] { order: 2; } html[data-nv] .topnav .tn[data-tn="ueben"] { order: 3; }
+html[data-nv] .topnav .tn[data-tn="excel"] { order: 5; }
 /* Test Ben: Bereiche – Tutor mit cleanem Zwei-Farben-Verlauf, die anderen als ruhige weiße Karten mit Verlaufs-Icon */
-html:root[data-ben] body .topnav .tn.tn-tutor, html:root[data-ben] body .topnav .tn.tn-tutor.on, html:root[data-ben] body .topnav .tn.tn-tutor:hover { font-size: 17px !important; font-weight: 800 !important; background: linear-gradient(110deg, var(--nbd) 0%, var(--nb2) 38%, var(--nb) 72%, color-mix(in srgb, var(--nb) 62%, #fff) 100%) !important; color: #fff !important; border: 0 !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 0 rgba(0,0,0,.14), 0 12px 26px -12px color-mix(in srgb, var(--nb2) 90%, transparent) !important; transition: transform .2s, box-shadow .2s, filter .2s !important; }
-html:root[data-ben] body .topnav .tn.tn-tutor:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,.34), 0 14px 30px -12px color-mix(in srgb, var(--nbd) 90%, transparent) !important; }
-html:root[data-ben] body .topnav .tn:not(.tn-tutor) { background: #fff !important; border: 1px solid rgba(0,0,0,.06) !important; box-shadow: 0 6px 18px -14px rgba(0,0,0,.4) !important; font-size: 17px !important; font-weight: 700 !important; color: #111 !important; transition: transform .2s, box-shadow .2s, border-color .2s !important; }
-html:root[data-ben] body .topnav .tn:not(.tn-tutor):hover { transform: translateY(-1px); box-shadow: 0 12px 26px -14px rgba(0,0,0,.45) !important; border-color: color-mix(in srgb, var(--nb) 35%, transparent) !important; }
-html:root[data-ben] body .topnav .tn:not(.tn-tutor).on { border: 1.5px solid color-mix(in srgb, var(--nb) 60%, transparent) !important; color: var(--nbd) !important; }
-html:root[data-ben] body .topnav .tn:not(.tn-tutor) > span:has(> .ico) { width: 38px !important; height: 38px !important; border-radius: 12px !important; background: linear-gradient(135deg, var(--nbl), color-mix(in srgb, var(--nbl) 40%, #fff)) !important; color: var(--nb2) !important; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--nb) 14%, transparent); transition: background .25s, color .25s; }
-html:root[data-ben] body .topnav .tn:not(.tn-tutor):is(:hover, .on) > span:has(> .ico) { background: linear-gradient(135deg, color-mix(in srgb, var(--nb) 82%, #fff), var(--nbd)) !important; color: #fff !important; }
-html:root[data-ben][data-theme="dark"] body .topnav .tn:not(.tn-tutor) { background: #16171b !important; color: #f2f2f3 !important; border-color: #2a2c33 !important; }
-html[data-ben] .topnav .tn > span:has(> .ico), html[data-ben] .topnav .tn-xlic, html[data-ben] .topnav .tn-face { flex: none !important; }
-html[data-ben] .room .rm-tl { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+html:root[data-nv] body .topnav .tn.tn-tutor, html:root[data-nv] body .topnav .tn.tn-tutor.on, html:root[data-nv] body .topnav .tn.tn-tutor:hover { font-size: 17px !important; font-weight: 800 !important; background: linear-gradient(110deg, var(--nbd) 0%, var(--nb2) 38%, var(--nb) 72%, color-mix(in srgb, var(--nb) 62%, #fff) 100%) !important; color: #fff !important; border: 0 !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 0 rgba(0,0,0,.14), 0 12px 26px -12px color-mix(in srgb, var(--nb2) 90%, transparent) !important; transition: transform .2s, box-shadow .2s, filter .2s !important; }
+html:root[data-nv] body .topnav .tn.tn-tutor:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,.34), 0 14px 30px -12px color-mix(in srgb, var(--nbd) 90%, transparent) !important; }
+html:root[data-nv] body .topnav .tn:not(.tn-tutor) { background: #fff !important; border: 1px solid rgba(0,0,0,.06) !important; box-shadow: 0 6px 18px -14px rgba(0,0,0,.4) !important; font-size: 17px !important; font-weight: 700 !important; color: #111 !important; transition: transform .2s, box-shadow .2s, border-color .2s !important; }
+html:root[data-nv] body .topnav .tn:not(.tn-tutor):hover { transform: translateY(-1px); box-shadow: 0 12px 26px -14px rgba(0,0,0,.45) !important; border-color: color-mix(in srgb, var(--nb) 35%, transparent) !important; }
+html:root[data-nv] body .topnav .tn:not(.tn-tutor).on { border: 1.5px solid color-mix(in srgb, var(--nb) 60%, transparent) !important; color: var(--nbd) !important; }
+html:root[data-nv] body .topnav .tn:not(.tn-tutor) > span:has(> .ico) { width: 38px !important; height: 38px !important; border-radius: 12px !important; background: linear-gradient(135deg, var(--nbl), color-mix(in srgb, var(--nbl) 40%, #fff)) !important; color: var(--nb2) !important; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--nb) 14%, transparent); transition: background .25s, color .25s; }
+html:root[data-nv] body .topnav .tn:not(.tn-tutor):is(:hover, .on) > span:has(> .ico) { background: linear-gradient(135deg, color-mix(in srgb, var(--nb) 82%, #fff), var(--nbd)) !important; color: #fff !important; }
+html:root[data-nv][data-theme="dark"] body .topnav .tn:not(.tn-tutor) { background: #16171b !important; color: #f2f2f3 !important; border-color: #2a2c33 !important; }
+html[data-nv] .topnav .tn > span:has(> .ico), html[data-nv] .topnav .tn-xlic, html[data-nv] .topnav .tn-face { flex: none !important; }
+html[data-nv] .room .rm-tl { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 .ms-swrow { padding-bottom: 0 !important; margin-bottom: -6px; }
 .ms-sw { display: inline-flex; gap: 4px; padding: 4px; margin: 0 0 16px; border-radius: 999px; background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: 0 8px 20px -16px rgba(0,0,0,.4); }
 .ms-sw-i { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px 0 12px; border-radius: 999px; text-decoration: none; color: var(--ink); font: 650 15px var(--sans); }
@@ -6616,18 +6616,18 @@ html[data-ben] .room .rm-tl { grid-template-columns: repeat(3, minmax(0, 1fr)) !
 .ms-sw-i img { border-radius: 4px; background: #fff; }
 :root[data-theme="dark"] .ms-sw { background: #16171b; border-color: #2a2c33; }
 /* Test nur Bens Konto: Seitenleiste – Bibliothek und Transkript als große Einträge oben, Hell/Dunkel und Sprache unten */
-html[data-ben] .side .side-hero { display: grid !important; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: center; min-height: 66px; padding: 12px 14px !important; }
-html[data-ben] .side .side-hero > span:first-child { grid-row: 1 / 3; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(115deg, var(--nbd), var(--nb2) 45%, var(--nb)); color: #fff; }
-html[data-ben] .side .side-hero > span:first-child .ico, html[data-ben] .side .side-hero > span:first-child svg { width: 21px; height: 21px; color: #fff; }
-html[data-ben] .side .side-hero .nm { font-size: 16.5px; font-weight: 750; align-self: end; }
-html[data-ben] .side .side-hero .side-hero-s { grid-column: 2; font-size: 12.5px; color: var(--mute); align-self: start; line-height: 1.3; }
-html[data-ben] .side .side-hero[data-nav="bibliothek"] { border: 1.5px solid color-mix(in srgb, var(--nb) 45%, transparent) !important; }
-html[data-ben] .side .side-set { display: grid; gap: 8px; margin-bottom: 10px; }
-html[data-ben] .room .rm-tl .rm-tlt small { display: none; } html[data-ben] .room .rm-tl .rm-tlt { padding: 10px 12px !important; min-height: 0 !important; } html[data-ben] .room .rm-tl { gap: 8px !important; }
+html[data-nv] .side .side-hero { display: grid !important; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: center; min-height: 66px; padding: 12px 14px !important; }
+html[data-nv] .side .side-hero > span:first-child { grid-row: 1 / 3; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(115deg, var(--nbd), var(--nb2) 45%, var(--nb)); color: #fff; }
+html[data-nv] .side .side-hero > span:first-child .ico, html[data-nv] .side .side-hero > span:first-child svg { width: 21px; height: 21px; color: #fff; }
+html[data-nv] .side .side-hero .nm { font-size: 16.5px; font-weight: 750; align-self: end; }
+html[data-nv] .side .side-hero .side-hero-s { grid-column: 2; font-size: 12.5px; color: var(--mute); align-self: start; line-height: 1.3; }
+html[data-nv] .side .side-hero[data-nav="bibliothek"] { border: 1.5px solid color-mix(in srgb, var(--nb) 45%, transparent) !important; }
+html[data-nv] .side .side-set { display: grid; gap: 8px; margin-bottom: 10px; }
+html[data-nv] .room .rm-tl .rm-tlt small { display: none; } html[data-nv] .room .rm-tl .rm-tlt { padding: 10px 12px !important; min-height: 0 !important; } html[data-nv] .room .rm-tl { gap: 8px !important; }
 /* Test Ben: alle vier Bereiche gleich groß – Tutor sticht nur durch das Design heraus */
-html:root[data-ben] body .topnav .tn { height: 52px !important; padding-top: 0 !important; padding-bottom: 0 !important; }
-html:root[data-ben] body .topnav .tn .tn-face { width: 38px !important; height: 38px !important; }
-html:root[data-nv][data-ben]:not(.bm-guest) body .topnav .tn.tn.tn, html:root[data-nv][data-ben]:not(.bm-guest) body .topnav .tn.tn-tutor.tn-tutor { height: 52px !important; font-size: 17px !important; padding: 0 14px 0 8px !important; }
+html:root[data-nv] body .topnav .tn { height: 52px !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+html:root[data-nv] body .topnav .tn .tn-face { width: 38px !important; height: 38px !important; }
+html:root[data-nv][data-nv]:not(.bm-guest) body .topnav .tn.tn.tn, html:root[data-nv][data-nv]:not(.bm-guest) body .topnav .tn.tn-tutor.tn-tutor { height: 52px !important; font-size: 17px !important; padding: 0 14px 0 8px !important; }
 /* Klausur-Tools (Übersicht) */
 .kt { max-width: 1080px; margin: 0 auto; }
 .kt-head { margin: 6px 0 22px; }
@@ -6666,10 +6666,10 @@ html:root[data-nv][data-ben]:not(.bm-guest) body .topnav .tn.tn.tn, html:root[da
 .kt-headrow { padding-bottom: 0 !important; margin-bottom: -10px; } .kt-headrow .kt-head { margin-bottom: 0; }
 .view-in.kt-headrow { max-width: 1240px; }
 /* Test Ben: Schnellkacheln als Pyramide – 3 oben, 5 unten */
-html[data-ben] .room .rm-tl { grid-template-columns: repeat(15, minmax(0, 1fr)) !important; }
-html[data-ben] .room .rm-tl .rm-tlt:nth-child(-n+3) { grid-column: span 5; }
-html[data-ben] .room .rm-tl .rm-tlt:nth-child(n+4) { grid-column: span 3; }
-html[data-ben] .room .rm-tl .rm-tlt:nth-child(n+4) b { font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html[data-nv] .room .rm-tl { grid-template-columns: repeat(15, minmax(0, 1fr)) !important; }
+html[data-nv] .room .rm-tl .rm-tlt:nth-child(-n+3) { grid-column: span 5; }
+html[data-nv] .room .rm-tl .rm-tlt:nth-child(n+4) { grid-column: span 3; }
+html[data-nv] .room .rm-tl .rm-tlt:nth-child(n+4) b { font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* Verlauf: nur noch die Uhr, als runder Knopf direkt links neben dem Schreibfeld (nicht mehr über den Kacheln) */
 @media (min-width: 901px) {
   html:root[data-nv] .room .rm-dock { position: relative; }
@@ -6681,8 +6681,8 @@ html[data-ben] .room .rm-tl .rm-tlt:nth-child(n+4) b { font-size: 14.5px; white-
   html:root[data-nv][data-theme="dark"] .room .rm-dock > .rm-sugg .rm-hist { background: #16171b; border-color: #2a2c33; }
 }
 /* Pyramide unten: Icon über dem Namen, damit nichts abgeschnitten wird */
-html[data-ben] .room .rm-tl .rm-tlt:nth-child(n+4) { display: flex !important; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; padding: 10px 6px !important; }
-html[data-ben] .room .rm-tl .rm-tlt:nth-child(n+4) b { white-space: normal; overflow: visible; text-overflow: clip; font-size: 14px; line-height: 1.2; }
+html[data-nv] .room .rm-tl .rm-tlt:nth-child(n+4) { display: flex !important; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; padding: 10px 6px !important; }
+html[data-nv] .room .rm-tl .rm-tlt:nth-child(n+4) b { white-space: normal; overflow: visible; text-overflow: clip; font-size: 14px; line-height: 1.2; }
 @media (min-width: 901px) { html:root[data-nv] .room.rm-tools-mode .rm-dock > .rm-sugg { position: static; } }
 
 /* Zurück-Knöpfe: deutlich sichtbar, überall gleich */
@@ -6734,31 +6734,31 @@ html:root[data-nv] .view-back { margin: 18px 0 4px 26px !important; }
 :root[data-theme="dark"] .kt-term p { color: #c9c9ce; }
 @media (max-width: 760px) { .kt-lxl { grid-template-columns: 1fr; } .kt-subhead .kt-ci { width: 52px; height: 52px; } }
 /* Test Ben: bunte Icons in der Kopfleiste – Fächer & Bibliothek orange, Lernen lila, Klausur-Tools pink (Tutor bleibt blau) */
-html:root[data-nv][data-ben][data-nv][data-ben] body .topnav .tn[data-tn="faecher"] > span:has(> .ico), html:root[data-nv][data-ben][data-nv][data-ben] body .topnav .tn[data-tn="faecher"]:hover > span:has(> .ico) { background: linear-gradient(135deg, #f39b52, #d9601c) !important; color: #fff !important; box-shadow: 0 8px 16px -10px #d9601c !important; }
-html:root[data-nv][data-ben][data-nv][data-ben] body .topnav .tn[data-tn="ueben"] > span:has(> .ico), html:root[data-nv][data-ben][data-nv][data-ben] body .topnav .tn[data-tn="ueben"]:hover > span:has(> .ico) { background: linear-gradient(135deg, #9b7cf0, #5b3fc4) !important; color: #fff !important; box-shadow: 0 8px 16px -10px #5b3fc4 !important; }
-html:root[data-nv][data-ben][data-nv][data-ben] body .topnav .tn[data-tn="excel"] > span:has(> .ico), html:root[data-nv][data-ben][data-nv][data-ben] body .topnav .tn[data-tn="excel"]:hover > span:has(> .ico) { background: linear-gradient(135deg, #f47ba0, #c8336f) !important; color: #fff !important; box-shadow: 0 8px 16px -10px #c8336f !important; }
-html:root[data-ben] body .topnav .tn[data-tn="faecher"].on { border-color: #d9601c !important; color: #b04d14 !important; }
-html:root[data-ben] body .topnav .tn[data-tn="ueben"].on { border-color: #5b3fc4 !important; color: #4a33a3 !important; }
-html:root[data-ben] body .topnav .tn[data-tn="excel"].on { border-color: #c8336f !important; color: #a82a5c !important; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="faecher"] > span:has(> .ico), html:root[data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="faecher"]:hover > span:has(> .ico) { background: linear-gradient(135deg, #f39b52, #d9601c) !important; color: #fff !important; box-shadow: 0 8px 16px -10px #d9601c !important; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="ueben"] > span:has(> .ico), html:root[data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="ueben"]:hover > span:has(> .ico) { background: linear-gradient(135deg, #9b7cf0, #5b3fc4) !important; color: #fff !important; box-shadow: 0 8px 16px -10px #5b3fc4 !important; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="excel"] > span:has(> .ico), html:root[data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="excel"]:hover > span:has(> .ico) { background: linear-gradient(135deg, #f47ba0, #c8336f) !important; color: #fff !important; box-shadow: 0 8px 16px -10px #c8336f !important; }
+html:root[data-nv] body .topnav .tn[data-tn="faecher"].on { border-color: #d9601c !important; color: #b04d14 !important; }
+html:root[data-nv] body .topnav .tn[data-tn="ueben"].on { border-color: #5b3fc4 !important; color: #4a33a3 !important; }
+html:root[data-nv] body .topnav .tn[data-tn="excel"].on { border-color: #c8336f !important; color: #a82a5c !important; }
 /* Overlays im Tutor (Pause, Bilanz, …): kein weißer Vorhang mehr – Hintergrund bleibt sichtbar, nur weich verschwommen */
 html:root[data-nv] .rm-ov { background: rgba(235, 228, 216, .38) !important; -webkit-backdrop-filter: blur(14px) saturate(1.05) !important; backdrop-filter: blur(14px) saturate(1.05) !important; }
 html:root[data-nv][data-theme="dark"] .rm-ov { background: rgba(11, 11, 12, .45) !important; }
 html:root[data-nv] .rm-ov :is(h2, p, .eyebrow) { text-shadow: 0 0 2px #ebe4d8, 0 0 8px #ebe4d8, 0 0 16px #ebe4d8; }
 html:root[data-nv][data-theme="dark"] .rm-ov :is(h2, p, .eyebrow) { text-shadow: 0 0 2px #0b0b0c, 0 0 8px #0b0b0c, 0 0 16px #0b0b0c; }
 /* Test Ben: jede Schnellkachel im Tutor mit eigenem, voll gefärbten Icon */
-html:root[data-nv][data-ben][data-nv][data-ben] body .room .rm-tl .rm-tlt .rm-tli, html:root[data-nv][data-ben][data-nv][data-ben] body .room .rm-tl .rm-tlt:hover .rm-tli { color: #fff !important; transform: none; box-shadow: 0 8px 16px -10px var(--kc2) !important; background: linear-gradient(135deg, var(--kc1), var(--kc2)) !important; }
-html[data-ben] .room .rm-tl .rm-tlt[data-ic="board"] { --kc1: #5aa2f7; --kc2: #1a5fc4; }
-html[data-ben] .room .rm-tl .rm-tlt[data-ic="note"] { --kc1: #f7c948; --kc2: #d18e06; }
-html[data-ben] .room .rm-tl .rm-tlt[data-ic="cards"] { --kc1: #3fc1c9; --kc2: #0e7f8e; }
-html[data-ben] .room .rm-tl .rm-tlt[data-ic="calendar"] { --kc1: #f39b52; --kc2: #d9601c; }
-html[data-ben] .room .rm-tl .rm-tlt[data-ic="quiz"] { --kc1: #9b7cf0; --kc2: #5b3fc4; }
-html[data-ben] .room .rm-tl .rm-tlt[data-ic="headphones"] { --kc1: #f47ba0; --kc2: #c8336f; }
-html[data-ben] .room .rm-tl .rm-tlt[data-ic="path"] { --kc1: #7a8cf7; --kc2: #3f4fd6; }
-html[data-ben] .room .rm-tl .rm-tlt[data-ic="captions"] { --kc1: #ff7b7b; --kc2: #d63031; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .room .rm-tl .rm-tlt .rm-tli, html:root[data-nv][data-nv][data-nv][data-nv] body .room .rm-tl .rm-tlt:hover .rm-tli { color: #fff !important; transform: none; box-shadow: 0 8px 16px -10px var(--kc2) !important; background: linear-gradient(135deg, var(--kc1), var(--kc2)) !important; }
+html[data-nv] .room .rm-tl .rm-tlt[data-ic="board"] { --kc1: #5aa2f7; --kc2: #1a5fc4; }
+html[data-nv] .room .rm-tl .rm-tlt[data-ic="note"] { --kc1: #f7c948; --kc2: #d18e06; }
+html[data-nv] .room .rm-tl .rm-tlt[data-ic="cards"] { --kc1: #3fc1c9; --kc2: #0e7f8e; }
+html[data-nv] .room .rm-tl .rm-tlt[data-ic="calendar"] { --kc1: #f39b52; --kc2: #d9601c; }
+html[data-nv] .room .rm-tl .rm-tlt[data-ic="quiz"] { --kc1: #9b7cf0; --kc2: #5b3fc4; }
+html[data-nv] .room .rm-tl .rm-tlt[data-ic="headphones"] { --kc1: #f47ba0; --kc2: #c8336f; }
+html[data-nv] .room .rm-tl .rm-tlt[data-ic="path"] { --kc1: #7a8cf7; --kc2: #3f4fd6; }
+html[data-nv] .room .rm-tl .rm-tlt[data-ic="captions"] { --kc1: #ff7b7b; --kc2: #d63031; }
 /* Test Ben: obere Kachelreihe – Name exakt mittig neben dem Icon */
-html:root[data-nv][data-ben] body .room .rm-tl .rm-tlt:nth-child(-n+3) { display: flex !important; flex-direction: row; align-items: center; gap: 14px; padding: 12px 16px !important; }
-html:root[data-nv][data-ben] body .room .rm-tl .rm-tlt:nth-child(-n+3) > *:not(.rm-tli):not(b) { display: none; }
-html:root[data-nv][data-ben] body .room .rm-tl .rm-tlt:nth-child(-n+3) b { margin: 0 !important; line-height: 1.2; }
+html:root[data-nv][data-nv] body .room .rm-tl .rm-tlt:nth-child(-n+3) { display: flex !important; flex-direction: row; align-items: center; gap: 14px; padding: 12px 16px !important; }
+html:root[data-nv][data-nv] body .room .rm-tl .rm-tlt:nth-child(-n+3) > *:not(.rm-tli):not(b) { display: none; }
+html:root[data-nv][data-nv] body .room .rm-tl .rm-tlt:nth-child(-n+3) b { margin: 0 !important; line-height: 1.2; }
 /* Rechner: Kopf wie bei den Klausur-Tools, Text auf Karte statt auf den Punkten, deutlicher Zurück-Knopf */
 html:root[data-nv] .rc-h h2, html:root[data-nv] .rc-body ~ * h2, html:root[data-nv] .view-in > .vh h2 { font-size: clamp(30px, 4vw, 44px) !important; letter-spacing: -.035em; line-height: 1.05; }
 html:root[data-nv] .view-in > .vh p, html:root[data-nv] .rc-h p { font-size: 16px !important; line-height: 1.55; color: #3d3a35 !important; background: #fff; padding: 12px 16px; border-radius: 14px; box-shadow: 0 8px 22px -18px rgba(0,0,0,.4); display: inline-block; max-width: 720px; }
@@ -6802,14 +6802,14 @@ button.kt-doc:hover { transform: translateY(-1px); border-color: color-mix(in sr
 :root[data-theme="dark"] .kt-seg button:not(.on) { background: #1b1d22; border-color: #2a2d35; color: #e6e6e9; }
 @media (max-width: 760px) { .kt-opt { grid-template-columns: 1fr; gap: 8px; } .kt-step { grid-template-columns: 1fr; padding: 16px; } .kt-sn { width: 32px; height: 32px; font-size: 15px; } }
 /* Test Ben: Seitenleiste – Icons voll gefärbt wie in den Bereichen */
-html:root[data-nv][data-ben] body .side .side-hero[data-nav="mitschrift"] > span:first-child { background: linear-gradient(135deg, #5aa2f7, #1a5fc4) !important; }
-html:root[data-nv][data-ben] body .side .side-hero[data-nav="video"] > span:first-child { background: linear-gradient(135deg, #ff7b7b, #d63031) !important; }
-html:root[data-nv][data-ben] body .side .side-tools .doc-item:not(.side-hero) > span:first-child:has(.ico) { width: 34px; height: 34px; border-radius: 10px; display: inline-grid; place-items: center; color: #fff !important; background: linear-gradient(135deg, #9b7cf0, #5b3fc4); flex: none; }
-html:root[data-nv][data-ben] body .side .side-tools .doc-item[data-nav="zahlen"] > span:first-child { background: linear-gradient(135deg, #3fc1c9, #0e7f8e) !important; }
-html:root[data-nv][data-ben] body .side .side-tools .doc-item:not(.side-hero) > span:first-child .ico { color: #fff !important; width: 18px; height: 18px; }
-html:root[data-nv][data-ben] body .side .side-set .doc-item > span:first-child, html:root[data-nv][data-ben] body .side .side-set .side-lang > span:first-child { width: 34px; height: 34px; border-radius: 10px; display: inline-grid; place-items: center; color: #fff !important; flex: none; background: linear-gradient(135deg, #f39b52, #d9601c); }
-html:root[data-nv][data-ben] body .side .side-set .side-lang > span:first-child { background: linear-gradient(135deg, #f47ba0, #c8336f); }
-html:root[data-nv][data-ben] body .side .side-set :is(.doc-item, .side-lang) > span:first-child .ico { color: #fff !important; width: 18px; height: 18px; }
+html:root[data-nv][data-nv] body .side .side-hero[data-nav="mitschrift"] > span:first-child { background: linear-gradient(135deg, #5aa2f7, #1a5fc4) !important; }
+html:root[data-nv][data-nv] body .side .side-hero[data-nav="video"] > span:first-child { background: linear-gradient(135deg, #ff7b7b, #d63031) !important; }
+html:root[data-nv][data-nv] body .side .side-tools .doc-item:not(.side-hero) > span:first-child:has(.ico) { width: 34px; height: 34px; border-radius: 10px; display: inline-grid; place-items: center; color: #fff !important; background: linear-gradient(135deg, #9b7cf0, #5b3fc4); flex: none; }
+html:root[data-nv][data-nv] body .side .side-tools .doc-item[data-nav="zahlen"] > span:first-child { background: linear-gradient(135deg, #3fc1c9, #0e7f8e) !important; }
+html:root[data-nv][data-nv] body .side .side-tools .doc-item:not(.side-hero) > span:first-child .ico { color: #fff !important; width: 18px; height: 18px; }
+html:root[data-nv][data-nv] body .side .side-set .doc-item > span:first-child, html:root[data-nv][data-nv] body .side .side-set .side-lang > span:first-child { width: 34px; height: 34px; border-radius: 10px; display: inline-grid; place-items: center; color: #fff !important; flex: none; background: linear-gradient(135deg, #f39b52, #d9601c); }
+html:root[data-nv][data-nv] body .side .side-set .side-lang > span:first-child { background: linear-gradient(135deg, #f47ba0, #c8336f); }
+html:root[data-nv][data-nv] body .side .side-set :is(.doc-item, .side-lang) > span:first-child .ico { color: #fff !important; width: 18px; height: 18px; }
 /* Startseite: Funktions-Icons in denselben satten Farben wie in der App */
 html:root[data-nv] #featrow .feat { --fc1: #5aa2f7; --fc2: #1a5fc4; }
 html:root[data-nv] #featrow .feat[data-k="tutor"] { --fc1: #5aa2f7; --fc2: #1a5fc4; }
@@ -6848,3 +6848,16 @@ html:root[data-nv] .xl-cats .chip[data-cat].on .xl-cn { color: rgba(255,255,255,
 :root[data-theme="dark"] .xl-card[data-cat] .xl-ccat { background: color-mix(in srgb, var(--xc1) 18%, #15161a); color: var(--xc1) !important; }
 :root[data-theme="dark"] .xl-cats .chip[data-cat]:not(.on) { background: #16171b !important; color: #e6e6e9 !important; }
 html:root[data-nv] .xl-card[data-cat] .xl-ccat { width: fit-content; justify-self: start; align-self: flex-start; }
+/* Handy: Bereiche nicht auf volle Breite quetschen – wie bisher waagerecht scrollbar, normale Größe */
+@media (max-width: 760px) {
+  html[data-nv] body .topnav { width: auto !important; justify-content: flex-start !important; gap: 6px !important; }
+  html[data-nv] body .topnav .tn:not([hidden]) { flex: 0 0 auto !important; height: 44px !important; font-size: 15px !important; padding: 0 12px 0 6px !important; }
+  html[data-nv] body .topnav .tn .tn-face { width: 32px !important; height: 32px !important; }
+  html[data-nv] body .topnav .tn > span:has(> .ico) { width: 32px !important; height: 32px !important; }
+  html[data-nv] body .topnav .tn[data-tn="excel"] .tn-xlic, html[data-nv] body .topnav .tn[data-tn="excel"] .tn-new { display: none !important; }
+}
+@media (max-width: 760px) {
+  html[data-nv] body .room .rm-tl { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 6px !important; }
+  html[data-nv] body .room .rm-tl .rm-tlt:nth-child(n) { grid-column: span 1 !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center; gap: 5px !important; padding: 9px 4px !important; text-align: center; }
+  html[data-nv] body .room .rm-tl .rm-tlt b { font-size: 11.5px !important; white-space: normal !important; line-height: 1.15; }
+}
