@@ -78,3 +78,34 @@ if (H.dataset.ben && H.dataset.nv && !matchMedia('(prefers-reduced-motion: reduc
   addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; if (!raf) raf = requestAnimationFrame(tick); }, { passive: true });
   tick();
 }
+
+// Test nur Ben: Hintergrund-Varianten zum Durchklicken (gemerkt auf diesem Gerät)
+if (H.dataset.ben && H.dataset.nv) {
+  const BG = [['sand-blau', 'linear-gradient(180deg,#f7f6f3,#eef3fa)'], ['grau-blau', 'linear-gradient(160deg,#f3f4f6,#edf2fa)'], ['blau-lila', 'linear-gradient(135deg,#eef3fa,#f1effa)'], ['mint-blau', 'linear-gradient(135deg,#eef5f2,#edf2fa)'], ['grau', '#f1f2f4'], ['sand', '#f8f6f2'], ['blau', '#eef3fa'], ['salbei', '#eff3ef']];
+  let cur = 'sand-blau'; try { cur = localStorage.getItem('bm.bg') || cur; } catch (e) {}
+  H.dataset.bg = cur;
+  const mount = () => { if (!document.body) return setTimeout(mount, 80);
+    const box = document.createElement('div'); box.className = 'bgpick'; box.innerHTML = '<span>Hintergrund</span>';
+    BG.forEach(([k, c]) => { const b = document.createElement('button'); b.type = 'button'; b.title = k; b.style.background = c; if (k === cur) b.className = 'on';
+      b.onclick = () => { cur = k; H.dataset.bg = k; try { localStorage.setItem('bm.bg', k); } catch (e) {} box.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); }; box.appendChild(b); });
+    document.body.appendChild(box); };
+  mount();
+}
+
+// Test nur Ben: Hintergründe zum Durchklicken (gemerkt auf diesem Gerät). Ausblenden mit x, zurück per Doppelklick unten links.
+if (H.dataset.ben && H.dataset.nv) {
+  const BG = [['Grau hell', '#f5f6f7'], ['Grau', '#f0f1f3'], ['Grau stark', '#e8eaed'], ['Beige hell', '#faf8f4'], ['Beige', '#f6f2ea'], ['Beige stark', '#efe8db'],
+    ['Blau hell', '#f1f5fb'], ['Salbei', '#eff3ef'], ['Grau→Blau', 'linear-gradient(160deg,#f3f4f6,#edf2fa)'], ['Beige→Blau', 'linear-gradient(180deg,#f8f6f1,#eef3fa)'], ['Blau→Lila', 'linear-gradient(135deg,#eef3fa,#f2f0fa)'], ['Mint→Blau', 'linear-gradient(135deg,#eef5f2,#edf2fa)']];
+  let cur = BG[1][1]; try { cur = localStorage.getItem('bm.bg') || cur; } catch (e) {}
+  const set = v => H.style.setProperty('--benbg', v); set(cur);
+  const mount = () => { if (!document.body) return setTimeout(mount, 80);
+    let hide = false; try { hide = localStorage.getItem('bm.bgHide') === '1'; } catch (e) {}
+    const box = document.createElement('div'); box.className = 'bgpick'; box.hidden = hide;
+    BG.forEach(([n, c]) => { const b = document.createElement('button'); b.type = 'button'; b.innerHTML = '<i></i>' + n; b.firstChild.style.background = c; if (c === cur) b.className = 'on';
+      b.onclick = () => { cur = c; set(c); try { localStorage.setItem('bm.bg', c); } catch (e) {} box.querySelectorAll('button:not(.x)').forEach(x => x.classList.toggle('on', x === b)); }; box.appendChild(b); });
+    const x = document.createElement('button'); x.type = 'button'; x.className = 'x'; x.textContent = '×'; x.title = 'Ausblenden';
+    x.onclick = () => { box.hidden = true; try { localStorage.setItem('bm.bgHide', '1'); } catch (e) {} }; box.appendChild(x);
+    document.body.appendChild(box);
+    addEventListener('keydown', e => { if (e.altKey && e.key.toLowerCase() === 'h') { box.hidden = !box.hidden; try { localStorage.setItem('bm.bgHide', box.hidden ? '1' : '0'); } catch (x) {} } }); };
+  mount();
+}

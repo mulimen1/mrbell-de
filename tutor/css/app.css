@@ -6277,3 +6277,53 @@ html[data-ben][data-nv]:root .app .topbar.topbar { background-color: transparent
 /* Dunkel: Icon-Kästchen getönt statt hell */
 html:root[data-nv][data-accent][data-nv][data-theme="dark"] :is(.rm-tc .rm-tci:has(> .ico), .rm-tli, .rm-ti, .ln-ti, .rm-tdi, .rm-mat.empty .rm-mi, .rm-si, .tn:not(.tn-tutor) > span:has(> .ico), .rm-prog-nv > span:first-child) { background: rgba(74, 157, 255, .18) !important; color: #9fcbff !important; }
 html:root[data-nv][data-accent][data-nv][data-theme="dark"] :is(.btn.primary, .side .side-new, .ik-go, .vt-back) { background: rgba(74, 157, 255, .18) !important; color: #cfe4ff !important; border-color: rgba(74, 157, 255, .45) !important; }
+/* Test nur Ben: ruhiger Farbhintergrund statt Reinweiß – zarte Blau-/Mint-Schleier, passt zum Markenblau */
+html[data-ben][data-nv] body, html[data-ben][data-nv] .bg3d { background:
+  radial-gradient(900px 600px at 8% 0%, rgba(120, 180, 255, .22), transparent 60%),
+  radial-gradient(800px 600px at 100% 30%, rgba(150, 215, 230, .18), transparent 60%),
+  radial-gradient(900px 700px at 40% 110%, rgba(170, 160, 255, .14), transparent 60%),
+  #f3f7fd !important; }
+html[data-ben][data-nv][data-theme="dark"] body, html[data-ben][data-nv][data-theme="dark"] .bg3d { background:
+  radial-gradient(900px 600px at 8% 0%, rgba(50, 110, 220, .22), transparent 60%),
+  radial-gradient(800px 600px at 100% 30%, rgba(40, 140, 170, .14), transparent 60%),
+  radial-gradient(900px 700px at 40% 110%, rgba(90, 70, 200, .14), transparent 60%),
+  #070b14 !important; }
+html[data-ben][data-nv] :is(.side, .app > aside) { background-color: rgba(255, 255, 255, .55) !important; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+html[data-ben][data-nv][data-theme="dark"] :is(.side, .app > aside) { background-color: rgba(10, 14, 24, .55) !important; }
+/* Test nur Ben: statt Farbschleiern ruhiges Hellgrau mit feinem Punkteraster (Notion-Gefühl) */
+html[data-ben][data-nv] body, html[data-ben][data-nv] .bg3d { background: #f4f5f7 !important; }
+html[data-ben][data-nv][data-theme="dark"] body, html[data-ben][data-nv][data-theme="dark"] .bg3d { background: #0d0e11 !important; }
+html[data-ben][data-nv] :is(.side, .app > aside) { background-color: rgba(255, 255, 255, .6) !important; }
+html[data-ben][data-nv][data-theme="dark"] :is(.side, .app > aside) { background-color: rgba(20, 21, 25, .6) !important; }
+/* Test nur Ben: Hintergrund-Varianten (Umschalter unten links), Punkteraster immer kräftig */
+html[data-ben][data-nv] .bg3d-far { background-image: radial-gradient(rgba(0, 0, 0, .38) 1.4px, transparent 1.8px) !important; transform: none !important; }
+html[data-ben][data-nv] .bg3d-near { display: none !important; }
+html[data-ben][data-nv][data-theme="dark"] .bg3d-far { background-image: radial-gradient(rgba(255, 255, 255, .22) 1.4px, transparent 1.8px) !important; }
+html[data-ben][data-nv]:not([data-theme="dark"]) body, html[data-ben][data-nv]:not([data-theme="dark"]) .bg3d { background: var(--benbg, linear-gradient(180deg, #f7f6f3 0%, #eef3fa 100%)) !important; }
+html[data-ben][data-bg="grau"] { --benbg: #f1f2f4; }
+html[data-ben][data-bg="sand"] { --benbg: #f8f6f2; }
+html[data-ben][data-bg="blau"] { --benbg: #eef3fa; }
+html[data-ben][data-bg="salbei"] { --benbg: #eff3ef; }
+html[data-ben][data-bg="sand-blau"] { --benbg: linear-gradient(180deg, #f7f6f3 0%, #eef3fa 100%); }
+html[data-ben][data-bg="grau-blau"] { --benbg: linear-gradient(160deg, #f3f4f6 0%, #edf2fa 100%); }
+html[data-ben][data-bg="blau-lila"] { --benbg: linear-gradient(135deg, #eef3fa 0%, #f1effa 100%); }
+html[data-ben][data-bg="mint-blau"] { --benbg: linear-gradient(135deg, #eef5f2 0%, #edf2fa 100%); }
+.bgpick { position: fixed; left: 280px; bottom: 14px; z-index: 300; display: flex; gap: 6px; padding: 6px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line2); box-shadow: 0 10px 30px -14px rgba(0,0,0,.35); font: 600 11px var(--sans); }
+.bgpick button { width: 30px; height: 30px; border-radius: 9px; border: 1px solid var(--line2); cursor: pointer; padding: 0; }
+.bgpick button.on { outline: 2px solid #1f6fe0; outline-offset: 1px; }
+.bgpick span { align-self: center; padding: 0 4px; color: var(--mute); }
+/* Test nur Ben: Hintergrund-Varianten zum Durchklicken (Umschalter unten), Punkteraster immer kräftig */
+html[data-ben][data-nv] .bg3d-far { background-image: radial-gradient(rgba(0, 0, 0, .38) 1.4px, transparent 1.8px) !important; transform: none !important; }
+html[data-ben][data-nv] .bg3d-near { display: none !important; }
+html[data-ben][data-nv][data-theme="dark"] .bg3d-far { background-image: radial-gradient(rgba(255, 255, 255, .22) 1.4px, transparent 1.8px) !important; }
+html[data-ben][data-nv]:not([data-theme="dark"]) body, html[data-ben][data-nv]:not([data-theme="dark"]) .bg3d { background: var(--benbg, #f1f2f4) !important; }
+.bgpick { position: fixed; left: 50%; transform: translateX(-50%); bottom: 96px; z-index: 300; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 760px; padding: 8px 10px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line2); box-shadow: 0 12px 34px -14px rgba(0,0,0,.35); font: 600 11px var(--sans); }
+.bgpick button { display: grid; justify-items: center; gap: 3px; border: 0; background: none; cursor: pointer; padding: 2px; font: 600 10px var(--sans); color: var(--mute); }
+.bgpick i { width: 34px; height: 26px; border-radius: 8px; border: 1px solid var(--line2); display: block; }
+.bgpick button.on i { outline: 2px solid #1f6fe0; outline-offset: 2px; }
+.bgpick button.on { color: var(--ink); }
+.bgpick .x { position: absolute; top: -9px; right: -9px; width: 22px; height: 22px; border-radius: 50%; background: var(--panel); border: 1px solid var(--line2); font-size: 12px; line-height: 1; display: grid; place-items: center; }
+.bgpick { left: auto !important; right: 14px !important; bottom: auto !important; top: 150px; transform: none !important; flex-direction: column; flex-wrap: nowrap; max-width: none; width: 92px; gap: 4px; padding: 10px 6px; }
+.bgpick button { grid-template-columns: 30px 1fr; align-items: center; justify-items: start; gap: 6px; width: 100%; text-align: left; white-space: nowrap; }
+.bgpick i { width: 30px; height: 22px; }
+.bgpick { width: 116px !important; }
