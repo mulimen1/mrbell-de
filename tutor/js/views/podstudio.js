@@ -59,7 +59,7 @@ export function studio(p, api) {
     const W = cv.width, H = cv.height, bw = W / BARS;
     g.clearRect(0, 0, W, H);
     const spk = (p.lines[api.idx()] || {}).s;
-    g.fillStyle = spk === 'Max' ? 'rgba(242,196,107,.95)' : 'rgba(156,190,255,.95)';
+    { const gr = g.createLinearGradient(0, 0, W, 0); if (spk === 'Max') { gr.addColorStop(0, '#9b7cf0'); gr.addColorStop(1, '#c8336f'); } else { gr.addColorStop(0, '#2a7fe8'); gr.addColorStop(1, '#7b4fe0'); } g.fillStyle = gr; }
     for (let i = 0; i < BARS; i++) {
       const c = Math.abs(i - (BARS - 1) / 2) / ((BARS - 1) / 2);
       let v = an && playing && api.real() ? (buf[3 + Math.round((1 - c) * 40)] || 0) / 255 : lvl * (0.5 + 0.5 * Math.sin(phase * 1.3 + i * .55));

@@ -121,7 +121,7 @@ export async function render(root, { sub = '' } = {}) {
       ['wk', 'trophy', L('Wettkampf', 'Compete'), ['#f7c948', '#d18e06'], () => [h('div', { class: 'ub-simrow' }, wk[1], wk[2])]],
       ['tr', 'path', 'Trainer', ['#5aa2f7', '#1a5fc4'], () => [h('div', { class: 'ub-trtop' }, guide), ...trSec.slice(1)]],
     ];
-    let cur = 'stoff'; try { cur = sessionStorage.getItem('tutor.ubTab') || 'stoff'; } catch (e) {}
+    let cur = 'stoff';   // Lernen startet immer bei „Aus deinem Stoff lernen“
     if (!SECS.some(x => x[0] === cur)) cur = 'stoff';
     const body = h('div', { class: 'ub-body' });
     const tabs = h('nav', { class: 'ub-tabs', 'aria-label': L('Bereiche in Lernen', 'Sections in Learn') }, ...SECS.map(([k, ic, t, c]) => h('button', { type: 'button', class: 'ub-tab', 'data-k': k, style: { '--t1': c[0], '--t2': c[1] }, onclick: () => show(k) }, h('span', { class: 'ub-ti', html: ico(ic) }), h('span', {}, t))));

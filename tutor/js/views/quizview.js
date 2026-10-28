@@ -15,6 +15,7 @@ import { autoOpts, srcPicker, goSource, wishHint } from '../create.js';
 import { dlBtn, optsQuiz } from '../export.js';
 import { savedToast } from '../lib.js';
 import { quizReview } from '../quizreview.js';
+import { nextUp } from '../nextup.js';
 
 const TYPES = ['mc', 'tf', 'match', 'order', 'cloze', 'num'];
 const DIFF = [['leicht', L('Leicht', 'Easy')], ['mittel', L('Mittel', 'Medium')], ['schwer', L('Schwer', 'Hard')], ['klausur', L('Klausur', 'Exam level')]];
@@ -227,7 +228,8 @@ function run(wrap, ctx, quiz) {
             h('button', { class: 'btn ghost', onclick: () => overview(wrap, ctx) }, L('Fertig', 'Done'))))),
       quiz.exam ? examSheet(pts, pScore, pm, grade) : null,
       !lsq.get('tutor.feedbackGiven', 0) && score >= .5 ? h('div', { class: 'qres-fb' }, feedbackButton('btn sm')) : null,
-      quizReview(qs, res, { onAsk: (q, rr) => ctx.ask(explainPrompt(q, rr)) })));
+      quizReview(qs, res, { onAsk: (q, rr) => ctx.ask(explainPrompt(q, rr)) }),
+      nextUp(ctx, 'quiz', { extra: doc.mistakes.length ? [] : [] })));
     const fcc = face(f); setTimeout(() => fcc.set(score >= .6 ? 'happy' : 'sad'), 200);
   };
   step();

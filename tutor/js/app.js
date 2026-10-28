@@ -449,9 +449,22 @@ addEventListener('hashchange', () => setTimeout(justMadeChip, 60));
 addEventListener('bm:justmade', () => setTimeout(justMadeChip, 60));
 setInterval(justMadeChip, 15e3);
 setTimeout(justMadeChip, 800);
+// Name einer Seite für „zurück zu …“ (Bereich, Werkzeug + Skript, oder Seitentitel)
+const TABNAME = { hub: L('Übersicht', 'Overview'), plan: L('Klausurplan', 'Exam plan'), tutor: 'Max', pfad: L('Lernpfad', 'Study path'), quiz: 'Quiz', karten: L('Karteikarten', 'Flashcards'), podcast: 'Podcast', zettel: L('Lernzettel', 'Study sheet') };
+function pageName(hs) {
+  const ar = AREA_OF(hs); if (ar && !ar.own) return { l: ar.l, c: ar.c };
+  const m = hs.match(/^#\/app\/([^/?]+)(?:\/([^/?]+))?/);
+  if (m && S.list && S.list.some(d => d.id === m[1])) { const d = S.list.find(x => x.id === m[1]); return { l: (TABNAME[m[2]] || L('Skript', 'Slides')) + ' · ' + (d.name || ''), c: ar ? ar.c : '#5b3fc4' }; }
+  return { l: (shell.title && shell.title.textContent) || L('vorherige Seite', 'previous page'), c: ar ? ar.c : '#5b3fc4' };
+}
 function backPill(root) {
   if (!document.documentElement.dataset.nv || !root || !root.isConnected) return;
   const hs = location.hash.split('?')[0], ar = AREA_OF(hs);
+  // Verlauf: woher kam man gerade (beliebige Seite) – für den zweiten, leisen Zurück-Weg
+  let hist = []; try { hist = JSON.parse(sessionStorage.getItem('tutor.navHist') || '[]'); } catch (e) {}
+  const lastH = hist.length ? hist[hist.length - 1] : null;
+  const prev = lastH && lastH.h !== hs ? lastH : (hist.length > 1 && lastH.h === hs ? hist[hist.length - 2] : null);
+  if (!lastH || lastH.h !== hs) { const nm = pageName(hs); hist.push({ h: hs, l: nm.l, c: nm.c }); try { sessionStorage.setItem('tutor.navHist', JSON.stringify(hist.slice(-8))); } catch (e) {} }
   let from = null; try { from = JSON.parse(sessionStorage.getItem('tutor.navFrom') || 'null'); } catch (e) {}
   if (ar) { if (!ar.own) try { sessionStorage.setItem('tutor.navFrom', JSON.stringify({ h: hs, l: ar.l, c: ar.c })); } catch (e) {} return; }
   if (/^#\/app\/(neu)?$/.test(hs)) return;
@@ -459,11 +472,14 @@ function backPill(root) {
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
   if (!from || from.h === hs) from = inDoc ? { h: '#/app/bibliothek', l: L('Bibliothek', 'Library'), c: '#d9601c' } : { h: '#/app/tutor', l: L('Tutor', 'Tutor'), c: '#1a5fc4' };
   root.querySelectorAll(':scope > .ub-libback, :scope .view-back').forEach(e => e.remove());
-  // genau EIN Zurück-Knopf: alte Knöpfe und alte Wächter weg, bevor ein neuer kommt
+  // genau EIN Zurück-Block: alte Knöpfe und alte Wächter weg, bevor ein neuer kommt
   if (pillObs) { pillObs.disconnect(); pillObs = null; }
-  document.querySelectorAll('.bk-pill').forEach(e => e.remove());
+  document.querySelectorAll('.bk-pill, .bk-wrap').forEach(e => e.remove());
   const pill = h('a', { class: 'bk-pill', href: from.h, style: { '--bk': from.c } }, h('span', { html: ico('left') }), L('Zurück zu ', 'Back to ') + from.l, inDoc ? h('small', {}, S.doc.name) : null);
-  const keep = () => { if (location.hash.split('?')[0] !== hs) { if (pillObs) { pillObs.disconnect(); pillObs = null; } return; } if (root.isConnected && !pill.isConnected && !root.querySelector('.bk-pill')) root.prepend(pill); };
+  // Kam man über einen Umweg (andere Seite als der Bereich)? Dann leise darunter: zurück genau dorthin
+  const via = prev && prev.h !== from.h && prev.h !== hs && !prev.h.startsWith(hs + '/') && !(prev.h.split('/').slice(0, 4).join('/') === hs.split('/').slice(0, 4).join('/') && inDoc) ? prev : null;
+  const blk = h('div', { class: 'bk-wrap' }, pill, via ? h('a', { class: 'bk-via', href: via.h, style: { '--bk': via.c } }, h('span', { html: ico('left') }), L('oder zurück zu ', 'or back to '), h('b', {}, via.l)) : null);
+  const keep = () => { if (location.hash.split('?')[0] !== hs) { if (pillObs) { pillObs.disconnect(); pillObs = null; } return; } if (root.isConnected && !blk.isConnected && !root.querySelector('.bk-wrap')) root.prepend(blk); };
   keep(); pillObs = new MutationObserver(keep); pillObs.observe(root, { childList: true });
 }
 let pillObs = null;

@@ -412,7 +412,7 @@ export function render(root, ctx = {}) {
       if (document.documentElement.dataset.nv) { const by = k => T2.find(x => x[0] === k); const yt = by('captions'); if (yt) yt[1] = L('YouTube-Video', 'YouTube video'); T2.splice(0, T2.length, ...['board', 'note', 'cards', 'calendar', 'quiz', 'headphones', 'path', 'captions'].map(by).filter(Boolean)); }
       const grid = h('div', { class: 'rm-tl' }, T2.map(([ic, t, sub, act], i) => h('button', { class: 'rm-tlt' + (i === 0 ? ' main' : ''), 'data-ic': ic, type: 'button', style: { '--i': String(i) }, onclick: e => { const sk = { board: 'tafel', note: 'zettel', cards: 'karten', calendar: 'plan', quiz: 'quiz', headphones: 'podcast', path: 'lernpfad' }[ic]; if (sk) return import('./tools.js').then(m => m.openStudio(sk)); return typeof act === 'string' ? run(act, e.currentTarget) : act(e); } }, h('span', { class: 'rm-tli', html: ico(ic) }), h('b', {}, t), h('small', {}, sub))));
       // Aufgeräumt: Ablage + Werkzeuge hinter einem Knopf „Lerntools“ – ein Klick, alles da
-      let tkOpen = false; try { tkOpen = sessionStorage.getItem('tutor.tkOpen') === '1'; } catch (e) {}
+      let tkOpen = false;   // immer zu, wenn man in den Tutor kommt
       const tk = h('div', { class: 'rm-tk' }, mat, grid);
       const tkb = h('button', { class: 'rm-tkb', type: 'button', 'aria-expanded': String(tkOpen) },
         h('span', { class: 'rm-tkic' }, ...['board', 'note', 'cards', 'quiz', 'headphones', 'path'].map(k => h('i', { 'data-ic': k, html: ico(k) }))),

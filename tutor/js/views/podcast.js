@@ -13,6 +13,7 @@ import { dlBtn, optsPodcast } from '../export.js';
 import { savedToast } from '../lib.js';
 import { beta } from '../beta.js';
 import { studio } from './podstudio.js';
+import { nextUp } from '../nextup.js';
 
 const synth = window.speechSynthesis;
 // Die Moderatorin heißt jetzt Marie (intern bleibt die Stimme „lisa“); alte Skripte sagen noch „Lisa“ – wird beim Anzeigen und Vorlesen ersetzt
@@ -145,7 +146,8 @@ function player(wrap, ctx, p) {
   if (S) {
     wrap.replaceChildren(
       h('button', { class: 'btn sm ghost', style: { marginBottom: '12px' }, onclick: () => { stop(); intro(wrap, ctx); } }, h('span', { html: ico('left') }), L('Alle Folgen', 'All episodes')),
-      h('div', { class: 'pod pod-st' }, h('div', {}, S.el, h('div', { class: 'eyebrow pstat-st' }, status), acts()), h('div', { class: 'pst-script' }, h('div', { class: 'eyebrow', style: { marginBottom: '8px' } }, L('Mitlesen · Satz antippen zum Springen', 'Read along · tap a line to jump')), script)));
+      h('div', { class: 'pod pod-st' }, h('div', {}, S.el, h('div', { class: 'eyebrow pstat-st' }, status), acts()), h('div', { class: 'pst-script' }, h('div', { class: 'eyebrow', style: { marginBottom: '8px' } }, L('Mitlesen · Satz antippen zum Springen', 'Read along · tap a line to jump')), script)),
+      nextUp(ctx, 'podcast', { title: L('Nach dem Hören', 'After listening') }));
   } else
   wrap.replaceChildren(
     h('button', { class: 'btn sm ghost', style: { marginBottom: '12px' }, onclick: () => { stop(); intro(wrap, ctx); } }, h('span', { html: ico('left') }), L('Alle Folgen', 'All episodes')),
@@ -157,7 +159,8 @@ function player(wrap, ctx, p) {
           starBtn(() => ({ typ: 'podcast', titel: p.title, doc: ctx.doc.id, docName: ctx.doc.name, ref: p.id || p.title })),
           dlBtn(() => optsPodcast(p, doc), { cls: 'btn sm ghost' }),
           h('button', { class: 'btn sm ghost', onclick: async () => { const ok = await modal({ title: L('Folge löschen?', 'Delete episode?'), text: p.title, actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { stop(); doc.podcasts = doc.podcasts.filter(x => x !== p); save(doc); intro(wrap, ctx); } } }, h('span', { html: ico('trash') }), L('Löschen', 'Delete')))),
-      script));
+      script),
+    nextUp(ctx, 'podcast', { title: L('Nach dem Hören', 'After listening') }));
   // Aktuelle Zeile nur innerhalb des Mitlese-Kastens scrollen – nie die ganze Seite (sonst rutscht der Player weg)
   const scrollLine = () => { const el = lines[idx]; if (!el) return; const sc = script; if (sc.scrollHeight > sc.clientHeight + 4) { const top = el.getBoundingClientRect().top - sc.getBoundingClientRect().top + sc.scrollTop - sc.clientHeight / 3; sc.scrollTo({ top: Math.max(0, top), behavior: 'smooth' }); } };
   const setStatus = () => { status.textContent = real() ? L(`Echte Stimmen: Marie & ${p.voice === 'feiern' ? 'Max nach dem Feiern' : 'Max'}`, `Real voices: Marie & ${p.voice === 'feiern' ? 'Max after the party' : 'Max'}`) : (synth && voices().length ? L('Gratis-Stimme deines Browsers', 'Your browser’s free voice') : L('Dein Browser hat keine Stimme – die Folge läuft zum Mitlesen.', 'Your browser has no voice – the episode runs as read-along.')); };

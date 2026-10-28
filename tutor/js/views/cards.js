@@ -13,6 +13,7 @@ import { autoOpts, personalise, wishHint } from '../create.js';
 import { dlBtn, optsDeck } from '../export.js';
 import { savedToast } from '../lib.js';
 import { homeBeta } from '../beta.js';
+import { nextUp } from '../nextup.js';
 
 const DAY = 864e5;
 export function dueCards(doc, now = Date.now()) { return doc.decks.flatMap(d => d.cards.map(c => ({ c, d }))).filter(x => (x.c.due || 0) <= now); }
@@ -57,7 +58,8 @@ function overview(wrap, ctx) {
       const known = d.cards.filter(c => (c.ivl || 0) >= 3).length;
       return h('div', { class: 'li', onclick: () => study(wrap, ctx, d.cards.map(c => ({ c, d })), d.title) },
         h('span', { html: ico('cards') }),
-        h('div', { class: 'gr' }, h('b', {}, d.title), h('span', {}, L(`${d.cards.length} Karten · ${known} sicher · ${dd} fällig`, `${d.cards.length} cards · ${known} known · ${dd} due`))),
+        h('div', { class: 'gr' }, h('b', {}, d.title), h('span', {}, L(`${d.cards.length} Karten · ${known} sicher`, `${d.cards.length} cards · ${known} known`)), h('i', { class: 'fc-dbar' }, h('i', { style: { width: Math.round(100 * known / Math.max(1, d.cards.length)) + '%' } }))),
+        dd ? h('span', { class: 'fc-due' }, L(`${dd} fällig`, `${dd} due`)) : h('span', { class: 'fc-due ok' }, L('alles drin', 'all set')),
         starBtn(() => ({ typ: 'karten', titel: d.title, doc: doc.id, docName: doc.name, ref: d.id || d.title, inhalt: d.cards.slice(0, 40).map(c => `${c.front} → ${c.back}`).join('\n') }), { cls: 'sm bare' }),
         dlBtn(() => optsDeck([d], doc), { cls: 'iconbtn', text: false }),
         h('button', { class: 'iconbtn', title: L('Löschen', 'Delete'), html: ico('trash'), onclick: async e => { e.stopPropagation(); const ok = await modal({ title: L('Stapel löschen?', 'Delete deck?'), text: d.title, actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] }); if (ok) { doc.decks = doc.decks.filter(x => x !== d); save(doc); overview(wrap, ctx); } } }));
@@ -100,17 +102,38 @@ function study(wrap, ctx, items, title) {
   // Ohne Konto: die ersten Karten jedes Stapels zuerst, der Rest danach (gesperrt)
   const lim = d => (d.guestFree != null ? d.guestFree : GUEST_CARDS);
   if (isGuest()) { const free = x => x.d.cards.indexOf(x.c) < lim(x.d); queue = [...items.filter(free), ...items.filter(x => !free(x))].slice(0, 40); }
-  let i = 0, flipped = false, done = 0, again = 0;
+  let i = 0, flipped = false, done = 0, again = 0; const rated = {};
   const stage = h('div', { class: 'fc-stage' });
   wrap.replaceChildren(homeBeta() ? null : h('button', { class: 'btn sm ghost', onclick: () => { cleanup(); overview(wrap, ctx); }, style: { marginBottom: '10px' } }, h('span', { html: ico('left') }), L('Karteikarten', 'Flashcards')),
     h('div', { class: 'vh', style: { marginBottom: '6px' } }, h('div', {}, h('div', { class: 'eyebrow' }, matchMedia('(pointer: coarse)').matches ? L('Tippen = umdrehen · wischen = bewerten', 'Tap = flip · swipe = rate') : L('Leertaste = umdrehen · 1–3 = bewerten', 'Space = flip · 1–3 = rate')), h('h2', { style: { fontSize: '24px' } }, title))), stage);
   const draw = () => {
     if (i >= queue.length) {
       const f = h('div', { class: 'face' });
-      stage.replaceChildren(h('div', { class: 'result-hero' }, f, h('div', { class: 'score' }, done), h('p', { style: { color: 'var(--mute)' } }, L(`Karten wiederholt${again ? ` · ${again}× nochmal` : ''}. Die nächsten kommen, wenn du sie fast vergessen hast.`, `cards reviewed${again ? ` · ${again}× again` : ''}. The next ones show up when you’ve almost forgotten them.`)),
-        h('div', { style: { display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '16px' } }, h('button', { class: 'btn primary', onclick: () => { cleanup(); overview(wrap, ctx); } }, L('Fertig', 'Done')), h('button', { class: 'btn', onclick: () => ctx.go('quiz') }, L('Quiz machen', 'Take a quiz')))));
-      const fc = face(f); setTimeout(() => fc.set('happy'), 150);
-      if (done >= 5) import('../util.js').then(u => u.confetti({ n: 50 })).catch(() => {});   // Runde geschafft
+      const n1 = Object.values(rated).filter(v => v === 1).length, n2 = Object.values(rated).filter(v => v === 2).length, n3 = Object.values(rated).filter(v => v === 3).length, nAll = n1 + n2 + n3;
+      const pct = nAll ? Math.round(100 * n3 / nAll) : 0;
+      const hard = items.filter(x => rated[x.c.id] && rated[x.c.id] < 3);
+      const all = doc.decks.flatMap(d => d.cards), tmr = Date.now() + DAY;
+      const soon = all.filter(c => (c.due || 0) > Date.now() && (c.due || 0) <= tmr).length;
+      const nextDue = all.map(c => c.due || 0).filter(t => t > Date.now()).sort((a, b) => a - b)[0];
+      const R = 54, CC = 2 * Math.PI * R;
+      const ring = h('div', { class: 'qres-ring ' + (pct >= 80 ? 'top' : pct >= 50 ? 'mid' : 'low'), html: `<svg viewBox="0 0 128 128" aria-hidden="true"><defs><linearGradient id="qrg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="s1"/><stop offset="1" class="s2"/></linearGradient></defs><circle cx="64" cy="64" r="${R}" fill="none" stroke="#efeae2" stroke-width="12"/><circle class="qres-arc" cx="64" cy="64" r="${R}" fill="none" stroke="url(#qrg)" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 ${CC}" transform="rotate(-90 64 64)"/></svg>` }, h('div', { class: 'qres-v' }, h('b', {}, pct + ' %'), h('small', {}, L('gewusst', 'known'))));
+      setTimeout(() => { const a = ring.querySelector('.qres-arc'); if (a) a.setAttribute('stroke-dasharray', `${CC * pct / 100} ${CC}`); }, 120);
+      const stat = (cls, n, t) => h('span', { class: 'qres-s ' + cls }, h('b', {}, String(n)), t);
+      stage.replaceChildren(h('div', { class: 'qres' },
+        h('div', { class: 'qres-card' },
+          h('div', { class: 'qres-l' }, ring, h('div', { class: 'qres-face' }, f)),
+          h('div', { class: 'qres-r' },
+            h('div', { class: 'eyebrow' }, L(`${done} Karten wiederholt`, `${done} cards reviewed`)),
+            h('h2', {}, pct >= 80 ? L('Sitzt. Richtig stark.', 'Locked in. Really strong.') : pct >= 50 ? L('Gut – ein paar wackeln noch.', 'Good – a few still wobble.') : L('Dranbleiben – genau dafür sind sie da.', 'Stick with it – that’s what they’re for.')),
+            h('div', { class: 'qres-st' }, stat('ok', n3, L('gewusst', 'got it')), stat('part', n2, L('unsicher', 'not sure')), stat('bad', n1, L('nochmal', 'again'))),
+            h('p', { class: 'fc-next' }, h('span', { html: ico('clock') }), soon ? L(`Morgen fragt Max dich ${soon} Karten ab.`, `Tomorrow Max will quiz you on ${soon} cards.`) : nextDue ? (() => { const dd = Math.round((nextDue - Date.now()) / DAY); return dd <= 0 ? L('Nächste Wiederholung: heute noch.', 'Next review: later today.') : L(`Nächste Wiederholung in ${dd} Tagen.`, `Next review in ${dd} days.`); })() : L('Alles für heute erledigt.', 'All done for today.')),
+            h('div', { class: 'qres-act' },
+              hard.length ? h('button', { class: 'btn primary qres-main', onclick: () => { cleanup(); study(wrap, ctx, hard, L('Die wackeligen Karten', 'The shaky cards')); } }, h('span', { html: ico('refresh') }), L(`Wackelige nochmal · ${hard.length}`, `Shaky ones again · ${hard.length}`)) : null,
+              h('button', { class: 'btn', onclick: () => { cleanup(); ctx.go('quiz'); } }, L('Quiz dazu', 'Quiz on this')),
+              h('button', { class: 'btn ghost', onclick: () => { cleanup(); overview(wrap, ctx); } }, L('Fertig', 'Done'))))),
+        nextUp(ctx, 'karten')));
+      const fc = face(f); setTimeout(() => fc.set(pct >= 50 ? 'happy' : 'idle'), 150);
+      if (done >= 5 && pct >= 60) import('../util.js').then(u => u.confetti({ n: 50 })).catch(() => {});   // Runde geschafft
       return;
     }
     if (isGuest() && queue[i].d.cards.indexOf(queue[i].c) >= lim(queue[i].d)) return lockedRest(stage, { left: queue.length - i, what: L('Karten', 'cards'), onUnlock: draw });
@@ -119,10 +142,12 @@ function study(wrap, ctx, items, title) {
     const card = h('div', { class: 'fc', tabindex: 0, role: 'button', 'aria-label': L('Karte umdrehen', 'Flip card') },
       h('div', { class: 'in' },
         h('div', { class: 'f' }, richText(c.front), h('span', { class: 'hint' }, L('Tippen zum Umdrehen', 'Tap to flip')), c.page ? h('span', { class: 'pg' }, L('S. ', 'p. ') + c.page) : null),
-        h('div', { class: 'b' }, cardBack(c))));
+        h('div', { class: 'b' }, cardBack(c), ctx.ask ? h('button', { type: 'button', class: 'fc-ask', onclick: e => { e.stopPropagation(); ctx.ask(L(`Erklär mir diese Karteikarte genauer, mit Beispiel: „${c.front}“ – Antwort: „${c.back}“`, `Explain this flashcard in more detail, with an example: “${c.front}” – answer: “${c.back}”`)); } }, h('span', { html: ico('chat') }), L('Max erklärt’s', 'Max explains')) : null)));
     // Drei klare Knöpfe, keine Abstände – den Rest plant die Wiederholung im Hintergrund
-    const rate = h('div', { class: 'rate r3', style: { visibility: 'hidden' } }, [[1, L('Nochmal', 'Again'), 'k1'], [2, L('Unsicher', 'Not sure'), 'k2'], [3, L('Gewusst', 'Got it'), 'k3']].map(([r, l, k]) =>
-      h('button', { class: 'btn ' + k + (r === 3 ? ' primary' : ''), type: 'button', onclick: () => gradeFly(r) }, l)));
+    // Unter jedem Knopf: wann die Karte wiederkommt (wie bei Anki) – dann weiß man, was die Bewertung bewirkt
+    const when = r => { try { const t = JSON.parse(JSON.stringify(c)); review(t, r, Date.now(), examAt); return label(t.ivl, t.due); } catch (e) { return ''; } };
+    const rate = h('div', { class: 'rate r3 fc-rate', style: { visibility: 'hidden' } }, [[1, L('Nochmal', 'Again'), 'k1', '1'], [2, L('Unsicher', 'Not sure'), 'k2', '2'], [3, L('Gewusst', 'Got it'), 'k3', '3']].map(([r, l, k, key]) =>
+      h('button', { class: 'btn fc-rb ' + k, type: 'button', onclick: () => gradeFly(r) }, h('span', { class: 'fc-rk' }, key), h('span', { class: 'fc-rl' }, h('b', {}, l), h('small', {}, when(r))))));
     // Aus Max' Tafel ohne Konto: Karte steht da, aber üben (umdrehen) gibt's mit kostenlosem Konto
     if (isGuest() && queue[i].d.guestGate) {
       const lock = () => { if (!isGuest()) return draw(); lockedRest(stage, { left: queue.length, what: L('Karten', 'cards'), title: L('Deine Karten sind fertig', 'Your cards are ready'), text: L('Damit du üben kannst und alles gespeichert bleibt: kostenlos anmelden. Dauert 30 Sekunden – danach fragt Max dich ab, bevor du’s vergisst.', 'To practise and keep everything saved: sign up for free. Takes 30 seconds – then Max quizzes you before you forget.'), onUnlock: draw }); };
@@ -153,7 +178,7 @@ function study(wrap, ctx, items, title) {
   };
   const grade = r => {
     const it = queue[i];
-    schedule(it.c, r); haptic(r === 1 ? 'bad' : 'ok');
+    schedule(it.c, r); haptic(r === 1 ? 'bad' : 'ok'); if (!(it.c.id in rated) || r < rated[it.c.id]) rated[it.c.id] = r;
     if (r === 1) { again++; queue.splice(Math.min(queue.length, i + 4), 0, it); }
     else { done++; if (done % 5 === 0) { const df = document.querySelector('.asst-bub .face, .asst .face'); try { df && df.__face && df.__face.pulse('happy', 1300); } catch (e) {} toast(L(`${done} Karten sitzen. Weiter so.`, `${done} cards nailed. Keep going.`), 1800); } }
     i++; save(doc); draw();

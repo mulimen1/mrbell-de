@@ -12,6 +12,7 @@ import { plainMath } from '../math.js';
 import { autoOpts, zettelHint, personalise } from '../create.js';
 import { dlBtn, optsSummary } from '../export.js';
 import { savedToast } from '../lib.js';
+import { nextUp } from '../nextup.js';
 
 export async function render(root, ctx) {
   const wrap = h('div', { class: 'view-in' });
@@ -43,20 +44,31 @@ async function generate(wrap, ctx, o) {
 
 function show(wrap, ctx) {
   const S = ctx.doc.summary;
-  const body = h('div', { class: 'tafel', style: { padding: 0, maxWidth: 'none' } }); body.appendChild(sanitize(S.html));
+  const body = h('div', { class: 'tafel zt-body', style: { padding: 0, maxWidth: 'none' } }); body.appendChild(sanitize(S.html));
+  const words = (S.html.replace(/<[^>]+>/g, ' ') + ' ' + S.tldr.join(' ')).split(/\s+/).filter(Boolean).length;
+  const mins = Math.max(1, Math.round(words / 200));
+  // Kernaussagen abhaken: „sitzt“ – so sieht man, was noch fehlt
+  S.ok = Array.isArray(S.ok) ? S.ok : [];
+  const prog = h('span', { class: 'zt-prog' });
+  const paintProg = () => { const n = S.tldr.filter((_, i) => S.ok[i]).length; prog.textContent = L(`${n} / ${S.tldr.length} sitzen`, `${n} / ${S.tldr.length} locked in`); prog.classList.toggle('done', n === S.tldr.length && n > 0); };
+  const tl = S.tldr.map((t, i) => { const li = h('li', { class: S.ok[i] ? 'ok' : '' }, h('button', { type: 'button', class: 'zt-ck', 'aria-label': L('Sitzt', 'Got it'), html: ico('check'), onclick: () => { S.ok[i] = !S.ok[i]; li.classList.toggle('ok', !!S.ok[i]); save(ctx.doc); paintProg(); } }), h('span', {}, t)); return li; });
+  paintProg();
+  const chip = (ic, t) => h('span', { class: 'zt-chip' }, h('span', { html: ico(ic) }), t);
   wrap.replaceChildren(
-    h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L('Lernzettel · KI-erstellt', 'Study sheet · AI-generated')), h('h2', {}, S.title)),
+    h('div', { class: 'vh' }, h('div', {}, h('div', { class: 'eyebrow' }, L('Lernzettel · von Max erstellt', 'Study sheet · created by Max')), h('h2', {}, S.title),
+        h('div', { class: 'zt-meta' }, chip('clock', L(`~${mins} Min. Lesezeit`, `~${mins} min read`)), S.terms.length ? chip('book', L(`${S.terms.length} Begriffe`, `${S.terms.length} terms`)) : null, S.mindmap ? chip('path', L('mit Mindmap', 'with mind map')) : null)),
       h('div', { style: { display: 'flex', gap: '6px', alignItems: 'center' } },
         starBtn(() => ({ typ: 'zettel', titel: S.title, doc: ctx.doc.id, docName: ctx.doc.name, ref: 'zettel', inhalt: S.tldr.join('\n') })),
         dlBtn(() => optsSummary(ctx.doc), { cls: 'btn sm' }),
         costBtn(L('Neu', 'New'), 'summary', async () => { const o = await personalise('zettel', ctx.doc); if (o) generate(wrap, ctx, o); }, 'btn sm ghost'))),
-    S.tldr.length ? h('div', { class: 'card', style: { background: 'var(--inv)', color: 'var(--onInv)', borderColor: 'var(--inv)' } },
-      h('div', { class: 'eyebrow', style: { color: 'inherit', opacity: .6, marginBottom: '10px' } }, L('Das Wichtigste in Kürze', 'Key points at a glance')),
-      h('ol', { style: { margin: 0, paddingLeft: '20px', display: 'grid', gap: '6px', fontSize: '16px' } }, S.tldr.map(t => h('li', {}, t)))) : null,
+    S.tldr.length ? h('div', { class: 'zt-tl' },
+      h('div', { class: 'zt-tlh' }, h('b', {}, L('Das Wichtigste in Kürze', 'Key points at a glance')), prog),
+      h('ol', {}, tl)) : null,
     S.mindmap ? h('div', { style: { marginTop: '22px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Mindmap', 'Mind map')), mindmap(S.mindmap, S.title)) : null,
-    h('div', { class: 'card', style: { marginTop: '22px', padding: '26px' } }, body),
-    S.terms.length ? h('div', { style: { marginTop: '22px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Begriffe', 'Key terms')),
-      h('div', { class: 'terms' }, S.terms.map(t => h('div', { class: 'term', role: 'button', tabindex: 0, style: { cursor: 'pointer' }, onclick: () => ctx.ask(L(`Erklär mir „${t.t}“ genauer – mit Beispiel an der Tafel.`, `Explain “${t.t}” to me in more detail – with an example on the whiteboard.`)) }, h('b', {}, t.t), h('span', {}, t.d), t.page ? h('div', { class: 'eyebrow', style: { marginTop: '8px' } }, L('S. ', 'p. ') + t.page) : null)))) : null);
+    h('div', { class: 'card zt-card', style: { marginTop: '22px', padding: '26px' } }, body),
+    S.terms.length ? h('div', { style: { marginTop: '22px' } }, h('div', { class: 'eyebrow', style: { marginBottom: '10px' } }, L('Begriffe · antippen für eine Erklärung von Max', 'Key terms · tap for an explanation from Max')),
+      h('div', { class: 'terms' }, S.terms.map(t => h('div', { class: 'term', role: 'button', tabindex: 0, style: { cursor: 'pointer' }, onclick: () => ctx.ask(L(`Erklär mir „${t.t}“ genauer – mit Beispiel an der Tafel.`, `Explain “${t.t}” to me in more detail – with an example on the whiteboard.`)) }, h('b', {}, t.t), h('span', {}, t.d), t.page ? h('div', { class: 'eyebrow', style: { marginTop: '8px' } }, L('S. ', 'p. ') + t.page) : null)))) : null,
+    nextUp(ctx, 'zettel', { title: L('Jetzt festigen', 'Now lock it in') }));
 }
 
 // Mindmap: links/rechts aufgefächert (keine Überlappung), Knoten ziehbar, Äste auf-/zuklappbar,

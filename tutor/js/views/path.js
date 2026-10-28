@@ -10,6 +10,7 @@ import { dlBtn, pathPdf } from '../export.js';
 import { renderQuestion, normalize, explainPrompt } from '../quiz.js';
 import { L } from '../i18n.js';
 import { homeBeta } from '../beta.js';
+import { nextUp } from '../nextup.js';
 import { pathMaterial, pathPages, pageLabel, carryProgress, srcEditor, busySrc, hasSrc } from '../pathsrc.js';
 
 let pathJob = null;
@@ -74,11 +75,22 @@ function listView(wrap, ctx) {
   const P = doc.path;
   const nextIdx = P.chapters.findIndex(c => !c.done);
   const doneN = P.chapters.filter(c => c.done).length;
+  const pct = Math.round(100 * doneN / Math.max(1, P.chapters.length));
+  const sc = P.chapters.filter(c => c.done && c.score != null);
+  const avg = sc.length ? Math.round(100 * sc.reduce((a, c) => a + c.score, 0) / sc.length) : null;
+  const hot = P.chapters.filter(c => c.weight >= 3).length;
+  const nx = nextIdx >= 0 ? P.chapters[nextIdx] : null;
   wrap.replaceChildren(
     h('div', { class: 'vh' },
-      h('div', {}, h('div', { class: 'eyebrow' }, (P.subject || L('Lernpfad', 'Study path')) + L(` · ${doneN} / ${P.chapters.length} Kapitel`, ` · ${doneN} / ${P.chapters.length} chapters`)), h('h2', {}, P.title), P.summary ? h('p', {}, P.summary) : null),
-      nextIdx >= 0 ? h('button', { class: 'btn primary', onclick: () => ctx.go('pfad', String(nextIdx)) }, doneN ? L('Weiterlernen', 'Keep learning') : L('Mit Kapitel 1 starten', 'Start with chapter 1'), h('span', { html: ico('right') })) : h('span', { class: 'tag' }, L('Alles geschafft', 'All done'))),
-    h('div', { class: 'path' }, P.chapters.map((c, i) => h('div', { class: 'chap' + (c.done ? ' done' : '') + (i === nextIdx ? ' cur' : '') },
+      h('div', {}, h('div', { class: 'eyebrow' }, P.subject || L('Lernpfad', 'Study path')), h('h2', {}, P.title), P.summary ? h('p', {}, P.summary) : null)),
+    h('section', { class: 'lp-hero' },
+      h('div', { class: 'lp-hl' },
+        h('div', { class: 'lp-big' }, h('b', {}, pct + ' %'), h('small', {}, L('geschafft', 'done'))),
+        h('div', { class: 'lp-bar' }, P.chapters.map(c => h('i', { class: c.done ? 'on' : c.started ? 'mid' : '' }))),
+        h('div', { class: 'lp-st' }, h('span', {}, h('b', {}, `${doneN}/${P.chapters.length}`), L('Kapitel', 'chapters')), avg != null ? h('span', {}, h('b', {}, avg + ' %'), L('Ø in den Checks', 'avg in checks')) : null, hot ? h('span', {}, h('b', {}, String(hot)), L('klausurrelevant', 'exam-critical')) : null)),
+      nx ? h('button', { type: 'button', class: 'lp-go', onclick: () => ctx.go('pfad', String(nextIdx)) }, h('small', {}, doneN ? L('Weiterlernen', 'Keep learning') : L('Los geht’s', 'Let’s go')), h('b', {}, L(`Kapitel ${nextIdx + 1} · `, `Chapter ${nextIdx + 1} · `) + nx.title), h('span', { class: 'lp-goi', html: ico('right') }))
+        : h('a', { class: 'lp-go done', href: `#/app/${doc.id}/quiz/exam` }, h('small', {}, L('Alles geschafft', 'All done')), h('b', {}, L('Jetzt Probeklausur schreiben', 'Now take a mock exam')), h('span', { class: 'lp-goi', html: ico('right') }))),
+    h('div', { class: 'path' }, P.chapters.map((c, i) => h('div', { class: 'chap' + (c.done ? ' done' : '') + (i === nextIdx ? ' cur' : '') + ' w' + c.weight },
       h('div', { class: 'node' }, c.done ? h('span', { html: ico('check') }) : String(i + 1).padStart(2, '0')),
       h('div', { class: 'body', role: 'button', tabindex: 0, onclick: () => ctx.go('pfad', String(i)), onkeydown: e => { if (e.key === 'Enter') ctx.go('pfad', String(i)); } },
         h('div', { style: { display: 'flex', justifyContent: 'space-between', gap: '10px', alignItems: 'center' } }, h('h3', {}, c.title),
@@ -184,11 +196,21 @@ async function lesson(wrap, ctx, idx) {
       c.done = true; c.score = Math.max(c.score || 0, sc); save(doc);
       const f = h('div', { class: 'face' });
       const nextIdx = doc.path.chapters.findIndex(x => !x.done);
-      stage.replaceChildren(h('div', { class: 'result-hero' }, f, h('div', { class: 'score' }, Math.round(sc * 100) + ' %'), h('p', { style: { color: 'var(--mute)' } }, sc >= .8 ? L('Stark – das Kapitel sitzt.', 'Strong – you’ve nailed this chapter.') : sc >= .5 ? L('Gut! Wiederhol die Fehler mit Karteikarten.', 'Good! Review your mistakes with flashcards.') : L('Noch wackelig – lass dir die Stellen von Max erklären.', 'Still shaky – let Max explain the tricky bits.')),
-        h('div', { style: { display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '18px' } },
-          nextIdx >= 0 ? h('button', { class: 'btn primary', onclick: () => ctx.go('pfad', String(nextIdx)) }, L('Nächstes Kapitel', 'Next chapter'), h('span', { html: ico('right') })) : h('a', { class: 'btn primary', href: `#/app/${doc.id}/quiz` }, L('Probeklausur schreiben', 'Take a mock exam')),
-          h('button', { class: 'btn', onclick: () => ctx.go('karten', 'k' + idx) }, L('Karteikarten dazu', 'Flashcards on this')),
-          h('button', { class: 'btn ghost', onclick: () => { les.pos = 0; les.score = []; step(); } }, L('Nochmal', 'Again')))));
+      const pctL = Math.round(sc * 100), R = 54, CC = 2 * Math.PI * R;
+      const ring = h('div', { class: 'qres-ring ' + (pctL >= 80 ? 'top' : pctL >= 50 ? 'mid' : 'low'), html: `<svg viewBox="0 0 128 128" aria-hidden="true"><defs><linearGradient id="qrg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="s1"/><stop offset="1" class="s2"/></linearGradient></defs><circle cx="64" cy="64" r="${R}" fill="none" stroke="#efeae2" stroke-width="12"/><circle class="qres-arc" cx="64" cy="64" r="${R}" fill="none" stroke="url(#qrg)" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 ${CC}" transform="rotate(-90 64 64)"/></svg>` }, h('div', { class: 'qres-v' }, h('b', {}, pctL + ' %'), h('small', {}, L('Kapitel', 'chapter'))));
+      setTimeout(() => { const a = ring.querySelector('.qres-arc'); if (a) a.setAttribute('stroke-dasharray', `${CC * pctL / 100} ${CC}`); }, 120);
+      const doneN2 = doc.path.chapters.filter(x => x.done).length;
+      stage.replaceChildren(h('div', { class: 'qres' }, h('div', { class: 'qres-card' },
+        h('div', { class: 'qres-l' }, ring, h('div', { class: 'qres-face' }, f)),
+        h('div', { class: 'qres-r' },
+          h('div', { class: 'eyebrow' }, L(`Kapitel geschafft · ${doneN2} von ${doc.path.chapters.length}`, `Chapter done · ${doneN2} of ${doc.path.chapters.length}`)),
+          h('h2', {}, sc >= .8 ? L('Stark – das Kapitel sitzt.', 'Strong – you’ve nailed this chapter.') : sc >= .5 ? L('Gut! Die Lücken holst du dir mit Karten.', 'Good! Close the gaps with flashcards.') : L('Noch wackelig – Max erklärt dir die Stellen.', 'Still shaky – let Max explain the tricky bits.')),
+          h('div', { class: 'qres-act' },
+            nextIdx >= 0 ? h('button', { class: 'btn primary qres-main', onclick: () => ctx.go('pfad', String(nextIdx)) }, L(`Weiter: Kapitel ${nextIdx + 1}`, `Next: chapter ${nextIdx + 1}`), h('span', { html: ico('right') })) : h('a', { class: 'btn primary qres-main', href: `#/app/${doc.id}/quiz/exam` }, L('Probeklausur schreiben', 'Take a mock exam')),
+            h('button', { class: 'btn', onclick: () => ctx.go('karten', 'k' + idx) }, L('Karteikarten dazu', 'Flashcards on this')),
+            sc < .8 ? h('button', { class: 'btn', onclick: () => ctx.ask(L(`Erklär mir die schwierigsten Stellen aus „${c.title}“ an der Tafel – kurz, mit Beispiel.`, `Explain the hardest parts of “${c.title}” on the board – briefly, with an example.`)) }, L('Max erklärt’s', 'Max explains')) : null,
+            h('button', { class: 'btn ghost', onclick: () => { les.pos = 0; les.score = []; step(); } }, L('Nochmal', 'Again'))))),
+        nextUp(ctx, 'pfad', { max: 3 })));
       const fc = face(f); setTimeout(() => fc.set(sc >= .5 ? 'happy' : 'idle'), 200);
     }
   };
