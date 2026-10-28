@@ -47,7 +47,7 @@ export const ACCENTS = [
   ['graphit', 'Graphit', 'Graphite', '#3f4650', '#646d79']
 ];
 // Neues Design: dieselben Plätze, satte Farben (Navy = das Markenblau)
-const NEON = { navy: ['Blau', 'Blue', '#2a7fe8'], kobalt: ['Indigo', 'Indigo', '#4f46c8'], petrol: ['Petrol', 'Teal', '#0f8a9a'], gruen: ['Grün', 'Green', '#1e8a4f'], oliv: ['Oliv', 'Olive', '#6b8e23'], cognac: ['Orange', 'Orange', '#dd6a1c'], bordeaux: ['Rot', 'Red', '#d02c3c'], aubergine: ['Lila', 'Purple', '#7440c4'], graphit: ['Pink', 'Pink', '#c8336f'], '': ['Schwarz', 'Black', '#26262b'] };
+const NEON = { navy: ['Blau', 'Blue', '#2a7fe8'], kobalt: ['Indigo', 'Indigo', '#4840b5'], petrol: ['Petrol', 'Teal', '#0e7a88'], gruen: ['Grün', 'Green', '#1c7a47'], oliv: ['Oliv', 'Olive', '#5f7f20'], cognac: ['Orange', 'Orange', '#cc611b'], bordeaux: ['Rot', 'Red', '#bf2b38'], aubergine: ['Lila', 'Purple', '#673ab0'], graphit: ['Pink', 'Pink', '#b3305f'], '': ['Schwarz', 'Black', '#26262b'] };
 const NV_ORDER = ['navy', 'kobalt', 'aubergine', 'graphit', 'bordeaux', 'cognac', 'oliv', 'gruen', 'petrol', ''];
 const ACC_KEY = 'tutor.accent';
 // Gelb (nur für den TikTok-Sketch) gibt's nicht mehr – wer es noch gespeichert hat, bekommt wieder die Standardfarbe
