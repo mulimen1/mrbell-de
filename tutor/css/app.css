@@ -6357,3 +6357,7 @@ html:root[data-nv][data-theme="dark"] #landing .pagebg { background-color: var(-
 html:root[data-nv]:not([data-theme="dark"]) #landing .nav { background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
 html:root[data-nv][data-theme="dark"] body { background: #0b0b0c !important; }
 html:root[data-nv][data-theme="dark"] .app > .main { background-color: #0b0b0c !important; background-image: radial-gradient(rgba(255, 255, 255, .16) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; }
+/* Startseite: Kopfleiste deckend im selben Look (Beige + Punkte), beim Scrollen leicht weichgezeichnet */
+html:root[data-nv]:not([data-theme="dark"]) #landing .nav { background-color: rgba(235, 228, 216, .94) !important; background-image: radial-gradient(rgba(0, 0, 0, .3) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; background-attachment: fixed !important; -webkit-backdrop-filter: blur(10px) !important; backdrop-filter: blur(10px) !important; }
+html:root[data-nv][data-theme="dark"] #landing .nav { background-color: rgba(11, 11, 12, .94) !important; background-image: radial-gradient(rgba(255, 255, 255, .16) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; background-attachment: fixed !important; -webkit-backdrop-filter: blur(10px) !important; backdrop-filter: blur(10px) !important; }
+html:root[data-nv] #landing .nav { background-attachment: scroll !important; background-position: 0 0 !important; box-shadow: none !important; }
