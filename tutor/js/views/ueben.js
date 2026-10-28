@@ -109,7 +109,7 @@ export async function render(root, { sub = '' } = {}) {
     const SECS = [
       ['stoff', 'brain', L('Aus deinem Stoff lernen', 'Learn from your material'), ['#9b7cf0', '#5b3fc4'], () => [h('div', { class: 'ub-stoff' }, h('div', { class: 'ub-sl' }, grid), guide)]],
       ['sim', 'exam', L('Prüfungssimulation', 'Exam simulation'), ['#f47ba0', '#c8336f'], () => [sim]],
-      ['check', 'check', L('Prüfen', 'Check'), ['#3fc1c9', '#0e7f8e'], () => [h('div', { class: 'ub-grid2' }, ...[...right.children].filter(e => !e.classList.contains('ub-h') && !e.classList.contains('ln-gh')))]],
+      ['check', 'check', L('Korrektur', 'Correction'), ['#3fc1c9', '#0e7f8e'], () => [h('div', { class: 'ub-grid2' }, ...[...right.children].filter(e => !e.classList.contains('ub-h') && !e.classList.contains('ln-gh')))]],
       ['wk', 'trophy', L('Wettkampf', 'Compete'), ['#f7c948', '#d18e06'], () => [h('div', { class: 'ub-simrow' }, wk[1], wk[2])]],
       ['tr', 'path', 'Trainer', ['#5aa2f7', '#1a5fc4'], () => trSec.slice(1)],
     ];

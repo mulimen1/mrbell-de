@@ -129,7 +129,7 @@ function runTour(S) {
     if (dead) return;
     clearTimeout(hold); clearInterval(typing);
     if (n < 0) n = 0;
-    if (n >= S.length) return end();
+    if (n >= S.length) { finished = true; return end(); }
     i = n; drawCtl();
     const s = S[i];
     el = null; txt.textContent = ''; txt.dataset.full = '';
@@ -151,8 +151,13 @@ function runTour(S) {
   }
   function pause() { paused = true; clearTimeout(hold); drawCtl(); }
   function resume() { paused = false; drawCtl(); if (done) schedule(); }
+  let finished = false;
+  const track = (a, b) => { try { window.BM && window.BM.track(a, b); } catch (e) {} };
   function end(quick) {
     if (dead) return; dead = true;
+    track(finished ? 'Führung abgeschlossen' : 'Führung abgebrochen', finished ? 'Alle Schritte' : `Schritt ${i + 1} von ${S.length}`);
+    // Durchgespielt und ohne Konto: Hintergrund unscharf, kostenlos anmelden
+    if (finished && !getAccount()) setTimeout(() => import('./roomlock.js').then(m => m.lockArea({ t: L('Gefällt dir, was du siehst? Dann leg los.', 'Like what you see? Then get started.'), s: L('Kostenloses Konto in zwei Klicks – dann merkt sich Max alles und du kannst sofort mit deinem Stoff loslegen.', 'Free account in two clicks – Max remembers everything and you can start with your material right away.') }, { delay: 600 })).catch(() => {}), 500);
     clearTimeout(hold); clearInterval(typing); cancelAnimationFrame(raf);
     removeEventListener('keydown', onKey, true);
     H.classList.remove('bm-gotour', 'gt-on');
@@ -171,6 +176,7 @@ function runTour(S) {
   };
   addEventListener('keydown', onKey, true);
   live = { end };
+  track('Führung gestartet', 'Zeig mir BWL Max');
   setTimeout(() => go(0), 350);
   return live;
 }
