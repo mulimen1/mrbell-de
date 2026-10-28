@@ -74,10 +74,11 @@ export async function render(root, { sub = '' } = {}) {
     h('div', { class: 'ub-lt' }, [
       ['board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt', 'Step by step')],
       ['note', L('Lernzettel', 'Study sheet'), L('Alles auf einer Seite', 'All on one page')],
+      ['quiz', 'Quiz', L('Klausurfragen mit Erklärung', 'Exam questions, explained')],
       ['cards', L('Karteikarten', 'Flashcards'), L('Bis es sitzt', 'Until it sticks')],
       ['headphones', 'Podcast', L('Marie & Max', 'Marie & Max')],
       ['path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter')],
-    ].map(([ic, t, sub]) => h('button', { class: 'ub-ltc', type: 'button', 'data-lt': ic, onclick: () => { if (ic === 'pen') { location.hash = '#/app/mitschrift'; return; } location.hash = '#/app/ueben/' + ({ board: 'tafel', note: 'zettel', cards: 'karten', headphones: 'podcast', path: 'lernpfad' })[ic]; } }, h('span', { class: 'ub-lti', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))),
+    ].map(([ic, t, sub]) => h('button', { class: 'ub-ltc', type: 'button', 'data-lt': ic, onclick: () => { if (ic === 'pen') { location.hash = '#/app/mitschrift'; return; } location.hash = '#/app/ueben/' + ({ board: 'tafel', note: 'zettel', quiz: 'quiz', cards: 'karten', headphones: 'podcast', path: 'lernpfad' })[ic]; } }, h('span', { class: 'ub-lti', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))),
     h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfungssimulation', 'Exam simulation')), h('span', { class: 'eyebrow' }, L('Wie in der echten Klausur', 'Like the real exam'))),
     sim,
     ...(BEN ? [] : trSec));
@@ -103,7 +104,7 @@ export async function render(root, { sub = '' } = {}) {
     // Lernen neu: Unter-Bereiche oben (wie die Bereiche im Header), wichtigstes zuerst
     const hero = left.querySelector('.ub-hero'), grid = left.querySelector('.ub-lt');
     grid.classList.add('ub-big');
-    const DESC = { board: L('Max erklärt jedes Thema Schritt für Schritt – mit Beispiel und Rechenweg.', 'Max explains any topic step by step – with example and workings.'), note: L('Alles Wichtige auf einer Seite, plus Mindmap.', 'Everything important on one page, plus a mind map.'), cards: L('Wiederholen mit System, bis es sitzt.', 'Systematic review until it sticks.'), headphones: L('Marie & Max zum Anhören – für Bahn und Gym.', 'Marie & Max to listen to – for train and gym.'), path: L('Kapitel für Kapitel mit Lektionen und Checks.', 'Chapter by chapter with lessons and checks.'), pen: L('Tippen oder Foto – Max macht daraus eine saubere Mitschrift.', 'Type or snap a photo – Max turns it into clean notes.') };
+    const DESC = { board: L('Max erklärt jedes Thema Schritt für Schritt – mit Beispiel und Rechenweg.', 'Max explains any topic step by step – with example and workings.'), note: L('Alles Wichtige auf einer Seite, plus Mindmap.', 'Everything important on one page, plus a mind map.'), cards: L('Wiederholen mit System, bis es sitzt.', 'Systematic review until it sticks.'), quiz: L('Sechs Fragetypen, jede Antwort erklärt – wie in der Klausur.', 'Six question types, every answer explained – like the exam.'), headphones: L('Marie & Max zum Anhören – für Bahn und Gym.', 'Marie & Max to listen to – for train and gym.'), path: L('Kapitel für Kapitel mit Lektionen und Checks.', 'Chapter by chapter with lessons and checks.'), pen: L('Tippen oder Foto – Max macht daraus eine saubere Mitschrift.', 'Type or snap a photo – Max turns it into clean notes.') };
     grid.querySelectorAll('.ub-ltc').forEach(c => { const sm = c.querySelector('small'); if (sm && DESC[c.dataset.lt]) sm.textContent = DESC[c.dataset.lt]; });
     // Aus der Vorlesung: Live-Mitschrift und YouTube-Transkript – eigene, hervorgehobene Reihe
     const lec = (href, ic, t, sub, c) => h('a', { class: 'ub-lec', href, style: { '--l1': c[0], '--l2': c[1] } }, h('span', { class: 'ub-leci', html: ic }), h('span', { class: 'ub-lect' }, h('b', {}, t), h('small', {}, sub)), h('span', { class: 'ub-lecg', html: ico('right') }));
@@ -113,12 +114,12 @@ export async function render(root, { sub = '' } = {}) {
       lec('#/app/video', YT, L('YouTube-Video → Lernstoff', 'YouTube video → study material'), L('Link rein – Transkript, Lernzettel, Karteikarten und Quiz raus.', 'Paste a link – get transcript, study sheet, flashcards and quiz.'), ['#ff6b6b', '#d63031']));
     const guide = h('aside', { class: 'ub-guide' }, hero);
     const SECS = [
-      ['stoff', 'brain', L('Aus deinem Stoff lernen', 'Learn from your material'), ['#9b7cf0', '#5b3fc4'], () => [h('div', { class: 'ub-stoff' }, h('div', { class: 'ub-sl' }, grid), guide)]],
+      ['stoff', 'brain', L('Aus deinem Stoff lernen', 'Learn from your material'), ['#9b7cf0', '#5b3fc4'], () => [h('div', { class: 'ub-sl ub-sl-full' }, grid, lec('#/app/video', YT, L('YouTube-Video → Lernstoff', 'YouTube video → study material'), L('Link rein – Transkript, Lernzettel, Karteikarten und Quiz raus. Perfekt für Vorlesungsaufzeichnungen.', 'Paste a link – get transcript, study sheet, flashcards and quiz. Perfect for lecture recordings.'), ['#ff6b6b', '#d63031']))]],
       ['vl', 'board', L('Aus der Vorlesung', 'From the lecture'), ['#7a8cf7', '#3f4fd6'], () => [lecRow]],
       ['sim', 'exam', L('Prüfungssimulation', 'Exam simulation'), ['#f47ba0', '#c8336f'], () => [sim]],
       ['check', 'check', L('Korrektur', 'Correction'), ['#3fc1c9', '#0e7f8e'], () => [h('div', { class: 'ub-grid2' }, ...[...right.children].filter(e => !e.classList.contains('ub-h') && !e.classList.contains('ln-gh')))]],
       ['wk', 'trophy', L('Wettkampf', 'Compete'), ['#f7c948', '#d18e06'], () => [h('div', { class: 'ub-simrow' }, wk[1], wk[2])]],
-      ['tr', 'path', 'Trainer', ['#5aa2f7', '#1a5fc4'], () => trSec.slice(1)],
+      ['tr', 'path', 'Trainer', ['#5aa2f7', '#1a5fc4'], () => [h('div', { class: 'ub-trtop' }, guide), ...trSec.slice(1)]],
     ];
     let cur = 'stoff'; try { cur = sessionStorage.getItem('tutor.ubTab') || 'stoff'; } catch (e) {}
     if (!SECS.some(x => x[0] === cur)) cur = 'stoff';

@@ -7976,3 +7976,15 @@ html.side-slim .side .bottom > .side-ibs, html.side-slim .side .bottom > .olang 
 @media (prefers-reduced-motion: reduce) { .srk.hot .srk-ic, .srk.hot .srk-ic svg, .srk-bar i::after { animation: none; } }
 @media (max-width: 760px) { .srk-mid { min-width: 76px; } .srk-w, .srk-go { display: none; } }
 .cfg-col .cfg-acc { gap: 6px !important; padding-left: 44px !important; } .cfg-dot { width: 21px !important; height: 21px !important; }
+/* Lernen: sechs Stoff-Werkzeuge (inkl. Quiz) in zwei Reihen, darunter YouTube breit; Lernweg wohnt im Trainer */
+html:root body .ub-lt.ub-big .ub-ltc, html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 2 !important; min-height: 196px; }
+.ub-ltc[data-lt="quiz"] { --hf1: #9b7cf0; --hf2: #5b3fc4; }
+.ub-sl-full { display: grid; gap: 16px; } .ub-sl-full > .ub-lec { min-height: 96px; }
+.ub-trtop { margin-bottom: 18px; } .ub-trtop .ub-guide { display: block; position: static !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-trtop .ub-guide .ub-hero { flex-direction: row !important; text-align: left !important; justify-content: space-between; align-items: center !important; flex-wrap: wrap; gap: 22px; padding: 24px 28px !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-trtop .ub-guide .ub-greet { flex-direction: row !important; align-items: center; text-align: left; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-trtop .ub-guide .uv-bub { justify-items: start !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-trtop .ub-guide .ub-path { max-width: 260px; justify-content: flex-start; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-trtop .ub-guide .ub-cta { width: auto; min-width: 260px; margin: 0; }
+@media (max-width: 700px) { html:root body .ub-lt.ub-big .ub-ltc, html:root body .ub-lt.ub-big .ub-ltc:nth-child(-n+2) { grid-column: span 1 !important; } }
+.ub-tabs { gap: 8px !important; } .ub-tab { height: 48px !important; padding: 0 16px 0 6px !important; font-size: 14.5px !important; gap: 8px !important; } .ub-ti { width: 36px !important; height: 36px !important; }
