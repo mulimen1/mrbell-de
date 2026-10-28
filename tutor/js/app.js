@@ -735,7 +735,12 @@ function sideExtras(tool) {
   const sync = () => { thLabel.textContent = dark() ? L('Heller Modus', 'Light mode') : L('Dunkler Modus', 'Dark mode'); thIco.innerHTML = ico(dark() ? 'sun' : 'moon'); };
   sync();
   const theme = h('button', { class: 'doc-item', type: 'button', onclick: () => { const next = dark() ? 'light' : 'dark'; H.classList.add('theme-fade'); H.dataset.theme = next; try { sessionStorage.setItem('tutor.theme', next); } catch (e) {} setTimeout(() => H.classList.remove('theme-fade'), 900); sync(); } }, thIco, thLabel);
+  // Zahlen (nur Admin, z. B. Ben)
+  const zahlen = tool('a', { href: '#/app/zahlen', 'data-nav': 'zahlen' }, 'chart', L('Zahlen', 'Numbers'));
+  zahlen.hidden = true;
+  onAccount(a => import('./views/zahlen.js').then(m => { zahlen.hidden = !m.isAdmin(a); }).catch(() => {}));
   return [
+    zahlen,
     tool('button', { onclick: () => import('./palette.js').then(m => m.openPalette()) }, 'search', L('Suchen', 'Search')),
     tool('button', { onclick: () => import('./maxcfg.js').then(m => m.openMaxCfg()) }, 'tune', L('Max einstellen', 'Configure Max')),
     theme,
