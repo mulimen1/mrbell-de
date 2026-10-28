@@ -262,9 +262,72 @@ header.lm-top2 .lm-b svg, header.lm-top2 .lm-b img { width: 24px !important; hei
 }
 @media (min-width: 1100px) and (max-width: 1360px) { :root[data-nv] .lm-brand b { display: none; } }
 :root[data-nv]:not([data-theme="dark"]) body { background: #ebe4d8; }
-:root[data-nv]:not([data-theme="dark"]) header.lm-top, :root[data-nv]:not([data-theme="dark"]) header.lm-top.lm-top2 { background: #ebe4d8 !important; }
+
 :root[data-nv] header.lm-top, :root[data-nv] header.lm-top.lm-top2 { border-bottom: 0 !important; box-shadow: none !important; background-color: #ebe4d8 !important; background-image: radial-gradient(rgba(0,0,0,.3) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; }
 :root[data-nv][data-theme="dark"] body { background-color: #0b0b0c; background-image: radial-gradient(rgba(255,255,255,.16) 1.3px, transparent 1.7px); background-size: 22px 22px; }
 :root[data-nv][data-theme="dark"] header.lm-top, :root[data-nv][data-theme="dark"] header.lm-top.lm-top2 { background-color: #0b0b0c !important; background-image: radial-gradient(rgba(255,255,255,.16) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; }
 :root[data-nv]:not([data-theme="dark"]) body { background-image: radial-gradient(rgba(0,0,0,.3) 1.3px, transparent 1.7px); background-size: 22px 22px; }
 :root[data-nv] header.lm-top { border: 0 !important; }
+
+/* ===== Lern- und Über-Seiten (neues Design): Kopf wie im Tutor, Inhalt auf Karten statt direkt auf den Punkten ===== */
+html:root[data-nv] body header.lm-top, html:root[data-nv] body header.lm-top.lm-top2 { background-color: #ebe4d8 !important; background-image: radial-gradient(rgba(0,0,0,.3) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; background-position: 0 0 !important; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 0 !important; box-shadow: none !important; }
+html:root[data-nv][data-theme="dark"] body header.lm-top, html:root[data-nv][data-theme="dark"] body header.lm-top.lm-top2 { background-color: #0b0b0c !important; background-image: radial-gradient(rgba(255,255,255,.16) 1.3px, transparent 1.7px) !important; }
+/* Bereich-Knöpfe als weiße Karten wie in der App */
+html:root[data-nv] body .lm-tn:not(.lm-tutor) { background: #fff !important; border: 1px solid rgba(0,0,0,.06) !important; border-radius: 17px !important; box-shadow: 0 6px 16px -12px rgba(0,0,0,.35) !important; color: #111 !important; }
+html:root[data-nv] body .lm-tn:not(.lm-tutor):hover { background: #fff !important; transform: translateY(-1px); box-shadow: 0 10px 22px -12px rgba(0,0,0,.4) !important; }
+html:root[data-nv][data-theme="dark"] body .lm-tn:not(.lm-tutor) { background: #16171b !important; border-color: #2a2c33 !important; color: #f2f2f3 !important; }
+/* Inhalt auf einem weißen Blatt – gut lesbar, Punkte nur außen herum */
+html:root[data-nv] body main.ln { background: #fff; border-radius: 28px; padding: clamp(22px, 4vw, 56px) clamp(18px, 4.4vw, 60px); margin: 26px auto 64px !important; box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 24px 60px -36px rgba(0,0,0,.35); box-sizing: border-box; width: calc(100% - 32px); }
+html:root[data-nv][data-theme="dark"] body main.ln { background: #131418; box-shadow: 0 24px 60px -30px rgba(0,0,0,.9); }
+/* Themen-Kacheln, FAQ und Max-Kasten als eigene Karten auf dem Blatt */
+html:root[data-nv] body main.ln .ln-rel { gap: 14px; }
+html:root[data-nv] body main.ln .ln-rel a { background: #f7f5f0; border: 1px solid #ebe6dc; border-radius: 16px; padding: 14px 16px 15px; }
+html:root[data-nv] body main.ln .ln-rel a:hover { background: #fff; border-color: var(--nb, #2a7fe8); box-shadow: 0 12px 26px -18px rgba(0,0,0,.4); }
+html:root[data-nv][data-theme="dark"] body main.ln .ln-rel a { background: #1b1d22; border-color: #2a2d35; }
+html:root[data-nv] body main.ln .ln-faq details { background: #f7f5f0; border: 1px solid #ebe6dc; border-radius: 14px; padding: 13px 16px; margin-bottom: 10px; }
+html:root[data-nv][data-theme="dark"] body main.ln .ln-faq details { background: #1b1d22; border-color: #2a2d35; }
+@media (max-width: 600px) { html:root[data-nv] body main.ln { width: calc(100% - 16px); border-radius: 20px; margin-top: 14px !important; } }
+/* Hub-Seiten breiter, damit die Themen-Karten Platz haben */
+html:root[data-nv] body main.ln.ln-hub { max-width: 1120px; }
+/* Kopf: Knöpfe kompakter, damit alles in eine Zeile passt (Excel-Helfer wurde abgeschnitten) */
+@media (min-width: 861px) and (max-width: 1500px) {
+  html:root[data-nv] body .lm-tn, html:root[data-nv] body header.lm-top2 .lm-tn:not(.lm-tutor) { height: 46px !important; padding: 0 12px 0 6px !important; gap: 8px !important; font-size: 15.5px !important; }
+  html:root[data-nv] body .lm-tn .ico { width: 17px !important; height: 17px !important; padding: 8px !important; }
+  html:root[data-nv] body .lm-tutor, html:root[data-nv] body header.lm-top2 .lm-tutor { height: 52px !important; padding: 0 16px 0 5px !important; font-size: 17px !important; }
+  html:root[data-nv] body .lm-tutor img { width: 40px !important; height: 40px !important; }
+  html:root[data-nv] body .lm-cta { height: 48px !important; padding: 0 18px !important; font-size: 15.5px !important; }
+  html:root[data-nv] body .lm-nav { gap: 6px !important; justify-content: flex-start !important; overflow: visible !important; }
+}
+
+/* Farben wie in der App (kein altes Navy): Grundfarbe --nb je nach gewählter Akzentfarbe */
+:root { --nb: #2a7fe8; --nb1: #3388f0; --nb2: #1f6fe0; --nb3: #5fb4ff; --nbd: #1a5fc4; --nbl: #e3edfb; --nbl2: #d2e2f8; }
+html:root[data-nv][data-accent="kobalt"][data-nv][data-nv] { --nb: #4840b5; --nb1: color-mix(in srgb, var(--nb) 84%, #fff); --nb2: color-mix(in srgb, var(--nb) 86%, #000); --nb3: color-mix(in srgb, var(--nb) 80%, #fff); --nbd: color-mix(in srgb, var(--nb) 72%, #000); --nbl: color-mix(in srgb, var(--nb) 12%, #fff); --nbl2: color-mix(in srgb, var(--nb) 24%, #fff); }
+html:root[data-nv][data-accent="petrol"][data-nv][data-nv] { --nb: #0e7a88; --nb1: color-mix(in srgb, var(--nb) 84%, #fff); --nb2: color-mix(in srgb, var(--nb) 86%, #000); --nb3: color-mix(in srgb, var(--nb) 80%, #fff); --nbd: color-mix(in srgb, var(--nb) 72%, #000); --nbl: color-mix(in srgb, var(--nb) 12%, #fff); --nbl2: color-mix(in srgb, var(--nb) 24%, #fff); }
+html:root[data-nv][data-accent="gruen"][data-nv][data-nv] { --nb: #1c7a47; --nb1: color-mix(in srgb, var(--nb) 84%, #fff); --nb2: color-mix(in srgb, var(--nb) 86%, #000); --nb3: color-mix(in srgb, var(--nb) 80%, #fff); --nbd: color-mix(in srgb, var(--nb) 72%, #000); --nbl: color-mix(in srgb, var(--nb) 12%, #fff); --nbl2: color-mix(in srgb, var(--nb) 24%, #fff); }
+html:root[data-nv][data-accent="oliv"][data-nv][data-nv] { --nb: #5f7f20; --nb1: color-mix(in srgb, var(--nb) 84%, #fff); --nb2: color-mix(in srgb, var(--nb) 86%, #000); --nb3: color-mix(in srgb, var(--nb) 80%, #fff); --nbd: color-mix(in srgb, var(--nb) 72%, #000); --nbl: color-mix(in srgb, var(--nb) 12%, #fff); --nbl2: color-mix(in srgb, var(--nb) 24%, #fff); }
+html:root[data-nv][data-accent="cognac"][data-nv][data-nv] { --nb: #cc611b; --nb1: color-mix(in srgb, var(--nb) 84%, #fff); --nb2: color-mix(in srgb, var(--nb) 86%, #000); --nb3: color-mix(in srgb, var(--nb) 80%, #fff); --nbd: color-mix(in srgb, var(--nb) 72%, #000); --nbl: color-mix(in srgb, var(--nb) 12%, #fff); --nbl2: color-mix(in srgb, var(--nb) 24%, #fff); }
+html:root[data-nv][data-accent="bordeaux"][data-nv][data-nv] { --nb: #bf2b38; --nb1: color-mix(in srgb, var(--nb) 84%, #fff); --nb2: color-mix(in srgb, var(--nb) 86%, #000); --nb3: color-mix(in srgb, var(--nb) 80%, #fff); --nbd: color-mix(in srgb, var(--nb) 72%, #000); --nbl: color-mix(in srgb, var(--nb) 12%, #fff); --nbl2: color-mix(in srgb, var(--nb) 24%, #fff); }
+html:root[data-nv][data-accent="aubergine"][data-nv][data-nv] { --nb: #673ab0; --nb1: color-mix(in srgb, var(--nb) 84%, #fff); --nb2: color-mix(in srgb, var(--nb) 86%, #000); --nb3: color-mix(in srgb, var(--nb) 80%, #fff); --nbd: color-mix(in srgb, var(--nb) 72%, #000); --nbl: color-mix(in srgb, var(--nb) 12%, #fff); --nbl2: color-mix(in srgb, var(--nb) 24%, #fff); }
+html:root[data-nv][data-accent="graphit"][data-nv][data-nv] { --nb: #b3305f; --nb1: color-mix(in srgb, var(--nb) 84%, #fff); --nb2: color-mix(in srgb, var(--nb) 86%, #000); --nb3: color-mix(in srgb, var(--nb) 80%, #fff); --nbd: color-mix(in srgb, var(--nb) 72%, #000); --nbl: color-mix(in srgb, var(--nb) 12%, #fff); --nbl2: color-mix(in srgb, var(--nb) 24%, #fff); }
+html:root[data-nv]:not([data-accent])[data-nv][data-nv] { --nb: #26262b; --nb1: color-mix(in srgb, var(--nb) 84%, #fff); --nb2: color-mix(in srgb, var(--nb) 86%, #000); --nb3: color-mix(in srgb, var(--nb) 80%, #fff); --nbd: color-mix(in srgb, var(--nb) 72%, #000); --nbl: color-mix(in srgb, var(--nb) 12%, #fff); --nbl2: color-mix(in srgb, var(--nb) 24%, #fff); }
+html:root[data-nv][data-theme="dark"]:not([data-accent])[data-nv][data-nv] { --nb: #4a4a52; }
+html:root[data-nv], html:root[data-nv][data-accent] { --inv: var(--nb) !important; --onInv: #fff !important; }
+html:root[data-nv] body .ln-max { background: linear-gradient(110deg, var(--nb2), var(--nb1)) !important; color: #fff !important; box-shadow: 0 14px 30px -20px color-mix(in srgb, var(--nb2) 80%, transparent); }
+html:root[data-nv] body .ln-max .go { background: #fff !important; color: var(--nb2) !important; }
+html:root[data-nv] body .lm-tutor, html:root[data-nv] body .lm-cta { background: linear-gradient(180deg, var(--nb1), var(--nb2)) !important; }
+html:root[data-nv] body .lm-tn:not(.lm-tutor) .ico { background: var(--nbl) !important; color: var(--nbd) !important; }
+html:root[data-nv] body .lm-tn:not(.lm-tutor):hover .ico { background: var(--nb2) !important; color: #fff !important; }
+/* Kopf: Markenname ab Laptop-Breite ausblenden, damit alle Bereiche in eine Zeile passen */
+@media (min-width: 861px) and (max-width: 1500px) { html:root[data-nv] body .lm-brand b { display: none; } }
+/* Inhaltsverzeichnis als klare Sprungkarten */
+html:root[data-nv] body main.ln .lg-toc { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px !important; columns: auto !important; padding: 0 !important; margin: 22px 0 6px !important; list-style: none; counter-reset: toc; }
+html:root[data-nv] body main.ln .lg-toc li { margin: 0 !important; padding: 0 !important; break-inside: avoid; counter-increment: toc; }
+html:root[data-nv] body main.ln .lg-toc li::before { display: none !important; }
+html:root[data-nv] body main.ln .lg-toc a { display: flex; align-items: center; gap: 10px; height: 100%; box-sizing: border-box; padding: 11px 14px; border-radius: 14px; background: #f7f5f0; border: 1px solid #ebe6dc; color: var(--ink, #111); text-decoration: none; font-weight: 600; font-size: 15px; transition: border-color .15s, background .15s, transform .15s; }
+html:root[data-nv] body main.ln .lg-toc a::before { content: counter(toc, decimal-leading-zero); flex: none; width: 28px; height: 28px; border-radius: 9px; display: grid; place-items: center; background: var(--nbl); color: var(--nbd); font: 700 12px ui-monospace, Menlo, monospace; }
+html:root[data-nv] body main.ln .lg-toc a:hover { background: #fff; border-color: var(--nb); transform: translateY(-1px); }
+html:root[data-nv][data-theme="dark"] body main.ln .lg-toc a { background: #1b1d22; border-color: #2a2d35; color: #f2f2f3; }
+/* Abschnitte klar getrennt */
+html:root[data-nv] body main.ln section.ln-cat { padding-top: 34px; }
+html:root[data-nv] body main.ln section.ln-cat > h2 { font-size: 26px; letter-spacing: -.02em; }
+html:root[data-nv] body main.ln .ln-rel a small:first-child { display: inline-grid; place-items: center; min-width: 26px; height: 22px; padding: 0 6px; border-radius: 7px; background: var(--nbl); color: var(--nbd); font: 700 11.5px ui-monospace, Menlo, monospace; margin: 0 0 8px; }
