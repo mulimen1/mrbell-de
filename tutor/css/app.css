@@ -6361,3 +6361,14 @@ html:root[data-nv][data-theme="dark"] .app > .main { background-color: #0b0b0c !
 html:root[data-nv]:not([data-theme="dark"]) #landing .nav { background-color: rgba(235, 228, 216, .94) !important; background-image: radial-gradient(rgba(0, 0, 0, .3) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; background-attachment: fixed !important; -webkit-backdrop-filter: blur(10px) !important; backdrop-filter: blur(10px) !important; }
 html:root[data-nv][data-theme="dark"] #landing .nav { background-color: rgba(11, 11, 12, .94) !important; background-image: radial-gradient(rgba(255, 255, 255, .16) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; background-attachment: fixed !important; -webkit-backdrop-filter: blur(10px) !important; backdrop-filter: blur(10px) !important; }
 html:root[data-nv] #landing .nav { background-attachment: scroll !important; background-position: 0 0 !important; box-shadow: none !important; }
+/* Seitenleiste: gleiches Punktemuster, Einträge als schwebende Karten */
+html:root[data-nv] .app > .side, html:root[data-nv] .side { background-color: #ebe4d8 !important; background-image: radial-gradient(rgba(0, 0, 0, .3) 1.3px, transparent 1.7px) !important; background-size: 22px 22px !important; border-right: 0 !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+html:root[data-nv][data-theme="dark"] .side { background-color: #0b0b0c !important; background-image: radial-gradient(rgba(255, 255, 255, .16) 1.3px, transparent 1.7px) !important; }
+html:root[data-nv] .side :is(.doc-item, .side-lang, .side-fb, .side-acc, .langsw-wrap) { background: var(--panel) !important; border: 1px solid var(--line) !important; border-radius: 14px !important; box-shadow: 0 8px 22px -16px rgba(20, 40, 80, .45) !important; transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s; }
+html:root[data-nv] .side .side-tools { display: grid; gap: 8px; }
+html:root[data-nv] .side .doc-item { padding: 10px 12px !important; }
+html:root[data-nv] .side .side-lang { padding: 8px 12px !important; }
+html:root[data-nv] .side :is(.doc-item, .side-fb):hover { transform: translateY(-2px); box-shadow: 0 14px 28px -16px rgba(20, 40, 80, .55) !important; }
+html:root[data-nv] .side .side-acc { padding: 6px 8px !important; }
+html:root[data-nv] .side .grp { background: none; }
+html:root[data-nv] .side :is(.bottom, .scroll, .top, .head) { background: transparent !important; border: 0 !important; }
