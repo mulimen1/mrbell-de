@@ -278,7 +278,7 @@ function COLLAR(u) {
 const SHIRT_OUTER_UNUSED = 'M348 678 Q340 680 327 689 C325.7 693.7 321.5 707.5 319 717 C316.5 726.5 313.6 737.7 312 746 C310.4 754.3 309.3 760.8 309.5 767 C309.7 773.2 309.4 776.5 313 783 C316.6 789.5 322.3 797.5 331 806 C339.7 814.5 353.3 825.8 365 834 C376.7 842.2 389.2 849 401 855 C412.8 861 424.2 865.7 436 870 C447.8 874.3 459.3 878.2 472 881 C484.7 883.8 505.3 886 512 887 C518.7 886 539.3 883.8 552 881 C564.7 878.2 576.2 874.3 588 870 C599.8 865.7 611.2 861 623 855 C634.8 849 647.3 842.2 659 834 C670.7 825.8 684.3 814.5 693 806 C701.7 797.5 707.4 789.5 711 783 C714.6 776.5 714.3 773.2 714.5 767 C714.7 760.8 713.6 754.3 712 746 C710.4 737.7 707.5 726.5 705 717 C702.5 707.5 698.3 693.7 697 689 Q684 680 676 678 Z';
 function COLLAR_SHIRT(u) {
   // Hemd aus Bens Vorlage (ChatGPT, freigestellt); der gezeichnete Kopf liegt darüber
-  return `<g class="fz-collar"><path fill="#f5f5f5" d="M372 640 L652 640 L640 700 L512 820 L384 700 Z"/><image href="/tutor/img/max-shirt.webp?v=2" x="272.1" y="593.85" width="487.2" height="315" preserveAspectRatio="none"/></g>`;
+  return `<g class="fz-collar"><path fill="#f5f5f5" d="M372 640 L652 640 L640 700 L512 820 L384 700 Z"/><image href="/tutor/img/max-shirt.webp?v=3" x="265.4" y="652.2" width="497.4" height="252.9" preserveAspectRatio="none"/></g>`;
 }
 // Farbwechsel mit Show (rausfliegen, umziehen, Spruch)
 import('./dress.js').catch(() => {});
