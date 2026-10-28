@@ -11,7 +11,7 @@ import { renderQuestion, normalize, TYPE_LABEL, explainPrompt } from '../quiz.js
 import { feedbackButton } from '../feedback.js';
 import { ls as lsq } from '../util.js';
 import { L, LOCALE } from '../i18n.js';
-import { autoOpts, srcPicker, goSource } from '../create.js';
+import { autoOpts, srcPicker, goSource, wishHint } from '../create.js';
 import { dlBtn, optsQuiz } from '../export.js';
 import { savedToast } from '../lib.js';
 
@@ -134,7 +134,7 @@ async function exam(wrap, ctx) {
   const ld = loading(wrap, L('Ich stelle deine Probeklausur zusammen …', 'Putting your mock exam together …'), L(['Wähle die wichtigsten Themen', 'Schreibe Rechenaufgaben', 'Baue Transferfragen', 'Prüfe alle Lösungen', 'Gleich geschafft'], ['Picking the key topics', 'Writing calculations', 'Building transfer questions', 'Checking all solutions', 'Almost done']), 'exam');
   try {
     const fch = cfg.focus >= 0 && doc.path?.chapters?.[cfg.focus];
-    const r = await ask('exam', Object.assign({ material: fch ? forChapter(doc, fch) : forWhole(doc), docName: doc.name, opts: { count: cfg.count, difficulty: cfg.diff || 'klausur' } }, cfg.lang ? { lang: cfg.lang } : {}), { signal: ld.signal });
+    const r = await ask('exam', Object.assign({ material: wishHint({ wish: cfg.wish }) + (fch ? forChapter(doc, fch) : forWhole(doc)), docName: doc.name, opts: { count: cfg.count, difficulty: cfg.diff || 'klausur' } }, cfg.lang ? { lang: cfg.lang } : {}), { signal: ld.signal });
     const qs = (r.data?.questions || []).map(normalize).filter(Boolean);
     if (qs.length < 4) throw new Error(L('Die Probeklausur ist nicht vollständig angekommen. Versuch es nochmal.', 'The mock exam didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: L('Probeklausur · ', 'Mock exam · ') + new Date().toLocaleDateString(LOCALE), questions: qs, diff: 'Klausur', exam: true, minutes: cfg.minutes, pass: cfg.pass, silent: cfg.silent, created: Date.now(), results: [] };

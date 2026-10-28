@@ -8,7 +8,7 @@ import { forWhole, forChapter } from '../retrieve.js';
 import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
 import { SPICE, getSpice } from '../max.js';
 import { getOutLang, setOutLang, L } from '../i18n.js';
-import { autoOpts, srcPicker, goSource } from '../create.js';
+import { autoOpts, srcPicker, goSource, wishHint } from '../create.js';
 import { dlBtn, optsPodcast } from '../export.js';
 import { savedToast } from '../lib.js';
 import { beta } from '../beta.js';
@@ -46,7 +46,7 @@ export async function render(root, ctx) {
   if (auto) {
     const o = await autoOpts('podcast', ctx.doc); if (!wrap.isConnected) return;
     if (!o) { wrap.remove(); return render(root, Object.assign({}, ctx, { arg: null })); }
-    generate(wrap, ctx, o.len === 'lang' ? 'lang' : 'kurz', o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : -1, [1, 2, 3].includes(o.tone) ? o.tone : getSpice(), o.lang === 'en' || o.lang === 'de' ? o.lang : getOutLang(), o.voice || ls.get('tutor.podVoice', 'max'));
+    generate(wrap, ctx, o.len === 'lang' ? 'lang' : 'kurz', o.focus >= 0 && ctx.doc.path?.chapters[o.focus] ? o.focus : -1, [1, 2, 3].includes(o.tone) ? o.tone : getSpice(), o.lang === 'en' || o.lang === 'de' ? o.lang : getOutLang(), o.voice || ls.get('tutor.podVoice', 'max'), wishHint(o));
   } else if (pod) player(wrap, ctx, pod); else intro(wrap, ctx);
   return () => { try { synth && synth.cancel(); } catch (e) {} };
 }
@@ -105,13 +105,13 @@ function intro(wrap, ctx) {
 const minutes = p => Math.max(1, Math.round(p.lines.reduce((a, l) => a + l.t.split(/\s+/).length, 0) / 150));
 function wave() { const w = h('div', { class: 'wave' }); for (let i = 0; i < 30; i++) w.appendChild(h('i', { style: { '--h': (25 + Math.random() * 75) + '%', animationDelay: (i * 53 % 900) + 'ms', animationPlayState: 'paused' } })); return w; }
 
-async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), mvoice = 'max') {
+async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), mvoice = 'max', hint = '') {
   if (isGuest()) return lockedPreview(wrap, { kind: 'podcast', title: L('Dein Podcast – mit kostenlosem Konto', 'Your podcast – with a free account'), onUnlock: () => generate(wrap, ctx, len, focus, tone, plang, mvoice), back: () => intro(wrap, ctx) });
   const { doc } = ctx;
   const ch = focus >= 0 ? doc.path.chapters[focus] : null;
   const ld = loading(wrap, L('Marie und Max nehmen auf …', 'Marie and Max are recording …'), L(['Schreibe das Skript', 'Baue Beispiele ein', 'Max sucht sich eine knifflige Frage', 'Fast fertig'], ['Writing the script', 'Adding examples', 'Max is picking a tricky question', 'Almost done']), 'podcast');
   try {
-    const r = await ask('podcast', { material: ch ? forChapter(doc, ch) : forWhole(doc), docName: doc.name, lang: plang, opts: { length: len, focus: ch ? ch.title : '', spice: tone } }, { signal: ld.signal });
+    const r = await ask('podcast', { material: hint + (ch ? forChapter(doc, ch) : forWhole(doc)), docName: doc.name, lang: plang, opts: { length: len, focus: ch ? ch.title : '', spice: tone } }, { signal: ld.signal });
     const lines = (r.data?.lines || []).filter(l => l && l.t).map(l => ({ s: /max/i.test(l.s) ? 'Max' : 'Lisa', t: String(l.t) }));
     if (lines.length < 4) throw new Error(L('Die Folge ist nicht vollständig angekommen. Versuch es nochmal.', 'The episode didn’t arrive completely. Please try again.'));
     const p = { id: uid(), title: r.data.title || L('Folge', 'Episode'), lines, created: Date.now(), lang: plang, voice: mvoice, len, tone, focus: ch ? ch.title : null, real: true, audio: [] };

@@ -27,6 +27,15 @@ export async function autoOpts(tab, doc) {
   return personalise(tab, doc);
 }
 
+// Schwierigkeit + freier Extra-Wunsch aus der Werkzeug-Karte – als klare Anweisung vor das Material (inline: an den Tafel-Auftrag anhängen)
+const DIFF_TXT = { leicht: L('Niveau: Einsteiger – einfache Sprache, alles von Grund auf, viele Beispiele', 'Level: beginner – plain language, everything from scratch, many examples'), mittel: L('Niveau: mittel – solide Grundlagen vorausgesetzt', 'Level: medium – solid basics assumed'), schwer: L('Niveau: fortgeschritten – anspruchsvoll, mit Transferfragen und Sonderfällen', 'Level: advanced – demanding, with transfer questions and edge cases'), klausur: L('Niveau: Klausurniveau – wie in einer echten Hochschulklausur', 'Level: exam level – like a real university exam') };
+export function wishHint(o, inline = false) {
+  if (!o) return '';
+  const parts = [DIFF_TXT[o.diff] || '', (o.wish || '').trim() ? L('Extra-Wunsch: ', 'Extra request: ') + String(o.wish).trim().slice(0, 300) : ''].filter(Boolean);
+  if (!parts.length) return '';
+  return inline ? ' ' + parts.join('. ') + '.' : L(`[Wünsche: ${parts.join('; ')}.]\n\n`, `[Requests: ${parts.join('; ')}.]\n\n`);
+}
+
 // Für den Lernzettel: Wünsche als klare Anweisung vor das Material
 export function zettelHint(o) {
   if (!o) return '';
@@ -34,7 +43,7 @@ export function zettelHint(o) {
     ? L('ausführlich – jedes Thema mit kurzer Erklärung, Beispiel und Formel, darf 2–3 Seiten lang sein', 'detailed – every topic with a short explanation, example and formula, may run to 2–3 pages')
     : L('kurz – höchstens eine Seite, nur Kernaussagen, knappe Stichpunkte', 'short – one page at most, key statements only, terse bullet points');
   const art = { begriffe: L('Schwerpunkt auf Begriffen und Definitionen', 'focus on terms and definitions'), formeln: L('Schwerpunkt auf Formeln und Rechenwegen, mit je einem Mini-Beispiel', 'focus on formulas and workings, each with a mini example'), klausur: L('Schwerpunkt auf dem, was typischerweise in der Klausur drankommt, inkl. typischer Fehler', 'focus on what typically comes up in the exam, incl. classic mistakes') }[o.art];
-  return L(`[Wunsch für diesen Lernzettel: ${len}${art ? '; ' + art : ''}.]\n\n`, `[Request for this study sheet: ${len}${art ? '; ' + art : ''}.]\n\n`);
+  return L(`[Wunsch für diesen Lernzettel: ${len}${art ? '; ' + art : ''}.]\n\n`, `[Request for this study sheet: ${len}${art ? '; ' + art : ''}.]\n\n`) + wishHint(o);
 }
 
 const TOOL = {

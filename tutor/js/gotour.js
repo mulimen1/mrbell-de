@@ -116,14 +116,14 @@ function runTour(S) {
     if (best !== posK) { posK = best; box.dataset.pos = best; }
   }
   const drawCtl = () => { bPlay.textContent = paused ? '▶' : '❚❚'; box.classList.toggle('paused', paused); num.textContent = `${i + 1} / ${S.length}`; bBack.disabled = i <= 0; bNext.textContent = i >= S.length - 1 ? L('Fertig', 'Done') : L('Weiter', 'Next'); };
-  const readMs = () => Math.max(1500, (S[i]?.say || '').split(/\s+/).length * 140 + 300) / speed;
+  const readMs = () => Math.max(1950, (S[i]?.say || '').split(/\s+/).length * 182 + 390) / speed;
   function schedule() { clearTimeout(hold); t0 = performance.now(); dur = readMs(); hold = setTimeout(() => go(i + 1), dur); }
   function type(text) {
     clearInterval(typing); done = false; bar.firstChild.style.transform = 'scaleX(0)';
     txt.dataset.full = text; txt.textContent = '';
     fc.set('talk');
     let n = 0;
-    return new Promise(res => { typing = setInterval(() => { if (paused) return; n = Math.min(text.length, n + Math.ceil(4 * speed)); txt.textContent = text.slice(0, n); if (n >= text.length) { clearInterval(typing); fc.set('idle'); done = true; res(); } }, 16); });
+    return new Promise(res => { typing = setInterval(() => { if (paused) return; n = Math.min(text.length, n + Math.ceil(3 * speed)); txt.textContent = text.slice(0, n); if (n >= text.length) { clearInterval(typing); fc.set('idle'); done = true; res(); } }, 16); });
   }
   async function go(n) {
     if (dead) return;
