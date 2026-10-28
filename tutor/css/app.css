@@ -7748,3 +7748,23 @@ html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .b
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .btn:not(.primary) * { color: #fff !important; }
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .ub-guide .ub-cta .ub-xln { background: rgba(255,255,255,.22) !important; color: #fff !important; }
 html.m-rlock .hn { display: none !important; }
+/* Excel-Trainer: Hero-Knopf, Spickzettel als Dropdown oben rechts, kräftige Stufenfarben */
+html:root body .xt-hero { position: relative; padding: 30px 30px 28px !important; }
+html:root body .xt-hero .xt-go.go-btn { margin-left: auto; height: 68px !important; padding: 0 42px !important; font-size: 22px !important; box-shadow: 0 1px 0 rgba(255,255,255,.35) inset, 0 20px 40px -14px rgba(91,63,196,.85) !important; animation: xtpulse 2.6s ease-in-out infinite; }
+@keyframes xtpulse { 50% { box-shadow: 0 1px 0 rgba(255,255,255,.35) inset, 0 20px 40px -10px rgba(91,63,196,.95), 0 0 0 8px rgba(138,92,240,.14); } }
+html:root body .xt-hero .xt-hst { align-items: center; flex-wrap: wrap; row-gap: 12px; }
+.xt-hero > .xt-cheat { position: absolute; top: 16px; right: 16px; z-index: 20; margin: 0 !important; border: 0 !important; background: none !important; padding: 0 !important; }
+.xt-hero > .xt-cheat > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px 0 12px; border-radius: 999px; background: #fff; border: 1px solid rgba(0,0,0,.1); box-shadow: 0 8px 20px -14px rgba(0,0,0,.4); font: 700 14px var(--sans); color: #17171c; }
+.xt-hero > .xt-cheat > summary::-webkit-details-marker { display: none; }
+.xt-hero > .xt-cheat > summary small { padding: 2px 8px; border-radius: 999px; background: #e8f4ec; color: #1D6F42; font: 700 11px var(--sans); }
+.xt-hero > .xt-cheat > summary .ico { width: 17px; height: 17px; } .xt-chv { transition: transform .2s; } .xt-hero > .xt-cheat[open] .xt-chv { transform: rotate(180deg); }
+.xt-hero > .xt-cheat .xt-chp { position: absolute; right: 0; top: 48px; width: min(440px, 86vw); max-height: 62vh; overflow: auto; padding: 10px 14px 12px; border-radius: 18px; background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: 0 30px 60px -24px rgba(0,0,0,.45); animation: gtpop .25s ease both; }
+.xt-hero > .xt-cheat .xt-chp table { width: 100%; border-collapse: collapse; font-size: 13.5px; } .xt-hero > .xt-cheat .xt-chp td { padding: 7px 4px; border-bottom: 1px solid rgba(0,0,0,.06); } .xt-hero > .xt-cheat .xt-chp td + td { text-align: right; white-space: nowrap; }
+.xt-hero > .xt-cheat .xt-chp p { margin: 10px 0 0; font-size: 12.5px; color: #55555f; }
+.xt-lv { border: 0 !important; box-shadow: 0 20px 44px -30px color-mix(in srgb, var(--lc) 80%, #000) !important; }
+.xt-lv header { background: linear-gradient(135deg, color-mix(in srgb, var(--lc) 78%, #fff), var(--lc)) !important; color: #fff; border-bottom: 0 !important; }
+.xt-lv header b, .xt-lv header small, .xt-lv header .xt-lvn { color: #fff !important; } .xt-lv header small { opacity: .88; }
+.xt-lv .xt-bar { background: rgba(255,255,255,.25) !important; } .xt-lv .xt-bar i { background: #fff !important; }
+.xt-lv .xt-lsn { background: color-mix(in srgb, var(--lc) 14%, #fff) !important; color: var(--lc) !important; font-weight: 800; }
+.xt-lv .xt-ls:hover { background: color-mix(in srgb, var(--lc) 9%, #fff) !important; }
+@media (max-width: 760px) { html:root body .xt-hero .xt-go.go-btn { margin-left: 0; width: 100%; height: 60px !important; font-size: 19px !important; } .xt-hero > .xt-cheat { top: 12px; right: 12px; } }

@@ -46,10 +46,10 @@ function overview(el) {
   const next = LESSONS.find(l => !done(l.id)) || LESSONS[0];
   const fEl = h('div', { class: 'xt-hface' }); setTimeout(() => { try { face(fEl, { follow: true }); } catch (e) {} }, 0);
   el.replaceChildren(
-    h('div', { class: 'xt-hero' }, fEl,
+    h('div', { class: 'xt-hero' }, cheat(), fEl,
       h('div', { class: 'xt-htx' }, h('b', {}, 'Excel lernen – mit Max.'), h('p', {}, 'Ein echter Excel-Nachbau, echte Tastenkürzel, echte BWL-Aufgaben. Max führt dich Schritt für Schritt – vom ersten =B2*C2 bis zum Tilgungsplan. Du machst es selbst, er sagt dir sofort, ob’s sitzt.'),
         h('div', { class: 'xt-hst' }, h('span', {}, h('b', {}, String(LESSONS.filter(l => done(l.id)).length)), ' / ' + total + ' Lektionen'), h('span', {}, h('b', {}, String(stars)), ' / ' + total * 3 + ' ★'),
-          h('button', { class: 'btn primary xt-go', type: 'button', onclick: () => stars ? play(el, next.id) : pickLevel(el) }, h('span', { html: ico('right') }), stars ? 'Weiter: ' + next.title : 'Los geht’s'), stars ? h('button', { class: 'btn ghost sm', type: 'button', onclick: () => pickLevel(el) }, 'Stufe wählen') : null))),
+          h('button', { class: 'xt-go go-btn go-lg', type: 'button', onclick: () => stars ? play(el, next.id) : pickLevel(el) }, stars ? 'Weiter: ' + next.title : 'Los geht’s'), stars ? h('button', { class: 'btn ghost sm', type: 'button', onclick: () => pickLevel(el) }, 'Stufe wählen') : null))),
     DISCL(),
     matchMedia('(pointer: coarse)').matches ? h('p', { class: 'xt-phone' }, 'Tipp: Am Laptop macht’s am meisten Sinn – dort funktionieren die Tastenkürzel wie im echten Excel.') : null,
     h('div', { class: 'xt-levels' }, LEVELS.map(lv => {
@@ -57,8 +57,7 @@ function overview(el) {
       return h('section', { class: 'xt-lv', style: { '--lc': lv.col } },
         h('header', {}, h('span', { class: 'xt-lvn' }, 'Stufe ' + lv.n), h('b', {}, lv.title), h('small', {}, lv.sub), h('div', { class: 'xt-bar' }, h('i', { style: { width: (got / ls2.length * 100) + '%' } }))),
         h('ol', {}, ls2.map((l, i) => { const d = done(l.id); return h('li', {}, h('button', { type: 'button', class: 'xt-ls' + (d ? ' done' : ''), onclick: () => play(el, l.id) }, h('span', { class: 'xt-lsn' }, d ? '✓' : String(i + 1)), h('span', { class: 'xt-lst' }, h('b', {}, l.title, l.challenge ? h('em', {}, 'Challenge') : null), h('small', {}, l.desc)), d ? starRow(d.stars) : h('span', { class: 'xt-lsgo', html: ico('right') }))); })));
-    })),
-    cheat());
+    })));
 }
 // Einstieg: Wie viel Excel kannst du schon? – dann direkt in der passenden Stufe loslegen
 function pickLevel(el) {
@@ -72,9 +71,9 @@ function pickLevel(el) {
 }
 function cheat() {
   const R = [['Eingabe speichern, nach unten / rechts', 'enter', 'tab'], ['Zelle bearbeiten', 'f2', MAC ? 'ctrl+U' : null], ['Abbrechen', 'esc'], ['Rückgängig', 'mod+Z'], ['Kopieren / Einfügen', 'mod+C', 'mod+V'], ['Nach unten / rechts ausfüllen', 'mod+D', 'mod+R'], ['AutoSumme', 'autosum'], ['Bezug fixieren ($)', 'f4'], ['Euro / Prozent', 'fmt4', 'fmt5'], ['Fett', 'bold'], ['Ans Ende der Daten springen', 'mod+down', 'mod+right'], ['Bis zum Ende markieren', 'mod+shift+down']];
-  return h('details', { class: 'xt-cheat' }, h('summary', {}, h('span', { html: ico('library') }), 'Spickzettel: alle Kürzel aus dem Trainer', h('small', {}, MAC ? 'für Mac' : 'für Windows')),
-    h('table', {}, h('tbody', {}, R.map(([t, a, b]) => h('tr', {}, h('td', {}, t), h('td', {}, kbd(a), b ? [' ', kbd(b)] : null))))),
-    MAC ? h('p', {}, 'Im echten Mac-Excel heißen zwei Kürzel anders: AutoSumme ⌘ ⇧ T und Bezug fixieren ⌘ T. Im Browser sind die für Tabs reserviert – deshalb hier ⌥ = und fn F4.') : null);
+  return h('details', { class: 'xt-cheat' }, h('summary', {}, h('span', { html: ico('library') }), 'Spickzettel', h('small', {}, MAC ? 'Mac' : 'Windows'), h('span', { class: 'xt-chv', html: ico('down') })),
+    h('div', { class: 'xt-chp' }, h('table', {}, h('tbody', {}, R.map(([t, a, b]) => h('tr', {}, h('td', {}, t), h('td', {}, kbd(a), b ? [' ', kbd(b)] : null))))),
+    MAC ? h('p', {}, 'Im echten Mac-Excel heißen zwei Kürzel anders: AutoSumme ⌘ ⇧ T und Bezug fixieren ⌘ T. Im Browser sind die für Tabs reserviert – deshalb hier ⌥ = und fn F4.') : null));
 }
 
 // ---------- Lektion ----------
