@@ -18,7 +18,7 @@ function note() {
   try { localStorage.setItem('bm.skinNote', '1'); } catch (e) {}
   const fb = () => import('./feedback.js').then(m => m.openFeedback()).catch(() => {});
   const body = h('div', { class: 'sk-note' },
-    h('p', {}, L('Wir testen gerade ein neues Design: helleres Blau, mehr Rückmeldung beim Klicken – und Max im neuen Hemd. Alles andere bleibt, wie du es kennst.', 'We’re testing a new design: brighter blue, more feedback when you click – and Max in a new shirt. Everything else stays the same.')),
+    h('p', {}, L('Wir testen gerade ein neues Design: helleres Blau, mehr Rückmeldung beim Klicken – und Max im neuen Look. Alles andere bleibt, wie du es kennst.', 'We’re testing a new design: brighter blue, more feedback when you click – and Max in a new look. Everything else stays the same.')),
     h('p', {}, L('Sag uns ehrlich, wie du es findest. Zurück zum alten Design geht jederzeit über das Menü (oben rechts oder Einstellungen unten links).', 'Tell us honestly what you think. You can switch back to the old design any time via the menu (top right, or settings bottom left).')),
     h('button', { class: 'sk-fb', type: 'button', onclick: () => { track('Design-Feedback', 'Text'); fb(); } }, L('Feedback geben', 'Give feedback')));
   modal({ cls: 'sk-modal', eyebrow: L('Testphase', 'Test phase'), title: L('BWL Max sieht neu aus', 'BWL Max has a new look'), body,

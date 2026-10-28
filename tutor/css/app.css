@@ -6263,3 +6263,7 @@ html[data-ben][data-nv] .app { position: relative; z-index: 1; }
   -webkit-mask-image: radial-gradient(360px circle at var(--mx, 50%) var(--my, 30%), #000 0%, rgba(0,0,0,.4) 45%, transparent 75%); mask-image: radial-gradient(360px circle at var(--mx, 50%) var(--my, 30%), #000 0%, rgba(0,0,0,.4) 45%, transparent 75%); }
 .bg3d-glow { background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 30%), rgba(95, 170, 255, .10), transparent 70%); }
 html[data-theme="dark"] .bg3d-far { background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1.3px); }
+html:root[data-nv] .ai-board .ai-ba.dots, html:root[data-nv] .boardarea.dots { background-image: none !important; }
+/* Neues Design: Punkte nur auf freier Fläche – keine Karte, kein Feld, keine Leiste ist durchsichtig */
+html:root[data-nv] :is(.rm-dropz, .sk-drop, .me-sc.me-scadd, .tt-drop, .ms-pvb, .ms-skl, .ms-foot, .btn.sm:not(.primary), .iconbtn, .ai-isl, .ai-bub, .asst-quip, .rm-tbub, .rm-bubble, .topbar, .tn:not(.tn-tutor), .chip, .rm-tdb, .bib-tab, .vt-btn, .fx-back, .rm-skb, .rm-streak, .rm-prog, .ub-pc, .tr-card, .feat) { background-color: var(--panel) !important; }
+html:root[data-nv] .ai-isl { --gl: var(--panel) !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
