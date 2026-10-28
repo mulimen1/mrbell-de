@@ -77,7 +77,8 @@ export async function render(root, { sub = '' } = {}) {
       ['cards', L('Karteikarten', 'Flashcards'), L('Bis es sitzt', 'Until it sticks')],
       ['headphones', 'Podcast', L('Marie & Max', 'Marie & Max')],
       ['path', L('Lernpfad', 'Study path'), L('Kapitel für Kapitel', 'Chapter by chapter')],
-    ].map(([ic, t, sub]) => h('button', { class: 'ub-ltc', type: 'button', 'data-lt': ic, onclick: () => { location.hash = '#/app/ueben/' + ({ board: 'tafel', note: 'zettel', cards: 'karten', headphones: 'podcast', path: 'lernpfad' })[ic]; } }, h('span', { class: 'ub-lti', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))),
+      ['pen', L('Live-Mitschrift', 'Live notes'), L('In der Vorlesung mitschreiben', 'Take notes in the lecture')],
+    ].map(([ic, t, sub]) => h('button', { class: 'ub-ltc', type: 'button', 'data-lt': ic, onclick: () => { if (ic === 'pen') { location.hash = '#/app/mitschrift'; return; } location.hash = '#/app/ueben/' + ({ board: 'tafel', note: 'zettel', cards: 'karten', headphones: 'podcast', path: 'lernpfad' })[ic]; } }, h('span', { class: 'ub-lti', html: ico(ic) }), h('b', {}, t), h('small', {}, sub)))),
     h('div', { class: 'ln-gh ub-h' }, h('h2', {}, L('Prüfungssimulation', 'Exam simulation')), h('span', { class: 'eyebrow' }, L('Wie in der echten Klausur', 'Like the real exam'))),
     sim,
     ...(BEN ? [] : trSec));
@@ -103,7 +104,7 @@ export async function render(root, { sub = '' } = {}) {
     // Lernen neu: Unter-Bereiche oben (wie die Bereiche im Header), wichtigstes zuerst
     const hero = left.querySelector('.ub-hero'), grid = left.querySelector('.ub-lt');
     grid.classList.add('ub-big');
-    const DESC = { board: L('Max erklärt jedes Thema Schritt für Schritt – mit Beispiel und Rechenweg.', 'Max explains any topic step by step – with example and workings.'), note: L('Alles Wichtige auf einer Seite, plus Mindmap.', 'Everything important on one page, plus a mind map.'), cards: L('Wiederholen mit System, bis es sitzt.', 'Systematic review until it sticks.'), headphones: L('Marie & Max zum Anhören – für Bahn und Gym.', 'Marie & Max to listen to – for train and gym.'), path: L('Kapitel für Kapitel mit Lektionen und Checks.', 'Chapter by chapter with lessons and checks.') };
+    const DESC = { board: L('Max erklärt jedes Thema Schritt für Schritt – mit Beispiel und Rechenweg.', 'Max explains any topic step by step – with example and workings.'), note: L('Alles Wichtige auf einer Seite, plus Mindmap.', 'Everything important on one page, plus a mind map.'), cards: L('Wiederholen mit System, bis es sitzt.', 'Systematic review until it sticks.'), headphones: L('Marie & Max zum Anhören – für Bahn und Gym.', 'Marie & Max to listen to – for train and gym.'), path: L('Kapitel für Kapitel mit Lektionen und Checks.', 'Chapter by chapter with lessons and checks.'), pen: L('Tippen oder Foto – Max macht daraus eine saubere Mitschrift.', 'Type or snap a photo – Max turns it into clean notes.') };
     grid.querySelectorAll('.ub-ltc').forEach(c => { const sm = c.querySelector('small'); if (sm && DESC[c.dataset.lt]) sm.textContent = DESC[c.dataset.lt]; });
     const guide = h('aside', { class: 'ub-guide' }, hero);
     const SECS = [

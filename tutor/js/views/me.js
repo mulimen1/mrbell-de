@@ -341,8 +341,9 @@ function subjects(body) {
       : rf.neu ? { t: L(`${rf.neu} neue Karten lernen`, `Learn ${rf.neu} new cards`), href: `#/app/${d0.id}/karten` }
       : !rf.cards ? { t: L('Karteikarten erstellen', 'Create flashcards'), href: `#/app/${d0.id}/karten` }
       : { t: L('Quiz zur Kontrolle', 'Check yourself with a quiz'), href: `#/app/${d0.id}/quiz` };
-    grid.append(h('article', { class: 'me-sc', 'data-tone': BEN ? TONES[fi++ % TONES.length] : null },
-      h('div', { class: 'me-sch' }, h('span', { class: 'me-badge' }, (f.kurz || f.name).slice(0, 3).toUpperCase()), h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Bearbeiten', 'Edit'), html: ico('tune'), onclick: () => editFach(f) })),
+    const fc = PAL[f.farbe]; const tone = BEN ? TONES[fi++ % TONES.length] : null;
+    grid.append(h('article', { class: 'me-sc' + (fc ? ' me-own' : ''), 'data-tone': tone, style: fc ? { '--c1': fc[0], '--c2': fc[1] } : null },
+      h('div', { class: 'me-sch' }, f.icon ? h('span', { class: 'me-badge me-bico', html: ico(f.icon) }) : h('span', { class: 'me-badge' }, (f.kurz || f.name).slice(0, 3).toUpperCase()), h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Bearbeiten', 'Edit'), html: ico('tune'), onclick: () => editFach(f) })),
       h('h3', {}, f.name),
       h('div', { class: 'me-scd' }, graded ? h('span', {}, L('Note ', 'Grade '), h('b', {}, N.fmt(+graded.note))) : dl == null ? h('span', { class: 'me-muted' }, L('Kein Klausurtermin', 'No exam date')) : dl < 0 ? h('span', { class: 'me-muted' }, L(`${M.artName(f.klausurArt)} vorbei`, `${M.artName(f.klausurArt)} over`)) : h('span', {}, h('b', {}, String(dl)), (dl === 1 ? L(' Tag bis ', ' day to ') : L(' Tage bis ', ' days to ')) + bisZu(f.klausurArt))),
       rf.hasData ? h('div', { class: 'me-rf' },
@@ -446,6 +447,24 @@ async function editProfil() {
   if (r !== 'ok') return;
   M.updateMe(m => { m.noten = Object.assign({}, m.noten, { profil: { key: mode.value === 'anteil' ? 'eigen' : 'ects', mode: mode.value, gesamt: +ges.value, thesis: +th.value || 0, kolloq: +ko.value || 0, aThesis: +aT.value || 0, aKolloq: +aK.value || 0, stellen: 1 } }); });
 }
+// ---------- Eigene Farben & Symbole für Fächer und Kurse ----------
+export const PAL = { blau: ['#5aa2f7', '#1a5fc4'], indigo: ['#7a8cf7', '#3f4fd6'], lila: ['#9b7cf0', '#5b3fc4'], pink: ['#f47ba0', '#c8336f'], rot: ['#ff7b7b', '#d63031'], orange: ['#f39b52', '#d9601c'], gelb: ['#f7c948', '#d18e06'], limette: ['#a3d94a', '#5f8f12'], gruen: ['#4cc38a', '#1c7a47'], petrol: ['#3fc1c9', '#0e7f8e'], braun: ['#c9a27a', '#8a5a2b'], schiefer: ['#94a3b8', '#475569'] };
+const PALN = { blau: L('Blau', 'Blue'), indigo: 'Indigo', lila: L('Lila', 'Purple'), pink: 'Pink', rot: L('Rot', 'Red'), orange: 'Orange', gelb: L('Gelb', 'Yellow'), limette: L('Limette', 'Lime'), gruen: L('Grün', 'Green'), petrol: L('Petrol', 'Teal'), braun: L('Braun', 'Brown'), schiefer: L('Schiefer', 'Slate') };
+const SYM = ['book', 'calc', 'chart', 'calendar', 'brain', 'sheet', 'bulb', 'star', 'trophy', 'path', 'spark', 'library', 'cards', 'quiz'];
+function swatches(cur, onPick, autoLabel) {
+  const w = h('div', { class: 'me-sw' });
+  const paint = v => w.querySelectorAll('button').forEach(b => b.classList.toggle('on', (b.dataset.v || '') === (v || '')));
+  if (autoLabel) w.append(h('button', { type: 'button', class: 'me-swa', 'data-v': '', title: autoLabel, onclick: () => { onPick(''); paint(''); } }, autoLabel));
+  Object.entries(PAL).forEach(([k, c]) => w.append(h('button', { type: 'button', 'data-v': k, title: PALN[k], 'aria-label': PALN[k], style: { background: `linear-gradient(135deg, ${c[0]}, ${c[1]})` }, onclick: () => { onPick(k); paint(k); } })));
+  paint(cur); return w;
+}
+function symbols(cur, onPick, getCol) {
+  const w = h('div', { class: 'me-sym' });
+  const paint = v => w.querySelectorAll('button').forEach(b => b.classList.toggle('on', (b.dataset.v || '') === (v || '')));
+  w.append(h('button', { type: 'button', 'data-v': '', class: 'me-symk', onclick: () => { onPick(''); paint(''); } }, L('Kürzel', 'Initials')));
+  SYM.forEach(k => w.append(h('button', { type: 'button', 'data-v': k, html: ico(k), onclick: () => { onPick(k); paint(k); } })));
+  paint(cur); w.recolor = () => { const c = PAL[getCol()] || PAL.blau; w.style.setProperty('--s1', c[0]); w.style.setProperty('--s2', c[1]); }; w.recolor(); return w;
+}
 async function editFach(f) {
   const isNew = !f; f = f ? JSON.parse(JSON.stringify(f)) : { name: '', kurz: '', klausur: '', ects: '', docs: [] };
   const name = h('input', { class: 'field', value: f.name, maxlength: 60, placeholder: L('Name, z. B. Kostenrechnung', 'Name, e.g. Cost accounting') });
@@ -453,11 +472,19 @@ async function editFach(f) {
   const date = h('input', { class: 'field', type: 'date', value: f.klausur || '' });
   const artSel = h('select', { class: 'field me-artsel', 'aria-label': L('Art', 'Type') }, [['klausur', L('Klausur', 'Exam')], ['test', L('Test', 'Test')]].map(([v, t]) => h('option', { value: v, selected: (f.klausurArt || 'klausur') === v || null }, t)));
   const ects = h('input', { class: 'field', type: 'number', min: 0, max: 30, value: f.ects || '', placeholder: 'ECTS' });
+  let farbe = f.farbe || '', icon = f.icon || '';
+  const prev = h('span', { class: 'me-fprev' });
+  const drawPrev = () => { const c = PAL[farbe] || PAL.blau; prev.style.background = `linear-gradient(135deg, ${c[0]}, ${c[1]})`; prev.replaceChildren(); if (icon) prev.innerHTML = ico(icon); else prev.textContent = ((kurz.value || name.value || '?').slice(0, 3)).toUpperCase(); };
+  const sym = symbols(icon, v => { icon = v; drawPrev(); }, () => farbe);
+  const sw = swatches(farbe, v => { farbe = v; sym.recolor(); drawPrev(); }, L('Auto', 'Auto'));
+  name.addEventListener('input', drawPrev); kurz.addEventListener('input', drawPrev); drawPrev();
   const docs = S.list.filter(d => !d.sample);
   const checks = docs.map(d => { const other = M.getMe().faecher.find(x => x.id !== f.id && (x.docs || []).includes(d.id)); const c = h('input', { type: 'checkbox', checked: (f.docs || []).includes(d.id) || null }); return [d, c, h('label', { class: 'me-chk' }, c, h('span', {}, d.name), other ? h('small', {}, L(`bei ${other.name}`, `in ${other.name}`)) : null)]; });
   const body = h('div', { class: 'me-form' },
-    h('label', {}, h('span', {}, L('Fach', 'Subject')), name),
+    h('div', { class: 'me-fhead' }, prev, h('label', {}, h('span', {}, L('Fach', 'Subject')), name)),
     h('div', { class: 'me-row2' }, h('label', {}, h('span', {}, L('Kürzel', 'Short name')), kurz), h('label', {}, h('span', {}, 'ECTS'), ects)),
+    h('div', {}, h('span', { class: 'me-lab' }, L('Farbe', 'Colour')), sw),
+    h('div', {}, h('span', { class: 'me-lab' }, L('Symbol', 'Symbol')), sym),
     h('div', {}, h('span', { class: 'me-lab' }, L('Nächster Prüfungstermin', 'Next exam date')), h('div', { class: 'me-row2 me-artrow' }, artSel, date)),
     docs.length ? h('div', {}, h('span', { class: 'me-lab' }, L('Skripte in diesem Fach', 'Slides in this subject')), h('div', { class: 'me-chks' }, checks.map(x => x[2]))) : h('p', { class: 'me-muted' }, L('Sobald du Skripte hochlädst, kannst du sie hier zuordnen.', 'Once you upload slides, you can assign them here.')));
   const actions = [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: isNew ? L('Anlegen', 'Add') : L('Speichern', 'Save'), value: 'save', primary: true }];
@@ -474,7 +501,7 @@ async function editFach(f) {
   f.termine = M.termineOf(f).filter(t => !(old && t.datum === old.datum && t.art === old.art)).map(t => (t.id === 'k' ? Object.assign({}, t, { id: uid() }) : t));
   f.klausur = ''; f.klausurArt = '';
   if (date.value) M.addTerminTo(f, { art: artSel.value, datum: date.value }); else M.syncKlausur(f);
-  M.saveFach(Object.assign(f, { name: name.value.trim().slice(0, 60), kurz: kurz.value.trim().slice(0, 12), ects: ects.value ? Math.max(0, Math.min(30, +ects.value)) : '', docs: chosen }));
+  M.saveFach(Object.assign(f, { name: name.value.trim().slice(0, 60), kurz: kurz.value.trim().slice(0, 12), ects: ects.value ? Math.max(0, Math.min(30, +ects.value)) : '', docs: chosen, farbe, icon }));
   toast(isNew ? L('Fach angelegt.', 'Subject added.') : L('Gespeichert.', 'Saved.'));
 }
 
@@ -498,12 +525,12 @@ function timetable(body, getOff, setOff) {
       h('div', { class: 'me-hours' }, [...Array(h1 - h0)].map((_, i) => h('span', { style: { top: i * PX + 'px' } }, String(h0 + i).padStart(2, '0') + ':00'))),
       cols.map(([d, list]) => h('div', { class: 'me-col' + (d.getTime() === today0 ? ' on' : '') }, layout(list).map(({ s, lane, lanes }) => {
         const top = ((s.s - d.getTime()) / 3600e3 - h0) * PX, ht = Math.max(26, (s.e - s.s) / 3600e3 * PX - 3);
-        return h('button', { class: 'me-blk' + (s.own ? ' own' : '') + (s.e < Date.now() ? ' past' : ''), type: 'button', style: { top: top + 'px', height: ht + 'px', left: `calc(${100 * lane / lanes}% + 2px)`, width: `calc(${100 / lanes}% - 4px)` }, title: `${s.t} · ${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}`, onclick: () => s.own ? editKurs(me.kurse.find(k => k.id === s.id)) : assignIcs(s) },
+        const bc = PAL[s.col]; return h('button', { class: 'me-blk' + (s.own ? ' own' : '') + (bc ? ' col' : '') + (s.e < Date.now() ? ' past' : ''), type: 'button', style: { ...(bc ? { '--b1': bc[0], '--b2': bc[1] } : {}), top: top + 'px', height: ht + 'px', left: `calc(${100 * lane / lanes}% + 2px)`, width: `calc(${100 / lanes}% - 4px)` }, title: `${s.t} · ${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}`, onclick: () => s.own ? editKurs(me.kurse.find(k => k.id === s.id)) : assignIcs(s) },
           h('b', {}, s.t), h('small', {}, `${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}`), s.fach ? (sameName(s.t, s.fach) ? null : h('i', {}, s.fach.kurz || s.fach.name)) : null);
       })))));
   // Handy: Liste statt Raster
   const list = h('div', { class: 'me-wlist' }, cols.map(([d, l]) => h('div', { class: 'me-wday' + (d.getTime() === today0 ? ' on' : '') }, h('div', { class: 'me-wdh' }, DAYS_LONG[d.getDay()], h('small', {}, d.toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' }))),
-    l.length ? l.map(s => h('button', { class: 'me-wli', type: 'button', onclick: () => s.own ? editKurs(me.kurse.find(k => k.id === s.id)) : assignIcs(s) }, h('b', {}, hm(s.s)), h('span', {}, s.t, h('small', {}, [s.o, s.fach?.name].filter(Boolean).join(' · '))))) : h('div', { class: 'me-muted' }, L('frei', 'free')))));
+    l.length ? l.map(s => h('button', { class: 'me-wli' + (PAL[s.col] ? ' col' : ''), style: PAL[s.col] ? { '--b1': PAL[s.col][0], '--b2': PAL[s.col][1] } : null, type: 'button', onclick: () => s.own ? editKurs(me.kurse.find(k => k.id === s.id)) : assignIcs(s) }, h('b', {}, hm(s.s)), h('span', {}, s.t, h('small', {}, [s.o, s.fach?.name].filter(Boolean).join(' · '))))) : h('div', { class: 'me-muted' }, L('frei', 'free')))));
   const kw = isoWeek(mon);
   body.append(
     connectBox(),
@@ -606,8 +633,11 @@ async function editKurs(k) {
   const raum = h('input', { class: 'field', value: k.raum || '', maxlength: 40, placeholder: L('Raum (optional)', 'Room (optional)') });
   const art = h('select', { class: 'field' }, L(['Vorlesung', 'Übung', 'Tutorium', 'Seminar', 'Lerngruppe'], ['Lecture', 'Exercise', 'Tutorial', 'Seminar', 'Study group']).map(x => h('option', { selected: x === k.art || null }, x)));
   titel.addEventListener('input', () => { if (!fach.value) { const g = M.guessFach(titel.value); if (g) fach.value = g.id; } });
+  let farbe = k.farbe || '';
+  const sw = swatches(farbe, v => { farbe = v; }, L('Wie Fach', 'Like subject'));
   const body = h('div', { class: 'me-form' }, h('label', {}, h('span', {}, L('Kurs', 'Class')), titel), h('div', { class: 'me-row2' }, h('label', {}, h('span', {}, L('Fach', 'Subject')), fach), h('label', {}, h('span', {}, L('Art', 'Type')), art)),
     h('div', { class: 'me-row3' }, h('label', {}, h('span', {}, L('Tag', 'Day')), tag), h('label', {}, h('span', {}, L('von', 'from')), von), h('label', {}, h('span', {}, L('bis', 'to')), bis)), h('label', {}, h('span', {}, L('Raum', 'Room')), raum),
+    h('div', {}, h('span', { class: 'me-lab' }, L('Farbe im Stundenplan', 'Colour in timetable')), sw),
     h('p', { class: 'me-muted' }, L('Wiederholt sich jede Woche.', 'Repeats every week.')));
   const actions = [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: isNew ? L('Eintragen', 'Add') : L('Speichern', 'Save'), value: 'save', primary: true }];
   if (!isNew) actions.unshift({ label: L('Löschen', 'Delete'), value: 'del' });
@@ -621,14 +651,16 @@ async function editKurs(k) {
     if (ex) fid = ex.id;
     else if (nm.length >= 3) { const nf = { id: uid(), name: nm, kurz: '', klausur: '', ects: '', docs: [], termine: [] }; M.saveFach(nf); fid = nf.id; toast(L(`Fach „${nm}“ angelegt.`, `Subject “${nm}” created.`)); }
   }
-  M.saveKurs(Object.assign(k, { titel: titel.value.trim(), fach: fid, tag: +tag.value, von: von.value, bis: bis.value, raum: raum.value.trim(), art: art.value }));
+  M.saveKurs(Object.assign(k, { titel: titel.value.trim(), fach: fid, tag: +tag.value, von: von.value, bis: bis.value, raum: raum.value.trim(), art: art.value, farbe }));
 }
 async function assignIcs(s) {
   const me = M.getMe();
   if (!me.faecher.length) { toast(L('Leg zuerst deine Fächer an – dann kann ich Termine zuordnen.', 'Add your subjects first – then I can match events.')); location.hash = '#/app/faecher'; return; }
   const sel = h('select', { class: 'field' }, h('option', { value: '-' }, L('– kein Fach –', '– no subject –')), me.faecher.map(f => h('option', { value: f.id, selected: s.fach?.id === f.id || null }, f.name)));
-  const r = await modal({ title: s.t, text: `${DAYS_LONG[new Date(s.s).getDay()]}, ${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}. ` + L('Zu welchem Fach gehört der Termin? Gilt für alle Termine mit diesem Namen.', 'Which subject is this? Applies to all events with this name.'), body: sel, actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'ok', primary: true }] });
-  if (r === 'ok') M.setIcsFach(s.t, sel.value);
+  let icsFarbe = (me.icsCol || {})[s.t] || '';
+  const icsBody = h('div', { class: 'me-form' }, sel, h('div', {}, h('span', { class: 'me-lab' }, L('Farbe im Stundenplan', 'Colour in timetable')), swatches(icsFarbe, v => { icsFarbe = v; }, L('Wie Fach', 'Like subject'))));
+  const r = await modal({ title: s.t, text: `${DAYS_LONG[new Date(s.s).getDay()]}, ${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}. ` + L('Zu welchem Fach gehört der Termin? Gilt für alle Termine mit diesem Namen.', 'Which subject is this? Applies to all events with this name.'), body: icsBody, actions: [{ label: L('Abbrechen', 'Cancel'), value: null }, { label: L('Speichern', 'Save'), value: 'ok', primary: true }] });
+  if (r === 'ok') { M.setIcsFach(s.t, sel.value); M.setIcsCol(s.t, icsFarbe); }
 }
 
 // ---------- Favoriten ----------

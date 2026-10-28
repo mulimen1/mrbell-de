@@ -128,7 +128,7 @@ if (H.dataset.nv) {
     document.querySelectorAll('svg.ico').forEach(svg => {
       const box = svg.parentElement; if (!box || box.dataset.icc !== undefined || box.dataset.icn === '1') return;
       if (!/^(SPAN|DIV|I)$/.test(box.tagName) || box.children.length !== 1 || box.textContent.trim()) { box.dataset.icn = '1'; return; }
-      if (box.closest('.tn-tutor, .ai-talk, .lm-cta, .lm-tutor, .btn, .kt-start, .kt-go, .kt-sec, .rm-acc, .topbar .iconbtn, .side-col, .side-tog')) { box.dataset.icn = '1'; return; }
+      if (box.closest('.me-bico, .me-sym, .me-fprev, .rm-tkic, .ks-pic, .ks-di, .ks-ic, .ub-ti, .tn-tutor, .ai-talk, .lm-cta, .lm-tutor, .btn, .kt-start, .kt-go, .kt-sec, .rm-acc, .topbar .iconbtn, .side-col, .side-tog')) { box.dataset.icn = '1'; return; }
       const r = box.getBoundingClientRect(); if (!r.width) return;
       const c = getComputedStyle(box);
       if (r.width < 24 || r.width > 80 || !opaqueBg(c)) { box.dataset.icn = '1'; return; }

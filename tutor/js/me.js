@@ -138,6 +138,7 @@ export const plain = t => String(t || '').replace(/\[\[[^\]]*\]\]/g, '').replace
 const STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/></svg>';
 
 // ---------- Stundenplan ----------
+export function setIcsCol(title, col) { updateMe(m => { m.icsCol = Object.assign({}, m.icsCol); if (col) m.icsCol[title] = col; else delete m.icsCol[title]; }); }
 export function saveKurs(k) { updateMe(m => { const i = m.kurse.findIndex(x => x.id === k.id); if (i >= 0) m.kurse[i] = k; else m.kurse.push(Object.assign({ id: uid() }, k)); }); }
 export function delKurs(id) { updateMe(m => { m.kurse = m.kurse.filter(x => x.id !== id); }); }
 
@@ -289,9 +290,9 @@ export function sessionsOn(date) {
   const own = me.kurse.filter(k => kursOn(k, d0, wd)).map(k => {
     const [h1, m1] = String(k.von || '08:00').split(':').map(Number), [h2, m2] = String(k.bis || '09:30').split(':').map(Number);
     const s = new Date(d0); s.setHours(h1, m1); const e = new Date(d0); e.setHours(h2, m2);
-    return { t: k.titel, s: s.getTime(), e: e.getTime(), o: k.raum || '', art: k.art || '', fach: me.faecher.find(f => f.id === k.fach) || guessFach(k.titel), own: true, id: k.id };
+    const fa = me.faecher.find(f => f.id === k.fach) || guessFach(k.titel); return { t: k.titel, s: s.getTime(), e: e.getTime(), o: k.raum || '', art: k.art || '', fach: fa, own: true, id: k.id, col: k.farbe || (fa && fa.farbe) || '' };
   });
-  const cal = (me.ics.events || []).filter(x => x[1] >= d0.getTime() && x[1] < d1).map(x => ({ t: x[0], s: x[1], e: x[2], o: x[3], fach: icsFach(x[0]) }));
+  const cal = (me.ics.events || []).filter(x => x[1] >= d0.getTime() && x[1] < d1).map(x => { const fa = icsFach(x[0]); return { t: x[0], s: x[1], e: x[2], o: x[3], fach: fa, col: (me.icsCol || {})[x[0]] || (fa && fa.farbe) || '' }; });
   return [...own, ...cal].sort((a, b) => a.s - b.s);
 }
 
