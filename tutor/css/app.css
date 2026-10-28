@@ -6155,3 +6155,7 @@ html:root[data-nv][data-accent][data-nv] { --nv-glow: 0 6px 16px -9px rgba(20, 6
 :root[data-nv] .rm-xlg i.hit { box-shadow: none !important; }
 /* Testdesign: Excel-Logo (oben + Karte) mit dezentem grünem Schein – nur das Logo, nicht die Karte */
 :root[data-nv] :is(.tn-xlic svg, .rm-tc.rm-tcx .rm-tci svg) { filter: drop-shadow(0 0 4px rgba(31, 191, 106, .6)) drop-shadow(0 1px 7px rgba(29, 111, 66, .32)) !important; }
+/* Testdesign: Navigation schwächer als „Tutor“ – Icon-Kästchen hellblau getönt, beim Drüberfahren/aktiv gefüllt */
+:root[data-nv][data-accent][data-nv] .tn:not(.tn-tutor) > span:has(> .ico) { background: linear-gradient(180deg, #e3edfb, #d2e2f8) !important; color: #1f63cc !important; box-shadow: none !important; }
+:root[data-nv][data-accent][data-nv] :is(.tn:not(.tn-tutor):hover, .tn.on:not(.tn-tutor)) > span:has(> .ico) { background: linear-gradient(180deg, #3388f0, #1f6fe0) !important; color: #fff !important; }
+:root[data-nv][data-theme="dark"] .tn:not(.tn-tutor) > span:has(> .ico) { background: rgba(74, 157, 255, .16) !important; color: #9fcbff !important; }
