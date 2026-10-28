@@ -364,3 +364,12 @@ html:root[data-nv] body header.lm-top4 .lm-cta { flex: none; }
 @media (max-width: 1100px) { html:root[data-nv] body header.lm-top4 .lm-b, html:root[data-nv] body header.lm-top4 .lm-new { display: none !important; } html:root[data-nv] body header.lm-top4 .lm-brand b { display: none; } }
 @media (max-width: 860px) { html:root[data-nv] body header.lm-top4 .lm-nav { overflow-x: auto !important; justify-content: flex-start !important; } html:root[data-nv] body header.lm-top4 .lm-nav > .lm-tn { flex: 0 0 auto; height: 44px !important; font-size: 14.5px !important; } html:root[data-nv] body header.lm-top4 .lm-ic { width: 30px; height: 30px; } }
 .lmx-x{display:none!important}
+main.ln section > h2::before { content: ""; display: inline-block; vertical-align: middle; width: 12px; height: 12px; margin: -3px 12px 0 0; border-radius: 4px; background: linear-gradient(135deg, #5aa2f7, #1a5fc4); box-shadow: 0 4px 10px -4px #1a5fc4; }
+/* Bereiche beim Drüberfahren mit ihrer Farbe füllen */
+html:root body header.lm-top4 .lm-nav > .lm-tn:not(.lm-tutor) { transition: background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease !important; }
+html:root body header.lm-top4 .lm-nav > .lm-orange:hover { --tnf: linear-gradient(135deg, #f39b52, #d9601c); --tns: #d9601c; }
+html:root body header.lm-top4 .lm-nav > .lm-lila:hover { --tnf: linear-gradient(135deg, #9b7cf0, #5b3fc4); --tns: #5b3fc4; }
+html:root body header.lm-top4 .lm-nav > .lm-pink:hover { --tnf: linear-gradient(135deg, #f47ba0, #c8336f); --tns: #c8336f; }
+html:root[data-nv][data-nv][data-nv] body header.lm-top4 .lm-nav > .lm-tn:is(.lm-orange, .lm-lila, .lm-pink):hover { background: var(--tnf) !important; border-color: transparent !important; color: #fff !important; box-shadow: 0 10px 24px -12px var(--tns) !important; }
+html:root[data-nv][data-nv][data-nv] body header.lm-top4 .lm-nav > .lm-tn:is(.lm-orange, .lm-lila, .lm-pink):hover :is(span, b) { color: #fff !important; }
+html:root[data-nv][data-nv][data-nv] body header.lm-top4 .lm-nav > .lm-tn:is(.lm-orange, .lm-lila, .lm-pink):hover .lm-ic { background: rgba(255,255,255,.22) !important; box-shadow: none !important; }

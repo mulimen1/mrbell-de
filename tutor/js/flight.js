@@ -14,7 +14,8 @@ export function fly(from, to, { dur = 900, arc = .26, state = 'idle', z = 160, l
   const first = target();
   if (!from || !first || !from.width || !first.width || reduce()) return Promise.resolve(false);
   const size = Math.round(Math.max(from.width, first.width));
-  const mk = cls => { const el = document.createElement('div'); el.className = 'flyer' + (cls ? ' ' + cls : ''); el.style.cssText = `position:fixed;left:0;top:0;width:${size}px;height:${size}px;z-index:${z};pointer-events:none;will-change:transform;`; return el; };
+  const hs = Math.round(size * (first.height / first.width || 1));   // Seitenverhältnis wie das echte Gesicht – sonst ändert sich die Kopfform beim Landen
+  const mk = cls => { const el = document.createElement('div'); el.className = 'flyer' + (cls ? ' ' + cls : ''); el.style.cssText = `position:fixed;left:0;top:0;width:${size}px;height:${hs}px;z-index:${z};pointer-events:none;will-change:transform;`; return el; };
   const el = mk('');
   const fc = face(el, { follow: false }); fc.set(state);
   document.body.appendChild(el);
@@ -34,7 +35,7 @@ export function fly(from, to, { dur = 900, arc = .26, state = 'idle', z = 160, l
     const tx = 2 * m * (cx - sx) + 2 * t * (ex - cx);
     const rot = clamp(tx / (Math.abs(tx) + 60) * 9, -9, 9) * Math.sin(Math.PI * u);
     const w = from.width + (r.width - from.width) * t;
-    return `translate(${(x - size / 2).toFixed(2)}px, ${(y - size / 2).toFixed(2)}px) rotate(${rot.toFixed(2)}deg) scale(${(w / size).toFixed(4)})`;
+    return `translate(${(x - size / 2).toFixed(2)}px, ${(y - hs / 2).toFixed(2)}px) rotate(${rot.toFixed(2)}deg) scale(${(w / size).toFixed(4)})`;
   };
   el.style.transform = at(0, first);
   return new Promise(res => {
@@ -49,7 +50,8 @@ export function fly(from, to, { dur = 900, arc = .26, state = 'idle', z = 160, l
       // Gelandet: exakt auf dem Ziel. Das echte Gesicht erscheint darunter, die Kopie bleibt kurz drüber und geht dann.
       ghosts.forEach(g => g.remove());
       res(true);
-      setTimeout(() => { el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 120, fill: 'forwards' }).finished.finally(() => el.remove()); }, linger);
+      // Echtes Gesicht steht deckungsgleich darunter: Kopie nach zwei Bildern weg, kein Überblenden (sonst doppelte Kontur)
+      requestAnimationFrame(() => requestAnimationFrame(() => el.remove()));
     };
     requestAnimationFrame(frame);
   });

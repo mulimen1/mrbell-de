@@ -7447,3 +7447,20 @@ html:root .room .rm-tbub span, html:root .room.rm-tools-mode .rm-tbub span { fon
 @media (max-width: 760px) { html:root .room .rm-tbub span, html:root .room.rm-tools-mode .rm-tbub span { font-size: 16.5px !important; } }
 /* Popups: kein Schließen-X mehr – zu geht's per Klick daneben oder Esc */
 html:root :is(.modal > .mx, .lclose, .m-rl-x, .lmx-x, .kg-x, .cb-x, .hn-x, .mt2x, .dkp-x) { display: none !important; }
+/* Punkt-Überschriften überall: farbiges Verlaufs-Quadrat vor Abschnittstiteln, Farbe nach Bereich */
+html:root { --sqa: #5aa2f7; --sqb: #1a5fc4; }
+html:root[data-area="faecher"] { --sqa: #f39b52; --sqb: #d9601c; }
+html:root[data-area="ueben"] { --sqa: #9b7cf0; --sqb: #5b3fc4; }
+html:root[data-area="excel"] { --sqa: #f47ba0; --sqb: #c8336f; }
+html:root[data-nv] body :is(.ln-gh h2, h2.kt-h2, .ub-h h2, .lx-h2, .sec-h2) { display: inline-flex !important; align-items: center; gap: 10px; font-weight: 800 !important; letter-spacing: -.02em; }
+html:root[data-nv] body :is(.ln-gh h2, h2.kt-h2, .ub-h h2, .lx-h2, .sec-h2)::before { content: ""; flex: none; width: 12px; height: 12px; border-radius: 4px; background: linear-gradient(135deg, var(--sqa), var(--sqb)); box-shadow: 0 4px 10px -4px var(--sqb); }
+html:root[data-nv] body :is(#seo-art section > h2, main.ln section > h2)::before { content: ""; display: inline-block; vertical-align: middle; width: 12px; height: 12px; margin: -3px 12px 0 0; border-radius: 4px; background: linear-gradient(135deg, var(--sqa), var(--sqb)); box-shadow: 0 4px 10px -4px var(--sqb); }
+/* Header-Bereiche: beim Drüberfahren mit der Bereichsfarbe füllen, im aktiven Bereich bleibt nur der Rahmen */
+html:root[data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]) { transition: background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease, transform .15s !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="faecher"]:not(.on):hover { --tnf: linear-gradient(135deg, #f39b52, #d9601c); --tns: #d9601c; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="ueben"]:not(.on):hover { --tnf: linear-gradient(135deg, #9b7cf0, #5b3fc4); --tns: #5b3fc4; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="excel"]:not(.on):hover { --tnf: linear-gradient(135deg, #f47ba0, #c8336f); --tns: #c8336f; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]):not(.on):hover { background: var(--tnf) !important; border-color: transparent !important; color: #fff !important; box-shadow: 0 10px 24px -12px var(--tns) !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]):not(.on):hover :is(.tn-l, span:not(:has(> .ico)):not(.tn-new):not(.tn-xlic)) { color: #fff !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]):not(.on):hover > span:has(> .ico) { background: rgba(255,255,255,.22) !important; box-shadow: none !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn[data-tn="excel"]:not(.on):hover .tn-new { background: #fff !important; color: #c8336f !important; }
