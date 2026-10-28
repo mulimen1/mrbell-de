@@ -80,3 +80,22 @@ if (H.dataset.ben && H.dataset.nv && !matchMedia('(prefers-reduced-motion: reduc
   tick();
 }
 
+
+// Punkte laufen sichtbar unter der Tafel weiter: Raster so verschieben, dass eine Punktreihe genau an der
+// linken Tafelkante liegt (nur waagerecht, damit beim Scrollen nichts springt) – die Tafel schneidet sie an, statt dass die Punkte vorher „aufhören“.
+if (H.dataset.nv) {
+  let last = '';
+  const align = () => {
+    const main = document.querySelector('.app > .main');
+    const bd = document.querySelector('.ai-board');
+    let v = '';
+    if (main && bd && bd.getClientRects().length) {
+      const r = bd.getBoundingClientRect(), m = main.getBoundingClientRect();
+      const ox = (((r.left - m.left - 11) % 22) + 22) % 22;
+      v = ox.toFixed(1) + 'px 0px';
+    }
+    if (v !== last) { last = v; if (main) { if (v) main.style.setProperty('--dotpos', v); else main.style.removeProperty('--dotpos'); } }
+  };
+  addEventListener('resize', align, { passive: true });
+  setInterval(align, 700);
+}
