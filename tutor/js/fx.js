@@ -145,7 +145,10 @@ if (H.dataset.nv) {
 // Popups ohne X: Klick daneben schließt (bei Fenstern mit Hintergrund macht das der Hintergrund selbst)
 document.addEventListener('pointerdown', e => {
   document.querySelectorAll('.kg-x, .cb-x, .hn-x, .mt2x, .dkp-x').forEach(x => {
-    const box = x.parentElement; if (box && !box.contains(e.target)) setTimeout(() => x.click(), 0);
+    // ganzes Fenster zählt (nicht nur die Kopfzeile mit dem X) – sonst schließt jeder Klick in Rechner/Lexikon das Fenster
+    const box = x.closest('.dkp, [role="dialog"]') || x.parentElement;
+    if (e.target.closest && e.target.closest('.dk')) return;   // Rechner-/Lexikon-Knöpfe schalten selbst
+    if (box && !box.contains(e.target)) setTimeout(() => x.click(), 0);
   });
 }, true);
 

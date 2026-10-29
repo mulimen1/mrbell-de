@@ -8558,3 +8558,13 @@ html:root[data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more .vt-m
 html:root[data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more .vt-moreg svg { width: 14px; height: 14px; }
 html:root[data-nv][data-nv][data-nv][data-nv] body .vt-modal .vt-back { min-height: 50px; border-radius: 999px; border: 0 !important; background: linear-gradient(110deg, #1a5fc4, #2f7be8 55%, #4f9cf5) !important; color: #fff !important; font-weight: 750; font-size: 15px; box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 22px -12px #1a5fc4 !important; }
 html:root[data-nv][data-nv][data-nv][data-nv] body .vt-modal .vt-back:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+/* Rechner & Lexikon: Knopf komplett in Farbe (Lexikon pink, Rechner blau), Symbol größer – überall */
+html:root body .dk .dk-b[data-k="lex"], html:root body .rm-tdb:has(.rm-tdbi[data-icc="book"]) { --kc1: #f47ba0; --kc2: #c8336f; }
+html:root body .dk .dk-b[data-k="calc"], html:root body .rm-tdb:has(.rm-tdbi[data-icc="calc"]) { --kc1: #5aa7ff; --kc2: #1a5fc4; }
+html:root[data-nv][data-nv][data-nv] body :is(.dk .dk-b, .rm-tdb:has(.rm-tdbi[data-icc="book"]), .rm-tdb:has(.rm-tdbi[data-icc="calc"])) { background: linear-gradient(140deg, var(--kc1), var(--kc2)) !important; border: 0 !important; color: #fff !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 20px -10px var(--kc2) !important; }
+html:root[data-nv][data-nv][data-nv] body :is(.dk .dk-b, .rm-tdb:has(.rm-tdbi[data-icc="book"]), .rm-tdb:has(.rm-tdbi[data-icc="calc"])):hover { transform: translateY(-2px); filter: brightness(1.06); }
+html:root[data-nv][data-nv][data-nv] body .dk .dk-b[aria-expanded="true"] { box-shadow: inset 0 0 0 2px rgba(255,255,255,.9), 0 10px 20px -10px var(--kc2) !important; }
+html:root[data-nv][data-nv][data-nv] body :is(.dk .dk-b .dk-ic, .rm-tdb .rm-tdbi[data-icc]) { background: none !important; box-shadow: none !important; border: 0 !important; width: auto !important; height: auto !important; color: #fff !important; }
+html:root[data-nv][data-nv][data-nv] body .dk .dk-b svg, html:root[data-nv][data-nv][data-nv] body .rm-tdb .rm-tdbi[data-icc] svg { width: 26px !important; height: 26px !important; stroke: #fff !important; stroke-width: 1.9 !important; }
+html:root[data-nv][data-nv][data-nv] body .dk .dk-b .dk-l, html:root[data-nv][data-nv][data-nv] body .rm-tdb { color: #fff !important; }
