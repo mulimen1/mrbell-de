@@ -8456,3 +8456,18 @@ html:root body .m-mc-hero .m-mc-cta.m-mc-herob:hover { transform: translateY(-1p
 .modal.login.lean .lg-or.lg-ortap:hover span { color: var(--ink); }
 .modal.login.lean .lg-or.lg-ortap.open span { text-decoration: none; }
 .modal.login.lean .lterms { font-size: 11px !important; opacity: .65; margin-top: 6px !important; }
+html:root body :is(.m-mc-heroi, .xo-heroi) { background: rgba(255,255,255,.2) !important; color: #fff !important; }
+html:root body :is(.m-mc-heroi, .xo-heroi) .ico { width: 26px !important; height: 26px !important; padding: 0 !important; background: none !important; color: #fff !important; stroke: #fff !important; fill: none !important; box-shadow: none !important; }
+html:root[data-nv] body :is(.m-mc-heroi, .xo-heroi) .ico, html:root[data-nv] body :is(.m-mc-heroi, .xo-heroi) .ico * { stroke: #fff !important; fill: none !important; color: #fff !important; }
+.lg-g[hidden] + .lg-or { display: none !important; }
+/* Verlassen-Fenster: Google groß und vorne, E-Mail-Formular kompakt */
+.modal.login.lean .lg-gw { margin: 2px 0 4px; }
+.modal.login.lean .lg-g { padding: 6px; border-radius: 999px; background: linear-gradient(115deg, #e9e3ff, #f4f0ff); box-shadow: inset 0 0 0 1.5px #c9bbf7; }
+.modal.login.lean .lg-or { margin: 8px 0 6px !important; }
+.modal.login.lean .lstack { gap: 7px !important; }
+.modal.login.lean .lstack .field, .modal.login.lean .lstack input { height: 42px !important; min-height: 42px !important; font-size: 14.5px !important; }
+.modal.login.lean .lhint { display: none !important; }
+.modal.login.lean .lbtn { height: 42px !important; min-height: 42px !important; font-size: 14.5px !important; }
+.modal.login.lean .lalt { margin-top: 8px !important; font-size: 13px; }
+html:root[data-nv] body :is(.m-mc-heroi, .xo-heroi) svg.ico { border: 0 !important; border-radius: 0 !important; outline: 0 !important; width: 28px !important; height: 28px !important; stroke-width: 2 !important; }
+html:root[data-nv] body :is(.m-mc-heroi, .xo-heroi) { background: linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,.12)) !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.35), 0 6px 14px -8px rgba(0,0,0,.4) !important; }

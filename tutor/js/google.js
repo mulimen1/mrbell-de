@@ -22,7 +22,7 @@ function loadGis() {
 
 let handler = null, inited = false;
 // Ein Google-Knopf in `el`. onDone(r) bekommt die Server-Antwort (Konto + Sitzung sind dann schon gesetzt).
-export async function googleButton(el, onDone) {
+export async function googleButton(el, onDone, tries = 0) {
   if (!el) return;
   handler = onDone;
   try {
@@ -45,5 +45,12 @@ export async function googleButton(el, onDone) {
     const w = Math.max(200, Math.min(400, Math.round(el.getBoundingClientRect().width || 320)));
     el.replaceChildren();
     g.accounts.id.renderButton(el, { type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', shape: 'pill', logo_alignment: 'center', width: w, locale: document.documentElement.lang === 'en' ? 'en' : 'de' });
-  } catch (e) { el.hidden = true; }   // Google nicht erreichbar → einfach nur E-Mail anbieten
+  } catch (e) {
+    // Google-Skript nicht geladen (Netz, Blocker): bis zu zweimal neu versuchen, erst dann ausblenden
+    if (tries < 2 && el.isConnected) { setTimeout(() => googleButton(el, onDone, tries + 1), 1200 * (tries + 1)); return; }
+    el.hidden = true;
+    try { window.BM && window.BM.track('Google-Knopf fehlt', String(e && e.message || '').slice(0, 30)); } catch (x) {}
+  }
+  // Wächter: steht nach 4 s kein sichtbarer Knopf da, neu zeichnen
+  if (tries === 0) setTimeout(() => { if (!el.isConnected || el.hidden) return; const f = el.querySelector('iframe'); if (!f || f.getBoundingClientRect().height < 20) googleButton(el, onDone, 1); }, 4000);
 }

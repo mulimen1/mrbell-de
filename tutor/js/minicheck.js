@@ -1,6 +1,6 @@
 // Mini-Check auf den Themenseiten (Google-Ads-Einstieg): 3 Fragen direkt nach dem ersten Erklär-Block.
 // Ergebnis („2 von 3 richtig“) gibt's sofort – welche falsch war und warum, sehen Gäste nach dem kostenlosen Konto.
-import { h } from './util.js';
+import { h, ico } from './util.js';
 import { L } from './i18n.js';
 import { getAccount, onAccount } from './api.js';
 
@@ -90,7 +90,7 @@ function build(c, set, { onExam } = {}, box) {
       : wrong === 1 ? L(`Eine hat dich erwischt – genau so fragen sie in der Klausur.`, `One got you – that’s exactly how exams ask.`)
       : L(`Genau so kommt ${topic} in der Klausur dran.`, `That’s how ${topic} shows up in the exam.`);
     const hero = h('div', { class: 'm-mc-hero' },
-      h('span', { class: 'm-mc-heroi', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="m9 13.5 2 2 4-4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>' }),
+      h('span', { class: 'm-mc-heroi', html: ico('exam') }),
       h('span', { class: 'm-mc-herot' }, h('b', {}, ttl), h('small', {}, L(`4 echte Klausuraufgaben zu ${topic} – mit Musterlösung Schritt für Schritt.`, `4 real exam tasks on ${topic} – with step-by-step solutions.`))),
       h('button', { class: 'm-mc-cta m-mc-herob', type: 'button', onclick: () => { tr('Mini-Check Klausuraufgaben', `${score}/${n} ${getAccount() ? 'Konto' : 'Gast'}`); if (onExam) onExam(); } }, L('Klausuraufgaben starten', 'Start exam tasks'), h('span', { 'aria-hidden': 'true' }, ' →')));
     sum.append(hero);

@@ -136,15 +136,15 @@ function guestSignals(c, endEl) {
     const nm = String(c.topic || 'BWL').slice(0, 40);
     let mc = null; try { mc = JSON.parse(sessionStorage.getItem('tutor.mcScore') || 'null'); } catch (x) {}
     const sc = mc && mc.n ? mc : null;
-    const [oT, oS] = sc && sc.s === sc.n ? [L(`${sc.s} von ${sc.n} im Mini-Check – jetzt wie in der Klausur`, `${sc.s} of ${sc.n} – now exam-style`), L(`4 echte Klausuraufgaben zu ${nm}, mit Musterlösung Schritt für Schritt.`, `4 real exam tasks on ${nm}, step-by-step solutions.`)]
-      : sc ? [L(`${sc.s} von ${sc.n} im Mini-Check – das holst du in der Klausur`, `${sc.s} of ${sc.n} – fix it before the exam`), L(`4 echte Klausuraufgaben zu ${nm}. Max zeigt dir jeden Schritt.`, `4 real exam tasks on ${nm}. Max shows every step.`)]
+    const [oT, oS] = sc && sc.s === sc.n ? [L(`${sc.s} von ${sc.n} – bereit für echte Klausuraufgaben?`, `${sc.s} of ${sc.n} – ready for real exam tasks?`), L(`4 echte Klausuraufgaben zu ${nm}, mit Musterlösung Schritt für Schritt.`, `4 real exam tasks on ${nm}, step-by-step solutions.`)]
+      : sc ? [sc.n - sc.s === 1 ? L(`${sc.s} von ${sc.n} – der eine Fehler kostet dich in der Klausur Punkte.`, `${sc.s} of ${sc.n} – that one mistake costs you exam points.`) : L(`${sc.s} von ${sc.n} – so wird’s in der Klausur eng.`, `${sc.s} of ${sc.n} – that’s tight for the exam.`), L(`4 echte Klausuraufgaben zu ${nm}. Max geht jeden Schritt mit dir durch.`, `4 real exam tasks on ${nm}. Max walks you through every step.`)]
       : c.t._mEnd ? [L(`${nm} verstanden? Prüf dich wie in der Klausur.`, `Got ${nm}? Test yourself exam-style.`), L('4 echte Klausuraufgaben mit Musterlösung – kostenlos.', '4 real exam tasks with solutions – free.')]
       : [L(`${nm} kommt in der Klausur dran.`, `${nm} will be on the exam.`), L('4 echte Klausuraufgaben mit Musterlösung – kostenlos.', '4 real exam tasks with solutions – free.')];
     const extra = h('div', { class: 'xo-hero' },
-      h('span', { class: 'xo-heroi', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="m9 13.5 2 2 4-4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>' }),
+      h('span', { class: 'xo-heroi', html: ico('exam') }),
       h('span', { class: 'xo-herot' }, h('em', {}, L('Dein nächster Schritt', 'Your next step')), h('b', {}, oT), h('small', {}, oS)));
     const ok = await openAuth({ registerTitle: L('Du willst schon gehen?', 'Leaving already?'), loginTitle: L('Du willst schon gehen?', 'Leaving already?'),
-      registerSub: L('Bevor du gehst – das hier lohnt sich:', 'Before you go – this is worth it:'), sub: L('Bevor du gehst – das hier lohnt sich:', 'Before you go – this is worth it:'), why: 'Verlassen', extra, mood: 'smug', lean: true });
+      registerSub: L('Ich hab extra die Yacht warten lassen.', 'I kept the yacht waiting for you.'), sub: L('Ich hab extra die Yacht warten lassen.', 'I kept the yacht waiting for you.'), why: 'Verlassen', extra, mood: 'smug', lean: true });
     if (ok && getAccount()) { const b = c.t.querySelector('.m-ladcta'); if (b) b.click(); }
   };
   document.addEventListener('mouseout', onOut);
