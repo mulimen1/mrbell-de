@@ -100,7 +100,8 @@ function build(c, set, { onExam } = {}, box) {
           it(L(`Klausuraufgaben zu ${topic}`, `Exam tasks on ${topic}`), L('mit Musterlösung Schritt für Schritt', 'step-by-step solutions')),
           it(L('Karteikarten & Podcast', 'Flashcards & podcast'), L('aus deinen eigenen Folien', 'from your own slides')),
           it(L('Excel-Helfer', 'Excel helper'), L('60 geprüfte Vorlagen + Trainer', '60 checked templates + trainer')),
-          it(L('Deine Bibliothek', 'Your library'), L('alles, was Max dir baut, bleibt gespeichert', 'everything Max builds stays saved')))), heroFor());
+          it(L('Deine Bibliothek', 'Your library'), L('alles, was Max dir baut, bleibt gespeichert', 'everything Max builds stays saved'))),
+        h('button', { class: 'm-mc-tour', type: 'button', onclick: () => { tr('Mini-Check BWL Max erkunden', ''); import('./gotour.js').then(m => m.goTour()).catch(() => {}); } }, h('span', { html: ico('spark') }), L('BWL Max erkunden', 'Explore BWL Max'), h('small', {}, L('kurze Führung, 1 Minute', 'quick tour, 1 minute')))), heroFor());
       setTimeout(() => { try { box.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 350);
     };
     // Angemeldet oder alles richtig: Auflösung sofort, dann die Klausuraufgaben

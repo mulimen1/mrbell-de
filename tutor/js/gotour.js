@@ -55,7 +55,7 @@ export async function goTour() {
     { at: '#/app/ueben', sel: ['.ub-simrow', '.ub-h'], say: L('Klausur-Simulator und Quiz. Wie die echte Prüfung – nur fairer bewertet.', 'Exam simulator and quiz. Like the real exam – just graded fairer.') },
     { at: '#/app/excel', sel: ['.xl-head', '#view h1'], say: L('Klausur-Tools: 60 geprüfte Excel-Vorlagen mit echten Formeln. Hat sonst keiner.', 'Exam tools: 60 checked Excel templates with real formulas. Nobody else has that.') },
     { at: '#/app/excel', sel: ['.xl-card'], say: L('Blaue Zellen ausfüllen, der Rest rechnet sich. Wie mein Depot. Nur ohne Verluste.', 'Fill the blue cells, the rest calculates itself. Like my portfolio. Minus the losses.') },
-    { at: '#/app/tutor', sel: ['.ai-isl'], say: L('Das war’s. Jetzt du – frag mich was. Mit kostenlosem Konto merk ich mir alles.', 'That’s it. Your turn – ask me something. With a free account I remember everything.') },
+    { at: '#/app/tutor', sel: ['.ai-isl'], say: getAccount() ? L('Das war’s. Jetzt du – frag mich was. Ich merk mir alles, was wir machen.', 'That’s it. Your turn – ask me anything. I remember everything we do.') : L('Das war’s. Jetzt du – frag mich was. Mit kostenlosem Konto merk ich mir alles.', 'That’s it. Your turn – ask me something. With a free account I remember everything.') },
   ];
   return runTour(S);
 }

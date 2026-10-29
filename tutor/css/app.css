@@ -8510,3 +8510,8 @@ html:root[data-nv] body .m-mc-teasei svg.ico, html:root[data-nv] body .m-mc-teas
 .m-mc-unl { width: 100%; box-sizing: border-box; }
 .m-mc-unl ul { grid-template-columns: 1fr 1fr; column-gap: 16px; }
 @media (max-width: 560px) { .m-mc-unl ul { grid-template-columns: 1fr; } }
+html:root[data-nv][data-nv] body :is(.m-mc-teasei, .m-mc-heroi, .xo-heroi) svg.ico { margin: 0 !important; display: block !important; transform: none !important; vertical-align: middle !important; }
+.m-mc-tour { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid #16a05c; background: #fff; color: #0f7a45; font: 750 14px var(--sans); cursor: pointer; transition: transform .15s, background .15s; }
+.m-mc-tour:hover { background: #eafaf1; transform: translateY(-1px); }
+.m-mc-tour small { font-weight: 550; color: var(--mute); font-size: 12px; }
+html:root[data-nv] body .m-mc-tour svg.ico { width: 16px !important; height: 16px !important; margin: 0 !important; border: 0 !important; background: none !important; padding: 0 !important; stroke: #0f7a45 !important; }
