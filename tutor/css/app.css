@@ -8529,3 +8529,32 @@ html body .sn-row.sn-live small::before { content: ''; display: inline-block; wi
 @keyframes snLive { 0% { box-shadow: 0 0 0 0 rgba(229,72,77,.5); } 80% { box-shadow: 0 0 0 6px rgba(229,72,77,0); } }
 html body .sn-h { background: linear-gradient(115deg, #5b3fc4, #8a6cf0) !important; color: #fff !important; border: 0 !important; }
 html[data-theme="dark"] body .sn-row:is(.sn-c-plan, .sn-c-kombi, .sn-c-doc, .sn-c-video) { background: linear-gradient(100deg, color-mix(in srgb, var(--sc1) 18%, #17171c), #17171c 60%) !important; }
+
+/* Vertrauen: Knopf + Fenster neu (Grün = geprüft) */
+html:root[data-nv][data-nv][data-nv] body .vt-btn { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 8px 0 6px; border-radius: 999px; border: 1.5px solid #9fdcb8 !important; background: linear-gradient(100deg, #eafaf1, #fff 70%) !important; color: #0f5c33 !important; font-weight: 700; box-shadow: 0 8px 20px -14px #16a05c !important; transition: transform .15s, box-shadow .15s, border-color .15s; }
+html:root[data-nv][data-nv][data-nv] body .vt-btn:hover { transform: translateY(-1px); border-color: #16a05c !important; box-shadow: 0 12px 24px -14px #16a05c !important; background: linear-gradient(100deg, #dcf5e7, #fff 75%) !important; }
+html:root[data-nv][data-nv][data-nv] body .vt-btn .vt-s { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #34c77b, #11834a); color: #fff; box-shadow: 0 6px 12px -6px #11834a; flex: none; }
+html:root[data-nv][data-nv][data-nv] body .vt-btn .vt-s svg { width: 16px; height: 16px; }
+html:root[data-nv][data-nv][data-nv] body .vt-btn .vt-go { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: #16a05c; color: #fff; margin-left: 2px; flex: none; padding: 0 !important; }
+html:root[data-nv][data-nv][data-nv] body .vt-btn .vt-go svg { width: 14px; height: 14px; }
+html:root[data-nv][data-nv][data-nv] body .vt-btn.sm { height: 38px; } html:root[data-nv][data-nv][data-nv] body .vt-btn.sm .vt-s { width: 26px; height: 26px; } html:root[data-nv][data-nv][data-nv] body .vt-btn.sm .vt-go { width: 24px; height: 24px; }
+
+html:root[data-nv] body .vt-modal .eyebrow, html:root[data-nv] body .vt-modal .eb { color: #16a05c !important; }
+html:root[data-nv] body .vt-modal .vt-lead { font-size: 16.5px; font-weight: 650; color: #0f5c33 !important; }
+.vt-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.vt-chips span { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px 0 6px; border-radius: 999px; background: linear-gradient(135deg, #34c77b, #11834a); color: #fff; font: 700 12.5px var(--sans); box-shadow: 0 6px 14px -9px #11834a; }
+.vt-chips i { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.22); } .vt-chips i svg { width: 13px; height: 13px; }
+html:root[data-nv] body .vt-modal .vt-list { display: grid; gap: 8px; padding: 0; list-style: none; }
+html:root[data-nv] body .vt-modal .vt-list li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 16px; background: #f4fbf6; border: 1px solid #d7f0e0; }
+html:root[data-nv] body .vt-modal .vt-list li > span:last-child { display: grid; gap: 3px; } html:root[data-nv] body .vt-modal .vt-list li b { font-size: 14.5px; color: #10331f; } html:root[data-nv] body .vt-modal .vt-list li > span:last-child > span { font-size: 13.5px; line-height: 1.5; color: #3b4a40; }
+html:root[data-nv][data-nv][data-nv] body .vt-modal .vt-list .vt-i { width: 36px; height: 36px; flex: none; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, #34c77b, #11834a) !important; color: #fff !important; box-shadow: 0 6px 12px -7px #11834a; }
+html:root[data-nv][data-nv][data-nv] body .vt-modal .vt-list li:last-child .vt-i { background: linear-gradient(135deg, #f7c948, #d99a1c) !important; box-shadow: 0 6px 12px -7px #d99a1c; }
+html:root[data-nv][data-nv][data-nv] body .vt-modal .vt-list li:last-child { background: #fffaf0; border-color: #f4e3b8; }
+html:root[data-nv] body .vt-modal .vt-note { font-size: 12px !important; color: var(--mute) !important; }
+/* Knöpfe unten: Erklärseite = weiß mit grünem Rand, Zurück = kräftiges Blau */
+html:root[data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more { min-height: 50px; border-radius: 999px; border: 2px solid #16a05c !important; background: #fff !important; color: #0f5c33 !important; font-weight: 750; font-size: 15px; box-shadow: 0 8px 18px -14px #16a05c !important; gap: 10px; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more:hover { background: #effaf3 !important; transform: translateY(-1px); }
+html:root[data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more .vt-moreg { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: #16a05c; color: #fff; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more .vt-moreg svg { width: 14px; height: 14px; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .vt-modal .vt-back { min-height: 50px; border-radius: 999px; border: 0 !important; background: linear-gradient(110deg, #1a5fc4, #2f7be8 55%, #4f9cf5) !important; color: #fff !important; font-weight: 750; font-size: 15px; box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 22px -12px #1a5fc4 !important; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .vt-modal .vt-back:hover { filter: brightness(1.05); transform: translateY(-1px); }
