@@ -893,10 +893,10 @@ function sideExtras(tool) {
           parts.push(h('a', { class: 'sn-ex', href: '#/app/faecher' }, h('b', { class: 'sn-n' }, String(days)), h('span', {}, h('small', {}, days === 1 ? L('Tag bis', 'day until') : L('Tage bis', 'days until')), h('b', {}, M.artName(ex.t.art) + ' ' + ex.f.name))));
         }
         const now = Date.now(), next = M.sessionsOn(new Date()).find(x => x.e > now);
-        if (next) parts.push(h('a', { class: 'sn-row', href: '#/app/stundenplan' }, h('span', { class: 'sn-i', html: ico('calendar') }), h('span', {}, h('small', {}, next.s <= now ? L('Läuft gerade', 'On now') : L('Heute ', 'Today ') + new Date(next.s).toLocaleTimeString(LOCALE, { hour: '2-digit', minute: '2-digit' })), h('b', {}, next.t))));
+        if (next) parts.push(h('a', { class: 'sn-row sn-c-plan' + (next.s <= now ? ' sn-live' : ''), href: '#/app/stundenplan' }, h('span', { class: 'sn-i', html: ico('calendar') }), h('span', {}, h('small', {}, next.s <= now ? L('Läuft gerade', 'On now') : L('Heute ', 'Today ') + new Date(next.s).toLocaleTimeString(LOCALE, { hour: '2-digit', minute: '2-digit' })), h('b', {}, next.t))));
       }
       const recent = S.list.filter(d => !d.sample).sort((a2, b2) => (b2.used || 0) - (a2.used || 0)).slice(0, 4);
-      if (recent.length) parts.push(h('div', { class: 'sn-h' }, L('Weitermachen', 'Continue')), ...recent.map(d => h('a', { class: 'sn-row', href: `#/app/${d.id}/hub` }, h('span', { class: 'sn-i', html: ico(d.combo ? 'spark' : d.kind === 'video' ? 'captions' : 'file') }), h('span', {}, h('b', {}, d.name), h('small', {}, d.used ? ago(d.used) : '')))));
+      if (recent.length) parts.push(h('div', { class: 'sn-h' }, L('Weitermachen', 'Continue')), ...recent.map(d => h('a', { class: 'sn-row ' + (d.combo ? 'sn-c-kombi' : d.kind === 'video' ? 'sn-c-video' : 'sn-c-doc'), href: `#/app/${d.id}/hub` }, h('span', { class: 'sn-i', html: ico(d.combo ? 'spark' : d.kind === 'video' ? 'captions' : 'file') }), h('span', {}, h('b', {}, d.name), h('small', {}, d.used ? ago(d.used) : '')))));
       if (!parts.length) parts.push(h('a', { class: 'sn-empty', href: '#/app/faecher' }, h('span', { class: 'sn-i', html: ico('plus') }), h('span', {}, h('b', {}, L('Leg dein erstes Fach an', 'Add your first subject')), h('small', {}, L('Dann zählt Max bis zur Klausur runter', 'Max then counts down to the exam')))));
       box.replaceChildren(...parts);
     };

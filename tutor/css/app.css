@@ -8517,3 +8517,15 @@ html:root[data-nv][data-nv] body :is(.m-mc-teasei, .m-mc-heroi, .xo-heroi) svg.i
 html:root[data-nv] body .m-mc-tour svg.ico { width: 16px !important; height: 16px !important; margin: 0 !important; border: 0 !important; background: none !important; padding: 0 !important; stroke: #0f7a45 !important; }
 /* Zahlen im neuen hellen Design */
 html .zl-host, html[data-theme="light"] .zl-host { background: transparent !important; padding: 0 !important; border-radius: 0 !important; }
+
+/* Seitenleiste farbiger: Symbol-Kästchen in Farbe je Art, feiner Farbrand links */
+.sn-row.sn-c-plan { --sc1: #f39b52; --sc2: #d9601c; } .sn-row.sn-c-kombi { --sc1: #9b7cf0; --sc2: #5b3fc4; } .sn-row.sn-c-doc { --sc1: #4f9cf5; --sc2: #1a5fc4; } .sn-row.sn-c-video { --sc1: #f47b7b; --sc2: #d93a3a; }
+html body .sn-row:is(.sn-c-plan, .sn-c-kombi, .sn-c-doc, .sn-c-video) { background: linear-gradient(100deg, color-mix(in srgb, var(--sc1) 12%, #fff), #fff 55%) !important; border: 1px solid color-mix(in srgb, var(--sc2) 18%, transparent) !important; box-shadow: inset 3px 0 0 var(--sc2), 0 6px 14px -12px color-mix(in srgb, var(--sc2) 60%, transparent) !important; }
+html body .sn-row:is(.sn-c-plan, .sn-c-kombi, .sn-c-doc, .sn-c-video):hover { background: linear-gradient(100deg, color-mix(in srgb, var(--sc1) 22%, #fff), #fff 70%) !important; }
+html body .sn-row:is(.sn-c-plan, .sn-c-kombi, .sn-c-doc, .sn-c-video) .sn-i { background: linear-gradient(135deg, var(--sc1), var(--sc2)) !important; border: 0 !important; color: #fff !important; box-shadow: 0 6px 12px -7px var(--sc2); }
+html body .sn-row:is(.sn-c-plan, .sn-c-kombi, .sn-c-doc, .sn-c-video) .sn-i .ico { color: #fff !important; stroke: #fff !important; }
+html body .sn-row.sn-live small { color: #d9601c !important; font-weight: 700; }
+html body .sn-row.sn-live small::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #e5484d; vertical-align: 1px; animation: snLive 1.6s ease-out infinite; }
+@keyframes snLive { 0% { box-shadow: 0 0 0 0 rgba(229,72,77,.5); } 80% { box-shadow: 0 0 0 6px rgba(229,72,77,0); } }
+html body .sn-h { background: linear-gradient(115deg, #5b3fc4, #8a6cf0) !important; color: #fff !important; border: 0 !important; }
+html[data-theme="dark"] body .sn-row:is(.sn-c-plan, .sn-c-kombi, .sn-c-doc, .sn-c-video) { background: linear-gradient(100deg, color-mix(in srgb, var(--sc1) 18%, #17171c), #17171c 60%) !important; }
