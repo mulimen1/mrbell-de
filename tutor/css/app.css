@@ -8568,3 +8568,6 @@ html:root[data-nv][data-nv][data-nv] body .dk .dk-b[aria-expanded="true"] { box-
 html:root[data-nv][data-nv][data-nv] body :is(.dk .dk-b .dk-ic, .rm-tdb .rm-tdbi[data-icc]) { background: none !important; box-shadow: none !important; border: 0 !important; width: auto !important; height: auto !important; color: #fff !important; }
 html:root[data-nv][data-nv][data-nv] body .dk .dk-b svg, html:root[data-nv][data-nv][data-nv] body .rm-tdb .rm-tdbi[data-icc] svg { width: 26px !important; height: 26px !important; stroke: #fff !important; stroke-width: 1.9 !important; }
 html:root[data-nv][data-nv][data-nv] body .dk .dk-b .dk-l, html:root[data-nv][data-nv][data-nv] body .rm-tdb { color: #fff !important; }
+/* „Frag mich“-Kachel (Skript-Übersicht): Vorschlags-Chips sichtbar auf Blau */
+html:root[data-nv][data-nv] body .hub-max .hub-chips .chip { background: rgba(255,255,255,.16) !important; background-color: rgba(255,255,255,.16) !important; color: #fff !important; border: 1px solid rgba(255,255,255,.38) !important; box-shadow: none !important; font-weight: 650; }
+html:root[data-nv][data-nv] body .hub-max .hub-chips .chip:hover { background: rgba(255,255,255,.28) !important; transform: translateY(-1px); }
