@@ -15,13 +15,13 @@ export function render(root, { sub = '' } = {}) {
   wrap.addEventListener('click', e => { if (e.target.closest('a[href^="#/app/excel"], a[href^="#/app/rechner"]')) fromTools(); });
   // kleine Vorschau: Formel + Zellen, die richtige Zelle leuchtet grün
   const xlPrev = h('span', { class: 'rm-xlp big kt-xlp', 'aria-hidden': 'true' },
-    h('span', { class: 'rm-xlf' }, h('i', {}, 'fx'), '=NBW(8%;B2:B6)+B1'),
+    h('span', { class: 'rm-xlf' }, h('i', {}, 'fx'), '=BW(8%;5;-B2)+B1'),
     h('span', { class: 'rm-xlg' }, ...['', 'A', 'B', '1', L('Investition', 'Investment'), '-50.000 €', '2', L('Rückflüsse (5 J.)', 'Inflows (5 yrs)'), L('14.000 € p. a.', '€14,000 p.a.'), '3', L('Kapitalwert', 'NPV'), '5.898 €'].map((x, i) => h('i', { class: (i < 3 || i % 3 === 0 ? 'hd' : '') + (i === 11 ? ' hit' : '') }, x))));
   const hero = h('section', { class: 'kt-hero' },
     h('div', { class: 'kt-hl' },
       h('div', { class: 'kt-badges' }, h('span', { class: 'kt-xls', html: XLS }), h('span', { class: 'kt-new' }, L('Neu', 'New'))),
       h('h2', {}, L('Excel-Helfer', 'Excel helper')),
-      h('p', {}, L('60 geprüfte Vorlagen mit echten Formeln – nur die blauen Felder ausfüllen. Oder Aufgabe beschreiben, und Max baut dir die Excel-Datei, doppelt nachgerechnet.', '60 checked templates with real formulas – just fill in the blue cells. Or describe your task and Max builds the Excel file, double-checked.')),
+      h('p', {}, L('60 geprüfte Vorlagen mit echten Formeln – nur die blauen Felder ausfüllen.', '60 checked templates with real formulas – just fill in the blue cells.')),
       h('div', { class: 'kt-btns' },
         h('a', { class: 'kt-go', href: '#/app/excel' }, h('span', { html: ico('sheet') }), L('Vorlagen öffnen', 'Open templates')),
         h('a', { class: 'kt-sec', href: '#/app/excel/trainer' }, h('span', { html: ico('play') }), L('Excel-Trainer', 'Excel trainer')))),
