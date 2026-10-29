@@ -21,7 +21,6 @@ function punkte(kind) {
   if (kind === 'excel') return [
     ['tabelle', L('Jede Vorlage ist durchgerechnet', 'Every template is fully tested'), L('Unser Rechen-Algorithmus testet alle Vorlagen mit Tausenden zufälligen Eingaben – gegen mehrere unabhängige Rechenwerke, auch mit der echten .xlsx-Datei, so wie Excel sie öffnet.', 'Our calculation algorithm tests every template with thousands of random inputs – against several independent calculation engines, including the real .xlsx file as Excel opens it.')],
     ['buch', L('Fachlich nachgerechnet', 'Checked against the textbook'), L('Zu jeder Vorlage gibt es eine eigene Referenzrechnung nach Lehrbuch. Online geht sie erst, wenn alles übereinstimmt.', 'Every template has its own textbook reference calculation. It only goes live once everything matches.')],
-    ['haken', L('Generator: doppelt geprüft', 'Generator: checked twice'), L('Baut Max dir eine Datei, rechnet der Browser jede Formel nach – und ein zweiter, unabhängiger Durchgang prüft die Ergebnisse.', 'When Max builds a file for you, your browser recalculates every formula – and a second, independent pass checks the results.')],
     ['strich', L('Ehrliche Ergebnisse', 'Honest results'), L('Wo eine Kennzahl nicht definiert ist (z. B. Division durch 0), steht „–“ statt einer erfundenen Zahl.', 'Where a ratio isn’t defined (e.g. division by zero), you see “–” instead of a made-up number.')],
   ];
   return [

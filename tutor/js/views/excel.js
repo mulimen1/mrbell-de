@@ -24,20 +24,18 @@ const TM = L('Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max
 export function render(root, { arg = '' } = {}) {
   const tpl = arg && arg !== 'generator' && arg !== 'trainer' ? byId(arg) : null;
   const wrap = h('div', { class: 'view-in xl nomath' + (tpl ? ' xl-detail' : '') }); root.appendChild(wrap);   // geöffnete Vorlage: kurzer Kopf, Tabelle sofort im Blick
-  const tab = arg === 'generator' ? 'gen' : arg === 'trainer' ? 'train' : 'tpl';
+  const tab = arg === 'trainer' ? 'train' : 'tpl';   // Generator ist abgeschaltet (KI-Dateien nicht 100 % garantierbar) – alter Link landet bei den Vorlagen
   const head = h('header', { class: 'xl-head' },
-    h('div', { class: 'eyebrow' }, L('Excel-Helfer · Vorlagen, Generator & Trainer', 'Excel helper · templates, generator & trainer')),
+    h('div', { class: 'eyebrow' }, L('Excel-Helfer · Vorlagen & Trainer', 'Excel helper · templates & trainer')),
     h('h1', {}, icoXL('big'), L('Fertige Excel-Dateien. Echte Formeln.', 'Ready-made Excel files. Real formulas.'), tmInfo(TM)),
-    h('p', { class: 'xl-sub' }, L(`Nimm eine der ${TEMPLATES.length} geprüften Vorlagen und trag nur die blauen Felder ein – Excel rechnet den Rest. Oder beschreib deine Aufgabe, und Max baut dir die Datei – jede Formel doppelt nachgerechnet. Und im Trainer lernst du Excel selbst, Schritt für Schritt mit Max.`, `Pick one of ${TEMPLATES.length} checked templates and fill in the blue cells – Excel does the rest. Or describe your task and Max builds the file. Every formula is checked first.`)));
+    h('p', { class: 'xl-sub' }, L(`Nimm eine der ${TEMPLATES.length} geprüften Vorlagen und trag nur die blauen Felder ein – Excel rechnet den Rest. Und im Trainer lernst du Excel selbst, Schritt für Schritt mit Max.`, `Pick one of ${TEMPLATES.length} checked templates and fill in the blue cells – Excel does the rest. Or describe your task and Max builds the file. Every formula is checked first.`)));
   head.append(h('div', { class: 'vt-row left' }, vertrauenBtn('excel')));
   const tabs = h('div', { class: 'xl-tabs', role: 'tablist' },
     h('a', { class: 'xl-tab' + (tab === 'tpl' ? ' on' : ''), href: '#/app/excel', role: 'tab' }, h('span', { html: ico('library') }), L('Vorlagen', 'Templates'), h('b', {}, String(TEMPLATES.length))),
-    h('a', { class: 'xl-tab' + (tab === 'gen' ? ' on' : ''), href: '#/app/excel/generator', role: 'tab' }, h('span', { html: ico('spark') }), L('Generator', 'Generator'), h('b', { class: 'xl-new' }, 'KI')),
     h('a', { class: 'xl-tab xl-tr' + (tab === 'train' ? ' on' : ''), href: '#/app/excel/trainer', role: 'tab' }, h('span', { html: ico('play') }), L('Trainer', 'Trainer'), h('b', { class: 'xl-new' }, L('NEU', 'NEW'))));
   const body = h('div', { class: 'xl-body' });
   wrap.append(head, tabs, body, h('p', { class: 'foot-tm' }, TM));
   if (tpl) openTemplate(body, tpl);
-  else if (tab === 'gen') generator(body);
   else if (tab === 'train') { body.append(h('p', { class: 'xl-sub' }, L('Excel wird geladen …', 'Loading Excel …'))); import('../xl/trainer.js').then(m => m.trainer(body)).catch(() => body.replaceChildren(h('p', {}, L('Der Trainer konnte nicht geladen werden – bitte neu laden.', 'Could not load the trainer – please reload.')))); }
   else gallery(body);
 }
@@ -50,7 +48,7 @@ function gallery(body) {
   const chips = h('div', { class: 'xl-cats' }, [['', L('Alle', 'All')], ...CATS.filter(([k]) => n(k))].map(([k, t]) => h('button', { type: 'button', 'data-cat': k || 'alle', class: 'chip' + (k === cat ? ' on' : ''), onclick: e => { cat = k; chips.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === e.currentTarget)); draw(); } }, t, h('small', { class: 'xl-cn' }, String(n(k))))));
   const norm = x => String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const search = h('input', { class: 'xl-search', type: 'search', placeholder: L('Vorlage suchen – z. B. Kapitalwert, BAB, Skonto …', 'Search templates – e.g. NPV, cost centre …'), 'aria-label': L('Vorlage suchen', 'Search templates'), oninput: () => { q = norm(search.value.trim()); draw(); } });
-  const empty = h('p', { class: 'xl-empty', hidden: true }, L('Keine Vorlage gefunden – beschreib die Aufgabe einfach dem Generator.', 'No template found – just describe the task to the generator.'));
+  const empty = h('p', { class: 'xl-empty', hidden: true }, L('Keine Vorlage gefunden – frag Max, welche Vorlage zu deiner Aufgabe passt.', 'No template found – ask Max which template fits your task.'));
   const draw = () => {
     const list = TEMPLATES.filter(t => (!cat || t.cat === cat) && (!q || norm(t.title + ' ' + t.desc + ' ' + t.id).includes(q)));
     empty.hidden = !!list.length;
@@ -69,7 +67,7 @@ function gallery(body) {
     if (io) slots.forEach(([ph]) => io.observe(ph)); else slots.forEach(([ph, t]) => ph.replaceWith(thumb(t)));
   };
   draw();
-  body.append(h('div', { class: 'xl-filter' }, search, chips), grid, empty, h('div', { class: 'xl-genad' }, h('div', {}, h('b', {}, L('Deine Aufgabe ist nicht dabei?', 'Your task isn’t here?')), h('p', {}, L('Beschreib sie dem Generator – Max baut dir eine eigene Excel-Datei mit echten Formeln.', 'Describe it to the generator – Max builds your own Excel file with real formulas.'))), h('a', { class: 'btn xl-btn', href: '#/app/excel/generator' }, h('span', { html: ico('spark') }), L('Zum Generator', 'Open generator'))));
+  body.append(h('div', { class: 'xl-filter' }, search, chips), grid, empty);
 }
 // Mini-Tabellenbild für die Karte (aus der echten Vorlage)
 const THUMBS = new Map();

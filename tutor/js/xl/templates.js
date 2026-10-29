@@ -34,9 +34,9 @@ const BASE = [
       b.lab('A23', 'Interner Zinsfuß').res('B23', izfText(iz), 'pct');
       b.lab('A24', 'Entscheidung').res('B24', 'IF(B22>0,"Vorteilhaft (C₀ > 0)",IF(B22<0,"Nicht vorteilhaft (C₀ < 0)","Indifferent (C₀ = 0)"))', 'txt').merge('B24:E24');
       b.note('A26', 'Jahre ohne Rückfluss einfach auf 0 lassen. Ein Restwert gehört in die Zahlung des letzten Jahres.');
-      b.note('A27', 'IZF nur bei Normalinvestition (genau ein Vorzeichenwechsel) – sonst gibt es keinen oder mehrere Zinsfüße. Hilfsrechnung rechts (Spalten G–L): Vorzeichenwechsel zählen, IZF per Kapitalwert bei 1 + i = 10^k auf eine halbe Zehnerpotenz eingrenzen (Untergrenze q) und Reihe mit q skalieren, damit Excel auch extreme IZF findet (IZF = q · (1 + IKV der skalierten Reihe) − 1).');
+      b.note('A27', 'IZF nur bei Normalinvestition (genau ein Vorzeichenwechsel). Bei mehreren Vorzeichenwechseln kann es keinen, einen oder mehrere Zinsfüße geben – solche Reihen untersucht die Vorlage nicht. Hilfsrechnung rechts (Spalten G–L): Vorzeichenwechsel zählen, IZF per Kapitalwert bei 1 + i = 10^k auf eine halbe Zehnerpotenz eingrenzen (Untergrenze q) und Reihe mit q skalieren, damit Excel auch extreme IZF findet (IZF = q · (1 + IKV der skalierten Reihe) − 1).');
       return { name: 'Kapitalwert', cols: [34, 18, 18, 18, 22, 3, 14, 24, 16, 3, 28, 16], cells: b.cells, merges: b.merges,
-        explain: { B22: 'NBW zinst ab Jahr 1 ab – deshalb wird die Zahlung aus t = 0 (negativ) separat addiert. C₀ > 0: Investition lohnt sich.', B23: 'Der Zinssatz, bei dem der Kapitalwert genau 0 ist. Liegt er über dem Kalkulationszins, ist die Investition vorteilhaft.', C10: 'Abzinsungsfaktor (1 + i)^−t' } };
+        explain: { B22: 'NBW zinst ab Jahr 1 ab – deshalb wird die Zahlung aus t = 0 (negativ) separat addiert. C₀ > 0: Investition lohnt sich.', B23: 'Der Zinssatz, bei dem der Kapitalwert genau 0 ist. Bei einer Normalinvestition (erst Auszahlung, danach nur Rückflüsse) gilt: Liegt er über dem Kalkulationszins, ist der Kapitalwert positiv und die Investition vorteilhaft.', C10: 'Abzinsungsfaktor (1 + i)^−t' } };
     }
   },
   {
@@ -52,7 +52,7 @@ const BASE = [
       b.lab('A10', 'Annuität (jährliche Rate)').res('B10', 'PMT(B6,B7,-B5)', 'eur');
       b.lab('A11', 'Summe der Zinsen').res('B11', 'SUM(C16:C35)', 'eur');
       b.lab('A12', 'Summe der Tilgung').fx('B12', 'SUM(D16:D35)', 'eur');
-      b.lab('A13', 'Gesamtaufwand').fx('B13', 'B11+B12', 'eur');
+      b.lab('A13', 'Gesamtauszahlung (Zinsen + Tilgung)').fx('B13', 'B11+B12', 'eur');
       b.th(15, ['Jahr', 'Restschuld Anfang', 'Zinsen', 'Tilgung', 'Annuität', 'Restschuld Ende']);
       range(1, 20).forEach(k => { const r = 15 + k, e = `A${r}=""`;
         b.fx('A' + r, `IF(${k}<=$B$7,${k},"")`, 'int').fx('B' + r, k === 1 ? `IF(${e},"",$B$5)` : `IF(${e},"",F${r - 1})`, 'eur').fx('C' + r, `IF(${e},"",B${r}*$B$6)`, 'eur')
@@ -70,17 +70,17 @@ const BASE = [
       b.lab('A5', 'Anschaffungsauszahlung').inp('B5', 80000, 'eur', { min: 0 });
       b.lab('A6', 'Kalkulationszinssatz').inp('B6', 0.06, 'pct', { min: -0.5, max: 1 });
       b.sec(8, 'Ergebnis');
-      b.lab('A9', 'Statische Amortisationszeit').res('B9', 'IF(SUM(F14:F23)=0,"keine Amortisation",SUM(F14:F23))', 'yrs');
-      b.lab('A10', 'Dynamische Amortisationszeit').res('B10', 'IF(SUM(G14:G23)=0,"keine Amortisation",SUM(G14:G23))', 'yrs');
+      b.lab('A9', 'Statische Amortisationszeit').res('B9', 'IF(B5=0,0,IF(COUNT(F14:F23)=0,"keine Amortisation",MIN(F14:F23)))', 'yrs');
+      b.lab('A10', 'Dynamische Amortisationszeit').res('B10', 'IF(B5=0,0,IF(COUNT(G14:G23)=0,"keine Amortisation",MIN(G14:G23)))', 'yrs');
       b.th(13, ['Jahr', 'Rückfluss', 'Kumuliert', 'Barwert', 'Barwert kumuliert', 'Amortisiert (statisch)', 'Amortisiert (dynamisch)']);
       const cf = [20000, 22000, 24000, 24000, 20000, 0, 0, 0, 0, 0];
       range(1, 10).forEach(t => { const r = 13 + t, p = r - 1;
         b.txt('A' + r, t, { fmt: 'int' }).inp('B' + r, cf[t - 1], 'eur').fx('C' + r, t === 1 ? `B${r}` : `C${p}+B${r}`, 'eur').fx('D' + r, `B${r}/(1+$B$6)^A${r}`, 'eur').fx('E' + r, t === 1 ? `D${r}` : `E${p}+D${r}`, 'eur')
-          .fx('F' + r, t === 1 ? `IF(AND($B$5>0,C${r}>=$B$5),A${r}-1+$B$5/B${r},"")` : `IF(AND(C${p}<$B$5,C${r}>=$B$5),A${r}-1+($B$5-C${p})/B${r},"")`, 'yrs')
-          .fx('G' + r, t === 1 ? `IF(AND($B$5>0,E${r}>=$B$5),A${r}-1+$B$5/D${r},"")` : `IF(AND(E${p}<$B$5,E${r}>=$B$5),A${r}-1+($B$5-E${p})/D${r},"")`, 'yrs'); });
+          .fx('F' + r, t === 1 ? `IF(AND($B$5>0,C${r}>=$B$5),A${r}-1+$B$5/B${r},"")` : `IF(AND(C${p}<$B$5,C${r}>=$B$5,COUNT(F$14:F${p})=0),A${r}-1+($B$5-C${p})/B${r},"")`, 'yrs')
+          .fx('G' + r, t === 1 ? `IF(AND($B$5>0,E${r}>=$B$5),A${r}-1+$B$5/D${r},"")` : `IF(AND(E${p}<$B$5,E${r}>=$B$5,COUNT(G$14:G${p})=0),A${r}-1+($B$5-E${p})/D${r},"")`, 'yrs'); });
       b.note('A25', 'Unterjährig wird linear interpoliert: Jahr − 1 + fehlender Betrag / Rückfluss des Jahres.');
       return { name: 'Amortisation', cols: [30, 16, 16, 16, 18, 20, 21], cells: b.cells, merges: b.merges,
-        explain: { B9: 'Jahr, in dem die kumulierten Rückflüsse die Anschaffung erreichen (interpoliert).', B10: 'Wie statisch, aber mit abgezinsten Rückflüssen – dauert deshalb länger.' } };
+        explain: { B9: 'Erstes Jahr, in dem die kumulierten Rückflüsse die Anschaffung erreichen (interpoliert).', B10: 'Wie statisch, aber mit abgezinsten Rückflüssen. Bei positivem Zins dauert sie mindestens so lange wie die statische.' } };
     }
   },
   {
@@ -90,7 +90,7 @@ const BASE = [
       const b = builder(3).title('Kostenvergleichsrechnung', SUB);
       b.sec(4, 'Eingaben');
       b.th(5, ['', 'Anlage A', 'Anlage B']);
-      const rows = [['Anschaffungskosten', 120000, 90000, 'eur'], ['Restwert', 10000, 5000, 'eur'], ['Nutzungsdauer (Jahre)', 8, 6, 'int'], ['Kalkulationszinssatz', 0.06, 0.06, 'pct'], ['Sonstige Fixkosten p. a.', 8000, 6000, 'eur'], ['Variable Kosten je Stück', 2.5, 3.2, 'eur'], ['Leistungsmenge p. a. (Stück)', 20000, 20000, 'int']];
+      const rows = [['Anschaffungskosten', 120000, 90000, 'eur'], ['Restwert (höchstens Anschaffungskosten)', 10000, 5000, 'eur'], ['Nutzungsdauer (Jahre)', 8, 6, 'int'], ['Kalkulationszinssatz', 0.06, 0.06, 'pct'], ['Sonstige Fixkosten p. a.', 8000, 6000, 'eur'], ['Variable Kosten je Stück', 2.5, 3.2, 'eur'], ['Leistungsmenge p. a. (Stück)', 20000, 20000, 'int']];
       rows.forEach(([t, a, c, f], k) => { const r = 6 + k; b.lab('A' + r, t).inp('B' + r, a, f, { min: 0, max: f === 'int' && k === 2 ? 100 : undefined }).inp('C' + r, c, f, { min: 0 }); });
       b.cells.B8.min = 1; b.cells.C8.min = 1;
       b.sec(14, 'Kosten pro Jahr');
@@ -101,10 +101,10 @@ const BASE = [
       b.lab('A20', '= Gesamtkosten').res('B20', 'B18+B19', 'eur').res('C20', 'C18+C19', 'eur');
       b.lab('A21', 'Kosten je Stück').fx('B21', 'IFERROR(B20/B12,"–")', 'eur').fx('C21', 'IFERROR(C20/C12,"–")', 'eur');
       b.sec(23, 'Ergebnis');
-      b.lab('A24', 'Günstigere Anlage').res('B24', 'IF(B20<C20,"Anlage A",IF(C20<B20,"Anlage B","Beide gleich teuer"))', 'txt').merge('B24:C24');
+      b.lab('A24', 'Günstigere Anlage').res('B24', 'IF(OR(B7>B6,C7>C6),"Eingaben prüfen – Restwert über Anschaffungskosten",IF(B20<C20,"Anlage A",IF(C20<B20,"Anlage B","Beide gleich teuer")))', 'txt').merge('B24:C24');
       b.lab('A25', 'Kostenvorteil pro Jahr').fx('B25', 'ABS(B20-C20)', 'eur');
-      b.lab('A26', 'Kritische Menge (Stück)').res('B26', 'IF(B11=C11,"keine – gleiche variable Kosten",IF((C18-B18)/(B11-C11)<0,"keine – eine Anlage ist immer günstiger",(C18-B18)/(B11-C11)))', 'int');
-      b.note('A28', 'Kritische Menge: Ab hier kippt der Kostenvorteil. Kalkulatorische Zinsen auf das durchschnittlich gebundene Kapital (AK + Restwert) / 2.');
+      b.lab('A26', 'Kritische Menge (Stück)').res('B26', 'IF(B11=C11,"keine – gleiche variable Kosten",IF((C18-B18)/(B11-C11)<0,"keine – eine Anlage ist immer günstiger",(C18-B18)/(B11-C11)))', 'num');
+      b.note('A28', 'Kritische Menge: Ab hier kippt der Kostenvorteil (bei ganzen Stück: aufrunden). Der Vergleich setzt gleiche Leistungsmenge und Qualität voraus. Kalkulatorische Zinsen auf das durchschnittlich gebundene Kapital (AK + Restwert) / 2.');
       return { name: 'Kostenvergleich', cols: [36, 19, 19], cells: b.cells, merges: b.merges,
         explain: { B15: 'Kalkulatorische AfA = (Anschaffungskosten − Restwert) / Nutzungsdauer.', B16: 'Kalkulatorische Zinsen = (AK + Restwert) / 2 × Zinssatz.', B26: 'Menge, bei der beide Anlagen gleich viel kosten: (Fix_B − Fix_A) / (kv_A − kv_B).' } };
     }
@@ -227,9 +227,9 @@ const BASE = [
       b.sec(4, 'Eingaben');
       b.lab('A5', 'Anschaffungskosten').inp('B5', 50000, 'eur', { min: 0 });
       b.lab('A6', 'Nutzungsdauer (1 – 15 Jahre)').inp('B6', 10, 'int', { min: 1, max: 15 });
-      b.lab('A7', 'Restwert am Ende').inp('B7', 0, 'eur', { min: 0 });
+      b.lab('A7', 'Restwert am Ende (höchstens Anschaffungskosten)').inp('B7', 0, 'eur', { min: 0 });
       b.lab('A8', 'Degressiver Satz').inp('B8', 0.2, 'pct', { min: 0, max: 1 });
-      b.note('A9', 'Steuerlich ist die degressive AfA nur für bestimmte Anschaffungszeiträume und mit Höchstsätzen erlaubt – für Klausuren gilt der Satz aus der Aufgabe.');
+      b.note('A9', 'Steuerlich ist die degressive AfA für bewegliche Wirtschaftsgüter mit Anschaffung vom 01.07.2025 bis 31.12.2027 erlaubt (höchstens das Dreifache des linearen Satzes, maximal 30 %; die Vorlage rechnet volle Jahre ohne Monatsanteil im Anschaffungsjahr) – für Klausuren gilt der Satz aus der Aufgabe.');
       b.sec(11, 'Ergebnis');
       b.lab('A12', 'Lineare AfA pro Jahr').res('B12', '(B5-B7)/B6', 'eur');
       b.lab('A13', 'Wechsel zur linearen AfA ab Jahr').res('B13', 'IFERROR(INDEX(A17:A31,MATCH("linear",G17:G31,0)),"kein Wechsel")', 'int');
@@ -241,7 +241,7 @@ const BASE = [
           .fx('F' + r, `IF(${e},"",${D}-E${r})`, 'eur')
           .fx('G' + r, `IF(${e},"",IF(ROUND((${D}-$B$7)/${rest}-${D}*$B$8,6)>=0,"linear","degressiv"))`, 'txt'); });
       return { name: 'Abschreibung', cols: [34, 16, 17, 17, 16, 17, 13], cells: b.cells, merges: b.merges,
-        explain: { E17: 'Degressiv: Restbuchwert × Satz. Sobald Restbuchwert / Restnutzungsdauer größer ist, wird linear weiter abgeschrieben.', B12: 'Lineare AfA = (Anschaffungskosten − Restwert) / Nutzungsdauer.' } };
+        explain: { E17: 'Degressiv: Restbuchwert × Satz. Sobald (Restbuchwert − Restwert) / Restnutzungsdauer mindestens so groß ist wie die degressive Abschreibung, wird linear weiter abgeschrieben.', B12: 'Lineare AfA = (Anschaffungskosten − Restwert) / Nutzungsdauer.' } };
     }
   },
   {

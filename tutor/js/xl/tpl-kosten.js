@@ -181,7 +181,7 @@ export default [
       L(23, 'Kalkulationszuschlag ((LVP − Bezugspreis) / Bezugspreis)'); b.fx('C23', 'IF(C14=0,"–",(C5-C14)/C14)', 'pct');
       L(24, 'Kalkulationsfaktor (LVP / Bezugspreis)'); b.fx('C24', 'IF(C14=0,"–",C5/C14)', 'f4');
       L(25, 'Handelsspanne ((LVP − Bezugspreis) / LVP)'); b.fx('C25', 'IF(C5=0,"–",(C5-C14)/C5)', 'pct');
-      b.note('A27', 'Rückwärts kehren sich die Rechenwege um: Zuschläge „auf“ einen Wert werden jetzt im Hundert herausgerechnet (÷ (1 + Satz)), Abzüge „vom“ Wert werden auf Hundert hochgerechnet (÷ (1 − Satz)).');
+      b.note('A27', 'Rückwärts kehren sich die Rechenwege um: Zuschläge werden aus dem vermehrten Grundwert herausgerechnet (auf Hundert, ÷ (1 + Satz)), Abzüge aus dem verminderten Grundwert zurückgerechnet (im Hundert, ÷ (1 − Satz)).');
       return { name: 'Rueckwaertskalkulation', cols: [52, 12, 18], cells: b.cells, merges: b.merges,
         explain: { C12: 'Selbstkosten = Barverkaufspreis / (1 + Gewinnzuschlag).', C14: 'Bezugspreis = Selbstkosten / (1 + Handlungskostenzuschlag).', C20: 'Listeneinkaufspreis = Bareinkaufspreis / (1 − Skonto) / (1 − Rabatt).' } };
     }
@@ -210,7 +210,7 @@ export default [
       b.th(22, ['Abweichung', 'Betrag', 'Berechnung', 'Bewertung']);
       const ev0 = r => `IF(ROUND(B${r},2)>0,"ungünstig (Kosten über Plan)",IF(ROUND(B${r},2)<0,"günstig (Kosten unter Plan)","keine Abweichung"))`;
       const ev = r => r === 23 ? ev0(r) : `IF($B$5=0,"nicht bestimmbar (Planbeschäftigung 0)",${ev0(r)})`;
-      b.lab('A23', 'Preisabweichung').res('B23', 'IF(B10=0,0,B10-B9)', 'eur').txt('C23', 'Istkosten (Istpreise) − Istkosten (Planpreise)').fx('D23', ev(23), 'txt');
+      b.lab('A23', 'Preisabweichung').res('B23', 'IF(B10=0,0,B10-B9)', 'eur').txt('C23', 'Istkosten (Istpreise) − Istkosten (Planpreise)').fx('D23', 'IF(B10=0,"nicht bestimmbar – Istkosten zu Istpreisen fehlen",' + ev(23) + ')', 'txt');
       b.lab('A24', 'Verbrauchsabweichung').res('B24', 'IF(B5=0,"–",B9-B19)', 'eur').txt('C24', 'Istkosten (Planpreise) − Sollkosten').fx('D24', ev(24), 'txt');
       b.lab('A25', 'Beschäftigungsabweichung').res('B25', 'IF(B5=0,"–",B19-B17)', 'eur').txt('C25', 'Sollkosten − verrechnete Plankosten')
         .fx('D25', 'IF(B5=0,"nicht bestimmbar (Planbeschäftigung 0)",IF(ROUND(B25,2)>0,"Unterbeschäftigung – Fixkosten nicht voll verrechnet",IF(ROUND(B25,2)<0,"Überbeschäftigung – Fixkosten überdeckt","keine Abweichung")))', 'txt');
@@ -314,7 +314,7 @@ export default [
       b.sec(29, 'Hilfswerte für die Rangfolge (nicht ändern)');
       P.forEach((_, k) => { const r = 30 + k, s = 9 + k, e = `A${s}=""`;
         b.fx('A' + r, `IF(${e},"(leer)",A${s})`, 'txt')
-          .fx('B' + r, `IF(${e},-2,IF(F${s}<=0,-1,IF(E${s}=0,1000000000,ROUND(F${s}/E${s},6))))`, 'num')
+          .fx('B' + r, `IF(${e},-2,IF(F${s}<=0,-1,IF(E${s}=0,1000000000,ROUND(F${s}/E${s},12))))`, 'num')
           .fx('C' + r, `IF(B${r}<0,0,D${s}*E${s})`, 'num'); });
       return { name: 'Produktionsprogramm', cols: [30, 14, 16, 16, 16, 15, 18, 16], cells: b.cells, merges: b.merges,
         explain: { G9: 'Relativer DB = DB je Stück / Engpassbedarf je Stück.', H9: 'Rang ohne RANG-Funktion: Anzahl größerer Schlüssel + 1; bei Gleichstand entscheidet die Zeilenreihenfolge.', E17: 'Menge = Höchstabsatz, solange die Restkapazität reicht – sonst Restkapazität / Engpassbedarf.' } };
@@ -346,7 +346,7 @@ export default [
       b.lab('A29', 'Variable Kosten je Einheit kv').fx('B29', 'B23', 'eur').fx('C29', 'IF(OR(B16<2,B16*G16-D16^2=0),"–",(B16*F16-D16*E16)/(B16*G16-D16^2))', 'eur');
       b.lab('A30', 'Prognose Gesamtkosten bei der Beschäftigung aus B5').res('B30', 'IF(B23="–","–",B24+B23*B5)', 'eur').fx('C30', 'IF(C29="–","–",C28+C29*B5)', 'eur');
       b.lab('A31', 'Prognose Stückkosten').fx('B31', 'IF(OR(B30="–",B5=0),"–",B30/B5)', 'eur').fx('C31', 'IF(OR(C30="–",B5=0),"–",C30/B5)', 'eur');
-      b.note('A33', 'Hoch-Tief-Punkt: nur die Perioden mit höchster und niedrigster Beschäftigung zählen. Die Regression nutzt alle Perioden und gleicht Ausreißer aus. Zeilen ohne Periodenname werden ignoriert.');
+      b.note('A33', 'Hoch-Tief-Punkt: nur die Perioden mit höchster und niedrigster Beschäftigung zählen. Die Regression nutzt alle Perioden und reagiert aber empfindlich auf Ausreißer – die vorher prüfen. Zeilen ohne Periodenname werden ignoriert.');
       return { name: 'Kostenaufloesung', cols: [50, 16, 22, 14, 14, 16, 14], cells: b.cells, merges: b.merges,
         explain: { B23: 'kv = (K hoch − K tief) / (x hoch − x tief).', B24: 'Kf = K hoch − kv × x hoch.', C29: 'Steigung der Regressionsgeraden: (n·Σxy − Σx·ΣK) / (n·Σx² − (Σx)²).' } };
     }

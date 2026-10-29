@@ -29,7 +29,7 @@ export default [
       b.lab('A23', '− Vorsteuer').fx('B23', 'C19', 'eur');
       b.lab('A24', '= Zahllast (+) / Vorsteuerüberhang (−)').res('B24', 'B22-B23', 'eur');
       b.lab('A25', 'Ergebnis').res('B25', 'IF(ROUND(B24,2)>0,"Zahllast: an das Finanzamt zu zahlen (sonstige Verbindlichkeit)",IF(ROUND(B24,2)<0,"Vorsteuerüberhang: Erstattung vom Finanzamt (sonstige Forderung)","Weder Zahllast noch Erstattung"))', 'txt').merge('B25:D25');
-      b.note('A27', 'Vorsteuer nur aus ordnungsgemäßen Rechnungen (§ 15 UStG). Kleinunternehmer (§ 19 UStG) weisen keine Umsatzsteuer aus und ziehen keine Vorsteuer ab. Steuersätze bei Bedarf anpassen.');
+      b.note('A27', 'Vorsteuer aus Inlandsleistungen nur mit ordnungsgemäßer Rechnung (§ 15 UStG); für Einfuhr, innergemeinschaftlichen Erwerb und Reverse Charge gelten eigene Regeln. Kleinunternehmer (§ 19 UStG) weisen keine Umsatzsteuer aus und ziehen keine Vorsteuer ab. Steuersätze bei Bedarf anpassen.');
       return { name: 'Umsatzsteuer', cols: [44, 17, 17, 17], cells: b.cells, merges: b.merges,
         explain: { C10: 'Umsatzsteuer = Nettoumsatz × Steuersatz.', B24: 'Zahllast = Umsatzsteuer − Vorsteuer. Ist das Ergebnis negativ, erstattet das Finanzamt den Vorsteuerüberhang.' } };
     }
@@ -123,7 +123,7 @@ export default [
       b.lab('A44', '= Finanzmittelfonds am Ende der Periode').res('B44', 'B42+B43', 'eur');
       b.lab('A45', 'Zur Kontrolle: liquide Mittel laut Schlussbilanz').inp('B45', 27000, 'eur');
       b.lab('A46', 'Abstimmung').fx('B46', 'IF(ROUND(B44-B45,2)=0,"✓ stimmt mit der Bilanz überein",CONCATENATE("✗ Abweichung: ",ROUND(B44-B45,2)," €"))', 'txt').merge('B46:E46');
-      b.note('A48', 'Vereinfacht nach DRS 21: Zinsen und Steuern bleiben im Cashflow aus laufender Geschäftstätigkeit. Mehr Aktiva binden Geld (−), mehr Passiva setzen Geld frei (+). Beträge in den Abschnitten 2 und 3 positiv eintragen.');
+      b.note('A48', 'Vereinfachung (abweichend von DRS 21): Zinsen und Steuern bleiben hier im Cashflow aus laufender Geschäftstätigkeit. Nach DRS 21 gehören gezahlte Zinsen in den Finanzierungs-, erhaltene Zinsen in den Investitions-Cashflow; Ertragsteuern bleiben operativ. Im Working Capital gilt: Mehr operative Aktiva binden Geld (−), mehr operative Verbindlichkeiten setzen Geld frei (+). Beträge in den Abschnitten 2 und 3 positiv eintragen.');
       return { name: 'Cashflow', cols: [62, 16, 16, 16, 18], cells: b.cells, merges: b.merges,
         explain: { B27: 'Indirekt: Jahresüberschuss + nicht zahlungswirksame Aufwendungen − nicht zahlungswirksame Erträge ± Veränderungen von Working Capital und Rückstellungen.', E12: 'Steigt ein Aktivposten, ist Geld gebunden worden – das mindert den Cashflow.', B42: 'Summe der drei Cashflows = Veränderung der liquiden Mittel.' } };
     }
@@ -135,7 +135,7 @@ export default [
       const b = builder(6).title('Abschreibung nach Leistung (Leistungs-AfA)', SUB);
       b.sec(4, 'Eingaben');
       b.lab('A5', 'Anschaffungskosten').inp('B5', 120000, 'eur', { min: 0 });
-      b.lab('A6', 'Restwert am Ende').inp('B6', 0, 'eur', { min: 0 });
+      b.lab('A6', 'Restwert am Ende (höchstens Anschaffungskosten)').inp('B6', 0, 'eur', { min: 0 });
       b.lab('A7', 'Gesamtleistung (z. B. km, Maschinenstunden)').inp('B7', 200000, 'int', { min: 1 });
       b.sec(9, 'Ergebnis');
       b.lab('A10', 'AfA je Leistungseinheit').res('B10', 'IFERROR((B5-B6)/B7,0)', 'f4');
@@ -310,7 +310,7 @@ export default [
         b.lab('A' + r, IN[s][0]).fx('B' + r, akt > 0 ? `MAX(${d},0)` : `MAX(-${d},0)`, 'eur').fx('C' + r, akt > 0 ? `MAX(-${d},0)` : `MAX(${d},0)`, 'eur')
           .fx('D' + r, akt > 0 ? `IF(${d}>0,"Aktivmehrung",IF(${d}<0,"Aktivminderung","–"))` : `IF(${d}>0,"Passivmehrung",IF(${d}<0,"Passivminderung","–"))`, 'txt'); });
       b.lab('A34', '= Summe').res('B34', 'SUM(B24:B32)', 'eur').res('C34', 'SUM(C24:C32)', 'eur');
-      b.lab('A35', 'Prüfung').res('B35', 'IF(ROUND(B34-C34,2)=0,"✓ Mittelherkunft = Mittelverwendung","✗ Bilanzen sind nicht ausgeglichen")', 'txt').merge('B35:D35');
+      b.lab('A35', 'Prüfung').res('B35', 'IF(AND(ROUND(B13-B19,2)=0,ROUND(C13-C19,2)=0,ROUND(B34-C34,2)=0),"✓ Mittelherkunft = Mittelverwendung","✗ Bilanzen sind nicht ausgeglichen")', 'txt').merge('B35:D35');
       b.note('A37', 'Mittelverwendung = Aktivmehrung + Passivminderung, Mittelherkunft = Aktivminderung + Passivmehrung. Anteile der Aktiva beziehen sich auf die Bilanzsumme Aktiva, die der Passiva auf die Bilanzsumme Passiva.');
       return { name: 'Bewegungsbilanz', cols: [58, 16, 16, 18, 14, 13, 14], cells: b.cells, merges: b.merges,
         explain: { D6: 'Veränderung = Geschäftsjahr − Vorjahr.', F6: 'Strukturanteil = Position / Bilanzsumme (vertikale Analyse).', B34: 'Bei ausgeglichenen Bilanzen sind Mittelverwendung und Mittelherkunft immer gleich groß.' } };
@@ -367,7 +367,7 @@ export default [
       b.lab('A31', '+ Privatentnahmen').inp('B31', 48000, 'eur', { min: 0 });
       b.lab('A32', '− Privateinlagen').inp('B32', 10000, 'eur', { min: 0 });
       b.lab('A33', '= Gewinn (+) / Verlust (−)').res('B33', 'B30+B31-B32', 'eur');
-      b.note('A35', 'Das Inventar listet Vermögen und Schulden nach Art, Menge und Wert (§ 240 HGB). Reinvermögen = Eigenkapital. Gewinn = EK Ende − EK Anfang + Entnahmen − Einlagen.');
+      b.note('A35', 'Das Inventar listet Vermögen und Schulden nach Art, Menge und Wert (§ 240 HGB) – diese Vorlage ist die verdichtete Wertübersicht dazu. Reinvermögen = Eigenkapital. Gewinn = EK Ende − EK Anfang + Entnahmen − Einlagen.');
       return { name: 'Inventar', cols: [56, 24, 20], cells: b.cells, merges: b.merges,
         explain: { B25: 'Reinvermögen = Summe des Vermögens − Summe der Schulden.', B33: 'Betriebsvermögensvergleich: Entnahmen werden hinzugerechnet, Einlagen abgezogen, weil sie das Eigenkapital ohne betrieblichen Gewinn verändern.' } };
     }

@@ -22,7 +22,7 @@ export default [
       b.sec(11, 'Ergebnis');
       b.lab('A12', 'Lagerhaltungskosten je Stück und Jahr').fx('B12', 'B7*B8', 'eur');
       b.lab('A13', 'Optimale Bestellmenge x_opt').res('B13', `IF(${ok},SQRT(2*B5*B6/B12),"nicht bestimmbar")`, 'num');
-      b.lab('A14', 'Optimale Bestellmenge (gerundet)').fx('B14', `IF(${ok},ROUND(B13,0),"–")`, 'stk');
+      b.lab('A14', 'Optimale Bestellmenge (ganzzahlig, günstigere Nachbarzahl)').fx('B14', `IF(${ok},IF(B5/MAX(1,INT(B13))*B6+MAX(1,INT(B13))/2*B12<=B5/MAX(1,ROUNDUP(B13,0))*B6+MAX(1,ROUNDUP(B13,0))/2*B12,MAX(1,INT(B13)),MAX(1,ROUNDUP(B13,0))),"–")`, 'stk');
       b.lab('A15', 'Anzahl Bestellungen pro Jahr').fx('B15', `IF(${ok},B5/B13,"–")`, 'num');
       b.lab('A16', 'Bestellrhythmus (Tage)').fx('B16', `IF(${ok},B9*B13/B5,"–")`, 'num');
       b.lab('A17', 'Ø Lagerbestand (Stück)').fx('B17', `IF(${ok},B13/2,"–")`, 'num');
@@ -99,7 +99,7 @@ export default [
       b.lab('A28', 'Umschlagshäufigkeit').res('B28', 'IF(B26=0,"–",B5/B26)', 'x2').txt('C28', 'Wareneinsatz / Ø Lagerbestand');
       b.lab('A29', 'Ø Lagerdauer (Tage)').res('B29', 'IFERROR(B7/B28,"–")', 'num').txt('C29', 'Tage pro Jahr / Umschlagshäufigkeit');
       b.lab('A30', 'Lagerzinssatz').fx('B30', 'IF(B29="–","–",B6*B29/B7)', 'pct').txt('C30', 'Marktzins × Ø Lagerdauer / Tage pro Jahr');
-      b.lab('A31', 'Lagerzinsen').res('B31', 'IF(B30="–","–",B26*B30)', 'eur').txt('C31', 'Ø Lagerbestand × Lagerzinssatz');
+      b.lab('A31', 'Lagerzinsen (für eine Ø Lagerdauer; pro Jahr: Ø Lagerbestand × Marktzins)').res('B31', 'IF(B30="–","–",B26*B30)', 'eur').txt('C31', 'Ø Lagerbestand × Lagerzinssatz');
       [28, 29, 30, 31].forEach(r => b.merge(`C${r}:D${r}`));
       b.note('A33', 'Bestände und Verbrauch in Euro zu Einstandspreisen eintragen. Die genauere Formel mit 13 Beständen ist der Standard in Klausuren; (AB + EB) / 2 nur zum Vergleich.');
       return { name: 'Lagerkennzahlen', cols: [46, 18, 24, 20], cells: b.cells, merges: b.merges,
@@ -128,7 +128,7 @@ export default [
       b.lab('A20', 'Höchstbestand').res('B20', 'B14+B10', 'num').txt('C20', 'Sicherheitsbestand + Bestellmenge');
       b.lab('A21', 'Prüfung').fx('B21', 'IF(B19>B20,"Meldebestand über Höchstbestand – die Bestellmenge reicht nicht über die Beschaffungszeit","✓ Meldebestand liegt unter dem Höchstbestand")', 'txt');
       [13, 14, 15, 16, 17, 19, 20].forEach(r => b.merge(`C${r}:D${r}`)); b.merge('B21:D21');
-      b.note('A23', 'Bestellt wird, sobald der Lagerbestand den Meldebestand erreicht. Bis die Lieferung eintrifft, sinkt er auf den Sicherheitsbestand; mit der Lieferung steigt er auf den Höchstbestand.');
+      b.note('A23', 'Bestellt wird, sobald der Lagerbestand den Meldebestand erreicht (bei mehreren offenen Bestellungen zählt der Bestand inklusive offener Bestellungen). Bis die Lieferung eintrifft, sinkt er auf den Sicherheitsbestand; mit der Lieferung steigt er auf den Höchstbestand.');
       return { name: 'Meldebestand', cols: [52, 17, 30, 22], cells: b.cells, merges: b.merges,
         explain: { B14: 'Sicherheitsbestand (eiserne Reserve) = Tagesverbrauch × Sicherheitszeit – oder direkt vorgegeben.', B19: 'Meldebestand = Tagesverbrauch × Beschaffungszeit + Sicherheitsbestand.', B20: 'Höchstbestand = Sicherheitsbestand + Bestellmenge (Bestand direkt nach der Lieferung).' } };
     }
@@ -148,7 +148,7 @@ export default [
       b.sec(11, 'Ergebnis');
       b.lab('A12', 'Lagerhaltungskosten je Stück und Jahr').fx('B12', 'B7*B8', 'eur');
       b.lab('A13', 'Optimale Losgröße x_opt').res('B13', `IF(${ok},SQRT(2*B5*B6/B12),"nicht bestimmbar")`, 'num');
-      b.lab('A14', 'Optimale Losgröße (gerundet)').fx('B14', `IF(${ok},ROUND(B13,0),"–")`, 'stk');
+      b.lab('A14', 'Optimale Losgröße (ganzzahlig, günstigere Nachbarzahl)').fx('B14', `IF(${ok},IF(B5/MAX(1,INT(B13))*B6+MAX(1,INT(B13))/2*B12<=B5/MAX(1,ROUNDUP(B13,0))*B6+MAX(1,ROUNDUP(B13,0))/2*B12,MAX(1,INT(B13)),MAX(1,ROUNDUP(B13,0))),"–")`, 'stk');
       b.lab('A15', 'Anzahl Lose pro Jahr').fx('B15', `IF(${ok},B5/B13,"–")`, 'num');
       b.lab('A16', 'Produktionszyklus (Tage)').fx('B16', `IF(${ok},B9*B13/B5,"–")`, 'num');
       b.lab('A17', 'Ø Lagerbestand (Stück)').fx('B17', `IF(${ok},B13/2,"–")`, 'num');
@@ -178,7 +178,7 @@ export default [
       b.lab('A8', 'Materialeinsatz (kg)').inp('B8', 24000, 'num', { min: 0 });
       b.lab('A9', 'Kapazität (maximale Ausbringung, Stück)').inp('B9', 60000, 'num', { min: 0 });
       b.sec(11, 'Werte (Wirtschaftlichkeit und Rentabilität)');
-      b.lab('A12', 'Leistung / Ertrag (Umsatzerlöse)').inp('B12', 2400000, 'eur', { min: 0 });
+      b.lab('A12', 'Leistung / Ertrag (vereinfacht: Umsatzerlöse)').inp('B12', 2400000, 'eur', { min: 0 });
       b.lab('A13', 'Kosten / Aufwand').inp('B13', 2000000, 'eur', { min: 0 });
       b.lab('A14', 'darin enthaltene Fremdkapitalzinsen').inp('B14', 75000, 'eur', { min: 0 });
       b.lab('A15', 'Eigenkapital').inp('B15', 1000000, 'eur', { min: 0 });
@@ -220,11 +220,11 @@ export default [
       b.lab('A14', 'Maximaler Umsatzerlös').fx('B14', 'B13*B12', 'eur').txt('C14', 'E = p · x').merge('C14:F14');
       const ok = 'B5>B8';
       b.sec(16, 'Gewinnmaximum (Cournot-Punkt)');
-      b.lab('A17', 'Gewinnmaximale Menge x_C').res('B17', `IF(${ok},(B5-B8)/(2*B6),"keine – kv ≥ Höchstpreis")`, 'num').txt('C17', 'Grenzerlös = Grenzkosten: a − 2bx = kv').merge('C17:F17');
-      b.lab('A18', 'Cournot-Preis p_C').res('B18', `IF(${ok},B5-B6*B17,"–")`, 'eur').txt('C18', 'p_C = a − b · x_C').merge('C18:F18');
-      b.lab('A19', 'Umsatzerlös im Cournot-Punkt').fx('B19', `IF(${ok},B18*B17,"–")`, 'eur');
-      b.lab('A20', 'Gesamtkosten im Cournot-Punkt').fx('B20', `IF(${ok},B7+B8*B17,"–")`, 'eur');
-      b.lab('A21', 'Maximaler Gewinn').res('B21', `IF(${ok},B19-B20,"–")`, 'eur');
+      b.lab('A17', 'Gewinnmaximale Menge x_C').res('B17', `IF(${ok},(B5-B8)/(2*B6),0)`, 'num').txt('C17', 'Grenzerlös = Grenzkosten: a − 2bx = kv').merge('C17:F17');
+      b.lab('A18', 'Cournot-Preis p_C').res('B18', `IF(${ok},B5-B6*B17,"entfällt – kv ≥ Höchstpreis, kein Absatz")`, 'eur').txt('C18', 'p_C = a − b · x_C').merge('C18:F18');
+      b.lab('A19', 'Umsatzerlös im Cournot-Punkt').fx('B19', `IF(${ok},B18*B17,0)`, 'eur');
+      b.lab('A20', 'Gesamtkosten im Cournot-Punkt').fx('B20', `IF(${ok},B7+B8*B17,B7)`, 'eur');
+      b.lab('A21', 'Maximaler Gewinn').res('B21', `B19-B20`, 'eur');
       const D = '(B5-B8)^2-4*B6*B7', okD = `AND(${ok},${D}>=0)`;
       b.lab('A22', 'Gewinnschwelle (untere Menge)').fx('B22', `IF(${okD},((B5-B8)-SQRT(${D}))/(2*B6),"keine")`, 'num').txt('C22', 'G(x) = 0: x = [(a − kv) ∓ √((a − kv)² − 4b·Kf)] / 2b').merge('C22:F22');
       b.lab('A23', 'Gewinngrenze (obere Menge)').fx('B23', `IF(${okD},((B5-B8)+SQRT(${D}))/(2*B6),"keine")`, 'num');
@@ -345,7 +345,7 @@ export default [
       b.lab('A43', 'Maximaler Kreditbedarf').res('B43', 'MAX(G26:G37)', 'eur');
       b.lab('A44', 'Monate mit Unterdeckung').res('B44', 'COUNTIF(F26:F37,"<0")', 'int');
       b.lab('A45', 'Monate über der Kreditlinie').fx('B45', 'COUNTIF(G26:G37,">"&B6)', 'int');
-      b.lab('A46', 'Einschätzung').fx('B46', 'IF(B45>0,"Kreditlinie reicht nicht – Zahlungen verschieben oder Linie erhöhen",IF(B44>0,"Kreditlinie deckt alle Unterdeckungen","Liquidität in allen Monaten gesichert"))', 'txt').merge('B46:H46');
+      b.lab('A46', 'Einschätzung').fx('B46', 'IF(B45>0,"Kreditlinie reicht nicht – Zahlungen verschieben oder Linie erhöhen",IF(B44>0,"Kreditlinie deckt alle Unterdeckungen","Liquidität an allen Monatsenden gesichert"))', 'txt').merge('B46:H46');
       b.note('A48', 'Endbestand = Anfangsbestand + Einzahlungen − Auszahlungen; der Endbestand ist der Anfangsbestand des Folgemonats. Ein negativer Endbestand wird über die Kreditlinie finanziert (Zinsen darauf nicht eingerechnet).');
       return { name: 'Liquiditätsplan', cols: [30, 17, 15, 17, 17, 18, 17, 30], cells: b.cells, merges: b.merges,
         explain: { F26: 'Endbestand = Anfangsbestand + Einzahlungen − Auszahlungen.', G26: 'Negativer Endbestand = benötigter Kontokorrentkredit.', B43: 'Höchste Inanspruchnahme der Kreditlinie im Jahr.' } };
@@ -390,7 +390,7 @@ export default [
       b.lab('A5', 'Gesamter Arbeitszeitbedarf (Stunden pro Jahr)').inp('B5', 198000, 'num', { min: 0 });
       b.lab('A6', 'Soll-Arbeitszeit je Mitarbeiter (Stunden pro Jahr)').inp('B6', 1650, 'num', { min: 1 });
       b.lab('A7', 'oder Einsatzbedarf direkt (Mitarbeiter, leer = aus Arbeitszeit)').inp('B7', null, 'num', { min: 0 });
-      b.lab('A8', 'Ausfallquote (Urlaub, Krankheit, Fortbildung)').inp('B8', 0.1, 'pct', { min: 0, max: 1 });
+      b.lab('A8', 'Ausfallquote (Urlaub, Krankheit, Fortbildung; bezogen auf den Einsatzbedarf)').inp('B8', 0.1, 'pct', { min: 0, max: 1 });
       b.lab('A9', 'Personalbestand zu Beginn der Planperiode').inp('B9', 125, 'num', { min: 0 });
       b.th(11, ['Feststehende Abgänge', 'Anzahl', 'Feststehende Zugänge', 'Anzahl']);
       b.lab('A12', 'Ruhestand').inp('B12', 4, 'num', { min: 0 }).lab('C12', 'Übernahme Auszubildender').inp('D12', 3, 'num', { min: 0 });

@@ -34,7 +34,7 @@ export default [
       const b = builder(3).title('Gewinnvergleichsrechnung', SUB);
       b.sec(4, 'Eingaben');
       b.th(5, ['', 'Anlage A', 'Anlage B']);
-      const rows = [['Anschaffungskosten', 100000, 70000, 'eur'], ['Restwert', 10000, 0, 'eur'], ['Nutzungsdauer (Jahre)', 5, 5, 'int'], ['Kalkulationszinssatz', 0.08, 0.08, 'pct'],
+      const rows = [['Anschaffungskosten', 100000, 70000, 'eur'], ['Restwert (höchstens Anschaffungskosten)', 10000, 0, 'eur'], ['Nutzungsdauer (Jahre)', 5, 5, 'int'], ['Kalkulationszinssatz', 0.08, 0.08, 'pct'],
         ['Sonstige Fixkosten p. a.', 15000, 12000, 'eur'], ['Variable Kosten je Stück', 6, 7, 'eur'], ['Verkaufspreis je Stück', 10, 10, 'eur'], ['Absatzmenge p. a. (Stück)', 12000, 12000, 'int']];
       rows.forEach(([t, a, c, f], k) => { const r = 6 + k, o = k === 2 ? { min: 1, max: 100 } : k === 3 ? { min: 0, max: 1 } : { min: 0 }; b.lab('A' + r, t).inp('B' + r, a, f, o).inp('C' + r, c, f, o); });
       b.sec(15, 'Kosten und Gewinn pro Jahr (Durchschnitt)');
@@ -50,7 +50,7 @@ export default [
       b.lab('A24', 'Gewinn je Stück'); P.forEach(X => b.fx(X + 24, `IFERROR(${X}23/${X}13,"–")`, 'eur'));
       b.lab('A25', 'Gewinnschwelle (Stück)'); P.forEach(X => b.fx(X + 25, `IF(${X}12-${X}11<=0,"keine",${X}19/(${X}12-${X}11))`, 'num'));
       b.sec(27, 'Ergebnis');
-      b.lab('A28', 'Vorteilhafte Anlage (höherer Gewinn)').res('B28', 'IF(ROUND(B23-C23,2)>0,"Anlage A",IF(ROUND(B23-C23,2)<0,"Anlage B","Beide gleich gut"))', 'txt').merge('B28:C28');
+      b.lab('A28', 'Vorteilhafte Anlage (höherer Gewinn)').res('B28', 'IF(OR(B7>B6,C7>C6),"Eingaben prüfen – Restwert über Anschaffungskosten",IF(ROUND(B23-C23,2)>0,"Anlage A",IF(ROUND(B23-C23,2)<0,"Anlage B","Beide gleich gut")))', 'txt').merge('B28:C28');
       b.lab('A29', 'Gewinnvorteil pro Jahr').fx('B29', 'ABS(B23-C23)', 'eur');
       b.lab('A30', 'Kritische Menge (Stück)').res('B30', 'IF(ROUND((B12-B11)-(C12-C11),6)=0,"keine – gleicher Stück-DB",IF((B19-C19)/((B12-B11)-(C12-C11))<0,"keine – eine Anlage ist immer besser",(B19-C19)/((B12-B11)-(C12-C11))))', 'num').merge('B30:C30');
       b.lab('A31', 'Über der kritischen Menge besser').fx('B31', 'IF(B12-B11>C12-C11,"Anlage A",IF(C12-C11>B12-B11,"Anlage B","–"))', 'txt').merge('B31:C31');
@@ -66,7 +66,7 @@ export default [
       const b = builder(3).title('Rentabilitätsvergleichsrechnung', SUB);
       b.sec(4, 'Eingaben');
       b.th(5, ['', 'Anlage A', 'Anlage B']);
-      const rows = [['Anschaffungskosten', 100000, 70000, 'eur', { min: 1 }], ['Restwert', 10000, 0, 'eur', { min: 0 }], ['Nutzungsdauer (Jahre)', 5, 5, 'int', { min: 1, max: 100 }], ['Kalkulationszinssatz (Mindestverzinsung)', 0.08, 0.08, 'pct', { min: 0, max: 1 }],
+      const rows = [['Anschaffungskosten', 100000, 70000, 'eur', { min: 1 }], ['Restwert (höchstens Anschaffungskosten)', 10000, 0, 'eur', { min: 0 }], ['Nutzungsdauer (Jahre)', 5, 5, 'int', { min: 1, max: 100 }], ['Kalkulationszinssatz (Mindestverzinsung)', 0.08, 0.08, 'pct', { min: 0, max: 1 }],
         ['Umsatzerlöse p. a.', 120000, 120000, 'eur', { min: 0 }], ['Laufende Kosten p. a. (ohne AfA und Zinsen)', 87000, 96000, 'eur', { min: 0 }]];
       rows.forEach(([t, a, c, f, o], k) => { const r = 6 + k; b.lab('A' + r, t).inp('B' + r, a, f, o).inp('C' + r, c, f, o); });
       b.sec(13, 'Gewinn und Kapitaleinsatz pro Jahr');
@@ -79,7 +79,7 @@ export default [
       b.lab('A19', 'Rentabilität'); P.forEach(X => b.res(X + 19, `(${X}17+${X}15)/${X}18`, 'pct'));
       b.lab('A20', 'Mindestverzinsung erreicht?'); P.forEach(X => b.fx(X + 20, `IF(ROUND(${X}19-${X}9,8)>=0,"ja (R ≥ i)","nein (R < i)")`, 'txt'));
       b.sec(21, 'Ergebnis');
-      b.lab('A22', 'Vorteilhafte Anlage (höhere Rentabilität)').res('B22', 'IF(AND(B19<B9,C19<C9),"Keine – Mindestverzinsung verfehlt",IF(ROUND(B19-C19,8)>0,"Anlage A",IF(ROUND(B19-C19,8)<0,"Anlage B","Beide gleich")))', 'txt').merge('B22:C22');
+      b.lab('A22', 'Vorteilhafte Anlage (höhere Rentabilität)').res('B22', 'IF(OR(B7>B6,C7>C6),"Eingaben prüfen – Restwert über Anschaffungskosten",IF(AND(B19<B9,C19<C9),"Keine – Mindestverzinsung verfehlt",IF(B19<B9,"Anlage B",IF(C19<C9,"Anlage A",IF(ROUND(B19-C19,8)>0,"Anlage A",IF(ROUND(B19-C19,8)<0,"Anlage B","Beide gleich"))))))', 'txt').merge('B22:C22');
       b.note('A24', 'Rentabilität = (Gewinn + kalkulatorische Zinsen) / Ø gebundenes Kapital. Die Zinsen werden addiert, weil die Rentabilität die gesamte Verzinsung des eingesetzten Kapitals zeigt.');
       return { name: 'Rentabilitaet', cols: [42, 19, 19], cells: b.cells, merges: b.merges,
         explain: { B18: 'Durchschnittlich gebundenes Kapital = (Anschaffungskosten + Restwert) / 2.', B19: 'Rentabilität = (Gewinn + kalkulatorische Zinsen) / Ø gebundenes Kapital.', B22: 'Vorteilhaft ist die Anlage mit der höheren Rentabilität – sofern sie die Mindestverzinsung erreicht.' } };
@@ -140,7 +140,7 @@ export default [
       b.lab('A27', 'Differenzinvestition (A − B)').fx('B27', 'IF(ROUND(D23,2)>0,"lohnt sich: Mehreinsatz von A bringt C₀ > 0",IF(ROUND(D23,2)<0,"lohnt sich nicht: B ist besser","neutral (C₀ = 0)"))', 'txt').merge('B27:G27');
       b.note('A29', 'Der Kapitalwert der Differenzinvestition = C₀(A) − C₀(B). Unterschiedliche Kapitaleinsätze und Laufzeiten gleicht der Kapitalwert aus: Die Differenz wird implizit zum Kalkulationszins angelegt (vollkommener Kapitalmarkt).');
       b.note('A30', 'Der Vergleich der internen Zinsfüße kann zu einer anderen (falschen) Rangfolge führen – maßgeblich ist der höhere Kapitalwert.');
-      b.note('A31', 'IZF nur bei Normalinvestition (genau ein Vorzeichenwechsel) – sonst gibt es keinen oder mehrere Zinsfüße. Hilfsrechnung rechts (Spalten I–V): Vorzeichenwechsel zählen, IZF per Kapitalwert bei 1 + i = 10^k auf eine halbe Zehnerpotenz eingrenzen (Untergrenze q) und Reihe mit q skalieren, damit Excel auch extreme IZF findet (IZF = q · (1 + IKV der skalierten Reihe) − 1).');
+      b.note('A31', 'IZF nur bei Normalinvestition (genau ein Vorzeichenwechsel). Bei mehreren Vorzeichenwechseln kann es keinen, einen oder mehrere Zinsfüße geben – solche Reihen untersucht die Vorlage nicht. Hilfsrechnung rechts (Spalten I–V): Vorzeichenwechsel zählen, IZF per Kapitalwert bei 1 + i = 10^k auf eine halbe Zehnerpotenz eingrenzen (Untergrenze q) und Reihe mit q skalieren, damit Excel auch extreme IZF findet (IZF = q · (1 + IKV der skalierten Reihe) − 1).');
       return { name: 'Kapitalwertvergleich', cols: [30, 16, 16, 16, 16, 17, 18, 3, 9, 16, 12, 9, 16, 12, 11, 18, 14, 3, 28, 13, 13, 13], cells: b.cells, merges: b.merges,
         explain: { B23: 'NBW zinst ab Jahr 1 ab – die Anschaffungsauszahlung aus t = 0 wird separat addiert.', D23: 'Kapitalwert der Differenzzahlungsreihe A − B; entspricht C₀(A) − C₀(B).', D24: 'IZF der Differenzinvestition (Fisher-Schnittpunkt): Bei diesem Kalkulationszins haben A und B denselben Kapitalwert.' } };
     }
@@ -159,7 +159,7 @@ export default [
       b.lab('A11', 'Summe der Zinsen').res('B11', 'SUM(C17:C36)', 'eur');
       b.lab('A12', 'Rate im ersten Jahr').fx('B12', 'E17', 'eur');
       b.lab('A13', 'Rate im letzten Jahr').fx('B13', 'INDEX(E17:E36,B7)', 'eur');
-      b.lab('A14', 'Summe aller Raten (Gesamtaufwand)').fx('B14', 'SUM(E17:E36)', 'eur');
+      b.lab('A14', 'Summe aller Raten (Gesamtauszahlung: Zinsen + Tilgung)').fx('B14', 'SUM(E17:E36)', 'eur');
       b.th(16, ['Jahr', 'Restschuld Anfang', 'Zinsen', 'Tilgung', 'Rate (Zins + Tilgung)', 'Restschuld Ende']);
       range(1, 20).forEach(k => { const r = 16 + k, e = `A${r}=""`;
         b.fx('A' + r, `IF(${k}<=$B$7,${k},"")`, 'int').fx('B' + r, k === 1 ? `IF(${e},"",$B$5)` : `IF(${e},"",F${r - 1})`, 'eur').fx('C' + r, `IF(${e},"",B${r}*$B$6)`, 'eur')
@@ -315,8 +315,8 @@ export default [
       b.lab('A5', 'Eigenkapital').inp('B5', 6000000, 'eur', { min: 0 });
       b.lab('A6', 'Fremdkapital').inp('B6', 4000000, 'eur', { min: 0 });
       b.lab('A7', 'Gesamtkapital').tot('B7', 'B5+B6', 'eur');
-      b.lab('A8', 'Eigenkapitalanteil (EK / GK)').fx('B8', 'IF(B7=0,0,B5/B7)', 'pct');
-      b.lab('A9', 'Fremdkapitalanteil (FK / GK)').fx('B9', 'IF(B7=0,0,B6/B7)', 'pct');
+      b.lab('A8', 'Eigenkapitalanteil (EK / GK)').fx('B8', 'IF(B7=0,"–",B5/B7)', 'pct');
+      b.lab('A9', 'Fremdkapitalanteil (FK / GK)').fx('B9', 'IF(B7=0,"–",B6/B7)', 'pct');
       b.sec(11, 'Eigenkapitalkosten');
       b.lab('A12', 'CAPM verwenden? (1 = ja, 0 = direkt eingeben)').inp('B12', 1, 'int', { min: 0, max: 1 });
       b.lab('A13', 'Risikoloser Zinssatz r_f').inp('B13', 0.025, 'pct', { min: -0.1, max: 1 });
@@ -330,10 +330,10 @@ export default [
       b.lab('A22', 'Ertragsteuersatz s').inp('B22', 0.3, 'pct', { min: 0, max: 1 });
       b.lab('A23', 'Fremdkapitalkosten nach Steuern r_FK × (1 − s)').fx('B23', 'B21*(1-B22)', 'pct');
       b.sec(25, 'Ergebnis');
-      b.lab('A26', 'WACC').res('B26', 'B8*B18+B9*B23', 'pct');
-      b.lab('A27', 'WACC ohne Tax Shield (zum Vergleich)').fx('B27', 'B8*B18+B9*B21', 'pct');
+      b.lab('A26', 'WACC').res('B26', 'IF(B7=0,"nicht bestimmbar – Gesamtkapital ist 0",B8*B18+B9*B23)', 'pct');
+      b.lab('A27', 'WACC ohne Tax Shield (zum Vergleich)').fx('B27', 'IF(B7=0,"nicht bestimmbar",B8*B18+B9*B21)', 'pct');
       b.lab('A28', 'Tax Shield p. a. (FK × r_FK × s)').fx('B28', 'B6*B21*B22', 'eur');
-      b.note('A30', 'WACC = EK/GK × r_EK + FK/GK × r_FK × (1 − s). CAPM: r_EK = r_f + β × (r_M − r_f). Gewichtung mit Marktwerten, nicht Buchwerten.');
+      b.note('A30', 'WACC = EK/GK × r_EK + FK/GK × r_FK × (1 − s). CAPM: r_EK = r_f + β × (r_M − r_f). Gewichtung mit Marktwerten, nicht Buchwerten. Tax Shield vereinfacht: Zinsen voll abzugsfähig und die Steuerersparnis wird genutzt.');
       return { name: 'WACC', cols: [46, 19, 6], cells: b.cells, merges: b.merges,
         explain: { B18: 'CAPM: r_EK = r_f + β × (r_M − r_f) – oder der direkt eingegebene Wert.', B26: 'WACC = EK-Anteil × r_EK + FK-Anteil × r_FK × (1 − s).', B28: 'Steuerersparnis, weil Fremdkapitalzinsen die Steuerbemessungsgrundlage mindern.' } };
     }
@@ -379,9 +379,9 @@ export default [
       b.sec(4, 'Eingaben');
       b.lab('A5', 'Kapitalkosten (WACC)').inp('B5', 0.08, 'pct', { min: 0, max: 1 });
       b.lab('A6', 'Wachstumsrate nach Jahr 5 (g)').inp('B6', 0.015, 'pct', { min: -0.5, max: 0.5 });
-      b.lab('A7', 'Nettofinanzverbindlichkeiten (FK − liquide Mittel)').inp('B7', 2000000, 'eur');
+      b.lab('A7', 'Nettofinanzverbindlichkeiten (Finanzschulden − liquide Mittel)').inp('B7', 2000000, 'eur');
       b.lab('A8', 'Anzahl Aktien (0 = ohne Angabe)').inp('B8', 1000000, 'int', { min: 0 });
-      b.sec(10, 'Free Cashflows (Detailplanung)');
+      b.sec(10, 'Free Cashflows to Firm (Detailplanung, vor Zinsen)');
       b.th(11, ['Jahr', 'Free Cashflow', 'Abzinsungsfaktor', 'Barwert']);
       const fcf = [1000000, 1100000, 1200000, 1250000, 1300000];
       range(1, 5).forEach(t => { const r = 11 + t; b.txt('A' + r, t, { fmt: 'int' }).inp('B' + r, fcf[t - 1], 'eur').fx('C' + r, `1/(1+$B$5)^A${r}`, 'f4').fx('D' + r, `B${r}*C${r}`, 'eur'); });

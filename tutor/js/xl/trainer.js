@@ -119,15 +119,18 @@ async function play(el, id) {
     [...dots.children].forEach((d, j) => { d.className = j < i ? 'ok' : j === i ? 'now' : ''; }); [...list.children].forEach((li, j) => { li.className = j < i ? 'ok' : j === i ? 'now' : ''; });
     G.setTarget(st.target || null); try { fc && fc.pulse('smug', 900); } catch (e) {}
     // Schon erfüllt (z. B. durch einen vorigen Schritt)? Dann nicht hängen bleiben.
-    setTimeout(() => { if (!lock && i === k && Ls.steps[i].ok(G, S())) success(); }, 60);
+    setTimeout(() => { if (!lock && i === k && Ls.steps[i].ok(G, S()) && fxOK(Ls.steps[i])) success(); }, 60);
   }
+  // Aufgaben, die eine Formel vorgeben (**=…**), zählen nur, wenn in allen Zielzellen wirklich eine Formel steht
+  const cellsOf = t => { const m = /^([A-Z]+)(\d+)(?::([A-Z]+)(\d+))?$/.exec(t || ''); if (!m) return []; const c0 = m[1].charCodeAt(0), c1 = (m[3] || m[1]).charCodeAt(0), r0 = +m[2], r1 = +(m[4] || m[2]); const out = []; for (let c = c0; c <= c1; c++) for (let r = r0; r <= r1; r++) out.push(String.fromCharCode(c) + r); return out; };
+  const fxOK = st => !/\*\*=/.test(st.say || '') || cellsOf(st.target).every(r => String(G.raw(r)).trim().startsWith('='));
   const S = () => ({ used: (t, pred) => G.log.slice(stepStart).some(e => e.t === t && (!pred || pred(e))) });
   function onEvent(ev) {
     if (finished || lock) return;
     if (!t0 && ev.t !== 'select') { t0 = Date.now(); timer = setInterval(() => { if (!clock.isConnected) return clearInterval(timer); clock.textContent = mmss((Date.now() - t0) / 1000); }, 500); }
     if (['edit', 'point', 'pointclick', 'cancel'].includes(ev.t)) return;
     const st = Ls.steps[i]; if (!st) return; const s = S();
-    if (st.ok(G, s)) { success(); return; }
+    if (st.ok(G, s)) { if (fxOK(st)) { success(); return; } if (ev.t === 'commit') { toast('Ergebnis stimmt – aber bitte als Formel mit = eingeben.'); return; } }
     let msg = st.wrong ? st.wrong(G, s, ev) : null;
     if (!msg && ev.t === 'commit' && ev.how !== 'solve' && st.target && !st.target.includes(':') && ev.ref === st.target) msg = 'Noch nicht ganz. Schau dir die Aufgabe nochmal genau an – oder hol dir einen Tipp.';
     if (msg) { wrong++; autoHint++; bubble.classList.remove('no'); void bubble.offsetWidth; bubble.classList.add('no'); G.showMsg(msg, 'bad'); try { fc && fc.pulse('sad', 1200); } catch (e) {} if (autoHint >= 2 && hintBox.hidden) showHint(); }

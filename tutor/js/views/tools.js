@@ -24,7 +24,6 @@ export function render(root, { sub = '' } = {}) {
       h('p', {}, L('60 geprüfte Vorlagen mit echten Formeln – nur die blauen Felder ausfüllen. Oder Aufgabe beschreiben, und Max baut dir die Excel-Datei, doppelt nachgerechnet.', '60 checked templates with real formulas – just fill in the blue cells. Or describe your task and Max builds the Excel file, double-checked.')),
       h('div', { class: 'kt-btns' },
         h('a', { class: 'kt-go', href: '#/app/excel' }, h('span', { html: ico('sheet') }), L('Vorlagen öffnen', 'Open templates')),
-        h('a', { class: 'kt-sec', href: '#/app/excel/generator' }, h('span', { html: ico('spark') }), L('Generator', 'Generator')),
         h('a', { class: 'kt-sec', href: '#/app/excel/trainer' }, h('span', { html: ico('play') }), L('Excel-Trainer', 'Excel trainer')))),
     h('a', { class: 'kt-hr', href: '#/app/excel', 'aria-label': L('Excel-Vorlagen öffnen', 'Open Excel templates') }, xlPrev));
   const card = (icon, t, s, cta, act, tone) => h(typeof act === 'string' ? 'a' : 'button', Object.assign({ class: 'kt-card kt-' + tone }, typeof act === 'string' ? { href: act } : { type: 'button', onclick: act }),
