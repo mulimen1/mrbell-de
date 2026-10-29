@@ -77,7 +77,7 @@ function show() {
       h('button', { class: 'm-rl-b m-rl-mail', type: 'button', onclick: () => auth('register') }, L('Mit E-Mail registrieren', 'Sign up with email')),
       h('button', { class: 'm-rl-l', type: 'button', onclick: () => auth('login') }, L('Ich hab schon ein Konto', 'I already have an account')),
       h('a', { class: 'm-rl-bk', href: area && area.back ? area.back.href : '#', onclick: e => { e.preventDefault(); const bk = area && area.back; unlockRoom(); if (bk && bk.href) location.hash = bk.href; else back(); } }, h('span', { html: ico('left') }), area && area.back ? area.back.label : backLabel()),
-      h('small', {}, isPhone() ? L('Tipp: Am Laptop meldest du dich genauso an – dort hast du Tafel und Chat nebeneinander.', 'Tip: sign in the same way on your laptop – board and chat side by side.') : L('Am Handy meldest du dich genauso an – Max ist überall dabei.', 'Sign in the same way on your phone – Max comes along everywhere.')), legalNote(true)));
+      legalNote(false)));
   document.body.append(el);
 }
 

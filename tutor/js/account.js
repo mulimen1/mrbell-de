@@ -110,7 +110,7 @@ export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong =
       box.replaceChildren(...head(L('Kostenloses Konto erstellen', 'Create your free account'), L('Kostenlos und in 30 Sekunden. Alles, was du ohne Konto gemacht hast, bleibt erhalten.', 'Free and done in 30 seconds. Everything you did without an account stays.')), gBox(), form, err,
         h('p', { class: 'm-laptop' }, L('Erstell dein Konto jetzt – am Laptop meldest du dich einfach an und lernst weiter.', 'Create your account now – on your laptop just sign in and keep learning.')),
         h('div', { class: 'lalt' }, L('Schon ein Konto? ', 'Already have an account? '), link(L('Anmelden', 'Sign in'), () => login())),
-        lean ? null : h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Passwort wird verschlüsselt gespeichert. Deine Skripte bleiben auf deinem Gerät.', 'Your password is stored encrypted. Your slides stay on your device.')), lean ? legalNote(false) : legalNote(true));
+        legalNote(false));   // nur eine kleine Zeile AGB/Datenschutz (Pflicht), sonst kein Kleingedrucktes
       if (lean) box.classList.add('lean');   // Verlassen-Fenster: Google + E-Mail bleiben sichtbar, nur ohne Kleingedrucktes
       fc.set('idle');   // kein Autofokus aufs E-Mail-Feld: Google soll der erste Blick sein
     };
