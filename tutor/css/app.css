@@ -8400,18 +8400,17 @@ html:root[data-nv][data-theme="dark"] body .m-mc { background: linear-gradient(1
 html:root[data-nv][data-nv] body .m-mc.all .m-mc-score { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .m-mc-all { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #34c77b, #16a05c); color: #fff; font-weight: 800; font-size: 16px; box-shadow: 0 6px 14px -6px #16a05c; animation: fxpop .6s cubic-bezier(.3,1.6,.5,1) both; }
 
-/* Tafel-Karten „Klausurfragen“ (lila) und „Karteikarten & Podcast“ (türkis): mehr Farbe und Kontrast */
-html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tcq { --k1: #6a4ee0; --k2: #4a30b0; --kt: #f0ebff; }
-html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tck { --k1: #1aa39a; --k2: #0e7a88; --kt: #e3f6f4; }
-html:root[data-nv][data-nv][data-nv] body .rm-tc:is(.rm-tcq, .rm-tck) { background: linear-gradient(160deg, var(--kt) 0%, #fff 62%) !important; border: 1.5px solid color-mix(in srgb, var(--k1) 38%, transparent) !important; box-shadow: 0 4px 0 color-mix(in srgb, var(--k1) 30%, transparent), 0 18px 34px -24px var(--k2) !important; }
-html:root[data-nv][data-nv][data-nv] body .rm-tc:is(.rm-tcq, .rm-tck):hover { border-color: var(--k1) !important; transform: translateY(-2px); box-shadow: 0 6px 0 color-mix(in srgb, var(--k1) 40%, transparent), 0 22px 38px -22px var(--k2) !important; }
-html:root[data-nv][data-nv][data-nv] body .rm-tc:is(.rm-tcq, .rm-tck) > b { color: var(--k2) !important; }
-html:root[data-nv][data-nv][data-nv] body .rm-tc:is(.rm-tcq, .rm-tck) .rm-tcg { background: var(--k1) !important; color: #fff !important; border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; box-shadow: 0 6px 12px -6px var(--k2); }
+/* Tafel-Karten „Klausurfragen“ (lila) und „Karteikarten & Podcast“ (türkis): nur leichter farbiger Rahmen + runder Pfeil-Knopf */
+html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tcq { --k1: #6a4ee0; --k2: #4a30b0; }
+html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tck { --k1: #1aa39a; --k2: #0e7a88; }
+html:root[data-nv][data-nv][data-nv] body .rm-tc:is(.rm-tcq, .rm-tck) { border: 1.5px solid color-mix(in srgb, var(--k1) 45%, transparent) !important; }
+html:root[data-nv][data-nv][data-nv] body .rm-tc:is(.rm-tcq, .rm-tck):hover { border-color: var(--k1) !important; }
+html:root[data-nv][data-nv][data-nv] body .rm-tc:is(.rm-tcq, .rm-tck) .rm-tcg { background: var(--k1) !important; color: #fff !important; border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; }
 html:root[data-nv][data-nv][data-nv] body .rm-tc:is(.rm-tcq, .rm-tck) .rm-tcg .ico { width: 15px; height: 15px; }
-html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tcq .rm-qzp { background: #fff !important; border: 1.5px solid color-mix(in srgb, var(--k1) 30%, transparent) !important; box-shadow: 0 8px 18px -14px var(--k2); }
+html:root[data-nv][data-nv][data-nv] body .rm-tc:is(.rm-tcq, .rm-tck) > b { color: var(--k2) !important; }
+html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tcq .rm-qzp { background: #fff !important; border: 1.5px solid color-mix(in srgb, var(--k1) 30%, transparent) !important; }
 html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tcq .rm-qzo i { background: color-mix(in srgb, var(--k1) 18%, #e9e6f2) !important; }
 html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tcq .rm-qzo b { border-color: color-mix(in srgb, var(--k1) 35%, transparent) !important; color: var(--k2) !important; }
-html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tck :is(.rm-kaf, .rm-kab) { border: 1.5px solid color-mix(in srgb, var(--k1) 35%, transparent) !important; box-shadow: 0 8px 18px -14px var(--k2); }
+html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tck :is(.rm-kaf, .rm-kab) { border: 1.5px solid color-mix(in srgb, var(--k1) 35%, transparent) !important; }
 html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tck .rm-kapo { background: linear-gradient(135deg, #0e7a88, #1aa39a) !important; }
-html:root[data-nv][data-theme="dark"] body .rm-tc:is(.rm-tcq, .rm-tck) { background: linear-gradient(160deg, color-mix(in srgb, var(--k1) 22%, #15161a), #15161a 62%) !important; }
 html:root[data-nv][data-theme="dark"] body .rm-tc:is(.rm-tcq, .rm-tck) > b { color: #fff !important; }
