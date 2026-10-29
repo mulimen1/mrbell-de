@@ -45,7 +45,7 @@ function spamBox(email) {
 }
 
 // mode: 'login' (E-Mail + Passwort) · 'register' (Konto erstellen, Mail bestätigen) · 'reset' (Passwort vergessen)
-export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong = false, extra = null, mood = '' } = {}) {
+export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong = false, extra = null, mood = '', lean = false } = {}) {
   try { window.BM && window.BM.track('Anmeldefenster gesehen', why || (mode === 'register' ? 'Registrieren' : 'Anmelden')); } catch (e) {}
   return new Promise(resolve => {
     const { bg, box, fEl, fc } = shell(); if (strong) bg.classList.add('mbg-strong');
@@ -110,8 +110,9 @@ export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong =
       box.replaceChildren(...head(L('Kostenloses Konto erstellen', 'Create your free account'), L('Kostenlos und in 30 Sekunden. Alles, was du ohne Konto gemacht hast, bleibt erhalten.', 'Free and done in 30 seconds. Everything you did without an account stays.')), gBox(), form, err,
         h('p', { class: 'm-laptop' }, L('Erstell dein Konto jetzt – am Laptop meldest du dich einfach an und lernst weiter.', 'Create your account now – on your laptop just sign in and keep learning.')),
         h('div', { class: 'lalt' }, L('Schon ein Konto? ', 'Already have an account? '), link(L('Anmelden', 'Sign in'), () => login())),
-        h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Passwort wird verschlüsselt gespeichert. Deine Skripte bleiben auf deinem Gerät.', 'Your password is stored encrypted. Your slides stay on your device.')), legalNote(true));
-      fc.set('idle'); if (!matchMedia('(pointer: coarse)').matches) setTimeout(() => em.focus(), 60);
+        lean ? null : h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Passwort wird verschlüsselt gespeichert. Deine Skripte bleiben auf deinem Gerät.', 'Your password is stored encrypted. Your slides stay on your device.')), lean ? legalNote(false) : legalNote(true));
+      if (lean) box.classList.add('lean');   // Verlassen-Fenster: Google + E-Mail bleiben sichtbar, nur ohne Kleingedrucktes
+      fc.set('idle'); if (!lean && !matchMedia('(pointer: coarse)').matches) setTimeout(() => em.focus(), 60);
     };
 
     // ---------- Passwort vergessen ----------

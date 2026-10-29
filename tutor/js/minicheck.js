@@ -45,7 +45,7 @@ function build(c, set, { onExam } = {}, box) {
     return { el, btns, why };
   });
   box.append(
-    h('div', { class: 'm-mc-h' }, h('b', {}, L('Mini-Check: Hast du’s verstanden?', 'Mini check: did it click?')), h('small', {}, getAccount() ? L('3 Fragen · 30 Sekunden', '3 questions · 30 seconds') : L('3 Fragen · Ergebnis sofort · Auflösung mit kostenlosem Konto', '3 questions · score instantly · answers with a free account'))),
+    h('div', { class: 'm-mc-h' }, h('b', {}, L('Mini-Check: Hast du’s verstanden?', 'Mini check: did it click?')), h('small', {}, L('3 Fragen · 30 Sekunden · mit Erklärung', '3 questions · 30 seconds · explained'))),
     ...items.map(x => x.el), h('div', { class: 'm-mc-f' }, go), sum);
   // Auflösung: welche richtig/falsch war, die richtige Antwort und warum
   const reveal = () => {
@@ -60,7 +60,6 @@ function build(c, set, { onExam } = {}, box) {
       items[i].why.hidden = false; items[i].why.classList.remove('blur');
     });
     sum.querySelectorAll('.m-mc-lock, .m-mc-hint').forEach(x => x.remove());
-    if (qs.every(q => q.pick === q.r) && onExam && !sum.querySelector('.m-mc-cta')) sum.append(h('button', { class: 'm-mc-cta', type: 'button', onclick: () => onExam() }, L('Jetzt die echten Klausuraufgaben →', 'Now the real exam tasks →')));
   };
   // Gast meldet sich irgendwo an (auch über Klausurfragen) → Auflösung sofort da
   const off = onAccount(a => { if (a && box.dataset.g === '1' && box.classList.contains('done') && !box.classList.contains('open') && box.isConnected) { reveal(); setTimeout(() => { try { box.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 350); try { off && off(); } catch (x) {} } });
@@ -74,6 +73,7 @@ function build(c, set, { onExam } = {}, box) {
     box.classList.add('done');
     const score = qs.filter(q => q.pick === q.r).length, n = qs.length, all = score === n;
     tr('Mini-Check geprüft', `${score}/${n} ${topic}`);
+    try { sessionStorage.setItem('tutor.mcScore', JSON.stringify({ t: topic, s: score, n })); } catch (x) {}
     items.forEach(x => x.btns.forEach(b => { b.disabled = true; }));
     box.dataset.g = getAccount() ? '' : '1';
     go.hidden = true;
@@ -81,24 +81,19 @@ function build(c, set, { onExam } = {}, box) {
       all ? L('Stark – das sitzt.', 'Strong – that sticks.') : n - score === 1 ? L('Fast. Eine hat dich erwischt.', 'Close. One got you.') : score ? L('Zwei haben dich erwischt.', 'Two got you.') : L('Gut, dass das jetzt passiert und nicht in der Klausur.', 'Better now than in the exam.'));
     sum.replaceChildren(head); sum.hidden = false;
     try { c.note(`[Mini-Check auf der Themenseite: ${score} von ${n} richtig]`); } catch (x) {}
-    // Erst nur das Ergebnis: alle gewählten Antworten grün, Erklärungen verschwommen – die Auflösung gibt's per Knopf (Gäste: nach dem kostenlosen Konto, danach sofort hier)
-    items.forEach((x, i) => { x.btns[qs[i].pick].classList.add('ok'); x.why.textContent = qs[i].why; x.why.hidden = false; x.why.classList.add('blur'); });
-    // Alles richtig: nichts „aufzulösen“ – feiern, grün zeigen und direkt zum nächsten Schritt (echte Klausuraufgaben)
-    if (all) {
-      box.classList.add('all');
-      items.forEach(x => x.el.classList.add('right'));
-      head.prepend(h('span', { class: 'm-mc-all' }, '✓'));
-      if (getAccount()) reveal();
-      sum.insertBefore(h('p', { class: 'm-mc-hint' }, getAccount() ? L('Alle drei richtig – du bist bereit für echte Klausuraufgaben.', 'All three right – you’re ready for real exam tasks.') : L('Alle drei richtig – jetzt kommen echte Klausuraufgaben. Kostenlos, mit Google in zwei Klicks.', 'All three right – now real exam tasks. Free, two clicks with Google.')), head.nextSibling);
-      if (getAccount()) { if (!sum.querySelector('.m-mc-cta')) sum.append(h('button', { class: 'm-mc-cta', type: 'button', onclick: () => onExam ? onExam() : null }, L('Jetzt die echten Klausuraufgaben →', 'Now the real exam tasks →'))); }
-      else sum.append(h('button', { class: 'm-mc-cta m-mc-lock', type: 'button', onclick: async () => { if (await unlock(L('Jetzt echte Klausuraufgaben', 'Now real exam tasks'), L('Kostenlos, mit Google in zwei Klicks. Danach geht’s genau hier weiter.', 'Free, two clicks with Google. Then you continue right here.'), 'Mini-Check alles richtig')) { reveal(); if (onExam) onExam(); } } }, L('Weiter zu den Klausuraufgaben →', 'On to exam tasks →')));
-      requestAnimationFrame(() => { try { sum.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (x) {} });
-      return;
-    }
-    if (!getAccount()) sum.append(h('p', { class: 'm-mc-hint' }, L('Welche richtig und welche falsch war – und warum – siehst du mit kostenlosem Konto.', 'Which were right or wrong – and why – with a free account.')));
-    sum.append(h('button', { class: 'm-mc-cta m-mc-lock', type: 'button', onclick: async () => {
-      if (getAccount() || await unlock(L('Sieh deine Auflösung – mit Erklärung', 'See your answers – explained'), L('Kostenlos, mit Google in zwei Klicks. Danach landest du genau hier und siehst, welche richtig war und warum.', 'Free, two clicks with Google. Then you land right here and see why.'), 'Mini-Check')) { reveal(); setTimeout(() => { try { box.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 350); }
-    } }, L('Auflösung ansehen', 'See the answers')));
+    // Auflösung für alle sofort frei (richtig/falsch, richtige Antwort, Erklärung) – dann ein klarer nächster Schritt: echte Klausuraufgaben
+    if (all) { box.classList.add('all'); head.prepend(h('span', { class: 'm-mc-all' }, '✓')); }
+    reveal();
+    sum.querySelectorAll('.m-mc-cta').forEach(x => x.remove());
+    const wrong = n - score;
+    const ttl = all ? L(`Sitzt. Jetzt wie in der Klausur.`, `Nailed it. Now exam-style.`)
+      : wrong === 1 ? L(`Eine hat dich erwischt – genau so fragen sie in der Klausur.`, `One got you – that’s exactly how exams ask.`)
+      : L(`Genau so kommt ${topic} in der Klausur dran.`, `That’s how ${topic} shows up in the exam.`);
+    const hero = h('div', { class: 'm-mc-hero' },
+      h('span', { class: 'm-mc-heroi', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="m9 13.5 2 2 4-4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>' }),
+      h('span', { class: 'm-mc-herot' }, h('b', {}, ttl), h('small', {}, L(`4 echte Klausuraufgaben zu ${topic} – mit Musterlösung Schritt für Schritt.`, `4 real exam tasks on ${topic} – with step-by-step solutions.`))),
+      h('button', { class: 'm-mc-cta m-mc-herob', type: 'button', onclick: () => { tr('Mini-Check Klausuraufgaben', `${score}/${n} ${getAccount() ? 'Konto' : 'Gast'}`); if (onExam) onExam(); } }, L('Klausuraufgaben starten', 'Start exam tasks'), h('span', { 'aria-hidden': 'true' }, ' →')));
+    sum.append(hero);
     requestAnimationFrame(() => { try { sum.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (x) {} });
   };
   return box;

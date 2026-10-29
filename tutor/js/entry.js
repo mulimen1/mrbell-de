@@ -120,7 +120,7 @@ function guestSignals(c, endEl) {
   const t0 = Date.now();
   setTimeout(() => { if (!getAccount() && document.visibilityState !== 'hidden') tr('Tafel 30 s offen', topic); }, 30000);
   if (endEl && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); tr('Tafel zu Ende gelesen', topic); } }, { root: c.scroller || null, threshold: .3 });
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); c.t._mEnd = 1; tr('Tafel zu Ende gelesen', topic); } }, { root: c.scroller || null, threshold: .3 });
     io.observe(endEl);
   }
   if (!matchMedia('(pointer: fine) and (min-width: 761px)').matches) return;
@@ -132,16 +132,19 @@ function guestSignals(c, endEl) {
     document.removeEventListener('mouseout', onOut);
     tr('Verlassen-Hinweis', topic);
     const { openAuth } = await import('./account.js');
-    // „Du willst schon gehen?“: trauriger Max + die stärksten Gründe zu bleiben (mit Symbolen)
-    const XLS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif">XLS</text></svg>';
-    const row = (icon, b, s) => h('li', {}, h('span', { class: 'xo-i', html: icon }), h('span', {}, h('b', {}, b), h('small', {}, s)));
-    const extra = h('ul', { class: 'xo-list' },
-      row(XLS, L('Excel-Helfer', 'Excel helper'), L('60 Vorlagen + Trainer', '60 templates + trainer')),
-      row(ico('exam'), L('Klausurfragen', 'Exam questions'), L('mit Musterlösung', 'with model answers')),
-      row('<img src="/tutor/img/brands/youtube-color.svg" alt="" width="20" height="20">', L('Video → Lernzettel', 'Video → study sheet'), L('Link rein, fertig', 'Paste a link, done')),
-      row(ico('cards'), L('Karteikarten & Podcast', 'Flashcards & podcast'), L('aus deinen Folien', 'from your slides')));
+    // „Du willst schon gehen?“: trauriger Max + EIN konkretes Angebot passend zu dem, was er gerade gemacht hat
+    const nm = String(c.topic || 'BWL').slice(0, 40);
+    let mc = null; try { mc = JSON.parse(sessionStorage.getItem('tutor.mcScore') || 'null'); } catch (x) {}
+    const sc = mc && mc.n ? mc : null;
+    const [oT, oS] = sc && sc.s === sc.n ? [L(`${sc.s} von ${sc.n} im Mini-Check – jetzt wie in der Klausur`, `${sc.s} of ${sc.n} – now exam-style`), L(`4 echte Klausuraufgaben zu ${nm}, mit Musterlösung Schritt für Schritt.`, `4 real exam tasks on ${nm}, step-by-step solutions.`)]
+      : sc ? [L(`${sc.s} von ${sc.n} im Mini-Check – das holst du in der Klausur`, `${sc.s} of ${sc.n} – fix it before the exam`), L(`4 echte Klausuraufgaben zu ${nm}. Max zeigt dir jeden Schritt.`, `4 real exam tasks on ${nm}. Max shows every step.`)]
+      : c.t._mEnd ? [L(`${nm} verstanden? Prüf dich wie in der Klausur.`, `Got ${nm}? Test yourself exam-style.`), L('4 echte Klausuraufgaben mit Musterlösung – kostenlos.', '4 real exam tasks with solutions – free.')]
+      : [L(`${nm} kommt in der Klausur dran.`, `${nm} will be on the exam.`), L('4 echte Klausuraufgaben mit Musterlösung – kostenlos.', '4 real exam tasks with solutions – free.')];
+    const extra = h('div', { class: 'xo-hero' },
+      h('span', { class: 'xo-heroi', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6a1 1 0 0 1 1 1v1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h2V5a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="m9 13.5 2 2 4-4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>' }),
+      h('span', { class: 'xo-herot' }, h('em', {}, L('Dein nächster Schritt', 'Your next step')), h('b', {}, oT), h('small', {}, oS)));
     const ok = await openAuth({ registerTitle: L('Du willst schon gehen?', 'Leaving already?'), loginTitle: L('Du willst schon gehen?', 'Leaving already?'),
-      registerSub: L('Schade – für dein BWL-/Wiwi-Studium wartet noch so viel. Kostenlos, mit Google in zwei Klicks.', 'Shame – there’s so much more for your studies. Free, two clicks with Google.'), sub: L('Melde dich an – das wartet noch auf dich:', 'Sign in – this is still waiting for you:'), why: 'Verlassen', extra, mood: 'sad' });
+      registerSub: L('Bevor du gehst – das hier lohnt sich:', 'Before you go – this is worth it:'), sub: L('Bevor du gehst – das hier lohnt sich:', 'Before you go – this is worth it:'), why: 'Verlassen', extra, mood: 'smug', lean: true });
     if (ok && getAccount()) { const b = c.t.querySelector('.m-ladcta'); if (b) b.click(); }
   };
   document.addEventListener('mouseout', onOut);
