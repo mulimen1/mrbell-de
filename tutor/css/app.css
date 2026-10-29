@@ -8478,3 +8478,14 @@ html:root[data-nv] body :is(.m-mc-heroi, .xo-heroi) { background: linear-gradien
 .modal.login.lean .lbtn { height: 38px !important; min-height: 38px !important; font-size: 13.5px !important; }
 .modal.login.lean .lstack { gap: 6px !important; }
 .modal.login.lean .lg-g { background: none !important; box-shadow: none !important; } .modal.login.lean .lg-g > div { border-radius: 999px; box-shadow: 0 0 0 2px #8a6cf0, 0 10px 22px -12px #5b3fc4; }
+
+/* Jedes Anmelde-Fenster: Google-Knopf groß und dominant, E-Mail/Passwort kompakt */
+.modal.login .lg-g, .m-rl-gw { --gscale: 1.3; display: grid !important; place-items: center; height: 66px; padding: 0 !important; overflow: visible; background: none !important; box-shadow: none !important; }
+.modal.login .lg-g > div, .m-rl-gw > div { transform: scale(1.3); transform-origin: center; border-radius: 999px; box-shadow: 0 0 0 2px #8a6cf0, 0 10px 22px -12px #5b3fc4; }
+.modal.login .lg-or { margin: 8px 0 6px !important; }
+.modal.login .lstack { gap: 6px !important; }
+.modal.login .lstack .field, .modal.login .lstack input { height: 40px !important; min-height: 40px !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+.modal.login .lbtn { height: 40px !important; min-height: 40px !important; }
+@media (min-width: 761px) { .modal.login .lstack .field, .modal.login .lstack input, .modal.login .lbtn { font-size: 13.5px !important; } }
+.modal.login .lhint { font-size: 12px !important; margin-top: -2px; }
+html:root body .m-rl .m-rl-b.m-rl-mail { background: #fff !important; color: var(--ink) !important; border: 1px solid var(--line2) !important; box-shadow: none !important; height: 44px !important; font-size: 14.5px !important; font-weight: 650 !important; }

@@ -112,7 +112,7 @@ export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong =
         h('div', { class: 'lalt' }, L('Schon ein Konto? ', 'Already have an account? '), link(L('Anmelden', 'Sign in'), () => login())),
         lean ? null : h('div', { class: 'lfine' }, h('span', { html: ico('lock') }), L('Passwort wird verschlüsselt gespeichert. Deine Skripte bleiben auf deinem Gerät.', 'Your password is stored encrypted. Your slides stay on your device.')), lean ? legalNote(false) : legalNote(true));
       if (lean) box.classList.add('lean');   // Verlassen-Fenster: Google + E-Mail bleiben sichtbar, nur ohne Kleingedrucktes
-      fc.set('idle'); if (!lean && !matchMedia('(pointer: coarse)').matches) setTimeout(() => em.focus(), 60);
+      fc.set('idle');   // kein Autofokus aufs E-Mail-Feld: Google soll der erste Blick sein
     };
 
     // ---------- Passwort vergessen ----------
