@@ -8490,3 +8490,23 @@ html:root[data-nv] body :is(.m-mc-heroi, .xo-heroi) { background: linear-gradien
 .modal.login .lhint { font-size: 12px !important; margin-top: -2px; }
 html:root body .m-rl .m-rl-b.m-rl-mail { background: #fff !important; color: var(--ink) !important; border: 1px solid var(--line2) !important; box-shadow: none !important; height: 44px !important; font-size: 14.5px !important; font-weight: 650 !important; }
 html:root body :is(.modal.login, .m-rl) .lterms { font-size: 11px !important; line-height: 1.4 !important; opacity: .65; margin-top: 8px !important; }
+
+/* Mini-Check (Gast): gesperrte Klausuraufgaben als Teaser + „Freigeschaltet“-Liste nach der Anmeldung */
+.m-mc-tease { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; width: 100%; margin-top: 10px; padding: 12px 14px; border-radius: 16px; border: 1.5px dashed #b9a8f5; background: linear-gradient(180deg, #f6f2ff, #fff); text-align: left; cursor: pointer; font: inherit; color: var(--ink); transition: border-color .15s, transform .15s; }
+.m-mc-tease:hover { border-color: #6a4ee0; transform: translateY(-1px); }
+.m-mc-teasei { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: linear-gradient(135deg, #9b7cf0, #5b3fc4); color: #fff; }
+html:root body .m-mc-teasei .ico { width: 17px !important; height: 17px !important; color: #fff !important; stroke: #fff !important; border: 0 !important; background: none !important; padding: 0 !important; }
+.m-mc-teaset { display: grid; gap: 2px; } .m-mc-teaset b { font-size: 14.5px; color: #4a30b0; } .m-mc-teaset small { font-size: 12.5px; color: var(--mute); }
+.m-mc-teasel { display: grid; gap: 4px; width: 90px; filter: blur(1.5px); opacity: .7; } .m-mc-teasel i { height: 6px; border-radius: 3px; background: #cfc3f7; } .m-mc-teasel i:nth-child(2) { width: 75%; } .m-mc-teasel i:nth-child(3) { width: 55%; }
+@media (max-width: 520px) { .m-mc-teasel { display: none; } .m-mc-tease { grid-template-columns: auto 1fr; } }
+.m-mc-unl { margin-top: 12px; padding: 14px 16px; border-radius: 18px; background: linear-gradient(180deg, #eafaf1, #fff); border: 1.5px solid #9fe0bd; animation: mcHero .5s cubic-bezier(.2,.9,.3,1.2) both; }
+.m-mc-unlh { margin: 0 0 8px; font-size: 14.5px; } .m-mc-unlh b { color: #128a4f; }
+.m-mc-unl ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.m-mc-unl li { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; line-height: 1.35; } .m-mc-unl li > span:last-child { display: grid; } .m-mc-unl li small { color: var(--mute); font-size: 12.5px; }
+.m-mc-uk { flex: none; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: #16a05c; color: #fff; font-size: 11px; font-weight: 800; margin-top: 1px; }
+html:root[data-theme="dark"] .m-mc-unl { background: #10261a; border-color: #1f6b44; } html:root[data-theme="dark"] .m-mc-tease { background: #1d1733; }
+html:root body .m-mc-teasei { background: linear-gradient(135deg, #9b7cf0, #5b3fc4) !important; }
+html:root[data-nv] body .m-mc-teasei svg.ico, html:root[data-nv] body .m-mc-teasei svg.ico * { stroke: #fff !important; fill: none !important; color: #fff !important; border: 0 !important; }
+.m-mc-unl { width: 100%; box-sizing: border-box; }
+.m-mc-unl ul { grid-template-columns: 1fr 1fr; column-gap: 16px; }
+@media (max-width: 560px) { .m-mc-unl ul { grid-template-columns: 1fr; } }

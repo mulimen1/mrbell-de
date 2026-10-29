@@ -34,7 +34,7 @@
   function conv(label) { if (!ADS.id || !label || !ok()) return; ads(); try { window.gtag('event', 'conversion', { send_to: ADS.id + '/' + label }); } catch (e) {} }
   var sent = {};
   // Ohne Einwilligung: nur die reine Anzahl dieser Trichter-Schritte – ohne Cookie, ohne Kennung, ohne Ort
-  var ANON = ['Google-Knopf fehlt', 'Mini-Check Klausuraufgaben', 'Führung gestartet', 'Führung abgeschlossen', 'Führung abgebrochen', 'Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Rückkehrer-Hinweis', 'Rückkehrer-Hinweis geklickt', 'Lernseite geöffnet', 'Lernseite Karte', 'Lernseite Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt', 'Länger als 30 Sekunden', 'Gehirn-Seite geöffnet', 'Design-Feedback', 'Design gewechselt'];
+  var ANON = ['Mini-Check Auflösung geklickt', 'Google-Knopf fehlt', 'Mini-Check Klausuraufgaben', 'Führung gestartet', 'Führung abgeschlossen', 'Führung abgebrochen', 'Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Rückkehrer-Hinweis', 'Rückkehrer-Hinweis geklickt', 'Lernseite geöffnet', 'Lernseite Karte', 'Lernseite Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt', 'Länger als 30 Sekunden', 'Gehirn-Seite geöffnet', 'Design-Feedback', 'Design gewechselt'];
   function track(ereignis, detail, once) {
     if (!ok()) {
       if (ANON.indexOf(ereignis) < 0 || /(?:^|;\s*)mb_intern=1/.test(document.cookie)) return;

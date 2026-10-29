@@ -45,7 +45,7 @@ function build(c, set, { onExam } = {}, box) {
     return { el, btns, why };
   });
   box.append(
-    h('div', { class: 'm-mc-h' }, h('b', {}, L('Mini-Check: Hast du’s verstanden?', 'Mini check: did it click?')), h('small', {}, L('3 Fragen · 30 Sekunden · mit Erklärung', '3 questions · 30 seconds · explained'))),
+    h('div', { class: 'm-mc-h' }, h('b', {}, L('Mini-Check: Hast du’s verstanden?', 'Mini check: did it click?')), h('small', {}, getAccount() ? L('3 Fragen · 30 Sekunden', '3 questions · 30 seconds') : L('3 Fragen · Ergebnis sofort', '3 questions · score instantly'))),
     ...items.map(x => x.el), h('div', { class: 'm-mc-f' }, go), sum);
   // Auflösung: welche richtig/falsch war, die richtige Antwort und warum
   const reveal = () => {
@@ -61,8 +61,9 @@ function build(c, set, { onExam } = {}, box) {
     });
     sum.querySelectorAll('.m-mc-lock, .m-mc-hint').forEach(x => x.remove());
   };
+  let afterUnlock = () => reveal();
   // Gast meldet sich irgendwo an (auch über Klausurfragen) → Auflösung sofort da
-  const off = onAccount(a => { if (a && box.dataset.g === '1' && box.classList.contains('done') && !box.classList.contains('open') && box.isConnected) { reveal(); setTimeout(() => { try { box.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 350); try { off && off(); } catch (x) {} } });
+  const off = onAccount(a => { if (a && box.dataset.g === '1' && box.classList.contains('done') && !box.classList.contains('open') && box.isConnected) { afterUnlock(); try { off && off(); } catch (x) {} } });
   const unlock = async (title, sub, why) => {
     const { openAuth } = await import('./account.js');
     const ok = await openAuth({ registerTitle: title, registerSub: sub, why });
@@ -81,19 +82,43 @@ function build(c, set, { onExam } = {}, box) {
       all ? L('Stark – das sitzt.', 'Strong – that sticks.') : n - score === 1 ? L('Fast. Eine hat dich erwischt.', 'Close. One got you.') : score ? L('Zwei haben dich erwischt.', 'Two got you.') : L('Gut, dass das jetzt passiert und nicht in der Klausur.', 'Better now than in the exam.'));
     sum.replaceChildren(head); sum.hidden = false;
     try { c.note(`[Mini-Check auf der Themenseite: ${score} von ${n} richtig]`); } catch (x) {}
-    // Auflösung für alle sofort frei (richtig/falsch, richtige Antwort, Erklärung) – dann ein klarer nächster Schritt: echte Klausuraufgaben
-    if (all) { box.classList.add('all'); head.prepend(h('span', { class: 'm-mc-all' }, '✓')); }
-    reveal();
-    sum.querySelectorAll('.m-mc-cta').forEach(x => x.remove());
     const wrong = n - score;
-    const ttl = all ? L(`Sitzt. Jetzt wie in der Klausur.`, `Nailed it. Now exam-style.`)
-      : wrong === 1 ? L(`Eine hat dich erwischt – genau so fragen sie in der Klausur.`, `One got you – that’s exactly how exams ask.`)
-      : L(`Genau so kommt ${topic} in der Klausur dran.`, `That’s how ${topic} shows up in the exam.`);
-    const hero = h('div', { class: 'm-mc-hero' },
+    const heroFor = () => h('div', { class: 'm-mc-hero' },
       h('span', { class: 'm-mc-heroi', html: ico('exam') }),
-      h('span', { class: 'm-mc-herot' }, h('b', {}, ttl), h('small', {}, L(`4 echte Klausuraufgaben zu ${topic} – mit Musterlösung Schritt für Schritt.`, `4 real exam tasks on ${topic} – with step-by-step solutions.`))),
+      h('span', { class: 'm-mc-herot' }, h('b', {}, all ? L('Sitzt. Jetzt wie in der Klausur.', 'Nailed it. Now exam-style.') : wrong === 1 ? L('Eine hat dich erwischt – genau so fragen sie in der Klausur.', 'One got you – that’s exactly how exams ask.') : L(`Genau so kommt ${topic} in der Klausur dran.`, `That’s how ${topic} shows up in the exam.`)),
+        h('small', {}, L(`4 echte Klausuraufgaben zu ${topic} – mit Musterlösung Schritt für Schritt.`, `4 real exam tasks on ${topic} – with step-by-step solutions.`))),
       h('button', { class: 'm-mc-cta m-mc-herob', type: 'button', onclick: () => { tr('Mini-Check Klausuraufgaben', `${score}/${n} ${getAccount() ? 'Konto' : 'Gast'}`); if (onExam) onExam(); } }, L('Klausuraufgaben starten', 'Start exam tasks'), h('span', { 'aria-hidden': 'true' }, ' →')));
-    sum.append(hero);
+    // Nach der Anmeldung: Auflösung da + „Das hast du gerade freigeschaltet“ + direkt weiter zu den Klausuraufgaben
+    afterUnlock = () => {
+      if (box.dataset.unl) return; box.dataset.unl = '1';
+      reveal();
+      sum.querySelectorAll('.m-mc-lock, .m-mc-hint, .m-mc-tease, .m-mc-hero, .m-mc-cta').forEach(x => x.remove());
+      const it = (t, s2) => h('li', {}, h('span', { class: 'm-mc-uk' }, '✓'), h('span', {}, h('b', {}, t), s2 ? h('small', {}, s2) : null));
+      sum.append(h('div', { class: 'm-mc-unl' },
+        h('p', { class: 'm-mc-unlh' }, h('b', {}, L('Freigeschaltet.', 'Unlocked.')), ' ', L('Das gehört jetzt alles dir – kostenlos:', 'All of this is yours now – free:')),
+        h('ul', {}, it(L('Deine Auflösung', 'Your answers'), L('oben – mit Erklärung zu jeder Frage', 'above – every question explained')),
+          it(L(`Klausuraufgaben zu ${topic}`, `Exam tasks on ${topic}`), L('mit Musterlösung Schritt für Schritt', 'step-by-step solutions')),
+          it(L('Karteikarten & Podcast', 'Flashcards & podcast'), L('aus deinen eigenen Folien', 'from your own slides')),
+          it(L('Excel-Helfer', 'Excel helper'), L('60 geprüfte Vorlagen + Trainer', '60 checked templates + trainer')),
+          it(L('Deine Bibliothek', 'Your library'), L('alles, was Max dir baut, bleibt gespeichert', 'everything Max builds stays saved')))), heroFor());
+      setTimeout(() => { try { box.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 350);
+    };
+    // Angemeldet oder alles richtig: Auflösung sofort, dann die Klausuraufgaben
+    if (all) { box.classList.add('all'); head.prepend(h('span', { class: 'm-mc-all' }, '✓')); }
+    if (getAccount() || all) {
+      reveal(); sum.querySelectorAll('.m-mc-cta').forEach(x => x.remove()); sum.append(heroFor());
+      requestAnimationFrame(() => { try { sum.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (x) {} });
+      return;
+    }
+    // Gast mit Fehlern: Ergebnis ja, Auflösung + Klausuraufgaben erst mit kostenlosem Konto (ein Klick auf Google)
+    items.forEach((x, i) => { x.btns[qs[i].pick].classList.add('ok'); x.why.textContent = qs[i].why; x.why.hidden = false; x.why.classList.add('blur'); });
+    sum.append(h('p', { class: 'm-mc-hint' }, L('Welche falsch war – und warum – siehst du mit kostenlosem Konto.', 'Which one was wrong – and why – with a free account.')));
+    const open = async () => { tr('Mini-Check Auflösung geklickt', `${score}/${n}`); if (getAccount() || await unlock(L('Sieh deine Auflösung', 'See your answers'), L(`Kostenlos mit Google. Danach siehst du, welche falsch war und warum – plus 4 Klausuraufgaben zu ${topic}.`, `Free with Google. Then see which was wrong and why – plus 4 exam tasks on ${topic}.`), 'Mini-Check')) afterUnlock(); };
+    sum.append(h('button', { class: 'm-mc-cta m-mc-lock', type: 'button', onclick: open }, L('Auflösung ansehen', 'See the answers')),
+      h('button', { class: 'm-mc-tease', type: 'button', onclick: open },
+        h('span', { class: 'm-mc-teasei', html: ico('lock') }),
+        h('span', { class: 'm-mc-teaset' }, h('b', {}, L(`+ 4 Klausuraufgaben zu ${topic}`, `+ 4 exam tasks on ${topic}`)), h('small', {}, L('mit Musterlösung – gibt’s mit demselben Klick dazu', 'with solutions – included with the same click'))),
+        h('span', { class: 'm-mc-teasel', 'aria-hidden': 'true' }, h('i'), h('i'), h('i'))));
     requestAnimationFrame(() => { try { sum.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (x) {} });
   };
   return box;
