@@ -147,7 +147,8 @@ async function exam(wrap, ctx) {
 
 function run(wrap, ctx, quiz) {
   const { doc } = ctx;
-  const qs = quiz.questions;
+  // Rechenaufgaben nochmal gegen den Rechenweg prüfen (auch bei älteren, schon gespeicherten Quizzes)
+  const qs = quiz.questions = quiz.questions.map(q => q && q.type === 'num' ? (normalize(q) || q) : q);
   let i = 0;
   const res = [];
   const prog = h('i', { style: { width: '0%' } });

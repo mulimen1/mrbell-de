@@ -171,6 +171,8 @@ async function lesson(wrap, ctx, idx) {
     if (pos < les.slides.length) {
       const s = les.slides[pos];
       const t = h('div', { class: 'tafel' }, s.title ? h('h2', { class: 'tt' }, s.title) : null); t.appendChild(sanitize(s.html));
+      // Überschrift nicht doppelt: steht der Folientitel nochmal als erste Überschrift im Inhalt, fliegt die raus
+      { const n = (x => String(x || '').replace(/\s+/g, ' ').trim().toLowerCase()); const fh = t.querySelector(':is(h1,h2,h3,h4):not(.tt)'); if (s.title && fh && n(fh.textContent) === n(s.title)) fh.remove(); }
       const chk = h('div', { class: 'lcheck' });
       const slide = h('div', { class: 'lslide' }, t, chk);
       stage.replaceChildren(bar, slide);

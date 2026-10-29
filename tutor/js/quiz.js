@@ -9,6 +9,11 @@ import { L } from './i18n.js';
 export const TYPE_LABEL = L({ mc: 'Multiple Choice', tf: 'Richtig oder falsch', match: 'Zuordnen', order: 'Reihenfolge', cloze: 'Lückentext', num: 'Rechenaufgabe' }, { mc: 'Multiple choice', tf: 'True or false', match: 'Matching', order: 'Ordering', cloze: 'Fill in the blanks', num: 'Calculation' });
 const KEYS = 'ABCDEFGH';
 
+// letzte Zahl nach dem letzten „=“ im Rechenweg (deutsche oder englische Schreibweise, ohne LaTeX-Reste)
+const plainSol = s => String(s || '').replace(/\\[()\[\]]/g, ' ').replace(/\\(?:text|mathrm)\{([^}]*)\}/g, '$1').replace(/\\frac\{([^}]*)\}\{([^}]*)\}/g, '($1)/($2)').replace(/\{,\}/g, ',').replace(/\\[a-z]+/gi, ' ').replace(/[{}]/g, '');
+const numIn = t => { const m = String(t).match(/-?\d{1,3}(?:[.\s]\d{3})+(?:,\d+)?|-?\d+(?:[.,]\d+)?/g); return m ? m.map(x => parseNum(x.replace(/\s/g, ''))).filter(isFinite) : []; };
+function solFinal(sol) { const t = plainSol(sol); const i = t.lastIndexOf('='); if (i < 0) return NaN; const n = numIn(t.slice(i + 1).split('\n')[0]); return n.length ? n[0] : NaN; }
+function solHas(sol, a) { return numIn(plainSol(sol)).some(x => Math.abs(x - a) <= Math.max(.011, Math.abs(a) * .001)); }
 export function normalize(q) {
   if (!q || typeof q !== 'object') return null;
   const t = q.type;
@@ -28,7 +33,13 @@ export function normalize(q) {
       if (!n || !blanks.length) return null;
       return { ...q, blanks: blanks.slice(0, n), distractors: (q.distractors || []).map(String) };
     }
-    if (t === 'num') { const a = typeof q.answer === 'number' ? q.answer : parseNum(q.answer); return isFinite(a) ? { ...q, answer: a } : null; }
+    if (t === 'num') {
+      let a = typeof q.answer === 'number' ? q.answer : parseNum(q.answer);
+      // Gegenprobe mit dem Rechenweg: steht am Ende ein anderes Ergebnis und die „Lösung“ ist nur ein Zwischenergebnis, gilt das Endergebnis
+      const fin = solFinal(q.solution);
+      if (isFinite(fin) && isFinite(a) && Math.abs(fin - a) > Math.max(.011, Math.abs(fin) * .01) && solHas(q.solution, a) && ![100, .01, 1000, .001].some(k => Math.abs(fin - a * k) <= Math.abs(fin) * .005)) a = fin;
+      return isFinite(a) ? { ...q, answer: a } : null;
+    }
   } catch (e) {}
   return null;
 }

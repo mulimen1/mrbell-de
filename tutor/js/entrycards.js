@@ -37,7 +37,7 @@ export function entryTools(topic, { mobile = false, ask = null } = {}) {
   // kleine Vorschau: so sieht der Excel-Helfer aus (Formel + Zellen)
   const xlPrev = h('span', { class: 'rm-xlp', 'aria-hidden': 'true' },
     h('span', { class: 'rm-xlf' }, h('i', {}, 'fx'), '=NBW(8%;B2:B6)+B1'),
-    h('span', { class: 'rm-xlg' }, ...['1', 'Invest', '-50.000', '2', 'Kapitalwert', '5.312 €'].map((x, i) => h('i', { class: (i % 3 === 0 ? 'hd' : '') + (i === 5 ? ' hit' : '') }, x))));
+    h('span', { class: 'rm-xlg' }, ...['1', 'Invest', '-50.000', '2', 'Kapitalwert', '5.898 €'].map((x, i) => h('i', { class: (i % 3 === 0 ? 'hd' : '') + (i === 5 ? ' hit' : '') }, x))));
   // Vorschau: Video läuft durch → zack, fertiger Lernzettel (Endlosschleife)
   const vidPrev = h('span', { class: 'rm-vdp', 'aria-hidden': 'true' },
     h('span', { class: 'rm-vdv' }, h('span', { class: 'rm-vdpl' }), h('span', { class: 'rm-vdbar' }, h('i'))),

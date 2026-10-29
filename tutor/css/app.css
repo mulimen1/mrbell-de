@@ -8316,3 +8316,11 @@ html[data-nv] .pst-script .script { border: 0 !important; background: transparen
 html[data-nv] .pstat-st { display: inline-block; background: #fff; padding: 4px 10px; border-radius: 8px; }
 html[data-nv] .bk-via { background: rgba(255,255,255,.92); box-shadow: 0 0 0 1px rgba(0,0,0,.04); }
 html[data-nv] .deckstats { width: fit-content; margin-left: auto; margin-right: auto; background: #fff; padding: 4px 12px; border-radius: 99px; }
+/* Richtig = grün, falsch = rot – überall gleich (Quiz, Lektion, Lernpfad) */
+html:root[data-nv][data-nv][data-nv] body .opt.right, html:root[data-nv][data-nv][data-nv] body .opt.right::before { background: linear-gradient(135deg, #4cc38a, #1c7a47) !important; border-color: #1c7a47 !important; color: #fff !important; }
+html:root[data-nv][data-nv][data-nv] body .opt.right .key { border-color: rgba(255,255,255,.7) !important; color: #fff !important; background: rgba(255,255,255,.18) !important; }
+html:root[data-nv][data-nv][data-nv] body .opt.right .why { color: rgba(255,255,255,.9) !important; }
+html:root[data-nv][data-nv][data-nv] body .opt.right::after { border-color: #1c7a47 !important; }
+html:root[data-nv][data-nv][data-nv] body .opt.wrong { background: #fff1f2 !important; border: 1.5px solid #f3a7ae !important; color: #8f1d2c !important; opacity: 1 !important; }
+html:root[data-nv][data-nv][data-nv] body .opt.wrong .key { border-color: #c22f3d !important; color: #c22f3d !important; }
+html:has(.modal-bg) .made-chip, html:has(.ks-modal) .made-chip { display: none !important; }
