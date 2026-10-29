@@ -42,8 +42,8 @@
   "fehler": [
     "Bei den kalkulatorischen Zinsen wird der Restwert vergessen oder abgezogen. Richtig ist \\( \\frac{\\text{Anschaffungskosten} + \\text{Restwert}}{2} \\cdot \\text{Zinssatz} \\), weil der Restwert über die gesamte Nutzungsdauer gebunden bleibt.",
     "Bei der Abschreibung wird der Restwert nicht abgezogen. Abgeschrieben wird nur \\( (\\text{Anschaffungskosten} - \\text{Restwert}) \\) über die Nutzungsdauer.",
-    "Bei unterschiedlichen Ausbringungsmengen werden die Gesamtkosten pro Periode verglichen. Dann musst du die Stückkosten vergleichen, sonst gewinnt automatisch die Anlage mit der kleineren Menge.",
-    "Die kritische Menge wird mit vertauschten Differenzen berechnet und kommt negativ heraus. Rechne die Fixkostendifferenz durch die Differenz der variablen Stückkosten und nimm jeweils „größerer minus kleinerer Wert“ – dann ist das Ergebnis positiv.",
+    "Bei unterschiedlichen Ausbringungsmengen werden die Gesamtkosten pro Periode verglichen. Dann musst du die Stückkosten vergleichen (vergleichbare Leistungen und geeignete Auslastungsannahmen vorausgesetzt), sonst gewinnt automatisch die Anlage mit der kleineren Menge. Unterscheiden sich tatsächlich Absatzmengen oder Erlöse, braucht es eine Gewinn- bzw. Zahlungsüberschussbetrachtung.",
+    "Die kritische Menge wird mit vertauschten Differenzen berechnet und kommt negativ heraus. Verwende die Differenzen konsistent: \\( x_{\\text{krit}} = \\frac{K_{f,B} - K_{f,A}}{k_{v,A} - k_{v,B}} \\) (Fixkostendifferenz durch Differenz der variablen Stückkosten, jeweils in derselben Reihenfolge von B und A). Ein negatives Ergebnis bedeutet, dass es keinen Schnittpunkt bei \\( x \\ge 0 \\) gibt; ein Nenner von null ist gesondert zu prüfen.",
     "Die Kostenvergleichsrechnung wird zur Beurteilung einer einzelnen Investition genutzt. Sie liefert nur einen relativen Vergleich, nie die Aussage, ob sich eine Investition überhaupt lohnt."
   ],
   "faq": [
@@ -65,7 +65,7 @@
     },
     {
       "q": "Soll man Gesamtkosten oder Stückkosten vergleichen?",
-      "a": "Bei gleicher Ausbringungsmenge führen beide zum selben Ergebnis. Bei unterschiedlichen Mengen musst du die Stückkosten vergleichen."
+      "a": "Bei gleicher Ausbringungsmenge führen beide zum selben Ergebnis. Bei unterschiedlichen Ausbringungsmengen vergleichst du die Stückkosten, wenn die Leistungen vergleichbar sind und Auslastungsannahmen vorliegen; unterscheiden sich tatsächlich Absatzmengen oder Erlöse, ist eine Gewinn- bzw. Zahlungsüberschussbetrachtung nötig."
     }
   ],
   "quiz": [

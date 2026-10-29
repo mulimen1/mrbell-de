@@ -4,7 +4,7 @@
  "title": "Portfoliotheorie nach Markowitz – Diversifikation erklärt",
  "meta": "Portfoliotheorie nach Markowitz verständlich: Rendite, Risiko, Korrelation, Diversifikation, Minimum-Varianz-Portfolio – mit Rechenbeispiel.",
  "h1": "Portfoliotheorie nach Markowitz einfach erklärt",
- "kurz": "Die Portfoliotheorie nach Harry Markowitz zeigt, wie Anleger Wertpapiere kombinieren, um für ein gegebenes Risiko die höchste erwartete Rendite zu erzielen. Kern ist die Diversifikation: Solange die Korrelation der Renditen kleiner als 1 ist, ist das Portfoliorisiko geringer als der gewichtete Durchschnitt der Einzelrisiken.",
+ "kurz": "Die Portfoliotheorie nach Harry Markowitz zeigt, wie Anleger Wertpapiere kombinieren, um für ein gegebenes Risiko die höchste erwartete Rendite zu erzielen. Kern ist die Diversifikation: Solange die Korrelation der Renditen kleiner als 1 ist (bei positiven Gewichten und Volatilitäten), ist das Portfoliorisiko geringer als der gewichtete Durchschnitt der Einzelrisiken.",
  "keywords": [
   "portfoliotheorie",
   "diversifikation",
@@ -22,7 +22,7 @@
   },
   {
    "h2": "Welche Formeln brauchst du für zwei Wertpapiere?",
-   "html": "<p>Bei zwei Anlagen A und B mit den Anteilen \\( w_A \\) und \\( w_B = 1 - w_A \\) gilt für die erwartete Rendite einfach der gewichtete Durchschnitt:</p><div class=\"formel\">\\[ \\mu_P = w_A \\cdot \\mu_A + w_B \\cdot \\mu_B \\]</div><p>Beim Risiko ist das nicht so. Die Varianz enthält einen Zusatzterm mit dem Korrelationskoeffizienten \\( \\rho_{AB} \\):</p><div class=\"formel\">\\[ \\sigma_P^2 = w_A^2 \\sigma_A^2 + w_B^2 \\sigma_B^2 + 2\\, w_A w_B\\, \\rho_{AB}\\, \\sigma_A \\sigma_B \\]\\[ \\sigma_P = \\sqrt{\\sigma_P^2} \\]</div><p>Der Ausdruck \\( \\rho_{AB} \\sigma_A \\sigma_B \\) ist die Kovarianz \\( \\text{Cov}(A,B) \\). Die <a href=\"/lernen/korrelation\">Korrelation</a> liegt zwischen −1 und +1 und entscheidet, wie viel Diversifikation bringt. Das Portfolio mit dem kleinsten Risiko, das <strong>Minimum-Varianz-Portfolio (MVP)</strong>, findest du mit:</p><div class=\"formel\">\\[ w_A^{\\text{MVP}} = \\frac{\\sigma_B^2 - \\rho_{AB}\\,\\sigma_A \\sigma_B}{\\sigma_A^2 + \\sigma_B^2 - 2\\,\\rho_{AB}\\,\\sigma_A \\sigma_B} \\]</div>"
+   "html": "<p>Bei zwei Anlagen A und B mit den Anteilen \\( w_A \\) und \\( w_B = 1 - w_A \\) gilt für die erwartete Rendite einfach der gewichtete Durchschnitt:</p><div class=\"formel\">\\[ \\mu_P = w_A \\cdot \\mu_A + w_B \\cdot \\mu_B \\]</div><p>Beim Risiko ist das nicht so. Die Varianz enthält einen Zusatzterm mit dem Korrelationskoeffizienten \\( \\rho_{AB} \\):</p><div class=\"formel\">\\[ \\sigma_P^2 = w_A^2 \\sigma_A^2 + w_B^2 \\sigma_B^2 + 2\\, w_A w_B\\, \\rho_{AB}\\, \\sigma_A \\sigma_B \\]\\[ \\sigma_P = \\sqrt{\\sigma_P^2} \\]</div><p>Der Ausdruck \\( \\rho_{AB} \\sigma_A \\sigma_B \\) ist die Kovarianz \\( \\text{Cov}(A,B) \\). Die <a href=\"/lernen/korrelation\">Korrelation</a> liegt zwischen −1 und +1 und entscheidet, wie viel Diversifikation bringt. Das Portfolio mit dem kleinsten Risiko, das <strong>Minimum-Varianz-Portfolio (MVP)</strong>, findest du mit:</p><div class=\"formel\">\\[ w_A^{\\text{MVP}} = \\frac{\\sigma_B^2 - \\rho_{AB}\\,\\sigma_A \\sigma_B}{\\sigma_A^2 + \\sigma_B^2 - 2\\,\\rho_{AB}\\,\\sigma_A \\sigma_B} \\]</div><p>Die Diversifikationsaussagen auf dieser Seite setzen positive Volatilitäten und nichtnegative Gewichte mit Summe 1 voraus. Die MVP-Formel liefert das unbeschränkte Optimum; bei Leerverkaufsverbot musst du sie auf zulässige Gewichte (0 bis 100 %) begrenzen.</p>"
   },
   {
    "h2": "Beispiel: Aktienfonds und Anleihefonds kombinieren",
@@ -34,11 +34,11 @@
   },
   {
    "h2": "Was ist die Effizienzlinie?",
-   "html": "<p>Trägst du alle möglichen Mischungen in ein Diagramm mit \\( \\sigma \\) auf der x-Achse und \\( \\mu \\) auf der y-Achse ein, entsteht eine nach links gewölbte Kurve. Ihr linkester Punkt ist das MVP. Der Teil <strong>oberhalb</strong> des MVP heißt <strong>Effizienzlinie</strong> (Efficient Frontier): Hier gibt es kein Portfolio, das bei gleichem Risiko mehr Rendite bietet. Alle Punkte unterhalb des MVP sind ineffizient, denn zu jedem gibt es ein Portfolio mit gleichem Risiko und höherer Rendite.</p><p>Welches effiziente Portfolio ein Anleger wählt, hängt von seiner Risikoneigung ab. Die Theorie sagt nur, welche Portfolios <em>nicht</em> gewählt werden sollten. Nimmt man eine risikolose Anlage hinzu, etwa zu 2 %, wird die Wahl eindeutiger: Optimal ist das riskante Portfolio mit der höchsten Sharpe-Ratio \\( \\frac{\\mu_P - r_f}{\\sigma_P} \\). Im Beispiel hat das 50/50-Portfolio \\( \\frac{6\\,\\% - 2\\,\\%}{12{,}04\\,\\%} \\approx 0{,}33 \\), das MVP nur \\( \\frac{4{,}57\\,\\% - 2\\,\\%}{9{,}56\\,\\%} \\approx 0{,}27 \\). Daraus entsteht die Kapitalmarktlinie, auf der das <a href=\"/lernen/capm\">CAPM</a> aufbaut.</p>"
+   "html": "<p>Trägst du alle möglichen Mischungen in ein Diagramm mit \\( \\sigma \\) auf der x-Achse und \\( \\mu \\) auf der y-Achse ein, entsteht eine nach links gewölbte Kurve. Ihr linkester Punkt ist das MVP. Der Teil <strong>ab dem MVP nach oben</strong> (das MVP eingeschlossen) heißt <strong>Effizienzlinie</strong> (Efficient Frontier): Ein Portfolio ist effizient, wenn kein anderes mindestens dieselbe erwartete Rendite bei höchstens demselben Risiko bietet und dabei in mindestens einer Größe besser ist. Alle Punkte unterhalb des MVP sind ineffizient, denn zu jedem gibt es ein Portfolio mit gleichem Risiko und höherer Rendite.</p><p>Welches effiziente Portfolio ein Anleger wählt, hängt von seiner Risikoneigung ab. Die Theorie sagt nur, welche Portfolios <em>nicht</em> gewählt werden sollten. Nimmt man eine risikolose Anlage hinzu, etwa zu 2 %, wird die Wahl eindeutiger: Optimal ist das riskante Portfolio mit der höchsten Sharpe-Ratio \\( \\frac{\\mu_P - r_f}{\\sigma_P} \\). Im Beispiel hat das 50/50-Portfolio \\( \\frac{6\\,\\% - 2\\,\\%}{12{,}04\\,\\%} \\approx 0{,}33 \\), das MVP nur \\( \\frac{4{,}57\\,\\% - 2\\,\\%}{9{,}56\\,\\%} \\approx 0{,}27 \\). Daraus entsteht die Kapitalmarktlinie, auf der das <a href=\"/lernen/capm\">CAPM</a> aufbaut.</p>"
   },
   {
    "h2": "Systematisches und unsystematisches Risiko",
-   "html": "<p>Mit vielen Wertpapieren sinkt das Portfoliorisiko immer weiter, aber nicht auf null. Übrig bleibt das <strong>systematische Risiko</strong> (Marktrisiko): Konjunktur, Zinsen, Krisen treffen alle Anlagen gleichzeitig. Wegdiversifizieren lässt sich nur das <strong>unsystematische Risiko</strong> (unternehmensspezifisch), etwa ein Produktrückruf oder ein Managementfehler.</p><p>Daraus folgt eine wichtige Konsequenz, die das CAPM aufgreift: Der Markt bezahlt nur für systematisches Risiko. Wer unsystematisches Risiko trägt, obwohl er es kostenlos wegdiversifizieren könnte, bekommt dafür keine Prämie.</p>"
+   "html": "<p>Durch geeignete Streuung auf viele Wertpapiere sinkt das unsystematische Risiko, das Portfoliorisiko aber nicht auf null. Die bloße Aufnahme weiterer Wertpapiere garantiert keine Risikosenkung: Ein hochvolatiles oder stark korreliertes Papier kann das Risiko sogar erhöhen. Übrig bleibt das <strong>systematische Risiko</strong> (Marktrisiko): Konjunktur, Zinsen, Krisen treffen alle Anlagen gleichzeitig. Wegdiversifizieren lässt sich nur das <strong>unsystematische Risiko</strong> (unternehmensspezifisch), etwa ein Produktrückruf oder ein Managementfehler.</p><p>Daraus folgt eine wichtige Konsequenz, die das CAPM aufgreift: Der Markt bezahlt nur für systematisches Risiko. Wer unsystematisches Risiko trägt, obwohl er es kostenlos wegdiversifizieren könnte, bekommt dafür keine Prämie.</p>"
   },
   {
    "h2": "Kritik und Einordnung",
@@ -50,7 +50,7 @@
   "Prozentwerte falsch quadrieren: 20 % zum Quadrat ist 0,04 (als Dezimalzahl) und nicht 400. Rechne konsequent in Dezimalzahlen und wandle erst am Ende zurück.",
   "Den Faktor 2 im Kovarianzterm vergessen: Der Term \\( 2\\, w_A w_B \\rho \\sigma_A \\sigma_B \\) taucht doppelt auf, weil A mit B und B mit A zusammenwirken.",
   "Am Ende die Wurzel vergessen: Die Formel liefert die Varianz. Gefragt ist meist die Standardabweichung, also \\( \\sqrt{\\sigma_P^2} \\).",
-  "Das risikoärmste Einzelpapier für effizient halten: Ein Portfolio aus nur der risikoärmsten Anlage liegt bei \\( \\rho < \\frac{\\sigma_B}{\\sigma_A} \\) unterhalb des MVP und ist ineffizient."
+  "Das risikoärmste Einzelpapier für effizient halten: Ein Portfolio aus nur der risikoärmsten Anlage B liegt bei \\( \\rho < \\frac{\\sigma_B}{\\sigma_A} \\) und \\( \\mu_A \\ge \\mu_B \\) unterhalb des MVP und ist ineffizient: Eine Beimischung von A senkt das Risiko und erhöht (oder hält) die erwartete Rendite. Ist \\( \\mu_A < \\mu_B \\), bleibt das reine B-Portfolio dagegen effizient; auch Anlagebeschränkungen sind zu prüfen."
  ],
  "faq": [
   {
@@ -95,7 +95,7 @@
     "Auf ihr ist die Korrelation immer −1"
    ],
    "r": 1,
-   "e": "Effizient sind die Portfolios oberhalb des MVP: Zu ihnen gibt es kein Portfolio mit gleichem Risiko und höherer Rendite."
+   "e": "Effizient sind die Portfolios ab dem MVP nach oben (das MVP eingeschlossen): Zu ihnen gibt es kein Portfolio mit gleichem Risiko und höherer Rendite."
   },
   {
    "q": "Welches Risiko lässt sich durch Diversifikation beseitigen?",

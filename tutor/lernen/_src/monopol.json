@@ -22,7 +22,7 @@
   },
   {
    "h2": "Wie bestimmt der Monopolist Preis und Menge?",
-   "html": "<p>Der Monopolist maximiert seinen Gewinn \\( G(x) = E(x) - K(x) \\). Leitest du nach der Menge ab und setzt null, erhältst du die zentrale Bedingung:</p><div class=\"formel\">\\[ GE(x) = GK(x) \\]</div><p>Der <strong>Grenzerlös</strong> GE ist der zusätzliche Erlös aus einer weiteren Einheit, die <a href=\"/lernen/grenzkosten\">Grenzkosten</a> GK sind die zusätzlichen Kosten. Solange eine weitere Einheit mehr Erlös als Kosten bringt, lohnt sie sich.</p><p>Der Knackpunkt: Beim Monopolisten ist der Grenzerlös <strong>kleiner als der Preis</strong>. Will er eine Einheit mehr verkaufen, muss er den Preis senken, und zwar für alle Einheiten, nicht nur für die zusätzliche. Bei einer linearen Preis-Absatz-Funktion gilt:</p><div class=\"formel\">\\[ p(x) = a - b x \\quad \\Rightarrow \\quad E(x) = a x - b x^2 \\quad \\Rightarrow \\quad GE(x) = a - 2 b x \\]</div><p>Die Grenzerlöskurve hat also dieselbe Achsenschnittstelle wie die Preis-Absatz-Funktion, aber die <strong>doppelte Steigung</strong>. Das Vorgehen in drei Schritten:</p><ol><li>GE und GK bestimmen und gleichsetzen, daraus folgt die gewinnmaximale Menge \\( x^* \\).</li><li>\\( x^* \\) in die Preis-Absatz-Funktion einsetzen, daraus folgt der Preis \\( p^* \\). Nicht in die GK- oder GE-Funktion!</li><li>Gewinn berechnen: \\( G = p^* \\cdot x^* - K(x^*) \\).</li></ol><p>Der Punkt \\( (x^*, p^*) \\) auf der Preis-Absatz-Funktion heißt <strong>Cournot-Punkt</strong>.</p>"
+   "html": "<p>Der Monopolist maximiert seinen Gewinn \\( G(x) = E(x) - K(x) \\). Leitest du nach der Menge ab und setzt null, erhältst du die zentrale Bedingung:</p><div class=\"formel\">\\[ GE(x) = GK(x) \\]</div><p>Der <strong>Grenzerlös</strong> GE ist der zusätzliche Erlös aus einer weiteren Einheit, die <a href=\"/lernen/grenzkosten\">Grenzkosten</a> GK sind die zusätzlichen Kosten. Solange eine weitere Einheit mehr Erlös als Kosten bringt, lohnt sie sich.</p><p>Der Knackpunkt: Beim Monopolisten ist der Grenzerlös <strong>kleiner als der Preis</strong>. Will er eine Einheit mehr verkaufen, muss er den Preis senken, und zwar für alle Einheiten, nicht nur für die zusätzliche. Bei einer linearen Preis-Absatz-Funktion gilt:</p><div class=\"formel\">\\[ p(x) = a - b x \\quad \\Rightarrow \\quad E(x) = a x - b x^2 \\quad \\Rightarrow \\quad GE(x) = a - 2 b x \\]</div><p>Die Grenzerlöskurve hat also dieselbe Achsenschnittstelle wie die Preis-Absatz-Funktion, aber die <strong>doppelte Steigung</strong>. Das Vorgehen in drei Schritten:</p><ol><li>GE und GK bestimmen und gleichsetzen: Das liefert einen Kandidaten für das innere Maximum \\( x^* \\). Prüfe zusätzlich die Maximumsbedingung (GE schneidet GK von oben) und gegebenenfalls Randlösungen.</li><li>\\( x^* \\) in die Preis-Absatz-Funktion einsetzen, daraus folgt der Preis \\( p^* \\). Nicht in die GK- oder GE-Funktion!</li><li>Gewinn berechnen: \\( G = p^* \\cdot x^* - K(x^*) \\).</li></ol><p>Der Punkt \\( (x^*, p^*) \\) auf der Preis-Absatz-Funktion heißt <strong>Cournot-Punkt</strong>.</p>"
   },
   {
    "h2": "Beispiel: Cournot-Punkt berechnen",
@@ -30,7 +30,7 @@
   },
   {
    "h2": "Wie hängen Monopolpreis und Preiselastizität zusammen?",
-   "html": "<p>Der Grenzerlös lässt sich mit der <a href=\"/lernen/preiselastizitaet\">Preiselastizität</a> der Nachfrage \\( \\varepsilon \\) ausdrücken (Amoroso-Robinson-Relation):</p><div class=\"formel\">\\[ GE = p \\cdot \\left(1 + \\frac{1}{\\varepsilon}\\right) \\]</div><p>Daraus folgen zwei Klausurklassiker:</p><ul><li><strong>Der Monopolist produziert nur im elastischen Bereich</strong> (\\( |\\varepsilon| > 1 \\)). Bei unelastischer Nachfrage ist der Grenzerlös negativ. Dann könnte er mit weniger Menge und höherem Preis mehr Erlös und gleichzeitig weniger Kosten haben.</li><li><strong>Je unelastischer die Nachfrage, desto höher der Aufschlag.</strong> Das misst der Lerner-Index:</li></ul><div class=\"formel\">\\[ L = \\frac{p - GK}{p} = \\frac{1}{|\\varepsilon|} \\]</div><p>Im Beispiel: \\( \\varepsilon = \\frac{dx}{dp} \\cdot \\frac{p}{x} = -\\frac{1}{2} \\cdot \\frac{60}{20} = -1{,}5 \\). Lerner-Index: \\( \\frac{60 - 20}{60} = \\frac{2}{3} \\approx 0{,}67 \\), und tatsächlich \\( \\frac{1}{1{,}5} = \\frac{2}{3} \\). Der Monopolist schlägt also zwei Drittel des Preises auf die Grenzkosten auf. Im Wettbewerb wäre der Lerner-Index null.</p><div class=\"merke\">Gewinnmaximum ist nicht Umsatzmaximum. Den Umsatz maximiert der Monopolist bei GE = 0, also bei \\( x = 25 \\) und \\( p = 50 \\) €. Der Gewinn wäre dort nur \\( 1.250 - 900 = 350 \\) statt 400.</div>"
+   "html": "<p>Der Grenzerlös lässt sich mit der <a href=\"/lernen/preiselastizitaet\">Preiselastizität</a> der Nachfrage \\( \\varepsilon \\) ausdrücken (Amoroso-Robinson-Relation):</p><div class=\"formel\">\\[ GE = p \\cdot \\left(1 + \\frac{1}{\\varepsilon}\\right) \\]</div><p>Daraus folgen zwei Klausurklassiker:</p><ul><li><strong>Bei positiven Grenzkosten und innerer Lösung produziert der Monopolist nur im elastischen Bereich</strong> (\\( |\\varepsilon| > 1 \\)); bei \\( GK = 0 \\) kann das Optimum bei Einheitselastizität liegen. Bei unelastischer Nachfrage ist der Grenzerlös negativ. Dann könnte er mit weniger Menge und höherem Preis mehr Erlös und gleichzeitig weniger Kosten haben.</li><li><strong>Je unelastischer die Nachfrage, desto höher der Aufschlag.</strong> Das misst der Lerner-Index:</li></ul><div class=\"formel\">\\[ L = \\frac{p - GK}{p} = \\frac{1}{|\\varepsilon|} \\]</div><p>Im Beispiel: \\( \\varepsilon = \\frac{dx}{dp} \\cdot \\frac{p}{x} = -\\frac{1}{2} \\cdot \\frac{60}{20} = -1{,}5 \\). Lerner-Index: \\( \\frac{60 - 20}{60} = \\frac{2}{3} \\approx 0{,}67 \\), und tatsächlich \\( \\frac{1}{1{,}5} = \\frac{2}{3} \\). Der Monopolist schlägt also zwei Drittel des Preises auf die Grenzkosten auf. Im Wettbewerb wäre der Lerner-Index null.</p><div class=\"merke\">Gewinnmaximum ist nicht Umsatzmaximum. Den Umsatz maximiert der Monopolist bei GE = 0, also bei \\( x = 25 \\) und \\( p = 50 \\) €. Der Gewinn wäre dort nur \\( 1.250 - 900 = 350 \\) statt 400.</div>"
   },
   {
    "h2": "Warum ist ein Monopol problematisch und wie reagiert der Staat?",
@@ -46,7 +46,7 @@
   "Grenzerlös mit Preis verwechseln: Beim Monopolisten ist \\( GE = a - 2bx \\), nicht \\( a - bx \\). Wer die doppelte Steigung vergisst, landet bei der Wettbewerbsmenge.",
   "Monopolist setzt den höchstmöglichen Preis: Falsch. Er maximiert den Gewinn, nicht den Preis. Ein höherer Preis kostet Absatz, deshalb liegt das Optimum im Cournot-Punkt.",
   "Gewinnmaximum mit Umsatzmaximum gleichsetzen: Der Umsatz ist bei GE = 0 maximal, der Gewinn bei GE = GK. Nur wenn die Grenzkosten null sind, fallen beide Punkte zusammen.",
-  "Wohlfahrtsverlust mit Monopolgewinn verwechseln: Der Monopolgewinn ist Umverteilung von Konsumenten zum Anbieter. Der Wohlfahrtsverlust ist das Dreieck zwischen Nachfragekurve und Grenzkosten im Bereich zwischen Monopol- und Wettbewerbsmenge."
+  "Wohlfahrtsverlust mit Monopolgewinn verwechseln: Der Preiserhöhungseffekt auf die weiterhin verkaufte Menge ist Umverteilung von Konsumenten zum Anbieter; der Gewinn ergibt sich erst nach Abzug der Fixkosten von der Produzentenrente. Der Wohlfahrtsverlust ist das Dreieck zwischen Nachfragekurve und Grenzkosten im Bereich zwischen Monopol- und Wettbewerbsmenge."
  ],
  "faq": [
   {
@@ -83,7 +83,7 @@
    "e": "\\( GE = 80 - 2x = 20 \\Rightarrow x = 30 \\), Preis an der Preis-Absatz-Funktion: \\( p = 80 - 30 = 50 \\) €."
   },
   {
-   "q": "In welchem Bereich der Nachfragekurve produziert ein gewinnmaximierender Monopolist?",
+   "q": "In welchem Bereich der Nachfragekurve produziert ein gewinnmaximierender Monopolist bei positiven Grenzkosten und innerer Lösung?",
    "o": [
     "Im elastischen Bereich, |ε| > 1",
     "Im unelastischen Bereich, |ε| < 1",
@@ -94,7 +94,7 @@
    "e": "Bei unelastischer Nachfrage ist der Grenzerlös negativ. Weil die Grenzkosten positiv sind, kann GE = GK nur im elastischen Bereich gelten."
   },
   {
-   "q": "Die Fixkosten eines Monopolisten steigen. Wie ändert sich der gewinnmaximale Preis?",
+   "q": "Die Fixkosten eines Monopolisten steigen (Nachfrage und Grenzkosten unverändert, er produziert weiter). Wie ändert sich der gewinnmaximale Preis?",
    "o": [
     "Er steigt um die anteiligen Fixkosten",
     "Er sinkt",

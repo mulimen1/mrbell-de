@@ -42,8 +42,8 @@
  ],
  "fehler": [
   "Mehrere Größen gleichzeitig ändern: Das ist eine Szenarioanalyse. In der Sensitivitätsanalyse wird immer nur eine Größe variiert, alle anderen bleiben auf dem Planwert.",
-  "Kritischen Wert über den Kapitalwert statt über den Rückfluss suchen: Setze \\( C_0 = 0 \\), berechne zuerst \\( \\text{CF}_{\\text{krit}} = \\frac{I_0}{\\text{RBF}} \\) und löse dann nach der Einzelgröße auf. Wer den Kapitalwert direkt auf den Preis verteilt, vergisst das Abzinsen.",
-  "Prozentuale Abweichung falsch beziehen: Der Spielraum wird immer auf den Planwert bezogen, also (24,26 − 25) / 25 = −2,95 %, nicht auf den kritischen Wert.",
+  "Kritischen Wert über den Kapitalwert statt über den Rückfluss suchen: Setze \\( C_0 = 0 \\), berechne zuerst \\( \\text{CF}_{\\text{krit}} = \\frac{I_0}{\\text{RBF}} \\) und löse dann nach der Einzelgröße auf. Wer den Kapitalwert ohne RBF direkt auf den Preis verteilt, vergisst das Abzinsen. Der kritische Preis lässt sich auch direkt aus dem Kapitalwert berechnen, wenn du den RBF berücksichtigst: \\( p_{\\text{krit}} = p_{\\text{Plan}} - \\frac{C_0}{x \\cdot \\text{RBF}} \\).",
+  "Prozentuale Abweichung falsch beziehen: Der Spielraum wird immer auf den Planwert bezogen, also mit dem ungerundeten kritischen Preis (24,2614 − 25) / 25 ≈ −2,95 % (mit dem gerundeten Wert 24,26 wären es −2,96 %), nicht auf den kritischen Wert.",
   "Wichtigste Größe am absoluten Betrag ablesen: Entscheidend ist nicht, welche Größe in Euro am größten ist, sondern welche den kleinsten prozentualen Spielraum hat bzw. die größte Spannweite erzeugt.",
   "Kritischen Zins als Kalkulationszins verwechseln: Der kritische Zins ist der interne Zinsfuß. Er sagt, bis zu welchem Kapitalkostensatz die Investition noch lohnt, nicht welchen Zins man ansetzen soll."
  ],

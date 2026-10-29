@@ -4,7 +4,7 @@
   "title": "Korrelation einfach erklärt – Koeffizient mit Beispiel",
   "meta": "Korrelation verständlich erklärt: Korrelationskoeffizient nach Bravais-Pearson berechnen, interpretieren, Spearman und Kausalität – mit Rechenbeispiel.",
   "h1": "Korrelation einfach erklärt",
-  "kurz": "Die Korrelation misst Stärke und Richtung des linearen Zusammenhangs zwischen zwei metrischen Merkmalen. Der Korrelationskoeffizient nach Bravais-Pearson r liegt immer zwischen −1 und +1: Werte nahe +1 bedeuten einen starken positiven, Werte nahe −1 einen starken negativen und Werte nahe 0 keinen linearen Zusammenhang. Korrelation beweist keine Kausalität.",
+  "kurz": "Die Korrelation misst Stärke und Richtung des linearen Zusammenhangs zwischen zwei metrischen Merkmalen. Der Korrelationskoeffizient nach Bravais-Pearson r ist definiert, wenn beide Merkmale eine positive Varianz haben (bei einem konstanten Merkmal ist r nicht definiert), und liegt dann immer zwischen −1 und +1: Werte nahe +1 bedeuten einen starken positiven, Werte nahe −1 einen starken negativen und Werte nahe 0 keinen linearen Zusammenhang. Korrelation beweist keine Kausalität.",
   "keywords": [
     "korrelation",
     "korrelationskoeffizient",
@@ -34,7 +34,7 @@
     },
     {
       "h2": "Korrelation und Kausalität: Was darf man folgern?",
-      "html": "<p>Der wichtigste Satz der ganzen Korrelationsrechnung: <strong>Korrelation ist keine Kausalität.</strong> Ein hohes r zeigt nur, dass zwei Merkmale gemeinsam variieren. Für den Zusammenhang gibt es mehrere mögliche Erklärungen:</p><ul><li><strong>x beeinflusst y:</strong> Werbung steigert den Umsatz.</li><li><strong>y beeinflusst x (umgekehrte Kausalität):</strong> Umsatzstarke Filialen bekommen mehr Werbebudget, weil sich das Management dort mehr verspricht.</li><li><strong>Drittvariable (Scheinkorrelation):</strong> Filialen in Innenstadtlage haben mehr Laufkundschaft und werden zugleich stärker beworben. Die Lage treibt beides.</li><li><strong>Zufall:</strong> Bei nur sechs Beobachtungen kann ein hohes r auch zufällig entstehen. Ob es statistisch gesichert ist, prüfst du mit einem <a href=\"/lernen/hypothesentest\">Hypothesentest</a>.</li></ul><p>Ein Klassiker zur Scheinkorrelation: Eisverkäufe und Sonnenbrände korrelieren positiv – verursacht durch das Wetter. In der Ökonomie passiert das ständig, weil viele Größen mit der Konjunktur oder mit der Zeit gemeinsam wachsen. Zwei Zeitreihen mit Trend, etwa Umsatz eines Unternehmens und Bevölkerungszahl, korrelieren fast immer hoch, ohne dass ein Zusammenhang besteht.</p><p>Kausale Aussagen erlauben erst kontrollierte Experimente (etwa ein A/B-Test mit zufällig ausgewählten Filialen) oder ökonometrische Verfahren, die Drittvariablen berücksichtigen.</p>"
+      "html": "<p>Der wichtigste Satz der ganzen Korrelationsrechnung: <strong>Korrelation ist keine Kausalität.</strong> Ein hohes r zeigt nur, dass zwei Merkmale gemeinsam variieren. Für den Zusammenhang gibt es mehrere mögliche Erklärungen:</p><ul><li><strong>x beeinflusst y:</strong> Werbung steigert den Umsatz.</li><li><strong>y beeinflusst x (umgekehrte Kausalität):</strong> Umsatzstarke Filialen bekommen mehr Werbebudget, weil sich das Management dort mehr verspricht.</li><li><strong>Drittvariable (Scheinkorrelation):</strong> Filialen in Innenstadtlage haben mehr Laufkundschaft und werden zugleich stärker beworben. Die Lage treibt beides.</li><li><strong>Zufall:</strong> Bei nur sechs Beobachtungen kann ein hohes r auch zufällig entstehen. Ob es statistisch gesichert ist, prüfst du mit einem <a href=\"/lernen/hypothesentest\">Hypothesentest</a>.</li></ul><p>Ein Klassiker zur Scheinkorrelation: Eisverkäufe und Sonnenbrände korrelieren positiv – verursacht durch das Wetter. In der Ökonomie passiert das ständig, weil viele Größen mit der Konjunktur oder mit der Zeit gemeinsam wachsen. Zwei Zeitreihen mit Trend, etwa Umsatz eines Unternehmens und Bevölkerungszahl, korrelieren oft hoch, ohne dass ein unmittelbarer sachlicher Zusammenhang besteht: Gemeinsame Zeittrends können eine hohe Korrelation erzeugen, garantieren sie aber nicht (Richtung und überlagernde Schwankungen können abweichen).</p><p>Kausale Aussagen erlauben erst kontrollierte Experimente (etwa ein A/B-Test mit zufällig ausgewählten Filialen) oder ökonometrische Verfahren mit geeigneter Identifikationsstrategie und tragfähigen Annahmen. Die bloße Aufnahme von Kontrollvariablen genügt nicht, denn auch kontrollierte Regressionen können durch unbeobachtete Einflüsse oder umgekehrte Kausalität verzerrt sein.</p>"
     },
     {
       "h2": "Korrelation, Kovarianz und Regression: der Unterschied",
@@ -80,7 +80,7 @@
         "Ein Wert von 0 beweist, dass die Merkmale unabhängig sind."
       ],
       "r": 1,
-      "e": "r liegt immer zwischen −1 und +1 und misst nur den linearen Zusammenhang. Die Steigung liefert die Regression, und r = 0 schließt nichtlineare Zusammenhänge nicht aus."
+      "e": "r liegt (sofern definiert) immer zwischen −1 und +1 und misst nur den linearen Zusammenhang. Die Steigung liefert die Regression, und r = 0 schließt nichtlineare Zusammenhänge nicht aus."
     },
     {
       "q": "Gegeben sind \\( \\sum (x_i - \\bar{x})(y_i - \\bar{y}) = 60 \\), \\( \\sum (x_i - \\bar{x})^2 = 25 \\) und \\( \\sum (y_i - \\bar{y})^2 = 400 \\). Wie groß ist r?",

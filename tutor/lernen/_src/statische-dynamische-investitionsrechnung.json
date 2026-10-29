@@ -46,11 +46,11 @@
   "faq": [
     {
       "q": "Welche statischen Investitionsrechnungsverfahren gibt es?",
-      "a": "Es gibt vier: die Kostenvergleichsrechnung, die Gewinnvergleichsrechnung, die Rentabilitätsvergleichsrechnung und die statische Amortisationsrechnung. Alle arbeiten mit Durchschnittswerten einer Periode und berücksichtigen den Zeitpunkt der Zahlungen nicht."
+      "a": "Es gibt vier: die Kostenvergleichsrechnung, die Gewinnvergleichsrechnung, die Rentabilitätsvergleichsrechnung und die statische Amortisationsrechnung. Kosten-, Gewinn- und Rentabilitätsvergleich arbeiten typischerweise mit Durchschnittswerten einer Periode, die statische Amortisationsrechnung kann auch nominale Jahresrückflüsse kumulieren. Keines dieser Verfahren berücksichtigt den Zeitpunkt der Zahlungen."
     },
     {
       "q": "Welche dynamischen Verfahren der Investitionsrechnung gibt es?",
-      "a": "Die wichtigsten sind die Kapitalwertmethode, die Methode des internen Zinsfußes, die Annuitätenmethode und die dynamische Amortisationsrechnung. Sie betrachten alle Ein- und Auszahlungen über die gesamte Nutzungsdauer und machen sie durch Abzinsen vergleichbar."
+      "a": "Die wichtigsten sind die Kapitalwertmethode, die Methode des internen Zinsfußes, die Annuitätenmethode und die dynamische Amortisationsrechnung. Kapitalwert, Annuität und interner Zinsfuß verwenden die gesamte relevante Zahlungsreihe und machen sie durch Abzinsen vergleichbar; die dynamische Amortisationsrechnung bewertet dagegen den Zeitpunkt der Wiedergewinnung des eingesetzten Kapitals (spätere Zahlungen ändern die Amortisationsdauer nicht)."
     },
     {
       "q": "Warum sind dynamische Verfahren genauer?",
@@ -62,7 +62,7 @@
     },
     {
       "q": "Ist die Amortisationsrechnung statisch oder dynamisch?",
-      "a": "Beides ist möglich. Die statische Variante teilt die Anschaffungsauszahlung durch den durchschnittlichen Rückfluss oder kumuliert die nominalen Rückflüsse. Die dynamische Variante kumuliert die abgezinsten Rückflüsse und dauert deshalb immer etwas länger."
+      "a": "Beides ist möglich. Die statische Variante teilt die Anschaffungsauszahlung durch den durchschnittlichen Rückfluss oder kumuliert die nominalen Rückflüsse. Die dynamische Variante kumuliert die abgezinsten Rückflüsse; bei positivem Kalkulationszins und nichtnegativen Rückflüssen wird sie grundsätzlich nicht früher erreicht und kann innerhalb der Nutzungsdauer auch ganz ausbleiben."
     }
   ],
   "quiz": [
@@ -89,7 +89,7 @@
       "e": "∅ Kapital \\( \\frac{80.000}{2} = 40.000 \\) €; \\( \\frac{6.000 + 3.200}{40.000} = 23\\,\\% \\). 11,5 % entstünde mit den vollen 80.000 € im Nenner."
     },
     {
-      "q": "Zwei Investitionen haben dieselbe Anschaffung und dieselbe Summe an Rückflüssen, A bekommt das Geld früher. Was gilt?",
+      "q": "Zwei Investitionen haben dieselbe Anschaffung, dieselbe Nutzungsdauer und dieselbe Rückflusssumme; bei positivem Kalkulationszins fallen die Rückflüsse von A früher an. Was gilt?",
       "o": [
         "Statisch und dynamisch sind beide gleich gut",
         "Dynamisch ist B besser, weil spätere Zahlungen höher verzinst werden",

@@ -34,7 +34,7 @@
   },
   {
    "h2": "Wie hängt Beta von der Verschuldung ab?",
-   "html": "<p>Das an der Börse gemessene Beta enthält zwei Risiken: das Geschäftsrisiko der Branche und das Finanzierungsrisiko durch Fremdkapital. Je höher die Verschuldung, desto stärker schwankt die Rendite der Eigentümer, das ist der <a href=\"/lernen/leverage-effekt\">Leverage-Effekt</a>. Willst du das Beta eines börsennotierten Vergleichsunternehmens auf eine Firma mit anderer Kapitalstruktur übertragen, rechnest du es mit der Formel von Hamada erst heraus (unlevern) und dann wieder hinein (relevern):</p><div class=\"formel\">\\[ \\beta_L = \\beta_U \\cdot \\left(1 + (1 - s) \\cdot \\frac{\\text{FK}}{\\text{EK}}\\right) \\]</div><p>Nordwind hat ein Verhältnis FK zu EK von 0,5, Steuersatz 30 %. Unverschuldetes Beta: \\( \\beta_U = \\frac{1{,}5}{1 + 0{,}7 \\cdot 0{,}5} = \\frac{1{,}5}{1{,}35} \\approx 1{,}11 \\). Ein nicht börsennotierter Wettbewerber mit FK zu EK von 1 hätte dann \\( \\beta_L = 1{,}11 \\cdot 1{,}7 \\approx 1{,}89 \\) und Eigenkapitalkosten von \\( 2{,}5\\,\\% + 1{,}89 \\cdot 5\\,\\% \\approx 11{,}94\\,\\% \\) (ungerundet gerechnet).</p>"
+   "html": "<p>Das an der Börse gemessene Beta enthält zwei Risiken: das Geschäftsrisiko der Branche und das Finanzierungsrisiko durch Fremdkapital. Je höher die Verschuldung, desto stärker schwankt die Rendite der Eigentümer, das ist der <a href=\"/lernen/leverage-effekt\">Leverage-Effekt</a>. Willst du das Beta eines börsennotierten Vergleichsunternehmens auf eine Firma mit anderer Kapitalstruktur übertragen, rechnest du es mit der Formel von Hamada erst heraus (unlevern) und dann wieder hinein (relevern):</p><div class=\"formel\">\\[ \\beta_L = \\beta_U \\cdot \\left(1 + (1 - s) \\cdot \\frac{\\text{FK}}{\\text{EK}}\\right) \\]</div><p>Die hier verwendete Hamada-Formel unterstellt insbesondere ein Fremdkapital-Beta von null; FK/EK ist konsistent mit Marktwerten und dem angenommenen Steuerschirm zu bestimmen. Nordwind hat ein Verhältnis FK zu EK von 0,5, Steuersatz 30 %. Unverschuldetes Beta: \\( \\beta_U = \\frac{1{,}5}{1 + 0{,}7 \\cdot 0{,}5} = \\frac{1{,}5}{1{,}35} \\approx 1{,}11 \\). Ein nicht börsennotierter Wettbewerber mit FK zu EK von 1 hätte dann \\( \\beta_L = 1{,}11 \\cdot 1{,}7 \\approx 1{,}89 \\) und Eigenkapitalkosten von \\( 2{,}5\\,\\% + 1{,}89 \\cdot 5\\,\\% \\approx 11{,}94\\,\\% \\) (ungerundet gerechnet).</p>"
   },
   {
    "h2": "Annahmen, Kritik und Abgrenzung",
@@ -51,7 +51,7 @@
  "faq": [
   {
    "q": "Was sagt ein Beta von 1,5 aus?",
-   "a": "Die Aktie reagiert im Schnitt eineinhalbmal so stark auf Marktbewegungen wie der Gesamtmarkt. Steigt der Markt um 10 %, steigt sie erwartungsgemäß um 15 %, fällt er um 10 %, fällt sie um 15 %. Dafür verlangen Anleger das 1,5-Fache der Marktrisikoprämie."
+   "a": "Die Aktie reagiert im Schnitt eineinhalbmal so stark auf Marktbewegungen wie der Gesamtmarkt. Eine um 10 Prozentpunkte höhere Marktrendite geht im Regressionsmodell mit einer um 15 Prozentpunkte höheren erwarteten Aktienrendite einher, eine um 10 Prozentpunkte niedrigere mit einer um 15 Prozentpunkte niedrigeren (das Renditeniveau hängt zusätzlich vom Achsenabschnitt ab). Dafür verlangen Anleger das 1,5-Fache der Marktrisikoprämie."
   },
   {
    "q": "Wie berechnet man den Beta-Faktor?",
@@ -91,7 +91,7 @@
     "0,75"
    ],
    "r": 3,
-   "e": "\\( \\beta = \\frac{0{,}012}{0{,}016} = 0{,}75 \\). Die Aktie schwankt schwächer als der Markt."
+   "e": "\\( \\beta = \\frac{0{,}012}{0{,}016} = 0{,}75 \\). Die Aktie reagiert mit Beta 0,75 unterproportional auf Marktbewegungen; ihre gesamte Volatilität kann trotzdem über der Marktvolatilität liegen."
   },
   {
    "q": "Welches Risiko wird laut CAPM mit einer Prämie vergütet?",

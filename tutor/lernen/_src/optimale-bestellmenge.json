@@ -62,11 +62,11 @@
     },
     {
       "q": "Was ist der Unterschied zwischen optimaler Bestellmenge und optimaler Losgröße?",
-      "a": "Rechnerisch nichts, die Formel ist identisch. Die optimale Bestellmenge bezieht sich auf den Einkauf mit Bestellkosten, die optimale Losgröße auf die Fertigung mit Rüstkosten pro Auflage."
+      "a": "Bei sofortigem Loszugang ist die Grundformel analog. Bei endlicher Produktionsrate \\( P \\) und gleichzeitigem Verbrauch \\( D \\) (beides Jahresmengen, \\( P > D \\)) gilt \\( Q_{opt} = \\sqrt{\\frac{2 \\cdot D \\cdot K_R}{h \\cdot (1 - D/P)}} \\) mit Rüstkosten \\( K_R \\) je Los und Lagerhaltungskosten \\( h \\) je Stück und Jahr; der durchschnittliche Lagerbestand beträgt dann \\( Q \\cdot (1 - D/P)/2 \\). Die optimale Bestellmenge bezieht sich auf den Einkauf mit Bestellkosten, die optimale Losgröße auf die Fertigung mit Rüstkosten pro Auflage."
     },
     {
       "q": "Gilt die Andler-Formel auch bei Mengenrabatten?",
-      "a": "Nicht direkt, weil sie einen konstanten Preis voraussetzt. Bei Rabattstaffeln vergleichst du die Gesamtkosten inklusive Einkaufswert für die Andler-Menge und für jede Rabattschwelle und wählst die günstigste Menge."
+      "a": "Nicht direkt, weil sie einen konstanten Preis voraussetzt. Bei einem Gesamtmengenrabatt berechnest du für jede Preisstufe eine eigene Andler-Menge mit dem jeweiligen Preis und Lagerhaltungskostensatz, vergleichst alle zulässigen Kandidaten und relevanten Rabattgrenzen anhand der Gesamtkosten inklusive Einkaufswert und wählst die günstigste Menge."
     }
   ],
   "quiz": [
@@ -87,7 +87,7 @@
         "Bestellkosten sind gleich den Lagerhaltungskosten",
         "Lagerhaltungskosten sind null",
         "Bestellkosten sind doppelt so hoch wie die Lagerkosten",
-        "Der Einkaufswert ist minimal"
+        "Der Einkaufswert hängt von der Bestellmenge ab und ist ausschließlich im Andler-Optimum minimal"
       ],
       "r": 0,
       "e": "Im Minimum der Gesamtkostenfunktion sind beide Kostenarten exakt gleich hoch – im Beispiel je 2.000 €."

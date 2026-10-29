@@ -1,116 +1,116 @@
 {
-  "slug": "fixe-und-variable-kosten",
-  "name": "Fixe und variable Kosten",
-  "title": "Fixe und variable Kosten einfach erklärt – mit Beispiel",
-  "meta": "Fixe und variable Kosten verständlich erklärt: Kostenfunktion, Stückkosten, Fixkostendegression und Kostenauflösung – mit durchgerechnetem Beispiel.",
-  "h1": "Fixe und variable Kosten einfach erklärt",
-  "kurz": "Fixe Kosten bleiben bei einer Änderung der Produktionsmenge gleich, zum Beispiel Miete oder Gehälter. Variable Kosten steigen oder sinken mit der Menge, zum Beispiel Material oder Akkordlöhne. Zusammen ergeben sie die Gesamtkosten \\(K(x) = K_f + k_v \\cdot x\\). Je mehr du produzierst, desto kleiner wird der Fixkostenanteil pro Stück – das ist die Fixkostendegression.",
-  "keywords": [
-    "fixe und variable kosten",
-    "fixkosten",
-    "variable kosten",
-    "kostenfunktion",
-    "stückkosten berechnen",
-    "fixkostendegression",
-    "sprungfixe kosten",
-    "kostenauflösung"
-  ],
-  "abschnitte": [
-    {
-      "h2": "Was sind fixe und variable Kosten?",
-      "html": "<p>In der <a href=\"/lernen/kostenrechnung\">Kostenrechnung</a> teilst du Kosten nach ihrem Verhalten bei Beschäftigungsänderungen ein. Beschäftigung meint dabei meistens die Produktions- oder Absatzmenge \\(x\\), manchmal auch Maschinenstunden. Die zentrale Frage lautet: <strong>Was passiert mit diesen Kosten, wenn ich ein Stück mehr herstelle?</strong></p><ul><li><strong>Fixe Kosten (\\(K_f\\))</strong> fallen innerhalb einer Periode in gleicher Höhe an, egal ob du 0 oder 5.000 Stück produzierst. Typisch: Miete, Leasingraten, Gehälter der Verwaltung, Versicherungen, zeitabhängige Abschreibungen. Man nennt sie auch Kosten der Betriebsbereitschaft.</li><li><strong>Variable Kosten (\\(K_v\\))</strong> verändern sich mit der Menge. Typisch: Fertigungsmaterial, Verpackung, Stückprovisionen, Akkordlöhne, Energie für den laufenden Maschinenbetrieb.</li></ul><p>Wichtig: Die Einteilung gilt immer für einen bestimmten Zeitraum und eine bestimmte Kapazität. Langfristig ist jede Kostenart veränderbar – die Miete kannst du kündigen, Personal abbauen. In der Klausur geht es aber fast immer um die kurzfristige Sicht innerhalb einer Periode.</p><div class=\"merke\">Fix oder variabel bezieht sich auf die Menge, nicht auf die Höhe. Auch Fixkosten können steigen (Mieterhöhung) – sie sind trotzdem fix, weil sie nicht von der Produktionsmenge abhängen.</div>"
-    },
-    {
-      "h2": "Wie sieht die Kostenfunktion aus?",
-      "html": "<p>Bei linearem Kostenverlauf – dem Standardfall in Grundlagenklausuren – setzen sich die Gesamtkosten so zusammen:</p><div class=\"formel\">\\[ K(x) = K_f + k_v \\cdot x \\]</div><p>Dabei ist \\(K_f\\) der Fixkostenblock und \\(k_v\\) die variablen Stückkosten, also die variablen Kosten pro Einheit. Bei linearem Verlauf ist \\(k_v\\) konstant und entspricht den <a href=\"/lernen/grenzkosten\">Grenzkosten</a>: Jedes zusätzliche Stück kostet genau \\(k_v\\) mehr.</p><p>Daraus leitest du die Stückkosten ab, indem du durch \\(x\\) teilst:</p><div class=\"formel\">\\[ k(x) = \\frac{K(x)}{x} = \\frac{K_f}{x} + k_v \\]</div><p>Die Stückkosten \\(k(x)\\), auch Durchschnitts- oder Selbstkosten pro Stück genannt, bestehen also aus den fixen Stückkosten \\(\\frac{K_f}{x}\\) und den variablen Stückkosten \\(k_v\\). Achte auf die Begriffe:</p><table><thead><tr><th></th><th>Gesamt (pro Periode)</th><th>Pro Stück</th></tr></thead><tbody><tr><td>Fixe Kosten</td><td>konstant</td><td>sinken mit steigender Menge</td></tr><tr><td>Variable Kosten</td><td>steigen proportional</td><td>konstant (bei linearem Verlauf)</td></tr><tr><td>Gesamtkosten</td><td>steigen</td><td>sinken, nähern sich \\(k_v\\) an</td></tr></tbody></table><p>Genau diese Tabelle ist das Herz des Themas: Gesamtbetrachtung und Stückbetrachtung verhalten sich genau entgegengesetzt.</p>"
-    },
-    {
-      "h2": "Beispiel: Stückkosten und Fixkostendegression berechnen",
-      "html": "<div class=\"beispiel\"><p>Eine kleine Fahrradmanufaktur hat pro Jahr Fixkosten von 120.000 € (Werkstattmiete, Gehalt des Meisters, Versicherungen). Für jedes Rad fallen 80 € variable Kosten an (Rahmenrohr, Lack, Kleinteile). Berechne Gesamtkosten und Stückkosten für 1.000, 2.000 und 4.000 Stück.</p><p><strong>Schritt 1: Kostenfunktion aufstellen</strong><br>\\(K(x) = 120.000 + 80 \\cdot x\\)</p><p><strong>Schritt 2: Gesamtkosten berechnen</strong><br>\\(x = 1.000\\): \\(120.000 + 80 \\cdot 1.000 = 200.000\\) €<br>\\(x = 2.000\\): \\(120.000 + 80 \\cdot 2.000 = 280.000\\) €<br>\\(x = 4.000\\): \\(120.000 + 80 \\cdot 4.000 = 440.000\\) €</p><p><strong>Schritt 3: Stückkosten berechnen</strong></p><table><thead><tr><th>Menge \\(x\\)</th><th>\\(K(x)\\) in €</th><th>\\(\\frac{K_f}{x}\\) in €</th><th>\\(k_v\\) in €</th><th>\\(k(x)\\) in €</th></tr></thead><tbody><tr><td>1.000</td><td>200.000</td><td>120</td><td>80</td><td>200</td></tr><tr><td>2.000</td><td>280.000</td><td>60</td><td>80</td><td>140</td></tr><tr><td>4.000</td><td>440.000</td><td>30</td><td>80</td><td>110</td></tr></tbody></table><p><strong>Schritt 4: Interpretieren</strong><br>Bei Verdopplung der Menge von 1.000 auf 2.000 halbieren sich die fixen Stückkosten von 120 € auf 60 €. Die Gesamtkosten steigen dabei nur um 40 % (von 200.000 € auf 280.000 €), die Stückkosten sinken um 30 % (von 200 € auf 140 €). Selbst bei riesiger Menge fallen die Stückkosten nie unter 80 € – die variablen Stückkosten sind die Untergrenze.</p></div><p>Diesen Effekt nennt man <strong>Fixkostendegression</strong>: Der Fixkostenblock verteilt sich auf mehr Einheiten, die Stückkosten sinken. Das ist der Kern von Skaleneffekten (Economies of Scale) und erklärt, warum Großserienfertiger günstiger anbieten können.</p>"
-    },
-    {
-      "h2": "Wie trennt man Mischkosten in fix und variabel?",
-      "html": "<p>In der Praxis stehen in der Buchhaltung oft Mischkosten, zum Beispiel Stromkosten mit Grundgebühr und Verbrauchsanteil. Um sie aufzuteilen, nutzt du die <strong>Kostenauflösung</strong>. Die klausurtypische Variante ist das Differenzen-Quotienten-Verfahren (auch mathematische Kostenauflösung oder Hoch-Tief-Methode):</p><div class=\"formel\">\\[ k_v = \\frac{K_2 - K_1}{x_2 - x_1} \\]\\[ K_f = K_1 - k_v \\cdot x_1 \\]</div><div class=\"beispiel\"><p>Im März hat die Manufaktur 1.200 Teile mit Kosten von 26.800 € gefertigt, im April 2.000 Teile mit 37.200 €.</p><ol><li>\\(k_v = \\frac{37.200 - 26.800}{2.000 - 1.200} = \\frac{10.400}{800} = 13\\) € pro Stück</li><li>\\(K_f = 26.800 - 13 \\cdot 1.200 = 26.800 - 15.600 = 11.200\\) € pro Monat</li><li>Probe mit April: \\(11.200 + 13 \\cdot 2.000 = 37.200\\) € ✓</li></ol><p>Die Kostenfunktion lautet also \\(K(x) = 11.200 + 13 \\cdot x\\).</p></div><p>Mach immer die Probe mit dem zweiten Wertepaar – sie kostet zehn Sekunden und deckt Vorzeichenfehler sofort auf.</p>"
-    },
-    {
-      "h2": "Welche Sonderformen gibt es?",
-      "html": "<h3>Sprungfixe Kosten</h3><p>Sprungfixe Kosten (intervallfixe Kosten) bleiben nur innerhalb eines Mengenbereichs konstant und springen dann auf ein höheres Niveau. Beispiel: Ein Schichtleiter schafft die Betreuung von bis zu 3.000 Rädern pro Jahr. Ab dem 3.001. Rad brauchst du eine zweite Schicht und damit einen zweiten Schichtleiter. Im Kostendiagramm entsteht eine Treppe.</p><h3>Nutzkosten und Leerkosten</h3><p>Fixkosten kannst du in den genutzten Teil (Nutzkosten) und den ungenutzten Teil (Leerkosten) aufspalten. Ist eine Anlage für 5.000 Stück ausgelegt und du fertigst 4.000, sind 80 % der Fixkosten Nutzkosten und 20 % Leerkosten. Leerkosten zeigen dir, was ungenutzte Kapazität kostet.</p><h3>Nichtlineare variable Kosten</h3><p>Variable Kosten können auch unterproportional (Mengenrabatte beim Einkauf) oder überproportional (Überstundenzuschläge, höherer Verschleiß bei Volllast) verlaufen. Dann ist \\(k_v\\) nicht mehr konstant. In Grundlagenklausuren wird das meist nur qualitativ abgefragt.</p>"
-    },
-    {
-      "h2": "Wofür braucht man die Trennung in fix und variabel?",
-      "html": "<p>Die Aufteilung ist die Grundlage der gesamten Teilkostenrechnung. Ohne sie funktionieren diese Werkzeuge nicht:</p><ul><li><strong><a href=\"/lernen/deckungsbeitrag\">Deckungsbeitrag</a>:</strong> Preis minus variable Stückkosten. Er zeigt, wie viel jedes Stück zur Deckung der Fixkosten beiträgt.</li><li><strong><a href=\"/lernen/break-even-point\">Break-even-Point</a>:</strong> Die Gewinnschwelle liegt bei \\(\\frac{K_f}{p - k_v}\\). Verkauft die Manufaktur ihre Räder für 200 €, braucht sie \\(\\frac{120.000}{120} = 1.000\\) Stück, um alle Kosten zu decken.</li><li><strong>Kurzfristige Preisuntergrenze:</strong> Kurzfristig muss ein Zusatzauftrag nur die variablen Stückkosten decken, weil die Fixkosten ohnehin anfallen.</li><li><strong>Make-or-Buy und Produktionsprogramm:</strong> Entscheidungen werden mit den entscheidungsrelevanten, meist variablen Kosten getroffen.</li></ul><p><strong>Abgrenzung zu Einzel- und Gemeinkosten:</strong> Fix/variabel beschreibt, wie Kosten auf Mengenänderungen reagieren. Einzel- und Gemeinkosten beschreiben dagegen, ob Kosten einem Produkt direkt zugerechnet werden können. Beide Einteilungen sind unabhängig voneinander: Fertigungsmaterial ist meist variabel und Einzelkosten, die Hallenmiete fix und Gemeinkosten, Strom für die Maschinen dagegen variabel, aber Gemeinkosten.</p><p><strong>Grenzen:</strong> Die lineare Kostenfunktion ist eine Vereinfachung, die nur in einem relevanten Mengenbereich gilt. Außerdem lässt sich nicht jede Kostenart sauber trennen – die Kostenauflösung liefert Schätzwerte, keine exakten Wahrheiten.</p>"
-    }
-  ],
-  "fehler": [
-    "Fixe Stückkosten als konstant ansehen: Konstant ist der Fixkostenblock pro Periode, pro Stück sinken die Fixkosten mit steigender Menge. Schreib in der Tabelle immer getrennt \\(K_f\\) und \\(\\frac{K_f}{x}\\).",
-    "Variable Gesamtkosten und variable Stückkosten verwechseln: \\(K_v = k_v \\cdot x\\) steigt mit der Menge, \\(k_v\\) bleibt bei linearem Verlauf gleich. Achte auf Groß- und Kleinbuchstaben.",
-    "Fix mit unveränderlich verwechseln: Auch fixe Kosten können sich ändern, etwa durch eine Mieterhöhung. Entscheidend ist allein, ob sie von der Produktionsmenge abhängen.",
-    "Bei der Kostenauflösung Kosten durch Mengen statt Differenzen teilen: \\(k_v\\) ist der Kostenzuwachs geteilt durch den Mengenzuwachs, nicht \\(\\frac{K}{x}\\). \\(\\frac{K}{x}\\) ergibt die durchschnittlichen Stückkosten inklusive Fixkostenanteil.",
-    "Fix/variabel mit Einzel-/Gemeinkosten gleichsetzen: Gemeinkosten sind nicht automatisch fix. Prüfe beide Einteilungen getrennt."
-  ],
-  "faq": [
-    {
-      "q": "Was ist der Unterschied zwischen fixen und variablen Kosten?",
-      "a": "Fixe Kosten fallen in einer Periode unabhängig von der Produktionsmenge in gleicher Höhe an, zum Beispiel Miete oder Gehälter. Variable Kosten hängen von der Menge ab und steigen mit jedem produzierten Stück, zum Beispiel Material. Zusammen ergeben sie die Gesamtkosten."
-    },
-    {
-      "q": "Wie berechnet man die Stückkosten?",
-      "a": "Du teilst die Gesamtkosten durch die Menge: \\(k(x) = \\frac{K(x)}{x}\\). Alternativ addierst du die fixen Stückkosten \\(\\frac{K_f}{x}\\) und die variablen Stückkosten \\(k_v\\). Bei 120.000 € Fixkosten, 80 € variablen Stückkosten und 2.000 Stück ergibt das \\(60 + 80 = 140\\) €."
-    },
-    {
-      "q": "Was bedeutet Fixkostendegression?",
-      "a": "Fixkostendegression heißt, dass die Fixkosten pro Stück sinken, wenn die Produktionsmenge steigt, weil sich der gleich hohe Fixkostenblock auf mehr Einheiten verteilt. Dadurch sinken auch die gesamten Stückkosten. Sie ist die Grundlage für Skaleneffekte in der Massenproduktion."
-    },
-    {
-      "q": "Sind Löhne fixe oder variable Kosten?",
-      "a": "Das hängt von der Entlohnungsform ab. Zeitlöhne und Gehälter sind kurzfristig fix, weil sie unabhängig von der Stückzahl gezahlt werden. Akkordlöhne, die pro Stück bezahlt werden, sind variabel. In vielen Klausuren werden Fertigungslöhne vereinfacht als variabel behandelt – lies die Aufgabenstellung genau."
-    },
-    {
-      "q": "Was sind sprungfixe Kosten?",
-      "a": "Sprungfixe Kosten bleiben innerhalb eines bestimmten Mengenbereichs konstant und steigen beim Überschreiten einer Kapazitätsgrenze sprunghaft an. Ein Beispiel ist eine zusätzliche Maschine oder ein weiterer Schichtleiter, der ab einer bestimmten Stückzahl nötig wird."
-    }
-  ],
-  "quiz": [
-    {
-      "q": "Ein Betrieb hat Fixkosten von 50.000 € und variable Stückkosten von 15 €. Wie hoch sind die Stückkosten bei 2.500 Stück?",
-      "o": [
-        "15 €",
-        "20 €",
-        "35 €",
-        "50 €"
-      ],
-      "r": 2,
-      "e": "Fixe Stückkosten \\(\\frac{50.000}{2.500} = 20\\) €, plus variable Stückkosten 15 € ergibt 35 €."
-    },
-    {
-      "q": "Was passiert mit den fixen Stückkosten, wenn die Produktionsmenge steigt?",
-      "o": [
-        "Sie sinken",
-        "Sie steigen",
-        "Sie bleiben gleich",
-        "Sie werden zu variablen Kosten"
-      ],
-      "r": 0,
-      "e": "Der konstante Fixkostenblock verteilt sich auf mehr Einheiten – das ist die Fixkostendegression."
-    },
-    {
-      "q": "Bei 1.000 Stück betragen die Kosten 30.000 €, bei 1.500 Stück 37.500 €. Wie hoch sind die variablen Stückkosten?",
-      "o": [
-        "25 €",
-        "30 €",
-        "15 €",
-        "7,50 €"
-      ],
-      "r": 2,
-      "e": "\\(k_v = \\frac{37.500 - 30.000}{1.500 - 1.000} = \\frac{7.500}{500} = 15\\) €. Die Fixkosten liegen damit bei 15.000 €."
-    }
-  ],
-  "verwandt": [
-    "deckungsbeitrag",
-    "break-even-point",
-    "einzelkosten-gemeinkosten",
-    "grenzkosten",
-    "kostenrechnung"
-  ],
-  "ask": "fixe und variable Kosten – mit Kostenfunktion, Stückkosten und Fixkostendegression an einem durchgerechneten Beispiel"
+ "slug": "fixe-und-variable-kosten",
+ "name": "Fixe und variable Kosten",
+ "title": "Fixe und variable Kosten einfach erklärt – mit Beispiel",
+ "meta": "Fixe und variable Kosten verständlich erklärt: Kostenfunktion, Stückkosten, Fixkostendegression und Kostenauflösung – mit durchgerechnetem Beispiel.",
+ "h1": "Fixe und variable Kosten einfach erklärt",
+ "kurz": "Fixe Kosten bleiben bei einer Änderung der Produktionsmenge gleich, zum Beispiel Miete oder Gehälter. Variable Kosten steigen oder sinken mit der Menge, zum Beispiel Material oder Akkordlöhne. Zusammen ergeben sie die Gesamtkosten \\(K(x) = K_f + k_v \\cdot x\\). Je mehr du produzierst, desto kleiner wird der Fixkostenanteil pro Stück – das ist die Fixkostendegression.",
+ "keywords": [
+  "fixe und variable kosten",
+  "fixkosten",
+  "variable kosten",
+  "kostenfunktion",
+  "stückkosten berechnen",
+  "fixkostendegression",
+  "sprungfixe kosten",
+  "kostenauflösung"
+ ],
+ "abschnitte": [
+  {
+   "h2": "Was sind fixe und variable Kosten?",
+   "html": "<p>In der <a href=\"/lernen/kostenrechnung\">Kostenrechnung</a> teilst du Kosten nach ihrem Verhalten bei Beschäftigungsänderungen ein. Beschäftigung meint dabei meistens die Produktions- oder Absatzmenge \\(x\\), manchmal auch Maschinenstunden. Die zentrale Frage lautet: <strong>Was passiert mit diesen Kosten, wenn ich ein Stück mehr herstelle?</strong></p><ul><li><strong>Fixe Kosten (\\(K_f\\))</strong> fallen innerhalb einer Periode in gleicher Höhe an, egal ob du 0 oder 5.000 Stück produzierst. Typisch: Miete, Leasingraten, Gehälter der Verwaltung, Versicherungen, zeitabhängige Abschreibungen. Man nennt sie auch Kosten der Betriebsbereitschaft.</li><li><strong>Variable Kosten (\\(K_v\\))</strong> verändern sich mit der Menge. Typisch: Fertigungsmaterial, Verpackung, Stückprovisionen, Akkordlöhne, Energie für den laufenden Maschinenbetrieb.</li></ul><p>Wichtig: Die Einteilung gilt immer für einen bestimmten Zeitraum und eine bestimmte Kapazität. Langfristig ist jede Kostenart veränderbar – die Miete kannst du kündigen, Personal abbauen. In der Klausur geht es aber fast immer um die kurzfristige Sicht innerhalb einer Periode.</p><div class=\"merke\">Fix oder variabel bezieht sich auf die Menge, nicht auf die Höhe. Auch Fixkosten können steigen (Mieterhöhung) – sie sind trotzdem fix, weil sie nicht von der Produktionsmenge abhängen.</div>"
+  },
+  {
+   "h2": "Wie sieht die Kostenfunktion aus?",
+   "html": "<p>Bei linearem Kostenverlauf – dem Standardfall in Grundlagenklausuren – setzen sich die Gesamtkosten so zusammen:</p><div class=\"formel\">\\[ K(x) = K_f + k_v \\cdot x \\]</div><p>Dabei ist \\(K_f\\) der Fixkostenblock und \\(k_v\\) die variablen Stückkosten, also die variablen Kosten pro Einheit. Bei linearem Verlauf ist \\(k_v\\) konstant und entspricht den <a href=\"/lernen/grenzkosten\">Grenzkosten</a>: Jedes zusätzliche Stück kostet genau \\(k_v\\) mehr.</p><p>Daraus leitest du die Stückkosten ab, indem du durch \\(x\\) teilst:</p><div class=\"formel\">\\[ k(x) = \\frac{K(x)}{x} = \\frac{K_f}{x} + k_v \\]</div><p>Die Stückkosten \\(k(x)\\), auch Durchschnitts- oder Selbstkosten pro Stück genannt, bestehen also aus den fixen Stückkosten \\(\\frac{K_f}{x}\\) und den variablen Stückkosten \\(k_v\\). Achte auf die Begriffe:</p><table><thead><tr><th></th><th>Gesamt (pro Periode)</th><th>Pro Stück</th></tr></thead><tbody><tr><td>Fixe Kosten</td><td>konstant</td><td>sinken mit steigender Menge</td></tr><tr><td>Variable Kosten</td><td>steigen proportional</td><td>konstant (bei linearem Verlauf)</td></tr><tr><td>Gesamtkosten</td><td>steigen</td><td>sinken, nähern sich \\(k_v\\) an</td></tr></tbody></table><p>Genau diese Tabelle ist das Herz des Themas: Gesamtbetrachtung und Stückbetrachtung verhalten sich genau entgegengesetzt.</p>"
+  },
+  {
+   "h2": "Beispiel: Stückkosten und Fixkostendegression berechnen",
+   "html": "<div class=\"beispiel\"><p>Eine kleine Fahrradmanufaktur hat pro Jahr Fixkosten von 120.000 € (Werkstattmiete, Gehalt des Meisters, Versicherungen). Für jedes Rad fallen 80 € variable Kosten an (Rahmenrohr, Lack, Kleinteile). Berechne Gesamtkosten und Stückkosten für 1.000, 2.000 und 4.000 Stück.</p><p><strong>Schritt 1: Kostenfunktion aufstellen</strong><br>\\(K(x) = 120.000 + 80 \\cdot x\\)</p><p><strong>Schritt 2: Gesamtkosten berechnen</strong><br>\\(x = 1.000\\): \\(120.000 + 80 \\cdot 1.000 = 200.000\\) €<br>\\(x = 2.000\\): \\(120.000 + 80 \\cdot 2.000 = 280.000\\) €<br>\\(x = 4.000\\): \\(120.000 + 80 \\cdot 4.000 = 440.000\\) €</p><p><strong>Schritt 3: Stückkosten berechnen</strong></p><table><thead><tr><th>Menge \\(x\\)</th><th>\\(K(x)\\) in €</th><th>\\(\\frac{K_f}{x}\\) in €</th><th>\\(k_v\\) in €</th><th>\\(k(x)\\) in €</th></tr></thead><tbody><tr><td>1.000</td><td>200.000</td><td>120</td><td>80</td><td>200</td></tr><tr><td>2.000</td><td>280.000</td><td>60</td><td>80</td><td>140</td></tr><tr><td>4.000</td><td>440.000</td><td>30</td><td>80</td><td>110</td></tr></tbody></table><p><strong>Schritt 4: Interpretieren</strong><br>Bei Verdopplung der Menge von 1.000 auf 2.000 halbieren sich die fixen Stückkosten von 120 € auf 60 €. Die Gesamtkosten steigen dabei nur um 40 % (von 200.000 € auf 280.000 €), die Stückkosten sinken um 30 % (von 200 € auf 140 €). Selbst bei riesiger Menge fallen die Stückkosten nie unter 80 € – die variablen Stückkosten sind die Untergrenze.</p></div><p>Diesen Effekt nennt man <strong>Fixkostendegression</strong>: Der Fixkostenblock verteilt sich auf mehr Einheiten, die Stückkosten sinken. Das ist die Fixkostendegression: Sie senkt bei gegebener Kapazität die Stückkosten durch höhere Auslastung und erklärt, warum Großserienfertiger günstiger anbieten können. Langfristige Skaleneffekte (Economies of Scale) betreffen dagegen eine Vergrößerung sämtlicher Produktionsfaktoren.</p>"
+  },
+  {
+   "h2": "Wie trennt man Mischkosten in fix und variabel?",
+   "html": "<p>In der Praxis stehen in der Buchhaltung oft Mischkosten, zum Beispiel Stromkosten mit Grundgebühr und Verbrauchsanteil. Um sie aufzuteilen, nutzt du die <strong>Kostenauflösung</strong>. Die klausurtypische Variante ist das Differenzen-Quotienten-Verfahren (auch mathematische Kostenauflösung oder Hoch-Tief-Methode):</p><div class=\"formel\">\\[ k_v = \\frac{K_2 - K_1}{x_2 - x_1} \\]\\[ K_f = K_1 - k_v \\cdot x_1 \\]</div><div class=\"beispiel\"><p>Im März hat die Manufaktur 1.200 Teile mit Kosten von 26.800 € gefertigt, im April 2.000 Teile mit 37.200 €.</p><ol><li>\\(k_v = \\frac{37.200 - 26.800}{2.000 - 1.200} = \\frac{10.400}{800} = 13\\) € pro Stück</li><li>\\(K_f = 26.800 - 13 \\cdot 1.200 = 26.800 - 15.600 = 11.200\\) € pro Monat</li><li>Probe mit April: \\(11.200 + 13 \\cdot 2.000 = 37.200\\) € ✓</li></ol><p>Die Kostenfunktion lautet also \\(K(x) = 11.200 + 13 \\cdot x\\).</p></div><p>Mach immer die Probe mit dem zweiten Wertepaar – sie kostet zehn Sekunden und deckt Vorzeichenfehler sofort auf.</p>"
+  },
+  {
+   "h2": "Welche Sonderformen gibt es?",
+   "html": "<h3>Sprungfixe Kosten</h3><p>Sprungfixe Kosten (intervallfixe Kosten) bleiben nur innerhalb eines Mengenbereichs konstant und springen dann auf ein höheres Niveau. Beispiel: Ein Schichtleiter schafft die Betreuung von bis zu 3.000 Rädern pro Jahr. Ab dem 3.001. Rad brauchst du eine zweite Schicht und damit einen zweiten Schichtleiter. Im Kostendiagramm entsteht eine Treppe.</p><h3>Nutzkosten und Leerkosten</h3><p>Fixkosten kannst du in den genutzten Teil (Nutzkosten) und den ungenutzten Teil (Leerkosten) aufspalten. Ist eine Anlage für 5.000 Stück ausgelegt und du fertigst 4.000, sind 80 % der Fixkosten Nutzkosten und 20 % Leerkosten. Leerkosten zeigen dir, was ungenutzte Kapazität kostet.</p><h3>Nichtlineare variable Kosten</h3><p>Variable Kosten können auch unterproportional (Mengenrabatte beim Einkauf) oder überproportional (Überstundenzuschläge, höherer Verschleiß bei Volllast) verlaufen. Dann ist \\(k_v\\) nicht mehr konstant. In Grundlagenklausuren wird das meist nur qualitativ abgefragt.</p>"
+  },
+  {
+   "h2": "Wofür braucht man die Trennung in fix und variabel?",
+   "html": "<p>Die Aufteilung ist die Grundlage der gesamten Teilkostenrechnung. Ohne sie funktionieren diese Werkzeuge nicht:</p><ul><li><strong><a href=\"/lernen/deckungsbeitrag\">Deckungsbeitrag</a>:</strong> Preis minus variable Stückkosten. Er zeigt, wie viel jedes Stück zur Deckung der Fixkosten beiträgt.</li><li><strong><a href=\"/lernen/break-even-point\">Break-even-Point</a>:</strong> Die Gewinnschwelle liegt bei \\(\\frac{K_f}{p - k_v}\\). Verkauft die Manufaktur ihre Räder für 200 €, braucht sie \\(\\frac{120.000}{120} = 1.000\\) Stück, um alle Kosten zu decken.</li><li><strong>Kurzfristige Preisuntergrenze:</strong> Kurzfristig muss ein Zusatzauftrag nur die variablen Stückkosten decken, weil die Fixkosten ohnehin anfallen.</li><li><strong>Make-or-Buy und Produktionsprogramm:</strong> Entscheidungen werden mit den entscheidungsrelevanten, meist variablen Kosten getroffen.</li></ul><p><strong>Abgrenzung zu Einzel- und Gemeinkosten:</strong> Fix/variabel beschreibt, wie Kosten auf Mengenänderungen reagieren. Einzel- und Gemeinkosten beschreiben dagegen, ob Kosten einem Produkt direkt zugerechnet werden können. Beide Einteilungen sind unabhängig voneinander: Fertigungsmaterial ist meist variabel und Einzelkosten, die Hallenmiete fix und Gemeinkosten, Strom für die Maschinen dagegen variabel, aber Gemeinkosten.</p><p><strong>Grenzen:</strong> Die lineare Kostenfunktion ist eine Vereinfachung, die nur in einem relevanten Mengenbereich gilt. Außerdem lässt sich nicht jede Kostenart sauber trennen – die Kostenauflösung liefert Schätzwerte, keine exakten Wahrheiten.</p>"
+  }
+ ],
+ "fehler": [
+  "Fixe Stückkosten als konstant ansehen: Konstant ist der Fixkostenblock pro Periode, pro Stück sinken die Fixkosten mit steigender Menge. Schreib in der Tabelle immer getrennt \\(K_f\\) und \\(\\frac{K_f}{x}\\).",
+  "Variable Gesamtkosten und variable Stückkosten verwechseln: \\(K_v = k_v \\cdot x\\) steigt mit der Menge, \\(k_v\\) bleibt bei linearem Verlauf gleich. Achte auf Groß- und Kleinbuchstaben.",
+  "Fix mit unveränderlich verwechseln: Auch fixe Kosten können sich ändern, etwa durch eine Mieterhöhung. Entscheidend ist allein, ob sie von der Produktionsmenge abhängen.",
+  "Bei der Kostenauflösung Kosten durch Mengen statt Differenzen teilen: \\(k_v\\) ist der Kostenzuwachs geteilt durch den Mengenzuwachs, nicht \\(\\frac{K}{x}\\). \\(\\frac{K}{x}\\) ergibt die durchschnittlichen Stückkosten inklusive Fixkostenanteil.",
+  "Fix/variabel mit Einzel-/Gemeinkosten gleichsetzen: Gemeinkosten sind nicht automatisch fix. Prüfe beide Einteilungen getrennt."
+ ],
+ "faq": [
+  {
+   "q": "Was ist der Unterschied zwischen fixen und variablen Kosten?",
+   "a": "Fixe Kosten fallen in einer Periode unabhängig von der Produktionsmenge in gleicher Höhe an, zum Beispiel Miete oder Gehälter. Variable Kosten hängen von der Menge ab und steigen mit jedem produzierten Stück, zum Beispiel Material. Zusammen ergeben sie die Gesamtkosten."
+  },
+  {
+   "q": "Wie berechnet man die Stückkosten?",
+   "a": "Du teilst die Gesamtkosten durch die Menge: \\(k(x) = \\frac{K(x)}{x}\\). Alternativ addierst du die fixen Stückkosten \\(\\frac{K_f}{x}\\) und die variablen Stückkosten \\(k_v\\). Bei 120.000 € Fixkosten, 80 € variablen Stückkosten und 2.000 Stück ergibt das \\(60 + 80 = 140\\) €."
+  },
+  {
+   "q": "Was bedeutet Fixkostendegression?",
+   "a": "Fixkostendegression heißt, dass die Fixkosten pro Stück sinken, wenn die Produktionsmenge steigt, weil sich der gleich hohe Fixkostenblock auf mehr Einheiten verteilt. Dadurch sinken auch die gesamten Stückkosten. Sie ist die Grundlage für Skaleneffekte in der Massenproduktion."
+  },
+  {
+   "q": "Sind Löhne fixe oder variable Kosten?",
+   "a": "Das hängt von der Entlohnungsform ab. Zeitlöhne und Gehälter sind kurzfristig fix, weil sie unabhängig von der Stückzahl gezahlt werden. Akkordlöhne, die pro Stück bezahlt werden, sind variabel. In vielen Klausuren werden Fertigungslöhne vereinfacht als variabel behandelt – lies die Aufgabenstellung genau."
+  },
+  {
+   "q": "Was sind sprungfixe Kosten?",
+   "a": "Sprungfixe Kosten bleiben innerhalb eines bestimmten Mengenbereichs konstant und steigen beim Überschreiten einer Kapazitätsgrenze sprunghaft an. Ein Beispiel ist eine zusätzliche Maschine oder ein weiterer Schichtleiter, der ab einer bestimmten Stückzahl nötig wird."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Ein Betrieb hat Fixkosten von 50.000 € und variable Stückkosten von 15 €. Wie hoch sind die Stückkosten bei 2.500 Stück?",
+   "o": [
+    "15 €",
+    "20 €",
+    "35 €",
+    "50 €"
+   ],
+   "r": 2,
+   "e": "Fixe Stückkosten \\(\\frac{50.000}{2.500} = 20\\) €, plus variable Stückkosten 15 € ergibt 35 €."
+  },
+  {
+   "q": "Was passiert mit den fixen Stückkosten, wenn die Produktionsmenge steigt?",
+   "o": [
+    "Sie sinken",
+    "Sie steigen",
+    "Sie bleiben gleich",
+    "Sie werden zu variablen Kosten"
+   ],
+   "r": 0,
+   "e": "Der konstante Fixkostenblock verteilt sich auf mehr Einheiten – das ist die Fixkostendegression."
+  },
+  {
+   "q": "Bei 1.000 Stück betragen die Kosten 30.000 €, bei 1.500 Stück 37.500 €. Wie hoch sind die variablen Stückkosten?",
+   "o": [
+    "25 €",
+    "30 €",
+    "15 €",
+    "7,50 €"
+   ],
+   "r": 2,
+   "e": "\\(k_v = \\frac{37.500 - 30.000}{1.500 - 1.000} = \\frac{7.500}{500} = 15\\) €. Die Fixkosten liegen damit bei 15.000 €."
+  }
+ ],
+ "verwandt": [
+  "deckungsbeitrag",
+  "break-even-point",
+  "einzelkosten-gemeinkosten",
+  "grenzkosten",
+  "kostenrechnung"
+ ],
+ "ask": "fixe und variable Kosten – mit Kostenfunktion, Stückkosten und Fixkostendegression an einem durchgerechneten Beispiel"
 }
