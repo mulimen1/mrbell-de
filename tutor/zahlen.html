@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#ebe4d8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Zahlen">
 <title>Zahlen · BWL Max</title>
 <link rel="manifest" href="/tutor/zahlen.webmanifest">
@@ -16,8 +16,9 @@
 @font-face { font-family: "Geist"; src: url("/tutor/fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
 @font-face { font-family: "Geist Mono"; src: url("/tutor/fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
 :root {
-  --bg: #000; --card: #0a0a0b; --card2: #111113; --line: #1d1d20; --line2: #2a2a2e;
-  --ink: #fafafa; --ink2: #c9c9cf; --mute: #7c7c85; --dim: #4a4a52;
+  --bg: #ebe4d8; --card: #fff; --card2: #f6f2ea; --line: #ebe5da; --line2: #ddd4c5;
+  --ink: #15151a; --ink2: #3d3a35; --mute: #7a746a; --dim: #c4bcae; --onInk: #fff;
+  --acc: #1a5fc4; --acc2: #5b3fc4; --ok: #16a05c; --bad: #e5484d;
   --r: 22px; --gap: 14px;
   --sans: "Geist", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; --mono: "Geist Mono", ui-monospace, Menlo, monospace;
 }
@@ -39,12 +40,12 @@ button { font: inherit; color: inherit; }
 .live { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line2); font: 600 13px var(--sans); white-space: nowrap; }
 .live i { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 0 rgba(255,255,255,.6); animation: pulse 2s infinite; }
 .live.zero i { background: var(--dim); animation: none; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,.55); } 70% { box-shadow: 0 0 0 9px rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(22,160,92,.55); } 70% { box-shadow: 0 0 0 9px rgba(22,160,92,0); } 100% { box-shadow: 0 0 0 0 rgba(22,160,92,0); } }
 .sp { flex: 1; }
 .seg { display: inline-flex; padding: 3px; border-radius: 999px; border: 1px solid var(--line2); background: var(--card); }
 .seg button { height: 30px; padding: 0 13px; border: 0; border-radius: 999px; background: none; color: var(--mute); font-weight: 600; font-size: 13px; cursor: pointer; transition: color .15s, background .2s; white-space: nowrap; }
 .seg button:hover { color: var(--ink); }
-.seg button.on { background: var(--ink); color: #000; }
+.seg button.on { background: var(--ink); color: var(--onInk); }
 .stand { color: var(--mute); font: 500 12px var(--mono); white-space: nowrap; }
 
 /* Karten */
@@ -73,7 +74,7 @@ button { font: inherit; color: inherit; }
 .kpi .d { font: 600 12px var(--mono); color: var(--mute); display: flex; align-items: center; gap: 6px; min-height: 18px; }
 .kpi .d b { display: inline-flex; align-items: center; height: 19px; padding: 0 7px; border-radius: 999px; font-weight: 700; background: var(--card2); color: var(--ink2); white-space: nowrap; flex: none; }
 .kpi .d span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.kpi .d b.up { background: var(--ink); color: #000; }
+.kpi .d b.up { background: var(--ink); color: var(--onInk); }
 .kpi .d b.down { background: transparent; border: 1px solid var(--line2); color: var(--mute); }
 .kpi svg.sp { width: 100%; height: 34px; margin-top: 4px; display: block; }
 .kpi.big .v { font-size: 40px; }
@@ -86,7 +87,7 @@ button { font: inherit; color: inherit; }
 .leg i { width: 10px; height: 10px; border-radius: 3px; background: var(--ink); }
 .leg i.l2 { background: transparent; border: 2px solid var(--ink2); border-radius: 50%; width: 9px; height: 9px; }
 .leg i.l3 { background: var(--line2); }
-.tip { position: absolute; pointer-events: none; z-index: 5; padding: 9px 12px; border-radius: 12px; background: var(--ink); color: #000; font: 600 12.5px/1.4 var(--sans); white-space: nowrap; transform: translate(-50%, calc(-100% - 12px)); opacity: 0; transition: opacity .12s; box-shadow: 0 12px 30px -10px rgba(0,0,0,.8); }
+.tip { position: absolute; pointer-events: none; z-index: 5; padding: 9px 12px; border-radius: 12px; background: var(--ink); color: var(--onInk); font: 600 12.5px/1.4 var(--sans); white-space: nowrap; transform: translate(-50%, calc(-100% - 12px)); opacity: 0; transition: opacity .12s; box-shadow: 0 12px 30px -10px rgba(0,0,0,.8); }
 .tip.on { opacity: 1; }
 .tip small { display: block; font: 600 11px var(--mono); opacity: .55; }
 
@@ -96,13 +97,13 @@ button { font: inherit; color: inherit; }
 .fun .n { font-size: 13.5px; color: var(--ink2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fun .bar { height: 30px; border-radius: 9px; background: var(--card2); overflow: hidden; position: relative; }
 .fun .bar i { position: absolute; inset: 0 auto 0 0; background: var(--ink); border-radius: 9px; transform-origin: 0 50%; animation: grow 1s cubic-bezier(.16,1,.3,1) both; }
-.fun .bar span { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font: 700 13px var(--mono); color: #000; mix-blend-mode: normal; }
+.fun .bar span { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font: 700 13px var(--mono); color: var(--onInk); mix-blend-mode: normal; }
 .fun .bar span.out { color: var(--ink); }
 .fun .p { font: 600 12px var(--mono); color: var(--mute); text-align: right; }
 .fun .r.weg .bar i { background: #e5484d; } .fun .r.weg .n, .fun .r.weg .p { color: #ff7b7f; } .fun .r.weg .bar span:not(.out) { color: #fff; }
 .card .hd .tm { display: inline-flex; align-self: center; gap: 2px; padding: 3px; border: 1px solid var(--line2); border-radius: 999px; margin-right: auto; margin-left: 14px; }
 .card .hd .tm button { height: 26px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: var(--mute); font: 600 12px var(--sans); cursor: pointer; }
-.card .hd .tm button.on { background: var(--ink); color: #000; }
+.card .hd .tm button.on { background: var(--ink); color: var(--onInk); }
 @keyframes grow { from { transform: scaleX(0); } }
 
 /* Feed */
@@ -111,13 +112,13 @@ button { font: inherit; color: inherit; }
 .ev:hover { background: var(--card2); }
 .ev .ic { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: var(--card2); border: 1px solid var(--line); }
 .ev .ic svg { width: 16px; height: 16px; }
-.ev.hot .ic { background: var(--ink); color: #000; border-color: var(--ink); }
+.ev.hot .ic { background: var(--ink); color: var(--onInk); border-color: var(--ink); }
 .ev .w { min-width: 0; }
 .ev .w b { font-weight: 600; font-size: 14px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ev .w small { color: var(--mute); font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
 .ev .t { color: var(--mute); font: 500 11.5px var(--mono); white-space: nowrap; }
 .ev.neu { animation: flash 1.2s ease both; }
-@keyframes flash { from { background: rgba(255,255,255,.12); } }
+@keyframes flash { from { background: rgba(26,95,196,.12); } }
 
 /* Listen mit Balken */
 .bars { display: grid; gap: 9px; }
@@ -137,7 +138,7 @@ button { font: inherit; color: inherit; }
 .kl { display: grid; gap: 2px; }
 .kl .r { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 4px; border-top: 1px solid var(--line); font-size: 13.5px; }
 .kl .r:first-child { border-top: 0; }
-.kl .r .ic { width: 28px; height: 28px; border-radius: 9px; background: var(--ink); color: #000; display: grid; place-items: center; } .kl .r .ic svg { width: 14px; height: 14px; }
+.kl .r .ic { width: 28px; height: 28px; border-radius: 9px; background: var(--ink); color: var(--onInk); display: grid; place-items: center; } .kl .r .ic svg { width: 14px; height: 14px; }
 .kl .r small { color: var(--mute); font: 500 11.5px var(--mono); }
 
 /* Heatmap */
@@ -159,11 +160,11 @@ button { font: inherit; color: inherit; }
 .reise .k b { font-weight: 650; }
 .reise .k small { color: var(--mute); font: 500 12px var(--mono); }
 .badge { display: inline-flex; align-items: center; height: 21px; padding: 0 8px; border-radius: 999px; border: 1px solid var(--line2); color: var(--ink2); font: 600 11.5px var(--sans); }
-.badge.w { background: var(--ink); color: #000; border-color: var(--ink); }
+.badge.w { background: var(--ink); color: var(--onInk); border-color: var(--ink); }
 .steps { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 10px; }
 .step { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px 0 8px; border-radius: 999px; background: var(--card2); border: 1px solid var(--line); font-size: 12.5px; color: var(--ink2); white-space: nowrap; }
 .step svg { width: 13px; height: 13px; flex: none; }
-.step.hot { background: var(--ink); color: #000; border-color: var(--ink); font-weight: 600; }
+.step.hot { background: var(--ink); color: var(--onInk); border-color: var(--ink); font-weight: 600; }
 .arrow { color: var(--dim); font-size: 12px; }
 .more { margin-top: 14px; height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line2); background: none; cursor: pointer; font-weight: 600; font-size: 13.5px; }
 .more:hover { border-color: var(--ink); }
@@ -174,7 +175,7 @@ button { font: inherit; color: inherit; }
 .gate img { width: 76px; height: 76px; border-radius: 22px; background: #fff; }
 .gate h1 { margin: 6px 0 0; font-size: 26px; letter-spacing: -.03em; }
 .gate p { margin: 0; color: var(--ink2); }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; padding: 0 22px; border-radius: 999px; border: 0; background: var(--ink); color: #000; font-weight: 650; font-size: 15px; text-decoration: none; cursor: pointer; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; padding: 0 22px; border-radius: 999px; border: 0; background: var(--ink); color: var(--onInk); font-weight: 650; font-size: 15px; text-decoration: none; cursor: pointer; }
 .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line2); }
 .skel { background: linear-gradient(90deg, var(--card) 0%, var(--card2) 40%, var(--card) 80%); background-size: 300% 100%; animation: sk 1.4s linear infinite; border-radius: var(--r); border: 1px solid var(--line); }
 @keyframes sk { from { background-position: 100% 0; } to { background-position: -50% 0; } }
@@ -199,6 +200,34 @@ button { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 .kl-acc{max-height:420px;overflow:auto}.kl-acc .who{display:grid;gap:1px;min-width:0}.kl-acc .who b{font-weight:650}.kl-acc .em{color:var(--mute,#8b8b93);font-weight:500;word-break:break-all}.kl-acc .wo{color:var(--mute,#8b8b93);font-size:11.5px}.kl-acc .icb{justify-self:start;display:inline-block;font:600 10px/1 var(--mono,monospace);letter-spacing:.06em;text-transform:uppercase;padding:3px 6px;border:1px solid currentColor;border-radius:999px;opacity:.8}
 .limb{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#e5484d;color:#fff;font-size:11.5px;font-weight:700;vertical-align:1px}.liml{color:#e5484d}.ua .r{display:flex;align-items:center;gap:12px;padding:12px 4px;border-top:1px solid var(--line,rgba(127,127,127,.18))}.ua>:first-child .r,.ua>.r:first-child{border-top:0}.ua .who{flex:1;min-width:0}.ua .who small{display:block}.ua summary{list-style:none;cursor:pointer}.ua summary::-webkit-details-marker{display:none}.uad[open] summary small:last-child{opacity:.6}.uav{margin:0 0 10px 48px;display:grid;gap:4px}.uav div{display:grid;grid-template-columns:1.4fr 1fr .8fr .8fr;gap:10px;font-size:13px;padding:6px 10px;border-radius:9px;background:rgba(127,127,127,.08)}
+
+/* Neues Design (hell, wie die App) + Quellen-Analyse */
+html, body { background-color: var(--bg); background-image: radial-gradient(rgba(0,0,0,.22) 1.3px, transparent 1.7px); background-size: 22px 22px; }
+.card { background: var(--card) !important; border-color: var(--line) !important; box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 14px 30px -24px rgba(60,40,10,.35); }
+.live i { background: var(--ok); }
+.seg button.on, .card .hd .tm button.on { background: var(--acc) !important; color: #fff !important; }
+.fun .bar i, .bars .r i::after { background: linear-gradient(90deg, var(--acc), #4f9cf5) !important; }
+.fun .bar span:not(.out) { color: #fff !important; } .fun .bar span.out { color: var(--ink) !important; }
+.kpi .v { color: var(--ink); }
+.qcmp { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 4px 0 14px; }
+.qc { display: grid; gap: 4px; text-align: left; padding: 14px 16px; border-radius: 18px; border: 1.5px solid var(--line2); background: var(--card2); cursor: pointer; transition: border-color .15s, transform .15s, box-shadow .15s; }
+.qc:hover { transform: translateY(-1px); }
+.qc b { font-size: 15px; color: var(--qc); } .qc .num { font: 700 20px var(--sans); color: var(--ink); } .qc small { font: 600 12px var(--sans); color: var(--mute); }
+.qc.on { border-color: var(--qc); background: color-mix(in srgb, var(--qc) 8%, #fff); box-shadow: 0 0 0 3px color-mix(in srgb, var(--qc) 18%, transparent); }
+.qhead { display: flex; align-items: baseline; gap: 10px; margin: 6px 0 8px; } .qhead b { font-size: 18px; color: var(--qc); } .qhead small { color: var(--mute); font-size: 12.5px; }
+.qtips { display: grid; gap: 6px; margin: 0 0 14px; } .qtips p { margin: 0; padding: 10px 14px; border-radius: 14px; background: var(--card2); border: 1px solid var(--line); font-size: 14px; color: var(--ink2); }
+.qtips p b { color: var(--ink); }
+.qgrid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px 26px; } .qwide { grid-column: 1 / -1; }
+.qr, .qr2 { display: grid; grid-template-columns: 150px minmax(0, 1fr) 46px 96px; align-items: center; gap: 10px; padding: 5px 0; font-size: 13.5px; }
+.qr2 { grid-template-columns: 170px minmax(0, 1fr) 46px; }
+.qbars { display: grid; }
+.ql, .qr2 > span:first-child { color: var(--ink2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qb { position: relative; height: 26px; border-radius: 9px; background: var(--card2); overflow: hidden; }
+.qb i { position: absolute; inset: 0 auto 0 0; border-radius: 9px; opacity: .9; transition: width .5s cubic-bezier(.2,.8,.2,1); }
+.qb b.out { color: var(--ink); text-shadow: none; } .qb b { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); font: 700 12.5px var(--mono); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.25); }
+.qp { color: var(--mute); text-align: right; font: 600 12.5px var(--mono); } .qd { color: var(--mute); font: 600 12px var(--mono); } .qd.bad { color: var(--bad); }
+.sub small { color: var(--mute); font-weight: 500; margin-left: 6px; }
+@media (max-width: 900px) { .qcmp { grid-template-columns: 1fr; } .qgrid { grid-template-columns: 1fr; } .qr { grid-template-columns: 110px minmax(0, 1fr) 40px 80px; } .qr2 { grid-template-columns: 120px minmax(0, 1fr) 40px; } }
 </style>
 </head>
 <body>
@@ -338,15 +367,15 @@ button { font: inherit; color: inherit; }
     if (firstDraw) { var ln = el.querySelector('.ln'); try { var L = ln.getTotalLength(); ln.style.strokeDasharray = L; ln.style.strokeDashoffset = L; ln.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 1100, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' }); } catch (e) {} }
   }
   function ring(items) {
-    var tot = items.reduce(function (s, x) { return s + x[1]; }, 0) || 1, a0 = -Math.PI / 2, s = '<svg viewBox="0 0 120 120">', shades = ['#fafafa', '#8e8e96', '#4a4a52', '#2a2a2e'];
-    s += '<circle cx="60" cy="60" r="46" fill="none" stroke="#151517" stroke-width="16"/>';
+    var tot = items.reduce(function (s, x) { return s + x[1]; }, 0) || 1, a0 = -Math.PI / 2, s = '<svg viewBox="0 0 120 120">', shades = ['#1a5fc4', '#5b3fc4', '#16a05c', '#f39b52'];
+    s += '<circle cx="60" cy="60" r="46" fill="none" stroke="#efe9df" stroke-width="16"/>';
     items.slice(0, 4).forEach(function (it, i) {
       var f = it[1] / tot, a1 = a0 + f * Math.PI * 2 - (f < 1 ? .03 : 0); if (f <= 0) return;
       var large = a1 - a0 > Math.PI ? 1 : 0, p = function (a) { return (60 + 46 * Math.cos(a)).toFixed(2) + ' ' + (60 + 46 * Math.sin(a)).toFixed(2); };
       s += f >= .999 ? '<circle cx="60" cy="60" r="46" fill="none" stroke="' + shades[i] + '" stroke-width="16"/>' : '<path d="M' + p(a0) + ' A46 46 0 ' + large + ' 1 ' + p(a1) + '" fill="none" stroke="' + shades[i] + '" stroke-width="16"/>';
       a0 += f * Math.PI * 2;
     });
-    return s + '<text x="60" y="58" text-anchor="middle" fill="#fafafa" font-size="20" font-weight="650" font-family="Geist, sans-serif">' + fmt(tot) + '</text><text x="60" y="75" text-anchor="middle" fill="#7c7c85" font-size="10" font-family="Geist Mono, monospace">BESUCHE</text></svg>';
+    return s + '<text x="60" y="58" text-anchor="middle" fill="#15151a" font-size="20" font-weight="650" font-family="Geist, sans-serif">' + fmt(tot) + '</text><text x="60" y="75" text-anchor="middle" fill="#7c7c85" font-size="10" font-family="Geist Mono, monospace">BESUCHE</text></svg>';
   }
   function bars(list, max, label) {
     if (!list || !list.length) return '<div class="empty">Noch nichts.</div>';
@@ -360,6 +389,61 @@ button { font: inherit; color: inherit; }
     if (!a) return '<b class="up">neu</b><span>vs. ' + esc(data.zeitraum.vName || '') + '</span>';
     var p = Math.round(100 * (v - a) / a);
     return '<b class="' + (p > 0 ? 'up' : p < 0 ? 'down' : '') + '">' + (p > 0 ? '▲ ' : p < 0 ? '▼ ' : '') + Math.abs(p) + ' %</b><span>vs. ' + esc(data.zeitraum.vName || '') + '</span>';
+  }
+
+  // ---------- Quellen: Google Ads / Google SEO / Startseite – wo und warum wir Nutzer verlieren ----------
+  var qMode = 'Ads'; try { qMode = localStorage.getItem('zl.qmode') || 'Ads'; } catch (e) {}
+  var Q = { Ads: ['Google Ads', 'Bezahlte Klicks · Landingpages ?thema=…', '#1a5fc4'], SEO: ['Google SEO', 'Lernseiten /lernen/… aus der Google-Suche', '#16a05c'], Start: ['Startseite', 'bwlmax.de direkt, Markensuche, Links', '#5b3fc4'] };
+  var QSTEPS = [['Gelandet', 'Gelandet'], ['Aufenthalt 10 s', 'Länger als 10 s'], ['Tafel 30 s', 'Tafel 30 s gelesen'], ['Tafel zu Ende', 'Tafel zu Ende gelesen'], ['Mini-Check geprüft', 'Mini-Check geprüft'],
+    ['Auflösung geklickt', 'Auflösung geklickt'], ['Anmeldefenster', 'Anmeldefenster gesehen'], ['Anmeldung begonnen', 'Anmeldung begonnen'], ['Konto erstellt', 'Konto erstellt']];
+  var QDWELL = [['Gelandet', 'gelandet'], ['Aufenthalt 10 s', '10 s'], ['Aufenthalt 30 s', '30 s'], ['Aufenthalt 1 Min', '1 Min'], ['Aufenthalt 2 Min', '2 Min'], ['Aufenthalt 5 Min', '5 Min']];
+  function qCounts(d, src) {
+    var o = {}, pre = src + ' · ';
+    (d.basis.ereignisse || []).forEach(function (x) { if (x[0].indexOf(pre) === 0) o[x[0].slice(pre.length)] = x[1]; });
+    return o;
+  }
+  function pc(a, b) { return b ? Math.round(100 * a / b) : 0; }
+  function qbar(w, n, col) { w = Math.max(2, Math.min(100, w)); return '<span class="qb"><i style="width:' + w + '%;background:' + col + '"></i><b class="num' + (w < 16 ? ' out' : '') + '" style="' + (w < 16 ? 'left:calc(' + w + '% + 7px)' : '') + '">' + fmt(n) + '</b></span>'; }
+  function quellen(d) {
+    var all = {}; ['Ads', 'SEO', 'Start'].forEach(function (k) { all[k] = qCounts(d, k); });
+    var c = all[qMode] || {}, land = c['Gelandet'] || 0, col = Q[qMode][2];
+    // Vergleich oben: alle drei Quellen nebeneinander
+    var cmp = ['Ads', 'SEO', 'Start'].map(function (k) {
+      var x = all[k], l = x['Gelandet'] || 0, kk = x['Konto erstellt'] || 0;
+      return '<button class="qc' + (k === qMode ? ' on' : '') + '" data-q="' + k + '" style="--qc:' + Q[k][2] + '"><b>' + esc(Q[k][0]) + '</b><span class="num">' + fmt(l) + ' <small>Besucher</small></span><span class="num">' + fmt(kk) + ' <small>Konten · ' + pc(kk, l) + ' %</small></span><span class="num"><small>unter 10 s weg: ' + pc(Math.max(0, l - (x['Aufenthalt 10 s'] || 0)), l) + ' %</small></span></button>';
+    }).join('');
+    // Trichter mit Verlust je Schritt
+    var prev = null, worst = null;
+    var rows = QSTEPS.map(function (st) {
+      var n = c[st[0]] || 0, drop = prev == null ? 0 : Math.max(0, prev - n), dp = prev ? pc(drop, prev) : 0;
+      if (prev != null && prev >= 2 && (!worst || dp > worst.dp)) worst = { from: prevLbl, to: st[1], dp: dp, drop: drop };
+      var r = '<div class="qr"><span class="ql">' + esc(st[1]) + '</span>' + qbar(pc(n, land || 1), n, col) + '<span class="qp num">' + pc(n, land) + ' %</span><span class="qd num' + (dp >= 50 && prev >= 2 ? ' bad' : '') + '">' + (prev == null ? '' : drop ? '−' + fmt(drop) + ' (' + dp + ' %)' : '±0') + '</span></div>';
+      prev = n; prevLbl = st[1]; return r;
+    }).join(''), prevLbl = '';
+    var dw = QDWELL.map(function (x) { return [x[1], c[x[0]] || 0]; });
+    var ends = Object.keys(c).filter(function (k) { return k.indexOf('Ende: ') === 0; }).map(function (k) { return [k.slice(6), c[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
+    var clicks = Object.keys(c).filter(function (k) { return k.indexOf('Klick: ') === 0; }).map(function (k) { return [k.slice(7), c[k]]; }).sort(function (a, b) { return b[1] - a[1]; });
+    var bar = function (list, base) { if (!list.length) return '<div class="empty">Noch nichts gemessen.</div>'; var m = Math.max.apply(null, list.map(function (x) { return x[1]; }).concat([1])); return '<div class="qbars">' + list.slice(0, 12).map(function (x) { return '<div class="qr2"><span>' + esc(x[0]) + '</span>' + qbar(100 * x[1] / m, x[1], col) + '<span class="qp num">' + (base ? pc(x[1], base) + ' %' : '') + '</span></div>'; }).join('') + '</div>'; };
+    // Klartext: wo und warum
+    var tips = [];
+    if (!land) tips.push('Für diese Quelle gibt es im Zeitraum noch keine Messung. Gemessen wird seit 29.10.2026.');
+    else {
+      var b10 = pc(Math.max(0, land - (c['Aufenthalt 10 s'] || 0)), land);
+      if (b10 >= 40) tips.push('<b>' + b10 + ' % sind nach unter 10 Sekunden weg.</b> Die Seite passt dann nicht zur Suche oder lädt/wirkt zu langsam – zuerst Anzeige/Titel ↔ Seite prüfen.');
+      if (worst && worst.drop) tips.push('<b>Größter Verlust: ' + esc(worst.from) + ' → ' + esc(worst.to) + '</b> (−' + fmt(worst.drop) + ', ' + worst.dp + ' %). Genau hier ansetzen.');
+      if (ends.length) tips.push('Die meisten hören auf nach <b>„' + esc(ends[0][0]) + '“</b> (' + fmt(ends[0][1]) + '×).');
+      var aw = c['Anmeldefenster'] || 0, ab = c['Anmeldung begonnen'] || 0;
+      if (aw >= 3) tips.push('Anmeldefenster gesehen ' + fmt(aw) + '× → begonnen ' + fmt(ab) + '× (' + pc(ab, aw) + ' %).' + (c['Verlassen-Fenster'] ? ' Davon war das Verlassen-Fenster ' + fmt(c['Verlassen-Fenster']) + '× dabei.' : ''));
+      var g = c['Konto erstellt (Google)'] || 0, e2 = c['Konto erstellt (E-Mail)'] || 0; if (g + e2) tips.push('Neue Konten: ' + fmt(g) + ' mit Google, ' + fmt(e2) + ' mit E-Mail.');
+      if (c['Google-Knopf fehlt']) tips.push('<b>Achtung:</b> ' + fmt(c['Google-Knopf fehlt']) + '× konnte der Google-Knopf nicht geladen werden.');
+    }
+    return '<section class="grid"><div class="card qcard"><div class="hd"><h2>Woher sie kommen – und wo sie abspringen</h2><small>pro Besuch einmal gezählt · ohne Inhalte</small></div>' +
+      '<div class="qcmp">' + cmp + '</div>' +
+      '<div class="qhead" style="--qc:' + col + '"><b>' + esc(Q[qMode][0]) + '</b><small>' + esc(Q[qMode][1]) + '</small></div>' +
+      '<div class="qtips">' + tips.map(function (t) { return '<p>' + t + '</p>'; }).join('') + '</div>' +
+      '<div class="qgrid"><div><div class="sub">Trichter <small>Anteil der Gelandeten · Verlust zum Schritt davor</small></div>' + rows + '</div>' +
+      '<div><div class="sub">Wie lange sie bleiben</div>' + bar(dw, land) + '<div class="sub">Wo sie aufhören <small>letzter Schritt vor dem Gehen</small></div>' + bar(ends, land) + '</div>' +
+      '<div class="qwide"><div class="sub">Was sie klicken <small>Besucher, die den Knopf gedrückt haben</small></div>' + bar(clicks, land) + '</div></div></div></section>';
   }
 
   // ---------- Zeichnen ----------
@@ -395,7 +479,7 @@ button { font: inherit; color: inherit; }
       return '<div class="r' + (x[2] === 'weg' ? ' weg' : '') + '"><span class="n">' + esc(x[0]) + '</span><span class="bar"><i style="width:' + Math.max(w ? 1.5 : 0, w).toFixed(1) + '%;animation-delay:' + (i * 70) + 'ms"></i><span class="num' + (w < 18 ? ' out" style="left:calc(' + Math.max(w, 1.5).toFixed(1) + '% + 8px)' : '') + '">' + fmt(x[1]) + '</span></span><span class="p">' + (pr == null ? '' : pr + ' %') + '</span></div>';
     }).join('');
 
-    var feedList = (d.basis.letzte || []).filter(function (e) { return e.ereignis !== 'Gescrollt'; }).slice(0, 40);
+    var feedList = (d.basis.letzte || []).filter(function (e) { return e.ereignis !== 'Gescrollt' && !/^(Ads|SEO|Start) · /.test(e.ereignis); }).slice(0, 40);
     var feed = feedList.length ? feedList.map(function (e) {
       var key = e.t + e.ereignis + e.detail, neu = !firstDraw && !seenFeed[key]; seenFeed[key] = 1;
       var who = [e.ort, e.geraet].filter(Boolean).join(' · ') || (e.domain || 'Besucher');
@@ -437,10 +521,10 @@ button { font: inherit; color: inherit; }
     var H = d.heat || [], hmax = 1; H.forEach(function (r) { r.forEach(function (v) { if (v > hmax) hmax = v; }); });
     var WT = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'], heat = '<div class="heat"><span></span>';
     for (var hh = 0; hh < 24; hh++) heat += '<span class="h">' + hh + '</span>';
-    H.forEach(function (r, i) { heat += '<span class="d">' + WT[i] + '</span>'; r.forEach(function (v, h2) { heat += '<span class="c"' + (v ? ' data-v' : '') + ' title="' + WT[i] + ' ' + h2 + '–' + (h2 + 1) + ' Uhr: ' + v + ' Besuche" style="' + (v ? 'background:rgba(255,255,255,' + (0.12 + 0.88 * v / hmax).toFixed(2) + ')' : '') + '"></span>'; }); });
+    H.forEach(function (r, i) { heat += '<span class="d">' + WT[i] + '</span>'; r.forEach(function (v, h2) { heat += '<span class="c"' + (v ? ' data-v' : '') + ' title="' + WT[i] + ' ' + h2 + '–' + (h2 + 1) + ' Uhr: ' + v + ' Besuche" style="' + (v ? 'background:rgba(26,95,196,' + (0.12 + 0.88 * v / hmax).toFixed(2) + ')' : '') + '"></span>'; }); });
     heat += '</div>';
 
-    var ger = d.basis.geraet || [], gsum = ger.reduce(function (s2, y) { return s2 + y[1]; }, 0) || 1, SH = ['#fafafa', '#8e8e96', '#4a4a52', '#2a2a2e'];
+    var ger = d.basis.geraet || [], gsum = ger.reduce(function (s2, y) { return s2 + y[1]; }, 0) || 1, SH = ['#1a5fc4', '#5b3fc4', '#16a05c', '#f39b52'];
     var geraete = ger.length ? '<div class="ring">' + ring(ger) + '<div class="bars" style="flex:1">' + ger.slice(0, 4).map(function (x, i) { return '<div class="r"><span><em class="sw" style="background:' + SH[i] + '"></em>' + esc(x[0]) + '</span><b class="num">' + Math.round(100 * x[1] / gsum) + ' %</b></div>'; }).join('') + '</div></div>' : '<div class="empty">Noch nichts.</div>';
 
     var reisen = d.reisen || [];
@@ -463,6 +547,7 @@ button { font: inherit; color: inherit; }
       '<section class="grid g7">' + kpis + '</section>' +
       '<section class="grid g21"><div class="card"><div class="hd"><h2>Vom Besuch zum Konto</h2><span class="tm"><button data-tm="ads"' + (adsM ? ' class="on"' : '') + '>Nur Google Ads</button><button data-tm="alle"' + (adsM ? '' : ' class="on"') + '>Alle</button></span><small>Wo sie abspringen · ' + (tx.ab ? 'seit ' + new Date(tx.ab).toLocaleString('de-DE', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) + ' Uhr' : esc(d.zeitraum.name)) + '</small></div><div class="fun">' + trich + '</div>' + fnote + '</div>' +
       '<div class="card"><div class="hd"><h2>Gerade passiert</h2><small>live</small></div><div class="feed" id="feed">' + feed + '</div></div></section>' +
+      quellen(d) +
       '<section class="grid"><div class="card"><div class="hd"><h2>Verlauf</h2><div class="leg"><span><i></i>Seitenaufrufe</span><span><i class="l2"></i>Besucher</span><span><i class="l3"></i>Aktiv</span></div></div><div class="chart" id="chart"></div></div></section>' +
       '<section class="grid g2"><div class="card"><div class="hd"><h2>Neue Konten</h2><small>' + esc(d.zeitraum.name) + '</small></div>' + konten + '</div>' +
       '<div class="card"><div class="hd"><h2>Nutzer-Aktivität</h2><small>' + (limN ? '<span class="limb">' + limN + ' im Limit (7 Tage)</span> · ' : '') + 'Besuche je Konto · ohne Inhalte</small></div>' + aktiv + '</div></section>' +
@@ -479,6 +564,7 @@ button { font: inherit; color: inherit; }
     var fe = $id('feed'); if (fe && feedTop) fe.scrollTop = feedTop;
     if (!firstDraw) { keep.forEach(function (x) { x[0].scrollTop = x[1]; }); if (window.scrollY !== wy) window.scrollTo(0, wy); }
     app.style.minHeight = '';
+    [].forEach.call(app.querySelectorAll('[data-q]'), function (b) { b.onclick = function () { qMode = b.dataset.q; try { localStorage.setItem('zl.qmode', qMode); } catch (e) {} draw(); }; });
     [].forEach.call(app.querySelectorAll('[data-tm]'), function (b) { b.onclick = function () { trMode = b.dataset.tm; try { localStorage.setItem('zl.trmode', trMode); } catch (e) {} draw(); }; });
     var mb = $id('more'); if (mb) mb.onclick = function () { showAllWege = !showAllWege; draw(); };
     firstDraw = false;

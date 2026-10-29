@@ -36,6 +36,7 @@
   // Ohne Einwilligung: nur die reine Anzahl dieser Trichter-Schritte – ohne Cookie, ohne Kennung, ohne Ort
   var ANON = ['Mini-Check BWL Max erkunden', 'Mini-Check Auflösung geklickt', 'Google-Knopf fehlt', 'Mini-Check Klausuraufgaben', 'Führung gestartet', 'Führung abgeschlossen', 'Führung abgebrochen', 'Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Rückkehrer-Hinweis', 'Rückkehrer-Hinweis geklickt', 'Lernseite geöffnet', 'Lernseite Karte', 'Lernseite Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt', 'Länger als 30 Sekunden', 'Gehirn-Seite geöffnet', 'Design-Feedback', 'Design gewechselt'];
   function track(ereignis, detail, once) {
+    try { srcStep(ereignis, detail); } catch (e) {}
     if (!ok()) {
       if (ANON.indexOf(ereignis) < 0 || /(?:^|;\s*)mb_intern=1/.test(document.cookie)) return;
       try { fetch('/bm', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ ereignis: ereignis, detail: String(detail || '').slice(0, 30), seite: '/', ads: GADS ? 1 : 0 }), keepalive: true, credentials: 'omit' }).catch(function () {}); } catch (e) {}
@@ -121,7 +122,60 @@
     addEventListener('hashchange', onHash); onHash();
   }
 
-  window.BM = { track: track, open: open, ok: ok };
+  // ---------- Verhalten je Quelle: Google Ads / Google SEO (Lernseiten) / Startseite ----------
+  // Pro Tab einmal festgelegt (beim Landen). Jeder Schritt zählt pro Besuch nur einmal → Zahlen = Besucher, die das gemacht haben.
+  // Ohne Kennung und ohne Inhalte: nur „Quelle · Schritt“.
+  var SRC = 'Start';
+  try {
+    SRC = sessionStorage.getItem('bm.src') || '';
+    if (!SRC) {
+      var pth = location.pathname, qs = location.search;
+      SRC = GADS || (/[?&]thema=/.test(qs) && !/[?&]utm_source=seo/.test(qs) && !/^\/(tutor\/)?(lernen|ueber)(\/|$)/.test(pth)) ? 'Ads'
+        : /^\/(tutor\/)?(lernen|ueber)(\/|$)/.test(pth) || /[?&]utm_source=seo/.test(qs) ? 'SEO' : 'Start';
+      sessionStorage.setItem('bm.src', SRC);
+    }
+  } catch (e) {}
+  var lastStep = 'Gelandet', ended = false;
+  function post(ereignis, detail) {
+    if (/(?:^|;\s*)mb_intern=1/.test(document.cookie)) return;
+    var body = JSON.stringify({ ereignis: String(ereignis).slice(0, 40), detail: String(detail || '').slice(0, 30), seite: seite(), ads: GADS ? 1 : 0, src: SRC });
+    try { fetch('/bm', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: body, keepalive: true, credentials: ok() ? 'same-origin' : 'omit' }).catch(function () {}); } catch (e) {}
+  }
+  function srcEv(name, step) {
+    var k = 'bm.sev.' + name; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) {}
+    if (step) lastStep = name;
+    post(SRC + ' · ' + name, '');
+  }
+  var STEP = { 'Tafel 30 s offen': 'Tafel 30 s', 'Tafel zu Ende gelesen': 'Tafel zu Ende', 'Mini-Check angeklickt': 'Mini-Check-Knopf', 'Mini-Check geprüft': 'Mini-Check geprüft',
+    'Mini-Check Auflösung geklickt': 'Auflösung geklickt', 'Mini-Check Klausuraufgaben': 'Klausuraufgaben-Knopf', 'Mini-Check BWL Max erkunden': 'BWL Max erkunden', 'Klausurpfad geklickt': 'Klausurpfad',
+    'Anmeldefenster gesehen': 'Anmeldefenster', 'Verlassen-Hinweis': 'Verlassen-Fenster', 'Lernseite Verlassen-Hinweis': 'Verlassen-Fenster', 'Anmeldung begonnen': 'Anmeldung begonnen', 'Konto erstellt': 'Konto erstellt',
+    'Max gefragt': 'Max gefragt', 'Skript hochgeladen': 'Skript hochgeladen', 'Bereich geöffnet': 'Bereich geöffnet', 'Führung gestartet': 'Führung gestartet', 'Google-Knopf fehlt': 'Google-Knopf fehlt' };
+  function srcStep(ereignis, detail) {
+    var n = STEP[ereignis]; if (!n) return;
+    if (ereignis === 'Anmeldung begonnen' || ereignis === 'Konto erstellt') { srcEv(n, true); if (/google/i.test(detail || '')) srcEv(n + ' (Google)'); else if (/mail/i.test(detail || '')) srcEv(n + ' (E-Mail)'); return; }
+    srcEv(n, ereignis !== 'Verlassen-Hinweis' && ereignis !== 'Lernseite Verlassen-Hinweis' && ereignis !== 'Google-Knopf fehlt');
+  }
+  srcEv('Gelandet', true);
+  // Aufenthalt: nur sichtbare Zeit
+  var seen = 0, MARK = [[10, '10 s'], [30, '30 s'], [60, '1 Min'], [120, '2 Min'], [300, '5 Min']];
+  setInterval(function () { if (document.visibilityState !== 'visible') return; seen++; for (var i = 0; i < MARK.length; i++) if (seen === MARK[i][0]) srcEv('Aufenthalt ' + MARK[i][1]); }, 1000);
+  // Wo sie aufhören: beim ersten Verlassen der Seite der letzte erreichte Schritt
+  function bye() { if (ended) return; ended = true; var k = 'bm.sev.ende'; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) {} post(SRC + ' · Ende: ' + lastStep, ''); }
+  addEventListener('pagehide', bye);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden' && seen >= 3) bye(); });
+  // Wichtige Knöpfe: wer hat was geklickt (pro Besuch einmal)
+  var CLICK = [['.rm-tc.rm-tcq', 'Klausurfragen-Karte'], ['.rm-tc.rm-tck', 'Karteikarten-Karte'], ['.rm-tc.rm-tcx', 'Excel-Karte'], ['.rm-tc.rm-tcy', 'Video-Karte'], ['.m-mc-tz', 'Mini-Check-Knopf'], ['.m-mc-go', 'Prüfen'],
+    ['.m-mc-lock', 'Auflösung ansehen'], ['.m-mc-tease', 'Klausuraufgaben gesperrt'], ['.m-mc-herob', 'Klausuraufgaben starten'], ['.m-mc-tour', 'BWL Max erkunden'], ['.m-ladcta', 'Klausurpfad-Knopf'],
+    ['.topnav [data-tn="tutor"]', 'Oben: Tutor'], ['.topnav [data-tn="faecher"], .topnav [data-tn="bibliothek"]', 'Oben: Fächer'], ['.topnav [data-tn="ueben"]', 'Oben: Lernen'], ['.topnav [data-tn="excel"]', 'Oben: Tools'],
+    ['.lm-nav .lm-tutor', 'Oben: Tutor'], ['.lm-nav .lm-orange', 'Oben: Fächer'], ['.lm-nav .lm-lila', 'Oben: Lernen'], ['.lm-nav .lm-pink', 'Oben: Tools'],
+    ['.ai-talk', 'Sprich mit Max'], ['.rm-tkb', 'Lerntools'], ['.rm-tlt', 'Lerntool-Kachel'], ['.lm-cta, .navreg, .m-ladcta2', 'Kostenlos starten'], ['.lmx-go', 'Verlassen-Angebot'], ['.lmx-no', 'Verlassen: nein danke'],
+    ['.dk .dk-b', 'Lexikon/Rechner'], ['.lalt .llink', 'Schon ein Konto'], ['.lclose, .m-rl-x, .lmx-x', 'Fenster geschlossen'], ['.m-rl-mail', 'Mit E-Mail registrieren'], ['.lbtn', 'Konto erstellen (E-Mail)'],
+    ['.rm-mask, .ai-in, .ai-isl textarea, .ai-isl input', 'Eingabefeld'], ['.tc-btn', 'Tafel-Knopf'], ['#landing .hero a, #landing .hero button', 'Start: Hero-Knopf'], ['#landing a, #landing button', 'Start: Knopf']];
+  document.addEventListener('click', function (e) {
+    var t = e.target; if (!t || !t.closest) return;
+    for (var i = 0; i < CLICK.length; i++) { try { if (t.closest(CLICK[i][0])) { srcEv('Klick: ' + CLICK[i][1]); return; } } catch (x) {} }
+  }, true);
+  window.BM = { track: track, open: open, ok: ok, src: SRC };
   document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-consent-open]')) { e.preventDefault(); open(); } });
   // Wer nach 30 s noch da ist (auch ohne Einwilligung: reine Anzahl) – der Rest ist „unter 30 s wieder weg“
   setTimeout(function () { track('Länger als 30 Sekunden', '', true); }, 30000);

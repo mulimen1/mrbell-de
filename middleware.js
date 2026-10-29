@@ -99,10 +99,10 @@ function melden(daten, req, ctx) {
 
 // ---------- BWL Max: Seitenaufruf ohne Kennung, Ereignisse nur mit Einwilligung (Cookie bm_analyse) ----------
 const BM_ZIEL = 'https://hub.mrbell.de/n8n/webhook/bm-ping';
-const BM_EREIGNISSE = ['Anmeldefenster gesehen', 'Anmeldung begonnen', 'Analyse erlaubt', 'Gescrollt', 'Länger als 30 Sekunden', 'Max geöffnet', 'Max gefragt', 'Sprechen gestartet', 'Skript hochgeladen',
+const BM_EREIGNISSE = ['Google-Knopf fehlt', Mini-Check BWL Max erkunden', Mini-Check Auflösung geklickt', Mini-Check Klausuraufgaben', Anmeldefenster gesehen', 'Anmeldung begonnen', 'Analyse erlaubt', 'Gescrollt', 'Länger als 30 Sekunden', 'Max geöffnet', 'Max gefragt', 'Sprechen gestartet', 'Skript hochgeladen',
   'Beispiel geöffnet', 'Thema erklärt', 'Erstellt', 'Bereich geöffnet', 'Trainer geöffnet', 'Angemeldet', 'Spaßfrage beantwortet', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt'];
 // Ohne Einwilligung zählbar (ohne Kennung, ohne Ort): nur die reine Anzahl neuer Konten
-const BM_OHNE = ['Konto erstellt', 'Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt', 'Länger als 30 Sekunden'];   // Trichter: reine Anzahl ohne Kennung und Ort
+const BM_OHNE = ['Google-Knopf fehlt', Mini-Check BWL Max erkunden', Mini-Check Auflösung geklickt', Mini-Check Klausuraufgaben', Konto erstellt', 'Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt', 'Länger als 30 Sekunden'];   // Trichter: reine Anzahl ohne Kennung und Ort
 function bmKennung(req) { const m = /(?:^|;\s*)bm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
 function bmMelden(daten, req, ctx, bwlmax) {
   if (intern(req)) return null;
@@ -132,9 +132,11 @@ async function bmEreignis(req, ctx, bwlmax) {
   if (BOT.test(ua)) return new Response(null, { status: 204 });
   let d; try { d = JSON.parse((await req.text()).slice(0, 2000)); } catch (e) { return new Response(null, { status: 400 }); }
   const ereignis = kurz(d && d.ereignis, 40);
-  if (BM_EREIGNISSE.indexOf(ereignis) < 0) return new Response(null, { status: 204 });
-  if (!bmKennung(req) && BM_OHNE.indexOf(ereignis) < 0) return new Response(null, { status: 204 });
-  const offen = bmMelden({ ereignis: ereignis, detail: kurz(d.detail, 60), seite: kurz(d.seite, 60), herkunft: d && d.ads ? 'Google Ads' : '', geraet: geraet(ua) }, req, ctx, bwlmax);
+  // „Quelle · Schritt“ (Ads/SEO/Start): reine Anzahl, auch ohne Einwilligung – feste Namen aus consent.js, nichts Freies
+  const quellSchritt = /^(Ads|SEO|Start) · [A-Za-zÄÖÜäöüß0-9 .:/()\-–]{1,34}$/.test(ereignis);
+  if (!quellSchritt && BM_EREIGNISSE.indexOf(ereignis) < 0) return new Response(null, { status: 204 });
+  if (!quellSchritt && !bmKennung(req) && BM_OHNE.indexOf(ereignis) < 0) return new Response(null, { status: 204 });
+  const offen = bmMelden({ ereignis: ereignis, detail: kurz(d.detail, 60), seite: kurz(d.seite, 60), herkunft: d && d.ads ? 'Google Ads' : d && d.src === 'SEO' ? 'Google SEO' : d && d.src === 'Start' ? 'Startseite' : '', geraet: geraet(ua) }, req, ctx, bwlmax);
   if (offen) await Promise.race([offen, new Promise(function (r) { setTimeout(r, 1500); })]);
   return new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store' } });
 }

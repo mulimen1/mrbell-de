@@ -8515,3 +8515,5 @@ html:root[data-nv][data-nv] body :is(.m-mc-teasei, .m-mc-heroi, .xo-heroi) svg.i
 .m-mc-tour:hover { background: #eafaf1; transform: translateY(-1px); }
 .m-mc-tour small { font-weight: 550; color: var(--mute); font-size: 12px; }
 html:root[data-nv] body .m-mc-tour svg.ico { width: 16px !important; height: 16px !important; margin: 0 !important; border: 0 !important; background: none !important; padding: 0 !important; stroke: #0f7a45 !important; }
+/* Zahlen im neuen hellen Design */
+html .zl-host, html[data-theme="light"] .zl-host { background: transparent !important; padding: 0 !important; border-radius: 0 !important; }
