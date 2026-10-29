@@ -8355,3 +8355,15 @@ html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .fx-head .kt-go { bo
 .sk-shot.on figcaption b { background: linear-gradient(135deg, #2a7fe8, #7b4fe0); color: #fff; }
 .sk-sub { color: #6b6b75; font-size: 13px; }
 @media (max-width: 560px) { .sk-cmp { grid-template-columns: 1fr 1fr; gap: 8px; } .sk-shot figcaption span { display: none; } }
+
+/* Tutor-Knopf: bleibt voll (Hero), bekommt aber Hover-Glanz und einen klaren „Du bist hier“-Zustand wie die anderen Bereiche */
+html:root[data-nv] body .topnav .tn.tn-tutor { position: relative !important; overflow: hidden !important; isolation: isolate; }
+html:root[data-nv] body .topnav .tn.tn-tutor::after { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit; background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.38) 48%, rgba(255,255,255,.1) 56%, transparent 70%); transform: translateX(-120%); transition: transform .7s cubic-bezier(.2,.8,.2,1); }
+html:root[data-nv] body .topnav .tn.tn-tutor:hover::after { transform: translateX(120%); }
+html:root[data-nv] body .topnav .tn.tn-tutor .tn-face { transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .25s !important; }
+html:root[data-nv] body .topnav .tn.tn-tutor:hover .tn-face { transform: scale(1.1) rotate(-6deg); }
+html:root[data-nv] body .topnav .tn.tn-tutor:hover { transform: translateY(-2px) !important; filter: none !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 10px 18px -9px color-mix(in srgb, var(--nb2) 95%, transparent) !important; }
+html:root[data-nv][data-nv] body .topnav .tn.tn-tutor.on, html:root[data-nv][data-nv] body .topnav .tn.tn-tutor.on:hover { box-shadow: inset 0 0 0 2px rgba(255,255,255,.9), 0 0 0 2.5px var(--bg, #f3efe7), 0 0 0 4.5px var(--nb2), 0 12px 26px -12px color-mix(in srgb, var(--nb2) 90%, transparent) !important; }
+html:root[data-nv][data-nv] body .topnav .tn.tn-tutor.on .tn-face { box-shadow: 0 0 0 2.5px #fff, 0 0 0 5px color-mix(in srgb, #fff 35%, transparent) !important; }
+@media (prefers-reduced-motion: reduce) { html:root[data-nv] body .topnav .tn.tn-tutor::after { display: none; } html:root[data-nv] body .topnav .tn.tn-tutor:hover .tn-face { transform: none; } }
+@media (max-width: 760px) { html:root[data-nv][data-nv] body .topnav .tn.tn-tutor.on, html:root[data-nv][data-nv] body .topnav .tn.tn-tutor.on:hover { box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px color-mix(in srgb, var(--nbd) 80%, transparent) !important; } }
