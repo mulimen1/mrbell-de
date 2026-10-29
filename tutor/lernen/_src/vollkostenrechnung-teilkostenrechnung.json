@@ -4,7 +4,7 @@
  "title": "Vollkostenrechnung vs. Teilkostenrechnung – mit Beispiel",
  "meta": "Vollkostenrechnung und Teilkostenrechnung im Vergleich: Unterschied, Vor- und Nachteile und warum Vollkosten bei Sortimentsfragen täuschen – mit Beispiel.",
  "h1": "Vollkostenrechnung und Teilkostenrechnung einfach erklärt",
- "kurz": "Die Vollkostenrechnung verteilt alle Kosten, also auch die Fixkosten, über Schlüssel auf die Produkte und ermittelt so Selbstkosten und Stückgewinne. Die Teilkostenrechnung rechnet den Produkten nur die variablen Kosten zu und zieht die Fixkosten als Block vom Deckungsbeitrag ab. Für langfristige Preise taugt die Vollkosten-, für kurzfristige Entscheidungen die Teilkostenrechnung.",
+ "kurz": "Die Vollkostenrechnung verteilt alle Kosten, also auch die Fixkosten, über Schlüssel auf die Produkte und ermittelt so Selbstkosten und Stückgewinne. Die (variable) Teilkostenrechnung rechnet den Produkten nur die variablen Kosten zu und zieht die Fixkosten als Block vom Deckungsbeitrag ab. Für langfristige Preise taugt die Vollkosten-, für kurzfristige Entscheidungen die Teilkostenrechnung.",
  "keywords": [
   "vollkostenrechnung",
   "teilkostenrechnung",
@@ -17,7 +17,7 @@
  "abschnitte": [
   {
    "h2": "Was ist der Unterschied zwischen Vollkosten- und Teilkostenrechnung?",
-   "html": "<p>Beide Systeme beantworten dieselbe Frage – was kostet ein Produkt und was bringt es? –, aber sie gehen mit den <strong>Fixkosten</strong> grundverschieden um. Fixkosten wie Gehälter der Verwaltung, Miete oder Abschreibungen fallen an, egal wie viel produziert wird. Sie lassen sich keinem einzelnen Produkt verursachungsgerecht zuordnen.</p><ul><li>Die <strong>Vollkostenrechnung</strong> verteilt trotzdem alle Kosten auf die Kostenträger, die Gemeinkosten über Schlüssel und Zuschlagssätze. Ergebnis: Selbstkosten pro Stück und ein Stückgewinn.</li><li>Die <strong>Teilkostenrechnung</strong> ordnet den Produkten nur die Kosten zu, die sie tatsächlich verursachen – in der Grundform die variablen Kosten. Die Fixkosten bleiben als Block stehen und werden erst im Gesamtergebnis abgezogen. Ergebnis: der Deckungsbeitrag.</li></ul><table><thead><tr><th></th><th>Vollkostenrechnung</th><th>Teilkostenrechnung</th></tr></thead><tbody><tr><td>Zugerechnete Kosten</td><td>alle Kosten</td><td>nur variable (bzw. direkt zurechenbare) Kosten</td></tr><tr><td>Fixkosten</td><td>über Schlüssel auf Stücke verteilt</td><td>als Block ins Ergebnis</td></tr><tr><td>Zentrale Größe</td><td>Selbstkosten, Stückgewinn</td><td>Deckungsbeitrag</td></tr><tr><td>Typische Verfahren</td><td>BAB, Zuschlags-, Divisionskalkulation</td><td>Deckungsbeitragsrechnung, Grenzplankostenrechnung</td></tr><tr><td>Zeithorizont</td><td>langfristig</td><td>kurzfristig</td></tr></tbody></table><div class=\"merke\">Der Unterschied liegt allein in den Fixkosten: verteilen (Vollkosten) oder als Block stehen lassen (Teilkosten).</div>"
+   "html": "<p>Beide Systeme beantworten dieselbe Frage – was kostet ein Produkt und was bringt es? –, aber sie gehen mit den <strong>Fixkosten</strong> grundverschieden um. Fixkosten wie Gehälter der Verwaltung, Miete oder Abschreibungen fallen an, egal wie viel produziert wird. Sie lassen sich nicht ohne Weiteres verursachungsgerecht auf einzelne Stücke verteilen (einem Produkt oder Auftrag können aber bestimmte Fixkosten direkt zurechenbar sein, etwa Spezialwerkzeuge).</p><ul><li>Die <strong>Vollkostenrechnung</strong> verteilt trotzdem alle Kosten auf die Kostenträger, die Gemeinkosten über Schlüssel und Zuschlagssätze. Ergebnis: Selbstkosten pro Stück und ein Stückgewinn.</li><li>Die <strong>Teilkostenrechnung</strong> ordnet den Produkten nur die Kosten zu, die sie tatsächlich verursachen – in der Grundform die variablen Kosten. Die Fixkosten bleiben als Block stehen und werden erst im Gesamtergebnis abgezogen. Ergebnis: der Deckungsbeitrag.</li></ul><table><thead><tr><th></th><th>Vollkostenrechnung</th><th>Teilkostenrechnung</th></tr></thead><tbody><tr><td>Zugerechnete Kosten</td><td>alle Kosten</td><td>nur variable (bzw. direkt zurechenbare) Kosten</td></tr><tr><td>Fixkosten</td><td>über Schlüssel auf Stücke verteilt</td><td>als Block ins Ergebnis</td></tr><tr><td>Zentrale Größe</td><td>Selbstkosten, Stückgewinn</td><td>Deckungsbeitrag</td></tr><tr><td>Typische Verfahren</td><td>BAB, Zuschlags-, Divisionskalkulation</td><td>Deckungsbeitragsrechnung, Grenzplankostenrechnung</td></tr><tr><td>Zeithorizont</td><td>langfristig</td><td>kurzfristig</td></tr></tbody></table><div class=\"merke\">Der Unterschied liegt allein in den Fixkosten: verteilen (Vollkosten) oder als Block stehen lassen (Teilkosten).</div>"
   },
   {
    "h2": "Wie funktioniert die Vollkostenrechnung?",
@@ -41,7 +41,7 @@
   }
  ],
  "fehler": [
-  "Ein Produkt mit negativem Vollkostenergebnis streichen wollen: Entscheidend ist der Deckungsbeitrag. Solange er positiv ist und die Fixkosten bleiben, sinkt der Gesamtgewinn durch die Streichung um genau diesen Deckungsbeitrag.",
+  "Ein Produkt mit negativem Vollkostenergebnis streichen wollen: Entscheidend ist der Deckungsbeitrag. Solange er positiv ist, die Fixkosten bleiben und keine bessere Nutzung der freiwerdenden Kapazität besteht, sinkt der Gesamtgewinn durch die Streichung um genau diesen Deckungsbeitrag.",
   "Behaupten, Vollkosten- und Teilkostenrechnung führen zu unterschiedlichen Gesamtergebnissen: Ohne Bestandsveränderungen ist das Betriebsergebnis identisch, nur die Verteilung auf die Produkte unterscheidet sich.",
   "Teilkostenrechnung mit Einzelkostenrechnung gleichsetzen: Die einfache Deckungsbeitragsrechnung trennt nach fix und variabel, nicht nach Einzel- und Gemeinkosten. Variable Gemeinkosten wie Energie gehören bei ihr zu den zugerechneten Kosten.",
   "Bei Lageraufbau übersehen, dass die Ergebnisse auseinanderlaufen: In der Vollkostenrechnung stecken Fixkosten im Lagerbestand. Bei Bestandsaufbau ist das Vollkostenergebnis deshalb höher als das Teilkostenergebnis, bei Bestandsabbau niedriger.",
@@ -50,7 +50,7 @@
  "faq": [
   {
    "q": "Was ist der Unterschied zwischen Vollkostenrechnung und Teilkostenrechnung?",
-   "a": "Die Vollkostenrechnung verteilt alle Kosten einschließlich der Fixkosten über Schlüssel auf die Produkte und ermittelt Selbstkosten je Stück. Die Teilkostenrechnung rechnet den Produkten nur die variablen Kosten zu und zieht die Fixkosten als Block vom gesamten Deckungsbeitrag ab."
+   "a": "Die Vollkostenrechnung verteilt alle Kosten einschließlich der Fixkosten über Schlüssel auf die Produkte und ermittelt Selbstkosten je Stück. Die variable Teilkostenrechnung rechnet den Produkten nur die variablen Kosten zu (andere Teilkostenrechnungen, z. B. nach Riebel, nutzen abweichende Zurechnungsprinzipien) und zieht die Fixkosten als Block vom gesamten Deckungsbeitrag ab."
   },
   {
    "q": "Wann verwendet man die Teilkostenrechnung?",
@@ -71,7 +71,7 @@
  ],
  "quiz": [
   {
-   "q": "Ein Produkt hat einen Preis von 50 €, variable Kosten von 35 € und Vollkosten von 55 € je Stück. Es werden 1.000 Stück verkauft. Was passiert mit dem Gesamtgewinn, wenn es gestrichen wird und die Fixkosten bleiben?",
+   "q": "Ein Produkt hat einen Preis von 50 €, variable Kosten von 35 € und Vollkosten von 55 € je Stück. Es werden 1.000 Stück verkauft. Was passiert mit dem Gesamtgewinn, wenn es gestrichen wird, die Fixkosten bleiben und die Kapazität nicht anderweitig genutzt wird?",
    "o": [
     "Er steigt um 5.000 €",
     "Er bleibt gleich",
@@ -87,13 +87,13 @@
     "Sie rechnet den Produkten nur variable Kosten zu",
     "Sie verteilt auch Fixkosten über Schlüssel auf die Produkte",
     "Sie ist für die Preisuntergrenze bei freier Kapazität am besten geeignet",
-    "Sie kommt ohne Kostenstellenrechnung aus"
+    "Ihr Stückgewinn ist unabhängig vom gewählten Gemeinkostenschlüssel"
    ],
    "r": 1,
    "e": "Kennzeichen der Vollkostenrechnung ist die Verteilung aller Kosten, auch der Fixkosten, auf die Kostenträger."
   },
   {
-   "q": "Produktion 5.000 Stück, Absatz 4.000 Stück, Fixkosten 20.000 €. Um wie viel ist das Vollkostenergebnis höher als das Teilkostenergebnis?",
+   "q": "Produktion 5.000 Stück, Absatz 4.000 Stück, fixe Herstellungskosten 20.000 € (Anfangsbestand null, alle fixen Herstellungskosten werden auf die Produktion verrechnet). Um wie viel ist das Vollkostenergebnis höher als das Teilkostenergebnis?",
    "o": [
     "0 €",
     "20.000 €",

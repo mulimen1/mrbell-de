@@ -67,7 +67,7 @@
     },
     {
       "q": "Wie rechnet man mit monatlicher Verzinsung?",
-      "a": "Teile den Jahreszins durch 12 und multipliziere die Laufzeit in Jahren mit 12. Die Formel lautet \\(K_n = K_0 \\cdot \\left(1 + \\frac{i}{12}\\right)^{12 \\cdot n}\\)."
+      "a": "Teile den nominalen Jahreszins bei proportionaler monatlicher Verzinsung durch 12 und multipliziere die Laufzeit in Jahren mit 12. Die Formel lautet \\(K_n = K_0 \\cdot \\left(1 + \\frac{i}{12}\\right)^{12 \\cdot n}\\). Ist ein effektiver Jahreszins gegeben, lautet der äquivalente Monatszins \\((1+i_{\\mathrm{eff}})^{1/12}-1\\); der effektive Zins darf nicht einfach durch 12 geteilt werden."
     },
     {
       "q": "Wie stellt man die Zinseszinsformel nach n um?",

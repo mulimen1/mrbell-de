@@ -34,7 +34,7 @@
     },
     {
       "h2": "Rückwärts- und Differenzkalkulation",
-      "html": "<p>Das Schema funktioniert auch in die andere Richtung:</p>\n<ul>\n<li><strong>Rückwärtskalkulation:</strong> Der Marktpreis ist vorgegeben. Du rechnest vom Listenverkaufspreis abwärts (Rabatt und Skonto jetzt vom Hundert abziehen, Gewinn auf Hundert herausrechnen) und prüfst, welche Selbstkosten maximal erlaubt sind.</li>\n<li><strong>Differenzkalkulation:</strong> Preis und Selbstkosten sind gegeben. Du rechnest von oben bis zum Barverkaufspreis und von unten bis zu den Selbstkosten; die Differenz ist der tatsächliche Gewinn, oft als Prozentsatz der Selbstkosten angegeben.</li>\n</ul>\n<p><strong>Zahlenbeispiel:</strong> Die Konkurrenz bietet vergleichbare Geländer für 900 € netto an. Rückwärts gerechnet: \\( 900 - 15\\,\\%\\ \\text{Rabatt} = 765{,}00 \\) €; \\( {}- 2\\,\\%\\ \\text{Skonto} = 749{,}70 \\) € Barverkaufspreis. Bei 10 % Gewinnzuschlag dürften die Selbstkosten höchstens \\( \\frac{749{,}70}{1{,}10} = 681{,}55 \\) € betragen, der Betrieb liegt mit 714,96 € darüber. Die Differenzkalkulation zeigt, was bei 900 € übrig bliebe: \\( 749{,}70 - 714{,}96 = 34{,}74 \\) € Gewinn, also nur 4,86 % der Selbstkosten statt der geplanten 10 %.</p>\n<p>Für die Nachkalkulation nach Auftragsende setzt man statt der Normal-Zuschlagssätze die Ist-Zuschlagssätze ein. Weicht das Ergebnis ab, spricht man von Kostenüber- oder -unterdeckung.</p>"
+      "html": "<p>Das Schema funktioniert auch in die andere Richtung:</p>\n<ul>\n<li><strong>Rückwärtskalkulation:</strong> Der Marktpreis ist vorgegeben. Du rechnest vom Listenverkaufspreis abwärts (Rabatt und Skonto jetzt vom Hundert abziehen, Gewinn auf Hundert herausrechnen) und prüfst, welche Selbstkosten maximal erlaubt sind.</li>\n<li><strong>Differenzkalkulation:</strong> Preis und Selbstkosten sind gegeben. Du rechnest von oben bis zum Barverkaufspreis und von unten bis zu den Selbstkosten; die Differenz ist der tatsächliche Gewinn, oft als Prozentsatz der Selbstkosten angegeben.</li>\n</ul>\n<p><strong>Zahlenbeispiel:</strong> Die Konkurrenz bietet vergleichbare Geländer für 900 € netto an. Rückwärts gerechnet: \\( 900 - 15\\,\\%\\ \\text{Rabatt} = 765{,}00 \\) €; \\( {}- 2\\,\\%\\ \\text{Skonto} = 749{,}70 \\) € Barverkaufspreis. Bei 10 % Gewinnzuschlag dürften die Selbstkosten höchstens \\( \\frac{749{,}70}{1{,}10} = 681{,}55 \\) € betragen, der Betrieb liegt mit 714,96 € darüber. Die Differenzkalkulation zeigt, was bei 900 € übrig bliebe: \\( 749{,}70 - 714{,}96 = 34{,}74 \\) € Gewinn, also nur 4,86 % der Selbstkosten statt der geplanten 10 %.</p>\n<p>Für die Nachkalkulation nach Auftragsende setzt man statt der Normal-Zuschlagssätze die Ist-Zuschlagssätze ein. Weicht das Ergebnis ab, untersuche die Abweichung. Eine Kostenüber- oder -unterdeckung liegt vor, wenn die verrechneten Normalgemeinkosten die Istgemeinkosten über- bzw. unterschreiten; andere Abweichungen sind gesondert zu analysieren.</p>"
     },
     {
       "h2": "Wann passt die Zuschlagskalkulation – und wann nicht?",
@@ -43,8 +43,8 @@
   ],
   "fehler": [
     "Skonto und Rabatt vom Hundert aufschlagen: Richtig ist im Hundert, also \\( \\frac{\\text{Barverkaufspreis}}{0{,}98} \\) und \\( \\frac{\\text{Zielverkaufspreis}}{0{,}85} \\) bei 2 % Skonto und 15 % Rabatt.",
-    "Verwaltungs- und Vertriebsgemeinkosten auf die Selbstkosten oder die Einzelkosten beziehen: Basis sind die Herstellkosten.",
-    "Sondereinzelkosten bezuschlagen: Sondereinzelkosten der Fertigung und des Vertriebs werden in voller Höhe addiert, aber nicht mit Gemeinkostenzuschlägen belegt.",
+    "Verwaltungs- und Vertriebsgemeinkosten auf die Selbstkosten oder die Einzelkosten beziehen: Basis sind die Herstellkosten (bei der periodischen Satzermittlung die Herstellkosten des Umsatzes; ohne Bestandsveränderungen sind sie gleich den Herstellkosten der Produktion).",
+    "Sondereinzelkosten bezuschlagen: Sondereinzelkosten der Fertigung und des Vertriebs werden in voller Höhe addiert und erhalten keinen eigenen Material- oder Fertigungsgemeinkostenzuschlag; die Sondereinzelkosten der Fertigung gehen aber in die Herstellkosten und damit in die Basis der Verwaltungs- und Vertriebsgemeinkosten ein.",
     "Reihenfolge von Skonto und Rabatt vertauschen: Von unten nach oben kommt erst das Skonto, dann der Rabatt, denn der Kunde zieht zuerst den Rabatt vom Listenpreis ab und danach das Skonto.",
     "Die Umsatzsteuer in die Kalkulation einbauen: Kalkuliert wird netto. Die Umsatzsteuer kommt nur auf den Listenverkaufspreis, wenn ein Bruttopreis verlangt ist."
   ],
@@ -102,7 +102,7 @@
         "Sie werden im BAB verteilt"
       ],
       "r": 0,
-      "e": "Sondereinzelkosten sind Einzelkosten. Sie werden in voller Höhe in die Fertigungskosten übernommen, aber nicht bezuschlagt."
+      "e": "Sondereinzelkosten sind Einzelkosten. Sie werden in voller Höhe in die Fertigungskosten übernommen, erhalten keinen Fertigungsgemeinkostenzuschlag und gehen in die Herstellkosten als Basis für VwGK und VtGK ein."
     }
   ],
   "verwandt": [
