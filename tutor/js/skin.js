@@ -24,12 +24,17 @@ function note() {
   if (document.querySelector('.ngreet, .modal-bg')) return setTimeout(note, 1500);
   try { localStorage.setItem('bm.skinNote', '1'); } catch (e) {}
   const fb = () => import('./feedback.js').then(m => m.openFeedback()).catch(() => {});
+  // Vorschau: neu und alt nebeneinander – man soll sehen, was sich ändert, bevor man wählt
+  const shot = (src, tag, t, on) => h('figure', { class: 'sk-shot' + (on ? ' on' : '') }, h('img', { src, alt: t, loading: 'eager' }), h('figcaption', {}, h('b', {}, tag), h('span', {}, t)));
   const body = h('div', { class: 'sk-note' },
-    h('p', {}, L('Wir testen gerade ein neues Design: helleres Blau, mehr Rückmeldung beim Klicken – und Max im neuen Look. Alles andere bleibt, wie du es kennst.', 'We’re testing a new design: brighter blue, more feedback when you click – and Max in a new look. Everything else stays the same.')),
-    h('p', {}, L('Sag uns ehrlich, wie du es findest. Zurück zum alten Design geht jederzeit über das Menü (oben rechts oder Einstellungen unten links).', 'Tell us honestly what you think. You can switch back to the old design any time via the menu (top right, or settings bottom left).')),
+    h('div', { class: 'sk-cmp' },
+      shot('/tutor/img/design-neu.webp', L('Neu', 'New'), L('Das siehst du gerade', 'What you see now'), true),
+      shot('/tutor/img/design-alt.webp', L('Alt', 'Old'), L('So sah es vorher aus', 'How it looked before'), false)),
+    h('p', {}, L('Vier Bereiche oben (Tutor, Fächer & Bibliothek, Lernen, Klausur-Tools), mehr Farbe, Fortschritt mit Lernkurve und Max im neuen Look. Deine Skripte und alles, was du erstellt hast, bleiben gleich.', 'Four areas at the top (Tutor, Subjects & library, Learn, Exam tools), more colour, progress with a learning curve and Max in a new look. Your slides and everything you created stay the same.')),
+    h('p', { class: 'sk-sub' }, L('Umschalten geht jederzeit im Menü oben rechts.', 'You can switch any time in the menu top right.')),
     h('button', { class: 'sk-fb', type: 'button', onclick: () => { track('Design-Feedback', 'Text'); fb(); } }, L('Feedback geben', 'Give feedback')));
-  modal({ cls: 'sk-modal', eyebrow: L('Testphase', 'Test phase'), title: L('BWL Max sieht neu aus', 'BWL Max has a new look'), body,
-    actions: [{ label: L('Lieber das alte', 'I prefer the old one'), value: 'alt' }, { label: L('Gefällt mir', 'I like it'), value: 'neu', primary: true }] })
+  modal({ cls: 'sk-modal sk-cmpm', eyebrow: L('Neues Design', 'New design'), title: L('BWL Max sieht neu aus', 'BWL Max has a new look'), body,
+    actions: [{ label: L('Lieber das alte', 'I prefer the old one'), value: 'alt' }, { label: L('Neues behalten', 'Keep the new one'), value: 'neu', primary: true }] })
     .then(v => { if (v === 'alt') { track('Design-Feedback', 'alt'); switchDesign(false, 'Hinweis'); } else if (v === 'neu') track('Design-Feedback', 'neu'); });
 }
 setTimeout(note, 4000);

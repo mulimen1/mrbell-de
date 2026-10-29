@@ -8331,3 +8331,27 @@ html[data-nv] .xl-cmeta b { overflow-wrap: anywhere; hyphens: auto; -webkit-hyph
 /* Keine X-Knöpfe an Max' Sprechblasen und Hinweisen – sie gehen von selbst weg */
 html:root .asst-quip .q-x, html:root .asst-tip .tip-x { display: none !important; }
 html[data-nv] .linkbtn { background: rgba(255,255,255,.92); padding: 4px 10px; border-radius: 9px; box-shadow: 0 0 0 1px rgba(0,0,0,.05); }
+/* Einstellungen: Menü wächst mit dem Inhalt (Farbwahl), scrollt nur, wenn der Bildschirm zu klein ist */
+html:root .uv-menu.cfg-menu { height: auto !important; max-height: calc(100vh - 110px) !important; overflow-y: auto !important; grid-auto-rows: min-content !important; grid-template-rows: none !important; align-content: start; }
+html:root .uv-menu.cfg-menu > * { min-height: min-content; }
+/* Lernzeit pro Woche: dezente Farben passend zur Lernkurve statt Grautöne */
+html[data-nv] .me-wbc i { background: linear-gradient(180deg, #d6e2fb, #e4dcfa) !important; border-radius: 8px 8px 4px 4px !important; }
+html[data-nv] .me-wbc.hit:not(.now) i { background: linear-gradient(180deg, #8fb3f3, #a993ee) !important; }
+html[data-nv] .me-wbc.now i { background: linear-gradient(180deg, #2a7fe8, #7b4fe0) !important; box-shadow: 0 10px 22px -12px #5b3fc4; }
+html[data-nv] .me-wbc.now small { color: #4b2bb3; font-weight: 700; }
+html[data-nv] .me-wgoal { border-top: 1.5px dashed rgba(91,63,196,.45) !important; }
+html[data-nv] .me-wsum b { background: linear-gradient(90deg, #2a7fe8, #7b4fe0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+/* „Ziele stecken“: kein weißer Rand */
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .fx-head .kt-go { border: 0 !important; outline: 0 !important; }
+/* Design-Hinweis: Vorschau neu vs. alt, Hintergrund kaum abgedunkelt */
+.modal-bg:has(.sk-cmpm) { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: rgba(20,18,30,.18) !important; }
+.modal.sk-cmpm { max-width: 760px !important; width: calc(100vw - 32px); }
+.sk-cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.sk-shot { margin: 0; border-radius: 16px; overflow: hidden; background: #f6f3ee; box-shadow: 0 0 0 1px rgba(0,0,0,.06); }
+.sk-shot.on { box-shadow: 0 0 0 2px #2a7fe8, 0 14px 30px -18px #2a7fe8; }
+.sk-shot img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.sk-shot figcaption { display: flex; align-items: center; gap: 8px; padding: 8px 12px; font-size: 12.5px; color: #55555e; }
+.sk-shot figcaption b { font: 750 11px var(--mono, monospace); letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; background: #e9e6df; color: #3d3d45; }
+.sk-shot.on figcaption b { background: linear-gradient(135deg, #2a7fe8, #7b4fe0); color: #fff; }
+.sk-sub { color: #6b6b75; font-size: 13px; }
+@media (max-width: 560px) { .sk-cmp { grid-template-columns: 1fr 1fr; gap: 8px; } .sk-shot figcaption span { display: none; } }
