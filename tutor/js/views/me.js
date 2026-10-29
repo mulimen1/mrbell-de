@@ -178,6 +178,9 @@ function pageHead(tab) {
     ? h('div', { class: 'nvp-bh' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Fächer & Bibliothek', 'Subjects & library')), h('h1', {}, L('Deine Fächer. ', 'Your subjects. '), h('span', {}, L('Jede Klausur im Blick.', 'Every exam in sight.')))),
       h('div', { class: 'nvp-bhr' }, h('p', { class: 'nvp-lead' }, L('Klausur-Countdown, Prüfungsreife und deine Noten – Max sagt dir pro Fach, was als Nächstes dran ist.', 'Exam countdown, readiness and your grades – Max tells you what’s next for each subject.')),
         h('button', { class: 'kt-go nvp-go', type: 'button', onclick: () => editFach(null) }, h('span', { html: ico('plus') }), L('Fach anlegen', 'Add subject'))))
+    : tab === 'plan' && document.documentElement.dataset.nv
+    ? h('div', { class: 'nvp-bh' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Stundenplan', 'Timetable')), h('h1', {}, L('Deine Woche. ', 'Your week. '), h('span', {}, L('Alles im Blick.', 'All in view.')))),
+      h('div', { class: 'nvp-bhr' }, h('p', { class: 'nvp-lead' }, L('Kalender-Link, Foto vom Stundenplan oder per Hand – Max plant deine Lernzeit um die Vorlesungen herum.', 'Calendar link, a photo of your timetable or by hand – Max plans your study time around your lectures.'))))
     : tab === 'stats' && document.documentElement.dataset.nv
     ? h('div', { class: 'nvp-bh fx-head' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Fortschritt', 'Progress')), h('h1', {}, L('Dein Fortschritt. ', 'Your progress. '), h('span', {}, L('Jeden Tag ein Stück.', 'A little every day.')))),
       h('div', { class: 'nvp-bhr' }, h('p', { class: 'nvp-lead' }, L('Was du schon geschafft hast, wo deine Hochs und Tiefs liegen – und was als Nächstes dran ist.', 'What you’ve achieved, where your highs and lows are – and what’s next.')),

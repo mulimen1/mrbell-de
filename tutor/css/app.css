@@ -8324,3 +8324,10 @@ html:root[data-nv][data-nv][data-nv] body .opt.right::after { border-color: #1c7
 html:root[data-nv][data-nv][data-nv] body .opt.wrong { background: #fff1f2 !important; border: 1.5px solid #f3a7ae !important; color: #8f1d2c !important; opacity: 1 !important; }
 html:root[data-nv][data-nv][data-nv] body .opt.wrong .key { border-color: #c22f3d !important; color: #c22f3d !important; }
 html:has(.modal-bg) .made-chip, html:has(.ks-modal) .made-chip { display: none !important; }
+/* Excel: Zurück regelt der große Knopf oben; Titel umbrechen statt abschneiden */
+html[data-nv] .xl-back { display: inline-flex; align-items: center; gap: 6px; background: #fff; padding: 6px 12px; border-radius: 999px; box-shadow: 0 0 0 1px rgba(0,0,0,.06); font-weight: 650; text-decoration: none; }
+html[data-nv] .xl-key small { white-space: normal !important; overflow: visible !important; text-overflow: clip !important; }
+html[data-nv] .xl-cmeta b { overflow-wrap: anywhere; hyphens: auto; -webkit-hyphens: auto; }
+/* Keine X-Knöpfe an Max' Sprechblasen und Hinweisen – sie gehen von selbst weg */
+html:root .asst-quip .q-x, html:root .asst-tip .tip-x { display: none !important; }
+html[data-nv] .linkbtn { background: rgba(255,255,255,.92); padding: 4px 10px; border-radius: 9px; box-shadow: 0 0 0 1px rgba(0,0,0,.05); }

@@ -470,6 +470,11 @@ function backPill(root) {
   if (/^#\/app\/(neu)?$/.test(hs)) return;
   if (root.querySelector('.kt-back')) return;   // Seite hat schon ihren großen Zurück-Knopf
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
+  // Seiten mit festem Zuhause: immer zurück in ihren Bereich (der Umweg steht darunter)
+  { const a0 = hs.split('/')[2];
+    const LERN = { h: '#/app/ueben', l: L('Lernen', 'Learn'), c: '#5b3fc4' }, KT = { h: '#/app/tools', l: L('Klausur-Tools', 'Exam tools'), c: '#c8336f' };
+    const P = { mitschrift: LERN, video: LERN, challenge: LERN, duell: LERN, trainer: LERN, rechner: KT, excel: KT }[a0];
+    if (P) from = P; }
   if (!from || from.h === hs) from = inDoc ? { h: '#/app/bibliothek', l: L('Bibliothek', 'Library'), c: '#d9601c' } : { h: '#/app/tutor', l: L('Tutor', 'Tutor'), c: '#1a5fc4' };
   root.querySelectorAll(':scope > .ub-libback, :scope .view-back').forEach(e => e.remove());
   // genau EIN Zurück-Block: alte Knöpfe und alte Wächter weg, bevor ein neuer kommt
@@ -477,7 +482,8 @@ function backPill(root) {
   document.querySelectorAll('.bk-pill, .bk-wrap').forEach(e => e.remove());
   const pill = h('a', { class: 'bk-pill', href: from.h, style: { '--bk': from.c } }, h('span', { html: ico('left') }), L('Zurück zu ', 'Back to ') + from.l, inDoc ? h('small', {}, S.doc.name) : null);
   // Kam man über einen Umweg (andere Seite als der Bereich)? Dann leise darunter: zurück genau dorthin
-  const via = prev && prev.h !== from.h && prev.h !== hs && !prev.h.startsWith(hs + '/') && !(prev.h.split('/').slice(0, 4).join('/') === hs.split('/').slice(0, 4).join('/') && inDoc) ? prev : null;
+  const sec = x => String(x).split('?')[0].split('/')[2];
+  const via = prev && !(!inDoc && sec(prev.h) === sec(hs)) && prev.h !== from.h && prev.h !== hs && !prev.h.startsWith(hs + '/') && !(prev.h.split('/').slice(0, 4).join('/') === hs.split('/').slice(0, 4).join('/') && inDoc) ? prev : null;
   const blk = h('div', { class: 'bk-wrap' }, pill, via ? h('a', { class: 'bk-via', href: via.h, style: { '--bk': via.c } }, h('span', { html: ico('left') }), L('oder zurück zu ', 'or back to '), h('b', {}, via.l)) : null);
   const keep = () => { if (location.hash.split('?')[0] !== hs) { if (pillObs) { pillObs.disconnect(); pillObs = null; } return; } if (root.isConnected && !blk.isConnected && !root.querySelector('.bk-wrap')) root.prepend(blk); };
   keep(); pillObs = new MutationObserver(keep); pillObs.observe(root, { childList: true });
