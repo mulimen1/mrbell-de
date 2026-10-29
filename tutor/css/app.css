@@ -8471,3 +8471,10 @@ html:root[data-nv] body :is(.m-mc-heroi, .xo-heroi) .ico, html:root[data-nv] bod
 .modal.login.lean .lalt { margin-top: 8px !important; font-size: 13px; }
 html:root[data-nv] body :is(.m-mc-heroi, .xo-heroi) svg.ico { border: 0 !important; border-radius: 0 !important; outline: 0 !important; width: 28px !important; height: 28px !important; stroke-width: 2 !important; }
 html:root[data-nv] body :is(.m-mc-heroi, .xo-heroi) { background: linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,.12)) !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.35), 0 6px 14px -8px rgba(0,0,0,.4) !important; }
+/* Verlassen-Fenster: Google-Knopf deutlich größer (offizieller Knopf, hochskaliert), E-Mail/Passwort kleiner */
+.modal.login.lean .lg-g { --gscale: 1.3; display: grid; place-items: center; height: 66px; padding: 0 !important; overflow: visible; }
+.modal.login.lean .lg-g > div { transform: scale(1.3); transform-origin: center; }
+.modal.login.lean .lstack .field, .modal.login.lean .lstack input { height: 38px !important; min-height: 38px !important; font-size: 13.5px !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+.modal.login.lean .lbtn { height: 38px !important; min-height: 38px !important; font-size: 13.5px !important; }
+.modal.login.lean .lstack { gap: 6px !important; }
+.modal.login.lean .lg-g { background: none !important; box-shadow: none !important; } .modal.login.lean .lg-g > div { border-radius: 999px; box-shadow: 0 0 0 2px #8a6cf0, 0 10px 22px -12px #5b3fc4; }

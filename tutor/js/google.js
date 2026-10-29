@@ -42,7 +42,8 @@ export async function googleButton(el, onDone, tries = 0) {
       });
       inited = true;
     }
-    const w = Math.max(200, Math.min(400, Math.round(el.getBoundingClientRect().width || 320)));
+    const sc = parseFloat(getComputedStyle(el).getPropertyValue('--gscale')) || 1;   // größer dargestellt (z. B. Verlassen-Fenster): schmaler zeichnen, per CSS hochskalieren
+    const w = Math.max(200, Math.min(400, Math.round((el.getBoundingClientRect().width || 320) / sc)));
     el.replaceChildren();
     g.accounts.id.renderButton(el, { type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', shape: 'pill', logo_alignment: 'center', width: w, locale: document.documentElement.lang === 'en' ? 'en' : 'de' });
   } catch (e) {

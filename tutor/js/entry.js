@@ -144,7 +144,7 @@ function guestSignals(c, endEl) {
       h('span', { class: 'xo-heroi', html: ico('exam') }),
       h('span', { class: 'xo-herot' }, h('em', {}, L('Dein nächster Schritt', 'Your next step')), h('b', {}, oT), h('small', {}, oS)));
     const ok = await openAuth({ registerTitle: L('Du willst schon gehen?', 'Leaving already?'), loginTitle: L('Du willst schon gehen?', 'Leaving already?'),
-      registerSub: L('Ich hab extra die Yacht warten lassen.', 'I kept the yacht waiting for you.'), sub: L('Ich hab extra die Yacht warten lassen.', 'I kept the yacht waiting for you.'), why: 'Verlassen', extra, mood: 'smug', lean: true });
+      registerSub: L('Ich habe die Yacht extra warten lassen.', 'I kept the yacht waiting for you.'), sub: L('Ich habe die Yacht extra warten lassen.', 'I kept the yacht waiting for you.'), why: 'Verlassen', extra, mood: 'smug', lean: true });
     if (ok && getAccount()) { const b = c.t.querySelector('.m-ladcta'); if (b) b.click(); }
   };
   document.addEventListener('mouseout', onOut);
