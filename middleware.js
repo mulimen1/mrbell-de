@@ -99,10 +99,10 @@ function melden(daten, req, ctx) {
 
 // ---------- BWL Max: Seitenaufruf ohne Kennung, Ereignisse nur mit Einwilligung (Cookie bm_analyse) ----------
 const BM_ZIEL = 'https://hub.mrbell.de/n8n/webhook/bm-ping';
-const BM_EREIGNISSE = ['Google-Knopf fehlt', Mini-Check BWL Max erkunden', Mini-Check Auflösung geklickt', Mini-Check Klausuraufgaben', Anmeldefenster gesehen', 'Anmeldung begonnen', 'Analyse erlaubt', 'Gescrollt', 'Länger als 30 Sekunden', 'Max geöffnet', 'Max gefragt', 'Sprechen gestartet', 'Skript hochgeladen',
+const BM_EREIGNISSE = ['Google-Knopf fehlt', 'Mini-Check BWL Max erkunden', 'Mini-Check Auflösung geklickt', 'Mini-Check Klausuraufgaben', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Analyse erlaubt', 'Gescrollt', 'Länger als 30 Sekunden', 'Max geöffnet', 'Max gefragt', 'Sprechen gestartet', 'Skript hochgeladen',
   'Beispiel geöffnet', 'Thema erklärt', 'Erstellt', 'Bereich geöffnet', 'Trainer geöffnet', 'Angemeldet', 'Spaßfrage beantwortet', 'Konto erstellt', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt'];
 // Ohne Einwilligung zählbar (ohne Kennung, ohne Ort): nur die reine Anzahl neuer Konten
-const BM_OHNE = ['Google-Knopf fehlt', Mini-Check BWL Max erkunden', Mini-Check Auflösung geklickt', Mini-Check Klausuraufgaben', Konto erstellt', 'Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt', 'Länger als 30 Sekunden'];   // Trichter: reine Anzahl ohne Kennung und Ort
+const BM_OHNE = ['Google-Knopf fehlt', 'Mini-Check BWL Max erkunden', 'Mini-Check Auflösung geklickt', 'Mini-Check Klausuraufgaben', 'Konto erstellt', 'Max gefragt', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Klausurpfad geklickt', 'Anmeldepflicht', 'Tafel 30 s offen', 'Tafel zu Ende gelesen', 'Verlassen-Hinweis', 'Mini-Check geprüft', 'Mini-Check angeklickt', 'Länger als 30 Sekunden'];   // Trichter: reine Anzahl ohne Kennung und Ort
 function bmKennung(req) { const m = /(?:^|;\s*)bm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
 function bmMelden(daten, req, ctx, bwlmax) {
   if (intern(req)) return null;
