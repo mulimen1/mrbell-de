@@ -8416,3 +8416,17 @@ html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tck .rm-kapo { background: l
 html:root[data-nv][data-theme="dark"] body .rm-tc:is(.rm-tcq, .rm-tck) > b { color: #fff !important; }
 /* Tutor-Knopf: gleicher 1px-Rand wie die anderen Bereiche → Ring „weiß – Farbstreifen – weiß“ sieht 1:1 gleich aus */
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn.tn-tutor { border: 1px solid transparent !important; }
+/* Mini-Check-Knopf auf der Tafel: gleiche Optik wie der Mini-Check selbst (helles Lila, lila Rahmen) */
+html:root[data-nv][data-nv][data-nv][data-nv] body .m-mc-tz { background: linear-gradient(180deg, #f1ecff, var(--panel) 85%) !important; border: 2px solid #6a4ee0 !important; color: var(--ink) !important; box-shadow: 0 4px 0 #4a30b0 !important; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .m-mc-tz:hover { box-shadow: 0 6px 0 #4a30b0 !important; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .m-mc-tz b { color: #4a30b0 !important; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .m-mc-tz small { color: var(--mute) !important; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .m-mc-tz .m-mc-tza { color: #6a4ee0 !important; }
+html:root[data-nv][data-nv][data-nv][data-nv] body .m-mc-tzi { background: linear-gradient(135deg, #9b7cf0, #5b3fc4) !important; color: #fff !important; box-shadow: none !important; }
+html:root[data-nv][data-theme="dark"] body .m-mc-tz { background: linear-gradient(180deg, #221a3d, var(--panel) 85%) !important; }
+
+/* Bereichs-Knöpfe oben: kein farbiger Schein nach unten (wirkte beim Scrollen verschwommen) */
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is(.tn-tutor, [data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]):not(.on) { box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -2px 0 rgba(0,0,0,.12) !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn.tn-tutor.on { box-shadow: inset 0 0 0 2px rgba(255,255,255,.9), 0 0 0 2.5px var(--bg, #f3efe7), 0 0 0 4.5px #1a5fc4 !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is([data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]).on { box-shadow: inset 0 0 0 2px rgba(255,255,255,.9), 0 0 0 2.5px var(--bg, #f3efe7), 0 0 0 4.5px var(--tns) !important; }
+@media (max-width: 760px) { html:root[data-nv][data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn:is(.tn-tutor, [data-tn="faecher"], [data-tn="ueben"], [data-tn="excel"]).on { box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px rgba(0,0,0,.18) !important; } }
