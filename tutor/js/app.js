@@ -255,7 +255,7 @@ function renderList() {
   if (!shell) return;
   const hs = location.hash;
   const inDoc = !!(S.doc && hs.includes(S.doc.id));
-  const tn = { ueben: hs.startsWith('#/app/ueben') || (backTarget()?.key === 'ueben' && /^#\/app\/(trainer|excel\/trainer|challenge|duell|rechner)/.test(hs)), tutor: hs.startsWith('#/app/tutor') && !(adsLanding() || window.BM_LP), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn() && backTarget()?.key !== 'video'), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video') || (inDoc && backTarget()?.key === 'video'), excel: hs.startsWith('#/app/excel') || hs.startsWith('#/app/tools')};
+  const tn = { ueben: hs.startsWith('#/app/ueben') || (backTarget()?.key === 'ueben' && /^#\/app\/(trainer|excel\/trainer|challenge|duell|rechner)/.test(hs)), tutor: hs.startsWith('#/app/tutor'), lernen: hs.startsWith('#/app/lernen') || backToLearn(), faecher: hs.startsWith('#/app/faecher') || hs.startsWith('#/app/stundenplan'), mitschrift: hs.startsWith('#/app/mitschrift'), bibliothek: hs.startsWith('#/app/bibliothek') || (inDoc && !backToLearn() && backTarget()?.key !== 'video'), gemerkt: hs.startsWith('#/app/gemerkt'), fortschritt: hs.startsWith('#/app/fortschritt'), zahlen: hs.startsWith('#/app/zahlen') , video: hs.startsWith('#/app/video') || (inDoc && backTarget()?.key === 'video'), excel: hs.startsWith('#/app/excel') || hs.startsWith('#/app/tools')};
   if (document.documentElement.dataset.nv) { tn.faecher = tn.faecher || !!tn.bibliothek || hs.startsWith('#/app/bibliothek'); tn.ueben = (tn.ueben || /^#\/app\/(trainer|challenge|duell|mitschrift)/.test(hs)) && !hs.startsWith('#/app/rechner'); tn.excel = tn.excel || hs.startsWith('#/app/rechner'); }   // Test: vier Bereiche
   document.documentElement.dataset.area = ['tutor', 'faecher', 'ueben', 'excel'].find(k => tn[k]) || '';   // Bereichsfarbe für Punkt-Überschriften
   $$('[data-tn]', shell.topnav).forEach(a => { const on = !!tn[a.dataset.tn]; a.classList.toggle('on', on); a.setAttribute('aria-current', on ? 'page' : 'false'); });
@@ -396,6 +396,8 @@ async function show(key, fn) {
   const root = shell.view;
   root.replaceChildren();
   root.scrollTop = 0;
+  // Neuer Bereich: alles erscheint gleichzeitig (keine Staffelung Überschrift → Rest)
+  root.classList.add('v-sync'); clearTimeout(show.vt); show.vt = setTimeout(() => root.classList.remove('v-sync'), 1600);
   after();
   try { const c = await fn(root); if (current.key === key) current.cleanup = typeof c === 'function' ? c : null; backPill(root); }
   catch (e) { console.error(e); root.replaceChildren(h('div', { class: 'empty' }, h('h2', {}, L('Da ist was schiefgelaufen.', 'Something went wrong.')), h('p', {}, String(e.message || e)), h('button', { class: 'btn', onclick: () => location.reload() }, L('Neu laden', 'Reload')))); }
