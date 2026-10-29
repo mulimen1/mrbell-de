@@ -8414,3 +8414,5 @@ html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tcq .rm-qzo b { border-color
 html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tck :is(.rm-kaf, .rm-kab) { border: 1.5px solid color-mix(in srgb, var(--k1) 35%, transparent) !important; }
 html:root[data-nv][data-nv][data-nv] body .rm-tc.rm-tck .rm-kapo { background: linear-gradient(135deg, #0e7a88, #1aa39a) !important; }
 html:root[data-nv][data-theme="dark"] body .rm-tc:is(.rm-tcq, .rm-tck) > b { color: #fff !important; }
+/* Tutor-Knopf: gleicher 1px-Rand wie die anderen Bereiche → Ring „weiß – Farbstreifen – weiß“ sieht 1:1 gleich aus */
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .topnav .tn.tn-tutor { border: 1px solid transparent !important; }
