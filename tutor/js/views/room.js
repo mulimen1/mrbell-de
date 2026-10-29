@@ -393,11 +393,7 @@ export function render(root, ctx = {}) {
           h('span', { class: 'rm-mt' }, h('small', {}, L('Max arbeitet gerade mit', 'Max is working with')), h('b', {}, cur.name), h('small', { class: 'rm-mm' }, [(cur.pages || []).length ? L(`${cur.pages.length} Seiten`, `${cur.pages.length} pages`) : null, L('Werkzeuge unten bauen daraus', 'The tools below build from it')].filter(Boolean).join(' · '))),
           h('button', { class: 'btn sm', type: 'button', onclick: e => { e.stopPropagation(); pickFor(e.currentTarget); } }, L('Wechseln', 'Switch'), h('span', { html: ico('down') })),
           h('button', { class: 'iconbtn rm-mx', type: 'button', title: L('Trennen', 'Disconnect'), 'aria-label': L('Trennen', 'Disconnect'), html: ico('x'), onclick: () => connect(null) }))
-        : h('div', { class: 'rm-mat empty' },
-          h('span', { class: 'rm-mi', html: ico('upload') }),
-          h('span', { class: 'rm-mt' }, h('b', {}, L('Alles, was du lernst, einfach hier reinziehen', 'Drop anything you study right here')), h('small', {}, L('Skript, Folien, Mitschrift, Altklausur, Buch, Screenshot oder Video – oder eine vorhandene Unterlage wählen.', 'Slides, notes, past exams, books, screenshots or video – or pick existing material.'))),
-          h('label', { class: 'btn sm primary', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Datei wählen', 'Choose file')),
-          S.list.length ? h('button', { class: 'btn sm', type: 'button', onclick: e => { e.stopPropagation(); pickFor(e.currentTarget); } }, L('Vorhandene', 'Existing'), h('span', { html: ico('down') })) : null);
+        : null;   // ohne verbundene Unterlage keine Ablage-Leiste mehr (Hochladen geht über „+ Dokument“ unten)
       const T2 = [
         ['board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Beispiel', 'Step by step, with an example'), e => board(e.currentTarget)],
         ['note', L('Lernzettel', 'Study sheet'), L('Alles auf einer Seite', 'All on one page'), 'zettel'],
