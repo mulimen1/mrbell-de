@@ -88,6 +88,226 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-7",
+   "art": "definition",
+   "aussage": "Die Gewinnvergleichsrechnung bezieht neben den Kosten auch die Umsatzerlöse ein; ihre Zielgröße ist der durchschnittliche Gewinn pro Jahr, ihr Ziel die Gewinnmaximierung.",
+   "schlagworte": [
+    "Gewinnmaximierung",
+    "Umsatzerlöse"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-8",
+   "art": "formel",
+   "aussage": "Durchschnittsgewinn bei linearem Kosten- und Erlösverlauf: `G = (p - k_v) \\cdot x - K_f`; `K_f` enthält laufende fixe Kosten, kalkulatorische Abschreibungen und kalkulatorische Zinsen.",
+   "schlagworte": [
+    "Gewinnformel",
+    "Deckungsbeitrag"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-9",
+   "art": "definition",
+   "aussage": "Kalkulatorische Zinsen verzinsen das betriebsnotwendige Kapital einschließlich Eigenkapital (Opportunitätskostengedanke) mit einem einheitlichen Kapitalkostensatz.",
+   "schlagworte": [
+    "kalkulatorische Zinsen",
+    "Eigenkapital"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kalkulatorische Zinsen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulatorische-zinsen-40705",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-10",
+   "art": "definition",
+   "aussage": "Die Rentabilitätsvergleichsrechnung ist ein statisches Verfahren für ein repräsentatives Durchschnittsjahr; bevorzugt wird die Alternative mit der höchsten Rentabilität.",
+   "schlagworte": [
+    "Rentabilitätsvergleichsrechnung",
+    "statisch"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rentabilitätsvergleichsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rentabilitaetsvergleichsrechnung-53801",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-11",
+   "art": "formel",
+   "aussage": "Rentabilität im Rentabilitätsvergleich: `R = \\frac{G}{\\varnothing\\,\\text{gebundenes Kapital}}`, also Gewinn (aus der Gewinnvergleichsrechnung) geteilt durch das durchschnittlich gebundene Kapital.",
+   "schlagworte": [
+    "Rentabilität",
+    "durchschnittlich gebundenes Kapital"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rentabilitätsvergleichsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rentabilitaetsvergleichsrechnung-53801",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-12",
+   "art": "abgrenzung",
+   "aussage": "Der Gewinn ist eine absolute Zielgröße in Euro; die Rentabilitätsvergleichsrechnung liefert eine relative Zielgröße in Prozent, die zusätzlich das investierte Kapital berücksichtigt.",
+   "schlagworte": [
+    "absolut",
+    "relativ",
+    "Prozent"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-13",
+   "art": "abgrenzung",
+   "aussage": "Unterscheidet sich der Kapitaleinsatz der Alternativen, können Gewinnvergleich und Rentabilitätsvergleich zu unterschiedlichen Rangfolgen führen (Beispiel nachgerechnet: höherer Gewinn bei niedrigerer Rentabilität).",
+   "schlagworte": [
+    "Rangfolge",
+    "Kapitaleinsatz"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-14",
+   "art": "definition",
+   "aussage": "Aus Sicht der Investitionsrechnung ermittelt die gewinnorientierte Break-even-Analyse die Absatzmenge, bei der Umsatzerlöse und Gesamtkosten gleich hoch sind; oberhalb dieser Gewinnschwelle ist das Projekt vorteilhaft, darunter entstehen Verluste.",
+   "schlagworte": [
+    "Break-even",
+    "Gewinnschwelle"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Break-Even-Analyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/break-even-analyse-31893",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-15",
+   "art": "formel",
+   "aussage": "Gewinnschwelle (Break-even-Menge) bei linearen Verläufen: `x_{BE} = \\frac{K_f}{p - k_v}`.",
+   "schlagworte": [
+    "Break-even-Menge",
+    "Formel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-16",
+   "art": "formel",
+   "aussage": "Kritische Menge zweier Alternativen im Gewinnvergleich: `G_A(x) = G_B(x)` nach x auflösen; bei gleichem Absatzpreis beider Alternativen ergibt sich dieselbe kritische Menge wie im Kostenvergleich.",
+   "schlagworte": [
+    "kritische Menge",
+    "Gewinnvergleich"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-17",
+   "art": "abgrenzung",
+   "aussage": "Statische Verfahren wie die Gewinnvergleichsrechnung führen beim Alternativenvergleich nur dann zu sinnvollen Ergebnissen, wenn die Alternativen bei Nutzungsdauer oder Kapitaleinsatz vergleichbar sind.",
+   "schlagworte": [
+    "Vergleichbarkeit",
+    "Kritik"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-18",
+   "art": "abgrenzung",
+   "aussage": "Die Durchschnittsbetrachtung ist eine starke Vereinfachung, weil alle Informationen über die zeitliche Verteilung der Rückflüsse ausgeblendet werden.",
+   "schlagworte": [
+    "Durchschnittsjahr",
+    "zeitliche Verteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-19",
+   "art": "abgrenzung",
+   "aussage": "Statische Verfahren rechnen mit Kosten- und Erfolgsgrößen (z. B. Erlöse, Kosten), dynamische Verfahren mit prognostizierten Ein- und Auszahlungen.",
+   "schlagworte": [
+    "Kosten vs Zahlungen",
+    "dynamisch"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-20",
+   "art": "methode",
+   "aussage": "Statische Verfahren sind wegen geringer Komplexität und geringen Informationsbedarfs noch praxisrelevant, insbesondere bei Ersatzinvestitionen mit begrenztem Volumen.",
+   "schlagworte": [
+    "Praxis",
+    "Ersatzinvestition"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-21",
+   "art": "abgrenzung",
+   "aussage": "Zu den statischen Verfahren zählen Kostenvergleichs-, Gewinnvergleichs-, Rentabilitätsvergleichs- und Amortisationsrechnung.",
+   "schlagworte": [
+    "statische Verfahren",
+    "Überblick"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "gewinnvergleichsrechnung-22",
+   "art": "formel",
+   "aussage": "Durchschnittlich gebundenes Kapital bei linearer Abschreibung mit Restwert: `\\varnothing\\,KB = \\frac{AK + RW}{2}`; es ist zugleich Basis der kalkulatorischen Zinsen.",
+   "schlagworte": [
+    "durchschnittlich gebundenes Kapital",
+    "Restwert"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -100,6 +320,158 @@
    "falsch": "Der Gewinn enthält keine kalkulatorischen Zinsen.",
    "richtig": "Kalkulatorische Abschreibungen und Zinsen sind Teil der Kosten, von denen der Gewinn berechnet wird.",
    "quelle_id": "gewinnvergleichsrechnung-3"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist die Gewinnvergleichsrechnung?",
+   "varianten": [
+    "Gewinnvergleichsrechnung Definition",
+    "Gewinnvergleich Investition",
+    "Was macht man beim Gewinnvergleich?"
+   ],
+   "antwort": "Die Gewinnvergleichsrechnung ist ein statisches Verfahren der Investitionsrechnung. Sie ermittelt für ein repräsentatives Durchschnittsjahr den Gewinn als Differenz aus Erlösen und Kosten. Ein Projekt mit positivem Durchschnittsgewinn ist absolut vorteilhaft. Beim Vergleich mehrerer Projekte wird das mit dem höchsten Durchschnittsgewinn pro Jahr gewählt.",
+   "belege": [
+    "gewinnvergleichsrechnung-1",
+    "gewinnvergleichsrechnung-2",
+    "gewinnvergleichsrechnung-7"
+   ]
+  },
+  {
+   "frage": "Wie lautet die Formel für den Gewinn im Gewinnvergleich?",
+   "varianten": [
+    "Gewinnvergleich Formel",
+    "Gewinn berechnen Investitionsrechnung",
+    "G = (p-kv)x-Kf"
+   ],
+   "antwort": "Der Gewinn ist Erlös minus Kosten. Bei linearem Verlauf gilt \\( G = (p - k_v) \\cdot x - K_f \\). Die Erlöse ergeben sich aus Menge mal Preis. Zu den Kosten gehören variable und fixe Kosten sowie kalkulatorische Abschreibungen und kalkulatorische Zinsen, die in \\( K_f \\) stecken.",
+   "belege": [
+    "gewinnvergleichsrechnung-3",
+    "gewinnvergleichsrechnung-8"
+   ]
+  },
+  {
+   "frage": "Kannst du mir ein Rechenbeispiel zum Gewinnvergleich geben?",
+   "varianten": [
+    "Gewinnvergleichsrechnung Beispiel",
+    "Gewinnvergleich zwei Maschinen rechnen",
+    "Aufgabe Gewinnvergleich"
+   ],
+   "antwort": "Angenommen, beide Maschinen verkaufen 10.000 Stück zu 8 € pro Stück, also 80.000 € Erlös. Maschine A hat Fixkosten von 42.400 € (inklusive kalkulatorischer Abschreibung und Zinsen) und variable Stückkosten von 3 €. Das ergibt \\( G_A = (8 - 3) \\cdot 10.000 - 42.400 = 7.600 \\) €. Maschine B hat 50.200 € Fixkosten und 2 € variable Stückkosten, also \\( G_B = (8 - 2) \\cdot 10.000 - 50.200 = 9.800 \\) €. Beide Gewinne sind positiv, nach dem Gewinnvergleich ist B vorzuziehen.",
+   "belege": [
+    "gewinnvergleichsrechnung-2",
+    "gewinnvergleichsrechnung-8"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Kostenvergleich und Gewinnvergleich?",
+   "varianten": [
+    "Kostenvergleichsrechnung vs Gewinnvergleichsrechnung",
+    "Wann Gewinnvergleich statt Kostenvergleich",
+    "Erlöse berücksichtigen"
+   ],
+   "antwort": "Der Kostenvergleich betrachtet nur die Kosten, der Gewinnvergleich bezieht zusätzlich die Umsatzerlöse ein und maximiert den Durchschnittsgewinn. Haben alle Alternativen die gleichen Erlöse, kommen beide Verfahren zum selben Ergebnis. Den Gewinnvergleich brauchst du, wenn sich Menge oder Preis und damit die Erlöse der Alternativen unterscheiden.",
+   "belege": [
+    "gewinnvergleichsrechnung-6",
+    "gewinnvergleichsrechnung-7"
+   ]
+  },
+  {
+   "frage": "Wie funktioniert die Rentabilitätsvergleichsrechnung?",
+   "varianten": [
+    "Rentabilitätsvergleich Formel",
+    "Rentabilität Investition statisch",
+    "Rentabilitätsvergleichsrechnung erklärt"
+   ],
+   "antwort": "Die Rentabilitätsvergleichsrechnung ist ebenfalls statisch und baut auf dem Gewinnvergleich auf. Du teilst den Gewinn durch das durchschnittlich gebundene Kapital: \\( R = \\frac{G}{\\varnothing\\,\\text{gebundenes Kapital}} \\). Gewählt wird die Alternative mit der höchsten Rentabilität. Anders als der Gewinn in Euro ist die Rentabilität eine relative Größe in Prozent.",
+   "belege": [
+    "gewinnvergleichsrechnung-10",
+    "gewinnvergleichsrechnung-11",
+    "gewinnvergleichsrechnung-12"
+   ]
+  },
+  {
+   "frage": "Warum können Gewinnvergleich und Rentabilitätsvergleich zu verschiedenen Ergebnissen kommen?",
+   "varianten": [
+    "Gewinn höher aber Rentabilität niedriger",
+    "Rangfolge Gewinn Rentabilität unterschiedlich",
+    "Kapitaleinsatz Rentabilität"
+   ],
+   "antwort": "Der Gewinn berücksichtigt nicht, wie viel Kapital dafür gebunden wird, die Rentabilität schon. Im Beispiel bindet A durchschnittlich (100.000 + 10.000)/2 = 55.000 € und B (160.000 + 20.000)/2 = 90.000 €. Damit gilt \\( R_A = \\frac{7.600}{55.000} \\approx 13{,}82\\,\\% \\) und \\( R_B = \\frac{9.800}{90.000} \\approx 10{,}89\\,\\% \\). B hat also den höheren Gewinn, A die höhere Rentabilität. Bei unterschiedlichem Kapitaleinsatz kann sich die Rangfolge daher drehen.",
+   "belege": [
+    "gewinnvergleichsrechnung-10",
+    "gewinnvergleichsrechnung-11",
+    "gewinnvergleichsrechnung-12",
+    "gewinnvergleichsrechnung-13",
+    "gewinnvergleichsrechnung-22"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Gewinnschwelle (Break-even-Menge) einer Investition?",
+   "varianten": [
+    "Break-even Menge Formel",
+    "Gewinnschwelle berechnen Investition",
+    "ab welcher Menge lohnt sich die Investition"
+   ],
+   "antwort": "Die Gewinnschwelle ist die Absatzmenge, bei der Erlöse und Gesamtkosten gleich sind. Darüber ist das Projekt vorteilhaft, darunter macht es Verlust. Bei linearen Verläufen gilt \\( x_{BE} = \\frac{K_f}{p - k_v} \\). Für Maschine A (Fixkosten 42.400 €, Preis 8 €, variable Stückkosten 3 €) ergibt sich \\( x_{BE} = \\frac{42.400}{8 - 3} = 8.480 \\) Stück.",
+   "belege": [
+    "gewinnvergleichsrechnung-14",
+    "gewinnvergleichsrechnung-15"
+   ]
+  },
+  {
+   "frage": "Sind kalkulatorische Zinsen im Gewinn der Gewinnvergleichsrechnung schon enthalten?",
+   "varianten": [
+    "kalkulatorische Zinsen Gewinnvergleich",
+    "Gewinnvergleich Zinsen abziehen",
+    "Fehler Gewinnvergleich Zinsen"
+   ],
+   "antwort": "Ja. Die Kosten im Gewinnvergleich umfassen auch kalkulatorische Abschreibungen und kalkulatorische Zinsen. Die kalkulatorischen Zinsen verzinsen das gebundene Kapital einschließlich des Eigenkapitals, weil dieses anderweitig angelegt werden könnte. Ein typischer Fehler ist, die Zinsen wegzulassen und so den Gewinn zu hoch auszuweisen.",
+   "belege": [
+    "gewinnvergleichsrechnung-3",
+    "gewinnvergleichsrechnung-9"
+   ]
+  },
+  {
+   "frage": "Welche Kritik gibt es an der Gewinnvergleichsrechnung?",
+   "varianten": [
+    "Gewinnvergleichsrechnung Nachteile",
+    "Gewinnvergleich Vor- und Nachteile",
+    "Grenzen Gewinnvergleich"
+   ],
+   "antwort": "Vorteilhaft sind der geringe Informationsbedarf und die einfache Anwendung. Kritisch ist, dass mit periodisierten Durchschnittsgrößen gerechnet wird und die zeitliche Verteilung der Rückflüsse verloren geht. Beim Vergleich mehrerer Alternativen ist das Ergebnis nur aussagekräftig, wenn Nutzungsdauer oder Kapitaleinsatz vergleichbar sind.",
+   "belege": [
+    "gewinnvergleichsrechnung-4",
+    "gewinnvergleichsrechnung-17",
+    "gewinnvergleichsrechnung-18"
+   ]
+  },
+  {
+   "frage": "Ist die Gewinnvergleichsrechnung statisch oder dynamisch?",
+   "varianten": [
+    "Gewinnvergleich statisch",
+    "Gewinnvergleich vs Kapitalwertmethode",
+    "statische Verfahren Liste"
+   ],
+   "antwort": "Die Gewinnvergleichsrechnung ist statisch, ebenso Kostenvergleichs-, Rentabilitätsvergleichs- und statische Amortisationsrechnung. Statische Verfahren rechnen mit Kosten und Erlösen eines Durchschnittsjahres. Dynamische Verfahren wie die Kapitalwertmethode arbeiten dagegen mit Ein- und Auszahlungen über die gesamte Laufzeit und zinsen ab.",
+   "belege": [
+    "gewinnvergleichsrechnung-7",
+    "gewinnvergleichsrechnung-19",
+    "gewinnvergleichsrechnung-21"
+   ]
+  },
+  {
+   "frage": "Wann ist eine Investition nach dem Gewinnvergleich vorteilhaft?",
+   "varianten": [
+    "Entscheidungsregel Gewinnvergleich",
+    "absolute relative Vorteilhaftigkeit Gewinnvergleich",
+    "Gewinnvergleich Entscheidung"
+   ],
+   "antwort": "Absolut vorteilhaft ist ein Projekt, wenn sein durchschnittlicher Gewinn positiv ist. Beim Vergleich mehrerer Alternativen (relative Vorteilhaftigkeit) gewinnt die mit dem höchsten Durchschnittsgewinn pro Jahr. Dabei sollten Nutzungsdauer oder Kapitaleinsatz der Alternativen vergleichbar sein.",
+   "belege": [
+    "gewinnvergleichsrechnung-2",
+    "gewinnvergleichsrechnung-17"
+   ]
   }
  ]
 }

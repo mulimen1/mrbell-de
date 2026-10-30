@@ -371,6 +371,7 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&am
 const qLink = q => q && q.url ? `<a href="${esc(q.url)}" target="_blank" rel="noopener">${esc(q.name || q.url)}</a>` : esc((q && q.name) || q || '');
 export function siegelDetails(rp, src, pages) {
   const z = [];
+  if (rp && rp.bibliothek) z.push(`<p><b>${L('Aus unserer geprüften Antwort-Bibliothek', 'From our verified answer library')}</b> – ${L('diese Antwort wurde vorab geschrieben, mit den Quellen unten belegt und von unserer Prüfmaschine kontrolliert. Für deine Frage wurde keine KI aufgerufen.', 'this answer was written in advance, backed by the sources below and checked by our checking machine. No AI was called for your question.')}</p>`);
   if (pages && pages.length) z.push(`<p><b>${L('Aus deinem Material', 'From your material')}</b> · ${L('Seite', 'page')} ${pages.join(', ')}</p>`);
   if (rp && rp.rechnungen > 0) z.push(`<p><b>✓ ${L('Rechnungen nachgerechnet', 'Calculations re-checked')}:</b> ${rp.rechnungen}${rp.korrigiert ? ' · ' + L('korrigiert', 'corrected') + ': ' + rp.korrigiert : ''}${rp.offen ? ' · <b class="w">' + L('nicht bestätigt', 'not verified') + ': ' + rp.offen + '</b>' : ''}</p>`);
   const fk = rp && Array.isArray(rp.fakten) ? rp.fakten : [];

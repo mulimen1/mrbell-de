@@ -1417,6 +1417,8 @@ export function mountAssistant() {
       if (pasted) { payload.material = (payload.material ? payload.material + '\n\n' : '') + L('### Vom Nutzer eingefügter Text\n', '### Text pasted by the user\n') + pasted; payload.docName = payload.docName ? payload.docName + L(' + eingefügter Text', ' + pasted text') : L('Eingefügter Text', 'Pasted text'); }
       // >>> Sofort-Tafel (boards.js): Themen-Einstieg mit gespeicherter Tafel → kein KI-Aufruf, sonst live
       let r = inst ? await instantReply(o) : o.examSlug ? await examReply(o.examSlug) : null;
+      // Antwort-Bibliothek: typische Fragen mit geprüfter, gespeicherter Antwort – ohne KI-Aufruf (nur ohne Skript/Material/Einstieg, nur Deutsch)
+      if (!r && !inst && !o.examSlug && !o.entry && !d && !mat && !pasted && !STAGE && L('de', 'en') === 'de') { try { const { bibAntwort } = await import('./antwortbib.js'); r = await bibAntwort(text, { verlauf: hist.filter(m => m.role === 'user').length - 1 }); } catch (e) { r = null; } }
       if (!r) { if ((inst || o.examSlug) && o.board) showBuilding(String(o.board)); r = await ask('chat', payload, { signal: ctrl.signal }); }
       // <<< Sofort-Tafel
       if (my !== gen) return;
