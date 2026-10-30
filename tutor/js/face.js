@@ -86,7 +86,7 @@ class Face {
         </g>
         ${marie ? MARIE_FRONT(u) : `<image class="fz-hair" href="${HAIR_SRC}" x="162" y="131" width="709" height="399" preserveAspectRatio="none"/>`}
         <g class="fz-dots"><circle cx="812" cy="158" r="22"/><circle cx="858" cy="112" r="16"/><circle cx="894" cy="74" r="11"/></g>
-      </g>`;
+      </g>` + (marie ? '' : '<circle class="fz-ring-t" cx="512" cy="505" r="400"/><circle class="fz-ring" cx="512" cy="505" r="400" pathLength="100"/>');
     el.replaceChildren(svg);
     this.look = svg.querySelector('.fz-look');
     this.eyes = svg.querySelector('.fz-eyes');
@@ -107,8 +107,9 @@ class Face {
     this.idleLook = { x: 0, y: 0, until: 0 };
     this.scheduleBlink();
     // Groß oder klein? Klein (Knopf, Seitenleiste): Augenbraue immer oben. Groß: nur in Momenten (flick)
-    let greeted = false;
-    const sz = () => { const big = (el.offsetWidth || 0) >= 64; el.classList.toggle('fz-big', big); if (big && !greeted) { greeted = true; setTimeout(() => this.flick(1300), 700); } };   // erstes Mal groß sichtbar: Begrüßung
+    const sz = () => { const big = (el.offsetWidth || 0) >= 64; el.classList.toggle('fz-big', big); };
+    // Beim Öffnen/Bereichswechsel keine Augenbraue – erst wenn Max schon eine Weile da ist
+    el.classList.add('fz-calm'); setTimeout(() => el.classList.remove('fz-calm'), 4000);
     try { new ResizeObserver(sz).observe(el); } catch (e) {}
     requestAnimationFrame(sz);
     this.scheduleFlick();
@@ -245,8 +246,16 @@ const css = `
 /* Max-Markenzeichen: rechte Augenbraue immer leicht hochgezogen (wie im Icon) – außer bei traurig, nachdenklich, schlafend */
 .face:not(.fz-marie):not(.fz-big):is([data-state="idle"], [data-state="talk"], [data-state="happy"], :not([data-state])) svg .fz-brow.r { opacity: 1; transform: translateY(-12px) rotate(-8deg); }
 /* Großer Max (ab 64 px): Augenbraue nur in Momenten – Begrüßung, Antwort fertig, Freude, ab und zu zwischendurch */
-.face.fz-big:not(.fz-marie):is(.fz-flick, [data-state="happy"]):is([data-state="idle"], [data-state="talk"], [data-state="happy"]) svg .fz-brow.r { opacity: 1; transform: translateY(-12px) rotate(-8deg); }
+.face.fz-big:not(.fz-marie):not(.fz-calm):is(.fz-flick, [data-state="happy"]):is([data-state="idle"], [data-state="talk"], [data-state="happy"]) svg .fz-brow.r { opacity: 1; transform: translateY(-12px) rotate(-8deg); }
 .face[data-state="think"] svg .fz-brow.r { opacity: 1; transform: translateY(-8px); }
+/* Max arbeitet (erstellt/denkt): ruhiger, gut sichtbarer Ring, der sich um ihn dreht – nur beim großen Max */
+.face svg .fz-ring, .face svg .fz-ring-t { fill: none; stroke-width: 16; opacity: 0; transition: opacity .3s ease; pointer-events: none; }
+.face svg .fz-ring-t { stroke: #2f6fd6; }
+.face svg .fz-ring { stroke: #2f6fd6; stroke-linecap: round; stroke-dasharray: 24 76; transform-box: fill-box; transform-origin: center; }
+.face.fz-big[data-state="think"] svg .fz-ring-t { opacity: .12; }
+.face.fz-big[data-state="think"] svg .fz-ring { opacity: .9; animation: fzring 1.15s linear infinite; }
+@keyframes fzring { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .face.fz-big[data-state="think"] svg .fz-ring { animation-duration: 3s; } }
 .face[data-state="think"] svg .fz-dots circle { animation: fzdot 1.2s infinite; }
 .face[data-state="think"] svg .fz-dots circle:nth-child(2) { animation-delay: .2s; }
 .face[data-state="think"] svg .fz-dots circle:nth-child(3) { animation-delay: .4s; }

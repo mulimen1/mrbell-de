@@ -406,7 +406,13 @@ export function siegel(rp, raw = '', src = '') {
       ? '⚠ ' + (wd ? L('Abweichung von der Quelle gefunden – antippen für die richtige Aussage', 'Differs from the source – tap for the correct statement') : fk ? L('Faktencheck: bitte prüfen – antippen für die richtige Aussage', 'Fact check: please verify – tap for the correct statement') : L('Nicht alle Rechnungen bestätigt – bitte nachrechnen', 'Not all calculations verified – please double-check'))
       : rp && rp.dbcheck && !db ? L('Wird gegengeprüft …', 'Cross-checking …') + (quelle ? ' · ' + quelle : '')
       : '✓ ' + (bl.length && db && db.ok ? L('Gegengeprüft', 'Cross-checked') : rp && rp.rechnungen > 0 && !bl.length ? (rp.rechnungen === 1 ? L('Rechnung nachgerechnet', 'Calculation re-checked') : L(`${rp.rechnungen} Rechnungen nachgerechnet`, `${rp.rechnungen} calculations re-checked`)) : nurRegeln ? L('Geprüft · keine bekannte Fehlaussage gefunden', 'Checked · no known false statement found') : L('Geprüft', 'Checked')) + (quelle ? ' · ' + L('Quelle: ', 'Source: ') + quelle : '');
-    el.replaceChildren(h('span', {}, txt));
+    // Aufbau: Schild-Symbol · Titel (fett) · Quelle (leise) · Pfeil – Titel und Quelle aus dem Text getrennt
+    const raw0 = txt.replace(/^[✓⚠]\s*/, ''), cut = raw0.indexOf(' · '), tt = cut > 0 ? raw0.slice(0, cut) : raw0, sub = cut > 0 ? raw0.slice(cut + 3) : '';
+    const SH = bad ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.8 19.5h18.4z"/><path d="M12 10v4.2M12 17h.01"/></svg>'
+      : rp && rp.dbcheck && !db ? '<svg viewBox="0 0 24 24" aria-hidden="true" class="vt-sspin"><path d="M12 3a9 9 0 1 0 9 9"/></svg>'
+      : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 4.5 5.8v5.6c0 4.7 3.2 8.6 7.5 9.8 4.3-1.2 7.5-5.1 7.5-9.8V5.8z"/><path d="m8.6 12.2 2.4 2.4 4.6-4.9"/></svg>';
+    el.replaceChildren(h('span', { class: 'vt-si', html: SH }), h('span', { class: 'vt-st' }, h('b', {}, tt), sub ? h('small', {}, sub) : null), h('span', { class: 'vt-sgo', 'aria-hidden': 'true', html: '<svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>' }));
+    el.setAttribute('aria-label', raw0);
     if (wd && !el._auf) { el._auf = 1; const box = h('div', { class: 'vt-siegel-box', html: siegelDetails({ db, belege: [] }, '', []).replace(/<p><small>[\s\S]*$/, '') }); const put = (n = 0) => el.parentNode ? el.after(box) : n < 40 && setTimeout(() => put(n + 1), 50); put(); }
   };
   set();

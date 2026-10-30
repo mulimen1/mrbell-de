@@ -8787,3 +8787,22 @@ html:root[data-nv] body .xl-catbig .chip[data-cat].on::before { width: 8px !impo
 /* Überschriften-Etiketten („Excel-Helfer · Vorlagen & Trainer“, Lexikon …): überall klar lesbar als ruhige Pille, kein verwaschener Fleck */
 html:root[data-nv][data-nv] body .app > .main .eyebrow.on-dots, html:root[data-nv][data-nv] body .app > .main :is(.xl-head, .lx-head, .view-head) > .eyebrow { display: inline-flex !important; align-items: center; width: fit-content !important; max-width: 100%; margin-bottom: 12px !important; padding: 6px 13px !important; border-radius: 999px !important; background: #fff !important; border: 1px solid rgba(0,0,0,.07) !important; box-shadow: 0 6px 14px -12px rgba(0,0,0,.35) !important; color: #3d3a45 !important; opacity: 1 !important; text-shadow: none !important; -webkit-mask-image: none !important; mask-image: none !important; filter: none !important; font-weight: 600 !important; font-size: 12px !important; letter-spacing: .12em !important; }
 html:root[data-nv][data-nv][data-theme="dark"] body .app > .main .eyebrow.on-dots { background: #1c1b22 !important; border-color: #2c2b34 !important; color: #d9d7e0 !important; }
+/* Siegel „Gegengeprüft“: Vertrauens-Schild, klarer Titel, Quelle darunter, antippbar */
+html body .vt-siegel { display: inline-flex !important; align-items: center; gap: 10px !important; max-width: 100%; margin: 0 0 10px !important; padding: 6px 12px 6px 6px !important; border-radius: 16px !important; border: 1px solid #cfe9d9 !important; background: #fff !important; color: #14321f !important; box-shadow: 0 8px 20px -16px rgba(20,90,50,.55), 0 1px 0 rgba(255,255,255,.6) inset !important; cursor: pointer; text-align: left; font: inherit; opacity: 1 !important; transition: transform .15s, box-shadow .2s, border-color .2s; }
+html body .vt-siegel:hover { transform: translateY(-1px); border-color: #8fd1ac !important; box-shadow: 0 12px 24px -16px rgba(20,90,50,.6) !important; }
+html body .vt-siegel .vt-si { flex: none; width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: linear-gradient(135deg, #34c77b, #11834a); color: #fff; box-shadow: 0 6px 12px -8px #11834a; }
+html body .vt-siegel .vt-si svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+html body .vt-siegel .vt-st { display: grid; gap: 1px; min-width: 0; }
+html body .vt-siegel .vt-st b { font: 750 14.5px/1.25 var(--sans) !important; color: #0f3d24 !important; letter-spacing: -.005em; }
+html body .vt-siegel .vt-st small { font: 500 12.5px/1.3 var(--sans) !important; color: #4b5a51 !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 52ch; }
+html body .vt-siegel .vt-sgo { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: #eaf7ef; color: #11834a; margin-left: 2px; }
+html body .vt-siegel .vt-sgo svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+html body .vt-siegel.warn { border-color: #f3d3ad !important; box-shadow: 0 8px 20px -16px rgba(160,90,20,.55) !important; }
+html body .vt-siegel.warn .vt-si { background: linear-gradient(135deg, #f7b250, #d9822b); box-shadow: 0 6px 12px -8px #d9822b; }
+html body .vt-siegel.warn .vt-st b { color: #6b3a07 !important; } html body .vt-siegel.warn .vt-sgo { background: #fdf0e1; color: #c06c17; }
+html body .vt-siegel.run { border-color: #dfe6f3 !important; box-shadow: none !important; }
+html body .vt-siegel.run .vt-si { background: #eef3fb; color: #2f6fd6; box-shadow: none; }
+html body .vt-siegel.run .vt-st b { color: #1e3a6b !important; font-weight: 650 !important; }
+html body .vt-siegel .vt-sspin { animation: vtsspin .9s linear infinite; }
+@keyframes vtsspin { to { transform: rotate(360deg); } }
+html[data-theme="dark"] body .vt-siegel { background: #13221a !important; border-color: #24543a !important; } html[data-theme="dark"] body .vt-siegel .vt-st b { color: #c9f0d8 !important; } html[data-theme="dark"] body .vt-siegel .vt-st small { color: #9fb8a9 !important; }
