@@ -8747,3 +8747,22 @@ html body .tn-face.tn-face-img img { display: block; width: 100%; height: 100%; 
 html[data-nv][data-outfit="std"] .fz-collar image, html[data-nv]:not([data-outfit]):not([data-accent]) .fz-collar image, html:not([data-nv]) .fz-collar image { filter: none !important; }
 /* Tafel offen: kein Verlauf-Knopf links neben der Eingabe (der Verlauf ist dann ohnehin sichtbar, der Knopf ragte über den Rand) */
 html body .room:is(.has-board, .dock-side) .rm-dock > .rm-sugg { display: none !important; }
+/* Excel-Vorlagen: ein Bereich zur Zeit, große Bereichs-Knöpfe, Gesamtzahl groß */
+html body .xl-total { display: flex; align-items: center; gap: 16px; margin: 4px 0 16px; }
+html body .xl-total > b { font: 850 clamp(44px, 6vw, 60px)/1 var(--sans); letter-spacing: -.04em; background: linear-gradient(120deg, #1D6F42, #2fae6b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+html body .xl-total > span { display: grid; gap: 2px; font: 800 19px/1.2 var(--sans); color: #17151a; }
+html body .xl-total > span small { font: 500 14.5px/1.35 var(--sans); color: #6b6772; }
+html:root[data-nv] body .xl-catbig { gap: 10px !important; }
+html:root[data-nv] body .xl-catbig .xl-cdot { display: none; }
+html:root[data-nv] body .xl-catbig .chip[data-cat] { height: 52px !important; padding: 0 18px 0 14px !important; border-radius: 999px !important; font: 750 16.5px/1 var(--sans) !important; border: 1.5px solid color-mix(in srgb, var(--xc2) 22%, transparent) !important; box-shadow: 0 8px 18px -14px var(--xc2) !important; transition: transform .15s, box-shadow .2s, background .2s !important; }
+html:root[data-nv] body .xl-catbig .chip[data-cat]::before { width: 14px !important; height: 14px !important; margin-right: 10px !important; }
+html:root[data-nv] body .xl-catbig .chip[data-cat]:not(.on):hover { transform: translateY(-2px); border-color: var(--xc1) !important; }
+html:root[data-nv] body .xl-catbig .chip[data-cat] .xl-cn { margin-left: 10px !important; opacity: 1 !important; padding: 3px 9px; border-radius: 999px; background: color-mix(in srgb, var(--xc2) 12%, #fff); color: var(--xc2); font: 800 13px/1.2 var(--sans); }
+html:root[data-nv] body .xl-catbig .chip[data-cat].on { background: linear-gradient(120deg, var(--xc2), var(--xc1)) !important; color: #fff !important; border-color: transparent !important; box-shadow: 0 14px 26px -14px var(--xc2) !important; transform: translateY(-1px); }
+html:root[data-nv] body .xl-catbig .chip[data-cat].on::before { background: #fff !important; box-shadow: 0 0 0 4px rgba(255,255,255,.3); }
+html:root[data-nv] body .xl-catbig .chip[data-cat].on .xl-cn { background: rgba(255,255,255,.25); color: #fff; }
+html:root[data-nv] body .xl-catbig.xl-searching .chip[data-cat].on { background: #fff !important; color: #222 !important; box-shadow: none !important; transform: none; }
+html:root[data-nv] body .xl-catbig.xl-searching .chip[data-cat].on::before { background: linear-gradient(135deg, var(--xc1), var(--xc2)) !important; }
+html:root[data-nv] body .xl-catbig.xl-searching .chip[data-cat].on .xl-cn { background: color-mix(in srgb, var(--xc2) 12%, #fff); color: var(--xc2); }
+html body .xl-hits { margin: -6px 0 12px; font: 650 14.5px var(--sans); color: #3d3a35; }
+@media (max-width: 600px) { html:root[data-nv] body .xl-catbig .chip[data-cat] { height: 44px !important; font-size: 14.5px !important; } html body .xl-total > b { font-size: 40px; } html body .xl-total > span { font-size: 16px; } }
