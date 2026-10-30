@@ -84,6 +84,36 @@
   ],
   "rewrites": [
     {
+      "source": "/rechner",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?bwlmax\\.de"
+        }
+      ],
+      "destination": "/tutor/rechner/index.html"
+    },
+    {
+      "source": "/rechner/",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?bwlmax\\.de"
+        }
+      ],
+      "destination": "/tutor/rechner/index.html"
+    },
+    {
+      "source": "/rechner/:slug([a-z0-9-]+)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?bwlmax\\.de"
+        }
+      ],
+      "destination": "/tutor/rechner/:slug.html"
+    },
+    {
       "source": "/lernen",
       "has": [
         {
