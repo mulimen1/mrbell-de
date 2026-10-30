@@ -375,6 +375,8 @@ export function siegelDetails(rp, src, pages) {
   if (rp && rp.rechnungen > 0) z.push(`<p><b>✓ ${L('Rechnungen nachgerechnet', 'Calculations re-checked')}:</b> ${rp.rechnungen}${rp.korrigiert ? ' · ' + L('korrigiert', 'corrected') + ': ' + rp.korrigiert : ''}${rp.offen ? ' · <b class="w">' + L('nicht bestätigt', 'not verified') + ': ' + rp.offen + '</b>' : ''}</p>`);
   const fk = rp && Array.isArray(rp.fakten) ? rp.fakten : [];
   fk.forEach(x => z.push(`<p class="w"><b>⚠ ${L('Richtig ist', 'Correct')}:</b> ${esc(x.richtig)}<br><small>${L('Quelle', 'Source')}: ${/^https?:/.test(x.quelle) ? `<a href="${esc(x.quelle)}" target="_blank" rel="noopener">${esc(x.quelle)}</a>` : esc(x.quelle)}</small></p>`));
+  if (rp && !fk.length) z.push(`<p><b>✓ ${L('Faktenregeln (Gesetzesstand, bekannte Fehlaussagen)', 'Fact rules (legal status, known false statements)')}:</b> ${L('ohne Befund', 'no findings')}</p>`);
+  if (rp && !(rp.belege && rp.belege.length)) z.push(`<p><small>${L('Zu diesem Thema gibt es in unserer Faktendatenbank noch keine belegten Aussagen – geprüft wurden Rechnungen und Faktenregeln.', 'Our fact database has no sourced statements on this topic yet – calculations and fact rules were checked.')}</small></p>`);
   const db = rp && rp.db; const wd = db ? db.widersprueche : [];
   wd.forEach(w => z.push(`<p class="w"><b>⚠ ${L('Abweichung', 'Mismatch')}:</b> „${esc(w.zitat)}“<br><b>${L('Richtig ist', 'Correct')}:</b> ${esc(w.richtig)}<br><small>${L('Quelle', 'Source')}: ${qLink(w.quelle)}</small></p>`));
   if (rp && rp.belege && rp.belege.length) {
@@ -388,7 +390,8 @@ export function siegel(rp, raw = '', src = '') {
   const pages = src ? [...new Set([...String(raw).matchAll(/\((?:S|p|pp)\. ?(\d+)(?:[–-](\d+))?\)/g)].map(m => +m[1]))].sort((a, b) => a - b).slice(0, 5) : [];
   const bl = rp && rp.belege || []; const fk = rp && rp.fakten && rp.fakten.length;
   if (!rp && !pages.length) return null;
-  if (!pages.length && !bl.length && !(rp.rechnungen > 0) && !fk && !rp.faktenKorrigiert) return null;
+  const nurRegeln = !pages.length && !bl.length && !(rp && rp.rechnungen > 0) && !fk && !(rp && rp.faktenKorrigiert);
+  if (nurRegeln && String(raw).replace(/<[^>]+>|```[\s\S]*?```/g, '').length < 250) return null;   // kurze Rückfragen/Smalltalk: kein Siegel
   const qk = (() => { const s = []; bl.forEach(b => { const n = b.quelle && b.quelle.name && String(b.quelle.name).replace(/\s*Wirtschaftslexikon/i, '').replace(/^Lehrbuchstandard.*$/i, ''); if (n && !s.includes(n)) s.push(n); }); return s.slice(0, 1).join('') + (s.length > 1 ? ` +${s.length - 1}` : ''); })();
   const el = h('button', { class: 'vt-siegel', type: 'button' });
   const open = e => { e.stopPropagation(); import('./util.js').then(u => { const m = u.modal({ title: L('Gegengeprüft', 'Cross-checked'), body: h('div', { class: 'fk-list', html: siegelDetails(rp, src, pages) }) }); setTimeout(() => document.querySelectorAll('.fk-list [data-vt]').forEach(a => a.addEventListener('click', ev => { ev.preventDefault(); try { m && m.close && m.close(); } catch (x) {} import('./vertrauen.js').then(v => v.openVertrauen('max', L('Zurück zu Max', 'Back to Max'))); })), 50); }).catch(() => {}); };
@@ -401,7 +404,7 @@ export function siegel(rp, raw = '', src = '') {
     const txt = bad
       ? '⚠ ' + (wd ? L('Abweichung von der Quelle gefunden – antippen für die richtige Aussage', 'Differs from the source – tap for the correct statement') : fk ? L('Faktencheck: bitte prüfen – antippen für die richtige Aussage', 'Fact check: please verify – tap for the correct statement') : L('Nicht alle Rechnungen bestätigt – bitte nachrechnen', 'Not all calculations verified – please double-check'))
       : rp && rp.dbcheck && !db ? L('Wird gegengeprüft …', 'Cross-checking …') + (quelle ? ' · ' + quelle : '')
-      : '✓ ' + (bl.length && db && db.ok ? L('Gegengeprüft', 'Cross-checked') : rp && rp.rechnungen > 0 && !bl.length ? (rp.rechnungen === 1 ? L('Rechnung nachgerechnet', 'Calculation re-checked') : L(`${rp.rechnungen} Rechnungen nachgerechnet`, `${rp.rechnungen} calculations re-checked`)) : L('Geprüft', 'Checked')) + (quelle ? ' · ' + L('Quelle: ', 'Source: ') + quelle : '');
+      : '✓ ' + (bl.length && db && db.ok ? L('Gegengeprüft', 'Cross-checked') : rp && rp.rechnungen > 0 && !bl.length ? (rp.rechnungen === 1 ? L('Rechnung nachgerechnet', 'Calculation re-checked') : L(`${rp.rechnungen} Rechnungen nachgerechnet`, `${rp.rechnungen} calculations re-checked`)) : nurRegeln ? L('Geprüft · keine bekannte Fehlaussage gefunden', 'Checked · no known false statement found') : L('Geprüft', 'Checked')) + (quelle ? ' · ' + L('Quelle: ', 'Source: ') + quelle : '');
     el.replaceChildren(h('span', {}, txt));
     if (wd && !el._auf) { el._auf = 1; const box = h('div', { class: 'vt-siegel-box', html: siegelDetails({ db, belege: [] }, '', []).replace(/<p><small>[\s\S]*$/, '') }); const put = (n = 0) => el.parentNode ? el.after(box) : n < 40 && setTimeout(() => put(n + 1), 50); put(); }
   };
