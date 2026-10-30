@@ -665,7 +665,8 @@ export function render(root, ctx = {}) {
     const cont = ls.get('tutor.room.continue', 0); if (cont) ls.set('tutor.room.continue', 0);
     const pending = ls.get('tutor.pendingAsk', null); if (pending) ls.set('tutor.pendingAsk', null);
     // Verlauf nur auf ausdrücklichen Wunsch („Im Tutor weitermachen“) offen – wer zurück in den Tutor kommt, sieht ihn geschlossen
-    if (cont) goTalk({ mark: false });
+    // Ausnahme: Warst du an der Tafel, ist sie beim Zurückkommen wieder offen (mit dem Gespräch daneben)
+    if (cont || (api.hasKeptBoard && api.hasKeptBoard())) goTalk({ mark: false });
     if (pending) { goTalk(); setTimeout(() => (typeof pending === 'object' ? ask(pending.t, pending) : ask(pending)), ctx.arrive ? 900 : 350); }
     drawSugg();
     if (!MOB.matches) setTimeout(() => { if (!document.querySelector('.ngreet')) api.focusInput(); }, 700);

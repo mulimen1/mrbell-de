@@ -971,7 +971,7 @@ export function mountAssistant() {
     const t = h('div', { class: 'tafel' }, h('h2', { class: 'tt' }, b.title));
     t.appendChild(polishBoard(sanitize(b.html)));
     { const f = t.children[1], nz = x => String(x || '').toLowerCase().replace(/[^a-zäöüß0-9]+/g, ''); if (f && /^H[1-4]$/.test(f.tagName) && nz(f.textContent) === nz(b.title)) f.remove(); }   // KI wiederholt den Tafel-Titel als erste Überschrift → nur einmal zeigen
-    MM.enhance(t); if (!write) MM.revealAll(t);   // Max-Modus: Übersicht als animierte Mindmap, Äste fliegen mit der Führung rein
+    MM.enhance(t, true); if (!write || !MM.on()) MM.revealAll(t);   // Max-Modus: Übersicht als animierte Mindmap, Äste fliegen mit der Führung rein
     t.appendChild(nextChips(b));
     // Erklärung ⇄ Klausurfragen: Umschalter oben auf der Tafel
     const mate = b.exam ? b.pair : b.pairB;
@@ -2131,6 +2131,7 @@ export function mountAssistant() {
     focusInput: () => { if (state === 'idle') inp.focus({ preventScroll: true }); },
     newTalk: () => newTalk(),
     boardShown: () => boardOpen && !boardMin,
+    hasKeptBoard: () => !!(keepBoard && boards.length),   // beim Verlassen war eine Tafel offen
     // Von außen (Bibliothek): eine gespeicherte Tafel groß zeigen
     showBoard: b => { if (!b || !b.html) return; let i = boards.findIndex(x => x.title === b.title && x.html === b.html); if (i < 0) { boards.push({ title: b.title, html: b.html }); i = boards.length - 1; } bIdx = i; drawBoard(false); openBoard(); },
     // Zurück im Tutor: dieselbe Tafel nicht neu zeichnen – sonst wäre ein inzwischen gebautes Quiz/eine Übung darauf weg

@@ -35,8 +35,8 @@ function textEl(x, y, t, size, max, cls) {
   return el;
 }
 
-export function enhance(t) {
-  if (!on() || !t) return;
+export function enhance(t, force = false) {
+  if ((!on() && !force) || !t) return;   // force: gespeicherte Tafel mit Mindmap (Bibliothek) immer als Mindmap zeigen
   t.querySelectorAll('.mindmap').forEach(box => {
     const top = box.querySelector(':scope > ul > li, :scope > ol > li'); if (!top) return;
     const branches = [...(top.querySelector(':scope > ul, :scope > ol') || { children: [] }).children].filter(x => x.nodeName === 'LI').slice(0, 6);

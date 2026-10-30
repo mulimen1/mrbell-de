@@ -34,6 +34,7 @@ export function openBoardView(list, start = 0, { docName = '' } = {}) {
     prev.hidden = next.hidden = boards.length < 2; prev.disabled = i === 0; next.disabled = i === boards.length - 1;
     const t = h('div', { class: 'tafel' }); t.appendChild(sanitize(b.html));
     area.replaceChildren(t); area.scrollTop = 0;
+    if (t.querySelector('.mindmap')) import('./maxmode.js').then(m => { m.enhance(t, true); m.revealAll(t); }).catch(() => {});   // Mindmap wie an der Tafel, nicht als Textliste
     q.textContent = b.q ? L('Deine Frage: ', 'Your question: ') + b.q : (docName || '');
   }
   function go(d) { const n = i + d; if (n < 0 || n >= boards.length) return; i = n; draw(); }
