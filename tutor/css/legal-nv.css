@@ -72,3 +72,6 @@ html:root body main .lg-col li, html:root body main .lg-col p { font-size: 15.5p
 html:root body main .lg-col.lg-col-no { background: #fff6f3 !important; border-color: #fbd9cc !important; }
 html:root body main .lg-col .f { color: #4b5563 !important; font-size: 14.5px !important; }
 html:root body main .lg-kurz, html:root body main .lg-flow, html:root body main .lg-steps, html:root body main .lg-where, html:root body main .lg-faq { color: #1d2027 !important; }
+html:root body main ol.lg-toc { margin: 0 clamp(20px, 5vw, 60px) 12px !important; padding: 20px 0 8px !important; columns: auto !important; }
+html:root body main ol.lg-toc li::before { content: none !important; display: none !important; }
+html:root body main ol.lg-toc li { padding: 0 !important; }
