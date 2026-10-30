@@ -136,6 +136,217 @@
     "typ": "lehrbuchstandard",
     "name": "Lehrbuchstandard (nachgerechnet)"
    }
+  },
+  {
+   "id": "netzplantechnik-10",
+   "art": "methode",
+   "aussage": "Die Netzplantechnik umfasst (simultan ablaufende) Phasen: Struktur-, Zeit-, Kapazitäts-, Kosten- und Liquiditätsanalyse und -planung sowie Durchführung und Kontrolle.",
+   "schlagworte": [
+    "Phasen",
+    "Netzplantechnik"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-11",
+   "art": "methode",
+   "aussage": "In der Strukturanalyse wird das Projekt in überschaubare Teiltätigkeiten (Vorgänge) zerlegt, wichtige Projektzustände (Ereignisse) werden bestimmt, Vorgangsdauern geschätzt und Anordnungsbeziehungen festgelegt; das Ergebnis wird als Netzplan dargestellt.",
+   "schlagworte": [
+    "Strukturanalyse",
+    "Vorgang",
+    "Ereignis"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-12",
+   "art": "methode",
+   "aussage": "Für die Rückwärtsrechnung wird ein spätesterlaubter Beendigungstermin vorgegeben; er wird in der Regel gleich dem frühesten Beendigungstermin gesetzt und darf nicht vor diesem liegen.",
+   "schlagworte": [
+    "Rückwärtsrechnung",
+    "Endtermin"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-13",
+   "art": "methode",
+   "aussage": "In der Kapazitätsplanung werden Belastungsspitzen zunächst durch Verschieben von Vorgängen innerhalb ihrer Pufferzeiten geglättet; reicht die Kapazität dennoch nicht, müssen parallel mögliche Vorgänge nacheinander ausgeführt werden, was die Projektdauer verlängert.",
+   "schlagworte": [
+    "Kapazitätsplanung",
+    "Glättung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-14",
+   "art": "methode",
+   "aussage": "Liegt die minimale Projektdauer über der gewünschten, werden Vorgänge durch zusätzliche Faktoreinsätze verkürzt, und zwar so, dass die Wunschdauer eingehalten wird und die Kosten der Verkürzung minimal sind; kritische Vorgänge bieten die Ansatzpunkte dafür.",
+   "schlagworte": [
+    "Projektverkürzung",
+    "Kostenplanung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-15",
+   "art": "definition",
+   "aussage": "Netzplantypen: Im Vorgangspfeilnetzplan sind Vorgänge Pfeile und Ereignisse Knoten; im Ereignisknotennetzplan sind die Knoten Ereignisse und die Pfeile nur Abfolgen; im Vorgangsknotennetzplan stehen die Knoten für Vorgänge und die Pfeile für Abfolgebeziehungen.",
+   "schlagworte": [
+    "Vorgangsknotennetz",
+    "Vorgangspfeilnetz",
+    "Ereignisknotennetz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplan",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplan-39521",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-16",
+   "art": "definition",
+   "aussage": "Die Critical Path Method (CPM) verwendet Vorgangspfeilnetzpläne; alle dargestellten Ablaufbeziehungen sind Normalfolgen mit einem Mindestabstand von null.",
+   "schlagworte": [
+    "CPM",
+    "Vorgangspfeilnetzplan"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: CPM",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/cpm-28265",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-17",
+   "art": "definition",
+   "aussage": "Weitere Pufferarten sind der unabhängige Puffer (Vorgänger spätestmöglich, Nachfolger frühestmöglich) und der freie Rückwärtspuffer (Vorgänger und Nachfolger jeweils zu ihren spätesterlaubten Zeitpunkten).",
+   "schlagworte": [
+    "unabhängiger Puffer",
+    "freier Rückwärtspuffer"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Vorgangspuffer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/vorgangspuffer-49885",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-18",
+   "art": "definition",
+   "aussage": "Ein kritischer Vorgang ist ein Vorgang, dessen gesamte Pufferzeit null ist; jede Verzögerung verlängert die gesamte Projektdauer entsprechend.",
+   "schlagworte": [
+    "kritischer Vorgang",
+    "Gesamtpuffer null"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: kritischer Vorgang",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kritischer-vorgang-38353",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-19",
+   "art": "definition",
+   "aussage": "Ein kritischer Weg führt von der Quelle zur Senke des Netzplans ausschließlich über kritische Elemente; seine Länge ist mit der minimalen Projektdauer identisch.",
+   "schlagworte": [
+    "kritischer Weg",
+    "Projektdauer"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: kritischer Weg",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kritischer-weg-41658",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-20",
+   "art": "definition",
+   "aussage": "Ein Meilenstein ist ein definierter Punkt (Ereignis) in einem Projekt, an dem der Abschluss einer Einzelaktivität überprüft wird, um die geplanten Termin-, Kosten- und Qualitätsanforderungen sicherzustellen.",
+   "schlagworte": [
+    "Meilenstein",
+    "Projektmanagement"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Meilenstein",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/meilenstein-38590",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-21",
+   "art": "abgrenzung",
+   "aussage": "Netzplantechnik ist neben der linearen Optimierung der am weitesten verbreitete Teil des Operations Research; typische Anwendungen sind Terminplanung bei Einzelfertigung (z. B. Brücken, Schiffe), Großreparaturen, Produkteinführungen und die Erstellung von Jahresabschlüssen.",
+   "schlagworte": [
+    "Anwendung",
+    "Operations Research"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-22",
+   "art": "methode",
+   "aussage": "Vorgangspuffer zeigen vor Projektbeginn, welche Tätigkeiten besonders zu überwachen sind, während des Projekts, wie sich eingetretene Verzögerungen auswirken; Verschiebungen im Rahmen der Puffer lassen sich für eine gleichmäßige Kapazitätsauslastung nutzen.",
+   "schlagworte": [
+    "Puffer",
+    "Bedeutung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Vorgangspuffer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/vorgangspuffer-49885",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-23",
+   "art": "formel",
+   "aussage": "Vorwärtsrechnung bei Normalfolgen: Ein Vorgang kann frühestens beginnen, wenn alle Vorgänger beendet sind, `FAZ_j = \\max_{i \\in V(j)} FEZ_i` (Startvorgang: `FAZ = 0`); rückwärts gilt `SEZ_i = \\min_{j \\in N(i)} SAZ_j` (letzter Vorgang: `SEZ` = Projektende).",
+   "schlagworte": [
+    "Vorwärtsrechnung",
+    "Rückwärtsrechnung",
+    "FAZ"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "netzplantechnik-24",
+   "art": "formel",
+   "aussage": "Bei PERT wird die Standardabweichung der Vorgangsdauer üblicherweise mit `\\sigma = \\frac{b - a}{6}` geschätzt (a: optimistische, b: pessimistische Schätzung).",
+   "schlagworte": [
+    "PERT",
+    "Standardabweichung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -143,6 +354,189 @@
    "falsch": "Gesamtpuffer und freier Puffer sind dasselbe.",
    "richtig": "Der Gesamtpuffer bezieht sich auf das spätestmögliche Starten der Nachfolger (Projektende), der freie Puffer auf deren frühestmöglichen Start.",
    "quelle_id": "netzplantechnik-7"
+  },
+  {
+   "falsch": "Der kritische Weg ist der Weg mit den meisten Vorgängen.",
+   "richtig": "Der kritische Weg ist der Weg ohne Puffer; seine Länge entspricht der minimalen Projektdauer.",
+   "quelle_id": "netzplantechnik-19"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist Netzplantechnik?",
+   "varianten": [
+    "Netzplantechnik Definition",
+    "Netzplan Projektmanagement",
+    "wozu Netzplantechnik"
+   ],
+   "antwort": "Netzplantechnik ist eine auf der Graphentheorie beruhende Klasse von Methoden zur Analyse, Planung, Durchführung und Kontrolle von Projekten. Sie umfasst mehrere Phasen: Struktur-, Zeit-, Kapazitäts-, Kosten- und Liquiditätsplanung sowie Durchführung und Kontrolle. Im Kern zerlegst du das Projekt in Vorgänge, legst Dauern und Abhängigkeiten fest und berechnest daraus Termine und Pufferzeiten.",
+   "belege": [
+    "netzplantechnik-1",
+    "netzplantechnik-10",
+    "netzplantechnik-11"
+   ]
+  },
+  {
+   "frage": "Welche Arten von Netzplänen gibt es?",
+   "varianten": [
+    "Vorgangsknotennetz",
+    "Vorgangspfeilnetz",
+    "Ereignisknotennetz"
+   ],
+   "antwort": "Es gibt drei Grundtypen. Im Vorgangspfeilnetzplan werden Vorgänge als Pfeile und Ereignisse als Knoten dargestellt. Im Ereignisknotennetzplan sind die Knoten Ereignisse und die Pfeile zeigen nur die zeitliche Abfolge; ihn verwendet PERT. Im Vorgangsknotennetzplan stehen die Knoten für Vorgänge und die Pfeile für deren Abfolgebeziehungen.",
+   "belege": [
+    "netzplantechnik-15",
+    "netzplantechnik-4"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen CPM, MPM und PERT?",
+   "varianten": [
+    "CPM vs PERT",
+    "MPM Netzplan",
+    "deterministisch stochastisch Netzplan"
+   ],
+   "antwort": "CPM und MPM sind deterministische Verfahren: Alle Vorgangsdauern gelten als sicher. CPM arbeitet mit Vorgangspfeilnetzplänen und lässt nur Normalfolgen mit Mindestabstand null zu. PERT ist stochastisch und ereignisorientiert: Es nutzt Ereignisknotennetzpläne und behandelt die Vorgangsdauern als betaverteilte Zufallsvariable, die aus einer Dreizeitenschätzung (optimistisch, wahrscheinlichst, pessimistisch) gewonnen wird.",
+   "belege": [
+    "netzplantechnik-4",
+    "netzplantechnik-16",
+    "netzplantechnik-6"
+   ]
+  },
+  {
+   "frage": "Wie funktionieren Vorwärts- und Rückwärtsrechnung?",
+   "varianten": [
+    "Vorwärtsrechnung Netzplan",
+    "Rückwärtsrechnung",
+    "FAZ FEZ SAZ SEZ"
+   ],
+   "antwort": "Bei der Vorwärtsrechnung startest du am Projektbeginn mit \\( FAZ = 0 \\) und rechnest \\( FEZ = FAZ + D \\); ein Vorgang beginnt frühestens, wenn alle Vorgänger fertig sind, also beim größten FEZ der Vorgänger. So erhältst du die Projektdauer. Bei der Rückwärtsrechnung setzt du das späteste Ende in der Regel gleich dem frühesten Projektende und rechnest \\( SAZ = SEZ - D \\), wobei das SEZ eines Vorgangs der kleinste SAZ seiner Nachfolger ist. Aus der Differenz ergeben sich die Puffer, z. B. \\( GP = SAZ - FAZ \\).",
+   "belege": [
+    "netzplantechnik-2",
+    "netzplantechnik-8",
+    "netzplantechnik-23",
+    "netzplantechnik-12"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich Projektdauer und Puffer an einem Beispiel?",
+   "varianten": [
+    "Netzplan Rechenbeispiel",
+    "Netzplan berechnen Aufgabe",
+    "Puffer berechnen Beispiel"
+   ],
+   "antwort": "Beispiel: A (3 Tage) ist Vorgänger von B (5) und C (2); B und C sind Vorgänger von D (4). Vorwärts: A 0–3, B 3–8, C 3–5, D beginnt beim größeren FEZ von B und C, also 8, und endet bei 12; die Projektdauer beträgt 12 Tage. Rückwärts mit SEZ(D) = 12: D 8–12, B 3–8, C 6–8, A 0–3. Gesamtpuffer: A, B und D haben 0, C hat \\( 6 - 3 = 3 \\) Tage; der freie Puffer von C ist \\( 8 - 5 = 3 \\) Tage. Der kritische Weg ist A–B–D mit 12 Tagen.",
+   "belege": [
+    "netzplantechnik-8",
+    "netzplantechnik-23",
+    "netzplantechnik-18",
+    "netzplantechnik-19"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Gesamtpuffer und freiem Puffer?",
+   "varianten": [
+    "Gesamtpuffer vs freier Puffer",
+    "GP FP Netzplan",
+    "Pufferzeiten Arten"
+   ],
+   "antwort": "Der Gesamtpuffer ist der Spielraum eines Vorgangs, wenn alle Vorgänger frühestmöglich und alle Nachfolger spätestmöglich beginnen; du berechnest ihn als \\( GP = SAZ - FAZ \\). Wird er überschritten, verschiebt sich das Projektende. Der freie Puffer gilt, wenn Vorgänger und Nachfolger frühestmöglich beginnen: \\( FP = \\min(FAZ_{Nachfolger}) - FEZ \\). Nutzt du nur den freien Puffer, verschiebt sich kein Nachfolger. Der freie Puffer ist deshalb nie größer als der Gesamtpuffer.",
+   "belege": [
+    "netzplantechnik-7",
+    "netzplantechnik-8"
+   ]
+  },
+  {
+   "frage": "Was ist der kritische Weg?",
+   "varianten": [
+    "kritischer Pfad",
+    "Critical Path",
+    "kritische Vorgänge"
+   ],
+   "antwort": "Der kritische Weg führt vom Projektstart zum Projektende nur über kritische Vorgänge bzw. Ereignisse, also solche ohne Pufferzeit. Seine Länge ist identisch mit der minimalen Projektdauer. Jede Verzögerung eines kritischen Vorgangs verlängert das gesamte Projekt entsprechend. Deshalb sind kritische Vorgänge besonders sorgfältig zu überwachen.",
+   "belege": [
+    "netzplantechnik-19",
+    "netzplantechnik-18",
+    "netzplantechnik-3"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die erwartete Dauer bei PERT?",
+   "varianten": [
+    "PERT Formel",
+    "Dreizeitenschätzung",
+    "PERT Erwartungswert berechnen"
+   ],
+   "antwort": "PERT schätzt jede Vorgangsdauer mit drei Werten: optimistisch (a), wahrscheinlichst (m) und pessimistisch (b). Der Erwartungswert ist \\( t_e = \\frac{a + 4m + b}{6} \\), die Standardabweichung wird üblicherweise mit \\( \\sigma = \\frac{b - a}{6} \\) geschätzt. Beispiel: a = 4, m = 6, b = 14 Tage ergibt \\( t_e = (4 + 24 + 14) / 6 = 7{,}00 \\) Tage und \\( \\sigma = 10 / 6 = 1{,}67 \\) Tage. Grundlage ist die Annahme einer Beta-Verteilung der Dauer.",
+   "belege": [
+    "netzplantechnik-9",
+    "netzplantechnik-24",
+    "netzplantechnik-6"
+   ]
+  },
+  {
+   "frage": "Welche Anordnungsbeziehungen gibt es im Netzplan?",
+   "varianten": [
+    "Normalfolge Anfangsfolge Endfolge Sprungfolge",
+    "Anordnungsbeziehungen",
+    "Ende-Anfang-Beziehung"
+   ],
+   "antwort": "Zwischen zwei Vorgängen gibt es vier Anordnungsbeziehungen. Die Ende-Anfang-Beziehung (Normalfolge) bedeutet: Der Nachfolger beginnt nach dem Ende des Vorgängers. Bei der Anfang-Anfang-Beziehung (Anfangsfolge) hängt der Beginn vom Beginn ab, bei der Ende-Ende-Beziehung (Endfolge) das Ende vom Ende. Die Anfang-Ende-Beziehung heißt Sprungfolge. CPM lässt nur Normalfolgen zu.",
+   "belege": [
+    "netzplantechnik-5",
+    "netzplantechnik-16"
+   ]
+  },
+  {
+   "frage": "Wie kann man die Projektdauer verkürzen?",
+   "varianten": [
+    "Projektdauer verkürzen",
+    "Netzplan Beschleunigung",
+    "Crashing Netzplan"
+   ],
+   "antwort": "Ansatzpunkte sind die kritischen Vorgänge, denn nur ihre Verkürzung kann das Projektende vorziehen. Liegt die minimale Projektdauer über der gewünschten, werden Vorgänge durch zusätzliche Faktoreinsätze verkürzt. Dabei wählst du die Verkürzungen so, dass die Wunschdauer eingehalten wird und die Kosten der Verkürzung minimal sind.",
+   "belege": [
+    "netzplantechnik-14",
+    "netzplantechnik-3",
+    "netzplantechnik-19"
+   ]
+  },
+  {
+   "frage": "Wozu dienen Pufferzeiten in der Kapazitätsplanung?",
+   "varianten": [
+    "Kapazitätsglättung Netzplan",
+    "Puffer nutzen",
+    "Kapazitätsplanung Netzplantechnik"
+   ],
+   "antwort": "Vorgänge mit Puffer kannst du verschieben, ohne das Projektende zu gefährden. In der Kapazitätsplanung nutzt man das, um Belastungsspitzen zu glätten und Kapazitäten gleichmäßiger auszulasten. Reicht die Kapazität trotzdem nicht, müssen parallel mögliche Vorgänge nacheinander ausgeführt werden; dann verlängert sich die Projektdauer. Während des Projekts zeigen Puffer außerdem, wie sich eingetretene Verzögerungen auswirken.",
+   "belege": [
+    "netzplantechnik-13",
+    "netzplantechnik-22"
+   ]
+  },
+  {
+   "frage": "Was ist ein Meilenstein?",
+   "varianten": [
+    "Meilenstein Definition",
+    "Meilensteine Projekt",
+    "Meilenstein Netzplan"
+   ],
+   "antwort": "Ein Meilenstein ist ein definierter Punkt, also ein Ereignis, an dem im Projekt der Abschluss einer Einzelaktivität überprüft wird. Ziel ist, die im Projektplan festgelegten Termin-, Kosten- und Qualitätsanforderungen sicherzustellen. Meilensteine werden vor allem bei größeren Projekten genutzt und kontinuierlich in kurzen Abständen überprüft.",
+   "belege": [
+    "netzplantechnik-20"
+   ]
+  },
+  {
+   "frage": "Wo wird Netzplantechnik eingesetzt?",
+   "varianten": [
+    "Anwendung Netzplantechnik",
+    "Beispiele Netzplantechnik",
+    "Netzplantechnik Praxis"
+   ],
+   "antwort": "Netzplantechnik ist neben der linearen Optimierung der am weitesten verbreitete Teil des Operations Research. Typisch ist die Terminplanung bei Einzelfertigung, etwa beim Bau von Industrieanlagen, Brücken oder Schiffen. Weitere Beispiele sind Großreparaturen in der Instandhaltung, die Einführungsplanung neuer Produkte und die Erstellung von Jahresabschlüssen.",
+   "belege": [
+    "netzplantechnik-21"
+   ]
   }
  ]
 }

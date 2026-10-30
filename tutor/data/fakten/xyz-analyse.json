@@ -362,7 +362,7 @@
     "XYZ-Analyse Aufgabe",
     "Artikel X Y oder Z bestimmen"
    ],
-   "antwort": "Beispiel: Ein Artikel wird in sechs Monaten 90, 110, 130, 100, 120 und 110 Liter verbraucht, die Grenzen sind 10 % und 25 %. Der Mittelwert ist \\( \\frac{660}{6} = 110 \\). Die quadrierten Abweichungen summieren sich zu 1.000, also \\( \\sigma = \\sqrt{\\frac{1.000}{6}} \\approx 12,91 \\). Damit ist \\( VK = \\frac{12,91}{110} \\cdot 100\\,\\% \\approx 11,74\\,\\% \\). Weil 10 % < 11,74 % ≤ 25 %, ist der Artikel ein Y-Artikel.",
+   "antwort": "Beispiel: Ein Artikel wird in sechs Monaten 90, 110, 130, 100, 120 und 110 Liter verbraucht, die Grenzen sind 10 % und 25 %. Der Mittelwert ist \\( \\frac{660}{6} = 110 \\). Die quadrierten Abweichungen summieren sich zu 1.000, also \\( \\sigma = \\sqrt{\\frac{1.000}{6}} \\approx 12{,}91 \\). Damit ist \\( VK = \\frac{12{,}91}{110} \\cdot 100\\,\\% \\approx 11{,}74\\,\\% \\). Weil 10 % < 11,74 % ≤ 25 %, ist der Artikel ein Y-Artikel.",
    "belege": [
     "xyz-analyse-11",
     "xyz-analyse-4",
@@ -475,7 +475,7 @@
     "VK 15 Prozent Klasse",
     "XYZ Übungsaufgabe"
    ],
-   "antwort": "Der Variationskoeffizient beträgt \\( \\frac{30}{200} \\cdot 100\\,\\% = 15,00\\,\\% \\). Er liegt über der Grenze von 10 % und nicht über 25 %. Der Artikel ist deshalb ein Y-Artikel mit schwankendem Verbrauch.",
+   "antwort": "Der Variationskoeffizient beträgt \\( \\frac{30}{200} \\cdot 100\\,\\% = 15{,}00\\,\\% \\). Er liegt über der Grenze von 10 % und nicht über 25 %. Der Artikel ist deshalb ein Y-Artikel mit schwankendem Verbrauch.",
    "belege": [
     "xyz-analyse-4",
     "xyz-analyse-19"
@@ -488,7 +488,7 @@
     "Glättungskonstante Alpha",
     "exponential smoothing Bedarf"
    ],
-   "antwort": "Die neue Prognose ergibt sich aus der alten Prognose und dem tatsächlichen Wert: \\( y_{T,T+1} = \\alpha \\cdot x_T + (1-\\alpha) \\cdot y_{T-1,T} \\) mit \\( 0 < \\alpha < 1 \\). Beispiel: Prognose 100, tatsächlicher Verbrauch 120, \\( \\alpha = 0{,}3 \\) ergibt \\( 0{,}3 \\cdot 120 + 0{,}7 \\cdot 100 = 106,00 \\). Ältere Werte gehen mit geometrisch abnehmenden Gewichten ein. Liegt ein linearer Trend vor, wird das Verfahren variiert, etwa zur exponentiellen Glättung zweiter Ordnung.",
+   "antwort": "Die neue Prognose ergibt sich aus der alten Prognose und dem tatsächlichen Wert: \\( y_{T,T+1} = \\alpha \\cdot x_T + (1-\\alpha) \\cdot y_{T-1,T} \\) mit \\( 0 < \\alpha < 1 \\). Beispiel: Prognose 100, tatsächlicher Verbrauch 120, \\( \\alpha = 0{,}3 \\) ergibt \\( 0{,}3 \\cdot 120 + 0{,}7 \\cdot 100 = 106{,}00 \\). Ältere Werte gehen mit geometrisch abnehmenden Gewichten ein. Liegt ein linearer Trend vor, wird das Verfahren variiert, etwa zur exponentiellen Glättung zweiter Ordnung.",
    "belege": [
     "xyz-analyse-18",
     "xyz-analyse-14"

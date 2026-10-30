@@ -99,6 +99,233 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "korrelation-8",
+   "art": "definition",
+   "aussage": "Positive Korrelation liegt vor, wenn zu hohen Werten des einen Merkmals tendenziell hohe Werte des anderen gehören; negative Korrelation, wenn zu hohen Werten des einen tendenziell niedrige Werte des anderen gehören.",
+   "schlagworte": [
+    "positiv",
+    "negativ",
+    "Richtung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelation-40362",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-9",
+   "art": "abgrenzung",
+   "aussage": "Man unterscheidet Maßkorrelation (mindestens intervallskalierte Merkmale, gemessen mit dem Bravais-Pearson-Koeffizienten) und Rangkorrelation (Beurteilung nur über Rangwerte, z. B. mit dem Koeffizienten von Spearman).",
+   "schlagworte": [
+    "Maßkorrelation",
+    "Rangkorrelation",
+    "Skalenniveau"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Maßkorrelation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/masskorrelation-37709",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-10",
+   "art": "abgrenzung",
+   "aussage": "Bei qualitativen Variablen spricht man statt von Korrelation von Assoziation bzw. Kontingenz.",
+   "schlagworte": [
+    "Kontingenz",
+    "Assoziation",
+    "qualitativ"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelation-40362",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-11",
+   "art": "definition",
+   "aussage": "Die Kovarianz ist eine Kenngröße für den linearen Zusammenhang zweier quantitativer Merkmale bzw. Zufallsvariablen; sie kann beliebige Werte annehmen und bildet den Zähler des Bravais-Pearson-Korrelationskoeffizienten. Für Zufallsvariablen gilt `Cov(X,Y) = E\\big((X - E(X))(Y - E(Y))\\big)`.",
+   "schlagworte": [
+    "Kovarianz",
+    "Zähler"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kovarianz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kovarianz-39516",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-12",
+   "art": "formel",
+   "aussage": "Empirische Kovarianz: `s_{xy} = \\frac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})` (teils mit Divisor n-1); werden Kovarianz und Standardabweichungen mit demselben Divisor berechnet, ist r davon unabhängig.",
+   "schlagworte": [
+    "Kovarianz",
+    "Formel",
+    "Divisor"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "korrelation-13",
+   "art": "abgrenzung",
+   "aussage": "Der Rangkorrelationskoeffizient nach Spearman ist der Bravais-Pearson-Koeffizient der Rangwerte; er ist +1 (−1), wenn alle Punktepaare auf einer streng monoton steigenden (fallenden) Kurve liegen, die Ränge also übereinstimmen (gegenläufig sind).",
+   "schlagworte": [
+    "Spearman",
+    "Ränge",
+    "monoton"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationskoeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationskoeffizient-39501",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-14",
+   "art": "definition",
+   "aussage": "Scheinkorrelation: Korrelation zweier Merkmale, für die keine sinnvolle kausale Begründung besteht oder die durch ein drittes Merkmal hervorgerufen wird; in der Korrelationsanalyse ist daher auf einen sachlogischen Zusammenhang zu achten.",
+   "schlagworte": [
+    "Scheinkorrelation",
+    "Drittvariable"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Scheinkorrelation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/scheinkorrelation-46616",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-15",
+   "art": "definition",
+   "aussage": "Eine Korrelationsmatrix fasst die paarweisen Korrelationskoeffizienten mehrerer Variablen in einem quadratischen Schema zusammen; sie ist symmetrisch und hat in der Diagonalen Einsen. Bei der multiplen Regression fasst sie die Korrelationen der erklärenden Variablen zusammen.",
+   "schlagworte": [
+    "Korrelationsmatrix"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationsmatrix",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationsmatrix-41507",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-16",
+   "art": "abgrenzung",
+   "aussage": "Ein aus einer Zufallsstichprobe berechneter Korrelationskoeffizient ist eine Punktschätzung für den Koeffizienten der Grundgesamtheit; gute Schätzeigenschaften hat r, wenn die Grundgesamtheit zweidimensional normalverteilt ist.",
+   "schlagworte": [
+    "Stichprobe",
+    "Schätzung",
+    "Grundgesamtheit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationskoeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationskoeffizient-39501",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-17",
+   "art": "methode",
+   "aussage": "Zur Korrelationsanalyse gehören die Berechnung von Korrelationskoeffizienten, ihre Punkt- und Intervallschätzung sowie Tests; besonders wichtig ist der Test der Hypothese, ein Korrelationskoeffizient sei 0 (Prüfung der Existenz von Korrelation).",
+   "schlagworte": [
+    "Korrelationsanalyse",
+    "Test",
+    "Signifikanz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationsanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationsanalyse-40218",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-18",
+   "art": "formel",
+   "aussage": "Test von `H_0: \\rho = 0` (bei zweidimensionaler Normalverteilung): `t = \\frac{r\\sqrt{n-2}}{\\sqrt{1-r^2}}` ist unter `H_0` t-verteilt mit n − 2 Freiheitsgraden; z. B. r = 0,5 bei n = 30 ergibt t ≈ 3,06 > 2,05 (kritischer Wert, 5 % zweiseitig).",
+   "schlagworte": [
+    "t-Test",
+    "Signifikanztest",
+    "rho"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "korrelation-19",
+   "art": "abgrenzung",
+   "aussage": "r = 0 bedeutet nicht Unabhängigkeit: Für x = −2, −1, 0, 1, 2 und `y = x^2` ist y vollständig durch x bestimmt, trotzdem ist r = 0. Umgekehrt folgt aus stochastischer Unabhängigkeit stets Kovarianz und Korrelation null.",
+   "schlagworte": [
+    "Unabhängigkeit",
+    "nichtlinear",
+    "r = 0"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "korrelation-20",
+   "art": "zahl",
+   "aussage": "Rechenbeispiel (nachgerechnet): Für x = 1, 2, 3, 4, 5 und y = 2, 4, 5, 4, 5 ist `s_{xy} = 1{,}2`, `s_x = \\sqrt{2} \\approx 1{,}414`, `s_y = \\sqrt{1{,}2} \\approx 1{,}095` (Divisor n), also `r = \\frac{1{,}2}{\\sqrt{2} \\cdot \\sqrt{1{,}2}} = \\sqrt{0{,}6} \\approx 0{,}77` und `r^2 = 0{,}6`.",
+   "schlagworte": [
+    "Beispiel",
+    "Rechnung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "korrelation-21",
+   "art": "formel",
+   "aussage": "Zusammenhang mit der Regression: Steigung der Kleinste-Quadrate-Geraden `b = r \\cdot \\frac{s_y}{s_x}`; das Vorzeichen von b und r ist immer gleich, und in der Einfachregression gilt `R^2 = r^2`.",
+   "schlagworte": [
+    "Regression",
+    "Steigung",
+    "Bestimmtheitsmaß"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "korrelation-22",
+   "art": "abgrenzung",
+   "aussage": "Der Korrelationskoeffizient ist dimensionslos und ändert sich nicht, wenn man die Merkmale mit positiven Faktoren umskaliert oder Konstanten addiert (z. B. Euro statt Cent); die Kovarianz hängt dagegen von den Maßeinheiten ab.",
+   "schlagworte": [
+    "Einheiten",
+    "Skalierung",
+    "Kovarianz"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "korrelation-23",
+   "art": "zahl",
+   "aussage": "Beispiel Spearman (nachgerechnet): Ränge x: 1, 2, 3, 4, 5 und y: 2, 1, 4, 3, 5; Rangdifferenzen −1, 1, −1, 1, 0, Summe der Quadrate 4, also `r_S = 1 - \\frac{6 \\cdot 4}{5 \\cdot (25 - 1)} = 0{,}8`.",
+   "schlagworte": [
+    "Spearman",
+    "Beispiel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -111,6 +338,177 @@
    "falsch": "Starke Korrelation heißt, x verursacht y.",
    "richtig": "Korrelation sagt nichts über Kausalität.",
    "quelle_id": "korrelation-7"
+  },
+  {
+   "falsch": "Eine Kovarianz von 50 zeigt einen stärkeren Zusammenhang als eine Kovarianz von 2.",
+   "richtig": "Die Kovarianz hängt von den Maßeinheiten ab und ist nicht normiert; die Stärke liest man am Korrelationskoeffizienten (zwischen −1 und +1) ab.",
+   "quelle_id": "korrelation-22"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist der Korrelationskoeffizient?",
+   "varianten": [
+    "Korrelation Definition",
+    "Korrelationskoeffizient einfach erklärt",
+    "was misst r"
+   ],
+   "antwort": "Der Korrelationskoeffizient misst die Stärke und Richtung des Zusammenhangs zwischen zwei quantitativen Merkmalen. Der gebräuchliche Koeffizient nach Bravais-Pearson ist \\(r_{xy} = \\frac{s_{xy}}{s_x \\cdot s_y}\\), also die Kovarianz geteilt durch das Produkt der Standardabweichungen. Er liegt immer zwischen −1 und +1; ±1 bedeutet, dass alle Punkte exakt auf einer steigenden bzw. fallenden Geraden liegen. Wichtig: Er misst nur den linearen Zusammenhang.",
+   "belege": [
+    "korrelation-1",
+    "korrelation-2",
+    "korrelation-4",
+    "korrelation-5"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Korrelationskoeffizienten nach Bravais-Pearson?",
+   "varianten": [
+    "Korrelationskoeffizient berechnen Beispiel",
+    "r berechnen Schritt für Schritt",
+    "Pearson Korrelation Rechenweg"
+   ],
+   "antwort": "Rechne zuerst die Mittelwerte, dann die Kovarianz und die beiden Standardabweichungen, und teile: \\(r = \\frac{s_{xy}}{s_x \\cdot s_y}\\). Beispiel x = 1, 2, 3, 4, 5 und y = 2, 4, 5, 4, 5: \\(\\bar{x} = 3\\), \\(\\bar{y} = 4\\), \\(s_{xy} = 6/5 = 1{,}2\\), \\(s_x = \\sqrt{2} \\approx 1{,}414\\) und \\(s_y = \\sqrt{1{,}2} \\approx 1{,}095\\). Damit ist \\(r = \\frac{1{,}2}{\\sqrt{2} \\cdot \\sqrt{1{,}2}} = \\sqrt{0{,}6} \\approx 0{,}77\\) (mit gerundeten Zwischenwerten erhältst du etwa 0,78). Ob du überall durch n oder überall durch n − 1 teilst, ist für r egal, solange du es einheitlich machst.",
+   "belege": [
+    "korrelation-2",
+    "korrelation-12",
+    "korrelation-20"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Kovarianz und Korrelation?",
+   "varianten": [
+    "Kovarianz vs Korrelation",
+    "Kovarianz interpretieren",
+    "warum Korrelation statt Kovarianz"
+   ],
+   "antwort": "Beide messen den linearen Zusammenhang zweier Merkmale, und das Vorzeichen zeigt jeweils die Richtung. Die Kovarianz kann aber beliebige Werte annehmen und hängt von den Maßeinheiten ab, sodass ihre Höhe kaum interpretierbar ist. Der Korrelationskoeffizient teilt die Kovarianz durch das Produkt der Standardabweichungen; er ist dadurch dimensionslos und liegt zwischen −1 und +1. Deshalb vergleichst du die Stärke von Zusammenhängen immer über r.",
+   "belege": [
+    "korrelation-11",
+    "korrelation-2",
+    "korrelation-4",
+    "korrelation-22"
+   ]
+  },
+  {
+   "frage": "Bedeutet r = 0, dass kein Zusammenhang besteht?",
+   "varianten": [
+    "Korrelation null Unabhängigkeit",
+    "nichtlinearer Zusammenhang Korrelation",
+    "r = 0 Interpretation"
+   ],
+   "antwort": "Nein, r = 0 heißt nur, dass kein linearer Zusammenhang besteht. Beispiel: Für x = −2, −1, 0, 1, 2 und \\(y = x^2\\) ist y vollständig durch x bestimmt, trotzdem ist r = 0. Umgekehrt gilt: Sind zwei Größen stochastisch unabhängig, sind Kovarianz und Korrelation null. Schau dir deshalb immer auch das Streudiagramm an.",
+   "belege": [
+    "korrelation-5",
+    "korrelation-19"
+   ]
+  },
+  {
+   "frage": "Heißt eine hohe Korrelation, dass x die Ursache von y ist?",
+   "varianten": [
+    "Korrelation Kausalität",
+    "Scheinkorrelation Beispiel",
+    "Korrelation ist keine Kausalität"
+   ],
+   "antwort": "Nein. Der Korrelationskoeffizient sagt nichts über Ursache und Wirkung aus. Möglich sind umgekehrte Kausalität oder ein drittes Merkmal, das beide Größen beeinflusst; dann spricht man von Scheinkorrelation. In der Korrelationsanalyse musst du deshalb immer prüfen, ob ein sachlogischer Zusammenhang zwischen den Merkmalen besteht.",
+   "belege": [
+    "korrelation-7",
+    "korrelation-14"
+   ]
+  },
+  {
+   "frage": "Wann nehme ich Spearman statt Bravais-Pearson?",
+   "varianten": [
+    "Rangkorrelation Spearman",
+    "Spearman vs Pearson",
+    "Korrelation ordinal"
+   ],
+   "antwort": "Bravais-Pearson setzt mindestens intervallskalierte Merkmale voraus und misst den linearen Zusammenhang (Maßkorrelation). Spearman arbeitet nur mit den Rängen und kann deshalb auch bei ordinalskalierten Merkmalen berechnet werden. Er ist der Pearson-Koeffizient der Ränge und erreicht +1 bzw. −1 schon bei einem streng monoton steigenden bzw. fallenden, nicht notwendig linearen Zusammenhang. Für qualitative (nominale) Merkmale nutzt du stattdessen Kontingenzmaße.",
+   "belege": [
+    "korrelation-9",
+    "korrelation-6",
+    "korrelation-13",
+    "korrelation-10"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Rangkorrelationskoeffizienten nach Spearman?",
+   "varianten": [
+    "Spearman Formel",
+    "Spearman Beispiel Rechnung",
+    "Rangkorrelation berechnen"
+   ],
+   "antwort": "Du vergibst für x und y jeweils Ränge, bildest die Rangdifferenzen \\(d_i\\) und setzt in \\(r_S = 1 - \\frac{6\\sum d_i^2}{n(n^2 - 1)}\\) ein (gilt bei paarweise verschiedenen Werten, also ohne Bindungen). Beispiel mit n = 5: Ränge x: 1, 2, 3, 4, 5 und y: 2, 1, 4, 3, 5 ergeben die Differenzen −1, 1, −1, 1, 0 und \\(\\sum d_i^2 = 4\\). Damit ist \\(r_S = 1 - \\frac{6 \\cdot 4}{5 \\cdot 24} = 0{,}8\\).",
+   "belege": [
+    "korrelation-6",
+    "korrelation-23"
+   ]
+  },
+  {
+   "frage": "Wie teste ich, ob eine Korrelation signifikant ist?",
+   "varianten": [
+    "Korrelation Signifikanztest",
+    "t-Test Korrelationskoeffizient",
+    "H0 rho = 0"
+   ],
+   "antwort": "Du testest \\(H_0: \\rho = 0\\) mit der Prüfgröße \\(t = \\frac{r\\sqrt{n-2}}{\\sqrt{1-r^2}}\\), die unter \\(H_0\\) (bei zweidimensionaler Normalverteilung) t-verteilt mit n − 2 Freiheitsgraden ist. Beispiel: r = 0,5 bei n = 30 ergibt \\(t = \\frac{0{,}5 \\cdot \\sqrt{28}}{\\sqrt{0{,}75}} \\approx 3{,}06\\). Der kritische Wert für 5 % zweiseitig bei 28 Freiheitsgraden ist etwa 2,05, also wird \\(H_0\\) abgelehnt. Der Stichproben-r ist dabei eine Punktschätzung für \\(\\rho\\) der Grundgesamtheit.",
+   "belege": [
+    "korrelation-17",
+    "korrelation-18",
+    "korrelation-16"
+   ]
+  },
+  {
+   "frage": "Wie hängen Korrelationskoeffizient und Regressionsgerade zusammen?",
+   "varianten": [
+    "r und Steigung",
+    "R² gleich r²",
+    "Korrelation Regression Zusammenhang"
+   ],
+   "antwort": "Die Steigung der Kleinste-Quadrate-Geraden ist \\(b = r \\cdot \\frac{s_y}{s_x}\\); b und r haben daher immer dasselbe Vorzeichen. In der einfachen Regression ist das Bestimmtheitsmaß das Quadrat des Korrelationskoeffizienten: \\(R^2 = r^2\\). Im Beispiel mit \\(r \\approx 0{,}77\\) erklärt die Gerade also \\(r^2 = 0{,}6\\), d. h. 60 % der Streuung von y.",
+   "belege": [
+    "korrelation-21",
+    "korrelation-20"
+   ]
+  },
+  {
+   "frage": "Wie interpretiere ich einen Korrelationskoeffizienten von −0,9?",
+   "varianten": [
+    "negative Korrelation Interpretation",
+    "r = -1 Bedeutung",
+    "Korrelation Vorzeichen"
+   ],
+   "antwort": "Das Vorzeichen zeigt die Richtung: Bei negativer Korrelation gehören zu hohen Werten des einen Merkmals tendenziell niedrige Werte des anderen. Der Betrag 0,9 liegt nahe bei 1 und zeigt einen starken linearen Zusammenhang; bei r = −1 lägen alle Punkte exakt auf einer fallenden Geraden. Über Ursache und Wirkung sagt der Wert nichts aus.",
+   "belege": [
+    "korrelation-8",
+    "korrelation-4",
+    "korrelation-7"
+   ]
+  },
+  {
+   "frage": "Was ist eine Korrelationsmatrix?",
+   "varianten": [
+    "Korrelationsmatrix lesen",
+    "Korrelationstabelle mehrere Variablen",
+    "Diagonale Korrelationsmatrix"
+   ],
+   "antwort": "Eine Korrelationsmatrix stellt die paarweisen Korrelationskoeffizienten mehrerer Variablen in einem quadratischen Schema dar. Sie ist symmetrisch, weil die Korrelation von x mit y gleich der von y mit x ist. In der Diagonalen stehen Einsen, denn jede Variable korreliert perfekt mit sich selbst. In der multiplen Regression nutzt man sie z. B., um die Korrelationen der erklärenden Variablen untereinander zu sehen.",
+   "belege": [
+    "korrelation-15"
+   ]
+  },
+  {
+   "frage": "Ändert sich die Korrelation, wenn ich die Einheiten ändere?",
+   "varianten": [
+    "Korrelation Einheiten unabhängig",
+    "Kovarianz Einheit",
+    "Euro in Cent Korrelation"
+   ],
+   "antwort": "Der Korrelationskoeffizient ist dimensionslos: Er bleibt gleich, wenn du ein Merkmal mit einem positiven Faktor umskalierst oder eine Konstante addierst, z. B. Cent statt Euro. Die Kovarianz dagegen hängt von den Maßeinheiten ab und ändert sich beim Umrechnen. Deshalb kannst du Korrelationen zwischen ganz verschiedenen Merkmalen direkt vergleichen, Kovarianzen nicht.",
+   "belege": [
+    "korrelation-22",
+    "korrelation-11"
+   ]
   }
  ]
 }

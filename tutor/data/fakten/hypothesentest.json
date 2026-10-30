@@ -95,7 +95,7 @@
   {
    "id": "hypothesentest-7",
    "art": "methode",
-   "aussage": "Der t-Test für einen Regressionskoeffizienten prüft H_0: \\beta = 0 mit Prüfgröße t = \\hat{\\beta} / \\widehat{se}(\\hat{\\beta}); H_0 wird verworfen, wenn |t| den kritischen Wert der t-Verteilung mit n-K Freiheitsgraden übersteigt.",
+   "aussage": "Der t-Test für einen Regressionskoeffizienten prüft H_0: \\beta = 0 mit Prüfgröße t = \\hat{\\beta} / \\widehat{se}(\\hat{\\beta}); H_0 wird verworfen, wenn |t| den kritischen Wert der t-Verteilung mit n-K Freiheitsgraden übersteigt (K = Zahl der geschätzten Koeffizienten einschließlich Absolutglied, in der Einfachregression also n-2).",
    "schlagworte": [
     "t-Test",
     "Freiheitsgrade"
@@ -117,6 +117,237 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "hypothesentest-9",
+   "art": "definition",
+   "aussage": "Die Nullhypothese wird als Negation der Arbeitshypothese (Alternative) formuliert, die mit den Daten statistisch belegt werden soll; das Interesse richtet sich daher auf die Verwerfung von H_0.",
+   "schlagworte": [
+    "Nullhypothese",
+    "Alternativhypothese",
+    "Formulierung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Nullhypothese",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/nullhypothese-37567",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-10",
+   "art": "definition",
+   "aussage": "Einseitige Fragestellung: Geprüft wird eine Höchst- oder Mindesthypothese; die kritische Region ist ein zusammenhängendes Intervall. Bei einer Mindesthypothese wird abgelehnt, wenn die Prüfgröße besonders niedrig ist, bei einer Höchsthypothese, wenn sie besonders hoch ist.",
+   "schlagworte": [
+    "einseitig",
+    "Mindesthypothese",
+    "Höchsthypothese"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: einseitige Fragestellung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/einseitige-fragestellung-35863",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-11",
+   "art": "definition",
+   "aussage": "Zweiseitige Fragestellung: Geprüft wird eine Punkthypothese (H_0: Parameter = bestimmter Wert); die kritische Region besteht aus zwei getrennten Teilintervallen, abgelehnt wird bei zu niedrigem oder zu hohem Wert der Prüfvariablen.",
+   "schlagworte": [
+    "zweiseitig",
+    "Punkthypothese"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: zweiseitige Fragestellung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zweiseitige-fragestellung-48516",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-12",
+   "art": "definition",
+   "aussage": "Die kritische Region (Ablehnungsbereich) ist die Menge der Stichprobenergebnisse, die zur Ablehnung von H_0 führen; ihr Komplement ist der Nichtablehnungsbereich.",
+   "schlagworte": [
+    "kritische Region",
+    "Ablehnungsbereich",
+    "Nichtablehnungsbereich"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: kritische Region",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kritische-region-41387",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-13",
+   "art": "definition",
+   "aussage": "Die Prüfvariable (Teststatistik) ist die Zufallsvariable, mit deren Ausprägung geprüft wird, ob der Stichprobenbefund mit H_0 verträglich ist; maßgeblich ist ihre Verteilung bei Gültigkeit von H_0 (Nullverteilung).",
+   "schlagworte": [
+    "Prüfgröße",
+    "Teststatistik",
+    "Nullverteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Prüfvariable",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/pruefvariable-46372",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-14",
+   "art": "definition",
+   "aussage": "Die Gütefunktion (Powerfunktion) gibt die Wahrscheinlichkeit, H_0 abzulehnen, in Abhängigkeit vom wahren Parameterwert an; sie hängt vom Signifikanzniveau, vom Stichprobenumfang und von der Nullhypothese ab.",
+   "schlagworte": [
+    "Gütefunktion",
+    "Power"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Gütefunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/guetefunktion-32556",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-15",
+   "art": "definition",
+   "aussage": "Die Teststärke (Trennschärfe, Power) ist der Wert der Gütefunktion an einer bestimmten Stelle; sie beschreibt die Fähigkeit eines Tests, eine falsche Nullhypothese als solche zu erkennen. Gute Tests haben bei gegebenem Alpha-Fehler einen möglichst kleinen Beta-Fehler.",
+   "schlagworte": [
+    "Teststärke",
+    "Power",
+    "Trennschärfe"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Teststärke",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/teststaerke-47387",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-16",
+   "art": "formel",
+   "aussage": "Ist H_0 falsch, gilt für die Teststärke an dieser Stelle `1 - \\beta`, wobei `\\beta` die Wahrscheinlichkeit des Fehlers 2. Art ist.",
+   "schlagworte": [
+    "Power",
+    "Beta-Fehler",
+    "1 - beta"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "hypothesentest-17",
+   "art": "abgrenzung",
+   "aussage": "Die Wahrscheinlichkeit eines Beta-Fehlers hängt u. a. vom wahren Wert des zu prüfenden Parameters ab; sie ist daher, anders als α, nicht vorab als eine einzige Zahl festgelegt.",
+   "schlagworte": [
+    "Beta-Fehler",
+    "wahrer Parameter"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Beta-Fehler",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/beta-fehler-31627",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-18",
+   "art": "abgrenzung",
+   "aussage": "Parametrische (klassische) Tests wie t-Test und F-Test setzen normalverteilte Variablen voraus; nichtparametrische (verteilungsfreie) Tests wie Vorzeichentest oder Wilcoxon-Mann-Whitney-Test kommen ohne spezielle Verteilungsannahme aus.",
+   "schlagworte": [
+    "parametrisch",
+    "nichtparametrisch",
+    "Voraussetzungen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: statistische Testverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/statistische-testverfahren-41922",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-19",
+   "art": "definition",
+   "aussage": "Ein Parametertest betrachtet eine Nullhypothese, nach der ein oder mehrere Parameter (z. B. Erwartungswert, Varianz, Anteilswert) bestimmte Werte haben oder in bestimmten Mengen liegen; daneben gibt es Tests über die Verteilung selbst (Anpassungstests).",
+   "schlagworte": [
+    "Parametertest",
+    "Anpassungstest"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: statistische Testverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/statistische-testverfahren-41922",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-20",
+   "art": "definition",
+   "aussage": "Der Chi-Quadrat-Test prüft v. a. Hypothesen über die Verteilung eines Merkmals (Anpassungstest), indem er beobachtete und unter H_0 erwartete Häufigkeiten vergleicht; die Prüfgröße ist bei großem n asymptotisch Chi-Quadrat-verteilt mit k − 1 Freiheitsgraden. Voraussetzung sind ein großer Stichprobenumfang und Mindestbedingungen an die erwarteten Häufigkeiten. Weitere Anwendung: Test auf Unabhängigkeit zweier Variablen.",
+   "schlagworte": [
+    "Chi-Quadrat-Test",
+    "Anpassungstest",
+    "Unabhängigkeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Chi-Quadrat-Test",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/chi-quadrat-test-29544",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-21",
+   "art": "formel",
+   "aussage": "Gauß-Test (z-Test) für den Erwartungswert bei bekanntem `\\sigma`: `z = \\frac{\\bar{x} - \\mu_0}{\\sigma/\\sqrt{n}}`; bei normalverteilter Grundgesamtheit ist z unter `H_0` standardnormalverteilt.",
+   "schlagworte": [
+    "z-Test",
+    "Gauß-Test",
+    "Erwartungswert"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "hypothesentest-22",
+   "art": "formel",
+   "aussage": "Einstichproben-t-Test bei unbekanntem `\\sigma`: `t = \\frac{\\bar{x} - \\mu_0}{s/\\sqrt{n}}`, unter `H_0` t-verteilt mit n − 1 Freiheitsgraden (normalverteilte Grundgesamtheit vorausgesetzt).",
+   "schlagworte": [
+    "t-Test",
+    "Einstichproben",
+    "Freiheitsgrade"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "hypothesentest-23",
+   "art": "abgrenzung",
+   "aussage": "Bei festem Stichprobenumfang geht ein kleineres `\\alpha` mit einem größeren `\\beta` einher; beide Fehlerwahrscheinlichkeiten lassen sich gleichzeitig nur durch einen größeren Stichprobenumfang senken.",
+   "schlagworte": [
+    "Alpha",
+    "Beta",
+    "Stichprobenumfang"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "hypothesentest-24",
+   "art": "zahl",
+   "aussage": "Beispiele (nachgerechnet): kritische Werte des z-Tests bei `\\alpha = 5\\,\\%`: zweiseitig ±1,96, einseitig 1,645; z-Test mit `\\mu_0 = 100`, `\\sigma = 15`, n = 36, `\\bar{x} = 105` ergibt z = 2 und zweiseitig p ≈ 0,0455; t-Test mit `\\mu_0 = 50`, n = 16, `\\bar{x} = 52`, s = 4 ergibt t = 2, kritische Werte bei 5 %: zweiseitig ≈ 2,131, einseitig ≈ 1,753 (p zweiseitig ≈ 0,0639, einseitig ≈ 0,0320).",
+   "schlagworte": [
+    "Beispiel",
+    "Rechnung",
+    "p-Wert"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -134,6 +365,200 @@
    "falsch": "Das Signifikanzniveau ist die Wahrscheinlichkeit, dass H0 falsch ist.",
    "richtig": "α ist die (obere Grenze der) Wahrscheinlichkeit des Fehlers 1. Art: H0 fälschlich abzulehnen.",
    "quelle_id": "hypothesentest-4"
+  },
+  {
+   "falsch": "Ein Ergebnis ist zweiseitig nicht signifikant, also ist es auch einseitig nicht signifikant.",
+   "richtig": "Einseitig ist der kritische Wert kleiner (t-Test n = 16, α = 5 %: 1,753 statt 2,131); die Fragestellung muss vor der Datenauswertung festgelegt werden.",
+   "quelle_id": "hypothesentest-24"
+  },
+  {
+   "falsch": "Die Power eines Tests ist die Wahrscheinlichkeit des Beta-Fehlers.",
+   "richtig": "Die Teststärke ist die Wahrscheinlichkeit, eine falsche H0 abzulehnen, also 1 − β an der betrachteten Stelle.",
+   "quelle_id": "hypothesentest-16"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist ein Hypothesentest?",
+   "varianten": [
+    "statistischer Test Definition",
+    "Hypothesentest einfach erklärt",
+    "Signifikanztest"
+   ],
+   "antwort": "Ein statistischer Test entscheidet anhand einer Stichprobe, ob eine Nullhypothese \\(H_0\\) beibehalten oder verworfen wird. Dazu legst du vorab das Signifikanzniveau \\(\\alpha\\) fest (z. B. 0,05), also die höchstens tolerierte Wahrscheinlichkeit, \\(H_0\\) fälschlich abzulehnen. Liegt der Wert der Prüfgröße in der kritischen Region, lehnst du \\(H_0\\) ab und die Alternative gilt als statistisch belegt. Sonst behältst du \\(H_0\\) bei, ohne sie damit bewiesen zu haben.",
+   "belege": [
+    "hypothesentest-1",
+    "hypothesentest-2",
+    "hypothesentest-3",
+    "hypothesentest-5"
+   ]
+  },
+  {
+   "frage": "Wie formuliere ich Null- und Alternativhypothese?",
+   "varianten": [
+    "H0 und H1 aufstellen",
+    "Nullhypothese formulieren",
+    "was kommt in die Nullhypothese"
+   ],
+   "antwort": "Was du belegen willst, gehört in die Alternativhypothese \\(H_1\\); die Nullhypothese ist ihre Negation. Grund: Ein Test kann nur die Alternative zum Niveau \\(\\alpha\\) absichern, nicht die Nullhypothese. Beispiel: Willst du zeigen, dass ein Ausschussanteil über 3 % liegt, testest du \\(H_0: p \\le 0{,}03\\) gegen \\(H_1: p > 0{,}03\\). Bei einer Punkthypothese wie \\(H_0: \\mu = 100\\) gegen \\(H_1: \\mu \\ne 100\\) testest du zweiseitig.",
+   "belege": [
+    "hypothesentest-9",
+    "hypothesentest-2",
+    "hypothesentest-10",
+    "hypothesentest-11"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Fehler 1. Art und Fehler 2. Art?",
+   "varianten": [
+    "Alpha-Fehler Beta-Fehler",
+    "Fehler erster und zweiter Art",
+    "Fehlerarten Hypothesentest"
+   ],
+   "antwort": "Ein Fehler 1. Art (Alpha-Fehler) liegt vor, wenn du \\(H_0\\) ablehnst, obwohl sie wahr ist; seine Wahrscheinlichkeit ist höchstens \\(\\alpha\\). Ein Fehler 2. Art (Beta-Fehler) liegt vor, wenn du \\(H_0\\) beibehältst, obwohl sie falsch ist. Die Wahrscheinlichkeit \\(\\beta\\) hängt vom wahren Parameterwert ab und ist nicht vorab festgelegt. Bei festem n wird \\(\\beta\\) größer, wenn du \\(\\alpha\\) verkleinerst; beide senken kannst du nur mit einem größeren Stichprobenumfang.",
+   "belege": [
+    "hypothesentest-4",
+    "hypothesentest-17",
+    "hypothesentest-23"
+   ]
+  },
+  {
+   "frage": "Was ist der p-Wert und wie entscheide ich damit?",
+   "varianten": [
+    "p-Wert Interpretation",
+    "p-Wert kleiner alpha",
+    "p value erklärt"
+   ],
+   "antwort": "Der p-Wert ist die Wahrscheinlichkeit, unter Gültigkeit von \\(H_0\\) ein mindestens so extremes Ergebnis wie das beobachtete zu erhalten. Ist \\(p < \\alpha\\), lehnst du \\(H_0\\) ab. Beispiel: z-Test mit z = 2 ergibt zweiseitig \\(p \\approx 0{,}0455\\); bei \\(\\alpha = 0{,}05\\) wird \\(H_0\\) abgelehnt, bei \\(\\alpha = 0{,}01\\) nicht. Der p-Wert ist nicht die Wahrscheinlichkeit, dass \\(H_0\\) wahr ist.",
+   "belege": [
+    "hypothesentest-8",
+    "hypothesentest-24"
+   ]
+  },
+  {
+   "frage": "Wie läuft ein Hypothesentest Schritt für Schritt ab?",
+   "varianten": [
+    "Hypothesentest Vorgehen",
+    "Testschema Klausur",
+    "Schritte Signifikanztest"
+   ],
+   "antwort": "Zuerst formulierst du die Hypothesen (\\(H_1\\) ist das, was belegt werden soll) und legst fest, ob ein- oder zweiseitig getestet wird. Dann wählst du das Signifikanzniveau \\(\\alpha\\). Als Nächstes bestimmst du die Prüfgröße (z. B. z oder t) und ihre Verteilung unter \\(H_0\\) und daraus die kritischen Werte, sodass die kritische Region unter \\(H_0\\) höchstens die Wahrscheinlichkeit \\(\\alpha\\) hat. Zum Schluss berechnest du die Prüfgröße aus der Stichprobe: Liegt sie in der kritischen Region, wird \\(H_0\\) abgelehnt, sonst beibehalten.",
+   "belege": [
+    "hypothesentest-5",
+    "hypothesentest-9",
+    "hypothesentest-13",
+    "hypothesentest-6"
+   ]
+  },
+  {
+   "frage": "Wie rechne ich einen z-Test (Gauß-Test)?",
+   "varianten": [
+    "Gauß-Test Beispiel",
+    "z-Test Mittelwert bekannte Varianz",
+    "z-Test Formel"
+   ],
+   "antwort": "Bei bekanntem \\(\\sigma\\) rechnest du \\(z = \\frac{\\bar{x} - \\mu_0}{\\sigma/\\sqrt{n}}\\). Beispiel: \\(H_0: \\mu = 100\\), \\(\\sigma = 15\\), n = 36, \\(\\bar{x} = 105\\). Dann ist \\(z = \\frac{105 - 100}{15/6} = 2\\). Zweiseitig bei \\(\\alpha = 0{,}05\\) ist der kritische Wert 1,96; wegen \\(|2| > 1{,}96\\) wird \\(H_0\\) abgelehnt (p ≈ 0,0455).",
+   "belege": [
+    "hypothesentest-21",
+    "hypothesentest-24",
+    "hypothesentest-6"
+   ]
+  },
+  {
+   "frage": "Wann nehme ich den t-Test statt des z-Tests?",
+   "varianten": [
+    "t-Test oder z-Test",
+    "t-Test Einstichproben Beispiel",
+    "unbekannte Varianz Test"
+   ],
+   "antwort": "Den t-Test nimmst du, wenn die Varianz der Grundgesamtheit unbekannt ist und aus der Stichprobe geschätzt wird: \\(t = \\frac{\\bar{x} - \\mu_0}{s/\\sqrt{n}}\\) mit n − 1 Freiheitsgraden. Beispiel: \\(\\mu_0 = 50\\), n = 16, \\(\\bar{x} = 52\\), s = 4 ergibt \\(t = 2/(4/4) = 2\\). Zweiseitig bei 5 % ist der kritische Wert \\(t_{15;0{,}975} \\approx 2{,}131\\), also wird \\(H_0\\) nicht abgelehnt (p ≈ 0,0639). Bei bekanntem \\(\\sigma\\) nimmst du den z-Test.",
+   "belege": [
+    "hypothesentest-22",
+    "hypothesentest-21",
+    "hypothesentest-24"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen einseitigem und zweiseitigem Test?",
+   "varianten": [
+    "einseitig zweiseitig testen",
+    "einseitiger Test kritischer Wert",
+    "gerichtete Hypothese"
+   ],
+   "antwort": "Beim zweiseitigen Test prüfst du eine Punkthypothese wie \\(H_0: \\mu = \\mu_0\\); die kritische Region besteht aus zwei Teilen, abgelehnt wird bei zu kleinen oder zu großen Werten. Beim einseitigen Test prüfst du eine Mindest- oder Höchsthypothese; die kritische Region liegt nur auf einer Seite. Dadurch ist der kritische Wert einseitig kleiner: Im t-Test mit n = 16 und \\(\\alpha = 5\\,\\%\\) ist er 1,753 statt 2,131. Bei t = 2 wird \\(H_0\\) einseitig also abgelehnt, zweiseitig nicht. Welche Variante gilt, musst du vor der Auswertung festlegen.",
+   "belege": [
+    "hypothesentest-10",
+    "hypothesentest-11",
+    "hypothesentest-6",
+    "hypothesentest-24"
+   ]
+  },
+  {
+   "frage": "Wenn H0 nicht abgelehnt wird, ist sie dann bewiesen?",
+   "varianten": [
+    "H0 beibehalten Bedeutung",
+    "Nullhypothese bestätigen",
+    "nicht signifikant Interpretation"
+   ],
+   "antwort": "Nein. Statistische Tests sind asymmetrisch: Sie können nur die Alternativhypothese zum Niveau \\(\\alpha\\) absichern. Wird \\(H_0\\) nicht abgelehnt, kannst du nur sagen, dass die Stichprobe nicht gegen \\(H_0\\) spricht. Dahinter kann auch ein Fehler 2. Art stecken, dessen Wahrscheinlichkeit vom wahren Parameter abhängt.",
+   "belege": [
+    "hypothesentest-2",
+    "hypothesentest-4",
+    "hypothesentest-17"
+   ]
+  },
+  {
+   "frage": "Was ist die Teststärke (Power) eines Tests?",
+   "varianten": [
+    "Power Test",
+    "Gütefunktion",
+    "Teststärke 1 - beta"
+   ],
+   "antwort": "Die Teststärke ist die Wahrscheinlichkeit, eine falsche Nullhypothese tatsächlich abzulehnen; an einer Stelle mit falscher \\(H_0\\) beträgt sie \\(1 - \\beta\\). Die Gütefunktion zeigt diese Ablehnwahrscheinlichkeit in Abhängigkeit vom wahren Parameterwert. Sie hängt vom Signifikanzniveau, vom Stichprobenumfang und von der Nullhypothese ab. Gute Tests haben bei vorgegebenem \\(\\alpha\\) einen möglichst kleinen Beta-Fehler, also eine hohe Power.",
+   "belege": [
+    "hypothesentest-14",
+    "hypothesentest-15",
+    "hypothesentest-16"
+   ]
+  },
+  {
+   "frage": "Was ist ein kritischer Wert?",
+   "varianten": [
+    "kritischer Wert Hypothesentest",
+    "Ablehnungsbereich bestimmen",
+    "kritische Region"
+   ],
+   "antwort": "Der kritische Wert trennt die kritische Region (Ablehnungsbereich) vom Nichtablehnungsbereich der Prüfgröße. Beim einseitigen Test gibt es einen, beim zweiseitigen einen unteren und einen oberen kritischen Wert. Die kritische Region wird so gewählt, dass sie bei Gültigkeit von \\(H_0\\) höchstens die Wahrscheinlichkeit \\(\\alpha\\) hat. Beim z-Test mit \\(\\alpha = 5\\,\\%\\) sind das zweiseitig −1,96 und +1,96, einseitig 1,645 (bzw. −1,645).",
+   "belege": [
+    "hypothesentest-6",
+    "hypothesentest-12",
+    "hypothesentest-5"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen parametrischen und nichtparametrischen Tests?",
+   "varianten": [
+    "parametrischer Test Voraussetzung",
+    "verteilungsfreie Tests",
+    "nichtparametrisch Beispiel"
+   ],
+   "antwort": "Parametrische (klassische) Tests wie der t-Test oder der F-Test setzen normalverteilte Variablen voraus. Nichtparametrische (verteilungsfreie) Tests wie der Vorzeichentest oder der Wilcoxon-Mann-Whitney-Test kommen ohne spezielle Verteilungsannahme aus. Parametrische Tests haben gewisse theoretische Optimalitätseigenschaften, nichtparametrische Tests weniger strenge Anwendungsvoraussetzungen.",
+   "belege": [
+    "hypothesentest-18"
+   ]
+  },
+  {
+   "frage": "Wofür verwende ich den Chi-Quadrat-Test?",
+   "varianten": [
+    "Chi-Quadrat-Test Anwendung",
+    "Anpassungstest",
+    "Chi-Quadrat Unabhängigkeitstest"
+   ],
+   "antwort": "Der Chi-Quadrat-Test prüft vor allem Hypothesen über die Verteilung eines Merkmals (Anpassungstest), etwa ob Kategorien bestimmte Anteile haben oder ob ein Merkmal normalverteilt ist. Er vergleicht die beobachteten Häufigkeiten mit den unter \\(H_0\\) erwarteten. Die Prüfgröße ist bei großem n asymptotisch Chi-Quadrat-verteilt mit k − 1 Freiheitsgraden (k Kategorien). Außerdem kannst du mit ihm die Unabhängigkeit zweier Variablen prüfen; Voraussetzung sind ausreichend große erwartete Häufigkeiten.",
+   "belege": [
+    "hypothesentest-20",
+    "hypothesentest-19"
+   ]
   }
  ]
 }

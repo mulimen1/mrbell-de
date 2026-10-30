@@ -118,6 +118,199 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-9",
+   "art": "methode",
+   "aussage": "Konstruktion der Lorenzkurve: Beobachtungswerte aufsteigend ordnen; für jeden Wert einen Punkt mit kumulierter relativer Häufigkeit der Merkmalsträger (Abszisse) und kumuliertem Anteil an der Merkmalssumme (Ordinate) eintragen und die Punkte geradlinig verbinden. Ein Punkt (x, y) bedeutet: Die x % mit den kleinsten Werten vereinigen y % der Merkmalssumme.",
+   "schlagworte": [
+    "Lorenzkurve zeichnen",
+    "kumulierte Anteile",
+    "aufsteigend sortieren"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lorenzkurve",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lorenzkurve-40022",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-10",
+   "art": "abgrenzung",
+   "aussage": "Die Lorenzkurve setzt ein Merkmal mit nichtnegativen Ausprägungen voraus; sie verläuft stückweise linear von (0,0) nach (1,1) und lässt sich auch für klassierte Daten verwenden.",
+   "schlagworte": [
+    "nichtnegative Werte",
+    "klassierte Daten",
+    "Verlauf"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lorenzkurve",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lorenzkurve-40022",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-11",
+   "art": "definition",
+   "aussage": "Der Gini-Koeffizient ist ein Maß der relativen Konzentration und als relatives Streuungsmaß zu interpretieren; er lässt sich sowohl über die Einzelwerte als auch über die Lorenzkurve bestimmen.",
+   "schlagworte": [
+    "Gini-Koeffizient",
+    "relative Konzentration",
+    "Streuungsmaß"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Gini-Koeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/gini-koeffizient-33245",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-12",
+   "art": "definition",
+   "aussage": "Destatis berechnet den Gini-Koeffizienten der Einkommensverteilung auf Basis der individuellen Nettoäquivalenzeinkommen; er liegt zwischen 0 (absolute Gleichheit) und 1 (absolute Konzentration), skaliert auf 0 bis 100 heißt er Gini-Index.",
+   "schlagworte": [
+    "Gini-Index",
+    "Nettoäquivalenzeinkommen",
+    "0 bis 100"
+   ],
+   "quelle": {
+    "name": "Destatis: Lebensbedingungen und Armutsgefährdung",
+    "url": "https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Einkommen-Konsum-Lebensbedingungen/Lebensbedingungen-Armutsgefaehrdung/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-13",
+   "art": "zahl",
+   "aussage": "Gini-Index der Nettoäquivalenzeinkommen in Deutschland (EU-SILC = Mikrozensus-Unterstichprobe, Endergebnisse, Einkommensjahr = Vorjahr der Erhebung): Erhebungsjahr 2020: 30,5; 2022: 29,0; 2024: 29,5; 2025: 30,1 (Stand 09.04.2026).",
+   "schlagworte": [
+    "Gini Deutschland",
+    "EU-SILC",
+    "Gini-Index 2025"
+   ],
+   "quelle": {
+    "name": "Destatis: Einkommensungleichheit im Zeitvergleich (EU-SILC, Stand 09.04.2026)",
+    "url": "https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Einkommen-Konsum-Lebensbedingungen/Lebensbedingungen-Armutsgefaehrdung/Tabellen/einkommen-ungleichheit-zvgl.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-14",
+   "art": "definition",
+   "aussage": "Das S80/S20-Verhältnis setzt die Summe der Äquivalenzeinkommen des obersten Fünftels ins Verhältnis zu der des untersten Fünftels; es ist ausreißerempfindlich. In Deutschland lag es im Erhebungsjahr 2025 bei 4,7.",
+   "schlagworte": [
+    "S80/S20",
+    "Quintil",
+    "Einkommensabstand"
+   ],
+   "quelle": {
+    "name": "Destatis: Einkommensungleichheit im Zeitvergleich (EU-SILC, Stand 09.04.2026)",
+    "url": "https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Einkommen-Konsum-Lebensbedingungen/Lebensbedingungen-Armutsgefaehrdung/Tabellen/einkommen-ungleichheit-zvgl.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-15",
+   "art": "definition",
+   "aussage": "Das Nettoäquivalenzeinkommen ist das verfügbare Haushaltsnettoeinkommen, umgerechnet in ein gewichtetes Pro-Kopf-Einkommen; die Gewichtung folgt der modifizierten OECD-Skala.",
+   "schlagworte": [
+    "Nettoäquivalenzeinkommen",
+    "OECD-Skala",
+    "Haushaltsnettoeinkommen"
+   ],
+   "quelle": {
+    "name": "Destatis: Lebensbedingungen und Armutsgefährdung",
+    "url": "https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Einkommen-Konsum-Lebensbedingungen/Lebensbedingungen-Armutsgefaehrdung/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-16",
+   "art": "definition",
+   "aussage": "Als armutsgefährdet gilt, wessen Nettoäquivalenzeinkommen weniger als 60 % des Medianeinkommens beträgt; die Schwelle hängt von Anzahl und Alter der Haushaltsmitglieder ab.",
+   "schlagworte": [
+    "Armutsgefährdung",
+    "60 % des Medians",
+    "Armutsgefährdungsquote"
+   ],
+   "quelle": {
+    "name": "Destatis: Lebensbedingungen und Armutsgefährdung",
+    "url": "https://www.destatis.de/DE/Themen/Gesellschaft-Umwelt/Einkommen-Konsum-Lebensbedingungen/Lebensbedingungen-Armutsgefaehrdung/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-17",
+   "art": "abgrenzung",
+   "aussage": "Die funktionale Einkommensverteilung betrachtet die Verteilung auf Einkommensarten (Lohn, Profit, Zins, Rente) bzw. Produktionsfaktoren; die personelle Verteilung die Verteilung auf Personen oder Haushalte unabhängig von der Einkommensquelle.",
+   "schlagworte": [
+    "funktionale Einkommensverteilung",
+    "personelle Einkommensverteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: personelle Einkommensverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/personelle-einkommensverteilung-46841",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-18",
+   "art": "definition",
+   "aussage": "Ergänzende Verteilungsmaße: unterer Randgruppenanteil (Anteil der 20 % mit den niedrigsten Einkommen am Gesamteinkommen) und oberer Randgruppenanteil (Anteil der 5 % mit den höchsten Einkommen); sie liefern Informationen über die Ränder, die ein globales Konzentrationsmaß nicht zeigt.",
+   "schlagworte": [
+    "Randgruppenanteil",
+    "Ränder",
+    "Verteilungsmaße"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: personelle Einkommensverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/personelle-einkommensverteilung-46841",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-19",
+   "art": "methode",
+   "aussage": "Datenbasis für die personelle Einkommensverteilung: Die VGR liefert nur ein unzureichendes Bild; geeigneter sind die Einkommens- und Verbrauchsstichprobe (EVS) und das Sozio-oekonomische Panel (SOEP) des DIW.",
+   "schlagworte": [
+    "EVS",
+    "SOEP",
+    "Datenquellen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: personelle Einkommensverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/personelle-einkommensverteilung-46841",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-20",
+   "art": "formel",
+   "aussage": "Über die Fläche B unter der Lorenzkurve gilt `G = \\frac{A}{A+B} = 1 - 2B`, da `A + B = 0{,}5`. Beispiel: Einkommen 10, 20, 30, 40 ergeben die Lorenzpunkte (0,25; 0,1), (0,5; 0,3), (0,75; 0,6), (1; 1), B = 0,375 und G = 0,25; normiert `G^* = \\frac{4}{3} \\cdot 0{,}25 \\approx 0{,}33`.",
+   "schlagworte": [
+    "Gini berechnen",
+    "Fläche unter Lorenzkurve",
+    "Beispiel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-21",
+   "art": "definition",
+   "aussage": "Konzentration im statistischen Sinn heißt, dass ein hoher Anteil der Merkmalssumme auf relativ wenige Merkmalsträger entfällt; wirtschaftspolitisch meint sie die Ballung ökonomischer Größen wie Einkommen, Vermögen oder Verfügungsmacht.",
+   "schlagworte": [
+    "Konzentration",
+    "Merkmalsträger",
+    "Ballung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Konzentration",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/konzentration-37476",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -130,6 +323,185 @@
    "falsch": "Der unnormierte Gini erreicht bei maximaler Ungleichheit immer genau 1.",
    "richtig": "Unnormiert ist das Maximum (n-1)/n; erst der normierte Gini G* reicht bis 1.",
    "quelle_id": "lorenzkurve-gini-koeffizient-5"
+  },
+  {
+   "falsch": "Ein Gini-Index von 30,1 bedeutet, dass 30,1 % der Menschen arm sind.",
+   "richtig": "Der Gini-Index misst die Ungleichheit der gesamten Verteilung (0 = Gleichheit, 100 = eine Person hat alles); Armutsgefährdung wird separat über die 60-%-Median-Schwelle gemessen.",
+   "quelle_id": "lorenzkurve-gini-koeffizient-12"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist die Lorenzkurve?",
+   "varianten": [
+    "Lorenzkurve Definition",
+    "Lorenzkurve einfach erklärt",
+    "Ungleichheit grafisch"
+   ],
+   "antwort": "Die Lorenzkurve stellt die relative Konzentration grafisch dar, typischerweise die Einkommensverteilung. Auf der x-Achse steht der kumulierte Anteil der aufsteigend geordneten Merkmalsträger (z. B. Haushalte), auf der y-Achse ihr kumulierter Anteil an der Merkmalssumme (z. B. Einkommen). Die Diagonale ist die Gleichverteilungsgerade. Je weiter die Kurve unter ihr liegt, desto ungleicher ist die Verteilung.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-1",
+    "lorenzkurve-gini-koeffizient-2",
+    "lorenzkurve-gini-koeffizient-9"
+   ]
+  },
+  {
+   "frage": "Wie zeichne ich eine Lorenzkurve?",
+   "varianten": [
+    "Lorenzkurve konstruieren",
+    "Lorenzkurve Punkte berechnen",
+    "Lorenzkurve Beispiel"
+   ],
+   "antwort": "Sortiere die Werte zuerst aufsteigend, z. B. die Einkommen 10, 20, 30, 40 (Summe 100). Berechne dann für jeden Schritt den kumulierten Anteil der Merkmalsträger und den kumulierten Anteil am Gesamteinkommen: (0,25; 0,1), (0,5; 0,3), (0,75; 0,6), (1; 1). Trage die Punkte zusammen mit (0; 0) ein und verbinde sie geradlinig. Der Punkt (0,5; 0,3) heißt z. B.: Die ärmere Hälfte bezieht 30 % des Einkommens.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-9",
+    "lorenzkurve-gini-koeffizient-1",
+    "lorenzkurve-gini-koeffizient-20"
+   ]
+  },
+  {
+   "frage": "Was ist der Gini-Koeffizient?",
+   "varianten": [
+    "Gini-Koeffizient Definition",
+    "Gini einfach erklärt",
+    "Ungleichheitsmaß"
+   ],
+   "antwort": "Der Gini-Koeffizient ist ein Maß der relativen Konzentration. Grafisch ist er das Verhältnis der Fläche zwischen Diagonale und Lorenzkurve zur gesamten Fläche unter der Diagonale. Ein Wert von 0 bedeutet Gleichverteilung – alle beziehen das Durchschnittseinkommen; Werte nahe 1 bedeuten maximale Ungleichheit, wenn eine Person alles bezieht. Er verdichtet die ganze Verteilung in eine Zahl und lässt sich wie ein relatives Streuungsmaß interpretieren.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-3",
+    "lorenzkurve-gini-koeffizient-6",
+    "lorenzkurve-gini-koeffizient-11"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Gini-Koeffizienten?",
+   "varianten": [
+    "Gini berechnen Beispiel",
+    "Gini Formel",
+    "Gini über Fläche"
+   ],
+   "antwort": "Über die Einzelwerte gilt \\( G = \\frac{1}{2\\bar{x}} \\cdot \\frac{1}{n^2} \\sum_i \\sum_j |x_i - x_j| \\). Beispiel mit 10, 20, 30, 40: Die Summe aller absoluten Differenzen ist 200, \\( \\bar{x} = 25 \\), also \\( G = \\frac{200}{2 \\cdot 25 \\cdot 16} = 0{,}25 \\). Über die Lorenzkurve geht es auch: Die Fläche unter der Kurve ist \\( B = 0{,}375 \\), damit \\( G = 1 - 2 \\cdot 0{,}375 = 0{,}25 \\). Beide Wege führen zum selben Ergebnis.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-4",
+    "lorenzkurve-gini-koeffizient-20"
+   ]
+  },
+  {
+   "frage": "Was ist der normierte Gini-Koeffizient?",
+   "varianten": [
+    "normierter Gini",
+    "Gini Maximalwert",
+    "G* = n/(n-1) G"
+   ],
+   "antwort": "Der unnormierte Gini-Koeffizient kann höchstens \\( \\frac{n-1}{n} \\) erreichen, bei wenigen Merkmalsträgern also deutlich weniger als 1. Deshalb normiert man: \\( G^* = \\frac{n}{n-1} \\cdot G \\) mit \\( 0 \\le G^* \\le 1 \\). Im Beispiel mit vier Einkommen und \\( G = 0{,}25 \\) ergibt sich \\( G^* = \\frac{4}{3} \\cdot 0{,}25 \\approx 0{,}33 \\). Bei großen Datensätzen ist der Unterschied vernachlässigbar.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-5",
+    "lorenzkurve-gini-koeffizient-20"
+   ]
+  },
+  {
+   "frage": "Wie ungleich sind die Einkommen in Deutschland?",
+   "varianten": [
+    "Gini Deutschland aktuell",
+    "Einkommensungleichheit Deutschland",
+    "Gini-Index 2025"
+   ],
+   "antwort": "Laut Destatis (EU-SILC, Stand 09.04.2026) lag der Gini-Index der Nettoäquivalenzeinkommen im Erhebungsjahr 2025 bei 30,1, also einem Gini-Koeffizienten von 0,301. In den Vorjahren lag er bei 29,5 (2024) und 29,0 (2022), 2020 bei 30,5. Das S80/S20-Verhältnis betrug 2025 4,7: Das oberste Fünftel hatte zusammen 4,7-mal so viel Einkommen wie das unterste. Einkommensreferenzjahr ist jeweils das Vorjahr der Erhebung.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-13",
+    "lorenzkurve-gini-koeffizient-14",
+    "lorenzkurve-gini-koeffizient-12"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Gini-Koeffizient und Gini-Index?",
+   "varianten": [
+    "Gini-Index vs Gini-Koeffizient",
+    "Gini 0 bis 100",
+    "Gini Skala"
+   ],
+   "antwort": "Inhaltlich ist es dasselbe Maß, nur anders skaliert. Der Gini-Koeffizient liegt zwischen 0 (absolute Gleichheit) und 1 (absolute Konzentration), der Gini-Index ist derselbe Wert mal 100, also zwischen 0 und 100. Ein Gini-Index von 30,1 entspricht einem Gini-Koeffizienten von 0,301.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-12"
+   ]
+  },
+  {
+   "frage": "Was ist das S80/S20-Verhältnis?",
+   "varianten": [
+    "S80/S20 Quintilsverhältnis",
+    "Einkommensquintile",
+    "oberstes Fünftel unterstes Fünftel"
+   ],
+   "antwort": "Für das S80/S20-Verhältnis ordnet man die Personen nach ihrem Nettoäquivalenzeinkommen und teilt sie in fünf gleich große Gruppen (Quintile). Dann teilt man die Einkommenssumme des obersten Fünftels durch die des untersten. In Deutschland lag der Wert im Erhebungsjahr 2025 bei 4,7. Anders als der Gini zeigt es nur die Ränder und reagiert empfindlich auf Ausreißer.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-14"
+   ]
+  },
+  {
+   "frage": "Was ist das Nettoäquivalenzeinkommen und wann gilt man als armutsgefährdet?",
+   "varianten": [
+    "Nettoäquivalenzeinkommen Definition",
+    "Armutsgefährdungsschwelle",
+    "60 Prozent Median"
+   ],
+   "antwort": "Das Nettoäquivalenzeinkommen rechnet das verfügbare Haushaltsnettoeinkommen in ein gewichtetes Pro-Kopf-Einkommen um (modifizierte OECD-Skala), damit Haushalte unterschiedlicher Größe vergleichbar werden. Darauf basieren Gini-Index und Armutsgefährdung. Als armutsgefährdet gilt, wer weniger als 60 % des mittleren Einkommens (Median) hat. Die konkrete Schwelle hängt von Zahl und Alter der Haushaltsmitglieder ab.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-15",
+    "lorenzkurve-gini-koeffizient-16",
+    "lorenzkurve-gini-koeffizient-12"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen personeller und funktionaler Einkommensverteilung?",
+   "varianten": [
+    "personelle vs funktionale Verteilung",
+    "Lohnquote vs Gini",
+    "Einkommensverteilung Arten"
+   ],
+   "antwort": "Die funktionale Verteilung untersucht, wie sich das Volkseinkommen auf Einkommensarten wie Lohn, Gewinn, Zins und Rente bzw. auf die Produktionsfaktoren verteilt. Die personelle Verteilung fragt, wie viel Einkommen einzelne Personen oder Haushalte erhalten – egal aus welcher Quelle. Lorenzkurve und Gini-Koeffizient messen typischerweise die personelle Verteilung. Zusätzlich unterscheidet man die primäre (Markt-)Verteilung von der sekundären Verteilung nach Steuern und Transfers.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-17",
+    "lorenzkurve-gini-koeffizient-7"
+   ]
+  },
+  {
+   "frage": "Bedeutet derselbe Gini-Koeffizient dieselbe Verteilung?",
+   "varianten": [
+    "gleicher Gini verschiedene Verteilungen",
+    "Lorenzkurven schneiden sich",
+    "Grenzen Gini-Koeffizient"
+   ],
+   "antwort": "Nein. Der Gini verdichtet die ganze Lorenzkurve in eine einzige Zahl. Zwei Lorenzkurven, die sich schneiden, können denselben Gini-Wert haben, obwohl die Ungleichheit an ganz verschiedenen Stellen liegt – etwa einmal bei den Ärmsten, einmal bei den Reichsten. Deshalb ergänzt man ihn um Randgruppenanteile wie den Anteil der unteren 20 % oder der oberen 5 % am Gesamteinkommen.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-8",
+    "lorenzkurve-gini-koeffizient-18"
+   ]
+  },
+  {
+   "frage": "Was bedeutet der Punkt (0,4; 0,2) auf einer Lorenzkurve?",
+   "varianten": [
+    "Lorenzkurve ablesen",
+    "Lorenzkurve interpretieren",
+    "Punkt Lorenzkurve Bedeutung"
+   ],
+   "antwort": "Ein Punkt (x; y) bedeutet: Die x Anteile mit den kleinsten Werten vereinigen y Anteile der Merkmalssumme. Der Punkt (0,4; 0,2) heißt also: Die ärmsten 40 % der Haushalte beziehen zusammen 20 % des Gesamteinkommens. Bei Gleichverteilung läge der Punkt auf der Diagonalen, also bei (0,4; 0,4).",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-9",
+    "lorenzkurve-gini-koeffizient-2"
+   ]
+  },
+  {
+   "frage": "Woher kommen die Daten zur Einkommensverteilung?",
+   "varianten": [
+    "Datenquellen Einkommensverteilung",
+    "EU-SILC SOEP EVS",
+    "Einkommensstatistik Deutschland"
+   ],
+   "antwort": "Die Volkswirtschaftliche Gesamtrechnung liefert nur ein unzureichendes Bild der personellen Einkommensverteilung. Geeigneter sind die Einkommens- und Verbrauchsstichprobe (EVS) und das Sozio-oekonomische Panel (SOEP) des DIW Berlin. Die amtlichen Werte zu Gini-Index und S80/S20 von Destatis stammen aus EU-SILC, einer Unterstichprobe des Mikrozensus.",
+   "belege": [
+    "lorenzkurve-gini-koeffizient-19",
+    "lorenzkurve-gini-koeffizient-13"
+   ]
   }
  ]
 }

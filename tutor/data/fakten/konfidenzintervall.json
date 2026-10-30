@@ -111,6 +111,197 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "konfidenzintervall-9",
+   "art": "definition",
+   "aussage": "Das Konfidenzniveau (Konfidenzkoeffizient) gibt an, mit welchem „Vertrauen“ das Konfidenzintervall den wahren Wert des zu schätzenden Parameters einschließt; es wird meist mit 90 %, 95 % oder 99 % gewählt.",
+   "schlagworte": [
+    "Konfidenzniveau",
+    "Konfidenzkoeffizient"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Konfidenzniveau",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/konfidenzniveau-40833",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "konfidenzintervall-10",
+   "art": "abgrenzung",
+   "aussage": "Intervallschätzung gibt ein Intervall an, in dem ein Parameter der Grundgesamtheit mit vorgegebener Wahrscheinlichkeit liegt (gebräuchlichstes Verfahren: Konfidenzschätzung); Gegensatz ist die Punktschätzung.",
+   "schlagworte": [
+    "Intervallschätzung",
+    "Punktschätzung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Intervallschätzung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/intervallschaetzung-40438",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "konfidenzintervall-11",
+   "art": "definition",
+   "aussage": "Punktschätzung ermittelt einen konkreten Schätzwert für einen Parameter aus Stichprobenergebnissen; gerechtfertigt wird sie durch Eigenschaften der Schätzfunktion wie Erwartungstreue, Wirksamkeit oder Konsistenz.",
+   "schlagworte": [
+    "Punktschätzung",
+    "Schätzfunktion",
+    "Erwartungstreue"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Punktschätzung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/punktschaetzung-42011",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "konfidenzintervall-12",
+   "art": "abgrenzung",
+   "aussage": "Die t-Verteilung wird u. a. bei der Konfidenzschätzung des Erwartungswerts normalverteilter Variablen mit unbekannter Varianz verwendet; mit zunehmender Zahl der Freiheitsgrade nähert sie sich der Standardnormalverteilung.",
+   "schlagworte": [
+    "t-Verteilung",
+    "unbekannte Varianz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: t-Verteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/t-verteilung-47461",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "konfidenzintervall-13",
+   "art": "abgrenzung",
+   "aussage": "Nach dem Zentralen Grenzwertsatz ist das Stichprobenmittel bei großem Stichprobenumfang approximativ normalverteilt; Intervallschätzungen auf Basis der Normalverteilung sind dann häufig näherungsweise auch bei nicht normalverteilter Grundgesamtheit anwendbar.",
+   "schlagworte": [
+    "Zentraler Grenzwertsatz",
+    "große Stichprobe",
+    "Approximation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zentraler Grenzwertsatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zentraler-grenzwertsatz-48125",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "konfidenzintervall-14",
+   "art": "formel",
+   "aussage": "Approximatives Konfidenzintervall für einen Anteilswert p (großes n): `\\hat{p} \\pm z_{1-\\alpha/2}\\sqrt{\\frac{\\hat{p}(1-\\hat{p})}{n}}`.",
+   "schlagworte": [
+    "Anteilswert",
+    "Quote",
+    "Approximation"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "konfidenzintervall-15",
+   "art": "formel",
+   "aussage": "Notwendiger Stichprobenumfang für eine maximale Abweichung (halbe Intervallbreite) E bei bekanntem `\\sigma`: `n \\ge \\left(\\frac{z_{1-\\alpha/2} \\cdot \\sigma}{E}\\right)^2`, aufgerundet auf die nächste ganze Zahl.",
+   "schlagworte": [
+    "Stichprobenumfang",
+    "Fehlermarge"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "konfidenzintervall-16",
+   "art": "formel",
+   "aussage": "Breite des z-Intervalls: `2 \\cdot z_{1-\\alpha/2} \\cdot \\frac{\\sigma}{\\sqrt{n}}`; da n unter der Wurzel steht, muss man den Stichprobenumfang vervierfachen, um die Breite zu halbieren.",
+   "schlagworte": [
+    "Intervallbreite",
+    "Wurzel-n"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "konfidenzintervall-17",
+   "art": "abgrenzung",
+   "aussage": "Dualität zum Test: Ein zweiseitiger Test von `H_0: \\mu = \\mu_0` zum Niveau `\\alpha` lehnt genau dann ab, wenn `\\mu_0` nicht im entsprechenden Konfidenzintervall zum Niveau `1 - \\alpha` liegt (gleiche Prüfgröße und Annahmen vorausgesetzt).",
+   "schlagworte": [
+    "Test",
+    "Dualität"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "konfidenzintervall-18",
+   "art": "definition",
+   "aussage": "Der Standardfehler des Mittelwerts ist `\\sigma/\\sqrt{n}` (geschätzt `s/\\sqrt{n}`); das Konfidenzintervall für `\\mu` ist Schätzwert ± Quantil · Standardfehler.",
+   "schlagworte": [
+    "Standardfehler",
+    "Aufbau"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "konfidenzintervall-19",
+   "art": "zahl",
+   "aussage": "t-Quantile `t_{n-1;0{,}975}` (nachgerechnet): 5 Freiheitsgrade ≈ 2,571, 10 ≈ 2,228, 15 ≈ 2,131, 30 ≈ 2,042, 100 ≈ 1,984; sie sind stets größer als `z_{0{,}975} \\approx 1{,}960` und nähern sich diesem Wert.",
+   "schlagworte": [
+    "t-Quantil",
+    "Tabelle"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "konfidenzintervall-20",
+   "art": "zahl",
+   "aussage": "Rechenbeispiele (nachgerechnet): `\\bar{x} = 50`, `\\sigma = 10`, n = 100 ergibt das 95-%-Intervall [48,04; 51,96] und das 99-%-Intervall [47,42; 52,58]; `\\bar{x} = 20`, s = 4, n = 16 ergibt mit t das 95-%-Intervall [17,87; 22,13]; `\\hat{p} = 0{,}4`, n = 400 ergibt [0,352; 0,448].",
+   "schlagworte": [
+    "Beispiel",
+    "Rechnung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "konfidenzintervall-21",
+   "art": "abgrenzung",
+   "aussage": "Ein Prognoseintervall (Intervallprognose) gibt den Bereich an, in dem ein zu prognostizierender künftiger Wert mit vorgegebener Wahrscheinlichkeit liegt; es bezieht sich damit auf einen Einzelwert, nicht auf einen Parameter der Grundgesamtheit.",
+   "schlagworte": [
+    "Prognoseintervall",
+    "Abgrenzung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Prognoseintervall",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/prognoseintervall-45639",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "konfidenzintervall-22",
+   "art": "formel",
+   "aussage": "Einseitige Konfidenzgrenzen für `\\mu` bei bekanntem `\\sigma`: Untergrenze `\\bar{x} - z_{1-\\alpha}\\frac{\\sigma}{\\sqrt{n}}` bzw. Obergrenze `\\bar{x} + z_{1-\\alpha}\\frac{\\sigma}{\\sqrt{n}}`; bei 95 % mit `z_{0{,}95} \\approx 1{,}645`; z. B. `\\bar{x} = 50`, `\\sigma = 10`, n = 100 ergibt die Untergrenze 50 − 1,645 ≈ 48,36 (nachgerechnet).",
+   "schlagworte": [
+    "einseitig",
+    "Konfidenzgrenze"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -123,6 +314,183 @@
    "falsch": "Bei kleinem n und unbekanntem σ rechnet man mit z.",
    "richtig": "Dann ist die t-Verteilung zu verwenden; sonst ist das Intervall zu schmal.",
    "quelle_id": "konfidenzintervall-6"
+  },
+  {
+   "falsch": "Mit 95 % Wahrscheinlichkeit liegt μ in genau diesem berechneten Intervall [48,04; 51,96].",
+   "richtig": "Nach der Ziehung ist das Intervall fest; 95 % beschreibt das Verfahren: Bei vielen Wiederholungen schließen etwa 95 % der so gebildeten Intervalle μ ein.",
+   "quelle_id": "konfidenzintervall-3"
+  },
+  {
+   "falsch": "Um ein halb so breites Intervall zu bekommen, braucht man die doppelte Stichprobe.",
+   "richtig": "Die Breite fällt mit 1/√n; für die halbe Breite braucht man den vierfachen Stichprobenumfang.",
+   "quelle_id": "konfidenzintervall-16"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist ein Konfidenzintervall?",
+   "varianten": [
+    "Konfidenzintervall Definition",
+    "Vertrauensintervall einfach erklärt",
+    "Konfidenzintervall Bedeutung"
+   ],
+   "antwort": "Ein Konfidenzintervall ist ein aus der Stichprobe berechneter Bereich für einen unbekannten Parameter der Grundgesamtheit, z. B. den Erwartungswert \\(\\mu\\), zusammen mit einem Konfidenzniveau wie 90 %, 95 % oder 99 %. Formal ist \\([u, o]\\) ein Konfidenzintervall zum Niveau \\(1-\\alpha\\), wenn \\(P(\\theta \\in [u, o]) \\ge 1-\\alpha\\) für alle möglichen Parameterwerte gilt; die Grenzen sind Funktionen der Stichprobe. Anders als eine Punktschätzung liefert es also einen Bereich statt eines einzelnen Werts.",
+   "belege": [
+    "konfidenzintervall-1",
+    "konfidenzintervall-2",
+    "konfidenzintervall-9",
+    "konfidenzintervall-10"
+   ]
+  },
+  {
+   "frage": "Wie interpretiere ich ein 95-%-Konfidenzintervall richtig?",
+   "varianten": [
+    "Konfidenzintervall Interpretation",
+    "95 Prozent Konfidenz bedeutet",
+    "Konfidenzintervall Wahrscheinlichkeit"
+   ],
+   "antwort": "Nach der Ziehung der Stichprobe sind die Intervallgrenzen feste Zahlen; der Parameter liegt dann entweder drin oder nicht. Die 95 % beziehen sich auf das Verfahren: Würdest du sehr oft neue Stichproben ziehen und jeweils so ein Intervall bilden, würden etwa 95 % dieser Intervalle den wahren Parameter einschließen. Das Intervall bezieht sich auf den Parameter (z. B. \\(\\mu\\)), nicht auf 95 % der einzelnen Beobachtungen.",
+   "belege": [
+    "konfidenzintervall-3"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich ein Konfidenzintervall für den Mittelwert bei bekannter Varianz?",
+   "varianten": [
+    "Konfidenzintervall Mittelwert z",
+    "Konfidenzintervall Formel sigma bekannt",
+    "Konfidenzintervall berechnen Beispiel"
+   ],
+   "antwort": "Bei bekanntem \\(\\sigma\\) (normalverteilte Grundgesamtheit oder großes n) gilt \\(\\bar{x} \\pm z_{1-\\alpha/2} \\cdot \\frac{\\sigma}{\\sqrt{n}}\\). Beispiel: \\(\\bar{x} = 50\\), \\(\\sigma = 10\\), n = 100, Niveau 95 %. Der Standardfehler ist \\(10/\\sqrt{100} = 1\\), das Quantil 1,960, also \\(50 \\pm 1{,}96\\). Das Intervall ist [48,04; 51,96].",
+   "belege": [
+    "konfidenzintervall-5",
+    "konfidenzintervall-7",
+    "konfidenzintervall-13",
+    "konfidenzintervall-18",
+    "konfidenzintervall-20"
+   ]
+  },
+  {
+   "frage": "Wann nehme ich die t-Verteilung für das Konfidenzintervall?",
+   "varianten": [
+    "Konfidenzintervall t-Verteilung",
+    "Konfidenzintervall sigma unbekannt",
+    "t oder z Konfidenzintervall"
+   ],
+   "antwort": "Die t-Verteilung nimmst du, wenn die Daten normalverteilt sind, die Varianz aber unbekannt ist und durch s geschätzt wird: \\(\\bar{x} \\pm t_{n-1;1-\\alpha/2} \\cdot \\frac{s}{\\sqrt{n}}\\). Beispiel: \\(\\bar{x} = 20\\), s = 4, n = 16, 95 %: \\(t_{15;0{,}975} \\approx 2{,}131\\) und der Standardfehler ist \\(4/4 = 1\\), also [17,87; 22,13]. Mit z statt t wäre das Intervall zu schmal. Bei vielen Freiheitsgraden nähern sich die t-Quantile dem z-Wert 1,960.",
+   "belege": [
+    "konfidenzintervall-6",
+    "konfidenzintervall-12",
+    "konfidenzintervall-19",
+    "konfidenzintervall-20"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich ein Konfidenzintervall für einen Anteil?",
+   "varianten": [
+    "Konfidenzintervall Anteilswert",
+    "Konfidenzintervall Prozentsatz Umfrage",
+    "Konfidenzintervall p"
+   ],
+   "antwort": "Bei großem n nutzt du die Normalapproximation: \\(\\hat{p} \\pm z_{1-\\alpha/2}\\sqrt{\\frac{\\hat{p}(1-\\hat{p})}{n}}\\). Beispiel: In einer Umfrage mit n = 400 stimmen 160 zu, also \\(\\hat{p} = 0{,}4\\). Für 95 % ist die Abweichung \\(1{,}96 \\cdot \\sqrt{0{,}4 \\cdot 0{,}6/400} \\approx 0{,}048\\). Das Intervall ist [0,352; 0,448], also etwa 35,2 % bis 44,8 %.",
+   "belege": [
+    "konfidenzintervall-14",
+    "konfidenzintervall-20",
+    "konfidenzintervall-13"
+   ]
+  },
+  {
+   "frage": "Wie groß muss meine Stichprobe für eine bestimmte Genauigkeit sein?",
+   "varianten": [
+    "Stichprobenumfang berechnen Konfidenzintervall",
+    "notwendiger Stichprobenumfang Formel",
+    "Fehlermarge n berechnen"
+   ],
+   "antwort": "Soll die halbe Intervallbreite höchstens E betragen, gilt bei bekanntem \\(\\sigma\\): \\(n \\ge \\left(\\frac{z_{1-\\alpha/2} \\cdot \\sigma}{E}\\right)^2\\). Beispiel: \\(\\sigma = 10\\), E = 1, 95 %: \\(n \\ge (1{,}96 \\cdot 10/1)^2 = 384{,}16\\). Du rundest immer auf, brauchst also n = 385. Abrunden würde die gewünschte Genauigkeit knapp verfehlen.",
+   "belege": [
+    "konfidenzintervall-15"
+   ]
+  },
+  {
+   "frage": "Wovon hängt die Breite eines Konfidenzintervalls ab?",
+   "varianten": [
+    "Konfidenzintervall breiter schmaler",
+    "Einfluss Stichprobenumfang Konfidenzintervall",
+    "Konfidenzniveau erhöhen Folgen"
+   ],
+   "antwort": "Die Breite beträgt beim z-Intervall \\(2 \\cdot z_{1-\\alpha/2} \\cdot \\frac{\\sigma}{\\sqrt{n}}\\). Ein höheres Konfidenzniveau (größeres Quantil) und eine größere Streuung machen das Intervall breiter, ein größeres n macht es schmaler. Weil n unter der Wurzel steht, musst du den Stichprobenumfang vervierfachen, um die Breite zu halbieren. Beispiel: Bei \\(\\bar{x} = 50\\), \\(\\sigma = 10\\), n = 100 ist das 95-%-Intervall [48,04; 51,96], das 99-%-Intervall [47,42; 52,58].",
+   "belege": [
+    "konfidenzintervall-8",
+    "konfidenzintervall-16",
+    "konfidenzintervall-20"
+   ]
+  },
+  {
+   "frage": "Welche z-Werte brauche ich für 90, 95 und 99 %?",
+   "varianten": [
+    "kritische Werte Konfidenzintervall",
+    "1,645 1,96 2,576",
+    "z-Wert 95 Prozent"
+   ],
+   "antwort": "Für zweiseitige Konfidenzintervalle brauchst du das Quantil \\(z_{1-\\alpha/2}\\): bei 90 % etwa 1,645, bei 95 % etwa 1,960 und bei 99 % etwa 2,576. Bei unbekannter Varianz und kleinem n ersetzt du sie durch die größeren t-Quantile, z. B. \\(t_{15;0{,}975} \\approx 2{,}131\\). Für einseitige Grenzen nimmst du \\(z_{1-\\alpha}\\), bei 95 % also 1,645.",
+   "belege": [
+    "konfidenzintervall-7",
+    "konfidenzintervall-19",
+    "konfidenzintervall-22"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Punktschätzung und Intervallschätzung?",
+   "varianten": [
+    "Punktschätzer vs Intervallschätzer",
+    "Punktschätzung Definition",
+    "Schätzverfahren Statistik"
+   ],
+   "antwort": "Eine Punktschätzung liefert einen einzelnen Schätzwert für den Parameter, z. B. \\(\\bar{x}\\) für \\(\\mu\\); gerechtfertigt wird sie durch Eigenschaften wie Erwartungstreue, Wirksamkeit oder Konsistenz der Schätzfunktion. Eine Intervallschätzung liefert einen Bereich, der den Parameter mit vorgegebener Wahrscheinlichkeit einschließt. Das gebräuchlichste Verfahren der Intervallschätzung ist die Konfidenzschätzung. Das Konfidenzintervall ist meist um den Punktschätzer herum gebaut: Schätzwert ± Quantil · Standardfehler.",
+   "belege": [
+    "konfidenzintervall-10",
+    "konfidenzintervall-11",
+    "konfidenzintervall-18"
+   ]
+  },
+  {
+   "frage": "Wie hängen Konfidenzintervall und Hypothesentest zusammen?",
+   "varianten": [
+    "Konfidenzintervall Test Zusammenhang",
+    "Hypothese mit Konfidenzintervall prüfen",
+    "liegt mu0 im Konfidenzintervall"
+   ],
+   "antwort": "Ein zweiseitiger Test von \\(H_0: \\mu = \\mu_0\\) zum Niveau \\(\\alpha\\) lehnt genau dann ab, wenn \\(\\mu_0\\) nicht im Konfidenzintervall zum Niveau \\(1-\\alpha\\) liegt (gleiche Prüfgröße und Annahmen). Beispiel: Das 95-%-Intervall ist [48,04; 51,96]. Ein Test von \\(H_0: \\mu = 53\\) zu \\(\\alpha = 5\\,\\%\\) würde also ablehnen, \\(H_0: \\mu = 51\\) dagegen nicht.",
+   "belege": [
+    "konfidenzintervall-17",
+    "konfidenzintervall-20"
+   ]
+  },
+  {
+   "frage": "Was ist ein einseitiges Konfidenzintervall?",
+   "varianten": [
+    "einseitige Konfidenzgrenze",
+    "Konfidenzintervall Untergrenze",
+    "obere Konfidenzgrenze berechnen"
+   ],
+   "antwort": "Bei einem einseitigen Konfidenzintervall ist eine Grenze vorgegeben, z. B. \\(-\\infty\\) oder \\(+\\infty\\); du berechnest nur eine Unter- oder Obergrenze. Bei bekanntem \\(\\sigma\\) lautet die Untergrenze \\(\\bar{x} - z_{1-\\alpha}\\frac{\\sigma}{\\sqrt{n}}\\). Für 95 % ist \\(z_{0{,}95} \\approx 1{,}645\\); mit \\(\\bar{x} = 50\\), \\(\\sigma = 10\\), n = 100 erhältst du \\(\\mu \\ge 48{,}36\\). Sonst spricht man von einem zweiseitigen Intervall.",
+   "belege": [
+    "konfidenzintervall-4",
+    "konfidenzintervall-22"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Konfidenzintervall und Prognoseintervall?",
+   "varianten": [
+    "Prognoseintervall vs Konfidenzintervall",
+    "Intervall für Einzelwert",
+    "Vorhersageintervall"
+   ],
+   "antwort": "Ein Konfidenzintervall schätzt einen Parameter der Grundgesamtheit, etwa den Erwartungswert \\(\\mu\\). Ein Prognoseintervall gibt dagegen den Bereich an, in dem ein künftiger Einzelwert mit vorgegebener Wahrscheinlichkeit liegt. Ein 95-%-Konfidenzintervall für \\(\\mu\\) enthält deshalb nicht 95 % der Einzelwerte.",
+   "belege": [
+    "konfidenzintervall-21",
+    "konfidenzintervall-3"
+   ]
   }
  ]
 }

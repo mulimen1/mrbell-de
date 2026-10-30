@@ -103,6 +103,218 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "normalverteilung-8",
+   "art": "definition",
+   "aussage": "Die Standardnormalverteilung ist die spezielle Normalverteilung mit Erwartungswert 0 und Varianz 1; für ihre Dichte- und Verteilungsfunktion gibt es Tabellen, mit denen sich Werte beliebiger Normalverteilungen ermitteln lassen.",
+   "schlagworte": [
+    "Standardnormalverteilung",
+    "Tabelle"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Standardnormalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/standardnormalverteilung-42272",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-9",
+   "art": "definition",
+   "aussage": "Die Verteilungsfunktion `F(x) = P(X \\le x)` gibt die Wahrscheinlichkeit an, dass X höchstens den Wert x annimmt; sie ist nichtfallend, liegt zwischen 0 und 1 und ergibt sich bei stetigen Zufallsvariablen durch Integration über die Dichtefunktion.",
+   "schlagworte": [
+    "Verteilungsfunktion",
+    "Dichtefunktion",
+    "kumuliert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Verteilungsfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/verteilungsfunktion-48954",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-10",
+   "art": "abgrenzung",
+   "aussage": "Zentraler Grenzwertsatz (Lindeberg-Lévy): Sind `X_1, \\dots, X_n` unabhängig und identisch verteilt mit `E(X_i) = \\mu` und `Var(X_i) = \\sigma^2 > 0`, so ist das arithmetische Mittel für großes n approximativ normalverteilt mit Erwartungswert `\\mu` und Varianz `\\sigma^2/n`, auch wenn die Grundgesamtheit nicht normalverteilt ist.",
+   "schlagworte": [
+    "Zentraler Grenzwertsatz",
+    "Stichprobenmittel",
+    "Approximation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zentraler Grenzwertsatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zentraler-grenzwertsatz-48125",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-11",
+   "art": "abgrenzung",
+   "aussage": "Der Satz von Ljapunoff (allgemeinere Form des Zentralen Grenzwertsatzes) begründet, warum Größen, die als additive Überlagerung vieler zufälliger, unabhängiger Einflüsse entstehen, in der Realität oft annähernd normalverteilt sind.",
+   "schlagworte": [
+    "Zentraler Grenzwertsatz",
+    "Begründung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zentraler Grenzwertsatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zentraler-grenzwertsatz-48125",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-12",
+   "art": "abgrenzung",
+   "aussage": "Wegen des Zentralen Grenzwertsatzes lassen sich Intervallschätzungen und Tests auf Basis der Normalverteilung bei großem Stichprobenumfang häufig näherungsweise auch dann einsetzen, wenn die zugrunde liegende Verteilung (stark) von der Normalverteilung abweicht.",
+   "schlagworte": [
+    "Inferenz",
+    "große Stichprobe"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zentraler Grenzwertsatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zentraler-grenzwertsatz-48125",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-13",
+   "art": "methode",
+   "aussage": "Stetigkeitskorrektur: Wird eine diskrete Verteilung durch eine stetige angenähert, korrigiert man die Bereichsgrenzen um 0,5; der Wert der Binomial-Verteilungsfunktion an der ganzzahligen Stelle x wird durch die Normalverteilung an der Stelle x + 0,5 angenähert.",
+   "schlagworte": [
+    "Stetigkeitskorrektur",
+    "Binomialverteilung",
+    "Approximation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Stetigkeitskorrektur",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/stetigkeitskorrektur-43938",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-14",
+   "art": "abgrenzung",
+   "aussage": "Die t-Verteilung ist wie die Standardnormalverteilung symmetrisch um 0 und nähert sich ihr mit zunehmender Zahl an Freiheitsgraden; sie wird u. a. für Konfidenzintervalle und Tests zum Erwartungswert normalverteilter Variablen mit unbekannter Varianz verwendet.",
+   "schlagworte": [
+    "t-Verteilung",
+    "Freiheitsgrade"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: t-Verteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/t-verteilung-47461",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-15",
+   "art": "definition",
+   "aussage": "Für eine stetige Verteilung ist das p-Quantil der Wert, an dem die Verteilungsfunktion den Wert p annimmt; der Median ist das 0,5-Quantil, die Quartile sind das 0,25- und 0,75-Quantil.",
+   "schlagworte": [
+    "Quantil",
+    "Median",
+    "Quartil"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: p-Quantil",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/p-quantil-46248",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-16",
+   "art": "formel",
+   "aussage": "Symmetrie der Standardnormalverteilung: `\\Phi(-z) = 1 - \\Phi(z)`; damit genügen Tabellen für `z \\ge 0`, z. B. `\\Phi(-1) = 1 - 0{,}8413 = 0{,}1587`.",
+   "schlagworte": [
+    "Phi",
+    "Symmetrie",
+    "Tabelle"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "normalverteilung-17",
+   "art": "formel",
+   "aussage": "Für stetige Zufallsvariablen ist `P(X = x) = 0`; für `X \\sim N(\\mu, \\sigma^2)` gilt `P(a \\le X \\le b) = \\Phi\\left(\\frac{b-\\mu}{\\sigma}\\right) - \\Phi\\left(\\frac{a-\\mu}{\\sigma}\\right)`, wobei es egal ist, ob die Grenzen mit < oder ≤ angegeben sind.",
+   "schlagworte": [
+    "Intervallwahrscheinlichkeit",
+    "Phi"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "normalverteilung-18",
+   "art": "formel",
+   "aussage": "Quantil einer Normalverteilung: `x_p = \\mu + z_p \\cdot \\sigma` mit dem p-Quantil `z_p` der Standardnormalverteilung.",
+   "schlagworte": [
+    "Quantil",
+    "Rückrechnung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "normalverteilung-19",
+   "art": "abgrenzung",
+   "aussage": "Ist X normalverteilt, so ist auch `a + bX` (mit `b \\ne 0`) normalverteilt mit Erwartungswert `a + b\\mu` und Varianz `b^2\\sigma^2`; die Summe unabhängiger normalverteilter Zufallsvariablen ist wieder normalverteilt.",
+   "schlagworte": [
+    "lineare Transformation",
+    "Summe",
+    "Reproduktivität"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "normalverteilung-20",
+   "art": "zahl",
+   "aussage": "Rechenbeispiel (nachgerechnet): Für `X \\sim N(100;\\,15^2)` gilt `P(X \\le 130) = \\Phi(2) \\approx 0{,}9772`, `P(X > 120) = 1 - \\Phi(4/3) \\approx 0{,}0912` und das 95-%-Quantil ist `100 + 1{,}645 \\cdot 15 \\approx 124{,}67`.",
+   "schlagworte": [
+    "Beispiel",
+    "Rechnung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "normalverteilung-21",
+   "art": "abgrenzung",
+   "aussage": "Klassische parametrische Testverfahren wie der t-Test (Erwartungswerte) und der F-Test (Varianzen) setzen normalverteilte Variablen voraus; ist keine Verteilungsform unterstellbar, nutzt man nichtparametrische Tests.",
+   "schlagworte": [
+    "Test",
+    "Voraussetzung",
+    "parametrisch"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: statistische Testverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/statistische-testverfahren-41922",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-22",
+   "art": "zahl",
+   "aussage": "Beispiel Normalapproximation mit Stetigkeitskorrektur (nachgerechnet): Approximiert wird mit `\\mu = np` und `\\sigma^2 = np(1-p)`; für `X \\sim B(100;\\,0{,}5)` ist `\\mu = 50`, `\\sigma = 5`, also `P(X \\le 55) \\approx \\Phi\\left(\\frac{55{,}5 - 50}{5}\\right) = \\Phi(1{,}1) \\approx 0{,}8643`, exakt 0,8644.",
+   "schlagworte": [
+    "Approximation",
+    "Binomialverteilung",
+    "Beispiel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -115,6 +327,182 @@
    "falsch": "Die Standardnormalverteilung hat die Varianz \\sigma^2 des Datensatzes.",
    "richtig": "Die Standardnormalverteilung hat immer \\mu = 0 und \\sigma^2 = 1.",
    "quelle_id": "normalverteilung-2"
+  },
+  {
+   "falsch": "Bei der Normalverteilung ist P(X = 100) die Höhe der Dichte an der Stelle 100.",
+   "richtig": "Bei stetigen Verteilungen ist jede Punktwahrscheinlichkeit 0; Wahrscheinlichkeiten sind Flächen unter der Dichte, z. B. P(a ≤ X ≤ b) = Φ((b−μ)/σ) − Φ((a−μ)/σ).",
+   "quelle_id": "normalverteilung-17"
+  },
+  {
+   "falsch": "Der Zentrale Grenzwertsatz besagt, dass die Daten bei großer Stichprobe normalverteilt werden.",
+   "richtig": "Annähernd normalverteilt wird das Stichprobenmittel (bzw. die standardisierte Summe), nicht die einzelnen Beobachtungen.",
+   "quelle_id": "normalverteilung-10"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist die Normalverteilung?",
+   "varianten": [
+    "Normalverteilung Definition",
+    "Gaußsche Glockenkurve",
+    "Normalverteilung einfach erklärt"
+   ],
+   "antwort": "Die Normalverteilung (Gauß-Verteilung) ist eine stetige Verteilung mit den Parametern Erwartungswert \\(\\mu\\) und Varianz \\(\\sigma^2 > 0\\). Ihre Dichte ist glockenförmig und symmetrisch zu \\(x = \\mu\\); Erwartungswert, Median und Modus fallen zusammen, die Wendepunkte liegen bei \\(\\mu \\pm \\sigma\\). Sie ist in der Inferenzstatistik besonders wichtig, weil das Stichprobenmittel nach dem Zentralen Grenzwertsatz bei großem n annähernd normalverteilt ist. Schreibweise: \\(X \\sim N(\\mu, \\sigma^2)\\).",
+   "belege": [
+    "normalverteilung-1",
+    "normalverteilung-3",
+    "normalverteilung-10"
+   ]
+  },
+  {
+   "frage": "Wie standardisiere ich eine Normalverteilung?",
+   "varianten": [
+    "z-Transformation",
+    "Standardisierung z-Wert berechnen",
+    "Normalverteilung in Standardnormalverteilung umrechnen"
+   ],
+   "antwort": "Du ziehst den Erwartungswert ab und teilst durch die Standardabweichung: \\(Z = \\frac{X - \\mu}{\\sigma}\\). Ist X normalverteilt mit \\(\\mu\\) und \\(\\sigma^2\\), dann ist Z standardnormalverteilt mit Erwartungswert 0 und Varianz 1. So brauchst du nur noch die Tabelle der Standardnormalverteilung \\(\\Phi\\). Beispiel: Bei \\(X \\sim N(100;\\,15^2)\\) gehört zu \\(x = 130\\) der Wert \\(z = (130 - 100)/15 = 2\\).",
+   "belege": [
+    "normalverteilung-2",
+    "normalverteilung-8",
+    "normalverteilung-20"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich eine Wahrscheinlichkeit bei der Normalverteilung?",
+   "varianten": [
+    "P(X kleiner gleich x) Normalverteilung",
+    "Normalverteilung Wahrscheinlichkeit berechnen Beispiel",
+    "Normalverteilung Tabelle ablesen"
+   ],
+   "antwort": "Erst standardisieren, dann in der \\(\\Phi\\)-Tabelle ablesen. Beispiel mit \\(X \\sim N(100;\\,15^2)\\): \\(P(X \\le 130) = \\Phi\\left(\\frac{130 - 100}{15}\\right) = \\Phi(2) \\approx 0{,}9772\\). Für „größer als“ nimmst du die Gegenwahrscheinlichkeit: \\(P(X > 120) = 1 - \\Phi(4/3) \\approx 0{,}0912\\). Für ein Intervall rechnest du \\(P(a \\le X \\le b) = \\Phi\\left(\\frac{b-\\mu}{\\sigma}\\right) - \\Phi\\left(\\frac{a-\\mu}{\\sigma}\\right)\\).",
+   "belege": [
+    "normalverteilung-2",
+    "normalverteilung-17",
+    "normalverteilung-20"
+   ]
+  },
+  {
+   "frage": "Wie lese ich negative z-Werte ab, wenn die Tabelle nur positive enthält?",
+   "varianten": [
+    "Phi(-z)",
+    "negative z-Werte Tabelle",
+    "Symmetrie Standardnormalverteilung"
+   ],
+   "antwort": "Du nutzt die Symmetrie der Standardnormalverteilung um 0: \\(\\Phi(-z) = 1 - \\Phi(z)\\). Beispiel: \\(\\Phi(-1) = 1 - \\Phi(1) = 1 - 0{,}8413 = 0{,}1587\\). Die Fläche links von \\(-z\\) ist also genauso groß wie die Fläche rechts von \\(+z\\). Deshalb reichen Tabellen für \\(z \\ge 0\\).",
+   "belege": [
+    "normalverteilung-16",
+    "normalverteilung-8"
+   ]
+  },
+  {
+   "frage": "Was besagt die 68-95-99,7-Regel?",
+   "varianten": [
+    "Sigma-Regeln",
+    "wie viel Prozent liegen innerhalb von 2 Sigma",
+    "Sigma Bereiche Normalverteilung"
+   ],
+   "antwort": "Bei jeder Normalverteilung liegen gerundet 68,27 % der Wahrscheinlichkeitsmasse im Bereich \\(\\mu \\pm \\sigma\\), 95,45 % in \\(\\mu \\pm 2\\sigma\\) und 99,73 % in \\(\\mu \\pm 3\\sigma\\). Für \\(X \\sim N(100;\\,15^2)\\) liegt X also mit etwa 68,27 % Wahrscheinlichkeit zwischen 85 und 115. Für genau 95 % brauchst du dagegen \\(\\mu \\pm 1{,}960\\,\\sigma\\), nicht \\(\\mu \\pm 2\\sigma\\).",
+   "belege": [
+    "normalverteilung-4",
+    "normalverteilung-7"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich ein Quantil bzw. einen Grenzwert bei der Normalverteilung?",
+   "varianten": [
+    "Normalverteilung Quantil berechnen",
+    "x zu gegebener Wahrscheinlichkeit Normalverteilung",
+    "Normalverteilung rückwärts rechnen"
+   ],
+   "antwort": "Du suchst zuerst das passende Quantil \\(z_p\\) der Standardnormalverteilung und rechnest dann zurück: \\(x_p = \\mu + z_p \\cdot \\sigma\\). Beispiel: Welcher Wert wird bei \\(X \\sim N(100;\\,15^2)\\) nur von 5 % überschritten? Gesucht ist das 95-%-Quantil, \\(z_{0{,}95} \\approx 1{,}645\\), also \\(x = 100 + 1{,}645 \\cdot 15 \\approx 124{,}67\\). Für die unteren Quantile nutzt du die Symmetrie: \\(z_{0{,}05} \\approx -1{,}645\\).",
+   "belege": [
+    "normalverteilung-18",
+    "normalverteilung-7",
+    "normalverteilung-15",
+    "normalverteilung-20"
+   ]
+  },
+  {
+   "frage": "Warum ist P(X = x) bei der Normalverteilung null?",
+   "varianten": [
+    "Punktwahrscheinlichkeit stetige Verteilung",
+    "kleiner oder kleiner gleich Normalverteilung",
+    "Dichte ist keine Wahrscheinlichkeit"
+   ],
+   "antwort": "Die Normalverteilung ist stetig: Wahrscheinlichkeiten entsprechen Flächen unter der Dichtefunktion, und über einem einzelnen Punkt ist die Fläche null. Deshalb gilt \\(P(X = x) = 0\\) und es ist egal, ob du \\(P(X < x)\\) oder \\(P(X \\le x)\\) berechnest. Der Wert der Dichte an einer Stelle ist also keine Wahrscheinlichkeit. Rechne immer über die Verteilungsfunktion \\(F(x) = P(X \\le x)\\).",
+   "belege": [
+    "normalverteilung-17",
+    "normalverteilung-9"
+   ]
+  },
+  {
+   "frage": "Was besagt der Zentrale Grenzwertsatz?",
+   "varianten": [
+    "zentraler Grenzwertsatz einfach erklärt",
+    "Stichprobenmittel normalverteilt",
+    "ZGWS"
+   ],
+   "antwort": "Sind \\(X_1, \\dots, X_n\\) unabhängig und identisch verteilt mit Erwartungswert \\(\\mu\\) und Varianz \\(\\sigma^2 > 0\\), dann ist ihr arithmetisches Mittel bei großem n annähernd normalverteilt mit Erwartungswert \\(\\mu\\) und Varianz \\(\\sigma^2/n\\). Das gilt auch, wenn die Grundgesamtheit selbst nicht normalverteilt ist. Deshalb kannst du Konfidenzintervalle und Tests auf Basis der Normalverteilung bei großen Stichproben häufig näherungsweise anwenden. Normalverteilt wird dabei das Mittel, nicht die einzelnen Beobachtungen.",
+   "belege": [
+    "normalverteilung-10",
+    "normalverteilung-12",
+    "normalverteilung-5"
+   ]
+  },
+  {
+   "frage": "Wann kann ich die Binomialverteilung durch die Normalverteilung annähern?",
+   "varianten": [
+    "Normalapproximation Binomialverteilung",
+    "Stetigkeitskorrektur",
+    "Binomialverteilung mit Normalverteilung berechnen"
+   ],
+   "antwort": "Bei großem n lässt sich die Binomialverteilung unter gewissen Voraussetzungen durch eine Normalverteilung mit \\(\\mu = np\\) und \\(\\sigma^2 = np(1-p)\\) annähern. Dabei verwendest du die Stetigkeitskorrektur: Die Grenze wird um 0,5 verschoben, \\(P(X \\le x)\\) also mit der Normalverteilung an der Stelle \\(x + 0{,}5\\) berechnet. Beispiel: \\(X \\sim B(100;\\,0{,}5)\\) hat \\(\\mu = 50\\) und \\(\\sigma = 5\\); \\(P(X \\le 55) \\approx \\Phi(1{,}1) \\approx 0{,}8643\\), exakt sind es 0,8644.",
+   "belege": [
+    "normalverteilung-6",
+    "normalverteilung-13",
+    "normalverteilung-22"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Normalverteilung und t-Verteilung?",
+   "varianten": [
+    "t-Verteilung vs Normalverteilung",
+    "wann t-Verteilung statt z",
+    "t-Verteilung Freiheitsgrade"
+   ],
+   "antwort": "Beide sind symmetrisch und glockenförmig, die t-Verteilung hat aber breitere Ränder und hängt von der Zahl der Freiheitsgrade ab. Du nutzt sie für Konfidenzintervalle und Tests zum Erwartungswert, wenn die Daten normalverteilt sind, die Varianz aber unbekannt ist und aus der Stichprobe geschätzt wird. Mit zunehmender Zahl der Freiheitsgrade nähert sich die t-Verteilung der Standardnormalverteilung an. Bei bekanntem \\(\\sigma\\) nimmst du direkt die Standardnormalverteilung.",
+   "belege": [
+    "normalverteilung-14",
+    "normalverteilung-8"
+   ]
+  },
+  {
+   "frage": "Was passiert mit der Normalverteilung, wenn ich X linear umrechne oder Größen addiere?",
+   "varianten": [
+    "a + bX normalverteilt",
+    "Summe normalverteilter Zufallsvariablen",
+    "Mittelwert Normalverteilung Varianz sigma^2/n"
+   ],
+   "antwort": "Eine lineare Transformation \\(a + bX\\) (mit \\(b \\ne 0\\)) einer normalverteilten Größe ist wieder normalverteilt, mit Erwartungswert \\(a + b\\mu\\) und Varianz \\(b^2\\sigma^2\\). Auch die Summe unabhängiger normalverteilter Zufallsvariablen ist normalverteilt. Daraus folgt: Das Mittel von n unabhängigen \\(N(\\mu, \\sigma^2)\\)-Werten ist exakt normalverteilt mit Varianz \\(\\sigma^2/n\\). Bei \\(\\sigma = 15\\) und \\(n = 25\\) hat das Mittel also die Standardabweichung \\(15/\\sqrt{25} = 3\\).",
+   "belege": [
+    "normalverteilung-19",
+    "normalverteilung-10"
+   ]
+  },
+  {
+   "frage": "Welche z-Werte muss ich für die Klausur kennen?",
+   "varianten": [
+    "wichtige Quantile Standardnormalverteilung",
+    "1,645 1,96 2,576",
+    "kritische Werte z"
+   ],
+   "antwort": "Die wichtigsten Quantile der Standardnormalverteilung sind \\(z_{0{,}95} \\approx 1{,}645\\) (einseitig 95 %), \\(z_{0{,}975} \\approx 1{,}960\\) (zweiseitig 95 %) und \\(z_{0{,}995} \\approx 2{,}576\\) (zweiseitig 99 %). Mit \\(x_p = \\mu + z_p \\cdot \\sigma\\) überträgst du sie auf jede Normalverteilung. Die Sigma-Regel mit \\(\\pm 2\\sigma\\) entspricht 95,45 %, nicht genau 95 %.",
+   "belege": [
+    "normalverteilung-7",
+    "normalverteilung-18",
+    "normalverteilung-4"
+   ]
   }
  ]
 }

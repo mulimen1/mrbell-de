@@ -98,6 +98,232 @@
     "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155",
     "typ": "lexikon"
    }
+  },
+  {
+   "id": "erwartungswert-8",
+   "art": "definition",
+   "aussage": "Eine Zufallsvariable nimmt ihre Werte (Realisationen) mit bestimmten Wahrscheinlichkeiten an; sie entsteht z. B., indem jedem Ergebnis eines Zufallsvorgangs eine reelle Zahl zugeordnet wird. Diskrete Zufallsvariablen haben höchstens abzählbar viele Werte (Wahrscheinlichkeitsfunktion), stetige überabzählbar viele (Dichtefunktion).",
+   "schlagworte": [
+    "Zufallsvariable",
+    "diskret",
+    "stetig"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zufallsvariable",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zufallsvariable-51013",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-9",
+   "art": "formel",
+   "aussage": "Die Varianz ist über den Erwartungswert definiert: `Var(X) = E\\big((X - E(X))^2\\big) = E(X^2) - (E(X))^2`.",
+   "schlagworte": [
+    "Varianz",
+    "Verschiebungssatz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Varianz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/varianz-49184",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-10",
+   "art": "definition",
+   "aussage": "Der Erwartungswert ist das gewöhnliche Moment erster Ordnung; das k-te gewöhnliche Moment einer diskreten Zufallsvariablen ist `E(X^k) = \\sum_i x_i^k f(x_i)`.",
+   "schlagworte": [
+    "Moment",
+    "erstes Moment"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Moment",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/moment-37525",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-11",
+   "art": "abgrenzung",
+   "aussage": "Eine Schätzfunktion ist erwartungstreu, wenn ihr Erwartungswert für jeden Parameterwert gleich dem zu schätzenden Parameter ist; das arithmetische Mittel einer Stichprobe aus Zufallsvariablen mit Erwartungswert `\\mu` ist stets erwartungstreu für `\\mu`.",
+   "schlagworte": [
+    "Erwartungstreue",
+    "Schätzfunktion",
+    "arithmetisches Mittel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungstreue",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungstreue-32015",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-12",
+   "art": "abgrenzung",
+   "aussage": "Gesetz der großen Zahlen: Unter bestimmten Voraussetzungen (z. B. unabhängige, identisch verteilte Zufallsvariablen) konvergiert das Stichprobenmittel mit wachsendem Stichprobenumfang gegen den Erwartungswert; das begründet die Schätzung des Erwartungswerts durch das Stichprobenmittel.",
+   "schlagworte": [
+    "Gesetz der großen Zahlen",
+    "Stichprobenmittel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Gesetz der großen Zahlen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/gesetz-der-grossen-zahlen-52147",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-13",
+   "art": "formel",
+   "aussage": "Binomialverteilung mit Parametern n und p: `E(X) = n\\,p`.",
+   "schlagworte": [
+    "Binomialverteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Binomialverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/binomialverteilung-28325",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-14",
+   "art": "formel",
+   "aussage": "Poissonverteilung: Der Parameter `\\lambda > 0` ist zugleich Erwartungswert und Varianz.",
+   "schlagworte": [
+    "Poissonverteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Poissonverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/poissonverteilung-42305",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-15",
+   "art": "formel",
+   "aussage": "Hypergeometrische Verteilung (Ziehen ohne Zurücklegen, n Ziehungen, M Elemente der ersten Sorte unter N): `E(X) = n \\cdot \\frac{M}{N}`.",
+   "schlagworte": [
+    "hypergeometrische Verteilung",
+    "ohne Zurücklegen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: hypergeometrische Verteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/hypergeometrische-verteilung-33402",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-16",
+   "art": "abgrenzung",
+   "aussage": "Bei der Normalverteilung ist der Parameter `\\mu` der Erwartungswert; er fällt mit Modus und Median zusammen, weil die Dichte symmetrisch zu `x = \\mu` ist.",
+   "schlagworte": [
+    "Normalverteilung",
+    "Median",
+    "Modus"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalverteilung-39769",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-17",
+   "art": "abgrenzung",
+   "aussage": "Bei asymmetrischen Verteilungen fallen Erwartungswert und Median auseinander: Bei linkssteilen (rechtsschiefen) Verteilungen ist der Median kleiner als der Erwartungswert, bei rechtssteilen (linksschiefen) ist es umgekehrt.",
+   "schlagworte": [
+    "Schiefe",
+    "Median",
+    "linkssteil"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Schiefe",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/schiefe-45767",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-18",
+   "art": "methode",
+   "aussage": "Bernoulli-Prinzip (Erwartungsnutzentheorie): Bei Risiko wird die Alternative mit dem höchsten Erwartungswert des Nutzens gewählt; je nach Form der Nutzenfunktion bildet es risikoneutrales (linear), risikoaverses (streng konkav) oder risikofreudiges (streng konvex) Verhalten ab.",
+   "schlagworte": [
+    "Bernoulli-Prinzip",
+    "Erwartungsnutzen",
+    "Risikoeinstellung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bernoulli-Prinzip",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bernoulli-prinzip-30730",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-19",
+   "art": "abgrenzung",
+   "aussage": "Im `\\mu`-`\\sigma`-Prinzip werden Alternativen nach Erwartungswert `\\mu` und Standardabweichung `\\sigma` des Ergebnisses beurteilt; nur risikoneutrale Entscheider berücksichtigen allein `\\mu`.",
+   "schlagworte": [
+    "Mu-Sigma-Prinzip",
+    "Risiko",
+    "Entscheidung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungswert-Varianz-Prinzip",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-varianz-prinzip-53962",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-20",
+   "art": "formel",
+   "aussage": "Für stochastisch unabhängige Zufallsvariablen gilt `E(X \\cdot Y) = E(X) \\cdot E(Y)`; ohne Unabhängigkeit gilt allgemein `E(XY) = E(X)E(Y) + Cov(X, Y)`.",
+   "schlagworte": [
+    "Produkt",
+    "Unabhängigkeit",
+    "Kovarianz"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "erwartungswert-21",
+   "art": "zahl",
+   "aussage": "Beispiel fairer Würfel (nachgerechnet): `E(X) = \\frac{1+2+3+4+5+6}{6} = 3{,}5` und `Var(X) = \\frac{35}{12} \\approx 2{,}92`; der Erwartungswert muss also kein möglicher Ausprägungswert sein.",
+   "schlagworte": [
+    "Würfel",
+    "Beispiel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "erwartungswert-22",
+   "art": "definition",
+   "aussage": "Risiko im entscheidungstheoretischen Sinn liegt vor, wenn der Entscheider für die möglichen Ergebnisse bzw. Umweltzustände Eintrittswahrscheinlichkeiten angeben kann; bei Ungewissheit (Unsicherheit i. e. S.) sind keine Wahrscheinlichkeiten verfügbar.",
+   "schlagworte": [
+    "Risiko",
+    "Ungewissheit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Risiko",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/risiko-44896",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-23",
+   "art": "formel",
+   "aussage": "Erwartungswert einer Funktion g(X) einer diskreten Zufallsvariablen: `E(g(X)) = \\sum_i g(x_i) \\cdot f(x_i)`; im Allgemeinen gilt `E(g(X)) \\neq g(E(X))`, z. B. `E(X^2) \\ge (E(X))^2`.",
+   "schlagworte": [
+    "Funktion",
+    "Transformation"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -110,6 +336,181 @@
    "falsch": "Der Erwartungswert ist immer ein möglicher Ausgang des Zufallsexperiments.",
    "richtig": "Er muss kein möglicher Wert sein (z. B. 3,5 beim Würfel).",
    "quelle_id": "erwartungswert-2"
+  },
+  {
+   "falsch": "Der Erwartungswert ist der Wert, der am wahrscheinlichsten eintritt.",
+   "richtig": "Der Erwartungswert ist ein wahrscheinlichkeitsgewichteter Durchschnitt; er muss nicht einmal ein möglicher Wert sein (Würfel: 3,5). Der wahrscheinlichste Wert ist der Modus.",
+   "quelle_id": "erwartungswert-21"
+  },
+  {
+   "falsch": "E(X·Y) = E(X)·E(Y) gilt immer.",
+   "richtig": "Das gilt nur bei Unabhängigkeit (bzw. Unkorreliertheit); allgemein kommt Cov(X,Y) hinzu. Additiv ist der Erwartungswert dagegen immer: E(X+Y) = E(X)+E(Y).",
+   "quelle_id": "erwartungswert-20"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist der Erwartungswert?",
+   "varianten": [
+    "Erwartungswert Definition",
+    "Erwartungswert einfach erklärt",
+    "Was sagt der Erwartungswert aus"
+   ],
+   "antwort": "Der Erwartungswert ist ein Grundbegriff der Wahrscheinlichkeitsrechnung und ein Lagemaß einer Wahrscheinlichkeitsverteilung. Bei einer diskreten Zufallsvariablen gewichtest du jeden möglichen Wert mit seiner Wahrscheinlichkeit und summierst: \\(E(X) = \\sum_i x_i \\cdot f(x_i)\\). Anschaulich ist er der Durchschnitt, der sich bei sehr vielen Wiederholungen des Zufallsvorgangs einstellt (Gesetz der großen Zahlen). Er muss kein möglicher Wert sein: Beim fairen Würfel ist \\(E(X) = 3{,}5\\).",
+   "belege": [
+    "erwartungswert-1",
+    "erwartungswert-2",
+    "erwartungswert-12",
+    "erwartungswert-21"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Erwartungswert einer diskreten Zufallsvariablen?",
+   "varianten": [
+    "Erwartungswert berechnen Formel",
+    "Erwartungswert Tabelle berechnen",
+    "Erwartungswert Beispiel"
+   ],
+   "antwort": "Du multiplizierst jede Ausprägung \\(x_i\\) mit ihrer Wahrscheinlichkeit \\(f(x_i)\\) und addierst alles: \\(E(X) = \\sum_i x_i \\cdot f(x_i)\\). Beispiel: Ein Projekt bringt mit Wahrscheinlichkeit 0,6 einen Gewinn von 100 € und mit 0,4 einen Verlust von 50 €. Dann ist \\(E(X) = 0{,}6 \\cdot 100 + 0{,}4 \\cdot (-50) = 40\\) €. Prüfe vorher, ob sich die Wahrscheinlichkeiten zu 1 addieren.",
+   "belege": [
+    "erwartungswert-2"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Erwartungswert einer stetigen Zufallsvariablen?",
+   "varianten": [
+    "Erwartungswert Dichte Integral",
+    "Erwartungswert stetig Formel",
+    "Erwartungswert Dichtefunktion berechnen"
+   ],
+   "antwort": "Bei einer stetigen Zufallsvariablen mit Dichtefunktion \\(f\\) ersetzt das Integral die Summe: \\(E(X) = \\int_{-\\infty}^{\\infty} x \\cdot f(x)\\, dx\\), sofern das Integral wohldefiniert ist. Du multiplizierst also jeden Wert mit seiner Dichte und integrierst über den ganzen Wertebereich. Außerhalb des Bereichs, in dem die Dichte positiv ist, trägt das Integral nichts bei. Bei der Normalverteilung musst du nicht integrieren: Dort ist der Parameter \\(\\mu\\) direkt der Erwartungswert.",
+   "belege": [
+    "erwartungswert-3",
+    "erwartungswert-16"
+   ]
+  },
+  {
+   "frage": "Welche Rechenregeln gelten für den Erwartungswert?",
+   "varianten": [
+    "Erwartungswert Rechenregeln",
+    "E(aX+b)",
+    "Linearität Erwartungswert"
+   ],
+   "antwort": "Der Erwartungswert ist linear: \\(E(a + bX) = a + b\\,E(X)\\) für Konstanten a und b. Er ist additiv: \\(E(X + Y) = E(X) + E(Y)\\) gilt für beliebige Zufallsvariablen, auch abhängige. Er ist monoton: Aus \\(X \\le Y\\) folgt \\(E(X) \\le E(Y)\\). Für Produkte gilt \\(E(XY) = E(X)\\,E(Y)\\) nur bei Unabhängigkeit; allgemein kommt die Kovarianz hinzu. Beispiel: Beim Würfel ist \\(E(2X + 1) = 2 \\cdot 3{,}5 + 1 = 8\\).",
+   "belege": [
+    "erwartungswert-5",
+    "erwartungswert-6",
+    "erwartungswert-7",
+    "erwartungswert-20",
+    "erwartungswert-21"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Erwartungswert und arithmetischem Mittel?",
+   "varianten": [
+    "Erwartungswert vs Mittelwert",
+    "Erwartungswert Durchschnitt Unterschied",
+    "Stichprobenmittel Erwartungswert"
+   ],
+   "antwort": "Der Erwartungswert ist eine Kenngröße einer Wahrscheinlichkeitsverteilung, das arithmetische Mittel eine Kenngröße beobachteter Daten. Bei Gleichverteilung auf endlich vielen Ausprägungen stimmen beide überein. In der Statistik schätzt du den unbekannten Erwartungswert \\(\\mu\\) mit dem Stichprobenmittel: Es ist erwartungstreu, und nach dem Gesetz der großen Zahlen nähert es sich mit wachsendem Stichprobenumfang dem Erwartungswert an.",
+   "belege": [
+    "erwartungswert-4",
+    "erwartungswert-11",
+    "erwartungswert-12"
+   ]
+  },
+  {
+   "frage": "Wie hängen Erwartungswert und Varianz zusammen?",
+   "varianten": [
+    "Varianz mit Erwartungswert berechnen",
+    "E(X^2) - E(X)^2",
+    "Varianz Würfel berechnen"
+   ],
+   "antwort": "Die Varianz ist der Erwartungswert der quadrierten Abweichung vom Erwartungswert: \\(Var(X) = E\\big((X - E(X))^2\\big) = E(X^2) - (E(X))^2\\). Der Erwartungswert beschreibt also die Lage, die Varianz die Streuung um diese Lage. Beim fairen Würfel ist \\(E(X) = 3{,}5\\) und \\(E(X^2) = 91/6\\), also \\(Var(X) = 91/6 - 3{,}5^2 = 35/12 \\approx 2{,}92\\). Merke: \\(E(X^2)\\) ist im Allgemeinen nicht gleich \\((E(X))^2\\).",
+   "belege": [
+    "erwartungswert-9",
+    "erwartungswert-21",
+    "erwartungswert-23"
+   ]
+  },
+  {
+   "frage": "Was ist der Erwartungswert der Binomialverteilung?",
+   "varianten": [
+    "Erwartungswert n mal p",
+    "Erwartungswert Binomialverteilung Beispiel",
+    "Erwartungswert Poisson hypergeometrisch"
+   ],
+   "antwort": "Bei einer Binomialverteilung mit n Versuchen und Erfolgswahrscheinlichkeit p gilt \\(E(X) = n\\,p\\). Beispiel: 50 Teile mit Ausschusswahrscheinlichkeit 0,04 ergeben im Erwartungswert \\(50 \\cdot 0{,}04 = 2\\) defekte Teile. Bei der hypergeometrischen Verteilung (Ziehen ohne Zurücklegen) ist der Erwartungswert analog \\(n \\cdot M/N\\). Bei der Poissonverteilung ist der Parameter \\(\\lambda\\) selbst der Erwartungswert.",
+   "belege": [
+    "erwartungswert-13",
+    "erwartungswert-14",
+    "erwartungswert-15"
+   ]
+  },
+  {
+   "frage": "Warum ist der Erwartungswert beim Würfel 3,5, obwohl man nie 3,5 würfeln kann?",
+   "varianten": [
+    "Erwartungswert kein möglicher Wert",
+    "Erwartungswert Würfel",
+    "Erwartungswert wahrscheinlichster Wert"
+   ],
+   "antwort": "Der Erwartungswert ist ein mit den Wahrscheinlichkeiten gewichteter Durchschnitt, kein Wert, der tatsächlich eintreten muss. Beim fairen Würfel ist \\(E(X) = (1 + 2 + 3 + 4 + 5 + 6)/6 = 3{,}5\\). Würfelst du sehr oft, nähert sich der Durchschnitt deiner Würfe diesem Wert (Gesetz der großen Zahlen). Verwechsle ihn deshalb nicht mit dem wahrscheinlichsten Wert.",
+   "belege": [
+    "erwartungswert-21",
+    "erwartungswert-12",
+    "erwartungswert-2"
+   ]
+  },
+  {
+   "frage": "Was ist das Bernoulli-Prinzip?",
+   "varianten": [
+    "Erwartungsnutzen",
+    "Erwartungsnutzentheorie",
+    "Bernoulli-Prinzip Entscheidung bei Risiko"
+   ],
+   "antwort": "Das Bernoulli-Prinzip ist eine Entscheidungsregel bei Risiko: Du wählst die Alternative mit dem höchsten Erwartungswert des Nutzens, nicht des Ergebnisses. Dazu wird zuerst die Nutzenfunktion des Entscheiders bestimmt. Ihre Form bildet die Risikoeinstellung ab: linear bedeutet risikoneutral, streng konkav risikoavers, streng konvex risikofreudig.",
+   "belege": [
+    "erwartungswert-18"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Erwartungswertprinzip und μ-σ-Prinzip?",
+   "varianten": [
+    "mu sigma Prinzip",
+    "Erwartungswert Varianz Prinzip",
+    "Entscheidung nach Erwartungswert Risiko"
+   ],
+   "antwort": "Nach dem reinen Erwartungswert beurteilst du Alternativen nur nach \\(\\mu\\); so entscheidet ein risikoneutraler Entscheider. Das \\(\\mu\\)-\\(\\sigma\\)-Prinzip bezieht zusätzlich die Standardabweichung \\(\\sigma\\) als Risikomaß ein. Ein risikoaverser Entscheider bewertet ein höheres \\(\\sigma\\) negativ, ein risikofreudiger positiv. Voraussetzung für beides ist eine Risikosituation, in der sich Eintrittswahrscheinlichkeiten angeben lassen.",
+   "belege": [
+    "erwartungswert-19",
+    "erwartungswert-22"
+   ]
+  },
+  {
+   "frage": "Ist der Erwartungswert dasselbe wie der Median?",
+   "varianten": [
+    "Erwartungswert Median Unterschied",
+    "schiefe Verteilung Erwartungswert",
+    "Median größer Erwartungswert"
+   ],
+   "antwort": "Nur bei symmetrischen Verteilungen wie der Normalverteilung fallen Erwartungswert, Median und Modus zusammen. Bei schiefen Verteilungen weichen sie voneinander ab. Bei einer linkssteilen (rechtsschiefen) Verteilung ist der Median kleiner als der Erwartungswert, bei einer rechtssteilen (linksschiefen) größer.",
+   "belege": [
+    "erwartungswert-16",
+    "erwartungswert-17"
+   ]
+  },
+  {
+   "frage": "Gilt E(X·Y) = E(X)·E(Y)?",
+   "varianten": [
+    "Erwartungswert Produkt",
+    "Erwartungswert unabhängige Zufallsvariablen",
+    "E(XY) Kovarianz"
+   ],
+   "antwort": "Nur wenn X und Y stochastisch unabhängig sind (bzw. unkorreliert). Allgemein gilt \\(E(XY) = E(X)\\,E(Y) + Cov(X, Y)\\). Das ist ein häufiger Klausurfehler, weil die Summenregel \\(E(X + Y) = E(X) + E(Y)\\) immer gilt, auch bei Abhängigkeit. Prüfe also zuerst, ob Unabhängigkeit vorausgesetzt ist, bevor du Erwartungswerte multiplizierst.",
+   "belege": [
+    "erwartungswert-20",
+    "erwartungswert-6"
+   ]
   }
  ]
 }

@@ -96,6 +96,215 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "lagrange-8",
+   "art": "methode",
+   "aussage": "Extremwertbestimmung ohne Nebenbedingung (eine Variable): f' bilden, Nullstellen von f' bestimmen und in f'' einsetzen; f''(x_0) > 0 bedeutet Minimum, f''(x_0) < 0 Maximum, bei f''(x_0) = 0 sind höhere Ableitungen zu prüfen.",
+   "schlagworte": [
+    "Extremwert",
+    "notwendige Bedingung",
+    "hinreichende Bedingung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Extremwertbestimmung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/extremwertbestimmung-33875",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagrange-9",
+   "art": "definition",
+   "aussage": "Ein absolutes Maximum/Minimum ist die Stelle mit dem größten/kleinsten Funktionswert im ganzen Definitionsbereich, ein relatives (lokales) Extremum nur in seiner Umgebung; absolute Extrema können zugleich relative sein.",
+   "schlagworte": [
+    "absolutes Extremum",
+    "lokales Extremum"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Extremwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/extremwert-36386",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagrange-10",
+   "art": "abgrenzung",
+   "aussage": "Haushaltsoptimum bei zwei Gütern: Die Grenzrate der Substitution ist gleich dem Güterpreisverhältnis und gleich dem Verhältnis der ersten partiellen Ableitungen der Nutzenfunktion; grafisch ist das der Tangentialpunkt von Budgetgerade und höchster erreichbarer Indifferenzkurve.",
+   "schlagworte": [
+    "Haushaltsoptimum",
+    "Grenzrate der Substitution",
+    "Tangentialpunkt"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Haushaltsoptimum",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/haushaltsoptimum-33818",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagrange-11",
+   "art": "definition",
+   "aussage": "Die Grenzrate der Substitution ist modelltheoretisch das Steigungsmaß einer Indifferenzkurve: Sie gibt an, auf wie viele Einheiten eines Gutes der Haushalt für eine zusätzliche Einheit des anderen bei gleichem Nutzen zu verzichten bereit ist.",
+   "schlagworte": [
+    "Grenzrate der Substitution",
+    "Indifferenzkurve"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Grenzrate der Substitution",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/grenzrate-der-substitution-36661",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagrange-12",
+   "art": "formel",
+   "aussage": "Aus den Bedingungen erster Ordnung für f(x, y) unter g(x, y) = c folgt durch Eliminieren von `\\lambda`: `\\frac{\\partial f/\\partial x}{\\partial f/\\partial y} = \\frac{\\partial g/\\partial x}{\\partial g/\\partial y}` – im Optimum sind die Höhenlinie der Zielfunktion und die Nebenbedingung tangential.",
+   "schlagworte": [
+    "Optimalbedingung",
+    "Tangentialbedingung",
+    "Lambda eliminieren"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "lagrange-13",
+   "art": "formel",
+   "aussage": "Haushaltsproblem `\\max U(x, y)` u. d. N. `p_x x + p_y y = M`: Die Bedingungen erster Ordnung ergeben `\\frac{\\partial U/\\partial x}{p_x} = \\frac{\\partial U/\\partial y}{p_y} = \\lambda`; der Grenznutzen je Geldeinheit ist bei beiden Gütern gleich (2. Gossensches Gesetz), `\\lambda` ist der Grenznutzen des Einkommens.",
+   "schlagworte": [
+    "Haushalt",
+    "Gossen",
+    "Grenznutzen des Geldes"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "lagrange-14",
+   "art": "methode",
+   "aussage": "Bei mehreren Gleichungsnebenbedingungen `g_j(x) = c_j` erhält jede Nebenbedingung einen eigenen Multiplikator: `L = f(x) + \\sum_j \\lambda_j\\,(c_j - g_j(x))`; abgeleitet wird nach allen Variablen und allen `\\lambda_j`.",
+   "schlagworte": [
+    "mehrere Nebenbedingungen",
+    "Multiplikatoren"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "lagrange-15",
+   "art": "formel",
+   "aussage": "Hinreichende Bedingung (zwei Variablen, eine Nebenbedingung): Für die geränderte Hesse-Matrix `\\bar{H} = \\begin{pmatrix} 0 & g_x & g_y \\\\ g_x & L_{xx} & L_{xy} \\\\ g_y & L_{yx} & L_{yy} \\end{pmatrix}` im stationären Punkt gilt: `\\det \\bar{H} > 0` lokales Maximum, `\\det \\bar{H} < 0` lokales Minimum.",
+   "schlagworte": [
+    "geränderte Hesse-Matrix",
+    "zweite Ordnung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "lagrange-16",
+   "art": "zahl",
+   "aussage": "Rechenbeispiel (nachgerechnet): `\\max U = x\\,y` u. d. N. `2x + 4y = 80`; aus `y - 2\\lambda = 0`, `x - 4\\lambda = 0` und der Nebenbedingung folgen x = 20, y = 10, `\\lambda = 5`, U = 200; `\\det \\bar{H} = 16 > 0`, also Maximum.",
+   "schlagworte": [
+    "Beispiel",
+    "Nutzenmaximierung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "lagrange-17",
+   "art": "zahl",
+   "aussage": "Interpretation von `\\lambda` am Beispiel (nachgerechnet): Bei Budget M ist der Maximalnutzen `U^*(M) = M^2/32`, also `dU^*/dM = M/16 = 5 = \\lambda` bei M = 80; mit M = 81 steigt der Nutzen auf ≈ 205,03, also um ≈ 5.",
+   "schlagworte": [
+    "Schattenpreis",
+    "Lambda Interpretation",
+    "Beispiel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "lagrange-18",
+   "art": "formel",
+   "aussage": "Cobb-Douglas-Nutzen `U = x^a y^{1-a}` (0 < a < 1) mit Budget `p_x x + p_y y = M`: Das Optimum ist `x^* = \\frac{a M}{p_x}`, `y^* = \\frac{(1-a) M}{p_y}`; der Haushalt gibt den Anteil a seines Budgets für Gut x aus.",
+   "schlagworte": [
+    "Cobb-Douglas",
+    "Nachfragefunktion",
+    "Budgetanteil"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "lagrange-19",
+   "art": "methode",
+   "aussage": "Minimalkostenkombination: `\\min K = r_1 x_1 + r_2 x_2` u. d. N. `f(x_1, x_2) = \\bar{x}`; im Optimum ist die Grenzrate der technischen Substitution gleich dem Faktorpreisverhältnis `\\frac{\\partial f/\\partial x_1}{\\partial f/\\partial x_2} = \\frac{r_1}{r_2}`. Beispiel (nachgerechnet): `\\min 4x + y` u. d. N. `xy = 100` ergibt y/x = 4, also x = 5, y = 20 und K = 40.",
+   "schlagworte": [
+    "Kostenminimierung",
+    "Minimalkostenkombination",
+    "Faktorpreisverhältnis"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "lagrange-20",
+   "art": "abgrenzung",
+   "aussage": "Bei Ungleichungsnebenbedingungen (z. B. `g(x) \\le c`, Nichtnegativität) reicht die klassische Lagrange-Methode nicht; dann gelten die Kuhn-Tucker-Bedingungen, u. a. `\\lambda \\ge 0` und `\\lambda\\,(c - g(x)) = 0` (komplementärer Schlupf).",
+   "schlagworte": [
+    "Kuhn-Tucker",
+    "Ungleichung",
+    "Schlupf"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "lagrange-21",
+   "art": "abgrenzung",
+   "aussage": "Der Lagrange-Multiplier-Test (LM-Test) der Ökonometrie ist ein asymptotischer Test, dessen Statistik unter H_0 Chi-Quadrat-verteilt ist (Freiheitsgrade = Zahl der Restriktionen) und der nur das restringierte Modell schätzt; er beruht auf dem Lagrange-Prinzip, ist aber kein Optimierungsverfahren. Beispiele sind der Breusch-Godfrey-Autokorrelationstest, der Breusch-Pagan- und der White-Heteroskedastizitätstest.",
+   "schlagworte": [
+    "LM-Test",
+    "Ökonometrie",
+    "Abgrenzung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lagrange-Multiplier-Test",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lagrange-multiplier-test-52082",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagrange-22",
+   "art": "zahl",
+   "aussage": "Beispiel Minimierung (nachgerechnet): `\\min x^2 + y^2` u. d. N. `x + y = 10` ergibt x = y = 5, `\\lambda = 10` und den Minimalwert 50; `\\det \\bar{H} = -4 < 0`, also Minimum.",
+   "schlagworte": [
+    "Minimierung",
+    "Beispiel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -108,6 +317,184 @@
    "falsch": "Setzt man die Ableitungen null, ist das Ergebnis automatisch ein Maximum.",
    "richtig": "Die Bedingungen erster Ordnung liefern nur Kandidaten; Art des Extremums erfordert weitere Prüfung.",
    "quelle_id": "lagrange-6"
+  },
+  {
+   "falsch": "Bei der Lagrange-Funktion leitet man nur nach x und y ab.",
+   "richtig": "Es wird auch nach λ abgeleitet; ∂L/∂λ = 0 liefert die Nebenbedingung selbst. Ohne sie ist das Gleichungssystem nicht vollständig.",
+   "quelle_id": "lagrange-4"
+  },
+  {
+   "falsch": "λ hat keine ökonomische Bedeutung, es ist nur eine Hilfsvariable.",
+   "richtig": "λ misst (bei L = f + λ(c − g)), wie stark der optimale Zielwert steigt, wenn die Nebenbedingung um eine Einheit gelockert wird – im Haushaltsmodell den Grenznutzen des Einkommens.",
+   "quelle_id": "lagrange-17"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Wofür brauche ich die Lagrange-Methode?",
+   "varianten": [
+    "Lagrange Methode einfach erklärt",
+    "Optimierung unter Nebenbedingungen",
+    "Lagrange Wirtschaft Anwendung"
+   ],
+   "antwort": "Mit der Lagrange-Methode optimierst du eine Zielfunktion unter einer oder mehreren Gleichungsnebenbedingungen. Typische Anwendungen sind die Nutzenmaximierung eines Haushalts bei gegebenem Budget oder die Kostenminimierung bei vorgegebener Produktionsmenge. Statt die Nebenbedingung nach einer Variablen aufzulösen und einzusetzen (Substitutionsmethode), baust du sie mit einem Multiplikator \\(\\lambda\\) in die Lagrange-Funktion ein. Beide Wege führen zum selben Optimum.",
+   "belege": [
+    "lagrange-1",
+    "lagrange-7",
+    "lagrange-19"
+   ]
+  },
+  {
+   "frage": "Wie gehe ich bei der Lagrange-Methode Schritt für Schritt vor?",
+   "varianten": [
+    "Lagrange Vorgehen",
+    "Lagrange Funktion aufstellen",
+    "Lagrange Schema Klausur"
+   ],
+   "antwort": "Zuerst bildest du die Lagrange-Funktion \\(L(x, y, \\lambda) = f(x, y) + \\lambda\\,(c - g(x, y))\\). Dann setzt du alle partiellen Ableitungen \\(\\partial L/\\partial x\\), \\(\\partial L/\\partial y\\) und \\(\\partial L/\\partial \\lambda\\) gleich null. Die Ableitung nach \\(\\lambda\\) liefert die Nebenbedingung selbst. Danach löst du das Gleichungssystem, meist indem du die ersten beiden Bedingungen durcheinander teilst und so \\(\\lambda\\) eliminierst. Zum Schluss prüfst du, ob ein Maximum oder Minimum vorliegt.",
+   "belege": [
+    "lagrange-4",
+    "lagrange-12",
+    "lagrange-6"
+   ]
+  },
+  {
+   "frage": "Wie löse ich max U = x·y unter 2x + 4y = 80?",
+   "varianten": [
+    "Lagrange Beispiel Nutzenmaximierung",
+    "Lagrange Aufgabe mit Lösung",
+    "Haushaltsoptimum berechnen Lagrange"
+   ],
+   "antwort": "Die Lagrange-Funktion ist \\(L = xy + \\lambda\\,(80 - 2x - 4y)\\). Die Bedingungen erster Ordnung lauten \\(y - 2\\lambda = 0\\), \\(x - 4\\lambda = 0\\) und \\(2x + 4y = 80\\). Aus den ersten beiden folgt \\(x = 2y\\); eingesetzt ergibt sich \\(8y = 80\\), also y = 10, x = 20 und \\(\\lambda = 5\\). Der maximale Nutzen ist U = 200. Die geränderte Hesse-Matrix hat die Determinante 16 > 0, es liegt also ein Maximum vor.",
+   "belege": [
+    "lagrange-4",
+    "lagrange-16",
+    "lagrange-15"
+   ]
+  },
+  {
+   "frage": "Was bedeutet der Lagrange-Multiplikator λ?",
+   "varianten": [
+    "Lambda Interpretation",
+    "Schattenpreis Lagrange",
+    "Lagrange Multiplikator ökonomisch"
+   ],
+   "antwort": "Bei der Konvention \\(L = f + \\lambda\\,(c - g)\\) gibt \\(\\lambda\\) an, um wie viel sich der optimale Zielwert ungefähr ändert, wenn die Nebenbedingung c um eine Einheit gelockert wird (Schattenpreis). Im Haushaltsmodell ist \\(\\lambda\\) der Grenznutzen des Einkommens. Beispiel: Bei \\(\\max xy\\) unter \\(2x + 4y = M\\) ist \\(U^* = M^2/32\\); bei M = 80 ist \\(\\lambda = 5\\), und mit M = 81 steigt der Maximalnutzen von 200 auf etwa 205,03. Das Vorzeichen von \\(\\lambda\\) hängt von der gewählten Schreibweise der Lagrange-Funktion ab.",
+   "belege": [
+    "lagrange-5",
+    "lagrange-13",
+    "lagrange-17",
+    "lagrange-2"
+   ]
+  },
+  {
+   "frage": "Woher weiß ich, ob ein Maximum oder Minimum vorliegt?",
+   "varianten": [
+    "geränderte Hesse-Matrix",
+    "hinreichende Bedingung Lagrange",
+    "Lagrange Maximum oder Minimum prüfen"
+   ],
+   "antwort": "Die Bedingungen erster Ordnung sind nur notwendig; sie liefern Kandidaten. Bei zwei Variablen und einer Nebenbedingung prüfst du die geränderte Hesse-Matrix im stationären Punkt: \\(\\det \\bar{H} > 0\\) bedeutet lokales Maximum, \\(\\det \\bar{H} < 0\\) lokales Minimum. Beispiel: Bei \\(\\max xy\\) unter \\(2x + 4y = 80\\) ist \\(\\det \\bar{H} = 16\\), also Maximum; bei \\(\\min x^2 + y^2\\) unter \\(x + y = 10\\) ist \\(\\det \\bar{H} = -4\\), also Minimum. Randlösungen musst du gesondert prüfen.",
+   "belege": [
+    "lagrange-6",
+    "lagrange-15",
+    "lagrange-16",
+    "lagrange-22"
+   ]
+  },
+  {
+   "frage": "Was ist das Haushaltsoptimum und wie hängt es mit Lagrange zusammen?",
+   "varianten": [
+    "Haushaltsoptimum Bedingung",
+    "Grenzrate der Substitution gleich Preisverhältnis",
+    "Tangentialbedingung Budgetgerade"
+   ],
+   "antwort": "Im Haushaltsoptimum berührt die Budgetgerade die höchste erreichbare Indifferenzkurve. Dort ist die Grenzrate der Substitution gleich dem Preisverhältnis und gleich dem Verhältnis der Grenznutzen: \\(\\frac{\\partial U/\\partial x}{\\partial U/\\partial y} = \\frac{p_x}{p_y}\\). Genau diese Bedingung erhältst du, wenn du in den Lagrange-Bedingungen erster Ordnung \\(\\lambda\\) eliminierst. Gleichwertig gilt \\(\\frac{\\partial U/\\partial x}{p_x} = \\frac{\\partial U/\\partial y}{p_y} = \\lambda\\): Der Grenznutzen je Euro ist bei beiden Gütern gleich.",
+   "belege": [
+    "lagrange-10",
+    "lagrange-11",
+    "lagrange-12",
+    "lagrange-13"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Nachfrage bei Cobb-Douglas-Nutzen?",
+   "varianten": [
+    "Cobb-Douglas Lagrange",
+    "Nachfragefunktion herleiten",
+    "Cobb-Douglas Haushaltsoptimum"
+   ],
+   "antwort": "Bei \\(U = x^a y^{1-a}\\) mit Budget \\(p_x x + p_y y = M\\) liefert Lagrange \\(x^* = \\frac{aM}{p_x}\\) und \\(y^* = \\frac{(1-a)M}{p_y}\\). Der Haushalt gibt also immer den Anteil a seines Budgets für Gut x aus. Beispiel: a = 0,3, M = 100, \\(p_x = 2\\), \\(p_y = 5\\) ergibt \\(x^* = 30/2 = 15\\) und \\(y^* = 70/5 = 14\\).",
+   "belege": [
+    "lagrange-18"
+   ]
+  },
+  {
+   "frage": "Wann nehme ich Lagrange und wann die Substitutionsmethode?",
+   "varianten": [
+    "Substitutionsmethode vs Lagrange",
+    "Nebenbedingung einsetzen",
+    "Lagrange oder einsetzen"
+   ],
+   "antwort": "Bei einer Gleichungsnebenbedingung führen beide Methoden zum selben Optimum. Die Substitutionsmethode ist bequem, wenn sich die Nebenbedingung leicht nach einer Variablen auflösen lässt; dann hast du nur noch ein Problem ohne Nebenbedingung mit einer Variablen. Lagrange lohnt sich bei komplizierteren oder mehreren Nebenbedingungen, und es liefert mit \\(\\lambda\\) zusätzlich den Schattenpreis. Beispiel: Aus \\(2x + 4y = 80\\) folgt \\(y = 20 - x/2\\); \\(x(20 - x/2)\\) ist bei x = 20 maximal, wie mit Lagrange.",
+   "belege": [
+    "lagrange-7",
+    "lagrange-8",
+    "lagrange-14",
+    "lagrange-5",
+    "lagrange-16"
+   ]
+  },
+  {
+   "frage": "Wie gehe ich bei mehreren Nebenbedingungen vor?",
+   "varianten": [
+    "Lagrange zwei Nebenbedingungen",
+    "mehrere Lagrange-Multiplikatoren",
+    "Lagrange mit mehreren Restriktionen"
+   ],
+   "antwort": "Jede Nebenbedingung bekommt einen eigenen Multiplikator: \\(L = f(x) + \\sum_j \\lambda_j\\,(c_j - g_j(x))\\). Du leitest nach allen Variablen und nach allen \\(\\lambda_j\\) ab und setzt alles gleich null. Die Ableitungen nach den \\(\\lambda_j\\) liefern wieder die Nebenbedingungen. Jedes \\(\\lambda_j\\) misst den Schattenpreis der jeweiligen Nebenbedingung.",
+   "belege": [
+    "lagrange-14",
+    "lagrange-5"
+   ]
+  },
+  {
+   "frage": "Was mache ich bei Ungleichungen als Nebenbedingung?",
+   "varianten": [
+    "Kuhn-Tucker",
+    "Lagrange Ungleichung",
+    "Nebenbedingung kleiner gleich"
+   ],
+   "antwort": "Die klassische Lagrange-Methode setzt Gleichungsnebenbedingungen voraus. Bei Ungleichungen wie \\(g(x) \\le c\\) oder Nichtnegativitätsbedingungen nutzt du die Kuhn-Tucker-Bedingungen. Dazu gehören \\(\\lambda \\ge 0\\) und der komplementäre Schlupf \\(\\lambda\\,(c - g(x)) = 0\\): Entweder die Nebenbedingung bindet, oder ihr Multiplikator ist null. Randlösungen musst du dabei ausdrücklich prüfen.",
+   "belege": [
+    "lagrange-20",
+    "lagrange-6"
+   ]
+  },
+  {
+   "frage": "Wie funktioniert die Kostenminimierung mit Lagrange?",
+   "varianten": [
+    "Minimalkostenkombination Lagrange",
+    "Kosten minimieren unter Produktionsfunktion",
+    "Grenzrate technische Substitution Faktorpreise"
+   ],
+   "antwort": "Du minimierst die Kosten \\(K = r_1 x_1 + r_2 x_2\\) unter der Nebenbedingung, dass eine bestimmte Menge produziert wird: \\(f(x_1, x_2) = \\bar{x}\\). Im Optimum ist die Grenzrate der technischen Substitution gleich dem Faktorpreisverhältnis: \\(\\frac{\\partial f/\\partial x_1}{\\partial f/\\partial x_2} = \\frac{r_1}{r_2}\\). Beispiel: \\(\\min 4x + y\\) unter \\(xy = 100\\) ergibt \\(y/x = 4\\), also x = 5, y = 20 und minimale Kosten von 40.",
+   "belege": [
+    "lagrange-19",
+    "lagrange-12"
+   ]
+  },
+  {
+   "frage": "Was hat der Lagrange-Multiplier-Test mit der Lagrange-Methode zu tun?",
+   "varianten": [
+    "LM-Test",
+    "Lagrange Multiplier Test Ökonometrie",
+    "LM Test Breusch Pagan"
+   ],
+   "antwort": "Der LM-Test ist ein asymptotischer Test der Ökonometrie, der auf dem Lagrange-Prinzip beruht, aber kein Optimierungsverfahren für Klausuraufgaben ist. Er braucht nur die Schätzung des restringierten Modells. Seine Teststatistik ist unter \\(H_0\\) Chi-Quadrat-verteilt mit so vielen Freiheitsgraden wie Restriktionen. Beispiele sind der Breusch-Godfrey-Autokorrelationstest und der White-Heteroskedastizitätstest.",
+   "belege": [
+    "lagrange-21"
+   ]
   }
  ]
 }

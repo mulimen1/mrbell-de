@@ -112,6 +112,236 @@
     "url": "https://wirtschaftslexikon.gabler.de/definition/bestimmtheitsmass-31758",
     "typ": "lexikon"
    }
+  },
+  {
+   "id": "regression-9",
+   "art": "definition",
+   "aussage": "Einfache Regression: Die abhängige (endogene) Variable wird durch nur eine erklärende (exogene) Variable erklärt; bei der multiplen Regression werden mehrere erklärende Variablen herangezogen.",
+   "schlagworte": [
+    "einfache Regression",
+    "multiple Regression"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Regression, einfache",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/regression-einfache-52099",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-10",
+   "art": "definition",
+   "aussage": "Der Störterm (Störgröße) erfasst alle nicht dominierenden Einflüsse, die neben den erklärenden Variablen auf die abhängige Variable wirken; meist wird angenommen, dass die Störterme Erwartungswert null und gleiche Varianzen haben und unkorreliert sind, ggf. auch normalverteilt.",
+   "schlagworte": [
+    "Störterm",
+    "Annahmen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Störterm",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/stoerterm-52111",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-11",
+   "art": "definition",
+   "aussage": "Residuen sind die Abweichungen der Beobachtungen der erklärten Variablen von der geschätzten Regressionsfunktion, `e_i = y_i - \\hat{y}_i`.",
+   "schlagworte": [
+    "Residuen",
+    "Abweichung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Residuen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/residuen-52101",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-12",
+   "art": "abgrenzung",
+   "aussage": "Die Residuen einer OLS-Schätzung (mit Absolutglied) sind im Mittel stets null und nicht mit der erklärenden Variablen X korreliert.",
+   "schlagworte": [
+    "Residuen",
+    "OLS",
+    "Eigenschaften"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kleinstquadratemethode, gewöhnliche",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kleinstquadratemethode-gewoehnliche-36085",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-13",
+   "art": "abgrenzung",
+   "aussage": "Der OLS-Schätzer der Steigung in der Einfachregression ist die Stichprobenkovarianz von X und Y geteilt durch die Stichprobenvarianz von X.",
+   "schlagworte": [
+    "Steigung",
+    "Kovarianz",
+    "OLS"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kleinstquadratemethode, gewöhnliche",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kleinstquadratemethode-gewoehnliche-36085",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-14",
+   "art": "abgrenzung",
+   "aussage": "Sind die klassischen Annahmen erfüllt (bedingter Erwartungswert des Störterms null, Störterm weißes Rauschen), liefert OLS beste lineare unverzerrte Schätzer (BLUE): unter allen linearen unverzerrten Schätzern die mit der kleinsten Varianz.",
+   "schlagworte": [
+    "BLUE",
+    "Gauß-Markov",
+    "Annahmen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: bester linearer unverzerrter Schätzer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bester-linearer-unverzerrter-schaetzer-28888",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-15",
+   "art": "abgrenzung",
+   "aussage": "Heteroskedastizität (ungleiche Varianzen der Störterme) verzerrt die OLS-Schätzer nicht, führt aber zu Effizienzverlust und falsch ermittelten Standardfehlern, sodass Standardtests an Aussagekraft verlieren; Abhilfe bieten z. B. GLS oder White-Standardfehler.",
+   "schlagworte": [
+    "Heteroskedastizität",
+    "Standardfehler"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Heteroskedastizität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/heteroskedastizitaet-32907",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-16",
+   "art": "definition",
+   "aussage": "Homoskedastizität ist die Annahme gleicher Varianzen der Störterme für alle Beobachtungen; sie ist wichtig für die stochastischen Eigenschaften der OLS-Schätzer.",
+   "schlagworte": [
+    "Homoskedastizität",
+    "Annahme"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Homoskedastizität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/homoskedastizitaet-33553",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-17",
+   "art": "methode",
+   "aussage": "Wichtigste Kennzahlen zur Beurteilung einer Regression: Bestimmtheitsmaß (Anteil der erklärten Varianz), t-Werte je erklärender Variable (Signifikanz des Einflusses) und F-Wert (Signifikanz der Regression insgesamt).",
+   "schlagworte": [
+    "Beurteilung",
+    "t-Wert",
+    "F-Test"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Regressionsanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/regressionsanalyse-44865",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-18",
+   "art": "abgrenzung",
+   "aussage": "Hauptprobleme der Regressionsanalyse: Spezifikation von Funktionsform und Variablen, Endogenität der erklärenden Variablen, Multikollinearität (Korrelation der erklärenden Variablen), Autokorrelation, Heteroskedastizität und fehlende Stationarität.",
+   "schlagworte": [
+    "Multikollinearität",
+    "Autokorrelation",
+    "Probleme"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Regressionsanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/regressionsanalyse-44865",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-19",
+   "art": "definition",
+   "aussage": "Scheinregression: Regression zweier oder mehrerer Zeitreihen mit signifikanten Koeffizienten, obwohl die Zeitreihen voneinander unabhängig sind; besonders möglich bei nicht stationären Prozessen.",
+   "schlagworte": [
+    "Scheinregression",
+    "Zeitreihen",
+    "Stationarität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Scheinregression",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/scheinregression-45241",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-20",
+   "art": "formel",
+   "aussage": "Korrigiertes Bestimmtheitsmaß bei n Beobachtungen und k erklärenden Variablen (plus Absolutglied): `\\bar{R}^2 = 1 - (1 - R^2)\\frac{n-1}{n-k-1}`; es kann bei Hinzunahme einer Variablen auch sinken.",
+   "schlagworte": [
+    "korrigiertes R²",
+    "adjustiertes R²",
+    "Freiheitsgrade"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "regression-21",
+   "art": "zahl",
+   "aussage": "Rechenbeispiel (nachgerechnet): Für x = 1, 2, 3, 4, 5 und y = 2, 4, 5, 4, 5 ist `\\bar{x} = 3`, `\\bar{y} = 4`, `s_{xy} = 1{,}2`, `s_x^2 = 2` (jeweils Divisor n), also `b = 0{,}6`, `a = 2{,}2`, `\\hat{y} = 2{,}2 + 0{,}6x`; RSS = 2,4, TSS = 6, `R^2 = 0{,}6`, korrigiertes `R^2 \\approx 0{,}47`; Standardfehler der Steigung ≈ 0,28, also `t \\approx 2{,}12` bei 3 Freiheitsgraden (kritischer Wert zweiseitig 5 % ≈ 3,18).",
+   "schlagworte": [
+    "Beispiel",
+    "Rechnung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "regression-22",
+   "art": "abgrenzung",
+   "aussage": "Ein Bestimmtheitsmaß nahe 1 gilt als gute Anpassung, belegt aber keine brauchbare Spezifikation: Es kann hoch sein, obwohl der Erklärungsgehalt gering ist, z. B. bei unpassendem Modell oder bei Random-Walk-Variablen (Scheinregression); das (korrigierte) R² zu maximieren ist daher keine geeignete Strategie.",
+   "schlagworte": [
+    "Bestimmtheitsmaß",
+    "Modellwahl",
+    "Warnung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestimmtheitsmaß",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestimmtheitsmass-31758",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-23",
+   "art": "abgrenzung",
+   "aussage": "Interpretation der Steigung: b gibt an, um wie viele Einheiten sich der geschätzte Wert `\\hat{y}` ändert, wenn x um eine Einheit steigt; a ist der geschätzte Wert bei x = 0. Prognosen außerhalb des beobachteten x-Bereichs (Extrapolation) sind unsicher, weil der lineare Zusammenhang dort nicht belegt ist.",
+   "schlagworte": [
+    "Interpretation",
+    "Steigung",
+    "Extrapolation"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "regression-24",
+   "art": "methode",
+   "aussage": "t-Test für einen Regressionskoeffizienten: `t = \\hat{\\beta}/\\widehat{se}(\\hat{\\beta})` wird mit dem kritischen Wert der t-Verteilung verglichen; die Zahl der Freiheitsgrade ist n minus Anzahl der geschätzten Parameter (in der Einfachregression mit Absolutglied n − 2). Ist |t| größer als der kritische Wert, wird `H_0: \\beta = 0` abgelehnt.",
+   "schlagworte": [
+    "t-Test",
+    "Signifikanz",
+    "Freiheitsgrade"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -124,6 +354,202 @@
    "falsch": "Lineare Regression bedeutet, dass nur lineare Funktionen der Variablen möglich sind.",
    "richtig": "Maßgeblich ist die Linearität in den Parametern; Variablen dürfen transformiert sein (z. B. x²).",
    "quelle_id": "regression-2"
+  },
+  {
+   "falsch": "Heteroskedastizität macht die OLS-Koeffizienten verzerrt.",
+   "richtig": "Die Schätzer bleiben unverzerrt; falsch werden die Standardfehler, und die Schätzung verliert an Effizienz.",
+   "quelle_id": "regression-15"
+  },
+  {
+   "falsch": "Mit der Regressionsgeraden kann man beliebig weit in die Zukunft prognostizieren.",
+   "richtig": "Außerhalb des beobachteten Bereichs (Extrapolation) ist der lineare Zusammenhang nicht belegt; solche Prognosen sind unsicher.",
+   "quelle_id": "regression-23"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist eine lineare Regression?",
+   "varianten": [
+    "lineare Regression Definition",
+    "Regressionsanalyse einfach erklärt",
+    "was macht eine Regression"
+   ],
+   "antwort": "Die lineare Regression unterstellt einen linearen Zusammenhang zwischen einer abhängigen (endogenen) Variablen und einer oder mehreren erklärenden (exogenen) Variablen: \\(Y_i = \\beta_0 + \\beta_1 X_{1i} + \\dots + \\beta_K X_{Ki} + e_i\\). Der Störterm \\(e_i\\) fasst alle übrigen Einflüsse zusammen. Die Parameter werden aus einer Stichprobe meist mit der Kleinstquadratemethode (OLS) geschätzt. Mit nur einer erklärenden Variablen spricht man von einfacher, mit mehreren von multipler Regression.",
+   "belege": [
+    "regression-1",
+    "regression-3",
+    "regression-9",
+    "regression-10"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Regressionsgerade?",
+   "varianten": [
+    "Regressionsgerade Formel",
+    "Steigung und Achsenabschnitt berechnen",
+    "Kleinste-Quadrate-Gerade berechnen"
+   ],
+   "antwort": "Die Kleinste-Quadrate-Gerade \\(\\hat{y} = a + b\\,x\\) minimiert die Summe der quadrierten vertikalen Abweichungen \\(\\sum (y_i - a - b\\,x_i)^2\\). Daraus folgen \\(b = \\frac{s_{xy}}{s_x^2}\\) (Kovarianz durch Varianz von x) und \\(a = \\bar{y} - b\\,\\bar{x}\\). Beispiel mit x = 1, 2, 3, 4, 5 und y = 2, 4, 5, 4, 5: \\(\\bar{x} = 3\\), \\(\\bar{y} = 4\\), \\(s_{xy} = 1{,}2\\), \\(s_x^2 = 2\\), also \\(b = 0{,}6\\) und \\(a = 4 - 0{,}6 \\cdot 3 = 2{,}2\\). Die Gerade lautet \\(\\hat{y} = 2{,}2 + 0{,}6x\\).",
+   "belege": [
+    "regression-4",
+    "regression-5",
+    "regression-13",
+    "regression-21"
+   ]
+  },
+  {
+   "frage": "Wie interpretiere ich die Steigung und den Achsenabschnitt?",
+   "varianten": [
+    "Regressionskoeffizient interpretieren",
+    "b Interpretation Regression",
+    "Achsenabschnitt Bedeutung"
+   ],
+   "antwort": "Die Steigung b gibt an, um wie viele Einheiten sich der geschätzte Wert \\(\\hat{y}\\) ändert, wenn x um eine Einheit steigt. Bei \\(\\hat{y} = 2{,}2 + 0{,}6x\\) steigt \\(\\hat{y}\\) also um 0,6 je zusätzlicher Einheit von x. Der Achsenabschnitt a = 2,2 ist der geschätzte Wert bei x = 0. Inhaltlich sinnvoll ist das nur, wenn x = 0 im oder nahe am beobachteten Bereich liegt; Prognosen weit außerhalb dieses Bereichs sind unsicher.",
+   "belege": [
+    "regression-23",
+    "regression-21"
+   ]
+  },
+  {
+   "frage": "Was ist das Bestimmtheitsmaß R²?",
+   "varianten": [
+    "R² Interpretation",
+    "Bestimmtheitsmaß berechnen",
+    "R Quadrat Regression"
+   ],
+   "antwort": "Das Bestimmtheitsmaß misst die Anpassungsgüte: \\(R^2 = 1 - \\frac{RSS}{TSS}\\), also der Anteil der Streuung von y, der durch die Regression erklärt wird. Es liegt zwischen 0 und 1; bei 1 liegen alle Punkte auf der Geraden. Im Beispiel mit RSS = 2,4 und TSS = 6 ist \\(R^2 = 1 - 2{,}4/6 = 0{,}6\\), also werden 60 % der Streuung erklärt. In der Einfachregression ist \\(R^2\\) das Quadrat des Korrelationskoeffizienten nach Bravais-Pearson.",
+   "belege": [
+    "regression-6",
+    "regression-7",
+    "regression-17",
+    "regression-21"
+   ]
+  },
+  {
+   "frage": "Warum gibt es ein korrigiertes R²?",
+   "varianten": [
+    "adjustiertes R²",
+    "korrigiertes Bestimmtheitsmaß Formel",
+    "R² steigt mit mehr Variablen"
+   ],
+   "antwort": "Zusätzliche erklärende Variablen erhöhen \\(R^2\\) in der Regel, auch wenn sie nichts Sinnvolles beitragen. Das korrigierte Bestimmtheitsmaß berücksichtigt die Zahl der Freiheitsgrade: \\(\\bar{R}^2 = 1 - (1 - R^2)\\frac{n-1}{n-k-1}\\) bei n Beobachtungen und k erklärenden Variablen. Es kann bei Hinzunahme einer Variablen auch sinken und eignet sich daher zum Vergleich von Modellen mit unterschiedlich vielen Variablen. Beispiel: \\(R^2 = 0{,}6\\), n = 5, k = 1 ergibt \\(\\bar{R}^2 = 1 - 0{,}4 \\cdot 4/3 \\approx 0{,}47\\).",
+   "belege": [
+    "regression-8",
+    "regression-20",
+    "regression-21"
+   ]
+  },
+  {
+   "frage": "Was sind Residuen?",
+   "varianten": [
+    "Residuen Regression",
+    "Residuum berechnen",
+    "Residuen Summe null"
+   ],
+   "antwort": "Residuen sind die Abweichungen der beobachteten Werte von der geschätzten Regressionsfunktion: \\(e_i = y_i - \\hat{y}_i\\). Bei einer OLS-Schätzung mit Absolutglied sind sie im Mittel stets null und nicht mit x korreliert. Im Beispiel \\(\\hat{y} = 2{,}2 + 0{,}6x\\) mit y = 2, 4, 5, 4, 5 sind die Residuen −0,8; 0,6; 1,0; −0,6; −0,2. Ihre Summe ist 0, die Summe ihrer Quadrate ist die Residuenquadratsumme RSS = 2,4.",
+   "belege": [
+    "regression-11",
+    "regression-12",
+    "regression-21",
+    "regression-6"
+   ]
+  },
+  {
+   "frage": "Welche Annahmen hat das klassische lineare Regressionsmodell?",
+   "varianten": [
+    "OLS Annahmen",
+    "Gauß-Markov Annahmen",
+    "Voraussetzungen Regression"
+   ],
+   "antwort": "Über den Störterm wird angenommen: Erwartungswert null (auch bedingt auf die erklärenden Variablen), gleiche Varianz für alle Beobachtungen (Homoskedastizität), keine Korrelation untereinander (keine Autokorrelation) und Unabhängigkeit von den erklärenden Variablen; für Tests in kleinen Stichproben zusätzlich Normalverteilung. Sind diese Annahmen erfüllt, liefert OLS beste lineare unverzerrte Schätzer (BLUE). Ist eine Annahme verletzt, sollte sie mit geeigneten Tests geprüft und ggf. ein anderes Schätzverfahren gewählt werden.",
+   "belege": [
+    "regression-10",
+    "regression-14",
+    "regression-16",
+    "regression-18"
+   ]
+  },
+  {
+   "frage": "Was passiert bei Heteroskedastizität?",
+   "varianten": [
+    "Heteroskedastizität Folgen",
+    "Heteroskedastizität einfach erklärt",
+    "White Standardfehler"
+   ],
+   "antwort": "Heteroskedastizität heißt, dass die Störterme nicht alle die gleiche Varianz haben. Die OLS-Schätzer bleiben dann unverzerrt, verlieren aber an Effizienz. Vor allem werden die Standardfehler falsch berechnet, sodass t-Tests und Konfidenzintervalle an Aussagekraft verlieren. Abhilfe schaffen z. B. White-Standardfehler oder die verallgemeinerte Kleinstquadratemethode (GLS).",
+   "belege": [
+    "regression-15",
+    "regression-16"
+   ]
+  },
+  {
+   "frage": "Wie prüfe ich, ob ein Regressionskoeffizient signifikant ist?",
+   "varianten": [
+    "t-Test Regressionskoeffizient",
+    "t-Wert Regression interpretieren",
+    "Signifikanz Steigung"
+   ],
+   "antwort": "Du testest \\(H_0: \\beta = 0\\) mit \\(t = \\hat{\\beta}/\\widehat{se}(\\hat{\\beta})\\) und vergleichst |t| mit dem kritischen Wert der t-Verteilung. Die Freiheitsgrade sind n minus Zahl der geschätzten Parameter, in der Einfachregression mit Absolutglied also n − 2. Im Beispiel mit n = 5 ist \\(\\hat{\\beta} = 0{,}6\\) und \\(\\widehat{se} \\approx 0{,}28\\), also \\(t \\approx 2{,}12\\). Der kritische Wert bei 3 Freiheitsgraden und 5 % zweiseitig ist etwa 3,18, die Steigung ist also nicht signifikant von null verschieden. Für die Regression insgesamt gibt es den F-Test.",
+   "belege": [
+    "regression-24",
+    "regression-17",
+    "regression-21"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Regression und Korrelation?",
+   "varianten": [
+    "Regression vs Korrelation",
+    "Korrelation oder Regression wann",
+    "R² und r Zusammenhang"
+   ],
+   "antwort": "Die Korrelation misst nur die Stärke des linearen Zusammenhangs zweier Merkmale, symmetrisch und ohne Richtung. Die Regression unterscheidet abhängige und erklärende Variable und schätzt eine Funktion, mit der du y aus x vorhersagen kannst; die Steigung hat eine Einheit (y-Einheiten je x-Einheit). Verbunden sind beide über das Bestimmtheitsmaß: In der Einfachregression gilt \\(R^2 = r^2\\). Im Beispiel ist \\(R^2 = 0{,}6\\), also \\(r = \\sqrt{0{,}6} \\approx 0{,}77\\) (positiv, weil b > 0).",
+   "belege": [
+    "regression-1",
+    "regression-7",
+    "regression-21",
+    "regression-23"
+   ]
+  },
+  {
+   "frage": "Beweist ein hohes R² einen kausalen Zusammenhang?",
+   "varianten": [
+    "Regression Kausalität",
+    "Scheinregression",
+    "hohes R² gutes Modell"
+   ],
+   "antwort": "Nein. Ein hohes \\(R^2\\) zeigt nur, dass die Gerade die Daten gut beschreibt, nicht dass x die Ursache von y ist. Es kann hoch sein, obwohl der Erklärungsgehalt gering ist, etwa bei unpassendem Modell oder bei nicht stationären Zeitreihen. Bei einer Scheinregression sind die Koeffizienten sogar signifikant, obwohl die Zeitreihen unabhängig sind. Das \\(R^2\\) zu maximieren ist daher keine gute Strategie für die Modellwahl.",
+   "belege": [
+    "regression-8",
+    "regression-19",
+    "regression-22"
+   ]
+  },
+  {
+   "frage": "Was bedeutet „linear“ bei der linearen Regression?",
+   "varianten": [
+    "linear in den Parametern",
+    "quadratische Regression linear",
+    "nicht lineare Regression"
+   ],
+   "antwort": "Ein Regressionsmodell heißt linear, wenn es linear in den Parametern ist: Die Parameter kommen nur mit Exponent eins vor und sind nicht miteinander multipliziert. Linearität in den Variablen ist nicht nötig. Auch \\(y = \\beta_0 + \\beta_1 x + \\beta_2 x^2 + e\\) ist deshalb ein lineares Regressionsmodell und kann mit OLS geschätzt werden.",
+   "belege": [
+    "regression-2",
+    "regression-3"
+   ]
+  },
+  {
+   "frage": "Was ist Multikollinearität?",
+   "varianten": [
+    "Multikollinearität Regression",
+    "korrelierte erklärende Variablen",
+    "Probleme multiple Regression"
+   ],
+   "antwort": "Multikollinearität liegt vor, wenn die erklärenden Variablen einer multiplen Regression untereinander korreliert sind bzw. zu wenig eigenständige Varianz haben. Sie zählt zu den Hauptproblemen der Regressionsanalyse. Weitere typische Probleme sind Fehlspezifikation, Endogenität, Autokorrelation, Heteroskedastizität und fehlende Stationarität. Bei der einfachen Regression mit nur einer erklärenden Variablen tritt Multikollinearität nicht auf.",
+   "belege": [
+    "regression-18",
+    "regression-9"
+   ]
   }
  ]
 }

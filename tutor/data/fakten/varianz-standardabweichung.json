@@ -101,6 +101,244 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "varianz-standardabweichung-8",
+   "art": "formel",
+   "aussage": "Varianz einer diskreten Zufallsvariablen mit Ausprägungen `x_i`, Wahrscheinlichkeitsfunktion f und Erwartungswert E(X): `Var(X) = \\sum_i (x_i - E(X))^2 \\cdot f(x_i)`; bei stetigen Zufallsvariablen wird analog mit der Dichtefunktion integriert.",
+   "schlagworte": [
+    "diskret",
+    "Wahrscheinlichkeitsfunktion",
+    "stetig",
+    "Dichte"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Varianz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/varianz-49184",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-9",
+   "art": "methode",
+   "aussage": "Verschiebungssatz: Die Varianz lässt sich einfacher als „Mittel der Quadrate minus Quadrat des Mittels“ berechnen, empirisch `s^2 = \\frac{1}{n}\\sum_{i=1}^{n} x_i^2 - \\bar{x}^2`, theoretisch `Var(X) = E(X^2) - (E(X))^2`.",
+   "schlagworte": [
+    "Verschiebungssatz",
+    "Rechenvereinfachung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Varianz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/varianz-49184",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-10",
+   "art": "abgrenzung",
+   "aussage": "Bei klassierten Daten ergibt sich die Varianz exakt als Summe aus interner Varianz (innerhalb der Klassen) und externer Varianz (zwischen den Klassen): `s^2 = s_w^2 + s_b^2` (Varianzzerlegung). Rechnet man nur mit Klassenmitten und relativen Häufigkeiten, wird die interne Varianz gleich null gesetzt; die Varianz wird dadurch tendenziell zu niedrig ausgewiesen.",
+   "schlagworte": [
+    "klassierte Daten",
+    "Varianzzerlegung",
+    "Klassenmitte"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Varianzzerlegung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/varianzzerlegung-49728",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-11",
+   "art": "abgrenzung",
+   "aussage": "Die Stichprobenvarianz mit Divisor n-1 ist eine erwartungstreue Schätzfunktion für `\\sigma^2`, wenn die Stichprobenvariablen stochastisch unabhängig sind und dieselbe Varianz haben; erwartungstreu heißt, ihr Erwartungswert stimmt für jeden Parameterwert mit dem zu schätzenden Parameter überein.",
+   "schlagworte": [
+    "Erwartungstreue",
+    "Stichprobenvarianz",
+    "n-1"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungstreue",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungstreue-32015",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-12",
+   "art": "definition",
+   "aussage": "Streuung (Dispersion, Variabilität) bezeichnet, wie weit die Beobachtungswerte eines Merkmals bzw. die Ausprägungen einer Zufallsvariablen voneinander entfernt liegen; gemessen wird sie mit Streuungsmaßen.",
+   "schlagworte": [
+    "Streuung",
+    "Dispersion"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Streuung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/streuung-43301",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-13",
+   "art": "definition",
+   "aussage": "Die Spannweite ist die Differenz aus größter und kleinster Ausprägung eines quantitativen Merkmals; sie ist ein einfaches Streuungsmaß, reagiert aber stark auf Ausreißer.",
+   "schlagworte": [
+    "Spannweite",
+    "Ausreißer"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spannweite",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spannweite-43726",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-14",
+   "art": "definition",
+   "aussage": "Die durchschnittliche absolute Abweichung ist der Durchschnitt der Beträge der Abweichungen vom Median (teils auch vom arithmetischen Mittel), `d = \\frac{1}{n}\\sum_{i=1}^{n} |x_i - m|`; sie ist für einen Datensatz stets kleiner oder gleich der empirischen Standardabweichung.",
+   "schlagworte": [
+    "mittlere absolute Abweichung",
+    "Median"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: durchschnittliche absolute Abweichung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/durchschnittliche-absolute-abweichung-34083",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-15",
+   "art": "formel",
+   "aussage": "Lineare Transformation: `Var(a + bX) = b^2 \\cdot Var(X)` und `\\sigma_{a+bX} = |b| \\cdot \\sigma_X`; eine additive Konstante a verändert die Streuung nicht.",
+   "schlagworte": [
+    "lineare Transformation",
+    "Rechenregel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-16",
+   "art": "formel",
+   "aussage": "Varianz einer Summe: `Var(X + Y) = Var(X) + Var(Y) + 2\\,Cov(X, Y)`; sind X und Y unkorreliert (insbesondere bei stochastischer Unabhängigkeit), gilt `Var(X + Y) = Var(X) + Var(Y)`. Standardabweichungen addieren sich dagegen nicht.",
+   "schlagworte": [
+    "Summe",
+    "Kovarianz",
+    "Unabhängigkeit"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-17",
+   "art": "formel",
+   "aussage": "Binomialverteilung: `Var(X) = n\\,p\\,(1-p)`, also `\\sigma = \\sqrt{n\\,p\\,(1-p)}`.",
+   "schlagworte": [
+    "Binomialverteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Binomialverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/binomialverteilung-28325",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-18",
+   "art": "formel",
+   "aussage": "Bei der Poissonverteilung ist der Parameter `\\lambda` zugleich Erwartungswert und Varianz.",
+   "schlagworte": [
+    "Poissonverteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Poissonverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/poissonverteilung-42305",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-19",
+   "art": "methode",
+   "aussage": "Standardtransformation (Standardisierung): Vom Wert wird das arithmetische Mittel bzw. der Erwartungswert abgezogen und das Ergebnis durch die Standardabweichung geteilt; das transformierte Merkmal hat Mittel 0 und Varianz 1.",
+   "schlagworte": [
+    "Standardisierung",
+    "z-Wert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Standardtransformation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/standardtransformation-42828",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-20",
+   "art": "zahl",
+   "aussage": "Rechenbeispiel (nachgerechnet): Für die Werte 2, 4, 4, 4, 5, 5, 7, 9 ist `\\bar{x} = 5`, die empirische Varianz (Divisor n) 4 und die Standardabweichung 2; die Stichprobenvarianz (Divisor n-1) beträgt 32/7 ≈ 4,57, die zugehörige Standardabweichung ≈ 2,14.",
+   "schlagworte": [
+    "Beispiel",
+    "Rechnung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-21",
+   "art": "formel",
+   "aussage": "Ungleichung von Tschebyscheff: Für jede Zufallsvariable mit endlicher Varianz und jedes k > 0 gilt `P(|X - \\mu| \\ge k\\sigma) \\le \\frac{1}{k^2}`; z. B. liegen höchstens 25 % der Wahrscheinlichkeitsmasse zwei oder mehr Standardabweichungen vom Erwartungswert entfernt.",
+   "schlagworte": [
+    "Tschebyscheff",
+    "Abschätzung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-22",
+   "art": "abgrenzung",
+   "aussage": "Im Erwartungswert-Varianz-Prinzip (`\\mu`-`\\sigma`-Prinzip) dient die Varianz bzw. Standardabweichung des Ergebnisses als Risikomaß: Bei Risikoaversion geht `\\sigma` negativ, bei Risikofreude positiv in die Präferenzfunktion ein; risikoneutrale Entscheider beachten nur `\\mu`.",
+   "schlagworte": [
+    "Risiko",
+    "Mu-Sigma-Prinzip",
+    "Entscheidung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungswert-Varianz-Prinzip",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-varianz-prinzip-53962",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-23",
+   "art": "zahl",
+   "aussage": "Bei einer Normalverteilung liegen gerundet 68,27 % der Wahrscheinlichkeitsmasse im Bereich `\\mu \\pm \\sigma`, 95,45 % in `\\mu \\pm 2\\sigma` und 99,73 % in `\\mu \\pm 3\\sigma`.",
+   "schlagworte": [
+    "Normalverteilung",
+    "Sigma-Regel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalverteilung-39769",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-24",
+   "art": "definition",
+   "aussage": "Die Varianz ist das zentrale Moment zweiter Ordnung, `E(X - E(X))^2`; das zentrale Moment erster Ordnung ist stets 0, das dritte kennzeichnet die Schiefe.",
+   "schlagworte": [
+    "Moment",
+    "zentrales Moment"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Moment",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/moment-37525",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -113,6 +351,193 @@
    "falsch": "Die Stichprobenvarianz wird immer durch n geteilt.",
    "richtig": "Zur erwartungstreuen Schätzung der Varianz der Grundgesamtheit wird durch n-1 geteilt; durch n bei rein deskriptiver Beschreibung der Daten.",
    "quelle_id": "varianz-standardabweichung-4"
+  },
+  {
+   "falsch": "Die Standardabweichung einer Summe ist die Summe der Standardabweichungen.",
+   "richtig": "Bei unkorrelierten Größen addieren sich die Varianzen, nicht die Standardabweichungen; allgemein kommt der Term 2·Cov(X,Y) hinzu.",
+   "quelle_id": "varianz-standardabweichung-16"
+  },
+  {
+   "falsch": "Wenn man zu allen Werten 10 addiert, steigt die Varianz.",
+   "richtig": "Eine additive Konstante verschiebt nur die Lage; Var(a + bX) = b²·Var(X).",
+   "quelle_id": "varianz-standardabweichung-15"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist die Varianz?",
+   "varianten": [
+    "Varianz Definition",
+    "Was misst die Varianz",
+    "Varianz einfach erklärt"
+   ],
+   "antwort": "Die Varianz ist die gebräuchlichste Maßzahl für die Streuung einer Verteilung, also dafür, wie weit die Werte um ihren Mittelwert verteilt sind. Für eine Zufallsvariable gilt \\(Var(X) = E\\big((X - E(X))^2\\big)\\), sie ist also die erwartete quadrierte Abweichung vom Erwartungswert. Für n beobachtete Werte rechnest du empirisch \\(s^2 = \\frac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})^2\\). Weil die Abweichungen quadriert werden, hat die Varianz die quadrierte Einheit der Daten. Deshalb nutzt man zur Interpretation meist ihre Wurzel, die Standardabweichung.",
+   "belege": [
+    "varianz-standardabweichung-1",
+    "varianz-standardabweichung-2",
+    "varianz-standardabweichung-3",
+    "varianz-standardabweichung-5"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Varianz und Standardabweichung?",
+   "varianten": [
+    "Varianz vs Standardabweichung",
+    "Unterschied Varianz Standardabweichung",
+    "Standardabweichung aus Varianz berechnen"
+   ],
+   "antwort": "Die Standardabweichung ist die positive Wurzel aus der Varianz: \\(\\sigma = \\sqrt{\\sigma^2}\\). Inhaltlich messen beide dasselbe, nämlich die Streuung. Der Unterschied liegt in der Einheit: Die Varianz hat die quadrierte Einheit (z. B. €²), die Standardabweichung dieselbe Einheit wie die Merkmalswerte (z. B. €). Darum lässt sich die Standardabweichung direkt interpretieren und mit dem Mittelwert vergleichen, während die Varianz vor allem zum Rechnen praktisch ist, etwa beim Addieren unabhängiger Größen.",
+   "belege": [
+    "varianz-standardabweichung-5",
+    "varianz-standardabweichung-16"
+   ]
+  },
+  {
+   "frage": "Wann teile ich bei der Varianz durch n und wann durch n-1?",
+   "varianten": [
+    "n oder n-1 Varianz",
+    "Stichprobenvarianz n-1 warum",
+    "korrigierte Stichprobenvarianz"
+   ],
+   "antwort": "Durch n teilst du, wenn du die vorliegenden Daten nur beschreiben willst (empirische Varianz \\(s^2 = \\frac{1}{n}\\sum (x_i - \\bar{x})^2\\)). Durch n-1 teilst du, wenn du aus einer Zufallsstichprobe die Varianz der Grundgesamtheit schätzen willst: \\(S^2 = \\frac{1}{n-1}\\sum (x_i - \\bar{x})^2\\). Diese Stichprobenvarianz ist erwartungstreu, d. h. ihr Erwartungswert ist gleich \\(\\sigma^2\\), sofern die Stichprobenvariablen unabhängig sind und dieselbe Varianz haben. Die Variante mit Divisor n ist als Schätzer dagegen nicht erwartungstreu. Achte in der Klausur darauf, welche Konvention dein Skript verwendet.",
+   "belege": [
+    "varianz-standardabweichung-3",
+    "varianz-standardabweichung-4",
+    "varianz-standardabweichung-11"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich Varianz und Standardabweichung an einem Beispiel?",
+   "varianten": [
+    "Varianz berechnen Beispiel",
+    "Standardabweichung berechnen Schritt für Schritt",
+    "Varianz Rechenweg"
+   ],
+   "antwort": "Nimm die Werte 2, 4, 4, 4, 5, 5, 7, 9 (n = 8). Schritt 1: Mittelwert \\(\\bar{x} = 40/8 = 5\\). Schritt 2: Abweichungen quadrieren: 9, 1, 1, 1, 0, 0, 4, 16, Summe 32. Schritt 3: Empirische Varianz \\(s^2 = 32/8 = 4\\), Standardabweichung \\(s = 2\\). Als Schätzung für die Grundgesamtheit teilst du durch n-1: \\(S^2 = 32/7 \\approx 4{,}57\\) und \\(S \\approx 2{,}14\\).",
+   "belege": [
+    "varianz-standardabweichung-3",
+    "varianz-standardabweichung-4",
+    "varianz-standardabweichung-20"
+   ]
+  },
+  {
+   "frage": "Was ist der Verschiebungssatz?",
+   "varianten": [
+    "Verschiebungssatz Varianz",
+    "Varianz schneller berechnen",
+    "E(X^2) - E(X)^2"
+   ],
+   "antwort": "Der Verschiebungssatz ist eine Rechenvereinfachung für die Varianz: „Mittel der Quadrate minus Quadrat des Mittels“. Für Daten gilt \\(s^2 = \\frac{1}{n}\\sum x_i^2 - \\bar{x}^2\\), für Zufallsvariablen \\(Var(X) = E(X^2) - (E(X))^2\\). Beispiel mit 2, 4, 4, 4, 5, 5, 7, 9: Das Mittel der Quadrate ist 232/8 = 29, also \\(s^2 = 29 - 5^2 = 4\\). Du sparst dir damit, jede einzelne Abweichung vom Mittelwert zu bilden.",
+   "belege": [
+    "varianz-standardabweichung-2",
+    "varianz-standardabweichung-9",
+    "varianz-standardabweichung-20"
+   ]
+  },
+  {
+   "frage": "Wann nutze ich den Variationskoeffizienten?",
+   "varianten": [
+    "Variationskoeffizient Formel",
+    "relative Streuung vergleichen",
+    "Variationskoeffizient Interpretation"
+   ],
+   "antwort": "Den Variationskoeffizienten \\(V = \\frac{s}{\\bar{x}}\\) nutzt du, wenn du die Streuung von Verteilungen mit unterschiedlicher Größenordnung oder Einheit vergleichen willst. Er setzt die Standardabweichung ins Verhältnis zum Mittelwert und ist damit ein relatives (dimensionsloses) Streuungsmaß. Beispiel: Werte mit \\(\\bar{x} = 5\\) und \\(s = 2\\) haben \\(V = 0{,}4\\), also 40 %. Varianz und Standardabweichung sind dagegen absolute Streuungsmaße und hängen von der Einheit ab.",
+   "belege": [
+    "varianz-standardabweichung-6",
+    "varianz-standardabweichung-7",
+    "varianz-standardabweichung-20"
+   ]
+  },
+  {
+   "frage": "Wie verändert sich die Varianz, wenn ich alle Werte mit einer Zahl multipliziere oder eine Zahl addiere?",
+   "varianten": [
+    "Var(aX+b)",
+    "Varianz lineare Transformation",
+    "Varianz Euro in Cent umrechnen"
+   ],
+   "antwort": "Es gilt \\(Var(a + bX) = b^2 \\cdot Var(X)\\) und für die Standardabweichung \\(\\sigma_{a+bX} = |b| \\cdot \\sigma_X\\). Eine addierte Konstante a verschiebt nur die Lage und lässt die Streuung unverändert. Ein Faktor b geht in die Varianz quadriert ein. Beispiel: Die Werte 2, 4, 4, 4, 5, 5, 7, 9 haben die empirische Varianz 4 und die Standardabweichung 2; für \\(2x_i + 1\\) ist die Varianz \\(2^2 \\cdot 4 = 16\\) und die Standardabweichung \\(2 \\cdot 2 = 4\\).",
+   "belege": [
+    "varianz-standardabweichung-15",
+    "varianz-standardabweichung-20"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Varianz einer Summe von zwei Zufallsvariablen?",
+   "varianten": [
+    "Var(X+Y)",
+    "Varianz Summe unabhängiger Zufallsvariablen",
+    "Varianz Portfolio zwei Größen"
+   ],
+   "antwort": "Allgemein gilt \\(Var(X + Y) = Var(X) + Var(Y) + 2\\,Cov(X, Y)\\). Sind X und Y unkorreliert, insbesondere wenn sie stochastisch unabhängig sind, fällt der Kovarianzterm weg und die Varianzen addieren sich einfach. Die Standardabweichungen addieren sich dagegen nicht: Du musst immer erst die Varianzen addieren und dann die Wurzel ziehen. Bei positiver Kovarianz wird die Summe stärker, bei negativer schwächer streuen als bei Unabhängigkeit.",
+   "belege": [
+    "varianz-standardabweichung-16"
+   ]
+  },
+  {
+   "frage": "Wie groß sind Varianz und Standardabweichung bei einer Binomialverteilung?",
+   "varianten": [
+    "Varianz Binomialverteilung",
+    "Standardabweichung n p (1-p)",
+    "Binomialverteilung Streuung berechnen"
+   ],
+   "antwort": "Für eine binomialverteilte Zufallsvariable gilt \\(Var(X) = n\\,p\\,(1-p)\\) und damit \\(\\sigma = \\sqrt{n\\,p\\,(1-p)}\\). Beispiel: Bei n = 10 Versuchen mit Erfolgswahrscheinlichkeit p = 0,2 ist \\(Var(X) = 10 \\cdot 0{,}2 \\cdot 0{,}8 = 1{,}6\\) und \\(\\sigma = \\sqrt{1{,}6} \\approx 1{,}26\\). Zum Vergleich: Bei der Poissonverteilung ist der Parameter \\(\\lambda\\) zugleich Erwartungswert und Varianz.",
+   "belege": [
+    "varianz-standardabweichung-17",
+    "varianz-standardabweichung-18"
+   ]
+  },
+  {
+   "frage": "Welche Streuungsmaße gibt es außer der Varianz?",
+   "varianten": [
+    "Streuungsmaße Überblick",
+    "Spannweite Quartilsabstand",
+    "absolute und relative Streuungsmaße"
+   ],
+   "antwort": "Absolute Streuungsmaße sind Varianz, Standardabweichung, durchschnittliche absolute Abweichung, Spannweite und mittlerer Quartilsabstand; ein relatives Streuungsmaß ist der Variationskoeffizient. Die Spannweite (größter minus kleinster Wert) ist am einfachsten, reagiert aber stark auf Ausreißer. Die durchschnittliche absolute Abweichung mittelt die Beträge der Abweichungen vom Median und ist nie größer als die empirische Standardabweichung. Welches Maß passt, hängt vom Skalenniveau und von Ausreißern in den Daten ab.",
+   "belege": [
+    "varianz-standardabweichung-6",
+    "varianz-standardabweichung-13",
+    "varianz-standardabweichung-14"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Varianz bei klassierten Daten?",
+   "varianten": [
+    "Varianz Klassenmitte",
+    "Varianz Häufigkeitstabelle Klassen",
+    "interne externe Varianz"
+   ],
+   "antwort": "Exakt ist die Varianz bei klassierten Daten die Summe aus interner Varianz (Streuung innerhalb der Klassen) und externer Varianz (Streuung der Klassenmittelwerte um das Gesamtmittel): \\(s^2 = s_w^2 + s_b^2\\). Kennst du die Werte innerhalb der Klassen nicht, rechnest du näherungsweise nur mit den Klassenmitten und den relativen Häufigkeiten. Dabei setzt du die interne Varianz gleich null. Diese Näherung weist die Varianz deshalb tendenziell zu niedrig aus.",
+   "belege": [
+    "varianz-standardabweichung-10"
+   ]
+  },
+  {
+   "frage": "Was sagt mir die Standardabweichung bei einer Normalverteilung?",
+   "varianten": [
+    "68-95-99,7 Regel",
+    "Sigma-Regel Standardabweichung",
+    "wie viel Prozent innerhalb einer Standardabweichung"
+   ],
+   "antwort": "Bei einer Normalverteilung kannst du aus der Standardabweichung direkt ablesen, wie viel Wahrscheinlichkeitsmasse nahe am Erwartungswert liegt. Gerundet liegen 68,27 % der Wahrscheinlichkeitsmasse im Bereich \\(\\mu \\pm \\sigma\\), 95,45 % in \\(\\mu \\pm 2\\sigma\\) und 99,73 % in \\(\\mu \\pm 3\\sigma\\). Diese Werte gelten nur für die Normalverteilung. Für beliebige Verteilungen liefert die Ungleichung von Tschebyscheff nur eine grobe Grenze: Höchstens \\(1/k^2\\) der Masse liegt k oder mehr Standardabweichungen vom Erwartungswert entfernt.",
+   "belege": [
+    "varianz-standardabweichung-23",
+    "varianz-standardabweichung-21"
+   ]
+  },
+  {
+   "frage": "Warum werden bei der Varianz die Abweichungen quadriert?",
+   "varianten": [
+    "warum quadrieren Varianz",
+    "Summe der Abweichungen null",
+    "Varianz Einheit Quadrat"
+   ],
+   "antwort": "Die einfachen Abweichungen vom Mittelwert heben sich gegenseitig auf: Ihr Mittel ist immer null (das zentrale Moment erster Ordnung ist 0). Durch das Quadrieren zählen positive und negative Abweichungen gleichermaßen, und große Abweichungen werden stärker gewichtet. Die Varianz ist so das zentrale Moment zweiter Ordnung. Nachteil ist die quadrierte Einheit; deshalb ziehst du zur Interpretation die Wurzel und erhältst die Standardabweichung. Eine Alternative ohne Quadrieren ist die durchschnittliche absolute Abweichung.",
+   "belege": [
+    "varianz-standardabweichung-24",
+    "varianz-standardabweichung-5",
+    "varianz-standardabweichung-14"
+   ]
   }
  ]
 }

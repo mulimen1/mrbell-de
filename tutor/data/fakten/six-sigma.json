@@ -72,6 +72,259 @@
     "typ": "lehrbuchstandard",
     "name": "Lehrbuchstandard (nachgerechnet)"
    }
+  },
+  {
+   "id": "six-sigma-6",
+   "art": "definition",
+   "aussage": "Die Prozessfähigkeit vergleicht den Output eines stabilen (beherrschten) Prozesses mit den Spezifikationsgrenzen: Die Breite der Spezifikation wird ins Verhältnis zur Prozessstreuung gesetzt, gemessen als 6 Standardabweichungen.",
+   "schlagworte": [
+    "Prozessfähigkeit",
+    "Spezifikationsgrenzen"
+   ],
+   "quelle": {
+    "name": "NIST/SEMATECH e-Handbook of Statistical Methods, 6.1.6 What is Process Capability?",
+    "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm",
+    "typ": "amtlich",
+    "zusatzquelle": true
+   }
+  },
+  {
+   "id": "six-sigma-7",
+   "art": "formel",
+   "aussage": "Prozessfähigkeitsindex: `C_p = \\frac{USL - LSL}{6\\sigma}` (USL/LSL: obere/untere Spezifikationsgrenze, σ: Prozessstandardabweichung).",
+   "schlagworte": [
+    "Cp",
+    "Prozessfähigkeitsindex"
+   ],
+   "quelle": {
+    "name": "NIST/SEMATECH e-Handbook of Statistical Methods, 6.1.6 What is Process Capability?",
+    "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm",
+    "typ": "amtlich",
+    "zusatzquelle": true
+   }
+  },
+  {
+   "id": "six-sigma-8",
+   "art": "formel",
+   "aussage": "Der Index `C_{pk} = \\min\\left[\\frac{USL - \\mu}{3\\sigma}, \\frac{\\mu - LSL}{3\\sigma}\\right]` berücksichtigt zusätzlich die Lage des Mittelwerts μ; es gilt stets `C_{pk} \\le C_p`.",
+   "schlagworte": [
+    "Cpk",
+    "Prozessfähigkeit",
+    "Zentrierung"
+   ],
+   "quelle": {
+    "name": "NIST/SEMATECH e-Handbook of Statistical Methods, 6.1.6 What is Process Capability?",
+    "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm",
+    "typ": "amtlich",
+    "zusatzquelle": true
+   }
+  },
+  {
+   "id": "six-sigma-9",
+   "art": "zahl",
+   "aussage": "Bei zentriertem, normalverteiltem Prozess entsprechen `C_p` = 1,00 / 1,33 / 1,66 / 2,00 (Spezifikationsbreite 6σ / 8σ / 10σ / 12σ) etwa 0,27 % / 64 ppm / 0,6 ppm / 2 ppb Ausschuss.",
+   "schlagworte": [
+    "Cp Tabelle",
+    "ppm",
+    "Ausschuss"
+   ],
+   "quelle": {
+    "name": "NIST/SEMATECH e-Handbook of Statistical Methods, 6.1.6 What is Process Capability?",
+    "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm",
+    "typ": "amtlich",
+    "zusatzquelle": true
+   }
+  },
+  {
+   "id": "six-sigma-10",
+   "art": "methode",
+   "aussage": "Die Indizes `C_p` und `C_{pk}` setzen normalverteilte Prozessdaten voraus; ihre Schätzungen gelten als verlässlich erst ab einer ausreichend großen Stichprobe von etwa 50 unabhängigen Werten.",
+   "schlagworte": [
+    "Voraussetzungen",
+    "Stichprobe",
+    "Normalverteilung"
+   ],
+   "quelle": {
+    "name": "NIST/SEMATECH e-Handbook of Statistical Methods, 6.1.6 What is Process Capability?",
+    "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm",
+    "typ": "amtlich",
+    "zusatzquelle": true
+   }
+  },
+  {
+   "id": "six-sigma-11",
+   "art": "definition",
+   "aussage": "Eine Kontrollkarte (Regelkarte) zeigt eine Qualitätsgröße über Stichprobennummer oder Zeit mit einer Mittellinie sowie oberer und unterer Kontrollgrenze (UCL/LCL); liegt ein Punkt außerhalb der Grenzen, wird nach einer zuordenbaren (besonderen) Ursache gesucht.",
+   "schlagworte": [
+    "Kontrollkarte",
+    "Regelkarte",
+    "UCL LCL"
+   ],
+   "quelle": {
+    "name": "NIST/SEMATECH e-Handbook of Statistical Methods, 6.3.1 What are Control Charts?",
+    "url": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc31.htm",
+    "typ": "amtlich",
+    "zusatzquelle": true
+   }
+  },
+  {
+   "id": "six-sigma-12",
+   "art": "formel",
+   "aussage": "Shewhart-Kontrollkarte: `UCL = \\mu_w + k\\sigma_w`, Mittellinie `\\mu_w`, `LCL = \\mu_w - k\\sigma_w`; mit k = 3 spricht man von 3-Sigma-Kontrollkarten, die sich in der Industrie als Standard etabliert haben.",
+   "schlagworte": [
+    "Shewhart",
+    "3-Sigma-Grenzen"
+   ],
+   "quelle": {
+    "name": "NIST/SEMATECH e-Handbook of Statistical Methods, 6.3.2 What are Variables Control Charts?",
+    "url": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc32.htm",
+    "typ": "amtlich",
+    "zusatzquelle": true
+   }
+  },
+  {
+   "id": "six-sigma-13",
+   "art": "methode",
+   "aussage": "Typische Werkzeuge der statistischen Prozesslenkung sind Histogramme, Prüf- bzw. Strichlisten, Pareto-Diagramme, Ursache-Wirkungs-Diagramme, Fehlersammelkarten, Streudiagramme und Kontrollkarten.",
+   "schlagworte": [
+    "SPC",
+    "Qualitätswerkzeuge",
+    "Pareto"
+   ],
+   "quelle": {
+    "name": "NIST/SEMATECH e-Handbook of Statistical Methods, 6.1.2 What are Process Control Techniques?",
+    "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc12.htm",
+    "typ": "amtlich",
+    "zusatzquelle": true
+   }
+  },
+  {
+   "id": "six-sigma-14",
+   "art": "methode",
+   "aussage": "Bei der statistischen Prozesslenkung werden in Phase I aus historischen Daten Kontrollgrenzen berechnet (auffällige Punkte geprüft, Grenzen ggf. neu berechnet); in Phase II wird der Prozess mit diesen Grenzen in Echtzeit überwacht.",
+   "schlagworte": [
+    "SPC",
+    "Phase I",
+    "Phase II"
+   ],
+   "quelle": {
+    "name": "NIST/SEMATECH e-Handbook of Statistical Methods, 6.1.2 What are Process Control Techniques?",
+    "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc12.htm",
+    "typ": "amtlich",
+    "zusatzquelle": true
+   }
+  },
+  {
+   "id": "six-sigma-15",
+   "art": "zahl",
+   "aussage": "Für eine normalverteilte Zufallsvariable gilt (gerundet): `P(\\mu - \\sigma \\le X \\le \\mu + \\sigma) = 0{,}6827`, für ±2σ 0,9545 und für ±3σ 0,9973.",
+   "schlagworte": [
+    "Normalverteilung",
+    "Sigma-Regel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalverteilung-39769",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "six-sigma-16",
+   "art": "formel",
+   "aussage": "Jede Normalverteilung lässt sich durch Standardisierung `Z = \\frac{X - \\mu}{\\sigma}` in die Standardnormalverteilung (μ = 0, σ² = 1) überführen; deren Tabellen dienen zur Auswertung beliebiger Normalverteilungen.",
+   "schlagworte": [
+    "Standardisierung",
+    "z-Wert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalverteilung-39769",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "six-sigma-17",
+   "art": "definition",
+   "aussage": "Qualitätskosten entstehen vor allem, weil Qualitätsforderungen wegen Fehlern nicht erfüllt werden; unterschieden werden Inspektions- bzw. Prüfkosten, Kosten der Fehlervermeidung, interne Fehlerkosten (Nacharbeit, Ausschuss) und externe Fehlerkosten (z. B. Garantie, Goodwill-Verlust).",
+   "schlagworte": [
+    "Qualitätskosten",
+    "Fehlerkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Qualitätskosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/qualitaetskosten-46454",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "six-sigma-18",
+   "art": "abgrenzung",
+   "aussage": "Total Quality Management optimiert die Qualität in allen Funktionsbereichen und auf allen Ebenen durch Mitwirkung aller Mitarbeiter; Qualitätsmanagement ist enger gefasst und umfasst Qualitätsplanung, -lenkung, -prüfung, -verbesserung und -sicherung.",
+   "schlagworte": [
+    "TQM",
+    "Qualitätsmanagement"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Total Quality Management (TQM)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/total-quality-management-tqm-47755",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "six-sigma-19",
+   "art": "definition",
+   "aussage": "Basis für Qualitätsmanagementsysteme ist die Normenfamilie DIN EN ISO 9000 ff.: ISO 9000 enthält Begriffe, ISO 9001 die Anforderungen an das QM-System und ISO 9004 einen Leitfaden zu Wirksamkeit und Wirtschaftlichkeit.",
+   "schlagworte": [
+    "ISO 9001",
+    "QM-System"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Qualitätsmanagementsystem",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/qualitaetsmanagementsystem-52384",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "six-sigma-20",
+   "art": "definition",
+   "aussage": "Qualität ist die Übereinstimmung von Leistungen mit Ansprüchen; entscheidend ist, was die Anspruchsteller (Kunden, Verwender, Händler, Hersteller) wahrnehmen und für wichtig halten.",
+   "schlagworte": [
+    "Qualität",
+    "Kundenanforderung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Qualität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/qualitaet-45908",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "six-sigma-21",
+   "art": "formel",
+   "aussage": "Sigma-Niveau eines Prozesses als Abstand des Mittelwerts zur nächstgelegenen Spezifikationsgrenze in Standardabweichungen: `z = \\frac{\\min(USL - \\mu,\\ \\mu - LSL)}{\\sigma} = 3 \\cdot C_{pk}`.",
+   "schlagworte": [
+    "Sigma-Niveau",
+    "z-Wert",
+    "Cpk"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "six-sigma-22",
+   "art": "definition",
+   "aussage": "Streuungsmaße kennzeichnen die Streuung einer Verteilung, insbesondere Varianz, Standardabweichung, durchschnittliche absolute Abweichung, Spannweite und mittlerer Quartilsabstand; der Variationskoeffizient ist ein relatives Streuungsmaß.",
+   "schlagworte": [
+    "Streuung",
+    "Standardabweichung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Streuungsmaß",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/streuungsmass-45610",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -79,6 +332,206 @@
    "falsch": "6σ bedeutet nach reiner Normalverteilung 3,4 Fehler pro Million.",
    "richtig": "Die 3,4 DPMO ergeben sich erst mit der eingerechneten 1,5σ-Verschiebung; ohne sie wären es ca. 0,002.",
    "quelle_id": "six-sigma-4"
+  },
+  {
+   "falsch": "Ein hoher Cp-Wert reicht, damit ein Prozess kaum Ausschuss produziert.",
+   "richtig": "Cp ignoriert die Lage des Mittelwerts; liegt der Prozess nicht mittig, ist Cpk kleiner und der Ausschuss höher.",
+   "quelle_id": "six-sigma-8"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist Six Sigma?",
+   "varianten": [
+    "Six Sigma Definition",
+    "Six Sigma einfach erklärt",
+    "6 Sigma Qualitätsmanagement"
+   ],
+   "antwort": "Six Sigma ist ein Ansatz, Fehler und Fehlerquellen entlang eines Prozesses systematisch zu beseitigen. Der Name steht für ein Qualitätsniveau, bei dem – mit der üblichen Annahme einer langfristigen Mittelwertverschiebung um 1,5 σ – nur etwa 3,4 Fehler pro Million Fehlermöglichkeiten auftreten. Verbesserungsprojekte folgen dem DMAIC-Zyklus: Define, Measure, Analyze, Improve, Control.",
+   "belege": [
+    "six-sigma-1",
+    "six-sigma-3",
+    "six-sigma-5"
+   ]
+  },
+  {
+   "frage": "Warum bedeutet Six Sigma 3,4 Fehler pro Million?",
+   "varianten": [
+    "3,4 DPMO",
+    "1,5 Sigma Shift",
+    "Six Sigma Normalverteilung"
+   ],
+   "antwort": "Bei Six Sigma liegen eigentlich 6 Standardabweichungen zwischen Mittelwert und Toleranzgrenze. Üblich ist aber die Annahme, dass sich der Mittelwert langfristig um 1,5 σ verschiebt; effektiv bleiben dann 4,5 σ. Die einseitige Fläche der Normalverteilung jenseits von 4,5 σ beträgt etwa 3,4 pro Million. Ohne diese Verschiebung entsprächen ±6 σ nur rund 0,002 Fehlern pro Million, also 2 pro Milliarde.",
+   "belege": [
+    "six-sigma-3",
+    "six-sigma-4",
+    "six-sigma-9"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich DPMO?",
+   "varianten": [
+    "DPMO berechnen",
+    "Fehler pro Million Fehlermöglichkeiten",
+    "DPMO Formel Beispiel"
+   ],
+   "antwort": "DPMO steht für Defects per Million Opportunities: \\( DPMO = \\frac{\\text{Fehler}}{\\text{Einheiten} \\cdot \\text{Fehlermöglichkeiten je Einheit}} \\cdot 10^6 \\). Beispiel: 1.000 geprüfte Einheiten mit je 5 Fehlermöglichkeiten und insgesamt 17 gefundenen Fehlern. Dann gilt \\( 17 / 5.000 \\cdot 10^6 = 3.400 \\) DPMO. Zum Vergleich: Ein 3-Sigma-Prozess liegt mit 1,5-σ-Verschiebung bei etwa 66.807 DPMO, Six Sigma bei 3,4.",
+   "belege": [
+    "six-sigma-2",
+    "six-sigma-4",
+    "six-sigma-3"
+   ]
+  },
+  {
+   "frage": "Was bedeutet DMAIC?",
+   "varianten": [
+    "DMAIC Zyklus",
+    "DMAIC Phasen",
+    "Define Measure Analyze Improve Control"
+   ],
+   "antwort": "DMAIC ist der Projektzyklus für Six-Sigma-Verbesserungen und steht für Define, Measure, Analyze, Improve und Control. Übersetzt heißt das: Problem und Ziel definieren, den Prozess messen, Ursachen analysieren, Verbesserungen umsetzen und den verbesserten Prozess dauerhaft lenken. Für das Messen eignen sich Kennzahlen wie DPMO oder Prozessfähigkeitsindizes, für das Lenken z. B. Kontrollkarten.",
+   "belege": [
+    "six-sigma-5",
+    "six-sigma-2",
+    "six-sigma-7",
+    "six-sigma-11"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Cp und Cpk?",
+   "varianten": [
+    "Cp vs Cpk",
+    "Prozessfähigkeitsindex",
+    "Cpk Bedeutung"
+   ],
+   "antwort": "Der Index \\( C_p = \\frac{USL - LSL}{6\\sigma} \\) vergleicht nur die Breite der Spezifikation mit der Prozessstreuung. Er sagt nichts darüber, ob der Prozess mittig zwischen den Grenzen liegt. \\( C_{pk} = \\min\\left[\\frac{USL - \\mu}{3\\sigma}, \\frac{\\mu - LSL}{3\\sigma}\\right] \\) berücksichtigt zusätzlich die Lage des Mittelwerts. Deshalb gilt immer \\( C_{pk} \\le C_p \\); beide sind nur bei zentriertem Prozess gleich.",
+   "belege": [
+    "six-sigma-7",
+    "six-sigma-8",
+    "six-sigma-6"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich Cp und Cpk an einem Beispiel?",
+   "varianten": [
+    "Cp berechnen",
+    "Cpk berechnen Beispiel",
+    "Prozessfähigkeit Rechenbeispiel"
+   ],
+   "antwort": "Beispiel: Spezifikation von 9,4 bis 10,6 mm, Standardabweichung 0,1 mm, Mittelwert 10,1 mm. Dann ist \\( C_p = (10{,}6 - 9{,}4) / (6 \\cdot 0{,}1) = 2{,}00 \\). Für \\( C_{pk} \\) rechnest du \\( (10{,}6 - 10{,}1) / 0{,}3 = 1{,}67 \\) und \\( (10{,}1 - 9{,}4) / 0{,}3 = 2{,}33 \\); der kleinere Wert gilt, also \\( C_{pk} = 1{,}67 \\). Die Spezifikation wäre also breit genug für Six-Sigma-Qualität, der Prozess liegt aber nicht mittig. Voraussetzung sind normalverteilte Daten und eine ausreichend große Stichprobe.",
+   "belege": [
+    "six-sigma-7",
+    "six-sigma-8",
+    "six-sigma-10"
+   ]
+  },
+  {
+   "frage": "Was sagt der Cp-Wert über den Ausschuss aus?",
+   "varianten": [
+    "Cp ppm",
+    "Cp 1,33",
+    "Prozessfähigkeit Ausschuss"
+   ],
+   "antwort": "Bei zentriertem, normalverteiltem Prozess gilt laut NIST: \\( C_p \\) = 1,00 bedeutet etwa 0,27 % Ausschuss, 1,33 etwa 64 ppm, 1,66 etwa 0,6 ppm und 2,00 etwa 2 ppb. Ein Cp von 2,00 entspricht einer Spezifikationsbreite von 12 σ, also ±6 σ. Diese Werte gelten nur bei zentriertem Prozess; liegt der Mittelwert daneben, ist der Ausschuss höher. Außerdem setzen die Indizes normalverteilte Daten voraus.",
+   "belege": [
+    "six-sigma-9",
+    "six-sigma-10",
+    "six-sigma-8"
+   ]
+  },
+  {
+   "frage": "Was ist eine Kontrollkarte?",
+   "varianten": [
+    "Regelkarte",
+    "Qualitätsregelkarte",
+    "Shewhart-Karte"
+   ],
+   "antwort": "Eine Kontrollkarte zeigt eine Qualitätsgröße über die Zeit oder die Stichprobennummer. Sie hat eine Mittellinie sowie eine obere und eine untere Kontrollgrenze. Bei der Shewhart-Karte gilt \\( UCL = \\mu_w + k\\sigma_w \\) und \\( LCL = \\mu_w - k\\sigma_w \\); mit k = 3 spricht man von 3-Sigma-Karten, dem Industriestandard. Liegt ein Punkt außerhalb der Grenzen, suchst du nach einer besonderen, zuordenbaren Ursache.",
+   "belege": [
+    "six-sigma-11",
+    "six-sigma-12"
+   ]
+  },
+  {
+   "frage": "Welche Werkzeuge nutzt die statistische Prozesslenkung?",
+   "varianten": [
+    "Qualitätswerkzeuge",
+    "SPC Werkzeuge",
+    "Pareto Ishikawa Kontrollkarte"
+   ],
+   "antwort": "Typische Werkzeuge sind Histogramme, Strichlisten, Pareto-Diagramme, Ursache-Wirkungs-Diagramme, Fehlersammelkarten, Streudiagramme und Kontrollkarten. Bei Kontrollkarten unterscheidet man zwei Phasen. In Phase I berechnest du aus historischen Daten die Kontrollgrenzen und prüfst auffällige Punkte. In Phase II überwachst du den laufenden Prozess mit diesen Grenzen.",
+   "belege": [
+    "six-sigma-13",
+    "six-sigma-14"
+   ]
+  },
+  {
+   "frage": "Wie viele Werte liegen bei der Normalverteilung außerhalb von ±3σ?",
+   "varianten": [
+    "3 Sigma Regel",
+    "Normalverteilung 99,73",
+    "Ausschuss 3 Sigma"
+   ],
+   "antwort": "Für eine Normalverteilung liegen etwa 68,27 % der Werte innerhalb von ±1σ, 95,45 % innerhalb von ±2σ und 99,73 % innerhalb von ±3σ. Außerhalb von ±3σ liegen also \\( 1 - 0{,}9973 = 0{,}0027 \\), das sind 0,27 % oder 2.700 pro Million. Das passt zum Cp-Wert 1,00 bei zentriertem Prozess, der 0,27 % Ausschuss entspricht. Für andere Grenzen standardisierst du mit \\( Z = (X - \\mu) / \\sigma \\) und nutzt die Tabelle der Standardnormalverteilung.",
+   "belege": [
+    "six-sigma-15",
+    "six-sigma-9",
+    "six-sigma-16"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Six Sigma, TQM und Qualitätsmanagement?",
+   "varianten": [
+    "Six Sigma vs TQM",
+    "TQM vs Qualitätsmanagement",
+    "Qualitätsansätze Vergleich"
+   ],
+   "antwort": "Qualitätsmanagement umfasst Planung, Lenkung, Prüfung, Verbesserung und Sicherung der Qualität eines Prozesses bzw. Prozessergebnisses. Total Quality Management geht weiter und will Qualität in allen Bereichen und auf allen Ebenen durch Mitwirkung aller Mitarbeiter optimieren, um die Kundenzufriedenheit zu erhöhen. Six Sigma setzt gezielt an Prozessen an: Fehler und Fehlerquellen werden beseitigt und mit statistischen Kennzahlen wie DPMO gemessen. Qualität bedeutet dabei immer die Übereinstimmung von Leistungen mit den Ansprüchen der Kunden und anderen Anspruchsteller.",
+   "belege": [
+    "six-sigma-18",
+    "six-sigma-1",
+    "six-sigma-2",
+    "six-sigma-20"
+   ]
+  },
+  {
+   "frage": "Was regelt die ISO 9000-Normenfamilie?",
+   "varianten": [
+    "ISO 9001",
+    "Qualitätsmanagementsystem Norm",
+    "DIN EN ISO 9000"
+   ],
+   "antwort": "Die Normenfamilie DIN EN ISO 9000 ff. ist die Basis für Qualitätsmanagementsysteme. ISO 9000 enthält Definitionen und Begriffe, ISO 9001 die Anforderungen an das Qualitätsmanagementsystem. ISO 9004 ist ein Leitfaden zu Wirksamkeit und Wirtschaftlichkeit.",
+   "belege": [
+    "six-sigma-19"
+   ]
+  },
+  {
+   "frage": "Wie bestimme ich das Sigma-Niveau eines Prozesses?",
+   "varianten": [
+    "Sigma-Niveau berechnen",
+    "Sigma Level",
+    "z-Wert Prozess"
+   ],
+   "antwort": "Das Sigma-Niveau gibt an, wie viele Standardabweichungen zwischen Mittelwert und nächstgelegener Spezifikationsgrenze liegen: \\( z = \\frac{\\min(USL - \\mu,\\ \\mu - LSL)}{\\sigma} = 3 \\cdot C_{pk} \\). Beispiel: USL 10,6 mm, LSL 9,4 mm, Mittelwert 10,1 mm, σ = 0,1 mm. Der kleinere Abstand ist 0,5 mm, also \\( z = 0{,}5 / 0{,}1 = 5{,}00 \\) und \\( C_{pk} = 1{,}67 \\). Für Six Sigma bräuchtest du z = 6 bzw. \\( C_{pk} = 2{,}00 \\).",
+   "belege": [
+    "six-sigma-21",
+    "six-sigma-8",
+    "six-sigma-3"
+   ]
+  },
+  {
+   "frage": "Welche Arten von Qualitätskosten gibt es?",
+   "varianten": [
+    "Qualitätskosten",
+    "Fehlerkosten intern extern",
+    "Kosten schlechter Qualität"
+   ],
+   "antwort": "Qualitätskosten entstehen vor allem, weil Qualitätsforderungen wegen Fehlern nicht erfüllt werden. Zur Sicherung der Qualität fallen Prüfkosten und Kosten der Fehlervermeidung an, etwa für Fehleranalysen, Konstruktionsänderungen oder Schulungen. Weil kein Unternehmen völlig fehlerfrei produziert, kommen interne Fehlerkosten (Nacharbeit, Ausschuss) und externe Fehlerkosten (Garantie, Kundenärger, Goodwill-Verlust) hinzu. Six Sigma setzt an der Ursache an, indem es Fehlerquellen im Prozess beseitigt.",
+   "belege": [
+    "six-sigma-17",
+    "six-sigma-1"
+   ]
   }
  ]
 }

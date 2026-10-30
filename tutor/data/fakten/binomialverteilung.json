@@ -100,6 +100,216 @@
     "url": "https://wirtschaftslexikon.gabler.de/definition/binomialverteilung-28325",
     "typ": "lexikon"
    }
+  },
+  {
+   "id": "binomialverteilung-8",
+   "art": "definition",
+   "aussage": "Eine Bernoulli-Variable (Indikatorvariable) nimmt nur die Werte 1 und 0 mit den Wahrscheinlichkeiten p bzw. 1-p an; die Summe von n stochastisch unabhängigen, identisch verteilten Bernoulli-Variablen ist binomialverteilt.",
+   "schlagworte": [
+    "Bernoulli",
+    "Indikatorvariable",
+    "Summe"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bernoulli-Variable",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bernoulli-variable-27658",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-9",
+   "art": "formel",
+   "aussage": "Binomialkoeffizient („n über k“): `\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}` mit `n! = n \\cdot (n-1) \\cdots 2 \\cdot 1` und `0! = 1`; er gibt die Anzahl der Möglichkeiten an, k Erfolge auf n Versuche zu verteilen.",
+   "schlagworte": [
+    "Binomialkoeffizient",
+    "Fakultät",
+    "Kombinatorik"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Binomialkoeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/binomialkoeffizient-27944",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-10",
+   "art": "formel",
+   "aussage": "Hypergeometrische Verteilung (n Ziehungen ohne Zurücklegen aus N Elementen, davon M der ersten Sorte): `E(X) = n \\cdot \\frac{M}{N}`; die Varianz enthält gegenüber der Binomialverteilung den Korrekturfaktor `\\frac{N-n}{N-1}`. Anwendung z. B. bei der Gut-/Schlecht-Prüfung in der Qualitätskontrolle.",
+   "schlagworte": [
+    "hypergeometrisch",
+    "ohne Zurücklegen",
+    "Korrekturfaktor"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: hypergeometrische Verteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/hypergeometrische-verteilung-33402",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-11",
+   "art": "abgrenzung",
+   "aussage": "Die Poissonverteilung wird u. a. zur Approximation der Binomialverteilung bei sehr kleinem Anteilswert p (seltene Ereignisse) verwendet; ihr Parameter `\\lambda` ist zugleich Erwartungswert und Varianz, bei der Approximation setzt man `\\lambda = n\\,p`.",
+   "schlagworte": [
+    "Poissonverteilung",
+    "seltene Ereignisse",
+    "Approximation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Poissonverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/poissonverteilung-42305",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-12",
+   "art": "methode",
+   "aussage": "Stetigkeitskorrektur: Bei der Approximation durch die Normalverteilung wird die Binomial-Verteilungsfunktion an der ganzzahligen Stelle x durch die Normalverteilung an der Stelle x + 0,5 angenähert.",
+   "schlagworte": [
+    "Stetigkeitskorrektur",
+    "Normalapproximation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Stetigkeitskorrektur",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/stetigkeitskorrektur-43938",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-13",
+   "art": "formel",
+   "aussage": "Verteilungsfunktion: `F(k) = P(X \\le k) = \\sum_{i=0}^{k} \\binom{n}{i} p^i (1-p)^{n-i}`; bei diskreten Zufallsvariablen entsteht sie durch Kumulieren der Einzelwahrscheinlichkeiten.",
+   "schlagworte": [
+    "Verteilungsfunktion",
+    "kumuliert",
+    "höchstens"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Verteilungsfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/verteilungsfunktion-48954",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-14",
+   "art": "formel",
+   "aussage": "Gegenereignis: `P(X \\ge 1) = 1 - P(X = 0) = 1 - (1-p)^n`; allgemein `P(X \\ge k) = 1 - P(X \\le k-1)` und `P(X > k) = 1 - P(X \\le k)`.",
+   "schlagworte": [
+    "mindestens",
+    "Gegenwahrscheinlichkeit"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "binomialverteilung-15",
+   "art": "abgrenzung",
+   "aussage": "Voraussetzungen der Binomialverteilung (Bernoulli-Kette): n unabhängige Versuche mit jeweils nur zwei Ausgängen (Erfolg/Misserfolg) und gleichbleibender Erfolgswahrscheinlichkeit p; zählt X die Erfolge, ist X binomialverteilt.",
+   "schlagworte": [
+    "Bernoulli-Kette",
+    "Voraussetzungen",
+    "Unabhängigkeit"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "binomialverteilung-16",
+   "art": "formel",
+   "aussage": "Standardabweichung: `\\sigma = \\sqrt{n\\,p\\,(1-p)}`; die Varianz ist bei gegebenem n für p = 0,5 am größten.",
+   "schlagworte": [
+    "Standardabweichung",
+    "Streuung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "binomialverteilung-17",
+   "art": "zahl",
+   "aussage": "Rechenbeispiel (nachgerechnet) für n = 10, p = 0,2: `P(X = 2) = 45 \\cdot 0{,}2^2 \\cdot 0{,}8^8 \\approx 0{,}3020`, `P(X \\le 2) \\approx 0{,}6778`, `P(X \\ge 1) = 1 - 0{,}8^{10} \\approx 0{,}8926`; `E(X) = 2`, `Var(X) = 1{,}6`, `\\sigma \\approx 1{,}26`.",
+   "schlagworte": [
+    "Beispiel",
+    "Rechnung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "binomialverteilung-18",
+   "art": "abgrenzung",
+   "aussage": "Eine verbreitete Faustregel für die Normalapproximation der Binomialverteilung ist n·p·(1-p) > 9; Lehrbücher nennen teils abweichende Schwellen. Beispiel (nachgerechnet): Für n = 100, p = 0,5 ist `P(X \\le 45) \\approx \\Phi\\left(\\frac{45{,}5 - 50}{5}\\right) = \\Phi(-0{,}9) \\approx 0{,}1841`, exakt ebenfalls ≈ 0,1841.",
+   "schlagworte": [
+    "Faustregel",
+    "Normalapproximation",
+    "Beispiel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "binomialverteilung-19",
+   "art": "formel",
+   "aussage": "Der Anteilswert `\\hat{p} = X/n` (relative Häufigkeit der Erfolge) hat bei binomialverteiltem X den Erwartungswert p und die Varianz `\\frac{p(1-p)}{n}`.",
+   "schlagworte": [
+    "Anteilswert",
+    "relative Häufigkeit"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "binomialverteilung-20",
+   "art": "abgrenzung",
+   "aussage": "Mit statistischen Testverfahren lässt sich z. B. prüfen, ob eine Lieferung die vertragliche Bedingung „höchstens 3 Prozent Ausschuss“ einhält; die Zahl defekter Teile in der Stichprobe ist dabei die typische Prüfgröße.",
+   "schlagworte": [
+    "Test",
+    "Ausschuss",
+    "Qualitätskontrolle"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: statistische Testverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/statistische-testverfahren-41922",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-21",
+   "art": "abgrenzung",
+   "aussage": "Die Binomialverteilung ist für p = 0,5 symmetrisch; für p < 0,5 ist sie rechtsschief (linkssteil), für p > 0,5 linksschief (rechtssteil).",
+   "schlagworte": [
+    "Symmetrie",
+    "Schiefe"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "binomialverteilung-22",
+   "art": "zahl",
+   "aussage": "Beispiel Poisson-Approximation (nachgerechnet): Für n = 100 und p = 0,02 ist `P(X = 1)` exakt ≈ 0,2707; mit `\\lambda = 2` liefert die Poissonverteilung `2 \\cdot e^{-2} \\approx 0{,}2707`.",
+   "schlagworte": [
+    "Poissonverteilung",
+    "Beispiel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -112,6 +322,182 @@
    "falsch": "P(X ≥ k) ist b(k|n;p).",
    "richtig": "b(k|n;p) ist die Wahrscheinlichkeit für genau k Erfolge; P(X ≥ k) ist die Summe der Einzelwahrscheinlichkeiten.",
    "quelle_id": "binomialverteilung-2"
+  },
+  {
+   "falsch": "„Mindestens einer“ berechnet man als n·p.",
+   "richtig": "n·p ist der Erwartungswert. P(X ≥ 1) berechnet man über das Gegenereignis: 1 − (1−p)^n.",
+   "quelle_id": "binomialverteilung-14"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist die Binomialverteilung?",
+   "varianten": [
+    "Binomialverteilung Definition",
+    "Binomialverteilung einfach erklärt",
+    "wann ist etwas binomialverteilt"
+   ],
+   "antwort": "Die Binomialverteilung ist eine diskrete Wahrscheinlichkeitsverteilung mit den Parametern n (Anzahl der Versuche) und p (Erfolgswahrscheinlichkeit, 0 < p < 1). Sie beschreibt die Anzahl der Erfolge X bei n unabhängigen Versuchen mit jeweils zwei möglichen Ausgängen und gleichbleibendem p, z. B. beim Ziehen mit Zurücklegen. Typisches Beispiel ist die Zahl defekter Teile in einer Stichprobe aus einer Produktion mit Ausschussanteil p. Formal ist X die Summe von n unabhängigen Bernoulli-Variablen.",
+   "belege": [
+    "binomialverteilung-1",
+    "binomialverteilung-4",
+    "binomialverteilung-7",
+    "binomialverteilung-8",
+    "binomialverteilung-15"
+   ]
+  },
+  {
+   "frage": "Wie lautet die Formel der Binomialverteilung?",
+   "varianten": [
+    "Binomialverteilung Formel",
+    "P(X=k) Binomialverteilung",
+    "Bernoulli-Formel"
+   ],
+   "antwort": "Die Wahrscheinlichkeit für genau k Erfolge ist \\(P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}\\) für \\(k = 0, 1, \\dots, n\\). Der Binomialkoeffizient \\(\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}\\) zählt, auf wie viele Arten sich die k Erfolge auf die n Versuche verteilen lassen. \\(p^k\\) ist die Wahrscheinlichkeit der k Erfolge, \\((1-p)^{n-k}\\) die der übrigen Misserfolge. Beispiel: \\(\\binom{10}{2} = 45\\).",
+   "belege": [
+    "binomialverteilung-2",
+    "binomialverteilung-9"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich P(X = 2) bei n = 10 und p = 0,2?",
+   "varianten": [
+    "Binomialverteilung Beispiel Rechnung",
+    "genau k Erfolge berechnen",
+    "Binomialverteilung Aufgabe"
+   ],
+   "antwort": "Du setzt in die Formel ein: \\(P(X = 2) = \\binom{10}{2} \\cdot 0{,}2^2 \\cdot 0{,}8^8\\). Der Binomialkoeffizient ist \\(\\binom{10}{2} = 45\\), \\(0{,}2^2 = 0{,}04\\) und \\(0{,}8^8 \\approx 0{,}1678\\). Zusammen ergibt das \\(P(X = 2) \\approx 0{,}3020\\), also rund 30,20 %.",
+   "belege": [
+    "binomialverteilung-2",
+    "binomialverteilung-9",
+    "binomialverteilung-17"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich „höchstens“ und „mindestens“ bei der Binomialverteilung?",
+   "varianten": [
+    "P(X kleiner gleich k) Binomialverteilung",
+    "mindestens einer Wahrscheinlichkeit",
+    "kumulierte Binomialverteilung"
+   ],
+   "antwort": "„Höchstens k“ ist die kumulierte Wahrscheinlichkeit \\(P(X \\le k) = \\sum_{i=0}^{k} \\binom{n}{i} p^i (1-p)^{n-i}\\); für n = 10 und p = 0,2 ist \\(P(X \\le 2) \\approx 0{,}6778\\). „Mindestens k“ rechnest du über das Gegenereignis: \\(P(X \\ge k) = 1 - P(X \\le k-1)\\). Besonders oft gefragt ist „mindestens einer“: \\(P(X \\ge 1) = 1 - (1-p)^n = 1 - 0{,}8^{10} \\approx 0{,}8926\\). Achte auf die Grenze: „mehr als k“ ist \\(1 - P(X \\le k)\\).",
+   "belege": [
+    "binomialverteilung-13",
+    "binomialverteilung-14",
+    "binomialverteilung-17"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich Erwartungswert und Varianz der Binomialverteilung?",
+   "varianten": [
+    "Erwartungswert Binomialverteilung",
+    "Varianz n p (1-p)",
+    "Standardabweichung Binomialverteilung"
+   ],
+   "antwort": "Es gilt \\(E(X) = n\\,p\\) und \\(Var(X) = n\\,p\\,(1-p)\\), die Standardabweichung ist \\(\\sigma = \\sqrt{n\\,p\\,(1-p)}\\). Beispiel n = 10, p = 0,2: \\(E(X) = 2\\), \\(Var(X) = 1{,}6\\) und \\(\\sigma \\approx 1{,}26\\). Bei gegebenem n ist die Varianz für p = 0,5 am größten. Für den Anteilswert \\(X/n\\) gilt entsprechend Erwartungswert p und Varianz \\(p(1-p)/n\\).",
+   "belege": [
+    "binomialverteilung-3",
+    "binomialverteilung-16",
+    "binomialverteilung-17",
+    "binomialverteilung-19"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Binomialverteilung und hypergeometrischer Verteilung?",
+   "varianten": [
+    "mit oder ohne Zurücklegen",
+    "hypergeometrische Verteilung vs Binomialverteilung",
+    "wann hypergeometrische Verteilung"
+   ],
+   "antwort": "Die Binomialverteilung gilt beim Ziehen mit Zurücklegen, also bei unabhängigen Versuchen mit konstantem p. Ziehst du ohne Zurücklegen aus einer endlichen Grundgesamtheit (N Elemente, davon M der ersten Sorte), ist die hypergeometrische Verteilung exakt. Ihr Erwartungswert \\(n \\cdot M/N\\) entspricht \\(n\\,p\\) mit \\(p = M/N\\); die Varianz ist um den Korrekturfaktor \\(\\frac{N-n}{N-1}\\) kleiner. Bei kleinem Auswahlsatz n/N kannst du näherungsweise mit der Binomialverteilung rechnen.",
+   "belege": [
+    "binomialverteilung-4",
+    "binomialverteilung-5",
+    "binomialverteilung-10"
+   ]
+  },
+  {
+   "frage": "Wann darf ich die Binomialverteilung durch die Normalverteilung annähern?",
+   "varianten": [
+    "Normalapproximation Binomialverteilung Faustregel",
+    "Stetigkeitskorrektur Binomialverteilung",
+    "n p (1-p) > 9"
+   ],
+   "antwort": "Bei großem n lässt sich die Binomialverteilung durch die Normalverteilung mit \\(\\mu = np\\) und \\(\\sigma^2 = np(1-p)\\) approximieren. Eine verbreitete Faustregel ist \\(np(1-p) > 9\\); manche Lehrbücher nennen andere Schwellen, nimm die aus deinem Skript. Dabei nutzt du die Stetigkeitskorrektur: \\(P(X \\le x)\\) wird mit der Normalverteilung an der Stelle \\(x + 0{,}5\\) berechnet. Beispiel: Für n = 100 und p = 0,5 ist \\(P(X \\le 45) \\approx \\Phi\\left(\\frac{45{,}5 - 50}{5}\\right) = \\Phi(-0{,}9) \\approx 0{,}1841\\), exakt 0,1841.",
+   "belege": [
+    "binomialverteilung-6",
+    "binomialverteilung-3",
+    "binomialverteilung-12",
+    "binomialverteilung-18"
+   ]
+  },
+  {
+   "frage": "Wann nutze ich die Poissonverteilung statt der Binomialverteilung?",
+   "varianten": [
+    "Poisson-Approximation",
+    "seltene Ereignisse Verteilung",
+    "Binomialverteilung kleines p"
+   ],
+   "antwort": "Bei sehr kleinem p (seltene Ereignisse) und großem n kannst du die Binomialverteilung durch die Poissonverteilung mit \\(\\lambda = n\\,p\\) annähern. Ihr Parameter \\(\\lambda\\) ist zugleich Erwartungswert und Varianz. Beispiel: n = 100, p = 0,02, also \\(\\lambda = 2\\); \\(P(X = 1)\\) ist exakt etwa 0,2707, die Poisson-Näherung \\(2 \\cdot e^{-2}\\) liefert ebenfalls etwa 0,2707.",
+   "belege": [
+    "binomialverteilung-11",
+    "binomialverteilung-22"
+   ]
+  },
+  {
+   "frage": "Welche Voraussetzungen müssen für die Binomialverteilung erfüllt sein?",
+   "varianten": [
+    "Bernoulli-Kette Voraussetzungen",
+    "Binomialverteilung Bedingungen",
+    "wann binomialverteilt Klausur"
+   ],
+   "antwort": "Du brauchst n gleichartige Versuche mit jeweils nur zwei Ausgängen (Erfolg oder Misserfolg). Die Versuche müssen unabhängig sein und die Erfolgswahrscheinlichkeit p muss in jedem Versuch gleich bleiben (Bernoulli-Kette). Das ist z. B. beim Ziehen mit Zurücklegen erfüllt. Beim Ziehen ohne Zurücklegen aus einer kleinen Grundgesamtheit ändert sich p dagegen von Zug zu Zug; dann ist die hypergeometrische Verteilung exakt.",
+   "belege": [
+    "binomialverteilung-15",
+    "binomialverteilung-4",
+    "binomialverteilung-5"
+   ]
+  },
+  {
+   "frage": "Was ist der Binomialkoeffizient und wie berechne ich ihn?",
+   "varianten": [
+    "n über k berechnen",
+    "Binomialkoeffizient Formel",
+    "10 über 2"
+   ],
+   "antwort": "Der Binomialkoeffizient \\(\\binom{n}{k}\\), gelesen „n über k“, ist definiert als \\(\\frac{n!}{k!\\,(n-k)!}\\) mit \\(n! = n \\cdot (n-1) \\cdots 2 \\cdot 1\\) und \\(0! = 1\\). In der Binomialverteilung zählt er, wie viele Reihenfolgen es für k Erfolge in n Versuchen gibt. Beispiel: \\(\\binom{10}{2} = \\frac{10!}{2! \\cdot 8!} = \\frac{10 \\cdot 9}{2} = 45\\).",
+   "belege": [
+    "binomialverteilung-9",
+    "binomialverteilung-2"
+   ]
+  },
+  {
+   "frage": "Ist die Binomialverteilung symmetrisch?",
+   "varianten": [
+    "Binomialverteilung Schiefe",
+    "Binomialverteilung p = 0,5",
+    "Form der Binomialverteilung"
+   ],
+   "antwort": "Nur für p = 0,5 ist die Binomialverteilung symmetrisch um ihren Erwartungswert \\(n/2\\). Für p < 0,5 ist sie rechtsschief (linkssteil), die Masse liegt also links und der Ausläufer rechts. Für p > 0,5 ist es umgekehrt. Bei gegebenem n streut sie für p = 0,5 auch am stärksten.",
+   "belege": [
+    "binomialverteilung-21",
+    "binomialverteilung-16"
+   ]
+  },
+  {
+   "frage": "Wie wird die Binomialverteilung in der Qualitätskontrolle genutzt?",
+   "varianten": [
+    "Ausschuss Stichprobe Wahrscheinlichkeit",
+    "Binomialverteilung Qualitätsprüfung",
+    "defekte Teile berechnen"
+   ],
+   "antwort": "Ziehst du n Teile aus einer laufenden Produktion mit Ausschussanteil p, ist die Zahl defekter Teile X binomialverteilt; \\(b(k \\mid n; p)\\) gibt die Wahrscheinlichkeit für genau k defekte Teile an. Damit kannst du z. B. testen, ob eine Lieferung die vertragliche Bedingung „höchstens 3 Prozent Ausschuss“ einhält. Ziehst du dagegen ohne Zurücklegen aus einem kleinen Los, ist die hypergeometrische Verteilung exakt (Gut-/Schlecht-Prüfung). Bei kleinem Auswahlsatz ist der Unterschied gering.",
+   "belege": [
+    "binomialverteilung-7",
+    "binomialverteilung-20",
+    "binomialverteilung-10",
+    "binomialverteilung-5"
+   ]
   }
  ]
 }
