@@ -8836,3 +8836,72 @@ html body .bk-via { gap: 7px !important; padding: 6px 12px 6px 10px !important; 
 html body .bk-via > span:first-child { display: inline-grid; place-items: center; width: 14px; height: 14px; line-height: 0; }
 html body .bk-via .ico { width: 14px !important; height: 14px !important; display: block; }
 html body .bk-via b { font-weight: 750 !important; }
+
+/* ============================================================
+   Handy-Feinschliff (Okt 2026)
+   Nur schmale Bildschirme (≤760px / ≤480px) – Desktop bleibt unverändert.
+   html:not(#m0) hebt die Spezifität über die bestehenden html:root[data-nv]…-Regeln.
+   ============================================================ */
+@media (max-width: 760px) {
+  /* Tippflächen: Chips, Umschalter, Text-Knöpfe mindestens 40px hoch */
+  html:not(#m0) body :is(button.chip, a.chip, span.chip.vchip):not([hidden]) { min-height: 40px; display: inline-flex; align-items: center; justify-content: center; }
+  html:not(#m0) body :is(.fx-seg, .seg, .ik-seg) button:not([hidden]) { min-height: 40px; }
+  html:not(#m0) body :is(.ms-lbtn, .ms-tb, .ms-skl):not([hidden]) { min-height: 40px; }
+  html:not(#m0) body .linkbtn:not([hidden]) { min-height: 40px; display: inline-flex; align-items: center; }
+  html:not(#m0) body .starbtn:is(.sm, :not(.sm)) { min-width: 40px; min-height: 40px; }
+  html:not(#m0) body :is(.fb-kind, .fx-trset, .db-title):not([hidden]) { min-height: 40px; }
+  html:not(#m0) body .vt-btn:not([hidden]) { min-height: 40px !important; }
+  html:not(#m0) body .ai-mx { width: 40px; height: 40px; }
+  html:not(#m0) body .room .rm-bar :is(.rm-skb, .rm-prog, .rm-end-b, .rm-timer) { height: 40px; }
+  html:not(#m0) body .room .rm-bar .rm-gear { width: 40px; height: 40px; }
+  html:not(#m0) body .asst .ai-dots { min-width: 40px; }
+  html:not(#m0) body .asst .ai-cfg { width: 40px; height: 40px; }
+  html:not(#m0) body .side .langsw button { min-height: 40px; padding: 0 12px; }
+  html:not(#m0) body .sidemenu .sm-legal .sm-l { min-height: 40px; display: flex; align-items: center; }
+  /* Kleine Text-Links: größere Tippfläche, Layout bleibt gleich */
+  html:not(#m0) body :is(.llink, .sk-fb) { padding: 11px 6px; margin: -11px -6px; }
+  html:not(#m0) body .tm-i { position: relative; }
+  html:not(#m0) body .tm-i::after { content: ""; position: absolute; inset: -10px; }
+  html:not(#m0) body .ai-menu .pv { position: relative; }
+  html:not(#m0) body .ai-menu .pv::after, html:not(#m0) body .chips .vchip .pv::after { content: ""; position: absolute; inset: -9px; }
+  html:not(#m0) body .chips .vchip .pv { position: relative; }
+
+  /* Lexikon/Rechner-Knöpfe nicht über Menüs, Seitenleiste und „Zurück zur Tafel“ legen */
+  html:not(#m0) body:has(.app.sideopen) .dk.row,
+  html:not(#m0) body:has(.asst.open .ai-menu:not([hidden])) .dk.row { opacity: 0 !important; pointer-events: none !important; }
+
+  html:not(#m0) body:has(.asst.has-board.board-min) .dk.row { translate: 0 -50px; }
+  /* Unterster Inhalt im Tutor-Raum lässt sich unter Lexikon/Rechner hervorscrollen */
+  html:not(#m0) body:has(.dk.row:not(.hide)) .room .rm-scroll { padding-bottom: 56px; }
+
+  /* Tutor-Raum: Leiste über dem Gespräch darf umbrechen – „Session beenden“ ganz lesbar */
+  html:not(#m0) body .room .rm-bar { flex-wrap: wrap; row-gap: 8px; }
+  html:not(#m0) body .room .rm-bar .rm-end-b { max-width: none !important; overflow: visible; margin-left: auto; }
+  /* Lerntools: 3 × 3 statt 4 + 4 + 1, Beschriftung lesbar */
+  html:not(#m0)[data-nv] body .room .rm-tl { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px !important; }
+  html:not(#m0)[data-nv] body .room .rm-tl .rm-tlt { grid-column: auto !important; }
+  html:not(#m0)[data-nv] body .room .rm-tl .rm-tlt b { font-size: 12.5px !important; }
+
+  /* Einmal-Tipp „Am Laptop oder iPad …“ nicht über das Eingabefeld legen */
+  html:not(#m0) body .mtip2 { bottom: calc(196px + env(safe-area-inset-bottom, 0px)) !important; }
+  html:not(#m0) body:has(.asst.open .ai-menu:not([hidden])) .mtip2, html:not(#m0) body:has(.app.sideopen) .mtip2, html:not(#m0) body:has(.sidemenu) .mtip2 { opacity: 0 !important; pointer-events: none !important; }
+
+  /* Konto: Promocode-Feld in normaler Höhe */
+  html:not(#m0) body .promo .promo-in { height: 46px !important; min-height: 46px !important; padding: 0 14px !important; line-height: normal !important; }
+
+  /* Excel-Helfer / Video: Überschrift nutzt die volle Breite statt drei gequetschter Zeilen */
+  html:not(#m0) body :is(.xl-head, .vt-head) h1 { text-wrap: wrap !important; align-items: center; }
+}
+@media (max-width: 640px) {
+  /* Startseite: Hero-Überschrift passt ganz auf den Bildschirm */
+  html:not(#m0) body .hero h1:not(.h1-topic) { font-size: min(8.6vw, 44px) !important; }
+}
+@media (max-width: 480px) {
+  /* Startseite: Formel in der Tafel-Vorschau passt ohne Wischen */
+  html:not(#m0) body .pin .tafel .calc .tex .katex { font-size: .85em !important; }
+  /* Fortschritt: „Steck dir dein Lernziel“ – Knopf unter den Text statt Text in schmaler Spalte */
+  html:not(#m0) body .xl-head h1 { font-size: 23px; }
+  html:not(#m0) body .fx-nudge { flex-wrap: wrap; row-gap: 12px; }
+  html:not(#m0) body .fx-nudge .fx-ndt { flex: 1 1 200px; min-width: 0; }
+  html:not(#m0) body .fx-nudge .fx-ndb { margin-left: 58px; }
+}
