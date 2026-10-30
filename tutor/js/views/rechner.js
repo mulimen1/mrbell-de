@@ -77,7 +77,7 @@ function calcView(wrap, c, onAsk) {
     let el;
     if (typ === 's') el = h('select', { class: 'field' }, extra.map(([v, t]) => h('option', { value: v, selected: String(vals[k]) === v || null }, t)));
     else if (typ === 'b') el = h('input', { type: 'checkbox', checked: vals[k] ? true : null });
-    else el = h('input', { class: 'field', inputmode: typ === 'l' ? 'text' : 'decimal', value: vals[k] ?? '', autocomplete: 'off', placeholder: typ === 'l' ? '400; 400; 400' : '' });
+    else el = h('input', { class: 'field', inputmode: typ === 'l' ? 'text' : 'decimal', value: vals[k] ?? '', autocomplete: 'off', placeholder: typ === 'l' ? (extra === '%' ? '10; 12' : '400; 400; 400') : '' });   // Prozent-Listen: kein „400 %“ als Beispiel
     inputs[k] = { el, typ };
     el.addEventListener(typ === 's' || typ === 'b' ? 'change' : 'input', () => { clearTimeout(form.t); form.t = setTimeout(calc, 120); });
     return typ === 'b' ? h('label', { class: 'rc-b' }, el, h('span', {}, label)) : h('label', { class: 'rc-f' }, h('span', {}, label), h('div', { class: 'rc-in' }, el, extra && typeof extra === 'string' ? h('i', {}, extra) : null));
