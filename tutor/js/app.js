@@ -55,7 +55,8 @@ export async function viaMax(fn) {
     fn(a); return true;
   } catch (e) { console.warn(e); return false; }
 }
-export const talkToMax = async () => { if (!getAccount()) { const ok = await openAuth({ title: L('Gespräch mit Max freischalten', 'Unlock talking to Max'), registerTitle: L('Gespräch mit Max freischalten', 'Unlock talking to Max'), sub: L('Kostenloses Konto – mit Google in zwei Klicks. Danach redest du einfach los.', 'Free account – two clicks with Google. Then just start talking.'), why: 'Sprechen', strong: true }); if (!ok || !getAccount()) return; } if (!(await viaMax(a => a.talk()))) { const { openVoice } = await import('./voice.js'); openVoice({}); } };
+export const talkToMax = async () => { if (!(await import('./maxmode.js')).allowed()) { location.hash = '#/app/tutor'; return; }   // ohne Sprache: einfach in den Tutor (tippen)
+ if (!getAccount()) { const ok = await openAuth({ title: L('Gespräch mit Max freischalten', 'Unlock talking to Max'), registerTitle: L('Gespräch mit Max freischalten', 'Unlock talking to Max'), sub: L('Kostenloses Konto – mit Google in zwei Klicks. Danach redest du einfach los.', 'Free account – two clicks with Google. Then just start talking.'), why: 'Sprechen', strong: true }); if (!ok || !getAccount()) return; } if (!(await viaMax(a => a.talk()))) { const { openVoice } = await import('./voice.js'); openVoice({}); } };
 export function go(path) { location.hash = '#/app' + (path ? '/' + path : ''); }
 
 function buildShell() {

@@ -1,3 +1,4 @@
+import * as MMV from '../maxmode.js';
 // Tutor-Raum – die Startseite. Max groß in der Mitte, rechts (aufklappbar) deine Skripte, unten das Eingabefeld.
 // Erst begrüßt er dich und sagt, was jetzt dran ist (Fortschritt diese Woche, was offen ist, sein Tipp).
 // Sobald ihr loslegt, rutscht er nach oben, das Gespräch und die Tafel übernehmen die Bühne. Mit Pausen und Session-Bilanz.
@@ -339,7 +340,7 @@ export function render(root, ctx = {}) {
       ['whistle', L('BWL-Trainer', 'Business trainer'), () => { location.hash = '#/app/trainer'; }],
       ['calc', L('Rechner', 'Calculators'), () => { location.hash = '#/app/rechner'; }],
       ['mic', L('Sprechen', 'Talk'), () => api && api.talk()]
-    ];
+    ].filter(x => x[0] !== 'mic' || MMV.allowed());
     // Alles sofort sichtbar: vier große Kacheln, darunter eine ruhige Zeile mit dem Rest – kein Aufklappen
     const more = h('div', { class: 'rm-more2 on' }, h('span', { class: 'rm-mlab' }, L('Außerdem', 'Also')), MORE.map(([ic, t, fn]) => h('button', { class: 'chip rm-mc', type: 'button', onclick: fn }, h('span', { html: ico(ic) }), t)));
     // Ruhig: nur ein Knopf „Lernskills“ – Kacheln, Extras und die Sync-Frage erst nach dem Aufklappen

@@ -1,3 +1,4 @@
+import * as MMV from '../maxmode.js';
 // Lernen: alles, womit man bei BWL Max lernen kann, an einem Ort – mit Struktur.
 // 1) Deine Skripte als Karten (Stand auf einen Blick, eins ist ausgewählt)
 // 2) Was du mit DIESEM Skript machen kannst – jedes Tool zeigt, was schon da ist; was fehlt, wird nach kurzem Personalisieren erstellt
@@ -287,7 +288,7 @@ export function render(root, o = {}) {
         h('div', { class: 'ln-grid' },
           T('board', L('An der Tafel erklären', 'Explain on the board'), L('Schritt für Schritt, mit Cursor und Warum', 'Step by step, with the why'), L('Loslegen', 'Start'), () => inRoom(api => api.prefill(L('Erklär mir an der Tafel: ', 'Explain on the board: ')))),
           T('chat', L('Abfragen', 'Quiz me'), L('Eine Frage nach der anderen', 'One question at a time'), L('Loslegen', 'Start'), () => inRoom(api => api.ask(L('Frag mich ab – eine Frage nach der anderen, warte jeweils auf meine Antwort und sag mir dann, ob’s sitzt.', 'Quiz me – one question at a time, wait for my answer each time and tell me if it’s right.')))),
-          T('mic', L('Sprich mit mir', 'Talk to me'), L('Einfach reden – wie mit einem Tutor', 'Just talk – like with a tutor'), L('Loslegen', 'Start'), () => import('../app.js').then(m => m.talkToMax())),
+          MMV.allowed() && T('mic', L('Sprich mit mir', 'Talk to me'), L('Einfach reden – wie mit einem Tutor', 'Just talk – like with a tutor'), L('Loslegen', 'Start'), () => import('../app.js').then(m => m.talkToMax())),
           T('bulb', L('Ich erklär dir ein Thema', 'I’ll explain a topic'), L('Kein Skript? Nenn mir einfach das Thema', 'No slides? Just name the topic'), L('Thema nennen', 'Name a topic'), () => import('../app.js').then(m => m.topicPrompt())))));
     wrap.querySelectorAll('.ln-tile, .ln-dc').forEach((el, i) => el.style.setProperty('--i', String(Math.min(i, 14))));
   }

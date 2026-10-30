@@ -12,6 +12,8 @@ import { apiError, typeOut as typeIt, typePlaceholder, syncOut, aiTag, siegel, a
 import { liveWave } from './wave.js';
 import { startLive } from './livestt.js';
 import * as MM from './maxmode.js';
+// Sprechen mit Max (Spracheingabe und gesprochene Antworten) gibt es nur noch im Max-Modus des Gründer-Kontos – für alle anderen: tippen
+const VOICE = () => MM.allowed();
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { VOICES, getVoice, voiceChip } from './voice.js';
@@ -721,9 +723,11 @@ export function mountAssistant() {
     show(muteBtn, s === 'speak' || s === 'think');
     show(dotsBtn, s === 'idle');
     show(attBtn, s === 'idle');
-    show(micBtn, s === 'idle');   // „Sprich mit Max“ steht immer unter dem Textfeld
+    show(micBtn, s === 'idle');   // großer Knopf unter dem Textfeld: „Frag Max“ (ohne Sprache) bzw. „Sprich mit Max“ (Max-Modus)
+    const vOn = VOICE();
+    if (micBtn.dataset.v !== String(vOn)) { micBtn.dataset.v = String(vOn); const lb = vOn ? L('Sprich mit Max', 'Talk to Max') : L('Frag Max', 'Ask Max'); micBtn.setAttribute('aria-label', lb); micBtn.replaceChildren(h('span', { html: ico(vOn ? 'mic' : 'send') }), h('span', { class: 'lbl' }, lb)); micBtn.classList.toggle('ai-ask', !vOn); }
     show(tourBtn, s === 'idle' && !STAGE && !!route().tab && route().tab !== 'room');
-    show(sendBtn, s === 'idle' && hasTx);
+    show(sendBtn, s === 'idle' && hasTx && vOn);   // ohne Sprache übernimmt „Frag Max“ das Senden
     show(doneBtn, s === 'listen');
     show(stopBtn, s === 'think' || s === 'speak');
     show(closeBtn, true);
@@ -739,7 +743,7 @@ export function mountAssistant() {
     drawButtons();
     toast(cfg.spk ? L('Max redet wieder.', 'Max talks again.') : L('Max ist stumm – er schreibt nur noch.', 'Max is muted – text only.'));
   });
-  micBtn.addEventListener('click', () => { inp.blur(); typing = false; startListen(); });
+  micBtn.addEventListener('click', () => { if (!VOICE()) { if (inp.value.trim()) sendTyped(); else { try { inp.focus(); } catch (e) {} } return; } inp.blur(); typing = false; startListen(); });
   doneBtn.addEventListener('click', () => stopListen());
   stopBtn.addEventListener('click', () => stopAll());
 
@@ -1840,6 +1844,7 @@ export function mountAssistant() {
   // ---------- Zuhören (mit Live-Mitschrift) ----------
   let listenTok = 0, anSrc = null, capTimer2 = 0, held = false;
   async function startListen({ followup = false } = {}) {
+    if (!VOICE()) { setState('idle'); try { inp.focus({ preventScroll: true }); } catch (e) {} return; }   // Sprechen nur noch im Max-Modus (Gründer-Konto)
     if (!getAccount()) {   // Gespräch per Stimme nur mit kostenlosem Konto
       try { window.BM && window.BM.track('Anmeldepflicht', 'Sprechen'); } catch (x) {}
       import('./account.js').then(m => m.openAuth({ title: L('Gespräch mit Max freischalten', 'Unlock talking to Max'), registerTitle: L('Gespräch mit Max freischalten', 'Unlock talking to Max'), sub: L('Kostenloses Konto – mit Google in zwei Klicks. Danach redest du einfach los.', 'Free account – two clicks with Google. Then just start talking.'), why: 'Sprechen', strong: true })).then(ok => { if (ok && getAccount()) startListen({ followup }); }).catch(() => {});
