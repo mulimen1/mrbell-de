@@ -127,6 +127,8 @@ if (H.dataset.nv) {
   const tag = () => {
     document.querySelectorAll('svg.ico').forEach(svg => {
       const box = svg.parentElement; if (!box || box.dataset.icc !== undefined || box.dataset.icn === '1') return;
+      // Kästchen mit fester Bereichsfarbe (data-tone, z. B. Bibliothek-Filter und -Überschriften) nicht umfärben – sonst springt die Farbe nach jedem Klick
+      if (box.closest('.bib-tab, .bib-sh, .nvp-kind')) { box.dataset.icn = '1'; return; }
       if (!/^(SPAN|DIV|I)$/.test(box.tagName) || box.children.length !== 1 || box.textContent.trim()) { box.dataset.icn = '1'; return; }
       if (box.closest('.m-mc-teasei, .m-mc-heroi, .xo-heroi, .cfg-ri, .lp-goi, .zt-chip, .zt-ck, .fc-ask, .nx-ic, .pst-b, .pst-play, .fc-rk, .cfg-std, .cfg-dot, .qr-k, .qr-i, .srk-ic, .srk-go, .made-ok, .made-open, .sn-i, .me-upzi, .me-upi, .side-ib, .ub-leci, .ub-lecg, .me-bico, .me-sym, .me-fprev, .rm-tkic, .ks-pic, .ks-di, .ks-ic, .ub-ti, .tn-tutor, .ai-talk, .lm-cta, .lm-tutor, .btn, .kt-start, .kt-go, .kt-sec, .rm-acc, .topbar .iconbtn, .side-col, .side-tog')) { box.dataset.icn = '1'; return; }
       const r = box.getBoundingClientRect(); if (!r.width) return;
@@ -137,7 +139,8 @@ if (H.dataset.nv) {
       box.dataset.icc = nm;
     });
   };
-  let t2 = 0; const later2 = () => { clearTimeout(t2); t2 = setTimeout(tag, 300); };
+  // gleich im nächsten Bild färben (nicht erst nach 300 ms) – sonst blitzt nach jedem Neuzeichnen kurz die Grundfarbe auf
+  let t2 = 0; const later2 = () => { if (t2) return; t2 = requestAnimationFrame(() => { t2 = 0; tag(); }); };
   new MutationObserver(later2).observe(document.documentElement, { childList: true, subtree: true });
   addEventListener('hashchange', later2); later2();
 }
