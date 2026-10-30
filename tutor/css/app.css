@@ -8948,3 +8948,7 @@ html:root #landing .nav.nav26 .nav-mb { display: none; }
 }
 /* Während Begrüßung und Rundgang liegt der Cookie-Hinweis nicht darüber – er kommt danach wieder */
 html.gt-on .bmc, html.bm-gotour .bmc { display: none !important; }
+/* Bereichs-Icons oben: immer sichtbar, auch in Safari/iOS (feste Größe, weißer Strich) */
+html:root[data-nv] body .topnav .tn:not(.tn-tutor) > span:has(> .ico) > svg.ico,
+html:root body .topnav .tn:not(.tn-tutor) > span > svg.ico { display: block !important; width: 20px !important; height: 20px !important; min-width: 20px; flex: none !important; stroke: #fff !important; color: #fff !important; fill: none !important; opacity: 1 !important; visibility: visible !important; stroke-width: 2 !important; overflow: visible; }
+@media (max-width: 760px) { html:root body .topnav .tn:not(.tn-tutor) > span > svg.ico { width: 18px !important; height: 18px !important; } }
