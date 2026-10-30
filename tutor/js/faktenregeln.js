@@ -2,26 +2,50 @@
 // Faktenregister: falsche/veraltete Aussagen (Gesetze, Grenzwerte, Sätze, Fristen, bekannte Fehlermuster) mit richtiger Aussage und Quelle.
 export const FAKTEN = [
  {
+  "id": "selbst-geschaffene-marke",
+  "muster": "selbst (?:geschaffen|erstellt)\\w*[^.]{0,80}Marken[^.]{0,80}(?:aktiviert werden (?:dürfen|können)|aktivierbar|ausgewiesen werden (?:dürfen|können)|dürfen[^.]{0,30}aktiviert)",
+  "kontext": null,
+  "ausser": "\\bnicht\\b|\\bkein|Verbot|verboten|ausgenommen|IFRS|IAS",
+  "richtig": "Selbst geschaffene Marken, Drucktitel, Verlagsrechte, Kundenlisten u. Ä. des Anlagevermögens dürfen nach HGB nicht aktiviert werden (§ 248 Abs. 2 S. 2 HGB).",
+  "quelle": "https://www.gesetze-im-internet.de/hgb/__248.html"
+ },
+ {
   "id": "kleinunternehmer-grenze",
   "muster": "(?:22\\.000|22 000|22\\.000,00)\\s*(?:€|Euro)|(?<![\\d.])50\\.000\\s*(?:€|Euro)[^.]{0,80}(?:laufend|voraussichtlich)",
   "kontext": "Kleinunternehmer|§\\s*19 UStG",
-  "ausser": "bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
   "richtig": "Kleinunternehmer (§ 19 UStG, seit 1.1.2025): Vorjahresumsatz höchstens 25.000 €, im laufenden Jahr höchstens 100.000 €.",
   "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__19.html"
  },
  {
   "id": "degressive-afa",
-  "muster": "(?:2,5-fache|zweieinhalbfache|höchstens 25\\s*%|maximal 25\\s*%)[^.]{0,120}degressiv|degressiv[^.]{0,120}(?:2,5-fache|zweieinhalbfache|höchstens 25\\s*%|maximal 25\\s*%)",
+  "muster": "(?:2,5-fache|zweieinhalbfache|höchstens 25\\s*%|maximal 25\\s*%)(?:[^.]|\\.(?=\\s*\\d)|(?:Abs|Nr|S|bzw|ggf|vgl)\\.|\\.\\s+(?:Der|Die|Das) (?:Satz|AfA|Höchstsatz|Prozentsatz)){0,160}degressiv|degressiv(?:[^.]|\\.(?=\\s*\\d)|(?:Abs|Nr|S|bzw|ggf|vgl)\\.|\\.\\s+(?:Der|Die|Das) (?:Satz|AfA|Höchstsatz|Prozentsatz)){0,200}(?:2,5-fache|zweieinhalbfache|höchstens 25\\s*%|maximal 25\\s*%)",
   "kontext": null,
-  "ausser": "bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
   "richtig": "Degressive AfA (§ 7 Abs. 2 EStG): für bewegliche Wirtschaftsgüter mit Anschaffung 1.7.2025–31.12.2027 höchstens das Dreifache des linearen Satzes, maximal 30 %.",
   "quelle": "https://www.gesetze-im-internet.de/estg/__7.html"
+ },
+ {
+  "id": "gwg-1000",
+  "muster": "(?:GWG|geringwertig\\w*|Sofortabschreibung|Grenze|Wertgrenze)[^.]{0,40}?(?:bei|von|auf|bis(?: zu)?)\\s*\\**\\s*1\\.000\\s*(?:€|Euro)",
+  "kontext": "GWG|geringwertig|Sofortabschreib|§\\s*6\\s*Abs\\.\\s*2(?!a)",
+  "ausser": "Sammelposten|Pool|250|1\\.000\\s*(?:€|Euro)[^.]{0,40}(?:Sammel|Pool)",
+  "richtig": "GWG (§ 6 Abs. 2 EStG): Sofortabschreibung bis 800 € netto; 1.000 € ist nur die Obergrenze des Sammelpostens (§ 6 Abs. 2a EStG, 250,01–1.000 €, 5 Jahre).",
+  "quelle": "https://www.gesetze-im-internet.de/estg/__6.html"
+ },
+ {
+  "id": "kleinunternehmer-voraussichtlich",
+  "muster": "voraussichtlich\\w*[^.]{0,80}100\\.000\\s*(?:€|Euro)|100\\.000\\s*(?:€|Euro)[^.]{0,40}voraussichtlich",
+  "kontext": "Kleinunternehmer|§\\s*19 UStG",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
+  "richtig": "Kleinunternehmer (§ 19 UStG, seit 1.1.2025): Vorjahresumsatz höchstens 25.000 € und der tatsächliche Umsatz im laufenden Jahr höchstens 100.000 € – beim Überschreiten endet die Regelung sofort (keine Prognose mehr).",
+  "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__19.html"
  },
  {
   "id": "gwg-alt",
   "muster": "(?:410|150)\\s*(?:€|Euro)[^.]{0,80}(?:GWG|geringwertig|Sofortabschreibung)|(?:GWG|geringwertig)[^.]{0,80}(?:410|150)\\s*(?:€|Euro)",
   "kontext": null,
-  "ausser": "bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Sammelposten|250",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Sammelposten|250",
   "richtig": "GWG (§ 6 Abs. 2 EStG): Sofortabschreibung bis 800 € netto; Sammelposten (§ 6 Abs. 2a EStG) für 250,01–1.000 € über 5 Jahre.",
   "quelle": "https://www.gesetze-im-internet.de/estg/__6.html"
  },
@@ -29,7 +53,7 @@ export const FAKTEN = [
   "id": "aufbewahrung-belege",
   "muster": "(?:Buchungsbeleg|Belege|Rechnungen)[^.]{0,80}10 Jahre|10 Jahre[^.]{0,60}(?:Buchungsbeleg|Belege)",
   "kontext": null,
-  "ausser": "bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Bücher|Jahresabschl|Inventar|Bilanz",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Bücher|Jahresabschl|Inventar|Bilanz",
   "richtig": "Aufbewahrung (§ 257 HGB, § 147 AO, seit 1.1.2025): Buchungsbelege 8 Jahre; Handelsbücher, Inventare, Jahresabschlüsse 10 Jahre; Handels- und Geschäftsbriefe 6 Jahre.",
   "quelle": "https://www.gesetze-im-internet.de/hgb/__257.html"
  },
@@ -37,7 +61,7 @@ export const FAKTEN = [
   "id": "kst-satz",
   "muster": "Körperschaftsteuer(?:satz)?[^.]{0,60}(?:25|30)\\s*%",
   "kontext": null,
-  "ausser": "bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Gesamt|inkl|einschließlich|Gewerbe|zusammen|rund 30|ca\\. 30|etwa 30",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Gesamt|inkl|einschließlich|Gewerbe|zusammen|rund 30|ca\\. 30|etwa 30",
   "richtig": "Körperschaftsteuer 15 % (§ 23 KStG) bis 2027, ab 2028 jährlich 1 Prozentpunkt weniger bis 10 % ab 2032; zzgl. 5,5 % Soli. Mit Gewerbesteuer ca. 30 % Gesamtbelastung.",
   "quelle": "https://www.gesetze-im-internet.de/kstg_1977/__23.html"
  },
@@ -53,7 +77,7 @@ export const FAKTEN = [
   "id": "groessenklassen-alt",
   "muster": "(?:6\\.000\\.000|6 Mio\\.?|12\\.000\\.000|12 Mio\\.?|20\\.000\\.000|20 Mio\\.?|40\\.000\\.000|40 Mio\\.?|350\\.000|700\\.000)\\s*(?:€|Euro)?",
   "kontext": "§\\s*267|Größenklasse|kleine Kapitalgesellschaft|mittelgroße|Kleinstkapitalgesellschaft",
-  "ausser": "bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Umsatzerlöse von 40|Arbeitnehmer",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Umsatzerlöse von 40|Arbeitnehmer",
   "richtig": "§ 267/267a HGB (seit GJ 2024): Kleinst ≤ 450.000 € Bilanzsumme, ≤ 900.000 € Umsatz, ≤ 10 AN; klein ≤ 7,5 Mio. €, ≤ 15 Mio. €, ≤ 50 AN; mittel ≤ 25 Mio. €, ≤ 50 Mio. €, ≤ 250 AN (je 2 von 3 Merkmalen).",
   "quelle": "https://www.gesetze-im-internet.de/hgb/__267.html"
  },
@@ -125,7 +149,7 @@ export const FAKTEN = [
   "id": "mindestlohn",
   "muster": "Mindestlohn[^.]{0,60}(?:12,41|12,82|12,00|10,45|9,82)\\s*€",
   "kontext": null,
-  "ausser": "bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
   "richtig": "Gesetzlicher Mindestlohn: 13,90 € je Stunde ab 1.1.2026, 14,60 € ab 1.1.2027.",
   "quelle": "Mindestlohngesetz, Anpassung auf Vorschlag der Mindestlohnkommission (BMAS)"
  },
@@ -180,9 +204,9 @@ export const FAKTEN = [
 ];
 const C = FAKTEN.map(r => ({ ...r, re: new RegExp(r.muster, 'gi'), ko: r.kontext ? new RegExp(r.kontext, 'i') : null, au: r.ausser ? new RegExp(r.ausser, 'i') : null }));
 const plain = s => String(s).replace(/<\s*br\s*\/?>|<\/(p|li|div|tr|h\d)>/gi, '\n').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
-// Liefert Treffer [{id, text, richtig, quelle}] für einen Text
-export function faktenTreffer(s) {
+// Liefert Treffer [{id, text, richtig, quelle}] für einen Text; thema = Frage/Thema (zählt nur für den Kontext-Test)
+export function faktenTreffer(s, thema = '') {
   const t = plain(s), out = [];
-  for (const r of C) { r.re.lastIndex = 0; let m; while ((m = r.re.exec(t))) { const w = t.slice(Math.max(0, m.index - 200), m.index + m[0].length + 200); if (r.ko && !r.ko.test(w)) continue; if (r.au && r.au.test(w)) continue; out.push({ id: r.id, text: t.slice(Math.max(0, m.index - 60), m.index + m[0].length + 60).trim(), richtig: r.richtig, quelle: r.quelle }); if (!m[0].length) r.re.lastIndex++; } }
+  for (const r of C) { r.re.lastIndex = 0; let m; while ((m = r.re.exec(t))) { const w = t.slice(Math.max(0, m.index - 200), m.index + m[0].length + 200); if (r.ko && !r.ko.test(w) && !(thema && r.ko.test(String(thema)))) continue; if (r.au && r.au.test(w)) continue; out.push({ id: r.id, text: t.slice(Math.max(0, m.index - 60), m.index + m[0].length + 60).trim(), richtig: r.richtig, quelle: r.quelle }); if (!m[0].length) r.re.lastIndex++; } }
   return out;
 }

@@ -2,6 +2,7 @@
 // 1) belegeFuer(text): passende Aussagen + Quellen auswählen (lokal, ohne KI, schnell)
 // 2) dbPruefung(text, raw): Max gleicht seine Antwort mit genau diesen Aussagen ab (ein kleiner interner KI-Aufruf).
 //    Läuft NACH der Anzeige; findet er einen Widerspruch, wird das Siegel sofort zur gut sichtbaren Warnung mit der richtigen Aussage.
+import { FAKTEN } from './faktenregeln.js';
 const BASE = '/tutor/data/fakten/';
 let IDX = null; const THEMA = new Map();
 const norm = s => String(s || '').toLowerCase().replace(/\\\(|\\\)|<[^>]+>/g, ' ').replace(/[^a-zäöüß0-9%§ ]+/g, ' ').replace(/\s+/g, ' ');
@@ -49,10 +50,10 @@ export function quellenKurz(belege, n = 2) {
 }
 
 // KI-Abgleich: nur Widersprüche zu den belegten Aussagen melden (keine Stilkritik). Ergebnis {ok, geprueft, widersprueche:[{zitat, id, richtig, quelle}]}
-export async function dbPruefung(text, belege, raw, { timeout = 20000 } = {}) {
+export async function dbPruefung(text, belege, raw, { timeout = 40000 } = {}) {
   if (!belege.length || !raw) return { ok: true, geprueft: 0, widersprueche: [] };
   const liste = belege.map(b => `[${b.id}] ${b.aussage}`).join('\n');
-  const prompt = `FAKTENPRÜFUNG (interne Prüfung, keine Erklärung an den Nutzer). Unten stehen geprüfte Aussagen aus seriösen Quellen und ein Antworttext. Prüfe NUR, ob der Antworttext einer der geprüften Aussagen inhaltlich WIDERSPRICHT (falsche Zahl, falscher Grenzwert, falsche Definition, falsche Formel, falsche Rechtslage). Vereinfachungen, fehlende Details, andere Beispiele und Stil sind KEIN Widerspruch. Antworte AUSSCHLIESSLICH mit JSON: {"widersprueche":[{"zitat":"wörtliche Stelle aus dem Antworttext (max. 160 Zeichen)","id":"ID der geprüften Aussage"}]} – leer, wenn es keinen Widerspruch gibt.\n\nGEPRÜFTE AUSSAGEN:\n${liste}\n\nANTWORTTEXT:\n${String(text).slice(0, 6000)}`;
+  const prompt = `FAKTENPRÜFUNG (interne Prüfung, keine Erklärung an den Nutzer). Unten stehen geprüfte Aussagen aus seriösen Quellen (Gesetze, Gabler, Destatis, EZB) und ein Antworttext. Gehe den Antworttext Satz für Satz durch und vergleiche JEDE Zahl, jedes Datum, jeden Zeitraum, jeden Prozentsatz, jeden Grenzwert, jede Gesetzesangabe, jede Definition und jede Formel mit den geprüften Aussagen. Melde jede Stelle, die einer geprüften Aussage WIDERSPRICHT – auch wenn an anderer Stelle im Text die richtige Angabe steht, und auch wenn die falsche Angabe „vorsichtiger“ klingt (anderer Höchstsatz, anderer Zeitraum, andere Grenze, falsches Gesetz, falsches Kriterium). KEIN Widerspruch sind: Vereinfachungen, fehlende Details, zusätzliche richtige Informationen, andere Beispiele, Stil. Antworte AUSSCHLIESSLICH mit JSON: {"widersprueche":[{"zitat":"wörtliche Stelle aus dem Antworttext (max. 160 Zeichen)","id":"ID der geprüften Aussage"}]} – leer, wenn es keinen Widerspruch gibt.\n\nGEPRÜFTE AUSSAGEN:\n${liste}\n\nANTWORTTEXT:\n${String(text).slice(0, 6000)}`;
   const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), timeout);
   try {
     const r = await raw('chat', { messages: [{ role: 'user', content: prompt }], opts: { voice: false, assistant: true, entry: true, rechenkorrektur: true } }, { signal: ctrl.signal });
@@ -61,4 +62,19 @@ export async function dbPruefung(text, belege, raw, { timeout = 20000 } = {}) {
     const w = (obj.widersprueche || []).map(x => { const b = belege.find(y => y.id === x.id); return b && x.zitat && norm(text).includes(norm(x.zitat).trim().slice(0, 30)) ? { zitat: String(x.zitat).slice(0, 200), id: b.id, richtig: b.aussage, quelle: b.quelle } : null; }).filter(Boolean);
     return { ok: !w.length, geprueft: belege.length, widersprueche: w };
   } catch (e) { return { ok: null, geprueft: belege.length, widersprueche: [] }; } finally { clearTimeout(to); }
+}
+
+// Geprüfter Rechts- und Zahlenstand VOR der Antwort mitgeben: passende Register-Regeln (Gesetze, Grenzwerte) und
+// Gesetzes-/Zahl-Aussagen der Faktendatenbank zum Thema der Frage. So entstehen veraltete Angaben gar nicht erst.
+const KO = FAKTEN.filter(r => r.kontext).map(r => ({ re: new RegExp(r.kontext, 'i'), richtig: r.richtig }));
+export async function rechtsstandHinweis(frage, max = 8) {
+  const q = String(frage || '').slice(0, 2000); if (q.length < 6) return '';
+  const z = [];
+  for (const r of KO) if (r.re.test(q) && !z.includes(r.richtig)) z.push(r.richtig);
+  try {
+    const slugs = await Promise.race([themenFuer(q), new Promise(res => setTimeout(() => res([]), 800))]);
+    for (const sl of slugs) { const d = await thema(sl); for (const a of (d && d.aussagen) || []) if ((a.art === 'gesetz' || a.art === 'zahl') && !z.includes(a.aussage)) z.push(a.aussage + (a.quelle && a.quelle.name ? ` (${a.quelle.name})` : '')); }
+  } catch (e) {}
+  if (!z.length) return '';
+  return '\n\n[Geprüfter Stand Oktober 2026 – verbindlich, nicht erwähnen, dass dir das mitgegeben wurde; weiche bei Gesetzen, Grenzwerten, Sätzen und Fristen nicht davon ab:\n- ' + z.slice(0, max).join('\n- ') + ']';
 }

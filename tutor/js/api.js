@@ -4,6 +4,7 @@ import { S } from './state.js';
 import { lang, getOutLang, L } from './i18n.js';
 import { repairDeep } from './math.js';
 import { rechenGate } from './rechengate.js';
+import { rechtsstandHinweis } from './faktendb.js';
 
 export const API_URL = (window.TUTOR_API || 'https://hub.mrbell.de/n8n/webhook/tutor-ki-7c41e2');
 // Lange KI-Arbeit läuft in einem eigenen Schritt: erst Auftrag (schnell, zählt Kontingent), dann Ausführung
@@ -50,6 +51,17 @@ const EV = { analyse: ['Upload eingeordnet'], ocr: ['Foto abgeschrieben'], topic
 // images: [{mime, data}] gehen nur im zweiten Schritt mit (Upload-Analyse, Foto-Abschrift)
 // Jede Antwort von Max mit Erklärungen/Rechnungen läuft durch das Rechen-Gate (rechengate.js) – ohne Ausnahme.
 export async function ask(action, payload = {}, opt = {}) {
+  const orig = payload;
+  // Chat: geprüften Rechts-/Zahlenstand zum Thema der Frage still mitgeben (nur in der Anfrage, nicht im Verlauf)
+  if (action === 'chat' && Array.isArray(payload.messages) && payload.messages.length && !(payload.opts && payload.opts.rechenkorrektur)) {
+    try {
+      const last = payload.messages[payload.messages.length - 1];
+      if (last && last.role === 'user' && typeof last.content === 'string') {
+        const hw = await Promise.race([rechtsstandHinweis(last.content), new Promise(r => setTimeout(() => r(''), 1200))]);
+        if (hw) payload = { ...payload, messages: [...payload.messages.slice(0, -1), { ...last, content: last.content + hw }] };
+      }
+    } catch (e) {}
+  }
   // Kam von der KI nichts zurück (überlastet, Zeitlimit, leere Antwort)? Einmal still nochmal – meist klappt's direkt.
   let j;
   for (let t = 0; ; t++) {
@@ -60,7 +72,7 @@ export async function ask(action, payload = {}, opt = {}) {
       if (opt.signal && opt.signal.aborted) throw e;
     }
   }
-  return rechenGate(action, payload, j, (a, p, o) => askRaw(a, p, { ...o, intern: true }), { signal: opt.signal });
+  return rechenGate(action, orig, j, (a, p, o) => askRaw(a, p, { ...o, intern: true }), { signal: opt.signal });
 }
 async function askRaw(action, payload = {}, { signal, images, intern } = {}) {
   if (!intern) try { const e = action === 'chat' ? ['Max gefragt', payload.opts && payload.opts.assistant ? 'Assistent' : 'Chat'] : EV[action]; if (e && window.BM) window.BM.track(e[0], e[1] || ''); } catch (x) {}

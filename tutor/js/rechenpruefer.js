@@ -202,8 +202,8 @@ function evaluate(expr, mode, derived, wahl) {
   try { v = run(null); } catch (err) { if (err === DIV0) return { div0: true }; throw NN; }
   // Toleranz durch gerundete Zwischenwerte (nur solche aus derived)
   let tol = ZERO;
-  if (derived && derived.size) for (const L of lits) {
-    if (!L.d || !derived.has(L.q.n + '/' + L.q.d)) continue;
+  if (derived) for (const L of lits) {   // gerundete Zwischenwerte: aus derived oder mit ≥ 5 Nachkommastellen (z. B. Annuitätenfaktor 0,282012)
+    if (!L.d || (!derived.has(L.q.n + '/' + L.q.d) && L.d < 5)) continue;
     let dv = ZERO;
     for (const s of [1, -1]) { try { const w = run({ k: L.k, q: s > 0 ? L.q.add(half(L.d)) : L.q.sub(half(L.d)) }); const x = w.sub(v).abs(); if (x.cmp(dv) > 0) dv = x; } catch (e) {} }
     tol = tol.add(dv);

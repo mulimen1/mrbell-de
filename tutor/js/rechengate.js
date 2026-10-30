@@ -9,7 +9,11 @@ import { getOutLang } from './i18n.js';
 import { faktenTreffer } from './faktenregeln.js';
 import { belegeFuer, dbPruefung } from './faktendb.js';
 // Faktenregister (Gesetze, Grenzwerte, Sätze, bekannte Fehlermuster): Treffer je Textfeld der Antwort
-function fakt(data) { const out = []; const walk = (o, p) => { if (typeof o === 'string') { for (const h of faktenTreffer(o)) out.push({ art: 'fakt-falsch', path: p, text: h.text, richtig: h.richtig, quelle: h.quelle, id: h.id }); } else if (o && typeof o === 'object') for (const k of Object.keys(o)) { if (k === '__rechenweg') continue; walk(o[k], p.concat(Array.isArray(o) ? +k : k)); } }; walk(data, []); return out; }
+// Nicht ersetzte Platzhalter im Rechenweg („= gewinn €“, „= cashflow_direkt €“): kleingeschriebenes Wort statt Zahl vor €/%
+const PLATZ = /=\s*(?:\\text\{\s*)?([a-z][a-z_]{2,})\s*\}?\s*(?:\\[,;! ]\s*)?(?:€|%|\\text\{\s*€|\\%|Euro)/g;
+// Jahreszahlen nie mit Tausenderpunkt („Ende 2.034“ → „Ende 2034“)
+export const jahrFix = s => String(s).replace(/\b(Ende|Anfang|Mitte|bis|ab|seit|Jahr|Jahres|aus|vor|nach|im|zum|Stand|Geschäftsjahr|Wirtschaftsjahr|Kalenderjahr)(\s+)([12])\.(\d{3})\b/g, (m, a, b, c, d) => (+(c + d) >= 1900 && +(c + d) <= 2100 ? a + b + c + d : m));
+function fakt(data, thema = '') { const out = []; const walk = (o, p) => { if (typeof o === 'string') { PLATZ.lastIndex = 0; for (const m of o.matchAll(PLATZ)) out.push({ art: 'fakt-falsch', path: p, text: m[0], richtig: 'Im Rechenweg steht ein Platzhalter („' + m[1] + '“) statt einer Zahl – den Wert ausrechnen und einsetzen.', quelle: 'Rechen-Algorithmus', id: 'platzhalter' }); for (const h of faktenTreffer(o, thema)) out.push({ art: 'fakt-falsch', path: p, text: h.text, richtig: h.richtig, quelle: h.quelle, id: h.id }); } else if (o && typeof o === 'object') for (const k of Object.keys(o)) { if (k === '__rechenweg') continue; walk(o[k], p.concat(Array.isArray(o) ? +k : k)); } }; walk(data, []); return out; }
 // Hinweise in der Sprache der Inhalte (Max’ Antwort), nicht der Oberfläche
 let SPRACHE = null;
 const L = (de, en) => ((SPRACHE || (typeof getOutLang === 'function' ? getOutLang() : 'de')) === 'en' && en != null ? en : de);
@@ -118,7 +122,7 @@ async function kiNachbesserung(raw, data, rest, signal, timeout = KI_TIMEOUT) {
   }
   if (!felder.size) return null;
   const teile = [...felder.entries()].map(([id, x]) => `### ${id}${x.json ? ' (JSON-Objekt – gib es als JSON-Objekt zurück, gleiche Felder)' : ''}\nFEHLER:\n- ${x.fehler.join('\n- ')}\nTEXT:\n${x.text}`).join('\n\n');
-  const prompt = `RECHENKORREKTUR (interne Prüfung, keine Erklärung an den Nutzer). Eine Prüfung hat in deinem Text Fehler gefunden (Rechnungen oder fachlich falsche/veraltete Aussagen). Korrigiere NUR die genannten Stellen: rechne jede genannte Rechnung neu und passe alle Folgeschritte und Ergebnisse an, die davon abhängen; formuliere genannte Fachaussagen so, wie die angegebene richtige Aussage es verlangt. Format, Formeln (\\( … \\)), HTML, Sprache und Wortlaut sonst unverändert lassen; auf Englisch Zahlen im englischen Format (1,234.56). Antworte AUSSCHLIESSLICH mit JSON: {"f0": "vollständiger korrigierter Text", …} für jede ID.\n\n${teile}`;
+  const prompt = `RECHENKORREKTUR (interne Prüfung, keine Erklärung an den Nutzer). Eine Prüfung hat in deinem Text Fehler gefunden (Rechnungen oder fachlich falsche/veraltete Aussagen). Korrigiere NUR die genannten Stellen: rechne jede genannte Rechnung neu und passe alle Folgeschritte und Ergebnisse an, die davon abhängen; formuliere genannte Fachaussagen so, wie die angegebene richtige Aussage es verlangt. Format, Formeln (\\( … \\)), HTML, Sprache und Wortlaut sonst unverändert lassen; auf Englisch Zahlen im englischen Format (1,234.56); Jahreszahlen immer ohne Tausenderpunkt (2034). Antworte AUSSCHLIESSLICH mit JSON: {"f0": "vollständiger korrigierter Text", …} für jede ID.\n\n${teile}`;
   const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), timeout);
   if (signal) signal.addEventListener('abort', () => ctrl.abort(), { once: true });
   try {
@@ -127,7 +131,7 @@ async function kiNachbesserung(raw, data, rest, signal, timeout = KI_TIMEOUT) {
     const obj = JSON.parse(m[0]); let d = data;
     for (const [id, x] of felder) {
       if (x.json) { if (obj[id] && typeof obj[id] === 'object') d = set(d, x.path, { ...get(d, x.path), ...obj[id] }); }
-      else if (typeof obj[id] === 'string' && obj[id].trim()) d = set(d, x.path, obj[id]);
+      else if (typeof obj[id] === 'string' && obj[id].trim()) d = set(d, x.path, jahrFix(obj[id]));
     }
     return d;
   } catch (e) { return null; } finally { clearTimeout(to); }
@@ -293,15 +297,15 @@ export async function rechenGate(action, payload, j, raw, { signal } = {}) {
   }
   } finally { rechnetNach(false); }
   // Faktencheck (Register): falsche/veraltete Fachaussagen von Max nachbessern lassen; was bleibt, wird sichtbar gewarnt
-  let fk = []; try { fk = fakt(data); } catch (e) {}
+  let fk = []; try { fk = fakt(data, zitat); } catch (e) {}
   if (fk.length && KI_BUDGET - (Date.now() - tKi) > 6000) {
     rechnetNach(true);
     try {
       let d2 = await kiNachbesserung(raw, data, fk, signal, Math.min(KI_TIMEOUT, KI_BUDGET - (Date.now() - tKi)));
-      if (d2) { d2 = rwHolen(d2); const r5 = lauf(action, d2, kontext, zitat, ext); if (r5.rest.length <= r.rest.length && fakt(r5.data).length < fk.length) { data = r5.data; info.korrigiert += r5.geaendert; r = r5; } }
+      if (d2) { d2 = rwHolen(d2); const r5 = lauf(action, d2, kontext, zitat, ext); if (r5.rest.length <= r.rest.length && fakt(r5.data, zitat).length < fk.length) { data = r5.data; info.korrigiert += r5.geaendert; r = r5; } }
     } catch (e) {} finally { rechnetNach(false); }
   }
-  try { const fr = fakt(data); info.fakten = fr.map(({ id, richtig, quelle }) => ({ id, richtig, quelle })); info.faktenKorrigiert = Math.max(0, fk.length - fr.length); if (fk.length) track('Faktencheck', fk.map(f => f.id).join(',') + (fr.length ? ' · offen ' + fr.length : ' · korrigiert')); } catch (e) {}
+  try { const fr = fakt(data, zitat); info.fakten = fr.map(({ id, richtig, quelle }) => ({ id, richtig, quelle })); info.faktenKorrigiert = Math.max(0, fk.length - fr.length); if (fk.length) track('Faktencheck', fk.map(f => f.id).join(',') + (fr.length ? ' · offen ' + fr.length : ' · korrigiert')); } catch (e) {}
   if (r.rest.length) { info.offen = r.rest.length; data = notbremse(action, data, r.rest); track('Notbremse', r.rest.map(f => f.art).join(',')); }
   else if (info.korrigiert) track('korrigiert', String(info.korrigiert));
   try { const trace = []; pruefe(data, { kontext, trace, sprache: SPRACHE }); info.rechnungen = trace.length; } catch (e) {}

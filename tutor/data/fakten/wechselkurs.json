@@ -1,0 +1,116 @@
+{
+ "thema": "wechselkurs",
+ "name": "Wechselkurs",
+ "kat": "VWL",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "wechselkurs-1",
+   "art": "definition",
+   "aussage": "Ein flexibler Wechselkurs ist ein nominaler Wechselkurs, der sich ohne wirtschaftspolitisch motivierte Devisenmarktinterventionen aus Angebot und Nachfrage am Devisenmarkt bildet.",
+   "schlagworte": [
+    "flexibler Wechselkurs",
+    "Devisenmarkt",
+    "Floating"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: flexibler Wechselkurs",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/flexibler-wechselkurs-32132",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wechselkurs-2",
+   "art": "definition",
+   "aussage": "Ein fixer Wechselkurs ist auf einem bestimmten Niveau festgelegt (im Rahmen eines Währungssystems oder einseitig); um ihn zu halten, sind Devisenmarktinterventionen nötig.",
+   "schlagworte": [
+    "fixer Wechselkurs",
+    "Intervention"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: fixer Wechselkurs",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/fixer-wechselkurs-35920",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wechselkurs-3",
+   "art": "formel",
+   "aussage": "Gedeckte Zinsparität: r = r^* + \\frac{w_t - w}{w}; ungedeckte Zinsparität: r = r^* + \\frac{w_e - w}{w} (r, r^*: In-/Auslandszins, w: Kassakurs, w_t: Terminkurs, w_e: erwarteter Kassakurs).",
+   "schlagworte": [
+    "Zinsparität",
+    "Kassakurs",
+    "Terminkurs"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zinsparität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zinsparitaet-49939",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wechselkurs-4",
+   "art": "methode",
+   "aussage": "Mundell-Fleming: Bei flexiblen Wechselkursen und perfekter Kapitalmobilität führt expansive Fiskalpolitik zu Kapitalzuflüssen und Aufwertung, die den Impuls aufhebt; Geldpolitik wirkt über die Abwertung.",
+   "schlagworte": [
+    "Aufwertung",
+    "Abwertung",
+    "Kapitalmobilität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Mundell-Fleming-Modell",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/mundell-fleming-modell-39379",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wechselkurs-5",
+   "art": "formel",
+   "aussage": "Terms of Trade: ToT = \\frac{P_{Export}}{P_{Import}}; steigen sie, erhält das Inland mehr Importgüter je Exporteinheit.",
+   "schlagworte": [
+    "Terms of Trade"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Terms of Trade",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/terms-trade-48931",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wechselkurs-6",
+   "art": "definition",
+   "aussage": "Marshall-Lerner-Bedingung: Bei vollständig elastischem Angebot reagiert die Leistungsbilanz normal auf eine Wechselkursänderung, wenn die Summe der Beträge der Importnachfrageelastizitäten beider Länder größer als 1 ist.",
+   "schlagworte": [
+    "Marshall-Lerner",
+    "Elastizität",
+    "Leistungsbilanz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Marshall-Lerner-Bedingung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/marshall-lerner-bedingung-37226",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wechselkurs-7",
+   "art": "abgrenzung",
+   "aussage": "Mengennotierung (im Euroraum üblich): Fremdwährungseinheiten je 1 Euro, z. B. 1,10 USD/EUR; steigt der Kurs, wertet der Euro auf. Bei Preisnotierung (Euro je Fremdwährungseinheit) ist es umgekehrt.",
+   "schlagworte": [
+    "Mengennotierung",
+    "Preisnotierung",
+    "Aufwertung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Steigt der Kurs USD/EUR von 1,10 auf 1,20, hat der Euro abgewertet.",
+   "richtig": "In Mengennotierung bedeutet ein steigender Kurs eine Aufwertung des Euro.",
+   "quelle_id": "wechselkurs-7"
+  }
+ ]
+}

@@ -1,0 +1,114 @@
+{
+ "thema": "multiplikator",
+ "name": "Multiplikator",
+ "kat": "VWL",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "multiplikator-1",
+   "art": "definition",
+   "aussage": "Der Multiplikator gibt an, um wie viel das Einkommen steigt, wenn eine autonome Nachfragegröße marginal zunimmt; ohne Verdrängungseffekte ist er größer als eins.",
+   "schlagworte": [
+    "Multiplikator",
+    "autonome Nachfrage"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Multiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/multiplikator-39042",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-2",
+   "art": "formel",
+   "aussage": "Einfaches Modell: \\Delta Y = \\frac{1}{1-c}\\,\\Delta A = \\frac{1}{s}\\,\\Delta A mit marginaler Konsumquote c (0 < c < 1) und marginaler Sparquote s = 1 - c.",
+   "schlagworte": [
+    "Investitionsmultiplikator",
+    "marginale Konsumquote",
+    "marginale Sparquote"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Multiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/multiplikator-39042",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-3",
+   "art": "formel",
+   "aussage": "Offene Volkswirtschaft mit Staat: dY = \\frac{dI + dG + dEx}{1 - c(1-t) + m} mit Steuersatz t und Importquote m; Steuern und Importe verkleinern den Multiplikator.",
+   "schlagworte": [
+    "Importquote",
+    "Steuersatz",
+    "offene Volkswirtschaft"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Multiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/multiplikator-39042",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-4",
+   "art": "formel",
+   "aussage": "Staatsausgabenmultiplikator bei proportionaler Einkommensteuer: \\frac{dY}{dG} = \\frac{1}{1-b(1-t)} (b = marginale Konsumquote).",
+   "schlagworte": [
+    "Staatsausgabenmultiplikator"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Staatsausgabenmultiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/staatsausgabenmultiplikator-44543",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-5",
+   "art": "abgrenzung",
+   "aussage": "Der Staatsausgabenmultiplikator ist größer als Steuer- und Transfermultiplikator, weil Staatskäufe direkt nachfragewirksam sind, Steuer- und Transferänderungen dagegen teilweise in die Ersparnis gehen.",
+   "schlagworte": [
+    "Steuermultiplikator",
+    "Transfermultiplikator"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Staatsausgabenmultiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/staatsausgabenmultiplikator-44543",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-6",
+   "art": "methode",
+   "aussage": "Annahmen: Partialanalyse des Gütermarkts ohne Zins-, Preis- und Wechselkurseffekte und konstante Parameter; Zinsanstieg, Preiseffekte und Wechselkurs-Crowding-out verringern den Multiplikator.",
+   "schlagworte": [
+    "Annahmen",
+    "Partialanalyse",
+    "Crowding-out"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Multiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/multiplikator-39042",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-7",
+   "art": "formel",
+   "aussage": "Haavelmo-Theorem (geschlossene Volkswirtschaft, Pauschalsteuer): Erhöhen Staatsausgaben und Steuern sich um denselben Betrag, steigt Y um genau diesen Betrag: \\frac{1}{1-c} - \\frac{c}{1-c} = 1.",
+   "schlagworte": [
+    "Haavelmo",
+    "balanced budget"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Je höher die Sparquote, desto größer der Multiplikator.",
+   "richtig": "Der Multiplikator 1/s sinkt mit steigender marginaler Sparquote.",
+   "quelle_id": "multiplikator-2"
+  }
+ ]
+}

@@ -1,0 +1,135 @@
+{
+ "thema": "lorenzkurve-gini-koeffizient",
+ "name": "Lorenzkurve und Gini-Koeffizient",
+ "kat": "VWL",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "lorenzkurve-gini-koeffizient-1",
+   "art": "definition",
+   "aussage": "Die Lorenzkurve stellt die relative Konzentration dar: Abszisse = kumulierter Anteil der (aufsteigend geordneten) Merkmalsträger, Ordinate = kumulierter Anteil an der Merkmalssumme.",
+   "schlagworte": [
+    "Lorenzkurve",
+    "Konzentration",
+    "kumuliert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lorenzkurve",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lorenzkurve-40022",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-2",
+   "art": "methode",
+   "aussage": "Die Diagonale (Winkelhalbierende) ist die Gleichverteilungsgerade; je weiter die Lorenzkurve unter ihr liegt, desto größer die Ungleichheit. Empirische Lorenzkurven sind monoton wachsend und konvex.",
+   "schlagworte": [
+    "Gleichverteilungsgerade",
+    "Diagonale",
+    "konvex"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lorenzkurve",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lorenzkurve-40022",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-3",
+   "art": "definition",
+   "aussage": "Der Gini-Koeffizient ist das Verhältnis der Fläche zwischen Diagonale und Lorenzkurve zur gesamten Fläche unter der Diagonale.",
+   "schlagworte": [
+    "Gini-Koeffizient",
+    "Flächenverhältnis"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Gini-Koeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/gini-koeffizient-33245",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-4",
+   "art": "formel",
+   "aussage": "G = \\frac{1}{2\\bar{x}} \\cdot \\frac{1}{n^2} \\sum_i \\sum_j |x_i - x_j| mit arithmetischem Mittel \\bar{x} und x_i \\ge 0.",
+   "schlagworte": [
+    "Gini-Formel",
+    "mittlere Differenz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Gini-Koeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/gini-koeffizient-33245",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-5",
+   "art": "formel",
+   "aussage": "Wertebereich: 0 \\le G \\le \\frac{n-1}{n}; normierter Gini G^* = \\frac{n}{n-1} \\cdot G mit 0 \\le G^* \\le 1.",
+   "schlagworte": [
+    "normierter Gini",
+    "Wertebereich"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Gini-Koeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/gini-koeffizient-33245",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-6",
+   "art": "zahl",
+   "aussage": "G = 0 bedeutet Gleichverteilung (alle beziehen das Durchschnittseinkommen); Werte nahe 1 bedeuten maximale Ungleichheit (eine Person bezieht alles).",
+   "schlagworte": [
+    "Interpretation",
+    "Gleichverteilung",
+    "Ungleichverteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Gini-Koeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/gini-koeffizient-33245",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-7",
+   "art": "abgrenzung",
+   "aussage": "Die primäre Einkommensverteilung entsteht am Markt; Steuern, Abgaben und Transfers formen daraus die sekundäre Verteilung. Lorenzkurve und Gini messen typischerweise die personelle Verteilung.",
+   "schlagworte": [
+    "primäre Verteilung",
+    "sekundäre Verteilung",
+    "personelle Verteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: primäre Einkommensverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/primaere-einkommensverteilung-46352",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lorenzkurve-gini-koeffizient-8",
+   "art": "abgrenzung",
+   "aussage": "Als einzelne Zahl verdichtet der Gini die ganze Lorenzkurve: Sich schneidende Lorenzkurven können denselben Gini-Wert haben.",
+   "schlagworte": [
+    "Schwäche",
+    "Informationsverlust"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Für die Lorenzkurve werden die Einkommen absteigend sortiert.",
+   "richtig": "Die Merkmalsträger werden aufsteigend geordnet; dadurch liegt die Kurve unter der Diagonale.",
+   "quelle_id": "lorenzkurve-gini-koeffizient-1"
+  },
+  {
+   "falsch": "Der unnormierte Gini erreicht bei maximaler Ungleichheit immer genau 1.",
+   "richtig": "Unnormiert ist das Maximum (n-1)/n; erst der normierte Gini G* reicht bis 1.",
+   "quelle_id": "lorenzkurve-gini-koeffizient-5"
+  }
+ ]
+}

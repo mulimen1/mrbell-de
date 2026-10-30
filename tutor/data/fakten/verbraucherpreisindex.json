@@ -1,0 +1,140 @@
+{
+ "thema": "verbraucherpreisindex",
+ "name": "Verbraucherpreisindex (VPI)",
+ "kat": "VWL",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "verbraucherpreisindex-1",
+   "art": "definition",
+   "aussage": "Der VPI misst monatlich die durchschnittliche Preisentwicklung der Waren und Dienstleistungen, die private Haushalte in Deutschland für Konsumzwecke kaufen.",
+   "schlagworte": [
+    "VPI",
+    "Preisentwicklung",
+    "private Haushalte"
+   ],
+   "quelle": {
+    "name": "Destatis: Verbraucherpreisindex und Inflationsrate",
+    "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Verbraucherpreisindex/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "verbraucherpreisindex-2",
+   "art": "zahl",
+   "aussage": "Der Warenkorb umfasst rund 700 Güterarten; das Wägungsschema legt fest, mit welchem Gewicht jede Güterart in den Gesamtindex eingeht.",
+   "schlagworte": [
+    "Warenkorb",
+    "700 Güterarten",
+    "Wägungsschema"
+   ],
+   "quelle": {
+    "name": "Destatis: Verbraucherpreisindex und Inflationsrate",
+    "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Verbraucherpreisindex/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "verbraucherpreisindex-3",
+   "art": "zahl",
+   "aussage": "Basisjahr ist 2020 = 100 (Umstellung im Februar 2023); die nächste Umstellung auf Basis 2025 ist für voraussichtlich 2028 vorgesehen, in der Regel wird alle fünf Jahre überarbeitet.",
+   "schlagworte": [
+    "Basisjahr",
+    "2020 = 100",
+    "Umbasierung"
+   ],
+   "quelle": {
+    "name": "Destatis: Verbraucherpreisindex und Inflationsrate",
+    "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Verbraucherpreisindex/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "verbraucherpreisindex-4",
+   "art": "formel",
+   "aussage": "Inflationsrate = prozentuale Veränderung des VPI gegenüber dem Vorjahresmonat (bzw. Vorjahr): \\pi = \\left(\\frac{VPI_t}{VPI_{t-12}} - 1\\right) \\cdot 100.",
+   "schlagworte": [
+    "Inflationsrate",
+    "Vorjahresmonat",
+    "Teuerungsrate"
+   ],
+   "quelle": {
+    "name": "Destatis: Verbraucherpreisindex und Inflationsrate",
+    "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Verbraucherpreisindex/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "verbraucherpreisindex-5",
+   "art": "zahl",
+   "aussage": "September 2026: Inflationsrate +3,3 % (Vormonat +0,6 %), Kerninflation ohne Nahrungsmittel und Energie +2,4 %, Energie +14,9 %, Nahrungsmittel +0,4 %.",
+   "schlagworte": [
+    "Inflationsrate",
+    "Kerninflation",
+    "September 2026"
+   ],
+   "quelle": {
+    "name": "Destatis Pressemitteilung Nr. 364 vom 13.10.2026 (Inflationsrate September 2026)",
+    "url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/10/PD26_364_611.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "verbraucherpreisindex-6",
+   "art": "abgrenzung",
+   "aussage": "Der HVPI ist das Maß für Preisstabilität in der Geldpolitik des Euroraums; VPI und HVPI beruhen auf denselben Daten, unterscheiden sich aber in Erfassungsbereich, Methodik und Gewichtung (HVPI seit Januar 2026 auf Basis 2025 = 100).",
+   "schlagworte": [
+    "HVPI",
+    "EZB",
+    "Abgrenzung"
+   ],
+   "quelle": {
+    "name": "Destatis Pressemitteilung Nr. 364 vom 13.10.2026 (Inflationsrate September 2026)",
+    "url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/10/PD26_364_611.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "verbraucherpreisindex-7",
+   "art": "methode",
+   "aussage": "Der Laspeyres-Preisindex gewichtet mit den Umsätzen der Basisperiode; weil sich Warenkorb und Preisgefüge ändern, werden die Gewichte nach einigen Jahren (z. B. fünf) neu festgelegt.",
+   "schlagworte": [
+    "Laspeyres",
+    "Gewichte",
+    "Basisperiode"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Laspeyres-Index",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/laspeyres-index-40652",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "verbraucherpreisindex-8",
+   "art": "methode",
+   "aussage": "Der VPI wird nach der Laspeyres-Formel berechnet, die Preissteigerungen tendenziell überzeichnet; Messprobleme sind u. a. Substitution und Qualitätsänderungen.",
+   "schlagworte": [
+    "Messprobleme",
+    "Substitution",
+    "Qualitätsänderung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Inflation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/inflation-39320",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Der VPI-Stand 126,6 bedeutet 126,6 % Inflation.",
+   "richtig": "Der Indexstand misst das Niveau relativ zum Basisjahr (= 100); die Inflationsrate ist die Veränderung zum Vorjahresmonat.",
+   "quelle_id": "verbraucherpreisindex-4"
+  },
+  {
+   "falsch": "Die EZB orientiert sich am deutschen VPI.",
+   "richtig": "Maßgeblich für die EZB ist der HVPI des Euroraums.",
+   "quelle_id": "verbraucherpreisindex-6"
+  }
+ ]
+}
