@@ -8806,3 +8806,5 @@ html body .vt-siegel.run .vt-st b { color: #1e3a6b !important; font-weight: 650 
 html body .vt-siegel .vt-sspin { animation: vtsspin .9s linear infinite; }
 @keyframes vtsspin { to { transform: rotate(360deg); } }
 html[data-theme="dark"] body .vt-siegel { background: #13221a !important; border-color: #24543a !important; } html[data-theme="dark"] body .vt-siegel .vt-st b { color: #c9f0d8 !important; } html[data-theme="dark"] body .vt-siegel .vt-st small { color: #9fb8a9 !important; }
+/* Karteikarte wischen: kein Rahmen um die Karte */
+html body .fc:is(.sw-ok, .sw-no) .in { box-shadow: none !important; outline: none !important; }
