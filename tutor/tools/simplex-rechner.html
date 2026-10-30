@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simplex-Rechner mit Rechenweg – Tableaus, Zwei-Phasen-Methode, Schattenpreise</title>
+<meta name="description" content="Simplex-Rechner für lineare Optimierung: jedes Simplex-Tableau Schritt für Schritt, Zwei-Phasen-Methode bei ≥ und =, exakte Brüche, Schattenpreise und grafische Lösung bei zwei Variablen.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/simplex-rechner">
+<style>
+:root{--bg:#ffffff;--fg:#1b1d21;--muted:#5a606c;--line:#d6d9df;--soft:#f3f4f6;--accent:#1d5bb8;--accent-soft:#e7eefa;--piv:#fff4c7;--pivel:#f0c443;--ok:#17703f;--bad:#b3261e;--warn:#7a4f00;--warn-soft:#fff6e0;--region:rgba(29,91,184,.17);--iso:#b3261e;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#15171b;--fg:#e8eaee;--muted:#a5abb7;--line:#363a44;--soft:#1e2127;--accent:#86b4ff;--accent-soft:#1d2a40;--piv:#3a3315;--pivel:#8c6f10;--ok:#63d394;--bad:#ff8f86;--warn:#f2c46a;--warn-soft:#2e2615;--region:rgba(134,180,255,.22);--iso:#ff8f86;color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:28px 16px 40px}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .6rem}
+h2{font-size:1.25rem;margin:2.2rem 0 .7rem}
+h3{font-size:1.05rem;margin:1.6rem 0 .4rem}
+p{margin:.5rem 0}
+.lead{color:var(--muted);max-width:70ch}
+a{color:var(--accent)}
+.card{border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0;background:var(--bg)}
+.row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+label{font-weight:600}
+select{max-width:100%}
+select,input[type=text],input[type=number]{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;min-height:38px}
+input.cf{width:4.6em;text-align:right;padding:6px}
+select:focus-visible,input:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+input.err{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+button{font:inherit;border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:6px;padding:7px 12px;min-height:38px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+table.inp{border-collapse:collapse;margin:6px 0}
+table.inp td,table.inp th{padding:4px 3px;white-space:nowrap;vertical-align:middle}
+table.inp th{font-weight:600;text-align:left;color:var(--muted);font-size:.9rem}
+.vl{color:var(--muted);font-size:.95rem}
+.hint{color:var(--muted);font-size:.92rem}
+.msg{border-left:4px solid var(--accent);background:var(--accent-soft);padding:10px 12px;border-radius:0 8px 8px 0;margin:10px 0}
+.msg.warn{border-color:var(--warn);background:var(--warn-soft)}
+.msg.bad{border-color:var(--bad)}
+.msg.ok{border-color:var(--ok)}
+table.tab{border-collapse:collapse;margin:8px 0;font-variant-numeric:tabular-nums;font-size:.95rem}
+table.tab th,table.tab td{border:1px solid var(--line);padding:5px 9px;text-align:right;white-space:nowrap}
+table.tab th{background:var(--soft);font-weight:600;text-align:center}
+table.tab td.bv,table.tab th.bv{text-align:left;font-weight:600}
+table.tab tr.obj td{background:var(--soft);font-weight:600}
+table.tab tr.obj.sel td{border-top:2px solid var(--fg)}
+table.tab tr.obj.first td{border-top:2px solid var(--fg)}
+table.tab .pc{background:var(--piv)}
+table.tab tr.pr td{background:var(--piv)}
+table.tab td.pe{background:var(--pivel);font-weight:700;outline:2px solid var(--fg);outline-offset:-2px}
+table.tab td.q{color:var(--muted);text-align:left}
+table.tab td.q.min{color:var(--fg);font-weight:700}
+table.tab th.rs,table.tab td.rs{border-left:2px solid var(--fg)}
+table.tab th.qh,table.tab td.q{border-left:2px solid var(--line)}
+.step{border-top:1px solid var(--line);padding-top:10px;margin-top:18px}
+.step h3{margin-top:4px}
+.badge{display:inline-block;font-size:.78rem;font-weight:600;border:1px solid var(--line);border-radius:99px;padding:1px 8px;color:var(--muted);vertical-align:middle;margin-left:6px}
+.res table.tab td{text-align:right}
+.res table.tab td:first-child{text-align:left}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.88rem;color:var(--muted);margin:6px 0}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:5px;border:1px solid var(--line)}
+.eq{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92rem;line-height:1.7}
+svg.g{width:100%;max-width:560px;height:auto;display:block;margin:8px 0}
+svg.g text{fill:var(--fg);font:12px system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+svg.g .ax{stroke:var(--fg);stroke-width:1.2}
+svg.g .grid{stroke:var(--line);stroke-width:.7}
+svg.g .reg{fill:var(--region);stroke:var(--accent);stroke-width:1.5}
+svg.g .cl{stroke-width:1.6}
+svg.g .iso{stroke:var(--iso);stroke-width:2;stroke-dasharray:7 5}
+svg.g .opt{fill:var(--iso);stroke:var(--bg);stroke-width:1.5}
+fieldset{border:0;padding:0;margin:0}
+.radio{display:inline-flex;gap:14px;align-items:center}
+.radio label{font-weight:400}
+details{margin:10px 0}
+summary{cursor:pointer;font-weight:600}
+footer{max-width:1000px;margin:0 auto;padding:18px 16px 30px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--line)}
+footer a{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:600px){h1{font-size:1.45rem}table.tab{font-size:.85rem}table.tab th,table.tab td{padding:4px 6px}}
+@media print{
+  body{font-size:11pt;background:#fff;color:#000}
+  main{max-width:none;padding:0}
+  .noprint,#eingabe .btns,.btns{display:none!important}
+  .card{border:0;padding:0}
+  .scroll{overflow:visible}
+  table.tab{font-size:9pt;page-break-inside:avoid}
+  .step{page-break-inside:avoid}
+  table.tab .pc,table.tab tr.pr td{background:#eee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  table.tab td.pe{background:#ccc!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a{color:#000}
+  @page{size:A4;margin:15mm}
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Simplex-Rechner mit Rechenweg</h1>
+<p class="lead">Dieser Rechner löst lineare Optimierungsprobleme mit dem Simplex-Verfahren und zeigt jedes Tableau mit Pivotspalte, Quotiententest und kurzer Erklärung – auch die Zwei-Phasen-Methode bei ≥- und =-Nebenbedingungen. Gerechnet wird exakt mit Brüchen. Gedacht für Operations Research und Wirtschaftsmathematik im Studium.</p>
+
+<section class="card" id="eingabe" aria-labelledby="h-eingabe">
+<h2 id="h-eingabe" style="margin-top:0">Eingabe</h2>
+<div class="row">
+  <div><label for="sense">Ziel</label><br><select id="sense"><option value="max">Maximieren</option><option value="min">Minimieren</option></select></div>
+  <div><label for="nvar">Variablen</label><br><select id="nvar"></select></div>
+  <div><label for="ncon">Nebenbedingungen</label><br><select id="ncon"></select></div>
+</div>
+<div class="scroll"><table class="inp" id="inptab"></table></div>
+<p class="hint">Dezimalzahlen mit Komma (z. B. 2,5) oder Brüche (z. B. 3/4); leere Felder zählen als 0. Negative rechte Seiten sind erlaubt – die Zeile wird dann automatisch mit −1 multipliziert. Alle Variablen sind nichtnegativ.</p>
+<div class="btns" style="margin:10px 0 6px">
+  <button type="button" class="primary" id="calc">Berechnen</button>
+  <button type="button" id="clear">Leeren</button>
+</div>
+<div class="row" style="margin-top:12px">
+  <label for="bsp">Beispiel laden</label>
+  <select id="bsp">
+    <option value="">– auswählen –</option>
+    <option value="prod">Produktionsprogramm (max, 2 Produkte, 3 Engpässe)</option>
+    <option value="mix">Futtermischung (min, ≥-Bedingungen)</option>
+    <option value="gl">Drei Produkte mit Gleichung (=)</option>
+    <option value="neg">Negative rechte Seite</option>
+    <option value="unb">Sonderfall: unbeschränkt</option>
+    <option value="inf">Sonderfall: unzulässig</option>
+    <option value="alt">Sonderfall: mehrdeutige Optima</option>
+    <option value="deg">Sonderfall: Degeneration</option>
+  </select>
+</div>
+<div id="inerr" role="alert"></div>
+</section>
+
+<section class="card noprint" aria-label="Anzeige">
+<fieldset class="row">
+  <legend class="sr">Zahlenformat</legend>
+  <span style="font-weight:600">Zahlen anzeigen als</span>
+  <span class="radio"><label><input type="radio" name="fmt" value="frac" checked> Bruch</label><label><input type="radio" name="fmt" value="dec"> Dezimalzahl</label></span>
+</fieldset>
+</section>
+
+<div id="out" aria-live="polite"></div>
+
+<section aria-labelledby="h-konv">
+<h2 id="h-konv">Konventionen dieses Rechners</h2>
+<ul>
+<li><strong>Zielfunktionszeile:</strong> Im Tableau steht für jede Variable der Wert z<sub>j</sub> − c<sub>j</sub> (also anfangs −c<sub>j</sub>), rechts der aktuelle Zielwert. Ein <em>negativer</em> Eintrag zeigt, dass sich der Zielwert noch verbessern lässt; optimal ist das Tableau, wenn kein Eintrag negativ ist. Manche Lehrbücher notieren stattdessen c<sub>j</sub> − z<sub>j</sub> (gleiche Zahlen mit umgekehrtem Vorzeichen) und wählen dann den größten <em>positiven</em> Eintrag – der Rechenweg ist sonst identisch.</li>
+<li><strong>Minimierung</strong> wird als Maximierung von z′ = −z gerechnet; am Ende gilt z = −z′.</li>
+<li><strong>Pivotwahl:</strong> Spalte mit dem negativsten Eintrag der Zielzeile (Dantzig); bei Gleichstand die Variable mit dem kleinsten Index. Zeile mit dem kleinsten Quotienten rechte Seite ÷ Koeffizient (nur positive Koeffizienten); bei Gleichstand verlässt die Basisvariable mit dem kleinsten Index die Basis. Reihenfolge der Indizes: x<sub>1</sub>, x<sub>2</sub>, …, dann s<sub>1</sub>, s<sub>2</sub>, …, dann a<sub>1</sub>, a<sub>2</sub>, … Sollte eine Basis erneut auftreten (Zyklus), wechselt der Rechner zur Regel von Bland.</li>
+<li><strong>Variablennamen:</strong> s<sub>i</sub> gehört zur i-ten Nebenbedingung – bei ≤ als Schlupfvariable (+s<sub>i</sub>), bei ≥ als Überschussvariable (−s<sub>i</sub>). a<sub>i</sub> ist die künstliche Variable der i-ten Nebenbedingung (nur bei ≥ und =).</li>
+<li><strong>Zwei-Phasen-Methode:</strong> Phase 1 maximiert h = −(Summe der künstlichen Variablen). Ist das Optimum h = 0, gibt es eine zulässige Lösung und Phase 2 startet mit der ursprünglichen Zielfunktion; ist h &lt; 0, ist das Problem unzulässig.</li>
+<li><strong>Schattenpreise</strong> (duale Werte) geben an, um wie viel sich der optimale Zielwert ändert, wenn die rechte Seite einer Nebenbedingung um eine Einheit steigt – gültig nur, solange die optimale Basis gleich bleibt.</li>
+</ul>
+</section>
+</main>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+
+<script id="lp-core">
+(function (root) {
+  'use strict';
+  // ---------- exakte Rationalzahlen ----------
+  function gcd(a, b) { if (a < 0n) a = -a; if (b < 0n) b = -b; while (b) { const t = a % b; a = b; b = t; } return a; }
+  class Q {
+    constructor(n, d) {
+      if (d === undefined) d = 1n;
+      if (d === 0n) throw new Error('Division durch 0');
+      if (d < 0n) { n = -n; d = -d; }
+      const g = gcd(n, d);
+      if (g > 1n) { n /= g; d /= g; }
+      this.n = n; this.d = d;
+    }
+    static of(k) { return new Q(BigInt(k), 1n); }
+    add(o) { return new Q(this.n * o.d + o.n * this.d, this.d * o.d); }
+    sub(o) { return new Q(this.n * o.d - o.n * this.d, this.d * o.d); }
+    mul(o) { return new Q(this.n * o.n, this.d * o.d); }
+    div(o) { if (o.n === 0n) throw new Error('Division durch 0'); return new Q(this.n * o.d, this.d * o.n); }
+    neg() { return new Q(-this.n, this.d); }
+    sign() { return this.n > 0n ? 1 : this.n < 0n ? -1 : 0; }
+    isZero() { return this.n === 0n; }
+    cmp(o) { const x = this.n * o.d - o.n * this.d; return x > 0n ? 1 : x < 0n ? -1 : 0; }
+    eq(o) { return this.n === o.n && this.d === o.d; }
+    toNumber() { return Number(this.n) / Number(this.d); }
+    toFrac() {
+      const neg = this.n < 0n, a = neg ? -this.n : this.n;
+      return (neg ? '−' : '') + (this.d === 1n ? group(a.toString()) : a.toString() + '/' + this.d.toString());
+    }
+    toDec() {
+      const neg = this.n < 0n; const a = neg ? -this.n : this.n; const d = this.d;
+      let dd = d; while (dd % 2n === 0n) dd /= 2n; while (dd % 5n === 0n) dd /= 5n;
+      let exact = dd === 1n, digits = 0;
+      if (exact) { let p = 1n; while (p % d !== 0n) { p *= 10n; digits++; } if (digits > 6) exact = false; }
+      if (!exact) digits = 4;
+      const scale = 10n ** BigInt(digits);
+      let q = (a * scale) / d; const r = (a * scale) % d;
+      if (!exact && 2n * r >= d) q += 1n;
+      const ip = q / scale, fp = q % scale;
+      let s = group(ip.toString());
+      if (digits > 0) { let f = fp.toString().padStart(digits, '0').replace(/0+$/, ''); if (f) s += ',' + f; }
+      return (exact ? '' : '≈') + (neg && q !== 0n ? '−' : '') + s;
+    }
+  }
+  function group(s) { return s.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+  const Z = Q.of(0), ONE = Q.of(1), MONE = Q.of(-1);
+
+  function parseDec(t) {
+    if (t.indexOf(',') >= 0) t = t.replace(/\./g, '').replace(',', '.');
+    else if (/^[+-]?\d{1,3}(\.\d{3})+$/.test(t)) t = t.replace(/\./g, '');
+    const m = /^([+-]?)(\d*)(?:\.(\d*))?$/.exec(t);
+    if (!m || (m[2] === '' && !m[3])) return null;
+    const fp = m[3] || '';
+    let n = BigInt((m[2] || '0') + fp); const d = 10n ** BigInt(fp.length);
+    if (m[1] === '-') n = -n;
+    return new Q(n, d);
+  }
+  function parseQ(s) {
+    s = String(s == null ? '' : s).trim().replace(/[−–]/g, '-').replace(/\s+/g, '');
+    if (s === '') return Z;
+    const parts = s.split('/');
+    if (parts.length > 2) return null;
+    const a = parseDec(parts[0]); if (!a) return null;
+    if (parts.length === 1) return a;
+    const b = parseDec(parts[1]); if (!b || b.isZero()) return null;
+    return a.div(b);
+  }
+
+  // ---------- Simplex ----------
+  // model = { sense:'max'|'min', c:[Q], rows:[{a:[Q], op:'<='|'>='|'=', b:Q}] }
+  function solveLP(model, opt) {
+    opt = opt || {};
+    const maxIter = opt.maxIter || 500;
+    const n = model.c.length, m = model.rows.length;
+    const tau = model.sense === 'min' ? -1 : 1;
+    const cmax = model.c.map(v => tau < 0 ? v.neg() : v);
+    const flips = [];
+    const rows = model.rows.map((r, i) => {
+      let a = r.a.slice(), b = r.b, op = r.op, flip = false;
+      if (b.sign() < 0) {
+        a = a.map(v => v.neg()); b = b.neg(); flip = true;
+        op = op === '<=' ? '>=' : op === '>=' ? '<=' : '=';
+        flips.push(i);
+      }
+      return { a, b, op, flip };
+    });
+    const vars = [];
+    for (let j = 0; j < n; j++) vars.push({ kind: 'x', num: j + 1 });
+    const slackCol = new Array(m).fill(-1), artCol = new Array(m).fill(-1);
+    rows.forEach((r, i) => { if (r.op !== '=') { slackCol[i] = vars.length; vars.push({ kind: 's', num: i + 1, row: i, surplus: r.op === '>=' }); } });
+    rows.forEach((r, i) => { if (r.op !== '<=') { artCol[i] = vars.length; vars.push({ kind: 'a', num: i + 1, row: i }); } });
+    const N = vars.length;
+    const isArt = j => vars[j].kind === 'a';
+    let T = rows.map((r, i) => {
+      const row = new Array(N).fill(Z);
+      r.a.forEach((v, j) => { row[j] = v; });
+      if (slackCol[i] >= 0) row[slackCol[i]] = r.op === '<=' ? ONE : MONE;
+      if (artCol[i] >= 0) row[artCol[i]] = ONE;
+      return row;
+    });
+    let rhs = rows.map(r => r.b);
+    const basis = rows.map((r, i) => r.op === '<=' ? slackCol[i] : artCol[i]);
+    let d = new Array(N).fill(Z); cmax.forEach((v, j) => { d[j] = v.neg(); });
+    let zr = Z;
+    const hasArt = artCol.some(c => c >= 0);
+    let h = null, hr = null;
+    if (hasArt) {
+      h = new Array(N).fill(Z); hr = Z;
+      rows.forEach((r, i) => {
+        if (artCol[i] < 0) return;
+        for (let j = 0; j < N; j++) if (!isArt(j)) h[j] = h[j].sub(T[i][j]);
+        hr = hr.sub(rhs[i]);
+      });
+    }
+    const redundant = new Set();
+    const steps = [];
+    let degenerateStep = false, blandUsed = false;
+
+    function snap(extra) {
+      const s = {
+        T: T.map(r => r.slice()), rhs: rhs.slice(), basis: basis.slice(),
+        d: d.slice(), zr, h: h ? h.slice() : null, hr, redundant: Array.from(redundant)
+      };
+      return Object.assign(s, extra);
+    }
+    function pivot(r, k) {
+      const p = T[r][k];
+      T[r] = T[r].map(v => v.div(p)); rhs[r] = rhs[r].div(p);
+      for (let i = 0; i < m; i++) {
+        if (i === r) continue;
+        const f = T[i][k];
+        if (f.isZero()) continue;
+        T[i] = T[i].map((v, j) => v.sub(f.mul(T[r][j])));
+        rhs[i] = rhs[i].sub(f.mul(rhs[r]));
+      }
+      let f = d[k];
+      if (!f.isZero()) { d = d.map((v, j) => v.sub(f.mul(T[r][j]))); zr = zr.sub(f.mul(rhs[r])); }
+      if (h) { f = h[k]; if (!f.isZero()) { h = h.map((v, j) => v.sub(f.mul(T[r][j]))); hr = hr.sub(f.mul(rhs[r])); } }
+      basis[r] = k;
+    }
+    const key = b => b.slice().sort((x, y) => x - y).join(',');
+
+    // Simplex-Iterationen einer Phase. objName: 'h' oder 'd'
+    function runPhase(phase) {
+      let bland = false, blandNote = false;
+      const seen = new Set([key(basis)]);
+      let first = true;
+      for (let it = 0; it < maxIter; it++) {
+        const obj = phase === 1 ? h : d;
+        const cand = [];
+        for (let j = 0; j < N; j++) if (!isArt(j) && obj[j].sign() < 0) cand.push(j);
+        if (!cand.length) {
+          steps.push(snap({ phase, type: phase === 1 ? 'end1' : 'opt', showArt: phase === 1, first }));
+          return 'optimal';
+        }
+        let k = cand[0], colTie = false;
+        if (!bland) {
+          for (const j of cand) if (obj[j].cmp(obj[k]) < 0) k = j;
+          colTie = cand.filter(j => obj[j].eq(obj[k])).length > 1;
+        }
+        const ratios = [];
+        let r = -1, best = null, rowTie = false;
+        for (let i = 0; i < m; i++) {
+          if (redundant.has(i)) { ratios.push(null); continue; }
+          if (T[i][k].sign() > 0) {
+            const q = rhs[i].div(T[i][k]);
+            ratios.push(q);
+            if (r < 0 || q.cmp(best) < 0) { r = i; best = q; rowTie = false; }
+            else if (q.cmp(best) === 0) { rowTie = true; if (basis[i] < basis[r]) r = i; }
+          } else ratios.push(null);
+        }
+        if (r < 0) {
+          steps.push(snap({ phase, type: 'unb', k, ratios, showArt: phase === 1, first, bland, colTie }));
+          return 'unbounded';
+        }
+        const nb = basis.slice(); nb[r] = k;
+        if (!bland && seen.has(key(nb))) { bland = true; blandUsed = true; blandNote = true; continue; }
+        const degen = best.isZero();
+        if (degen) degenerateStep = true;
+        steps.push(snap({ phase, type: 'pivot', r, k, ratios, theta: best, colTie, rowTie, degen, bland, blandNote, showArt: phase === 1, first }));
+        blandNote = false; first = false;
+        pivot(r, k);
+        seen.add(key(basis));
+      }
+      throw new Error('Iterationsgrenze erreicht');
+    }
+
+    const result = { vars, steps, flips, tau, n, m, rows, slackCol, artCol, hasArt };
+    if (hasArt) {
+      const st = runPhase(1);
+      if (st !== 'optimal') throw new Error('Phase 1 unbeschränkt (darf nicht vorkommen)');
+      if (hr.sign() < 0) {
+        result.status = 'infeasible'; result.hValue = hr.neg();
+        return result;
+      }
+      // künstliche Variablen mit Wert 0 aus der Basis entfernen
+      for (let i = 0; i < m; i++) {
+        if (!isArt(basis[i])) continue;
+        let k = -1;
+        for (let j = 0; j < N; j++) if (!isArt(j) && !T[i][j].isZero()) { k = j; break; }
+        if (k >= 0) {
+          steps.push(snap({ phase: 1, type: 'drive', r: i, k, showArt: true }));
+          pivot(i, k);
+          degenerateStep = true;
+        } else {
+          redundant.add(i);
+          steps.push(snap({ phase: 1, type: 'redundant', r: i, showArt: true }));
+        }
+      }
+      h = null; hr = null;
+    }
+    const st2 = runPhase(2);
+    result.status = st2;
+    result.blandUsed = blandUsed;
+    result.degenerateStep = degenerateStep;
+    result.redundant = Array.from(redundant);
+    if (st2 === 'unbounded') {
+      const last = steps[steps.length - 1];
+      const k = last.k, dir = new Array(N).fill(Z); dir[k] = ONE;
+      for (let i = 0; i < m; i++) if (!redundant.has(i)) dir[basis[i]] = T[i][k].neg();
+      const x0 = new Array(N).fill(Z); for (let i = 0; i < m; i++) x0[basis[i]] = rhs[i];
+      result.ray = { k, x0: x0.slice(0, n), dir: dir.slice(0, n) };
+      return result;
+    }
+    // Lösung
+    const val = new Array(N).fill(Z);
+    for (let i = 0; i < m; i++) val[basis[i]] = rhs[i];
+    result.x = val.slice(0, n);
+    result.zMax = zr;
+    result.z = tau < 0 ? zr.neg() : zr;
+    result.values = val;
+    result.basis = basis.slice();
+    result.slack = rows.map((r, i) => slackCol[i] >= 0 ? val[slackCol[i]] : Z);
+    result.lhs = model.rows.map(r => r.a.reduce((s, v, j) => s.add(v.mul(result.x[j])), Z));
+    result.binding = model.rows.map((r, i) => result.lhs[i].eq(r.b));
+    result.dual = rows.map((r, i) => {
+      const j0 = r.op === '<=' ? slackCol[i] : artCol[i];
+      let y = d[j0];
+      if (r.flip) y = y.neg();
+      return tau < 0 ? y.neg() : y;
+    });
+    result.reduced = d.slice(0, n).map(v => v);
+    result.degenerateFinal = basis.some((b, i) => !redundant.has(i) && rhs[i].isZero());
+    // Mehrdeutige Optima: auf der Optimalfläche jede Nichtbasisvariable mit z_j - c_j = 0 maximieren
+    result.alternative = null;
+    const basicSet = new Set(basis);
+    const zeroCols = [];
+    for (let j = 0; j < N; j++) if (!isArt(j) && !basicSet.has(j) && d[j].isZero()) zeroCols.push(j);
+    for (const k of zeroCols) {
+      const alt = maximizeOnFace(k);
+      if (alt) { result.alternative = alt; break; }
+    }
+    result.zeroCols = zeroCols;
+    return result;
+
+    function maximizeOnFace(k) {
+      // Kopie, nur Spalten mit d_j = 0 (ohne künstliche) zulässig; Ziel: max x_k; Regel von Bland
+      let TT = T.map(r => r.slice()), rr = rhs.slice(); const bb = basis.slice();
+      const allowed = j => !isArt(j) && d[j].isZero();
+      let g = new Array(N).fill(Z); g[k] = MONE; let gr = Z;
+      // Basisvariablen haben c=0 im Hilfsziel, außer k ist nicht in der Basis -> konsistent
+      for (let it = 0; it < maxIter; it++) {
+        let e = -1;
+        for (let j = 0; j < N; j++) if (allowed(j) && g[j].sign() < 0) { e = j; break; }
+        if (e < 0) break;
+        let r = -1, best = null;
+        for (let i = 0; i < m; i++) {
+          if (redundant.has(i) || TT[i][e].sign() <= 0) continue;
+          const q = rr[i].div(TT[i][e]);
+          if (r < 0 || q.cmp(best) < 0 || (q.cmp(best) === 0 && bb[i] < bb[r])) { r = i; best = q; }
+        }
+        if (r < 0) {
+          return { unboundedFace: true, k, dirVar: e };
+        }
+        const p = TT[r][e];
+        TT[r] = TT[r].map(v => v.div(p)); rr[r] = rr[r].div(p);
+        for (let i = 0; i < m; i++) { if (i === r) continue; const f = TT[i][e]; if (f.isZero()) continue; TT[i] = TT[i].map((v, j) => v.sub(f.mul(TT[r][j]))); rr[i] = rr[i].sub(f.mul(rr[r])); }
+        const f = g[e]; g = g.map((v, j) => v.sub(f.mul(TT[r][j]))); gr = gr.sub(f.mul(rr[r]));
+        bb[r] = e;
+      }
+      if (gr.sign() > 0) {
+        const v = new Array(N).fill(Z); for (let i = 0; i < m; i++) v[bb[i]] = rr[i];
+        return { k, x: v.slice(0, n), values: v };
+      }
+      return null;
+    }
+  }
+
+  const api = { Q, parseQ, solveLP, Z, ONE };
+  root.LP = api;
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+
+<script>
+(function () {
+  'use strict';
+  const { Q, parseQ, solveLP } = window.LP;
+  const $ = id => document.getElementById(id);
+  const state = { n: 2, m: 3, sense: 'max', c: [], A: [], op: [], b: [] };
+  let lastModel = null, lastRes = null;
+
+  const EX = {
+    prod: { sense: 'max', c: ['40', '30'], A: [['1', '1'], ['2', '1'], ['0', '1']], op: ['<=', '<=', '<='], b: ['40', '60', '30'],
+      info: 'Ein Betrieb fertigt zwei Produkte mit Deckungsbeiträgen von 40 € und 30 € je Stück. Engpässe: Montage (40 h, je 1 h pro Stück), Maschine (60 h, 2 h bzw. 1 h pro Stück), Absatzgrenze für Produkt 2 (30 Stück).' },
+    mix: { sense: 'min', c: ['4', '3'], A: [['2', '1'], ['1', '3'], ['1', '1']], op: ['>=', '>=', '>='], b: ['10', '15', '6'],
+      info: 'Futtermischung: Zwei Futtersorten kosten 4 € bzw. 3 € je kg. Die Mischung muss mindestens 10 Einheiten Nährstoff A, 15 Einheiten Nährstoff B und insgesamt mindestens 6 kg enthalten. Gesucht sind die kostenminimalen Mengen.' },
+    gl: { sense: 'max', c: ['5', '4', '3'], A: [['2', '3', '1'], ['4', '1', '2'], ['1', '1', '1']], op: ['<=', '<=', '='], b: ['5', '11', '4'],
+      info: 'Drei Produkte, zwei Kapazitätsgrenzen (≤) und eine Gleichung: Insgesamt müssen genau 4 Einheiten produziert werden.' },
+    neg: { sense: 'max', c: ['3', '2'], A: [['-1', '-1'], ['1', '2'], ['1', '0']], op: ['<=', '<=', '<='], b: ['-2', '8', '4'],
+      info: 'Die erste Nebenbedingung −x₁ − x₂ ≤ −2 hat eine negative rechte Seite. Der Rechner multipliziert sie mit −1 zu x₁ + x₂ ≥ 2.' },
+    unb: { sense: 'max', c: ['1', '2'], A: [['1', '-1'], ['-2', '1']], op: ['<=', '<='], b: ['2', '4'],
+      info: 'Der zulässige Bereich ist nach rechts oben offen; die Zielfunktion kann beliebig groß werden.' },
+    inf: { sense: 'max', c: ['3', '2'], A: [['1', '1'], ['1', '1']], op: ['<=', '>='], b: ['4', '6'],
+      info: 'Die Bedingungen x₁ + x₂ ≤ 4 und x₁ + x₂ ≥ 6 widersprechen sich – es gibt keine zulässige Lösung.' },
+    alt: { sense: 'max', c: ['2', '2'], A: [['1', '1'], ['1', '0'], ['0', '1']], op: ['<=', '<=', '<='], b: ['6', '4', '5'],
+      info: 'Die Isogewinngerade 2x₁ + 2x₂ = const verläuft parallel zur Nebenbedingung x₁ + x₂ ≤ 6 – eine ganze Kante ist optimal.' },
+    deg: { sense: 'max', c: ['3', '2'], A: [['1', '0'], ['0', '1'], ['1', '1']], op: ['<=', '<=', '<='], b: ['2', '2', '4'],
+      info: 'Im Punkt (2 | 2) schneiden sich drei Nebenbedingungsgeraden – eine Basisvariable nimmt dort den Wert 0 an (Degeneration).' }
+  };
+  let exInfo = '';
+
+  function fmt(q) { return document.querySelector('input[name=fmt]:checked').value === 'dec' ? q.toDec() : q.toFrac(); }
+  function sub(base, num) { return base + '<sub>' + num + '</sub>'; }
+  function vname(v) { return sub(v.kind, v.num); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+  const opSym = { '<=': '≤', '>=': '≥', '=': '=' };
+
+  function initSelects() {
+    for (let i = 2; i <= 8; i++) $('nvar').insertAdjacentHTML('beforeend', '<option>' + i + '</option>');
+    for (let i = 1; i <= 10; i++) $('ncon').insertAdjacentHTML('beforeend', '<option>' + i + '</option>');
+  }
+  function readInputs() {
+    state.sense = $('sense').value;
+    document.querySelectorAll('#inptab input, #inptab select').forEach(el => {
+      const t = el.dataset.t, i = +el.dataset.i, j = +el.dataset.j;
+      if (t === 'c') state.c[j] = el.value;
+      else if (t === 'a') { (state.A[i] = state.A[i] || [])[j] = el.value; }
+      else if (t === 'op') state.op[i] = el.value;
+      else if (t === 'b') state.b[i] = el.value;
+    });
+  }
+  function buildTable() {
+    const n = state.n, m = state.m;
+    let h = '<tr><th scope="row">Zielfunktion</th><td>z&nbsp;=</td>';
+    for (let j = 0; j < n; j++) {
+      h += '<td>' + (j ? '+' : '') + '</td><td><input class="cf" type="text" data-t="c" data-j="' + j + '" aria-label="Zielfunktionskoeffizient von x' + (j + 1) + '" value="' + esc(state.c[j] || '') + '"> <span class="vl">' + sub('x', j + 1) + '</span></td>';
+    }
+    h += '<td></td><td></td></tr>';
+    for (let i = 0; i < m; i++) {
+      h += '<tr><th scope="row">NB ' + (i + 1) + '</th><td></td>';
+      for (let j = 0; j < n; j++) {
+        const v = state.A[i] && state.A[i][j] || '';
+        h += '<td>' + (j ? '+' : '') + '</td><td><input class="cf" type="text" data-t="a" data-i="' + i + '" data-j="' + j + '" aria-label="Nebenbedingung ' + (i + 1) + ', Koeffizient von x' + (j + 1) + '" value="' + esc(v) + '"> <span class="vl">' + sub('x', j + 1) + '</span></td>';
+      }
+      const op = state.op[i] || '<=';
+      h += '<td><select data-t="op" data-i="' + i + '" aria-label="Relationszeichen Nebenbedingung ' + (i + 1) + '">' +
+        ['<=', '>=', '='].map(o => '<option value="' + o + '"' + (o === op ? ' selected' : '') + '>' + opSym[o] + '</option>').join('') + '</select></td>';
+      h += '<td><input class="cf" type="text" data-t="b" data-i="' + i + '" aria-label="Rechte Seite Nebenbedingung ' + (i + 1) + '" value="' + esc(state.b[i] || '') + '"></td></tr>';
+    }
+    h += '<tr><th scope="row"></th><td></td><td colspan="' + (2 * n + 2) + '" class="vl">' + Array.from({ length: n }, (_, j) => sub('x', j + 1)).join(', ') + ' ≥ 0</td></tr>';
+    $('inptab').innerHTML = h;
+  }
+  function loadExample(key) {
+    const e = EX[key]; if (!e) return;
+    state.sense = e.sense; state.n = e.c.length; state.m = e.b.length;
+    state.c = e.c.slice(); state.A = e.A.map(r => r.slice()); state.op = e.op.slice(); state.b = e.b.slice();
+    $('sense').value = e.sense; $('nvar').value = state.n; $('ncon').value = state.m;
+    exInfo = e.info;
+    buildTable();
+    calculate();
+  }
+  function readModel() {
+    readInputs();
+    let ok = true;
+    const P = el => { const q = parseQ(el.value); el.classList.toggle('err', !q); el.setAttribute('aria-invalid', q ? 'false' : 'true'); if (!q) ok = false; return q; };
+    const c = [], rows = [];
+    for (let j = 0; j < state.n; j++) c.push(P(document.querySelector('#inptab input[data-t=c][data-j="' + j + '"]')));
+    for (let i = 0; i < state.m; i++) {
+      const a = [];
+      for (let j = 0; j < state.n; j++) a.push(P(document.querySelector('#inptab input[data-t=a][data-i="' + i + '"][data-j="' + j + '"]')));
+      const b = P(document.querySelector('#inptab input[data-t=b][data-i="' + i + '"]'));
+      rows.push({ a, op: state.op[i] || '<=', b });
+    }
+    if (!ok) { $('inerr').innerHTML = '<p class="msg bad">Bitte die rot markierten Felder prüfen: erlaubt sind Zahlen wie 3, −2, 2,5 oder Brüche wie 3/4.</p>'; return null; }
+    $('inerr').innerHTML = '';
+    return { sense: state.sense, c, rows };
+  }
+  function calculate() {
+    const model = readModel();
+    if (!model) return;
+    try { lastRes = solveLP(model); lastModel = model; }
+    catch (e) { $('out').innerHTML = '<p class="msg bad">Fehler bei der Berechnung: ' + esc(e.message) + '</p>'; return; }
+    render();
+  }
+
+  // ---------- Darstellung ----------
+  function term(coefs, names) {
+    let s = '', firstT = true;
+    coefs.forEach((q, j) => {
+      if (q.isZero()) return;
+      const neg = q.sign() < 0, abs = neg ? q.neg() : q;
+      const cs = abs.eq(Q.of(1)) ? '' : fmt(abs) + ' ';
+      s += firstT ? (neg ? '−' : '') : (neg ? ' − ' : ' + ');
+      s += cs + names[j];
+      firstT = false;
+    });
+    return s || '0';
+  }
+  function modelHTML(model, res) {
+    const xn = Array.from({ length: res.n }, (_, j) => sub('x', j + 1));
+    let h = '<div class="eq">';
+    h += (model.sense === 'max' ? 'max' : 'min') + ' z = ' + term(model.c, xn) + '<br>';
+    model.rows.forEach((r, i) => { h += '(' + (i + 1) + ') ' + term(r.a, xn) + ' ' + opSym[r.op] + ' ' + fmt(r.b) + '<br>'; });
+    h += xn.join(', ') + ' ≥ 0</div>';
+    return h;
+  }
+  function standardHTML(res) {
+    const names = res.vars.map(vname);
+    let h = '<div class="eq">';
+    if (res.tau < 0) h += 'max z′ = −z = ' + term(res.vars.map((v, j) => j < res.n ? lastModel.c[j].neg() : Q.of(0)), names) + '<br>';
+    else h += 'max z = ' + term(res.vars.map((v, j) => j < res.n ? lastModel.c[j] : Q.of(0)), names) + '<br>';
+    const T0 = res.steps[0].T, b0 = res.rows.map(r => r.b);
+    // Ausgangssystem aus den normierten Zeilen
+    res.rows.forEach((r, i) => {
+      const co = res.vars.map((v, j) => {
+        if (j < res.n) return r.a[j];
+        if (v.kind === 's' && v.row === i) return v.surplus ? Q.of(-1) : Q.of(1);
+        if (v.kind === 'a' && v.row === i) return Q.of(1);
+        return Q.of(0);
+      });
+      h += '(' + (i + 1) + ') ' + term(co, names) + ' = ' + fmt(b0[i]) + '<br>';
+    });
+    h += 'alle Variablen ≥ 0</div>';
+    void T0;
+    return h;
+  }
+  function tableauHTML(st, res) {
+    const cols = [];
+    res.vars.forEach((v, j) => { if (st.showArt || v.kind !== 'a') cols.push(j); });
+    const showQ = st.type === 'pivot' || st.type === 'unb';
+    let h = '<div class="scroll"><table class="tab"><thead><tr><th class="bv" scope="col">BV</th>';
+    cols.forEach(j => { h += '<th scope="col"' + (j === st.k && showQ ? ' class="pc"' : '') + '>' + vname(res.vars[j]) + '</th>'; });
+    h += '<th scope="col" class="rs">RS</th>' + (showQ ? '<th scope="col" class="qh">Quotient</th>' : '') + '</tr></thead><tbody>';
+    const minI = st.type === 'pivot' ? st.r : -1;
+    for (let i = 0; i < res.m; i++) {
+      if (st.phase === 2 && st.redundant.indexOf(i) >= 0) continue;
+      const isPR = (st.type === 'pivot' || st.type === 'drive') && i === st.r;
+      h += '<tr' + (isPR ? ' class="pr"' : '') + '><td class="bv">' + vname(res.vars[st.basis[i]]) + '</td>';
+      cols.forEach(j => {
+        let cls = '';
+        if ((st.type === 'pivot' || st.type === 'drive') && i === st.r && j === st.k) cls = 'pe';
+        else if ((showQ || st.type === 'drive') && j === st.k) cls = 'pc';
+        h += '<td' + (cls ? ' class="' + cls + '"' : '') + '>' + fmt(st.T[i][j]) + '</td>';
+      });
+      h += '<td class="rs">' + fmt(st.rhs[i]) + '</td>';
+      if (showQ) {
+        const q = st.ratios[i];
+        let qs;
+        if (st.redundant.indexOf(i) >= 0) qs = '–';
+        else if (q) qs = fmt(st.rhs[i]) + ' : ' + fmt(st.T[i][st.k]) + ' = ' + fmt(q);
+        else qs = '– (Koeff. ≤ 0)';
+        h += '<td class="q' + (i === minI ? ' min' : '') + '">' + qs + (i === minI ? ' ← min' : '') + '</td>';
+      }
+      h += '</tr>';
+    }
+    const zLabel = res.tau < 0 ? 'z′' : 'z';
+    const objRow = (label, arr, val, sel, firstRow) => {
+      let s = '<tr class="obj' + (sel ? ' sel' : '') + (firstRow ? ' first' : '') + '"><td class="bv">' + label + '</td>';
+      cols.forEach(j => {
+        const cls = (j === st.k && (showQ || st.type === 'drive') && sel) ? ' class="pc"' : '';
+        s += '<td' + cls + '>' + fmt(arr[j]) + '</td>';
+      });
+      return s + '<td class="rs">' + fmt(val) + '</td>' + (showQ ? '<td class="q"></td>' : '') + '</tr>';
+    };
+    if (st.phase === 1 && st.h) {
+      h += objRow(zLabel, st.d, st.zr, false, true);
+      h += objRow('h', st.h, st.hr, true, false);
+    } else {
+      h += objRow(zLabel, st.d, st.zr, true, true);
+    }
+    h += '</tbody></table></div>';
+    return h;
+  }
+  function explain(st, res, idx) {
+    const names = res.vars.map(vname);
+    const rowName = st.phase === 1 ? 'h-Zeile' : (res.tau < 0 ? 'z′-Zeile' : 'Zielfunktionszeile');
+    let s = '';
+    if (st.first && st.phase === 1) s += '<p>Starttableau der Phase 1: Die Basis besteht aus den Schlupfvariablen der ≤-Zeilen und den künstlichen Variablen der ≥- bzw. =-Zeilen. Die h-Zeile entsteht als negative Summe der Zeilen mit künstlicher Variable; sie ist das Auswahlkriterium in Phase 1. Die z-Zeile wird nur mitgeführt.</p>';
+    if (st.first && st.phase === 2 && !res.hasArt) s += '<p>Starttableau: Basisvariablen sind die Schlupfvariablen; alle Entscheidungsvariablen sind 0 (Nullpunkt). In der ' + rowName + ' steht −c<sub>j</sub>.</p>';
+    if (st.first && st.phase === 2 && res.hasArt) s += '<p>Starttableau der Phase 2: Spalten der künstlichen Variablen und die h-Zeile entfallen. Die Zielfunktionszeile wurde in Phase 1 mitgerechnet und passt schon zur aktuellen Basis.</p>';
+    if (st.blandNote) s += '<p class="msg warn">Diese Basis ist schon einmal aufgetreten – Gefahr eines Zyklus. Ab hier gilt die Regel von Bland: Es tritt die Variable mit dem kleinsten Index und negativem Eintrag ein.</p>';
+    if (st.type === 'pivot') {
+      const kv = names[st.k];
+      const obj = st.phase === 1 ? st.h : st.d;
+      s += '<p><strong>Pivotspalte:</strong> ' + kv + ', denn ' + fmt(obj[st.k]) + (st.bland ? ' ist der erste negative Eintrag (Regel von Bland)' : ' ist der kleinste (negativste) Eintrag der ' + rowName) + (st.colTie && !st.bland ? '; Gleichstand, daher kleinster Index' : '') + '.</p>';
+      s += '<p><strong>Quotiententest:</strong> rechte Seite ÷ positiver Koeffizient der Pivotspalte. Kleinster Quotient ' + fmt(st.theta) + ' in der Zeile von ' + names[st.basis[st.r]] + (st.rowTie ? ' (Gleichstand, daher Basisvariable mit kleinstem Index)' : '') + ' → ' + names[st.basis[st.r]] + ' verlässt die Basis, ' + kv + ' wird aufgenommen.</p>';
+      s += '<p><strong>Pivotelement:</strong> ' + fmt(st.T[st.r][st.k]) + '. Pivotzeile durch das Pivotelement teilen; in allen anderen Zeilen (auch Zielzeilen) die Pivotspalte durch Subtraktion eines Vielfachen der neuen Pivotzeile auf 0 bringen.</p>';
+      if (st.degen) s += '<p class="msg warn">Degenerierter Schritt: Der kleinste Quotient ist 0. Die Basis wechselt, die Ecke und der Zielwert bleiben aber gleich.</p>';
+    } else if (st.type === 'end1') {
+      if (st.hr.isZero()) s += '<p class="msg ok">Phase 1 beendet: Kein negativer Eintrag in der h-Zeile und h = 0. Alle künstlichen Variablen sind 0 – eine zulässige Basislösung ist gefunden.</p>';
+      else s += '<p class="msg bad">Phase 1 beendet: Kein negativer Eintrag mehr in der h-Zeile, aber h = ' + fmt(st.hr) + ' &lt; 0. Die künstlichen Variablen lassen sich nicht auf 0 bringen – das Problem hat keine zulässige Lösung.</p>';
+    } else if (st.type === 'drive') {
+      s += '<p>' + names[st.basis[st.r]] + ' ist noch Basisvariable (mit Wert 0). Sie wird gegen ' + names[st.k] + ' getauscht (Element ≠ 0 in dieser Zeile, Pivotelement ' + fmt(st.T[st.r][st.k]) + '). Da die rechte Seite 0 ist, ändert sich keine Variable – auch ein negatives Pivotelement ist hier zulässig.</p>';
+    } else if (st.type === 'redundant') {
+      s += '<p>' + names[st.basis[st.r]] + ' bleibt mit Wert 0 in der Basis, und die Zeile enthält außer künstlichen Variablen nur Nullen: Nebenbedingung (' + (st.r + 1) + ') ist <strong>redundant</strong> (Linearkombination anderer Gleichungen) und wird in Phase 2 weggelassen.</p>';
+    } else if (st.type === 'opt') {
+      s += '<p class="msg ok">Optimal: Die ' + rowName + ' enthält keinen negativen Eintrag mehr. Werte der Basisvariablen stehen in der Spalte RS, alle Nichtbasisvariablen sind 0.</p>';
+    } else if (st.type === 'unb') {
+      s += '<p class="msg bad">' + names[st.k] + ' hat in der ' + rowName + ' den negativen Eintrag ' + fmt(st.d[st.k]) + ', aber in ihrer Spalte keinen positiven Koeffizienten. Der Quotiententest findet keine Grenze: ' + names[st.k] + ' kann beliebig wachsen, ohne dass eine Basisvariable negativ wird. Die Zielfunktion ist <strong>unbeschränkt</strong>.</p>';
+    }
+    void idx;
+    return s;
+  }
+  function stepTitle(st, num) {
+    const ph = st.phase === 1 ? 'Phase 1' : (lastRes.hasArt ? 'Phase 2' : '');
+    const t = { pivot: 'Tableau ' + num, end1: 'Tableau ' + num + ' – Ende Phase 1', drive: 'Tableau ' + num + ' – künstliche Variable entfernen', redundant: 'Tableau ' + num + ' – redundante Zeile', opt: 'Tableau ' + num + ' – optimal', unb: 'Tableau ' + num + ' – unbeschränkt' }[st.type];
+    return t + (ph ? '<span class="badge">' + ph + '</span>' : '');
+  }
+
+  function render() {
+    const res = lastRes, model = lastModel;
+    let h = '';
+    h += '<h2>Ergebnis</h2>';
+    if (exInfo) h += '<p class="hint">' + esc(exInfo) + '</p>';
+    h += modelHTML(model, res);
+    if (res.flips.length) h += '<p class="msg warn">Negative rechte Seite: Nebenbedingung ' + res.flips.map(i => '(' + (i + 1) + ')').join(', ') + ' wurde mit −1 multipliziert (dabei dreht sich ≤ zu ≥ bzw. ≥ zu ≤), damit alle rechten Seiten nichtnegativ sind.</p>';
+
+    if (res.status === 'infeasible') {
+      h += '<p class="msg bad"><strong>Keine zulässige Lösung (unzulässig).</strong> Phase 1 endet mit h = −' + fmt(res.hValue) + ' &lt; 0: Mindestens eine künstliche Variable bleibt positiv, die Nebenbedingungen lassen sich also nicht gleichzeitig erfüllen.</p>';
+    } else if (res.status === 'unbounded') {
+      const xn = Array.from({ length: res.n }, (_, j) => sub('x', j + 1));
+      h += '<p class="msg bad"><strong>Unbeschränkt.</strong> Die Zielfunktion kann beliebig ' + (model.sense === 'max' ? 'groß' : 'klein') + ' werden. Zulässige Punkte entlang des Strahls (' + res.ray.x0.map(fmt).join(' | ') + ') + t · (' + res.ray.dir.map(fmt).join(' | ') + '), t ≥ 0, mit ' + xn.join(', ') + ' – je größer t, desto ' + (model.sense === 'max' ? 'größer' : 'kleiner') + ' z. Häufige Ursache: eine vergessene Kapazitätsgrenze.</p>';
+    } else {
+      h += resultHTML(res, model);
+    }
+    if (res.n === 2) h += '<h2>Grafische Lösung</h2>' + graphHTML(model, res);
+
+    h += '<h2>Rechenweg</h2>';
+    h += '<h3>Standardform (Gleichungssystem)</h3>' + standardHTML(res);
+    let num = 0;
+    res.steps.forEach((st, i) => {
+      num++;
+      h += '<section class="step"><h3>' + stepTitle(st, num) + '</h3>' + tableauHTML(st, res) + explain(st, res, i) + '</section>';
+    });
+    $('out').innerHTML = h;
+  }
+
+  function resultHTML(res, model) {
+    let h = '<p class="msg ok"><strong>Optimale Lösung:</strong> ' + res.x.map((v, j) => sub('x', j + 1) + ' = ' + fmt(v)).join(', ') + '; optimaler Zielwert <strong>z = ' + fmt(res.z) + '</strong>' + (res.tau < 0 ? ' (= −z′)' : '') + '.</p>';
+    if (res.alternative) {
+      if (res.alternative.unboundedFace) {
+        h += '<p class="msg warn"><strong>Mehrdeutige Optima:</strong> Die Nichtbasisvariable ' + vname(res.vars[res.alternative.k]) + ' hat in der Zielfunktionszeile den Wert 0. Sie kann erhöht werden, ohne den Zielwert zu ändern – und zwar unbegrenzt. Es gibt unendlich viele optimale Lösungen (eine unbeschränkte optimale Kante) mit demselben Zielwert z = ' + fmt(res.z) + '.</p>';
+      } else {
+        h += '<p class="msg warn"><strong>Mehrdeutige (alternative) Optima:</strong> Die Nichtbasisvariable ' + vname(res.vars[res.alternative.k]) + ' hat in der Zielfunktionszeile den Wert 0. Nimmt man sie in die Basis auf, ändert sich der Zielwert nicht. Eine weitere optimale Ecke ist ' + res.alternative.x.map((v, j) => sub('x', j + 1) + ' = ' + fmt(v)).join(', ') + '. Jede Konvexkombination λ·(erste Ecke) + (1−λ)·(zweite Ecke), 0 ≤ λ ≤ 1, ist ebenfalls optimal mit z = ' + fmt(res.z) + '.</p>';
+      }
+    } else if (res.zeroCols.length) {
+      h += '<p class="hint">Hinweis: Mindestens eine Nichtbasisvariable hat in der Zielfunktionszeile den Wert 0, ihre Aufnahme in die Basis wäre aber nur mit Schrittweite 0 möglich (Degeneration). Die optimale Lösung ist trotzdem eindeutig.</p>';
+    }
+    if (res.degenerateFinal) h += '<p class="msg warn"><strong>Degeneration:</strong> Im optimalen Tableau hat mindestens eine Basisvariable den Wert 0. In der optimalen Ecke treffen mehr Nebenbedingungen zusammen als nötig. Folge: Die Schattenpreise sind nicht eindeutig – sie gelten dann nur für eine Richtung der Änderung (Erhöhung oder Senkung der rechten Seite).</p>';
+    else if (res.degenerateStep) h += '<p class="hint">Während der Rechnung trat ein degenerierter Schritt auf (Quotient 0); die optimale Ecke selbst ist nicht degeneriert.</p>';
+    if (res.blandUsed) h += '<p class="hint">Wegen einer wiederholten Basis wurde zur Regel von Bland gewechselt, um Zyklen zu vermeiden.</p>';
+    if (res.redundant.length) h += '<p class="hint">Redundante Gleichung(en): ' + res.redundant.map(i => '(' + (i + 1) + ')').join(', ') + '. Ihr Schattenpreis ist nicht eindeutig; angezeigt wird eine gültige Wahl (0).</p>';
+
+    h += '<h3>Nebenbedingungen, Schlupf und Schattenpreise</h3><div class="scroll"><table class="tab res"><thead><tr><th scope="col">NB</th><th scope="col">linke Seite</th><th scope="col"></th><th scope="col">rechte Seite</th><th scope="col">Schlupf/Überschuss</th><th scope="col">Engpass (bindend)?</th><th scope="col">Schattenpreis</th></tr></thead><tbody>';
+    model.rows.forEach((r, i) => {
+      const sc = res.slackCol[i];
+      let sl;
+      if (sc < 0) sl = '– (Gleichung)';
+      else {
+        const v = res.vars[sc];
+        sl = vname(v) + ' = ' + fmt(res.values[sc]) + (v.surplus ? ' (Überschuss)' : ' (Schlupf)');
+      }
+      h += '<tr><td>(' + (i + 1) + ')</td><td>' + fmt(res.lhs[i]) + '</td><td style="text-align:center">' + opSym[r.op] + '</td><td>' + fmt(r.b) + '</td><td>' + sl + '</td><td>' + (r.op === '=' ? 'ja (Gleichung)' : (res.binding[i] ? 'ja' : 'nein')) + '</td><td>' + fmt(res.dual[i]) + '</td></tr>';
+    });
+    h += '</tbody></table></div>';
+    h += '<p class="hint">Gelesen werden die Schattenpreise im optimalen Tableau in der Zielfunktionszeile unter der Schlupfvariable (bei ≥ mit umgekehrtem Vorzeichen unter der Überschussvariable bzw. unter der künstlichen Variable).' + (res.tau < 0 ? ' Wegen z = −z′ ist das Vorzeichen für das Minimierungsproblem bereits umgedreht.' : '') + ' Bedeutung: Steigt die rechte Seite einer Nebenbedingung um 1, ändert sich der optimale Zielwert um den Schattenpreis (solange die optimale Basis gleich bleibt). Nicht bindende Nebenbedingungen haben den Schattenpreis 0 – zusätzliche Kapazität dort bringt nichts. Probe (Dualität): Summe aus Schattenpreis × rechte Seite = ' + fmt(res.dual.reduce((s, y, i) => s.add(y.mul(model.rows[i].b)), Q.of(0))) + ' = z.</p>';
+    return h;
+  }
+
+  // ---------- Grafik (2 Variablen) ----------
+  function graphHTML(model, res) {
+    const C = model.rows.map(r => ({ a: r.a[0].toNumber(), b: r.a[1].toNumber(), c: r.b.toNumber(), op: r.op }));
+    const cand = [[0, 0]];
+    const lines = C.map(k => [k.a, k.b, k.c]).concat([[1, 0, 0], [0, 1, 0]]);
+    for (let i = 0; i < lines.length; i++) for (let j = i + 1; j < lines.length; j++) {
+      const [a1, b1, c1] = lines[i], [a2, b2, c2] = lines[j];
+      const det = a1 * b2 - a2 * b1;
+      if (Math.abs(det) < 1e-12) continue;
+      const x = (c1 * b2 - c2 * b1) / det, y = (a1 * c2 - a2 * c1) / det;
+      if (x >= -1e-9 && y >= -1e-9 && isFinite(x) && isFinite(y)) cand.push([x, y]);
+    }
+    let X = 1, Y = 1;
+    cand.forEach(([x, y]) => { X = Math.max(X, x); Y = Math.max(Y, y); });
+    if (res.status === 'optimal') { X = Math.max(X, res.x[0].toNumber()); Y = Math.max(Y, res.x[1].toNumber()); }
+    X *= 1.15; Y *= 1.15;
+    const step = v => { const p = Math.pow(10, Math.floor(Math.log10(v / 6))); const f = v / 6 / p; return (f < 1.5 ? 1 : f < 3.5 ? 2 : f < 7.5 ? 5 : 10) * p; };
+    const sx = step(X), sy = step(Y);
+    X = Math.ceil(X / sx) * sx; Y = Math.ceil(Y / sy) * sy;
+    // Polygon clippen
+    let poly = [[0, 0], [X, 0], [X, Y], [0, Y]];
+    const half = [];
+    C.forEach(k => {
+      if (k.op === '<=' || k.op === '=') half.push([k.a, k.b, k.c]);
+      if (k.op === '>=' || k.op === '=') half.push([-k.a, -k.b, -k.c]);
+    });
+    const eps = 1e-9 * Math.max(1, X, Y);
+    half.forEach(([a, b, c]) => {
+      const out = [];
+      for (let i = 0; i < poly.length; i++) {
+        const P = poly[i], R = poly[(i + 1) % poly.length];
+        const fp = a * P[0] + b * P[1] - c, fr = a * R[0] + b * R[1] - c;
+        const inP = fp <= eps, inR = fr <= eps;
+        if (inP) out.push(P);
+        if (inP !== inR) { const t = fp / (fp - fr); out.push([P[0] + t * (R[0] - P[0]), P[1] + t * (R[1] - P[1])]); }
+      }
+      poly = out;
+    });
+    const W = 520, H = 400, L = 46, Rm = 16, T = 14, B = 38;
+    const px = x => L + x / X * (W - L - Rm), py = y => H - B - y / Y * (H - T - B);
+    const colors = ['#1d5bb8', '#17703f', '#a3480f', '#7b3fa0', '#0f7b85', '#9c2f62', '#5d6b10', '#444c9c', '#8a5a00', '#2f6f4f'];
+    let s = '<svg class="g" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Grafische Lösung: zulässiger Bereich, Nebenbedingungsgeraden und Isogewinngerade"><defs><clipPath id="clipbox"><rect x="' + L + '" y="' + T + '" width="' + (W - L - Rm) + '" height="' + (H - T - B) + '"/></clipPath></defs>';
+    for (let v = 0; v <= X + 1e-9; v += sx) s += '<line class="grid" x1="' + px(v) + '" y1="' + py(0) + '" x2="' + px(v) + '" y2="' + py(Y) + '"/><text x="' + px(v) + '" y="' + (H - B + 16) + '" text-anchor="middle">' + numLabel(v) + '</text>';
+    for (let v = 0; v <= Y + 1e-9; v += sy) s += '<line class="grid" x1="' + px(0) + '" y1="' + py(v) + '" x2="' + px(X) + '" y2="' + py(v) + '"/><text x="' + (L - 6) + '" y="' + (py(v) + 4) + '" text-anchor="end">' + numLabel(v) + '</text>';
+    if (poly.length >= 2) s += '<polygon class="reg" points="' + poly.map(p => px(p[0]).toFixed(1) + ',' + py(p[1]).toFixed(1)).join(' ') + '"/>';
+    s += '<g clip-path="url(#clipbox)">';
+    const legend = [];
+    C.forEach((k, i) => {
+      const seg = lineSeg(k.a, k.b, k.c, X, Y);
+      const col = colors[i % colors.length];
+      legend.push('<span><span class="sw" style="background:' + col + '"></span>(' + (i + 1) + ')</span>');
+      if (!seg) return;
+      s += '<line class="cl" stroke="' + col + '" x1="' + px(seg[0][0]) + '" y1="' + py(seg[0][1]) + '" x2="' + px(seg[1][0]) + '" y2="' + py(seg[1][1]) + '"/>';
+      const mid = [(seg[0][0] * .25 + seg[1][0] * .75), (seg[0][1] * .25 + seg[1][1] * .75)];
+      s += '<text x="' + (px(mid[0]) + 5) + '" y="' + (py(mid[1]) - 5) + '" style="fill:' + col + ';font-weight:600">(' + (i + 1) + ')</text>';
+    });
+    let note = '';
+    if (res.status === 'optimal') {
+      const c1 = model.c[0].toNumber(), c2 = model.c[1].toNumber(), z = res.z.toNumber();
+      const seg = (c1 || c2) ? lineSeg(c1, c2, z, X, Y) : null;
+      if (seg) s += '<line class="iso" x1="' + px(seg[0][0]) + '" y1="' + py(seg[0][1]) + '" x2="' + px(seg[1][0]) + '" y2="' + py(seg[1][1]) + '"/>';
+      legend.push('<span><span class="sw" style="background:var(--iso)"></span>Isogewinngerade z = ' + fmt(res.z) + (model.sense === 'min' ? ' (Isokostengerade)' : '') + '</span>');
+    }
+    s += '</g>';
+    s += '<line class="ax" x1="' + px(0) + '" y1="' + py(0) + '" x2="' + px(X) + '" y2="' + py(0) + '"/><line class="ax" x1="' + px(0) + '" y1="' + py(0) + '" x2="' + px(0) + '" y2="' + py(Y) + '"/>';
+    s += '<text x="' + (W - Rm) + '" y="' + (H - 4) + '" text-anchor="end">x₁</text><text x="6" y="' + (T + 8) + '">x₂</text>';
+    if (res.status === 'optimal') {
+      const ox = res.x[0].toNumber(), oy = res.x[1].toNumber();
+      s += '<circle class="opt" cx="' + px(ox) + '" cy="' + py(oy) + '" r="6"/>';
+      if (res.alternative && res.alternative.x) s += '<circle class="opt" cx="' + px(res.alternative.x[0].toNumber()) + '" cy="' + py(res.alternative.x[1].toNumber()) + '" r="5"/>';
+      legend.push('<span><span class="sw" style="background:var(--iso);border-radius:50%"></span>Optimum (' + fmt(res.x[0]) + ' | ' + fmt(res.x[1]) + ')</span>');
+    }
+    legend.unshift('<span><span class="sw" style="background:var(--region)"></span>zulässiger Bereich</span>');
+    s += '</svg>';
+    if (res.status === 'infeasible') note = '<p class="hint">Es gibt keinen Punkt, der alle Nebenbedingungen erfüllt – daher keine Fläche.</p>';
+    if (res.status === 'unbounded') note = '<p class="hint">Der zulässige Bereich ist unbeschränkt; gezeigt ist nur ein Ausschnitt.</p>';
+    if (res.status === 'optimal' && res.alternative) note = '<p class="hint">Die Isogewinngerade liegt auf einer Kante des zulässigen Bereichs – alle Punkte dieser Kante sind optimal.</p>';
+    return s + '<div class="legend">' + legend.join('') + '</div>' + note + '<p class="hint">Die Isogewinngerade verbindet alle Punkte mit demselben Zielwert wie das Optimum. Sie berührt den zulässigen Bereich nur noch am Rand.</p>';
+  }
+  function numLabel(v) { const r = Math.round(v * 1e6) / 1e6; return String(r).replace('.', ','); }
+  function lineSeg(a, b, c, X, Y) {
+    const pts = [];
+    const add = (x, y) => { if (x >= -1e-9 && x <= X + 1e-9 && y >= -1e-9 && y <= Y + 1e-9) pts.push([x, y]); };
+    if (Math.abs(b) > 1e-12) { add(0, c / b); add(X, (c - a * X) / b); }
+    if (Math.abs(a) > 1e-12) { add(c / a, 0); add((c - b * Y) / a, Y); }
+    if (pts.length < 2) return null;
+    let best = null, bd = -1;
+    for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) { const dd = Math.hypot(pts[i][0] - pts[j][0], pts[i][1] - pts[j][1]); if (dd > bd) { bd = dd; best = [pts[i], pts[j]]; } }
+    return best;
+  }
+
+  // ---------- Ereignisse ----------
+  initSelects();
+  $('nvar').value = state.n; $('ncon').value = state.m;
+  $('nvar').addEventListener('change', () => { readInputs(); state.n = +$('nvar').value; exInfo = ''; buildTable(); });
+  $('ncon').addEventListener('change', () => { readInputs(); state.m = +$('ncon').value; exInfo = ''; buildTable(); });
+  $('sense').addEventListener('change', () => { exInfo = ''; });
+  $('inptab').addEventListener('input', () => { exInfo = ''; });
+  $('calc').addEventListener('click', calculate);
+  $('clear').addEventListener('click', () => { state.c = []; state.A = []; state.op = []; state.b = []; exInfo = ''; buildTable(); $('out').innerHTML = ''; $('bsp').value = ''; });
+  $('bsp').addEventListener('change', e => loadExample(e.target.value));
+  $('inptab').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.tagName === 'INPUT') calculate(); });
+  document.querySelectorAll('input[name=fmt]').forEach(r => r.addEventListener('change', () => { if (lastRes) render(); }));
+  loadExample('prod');
+  $('bsp').value = 'prod';
+})();
+</script>
+</body>
+</html>

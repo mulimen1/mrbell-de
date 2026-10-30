@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buchungssätze üben – 60 Geschäftsvorfälle mit Lösung</title>
+<meta name="description" content="Buchungssatz-Trainer für Rechnungswesen und Buchführung: 60 Geschäftsvorfälle von Eröffnung bis Abschluss, Umsatzsteuer, Skonto, Privat und Abschreibung – mit Prüfung je Zeile und begründeter Musterlösung.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/buchungssatz-trainer">
+<style>
+:root{--bg:#ffffff;--fg:#1b1d21;--muted:#5a606c;--line:#d6d9df;--soft:#f3f4f6;--accent:#1d5bb8;--accent-soft:#e7eefa;--ok:#17703f;--ok-soft:#e5f4ea;--bad:#b3261e;--bad-soft:#fbe9e7;--warn:#7a4f00;--warn-soft:#fff6e0;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#15171b;--fg:#e8eaee;--muted:#a5abb7;--line:#363a44;--soft:#1e2127;--accent:#86b4ff;--accent-soft:#1d2a40;--ok:#63d394;--ok-soft:#173022;--bad:#ff8f86;--bad-soft:#3a1d1b;--warn:#f2c46a;--warn-soft:#2e2615;color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+main{max-width:960px;margin:0 auto;padding:28px 16px 40px}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .6rem}
+h2{font-size:1.2rem;margin:1.8rem 0 .6rem}
+p{margin:.5rem 0}
+.lead{color:var(--muted);max-width:70ch}
+a{color:var(--accent)}
+.note{border-left:4px solid var(--accent);background:var(--accent-soft);padding:10px 14px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.95rem}
+.note ul{margin:.3rem 0 .2rem;padding-left:1.2rem}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 8px}
+.tabs button{font:inherit;font-size:.92rem;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:8px;padding:7px 11px;cursor:pointer;min-height:40px;text-align:left}
+.tabs button[aria-selected=true]{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.tabs .cnt{display:block;font-size:.78rem;color:var(--muted);font-weight:400}
+.cases{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}
+.cases button{font:inherit;width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.cases button.cur{outline:2px solid var(--accent);outline-offset:1px;font-weight:700}
+.cases button.ok{background:var(--ok-soft);border-color:var(--ok)}
+.cases button.bad{background:var(--bad-soft);border-color:var(--bad)}
+.cases button.shown{background:var(--warn-soft);border-color:var(--warn)}
+.card{border:1px solid var(--line);border-radius:10px;padding:16px;margin:10px 0}
+.case-h{font-size:.9rem;color:var(--muted);margin:0 0 4px}
+.case-t{font-size:1.08rem;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.side h3{font-size:1rem;margin:0 0 6px}
+.ln{display:grid;grid-template-columns:minmax(0,1fr) 7.2em 34px;gap:6px;margin-bottom:6px;align-items:start}
+.ln input{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 8px;min-height:40px;width:100%}
+.ln input.amt{text-align:right}
+.ln .rm{font:inherit;border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:6px;min-height:40px;cursor:pointer;padding:0}
+.ln.ok input{border-color:var(--ok)}
+.ln.bad input{border-color:var(--bad)}
+.fb{grid-column:1/-1;font-size:.86rem;margin:-2px 0 4px}
+.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+input:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button.add{font:inherit;font-size:.9rem;border:1px dashed var(--line);background:transparent;color:var(--accent);border-radius:6px;padding:6px 10px;cursor:pointer;min-height:36px}
+.sum{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.92rem;margin-top:4px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btns button{font:inherit;border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:6px;padding:8px 14px;min-height:40px;cursor:pointer}
+.btns button.primary{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+.msg{border-left:4px solid var(--accent);background:var(--accent-soft);padding:10px 12px;border-radius:0 8px 8px 0;margin:12px 0}
+.msg.ok{border-color:var(--ok);background:var(--ok-soft)}
+.msg.bad{border-color:var(--bad);background:var(--bad-soft)}
+.msg.warn{border-color:var(--warn);background:var(--warn-soft)}
+table.bs{border-collapse:collapse;margin:8px 0;font-variant-numeric:tabular-nums;width:100%}
+table.bs th,table.bs td{border:1px solid var(--line);padding:6px 9px;vertical-align:top}
+table.bs th{background:var(--soft);text-align:left}
+table.bs td.n{text-align:right;white-space:nowrap}
+.why{margin:.4rem 0;padding-left:1.2rem}
+.why li{margin:.2rem 0}
+.tag{font-size:.8rem;color:var(--muted)}
+.prog{color:var(--muted);font-size:.92rem}
+footer{max-width:960px;margin:0 auto;padding:18px 16px 30px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--line)}
+footer a{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:680px){.grid{grid-template-columns:1fr}h1{font-size:1.45rem}.ln{grid-template-columns:minmax(0,1fr) 6.4em 34px}}
+@media print{
+  body{font-size:11pt;background:#fff;color:#000}
+  main{max-width:none;padding:0}
+  .tabs,.cases,.btns,button.add,.ln .rm{display:none!important}
+  .card{border:0;padding:0}
+  @page{size:A4;margin:15mm}
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Buchungssätze üben</h1>
+<p class="lead">60 Geschäftsvorfälle zum Üben der doppelten Buchführung – von der Eröffnung über Umsatzsteuer, Skonto und Privatbuchungen bis zu Abschreibung und Abschluss. Du wählst Soll- und Habenkonten, trägst die Beträge ein und bekommst eine Rückmeldung je Zeile sowie eine begründete Musterlösung. Gedacht für Erstsemester in Rechnungswesen und Buchführung.</p>
+
+<div class="note" id="konventionen">
+<strong>Konventionen in diesen Übungen</strong>
+<ul>
+<li>Industriebetrieb, Kalenderjahr = Geschäftsjahr, Beträge in Euro. Kontennamen nach Kontenart, ohne Kontonummern.</li>
+<li>Umsatzsteuer nach der Nettomethode: Vorsteuer und Umsatzsteuer werden auf eigenen Konten gebucht (19 % bzw. 7 %).</li>
+<li>Einkauf von Rohstoffen wird direkt als Aufwand erfasst („Aufwendungen für Rohstoffe“). Bezugskosten auf „Bezugskosten für Rohstoffe“.</li>
+<li>Sofortrabatte werden nicht gebucht (nur der rabattierte Preis). Skonto, Bonus und nachträgliche Preisnachlässe beim Einkauf: „Nachlässe für Rohstoffe“; beim Verkauf: „Erlösberichtigungen“. Rücksendungen werden auf dem ursprünglichen Konto storniert. <em>Auch üblich:</em> Nachlässe direkt auf „Aufwendungen für Rohstoffe“ bzw. „Umsatzerlöse“ buchen – das wird ebenfalls als richtig gewertet.</li>
+<li>Privatbuchungen auf „Privatentnahmen“ und „Privateinlagen“ (auch üblich: ein gemeinsames „Privatkonto“).</li>
+<li>Löhne und Gehälter vereinfacht ohne Abzüge (keine Lohnsteuer/Sozialversicherung). Abschreibung linear, monatsgenau; Anlagen werden direkt abgeschrieben.</li>
+</ul>
+Betragseingabe: 1.190,00 oder 1190 oder 1190,5. Ein zusammengesetzter Buchungssatz hat mehrere Soll- oder Habenzeilen.
+</div>
+
+<div class="tabs" role="tablist" aria-label="Themengruppen" id="tabs"></div>
+<p class="prog" id="prog"></p>
+<div class="cases" id="cases" aria-label="Fälle der Gruppe"></div>
+
+<section class="card" id="case" aria-live="off">
+<p class="case-h" id="caseH"></p>
+<p class="case-t" id="caseT"></p>
+<datalist id="konten"></datalist>
+<div class="grid">
+  <div class="side" id="sideS"><h3>Soll</h3><div class="lines"></div><button type="button" class="add" data-side="S">+ Soll-Zeile</button></div>
+  <div class="side" id="sideH"><h3>Haben</h3><div class="lines"></div><button type="button" class="add" data-side="H">+ Haben-Zeile</button></div>
+</div>
+<p class="sum" id="sum"></p>
+<div class="btns">
+  <button type="button" class="primary" id="check">Prüfen</button>
+  <button type="button" id="show">Musterlösung zeigen</button>
+  <button type="button" id="reset">Eingaben löschen</button>
+  <button type="button" id="prev">← Vorheriger Fall</button>
+  <button type="button" id="next">Nächster Fall →</button>
+</div>
+<div id="fb" aria-live="polite"></div>
+<div id="sol"></div>
+</section>
+</main>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+
+<script type="application/json" id="data">
+{
+"konten": [
+ ["Technische Anlagen und Maschinen","A"],["Fuhrpark","A"],["Betriebs- und Geschäftsausstattung (BGA)","A"],["Geringwertige Wirtschaftsgüter (GWG)","A"],["Sammelposten","A"],["Rohstoffe (Bestand)","A"],["Forderungen aus Lieferungen und Leistungen","A"],["Sonstige Forderungen","A"],["Vorsteuer","A"],["Bank","A"],["Kasse","A"],
+ ["Eigenkapital","P"],["Verbindlichkeiten gegenüber Kreditinstituten (Darlehen)","P"],["Verbindlichkeiten aus Lieferungen und Leistungen","P"],["Sonstige Verbindlichkeiten","P"],["Umsatzsteuer","P"],
+ ["Privatentnahmen","PR"],["Privateinlagen","PR"],["Privatkonto","PR"],
+ ["Aufwendungen für Rohstoffe","AW"],["Bezugskosten für Rohstoffe","AW"],["Nachlässe für Rohstoffe","AW"],["Löhne","AW"],["Gehälter","AW"],["Mietaufwand","AW"],["Büromaterial","AW"],["Werbeaufwand","AW"],["Kommunikationsaufwand (Telefon, Internet)","AW"],["Instandhaltungsaufwand","AW"],["Versicherungsbeiträge","AW"],["Kosten des Geldverkehrs","AW"],["Zinsaufwendungen","AW"],["Sonstige betriebliche Steuern (z. B. Kfz-Steuer)","AW"],["Abschreibungen auf Sachanlagen","AW"],
+ ["Umsatzerlöse","ER"],["Erlösberichtigungen","ER"],["Zinserträge","ER"],["Mieterträge","ER"],["Unentgeltliche Wertabgaben","ER"],
+ ["Eröffnungsbilanzkonto (EBK)","AB"],["Schlussbilanzkonto (SBK)","AB"],["Gewinn- und Verlustkonto (GuV)","AB"]
+],
+"gruppen": ["Eröffnung & Bestandskonten","Erfolgskonten","Umsatzsteuer & Vorsteuer","Skonto, Rabatt, Rücksendung","Privatentnahmen & -einlagen","Anlagen, Abschreibung, Abschluss"],
+"faelle": [
+{"g":0,"t":"Zu Beginn des Geschäftsjahres wird das Konto Bank mit dem Anfangsbestand von 25.000,00 € eröffnet.","l":[["S","Bank",25000],["H","Eröffnungsbilanzkonto (EBK)",25000]],"w":"Eröffnungsbuchung: Aktivkonten bekommen den Anfangsbestand im Soll. Gegenkonto ist das Eröffnungsbilanzkonto, das spiegelbildlich zur Bilanz geführt wird."},
+{"g":0,"t":"Das Eigenkapital wird zu Beginn des Geschäftsjahres mit 80.000,00 € eröffnet.","l":[["S","Eröffnungsbilanzkonto (EBK)",80000],["H","Eigenkapital",80000]],"w":"Passivkonten bekommen den Anfangsbestand im Haben; das EBK steht im Soll."},
+{"g":0,"t":"Die Verbindlichkeiten aus Lieferungen und Leistungen werden mit dem Anfangsbestand von 12.400,00 € eröffnet.","l":[["S","Eröffnungsbilanzkonto (EBK)",12400],["H","Verbindlichkeiten aus Lieferungen und Leistungen",12400]],"w":"Verbindlichkeiten sind Passiva: Anfangsbestand im Haben, Gegenbuchung im Soll des EBK."},
+{"g":0,"t":"Bargeld aus der Kasse wird auf das Bankkonto eingezahlt: 2.000,00 €.","l":[["S","Bank",2000],["H","Kasse",2000]],"w":"Aktivtausch: Das Bankguthaben steigt, der Kassenbestand sinkt. Die Bilanzsumme bleibt gleich."},
+{"g":0,"t":"Ein Kunde begleicht eine offene Rechnung per Banküberweisung: 3.570,00 €.","l":[["S","Bank",3570],["H","Forderungen aus Lieferungen und Leistungen",3570]],"w":"Aktivtausch: Die Forderung erlischt (Abgang im Haben), das Bankguthaben steigt. Die Umsatzsteuer wurde schon beim Verkauf gebucht, deshalb hier keine Steuerbuchung."},
+{"g":0,"t":"Wir begleichen eine Liefererrechnung per Banküberweisung: 4.760,00 €.","l":[["S","Verbindlichkeiten aus Lieferungen und Leistungen",4760],["H","Bank",4760]],"w":"Aktiv-Passiv-Minderung: Die Schuld sinkt (Soll) und das Bankguthaben sinkt (Haben). Die Vorsteuer wurde schon beim Einkauf gebucht."},
+{"g":0,"t":"Wir nehmen bei unserer Hausbank ein Darlehen auf; der Betrag von 50.000,00 € wird dem Bankkonto gutgeschrieben.","l":[["S","Bank",50000],["H","Verbindlichkeiten gegenüber Kreditinstituten (Darlehen)",50000]],"w":"Aktiv-Passiv-Mehrung: Bankguthaben (Aktiva) und Darlehensschuld (Passiva) steigen um denselben Betrag."},
+{"g":0,"t":"Wir tilgen einen Teil des Bankdarlehens per Überweisung: 5.000,00 € (ohne Zinsen).","l":[["S","Verbindlichkeiten gegenüber Kreditinstituten (Darlehen)",5000],["H","Bank",5000]],"w":"Aktiv-Passiv-Minderung: Die Tilgung mindert die Darlehensschuld; sie ist kein Aufwand (anders als Zinsen)."},
+{"g":0,"t":"Eine Liefererverbindlichkeit über 10.000,00 € wird durch ein Bankdarlehen abgelöst; die Bank zahlt direkt an den Lieferer.","l":[["S","Verbindlichkeiten aus Lieferungen und Leistungen",10000],["H","Verbindlichkeiten gegenüber Kreditinstituten (Darlehen)",10000]],"w":"Passivtausch: Eine Schuld wird gegen eine andere getauscht. Die Bilanzsumme bleibt gleich."},
+{"g":0,"t":"Am Ende des Geschäftsjahres wird das Konto Bank abgeschlossen. Der Schlussbestand laut Saldo beträgt 18.500,00 €.","l":[["S","Schlussbilanzkonto (SBK)",18500],["H","Bank",18500]],"w":"Abschluss eines Aktivkontos: Der Schlussbestand (Saldo) steht im Haben des Bestandskontos und wird ins Soll des Schlussbilanzkontos übertragen."},
+
+{"g":1,"t":"Die Löhne für den Monat werden per Banküberweisung gezahlt: 8.400,00 € (vereinfacht, ohne Abzüge).","l":[["S","Löhne",8400],["H","Bank",8400]],"w":"Löhne sind Aufwand (Soll); das Bankguthaben sinkt (Haben). Löhne sind nicht umsatzsteuerbar."},
+{"g":1,"t":"Die Gehälter der Angestellten werden per Bank überwiesen: 6.200,00 € (vereinfacht, ohne Abzüge).","l":[["S","Gehälter",6200],["H","Bank",6200]],"w":"Gehälter sind Aufwand und werden im Soll erfasst."},
+{"g":1,"t":"Die Miete für die Lagerhalle wird per Bank überwiesen: 1.500,00 € (umsatzsteuerfrei vermietet).","l":[["S","Mietaufwand",1500],["H","Bank",1500]],"w":"Miete ist Aufwand. Da der Vermieter ohne Umsatzsteuer abrechnet, gibt es keine Vorsteuer."},
+{"g":1,"t":"Die Bank belastet unser Konto mit Darlehenszinsen: 750,00 €.","l":[["S","Zinsaufwendungen",750],["H","Bank",750]],"w":"Zinsen für Kredite sind Aufwand. Zinsen sind umsatzsteuerfrei."},
+{"g":1,"t":"Die Bank schreibt uns Zinsen für ein Guthaben gut: 120,00 €.","l":[["S","Bank",120],["H","Zinserträge",120]],"w":"Zinsgutschriften sind Ertrag (Haben); das Bankguthaben steigt (Soll). Kapitalertragsteuer bleibt hier vereinfacht unberücksichtigt."},
+{"g":1,"t":"Ein Mieter überweist die Miete für eine an ihn vermietete Garage: 300,00 € (umsatzsteuerfrei).","l":[["S","Bank",300],["H","Mieterträge",300]],"w":"Die Mieteinnahme ist ein Ertrag und steht im Haben."},
+{"g":1,"t":"Die Kfz-Steuer für den Lieferwagen wird per Bank bezahlt: 420,00 €.","l":[["S","Sonstige betriebliche Steuern (z. B. Kfz-Steuer)",420],["H","Bank",420]],"w":"Die Kfz-Steuer für ein betriebliches Fahrzeug ist betrieblicher Steueraufwand. Sie enthält keine Umsatzsteuer."},
+{"g":1,"t":"Die Kfz-Versicherung für den Lieferwagen wird per Bank bezahlt: 960,00 €.","l":[["S","Versicherungsbeiträge",960],["H","Bank",960]],"w":"Versicherungsbeiträge sind Aufwand. Versicherungen sind umsatzsteuerfrei, daher keine Vorsteuer."},
+{"g":1,"t":"Die Bank belastet Kontoführungsgebühren: 35,00 €.","l":[["S","Kosten des Geldverkehrs",35],["H","Bank",35]],"w":"Bankgebühren sind Aufwand (Kosten des Geldverkehrs); sie sind umsatzsteuerfrei."},
+{"g":1,"t":"Eine Aushilfe erhält ihren Lohn bar aus der Kasse: 250,00 € (vereinfacht, ohne Abzüge).","l":[["S","Löhne",250],["H","Kasse",250]],"w":"Lohnaufwand im Soll; der Kassenbestand sinkt (Haben)."},
+
+{"g":2,"t":"Wir kaufen Rohstoffe auf Ziel: 10.000,00 € netto zuzüglich 19 % Umsatzsteuer.","l":[["S","Aufwendungen für Rohstoffe",10000],["S","Vorsteuer",1900],["H","Verbindlichkeiten aus Lieferungen und Leistungen",11900]],"w":"Der Nettobetrag ist Aufwand. Die 19 % Umsatzsteuer auf der Eingangsrechnung (1.900,00 €) können wir als Vorsteuer vom Finanzamt zurückfordern (Forderung, Soll). Wir schulden dem Lieferer den Bruttobetrag 11.900,00 €.","tax":{"r":19,"net":10000}},
+{"g":2,"t":"Wir verkaufen eigene Erzeugnisse auf Ziel: 24.000,00 € netto zuzüglich 19 % Umsatzsteuer.","l":[["S","Forderungen aus Lieferungen und Leistungen",28560],["H","Umsatzerlöse",24000],["H","Umsatzsteuer",4560]],"w":"Der Kunde schuldet den Bruttobetrag (28.560,00 €). Der Nettobetrag ist Ertrag; die Umsatzsteuer (4.560,00 €) schulden wir dem Finanzamt (Verbindlichkeit, Haben).","tax":{"r":19,"net":24000}},
+{"g":2,"t":"Wir kaufen Büromaterial bar: 238,00 € brutto einschließlich 19 % Umsatzsteuer.","l":[["S","Büromaterial",200],["S","Vorsteuer",38],["H","Kasse",238]],"w":"Aus dem Bruttobetrag wird herausgerechnet: 238,00 € : 1,19 = 200,00 € netto, Vorsteuer 38,00 €.","tax":{"r":19,"net":200}},
+{"g":2,"t":"Eine Großbäckerei kauft Mehl (Rohstoff) auf Ziel: 3.000,00 € netto zuzüglich 7 % Umsatzsteuer.","l":[["S","Aufwendungen für Rohstoffe",3000],["S","Vorsteuer",210],["H","Verbindlichkeiten aus Lieferungen und Leistungen",3210]],"w":"Mehl ist ein Lebensmittel und unterliegt dem ermäßigten Steuersatz von 7 %: Vorsteuer 210,00 €, Verbindlichkeit 3.210,00 €.","tax":{"r":7,"net":3000}},
+{"g":2,"t":"Die Großbäckerei verkauft Backwaren auf Ziel an einen Supermarkt: 5.000,00 € netto zuzüglich 7 % Umsatzsteuer.","l":[["S","Forderungen aus Lieferungen und Leistungen",5350],["H","Umsatzerlöse",5000],["H","Umsatzsteuer",350]],"w":"Lieferung von Lebensmitteln: 7 % Umsatzsteuer (350,00 €) als Verbindlichkeit gegenüber dem Finanzamt; Forderung brutto 5.350,00 €.","tax":{"r":7,"net":5000}},
+{"g":2,"t":"Die Telefon- und Internetrechnung wird per Bank bezahlt: 119,00 € brutto einschließlich 19 % Umsatzsteuer.","l":[["S","Kommunikationsaufwand (Telefon, Internet)",100],["S","Vorsteuer",19],["H","Bank",119]],"w":"119,00 € : 1,19 = 100,00 € netto Aufwand und 19,00 € Vorsteuer.","tax":{"r":19,"net":100}},
+{"g":2,"t":"Für eine Zeitungsanzeige wird eine Rechnung per Bank bezahlt: 1.000,00 € netto zuzüglich 19 % Umsatzsteuer.","l":[["S","Werbeaufwand",1000],["S","Vorsteuer",190],["H","Bank",1190]],"w":"Werbung ist Aufwand; die Umsatzsteuer auf der Rechnung ist Vorsteuer.","tax":{"r":19,"net":1000}},
+{"g":2,"t":"Eine Maschine wird repariert; die Rechnung kommt auf Ziel: 2.380,00 € brutto einschließlich 19 % Umsatzsteuer.","l":[["S","Instandhaltungsaufwand",2000],["S","Vorsteuer",380],["H","Verbindlichkeiten aus Lieferungen und Leistungen",2380]],"w":"Eine Reparatur erhält den Zustand der Maschine und ist daher Aufwand (keine Aktivierung). 2.380,00 € : 1,19 = 2.000,00 € netto, Vorsteuer 380,00 €.","tax":{"r":19,"net":2000}},
+{"g":2,"t":"Wir verkaufen Erzeugnisse gegen Barzahlung: 595,00 € brutto einschließlich 19 % Umsatzsteuer.","l":[["S","Kasse",595],["H","Umsatzerlöse",500],["H","Umsatzsteuer",95]],"w":"595,00 € : 1,19 = 500,00 € Umsatzerlös und 95,00 € Umsatzsteuer.","tax":{"r":19,"net":500}},
+{"g":2,"t":"Die Umsatzsteuer-Zahllast für den Monat (Vorsteuer bereits mit der Umsatzsteuer verrechnet) wird per Bank an das Finanzamt überwiesen: 3.200,00 €.","l":[["S","Umsatzsteuer",3200],["H","Bank",3200]],"w":"Nach der Verrechnung steht die Zahllast (Umsatzsteuer minus Vorsteuer) auf dem Umsatzsteuerkonto. Die Zahlung mindert diese Verbindlichkeit (Soll)."},
+
+{"g":3,"t":"Wir kaufen Rohstoffe auf Ziel. Listenpreis 5.000,00 € netto, abzüglich 10 % Sofortrabatt, zuzüglich 19 % Umsatzsteuer.","l":[["S","Aufwendungen für Rohstoffe",4500],["S","Vorsteuer",855],["H","Verbindlichkeiten aus Lieferungen und Leistungen",5355]],"w":"Ein Sofortrabatt wird nicht gebucht: 5.000,00 € − 10 % = 4.500,00 € netto. Vorsteuer 19 % = 855,00 €, Verbindlichkeit 5.355,00 €.","tax":{"r":19,"net":4500},"x":{"rabatt":[5000,10]}},
+{"g":3,"t":"Wir senden beschädigte Rohstoffe an den Lieferer zurück (noch nicht bezahlt). Gutschrift: 800,00 € netto zuzüglich 19 % Umsatzsteuer.","l":[["S","Verbindlichkeiten aus Lieferungen und Leistungen",952],["H","Aufwendungen für Rohstoffe",800],["H","Vorsteuer",152]],"w":"Die Rücksendung storniert den Einkauf: Aufwand und Vorsteuer werden im Haben gemindert, die Verbindlichkeit sinkt um den Bruttobetrag 952,00 €.","tax":{"r":19,"net":800}},
+{"g":3,"t":"Wir bezahlen eine Liefererrechnung über Rohstoffe (11.900,00 € brutto, davon 10.000,00 € netto) per Bank unter Abzug von 2 % Skonto.","l":[["S","Verbindlichkeiten aus Lieferungen und Leistungen",11900],["H","Bank",11662],["H","Nachlässe für Rohstoffe",200],["H","Vorsteuer",38]],"w":"Skonto brutto: 2 % von 11.900,00 € = 238,00 €; überwiesen werden 11.662,00 €. Der Skonto mindert nachträglich den Einkaufspreis: 238,00 € : 1,19 = 200,00 € netto (Nachlass) und 38,00 € Vorsteuerkorrektur. Die Verbindlichkeit erlischt voll.","tax":{"r":19,"net":200},"x":{"skonto":[11900,2]},"alt":[{"rep":{"Nachlässe für Rohstoffe":"Aufwendungen für Rohstoffe"},"n":"Skonto direkt im Haben von „Aufwendungen für Rohstoffe“ statt auf dem Unterkonto „Nachlässe für Rohstoffe“."}]},
+{"g":3,"t":"Ein Kunde bezahlt unsere Rechnung über 5.950,00 € brutto (5.000,00 € netto) per Bank unter Abzug von 3 % Skonto.","l":[["S","Bank",5771.5],["S","Erlösberichtigungen",150],["S","Umsatzsteuer",28.5],["H","Forderungen aus Lieferungen und Leistungen",5950]],"w":"Skonto brutto: 3 % von 5.950,00 € = 178,50 €; eingegangen sind 5.771,50 €. Der Skonto mindert den Erlös: 178,50 € : 1,19 = 150,00 € netto und 28,50 € Umsatzsteuerkorrektur (Soll). Die Forderung erlischt voll.","tax":{"r":19,"net":150},"x":{"skonto":[5950,3]},"alt":[{"rep":{"Erlösberichtigungen":"Umsatzerlöse"},"n":"Skonto direkt im Soll von „Umsatzerlöse“ statt auf dem Unterkonto „Erlösberichtigungen“."}]},
+{"g":3,"t":"Ein Kunde sendet mangelhafte Erzeugnisse zurück (noch nicht bezahlt). Wir erteilen eine Gutschrift: 1.200,00 € netto zuzüglich 19 % Umsatzsteuer.","l":[["S","Umsatzerlöse",1200],["S","Umsatzsteuer",228],["H","Forderungen aus Lieferungen und Leistungen",1428]],"w":"Die Rücksendung storniert den Verkauf: Erlös und Umsatzsteuer werden im Soll gemindert, die Forderung sinkt um 1.428,00 €.","tax":{"r":19,"net":1200},"alt":[{"rep":{"Umsatzerlöse":"Erlösberichtigungen"},"n":"Rücksendung über das Unterkonto „Erlösberichtigungen“."}]},
+{"g":3,"t":"Wegen einer Mängelrüge gewährt uns der Lieferer nachträglich einen Preisnachlass auf gelieferte, noch nicht bezahlte Rohstoffe. Gutschrift: 400,00 € netto zuzüglich 19 % Umsatzsteuer.","l":[["S","Verbindlichkeiten aus Lieferungen und Leistungen",476],["H","Nachlässe für Rohstoffe",400],["H","Vorsteuer",76]],"w":"Ein nachträglicher Preisnachlass mindert den Aufwand und die Vorsteuer (Haben). Die Verbindlichkeit sinkt um 476,00 €.","tax":{"r":19,"net":400},"alt":[{"rep":{"Nachlässe für Rohstoffe":"Aufwendungen für Rohstoffe"},"n":"Preisnachlass direkt im Haben von „Aufwendungen für Rohstoffe“."}]},
+{"g":3,"t":"Unser Rohstofflieferer gewährt einen Jahresbonus und überweist 1.190,00 € brutto einschließlich 19 % Umsatzsteuer auf unser Bankkonto.","l":[["S","Bank",1190],["H","Nachlässe für Rohstoffe",1000],["H","Vorsteuer",190]],"w":"Ein Bonus ist ein nachträglicher Preisnachlass: 1.190,00 € : 1,19 = 1.000,00 € netto. Die früher abgezogene Vorsteuer wird um 190,00 € gekürzt.","tax":{"r":19,"net":1000},"alt":[{"rep":{"Nachlässe für Rohstoffe":"Aufwendungen für Rohstoffe"},"n":"Bonus direkt im Haben von „Aufwendungen für Rohstoffe“."}]},
+{"g":3,"t":"Wir verkaufen Erzeugnisse auf Ziel. Listenpreis 8.000,00 € netto, abzüglich 5 % Rabatt, zuzüglich 19 % Umsatzsteuer.","l":[["S","Forderungen aus Lieferungen und Leistungen",9044],["H","Umsatzerlöse",7600],["H","Umsatzsteuer",1444]],"w":"Der Rabatt wird nicht gebucht: 8.000,00 € − 5 % = 7.600,00 € netto, Umsatzsteuer 19 % = 1.444,00 €, Forderung 9.044,00 €.","tax":{"r":19,"net":7600},"x":{"rabatt":[8000,5]}},
+{"g":3,"t":"Für die Anlieferung von Rohstoffen zahlen wir dem Spediteur Fracht per Bank: 300,00 € netto zuzüglich 19 % Umsatzsteuer.","l":[["S","Bezugskosten für Rohstoffe",300],["S","Vorsteuer",57],["H","Bank",357]],"w":"Bezugskosten (Fracht, Verpackung) erhöhen den Einkaufspreis der Rohstoffe und werden auf dem Unterkonto „Bezugskosten“ erfasst. Vorsteuer 57,00 €.","tax":{"r":19,"net":300},"alt":[{"rep":{"Bezugskosten für Rohstoffe":"Aufwendungen für Rohstoffe"},"n":"Fracht direkt auf „Aufwendungen für Rohstoffe“."}]},
+{"g":3,"t":"Wegen einer berechtigten Mängelrüge gewähren wir einem Kunden nachträglich einen Preisnachlass auf eine noch offene Rechnung. Gutschrift: 500,00 € netto zuzüglich 19 % Umsatzsteuer.","l":[["S","Erlösberichtigungen",500],["S","Umsatzsteuer",95],["H","Forderungen aus Lieferungen und Leistungen",595]],"w":"Ein nachträglicher Preisnachlass mindert den Erlös und die Umsatzsteuer (Soll); die Forderung sinkt um 595,00 €.","tax":{"r":19,"net":500},"alt":[{"rep":{"Erlösberichtigungen":"Umsatzerlöse"},"n":"Preisnachlass direkt im Soll von „Umsatzerlöse“."}]},
+
+{"g":4,"t":"Der Inhaber entnimmt der Geschäftskasse 500,00 € für private Zwecke.","l":[["S","Privatentnahmen",500],["H","Kasse",500]],"w":"Entnahmen mindern das Eigenkapital. Sie werden auf dem Unterkonto „Privatentnahmen“ im Soll gesammelt; kein Aufwand, da nicht betrieblich veranlasst."},
+{"g":4,"t":"Der Inhaber bezahlt seine private Einkommensteuer-Vorauszahlung vom Geschäftskonto: 2.400,00 €.","l":[["S","Privatentnahmen",2400],["H","Bank",2400]],"w":"Die Einkommensteuer ist eine private Steuer des Inhabers, kein Betriebsaufwand. Die Zahlung vom Geschäftskonto ist daher eine Privatentnahme."},
+{"g":4,"t":"Der Inhaber zahlt 10.000,00 € aus seinem Privatvermögen auf das Geschäftskonto ein.","l":[["S","Bank",10000],["H","Privateinlagen",10000]],"w":"Einlagen erhöhen das Eigenkapital (Haben auf dem Unterkonto „Privateinlagen“); sie sind kein Ertrag."},
+{"g":4,"t":"Der Inhaber bringt seinen bisher privaten Pkw in das Unternehmen ein. Wert (Teilwert): 8.000,00 €.","l":[["S","Fuhrpark",8000],["H","Privateinlagen",8000]],"w":"Sacheinlage: Das Fahrzeug wird Betriebsvermögen (Aktivkonto „Fuhrpark“, Soll); das Eigenkapital steigt über „Privateinlagen“. Keine Vorsteuer, da kein umsatzsteuerpflichtiger Kauf vorliegt."},
+{"g":4,"t":"Die Rechnung für den privaten Telefonanschluss des Inhabers wird vom Geschäftskonto bezahlt: 119,00 € brutto.","l":[["S","Privatentnahmen",119],["H","Bank",119]],"w":"Private Ausgaben sind Entnahmen in voller Höhe (brutto). Ein Vorsteuerabzug ist nicht erlaubt, weil die Leistung nicht für das Unternehmen bezogen wurde."},
+{"g":4,"t":"Der Inhaber entnimmt eigene Erzeugnisse für private Zwecke. Selbstkosten (Bemessungsgrundlage): 300,00 € netto; darauf fallen 19 % Umsatzsteuer an.","l":[["S","Privatentnahmen",357],["H","Unentgeltliche Wertabgaben",300],["H","Umsatzsteuer",57]],"w":"Die Entnahme von Gegenständen ist umsatzsteuerpflichtig (unentgeltliche Wertabgabe). Bemessungsgrundlage sind die Selbstkosten (300,00 €), die Umsatzsteuer beträgt 57,00 €. Die Entnahme mindert das Eigenkapital um 357,00 €.","tax":{"r":19,"net":300},"alt":[{"rep":{"Unentgeltliche Wertabgaben":"Umsatzerlöse"},"n":"Wertabgabe im Haben von „Umsatzerlöse“ statt auf einem eigenen Erlöskonto."}]},
+{"g":4,"t":"Der Beitrag zur privaten Lebensversicherung des Inhabers wird vom Geschäftskonto abgebucht: 150,00 €.","l":[["S","Privatentnahmen",150],["H","Bank",150]],"w":"Private Versicherungen sind kein Betriebsaufwand; die Zahlung ist eine Privatentnahme."},
+{"g":4,"t":"Der Inhaber begleicht eine Liefererrechnung des Unternehmens über 1.190,00 € aus seinem privaten Geld.","l":[["S","Verbindlichkeiten aus Lieferungen und Leistungen",1190],["H","Privateinlagen",1190]],"w":"Die betriebliche Schuld erlischt (Soll). Weil privates Geld eingesetzt wird, ist das eine Einlage (Haben)."},
+{"g":4,"t":"Am Jahresende wird das Konto Privatentnahmen abgeschlossen. Saldo: 12.000,00 €.","l":[["S","Eigenkapital",12000],["H","Privatentnahmen",12000]],"w":"Unterkonten werden über ihr Hauptkonto abgeschlossen: Die Entnahmen mindern das Eigenkapital (Soll)."},
+{"g":4,"t":"Am Jahresende wird das Konto Privateinlagen abgeschlossen. Saldo: 18.000,00 €.","l":[["S","Privateinlagen",18000],["H","Eigenkapital",18000]],"w":"Die Einlagen erhöhen das Eigenkapital (Haben); das Unterkonto wird im Soll abgeschlossen."},
+
+{"g":5,"t":"Wir kaufen eine Produktionsmaschine auf Ziel: 60.000,00 € netto zuzüglich 19 % Umsatzsteuer.","l":[["S","Technische Anlagen und Maschinen",60000],["S","Vorsteuer",11400],["H","Verbindlichkeiten aus Lieferungen und Leistungen",71400]],"w":"Die Maschine wird mit den Anschaffungskosten (netto) aktiviert – kein Aufwand im Kaufzeitpunkt. Vorsteuer 11.400,00 €.","tax":{"r":19,"net":60000}},
+{"g":5,"t":"Die im April dieses Jahres angeschaffte Maschine (Anschaffungskosten 60.000,00 €, Nutzungsdauer 10 Jahre) wird zum 31.12. linear abgeschrieben (monatsgenau, Anschaffungsmonat zählt voll).","l":[["S","Abschreibungen auf Sachanlagen",4500],["H","Technische Anlagen und Maschinen",4500]],"w":"Jahres-AfA: 60.000,00 € : 10 = 6.000,00 €. April bis Dezember sind 9 Monate: 6.000,00 € · 9/12 = 4.500,00 €. Direkte Abschreibung: Aufwand im Soll, der Anlagenwert sinkt im Haben.","x":{"afa":[60000,10,4]}},
+{"g":5,"t":"Wir kaufen einen Bürostuhl bar: 650,00 € netto zuzüglich 19 % Umsatzsteuer. Das Unternehmen nutzt für geringwertige Wirtschaftsgüter die Sofortabschreibung (kein Sammelposten).","l":[["S","Geringwertige Wirtschaftsgüter (GWG)",650],["S","Vorsteuer",123.5],["H","Kasse",773.5]],"w":"Selbstständig nutzbares Wirtschaftsgut bis 800,00 € netto: GWG. Es wird zunächst auf dem Konto GWG erfasst und im selben Jahr voll abgeschrieben. Vorsteuer 123,50 €.","tax":{"r":19,"net":650},"alt":[{"rep":{"Geringwertige Wirtschaftsgüter (GWG)":"Betriebs- und Geschäftsausstattung (BGA)"},"n":"Erfassung auf „Betriebs- und Geschäftsausstattung“ mit Vollabschreibung am Jahresende."}]},
+{"g":5,"t":"Am Jahresende wird der auf dem Konto GWG erfasste Bürostuhl (650,00 €) voll abgeschrieben.","l":[["S","Abschreibungen auf Sachanlagen",650],["H","Geringwertige Wirtschaftsgüter (GWG)",650]],"w":"Für GWG bis 800,00 € netto ist die Sofortabschreibung in voller Höhe im Anschaffungsjahr erlaubt."},
+{"g":5,"t":"Wir kaufen ein Lagerregal per Bank: 900,00 € netto zuzüglich 19 % Umsatzsteuer. Das Unternehmen bildet in diesem Jahr einen Sammelposten für Wirtschaftsgüter von 250 bis 1.000 € netto.","l":[["S","Sammelposten",900],["S","Vorsteuer",171],["H","Bank",1071]],"w":"Anschaffungskosten zwischen 250 und 1.000 € netto gehören bei gewähltem Sammelposten auf dieses Konto. Vorsteuer 171,00 €.","tax":{"r":19,"net":900}},
+{"g":5,"t":"Zum 31.12. wird der Sammelposten aus dem laufenden Jahr (900,00 €) abgeschrieben. Das Regal wurde im November gekauft.","l":[["S","Abschreibungen auf Sachanlagen",180],["H","Sammelposten",180]],"w":"Ein Sammelposten wird pauschal über 5 Jahre mit je 20 % aufgelöst – unabhängig vom Anschaffungsmonat: 900,00 € · 20 % = 180,00 €.","x":{"sp":900}},
+{"g":5,"t":"Am Monatsende wird die Vorsteuer (Saldo 2.800,00 €) mit der Umsatzsteuer (Saldo 6.000,00 €) verrechnet.","l":[["S","Umsatzsteuer",2800],["H","Vorsteuer",2800]],"w":"Das kleinere Steuerkonto wird über das größere abgeschlossen: Die Vorsteuer wird im Haben ausgebucht und mindert die Umsatzsteuerschuld. Es bleibt eine Zahllast von 3.200,00 €."},
+{"g":5,"t":"Am Jahresende wird das Konto Löhne abgeschlossen. Saldo: 96.000,00 €.","l":[["S","Gewinn- und Verlustkonto (GuV)",96000],["H","Löhne",96000]],"w":"Aufwandskonten werden über das GuV-Konto abgeschlossen: Aufwendungen stehen im Soll der GuV, der Saldo im Haben des Aufwandskontos."},
+{"g":5,"t":"Am Jahresende wird das Konto Umsatzerlöse abgeschlossen. Saldo: 250.000,00 €.","l":[["S","Umsatzerlöse",250000],["H","Gewinn- und Verlustkonto (GuV)",250000]],"w":"Ertragskonten werden über das GuV-Konto abgeschlossen: Erträge stehen im Haben der GuV."},
+{"g":5,"t":"Das GuV-Konto weist einen Gewinn von 34.000,00 € aus (Erträge größer als Aufwendungen). Es wird abgeschlossen.","l":[["S","Gewinn- und Verlustkonto (GuV)",34000],["H","Eigenkapital",34000]],"w":"Der Gewinn ist der Saldo auf der Sollseite der GuV und erhöht das Eigenkapital (Haben)."}
+]
+}
+</script>
+
+<script>
+(function () {
+  'use strict';
+  const D = JSON.parse(document.getElementById('data').textContent);
+  const $ = id => document.getElementById(id);
+  const KT = new Map(D.konten.map(([n, t]) => [n, t]));
+  const KL = new Map(D.konten.map(([n]) => [n.toLowerCase(), n]));
+  const TYPNAME = { A: 'Aktivkonto', P: 'Passivkonto', PR: 'Unterkonto des Eigenkapitals', AW: 'Aufwandskonto', ER: 'Ertragskonto', AB: 'Abschlusskonto' };
+  const byGroup = D.gruppen.map((_, g) => D.faelle.map((f, i) => i).filter(i => D.faelle[i].g === g));
+  const status = {}; // Index -> 'ok' | 'bad' | 'shown'
+  let curG = 0, curI = 0;
+
+  // Konto-Liste
+  $('konten').innerHTML = D.konten.map(([n]) => '<option value="' + esc(n) + '">').join('');
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+  function eur(v) { return (v < 0 ? '−' : '') + Math.abs(v).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' €'; }
+  function parseAmt(s) {
+    s = String(s).trim().replace(/€/g, '').replace(/\s+/g, '');
+    if (!s) return null;
+    if (s.indexOf(',') >= 0) s = s.replace(/\./g, '').replace(',', '.');
+    else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');
+    if (!/^\d+(\.\d{1,2})?$/.test(s)) return NaN;
+    return Math.round(parseFloat(s) * 100);
+  }
+  function canon(name) { return KL.get(String(name).trim().toLowerCase()) || null; }
+
+  function lineExplain(side, k) {
+    const t = KT.get(k);
+    const S = side === 'S';
+    const special = {
+      'Vorsteuer': S ? 'Vorsteuer ist eine Forderung an das Finanzamt (Aktivkonto): Zugang im Soll.' : 'Vorsteuer (Aktivkonto) wird gemindert – Korrektur oder Verrechnung im Haben.',
+      'Umsatzsteuer': S ? 'Umsatzsteuer ist eine Verbindlichkeit gegenüber dem Finanzamt (Passivkonto): Minderung, Zahlung oder Abschluss im Soll.' : 'Umsatzsteuer ist eine Verbindlichkeit gegenüber dem Finanzamt (Passivkonto): Zugang im Haben.',
+      'Nachlässe für Rohstoffe': 'Unterkonto von „Aufwendungen für Rohstoffe“: Nachlässe mindern den Aufwand und stehen im Haben.',
+      'Bezugskosten für Rohstoffe': 'Unterkonto von „Aufwendungen für Rohstoffe“: Bezugskosten erhöhen den Aufwand und stehen im Soll.',
+      'Erlösberichtigungen': 'Unterkonto der Umsatzerlöse: Erlösminderungen stehen im Soll.',
+      'Privatentnahmen': S ? 'Unterkonto des Eigenkapitals: Entnahmen mindern das Eigenkapital und stehen im Soll.' : 'Abschluss des Unterkontos: der Saldo steht im Haben und geht ins Eigenkapital.',
+      'Privateinlagen': S ? 'Abschluss des Unterkontos: der Saldo steht im Soll und geht ins Eigenkapital.' : 'Unterkonto des Eigenkapitals: Einlagen erhöhen das Eigenkapital und stehen im Haben.',
+      'Privatkonto': S ? 'Privatkonto (Unterkonto des Eigenkapitals): Entnahmen bzw. Abschluss im Soll.' : 'Privatkonto (Unterkonto des Eigenkapitals): Einlagen bzw. Abschluss im Haben.',
+      'Eröffnungsbilanzkonto (EBK)': S ? 'Eröffnungsbilanzkonto: Gegenkonto bei der Eröffnung von Passivkonten (Spiegelbild der Bilanz, Passiva im Soll).' : 'Eröffnungsbilanzkonto: Gegenkonto bei der Eröffnung von Aktivkonten (Spiegelbild der Bilanz, Aktiva im Haben).',
+      'Schlussbilanzkonto (SBK)': S ? 'Schlussbilanzkonto: nimmt die Schlussbestände der Aktivkonten im Soll auf.' : 'Schlussbilanzkonto: nimmt die Schlussbestände der Passivkonten im Haben auf.',
+      'Gewinn- und Verlustkonto (GuV)': S ? 'GuV-Konto: Aufwendungen (und ein Gewinn als Saldo) stehen im Soll.' : 'GuV-Konto: Erträge (und ein Verlust als Saldo) stehen im Haben.'
+    };
+    if (special[k]) return special[k];
+    if (t === 'A') return S ? 'Aktivkonto: Zugang (Mehrung) im Soll.' : 'Aktivkonto: Abgang bzw. Schlussbestand im Haben.';
+    if (t === 'P') return S ? 'Passivkonto: Abgang bzw. Schlussbestand im Soll.' : 'Passivkonto: Zugang (Mehrung) im Haben.';
+    if (t === 'AW') return S ? 'Aufwandskonto: Aufwand mindert das Eigenkapital und steht im Soll.' : 'Aufwandskonto: Minderung bzw. Abschluss im Haben.';
+    if (t === 'ER') return S ? 'Ertragskonto: Minderung bzw. Abschluss im Soll.' : 'Ertragskonto: Ertrag erhöht das Eigenkapital und steht im Haben.';
+    return '';
+  }
+
+  // ---------- Lösungsvarianten ----------
+  function candidates(f) {
+    const list = [{ l: f.l, note: null }];
+    (f.alt || []).forEach(a => list.push({ l: f.l.map(([s, k, b]) => [s, a.rep[k] || k, b]), note: a.n }));
+    const out = [];
+    list.forEach(c => {
+      out.push(c);
+      if (c.l.some(x => x[1] === 'Privatentnahmen' || x[1] === 'Privateinlagen')) {
+        out.push({ l: c.l.map(([s, k, b]) => [s, (k === 'Privatentnahmen' || k === 'Privateinlagen') ? 'Privatkonto' : k, b]), note: (c.note ? c.note + ' ' : '') + 'Gemeinsames „Privatkonto“ statt getrennter Konten für Entnahmen und Einlagen.' });
+      }
+    });
+    return out;
+  }
+  function agg(lines) {
+    const m = new Map();
+    lines.forEach(([s, k, c]) => { const key = s + '|' + k; m.set(key, (m.get(key) || 0) + c); });
+    return m;
+  }
+  // user: [[side, konto, cents]]
+  function evaluate(f, user) {
+    const ua = agg(user);
+    let best = null;
+    candidates(f).forEach((c, idx) => {
+      const ca = agg(c.l.map(([s, k, b]) => [s, k, Math.round(b * 100)]));
+      let match = 0;
+      ua.forEach((v, key) => { if (ca.get(key) === v) match++; });
+      const exact = match === ca.size && ua.size === ca.size;
+      const score = (exact ? 1000 : 0) + match * 10 - idx * 0.01;
+      if (!best || score > best.score) best = { score, exact, ca, c, idx };
+    });
+    const perLine = user.map(([s, k]) => {
+      const key = s + '|' + k;
+      if (best.ca.has(key)) return best.ca.get(key) === ua.get(key) ? { ok: true, msg: 'richtig' } : { ok: false, msg: 'Konto und Seite richtig, Betrag stimmt nicht.' };
+      const other = (s === 'S' ? 'H' : 'S') + '|' + k;
+      if (best.ca.has(other)) return { ok: false, msg: 'Konto richtig, aber falsche Seite.' };
+      return { ok: false, msg: 'Dieses Konto gehört nicht in diesen Buchungssatz.' };
+    });
+    const missing = { S: 0, H: 0 };
+    best.ca.forEach((v, key) => { if (!ua.has(key)) missing[key[0]]++; });
+    return { exact: best.exact, perLine, missing, variant: best.idx > 0 ? best.c.note : null };
+  }
+
+  // ---------- UI ----------
+  function lineHTML(side) {
+    const sn = side === 'S' ? 'Soll' : 'Haben';
+    return '<div class="ln" data-side="' + side + '"><input type="text" class="acc" list="konten" autocomplete="off" placeholder="Konto suchen …" aria-label="' + sn + '-Konto"><input type="text" class="amt" inputmode="decimal" placeholder="Betrag" aria-label="Betrag ' + sn + '"><button type="button" class="rm" aria-label="Zeile entfernen" title="Zeile entfernen">×</button><div class="fb" hidden></div></div>';
+  }
+  function addLine(side) {
+    const box = document.querySelector('#side' + side + ' .lines');
+    box.insertAdjacentHTML('beforeend', lineHTML(side));
+    return box.lastElementChild;
+  }
+  function clearInputs() {
+    document.querySelectorAll('.lines').forEach(b => { b.innerHTML = ''; });
+    addLine('S'); addLine('H');
+    $('fb').innerHTML = ''; $('sol').innerHTML = '';
+    updateSum();
+  }
+  function readUser() {
+    const lines = [], errs = [];
+    document.querySelectorAll('.ln').forEach(el => {
+      const accRaw = el.querySelector('.acc').value, amtRaw = el.querySelector('.amt').value;
+      if (!accRaw.trim() && !amtRaw.trim()) { el._skip = true; return; }
+      el._skip = false;
+      const k = canon(accRaw), c = parseAmt(amtRaw);
+      let e = '';
+      if (!k) e = 'Bitte ein Konto aus der Liste wählen.';
+      else if (c === null || isNaN(c) || c <= 0) e = 'Bitte einen gültigen Betrag eingeben (z. B. 1.190,00).';
+      if (e) { errs.push(e); el._err = e; }
+      else { el._err = ''; if (k !== accRaw) el.querySelector('.acc').value = k; }
+      lines.push({ el, side: el.dataset.side, k, c });
+    });
+    return { lines, errs };
+  }
+  function updateSum() {
+    let s = 0, h = 0;
+    document.querySelectorAll('.ln').forEach(el => {
+      const c = parseAmt(el.querySelector('.amt').value);
+      if (c && !isNaN(c)) { if (el.dataset.side === 'S') s += c; else h += c; }
+    });
+    $('sum').textContent = 'Summe Soll: ' + eur(s / 100) + ' · Summe Haben: ' + eur(h / 100) + (s !== h ? ' – noch nicht ausgeglichen' : '');
+  }
+  function check() {
+    const f = D.faelle[curI];
+    const { lines, errs } = readUser();
+    document.querySelectorAll('.ln').forEach(el => { el.classList.remove('ok', 'bad'); const fb = el.querySelector('.fb'); fb.hidden = true; fb.className = 'fb'; });
+    lines.forEach(l => { if (l.el._err) { const fb = l.el.querySelector('.fb'); fb.hidden = false; fb.className = 'fb bad'; fb.textContent = l.el._err; l.el.classList.add('bad'); } });
+    if (!lines.length) { $('fb').innerHTML = '<p class="msg bad">Bitte mindestens eine Soll- und eine Habenzeile ausfüllen.</p>'; return; }
+    if (errs.length) { $('fb').innerHTML = '<p class="msg bad">Bitte die markierten Zeilen ergänzen.</p>'; return; }
+    const user = lines.map(l => [l.side, l.k, l.c]);
+    const r = evaluate(f, user);
+    r.perLine.forEach((p, i) => {
+      const el = lines[i].el, fb = el.querySelector('.fb');
+      el.classList.add(p.ok ? 'ok' : 'bad'); fb.hidden = false; fb.className = 'fb ' + (p.ok ? 'ok' : 'bad'); fb.textContent = (p.ok ? '✓ ' : '✗ ') + p.msg;
+    });
+    const sS = user.filter(u => u[0] === 'S').reduce((a, u) => a + u[2], 0), sH = user.filter(u => u[0] === 'H').reduce((a, u) => a + u[2], 0);
+    let h = '';
+    if (r.exact) {
+      h = '<p class="msg ok"><strong>Richtig!</strong>' + (r.variant ? ' Deine Lösung ist eine gleichwertige, ebenfalls übliche Variante: ' + esc(r.variant) + ' Als Standard gilt hier die Musterlösung unten.' : '') + '</p>';
+      status[curI] = 'ok';
+      $('fb').innerHTML = h; showSolution(true);
+    } else {
+      const miss = [];
+      if (r.missing.S) miss.push('Im Soll fehlt ' + (r.missing.S === 1 ? 'noch ein Konto' : 'noch ' + r.missing.S + ' Konten') + '.');
+      if (r.missing.H) miss.push('Im Haben fehlt ' + (r.missing.H === 1 ? 'noch ein Konto' : 'noch ' + r.missing.H + ' Konten') + '.');
+      if (sS !== sH) miss.push('Summe Soll (' + eur(sS / 100) + ') und Summe Haben (' + eur(sH / 100) + ') sind nicht gleich – jeder Buchungssatz muss ausgeglichen sein.');
+      h = '<p class="msg bad"><strong>Noch nicht richtig.</strong> ' + miss.join(' ') + ' Korrigiere die markierten Zeilen oder lass dir die Musterlösung zeigen.</p>';
+      if (status[curI] !== 'ok') status[curI] = 'bad';
+      $('fb').innerHTML = h; $('sol').innerHTML = '';
+    }
+    renderNav();
+  }
+  function showSolution(afterCorrect) {
+    const f = D.faelle[curI];
+    if (!afterCorrect && status[curI] !== 'ok') status[curI] = 'shown';
+    const S = f.l.filter(x => x[0] === 'S'), H = f.l.filter(x => x[0] === 'H');
+    const rows = Math.max(S.length, H.length);
+    let h = '<h2>Musterlösung</h2><div style="overflow-x:auto"><table class="bs"><thead><tr><th scope="col">Soll</th><th scope="col">Betrag</th><th scope="col">Haben</th><th scope="col">Betrag</th></tr></thead><tbody>';
+    for (let i = 0; i < rows; i++) {
+      const s = S[i], hh = H[i];
+      h += '<tr><td>' + (s ? esc(s[1]) : '') + '</td><td class="n">' + (s ? eur(s[2]) : '') + '</td><td>' + (hh ? (i === 0 ? 'an ' : '') + esc(hh[1]) : '') + '</td><td class="n">' + (hh ? eur(hh[2]) : '') + '</td></tr>';
+    }
+    const sum = side => f.l.filter(x => x[0] === side).reduce((a, x) => a + Math.round(x[2] * 100), 0) / 100;
+    h += '<tr><td><strong>Summe</strong></td><td class="n"><strong>' + eur(sum('S')) + '</strong></td><td></td><td class="n"><strong>' + eur(sum('H')) + '</strong></td></tr>';
+    h += '</tbody></table></div>';
+    h += '<p>' + esc(f.w) + '</p><ul class="why">';
+    f.l.forEach(([s, k]) => { h += '<li><strong>' + esc(k) + '</strong> <span class="tag">(' + TYPNAME[KT.get(k)] + ', ' + (s === 'S' ? 'Soll' : 'Haben') + ')</span>: ' + esc(lineExplain(s, k)) + '</li>'; });
+    h += '</ul>';
+    const alts = candidates(f).slice(1).map(c => c.note);
+    if (alts.length) h += '<p class="msg warn"><strong>Auch üblich:</strong> ' + alts.map(esc).join(' / ') + ' Beides wird hier als richtig gewertet.</p>';
+    $('sol').innerHTML = h;
+    renderNav();
+  }
+  function renderNav() {
+    $('tabs').innerHTML = D.gruppen.map((g, i) => {
+      const ok = byGroup[i].filter(j => status[j] === 'ok').length;
+      return '<button type="button" role="tab" aria-selected="' + (i === curG) + '" data-g="' + i + '">' + (i + 1) + '. ' + esc(g) + '<span class="cnt">' + ok + ' von ' + byGroup[i].length + ' richtig</span></button>';
+    }).join('');
+    const pos = byGroup[curG].indexOf(curI);
+    $('cases').innerHTML = byGroup[curG].map((j, n) => {
+      const st = status[j];
+      const lab = st === 'ok' ? 'richtig gelöst' : st === 'bad' ? 'noch falsch' : st === 'shown' ? 'Lösung angesehen' : 'offen';
+      return '<button type="button" data-i="' + j + '" class="' + (j === curI ? 'cur ' : '') + (st || '') + '" aria-label="Fall ' + (n + 1) + ', ' + lab + '"' + (j === curI ? ' aria-current="true"' : '') + '>' + (n + 1) + '</button>';
+    }).join('');
+    const total = Object.values(status).filter(s => s === 'ok').length;
+    $('prog').textContent = 'Fortschritt gesamt: ' + total + ' von ' + D.faelle.length + ' Fällen richtig (wird nur in diesem Tab gespeichert).';
+    $('caseH').textContent = 'Gruppe ' + (curG + 1) + ': ' + D.gruppen[curG] + ' · Fall ' + (pos + 1) + ' von ' + byGroup[curG].length;
+  }
+  function openCase(i) {
+    curI = i; curG = D.faelle[i].g;
+    $('caseT').textContent = D.faelle[i].t;
+    clearInputs();
+    renderNav();
+  }
+  function move(dir) {
+    const idx = curI + dir;
+    if (idx >= 0 && idx < D.faelle.length) openCase(idx);
+  }
+
+  document.querySelectorAll('button.add').forEach(b => b.addEventListener('click', () => { const el = addLine(b.dataset.side); el.querySelector('.acc').focus(); }));
+  document.querySelector('.grid').addEventListener('click', e => {
+    if (e.target.classList.contains('rm')) {
+      const ln = e.target.closest('.ln'), box = ln.parentElement;
+      ln.remove();
+      if (!box.children.length) addLine(box.parentElement.id === 'sideS' ? 'S' : 'H');
+      updateSum();
+    }
+  });
+  document.querySelector('.grid').addEventListener('input', updateSum);
+  document.querySelector('.grid').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); check(); } });
+  document.querySelector('.grid').addEventListener('change', e => {
+    if (e.target.classList.contains('acc')) { const k = canon(e.target.value); if (k) e.target.value = k; }
+  });
+  $('check').addEventListener('click', check);
+  $('show').addEventListener('click', () => showSolution(false));
+  $('reset').addEventListener('click', clearInputs);
+  $('prev').addEventListener('click', () => move(-1));
+  $('next').addEventListener('click', () => move(1));
+  $('tabs').addEventListener('click', e => { const b = e.target.closest('button[data-g]'); if (b) openCase(byGroup[+b.dataset.g][0]); });
+  $('tabs').addEventListener('keydown', e => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const g = (curG + (e.key === 'ArrowRight' ? 1 : D.gruppen.length - 1)) % D.gruppen.length;
+    openCase(byGroup[g][0]);
+    const b = document.querySelector('#tabs button[data-g="' + g + '"]'); if (b) b.focus();
+  });
+  $('cases').addEventListener('click', e => { const b = e.target.closest('button[data-i]'); if (b) { openCase(+b.dataset.i); } });
+  window.__trainer = { D, evaluate, candidates, parseAmt };
+  openCase(0);
+})();
+</script>
+</body>
+</html>

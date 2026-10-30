@@ -114,6 +114,16 @@
       "destination": "/tutor/rechner/:slug.html"
     },
     {
+      "source": "/tools/:slug([a-z0-9-]+)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?bwlmax\\.de"
+        }
+      ],
+      "destination": "/tutor/tools/:slug.html"
+    },
+    {
       "source": "/lernen",
       "has": [
         {
