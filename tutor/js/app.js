@@ -578,7 +578,7 @@ async function settings() {
   imp.addEventListener('change', async () => {
     try { const n = await importAll(imp.files[0]); await refreshList(); toast(L(`${n} Skript(e) wiederhergestellt.`, `${n} set(s) of slides restored.`)); } catch (e) { toast(L('Das ist keine gültige BWL-Max-Sicherung.', 'That’s not a valid BWL Max backup.')); }
   });
-  await modal({ title: L('Daten & Sicherung', 'Data & backup'), text: L('Dein Lernstand liegt nur auf diesem Gerät. Mit „Sichern“ bekommst du eine .bwlmax-Datei in deine Downloads – die musst du nicht öffnen. Auf einem anderen Gerät (oder nach dem Löschen) wählst du sie bei „Wiederherstellen“ aus, und alles ist wieder da.', 'Your progress only lives on this device. “Back up” puts a .bwlmax file in your downloads – you don’t need to open it. On another device (or after deleting), pick it under “Restore” and everything’s back.'), body, actions: [{ label: L('Fertig', 'Done'), value: true, primary: true }] });
+  await modal({ title: L('Daten & Sicherung', 'Data & backup'), text: L('Bist du angemeldet, ist alles, was du erstellst, automatisch in deinem Konto gesichert. Hochgeladene Skripte liegen nur auf diesem Gerät. Mit „Sichern“ bekommst du eine .bwlmax-Datei mit allem in deine Downloads – auf einem anderen Gerät (oder nach dem Löschen) wählst du sie bei „Wiederherstellen“ aus.', 'When you’re signed in, everything you create is saved to your account automatically. Uploaded slides only live on this device. “Back up” puts a .bwlmax file with everything in your downloads – on another device (or after deleting), pick it under “Restore”.'), body, actions: [{ label: L('Fertig', 'Done'), value: true, primary: true }] });
 }
 
 // ---------- Thema ohne Skript: Max schreibt ein Kurzskript ----------

@@ -3,7 +3,7 @@
 // Nach dem Speichern kommt eine kleine Meldung „In der Bibliothek gespeichert · Ansehen“.
 import { h, ico, ls, toast } from './util.js';
 import { L } from './i18n.js';
-import { save, S } from './state.js';
+import { save, S, docWrites } from './state.js';
 
 const LOOSE = 'tutor.lib.boards', MAX_LOOSE = 60;
 const clean = s => String(s || '').replace(/\s+/g, ' ').trim();
@@ -39,7 +39,7 @@ export function boardMeta(b, question = '', answer = '') {
 }
 
 export function looseBoards() { return ls.get(LOOSE, []) || []; }
-export function setLooseBoards(a) { ls.set(LOOSE, a.slice(-MAX_LOOSE)); }
+export function setLooseBoards(a, fromSync = false) { ls.set(LOOSE, a.slice(-MAX_LOOSE)); if (!fromSync) { ls.set('tutor.lib.boardsAt', Date.now()); docWrites.forEach(f => { try { f({}); } catch (e) {} }); } }
 
 // Tafeln ablegen. Gibt die angereicherten Tafeln zurück (für Verweise im Chat).
 export function keepBoards(boards, { doc = null, question = '', answer = '', quiet = false } = {}) {

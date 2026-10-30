@@ -8,14 +8,17 @@ const subs = new Set();
 export const onChange = fn => { subs.add(fn); return () => subs.delete(fn); };
 export const emit = () => subs.forEach(f => { try { f(S); } catch (e) { console.error(e); } });
 
+// Wer mitlesen will, dass Skripte gespeichert/gelöscht wurden (Konto-Abgleich, werke.js)
+export const docWrites = new Set();
+const wrote = (o = {}) => docWrites.forEach(f => { try { f(o); } catch (e) {} });
 let saveT = null;
 export function save(doc = S.doc) {
   if (!doc) return;
   doc.used = Date.now();
   clearTimeout(saveT);
-  saveT = setTimeout(() => docs.put(doc).catch(e => console.warn('Speichern fehlgeschlagen', e)), 250);
+  saveT = setTimeout(() => docs.put(doc).then(() => wrote()).catch(e => console.warn('Speichern fehlgeschlagen', e)), 250);
 }
-export async function saveNow(doc = S.doc) { if (doc) { clearTimeout(saveT); doc.used = Date.now(); await docs.put(doc); } }
+export async function saveNow(doc = S.doc) { if (doc) { clearTimeout(saveT); doc.used = Date.now(); await docs.put(doc); wrote(); } }
 
 export async function refreshList() { S.list = await docs.all(); emit(); return S.list; }
 export async function openDoc(id) {
@@ -25,9 +28,9 @@ export async function openDoc(id) {
 }
 export async function createDoc({ name, pages, chars, sample = false, generated = false, topic = '', extra = null }) {
   const d = migrate(Object.assign({ id: uid(), name, pages, chars, created: Date.now(), used: Date.now(), sample, generated, topic }, extra || {}));
-  await docs.put(d); S.doc = d; kv.set('last', d.id); await refreshList(); return d;
+  await docs.put(d); S.doc = d; kv.set('last', d.id); await refreshList(); wrote(); return d;
 }
-export async function removeDoc(id) { await docs.del(id); if (S.doc && S.doc.id === id) S.doc = null; await refreshList(); }
+export async function removeDoc(id) { await docs.del(id); if (S.doc && S.doc.id === id) S.doc = null; await refreshList(); wrote({ del: id }); }
 export async function lastDocId() { return kv.get('last'); }
 
 export function migrate(d) {

@@ -343,3 +343,4 @@ import('./abo.js').then(async m => {
   $('.plan.pro .badge')?.remove();
 }).catch(() => {});
 import('./hint.js').then(m => m.scheduleHint()).catch(() => {});
+import('./werke.js').then(m => m.startWerke()).catch(() => {});

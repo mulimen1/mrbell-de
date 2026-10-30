@@ -288,11 +288,11 @@ export async function openAccount() {
     aboRow(a),
     h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))),
     promoBox(a));
-  const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Deine Skripte bleiben auf diesem Gerät. Bei uns liegen deine E-Mail-Adresse und dein verschlüsseltes Passwort.', 'Your slides stay on this device. We store your email address and your encrypted password.'), body,
+  const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Deine hochgeladenen Skripte bleiben auf diesem Gerät. Was du erstellst – Karten, Quiz, Podcasts, Mitschriften –, sichern wir in deinem Konto, damit es auf jedem Gerät da ist. Dazu liegen bei uns deine E-Mail-Adresse und dein verschlüsseltes Passwort.', 'Your uploaded slides stay on this device. What you create – flashcards, quizzes, podcasts, notes – is saved to your account so it’s on every device. We also store your email address and your encrypted password.'), body,
     actions: [{ label: L('Konto löschen', 'Delete account'), value: 'del' }, { label: L('Abmelden', 'Sign out'), value: 'out' }, { label: L('Fertig', 'Done'), value: null, primary: true }] });
   if (r === 'out') { try { await ask('logout'); } catch (e) {} setAccount(null, null); toast(L('Abgemeldet. Max wartet.', 'Signed out. Max will wait.')); location.hash = '#/'; }
   if (r === 'del') {
-    const ok = await modal({ title: L('Konto wirklich löschen?', 'Really delete your account?'), text: L('Deine E-Mail-Adresse wird bei uns gelöscht und du wirst überall abgemeldet. Dein Lernstand auf diesem Gerät bleibt.', 'We delete your email address and sign you out everywhere. Your progress on this device stays.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] });
+    const ok = await modal({ title: L('Konto wirklich löschen?', 'Really delete your account?'), text: L('Deine E-Mail-Adresse und alles, was in deinem Konto gesichert ist, werden bei uns gelöscht, und du wirst überall abgemeldet. Was auf diesem Gerät liegt, bleibt hier.', 'We delete your email address and everything saved in your account, and sign you out everywhere. What’s on this device stays here.'), actions: [{ label: L('Abbrechen', 'Cancel'), value: false }, { label: L('Löschen', 'Delete'), value: true, primary: true }] });
     if (ok) {
       try { await ask('deleteaccount'); setAccount(null, null); toast(L('Konto gelöscht.', 'Account deleted.')); }
       catch (e) { toast(e.message || L('Hat nicht geklappt.', 'That didn’t work.')); }
