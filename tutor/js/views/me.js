@@ -201,7 +201,7 @@ export function syncAsk() {
   return h('section', { class: 'me-ask' },
     h('div', { class: 'me-ask-i', html: ico('refresh') }),
     h('div', { class: 'me-ask-t' }, h('b', {}, L('Auf Laptop und Handy gleichzeitig?', 'On your laptop and phone at once?')),
-      h('p', {}, L('Damit deine Fächer, Favoriten und dein Stundenplan auf allen Geräten da sind, müssen wir sie auf unserem Server speichern. Wenn nicht, bleibt alles nur auf diesem Gerät. Deine Skripte bleiben so oder so nur hier.', 'For your subjects, favourites and timetable to be on all your devices, we need to store them on our server. If not, everything stays on this device only. Your slides always stay here either way.'))),
+      h('p', {}, L('Damit deine Fächer, Favoriten und dein Stundenplan auf allen Geräten da sind, müssen wir sie auf unserem Server speichern. Wenn nicht, bleibt alles nur auf diesem Gerät. Deine Skripte und Lerninhalte regelst du unter „Dein Konto“.', 'For your subjects, favourites and timetable to be on all your devices, we need to store them on our server. If not, everything stays on this device only. Your slides and study material are handled under “Your account”.'))),
     h('div', { class: 'me-ask-b' },
       h('button', { class: 'btn primary', type: 'button', onclick: async () => { await M.setSync(true); toast(L('Läuft. Dein Bereich ist jetzt auf allen Geräten.', 'Done. Your space is now on all your devices.')); } }, L('Ja, überall', 'Yes, everywhere')),
       h('button', { class: 'btn', type: 'button', onclick: () => M.setSync(false) }, L('Nur dieses Gerät', 'This device only'))));

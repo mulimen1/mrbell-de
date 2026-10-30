@@ -277,6 +277,17 @@ export function promoBox(a) {
 }
 function onAccountRefresh() { const a = getAccount(); if (a) setAccount(Object.assign({}, a)); }
 
+// Schalter: hochgeladene Skripte im Konto speichern (Standard an)
+function texteRow() {
+  const row = h('div', { class: 'accrow' }, h('span', {}, L('Skripte im Konto', 'Slides in account')));
+  import('./werke.js').then(W => {
+    let on = W.texteImKonto();
+    const sw = h('button', { class: 'me-switch' + (on ? ' on' : ''), type: 'button', role: 'switch', 'aria-checked': on ? 'true' : 'false', 'aria-label': L('Hochgeladene Skripte im Konto speichern', 'Save uploaded slides to your account') }, h('i'));
+    sw.addEventListener('click', () => { on = !on; W.setTexteImKonto(on); sw.classList.toggle('on', on); sw.setAttribute('aria-checked', on ? 'true' : 'false'); toast(on ? L('Hochgeladene Skripte werden im Konto gespeichert.', 'Uploaded slides are saved to your account.') : L('Hochgeladene Skripte bleiben nur auf deinen Geräten. Die Kopie im Konto wird gelöscht.', 'Uploaded slides stay on your devices only. The copy in your account is deleted.')); });
+    row.appendChild(h('b', {}, sw));
+  }).catch(() => {});
+  return row;
+}
 export async function openAccount() {
   const a = getAccount();
   if (!a) return openLogin();
@@ -287,8 +298,9 @@ export async function openAccount() {
     h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? h('span', {}, h('span', { class: 'ic-chip' }, h('span', { class: 'ic-lt' }, 'Inner Circle')), L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(proEnd(a))})`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(proEnd(a))})`)) : [L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'), ' ', h('button', { class: 'linkbtn', type: 'button', onclick: planSwitch }, L('wechseln', 'change'))])),
     aboRow(a),
     h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))),
+    texteRow(),
     promoBox(a));
-  const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Deine hochgeladenen Skripte bleiben auf diesem Gerät. Was du erstellst – Karten, Quiz, Podcasts, Mitschriften –, sichern wir in deinem Konto, damit es auf jedem Gerät da ist. Dazu liegen bei uns deine E-Mail-Adresse und dein verschlüsseltes Passwort.', 'Your uploaded slides stay on this device. What you create – flashcards, quizzes, podcasts, notes – is saved to your account so it’s on every device. We also store your email address and your encrypted password.'), body,
+  const r = await modal({ title: L('Dein Konto', 'Your account'), text: L('Alles, was du hochlädst und erstellst – Skripte, Karten, Quiz, Podcasts, Mitschriften –, liegt in deinem Konto und ist auf jedem Gerät da, auch auf dem Handy. Nur du siehst es. Hochgeladene Skripte kannst du unten aus dem Konto nehmen.', 'Everything you upload and create – slides, flashcards, quizzes, podcasts, notes – lives in your account and is on every device, including your phone. Only you can see it. You can take uploaded slides out of your account below.'), body,
     actions: [{ label: L('Konto löschen', 'Delete account'), value: 'del' }, { label: L('Abmelden', 'Sign out'), value: 'out' }, { label: L('Fertig', 'Done'), value: null, primary: true }] });
   if (r === 'out') { try { await ask('logout'); } catch (e) {} setAccount(null, null); toast(L('Abgemeldet. Max wartet.', 'Signed out. Max will wait.')); location.hash = '#/'; }
   if (r === 'del') {

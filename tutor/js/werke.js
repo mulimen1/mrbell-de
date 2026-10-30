@@ -1,7 +1,7 @@
-// Alles Erstellte im Konto: Podcasts, Karteikarten, Quiz, Lernzettel, Tafeln, Lernpfad, Mitschriften, Max-Kurzskripte, Fortschritt.
-// Hochgeladenes (Skripte, Vorlesungen, Video-Transkripte) bleibt als Text NUR auf dem Gerät – im Konto steht nur Name + was daraus erstellt wurde.
+// Alles im Konto: Erstelltes (Podcasts, Karteikarten, Quiz, Lernzettel, Tafeln, Lernpfad, Mitschriften, Fortschritt) im Platz „w“,
+// der Text hochgeladener Skripte/Vorlesungen/Video-Transkripte im Platz „t“ (groß, ändert sich selten; abschaltbar pro Konto).
 // Lokal bleibt alles wie bisher in IndexedDB. Ist man angemeldet, wird es zusätzlich im eigenen Konto abgelegt
-// (nur für diese Person, Server-Speicher „Konto“, eigener Platz „w“) und auf jedem Gerät zusammengeführt.
+// (nur für diese Person) und auf jedem Gerät zusammengeführt.
 // Nicht synchronisiert: Chatverlauf, vertonte Podcast-Audios (werden beim Abspielen neu geholt), Beispiel-Skript.
 import { ls } from './util.js';
 import { L } from './i18n.js';
@@ -10,7 +10,11 @@ import { S, emit, refreshList, docWrites, migrate } from './state.js';
 import { ask, getAccount, onAccount } from './api.js';
 import { looseBoards, setLooseBoards } from './lib.js';
 
-const TOMB = 'tutor.werke.tomb', INFO = 'tutor.werke.info', MAXB = 2800000;
+const TOMB = 'tutor.werke.tomb', INFO = 'tutor.werke.info', TXT = 'tutor.werke.texte', MAXB = 2800000, MAXT = 7500000;
+// Skripte im Konto speichern: Standard an. Einstellung gilt fürs Konto (neuere Änderung gewinnt, auch geräteübergreifend).
+const txtPref = () => ls.get(TXT, null) || { on: true, at: 0 };
+export const texteImKonto = () => txtPref().on !== false;
+export function setTexteImKonto(on) { ls.set(TXT, { on: !!on, at: Date.now() }); soon(300); }
 const tombs = () => ls.get(TOMB, {}) || {};
 const email = () => { const a = getAccount(); return a && a.email ? String(a.email).toLowerCase() : ''; };
 
@@ -43,6 +47,10 @@ async function ungz(s) {
   for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
   return JSON.parse(await new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('gzip'))).text());
 }
+
+// Hochgeladener Text eines Skripts (für Platz „t“) und sein Fingerabdruck
+const txOf = d => { const e = { pages: d.pages, chars: d.chars }; if (d.video && Array.isArray(d.video.lines)) e.vl = d.video.lines; if (Array.isArray(d.pathSrc) && d.pathSrc.some(x => x && x.pages)) e.ps = d.pathSrc; return e; };
+const sig = d => [d.chars || 0, d.pages.length, (d.pathSrc || []).length, d.video && d.video.lines ? d.video.lines.length : 0].join('.');
 
 // Eigene Skripte: noch ohne Besitzer (offline erstellt) → gehören der angemeldeten Person
 const mine = (d, em) => d && !d.sample && (!d.owner || d.owner === em);
@@ -90,16 +98,56 @@ export async function syncWerke() {
     const la = ls.get('tutor.lib.boardsAt', 0) || 0;
     if (Array.isArray(R.loose) && (R.looseAt || 0) > la) { setLooseBoards(R.loose, true); ls.set('tutor.lib.boardsAt', R.looseAt); changed = true; }
     ls.set(TOMB, tomb);
+    // 4b) Skripttexte: Einstellung abgleichen, fehlende Texte holen, eigene Texte ablegen
+    const lp = txtPref(), rp = R.texte || { on: true, at: 0 };
+    const pref = (rp.at || 0) > (lp.at || 0) ? rp : lp;
+    if (pref !== lp) ls.set(TXT, pref);
+    const rtx = R.tx || {};
+    let tx = {}, T = null, tDirty = false;
+    const getT = async () => { if (T) return T; const g = await ask('konto', { opts: { op: 'get', slot: 't' } }); T = (g && g.slot === 't' && g.daten ? await ungz(g.daten) : null) || {}; T.texts ||= {}; return T; };
+    const real = d => mine(d, em) && !ownText(d) && !d.ohneText && Array.isArray(d.pages) && d.pages.length;
+    if (pref.on !== false) {
+      // Platzhalter hier, Text im Konto → einsetzen
+      const need = [...local.values()].filter(d => mine(d, em) && d.ohneText && rtx[d.id]);
+      if (need.length) {
+        const TT = await getT();
+        for (const d of need) {
+          const e = TT.texts[d.id]; if (!e || !Array.isArray(e.pages)) continue;
+          d.pages = e.pages; d.chars = e.chars || d.chars; if (e.ps) d.pathSrc = e.ps; if (e.vl && d.video) d.video = Object.assign({}, d.video, { lines: e.vl });
+          delete d.ohneText;
+          if (S.doc && S.doc.id === d.id) Object.assign(S.doc, d);
+          await docs.put(S.doc && S.doc.id === d.id ? S.doc : d); changed = true;
+        }
+      }
+      for (const d of local.values()) if (real(d)) tx[d.id] = sig(d);
+      for (const [id, v] of Object.entries(rtx)) if (!tx[id] && local.has(id) && local.get(id).ohneText && !tomb[id]) tx[id] = v;   // Text liegt nur im Konto – behalten
+      const same = Object.keys(tx).length === Object.keys(rtx).length && Object.keys(tx).every(k => rtx[k] === tx[k]);
+      if (!same) {
+        const TT = Object.keys(tx).some(k => !real(local.get(k) || {})) ? await getT() : { texts: {} };
+        const texts = {};
+        for (const id of Object.keys(tx)) { const d = local.get(id); texts[id] = real(d || {}) ? txOf(d) : TT.texts[id]; if (!texts[id]) delete tx[id]; }
+        // Zu groß? Größte Texte weglassen, bis es passt
+        let blob = await gz(JSON.stringify({ v: 1, texts }));
+        while (blob.length > MAXT && Object.keys(texts).length) {
+          const big = Object.keys(texts).sort((a, b) => JSON.stringify(texts[b]).length - JSON.stringify(texts[a]).length)[0];
+          delete texts[big]; delete tx[big]; blob = await gz(JSON.stringify({ v: 1, texts }));
+        }
+        const w = await ask('konto', { opts: { op: 'put', slot: 't', daten: blob } });
+        if (!w || w.ok === false) tx = rtx; else tDirty = true;
+      }
+    } else if (Object.keys(rtx).length) {
+      try { await ask('konto', { opts: { op: 'del', slot: 't' } }); tDirty = true; } catch (e) { tx = rtx; }
+    }
     if (changed) { await refreshList(); emit(); }
     // 5) Zurückschreiben, wenn dieses Gerät etwas hat, das im Konto fehlt oder älter ist
     const out = [...local.values()].filter(d => mine(d, em));
     const rmap = new Map(rd.map(x => [x.id, x.used || 0]));
     const looseAt = Math.max(la, R.looseAt || 0);
     const dirty = out.some(d => (rmap.get(d.id) ?? -1) < (d.used || 0)) || rd.some(x => !local.has(x.id) && !tomb[x.id])
-      || Object.keys(tomb).some(k => !(k in rt)) || la > (R.looseAt || 0);
+      || Object.keys(tomb).some(k => !(k in rt)) || la > (R.looseAt || 0) || tDirty || (pref.at || 0) !== (rp.at || 0);
     if (!dirty) { ls.set(INFO, { at: Date.now(), err: '' }); return; }
     const keep = rd.filter(x => !local.has(x.id) && !tomb[x.id]);   // im Konto, hier (noch) nicht – nicht verlieren
-    const body = { v: 1, at: Date.now(), docs: [...out.map(slim), ...keep], tomb, loose: looseBoards(), looseAt };
+    const body = { v: 1, at: Date.now(), docs: [...out.map(slim), ...keep], tomb, loose: looseBoards(), looseAt, tx, texte: pref };
     const s = await gz(JSON.stringify(body));
     if (s.length > MAXB) { ls.set(INFO, { at: Date.now(), err: 'zu groß' }); return; }
     const w = await ask('konto', { opts: { op: 'put', slot: 'w', daten: s } });
