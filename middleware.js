@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/robots.txt', '/sitemap.xml']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
@@ -151,7 +151,7 @@ export default async function middleware(req, ctx) {
   // Zahlen leben jetzt in der App (gleiche Anmeldung) – alte Adresse und Handy-Lesezeichen landen dort
   if (url.pathname === '/zahlen') return bwlmax ? Response.redirect(new URL('/#/app/zahlen', url).toString(), 307) : weiter();
   // bwlmax.de hat eigene robots.txt und Sitemap (die Dateien im Hauptordner gehören zu mrbell.de)
-  if (bwlmax && (url.pathname === '/robots.txt' || url.pathname === '/sitemap.xml')) return new Response(null, { headers: { 'x-middleware-rewrite': new URL('/tutor' + url.pathname, url).toString() } });
+  if (bwlmax && (url.pathname === '/robots.txt' || url.pathname === '/sitemap.xml' || url.pathname === '/llms.txt' || url.pathname === '/llms-full.txt')) return new Response(null, { headers: { 'x-middleware-rewrite': new URL('/tutor' + url.pathname, url).toString() } });
   if (bwlmax || url.pathname.startsWith('/tutor')) {
     const start = url.pathname === '/' || url.pathname === '/index.html' || /^\/tutor\/?(index\.html)?$/.test(url.pathname);
     const recht = bwlmax && /^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(url.pathname.replace(/\.html$/, '')) ? url.pathname.replace(/^\/|\.html$/g, '') : '';
