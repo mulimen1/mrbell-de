@@ -34,7 +34,7 @@ export function goSplash() {
     import('./flight.js').then(F => { fEl.style.visibility = 'hidden'; return F.dockTo(r, { dur: 1100, arc: .16 }); }).catch(() => {});
     setTimeout(() => el.remove(), 560);
   };
-  const auto = setTimeout(close, 3400);
+  const auto = setTimeout(close, 4250);
   el.addEventListener('click', close);
   requestAnimationFrame(() => el.classList.add('in'));
 }
@@ -48,7 +48,7 @@ export async function goTour() {
   try { const c = await import('./cursor.js'); c.stopTour(); } catch (e) {}
   const S = [
     { at: '#/app/tutor', sel: ['.topnav'], say: L('Vier Bereiche, alles für dein Studium. Ich zeig dir kurz, was wo ist. Kurz, weil meine Zeit teuer ist.', 'Four areas, everything for your degree. I’ll quickly show you what’s where. Quickly, because my time is expensive.') },
-    { at: '#/app/tutor', sel: ['.ai-isl'], say: L('Hier fragst du mich alles zu BWL – tippen oder reinsprechen. Ich erklär’s an der Tafel, mit Rechenweg.', 'Ask me anything about business here – type or talk. I explain it on the whiteboard, with workings.') },
+    { at: '#/app/tutor', sel: ['.ai-isl'], say: L('Hier fragst du mich alles zu BWL. Ich erklär’s an der Tafel, mit Rechenweg.', 'Ask me anything about business here. I explain it on the whiteboard, with workings.') },
     { at: '#/app/tutor', sel: ['.rm-tl', '.rm-tools2'], say: L('Skript rein, und ich bau dir Lernzettel, Karteikarten, Quiz, Podcast und Klausurplan. In Sekunden.', 'Drop in your slides and I build study sheets, flashcards, quizzes, podcasts and an exam plan. In seconds.') },
     { at: '#/app/bibliothek', sel: ['#view h1', '#view'], say: L('Fächer & Bibliothek: alles, was du hochlädst und ich dir baue – sauber nach Fach sortiert.', 'Subjects & library: everything you upload and I build – neatly sorted by subject.') },
     { at: '#/app/ueben', sel: ['.ub-lt', '.ub-hs'], say: L('Lernen: Tafel, Lernzettel, Karteikarten, Podcast, Lernpfad. Ein Klick, ich bau’s.', 'Learn: whiteboard, study sheet, flashcards, podcast, study path. One click, I build it.') },
@@ -116,7 +116,7 @@ function runTour(S) {
     if (best !== posK) { posK = best; box.dataset.pos = best; }
   }
   const drawCtl = () => { bPlay.textContent = paused ? '▶' : '❚❚'; box.classList.toggle('paused', paused); num.textContent = `${i + 1} / ${S.length}`; bBack.disabled = i <= 0; bNext.textContent = i >= S.length - 1 ? L('Fertig', 'Done') : L('Weiter', 'Next'); };
-  const readMs = () => Math.max(1950, (S[i]?.say || '').split(/\s+/).length * 182 + 390) / speed;
+  const readMs = () => 1.25 * Math.max(1950, (S[i]?.say || '').split(/\s+/).length * 182 + 390) / speed;   // Okt 2026: 25 % mehr Lesezeit
   function schedule() { clearTimeout(hold); t0 = performance.now(); dur = readMs(); hold = setTimeout(() => go(i + 1), dur); }
   function type(text) {
     clearInterval(typing); done = false; bar.firstChild.style.transform = 'scaleX(0)';
