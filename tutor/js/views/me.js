@@ -455,6 +455,9 @@ async function editProfil() {
   M.updateMe(m => { m.noten = Object.assign({}, m.noten, { profil: { key: mode.value === 'anteil' ? 'eigen' : 'ects', mode: mode.value, gesamt: +ges.value, thesis: +th.value || 0, kolloq: +ko.value || 0, aThesis: +aT.value || 0, aKolloq: +aK.value || 0, stellen: 1 } }); });
 }
 // ---------- Eigene Farben & Symbole für Fächer und Kurse ----------
+// Kurse ohne eigene Farbe: feste Farbe je Kursname (Übung = gleiche Farbe wie Vorlesung)
+const AUTO = ['blau', 'lila', 'orange', 'petrol', 'pink', 'indigo', 'gruen', 'rot', 'gelb'];
+function autoCol(name) { const k = String(name || '').toLowerCase().replace(/\s*[–-]\s*(modul)?(übung|tutorium|seminar|uebung).*$/i, '').replace(/\(.*?\)/g, '').replace(/[^a-zäöüß0-9]+/g, ''); if (!k) return null; let h0 = 0; for (const c of k) h0 = (h0 * 31 + c.charCodeAt(0)) >>> 0; return PAL[AUTO[h0 % AUTO.length]] || null; }
 export const PAL = { blau: ['#5aa2f7', '#1a5fc4'], indigo: ['#7a8cf7', '#3f4fd6'], lila: ['#9b7cf0', '#5b3fc4'], pink: ['#f47ba0', '#c8336f'], rot: ['#ff7b7b', '#d63031'], orange: ['#f39b52', '#d9601c'], gelb: ['#f7c948', '#d18e06'], limette: ['#a3d94a', '#5f8f12'], gruen: ['#4cc38a', '#1c7a47'], petrol: ['#3fc1c9', '#0e7f8e'], braun: ['#c9a27a', '#8a5a2b'], schiefer: ['#94a3b8', '#475569'] };
 const PALN = { blau: L('Blau', 'Blue'), indigo: 'Indigo', lila: L('Lila', 'Purple'), pink: 'Pink', rot: L('Rot', 'Red'), orange: 'Orange', gelb: L('Gelb', 'Yellow'), limette: L('Limette', 'Lime'), gruen: L('Grün', 'Green'), petrol: L('Petrol', 'Teal'), braun: L('Braun', 'Brown'), schiefer: L('Schiefer', 'Slate') };
 const SYM = ['book', 'books', 'grad', 'calc', 'chart', 'euro', 'briefcase', 'scale', 'globe', 'laptop', 'flask', 'leaf', 'people', 'rocket', 'ball', 'brain', 'bulb', 'calendar', 'sheet', 'star', 'trophy', 'path', 'spark', 'quiz'];
@@ -549,7 +552,7 @@ function timetable(body, getOff, setOff) {
       h('div', { class: 'me-hours' }, [...Array(h1 - h0)].map((_, i) => h('span', { style: { top: i * PX + 'px' } }, String(h0 + i).padStart(2, '0') + ':00'))),
       cols.map(([d, list]) => h('div', { class: 'me-col' + (d.getTime() === today0 ? ' on' : '') }, layout(list).map(({ s, lane, lanes }) => {
         const top = ((s.s - d.getTime()) / 3600e3 - h0) * PX, ht = Math.max(26, (s.e - s.s) / 3600e3 * PX - 3);
-        const bc = PAL[s.col]; return h('button', { class: 'me-blk' + (s.own ? ' own' : '') + (bc ? ' col' : '') + (s.e < Date.now() ? ' past' : ''), type: 'button', style: { ...(bc ? { '--b1': bc[0], '--b2': bc[1] } : {}), top: top + 'px', height: ht + 'px', left: `calc(${100 * lane / lanes}% + 2px)`, width: `calc(${100 / lanes}% - 4px)` }, title: `${s.t} · ${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}`, onclick: () => s.own ? editKurs(me.kurse.find(k => k.id === s.id)) : assignIcs(s) },
+        const bc = PAL[s.col] || autoCol(s.fach ? (s.fach.name || s.t) : s.t); return h('button', { class: 'me-blk' + (s.own ? ' own' : '') + (bc ? ' col' : '') + (s.e < Date.now() ? ' past' : ''), type: 'button', style: { ...(bc ? { '--b1': bc[0], '--b2': bc[1] } : {}), top: top + 'px', height: ht + 'px', left: `calc(${100 * lane / lanes}% + 2px)`, width: `calc(${100 / lanes}% - 4px)` }, title: `${s.t} · ${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}`, onclick: () => s.own ? editKurs(me.kurse.find(k => k.id === s.id)) : assignIcs(s) },
           h('b', {}, s.t), h('small', {}, `${hm(s.s)}–${hm(s.e)}${s.o ? ' · ' + s.o : ''}`), s.fach ? (sameName(s.t, s.fach) ? null : h('i', {}, s.fach.kurz || s.fach.name)) : null);
       })))));
   // Handy: Liste statt Raster

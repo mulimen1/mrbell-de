@@ -8810,3 +8810,8 @@ html[data-theme="dark"] body .vt-siegel { background: #13221a !important; border
 html body .fc:is(.sw-ok, .sw-no) .in { box-shadow: none !important; outline: none !important; }
 /* Karteikarte: kein Fokus-Kasten beim Umdrehen mit der Leertaste */
 html body .fc:focus, html body .fc:focus-visible, html body .fc .in:focus, html body .fc-stack:focus, html body .fc-stack:focus-visible { outline: none !important; box-shadow: none; }
+/* Stundenplan: farbige Kurse, vergangene nur leicht abgeschwächt, Zeit gut lesbar */
+html:root body .me-blk.col { border-radius: 12px !important; }
+html:root body .me-blk.col small { color: rgba(255,255,255,.88) !important; }
+html:root body .me-blk.col i { color: rgba(255,255,255,.9) !important; }
+html:root body .me-blk.past { opacity: .72 !important; filter: saturate(.85); }
