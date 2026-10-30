@@ -54,6 +54,6 @@ export function openVertrauen(kind = 'max', zurueck = '') {
 
 // Knopf (dezent): öffnet das Fenster
 export function vertrauenBtn(kind = 'max', { klein = false, zurueck = '' } = {}) {
-  const txt = kind === 'excel' ? L('Warum unsere Formeln stimmen', 'Why our formulas are right') : L('Warum du den Rechnungen von Max vertrauen kannst', 'Why you can trust Max’s maths');
+  const txt = kind === 'excel' ? L('Warum unsere Formeln stimmen', 'Why our formulas are right') : L('Warum du Max vertrauen kannst: Rechnungen und Fakten geprüft', 'Why you can trust Max: maths and facts checked');
   return h('button', { class: 'vt-btn' + (klein ? ' sm' : ''), type: 'button', onclick: e => { e.stopPropagation(); openVertrauen(kind, zurueck); } }, h('span', { class: 'vt-s', html: SCHILD }), h('span', {}, txt), h('span', { class: 'vt-go', html: IC.pfeil }));
 }
