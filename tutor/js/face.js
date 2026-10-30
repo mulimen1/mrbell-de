@@ -106,12 +106,33 @@ class Face {
     this.lx = 0; this.ly = 0; this.tx = 0; this.ty = 0;
     this.idleLook = { x: 0, y: 0, until: 0 };
     this.scheduleBlink();
+    // Groß oder klein? Klein (Knopf, Seitenleiste): Augenbraue immer oben. Groß: nur in Momenten (flick)
+    let greeted = false;
+    const sz = () => { const big = (el.offsetWidth || 0) >= 64; el.classList.toggle('fz-big', big); if (big && !greeted) { greeted = true; setTimeout(() => this.flick(1300), 700); } };   // erstes Mal groß sichtbar: Begrüßung
+    try { new ResizeObserver(sz).observe(el); } catch (e) {}
+    requestAnimationFrame(sz);
+    this.scheduleFlick();
     this.loop = this.loop.bind(this);
     requestAnimationFrame(this.loop);
+  }
+  // Augenbraue kurz hochziehen (nur beim großen Max sichtbar – der kleine hat sie immer oben)
+  flick(ms = 1100) {
+    if (!this.el.isConnected) return;
+    this.el.classList.add('fz-flick'); clearTimeout(this.flickOff);
+    this.flickOff = setTimeout(() => this.el.classList.remove('fz-flick'), ms);
+  }
+  scheduleFlick() {
+    clearTimeout(this.flickT);
+    this.flickT = setTimeout(() => {
+      if (!this.el.isConnected) return;   // Gesicht entfernt: aufhören
+      if (this.state === 'idle' && !document.hidden) this.flick();
+      this.scheduleFlick();
+    }, 10000 + Math.random() * 10000);
   }
   set(state) {
     if (this.state === state) return;
     const was = this.state;
+    if (state === 'idle' && (was === 'think' || was === 'talk')) setTimeout(() => this.flick(1200), 150);   // Antwort fertig
     this.state = state;
     this.el.dataset.state = state;
     if (state === 'sleep') this.zz();
@@ -222,7 +243,9 @@ const css = `
 .face[data-state="sad"] svg .fz-brow.r { transform: rotate(12deg) translateY(8px); }
 .face[data-state="smug"] svg .fz-brow.r { opacity: 1; transform: translateY(-12px) rotate(-8deg); }
 /* Max-Markenzeichen: rechte Augenbraue immer leicht hochgezogen (wie im Icon) – außer bei traurig, nachdenklich, schlafend */
-.face:not(.fz-marie):is([data-state="idle"], [data-state="talk"], [data-state="happy"], :not([data-state])) svg .fz-brow.r { opacity: 1; transform: translateY(-12px) rotate(-8deg); }
+.face:not(.fz-marie):not(.fz-big):is([data-state="idle"], [data-state="talk"], [data-state="happy"], :not([data-state])) svg .fz-brow.r { opacity: 1; transform: translateY(-12px) rotate(-8deg); }
+/* Großer Max (ab 64 px): Augenbraue nur in Momenten – Begrüßung, Antwort fertig, Freude, ab und zu zwischendurch */
+.face.fz-big:not(.fz-marie):is(.fz-flick, [data-state="happy"]):is([data-state="idle"], [data-state="talk"], [data-state="happy"]) svg .fz-brow.r { opacity: 1; transform: translateY(-12px) rotate(-8deg); }
 .face[data-state="think"] svg .fz-brow.r { opacity: 1; transform: translateY(-8px); }
 .face[data-state="think"] svg .fz-dots circle { animation: fzdot 1.2s infinite; }
 .face[data-state="think"] svg .fz-dots circle:nth-child(2) { animation-delay: .2s; }
