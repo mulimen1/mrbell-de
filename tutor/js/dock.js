@@ -67,7 +67,8 @@ function place() {
   // Laptop mit Tafel im Tutor: Eingabe sitzt links, die Tafel geht bis ganz unten – Rechner/Lexikon über die Eingabe (rechte Kante)
   const side = document.querySelector('.room.dock-side .rm-comp');
   dock.classList.toggle('dk-side', !!side);   // Max' Chatverlauf liegt dort drüber – Knöpfe müssen klickbar bleiben
-  if (side) { const cr = side.getBoundingClientRect(); if (cr.width > 100) { const rr = Math.round(innerWidth - cr.right), bb = Math.round(innerHeight - cr.top + 10); dock.style.right = rr + 'px'; dock.style.bottom = bb + 'px'; if (panel) { panel.style.setProperty('--dr', rr + 'px'); panel.style.setProperty('--db', bb + 'px'); } return; } }
+  if (side) { const cr = side.getBoundingClientRect(); if (cr.width > 100) { const fo = side.parentElement && side.parentElement.querySelector(':scope > .rm-focus'), fr = fo && fo.getBoundingClientRect(); const top = fr && fr.height > 4 && fr.bottom <= cr.top + 4 && fr.right > cr.right - 120 ? Math.min(cr.top, fr.top) : cr.top;   // über der „Verbunden mit …“-Zeile, nicht darauf
+    const rr = Math.round(innerWidth - cr.right), bb = Math.round(innerHeight - top + 10); dock.style.right = rr + 'px'; dock.style.bottom = bb + 'px'; if (panel) { panel.style.setProperty('--dr', rr + 'px'); panel.style.setProperty('--db', bb + 'px'); } return; } }
   const bub = document.querySelector('.asst-bub');
   let r = null;
   if (bub) { const cs = getComputedStyle(bub); const rr = bub.getBoundingClientRect(); if (rr.width > 20 && cs.opacity !== '0' && cs.visibility !== 'hidden' && cs.display !== 'none' && !bub.closest('.off')) r = rr; }
