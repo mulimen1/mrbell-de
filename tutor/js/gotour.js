@@ -19,7 +19,7 @@ export function goSplash() {
   ss('bm.goWel', '1');
   const fEl = h('div', { class: 'ng-face' });
   const el = h('div', { class: 'ngreet', role: 'dialog', 'aria-label': L('Willkommen', 'Welcome') },
-    h('div', { class: 'ng-in' }, fEl, h('h2', { class: 'ng-hey' }, L('Willkommen bei BWL Max.', 'Welcome to BWL Max.')),
+    h('div', { class: 'ng-in' }, fEl, h('h2', { class: 'ng-hey' }, L('Willkommen bei ', 'Welcome to '), h('span', { style: { whiteSpace: 'nowrap' } }, 'BWL Max.')),
       h('p', { class: 'ng-line' }, L('Die beste Lernplattform für BWLer. Sag ich nicht. Sagt Papa.', 'The best learning platform for business students. Not my words. Dad’s.')),
       h('div', { class: 'ng-skip' }, L('Antippen, um direkt loszulegen', 'Tap to jump right in'))));
   document.body.appendChild(el);
@@ -107,7 +107,7 @@ function runTour(S) {
     const mob = innerWidth <= 700, W = innerWidth, H0 = innerHeight;
     const bw = box.offsetWidth, bh = box.offsetHeight, m = mob ? 10 : 22, top = mob ? 64 : 84;
     const rect = k => { const x = mob || k[1] === 'l' ? m : W - m - bw, y = k[0] === 'b' ? H0 - m - bh : top; return { l: x, t: y, r: x + bw, b: y + bh }; };
-    const pad = 14, R = { l: r.left - pad, t: r.top - pad, r: r.right + pad, b: r.bottom + pad };
+    const pad = 14, R = { l: r.left - pad, t: r.top - pad, r: r.right + pad, b: (mob && r.height > H0 * .4 ? r.top + 170 : r.bottom) + pad };
     const ov = q => Math.max(0, Math.min(q.r, R.r) - Math.max(q.l, R.l)) * Math.max(0, Math.min(q.b, R.b) - Math.max(q.t, R.t));
     const keys = mob ? ['bl', 'tl'] : POS;
     if (ov(rect(posK)) === 0 && keys.includes(posK)) return;
@@ -144,6 +144,11 @@ function runTour(S) {
         el.scrollIntoView({ block: 'start', behavior: 'smooth' }); await wait(480); el.style.scrollMarginTop = keep;
         if (dead || i !== n) return;
       }
+    }
+    // Handy: die Bereichs-Leiste ist wischbar – Max fährt sie einmal ab, damit man alle vier sieht
+    if (el && innerWidth <= 700 && el.matches('.topnav') && el.scrollWidth > el.clientWidth + 4) {
+      setTimeout(() => { if (!dead && i === n) el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' }); }, 1100);
+      setTimeout(() => { if (!dead && i === n) el.scrollTo({ left: 0, behavior: 'smooth' }); }, 4200);
     }
     bub.classList.remove('pop'); void bub.offsetWidth; bub.classList.add('pop');
     await type(s.say);

@@ -344,3 +344,5 @@ import('./abo.js').then(async m => {
 }).catch(() => {});
 import('./hint.js').then(m => m.scheduleHint()).catch(() => {});
 import('./werke.js').then(m => m.startWerke()).catch(() => {});
+// Handy-Menü der Startseite (☰): schließt bei Klick daneben oder nach einer Auswahl
+document.addEventListener('click', e => { const n = document.getElementById('nav'); if (!n || !n.classList.contains('mopen')) return; if (!e.target.closest('#nav') || e.target.closest('.nav-r button')) { n.classList.remove('mopen'); n.querySelector('.nav-mb')?.setAttribute('aria-expanded', 'false'); } });
