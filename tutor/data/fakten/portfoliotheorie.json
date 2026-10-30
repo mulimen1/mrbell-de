@@ -117,6 +117,213 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "portfoliotheorie-9",
+   "art": "definition",
+   "aussage": "Ein Portfolio (Portefeuille) ist in der Kapitalmarkttheorie der Bestand an Wertpapieren eines Investors.",
+   "schlagworte": [
+    "Portfolio",
+    "Portefeuille"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Portfolio",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/portfolio-44784",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-10",
+   "art": "definition",
+   "aussage": "Die Varianz ist die gebräuchlichste Maßzahl für die Streuung einer Verteilung: `\\text{Var}(X) = E\\big((X - EX)^2\\big)`; in der Portfoliotheorie misst sie das Risiko als Schwankung der Rendite.",
+   "schlagworte": [
+    "Varianz",
+    "Streuung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Varianz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/varianz-49184",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-11",
+   "art": "definition",
+   "aussage": "Die Standardabweichung ist die positive Wurzel aus der Varianz; sie hat dieselbe Dimension wie die Merkmalswerte selbst (bei Renditen also Prozent).",
+   "schlagworte": [
+    "Standardabweichung",
+    "Volatilität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Standardabweichung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/standardabweichung-43091",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-12",
+   "art": "definition",
+   "aussage": "Die Kovarianz ist eine Kenngröße für den linearen Zusammenhang zweier Zufallsvariablen, `\\text{Cov}(X,Y) = E\\big((X-EX)(Y-EY)\\big)`; sie kann beliebige Werte annehmen.",
+   "schlagworte": [
+    "Kovarianz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kovarianz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kovarianz-39516",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-13",
+   "art": "definition",
+   "aussage": "Der Korrelationskoeffizient nach Bravais-Pearson misst die Stärke des linearen Zusammenhangs und liegt – anders als die Kovarianz – immer zwischen −1 und +1: `\\rho_{XY} = \\frac{\\text{Cov}(X,Y)}{\\sigma_X\\,\\sigma_Y}`.",
+   "schlagworte": [
+    "Korrelation",
+    "Korrelationskoeffizient"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationskoeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationskoeffizient-39501",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-14",
+   "art": "zahl",
+   "aussage": "James Tobin (Nobelpreis 1981) entwickelte die Nachfrage nach Spekulationskasse zu einem allgemeinen Konzept der Vermögensnachfrage weiter, der Portfolio Selection.",
+   "schlagworte": [
+    "Tobin",
+    "Vermögensnachfrage"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Tobin",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/tobin-47644",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-15",
+   "art": "abgrenzung",
+   "aussage": "Markowitz schuf mit Tobin die Theorie der Portfolio Selection als allgemeine Analyse der Entscheidung bei Unsicherheit; später erschien sein Werk „Mean-Variance Analysis in Portfolio Choice and Capital Markets“ (1987).",
+   "schlagworte": [
+    "Markowitz",
+    "Mean-Variance"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Markowitz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/markowitz-40815",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-16",
+   "art": "abgrenzung",
+   "aussage": "Ein risikoneutraler Entscheider wählt die Alternative mit dem höchsten Erwartungswert; ein risikoscheuer bevorzugt bei gleichem Erwartungswert die risikoärmere, ein risikofreudiger die risikoreichere Alternative.",
+   "schlagworte": [
+    "Risikoneutralität",
+    "Risikoaversion",
+    "Risikofreude"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Risikoaversion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/risikoaversion-44298",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-17",
+   "art": "abgrenzung",
+   "aussage": "Die Effizienzkurve riskanter Portefeuilles gibt die effizienten Mischungen von Wertpapieren ohne Einbeziehung der risikolosen Geldanlage an; mit risikoloser Anlage ergibt sich die Kapitalmarktlinie.",
+   "schlagworte": [
+    "Effizienzkurve",
+    "Kapitalmarktlinie"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Capital Asset Pricing Model (CAPM)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/capital-asset-pricing-model-capm-28840",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-18",
+   "art": "formel",
+   "aussage": "Zwei-Anlagen-Portfolio: `\\sigma_p^2 = w_1^2\\sigma_1^2 + w_2^2\\sigma_2^2 + 2\\,w_1 w_2\\,\\rho_{12}\\,\\sigma_1\\sigma_2` mit `w_1 + w_2 = 1`.",
+   "schlagworte": [
+    "Portfoliovarianz",
+    "zwei Wertpapiere"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "portfoliotheorie-19",
+   "art": "formel",
+   "aussage": "Beispiel: je 50 % in A (μ = 6 %, σ = 20 %) und B (μ = 10 %, σ = 30 %), ρ = 0,2: `\\mu_p = 8\\,\\%`, `\\sigma_p^2 = 0{,}0385`, `\\sigma_p \\approx 19{,}62\\,\\%` – weniger als der gewichtete Durchschnitt von 25 %.",
+   "schlagworte": [
+    "Rechenbeispiel",
+    "Diversifikationseffekt"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "portfoliotheorie-20",
+   "art": "abgrenzung",
+   "aussage": "Bei ρ = +1 ist die Portfolio-Standardabweichung der gewichtete Durchschnitt der Einzelrisiken (kein Diversifikationseffekt); je kleiner ρ, desto stärker sinkt das Risiko; bei ρ = −1 lässt sich mit passenden Gewichten ein risikoloses Portfolio bilden.",
+   "schlagworte": [
+    "Korrelation",
+    "Diversifikationseffekt",
+    "perfekte Korrelation"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "portfoliotheorie-21",
+   "art": "formel",
+   "aussage": "Bei ρ = −1 ergibt sich die Varianz null für `w_1 = \\frac{\\sigma_2}{\\sigma_1 + \\sigma_2}`; Beispiel: `\\frac{30}{20+30} = 0{,}6`.",
+   "schlagworte": [
+    "Minimum-Varianz",
+    "negative Korrelation"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "portfoliotheorie-22",
+   "art": "abgrenzung",
+   "aussage": "Nach der Informationseffizienzhypothese (Fama) ist ein Kapitalmarkt bezüglich einer Informationsmenge effizient, wenn sich damit keine dauerhaften Überrenditen erzielen lassen; man unterscheidet die schwache, mittelstrenge und strenge Form.",
+   "schlagworte": [
+    "Informationseffizienz",
+    "Fama",
+    "Markteffizienz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Effizienz des Kapitalmarkts",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/effizienz-des-kapitalmarkts-36070",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-23",
+   "art": "formel",
+   "aussage": "Sharpe-Ratio: `SR = \\frac{\\mu_p - r_f}{\\sigma_p}` (Überschussrendite je Einheit Risiko); sie entspricht für effiziente Portfolios der Steigung der Kapitalmarktlinie.",
+   "schlagworte": [
+    "Sharpe-Ratio",
+    "Überschussrendite"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
   }
  ],
  "typische_fehler": [
@@ -124,6 +331,197 @@
    "falsch": "Diversifikation beseitigt jedes Risiko.",
    "richtig": "Diversifikation senkt das unsystematische Risiko; das systematische Marktrisiko bleibt, und bei perfekt positiver Korrelation entsteht kein Diversifikationseffekt.",
    "quelle_id": "portfoliotheorie-2"
+  },
+  {
+   "falsch": "Das Portfoliorisiko ist der gewichtete Durchschnitt der Einzelrisiken.",
+   "richtig": "Das gilt nur bei ρ = +1; bei ρ < 1 ist die Portfolio-Standardabweichung kleiner (Diversifikationseffekt).",
+   "quelle_id": "portfoliotheorie-20"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist die Portfoliotheorie?",
+   "varianten": [
+    "Portfoliotheorie Markowitz",
+    "Portfolio Selection Definition",
+    "moderne Portfoliotheorie einfach erklärt"
+   ],
+   "antwort": "Die Portfoliotheorie (Portfolio Selection) beschäftigt sich mit der optimalen Mischung riskanter Wertpapiere in einem Portfolio, also dem Wertpapierbestand eines Anlegers. Markowitz hat sie 1952 erstmals quantifiziert. Ihre Kernaussage: Verteilst du einen Betrag auf mehrere Wertpapiere statt auf eines, sinkt das Risiko, gemessen als Varianz der Rendite. Voraussetzung ist, dass die Renditen nicht perfekt positiv korreliert sind.",
+   "belege": [
+    "portfoliotheorie-1",
+    "portfoliotheorie-2",
+    "portfoliotheorie-9"
+   ]
+  },
+  {
+   "frage": "Warum senkt Diversifikation das Risiko?",
+   "varianten": [
+    "Diversifikationseffekt",
+    "Risikostreuung Portfolio",
+    "Warum nicht alles in eine Aktie?"
+   ],
+   "antwort": "Wenn sich Wertpapiere nicht im Gleichschritt bewegen, gleichen sich Schwankungen im Portfolio teilweise aus. Deshalb ist das Portfoliorisiko kleiner als der gewichtete Durchschnitt der Einzelrisiken, solange die Korrelation unter +1 liegt. Je kleiner die Korrelation, desto stärker der Effekt. Bei einer Korrelation von genau +1 gibt es keinen Diversifikationseffekt.",
+   "belege": [
+    "portfoliotheorie-2",
+    "portfoliotheorie-20"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich Rendite und Risiko eines Portfolios aus zwei Aktien?",
+   "varianten": [
+    "Portfoliorendite berechnen",
+    "Portfoliovarianz zwei Aktien",
+    "Portfoliorisiko Beispiel"
+   ],
+   "antwort": "Die erwartete Rendite ist der gewichtete Durchschnitt: \\( \\mu_p = w_1\\mu_1 + w_2\\mu_2 \\). Das Risiko berechnest du über \\( \\sigma_p^2 = w_1^2\\sigma_1^2 + w_2^2\\sigma_2^2 + 2w_1w_2\\rho\\sigma_1\\sigma_2 \\). Beispiel: je 50 % in A (6 %, σ = 20 %) und B (10 %, σ = 30 %) mit ρ = 0,2. Dann ist \\( \\mu_p = 8,00\\,\\% \\) und \\( \\sigma_p^2 = 0{,}01 + 0{,}0225 + 0{,}006 = 0{,}0385 \\), also \\( \\sigma_p \\approx 19,62\\,\\% \\). Das ist weniger als der gewichtete Durchschnitt von 25,00 %.",
+   "belege": [
+    "portfoliotheorie-7",
+    "portfoliotheorie-18",
+    "portfoliotheorie-19"
+   ]
+  },
+  {
+   "frage": "Welche Rolle spielt die Korrelation in der Portfoliotheorie?",
+   "varianten": [
+    "Korrelation Diversifikation",
+    "Korrelation minus 1",
+    "perfekt korrelierte Aktien"
+   ],
+   "antwort": "Der Korrelationskoeffizient misst den linearen Zusammenhang zweier Renditen und liegt zwischen −1 und +1. Bei ρ = +1 entspricht die Portfolio-Standardabweichung dem gewichteten Durchschnitt der Einzelrisiken, Diversifikation bringt also nichts. Je kleiner ρ, desto stärker sinkt das Risiko. Bei ρ = −1 kannst du mit passenden Gewichten sogar ein risikoloses Portfolio bilden.",
+   "belege": [
+    "portfoliotheorie-13",
+    "portfoliotheorie-20"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Kovarianz und Korrelation?",
+   "varianten": [
+    "Kovarianz vs Korrelationskoeffizient",
+    "Kovarianz Korrelation umrechnen",
+    "Kovarianz Bedeutung Portfolio"
+   ],
+   "antwort": "Beide messen den linearen Zusammenhang zweier Größen. Die Kovarianz \\( \\text{Cov}(X,Y) = E\\big((X-EX)(Y-EY)\\big) \\) kann beliebige Werte annehmen und ist daher schwer zu interpretieren. Der Korrelationskoeffizient normiert sie: \\( \\rho = \\frac{\\text{Cov}(X,Y)}{\\sigma_X\\sigma_Y} \\), und liegt immer zwischen −1 und +1. Beispiel: ρ = 0,2 mit σ = 20 % und 30 % entspricht einer Kovarianz von \\( 0{,}2 \\cdot 0{,}2 \\cdot 0{,}3 = 0,012 \\).",
+   "belege": [
+    "portfoliotheorie-12",
+    "portfoliotheorie-13"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Varianz und Standardabweichung?",
+   "varianten": [
+    "Varianz Standardabweichung Rendite",
+    "Risiko messen Portfolio",
+    "Volatilität Definition"
+   ],
+   "antwort": "Die Varianz \\( \\text{Var}(X) = E\\big((X-EX)^2\\big) \\) ist das gebräuchlichste Streuungsmaß und misst in der Portfoliotheorie das Risiko als Schwankung der Rendite. Die Standardabweichung ist die positive Wurzel daraus. Sie hat dieselbe Einheit wie die Renditen selbst, also Prozent, und ist deshalb leichter zu interpretieren. Beispiel: Eine Varianz von 0,04 entspricht einer Standardabweichung von 0,2, also 20 %.",
+   "belege": [
+    "portfoliotheorie-10",
+    "portfoliotheorie-11"
+   ]
+  },
+  {
+   "frage": "Was ist ein effizientes Portfolio?",
+   "varianten": [
+    "effiziente Portfolios Definition",
+    "Effizienzkurve Markowitz",
+    "μ-σ-Prinzip"
+   ],
+   "antwort": "Ein Portfolio ist effizient, wenn es bei gegebenem Risiko die höchste erwartete Rendite oder bei gegebener Rendite das geringste Risiko bietet (μ-σ-Prinzip). Alle effizienten Mischungen riskanter Wertpapiere bilden die Effizienzkurve. Nimmt man eine risikolose Anlage hinzu, ergibt sich die Kapitalmarktlinie. Ineffiziente Portfolios werden von einem anderen Portfolio mit gleicher Rendite und weniger Risiko geschlagen.",
+   "belege": [
+    "portfoliotheorie-8",
+    "portfoliotheorie-17"
+   ]
+  },
+  {
+   "frage": "Wie bilde ich bei perfekt negativer Korrelation ein risikoloses Portfolio?",
+   "varianten": [
+    "Minimum-Varianz-Portfolio",
+    "Korrelation minus eins Gewichte",
+    "risikoloses Portfolio zwei Aktien"
+   ],
+   "antwort": "Bei ρ = −1 bewegen sich die beiden Renditen exakt gegenläufig. Die Varianz wird null, wenn du \\( w_1 = \\frac{\\sigma_2}{\\sigma_1 + \\sigma_2} \\) wählst. Beispiel: σ₁ = 20 % und σ₂ = 30 % ergibt \\( w_1 = \\frac{30}{50} = 0,60 \\), also 60 % in Anlage 1 und 40 % in Anlage 2. Dann ist \\( \\sigma_p = 0{,}6 \\cdot 20\\,\\% - 0{,}4 \\cdot 30\\,\\% = 0 \\).",
+   "belege": [
+    "portfoliotheorie-21",
+    "portfoliotheorie-20"
+   ]
+  },
+  {
+   "frage": "Kann Diversifikation das gesamte Risiko beseitigen?",
+   "varianten": [
+    "Grenzen Diversifikation",
+    "systematisches Risiko bleibt",
+    "typischer Fehler Diversifikation"
+   ],
+   "antwort": "Nein, das ist ein typischer Fehler. Diversifikation senkt das Risiko, solange die Renditen nicht perfekt positiv korreliert sind. Wegdiversifizieren lässt sich aber nur das unsystematische, unternehmensspezifische Risiko. Das systematische Marktrisiko (Beta) bleibt bestehen, und nur dafür verlangt der Markt im CAPM eine Prämie.",
+   "belege": [
+    "portfoliotheorie-6",
+    "portfoliotheorie-2"
+   ]
+  },
+  {
+   "frage": "Wie hängen Portfoliotheorie und CAPM zusammen?",
+   "varianten": [
+    "Portfoliotheorie Grundlage CAPM",
+    "Markowitz und CAPM",
+    "von Markowitz zu Sharpe"
+   ],
+   "antwort": "Die Portfoliotheorie ist die Grundlage der Kapitalmarkttheorie und damit des CAPM. Das CAPM ergänzt sie um einen vollkommenen Kapitalmarkt mit risikoloser Anlage und homogenen Erwartungen. Daraus folgt, dass jedes effiziente Portfolio aus risikoloser Anlage und Marktportfolio besteht (Tobin-Separation). Relevant für die Rendite ist dann nur noch das systematische Risiko.",
+   "belege": [
+    "portfoliotheorie-3",
+    "portfoliotheorie-6"
+   ]
+  },
+  {
+   "frage": "Welche Grenzen hat die Portfoliotheorie in der Praxis?",
+   "varianten": [
+    "Kritik Portfoliotheorie",
+    "Probleme Markowitz-Modell",
+    "Schwächen Portfolio Selection"
+   ],
+   "antwort": "Für die Optimierung brauchst du Erwartungswerte, Varianzen und Kovarianzen der Renditen, und diese Schätzungen sind unsicher. Außerdem sagt das Modell nichts über den richtigen Zeitpunkt von Kauf und Verkauf. Der Grundgedanke der Risikoreduzierung durch Diversifikation ist trotzdem praktisch sehr bedeutsam.",
+   "belege": [
+    "portfoliotheorie-4"
+   ]
+  },
+  {
+   "frage": "Was ist die Sharpe-Ratio?",
+   "varianten": [
+    "Sharpe Ratio Formel",
+    "Sharpe-Ratio berechnen",
+    "Rendite pro Risikoeinheit"
+   ],
+   "antwort": "Die Sharpe-Ratio misst die Überschussrendite über den risikolosen Zins je Einheit Risiko: \\( SR = \\frac{\\mu_p - r_f}{\\sigma_p} \\). Beispiel: Ein Portfolio mit 8 % erwarteter Rendite und rund 19,62 % Standardabweichung hat bei \\( r_f = 2{,}5\\,\\% \\) eine Sharpe-Ratio von etwa 0,28. Für effiziente Portfolios entspricht sie der Steigung der Kapitalmarktlinie. Je höher die Sharpe-Ratio, desto mehr Rendite gibt es pro Risikoeinheit.",
+   "belege": [
+    "portfoliotheorie-23"
+   ]
+  },
+  {
+   "frage": "Welche Risikoeinstellungen unterscheidet man?",
+   "varianten": [
+    "Risikoaversion Risikoneutralität",
+    "risikoscheu risikofreudig",
+    "Risikoeinstellung Anleger"
+   ],
+   "antwort": "Ein risikoneutraler Anleger gewichtet positive und negative Abweichungen gleich und wählt einfach die Alternative mit dem höchsten Erwartungswert. Ein risikoscheuer Anleger gewichtet negative Abweichungen stärker und wählt bei gleichem Erwartungswert die risikoärmere Alternative. Ein risikofreudiger Anleger bevorzugt umgekehrt die risikoreichere. Die Portfoliotheorie geht von risikoscheuen Anlegern aus, wie sie am Kapitalmarkt überwiegen.",
+   "belege": [
+    "portfoliotheorie-16"
+   ]
+  },
+  {
+   "frage": "Wer hat die Portfoliotheorie entwickelt?",
+   "varianten": [
+    "Markowitz Nobelpreis",
+    "Begründer Portfoliotheorie",
+    "Markowitz Tobin Sharpe"
+   ],
+   "antwort": "Harry M. Markowitz hat die Theorie der optimalen Mischung von Risikopapieren 1952 erstmals quantifiziert. Er hat sie gemeinsam mit James Tobin zur Theorie der Portfolio Selection ausgebaut. Tobin erhielt 1981 den Nobelpreis, Markowitz 1990 zusammen mit Miller und Sharpe. Die Portfoliotheorie wurde später zur Grundlage der Kapitalmarkttheorie und des CAPM.",
+   "belege": [
+    "portfoliotheorie-1",
+    "portfoliotheorie-5",
+    "portfoliotheorie-14",
+    "portfoliotheorie-15",
+    "portfoliotheorie-3"
+   ]
   }
  ]
 }

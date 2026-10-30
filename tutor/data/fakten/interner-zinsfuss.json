@@ -48,7 +48,7 @@
   {
    "id": "interner-zinsfuss-4",
    "art": "methode",
-   "aussage": "Bei mehr als zwei Zahlungsreihen-Vorzeichenwechseln kann die Gleichung mehrere Lösungen haben; die Näherung erfolgt meist durch lineare Interpolation: r \\approx i_1 - C_1 \\cdot \\frac{i_2 - i_1}{C_2 - C_1}.",
+   "aussage": "Bei mehr als einem Vorzeichenwechsel der Zahlungsreihe kann die Kapitalwertgleichung mehrere Lösungen haben; berechnet wird der interne Zinsfuß meist näherungsweise durch lineare Interpolation zwischen zwei Versuchszinssätzen: `r \\approx i_1 - KW_1 \\cdot \\frac{i_2 - i_1}{KW_2 - KW_1}`.",
    "schlagworte": [
     "Interpolation",
     "Mehrfachlösungen"
@@ -85,6 +85,199 @@
     "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulationszinssatz-39911",
     "typ": "lexikon"
    }
+  },
+  {
+   "id": "interner-zinsfuss-7",
+   "art": "definition",
+   "aussage": "Die Effektivverzinsung eines Darlehens entspricht dem internen Zinsfuß der Kreditzahlungsreihe; sie weicht vom Nominalzins ab, wenn z. B. ein Disagio vereinbart ist.",
+   "schlagworte": [
+    "Effektivzins",
+    "Disagio",
+    "Kredit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zinsfuß",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zinsfuss-50016",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-8",
+   "art": "abgrenzung",
+   "aussage": "Der interne Zinsfuß ist eine relative Zielgröße in Prozent, während Kapitalwert, Annuität und dynamische Amortisationsdauer absolute Zielgrößen sind.",
+   "schlagworte": [
+    "relative Zielgröße",
+    "Prozent"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-9",
+   "art": "abgrenzung",
+   "aussage": "Die klassische interne Zinsfußmethode unterstellt eine problematische implizite Wiederanlageprämisse; die modifizierte Methode ersetzt sie durch eine realitätsnähere, z. B. Anlage zur durchschnittlichen Unternehmensrentabilität.",
+   "schlagworte": [
+    "Wiederanlageprämisse",
+    "modifizierter interner Zinsfuß",
+    "MIRR"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-10",
+   "art": "definition",
+   "aussage": "Lineare Interpolation ermittelt einen unbekannten Funktionswert näherungsweise aus bekannten Werten an benachbarten Stellen und unterstellt, dass die Funktion im betrachteten Bereich nahezu linear verläuft.",
+   "schlagworte": [
+    "Interpolation",
+    "Näherung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Interpolation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/interpolation-41549",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-11",
+   "art": "formel",
+   "aussage": "Interpolationsformel (Regula falsi) mit zwei Versuchszinssätzen `i_1` (Kapitalwert `KW_1 > 0`) und `i_2` (Kapitalwert `KW_2 < 0`): `r \\approx i_1 - KW_1 \\cdot \\frac{i_2 - i_1}{KW_2 - KW_1}`.",
+   "schlagworte": [
+    "Interpolationsformel",
+    "Regula falsi",
+    "Versuchszinssatz"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-12",
+   "art": "methode",
+   "aussage": "In der Sensitivitätsanalyse ist der interne Zinsfuß ein kritischer Wert: Er ist der Zinssatz, ab dem das Projekt unvorteilhaft wird.",
+   "schlagworte": [
+    "kritischer Wert",
+    "Sensitivitätsanalyse"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kritischer Wert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kritischer-wert-40379",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-13",
+   "art": "formel",
+   "aussage": "Einperiodige Investition (Auszahlung `I_0`, Rückfluss `C_1`): `r = \\frac{C_1}{I_0} - 1`.",
+   "schlagworte": [
+    "einperiodig",
+    "Rendite"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-14",
+   "art": "formel",
+   "aussage": "Bei einer unendlich laufenden konstanten Zahlung C (ewige Rente) gilt `r = \\frac{C}{I_0}`.",
+   "schlagworte": [
+    "ewige Rente",
+    "Rendite"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-15",
+   "art": "methode",
+   "aussage": "Hat die Zahlungsreihe nur einen Vorzeichenwechsel (Normalinvestition: erst Auszahlung, dann nur Einzahlungen) und ist die Summe der Einzahlungen größer als die Auszahlung, gibt es genau einen positiven internen Zinsfuß; mehrere Lösungen sind erst bei mehr als einem Vorzeichenwechsel möglich.",
+   "schlagworte": [
+    "Normalinvestition",
+    "Vorzeichenwechsel",
+    "Eindeutigkeit"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-16",
+   "art": "abgrenzung",
+   "aussage": "Bei sich gegenseitig ausschließenden Projekten können interner Zinsfuß und Kapitalwert zu unterschiedlichen Rangfolgen führen, etwa bei unterschiedlichem Kapitaleinsatz oder zeitlichem Verlauf der Rückflüsse.",
+   "schlagworte": [
+    "Rangfolgekonflikt",
+    "Kapitalwert"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-17",
+   "art": "formel",
+   "aussage": "Bei konstanten jährlichen Rückflüssen C ohne Restwert ist der interne Zinsfuß der Zinssatz r mit `RBF(r,n) = \\frac{I_0}{C}`.",
+   "schlagworte": [
+    "Rentenbarwertfaktor",
+    "konstante Rückflüsse"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-18",
+   "art": "methode",
+   "aussage": "Kapitalwertmethode und interne Zinsfußmethode sind die in der Praxis am häufigsten genutzten dynamischen Verfahren.",
+   "schlagworte": [
+    "Praxis",
+    "dynamische Verfahren"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-19",
+   "art": "abgrenzung",
+   "aussage": "Bei einer Normalinvestition sinkt der Kapitalwert mit steigendem Kalkulationszinssatz; der interne Zinsfuß ist die Nullstelle dieser Kapitalwertfunktion.",
+   "schlagworte": [
+    "Kapitalwertfunktion",
+    "Nullstelle"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-20",
+   "art": "definition",
+   "aussage": "Der Kalkulationszinssatz wird nach dem Opportunitätskostenprinzip aus der besten alternativen Anlagemöglichkeit des Investors abgeleitet.",
+   "schlagworte": [
+    "Kalkulationszinssatz",
+    "Opportunitätskosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kalkulationszinssatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulationszinssatz-39911",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -97,6 +290,165 @@
    "falsch": "Der interne Zinsfuß ist der Kalkulationszinssatz.",
    "richtig": "Der Kalkulationszinssatz ist vorgegeben, der interne Zinsfuß wird errechnet.",
    "quelle_id": "interner-zinsfuss-6"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist der interne Zinsfuß?",
+   "varianten": [
+    "interner Zinsfuß Definition",
+    "IRR Bedeutung",
+    "Was ist IZF"
+   ],
+   "antwort": "Der interne Zinsfuß ist die Verzinsung des Kapitals, das in einer Investition gebunden ist, also ihre Rendite. Bei Finanzierungen entspricht er der Effektivverzinsung. Rechnerisch ist er der Zinssatz, bei dem der Kapitalwert genau null ist. Dann ist der Barwert der Einzahlungen gleich dem Barwert der Auszahlungen.",
+   "belege": [
+    "interner-zinsfuss-1",
+    "interner-zinsfuss-2"
+   ]
+  },
+  {
+   "frage": "Wann ist eine Investition nach der internen Zinsfußmethode vorteilhaft?",
+   "varianten": [
+    "Entscheidungsregel interner Zinsfuß",
+    "IZF größer Kalkulationszins",
+    "IRR Entscheidung"
+   ],
+   "antwort": "Eine Investition ist vorteilhaft, wenn ihr interner Zinsfuß über dem Kalkulationszinssatz liegt. Den Kalkulationszinssatz gibst du als Mindestverzinsung vor, abgeleitet aus der besten Alternativanlage. Den internen Zinsfuß rechnest du aus und vergleichst ihn damit.",
+   "belege": [
+    "interner-zinsfuss-3",
+    "interner-zinsfuss-6",
+    "interner-zinsfuss-20"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den internen Zinsfuß bei nur einer Periode?",
+   "varianten": [
+    "interner Zinsfuß einfach berechnen",
+    "IZF eine Periode",
+    "Rendite eine Periode"
+   ],
+   "antwort": "Bei einer Auszahlung \\( I_0 \\) heute und einem Rückfluss \\( C_1 \\) nach einem Jahr gilt \\( r = \\frac{C_1}{I_0} - 1 \\). Beispiel: Du investierst 1.000 € und bekommst nach einem Jahr 1.100 € zurück. Dann ist \\( r = \\frac{1.100}{1.000} - 1 = 10\\,\\% \\). Probe: \\( -1.000 + \\frac{1.100}{1{,}1} = 0 \\).",
+   "belege": [
+    "interner-zinsfuss-13",
+    "interner-zinsfuss-2"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den internen Zinsfuß mit Interpolation?",
+   "varianten": [
+    "interner Zinsfuß Interpolation",
+    "Regula falsi interner Zinsfuß",
+    "IZF Näherung zwei Zinssätze"
+   ],
+   "antwort": "Du rechnest den Kapitalwert für zwei Versuchszinssätze, einen mit positivem und einen mit negativem Kapitalwert, und interpolierst linear: \\( r \\approx i_1 - KW_1 \\cdot \\frac{i_2 - i_1}{KW_2 - KW_1} \\). Beispiel: Investition 100.000 €, 5 Jahre lang 30.000 €. Bei 15 % beträgt der Kapitalwert rund 564,65 €, bei 16 % rund −1.771,19 €. Das ergibt \\( r \\approx 0{,}15 - 564{,}65 \\cdot \\frac{0{,}01}{-1.771{,}19 - 564{,}65} \\approx 15{,}24\\,\\% \\). Liegen die Versuchszinssätze weit auseinander (z. B. 10 % und 20 %), wird die Näherung ungenauer (hier rund 15,72 %), weil die Kapitalwertfunktion nicht linear ist.",
+   "belege": [
+    "interner-zinsfuss-4",
+    "interner-zinsfuss-10",
+    "interner-zinsfuss-11"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen internem Zinsfuß und Kalkulationszinssatz?",
+   "varianten": [
+    "interner Zinsfuß vs Kalkulationszins",
+    "IZF Kalkulationszinssatz Unterschied",
+    "Mindestverzinsung interner Zinsfuß"
+   ],
+   "antwort": "Der Kalkulationszinssatz ist eine Vorgabe, nämlich die geforderte Mindestverzinsung aus der besten Alternativanlage. Der interne Zinsfuß ist ein Rechenergebnis, nämlich die tatsächliche Rendite des Projekts. Für die Entscheidung vergleichst du beide. Ein typischer Fehler ist, die beiden gleichzusetzen.",
+   "belege": [
+    "interner-zinsfuss-6",
+    "interner-zinsfuss-20"
+   ]
+  },
+  {
+   "frage": "Können interner Zinsfuß und Kapitalwert zu unterschiedlichen Entscheidungen führen?",
+   "varianten": [
+    "Konflikt Kapitalwert interner Zinsfuß",
+    "höchster IZF wählen?",
+    "IRR vs NPV Rangfolge"
+   ],
+   "antwort": "Bei der Frage, ob ein einzelnes Projekt vorteilhaft ist, kommen beide meist zum selben Ergebnis. Bei sich ausschließenden Alternativen kann die Rangfolge aber abweichen, etwa bei unterschiedlichem Kapitaleinsatz oder Zahlungsverlauf. Der interne Zinsfuß ist eine relative Größe in Prozent und blendet das Investitionsvolumen aus. Außerdem steckt in ihm eine problematische Wiederanlageannahme.",
+   "belege": [
+    "interner-zinsfuss-8",
+    "interner-zinsfuss-9",
+    "interner-zinsfuss-16"
+   ]
+  },
+  {
+   "frage": "Was ist die Wiederanlageprämisse und was macht der modifizierte interne Zinsfuß?",
+   "varianten": [
+    "Wiederanlageprämisse interner Zinsfuß",
+    "modifizierter interner Zinsfuß",
+    "MIRR erklärt"
+   ],
+   "antwort": "Die klassische interne Zinsfußmethode unterstellt implizit, dass Rückflüsse zu einem unrealistischen Zinssatz wieder angelegt werden. Die modifizierte interne Zinsfußmethode ersetzt diese Annahme durch eine realitätsnähere, z. B. eine Anlage zur durchschnittlichen Unternehmensrentabilität. Auch sie liefert eine Rendite in Prozent.",
+   "belege": [
+    "interner-zinsfuss-5",
+    "interner-zinsfuss-9"
+   ]
+  },
+  {
+   "frage": "Kann es mehrere interne Zinsfüße geben?",
+   "varianten": [
+    "mehrere interne Zinsfüße",
+    "interner Zinsfuß nicht eindeutig",
+    "Vorzeichenwechsel Zahlungsreihe"
+   ],
+   "antwort": "Bei einer Normalinvestition gibt es nur einen Vorzeichenwechsel: erst eine Auszahlung, danach nur Einzahlungen. Übersteigt dann die Summe der Einzahlungen die Auszahlung, gibt es genau einen positiven internen Zinsfuß. Wechselt das Vorzeichen der Zahlungsreihe mehrmals, z. B. durch hohe Auszahlungen am Ende, kann die Gleichung mehrere Lösungen oder keine haben. Dann ist der interne Zinsfuß nicht sinnvoll interpretierbar.",
+   "belege": [
+    "interner-zinsfuss-15"
+   ]
+  },
+  {
+   "frage": "Was hat der interne Zinsfuß mit dem Effektivzins zu tun?",
+   "varianten": [
+    "Effektivzins interner Zinsfuß",
+    "Disagio Effektivzins",
+    "Kredit interner Zinsfuß"
+   ],
+   "antwort": "Bei Finanzierungen gibt der interne Zinsfuß die Effektivverzinsung an. Der Effektivzins eines Darlehens ist der interne Zinsfuß der Kreditzahlungsreihe. Er weicht vom Nominalzins ab, wenn z. B. ein Disagio vereinbart ist, weil dann weniger ausgezahlt als zurückgezahlt wird.",
+   "belege": [
+    "interner-zinsfuss-1",
+    "interner-zinsfuss-7"
+   ]
+  },
+  {
+   "frage": "Wie finde ich den internen Zinsfuß bei gleichbleibenden Rückflüssen?",
+   "varianten": [
+    "interner Zinsfuß Rentenbarwertfaktor",
+    "IZF konstante Rückflüsse",
+    "IZF Tabelle ablesen"
+   ],
+   "antwort": "Bei konstanten Rückflüssen C ohne Restwert suchst du den Zinssatz, bei dem \\( RBF(r,n) = \\frac{I_0}{C} \\) gilt. Beispiel: 100.000 € Investition, 5 Jahre lang 30.000 €. Gesucht ist ein RBF von \\( \\frac{100.000}{30.000} \\approx 3{,}3333 \\). Es gilt \\( RBF(15\\,\\%,5) \\approx 3{,}3522 \\) und \\( RBF(16\\,\\%,5) \\approx 3{,}2743 \\), der interne Zinsfuß liegt also zwischen 15 % und 16 %, genauer bei rund 15,24 %.",
+   "belege": [
+    "interner-zinsfuss-17",
+    "interner-zinsfuss-11"
+   ]
+  },
+  {
+   "frage": "Warum gilt der interne Zinsfuß als kritischer Wert?",
+   "varianten": [
+    "interner Zinsfuß kritischer Zins",
+    "IZF Sensitivitätsanalyse",
+    "Grenzzins Investition"
+   ],
+   "antwort": "Bei einer Normalinvestition sinkt der Kapitalwert, wenn der Zinssatz steigt. Der interne Zinsfuß ist genau der Zinssatz, bei dem der Kapitalwert null wird. Liegt der Kalkulationszinssatz darüber, wird das Projekt unvorteilhaft. Deshalb ist der interne Zinsfuß in der Sensitivitätsanalyse der kritische Wert für den Zinssatz.",
+   "belege": [
+    "interner-zinsfuss-12",
+    "interner-zinsfuss-19"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den internen Zinsfuß einer ewigen Rente?",
+   "varianten": [
+    "interner Zinsfuß ewige Rente",
+    "Rendite unendliche Zahlung",
+    "IZF Perpetuität"
+   ],
+   "antwort": "Bei einer konstanten Zahlung C ohne Ende gilt \\( r = \\frac{C}{I_0} \\), weil der Barwert einer ewigen Rente \\( \\frac{C}{r} \\) ist. Beispiel: Du zahlst heute 50.000 € und erhältst dafür dauerhaft 4.000 € pro Jahr. Dann ist \\( r = \\frac{4.000}{50.000} = 8\\,\\% \\).",
+   "belege": [
+    "interner-zinsfuss-14"
+   ]
   }
  ]
 }

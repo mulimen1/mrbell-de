@@ -1,16 +1,26 @@
 // Antwort-Bibliothek: geprüfte Antworten auf typische Fragen (aus der Faktendatenbank, Feld „fragen“).
 // Passt eine Frage sicher zu einer gespeicherten Frage, antwortet Max direkt daraus – ohne KI-Aufruf, mit Siegel und Quellen.
 // Lieber kein Treffer als ein falscher: strenge Schwelle, keine eigenen Zahlen, keine Rückbezüge auf das Gespräch.
-import { themenFuer, themaDaten } from './faktendb.js';
+import { themaDaten } from './faktendb.js';
+let FR = null;   // Fragen-Index (tutor/data/fakten/_fragen.json), einmal geladen und vorbereitet
+async function fragenIndex() {
+  if (FR) return FR;
+  FR = fetch('/tutor/data/fakten/_fragen.json').then(r => (r.ok ? r.json() : [])).then(a => a.map(([t, i, f, v]) => ({ t, i, f, k: [f, ...(v || [])].map(toks) }))).catch(() => []);
+  return FR;
+}
 
-const STOP = new Set('a ab aber alle als also am an auch auf aus bei beim bin bis bitte bzw da damit dann das dass dem den der des die dir doch du durch ein eine einem einen einer eines er erklär erkläre erklären erklärt es etwa für gibt habe hat hier ich ihr im in ist ja kann kannst kurz man mal mich mir mit muss nach noch nur ob oder sich sie sind so soll sollte über um und uns von vor was welche welcher welches wenn wer werden wie wird wo zu zum zur genau einfach eigentlich bedeutet heißt meint versteht definiert definition erklärung frage bwl max'.split(' '));
+const STOP = new Set('a ab aber alle als also am an auch auf aus bei beim bin bis bitte bzw da damit dann das dass dem den der des die dir doch du durch ein eine einem einen einer eines er erklär erkläre erklären erklärt es etwa für gibt habe hat hier ich ihr im in ist ja kann kannst kurz man mal mich mir mit muss nach noch nur ob oder sich sie sind so soll sollte über um und uns von vor was welche welcher welches wenn wer werden wie wird wo zu zum zur genau einfach eigentlich bedeutet heißt meint versteht definiert definition erklärung frage bwl max funktioniert funktionieren läuft ab'.split(' '));
 const stem = w => w.length > 5 ? w.replace(/(ungen|ung|en|er|es|e|n|s)$/, '') : w;
 const toks = s => new Set(String(s || '').toLowerCase().replace(/\\\(|\\\)|<[^>]+>/g, ' ').replace(/[^a-zäöüß0-9 ]+/g, ' ').split(/\s+/).filter(w => w.length > 1 && !STOP.has(w)).map(stem));
 const RUECKBEZUG = /^(und|aber|also|ok|okay|nochmal|noch mal)\b|\b(das|dies|dazu|davon|oben|vorhin|eben|deine?r?|einfacher|anders|nochmal|genauer|weiter)\b.{0,12}$|^(warum|wieso) (das|so)\b/i;
 const AKTION = /\b(tafel|zeig|mal mir|quiz|karte|karteikarten|übung|aufgabe|beispiel mit|rechne|berechne mir|mein|meine|unser|skript|folie|podcast|lernzettel|klausur am)\b/i;
 
+// Frage-Absicht muss übereinstimmen: „Wie berechne ich X?“ ist nicht „Was ist X?“, „Unterschied X/Y“ nicht „Was ist X?“
+const ABSICHT = ['berechn', 'rechn', 'unterschied', 'vs', 'warum', 'wieso', 'wann', 'vorteil', 'nachteil', 'beispiel', 'formel', 'schritt', 'fehler', 'grenz', 'ziel'];
+const absicht = set => ABSICHT.filter(a => [...set].some(w => w.startsWith(a))).join(',');
 function score(q, c) {
   if (!c.size || !q.size) return 0;
+  if (absicht(q) !== absicht(c)) return 0;
   let n = 0; for (const w of c) if (q.has(w)) n++;
   const deckC = n / c.size, deckQ = n / q.size;
   return deckC >= 0.8 && deckQ >= 0.7 ? (deckC + deckQ) / 2 : 0;
@@ -26,18 +36,15 @@ export async function bibTreffer(text, { verlauf = 0 } = {}) {
   const q = toks(t); if (q.size < 1 || q.size > 12) return null;
   const zahlen = (t.match(/\d+(?:[.,]\d+)?/g) || []).filter(z => !/^(19|20)\d\d$/.test(z) && !/^\d$/.test(z));
   let best = null;
-  for (const slug of await themenFuer(t, 3)) {
-    const d = await themaDaten(slug); if (!d || !Array.isArray(d.fragen)) continue;
-    for (const f of d.fragen) {
-      // eigene Zahlen in der Frage? Dann nur, wenn die gespeicherte Frage genau diese Zahlen hat
-      if (zahlen.length && !zahlen.every(z => String(f.frage).includes(z))) continue;
-      for (const c of [f.frage, ...(f.varianten || [])]) {
-        const s = score(q, toks(c));
-        if (s && (!best || s > best.s)) best = { s, f, d };
-      }
-    }
+  for (const e of await fragenIndex()) {
+    // eigene Zahlen in der Frage? Dann nur, wenn die gespeicherte Frage genau diese Zahlen hat
+    if (zahlen.length && !zahlen.every(z => e.f.includes(z))) continue;
+    for (const c of e.k) { const sc = score(q, c); if (sc && (!best || sc > best.s)) best = { s: sc, e }; }
   }
   if (!best || best.s < 0.82) return null;
+  const d = await themaDaten(best.e.t); const f = d && d.fragen && d.fragen[best.e.i];
+  if (!f || f.frage !== best.e.f) return null;
+  best = { s: best.s, f, d };
   const ids = new Set(best.f.belege || []);
   const belege = (best.d.aussagen || []).filter(a => ids.has(a.id)).map(a => ({ id: a.id, thema: best.d.name, aussage: a.aussage, quelle: a.quelle || {} }));
   if (!belege.length) return null;

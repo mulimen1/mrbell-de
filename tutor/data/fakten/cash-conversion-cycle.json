@@ -85,6 +85,229 @@
     "url": "https://wirtschaftslexikon.gabler.de/definition/lieferantenkredit-37077/version-179997",
     "typ": "lexikon"
    }
+  },
+  {
+   "id": "cash-conversion-cycle-7",
+   "art": "definition",
+   "aussage": "Die Umschlagsdauer ist die Zeitspanne von der Verfügbarkeit eines Produkts bis zur Umsatzerzielung; bei einem Jahr als Berechnungszeitraum und einer Umschlagshäufigkeit von 3 beträgt sie 365 : 3 = 121,67 Tage.",
+   "schlagworte": [
+    "Umschlagsdauer",
+    "Beispiel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Umschlagsdauer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/umschlagsdauer-48354",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-8",
+   "art": "formel",
+   "aussage": "Die Umschlagshäufigkeit gibt an, wie oft das Lager in einer Periode umgesetzt wird: `\\text{Umschlagshäufigkeit} = \\frac{\\text{Wareneinsatz}}{\\text{durchschnittlicher Lagerbestand}}`; ihr Kehrwert zeigt, wie lange die Ware durchschnittlich lagert.",
+   "schlagworte": [
+    "Umschlagshäufigkeit",
+    "Lagerumschlag"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Umschlagshäufigkeit",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/umschlagshaeufigkeit-48647",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-9",
+   "art": "definition",
+   "aussage": "Die Lagerdauer ist die Zeit, die eine Ware oder ein Material durchschnittlich von der Einlagerung bis zur Entnahme im Lager bleibt; sie kann produktionsbedingt oder marktbedingt (z. B. Saisongeschäft) sein.",
+   "schlagworte": [
+    "Lagerdauer",
+    "DIO"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lagerdauer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lagerdauer-41759",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-10",
+   "art": "abgrenzung",
+   "aussage": "Der Lagerumschlag (bewerteter Absatz bzw. Lagerabgang im Verhältnis zum durchschnittlichen Lagerbestand) ist wichtig wegen der mit der Lagerhaltung verbundenen Kapitalbindungs- und Lagerhaltungskosten.",
+   "schlagworte": [
+    "Lagerumschlag",
+    "Kapitalbindung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lagerumschlag",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lagerumschlag-41210",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-11",
+   "art": "methode",
+   "aussage": "Umschlagskennzahlen bestehen immer aus einer Abgangs- bzw. Verbrauchszahl und einer Bestandszahl; sie gibt es für Lager aller Art ebenso wie für den Kapitalumschlag.",
+   "schlagworte": [
+    "Umschlagskennzahlen",
+    "Bestandsgröße",
+    "Stromgröße"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Umschlagskennzahlen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/umschlagskennzahlen-48702",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-12",
+   "art": "formel",
+   "aussage": "Durchschnittlicher Bestand (vereinfacht): `\\bar{B} = \\frac{\\text{Anfangsbestand} + \\text{Endbestand}}{2}`, z. B. `\\frac{90.000 + 110.000}{2} = 100.000`.",
+   "schlagworte": [
+    "Durchschnittsbestand"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-13",
+   "art": "formel",
+   "aussage": "Zusammenhang von Umschlagshäufigkeit und Dauer: `\\text{DIO} = \\frac{365}{\\text{Umschlagshäufigkeit}}`; analog gilt für Forderungen `\\text{DSO} = \\frac{365}{\\text{Umsatz}/\\text{Ø Forderungen}}`.",
+   "schlagworte": [
+    "DIO",
+    "Umschlagshäufigkeit",
+    "DSO"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-14",
+   "art": "formel",
+   "aussage": "Beispiel: DIO 45 Tage, DSO 30 Tage, DPO 20 Tage ergeben `\\text{CCC} = 45 + 30 - 20 = 55` Tage.",
+   "schlagworte": [
+    "Beispiel",
+    "CCC"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-15",
+   "art": "abgrenzung",
+   "aussage": "Der operative Zyklus (Operating Cycle) umfasst Lagerdauer plus Forderungslaufzeit (DIO + DSO); der Cash Conversion Cycle zieht davon die Lieferantenzieldauer ab: `\\text{CCC} = \\text{Operating Cycle} - \\text{DPO}`.",
+   "schlagworte": [
+    "Operating Cycle",
+    "operativer Zyklus"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-16",
+   "art": "definition",
+   "aussage": "Debitoren sind Kunden, die Waren auf Kredit beziehen; die Ansprüche gegen sie werden als Forderungen aus Lieferungen und Leistungen im Umlaufvermögen aktiviert.",
+   "schlagworte": [
+    "Debitoren",
+    "Forderungen LuL"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Debitoren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/debitoren-27020",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-17",
+   "art": "definition",
+   "aussage": "Kreditoren im engeren Sinn sind Gläubiger aus auf Kredit bezogenen Waren (Lieferanten), im weiteren Sinn Gläubiger aller Art.",
+   "schlagworte": [
+    "Kreditoren",
+    "Lieferanten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kreditoren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kreditoren-39461",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-18",
+   "art": "gesetz",
+   "aussage": "§ 271a Abs. 1 BGB: Eine Vereinbarung, nach der der Gläubiger die Zahlung erst mehr als 60 Tage nach Empfang der Gegenleistung (bzw. Rechnungszugang) verlangen kann, ist nur wirksam, wenn sie ausdrücklich getroffen und für den Gläubiger nicht grob unbillig ist; gegenüber Verbrauchern als Schuldnern gilt dies nicht (Abs. 5).",
+   "schlagworte": [
+    "Zahlungsfrist",
+    "60 Tage",
+    "Zahlungsziel"
+   ],
+   "quelle": {
+    "name": "BGB § 271a",
+    "url": "https://www.gesetze-im-internet.de/bgb/__271a.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-19",
+   "art": "gesetz",
+   "aussage": "§ 286 Abs. 3 BGB: Der Schuldner einer Entgeltforderung kommt spätestens in Verzug, wenn er nicht innerhalb von 30 Tagen nach Fälligkeit und Zugang einer Rechnung leistet (gegenüber Verbrauchern nur bei entsprechendem Hinweis in der Rechnung).",
+   "schlagworte": [
+    "Verzug",
+    "30 Tage"
+   ],
+   "quelle": {
+    "name": "BGB § 286",
+    "url": "https://www.gesetze-im-internet.de/bgb/__286.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-20",
+   "art": "abgrenzung",
+   "aussage": "Ein vom Lieferanten bei seinem Kunden in Anspruch genommener Kredit (Kundenanzahlung) ist Passivfinanzierung: Er dient der Vorfinanzierung von Aufträgen, z. B. für hochwertige Spezialobjekte.",
+   "schlagworte": [
+    "Kundenanzahlung",
+    "Vorfinanzierung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kundenkredit",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kundenkredit-40278",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-21",
+   "art": "abgrenzung",
+   "aussage": "Beim Factoring stellt der Factor dem Forderungsverkäufer den Gegenwert unmittelbar nach Entstehung der Forderung zur Verfügung; so kann der Verkäufer seinen Abnehmern Zahlungsziele gewähren, ohne selbst auf den Zahlungseingang warten zu müssen.",
+   "schlagworte": [
+    "Factoring",
+    "Forderungen",
+    "Liquidität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Factoring",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/factoring-33147",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-22",
+   "art": "abgrenzung",
+   "aussage": "Wirtschaftlich ist Skonto der Preis für die Kreditnutzung bzw. Vorfinanzierung, die dem Abnehmer mit dem Zahlungsziel eingeräumt wird; er enthält anteilige Zins- und Verwaltungskosten sowie eine Prämie für das Kreditrisiko.",
+   "schlagworte": [
+    "Skonto",
+    "Zahlungsziel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Skonto",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/skonto-46462",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -92,6 +315,174 @@
    "falsch": "Ein längeres Lieferantenziel (DPO) verlängert den Cash Conversion Cycle.",
    "richtig": "Es verkürzt ihn, da DPO abgezogen wird.",
    "quelle_id": "cash-conversion-cycle-1"
+  },
+  {
+   "falsch": "Die Lagerdauer berechnet man als Wareneinsatz geteilt durch durchschnittlichen Lagerbestand.",
+   "richtig": "Das ist die Umschlagshäufigkeit; die Lagerdauer ist 365 geteilt durch die Umschlagshäufigkeit.",
+   "quelle_id": "cash-conversion-cycle-13"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist der Cash Conversion Cycle?",
+   "varianten": [
+    "Cash Conversion Cycle Definition",
+    "Geldumschlagsdauer",
+    "CCC einfach erklärt"
+   ],
+   "antwort": "Der Cash Conversion Cycle (CCC, Geldumschlagsdauer) misst in Tagen, wie lange zwischen der Bezahlung der Lieferanten und dem Zahlungseingang vom Kunden vergeht. Diese Zeitspanne muss das Unternehmen selbst finanzieren. Er setzt sich aus Lagerdauer (DIO) plus Forderungslaufzeit (DSO) minus Lieferantenziel (DPO) zusammen. Ein kürzerer Zyklus bedeutet weniger Kapitalbindung, und er kann sogar negativ werden.",
+   "belege": [
+    "cash-conversion-cycle-1",
+    "cash-conversion-cycle-5"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Cash Conversion Cycle?",
+   "varianten": [
+    "CCC Formel",
+    "Cash Conversion Cycle Beispiel",
+    "DIO DSO DPO berechnen"
+   ],
+   "antwort": "Die Formel lautet \\( \\text{CCC} = \\text{DIO} + \\text{DSO} - \\text{DPO} \\). Beispiel: Die Ware liegt durchschnittlich 45 Tage im Lager, Kunden zahlen nach 30 Tagen, und du zahlst deine Lieferanten nach 20 Tagen. Dann ist \\( \\text{CCC} = 45 + 30 - 20 = 55 \\) Tage. In dieser Zeit ist dein Geld im Umlaufvermögen gebunden.",
+   "belege": [
+    "cash-conversion-cycle-1",
+    "cash-conversion-cycle-14"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Lagerdauer (DIO)?",
+   "varianten": [
+    "Days Inventory Outstanding",
+    "Lagerdauer Formel",
+    "Lagerdauer aus Umschlagshäufigkeit"
+   ],
+   "antwort": "Du rechnest \\( \\text{DIO} = \\frac{\\text{Ø Vorratsbestand}}{\\text{Wareneinsatz}} \\cdot 365 \\). Beispiel: Wareneinsatz 730.000 €, durchschnittlicher Vorratsbestand 100.000 €. Die Umschlagshäufigkeit ist dann \\( \\frac{730.000}{100.000} = 7,30 \\), und die Lagerdauer \\( \\frac{365}{7,30} = 50,00 \\) Tage. Beide Wege führen zum selben Ergebnis, weil die Lagerdauer der Kehrwert der Umschlagshäufigkeit mal 365 ist.",
+   "belege": [
+    "cash-conversion-cycle-2",
+    "cash-conversion-cycle-8",
+    "cash-conversion-cycle-13"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Forderungslaufzeit (DSO)?",
+   "varianten": [
+    "Days Sales Outstanding",
+    "Debitorenlaufzeit berechnen",
+    "Kundenziel in Tagen"
+   ],
+   "antwort": "Die Forderungslaufzeit lautet \\( \\text{DSO} = \\frac{\\text{Ø Forderungen LuL}}{\\text{Umsatz}} \\cdot 365 \\). Beispiel: Umsatz 1.095.000 € und durchschnittliche Forderungen aus Lieferungen und Leistungen 90.000 € ergeben \\( \\frac{90.000}{1.095.000} \\cdot 365 = 30,00 \\) Tage. Im Schnitt dauert es also 30 Tage, bis deine Kunden (Debitoren) zahlen.",
+   "belege": [
+    "cash-conversion-cycle-3",
+    "cash-conversion-cycle-16"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich das Lieferantenziel (DPO)?",
+   "varianten": [
+    "Days Payables Outstanding",
+    "Kreditorenlaufzeit",
+    "Lieferantenziel in Tagen"
+   ],
+   "antwort": "Du rechnest \\( \\text{DPO} = \\frac{\\text{Ø Verbindlichkeiten LuL}}{\\text{Wareneinsatz}} \\cdot 365 \\). Beispiel: Durchschnittliche Verbindlichkeiten aus Lieferungen und Leistungen von 60.000 € bei einem Wareneinsatz von 730.000 € ergeben \\( \\frac{60.000}{730.000} \\cdot 365 = 30,00 \\) Tage. So lange finanzieren deine Lieferanten (Kreditoren) im Schnitt deine Einkäufe.",
+   "belege": [
+    "cash-conversion-cycle-4",
+    "cash-conversion-cycle-17"
+   ]
+  },
+  {
+   "frage": "Welchen Bestand nehme ich für DIO, DSO und DPO?",
+   "varianten": [
+    "Durchschnittsbestand berechnen",
+    "Anfangsbestand Endbestand Durchschnitt",
+    "Bestandsgröße Umschlagskennzahl"
+   ],
+   "antwort": "Umschlagskennzahlen setzen immer eine Strömungsgröße (Abgang, Verbrauch, Umsatz) ins Verhältnis zu einer Bestandsgröße. Als Bestand nimmst du den Durchschnitt der Periode, vereinfacht \\( \\bar{B} = \\frac{\\text{Anfangsbestand} + \\text{Endbestand}}{2} \\). Beispiel: \\( \\frac{90.000 + 110.000}{2} = 100.000 \\). Der Stichtagswert allein kann durch Saisoneffekte verzerrt sein.",
+   "belege": [
+    "cash-conversion-cycle-11",
+    "cash-conversion-cycle-12"
+   ]
+  },
+  {
+   "frage": "Was bedeutet ein negativer Cash Conversion Cycle?",
+   "varianten": [
+    "CCC negativ",
+    "negativer Geldumschlag",
+    "Kunden zahlen vor Lieferanten"
+   ],
+   "antwort": "Ein negativer CCC heißt, dass du das Geld der Kunden bekommst, bevor du deine Lieferanten bezahlen musst. Das Unternehmen muss den Zyklus dann nicht selbst finanzieren, sondern wird von Kunden und Lieferanten mitfinanziert. Möglich ist das zum Beispiel bei schnell drehendem Lager und langen Lieferantenzielen. Eine verwandte Form der Mitfinanzierung durch Kunden sind Kundenanzahlungen, mit denen Aufträge vorfinanziert werden.",
+   "belege": [
+    "cash-conversion-cycle-5",
+    "cash-conversion-cycle-20"
+   ]
+  },
+  {
+   "frage": "Wie kann ein Unternehmen seinen Cash Conversion Cycle verkürzen?",
+   "varianten": [
+    "CCC senken",
+    "Working Capital Management Maßnahmen",
+    "Kapitalbindung reduzieren"
+   ],
+   "antwort": "Es gibt drei Hebel. Erstens die Lagerdauer senken, also den Lagerumschlag erhöhen, was Kapitalbindungs- und Lagerkosten spart. Zweitens schneller an das Geld der Kunden kommen, etwa per Factoring, bei dem der Factor den Forderungsgegenwert direkt nach Entstehung auszahlt. Drittens das Lieferantenziel verlängern, denn ein höheres DPO verkürzt rechnerisch den CCC. Dabei verzichtest du allerdings oft auf Skonto, und der ist wirtschaftlich der Preis des Lieferantenkredits.",
+   "belege": [
+    "cash-conversion-cycle-10",
+    "cash-conversion-cycle-21",
+    "cash-conversion-cycle-6",
+    "cash-conversion-cycle-22"
+   ]
+  },
+  {
+   "frage": "Darf ich das Lieferantenziel beliebig verlängern, um den CCC zu senken?",
+   "varianten": [
+    "Zahlungsziel 60 Tage BGB",
+    "Grenzen Lieferantenziel",
+    "§ 271a BGB Zahlungsfrist"
+   ],
+   "antwort": "Nein. Nach § 271a Abs. 1 BGB ist eine Vereinbarung, nach der der Gläubiger die Zahlung erst mehr als 60 Tage nach Empfang der Gegenleistung verlangen kann, nur wirksam, wenn sie ausdrücklich getroffen und für ihn nicht grob unbillig ist. Ohne solche Vereinbarung kommst du nach § 286 Abs. 3 BGB spätestens 30 Tage nach Fälligkeit und Rechnungszugang in Verzug. Für Schuldverhältnisse, in denen ein Verbraucher zahlt, gilt § 271a BGB nicht.",
+   "belege": [
+    "cash-conversion-cycle-18",
+    "cash-conversion-cycle-19"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Lagerdauer und Umschlagshäufigkeit?",
+   "varianten": [
+    "Lagerdauer vs. Lagerumschlag",
+    "Umschlagsdauer Umschlagshäufigkeit",
+    "Kehrwert Umschlagshäufigkeit"
+   ],
+   "antwort": "Die Umschlagshäufigkeit sagt, wie oft das Lager in einer Periode umgesetzt wird: \\( \\frac{\\text{Wareneinsatz}}{\\text{Ø Lagerbestand}} \\). Die Lagerdauer sagt, wie lange die Ware durchschnittlich im Lager bleibt. Beide hängen über den Kehrwert zusammen: \\( \\text{DIO} = \\frac{365}{\\text{Umschlagshäufigkeit}} \\). Bei einer Umschlagshäufigkeit von 3 ergeben sich so 365 : 3 = 121,67 Tage.",
+   "belege": [
+    "cash-conversion-cycle-7",
+    "cash-conversion-cycle-8",
+    "cash-conversion-cycle-9",
+    "cash-conversion-cycle-13"
+   ]
+  },
+  {
+   "frage": "Verlängert ein längeres Lieferantenziel den Cash Conversion Cycle?",
+   "varianten": [
+    "DPO höher CCC",
+    "typischer Fehler CCC",
+    "Lieferantenziel Vorzeichen"
+   ],
+   "antwort": "Nein, das ist ein typischer Klausurfehler. Das DPO wird in \\( \\text{CCC} = \\text{DIO} + \\text{DSO} - \\text{DPO} \\) abgezogen. Ein längeres Lieferantenziel erhöht das DPO und verkürzt damit den CCC. Längere Lager- oder Forderungslaufzeiten verlängern ihn dagegen.",
+   "belege": [
+    "cash-conversion-cycle-1",
+    "cash-conversion-cycle-6"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Operating Cycle und Cash Conversion Cycle?",
+   "varianten": [
+    "operativer Zyklus",
+    "Operating Cycle Formel",
+    "Operating Cycle vs CCC"
+   ],
+   "antwort": "Der Operating Cycle (operativer Zyklus) misst die Zeit vom Wareneingang bis zum Geldeingang vom Kunden, also \\( \\text{DIO} + \\text{DSO} \\). Der Cash Conversion Cycle zieht davon die Zeit ab, die dir Lieferanten Kredit geben: \\( \\text{CCC} = \\text{Operating Cycle} - \\text{DPO} \\). Der CCC zeigt damit nur den Teil, den das Unternehmen selbst finanzieren muss.",
+   "belege": [
+    "cash-conversion-cycle-15",
+    "cash-conversion-cycle-5"
+   ]
   }
  ]
 }

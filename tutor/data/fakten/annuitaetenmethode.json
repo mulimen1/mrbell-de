@@ -99,6 +99,188 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "annuitaetenmethode-8",
+   "art": "definition",
+   "aussage": "Die Annuitätenmethode ermittelt das in Währungseinheiten ausgedrückte jährliche Einkommen, das der Investor durch das Projekt zusätzlich erzielt.",
+   "schlagworte": [
+    "Annuität",
+    "jährliches Einkommen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-9",
+   "art": "definition",
+   "aussage": "Der Wiedergewinnungsfaktor (Annuitäten- bzw. Kapitaldienstfaktor) formt eine Zahlungsgröße in eine Reihe gleich hoher Zahlungen in gleichen Abständen um; seine Höhe hängt von Zinssatz i und Laufzeit n ab.",
+   "schlagworte": [
+    "Wiedergewinnungsfaktor",
+    "Annuitätenfaktor",
+    "Kapitaldienstfaktor"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Wiedergewinnungsfaktor",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/wiedergewinnungsfaktor-49017",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-10",
+   "art": "methode",
+   "aussage": "In der Kreditfinanzierung liefert der Wiedergewinnungsfaktor die konstante jährliche Annuität, mit der ein Annuitätenkredit einschließlich Zinsen während der Laufzeit vollständig zurückgezahlt wird.",
+   "schlagworte": [
+    "Annuitätenkredit",
+    "Tilgung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Wiedergewinnungsfaktor",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/wiedergewinnungsfaktor-49017",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-11",
+   "art": "abgrenzung",
+   "aussage": "Ein Annuitätendarlehen bietet dem Schuldner eine konstante Liquiditätsbelastung; wegen der vergleichsweise späteren Rückführung fallen insgesamt aber mehr Zinsen an als bei einem Kredit mit konstanten Tilgungsraten (Ratenkredit).",
+   "schlagworte": [
+    "Annuitätendarlehen",
+    "Ratenkredit",
+    "Zinsbelastung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaet-27107",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-12",
+   "art": "formel",
+   "aussage": "Bei konstanten jährlichen Einzahlungsüberschüssen C und ohne Restwert gilt: `A = C - I_0 \\cdot WGF(i,n)`.",
+   "schlagworte": [
+    "Annuität",
+    "konstante Rückflüsse"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-13",
+   "art": "formel",
+   "aussage": "Der Wiedergewinnungsfaktor ist der Kehrwert des Rentenbarwertfaktors: `WGF(i,n) = \\frac{1}{RBF(i,n)} = \\frac{i(1+i)^n}{(1+i)^n - 1}`.",
+   "schlagworte": [
+    "Wiedergewinnungsfaktor",
+    "Rentenbarwertfaktor",
+    "Kehrwert"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-14",
+   "art": "formel",
+   "aussage": "Tilgungsplan beim Annuitätendarlehen: Zinsanteil `Z_t = i \\cdot RS_{t-1}`, Tilgungsanteil `T_t = A - Z_t`, neue Restschuld `RS_t = RS_{t-1} - T_t`.",
+   "schlagworte": [
+    "Tilgungsplan",
+    "Zinsanteil",
+    "Tilgungsanteil"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-15",
+   "art": "abgrenzung",
+   "aussage": "Annuitäten können als Rente aufgefasst werden: konstante Zahlungen von t = 1 bis t = n, die bei einheitlichem Kalkulationszinssatz einem Anfangswert (Barwert) gleichwertig sind.",
+   "schlagworte": [
+    "Rente",
+    "kapitalwertgleich"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaet-27107",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-16",
+   "art": "abgrenzung",
+   "aussage": "Die Annuitätenmethode ist ein dynamisches Verfahren und baut auf der Kapitalwertmethode auf, verwendet aber eine andere Zielgröße.",
+   "schlagworte": [
+    "dynamisch",
+    "Kapitalwertmethode"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-17",
+   "art": "methode",
+   "aussage": "Da der Wiedergewinnungsfaktor bei positivem Zins positiv ist, haben Annuität und Kapitalwert stets dasselbe Vorzeichen; die absolute Vorteilhaftigkeit wird daher identisch beurteilt.",
+   "schlagworte": [
+    "Vorzeichen",
+    "Gleichwertigkeit"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-18",
+   "art": "abgrenzung",
+   "aussage": "Dynamische Verfahren wie die Annuitätenmethode rechnen mit Ein- und Auszahlungen und zinsen ab; statische Verfahren wie die Gewinnvergleichsrechnung rechnen mit Kosten und Erlösen eines Durchschnittsjahres ohne Abzinsung.",
+   "schlagworte": [
+    "Annuität vs Gewinn",
+    "Zahlungen vs Kosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-19",
+   "art": "definition",
+   "aussage": "Der Kapitalwert ist der Barwert sämtlicher durch ein Investitionsprojekt ausgelösten Aus- und Einzahlungen.",
+   "schlagworte": [
+    "Kapitalwert",
+    "Barwert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kapitalwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalwert-39806",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-20",
+   "art": "formel",
+   "aussage": "Annuität eines Kreditbetrags `K_0` bei Zinsfaktor `q = 1 + i`: `A = K_0 \\cdot \\frac{q^n (q - 1)}{q^n - 1}`.",
+   "schlagworte": [
+    "Annuitätenformel",
+    "Kredit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaet-27107",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -111,6 +293,155 @@
    "falsch": "Die Annuität entspricht dem Gewinn je Periode.",
    "richtig": "Die Annuität ist der gleichmäßig auf die Perioden verteilte Kapitalwert (Überschuss über die Mindestverzinsung hinaus), nicht der bilanzielle Periodengewinn.",
    "quelle_id": "annuitaetenmethode-1"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist die Annuitätenmethode?",
+   "varianten": [
+    "Annuitätenmethode Definition",
+    "Annuitätenmethode Investitionsrechnung",
+    "Was ist eine Annuität Investition"
+   ],
+   "antwort": "Die Annuitätenmethode ist ein dynamisches Verfahren der Investitionsrechnung. Sie rechnet den Kapitalwert in gleich hohe jährliche Beträge um, die Annuität. Die Annuität zeigt, wie viel zusätzliches Einkommen das Projekt pro Jahr bringt. Der Barwert aller Annuitäten entspricht wieder dem Kapitalwert.",
+   "belege": [
+    "annuitaetenmethode-1",
+    "annuitaetenmethode-3",
+    "annuitaetenmethode-8"
+   ]
+  },
+  {
+   "frage": "Wie lautet die Formel der Annuitätenmethode?",
+   "varianten": [
+    "Annuität Formel",
+    "Annuität berechnen Kapitalwert mal Wiedergewinnungsfaktor",
+    "WGF Formel"
+   ],
+   "antwort": "Du multiplizierst den Kapitalwert mit dem Wiedergewinnungsfaktor: \\( A = KW_0 \\cdot \\frac{i(1+i)^n}{(1+i)^n - 1} \\). Der Faktor heißt auch Annuitäten- oder Kapitaldienstfaktor und hängt nur vom Zinssatz i und der Laufzeit n ab. Er wandelt einen Betrag von heute in eine Reihe gleich hoher Zahlungen um.",
+   "belege": [
+    "annuitaetenmethode-2",
+    "annuitaetenmethode-9"
+   ]
+  },
+  {
+   "frage": "Kannst du mir ein Rechenbeispiel zur Annuitätenmethode zeigen?",
+   "varianten": [
+    "Annuitätenmethode Beispiel",
+    "Annuität ausrechnen Aufgabe",
+    "Annuität Investition Rechnung"
+   ],
+   "antwort": "Eine Investition kostet 100.000 € und bringt 5 Jahre lang je 30.000 €, der Zinssatz beträgt 8 %. Der Kapitalwert ist rund 19.781,30 € und der Wiedergewinnungsfaktor \\( WGF(8\\,\\%,5) \\approx 0{,}250456 \\). Damit gilt \\( A \\approx 19.781{,}30 \\cdot 0{,}250456 \\approx 4.954{,}35 \\) € pro Jahr. Bei konstanten Rückflüssen geht es auch direkt: \\( A = 30.000 - 100.000 \\cdot 0{,}250456 \\approx 4.954{,}35 \\) €.",
+   "belege": [
+    "annuitaetenmethode-2",
+    "annuitaetenmethode-12"
+   ]
+  },
+  {
+   "frage": "Wann ist eine Investition nach der Annuitätenmethode vorteilhaft?",
+   "varianten": [
+    "Entscheidungsregel Annuitätenmethode",
+    "positive Annuität",
+    "Annuität Vergleich"
+   ],
+   "antwort": "Vorteilhaft ist eine Investition mit positiver Annuität. Bei mehreren Alternativen mit gleicher Nutzungsdauer wählst du die mit der höchsten Annuität. Der Wiedergewinnungsfaktor ist bei positivem Zins immer positiv. Deshalb haben Annuität und Kapitalwert immer dasselbe Vorzeichen.",
+   "belege": [
+    "annuitaetenmethode-7",
+    "annuitaetenmethode-17"
+   ]
+  },
+  {
+   "frage": "Führt die Annuitätenmethode zum gleichen Ergebnis wie die Kapitalwertmethode?",
+   "varianten": [
+    "Annuitätenmethode vs Kapitalwertmethode",
+    "Annuität und Kapitalwert gleiche Entscheidung",
+    "Unterschied Annuität Kapitalwert"
+   ],
+   "antwort": "Grundsätzlich ja, die Annuitätenmethode führt zur selben Investitionsentscheidung wie die Kapitalwertmethode, auf der sie aufbaut. Annuität und Kapitalwert haben stets dasselbe Vorzeichen. Der Unterschied liegt in der Darstellung: Der Kapitalwert ist ein Betrag auf einen Zeitpunkt, die Annuität ein Betrag pro Periode.",
+   "belege": [
+    "annuitaetenmethode-4",
+    "annuitaetenmethode-16",
+    "annuitaetenmethode-17"
+   ]
+  },
+  {
+   "frage": "Wofür ist die Annuitätenmethode besonders nützlich?",
+   "varianten": [
+    "Vorteil Annuitätenmethode",
+    "Annuitätenmethode Finanzplanung",
+    "Warum Annuität statt Kapitalwert"
+   ],
+   "antwort": "Weil die Annuität eine Größe pro Periode ist, eignet sie sich besonders für die Finanzplanung. Sie zeigt, wie viel in einer Periode zusätzlich für Gewinnentnahmen oder Erweiterungsinvestitionen zur Verfügung steht. Damit ist sie anschaulicher als ein einzelner Kapitalwert.",
+   "belege": [
+    "annuitaetenmethode-5",
+    "annuitaetenmethode-8"
+   ]
+  },
+  {
+   "frage": "Ist die Annuität dasselbe wie der Gewinn pro Jahr?",
+   "varianten": [
+    "Annuität gleich Gewinn",
+    "Annuität vs Durchschnittsgewinn",
+    "Fehler Annuität Gewinn"
+   ],
+   "antwort": "Nein. Die Annuität ist der gleichmäßig auf die Perioden verteilte Kapitalwert und wird aus abgezinsten Ein- und Auszahlungen abgeleitet. Der Durchschnittsgewinn der Gewinnvergleichsrechnung beruht dagegen auf Kosten und Erlösen eines Durchschnittsjahres ohne Abzinsung. Beide Größen sind deshalb nicht gleichzusetzen.",
+   "belege": [
+    "annuitaetenmethode-1",
+    "annuitaetenmethode-18"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Annuität eines Darlehens und ihren Zins- und Tilgungsanteil?",
+   "varianten": [
+    "Annuitätendarlehen berechnen",
+    "Tilgungsplan Annuität",
+    "Zinsanteil Tilgungsanteil erstes Jahr"
+   ],
+   "antwort": "Die Annuität ist \\( A = K_0 \\cdot \\frac{q^n (q-1)}{q^n - 1} \\). Beispiel: 100.000 € Darlehen, 6 % Zinsen, 5 Jahre Laufzeit. Das ergibt \\( A \\approx 23.739{,}64 \\) € pro Jahr. Im ersten Jahr beträgt der Zinsanteil \\( 0{,}06 \\cdot 100.000 = 6.000 \\) €, der Tilgungsanteil also 23.739,64 − 6.000 = 17.739,64 €. Die Restschuld sinkt auf 82.260,36 €, deshalb wird der Zinsanteil von Jahr zu Jahr kleiner und der Tilgungsanteil größer.",
+   "belege": [
+    "annuitaetenmethode-6",
+    "annuitaetenmethode-10",
+    "annuitaetenmethode-14",
+    "annuitaetenmethode-20"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Wiedergewinnungsfaktor und Rentenbarwertfaktor?",
+   "varianten": [
+    "Wiedergewinnungsfaktor vs Rentenbarwertfaktor",
+    "WGF RBF Kehrwert",
+    "Annuitätenfaktor Rentenbarwertfaktor"
+   ],
+   "antwort": "Die beiden sind Kehrwerte voneinander: \\( WGF(i,n) = \\frac{1}{RBF(i,n)} \\). Mit dem Rentenbarwertfaktor rechnest du eine Reihe gleicher Zahlungen in einen Barwert um. Mit dem Wiedergewinnungsfaktor machst du es umgekehrt und verteilst einen Barwert auf gleich hohe Zahlungen. Beispiel für 8 % und 5 Jahre: \\( RBF \\approx 3{,}99271 \\) und \\( WGF \\approx 0{,}250456 \\).",
+   "belege": [
+    "annuitaetenmethode-13",
+    "annuitaetenmethode-9"
+   ]
+  },
+  {
+   "frage": "Annuitätendarlehen oder Ratenkredit – was ist der Unterschied?",
+   "varianten": [
+    "Annuitätendarlehen vs Ratendarlehen",
+    "Ratenkredit Annuitätenkredit Unterschied",
+    "konstante Rate oder konstante Tilgung"
+   ],
+   "antwort": "Beim Annuitätendarlehen bleibt die Gesamtrate aus Zins und Tilgung konstant. Am Anfang ist der Zinsanteil hoch, später steigt der Tilgungsanteil. Das gibt dir eine gleichbleibende Liquiditätsbelastung. Weil die Schuld langsamer zurückgeführt wird als beim Ratenkredit mit konstanter Tilgung, zahlst du insgesamt mehr Zinsen.",
+   "belege": [
+    "annuitaetenmethode-6",
+    "annuitaetenmethode-11"
+   ]
+  },
+  {
+   "frage": "Was ist der Wiedergewinnungsfaktor?",
+   "varianten": [
+    "Wiedergewinnungsfaktor Definition",
+    "Kapitaldienstfaktor",
+    "Annuitätenfaktor erklärt"
+   ],
+   "antwort": "Der Wiedergewinnungsfaktor, auch Annuitäten- oder Kapitaldienstfaktor, wandelt einen heutigen Betrag in gleich hohe Zahlungen in regelmäßigen Abständen um: \\( WGF = \\frac{i(1+i)^n}{(1+i)^n - 1} \\). In der Investitionsrechnung macht er aus dem Kapitalwert die Annuität. Bei Krediten liefert er die konstante Rate, mit der der Kredit samt Zinsen vollständig getilgt wird.",
+   "belege": [
+    "annuitaetenmethode-9",
+    "annuitaetenmethode-10"
+   ]
   }
  ]
 }

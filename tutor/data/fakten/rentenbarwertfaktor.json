@@ -95,6 +95,196 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "rentenbarwertfaktor-8",
+   "art": "definition",
+   "aussage": "Finanzmathematisch ist eine Rente eine Folge gleichbleibender Zahlungen in regelmäßigen Abständen; bei der vorschüssigen Rente sind die Raten zu Beginn, bei der nachschüssigen am Ende der Periode fällig.",
+   "schlagworte": [
+    "Rente",
+    "vorschüssig",
+    "nachschüssig"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rente",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rente-45161",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-9",
+   "art": "definition",
+   "aussage": "Nach der Dauer werden Zeitrente, Leibrente und ewige Rente (Dauerrente) unterschieden; außerdem gibt es aufgeschobene, abgebrochene und unterbrochene Renten.",
+   "schlagworte": [
+    "Rentenarten",
+    "ewige Rente",
+    "aufgeschobene Rente"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rente",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rente-45161",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-10",
+   "art": "definition",
+   "aussage": "Die Rentenrechnung ermittelt den Rentenendwert `R_n` (Gesamtwert am Ende der Zahlungen), den Rentenbarwert `R_0` (Gesamtwert am Anfang) und die Rate r.",
+   "schlagworte": [
+    "Rentenendwert",
+    "Rentenbarwert",
+    "Rate"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rentenrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rentenrechnung-42681",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-11",
+   "art": "formel",
+   "aussage": "Rentenendwert nachschüssig: `R_n = r \\cdot \\frac{q^n - 1}{q - 1}`; der Bruch heißt Rentenendwertfaktor.",
+   "schlagworte": [
+    "Rentenendwertfaktor",
+    "nachschüssig"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-12",
+   "art": "formel",
+   "aussage": "Zusammenhang von Rentenbarwert und Rentenendwert: `R_0 = \\frac{R_n}{q^n}`.",
+   "schlagworte": [
+    "Barwert",
+    "Endwert"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-13",
+   "art": "formel",
+   "aussage": "Gleichwertige Schreibweise des nachschüssigen Rentenbarwertfaktors: `RBF = \\frac{1 - q^{-n}}{q - 1}`.",
+   "schlagworte": [
+    "Formel",
+    "Schreibweise"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-14",
+   "art": "zahl",
+   "aussage": "Beispiel nachgerechnet: `RBF(6\\,\\%, 5) \\approx 4{,}212364`; `RBF(8\\,\\%, 5) \\approx 3{,}992710`.",
+   "schlagworte": [
+    "Zahlenbeispiel",
+    "Rentenbarwertfaktor"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-15",
+   "art": "abgrenzung",
+   "aussage": "Der Wiedergewinnungsfaktor (Annuitätenfaktor) dient in der Annuitätenmethode dazu, den Kapitalwert in eine Reihe gleich hoher Annuitäten umzurechnen, also umgekehrt zum Rentenbarwertfaktor.",
+   "schlagworte": [
+    "Wiedergewinnungsfaktor",
+    "Annuität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Wiedergewinnungsfaktor",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/wiedergewinnungsfaktor-49017",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-16",
+   "art": "definition",
+   "aussage": "Die Finanzmathematik ist ein Teilgebiet der angewandten Mathematik auf Basis von Folgen und Reihen; sie wird in Zins-, Renten-, Tilgungs- und Investitionsrechnung genutzt.",
+   "schlagworte": [
+    "Finanzmathematik",
+    "Reihen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Finanzmathematik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/finanzmathematik-32145",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-17",
+   "art": "definition",
+   "aussage": "Kapitalisierung bezeichnet die Umrechnung einer regelmäßigen Geldleistung (z. B. einer Rente) auf den gegenwärtigen Kapitalwert durch Diskontierung.",
+   "schlagworte": [
+    "Kapitalisierung",
+    "Rente"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kapitalisierung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalisierung-37509",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-18",
+   "art": "methode",
+   "aussage": "Bei positivem Zins steigt der Rentenbarwertfaktor mit der Laufzeit n und sinkt mit steigendem Zinssatz i; für `n \\to \\infty` nähert er sich `\\frac{1}{i}`.",
+   "schlagworte": [
+    "Einflussgrößen",
+    "Grenzwert"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-19",
+   "art": "methode",
+   "aussage": "Aufgeschobene Rente: Der mit dem Rentenbarwertfaktor ermittelte Wert zu Beginn der Zahlungsphase wird zusätzlich über die Aufschubzeit abgezinst.",
+   "schlagworte": [
+    "aufgeschobene Rente",
+    "Abzinsung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-20",
+   "art": "abgrenzung",
+   "aussage": "Bei positivem Zins ist der Rentenbarwertfaktor kleiner als die Zahl der Raten n, weil jede Rate abgezinst wird.",
+   "schlagworte": [
+    "RBF kleiner n"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-21",
+   "art": "formel",
+   "aussage": "Der Rentenbarwertfaktor ist die Summe der Abzinsungsfaktoren: `RBF(i,n) = \\sum_{t=1}^{n} (1+i)^{-t}`.",
+   "schlagworte": [
+    "Summe Abzinsungsfaktoren",
+    "Herleitung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -107,6 +297,166 @@
    "falsch": "Vorschüssige und nachschüssige Rente haben denselben Barwert.",
    "richtig": "Vorschüssig (Zahlung am Periodenanfang) ist der Barwert um den Faktor q höher.",
    "quelle_id": "rentenbarwertfaktor-4"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist der Rentenbarwertfaktor?",
+   "varianten": [
+    "Rentenbarwertfaktor Definition",
+    "RBF Bedeutung",
+    "Barwertfaktor Rente"
+   ],
+   "antwort": "Der Rentenbarwertfaktor rechnet eine Reihe gleich hoher Zahlungen (Rente) in ihren heutigen Gesamtwert um, den Rentenbarwert. Du multiplizierst einfach die Rate mit dem Faktor. Das spart die Einzelabzinsung jeder Zahlung, denn der Faktor ist die Summe aller Abzinsungsfaktoren.",
+   "belege": [
+    "rentenbarwertfaktor-1",
+    "rentenbarwertfaktor-3",
+    "rentenbarwertfaktor-21"
+   ]
+  },
+  {
+   "frage": "Wie lautet die Formel für den Rentenbarwertfaktor?",
+   "varianten": [
+    "RBF Formel",
+    "Rentenbarwertfaktor berechnen",
+    "Formel nachschüssig Rentenbarwert"
+   ],
+   "antwort": "Für eine nachschüssige Rente gilt \\( RBF = \\frac{q^n - 1}{q^n (q-1)} \\) mit \\( q = 1 + i \\). Gleichwertig ist \\( RBF = \\frac{1 - q^{-n}}{q - 1} \\). Der Rentenbarwert ist dann \\( R_0 = r \\cdot RBF \\).",
+   "belege": [
+    "rentenbarwertfaktor-3",
+    "rentenbarwertfaktor-13"
+   ]
+  },
+  {
+   "frage": "Kannst du mir ein Rechenbeispiel zum Rentenbarwertfaktor zeigen?",
+   "varianten": [
+    "Rentenbarwert Beispiel",
+    "RBF Beispiel 6 Prozent",
+    "Rentenbarwert ausrechnen"
+   ],
+   "antwort": "Du bekommst 5 Jahre lang jeweils am Jahresende 1.000 €, der Zinssatz ist 6 %. Der Rentenbarwertfaktor ist \\( RBF(6\\,\\%,5) = \\frac{1{,}06^5 - 1}{1{,}06^5 \\cdot 0{,}06} \\approx 4{,}212364 \\). Der Rentenbarwert beträgt also \\( 1.000 \\cdot 4{,}212364 \\approx 4.212{,}36 \\) €.",
+   "belege": [
+    "rentenbarwertfaktor-3",
+    "rentenbarwertfaktor-14"
+   ]
+  },
+  {
+   "frage": "Wie rechne ich den Rentenbarwert bei vorschüssiger Zahlung?",
+   "varianten": [
+    "vorschüssiger Rentenbarwert",
+    "Rente am Periodenanfang",
+    "vorschüssig nachschüssig Barwert"
+   ],
+   "antwort": "Bei vorschüssiger Zahlung (Rate am Periodenanfang) multiplizierst du den nachschüssigen Barwert zusätzlich mit q: \\( R_0 = r \\cdot q \\cdot \\frac{q^n - 1}{q^n (q-1)} \\). Im Beispiel (1.000 € über 5 Jahre, 6 %) sind das \\( 4.212{,}36 \\cdot 1{,}06 \\approx 4.465{,}11 \\) €. Der Barwert ist höher, weil jede Rate eine Periode früher kommt.",
+   "belege": [
+    "rentenbarwertfaktor-4",
+    "rentenbarwertfaktor-8"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Rentenbarwertfaktor und Wiedergewinnungsfaktor?",
+   "varianten": [
+    "RBF vs WGF",
+    "Rentenbarwertfaktor Annuitätenfaktor",
+    "Kehrwert Rentenbarwertfaktor"
+   ],
+   "antwort": "Der Wiedergewinnungsfaktor ist der Kehrwert des Rentenbarwertfaktors. Mit dem RBF rechnest du eine Rate in einen Barwert um, mit dem WGF einen Barwert in gleich hohe Raten, z. B. den Kapitalwert in die Annuität. Beispiel 6 % und 5 Jahre: \\( RBF \\approx 4{,}212364 \\) und \\( WGF = \\frac{1}{4{,}212364} \\approx 0{,}237396 \\).",
+   "belege": [
+    "rentenbarwertfaktor-5",
+    "rentenbarwertfaktor-15"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Barwert einer ewigen Rente?",
+   "varianten": [
+    "ewige Rente Formel",
+    "Rentenbarwert unendlich",
+    "Rentenbarwertfaktor n gegen unendlich"
+   ],
+   "antwort": "Bei unendlicher Laufzeit nähert sich der Rentenbarwertfaktor \\( \\frac{1}{i} \\), deshalb gilt \\( R_0 = \\frac{r}{i} \\). Beispiel: 1.000 € pro Jahr dauerhaft bei 5 % ergibt \\( \\frac{1.000}{0{,}05} = 20.000 \\) €. Zum Vergleich: Bei nur 5 Jahren Laufzeit wären es nach \\( RBF(5\\,\\%,5) \\approx 4{,}329477 \\) lediglich rund 4.329,48 €.",
+   "belege": [
+    "rentenbarwertfaktor-6",
+    "rentenbarwertfaktor-18"
+   ]
+  },
+  {
+   "frage": "Wie nutze ich den Rentenbarwertfaktor in der Kapitalwertmethode?",
+   "varianten": [
+    "Rentenbarwertfaktor Kapitalwert",
+    "Kapitalwert konstante Rückflüsse",
+    "KW mit RBF berechnen"
+   ],
+   "antwort": "Sind die jährlichen Rückflüsse C konstant, ersetzt der RBF die Einzelabzinsung: \\( KW_0 = -I_0 + C \\cdot RBF(i,n) \\). Beispiel: 100.000 € Investition, 5 Jahre lang 30.000 €, Zinssatz 8 %. Mit \\( RBF(8\\,\\%,5) \\approx 3{,}992710 \\) ergibt sich \\( KW_0 \\approx -100.000 + 119.781{,}30 = 19.781{,}30 \\) €.",
+   "belege": [
+    "rentenbarwertfaktor-7",
+    "rentenbarwertfaktor-14"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Rentenendwert?",
+   "varianten": [
+    "Rentenendwert Formel",
+    "Rentenendwertfaktor",
+    "Endwert Sparplan"
+   ],
+   "antwort": "Der Rentenendwert ist der Gesamtwert der Rente am Ende der Zahlungen. Nachschüssig gilt \\( R_n = r \\cdot \\frac{q^n - 1}{q - 1} \\). Beispiel: 1.000 € jährlich am Jahresende, 5 Jahre, 6 %. Dann ist \\( R_n = 1.000 \\cdot \\frac{1{,}06^5 - 1}{0{,}06} \\approx 5.637{,}09 \\) €. Abgezinst ergibt sich wieder der Barwert: \\( \\frac{5.637{,}09}{1{,}06^5} \\approx 4.212{,}36 \\) €.",
+   "belege": [
+    "rentenbarwertfaktor-10",
+    "rentenbarwertfaktor-11",
+    "rentenbarwertfaktor-12"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Barwert einer aufgeschobenen Rente?",
+   "varianten": [
+    "aufgeschobene Rente Barwert",
+    "Rente beginnt später",
+    "Rentenbarwert mit Wartezeit"
+   ],
+   "antwort": "Du rechnest den Rentenbarwert zunächst auf den Zeitpunkt eine Periode vor der ersten Rate und zinst ihn dann über die Aufschubzeit ab. Beispiel: 5 Raten zu 1.000 € in den Jahren 3 bis 7, Zinssatz 6 %. Der Wert am Ende von Jahr 2 beträgt \\( 1.000 \\cdot RBF(6\\,\\%,5) \\approx 4.212{,}36 \\) €. Heute sind das \\( \\frac{4.212{,}36}{1{,}06^2} \\approx 3.748{,}99 \\) €.",
+   "belege": [
+    "rentenbarwertfaktor-9",
+    "rentenbarwertfaktor-19"
+   ]
+  },
+  {
+   "frage": "Warum ist der Rentenbarwertfaktor kleiner als die Anzahl der Jahre?",
+   "varianten": [
+    "RBF kleiner n",
+    "Rentenbarwertfaktor Größe",
+    "warum RBF nicht gleich n"
+   ],
+   "antwort": "Der Rentenbarwertfaktor ist die Summe der Abzinsungsfaktoren, \\( RBF = \\sum_{t=1}^{n} (1+i)^{-t} \\). Bei positivem Zins ist jeder Summand kleiner als 1, deshalb ist die Summe kleiner als n. Bei 6 % und 5 Jahren ist der RBF zum Beispiel rund 4,21 statt 5.",
+   "belege": [
+    "rentenbarwertfaktor-20",
+    "rentenbarwertfaktor-21"
+   ]
+  },
+  {
+   "frage": "Haben vorschüssige und nachschüssige Rente denselben Barwert?",
+   "varianten": [
+    "vorschüssig gleich nachschüssig",
+    "Fehler vorschüssige Rente",
+    "Unterschied vorschüssig nachschüssig"
+   ],
+   "antwort": "Nein, das ist ein typischer Fehler. Bei der vorschüssigen Rente kommt jede Rate eine Periode früher, deshalb ist ihr Barwert um den Faktor q höher. Nachschüssig heißt Zahlung am Periodenende, vorschüssig Zahlung am Periodenanfang.",
+   "belege": [
+    "rentenbarwertfaktor-4",
+    "rentenbarwertfaktor-8"
+   ]
+  },
+  {
+   "frage": "Wovon hängt der Rentenbarwertfaktor ab?",
+   "varianten": [
+    "Einflussfaktoren RBF",
+    "Rentenbarwertfaktor Zins Laufzeit",
+    "RBF steigt sinkt"
+   ],
+   "antwort": "Der Rentenbarwertfaktor hängt nur vom Zinssatz i und der Laufzeit n ab. Bei positivem Zins steigt er, je länger die Laufzeit ist, und sinkt, je höher der Zinssatz ist. Für eine unendliche Laufzeit nähert er sich \\( \\frac{1}{i} \\). Beispiel: \\( RBF(6\\,\\%,5) \\approx 4{,}21 \\), aber \\( RBF(8\\,\\%,5) \\approx 3{,}99 \\).",
+   "belege": [
+    "rentenbarwertfaktor-18",
+    "rentenbarwertfaktor-14"
+   ]
   }
  ]
 }

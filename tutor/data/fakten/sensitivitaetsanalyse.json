@@ -98,6 +98,200 @@
     "url": "https://wirtschaftslexikon.gabler.de/definition/nutzwertanalyse-42926",
     "typ": "lexikon"
    }
+  },
+  {
+   "id": "sensitivitaetsanalyse-8",
+   "art": "methode",
+   "aussage": "Bei der Ermittlung eines kritischen Werts wird nur die unsichere Inputgröße variiert; alle anderen Inputgrößen werden als fix angesetzt (ceteris paribus).",
+   "schlagworte": [
+    "ceteris paribus",
+    "Vorgehen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kritischer Wert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kritischer-wert-40379",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-9",
+   "art": "definition",
+   "aussage": "Typische unsichere Inputgrößen sind z. B. Absatzmenge oder Zinssatz; typische Zielgrößen Kapitalwert oder Gewinn. Gesucht ist der Wert der Inputgröße, bei dem die Zielgröße gerade mindestens null wird.",
+   "schlagworte": [
+    "Inputgröße",
+    "Zielgröße",
+    "Absatzmenge"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kritischer Wert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kritischer-wert-40379",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-10",
+   "art": "abgrenzung",
+   "aussage": "Entscheidungstheoretisch liegt Risiko vor, wenn für die möglichen Ergebnisse Eintrittswahrscheinlichkeiten angegeben werden können; bei Unsicherheit im engeren Sinne (Ungewissheit) sind keine Wahrscheinlichkeiten verfügbar.",
+   "schlagworte": [
+    "Risiko",
+    "Ungewissheit",
+    "Wahrscheinlichkeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Risiko",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/risiko-44896",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-11",
+   "art": "methode",
+   "aussage": "In der Investitionsrechnung betrifft die Unsicherheit vor allem die erwarteten Umsatzeinzahlungen, die Auszahlungen für die Leistungserstellung, die Nutzungsdauer und den Kalkulationszinssatz.",
+   "schlagworte": [
+    "unsichere Größen",
+    "Investitionsrechnung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-12",
+   "art": "methode",
+   "aussage": "Mehrwertige Zielgrößen erhält man über die Szenario-Technik, bei der unterschiedliche Szenarien durchgerechnet werden.",
+   "schlagworte": [
+    "Szenario-Technik",
+    "mehrwertig"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-13",
+   "art": "methode",
+   "aussage": "Soll eine einwertige Zielgröße entstehen, werden Einflussgrößen pauschal korrigiert, z. B. durch Risikozuschläge im Kalkulationszinssatz oder Risikoabschläge auf die Einzahlungsüberschüsse.",
+   "schlagworte": [
+    "Korrekturverfahren",
+    "Risikozuschlag"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-14",
+   "art": "formel",
+   "aussage": "Kritische Absatzmenge (Gewinnschwelle) bei linearen Verläufen: `x_{krit} = \\frac{K_f}{p - k_v}`.",
+   "schlagworte": [
+    "kritische Absatzmenge",
+    "Break-even"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-15",
+   "art": "formel",
+   "aussage": "Kritischer jährlicher Einzahlungsüberschuss bei konstanten Rückflüssen ohne Restwert: `C_{krit} = \\frac{I_0}{RBF(i,n)}`, denn dann ist `KW_0 = 0`.",
+   "schlagworte": [
+    "kritischer Rückfluss",
+    "Rentenbarwertfaktor"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-16",
+   "art": "formel",
+   "aussage": "Sicherheitsspielraum einer Inputgröße: prozentualer Abstand zwischen Planwert und kritischem Wert, `\\frac{x_{plan} - x_{krit}}{x_{plan}}`.",
+   "schlagworte": [
+    "Sicherheitsspielraum",
+    "Abstand"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-17",
+   "art": "definition",
+   "aussage": "Die gewinnorientierte Break-even-Analyse der Investitionsrechnung ermittelt die Absatzmenge, bei der Umsatzerlöse und Gesamtkosten gleich sind; oberhalb ist das Projekt vorteilhaft.",
+   "schlagworte": [
+    "Break-even-Analyse",
+    "Gewinnschwelle"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Break-Even-Analyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/break-even-analyse-31893",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-18",
+   "art": "abgrenzung",
+   "aussage": "Der Kalkulationszinssatz hat entscheidenden Einfluss auf die Höhe des Kapital- bzw. Barwerts und ist deshalb eine wichtige zu prüfende Inputgröße.",
+   "schlagworte": [
+    "Kalkulationszinssatz",
+    "Einfluss"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kalkulationszinssatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulationszinssatz-39911",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-19",
+   "art": "abgrenzung",
+   "aussage": "Die Amortisationsrechnung gilt als Näherungsmaßstab für das Investitionsrisiko.",
+   "schlagworte": [
+    "Amortisationsdauer",
+    "Risiko"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Amortisationsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/amortisationsrechnung-28201",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-20",
+   "art": "zahl",
+   "aussage": "Beispiel nachgerechnet: Bei `I_0` = 100.000 €, i = 8 %, n = 5 ist `C_{krit} \\approx 25.045{,}65` €; bei geplanten 30.000 € dürfen die Rückflüsse um rund 16,51 % sinken, bevor der Kapitalwert negativ wird.",
+   "schlagworte": [
+    "Beispiel",
+    "Sicherheitsspielraum"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-21",
+   "art": "abgrenzung",
+   "aussage": "Die kapitalmarktorientierte Risikoberücksichtigung leitet risikoabhängige Renditeforderungen aus Kapitalmarktmodellen (CAPM, WACC) ab; diese liegen wegen risikoaverser Investoren regelmäßig über dem risikofreien Zinssatz.",
+   "schlagworte": [
+    "CAPM",
+    "Risikoprämie"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -110,6 +304,172 @@
    "falsch": "Die Sensitivitätsanalyse liefert Eintrittswahrscheinlichkeiten für Szenarien.",
    "richtig": "Sie zeigt nur die Reaktion des Ergebnisses auf Änderungen, keine Wahrscheinlichkeiten.",
    "quelle_id": "sensitivitaetsanalyse-1"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist eine Sensitivitätsanalyse?",
+   "varianten": [
+    "Sensitivitätsanalyse Definition",
+    "Empfindlichkeitsanalyse",
+    "Was macht eine Sensitivitätsanalyse"
+   ],
+   "antwort": "Die Sensitivitätsanalyse prüft, wie robust ein Ergebnis oder eine Rangfolge von Alternativen ist, wenn sich einzelne Eingangsgrößen ändern. Sie zeigt, ab welchen Grenzwerten eine Alternative nicht mehr vorteilhaft ist. So bekommst du ein Bild davon, wie unsicher eine Planungsalternative ist.",
+   "belege": [
+    "sensitivitaetsanalyse-1",
+    "sensitivitaetsanalyse-2"
+   ]
+  },
+  {
+   "frage": "Was ist ein kritischer Wert?",
+   "varianten": [
+    "kritischer Wert Investitionsrechnung",
+    "Grenzwert Sensitivitätsanalyse",
+    "kritische Größe Definition"
+   ],
+   "antwort": "Ein kritischer Wert ist der Wert einer unsicheren Eingangsgröße, bei dem die Zielgröße (z. B. Kapitalwert oder Gewinn) gerade null wird. Dabei variierst du nur diese eine Größe und hältst alle anderen fest. Wird der kritische Wert unter- bzw. überschritten, ist das Projekt nicht mehr vorteilhaft.",
+   "belege": [
+    "sensitivitaetsanalyse-3",
+    "sensitivitaetsanalyse-4",
+    "sensitivitaetsanalyse-8"
+   ]
+  },
+  {
+   "frage": "Wie gehe ich bei einer Sensitivitätsanalyse vor?",
+   "varianten": [
+    "Sensitivitätsanalyse Vorgehen",
+    "Sensitivitätsanalyse Schritte",
+    "Sensitivitätsanalyse durchführen"
+   ],
+   "antwort": "Du veränderst jeweils eine Eingangsgröße, z. B. um ±10 %, und hältst alle anderen konstant (ceteris paribus). Dann misst du, wie stark sich das Ergebnis ändert. Alternativ suchst du direkt den kritischen Wert, bei dem die Zielgröße null wird. Größen mit starker Wirkung solltest du besonders sorgfältig prognostizieren.",
+   "belege": [
+    "sensitivitaetsanalyse-5",
+    "sensitivitaetsanalyse-6",
+    "sensitivitaetsanalyse-8"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich eine kritische Absatzmenge?",
+   "varianten": [
+    "kritische Absatzmenge berechnen",
+    "Gewinnschwelle Sensitivität",
+    "Mindestabsatz Investition"
+   ],
+   "antwort": "Du setzt den Gewinn gleich null und löst nach der Menge auf: \\( x_{krit} = \\frac{K_f}{p - k_v} \\). Beispiel: Fixkosten 40.000 €, Preis 10 €, variable Stückkosten 6 €. Dann ist \\( x_{krit} = \\frac{40.000}{10 - 6} = 10.000 \\) Stück. Unterhalb dieser Menge macht das Projekt Verlust.",
+   "belege": [
+    "sensitivitaetsanalyse-6",
+    "sensitivitaetsanalyse-14",
+    "sensitivitaetsanalyse-17"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den kritischen Rückfluss und den Sicherheitsspielraum?",
+   "varianten": [
+    "kritischer Einzahlungsüberschuss",
+    "Sicherheitsspielraum berechnen",
+    "wie weit darf der Cashflow sinken"
+   ],
+   "antwort": "Bei konstanten Rückflüssen ist der Kapitalwert null bei \\( C_{krit} = \\frac{I_0}{RBF(i,n)} \\). Beispiel: 100.000 € Investition, 8 %, 5 Jahre ergibt \\( C_{krit} = \\frac{100.000}{3{,}99271} \\approx 25.045{,}65 \\) €. Sind 30.000 € pro Jahr geplant, ist der Sicherheitsspielraum \\( \\frac{30.000 - 25.045{,}65}{30.000} \\approx 16{,}51\\,\\% \\). Die Rückflüsse dürfen also um rund 16,51 % sinken, bevor das Projekt unvorteilhaft wird.",
+   "belege": [
+    "sensitivitaetsanalyse-15",
+    "sensitivitaetsanalyse-16",
+    "sensitivitaetsanalyse-20"
+   ]
+  },
+  {
+   "frage": "Welche Größen untersucht man typischerweise in einer Sensitivitätsanalyse?",
+   "varianten": [
+    "Inputgrößen Sensitivitätsanalyse",
+    "welche Parameter variieren",
+    "unsichere Größen Investition"
+   ],
+   "antwort": "Typisch sind die Größen, die in der Investitionsrechnung unsicher sind: Absatzmenge bzw. Umsatzeinzahlungen, Auszahlungen, Nutzungsdauer und Kalkulationszinssatz. Der Kalkulationszinssatz ist besonders wichtig, weil er die Höhe des Kapitalwerts entscheidend beeinflusst. Als Zielgröße dient meist der Kapitalwert oder der Gewinn.",
+   "belege": [
+    "sensitivitaetsanalyse-9",
+    "sensitivitaetsanalyse-11",
+    "sensitivitaetsanalyse-18"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Sensitivitätsanalyse und Szenarioanalyse?",
+   "varianten": [
+    "Sensitivitätsanalyse vs Szenario",
+    "Szenario-Technik Investition",
+    "Szenarioanalyse Unterschied"
+   ],
+   "antwort": "Bei der Sensitivitätsanalyse veränderst du klassisch nur eine Größe und hältst die anderen konstant. Bei der Szenario-Technik rechnest du dagegen ganze Szenarien durch, in denen sich mehrere Größen gemeinsam ändern, und erhältst mehrere Ergebnisse. Beide machen die Unsicherheit eines Projekts sichtbar.",
+   "belege": [
+    "sensitivitaetsanalyse-5",
+    "sensitivitaetsanalyse-12"
+   ]
+  },
+  {
+   "frage": "Liefert die Sensitivitätsanalyse Wahrscheinlichkeiten?",
+   "varianten": [
+    "Sensitivitätsanalyse Wahrscheinlichkeit",
+    "Risiko vs Unsicherheit",
+    "Fehler Sensitivitätsanalyse"
+   ],
+   "antwort": "Nein. Die Sensitivitätsanalyse zeigt nur, wie das Ergebnis auf Änderungen der Eingangsgrößen reagiert, wo also die kritischen Grenzen liegen. Wie wahrscheinlich es ist, dass eine Grenze erreicht wird, sagt sie nicht. Entscheidungstheoretisch spricht man nur dann von Risiko, wenn Eintrittswahrscheinlichkeiten angegeben werden können.",
+   "belege": [
+    "sensitivitaetsanalyse-1",
+    "sensitivitaetsanalyse-10"
+   ]
+  },
+  {
+   "frage": "Werden bei der Sensitivitätsanalyse alle Größen gleichzeitig verändert?",
+   "varianten": [
+    "alle Parameter gleichzeitig",
+    "ceteris paribus Sensitivitätsanalyse",
+    "eine Größe variieren"
+   ],
+   "antwort": "Klassisch nicht. Du veränderst jeweils nur eine Größe und hältst alle anderen konstant (ceteris paribus). So siehst du, welchen Einfluss genau diese Größe hat. Die Gabler-Definition erlaubt aber auch die Variation von Gruppen von Parameterwerten. Wenn mehrere Größen gemeinsam variieren sollen, eignet sich die Szenario-Technik.",
+   "belege": [
+    "sensitivitaetsanalyse-1",
+    "sensitivitaetsanalyse-5",
+    "sensitivitaetsanalyse-8",
+    "sensitivitaetsanalyse-12"
+   ]
+  },
+  {
+   "frage": "Was haben interner Zinsfuß und Amortisationsdauer mit der Sensitivitätsanalyse zu tun?",
+   "varianten": [
+    "interner Zinsfuß kritischer Wert",
+    "Amortisationsdauer kritischer Wert",
+    "Beispiele kritische Werte"
+   ],
+   "antwort": "Beide sind Beispiele für kritische Werte. Der interne Zinsfuß ist der kritische Zinssatz: Liegt der Kalkulationszinssatz darüber, wird der Kapitalwert negativ. Die Amortisationsdauer ist die kritische Zeit, bis die Auszahlung zurückgeflossen ist, und gilt als Näherungsmaß für das Risiko.",
+   "belege": [
+    "sensitivitaetsanalyse-4",
+    "sensitivitaetsanalyse-19"
+   ]
+  },
+  {
+   "frage": "Welche anderen Methoden gibt es, um Risiko in der Investitionsrechnung zu berücksichtigen?",
+   "varianten": [
+    "Risiko Investitionsrechnung Methoden",
+    "Risikozuschlag",
+    "Unsicherheit berücksichtigen"
+   ],
+   "antwort": "Neben Sensitivitäts- und Szenarioanalyse gibt es pauschale Korrekturverfahren. Dabei erhöhst du z. B. den Kalkulationszinssatz um einen Risikozuschlag oder machst einen Abschlag auf die Einzahlungsüberschüsse. Kapitalmarktorientiert leitest du die Renditeforderung über CAPM oder WACC ab. Sie liegt wegen der Risikoscheu der Investoren meist über dem risikofreien Zins.",
+   "belege": [
+    "sensitivitaetsanalyse-12",
+    "sensitivitaetsanalyse-13",
+    "sensitivitaetsanalyse-21"
+   ]
+  },
+  {
+   "frage": "Wie hängen Nutzwertanalyse und Sensitivitätsanalyse zusammen?",
+   "varianten": [
+    "Sensitivitätsanalyse Nutzwertanalyse",
+    "Gewichte variieren Nutzwertanalyse",
+    "Robustheit Scoring"
+   ],
+   "antwort": "Mit einer Sensitivitätsanalyse prüfst du das Ergebnis einer Nutzwertanalyse. Du variierst dazu die Parameter, also Gewichte und Punktbewertungen. Bleibt die beste Alternative auch bei veränderten Gewichten vorne, ist das Ergebnis robust.",
+   "belege": [
+    "sensitivitaetsanalyse-7",
+    "sensitivitaetsanalyse-1"
+   ]
   }
  ]
 }

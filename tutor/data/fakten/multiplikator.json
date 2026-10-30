@@ -102,6 +102,218 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "multiplikator-8",
+   "art": "definition",
+   "aussage": "Der Multiplikatorbegriff geht auf Kahn und Keynes zurück; autonome Größen, deren Änderung einen Multiplikatorprozess auslöst, sind z. B. Investitionen, Staatsausgaben und Exporte (Investitions-, Staatsausgaben-, Exportmultiplikator).",
+   "schlagworte": [
+    "Kahn",
+    "Keynes",
+    "autonome Größen",
+    "Investitionsmultiplikator"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Multiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/multiplikator-39042",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-9",
+   "art": "formel",
+   "aussage": "Elementarer Investitionsmultiplikator: `dY = \\frac{1}{s}\\,dI` mit marginaler Sparquote s. Beispiel: c = 0,8, also s = 0,2; steigen die Investitionen dauerhaft um 100, steigt das Volkseinkommen um 500.",
+   "schlagworte": [
+    "Investitionsmultiplikator",
+    "1/s",
+    "Beispiel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsmultiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsmultiplikator-37798",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-10",
+   "art": "methode",
+   "aussage": "Multiplikatorprozess: Die zusätzliche Nachfrage von 100 erhöht zunächst Produktion und Einkommen um 100; davon werden bei c = 0,8 80 wieder ausgegeben, in der nächsten Runde 64 usw. Die Summe dieser Runden ergibt die gesamte Einkommenssteigerung.",
+   "schlagworte": [
+    "Multiplikatorprozess",
+    "Runden",
+    "Konsumquote"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsmultiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsmultiplikator-37798",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-11",
+   "art": "definition",
+   "aussage": "Die marginale Konsumquote `c = \\frac{dC}{dY}` gibt an, um wie viel der Konsum steigt, wenn das Einkommen um eine Einheit steigt; sie liegt in der Regel unter 1. Marginale Konsum- und Sparquote ergänzen sich (ohne Hortung) zu 1.",
+   "schlagworte": [
+    "marginale Konsumquote",
+    "marginale Sparquote",
+    "c + s = 1"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Konsumquote",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/konsumquote-37467",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-12",
+   "art": "abgrenzung",
+   "aussage": "Die durchschnittliche Konsumquote `\\frac{C}{Y}` ist der Anteil des Einkommens, der konsumiert wird; die marginale Konsumquote `\\frac{dC}{dY}` bezieht sich nur auf die zusätzliche Einkommenseinheit. In Modellen mit Staat beziehen sich beide auf das verfügbare Einkommen `Y_v = (1-t)Y`.",
+   "schlagworte": [
+    "durchschnittliche Konsumquote",
+    "marginale Konsumquote",
+    "verfügbares Einkommen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Konsumquote",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/konsumquote-37467",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-13",
+   "art": "formel",
+   "aussage": "Lineare Konsumfunktion: `C = C_0 + c \\cdot Y` mit autonomem Konsum `C_0 > 0` und 0 < c < 1. Nach Keynes' „fundamentalem psychologischem Gesetz“ steigt der Konsum mit dem Einkommen, aber unterproportional; bei positivem `C_0` sinkt `\\frac{C}{Y}` mit steigendem Einkommen.",
+   "schlagworte": [
+    "Konsumfunktion",
+    "autonomer Konsum",
+    "psychologisches Gesetz",
+    "Keynes"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Konsumfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/konsumfunktion-38408",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-14",
+   "art": "formel",
+   "aussage": "Mit marginaler Konsumquote b und Einkommensteuersatz t gilt im Modell `Y = C + G`, `C = b \\cdot Y_v`, `Y_v = (1-t)Y - T + Tr`: Steuermultiplikator (Kopfsteuer) `\\frac{dY}{dT} = \\frac{-b}{1-b(1-t)}`, Transfermultiplikator `\\frac{dY}{dTr} = \\frac{b}{1-b(1-t)}`. Beispiel b = 0,8, t = 0,25: Steuermultiplikator −2,00, Staatsausgabenmultiplikator 2,50.",
+   "schlagworte": [
+    "Steuermultiplikator",
+    "Transfermultiplikator",
+    "Formel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "multiplikator-15",
+   "art": "abgrenzung",
+   "aussage": "Der Steuermultiplikator ist betragsgleich mit dem Transfermultiplikator; ohne einkommensabhängige Steuer (t = 0) ist er betragsmäßig genau um 1 kleiner als der Staatsausgabenmultiplikator, weil Steuersenkungen nur mittelbar über den Konsum nachfragewirksam werden.",
+   "schlagworte": [
+    "Steuermultiplikator",
+    "Transfermultiplikator",
+    "Staatsausgabenmultiplikator"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Steuermultiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/steuermultiplikator-44205",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-16",
+   "art": "abgrenzung",
+   "aussage": "Transferzahlungen werden nicht unmittelbar in voller Höhe nachfragewirksam, sondern erst über höhere private Konsumausgaben; deshalb ist der Transfermultiplikator deutlich kleiner als der Staatsausgabenmultiplikator.",
+   "schlagworte": [
+    "Transfermultiplikator",
+    "Transfers",
+    "Konsum"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Transfermultiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/transfermultiplikator-50615",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-17",
+   "art": "formel",
+   "aussage": "Exportmultiplikator (offene Volkswirtschaft ohne Staat und Investitionsänderung): `\\frac{dY}{dEx} = \\frac{1}{s + m}` mit marginaler Sparquote s und marginaler Importquote m.",
+   "schlagworte": [
+    "Exportmultiplikator",
+    "Importquote",
+    "offene Volkswirtschaft"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Multiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/multiplikator-39042",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-18",
+   "art": "methode",
+   "aussage": "Bezieht man den Geldmarkt ein, verkleinert sich der Multiplikator: Höhere autonome Investitionen erhöhen die Geldnachfrage, der Zins steigt und dämpft die Investitionen.",
+   "schlagworte": [
+    "Geldmarkt",
+    "Zinseffekt",
+    "Multiplikator kleiner"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Multiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/multiplikator-39042",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-19",
+   "art": "methode",
+   "aussage": "Der Multiplikator sinkt, wenn neben der Ersparnis weitere Sickerverluste wie Steuerzahlungen berücksichtigt werden und – über den Gütermarkt hinaus – Verdrängungseffekte durch Zinsanstieg und Aufwertung der heimischen Währung auftreten.",
+   "schlagworte": [
+    "Sickerverluste",
+    "Steuern",
+    "Crowding-out",
+    "Aufwertung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsmultiplikator",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsmultiplikator-37798",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-20",
+   "art": "definition",
+   "aussage": "Balanced-Budget-Theorem: Seit Haavelmo ist bekannt, dass auch ein ausgeglichenes Budget wegen unterschiedlicher Multiplikatoren der Einnahme- und Ausgabearten Einkommenseffekte auslösen kann.",
+   "schlagworte": [
+    "Balanced-Budget-Theorem",
+    "Haavelmo",
+    "ausgeglichenes Budget"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Balanced-Budget-Theorem",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/balanced-budget-theorem-30221",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "multiplikator-21",
+   "art": "abgrenzung",
+   "aussage": "Empirisch (v. a. Kuznets 1946) ist die durchschnittliche Konsumquote langfristig etwa konstant; Erklärungsansätze sind u. a. die permanente Einkommenshypothese und die Lebenszyklushypothese.",
+   "schlagworte": [
+    "Kuznets",
+    "permanentes Einkommen",
+    "Lebenszyklushypothese"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Konsumfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/konsumfunktion-38408",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -109,6 +321,194 @@
    "falsch": "Je höher die Sparquote, desto größer der Multiplikator.",
    "richtig": "Der Multiplikator 1/s sinkt mit steigender marginaler Sparquote.",
    "quelle_id": "multiplikator-2"
+  },
+  {
+   "falsch": "Der Multiplikator gilt auch dann voll, wenn der Staat die Ausgaben über Kredite finanziert und der Zins steigt.",
+   "richtig": "Zinsanstieg, Preiseffekte und Aufwertung verdrängen private Nachfrage und verkleinern den Multiplikator.",
+   "quelle_id": "multiplikator-18"
+  },
+  {
+   "falsch": "Der Steuermultiplikator ist immer genau um 1 kleiner als der Staatsausgabenmultiplikator.",
+   "richtig": "Das gilt nur ohne einkommensabhängige Steuer (t = 0); mit t > 0 ist die Differenz kleiner als 1.",
+   "quelle_id": "multiplikator-15"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist der Multiplikator?",
+   "varianten": [
+    "Multiplikator Definition",
+    "Multiplikatoreffekt einfach erklärt",
+    "Keynes Multiplikator"
+   ],
+   "antwort": "Der Multiplikator gibt an, um wie viel das Einkommen steigt, wenn eine autonome Nachfragegröße wie Investitionen, Staatsausgaben oder Exporte um eine Einheit zunimmt. Weil zusätzliches Einkommen teilweise wieder ausgegeben wird, steigt das Einkommen um ein Vielfaches des Anstoßes. Ohne Verdrängungseffekte (Zins, Preise, Wechselkurs) ist der Multiplikator größer als eins. Das Konzept geht auf Kahn und Keynes zurück.",
+   "belege": [
+    "multiplikator-1",
+    "multiplikator-8"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den einfachen Multiplikator?",
+   "varianten": [
+    "Multiplikator Formel",
+    "1 durch 1 minus c",
+    "Investitionsmultiplikator berechnen"
+   ],
+   "antwort": "Im einfachen Modell ohne Staat und Ausland gilt \\( \\Delta Y = \\frac{1}{1-c}\\,\\Delta A = \\frac{1}{s}\\,\\Delta A \\) mit marginaler Konsumquote c und marginaler Sparquote \\( s = 1-c \\). Beispiel: Bei \\( c = 0{,}75 \\) ist der Multiplikator \\( \\frac{1}{0{,}25} = 4 \\). Steigen die Investitionen um 40, steigt das Einkommen um \\( 4 \\cdot 40 = 160 \\). Voraussetzung sind konstante Parameter und keine Zins-, Preis- oder Wechselkurseffekte.",
+   "belege": [
+    "multiplikator-2",
+    "multiplikator-6",
+    "multiplikator-9"
+   ]
+  },
+  {
+   "frage": "Wie läuft der Multiplikatorprozess in Runden ab?",
+   "varianten": [
+    "Multiplikatorprozess Runden",
+    "Multiplikator Beispiel 100 80 64",
+    "warum wird das Einkommen mehrfach erhöht"
+   ],
+   "antwort": "Steigen die Investitionen um 100, erhöhen sich Produktion und Einkommen zunächst um 100. Bei einer marginalen Konsumquote von 0,8 werden davon 80 wieder ausgegeben, was in der nächsten Runde erneut Einkommen schafft; danach 64 usw. Nach drei Runden sind es \\( 100 + 80 + 64 = 244 \\). Insgesamt ergibt die Summe aller Runden \\( \\frac{100}{0{,}2} = 500 \\).",
+   "belege": [
+    "multiplikator-9",
+    "multiplikator-10"
+   ]
+  },
+  {
+   "frage": "Wird der Multiplikator größer, wenn die Leute mehr sparen?",
+   "varianten": [
+    "Sparquote und Multiplikator",
+    "höhere Konsumquote größerer Multiplikator",
+    "Sparparadox Multiplikator"
+   ],
+   "antwort": "Nein, umgekehrt: Je höher die marginale Sparquote s, desto kleiner ist der Multiplikator \\( \\frac{1}{s} \\). Wer mehr spart, gibt in jeder Runde weniger weiter, die Kette läuft schneller aus. Marginale Konsumquote und marginale Sparquote ergänzen sich zu 1. Bei \\( c = 0{,}9 \\) ist der Multiplikator 10, bei \\( c = 0{,}5 \\) nur 2.",
+   "belege": [
+    "multiplikator-2",
+    "multiplikator-11"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Multiplikator mit Steuern und Importen?",
+   "varianten": [
+    "Multiplikator offene Volkswirtschaft",
+    "Multiplikator mit Steuersatz und Importquote",
+    "Staatsausgabenmultiplikator berechnen"
+   ],
+   "antwort": "In einer offenen Volkswirtschaft mit proportionaler Steuer gilt \\( dY = \\frac{dI + dG + dEx}{1 - c(1-t) + m} \\) mit Steuersatz t und marginaler Importquote m. Beispiel: \\( c = 0{,}8 \\), \\( t = 0{,}25 \\), \\( m = 0{,}1 \\) ergibt den Multiplikator \\( \\frac{1}{1 - 0{,}6 + 0{,}1} = 2 \\). Steigen die Staatsausgaben um 50, steigt das Einkommen um 100. Ohne Importe wäre der Multiplikator \\( \\frac{1}{1-0{,}6} = 2{,}5 \\): Steuern und Importe sind Sickerverluste und verkleinern ihn.",
+   "belege": [
+    "multiplikator-3",
+    "multiplikator-4",
+    "multiplikator-18"
+   ]
+  },
+  {
+   "frage": "Warum ist der Staatsausgabenmultiplikator größer als der Steuermultiplikator?",
+   "varianten": [
+    "Staatsausgabenmultiplikator vs Steuermultiplikator",
+    "Steuersenkung oder Staatsausgaben",
+    "Transfermultiplikator kleiner"
+   ],
+   "antwort": "Staatskäufe von Gütern und Dienstleistungen sind sofort in voller Höhe nachfragewirksam. Eine Steuersenkung oder ein Transfer erhöht dagegen nur das verfügbare Einkommen; davon wird ein Teil gespart, nur der Rest wird über den Konsum nachfragewirksam. Formal gilt \\( \\frac{dY}{dG} = \\frac{1}{1-b(1-t)} \\), aber \\( \\frac{dY}{dT} = \\frac{-b}{1-b(1-t)} \\). Steuer- und Transfermultiplikator sind betragsgleich; ohne einkommensabhängige Steuer ist der Steuermultiplikator betragsmäßig genau um 1 kleiner als der Staatsausgabenmultiplikator.",
+   "belege": [
+    "multiplikator-4",
+    "multiplikator-5",
+    "multiplikator-14",
+    "multiplikator-15"
+   ]
+  },
+  {
+   "frage": "Die Steuern sinken um 20, c = 0,8, t = 0. Wie stark steigt das Einkommen im Vergleich zu 20 mehr Staatsausgaben?",
+   "varianten": [
+    "Steuermultiplikator Rechenbeispiel",
+    "Steuersenkung Wirkung berechnen",
+    "Vergleich Steuersenkung Staatsausgaben"
+   ],
+   "antwort": "Der Steuermultiplikator ist hier \\( \\frac{-0{,}8}{1-0{,}8} = -4 \\). Eine Steuersenkung um 20 (also \\( dT = -20 \\)) erhöht das Einkommen um \\( -4 \\cdot (-20) = 80 \\). Der Staatsausgabenmultiplikator beträgt \\( \\frac{1}{1-0{,}8} = 5 \\), 20 mehr Staatsausgaben bringen also 100. Die Differenz der Multiplikatoren ist genau 1, weil im Beispiel t = 0 gilt.",
+   "belege": [
+    "multiplikator-4",
+    "multiplikator-14",
+    "multiplikator-15"
+   ]
+  },
+  {
+   "frage": "Was besagt das Haavelmo-Theorem?",
+   "varianten": [
+    "Haavelmo-Theorem",
+    "Balanced-Budget-Multiplikator",
+    "ausgeglichenes Budget expansiv"
+   ],
+   "antwort": "Erhöht der Staat Ausgaben und (Pauschal-)Steuern um denselben Betrag, steigt das Einkommen in einer geschlossenen Volkswirtschaft genau um diesen Betrag – der Balanced-Budget-Multiplikator ist 1. Rechnung: \\( \\frac{1}{1-c} - \\frac{c}{1-c} = 1 \\). Beispiel mit \\( c = 0{,}8 \\) und 30 mehr Ausgaben und Steuern: \\( 5 \\cdot 30 - 4 \\cdot 30 = 30 \\). Ein ausgeglichenes Budget kann also expansiv wirken, weil die Multiplikatoren von Ausgaben und Steuern verschieden sind.",
+   "belege": [
+    "multiplikator-7",
+    "multiplikator-19"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen marginaler und durchschnittlicher Konsumquote?",
+   "varianten": [
+    "marginale vs durchschnittliche Konsumquote",
+    "dC/dY vs C/Y",
+    "Konsumquote berechnen"
+   ],
+   "antwort": "Die durchschnittliche Konsumquote \\( \\frac{C}{Y} \\) gibt an, welcher Anteil des gesamten Einkommens konsumiert wird. Die marginale Konsumquote \\( \\frac{dC}{dY} \\) zeigt, wie viel von einem zusätzlichen Euro Einkommen konsumiert wird. Bei der linearen Konsumfunktion \\( C = C_0 + c \\cdot Y \\) ist die marginale Quote konstant c, die durchschnittliche sinkt bei positivem \\( C_0 \\) mit steigendem Einkommen. Für den Multiplikator zählt die marginale Konsumquote.",
+   "belege": [
+    "multiplikator-11",
+    "multiplikator-12",
+    "multiplikator-13"
+   ]
+  },
+  {
+   "frage": "Warum ist der Multiplikator in der Realität kleiner als im Lehrbuchmodell?",
+   "varianten": [
+    "Grenzen des Multiplikators",
+    "Multiplikator Annahmen",
+    "Multiplikator Crowding-out"
+   ],
+   "antwort": "Das einfache Modell betrachtet nur den Gütermarkt und blendet Zins-, Preis- und Wechselkurseffekte aus. In der Realität fließt neben der Ersparnis auch Geld über Steuern und Importe ab (Sickerverluste). Steigt durch die höhere Nachfrage der Zins, sinken private Investitionen; Preissteigerungen und eine Aufwertung der Währung verdrängen weitere Nachfrage. All das verkleinert den Multiplikator.",
+   "belege": [
+    "multiplikator-6",
+    "multiplikator-17",
+    "multiplikator-18"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Exportmultiplikator?",
+   "varianten": [
+    "Exportmultiplikator Formel",
+    "Multiplikator mit Importquote",
+    "1 durch s plus m"
+   ],
+   "antwort": "Ohne Staat und ohne Investitionsänderung gilt für den Exportmultiplikator \\( \\frac{dY}{dEx} = \\frac{1}{s + m} \\) mit marginaler Sparquote s und marginaler Importquote m. Beispiel: \\( s = 0{,}2 \\) und \\( m = 0{,}3 \\) ergeben \\( \\frac{1}{0{,}5} = 2 \\). Steigen die Exporte um 10, steigt das Einkommen um 20. Je höher die Importquote, desto mehr Nachfrage fließt ins Ausland ab und desto kleiner ist der Multiplikator.",
+   "belege": [
+    "multiplikator-16"
+   ]
+  },
+  {
+   "frage": "Warum wirken Transferzahlungen schwächer als Staatskäufe?",
+   "varianten": [
+    "Transfermultiplikator",
+    "Transfers Wirkung Einkommen",
+    "Kindergeld Multiplikator"
+   ],
+   "antwort": "Transferzahlungen wie Sozialleistungen erhöhen nur das verfügbare Einkommen der Haushalte. Nachfragewirksam wird davon nur der Teil, der konsumiert wird; der Rest wird gespart. Der Transfermultiplikator \\( \\frac{b}{1-b(1-t)} \\) ist deshalb kleiner als der Staatsausgabenmultiplikator \\( \\frac{1}{1-b(1-t)} \\) und betragsgleich mit dem Steuermultiplikator.",
+   "belege": [
+    "multiplikator-20",
+    "multiplikator-14",
+    "multiplikator-15"
+   ]
+  },
+  {
+   "frage": "Was ist die Konsumfunktion nach Keynes?",
+   "varianten": [
+    "Konsumfunktion Keynes",
+    "psychologisches Gesetz Keynes",
+    "autonomer Konsum"
+   ],
+   "antwort": "Die Konsumfunktion beschreibt, wie der Konsum vom Einkommen abhängt. Nach Keynes’ „fundamentalem psychologischem Gesetz“ steigt der Konsum mit dem Einkommen, aber nur unterproportional. Vereinfacht nutzt man die lineare Form \\( C = C_0 + c \\cdot Y \\) mit autonomem Konsum \\( C_0 \\) und marginaler Konsumquote \\( 0 < c < 1 \\). Empirisch (Kuznets) ist die durchschnittliche Konsumquote langfristig aber etwa konstant, was u. a. die permanente Einkommenshypothese und die Lebenszyklushypothese erklären.",
+   "belege": [
+    "multiplikator-13",
+    "multiplikator-21"
+   ]
   }
  ]
 }

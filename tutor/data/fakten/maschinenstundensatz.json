@@ -127,6 +127,187 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "maschinenstundensatz-10",
+   "art": "definition",
+   "aussage": "Anlagenkosten (Maschinenkosten) sind alle Kosten für Bereitstellung, Nutzung, Bereithaltung und Ausmusterung von Anlagen; betragsmäßig dominieren die über Abschreibungen verrechneten Anschaffungs- bzw. Herstellungskosten, daneben kalkulatorische Zinsen und Instandhaltungskosten.",
+   "schlagworte": [
+    "Anlagenkosten",
+    "Maschinenkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Anlagenkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/anlagenkosten-28100",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-11",
+   "art": "abgrenzung",
+   "aussage": "Kalkulatorische Abschreibungen sind Anderskosten; sie können von den bilanziellen Abschreibungen abweichen durch einen anderen Wertansatz (Wiederbeschaffungskosten statt Anschaffungskosten), eine andere Methode (z. B. linear statt degressiv) oder die tatsächliche statt der steuerlichen Nutzungsdauer.",
+   "schlagworte": [
+    "kalkulatorische Abschreibung",
+    "Wiederbeschaffungswert",
+    "Anderskosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: kalkulatorische Abschreibungen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulatorische-abschreibungen-37394",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-12",
+   "art": "formel",
+   "aussage": "Lineare kalkulatorische Abschreibung je Jahr: `AfA_{kalk} = \\frac{\\text{Wiederbeschaffungswert} - \\text{Restwert}}{\\text{Nutzungsdauer}}`.",
+   "schlagworte": [
+    "kalkulatorische Abschreibung",
+    "Formel"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-13",
+   "art": "formel",
+   "aussage": "Kalkulatorische Zinsen einer abnutzbaren Anlage nach der Durchschnittsmethode: `Z_{kalk} = \\frac{\\text{Anschaffungswert}}{2} \\cdot i` (durchschnittlich gebundenes Kapital mal kalkulatorischer Zinssatz; bei Restwert `\\frac{AW + RW}{2} \\cdot i`).",
+   "schlagworte": [
+    "kalkulatorische Zinsen",
+    "Durchschnittsmethode",
+    "halber Anschaffungswert"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-14",
+   "art": "definition",
+   "aussage": "Instandhaltungskosten sind Kosten, um eine Anlage einsatzfähig zu halten: Wartung, Inspektion und Instandsetzung.",
+   "schlagworte": [
+    "Instandhaltung",
+    "Wartung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Instandhaltungskosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/instandhaltungskosten-39518",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-15",
+   "art": "methode",
+   "aussage": "Raumkosten werden häufig auf einer Hilfskostenstelle „Gebäude“ gesammelt und nach Fläche (und wirtschaftlichem Wert) auf die Nutzer umgelegt; im Maschinenstundensatz wird so der Flächenbedarf der Maschine verrechnet.",
+   "schlagworte": [
+    "Raumkosten",
+    "Fläche"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Raumkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/raumkosten-46121",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-16",
+   "art": "formel",
+   "aussage": "Energiekosten je Maschinenstunde: `\\text{Anschlusswert (kW)} \\cdot \\text{Auslastungsfaktor} \\cdot \\text{Strompreis je kWh}`.",
+   "schlagworte": [
+    "Energiekosten",
+    "kW",
+    "Strompreis"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-17",
+   "art": "formel",
+   "aussage": "Die Maschinenlaufzeit als Nenner ergibt sich aus der theoretisch möglichen Zeit abzüglich Stillstandszeiten (z. B. Wartung, Rüsten, Störungen, sofern nicht gesondert verrechnet): `T_L = T_{theor} - T_{Still}`.",
+   "schlagworte": [
+    "Maschinenlaufzeit",
+    "Nutzungszeit",
+    "Stillstand"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-18",
+   "art": "methode",
+   "aussage": "Ein Teil der Maschinenkosten ist laufzeitunabhängig (z. B. zeitabhängige Abschreibung, Zinsen, Raumkosten), ein Teil laufzeitabhängig (z. B. Energie); sinkt die Laufzeit, steigt der Maschinenstundensatz, weil sich die fixen Kosten auf weniger Stunden verteilen.",
+   "schlagworte": [
+    "Auslastung",
+    "fixe Maschinenkosten",
+    "variable Maschinenkosten"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-19",
+   "art": "formel",
+   "aussage": "Fertigungskosten bei Maschinenstundensatzrechnung: `FK = FL + FL \\cdot \\frac{z_{RGK}}{100} + MSS \\cdot t_{Masch} + SEKF` (FL = Fertigungslöhne, RGK = Restgemeinkosten, t = Maschinenstunden).",
+   "schlagworte": [
+    "Fertigungskosten",
+    "Restgemeinkosten",
+    "Kalkulationsschema"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-20",
+   "art": "formel",
+   "aussage": "Restgemeinkostenzuschlag: `z_{RGK} = \\frac{\\text{Restgemeinkosten}}{\\text{Fertigungslöhne}} \\cdot 100`; Restgemeinkosten sind die Fertigungsgemeinkosten der Stelle abzüglich der maschinenabhängigen Gemeinkosten.",
+   "schlagworte": [
+    "Restgemeinkostenzuschlag",
+    "Restgemeinkosten"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-21",
+   "art": "definition",
+   "aussage": "Kostenplätze sind elementare Abrechnungsbezirke innerhalb einer Kostenstelle, etwa einzelne Produktionsanlagen, die gesondert kalkuliert werden sollen.",
+   "schlagworte": [
+    "Kostenplatz",
+    "Platzkostenrechnung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenplatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenplatz-39690",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-22",
+   "art": "methode",
+   "aussage": "Für kalkulatorische Zinsen löst man sich üblicherweise von den tatsächlichen Finanzierungskosten und setzt einen einheitlichen Kapitalkostensatz auf das betriebsnotwendige Kapital an, also auch auf das Eigenkapital.",
+   "schlagworte": [
+    "kalkulatorische Zinsen",
+    "betriebsnotwendiges Kapital"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: kalkulatorische Zinsen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulatorische-zinsen-40705",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -139,6 +320,184 @@
    "falsch": "Mit dem Maschinenstundensatz sind alle Gemeinkosten verrechnet.",
    "richtig": "Es werden nur die Anlagenkosten über den Maschinenstundensatz verrechnet; die Restgemeinkosten laufen weiter über Zuschläge.",
    "quelle_id": "maschinenstundensatz-4"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist ein Maschinenstundensatz?",
+   "varianten": [
+    "Maschinenstundensatz Definition",
+    "Maschinenstundensatz einfach erklärt",
+    "Maschinenstundensatzrechnung"
+   ],
+   "antwort": "Der Maschinenstundensatz gibt die Kosten einer Anlage je Stunde ihrer Nutzung an. Damit verrechnest du die maschinenabhängigen Gemeinkosten nach der tatsächlichen Laufzeit, die ein Produkt die Maschine beansprucht, statt über einen Zuschlag auf die Löhne. Die Maschinenstundensatzrechnung ist eine Sonderform der Bezugsgrößenkalkulation.",
+   "belege": [
+    "maschinenstundensatz-1",
+    "maschinenstundensatz-3"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Maschinenstundensatz?",
+   "varianten": [
+    "Maschinenstundensatz Formel",
+    "Maschinenstundensatz berechnen",
+    "MSS Formel"
+   ],
+   "antwort": "Du teilst die maschinenabhängigen Gemeinkosten der Periode durch die Maschinenlaufzeit der Periode: \\( MSS = \\frac{\\text{maschinenabhängige Gemeinkosten}}{\\text{Laufstunden}} \\). Im Zähler stehen typischerweise kalkulatorische Abschreibung, kalkulatorische Zinsen, Raum-, Energie- und Instandhaltungskosten. Im Nenner steht die tatsächliche Laufzeit, also die theoretische Zeit abzüglich Stillstand.",
+   "belege": [
+    "maschinenstundensatz-2",
+    "maschinenstundensatz-8",
+    "maschinenstundensatz-17"
+   ]
+  },
+  {
+   "frage": "Welche Kosten gehören in den Maschinenstundensatz?",
+   "varianten": [
+    "Bestandteile Maschinenstundensatz",
+    "maschinenabhängige Gemeinkosten",
+    "Maschinenkosten Arten"
+   ],
+   "antwort": "In den Maschinenstundensatz gehören die maschinenabhängigen Kosten: kalkulatorische Abschreibung (meist auf den Wiederbeschaffungswert), kalkulatorische Zinsen, Raumkosten für die Stellfläche, Energiekosten und Instandhaltungskosten. Fertigungslöhne gehören nicht dazu; sie werden als Einzelkosten getrennt verrechnet. Unter den Anlagenkosten dominieren betragsmäßig meist die Abschreibungen.",
+   "belege": [
+    "maschinenstundensatz-8",
+    "maschinenstundensatz-10",
+    "maschinenstundensatz-14"
+   ]
+  },
+  {
+   "frage": "Rechenbeispiel: Maschinenstundensatz berechnen",
+   "varianten": [
+    "Maschinenstundensatz Beispiel",
+    "Maschinenstundensatz Aufgabe",
+    "MSS Beispielrechnung"
+   ],
+   "antwort": "Wiederbeschaffungswert 240.000,00 €, Nutzungsdauer 10 Jahre: kalkulatorische Abschreibung 24.000,00 € pro Jahr. Anschaffungswert 200.000,00 €, Zinssatz 6 %: Zinsen \\( \\frac{200.000}{2} \\cdot 0{,}06 = 6.000{,}00 \\) €. Raum 20 m² zu 15,00 € je m² und Monat: 3.600,00 €; Instandhaltung 4.400,00 €; Energie 20 kW mal 0,25 €/kWh mal 1.600 Stunden = 8.000,00 €. Summe 46.000,00 € geteilt durch 1.600 Laufstunden ergibt einen Maschinenstundensatz von 28,75 €.",
+   "belege": [
+    "maschinenstundensatz-2",
+    "maschinenstundensatz-12",
+    "maschinenstundensatz-13",
+    "maschinenstundensatz-15",
+    "maschinenstundensatz-16"
+   ]
+  },
+  {
+   "frage": "Wie bestimme ich die Maschinenlaufzeit?",
+   "varianten": [
+    "Laufzeit Maschinenstundensatz",
+    "Nutzungszeit Maschine berechnen",
+    "Stillstandszeiten"
+   ],
+   "antwort": "Du startest bei der theoretisch möglichen Zeit und ziehst die Stillstandszeiten ab, etwa für Wartung, Störungen oder Rüsten, sofern diese nicht gesondert verrechnet werden: \\( T_L = T_{theor} - T_{Still} \\). Beispiel: 2.000 Stunden theoretisch minus 400 Stunden Stillstand ergeben 1.600 Laufstunden. Rechnest du mit zu vielen Stunden, wird der Satz zu niedrig und die Kosten werden nicht vollständig verrechnet.",
+   "belege": [
+    "maschinenstundensatz-17"
+   ]
+  },
+  {
+   "frage": "Warum verwendet man Maschinenstundensätze statt Fertigungsgemeinkostenzuschlägen?",
+   "varianten": [
+    "Maschinenstundensatz vs Zuschlagskalkulation",
+    "Vorteil Maschinenstundensatz",
+    "Automatisierung Kalkulation"
+   ],
+   "antwort": "In automatisierten Fertigungen machen die Maschinenkosten den Großteil der Fertigungsgemeinkosten aus, während die Fertigungslöhne klein sind. Ein Zuschlag auf die Löhne bildet die Kostenverursachung dann schlecht ab. Mit dem Maschinenstundensatz verrechnest du die Anlagenkosten nach der tatsächlichen Maschinenzeit, die ein Produkt beansprucht, und damit verursachungsgerechter.",
+   "belege": [
+    "maschinenstundensatz-6",
+    "maschinenstundensatz-3"
+   ]
+  },
+  {
+   "frage": "Was sind Restgemeinkosten?",
+   "varianten": [
+    "Restgemeinkosten Definition",
+    "Restgemeinkostenzuschlag berechnen",
+    "Maschinenstundensatz und Zuschlag kombiniert"
+   ],
+   "antwort": "Restgemeinkosten sind die Fertigungsgemeinkosten einer Stelle, die nach Abzug der maschinenabhängigen Gemeinkosten übrig bleiben, etwa Hilfslöhne oder Gehälter der Meister. Sie werden weiterhin per Zuschlag auf die Fertigungslöhne verrechnet: \\( z_{RGK} = \\frac{\\text{Restgemeinkosten}}{\\text{Fertigungslöhne}} \\cdot 100 \\). Maschinenstundensatzrechnung und Zuschlagskalkulation laufen so parallel.",
+   "belege": [
+    "maschinenstundensatz-4",
+    "maschinenstundensatz-20"
+   ]
+  },
+  {
+   "frage": "Rechenbeispiel: Fertigungskosten eines Auftrags mit Maschinenstundensatz",
+   "varianten": [
+    "Auftrag kalkulieren Maschinenstundensatz",
+    "Fertigungskosten berechnen Maschinenstunden",
+    "Kalkulation mit Maschinenstundensatz"
+   ],
+   "antwort": "Ein Auftrag belegt die Maschine 12 Stunden bei einem Maschinenstundensatz von 28,75 €: Maschinenkosten \\( 28{,}75 \\cdot 12 = 345{,}00 \\) €. Die Fertigungslöhne betragen 200,00 €, der Restgemeinkostenzuschlag 80 %, also 160,00 €. Die Fertigungskosten betragen damit 200,00 + 160,00 + 345,00 = 705,00 €.",
+   "belege": [
+    "maschinenstundensatz-9",
+    "maschinenstundensatz-19",
+    "maschinenstundensatz-20"
+   ]
+  },
+  {
+   "frage": "Warum rechnet man mit kalkulatorischer statt bilanzieller Abschreibung?",
+   "varianten": [
+    "kalkulatorische Abschreibung Maschinenstundensatz",
+    "Wiederbeschaffungswert Abschreibung",
+    "kalkulatorische vs bilanzielle Abschreibung"
+   ],
+   "antwort": "Die Kostenrechnung will den tatsächlichen Werteverzehr abbilden, nicht die bilanzielle Sicht. Deshalb kann die kalkulatorische Abschreibung vom Wiederbeschaffungswert statt vom Anschaffungswert ausgehen, linear statt degressiv rechnen und die tatsächliche statt der steuerlichen Nutzungsdauer verwenden. Linear gilt: \\( \\frac{\\text{Wiederbeschaffungswert} - \\text{Restwert}}{\\text{Nutzungsdauer}} \\).",
+   "belege": [
+    "maschinenstundensatz-11",
+    "maschinenstundensatz-12"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die kalkulatorischen Zinsen für eine Maschine?",
+   "varianten": [
+    "kalkulatorische Zinsen Maschine",
+    "kalkulatorische Zinsen halber Anschaffungswert",
+    "Durchschnittsmethode Zinsen"
+   ],
+   "antwort": "Kalkulatorische Zinsen gehören zu den Anlagenkosten im Maschinenstundensatz. Weil das gebundene Kapital durch die Abschreibung sinkt, setzt man nach der Durchschnittsmethode häufig den halben Anschaffungswert an: \\( Z = \\frac{AW}{2} \\cdot i \\). Bei 200.000,00 € und 6 % sind das 6.000,00 € pro Jahr. Verzinst wird unabhängig von der tatsächlichen Finanzierung, also auch der Eigenkapitalanteil.",
+   "belege": [
+    "maschinenstundensatz-7",
+    "maschinenstundensatz-13",
+    "maschinenstundensatz-22"
+   ]
+  },
+  {
+   "frage": "Was passiert mit dem Maschinenstundensatz, wenn die Auslastung sinkt?",
+   "varianten": [
+    "Maschinenstundensatz Auslastung",
+    "Maschinenstundensatz fixe variable Kosten",
+    "Laufzeit sinkt Maschinenstundensatz"
+   ],
+   "antwort": "Der Satz steigt, weil sich die laufzeitunabhängigen Kosten auf weniger Stunden verteilen. Beispiel: 38.000,00 € laufzeitunabhängige Maschinenkosten (Abschreibung, Zinsen, Raum und hier die als fester Jahresbetrag geplante Instandhaltung) und 5,00 € Energie je Stunde. Bei 1.600 Stunden ergibt sich \\( \\frac{38.000}{1.600} + 5 = 28{,}75 \\) €, bei 1.200 Stunden \\( \\frac{38.000}{1.200} + 5 = 36{,}67 \\) €. Deshalb lohnt es sich, im Maschinenstundensatz fixe und variable Bestandteile getrennt auszuweisen.",
+   "belege": [
+    "maschinenstundensatz-18",
+    "maschinenstundensatz-2"
+   ]
+  },
+  {
+   "frage": "Gehören Fertigungslöhne in den Maschinenstundensatz?",
+   "varianten": [
+    "Fertigungslöhne Maschinenstundensatz",
+    "Lohn im Maschinenstundensatz",
+    "Bedienpersonal Maschinenstundensatz"
+   ],
+   "antwort": "Üblicherweise nein. Fertigungslöhne werden als Fertigungseinzelkosten direkt dem Auftrag zugerechnet, der Maschinenstundensatz erfasst nur die maschinenabhängigen Gemeinkosten wie Abschreibung, Zinsen, Raum, Energie und Instandhaltung. Die übrigen Gemeinkosten der Stelle verrechnest du als Restgemeinkosten per Zuschlag auf die Löhne.",
+   "belege": [
+    "maschinenstundensatz-8",
+    "maschinenstundensatz-4",
+    "maschinenstundensatz-19"
+   ]
+  },
+  {
+   "frage": "Was ist ein Kostenplatz?",
+   "varianten": [
+    "Kostenplatz Definition",
+    "Platzkostenrechnung",
+    "Maschinenplatz"
+   ],
+   "antwort": "Ein Kostenplatz ist ein kleiner Abrechnungsbezirk innerhalb einer Kostenstelle, zum Beispiel eine einzelne Maschine oder ein Arbeitsplatzbereich, der gesondert kalkuliert werden soll. Im weiteren Sinn kann der Maschinenstundensatz auch die Kosten einer ganzen Kostenstelle oder eines Kostenplatzes je Nutzungsstunde der dort betriebenen Anlagen sein. Kostenplätze bieten sich an, wenn in einer Stelle sehr unterschiedliche Maschinen stehen.",
+   "belege": [
+    "maschinenstundensatz-21",
+    "maschinenstundensatz-1"
+   ]
   }
  ]
 }

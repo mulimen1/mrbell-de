@@ -126,6 +126,232 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-10",
+   "art": "definition",
+   "aussage": "Hilfskostenstellen (Vorkostenstellen) sind nicht direkt an der Herstellung der Produkte beteiligt, sondern erbringen innerbetriebliche Leistungen; allgemeine Hilfskostenstellen arbeiten für alle Kostenstellen (z. B. Werksfeuerwehr, Stromerzeugung), spezielle nur für bestimmte Bereiche (z. B. Arbeitsvorbereitung).",
+   "schlagworte": [
+    "Hilfskostenstelle",
+    "Vorkostenstelle",
+    "allgemein",
+    "speziell"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Hilfskostenstelle",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/hilfskostenstelle-35983",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-11",
+   "art": "definition",
+   "aussage": "Endkostenstellen sind Kostenstellen, deren gesammelte Kosten nicht an weitere Stellen verrechnet, sondern in die Kalkulation übernommen werden.",
+   "schlagworte": [
+    "Endkostenstelle"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Endkostenstelle",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/endkostenstelle-33193",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-12",
+   "art": "definition",
+   "aussage": "Hauptkostenstellen sind Endkostenstellen, die Hauptprodukte erzeugen (z. B. Gießerei, Dreherei); Nebenkostenstellen erzeugen Nebenprodukte (z. B. Verarbeitung von Abfallstoffen).",
+   "schlagworte": [
+    "Hauptkostenstelle",
+    "Nebenkostenstelle"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Hauptkostenstelle",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/hauptkostenstelle-35771",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-13",
+   "art": "definition",
+   "aussage": "Allgemeine Hilfskostenstellen (z. B. Gebäude, Heizung, Sozialeinrichtungen) dienen dem ganzen Betrieb; ihre Kosten werden auf die empfangenden Stellen je nach Leistungsempfang umgelegt.",
+   "schlagworte": [
+    "allgemeine Hilfskostenstellen",
+    "Umlage"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: allgemeine Hilfskostenstellen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/allgemeine-hilfskostenstellen-29258",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-14",
+   "art": "methode",
+   "aussage": "Das Iterationsverfahren berücksichtigt wechselseitige Leistungsbeziehungen ebenfalls, liefert aber nur eine (beliebig genaue) Näherungslösung und ist sinnvoll nur EDV-gestützt anwendbar.",
+   "schlagworte": [
+    "Iterationsverfahren",
+    "Näherungslösung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: innerbetriebliche Leistungsverrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/innerbetriebliche-leistungsverrechnung-40586",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-15",
+   "art": "methode",
+   "aussage": "Das Festpreisverfahren verrechnet innerbetriebliche Leistungen nicht zu Istkosten, sondern zu Normal- oder Plankosten; es ist einfach zu handhaben und eignet sich für kurzperiodische Auswertungen.",
+   "schlagworte": [
+    "Festpreisverfahren",
+    "Verrechnungspreis"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: innerbetriebliche Leistungsverrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/innerbetriebliche-leistungsverrechnung-40586",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-16",
+   "art": "formel",
+   "aussage": "Anbauverfahren: Verrechnungssatz einer Hilfskostenstelle `q = \\frac{\\text{primäre Kosten der Hilfsstelle}}{\\text{an Hauptkostenstellen abgegebene Leistungsmenge}}`; Leistungen an andere Hilfsstellen bleiben unberücksichtigt.",
+   "schlagworte": [
+    "Anbauverfahren",
+    "Verrechnungssatz"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-17",
+   "art": "formel",
+   "aussage": "Gleichungsverfahren: Für jede Hilfsstelle i gilt `x_i \\cdot q_i = K_i + \\sum_j m_{ji} \\cdot q_j` (Gesamtleistung mal Verrechnungssatz = primäre Kosten + Wert der empfangenen Leistungen anderer Hilfsstellen); das Gleichungssystem wird simultan gelöst.",
+   "schlagworte": [
+    "Gleichungsverfahren",
+    "simultan",
+    "lineares Gleichungssystem"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-18",
+   "art": "methode",
+   "aussage": "Beim Stufenleiterverfahren wird zuerst die Hilfskostenstelle abgerechnet, die keine oder die wenigsten Leistungen von anderen Hilfskostenstellen empfängt; die nachfolgenden Stellen werden entsprechend stufenweise verteilt.",
+   "schlagworte": [
+    "Stufenleiterverfahren",
+    "Reihenfolge",
+    "Treppenverfahren"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Stufenverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/stufenverfahren-45747",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-19",
+   "art": "abgrenzung",
+   "aussage": "Die Genauigkeit des Stufenleiterverfahrens hängt vom Umfang der Leistungsrückflüsse ab, die es vernachlässigt.",
+   "schlagworte": [
+    "Stufenleiterverfahren",
+    "Genauigkeit",
+    "Leistungsrückfluss"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: innerbetriebliche Leistungsverrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/innerbetriebliche-leistungsverrechnung-40586",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-20",
+   "art": "methode",
+   "aussage": "Raumkosten (z. B. Gebäudeabschreibung oder Miete, Heizung, Reinigung) werden häufig auf einer Hilfskostenstelle „Gebäude“ gesammelt und nach Fläche und wirtschaftlichem Wert auf die nutzenden Kostenstellen umgelegt.",
+   "schlagworte": [
+    "Raumkosten",
+    "Flächenschlüssel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Raumkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/raumkosten-46121",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-21",
+   "art": "methode",
+   "aussage": "Stromkosten sollen möglichst als Kostenstelleneinzelkosten nach gemessenem Verbrauch verrechnet werden; fehlen Messeinrichtungen, nutzt man Schlüssel wie die installierte Leistung (kW).",
+   "schlagworte": [
+    "Stromkosten",
+    "Verteilungsschlüssel",
+    "kW"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Stromkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/stromkosten-43449",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-22",
+   "art": "abgrenzung",
+   "aussage": "Kostenstellengemeinkosten (z. B. Gehalt des Werksleiters für mehrere Fertigungsstellen) lassen sich nur mehreren Kostenstellen gemeinsam zurechnen und nur per Schlüsselung auf einzelne Stellen umlegen.",
+   "schlagworte": [
+    "Kostenstellengemeinkosten",
+    "Schlüsselung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenstellengemeinkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenstellengemeinkosten-41354",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-23",
+   "art": "abgrenzung",
+   "aussage": "Jede Gemeinkostenschlüsselung beeinträchtigt die Abbildungsfunktion der Kostenrechnung; die Richtigkeit eines Schlüssels (z. B. Raumkosten nach Quadrat- oder Kubikmetern) lässt sich nie beweisen.",
+   "schlagworte": [
+    "Gemeinkostenschlüsselung",
+    "Kritik"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Gemeinkostenschlüsselung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/gemeinkostenschluesselung-36172",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-24",
+   "art": "methode",
+   "aussage": "Werden im BAB Normalzuschläge verwendet, stellt man am Periodenende verrechnete und tatsächliche Gemeinkosten gegenüber; die Differenzen sind Kostenüber- bzw. -unterdeckungen der Kostenstellen.",
+   "schlagworte": [
+    "Normalzuschläge",
+    "Über-/Unterdeckung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalzuschläge",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalzuschlaege-40086",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "betriebsabrechnungsbogen-25",
+   "art": "formel",
+   "aussage": "Basis für Verwaltungs- und Vertriebsgemeinkostenzuschläge sind häufig die Herstellkosten des Umsatzes: `HK_{Umsatz} = HK_{Produktion} + \\text{Bestandsminderung} - \\text{Bestandsmehrung}` (fertige und unfertige Erzeugnisse).",
+   "schlagworte": [
+    "Herstellkosten des Umsatzes",
+    "Bestandsveränderung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
   }
  ],
  "typische_fehler": [
@@ -138,6 +364,170 @@
    "falsch": "Das Anbauverfahren ist das genaueste Umlageverfahren.",
    "richtig": "Das Anbauverfahren vernachlässigt Leistungen zwischen Hilfskostenstellen und ist ungenau; exakt ist das Gleichungsverfahren.",
    "quelle_id": "betriebsabrechnungsbogen-7"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist ein Betriebsabrechnungsbogen (BAB)?",
+   "varianten": [
+    "BAB Definition",
+    "Betriebsabrechnungsbogen einfach erklärt",
+    "wozu dient der BAB"
+   ],
+   "antwort": "Der Betriebsabrechnungsbogen ist ein Hilfsmittel, mit dem die Betriebsabrechnung ursprünglich manuell durchgeführt wurde. Die Betriebsabrechnung verrechnet periodisch (meist monatlich) die Gemeinkosten auf die Hauptkostenstellen und verbindet so Kostenarten- und Kostenträgerrechnung. Heute läuft das meist EDV-gestützt; der BAB als manuelles Werkzeug ist dadurch weitgehend abgelöst, seine Rechenlogik aber nicht.",
+   "belege": [
+    "betriebsabrechnungsbogen-1",
+    "betriebsabrechnungsbogen-2"
+   ]
+  },
+  {
+   "frage": "Welche Schritte hat der BAB?",
+   "varianten": [
+    "BAB Ablauf",
+    "Betriebsabrechnung Schritte",
+    "BAB erstellen"
+   ],
+   "antwort": "Schritt 1: Du verteilst die primären Gemeinkosten aus der Kostenartenrechnung nach dem Verursachungsprinzip auf Hilfs- und Hauptkostenstellen. Schritt 2: In der innerbetrieblichen Leistungsverrechnung legst du die Kosten der Hilfskostenstellen auf die Hauptkostenstellen um, sodass nur noch Hauptkostenstellen Gemeinkosten tragen. Schritt 3: Aus den Gemeinkosten der Hauptkostenstellen bildest du Zuschlagssätze, mit denen die Gemeinkosten auf die Kostenträger verrechnet werden.",
+   "belege": [
+    "betriebsabrechnungsbogen-3",
+    "betriebsabrechnungsbogen-4",
+    "betriebsabrechnungsbogen-5"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Hilfskostenstelle und Hauptkostenstelle?",
+   "varianten": [
+    "Hilfskostenstelle vs Hauptkostenstelle",
+    "Vorkostenstelle Endkostenstelle",
+    "Hilfskostenstelle Beispiel"
+   ],
+   "antwort": "Hilfskostenstellen (Vorkostenstellen) arbeiten nicht direkt an den Produkten, sondern erbringen innerbetriebliche Leistungen, etwa Stromerzeugung, Werksfeuerwehr oder Arbeitsvorbereitung. Ihre Kosten werden im BAB an andere Stellen weitergegeben. Hauptkostenstellen sind Endkostenstellen, die die Hauptprodukte erzeugen, zum Beispiel Dreherei oder Gießerei. Die Kosten von Endkostenstellen werden nicht weiterverteilt, sondern in die Kalkulation übernommen.",
+   "belege": [
+    "betriebsabrechnungsbogen-10",
+    "betriebsabrechnungsbogen-11",
+    "betriebsabrechnungsbogen-12"
+   ]
+  },
+  {
+   "frage": "Wie funktioniert das Anbauverfahren?",
+   "varianten": [
+    "Anbauverfahren Beispiel",
+    "Anbauverfahren BAB",
+    "Blockverfahren innerbetriebliche Leistungsverrechnung"
+   ],
+   "antwort": "Beim Anbauverfahren ignorierst du alle Leistungen zwischen Hilfskostenstellen und verteilst jede Hilfsstelle direkt auf die Hauptkostenstellen. Der Verrechnungssatz ist primäre Kosten geteilt durch die an Hauptkostenstellen abgegebene Menge. Beispiel: Die Stromstelle hat 12.000,00 € Kosten und liefert 1.000 kWh an die Reparatur, 1.000 kWh an das Material und 3.000 kWh an die Fertigung. Gerechnet wird nur mit 4.000 kWh: \\( q = \\frac{12.000}{4.000} = 3{,}00 \\) €/kWh, also 3.000,00 € an Material und 9.000,00 € an Fertigung. Das ist einfach, aber in der Regel ungenau.",
+   "belege": [
+    "betriebsabrechnungsbogen-7",
+    "betriebsabrechnungsbogen-16"
+   ]
+  },
+  {
+   "frage": "Wie funktioniert das Stufenleiterverfahren?",
+   "varianten": [
+    "Stufenleiterverfahren Beispiel",
+    "Treppenverfahren",
+    "Stufenverfahren BAB"
+   ],
+   "antwort": "Du ordnest die Hilfsstellen so, dass jede nur an nachfolgende Stellen abgibt, und beginnst mit der Stelle, die am wenigsten von anderen Hilfsstellen empfängt. Beispiel: Strom (12.000,00 €) liefert 1.000 kWh an die Reparatur, 1.000 kWh an das Material und 3.000 kWh an die Fertigung, also \\( q = \\frac{12.000}{5.000} = 2{,}40 \\) €/kWh; die Reparatur erhält 2.400,00 €, das Material 2.400,00 €, die Fertigung 7.200,00 €. Die Reparatur hat dann 8.000,00 + 2.400,00 = 10.400,00 € und leistet 10 Stunden an das Material und 40 Stunden an die Fertigung: 208,00 € je Stunde, also 2.080,00 € und 8.320,00 €. Rückflüsse an bereits abgerechnete Stellen werden vernachlässigt.",
+   "belege": [
+    "betriebsabrechnungsbogen-6",
+    "betriebsabrechnungsbogen-18",
+    "betriebsabrechnungsbogen-19"
+   ]
+  },
+  {
+   "frage": "Wie funktioniert das Gleichungsverfahren?",
+   "varianten": [
+    "Gleichungsverfahren BAB",
+    "simultanes Verfahren",
+    "mathematisches Verfahren innerbetriebliche Leistungsverrechnung"
+   ],
+   "antwort": "Beim Gleichungsverfahren stellst du für jede Hilfsstelle eine Gleichung auf: Gesamtleistung mal Verrechnungssatz = primäre Kosten + Wert der empfangenen Leistungen. Beispiel: Strom liefert 5.000 kWh und empfängt 5 Reparaturstunden, die Reparatur leistet 55 Stunden und empfängt 1.000 kWh: \\( 5.000\\,q_S = 12.000 + 5\\,q_R \\) und \\( 55\\,q_R = 8.000 + 1.000\\,q_S \\). Die Lösung ist \\( q_S \\approx 2{,}59 \\) €/kWh und \\( q_R \\approx 192{,}59 \\) €/Std. Das Verfahren erfasst gegenseitige Leistungen exakt, ist von Hand aber aufwendig.",
+   "belege": [
+    "betriebsabrechnungsbogen-8",
+    "betriebsabrechnungsbogen-17"
+   ]
+  },
+  {
+   "frage": "Welches Verfahren der innerbetrieblichen Leistungsverrechnung ist am genauesten?",
+   "varianten": [
+    "Anbauverfahren vs Stufenleiterverfahren",
+    "Vergleich Verfahren BAB",
+    "genauestes Verfahren Leistungsverrechnung"
+   ],
+   "antwort": "Am genauesten ist das Gleichungsverfahren, weil nur es wechselseitige Leistungsbeziehungen exakt erfasst. Das Iterationsverfahren kommt ihm beliebig nahe, ist aber nur EDV-gestützt sinnvoll. Das Stufenleiterverfahren ist in der Praxis am verbreitetsten; seine Genauigkeit hängt davon ab, wie groß die vernachlässigten Rückflüsse sind. Das Anbauverfahren ignoriert alle Leistungen zwischen Hilfsstellen und ist deshalb in der Regel zu ungenau.",
+   "belege": [
+    "betriebsabrechnungsbogen-7",
+    "betriebsabrechnungsbogen-8",
+    "betriebsabrechnungsbogen-14",
+    "betriebsabrechnungsbogen-19"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Zuschlagssätze im BAB?",
+   "varianten": [
+    "Zuschlagssätze BAB berechnen",
+    "Gemeinkostenzuschläge aus BAB",
+    "BAB Zuschlagssatz Beispiel"
+   ],
+   "antwort": "Nach der Umlage teilst du die Gemeinkosten jeder Hauptkostenstelle durch ihre Zuschlagsgrundlage: \\( z = \\frac{GK}{\\text{Basis}} \\cdot 100 \\). Beispiel: Material 30.000,00 € auf 300.000,00 € Fertigungsmaterial ergibt 10 %; Fertigung 180.000,00 € auf 120.000,00 € Fertigungslöhne ergibt 150 %. Die Herstellkosten betragen dann 300.000,00 + 30.000,00 + 120.000,00 + 180.000,00 = 630.000,00 €; Verwaltungsgemeinkosten von 50.400,00 € ergeben einen Zuschlag von 8 %.",
+   "belege": [
+    "betriebsabrechnungsbogen-5",
+    "betriebsabrechnungsbogen-9"
+   ]
+  },
+  {
+   "frage": "Was sind Kostenüberdeckung und Kostenunterdeckung im BAB?",
+   "varianten": [
+    "Überdeckung Unterdeckung BAB",
+    "Normalkosten Istkosten BAB",
+    "Kostenüberdeckung Definition"
+   ],
+   "antwort": "Wird im BAB mit Normalzuschlägen gerechnet, vergleichst du am Periodenende die verrechneten mit den tatsächlich angefallenen Gemeinkosten jeder Stelle. Sind die verrechneten Kosten höher, liegt eine Überdeckung vor, sind sie niedriger, eine Unterdeckung. Beispiel: verrechnet 40.000,00 €, tatsächlich 42.000,00 €, also 2.000,00 € Unterdeckung. Solche Differenzen werden nachverrechnet oder gehen in das Betriebsergebnis ein.",
+   "belege": [
+    "betriebsabrechnungsbogen-24"
+   ]
+  },
+  {
+   "frage": "Wie verteile ich die primären Gemeinkosten auf die Kostenstellen?",
+   "varianten": [
+    "Verteilungsschlüssel BAB",
+    "Gemeinkosten verteilen Schlüssel",
+    "primäre Gemeinkosten Umlage"
+   ],
+   "antwort": "Gemeinkosten, die du einer Stelle direkt zuordnen kannst (etwa per Beleg oder Zähler), buchst du direkt dort. Die übrigen verteilst du mit Schlüsseln, die die Verursachung möglichst gut abbilden: Raumkosten zum Beispiel nach Fläche, Strom nach gemessenem Verbrauch oder ersatzweise nach installierter Leistung in kW. Denk daran: Die Richtigkeit eines Schlüssels lässt sich nie beweisen, jede Schlüsselung macht das Ergebnis ungenauer.",
+   "belege": [
+    "betriebsabrechnungsbogen-3",
+    "betriebsabrechnungsbogen-20",
+    "betriebsabrechnungsbogen-21",
+    "betriebsabrechnungsbogen-23"
+   ]
+  },
+  {
+   "frage": "Was sind die Herstellkosten des Umsatzes?",
+   "varianten": [
+    "Herstellkosten des Umsatzes Formel",
+    "Bestandsveränderungen BAB",
+    "HK des Umsatzes"
+   ],
+   "antwort": "Die Herstellkosten des Umsatzes sind häufig die Basis für Verwaltungs- und Vertriebsgemeinkostenzuschläge. Du gehst von den Herstellkosten der Produktion aus, addierst Bestandsminderungen und ziehst Bestandsmehrungen an fertigen und unfertigen Erzeugnissen ab: \\( HK_{Umsatz} = HK_{Produktion} + \\text{Minderung} - \\text{Mehrung} \\). So beziehst du die Zuschläge auf das, was in der Periode tatsächlich verkauft wurde.",
+   "belege": [
+    "betriebsabrechnungsbogen-25"
+   ]
+  },
+  {
+   "frage": "Wird der BAB heute noch verwendet?",
+   "varianten": [
+    "BAB Praxis",
+    "BAB veraltet",
+    "BAB heute"
+   ],
+   "antwort": "Als manuelles Formular ist der BAB in der Praxis weitgehend abgelöst, weil die Betriebsabrechnung heute meist EDV-gestützt läuft. Die Logik dahinter ist aber unverändert: Gemeinkosten werden periodisch auf Kostenstellen verteilt, Hilfsstellen auf Hauptstellen umgelegt und daraus Zuschlagssätze für die Kalkulation gebildet. Wer den BAB versteht, versteht deshalb auch die Logik der EDV-gestützten Betriebsabrechnung.",
+   "belege": [
+    "betriebsabrechnungsbogen-1",
+    "betriebsabrechnungsbogen-2",
+    "betriebsabrechnungsbogen-5"
+   ]
   }
  ]
 }

@@ -89,6 +89,237 @@
     "url": "https://wirtschaftslexikon.gabler.de/definition/meldebestand-38266",
     "typ": "lexikon"
    }
+  },
+  {
+   "id": "bestellpunktverfahren-7",
+   "art": "definition",
+   "aussage": "Die Bestellmengenplanung ermittelt Bestellmenge und Bestellzeitpunkt so, dass der Bedarf möglichst kostengünstig bei angemessener Versorgungssicherheit gedeckt wird; bestellauslösend ist entweder das Erreichen einer Bestandshöhe (Bestellpunktverfahren) oder der Ablauf fester Fristen (Bestellrhythmusverfahren).",
+   "schlagworte": [
+    "Bestellmengenplanung",
+    "Bestellzeitpunkt",
+    "Versorgungssicherheit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellmengenplanung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellmengenplanung-27634",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-8",
+   "art": "definition",
+   "aussage": "Beim Bestellrhythmusverfahren wird in festgelegten Zeitabständen bestellt: entweder eine fixe Menge, was bei ungleichmäßigem Lagerabgang zu stark schwankenden Beständen führt, oder die Menge, die den Bestand auf einen festgelegten Sollbestand auffüllt.",
+   "schlagworte": [
+    "Bestellrhythmusverfahren",
+    "Sollbestand",
+    "feste Zeitabstände"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellrhythmusverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellrhythmusverfahren-30351",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-9",
+   "art": "abgrenzung",
+   "aussage": "Beim Bestellpunktverfahren ist der Bestellzeitpunkt variabel und richtet sich nach den Lagerabgängen; beim Bestellrhythmusverfahren ist der Bestellzeitpunkt durch den Rhythmus festgelegt.",
+   "schlagworte": [
+    "Bestellpunkt",
+    "Bestellrhythmus",
+    "Unterschied"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellmengenplanung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellmengenplanung-27634",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-10",
+   "art": "definition",
+   "aussage": "Die Beschaffungszeit umfasst die Lieferzeit zuzüglich weiterer Zeiten, etwa der Dauer zwischen zwei Bestandsüberprüfungen beim Bestellpunktverfahren und ggf. der Zeit für die Auftragsübermittlung.",
+   "schlagworte": [
+    "Beschaffungszeit",
+    "Lieferzeit",
+    "Bestandsüberprüfung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Beschaffungszeit",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/beschaffungszeit-30964",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-11",
+   "art": "definition",
+   "aussage": "Der Sicherheitsbestand (eiserner Bestand, Mindestbestand) ist eine Vorratsmenge, die nach statistischer Wahrscheinlichkeit auftretende Entnahmeüberschreitungen, Überschreitungen der Beschaffungs- bzw. Lieferzeit oder Fehler bei der Lieferungsbeschaffenheit ausgleichen soll.",
+   "schlagworte": [
+    "Sicherheitsbestand",
+    "eiserner Bestand",
+    "Mindestbestand"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Sicherheitsbestand",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/sicherheitsbestand-46022",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-12",
+   "art": "abgrenzung",
+   "aussage": "Der eiserne Bestand kann unter bestimmten Voraussetzungen handels- und steuerrechtlich mit einem Festwert bei unverändertem Bilanzansatz bewertet werden.",
+   "schlagworte": [
+    "eiserner Bestand",
+    "Festwert",
+    "Bewertung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Sicherheitsbestand",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/sicherheitsbestand-46022",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-13",
+   "art": "definition",
+   "aussage": "Die optimale Bestellmenge teilt einen bekannten Periodenbedarf kostenoptimal in gleich große Bestellungen auf; sie liegt im Minimum der Summe aus Lager- und Bestellkosten. Prämissen wie kontinuierlicher Lagerabgang und konstanter Einstandspreis schränken die Anwendung des Grundmodells ein.",
+   "schlagworte": [
+    "optimale Bestellmenge",
+    "Andler",
+    "Bestellkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: optimale Bestellmenge",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/optimale-bestellmenge-44429",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-14",
+   "art": "formel",
+   "aussage": "Andler-Formel: `x_{opt} = \\sqrt{\\frac{2 \\cdot V \\cdot K_B}{p \\cdot i}}` (V: Periodenbedarf, `K_B`: fixe Kosten je Bestellung, p: Einstandspreis je Stück, i: Zins- und Lagerkostensatz).",
+   "schlagworte": [
+    "Andler-Formel",
+    "optimale Bestellmenge"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-15",
+   "art": "definition",
+   "aussage": "Die Lieferbereitschaft gibt an, in welchem Umfang ein Auftrag ab Lager erfüllt werden kann; insofern hängt sie mit dem Sicherheitsbestand zusammen.",
+   "schlagworte": [
+    "Lieferbereitschaft",
+    "Sicherheitsbestand"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lieferzuverlässigkeit",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lieferzuverlaessigkeit-37300",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-16",
+   "art": "definition",
+   "aussage": "Die Lieferzuverlässigkeit ist über den Lieferbereitschaftsgrad quantifizierbar, der z. B. eingegangene und erfüllte Aufträge ins Verhältnis setzt.",
+   "schlagworte": [
+    "Lieferbereitschaftsgrad",
+    "Lieferzuverlässigkeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lieferzuverlässigkeit",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lieferzuverlaessigkeit-37300",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-17",
+   "art": "definition",
+   "aussage": "Der optimale Lagerbestand ist die Bestandsgröße, die bei vorgegebenem Lieferbereitschaftsgrad zu minimalen relevanten Gesamtkosten führt (im Grundmodell Lager- plus Beschaffungskosten).",
+   "schlagworte": [
+    "optimaler Bestand",
+    "Lieferbereitschaftsgrad"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: optimaler Bestand",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/optimaler-bestand-42357",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-18",
+   "art": "methode",
+   "aussage": "In PPS-Systemen berücksichtigt die dispositive Bestandsführung neben den physischen Zu- und Abgängen auch Sicherheits-, Reservierungs-, Melde- und Bestellbestände.",
+   "schlagworte": [
+    "PPS",
+    "dispositiver Bestand",
+    "Reservierung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: PPS-System",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/pps-system-42854",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-19",
+   "art": "formel",
+   "aussage": "Bei fester Bestellmenge Q, gleichmäßigem Verbrauch und pünktlicher Lieferung gilt: `\\text{Höchstbestand} = SB + Q` und `\\varnothing\\,\\text{Bestand} = SB + \\frac{Q}{2}`.",
+   "schlagworte": [
+    "Höchstbestand",
+    "durchschnittlicher Lagerbestand"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-20",
+   "art": "formel",
+   "aussage": "Beim Bestellpunktverfahren mit Höchstbestand wird bei Erreichen des Bestellpunkts die Menge bestellt, die den Bestand auf den Sollbestand auffüllt: `Q = \\text{Sollbestand} - \\text{Bestand bei Bestellauslösung}`.",
+   "schlagworte": [
+    "Höchstbestand",
+    "Sollbestand",
+    "Bestellmenge"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellpunktverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellpunktverfahren-31301",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-21",
+   "art": "formel",
+   "aussage": "Bei gleichmäßigem Verbrauch d je Tag dauert es `\\frac{HB - MB}{d}` Tage, bis der Bestand vom Höchstbestand HB auf den Meldebestand MB gesunken ist.",
+   "schlagworte": [
+    "Reichweite",
+    "Meldebestand"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-22",
+   "art": "methode",
+   "aussage": "Die Bestellmengenplanung erfolgt heute in aller Regel IT-basiert auf Basis unternehmensspezifischer Parameter.",
+   "schlagworte": [
+    "IT",
+    "Disposition",
+    "Parameter"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellmengenplanung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellmengenplanung-27634",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -96,6 +327,210 @@
    "falsch": "Der Meldebestand ist gleich dem Sicherheitsbestand.",
    "richtig": "Der Meldebestand umfasst den Sicherheitsbestand plus den erwarteten Verbrauch in der Wiederbeschaffungszeit.",
    "quelle_id": "bestellpunktverfahren-4"
+  },
+  {
+   "falsch": "Beim Bestellpunktverfahren ist die Bestellmenge immer fest.",
+   "richtig": "Es gibt die Variante mit fester Bestellmenge und die Variante mit Höchstbestand, bei der auf einen Sollbestand aufgefüllt wird.",
+   "quelle_id": "bestellpunktverfahren-3"
+  },
+  {
+   "falsch": "Der Höchstbestand ist Meldebestand plus Bestellmenge.",
+   "richtig": "Bis zum Wareneingang sinkt der Bestand planmäßig auf den Sicherheitsbestand; der Höchstbestand ist deshalb Sicherheitsbestand plus Bestellmenge.",
+   "quelle_id": "bestellpunktverfahren-19"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist das Bestellpunktverfahren?",
+   "varianten": [
+    "Bestellpunktverfahren Definition",
+    "Meldebestandsverfahren",
+    "Bestellpunktverfahren einfach erklärt"
+   ],
+   "antwort": "Beim Bestellpunktverfahren wird eine Bestellung ausgelöst, sobald der Lagerbestand eine festgelegte Höhe erreicht oder unterschreitet, den Meldebestand (Bestellpunkt). Der Bestellzeitpunkt ist dadurch variabel: Wird mehr entnommen, wird früher bestellt, wird weniger entnommen, später. Das Verfahren ist eines von mehreren Verfahren der Bestellmengenplanung.",
+   "belege": [
+    "bestellpunktverfahren-1",
+    "bestellpunktverfahren-2",
+    "bestellpunktverfahren-7"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Meldebestand?",
+   "varianten": [
+    "Meldebestand Formel",
+    "Bestellpunkt berechnen",
+    "Meldebestand berechnen"
+   ],
+   "antwort": "Der Meldebestand ist der Sicherheitsbestand plus der Verbrauch, der während der Wiederbeschaffungszeit erwartet wird. Als Formel: \\( MB = SB + d \\cdot WBZ \\), mit d als Verbrauch je Zeiteinheit und WBZ als Wiederbeschaffungszeit. Achte darauf, dass d und WBZ dieselbe Zeiteinheit haben, etwa beide in Arbeitstagen.",
+   "belege": [
+    "bestellpunktverfahren-4",
+    "bestellpunktverfahren-5"
+   ]
+  },
+  {
+   "frage": "Rechenbeispiel: 40 Stück Tagesverbrauch, 6 Tage Wiederbeschaffungszeit, 3 Tage Sicherheit – wie hoch ist der Meldebestand?",
+   "varianten": [
+    "Meldebestand Beispiel",
+    "Meldebestand Aufgabe",
+    "Bestellpunkt Beispielrechnung"
+   ],
+   "antwort": "Der Sicherheitsbestand deckt 3 Tage Verbrauch: \\( SB = 40 \\cdot 3 = 120 \\) Stück. Der Meldebestand ist dann \\( MB = 120 + 40 \\cdot 6 = 360 \\) Stück. Sinkt der Bestand auf 360 Stück, wird bestellt. Bei planmäßigem Verbrauch sind beim Eintreffen der Lieferung noch \\( 360 - 240 = 120 \\) Stück, also genau der Sicherheitsbestand, vorhanden.",
+   "belege": [
+    "bestellpunktverfahren-5",
+    "bestellpunktverfahren-4"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Bestellpunktverfahren und Bestellrhythmusverfahren?",
+   "varianten": [
+    "Bestellpunkt vs Bestellrhythmus",
+    "Bestellrhythmusverfahren",
+    "Bestellzeitpunkt fest oder variabel"
+   ],
+   "antwort": "Beim Bestellpunktverfahren löst das Erreichen des Meldebestands die Bestellung aus; der Zeitpunkt ist variabel und folgt den Lagerabgängen. Beim Bestellrhythmusverfahren wird in festen Zeitabständen bestellt. Dort wird entweder eine fixe Menge bestellt, was bei ungleichmäßigem Abgang zu stark schwankenden Beständen führt, oder auf einen Sollbestand aufgefüllt. Bei beiden Verfahren gibt es also Varianten mit fester Menge und mit Auffüllen.",
+   "belege": [
+    "bestellpunktverfahren-2",
+    "bestellpunktverfahren-8",
+    "bestellpunktverfahren-9",
+    "bestellpunktverfahren-3"
+   ]
+  },
+  {
+   "frage": "Ist beim Bestellpunktverfahren die Bestellmenge immer fest?",
+   "varianten": [
+    "Bestellpunktverfahren Bestellmenge",
+    "Bestellpunktverfahren mit Höchstbestand",
+    "feste oder variable Bestellmenge"
+   ],
+   "antwort": "Nein. Beim Bestellpunktverfahren mit fester Bestellmenge wird bei Erreichen des Meldebestands immer dieselbe Menge bestellt. Beim Bestellpunktverfahren mit Höchstbestand wird die Menge bestellt, die den Bestand auf den festgelegten Sollbestand auffüllt: \\( Q = \\text{Sollbestand} - \\text{Bestand bei Bestellauslösung} \\). Variabel ist in beiden Fällen der Bestellzeitpunkt.",
+   "belege": [
+    "bestellpunktverfahren-3",
+    "bestellpunktverfahren-20",
+    "bestellpunktverfahren-2"
+   ]
+  },
+  {
+   "frage": "Was ist der Sicherheitsbestand und wovon hängt seine Höhe ab?",
+   "varianten": [
+    "Sicherheitsbestand Definition",
+    "eiserner Bestand",
+    "Mindestbestand Bedeutung"
+   ],
+   "antwort": "Der Sicherheitsbestand, auch eiserner Bestand oder Mindestbestand, ist ein Puffer, der unerwartet hohe Entnahmen, Überschreitungen der Lieferzeit oder Fehler bei der gelieferten Ware ausgleichen soll. Er ist im Meldebestand enthalten und wird bei planmäßigem Ablauf nicht angegriffen. Seine Höhe hängt u. a. von der Länge der Beschaffungszeit und von der angestrebten Lieferbereitschaft ab. Die Lieferbereitschaft, also wie weit Aufträge ab Lager erfüllt werden können, hängt eng mit dem Sicherheitsbestand zusammen.",
+   "belege": [
+    "bestellpunktverfahren-11",
+    "bestellpunktverfahren-6",
+    "bestellpunktverfahren-4",
+    "bestellpunktverfahren-15"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich Höchstbestand und durchschnittlichen Lagerbestand?",
+   "varianten": [
+    "Höchstbestand Formel",
+    "durchschnittlicher Lagerbestand berechnen",
+    "Höchstbestand Beispiel"
+   ],
+   "antwort": "Bei fester Bestellmenge Q, gleichmäßigem Verbrauch und pünktlicher Lieferung ist der Höchstbestand \\( HB = SB + Q \\) und der durchschnittliche Bestand \\( SB + \\frac{Q}{2} \\). Beispiel mit 120 Stück Sicherheitsbestand und 800 Stück Bestellmenge: \\( HB = 120 + 800 = 920 \\) Stück und \\( \\varnothing\\,\\text{Bestand} = 120 + \\frac{800}{2} = 520 \\) Stück. Der Meldebestand spielt für den Höchstbestand keine Rolle, weil der Bestand bis zum Wareneingang auf den Sicherheitsbestand sinkt.",
+   "belege": [
+    "bestellpunktverfahren-19"
+   ]
+  },
+  {
+   "frage": "Was gehört zur Beschaffungszeit?",
+   "varianten": [
+    "Wiederbeschaffungszeit Bestandteile",
+    "Beschaffungszeit Definition",
+    "Lieferzeit oder Beschaffungszeit"
+   ],
+   "antwort": "Die Beschaffungszeit ist mehr als die reine Lieferzeit des Lieferanten. Hinzu kommen weitere Zeiten, z. B. die Dauer zwischen zwei Bestandsüberprüfungen beim Bestellpunktverfahren und ggf. die Zeit für die Übermittlung des Auftrags. Je länger die Beschaffungszeit ist, desto höher muss der Meldebestand sein, weil mehr Verbrauch überbrückt werden muss.",
+   "belege": [
+    "bestellpunktverfahren-10",
+    "bestellpunktverfahren-4",
+    "bestellpunktverfahren-6"
+   ]
+  },
+  {
+   "frage": "Welche Nachteile hat ein Bestellrhythmus mit fester Bestellmenge?",
+   "varianten": [
+    "Bestellrhythmusverfahren Nachteil",
+    "feste Menge fester Zeitpunkt",
+    "schwankende Lagerbestände"
+   ],
+   "antwort": "Wird in festen Abständen immer dieselbe Menge bestellt, passt sich die Bestellung nicht an den tatsächlichen Verbrauch an. Bei ungleichmäßigem Lagerabgang schwanken die Lagerbestände dadurch stark. Deshalb gibt es die Variante, in festen Abständen genau die Menge zu bestellen, die den Bestand auf einen Sollbestand auffüllt. Das Bestellpunktverfahren reagiert dagegen über den variablen Bestellzeitpunkt auf Verbrauchsschwankungen.",
+   "belege": [
+    "bestellpunktverfahren-8",
+    "bestellpunktverfahren-2"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die optimale Bestellmenge mit der Andler-Formel?",
+   "varianten": [
+    "Andler-Formel Beispiel",
+    "optimale Bestellmenge berechnen",
+    "Andler Formel"
+   ],
+   "antwort": "Die optimale Bestellmenge liegt dort, wo die Summe aus Bestell- und Lagerkosten minimal ist: \\( x_{opt} = \\sqrt{\\frac{2 \\cdot V \\cdot K_B}{p \\cdot i}} \\). Beispiel: Jahresbedarf 12.000 Stück, 60 € fixe Kosten je Bestellung, Einstandspreis 5 €, Zins- und Lagerkostensatz 20 %. Dann ist \\( x_{opt} = \\sqrt{\\frac{2 \\cdot 12.000 \\cdot 60}{5 \\cdot 0{,}2}} = \\sqrt{1.440.000} = 1.200,00 \\) Stück. Das Modell unterstellt u. a. kontinuierlichen Lagerabgang und konstante Einstandspreise.",
+   "belege": [
+    "bestellpunktverfahren-13",
+    "bestellpunktverfahren-14"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Meldebestand und Sicherheitsbestand?",
+   "varianten": [
+    "Meldebestand Sicherheitsbestand Unterschied",
+    "Meldebestand gleich Mindestbestand?",
+    "Bestellbestand Sicherheitsbestand"
+   ],
+   "antwort": "Der Meldebestand ist die Bestandshöhe, bei der eine Bestellung ausgelöst wird. Der Sicherheitsbestand ist der Puffer für unerwartete Entnahmen oder Lieferverzögerungen und nur ein Bestandteil des Meldebestands. Zusätzlich enthält der Meldebestand den erwarteten Verbrauch während der Beschaffungszeit. Ein typischer Klausurfehler ist, beide gleichzusetzen.",
+   "belege": [
+    "bestellpunktverfahren-4",
+    "bestellpunktverfahren-11",
+    "bestellpunktverfahren-1"
+   ]
+  },
+  {
+   "frage": "Bestellpunktverfahren mit Höchstbestand: Sollbestand 1.000, Bestand bei Bestellung 300 – wie viel wird bestellt?",
+   "varianten": [
+    "Auffüllen auf Höchstbestand Beispiel",
+    "Bestellmenge Sollbestand berechnen",
+    "Bestellpunkt mit Höchstbestand"
+   ],
+   "antwort": "Beim Bestellpunktverfahren mit Höchstbestand wird auf den festgelegten Sollbestand aufgefüllt. Die Bestellmenge ist deshalb \\( Q = 1.000 - 300 = 700 \\) Stück. Weil der Bestand bei Bestellauslösung je nach Entnahmen unterschiedlich sein kann, schwankt die Bestellmenge in dieser Variante.",
+   "belege": [
+    "bestellpunktverfahren-20",
+    "bestellpunktverfahren-3"
+   ]
+  },
+  {
+   "frage": "Was hat der Lieferbereitschaftsgrad mit dem Sicherheitsbestand zu tun?",
+   "varianten": [
+    "Lieferbereitschaftsgrad",
+    "Servicegrad Sicherheitsbestand",
+    "Lieferbereitschaft"
+   ],
+   "antwort": "Die Lieferbereitschaft gibt an, in welchem Umfang Aufträge direkt ab Lager erfüllt werden können; sie hängt deshalb mit dem Sicherheitsbestand zusammen. Messbar ist sie über den Lieferbereitschaftsgrad, der z. B. eingegangene und erfüllte Aufträge ins Verhältnis setzt. Die angestrebte Lieferbereitschaft ist deshalb ein Einflussfaktor für die Höhe des Sicherheitsbestands. Der optimale Bestand ist der, der bei vorgegebenem Lieferbereitschaftsgrad die relevanten Gesamtkosten minimiert.",
+   "belege": [
+    "bestellpunktverfahren-15",
+    "bestellpunktverfahren-16",
+    "bestellpunktverfahren-6",
+    "bestellpunktverfahren-17"
+   ]
+  },
+  {
+   "frage": "Wie viele Tage dauert es vom Höchstbestand bis zum Meldebestand?",
+   "varianten": [
+    "Reichweite bis Meldebestand",
+    "Tage bis zur Bestellung",
+    "Bestellzyklus berechnen"
+   ],
+   "antwort": "Bei gleichmäßigem Verbrauch teilst du den Abstand zwischen Höchstbestand und Meldebestand durch den Tagesverbrauch: \\( \\frac{HB - MB}{d} \\). Mit Höchstbestand 920 Stück, Meldebestand 360 Stück und 40 Stück Tagesverbrauch ergibt das \\( \\frac{920 - 360}{40} = 14 \\) Tage. Danach wird bestellt, und während der Wiederbeschaffungszeit sinkt der Bestand weiter bis auf den Sicherheitsbestand.",
+   "belege": [
+    "bestellpunktverfahren-21",
+    "bestellpunktverfahren-19",
+    "bestellpunktverfahren-5"
+   ]
   }
  ]
 }
