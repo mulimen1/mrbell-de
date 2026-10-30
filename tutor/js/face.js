@@ -221,6 +221,8 @@ const css = `
 .face[data-state="sad"] svg .fz-brow.l { transform: rotate(-12deg) translateY(8px); }
 .face[data-state="sad"] svg .fz-brow.r { transform: rotate(12deg) translateY(8px); }
 .face[data-state="smug"] svg .fz-brow.r { opacity: 1; transform: translateY(-12px) rotate(-8deg); }
+/* Max-Markenzeichen: rechte Augenbraue immer leicht hochgezogen (wie im Icon) – außer bei traurig, nachdenklich, schlafend */
+.face:not(.fz-marie):is([data-state="idle"], [data-state="talk"], [data-state="happy"], :not([data-state])) svg .fz-brow.r { opacity: 1; transform: translateY(-12px) rotate(-8deg); }
 .face[data-state="think"] svg .fz-brow.r { opacity: 1; transform: translateY(-8px); }
 .face[data-state="think"] svg .fz-dots circle { animation: fzdot 1.2s infinite; }
 .face[data-state="think"] svg .fz-dots circle:nth-child(2) { animation-delay: .2s; }

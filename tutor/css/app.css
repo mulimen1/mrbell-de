@@ -8743,3 +8743,5 @@ html:root[data-nv][data-nv][data-nv] body .ai-bub.me * { color: #fff !important;
 /* Tutor-Knopf oben: statisches Max-Bild (wie Lern- und Landingpages) */
 html body .tn-face.tn-face-img { padding: 0 !important; background: #fff !important; overflow: hidden; }
 html body .tn-face.tn-face-img img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+/* Max trägt standardmäßig die blaue Jacke (wie im Icon) – auch ohne gewählte Farbe */
+html[data-nv][data-outfit="std"] .fz-collar image, html[data-nv]:not([data-outfit]):not([data-accent]) .fz-collar image, html:not([data-nv]) .fz-collar image { filter: none !important; }
