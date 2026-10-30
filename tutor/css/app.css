@@ -8815,3 +8815,7 @@ html:root body .me-blk.col { border-radius: 12px !important; }
 html:root body .me-blk.col small { color: rgba(255,255,255,.88) !important; }
 html:root body .me-blk.col i { color: rgba(255,255,255,.9) !important; }
 html:root body .me-blk.past { opacity: .72 !important; filter: saturate(.85); }
+/* „Frag Max“: leer = zurückhaltend (erst tippen), mit Text = kräftig (abschicken) */
+html body .ai-talk.ai-ask:not(.ready) { opacity: .5; filter: saturate(.6); box-shadow: none !important; }
+html body .ai-talk.ai-ask.ready { opacity: 1; }
+html body .ai-talk.ai-ask .ico { transform: translateX(1px); }

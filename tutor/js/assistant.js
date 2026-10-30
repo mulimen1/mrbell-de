@@ -727,7 +727,8 @@ export function mountAssistant() {
     const vOn = VOICE();
     if (micBtn.dataset.v !== String(vOn)) { micBtn.dataset.v = String(vOn); const lb = vOn ? L('Sprich mit Max', 'Talk to Max') : L('Frag Max', 'Ask Max'); micBtn.setAttribute('aria-label', lb); micBtn.replaceChildren(h('span', { html: ico(vOn ? 'mic' : 'send') }), h('span', { class: 'lbl' }, lb)); micBtn.classList.toggle('ai-ask', !vOn); }
     show(tourBtn, s === 'idle' && !STAGE && !!route().tab && route().tab !== 'room');
-    show(sendBtn, s === 'idle' && hasTx && vOn);   // ohne Sprache übernimmt „Frag Max“ das Senden
+    show(sendBtn, s === 'idle' && hasTx && vOn);
+    micBtn.classList.toggle('ready', !vOn && hasTx); if (!vOn) micBtn.title = hasTx ? L('Frage an Max abschicken', 'Send your question to Max') : L('Erst deine Frage ins Feld tippen', 'Type your question first');   // ohne Sprache übernimmt „Frag Max“ das Senden
     show(doneBtn, s === 'listen');
     show(stopBtn, s === 'think' || s === 'speak');
     show(closeBtn, true);

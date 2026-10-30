@@ -1,3 +1,4 @@
+import * as MMA from './maxmode.js';
 // App-Rahmen: Seitenleiste mit Skripten, Tabs, Upload, Kontingent
 import { $, $$, h, ico, toast, modal, ago, ls } from './util.js';
 import { face } from './face.js';
@@ -87,7 +88,7 @@ function buildShell() {
       h('label', { class: 'btn primary side-new', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')), fileIn,
       h('div', { class: 'grp' }, 'Tools'),
       h('div', { class: 'side-tools' },
-        homeBeta() ? null : tool('button', { onclick: () => talkToMax() }, 'mic', L('Sprich mit mir', 'Talk to me')),
+        homeBeta() || !MMA.allowed() ? null : tool('button', { onclick: () => talkToMax() }, 'mic', L('Sprich mit mir', 'Talk to me')),
         // Testdesign (nur Bens Konto): schlanke Liste – Trainer, Rechner, Challenge, Duell, Fortschritt
         document.documentElement.dataset.nv ? null : tool('button', { onclick: () => topicPrompt() }, 'bulb', L('Ich erklär dir ein Thema', 'I’ll explain a topic')),
         document.documentElement.dataset.nv ? null : tool('button', { onclick: () => examTool(), 'data-nav': 'exam' }, 'exam', L('Klausur-Simulator', 'Exam simulator')),
@@ -517,7 +518,7 @@ function emptyState(root) {
       h('button', { class: 'btn lg', onclick: () => startSample() }, L('Beispiel ansehen', 'See an example')),
       h('a', { class: 'btn lg ghost', href: '#/app/trainer' }, 'Trainer')),
     topicForm({ cls: 'askbar inapp' }),
-    h('button', { class: 'talklink', type: 'button', onclick: () => talkToMax() }, h('span', { html: ico('mic') }), L('oder quatsch einfach mit mir', 'or just chat with me')))));
+    MMA.allowed() ? h('button', { class: 'talklink', type: 'button', onclick: () => talkToMax() }, h('span', { html: ico('mic') }), L('oder quatsch einfach mit mir', 'or just chat with me')) : null)));
   face(f);
   dropAnywhere(root);
 }
