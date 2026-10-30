@@ -487,8 +487,8 @@ export function render(root, ctx = {}) {
   function drawSugg() {
     if (!api || !api.hasHistory()) { sugg.replaceChildren(); return; }
     const open = mode === 'talk';
-    sugg.replaceChildren(h('button', { class: 'rm-hist' + (open ? ' on' : ''), type: 'button', title: L('Verlauf', 'History'), 'aria-label': L('Verlauf', 'History'), 'aria-expanded': String(open), onclick: () => { if (mode === 'talk') goHome(); else goTalk({ mark: false, show: true }); drawSugg(); } },
-      h('span', { html: ico('clock') }), L('Verlauf', 'History'), h('span', { class: 'rm-hc', html: ico(open ? 'up' : 'down') })));
+    sugg.replaceChildren(h('button', { class: 'rm-hist' + (open ? ' on' : ''), type: 'button', title: open ? L('Verlauf schließen', 'Close history') : L('Verlauf anzeigen', 'Show history'), 'aria-label': open ? L('Verlauf schließen', 'Close history') : L('Verlauf anzeigen', 'Show history'), 'aria-expanded': String(open), onclick: () => { if (mode === 'talk') goHome(); else goTalk({ mark: false, show: true }); drawSugg(); } },
+      h('span', { html: ico(open ? 'x' : 'clock') }), open ? L('Verlauf schließen', 'Close history') : L('Verlauf', 'History'), h('span', { class: 'rm-hc', html: ico(open ? 'up' : 'down') })));
   }
 
   // ---------- Gespräch ----------
@@ -664,7 +664,8 @@ export function render(root, ctx = {}) {
     // Woher kommen wir? Unten rechts „Im Tutor weitermachen“, eine Frage aus Quiz/Trainer – oder ganz normal
     const cont = ls.get('tutor.room.continue', 0); if (cont) ls.set('tutor.room.continue', 0);
     const pending = ls.get('tutor.pendingAsk', null); if (pending) ls.set('tutor.pendingAsk', null);
-    if (SES.on || cont) goTalk({ mark: false });
+    // Verlauf nur auf ausdrücklichen Wunsch („Im Tutor weitermachen“) offen – wer zurück in den Tutor kommt, sieht ihn geschlossen
+    if (cont) goTalk({ mark: false });
     if (pending) { goTalk(); setTimeout(() => (typeof pending === 'object' ? ask(pending.t, pending) : ask(pending)), ctx.arrive ? 900 : 350); }
     drawSugg();
     if (!MOB.matches) setTimeout(() => { if (!document.querySelector('.ngreet')) api.focusInput(); }, 700);

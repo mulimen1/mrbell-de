@@ -8729,3 +8729,14 @@ html[data-theme="dark"] body .xl-tabs { background: rgba(20,22,27,.8) !important
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more { border-color: #3b82f6 !important; color: #1d4ed8 !important; box-shadow: 0 8px 18px -14px #1d4ed8 !important; }
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more:hover { background: #eff5ff !important; }
 html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more .vt-moreg { background: linear-gradient(135deg, #4f8ff7, #1d4ed8) !important; }
+/* Tutor: Verlauf-Knopf direkt neben der Eingabe, auf gleicher Höhe */
+@media (min-width: 901px) {
+  html:root[data-nv][data-nv] .room .rm-dock > .rm-sugg { right: calc(100% - 10px) !important; top: auto !important; bottom: 26px !important; }
+}
+/* Eigene Nachrichten im Verlauf: sichtbar (vorher weiße Schrift auf weißer Blase) */
+html:root[data-nv][data-nv][data-nv] body .ai-bub.me { background: linear-gradient(135deg, #4f8ff7, #1d5fd0) !important; color: #fff !important; border-color: transparent !important; box-shadow: 0 10px 22px -16px #1d5fd0 !important; }
+html:root[data-nv][data-nv][data-nv] body .ai-bub.me * { color: #fff !important; }
+@media (min-width: 901px) {
+  html:root[data-nv][data-nv] .room .rm-dock > .rm-sugg .rm-hist.on { background: #1f2430 !important; border-color: #1f2430 !important; color: #fff !important; }
+  html:root[data-nv][data-nv] .room .rm-dock > .rm-sugg .rm-hist.on .ico { color: #fff !important; width: 20px; height: 20px; }
+}
