@@ -1,0 +1,1116 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mathe-Brückenkurs Wirtschaftswissenschaften: Auffrischung mit Selbsttests</title>
+<meta name="description" content="Kostenloser Mathe-Vorkurs für Erstsemester in BWL und VWL: Bruch- und Prozentrechnung, Potenzen, Logarithmen, Gleichungen, Funktionen, Zinseszins, Ableitungen und Integrale – mit Beispielen und 50 Aufgaben mit Lösungsweg.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/mathe-brueckenkurs-wiwi">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="/tutor/vendor/katex@0.16.47/katex.min.css">
+<style>
+:root{--bg:#fff;--fg:#1b1d20;--muted:#585f69;--line:#d9dde2;--soft:#f3f5f7;--accent:#1d5a4a;--accent-soft:#e3efea;--ok:#1d6b3a;--ok-soft:#e5f3ea;--bad:#a1281e;--bad-soft:#fbeceb}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e7e9ec;--muted:#a5abb4;--line:#30353c;--soft:#1b1f23;--accent:#83cdb3;--accent-soft:#1a2e28;--ok:#7fd49c;--ok-soft:#14261b;--bad:#ff9a8f;--bad-soft:#2d1716}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.75rem;line-height:1.25;margin:.2em 0 .5em}
+h2{font-size:1.35rem;margin:2.4em 0 .6em;padding-top:.6em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .4em}
+p{margin:.4em 0 .8em}
+ul,ol{padding-left:1.3em;margin:.3em 0 .8em}
+li{margin:.2em 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lead{color:var(--muted);max-width:68ch}
+nav.toc{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:1.2em 0}
+nav.toc ol{margin:.3em 0 0;padding-left:1.5em;columns:2;column-gap:2em}
+nav.toc li{break-inside:avoid}
+.d{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;column-gap:2.2em;row-gap:.35em;overflow-x:auto;overflow-y:hidden;margin:.5em 0;padding:2px 0}
+.dp{display:inline-block;max-width:100%;text-align:left}
+.rules{border-left:3px solid var(--accent);padding-left:14px}
+.ex{background:var(--soft);border-radius:10px;padding:10px 14px}
+.ex h3{margin-top:.2em}
+.quiz{margin-top:.6em}
+.task{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0}
+.task .q{margin:0 0 .6em}
+.nr{display:inline-block;font-size:.8rem;font-weight:600;color:var(--accent);margin-right:.5em}
+.ans{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ans label.lbl{font-size:.9rem;color:var(--muted)}
+.ans input[type=text]{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 9px;width:11em;max-width:100%}
+.unit{color:var(--muted);font-size:.95rem}
+fieldset{border:0;padding:0;margin:0 0 .6em}
+fieldset label{display:flex;gap:.6em;align-items:baseline;padding:4px 6px;border-radius:6px;cursor:pointer}
+fieldset label:hover{background:var(--soft)}
+button{font:inherit;font-size:.95rem;border:1px solid var(--accent);background:var(--accent);color:var(--bg);border-radius:6px;padding:6px 14px;cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+.fb{margin-top:.6em}
+.fb .res{font-weight:600;padding:6px 10px;border-radius:6px;display:inline-block}
+.fb .res.ok{background:var(--ok-soft);color:var(--ok)}
+.fb .res.bad{background:var(--bad-soft);color:var(--bad)}
+.fb ol{margin:.5em 0 0}
+.score{font-size:.9rem;color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.small{font-size:.85rem;color:var(--muted)}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+@media (max-width:600px){nav.toc ol{columns:1}h1{font-size:1.45rem}.d{font-size:.94em;column-gap:1.4em}}
+@media print{
+ @page{size:A4;margin:14mm 12mm}
+ :root{--bg:#fff;--fg:#000;--muted:#333;--line:#999;--soft:#f2f2f2;--accent:#000}
+ body{font-size:10pt}
+ .wrap{max-width:none;padding:0}
+ nav.toc,.ans,fieldset,.fb button,.score{display:none!important}
+ h2{break-after:avoid}
+ .task,.ex{break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Mathe-Brückenkurs für Wirtschaftswissenschaften</h1>
+<p class="lead">Zehn kurze Kapitel frischen das Schulwissen auf, das in Mathematik, Statistik und Mikroökonomik im ersten Semester vorausgesetzt wird. Jedes Kapitel enthält die wichtigsten Regeln, ein durchgerechnetes Beispiel und einen Selbsttest mit fünf Aufgaben samt Lösungsweg. Ohne Anmeldung, nichts wird gespeichert.</p>
+</header>
+
+<nav class="toc" aria-label="Kapitel">
+<strong>Kapitel</strong>
+<ol>
+<li><a href="#k1">Bruchrechnen und Prozente</a></li>
+<li><a href="#k2">Potenzen und Wurzeln</a></li>
+<li><a href="#k3">Logarithmen</a></li>
+<li><a href="#k4">Terme und binomische Formeln</a></li>
+<li><a href="#k5">Gleichungen, Ungleichungen, Beträge</a></li>
+<li><a href="#k6">Lineare Gleichungssysteme</a></li>
+<li><a href="#k7">Funktionen in der Ökonomie</a></li>
+<li><a href="#k8">Folgen, Reihen, Zinseszins</a></li>
+<li><a href="#k9">Ableitungen</a></li>
+<li><a href="#k10">Integralrechnung</a></li>
+</ol>
+</nav>
+<p class="small">Zahlen können mit Dezimalkomma oder Dezimalpunkt eingegeben werden, Brüche als 3/4. Bei gerundeten Ergebnissen wird eine Abweichung in der letzten geforderten Stelle akzeptiert.</p>
+
+<!-- ============ 1 ============ -->
+<section id="k1">
+<h2>1 Bruchrechnen und Prozente</h2>
+<div class="rules">
+<h3>Regeln</h3>
+<div class="d">\frac ab+\frac cd=\frac{ad+bc}{bd}\qquad\frac ab\cdot\frac cd=\frac{ac}{bd}\qquad\frac ab:\frac cd=\frac ab\cdot\frac dc</div>
+<ul>
+<li>Kürzen und Erweitern: Zähler und Nenner mit derselben Zahl (≠ 0) teilen bzw. multiplizieren. Addieren nur bei gleichem Nenner (Hauptnenner bilden).</li>
+<li>Prozentwert = Grundwert · Prozentsatz: <span class="m">W=G\cdot\frac{p}{100}</span>.</li>
+<li>Erhöhung um <span class="m">p\,\%</span>: mit <span class="m">1+\frac{p}{100}</span> multiplizieren, Senkung: mit <span class="m">1-\frac{p}{100}</span>. Mehrere Änderungen: Faktoren multiplizieren, nicht Prozentsätze addieren.</li>
+<li>Zurückrechnen (z. B. von brutto auf netto): durch den Faktor teilen, Netto <span class="m">=\frac{\text{Brutto}}{1{,}19}</span>.</li>
+<li>Prozentpunkte = Differenz zweier Prozentsätze; Prozent = relative Änderung.</li>
+</ul>
+</div>
+<div class="ex">
+<h3>Beispiel</h3>
+<p>Ein Gerät kostet 80 € inklusive 19 % Umsatzsteuer. Nettopreis: <span class="m">\frac{80}{1{,}19}\approx 67{,}23</span> €. Die Steuer beträgt also 12,77 € und nicht <span class="m">0{,}19\cdot 80=15{,}20</span> €.</p>
+<p>Auf einen Listenpreis von 100 € gibt es 10 % Rabatt und danach 2 % Skonto: <span class="m">100\cdot 0{,}90\cdot 0{,}98=88{,}20</span> €. Die Gesamtersparnis beträgt 11,8 %, nicht 12 %.</p>
+</div>
+<div class="quiz" data-kap="k1"></div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section id="k2">
+<h2>2 Potenzen und Wurzeln</h2>
+<div class="rules">
+<h3>Regeln</h3>
+<div class="d">a^m\cdot a^n=a^{m+n}\qquad\frac{a^m}{a^n}=a^{m-n}\qquad(a^m)^n=a^{m\cdot n}\qquad a^n\cdot b^n=(ab)^n</div>
+<div class="d">a^0=1\qquad a^{-n}=\frac{1}{a^n}\qquad a^{\frac mn}=\sqrt[n]{a^m}\quad(a\gt 0)\qquad\sqrt{a\cdot b}=\sqrt a\cdot\sqrt b\qquad\sqrt{a^2}=\lvert a\rvert</div>
+<ul>
+<li>Achtung: <span class="m">(a+b)^2\ne a^2+b^2</span> und <span class="m">\sqrt{a+b}\ne\sqrt a+\sqrt b</span>.</li>
+<li>Wurzeln sind Potenzen mit gebrochenem Exponenten; so lassen sich alle Potenzregeln anwenden.</li>
+</ul>
+</div>
+<div class="ex">
+<h3>Beispiel</h3>
+<p>Vereinfachen Sie <span class="m">(x^3y^{-2})^2\cdot x^{-4}y^5</span>:</p>
+<div class="d">(x^3y^{-2})^2\cdot x^{-4}y^5=x^{6}y^{-4}\cdot x^{-4}y^{5}=x^{6-4}\,y^{-4+5}=x^2y</div>
+</div>
+<div class="quiz" data-kap="k2"></div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section id="k3">
+<h2>3 Logarithmen</h2>
+<div class="rules">
+<h3>Regeln</h3>
+<div class="d">\log_a x=y\iff a^y=x\qquad(a\gt 0,\ a\ne 1,\ x\gt 0)</div>
+<div class="d">\log(x\cdot y)=\log x+\log y\qquad\log\frac xy=\log x-\log y\qquad\log\bigl(x^r\bigr)=r\cdot\log x</div>
+<div class="d">\ln x=\log_e x,\quad \ln e=1,\quad\ln 1=0,\quad e^{\ln x}=x\qquad\log_a x=\frac{\ln x}{\ln a}</div>
+<ul>
+<li>Exponentialgleichungen <span class="m">a^x=b</span> löst man durch Logarithmieren: <span class="m">x=\frac{\ln b}{\ln a}</span>.</li>
+<li><span class="m">\log(x+y)</span> lässt sich <b>nicht</b> zerlegen.</li>
+</ul>
+</div>
+<div class="ex">
+<h3>Beispiel</h3>
+<p>Nach wie vielen Jahren verdoppelt sich ein Kapital bei 4 % Zinsen p. a.?</p>
+<div class="d">1{,}04^n=2\;\Rightarrow\;n\cdot\ln 1{,}04=\ln 2\;\Rightarrow\;n=\frac{\ln 2}{\ln 1{,}04}\approx\frac{0{,}6931}{0{,}0392}\approx 17{,}67</div>
+<p>Das Kapital hat sich also nach 18 vollen Jahren verdoppelt.</p>
+</div>
+<div class="quiz" data-kap="k3"></div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section id="k4">
+<h2>4 Terme umformen und binomische Formeln</h2>
+<div class="rules">
+<h3>Regeln</h3>
+<div class="d">(a+b)^2=a^2+2ab+b^2\qquad(a-b)^2=a^2-2ab+b^2\qquad(a+b)(a-b)=a^2-b^2</div>
+<ul>
+<li>Ausmultiplizieren: jeder Summand mit jedem, <span class="m">(a+b)(c+d)=ac+ad+bc+bd</span>. Ausklammern ist die Umkehrung: <span class="m">ab+ac=a(b+c)</span>.</li>
+<li>Bruchterme kürzen: erst Zähler und Nenner faktorisieren, dann nur <b>Faktoren</b> kürzen, nie einzelne Summanden. Werte ausschließen, für die der Nenner null wird.</li>
+<li>Quadratische Ergänzung: <span class="m">x^2+px+q=\bigl(x+\tfrac p2\bigr)^2-\bigl(\tfrac p2\bigr)^2+q</span>.</li>
+</ul>
+</div>
+<div class="ex">
+<h3>Beispiel</h3>
+<p>Kürzen Sie <span class="m">\dfrac{x^2-9}{x^2+6x+9}</span>:</p>
+<div class="d">\frac{x^2-9}{x^2+6x+9}=\frac{(x-3)(x+3)}{(x+3)^2}=\frac{x-3}{x+3}\qquad(x\ne -3)</div>
+</div>
+<div class="quiz" data-kap="k4"></div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section id="k5">
+<h2>5 Gleichungen, Ungleichungen und Beträge</h2>
+<div class="rules">
+<h3>Regeln</h3>
+<ul>
+<li>Lineare Gleichung: auf beiden Seiten dieselbe Operation; <span class="m">ax+b=0\Rightarrow x=-\frac ba</span> <span class="m">(a\ne 0)</span>.</li>
+<li>Quadratische Gleichung in Normalform <span class="m">x^2+px+q=0</span> (p-q-Formel) bzw. <span class="m">ax^2+bx+c=0</span> (Mitternachtsformel):</li>
+</ul>
+<div class="d">x_{1,2}=-\frac p2\pm\sqrt{\Bigl(\frac p2\Bigr)^2-q}\qquad\qquad x_{1,2}=\frac{-b\pm\sqrt{b^2-4ac}}{2a}</div>
+<ul>
+<li>Diskriminante <span class="m">D=b^2-4ac</span>: <span class="m">D\gt 0</span> zwei, <span class="m">D=0</span> eine, <span class="m">D\lt 0</span> keine reelle Lösung.</li>
+<li>Ungleichungen: Multiplikation oder Division mit einer <b>negativen</b> Zahl dreht das Ungleichheitszeichen um.</li>
+<li>Betrag: <span class="m">\lvert x\rvert=x</span> für <span class="m">x\ge 0</span>, sonst <span class="m">-x</span>. <span class="m">\lvert x-a\rvert\le r\iff a-r\le x\le a+r</span>; <span class="m">\lvert x-a\rvert\ge r\iff x\le a-r</span> oder <span class="m">x\ge a+r</span>.</li>
+</ul>
+</div>
+<div class="ex">
+<h3>Beispiel</h3>
+<p>Lösen Sie <span class="m">x^2-2x-15=0</span> mit der p-q-Formel (<span class="m">p=-2</span>, <span class="m">q=-15</span>):</p>
+<div class="d">x_{1,2}=1\pm\sqrt{1+15}=1\pm 4\quad\Rightarrow\quad x_1=-3,\ x_2=5</div>
+<p>Probe über die Faktorisierung: <span class="m">(x+3)(x-5)=x^2-2x-15</span>.</p>
+</div>
+<div class="quiz" data-kap="k5"></div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section id="k6">
+<h2>6 Lineare Gleichungssysteme</h2>
+<div class="rules">
+<h3>Regeln</h3>
+<ul>
+<li><b>Einsetzungsverfahren</b>: eine Gleichung nach einer Variablen auflösen und in die andere einsetzen.</li>
+<li><b>Gleichsetzungsverfahren</b>: beide Gleichungen nach derselben Variablen auflösen und gleichsetzen.</li>
+<li><b>Additionsverfahren / Gauß-Verfahren</b>: Vielfache von Gleichungen addieren, bis eine Variable wegfällt (Stufenform).</li>
+<li>Lösbarkeit: genau eine Lösung, keine Lösung (Widerspruch wie <span class="m">0=1</span>) oder unendlich viele (eine Gleichung ist ein Vielfaches der anderen).</li>
+</ul>
+</div>
+<div class="ex">
+<h3>Beispiel</h3>
+<p>Lösen Sie <span class="m">2x+3y=12</span> und <span class="m">x-y=1</span>.</p>
+<div class="d">x=1+y\;\Rightarrow\;2(1+y)+3y=12\;\Rightarrow\;5y=10\;\Rightarrow\;y=2,\ x=3</div>
+<p>Probe: <span class="m">2\cdot 3+3\cdot 2=12</span> und <span class="m">3-2=1</span>.</p>
+</div>
+<div class="quiz" data-kap="k6"></div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section id="k7">
+<h2>7 Funktionen in der Ökonomie</h2>
+<div class="rules">
+<h3>Funktionstypen</h3>
+<ul>
+<li>Linear: <span class="m">f(x)=mx+b</span>, Steigung <span class="m">m=\frac{y_2-y_1}{x_2-x_1}</span>, Achsenabschnitt <span class="m">b</span>.</li>
+<li>Quadratisch: <span class="m">f(x)=ax^2+bx+c</span>, Scheitel bei <span class="m">x_S=-\frac{b}{2a}</span>; nach unten geöffnet für <span class="m">a\lt 0</span>.</li>
+<li>Potenzfunktion <span class="m">f(x)=x^n</span>; Exponentialfunktion <span class="m">f(t)=a\cdot q^t=a\cdot e^{kt}</span> mit <span class="m">k=\ln q</span> (Wachstum um <span class="m">p\,\%</span>: <span class="m">q=1+\frac p{100}</span>); Logarithmusfunktion <span class="m">\ln x</span> als Umkehrfunktion von <span class="m">e^x</span>.</li>
+</ul>
+<h3>Ökonomische Funktionen</h3>
+<ul>
+<li>Kosten <span class="m">K(x)=K_f+K_v(x)</span>, linear: <span class="m">K(x)=K_f+k_v\cdot x</span>; Stückkosten <span class="m">k(x)=\frac{K(x)}{x}</span>.</li>
+<li>Erlös <span class="m">E(x)=p\cdot x</span> (fester Preis) bzw. <span class="m">E(x)=p(x)\cdot x</span> mit Preis-Absatz-Funktion, z. B. <span class="m">p(x)=a-bx</span>.</li>
+<li>Gewinn <span class="m">G(x)=E(x)-K(x)</span>; Gewinnschwelle (Break-even): <span class="m">G(x)=0</span>.</li>
+</ul>
+</div>
+<div class="ex">
+<h3>Beispiel</h3>
+<p>Preis-Absatz-Funktion <span class="m">p(x)=100-2x</span>, Kosten <span class="m">K(x)=200+20x</span>.</p>
+<div class="d">E(x)=(100-2x)\,x=100x-2x^2,\qquad G(x)=E(x)-K(x)=-2x^2+80x-200</div>
+<p>Scheitel bei <span class="m">x_S=-\frac{80}{2\cdot(-2)}=20</span>: maximaler Gewinn <span class="m">G(20)=-800+1600-200=600</span>. Gewinnschwellen aus <span class="m">G(x)=0\iff x^2-40x+100=0</span>: <span class="m">x=20\pm\sqrt{300}</span>, also <span class="m">x_1\approx 2{,}68</span> und <span class="m">x_2\approx 37{,}32</span>. Dazwischen wird Gewinn erzielt.</p>
+</div>
+<div class="quiz" data-kap="k7"></div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section id="k8">
+<h2>8 Folgen, Reihen und Zinseszins</h2>
+<div class="rules">
+<h3>Regeln</h3>
+<div class="d">\text{arithmetisch: } a_n=a_1+(n-1)\,d,\qquad s_n=\sum_{k=1}^{n}a_k=\frac n2\,(a_1+a_n)</div>
+<div class="d">\text{geometrisch: } a_n=a_1\,q^{n-1},\qquad s_n=a_1\,\frac{q^n-1}{q-1}\ (q\ne 1),\qquad\sum_{k=1}^{\infty}a_1q^{k-1}=\frac{a_1}{1-q}\ (\lvert q\rvert\lt 1)</div>
+<h3>Finanzmathematik (Zinssatz <span class="m">i</span>, Zinsfaktor <span class="m">q=1+i</span>)</h3>
+<div class="d">K_n=K_0\,q^n\qquad K_0=\frac{K_n}{q^n}\qquad R_n=r\,\frac{q^n-1}{q-1}</div>
+<p><span class="m">K_n</span>: Endkapital nach <span class="m">n</span> Jahren, <span class="m">K_0</span>: Barwert, <span class="m">R_n</span>: Endwert von <span class="m">n</span> nachschüssigen Raten der Höhe <span class="m">r</span> (Zahlung jeweils am Periodenende).</p>
+</div>
+<div class="ex">
+<h3>Beispiel</h3>
+<p>Sparplan: 10 Jahre lang jeweils am Jahresende 100 € bei 3 % Zinsen. Die Raten bilden eine geometrische Reihe (<span class="m">100+100\cdot 1{,}03+\dots+100\cdot 1{,}03^9</span>):</p>
+<div class="d">R_{10}=100\cdot\frac{1{,}03^{10}-1}{0{,}03}\approx 100\cdot 11{,}4639=1146{,}39</div>
+<p>Das Endguthaben beträgt 1.146,39 €, davon 146,39 € Zinsen.</p>
+</div>
+<div class="quiz" data-kap="k8"></div>
+</section>
+
+<!-- ============ 9 ============ -->
+<section id="k9">
+<h2>9 Ableitungen</h2>
+<div class="rules">
+<h3>Ableitungsregeln</h3>
+<div class="d">(x^n)'=n\,x^{n-1}\qquad(e^x)'=e^x\qquad(a^x)'=a^x\ln a\qquad(\ln x)'=\frac1x</div>
+<div class="d">(c\,f)'=c\,f'\qquad(f\pm g)'=f'\pm g'\qquad(f\,g)'=f'g+fg'\qquad\Bigl(\frac fg\Bigr)'=\frac{f'g-fg'}{g^2}\qquad\bigl(f(g(x))\bigr)'=f'(g(x))\cdot g'(x)</div>
+<h3>Kurvendiskussion und Ökonomie</h3>
+<ul>
+<li>Extremum: <span class="m">f'(x_0)=0</span> und <span class="m">f''(x_0)\lt 0</span> (Maximum) bzw. <span class="m">f''(x_0)\gt 0</span> (Minimum). Wendepunkt: <span class="m">f''(x_0)=0</span> und <span class="m">f'''(x_0)\ne 0</span>.</li>
+<li>Grenzkosten <span class="m">K'(x)</span>, Grenzerlös <span class="m">E'(x)</span>; Gewinnmaximum, wo <span class="m">E'(x)=K'(x)</span> und <span class="m">G''(x)\lt 0</span>.</li>
+<li>Elastizität: <span class="m">\varepsilon_{f,x}=f'(x)\cdot\frac{x}{f(x)}</span> ≈ prozentuale Änderung von <span class="m">f</span>, wenn <span class="m">x</span> um 1 % steigt. Nachfrage elastisch für <span class="m">\lvert\varepsilon\rvert\gt 1</span>, unelastisch für <span class="m">\lvert\varepsilon\rvert\lt 1</span>.</li>
+</ul>
+</div>
+<div class="ex">
+<h3>Beispiel</h3>
+<p>Kostenfunktion <span class="m">K(x)=x^3-6x^2+15x+10</span>. Wo sind die Grenzkosten am kleinsten?</p>
+<div class="d">K'(x)=3x^2-12x+15,\qquad K''(x)=6x-12=0\;\Rightarrow\;x=2,\qquad K'(2)=12-24+15=3</div>
+<p>Bei <span class="m">x=2</span> liegt der Wendepunkt der Kostenfunktion (Kostenkehre), die Grenzkosten betragen dort minimal 3 Geldeinheiten je Stück.</p>
+</div>
+<div class="quiz" data-kap="k9"></div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section id="k10">
+<h2>10 Integralrechnung</h2>
+<div class="rules">
+<h3>Regeln</h3>
+<div class="d">\int x^n\,dx=\frac{x^{n+1}}{n+1}+C\ (n\ne -1)\qquad\int\frac1x\,dx=\ln\lvert x\rvert+C\qquad\int e^{ax}\,dx=\frac1a\,e^{ax}+C</div>
+<div class="d">\int_a^b f(x)\,dx=F(b)-F(a)\quad\text{mit }F'=f\qquad\int(c\,f+g)\,dx=c\int f\,dx+\int g\,dx</div>
+<ul>
+<li>Gesamtkosten aus Grenzkosten: <span class="m">K(x)=K_f+\int_0^x K'(t)\,dt</span>.</li>
+<li>Konsumentenrente bei Marktpreis <span class="m">p^*</span> und Menge <span class="m">x^*</span>: <span class="m">KR=\int_0^{x^*}p_N(x)\,dx-p^*x^*</span>; Produzentenrente: <span class="m">PR=p^*x^*-\int_0^{x^*}p_A(x)\,dx</span>.</li>
+</ul>
+</div>
+<div class="ex">
+<h3>Beispiel</h3>
+<p>Nachfragefunktion <span class="m">p_N(x)=50-0{,}5x</span>, Marktpreis <span class="m">p^*=30</span>. Aus <span class="m">50-0{,}5x=30</span> folgt <span class="m">x^*=40</span>.</p>
+<div class="d">KR=\int_0^{40}(50-0{,}5x)\,dx-30\cdot 40=\Bigl[50x-0{,}25x^2\Bigr]_0^{40}-1200=1600-1200=400</div>
+<p>Die Konsumentenrente ist die Fläche zwischen Nachfragekurve und Preislinie, hier ein Dreieck: <span class="m">\frac12\cdot 40\cdot 20=400</span>.</p>
+</div>
+<div class="quiz" data-kap="k10"></div>
+</section>
+
+<noscript><p>Die Selbsttests benötigen JavaScript. Regeln und Beispiele sind auch ohne JavaScript lesbar.</p></noscript>
+
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+
+<!--AUFGABEN-START--><script type="application/json" id="aufgaben">
+[
+{
+"id": "1.1",
+"typ": "zahl",
+"frage": "Berechnen Sie $\\frac34+\\frac56$. Geben Sie das Ergebnis als Bruch (z. B. 7/4) oder als Dezimalzahl mit 2 Nachkommastellen ein.",
+"antwort": 1.5833333333333333,
+"dec": 2,
+"anzeige": "19/12 ≈ 1,58",
+"loesung": [
+"Hauptnenner 12: $\\frac34=\\frac{9}{12}$, $\\frac56=\\frac{10}{12}$.",
+"$\\frac{9}{12}+\\frac{10}{12}=\\frac{19}{12}\\approx 1{,}58$."
+],
+"kap": "k1"
+},
+{
+"id": "1.2",
+"typ": "zahl",
+"frage": "Berechnen Sie $\\frac23:\\frac49$.",
+"antwort": 1.5,
+"dec": null,
+"loesung": [
+"Durch einen Bruch teilen = mit dem Kehrwert multiplizieren: $\\frac23\\cdot\\frac94=\\frac{18}{12}=\\frac32=1{,}5$."
+],
+"kap": "k1"
+},
+{
+"id": "1.3",
+"typ": "zahl",
+"frage": "Ein Artikel kostet brutto 59,50 € inklusive 19 % Umsatzsteuer. Wie hoch ist der Nettopreis in €?",
+"antwort": 50,
+"dec": 2,
+"einheit": "€",
+"loesung": [
+"Brutto = Netto $\\cdot 1{,}19$, also Netto $=\\frac{59{,}50}{1{,}19}=50{,}00$ €.",
+"Falsch wäre $59{,}50\\cdot 0{,}81$: Die 19 % beziehen sich auf den Nettopreis, nicht auf den Bruttopreis."
+],
+"kap": "k1"
+},
+{
+"id": "1.4",
+"typ": "zahl",
+"frage": "Ein Preis steigt zuerst um 20 % und sinkt danach um 20 %. Um wie viel Prozent hat er sich insgesamt verändert? (Mit Vorzeichen, z. B. −3)",
+"antwort": -4,
+"dec": null,
+"einheit": "%",
+"loesung": [
+"Wachstumsfaktoren multiplizieren: $1{,}2\\cdot 0{,}8=0{,}96$.",
+"$0{,}96-1=-0{,}04$, also eine Senkung um 4 %."
+],
+"kap": "k1"
+},
+{
+"id": "1.5",
+"typ": "zahl",
+"frage": "Der Zinssatz steigt von 2 % auf 2,5 %. Um wie viel <em>Prozent<\/em> ist der Zinssatz gestiegen?",
+"antwort": 25,
+"dec": null,
+"einheit": "%",
+"loesung": [
+"Relative Änderung: $\\frac{2{,}5-2}{2}=0{,}25=25\\,\\%$.",
+"Die absolute Änderung beträgt 0,5 <em>Prozentpunkte<\/em>, das ist etwas anderes als 0,5 %."
+],
+"kap": "k1"
+},
+{
+"id": "2.1",
+"typ": "zahl",
+"frage": "Berechnen Sie $2^5\\cdot 2^{-3}$.",
+"antwort": 4,
+"dec": null,
+"loesung": [
+"Gleiche Basis: Exponenten addieren, $2^{5+(-3)}=2^2=4$."
+],
+"kap": "k2"
+},
+{
+"id": "2.2",
+"typ": "zahl",
+"frage": "Berechnen Sie $27^{2/3}$.",
+"antwort": 9,
+"dec": null,
+"loesung": [
+"$27^{2/3}=\\bigl(\\sqrt[3]{27}\\bigr)^2=3^2=9$."
+],
+"kap": "k2"
+},
+{
+"id": "2.3",
+"typ": "wahl",
+"frage": "Vereinfachen Sie $\\dfrac{(a^4b^{-2})^{1/2}\\cdot b^3}{a}$ für $a,b\\gt 0$.",
+"optionen": [
+"$a^3b^2$",
+"$ab^2$",
+"$ab^4$",
+"$a^2b$"
+],
+"richtig": 1,
+"loesung": [
+"$(a^4b^{-2})^{1/2}=a^2b^{-1}$.",
+"$\\frac{a^2b^{-1}\\cdot b^3}{a}=a^{2-1}b^{-1+3}=ab^2$."
+],
+"kap": "k2"
+},
+{
+"id": "2.4",
+"typ": "wahl",
+"frage": "Welcher Ausdruck ist gleich $\\sqrt{50}-\\sqrt{8}$?",
+"optionen": [
+"$\\sqrt{42}$",
+"$7\\sqrt2$",
+"$3\\sqrt2$",
+"$2\\sqrt3$"
+],
+"richtig": 2,
+"loesung": [
+"Teilweise Wurzel ziehen: $\\sqrt{50}=\\sqrt{25\\cdot 2}=5\\sqrt2$, $\\sqrt8=\\sqrt{4\\cdot2}=2\\sqrt2$.",
+"$5\\sqrt2-2\\sqrt2=3\\sqrt2$. Achtung: $\\sqrt{a}-\\sqrt{b}\\ne\\sqrt{a-b}$."
+],
+"kap": "k2"
+},
+{
+"id": "2.5",
+"typ": "zahl",
+"frage": "Berechnen Sie $16^{-1/4}\\cdot 8^{2/3}$.",
+"antwort": 2,
+"dec": null,
+"loesung": [
+"$16^{-1/4}=\\frac{1}{\\sqrt[4]{16}}=\\frac12$ und $8^{2/3}=(\\sqrt[3]8)^2=4$.",
+"$\\frac12\\cdot 4=2$."
+],
+"kap": "k2"
+},
+{
+"id": "3.1",
+"typ": "zahl",
+"frage": "Berechnen Sie $\\log_2 64$.",
+"antwort": 6,
+"dec": null,
+"loesung": [
+"Gesucht ist $y$ mit $2^y=64$. Wegen $2^6=64$ ist $\\log_2 64=6$."
+],
+"kap": "k3"
+},
+{
+"id": "3.2",
+"typ": "zahl",
+"frage": "Berechnen Sie $\\lg 0{,}001=\\log_{10}0{,}001$.",
+"antwort": -3,
+"dec": null,
+"loesung": [
+"$0{,}001=10^{-3}$, also $\\log_{10}0{,}001=-3$."
+],
+"kap": "k3"
+},
+{
+"id": "3.3",
+"typ": "zahl",
+"frage": "Lösen Sie $3^x=20$ (auf 2 Nachkommastellen).",
+"antwort": 2.7268330278608417,
+"dec": 2,
+"loesung": [
+"Logarithmieren: $x\\ln 3=\\ln 20$.",
+"$x=\\frac{\\ln 20}{\\ln 3}\\approx\\frac{2{,}9957}{1{,}0986}\\approx 2{,}73$."
+],
+"kap": "k3"
+},
+{
+"id": "3.4",
+"typ": "zahl",
+"frage": "Berechnen Sie $\\ln\\bigl(e^3\\bigr)+\\ln 1$.",
+"antwort": 3,
+"dec": null,
+"loesung": [
+"$\\ln(e^3)=3\\ln e=3$ und $\\ln 1=0$, Summe 3."
+],
+"kap": "k3"
+},
+{
+"id": "3.5",
+"typ": "zahl",
+"frage": "Ein Kapital wird mit 5 % pro Jahr verzinst (Zinseszins). Nach wie vielen <em>vollen<\/em> Jahren ist es erstmals mindestens auf das 1,5-Fache angewachsen?",
+"antwort": 9,
+"dec": null,
+"einheit": "Jahre",
+"loesung": [
+"Bedingung $1{,}05^n\\ge 1{,}5$, logarithmieren: $n\\ge\\frac{\\ln 1{,}5}{\\ln 1{,}05}\\approx 8{,}31$.",
+"Die nächste ganze Zahl ist $n=9$ (Kontrolle: $1{,}05^8\\approx 1{,}477$, $1{,}05^9\\approx 1{,}551$)."
+],
+"kap": "k3"
+},
+{
+"id": "4.1",
+"typ": "wahl",
+"frage": "Multiplizieren Sie aus: $(2x-3)^2$",
+"optionen": [
+"$4x^2-9$",
+"$4x^2-6x+9$",
+"$2x^2-12x+9$",
+"$4x^2-12x+9$"
+],
+"richtig": 3,
+"loesung": [
+"2. binomische Formel $(a-b)^2=a^2-2ab+b^2$ mit $a=2x$, $b=3$:",
+"$(2x)^2-2\\cdot 2x\\cdot 3+3^2=4x^2-12x+9$."
+],
+"kap": "k4"
+},
+{
+"id": "4.2",
+"typ": "wahl",
+"frage": "Faktorisieren Sie $9a^2-16b^2$.",
+"optionen": [
+"$(3a-4b)(3a+4b)$",
+"$(3a-4b)^2$",
+"$(3a+4b)^2$",
+"$(9a-16b)(a+b)$"
+],
+"richtig": 0,
+"loesung": [
+"3. binomische Formel $u^2-v^2=(u-v)(u+v)$ mit $u=3a$, $v=4b$."
+],
+"kap": "k4"
+},
+{
+"id": "4.3",
+"typ": "wahl",
+"frage": "Kürzen Sie $\\dfrac{x^2-4x+4}{x-2}$ für $x\\ne 2$.",
+"optionen": [
+"$x+2$",
+"$x-2$",
+"$x-4$",
+"$x^2-4$"
+],
+"richtig": 1,
+"loesung": [
+"Zähler nach der 2. binomischen Formel: $x^2-4x+4=(x-2)^2$.",
+"$\\frac{(x-2)^2}{x-2}=x-2$."
+],
+"kap": "k4"
+},
+{
+"id": "4.4",
+"typ": "zahl",
+"frage": "Berechnen Sie geschickt ohne Taschenrechner: $101^2-99^2$.",
+"antwort": 400,
+"dec": null,
+"loesung": [
+"3. binomische Formel: $101^2-99^2=(101-99)(101+99)=2\\cdot 200=400$."
+],
+"kap": "k4"
+},
+{
+"id": "4.5",
+"typ": "wahl",
+"frage": "Quadratische Ergänzung: $x^2+6x+5$ ist gleich …",
+"optionen": [
+"$(x+3)^2+5$",
+"$(x+6)^2-31$",
+"$(x+3)^2-4$",
+"$(x-3)^2-4$"
+],
+"richtig": 2,
+"loesung": [
+"$x^2+6x=(x+3)^2-9$, denn $(x+3)^2=x^2+6x+9$.",
+"$x^2+6x+5=(x+3)^2-9+5=(x+3)^2-4$. Der Scheitel liegt also bei $(-3\\mid -4)$."
+],
+"kap": "k4"
+},
+{
+"id": "5.1",
+"typ": "zahl",
+"frage": "Lösen Sie $3(x-2)=5x+4$.",
+"antwort": -5,
+"dec": null,
+"loesung": [
+"Klammer auflösen: $3x-6=5x+4$.",
+"$-2x=10\\Rightarrow x=-5$."
+],
+"kap": "k5"
+},
+{
+"id": "5.2",
+"typ": "zahl",
+"frage": "Bestimmen Sie die <em>größere<\/em> Lösung von $x^2-7x+10=0$.",
+"antwort": 5,
+"dec": null,
+"loesung": [
+"p-q-Formel mit $p=-7$, $q=10$: $x=\\frac72\\pm\\sqrt{\\frac{49}{4}-10}=3{,}5\\pm 1{,}5$.",
+"Lösungen $x_1=2$, $x_2=5$; die größere ist 5."
+],
+"kap": "k5"
+},
+{
+"id": "5.3",
+"typ": "zahl",
+"frage": "Bestimmen Sie die <em>kleinere<\/em> Lösung von $2x^2+4x-6=0$.",
+"antwort": -3,
+"dec": null,
+"loesung": [
+"Durch 2 teilen (Normalform): $x^2+2x-3=0$.",
+"$x=-1\\pm\\sqrt{1+3}=-1\\pm 2$, also $x_1=-3$, $x_2=1$."
+],
+"kap": "k5"
+},
+{
+"id": "5.4",
+"typ": "wahl",
+"frage": "Lösen Sie die Ungleichung $-2x+3\\gt 11$.",
+"optionen": [
+"$x\\gt -4$",
+"$x\\lt -4$",
+"$x\\lt 4$",
+"$x\\gt 4$"
+],
+"richtig": 1,
+"loesung": [
+"$-2x\\gt 8$.",
+"Division durch die negative Zahl $-2$ dreht das Ungleichheitszeichen: $x\\lt -4$."
+],
+"kap": "k5"
+},
+{
+"id": "5.5",
+"typ": "wahl",
+"frage": "Für welche $x$ gilt $\\lvert x-3\\rvert\\le 2$?",
+"optionen": [
+"$x\\le 5$",
+"$-1\\le x\\le 5$",
+"$x\\le 1$ oder $x\\ge 5$",
+"$1\\le x\\le 5$"
+],
+"richtig": 3,
+"loesung": [
+"$\\lvert x-3\\rvert\\le 2$ heißt: Der Abstand von $x$ zu 3 ist höchstens 2.",
+"$-2\\le x-3\\le 2\\iff 1\\le x\\le 5$."
+],
+"kap": "k5"
+},
+{
+"id": "6.1",
+"typ": "zahl",
+"frage": "Lösen Sie $x+y=10$ und $x-y=4$. Geben Sie $x$ an.",
+"antwort": 7,
+"dec": null,
+"loesung": [
+"Additionsverfahren: Gleichungen addieren ergibt $2x=14$, also $x=7$ (und $y=3$)."
+],
+"kap": "k6"
+},
+{
+"id": "6.2",
+"typ": "zahl",
+"frage": "Lösen Sie $3x+2y=16$ und $x+4y=12$. Geben Sie $y$ an.",
+"antwort": 2,
+"dec": null,
+"loesung": [
+"Einsetzungsverfahren: Aus der 2. Gleichung $x=12-4y$.",
+"Einsetzen: $3(12-4y)+2y=16\\Rightarrow 36-10y=16\\Rightarrow y=2$, dann $x=4$."
+],
+"kap": "k6"
+},
+{
+"id": "6.3",
+"typ": "zahl",
+"frage": "Lösen Sie das System $x+y+z=6$, $\\;2x-y+z=3$, $\\;x+2y-z=2$. Geben Sie $z$ an.",
+"antwort": 3,
+"dec": null,
+"loesung": [
+"(1)+(3): $2x+3y=8$. (2)+(3): $3x+y=5$.",
+"Aus $y=5-3x$: $2x+15-9x=8\\Rightarrow x=1$, $y=2$, aus (1): $z=6-1-2=3$."
+],
+"kap": "k6"
+},
+{
+"id": "6.4",
+"typ": "zahl",
+"frage": "Produkt A braucht 2 h Maschinen- und 1 h Montagezeit, Produkt B 1 h Maschinen- und 3 h Montagezeit. Verfügbar sind 100 h Maschinen- und 150 h Montagezeit, beide sollen voll ausgelastet werden. Wie viele Stück von A werden hergestellt?",
+"antwort": 30,
+"dec": null,
+"einheit": "Stück",
+"loesung": [
+"Ansatz: $2a+b=100$ (Maschine), $a+3b=150$ (Montage).",
+"Aus der 1. Gleichung $b=100-2a$, eingesetzt: $a+300-6a=150\\Rightarrow a=30$, $b=40$."
+],
+"kap": "k6"
+},
+{
+"id": "6.5",
+"typ": "wahl",
+"frage": "Wie viele Lösungen hat das System $x+2y=4$, $\\;2x+4y=9$?",
+"optionen": [
+"genau eine",
+"keine",
+"unendlich viele",
+"genau zwei"
+],
+"richtig": 1,
+"loesung": [
+"Das Doppelte der 1. Gleichung ergibt $2x+4y=8$, gefordert ist aber $2x+4y=9$.",
+"Widerspruch $8=9$: Das System hat keine Lösung (parallele Geraden)."
+],
+"kap": "k6"
+},
+{
+"id": "7.1",
+"typ": "zahl",
+"frage": "Eine Gerade verläuft durch die Punkte $(2\\mid 5)$ und $(6\\mid 13)$. Wie groß ist ihre Steigung?",
+"antwort": 2,
+"dec": null,
+"loesung": [
+"$m=\\frac{y_2-y_1}{x_2-x_1}=\\frac{13-5}{6-2}=\\frac84=2$."
+],
+"kap": "k7"
+},
+{
+"id": "7.2",
+"typ": "zahl",
+"frage": "Kostenfunktion $K(x)=5000+30x$, Verkaufspreis 55 € je Stück. Bei welcher Menge liegt die Gewinnschwelle (Break-even)?",
+"antwort": 200,
+"dec": null,
+"einheit": "Stück",
+"loesung": [
+"$G(x)=E(x)-K(x)=55x-5000-30x=25x-5000$.",
+"$G(x)=0\\Rightarrow x=\\frac{5000}{25}=200$."
+],
+"kap": "k7"
+},
+{
+"id": "7.3",
+"typ": "zahl",
+"frage": "Die Gewinnfunktion lautet $G(x)=-0{,}5x^2+40x-600$. Wie hoch ist der maximale Gewinn?",
+"antwort": 200,
+"dec": null,
+"einheit": "€",
+"loesung": [
+"Scheitel der nach unten geöffneten Parabel: $x_S=-\\frac{b}{2a}=-\\frac{40}{2\\cdot(-0{,}5)}=40$.",
+"$G(40)=-0{,}5\\cdot 1600+1600-600=200$."
+],
+"kap": "k7"
+},
+{
+"id": "7.4",
+"typ": "zahl",
+"frage": "Ein Umsatz von 2 Mio. € wächst jährlich um 8 %. Wie hoch ist er nach 5 Jahren (in Mio. €, auf 2 Nachkommastellen)?",
+"antwort": 2.938656153600001,
+"dec": 2,
+"einheit": "Mio. €",
+"loesung": [
+"Exponentielles Wachstum: $U(t)=2\\cdot 1{,}08^t$.",
+"$U(5)=2\\cdot 1{,}08^5\\approx 2\\cdot 1{,}4693=2{,}94$ Mio. €."
+],
+"kap": "k7"
+},
+{
+"id": "7.5",
+"typ": "wahl",
+"frage": "Wie lautet die Stückkostenfunktion zur Kostenfunktion $K(x)=400+10x$?",
+"optionen": [
+"$k(x)=400+\\frac{10}{x}$",
+"$k(x)=400x+10$",
+"$k(x)=\\frac{400}{x}+10$",
+"$k(x)=10x+\\frac{400}{x^2}$"
+],
+"richtig": 2,
+"loesung": [
+"Stückkosten = Gesamtkosten durch Menge: $k(x)=\\frac{K(x)}{x}=\\frac{400+10x}{x}=\\frac{400}{x}+10$."
+],
+"kap": "k7"
+},
+{
+"id": "8.1",
+"typ": "zahl",
+"frage": "Arithmetische Folge mit $a_1=5$ und $d=3$. Berechnen Sie $a_{20}$.",
+"antwort": 62,
+"dec": null,
+"loesung": [
+"$a_n=a_1+(n-1)d$, also $a_{20}=5+19\\cdot 3=62$."
+],
+"kap": "k8"
+},
+{
+"id": "8.2",
+"typ": "zahl",
+"frage": "Sie zahlen 5 Jahre lang jeweils am Jahresende 1.200 € auf ein Konto mit 2 % Zinsen p. a. Wie hoch ist das Guthaben direkt nach der letzten Zahlung (in €, auf 2 Nachkommastellen)?",
+"antwort": 6244.848192,
+"dec": 2,
+"einheit": "€",
+"loesung": [
+"Nachschüssiger Rentenendwert (geometrische Reihe): $R_n=r\\cdot\\frac{q^n-1}{q-1}$ mit $q=1{,}02$.",
+"$1200\\cdot\\frac{1{,}02^5-1}{0{,}02}\\approx 1200\\cdot 5{,}20404=6244{,}85$ €."
+],
+"kap": "k8"
+},
+{
+"id": "8.3",
+"typ": "zahl",
+"frage": "5.000 € werden 6 Jahre zu 4 % p. a. mit Zinseszins angelegt. Wie hoch ist das Endkapital (in €, auf 2 Nachkommastellen)?",
+"antwort": 6326.595092480002,
+"dec": 2,
+"einheit": "€",
+"loesung": [
+"$K_n=K_0\\cdot q^n$ mit $q=1{,}04$.",
+"$K_6=5000\\cdot 1{,}04^6\\approx 5000\\cdot 1{,}265319=6326{,}60$ €."
+],
+"kap": "k8"
+},
+{
+"id": "8.4",
+"typ": "zahl",
+"frage": "Welchen Barwert hat eine Zahlung von 10.000 €, die in 5 Jahren fällig ist, bei 6 % p. a. (in €, auf 2 Nachkommastellen)?",
+"antwort": 7472.58172866057,
+"dec": 2,
+"einheit": "€",
+"loesung": [
+"Abzinsen: $K_0=\\frac{K_n}{q^n}=\\frac{10\\,000}{1{,}06^5}$.",
+"$1{,}06^5\\approx 1{,}338226$, also $K_0\\approx 7472{,}58$ €."
+],
+"kap": "k8"
+},
+{
+"id": "8.5",
+"typ": "zahl",
+"frage": "Berechnen Sie den Wert der unendlichen geometrischen Reihe $8+4+2+1+\\frac12+\\dots$",
+"antwort": 16,
+"dec": null,
+"loesung": [
+"$a_1=8$, $q=\\frac12$, wegen $\\lvert q\\rvert\\lt 1$ konvergent.",
+"$s=\\frac{a_1}{1-q}=\\frac{8}{1-\\frac12}=16$."
+],
+"kap": "k8"
+},
+{
+"id": "9.1",
+"typ": "zahl",
+"frage": "$f(x)=4x^3-2x+7$. Berechnen Sie $f'(2)$.",
+"antwort": 46,
+"dec": null,
+"loesung": [
+"Potenz- und Summenregel: $f'(x)=12x^2-2$.",
+"$f'(2)=12\\cdot 4-2=46$."
+],
+"kap": "k9"
+},
+{
+"id": "9.2",
+"typ": "zahl",
+"frage": "$f(x)=x^2e^x$. Berechnen Sie $f'(1)$ (auf 2 Nachkommastellen).",
+"antwort": 8.154845485377136,
+"dec": 2,
+"loesung": [
+"Produktregel: $f'(x)=2x\\,e^x+x^2e^x=(2x+x^2)\\,e^x$.",
+"$f'(1)=3e\\approx 8{,}15$."
+],
+"kap": "k9"
+},
+{
+"id": "9.3",
+"typ": "zahl",
+"frage": "$f(x)=\\ln(3x^2+1)$. Berechnen Sie $f'(1)$.",
+"antwort": 1.5,
+"dec": null,
+"loesung": [
+"Kettenregel: $f'(x)=\\frac{1}{3x^2+1}\\cdot 6x=\\frac{6x}{3x^2+1}$.",
+"$f'(1)=\\frac{6}{4}=1{,}5$."
+],
+"kap": "k9"
+},
+{
+"id": "9.4",
+"typ": "zahl",
+"frage": "Erlös $E(x)=120x-x^2$, Kosten $K(x)=x^2+20x+500$. Bei welcher Menge ist der Gewinn maximal?",
+"antwort": 25,
+"dec": null,
+"einheit": "Stück",
+"loesung": [
+"Bedingung Grenzerlös = Grenzkosten: $E'(x)=120-2x$, $K'(x)=2x+20$.",
+"$120-2x=2x+20\\Rightarrow x=25$. Kontrolle: $G''(x)=-4\\lt 0$, also Maximum."
+],
+"kap": "k9"
+},
+{
+"id": "9.5",
+"typ": "zahl",
+"frage": "Nachfrage $x(p)=200-4p$. Berechnen Sie die Preiselastizität der Nachfrage beim Preis $p=30$ (mit Vorzeichen).",
+"antwort": -1.5,
+"dec": null,
+"loesung": [
+"$\\varepsilon=x'(p)\\cdot\\frac{p}{x(p)}$ mit $x'(p)=-4$ und $x(30)=80$.",
+"$\\varepsilon=-4\\cdot\\frac{30}{80}=-1{,}5$: Die Nachfrage ist elastisch ($\\lvert\\varepsilon\\rvert\\gt 1$). Manche Lehrbücher geben die Preiselastizität als Betrag an (1,5). Eine Preiserhöhung um 1 % senkt die Menge um etwa 1,5 %."
+],
+"kap": "k9"
+},
+{
+"id": "10.1",
+"typ": "zahl",
+"frage": "Berechnen Sie $\\displaystyle\\int_0^2 3x^2\\,dx$.",
+"antwort": 8,
+"dec": null,
+"loesung": [
+"Stammfunktion $F(x)=x^3$.",
+"$F(2)-F(0)=8-0=8$."
+],
+"kap": "k10"
+},
+{
+"id": "10.2",
+"typ": "zahl",
+"frage": "Berechnen Sie $\\displaystyle\\int_1^{e}\\frac1x\\,dx$.",
+"antwort": 1,
+"dec": null,
+"loesung": [
+"Stammfunktion $\\ln x$.",
+"$\\ln e-\\ln 1=1-0=1$."
+],
+"kap": "k10"
+},
+{
+"id": "10.3",
+"typ": "zahl",
+"frage": "Berechnen Sie $\\displaystyle\\int_0^1\\bigl(2x+e^x\\bigr)\\,dx$ (auf 2 Nachkommastellen).",
+"antwort": 2.718281828459045,
+"dec": 2,
+"loesung": [
+"Stammfunktion $F(x)=x^2+e^x$.",
+"$F(1)-F(0)=(1+e)-(0+1)=e\\approx 2{,}72$."
+],
+"kap": "k10"
+},
+{
+"id": "10.4",
+"typ": "zahl",
+"frage": "Die Grenzkosten sind $K'(x)=2x+10$, die Fixkosten betragen 100 €. Wie hoch sind die Gesamtkosten bei $x=10$?",
+"antwort": 300,
+"dec": null,
+"einheit": "€",
+"loesung": [
+"$K(x)=K_f+\\int_0^x K'(t)\\,dt=100+x^2+10x$.",
+"$K(10)=100+100+100=300$ €."
+],
+"kap": "k10"
+},
+{
+"id": "10.5",
+"typ": "zahl",
+"frage": "Nachfragefunktion $p(x)=100-2x$, Marktpreis $p^*=40$. Wie groß ist die Konsumentenrente?",
+"antwort": 900,
+"dec": null,
+"einheit": "€",
+"loesung": [
+"Absatzmenge: $100-2x=40\\Rightarrow x^*=30$.",
+"$KR=\\int_0^{30}(100-2x)\\,dx-40\\cdot 30=\\bigl[100x-x^2\\bigr]_0^{30}-1200=2100-1200=900$.",
+"Kontrolle als Dreieck: $\\frac12\\cdot 30\\cdot(100-40)=900$."
+],
+"kap": "k10"
+}
+]
+</script><!--AUFGABEN-ENDE-->
+<script src="/tutor/vendor/katex@0.16.47/katex.min.js"></script>
+<script>
+// PARSE-START
+function bkParse(s) {
+  // liefert eine Liste moeglicher Zahlenwerte (bei mehrdeutigem "1.500" beide Lesarten) oder []
+  s = String(s).trim().replace(/[−–]/g, '-').replace(/€|%|Stück|Jahre|Mio\.?|EUR/gi, '').replace(/\s/g, '');
+  function one(t) {
+    if (t === '') return [];
+    if (!/^[-+]?[\d.,]+$/.test(t)) return [];
+    var neg = /^-/.test(t); t = t.replace(/^[-+]/, '');
+    var c = [];
+    if (t.indexOf(',') >= 0) {
+      if ((t.match(/,/g) || []).length > 1) return [];
+      if (t.indexOf('.') >= 0 && !/^\d{1,3}(\.\d{3})+,\d*$/.test(t)) return [];
+      c.push(Number(t.replace(/\./g, '').replace(',', '.')));
+    } else if (/^\d{1,3}(\.\d{3})+$/.test(t)) {
+      c.push(Number(t), Number(t.replace(/\./g, '')));
+    } else {
+      if ((t.match(/\./g) || []).length > 1) return [];
+      c.push(Number(t));
+    }
+    return c.filter(function (v) { return isFinite(v); }).map(function (v) { return neg ? -v : v; });
+  }
+  var m = s.split('/');
+  if (m.length === 2) {
+    var zs = one(m[0]), ns = one(m[1]), out = [];
+    zs.forEach(function (zz) { ns.forEach(function (nn) { if (nn !== 0) out.push(zz / nn); }); });
+    return out;
+  }
+  if (m.length > 2) return [];
+  return one(s);
+}
+function bkCheck(task, input) {
+  var tol = task.dec === null ? 1e-9 * Math.max(1, Math.abs(task.antwort)) : Math.pow(10, -task.dec) * (1 + 1e-9);
+  return bkParse(input).some(function (v) { return Math.abs(v - task.antwort) <= tol; });
+}
+// PARSE-END
+(function () {
+  'use strict';
+  function tex(s, display) {
+    try { return katex.renderToString(s, { displayMode: !!display, throwOnError: true, strict: 'ignore' }); }
+    catch (e) { if (window.console) console.error(e.message); return s; }
+  }
+  // Abgesetzte Formel an \qquad (oberste Ebene) in Teile zerlegen; die Teile werden
+  // nebeneinander gesetzt und brechen bei wenig Platz (Handy, zweispaltiger Druck) um.
+  function splitTop(src) {
+    var parts = [], depth = 0, env = 0, cur = '', i = 0;
+    while (i < src.length) {
+      if (src.startsWith('\\begin', i)) env++;
+      if (src.startsWith('\\end', i)) env--;
+      var c = src.charAt(i);
+      if (c === '\\' && i + 1 < src.length && !/[a-zA-Z]/.test(src.charAt(i + 1))) { cur += src.substr(i, 2); i += 2; continue; }
+      if (c === '{') depth++;
+      if (c === '}') depth--;
+      if (depth === 0 && env === 0 && src.startsWith('\\qquad', i) && !/[a-zA-Z]/.test(src.charAt(i + 6) || ' ')) {
+        parts.push(cur); cur = ''; i += 6; continue;
+      }
+      cur += c; i++;
+    }
+    parts.push(cur);
+    return parts.map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+  function renderDisplay(el) {
+    var parts = splitTop(el.textContent);
+    el.textContent = '';
+    parts.forEach(function (p) {
+      var s = document.createElement('span');
+      s.className = 'dp';
+      katex.render('\\displaystyle ' + p, s, { displayMode: false, throwOnError: true, strict: 'ignore' });
+      el.appendChild(s);
+    });
+  }
+  function rich(s) { // Text mit $...$-Formeln
+    return s.split(/(\$[^$]+\$)/).map(function (seg) {
+      return seg.length > 2 && seg.charAt(0) === '$' && seg.charAt(seg.length - 1) === '$' ? tex(seg.slice(1, -1)) : seg;
+    }).join('');
+  }
+  var els = document.querySelectorAll('.m,.d');
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i], src = el.textContent;
+    try { if (el.classList.contains('d')) renderDisplay(el); else el.innerHTML = tex(src); }
+    catch (e) { el.textContent = src; if (window.console) console.error(e.message); }
+  }
+
+  var tasks = JSON.parse(document.getElementById('aufgaben').textContent);
+  function de(v, d) {
+    return v.toLocaleString('de-DE', d === null ? { maximumFractionDigits: 6 } : { minimumFractionDigits: d, maximumFractionDigits: d });
+  }
+  function solution(t) {
+    var richtig = t.typ === 'zahl' ? (t.anzeige || de(t.antwort, t.dec)) + (t.einheit ? ' ' + t.einheit : '') : rich(t.optionen[t.richtig]);
+    return '<p>Richtige Antwort: <b>' + richtig + '</b></p><p><b>Lösungsweg</b></p><ol>' +
+      t.loesung.map(function (s) { return '<li>' + rich(s) + '</li>'; }).join('') + '</ol>';
+  }
+  document.querySelectorAll('.quiz').forEach(function (box) {
+    var kap = box.getAttribute('data-kap'), list = tasks.filter(function (t) { return t.kap === kap; });
+    var solved = {};
+    box.innerHTML = '<h3>Selbsttest</h3><p class="score" aria-live="polite"></p>';
+    var score = box.querySelector('.score');
+    function upd() { var n = Object.keys(solved).length; score.textContent = n + ' von ' + list.length + ' Aufgaben richtig gelöst'; }
+    list.forEach(function (t) {
+      var uid = 'a' + t.id.replace('.', '-'), f = document.createElement('form');
+      f.className = 'task'; f.id = uid; f.noValidate = true;
+      var h = '<p class="q" id="' + uid + '-q"><span class="nr">Aufgabe ' + t.id + '</span>' + rich(t.frage) + '</p>';
+      if (t.typ === 'zahl') {
+        h += '<div class="ans"><label class="lbl" for="' + uid + '-in">Ihre Antwort</label><input type="text" id="' + uid + '-in" inputmode="decimal" autocomplete="off" aria-describedby="' + uid + '-q">' +
+          (t.einheit ? '<span class="unit">' + t.einheit + '</span>' : '') + '<button type="submit">Prüfen</button><button type="button" class="ghost">Lösung zeigen</button></div>';
+      } else {
+        h += '<fieldset><legend class="sr">Antwort auswählen</legend>' + t.optionen.map(function (o, j) {
+          return '<label><input type="radio" name="' + uid + '" value="' + j + '"><span>' + rich(o) + '</span></label>';
+        }).join('') + '</fieldset><div class="ans"><button type="submit">Prüfen</button><button type="button" class="ghost">Lösung zeigen</button></div>';
+      }
+      h += '<div class="fb" aria-live="polite"></div>';
+      f.innerHTML = h;
+      var fb = f.querySelector('.fb');
+      f.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var ok, given;
+        if (t.typ === 'zahl') {
+          given = f.querySelector('input').value;
+          if (bkParse(given).length === 0) { fb.innerHTML = '<span class="res bad">Bitte eine Zahl eingeben (z. B. 2,5 oder 5/2).</span>'; return; }
+          ok = bkCheck(t, given);
+        } else {
+          var sel = f.querySelector('input:checked');
+          if (!sel) { fb.innerHTML = '<span class="res bad">Bitte eine Antwort auswählen.</span>'; return; }
+          ok = Number(sel.value) === t.richtig;
+        }
+        if (ok) solved[t.id] = 1;
+        fb.innerHTML = '<span class="res ' + (ok ? 'ok">Richtig!' : 'bad">Leider nicht richtig.') + '</span>' + solution(t);
+        upd();
+      });
+      f.querySelector('button.ghost').addEventListener('click', function () { fb.innerHTML = solution(t); });
+      box.appendChild(f);
+    });
+    upd();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formelsammlung Statistik I und II (Wirtschaftswissenschaften)</title>
+<meta name="description" content="Druckbare Formelsammlung für Statistik I und II im Wirtschaftsstudium: Lage- und Streuungsmaße, Konzentration, Korrelation, Regression, Indexzahlen, Wahrscheinlichkeit, Verteilungen, Schätzen und Testen – mit Hinweisen auf abweichende Lehrbuch-Konventionen.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/formelsammlung-statistik">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="/tutor/vendor/katex@0.16.47/katex.min.css">
+<style>
+:root{--bg:#fff;--fg:#1b1d20;--muted:#585f69;--line:#d9dde2;--soft:#f3f5f7;--accent:#1d5a4a;--accent-soft:#e3efea;--warn:#8a4b00;--warn-soft:#fdf3e4}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e7e9ec;--muted:#a5abb4;--line:#30353c;--soft:#1b1f23;--accent:#83cdb3;--accent-soft:#1a2e28;--warn:#f0b25e;--warn-soft:#2b2216}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:12px}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.75rem;line-height:1.25;margin:.2em 0 .5em}
+h2{font-size:1.3rem;margin:2em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font-size:1.02rem;margin:0 0 .35em;color:var(--accent)}
+p{margin:.35em 0 .6em}
+ul{margin:.3em 0 .6em;padding-left:1.25em}
+li{margin:.15em 0}
+a{color:var(--accent)}
+a:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lead{color:var(--muted);max-width:70ch}
+nav.toc{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:1.2em 0}
+nav.toc ol{margin:.3em 0 0;padding-left:1.4em;columns:2;column-gap:2em}
+nav.toc li{break-inside:avoid;margin:.1em 0 .45em}
+nav.toc .sub{display:block;font-size:.82rem;line-height:1.45}
+nav.toc .sub a{color:var(--muted)}
+.search{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search label{font-weight:600}
+.search input{flex:1 1 220px;min-width:0;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 10px}
+.search button{font:inherit;border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:6px;padding:6px 12px;cursor:pointer}
+#hits{font-size:.85rem;color:var(--muted)}
+.blk{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0;break-inside:avoid}
+.d{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;column-gap:2.2em;row-gap:.35em;overflow-x:auto;overflow-y:hidden;margin:.5em 0;padding:2px 0}
+.dp{display:inline-block;max-width:100%;text-align:left}
+.hint{background:var(--warn-soft);border-left:4px solid var(--warn);padding:7px 11px;border-radius:6px;margin:.6em 0;font-size:.92rem}
+.hint b{color:var(--warn)}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:0 .55em;margin-right:.3em;vertical-align:1px}
+table.t{border-collapse:collapse;font-size:.92rem;margin:.4em 0 .6em;width:100%}
+table.t th,table.t td{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top}
+table.t thead th{background:var(--soft)}
+.tw{overflow-x:auto}
+.small{font-size:.85rem;color:var(--muted)}
+.hidden{display:none!important}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+@media (max-width:600px){nav.toc ol{columns:1}h1{font-size:1.45rem}.d{font-size:.94em;column-gap:1.4em}.blk{padding:10px 11px}}
+@media print{
+ @page{size:A4;margin:10mm 9mm 11mm}
+ :root{--bg:#fff;--fg:#000;--muted:#333;--line:#aaa;--soft:#eee;--accent:#000;--warn:#000;--warn-soft:#fff}
+ body{font-size:7.9pt;line-height:1.32}
+ .wrap{max-width:none;padding:0}
+ .noprint,nav.toc,.search{display:none!important}
+ .hidden{display:block!important}
+ header h1{font-size:13pt;margin:0 0 2mm}
+ header .lead{display:none}
+ main{columns:2;column-gap:5mm;column-fill:balance}
+ h2{font-size:9.5pt;margin:2.2mm 0 1mm;padding:0;border:0;break-after:avoid;column-span:none;background:#e6e6e6;padding:.6mm 1.5mm}
+ h3{font-size:8.2pt;margin:0 0 .6mm}
+ .blk{border:0;border-top:.3pt solid #999;border-radius:0;padding:1.2mm 0 .4mm;margin:0;break-inside:avoid}
+ .d{overflow:visible;margin:.6mm 0;column-gap:5mm;row-gap:.6mm}
+ .katex{font-size:1.06em}
+ p{margin:.4mm 0 .8mm}
+ ul{margin:.3mm 0 .8mm;padding-left:3.5mm}
+ li{margin:0}
+ .hint{border:0;border-radius:0;border-left:1.2pt solid #000;padding:.3mm 0 .3mm 2mm;margin:.8mm 0;font-size:7.4pt}
+ .tag{border-color:#000;color:#000;font-size:6.6pt;padding:0 1mm}
+ table.t{font-size:7.3pt;margin:.5mm 0 1mm}
+ table.t th,table.t td{padding:.4mm 1mm}
+ a{color:#000;text-decoration:none}
+ footer{margin-top:3mm;padding-top:1mm;font-size:6.5pt;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Formelsammlung Statistik I und II</h1>
+<p class="lead">Die wichtigsten Formeln der deskriptiven und induktiven Statistik für das Wirtschaftsstudium auf einen Blick: von Lage- und Streuungsmaßen über Regression und Indexzahlen bis zu Verteilungen, Konfidenzintervallen und Tests. Die Sammlung lässt sich durchsuchen und auf A4 ausdrucken. Wo Lehrbücher unterschiedliche Konventionen verwenden, ist das gekennzeichnet – maßgeblich ist immer die Notation der eigenen Vorlesung.</p>
+</header>
+
+<nav class="toc" aria-label="Inhaltsverzeichnis">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#k1">Grundbegriffe und Skalenniveaus</a></li>
+<li><a href="#k2">Häufigkeiten und Verteilungsfunktion</a></li>
+<li><a href="#k3">Lagemaße</a><span class="sub"><a href="#mittel">Mittelwerte</a> · <a href="#median">Median, Modus</a> · <a href="#quantile">Quantile</a></span></li>
+<li><a href="#k4">Streuungsmaße</a><span class="sub"><a href="#varianz">Varianz</a> · <a href="#vk">Variationskoeffizient</a></span></li>
+<li><a href="#k5">Konzentration</a><span class="sub"><a href="#lorenz">Lorenzkurve</a> · <a href="#gini">Gini-Koeffizient</a></span></li>
+<li><a href="#k6">Zweidimensionale Merkmale</a><span class="sub"><a href="#kontingenz">Kontingenz, χ²</a> · <a href="#korrelation">Kovarianz, Korrelation</a></span></li>
+<li><a href="#k7">Lineare Einfachregression</a></li>
+<li><a href="#k8">Indexzahlen</a></li>
+<li><a href="#k9">Wahrscheinlichkeitsrechnung</a><span class="sub"><a href="#bayes">Bayes</a> · <a href="#kombinatorik">Kombinatorik</a></span></li>
+<li><a href="#k10">Zufallsvariablen</a></li>
+<li><a href="#k11">Verteilungen</a><span class="sub"><a href="#diskret">diskret</a> · <a href="#stetig">stetig</a> · <a href="#normal">Normalverteilung</a> · <a href="#pruef">t, χ², F</a></span></li>
+<li><a href="#k12">Zentraler Grenzwertsatz</a></li>
+<li><a href="#k13">Schätzen</a><span class="sub"><a href="#ki">Konfidenzintervalle</a></span></li>
+<li><a href="#k14">Testen</a><span class="sub"><a href="#tests">Gauß-, t-, Anteilstest</a> · <a href="#chitest">χ²-Test</a> · <a href="#pwert">p-Wert</a></span></li>
+</ol>
+</nav>
+
+<div class="search noprint" role="search">
+<label for="q">Suchen</label>
+<input id="q" type="search" placeholder="z. B. Varianz, Gini, Bayes, t-Test" autocomplete="off">
+<button type="button" id="qx">Leeren</button>
+<span id="hits" aria-live="polite"></span>
+</div>
+
+<main>
+
+<!-- ============ 1 ============ -->
+<section class="ch" id="k1">
+<h2>1 Grundbegriffe und Skalenniveaus</h2>
+<div class="blk">
+<h3>Grundbegriffe</h3>
+<ul>
+<li><b>Statistische Einheit</b>: Objekt, an dem Merkmale erhoben werden; <b>Grundgesamtheit</b>: Menge aller Einheiten (Umfang <span class="m">N</span>); <b>Stichprobe</b>: Teilmenge (Umfang <span class="m">n</span>).</li>
+<li><b>Merkmal</b> <span class="m">X</span> mit <b>Ausprägungen</b> <span class="m">a_1,\dots,a_k</span>; Beobachtungswerte (Urliste) <span class="m">x_1,\dots,x_n</span>; geordnet <span class="m">x_{(1)}\le x_{(2)}\le\dots\le x_{(n)}</span>.</li>
+<li><b>Diskret</b>: abzählbar viele Ausprägungen; <b>stetig</b>: jeder Wert eines Intervalls möglich.</li>
+</ul>
+</div>
+<div class="blk">
+<h3>Skalenniveaus</h3>
+<div class="tw"><table class="t">
+<thead><tr><th>Skala</th><th>sinnvolle Aussagen</th><th>Beispiel</th><th>zulässige Lagemaße</th></tr></thead>
+<tbody>
+<tr><td>Nominal</td><td>gleich / ungleich</td><td>Rechtsform, Geschlecht</td><td>Modus</td></tr>
+<tr><td>Ordinal</td><td>+ Rangfolge</td><td>Ratingnote, Schulnote</td><td>+ Median, Quantile</td></tr>
+<tr><td>Intervall (metrisch)</td><td>+ Differenzen</td><td>Temperatur in °C, Jahreszahl</td><td>+ arithmetisches Mittel</td></tr>
+<tr><td>Verhältnis (metrisch)</td><td>+ Quotienten, natürlicher Nullpunkt</td><td>Umsatz, Preis, Alter</td><td>+ geometrisches / harmonisches Mittel, Variationskoeffizient</td></tr>
+</tbody></table></div>
+</div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="ch" id="k2">
+<h2>2 Häufigkeiten und Verteilungsfunktion</h2>
+<div class="blk">
+<h3>Absolute und relative Häufigkeiten</h3>
+<div class="d">h_j = h(a_j),\qquad f_j = \frac{h_j}{n},\qquad \sum_{j=1}^{k} h_j = n,\qquad \sum_{j=1}^{k} f_j = 1</div>
+<p>Kumuliert: <span class="m">H_j=\sum_{i\le j} h_i</span>, <span class="m">F_j=\sum_{i\le j} f_i</span> (Ausprägungen aufsteigend sortiert, mindestens ordinal).</p>
+</div>
+<div class="blk">
+<h3>Empirische Verteilungsfunktion</h3>
+<div class="d">F_n(x)=\frac{\text{Anzahl der } x_i \le x}{n}=\sum_{j:\,a_j\le x} f_j</div>
+<p>Treppenfunktion, monoton wachsend, rechtsstetig, von 0 nach 1; Sprung der Höhe <span class="m">f_j</span> an der Stelle <span class="m">a_j</span>. Anteil im Intervall: <span class="m">\text{Anteil}(a\lt X\le b)=F_n(b)-F_n(a)</span>.</p>
+</div>
+<div class="blk">
+<h3>Klassierte Daten</h3>
+<p>Klassen <span class="m">(c_{j-1},c_j]</span>, Breite <span class="m">\Delta_j=c_j-c_{j-1}</span>, Klassenmitte <span class="m">m_j=\tfrac12(c_{j-1}+c_j)</span>. Histogramm: Fläche = relative Häufigkeit, Höhe = <b>Häufigkeitsdichte</b></p>
+<div class="d">\hat f_j=\frac{f_j}{\Delta_j}</div>
+<p>Approximierende Verteilungsfunktion (Gleichverteilung innerhalb der Klasse), für <span class="m">c_{j-1}\lt x\le c_j</span>:</p>
+<div class="d">F(x)=F(c_{j-1})+\frac{x-c_{j-1}}{\Delta_j}\,f_j</div>
+<p class="hint"><b>Konvention:</b> Manche Lehrbücher verwenden Klassen <span class="m">[c_{j-1},c_j)</span>. An den Formeln ändert das nichts, nur an der Zuordnung von Werten auf den Klassengrenzen.</p>
+</div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="ch" id="k3">
+<h2>3 Lagemaße</h2>
+<div class="blk" id="mittel">
+<h3>Arithmetisches Mittel</h3>
+<div class="d">\bar x=\frac1n\sum_{i=1}^{n}x_i=\sum_{j=1}^{k}a_j f_j\qquad\text{klassiert: }\bar x\approx\sum_{j}m_j f_j</div>
+<ul>
+<li>Schwerpunkteigenschaft: <span class="m">\sum_i (x_i-\bar x)=0</span>; Minimumeigenschaft: <span class="m">\sum_i (x_i-c)^2</span> ist minimal für <span class="m">c=\bar x</span>.</li>
+<li>Lineare Transformation: <span class="m">y_i=a+bx_i\;\Rightarrow\;\bar y=a+b\bar x</span>.</li>
+<li>Gesamtmittel aus <span class="m">r</span> Teilgruppen: <span class="m">\bar x=\frac1n\sum_{l=1}^{r} n_l\,\bar x_l</span>.</li>
+</ul>
+</div>
+<div class="blk">
+<h3>Geometrisches Mittel</h3>
+<div class="d">\bar x_G=\sqrt[n]{x_1\cdot x_2\cdots x_n}=\Bigl(\prod_{i=1}^{n}x_i\Bigr)^{1/n},\qquad x_i\gt 0</div>
+<p>Für Wachstumsfaktoren <span class="m">q_t=1+r_t</span> (<span class="m">r_t</span>: Wachstumsrate in Periode <span class="m">t</span>) ergibt sich die durchschnittliche Wachstumsrate</p>
+<div class="d">\bar r=\sqrt[T]{q_1\cdots q_T}-1=\sqrt[T]{\frac{x_T}{x_0}}-1</div>
+</div>
+<div class="blk">
+<h3>Harmonisches Mittel</h3>
+<div class="d">\bar x_H=\frac{n}{\sum_{i=1}^{n}\frac{1}{x_i}}\qquad\text{gewichtet: }\bar x_H=\frac{\sum_i w_i}{\sum_i \frac{w_i}{x_i}},\qquad x_i\gt 0</div>
+<p>Anwendung bei Verhältniszahlen, wenn die Gewichte sich auf den <b>Zähler</b> beziehen (z. B. Durchschnittspreis bei gleichen Ausgabebeträgen, Durchschnittsgeschwindigkeit bei gleichen Strecken). Für positive Werte gilt <span class="m">\bar x_H\le\bar x_G\le\bar x</span>.</p>
+</div>
+<div class="blk" id="median">
+<h3>Median und Modus</h3>
+<div class="d">x_{\mathrm{med}}=\begin{cases}x_{((n+1)/2)} &amp; n\text{ ungerade}\\[2pt] \tfrac12\bigl(x_{(n/2)}+x_{(n/2+1)}\bigr) &amp; n\text{ gerade}\end{cases}</div>
+<p>Mindestens ordinales Niveau; robust gegen Ausreißer; minimiert <span class="m">\sum_i|x_i-c|</span>. Klassiert: <span class="m">x_{\mathrm{med}}=x_{0{,}5}</span> per Interpolation (siehe Quantile).</p>
+<p><b>Modus</b> <span class="m">x_{\mathrm{mod}}</span>: häufigste Ausprägung (bei klassierten Daten: Mitte der Klasse mit der größten Häufigkeitsdichte <span class="m">\hat f_j</span>).</p>
+<p class="hint"><b>Konvention:</b> Bei geradem <span class="m">n</span> ist jeder Wert zwischen <span class="m">x_{(n/2)}</span> und <span class="m">x_{(n/2+1)}</span> ein Median; üblich ist der Mittelwert der beiden. Manche Texte (v. a. für ordinale Daten) nehmen den unteren Wert <span class="m">x_{(n/2)}</span>.</p>
+</div>
+<div class="blk" id="quantile">
+<h3>Quantile</h3>
+<p>Das <span class="m">p</span>-Quantil <span class="m">x_p</span> (<span class="m">0\lt p\lt 1</span>) teilt die Daten so, dass mindestens der Anteil <span class="m">p</span> kleiner oder gleich und mindestens der Anteil <span class="m">1-p</span> größer oder gleich <span class="m">x_p</span> ist. Häufige Lehrbuchdefinition:</p>
+<div class="d">x_p=\begin{cases}x_{(\lfloor np\rfloor+1)} &amp; np\text{ nicht ganzzahlig}\\[2pt] \tfrac12\bigl(x_{(np)}+x_{(np+1)}\bigr) &amp; np\text{ ganzzahlig}\end{cases}</div>
+<p>Quartile: <span class="m">Q_1=x_{0{,}25}</span>, <span class="m">Q_2=x_{0{,}5}=x_{\mathrm{med}}</span>, <span class="m">Q_3=x_{0{,}75}</span>. Fünf-Punkte-Zusammenfassung für den Boxplot: <span class="m">x_{(1)},\,Q_1,\,x_{\mathrm{med}},\,Q_3,\,x_{(n)}</span>.</p>
+<p>Klassierte Daten, <span class="m">x_p</span> liegt in Klasse <span class="m">j</span> mit <span class="m">F(c_{j-1})\lt p\le F(c_j)</span>:</p>
+<div class="d">x_p=c_{j-1}+\frac{p-F(c_{j-1})}{f_j}\,\Delta_j</div>
+<p class="hint"><b>Abweichende Definitionen:</b> Es gibt viele Quantilsdefinitionen. Software interpoliert meist linear: Excel <i>QUANTIL.INKL</i> und R (Standard, Typ 7) verwenden die Position <span class="m">h=(n-1)p+1</span>, Excel <i>QUANTIL.EXKL</i> die Position <span class="m">h=(n+1)p</span>; dann <span class="m">x_p=x_{(\lfloor h\rfloor)}+(h-\lfloor h\rfloor)\bigl(x_{(\lfloor h\rfloor+1)}-x_{(\lfloor h\rfloor)}\bigr)</span>. Ergebnisse können daher von Hand- und Klausurrechnung abweichen.</p>
+</div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="ch" id="k4">
+<h2>4 Streuungsmaße</h2>
+<div class="blk">
+<h3>Spannweite, Quartilsabstand, mittlere absolute Abweichung</h3>
+<div class="d">R=x_{(n)}-x_{(1)},\qquad \mathrm{IQR}=Q_3-Q_1=x_{0{,}75}-x_{0{,}25}</div>
+<div class="d">d=\frac1n\sum_{i=1}^{n}\lvert x_i-\bar x\rvert\qquad\text{bzw.}\qquad d_{\mathrm{med}}=\frac1n\sum_{i=1}^{n}\lvert x_i-x_{\mathrm{med}}\rvert</div>
+<p class="hint"><b>Konvention:</b> Die mittlere absolute Abweichung wird je nach Lehrbuch um <span class="m">\bar x</span> oder um den Median gebildet; um den Median ist sie minimal.</p>
+</div>
+<div class="blk" id="varianz">
+<h3>Varianz und Standardabweichung</h3>
+<p><span class="tag">1/n</span><b>Empirische Varianz</b> (deskriptiv, Daten als Grundgesamtheit):</p>
+<div class="d">\tilde s^2=\frac1n\sum_{i=1}^{n}(x_i-\bar x)^2=\frac1n\sum_{i=1}^{n}x_i^2-\bar x^2=\sum_{j}(a_j-\bar x)^2 f_j</div>
+<p><span class="tag">1/(n−1)</span><b>Stichprobenvarianz</b> (induktiv, erwartungstreuer Schätzer für <span class="m">\sigma^2</span>):</p>
+<div class="d">s^2=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar x)^2=\frac{1}{n-1}\Bigl(\sum_{i=1}^{n}x_i^2-n\bar x^2\Bigr)=\frac{n}{n-1}\,\tilde s^2</div>
+<p>Standardabweichung: <span class="m">\tilde s=\sqrt{\tilde s^2}</span> bzw. <span class="m">s=\sqrt{s^2}</span>. Lineare Transformation <span class="m">y_i=a+bx_i</span>: <span class="m">s_y^2=b^2s_x^2</span>, <span class="m">s_y=\lvert b\rvert s_x</span>. Standardisierung: <span class="m">z_i=(x_i-\bar x)/s</span>.</p>
+<p>Streuungszerlegung (mit <span class="m">1/n</span>) für <span class="m">r</span> Teilgruppen mit Umfängen <span class="m">n_l</span>, Mitteln <span class="m">\bar x_l</span> und Varianzen <span class="m">\tilde s_l^2</span>:</p>
+<div class="d">\tilde s^2=\underbrace{\sum_{l=1}^{r}\frac{n_l}{n}\tilde s_l^2}_{\text{innerhalb}}+\underbrace{\sum_{l=1}^{r}\frac{n_l}{n}(\bar x_l-\bar x)^2}_{\text{zwischen}}</div>
+<p class="hint"><b>Achtung Notation:</b> Lehrbücher bezeichnen die Varianzen unterschiedlich. Manche schreiben <span class="m">s^2</span> für die <span class="m">1/n</span>-Version und <span class="m">s^{*2}</span> oder <span class="m">\hat\sigma^2</span> für die <span class="m">1/(n-1)</span>-Version, andere umgekehrt wie hier. Taschenrechner: <span class="m">\sigma_n</span> bzw. <span class="m">\sigma x</span> = <span class="m">1/n</span>, <span class="m">\sigma_{n-1}</span> bzw. <span class="m">sx</span> = <span class="m">1/(n-1)</span>. Excel: VAR.P / STABW.N = <span class="m">1/n</span>, VAR.S / STABW.S = <span class="m">1/(n-1)</span>.</p>
+</div>
+<div class="blk" id="vk">
+<h3>Variationskoeffizient</h3>
+<div class="d">v=\frac{s}{\bar x}\qquad(\bar x\gt 0)</div>
+<p>Dimensionslos, zum Vergleich der Streuung von Merkmalen mit verschiedenem Niveau oder verschiedenen Einheiten; nur bei Verhältnisskala sinnvoll. Ob <span class="m">\tilde s</span> oder <span class="m">s</span> eingesetzt wird, folgt der Varianzkonvention der Vorlesung.</p>
+</div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="ch" id="k5">
+<h2>5 Konzentration</h2>
+<div class="blk" id="lorenz">
+<h3>Lorenzkurve</h3>
+<p>Werte aufsteigend ordnen: <span class="m">x_{(1)}\le\dots\le x_{(n)}</span> (nichtnegatives, metrisches Merkmal). Punkte <span class="m">(u_i,v_i)</span>, linear verbunden, Start in <span class="m">(0,0)</span>:</p>
+<div class="d">u_i=\frac{i}{n},\qquad v_i=\frac{\sum_{j=1}^{i}x_{(j)}}{\sum_{j=1}^{n}x_{(j)}}</div>
+<p>Gruppierte Daten: <span class="m">u_k</span> = kumulierter Anteil der Einheiten, <span class="m">v_k</span> = kumulierter Anteil an der Merkmalssumme (Gruppen nach aufsteigendem Durchschnittswert geordnet). Gleichverteilung = Diagonale; je stärker die Kurve durchhängt, desto höher die Konzentration.</p>
+</div>
+<div class="blk" id="gini">
+<h3>Gini-Koeffizient</h3>
+<p><span class="m">G</span> = doppelte Fläche zwischen Diagonale und Lorenzkurve:</p>
+<div class="d">G=\frac{2\sum_{i=1}^{n} i\,x_{(i)}}{n\sum_{i=1}^{n}x_{(i)}}-\frac{n+1}{n}\qquad\text{allgemein (auch gruppiert):}\quad G=1-\sum_{k}(u_k-u_{k-1})(v_k+v_{k-1})</div>
+<p>Wertebereich bei <span class="m">n</span> Einzelwerten: <span class="m">0\le G\le\frac{n-1}{n}</span>. <b>Normierter Gini-Koeffizient</b>:</p>
+<div class="d">G^{*}=\frac{n}{n-1}\,G,\qquad 0\le G^{*}\le 1</div>
+<p class="hint"><b>Konvention:</b> Manche Lehrbücher nennen nur <span class="m">G</span>, andere sofort die normierte Form <span class="m">G^*</span> (teils ebenfalls „Gini-Koeffizient“ oder „Lorenz’sches Konzentrationsmaß“). Bei gruppierten Daten mit vielen Einheiten wird meist nicht normiert.</p>
+</div>
+<div class="blk">
+<h3>Absolute Konzentration</h3>
+<p>Merkmalsanteile <span class="m">p_i=x_i/\sum_j x_j</span>, absteigend geordnet <span class="m">p_{[1]}\ge p_{[2]}\ge\dots</span></p>
+<div class="d">CR_g=\sum_{i=1}^{g}p_{[i]}\qquad\text{(Konzentrationsrate)},\qquad H=\sum_{i=1}^{n}p_i^2,\quad \tfrac1n\le H\le 1\qquad\text{(Herfindahl-Index)}</div>
+</div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="ch" id="k6">
+<h2>6 Zweidimensionale Merkmale</h2>
+<div class="blk" id="kontingenz">
+<h3>Kontingenztabelle</h3>
+<p><span class="m">X</span> mit <span class="m">k</span> Ausprägungen (Zeilen), <span class="m">Y</span> mit <span class="m">l</span> Ausprägungen (Spalten); gemeinsame Häufigkeiten <span class="m">h_{ij}</span>, <span class="m">f_{ij}=h_{ij}/n</span>.</p>
+<div class="d">h_{i\cdot}=\sum_{j=1}^{l}h_{ij},\qquad h_{\cdot j}=\sum_{i=1}^{k}h_{ij},\qquad f(a_i\mid b_j)=\frac{h_{ij}}{h_{\cdot j}},\qquad f(b_j\mid a_i)=\frac{h_{ij}}{h_{i\cdot}}</div>
+<p>Bei empirischer Unabhängigkeit erwartete Häufigkeiten:</p>
+<div class="d">\tilde h_{ij}=\frac{h_{i\cdot}\,h_{\cdot j}}{n}</div>
+</div>
+<div class="blk">
+<h3>χ²-Koeffizient, Kontingenzkoeffizient, Cramérs V</h3>
+<div class="d">\chi^2=\sum_{i=1}^{k}\sum_{j=1}^{l}\frac{(h_{ij}-\tilde h_{ij})^2}{\tilde h_{ij}},\qquad 0\le\chi^2\le n\,(M-1),\quad M=\min(k,l)</div>
+<div class="d">K=\sqrt{\frac{\chi^2}{\chi^2+n}},\qquad K_{\max}=\sqrt{\frac{M-1}{M}},\qquad K^{*}=\frac{K}{K_{\max}}\in[0,1]</div>
+<div class="d">V=\sqrt{\frac{\chi^2}{n\,(M-1)}}\in[0,1]</div>
+<p>Alle Maße messen nur die Stärke, nicht die Richtung des Zusammenhangs (nominale Merkmale). <span class="m">K^*</span> heißt auch korrigierter Kontingenzkoeffizient.</p>
+</div>
+<div class="blk" id="korrelation">
+<h3>Kovarianz und Korrelationskoeffizient nach Bravais-Pearson</h3>
+<div class="d">\tilde s_{xy}=\frac1n\sum_{i=1}^{n}(x_i-\bar x)(y_i-\bar y)=\frac1n\sum_{i=1}^{n}x_iy_i-\bar x\,\bar y\qquad\bigl(s_{xy}\text{ analog mit }\tfrac{1}{n-1}\bigr)</div>
+<div class="d">r_{xy}=\frac{s_{xy}}{s_x\,s_y}=\frac{\sum_{i}(x_i-\bar x)(y_i-\bar y)}{\sqrt{\sum_{i}(x_i-\bar x)^2\,\sum_{i}(y_i-\bar y)^2}},\qquad -1\le r_{xy}\le 1</div>
+<p>Misst die Stärke des <b>linearen</b> Zusammenhangs metrischer Merkmale. <span class="m">r</span> ist gleich, egal ob überall <span class="m">1/n</span> oder überall <span class="m">1/(n-1)</span> verwendet wird; nur nicht mischen.</p>
+</div>
+<div class="blk">
+<h3>Rangkorrelation nach Spearman</h3>
+<p><span class="m">r_s</span> = Bravais-Pearson-Koeffizient der Ränge <span class="m">rg(x_i)</span>, <span class="m">rg(y_i)</span> (mindestens ordinal, misst monotonen Zusammenhang). Ohne Bindungen gilt mit <span class="m">d_i=rg(x_i)-rg(y_i)</span>:</p>
+<div class="d">r_s=1-\frac{6\sum_{i=1}^{n}d_i^2}{n\,(n^2-1)}</div>
+<p class="hint"><b>Bindungen:</b> Gleiche Werte erhalten den Durchschnitt ihrer Ränge. Die Kurzformel ist dann nur noch eine Näherung; exakt ist die Pearson-Formel auf die Ränge angewendet.</p>
+</div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="ch" id="k7">
+<h2>7 Lineare Einfachregression</h2>
+<div class="blk">
+<h3>Kleinste-Quadrate-Schätzer</h3>
+<p>Regressionsgerade <span class="m">\hat y=a+bx</span> (auch <span class="m">\hat\beta_0+\hat\beta_1x</span>) minimiert <span class="m">\sum_i (y_i-a-bx_i)^2</span>:</p>
+<div class="d">b=\frac{\sum_{i}(x_i-\bar x)(y_i-\bar y)}{\sum_{i}(x_i-\bar x)^2}=\frac{\sum_i x_iy_i-n\bar x\bar y}{\sum_i x_i^2-n\bar x^2}=\frac{s_{xy}}{s_x^2}=r_{xy}\frac{s_y}{s_x},\qquad a=\bar y-b\,\bar x</div>
+<p>Die Gerade verläuft durch <span class="m">(\bar x,\bar y)</span>. Residuen <span class="m">e_i=y_i-\hat y_i</span> mit <span class="m">\sum_i e_i=0</span>. <span class="m">b</span>: Änderung von <span class="m">\hat y</span>, wenn <span class="m">x</span> um eine Einheit steigt.</p>
+</div>
+<div class="blk">
+<h3>Streuungszerlegung und Bestimmtheitsmaß</h3>
+<div class="d">\underbrace{\sum_i(y_i-\bar y)^2}_{SQT}=\underbrace{\sum_i(\hat y_i-\bar y)^2}_{SQE}+\underbrace{\sum_i e_i^2}_{SQR}</div>
+<div class="d">R^2=\frac{SQE}{SQT}=1-\frac{SQR}{SQT}=r_{xy}^2,\qquad 0\le R^2\le 1</div>
+<p>Schätzer der Störgrößenvarianz: <span class="m">\hat\sigma^2=\dfrac{SQR}{n-2}</span>.</p>
+<p class="hint"><b>Abkürzungen:</b> SQT/SQE/SQR (Total, Erklärt, Residual) heißen auch SST/SSE/SSR – dann steht SSE aber teils für <i>Error</i> (= Residualquadratsumme). Immer an der Definition prüfen. <span class="m">R^2=r^2</span> gilt nur für die Einfachregression mit Absolutglied.</p>
+</div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="ch" id="k8">
+<h2>8 Indexzahlen</h2>
+<div class="blk">
+<h3>Preisindizes</h3>
+<p>Basisperiode 0, Berichtsperiode <span class="m">t</span>, Preise <span class="m">p</span>, Mengen <span class="m">q</span>, Summen über alle Güter <span class="m">i</span> (Index meist ×100 angegeben).</p>
+<div class="d">P^{L}_{0t}=\frac{\sum p_t\,q_0}{\sum p_0\,q_0}\qquad P^{P}_{0t}=\frac{\sum p_t\,q_t}{\sum p_0\,q_t}\qquad P^{F}_{0t}=\sqrt{P^{L}_{0t}\cdot P^{P}_{0t}}</div>
+<p>Laspeyres (L): Warenkorb der Basisperiode; Paasche (P): Warenkorb der Berichtsperiode; Fisher (F): geometrisches Mittel. Laspeyres als gewichtetes Mittel der Preismesszahlen mit den Ausgabenanteilen der Basisperiode:</p>
+<div class="d">P^{L}_{0t}=\sum_i \frac{p_{t,i}}{p_{0,i}}\,g_i,\qquad g_i=\frac{p_{0,i}\,q_{0,i}}{\sum_j p_{0,j}\,q_{0,j}}</div>
+</div>
+<div class="blk">
+<h3>Mengenindizes und Wertindex</h3>
+<div class="d">Q^{L}_{0t}=\frac{\sum q_t\,p_0}{\sum q_0\,p_0}\qquad Q^{P}_{0t}=\frac{\sum q_t\,p_t}{\sum q_0\,p_t}\qquad Q^{F}_{0t}=\sqrt{Q^{L}_{0t}\cdot Q^{P}_{0t}}</div>
+<div class="d">W_{0t}=\frac{\sum p_t\,q_t}{\sum p_0\,q_0}=P^{L}_{0t}\,Q^{P}_{0t}=P^{P}_{0t}\,Q^{L}_{0t}=P^{F}_{0t}\,Q^{F}_{0t}</div>
+<p>Deflationierung: reale Größe = nominale Größe / Preisindex (als Dezimalzahl, also Index/100).</p>
+</div>
+<div class="blk">
+<h3>Umbasierung und Verkettung</h3>
+<p>Umbasierung von Basis 0 auf neue Basis <span class="m">\tau</span> und Verkettung zweier Indexreihen (Indizes als Dezimalzahl; in Prozent jeweils mit 100 multiplizieren bzw. durch 100 teilen):</p>
+<div class="d">I_{\tau t}=\frac{I_{0t}}{I_{0\tau}}\qquad\qquad I_{0t}=I_{0\tau}\cdot I_{\tau t}</div>
+<p>Kettenindex: <span class="m">I_{0T}=I_{01}\cdot I_{12}\cdots I_{T-1,T}</span>.</p>
+<p class="hint"><b>Hinweis:</b> Ein umbasierter Laspeyres-Index ist rechnerisch umgestellt, aber kein „echter“ Laspeyres-Index zur neuen Basis (der Warenkorb bleibt der alte). Gleiches gilt für verkettete Reihen mit Warenkorbwechsel.</p>
+</div>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="ch" id="k9">
+<h2>9 Wahrscheinlichkeitsrechnung</h2>
+<div class="blk">
+<h3>Ereignisse und Axiome von Kolmogorov</h3>
+<p>Ergebnismenge <span class="m">\Omega</span>, Ereignisse <span class="m">A,B\subseteq\Omega</span>, Gegenereignis <span class="m">\bar A</span>, Schnitt <span class="m">A\cap B</span>, Vereinigung <span class="m">A\cup B</span>.</p>
+<ol>
+<li><span class="m">P(A)\ge 0</span></li>
+<li><span class="m">P(\Omega)=1</span></li>
+<li>Für paarweise disjunkte <span class="m">A_1,A_2,\dots</span>: <span class="m">P\bigl(\bigcup_i A_i\bigr)=\sum_i P(A_i)</span></li>
+</ol>
+<p>Folgerungen: <span class="m">P(\bar A)=1-P(A)</span>, <span class="m">P(\emptyset)=0</span>, <span class="m">A\subseteq B\Rightarrow P(A)\le P(B)</span>. Laplace-Experiment (gleich wahrscheinliche Ergebnisse): <span class="m">P(A)=\dfrac{|A|}{|\Omega|}</span>.</p>
+</div>
+<div class="blk">
+<h3>Additionssatz</h3>
+<div class="d">P(A\cup B)=P(A)+P(B)-P(A\cap B)</div>
+<div class="d">P(A\cup B\cup C)=P(A)+P(B)+P(C)-P(A\cap B)-P(A\cap C)-P(B\cap C)+P(A\cap B\cap C)</div>
+</div>
+<div class="blk">
+<h3>Bedingte Wahrscheinlichkeit, Multiplikationssatz, totale Wahrscheinlichkeit</h3>
+<div class="d">P(A\mid B)=\frac{P(A\cap B)}{P(B)},\quad P(B)\gt 0\qquad\qquad P(A\cap B)=P(A\mid B)\,P(B)=P(B\mid A)\,P(A)</div>
+<p>Für eine Zerlegung <span class="m">B_1,\dots,B_m</span> von <span class="m">\Omega</span> (paarweise disjunkt, Vereinigung <span class="m">\Omega</span>):</p>
+<div class="d">P(A)=\sum_{i=1}^{m}P(A\mid B_i)\,P(B_i)</div>
+</div>
+<div class="blk" id="bayes">
+<h3>Satz von Bayes</h3>
+<div class="d">P(B_j\mid A)=\frac{P(A\mid B_j)\,P(B_j)}{\sum_{i=1}^{m}P(A\mid B_i)\,P(B_i)}</div>
+<p><span class="m">P(B_j)</span>: A-priori-, <span class="m">P(B_j\mid A)</span>: A-posteriori-Wahrscheinlichkeit.</p>
+</div>
+<div class="blk">
+<h3>Stochastische Unabhängigkeit</h3>
+<div class="d">A,B\text{ unabhängig}\iff P(A\cap B)=P(A)\,P(B)\iff P(A\mid B)=P(A)\quad(P(B)\gt 0)</div>
+<p>Mit <span class="m">A,B</span> sind auch <span class="m">\bar A,B</span>, <span class="m">A,\bar B</span> und <span class="m">\bar A,\bar B</span> unabhängig. Disjunkte Ereignisse mit positiver Wahrscheinlichkeit sind <b>nie</b> unabhängig.</p>
+</div>
+<div class="blk" id="kombinatorik">
+<h3>Kombinatorik</h3>
+<p>Auswahl von <span class="m">k</span> aus <span class="m">n</span> Elementen:</p>
+<div class="tw"><table class="t">
+<thead><tr><th></th><th>ohne Zurücklegen</th><th>mit Zurücklegen</th></tr></thead>
+<tbody>
+<tr><th>mit Reihenfolge</th><td><span class="m">\dfrac{n!}{(n-k)!}</span></td><td><span class="m">n^k</span></td></tr>
+<tr><th>ohne Reihenfolge</th><td><span class="m">\dbinom{n}{k}</span></td><td><span class="m">\dbinom{n+k-1}{k}</span></td></tr>
+</tbody></table></div>
+<div class="d">\binom{n}{k}=\frac{n!}{k!\,(n-k)!}\qquad 0!=1</div>
+<p>Permutationen von <span class="m">n</span> Elementen: <span class="m">n!</span>; mit <span class="m">r</span> Gruppen gleicher Elemente (Größen <span class="m">n_1,\dots,n_r</span>): <span class="m">\dfrac{n!}{n_1!\,n_2!\cdots n_r!}</span>.</p>
+</div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="ch" id="k10">
+<h2>10 Zufallsvariablen</h2>
+<div class="blk">
+<h3>Wahrscheinlichkeits-, Dichte- und Verteilungsfunktion</h3>
+<p>Diskret: <span class="m">f(x_i)=P(X=x_i)</span>, <span class="m">F(x)=P(X\le x)=\sum_{x_i\le x}f(x_i)</span>.</p>
+<p>Stetig: Dichte <span class="m">f(x)\ge 0</span>, <span class="m">\int_{-\infty}^{\infty}f(x)\,dx=1</span>,</p>
+<div class="d">F(x)=\int_{-\infty}^{x}f(t)\,dt,\qquad P(a\le X\le b)=F(b)-F(a)=\int_a^b f(x)\,dx,\qquad P(X=x)=0,\qquad f(x)=F'(x)</div>
+<p>Quantil <span class="m">x_p</span>: <span class="m">F(x_p)=p</span> (stetig, streng monoton).</p>
+</div>
+<div class="blk">
+<h3>Erwartungswert und Varianz</h3>
+<div class="d">\mu=E(X)=\sum_i x_i\,f(x_i)\quad\text{bzw.}\quad\int_{-\infty}^{\infty}x\,f(x)\,dx\qquad E\bigl(g(X)\bigr)=\sum_i g(x_i)f(x_i)\quad\text{bzw.}\quad\int g(x)f(x)\,dx</div>
+<div class="d">\sigma^2=\operatorname{Var}(X)=E\bigl[(X-\mu)^2\bigr]=E(X^2)-\mu^2,\qquad\sigma=\sqrt{\operatorname{Var}(X)}</div>
+</div>
+<div class="blk">
+<h3>Rechenregeln</h3>
+<div class="d">E(a+bX)=a+b\,E(X)\qquad\operatorname{Var}(a+bX)=b^2\operatorname{Var}(X)</div>
+<div class="d">E(X+Y)=E(X)+E(Y)\qquad\operatorname{Var}(X\pm Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)\pm 2\operatorname{Cov}(X,Y)</div>
+<div class="d">\operatorname{Cov}(X,Y)=E\bigl[(X-\mu_X)(Y-\mu_Y)\bigr]=E(XY)-E(X)E(Y),\qquad\rho_{XY}=\frac{\operatorname{Cov}(X,Y)}{\sigma_X\,\sigma_Y}</div>
+<p><span class="m">X,Y</span> unabhängig <span class="m">\Rightarrow</span> <span class="m">\operatorname{Cov}(X,Y)=0</span>, <span class="m">E(XY)=E(X)E(Y)</span>, <span class="m">\operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)</span> (Umkehrung gilt im Allgemeinen nicht).</p>
+<p>Für unabhängige, identisch verteilte <span class="m">X_1,\dots,X_n</span> mit <span class="m">E(X_i)=\mu</span>, <span class="m">\operatorname{Var}(X_i)=\sigma^2</span>:</p>
+<div class="d">E\Bigl(\sum X_i\Bigr)=n\mu,\quad\operatorname{Var}\Bigl(\sum X_i\Bigr)=n\sigma^2,\qquad E(\bar X)=\mu,\quad\operatorname{Var}(\bar X)=\frac{\sigma^2}{n}</div>
+<p>Standardisierung: <span class="m">Z=\dfrac{X-\mu}{\sigma}</span> hat <span class="m">E(Z)=0</span>, <span class="m">\operatorname{Var}(Z)=1</span>.</p>
+</div>
+<div class="blk">
+<h3>Ungleichung von Tschebyscheff</h3>
+<div class="d">P\bigl(\lvert X-\mu\rvert\ge c\bigr)\le\frac{\sigma^2}{c^2}\qquad\Longleftrightarrow\qquad P\bigl(\lvert X-\mu\rvert\lt c\bigr)\ge 1-\frac{\sigma^2}{c^2}\qquad(c\gt 0)</div>
+<p>Mit <span class="m">c=k\sigma</span>: <span class="m">P(\lvert X-\mu\rvert\lt k\sigma)\ge 1-1/k^2</span>, z. B. mindestens 75 % für <span class="m">k=2</span>. Gilt für jede Verteilung mit endlicher Varianz.</p>
+</div>
+</section>
+
+<!-- ============ 11 ============ -->
+<section class="ch" id="k11">
+<h2>11 Verteilungen</h2>
+<div class="blk" id="diskret">
+<h3>Bernoulli- und Binomialverteilung</h3>
+<p><b>Bernoulli</b> <span class="m">X\sim\mathrm{Be}(p)</span>: <span class="m">P(X=1)=p</span>, <span class="m">P(X=0)=1-p</span>; <span class="m">E(X)=p</span>, <span class="m">\operatorname{Var}(X)=p(1-p)</span>.</p>
+<p><b>Binomial</b> <span class="m">X\sim B(n;p)</span>: Anzahl der Erfolge in <span class="m">n</span> unabhängigen Bernoulli-Versuchen (Ziehen mit Zurücklegen).</p>
+<div class="d">P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},\quad k=0,1,\dots,n\qquad E(X)=np\qquad\operatorname{Var}(X)=np(1-p)</div>
+</div>
+<div class="blk">
+<h3>Hypergeometrische Verteilung</h3>
+<p><span class="m">X\sim H(N;M;n)</span>: Ziehen von <span class="m">n</span> aus <span class="m">N</span> Elementen <b>ohne</b> Zurücklegen, davon <span class="m">M</span> mit der Eigenschaft.</p>
+<div class="d">P(X=k)=\frac{\binom{M}{k}\binom{N-M}{n-k}}{\binom{N}{n}}\qquad E(X)=n\frac{M}{N}\qquad\operatorname{Var}(X)=n\frac{M}{N}\Bigl(1-\frac{M}{N}\Bigr)\frac{N-n}{N-1}</div>
+<p>Näherung durch <span class="m">B(n;M/N)</span>, wenn <span class="m">n/N</span> klein ist (Faustregel <span class="m">n/N\le 0{,}05</span>).</p>
+</div>
+<div class="blk">
+<h3>Poissonverteilung</h3>
+<div class="d">X\sim\mathrm{Po}(\lambda):\quad P(X=k)=\frac{\lambda^k}{k!}e^{-\lambda},\quad k=0,1,2,\dots\qquad E(X)=\operatorname{Var}(X)=\lambda</div>
+<p>Anzahl seltener Ereignisse pro Zeit- oder Flächeneinheit. Näherung <span class="m">B(n;p)\approx\mathrm{Po}(np)</span> für großes <span class="m">n</span> und kleines <span class="m">p</span> (Faustregel z. B. <span class="m">n\ge 50</span>, <span class="m">p\le 0{,}1</span>; die Grenzen variieren je nach Lehrbuch).</p>
+</div>
+<div class="blk" id="stetig">
+<h3>Stetige Gleichverteilung</h3>
+<div class="d">X\sim U(a;b):\quad f(x)=\frac{1}{b-a}\ (a\le x\le b),\qquad F(x)=\frac{x-a}{b-a}\ (a\le x\le b)\qquad E(X)=\frac{a+b}{2}\qquad\operatorname{Var}(X)=\frac{(b-a)^2}{12}</div>
+</div>
+<div class="blk">
+<h3>Exponentialverteilung</h3>
+<div class="d">X\sim\mathrm{Exp}(\lambda):\quad f(x)=\lambda e^{-\lambda x},\qquad F(x)=1-e^{-\lambda x}\quad(x\ge 0)\qquad E(X)=\frac1\lambda\qquad\operatorname{Var}(X)=\frac{1}{\lambda^2}</div>
+<p>Wartezeiten, Lebensdauern; gedächtnislos: <span class="m">P(X\gt s+t\mid X\gt s)=P(X\gt t)</span>.</p>
+<p class="hint"><b>Konvention:</b> Manche Texte parametrisieren über den Erwartungswert <span class="m">\beta=1/\lambda</span>: <span class="m">f(x)=\frac1\beta e^{-x/\beta}</span>.</p>
+</div>
+<div class="blk" id="normal">
+<h3>Normalverteilung</h3>
+<div class="d">X\sim N(\mu;\sigma^2):\quad f(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\Bigl(-\frac{(x-\mu)^2}{2\sigma^2}\Bigr),\qquad E(X)=\mu,\quad\operatorname{Var}(X)=\sigma^2</div>
+<p><b>Standardisierung:</b> <span class="m">Z=\frac{X-\mu}{\sigma}\sim N(0;1)</span>, Verteilungsfunktion <span class="m">\Phi</span>:</p>
+<div class="d">P(X\le x)=\Phi\Bigl(\frac{x-\mu}{\sigma}\Bigr),\qquad \Phi(-z)=1-\Phi(z),\qquad P(\lvert Z\rvert\le z)=2\Phi(z)-1,\qquad x_p=\mu+z_p\,\sigma</div>
+<p>Zentrale Schwankungsintervalle: <span class="m">\mu\pm\sigma</span>: 68,27 %, <span class="m">\mu\pm 2\sigma</span>: 95,45 %, <span class="m">\mu\pm 3\sigma</span>: 99,73 %, <span class="m">\mu\pm 1{,}96\,\sigma</span>: 95 %.</p>
+<p>Reproduktivität: <span class="m">X_1\sim N(\mu_1;\sigma_1^2)</span>, <span class="m">X_2\sim N(\mu_2;\sigma_2^2)</span> unabhängig <span class="m">\Rightarrow aX_1+bX_2\sim N(a\mu_1+b\mu_2;\,a^2\sigma_1^2+b^2\sigma_2^2)</span>.</p>
+<p class="hint"><b>Achtung Notation:</b> Meist <span class="m">N(\mu;\sigma^2)</span> mit der <b>Varianz</b> als zweitem Parameter, in manchen Büchern aber <span class="m">N(\mu;\sigma)</span> mit der Standardabweichung. <span class="m">N(10;4)</span> kann also <span class="m">\sigma=2</span> oder <span class="m">\sigma=4</span> bedeuten.</p>
+</div>
+<div class="blk" id="pruef">
+<h3>χ²-, t- und F-Verteilung</h3>
+<p><span class="m">Z,Z_1,\dots,Z_n</span> unabhängig <span class="m">N(0;1)</span>; <span class="m">V\sim\chi^2(n)</span>, <span class="m">V_1\sim\chi^2(m)</span>, <span class="m">V_2\sim\chi^2(n)</span> jeweils unabhängig; <span class="m">\Gamma</span> = Gammafunktion.</p>
+<div class="tw"><table class="t">
+<thead><tr><th>Verteilung</th><th>Konstruktion und Dichte</th><th>E, Var</th></tr></thead>
+<tbody>
+<tr><td><span class="m">\chi^2(n)</span></td><td><span class="m">\sum_{i=1}^{n}Z_i^2</span>;<br><span class="m">f(x)=\dfrac{x^{n/2-1}e^{-x/2}}{2^{n/2}\,\Gamma(n/2)},\ x\gt 0</span></td><td><span class="m">E=n</span><br><span class="m">\operatorname{Var}=2n</span></td></tr>
+<tr><td><span class="m">t(n)</span></td><td><span class="m">\dfrac{Z}{\sqrt{V/n}}</span>;<br><span class="m">f(t)=\dfrac{\Gamma\bigl(\frac{n+1}{2}\bigr)}{\sqrt{n\pi}\,\Gamma\bigl(\frac n2\bigr)}\Bigl(1+\dfrac{t^2}{n}\Bigr)^{-\frac{n+1}{2}}</span></td><td><span class="m">E=0\ (n\gt 1)</span><br><span class="m">\operatorname{Var}=\frac{n}{n-2}\ (n\gt 2)</span></td></tr>
+<tr><td><span class="m">F(m,n)</span></td><td><span class="m">\dfrac{V_1/m}{V_2/n}</span>;<br><span class="m">f(x)=\dfrac{\Gamma\bigl(\frac{m+n}{2}\bigr)}{\Gamma\bigl(\frac m2\bigr)\Gamma\bigl(\frac n2\bigr)}\Bigl(\dfrac mn\Bigr)^{\frac m2}\dfrac{x^{\frac m2-1}}{\bigl(1+\frac mn x\bigr)^{\frac{m+n}{2}}},\ x\gt 0</span></td><td><span class="m">E=\frac{n}{n-2}\ (n\gt 2)</span><br><span class="m">\operatorname{Var}=\frac{2n^2(m+n-2)}{m(n-2)^2(n-4)}\ (n\gt 4)</span></td></tr>
+</tbody></table></div>
+<p>t-Verteilung symmetrisch: <span class="m">t_{n;p}=-t_{n;1-p}</span>, für <span class="m">n\to\infty</span> gegen <span class="m">N(0;1)</span>. F-Quantile: <span class="m">F_{m,n;p}=1/F_{n,m;1-p}</span>. Für eine Stichprobe aus <span class="m">N(\mu;\sigma^2)</span> gilt <span class="m">\frac{(n-1)S^2}{\sigma^2}\sim\chi^2(n-1)</span> und <span class="m">\frac{\bar X-\mu}{S/\sqrt n}\sim t(n-1)</span>.</p>
+</div>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="ch" id="k12">
+<h2>12 Zentraler Grenzwertsatz</h2>
+<div class="blk">
+<h3>Zentraler Grenzwertsatz (ZGWS)</h3>
+<p><span class="m">X_1,\dots,X_n</span> unabhängig, identisch verteilt mit <span class="m">E(X_i)=\mu</span>, <span class="m">\operatorname{Var}(X_i)=\sigma^2\lt\infty</span>. Für großes <span class="m">n</span> gilt näherungsweise (Faustregel <span class="m">n\gt 30</span>):</p>
+<div class="d">\sum_{i=1}^{n}X_i\;\overset{a}{\sim}\;N(n\mu;\,n\sigma^2),\qquad\bar X\;\overset{a}{\sim}\;N\Bigl(\mu;\,\frac{\sigma^2}{n}\Bigr),\qquad\frac{\bar X-\mu}{\sigma/\sqrt n}\;\overset{a}{\sim}\;N(0;1)</div>
+<p>Gesetz der großen Zahlen: <span class="m">\bar X</span> konvergiert für <span class="m">n\to\infty</span> gegen <span class="m">\mu</span>.</p>
+</div>
+<div class="blk">
+<h3>Normalapproximation der Binomialverteilung (de Moivre-Laplace)</h3>
+<p>Für <span class="m">np(1-p)\gt 9</span> (Faustregel; andere Bücher: <span class="m">np\ge 5</span> und <span class="m">n(1-p)\ge 5</span>) mit Stetigkeitskorrektur:</p>
+<div class="d">P(X\le k)\approx\Phi\Bigl(\frac{k+0{,}5-np}{\sqrt{np(1-p)}}\Bigr),\qquad P(a\le X\le b)\approx\Phi\Bigl(\frac{b+0{,}5-np}{\sqrt{np(1-p)}}\Bigr)-\Phi\Bigl(\frac{a-0{,}5-np}{\sqrt{np(1-p)}}\Bigr)</div>
+<p>Poisson: <span class="m">\mathrm{Po}(\lambda)\approx N(\lambda;\lambda)</span> für <span class="m">\lambda\gt 9</span>.</p>
+</div>
+</section>
+
+<!-- ============ 13 ============ -->
+<section class="ch" id="k13">
+<h2>13 Schätzen</h2>
+<div class="blk">
+<h3>Punktschätzer und Gütekriterien</h3>
+<div class="d">\hat\mu=\bar X=\frac1n\sum_{i=1}^{n}X_i,\qquad\hat\sigma^2=S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar X)^2,\qquad\hat p=\frac{X}{n}\ \ (X:\text{ Anzahl Erfolge})</div>
+<ul>
+<li><b>Erwartungstreue</b>: <span class="m">E(\hat\theta)=\theta</span>. <span class="m">\bar X</span>, <span class="m">S^2</span>, <span class="m">\hat p</span> sind erwartungstreu; die <span class="m">1/n</span>-Varianz hat <span class="m">E(\tilde S^2)=\frac{n-1}{n}\sigma^2</span> (verzerrt, aber asymptotisch erwartungstreu).</li>
+<li><b>MSE</b> <span class="m">=E\bigl[(\hat\theta-\theta)^2\bigr]=\operatorname{Var}(\hat\theta)+\bigl(E(\hat\theta)-\theta\bigr)^2</span> (Varianz + Bias²).</li>
+<li><b>Konsistenz</b>: <span class="m">\hat\theta</span> konvergiert für <span class="m">n\to\infty</span> gegen <span class="m">\theta</span>. <b>Effizienz</b>: kleinste Varianz unter den erwartungstreuen Schätzern.</li>
+<li>Standardfehler des Mittelwerts: <span class="m">\sigma_{\bar X}=\sigma/\sqrt n</span>, geschätzt <span class="m">S/\sqrt n</span>.</li>
+</ul>
+</div>
+<div class="blk" id="ki">
+<h3>Konfidenzintervalle zum Niveau 1 − α</h3>
+<p>Angegeben sind die Intervallgrenzen (untere Grenze mit −, obere mit +).</p>
+<p><b>μ, σ bekannt</b> (Normalverteilung oder <span class="m">n\gt 30</span>):</p>
+<div class="d">\bar x\pm z_{1-\alpha/2}\,\frac{\sigma}{\sqrt n}</div>
+<p><b>μ, σ unbekannt</b>, Normalverteilung (<span class="m">s</span> mit <span class="m">1/(n-1)</span>):</p>
+<div class="d">\bar x\pm t_{n-1;\,1-\alpha/2}\,\frac{s}{\sqrt n}</div>
+<p>Bei <span class="m">n\gt 30</span> und beliebiger Verteilung näherungsweise mit <span class="m">z_{1-\alpha/2}</span> statt <span class="m">t_{n-1;1-\alpha/2}</span>.</p>
+<p><b>Anteilswert p</b> (Faustregel <span class="m">n\hat p(1-\hat p)\gt 9</span>):</p>
+<div class="d">\hat p\pm z_{1-\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}</div>
+<p><b>Varianz σ²</b>, Normalverteilung: <span class="m">\Bigl[\dfrac{(n-1)s^2}{\chi^2_{n-1;1-\alpha/2}};\ \dfrac{(n-1)s^2}{\chi^2_{n-1;\alpha/2}}\Bigr]</span>.</p>
+<p>Gängige Quantile: <span class="m">z_{0{,}95}=1{,}645</span>, <span class="m">z_{0{,}975}=1{,}960</span>, <span class="m">z_{0{,}995}=2{,}576</span>.</p>
+</div>
+<div class="blk">
+<h3>Notwendiger Stichprobenumfang</h3>
+<p>Für eine halbe Intervallbreite (Genauigkeit) von höchstens <span class="m">e</span>:</p>
+<div class="d">n\ge\Bigl(\frac{z_{1-\alpha/2}\,\sigma}{e}\Bigr)^2\qquad\qquad n\ge\frac{z_{1-\alpha/2}^2\,p(1-p)}{e^2}</div>
+<p>Links für <span class="m">\mu</span>, rechts für einen Anteil. Ist <span class="m">p</span> unbekannt, den ungünstigsten Fall <span class="m">p=0{,}5</span> einsetzen: <span class="m">n\ge z_{1-\alpha/2}^2/(4e^2)</span>.</p>
+<p>Aufrunden auf die nächste ganze Zahl. Ziehen ohne Zurücklegen mit <span class="m">n/N\gt 0{,}05</span>: Standardfehler mit dem Korrekturfaktor <span class="m">\sqrt{\frac{N-n}{N-1}}</span> multiplizieren.</p>
+</div>
+</section>
+
+<!-- ============ 14 ============ -->
+<section class="ch" id="k14">
+<h2>14 Testen</h2>
+<div class="blk">
+<h3>Hypothesen und Fehlerarten</h3>
+<p>Zweiseitig: <span class="m">H_0:\mu=\mu_0</span> gegen <span class="m">H_1:\mu\ne\mu_0</span>. Rechtsseitig: <span class="m">H_0:\mu\le\mu_0</span> gegen <span class="m">H_1:\mu\gt\mu_0</span>. Linksseitig: <span class="m">H_0:\mu\ge\mu_0</span> gegen <span class="m">H_1:\mu\lt\mu_0</span>. Die zu belegende Aussage gehört in <span class="m">H_1</span>.</p>
+<div class="tw"><table class="t">
+<thead><tr><th>Entscheidung</th><th><span class="m">H_0</span> wahr</th><th><span class="m">H_1</span> wahr</th></tr></thead>
+<tbody>
+<tr><th><span class="m">H_0</span> nicht ablehnen</th><td>richtig (<span class="m">1-\alpha</span>)</td><td>Fehler 2. Art (<span class="m">\beta</span>)</td></tr>
+<tr><th><span class="m">H_0</span> ablehnen</th><td>Fehler 1. Art (<span class="m">\le\alpha</span>)</td><td>richtig (Güte, Power <span class="m">1-\beta</span>)</td></tr>
+</tbody></table></div>
+<p><span class="m">\alpha</span> = Signifikanzniveau (Höchstwahrscheinlichkeit für den Fehler 1. Art). Bei festem <span class="m">n</span> sinkt <span class="m">\beta</span>, wenn <span class="m">\alpha</span> steigt, und umgekehrt.</p>
+</div>
+<div class="blk" id="tests">
+<h3>Gauß-Test, t-Test, Anteilstest (eine Stichprobe)</h3>
+<div class="tw"><table class="t">
+<thead><tr><th>Test</th><th>Teststatistik</th><th>Verteilung unter <span class="m">H_0</span></th></tr></thead>
+<tbody>
+<tr><td>Gauß-Test (σ bekannt)</td><td><span class="m">Z=\dfrac{\bar X-\mu_0}{\sigma/\sqrt n}</span></td><td><span class="m">N(0;1)</span></td></tr>
+<tr><td>t-Test (σ unbekannt, Normalvert.)</td><td><span class="m">T=\dfrac{\bar X-\mu_0}{S/\sqrt n}</span></td><td><span class="m">t(n-1)</span></td></tr>
+<tr><td>Anteilstest (<span class="m">np_0(1-p_0)\gt 9</span>)</td><td><span class="m">Z=\dfrac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}</span></td><td><span class="m">\approx N(0;1)</span></td></tr>
+</tbody></table></div>
+<p><b>Entscheidungsregel</b> (Ablehnung von <span class="m">H_0</span>; beim t-Test <span class="m">t_{n-1;\cdot}</span> statt <span class="m">z_{\cdot}</span>):</p>
+<div class="tw"><table class="t">
+<thead><tr><th><span class="m">H_1</span></th><th>Ablehnbereich</th><th>p-Wert (Gauß-Test)</th></tr></thead>
+<tbody>
+<tr><td><span class="m">\mu\ne\mu_0</span></td><td><span class="m">\lvert z\rvert\gt z_{1-\alpha/2}</span></td><td><span class="m">2\bigl(1-\Phi(\lvert z\rvert)\bigr)</span></td></tr>
+<tr><td><span class="m">\mu\gt\mu_0</span></td><td><span class="m">z\gt z_{1-\alpha}</span></td><td><span class="m">1-\Phi(z)</span></td></tr>
+<tr><td><span class="m">\mu\lt\mu_0</span></td><td><span class="m">z\lt -z_{1-\alpha}</span></td><td><span class="m">\Phi(z)</span></td></tr>
+</tbody></table></div>
+<p class="hint"><b>Hinweis:</b> Beim Anteilstest steht im Nenner <span class="m">p_0</span> (Wert unter <span class="m">H_0</span>), beim Konfidenzintervall dagegen <span class="m">\hat p</span>. Bei großem <span class="m">n</span> (<span class="m">n\gt 30</span>) darf der t-Test auch ohne Normalverteilungsannahme mit <span class="m">z</span>-Quantilen näherungsweise durchgeführt werden.</p>
+</div>
+<div class="blk" id="chitest">
+<h3>χ²-Unabhängigkeitstest</h3>
+<p><span class="m">H_0</span>: <span class="m">X</span> und <span class="m">Y</span> sind unabhängig. Teststatistik aus der <span class="m">k\times l</span>-Kontingenztabelle mit <span class="m">\tilde h_{ij}=h_{i\cdot}h_{\cdot j}/n</span>:</p>
+<div class="d">\chi^2=\sum_{i=1}^{k}\sum_{j=1}^{l}\frac{(h_{ij}-\tilde h_{ij})^2}{\tilde h_{ij}}\ \overset{a}{\sim}\ \chi^2\bigl((k-1)(l-1)\bigr)\qquad H_0\text{ ablehnen, wenn }\chi^2\gt\chi^2_{(k-1)(l-1);\,1-\alpha}</div>
+<p>Voraussetzung (Faustregel): alle <span class="m">\tilde h_{ij}\ge 5</span>, sonst Klassen zusammenlegen.</p>
+</div>
+<div class="blk" id="pwert">
+<h3>p-Wert und allgemeines Vorgehen</h3>
+<ol>
+<li>Hypothesen <span class="m">H_0</span>, <span class="m">H_1</span> und Niveau <span class="m">\alpha</span> festlegen.</li>
+<li>Teststatistik und ihre Verteilung unter <span class="m">H_0</span> bestimmen.</li>
+<li>Ablehnbereich aus den Quantilen ermitteln (oder p-Wert berechnen).</li>
+<li>Prüfgröße aus den Daten berechnen und entscheiden.</li>
+</ol>
+<p><b>p-Wert</b>: Wahrscheinlichkeit, unter <span class="m">H_0</span> einen mindestens so extremen Wert der Teststatistik (in Richtung <span class="m">H_1</span>) zu beobachten wie den tatsächlich beobachteten. Entscheidung: <span class="m">H_0</span> ablehnen, wenn <span class="m">p\text{-Wert}\le\alpha</span>. Nicht-Ablehnung ist kein Beweis für <span class="m">H_0</span>.</p>
+</div>
+</section>
+
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</main>
+
+</div>
+
+<script src="/tutor/vendor/katex@0.16.47/katex.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  // Abgesetzte Formel an \qquad (oberste Ebene) in Teile zerlegen; die Teile werden
+  // nebeneinander gesetzt und brechen bei wenig Platz (Handy, zweispaltiger Druck) um.
+  function splitTop(src) {
+    var parts = [], depth = 0, env = 0, cur = '', i = 0;
+    while (i < src.length) {
+      if (src.startsWith('\\begin', i)) env++;
+      if (src.startsWith('\\end', i)) env--;
+      var c = src.charAt(i);
+      if (c === '\\' && i + 1 < src.length && !/[a-zA-Z]/.test(src.charAt(i + 1))) { cur += src.substr(i, 2); i += 2; continue; }
+      if (c === '{') depth++;
+      if (c === '}') depth--;
+      if (depth === 0 && env === 0 && src.startsWith('\\qquad', i) && !/[a-zA-Z]/.test(src.charAt(i + 6) || ' ')) {
+        parts.push(cur); cur = ''; i += 6; continue;
+      }
+      cur += c; i++;
+    }
+    parts.push(cur);
+    return parts.map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+  function renderDisplay(el) {
+    var parts = splitTop(el.textContent);
+    el.textContent = '';
+    parts.forEach(function (p) {
+      var s = document.createElement('span');
+      s.className = 'dp';
+      katex.render('\\displaystyle ' + p, s, { displayMode: false, throwOnError: true, strict: 'ignore' });
+      el.appendChild(s);
+    });
+  }
+  var blocks = Array.prototype.slice.call(document.querySelectorAll('.blk'));
+  function norm(s) {
+    return s.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+      .replace(/χ|\\chi/g, 'chi').replace(/[^a-z0-9²]+/g, ' ');
+  }
+  // Suchindex vor dem Rendern der Formeln aufbauen (Kapiteltitel + Blocktext)
+  var index = blocks.map(function (b) {
+    var ch = b.closest('section');
+    return norm(ch.querySelector('h2').textContent + ' ' + b.textContent);
+  });
+  if (window.katex) {
+    var els = document.querySelectorAll('.m,.d');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i], src = el.textContent;
+      try {
+        if (el.classList.contains('d')) renderDisplay(el);
+        else katex.render(src, el, { throwOnError: true, strict: 'ignore' });
+      } catch (e) { el.textContent = src; el.title = 'Formel konnte nicht dargestellt werden'; if (window.console) console.error(e.message); }
+    }
+  }
+  var q = document.getElementById('q'), hits = document.getElementById('hits');
+  function filter() {
+    var terms = norm(q.value).trim().split(' ').filter(Boolean), n = 0;
+    blocks.forEach(function (b, i) {
+      var show = terms.every(function (t) { return index[i].indexOf(t) >= 0; });
+      b.classList.toggle('hidden', !show);
+      if (show) n++;
+    });
+    document.querySelectorAll('section.ch').forEach(function (s) {
+      s.classList.toggle('hidden', !s.querySelector('.blk:not(.hidden)'));
+    });
+    hits.textContent = terms.length ? (n === 0 ? 'Keine Treffer' : n + (n === 1 ? ' Abschnitt' : ' Abschnitte')) : '';
+  }
+  q.addEventListener('input', filter);
+  document.getElementById('qx').addEventListener('click', function () { q.value = ''; filter(); q.focus(); });
+})();
+</script>
+</body>
+</html>
