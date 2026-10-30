@@ -11,9 +11,11 @@ import { belegeFuer, dbPruefung } from './faktendb.js';
 // Faktenregister (Gesetze, Grenzwerte, Sätze, bekannte Fehlermuster): Treffer je Textfeld der Antwort
 // Nicht ersetzte Platzhalter im Rechenweg („= gewinn €“, „= cashflow_direkt €“): kleingeschriebenes Wort statt Zahl vor €/%
 const PLATZ = /=\s*(?:\\text\{\s*)?([a-z][a-z_]{2,})\s*\}?\s*(?:\\[,;! ]\s*)?(?:€|%|\\text\{\s*€|\\%|Euro)/g;
+// Kaputtes Zahlformat aus der Platzhalter-Ersetzung: Tausenderpunkt UND „,000“ (z. B. „-4.080{,}000“ statt 43,87, „15.825,000 %“ statt 15,825 %)
+const ZFORMAT = /(?<![\d.,])-?\d{1,3}(?:\.\d{3})+(?:\{,\}|,)000(?![\d])/g;
 // Jahreszahlen nie mit Tausenderpunkt („Ende 2.034“ → „Ende 2034“)
 export const jahrFix = s => String(s).replace(/\b(Ende|Anfang|Mitte|bis|ab|seit|Jahr|Jahres|aus|vor|nach|im|zum|Stand|Geschäftsjahr|Wirtschaftsjahr|Kalenderjahr)(\s+)([12])\.(\d{3})\b/g, (m, a, b, c, d) => (+(c + d) >= 1900 && +(c + d) <= 2100 ? a + b + c + d : m));
-function fakt(data, thema = '') { const out = []; const walk = (o, p) => { if (typeof o === 'string') { PLATZ.lastIndex = 0; for (const m of o.matchAll(PLATZ)) out.push({ art: 'fakt-falsch', path: p, text: m[0], richtig: 'Im Rechenweg steht ein Platzhalter („' + m[1] + '“) statt einer Zahl – den Wert ausrechnen und einsetzen.', quelle: 'Rechen-Algorithmus', id: 'platzhalter' }); for (const h of faktenTreffer(o, thema)) out.push({ art: 'fakt-falsch', path: p, text: h.text, richtig: h.richtig, quelle: h.quelle, id: h.id }); } else if (o && typeof o === 'object') for (const k of Object.keys(o)) { if (k === '__rechenweg') continue; walk(o[k], p.concat(Array.isArray(o) ? +k : k)); } }; walk(data, []); return out; }
+function fakt(data, thema = '') { const out = []; const walk = (o, p) => { if (typeof o === 'string') { for (const m of o.matchAll(ZFORMAT)) out.push({ art: 'fakt-falsch', path: p, text: o.slice(Math.max(0, m.index - 80), m.index + m[0].length + 20), richtig: 'Die Zahl „' + m[0] + '“ ist falsch formatiert bzw. falsch berechnet (ein Dezimalkomma wurde als Tausenderpunkt gelesen). Den Wert neu berechnen und alle Stellen, die ihn verwenden, korrigieren.', quelle: 'Rechen-Algorithmus', id: 'zahlformat' }); PLATZ.lastIndex = 0; for (const m of o.matchAll(PLATZ)) out.push({ art: 'fakt-falsch', path: p, text: m[0], richtig: 'Im Rechenweg steht ein Platzhalter („' + m[1] + '“) statt einer Zahl – den Wert ausrechnen und einsetzen.', quelle: 'Rechen-Algorithmus', id: 'platzhalter' }); for (const h of faktenTreffer(o, thema)) out.push({ art: 'fakt-falsch', path: p, text: h.text, richtig: h.richtig, quelle: h.quelle, id: h.id }); } else if (o && typeof o === 'object') for (const k of Object.keys(o)) { if (k === '__rechenweg') continue; walk(o[k], p.concat(Array.isArray(o) ? +k : k)); } }; walk(data, []); return out; }
 // Hinweise in der Sprache der Inhalte (Max’ Antwort), nicht der Oberfläche
 let SPRACHE = null;
 const L = (de, en) => ((SPRACHE || (typeof getOutLang === 'function' ? getOutLang() : 'de')) === 'en' && en != null ? en : de);
@@ -305,6 +307,19 @@ export async function rechenGate(action, payload, j, raw, { signal } = {}) {
       if (d2) { d2 = rwHolen(d2); const r5 = lauf(action, d2, kontext, zitat, ext); if (r5.rest.length <= r.rest.length && fakt(r5.data, zitat).length < fk.length) { data = r5.data; info.korrigiert += r5.geaendert; r = r5; } }
     } catch (e) {} finally { rechnetNach(false); }
   }
+  // Kaputte Zahlen, die die KI nicht reparieren konnte, nie als Wert stehen lassen: „?“ + Warnzeichen
+  try {
+    for (const f of fakt(data, zitat).filter(f => f.id === 'zahlformat')) {
+      let t = get(data, f.path); if (typeof t !== 'string') continue;
+      const num = (/(-?\d{1,3}(?:\.\d{3})+(?:\{,\}|,)000)(?!\d)/.exec(f.text) || [])[1]; if (!num) continue;
+      let i; while ((i = t.indexOf(num)) >= 0) {
+        const vor = t.slice(0, i), o = Math.max(vor.lastIndexOf('\\('), vor.lastIndexOf('\\[')), zu = Math.max(vor.lastIndexOf('\\)'), vor.lastIndexOf('\\]'));
+        if (o > zu) { const typ = t.startsWith('\\(', o) ? '\\)' : '\\]'; t = t.slice(0, i) + '?' + t.slice(i + num.length); const c2 = t.indexOf(typ, i); if (c2 >= 0) t = t.slice(0, c2 + 2) + abzeichen(t, c2 + 2) + t.slice(c2 + 2); }
+        else t = t.slice(0, i) + '?' + abzeichen(t, i) + t.slice(i + num.length);
+      }
+      data = set(data, f.path, bannerSetzen(t));
+    }
+  } catch (e) {}
   try { const fr = fakt(data, zitat); info.fakten = fr.map(({ id, richtig, quelle }) => ({ id, richtig, quelle })); info.faktenKorrigiert = Math.max(0, fk.length - fr.length); if (fk.length) track('Faktencheck', fk.map(f => f.id).join(',') + (fr.length ? ' · offen ' + fr.length : ' · korrigiert')); } catch (e) {}
   if (r.rest.length) { info.offen = r.rest.length; data = notbremse(action, data, r.rest); track('Notbremse', r.rest.map(f => f.art).join(',')); }
   else if (info.korrigiert) track('korrigiert', String(info.korrigiert));

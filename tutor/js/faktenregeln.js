@@ -173,7 +173,7 @@ export const FAKTEN = [
   "id": "little-bedarf-statt-engpass",
   "muster": "\\\\frac\\{1\\.800[^}]*\\}\\{180",
   "kontext": "Schweiß|Engpass|150 Stück",
-  "ausser": null,
+  "ausser": "Typischer Fehler|Fehler:|\\bfalsch|Falle|nicht mit dem (?:Kunden)?[Bb]edarf",
   "richtig": "Little's Law: Durchlaufzeit = Bestand / tatsächlicher Durchsatz; bei einem Engpass ist das dessen Kapazität (hier 150 Stück/Tag), nicht der Kundenbedarf.",
   "quelle": "Gabler Wirtschaftslexikon, Stichwort „Durchlaufzeit“"
  },
