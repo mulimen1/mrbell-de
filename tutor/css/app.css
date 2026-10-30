@@ -8740,3 +8740,6 @@ html:root[data-nv][data-nv][data-nv] body .ai-bub.me * { color: #fff !important;
   html:root[data-nv][data-nv] .room .rm-dock > .rm-sugg .rm-hist.on { background: #1f2430 !important; border-color: #1f2430 !important; color: #fff !important; }
   html:root[data-nv][data-nv] .room .rm-dock > .rm-sugg .rm-hist.on .ico { color: #fff !important; width: 20px; height: 20px; }
 }
+/* Tutor-Knopf oben: statisches Max-Bild (wie Lern- und Landingpages) */
+html body .tn-face.tn-face-img { padding: 0 !important; background: #fff !important; overflow: hidden; }
+html body .tn-face.tn-face-img img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }

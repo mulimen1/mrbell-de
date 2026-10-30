@@ -1,0 +1,74 @@
+/* Rechtliche Seiten (Impressum, Datenschutz, AGB, Widerruf, Kündigen): ruhig, hell, sehr gut lesbar – unabhängig vom Dunkelmodus des Systems */
+html, html[data-nv] { color-scheme: light !important; }
+html:root body { background: #ebe4d8 radial-gradient(rgba(0,0,0,.22) 1.2px, transparent 1.6px) 0 0/22px 22px fixed !important; color: #1d2027 !important; }
+html:root body main { --lg-acc: #2563eb; --lg-acc2: #7c3aed; max-width: 860px !important; width: calc(100% - 32px) !important; box-sizing: border-box; margin: 22px auto 48px !important; padding: 0 0 clamp(26px, 4vw, 48px) !important; background: #fff !important; color: #1d2027 !important; border-radius: 28px !important; box-shadow: 0 30px 70px -40px rgba(20, 24, 40, .45), 0 0 0 1px rgba(0,0,0,.04) !important; overflow: hidden; font: 400 17px/1.75 Geist, "Inter", system-ui, -apple-system, sans-serif !important; }
+html:root body main > * { margin-left: clamp(20px, 5vw, 60px) !important; margin-right: clamp(20px, 5vw, 60px) !important; }
+/* Kopf: farbige Fläche mit Titel */
+html:root body main .lg-head { margin: 0 0 8px !important; padding: clamp(28px, 5vw, 52px) clamp(20px, 5vw, 60px) clamp(24px, 4vw, 40px) !important; background: linear-gradient(120deg, #1d4ed8 0%, #2563eb 45%, #7c3aed 100%) !important; color: #fff !important; position: relative; }
+html:root body main .lg-head::after { content: ""; position: absolute; right: -60px; top: -60px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.22), rgba(255,255,255,0) 70%); pointer-events: none; }
+html:root body main .lg-head .lg-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px !important; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.18) !important; color: #fff !important; font: 700 12px/1.2 Geist, system-ui, sans-serif !important; letter-spacing: .12em; text-transform: uppercase; }
+html:root body main .lg-head h1 { margin: 0 0 10px !important; color: #fff !important; font: 800 clamp(34px, 5.6vw, 52px)/1.05 Geist, system-ui, sans-serif !important; letter-spacing: -.03em; text-shadow: none !important; }
+html:root body main .lg-head .lg-date { margin: 0 !important; color: rgba(255,255,255,.88) !important; font-size: 15px !important; }
+html:root body main .lg-head .lg-lead { margin: 14px 0 0 !important; color: rgba(255,255,255,.95) !important; font-size: 17px !important; max-width: 640px; }
+/* Inhaltsverzeichnis */
+html:root body main .lg-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px !important; margin-bottom: 6px !important; }
+html:root body main .lg-nav a { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px 7px 8px; border-radius: 999px; background: #f3f5fb; border: 1px solid #e3e8f4; color: #1e3a8a !important; text-decoration: none !important; font: 600 14px/1.2 Geist, system-ui, sans-serif; transition: background .15s, transform .15s; }
+html:root body main .lg-nav a:hover { background: #e7edff; transform: translateY(-1px); }
+html:root body main .lg-nav a b { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, var(--lg-acc), var(--lg-acc2)); color: #fff; font-size: 11.5px; }
+/* Abschnitte */
+html:root body main section { margin-top: 0 !important; padding: 28px 0 4px !important; border: 0 !important; border-top: 1px solid #edf0f5 !important; scroll-margin-top: 20px; }
+html:root body main section:first-of-type { border-top: 0 !important; }
+html:root body main h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 12px !important; color: #0f172a !important; font: 750 clamp(21px, 2.6vw, 25px)/1.25 Geist, system-ui, sans-serif !important; letter-spacing: -.015em; text-shadow: none !important; }
+html:root body main h2 .lg-n { flex: none; display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: linear-gradient(135deg, var(--lg-acc), var(--lg-acc2)); color: #fff; font: 800 15px/1 Geist, system-ui, sans-serif; box-shadow: 0 8px 16px -10px var(--lg-acc); }
+html:root body main h3 { margin: 22px 0 8px !important; color: #111827 !important; font: 700 18.5px/1.35 Geist, system-ui, sans-serif !important; }
+html:root body main p, html:root body main li, html:root body main td, html:root body main dd { color: #2b303b !important; font-size: 17px !important; line-height: 1.75 !important; }
+html:root body main p { margin: 0 0 14px !important; }
+html:root body main ul, html:root body main ol { margin: 0 0 16px !important; padding-left: 1.3em !important; }
+html:root body main li { margin: 0 0 6px !important; }
+html:root body main li::marker { color: var(--lg-acc); font-weight: 700; }
+html:root body main b, html:root body main strong { color: #0f172a !important; font-weight: 700; }
+html:root body main a:not(.lg-btn):not(.lg-nav a) { color: #1d4ed8 !important; text-decoration: underline; text-decoration-color: rgba(29,78,216,.35); text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+html:root body main a:not(.lg-btn):hover { text-decoration-color: #1d4ed8; }
+html:root body main .lg-card { margin: 4px 0 16px !important; padding: 20px 22px !important; border-radius: 18px !important; background: linear-gradient(135deg, #f5f8ff, #faf7ff) !important; border: 1px solid #dfe6fb !important; box-shadow: none !important; color: #1d2027 !important; }
+html:root body main .lg-card p:last-child { margin-bottom: 0 !important; }
+html:root body main table { width: 100%; border-collapse: separate !important; border-spacing: 0; margin: 6px 0 18px !important; border: 1px solid #e3e8f1; border-radius: 14px; overflow: hidden; display: block; overflow-x: auto; }
+html:root body main th { background: #f3f6fc !important; color: #0f172a !important; font: 700 14.5px/1.4 Geist, system-ui, sans-serif !important; text-align: left; padding: 11px 14px !important; border-bottom: 1px solid #e3e8f1 !important; }
+html:root body main td { padding: 11px 14px !important; border-bottom: 1px solid #eef1f6 !important; font-size: 15.5px !important; vertical-align: top; background: #fff !important; }
+html:root body main tr:last-child td { border-bottom: 0 !important; }
+html:root body main details { margin: 0 0 10px !important; border: 1px solid #e3e8f1 !important; border-radius: 14px !important; background: #fafbfe !important; padding: 0 !important; }
+html:root body main details > summary { cursor: pointer; padding: 14px 18px !important; font: 650 16.5px/1.4 Geist, system-ui, sans-serif !important; color: #0f172a !important; list-style-position: inside; }
+html:root body main details[open] > summary { border-bottom: 1px solid #e9edf4; }
+html:root body main details > :not(summary) { padding-left: 18px !important; padding-right: 18px !important; }
+html:root body main details > :last-child { padding-bottom: 6px !important; }
+html:root body main .lg-btn { display: inline-flex !important; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 22px !important; border-radius: 999px !important; border: 0 !important; background: linear-gradient(120deg, #1d4ed8, #3b82f6) !important; color: #fff !important; font: 700 16px/1 Geist, system-ui, sans-serif !important; text-decoration: none !important; box-shadow: 0 12px 24px -14px #1d4ed8 !important; cursor: pointer; }
+html:root body main .lg-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+html:root body main input, html:root body main select, html:root body main textarea { font: 400 16.5px/1.4 Geist, system-ui, sans-serif !important; color: #111827 !important; background: #fff !important; border: 1.5px solid #d6dce8 !important; border-radius: 12px !important; padding: 11px 14px !important; }
+html:root body main input:focus, html:root body main textarea:focus { outline: none; border-color: #2563eb !important; box-shadow: 0 0 0 4px rgba(37,99,235,.15) !important; }
+html:root body main label { color: #1f2937 !important; }
+html:root body main hr { border: 0 !important; border-top: 1px solid #edf0f5 !important; margin: 24px 0 !important; }
+html:root body footer { background: #fff !important; color: #4b5563 !important; border-radius: 20px !important; max-width: 860px; width: calc(100% - 32px) !important; box-sizing: border-box; margin: 0 auto 40px !important; padding: 18px 26px !important; border: 0 !important; box-shadow: 0 18px 44px -32px rgba(0,0,0,.35) !important; }
+html:root body footer a { color: #1d4ed8 !important; }
+@media (max-width: 600px) {
+  html:root body main { border-radius: 22px !important; width: calc(100% - 20px) !important; margin-top: 12px !important; }
+  html:root body main p, html:root body main li, html:root body main td { font-size: 16.5px !important; }
+  html:root body main h2 .lg-n { width: 30px; height: 30px; border-radius: 10px; font-size: 13.5px; }
+}
+@media print {
+  html:root body { background: #fff !important; } html:root body header, html:root body footer, html:root body main .lg-nav { display: none !important; }
+  html:root body main { box-shadow: none !important; width: 100% !important; max-width: none !important; }
+  html:root body main .lg-head { background: none !important; color: #000 !important; padding-left: 0 !important; } html:root body main .lg-head * { color: #000 !important; }
+}
+html:root body main h2 .lg-n.lg-dot { width: 12px; height: 34px; border-radius: 6px; font-size: 0; }
+html:root body main .lg-toc { display: flex !important; flex-wrap: wrap; gap: 8px; list-style: none !important; padding: 18px 0 6px !important; margin-top: 0 !important; counter-reset: toc; border-top: 1px solid #edf0f5; }
+html:root body main .lg-toc li { margin: 0 !important; counter-increment: toc; }
+html:root body main .lg-toc li::marker { content: none; }
+html:root body main .lg-toc a { display: inline-flex !important; align-items: center; gap: 8px; padding: 7px 13px 7px 8px; border-radius: 999px; background: #f3f5fb !important; border: 1px solid #e3e8f4; color: #1e3a8a !important; text-decoration: none !important; font: 600 14px/1.2 Geist, system-ui, sans-serif !important; }
+html:root body main .lg-toc a::before { content: counter(toc); display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #7c3aed); color: #fff; font-size: 11.5px; font-weight: 800; }
+html:root body main .lg-toc a:hover { background: #e7edff !important; }
+html:root body main .lg-cols { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px !important; margin: 6px 0 16px !important; }
+html:root body main .lg-col { padding: 18px 18px 8px !important; border-radius: 16px !important; background: #f5f8ff !important; border: 1px solid #dfe6fb !important; }
+html:root body main .lg-col h3 { margin-top: 0 !important; font-size: 16.5px !important; }
+html:root body main .lg-col li, html:root body main .lg-col p { font-size: 15.5px !important; }
+html:root body main .lg-col.lg-col-no { background: #fff6f3 !important; border-color: #fbd9cc !important; }
+html:root body main .lg-col .f { color: #4b5563 !important; font-size: 14.5px !important; }
+html:root body main .lg-kurz, html:root body main .lg-flow, html:root body main .lg-steps, html:root body main .lg-where, html:root body main .lg-faq { color: #1d2027 !important; }

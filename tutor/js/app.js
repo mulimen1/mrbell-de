@@ -106,7 +106,8 @@ function buildShell() {
       h('div', { class: 'side-fine' }, h('button', { type: 'button', onclick: e => openSideMenu(e.currentTarget, 'recht') }, L('Rechtliches', 'Legal')), h('span', {}, '·'), h('a', { href: legalHref('kuendigen') }, L('Verträge kündigen', 'Cancel contracts')))));
   // Oben: die festen Bereiche – immer da, auch mit eingeklappter Seitenleiste
   const navA = (key, href, ic, label) => h('a', { class: 'tn', href, 'data-tn': key }, h('span', { html: ico(ic) }), h('span', { class: 'tn-l' }, label));
-  const tnFace = h('span', { class: 'tn-face' });
+  // Tutor-Knopf: überall dasselbe Max-Bild wie auf Lern- und Landingpages (Augen klar zu sehen), nicht das animierte Gesicht
+  const tnFace = h('span', { class: 'tn-face tn-face-img' }, h('img', { src: '/tutor/img/max-fav-192.png?v=20', alt: '', width: 42, height: 42, decoding: 'async' }));
   const topnav = h('nav', { class: 'topnav', 'aria-label': L('Bereiche', 'Sections') },
     h('a', { class: 'tn tn-tutor', href: '#/app/tutor', 'data-tn': 'tutor', onclick: tutorFromAd }, tnFace, h('span', { class: 'tn-l' }, 'Tutor')), h('span', { class: 'tn-sep', 'aria-hidden': 'true' }),
     homeBeta() ? navA('ueben', '#/app/ueben', document.documentElement.dataset.nv ? 'brain' : 'whistle', document.documentElement.dataset.nv ? L('Lernen', 'Learn') : L('Training', 'Training')) : navA('lernen', '#/app/lernen', 'spark', L('Lernen', 'Learn')),
@@ -165,7 +166,7 @@ function buildShell() {
   document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === '\\' && location.hash.startsWith('#/app')) { e.preventDefault(); if (isMob()) app.classList.toggle('sideopen'); else setSide(app.classList.contains('side-closed')); } });
   app.addEventListener('click', e => { if (app.classList.contains('sideopen') && !e.target.closest('.side') && !e.target.closest('.side-tog') && !e.target.closest('.bb-side') && !e.target.closest('.m-tools')) app.classList.remove('sideopen'); });
   root.replaceChildren(app);
-  face(faceEl, {}); face(tnFace, { follow: false });
+  face(faceEl, {}); 
   shell = { root, app, side, title, tabs, docbar, topnav, view, quotaEl, backEl };
   onQuota(renderQuota);
   onAccount(a => { accBtn.classList.toggle('in', !!a); accBtn.setAttribute('aria-label', a ? L('Dein Konto', 'Your account') : L('Anmelden oder Konto erstellen', 'Sign in or create account')); renderQuota(currentQuota()); import('./views/zahlen.js').then(m => { const z = cPanel.querySelector('.tc-zahlen'); if (z) z.hidden = !m.isAdmin(a); }); });
@@ -986,3 +987,14 @@ document.addEventListener('click', e => {
   try { sessionStorage.setItem('tutor.backTo', 'lernen'); } catch (x) {}
   location.hash = last;
 }, true);
+
+// Bereiche vorwärmen: Lernen, Bibliothek, Fächer, Klausur-Tools samt ihren nachgeladenen Teilen im Leerlauf laden –
+// dann erscheint beim Wechsel alles sofort und gleichzeitig (statt erst Überschrift, dann Inhalt nach 0,5–1 s)
+{
+  const warm = () => Promise.all([
+    import('./views/ueben.js'), import('./trainer.js'), import('./xl/lessons.js'), import('./views/excel.js'), import('./views/tools.js'),
+    import('./views/bibliothek.js'), import('./views/me.js'), import('./state.js'),
+  ]).catch(() => {});
+  const go = () => (window.requestIdleCallback ? requestIdleCallback(warm, { timeout: 2500 }) : setTimeout(warm, 1200));
+  if (document.readyState === 'complete') setTimeout(go, 800); else addEventListener('load', () => setTimeout(go, 800), { once: true });
+}
