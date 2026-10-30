@@ -68,13 +68,15 @@ export async function dbPruefung(text, belege, raw, { timeout = 40000 } = {}) {
 // Gesetzes-/Zahl-Aussagen der Faktendatenbank zum Thema der Frage. So entstehen veraltete Angaben gar nicht erst.
 const KO = FAKTEN.filter(r => r.kontext).map(r => ({ re: new RegExp(r.kontext, 'i'), richtig: r.richtig }));
 export async function rechtsstandHinweis(frage, max = 8) {
-  const q = String(frage || '').slice(0, 2000); if (q.length < 6) return '';
+  const q = String(frage || '').slice(0, 2000); if (q.length < 12) return '';
   const z = [];
   for (const r of KO) if (r.re.test(q) && !z.includes(r.richtig)) z.push(r.richtig);
   try {
     const slugs = await Promise.race([themenFuer(q), new Promise(res => setTimeout(() => res([]), 800))]);
     for (const sl of slugs) { const d = await thema(sl); for (const a of (d && d.aussagen) || []) if ((a.art === 'gesetz' || a.art === 'zahl') && !z.includes(a.aussage)) z.push(a.aussage + (a.quelle && a.quelle.name ? ` (${a.quelle.name})` : '')); }
   } catch (e) {}
-  if (!z.length) return '';
-  return '\n\n[Geprüfter Stand Oktober 2026 – verbindlich, nicht erwähnen, dass dir das mitgegeben wurde; weiche bei Gesetzen, Grenzwerten, Sätzen und Fristen nicht davon ab:\n- ' + z.slice(0, max).join('\n- ') + ']';
+  // Stilregel aus dem Max-Test: In „Typischer Fehler“-Kästen stand teils das richtige Vorgehen statt des Fehlers
+  const stil = 'In Kästen „Typischer Fehler“ beschreibst du den FEHLER, den Studierende machen (z. B. „Den Terminal Value nicht abzinsen“), nie das richtige Vorgehen.';
+  if (!z.length) return '\n\n[Interne Regel, nicht erwähnen: ' + stil + ']';
+  return '\n\n[Geprüfter Stand Oktober 2026 – verbindlich, nicht erwähnen, dass dir das mitgegeben wurde; weiche bei Gesetzen, Grenzwerten, Sätzen und Fristen nicht davon ab:\n- ' + z.slice(0, max).join('\n- ') + '\n' + stil + ']';
 }
