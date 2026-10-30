@@ -120,6 +120,201 @@
     "url": "https://wirtschaftslexikon.gabler.de/definition/zinsrechnung-50401",
     "typ": "lexikon"
    }
+  },
+  {
+   "id": "zinseszins-9",
+   "art": "definition",
+   "aussage": "Der Endwert ist der zukünftige Wert einer Zahlung, die für n Jahre zum Zinssatz i angelegt wird; er umfasst die ursprüngliche Zahlung zuzüglich Zinsen und Zinseszinsen. Gegenbegriff ist der Barwert.",
+   "schlagworte": [
+    "Endwert",
+    "Zukunftswert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Endwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/endwert-53799",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zinseszins-10",
+   "art": "definition",
+   "aussage": "Der Barwert ist der heutige Wert zukünftiger Zahlungen bei einer angenommenen Verzinsung; je später eine Zahlung fällig ist und je höher der Zinssatz, desto niedriger ist ceteris paribus ihr Barwert.",
+   "schlagworte": [
+    "Barwert",
+    "Gegenwartswert",
+    "Abzinsung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Barwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/barwert-27685",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zinseszins-11",
+   "art": "formel",
+   "aussage": "Diskontierung (Abzinsung): `K_0 = \\frac{K_n}{q^n}`; `\\frac{1}{q^n}` heißt Diskontierungs- bzw. Abzinsungsfaktor. Die Abzinsung macht zu verschiedenen Zeitpunkten fällige Beträge vergleichbar.",
+   "schlagworte": [
+    "Diskontierung",
+    "Abzinsungsfaktor"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Diskontierung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/diskontierung-28103",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zinseszins-12",
+   "art": "definition",
+   "aussage": "Multipliziert man ein Kapital mit dem Aufzinsungsfaktor, erhält man das um Zinsen bzw. Zinseszinsen vermehrte Kapital; Gegenbegriff ist der Diskontierungsfaktor.",
+   "schlagworte": [
+    "Aufzinsungsfaktor",
+    "q hoch n"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Aufzinsungsfaktor",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/aufzinsungsfaktor-31163",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zinseszins-13",
+   "art": "formel",
+   "aussage": "Einfache Verzinsung (Zinsen werden nicht mitverzinst): `K_n = K_0 \\cdot (1 + n \\cdot i)` mit `i = \\frac{p}{100}`.",
+   "schlagworte": [
+    "einfache Verzinsung",
+    "lineare Verzinsung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zinseszins-14",
+   "art": "formel",
+   "aussage": "Unterjährige Verzinsung mit m Zinsperioden pro Jahr: `K_n = K_0 \\cdot (1 + \\frac{i}{m})^{m \\cdot n}`; effektiver Jahreszins `i_{\\text{eff}} = (1 + \\frac{i}{m})^m - 1`.",
+   "schlagworte": [
+    "unterjährige Verzinsung",
+    "effektiver Jahreszins"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zinseszins-15",
+   "art": "formel",
+   "aussage": "Stetige Verzinsung: `K_n = K_0 \\cdot e^{i \\cdot n}`; effektiver Jahreszins `e^i - 1`.",
+   "schlagworte": [
+    "stetige Verzinsung",
+    "Eulersche Zahl"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zinseszins-16",
+   "art": "zahl",
+   "aussage": "Beispiel: 10.000 € zu 3 % über 5 Jahre ergeben mit Zinseszins `10.000 \\cdot 1{,}03^5 = 11.592{,}74` €, bei einfacher Verzinsung `10.000 \\cdot (1 + 5 \\cdot 0{,}03) = 11.500{,}00` €.",
+   "schlagworte": [
+    "Rechenbeispiel",
+    "Vergleich"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zinseszins-17",
+   "art": "zahl",
+   "aussage": "Beispiel: Ein Nominalzins von 5 % bei monatlicher Verzinsung entspricht einem effektiven Jahreszins von rund 5,12 %, bei stetiger Verzinsung von rund 5,13 %; ein Nominalzins von 4 % bei vierteljährlicher Verzinsung rund 4,06 %.",
+   "schlagworte": [
+    "effektiver Jahreszins",
+    "Rechenbeispiel"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zinseszins-18",
+   "art": "formel",
+   "aussage": "Laufzeit bei Zinseszins: `n = \\frac{\\ln(K_n / K_0)}{\\ln q}`; bei 6 % verdoppelt sich ein Kapital in `\\frac{\\ln 2}{\\ln 1{,}06} \\approx 11{,}90` Jahren. Die Faustregel „72 geteilt durch Zinssatz in Prozent“ liefert näherungsweise 12 Jahre.",
+   "schlagworte": [
+    "Laufzeit",
+    "Verdopplung",
+    "72er-Regel"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zinseszins-19",
+   "art": "gesetz",
+   "aussage": "Beim kaufmännischen Kontokorrent kann derjenige, dem beim Rechnungsabschluss ein Überschuss zusteht, nach § 355 Abs. 1 HGB ab dem Abschlusstag Zinsen vom Überschuss verlangen, auch soweit in der Rechnung Zinsen enthalten sind; der Rechnungsabschluss erfolgt im Zweifel jährlich (Abs. 2).",
+   "schlagworte": [
+    "Kontokorrent",
+    "§ 355 HGB",
+    "Zinseszins"
+   ],
+   "quelle": {
+    "name": "HGB § 355",
+    "url": "https://www.gesetze-im-internet.de/hgb/__355.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "zinseszins-20",
+   "art": "gesetz",
+   "aussage": "Ist eine Schuld nach Gesetz oder Rechtsgeschäft zu verzinsen, beträgt der Zinssatz nach § 246 BGB vier Prozent pro Jahr, sofern nichts anderes bestimmt ist.",
+   "schlagworte": [
+    "gesetzlicher Zinssatz",
+    "§ 246 BGB"
+   ],
+   "quelle": {
+    "name": "BGB § 246",
+    "url": "https://www.gesetze-im-internet.de/bgb/__246.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "zinseszins-21",
+   "art": "gesetz",
+   "aussage": "Vereinbarte Darlehenszinsen sind nach § 488 Abs. 2 BGB, soweit nichts anderes bestimmt ist, nach Ablauf je eines Jahres zu entrichten, bei kürzerer Laufzeit bei der Rückzahlung.",
+   "schlagworte": [
+    "Zinszahlung",
+    "jährlich",
+    "§ 488 BGB"
+   ],
+   "quelle": {
+    "name": "BGB § 488",
+    "url": "https://www.gesetze-im-internet.de/bgb/__488.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "zinseszins-22",
+   "art": "abgrenzung",
+   "aussage": "In der Finanzmathematik ist es zweckmäßig, den Zinsfuß p (z. B. 5) vom Zinssatz p % = p/100 (z. B. 0,05) zu unterscheiden; im Zinsfaktor q = 1 + p/100 steht der Zinssatz als Dezimalzahl.",
+   "schlagworte": [
+    "Zinsfuß",
+    "Zinssatz",
+    "Zinsfaktor"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zinssatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zinssatz-50695",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -127,6 +322,173 @@
    "falsch": "Zinseszinsen sind rechtlich immer verboten.",
    "richtig": "Nur die im Voraus vereinbarte Verzinsung von Zinsen ist nach § 248 BGB unzulässig; nachträgliche Vereinbarungen und gesetzliche Ausnahmen (z. B. Kontokorrent) sind erlaubt.",
    "quelle_id": "zinseszins-2"
+  },
+  {
+   "falsch": "Beim Barwert multipliziert man mit q hoch n.",
+   "richtig": "Beim Barwert wird durch q hoch n geteilt (mit dem Abzinsungsfaktor 1/q^n multipliziert); mit q^n multipliziert man beim Aufzinsen.",
+   "quelle_id": "zinseszins-11"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist Zinseszins?",
+   "varianten": [
+    "Zinseszins Definition",
+    "Zinseszins einfach erklärt",
+    "Zinseszinseffekt"
+   ],
+   "antwort": "Zinseszinsen entstehen, wenn aufgelaufene Zinsen dem Kapital zugeschlagen und in den Folgeperioden selbst mitverzinst werden. Dadurch wächst das Kapital nicht linear, sondern exponentiell. Die Zinseszinsrechnung ist die übliche Verzinsung bei Banken und Geschäftsleuten, im Gegensatz zur einfachen Verzinsung, bei der Zinsen nicht mitverzinst werden.",
+   "belege": [
+    "zinseszins-1",
+    "zinseszins-6"
+   ]
+  },
+  {
+   "frage": "Wie lautet die Zinseszinsformel?",
+   "varianten": [
+    "Zinseszins Formel",
+    "Endkapital berechnen Formel",
+    "K_n = K_0 q^n"
+   ],
+   "antwort": "Das Endkapital nach \\(n\\) Jahren ist \\(K_n = K_0 \\cdot q^n\\) mit dem Zinsfaktor \\(q = 1 + \\frac{p}{100}\\). Dabei ist \\(K_0\\) das Anfangskapital, \\(p\\) der Zinssatz in Prozent und \\(n\\) die Laufzeit in Jahren. Den Faktor \\(q^n\\) nennt man Aufzinsungsfaktor.",
+   "belege": [
+    "zinseszins-5",
+    "zinseszins-12"
+   ]
+  },
+  {
+   "frage": "Kannst du mir ein Rechenbeispiel zum Zinseszins geben?",
+   "varianten": [
+    "Zinseszins Beispiel",
+    "Zinseszins berechnen Beispiel",
+    "Endkapital Beispiel"
+   ],
+   "antwort": "Du legst 10.000 € zu 3 % für 5 Jahre an. Mit Zinseszins: \\(K_5 = 10.000 \\cdot 1{,}03^5 = 11.592{,}74\\) €. Mit einfacher Verzinsung wären es nur \\(10.000 \\cdot (1 + 5 \\cdot 0{,}03) = 11.500{,}00\\) €. Die Differenz von 92,74 € sind die Zinsen auf die Zinsen.",
+   "belege": [
+    "zinseszins-5",
+    "zinseszins-16"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen einfacher Verzinsung und Zinseszins?",
+   "varianten": [
+    "einfache Verzinsung vs Zinseszins",
+    "lineare Verzinsung",
+    "Zinsen mitverzinsen"
+   ],
+   "antwort": "Bei einfacher Verzinsung werden die Zinsen nicht mitverzinst: \\(K_n = K_0 \\cdot (1 + n \\cdot i)\\). Beim Zinseszins werden sie dem Kapital zugeschlagen und verzinst: \\(K_n = K_0 \\cdot (1 + i)^n\\). Bei 10.000 €, 3 % und 5 Jahren ergibt das 11.500,00 € gegenüber 11.592,74 €. Je länger die Laufzeit, desto größer wird der Unterschied.",
+   "belege": [
+    "zinseszins-13",
+    "zinseszins-6",
+    "zinseszins-16"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Barwert?",
+   "varianten": [
+    "Barwert berechnen",
+    "Abzinsen Formel",
+    "Gegenwartswert berechnen"
+   ],
+   "antwort": "Den Barwert erhältst du durch Abzinsen: \\(K_0 = \\frac{K_n}{q^n}\\). Beispiel: 10.000 € in 5 Jahren bei 4 % sind heute \\(\\frac{10.000}{1{,}04^5} = 8.219{,}27\\) € wert. Je später die Zahlung und je höher der Zins, desto niedriger ist der Barwert.",
+   "belege": [
+    "zinseszins-10",
+    "zinseszins-11"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Aufzinsungs- und Abzinsungsfaktor?",
+   "varianten": [
+    "Aufzinsungsfaktor Abzinsungsfaktor",
+    "Diskontierungsfaktor",
+    "q^n und 1/q^n"
+   ],
+   "antwort": "Mit dem Aufzinsungsfaktor \\(q^n\\) rechnest du einen heutigen Betrag auf einen späteren Zeitpunkt hoch, du erhältst den Endwert. Mit dem Abzinsungs- oder Diskontierungsfaktor \\(\\frac{1}{q^n}\\) rechnest du einen späteren Betrag auf heute herunter, du erhältst den Barwert. Die beiden Faktoren sind Kehrwerte voneinander.",
+   "belege": [
+    "zinseszins-11",
+    "zinseszins-12"
+   ]
+  },
+  {
+   "frage": "Was ist unterjährige Verzinsung und wie rechne ich den effektiven Jahreszins aus?",
+   "varianten": [
+    "unterjährige Verzinsung Formel",
+    "effektiver Jahreszins monatliche Verzinsung",
+    "Zinsen monatlich gutgeschrieben"
+   ],
+   "antwort": "Bei unterjähriger Verzinsung wird \\(m\\)-mal im Jahr verzinst, jeweils mit \\(\\frac{i}{m}\\): \\(K_n = K_0 \\cdot (1 + \\frac{i}{m})^{m \\cdot n}\\). Der effektive Jahreszins ist \\((1 + \\frac{i}{m})^m - 1\\). Bei 5 % nominal und monatlicher Verzinsung ergibt das rund 5,12 %, bei 4 % und vierteljährlicher Verzinsung rund 4,06 %.",
+   "belege": [
+    "zinseszins-14",
+    "zinseszins-17",
+    "zinseszins-8"
+   ]
+  },
+  {
+   "frage": "Was ist stetige Verzinsung?",
+   "varianten": [
+    "stetige Verzinsung Formel",
+    "kontinuierliche Verzinsung",
+    "e hoch i n"
+   ],
+   "antwort": "Bei stetiger Verzinsung werden die Zinsintervalle unendlich klein, \\(m\\) geht gegen unendlich. Es gilt \\(K_n = K_0 \\cdot e^{i \\cdot n}\\). Bei 5 % entspricht das einem effektiven Jahreszins von \\(e^{0{,}05} - 1 \\approx 5{,}13\\,\\%\\). In der Zinsrechnung hat das wenig praktische Bedeutung, es wird eher bei Wachstumsvorgängen verwendet.",
+   "belege": [
+    "zinseszins-15",
+    "zinseszins-17",
+    "zinseszins-8"
+   ]
+  },
+  {
+   "frage": "Wie lange dauert es, bis sich ein Kapital verdoppelt?",
+   "varianten": [
+    "Verdopplungszeit berechnen",
+    "72er-Regel",
+    "Laufzeit Zinseszins berechnen"
+   ],
+   "antwort": "Du löst \\(K_n = K_0 \\cdot q^n\\) nach \\(n\\) auf: \\(n = \\frac{\\ln(K_n / K_0)}{\\ln q}\\). Für die Verdopplung bei 6 % gilt \\(n = \\frac{\\ln 2}{\\ln 1{,}06} \\approx 11{,}90\\) Jahre. Die Faustregel 72 geteilt durch den Zinssatz ergibt näherungsweise 12 Jahre. Für Klausuren mit exaktem Ergebnis nimmst du den Logarithmus.",
+   "belege": [
+    "zinseszins-18"
+   ]
+  },
+  {
+   "frage": "Sind Zinseszinsen in Deutschland erlaubt?",
+   "varianten": [
+    "Zinseszinsverbot",
+    "§ 248 BGB",
+    "Zinseszins rechtlich"
+   ],
+   "antwort": "Eine im Voraus getroffene Vereinbarung, dass fällige Zinsen wieder Zinsen tragen, ist nach § 248 Abs. 1 BGB nichtig. Es gibt aber Ausnahmen: eine nachträgliche Vereinbarung über bereits fällige Zinsen, bestimmte Geschäfte von Kreditinstituten nach § 248 Abs. 2 BGB und das kaufmännische Kontokorrent nach § 355 HGB. Beim Kontokorrent kann vom Saldo Zins verlangt werden, auch soweit darin Zinsen enthalten sind. Verzugszinsen auf Zinsen sind nach § 289 BGB nicht zu entrichten.",
+   "belege": [
+    "zinseszins-2",
+    "zinseszins-3",
+    "zinseszins-19"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Endwert und Barwert?",
+   "varianten": [
+    "Endwert vs Barwert",
+    "Zukunftswert Gegenwartswert",
+    "Aufzinsen Abzinsen Unterschied"
+   ],
+   "antwort": "Der Endwert ist der zukünftige Wert einer heutigen Zahlung einschließlich Zinsen und Zinseszinsen. Der Barwert ist der heutige Wert einer zukünftigen Zahlung. Den Endwert erhältst du durch Aufzinsen, den Barwert durch Abzinsen. Beide machen Zahlungen zu unterschiedlichen Zeitpunkten vergleichbar.",
+   "belege": [
+    "zinseszins-9",
+    "zinseszins-10",
+    "zinseszins-7"
+   ]
+  },
+  {
+   "frage": "Muss ich den Zinssatz als Prozentzahl oder als Dezimalzahl einsetzen?",
+   "varianten": [
+    "Zinssatz Dezimalzahl",
+    "Zinsfuß Zinssatz Unterschied",
+    "q = 1 + p/100"
+   ],
+   "antwort": "Im Zinsfaktor steht der Zinssatz als Dezimalzahl: \\(q = 1 + \\frac{p}{100}\\), bei 5 % also \\(q = 1{,}05\\). Gabler unterscheidet den Zinsfuß \\(p\\) (hier 5) vom Zinssatz \\(\\frac{p}{100}\\) (hier 0,05). Ein typischer Fehler ist, \\(1 + 5\\) statt \\(1 + 0{,}05\\) zu rechnen.",
+   "belege": [
+    "zinseszins-22",
+    "zinseszins-5"
+   ]
   }
  ]
 }

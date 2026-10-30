@@ -76,11 +76,11 @@
   {
    "id": "handelskalkulation-6",
    "art": "methode",
-   "aussage": "Kundenskonto und Kundenrabatt werden „vom Hundert“ gerechnet: Sie beziehen sich auf den jeweils höheren Preis (Zielverkaufspreis bzw. Nettoverkaufspreis = 100 %), daher Barverkaufspreis = Zielverkaufspreis \\cdot (1 - Skontosatz) usw.",
+   "aussage": "Kundenskonto und Kundenrabatt werden „im Hundert“ gerechnet: Sie beziehen sich auf den jeweils höheren Preis (Zielverkaufspreis bzw. Nettoverkaufspreis = 100 %), daher Barverkaufspreis = Zielverkaufspreis \\cdot (1 - Skontosatz) usw.",
    "schlagworte": [
     "Skonto",
     "Rabatt",
-    "vom Hundert"
+    "im Hundert"
    ],
    "quelle": {
     "name": "Lehrbuchstandard (nachgerechnet)",
@@ -114,6 +114,257 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "handelskalkulation-9",
+   "art": "definition",
+   "aussage": "Handlungskosten im Handelsbetrieb sind die übrigen Kosten der Handelstätigkeit neben den Warenkosten, z. B. Personal-, Raum- und Mietkosten, Transport-, Kfz- und Verpackungskosten, Zinsen, Abschreibungen und allgemeine Verwaltungskosten; im Industriebetrieb meint der Begriff die Summe aus Verwaltungs- und Vertriebsgemeinkosten.",
+   "schlagworte": [
+    "Handlungskosten",
+    "Handelskosten",
+    "Warenkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Handlungskosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/handlungskosten-34467",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-10",
+   "art": "methode",
+   "aussage": "Beim Wareneinstandspreis wird oft der Rechnungspreis (Listenpreis abzüglich Mengenrabatt) zugrunde gelegt; auftragsbezogene Nachlässe wie Skonti werden abgezogen, direkt zurechenbare Bezugsnebenkosten wie Frachten, Zölle oder Maklergebühren hinzugerechnet. Nicht direkt zurechenbare Beschaffungskosten (z. B. Löhne der Einkäufer) gehören nicht dazu.",
+   "schlagworte": [
+    "Einstandspreis",
+    "Bezugspreis",
+    "Bezugskosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Wareneinstandspreis",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/wareneinstandspreis-47361",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-11",
+   "art": "gesetz",
+   "aussage": "Handelsrechtlich umfassen die Anschaffungskosten alle einzeln zurechenbaren Aufwendungen, um einen Vermögensgegenstand zu erwerben und betriebsbereit zu machen, einschließlich Nebenkosten; einzeln zuordenbare Anschaffungspreisminderungen (z. B. Rabatt, Skonto) sind abzusetzen.",
+   "schlagworte": [
+    "Anschaffungskosten",
+    "Anschaffungspreisminderung",
+    "Anschaffungsnebenkosten"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "handelskalkulation-12",
+   "art": "methode",
+   "aussage": "Der Listenpreis ist die Grundlage der Bezugspreiskalkulation: Abzuziehen sind die Rabatte und Skonti, die der Käufer beanspruchen kann; hinzuzurechnen sind weitere Kosten wie Transportkosten, wenn das Angebot auf Free- bzw. Loco-Basis lautet.",
+   "schlagworte": [
+    "Listenpreis",
+    "Listeneinkaufspreis",
+    "Bezugspreiskalkulation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Listenpreis",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/listenpreis-39172",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-13",
+   "art": "methode",
+   "aussage": "Mehrere Rabatte nacheinander werden jeweils vom verbleibenden Restbetrag berechnet, nicht addiert: 40 % Funktionsrabatt, danach 10 % Mengenrabatt und 5 % Treuerabatt ergeben insgesamt 48,7 % und nicht 55 %.",
+   "schlagworte": [
+    "Rabattkette",
+    "Mengenrabatt",
+    "Funktionsrabatt"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rabatt",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rabatt-46276",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-14",
+   "art": "definition",
+   "aussage": "Skonto ist ein prozentualer Nachlass auf den Rechnungsbetrag bei Zahlung innerhalb einer bestimmten Frist; wirtschaftlich ist er der Preis für die Kreditnutzung, die dem Abnehmer mit dem Zahlungsziel eingeräumt wird.",
+   "schlagworte": [
+    "Skonto",
+    "Zahlungsziel",
+    "Lieferantenkredit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kundenskonto",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kundenskonto-39035",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-15",
+   "art": "abgrenzung",
+   "aussage": "Liefererskonti sind Anschaffungspreisminderungen und werden bei Vorräten bzw. Anlagen abgesetzt; Kundenskonti sind Erlösschmälerungen und werden von den Umsatzerlösen abgezogen.",
+   "schlagworte": [
+    "Liefererskonto",
+    "Kundenskonto",
+    "Erlösschmälerung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kundenskonto",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kundenskonto-39035",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-16",
+   "art": "gesetz",
+   "aussage": "Bemessungsgrundlage der Umsatzsteuer ist das Entgelt, also alles, was der Leistungsempfänger aufwendet, jedoch abzüglich der gesetzlich geschuldeten Umsatzsteuer; deshalb wird bis zum Nettoverkaufspreis ohne Umsatzsteuer kalkuliert und die Steuer erst zum Schluss aufgeschlagen.",
+   "schlagworte": [
+    "Entgelt",
+    "Bemessungsgrundlage",
+    "Nettopreis"
+   ],
+   "quelle": {
+    "name": "UStG § 10 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__10.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "handelskalkulation-17",
+   "art": "gesetz",
+   "aussage": "Wer Verbrauchern als Unternehmer Waren anbietet oder unter Angabe von Preisen dafür wirbt, muss die Gesamtpreise angeben; gegenüber Endkunden ist daher der Bruttoverkaufspreis einschließlich Umsatzsteuer auszuweisen.",
+   "schlagworte": [
+    "Preisangabenverordnung",
+    "Gesamtpreis",
+    "Bruttopreis"
+   ],
+   "quelle": {
+    "name": "PAngV § 3 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/pangv_2022/__3.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "handelskalkulation-18",
+   "art": "gesetz",
+   "aussage": "Kleinunternehmer: Umsätze eines im Inland ansässigen Unternehmers sind steuerfrei, wenn der Gesamtumsatz im Vorjahr 25.000 EUR nicht überschritten hat und im laufenden Jahr 100.000 EUR nicht überschreitet; dann wird auf den Nettoverkaufspreis keine Umsatzsteuer aufgeschlagen (Verzicht auf die Regelung ist möglich).",
+   "schlagworte": [
+    "Kleinunternehmer",
+    "§ 19 UStG",
+    "Umsatzgrenze"
+   ],
+   "quelle": {
+    "name": "UStG § 19 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__19.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "handelskalkulation-19",
+   "art": "gesetz",
+   "aussage": "Unternehmen mit überlegener Marktmacht gegenüber kleinen und mittleren Wettbewerbern dürfen Lebensmittel nicht unter Einstandspreis und andere Waren nicht nur gelegentlich unter Einstandspreis anbieten, es sei denn, dies ist sachlich gerechtfertigt.",
+   "schlagworte": [
+    "Verkauf unter Einstandspreis",
+    "GWB",
+    "Marktmacht"
+   ],
+   "quelle": {
+    "name": "GWB § 20 Abs. 3",
+    "url": "https://www.gesetze-im-internet.de/gwb/__20.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "handelskalkulation-20",
+   "art": "definition",
+   "aussage": "Im Handelsbetrieb setzen sich die Selbstkosten aus den Kosten des Beschaffungs-, Lager-, Verwaltungs- und Vertriebsbereichs zusammen; sie werden in der Regel als Vollkosten ermittelt und enthalten damit auch geschlüsselte Gemeinkosten.",
+   "schlagworte": [
+    "Selbstkosten",
+    "Vollkosten",
+    "Gemeinkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Selbstkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/selbstkosten-43210",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-21",
+   "art": "abgrenzung",
+   "aussage": "Die Vorkalkulation erfolgt vor der Leistungserstellung (z. B. als Angebotskalkulation) auf Basis von Plan- und Schätzwerten; nach Erstellung der Leistung ist ein Vergleich mit der Nachkalkulation auf Istkostenbasis nötig, um Schätzfehler und Unwirtschaftlichkeiten aufzudecken.",
+   "schlagworte": [
+    "Vorkalkulation",
+    "Nachkalkulation",
+    "Angebotskalkulation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Vorkalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/vorkalkulation-47508",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-22",
+   "art": "formel",
+   "aussage": "Rechenbeispiel Vorwärtskalkulation: Listeneinkaufspreis 1.000 EUR, 10 % Liefererrabatt → 900 EUR; 2 % Liefererskonto → 882 EUR; + 50 EUR Bezugskosten → Bezugspreis 932 EUR; + 25 % Handlungskosten → Selbstkosten 1.165 EUR; + 10 % Gewinn → Barverkaufspreis 1.281,50 EUR; 2 % Kundenskonto im Hundert → Zielverkaufspreis 1.307,65 EUR; 10 % Kundenrabatt im Hundert → Nettoverkaufspreis 1.452,95 EUR; + 19 % USt → Bruttoverkaufspreis 1.729,01 EUR (gerundet erst am Ende).",
+   "schlagworte": [
+    "Rechenbeispiel",
+    "Vorwärtskalkulation",
+    "Listenverkaufspreis"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "handelskalkulation-23",
+   "art": "methode",
+   "aussage": "Prozentrechnung im Schema: Handlungskosten und Gewinn werden auf die jeweils kleinere Basis aufgeschlagen (Bezugspreis bzw. Selbstkosten = 100 %), Kundenskonto und Kundenrabatt beziehen sich auf den jeweils größeren Preis und werden im Hundert gerechnet: `ZVP = \\frac{BVP}{1 - s}`, `LVP = \\frac{ZVP}{1 - r}`.",
+   "schlagworte": [
+    "im Hundert",
+    "auf Hundert",
+    "Prozentrechnung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "handelskalkulation-24",
+   "art": "methode",
+   "aussage": "Bei der Mischkalkulation (Ausgleichskalkulation) werden einzelne Artikel oder Warengruppen mit unterschiedlichen Spannen belastet: Ausgleichsnehmer mit niedrigeren, Ausgleichsgeber mit höheren als im Durchschnitt.",
+   "schlagworte": [
+    "Mischkalkulation",
+    "Ausgleichskalkulation",
+    "Ausgleichsnehmer"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Mischkalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/mischkalkulation-39644",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-25",
+   "art": "methode",
+   "aussage": "Bei der Differenzkalkulation sind Einkaufs- und Verkaufspreis vorgegeben; vorwärts wird bis zu den Selbstkosten, rückwärts bis zum Barverkaufspreis gerechnet, die Differenz ist der Gewinn.",
+   "schlagworte": [
+    "Differenzkalkulation",
+    "Gewinn"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
   }
  ],
  "typische_fehler": [
@@ -124,8 +375,210 @@
   },
   {
    "falsch": "Kundenskonto wird als Prozentsatz auf den Barverkaufspreis aufgeschlagen.",
-   "richtig": "Kundenskonto und -rabatt werden vom Hundert gerechnet: Bezugsbasis ist der jeweils höhere Preis (Ziel- bzw. Nettoverkaufspreis = 100 %).",
+   "richtig": "Kundenskonto und -rabatt werden im Hundert gerechnet: Bezugsbasis ist der jeweils höhere Preis (Ziel- bzw. Nettoverkaufspreis = 100 %).",
    "quelle_id": "handelskalkulation-6"
+  },
+  {
+   "falsch": "Mehrere Rabatte werden einfach addiert (40 % + 10 % + 5 % = 55 %).",
+   "richtig": "Rabatte nacheinander werden jeweils vom Restbetrag gerechnet; 40 %, 10 % und 5 % ergeben insgesamt 48,7 %.",
+   "quelle_id": "handelskalkulation-13"
+  },
+  {
+   "falsch": "Der Liefererskonto wird vom Listeneinkaufspreis berechnet.",
+   "richtig": "Der Liefererskonto bezieht sich auf den Zieleinkaufspreis, also den Preis nach Abzug des Liefererrabatts.",
+   "quelle_id": "handelskalkulation-4"
+  },
+  {
+   "falsch": "Die Umsatzsteuer gehört in die Selbstkosten des Händlers.",
+   "richtig": "Kalkuliert wird netto; die Umsatzsteuer ist nicht Teil des Entgelts und wird erst auf den Nettoverkaufspreis aufgeschlagen.",
+   "quelle_id": "handelskalkulation-16"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Wie ist das Schema der Handelskalkulation aufgebaut?",
+   "varianten": [
+    "Handelskalkulation Schema",
+    "Kalkulationsschema Handel",
+    "Aufbau Vorwärtskalkulation"
+   ],
+   "antwort": "Du startest beim Listeneinkaufspreis und ziehst den Liefererrabatt ab, das ergibt den Zieleinkaufspreis. Nach Abzug des Liefererskontos hast du den Bareinkaufspreis, plus Bezugskosten ergibt den Bezugs- bzw. Einstandspreis. Darauf kommen die Handlungskosten (= Selbstkosten) und der Gewinn (= Barverkaufspreis). Dann schlägst du Kundenskonto und ggf. Vertreterprovision auf (= Zielverkaufspreis) und den Kundenrabatt (= Nettoverkaufspreis). Zum Schluss addierst du die Umsatzsteuer und erhältst den Bruttoverkaufspreis.",
+   "belege": [
+    "handelskalkulation-4",
+    "handelskalkulation-2"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Bezugspreis (Einstandspreis)?",
+   "varianten": [
+    "Einstandspreis berechnen",
+    "Bezugspreis Formel",
+    "Bezugskalkulation"
+   ],
+   "antwort": "Ausgangspunkt ist der Listeneinkaufspreis; davon ziehst du den Liefererrabatt und anschließend den Liefererskonto ab. Zum Bareinkaufspreis addierst du die direkt zurechenbaren Bezugskosten wie Fracht, Zoll oder Maklergebühren. Nicht einzeln zurechenbare Beschaffungskosten, etwa die Löhne der Einkäufer, gehören nicht hinein, sie stecken später in den Handlungskosten. Das entspricht der handelsrechtlichen Logik der Anschaffungskosten: Nebenkosten hinzu, einzeln zuordenbare Preisminderungen ab.",
+   "belege": [
+    "handelskalkulation-4",
+    "handelskalkulation-10",
+    "handelskalkulation-11"
+   ]
+  },
+  {
+   "frage": "Was gehört zu den Handlungskosten?",
+   "varianten": [
+    "Handlungskosten Beispiele",
+    "Handlungskostenzuschlag Bedeutung",
+    "Was sind Handlungskosten"
+   ],
+   "antwort": "Handlungskosten sind im Handel alle Kosten der Geschäftstätigkeit außer den Warenkosten selbst, also z. B. Personal, Miete und Raumkosten, Transport- und Verpackungskosten, Zinsen, Abschreibungen und allgemeine Verwaltungskosten. In der Kalkulation werden sie als Prozentzuschlag auf den Bezugspreis verrechnet. Bezugspreis plus Handlungskosten ergibt die Selbstkosten.",
+   "belege": [
+    "handelskalkulation-9",
+    "handelskalkulation-5"
+   ]
+  },
+  {
+   "frage": "Worauf beziehe ich den Handlungskostenzuschlag und den Gewinnzuschlag?",
+   "varianten": [
+    "Gewinnzuschlag Basis",
+    "Handlungskostenzuschlag berechnen",
+    "Bezugsgröße Zuschläge Handelskalkulation"
+   ],
+   "antwort": "Der Handlungskostenzuschlag bezieht sich auf den Bezugspreis, der Gewinnzuschlag auf die Selbstkosten. Beide sind Aufschläge auf die jeweils kleinere Basis, die 100 % entspricht. Beispiel: Bei einem Bezugspreis von 932 EUR und 25 % Handlungskosten betragen die Selbstkosten \\(932 \\cdot 1{,}25 = 1.165\\) EUR; 10 % Gewinn ergeben einen Barverkaufspreis von 1.281,50 EUR. Ein typischer Fehler ist, den Gewinn ebenfalls auf den Bezugspreis zu rechnen.",
+   "belege": [
+    "handelskalkulation-5",
+    "handelskalkulation-22",
+    "handelskalkulation-23"
+   ]
+  },
+  {
+   "frage": "Warum teile ich beim Kundenskonto durch 0,98, statt mit 1,02 zu multiplizieren?",
+   "varianten": [
+    "Kundenskonto im Hundert",
+    "Zielverkaufspreis berechnen",
+    "Skonto aufschlagen Fehler"
+   ],
+   "antwort": "Der Kunde zieht den Skonto vom Zielverkaufspreis ab, also vom größeren Betrag. Der Zielverkaufspreis ist daher 100 %, der Barverkaufspreis entspricht nur 98 %. Deshalb rechnest du im Hundert: \\(ZVP = \\frac{BVP}{1 - 0{,}02}\\). Mit \\(BVP \\cdot 1{,}02\\) wäre der Preis zu niedrig, und nach Abzug von 2 % Skonto bliebe weniger als der geplante Barverkaufspreis übrig. Für den Kundenrabatt gilt dasselbe: \\(LVP = \\frac{ZVP}{1 - r}\\).",
+   "belege": [
+    "handelskalkulation-6",
+    "handelskalkulation-23"
+   ]
+  },
+  {
+   "frage": "Kannst du mir ein komplettes Rechenbeispiel zur Vorwärtskalkulation zeigen?",
+   "varianten": [
+    "Handelskalkulation Beispiel",
+    "Vorwärtskalkulation Beispielrechnung",
+    "Listenverkaufspreis berechnen Beispiel"
+   ],
+   "antwort": "Listeneinkaufspreis 1.000 EUR, minus 10 % Liefererrabatt = 900 EUR, minus 2 % Liefererskonto = 882 EUR. Plus 50 EUR Bezugskosten ergibt den Bezugspreis von 932 EUR. Mit 25 % Handlungskosten erhältst du Selbstkosten von 1.165 EUR, mit 10 % Gewinn einen Barverkaufspreis von 1.281,50 EUR. 2 % Kundenskonto im Hundert führen zum Zielverkaufspreis von 1.307,65 EUR, 10 % Kundenrabatt im Hundert zum Nettoverkaufspreis von 1.452,95 EUR. Mit 19 % Umsatzsteuer ergibt sich ein Bruttoverkaufspreis von 1.729,01 EUR. Runde erst am Ende, sonst weichen die letzten Cent ab.",
+   "belege": [
+    "handelskalkulation-22",
+    "handelskalkulation-4",
+    "handelskalkulation-23",
+    "handelskalkulation-7"
+   ]
+  },
+  {
+   "frage": "Wie rechne ich mit mehreren Rabatten hintereinander?",
+   "varianten": [
+    "Rabattkette berechnen",
+    "mehrere Rabatte addieren",
+    "Gesamtrabatt"
+   ],
+   "antwort": "Rabatte, die nacheinander gewährt werden, rechnest du jeweils vom verbleibenden Restbetrag, nicht vom Ausgangspreis. Die Restfaktoren werden multipliziert: Bei 40 %, 10 % und 5 % bleibt \\(0{,}6 \\cdot 0{,}9 \\cdot 0{,}95 = 0{,}513\\) des Preises übrig. Der Gesamtrabatt beträgt also 48,7 % und nicht 55 %.",
+   "belege": [
+    "handelskalkulation-13"
+   ]
+  },
+  {
+   "frage": "Was ist der Kalkulationsfaktor in der Handelskalkulation?",
+   "varianten": [
+    "Kalkulationsfaktor berechnen",
+    "Kalkulationsfaktor Handel",
+    "Faktor Bezugspreis Verkaufspreis"
+   ],
+   "antwort": "Der Kalkulationsfaktor gibt an, mit welcher Zahl du den Bezugspreis multiplizieren musst, um den Nettoverkaufspreis zu erhalten: \\(Faktor = \\frac{Nettoverkaufspreis}{Bezugspreis}\\). Der Kalkulationszuschlag ist Faktor minus 1. Im Beispiel mit Bezugspreis 932 EUR und Nettoverkaufspreis 1.452,95 EUR beträgt der Faktor rund 1,56, der Kalkulationszuschlag also rund 56 %. Mit dem Faktor kannst du bei gleichen Kalkulationssätzen weitere Artikel in einem Schritt kalkulieren.",
+   "belege": [
+    "handelskalkulation-8",
+    "handelskalkulation-22"
+   ]
+  },
+  {
+   "frage": "Wie gehe ich in der Handelskalkulation mit der Umsatzsteuer um?",
+   "varianten": [
+    "Umsatzsteuer Handelskalkulation",
+    "Bruttoverkaufspreis berechnen",
+    "19 oder 7 Prozent Kalkulation"
+   ],
+   "antwort": "Du kalkulierst bis zum Nettoverkaufspreis ohne Umsatzsteuer, weil die Steuer nicht zum Entgelt gehört. Erst am Ende schlägst du sie auf: im Regelfall 19 %, für bestimmte Umsätze ermäßigt 7 %, also \\(Brutto = Netto \\cdot 1{,}19\\) bzw. \\(\\cdot 1{,}07\\). Gegenüber Verbrauchern musst du den Gesamtpreis inklusive Umsatzsteuer angeben.",
+   "belege": [
+    "handelskalkulation-7",
+    "handelskalkulation-16",
+    "handelskalkulation-17"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Vorwärts-, Rückwärts- und Differenzkalkulation?",
+   "varianten": [
+    "Vorwärtskalkulation Rückwärtskalkulation Unterschied",
+    "progressiv retrograd",
+    "Arten Handelskalkulation"
+   ],
+   "antwort": "Die Vorwärtskalkulation (progressiv) startet beim Einstandspreis und ermittelt den mindestens zu erzielenden Verkaufspreis. Die Rückwärtskalkulation (retrograd) startet beim vorgegebenen Verkaufspreis und ermittelt den maximal zahlbaren Einkaufspreis. Bei der Differenzkalkulation sind beide Preise vorgegeben: Du rechnest vorwärts bis zu den Selbstkosten und rückwärts bis zum Barverkaufspreis, die Differenz ist der Gewinn.",
+   "belege": [
+    "handelskalkulation-2",
+    "handelskalkulation-3",
+    "handelskalkulation-25"
+   ]
+  },
+  {
+   "frage": "Muss ich als Kleinunternehmer Umsatzsteuer aufschlagen?",
+   "varianten": [
+    "Kleinunternehmer Kalkulation",
+    "§ 19 UStG Preis",
+    "Kleinunternehmerregelung Umsatzsteuer"
+   ],
+   "antwort": "Nach § 19 UStG sind die Umsätze steuerfrei, wenn der Gesamtumsatz im Vorjahr höchstens 25.000 EUR betrug und im laufenden Jahr 100.000 EUR nicht überschreitet. In diesem Fall schlägst du auf den Nettoverkaufspreis keine Umsatzsteuer auf. Du kannst auf die Regelung aber verzichten; dann gilt wieder die normale Umsatzsteuer.",
+   "belege": [
+    "handelskalkulation-18"
+   ]
+  },
+  {
+   "frage": "Darf ein Händler Ware unter Einstandspreis verkaufen?",
+   "varianten": [
+    "Verkauf unter Einstandspreis erlaubt",
+    "Untereinstandspreis",
+    "GWB Einstandspreis"
+   ],
+   "antwort": "Grundsätzlich ist das eine unternehmerische Entscheidung, aber für Unternehmen mit überlegener Marktmacht gibt es Grenzen. Sie dürfen Lebensmittel nicht unter Einstandspreis und andere Waren nicht nur gelegentlich unter Einstandspreis anbieten, sofern das nicht sachlich gerechtfertigt ist. Kalkulatorisch deckt ein Verkauf unter dem Einstandspreis nicht einmal die Warenkosten.",
+   "belege": [
+    "handelskalkulation-19"
+   ]
+  },
+  {
+   "frage": "Wie werden Liefererskonto und Kundenskonto unterschiedlich behandelt?",
+   "varianten": [
+    "Liefererskonto Kundenskonto Unterschied",
+    "Skonto Buchung Anschaffungskosten",
+    "Skonto Erlösschmälerung"
+   ],
+   "antwort": "Skonto ist ein Nachlass für die Zahlung innerhalb einer Frist und wirtschaftlich der Preis für den eingeräumten Lieferantenkredit. Den Liefererskonto ziehst du im Einkauf ab, er mindert als Anschaffungspreisminderung den Bezugspreis. Den Kundenskonto kalkulierst du im Verkauf ein; er ist eine Erlösschmälerung und wird im Hundert auf den Barverkaufspreis aufgeschlagen.",
+   "belege": [
+    "handelskalkulation-14",
+    "handelskalkulation-15",
+    "handelskalkulation-6"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Vorkalkulation und Nachkalkulation?",
+   "varianten": [
+    "Vorkalkulation Nachkalkulation",
+    "Angebotskalkulation",
+    "Istkosten Kalkulation"
+   ],
+   "antwort": "Die Vorkalkulation findet vor der Leistungserstellung statt und dient meist als Angebotskalkulation; sie arbeitet mit Plan- und Schätzwerten. Die Nachkalkulation erfolgt danach mit den tatsächlich angefallenen Istkosten. Der Vergleich beider deckt Schätzfehler und Unwirtschaftlichkeiten auf und verbessert die nächste Vorkalkulation.",
+   "belege": [
+    "handelskalkulation-21"
+   ]
   }
  ]
 }

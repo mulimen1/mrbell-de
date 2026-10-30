@@ -112,6 +112,202 @@
     "url": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
     "typ": "gesetz"
    }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-9",
+   "art": "methode",
+   "aussage": "Die Warenkalkulation berücksichtigt neben Einstandspreis und Handelsspanne auch die Angebotspreise der Konkurrenz; bei der retrograden Variante ist der Verkaufspreis vorgegeben und der maximal zahlbare Einkaufspreis gesucht.",
+   "schlagworte": [
+    "Konkurrenzpreis",
+    "Marktpreis",
+    "retrograde Kalkulation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bezugskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bezugskalkulation-30256",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-10",
+   "art": "formel",
+   "aussage": "Rückrechnung im Verkaufsteil: Kundenrabatt und Kundenskonto beziehen sich auf den jeweils größeren Preis, daher `ZVP = LVP \\cdot (1 - r)` und `BVP = ZVP \\cdot (1 - s)`.",
+   "schlagworte": [
+    "Kundenrabatt abziehen",
+    "Kundenskonto abziehen",
+    "Zielverkaufspreis"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-11",
+   "art": "formel",
+   "aussage": "Rückrechnung von Gewinn und Handlungskosten: Diese wurden auf die kleinere Basis aufgeschlagen, deshalb wird dividiert: `SK = \\frac{BVP}{1 + g}` und `BP = \\frac{SK}{1 + h}`; `SK \\cdot (1 - h)` wäre falsch.",
+   "schlagworte": [
+    "Handlungskosten zurückrechnen",
+    "Selbstkosten",
+    "Bezugspreis"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-12",
+   "art": "formel",
+   "aussage": "Rückrechnung im Einkaufsteil: Liefererskonto und Liefererrabatt beziehen sich auf den größeren Preis, daher `ZEP = \\frac{BEP}{1 - s_L}` und `LEP = \\frac{ZEP}{1 - r_L}`; Bezugskosten als fester Betrag werden vom Bezugspreis subtrahiert.",
+   "schlagworte": [
+    "Liefererskonto",
+    "Liefererrabatt",
+    "Listeneinkaufspreis"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-13",
+   "art": "formel",
+   "aussage": "Rechenbeispiel Rückwärtskalkulation: Bruttoverkaufspreis 595 EUR / 1,19 = 500 EUR netto; − 10 % Kundenrabatt = 450 EUR; − 2 % Kundenskonto = 441 EUR; / 1,05 (5 % Gewinn) = Selbstkosten 420 EUR; / 1,20 (20 % Handlungskosten) = Bezugspreis 350 EUR; − 20 EUR Bezugskosten = 330 EUR; / 0,98 (2 % Liefererskonto) = 336,73 EUR; / 0,90 (10 % Liefererrabatt) = maximaler Listeneinkaufspreis 374,15 EUR.",
+   "schlagworte": [
+    "Rechenbeispiel",
+    "Rückwärtskalkulation Beispiel"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-14",
+   "art": "formel",
+   "aussage": "Differenzkalkulation: `Gewinn = BVP - SK`, Gewinnsatz in Prozent der Selbstkosten: `g = \\frac{BVP - SK}{SK} \\cdot 100`.",
+   "schlagworte": [
+    "Gewinnsatz",
+    "Gewinn berechnen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-15",
+   "art": "formel",
+   "aussage": "Rechenbeispiel Differenzkalkulation: Listeneinkaufspreis 400 EUR, 10 % Rabatt, 2 % Skonto, 20 EUR Bezugskosten → Bezugspreis 372,80 EUR; + 20 % Handlungskosten → Selbstkosten 447,36 EUR. Listenverkaufspreis 600 EUR, − 10 % Kundenrabatt, − 2 % Kundenskonto → Barverkaufspreis 529,20 EUR. Gewinn 81,84 EUR, Gewinnsatz rund 18,29 %.",
+   "schlagworte": [
+    "Differenzkalkulation Beispiel",
+    "Gewinnsatz Beispiel"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-16",
+   "art": "methode",
+   "aussage": "Ist der Barverkaufspreis kleiner als die Selbstkosten, ergibt die Differenzkalkulation einen negativen Gewinn, also einen Verlust; der vorgegebene Marktpreis ist dann bei den angesetzten Kosten nicht auskömmlich.",
+   "schlagworte": [
+    "Verlust",
+    "negativer Gewinn",
+    "auskömmlicher Preis"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-17",
+   "art": "methode",
+   "aussage": "Der Listenpreis ist die Grundlage der Bezugspreiskalkulation; Rabatte und Skonti, die der Käufer beanspruchen kann, werden abgezogen, zusätzliche Kosten wie Transport bei Free- bzw. Loco-Angeboten hinzugerechnet.",
+   "schlagworte": [
+    "Listenpreis",
+    "Bezugspreiskalkulation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Listenpreis",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/listenpreis-39172",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-18",
+   "art": "gesetz",
+   "aussage": "Gegenüber Verbrauchern sind Gesamtpreise anzugeben; im Einzelhandel ist der am Markt vorgegebene Preis deshalb meist ein Bruttopreis inklusive Umsatzsteuer, aus dem zuerst die Steuer herausgerechnet wird.",
+   "schlagworte": [
+    "Gesamtpreis",
+    "Bruttopreis",
+    "Preisangabenverordnung"
+   ],
+   "quelle": {
+    "name": "PAngV § 3 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/pangv_2022/__3.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-19",
+   "art": "gesetz",
+   "aussage": "Einstandspreis im Sinne des Verbots von Untereinstandsverkäufen ist der mit dem Lieferanten vereinbarte Beschaffungspreis, auf den allgemein gewährte und bereits hinreichend sicher feststehende Bezugsvergünstigungen anteilig angerechnet werden.",
+   "schlagworte": [
+    "Einstandspreis",
+    "Bezugsvergünstigungen",
+    "GWB"
+   ],
+   "quelle": {
+    "name": "GWB § 20 Abs. 3",
+    "url": "https://www.gesetze-im-internet.de/gwb/__20.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-20",
+   "art": "methode",
+   "aussage": "Zum Wareneinstandspreis gehören nur direkt zurechenbare Bezugsnebenkosten wie Frachten, Zölle und Maklergebühren; nicht direkt zurechenbare Beschaffungskosten wie Einkäuferlöhne bleiben unberücksichtigt.",
+   "schlagworte": [
+    "Bezugskosten",
+    "Bezugsnebenkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Wareneinstandspreis",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/wareneinstandspreis-47361",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-21",
+   "art": "abgrenzung",
+   "aussage": "Progressive Kalkulationen schreiten von einzelnen Kostenbestandteilen zu den Gesamtkosten fort und sind typisch für die Vollkostenrechnung; ihr Gegensatz ist die retrograde Kalkulation.",
+   "schlagworte": [
+    "progressive Kalkulation",
+    "retrograde Kalkulation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: progressive Kalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/progressive-kalkulation-42509",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-22",
+   "art": "definition",
+   "aussage": "Die retrograde Warenkalkulation wird auch Bezugskalkulation genannt: Ausgehend vom vorgegebenen Verkaufspreis wird der maximal zu zahlende Bruttoeinkaufspreis bestimmt; die Schemata der progressiven Kalkulation können entsprechend verwendet werden.",
+   "schlagworte": [
+    "Bezugskalkulation",
+    "maximaler Einkaufspreis"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bezugskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bezugskalkulation-30256",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -124,6 +320,187 @@
    "falsch": "Die Differenzkalkulation ermittelt den Verkaufspreis.",
    "richtig": "Die Differenzkalkulation ermittelt bei bekannten Ein- und Verkaufspreis den Gewinn bzw. Gewinnsatz.",
    "quelle_id": "rueckwaertskalkulation-differenzkalkulation-5"
+  },
+  {
+   "falsch": "Bei der Rückwärtskalkulation werden die Handlungskosten mit (1 − h) abgezogen.",
+   "richtig": "Die Handlungskosten wurden auf den Bezugspreis aufgeschlagen; zurück wird durch (1 + h) dividiert: BP = SK / (1 + h).",
+   "quelle_id": "rueckwaertskalkulation-differenzkalkulation-11"
+  },
+  {
+   "falsch": "Den Liefererskonto ziehe ich beim Rückrechnen mit · 0,98 ab.",
+   "richtig": "Rückwärts musst du vom Bareinkaufspreis auf den größeren Zieleinkaufspreis kommen: ZEP = BEP / 0,98.",
+   "quelle_id": "rueckwaertskalkulation-differenzkalkulation-12"
+  },
+  {
+   "falsch": "Der Gewinnsatz der Differenzkalkulation bezieht sich auf den Verkaufspreis.",
+   "richtig": "Der Gewinnsatz wird auf die Selbstkosten bezogen: g = (BVP − SK) / SK · 100.",
+   "quelle_id": "rueckwaertskalkulation-differenzkalkulation-14"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist die Rückwärtskalkulation und wann brauche ich sie?",
+   "varianten": [
+    "retrograde Kalkulation",
+    "Rückwärtskalkulation Definition",
+    "maximaler Einkaufspreis"
+   ],
+   "antwort": "Die Rückwärtskalkulation geht vom vorgegebenen Verkaufspreis aus und ermittelt, wie viel du beim Einkauf höchstens zahlen darfst. Du brauchst sie, wenn der Markt bzw. die Konkurrenz den Verkaufspreis festlegt und du prüfen willst, ob ein Lieferantenangebot noch passt. Gerechnet wird mit demselben Schema wie bei der Vorwärtskalkulation, nur in umgekehrter Richtung.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-1",
+    "rueckwaertskalkulation-differenzkalkulation-2",
+    "rueckwaertskalkulation-differenzkalkulation-9"
+   ]
+  },
+  {
+   "frage": "Wie ist der Rechenweg bei der Rückwärtskalkulation?",
+   "varianten": [
+    "Rückwärtskalkulation Schema",
+    "Rückwärtskalkulation Schritte",
+    "retrograd rechnen"
+   ],
+   "antwort": "Starte beim Bruttoverkaufspreis und teile durch 1,19 bzw. 1,07, um den Nettoverkaufspreis zu erhalten. Dann ziehst du Kundenrabatt und Kundenskonto ab, weil sie sich auf den größeren Preis beziehen: \\(ZVP = LVP \\cdot (1 - r)\\), \\(BVP = ZVP \\cdot (1 - s)\\). Gewinn und Handlungskosten rechnest du durch Division heraus: \\(SK = \\frac{BVP}{1 + g}\\), \\(BP = \\frac{SK}{1 + h}\\). Danach subtrahierst du die Bezugskosten und rechnest Liefererskonto und -rabatt mit \\(\\frac{1}{1 - s_L}\\) bzw. \\(\\frac{1}{1 - r_L}\\) zurück bis zum Listeneinkaufspreis.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-3",
+    "rueckwaertskalkulation-differenzkalkulation-8",
+    "rueckwaertskalkulation-differenzkalkulation-10",
+    "rueckwaertskalkulation-differenzkalkulation-11",
+    "rueckwaertskalkulation-differenzkalkulation-12"
+   ]
+  },
+  {
+   "frage": "Warum teile ich beim Gewinn durch 1,05 und ziehe nicht einfach 5 % ab?",
+   "varianten": [
+    "Gewinn zurückrechnen",
+    "Selbstkosten aus Barverkaufspreis",
+    "auf Hundert rechnen"
+   ],
+   "antwort": "Der Gewinnzuschlag wurde in der Vorwärtsrichtung auf die Selbstkosten aufgeschlagen, die Selbstkosten sind also 100 %. Der Barverkaufspreis entspricht dann 105 %. Deshalb gilt \\(SK = \\frac{BVP}{1{,}05}\\). Würdest du 5 % vom Barverkaufspreis abziehen, wären die Selbstkosten zu niedrig; dasselbe gilt für die Handlungskosten mit Basis Bezugspreis.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-4",
+    "rueckwaertskalkulation-differenzkalkulation-11"
+   ]
+  },
+  {
+   "frage": "Kannst du mir ein Rechenbeispiel zur Rückwärtskalkulation geben?",
+   "varianten": [
+    "Rückwärtskalkulation Beispiel",
+    "Beispielrechnung retrograd",
+    "maximalen Listeneinkaufspreis berechnen"
+   ],
+   "antwort": "Bruttoverkaufspreis 595 EUR: \\(595 / 1{,}19 = 500\\) EUR netto, minus 10 % Kundenrabatt = 450 EUR, minus 2 % Kundenskonto = 441 EUR. Bei 5 % Gewinn sind die Selbstkosten \\(441 / 1{,}05 = 420\\) EUR, bei 20 % Handlungskosten ist der Bezugspreis \\(420 / 1{,}2 = 350\\) EUR. Minus 20 EUR Bezugskosten ergibt 330 EUR Bareinkaufspreis. Mit 2 % Liefererskonto folgt \\(330 / 0{,}98 = 336{,}73\\) EUR, mit 10 % Liefererrabatt ein maximaler Listeneinkaufspreis von 374,15 EUR.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-13"
+   ]
+  },
+  {
+   "frage": "Wie rechne ich den Liefererskonto und den Liefererrabatt rückwärts heraus?",
+   "varianten": [
+    "Liefererskonto rückwärts",
+    "Zieleinkaufspreis berechnen rückwärts",
+    "Listeneinkaufspreis aus Bareinkaufspreis"
+   ],
+   "antwort": "Liefererskonto und Liefererrabatt beziehen sich jeweils auf den größeren Preis: der Skonto auf den Zieleinkaufspreis, der Rabatt auf den Listeneinkaufspreis. Rückwärts teilst du deshalb: \\(ZEP = \\frac{BEP}{1 - s_L}\\) und \\(LEP = \\frac{ZEP}{1 - r_L}\\). Beispiel: 330 EUR Bareinkaufspreis bei 2 % Skonto ergeben 336,73 EUR Zieleinkaufspreis.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-12",
+    "rueckwaertskalkulation-differenzkalkulation-13"
+   ]
+  },
+  {
+   "frage": "Wie komme ich vom Bruttoverkaufspreis zum Nettoverkaufspreis?",
+   "varianten": [
+    "Umsatzsteuer herausrechnen",
+    "Brutto in Netto",
+    "Nettoverkaufspreis berechnen"
+   ],
+   "antwort": "Du teilst den Bruttoverkaufspreis durch 1,19 (Regelsteuersatz 19 %) bzw. durch 1,07 (ermäßigter Satz 7 %). Ein Abzug von 19 % vom Bruttopreis wäre falsch, weil sich die Steuer auf den Nettobetrag bezieht. Beispiel: \\(595 / 1{,}19 = 500\\) EUR. Gerade bei Verbraucherpreisen startest du meist beim Bruttopreis, weil gegenüber Verbrauchern Gesamtpreise anzugeben sind.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-8",
+    "rueckwaertskalkulation-differenzkalkulation-18",
+    "rueckwaertskalkulation-differenzkalkulation-13"
+   ]
+  },
+  {
+   "frage": "Was ist die Differenzkalkulation?",
+   "varianten": [
+    "Differenzkalkulation Definition",
+    "Gewinn bei gegebenem Einkaufs- und Verkaufspreis",
+    "Differenzkalkulation wann"
+   ],
+   "antwort": "Bei der Differenzkalkulation sind Einkaufs- und Verkaufspreis beide vorgegeben, gesucht ist der Gewinn. Du rechnest vorwärts vom Listeneinkaufspreis bis zu den Selbstkosten und rückwärts vom Listenverkaufspreis bis zum Barverkaufspreis. Die Differenz \\(BVP - SK\\) ist der Gewinn, der Gewinnsatz wird auf die Selbstkosten bezogen. So siehst du, ob bei festem Marktpreis ein auskömmlicher Gewinn bleibt.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-5",
+    "rueckwaertskalkulation-differenzkalkulation-6",
+    "rueckwaertskalkulation-differenzkalkulation-14"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Gewinnsatz in der Differenzkalkulation? (Beispiel)",
+   "varianten": [
+    "Gewinnsatz berechnen",
+    "Differenzkalkulation Beispiel",
+    "Gewinn in Prozent Selbstkosten"
+   ],
+   "antwort": "Beispiel: Listeneinkaufspreis 400 EUR, 10 % Rabatt, 2 % Skonto und 20 EUR Bezugskosten ergeben einen Bezugspreis von 372,80 EUR; mit 20 % Handlungskosten betragen die Selbstkosten 447,36 EUR. Listenverkaufspreis 600 EUR minus 10 % Kundenrabatt und 2 % Kundenskonto ergibt einen Barverkaufspreis von 529,20 EUR. Der Gewinn beträgt \\(529{,}20 - 447{,}36 = 81{,}84\\) EUR. Der Gewinnsatz ist \\(\\frac{81{,}84}{447{,}36} \\cdot 100 \\approx 18{,}29\\) %.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-14",
+    "rueckwaertskalkulation-differenzkalkulation-15"
+   ]
+  },
+  {
+   "frage": "Was bedeutet ein negativer Gewinn in der Differenzkalkulation?",
+   "varianten": [
+    "Differenzkalkulation Verlust",
+    "negativer Gewinnsatz",
+    "Marktpreis nicht auskömmlich"
+   ],
+   "antwort": "Ist der Barverkaufspreis kleiner als die Selbstkosten, wird die Differenz negativ: Du machst mit dem Artikel bei den angesetzten Kosten Verlust. Der vorgegebene Marktpreis ist dann nicht auskömmlich. Ansatzpunkte sind ein günstigerer Einkauf, niedrigere Kosten oder der Verzicht auf den Artikel; die Rückwärtskalkulation zeigt dir, welcher Einkaufspreis höchstens tragbar wäre.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-16",
+    "rueckwaertskalkulation-differenzkalkulation-1"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Vorwärts-, Rückwärts- und Differenzkalkulation?",
+   "varianten": [
+    "progressiv retrograd Differenz",
+    "Kalkulationsarten Handel",
+    "Rechenrichtung Kalkulation"
+   ],
+   "antwort": "Die Arten unterscheiden sich darin, was gegeben und was gesucht ist. Vorwärts: Einstandspreis gegeben, Verkaufspreis gesucht. Rückwärts: Verkaufspreis gegeben, maximaler Einkaufspreis gesucht. Differenz: beide Preise gegeben, der Gewinn gesucht. Das Schema ist bei allen dasselbe, nur die Rechenrichtung ändert sich.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-7",
+    "rueckwaertskalkulation-differenzkalkulation-1",
+    "rueckwaertskalkulation-differenzkalkulation-5"
+   ]
+  },
+  {
+   "frage": "Was mache ich bei der Rückwärtskalkulation mit den Bezugskosten?",
+   "varianten": [
+    "Bezugskosten rückwärts",
+    "Bezugskosten abziehen",
+    "Bareinkaufspreis aus Bezugspreis"
+   ],
+   "antwort": "Bezugskosten wie Fracht, Zoll oder Maklergebühren sind meist ein fester Betrag. Rückwärts ziehst du sie einfach vom Bezugspreis ab und erhältst den Bareinkaufspreis: \\(BEP = BP - Bezugskosten\\). Im Beispiel: \\(350 - 20 = 330\\) EUR. Sind sie als Prozentsatz angegeben, musst du die Bezugsbasis der Angabe beachten.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-12",
+    "rueckwaertskalkulation-differenzkalkulation-13",
+    "rueckwaertskalkulation-differenzkalkulation-20"
+   ]
+  },
+  {
+   "frage": "Welcher Fehler passiert bei der Rückwärtskalkulation am häufigsten?",
+   "varianten": [
+    "Rückwärtskalkulation typischer Fehler",
+    "Rückwärtskalkulation falsch",
+    "Prozente rückwärts"
+   ],
+   "antwort": "Am häufigsten werden alle Prozentsätze einfach abgezogen. Richtig ist: Kundenrabatt und Kundenskonto ziehst du mit \\((1 - p)\\) ab, weil sie sich auf den größeren Preis beziehen. Gewinn und Handlungskosten rechnest du durch Division mit \\((1 + p)\\) heraus, weil sie auf die kleinere Basis aufgeschlagen wurden. Liefererskonto und -rabatt rechnest du mit Division durch \\((1 - p)\\) zurück.",
+   "belege": [
+    "rueckwaertskalkulation-differenzkalkulation-10",
+    "rueckwaertskalkulation-differenzkalkulation-11",
+    "rueckwaertskalkulation-differenzkalkulation-12"
+   ]
   }
  ]
 }

@@ -98,6 +98,195 @@
     "url": "https://wirtschaftslexikon.gabler.de/definition/andler-formel-30927",
     "typ": "lexikon"
    }
+  },
+  {
+   "id": "optimale-bestellmenge-8",
+   "art": "definition",
+   "aussage": "Bestellmengenplanung ermittelt Bestellmenge und Bestellzeitpunkt so, dass der Bedarf des Planungszeitraums auf kostengünstigste Weise gedeckt und gleichzeitig eine angemessene Versorgungssicherheit gewahrt wird; sie erfolgt heute in aller Regel IT-basiert.",
+   "schlagworte": [
+    "Bestellmengenplanung",
+    "Versorgungssicherheit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellmengenplanung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellmengenplanung-27634",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-9",
+   "art": "methode",
+   "aussage": "Beim Bestellpunktverfahren wird bestellt, sobald der Lagerbestand den Meldebestand (Bestellpunkt) erreicht oder unterschreitet – entweder eine feste Menge oder die Menge, die auf einen festgelegten Höchst- bzw. Sollbestand auffüllt; die Bestellzeitpunkte sind dabei variabel.",
+   "schlagworte": [
+    "Bestellpunktverfahren",
+    "Meldebestand"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellpunktverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellpunktverfahren-31301",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-10",
+   "art": "methode",
+   "aussage": "Beim Bestellrhythmusverfahren wird in festen Zeitabständen bestellt – entweder eine fixe Menge (bei ungleichmäßigem Lagerabgang mit stark schwankenden Beständen) oder die Menge, die den Bestand auf einen festgelegten Sollbestand auffüllt.",
+   "schlagworte": [
+    "Bestellrhythmusverfahren",
+    "Sollbestand"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellrhythmusverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellrhythmusverfahren-30351",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-11",
+   "art": "definition",
+   "aussage": "Fehlmengenkosten entstehen durch Fehlmengen; sie umfassen echte Kosten (z. B. Konventionalstrafen) oder Opportunitätskosten als entgangenen Gewinn, in der Materialwirtschaft z. B. Stillstands- und Umrüstungskosten, und sind in der Praxis oft schwer zu bestimmen.",
+   "schlagworte": [
+    "Fehlmengenkosten",
+    "Opportunitätskosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Fehlmengenkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/fehlmengenkosten-36129",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-12",
+   "art": "definition",
+   "aussage": "Lagerkosten umfassen Kosten der Lagerkapazität (Gebäude, Regale, Stapler, Personal), der Lagerbereitschaft (Beleuchtung, Heizung, Instandhaltung), der Lagervor- und -nachbereitung (Ein-, Um-, Auslagerung, Kommissionierung) und der Lagerung selbst, besonders Zinsen auf das gebundene Kapital.",
+   "schlagworte": [
+    "Lagerkosten",
+    "Kapitalbindung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lagerkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lagerkosten-38787",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-13",
+   "art": "abgrenzung",
+   "aussage": "Lagerkosten werden überwiegend pauschal und materialwertproportional verrechnet, obwohl eine solche Proportionalität zum Materialwert allenfalls für die Zinskosten gegeben ist.",
+   "schlagworte": [
+    "Verrechnung",
+    "Kritik Lagerkostensatz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lagerkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lagerkosten-38787",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-14",
+   "art": "definition",
+   "aussage": "Der optimale Bestand ist die Lagerbestandsgröße, die bei vorgegebenem Lieferbereitschaftsgrad zu minimalen relevanten Gesamtkosten führt (im Grundmodell Lager- plus Beschaffungskosten); unter vereinfachenden Annahmen lässt er sich aus der optimalen Bestellmenge ableiten.",
+   "schlagworte": [
+    "optimaler Bestand",
+    "Lieferbereitschaft"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: optimaler Bestand",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/optimaler-bestand-42357",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-15",
+   "art": "formel",
+   "aussage": "Anzahl der Bestellungen pro Jahr: `n = \\frac{M}{Q}`; Bestellintervall: `t = \\frac{360}{n}` Tage (bei 365 Tagen entsprechend `\\frac{365}{n}`).",
+   "schlagworte": [
+    "Bestellhäufigkeit",
+    "Bestellintervall"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-16",
+   "art": "formel",
+   "aussage": "Durchschnittlicher Lagerbestand im Grundmodell: `\\bar{B} = \\frac{Q}{2}`; mit Sicherheitsbestand `\\bar{B} = \\frac{Q}{2} + SB`.",
+   "schlagworte": [
+    "Durchschnittsbestand",
+    "Q/2"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-17",
+   "art": "formel",
+   "aussage": "Entscheidungsrelevante Gesamtkosten: `K(Q) = \\frac{M}{Q} \\cdot K_B + \\frac{Q}{2} \\cdot p \\cdot i`; die Einstandskosten `M \\cdot p` sind bei konstantem Preis unabhängig von Q und für die Optimierung irrelevant.",
+   "schlagworte": [
+    "Gesamtkosten",
+    "Kostenfunktion"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-18",
+   "art": "zahl",
+   "aussage": "Im Optimum des Grundmodells sind die jährlichen Bestellkosten genau so hoch wie die jährlichen Lagerhaltungskosten.",
+   "schlagworte": [
+    "Optimum",
+    "Bestellkosten = Lagerkosten"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-19",
+   "art": "zahl",
+   "aussage": "Die optimale Bestellmenge wächst mit der Wurzel des Bedarfs: Ein vervierfachter Jahresbedarf verdoppelt Q_opt. Die Kostenkurve ist um das Optimum flach: Bestellt man die doppelte optimale Menge, steigen die relevanten Kosten nur um 25 %.",
+   "schlagworte": [
+    "Sensitivität",
+    "Wurzel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-20",
+   "art": "methode",
+   "aussage": "Prämissen des Grundmodells sind u. a. ein bekannter, konstanter Bedarf mit kontinuierlichem Lagerabgang, konstante Einstandspreise ohne Mengenrabatte, keine Fehlmengen, keine Kapazitätsgrenzen bei Lager und Finanzierung sowie konstante bestellfixe Kosten und Lagerkostensätze.",
+   "schlagworte": [
+    "Prämissen",
+    "Annahmen"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-21",
+   "art": "methode",
+   "aussage": "Bei Mengenrabatten reicht die Andler-Formel nicht: Man vergleicht die Gesamtkosten einschließlich der Einstandskosten `M \\cdot p` an der optimalen Bestellmenge und an den Rabattgrenzen und wählt die günstigste zulässige Menge.",
+   "schlagworte": [
+    "Mengenrabatt",
+    "Rabattstaffel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
   }
  ],
  "typische_fehler": [
@@ -110,6 +299,191 @@
    "falsch": "Den Prozentsatz als 16 in die Formel mit Faktor 2 einsetzen.",
    "richtig": "Faktor 200 nur mit p in Prozent, Faktor 2 nur mit Dezimalzahl.",
    "quelle_id": "optimale-bestellmenge-2"
+  },
+  {
+   "falsch": "Im Optimum sind die Gesamtkosten am höchsten, weil beide Kostenarten gleich sind.",
+   "richtig": "Im Optimum sind Bestell- und Lagerkosten gleich hoch, und ihre Summe ist minimal.",
+   "quelle_id": "optimale-bestellmenge-18"
+  },
+  {
+   "falsch": "Bei doppeltem Bedarf verdoppelt sich die optimale Bestellmenge.",
+   "richtig": "Q_opt wächst mit der Wurzel des Bedarfs; erst der vierfache Bedarf verdoppelt die Bestellmenge.",
+   "quelle_id": "optimale-bestellmenge-19"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist die optimale Bestellmenge?",
+   "varianten": [
+    "optimale Bestellmenge Definition",
+    "wirtschaftliche Bestellmenge",
+    "EOQ"
+   ],
+   "antwort": "Die optimale Bestellmenge ist die Menge je Bestellung, bei der die Summe aus Bestell- und Lagerhaltungskosten minimal ist. Sie teilt einen bekannten Periodenbedarf kostenoptimal in gleich große Bestellmengen auf. Große Bestellmengen senken die Bestellkosten je Stück, erhöhen aber Lagerbestand und Lagerkosten. Die optimale Bestellmenge löst genau diesen Zielkonflikt.",
+   "belege": [
+    "optimale-bestellmenge-1",
+    "optimale-bestellmenge-6",
+    "optimale-bestellmenge-8"
+   ]
+  },
+  {
+   "frage": "Wie lautet die Andler-Formel?",
+   "varianten": [
+    "Andler Formel",
+    "Formel optimale Bestellmenge",
+    "EOQ Formel"
+   ],
+   "antwort": "Mit dem Lagerhaltungskostensatz als Dezimalzahl i lautet sie \\(Q_{opt} = \\sqrt{\\frac{2 \\cdot M \\cdot K_B}{p \\cdot i}}\\). Dabei ist M der Jahresbedarf, K_B sind die bestellfixen Kosten je Bestellung und p der Einstandspreis je Stück. Gibst du den Zins- und Lagerkostensatz in Prozent an, steht im Zähler 200 statt 2. Beide Schreibweisen liefern dasselbe Ergebnis.",
+   "belege": [
+    "optimale-bestellmenge-2",
+    "optimale-bestellmenge-3"
+   ]
+  },
+  {
+   "frage": "Rechenbeispiel: Jahresbedarf 12.000 Stück, bestellfixe Kosten 150 €, Einstandspreis 20 €, Lagerhaltungskostensatz 12,5 %. Wie hoch ist die optimale Bestellmenge?",
+   "varianten": [
+    "optimale Bestellmenge berechnen",
+    "Andler Beispiel",
+    "Bestellmenge Aufgabe"
+   ],
+   "antwort": "Setze in die Formel ein: \\(Q_{opt} = \\sqrt{\\frac{2 \\cdot 12.000 \\cdot 150}{20 \\cdot 0{,}125}} = \\sqrt{\\frac{3.600.000}{2{,}5}} = \\sqrt{1.440.000}\\). Das ergibt 1.200,00 Stück. Mit der Prozent-Schreibweise kommst du auf dasselbe: \\(\\sqrt{\\frac{200 \\cdot 12.000 \\cdot 150}{20 \\cdot 12{,}5}} = 1.200\\). Achte darauf, den Prozentsatz nur dann als 12,5 einzusetzen, wenn im Zähler 200 steht.",
+   "belege": [
+    "optimale-bestellmenge-3",
+    "optimale-bestellmenge-2"
+   ]
+  },
+  {
+   "frage": "Wie viele Bestellungen pro Jahr ergeben sich und in welchem Abstand?",
+   "varianten": [
+    "Bestellhäufigkeit berechnen",
+    "Bestellintervall",
+    "Anzahl Bestellungen"
+   ],
+   "antwort": "Die Anzahl der Bestellungen ist \\(n = \\frac{M}{Q}\\). Im Beispiel mit 12.000 Stück Jahresbedarf und 1.200 Stück je Bestellung sind das 10 Bestellungen. Das Bestellintervall beträgt \\(\\frac{360}{n}\\), also 36 Tage (bei 365 Tagen 36,50 Tage). Verwende die Tageszahl, die deine Vorlesung vorgibt.",
+   "belege": [
+    "optimale-bestellmenge-15",
+    "optimale-bestellmenge-3"
+   ]
+  },
+  {
+   "frage": "Wie hoch sind Lager-, Bestell- und Gesamtkosten im Optimum?",
+   "varianten": [
+    "Gesamtkosten optimale Bestellmenge",
+    "Lagerkosten Bestellkosten Optimum",
+    "Kosten berechnen Andler"
+   ],
+   "antwort": "Die Lagerkosten betragen \\(\\frac{Q}{2} \\cdot p \\cdot i\\) = 600 · 20 € · 0,125 = 1.500,00 €. Die Bestellkosten betragen \\(\\frac{M}{Q} \\cdot K_B\\) = 10 · 150 € = 1.500,00 €. Die entscheidungsrelevanten Gesamtkosten sind damit 3.000,00 €. Dass beide Kostenarten gleich hoch sind, ist kein Zufall: Im Optimum des Grundmodells gilt das immer.",
+   "belege": [
+    "optimale-bestellmenge-17",
+    "optimale-bestellmenge-18",
+    "optimale-bestellmenge-16"
+   ]
+  },
+  {
+   "frage": "Warum rechnet man bei den Lagerkosten mit Q/2?",
+   "varianten": [
+    "Q durch 2 Lagerkosten",
+    "durchschnittlicher Lagerbestand",
+    "Lagerkosten Formel Fehler"
+   ],
+   "antwort": "Im Grundmodell wird das Lager nach jeder Lieferung kontinuierlich von Q auf null abgebaut. Im Durchschnitt liegt deshalb die halbe Bestellmenge auf Lager. Die Lagerkosten berechnest du daher als \\(\\frac{Q}{2} \\cdot p \\cdot i\\) und nicht als \\(Q \\cdot p \\cdot i\\). Gibt es einen Sicherheitsbestand, kommt er zum Durchschnittsbestand hinzu.",
+   "belege": [
+    "optimale-bestellmenge-16",
+    "optimale-bestellmenge-3"
+   ]
+  },
+  {
+   "frage": "Wann setze ich in der Andler-Formel 200 und wann 2 ein?",
+   "varianten": [
+    "200 oder 2 Andler",
+    "Prozentsatz Andler-Formel",
+    "Lagerkostensatz einsetzen"
+   ],
+   "antwort": "Das hängt davon ab, wie du den Zins- und Lagerkostensatz einsetzt. Steht er in Prozent in der Formel (z. B. 12,5), muss im Zähler 200 stehen. Setzt du ihn als Dezimalzahl ein (0,125), steht im Zähler 2. Ein typischer Klausurfehler ist die Mischung: Prozentzahl einsetzen und trotzdem mit 2 rechnen.",
+   "belege": [
+    "optimale-bestellmenge-2",
+    "optimale-bestellmenge-3"
+   ]
+  },
+  {
+   "frage": "Welche Annahmen hat das Grundmodell und was wird daran kritisiert?",
+   "varianten": [
+    "Prämissen Andler",
+    "Kritik optimale Bestellmenge",
+    "Annahmen Bestellmengenmodell"
+   ],
+   "antwort": "Das Grundmodell unterstellt u. a. einen bekannten, konstanten Bedarf mit kontinuierlichem Lagerabgang, konstante Einstandspreise ohne Mengenrabatte und keine Fehlmengen. Diese Prämissen schränken die praktische Anwendung ein, weshalb es Erweiterungen z. B. für Mengenrabatte oder schwankenden Bedarf gibt. Kritisch ist auch der pauschale, materialwertproportionale Lagerkostensatz. Eine solche Proportionalität zum Materialwert ist allenfalls für die Zinskosten gegeben.",
+   "belege": [
+    "optimale-bestellmenge-5",
+    "optimale-bestellmenge-20",
+    "optimale-bestellmenge-13"
+   ]
+  },
+  {
+   "frage": "Wie berücksichtige ich Mengenrabatte bei der Bestellmenge?",
+   "varianten": [
+    "Mengenrabatt Bestellmenge",
+    "Rabattstaffel optimale Bestellmenge",
+    "Andler mit Rabatt"
+   ],
+   "antwort": "Bei Mengenrabatten ist der Einstandspreis nicht mehr konstant, also gilt eine Prämisse des Grundmodells nicht mehr. Dann vergleichst du die Gesamtkosten einschließlich der Einstandskosten an der rechnerisch optimalen Menge und an den Rabattgrenzen. Gewählt wird die zulässige Menge mit den niedrigsten Gesamtkosten. Die Einstandskosten sind hier entscheidungsrelevant, weil sie von der Bestellmenge abhängen.",
+   "belege": [
+    "optimale-bestellmenge-21",
+    "optimale-bestellmenge-5",
+    "optimale-bestellmenge-17"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Bestellpunkt- und Bestellrhythmusverfahren?",
+   "varianten": [
+    "Bestellpunktverfahren vs Bestellrhythmusverfahren",
+    "Meldebestandsverfahren",
+    "Lagerhaltungsstrategien"
+   ],
+   "antwort": "Beim Bestellpunktverfahren löst das Erreichen eines bestimmten Bestands, des Meldebestands, die Bestellung aus; die Bestellzeitpunkte sind deshalb variabel. Beim Bestellrhythmusverfahren wird in festen Zeitabständen bestellt. In beiden Verfahren kann entweder eine feste Menge bestellt oder auf einen Soll- bzw. Höchstbestand aufgefüllt werden. Bei fester Menge im festen Rhythmus schwanken die Bestände bei ungleichmäßigem Verbrauch stark.",
+   "belege": [
+    "optimale-bestellmenge-9",
+    "optimale-bestellmenge-10"
+   ]
+  },
+  {
+   "frage": "Was sind Fehlmengenkosten?",
+   "varianten": [
+    "Fehlmengenkosten Beispiele",
+    "Kosten Lieferunfähigkeit",
+    "Stockout Kosten"
+   ],
+   "antwort": "Fehlmengenkosten entstehen, wenn benötigtes Material oder Ware fehlt. Das können echte Kosten sein, z. B. Konventionalstrafen, oder Opportunitätskosten in Form entgangenen Gewinns. In der Produktion führen Fehlmengen etwa zu Stillstands- und Umrüstungskosten. Weil nicht alle Einflussfaktoren quantifizierbar sind, lassen sie sich in der Praxis oft schwer bestimmen.",
+   "belege": [
+    "optimale-bestellmenge-11"
+   ]
+  },
+  {
+   "frage": "Was passiert mit der optimalen Bestellmenge, wenn der Jahresbedarf steigt?",
+   "varianten": [
+    "Sensitivität Bestellmenge",
+    "Bedarf verdoppelt Bestellmenge",
+    "Wurzel Andler"
+   ],
+   "antwort": "Die optimale Bestellmenge wächst nur mit der Wurzel des Bedarfs. Vervierfacht sich im Beispiel der Bedarf auf 48.000 Stück, steigt Q_opt von 1.200 auf 2.400 Stück, verdoppelt sich also nur. Außerdem ist die Kostenkurve um das Optimum flach: Bestellst du die doppelte optimale Menge, steigen die relevanten Kosten nur um 25 %. Kleine Abweichungen vom Optimum sind deshalb meist wenig teuer.",
+   "belege": [
+    "optimale-bestellmenge-19",
+    "optimale-bestellmenge-3",
+    "optimale-bestellmenge-17"
+   ]
+  },
+  {
+   "frage": "Welche Kosten gehören zu den Lagerhaltungskosten?",
+   "varianten": [
+    "Lagerkosten Bestandteile",
+    "Lagerhaltungskostensatz",
+    "Kosten der Lagerhaltung"
+   ],
+   "antwort": "Zu den Lagerkosten zählen Kosten der Lagerkapazität wie Gebäude, Regale, Stapler und Lagerpersonal. Hinzu kommen Kosten der Lagerbereitschaft wie Beleuchtung, Heizung oder Instandhaltung sowie Kosten für Ein-, Um- und Auslagerung und Kommissionierung. Ein wichtiger Teil sind die Zinsen auf das im Lager gebundene Kapital. Im Bestellmengenmodell werden diese Kosten über den Lagerhaltungskostensatz i erfasst.",
+   "belege": [
+    "optimale-bestellmenge-12",
+    "optimale-bestellmenge-3"
+   ]
   }
  ]
 }

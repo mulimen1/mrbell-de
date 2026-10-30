@@ -330,7 +330,7 @@
     "Annuität ausrechnen Aufgabe",
     "Annuität Investition Rechnung"
    ],
-   "antwort": "Eine Investition kostet 100.000 € und bringt 5 Jahre lang je 30.000 €, der Zinssatz beträgt 8 %. Der Kapitalwert ist rund 19.781,30 € und der Wiedergewinnungsfaktor \\( WGF(8\\,\\%,5) \\approx 0{,}250456 \\). Damit gilt \\( A \\approx 19.781{,}30 \\cdot 0{,}250456 \\approx 4.954{,}35 \\) € pro Jahr. Bei konstanten Rückflüssen geht es auch direkt: \\( A = 30.000 - 100.000 \\cdot 0{,}250456 \\approx 4.954{,}35 \\) €.",
+   "antwort": "Eine Investition kostet 100.000 € und bringt 5 Jahre lang je 30.000 €, der Zinssatz beträgt 8 %. Der Kapitalwert ist rund 19.781,30 € und der Wiedergewinnungsfaktor \\( WGF(8\\,\\%,5) \\approx 0{,}250456 \\). Damit gilt \\( A \\approx 19.781{,}30 \\cdot 0{,}250456 \\approx 4.954{,}35 \\) € pro Jahr. Bei konstanten Rückflüssen geht es auch direkt: \\( A = 30.000 - 100.000 \\cdot WGF(8\\,\\%,5) \\approx 30.000 - 25.045{,}65 = 4.954{,}35 \\) €.",
    "belege": [
     "annuitaetenmethode-2",
     "annuitaetenmethode-12"

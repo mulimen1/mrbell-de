@@ -99,6 +99,195 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "skonto-buchen-8",
+   "art": "definition",
+   "aussage": "Skonto ist ein prozentualer Nachlass auf den Rechnungsbetrag bei Zahlung innerhalb einer bestimmten Frist, oft gestaffelt (z. B. „binnen zehn Tagen 3 %, binnen einem Monat 2 %, in drei Monaten netto“). Wirtschaftlich ist Skonto der Preis für den Lieferantenkredit, den der Lieferer dem Abnehmer einräumt.",
+   "schlagworte": [
+    "Skonto",
+    "Zahlungsbedingungen",
+    "Lieferantenkredit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Skonto",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/skonto-46462",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "skonto-buchen-9",
+   "art": "abgrenzung",
+   "aussage": "Liefererskonti sind Anschaffungspreisminderungen und werden direkt bei den betreffenden Vorräten oder Anlagen abgesetzt (§ 255 Abs. 1 HGB); Kundenskonti sind Erlösschmälerungen und werden von den Umsatzerlösen abgezogen (§ 277 Abs. 1 HGB).",
+   "schlagworte": [
+    "Liefererskonto",
+    "Kundenskonto",
+    "Anschaffungspreisminderung",
+    "Erlösschmälerung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Skonto",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/skonto-46462",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "skonto-buchen-10",
+   "art": "abgrenzung",
+   "aussage": "Eine gesonderte Buchung von Skonti als Aufwand oder Ertrag kommt nur in Frage, wenn sie Umsatzerlösen oder Aufwendungen nicht direkt zugerechnet werden können; ein gesonderter Ausweis in der GuV ist nicht vorgesehen, ein offenes Absetzen beim Materialaufwand bzw. den Umsatzerlösen aber möglich.",
+   "schlagworte": [
+    "Skontoertrag",
+    "Skontoaufwand",
+    "GuV-Ausweis"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Skonto",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/skonto-46462",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "skonto-buchen-11",
+   "art": "definition",
+   "aussage": "Umsatzsteuerlich mindert Skonto beim Lieferer das Entgelt und damit die Umsatzsteuer; beim Abnehmer wird der Vorsteuerabzug entsprechend gekürzt.",
+   "schlagworte": [
+    "Umsatzsteuerkorrektur",
+    "Vorsteuerkorrektur",
+    "Entgeltminderung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Skonto",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/skonto-46462",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "skonto-buchen-12",
+   "art": "gesetz",
+   "aussage": "Umsatzerlöse werden nach Abzug von Erlösschmälerungen (z. B. gewährten Skonti) und der Umsatzsteuer ausgewiesen.",
+   "schlagworte": [
+    "Umsatzerlöse",
+    "Erlösschmälerungen"
+   ],
+   "quelle": {
+    "name": "HGB § 277 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__277.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "skonto-buchen-13",
+   "art": "gesetz",
+   "aussage": "Entgelt ist alles, was den Wert der Gegenleistung bildet, die der leistende Unternehmer für die Leistung erhält oder erhalten soll, abzüglich der Umsatzsteuer; zieht der Kunde Skonto ab, erhält der Leistende entsprechend weniger.",
+   "schlagworte": [
+    "Entgelt",
+    "Bemessungsgrundlage"
+   ],
+   "quelle": {
+    "name": "UStG § 10 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__10.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "skonto-buchen-14",
+   "art": "gesetz",
+   "aussage": "Eine Rechnung muss neben dem Entgelt jede im Voraus vereinbarte Minderung des Entgelts angeben, sofern sie nicht bereits im Entgelt berücksichtigt ist; das betrifft z. B. eine vereinbarte Skontoabrede.",
+   "schlagworte": [
+    "Rechnungsangabe",
+    "Skontovereinbarung",
+    "Pflichtangabe"
+   ],
+   "quelle": {
+    "name": "UStG § 14 Abs. 4 Nr. 7",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__14.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "skonto-buchen-15",
+   "art": "formel",
+   "aussage": "Aufteilung des Bruttoskontos: `Skonto_{netto} = \\frac{Skonto_{brutto}}{1 + u}`, `Steueranteil = Skonto_{brutto} \\cdot \\frac{u}{1 + u}` (u = Umsatzsteuersatz).",
+   "schlagworte": [
+    "Skonto netto",
+    "Steuerkorrektur",
+    "Berechnung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "skonto-buchen-16",
+   "art": "methode",
+   "aussage": "Liegt der effektive Jahreszins des Skontos über dem Zinssatz eines Kredits, mit dem die vorzeitige Zahlung finanziert werden kann (z. B. Kontokorrentkredit), lohnt sich die Skontoziehung finanziell.",
+   "schlagworte": [
+    "Skonto Kredit Vergleich",
+    "Kontokorrentkredit",
+    "Finanzierungsentscheidung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "skonto-buchen-17",
+   "art": "formel",
+   "aussage": "Näherungsformel für den Skonto-Jahreszins: `i \\approx s \\cdot \\frac{360}{ZZ - SF}` (s = Skontosatz, ZZ = Zahlungsziel, SF = Skontofrist in Tagen); sie unterschätzt den genauen Wert leicht, weil sie den Skonto auf den vollen statt auf den verminderten Zahlbetrag bezieht.",
+   "schlagworte": [
+    "Skontozins Näherung",
+    "Faustformel"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "skonto-buchen-18",
+   "art": "gesetz",
+   "aussage": "Wird beim Kauf eines Anlageguts Skonto gezogen, mindert er als einzeln zurechenbare Anschaffungspreisminderung die Anschaffungskosten; die planmäßige Abschreibung bemisst sich dann nach den geminderten Anschaffungskosten.",
+   "schlagworte": [
+    "Skonto Anlagegut",
+    "Anschaffungskosten",
+    "Abschreibungsbasis"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "skonto-buchen-19",
+   "art": "gesetz",
+   "aussage": "Anschaffungskosten umfassen den Kaufpreis, die Anschaffungsnebenkosten (z. B. Fracht, Montage) und nachträgliche Anschaffungskosten, abzüglich einzeln zurechenbarer Anschaffungspreisminderungen wie Rabatt und Skonto: `AK = Kaufpreis - Preisminderungen + Nebenkosten`.",
+   "schlagworte": [
+    "Anschaffungskosten",
+    "Anschaffungsnebenkosten",
+    "Rabatt"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "skonto-buchen-20",
+   "art": "gesetz",
+   "aussage": "Hat sich die Bemessungsgrundlage geändert, sind die Berichtigungen von Umsatzsteuer und Vorsteuer für den Besteuerungszeitraum vorzunehmen, in dem die Änderung eingetreten ist, bei Skonto also im Zeitraum der Zahlung.",
+   "schlagworte": [
+    "Berichtigungszeitpunkt",
+    "§ 17 UStG"
+   ],
+   "quelle": {
+    "name": "UStG § 17 Abs. 1 Satz 8",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__17.html",
+    "typ": "gesetz"
+   }
   }
  ],
  "typische_fehler": [
@@ -111,6 +300,175 @@
    "falsch": "Auch nicht in Anspruch genommenes Skonto mindert die Anschaffungskosten.",
    "richtig": "Nur tatsächlich in Anspruch genommenes Skonto ist eine Anschaffungspreisminderung.",
    "quelle_id": "skonto-buchen-7"
+  },
+  {
+   "falsch": "Kundenskonto ist ein Zinsaufwand.",
+   "richtig": "Kundenskonti sind Erlösschmälerungen und werden von den Umsatzerlösen abgezogen.",
+   "quelle_id": "skonto-buchen-9"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist Skonto?",
+   "varianten": [
+    "Skonto Definition",
+    "Skonto einfach erklärt",
+    "Skonto Rabatt Unterschied"
+   ],
+   "antwort": "Skonto ist ein prozentualer Preisnachlass, den der Lieferer gewährt, wenn der Kunde innerhalb einer vereinbarten Frist zahlt, z. B. „2 % Skonto bei Zahlung binnen 10 Tagen, sonst 30 Tage netto“. Er mindert das Entgelt und damit auch die Umsatzsteuer. Wirtschaftlich ist Skonto der Preis für den Lieferantenkredit: Wer das Zahlungsziel ausnutzt, verzichtet auf den Nachlass.",
+   "belege": [
+    "skonto-buchen-1",
+    "skonto-buchen-8"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den Überweisungsbetrag bei Skonto?",
+   "varianten": [
+    "Zahlbetrag mit Skonto",
+    "Skonto berechnen",
+    "Rechnungsbetrag abzüglich Skonto"
+   ],
+   "antwort": "Den Skontosatz wendest du auf den Bruttobetrag an: \\( Z = B \\cdot (1 - s) \\). Beispiel: Rechnung 1.000,00 Euro netto + 190,00 Euro Umsatzsteuer = 1.190,00 Euro brutto, 2 % Skonto: Skonto 23,80 Euro, Zahlbetrag 1.190,00 · 0,98 = 1.166,20 Euro. Rechnest du über den Nettobetrag, ergibt sich dasselbe: 1.000,00 · 0,98 · 1,19 = 1.166,20 Euro.",
+   "belege": [
+    "skonto-buchen-4"
+   ]
+  },
+  {
+   "frage": "Wie buche ich Liefererskonto?",
+   "varianten": [
+    "Liefererskonto Buchungssatz",
+    "Skonto Eingangsrechnung buchen",
+    "Skonto bei Zahlung an Lieferanten"
+   ],
+   "antwort": "Bei Zahlung buchst du die Verbindlichkeit in voller Höhe aus; die Differenz zum Zahlbetrag teilst du in Nettoskonto und Steueranteil. Beispiel: Verbindlichkeit 1.190,00 Euro, 2 % Skonto = 23,80 Euro brutto, davon netto 23,80 / 1,19 = 20,00 Euro und Vorsteuerkorrektur 3,80 Euro. Buchungssatz: „Verbindlichkeiten 1.190,00 an Bank 1.166,20, Nachlässe bzw. Warenkonto 20,00 und Vorsteuer 3,80“. Das Nettoskonto mindert die Anschaffungskosten, die Vorsteuer sinkt um den Steueranteil.",
+   "belege": [
+    "skonto-buchen-6",
+    "skonto-buchen-9",
+    "skonto-buchen-15"
+   ]
+  },
+  {
+   "frage": "Wie buche ich Kundenskonto?",
+   "varianten": [
+    "Kundenskonto Buchungssatz",
+    "Skonto Ausgangsrechnung buchen",
+    "Kunde zieht Skonto ab"
+   ],
+   "antwort": "Zahlt dein Kunde unter Abzug von Skonto, buchst du die Forderung in voller Höhe aus und erfasst Nettoskonto als Erlösschmälerung und den Steueranteil als Korrektur der Umsatzsteuer. Beispiel: Forderung 2.380,00 Euro (2.000,00 netto), 3 % Skonto = 71,40 Euro brutto, davon 60,00 Euro netto und 11,40 Euro Umsatzsteuer; der Kunde überweist 2.308,60 Euro. Buchungssatz: „Bank 2.308,60, Erlösschmälerungen 60,00 und Umsatzsteuer 11,40 an Forderungen 2.380,00“.",
+   "belege": [
+    "skonto-buchen-6",
+    "skonto-buchen-9",
+    "skonto-buchen-11",
+    "skonto-buchen-15"
+   ]
+  },
+  {
+   "frage": "Warum muss ich bei Skonto die Umsatzsteuer bzw. Vorsteuer korrigieren?",
+   "varianten": [
+    "Skonto Umsatzsteuer korrigieren",
+    "Vorsteuerberichtigung Skonto",
+    "§ 17 UStG Skonto"
+   ],
+   "antwort": "Bemessungsgrundlage der Umsatzsteuer ist das Entgelt, also das, was der Lieferer tatsächlich erhält, ohne Umsatzsteuer. Zieht der Kunde Skonto ab, sinkt das Entgelt nachträglich. Deshalb muss der Lieferer seine Umsatzsteuer und der Kunde seinen Vorsteuerabzug berichtigen (§ 17 Abs. 1 UStG), und zwar im Voranmeldungszeitraum, in dem die Zahlung mit Skonto erfolgt.",
+   "belege": [
+    "skonto-buchen-2",
+    "skonto-buchen-11",
+    "skonto-buchen-13",
+    "skonto-buchen-20"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich den effektiven Jahreszins des Skontos?",
+   "varianten": [
+    "Skonto Jahreszins",
+    "Lieferantenkredit Zins berechnen",
+    "Skontozinssatz Formel"
+   ],
+   "antwort": "Der genaue Jahreszins (kaufmännisch mit 360 Tagen) ist \\( i = \\frac{s}{1-s} \\cdot \\frac{360}{ZZ - SF} \\). Beispiel „2 % Skonto bei Zahlung in 10 Tagen, sonst 30 Tage netto“: \\( \\frac{0,02}{0,98} \\cdot \\frac{360}{20} = 36,73\\,\\% \\). Die Näherungsformel \\( s \\cdot \\frac{360}{ZZ - SF} \\) ergibt 36,00 % und unterschätzt den Wert leicht. Wer das Zahlungsziel ausnutzt, „leiht“ sich das Geld also für 20 Tage zu einem sehr hohen Zins.",
+   "belege": [
+    "skonto-buchen-5",
+    "skonto-buchen-17"
+   ]
+  },
+  {
+   "frage": "Lohnt es sich, für den Skontoabzug einen Kredit zu nehmen?",
+   "varianten": [
+    "Skonto mit Kontokorrent finanzieren",
+    "Skonto oder Zahlungsziel",
+    "Skonto lohnt sich"
+   ],
+   "antwort": "Ja, wenn der effektive Skonto-Jahreszins höher ist als der Zins des Kredits, mit dem du früher zahlst. Beispiel: Bei „2 % in 10 Tagen, 30 Tage netto“ beträgt der Skontozins 36,73 %; ein Kontokorrentkredit für 12 % ist deutlich günstiger. Also lohnt es sich, den Kredit für 20 Tage zu nutzen und Skonto zu ziehen.",
+   "belege": [
+    "skonto-buchen-5",
+    "skonto-buchen-16"
+   ]
+  },
+  {
+   "frage": "Mindert Skonto die Anschaffungskosten?",
+   "varianten": [
+    "Skonto Anschaffungskosten",
+    "Skonto Anlagegut",
+    "Anschaffungspreisminderung Skonto"
+   ],
+   "antwort": "Ja, in Anspruch genommenes Skonto ist eine einzeln zurechenbare Anschaffungspreisminderung und wird von den Anschaffungskosten abgesetzt (§ 255 Abs. 1 HGB). Bei einem Anlagegut sinkt dadurch auch die Bemessungsgrundlage der Abschreibung. Nicht genutztes Skonto mindert die Anschaffungskosten dagegen nicht.",
+   "belege": [
+    "skonto-buchen-3",
+    "skonto-buchen-7",
+    "skonto-buchen-18"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Anschaffungskosten mit Rabatt, Skonto und Bezugskosten?",
+   "varianten": [
+    "Anschaffungskosten berechnen Skonto",
+    "Listenpreis Rabatt Skonto Fracht",
+    "Anschaffungsnebenkosten"
+   ],
+   "antwort": "Anschaffungskosten sind Kaufpreis minus einzeln zurechenbare Preisminderungen plus Anschaffungsnebenkosten: \\( AK = \\text{Kaufpreis} - \\text{Preisminderungen} + \\text{Nebenkosten} \\). Beispiel (netto): Listenpreis 10.000,00 Euro, 10 % Rabatt = 1.000,00 Euro, bleibt 9.000,00 Euro; 2 % Skonto darauf = 180,00 Euro, bleibt 8.820,00 Euro; plus Fracht 300,00 Euro ergibt Anschaffungskosten von 9.120,00 Euro.",
+   "belege": [
+    "skonto-buchen-3",
+    "skonto-buchen-19"
+   ]
+  },
+  {
+   "frage": "Was passiert, wenn ich das Skonto nicht nutze?",
+   "varianten": [
+    "Skonto nicht genutzt",
+    "Zahlung ohne Skonto buchen",
+    "verfallenes Skonto"
+   ],
+   "antwort": "Zahlst du erst nach Ablauf der Skontofrist, überweist du den vollen Rechnungsbetrag und buchst einfach „Verbindlichkeiten an Bank“. Nicht genutztes Skonto mindert weder die Anschaffungskosten noch die Vorsteuer bzw. Umsatzsteuer; es wird überhaupt nicht gebucht.",
+   "belege": [
+    "skonto-buchen-7"
+   ]
+  },
+  {
+   "frage": "Muss Skonto auf der Rechnung stehen?",
+   "varianten": [
+    "Skonto Rechnungsangabe",
+    "Skontovereinbarung Rechnung",
+    "§ 14 Abs. 4 Nr. 7 UStG"
+   ],
+   "antwort": "Ja. Nach § 14 Abs. 4 Nr. 7 UStG muss eine Rechnung jede im Voraus vereinbarte Minderung des Entgelts angeben, sofern sie nicht schon im Entgelt berücksichtigt ist; das betrifft auch eine Skontoabrede. Wird Skonto später tatsächlich gezogen, berichtigen Lieferer und Kunde Umsatzsteuer bzw. Vorsteuer für den Zeitraum der Zahlung.",
+   "belege": [
+    "skonto-buchen-14",
+    "skonto-buchen-20"
+   ]
+  },
+  {
+   "frage": "Wo erscheint Skonto in der GuV?",
+   "varianten": [
+    "Skonto GuV Ausweis",
+    "Erlösschmälerungen GuV",
+    "Skontoertrag"
+   ],
+   "antwort": "Kundenskonti mindern als Erlösschmälerungen die Umsatzerlöse, die netto nach Abzug von Erlösschmälerungen ausgewiesen werden (§ 277 Abs. 1 HGB). Liefererskonti mindern die Anschaffungskosten der Vorräte oder Anlagen und damit später den Materialaufwand bzw. die Abschreibungen. Einen eigenen GuV-Posten für Skonti gibt es nicht; eine gesonderte Buchung als Aufwand oder Ertrag kommt nur in Frage, wenn sie nicht direkt zurechenbar sind.",
+   "belege": [
+    "skonto-buchen-9",
+    "skonto-buchen-10",
+    "skonto-buchen-12",
+    "skonto-buchen-18"
+   ]
   }
  ]
 }

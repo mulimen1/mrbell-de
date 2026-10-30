@@ -131,6 +131,236 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "tilgungsplan-10",
+   "art": "definition",
+   "aussage": "Die Tilgungsrate ist der Betrag, der zur Rückzahlung einer nicht auf einmal getilgten Schuld fortlaufend in bestimmten Zeitabschnitten an den Kreditgeber gezahlt wird; Tilgungsrate und Zinsbetrag ergeben zusammen die Annuität.",
+   "schlagworte": [
+    "Tilgungsrate",
+    "Annuität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Tilgungsrate",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/tilgungsrate-50541",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-11",
+   "art": "definition",
+   "aussage": "Die Anfangstilgung ist der Tilgungsanteil im ersten Jahr; nur in diesem Jahr entspricht der Tilgungsanteil dem vereinbarten Tilgungssatz, danach steigt er beim Annuitätendarlehen.",
+   "schlagworte": [
+    "Anfangstilgung",
+    "Tilgungssatz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Anfangstilgung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/anfangstilgung-52791",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-12",
+   "art": "abgrenzung",
+   "aussage": "Das Annuitätendarlehen hat für den Schuldner den Vorteil einer konstanten Liquiditätsbelastung; weil die Schuld später zurückgeführt wird, zahlt er insgesamt aber mehr Zinsen als bei einem Ratenkredit.",
+   "schlagworte": [
+    "Annuitätendarlehen",
+    "Ratenkredit",
+    "Zinslast"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaet-27107",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-13",
+   "art": "abgrenzung",
+   "aussage": "Die vertraglich vereinbarte Annuität gilt nur für die Zeit der Sollzinsbindung (anfängliche Annuität); eine zu Beginn genannte Darlehenslaufzeit stimmt nur, wenn die Konditionen über die gesamte Laufzeit gleich bleiben.",
+   "schlagworte": [
+    "Sollzinsbindung",
+    "anfängliche Annuität",
+    "Laufzeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuitätendarlehen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-14",
+   "art": "zahl",
+   "aussage": "Gabler nennt (gerundet) als Mindesttilgungssätze für eine Laufzeit von 30 Jahren rund 2,1 % bei 3 % Zins und rund 1,7 % bei 4 % Zins; für 10 Jahre bei 3 % Zins rund 8,6 %.",
+   "schlagworte": [
+    "Mindesttilgung",
+    "Laufzeit",
+    "Tabelle"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuitätendarlehen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-15",
+   "art": "definition",
+   "aussage": "Die Restschuld ist der Kreditbetrag, der nach einer bestimmten Zahl von Tilgungsjahren noch offen ist; sie ist ein aussagefähigerer Vergleichsmaßstab für Kreditangebote als die Effektivzinsangabe allein, ist aber gesetzlich nicht vorgeschrieben.",
+   "schlagworte": [
+    "Restschuld",
+    "Angebotsvergleich"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Restschuld",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/restschuld-53201",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-16",
+   "art": "abgrenzung",
+   "aussage": "Tilgungsfalle: Bei niedrigem Zins und niedriger Tilgung wächst der Tilgungsanteil nur langsam um die ersparten Zinsen, sodass sich die Rückzahlung stark verlängert; bei 8 % Zins und 1 % Tilgung lag die Laufzeit bei etwa 28 Jahren, bei 3 % Zins und 1 % Tilgung bei mehr als 46 Jahren.",
+   "schlagworte": [
+    "Tilgungsfalle",
+    "Niedrigzins",
+    "Laufzeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Tilgungsfalle",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/tilgungsfalle-53296",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-17",
+   "art": "formel",
+   "aussage": "Laufzeit eines Annuitätendarlehens bei jährlicher Verrechnung: `n = \\frac{\\ln\\left(\\frac{A}{A - i \\cdot S_0}\\right)}{\\ln q} = \\frac{\\ln\\left(\\frac{i + t}{t}\\right)}{\\ln(1 + i)}` mit Anfangstilgungssatz t.",
+   "schlagworte": [
+    "Laufzeit",
+    "Formel",
+    "Anfangstilgungssatz"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "tilgungsplan-18",
+   "art": "zahl",
+   "aussage": "Beispiel Annuitätentilgung: 100.000 €, 5 %, 5 Jahre ergibt `A = 23.097{,}48` €; Jahr 1: Zinsen 5.000,00 €, Tilgung 18.097,48 €, Restschuld 81.902,52 €; Zinsen insgesamt 15.487,40 €.",
+   "schlagworte": [
+    "Rechenbeispiel",
+    "Annuität"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "tilgungsplan-19",
+   "art": "zahl",
+   "aussage": "Beispiel Ratentilgung: 100.000 €, 5 %, 5 Jahre ergibt eine Tilgung von 20.000 € je Jahr; die Rate sinkt von 25.000 € im ersten auf 21.000 € im fünften Jahr; Zinsen insgesamt 15.000,00 €.",
+   "schlagworte": [
+    "Rechenbeispiel",
+    "Ratentilgung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "tilgungsplan-20",
+   "art": "definition",
+   "aussage": "Ein Disagio ist der Unterschiedsbetrag, um den der Auszahlungsbetrag eines Kredits unter dem Rückzahlungsbetrag liegt; für den Schuldner liegt der Effektivzins dann über dem Nominalzins.",
+   "schlagworte": [
+    "Disagio",
+    "Damnum",
+    "Effektivzins"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Disagio",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/disagio-31382",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-21",
+   "art": "gesetz",
+   "aussage": "Ist der Erfüllungsbetrag einer Verbindlichkeit höher als der Ausgabebetrag, darf der Unterschied nach § 250 Abs. 3 HGB als aktiver Rechnungsabgrenzungsposten angesetzt werden; er ist durch planmäßige jährliche Abschreibungen über die Laufzeit zu tilgen.",
+   "schlagworte": [
+    "Disagio",
+    "Rechnungsabgrenzung",
+    "§ 250 HGB"
+   ],
+   "quelle": {
+    "name": "HGB § 250",
+    "url": "https://www.gesetze-im-internet.de/hgb/__250.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "tilgungsplan-22",
+   "art": "gesetz",
+   "aussage": "Bei gebundenem Sollzins kann der Darlehensnehmer nach § 489 Abs. 1 Nr. 2 BGB in jedem Fall nach Ablauf von zehn Jahren nach vollständigem Empfang mit einer Frist von sechs Monaten kündigen; bei veränderlichem Zins jederzeit mit drei Monaten Frist (Abs. 2).",
+   "schlagworte": [
+    "Kündigungsrecht",
+    "zehn Jahre",
+    "§ 489 BGB"
+   ],
+   "quelle": {
+    "name": "BGB § 489",
+    "url": "https://www.gesetze-im-internet.de/bgb/__489.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "tilgungsplan-23",
+   "art": "gesetz",
+   "aussage": "Bei vorzeitiger Rückzahlung kann der Darlehensgeber nach § 502 BGB eine angemessene Vorfälligkeitsentschädigung verlangen, wenn ein gebundener Sollzins geschuldet wird; bei Allgemein-Verbraucherdarlehen ist sie auf 1 % (bei höchstens einem Jahr Restlaufzeit 0,5 %) des vorzeitig zurückgezahlten Betrags und auf die entgangenen Sollzinsen begrenzt.",
+   "schlagworte": [
+    "Vorfälligkeitsentschädigung",
+    "§ 502 BGB"
+   ],
+   "quelle": {
+    "name": "BGB § 502",
+    "url": "https://www.gesetze-im-internet.de/bgb/__502.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "tilgungsplan-24",
+   "art": "abgrenzung",
+   "aussage": "Sondertilgungen sind während der Zinsbindung nur möglich, soweit sie vertraglich vereinbart sind (fest oder optional zwischen Mindest- und Höchstbetrag); akzeptiert der Kreditgeber darüber hinaus eine Sondertilgung, ist meist eine Vorfälligkeitsentschädigung zu zahlen.",
+   "schlagworte": [
+    "Sondertilgung",
+    "Zinsbindung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Sondertilgung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/sondertilgung-53276",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-25",
+   "art": "abgrenzung",
+   "aussage": "Eine Schuld kann in einem Betrag oder nach einem festgesetzten Plan in mehreren Teilbeträgen zurückgezahlt werden; Höhe und Fälligkeit der Tilgungsraten sind in der Finanzplanung über einen Tilgungsplan zu berücksichtigen.",
+   "schlagworte": [
+    "Tilgung",
+    "Finanzplanung",
+    "endfällig"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Tilgung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/tilgung-48070",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -138,6 +368,205 @@
    "falsch": "Beim Annuitätendarlehen bleibt die Tilgungsrate konstant.",
    "richtig": "Konstant ist die Annuität (Zins + Tilgung); die Tilgung steigt, weil der Zinsanteil sinkt. Konstante Tilgung kennzeichnet die Ratentilgung.",
    "quelle_id": "tilgungsplan-4"
+  },
+  {
+   "falsch": "Beim Annuitätendarlehen ist die Tilgung jedes Jahr gleich hoch.",
+   "richtig": "Gleich bleibt die Annuität; der Zinsanteil sinkt und der Tilgungsanteil steigt um die ersparten Zinsen. Gleiche Tilgung gibt es bei der Ratentilgung.",
+   "quelle_id": "tilgungsplan-12"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist ein Tilgungsplan?",
+   "varianten": [
+    "Tilgungsplan Definition",
+    "Tilgungsplan erklärt",
+    "Tilgungsrechnung"
+   ],
+   "antwort": "Ein Tilgungsplan stellt zahlenmäßig dar, wie eine Schuld, etwa ein Darlehen oder eine Anleihe, in Teilbeträgen zurückgezahlt wird. Für jede Periode zeigt er Zinsen, Tilgung, Annuität bzw. Rate und die Restschuld am Periodenende. Ermittelt werden diese Größen mit der Tilgungsrechnung, einem Teilgebiet der Finanzmathematik.",
+   "belege": [
+    "tilgungsplan-1",
+    "tilgungsplan-2"
+   ]
+  },
+  {
+   "frage": "Wie stelle ich einen Tilgungsplan auf?",
+   "varianten": [
+    "Tilgungsplan erstellen",
+    "Tilgungsplan Spalten",
+    "Tilgungsplan Schema"
+   ],
+   "antwort": "Du rechnest Zeile für Zeile: Zinsen der Periode \\(Z_t = i \\cdot R_{t-1}\\), Tilgung \\(T_t = A - Z_t\\) beim Annuitätendarlehen und neue Restschuld \\(R_t = R_{t-1} - T_t\\). Die Spalten sind also Jahr, Restschuld am Anfang, Zinsen, Tilgung, Annuität und Restschuld am Ende. Bei der Ratentilgung ist dagegen die Tilgung fest (\\(\\frac{S_0}{n}\\)) und die Rate ergibt sich als Zinsen plus Tilgung.",
+   "belege": [
+    "tilgungsplan-7",
+    "tilgungsplan-2",
+    "tilgungsplan-9"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Annuität?",
+   "varianten": [
+    "Annuität berechnen Formel",
+    "Annuitätenformel",
+    "Annuität Beispiel"
+   ],
+   "antwort": "Die Annuität ist \\(A = S_0 \\cdot \\frac{q^n \\cdot (q - 1)}{q^n - 1}\\) mit \\(q = 1 + i\\). Beispiel: 100.000 € Darlehen, 5 % Zins, 5 Jahre: \\(A = 100.000 \\cdot \\frac{1{,}05^5 \\cdot 0{,}05}{1{,}05^5 - 1} = 23.097{,}48\\) €. Diese Rate bleibt jedes Jahr gleich und besteht aus Zins- und Tilgungsanteil.",
+   "belege": [
+    "tilgungsplan-8",
+    "tilgungsplan-18",
+    "tilgungsplan-3"
+   ]
+  },
+  {
+   "frage": "Wie sieht das erste Jahr im Tilgungsplan aus?",
+   "varianten": [
+    "erste Zeile Tilgungsplan",
+    "Zinsanteil Tilgungsanteil berechnen",
+    "Tilgungsplan Jahr 1"
+   ],
+   "antwort": "Bei 100.000 €, 5 % und einer Annuität von 23.097,48 € betragen die Zinsen im ersten Jahr \\(0{,}05 \\cdot 100.000 = 5.000{,}00\\) €. Die Tilgung ist \\(23.097{,}48 - 5.000{,}00 = 18.097{,}48\\) €. Die Restschuld am Jahresende ist \\(100.000 - 18.097{,}48 = 81.902{,}52\\) €. Im zweiten Jahr rechnest du die Zinsen dann auf 81.902,52 €.",
+   "belege": [
+    "tilgungsplan-7",
+    "tilgungsplan-18"
+   ]
+  },
+  {
+   "frage": "Was ist der Unterschied zwischen Annuitäten- und Ratentilgung?",
+   "varianten": [
+    "Annuitätendarlehen vs Ratendarlehen",
+    "Ratentilgung Annuitätentilgung Unterschied",
+    "Tilgungsarten"
+   ],
+   "antwort": "Beim Annuitätendarlehen bleibt die Rate (Annuität) gleich: Der Zinsanteil sinkt, der Tilgungsanteil steigt um die ersparten Zinsen. Bei der Ratentilgung bleibt die Tilgung gleich, die Gesamtrate sinkt, weil die Zinsen auf die sinkende Restschuld fallen. Das Annuitätendarlehen bietet eine konstante Liquiditätsbelastung. Weil anfangs weniger getilgt wird, zahlst du insgesamt aber mehr Zinsen.",
+   "belege": [
+    "tilgungsplan-4",
+    "tilgungsplan-9",
+    "tilgungsplan-12"
+   ]
+  },
+  {
+   "frage": "Bei welcher Tilgungsart zahle ich mehr Zinsen?",
+   "varianten": [
+    "Annuität mehr Zinsen",
+    "Zinsvergleich Ratentilgung",
+    "Gesamtzinsen vergleichen"
+   ],
+   "antwort": "Bei der Annuitätentilgung, weil die Schuld langsamer zurückgeführt wird. Beispiel mit 100.000 €, 5 % und 5 Jahren: Annuitätentilgung kostet insgesamt 15.487,40 € Zinsen, Ratentilgung 15.000,00 €. Bei der Ratentilgung sinkt die Rate dafür von 25.000 € im ersten auf 21.000 € im fünften Jahr, während die Annuität konstant bei 23.097,48 € liegt.",
+   "belege": [
+    "tilgungsplan-12",
+    "tilgungsplan-18",
+    "tilgungsplan-19"
+   ]
+  },
+  {
+   "frage": "Wie berechne ich die Rate aus Zins und Anfangstilgung?",
+   "varianten": [
+    "Anfangstilgung Rate berechnen",
+    "Baufinanzierung Rate Zins Tilgung",
+    "Annuität aus Tilgungssatz"
+   ],
+   "antwort": "Die jährliche Annuität ist Darlehen mal (Zinssatz plus Anfangstilgungssatz). Beispiel: 200.000 €, 4 % Zins, 2 % Anfangstilgung: \\(A = 200.000 \\cdot 0{,}06 = 12.000{,}00\\) € pro Jahr, also 1.000,00 € pro Monat. Vereinfacht mit jährlicher Verrechnung sind im ersten Jahr 8.000,00 € Zinsen und 4.000,00 € Tilgung enthalten. Die 2 % gelten nur im ersten Jahr, danach steigt der Tilgungsanteil.",
+   "belege": [
+    "tilgungsplan-3",
+    "tilgungsplan-11",
+    "tilgungsplan-7"
+   ]
+  },
+  {
+   "frage": "Wie lange dauert es, ein Annuitätendarlehen zurückzuzahlen?",
+   "varianten": [
+    "Laufzeit Annuitätendarlehen berechnen",
+    "Tilgungsdauer Formel",
+    "wie lange Kredit abbezahlen"
+   ],
+   "antwort": "Bei jährlicher Verrechnung gilt \\(n = \\frac{\\ln((i + t) / t)}{\\ln(1 + i)}\\) mit Zinssatz \\(i\\) und Anfangstilgung \\(t\\). Bei 4 % Zins und 2 % Tilgung ergibt das rund 28,01 Jahre. Bei 3 % Zins und 1 % Tilgung sind es rund 46,90 Jahre. Gabler gibt für 1 % Anfangstilgung je nach Zins und Tilgungsverrechnung eine Spanne von 30 bis 65 Jahren an.",
+   "belege": [
+    "tilgungsplan-17",
+    "tilgungsplan-16",
+    "tilgungsplan-6"
+   ]
+  },
+  {
+   "frage": "Was ist die Tilgungsfalle?",
+   "varianten": [
+    "Tilgungsfalle Definition",
+    "niedrige Tilgung Niedrigzins",
+    "Tilgungsfalle Beispiel"
+   ],
+   "antwort": "Der Tilgungsanteil einer Annuität wächst jedes Jahr nur um die ersparten Zinsen. Ist der Zins niedrig, fällt diese Ersparnis gering aus, und bei niedriger Anfangstilgung zieht sich die Rückzahlung extrem in die Länge. Gabler nennt etwa 28 Jahre bei 8 % Zins und 1 % Tilgung, aber mehr als 46 Jahre bei 3 % Zins und 1 % Tilgung. Abhilfe ist eine höhere Anfangstilgung.",
+   "belege": [
+    "tilgungsplan-16",
+    "tilgungsplan-4"
+   ]
+  },
+  {
+   "frage": "Was ist die Restschuld und wofür brauche ich sie?",
+   "varianten": [
+    "Restschuld berechnen",
+    "Restschuld Zinsbindung",
+    "Restschuld Kreditvergleich"
+   ],
+   "antwort": "Die Restschuld ist der Betrag, der nach einer bestimmten Zahl von Tilgungsjahren noch offen ist, im Tilgungsplan also \\(R_t\\). Sie ist ein guter Maßstab, um Kreditangebote zu vergleichen, und wichtig am Ende der Zinsbindung, weil dann zu neuen Konditionen weiterfinanziert werden muss. Die vereinbarte Annuität gilt nämlich nur für die Zeit der Sollzinsbindung. Im Beispiel 100.000 €, 5 %, 5 Jahre beträgt die Restschuld nach dem ersten Jahr 81.902,52 €.",
+   "belege": [
+    "tilgungsplan-15",
+    "tilgungsplan-13",
+    "tilgungsplan-7",
+    "tilgungsplan-18"
+   ]
+  },
+  {
+   "frage": "Was ist ein Disagio und wie wirkt es?",
+   "varianten": [
+    "Disagio Definition",
+    "Disagio Effektivzins",
+    "Disagio Bilanz"
+   ],
+   "antwort": "Ein Disagio liegt vor, wenn der Auszahlungsbetrag eines Kredits unter dem Rückzahlungsbetrag liegt. Für den Schuldner steigt dadurch der Effektivzins über den Nominalzins. Bilanziell darf der Unterschied nach § 250 Abs. 3 HGB als aktiver Rechnungsabgrenzungsposten angesetzt und dann planmäßig über die Laufzeit abgeschrieben werden.",
+   "belege": [
+    "tilgungsplan-20",
+    "tilgungsplan-21"
+   ]
+  },
+  {
+   "frage": "Kann ich ein Darlehen vorzeitig zurückzahlen oder kündigen?",
+   "varianten": [
+    "Darlehen vorzeitig kündigen",
+    "Vorfälligkeitsentschädigung",
+    "Sondertilgung erlaubt"
+   ],
+   "antwort": "Bei gebundenem Sollzins kannst du nach § 489 Abs. 1 Nr. 2 BGB in jedem Fall zehn Jahre nach vollständigem Empfang mit sechs Monaten Frist kündigen; bei veränderlichem Zins jederzeit mit drei Monaten Frist. Während der Zinsbindung sind Sondertilgungen nur möglich, soweit sie vereinbart sind. Zahlst du bei gebundenem Sollzins vorzeitig zurück, kann der Darlehensgeber nach § 502 BGB eine angemessene Vorfälligkeitsentschädigung verlangen, bei Allgemein-Verbraucherdarlehen begrenzt auf 1 % bzw. 0,5 %.",
+   "belege": [
+    "tilgungsplan-22",
+    "tilgungsplan-23",
+    "tilgungsplan-24"
+   ]
+  },
+  {
+   "frage": "Was ist eine unechte Annuität?",
+   "varianten": [
+    "unechte Annuität",
+    "variable Annuität",
+    "konstanter Tilgungsanteil"
+   ],
+   "antwort": "Bei der unechten (variablen) Annuität bleibt der Tilgungsanteil konstant, und die Rate verringert sich um die eingesparten Zinsen. Sie entspricht damit im Ergebnis der Ratentilgung. Bei der echten Annuität bleibt dagegen die Rate gleich und der Tilgungsanteil steigt.",
+   "belege": [
+    "tilgungsplan-5",
+    "tilgungsplan-4",
+    "tilgungsplan-9"
+   ]
+  },
+  {
+   "frage": "Was ist ein endfälliges Darlehen?",
+   "varianten": [
+    "endfälliges Darlehen",
+    "Tilgung am Laufzeitende",
+    "Festdarlehen"
+   ],
+   "antwort": "Beim endfälligen Darlehen wird die gesamte Schuld in einem Betrag am Laufzeitende zurückgezahlt; während der Laufzeit zahlst du nur Zinsen. Allgemein kann eine Schuld in einem Betrag oder nach festgesetztem Plan in mehreren Teilbeträgen zurückgezahlt werden. In der Finanzplanung musst du Höhe und Fälligkeit der Tilgung in jedem Fall berücksichtigen.",
+   "belege": [
+    "tilgungsplan-9",
+    "tilgungsplan-25"
+   ]
   }
  ]
 }

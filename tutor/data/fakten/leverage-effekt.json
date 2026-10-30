@@ -88,6 +88,204 @@
     "name": "Lehrbuchstandard (nachgerechnet)",
     "typ": "lehrbuchstandard"
    }
+  },
+  {
+   "id": "leverage-effekt-7",
+   "art": "abgrenzung",
+   "aussage": "Bei der Eigenkapitalrentabilität steht im Zähler der Erfolg nach Fremdkapitalzinsen, bei der Gesamtkapitalrentabilität der Periodenerfolg einschließlich der Fremdkapitalzinsen, bezogen auf Eigen- plus Fremdkapital.",
+   "schlagworte": [
+    "Eigenkapitalrentabilität",
+    "Gesamtkapitalrentabilität",
+    "Zähler"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rentabilität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rentabilitaet-45028",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "leverage-effekt-8",
+   "art": "formel",
+   "aussage": "Herleitung (ohne Steuern): Gewinn nach Zinsen `= r_G \\cdot (EK + FK) - i \\cdot FK`; geteilt durch EK ergibt sich `r_E = r_G + (r_G - i) \\cdot \\frac{FK}{EK}`.",
+   "schlagworte": [
+    "Herleitung",
+    "Leverage-Formel"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "leverage-effekt-9",
+   "art": "formel",
+   "aussage": "Der Verschuldungsgrad ist das Verhältnis von Fremd- zu Eigenkapital: `V = \\frac{FK}{EK}`; er ist der Hebel in der Leverage-Formel.",
+   "schlagworte": [
+    "Verschuldungsgrad",
+    "Hebel"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "leverage-effekt-10",
+   "art": "zahl",
+   "aussage": "Beispiel: `r_G = 10\\,\\%`, `i = 6\\,\\%`, EK 400, FK 600 (V = 1,5) ergibt `r_E = 10 + 4 \\cdot 1{,}5 = 16\\,\\%`; bei EK 200 und FK 800 (V = 4) `r_E = 26\\,\\%`; sinkt `r_G` auf 4 %, ergibt sich bei V = 1,5 nur `r_E = 4 - 2 \\cdot 1{,}5 = 1\\,\\%`.",
+   "schlagworte": [
+    "Rechenbeispiel",
+    "positiver Leverage",
+    "negativer Leverage"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "leverage-effekt-11",
+   "art": "abgrenzung",
+   "aussage": "Eigenkapitalgeber erhalten erfolgsabhängige, den Fremdkapitalgebern nachgeordnete Zahlungen und fordern deshalb einen höheren Erwartungswert der Rendite als Fremdkapitalgeber.",
+   "schlagworte": [
+    "Eigenkapitalgeber",
+    "Risiko",
+    "Nachrang"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Eigenfinanzierung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/eigenfinanzierung-35656",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "leverage-effekt-12",
+   "art": "abgrenzung",
+   "aussage": "Fremdfinanzierung sichert den Kapitalgebern im Kapitalüberlassungsvertrag meist erfolgsunabhängige Zins- und Tilgungszahlungen zu und stellt Kapital nur für begrenzte Zeit zur Verfügung; die Gläubiger sind nicht am Erfolg beteiligt.",
+   "schlagworte": [
+    "Fremdfinanzierung",
+    "fester Zins",
+    "erfolgsunabhängig"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Fremdfinanzierung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/fremdfinanzierung-35508",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "leverage-effekt-13",
+   "art": "gesetz",
+   "aussage": "Den Fremdkapitalzinsaufwand weist die GuV gesondert aus: beim Gesamtkostenverfahren als „Zinsen und ähnliche Aufwendungen“ (§ 275 Abs. 2 Nr. 13 HGB), beim Umsatzkostenverfahren unter § 275 Abs. 3 Nr. 12 HGB.",
+   "schlagworte": [
+    "Zinsaufwand",
+    "GuV",
+    "§ 275 HGB"
+   ],
+   "quelle": {
+    "name": "HGB § 275",
+    "url": "https://www.gesetze-im-internet.de/hgb/__275.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "leverage-effekt-14",
+   "art": "formel",
+   "aussage": "Leverage-Risiko: Ändert sich die Gesamtkapitalrendite um `\\Delta r_G`, ändert sich die Eigenkapitalrendite um `\\Delta r_E = \\Delta r_G \\cdot (1 + \\frac{FK}{EK})`; je höher der Verschuldungsgrad, desto stärker schwankt `r_E`.",
+   "schlagworte": [
+    "Leverage-Risiko",
+    "Schwankung",
+    "Risiko"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "leverage-effekt-15",
+   "art": "abgrenzung",
+   "aussage": "Im deutschen Steuerrecht mindern Zinsaufwendungen für Fremdkapital die Steuerbemessungsgrundlage, Zahlungen an Eigenkapitalgeber wie Dividenden dagegen nicht; aus dieser Ungleichbehandlung entsteht ein Werteffekt der Verschuldung (Tax Shield).",
+   "schlagworte": [
+    "Tax Shield",
+    "Steuervorteil",
+    "Zinsabzug"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "leverage-effekt-16",
+   "art": "formel",
+   "aussage": "Mit proportionaler Gewinnsteuer s auf den Gewinn nach Zinsen gilt: `r_E^{\\text{nach St.}} = \\left[r_G + (r_G - i) \\cdot \\frac{FK}{EK}\\right] \\cdot (1 - s)` (r_G und i vor Steuern).",
+   "schlagworte": [
+    "Steuern",
+    "Leverage nach Steuern"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "leverage-effekt-17",
+   "art": "gesetz",
+   "aussage": "Verschlechtern sich die Vermögensverhältnisse des Darlehensnehmers oder der Wert einer Sicherheit wesentlich und ist dadurch die Rückzahlung gefährdet, kann der Darlehensgeber nach § 490 Abs. 1 BGB vor Auszahlung im Zweifel stets, nach Auszahlung in der Regel fristlos kündigen.",
+   "schlagworte": [
+    "Kündigung",
+    "Darlehen",
+    "Risiko"
+   ],
+   "quelle": {
+    "name": "BGB § 490",
+    "url": "https://www.gesetze-im-internet.de/bgb/__490.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "leverage-effekt-18",
+   "art": "abgrenzung",
+   "aussage": "Eigenkapital ist als haftendes Kapital Voraussetzung für die Aufnahme von Fremdkapital; die Verschuldung lässt sich deshalb nicht beliebig ausweiten.",
+   "schlagworte": [
+    "Haftungskapital",
+    "Verschuldungsgrenze"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Eigenkapital",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/eigenkapital-34982",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "leverage-effekt-19",
+   "art": "abgrenzung",
+   "aussage": "Ohne Fremdkapital (FK = 0) ist die Eigenkapitalrendite gleich der Gesamtkapitalrendite; der Hebel setzt erst mit Verschuldung ein.",
+   "schlagworte": [
+    "unverschuldet",
+    "Sonderfall"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "leverage-effekt-20",
+   "art": "definition",
+   "aussage": "Die Eigenkapitalrentabilität gibt an, mit welcher Rate sich das in der Periode eingesetzte Eigenkapital verzinst; sie ist die Zielgröße des Leverage-Effekts.",
+   "schlagworte": [
+    "Eigenkapitalrentabilität",
+    "Zielgröße"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rentabilität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rentabilitaet-45028",
+    "typ": "lexikon"
+   }
   }
  ],
  "typische_fehler": [
@@ -95,6 +293,166 @@
    "falsch": "Mehr Fremdkapital erhöht die Eigenkapitalrendite immer.",
    "richtig": "Nur wenn die Gesamtkapitalrendite über dem Fremdkapitalzins liegt; andernfalls sinkt die Eigenkapitalrendite.",
    "quelle_id": "leverage-effekt-3"
+  },
+  {
+   "falsch": "Mehr Fremdkapital erhöht immer die Eigenkapitalrendite.",
+   "richtig": "Nur solange die Gesamtkapitalrendite über dem Fremdkapitalzins liegt; liegt sie darunter, sinkt die Eigenkapitalrendite mit jeder zusätzlichen Verschuldung.",
+   "quelle_id": "leverage-effekt-10"
+  },
+  {
+   "falsch": "Der Verschuldungsgrad im Leverage-Effekt ist FK durch Gesamtkapital.",
+   "richtig": "Hebel ist FK/EK, nicht FK/GK.",
+   "quelle_id": "leverage-effekt-9"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Was ist der Leverage-Effekt?",
+   "varianten": [
+    "Leverage-Effekt Definition",
+    "Hebelwirkung Fremdkapital",
+    "Leverage einfach erklärt"
+   ],
+   "antwort": "Der Leverage-Effekt (Hebelwirkung des Fremdkapitals bzw. des Verschuldungsgrads) beschreibt, wie sich die erwartete Eigenkapitalrendite verändert, wenn Eigenkapital durch Fremdkapital ersetzt wird. Ist die Gesamtkapitalrendite höher als der Fremdkapitalzins, steigt die Eigenkapitalrendite mit jedem zusätzlichen Euro Fremdkapital. Ist sie niedriger, sinkt sie. Der Hebel wirkt also in beide Richtungen.",
+   "belege": [
+    "leverage-effekt-1",
+    "leverage-effekt-3",
+    "leverage-effekt-4"
+   ]
+  },
+  {
+   "frage": "Wie lautet die Formel für den Leverage-Effekt?",
+   "varianten": [
+    "Leverage-Effekt Formel",
+    "Eigenkapitalrendite Formel Verschuldungsgrad",
+    "r_E = r_G + (r_G - i) FK/EK"
+   ],
+   "antwort": "Ohne Steuern gilt \\(r_E = r_G + (r_G - i) \\cdot \\frac{FK}{EK}\\). Dabei ist \\(r_E\\) die Eigenkapitalrendite, \\(r_G\\) die Gesamtkapitalrendite, \\(i\\) der Fremdkapitalzins und \\(\\frac{FK}{EK}\\) der Verschuldungsgrad. Der Ausdruck \\(r_G - i\\) ist die Spanne, die du auf jeden Euro Fremdkapital verdienst, der Verschuldungsgrad ist der Hebel.",
+   "belege": [
+    "leverage-effekt-5",
+    "leverage-effekt-9"
+   ]
+  },
+  {
+   "frage": "Kannst du mir ein Rechenbeispiel zum positiven Leverage-Effekt geben?",
+   "varianten": [
+    "Leverage-Effekt Beispiel",
+    "Leverage Rechnung",
+    "Eigenkapitalrendite berechnen Verschuldung"
+   ],
+   "antwort": "Annahme: Gesamtkapitalrendite 10 %, Fremdkapitalzins 6 %, Eigenkapital 400.000 €, Fremdkapital 600.000 €. Dann ist \\(r_E = 10\\,\\% + (10\\,\\% - 6\\,\\%) \\cdot \\frac{600.000}{400.000} = 16{,}00\\,\\%\\). Probe: Gewinn vor Zinsen 100.000 €, Zinsen 36.000 €, Rest 64.000 €, und \\(\\frac{64.000}{400.000} = 16{,}00\\,\\%\\). Bei Eigenkapital 200.000 € und Fremdkapital 800.000 € wären es sogar 26,00 %.",
+   "belege": [
+    "leverage-effekt-5",
+    "leverage-effekt-10"
+   ]
+  },
+  {
+   "frage": "Was passiert beim negativen Leverage-Effekt?",
+   "varianten": [
+    "negativer Leverage",
+    "Leverage-Effekt umgekehrt",
+    "Gesamtkapitalrendite kleiner Zins"
+   ],
+   "antwort": "Liegt die Gesamtkapitalrendite unter dem Fremdkapitalzins, sinkt die Eigenkapitalrendite linear mit dem Verschuldungsgrad. Beispiel: \\(r_G = 4\\,\\%\\), \\(i = 6\\,\\%\\), \\(\\frac{FK}{EK} = 1{,}5\\). Dann ist \\(r_E = 4\\,\\% + (4\\,\\% - 6\\,\\%) \\cdot 1{,}5 = 1{,}00\\,\\%\\). Jeder Euro Fremdkapital kostet dann mehr, als er einbringt.",
+   "belege": [
+    "leverage-effekt-4",
+    "leverage-effekt-10"
+   ]
+  },
+  {
+   "frage": "Wann lohnt sich zusätzliches Fremdkapital?",
+   "varianten": [
+    "Wann lohnt sich Verschuldung",
+    "Fremdkapital aufnehmen Eigenkapitalrendite",
+    "Bedingung Leverage"
+   ],
+   "antwort": "Im Modell lohnt sich zusätzliches Fremdkapital für die Eigenkapitalrendite, solange \\(r_G > i\\) gilt. Ist \\(r_G = i\\), ist der Hebel neutral und \\(r_E = r_G\\) unabhängig von der Verschuldung. Die Standardbetrachtung setzt voraus, dass Gesamtkapitalrendite und Zins unabhängig von der Kapitalstruktur gegeben sind. Zusätzlich steigt mit der Verschuldung das Risiko der Eigenkapitalgeber.",
+   "belege": [
+    "leverage-effekt-2",
+    "leverage-effekt-3",
+    "leverage-effekt-6",
+    "leverage-effekt-14"
+   ]
+  },
+  {
+   "frage": "Wie leitet man die Leverage-Formel her?",
+   "varianten": [
+    "Leverage-Formel Herleitung",
+    "Herleitung Eigenkapitalrendite",
+    "Leverage Beweis"
+   ],
+   "antwort": "Das Gesamtkapital \\(EK + FK\\) erwirtschaftet \\(r_G \\cdot (EK + FK)\\). Davon gehen die Zinsen \\(i \\cdot FK\\) an die Fremdkapitalgeber, der Rest bleibt den Eigentümern. Teilst du diesen Rest durch das Eigenkapital, erhältst du \\(r_E = \\frac{r_G (EK + FK) - i \\cdot FK}{EK} = r_G + (r_G - i) \\cdot \\frac{FK}{EK}\\).",
+   "belege": [
+    "leverage-effekt-8"
+   ]
+  },
+  {
+   "frage": "Was ist das Leverage-Risiko?",
+   "varianten": [
+    "Leverage-Risiko",
+    "Risiko hohe Verschuldung",
+    "Schwankung Eigenkapitalrendite"
+   ],
+   "antwort": "Mit steigender Verschuldung reagiert die Eigenkapitalrendite stärker auf Schwankungen der Gesamtkapitalrendite: \\(\\Delta r_E = \\Delta r_G \\cdot (1 + \\frac{FK}{EK})\\). Bei \\(\\frac{FK}{EK} = 1{,}5\\) führt ein Rückgang von \\(r_G\\) um 6 Prozentpunkte (von 10 % auf 4 %) zu einem Rückgang von \\(r_E\\) um \\(6 \\cdot 2{,}5 = 15\\) Prozentpunkte, von 16 % auf 1 %. Fällt \\(r_G\\) unter den Zins, wird der Hebel negativ.",
+   "belege": [
+    "leverage-effekt-14",
+    "leverage-effekt-4",
+    "leverage-effekt-10"
+   ]
+  },
+  {
+   "frage": "Wie wirken Steuern auf den Leverage-Effekt?",
+   "varianten": [
+    "Leverage-Effekt mit Steuern",
+    "Leverage nach Steuern",
+    "Tax Shield Leverage"
+   ],
+   "antwort": "Wird der Gewinn nach Zinsen proportional mit dem Satz \\(s\\) besteuert, gilt \\(r_E = [r_G + (r_G - i) \\cdot \\frac{FK}{EK}] \\cdot (1 - s)\\). Mit \\(r_G = 10\\,\\%\\), \\(i = 6\\,\\%\\), \\(\\frac{FK}{EK} = 1{,}5\\) und \\(s = 30\\,\\%\\) ergibt sich \\(16\\,\\% \\cdot 0{,}7 = 11{,}20\\,\\%\\). Zusätzlich mindern Zinsen die Steuerbemessungsgrundlage, Dividenden dagegen nicht; daraus entsteht ein Steuervorteil der Verschuldung (Tax Shield).",
+   "belege": [
+    "leverage-effekt-16",
+    "leverage-effekt-15"
+   ]
+  },
+  {
+   "frage": "Warum wirkt der Hebel überhaupt?",
+   "varianten": [
+    "Warum funktioniert Leverage",
+    "fester Zins Leverage",
+    "Hebel Ursache"
+   ],
+   "antwort": "Fremdkapitalgeber erhalten meist erfolgsunabhängige, feste Zins- und Tilgungszahlungen und sind nicht am Erfolg beteiligt. Was das Fremdkapital über den Zins hinaus erwirtschaftet, steht deshalb allein den Eigentümern zu, ein Fehlbetrag geht aber ebenfalls zu ihren Lasten. Genau das zeigt die Herleitung: Vom Gesamtertrag gehen nur die Zinsen \\(i \\cdot FK\\) ab, der Rest verteilt sich auf ein kleineres Eigenkapital.",
+   "belege": [
+    "leverage-effekt-12",
+    "leverage-effekt-8"
+   ]
+  },
+  {
+   "frage": "Welche Annahmen und Grenzen hat der Leverage-Effekt?",
+   "varianten": [
+    "Leverage-Effekt Kritik",
+    "Annahmen Leverage",
+    "Grenzen Verschuldung"
+   ],
+   "antwort": "Die Standardbetrachtung nimmt an, dass Gesamtkapitalrendite und Fremdkapitalzins unabhängig von der Kapitalstruktur gegeben sind. Tatsächlich ist Eigenkapital als haftendes Kapital Voraussetzung für die Aufnahme von Fremdkapital, die Verschuldung lässt sich also nicht beliebig steigern. Verschlechtert sich die Vermögenslage wesentlich, kann der Darlehensgeber nach § 490 Abs. 1 BGB unter Umständen fristlos kündigen. Außerdem steigt mit dem Verschuldungsgrad die Schwankung der Eigenkapitalrendite.",
+   "belege": [
+    "leverage-effekt-2",
+    "leverage-effekt-18",
+    "leverage-effekt-17",
+    "leverage-effekt-14"
+   ]
+  },
+  {
+   "frage": "Was gilt, wenn Gesamtkapitalrendite und Fremdkapitalzins gleich sind?",
+   "varianten": [
+    "r_G gleich i",
+    "neutraler Leverage",
+    "Leverage-Effekt null"
+   ],
+   "antwort": "Ist \\(r_G = i\\), wird der Term \\((r_G - i) \\cdot \\frac{FK}{EK}\\) null. Die Eigenkapitalrendite entspricht dann der Gesamtkapitalrendite, egal wie hoch der Verschuldungsgrad ist. Dasselbe Ergebnis \\(r_E = r_G\\) erhältst du ohne Fremdkapital.",
+   "belege": [
+    "leverage-effekt-6",
+    "leverage-effekt-19"
+   ]
   }
  ]
 }
