@@ -13,7 +13,7 @@ import { liveWave } from './wave.js';
 import { startLive } from './livestt.js';
 import * as MM from './maxmode.js';
 // Sprechen mit Max (Spracheingabe und gesprochene Antworten) gibt es nur noch im Max-Modus des Gründer-Kontos – für alle anderen: tippen
-const VOICE = () => MM.allowed();
+const VOICE = () => MM.voiceOn();
 import { sanitize, richText } from './sanitize.js';
 import { getSpice, thinkLines } from './max.js';
 import { VOICES, getVoice, voiceChip } from './voice.js';

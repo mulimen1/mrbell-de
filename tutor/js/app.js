@@ -56,7 +56,7 @@ export async function viaMax(fn) {
     fn(a); return true;
   } catch (e) { console.warn(e); return false; }
 }
-export const talkToMax = async () => { if (!(await import('./maxmode.js')).allowed()) { location.hash = '#/app/tutor'; return; }   // ohne Sprache: einfach in den Tutor (tippen)
+export const talkToMax = async () => { if (!(await import('./maxmode.js')).voiceOn()) { location.hash = '#/app/tutor'; return; }   // ohne Sprache: einfach in den Tutor (tippen)
  if (!getAccount()) { const ok = await openAuth({ title: L('Gespräch mit Max freischalten', 'Unlock talking to Max'), registerTitle: L('Gespräch mit Max freischalten', 'Unlock talking to Max'), sub: L('Kostenloses Konto – mit Google in zwei Klicks. Danach redest du einfach los.', 'Free account – two clicks with Google. Then just start talking.'), why: 'Sprechen', strong: true }); if (!ok || !getAccount()) return; } if (!(await viaMax(a => a.talk()))) { const { openVoice } = await import('./voice.js'); openVoice({}); } };
 export function go(path) { location.hash = '#/app' + (path ? '/' + path : ''); }
 
@@ -88,7 +88,7 @@ function buildShell() {
       h('label', { class: 'btn primary side-new', for: 'fileApp' }, h('span', { html: ico('plus') }), L('Neuer Stoff', 'Add material')), fileIn,
       h('div', { class: 'grp' }, 'Tools'),
       h('div', { class: 'side-tools' },
-        homeBeta() || !MMA.allowed() ? null : tool('button', { onclick: () => talkToMax() }, 'mic', L('Sprich mit mir', 'Talk to me')),
+        homeBeta() || !MMA.voiceOn() ? null : tool('button', { onclick: () => talkToMax() }, 'mic', L('Sprich mit mir', 'Talk to me')),
         // Testdesign (nur Bens Konto): schlanke Liste – Trainer, Rechner, Challenge, Duell, Fortschritt
         document.documentElement.dataset.nv ? null : tool('button', { onclick: () => topicPrompt() }, 'bulb', L('Ich erklär dir ein Thema', 'I’ll explain a topic')),
         document.documentElement.dataset.nv ? null : tool('button', { onclick: () => examTool(), 'data-nav': 'exam' }, 'exam', L('Klausur-Simulator', 'Exam simulator')),
@@ -518,7 +518,7 @@ function emptyState(root) {
       h('button', { class: 'btn lg', onclick: () => startSample() }, L('Beispiel ansehen', 'See an example')),
       h('a', { class: 'btn lg ghost', href: '#/app/trainer' }, 'Trainer')),
     topicForm({ cls: 'askbar inapp' }),
-    MMA.allowed() ? h('button', { class: 'talklink', type: 'button', onclick: () => talkToMax() }, h('span', { html: ico('mic') }), L('oder quatsch einfach mit mir', 'or just chat with me')) : null)));
+    MMA.voiceOn() ? h('button', { class: 'talklink', type: 'button', onclick: () => talkToMax() }, h('span', { html: ico('mic') }), L('oder quatsch einfach mit mir', 'or just chat with me')) : null)));
   face(f);
   dropAnywhere(root);
 }

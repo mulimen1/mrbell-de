@@ -57,7 +57,7 @@ const b64 = blob => new Promise((res, rej) => { const r = new FileReader(); r.on
 const SILENT = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
 
 let open = false;
-import { allowed as voiceAllowed } from './maxmode.js';
+import { voiceOn as voiceAllowed } from './maxmode.js';
 export function openVoice({ doc = null, onClose } = {}) {
   if (!voiceAllowed()) { location.hash = '#/app/tutor'; return; }   // Sprechen nur noch im Max-Modus (Gründer-Konto)
   if (open) return; open = true;

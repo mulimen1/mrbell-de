@@ -9,6 +9,8 @@ const ADMIN = ['bendeschler0@gmail.com'];
 const KEY = 'tutor.maxmode';
 export const allowed = () => { const a = getAccount(); return !!(a && ADMIN.includes(String(a.email || '').toLowerCase())); };
 export const on = () => allowed() && ls.get(KEY, 1) !== 0;
+// Sprechen mit Max: für alle aus (Kosten, Fehlerquellen). Nur auf Wunsch im Gründer-Konto wieder an: localStorage tutor.voice = 1
+export const voiceOn = () => allowed() && ls.get('tutor.voice', 0) === 1;
 export function sync() { document.documentElement.classList.toggle('maxmode', on()); }
 export function toggle(v) { if (!allowed()) return false; const nv = v == null ? !on() : !!v; ls.set(KEY, nv ? 1 : 0); sync(); toast(nv ? L('Max-Modus an: Max disst, spricht und baut animierte Übersichten.', 'Max mode on.') : L('Max-Modus aus.', 'Max mode off.')); return true; }
 export const isCmd = t => /^\/max(mode|modus)\b/i.test(String(t || '').trim());

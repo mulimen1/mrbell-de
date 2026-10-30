@@ -47,7 +47,7 @@ function collect() {
   cmd(L('Lernen – alle Lern-Tools', 'Learn – all study tools'), 'spark', nav('#/app/lernen'), 'tools karteikarten podcast lernzettel quiz lernplan trainer rechner üben');
   cmd(L('Wochen-Challenge', 'Weekly challenge'), 'trophy', nav('#/app/challenge'), 'quiz wettbewerb');
   cmd(L('Thema erklären lassen (ohne Skript)', 'Explain a topic (no slides)'), 'bulb', () => import('./app.js').then(m => m.topicPrompt()), 'kurzskript thema');
-  if (MMP.allowed()) cmd(L('Mit Max sprechen', 'Talk to Max'), 'mic', () => import('./app.js').then(m => m.talkToMax()), 'stimme sprechen voice');
+  if (MMP.voiceOn()) cmd(L('Mit Max sprechen', 'Talk to Max'), 'mic', () => import('./app.js').then(m => m.talkToMax()), 'stimme sprechen voice');
   if (S.doc) {
     const d = S.doc, go = t => nav(`#/app/${d.id}/${t}`);
     cmd(L(`Quiz starten · ${d.name}`, `Start quiz · ${d.name}`), 'quiz', go('quiz'), 'abfragen test');

@@ -8819,3 +8819,20 @@ html:root body .me-blk.past { opacity: .72 !important; filter: saturate(.85); }
 html body .ai-talk.ai-ask:not(.ready) { opacity: .5; filter: saturate(.6); box-shadow: none !important; }
 html body .ai-talk.ai-ask.ready { opacity: 1; }
 html body .ai-talk.ai-ask .ico { transform: translateX(1px); }
+/* Lerntools: oben 3 große, unten 6 Kacheln (mit „Mitschrift erstellen“) */
+html[data-nv] .room .rm-tl .rm-tlt[data-ic="pen"] { --kc1: #7a8cf7; --kc2: #3f4fd6; }
+@media (min-width: 761px) {
+  html[data-nv][data-nv] body .room .rm-tl { grid-template-columns: repeat(30, minmax(0, 1fr)) !important; }
+  html[data-nv][data-nv] body .room .rm-tl .rm-tlt:nth-child(-n+3) { grid-column: span 10 !important; }
+  html[data-nv][data-nv] body .room .rm-tl .rm-tlt:nth-child(n+4) { grid-column: span 5 !important; }
+}
+/* Mitschrift-Werkzeuge: Ausgewähltes klar umrahmt und lesbar */
+html[data-nv][data-nv] .ms-tools .ms-tb[aria-expanded="true"] { background: #efeaff !important; border: 2px solid #6d4fe0 !important; color: #2f1d7a !important; box-shadow: 0 6px 14px -10px #5b3fc4 !important; }
+html[data-nv][data-nv] .ms-tools .ms-tb[aria-expanded="true"] b, html[data-nv][data-nv] .ms-tools .ms-tb[aria-expanded="true"] * { color: #2f1d7a !important; }
+/* Mitschrift/YouTube-Umschalter: beide Knöpfe gleich */
+html body .ms-sw .ms-sw-i .yt-chip { display: none !important; }
+/* „oder zurück zu …“: etwas größer, Pfeil mittig, nicht gequetscht */
+html body .bk-via { gap: 7px !important; padding: 6px 12px 6px 10px !important; font: 600 14px/1 var(--sans) !important; border-radius: 999px !important; margin-top: 6px; line-height: 1 !important; }
+html body .bk-via > span:first-child { display: inline-grid; place-items: center; width: 14px; height: 14px; line-height: 0; }
+html body .bk-via .ico { width: 14px !important; height: 14px !important; display: block; }
+html body .bk-via b { font-weight: 750 !important; }

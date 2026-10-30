@@ -110,7 +110,7 @@ export async function render(root, { sub = '' } = {}) {
     const lec = (href, ic, t, sub, c) => h('a', { class: 'ub-lec', href, style: { '--l1': c[0], '--l2': c[1] } }, h('span', { class: 'ub-leci', html: ic }), h('span', { class: 'ub-lect' }, h('b', {}, t), h('small', {}, sub)), h('span', { class: 'ub-lecg', html: ico('right') }));
     const YT = '<svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"/><path d="M10 9v6l5-3z" fill="#d63031"/></svg>';
     const lecRow = h('div', { class: 'ub-lecs' }, h('div', { class: 'ub-lech' }, L('Aus der Vorlesung', 'From the lecture')),
-      lec('#/app/mitschrift', ico('pen'), L('Live mitschreiben', 'Live notes'), L('In der Vorlesung tippen oder Tafel fotografieren – Max macht daraus eine saubere Mitschrift.', 'Type in the lecture or snap the board – Max turns it into clean notes.'), ['#7a8cf7', '#3f4fd6']),
+      lec('#/app/mitschrift', ico('pen'), L('Mitschrift erstellen', 'Create notes'), L('In der Vorlesung tippen oder Tafel fotografieren – Max macht daraus eine saubere Mitschrift.', 'Type in the lecture or snap the board – Max turns it into clean notes.'), ['#7a8cf7', '#3f4fd6']),
       lec('#/app/video', YT, L('YouTube-Video → Lernstoff', 'YouTube video → study material'), L('Link rein – Transkript, Lernzettel, Karteikarten und Quiz raus.', 'Paste a link – get transcript, study sheet, flashcards and quiz.'), ['#ff6b6b', '#d63031']));
     const guide = h('aside', { class: 'ub-guide' }, hero);
     const SECS = [

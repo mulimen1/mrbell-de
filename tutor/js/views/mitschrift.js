@@ -81,7 +81,7 @@ function editor(wrap, doc) {
     location.hash = '#/app/mitschrift/neu-' + Date.now().toString(36);
   } }, h('span', { html: ico('plus') }), L('Neue Mitschrift', 'New note'));
   const headL = h('div', { class: 'ms-hl' },
-    h('div', { class: 'ms-ht' }, h('div', { class: 'eyebrow' }, L('Live-Mitschrift', 'Live notes')), h('h2', { class: 'ms-h2' }, L('Schreib einfach mit. ', 'Just take notes. '), h('span', {}, L('Max macht’s sauber.', 'Max makes it clean.'))), h('div', { class: 'ms-hbtns' }, listBtn, saveBtn, newBtn)),
+    h('div', { class: 'ms-ht' }, h('div', { class: 'eyebrow' }, L('Mitschrift', 'Notes')), h('h2', { class: 'ms-h2' }, L('Schreib einfach mit. ', 'Just take notes. '), h('span', {}, L('Max macht’s sauber.', 'Max makes it clean.'))), h('div', { class: 'ms-hbtns' }, listBtn, saveBtn, newBtn)),
       h('p', { class: 'ms-hp' }, L('Tipp in der Vorlesung drauflos oder fotografier Notizen und Tafel. Max macht daraus eine saubere Mitschrift – in Schreibschrift oder Druckschrift, mit Skizzen.', 'Type away during the lecture or snap your notes and the board. Max turns it into clean notes – in cursive or print, with sketches.')));
   const head = h('div', { class: 'ms-head' }, headL);
   { const sw = msSwitch('live'); if (sw) headL.prepend(sw); }
@@ -183,7 +183,7 @@ function editor(wrap, doc) {
   const vidIn = h('input', { type: 'file', accept: 'video/*,audio/*,.mp4,.mov,.m4a,.mp3,.wav,.webm', class: 'sr' });
   const vid = h('label', { class: 'ms-cam ms-vid', title: L('Vorlesungsvideo oder Aufnahme – wird zur sauberen Mitschrift', 'Lecture video or recording – becomes clean notes') }, vidIn, h('span', { html: '<svg class="ico" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="m16 10.5 5-3v9l-5-3z"/></svg>' }), h('span', { class: 'ms-camt' }, h('b', {}, L('Video', 'Video')), h('small', {}, L('Vorlesung oder Aufnahme', 'lecture or recording'))));
   vidIn.addEventListener('change', () => { const f = vidIn.files[0]; vidIn.value = ''; if (f) fromVideo(f); });
-  const palBtn = h('button', { type: 'button', class: 'ms-tb ms-palb', 'aria-expanded': 'false', onclick: () => { const open = !ed.classList.contains('pal-open'); ed.classList.toggle('pal-open', open); palBtn.setAttribute('aria-expanded', String(open)); } }, h('b', {}, 'Σ→'), L('Zeichen & Formen', 'Symbols'));
+  const palBtn = h('button', { type: 'button', class: 'ms-tb ms-palb', 'aria-expanded': 'false', onclick: () => { const open = !ed.classList.contains('pal-open'); if (open && ed.classList.contains('draw-on')) { toast(L('Zeichen & Formen gehen nicht, solange „Zeichnen“ an ist – beende erst das Zeichnen.', 'Symbols don’t work while drawing is on – stop drawing first.')); return; } ed.classList.toggle('pal-open', open); palBtn.setAttribute('aria-expanded', String(open)); } }, h('b', {}, 'Σ→'), L('Zeichen & Formen', 'Symbols'));
   const blattBtn = h('button', { type: 'button', class: 'ms-tb', 'aria-expanded': 'false', onclick: () => { bp.hidden = !bp.hidden; blattBtn.setAttribute('aria-expanded', String(!bp.hidden)); } }, h('i', { class: 'ms-swatch' }), L('Blatt', 'Paper'));
   const tools = h('div', { class: 'ms-tools', role: 'toolbar', 'aria-label': L('Werkzeuge', 'Tools') }, cam, vid,
     h('button', { type: 'button', class: 'ms-tb', onmousedown: e => e.preventDefault(), onclick: () => toggleBullet(ta, changed) }, h('b', {}, '•'), L('Liste', 'List')),
