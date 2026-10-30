@@ -3,7 +3,7 @@
 export const FAKTEN = [
  {
   "id": "selbst-geschaffene-marke",
-  "muster": "selbst (?:geschaffen|erstellt)\\w*[^.]{0,80}Marken[^.]{0,80}(?:aktiviert werden (?:dürfen|können)|aktivierbar|ausgewiesen werden (?:dürfen|können)|dürfen[^.]{0,30}aktiviert)",
+  "muster": "(?:dürfen|darf|können|kann)[^.]{0,30}selbst (?:geschaffen|erstellt)\\w*[^.]{0,60}Marken[^.]{0,60}aktiviert|selbst (?:geschaffen|erstellt)\\w*[^.]{0,80}Marken[^.]{0,80}(?:aktiviert werden (?:dürfen|können)|aktivierbar|ausgewiesen werden (?:dürfen|können)|dürfen[^.]{0,30}aktiviert)",
   "kontext": null,
   "ausser": "\\bnicht\\b|\\bkein|Verbot|verboten|ausgenommen|IFRS|IAS",
   "richtig": "Selbst geschaffene Marken, Drucktitel, Verlagsrechte, Kundenlisten u. Ä. des Anlagevermögens dürfen nach HGB nicht aktiviert werden (§ 248 Abs. 2 S. 2 HGB).",
