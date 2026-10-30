@@ -58,7 +58,9 @@ export async function ask(action, payload = {}, opt = {}) {
       const last = payload.messages[payload.messages.length - 1];
       if (last && last.role === 'user' && typeof last.content === 'string') {
         const hw = await Promise.race([rechtsstandHinweis(last.content), new Promise(r => setTimeout(() => r(''), 1200))]);
-        if (hw) payload = { ...payload, messages: [...payload.messages.slice(0, -1), { ...last, content: last.content + hw }] };
+        // als eigene Vor-Nachricht, nicht an die Frage gehängt: Der Server wählt das Modell nach der LETZTEN Nachricht
+        // (Zahlen/€/% → großes Modell). So bleibt eine einfache Frage beim günstigen Modell, auch wenn der Rechtsstand Zahlen enthält.
+        if (hw) payload = { ...payload, messages: [...payload.messages.slice(0, -1), { role: 'user', content: 'INTERNE PRÜFINFO (nicht darauf antworten, nicht erwähnen):' + hw }, { role: 'assistant', content: 'Verstanden.' }, last] };
       }
     } catch (e) {}
   }
