@@ -8745,3 +8745,5 @@ html body .tn-face.tn-face-img { padding: 0 !important; background: #fff !import
 html body .tn-face.tn-face-img img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 /* Max trägt standardmäßig die blaue Jacke (wie im Icon) – auch ohne gewählte Farbe */
 html[data-nv][data-outfit="std"] .fz-collar image, html[data-nv]:not([data-outfit]):not([data-accent]) .fz-collar image, html:not([data-nv]) .fz-collar image { filter: none !important; }
+/* Tafel offen: kein Verlauf-Knopf links neben der Eingabe (der Verlauf ist dann ohnehin sichtbar, der Knopf ragte über den Rand) */
+html body .room:is(.has-board, .dock-side) .rm-dock > .rm-sugg { display: none !important; }
