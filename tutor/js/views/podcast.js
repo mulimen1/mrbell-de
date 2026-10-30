@@ -5,7 +5,7 @@ import { h, ico, uid, toast, modal, ls } from '../util.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
+import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ, merkePruefung, siegelOben } from '../ui.js';
 import { SPICE, getSpice } from '../max.js';
 import { getOutLang, setOutLang, L } from '../i18n.js';
 import { autoOpts, srcPicker, goSource, wishHint } from '../create.js';
@@ -116,6 +116,7 @@ async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), m
     const lines = (r.data?.lines || []).filter(l => l && l.t).map(l => ({ s: /max/i.test(l.s) ? 'Max' : 'Lisa', t: String(l.t) }));
     if (lines.length < 4) throw new Error(L('Die Folge ist nicht vollständig angekommen. Versuch es nochmal.', 'The episode didn’t arrive completely. Please try again.'));
     const p = { id: uid(), title: r.data.title || L('Folge', 'Episode'), lines, created: Date.now(), lang: plang, voice: mvoice, len, tone, focus: ch ? ch.title : null, real: true, audio: [] };
+    merkePruefung(p, r.rechenpruefung);
     doc.podcasts.push(p); save(doc);
     ld.stop(); player(wrap, ctx, p); freshen(wrap); savedToast('podcasts');
   } catch (e) { ld.stop(false); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, len, focus, tone, plang, mvoice)); }
@@ -123,6 +124,7 @@ async function generate(wrap, ctx, len, focus, tone = 2, plang = getOutLang(), m
 
 function player(wrap, ctx, p) {
   const { doc } = ctx;
+  siegelOben(wrap, p, () => save(doc));
   const V = pickVoices();
   p.audio ||= [];
   let idx = 0, playing = false, rate = 1, token = 0;
