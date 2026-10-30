@@ -13,7 +13,7 @@ export const FAKTEN = [
   "id": "kleinunternehmer-grenze",
   "muster": "(?:22\\.000|22 000|22\\.000,00)\\s*(?:€|Euro)|(?<![\\d.])50\\.000\\s*(?:€|Euro)[^.]{0,80}(?:laufend|voraussichtlich)",
   "kontext": "Kleinunternehmer|§\\s*19 UStG",
-  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|\\bfrüher\\b|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
   "richtig": "Kleinunternehmer (§ 19 UStG, seit 1.1.2025): Vorjahresumsatz höchstens 25.000 €, im laufenden Jahr höchstens 100.000 €.",
   "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__19.html"
  },
@@ -21,9 +21,17 @@ export const FAKTEN = [
   "id": "degressive-afa",
   "muster": "(?:2,5-fache|zweieinhalbfache|höchstens 25\\s*%|maximal 25\\s*%)(?:[^.]|\\.(?=\\s*\\d)|(?:Abs|Nr|S|bzw|ggf|vgl)\\.|\\.\\s+(?:Der|Die|Das) (?:Satz|AfA|Höchstsatz|Prozentsatz)){0,160}degressiv|degressiv(?:[^.]|\\.(?=\\s*\\d)|(?:Abs|Nr|S|bzw|ggf|vgl)\\.|\\.\\s+(?:Der|Die|Das) (?:Satz|AfA|Höchstsatz|Prozentsatz)){0,200}(?:2,5-fache|zweieinhalbfache|höchstens 25\\s*%|maximal 25\\s*%)",
   "kontext": null,
-  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|\\bfrüher\\b|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
   "richtig": "Degressive AfA (§ 7 Abs. 2 EStG): für bewegliche Wirtschaftsgüter mit Anschaffung 1.7.2025–31.12.2027 höchstens das Dreifache des linearen Satzes, maximal 30 %.",
   "quelle": "https://www.gesetze-im-internet.de/estg/__7.html"
+ },
+ {
+  "id": "offenlegung-dirug",
+  "muster": "(?:beim|an den|dem|den) Betreiber des (?:elektronischen )?Bundesanzeigers|im (?:elektronischen )?Bundesanzeiger (?:offenleg|veröffentlich|einreich)\\w*",
+  "kontext": "Offenleg|offenleg|§\\s*325|Jahresabschluss",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|\\bfrüher\\b|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|2021|DiRUG|Unternehmensregister",
+  "richtig": "Offenlegung (§ 325 HGB, seit Geschäftsjahren ab 1.1.2022 / DiRUG): Der Jahresabschluss wird an die das Unternehmensregister führende Stelle übermittelt und dort öffentlich zugänglich – nicht mehr im Bundesanzeiger.",
+  "quelle": "https://www.gesetze-im-internet.de/hgb/__325.html"
  },
  {
   "id": "gwg-1000",
@@ -37,7 +45,7 @@ export const FAKTEN = [
   "id": "kleinunternehmer-voraussichtlich",
   "muster": "voraussichtlich\\w*[^.]{0,80}100\\.000\\s*(?:€|Euro)|100\\.000\\s*(?:€|Euro)[^.]{0,40}voraussichtlich",
   "kontext": "Kleinunternehmer|§\\s*19 UStG",
-  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|\\bfrüher\\b|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
   "richtig": "Kleinunternehmer (§ 19 UStG, seit 1.1.2025): Vorjahresumsatz höchstens 25.000 € und der tatsächliche Umsatz im laufenden Jahr höchstens 100.000 € – beim Überschreiten endet die Regelung sofort (keine Prognose mehr).",
   "quelle": "https://www.gesetze-im-internet.de/ustg_1980/__19.html"
  },
@@ -45,7 +53,7 @@ export const FAKTEN = [
   "id": "gwg-alt",
   "muster": "(?:410|150)\\s*(?:€|Euro)[^.]{0,80}(?:GWG|geringwertig|Sofortabschreibung)|(?:GWG|geringwertig)[^.]{0,80}(?:410|150)\\s*(?:€|Euro)",
   "kontext": null,
-  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Sammelposten|250",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|\\bfrüher\\b|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Sammelposten|250",
   "richtig": "GWG (§ 6 Abs. 2 EStG): Sofortabschreibung bis 800 € netto; Sammelposten (§ 6 Abs. 2a EStG) für 250,01–1.000 € über 5 Jahre.",
   "quelle": "https://www.gesetze-im-internet.de/estg/__6.html"
  },
@@ -53,7 +61,7 @@ export const FAKTEN = [
   "id": "aufbewahrung-belege",
   "muster": "(?:Buchungsbeleg|Belege|Rechnungen)[^.]{0,80}10 Jahre|10 Jahre[^.]{0,60}(?:Buchungsbeleg|Belege)",
   "kontext": null,
-  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Bücher|Jahresabschl|Inventar|Bilanz",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|\\bfrüher\\b|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Bücher|Jahresabschl|Inventar|Bilanz",
   "richtig": "Aufbewahrung (§ 257 HGB, § 147 AO, seit 1.1.2025): Buchungsbelege 8 Jahre; Handelsbücher, Inventare, Jahresabschlüsse 10 Jahre; Handels- und Geschäftsbriefe 6 Jahre.",
   "quelle": "https://www.gesetze-im-internet.de/hgb/__257.html"
  },
@@ -61,7 +69,7 @@ export const FAKTEN = [
   "id": "kst-satz",
   "muster": "Körperschaftsteuer(?:satz)?[^.]{0,60}(?:25|30)\\s*%",
   "kontext": null,
-  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Gesamt|inkl|einschließlich|Gewerbe|zusammen|rund 30|ca\\. 30|etwa 30",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|\\bfrüher\\b|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Gesamt|inkl|einschließlich|Gewerbe|zusammen|rund 30|ca\\. 30|etwa 30",
   "richtig": "Körperschaftsteuer 15 % (§ 23 KStG) bis 2027, ab 2028 jährlich 1 Prozentpunkt weniger bis 10 % ab 2032; zzgl. 5,5 % Soli. Mit Gewerbesteuer ca. 30 % Gesamtbelastung.",
   "quelle": "https://www.gesetze-im-internet.de/kstg_1977/__23.html"
  },
@@ -77,7 +85,7 @@ export const FAKTEN = [
   "id": "groessenklassen-alt",
   "muster": "(?:6\\.000\\.000|6 Mio\\.?|12\\.000\\.000|12 Mio\\.?|20\\.000\\.000|20 Mio\\.?|40\\.000\\.000|40 Mio\\.?|350\\.000|700\\.000)\\s*(?:€|Euro)?",
   "kontext": "§\\s*267|Größenklasse|kleine Kapitalgesellschaft|mittelgroße|Kleinstkapitalgesellschaft",
-  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Umsatzerlöse von 40|Arbeitnehmer",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|\\bfrüher\\b|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona|Umsatzerlöse von 40|Arbeitnehmer",
   "richtig": "§ 267/267a HGB (seit GJ 2024): Kleinst ≤ 450.000 € Bilanzsumme, ≤ 900.000 € Umsatz, ≤ 10 AN; klein ≤ 7,5 Mio. €, ≤ 15 Mio. €, ≤ 50 AN; mittel ≤ 25 Mio. €, ≤ 50 Mio. €, ≤ 250 AN (je 2 von 3 Merkmalen).",
   "quelle": "https://www.gesetze-im-internet.de/hgb/__267.html"
  },
@@ -149,7 +157,7 @@ export const FAKTEN = [
   "id": "mindestlohn",
   "muster": "Mindestlohn[^.]{0,60}(?:12,41|12,82|12,00|10,45|9,82)\\s*€",
   "kontext": null,
-  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|früher|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
+  "ausser": "\\bvorher\\b|\\bzuvor\\b|bis (?:Ende )?20(?:1\\d|2[0-4])|vor 202[45]|\\bfrüher\\b|alt(?:e|en)? (?:Grenze|Regel|Fassung)|bisher|ehemals|damals|von 20\\d\\d bis|20(?:20|21|22) (?:bis|und)|Corona",
   "richtig": "Gesetzlicher Mindestlohn: 13,90 € je Stunde ab 1.1.2026, 14,60 € ab 1.1.2027.",
   "quelle": "Mindestlohngesetz, Anpassung auf Vorschlag der Mindestlohnkommission (BMAS)"
  },
