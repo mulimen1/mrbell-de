@@ -8766,3 +8766,21 @@ html:root[data-nv] body .xl-catbig.xl-searching .chip[data-cat].on::before { bac
 html:root[data-nv] body .xl-catbig.xl-searching .chip[data-cat].on .xl-cn { background: color-mix(in srgb, var(--xc2) 12%, #fff); color: var(--xc2); }
 html body .xl-hits { margin: -6px 0 12px; font: 650 14.5px var(--sans); color: #3d3a35; }
 @media (max-width: 600px) { html:root[data-nv] body .xl-catbig .chip[data-cat] { height: 44px !important; font-size: 14.5px !important; } html body .xl-total > b { font-size: 40px; } html body .xl-total > span { font-size: 16px; } }
+/* Excel: ruhiger – Zahl schwarz, Text einheitlich, Umschalter dezenter, kleine Punkte */
+html:root body .xl-total { gap: 14px; margin: 2px 0 14px; }
+html:root body .xl-total > b { font: 800 40px/1 var(--sans) !important; letter-spacing: -.03em; background: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; color: #17151a !important; -webkit-text-fill-color: #17151a !important; text-shadow: none !important; }
+html:root body .xl-total > span { font: 750 18px/1.25 var(--sans) !important; color: #1D6F42 !important; -webkit-text-fill-color: #1D6F42 !important; text-shadow: none !important; background: none !important; -webkit-mask-image: none !important; mask-image: none !important; }
+html:root body .xl-total > span small { font: 500 14px/1.35 var(--sans) !important; color: #5f5b66 !important; -webkit-text-fill-color: #5f5b66 !important; background: none !important; padding: 0 !important; box-shadow: none !important; border: 0 !important; text-shadow: none !important; }
+html body .xl-tabs .xl-tab { height: 48px !important; padding: 0 18px 0 6px !important; gap: 10px !important; font-size: 16px !important; font-weight: 700 !important; }
+html body .xl-tabs .xl-tab > span { width: 36px !important; height: 36px !important; box-shadow: none !important; }
+html body .xl-tabs .xl-tab > span .ico { width: 17px !important; height: 17px !important; }
+html body .xl-tabs .xl-tab:not(.on) { box-shadow: inset 0 0 0 1.5px rgba(0,0,0,.08) !important; }
+html body .xl-tabs .xl-tab:not(.on) > span { background: color-mix(in srgb, var(--a2) 12%, #fff) !important; color: var(--a2) !important; }
+html body .xl-tabs .xl-tab:not(.on) > span .ico { color: var(--a2) !important; }
+html body .xl-tabs .xl-tab.on { background: var(--a2) !important; box-shadow: 0 8px 18px -14px var(--a2) !important; transform: none !important; }
+html body .xl-tabs .xl-tab.xl-tr { --a2: #2a7d4f; } html body .xl-tabs .xl-tab:not(.xl-tr) { --a2: #2f6fd6; }
+html body .xl-tabs .xl-tab.on > span { background: rgba(255,255,255,.18) !important; }
+html body .xl-tabs .xl-tab .xl-new { box-shadow: none !important; height: 22px !important; font-size: 11.5px !important; }
+html body .xl-tabs .xl-tab.on::after { width: 6px !important; height: 6px !important; box-shadow: none !important; margin-left: 0 !important; opacity: .9; }
+html body .xl-tabs { box-shadow: inset 0 0 0 1px rgba(0,0,0,.06) !important; }
+html:root[data-nv] body .xl-catbig .chip[data-cat].on::before { width: 8px !important; height: 8px !important; box-shadow: none !important; }
