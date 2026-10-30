@@ -8726,3 +8726,6 @@ html body .xl-tabs .xl-tab.on::after { content: ""; width: 9px; height: 9px; mar
 html[data-theme="dark"] body .xl-tabs { background: rgba(20,22,27,.8) !important; } html[data-theme="dark"] body .xl-tabs .xl-tab:not(.on) { background: #15171c !important; color: #e8ebf2 !important; }
 @media (prefers-color-scheme: dark) { html:not([data-theme="light"]) body .xl-tabs { background: rgba(20,22,27,.8) !important; } html:not([data-theme="light"]) body .xl-tabs .xl-tab:not(.on) { background: #15171c !important; color: #e8ebf2 !important; } }
 @media (max-width: 600px) { html body .xl-tabs .xl-tab { height: 50px !important; font-size: 15px !important; padding: 0 12px 0 6px !important; gap: 8px !important; } html body .xl-tabs .xl-tab > span { width: 36px; height: 36px; } html body .xl-tabs .xl-tab.on::after { display: none; } }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more { border-color: #3b82f6 !important; color: #1d4ed8 !important; box-shadow: 0 8px 18px -14px #1d4ed8 !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more:hover { background: #eff5ff !important; }
+html:root[data-nv][data-nv][data-nv][data-nv][data-nv] body .vt-modal .row .vt-more .vt-moreg { background: linear-gradient(135deg, #4f8ff7, #1d4ed8) !important; }
