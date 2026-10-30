@@ -1,0 +1,131 @@
+{
+ "thema": "handelskalkulation",
+ "name": "Handelskalkulation",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "handelskalkulation-1",
+   "art": "definition",
+   "aussage": "Die Warenkalkulation ermittelt den Verkaufspreis einer Ware im Handel; Ausgangsbasis ist der Einstandspreis, hinzu kommt die Handelsspanne, die Selbstkosten und Gewinn abdecken soll.",
+   "schlagworte": [
+    "Handelskalkulation",
+    "Einstandspreis"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Warenkalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/warenkalkulation-50848",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-2",
+   "art": "methode",
+   "aussage": "Progressive Kalkulation (Vorwärtskalkulation, Absatzkalkulation): Ausgang ist der Einstandspreis, Ergebnis der mindestens zu erzielende Verkaufspreis.",
+   "schlagworte": [
+    "Vorwärtskalkulation",
+    "progressiv"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Warenkalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/warenkalkulation-50848",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-3",
+   "art": "methode",
+   "aussage": "Retrograde Kalkulation (Rückwärts- bzw. Bezugskalkulation): Ausgang ist der vorgegebene Verkaufspreis, Ergebnis der maximal zu zahlende Einkaufspreis; es kann dasselbe Schema verwendet werden.",
+   "schlagworte": [
+    "Rückwärtskalkulation",
+    "retrograd"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Warenkalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/warenkalkulation-50848",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelskalkulation-4",
+   "art": "methode",
+   "aussage": "Schema der Vorwärtskalkulation: Listeneinkaufspreis - Liefererrabatt = Zieleinkaufspreis; - Liefererskonto = Bareinkaufspreis; + Bezugskosten = Bezugs-/Einstandspreis; + Handlungskosten = Selbstkosten; + Gewinn = Barverkaufspreis; + Kundenskonto und Vertreterprovision = Zielverkaufspreis; + Kundenrabatt = Nettoverkaufspreis; + Umsatzsteuer = Bruttoverkaufspreis.",
+   "schlagworte": [
+    "Kalkulationsschema",
+    "Bezugspreis",
+    "Selbstkosten"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "handelskalkulation-5",
+   "art": "methode",
+   "aussage": "Handlungskostenzuschlag und Gewinnzuschlag werden in Prozent angegeben; die Handlungskosten beziehen sich auf den Bezugspreis, der Gewinn auf die Selbstkosten.",
+   "schlagworte": [
+    "Handlungskostenzuschlag",
+    "Gewinnzuschlag"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "handelskalkulation-6",
+   "art": "methode",
+   "aussage": "Kundenskonto und Kundenrabatt werden „vom Hundert“ gerechnet: Sie beziehen sich auf den jeweils höheren Preis (Zielverkaufspreis bzw. Nettoverkaufspreis = 100 %), daher Barverkaufspreis = Zielverkaufspreis \\cdot (1 - Skontosatz) usw.",
+   "schlagworte": [
+    "Skonto",
+    "Rabatt",
+    "vom Hundert"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "handelskalkulation-7",
+   "art": "gesetz",
+   "aussage": "Die Umsatzsteuer beträgt im Regelfall 19 % des Nettobetrags, für bestimmte Umsätze ermäßigt 7 %: Bruttoverkaufspreis = Nettoverkaufspreis \\cdot 1{,}19 bzw. \\cdot 1{,}07.",
+   "schlagworte": [
+    "Umsatzsteuer",
+    "Regelsteuersatz",
+    "7 Prozent"
+   ],
+   "quelle": {
+    "name": "UStG § 12 Abs. 1 und 2",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "handelskalkulation-8",
+   "art": "formel",
+   "aussage": "Kalkulationsfaktor = Nettoverkaufspreis / Bezugspreis; der Handelsaufschlag (Kalkulationszuschlag) ergibt sich als Faktor - 1.",
+   "schlagworte": [
+    "Kalkulationsfaktor",
+    "Kalkulationszuschlag"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Der Gewinnzuschlag wird auf den Bezugspreis gerechnet.",
+   "richtig": "Der Gewinnzuschlag bezieht sich auf die Selbstkosten, der Handlungskostenzuschlag auf den Bezugspreis.",
+   "quelle_id": "handelskalkulation-5"
+  },
+  {
+   "falsch": "Kundenskonto wird als Prozentsatz auf den Barverkaufspreis aufgeschlagen.",
+   "richtig": "Kundenskonto und -rabatt werden vom Hundert gerechnet: Bezugsbasis ist der jeweils höhere Preis (Ziel- bzw. Nettoverkaufspreis = 100 %).",
+   "quelle_id": "handelskalkulation-6"
+  }
+ ]
+}

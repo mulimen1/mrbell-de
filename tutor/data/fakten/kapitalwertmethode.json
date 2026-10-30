@@ -1,0 +1,122 @@
+{
+ "thema": "kapitalwertmethode",
+ "name": "Kapitalwertmethode",
+ "kat": "Investition",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "kapitalwertmethode-1",
+   "art": "definition",
+   "aussage": "Die Kapitalwertmethode zinst alle mit einer Investition verbundenen Ein- und Auszahlungen auf einen Bezugszeitpunkt ab; die Summe ist der Kapitalwert.",
+   "schlagworte": [
+    "Kapitalwert",
+    "Abzinsung",
+    "NPV"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kapitalwertmethode",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalwertmethode-37780",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kapitalwertmethode-2",
+   "art": "methode",
+   "aussage": "Absolute Vorteilhaftigkeit: Ein Projekt ist vorteilhaft, wenn der Kapitalwert positiv ist. Relative Vorteilhaftigkeit: Bei mehreren Alternativen wird das Projekt mit dem höheren positiven Kapitalwert bevorzugt.",
+   "schlagworte": [
+    "Entscheidungsregel",
+    "positiver Kapitalwert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kapitalwertmethode",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalwertmethode-37780",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kapitalwertmethode-3",
+   "art": "formel",
+   "aussage": "KW_0 = -I_0 + \\sum_{t=1}^{n} C_t (1+i)^{-t} + R_n (1+i)^{-n}; I_0 Anschaffungsausgabe, C_t Einzahlungsüberschuss in t, i Kalkulationszinssatz, n Nutzungsdauer, R_n Restwert.",
+   "schlagworte": [
+    "Formel",
+    "Restwert",
+    "Einzahlungsüberschuss"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kapitalwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalwert-39806",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kapitalwertmethode-4",
+   "art": "methode",
+   "aussage": "Bei positivem Kapitalwert wird mehr als die geforderte Mindestverzinsung erzielt, bei negativem Kapitalwert wird sie verfehlt.",
+   "schlagworte": [
+    "Mindestverzinsung",
+    "Interpretation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kapitalwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalwert-39806",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kapitalwertmethode-5",
+   "art": "definition",
+   "aussage": "Der Kalkulationszinssatz folgt dem Opportunitätskostenprinzip: Maßgeblich ist die Rendite der besten alternativen Kapitalverwendung des Investors; in der Praxis oft eine risikoäquivalente Kapitalmarktanlage (Ableitung z. B. über CAPM oder WACC).",
+   "schlagworte": [
+    "Kalkulationszinssatz",
+    "Opportunitätskosten",
+    "CAPM",
+    "WACC"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kalkulationszinssatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulationszinssatz-39911",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kapitalwertmethode-6",
+   "art": "abgrenzung",
+   "aussage": "Stärke: zahlungs- und zukunftsorientiert, Standardverfahren. Grenze: hoher Aufwand für Zahlungsprognosen und die Ableitung des Kalkulationszinssatzes.",
+   "schlagworte": [
+    "Kritik",
+    "Prognose"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kapitalwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalwert-39806",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kapitalwertmethode-7",
+   "art": "abgrenzung",
+   "aussage": "Der Kapitalwert ist ein absoluter Betrag in Geldeinheiten (Vermögenszuwachs); der interne Zinsfuß ist dagegen eine Rendite in Prozent.",
+   "schlagworte": [
+    "Kapitalwert",
+    "Vermögenszuwachs"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Ein Kapitalwert von null bedeutet, dass sich die Investition nicht lohnt, weil kein Gewinn entsteht.",
+   "richtig": "Bei KW = 0 wird genau die Mindestverzinsung erzielt; das Projekt ist (gerade noch) akzeptabel, aber indifferent.",
+   "quelle_id": "kapitalwertmethode-4"
+  },
+  {
+   "falsch": "Die Anschaffungsausgabe wird mit abgezinst wie die Rückflüsse.",
+   "richtig": "Die Anschaffungsausgabe fällt in t = 0 an und wird nicht abgezinst (Abzinsungsfaktor 1).",
+   "quelle_id": "kapitalwertmethode-3"
+  }
+ ]
+}

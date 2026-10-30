@@ -1,0 +1,100 @@
+{
+ "thema": "eigenkapitalrentabilitaet",
+ "name": "Eigenkapitalrentabilität",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "eigenkapitalrentabilitaet-1",
+   "art": "definition",
+   "aussage": "Die Eigenkapitalrentabilität (Eigenkapitalrendite) gibt an, mit welcher Rate das in der Periode eingesetzte Eigenkapital verzinst wird.",
+   "schlagworte": [
+    "Eigenkapitalrentabilität",
+    "Eigenkapitalrendite",
+    "Verzinsung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rentabilität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rentabilitaet-45028",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "eigenkapitalrentabilitaet-2",
+   "art": "formel",
+   "aussage": "Vor Steuern: EKR = \\frac{\\text{Erfolg nach Zinsen, vor Steuern}}{\\text{Eigenkapital}}; nach Steuern: EKR = \\frac{\\text{Erfolg nach Zinsen und Steuern}}{\\text{Eigenkapital}}",
+   "schlagworte": [
+    "EKR",
+    "vor Steuern",
+    "nach Steuern"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rentabilität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rentabilitaet-45028",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "eigenkapitalrentabilitaet-3",
+   "art": "abgrenzung",
+   "aussage": "Im Zähler der Eigenkapitalrentabilität stehen die Fremdkapitalzinsen bereits als Aufwand abgezogen; bei der Gesamtkapitalrentabilität bleiben sie im Erfolg enthalten.",
+   "schlagworte": [
+    "Fremdkapitalzinsen",
+    "Zähler"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rentabilität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rentabilitaet-45028",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "eigenkapitalrentabilitaet-4",
+   "art": "abgrenzung",
+   "aussage": "Der Zusammenhang zwischen Eigenkapitalrentabilität, Gesamtkapitalrentabilität und Fremdkapitalzins wird durch den Leverage-Effekt beschrieben: r_G > i erhöht die EKR bei steigender Verschuldung, r_G < i senkt sie.",
+   "schlagworte": [
+    "Leverage-Effekt",
+    "Gesamtkapitalrentabilität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Leverage-Effekt",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/leverage-effekt-37575",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "eigenkapitalrentabilitaet-5",
+   "art": "formel",
+   "aussage": "Bei Verschuldung gilt vereinfacht (ohne Steuern): EKR = r_G + (r_G - i) \\cdot \\frac{FK}{EK}",
+   "schlagworte": [
+    "Leverage-Formel",
+    "FK/EK"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "eigenkapitalrentabilitaet-6",
+   "art": "abgrenzung",
+   "aussage": "In der Erfolgsanalyse zählt die Eigenkapitalrentabilität neben Gesamtkapital- und Umsatzrentabilität zu den zentralen Rentabilitätskennzahlen und wird im Zeit- und Betriebsvergleich beurteilt.",
+   "schlagworte": [
+    "Bilanzanalyse",
+    "Betriebsvergleich"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bilanzanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bilanzanalyse-30674",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Im Zähler der Eigenkapitalrentabilität steht der Gewinn vor Zinsen (EBIT).",
+   "richtig": "Die Eigenkapitalrentabilität bezieht den Erfolg nach Zinsen auf das Eigenkapital; der Erfolg vor Zinsen gehört zur Gesamtkapitalrentabilität.",
+   "quelle_id": "eigenkapitalrentabilitaet-3"
+  }
+ ]
+}

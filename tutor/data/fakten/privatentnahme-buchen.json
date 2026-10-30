@@ -1,0 +1,119 @@
+{
+ "thema": "privatentnahme-buchen",
+ "name": "Privatentnahme buchen",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "privatentnahme-buchen-1",
+   "art": "gesetz",
+   "aussage": "Entnahmen sind alle Wirtschaftsgüter (Barentnahmen, Waren, Erzeugnisse, Nutzungen und Leistungen), die der Steuerpflichtige dem Betrieb für sich, seinen Haushalt oder andere betriebsfremde Zwecke entnimmt.",
+   "schlagworte": [
+    "Entnahme",
+    "Nutzungsentnahme",
+    "Sachentnahme"
+   ],
+   "quelle": {
+    "name": "EStG § 4 Abs. 1 Satz 2",
+    "url": "https://www.gesetze-im-internet.de/estg/__4.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "privatentnahme-buchen-2",
+   "art": "gesetz",
+   "aussage": "Einlagen sind Wirtschaftsgüter (Bargeld und sonstige Wirtschaftsgüter), die der Steuerpflichtige dem Betrieb im Laufe des Wirtschaftsjahrs zuführt.",
+   "schlagworte": [
+    "Einlage",
+    "Privateinlage"
+   ],
+   "quelle": {
+    "name": "EStG § 4 Abs. 1 Satz 8",
+    "url": "https://www.gesetze-im-internet.de/estg/__4.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "privatentnahme-buchen-3",
+   "art": "gesetz",
+   "aussage": "Beim Betriebsvermögensvergleich werden Entnahmen dem Unterschied der Betriebsvermögen hinzugerechnet und Einlagen abgezogen; sie beeinflussen den Gewinn also nicht.",
+   "schlagworte": [
+    "Betriebsvermögensvergleich",
+    "Gewinn",
+    "erfolgsneutral"
+   ],
+   "quelle": {
+    "name": "EStG § 4 Abs. 1 Satz 1",
+    "url": "https://www.gesetze-im-internet.de/estg/__4.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "privatentnahme-buchen-4",
+   "art": "formel",
+   "aussage": "Gewinn bei Einzelunternehmen: `Gewinn = EK_{Ende} - EK_{Anfang} + Privatentnahmen - Privateinlagen`.",
+   "schlagworte": [
+    "Gewinnformel",
+    "Eigenkapitalvergleich"
+   ],
+   "quelle": {
+    "name": "EStG § 4 Abs. 1 Satz 1",
+    "url": "https://www.gesetze-im-internet.de/estg/__4.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "privatentnahme-buchen-5",
+   "art": "gesetz",
+   "aussage": "Entnahmen für private Zwecke sind grundsätzlich mit dem Teilwert anzusetzen.",
+   "schlagworte": [
+    "Teilwert",
+    "Sachentnahme"
+   ],
+   "quelle": {
+    "name": "EStG § 6 Abs. 1 Nr. 4",
+    "url": "https://www.gesetze-im-internet.de/estg/__6.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "privatentnahme-buchen-6",
+   "art": "methode",
+   "aussage": "Geldentnahme: Privatentnahmen an Kasse/Bank. Sachentnahme von Waren: Privatentnahmen an Erlöse aus Entnahmen und Umsatzsteuer. Einlage: Kasse/Bank an Privateinlagen. Am Jahresende werden Privatentnahmen und Privateinlagen über das Eigenkapitalkonto abgeschlossen.",
+   "schlagworte": [
+    "Buchungssatz",
+    "Privatkonto",
+    "Eigenkapital"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "privatentnahme-buchen-7",
+   "art": "methode",
+   "aussage": "Entnahmen mindern das Eigenkapital, Einlagen erhöhen es; sie sind weder Aufwand noch Ertrag und erscheinen deshalb nicht in der GuV.",
+   "schlagworte": [
+    "Eigenkapital",
+    "GuV"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Eine Privatentnahme ist Betriebsausgabe und mindert den Gewinn.",
+   "richtig": "Entnahmen sind keine Betriebsausgaben; sie werden dem Gewinn bei der Ermittlung wieder hinzugerechnet und mindern nur das Eigenkapital.",
+   "quelle_id": "privatentnahme-buchen-3"
+  },
+  {
+   "falsch": "Nur Geld kann entnommen werden.",
+   "richtig": "Entnommen werden können auch Waren, Erzeugnisse sowie Nutzungen und Leistungen.",
+   "quelle_id": "privatentnahme-buchen-1"
+  }
+ ]
+}

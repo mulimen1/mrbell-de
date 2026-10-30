@@ -1,0 +1,160 @@
+{
+ "thema": "inflation",
+ "name": "Inflation",
+ "kat": "VWL",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "inflation-1",
+   "art": "definition",
+   "aussage": "Inflation ist ein länger anhaltender Anstieg des Preisniveaus, Deflation ein anhaltender Rückgang.",
+   "schlagworte": [
+    "Inflation",
+    "Deflation",
+    "Preisniveau"
+   ],
+   "quelle": {
+    "name": "Destatis: Verbraucherpreisindex und Inflationsrate",
+    "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Verbraucherpreisindex/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "inflation-2",
+   "art": "formel",
+   "aussage": "Die Inflationsrate ist die prozentuale Veränderung des Verbraucherpreisindex gegenüber dem Vorjahresmonat bzw. Vorjahr: \\pi = (VPI_t - VPI_{t-1}) / VPI_{t-1} \\cdot 100.",
+   "schlagworte": [
+    "Inflationsrate berechnen",
+    "Teuerungsrate"
+   ],
+   "quelle": {
+    "name": "Destatis: Verbraucherpreisindex und Inflationsrate",
+    "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Verbraucherpreisindex/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "inflation-3",
+   "art": "methode",
+   "aussage": "Der VPI misst monatlich die durchschnittliche Preisentwicklung der von privaten Haushalten gekauften Waren und Dienstleistungen; der Warenkorb umfasst rund 700 Güterarten.",
+   "schlagworte": [
+    "Verbraucherpreisindex",
+    "Warenkorb"
+   ],
+   "quelle": {
+    "name": "Destatis: Verbraucherpreisindex und Inflationsrate",
+    "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Verbraucherpreisindex/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "inflation-4",
+   "art": "methode",
+   "aussage": "Das Wägungsschema legt fest, mit welchem Gewicht die Güterarten eingehen; die Gewichte bleiben bis zur nächsten Revision (etwa alle fünf Jahre) konstant. Aktuelle Basis ist 2020 = 100, die Umstellung auf Basis 2025 ist für voraussichtlich 2028 geplant.",
+   "schlagworte": [
+    "Wägungsschema",
+    "Basisjahr"
+   ],
+   "quelle": {
+    "name": "Destatis: Verbraucherpreisindex und Inflationsrate",
+    "url": "https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Verbraucherpreisindex/_inhalt.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "inflation-5",
+   "art": "zahl",
+   "aussage": "Inflationsrate Deutschland September 2026: +3,3 % (VPI gegenüber September 2025), +0,6 % zum Vormonat; Energie +14,9 %, Nahrungsmittel +0,4 %, Dienstleistungen +2,7 % (Destatis, 13.10.2026).",
+   "schlagworte": [
+    "aktuelle Inflationsrate",
+    "September 2026"
+   ],
+   "quelle": {
+    "name": "Destatis, Pressemitteilung Nr. 364 vom 13.10.2026 (Inflationsrate September 2026)",
+    "url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/10/PD26_364_611.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "inflation-6",
+   "art": "zahl",
+   "aussage": "Kerninflation (ohne Nahrungsmittel und Energie) im September 2026: +2,4 %; der HVPI für Deutschland lag ebenfalls bei +3,3 %.",
+   "schlagworte": [
+    "Kerninflation",
+    "HVPI"
+   ],
+   "quelle": {
+    "name": "Destatis, Pressemitteilung Nr. 364 vom 13.10.2026 (Inflationsrate September 2026)",
+    "url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/10/PD26_364_611.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "inflation-7",
+   "art": "abgrenzung",
+   "aussage": "Der HVPI beruht auf denselben Grunddaten wie der VPI, unterscheidet sich aber in Erfassungsbereich, Methodik und Gewichtung; er ist das Maß der EZB für Preisstabilität.",
+   "schlagworte": [
+    "VPI vs. HVPI"
+   ],
+   "quelle": {
+    "name": "Destatis, Pressemitteilung Nr. 364 vom 13.10.2026 (Inflationsrate September 2026)",
+    "url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/10/PD26_364_611.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "inflation-8",
+   "art": "zahl",
+   "aussage": "Die EZB sieht Preisstabilität am besten gewahrt bei einer Inflationsrate von 2 % auf mittlere Sicht (Strategieüberprüfung Juli 2021), gemessen am HVPI des Euroraums.",
+   "schlagworte": [
+    "EZB",
+    "Inflationsziel 2 %"
+   ],
+   "quelle": {
+    "name": "EZB: Geldpolitische Strategie – Preisstabilität (2-%-Ziel)",
+    "url": "https://www.ecb.europa.eu/mopo/strategy/pricestab/html/index.de.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "inflation-9",
+   "art": "definition",
+   "aussage": "Das 2-%-Ziel ist symmetrisch: Abweichungen nach oben und nach unten gelten als gleichermaßen unerwünscht.",
+   "schlagworte": [
+    "Symmetrie",
+    "EZB-Strategie"
+   ],
+   "quelle": {
+    "name": "EZB: Geldpolitische Strategie – Preisstabilität (2-%-Ziel)",
+    "url": "https://www.ecb.europa.eu/mopo/strategy/pricestab/html/index.de.html",
+    "typ": "amtlich"
+   }
+  },
+  {
+   "id": "inflation-10",
+   "art": "definition",
+   "aussage": "Gründe für ein Ziel über null: Sicherheitsabstand zur Deflation wegen der Zinsuntergrenze, Spielraum für Anpassungen (z. B. nach unten starre Löhne) und Ausgleich möglicher Messverzerrungen des Preisindex.",
+   "schlagworte": [
+    "Deflationsrisiko",
+    "Zinsuntergrenze"
+   ],
+   "quelle": {
+    "name": "EZB: Geldpolitische Strategie – Preisstabilität (2-%-Ziel)",
+    "url": "https://www.ecb.europa.eu/mopo/strategy/pricestab/html/index.de.html",
+    "typ": "amtlich"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Inflationsrate ist die Differenz der Indexwerte in Punkten.",
+   "richtig": "Die Inflationsrate ist die prozentuale Veränderung des VPI gegenüber dem Vorjahreszeitraum – man teilt durch den alten Indexwert.",
+   "quelle_id": "inflation-2"
+  },
+  {
+   "falsch": "Die EZB strebt eine Inflation von unter 2 % an.",
+   "richtig": "Seit Juli 2021 gilt ein symmetrisches Ziel von 2 % auf mittlere Sicht; Unterschreitungen sind ebenso unerwünscht wie Überschreitungen.",
+   "quelle_id": "inflation-9"
+  }
+ ]
+}

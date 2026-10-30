@@ -6,7 +6,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save, track } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
+import { loading, apiError, costBtn, moreOpts, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ, merkePruefung, siegelOben } from '../ui.js';
 import { renderQuestion, normalize, TYPE_LABEL, explainPrompt } from '../quiz.js';
 import { feedbackButton } from '../feedback.js';
 import { ls as lsq } from '../util.js';
@@ -105,6 +105,7 @@ async function generate(wrap, ctx, st) {
     const qs = (r.data?.questions || []).map(normalize).filter(Boolean);
     if (qs.length < 2) throw new Error(L('Das Quiz ist nicht vollständig angekommen. Versuch es nochmal.', 'The quiz didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: ch ? ch.title : (r.data.title || 'Quiz'), questions: qs, diff: st.diff, created: Date.now(), results: [] };
+    merkePruefung(quiz, r.rechenpruefung);
     doc.quizzes.push(quiz); save(doc);
     ld.stop(); run(wrap, ctx, quiz); freshen(wrap); savedToast('quiz', 1, { href: `#/app/${doc.id}/quiz/q-${quiz.id}`, base: `#/app/${doc.id}/quiz` });
   } catch (e) { ld.stop(false); overview(wrap, ctx, st.focus); apiError(e, () => generate(wrap, ctx, st)); }
@@ -140,6 +141,7 @@ async function exam(wrap, ctx) {
     const qs = (r.data?.questions || []).map(normalize).filter(Boolean);
     if (qs.length < 4) throw new Error(L('Die Probeklausur ist nicht vollständig angekommen. Versuch es nochmal.', 'The mock exam didn’t arrive completely. Please try again.'));
     const quiz = { id: uid(), title: L('Probeklausur · ', 'Mock exam · ') + new Date().toLocaleDateString(LOCALE), questions: qs, diff: 'Klausur', exam: true, minutes: cfg.minutes, pass: cfg.pass, silent: cfg.silent, created: Date.now(), results: [] };
+    merkePruefung(quiz, r.rechenpruefung);
     doc.quizzes.push(quiz); save(doc);
     ld.stop(); run(wrap, ctx, quiz); freshen(wrap); savedToast('quiz', 1, { href: `#/app/${doc.id}/quiz/q-${quiz.id}`, base: `#/app/${doc.id}/quiz` });
   } catch (e) { ld.stop(false); overview(wrap, ctx); apiError(e, () => exam(wrap, ctx)); }
@@ -147,6 +149,7 @@ async function exam(wrap, ctx) {
 
 function run(wrap, ctx, quiz) {
   const { doc } = ctx;
+  if (!quiz.silent) siegelOben(wrap, quiz, () => save(doc));
   // Rechenaufgaben nochmal gegen den Rechenweg prüfen (auch bei älteren, schon gespeicherten Quizzes)
   const qs = quiz.questions = quiz.questions.map(q => q && q.type === 'num' ? (normalize(q) || q) : q);
   let i = 0;

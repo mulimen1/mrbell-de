@@ -1,0 +1,121 @@
+{
+ "thema": "ebit-ebitda",
+ "name": "EBIT und EBITDA",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "ebit-ebitda-1",
+   "art": "definition",
+   "aussage": "EBIT ist der Gewinn (Ergebnis der gewöhnlichen Geschäftstätigkeit) vor Zinsen bzw. Finanzergebnis und Ertragsteuern (Operating Income). Er zeigt die operative Ertragskraft unabhängig von der Finanzierung und erleichtert den Vergleich von Unternehmen mit unterschiedlicher Verschuldung.",
+   "schlagworte": [
+    "EBIT",
+    "Operating Income",
+    "Ertragskraft"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Earnings before Interest and Taxes (EBIT)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/earnings-interest-and-taxes-ebit-33227",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "ebit-ebitda-2",
+   "art": "abgrenzung",
+   "aussage": "EBIT ähnelt dem in Deutschland üblichen Betriebsergebnis. EBT (Earnings before Taxes) ist dagegen nach Zinsen, aber vor Steuern gemessen.",
+   "schlagworte": [
+    "Betriebsergebnis",
+    "EBT"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Earnings before Interest and Taxes (EBIT)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/earnings-interest-and-taxes-ebit-33227",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "ebit-ebitda-3",
+   "art": "definition",
+   "aussage": "EBITDA ist das Ergebnis vor Zinsen, Steuern sowie Abschreibungen auf Sachanlagen und immaterielle Vermögensgegenstände. Es neutralisiert Unterschiede in Abschreibungspolitik, Verschuldung und Steuereffekten.",
+   "schlagworte": [
+    "EBITDA",
+    "Abschreibungen",
+    "Vergleichbarkeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Earnings before Interest, Taxes, Depreciation and Amortization (EBITDA)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/earnings-interest-taxes-depreciation-and-amortization-ebitda-35471",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "ebit-ebitda-4",
+   "art": "formel",
+   "aussage": "\\text{EBITDA} = \\text{EBIT} + \\text{Abschreibungen auf Sachanlagen und immaterielle Vermögensgegenstände}",
+   "schlagworte": [
+    "Formel",
+    "EBIT",
+    "Abschreibungen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "ebit-ebitda-5",
+   "art": "formel",
+   "aussage": "\\text{EBIT} = \\text{Jahresüberschuss} + \\text{Ertragsteuern} + \\text{Zinsaufwand} - \\text{Zinserträge}\\quad(\\text{vereinfacht})",
+   "schlagworte": [
+    "Formel",
+    "Rückrechnung",
+    "EBT"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "ebit-ebitda-6",
+   "art": "gesetz",
+   "aussage": "Die Bausteine stehen in der GuV nach § 275 Abs. 2 HGB (Gesamtkostenverfahren) einzeln: Abschreibungen (Nr. 7), Zinsen und ähnliche Aufwendungen (Nr. 13), Steuern vom Einkommen und vom Ertrag (Nr. 14), Jahresüberschuss (Nr. 17).",
+   "schlagworte": [
+    "§ 275 HGB",
+    "GuV",
+    "Zinsaufwand"
+   ],
+   "quelle": {
+    "name": "HGB § 275",
+    "url": "https://www.gesetze-im-internet.de/hgb/__275.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "ebit-ebitda-7",
+   "art": "abgrenzung",
+   "aussage": "EBITDA ist keine Zahlungsgröße: Investitionen, Steuerzahlungen und Veränderungen des Working Capital sind darin nicht berücksichtigt; der Cashflow ist als Einzahlungsüberschuss definiert.",
+   "schlagworte": [
+    "Cashflow",
+    "Kritik"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Cashflow",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/cashflow-29173",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "EBITDA entspricht dem Cashflow.",
+   "richtig": "EBITDA ist eine Ergebnisgröße vor Abschreibungen, kein Zahlungsmittelüberschuss; Investitionen, Steuern und Working-Capital-Veränderungen fehlen.",
+   "quelle_id": "ebit-ebitda-7"
+  },
+  {
+   "falsch": "EBIT enthält die Zinsen als Aufwand.",
+   "richtig": "EBIT ist das Ergebnis vor Zinsen und Ertragsteuern.",
+   "quelle_id": "ebit-ebitda-1"
+  }
+ ]
+}

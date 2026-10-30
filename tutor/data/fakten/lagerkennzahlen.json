@@ -1,0 +1,127 @@
+{
+ "thema": "lagerkennzahlen",
+ "name": "Lagerkennzahlen",
+ "kat": "Management",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "lagerkennzahlen-1",
+   "art": "definition",
+   "aussage": "Der Lagerumschlag setzt den bewerteten Absatz bzw. Lagerabgang ins Verhältnis zum durchschnittlichen Lagerbestand; zu unterscheiden sind Lagerdauer, Umschlagsdauer und Umschlagshäufigkeit.",
+   "schlagworte": [
+    "Lagerumschlag"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lagerumschlag",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lagerumschlag-41210",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagerkennzahlen-2",
+   "art": "formel",
+   "aussage": "Umschlagshäufigkeit = \\frac{\\text{Wareneinsatz}}{\\text{Ø Lagerbestand}}, beide zu Einstandspreisen bewertet (alternativ Umsatz zu Einstandspreisen im Zähler).",
+   "schlagworte": [
+    "Umschlagshäufigkeit",
+    "Einstandspreise"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Umschlagshäufigkeit",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/umschlagshaeufigkeit-48647",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagerkennzahlen-3",
+   "art": "formel",
+   "aussage": "Umschlagsdauer = \\frac{\\text{Tage der Periode}}{\\text{Umschlagshäufigkeit}}; bei 365 Tagen und UH = 3 ergeben sich rund 121,67 Tage (in Klausuren wird oft mit 360 Tagen gerechnet). Für ein Lager heißt sie Lagerdauer.",
+   "schlagworte": [
+    "Lagerdauer",
+    "Umschlagsdauer"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Umschlagsdauer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/umschlagsdauer-48354",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagerkennzahlen-4",
+   "art": "definition",
+   "aussage": "Die Lagerdauer gibt an, wie lange eine Ware oder ein Material im Durchschnitt von der Einlagerung bis zur Entnahme im Lager bleibt.",
+   "schlagworte": [
+    "Lagerdauer"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lagerdauer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lagerdauer-41759",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagerkennzahlen-5",
+   "art": "formel",
+   "aussage": "Der durchschnittliche Lagerbestand ist im einfachsten Fall das arithmetische Mittel der Eckbestände, z. B. (AB + EB)/2; genauer sind Mittel aus Monats- oder Quartalsendbeständen, exakt nur das gewogene Mittel aller tatsächlichen Bestände.",
+   "schlagworte": [
+    "Durchschnittsbestand"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Durchschnittsbestand",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/durchschnittsbestand-33671",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagerkennzahlen-6",
+   "art": "formel",
+   "aussage": "Meldebestand = Sicherheitsbestand + erwarteter Verbrauch während der Beschaffungszeit; bei Erreichen wird eine Bestellung ausgelöst.",
+   "schlagworte": [
+    "Meldebestand",
+    "Bestellpunkt"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Meldebestand",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/meldebestand-38266",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagerkennzahlen-7",
+   "art": "definition",
+   "aussage": "Der Sicherheitsbestand (eiserner Bestand) puffert Verbrauchsspitzen, Lieferzeitüberschreitungen und Qualitätsmängel bei Lieferungen ab.",
+   "schlagworte": [
+    "Sicherheitsbestand"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Sicherheitsbestand",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/sicherheitsbestand-46022",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagerkennzahlen-8",
+   "art": "abgrenzung",
+   "aussage": "Bedeutend ist der Lagerumschlag wegen Kapitalbindung und Lagerhaltungskosten (Raum, Zins, Versicherung, Verwaltung, Schwund); ein höherer Umschlag bindet weniger Kapital.",
+   "schlagworte": [
+    "Kapitalbindung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lagerumschlag",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lagerumschlag-41210",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Umschlagshäufigkeit = Umsatz zu Verkaufspreisen / Lagerbestand zu Einstandspreisen.",
+   "richtig": "Zähler und Nenner müssen gleich bewertet sein, also beide zu Einstandspreisen.",
+   "quelle_id": "lagerkennzahlen-2"
+  },
+  {
+   "falsch": "Lagerdauer = 360 / Ø Lagerbestand.",
+   "richtig": "Lagerdauer = Periodentage / Umschlagshäufigkeit.",
+   "quelle_id": "lagerkennzahlen-3"
+  }
+ ]
+}

@@ -1,0 +1,116 @@
+{
+ "thema": "skonto-buchen",
+ "name": "Skonto buchen",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "skonto-buchen-1",
+   "art": "definition",
+   "aussage": "Skonto ist ein Preisnachlass für Zahlung innerhalb einer vereinbarten Frist; er mindert das Entgelt und damit die Bemessungsgrundlage der Umsatzsteuer.",
+   "schlagworte": [
+    "Skonto",
+    "Zahlungsfrist",
+    "Preisnachlass"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "skonto-buchen-2",
+   "art": "gesetz",
+   "aussage": "Wird Skonto in Anspruch genommen, ändert sich die Bemessungsgrundlage: Der Lieferer berichtigt seine Umsatzsteuer, der Empfänger seinen Vorsteuerabzug, jeweils für den Zeitraum der Entgeltminderung.",
+   "schlagworte": [
+    "Steuerkorrektur",
+    "Vorsteuer",
+    "Umsatzsteuer"
+   ],
+   "quelle": {
+    "name": "UStG § 17 Abs. 1 Satz 1 bis 3 und 8",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__17.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "skonto-buchen-3",
+   "art": "gesetz",
+   "aussage": "Einzeln zurechenbare Anschaffungspreisminderungen sind von den Anschaffungskosten abzusetzen.",
+   "schlagworte": [
+    "Anschaffungspreisminderung",
+    "Anschaffungskosten"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "skonto-buchen-4",
+   "art": "formel",
+   "aussage": "Überweisungsbetrag bei Skontoabzug: `Z = B \\cdot (1 - s)` (B = Rechnungsbetrag brutto, s = Skontosatz). Die Umsatzsteuer wird anteilig mitgekürzt: `Z = N \\cdot (1 - s) \\cdot (1 + u)` (N = Nettobetrag, u = Steuersatz).",
+   "schlagworte": [
+    "Skontobetrag",
+    "Zahlbetrag"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "skonto-buchen-5",
+   "art": "formel",
+   "aussage": "Effektiver Jahreszins des Skontos (kaufmännisch 360 Tage): `i = \\frac{s}{1 - s} \\cdot \\frac{360}{ZZ - SF}` (ZZ = Zahlungsziel, SF = Skontofrist in Tagen).",
+   "schlagworte": [
+    "Skonto Effektivzins",
+    "Lieferantenkredit"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "skonto-buchen-6",
+   "art": "methode",
+   "aussage": "Buchung Liefererskonto bei Zahlung: Verbindlichkeiten (voller Betrag) an Bank (Zahlbetrag), Warenbezug bzw. Anlagenkonto/Nachlässe (Netto-Skonto) und Vorsteuer (Steuer-Anteil des Skontos). Kundenskonto: Bank und Erlösschmälerungen und Umsatzsteuer an Forderungen.",
+   "schlagworte": [
+    "Liefererskonto",
+    "Kundenskonto",
+    "Buchung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "skonto-buchen-7",
+   "art": "methode",
+   "aussage": "In Anspruch genommenes Skonto zählt zu den Anschaffungspreisminderungen und mindert die Anschaffungskosten; nicht genutztes Skonto mindert weder Anschaffungskosten noch Umsatzsteuer.",
+   "schlagworte": [
+    "nicht genutztes Skonto",
+    "Anschaffungskosten"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Bei Skontoabzug bleibt die Vorsteuer unverändert.",
+   "richtig": "Skonto ist eine Entgeltminderung, die Vorsteuer (bzw. Umsatzsteuer) muss anteilig berichtigt werden.",
+   "quelle_id": "skonto-buchen-2"
+  },
+  {
+   "falsch": "Auch nicht in Anspruch genommenes Skonto mindert die Anschaffungskosten.",
+   "richtig": "Nur tatsächlich in Anspruch genommenes Skonto ist eine Anschaffungspreisminderung.",
+   "quelle_id": "skonto-buchen-7"
+  }
+ ]
+}

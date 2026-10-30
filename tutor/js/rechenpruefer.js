@@ -302,6 +302,9 @@ function eingabeAlternative(expr, b, tol, kand) {
 }
 
 // Richtiger Wert für ein falsches Ergebnis: alle Lesarten (mit/ohne %, Skala Mio./Mrd.) – nur wenn eine klar am nächsten liegt.
+// Rundungsrichtung („mindestens“, „aufrunden“ …) nur aus demselben Satz ablesen – nicht aus dem nächsten Absatz
+const satzNach = x => String(x || '').split(/<\/p>|<br\s*\/?>|<\/li>|<\/div>|\n|[.!?](?=\s|$)/)[0];
+const satzVor = x => { const p = String(x || '').split(/<\/p>|<p>|<br\s*\/?>|<li>|<div[^>]*>|\n|[.!?](?=\s|$)/); return p[p.length - 1]; };
 function korrWert(vals, lit, scales, umfeld) {
   // natürliche Lesarten: % als /100 auf beiden Seiten (pct, rel) oder % auf beiden Seiten weglassen (weg)
   const [vp, vw, vr] = vals.map(v => (!v || v === 'DIV0') ? null : v);
@@ -407,7 +410,7 @@ function checkTex(tex, ctx, after, derived) {
       // Korrektur: rechte Seite ist eine reine Zahl, links eindeutig gerechnet (Modus pct) → richtigen Wert einsetzen
       const f = { art, text: `${s1.trim()} ${opB} ${s2.trim()}`, start: A.start, end: B.start + s2.length, bvon: B.start, inputs: numKeys(s1), aExpr: A.ex, bWert: B.v.pct && B.v.pct !== 'DIV0' ? B.v.pct : null, bTol: ltol(B.lit, 'pct') };
       if (B.lit) { const lead = s2.match(/^\s*/)[0].length; const nm = /[−-]?\s*\d+(?:(?:\{,\}|[.,])\d+)*/.exec(s2.trimEnd().slice(lead)); if (nm) f.bspan = { start: B.start + lead + nm.index, end: B.start + lead + nm.index + nm[0].length, alt: nm[0] }; }
-      const val = art === 'rechnung-falsch' && B.lit ? korrWert([A.v.pct, A.v.weg, A.v.rel], B.lit, scales, after.slice(0, 80) + ' ' + ctx.slice(-60)) : null;
+      const val = art === 'rechnung-falsch' && B.lit ? korrWert([A.v.pct, A.v.weg, A.v.rel], B.lit, scales, satzNach(after.slice(0, 80)) + ' ' + satzVor(ctx.slice(-60))) : null;
       if (val) {
         const lead = s2.match(/^\s*/)[0].length, body = s2.trimEnd();
         const numM = /[−-]?\s*\d+(?:(?:\{,\}|[.,])\d+)*/.exec(body.slice(lead));
@@ -558,7 +561,7 @@ function checkProse(text, derived) {
       const f = { art, text: text.slice(A.s, B.e), start: A.s, end: B.e, bvon: B.s, inputs: numKeys(A.expr), aExpr: A.expr, bWert: res.Bpct && res.Bpct !== 'DIV0' ? res.Bpct.v : null, bTol: bl ? half(bl.d).mul(B.pct ? new Q(1n, 100n) : ONE) : ZERO };
       if (bl) { const st = B.neg ? B.s : B.tok.s; f.bspan = { start: st, end: B.tok.ne, alt: text.slice(st, B.tok.ne) }; }
       if (bl && art === 'rechnung-falsch') {   // Korrektur: Wert in der Darstellung von B (mit/ohne %), nur bei eindeutiger Lesart
-        const c = korrWert(['pct', 'weg'].map(md => res['A' + md] && res['A' + md] !== 'DIV0' ? res['A' + md].v : null), { ...bl, pct: B.pct }, [ONE], text.slice(B.e, B.e + 80) + ' ' + text.slice(Math.max(0, A.s - 60), A.s));
+        const c = korrWert(['pct', 'weg'].map(md => res['A' + md] && res['A' + md] !== 'DIV0' ? res['A' + md].v : null), { ...bl, pct: B.pct }, [ONE], satzNach(text.slice(B.e, B.e + 80)) + ' ' + satzVor(text.slice(Math.max(0, A.s - 60), A.s)));
         if (c) { const sg = B.neg ? text[B.s] : '−'; const rep = fmtNum(c, bl.d, false, enFuer(B.tok.num)).replace(/^-/, sg); const st = B.neg ? B.s : B.tok.s; f.fix = { start: st, end: B.tok.ne, alt: text.slice(st, B.tok.ne), neu: rep }; }
       }
       out.push(f);
@@ -681,7 +684,7 @@ function maskIntent(s) { return s.replace(ABSICHT, m => ' '.repeat(m.length)); }
 export function pruefe(data, { skipKeys, kontext, trace, sprache } = {}) {
   SPR = sprache === 'en' ? 'en' : 'de';
   const grund = sprache === 'en' ? 'en' : sprache === 'de' ? 'de' : null;
-  const sprOf = x => { const en = (x.match(/\b(?:the|and|of|is|are|with|you|for|to|this|that|per|year|cost|price)\b/gi) || []).length, de = (x.match(/\b(?:der|die|das|und|ist|mit|für|du|ein|eine|pro|Jahr|Kosten|Preis|wird)\b/g) || []).length; return en > de * 2 && en >= 2 ? 'en' : de > en * 2 && de >= 2 ? 'de' : null; };
+  const sprOf = x => { const en = (x.match(/\b(?:the|and|of|is|are|with|you|for|to|this|that|per|year|cost|price|The|And|You|This|That)\b/g) || []).length, de = (x.match(/\b(?:der|die|das|und|ist|mit|für|du|ein|eine|pro|Jahr|Kosten|Preis|wird)\b/g) || []).length; return en > de * 2 && en >= 2 ? 'en' : de > en * 2 && de >= 2 ? 'de' : null; };
   // je Text: Feld „…_en“, erkannte Sprache, Sprache der Antwort, Zahlformat
   const sprVon = (path, s0) => {
     const pfadEn = path.some(k => typeof k === 'string' && /(?:^|_)en$/.test(k));
@@ -716,7 +719,7 @@ export function pruefe(data, { skipKeys, kontext, trace, sprache } = {}) {
       texSpans.push([m.index, m.index + m[0].length]);
       stats.formeln++;
       const ctx = s.slice(Math.max(0, m.index - 90), m.index + m[0].length + 30).replace(/<[^>]+>/g, '');
-      const after = s.slice(m.index + m[0].length, m.index + m[0].length + 120).replace(/<[^>]+>/g, '');
+      const after = s.slice(m.index + m[0].length, m.index + m[0].length + 120).replace(/<\/?(?:p|li|div|br|tr|td|th|h\d)\b[^>]*>/gi, '\n').replace(/<[^>]+>/g, '');   // Absatzgrenzen bleiben als Zeilenumbruch erhalten (Rundungswörter nur aus demselben Satz)
       const tr = trace ? [] : null; TRACE = tr;
       for (const f of checkTex(tex, ctx, after, derived)) {
         f.path = path; f.ort = 'formel';

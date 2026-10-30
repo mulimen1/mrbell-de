@@ -1,0 +1,135 @@
+{
+ "thema": "cashflow",
+ "name": "Cashflow",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "cashflow-1",
+   "art": "definition",
+   "aussage": "Der Cashflow ist ein Überschuss der Einzahlungen über die Auszahlungen einer Unternehmung; wie er genau ermittelt wird, hängt von der Abgrenzung der betrachteten Zahlungsgrößen ab.",
+   "schlagworte": [
+    "Cashflow",
+    "Einzahlungsüberschuss"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Cashflow",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/cashflow-29173",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cashflow-2",
+   "art": "definition",
+   "aussage": "Der Cashflow ist eine Stromgröße, die den in einer Periode erfolgswirksam erwirtschafteten Zahlungsmittelüberschuss abbilden soll. Er wird meist aus dem Jahresabschluss, vor allem der GuV, abgeleitet und gilt als Indikator der Innenfinanzierungskraft.",
+   "schlagworte": [
+    "Stromgröße",
+    "Innenfinanzierungskraft",
+    "GuV"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Cashflow",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/cashflow-29173",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cashflow-3",
+   "art": "abgrenzung",
+   "aussage": "Der Net Operating Cashflow erfasst nur den Einzahlungsüberschuss aus Produktion und Absatz. Der gesamte Cashflow berücksichtigt zusätzlich Zahlungen aus Finanzierungs-, Investitions- und Ausschüttungsentscheidungen.",
+   "schlagworte": [
+    "Net Operating Cashflow",
+    "operativer Cashflow",
+    "gesamter Cashflow"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Cashflow",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/cashflow-29173",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cashflow-4",
+   "art": "methode",
+   "aussage": "Im Gabler-Schema ergibt sich der Free Cashflow, indem von den für Ausschüttung und Investition verfügbaren Mitteln die Investitionsauszahlungen abgezogen und Erlöse aus dem Verkauf von Anlagevermögen addiert werden; erst danach folgen Kreditaufnahme, Tilgung, Kapitalausgabe und Dividenden.",
+   "schlagworte": [
+    "Free Cashflow",
+    "Investitionsauszahlungen",
+    "Schema"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Cashflow",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/cashflow-29173",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cashflow-5",
+   "art": "abgrenzung",
+   "aussage": "Der Cashflow ist weitgehend unabhängig von Bewertungswahlwerten, lässt sich aber von außen nur schwer exakt ableiten. Er zeigt die in der Periode erwirtschaftete Mittelzufuhr, die für Investition, Tilgung und Entnahmen zur Verfügung steht.",
+   "schlagworte": [
+    "Bewertungsunabhängigkeit",
+    "externe Analyse"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bilanzanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bilanzanalyse-30674",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cashflow-6",
+   "art": "abgrenzung",
+   "aussage": "Weil der Cashflow aus Vergangenheitsdaten berechnet wird, ist sein Prognosewert begrenzt.",
+   "schlagworte": [
+    "Prognosewert",
+    "Kritik"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Cashflow",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/cashflow-29173",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "cashflow-7",
+   "art": "formel",
+   "aussage": "Vereinfachte indirekte Ermittlung: Cashflow = Jahresüberschuss + Abschreibungen + Zuführungen zu Rückstellungen (nicht zahlungswirksame Aufwendungen werden zurückgerechnet, nicht zahlungswirksame Erträge abgezogen).",
+   "schlagworte": [
+    "indirekte Methode",
+    "Jahresüberschuss",
+    "Abschreibungen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "cashflow-8",
+   "art": "formel",
+   "aussage": "Direkte Ermittlung: Cashflow = Einzahlungen der Periode − Auszahlungen der Periode (jeweils aus laufender Geschäftstätigkeit, wenn der operative Cashflow gemeint ist).",
+   "schlagworte": [
+    "direkte Methode",
+    "Einzahlungen",
+    "Auszahlungen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Cashflow und Gewinn sind dasselbe.",
+   "richtig": "Der Gewinn ist eine Erfolgsgröße aus Erträgen und Aufwendungen, der Cashflow ein Zahlungsmittelüberschuss; nicht zahlungswirksame Posten wie Abschreibungen lassen beide auseinanderfallen.",
+   "quelle_id": "cashflow-2"
+  },
+  {
+   "falsch": "Der Cashflow enthält immer auch die Investitions- und Finanzierungszahlungen.",
+   "richtig": "Der Net Operating Cashflow umfasst nur die operative Tätigkeit; erst der gesamte Cashflow berücksichtigt zusätzlich Finanzierung, Investition und Ausschüttung.",
+   "quelle_id": "cashflow-3"
+  }
+ ]
+}

@@ -1,0 +1,139 @@
+{
+ "thema": "hypothesentest",
+ "name": "Hypothesentest",
+ "kat": "Statistik",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "hypothesentest-1",
+   "art": "definition",
+   "aussage": "Statistische Testverfahren der Inferenzstatistik entscheiden anhand eines Stichprobenbefunds, ob eine Nullhypothese H_0 beibehalten oder verworfen wird; wird H_0 verworfen, gilt die Alternativhypothese als statistisch belegt.",
+   "schlagworte": [
+    "Nullhypothese",
+    "Alternativhypothese"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: statistische Testverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/statistische-testverfahren-41922",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-2",
+   "art": "abgrenzung",
+   "aussage": "Tests sind asymmetrisch: Nur die Alternative kann zum Niveau \\alpha abgesichert werden; eine statistische Absicherung der Nullhypothese ist nicht möglich. Wird H_0 nicht verworfen, spricht die Stichprobe lediglich nicht gegen H_0.",
+   "schlagworte": [
+    "Asymmetrie",
+    "nicht ablehnen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: statistische Testverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/statistische-testverfahren-41922",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-3",
+   "art": "definition",
+   "aussage": "Das Signifikanzniveau \\alpha ist die vorab festgelegte (kleine) Wahrscheinlichkeit, H_0 fälschlich abzulehnen, z. B. 0,05.",
+   "schlagworte": [
+    "Signifikanzniveau",
+    "α"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: statistische Testverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/statistische-testverfahren-41922",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-4",
+   "art": "definition",
+   "aussage": "Fehler 1. Art (Alpha-Fehler): H_0 wird abgelehnt, obwohl sie wahr ist; seine Wahrscheinlichkeit ist höchstens \\alpha. Fehler 2. Art (Beta-Fehler): H_0 wird fälschlich beibehalten.",
+   "schlagworte": [
+    "Fehler 1. Art",
+    "Fehler 2. Art",
+    "Alpha",
+    "Beta"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Alpha-Fehler",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/alpha-fehler-27459",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-5",
+   "art": "methode",
+   "aussage": "Ablauf: \\alpha festlegen; kritische Region so bestimmen, dass sie unter H_0 höchstens die Wahrscheinlichkeit \\alpha hat (Prüfvariable, z. B. Stichprobenmittel); liegt der Befund in der kritischen Region, wird H_0 abgelehnt.",
+   "schlagworte": [
+    "Ablauf",
+    "kritische Region",
+    "Prüfgröße"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: statistische Testverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/statistische-testverfahren-41922",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-6",
+   "art": "definition",
+   "aussage": "Kritischer Wert: Wert der Prüfgröße, der die kritische Region vom Nichtablehnungsbereich trennt; einseitig ein kritischer Wert, zweiseitig ein unterer und ein oberer.",
+   "schlagworte": [
+    "kritischer Wert",
+    "einseitig",
+    "zweiseitig"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: kritischer Wert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kritischer-wert-40379",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-7",
+   "art": "methode",
+   "aussage": "Der t-Test für einen Regressionskoeffizienten prüft H_0: \\beta = 0 mit Prüfgröße t = \\hat{\\beta} / \\widehat{se}(\\hat{\\beta}); H_0 wird verworfen, wenn |t| den kritischen Wert der t-Verteilung mit n-K Freiheitsgraden übersteigt.",
+   "schlagworte": [
+    "t-Test",
+    "Freiheitsgrade"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: t-Test",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/t-test-50433",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "hypothesentest-8",
+   "art": "definition",
+   "aussage": "Der p-Wert ist die Wahrscheinlichkeit, unter Gültigkeit von H_0 ein mindestens so extremes Ergebnis wie das beobachtete zu erhalten; ist p < \\alpha, wird H_0 abgelehnt.",
+   "schlagworte": [
+    "p-Wert"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Wird H0 nicht abgelehnt, ist H0 bewiesen.",
+   "richtig": "Nicht-Ablehnung heißt nur, dass die Stichprobe nicht gegen H0 spricht; H0 kann nicht abgesichert werden.",
+   "quelle_id": "hypothesentest-2"
+  },
+  {
+   "falsch": "Der p-Wert ist die Wahrscheinlichkeit, dass H0 wahr ist.",
+   "richtig": "Der p-Wert ist die Wahrscheinlichkeit eines mindestens so extremen Ergebnisses, falls H0 gilt.",
+   "quelle_id": "hypothesentest-8"
+  },
+  {
+   "falsch": "Das Signifikanzniveau ist die Wahrscheinlichkeit, dass H0 falsch ist.",
+   "richtig": "α ist die (obere Grenze der) Wahrscheinlichkeit des Fehlers 1. Art: H0 fälschlich abzulehnen.",
+   "quelle_id": "hypothesentest-4"
+  }
+ ]
+}

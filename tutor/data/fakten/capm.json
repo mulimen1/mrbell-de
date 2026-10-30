@@ -1,0 +1,132 @@
+{
+ "thema": "capm",
+ "name": "CAPM",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "capm-1",
+   "art": "definition",
+   "aussage": "Das CAPM (Capital Asset Pricing Model) ist ein kapitalmarkttheoretisches Modell: Die erwartete Rendite eines Wertpapiers ist eine lineare Funktion der Risikoprämie des Marktportfolios; je stärker ein Papier auf Marktschwankungen reagiert, desto höher die erwartete Rendite.",
+   "schlagworte": [
+    "CAPM",
+    "Marktportfolio",
+    "Risikoprämie"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Capital Asset Pricing Model (CAPM)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/capital-asset-pricing-model-capm-28840",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "capm-2",
+   "art": "formel",
+   "aussage": "Wertpapierlinie (SML): E(R_i) = R_f + \\beta_i \\cdot \\left(E(R_m) - R_f\\right) mit R_f risikoloser Zins, E(R_m) erwartete Marktrendite, E(R_m) − R_f Marktrisikoprämie, β_i Beta des Papiers i.",
+   "schlagworte": [
+    "SML",
+    "Beta",
+    "Marktrisikoprämie",
+    "risikoloser Zins"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Capital Asset Pricing Model (CAPM)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/capital-asset-pricing-model-capm-28840",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "capm-3",
+   "art": "formel",
+   "aussage": "Beta: \\beta_i = \\frac{\\text{Cov}(R_i, R_m)}{\\sigma_m^2}; es misst das systematische (Markt-)Risiko; unsystematisches Risiko gilt als wegdiversifiziert.",
+   "schlagworte": [
+    "Beta",
+    "Kovarianz",
+    "systematisches Risiko"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Capital Asset Pricing Model (CAPM)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/capital-asset-pricing-model-capm-28840",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "capm-4",
+   "art": "formel",
+   "aussage": "Kapitalmarktlinie (CML) für effiziente Portfolios: E(R_p) = R_f + \\frac{E(R_m) - R_f}{\\sigma_m} \\cdot \\sigma_p; die Steigung ist der Preis je Risikoeinheit.",
+   "schlagworte": [
+    "CML",
+    "effiziente Portfolios",
+    "Sharpe"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Capital Asset Pricing Model (CAPM)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/capital-asset-pricing-model-capm-28840",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "capm-5",
+   "art": "abgrenzung",
+   "aussage": "Annahmen: risikoscheue Investoren, vollkommener Kapitalmarkt mit Anlage und Aufnahme zum risikolosen Zins, homogene Erwartungen; nach der Tobin-Separation besteht jedes effiziente Portfolio aus risikoloser Anlage und Marktportfolio.",
+   "schlagworte": [
+    "Annahmen",
+    "homogene Erwartungen",
+    "Tobin-Separation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Capital Asset Pricing Model (CAPM)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/capital-asset-pricing-model-capm-28840",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "capm-6",
+   "art": "abgrenzung",
+   "aussage": "Ein Papier, dessen erwartete Rendite unter der Wertpapierlinie liegt, gilt als überbewertet, eines darüber als unterbewertet.",
+   "schlagworte": [
+    "Überbewertung",
+    "Unterbewertung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Capital Asset Pricing Model (CAPM)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/capital-asset-pricing-model-capm-28840",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "capm-7",
+   "art": "abgrenzung",
+   "aussage": "Kritik: restriktive Annahmen (besonders homogene Erwartungen), Schätzung aus Vergangenheitsdaten, Marktportfolio nur durch Indizes (z. B. DAX) angenähert, Datenbasis nötig.",
+   "schlagworte": [
+    "Kritik",
+    "Marktportfolio-Proxy"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Capital Asset Pricing Model (CAPM)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/capital-asset-pricing-model-capm-28840",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "capm-8",
+   "art": "abgrenzung",
+   "aussage": "Die Eigenkapitalkosten können mit dem CAPM bestimmt werden (Opportunitätskostenansatz) und gehen in den WACC ein.",
+   "schlagworte": [
+    "Eigenkapitalkosten",
+    "WACC"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Das Beta misst das Gesamtrisiko eines Wertpapiers.",
+   "richtig": "Beta misst nur das systematische Marktrisiko; das unsystematische Risiko ist durch Diversifikation eliminierbar.",
+   "quelle_id": "capm-3"
+  }
+ ]
+}

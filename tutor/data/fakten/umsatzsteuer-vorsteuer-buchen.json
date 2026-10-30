@@ -1,0 +1,149 @@
+{
+ "thema": "umsatzsteuer-vorsteuer-buchen",
+ "name": "Umsatzsteuer und Vorsteuer buchen",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "umsatzsteuer-vorsteuer-buchen-1",
+   "art": "zahl",
+   "aussage": "Der Regelsteuersatz der Umsatzsteuer beträgt 19 % der Bemessungsgrundlage, der ermäßigte Satz 7 % für die in § 12 Abs. 2 aufgeführten Umsätze.",
+   "schlagworte": [
+    "Umsatzsteuer",
+    "19 Prozent",
+    "7 Prozent"
+   ],
+   "quelle": {
+    "name": "UStG § 12 Abs. 1 und 2",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "umsatzsteuer-vorsteuer-buchen-2",
+   "art": "gesetz",
+   "aussage": "Restaurant- und Verpflegungsdienstleistungen (mit Ausnahme der Abgabe von Getränken) fallen nach § 12 Abs. 2 Nr. 15 UStG unter den ermäßigten Steuersatz.",
+   "schlagworte": [
+    "Gastronomie",
+    "Speisen",
+    "ermäßigter Steuersatz"
+   ],
+   "quelle": {
+    "name": "UStG § 12 Abs. 2 Nr. 15",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "umsatzsteuer-vorsteuer-buchen-3",
+   "art": "gesetz",
+   "aussage": "Vorsteuer aus Lieferungen und Leistungen, die ein anderer Unternehmer für das Unternehmen erbracht hat, ist abziehbar, wenn eine ordnungsgemäße Rechnung vorliegt.",
+   "schlagworte": [
+    "Vorsteuerabzug",
+    "Rechnung"
+   ],
+   "quelle": {
+    "name": "UStG § 15 Abs. 1 Nr. 1",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__15.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "umsatzsteuer-vorsteuer-buchen-4",
+   "art": "gesetz",
+   "aussage": "Ein Gegenstand, den der Unternehmer zu weniger als 10 % für sein Unternehmen nutzt, gilt nicht als für das Unternehmen bezogen; die Vorsteuer ist insoweit nicht abziehbar.",
+   "schlagworte": [
+    "10 Prozent",
+    "unternehmerische Nutzung"
+   ],
+   "quelle": {
+    "name": "UStG § 15 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__15.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "umsatzsteuer-vorsteuer-buchen-5",
+   "art": "gesetz",
+   "aussage": "Vom Vorsteuerabzug ausgeschlossen ist die Steuer auf Leistungen, die der Unternehmer zur Ausführung steuerfreier Umsätze verwendet.",
+   "schlagworte": [
+    "Vorsteuerausschluss",
+    "steuerfreie Umsätze"
+   ],
+   "quelle": {
+    "name": "UStG § 15 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__15.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "umsatzsteuer-vorsteuer-buchen-6",
+   "art": "gesetz",
+   "aussage": "Bei der Besteuerung nach vereinbarten Entgelten (Sollversteuerung) entsteht die Umsatzsteuer mit Ablauf des Voranmeldungszeitraums, in dem die Leistung ausgeführt wurde; bei der Istversteuerung entsteht sie mit Ablauf des Voranmeldungszeitraums, in dem das Entgelt vereinnahmt wird.",
+   "schlagworte": [
+    "Sollversteuerung",
+    "Istversteuerung",
+    "Entstehung der Steuer"
+   ],
+   "quelle": {
+    "name": "UStG § 13 Abs. 1 Nr. 1",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__13.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "umsatzsteuer-vorsteuer-buchen-7",
+   "art": "gesetz",
+   "aussage": "Ändert sich die Bemessungsgrundlage (z. B. durch eine Entgeltminderung), müssen der leistende Unternehmer die Umsatzsteuer und der Empfänger den Vorsteuerabzug berichtigen, und zwar für den Zeitraum der Änderung.",
+   "schlagworte": [
+    "Berichtigung",
+    "Entgeltminderung"
+   ],
+   "quelle": {
+    "name": "UStG § 17 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__17.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "umsatzsteuer-vorsteuer-buchen-8",
+   "art": "formel",
+   "aussage": "Zahllast an das Finanzamt: `Zahllast = Umsatzsteuer - Vorsteuer` (ein negativer Saldo ist ein Vorsteuerüberhang/Erstattungsanspruch). Umrechnung: `Brutto = Netto \\cdot (1 + s)` mit Steuersatz s.",
+   "schlagworte": [
+    "Zahllast",
+    "Vorsteuerüberhang",
+    "Netto Brutto"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "umsatzsteuer-vorsteuer-buchen-9",
+   "art": "methode",
+   "aussage": "Buchung beim Einkauf: Aufwands-/Anlagekonto (netto) und Vorsteuer an Verbindlichkeiten (brutto). Buchung beim Verkauf: Forderungen (brutto) an Umsatzerlöse (netto) und Umsatzsteuer. Die Vorsteuer ist eine Forderung gegen das Finanzamt, die Umsatzsteuer eine Verbindlichkeit.",
+   "schlagworte": [
+    "Buchungssatz",
+    "Vorsteuer",
+    "Umsatzsteuer"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Vorsteuer ist Aufwand des Unternehmens.",
+   "richtig": "Abziehbare Vorsteuer ist eine Forderung gegen das Finanzamt und kein Aufwand.",
+   "quelle_id": "umsatzsteuer-vorsteuer-buchen-9"
+  },
+  {
+   "falsch": "Umsatzsteuer entsteht immer erst mit Zahlungseingang.",
+   "richtig": "Bei der Sollversteuerung entsteht sie mit Ablauf des Voranmeldungszeitraums der Leistung; nur bei Istversteuerung (und Anzahlungen) zählt die Vereinnahmung.",
+   "quelle_id": "umsatzsteuer-vorsteuer-buchen-6"
+  }
+ ]
+}

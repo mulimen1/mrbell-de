@@ -1,0 +1,128 @@
+{
+ "thema": "konfidenzintervall",
+ "name": "Konfidenzintervall",
+ "kat": "Statistik",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "konfidenzintervall-1",
+   "art": "definition",
+   "aussage": "Ein Konfidenzintervall ist ein Vertrauensbereich für einen Parameter der Grundgesamtheit mit einem Konfidenzniveau, typischerweise 0,9, 0,95 oder 0,99.",
+   "schlagworte": [
+    "Vertrauensbereich",
+    "Konfidenzniveau"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Konfidenzintervall",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/konfidenzintervall-38200",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "konfidenzintervall-2",
+   "art": "formel",
+   "aussage": "Formal: [u, o] ist ein Konfidenzintervall zum Niveau 1-\\alpha für \\theta, wenn P_\\theta(\\theta \\in [u, o]) \\ge 1-\\alpha für alle infrage kommenden \\theta; die Grenzen u, o sind Funktionen der Stichprobenvariablen.",
+   "schlagworte": [
+    "Definition",
+    "Überdeckungswahrscheinlichkeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Konfidenzintervall",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/konfidenzintervall-38200",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "konfidenzintervall-3",
+   "art": "abgrenzung",
+   "aussage": "Interpretation: Nach Ziehung der Stichprobe sind die Grenzen feste Zahlen; es gilt die Häufigkeitsinterpretation, dass bei wiederholter Stichprobenziehung etwa (1-\\alpha)\\cdot 100\\,\\% der so gebildeten Intervalle den Parameter einschließen.",
+   "schlagworte": [
+    "Interpretation",
+    "Häufigkeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Konfidenzschätzung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/konfidenzschaetzung-39987",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "konfidenzintervall-4",
+   "art": "abgrenzung",
+   "aussage": "Ist eine Grenze vorgegeben (z. B. -\\infty oder +\\infty), spricht man von einem einseitigen, sonst von einem zweiseitigen Konfidenzintervall.",
+   "schlagworte": [
+    "einseitig",
+    "zweiseitig"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Konfidenzschätzung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/konfidenzschaetzung-39987",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "konfidenzintervall-5",
+   "art": "formel",
+   "aussage": "Konfidenzintervall für den Mittelwert bei bekanntem \\sigma (Normalverteilung): \\bar{x} \\pm z_{1-\\alpha/2} \\cdot \\frac{\\sigma}{\\sqrt{n}}.",
+   "schlagworte": [
+    "Mittelwert",
+    "Standardfehler"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "konfidenzintervall-6",
+   "art": "formel",
+   "aussage": "Bei unbekanntem \\sigma wird die t-Verteilung mit n-1 Freiheitsgraden verwendet: \\bar{x} \\pm t_{n-1;1-\\alpha/2} \\cdot \\frac{s}{\\sqrt{n}}.",
+   "schlagworte": [
+    "t-Verteilung",
+    "Freiheitsgrade"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "konfidenzintervall-7",
+   "art": "zahl",
+   "aussage": "Kritische z-Werte (zweiseitig): 90 % \\to 1{,}645; 95 % \\to 1{,}960; 99 % \\to 2{,}576.",
+   "schlagworte": [
+    "z-Wert",
+    "1,96"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "konfidenzintervall-8",
+   "art": "methode",
+   "aussage": "Ein höheres Konfidenzniveau und ein kleinerer Stichprobenumfang machen das Intervall breiter; mehr Daten (größeres n) machen es schmaler.",
+   "schlagworte": [
+    "Breite",
+    "Stichprobenumfang"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Ein 95-%-Konfidenzintervall enthält 95 % aller Einzelwerte.",
+   "richtig": "Es betrifft den Parameter (z. B. Mittelwert), nicht einzelne Beobachtungen.",
+   "quelle_id": "konfidenzintervall-3"
+  },
+  {
+   "falsch": "Bei kleinem n und unbekanntem σ rechnet man mit z.",
+   "richtig": "Dann ist die t-Verteilung zu verwenden; sonst ist das Intervall zu schmal.",
+   "quelle_id": "konfidenzintervall-6"
+  }
+ ]
+}

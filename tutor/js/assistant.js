@@ -8,7 +8,7 @@ import { face } from './face.js';
 import { ask, onQuota, currentQuota, getAccount, getSession } from './api.js';
 import { S, save, createDoc } from './state.js';
 import { forChat } from './retrieve.js';
-import { apiError, typeOut as typeIt, typePlaceholder, syncOut, aiTag, adsLanding } from './ui.js';
+import { apiError, typeOut as typeIt, typePlaceholder, syncOut, aiTag, siegel, adsLanding } from './ui.js';
 import { liveWave } from './wave.js';
 import { startLive } from './livestt.js';
 import * as MM from './maxmode.js';
@@ -50,7 +50,7 @@ function cmdOf(k, v) {
   v = (v || '').trim();
   if (k === 'go') return TAB[v] ? { k, v, label: L('Geöffnet: ', 'Opened: ') + TAB[v], doc: true } : null;
   if (k === 'make') return MAKE[v] ? { k, v, label: MAKE[v][1], doc: true } : null;
-  if (k === 'excel') { const [a, ...r] = v.split(':'); const rest = r.join(':').trim(); if (a === 'generator') return { k, v: 'generator', task: rest, label: L('Excel-Generator geöffnet', 'Excel generator opened') }; if (a === 'trainer') return { k, v: 'trainer', label: L('Excel-Trainer geöffnet', 'Excel trainer opened') }; return /^[a-z0-9]{3,30}$/.test(a) ? { k, v: a, label: L('Excel-Vorlage geöffnet', 'Excel template opened') } : null; }
+  if (k === 'excel') { const [a, ...r] = v.split(':'); const rest = r.join(':').trim(); if (a === 'generator') return { k, v: 'trainer', label: L('Excel-Trainer geöffnet', 'Excel trainer opened') }; if (a === 'trainer') return { k, v: 'trainer', label: L('Excel-Trainer geöffnet', 'Excel trainer opened') }; return /^[a-z0-9]{3,30}$/.test(a) ? { k, v: a, label: L('Excel-Vorlage geöffnet', 'Excel template opened') } : null; }
   if (k === 'seite') { const [a, ...r] = v.split(':'); const pg = SEITEN[a.trim()]; return pg ? { k, v: a.trim(), url: r.join(':').trim(), label: pg[1] } : null; }
   if (k === 'wahl') { const o = v.split('|').map(x => x.trim()).filter(Boolean).slice(0, 4).map(x => x.slice(0, 80)); return o.length >= 2 ? { k, opts: o, label: '' } : null; }
   if (k === 'topic') return v.length > 1 ? { k, v, label: L(`An der Tafel: „${v}“`, `On the board: “${v}”`) } : null;
@@ -1485,6 +1485,7 @@ export function mountAssistant() {
     p.boards.forEach(b => extras.push(boardBtn(b)));
     if (!STAGE && route().tab && route().tab !== 'room' && (p.boards.length || (p.text || '').length > 280)) extras.push(h('a', { class: 'ai-cmd link ai-room', href: '#/app/tutor', onclick: () => ls.set('tutor.room.continue', 1) }, h('span', { class: 'ck', html: ico('right') }), L('Im Tutor weitermachen', 'Continue in the tutor')));
     if (ex.model !== undefined) extras.push(aiTag(ex.tools, raw, ex.src, ex.rp));
+    if (ex.model !== undefined && ex.a && !calm) { const sg = siegel(ex.rp, raw, ex.src); if (sg) { ex.a.querySelector(':scope > .vt-siegel')?.remove(); ex.a.insertBefore(sg, ex.a.firstChild); } }
     // Wie bei ChatGPT: unter jeder Antwort Kopieren, Nochmal, Einfacher, Kürzer, Beispiel – ein Klick statt neu tippen
     if (!ex.sketch && !calm && ex.model !== undefined && p.text) {
       const qb = (icon, label, fn) => h('button', { class: 'ai-act', type: 'button', title: label, 'aria-label': label, onclick: fn }, h('span', { html: icon }), h('span', { class: 'ai-actl' }, label));

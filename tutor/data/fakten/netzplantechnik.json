@@ -1,0 +1,148 @@
+{
+ "thema": "netzplantechnik",
+ "name": "Netzplantechnik",
+ "kat": "Management",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "netzplantechnik-1",
+   "art": "definition",
+   "aussage": "Netzplantechnik ist eine auf der Graphentheorie beruhende Klasse von Methoden zur Analyse, Planung, Durchführung und Kontrolle von Projekten.",
+   "schlagworte": [
+    "Netzplan",
+    "Projektplanung",
+    "Graphentheorie"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-2",
+   "art": "methode",
+   "aussage": "Die Vorwärtsrechnung liefert die frühesten Zeitpunkte und die Projektdauer, die Rückwärtsrechnung die spätesten Zeitpunkte; aus der Differenz ergeben sich die Pufferzeiten.",
+   "schlagworte": [
+    "Vorwärtsrechnung",
+    "Rückwärtsrechnung",
+    "Puffer"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-3",
+   "art": "definition",
+   "aussage": "Vorgänge bzw. Ereignisse ohne Pufferzeit heißen kritisch; sie sind besonders zu überwachen, weil jede Verzögerung den Projektendtermin verschiebt.",
+   "schlagworte": [
+    "kritischer Weg",
+    "kritischer Vorgang"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-4",
+   "art": "abgrenzung",
+   "aussage": "CPM und MPM sind deterministische Verfahren mit festen Vorgangsdauern; PERT ist ein stochastisches, ereignisorientiertes Verfahren (Ereignisknotennetz).",
+   "schlagworte": [
+    "CPM",
+    "MPM",
+    "PERT",
+    "deterministisch",
+    "stochastisch"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-5",
+   "art": "definition",
+   "aussage": "Zwischen zwei Vorgängen gibt es vier Anordnungsbeziehungen: Ende-Anfang (Normalfolge), Anfang-Anfang (Anfangsfolge), Ende-Ende (Endfolge) und Anfang-Ende (Sprungfolge).",
+   "schlagworte": [
+    "Anordnungsbeziehung",
+    "Normalfolge"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Netzplantechnik",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/netzplantechnik-40139",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-6",
+   "art": "methode",
+   "aussage": "PERT behandelt Vorgangsdauern als betaverteilte Zufallsvariable, deren Parameter aus drei Schätzungen (optimistisch, wahrscheinlichst, pessimistisch) gewonnen werden.",
+   "schlagworte": [
+    "PERT",
+    "Drei-Zeiten-Schätzung",
+    "Beta-Verteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: PERT",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/pert-42162",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-7",
+   "art": "definition",
+   "aussage": "Gesamter Puffer: Spielraum eines Vorgangs, wenn alle Vorgänger frühestmöglich und alle Nachfolger spätestmöglich beginnen. Freier Puffer: Spielraum, wenn Vorgänger und Nachfolger frühestmöglich beginnen.",
+   "schlagworte": [
+    "Gesamtpuffer",
+    "freier Puffer"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Vorgangspuffer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/vorgangspuffer-49885",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "netzplantechnik-8",
+   "art": "formel",
+   "aussage": "FEZ = FAZ + D; SAZ = SEZ - D; Gesamtpuffer GP = SAZ - FAZ = SEZ - FEZ; freier Puffer FP = \\min(FAZ_{Nachfolger}) - FEZ (FAZ/FEZ: frühester Anfangs-/Endzeitpunkt, SAZ/SEZ: spätester Anfangs-/Endzeitpunkt, D: Dauer).",
+   "schlagworte": [
+    "FAZ",
+    "FEZ",
+    "SAZ",
+    "SEZ",
+    "Puffer berechnen"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "netzplantechnik-9",
+   "art": "formel",
+   "aussage": "PERT-Erwartungswert der Dauer: t_e = \\frac{a + 4m + b}{6} (a: optimistische, m: wahrscheinlichste, b: pessimistische Schätzung).",
+   "schlagworte": [
+    "PERT",
+    "Erwartungswert"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Gesamtpuffer und freier Puffer sind dasselbe.",
+   "richtig": "Der Gesamtpuffer bezieht sich auf das spätestmögliche Starten der Nachfolger (Projektende), der freie Puffer auf deren frühestmöglichen Start.",
+   "quelle_id": "netzplantechnik-7"
+  }
+ ]
+}

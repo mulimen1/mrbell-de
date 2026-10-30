@@ -1,0 +1,84 @@
+{
+ "thema": "six-sigma",
+ "name": "Six Sigma",
+ "kat": "Management",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "six-sigma-1",
+   "art": "methode",
+   "aussage": "Six Sigma zielt darauf, Fehler und Fehlerquellen entlang eines Prozesses zu beseitigen; Gabler beschreibt dies am Beispiel des Pricing-Prozesses (Six Sigma Pricing).",
+   "schlagworte": [
+    "Six Sigma",
+    "Fehlervermeidung",
+    "Pricing"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Six Sigma Pricing",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/six-sigma-pricing-51421",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "six-sigma-2",
+   "art": "formel",
+   "aussage": "DPMO = \\frac{\\text{Fehler}}{\\text{Einheiten} \\cdot \\text{Fehlermöglichkeiten je Einheit}} \\cdot 10^6 (Fehler pro Million Fehlermöglichkeiten).",
+   "schlagworte": [
+    "DPMO",
+    "Fehlerquote"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "six-sigma-3",
+   "art": "zahl",
+   "aussage": "Mit der üblichen Annahme einer langfristigen Mittelwertverschiebung um 1,5 σ liegen bei 6σ effektiv 4,5σ zwischen Mittelwert und Toleranzgrenze; die einseitige Normalverteilungsfläche jenseits davon beträgt ca. 3,4 pro Million (nachgerechnet: 3,40·10^-6).",
+   "schlagworte": [
+    "3,4 DPMO",
+    "1,5-Sigma-Shift",
+    "Normalverteilung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "six-sigma-4",
+   "art": "zahl",
+   "aussage": "Ohne 1,5σ-Verschiebung entspräche ±6σ nur rund 0,002 Fehlern pro Million; bei 3σ mit Verschiebung ergeben sich ca. 66.807 DPMO.",
+   "schlagworte": [
+    "Sigma-Niveau",
+    "Tabelle"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "six-sigma-5",
+   "art": "methode",
+   "aussage": "Verbesserungsprojekte folgen dem DMAIC-Zyklus: Define, Measure, Analyze, Improve, Control.",
+   "schlagworte": [
+    "DMAIC",
+    "Define",
+    "Control"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "6σ bedeutet nach reiner Normalverteilung 3,4 Fehler pro Million.",
+   "richtig": "Die 3,4 DPMO ergeben sich erst mit der eingerechneten 1,5σ-Verschiebung; ohne sie wären es ca. 0,002.",
+   "quelle_id": "six-sigma-4"
+  }
+ ]
+}

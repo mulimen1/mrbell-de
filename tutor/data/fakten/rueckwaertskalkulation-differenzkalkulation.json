@@ -1,0 +1,129 @@
+{
+ "thema": "rueckwaertskalkulation-differenzkalkulation",
+ "name": "Rückwärts- und Differenzkalkulation",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-1",
+   "art": "definition",
+   "aussage": "Die Rückwärtskalkulation (retrograde Kalkulation, Bezugskalkulation) geht vom vorgegebenen Verkaufspreis aus und ermittelt den maximal zu zahlenden Einkaufspreis.",
+   "schlagworte": [
+    "Rückwärtskalkulation",
+    "Bezugskalkulation",
+    "Höchsteinkaufspreis"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Warenkalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/warenkalkulation-50848",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-2",
+   "art": "methode",
+   "aussage": "Bei der Rückwärtskalkulation kann dasselbe Kalkulationsschema wie bei der Vorwärtskalkulation verwendet werden, nur in umgekehrter Richtung (vom Verkaufspreis zum Einkaufspreis).",
+   "schlagworte": [
+    "Schema",
+    "Richtung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Warenkalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/warenkalkulation-50848",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-3",
+   "art": "methode",
+   "aussage": "Rechenweg Rückwärtskalkulation: Nettoverkaufspreis (aus Bruttopreis / 1,19 bei 19 % USt) → abzüglich Kundenrabatt → Zielverkaufspreis → abzüglich Skonto und Provision → Barverkaufspreis → abzüglich Gewinn → Selbstkosten → abzüglich Handlungskosten → Bezugspreis → abzüglich Bezugskosten → Bareinkaufspreis.",
+   "schlagworte": [
+    "Rechenweg",
+    "Höchsteinkaufspreis"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-4",
+   "art": "methode",
+   "aussage": "Beim Rückrechnen wird mit dem Zuschlag in der Form (100 % + Zuschlag) dividiert, z. B. Selbstkosten = Barverkaufspreis / (1 + Gewinnsatz).",
+   "schlagworte": [
+    "Rückrechnen",
+    "Zuschlag"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-5",
+   "art": "definition",
+   "aussage": "Bei der Differenzkalkulation sind Einkaufs- und Verkaufspreis beide vorgegeben; ermittelt wird als Ergebnis der Gewinn bzw. Gewinnsatz (oder die Handelsspanne), den die Differenz nach Abzug der Kosten übrig lässt.",
+   "schlagworte": [
+    "Differenzkalkulation",
+    "Gewinn"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-6",
+   "art": "methode",
+   "aussage": "Die Differenzkalkulation wird dann angewendet, wenn der Marktpreis vorgegeben ist und der Einkaufspreis feststeht; sie zeigt, ob ein auskömmlicher Gewinn bleibt.",
+   "schlagworte": [
+    "Marktpreis",
+    "Gewinnsatz"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-7",
+   "art": "methode",
+   "aussage": "Progressive und retrograde Kalkulation unterscheiden sich in der Rechenrichtung: vorwärts vom Einstandspreis zum Verkaufspreis, rückwärts vom Verkaufspreis zum zulässigen Einkaufspreis.",
+   "schlagworte": [
+    "progressiv",
+    "retrograd"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Warenkalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/warenkalkulation-50848",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rueckwaertskalkulation-differenzkalkulation-8",
+   "art": "gesetz",
+   "aussage": "Der Regelsteuersatz der Umsatzsteuer beträgt 19 %, der ermäßigte 7 %; beim Rückrechnen vom Bruttoverkaufspreis ist durch 1,19 bzw. 1,07 zu teilen.",
+   "schlagworte": [
+    "Umsatzsteuer",
+    "Brutto-Netto"
+   ],
+   "quelle": {
+    "name": "UStG § 12 Abs. 1 und 2",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Rückwärtskalkulation berechnet den Verkaufspreis aus dem Einkaufspreis.",
+   "richtig": "Das tut die Vorwärtskalkulation; die Rückwärtskalkulation ermittelt aus dem Verkaufspreis den höchstens zahlbaren Einkaufspreis.",
+   "quelle_id": "rueckwaertskalkulation-differenzkalkulation-1"
+  },
+  {
+   "falsch": "Die Differenzkalkulation ermittelt den Verkaufspreis.",
+   "richtig": "Die Differenzkalkulation ermittelt bei bekannten Ein- und Verkaufspreis den Gewinn bzw. Gewinnsatz.",
+   "quelle_id": "rueckwaertskalkulation-differenzkalkulation-5"
+  }
+ ]
+}

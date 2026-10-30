@@ -1,0 +1,117 @@
+{
+ "thema": "barwert-abzinsen",
+ "name": "Barwert und Abzinsen",
+ "kat": "Investition",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "barwert-abzinsen-1",
+   "art": "definition",
+   "aussage": "Der Barwert ist der heutige Wert zukünftiger Zahlungen bei einem bestimmten Zinssatz; dadurch werden Zahlungen zu verschiedenen Zeitpunkten vergleichbar.",
+   "schlagworte": [
+    "Barwert",
+    "Gegenwartswert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Barwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/barwert-27685",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "barwert-abzinsen-2",
+   "art": "formel",
+   "aussage": "BW_0 = \\sum_{t=1}^{n} C_t (1+i)^{-t}; C_t Zahlung in Periode t, i Kalkulationszinssatz, n letzter Zahlungszeitpunkt.",
+   "schlagworte": [
+    "Formel",
+    "Cashflow"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Barwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/barwert-27685",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "barwert-abzinsen-3",
+   "art": "formel",
+   "aussage": "Diskontierung einer Einzelzahlung: K_0 = \\frac{K_n}{q^n} mit Zinsfaktor q = 1 + \\frac{p}{100}; der Faktor 1/q^n heißt Abzinsungs- bzw. Diskontierungsfaktor.",
+   "schlagworte": [
+    "Abzinsungsfaktor",
+    "Zinsfaktor"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Diskontierung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/diskontierung-28103",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "barwert-abzinsen-4",
+   "art": "methode",
+   "aussage": "Je weiter eine Zahlung in der Zukunft liegt und je höher der Zinssatz, desto niedriger ist ihr Barwert (ceteris paribus).",
+   "schlagworte": [
+    "Zeitwert des Geldes",
+    "Zinssatz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Barwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/barwert-27685",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "barwert-abzinsen-5",
+   "art": "abgrenzung",
+   "aussage": "Aufzinsung ist der Gegenbegriff zur Diskontierung: Aus Anfangskapital und Zinsfuß wird das Endkapital berechnet; der Gegensatz zum Barwert ist der Endwert.",
+   "schlagworte": [
+    "Aufzinsung",
+    "Endwert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Aufzinsung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/aufzinsung-27252",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "barwert-abzinsen-6",
+   "art": "definition",
+   "aussage": "Der Kalkulationszinssatz bestimmt die Höhe des Barwerts maßgeblich; er wird nach dem Opportunitätskostenprinzip aus der besten alternativen Anlagemöglichkeit abgeleitet.",
+   "schlagworte": [
+    "Kalkulationszinssatz",
+    "Opportunitätskosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kalkulationszinssatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulationszinssatz-39911",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "barwert-abzinsen-7",
+   "art": "methode",
+   "aussage": "Anwendungen des Barwerts: Investitionsrechnung (Kapitalwert), Bewertung von Anleihen und Aktien sowie Unternehmensbewertung nach dem Discounted-Cashflow-Verfahren.",
+   "schlagworte": [
+    "Anwendungen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Barwert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/barwert-27685",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Zukünftige Zahlungen werden zum Barwert mit (1+i)^t multipliziert.",
+   "richtig": "Beim Abzinsen wird mit (1+i)^{-t} multipliziert bzw. durch (1+i)^t geteilt; mit (1+i)^t wird aufgezinst.",
+   "quelle_id": "barwert-abzinsen-3"
+  },
+  {
+   "falsch": "Ein höherer Zinssatz erhöht den Barwert.",
+   "richtig": "Ein höherer Zinssatz senkt den Barwert zukünftiger Zahlungen.",
+   "quelle_id": "barwert-abzinsen-4"
+  }
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "thema": "xyz-analyse",
+ "name": "XYZ-Analyse",
+ "kat": "Management",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "xyz-analyse-1",
+   "art": "definition",
+   "aussage": "Die XYZ-Analyse (auch RSU-Analyse) klassifiziert Lagerartikel in Anlehnung an die ABC-Analyse; Kriterium ist die Verbrauchsstruktur.",
+   "schlagworte": [
+    "XYZ-Analyse",
+    "RSU-Analyse",
+    "Verbrauchsstruktur"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: RSU-Analyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rsu-analyse-44566",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "xyz-analyse-2",
+   "art": "definition",
+   "aussage": "In der RSU-Variante werden Artikel mit regelmäßigem (R), saisonalem (S) und unregelmäßigem (U) Verbrauch unterschieden.",
+   "schlagworte": [
+    "R-Artikel",
+    "S-Artikel",
+    "U-Artikel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: RSU-Analyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rsu-analyse-44566",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "xyz-analyse-3",
+   "art": "definition",
+   "aussage": "Ergebnis ist eine Prioritätenliste zur Optimierung der Materialdisposition.",
+   "schlagworte": [
+    "Materialdisposition"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: RSU-Analyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rsu-analyse-44566",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "xyz-analyse-4",
+   "art": "formel",
+   "aussage": "Variationskoeffizient VK = \\frac{\\sigma}{\\bar{x}} \\cdot 100\\,\\% (σ: Standardabweichung, \\bar{x}: Mittelwert des Periodenverbrauchs); je kleiner der VK, desto gleichmäßiger der Verbrauch (X), je größer, desto unregelmäßiger (Z).",
+   "schlagworte": [
+    "Variationskoeffizient",
+    "Standardabweichung"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "xyz-analyse-5",
+   "art": "abgrenzung",
+   "aussage": "Die Klassengrenzen der XYZ-Analyse sind nicht allgemein festgelegt, sondern werden betriebsindividuell bzw. in der Aufgabe vorgegeben.",
+   "schlagworte": [
+    "Klassengrenzen"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Man klassifiziert nach der Standardabweichung.",
+   "richtig": "Maßgeblich ist der relative Wert (Variationskoeffizient), weil die Standardabweichung von der Mengeneinheit und Höhe des Verbrauchs abhängt.",
+   "quelle_id": "xyz-analyse-4"
+  }
+ ]
+}

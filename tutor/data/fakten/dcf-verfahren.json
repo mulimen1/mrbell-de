@@ -1,0 +1,134 @@
+{
+ "thema": "dcf-verfahren",
+ "name": "DCF-Verfahren (Discounted Cashflow)",
+ "kat": "Unternehmensbewertung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "dcf-verfahren-1",
+   "art": "definition",
+   "aussage": "Die DCF-Verfahren ermitteln den Unternehmenswert, indem zukünftige Cashflows diskontiert werden; sie zählen zu den Gesamtbewertungsverfahren und beruhen auf dem Kapitalwertkalkül.",
+   "schlagworte": [
+    "Unternehmenswert",
+    "Kapitalwertkalkül"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "dcf-verfahren-2",
+   "art": "methode",
+   "aussage": "Entity-(Brutto-)Verfahren: Zuerst wird der Marktwert des Gesamtkapitals bestimmt, davon der Marktwert des Fremdkapitals abgezogen, um den Wert des Eigenkapitals zu erhalten.",
+   "schlagworte": [
+    "Entity",
+    "Brutto",
+    "Gesamtkapital"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "dcf-verfahren-3",
+   "art": "methode",
+   "aussage": "Equity-(Netto-)Verfahren: Der Eigenkapitalwert wird direkt ermittelt, indem der Free Cashflow to Equity mit der Eigenkapitalrendite diskontiert wird; es erfordert die vollständige Planung von Leistungs- und Finanzbereich.",
+   "schlagworte": [
+    "Equity",
+    "Flow to Equity"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "dcf-verfahren-4",
+   "art": "methode",
+   "aussage": "WACC-Ansatz: Der Gesamtkapitalwert wird mit den gewichteten durchschnittlichen Kapitalkosten diskontiert; der Steuervorteil der Verschuldung fließt über den um (1 - s) verminderten Fremdkapitalzins ein.",
+   "schlagworte": [
+    "WACC",
+    "Steuervorteil"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "dcf-verfahren-5",
+   "art": "methode",
+   "aussage": "APV-Ansatz: Wert des unverschuldeten Unternehmens plus Wert des Steuervorteils aus der Verschuldung ergibt den Gesamtkapitalwert; abzüglich Fremdkapital folgt der Eigenkapitalwert. Vorteil: Die Wertbestandteile bleiben transparent.",
+   "schlagworte": [
+    "APV",
+    "unverschuldet"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "dcf-verfahren-6",
+   "art": "methode",
+   "aussage": "Zwei-Phasen-Modell: Detailplanung für die ersten etwa zehn Jahre, danach ein pauschal ermittelter Restwert (Fortführungswert, Terminal Value).",
+   "schlagworte": [
+    "Zwei-Phasen",
+    "Restwert",
+    "Terminal Value"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "dcf-verfahren-7",
+   "art": "abgrenzung",
+   "aussage": "Eigenkapitalkosten werden oft mit dem CAPM bestimmt; beim WACC-Verfahren hängen Kapitalkostensatz und Marktwerte voneinander ab (Zirkularität), was iterativ oder durch geeignete Verfahren gelöst wird.",
+   "schlagworte": [
+    "CAPM",
+    "Zirkularität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "dcf-verfahren-8",
+   "art": "formel",
+   "aussage": "Kernidee: \\text{Unternehmenswert} = \\sum_{t=1}^{n} \\frac{FCF_t}{(1+k)^t} + \\frac{TV}{(1+k)^n}; Bei ewiger Rente mit Wachstum g gilt TV = \\frac{FCF_{n+1}}{k - g}.",
+   "schlagworte": [
+    "Formel",
+    "Terminal Value",
+    "Wachstumsrate"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Beim WACC-Ansatz ergibt sich direkt der Eigenkapitalwert.",
+   "richtig": "Der WACC-Ansatz liefert den Gesamtkapitalwert; der Eigenkapitalwert folgt erst nach Abzug des Fremdkapitals.",
+   "quelle_id": "dcf-verfahren-4"
+  },
+  {
+   "falsch": "DCF-Verfahren zinsen Gewinne der Vergangenheit ab.",
+   "richtig": "Diskontiert werden zukünftige Cashflows, nicht vergangene Größen.",
+   "quelle_id": "dcf-verfahren-1"
+  }
+ ]
+}

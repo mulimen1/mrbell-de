@@ -1,0 +1,101 @@
+{
+ "thema": "free-cashflow",
+ "name": "Free Cashflow",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "free-cashflow-1",
+   "art": "definition",
+   "aussage": "Im Gabler-Cashflow-Schema ist der Free Cashflow der Betrag, der aus dem operativen Einzahlungsüberschuss nach Zinsen/Tilgung von Fremdmitteln, abzüglich Investitionsauszahlungen und zuzüglich Erlösen aus dem Verkauf von Anlagevermögen verbleibt; danach folgen Finanzierungsmaßnahmen und Dividenden.",
+   "schlagworte": [
+    "Free Cashflow",
+    "Investitionsauszahlungen",
+    "Schema"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Cashflow",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/cashflow-29173",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "free-cashflow-2",
+   "art": "methode",
+   "aussage": "In der DCF-Bewertung unterscheidet man Entity-Verfahren (WACC, APV), die Free Cashflows für alle Kapitalgeber zum Gesamtkapitalwert diskontieren, und das Equity-Verfahren, das den Free Cashflow nach Schuldendienst („Free Cashflow Netto“) mit den Eigenkapitalkosten diskontiert.",
+   "schlagworte": [
+    "DCF",
+    "Entity",
+    "Equity",
+    "WACC"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "free-cashflow-3",
+   "art": "methode",
+   "aussage": "Beim WACC-Verfahren wird der Free Cashflow mit dem gewogenen Kapitalkostensatz diskontiert; vom Gesamtkapitalwert wird der Marktwert des Fremdkapitals abgezogen, um den Eigenkapitalwert zu erhalten.",
+   "schlagworte": [
+    "WACC-Verfahren",
+    "Eigenkapitalwert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "free-cashflow-4",
+   "art": "methode",
+   "aussage": "Üblich ist ein Zwei-Phasen-Modell: detaillierte Planung bis etwa zehn Jahre, danach ein vereinfachter Fortführungswert (Terminal Value).",
+   "schlagworte": [
+    "Zwei-Phasen-Modell",
+    "Terminal Value"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "free-cashflow-5",
+   "art": "formel",
+   "aussage": "Vereinfachter Free Cashflow (Entity): FCF = EBIT \\cdot (1 - s) + \\text{Abschreibungen} - \\text{Investitionen} - \\Delta\\text{NWC} (s: Steuersatz, NWC: Net Working Capital).",
+   "schlagworte": [
+    "Formel",
+    "Capex",
+    "NWC"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "free-cashflow-6",
+   "art": "formel",
+   "aussage": "Einfache Form: FCF = \\text{operativer Cashflow} - \\text{Investitionsauszahlungen}.",
+   "schlagworte": [
+    "Formel",
+    "operativer Cashflow"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Free Cashflow = Jahresüberschuss.",
+   "richtig": "Der Free Cashflow ist ein Zahlungsüberschuss nach Investitionen, nicht der bilanzielle Periodenerfolg.",
+   "quelle_id": "free-cashflow-1"
+  }
+ ]
+}

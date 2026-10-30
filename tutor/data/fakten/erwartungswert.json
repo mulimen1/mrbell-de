@@ -1,0 +1,115 @@
+{
+ "thema": "erwartungswert",
+ "name": "Erwartungswert",
+ "kat": "Statistik",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "erwartungswert-1",
+   "art": "definition",
+   "aussage": "Der Erwartungswert ist ein Grundbegriff der Wahrscheinlichkeitsrechnung und ein Lagemaß der Wahrscheinlichkeitsverteilung.",
+   "schlagworte": [
+    "Lagemaß",
+    "Wahrscheinlichkeitsrechnung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungswert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-2",
+   "art": "formel",
+   "aussage": "Diskrete Zufallsvariable: E(X) = \\sum_i x_i \\cdot f(x_i), sofern die Summe wohldefiniert ist.",
+   "schlagworte": [
+    "diskret",
+    "Wahrscheinlichkeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungswert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-3",
+   "art": "formel",
+   "aussage": "Stetige Zufallsvariable mit Dichte f: E(X) = \\int_{-\\infty}^{\\infty} x \\cdot f(x)\\, dx, sofern das Integral wohldefiniert ist.",
+   "schlagworte": [
+    "stetig",
+    "Dichte"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungswert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-4",
+   "art": "abgrenzung",
+   "aussage": "Bei Gleichverteilung auf endlich vielen Ausprägungen entspricht der Erwartungswert dem arithmetischen Mittel.",
+   "schlagworte": [
+    "arithmetisches Mittel",
+    "Gleichverteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungswert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-5",
+   "art": "formel",
+   "aussage": "Linearität: E(a + bX) = a + b\\,E(X) für Konstanten a und b.",
+   "schlagworte": [
+    "Linearität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungswert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-6",
+   "art": "formel",
+   "aussage": "Additivität: E(X + Y) = E(X) + E(Y) für beliebige Zufallsvariablen X und Y (auch bei Abhängigkeit).",
+   "schlagworte": [
+    "Additivität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungswert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "erwartungswert-7",
+   "art": "formel",
+   "aussage": "Monotonie: Aus X \\le Y folgt E(X) \\le E(Y).",
+   "schlagworte": [
+    "Monotonie"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Erwartungswert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "E(X + Y) = E(X) + E(Y) gilt nur bei unabhängigen Variablen.",
+   "richtig": "Die Additivität gilt für beliebige Zufallsvariablen; nur beim Produkt E(XY) = E(X)E(Y) braucht man (mindestens) Unkorreliertheit.",
+   "quelle_id": "erwartungswert-6"
+  },
+  {
+   "falsch": "Der Erwartungswert ist immer ein möglicher Ausgang des Zufallsexperiments.",
+   "richtig": "Er muss kein möglicher Wert sein (z. B. 3,5 beim Würfel).",
+   "quelle_id": "erwartungswert-2"
+  }
+ ]
+}

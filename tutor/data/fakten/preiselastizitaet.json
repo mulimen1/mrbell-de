@@ -1,0 +1,134 @@
+{
+ "thema": "preiselastizitaet",
+ "name": "Preiselastizität",
+ "kat": "Marketing",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "preiselastizitaet-1",
+   "art": "definition",
+   "aussage": "Die (direkte) Preiselastizität der Nachfrage setzt die relative Mengenänderung eines Gutes ins Verhältnis zur auslösenden relativen Preisänderung desselben Gutes.",
+   "schlagworte": [
+    "Preiselastizität",
+    "Nachfrage"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Preiselastizität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/preiselastizitaet-41923",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "preiselastizitaet-2",
+   "art": "formel",
+   "aussage": "Bogenelastizität: \\eta_{x,p} = \\frac{\\Delta x / x}{\\Delta p / p} (x = nachgefragte Menge, p = Preis).",
+   "schlagworte": [
+    "Bogenelastizität",
+    "Formel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Preiselastizität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/preiselastizitaet-41923",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "preiselastizitaet-3",
+   "art": "formel",
+   "aussage": "Punktelastizität: \\eta_{x,p} = \\frac{dx}{dp} \\cdot \\frac{p}{x}",
+   "schlagworte": [
+    "Punktelastizität",
+    "Formel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Preiselastizität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/preiselastizitaet-41923",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "preiselastizitaet-4",
+   "art": "abgrenzung",
+   "aussage": "Bei normal verlaufender Nachfrage ist die Elastizität negativ; oft wird sie mit -1 multipliziert, um positive Werte zu erhalten – dabei geht die Vorzeicheninformation verloren.",
+   "schlagworte": [
+    "Vorzeichen",
+    "Betrag"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Preiselastizität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/preiselastizitaet-41923",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "preiselastizitaet-5",
+   "art": "zahl",
+   "aussage": "Umsatzwirkung einer Preiserhöhung: bei \\eta > -1 (|\\eta| < 1) steigt der Umsatz, bei \\eta = -1 bleibt er konstant, bei \\eta < -1 (|\\eta| > 1) sinkt er.",
+   "schlagworte": [
+    "Umsatz",
+    "elastisch",
+    "unelastisch"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Preiselastizität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/preiselastizitaet-41923",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "preiselastizitaet-6",
+   "art": "zahl",
+   "aussage": "Grenzfälle: \\eta = 0 heißt vollkommen preisunelastisch (senkrechte Nachfragekurve), |\\eta| = \\infty vollkommen preiselastisch (waagerechte Nachfragekurve).",
+   "schlagworte": [
+    "vollkommen unelastisch",
+    "vollkommen elastisch"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Preiselastizität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/preiselastizitaet-41923",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "preiselastizitaet-7",
+   "art": "abgrenzung",
+   "aussage": "Auf einer linearen Nachfragefunktion ist die Elastizität nicht konstant: ihr Betrag durchläuft alle Werte von 0 bis unendlich. Konstante Elastizität (isoelastisch) haben Kurven vom Typ x = b \\cdot p^{-\\eta}.",
+   "schlagworte": [
+    "lineare Nachfrage",
+    "isoelastisch"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Preiselastizität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/preiselastizitaet-41923",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "preiselastizitaet-8",
+   "art": "formel",
+   "aussage": "Kreuzpreiselastizität: \\varepsilon_{x_1,p_2} = \\frac{dx_1}{dp_2} \\cdot \\frac{p_2}{x_1}; sie ist positiv bei Substitutionsgütern, negativ bei Komplementärgütern.",
+   "schlagworte": [
+    "Kreuzpreiselastizität",
+    "Substitute",
+    "Komplemente"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kreuzpreiselastizität der Nachfrage",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kreuzpreiselastizitaet-der-nachfrage-39667",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Eine lineare Nachfragekurve hat überall dieselbe Preiselastizität.",
+   "richtig": "Bei linearer Nachfrage ändert sich die Elastizität entlang der Kurve; ihr Betrag reicht von 0 bis unendlich.",
+   "quelle_id": "preiselastizitaet-7"
+  },
+  {
+   "falsch": "Bei elastischer Nachfrage steigt der Umsatz durch eine Preiserhöhung.",
+   "richtig": "Bei |\\eta| > 1 sinkt der Umsatz bei einer Preiserhöhung; er steigt nur bei unelastischer Nachfrage (|\\eta| < 1).",
+   "quelle_id": "preiselastizitaet-5"
+  }
+ ]
+}

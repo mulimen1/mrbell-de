@@ -1,0 +1,143 @@
+{
+ "thema": "buchungssaetze-uebungen",
+ "name": "Buchungssätze üben",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "buchungssaetze-uebungen-1",
+   "art": "methode",
+   "aussage": "Vorgehen bei Buchungssätzen: Geschäftsvorfall verstehen, betroffene Konten bestimmen, je Konto Konto-Art (Aktiv, Passiv, Aufwand, Ertrag) und Mehrung/Minderung prüfen, Soll/Haben zuordnen, Beträge prüfen (Summe Soll = Summe Haben).",
+   "schlagworte": [
+    "Vorgehen",
+    "Soll",
+    "Haben",
+    "Konten"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "buchungssaetze-uebungen-2",
+   "art": "methode",
+   "aussage": "Beispiel Wareneinkauf auf Ziel: Wareneingang und Vorsteuer an Verbindlichkeiten aus Lieferungen und Leistungen (brutto in Haben).",
+   "schlagworte": [
+    "Wareneinkauf",
+    "Vorsteuer",
+    "Verbindlichkeiten"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "buchungssaetze-uebungen-3",
+   "art": "methode",
+   "aussage": "Beispiel Kauf eines Anlageguts: Anlagenkonto (Netto-Anschaffungskosten) und Vorsteuer an Bank bzw. Verbindlichkeiten.",
+   "schlagworte": [
+    "Anlagenkauf",
+    "Vorsteuer"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "buchungssaetze-uebungen-4",
+   "art": "zahl",
+   "aussage": "Regelsteuersatz 19 %, ermäßigter Satz 7 % der Bemessungsgrundlage (Nettobetrag).",
+   "schlagworte": [
+    "Umsatzsteuer",
+    "19 Prozent",
+    "7 Prozent"
+   ],
+   "quelle": {
+    "name": "UStG § 12 Abs. 1 und 2",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__12.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "buchungssaetze-uebungen-5",
+   "art": "formel",
+   "aussage": "Steuer aus dem Bruttobetrag herausrechnen: `St = Brutto \\cdot \\frac{s}{1+s}`; aus dem Nettobetrag: `St = Netto \\cdot s`.",
+   "schlagworte": [
+    "Steuer herausrechnen",
+    "Brutto"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "buchungssaetze-uebungen-6",
+   "art": "methode",
+   "aussage": "Direkte Abschreibung: Abschreibungen auf Sachanlagen (Soll) an Anlagenkonto (Haben); linear werden die Anschaffungskosten gleichmäßig auf die Nutzungsdauer verteilt.",
+   "schlagworte": [
+    "Abschreibung buchen",
+    "lineare AfA"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "buchungssaetze-uebungen-7",
+   "art": "methode",
+   "aussage": "Eine Privatentnahme von Geld wird nicht als Aufwand gebucht, sondern über das Privatkonto: Privat an Kasse/Bank. Einlage: Kasse/Bank an Privat.",
+   "schlagworte": [
+    "Privatentnahme",
+    "Privateinlage"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "buchungssaetze-uebungen-8",
+   "art": "methode",
+   "aussage": "Skonto bei Zahlung vom Lieferanten: Die Vorsteuer wird anteilig berichtigt, d. h. das Nettoskonto mindert Einstandspreis, der Steueranteil die Vorsteuer.",
+   "schlagworte": [
+    "Skonto",
+    "Vorsteuerberichtigung"
+   ],
+   "quelle": {
+    "name": "UStG § 17 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__17.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "buchungssaetze-uebungen-9",
+   "art": "methode",
+   "aussage": "Typischer Prüfpunkt: Bei jeder Eingangsrechnung eines Unternehmers die Vorsteuer, bei jeder Ausgangsrechnung die Umsatzsteuer gesondert buchen; Bar- und Bankverkehr nie über Aufwandskonten ohne Gegenbuchung abschließen.",
+   "schlagworte": [
+    "Prüfpunkt",
+    "Klausur"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Bei der Anschaffung wird der Bruttobetrag auf das Anlagenkonto gebucht.",
+   "richtig": "Auf das Anlagenkonto gehört der Nettobetrag; die abziehbare Vorsteuer wird gesondert gebucht.",
+   "quelle_id": "buchungssaetze-uebungen-3"
+  },
+  {
+   "falsch": "Privatentnahmen werden als Personalaufwand gebucht.",
+   "richtig": "Entnahmen werden auf dem Privatkonto gebucht und sind keine Aufwendungen.",
+   "quelle_id": "buchungssaetze-uebungen-7"
+  }
+ ]
+}

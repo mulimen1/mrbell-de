@@ -1,0 +1,117 @@
+{
+ "thema": "doppelte-buchfuehrung",
+ "name": "Doppelte Buchführung",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "doppelte-buchfuehrung-1",
+   "art": "definition",
+   "aussage": "Bei der doppelten Buchführung (Doppik) wird jeder Geschäftsvorfall auf mindestens zwei Konten gebucht, im Soll und im Haben, jeweils mit demselben Gesamtbetrag.",
+   "schlagworte": [
+    "Doppik",
+    "Soll",
+    "Haben",
+    "Konto"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "doppelte-buchfuehrung-2",
+   "art": "gesetz",
+   "aussage": "Jeder Kaufmann muss Bücher führen, in denen Handelsgeschäfte und Vermögenslage nach den Grundsätzen ordnungsmäßiger Buchführung ersichtlich sind; die Geschäftsvorfälle müssen von der Entstehung bis zur Abwicklung nachvollziehbar sein.",
+   "schlagworte": [
+    "Buchführungspflicht",
+    "GoB"
+   ],
+   "quelle": {
+    "name": "HGB § 238 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__238.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "doppelte-buchfuehrung-3",
+   "art": "gesetz",
+   "aussage": "Eintragungen müssen vollständig, richtig, zeitgerecht und geordnet erfolgen; Bücher dürfen auch auf Datenträgern geführt werden, wenn dies den GoB entspricht.",
+   "schlagworte": [
+    "Ordnungsmäßigkeit",
+    "Datenträger"
+   ],
+   "quelle": {
+    "name": "HGB § 239 Abs. 2 und 4",
+    "url": "https://www.gesetze-im-internet.de/hgb/__239.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "doppelte-buchfuehrung-4",
+   "art": "gesetz",
+   "aussage": "Der Gewinn kann über den Betriebsvermögensvergleich ermittelt werden: Unterschied zwischen Betriebsvermögen am Schluss und am Anfang des Wirtschaftsjahres, korrigiert um Entnahmen (Zurechnung) und Einlagen (Abzug). `Gewinn = EK_{Ende} - EK_{Anfang} + Entnahmen - Einlagen`",
+   "schlagworte": [
+    "Betriebsvermögensvergleich",
+    "Gewinnermittlung",
+    "Kapitalvergleich"
+   ],
+   "quelle": {
+    "name": "EStG § 4 Abs. 1 Satz 1",
+    "url": "https://www.gesetze-im-internet.de/estg/__4.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "doppelte-buchfuehrung-5",
+   "art": "methode",
+   "aussage": "Die doppelte Buchführung ermittelt den Erfolg auf zwei Wegen, die dasselbe Ergebnis liefern müssen: über die Bilanz (Eigenkapitalvergleich) und über die GuV (Erträge minus Aufwendungen). Das dient der Kontrolle.",
+   "schlagworte": [
+    "Kontrolle",
+    "Erfolgsermittlung",
+    "Bilanz",
+    "GuV"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "doppelte-buchfuehrung-6",
+   "art": "gesetz",
+   "aussage": "Gewerbliche Unternehmer müssen auch steuerlich Bücher führen und Abschlüsse aufstellen, wenn ihr Gesamtumsatz über 800.000 Euro im Kalenderjahr oder ihr Gewinn aus Gewerbebetrieb über 80.000 Euro im Wirtschaftsjahr liegt (und die Finanzbehörde darauf hingewiesen hat).",
+   "schlagworte": [
+    "Buchführungspflicht",
+    "800.000",
+    "80.000"
+   ],
+   "quelle": {
+    "name": "AO § 141",
+    "url": "https://www.gesetze-im-internet.de/ao_1977/__141.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "doppelte-buchfuehrung-7",
+   "art": "gesetz",
+   "aussage": "Einzelkaufleute sind unter den Schwellen von 800.000 Euro Umsatz und 80.000 Euro Jahresüberschuss (zwei aufeinanderfolgende Stichtage) von der handelsrechtlichen Buchführungspflicht befreit.",
+   "schlagworte": [
+    "Einzelkaufmann",
+    "Befreiung"
+   ],
+   "quelle": {
+    "name": "HGB § 241a",
+    "url": "https://www.gesetze-im-internet.de/hgb/__241a.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Bei der doppelten Buchführung wird jeder Vorgang zweimal ins Grundbuch eingetragen.",
+   "richtig": "Der Vorgang wird einmal erfasst und wirkt auf mindestens zwei Konten (Soll und Haben).",
+   "quelle_id": "doppelte-buchfuehrung-1"
+  }
+ ]
+}

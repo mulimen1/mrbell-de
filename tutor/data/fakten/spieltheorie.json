@@ -1,0 +1,128 @@
+{
+ "thema": "spieltheorie",
+ "name": "Spieltheorie",
+ "kat": "VWL",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "spieltheorie-1",
+   "art": "definition",
+   "aussage": "Die Spieltheorie ist eine mathematische Methode zur Analyse rationalen Entscheidungsverhaltens in Situationen, in denen der eigene Erfolg auch vom Handeln anderer abhängt.",
+   "schlagworte": [
+    "Spieltheorie",
+    "strategische Interaktion"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "spieltheorie-2",
+   "art": "zahl",
+   "aussage": "Als Meilenstein gilt das Werk von von Neumann und Morgenstern; den Nobelpreis 1994 erhielten Harsanyi, Nash und Selten.",
+   "schlagworte": [
+    "von Neumann",
+    "Morgenstern",
+    "Nobelpreis 1994"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "spieltheorie-3",
+   "art": "definition",
+   "aussage": "Grundbegriffe: Spieler i = 1, …, n wählen Strategien aus ihren Strategiemengen S_i; die Auszahlung u_i(s) hängt vom gesamten Strategievektor s ab.",
+   "schlagworte": [
+    "Spieler",
+    "Strategie",
+    "Auszahlung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "spieltheorie-4",
+   "art": "abgrenzung",
+   "aussage": "Die Normalform beschreibt ein Spiel statisch als Tupel (S_1, …, S_n; u_1, …, u_n), bei zwei Spielern als Bimatrix; die extensive Form bildet den zeitlichen Ablauf als Spielbaum ab.",
+   "schlagworte": [
+    "Normalform",
+    "Bimatrix",
+    "extensive Form"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "spieltheorie-5",
+   "art": "definition",
+   "aussage": "Eine Strategie ist dominiert, wenn eine andere in allen Fällen mindestens gleich gut und in manchen besser ist; rationale Spieler wählen dominierte Strategien nicht.",
+   "schlagworte": [
+    "dominierte Strategie"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "spieltheorie-6",
+   "art": "definition",
+   "aussage": "Ein Nash-Gleichgewicht ist ein Strategievektor, in dem jede Strategie beste Antwort auf die Strategien der anderen ist.",
+   "schlagworte": [
+    "Nash-Gleichgewicht",
+    "beste Antwort"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "spieltheorie-7",
+   "art": "formel",
+   "aussage": "Nullsummenspiel mit zwei Spielern: u_1(s) + u_2(s) = 0 für alle Strategievektoren, d. h. der Gewinn des einen ist der Verlust des anderen.",
+   "schlagworte": [
+    "Nullsummenspiel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalform",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalform-39481",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "spieltheorie-8",
+   "art": "abgrenzung",
+   "aussage": "Die Spieltheorie gilt primär als normative Theorie; Experimente zeigen Verhalten, das von ihren Rationalitätsannahmen abweicht.",
+   "schlagworte": [
+    "normativ",
+    "experimentelle Wirtschaftsforschung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Jedes Spiel mit Konflikt ist ein Nullsummenspiel.",
+   "richtig": "Nullsumme liegt nur vor, wenn u_1 + u_2 = 0 für alle Strategiekombinationen gilt; Preiskämpfe oder das Gefangenendilemma sind keine Nullsummenspiele.",
+   "quelle_id": "spieltheorie-7"
+  }
+ ]
+}

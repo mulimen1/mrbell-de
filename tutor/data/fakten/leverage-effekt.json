@@ -1,0 +1,100 @@
+{
+ "thema": "leverage-effekt",
+ "name": "Leverage-Effekt",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "leverage-effekt-1",
+   "art": "definition",
+   "aussage": "Der Leverage-Effekt (Hebelwirkung des Fremdkapitals bzw. des Verschuldungsgrads) beschreibt, wie sich die erwartete Eigenkapitalrendite verändert, wenn Eigenkapital durch Fremdkapital ersetzt wird.",
+   "schlagworte": [
+    "Leverage-Effekt",
+    "Hebelwirkung",
+    "Verschuldungsgrad"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Leverage-Effekt",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/leverage-effekt-37575",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "leverage-effekt-2",
+   "art": "abgrenzung",
+   "aussage": "Voraussetzung der Standardbetrachtung: Die erwartete Gesamtkapitalrendite liegt über dem Fremdkapitalzins, und beide Größen sind unabhängig von der Kapitalstruktur gegeben.",
+   "schlagworte": [
+    "Gesamtkapitalrendite",
+    "Fremdkapitalzins",
+    "Voraussetzung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Leverage-Effekt",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/leverage-effekt-37575",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "leverage-effekt-3",
+   "art": "abgrenzung",
+   "aussage": "Ist die Gesamtkapitalrendite r_G größer als der Fremdkapitalzins i, steigt die erwartete Eigenkapitalrendite linear mit dem Verschuldungsgrad (positiver Leverage).",
+   "schlagworte": [
+    "positiver Leverage",
+    "Verschuldungsgrad"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Leverage-Effekt",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/leverage-effekt-37575",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "leverage-effekt-4",
+   "art": "abgrenzung",
+   "aussage": "Ist r_G kleiner als i, sinkt die Eigenkapitalrendite mit zunehmender Verschuldung linear (negativer Leverage); der Hebel wirkt in beide Richtungen.",
+   "schlagworte": [
+    "negativer Leverage",
+    "Risiko"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Leverage-Effekt",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/leverage-effekt-37575",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "leverage-effekt-5",
+   "art": "formel",
+   "aussage": "r_E = r_G + (r_G - i) \\cdot \\frac{FK}{EK} \\quad (r_E: EK-Rendite,\\ r_G: GK-Rendite,\\ i: FK-Zins; ohne Steuern)",
+   "schlagworte": [
+    "Formel",
+    "Eigenkapitalrendite",
+    "FK/EK"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "leverage-effekt-6",
+   "art": "abgrenzung",
+   "aussage": "Bei r_G = i ist die Eigenkapitalrendite gleich r_G, unabhängig vom Verschuldungsgrad; der Hebel ist dann neutral.",
+   "schlagworte": [
+    "Break-even",
+    "neutral"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Mehr Fremdkapital erhöht die Eigenkapitalrendite immer.",
+   "richtig": "Nur wenn die Gesamtkapitalrendite über dem Fremdkapitalzins liegt; andernfalls sinkt die Eigenkapitalrendite.",
+   "quelle_id": "leverage-effekt-3"
+  }
+ ]
+}

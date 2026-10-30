@@ -1,0 +1,101 @@
+{
+ "thema": "bestellpunktverfahren",
+ "name": "Bestellpunktverfahren",
+ "kat": "Management",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "bestellpunktverfahren-1",
+   "art": "definition",
+   "aussage": "Beim Bestellpunktverfahren wird eine Bestellung ausgelöst, sobald der Bestand den Meldebestand (Bestellpunkt) erreicht oder unterschreitet.",
+   "schlagworte": [
+    "Bestellpunkt",
+    "Meldebestand"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellpunktverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellpunktverfahren-31301",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-2",
+   "art": "abgrenzung",
+   "aussage": "Der Bestellzeitpunkt ist variabel, weil er sich nach den tatsächlichen Lagerentnahmen richtet.",
+   "schlagworte": [
+    "Bestellzeitpunkt",
+    "variabel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellpunktverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellpunktverfahren-31301",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-3",
+   "art": "methode",
+   "aussage": "Varianten: mit fester Bestellmenge (bei Erreichen des Meldebestands wird eine festgelegte Menge bestellt) oder mit Auffüllen auf einen Höchst- bzw. Sollbestand (variable Bestellmenge).",
+   "schlagworte": [
+    "feste Bestellmenge",
+    "Höchstbestand",
+    "s,q",
+    "s,S"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellpunktverfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellpunktverfahren-31301",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-4",
+   "art": "definition",
+   "aussage": "Der Meldebestand ergibt sich aus dem Sicherheitsbestand zuzüglich des während der Beschaffungszeit erwarteten Verbrauchs.",
+   "schlagworte": [
+    "Meldebestand",
+    "Sicherheitsbestand",
+    "Beschaffungszeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Meldebestand",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/meldebestand-38266",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-5",
+   "art": "formel",
+   "aussage": "MB = SB + d \\cdot WBZ (MB: Meldebestand, SB: Sicherheitsbestand, d: Verbrauch je Zeiteinheit, WBZ: Wiederbeschaffungszeit).",
+   "schlagworte": [
+    "Formel Meldebestand"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Meldebestand",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/meldebestand-38266",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "bestellpunktverfahren-6",
+   "art": "definition",
+   "aussage": "Die Höhe des Sicherheitsbestands hängt u. a. von der Länge der Beschaffungszeit und der angestrebten Lieferbereitschaft ab.",
+   "schlagworte": [
+    "Sicherheitsbestand",
+    "Lieferbereitschaft"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Meldebestand",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/meldebestand-38266",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Der Meldebestand ist gleich dem Sicherheitsbestand.",
+   "richtig": "Der Meldebestand umfasst den Sicherheitsbestand plus den erwarteten Verbrauch in der Wiederbeschaffungszeit.",
+   "quelle_id": "bestellpunktverfahren-4"
+  }
+ ]
+}

@@ -1,0 +1,130 @@
+{
+ "thema": "aequivalenzziffernkalkulation",
+ "name": "Äquivalenzziffernkalkulation",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "aequivalenzziffernkalkulation-1",
+   "art": "definition",
+   "aussage": "Äquivalenzziffern sind Gewichtungszahlen, die verschiedenartige Leistungen auf eine gleichnamige Leistung umrechnen und so eine einheitliche Bezugsbasis für die Kostenverrechnung schaffen.",
+   "schlagworte": [
+    "Äquivalenzziffer",
+    "Gewichtung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Äquivalenzziffer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/aequivalenzziffer-27834",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "aequivalenzziffernkalkulation-2",
+   "art": "methode",
+   "aussage": "Bildung: Eine Sorte (Richtsorte) erhält die Ziffer 1; die anderen Sorten erhalten Ziffern proportional zum Verhältnis ihrer Sollzeiten bzw. ihrer Kostenverursachung.",
+   "schlagworte": [
+    "Richtsorte",
+    "Sollzeiten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Äquivalenzziffer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/aequivalenzziffer-27834",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "aequivalenzziffernkalkulation-3",
+   "art": "methode",
+   "aussage": "Die Äquivalenzziffernrechnung wird bei artverwandten Produkten verwendet, die auf denselben Anlagen gefertigt werden, und kalkuliert anschließend mit der einfachen Divisionsrechnung.",
+   "schlagworte": [
+    "artverwandt",
+    "Divisionskalkulation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Divisionskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/divisionskalkulation-32968",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "aequivalenzziffernkalkulation-4",
+   "art": "formel",
+   "aussage": "Recheneinheiten (RE) einer Sorte = Menge \\cdot Äquivalenzziffer; Gesamt-RE = \\sum x_i \\cdot z_i.",
+   "schlagworte": [
+    "Recheneinheiten"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "aequivalenzziffernkalkulation-5",
+   "art": "formel",
+   "aussage": "Kosten je Recheneinheit = Gesamtkosten / Gesamt-RE; Stückkosten der Sorte i = Kosten je RE \\cdot z_i.",
+   "schlagworte": [
+    "Kosten je Recheneinheit",
+    "Stückkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Äquivalenzziffer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/aequivalenzziffer-27834",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "aequivalenzziffernkalkulation-6",
+   "art": "methode",
+   "aussage": "Die Festlegung der Ziffern gilt als schwierig; Orientierung bieten Produktmerkmale, Fertigungsweise und eingesetzte Maschinen im Verhältnis zu den Kosten.",
+   "schlagworte": [
+    "Festlegung",
+    "Verursachung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Divisionskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/divisionskalkulation-32968",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "aequivalenzziffernkalkulation-7",
+   "art": "methode",
+   "aussage": "Bei Kuppelprodukten können die Ziffern nach Marktpreisen bestimmt werden (Tragfähigkeitsprinzip).",
+   "schlagworte": [
+    "Kuppelprodukte",
+    "Tragfähigkeitsprinzip"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Divisionskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/divisionskalkulation-32968",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "aequivalenzziffernkalkulation-8",
+   "art": "methode",
+   "aussage": "Die Ziffern sollen trotz der Vereinfachung eine verursachungsgerechte Abbildung der Kosten erreichen.",
+   "schlagworte": [
+    "Vereinfachung",
+    "Verursachung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Äquivalenzziffer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/aequivalenzziffer-27834",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Bei der Äquivalenzziffernkalkulation werden die Gesamtkosten einfach durch die Stückzahl aller Sorten geteilt.",
+   "richtig": "Die Mengen werden erst mit den Äquivalenzziffern gewichtet (Recheneinheiten); die Gesamtkosten werden durch die Summe der Recheneinheiten geteilt.",
+   "quelle_id": "aequivalenzziffernkalkulation-5"
+  },
+  {
+   "falsch": "Die Richtsorte erhält die Ziffer 0.",
+   "richtig": "Die Richtsorte erhält die Ziffer 1, die anderen Sorten werden relativ dazu gewichtet.",
+   "quelle_id": "aequivalenzziffernkalkulation-2"
+  }
+ ]
+}

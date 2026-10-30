@@ -1,0 +1,141 @@
+{
+ "thema": "sprungfixe-kosten",
+ "name": "Sprungfixe Kosten",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "sprungfixe-kosten-1",
+   "art": "definition",
+   "aussage": "Sprungfixe (intervallfixe) Kosten reagieren nicht auf jede kleine Änderung der Bezugsgröße (z. B. der Beschäftigung), sondern ändern sich erst bei größeren Veränderungsquanten.",
+   "schlagworte": [
+    "sprungfixe Kosten",
+    "intervallfixe Kosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: intervallfixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/intervallfixe-kosten-41367",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sprungfixe-kosten-2",
+   "art": "methode",
+   "aussage": "Intervallfixe Kosten liegt eine treppenförmige Kostenfunktion zugrunde: Innerhalb eines Intervalls bleiben sie konstant und steigen beim Überschreiten einer kritischen Grenze sprunghaft an.",
+   "schlagworte": [
+    "Treppenfunktion",
+    "Intervall"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: intervallfixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/intervallfixe-kosten-41367",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sprungfixe-kosten-3",
+   "art": "abgrenzung",
+   "aussage": "Beispiele: die Fixkosten einer zusätzlichen Maschine, der Lohn einer zusätzlichen Arbeitskraft oder die Einführung einer zusätzlichen Produktionsschicht.",
+   "schlagworte": [
+    "zusätzliche Maschine",
+    "Schicht"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: fixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/fixe-kosten-33359",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sprungfixe-kosten-4",
+   "art": "abgrenzung",
+   "aussage": "Abgrenzung: Anders als absolut fixe Kosten bleiben sie nicht über alle Beschäftigungsniveaus konstant; anders als variable Kosten ändern sie sich nicht bei jeder kleinen Mengenänderung, sondern nur sprunghaft.",
+   "schlagworte": [
+    "Abgrenzung",
+    "variabel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: intervallfixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/intervallfixe-kosten-41367",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sprungfixe-kosten-5",
+   "art": "abgrenzung",
+   "aussage": "Sprungfixe Kosten sind eine Kostenkategorie zwischen variablen und fixen Kosten.",
+   "schlagworte": [
+    "Kostenkategorie"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: intervallfixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/intervallfixe-kosten-41367",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sprungfixe-kosten-6",
+   "art": "methode",
+   "aussage": "In der Kostenrechnungspraxis werden intervallfixe Kosten meist nicht gesondert berücksichtigt.",
+   "schlagworte": [
+    "Praxis"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: intervallfixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/intervallfixe-kosten-41367",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sprungfixe-kosten-7",
+   "art": "formel",
+   "aussage": "Bei Kapazitätsintervall c je Stufe und Stufenfixkosten K_{f,s} gilt: K_f(x) = \\lceil x / c \\rceil \\cdot K_{f,s}.",
+   "schlagworte": [
+    "Kapazitätsintervall",
+    "Stufen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "sprungfixe-kosten-8",
+   "art": "methode",
+   "aussage": "Die Stückkosten verlaufen sägezahnartig: Innerhalb eines Intervalls sinken die fixen Stückkosten, am Sprung steigen sie plötzlich an.",
+   "schlagworte": [
+    "Stückkosten",
+    "Sprung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "sprungfixe-kosten-9",
+   "art": "methode",
+   "aussage": "Bei sprungfixen Kosten ist die Break-even-Analyse intervallweise durchzuführen, da sich Fixkosten und damit die Gewinnschwelle je Intervall unterscheiden.",
+   "schlagworte": [
+    "Break-even",
+    "Intervall"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Sprungfixe Kosten sind variable Kosten.",
+   "richtig": "Sie bleiben im Intervall konstant und springen erst beim Überschreiten einer Kapazitätsgrenze; sie sind eine Zwischenkategorie.",
+   "quelle_id": "sprungfixe-kosten-4"
+  },
+  {
+   "falsch": "Wird die Kapazitätsgrenze überschritten, bleiben die Fixkosten unverändert.",
+   "richtig": "Beim Überschreiten der kritischen Grenze steigen die intervallfixen Kosten sprunghaft.",
+   "quelle_id": "sprungfixe-kosten-2"
+  }
+ ]
+}

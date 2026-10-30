@@ -1,0 +1,129 @@
+{
+ "thema": "regression",
+ "name": "Lineare Regression",
+ "kat": "Statistik",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "regression-1",
+   "art": "definition",
+   "aussage": "Die lineare Regression unterstellt einen linearen Zusammenhang zwischen abhängiger (endogener) und erklärenden (exogenen) Variablen: Y_i = \\beta_0 + \\beta_1 X_{1i} + \\dots + \\beta_K X_{Ki} + e_i mit Störterm e_i.",
+   "schlagworte": [
+    "Regressionsmodell",
+    "Störterm"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: lineare Regression",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/regression-lineare-40877",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-2",
+   "art": "abgrenzung",
+   "aussage": "Ein Modell heißt linear, wenn es linear in den Parametern ist; Linearität in den Variablen ist nicht erforderlich.",
+   "schlagworte": [
+    "linear in den Parametern"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: lineare Regression",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/regression-lineare-40877",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-3",
+   "art": "methode",
+   "aussage": "Die Parameter werden mit der gewöhnlichen Kleinstquadratemethode (OLS) aus einer Stichprobe geschätzt.",
+   "schlagworte": [
+    "OLS",
+    "Kleinste Quadrate"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: lineare Regression",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/regression-lineare-40877",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-4",
+   "art": "formel",
+   "aussage": "Einfache Regressionsgerade y = a + b\\,x; a und b minimieren \\sum_i (y_i - a - b\\,x_i)^2, die Summe der quadrierten vertikalen Abweichungen.",
+   "schlagworte": [
+    "Regressionsgerade",
+    "Residuen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kleinste-Quadrate-Regressionsgerade",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kleinste-quadrate-regressionsgerade-40009",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-5",
+   "art": "formel",
+   "aussage": "Steigung und Achsenabschnitt der Kleinste-Quadrate-Geraden: b = \\frac{s_{xy}}{s_x^2}, a = \\bar{y} - b\\,\\bar{x}.",
+   "schlagworte": [
+    "Steigung",
+    "Achsenabschnitt"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "regression-6",
+   "art": "formel",
+   "aussage": "Bestimmtheitsmaß R^2 = 1 - \\frac{RSS}{TSS} mit Residuenquadratsumme RSS und Gesamtquadratsumme TSS; R^2 liegt zwischen 0 und 1.",
+   "schlagworte": [
+    "R²",
+    "Bestimmtheitsmaß"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestimmtheitsmaß",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestimmtheitsmass-31758",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-7",
+   "art": "abgrenzung",
+   "aussage": "In der linearen Einfachregression ist R^2 das Quadrat des Bravais-Pearson-Korrelationskoeffizienten.",
+   "schlagworte": [
+    "R² = r²"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestimmtheitsmaß",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestimmtheitsmass-31758",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "regression-8",
+   "art": "abgrenzung",
+   "aussage": "Zusätzliche erklärende Variablen erhöhen R^2 in der Regel; zum Vergleich von Modellen mit unterschiedlich vielen Variablen dient das korrigierte (adjustierte) R^2. Ein hohes R^2 kann bei ungeeignetem Modell oder nicht-stationären Variablen trügen (Scheinregression).",
+   "schlagworte": [
+    "adjustiertes R²",
+    "Scheinregression"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestimmtheitsmaß",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestimmtheitsmass-31758",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Ein hohes R² beweist, dass x die Ursache von y ist.",
+   "richtig": "R² misst nur die erklärte Streuung; Kausalität folgt daraus nicht, und hohes R² kann bei Scheinregression auftreten.",
+   "quelle_id": "regression-8"
+  },
+  {
+   "falsch": "Lineare Regression bedeutet, dass nur lineare Funktionen der Variablen möglich sind.",
+   "richtig": "Maßgeblich ist die Linearität in den Parametern; Variablen dürfen transformiert sein (z. B. x²).",
+   "quelle_id": "regression-2"
+  }
+ ]
+}

@@ -1,0 +1,136 @@
+{
+ "thema": "latente-steuern",
+ "name": "Latente Steuern",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "latente-steuern-1",
+   "art": "definition",
+   "aussage": "Latente Steuern entstehen, wenn handelsrechtliche und steuerliche Wertansätze voneinander abweichen und sich dieser Unterschied in späteren Geschäftsjahren voraussichtlich wieder abbaut.",
+   "schlagworte": [
+    "latente Steuern",
+    "Differenz",
+    "Handelsbilanz",
+    "Steuerbilanz"
+   ],
+   "quelle": {
+    "name": "HGB § 274 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__274.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "latente-steuern-2",
+   "art": "gesetz",
+   "aussage": "Es wird die Gesamtdifferenz betrachtet: Ergibt sich insgesamt eine Steuerbelastung, sind passive latente Steuern anzusetzen (Pflicht).",
+   "schlagworte": [
+    "Gesamtdifferenzbetrachtung",
+    "passive latente Steuern",
+    "Passivierungspflicht"
+   ],
+   "quelle": {
+    "name": "HGB § 274 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__274.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "latente-steuern-3",
+   "art": "gesetz",
+   "aussage": "Ergibt sich insgesamt eine Steuerentlastung, dürfen aktive latente Steuern angesetzt werden (Wahlrecht); beide Posten dürfen auch unsaldiert ausgewiesen werden.",
+   "schlagworte": [
+    "aktive latente Steuern",
+    "Aktivierungswahlrecht",
+    "Saldierung"
+   ],
+   "quelle": {
+    "name": "HGB § 274 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__274.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "latente-steuern-4",
+   "art": "gesetz",
+   "aussage": "Steuerliche Verlustvorträge werden bei der Aktivierung nur berücksichtigt, soweit sie innerhalb der nächsten fünf Jahre verrechnet werden können.",
+   "schlagworte": [
+    "Verlustvortrag",
+    "fünf Jahre"
+   ],
+   "quelle": {
+    "name": "HGB § 274 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__274.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "latente-steuern-5",
+   "art": "gesetz",
+   "aussage": "Die Bewertung erfolgt mit dem unternehmensindividuellen Steuersatz zum Zeitpunkt des Abbaus der Differenzen; eine Abzinsung ist nicht zulässig.",
+   "schlagworte": [
+    "Steuersatz",
+    "Abzinsung verboten"
+   ],
+   "quelle": {
+    "name": "HGB § 274 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__274.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "latente-steuern-6",
+   "art": "formel",
+   "aussage": "Latente Steuer: `latente\\ Steuer = Differenz \\cdot s` (s = individueller Steuersatz, z. B. aus Körperschaft-, Gewerbesteuer und Solidaritätszuschlag).",
+   "schlagworte": [
+    "Berechnung",
+    "Steuersatz"
+   ],
+   "quelle": {
+    "name": "HGB § 274 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__274.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "latente-steuern-7",
+   "art": "gesetz",
+   "aussage": "Aufwand oder Ertrag aus der Veränderung latenter Steuern wird gesondert unter dem Posten „Steuern vom Einkommen und vom Ertrag“ ausgewiesen.",
+   "schlagworte": [
+    "GuV",
+    "Ausweis"
+   ],
+   "quelle": {
+    "name": "HGB § 274 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__274.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "latente-steuern-8",
+   "art": "gesetz",
+   "aussage": "Aktive latente Steuern stehen in der Bilanz auf der Aktivseite unter D., passive latente Steuern auf der Passivseite unter E.",
+   "schlagworte": [
+    "Bilanzausweis",
+    "Gliederung"
+   ],
+   "quelle": {
+    "name": "HGB § 266 Abs. 2 D und Abs. 3 E",
+    "url": "https://www.gesetze-im-internet.de/hgb/__266.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Aktive latente Steuern müssen immer angesetzt werden.",
+   "richtig": "Für einen Aktivüberhang besteht ein Wahlrecht; nur passive latente Steuern sind Pflicht.",
+   "quelle_id": "latente-steuern-3"
+  },
+  {
+   "falsch": "Latente Steuern werden abgezinst.",
+   "richtig": "Eine Abzinsung ist nach § 274 Abs. 2 HGB nicht zulässig.",
+   "quelle_id": "latente-steuern-5"
+  }
+ ]
+}

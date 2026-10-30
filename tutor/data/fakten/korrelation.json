@@ -1,0 +1,116 @@
+{
+ "thema": "korrelation",
+ "name": "Korrelation",
+ "kat": "Statistik",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "korrelation-1",
+   "art": "definition",
+   "aussage": "Der Korrelationskoeffizient misst die Stärke eines positiven oder negativen Zusammenhangs zwischen zwei quantitativen Merkmalen bzw. Zufallsvariablen.",
+   "schlagworte": [
+    "Korrelationskoeffizient",
+    "Zusammenhang"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationskoeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationskoeffizient-39501",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-2",
+   "art": "formel",
+   "aussage": "Bravais-Pearson (Stichprobe): r_{xy} = \\frac{s_{xy}}{s_x \\cdot s_y} mit empirischer Kovarianz s_{xy} und Standardabweichungen s_x, s_y.",
+   "schlagworte": [
+    "Bravais-Pearson",
+    "Kovarianz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationskoeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationskoeffizient-39501",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-3",
+   "art": "formel",
+   "aussage": "Bravais-Pearson (Grundgesamtheit): \\rho_{XY} = \\frac{Cov(X,Y)}{\\sqrt{Var(X)}\\sqrt{Var(Y)}}.",
+   "schlagworte": [
+    "Grundgesamtheit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationskoeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationskoeffizient-39501",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-4",
+   "art": "zahl",
+   "aussage": "Der Koeffizient liegt stets zwischen -1 und +1 (anders als die Kovarianz); r = +1 bzw. -1 bei Punkten exakt auf einer Geraden mit positiver bzw. negativer Steigung.",
+   "schlagworte": [
+    "Wertebereich",
+    "-1 bis +1"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationskoeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationskoeffizient-39501",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-5",
+   "art": "abgrenzung",
+   "aussage": "Der Bravais-Pearson-Koeffizient misst nur den Grad des linearen Zusammenhangs.",
+   "schlagworte": [
+    "linear"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationskoeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationskoeffizient-39501",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-6",
+   "art": "formel",
+   "aussage": "Spearmans Rangkorrelation: r_S = 1 - \\frac{6\\sum_i (R(x_i) - R(y_i))^2}{n(n^2 - 1)} (bei paarweise verschiedenen Werten); sie ist auch für ordinalskalierte Merkmale berechenbar und gleich +1 bei streng monoton steigendem Zusammenhang.",
+   "schlagworte": [
+    "Spearman",
+    "Rang",
+    "ordinal"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Korrelationskoeffizient",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/korrelationskoeffizient-39501",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "korrelation-7",
+   "art": "abgrenzung",
+   "aussage": "Korrelation ist keine Kausalität: Ein hoher Koeffizient besagt nichts über Ursache und Wirkung; möglich sind umgekehrte Kausalität und Drittvariablen (Scheinkorrelation).",
+   "schlagworte": [
+    "Kausalität",
+    "Scheinkorrelation"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "r = 0 bedeutet, dass kein Zusammenhang besteht.",
+   "richtig": "r = 0 bedeutet nur: kein linearer Zusammenhang; ein nichtlinearer Zusammenhang kann dennoch bestehen.",
+   "quelle_id": "korrelation-5"
+  },
+  {
+   "falsch": "Starke Korrelation heißt, x verursacht y.",
+   "richtig": "Korrelation sagt nichts über Kausalität.",
+   "quelle_id": "korrelation-7"
+  }
+ ]
+}

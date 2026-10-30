@@ -1,0 +1,144 @@
+{
+ "thema": "handelsspanne-kalkulationsfaktor",
+ "name": "Handelsspanne, Kalkulationszuschlag und Kalkulationsfaktor",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "handelsspanne-kalkulationsfaktor-1",
+   "art": "definition",
+   "aussage": "Die Handelsspanne ist der Unterschiedsbetrag zwischen Einstands- und Verkaufspreis im Handelsbetrieb.",
+   "schlagworte": [
+    "Handelsspanne",
+    "Rohgewinn"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Handelsspanne",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/handelsspanne-33474",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelsspanne-kalkulationsfaktor-2",
+   "art": "formel",
+   "aussage": "Rohgewinn = Warenumsatz - Wareneinsatz (zu Einstandspreisen); prozentuale Handelsspanne = Rohgewinn / Umsatz. Beispiel: Rohgewinn 20.000 EUR bei 100.000 EUR Umsatz ergibt 20 %.",
+   "schlagworte": [
+    "Rohgewinn",
+    "relative Spanne"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Handelsspanne",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/handelsspanne-33474",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelsspanne-kalkulationsfaktor-3",
+   "art": "abgrenzung",
+   "aussage": "Die Handelsspanne bezieht sich auf den Verkaufspreis, der Kalkulationsaufschlag (Handelsaufschlag) auf den Einkaufs- bzw. Einstandspreis; beide beschreiben denselben Rohgewinn mit unterschiedlicher Bezugsgröße (20 % Spanne entsprechen 25 % Aufschlag).",
+   "schlagworte": [
+    "Handelsaufschlag",
+    "Bezugsgröße"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Handelsspanne",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/handelsspanne-33474",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelsspanne-kalkulationsfaktor-4",
+   "art": "formel",
+   "aussage": "Umrechnung: Aufschlag = Spanne / (1 - Spanne) und Spanne = Aufschlag / (1 + Aufschlag).",
+   "schlagworte": [
+    "Umrechnung",
+    "Aufschlag"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Handelsspanne",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/handelsspanne-33474",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelsspanne-kalkulationsfaktor-5",
+   "art": "definition",
+   "aussage": "Der Kalkulationsaufschlag im Handel erhöht den Wareneinstandspreis um einen prozentualen Aufschlag zur Ermittlung des Verkaufspreises.",
+   "schlagworte": [
+    "Kalkulationsaufschlag"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kalkulationsaufschlag im Handel",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulationsaufschlag-im-handel-40969",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelsspanne-kalkulationsfaktor-6",
+   "art": "definition",
+   "aussage": "Der Kalkulationsfaktor ist der Kalkulationsaufschlag auf den Wareneinstandspreis zur Ermittlung des Verkaufspreises, ausgedrückt als Multiplikator.",
+   "schlagworte": [
+    "Kalkulationsfaktor",
+    "Multiplikator"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kalkulationsfaktor",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulationsfaktor-41535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelsspanne-kalkulationsfaktor-7",
+   "art": "formel",
+   "aussage": "Kalkulationsfaktor = Verkaufspreis / Einstandspreis = 1 + Aufschlag = 1 / (1 - Spanne); Verkaufspreis = Einstandspreis \\cdot Kalkulationsfaktor.",
+   "schlagworte": [
+    "Kalkulationsfaktor",
+    "Formel"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "handelsspanne-kalkulationsfaktor-8",
+   "art": "formel",
+   "aussage": "Beispiel: Einkaufspreis 800 EUR, Aufschlag 25 % ergibt Verkaufspreis 800 \\cdot 1{,}25 = 1.000 EUR.",
+   "schlagworte": [
+    "Beispiel",
+    "Verkaufspreis"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Handelsspanne",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/handelsspanne-33474",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "handelsspanne-kalkulationsfaktor-9",
+   "art": "abgrenzung",
+   "aussage": "Die Handelsspanne liegt immer unter 100 %, der Kalkulationsaufschlag kann über 100 % liegen (Verkaufspreis mehr als doppelt so hoch wie Einkaufspreis).",
+   "schlagworte": [
+    "Spanne",
+    "Aufschlag",
+    "Größenordnung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "20 % Aufschlag sind 20 % Handelsspanne.",
+   "richtig": "20 % Aufschlag entsprechen etwa 16,7 % Spanne; umgekehrt entsprechen 20 % Spanne 25 % Aufschlag.",
+   "quelle_id": "handelsspanne-kalkulationsfaktor-4"
+  },
+  {
+   "falsch": "Handelsspanne und Kalkulationsaufschlag bedeuten dasselbe.",
+   "richtig": "Sie beziehen sich auf unterschiedliche Basen: Spanne auf den Verkaufspreis, Aufschlag auf den Einstandspreis.",
+   "quelle_id": "handelsspanne-kalkulationsfaktor-3"
+  }
+ ]
+}

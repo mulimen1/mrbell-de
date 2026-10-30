@@ -1,0 +1,118 @@
+{
+ "thema": "anschaffungskosten",
+ "name": "Anschaffungskosten",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "anschaffungskosten-1",
+   "art": "gesetz",
+   "aussage": "Anschaffungskosten sind die Aufwendungen, die für den Erwerb eines Vermögensgegenstands und seine Versetzung in einen betriebsbereiten Zustand geleistet werden, soweit sie dem Gegenstand einzeln zugeordnet werden können.",
+   "schlagworte": [
+    "Anschaffungskosten",
+    "Betriebsbereitschaft",
+    "Einzelkosten"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "anschaffungskosten-2",
+   "art": "gesetz",
+   "aussage": "Zu den Anschaffungskosten gehören auch die Anschaffungsnebenkosten und die nachträglichen Anschaffungskosten.",
+   "schlagworte": [
+    "Anschaffungsnebenkosten",
+    "nachträgliche Anschaffungskosten"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "anschaffungskosten-3",
+   "art": "gesetz",
+   "aussage": "Anschaffungspreisminderungen, die dem Gegenstand einzeln zugeordnet werden können, sind abzusetzen.",
+   "schlagworte": [
+    "Anschaffungspreisminderung",
+    "Rabatt"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "anschaffungskosten-4",
+   "art": "formel",
+   "aussage": "Kalkulationsschema: `AK = Anschaffungspreis - Anschaffungspreisminderungen + Anschaffungsnebenkosten + nachträgliche\\ AK`.",
+   "schlagworte": [
+    "Kalkulationsschema",
+    "Bezugskalkulation"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "anschaffungskosten-5",
+   "art": "gesetz",
+   "aussage": "Vermögensgegenstände dürfen höchstens mit ihren Anschaffungs- oder Herstellungskosten (vermindert um Abschreibungen) bilanziert werden; die Anschaffungskosten sind die Wertobergrenze (Anschaffungskostenprinzip).",
+   "schlagworte": [
+    "Anschaffungskostenprinzip",
+    "Wertobergrenze"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "anschaffungskosten-6",
+   "art": "methode",
+   "aussage": "Typische Anschaffungsnebenkosten: Transport, Montage, Fundamentierung, Zölle, Notar- und Grundbuchkosten; typische Anschaffungspreisminderungen: Rabatt, Bonus, in Anspruch genommenes Skonto. Allgemeine Gemeinkosten, Finanzierungskosten und Skonto, das nicht genutzt wird, gehören nicht dazu.",
+   "schlagworte": [
+    "Nebenkosten",
+    "Skonto",
+    "Rabatt"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "anschaffungskosten-7",
+   "art": "methode",
+   "aussage": "Abziehbare Vorsteuer ist kein Teil der Anschaffungskosten, weil sie als Forderung gegen das Finanzamt erstattet wird; nicht abziehbare Vorsteuer erhöht dagegen die Anschaffungskosten.",
+   "schlagworte": [
+    "Vorsteuer",
+    "Umsatzsteuer"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Zu den Anschaffungskosten zählt auch die abziehbare Vorsteuer.",
+   "richtig": "Abziehbare Vorsteuer wird gesondert als Forderung gegen das Finanzamt gebucht; Anschaffungskosten sind die Nettowerte.",
+   "quelle_id": "anschaffungskosten-7"
+  },
+  {
+   "falsch": "Rabatte werden von den Anschaffungskosten nicht abgezogen.",
+   "richtig": "Einzeln zurechenbare Anschaffungspreisminderungen sind abzusetzen.",
+   "quelle_id": "anschaffungskosten-3"
+  }
+ ]
+}

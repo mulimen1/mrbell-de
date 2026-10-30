@@ -1,0 +1,121 @@
+{
+ "thema": "bestandskonten-erfolgskonten",
+ "name": "Bestandskonten und Erfolgskonten",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "bestandskonten-erfolgskonten-1",
+   "art": "definition",
+   "aussage": "Bestandskonten bilden die Posten der Bilanz ab: Aktivkonten das Vermögen, Passivkonten das Kapital (Eigenkapital, Rückstellungen, Verbindlichkeiten).",
+   "schlagworte": [
+    "Bestandskonto",
+    "Aktivkonto",
+    "Passivkonto"
+   ],
+   "quelle": {
+    "name": "HGB § 266 Abs. 2 und 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__266.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "bestandskonten-erfolgskonten-2",
+   "art": "definition",
+   "aussage": "Erfolgskonten erfassen Aufwendungen und Erträge und werden über das GuV-Konto abgeschlossen; dessen Saldo (Jahresüberschuss/-fehlbetrag) erhöht oder mindert das Eigenkapital.",
+   "schlagworte": [
+    "Erfolgskonto",
+    "Aufwand",
+    "Ertrag",
+    "GuV-Konto"
+   ],
+   "quelle": {
+    "name": "HGB § 242 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__242.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "bestandskonten-erfolgskonten-3",
+   "art": "methode",
+   "aussage": "Aktivkonten: Anfangsbestand im Soll, Mehrungen im Soll, Minderungen im Haben. Passivkonten: Anfangsbestand im Haben, Mehrungen im Haben, Minderungen im Soll.",
+   "schlagworte": [
+    "Anfangsbestand",
+    "Mehrung",
+    "Minderung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "bestandskonten-erfolgskonten-4",
+   "art": "formel",
+   "aussage": "Endbestand eines Aktivkontos: `SB = AB + Zugänge - Abgänge`; bei Passivkonten gilt dieselbe Rechnung auf der Habenseite.",
+   "schlagworte": [
+    "Schlussbestand",
+    "Saldo"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "bestandskonten-erfolgskonten-5",
+   "art": "methode",
+   "aussage": "Aufwandskonten haben ihren Normalbestand im Soll, Ertragskonten im Haben; ihr Saldo wird in das GuV-Konto übertragen.",
+   "schlagworte": [
+    "Aufwandskonto",
+    "Ertragskonto",
+    "Abschluss"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "bestandskonten-erfolgskonten-6",
+   "art": "gesetz",
+   "aussage": "Aufwendungen und Erträge dürfen nicht verrechnet werden; sie werden daher auf getrennten Konten erfasst.",
+   "schlagworte": [
+    "Verrechnungsverbot",
+    "getrennte Konten"
+   ],
+   "quelle": {
+    "name": "HGB § 246 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__246.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "bestandskonten-erfolgskonten-7",
+   "art": "gesetz",
+   "aussage": "Entnahmen und Einlagen des Inhabers sind erfolgsneutral; sie werden über das Privatkonto als Unterkonto des Eigenkapitals erfasst, nicht über Aufwand und Ertrag.",
+   "schlagworte": [
+    "Privatkonto",
+    "Entnahme",
+    "Einlage"
+   ],
+   "quelle": {
+    "name": "EStG § 4 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/estg/__4.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Das Privatkonto ist ein Erfolgskonto.",
+   "richtig": "Das Privatkonto ist ein Unterkonto des Eigenkapitals (Bestandskonto); Entnahmen sind kein Aufwand.",
+   "quelle_id": "bestandskonten-erfolgskonten-7"
+  },
+  {
+   "falsch": "Aktivkonten werden im Haben vermehrt.",
+   "richtig": "Aktivkonten werden im Soll vermehrt und im Haben vermindert.",
+   "quelle_id": "bestandskonten-erfolgskonten-3"
+  }
+ ]
+}

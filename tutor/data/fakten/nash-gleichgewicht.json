@@ -1,0 +1,103 @@
+{
+ "thema": "nash-gleichgewicht",
+ "name": "Nash-Gleichgewicht",
+ "kat": "VWL",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "nash-gleichgewicht-1",
+   "art": "definition",
+   "aussage": "Im Nash-Gleichgewicht verhält sich jeder Spieler optimal, wenn man die Strategien der anderen als gegeben annimmt.",
+   "schlagworte": [
+    "Nash-Gleichgewicht",
+    "Definition"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Nash-Gleichgewicht",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/nash-gleichgewicht-37944",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "nash-gleichgewicht-2",
+   "art": "definition",
+   "aussage": "Im Nash-Gleichgewicht spielt jeder eine beste Antwort; keiner hat einen Anreiz, einseitig abzuweichen. Gleichgewichte lassen sich als sich selbst bestätigende Verhaltenserwartungen deuten.",
+   "schlagworte": [
+    "beste Antwort",
+    "einseitige Abweichung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "nash-gleichgewicht-3",
+   "art": "definition",
+   "aussage": "Existenz (Nash): Jede gemischte Erweiterung eines endlichen Spiels besitzt mindestens ein Gleichgewicht.",
+   "schlagworte": [
+    "Existenz",
+    "gemischte Strategien"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "nash-gleichgewicht-4",
+   "art": "definition",
+   "aussage": "Eine gemischte Strategie ist eine Wahrscheinlichkeitsverteilung über die eigenen reinen Strategien; sie wird benötigt, damit Gleichgewichte stets existieren.",
+   "schlagworte": [
+    "gemischte Strategie"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "nash-gleichgewicht-5",
+   "art": "abgrenzung",
+   "aussage": "Ein Nash-Gleichgewicht kann pareto-inferior sein: Keiner kann sich allein verbessern, alle zusammen könnten aber besser dastehen (Dilemmastruktur).",
+   "schlagworte": [
+    "pareto-inferior",
+    "Dilemma"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Dilemmastrukturen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/dilemmastrukturen-27891",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "nash-gleichgewicht-6",
+   "art": "abgrenzung",
+   "aussage": "Hat ein Spiel mehrere Gleichgewichte, ist die Auswahl eine eigene Aufgabe (Gleichgewichtsauswahl); Verfeinerungen wie Teilspielperfektheit schließen nicht robuste Gleichgewichte aus.",
+   "schlagworte": [
+    "Gleichgewichtsauswahl",
+    "Teilspielperfektheit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Spieltheorie",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/spieltheorie-46576",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Ein Spiel ohne Gleichgewicht in reinen Strategien hat kein Nash-Gleichgewicht.",
+   "richtig": "Endliche Spiele haben immer mindestens ein Gleichgewicht, eventuell in gemischten Strategien.",
+   "quelle_id": "nash-gleichgewicht-3"
+  },
+  {
+   "falsch": "Ein Nash-Gleichgewicht ist immer pareto-optimal.",
+   "richtig": "Es kann pareto-inferior sein, wie im Gefangenendilemma.",
+   "quelle_id": "nash-gleichgewicht-5"
+  }
+ ]
+}

@@ -1,0 +1,113 @@
+{
+ "thema": "lagrange",
+ "name": "Lagrange-Methode",
+ "kat": "Mathematik",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "lagrange-1",
+   "art": "definition",
+   "aussage": "Die Lagrange-Methode dient der Optimierung einer Zielfunktion unter Nebenbedingungen; so lässt sich etwa die Optimalbedingung der Haushaltsentscheidung (Nutzenmaximierung unter Budgetrestriktion) ermitteln.",
+   "schlagworte": [
+    "Nebenbedingung",
+    "Optimierung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Angebotstheorie des Haushalts (Lagrange-Methode)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/angebotstheorie-des-haushalts-27996",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagrange-2",
+   "art": "formel",
+   "aussage": "Lagrange-Funktion für Zielfunktion U und Nebenbedingung g = 0: L = U - \\lambda\\, g (Vorzeichenkonvention von \\lambda variiert); beim Haushaltsmodell L = U(y, h_F) - \\lambda\\,(yP - W(24 - h_F)).",
+   "schlagworte": [
+    "Lagrange-Funktion",
+    "λ"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Angebotstheorie des Haushalts (Lagrange-Methode)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/angebotstheorie-des-haushalts-27996",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagrange-3",
+   "art": "methode",
+   "aussage": "Ergebnis der Optimierung im Gabler-Beispiel: Die Grenzrate der Substitution zwischen Freizeit und Realeinkommen entspricht dem Reallohn: \\frac{\\partial U/\\partial h_F}{\\partial U/\\partial y} = \\frac{W}{P}.",
+   "schlagworte": [
+    "Grenzrate der Substitution",
+    "Reallohn"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Angebotstheorie des Haushalts (Lagrange-Methode)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/angebotstheorie-des-haushalts-27996",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "lagrange-4",
+   "art": "methode",
+   "aussage": "Vorgehen: (1) Lagrange-Funktion L(x, y, \\lambda) = f(x,y) + \\lambda\\,(c - g(x,y)) bilden; (2) alle partiellen Ableitungen \\partial L/\\partial x, \\partial L/\\partial y, \\partial L/\\partial \\lambda gleich null setzen; (3) das Gleichungssystem lösen.",
+   "schlagworte": [
+    "Ableitungen",
+    "Gleichungssystem"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "lagrange-5",
+   "art": "definition",
+   "aussage": "Der Lagrange-Multiplikator \\lambda gibt (bei der Konvention L = f + \\lambda(c - g)) an, um wie viel sich der optimale Zielwert ändert, wenn die Nebenbedingung c um eine Einheit gelockert wird (Schattenpreis).",
+   "schlagworte": [
+    "Lagrange-Multiplikator",
+    "Schattenpreis"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "lagrange-6",
+   "art": "abgrenzung",
+   "aussage": "Die Bedingungen erster Ordnung sind notwendig; ob ein Maximum oder Minimum vorliegt, entscheidet die Bedingung zweiter Ordnung (z. B. über die geränderte Hesse-Matrix) bzw. die Konkavität/Konvexität; Randlösungen sind gesondert zu prüfen.",
+   "schlagworte": [
+    "Bedingung zweiter Ordnung",
+    "Randlösung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "lagrange-7",
+   "art": "methode",
+   "aussage": "Bei Gleichungsnebenbedingung ersetzt die Lagrange-Methode die Substitutionsmethode (Nebenbedingung nach einer Variablen auflösen und einsetzen); beide führen zum selben Optimum.",
+   "schlagworte": [
+    "Substitution"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Der Lagrange-Multiplikator ist stets positiv.",
+   "richtig": "Das Vorzeichen hängt von der Konvention und der Nebenbedingung ab; bei Ungleichungsrestriktionen im Optimum λ ≥ 0, bei Gleichungen beliebig.",
+   "quelle_id": "lagrange-5"
+  },
+  {
+   "falsch": "Setzt man die Ableitungen null, ist das Ergebnis automatisch ein Maximum.",
+   "richtig": "Die Bedingungen erster Ordnung liefern nur Kandidaten; Art des Extremums erfordert weitere Prüfung.",
+   "quelle_id": "lagrange-6"
+  }
+ ]
+}

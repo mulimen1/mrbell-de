@@ -1,0 +1,166 @@
+{
+ "thema": "abschreibung",
+ "name": "Abschreibung",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "abschreibung-1",
+   "art": "gesetz",
+   "aussage": "Vermögensgegenstände des Anlagevermögens mit zeitlich begrenzter Nutzung werden planmäßig über ihre Nutzungsdauer abgeschrieben; die Anschaffungs- oder Herstellungskosten sind die Obergrenze des Ansatzes.",
+   "schlagworte": [
+    "planmäßige Abschreibung",
+    "Nutzungsdauer",
+    "Anschaffungskosten"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 1 und 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "abschreibung-2",
+   "art": "gesetz",
+   "aussage": "Bei voraussichtlich dauernder Wertminderung muss auf den niedrigeren beizulegenden Wert außerplanmäßig abgeschrieben werden; bei Finanzanlagen besteht bei nicht dauernder Wertminderung ein Wahlrecht.",
+   "schlagworte": [
+    "außerplanmäßige Abschreibung",
+    "dauernde Wertminderung",
+    "Finanzanlagen"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "abschreibung-3",
+   "art": "gesetz",
+   "aussage": "Entfallen die Gründe für eine außerplanmäßige Abschreibung, ist wieder zuzuschreiben (Wertaufholungsgebot); ausgenommen ist ein entgeltlich erworbener Geschäfts- oder Firmenwert.",
+   "schlagworte": [
+    "Zuschreibung",
+    "Wertaufholung",
+    "Geschäftswert"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 5",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "abschreibung-4",
+   "art": "zahl",
+   "aussage": "Lässt sich die Nutzungsdauer eines selbst geschaffenen immateriellen Gegenstands oder eines entgeltlich erworbenen Geschäftswerts nicht verlässlich schätzen, wird handelsrechtlich über 10 Jahre abgeschrieben.",
+   "schlagworte": [
+    "Geschäftswert",
+    "10 Jahre"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "abschreibung-5",
+   "art": "zahl",
+   "aussage": "Steuerlich wird der Geschäfts- oder Firmenwert über 15 Jahre abgeschrieben.",
+   "schlagworte": [
+    "Geschäftswert",
+    "15 Jahre"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "abschreibung-6",
+   "art": "formel",
+   "aussage": "Lineare AfA: Die Anschaffungs- oder Herstellungskosten werden gleichmäßig auf die Nutzungsdauer verteilt. `AfA = \\frac{AK}{ND}` (AK = Anschaffungs-/Herstellungskosten, ND = Nutzungsdauer in Jahren; bei handelsrechtlichem Restwert RW: `AfA = \\frac{AK - RW}{ND}`).",
+   "schlagworte": [
+    "lineare Abschreibung",
+    "AfA",
+    "Nutzungsdauer"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "abschreibung-7",
+   "art": "gesetz",
+   "aussage": "Im Anschaffungs- oder Herstellungsjahr wird die lineare AfA zeitanteilig angesetzt: Für jeden vollen Monat vor dem Monat der Anschaffung wird der Jahresbetrag um 1/12 gekürzt.",
+   "schlagworte": [
+    "pro rata temporis",
+    "Monatsgenau",
+    "1/12"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "abschreibung-8",
+   "art": "gesetz",
+   "aussage": "Eine Leistungsabschreibung ist bei beweglichen Anlagegütern zulässig, wenn sie wirtschaftlich begründet und die Jahresleistung nachgewiesen ist.",
+   "schlagworte": [
+    "Leistungsabschreibung",
+    "Leistungs-AfA"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 1 Satz 6",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "abschreibung-9",
+   "art": "gesetz",
+   "aussage": "Die degressive AfA bei beweglichen Gütern beträgt höchstens das Dreifache des linearen Satzes und höchstens 30 %; sie gilt für Anschaffungen nach dem 30.06.2025 und vor dem 01.01.2028. Der Wechsel von degressiv zu linear ist zulässig, der umgekehrte nicht.",
+   "schlagworte": [
+    "degressive Abschreibung",
+    "30 Prozent",
+    "Wechsel"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 2 und 3",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "abschreibung-10",
+   "art": "zahl",
+   "aussage": "Betrieblich genutzte Gebäude ohne Wohnzweck (Bauantrag nach dem 31.03.1985) werden steuerlich mit 3 % jährlich linear abgeschrieben.",
+   "schlagworte": [
+    "Gebäudeabschreibung",
+    "3 Prozent"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 4",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Abschreibung ist eine Auszahlung.",
+   "richtig": "Abschreibung ist nicht zahlungswirksam; sie verteilt bereits gezahlte Anschaffungskosten als Aufwand auf die Nutzungsjahre.",
+   "quelle_id": "abschreibung-1"
+  },
+  {
+   "falsch": "Nach dem Wechsel von linear zu degressiv kann man wieder zurück.",
+   "richtig": "Zulässig ist nur der Wechsel von degressiv zu linear, nicht umgekehrt.",
+   "quelle_id": "abschreibung-9"
+  }
+ ]
+}

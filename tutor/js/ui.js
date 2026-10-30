@@ -356,7 +356,77 @@ export function aiTag(tools, raw = '', src = '', rp = null) {
       ? h('span', { class: 'aisrc', title: L('Die Aussagen sind mit diesen Seiten belegt – zum Nachlesen.', 'Backed by these pages – check them yourself.') }, (src === 'max' ? L('Aus dem Kurzskript', 'From the short script') : L('Aus deinem Skript', 'From your slides')) + ' · ' + L('S. ', 'p. ') + pages.join(', '))
       : h('span', { class: 'aisrc gen', title: L('Dazu steht nichts Passendes im Skript – Max erklärt aus allgemeinem Fachwissen.', 'Nothing matching in the slides – Max explains from general knowledge.') }, L('Allgemeinwissen, nicht aus dem Skript', 'General knowledge, not from the slides'));
   }
-  const lead = [from, ok].filter(Boolean);
+  // Faktencheck (Register): offene Treffer gut sichtbar mit richtiger Aussage und Quelle
+  const fk = rp && Array.isArray(rp.fakten) && rp.fakten.length ? h('button', { class: 'aiok vt-tag warn', type: 'button', title: L('Faktencheck: diese Aussage weicht von der geprüften Quelle ab', 'Fact check: this statement differs from the verified source'),
+    onclick: e => { e.stopPropagation(); import('./util.js').then(u => u.modal({ title: L('Faktencheck', 'Fact check'), body: h('div', { class: 'fk-list', html: rp.fakten.map(x => '<p><b>' + L('Richtig ist', 'Correct') + ':</b> ' + String(x.richtig).replace(/</g, '&lt;') + '<br><small>' + L('Quelle', 'Source') + ': ' + (/^https?:/.test(x.quelle) ? '<a href="' + x.quelle + '" target="_blank" rel="noopener">' + x.quelle + '</a>' : String(x.quelle).replace(/</g, '&lt;')) + '</small></p>').join('') }) })).catch(() => {}); } }, '⚠ ' + L('Faktencheck: bitte prüfen', 'Fact check: please verify'))
+    : rp && rp.faktenKorrigiert ? h('span', { class: 'aiok', title: L('Eine fachliche Aussage wurde anhand geprüfter Quellen korrigiert.', 'A statement was corrected using verified sources.') }, '✓ ' + L('Faktencheck: korrigiert', 'Fact check: corrected')) : null;
+  const lead = [from, ok, fk].filter(Boolean);
   return h('div', { class: 'aitag', title: L('Max ist eine KI (Sprachmodell von Anthropic). Antworten können Fehler enthalten – prüf Wichtiges mit deinem Skript.', 'Max is an AI (language model by Anthropic). Answers can contain mistakes – check important things against your slides.') },
     ...lead.flatMap(x => [x, h('span', { class: 'ai-sep' }, '·')]), lead.length ? null : h('span', { class: 'ai-dot' }), h('span', { class: 'aikI' }, L('KI von Anthropic · kann Fehler machen', 'AI by Anthropic · can make mistakes')));
+}
+
+// Gegenprüf-Siegel OBEN an jeder Max-Antwort: was geprüft wurde und gegen welche Quelle.
+// Zustände: läuft (KI-Abgleich mit der Faktendatenbank) → ✓ gegengeprüft | ⚠ Abweichung (mit richtiger Aussage + Quelle, gut sichtbar).
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const qLink = q => q && q.url ? `<a href="${esc(q.url)}" target="_blank" rel="noopener">${esc(q.name || q.url)}</a>` : esc((q && q.name) || q || '');
+export function siegelDetails(rp, src, pages) {
+  const z = [];
+  if (pages && pages.length) z.push(`<p><b>${L('Aus deinem Material', 'From your material')}</b> · ${L('Seite', 'page')} ${pages.join(', ')}</p>`);
+  if (rp && rp.rechnungen > 0) z.push(`<p><b>✓ ${L('Rechnungen nachgerechnet', 'Calculations re-checked')}:</b> ${rp.rechnungen}${rp.korrigiert ? ' · ' + L('korrigiert', 'corrected') + ': ' + rp.korrigiert : ''}${rp.offen ? ' · <b class="w">' + L('nicht bestätigt', 'not verified') + ': ' + rp.offen + '</b>' : ''}</p>`);
+  const fk = rp && Array.isArray(rp.fakten) ? rp.fakten : [];
+  fk.forEach(x => z.push(`<p class="w"><b>⚠ ${L('Richtig ist', 'Correct')}:</b> ${esc(x.richtig)}<br><small>${L('Quelle', 'Source')}: ${/^https?:/.test(x.quelle) ? `<a href="${esc(x.quelle)}" target="_blank" rel="noopener">${esc(x.quelle)}</a>` : esc(x.quelle)}</small></p>`));
+  const db = rp && rp.db; const wd = db ? db.widersprueche : [];
+  wd.forEach(w => z.push(`<p class="w"><b>⚠ ${L('Abweichung', 'Mismatch')}:</b> „${esc(w.zitat)}“<br><b>${L('Richtig ist', 'Correct')}:</b> ${esc(w.richtig)}<br><small>${L('Quelle', 'Source')}: ${qLink(w.quelle)}</small></p>`));
+  if (rp && rp.belege && rp.belege.length) {
+    z.push(`<p><b>${db && db.ok ? '✓ ' + L('Abgeglichen mit geprüften Aussagen', 'Matched against verified statements') : db && db.ok === false ? L('Abgeglichen mit geprüften Aussagen', 'Matched against verified statements') : L('Geprüfte Aussagen zum Thema', 'Verified statements on this topic')}:</b></p><ul>` +
+      rp.belege.map(b => `<li>${esc(b.aussage)} <small>– ${qLink(b.quelle)}</small></li>`).join('') + '</ul>');
+  }
+  z.push(`<p><small>${L('Max ist eine KI und kann Fehler machen. Geprüft wird automatisch: jede Rechnung, bekannte Fehlaussagen und – wo das Thema in unserer Faktendatenbank steht – der Abgleich mit Gesetzen, Gabler, Destatis, EZB und weiteren festen Quellen.', 'Max is an AI and can make mistakes. Checked automatically: every calculation, known false statements and – where the topic is in our fact database – a match against laws, Gabler, Destatis, the ECB and other fixed sources.')} <a href="#" data-vt="1">${L('So prüfen wir', 'How we check')}</a></small></p>`);
+  return z.join('');
+}
+export function siegel(rp, raw = '', src = '') {
+  const pages = src ? [...new Set([...String(raw).matchAll(/\((?:S|p|pp)\. ?(\d+)(?:[–-](\d+))?\)/g)].map(m => +m[1]))].sort((a, b) => a - b).slice(0, 5) : [];
+  const bl = rp && rp.belege || []; const fk = rp && rp.fakten && rp.fakten.length;
+  if (!rp && !pages.length) return null;
+  if (!pages.length && !bl.length && !(rp.rechnungen > 0) && !fk && !rp.faktenKorrigiert) return null;
+  const qk = (() => { const s = []; bl.forEach(b => { const n = b.quelle && b.quelle.name && String(b.quelle.name).replace(/\s*Wirtschaftslexikon/i, '').replace(/^Lehrbuchstandard.*$/i, ''); if (n && !s.includes(n)) s.push(n); }); return s.slice(0, 1).join('') + (s.length > 1 ? ` +${s.length - 1}` : ''); })();
+  const el = h('button', { class: 'vt-siegel', type: 'button' });
+  const open = e => { e.stopPropagation(); import('./util.js').then(u => { const m = u.modal({ title: L('Gegengeprüft', 'Cross-checked'), body: h('div', { class: 'fk-list', html: siegelDetails(rp, src, pages) }) }); setTimeout(() => document.querySelectorAll('.fk-list [data-vt]').forEach(a => a.addEventListener('click', ev => { ev.preventDefault(); try { m && m.close && m.close(); } catch (x) {} import('./vertrauen.js').then(v => v.openVertrauen('max', L('Zurück zu Max', 'Back to Max'))); })), 50); }).catch(() => {}); };
+  el.onclick = open;
+  const set = () => {
+    const db = rp && rp.db; const wd = db && db.widersprueche && db.widersprueche.length;
+    const bad = fk || wd || (rp && rp.offen);
+    el.className = 'vt-siegel' + (bad ? ' warn' : '') + (rp && rp.dbcheck && !db ? ' run' : '');
+    const quelle = pages.length ? L('aus deinem Material, S. ', 'from your material, p. ') + pages.join(', ') + (qk ? ' · ' + qk : '') : qk;
+    const txt = bad
+      ? '⚠ ' + (wd ? L('Abweichung von der Quelle gefunden – antippen für die richtige Aussage', 'Differs from the source – tap for the correct statement') : fk ? L('Faktencheck: bitte prüfen – antippen für die richtige Aussage', 'Fact check: please verify – tap for the correct statement') : L('Nicht alle Rechnungen bestätigt – bitte nachrechnen', 'Not all calculations verified – please double-check'))
+      : rp && rp.dbcheck && !db ? L('Wird gegengeprüft …', 'Cross-checking …') + (quelle ? ' · ' + quelle : '')
+      : '✓ ' + (bl.length && db && db.ok ? L('Gegengeprüft', 'Cross-checked') : rp && rp.rechnungen > 0 && !bl.length ? (rp.rechnungen === 1 ? L('Rechnung nachgerechnet', 'Calculation re-checked') : L(`${rp.rechnungen} Rechnungen nachgerechnet`, `${rp.rechnungen} calculations re-checked`)) : L('Geprüft', 'Checked')) + (quelle ? ' · ' + L('Quelle: ', 'Source: ') + quelle : '');
+    el.replaceChildren(h('span', {}, txt));
+    if (wd && !el._auf) { el._auf = 1; const box = h('div', { class: 'vt-siegel-box', html: siegelDetails({ db, belege: [] }, '', []).replace(/<p><small>[\s\S]*$/, '') }); const put = (n = 0) => el.parentNode ? el.after(box) : n < 40 && setTimeout(() => put(n + 1), 50); put(); }
+  };
+  set();
+  if (rp && rp.dbcheck && !rp.db) rp.dbcheck.then(set, set);
+  return el;
+}
+
+// Siegel auch für gespeicherte Inhalte (Lernzettel, Karteikarten, Quiz/Probeklausur, Lektionen):
+// merkePruefung speichert den Prüfstand am Objekt; der laufende KI-Abgleich wird nachgetragen und gespeichert.
+const LIVE = new WeakMap();
+export function merkePruefung(obj, rp) {
+  if (!obj || !rp) return;
+  const { rechnungen, korrigiert, offen, fakten, faktenKorrigiert, belege, db } = rp;
+  obj.pruef = { rechnungen, korrigiert, offen, fakten, faktenKorrigiert, belege, db };
+  if (rp.dbcheck) LIVE.set(obj, rp.dbcheck);
+}
+export function siegelGespeichert(obj, onSave, src = 'doc') {
+  const st = obj && obj.pruef; if (!st) return null;
+  const rp = { ...st }; const live = LIVE.get(obj);
+  if (live && !st.db) Object.defineProperty(rp, 'dbcheck', { value: live.then(res => { st.db = res; rp.db = res; LIVE.delete(obj); try { onSave && onSave(); } catch (e) {} return res; }), enumerable: false });
+  let raw = ''; try { raw = JSON.stringify(obj).slice(0, 60000); } catch (e) {}
+  return siegel(rp, raw, src);
+}
+// Nach dem Rendern oben in den Bereich setzen (einmal je Bereich)
+export function siegelOben(wrap, obj, onSave) {
+  queueMicrotask(() => { try { if (!wrap || wrap.querySelector(':scope > .vt-siegel-top')) return; const sg = siegelGespeichert(obj, onSave); if (sg) wrap.prepend(h('div', { class: 'vt-siegel-top' }, sg)); } catch (e) {} });
 }

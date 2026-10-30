@@ -1,0 +1,112 @@
+{
+ "thema": "rentenbarwertfaktor",
+ "name": "Rentenbarwertfaktor",
+ "kat": "Investition",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "rentenbarwertfaktor-1",
+   "art": "definition",
+   "aussage": "Die Rentenrechnung ist ein Teilgebiet der Finanzmathematik: Eine Rente besteht aus gleich hohen Raten r; Rentenbarwert R_0 ist der Gesamtwert am Anfang, Rentenendwert R_n der Gesamtwert am Ende der Zahlungen.",
+   "schlagworte": [
+    "Rente",
+    "Rate",
+    "Rentenbarwert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rentenrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rentenrechnung-42681",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-2",
+   "art": "definition",
+   "aussage": "Zinsfaktor: q = 1 + \\frac{p}{100} mit Zinssatz p in Prozent.",
+   "schlagworte": [
+    "Zinsfaktor"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Rentenrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/rentenrechnung-42681",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-3",
+   "art": "formel",
+   "aussage": "Rentenbarwert nachschüssig: R_0 = r \\cdot \\frac{q^n - 1}{q^n (q - 1)}; der Bruch ist der Rentenbarwertfaktor.",
+   "schlagworte": [
+    "nachschüssig",
+    "Barwertfaktor"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-4",
+   "art": "formel",
+   "aussage": "Rentenbarwert vorschüssig: R_0 = r \\cdot q \\cdot \\frac{q^n - 1}{q^n (q - 1)}; vorschüssig = Zahlung am Periodenanfang, ein Zinsfaktor q mehr als nachschüssig.",
+   "schlagworte": [
+    "vorschüssig"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-5",
+   "art": "abgrenzung",
+   "aussage": "Der Rentenbarwertfaktor ist der Kehrwert des Wiedergewinnungsfaktors (Annuitätenfaktor) \\frac{i(1+i)^n}{(1+i)^n - 1}.",
+   "schlagworte": [
+    "Wiedergewinnungsfaktor",
+    "Kehrwert"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-6",
+   "art": "formel",
+   "aussage": "Ewige Rente: R_0 = \\frac{r}{i} (für n \\to \\infty).",
+   "schlagworte": [
+    "ewige Rente",
+    "Perpetuität"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rentenbarwertfaktor-7",
+   "art": "methode",
+   "aussage": "Anwendung: Bei konstanten Rückflüssen C ersetzt der Rentenbarwertfaktor die Einzelabzinsung: KW_0 = -I_0 + C \\cdot RBF(i,n).",
+   "schlagworte": [
+    "Kapitalwert",
+    "Anwendung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Der Rentenbarwertfaktor wird mit dem Wiedergewinnungsfaktor multipliziert, um den Barwert zu erhalten.",
+   "richtig": "Der Barwert einer Rente ist Rate mal Rentenbarwertfaktor; Wiedergewinnungsfaktor ist dessen Kehrwert und rechnet Barwert in Rate um.",
+   "quelle_id": "rentenbarwertfaktor-5"
+  },
+  {
+   "falsch": "Vorschüssige und nachschüssige Rente haben denselben Barwert.",
+   "richtig": "Vorschüssig (Zahlung am Periodenanfang) ist der Barwert um den Faktor q höher.",
+   "quelle_id": "rentenbarwertfaktor-4"
+  }
+ ]
+}

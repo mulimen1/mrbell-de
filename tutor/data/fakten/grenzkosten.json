@@ -1,0 +1,131 @@
+{
+ "thema": "grenzkosten",
+ "name": "Grenzkosten",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "grenzkosten-1",
+   "art": "definition",
+   "aussage": "Grenzkosten sind die zusätzlichen Kosten je weiterer Produktionseinheit.",
+   "schlagworte": [
+    "Grenzkosten",
+    "Marginalkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Grenzkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/grenzkosten-33270",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "grenzkosten-2",
+   "art": "formel",
+   "aussage": "Grenzkosten sind die Steigung der Gesamtkostenfunktion: GK = K'(x) = dK/dx, näherungsweise \\Delta K / \\Delta x.",
+   "schlagworte": [
+    "Ableitung",
+    "Steigung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Grenzkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/grenzkosten-33270",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "grenzkosten-3",
+   "art": "formel",
+   "aussage": "Die Grenzkosten ergeben sich aus der Ableitung der Gesamtkostenfunktion; Fixkosten sind konstant und gehen deshalb nicht in die Grenzkosten ein: GK = K'(x) = K_v'(x).",
+   "schlagworte": [
+    "Fixkosten",
+    "variable Kosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "grenzkosten-4",
+   "art": "formel",
+   "aussage": "Bei linearem (proportionalem) Kostenverlauf sind Grenzkosten und variable Stückkosten gleich und konstant: GK = k_v.",
+   "schlagworte": [
+    "linear",
+    "proportional"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "grenzkosten-5",
+   "art": "methode",
+   "aussage": "Bei ertragsgesetzlichem Verlauf schneiden die Grenzkosten die variablen Stückkosten in deren Minimum (Betriebsminimum) und die gesamten Stückkosten in deren Minimum (Betriebsoptimum).",
+   "schlagworte": [
+    "Betriebsminimum",
+    "Betriebsoptimum"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Betriebsoptima",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/betriebsoptima-37269",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "grenzkosten-6",
+   "art": "methode",
+   "aussage": "Bei vollständiger Konkurrenz entspricht der aufsteigende Ast der Grenzkostenkurve ab dem Minimum der durchschnittlichen variablen Kosten der Angebotskurve.",
+   "schlagworte": [
+    "Angebotskurve",
+    "vollständige Konkurrenz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Grenzkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/grenzkosten-33270",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "grenzkosten-7",
+   "art": "methode",
+   "aussage": "Grenzkosten sind wichtig für die Bestimmung der Preisuntergrenze und Grundlage der Grenzplankostenrechnung.",
+   "schlagworte": [
+    "Preisuntergrenze",
+    "Grenzplankostenrechnung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Grenzkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/grenzkosten-33270",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "grenzkosten-8",
+   "art": "methode",
+   "aussage": "Bei unvollkommener Konkurrenz dient die Grenzkostenkurve zur Bestimmung des Cournotschen Punktes (monopolistische Preisbildung).",
+   "schlagworte": [
+    "Cournotscher Punkt"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Grenzkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/grenzkosten-33270",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Grenzkosten sind dasselbe wie Stückkosten.",
+   "richtig": "Stückkosten sind K/x; Grenzkosten sind die Kosten der zusätzlichen Einheit (Ableitung K'(x)).",
+   "quelle_id": "grenzkosten-2"
+  },
+  {
+   "falsch": "Fixkosten erhöhen die Grenzkosten.",
+   "richtig": "Konstante Fixkosten gehen nicht in die Grenzkosten ein.",
+   "quelle_id": "grenzkosten-3"
+  }
+ ]
+}

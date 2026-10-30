@@ -1,0 +1,116 @@
+{
+ "thema": "divisionskalkulation",
+ "name": "Divisionskalkulation",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "divisionskalkulation-1",
+   "art": "definition",
+   "aussage": "Die Divisionskalkulation ermittelt Herstell- oder Selbstkosten je Leistungseinheit; Grundlage ist die Kalkulation der Periodenerzeugung. Einsatzbereich ist die Massen- und Sortenfertigung.",
+   "schlagworte": [
+    "Divisionskalkulation",
+    "Massenfertigung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Divisionskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/divisionskalkulation-32968",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "divisionskalkulation-2",
+   "art": "abgrenzung",
+   "aussage": "Die Divisionskalkulation passt für homogene oder nur geringfügig unterschiedliche Produkte; für heterogene Leistungsstrukturen wird die Zuschlagskalkulation verwendet.",
+   "schlagworte": [
+    "homogen",
+    "heterogen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulation-38438",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "divisionskalkulation-3",
+   "art": "formel",
+   "aussage": "Einstufige (einfache) Divisionskalkulation: k = K / x (Gesamtkosten der Periode geteilt durch die Produktionsmenge der Periode).",
+   "schlagworte": [
+    "einstufig",
+    "Stückkosten"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "divisionskalkulation-4",
+   "art": "methode",
+   "aussage": "Weichen Absatz- und Produktionsmenge voneinander ab, werden Verwaltungs- und Vertriebskosten auf die abgesetzte Menge bezogen, die Herstellkosten auf die produzierte Menge: k = K_H / x_{prod} + K_{VwVt} / x_{abs}.",
+   "schlagworte": [
+    "Lagerbestand",
+    "Absatzmenge"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Divisionskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/divisionskalkulation-32968",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "divisionskalkulation-5",
+   "art": "methode",
+   "aussage": "Die mehrstufige Divisionskalkulation wird bei Fertigungsprozessen mit nicht vergleichbaren Stufenleistungen oder Zwischenlagern mit schwankenden Beständen verwendet; jede Stufe kalkuliert für ihre eigene Leistungsmenge (durchwälzende Divisionskalkulation).",
+   "schlagworte": [
+    "mehrstufig",
+    "Zwischenlager"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Divisionskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/divisionskalkulation-32968",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "divisionskalkulation-6",
+   "art": "methode",
+   "aussage": "Die Äquivalenzziffernrechnung erweitert die Divisionskalkulation auf artverwandte Produkte, die auf denselben Anlagen gefertigt werden; Äquivalenzziffern bilden die unterschiedliche Kostenverursachung ab.",
+   "schlagworte": [
+    "Äquivalenzziffern",
+    "Sortenfertigung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Divisionskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/divisionskalkulation-32968",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "divisionskalkulation-7",
+   "art": "methode",
+   "aussage": "Sonderformen der Divisionskalkulation sind unter anderem Chargenkalkulation und Veredelungskalkulation.",
+   "schlagworte": [
+    "Chargenkalkulation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Divisionskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/divisionskalkulation-32968",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Divisionskalkulation eignet sich besonders für Einzel- und Auftragsfertigung.",
+   "richtig": "Sie ist für Massen- und Sortenfertigung mit homogenen Produkten gedacht.",
+   "quelle_id": "divisionskalkulation-1"
+  },
+  {
+   "falsch": "Bei Lagerbestandsveränderungen werden alle Kosten durch die Absatzmenge geteilt.",
+   "richtig": "Herstellkosten werden auf die produzierte, Verwaltungs- und Vertriebskosten auf die abgesetzte Menge bezogen.",
+   "quelle_id": "divisionskalkulation-4"
+  }
+ ]
+}

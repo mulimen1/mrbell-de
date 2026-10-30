@@ -1,0 +1,118 @@
+{
+ "thema": "varianz-standardabweichung",
+ "name": "Varianz und Standardabweichung",
+ "kat": "Statistik",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "varianz-standardabweichung-1",
+   "art": "definition",
+   "aussage": "Die Varianz ist die gebräuchlichste Maßzahl zur Charakterisierung der Streuung einer theoretischen oder empirischen Verteilung; sie ist ein nicht relativiertes Streuungsmaß.",
+   "schlagworte": [
+    "Varianz",
+    "Streuung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Varianz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/varianz-49184",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-2",
+   "art": "formel",
+   "aussage": "Für eine Zufallsvariable X: Var(X) = E\\big((X - E(X))^2\\big) = E(X^2) - (E(X))^2.",
+   "schlagworte": [
+    "Verschiebungssatz",
+    "Zufallsvariable"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Varianz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/varianz-49184",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-3",
+   "art": "formel",
+   "aussage": "Empirische Varianz: s_x^2 = \\frac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})^2.",
+   "schlagworte": [
+    "empirisch",
+    "Mittelwert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Varianz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/varianz-49184",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-4",
+   "art": "formel",
+   "aussage": "Stichprobenvarianz zur Schätzung der Grundgesamtheit: S^2 = \\frac{1}{n-1}\\sum_{i=1}^{n}(x_i - \\bar{x})^2; sie ist erwartungstreu und daher der übliche Schätzwert.",
+   "schlagworte": [
+    "n-1",
+    "erwartungstreu",
+    "Stichprobe"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Varianz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/varianz-49184",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-5",
+   "art": "definition",
+   "aussage": "Die Standardabweichung ist die positive Wurzel aus der Varianz: \\sigma = \\sqrt{\\sigma^2}; sie hat dieselbe Dimension wie die Merkmalswerte.",
+   "schlagworte": [
+    "Standardabweichung",
+    "Einheit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Standardabweichung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/standardabweichung-43091",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-6",
+   "art": "abgrenzung",
+   "aussage": "Weitere Streuungsmaße: absolut sind Varianz, Standardabweichung, mittlere absolute Abweichung, Spannweite und mittlerer Quartilsabstand; relativ ist der Variationskoeffizient.",
+   "schlagworte": [
+    "Streuungsmaß",
+    "Variationskoeffizient",
+    "Spannweite"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Streuungsmaß",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/streuungsmass-45610",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "varianz-standardabweichung-7",
+   "art": "formel",
+   "aussage": "Variationskoeffizient: V = \\frac{s}{\\bar{x}}, relatives Streuungsmaß für den Vergleich von Verteilungen unterschiedlicher Größenordnung.",
+   "schlagworte": [
+    "Variationskoeffizient"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Varianz hat dieselbe Einheit wie die Daten.",
+   "richtig": "Die Varianz hat die quadrierte Einheit; erst die Standardabweichung hat dieselbe Dimension wie die Merkmalswerte.",
+   "quelle_id": "varianz-standardabweichung-5"
+  },
+  {
+   "falsch": "Die Stichprobenvarianz wird immer durch n geteilt.",
+   "richtig": "Zur erwartungstreuen Schätzung der Varianz der Grundgesamtheit wird durch n-1 geteilt; durch n bei rein deskriptiver Beschreibung der Daten.",
+   "quelle_id": "varianz-standardabweichung-4"
+  }
+ ]
+}

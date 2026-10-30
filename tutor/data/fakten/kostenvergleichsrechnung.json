@@ -1,0 +1,132 @@
+{
+ "thema": "kostenvergleichsrechnung",
+ "name": "Kostenvergleichsrechnung",
+ "kat": "Investition",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "kostenvergleichsrechnung-1",
+   "art": "definition",
+   "aussage": "Die Kostenvergleichsrechnung ist ein statisches Verfahren der Investitionsrechnung: Sie vergleicht die Kosten alternativer Investitionen für ein repräsentatives Durchschnittsjahr.",
+   "schlagworte": [
+    "statisch",
+    "Durchschnittsjahr"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenvergleichsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenvergleichsrechnung-37040",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenvergleichsrechnung-2",
+   "art": "methode",
+   "aussage": "Entscheidungsregel: Vorteilhaft ist die Alternative mit den geringsten Kosten pro Jahr.",
+   "schlagworte": [
+    "Entscheidungsregel",
+    "Kosten pro Jahr"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenvergleichsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenvergleichsrechnung-37040",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenvergleichsrechnung-3",
+   "art": "methode",
+   "aussage": "Zu den berücksichtigten Kosten zählen laufende variable Kosten, laufende fixe Kosten, kalkulatorische Abschreibungen und kalkulatorische Zinsen.",
+   "schlagworte": [
+    "Kostenarten",
+    "kalkulatorische Zinsen",
+    "kalkulatorische Abschreibung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenvergleichsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenvergleichsrechnung-37040",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenvergleichsrechnung-4",
+   "art": "abgrenzung",
+   "aussage": "Vorteil: geringer Informationsbedarf und einfache Durchführung. Nachteil: Es wird mit periodisierten Durchschnittsgrößen gerechnet, der zeitliche Zahlungsverlauf bleibt unberücksichtigt.",
+   "schlagworte": [
+    "Vorteile",
+    "Nachteile",
+    "Durchschnittsgrößen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenvergleichsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenvergleichsrechnung-37040",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenvergleichsrechnung-5",
+   "art": "formel",
+   "aussage": "Kalkulatorische Abschreibung bei linearer Abschreibung: \\text{AfA} = \\frac{AK - RW}{n} mit Anschaffungskosten AK, Restwert RW und Nutzungsdauer n.",
+   "schlagworte": [
+    "Abschreibung",
+    "linear",
+    "Restwert"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "kostenvergleichsrechnung-6",
+   "art": "formel",
+   "aussage": "Kalkulatorische Zinsen auf das durchschnittlich gebundene Kapital: Z = \\frac{AK + RW}{2} \\cdot i mit Kalkulationszinssatz i.",
+   "schlagworte": [
+    "Zinsen",
+    "Durchschnittskapital"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "kostenvergleichsrechnung-7",
+   "art": "formel",
+   "aussage": "Kritische Menge zweier Alternativen A und B: Kosten gleichsetzen, K_A(x) = K_B(x), und nach x auflösen; bei linearen Kostenverläufen x_{krit} = \\frac{K_{f,B} - K_{f,A}}{k_{v,A} - k_{v,B}}.",
+   "schlagworte": [
+    "kritische Menge",
+    "Fixkosten",
+    "variable Kosten"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "kostenvergleichsrechnung-8",
+   "art": "abgrenzung",
+   "aussage": "Die Kostenvergleichsrechnung blendet Erlöse aus; sie ist nur zulässig, wenn die Alternativen gleiche Leistung (Menge, Erlös) erbringen. Sonst ist die Gewinnvergleichsrechnung heranzuziehen.",
+   "schlagworte": [
+    "Erlöse",
+    "gleiche Leistung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Kalkulatorische Zinsen werden auf die volle Anschaffungsauszahlung berechnet.",
+   "richtig": "Bei linearer Abschreibung wird im Durchschnitt nur das halbe Kapital (plus halber Restwert-Effekt) gebunden: Z = (AK + RW)/2 · i.",
+   "quelle_id": "kostenvergleichsrechnung-6"
+  },
+  {
+   "falsch": "Die Kostenvergleichsrechnung berücksichtigt den zeitlichen Anfall der Zahlungen durch Abzinsung.",
+   "richtig": "Sie ist ein statisches Verfahren mit Durchschnittswerten und zinst nicht ab.",
+   "quelle_id": "kostenvergleichsrechnung-1"
+  }
+ ]
+}

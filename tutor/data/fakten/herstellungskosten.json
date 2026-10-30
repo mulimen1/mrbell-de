@@ -1,0 +1,140 @@
+{
+ "thema": "herstellungskosten",
+ "name": "Herstellungskosten",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "herstellungskosten-1",
+   "art": "gesetz",
+   "aussage": "Herstellungskosten sind die Aufwendungen für den Verbrauch von Gütern und die Inanspruchnahme von Diensten für die Herstellung, Erweiterung oder wesentliche Verbesserung eines Vermögensgegenstands über seinen ursprünglichen Zustand hinaus.",
+   "schlagworte": [
+    "Herstellungskosten",
+    "Herstellung",
+    "Erweiterung"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "herstellungskosten-2",
+   "art": "gesetz",
+   "aussage": "Pflichtbestandteile (Wertuntergrenze): Materialkosten, Fertigungskosten, Sonderkosten der Fertigung sowie angemessene Teile der Material- und Fertigungsgemeinkosten und des fertigungsbedingten Werteverzehrs des Anlagevermögens.",
+   "schlagworte": [
+    "Materialeinzelkosten",
+    "Fertigungseinzelkosten",
+    "Sondereinzelkosten",
+    "Gemeinkosten"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "herstellungskosten-3",
+   "art": "gesetz",
+   "aussage": "Wahlrechte (Wertobergrenze): Angemessene Teile der Verwaltungskosten, der Aufwendungen für soziale Einrichtungen, freiwillige soziale Leistungen und betriebliche Altersversorgung, soweit sie auf den Herstellungszeitraum entfallen.",
+   "schlagworte": [
+    "Verwaltungskosten",
+    "Wahlrecht",
+    "Wertobergrenze"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "herstellungskosten-4",
+   "art": "gesetz",
+   "aussage": "Vertriebskosten und Forschungskosten dürfen nicht in die Herstellungskosten einbezogen werden.",
+   "schlagworte": [
+    "Vertriebskosten",
+    "Forschungskosten",
+    "Einbeziehungsverbot"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "herstellungskosten-5",
+   "art": "gesetz",
+   "aussage": "Zinsen für Fremdkapital gehören grundsätzlich nicht zu den Herstellungskosten; für Fremdkapital, das zur Herstellung eingesetzt wird, dürfen sie als Herstellungskosten angesetzt werden, soweit sie auf den Herstellungszeitraum entfallen (Wahlrecht).",
+   "schlagworte": [
+    "Fremdkapitalzinsen",
+    "Wahlrecht"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "herstellungskosten-6",
+   "art": "gesetz",
+   "aussage": "Bei selbst geschaffenen immateriellen Anlagegegenständen sind nur die Entwicklungsaufwendungen Herstellungskosten; lassen sich Forschung und Entwicklung nicht verlässlich trennen, ist eine Aktivierung ausgeschlossen.",
+   "schlagworte": [
+    "Entwicklungskosten",
+    "Forschung",
+    "immaterielle Vermögensgegenstände"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 2a",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "herstellungskosten-7",
+   "art": "gesetz",
+   "aussage": "Selbst geschaffene immaterielle Vermögensgegenstände des Anlagevermögens dürfen aktiviert werden (Wahlrecht), nicht aber selbst geschaffene Marken, Drucktitel, Verlagsrechte, Kundenlisten und vergleichbare Werte.",
+   "schlagworte": [
+    "Aktivierungswahlrecht",
+    "Marken",
+    "Kundenlisten"
+   ],
+   "quelle": {
+    "name": "HGB § 248 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__248.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "herstellungskosten-8",
+   "art": "formel",
+   "aussage": "Wertuntergrenze: `HK_{min} = MEK + FEK + SEK + MGK_{angem.} + FGK_{angem.}` (Material-, Fertigungs- und Sondereinzelkosten plus angemessene Gemeinkosten); Wertobergrenze: `HK_{max} = HK_{min} + Verwaltung + Sozialkosten + FK\\text{-}Zinsen`.",
+   "schlagworte": [
+    "Wertuntergrenze",
+    "Wertobergrenze",
+    "Berechnung"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 2 und 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Vertriebskosten dürfen in die Herstellungskosten eingerechnet werden.",
+   "richtig": "Vertriebs- und Forschungskosten sind vom Ansatz ausgeschlossen.",
+   "quelle_id": "herstellungskosten-4"
+  },
+  {
+   "falsch": "Die Einbeziehung der Verwaltungskosten ist Pflicht.",
+   "richtig": "Angemessene Verwaltungskosten sind ein Wahlrecht; Pflicht sind Material-, Fertigungs-, Sonderkosten und angemessene Fertigungs- und Materialgemeinkosten.",
+   "quelle_id": "herstellungskosten-3"
+  }
+ ]
+}

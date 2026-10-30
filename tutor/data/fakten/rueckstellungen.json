@@ -1,0 +1,139 @@
+{
+ "thema": "rueckstellungen",
+ "name": "Rückstellungen",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "rueckstellungen-1",
+   "art": "gesetz",
+   "aussage": "Rückstellungen sind für ungewisse Verbindlichkeiten und für drohende Verluste aus schwebenden Geschäften zu bilden.",
+   "schlagworte": [
+    "ungewisse Verbindlichkeit",
+    "Drohverlust",
+    "Rückstellung"
+   ],
+   "quelle": {
+    "name": "HGB § 249 Abs. 1 Satz 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__249.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rueckstellungen-2",
+   "art": "gesetz",
+   "aussage": "Außerdem sind Rückstellungen zu bilden für im Geschäftsjahr unterlassene Instandhaltung, die im folgenden Jahr innerhalb von drei Monaten nachgeholt wird, für Abraumbeseitigung, die im folgenden Jahr nachgeholt wird, und für Gewährleistungen ohne rechtliche Verpflichtung (Kulanz).",
+   "schlagworte": [
+    "Instandhaltung",
+    "Abraum",
+    "Kulanz",
+    "Gewährleistung"
+   ],
+   "quelle": {
+    "name": "HGB § 249 Abs. 1 Satz 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__249.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rueckstellungen-3",
+   "art": "gesetz",
+   "aussage": "Für andere Zwecke dürfen keine Rückstellungen gebildet werden; aufgelöst werden dürfen sie nur, wenn der Grund entfallen ist.",
+   "schlagworte": [
+    "Auflösung",
+    "Passivierungsverbot"
+   ],
+   "quelle": {
+    "name": "HGB § 249 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__249.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rueckstellungen-4",
+   "art": "gesetz",
+   "aussage": "Rückstellungen sind in Höhe des nach vernünftiger kaufmännischer Beurteilung notwendigen Erfüllungsbetrags anzusetzen.",
+   "schlagworte": [
+    "Erfüllungsbetrag",
+    "Bewertung"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 1 Satz 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rueckstellungen-5",
+   "art": "zahl",
+   "aussage": "Rückstellungen mit einer Restlaufzeit von mehr als einem Jahr sind abzuzinsen, und zwar mit dem durchschnittlichen Marktzinssatz der vergangenen 7 Geschäftsjahre (Altersversorgung: 10 Geschäftsjahre); die Zinssätze ermittelt die Deutsche Bundesbank.",
+   "schlagworte": [
+    "Abzinsung",
+    "7 Jahre",
+    "10 Jahre",
+    "Bundesbank"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rueckstellungen-6",
+   "art": "gesetz",
+   "aussage": "Auf der Passivseite werden Rückstellungen für Pensionen, Steuern und sonstige Rückstellungen als eigener Posten B nach dem Eigenkapital ausgewiesen.",
+   "schlagworte": [
+    "Pensionsrückstellung",
+    "Steuerrückstellung",
+    "sonstige Rückstellungen"
+   ],
+   "quelle": {
+    "name": "HGB § 266 Abs. 3 B",
+    "url": "https://www.gesetze-im-internet.de/hgb/__266.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rueckstellungen-7",
+   "art": "methode",
+   "aussage": "Buchung bei Bildung: Aufwandskonto an Rückstellung (z. B. Sonstige betriebliche Aufwendungen an Sonstige Rückstellungen). Bei Inanspruchnahme wird die Rückstellung aufgelöst; Differenzen laufen über Ertrag oder Aufwand.",
+   "schlagworte": [
+    "Buchungssatz",
+    "Bildung",
+    "Inanspruchnahme"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rueckstellungen-8",
+   "art": "gesetz",
+   "aussage": "Gewinnrücklagen bestehen nur aus Beträgen, die aus dem Ergebnis gebildet wurden; sie sind Eigenkapital und von Rückstellungen (Schulden) zu unterscheiden.",
+   "schlagworte": [
+    "Rücklage",
+    "Rückstellung",
+    "Abgrenzung"
+   ],
+   "quelle": {
+    "name": "HGB § 272 Abs. 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__272.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Rückstellungen und Rücklagen sind dasselbe.",
+   "richtig": "Rückstellungen sind Fremdkapital für ungewisse Schulden und Aufwand; Rücklagen sind Eigenkapital aus Gewinnen oder Zuzahlungen.",
+   "quelle_id": "rueckstellungen-8"
+  },
+  {
+   "falsch": "Rückstellungen dürfen beliebig zur Gewinnglättung gebildet werden.",
+   "richtig": "Rückstellungen sind nur für die in § 249 HGB genannten Zwecke zulässig; weitere Rückstellungen sind verboten.",
+   "quelle_id": "rueckstellungen-3"
+  }
+ ]
+}

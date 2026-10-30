@@ -1,0 +1,120 @@
+{
+ "thema": "normalverteilung",
+ "name": "Normalverteilung",
+ "kat": "Statistik",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "normalverteilung-1",
+   "art": "definition",
+   "aussage": "Die Gaußsche Normalverteilung hat die Parameter Erwartungswert \\mu und Varianz \\sigma^2 > 0; ihre Dichte ist f(x) = \\frac{1}{\\sqrt{2\\pi}\\,\\sigma} \\exp\\!\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right).",
+   "schlagworte": [
+    "Dichte",
+    "Parameter",
+    "Gauß"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalverteilung-39769",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-2",
+   "art": "methode",
+   "aussage": "Standardisierung: Ist X normalverteilt mit \\mu und \\sigma^2, so ist Z = \\frac{X-\\mu}{\\sigma} standardnormalverteilt (\\mu = 0, \\sigma^2 = 1); Tabellen der Standardnormalverteilung genügen daher für alle Normalverteilungen.",
+   "schlagworte": [
+    "Standardisierung",
+    "z-Wert",
+    "Standardnormalverteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalverteilung-39769",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-3",
+   "art": "abgrenzung",
+   "aussage": "Die Dichte ist glockenförmig und symmetrisch zu x = \\mu; \\mu ist zugleich Modus und Median; die Wendepunkte liegen bei \\mu \\pm \\sigma.",
+   "schlagworte": [
+    "Symmetrie",
+    "Wendepunkte",
+    "Median"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalverteilung-39769",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-4",
+   "art": "zahl",
+   "aussage": "Sigma-Regeln: P(\\mu \\pm \\sigma) \\approx 0{,}6827, P(\\mu \\pm 2\\sigma) \\approx 0{,}9545, P(\\mu \\pm 3\\sigma) \\approx 0{,}9973.",
+   "schlagworte": [
+    "68-95-99,7",
+    "Sigma-Regel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalverteilung-39769",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-5",
+   "art": "abgrenzung",
+   "aussage": "Nach dem Zentralen Grenzwertsatz ist das arithmetische Mittel bei großem Stichprobenumfang unter geeigneten Voraussetzungen annähernd normalverteilt.",
+   "schlagworte": [
+    "Zentraler Grenzwertsatz",
+    "Stichprobenmittel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalverteilung-39769",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-6",
+   "art": "abgrenzung",
+   "aussage": "Unter gewissen Voraussetzungen approximiert die Normalverteilung Binomial-, hypergeometrische, Poisson- und Chi-Quadrat-Verteilung.",
+   "schlagworte": [
+    "Approximation",
+    "Binomialverteilung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Normalverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/normalverteilung-39769",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "normalverteilung-7",
+   "art": "zahl",
+   "aussage": "Häufig genutzte Quantile der Standardnormalverteilung: z_{0{,}95} \\approx 1{,}645 (einseitig 95 %), z_{0{,}975} \\approx 1{,}960 (zweiseitig 95 %), z_{0{,}995} \\approx 2{,}576.",
+   "schlagworte": [
+    "Quantile",
+    "1,96"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Innerhalb von 1 Sigma liegen etwa 95 % der Werte.",
+   "richtig": "Innerhalb \\mu \\pm \\sigma liegen etwa 68,3 %; etwa 95,4 % liegen innerhalb \\mu \\pm 2\\sigma.",
+   "quelle_id": "normalverteilung-4"
+  },
+  {
+   "falsch": "Die Standardnormalverteilung hat die Varianz \\sigma^2 des Datensatzes.",
+   "richtig": "Die Standardnormalverteilung hat immer \\mu = 0 und \\sigma^2 = 1.",
+   "quelle_id": "normalverteilung-2"
+  }
+ ]
+}

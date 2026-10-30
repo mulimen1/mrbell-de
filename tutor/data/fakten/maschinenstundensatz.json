@@ -1,0 +1,144 @@
+{
+ "thema": "maschinenstundensatz",
+ "name": "Maschinenstundensatz",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "maschinenstundensatz-1",
+   "art": "definition",
+   "aussage": "Der Maschinenstundensatz sind die Kosten einer Anlage bezogen auf eine Zeiteinheit ihrer Nutzung (im weiteren Sinn: Kosten einer Kostenstelle je Nutzungsstunde der darin betriebenen Anlagen).",
+   "schlagworte": [
+    "Maschinenstundensatz",
+    "Anlagenkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Maschinenstundensatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/maschinenstundensatz-40604",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-2",
+   "art": "formel",
+   "aussage": "Maschinenstundensatz = maschinenabhängige Gemeinkosten der Periode / Maschinenlaufzeit der Periode (in Stunden).",
+   "schlagworte": [
+    "Formel",
+    "Laufzeit"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-3",
+   "art": "methode",
+   "aussage": "Die Maschinenstundensatzrechnung ist eine Sonderform der Bezugsgrößenkalkulation: Anlagenkosten werden nach der tatsächlichen zeitlichen Inanspruchnahme der Anlage verrechnet.",
+   "schlagworte": [
+    "Bezugsgrößenkalkulation",
+    "Inanspruchnahme"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Maschinenstundensatzrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/maschinenstundensatzrechnung-38115",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-4",
+   "art": "methode",
+   "aussage": "Die verbleibenden Gemeinkosten (Restgemeinkosten) werden weiterhin über die Zuschlagskalkulation verrechnet; beide Verfahren werden teilweise parallel angewandt.",
+   "schlagworte": [
+    "Restgemeinkosten",
+    "Zuschlagskalkulation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Maschinenstundensatzrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/maschinenstundensatzrechnung-38115",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-5",
+   "art": "methode",
+   "aussage": "Rechenprinzip der Bezugsgrößenkalkulation: Kosten je Stelle geteilt durch die Bezugsgröße ergibt den Kalkulationssatz; Beispiel: 10 Maschinenstunden zu 500 EUR je Stunde ergeben 5.000 EUR Gemeinkosten für das Produkt.",
+   "schlagworte": [
+    "Kalkulationssatz",
+    "Beispiel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bezugsgrößenkalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bezugsgroessenkalkulation-31711",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-6",
+   "art": "methode",
+   "aussage": "Die Maschinenstundensatzrechnung ersetzt die lohnbasierte Zuschlagskalkulation bei automatisierter Fertigung, weil Fertigungslöhne dort kein guter Indikator für die Kostenverursachung mehr sind.",
+   "schlagworte": [
+    "Automatisierung",
+    "Fertigungslöhne"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zuschlagskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zuschlagskalkulation-47491",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-7",
+   "art": "methode",
+   "aussage": "Kalkulatorische Zinsen auf Sachanlagen sind Bestandteil der Anlagenkosten, die der Maschinenstundensatz verrechnet.",
+   "schlagworte": [
+    "Zinsen",
+    "Anlagenkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: kalkulatorische Zinsen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulatorische-zinsen-40705",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-8",
+   "art": "methode",
+   "aussage": "In den Maschinenstundensatz gehen üblicherweise kalkulatorische Abschreibung (auf den Wiederbeschaffungswert), kalkulatorische Zinsen sowie Raum-, Energie- und Instandhaltungskosten der Maschine ein; Fertigungslöhne gehören nicht dazu.",
+   "schlagworte": [
+    "Abschreibung",
+    "Energie",
+    "Instandhaltung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "maschinenstundensatz-9",
+   "art": "formel",
+   "aussage": "Verrechnete Maschinenkosten eines Auftrags = Maschinenstundensatz \\cdot Maschinenlaufzeit des Auftrags (in Stunden).",
+   "schlagworte": [
+    "Auftrag",
+    "Laufzeit"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Der Maschinenstundensatz wird in Prozent der Fertigungslöhne ausgedrückt.",
+   "richtig": "Er wird in Euro je Maschinenstunde angegeben und mit der Laufzeit multipliziert; Prozentzuschläge auf Löhne gehören zur Zuschlagskalkulation.",
+   "quelle_id": "maschinenstundensatz-8"
+  },
+  {
+   "falsch": "Mit dem Maschinenstundensatz sind alle Gemeinkosten verrechnet.",
+   "richtig": "Es werden nur die Anlagenkosten über den Maschinenstundensatz verrechnet; die Restgemeinkosten laufen weiter über Zuschläge.",
+   "quelle_id": "maschinenstundensatz-4"
+  }
+ ]
+}

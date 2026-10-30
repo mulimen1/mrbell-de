@@ -1,0 +1,129 @@
+{
+ "thema": "portfoliotheorie",
+ "name": "Portfoliotheorie",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "portfoliotheorie-1",
+   "art": "definition",
+   "aussage": "Die Portfoliotheorie (Portfolio Selection) ist die Theorie über die optimale Mischung von Risikopapieren (Aktien); sie wurde von Markowitz erstmals quantifiziert (1952).",
+   "schlagworte": [
+    "Portfoliotheorie",
+    "Portfolio Selection",
+    "Markowitz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Portfolio Selection",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/portfolio-selection-43717",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-2",
+   "art": "abgrenzung",
+   "aussage": "Verteilt ein Investor einen festen Betrag auf mehrere Wertpapiere, sinkt das Risiko (Varianz der Rendite) gegenüber einer Einzelanlage, sofern die Renditen nicht perfekt positiv korreliert sind (Diversifikation).",
+   "schlagworte": [
+    "Diversifikation",
+    "Varianz",
+    "Korrelation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Portfolio Selection",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/portfolio-selection-43717",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-3",
+   "art": "abgrenzung",
+   "aussage": "Die Portfoliotheorie ist Grundlage der Kapitalmarkttheorie und des CAPM; praktisch hat sie die Entstehung von Aktienfonds mit breit gestreutem Portfolio gestützt.",
+   "schlagworte": [
+    "Kapitalmarkttheorie",
+    "CAPM",
+    "Fonds"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Portfolio Selection",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/portfolio-selection-43717",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-4",
+   "art": "abgrenzung",
+   "aussage": "Grenzen: Die Anwendung benötigt Schätzungen für Erwartungsrenditen, Varianzen und Kovarianzen, die unsicher sind; der Zeitpunkt von Käufen und Verkäufen bleibt offen.",
+   "schlagworte": [
+    "Schätzrisiko",
+    "Kovarianz",
+    "Grenzen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Portfolio Selection",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/portfolio-selection-43717",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-5",
+   "art": "definition",
+   "aussage": "Harry M. Markowitz erhielt 1990 gemeinsam mit Miller und Sharpe den Wirtschaftsnobelpreis; sein Hauptwerk ist „Portfolio Selection“ (1959).",
+   "schlagworte": [
+    "Markowitz",
+    "Nobelpreis 1990"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Markowitz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/markowitz-40815",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-6",
+   "art": "abgrenzung",
+   "aussage": "Im CAPM gilt unsystematisches Risiko als wegdiversifizierbar; relevant ist nur das systematische Risiko (Beta). Effiziente Portfolios bestehen nach Tobin-Separation aus risikoloser Anlage und Marktportfolio.",
+   "schlagworte": [
+    "unsystematisches Risiko",
+    "Tobin-Separation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Capital Asset Pricing Model (CAPM)",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/capital-asset-pricing-model-capm-28840",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "portfoliotheorie-7",
+   "art": "formel",
+   "aussage": "Erwartete Portfoliorendite: \\mu_p = \\sum_i w_i \\mu_i; Portfoliovarianz: \\sigma_p^2 = \\sum_i \\sum_j w_i w_j \\sigma_i \\sigma_j \\rho_{ij} (w: Gewichte, \\rho: Korrelation).",
+   "schlagworte": [
+    "Portfoliorendite",
+    "Portfoliovarianz"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "portfoliotheorie-8",
+   "art": "methode",
+   "aussage": "Effiziente Portfolios sind solche, die bei gegebenem Risiko (Standardabweichung) die höchste erwartete Rendite bzw. bei gegebener Rendite das geringste Risiko liefern (μ-σ-Prinzip).",
+   "schlagworte": [
+    "effiziente Linie",
+    "μ-σ-Prinzip"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Diversifikation beseitigt jedes Risiko.",
+   "richtig": "Diversifikation senkt das unsystematische Risiko; das systematische Marktrisiko bleibt, und bei perfekt positiver Korrelation entsteht kein Diversifikationseffekt.",
+   "quelle_id": "portfoliotheorie-2"
+  }
+ ]
+}

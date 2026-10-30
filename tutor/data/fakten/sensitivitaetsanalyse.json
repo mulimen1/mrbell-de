@@ -1,0 +1,115 @@
+{
+ "thema": "sensitivitaetsanalyse",
+ "name": "Sensitivitätsanalyse",
+ "kat": "Entscheidungsmethoden",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "sensitivitaetsanalyse-1",
+   "art": "definition",
+   "aussage": "Die Sensitivitätsanalyse prüft, wie robust eine Rangfolge von Planungsalternativen ist, wenn sich einzelne Parameterwerte oder Gruppen von Parameterwerten ändern.",
+   "schlagworte": [
+    "Robustheit",
+    "Parameter"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Sensitivitätsanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/sensitivitaetsanalyse-43905",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-2",
+   "art": "methode",
+   "aussage": "Sie berechnet Grenzwerte, ab denen eine Alternative nicht mehr vorteilhaft ist, und zeigt damit, wie unsicher eine Planungsalternative ist.",
+   "schlagworte": [
+    "Grenzwert",
+    "Unsicherheit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Sensitivitätsanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/sensitivitaetsanalyse-43905",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-3",
+   "art": "definition",
+   "aussage": "Kritischer Wert (Investitionsrechnung): Der Wert einer unsicheren Inputgröße, bei dem die Zielgröße (z. B. Kapitalwert oder Gewinn) gerade nicht negativ wird; dabei wird nur diese Größe variiert, alle anderen bleiben konstant.",
+   "schlagworte": [
+    "kritischer Wert",
+    "ceteris paribus"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: kritischer Wert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kritischer-wert-40379",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-4",
+   "art": "abgrenzung",
+   "aussage": "Wird der kritische Wert unter- bzw. überschritten, ist das Projekt unvorteilhaft; Beispiele für kritische Werte sind Amortisationsdauer und interner Zinsfuß.",
+   "schlagworte": [
+    "Grenze",
+    "interner Zinsfuß"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: kritischer Wert",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kritischer-wert-40379",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-5",
+   "art": "methode",
+   "aussage": "Vorgehen: Eine Eingangsgröße um einen festen Prozentsatz ändern (z. B. \\pm 10\\,\\%), alle anderen konstant halten und die Wirkung auf das Ergebnis messen; Größen mit starker Wirkung verdienen die genauste Prognose.",
+   "schlagworte": [
+    "Variation",
+    "Prozentsatz"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-6",
+   "art": "formel",
+   "aussage": "Kritischer Wert einer Größe x: Zielfunktion gleich null setzen, z. B. KW(x_{krit}) = 0, und nach x auflösen.",
+   "schlagworte": [
+    "Kapitalwert gleich null",
+    "auflösen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "sensitivitaetsanalyse-7",
+   "art": "abgrenzung",
+   "aussage": "Gabler nennt die Sensitivitätsanalyse als Methode zur Prüfung der Lösung einer Nutzwertanalyse durch Variation der Parameter.",
+   "schlagworte": [
+    "Nutzwertanalyse"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Nutzwertanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/nutzwertanalyse-42926",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Bei der Sensitivitätsanalyse werden alle Eingangsgrößen gleichzeitig verändert.",
+   "richtig": "Klassisch wird jeweils nur eine Größe variiert, die übrigen bleiben konstant.",
+   "quelle_id": "sensitivitaetsanalyse-3"
+  },
+  {
+   "falsch": "Die Sensitivitätsanalyse liefert Eintrittswahrscheinlichkeiten für Szenarien.",
+   "richtig": "Sie zeigt nur die Reaktion des Ergebnisses auf Änderungen, keine Wahrscheinlichkeiten.",
+   "quelle_id": "sensitivitaetsanalyse-1"
+  }
+ ]
+}

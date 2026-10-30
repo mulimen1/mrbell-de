@@ -1,0 +1,115 @@
+{
+ "thema": "optimale-bestellmenge",
+ "name": "Optimale Bestellmenge",
+ "kat": "Management",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "optimale-bestellmenge-1",
+   "art": "definition",
+   "aussage": "Die optimale Bestellmenge teilt einen bekannten Periodenbedarf kostenoptimal in gleich große Bestellmengen auf; sie liegt im Minimum der Summe aus Lager- und Bestellkosten.",
+   "schlagworte": [
+    "Minimum",
+    "Gesamtkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: optimale Bestellmenge",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/optimale-bestellmenge-44429",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-2",
+   "art": "formel",
+   "aussage": "Andler-Formel: m_0 = \\sqrt{\\frac{200 \\cdot V \\cdot K_{fb}}{k_b \\cdot p}} mit V = Jahresverbrauch, K_{fb} = bestellfixe Kosten, k_b = variable Bestellkosten je Stück (Einstandspreis), p = Zins- und Lagerkostensatz in Prozent.",
+   "schlagworte": [
+    "Andler-Formel",
+    "Formel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Andler-Formel",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/andler-formel-30927",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-3",
+   "art": "formel",
+   "aussage": "Wird der Lagerhaltungskostensatz als Dezimalzahl i eingesetzt, lautet die Formel gleichwertig Q_{opt} = \\sqrt{\\frac{2 \\cdot M \\cdot K_B}{p \\cdot i}}; Lagerkosten pro Jahr = \\frac{Q}{2} \\cdot p \\cdot i, Bestellkosten pro Jahr = \\frac{M}{Q} \\cdot K_B.",
+   "schlagworte": [
+    "Faktor 2",
+    "Durchschnittsbestand Q/2"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-4",
+   "art": "abgrenzung",
+   "aussage": "Analog berechnet die Andler-Formel die optimale Losgröße in der Produktion: x_0 = \\sqrt{\\frac{200 \\cdot A \\cdot K_{fp}}{k_p \\cdot p}} (A = Jahresabsatz, K_{fp} = losgrößenfixe Kosten, k_p = variable Stückkosten).",
+   "schlagworte": [
+    "Losgröße"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Andler-Formel",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/andler-formel-30927",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-5",
+   "art": "methode",
+   "aussage": "Die Prämissen des Grundmodells (u. a. kontinuierlicher Lagerabgang, konstanter Einstandspreis) schränken die Anwendung ein; Erweiterungen berücksichtigen z. B. Mengenrabatte bzw. veränderte Preise oder schwankenden Bedarf.",
+   "schlagworte": [
+    "Prämissen",
+    "Kritik"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: optimale Bestellmenge",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/optimale-bestellmenge-44429",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-6",
+   "art": "definition",
+   "aussage": "Die stückbezogenen Bestellkosten sinken mit wachsender Bestellmenge, weil die je Bestellung fixen Kosten (Bearbeitung, Verbuchung, Zahlungsverkehr) auf mehr Stück verteilt werden.",
+   "schlagworte": [
+    "Bestellkosten",
+    "Degression"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bestellkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bestellkosten-30100",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimale-bestellmenge-7",
+   "art": "zahl",
+   "aussage": "Benannt ist die Formel nach Kurt Andler, der die Zusammenhänge im deutschen Sprachraum erstmals dargestellt hat.",
+   "schlagworte": [
+    "Andler"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Andler-Formel",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/andler-formel-30927",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Lagerkosten = Q · p · i.",
+   "richtig": "Im Grundmodell wird mit dem Durchschnittsbestand Q/2 gerechnet: Lagerkosten = Q/2 · p · i.",
+   "quelle_id": "optimale-bestellmenge-3"
+  },
+  {
+   "falsch": "Den Prozentsatz als 16 in die Formel mit Faktor 2 einsetzen.",
+   "richtig": "Faktor 200 nur mit p in Prozent, Faktor 2 nur mit Dezimalzahl.",
+   "quelle_id": "optimale-bestellmenge-2"
+  }
+ ]
+}

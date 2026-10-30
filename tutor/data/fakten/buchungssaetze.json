@@ -1,0 +1,134 @@
+{
+ "thema": "buchungssaetze",
+ "name": "Buchungssätze",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "buchungssaetze-1",
+   "art": "methode",
+   "aussage": "Ein Buchungssatz nennt zuerst das Soll-Konto, dann das Haben-Konto: `Soll an Haben`. Die Summe der Soll-Beträge ist bei jeder Buchung gleich der Summe der Haben-Beträge.",
+   "schlagworte": [
+    "Buchungssatz",
+    "Soll",
+    "Haben"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "buchungssaetze-2",
+   "art": "methode",
+   "aussage": "Aktivkonten nehmen Zugänge im Soll auf, Abgänge im Haben; Passivkonten umgekehrt (Zugänge im Haben, Abgänge im Soll).",
+   "schlagworte": [
+    "Aktivkonto",
+    "Passivkonto",
+    "Zugang",
+    "Abgang"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "buchungssaetze-3",
+   "art": "methode",
+   "aussage": "Aufwendungen werden im Soll gebucht, Erträge im Haben.",
+   "schlagworte": [
+    "Aufwand",
+    "Ertrag",
+    "Soll",
+    "Haben"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "buchungssaetze-4",
+   "art": "methode",
+   "aussage": "Ein zusammengesetzter Buchungssatz hat mehr als zwei Konten (z. B. Bank an Umsatzerlöse und Umsatzsteuer); auch hier gilt Summe Soll = Summe Haben.",
+   "schlagworte": [
+    "zusammengesetzter Buchungssatz",
+    "Umsatzsteuer"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "buchungssaetze-5",
+   "art": "gesetz",
+   "aussage": "Buchungen müssen vollständig, richtig, zeitgerecht und geordnet vorgenommen werden.",
+   "schlagworte": [
+    "Ordnungsmäßigkeit",
+    "Buchung"
+   ],
+   "quelle": {
+    "name": "HGB § 239 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__239.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "buchungssaetze-6",
+   "art": "gesetz",
+   "aussage": "Eine Buchung darf nicht so verändert werden, dass der ursprüngliche Inhalt nicht mehr feststellbar ist (Radierverbot); eine Fehlbuchung wird daher durch eine Stornobuchung korrigiert und neu gebucht.",
+   "schlagworte": [
+    "Radierverbot",
+    "Storno",
+    "Korrektur"
+   ],
+   "quelle": {
+    "name": "HGB § 239 Abs. 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__239.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "buchungssaetze-7",
+   "art": "gesetz",
+   "aussage": "Die Buchführung muss so beschaffen sein, dass ein sachverständiger Dritter die Geschäftsvorfälle in angemessener Zeit nachvollziehen kann.",
+   "schlagworte": [
+    "Nachvollziehbarkeit",
+    "GoB"
+   ],
+   "quelle": {
+    "name": "HGB § 238 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__238.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "buchungssaetze-8",
+   "art": "gesetz",
+   "aussage": "Vorsteuer aus Eingangsrechnungen ist abziehbar, wenn eine ordnungsgemäße Rechnung eines anderen Unternehmers vorliegt; sie wird deshalb im Soll des Vorsteuerkontos gebucht und nicht als Aufwand.",
+   "schlagworte": [
+    "Vorsteuer",
+    "Eingangsrechnung"
+   ],
+   "quelle": {
+    "name": "UStG § 15 Abs. 1 Nr. 1",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__15.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Eine falsche Buchung wird einfach überschrieben oder radiert.",
+   "richtig": "Fehler werden durch Storno und Neubuchung korrigiert, die ursprüngliche Buchung bleibt erkennbar.",
+   "quelle_id": "buchungssaetze-6"
+  },
+  {
+   "falsch": "Vorsteuer ist Aufwand und gehört auf ein Aufwandskonto.",
+   "richtig": "Abziehbare Vorsteuer wird auf dem Vorsteuerkonto im Soll gebucht, nicht als Aufwand.",
+   "quelle_id": "buchungssaetze-8"
+  }
+ ]
+}

@@ -1,0 +1,120 @@
+{
+ "thema": "anzahlungen-buchen",
+ "name": "Anzahlungen buchen",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "anzahlungen-buchen-1",
+   "art": "gesetz",
+   "aussage": "Wird das Entgelt oder ein Teil davon vor Ausführung der Leistung vereinnahmt, entsteht die Umsatzsteuer insoweit bereits mit Ablauf des Voranmeldungszeitraums, in dem die Anzahlung vereinnahmt wird.",
+   "schlagworte": [
+    "Anzahlung",
+    "Entstehung der Umsatzsteuer",
+    "Voranmeldungszeitraum"
+   ],
+   "quelle": {
+    "name": "UStG § 13 Abs. 1 Nr. 1 Buchst. a Satz 4",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__13.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "anzahlungen-buchen-2",
+   "art": "gesetz",
+   "aussage": "Der Empfänger kann die auf eine Anzahlung entfallende Vorsteuer abziehen, sobald die Rechnung vorliegt und er die Zahlung geleistet hat.",
+   "schlagworte": [
+    "Vorsteuerabzug",
+    "Anzahlung",
+    "Rechnung"
+   ],
+   "quelle": {
+    "name": "UStG § 15 Abs. 1 Nr. 1",
+    "url": "https://www.gesetze-im-internet.de/ustg_1980/__15.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "anzahlungen-buchen-3",
+   "art": "gesetz",
+   "aussage": "Erhaltene Anzahlungen sind unter den Verbindlichkeiten gesondert auszuweisen, soweit sie nicht offen von den Vorräten abgesetzt werden.",
+   "schlagworte": [
+    "erhaltene Anzahlungen",
+    "Verbindlichkeiten",
+    "Bilanzausweis"
+   ],
+   "quelle": {
+    "name": "HGB § 268 Abs. 5",
+    "url": "https://www.gesetze-im-internet.de/hgb/__268.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "anzahlungen-buchen-4",
+   "art": "gesetz",
+   "aussage": "Die Verbindlichkeiten gliedern sich in Anleihen, Bankverbindlichkeiten, erhaltene Anzahlungen auf Bestellungen, Verbindlichkeiten aus Lieferungen und Leistungen usw.",
+   "schlagworte": [
+    "erhaltene Anzahlungen",
+    "Gliederung"
+   ],
+   "quelle": {
+    "name": "HGB § 266 Abs. 3 C",
+    "url": "https://www.gesetze-im-internet.de/hgb/__266.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "anzahlungen-buchen-5",
+   "art": "methode",
+   "aussage": "Buchung beim Verkäufer bei Erhalt der Anzahlung (brutto): Bank an Erhaltene Anzahlungen (netto) und Umsatzsteuer. Bei der Schlussrechnung wird der Umsatz in voller Höhe als Erlös gebucht und die erhaltene Anzahlung gegen die Forderung aufgelöst; die bereits für die Anzahlung gebuchte Umsatzsteuer wird nicht doppelt erfasst.",
+   "schlagworte": [
+    "Buchungssatz",
+    "Verkäufer",
+    "Schlussrechnung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "anzahlungen-buchen-6",
+   "art": "methode",
+   "aussage": "Buchung beim Käufer: Geleistete Anzahlungen und Vorsteuer an Bank; bei Lieferung wird die geleistete Anzahlung auf das Anlage- bzw. Wareneingangskonto umgebucht und der Restbetrag als Verbindlichkeit erfasst; die Vorsteuer wird nicht doppelt gebucht.",
+   "schlagworte": [
+    "Buchungssatz",
+    "Käufer",
+    "geleistete Anzahlung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "anzahlungen-buchen-7",
+   "art": "methode",
+   "aussage": "Eine Anzahlung ist weder Umsatzerlös noch Ertrag, solange die Leistung nicht erbracht ist; sie wird bis zur Lieferung als Verbindlichkeit (erhaltene Anzahlung) geführt.",
+   "schlagworte": [
+    "Realisation",
+    "Verbindlichkeit"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Umsatzsteuer aus einer Anzahlung entsteht erst bei Lieferung.",
+   "richtig": "Sie entsteht bereits mit Ablauf des Voranmeldungszeitraums der Vereinnahmung (§ 13 Abs. 1 Nr. 1 a Satz 4 UStG).",
+   "quelle_id": "anzahlungen-buchen-1"
+  },
+  {
+   "falsch": "Eine erhaltene Anzahlung ist sofort Umsatzerlös.",
+   "richtig": "Sie ist bis zur Leistung eine Verbindlichkeit und wird erst mit der Leistung realisiert.",
+   "quelle_id": "anzahlungen-buchen-7"
+  }
+ ]
+}

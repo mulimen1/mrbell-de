@@ -6,6 +6,10 @@
 // Gezählt wird nur anonym (Anzahl, Art) – kein Inhalt.
 import { pruefe, korrigiere, pruefeQuiz, BLOCKIEREND, zahlWerte } from './rechenpruefer.js';
 import { getOutLang } from './i18n.js';
+import { faktenTreffer } from './faktenregeln.js';
+import { belegeFuer, dbPruefung } from './faktendb.js';
+// Faktenregister (Gesetze, Grenzwerte, Sätze, bekannte Fehlermuster): Treffer je Textfeld der Antwort
+function fakt(data) { const out = []; const walk = (o, p) => { if (typeof o === 'string') { for (const h of faktenTreffer(o)) out.push({ art: 'fakt-falsch', path: p, text: h.text, richtig: h.richtig, quelle: h.quelle, id: h.id }); } else if (o && typeof o === 'object') for (const k of Object.keys(o)) { if (k === '__rechenweg') continue; walk(o[k], p.concat(Array.isArray(o) ? +k : k)); } }; walk(data, []); return out; }
 // Hinweise in der Sprache der Inhalte (Max’ Antwort), nicht der Oberfläche
 let SPRACHE = null;
 const L = (de, en) => ((SPRACHE || (typeof getOutLang === 'function' ? getOutLang() : 'de')) === 'en' && en != null ? en : de);
@@ -108,12 +112,13 @@ async function kiNachbesserung(raw, data, rest, signal, timeout = KI_TIMEOUT) {
     if (![...felder.values()].some(x => x.k === k)) { const v = get(data, q); felder.set('f' + felder.size, { k, path: q, json: typeof v !== 'string', text: typeof v === 'string' ? v : JSON.stringify(v), fehler: [] }); }
     const e = [...felder.values()].find(x => x.k === k);
     const soll = f.fixUnsicher ? ` – richtig wäre ${f.fixUnsicher.neu}` : '';
+    if (f.art === 'fakt-falsch') { e.fehler.push(`Fachlich falsch oder veraltet: „${String(f.text).slice(0, 200)}“ – richtig ist: ${f.richtig} (Quelle: ${f.quelle}). Formuliere genau diese Stelle korrekt, alles andere bleibt.`); continue; }
     if (f.art === 'zahl-ohne-rechenweg') { e.fehler.push(`Zahl ohne Rechenweg: „${f.text}“ – zeig die Rechnung dazu (sichtbar oder im versteckten Block \`\`\`rechenweg … \`\`\`) oder korrigiere die Zahl`); continue; }
     e.fehler.push(`${f.art === 'buchung-soll-ungleich-haben' ? 'Buchungssatz: Soll ≠ Haben' : f.art === 'summenzeile-falsch' ? 'Summenzeile stimmt nicht' : f.art === 'quiz-falsche-option' ? 'Lösung passt nicht zum Rechenweg' : 'Rechnung falsch'}: „${String(f.text).slice(0, 200)}“${soll}${f.weiterverwendet ? ' (das falsche Ergebnis wird danach weiterverwendet – alle Folgeschritte neu rechnen)' : ''}`);
   }
   if (!felder.size) return null;
   const teile = [...felder.entries()].map(([id, x]) => `### ${id}${x.json ? ' (JSON-Objekt – gib es als JSON-Objekt zurück, gleiche Felder)' : ''}\nFEHLER:\n- ${x.fehler.join('\n- ')}\nTEXT:\n${x.text}`).join('\n\n');
-  const prompt = `RECHENKORREKTUR (interne Prüfung, keine Erklärung an den Nutzer). Ein Rechenprüfer hat in deinem Text Fehler gefunden. Korrigiere NUR die Rechnungen: rechne jede genannte Stelle neu und passe alle Folgeschritte und Ergebnisse an, die davon abhängen. Format, Formeln (\\( … \\)), HTML, Sprache und Wortlaut sonst unverändert lassen; auf Englisch Zahlen im englischen Format (1,234.56). Antworte AUSSCHLIESSLICH mit JSON: {"f0": "vollständiger korrigierter Text", …} für jede ID.\n\n${teile}`;
+  const prompt = `RECHENKORREKTUR (interne Prüfung, keine Erklärung an den Nutzer). Eine Prüfung hat in deinem Text Fehler gefunden (Rechnungen oder fachlich falsche/veraltete Aussagen). Korrigiere NUR die genannten Stellen: rechne jede genannte Rechnung neu und passe alle Folgeschritte und Ergebnisse an, die davon abhängen; formuliere genannte Fachaussagen so, wie die angegebene richtige Aussage es verlangt. Format, Formeln (\\( … \\)), HTML, Sprache und Wortlaut sonst unverändert lassen; auf Englisch Zahlen im englischen Format (1,234.56). Antworte AUSSCHLIESSLICH mit JSON: {"f0": "vollständiger korrigierter Text", …} für jede ID.\n\n${teile}`;
   const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), timeout);
   if (signal) signal.addEventListener('abort', () => ctrl.abort(), { once: true });
   try {
@@ -287,9 +292,31 @@ export async function rechenGate(action, payload, j, raw, { signal } = {}) {
     if (r2.rest.length <= r.rest.length) { data = r2.data; info.korrigiert += r2.geaendert; r = r2; }
   }
   } finally { rechnetNach(false); }
+  // Faktencheck (Register): falsche/veraltete Fachaussagen von Max nachbessern lassen; was bleibt, wird sichtbar gewarnt
+  let fk = []; try { fk = fakt(data); } catch (e) {}
+  if (fk.length && KI_BUDGET - (Date.now() - tKi) > 6000) {
+    rechnetNach(true);
+    try {
+      let d2 = await kiNachbesserung(raw, data, fk, signal, Math.min(KI_TIMEOUT, KI_BUDGET - (Date.now() - tKi)));
+      if (d2) { d2 = rwHolen(d2); const r5 = lauf(action, d2, kontext, zitat, ext); if (r5.rest.length <= r.rest.length && fakt(r5.data).length < fk.length) { data = r5.data; info.korrigiert += r5.geaendert; r = r5; } }
+    } catch (e) {} finally { rechnetNach(false); }
+  }
+  try { const fr = fakt(data); info.fakten = fr.map(({ id, richtig, quelle }) => ({ id, richtig, quelle })); info.faktenKorrigiert = Math.max(0, fk.length - fr.length); if (fk.length) track('Faktencheck', fk.map(f => f.id).join(',') + (fr.length ? ' · offen ' + fr.length : ' · korrigiert')); } catch (e) {}
   if (r.rest.length) { info.offen = r.rest.length; data = notbremse(action, data, r.rest); track('Notbremse', r.rest.map(f => f.art).join(',')); }
   else if (info.korrigiert) track('korrigiert', String(info.korrigiert));
   try { const trace = []; pruefe(data, { kontext, trace, sprache: SPRACHE }); info.rechnungen = trace.length; } catch (e) {}
+  // Faktendatenbank: passende geprüfte Aussagen + Quellen (lokal, vor der Anzeige); der KI-Abgleich läuft danach weiter (info.dbcheck)
+  try {
+    const plain = String(JSON.stringify(data)).replace(/\\n/g, ' ').replace(/<[^>]+>/g, ' ');
+    if (plain.length > 160 && !(payload.opts && payload.opts.voice && action === 'chat' && plain.length < 400)) {
+      const bl = await Promise.race([belegeFuer(plain), new Promise(res => setTimeout(() => res([]), 1500))]);
+      if (bl.length) {
+        info.belege = bl.map(({ id, thema, aussage, quelle }) => ({ id, thema, aussage, quelle }));
+        const p = dbPruefung(plain, bl, raw).then(res => { info.db = res; if (res.widersprueche.length) track('DB-Widerspruch', res.widersprueche.map(w => w.id).join(',')); return res; });
+        Object.defineProperty(info, 'dbcheck', { value: p, enumerable: false });
+      }
+    }
+  } catch (e) {}
   info.ms = Math.round((typeof performance !== 'undefined' ? performance : Date).now() - t0);
   return { ...T.set(data), rechenpruefung: info };
 }

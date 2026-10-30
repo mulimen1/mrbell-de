@@ -1,0 +1,117 @@
+{
+ "thema": "binomialverteilung",
+ "name": "Binomialverteilung",
+ "kat": "Statistik",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "binomialverteilung-1",
+   "art": "definition",
+   "aussage": "Die Binomialverteilung ist eine spezielle diskrete Wahrscheinlichkeitsverteilung mit den Parametern n (natürliche Zahl) und p (0 < p < 1).",
+   "schlagworte": [
+    "diskret",
+    "Parameter"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Binomialverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/binomialverteilung-28325",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-2",
+   "art": "formel",
+   "aussage": "P(X = k) = b(k \\mid n; p) = \\binom{n}{k} p^k (1-p)^{n-k}, k = 0, 1, \\dots, n.",
+   "schlagworte": [
+    "Wahrscheinlichkeitsfunktion",
+    "Binomialkoeffizient"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Binomialverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/binomialverteilung-28325",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-3",
+   "art": "formel",
+   "aussage": "E(X) = n\\,p und Var(X) = n\\,p\\,(1-p).",
+   "schlagworte": [
+    "Erwartungswert",
+    "Varianz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Binomialverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/binomialverteilung-28325",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-4",
+   "art": "methode",
+   "aussage": "Sachverhalt: Zwei Sorten von Elementen mit Anteilen p und 1-p, n Ziehungen mit Zurücklegen; b(k|n;p) ist die Wahrscheinlichkeit für genau k Elemente der ersten Sorte.",
+   "schlagworte": [
+    "Urnenmodell",
+    "Zurücklegen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Binomialverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/binomialverteilung-28325",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-5",
+   "art": "abgrenzung",
+   "aussage": "Bei Ziehen ohne Zurücklegen gilt die hypergeometrische Verteilung, die bei kleinem Auswahlsatz näherungsweise durch die Binomialverteilung ersetzt werden kann.",
+   "schlagworte": [
+    "hypergeometrisch",
+    "ohne Zurücklegen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "binomialverteilung-6",
+   "art": "abgrenzung",
+   "aussage": "Bei großem n lässt sich die Binomialverteilung durch die Normalverteilung approximieren (Stetigkeitskorrektur).",
+   "schlagworte": [
+    "Normalapproximation",
+    "Stetigkeitskorrektur"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Binomialverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/binomialverteilung-28325",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "binomialverteilung-7",
+   "art": "methode",
+   "aussage": "Typisches Beispiel: Stichprobe vom Umfang n aus einer Produktion mit Ausschussanteil p; b(k|n;p) ist die Wahrscheinlichkeit für genau k defekte Teile.",
+   "schlagworte": [
+    "Ausschuss",
+    "Stichprobe"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Binomialverteilung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/binomialverteilung-28325",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Binomialverteilung ist für Ziehen ohne Zurücklegen aus kleiner Grundgesamtheit exakt.",
+   "richtig": "Sie setzt unabhängige Versuche mit konstantem p (Zurücklegen) voraus; ohne Zurücklegen ist die hypergeometrische Verteilung exakt.",
+   "quelle_id": "binomialverteilung-4"
+  },
+  {
+   "falsch": "P(X ≥ k) ist b(k|n;p).",
+   "richtig": "b(k|n;p) ist die Wahrscheinlichkeit für genau k Erfolge; P(X ≥ k) ist die Summe der Einzelwahrscheinlichkeiten.",
+   "quelle_id": "binomialverteilung-2"
+  }
+ ]
+}

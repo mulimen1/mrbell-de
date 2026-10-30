@@ -1,0 +1,143 @@
+{
+ "thema": "tilgungsplan",
+ "name": "Tilgungsplan",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "tilgungsplan-1",
+   "art": "definition",
+   "aussage": "Ein Tilgungsplan ist die zahlenmäßige Darstellung des Rückzahlungsvorgangs einer Schuld (z. B. Darlehen oder Anleihe), die in Teilbeträgen, den Tilgungsraten, zurückgezahlt wird.",
+   "schlagworte": [
+    "Tilgungsplan",
+    "Tilgungsrate",
+    "Rückzahlung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Tilgungsplan",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/tilgungsplan-47815",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-2",
+   "art": "methode",
+   "aussage": "Die Tilgungsrechnung (Teilgebiet der Finanzmathematik) ermittelt Tilgungsdauer, Restschuld am Ende jedes Jahres, Zinsen, Tilgungsrate und Annuität; zusammen ergeben diese Größen den Tilgungsplan.",
+   "schlagworte": [
+    "Tilgungsrechnung",
+    "Restschuld",
+    "Annuität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Tilgungsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/tilgungsrechnung-48482/version-189233",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-3",
+   "art": "definition",
+   "aussage": "Die Annuität ist die vereinbarte jährliche, gleichbleibende Rate für eine Kapitalschuld und setzt sich aus Zins- und Tilgungsanteil zusammen: Annuität = Zinsen + Tilgung.",
+   "schlagworte": [
+    "Annuität",
+    "Zinsanteil",
+    "Tilgungsanteil"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuitätendarlehen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-4",
+   "art": "abgrenzung",
+   "aussage": "Beim Annuitätendarlehen sinkt mit der laufenden Tilgung die zinspflichtige Schuld: Der Zinsanteil nimmt ab, der Tilgungsanteil steigt um die ersparten Zinsen.",
+   "schlagworte": [
+    "ersparte Zinsen",
+    "Annuitätendarlehen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuitätendarlehen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-5",
+   "art": "abgrenzung",
+   "aussage": "Bei der unechten (variablen) Annuität bleibt der Tilgungsanteil konstant, und die Rate verringert sich um die eingesparten Zinsen.",
+   "schlagworte": [
+    "unechte Annuität",
+    "Ratentilgung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuitätendarlehen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-6",
+   "art": "zahl",
+   "aussage": "Bei 1 % Anfangstilgung liegt die Laufzeit eines Annuitätendarlehens je nach Zinssatz und Tilgungsverrechnung zwischen 30 und 65 Jahren. Für eine Laufzeit von 20 Jahren braucht man bei 3 % Zins etwa 3,7 % Anfangstilgung.",
+   "schlagworte": [
+    "Anfangstilgung",
+    "Laufzeit",
+    "Tilgungssatz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuitätendarlehen",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "tilgungsplan-7",
+   "art": "formel",
+   "aussage": "Zinsen der Periode t: Z_t = i \\cdot R_{t-1}; Tilgung: T_t = A - Z_t; Restschuld: R_t = R_{t-1} - T_t (A: Annuität, R: Restschuld, i: Zinssatz).",
+   "schlagworte": [
+    "Zinsanteil",
+    "Restschuld",
+    "Plan"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "tilgungsplan-8",
+   "art": "formel",
+   "aussage": "Annuität bei Darlehen S_0, Zinsfaktor q = 1 + i und n Jahren: A = S_0 \\cdot \\frac{q^n \\cdot (q - 1)}{q^n - 1}",
+   "schlagworte": [
+    "Annuitätenformel",
+    "Wiedergewinnungsfaktor"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "tilgungsplan-9",
+   "art": "methode",
+   "aussage": "Ratentilgung: Die Tilgung ist in jeder Periode gleich hoch (S_0 / n); weil die Zinsen auf die sinkende Restschuld fallen, sinkt die Gesamtrate. Bei endfälligem Darlehen wird die gesamte Schuld am Laufzeitende zurückgezahlt.",
+   "schlagworte": [
+    "Ratentilgung",
+    "endfälliges Darlehen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Beim Annuitätendarlehen bleibt die Tilgungsrate konstant.",
+   "richtig": "Konstant ist die Annuität (Zins + Tilgung); die Tilgung steigt, weil der Zinsanteil sinkt. Konstante Tilgung kennzeichnet die Ratentilgung.",
+   "quelle_id": "tilgungsplan-4"
+  }
+ ]
+}

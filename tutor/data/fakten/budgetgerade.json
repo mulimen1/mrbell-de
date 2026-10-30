@@ -1,0 +1,98 @@
+{
+ "thema": "budgetgerade",
+ "name": "Budgetgerade",
+ "kat": "VWL",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "budgetgerade-1",
+   "art": "definition",
+   "aussage": "Die Budgetgerade (Bilanz- bzw. Haushaltsgerade) zeigt alle Mengenkombinationen zweier Güter, mit denen ein Haushalt bei gegebenen Preisen sein Konsumbudget M vollständig ausschöpft.",
+   "schlagworte": [
+    "Bilanzgerade",
+    "Haushaltsgerade",
+    "Budget"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bilanzgerade",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bilanzgerade-28637",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "budgetgerade-2",
+   "art": "formel",
+   "aussage": "Budgetrestriktion: p_x \\cdot x + p_y \\cdot y \\le M; bei voller Ausschöpfung gilt die Budgetgleichung p_x \\cdot x + p_y \\cdot y = M.",
+   "schlagworte": [
+    "Budgetrestriktion",
+    "Budgetgleichung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bilanzgerade",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bilanzgerade-28637",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "budgetgerade-3",
+   "art": "formel",
+   "aussage": "Nach y aufgelöst: y = \\frac{M}{p_y} - \\frac{p_x}{p_y} \\cdot x; die Steigung -p_x/p_y hängt nur vom Preisverhältnis ab, nicht vom Budget.",
+   "schlagworte": [
+    "Steigung",
+    "Preisverhältnis"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bilanzgerade",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bilanzgerade-28637",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "budgetgerade-4",
+   "art": "formel",
+   "aussage": "Achsenabschnitte: x_{max} = M / p_x und y_{max} = M / p_y.",
+   "schlagworte": [
+    "Achsenabschnitte"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bilanzgerade",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bilanzgerade-28637",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "budgetgerade-5",
+   "art": "methode",
+   "aussage": "Steigt M, verschiebt sich die Budgetgerade parallel nach außen; steigt p_x, dreht sie sich um den y-Achsenabschnitt nach innen und wird steiler (nachgerechnet aus der Budgetgleichung).",
+   "schlagworte": [
+    "Parallelverschiebung",
+    "Drehung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "budgetgerade-6",
+   "art": "definition",
+   "aussage": "Im Haushaltsmodell begrenzt die Budgetgerade den zulässigen Bereich, in dem das nutzenmaximale Güterbündel gesucht wird.",
+   "schlagworte": [
+    "zulässiger Bereich",
+    "Haushaltsoptimum"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bilanzgerade",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bilanzgerade-28637",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Eine Einkommenserhöhung macht die Budgetgerade flacher.",
+   "richtig": "Die Steigung -p_x/p_y hängt nicht von M ab; ein höheres Budget verschiebt die Gerade parallel.",
+   "quelle_id": "budgetgerade-3"
+  }
+ ]
+}

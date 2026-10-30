@@ -1,0 +1,130 @@
+{
+ "thema": "wacc",
+ "name": "WACC (gewichtete Kapitalkosten)",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "wacc-1",
+   "art": "definition",
+   "aussage": "Der WACC (Weighted Average Cost of Capital) ist ein gewichteter Gesamtkapitalkostensatz, das gewichtete arithmetische Mittel aus Eigenkapital- und Fremdkapitalkostensatz; Gewichte sind die Anteile von Eigen- und Fremdkapital am Gesamtkapital.",
+   "schlagworte": [
+    "WACC",
+    "Gesamtkapitalkostensatz",
+    "Gewichtung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: WACC",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/wacc-50279",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wacc-2",
+   "art": "formel",
+   "aussage": "\\text{WACC} = \\frac{EK}{EK+FK} \\cdot k_{EK} + \\frac{FK}{EK+FK} \\cdot k_{FK} \\cdot (1 - s) \\quad (s: Unternehmenssteuersatz)",
+   "schlagworte": [
+    "Formel",
+    "Steuerschild",
+    "Kapitalstruktur"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "wacc-3",
+   "art": "methode",
+   "aussage": "Beim WACC-Verfahren der DCF-Bewertung werden die Free Cashflows mit dem durchschnittlichen Kapitalkostensatz diskontiert; man erhält den Gesamtkapitalwert in einem Schritt, der Eigenkapitalwert ergibt sich nach Abzug des Marktwerts des Fremdkapitals. Der Steuervorteil der Fremdfinanzierung steckt im Diskontierungssatz.",
+   "schlagworte": [
+    "DCF",
+    "Entity-Verfahren",
+    "Gesamtkapitalwert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wacc-4",
+   "art": "abgrenzung",
+   "aussage": "Der WACC benötigt Marktwerte zur Gewichtung, diese hängen aber selbst von den Kapitalkosten ab (Zirkularität); sie lässt sich durch passende Verfahrenswahl oder Iteration lösen.",
+   "schlagworte": [
+    "Marktwerte",
+    "Zirkularität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wacc-5",
+   "art": "abgrenzung",
+   "aussage": "Fremdkapitalkosten sind explizite Kosten (Zinszahlungen); weil Zinsen steuerlich abzugsfähig sind, werden sie nach Steuern gerechnet. Ein Disagio erhöht die Kosten, der Kostensatz entspricht dem internen Zinsfuß der Zahlungsreihe.",
+   "schlagworte": [
+    "Fremdkapitalkosten",
+    "nach Steuern",
+    "Disagio"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kapitalkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalkosten-40456/version-327344",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wacc-6",
+   "art": "abgrenzung",
+   "aussage": "Eigenkapitalkosten sind implizite Kosten, nämlich Opportunitätskosten der Eigenkapitalgeber.",
+   "schlagworte": [
+    "Eigenkapitalkosten",
+    "Opportunitätskosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kapitalkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalkosten-40456/version-327344",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wacc-7",
+   "art": "methode",
+   "aussage": "Alternativen zum WACC-Verfahren: Beim APV-Verfahren werden operatives Geschäft und Steuervorteil der Verschuldung getrennt bewertet; beim Equity-Verfahren wird der Free Cashflow nach Schuldendienst mit den Eigenkapitalkosten diskontiert.",
+   "schlagworte": [
+    "APV",
+    "Equity-Verfahren"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Discounted-Cashflow-Verfahren",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/discounted-cashflow-verfahren-54535",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "wacc-8",
+   "art": "abgrenzung",
+   "aussage": "In der Investitionsrechnung dient der durchschnittliche Kapitalkostensatz als Kalkulationszinssatz zur Diskontierung künftiger Überschüsse.",
+   "schlagworte": [
+    "Kalkulationszinssatz",
+    "Investitionsrechnung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kapitalkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalkosten-40456/version-327344",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Im WACC wird der Fremdkapitalzins vor Steuern eingesetzt.",
+   "richtig": "Da Zinsen steuerlich abzugsfähig sind, geht der Fremdkapitalkostensatz nach Steuern, also mit (1 − s), ein.",
+   "quelle_id": "wacc-5"
+  }
+ ]
+}

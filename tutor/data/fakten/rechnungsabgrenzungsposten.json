@@ -1,0 +1,145 @@
+{
+ "thema": "rechnungsabgrenzungsposten",
+ "name": "Rechnungsabgrenzungsposten",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "rechnungsabgrenzungsposten-1",
+   "art": "gesetz",
+   "aussage": "Als aktiver Rechnungsabgrenzungsposten (ARAP) sind Ausgaben vor dem Abschlussstichtag auszuweisen, die Aufwand für eine bestimmte Zeit nach diesem Tag darstellen.",
+   "schlagworte": [
+    "ARAP",
+    "aktive Rechnungsabgrenzung"
+   ],
+   "quelle": {
+    "name": "HGB § 250 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__250.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rechnungsabgrenzungsposten-2",
+   "art": "gesetz",
+   "aussage": "Als passiver Rechnungsabgrenzungsposten (PRAP) sind Einnahmen vor dem Abschlussstichtag auszuweisen, die Ertrag für eine bestimmte Zeit nach diesem Tag darstellen.",
+   "schlagworte": [
+    "PRAP",
+    "passive Rechnungsabgrenzung"
+   ],
+   "quelle": {
+    "name": "HGB § 250 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__250.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rechnungsabgrenzungsposten-3",
+   "art": "gesetz",
+   "aussage": "Der ARAP steht auf der Aktivseite unter C., der PRAP auf der Passivseite unter D.",
+   "schlagworte": [
+    "Bilanzausweis",
+    "Gliederung"
+   ],
+   "quelle": {
+    "name": "HGB § 266 Abs. 2 C und Abs. 3 D",
+    "url": "https://www.gesetze-im-internet.de/hgb/__266.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rechnungsabgrenzungsposten-4",
+   "art": "gesetz",
+   "aussage": "Aufwendungen und Erträge des Geschäftsjahrs sind unabhängig von den Zahlungszeitpunkten zu erfassen; die Rechnungsabgrenzung setzt dieses Prinzip der Periodenabgrenzung um.",
+   "schlagworte": [
+    "Periodenabgrenzung",
+    "Zahlungszeitpunkt"
+   ],
+   "quelle": {
+    "name": "HGB § 252 Abs. 1 Nr. 5",
+    "url": "https://www.gesetze-im-internet.de/hgb/__252.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rechnungsabgrenzungsposten-5",
+   "art": "formel",
+   "aussage": "Zeitanteilige Abgrenzung: `ARAP = Zahlung \\cdot \\frac{Monate\\ nach\\ dem\\ Stichtag}{Gesamtmonate\\ des\\ Zeitraums}`; für den PRAP gilt dieselbe Rechnung mit der erhaltenen Einnahme.",
+   "schlagworte": [
+    "zeitanteilig",
+    "Berechnung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rechnungsabgrenzungsposten-6",
+   "art": "methode",
+   "aussage": "Zahlung nach dem Stichtag für Aufwand vor dem Stichtag wird als sonstige Verbindlichkeit (oder Rückstellung) erfasst, Einnahme nach dem Stichtag für Ertrag davor als sonstige Forderung. Das sind keine Rechnungsabgrenzungsposten.",
+   "schlagworte": [
+    "sonstige Verbindlichkeit",
+    "sonstige Forderung",
+    "Abgrenzung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "rechnungsabgrenzungsposten-7",
+   "art": "gesetz",
+   "aussage": "Liegt der Erfüllungsbetrag einer Verbindlichkeit über dem Ausgabebetrag (Disagio), darf der Unterschied als ARAP aktiviert werden (Wahlrecht); er ist planmäßig abzuschreiben, wobei die Verteilung auf die Laufzeit zulässig ist.",
+   "schlagworte": [
+    "Disagio",
+    "Damnum",
+    "Wahlrecht"
+   ],
+   "quelle": {
+    "name": "HGB § 250 Abs. 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__250.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rechnungsabgrenzungsposten-8",
+   "art": "gesetz",
+   "aussage": "Ein aktiviertes Disagio ist in der Bilanz gesondert auszuweisen oder im Anhang anzugeben.",
+   "schlagworte": [
+    "Disagio",
+    "Ausweis"
+   ],
+   "quelle": {
+    "name": "HGB § 268 Abs. 6",
+    "url": "https://www.gesetze-im-internet.de/hgb/__268.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "rechnungsabgrenzungsposten-9",
+   "art": "methode",
+   "aussage": "Buchung bei Jahresabschluss: ARAP an Aufwandskonto (z. B. Versicherungen) bzw. Ertragskonto an PRAP; im Folgejahr wird der Posten wieder aufgelöst.",
+   "schlagworte": [
+    "Buchungssatz",
+    "Auflösung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Ein Disagio muss immer als ARAP aktiviert werden.",
+   "richtig": "Handelsrechtlich besteht ein Aktivierungswahlrecht.",
+   "quelle_id": "rechnungsabgrenzungsposten-7"
+  },
+  {
+   "falsch": "Rückstellungen und Rechnungsabgrenzungsposten sind dasselbe.",
+   "richtig": "Beim RAP ist die Zahlung bereits erfolgt und Höhe und Zeitraum stehen fest; bei Rückstellungen sind Bestehen oder Höhe der Schuld ungewiss.",
+   "quelle_id": "rechnungsabgrenzungsposten-1"
+  }
+ ]
+}

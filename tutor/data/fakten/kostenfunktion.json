@@ -1,0 +1,145 @@
+{
+ "thema": "kostenfunktion",
+ "name": "Kostenfunktion",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "kostenfunktion-1",
+   "art": "definition",
+   "aussage": "Die Kostenfunktion setzt Produktionsmenge und anfallende Kosten in Beziehung (Gesamtkostenfunktion K = F(x) bei gegebenen Faktorpreisen und Produktionsfunktion).",
+   "schlagworte": [
+    "Kostenfunktion",
+    "Gesamtkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenfunktion-2",
+   "art": "formel",
+   "aussage": "Gesamtkosten: K(x) = K_f + K_v(x) (Totalkosten); bei linearem Verlauf K(x) = K_f + k_v \\cdot x.",
+   "schlagworte": [
+    "Gesamtkosten",
+    "linear"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenfunktion-3",
+   "art": "formel",
+   "aussage": "Durchschnittskosten (Stückkosten): k(x) = K(x)/x, zerlegt in durchschnittliche fixe Kosten K_f/x und durchschnittliche variable Kosten K_v(x)/x.",
+   "schlagworte": [
+    "Durchschnittskosten",
+    "Stückkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenfunktion-4",
+   "art": "formel",
+   "aussage": "Grenzkosten: GK = K'(x) bzw. K_v'(x), die Kosten der zusätzlichen Einheit.",
+   "schlagworte": [
+    "Grenzkosten",
+    "Ableitung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenfunktion-5",
+   "art": "methode",
+   "aussage": "Linearer Verlauf: durchschnittliche variable Kosten und Grenzkosten sind gleich und konstant.",
+   "schlagworte": [
+    "proportional"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenfunktion-6",
+   "art": "methode",
+   "aussage": "Überproportional steigende variable Kosten: GK > durchschnittliche variable Kosten, beide steigen; unterproportionaler Verlauf: GK < durchschnittliche variable Kosten, beide fallen.",
+   "schlagworte": [
+    "progressiv",
+    "degressiv"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenfunktion-7",
+   "art": "methode",
+   "aussage": "Verläuft die Kostenfunktion zunächst unter-, dann überproportional (ertragsgesetzlich), sind Grenzkosten, durchschnittliche variable und gesamte Stückkosten u-förmig; die Durchschnittskosten erreichen ihr Minimum dort, wo sie von den Grenzkosten geschnitten werden.",
+   "schlagworte": [
+    "ertragsgesetzlich",
+    "u-förmig"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenfunktion-8",
+   "art": "abgrenzung",
+   "aussage": "Neben der Menge beeinflussen Faktorpreise, Faktorqualität, Produktionsprogramm und Betriebsgröße die Kosten.",
+   "schlagworte": [
+    "Kosteneinflussgrößen",
+    "Faktorpreise"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "kostenfunktion-9",
+   "art": "abgrenzung",
+   "aussage": "Intervallfixe Kosten führen zu einer treppenförmigen Kostenfunktion.",
+   "schlagworte": [
+    "treppenförmig",
+    "intervallfix"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: intervallfixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/intervallfixe-kosten-41367",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Fixkosten steigen mit der Produktionsmenge.",
+   "richtig": "Fixkosten sind mengenunabhängig (im jeweiligen Intervall); nur die fixen Stückkosten sinken mit der Menge.",
+   "quelle_id": "kostenfunktion-2"
+  },
+  {
+   "falsch": "Die Grenzkostenkurve schneidet die Stückkostenkurve im Maximum.",
+   "richtig": "Sie schneidet die Kurven der Durchschnittskosten in deren Minimum.",
+   "quelle_id": "kostenfunktion-7"
+  }
+ ]
+}

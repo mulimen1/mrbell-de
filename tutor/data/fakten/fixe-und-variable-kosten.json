@@ -1,0 +1,164 @@
+{
+ "thema": "fixe-und-variable-kosten",
+ "name": "Fixe und variable Kosten",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "fixe-und-variable-kosten-1",
+   "art": "definition",
+   "aussage": "Fixe Kosten sind von der betrachteten Einflussgröße (meist der Beschäftigung) unabhängig und ändern sich mit ihr nicht.",
+   "schlagworte": [
+    "fixe Kosten",
+    "Beschäftigung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: fixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/fixe-kosten-33359",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "fixe-und-variable-kosten-2",
+   "art": "definition",
+   "aussage": "Variable Kosten sind der Teil der Gesamtkosten, dessen Höhe vom Beschäftigungsgrad abhängt, z. B. Einzelmaterial und Fertigungslöhne.",
+   "schlagworte": [
+    "variable Kosten",
+    "Beschäftigungsgrad"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: variable Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/variable-kosten-49242",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "fixe-und-variable-kosten-3",
+   "art": "formel",
+   "aussage": "Gesamtkosten: K(x) = K_f + K_v(x); bei proportionalem Verlauf K(x) = K_f + k_v \\cdot x.",
+   "schlagworte": [
+    "Gesamtkosten",
+    "Kostenfunktion"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "fixe-und-variable-kosten-4",
+   "art": "formel",
+   "aussage": "Stückkosten: k = K/x, zerlegt in fixe Stückkosten K_f/x und variable Stückkosten K_v(x)/x. Bei proportionalen variablen Kosten sind die variablen Stückkosten konstant, die fixen Stückkosten sinken mit wachsender Menge (Fixkostendegression).",
+   "schlagworte": [
+    "Stückkosten",
+    "Fixkostendegression"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenfunktion",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenfunktion-38949",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "fixe-und-variable-kosten-5",
+   "art": "abgrenzung",
+   "aussage": "Fixe Kosten fallen auch an, wenn nichts produziert wird; sie sind Kosten der Betriebsbereitschaft (z. B. Miete, Zinsen, Leitung).",
+   "schlagworte": [
+    "Betriebsbereitschaft",
+    "absolut fix"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: fixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/fixe-kosten-33359",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "fixe-und-variable-kosten-6",
+   "art": "abgrenzung",
+   "aussage": "Fixe Kosten können absolut fix, intervallfix (sprungfix) oder abbaufähig sein; abbaufähige Fixkosten lassen sich nur mittel- bis langfristig abbauen.",
+   "schlagworte": [
+    "intervallfix",
+    "abbaufähig"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: fixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/fixe-kosten-33359",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "fixe-und-variable-kosten-7",
+   "art": "abgrenzung",
+   "aussage": "Variable Kosten können proportional, degressiv (unterproportional) oder progressiv (überproportional) verlaufen.",
+   "schlagworte": [
+    "proportional",
+    "degressiv",
+    "progressiv"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: variable Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/variable-kosten-49242",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "fixe-und-variable-kosten-8",
+   "art": "methode",
+   "aussage": "Die Kostenauflösung (Aufspaltung in fixe und variable Kosten) ist zentrale Voraussetzung, um Kostenrechnungsdaten für Entscheidungen und Kontrolle zu nutzen; eine Auflösung nur nach Kostenarten (Material variabel, Miete fix) liefert lediglich Richtwerte.",
+   "schlagworte": [
+    "Kostenauflösung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenauflösung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenaufloesung-38939",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "fixe-und-variable-kosten-9",
+   "art": "formel",
+   "aussage": "Mathematische Kostenauflösung mit zwei Beobachtungen (x_1, K_1) und (x_2, K_2): k_v = (K_2 - K_1)/(x_2 - x_1) und K_f = K_1 - k_v \\cdot x_1.",
+   "schlagworte": [
+    "Kostenauflösung",
+    "zwei Punkte"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "fixe-und-variable-kosten-10",
+   "art": "abgrenzung",
+   "aussage": "Die Einteilung fix/variabel (Verhalten bei Beschäftigungsänderung) ist von der Einteilung Einzel-/Gemeinkosten (Zurechenbarkeit) zu unterscheiden.",
+   "schlagworte": [
+    "Einzelkosten",
+    "Gemeinkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: variable Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/variable-kosten-49242",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Fixe Kosten pro Stück bleiben bei steigender Menge gleich.",
+   "richtig": "Die Fixkosten insgesamt bleiben gleich, die fixen Stückkosten K_f/x sinken mit steigender Menge.",
+   "quelle_id": "fixe-und-variable-kosten-4"
+  },
+  {
+   "falsch": "Fixe Kosten fallen nur an, wenn produziert wird.",
+   "richtig": "Fixe Kosten sind Kosten der Betriebsbereitschaft und fallen auch ohne Produktion an.",
+   "quelle_id": "fixe-und-variable-kosten-5"
+  },
+  {
+   "falsch": "Variable Kosten sind dasselbe wie Einzelkosten.",
+   "richtig": "Das sind zwei verschiedene Einteilungen (Beschäftigungsabhängigkeit vs. Zurechenbarkeit); variable Kosten sind von Einzelkosten abzugrenzen.",
+   "quelle_id": "fixe-und-variable-kosten-10"
+  }
+ ]
+}

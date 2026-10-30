@@ -1,0 +1,120 @@
+{
+ "thema": "geringwertige-wirtschaftsgueter",
+ "name": "Geringwertige Wirtschaftsgüter",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "geringwertige-wirtschaftsgueter-1",
+   "art": "zahl",
+   "aussage": "Abnutzbare bewegliche Wirtschaftsgüter des Anlagevermögens, die selbständig nutzbar sind, können bei Anschaffungs- oder Herstellungskosten bis 800 Euro netto (ohne abziehbare Vorsteuer) im Jahr der Anschaffung voll als Betriebsausgabe abgezogen werden.",
+   "schlagworte": [
+    "GWG",
+    "800 Euro",
+    "Sofortabschreibung"
+   ],
+   "quelle": {
+    "name": "EStG § 6 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/estg/__6.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "geringwertige-wirtschaftsgueter-2",
+   "art": "gesetz",
+   "aussage": "Geringwertige Wirtschaftsgüter über 250 Euro sind in ein besonderes Verzeichnis aufzunehmen, sofern die Angaben nicht aus der Buchführung ersichtlich sind.",
+   "schlagworte": [
+    "GWG-Verzeichnis",
+    "250 Euro"
+   ],
+   "quelle": {
+    "name": "EStG § 6 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/estg/__6.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "geringwertige-wirtschaftsgueter-3",
+   "art": "zahl",
+   "aussage": "Alternativ kann für selbständig nutzbare bewegliche Wirtschaftsgüter mit Kosten über 250 Euro bis 1.000 Euro netto ein Sammelposten gebildet werden, der im Bildungsjahr und in den folgenden vier Wirtschaftsjahren mit je einem Fünftel gewinnmindernd aufgelöst wird.",
+   "schlagworte": [
+    "Sammelposten",
+    "Poolabschreibung",
+    "1.000 Euro",
+    "fünf Jahre"
+   ],
+   "quelle": {
+    "name": "EStG § 6 Abs. 2a",
+    "url": "https://www.gesetze-im-internet.de/estg/__6.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "geringwertige-wirtschaftsgueter-4",
+   "art": "gesetz",
+   "aussage": "Scheidet ein Wirtschaftsgut aus dem Sammelposten aus, mindert dies den Sammelposten nicht.",
+   "schlagworte": [
+    "Sammelposten",
+    "Abgang"
+   ],
+   "quelle": {
+    "name": "EStG § 6 Abs. 2a",
+    "url": "https://www.gesetze-im-internet.de/estg/__6.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "geringwertige-wirtschaftsgueter-5",
+   "art": "zahl",
+   "aussage": "Wirtschaftsgüter bis 250 Euro netto können nach Abs. 2a sofort voll als Betriebsausgabe abgezogen werden.",
+   "schlagworte": [
+    "250 Euro",
+    "Sofortabzug"
+   ],
+   "quelle": {
+    "name": "EStG § 6 Abs. 2a",
+    "url": "https://www.gesetze-im-internet.de/estg/__6.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "geringwertige-wirtschaftsgueter-6",
+   "art": "gesetz",
+   "aussage": "Die Betragsgrenzen beziehen sich auf den Nettobetrag, also ohne abziehbare Vorsteuer.",
+   "schlagworte": [
+    "netto",
+    "Vorsteuer"
+   ],
+   "quelle": {
+    "name": "EStG § 6 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/estg/__6.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "geringwertige-wirtschaftsgueter-7",
+   "art": "methode",
+   "aussage": "Buchung bei GWG-Sofortabschreibung: Geringwertige Wirtschaftsgüter (Anlagekonto) und Vorsteuer an Bank; zum Jahresende: Abschreibungen auf GWG an Geringwertige Wirtschaftsgüter in voller Höhe.",
+   "schlagworte": [
+    "Buchungssatz",
+    "GWG"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die GWG-Grenze von 800 Euro gilt brutto.",
+   "richtig": "Die Grenze bezieht sich auf die Anschaffungskosten ohne abziehbare Vorsteuer (netto).",
+   "quelle_id": "geringwertige-wirtschaftsgueter-6"
+  },
+  {
+   "falsch": "Beim Sammelposten wird die Abschreibung für ausgeschiedene Güter angepasst.",
+   "richtig": "Der Sammelposten wird unabhängig vom Ausscheiden einzelner Güter über fünf Jahre aufgelöst.",
+   "quelle_id": "geringwertige-wirtschaftsgueter-4"
+  }
+ ]
+}

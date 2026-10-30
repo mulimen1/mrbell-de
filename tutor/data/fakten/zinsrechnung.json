@@ -1,0 +1,130 @@
+{
+ "thema": "zinsrechnung",
+ "name": "Zinsrechnung",
+ "kat": "Finanzmathematik",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "zinsrechnung-1",
+   "art": "definition",
+   "aussage": "Die Zinsrechnung ist ein Teilgebiet der Finanzmathematik; sie umfasst die Berechnung von Zinssatz, Endkapital, Anfangskapital und Laufzeit. Symbole: p Zinssatz in %, q = 1 + p/100 Zinsfaktor, K_0 Anfangskapital, K_n Endkapital, n Laufzeit in Jahren.",
+   "schlagworte": [
+    "Zinsfaktor",
+    "Anfangskapital",
+    "Endkapital"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zinsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zinsrechnung-50401",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zinsrechnung-2",
+   "art": "abgrenzung",
+   "aussage": "Es gibt einfache Verzinsung, Zinseszinsrechnung (übliche Verzinsung bei Banken und Geschäftsleuten), unterjährige Verzinsung (m Intervalle pro Jahr) und stetige Verzinsung (Intervalle unendlich klein, m \\to \\infty).",
+   "schlagworte": [
+    "einfache Verzinsung",
+    "Zinseszins",
+    "unterjährig",
+    "stetig"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zinsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zinsrechnung-50401",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zinsrechnung-3",
+   "art": "formel",
+   "aussage": "Zinseszins: K_n = K_0 \\cdot q^n.",
+   "schlagworte": [
+    "Endkapital",
+    "Aufzinsung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zinsrechnung-4",
+   "art": "formel",
+   "aussage": "Diskontierung (Abzinsung, Gegenbegriff zur Aufzinsung) berechnet das Anfangskapital aus dem Endkapital: K_0 = \\frac{K_n}{q^n}.",
+   "schlagworte": [
+    "Abzinsung",
+    "Diskontierung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Diskontierung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/diskontierung-28103",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zinsrechnung-5",
+   "art": "formel",
+   "aussage": "Einfache Verzinsung (Zinsen werden nicht mitverzinst), deutsche Methode mit 30 Tagen je Monat und 360 Tagen je Jahr: Z = \\frac{K \\cdot p \\cdot t}{100 \\cdot 360}.",
+   "schlagworte": [
+    "30/360",
+    "Tageszinsen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zinsrechnung-6",
+   "art": "formel",
+   "aussage": "Unterjährige Verzinsung mit m Zinsperioden pro Jahr und nominalem Jahreszins i: Effektivzins i_{eff} = \\left(1 + \\frac{i}{m}\\right)^m - 1.",
+   "schlagworte": [
+    "Effektivzins",
+    "unterjährig"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zinsrechnung-7",
+   "art": "formel",
+   "aussage": "Stetige Verzinsung: K_n = K_0 \\cdot e^{i\\,n}; effektiver Jahreszins i_{eff} = e^{i} - 1.",
+   "schlagworte": [
+    "stetig",
+    "e-Funktion"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zinsrechnung-8",
+   "art": "methode",
+   "aussage": "Laufzeit und Zinssatz bei Zinseszins: n = \\frac{\\ln(K_n/K_0)}{\\ln q} bzw. q = \\sqrt[n]{K_n/K_0}.",
+   "schlagworte": [
+    "Umstellen",
+    "Logarithmus"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Bei Zinseszins wächst das Kapital linear.",
+   "richtig": "Es wächst exponentiell (K_n = K_0 · q^n); linear nur bei einfacher Verzinsung.",
+   "quelle_id": "zinsrechnung-3"
+  },
+  {
+   "falsch": "Der Zinssatz p wird direkt als Faktor eingesetzt (K_0 · p).",
+   "richtig": "Der Zinsfaktor ist q = 1 + p/100; z. B. 5 % → q = 1,05.",
+   "quelle_id": "zinsrechnung-1"
+  }
+ ]
+}

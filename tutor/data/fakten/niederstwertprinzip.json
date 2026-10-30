@@ -1,0 +1,123 @@
+{
+ "thema": "niederstwertprinzip",
+ "name": "Niederstwertprinzip",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "niederstwertprinzip-1",
+   "art": "gesetz",
+   "aussage": "Vermögensgegenstände dürfen höchstens mit den Anschaffungs- oder Herstellungskosten, vermindert um planmäßige und außerplanmäßige Abschreibungen, angesetzt werden.",
+   "schlagworte": [
+    "Anschaffungskostenprinzip",
+    "Obergrenze"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "niederstwertprinzip-2",
+   "art": "gesetz",
+   "aussage": "Anlagevermögen (gemildertes Niederstwertprinzip): Bei voraussichtlich dauernder Wertminderung muss auf den niedrigeren beizulegenden Wert abgeschrieben werden; bei Finanzanlagen darf auch bei nicht dauernder Wertminderung abgeschrieben werden (Wahlrecht).",
+   "schlagworte": [
+    "gemildertes Niederstwertprinzip",
+    "dauernde Wertminderung",
+    "Finanzanlagen"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "niederstwertprinzip-3",
+   "art": "gesetz",
+   "aussage": "Umlaufvermögen (strenges Niederstwertprinzip): Maßgeblich ist der Börsen- oder Marktpreis am Abschlussstichtag; ist er nicht feststellbar, der niedrigere beizulegende Wert. Abzuschreiben ist, wenn dieser Wert unter den Anschaffungs- oder Herstellungskosten liegt.",
+   "schlagworte": [
+    "strenges Niederstwertprinzip",
+    "Börsenpreis",
+    "Marktpreis",
+    "Umlaufvermögen"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 4",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "niederstwertprinzip-4",
+   "art": "formel",
+   "aussage": "Wertansatz im Umlaufvermögen: `Bilanzansatz = \\min(AK/HK;\\ Börsen-\\ oder\\ Marktpreis)`.",
+   "schlagworte": [
+    "Wertansatz",
+    "Minimum"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 1 und 4",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "niederstwertprinzip-5",
+   "art": "gesetz",
+   "aussage": "Fallen die Gründe für einen niedrigeren Ansatz weg, darf dieser nicht beibehalten werden (Wertaufholungsgebot); eine Ausnahme gilt für einen entgeltlich erworbenen Geschäfts- oder Firmenwert.",
+   "schlagworte": [
+    "Wertaufholung",
+    "Zuschreibung",
+    "Geschäftswert"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 5",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "niederstwertprinzip-6",
+   "art": "gesetz",
+   "aussage": "Das Niederstwertprinzip ist Ausdruck des Vorsichtsprinzips: Vorhersehbare Risiken und Verluste, die bis zum Stichtag entstanden sind, sind zu berücksichtigen (Imparitätsprinzip).",
+   "schlagworte": [
+    "Vorsichtsprinzip",
+    "Imparitätsprinzip"
+   ],
+   "quelle": {
+    "name": "HGB § 252 Abs. 1 Nr. 4",
+    "url": "https://www.gesetze-im-internet.de/hgb/__252.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "niederstwertprinzip-7",
+   "art": "gesetz",
+   "aussage": "Steuerlich kann bei voraussichtlich dauernder Wertminderung der niedrigere Teilwert angesetzt werden (Wahlrecht); der Teilwert ist der Betrag, den ein Erwerber des ganzen Betriebs für das einzelne Wirtschaftsgut ansetzen würde.",
+   "schlagworte": [
+    "Teilwert",
+    "Steuerbilanz",
+    "Wahlrecht"
+   ],
+   "quelle": {
+    "name": "EStG § 6 Abs. 1 Nr. 1 und 2",
+    "url": "https://www.gesetze-im-internet.de/estg/__6.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Im Umlaufvermögen wird nur bei dauernder Wertminderung abgeschrieben.",
+   "richtig": "Im Umlaufvermögen gilt das strenge Niederstwertprinzip: Abschreibung auch bei vorübergehender Wertminderung.",
+   "quelle_id": "niederstwertprinzip-3"
+  },
+  {
+   "falsch": "Ein niedrigerer Wert bleibt bestehen, auch wenn der Grund entfallen ist.",
+   "richtig": "Außer beim Geschäftswert besteht ein Wertaufholungsgebot bis höchstens zu den fortgeführten Anschaffungs-/Herstellungskosten.",
+   "quelle_id": "niederstwertprinzip-5"
+  }
+ ]
+}

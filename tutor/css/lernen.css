@@ -97,3 +97,12 @@ td .katex, li .katex, p .katex { white-space: nowrap; }
 .ln-algo .go { flex: none; opacity: .75; transition: transform .15s; }
 .ln-algo:hover .go { transform: translateX(2px); }
 .ln-algo, .ln-algo * { text-decoration: none !important; }
+/* Gegenprüf-Siegel oben auf der Lernseite */
+.ln-siegel { margin: 10px 0 14px; border: 1.5px solid #cfe9d9; border-radius: 12px; background: #f3fbf6; color: #17663a; }
+.ln-siegel summary { cursor: pointer; padding: 9px 14px; font-weight: 700; font-size: 14px; list-style: none; }
+.ln-siegel summary::-webkit-details-marker { display: none; }
+.ln-siegel summary::after { content: ' ▾'; font-weight: 400; opacity: .7; }
+.ln-siegel[open] summary::after { content: ' ▴'; }
+.ln-siegel > div { padding: 0 14px 10px; font-size: 14px; color: #1f3a2a; }
+.ln-siegel ul { margin: 4px 0 8px 18px; padding: 0; }
+.ln-siegel a { color: #17663a; }

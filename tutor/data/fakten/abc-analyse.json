@@ -1,0 +1,103 @@
+{
+ "thema": "abc-analyse",
+ "name": "ABC-Analyse",
+ "kat": "Management",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "abc-analyse-1",
+   "art": "definition",
+   "aussage": "Die ABC-Analyse ist ein Verfahren zur Klassifizierung von Gesamtheiten in drei Klassen; die Klassengrenzen werden jeweils im Einzelfall festgelegt.",
+   "schlagworte": [
+    "Klassifizierung",
+    "Klassengrenzen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: ABC-Analyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/abc-analyse-28775",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "abc-analyse-2",
+   "art": "methode",
+   "aussage": "In der Materialwirtschaft ist das Verhältnis von Verbrauchsmenge zu Verbrauchswert das zentrale Einteilungskriterium.",
+   "schlagworte": [
+    "Verbrauchswert",
+    "Materialwirtschaft"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: ABC-Analyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/abc-analyse-28775",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "abc-analyse-3",
+   "art": "definition",
+   "aussage": "A-Teile haben einen geringen Mengen-, aber hohen Wertanteil; B-Teile liegen bei beiden im Mittelfeld; C-Teile haben einen hohen Mengen-, aber geringen Wertanteil.",
+   "schlagworte": [
+    "A-Teile",
+    "C-Teile"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: ABC-Analyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/abc-analyse-28775",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "abc-analyse-4",
+   "art": "formel",
+   "aussage": "Verbrauchswert eines Artikels: VW = x \\cdot p (Menge mal Preis je Stück); Wertanteil in Prozent = VW_i / \\sum VW \\cdot 100. Die Artikel werden nach Wertanteil absteigend sortiert und kumuliert.",
+   "schlagworte": [
+    "Verbrauchswert",
+    "kumulieren"
+   ],
+   "quelle": {
+    "typ": "lehrbuchstandard",
+    "name": "Lehrbuchstandard (nachgerechnet)"
+   }
+  },
+  {
+   "id": "abc-analyse-5",
+   "art": "methode",
+   "aussage": "Anwendungsgebiete sind u. a. die Differenzierung von Beschaffungs- und Bereitstellungskonzepten, Organisationsanalyse, Aufgabenpriorisierung und Make-or-Buy-Entscheidungen.",
+   "schlagworte": [
+    "Anwendung",
+    "Make or Buy"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: ABC-Analyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/abc-analyse-28775",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "abc-analyse-6",
+   "art": "abgrenzung",
+   "aussage": "Die XYZ-Analyse ergänzt die ABC-Analyse: Sie klassifiziert Lagerartikel nach der Verbrauchsstruktur (regelmäßig, saisonal/schwankend, unregelmäßig) statt nach dem Wert.",
+   "schlagworte": [
+    "XYZ-Analyse",
+    "Verbrauchsstruktur"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: XYZ-Analyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/xyz-analyse-49844",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Klassengrenzen der ABC-Analyse sind fest vorgegeben (z. B. genau 80/15/5).",
+   "richtig": "Die Grenzen werden im Einzelfall festgelegt; Prozentangaben sind nur Orientierungswerte.",
+   "quelle_id": "abc-analyse-1"
+  },
+  {
+   "falsch": "A-Güter sind die Artikel mit der größten Stückzahl.",
+   "richtig": "A-Güter haben einen hohen Wert-, aber geringen Mengenanteil.",
+   "quelle_id": "abc-analyse-3"
+  }
+ ]
+}

@@ -1,0 +1,144 @@
+{
+ "thema": "make-or-buy",
+ "name": "Make or Buy (Eigenfertigung oder Fremdbezug)",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "make-or-buy-1",
+   "art": "definition",
+   "aussage": "Make or Buy ist ein Entscheidungsproblem über das Ausmaß der vertikalen Integration: Für jede Aktivität wird geprüft, ob sie selbst erbracht oder am Markt bezogen wird.",
+   "schlagworte": [
+    "Make or Buy",
+    "vertikale Integration"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Make or Buy",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/make-or-buy-38068",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "make-or-buy-2",
+   "art": "definition",
+   "aussage": "Fremdbezug ist die Beschaffung von Gütern und Dienstleistungen, die nicht im eigenen Unternehmen hergestellt werden; der Gegenbegriff ist die Eigenproduktion.",
+   "schlagworte": [
+    "Fremdbezug",
+    "Eigenproduktion"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Fremdbezug",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/fremdbezug-35388",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "make-or-buy-3",
+   "art": "methode",
+   "aussage": "Im Kostenvergleich zählen die aktivitätsbezogenen variablen und fixen Kosten, gegebenenfalls Opportunitätskosten sowie Transaktionskosten.",
+   "schlagworte": [
+    "Kostenvergleich",
+    "Transaktionskosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Make or Buy",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/make-or-buy-38068",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "make-or-buy-4",
+   "art": "methode",
+   "aussage": "Für Sourcing-Entscheidungen sind kurzfristig die Grenzkosten entscheidungsrelevant.",
+   "schlagworte": [
+    "entscheidungsrelevant",
+    "Grenzkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Plankostenrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/plankostenrechnung-42329",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "make-or-buy-5",
+   "art": "abgrenzung",
+   "aussage": "Entscheidungsfixe Kosten sind irrelevant; abbaufähige Fixkosten lassen sich nur mittel- bis langfristig abbauen und sind kurzfristig nicht entscheidungsrelevant.",
+   "schlagworte": [
+    "irrelevante Kosten",
+    "Fixkostenabbau"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: fixe Kosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/fixe-kosten-33359",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "make-or-buy-6",
+   "art": "formel",
+   "aussage": "Kurzfristig (Fixkosten nicht abbaubar): Eigenfertigung ist vorteilhaft, wenn k_{v,eigen} < p_{fremd}.",
+   "schlagworte": [
+    "Entscheidungsregel",
+    "kurzfristig"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "make-or-buy-7",
+   "art": "formel",
+   "aussage": "Kritische Menge bei abbaubaren Eigenfertigungs-Fixkosten: K_{f,eigen} + k_{v,eigen} \\cdot x = p_{fremd} \\cdot x, also x_{krit} = K_{f,eigen} / (p_{fremd} - k_{v,eigen}); oberhalb von x_{krit} ist Eigenfertigung günstiger.",
+   "schlagworte": [
+    "kritische Menge",
+    "Kostenvergleich"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "make-or-buy-8",
+   "art": "methode",
+   "aussage": "Bei Kapazitätsengpass sind die Opportunitätskosten (entgehende Deckungsbeiträge der besten Alternativverwendung) in den Vergleich einzubeziehen.",
+   "schlagworte": [
+    "Opportunitätskosten",
+    "Engpass"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Opportunitätskosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/opportunitaetskosten-42091",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "make-or-buy-9",
+   "art": "methode",
+   "aussage": "Die Kostenrechnung unterstützt Make-or-Buy-Vergleiche und die Ermittlung von Preisobergrenzen in der Beschaffung.",
+   "schlagworte": [
+    "Preisobergrenze",
+    "Beschaffung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kostenrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kostenrechnung-39542",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Beim Make-or-Buy-Vergleich werden stets die vollen Stückkosten der Eigenfertigung mit dem Fremdbezugspreis verglichen.",
+   "richtig": "Maßgeblich sind die entscheidungsrelevanten Kosten; nicht abbaubare Fixkosten fallen bei Fremdbezug weiter an und sind daher irrelevant.",
+   "quelle_id": "make-or-buy-5"
+  },
+  {
+   "falsch": "Eigenfertigung ist immer günstiger, wenn die Anlage vorhanden ist.",
+   "richtig": "Bei Engpass sind zusätzlich die Opportunitätskosten (entgehender Deckungsbeitrag) zu berücksichtigen.",
+   "quelle_id": "make-or-buy-8"
+  }
+ ]
+}

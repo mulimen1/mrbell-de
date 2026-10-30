@@ -4,7 +4,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save, track, mastery } from '../state.js';
 import { forWhole, outline, forChapter, fullText } from '../retrieve.js';
-import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
+import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ, merkePruefung, siegelOben } from '../ui.js';
 import { sanitize } from '../sanitize.js';
 import { dlBtn, pathPdf } from '../export.js';
 import { renderQuestion, normalize, explainPrompt } from '../quiz.js';
@@ -155,11 +155,13 @@ async function lesson(wrap, ctx, idx) {
       const slides = (les.slides || []).filter(s => s && s.html).map(s => ({ title: String(s.title || ''), html: String(s.html), check: normalize(s.check) }));
       if (!slides.length) throw new Error(L('Die Lektion war leer. Versuch es nochmal.', 'The lesson came back empty. Please try again.'));
       doc.lessons[idx] = { title: les.title || c.title, slides, task: normalize(les.task), pos: 0, score: [] };
+      merkePruefung(doc.lessons[idx], r.rechenpruefung);
       c.started = true; save(doc);
     } catch (e) { ld.stop(false); chapterView(wrap, ctx, idx); apiError(e, () => lesson(wrap, ctx, idx)); return; }
     ld.stop();
   }
   const les = doc.lessons[idx];
+  siegelOben(wrap, les, () => save(doc));
   if (les.pos >= les.slides.length + (les.task ? 1 : 0)) { les.pos = 0; les.score = []; }
   const steps = les.slides.length + (les.task ? 1 : 0);
   const stage = h('div', { class: 'lesson' });

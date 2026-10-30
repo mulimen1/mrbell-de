@@ -1,0 +1,102 @@
+{
+ "thema": "interner-zinsfuss",
+ "name": "Interner Zinsfuß",
+ "kat": "Investition",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "interner-zinsfuss-1",
+   "art": "definition",
+   "aussage": "Der interne Zinsfuß ist die Verzinsung des in einer Investition gebundenen Kapitals und gibt die Rendite eines Projekts (bzw. die Effektivverzinsung einer Finanzierung) an.",
+   "schlagworte": [
+    "Rendite",
+    "Effektivverzinsung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: interner Zinsfuß",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/interner-zinsfuss-37882",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-2",
+   "art": "formel",
+   "aussage": "Der interne Zinsfuß r ist der Diskontierungszinssatz, bei dem der Kapitalwert null ist: 0 = -I_0 + \\sum_{t=1}^{n} C_t (1+r)^{-t}; Barwert der Einzahlungen und Barwert der Auszahlungen sind dann gleich.",
+   "schlagworte": [
+    "Kapitalwert gleich null",
+    "Formel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: interner Zinsfuß",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/interner-zinsfuss-37882",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-3",
+   "art": "methode",
+   "aussage": "Entscheidungsregel: Ein Projekt ist vorteilhaft, wenn der interne Zinsfuß über dem geforderten Kalkulationszinssatz liegt.",
+   "schlagworte": [
+    "Entscheidungsregel",
+    "Kalkulationszinssatz"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-4",
+   "art": "methode",
+   "aussage": "Bei mehr als zwei Zahlungsreihen-Vorzeichenwechseln kann die Gleichung mehrere Lösungen haben; die Näherung erfolgt meist durch lineare Interpolation: r \\approx i_1 - C_1 \\cdot \\frac{i_2 - i_1}{C_2 - C_1}.",
+   "schlagworte": [
+    "Interpolation",
+    "Mehrfachlösungen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-5",
+   "art": "abgrenzung",
+   "aussage": "Die modifizierte interne Zinsfußmethode ersetzt die problematische Wiederanlageannahme der klassischen IZF-Methode durch eine realistischere.",
+   "schlagworte": [
+    "modifizierter IZF",
+    "Wiederanlageannahme"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Investitionsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "interner-zinsfuss-6",
+   "art": "abgrenzung",
+   "aussage": "Der Kalkulationszinssatz ist eine Vorgabe (Mindestverzinsung), der interne Zinsfuß ein Rechenergebnis; verglichen werden beide.",
+   "schlagworte": [
+    "Kalkulationszinssatz",
+    "Abgrenzung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kalkulationszinssatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulationszinssatz-39911",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Bei sich ausschließenden Projekten ist stets das mit dem höchsten internen Zinsfuß zu wählen.",
+   "richtig": "Maßgeblich ist bei Konflikt der Kapitalwert; der IZF ignoriert Investitionsvolumen und Wiederanlage.",
+   "quelle_id": "interner-zinsfuss-5"
+  },
+  {
+   "falsch": "Der interne Zinsfuß ist der Kalkulationszinssatz.",
+   "richtig": "Der Kalkulationszinssatz ist vorgegeben, der interne Zinsfuß wird errechnet.",
+   "quelle_id": "interner-zinsfuss-6"
+  }
+ ]
+}

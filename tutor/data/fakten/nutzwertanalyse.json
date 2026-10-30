@@ -1,0 +1,119 @@
+{
+ "thema": "nutzwertanalyse",
+ "name": "Nutzwertanalyse",
+ "kat": "Entscheidungsmethoden",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "nutzwertanalyse-1",
+   "art": "definition",
+   "aussage": "Die Nutzwertanalyse (Scoring-Modell) bewertet Alternativen anhand mehrerer Zielgrößen, auch nicht monetärer (technischer, psychologischer, sozialer); man spricht von multiattributiver Nutzenbetrachtung.",
+   "schlagworte": [
+    "Scoring",
+    "multiattributiv",
+    "nicht monetär"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Nutzwertanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/nutzwertanalyse-42926",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "nutzwertanalyse-2",
+   "art": "abgrenzung",
+   "aussage": "Im Unterschied zur Kosten-Nutzen-Analyse arbeitet die Nutzwertanalyse nicht mit monetären Größen.",
+   "schlagworte": [
+    "Kosten-Nutzen-Analyse"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Nutzwertanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/nutzwertanalyse-42926",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "nutzwertanalyse-3",
+   "art": "methode",
+   "aussage": "Ablauf: (1) Zielkriterien aufstellen und gewichten, Alternativen auflisten; (2) Zielerträge je Alternative bewerten, meist auf einer Skala von 0 bis 10; (3) Zielwerte = Gewicht mal Zielertrag; (4) Nutzwert = Summe der Zielwerte je Alternative.",
+   "schlagworte": [
+    "Ablauf",
+    "Gewichtung",
+    "Punkte"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Nutzwertanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/nutzwertanalyse-42926",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "nutzwertanalyse-4",
+   "art": "formel",
+   "aussage": "N_j = \\sum_{i=1}^{m} g_i \\cdot e_{ij}; g_i Gewicht des Kriteriums i (üblich \\sum g_i = 1), e_{ij} Erfüllungsgrad der Alternative j.",
+   "schlagworte": [
+    "Nutzwert",
+    "Formel",
+    "Gewicht"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "nutzwertanalyse-5",
+   "art": "methode",
+   "aussage": "Die Alternative mit dem höchsten Nutzwert gilt unter den getroffenen Annahmen als optimal.",
+   "schlagworte": [
+    "Entscheidungsregel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Nutzwertanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/nutzwertanalyse-42926",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "nutzwertanalyse-6",
+   "art": "abgrenzung",
+   "aussage": "Kritik: Die Addition setzt kardinal messbare, voneinander unabhängige Teilnutzen voraus; Gewichtung und Bewertung beruhen auf subjektiven Urteilen, die das Ergebnis stark beeinflussen.",
+   "schlagworte": [
+    "Kritik",
+    "Subjektivität",
+    "Unabhängigkeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Nutzwertanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/nutzwertanalyse-42926",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "nutzwertanalyse-7",
+   "art": "methode",
+   "aussage": "Das Ergebnis lässt sich durch Variation der Parameter (Gewichte, Punkte) prüfen, d. h. durch eine Sensitivitätsanalyse.",
+   "schlagworte": [
+    "Sensitivitätsanalyse",
+    "Robustheit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Nutzwertanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/nutzwertanalyse-42926",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Nutzwertanalyse liefert einen objektiven, geldwerten Vorteil.",
+   "richtig": "Gewichte und Punkte sind subjektive Einschätzungen; das Ergebnis ist ein Punktwert, kein Geldbetrag.",
+   "quelle_id": "nutzwertanalyse-6"
+  },
+  {
+   "falsch": "Die Gewichte der Kriterien sind beliebig und beeinflussen das Ergebnis kaum.",
+   "richtig": "Die Gewichtung bestimmt das Ergebnis maßgeblich und ist Hauptquelle von Konflikten.",
+   "quelle_id": "nutzwertanalyse-6"
+  }
+ ]
+}

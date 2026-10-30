@@ -1,0 +1,116 @@
+{
+ "thema": "annuitaetenmethode",
+ "name": "Annuitätenmethode",
+ "kat": "Investition",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "annuitaetenmethode-1",
+   "art": "definition",
+   "aussage": "Die Annuitätenmethode vergleicht Investitionsprojekte anhand ihrer Annuität, einer gleichbleibenden Zahlung in regelmäßigen Abständen; sie entsteht, indem der Kapitalwert mit dem Annuitäten- bzw. Wiedergewinnungsfaktor multipliziert wird.",
+   "schlagworte": [
+    "Annuität",
+    "Wiedergewinnungsfaktor"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuitätenmethode",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetenmethode-29301",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-2",
+   "art": "formel",
+   "aussage": "A = KW_0 \\cdot \\frac{i(1+i)^n}{(1+i)^n - 1}; der Faktor heißt Wiedergewinnungsfaktor (Annuitäten- bzw. Kapitaldienstfaktor) und hängt von Zinssatz i und Laufzeit n ab.",
+   "schlagworte": [
+    "Formel",
+    "Wiedergewinnungsfaktor"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Wiedergewinnungsfaktor",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/wiedergewinnungsfaktor-49017",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-3",
+   "art": "methode",
+   "aussage": "Der Barwert aller über die Nutzungsdauer verrechneten Annuitäten entspricht dem Kapitalwert.",
+   "schlagworte": [
+    "Barwert",
+    "Kapitalwert"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuitätenmethode",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetenmethode-29301",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-4",
+   "art": "abgrenzung",
+   "aussage": "Die Methode führt grundsätzlich zur selben Investitionsentscheidung wie die Kapitalwertmethode; die Annuität ist jedoch eine periodenbezogene Größe.",
+   "schlagworte": [
+    "gleiche Entscheidung",
+    "periodenbezogen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuitätenmethode",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetenmethode-29301",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-5",
+   "art": "abgrenzung",
+   "aussage": "Wegen der periodenbezogenen Darstellung eignet sich die Annuitätenmethode besonders für die Finanzplanung, z. B. zur Frage, wie viel pro Periode für Entnahmen oder Erweiterungsinvestitionen bleibt.",
+   "schlagworte": [
+    "Finanzplanung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuitätenmethode",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetenmethode-29301",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-6",
+   "art": "definition",
+   "aussage": "Bei einem Annuitätendarlehen ist die Gesamtzahlung konstant; sie besteht aus Zins- und Tilgungsanteil, wobei der Zinsanteil anfangs hoch ist und der Tilgungsanteil später steigt.",
+   "schlagworte": [
+    "Annuitätendarlehen",
+    "Zinsanteil",
+    "Tilgungsanteil"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Annuität",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaet-27107",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "annuitaetenmethode-7",
+   "art": "methode",
+   "aussage": "Entscheidungsregel: Vorteilhaft ist eine Investition mit positiver Annuität; bei gleicher Nutzungsdauer wird die Alternative mit der höchsten Annuität gewählt.",
+   "schlagworte": [
+    "Entscheidungsregel"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Bei der Annuitätenmethode kann sich eine andere Rangfolge ergeben als beim Kapitalwert (bei gleicher Nutzungsdauer).",
+   "richtig": "Bei gleichem Zinssatz und gleicher Laufzeit führt die Annuitätenmethode zum selben Ergebnis wie die Kapitalwertmethode.",
+   "quelle_id": "annuitaetenmethode-4"
+  },
+  {
+   "falsch": "Die Annuität entspricht dem Gewinn je Periode.",
+   "richtig": "Die Annuität ist der gleichmäßig auf die Perioden verteilte Kapitalwert (Überschuss über die Mindestverzinsung hinaus), nicht der bilanzielle Periodengewinn.",
+   "quelle_id": "annuitaetenmethode-1"
+  }
+ ]
+}

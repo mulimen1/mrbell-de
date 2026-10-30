@@ -1,0 +1,117 @@
+{
+ "thema": "eroeffnungsbilanz-schlussbilanz",
+ "name": "Eröffnungsbilanz und Schlussbilanz",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "eroeffnungsbilanz-schlussbilanz-1",
+   "art": "gesetz",
+   "aussage": "Zu Beginn des Handelsgewerbes ist eine Eröffnungsbilanz, zum Schluss jedes Geschäftsjahrs eine Bilanz aufzustellen.",
+   "schlagworte": [
+    "Eröffnungsbilanz",
+    "Schlussbilanz"
+   ],
+   "quelle": {
+    "name": "HGB § 242 Abs. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__242.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "eroeffnungsbilanz-schlussbilanz-2",
+   "art": "gesetz",
+   "aussage": "Bilanzidentität: Die Wertansätze der Eröffnungsbilanz eines Geschäftsjahrs müssen mit denen der Schlussbilanz des vorhergehenden Geschäftsjahrs übereinstimmen.",
+   "schlagworte": [
+    "Bilanzidentität",
+    "Wertansätze"
+   ],
+   "quelle": {
+    "name": "HGB § 252 Abs. 1 Nr. 1",
+    "url": "https://www.gesetze-im-internet.de/hgb/__252.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "eroeffnungsbilanz-schlussbilanz-3",
+   "art": "gesetz",
+   "aussage": "Dem Beginn des Handelsgewerbes liegt ein Inventar zugrunde, in dem Vermögensgegenstände und Schulden einzeln mit Werten verzeichnet sind; weitere Inventare folgen zum Schluss jedes Geschäftsjahrs.",
+   "schlagworte": [
+    "Inventar",
+    "Beginn des Handelsgewerbes"
+   ],
+   "quelle": {
+    "name": "HGB § 240 Abs. 1 und 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__240.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "eroeffnungsbilanz-schlussbilanz-4",
+   "art": "methode",
+   "aussage": "Eröffnungsbilanzkonto (EBK) und Schlussbilanzkonto (SBK) sind Hilfskonten: Eröffnung: Aktivkonten an EBK, EBK an Passivkonten. Abschluss: SBK an Aktivkonten, Passivkonten an SBK.",
+   "schlagworte": [
+    "EBK",
+    "SBK",
+    "Eröffnungsbuchung",
+    "Abschlussbuchung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "eroeffnungsbilanz-schlussbilanz-5",
+   "art": "methode",
+   "aussage": "Die Salden der Bestandskonten werden zum Jahresende über das SBK abgeschlossen und zu Jahresbeginn über das EBK mit den gleichen Beträgen wieder eröffnet.",
+   "schlagworte": [
+    "Saldovortrag",
+    "Konteneröffnung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "eroeffnungsbilanz-schlussbilanz-6",
+   "art": "methode",
+   "aussage": "Das Eröffnungsbilanzkonto ist ein Gegenkonto: Es steht im Soll, wo die Aktivkonten eröffnet werden, und im Haben, wo die Passivkonten eröffnet werden; es hat keine Bilanzfunktion.",
+   "schlagworte": [
+    "Gegenkonto",
+    "Hilfskonto"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "eroeffnungsbilanz-schlussbilanz-7",
+   "art": "gesetz",
+   "aussage": "Im Unterschied zum Hilfskonto ist die Bilanz in Kontoform aufzustellen; die Aktivseite gliedert sich in Anlage- und Umlaufvermögen, die Passivseite beginnt mit dem Eigenkapital.",
+   "schlagworte": [
+    "Kontoform",
+    "Gliederung"
+   ],
+   "quelle": {
+    "name": "HGB § 266 Abs. 1 bis 3",
+    "url": "https://www.gesetze-im-internet.de/hgb/__266.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Die Eröffnungsbilanz eines Jahres darf neu bewertet werden.",
+   "richtig": "Die Wertansätze müssen mit der Schlussbilanz des Vorjahres übereinstimmen (Bilanzidentität).",
+   "quelle_id": "eroeffnungsbilanz-schlussbilanz-2"
+  },
+  {
+   "falsch": "Das EBK ist ein Bestandskonto der Bilanz.",
+   "richtig": "Das EBK ist ein reines Hilfskonto für die Eröffnungsbuchungen.",
+   "quelle_id": "eroeffnungsbilanz-schlussbilanz-6"
+  }
+ ]
+}

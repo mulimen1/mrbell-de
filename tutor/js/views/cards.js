@@ -5,7 +5,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save, S } from '../state.js';
 import { forWhole, forChapter } from '../retrieve.js';
-import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
+import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ, merkePruefung, siegelOben } from '../ui.js';
 import { richText, cardBack } from '../sanitize.js';
 import { L } from '../i18n.js';
 import { review } from '../fsrs.js';
@@ -83,6 +83,7 @@ async function generate(wrap, ctx, chIdx, o) {
     const cards = (r.data?.cards || []).filter(c => c && c.front && (c.back || c.formula)).map(c => ({ id: uid(), front: String(c.front), back: String(c.back || ''), formula: c.formula ? String(c.formula).slice(0, 400) : '', legend: (Array.isArray(c.legend) ? c.legend : []).filter(x => Array.isArray(x) && x[0] && x[1]).slice(0, 8).map(x => [String(x[0]).slice(0, 40), String(x[1]).slice(0, 80)]), page: c.page || null, due: 0 }));
     if (!cards.length) throw new Error(L('Es kamen keine Karten zurück. Versuch es nochmal.', 'No cards came back. Please try again.'));
     const deck = { id: uid(), title: ch ? ch.title : (r.data.title || L('Ganzes Skript', 'Whole script')), chapter: chIdx, cards, created: Date.now() };
+    merkePruefung(deck, r.rechenpruefung);
     if (gate) deck.guestGate = true;   // ohne Konto: erste Karte sehen, beim ersten Antippen anmelden
     doc.decks.push(deck); save(doc);
     ld.stop(); savedToast('karten');
@@ -97,6 +98,7 @@ async function generate(wrap, ctx, chIdx, o) {
 
 function study(wrap, ctx, items, title) {
   const { doc } = ctx;
+  { const ds = [...new Set(items.map(x => x.d))]; if (ds.length === 1) siegelOben(wrap, ds[0], () => save(doc)); }
   { const f = fachOf(doc.id); const iso = (f && f.klausur) || doc.plan?.exam; examAt = iso ? new Date(iso + 'T08:00').getTime() || 0 : 0; }
   let queue = shuffle(items).sort((a, b) => (a.c.due || 0) - (b.c.due || 0)).slice(0, 40);
   // Ohne Konto: die ersten Karten jedes Stapels zuerst, der Rest danach (gesperrt)

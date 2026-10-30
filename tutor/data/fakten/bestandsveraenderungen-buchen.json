@@ -1,0 +1,120 @@
+{
+ "thema": "bestandsveraenderungen-buchen",
+ "name": "Bestandsveränderungen buchen",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "bestandsveraenderungen-buchen-1",
+   "art": "gesetz",
+   "aussage": "Im Gesamtkostenverfahren werden Bestandsveränderungen an fertigen und unfertigen Erzeugnissen als eigener Posten (Posten 2) nach den Umsatzerlösen ausgewiesen; andere aktivierte Eigenleistungen folgen als Posten 3.",
+   "schlagworte": [
+    "Bestandsveränderungen",
+    "aktivierte Eigenleistungen",
+    "Gesamtkostenverfahren"
+   ],
+   "quelle": {
+    "name": "HGB § 275 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__275.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "bestandsveraenderungen-buchen-2",
+   "art": "formel",
+   "aussage": "Die Bestandsveränderung ist die Differenz zwischen Schlussbestand und Anfangsbestand: `Bestandsveränderung = Schlussbestand - Anfangsbestand` (positiv = Bestandsmehrung, negativ = Bestandsminderung).",
+   "schlagworte": [
+    "Schlussbestand",
+    "Anfangsbestand",
+    "Mehrung",
+    "Minderung"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "bestandsveraenderungen-buchen-3",
+   "art": "methode",
+   "aussage": "Bestandsmehrung an fertigen Erzeugnissen: Fertige Erzeugnisse an Bestandsveränderungen (Ertrag im Haben); Bestandsminderung: Bestandsveränderungen (Aufwand im Soll) an Fertige Erzeugnisse.",
+   "schlagworte": [
+    "Buchungssatz",
+    "fertige Erzeugnisse",
+    "Bestandsveränderungen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "bestandsveraenderungen-buchen-4",
+   "art": "gesetz",
+   "aussage": "Die Bestände werden mit Herstellungskosten bewertet; Vertriebs- und Forschungskosten sind nicht einbeziehbar.",
+   "schlagworte": [
+    "Herstellungskosten",
+    "Bewertung"
+   ],
+   "quelle": {
+    "name": "HGB § 255 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/hgb/__255.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "bestandsveraenderungen-buchen-5",
+   "art": "gesetz",
+   "aussage": "Der Wertansatz darf höchstens die Herstellungskosten betragen; im Umlaufvermögen ist auf den niedrigeren Börsen- oder Marktpreis bzw. beizulegenden Wert abzuschreiben (strenges Niederstwertprinzip).",
+   "schlagworte": [
+    "Niederstwertprinzip",
+    "Bewertung"
+   ],
+   "quelle": {
+    "name": "HGB § 253 Abs. 1 und 4",
+    "url": "https://www.gesetze-im-internet.de/hgb/__253.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "bestandsveraenderungen-buchen-6",
+   "art": "gesetz",
+   "aussage": "Die Höhe der Bestände wird durch die Inventur zum Geschäftsjahresende ermittelt; gleichartige Vorräte dürfen im Wege der Gruppenbewertung zum gewogenen Durchschnitt angesetzt werden.",
+   "schlagworte": [
+    "Inventur",
+    "Gruppenbewertung"
+   ],
+   "quelle": {
+    "name": "HGB § 240 Abs. 2 und 4",
+    "url": "https://www.gesetze-im-internet.de/hgb/__240.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "bestandsveraenderungen-buchen-7",
+   "art": "methode",
+   "aussage": "Bei Roh-, Hilfs- und Betriebsstoffen und Handelswaren wird die Bestandsveränderung dagegen als Materialaufwand (Aufwandsverrechnung) bzw. Wareneinsatz gebucht: Bestandsminderung als Aufwand, Bestandsmehrung als Minderung des Aufwands.",
+   "schlagworte": [
+    "Materialaufwand",
+    "Wareneinsatz",
+    "Rohstoffe"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Eine Bestandsmehrung an Fertigerzeugnissen ist Aufwand.",
+   "richtig": "Sie ist ein Ertrag (Erhöhung der Gesamtleistung), weil produzierte, noch nicht verkaufte Erzeugnisse aktiviert werden.",
+   "quelle_id": "bestandsveraenderungen-buchen-3"
+  },
+  {
+   "falsch": "Die Bestandsveränderung ist Anfangsbestand minus Schlussbestand.",
+   "richtig": "Sie ist Schlussbestand minus Anfangsbestand.",
+   "quelle_id": "bestandsveraenderungen-buchen-2"
+  }
+ ]
+}

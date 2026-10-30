@@ -1,0 +1,134 @@
+{
+ "thema": "degressive-abschreibung",
+ "name": "Degressive Abschreibung",
+ "kat": "Rechnungswesen",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "degressive-abschreibung-1",
+   "art": "gesetz",
+   "aussage": "Steuerlich ist die degressive AfA für bewegliche Wirtschaftsgüter des Anlagevermögens zulässig, die nach dem 30.06.2025 und vor dem 01.01.2028 angeschafft oder hergestellt werden.",
+   "schlagworte": [
+    "degressive AfA",
+    "Zeitraum",
+    "bewegliche Wirtschaftsgüter"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "degressive-abschreibung-2",
+   "art": "zahl",
+   "aussage": "Der degressive Prozentsatz darf höchstens das Dreifache des linearen Satzes und höchstens 30 % betragen; es gilt das Minimum aus beiden.",
+   "schlagworte": [
+    "30 Prozent",
+    "Dreifaches",
+    "Höchstsatz"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "degressive-abschreibung-3",
+   "art": "formel",
+   "aussage": "Geometrisch-degressive AfA: Der feste Satz wird vom jeweiligen Restbuchwert berechnet. `AfA_t = s \\cdot RBW_{t-1}`, `RBW_t = RBW_{t-1} - AfA_t`; dabei ist der Satz `s = \\min(3 \\cdot \\frac{1}{ND}; 30\\,\\%)`.",
+   "schlagworte": [
+    "Restbuchwert",
+    "geometrisch-degressiv"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 2",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "degressive-abschreibung-4",
+   "art": "gesetz",
+   "aussage": "Der Wechsel von der degressiven zur linearen AfA ist zulässig (dann vom Restwert über die Restnutzungsdauer); der Wechsel von linear zu degressiv ist nicht zulässig.",
+   "schlagworte": [
+    "Wechsel",
+    "linear",
+    "degressiv"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 3",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "degressive-abschreibung-5",
+   "art": "formel",
+   "aussage": "Optimaler Wechselzeitpunkt: Man wechselt, sobald die lineare Abschreibung des Restwerts über die Restnutzungsdauer höher ist als der degressive Betrag, also wenn `RND \\le \\frac{1}{s}` (bei 30 % ab 3 verbleibenden Jahren).",
+   "schlagworte": [
+    "Wechselzeitpunkt",
+    "Restnutzungsdauer"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "degressive-abschreibung-6",
+   "art": "methode",
+   "aussage": "Die geometrisch-degressive Abschreibung erreicht den Wert null nie; daher wird in den letzten Jahren auf die lineare Methode gewechselt, um das Gut vollständig abzuschreiben.",
+   "schlagworte": [
+    "Restwert",
+    "Abschreibungsverlauf"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "degressive-abschreibung-7",
+   "art": "gesetz",
+   "aussage": "Für Elektrofahrzeuge, die im selben Zeitraum angeschafft werden, gelten feste Staffelsätze von 75 %, 10 %, 5 %, 5 %, 3 % und 2 % (Anschaffungsjahr bis fünftes Folgejahr).",
+   "schlagworte": [
+    "Elektrofahrzeuge",
+    "Staffelsätze"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 2a",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "degressive-abschreibung-8",
+   "art": "gesetz",
+   "aussage": "Für Gebäude gilt die degressive Abschreibung nach Absatz 2 nicht; für neue Wohngebäude (Herstellungsbeginn oder Kaufvertrag nach 30.09.2023 und vor 01.10.2029) sind 5 % vom Restwert möglich.",
+   "schlagworte": [
+    "Wohngebäude",
+    "5 Prozent",
+    "Gebäude"
+   ],
+   "quelle": {
+    "name": "EStG § 7 Abs. 5a",
+    "url": "https://www.gesetze-im-internet.de/estg/__7.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Man darf nach der degressiven AfA später wieder zu degressiv zurückwechseln oder von linear auf degressiv umstellen.",
+   "richtig": "Zulässig ist nur der Wechsel von degressiv zu linear.",
+   "quelle_id": "degressive-abschreibung-4"
+  },
+  {
+   "falsch": "Der degressive Satz beträgt immer 30 %.",
+   "richtig": "Er ist höchstens 30 % und höchstens das Dreifache des linearen Satzes; Beispiele: Nutzungsdauer 5 Jahre ergibt 3 · 20 % = 60 %, gedeckelt auf 30 %; Nutzungsdauer 12 Jahre ergibt 3 · 8,33 % = 25 %.",
+   "quelle_id": "degressive-abschreibung-2"
+  }
+ ]
+}

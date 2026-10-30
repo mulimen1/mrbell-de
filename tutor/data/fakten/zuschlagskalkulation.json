@@ -1,0 +1,146 @@
+{
+ "thema": "zuschlagskalkulation",
+ "name": "Zuschlagskalkulation",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "zuschlagskalkulation-1",
+   "art": "definition",
+   "aussage": "Die Zuschlagskalkulation ist ein verbreitetes Verfahren der Kostenträgerrechnung und gehört zur Vollkostenrechnung, weil alle Gemeinkosten über Zuschläge verrechnet werden.",
+   "schlagworte": [
+    "Zuschlagskalkulation",
+    "Vollkostenrechnung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zuschlagskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zuschlagskalkulation-47491",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zuschlagskalkulation-2",
+   "art": "methode",
+   "aussage": "Ablauf: Einzelkosten werden den Kostenträgern direkt zugeordnet, die Gemeinkosten über einen prozentualen Zuschlagssatz auf die Einzelkosten aufgeschlagen.",
+   "schlagworte": [
+    "Einzelkosten",
+    "Gemeinkosten",
+    "Zuschlagssatz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zuschlagskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zuschlagskalkulation-47491",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zuschlagskalkulation-3",
+   "art": "formel",
+   "aussage": "Zuschlagssatz in % = Gemeinkosten der Kostenstelle / Zuschlagsgrundlage \\cdot 100.",
+   "schlagworte": [
+    "Zuschlagssatz",
+    "Formel"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zuschlagskalkulation-4",
+   "art": "methode",
+   "aussage": "Übliche Zuschlagsgrundlagen: Materialgemeinkosten auf das Fertigungsmaterial, Fertigungsgemeinkosten auf die Fertigungslöhne, Verwaltungs- und Vertriebsgemeinkosten auf die Herstellkosten.",
+   "schlagworte": [
+    "Zuschlagsgrundlage",
+    "Herstellkosten",
+    "Fertigungslöhne"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zuschlagssatz",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zuschlagssatz-50360",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zuschlagskalkulation-5",
+   "art": "definition",
+   "aussage": "Die Herstellkosten bestehen in der Kostenrechnung in der Regel aus Materialeinzelkosten, Materialgemeinkosten, Fertigungseinzelkosten und Fertigungsgemeinkosten.",
+   "schlagworte": [
+    "Herstellkosten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Herstellkosten",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/herstellkosten-33066",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zuschlagskalkulation-6",
+   "art": "methode",
+   "aussage": "Die Zuschlagssätze werden für jede Endkostenstelle aus dem Betriebsabrechnungsbogen (BAB) ermittelt.",
+   "schlagworte": [
+    "BAB",
+    "Endkostenstelle"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Gemeinkostenzuschlag",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/gemeinkostenzuschlag-35689",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zuschlagskalkulation-7",
+   "art": "formel",
+   "aussage": "Selbstkosten = Herstellkosten + Verwaltungsgemeinkosten + Vertriebsgemeinkosten (Verwaltungs- und Vertriebsgemeinkosten werden als Zuschlag auf die Herstellkosten verrechnet).",
+   "schlagworte": [
+    "Selbstkosten",
+    "Schema"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "zuschlagskalkulation-8",
+   "art": "abgrenzung",
+   "aussage": "Die Zuschlagskalkulation eignet sich für heterogene Leistungsstrukturen; die Divisionskalkulation für homogene oder nur geringfügig unterschiedliche Produkte.",
+   "schlagworte": [
+    "heterogen",
+    "homogen"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Kalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/kalkulation-38438",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "zuschlagskalkulation-9",
+   "art": "methode",
+   "aussage": "Kritik: Bei zunehmender Automatisierung verliert die Lohnbasis an Aussagekraft, Zuschlagssätze über 1.000 % sind möglich; die Fertigungskosten werden daher zunehmend per Maschinenstundensatz kalkuliert. Grundproblem bleibt die Schlüsselung der Gemeinkosten.",
+   "schlagworte": [
+    "Kritik",
+    "Automatisierung",
+    "Maschinenstundensatz"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Zuschlagskalkulation",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/zuschlagskalkulation-47491",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Verwaltungs- und Vertriebsgemeinkosten werden auf die Fertigungslöhne zugeschlagen.",
+   "richtig": "Basis für Verwaltungs- und Vertriebsgemeinkosten sind die Herstellkosten.",
+   "quelle_id": "zuschlagskalkulation-4"
+  },
+  {
+   "falsch": "Die Zuschlagskalkulation ist ein Teilkostenverfahren.",
+   "richtig": "Sie ist ein Vollkostenverfahren, da alle Gemeinkosten über Zuschläge verrechnet werden.",
+   "quelle_id": "zuschlagskalkulation-1"
+  }
+ ]
+}

@@ -5,7 +5,7 @@ import { face } from '../face.js';
 import { ask } from '../api.js';
 import { save } from '../state.js';
 import { forWhole } from '../retrieve.js';
-import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ } from '../ui.js';
+import { loading, apiError, costBtn, freshen, isGuest, lockedPreview, lockedRest, GUEST_CARDS, GUEST_QUIZ, merkePruefung, siegelOben } from '../ui.js';
 import { sanitize } from '../sanitize.js';
 import { L } from '../i18n.js';
 import { plainMath } from '../math.js';
@@ -38,12 +38,14 @@ async function generate(wrap, ctx, o) {
     const d = r.data || {};
     if (!d.html && !d.tldr) throw new Error(L('Der Lernzettel ist leer angekommen. Versuch es nochmal.', 'The study sheet came back empty. Please try again.'));
     doc.summary = { title: d.title || doc.name, tldr: (d.tldr || []).map(String), html: String(d.html || ''), mindmap: d.mindmap || null, terms: (d.terms || []).filter(t => t && t.t), created: Date.now(), len: o?.len || null };
+    merkePruefung(doc.summary, r.rechenpruefung);
     save(doc); ld.stop(); show(wrap, ctx); freshen(wrap); savedToast('zettel');
   } catch (e) { ld.stop(false); intro(wrap, ctx); apiError(e, () => generate(wrap, ctx, o)); }
 }
 
 function show(wrap, ctx) {
   const S = ctx.doc.summary;
+  siegelOben(wrap, S, () => save(ctx.doc));
   const body = h('div', { class: 'tafel zt-body', style: { padding: 0, maxWidth: 'none' } }); body.appendChild(sanitize(S.html));
   const words = (S.html.replace(/<[^>]+>/g, ' ') + ' ' + S.tldr.join(' ')).split(/\s+/).filter(Boolean).length;
   const mins = Math.max(1, Math.round(words / 200));

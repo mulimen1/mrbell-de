@@ -1,0 +1,130 @@
+{
+ "thema": "optimales-produktionsprogramm",
+ "name": "Optimales Produktionsprogramm",
+ "kat": "Kostenrechnung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "optimales-produktionsprogramm-1",
+   "art": "definition",
+   "aussage": "Die Produktionsprogrammplanung legt fest, welche Erzeugnisse in welcher Menge je Planperiode hergestellt werden.",
+   "schlagworte": [
+    "Produktionsprogramm",
+    "Planung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Produktionsprogrammplanung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/produktionsprogrammplanung-42402",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimales-produktionsprogramm-2",
+   "art": "methode",
+   "aussage": "Reichen die Kapazitäten für alle Aufträge und Prognosen, wird der gesamte Bedarf erzeugt, sofern der Deckungsbeitrag positiv ist.",
+   "schlagworte": [
+    "kein Engpass",
+    "positiver Deckungsbeitrag"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Produktionsprogrammplanung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/produktionsprogrammplanung-42402",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimales-produktionsprogramm-3",
+   "art": "methode",
+   "aussage": "Bei genau einem Engpass ist der engpassbezogene Deckungsbeitrag das Entscheidungskriterium; die knappe Kapazität geht zuerst an das Produkt mit dem höchsten Deckungsbeitrag je Engpasseinheit.",
+   "schlagworte": [
+    "Engpass",
+    "Rangfolge"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Produktionsprogrammplanung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/produktionsprogrammplanung-42402",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimales-produktionsprogramm-4",
+   "art": "formel",
+   "aussage": "Engpassbezogener Deckungsbeitrag: db_{eng} = db / a, mit a = Beanspruchung des Engpasses je Stück (z. B. Minuten je Stück).",
+   "schlagworte": [
+    "Formel",
+    "Engpassbelastung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: engpassbezogener Deckungsbeitrag",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/engpassbezogener-deckungsbeitrag-33758",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimales-produktionsprogramm-5",
+   "art": "methode",
+   "aussage": "Vorgehen bei einem Engpass: Produkte nach absteigendem db_{eng} reihen, in dieser Reihenfolge bis zur Absatzhöchstmenge einplanen, bis die Engpasskapazität verbraucht ist.",
+   "schlagworte": [
+    "Rangfolge",
+    "Absatzgrenze"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "optimales-produktionsprogramm-6",
+   "art": "methode",
+   "aussage": "Bei mehreren Engpässen sind Simulation oder Verfahren der mathematischen Optimierung (Operations Research, z. B. Simplexalgorithmus) nötig.",
+   "schlagworte": [
+    "lineare Optimierung",
+    "Simplex"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Produktionsprogrammplanung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/produktionsprogrammplanung-42402",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimales-produktionsprogramm-7",
+   "art": "abgrenzung",
+   "aussage": "Der Stückdeckungsbeitrag allein ist zum Vergleich von Alternativen nicht geeignet; ausgenommen sind Leistungen, die sich 1:1 ersetzen und bei denen die Menge der Engpass ist.",
+   "schlagworte": [
+    "Stückdeckungsbeitrag",
+    "Vergleich"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Deckungsbeitrag",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/deckungsbeitrag-27166",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "optimales-produktionsprogramm-8",
+   "art": "formel",
+   "aussage": "Zielfunktion: Maximiere den Gesamtdeckungsbeitrag DB = \\sum_i db_i \\cdot x_i unter den Kapazitäts- und Absatzrestriktionen; die Fixkosten sind kurzfristig konstant und beeinflussen die Programmwahl nicht.",
+   "schlagworte": [
+    "Zielfunktion",
+    "Restriktionen"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Bei knapper Kapazität wird das Produkt mit dem höchsten Stückdeckungsbeitrag bevorzugt.",
+   "richtig": "Maßgeblich ist der Deckungsbeitrag je Einheit des Engpasses (z. B. je Maschinenminute).",
+   "quelle_id": "optimales-produktionsprogramm-3"
+  },
+  {
+   "falsch": "Fixkosten sind auf die Produkte zu verteilen und in die Rangfolge einzurechnen.",
+   "richtig": "Kurzfristig sind die Fixkosten für die Programmwahl irrelevant; entscheidend sind die (engpassbezogenen) Deckungsbeiträge.",
+   "quelle_id": "optimales-produktionsprogramm-8"
+  }
+ ]
+}

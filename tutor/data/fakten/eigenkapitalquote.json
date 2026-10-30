@@ -1,0 +1,107 @@
+{
+ "thema": "eigenkapitalquote",
+ "name": "Eigenkapitalquote",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "eigenkapitalquote-1",
+   "art": "definition",
+   "aussage": "Die Eigenkapitalquote ist der Anteil des Eigenkapitals am Gesamtkapital.",
+   "schlagworte": [
+    "Eigenkapitalquote",
+    "Gesamtkapital"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Eigenkapitalquote",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/eigenkapitalquote-34451/version-166969",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "eigenkapitalquote-2",
+   "art": "abgrenzung",
+   "aussage": "Die Eigenkapitalquote hängt stark von der Branche und von den Bewertungsmethoden ab. Sie dient der Beurteilung von finanzieller Stabilität und Unabhängigkeit.",
+   "schlagworte": [
+    "Branche",
+    "Stabilität",
+    "Unabhängigkeit"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Eigenkapitalquote",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/eigenkapitalquote-34451/version-166969",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "eigenkapitalquote-3",
+   "art": "formel",
+   "aussage": "\\text{EK-Quote} = \\frac{\\text{Eigenkapital}}{\\text{Gesamtkapital}} \\cdot 100 \\quad (\\text{Gesamtkapital} = \\text{Bilanzsumme} = EK + FK)",
+   "schlagworte": [
+    "Formel",
+    "Bilanzsumme"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "eigenkapitalquote-4",
+   "art": "abgrenzung",
+   "aussage": "In der Bilanzanalyse zählt die Eigenkapitalquote (wie der Verschuldungskoeffizient) zu den vertikalen Kennzahlen der Kapitalstruktur.",
+   "schlagworte": [
+    "vertikale Kennzahl",
+    "Kapitalstruktur",
+    "Verschuldungsgrad"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Bilanzanalyse",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/bilanzanalyse-30674",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "eigenkapitalquote-5",
+   "art": "gesetz",
+   "aussage": "Das Eigenkapital der Bilanz gliedert sich nach § 266 Abs. 3 HGB in gezeichnetes Kapital, Kapitalrücklage, Gewinnrücklagen, Gewinn-/Verlustvortrag und Jahresüberschuss/-fehlbetrag.",
+   "schlagworte": [
+    "Eigenkapital",
+    "gezeichnetes Kapital",
+    "Rücklagen"
+   ],
+   "quelle": {
+    "name": "HGB § 266",
+    "url": "https://www.gesetze-im-internet.de/hgb/__266.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "eigenkapitalquote-6",
+   "art": "gesetz",
+   "aussage": "Auf der Passivseite stehen neben dem Eigenkapital (A.) die Rückstellungen (B.), Verbindlichkeiten (C.), der passive Rechnungsabgrenzungsposten (D.) und passive latente Steuern (E.).",
+   "schlagworte": [
+    "Passivseite",
+    "Rückstellungen",
+    "Verbindlichkeiten"
+   ],
+   "quelle": {
+    "name": "HGB § 266",
+    "url": "https://www.gesetze-im-internet.de/hgb/__266.html",
+    "typ": "gesetz"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Eigenkapitalquote = Eigenkapital geteilt durch Fremdkapital.",
+   "richtig": "Der Nenner ist das Gesamtkapital (Bilanzsumme); EK/FK ist dagegen der Kehrwert des Verschuldungsgrads FK/EK und damit eine andere Kennzahl.",
+   "quelle_id": "eigenkapitalquote-1"
+  },
+  {
+   "falsch": "Eine Eigenkapitalquote lässt sich branchenübergreifend mit einem festen Sollwert bewerten.",
+   "richtig": "Die Quote ist stark branchen- und bewertungsabhängig.",
+   "quelle_id": "eigenkapitalquote-2"
+  }
+ ]
+}

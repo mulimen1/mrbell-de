@@ -1,0 +1,117 @@
+{
+ "thema": "amortisationsrechnung",
+ "name": "Amortisationsrechnung",
+ "kat": "Investition",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "amortisationsrechnung-1",
+   "art": "definition",
+   "aussage": "Die Amortisationsrechnung beurteilt Investitionen unter Unsicherheit; Kriterium ist die Amortisationsdauer, also die Zeit, bis das eingesetzte Kapital zurückgeflossen ist.",
+   "schlagworte": [
+    "Amortisationsdauer",
+    "Pay-back"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Amortisationsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/amortisationsrechnung-28201",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "amortisationsrechnung-2",
+   "art": "formel",
+   "aussage": "Statisch: I_0 = \\sum_{t=1}^{n} C_t; gesucht ist der Zeitpunkt n, zu dem die Summe der Rückflüsse die Investitionsausgabe erreicht.",
+   "schlagworte": [
+    "statisch",
+    "Formel"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Amortisationsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/amortisationsrechnung-28201",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "amortisationsrechnung-3",
+   "art": "formel",
+   "aussage": "Dynamisch: I_0 = \\sum_{t=1}^{m} C_t (1+i)^{-t}; die Rückflüsse werden mit dem Kalkulationszinssatz abgezinst.",
+   "schlagworte": [
+    "dynamisch",
+    "Formel",
+    "Abzinsung"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Amortisationsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/amortisationsrechnung-28201",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "amortisationsrechnung-4",
+   "art": "abgrenzung",
+   "aussage": "Die Amortisationsdauer gilt als Näherungsmaß für das Investitionsrisiko und ist für die Liquiditätsplanung wichtig; über Gewinn oder Rentabilität sagt sie nichts aus.",
+   "schlagworte": [
+    "Risiko",
+    "Liquidität"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Amortisationsdauer",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/amortisationsdauer-31538",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "amortisationsrechnung-5",
+   "art": "abgrenzung",
+   "aussage": "Kritik: Rückflüsse nach Ablauf der Amortisationsdauer bleiben unberücksichtigt; das Verfahren sollte nicht alleiniges Entscheidungskriterium sein.",
+   "schlagworte": [
+    "Kritik",
+    "Rückflüsse nach Amortisation"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Amortisationsrechnung",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/amortisationsrechnung-28201",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "amortisationsrechnung-6",
+   "art": "abgrenzung",
+   "aussage": "Die dynamische Amortisationsdauer ist (bei positivem Zins) immer länger als die statische, weil abgezinste Rückflüsse kleiner sind.",
+   "schlagworte": [
+    "dynamisch",
+    "statisch",
+    "Vergleich"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "amortisationsrechnung-7",
+   "art": "formel",
+   "aussage": "Durchschnittsmethode bei gleichbleibenden Rückflüssen: \\text{Amortisationsdauer} = \\frac{I_0}{C}.",
+   "schlagworte": [
+    "Durchschnittsmethode"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Eine kurze Amortisationsdauer bedeutet, dass die Investition besonders rentabel ist.",
+   "richtig": "Sie misst Kapitalrückfluss und Risiko, nicht Rentabilität oder Gewinn.",
+   "quelle_id": "amortisationsrechnung-4"
+  },
+  {
+   "falsch": "Die Amortisationsrechnung zählt alle Rückflüsse der Nutzungsdauer mit.",
+   "richtig": "Rückflüsse nach dem Amortisationszeitpunkt bleiben unberücksichtigt.",
+   "quelle_id": "amortisationsrechnung-5"
+  }
+ ]
+}

@@ -1,0 +1,97 @@
+{
+ "thema": "cash-conversion-cycle",
+ "name": "Cash Conversion Cycle",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "cash-conversion-cycle-1",
+   "art": "formel",
+   "aussage": "Cash Conversion Cycle (Geldumschlagsdauer in Tagen): CCC = DIO + DSO - DPO, also Lagerdauer plus Forderungslaufzeit minus Lieferantenziel.",
+   "schlagworte": [
+    "CCC",
+    "DIO",
+    "DSO",
+    "DPO"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-2",
+   "art": "formel",
+   "aussage": "Lagerdauer (DIO) = \\frac{\\text{durchschnittlicher Vorratsbestand}}{\\text{Wareneinsatz bzw. Umsatzkosten}} \\cdot 365",
+   "schlagworte": [
+    "Days Inventory Outstanding",
+    "Lagerdauer"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-3",
+   "art": "formel",
+   "aussage": "Forderungslaufzeit (DSO) = \\frac{\\text{durchschnittliche Forderungen aus LuL}}{\\text{Umsatz}} \\cdot 365",
+   "schlagworte": [
+    "Days Sales Outstanding",
+    "Debitorenlaufzeit"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-4",
+   "art": "formel",
+   "aussage": "Lieferantenziel (DPO) = \\frac{\\text{durchschnittliche Verbindlichkeiten aus LuL}}{\\text{Wareneinsatz}} \\cdot 365",
+   "schlagworte": [
+    "Days Payables Outstanding",
+    "Kreditorenlaufzeit"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-5",
+   "art": "methode",
+   "aussage": "Der CCC gibt an, wie viele Tage zwischen der Bezahlung der Lieferanten und dem Zahlungseingang vom Kunden liegen, die das Unternehmen selbst finanzieren muss. Ein kürzerer Zyklus bedeutet weniger Kapitalbindung; er kann auch negativ sein.",
+   "schlagworte": [
+    "Kapitalbindung",
+    "Finanzierungsbedarf"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  },
+  {
+   "id": "cash-conversion-cycle-6",
+   "art": "abgrenzung",
+   "aussage": "Das Zahlungsziel beim Lieferantenkredit beträgt üblicherweise ein bis drei Monate, teils bis zu sechs Monate; eine Verlängerung verkürzt rechnerisch den CCC (höheres DPO).",
+   "schlagworte": [
+    "Zahlungsziel",
+    "Lieferantenkredit",
+    "DPO"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Lieferantenkredit",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/lieferantenkredit-37077/version-179997",
+    "typ": "lexikon"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Ein längeres Lieferantenziel (DPO) verlängert den Cash Conversion Cycle.",
+   "richtig": "Es verkürzt ihn, da DPO abgezogen wird.",
+   "quelle_id": "cash-conversion-cycle-1"
+  }
+ ]
+}

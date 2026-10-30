@@ -1,0 +1,121 @@
+{
+ "thema": "liquiditaetsgrade",
+ "name": "Liquiditätsgrade",
+ "kat": "Finanzierung",
+ "stand": "2026-10-30",
+ "aussagen": [
+  {
+   "id": "liquiditaetsgrade-1",
+   "art": "definition",
+   "aussage": "Ein Liquiditätsgrad setzt flüssige Mittel bzw. Teile des Umlaufvermögens ins Verhältnis zu den Zahlungsverpflichtungen (Deckungsgrad). Er zeigt, wie oft die kurzfristigen Verbindlichkeiten gedeckt sind, wenn man unterstellt, dass die Bilanzwerte als Verkaufserlöse realisierbar sind.",
+   "schlagworte": [
+    "Liquiditätsgrad",
+    "Deckungsgrad",
+    "kurzfristige Verbindlichkeiten"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Liquiditätsgrad",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/liquiditaetsgrad-41314",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "liquiditaetsgrade-2",
+   "art": "formel",
+   "aussage": "Liquidität 1. Grades = liquide Mittel geteilt durch kurzfristige Verbindlichkeiten, mal 100 %: \\text{Liquidität 1} = \\frac{\\text{liquide Mittel}}{\\text{kurzfr. Verbindlichkeiten}} \\cdot 100",
+   "schlagworte": [
+    "Liquidität 1. Grades",
+    "Cash Ratio"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Liquiditätsgrad",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/liquiditaetsgrad-41314",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "liquiditaetsgrade-3",
+   "art": "formel",
+   "aussage": "Liquidität 2. Grades (Quick Ratio): \\text{Liquidität 2} = \\frac{\\text{liquide Mittel} + \\text{kurzfr. Forderungen}}{\\text{kurzfr. Verbindlichkeiten}} \\cdot 100",
+   "schlagworte": [
+    "Liquidität 2. Grades",
+    "Quick Ratio"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Liquiditätsgrad",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/liquiditaetsgrad-41314",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "liquiditaetsgrade-4",
+   "art": "formel",
+   "aussage": "Liquidität 3. Grades (Current Ratio): \\text{Liquidität 3} = \\frac{\\text{liquide Mittel} + \\text{kurzfr. Forderungen} + \\text{Warenbestände}}{\\text{kurzfr. Verbindlichkeiten}} \\cdot 100",
+   "schlagworte": [
+    "Liquidität 3. Grades",
+    "Current Ratio"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Liquiditätsgrad",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/liquiditaetsgrad-41314",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "liquiditaetsgrade-5",
+   "art": "abgrenzung",
+   "aussage": "Die Bilanz zeigt nur Stichtagsbestände. Zahlungsströme aus Dauerschuldverhältnissen, Ansprüche und Pflichten aus schwebenden Geschäften sowie kurzfristig mobilisierbare Finanzreserven fehlen, daher haben Liquiditätsgrade nur begrenzte Aussagekraft.",
+   "schlagworte": [
+    "Stichtag",
+    "Grenzen",
+    "schwebende Geschäfte"
+   ],
+   "quelle": {
+    "name": "Gabler Wirtschaftslexikon: Liquiditätsgrad",
+    "url": "https://wirtschaftslexikon.gabler.de/definition/liquiditaetsgrad-41314",
+    "typ": "lexikon"
+   }
+  },
+  {
+   "id": "liquiditaetsgrade-6",
+   "art": "gesetz",
+   "aussage": "Das Umlaufvermögen gliedert sich nach § 266 Abs. 2 HGB in Vorräte, Forderungen und sonstige Vermögensgegenstände, Wertpapiere sowie Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks; daraus lassen sich die Zähler der Liquiditätsgrade ableiten.",
+   "schlagworte": [
+    "Umlaufvermögen",
+    "Bilanzgliederung",
+    "Vorräte",
+    "Forderungen"
+   ],
+   "quelle": {
+    "name": "HGB § 266",
+    "url": "https://www.gesetze-im-internet.de/hgb/__266.html",
+    "typ": "gesetz"
+   }
+  },
+  {
+   "id": "liquiditaetsgrade-7",
+   "art": "abgrenzung",
+   "aussage": "Bei Liquidität 2. und 3. Grades kommen mit jedem Grad Vermögensposten hinzu, die erst noch in Geld umgewandelt werden müssen (Forderungen einziehen, Vorräte verkaufen). Alle drei Grade haben denselben Nenner.",
+   "schlagworte": [
+    "Liquiditätsstufen",
+    "Nenner"
+   ],
+   "quelle": {
+    "name": "Lehrbuchstandard (nachgerechnet)",
+    "typ": "lehrbuchstandard"
+   }
+  }
+ ],
+ "typische_fehler": [
+  {
+   "falsch": "Eine hohe Liquidität 3. Grades bedeutet, dass das Unternehmen sofort zahlen kann.",
+   "richtig": "Die 3. Stufe schließt Vorräte ein, die erst verkauft werden müssen; sofortige Zahlungsfähigkeit zeigt nur die Liquidität 1. Grades, und alle Grade unterstellen die Realisierbarkeit der Bilanzwerte.",
+   "quelle_id": "liquiditaetsgrade-1"
+  },
+  {
+   "falsch": "Die Liquiditätsgrade nennen im Nenner das gesamte Fremdkapital.",
+   "richtig": "Im Nenner stehen die kurzfristigen Verbindlichkeiten, nicht das gesamte Fremdkapital.",
+   "quelle_id": "liquiditaetsgrade-2"
+  }
+ ]
+}
