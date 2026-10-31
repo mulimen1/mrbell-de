@@ -9322,3 +9322,41 @@ html[data-theme="dark"] .bms .zt-body .katex-display, html[data-theme="dark"] .b
 html:root .bms .bms-dl { background: #eceae6 !important; color: #2b2b30 !important; border: 1px solid #dcd8d1 !important; box-shadow: none !important; }
 html:root .bms .bms-dl:hover { background: #e2dfd9 !important; }
 html[data-theme="dark"] .bms .bms-dl { background: #24252b !important; color: #e8e8ec !important; border-color: #33353d !important; }
+/* /start Runde 4 (Ben, 31.10.): Format-Tabs frei schwebend + vollfarbig, aktiver Tab mit Rahmen, kein Herunterladen in der Leiste,
+   farbige Chips statt Weiß, Podcast-Skript getönt, Vorab-Animation „Max erstellt …“ */
+html:root .bms .bms-wbar { background: none !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; gap: 14px !important; margin-inline: -8px; }
+html:root .bms .bms-wbar .bms-dl { display: none !important; }
+html:root .bms .bms-tab { min-height: 78px; border-radius: 22px; font-size: 19px; color: #fff; box-shadow: 0 16px 30px -18px var(--c2), inset 0 1px 0 rgba(255,255,255,.35); }
+html:root .bms .bms-tab::before { opacity: 1 !important; }
+html:root .bms .bms-tab.ink-d { color: #241a03; }
+html:root .bms .bms-tab .bms-ti { background: rgba(255,255,255,.24) !important; color: inherit !important; box-shadow: none !important; }
+html:root .bms .bms-tab:not(.on) { filter: saturate(.92); }
+html:root .bms .bms-tab:hover { transform: translateY(-3px); box-shadow: 0 22px 36px -18px var(--c2), inset 0 1px 0 rgba(255,255,255,.4); }
+html:root .bms .bms-tab.on { filter: none; transform: translateY(-2px); box-shadow: 0 0 0 3px var(--bmsBg, #ebe4d8), 0 0 0 6px var(--c2), 0 22px 40px -16px var(--c2) !important; }
+/* Chips: Skript blau, Siegel grün */
+html:root .bms .bms-wdoc { background: linear-gradient(135deg, #5aa2f7, #1a5fc4) !important; border-color: transparent !important; color: #fff !important; }
+html:root .bms .bms-wdoc small { color: rgba(255,255,255,.85) !important; border-left-color: rgba(255,255,255,.35) !important; }
+html:root .bms .bms-wdoc .bms-ci { background: rgba(255,255,255,.22) !important; box-shadow: none !important; }
+html:root .bms .vt-siegel { background: linear-gradient(135deg, #2fbf71, #12895a) !important; color: #fff !important; border-color: transparent !important; box-shadow: 0 12px 24px -14px #12895a !important; }
+html:root .bms .vt-siegel * { color: #fff !important; }
+html:root .bms .vt-siegel .vt-si { background: rgba(255,255,255,.22) !important; }
+html:root .bms .vt-siegel .vt-sgo { background: rgba(255,255,255,.2) !important; }
+/* Podcast-Mitlesen getönt statt weiß */
+html:root .bms .pod .script, html:root .bms .script { background: linear-gradient(180deg, #fff1f6, #fde6ef) !important; border-color: #f6c9da !important; }
+html:root .bms .script .line.on, html:root .bms .script .line.cur { background: linear-gradient(135deg, #f47ba0, #c8336f) !important; color: #fff !important; }
+html[data-theme="dark"] .bms .script { background: #26151d !important; border-color: #4a2333 !important; }
+/* Vorab-Animation */
+.bms-mk { display: grid; place-items: center; min-height: max(460px, calc(100vh - 240px)); }
+.bms-mk-c { width: min(460px, 92%); padding: 34px 30px 28px; border-radius: 28px; color: #fff; text-align: center; background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0) 45%), linear-gradient(135deg, var(--c1), var(--c2)); box-shadow: 0 30px 60px -28px var(--c2); animation: bmsmkin .45s cubic-bezier(.2,.9,.3,1.2) both; }
+.bms-mk-c.ink-d { color: #241a03; }
+.bms-mk-i { width: 72px; height: 72px; margin: 0 auto 16px; display: grid; place-items: center; border-radius: 22px; background: rgba(255,255,255,.25); animation: bmsmkp 1s ease-in-out infinite; }
+.bms-mk-i .ico { width: 34px; height: 34px; }
+.bms-mk-c b { display: block; font: 800 22px/1.2 var(--sans); letter-spacing: -.02em; }
+.bms-mk-c small { display: block; margin-top: 6px; font: 600 14px var(--sans); opacity: .85; }
+.bms-mk-bar { height: 8px; margin-top: 20px; border-radius: 99px; background: rgba(255,255,255,.28); overflow: hidden; }
+.bms-mk-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: #fff; animation: bmsmkbar 1.25s cubic-bezier(.4,.1,.2,1) forwards; }
+@keyframes bmsmkin { from { opacity: 0; transform: translateY(14px) scale(.96); } }
+@keyframes bmsmkp { 50% { transform: scale(1.08) rotate(-4deg); } }
+@keyframes bmsmkbar { to { width: 100%; } }
+@media (max-width: 760px) { html:root .bms .bms-wbar { margin-inline: 0; gap: 10px !important; } html:root .bms .bms-tab { min-height: 60px; font-size: 16px; } }
+@media (prefers-reduced-motion: reduce) { .bms-mk-c, .bms-mk-i, .bms-mk-bar i { animation: none !important; } .bms-mk-bar i { width: 100%; } }

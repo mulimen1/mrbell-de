@@ -231,6 +231,15 @@ async function open(k, arg) {
   const inner = h('div', { class: 'bms-vin' });
   const ctx = { doc: S.doc, arg: arg !== undefined ? arg : k === 'quiz' ? 'q-' + S.doc.quizzes[0].id : null, go: (t, x) => (F[t] ? open(t, x || null) : cta('Weiter: ' + t)), ask: t => askMax(t) };
   if (fresh) { inner.classList.add('bms-pre'); track('Demo erstellt', `${cur.key} · ${k}`); ws.sub.textContent = f.h; ws.sub.classList.add('busy'); }
+  // Vorab: kurz sichtbar „Max erstellt …“ (eigene Bühne in Bereichsfarbe), dann baut sich das Ergebnis auf
+  if (fresh && !RM) {
+    const NAME = { zettel: 'deinen Lernzettel', karten: 'deine Karteikarten', quiz: 'dein Quiz', podcast: 'deinen Podcast' }[k] || 'das';
+    const stage = h('div', { class: 'bms-mk' }, h('div', { class: 'bms-mk-c' + (f.ink === 'dark' ? ' ink-d' : ''), style: tint(f.c) },
+      h('span', { class: 'bms-mk-i', 'data-icn': '1', html: ico(f.ic) }), h('b', {}, `Max erstellt ${NAME} …`), h('small', {}, cur.titel), h('div', { class: 'bms-mk-bar' }, h('i'))));
+    ws.body.replaceChildren(stage);
+    await new Promise(r => setTimeout(r, 1300));
+    if (my !== busy) return;
+  }
   ws.body.replaceChildren(inner);
   if (fresh) { ws.body.style.minHeight = Math.max(560, innerHeight - 120) + 'px'; ws.tabs.querySelector('.on')?.classList.add('fill'); }
   try {

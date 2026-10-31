@@ -393,6 +393,11 @@ export function siegel(rp, raw = '', src = '') {
   if (!rp && !pages.length) return null;
   const nurRegeln = !pages.length && !bl.length && !(rp && rp.rechnungen > 0) && !fk && !(rp && rp.faktenKorrigiert);
   if (nurRegeln && String(raw).replace(/<[^>]+>|```[\s\S]*?```/g, '').length < 250) return null;   // kurze Rückfragen/Smalltalk: kein Siegel
+  // Kurze Antwort ohne Rechnung/Faktenbefund (Smalltalk, Rückfrage wie „Wobei hängst du?“): nie ein Siegel – auch nicht, wenn
+  // zum offenen Thema Belege in der Datenbank liegen. Siegel nur, wenn in der Antwort wirklich etwas Prüfbares steht.
+  { const plain = String(raw).replace(/<[^>]+>|```[\s\S]*?```/g, '').trim();
+    const nichtsGeprueft = !(rp && rp.rechnungen > 0) && !fk && !(rp && rp.faktenKorrigiert) && !pages.length;
+    if (nichtsGeprueft && (plain.length < 400 || /\?\s*$/.test(plain) && plain.length < 700)) return null; }
   const qk = (() => { const s = []; bl.forEach(b => { const n = b.quelle && b.quelle.name && String(b.quelle.name).replace(/\s*Wirtschaftslexikon/i, '').replace(/^Lehrbuchstandard.*$/i, ''); if (n && !s.includes(n)) s.push(n); }); return s.slice(0, 1).join('') + (s.length > 1 ? ` +${s.length - 1}` : ''); })();
   const el = h('button', { class: 'vt-siegel', type: 'button' });
   const open = e => { e.stopPropagation(); import('./util.js').then(u => { const m = u.modal({ title: L('Gegengeprüft', 'Cross-checked'), body: h('div', { class: 'fk-list', html: siegelDetails(rp, src, pages) }) }); setTimeout(() => document.querySelectorAll('.fk-list [data-vt]').forEach(a => a.addEventListener('click', ev => { ev.preventDefault(); try { m && m.close && m.close(); } catch (x) {} import('./vertrauen.js').then(v => v.openVertrauen('max', L('Zurück zu Max', 'Back to Max'))); })), 50); }).catch(() => {}); };
