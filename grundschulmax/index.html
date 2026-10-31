@@ -1211,7 +1211,7 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
 body[data-screen=start] footer{padding-top:10px}
 .view[data-s=klasse] .pick{position:relative;inset:auto;border-radius:34px;margin:12px 0 40px;box-shadow:0 30px 70px -46px rgba(40,30,10,.5),0 0 0 1px var(--line)}
 .view[data-s=spiel] #demo{padding-top:14px}
-.view[data-s=faecher] #faecher{padding-top:20px}
+.view[data-s=faecher] #faecherl{padding-top:20px}
 .cband{display:flex;align-items:center;gap:18px;justify-content:space-between;margin:10px auto 0;max-width:960px;padding:20px 24px;border-radius:28px;color:#fff;background:radial-gradient(80% 140% at 100% 0%,rgba(255,255,255,.2),transparent 55%),linear-gradient(135deg,#1a5fc4,#5b3fc4);box-shadow:0 30px 60px -36px rgba(60,40,180,.8)}
 .cband b{display:block;font-size:21px;letter-spacing:-.02em}.cband span{opacity:.88;font-size:15px}
 .cband .b3d{--g2:#fff;--g1:#fff;--g3:#eef4ff;--bd:#c9d6ef;color:#1a5fc4;flex:none}
@@ -1241,6 +1241,95 @@ body[data-screen=start] .hero .wrap.hc{width:100%}
 }
 @media (max-width:600px){.hero .ctas{flex-direction:column;width:100%}.hero .ctas .b3d{width:100%;flex:none}}
 .fin .fcta{margin-top:12px;font-size:14px}
+/* ===== v6: Premium ===== */
+/* Header: Knopf mittig wie bei BWL Max */
+.nav .wrap.nav3{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:78px}
+.nav3 .navr{justify-self:end}
+.lks{display:inline-flex;align-items:center;gap:6px}.lks svg{font-size:17px;color:#1f9a55}
+.hcta{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:12px;height:58px;padding:0 28px 0 6px;border-radius:999px;color:#fff;font-weight:850;font-size:18px;letter-spacing:-.02em;white-space:nowrap;background:linear-gradient(110deg,#1a5fc4 0%,#1f6fe0 38%,#2a7fe8 72%,#7fb2f0 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -3px 0 rgba(10,40,110,.25),0 16px 34px -10px rgba(26,95,196,.75),0 0 0 5px rgba(42,127,232,.16);transition:transform .15s,box-shadow .2s,filter .2s;animation:hctain .6s cubic-bezier(.16,1,.3,1) both}
+@keyframes hctain{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.hcta::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.45) 48%,transparent 66%);transform:translateX(-120%);animation:shine 3.6s ease-in-out 1.2s infinite}
+.hcta:hover{filter:saturate(1.1) brightness(1.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -3px 0 rgba(10,40,110,.25),0 22px 42px -12px rgba(26,95,196,.85),0 0 0 8px rgba(42,127,232,.2)}
+.hcta:active{transform:translateY(1px) scale(.98)}
+.hctf{width:46px;height:46px;flex:none;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden;box-shadow:0 0 0 3px rgba(255,255,255,.35),0 6px 14px -6px rgba(10,40,110,.6)}
+.hctf img{width:86%;height:86%;object-fit:contain;margin-top:10%}
+@media (max-width:760px){.nav .wrap.nav3{grid-template-columns:auto 1fr;height:66px}.nav3 .navr{display:none}.hcta{justify-self:end;height:46px;font-size:14px;padding:0 14px 0 4px;gap:8px}.hctf{width:38px;height:38px}}
+@media (max-width:400px){.nav3 .brand>span:last-child{display:none}}
+/* Klick-Feedback */
+.ripc{overflow:hidden;isolation:isolate}
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(90,162,247,.55) 0%,rgba(42,127,232,.28) 40%,transparent 70%);transform:scale(0);animation:ripx .6s cubic-bezier(.2,.8,.3,1) forwards;z-index:5}
+@keyframes ripx{to{transform:scale(1);opacity:0}}
+.tm.ripc{overflow:visible}
+/* Bildschirmwechsel und Auftauchen */
+.view.on{animation:scrin2 .5s cubic-bezier(.16,1,.3,1)}
+@keyframes scrin2{from{opacity:0;transform:translateY(24px) scale(.985)}to{opacity:1;transform:none}}
+[data-in].in>*{animation:popin .55s cubic-bezier(.2,1.3,.4,1) both}
+[data-in].in>*:nth-child(2){animation-delay:.06s}[data-in].in>*:nth-child(3){animation-delay:.12s}[data-in].in>*:nth-child(4){animation-delay:.18s}[data-in].in>*:nth-child(5){animation-delay:.24s}[data-in].in>*:nth-child(6){animation-delay:.3s}
+@keyframes popin{from{opacity:0;transform:translateY(26px) scale(.94)}to{opacity:1;transform:none}}
+/* Fächer: große farbige Karten */
+.subj{grid-template-columns:repeat(2,1fr);gap:22px;max-width:1120px}
+.sc{position:relative;overflow:hidden;isolation:isolate;border-radius:34px;padding:26px 26px 22px;color:#fff;background:var(--pat) 0 0/200px 200px,linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,0) 40%),linear-gradient(140deg,var(--c1),var(--c2));box-shadow:0 8px 0 color-mix(in srgb,var(--c2) 65%,#000),0 30px 50px -28px var(--c2);display:flex;flex-direction:column;gap:16px;min-height:330px}
+.sct{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.scn{display:flex;flex-direction:column}
+.scb{font-size:clamp(30px,3.6vw,44px);font-weight:900;letter-spacing:-.04em;line-height:1;text-shadow:0 3px 0 rgba(0,0,0,.12)}
+.scm{font-size:17px;font-weight:800;opacity:.92;margin-top:6px}
+.sctut{width:150px;margin:-18px -12px -30px 0;flex:none;filter:drop-shadow(0 16px 18px rgba(0,0,0,.25));animation:fl 4.5s ease-in-out infinite}
+.sc:nth-child(2n) .sctut{animation-delay:-1.5s}
+.scg{display:grid;gap:10px;margin-top:auto}
+.gbtn{position:relative;display:flex;align-items:center;gap:14px;width:100%;min-height:68px;padding:8px 18px 8px 8px;border-radius:20px;background:linear-gradient(180deg,#fff,#f4f1ff);color:var(--ink);text-align:left;box-shadow:0 5px 0 rgba(0,0,0,.18),inset 0 1px 0 #fff,0 14px 24px -14px rgba(0,0,0,.4);transition:transform .12s}
+.gbtn:hover{transform:translateY(-2px)}
+.gbtn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.18)}
+.gbi{flex:none;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff;font-size:28px;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 55%),linear-gradient(135deg,var(--c1),var(--c2))}
+.gbtn b{display:block;font-size:19px;letter-spacing:-.02em}
+.gbtn small{font-size:13px;color:var(--mute);font-weight:600}
+.gbtn>svg:last-child{margin-left:auto;font-size:22px;color:var(--c2)}
+.scmore{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;opacity:.9}
+.scmore svg{font-size:15px;flex:none}
+@media (max-width:820px){.subj{grid-template-columns:1fr}.sctut{width:120px}.sc{min-height:0}}
+/* Spielwelt: jedes Fach ein eigener Bereich */
+#demo .wrap{max-width:1180px}
+.demo{max-width:none;border-radius:36px;background:#fff}
+.zhead{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;margin:0 14px;padding:22px 26px;min-height:150px;border-radius:28px;color:#fff;background:var(--pat) 0 0/200px 200px,linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,0) 45%),linear-gradient(130deg,var(--c1),var(--c2));box-shadow:0 7px 0 color-mix(in srgb,var(--c2) 65%,#000);animation:zin .5s cubic-bezier(.16,1,.3,1)}
+@keyframes zin{from{opacity:.4;transform:scale(.98)}to{opacity:1;transform:none}}
+.zt{display:flex;flex-direction:column;z-index:1}
+.zk{font-size:clamp(34px,4.6vw,56px);font-weight:900;letter-spacing:-.045em;line-height:1;text-shadow:0 3px 0 rgba(0,0,0,.14)}
+.zm{font-size:17px;font-weight:800;opacity:.92;margin-top:8px}
+.ztut{width:170px;margin:-30px 0 -60px;filter:drop-shadow(0 18px 20px rgba(0,0,0,.28));animation:fl 4.5s ease-in-out infinite}
+.tabs{padding:14px}
+.tab{height:52px;font-size:16px;padding:0 20px 0 8px}.tab .ti{width:36px;height:36px}
+.path{gap:12px;padding:18px 14px 6px;justify-content:flex-start;overflow-x:auto}
+.gk{position:relative;flex:1 0 150px;max-width:220px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:22px;text-align:left;background:#fff;box-shadow:0 0 0 2px #ece5d8,0 5px 0 #e2d9c8;transition:transform .12s,box-shadow .2s}
+.gk:hover{transform:translateY(-3px)}
+.gk:active{transform:translateY(4px);box-shadow:0 0 0 2px #ece5d8,0 1px 0 #e2d9c8}
+.gki{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;font-size:26px;color:#fff;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 55%),linear-gradient(135deg,var(--c1),var(--c2))}
+.gk b{font-size:16.5px;letter-spacing:-.02em;line-height:1.15}
+.gk small{font-size:12.5px;color:var(--mute);font-weight:600}
+.gk.on{background:linear-gradient(180deg,color-mix(in srgb,var(--c1) 14%,#fff),#fff);box-shadow:0 0 0 3px var(--c1),0 6px 0 var(--c2),0 16px 28px -16px var(--c2)}
+.gk.lk{opacity:.75}.gk.lk .gki{background:#e6dfd2;color:#a39a88}
+.gs{height:540px;margin:0 14px;border-radius:28px}
+.demo[data-k] .gs{box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--c1) 30%,#fff)}
+.dhead .dmax{width:78px;height:78px}
+.say{font-size:19px}
+@media (max-width:600px){.zhead{min-height:110px;padding:16px 18px;margin:0 10px}.ztut{width:110px;margin:-20px -6px -40px 0}.zk{font-size:32px}.zm{font-size:14px}.gk{flex:0 0 132px;padding:11px}.gki{width:42px;height:42px;font-size:22px}.gk b{font-size:14.5px}.gs{height:460px;margin:0 10px}.tab{height:46px;font-size:14.5px}}
+/* Sicherheit */
+.safepage{padding-top:10px}
+.shero{text-align:center;max-width:760px;margin:0 auto 34px}
+.shield-big{width:96px;height:96px;margin:0 auto 14px;border-radius:30px;display:grid;place-items:center;color:#fff;font-size:52px;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 55%),linear-gradient(135deg,#4cc38a,#1f8a4c);box-shadow:0 7px 0 #16703e,0 24px 40px -18px #1f8a4c;animation:bob 3.4s ease-in-out infinite}
+.shero h2{font-size:clamp(34px,4.6vw,54px);margin:10px 0 12px}
+.shero p{font-size:18px;color:#4a463f;line-height:1.55}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.sitem{background:#fff;border-radius:28px;padding:24px;box-shadow:0 0 0 1px var(--line),0 24px 44px -30px rgba(40,30,10,.5)}
+.si{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;color:#fff;font-size:30px;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 55%),linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 5px 0 color-mix(in srgb,var(--c2) 65%,#000)}
+.sitem b{display:block;font-size:19px;letter-spacing:-.02em;margin:16px 0 8px;line-height:1.2}
+.sitem p{font-size:15.5px;line-height:1.5;color:#4a463f}
+.sband{margin:22px 0;display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:center;background:#fff;border-radius:28px;padding:26px;box-shadow:0 0 0 1px var(--line)}
+.sband b{font-size:22px;letter-spacing:-.02em}.sband p{margin-top:8px;line-height:1.55;color:#4a463f}
+.sbadges{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sbadges span{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;background:#e9f7ee;color:#1e6b3b;border-radius:14px;padding:12px 14px}
+.sbadges svg{font-size:18px}
+@media (max-width:900px){.sgrid{grid-template-columns:1fr 1fr}.sband{grid-template-columns:1fr}}
+@media (max-width:600px){.sgrid{grid-template-columns:1fr}.sbadges{grid-template-columns:1fr}}
+.view[data-s=preise] #preise-s{padding-top:10px}
 </style>
 </head>
 <body>
@@ -1287,13 +1376,12 @@ body[data-screen=start] .hero .wrap.hc{width:100%}
 </svg>
 
 <header class="nav">
-  <div class="wrap">
+  <div class="wrap nav3">
     <a class="brand" href="#" data-to=""><span class="face"><img src="/grundschulmax/max.png" alt=""></span><span>Grundschul<b>max</b></span></a>
+    <button class="hcta" data-start><span class="hctf"><img src="/grundschulmax/max.png" alt=""></span><span>Für mein Kind einrichten</span></button>
     <div class="navr">
-      <a class="lk" href="#faecher" data-to="faecher/foto">Foto-Zauber</a>
-      <a class="lk" href="#faecher" data-to="faecher">Fächer</a>
-      <a class="lk" href="#faecher" data-to="faecher/preise">Preise</a>
-      <button class="b3d sm" data-start>Für mein Kind einrichten</button>
+      <a class="lk" href="#preise" data-to="preise">Preise</a>
+      <a class="lk lks" href="#sicherheit" data-to="sicherheit"><svg class="i"><use href="#i-shield"/></svg>Sicherheit</a>
     </div>
   </div>
 </header>
@@ -1306,7 +1394,7 @@ body[data-screen=start] .hero .wrap.hc{width:100%}
       <h1 class="h1">Fit für die Schule.<br><span class="grad">Und fit für Internet und KI.</span></h1>
       <div class="teamrow">
         <div class="tcap"><b>Das Tutorenteam von Grundschulmax</b><span>Für jedes Fach ein eigener Tutor, mit eigener Stimme</span></div>
-        <div class="tiles" data-team></div>
+        <div class="tiles" data-team data-in></div>
       </div>
       <div class="ctas">
         <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Ausprobieren</a>
@@ -1331,7 +1419,8 @@ body[data-screen=start] .hero .wrap.hc{width:100%}
       
       <div class="demo picked" id="game">
         <div class="tabs" id="tabs" role="tablist"></div>
-        <div class="path" id="path"></div>
+        <div class="zhead" id="zhead"></div>
+        <div class="path" id="path" data-in></div>
         <div class="dbar">
           <div class="gname" id="gname"></div>
           <div class="dctl">
@@ -1361,25 +1450,21 @@ body[data-screen=start] .hero .wrap.hc{width:100%}
 
 <div class="view" data-s="faecher">
   <div class="wrap"><div class="sbar"><button class="back" data-back><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg>Zurück</button><span class="step">Schritt 2 von 3 · Fach wählen</span><span class="gchip" id="gchip"></span></div></div>
-  <section id="faecher">
+  <section id="faecherl">
     <div class="wrap">
       <div class="sh">
-        <div class="mono">Fächer · Klasse 1 bis 4</div>
-        <h2 class="h1">Welches Fach willst du ausprobieren?</h2>
-        <p>Jedes Fach hat seinen eigenen Tutor, 5 Spiele und ernsthaftes Üben. Tipp auf „spielen“ und leg los.</p>
+        <h2 class="h1">Welches Fach?</h2>
+        <p>Jedes Fach hat seinen eigenen Tutor und eigene Spiele.</p>
       </div>
-      <div class="subj" id="subj"></div>
+      <div class="subj" id="subj" data-in></div>
     </div>
   </section>
-  <div class="wrap"><div class="cband" data-cta><div><b>Bereit für Max und sein Team?</b><span>Konto für dein Kind einrichten, 7 Tage kostenlos testen.</span></div><button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button></div></div>
-
-
   <section id="foto">
     <div class="wrap">
       <div class="foto">
         <div>
-          <span class="badge2"><svg class="i"><use href="#i-cam"/></svg>Foto-Zauber</span>
-          <h2 class="h1">Foto vom Arbeitsblatt. Max macht ein Spiel daraus.</h2>
+          <span class="badge2"><svg class="i"><use href="#i-cam"/></svg>Hausaufgaben-Hilfe</span>
+          <h2 class="h1">Hausaufgabe fotografieren. Max macht ein Spiel daraus.</h2>
           <p class="l">Dein Kind hängt bei den Hausaufgaben? Einfach das Arbeitsblatt mit dem Handy oder Tablet fotografieren. Max liest die Aufgaben, erklärt den Weg und macht aus genau diesen Aufgaben ein Spiel.</p>
           <ul>
             <li><span><svg class="i"><use href="#i-bulb"/></svg></span>Erklärt Schritt für Schritt, ohne die Lösung vorzusagen</li>
@@ -1395,57 +1480,16 @@ body[data-screen=start] .hero .wrap.hc{width:100%}
       </div>
     </div>
   </section>
-
-  <section>
-    <div class="wrap">
-      <div class="sh">
-        <div class="mono">So lernt dein Kind</div>
-        <h2 class="h1">Kein Arbeitsblatt. Ein Abenteuer.</h2>
-      </div>
-      <div class="feats">
-        <div class="feat" style="--c1:var(--pur1);--c2:var(--pur2)"><div class="ic"><svg class="i"><use href="#i-pad"/></svg></div><h3>Spiele, in denen der Stoff steckt</h3><p>Nicht erst rechnen, dann spielen. Das Spiel <i>ist</i> die Übung: Wer den Ballon platzen lässt, hat den Zehnerübergang gelöst.</p></div>
-        <div class="feat" style="--c1:var(--blue1);--c2:var(--blue2)"><div class="ic"><svg class="i"><use href="#i-voice"/></svg></div><h3>Max und sein Team sprechen</h3><p>Dein Kind muss nicht viel lesen. Die Tutoren lesen vor, sprechen Englisch und Französisch vor und erklären Schritt für Schritt.</p></div>
-        <div class="feat" style="--c1:var(--teal1);--c2:var(--teal2)"><div class="ic"><svg class="i"><use href="#i-flame"/></svg></div><h3>Lernpfad mit Serien und Sternen</h3><p>Jeden Tag ein Stück weiter: Sterne sammeln, Serien halten, neue Spiele freischalten. Motivation ohne Kaufknöpfe.</p></div>
-        <div class="feat ink" style="--c1:var(--yel1);--c2:var(--yel2)"><div class="ic"><svg class="i"><use href="#i-cap"/></svg></div><h3>Fit für die Klassenarbeit</h3><p>Sag Max, was als Nächstes drankommt. Er macht einen Probetest und übt danach genau das, was noch wackelt.</p></div>
-      </div>
-    </div>
-  </section>
+  <div class="wrap"><div class="cband" data-cta><div><b>Bereit für Max und sein Team?</b><span>Konto für dein Kind einrichten, 7 Tage kostenlos testen.</span></div><button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button></div></div>
 
 
 
-  <section id="ki">
-    <div class="wrap">
-      <div class="ki">
-        <div class="kitop">
-          <div>
-            <div class="mono">Neues Fach: Internet und KI · mit Bit</div>
-            <h2 class="h1">Unsere Kinder wachsen mit Internet und KI auf. Bei Bit lernen sie die Regeln.</h2>
-            <p class="l">Chats, Spiele, Videos, KI: Unsere Kinder sind früher online, als uns lieb ist. Deshalb ist „Internet und KI“ bei uns ein eigenes Fach. Der kleine Roboter Bit übt spielerisch, was man im Netz teilt und was nicht, was man bei Fremden tut, was eine KI ist und wie man sie verantwortungsvoll nutzt. Kein Programmierkurs, kein Druck. Am Ende gibt es den Internet- und KI-Führerschein.</p>
-          </div>
-          <div class="lic" aria-hidden="true">
-            <div class="lt">Internet- und KI-Führerschein</div>
-            <div class="ln">Lena, 2. Klasse</div>
-            <div class="lb">
-              <div class="ph" data-tut="bit"></div>
-              <div><small>Geprüft von Bit</small><b>Privat · Sicher · Prüfen · Verstehen</b><div class="lst"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="kig">
-          <div><span class="n">01</span><span class="e"><svg class="i"><use href="#i-chat"/></svg></span><b>Sicher chatten</b><p>Im Spiel „Chat-Check“ schreiben Fremde. Dein Kind übt, was es tut: nichts verraten, Eltern zeigen, blockieren.</p></div>
-          <div><span class="n">02</span><span class="e"><svg class="i"><use href="#i-search"/></svg></span><b>Nachprüfen</b><p>Auch eine KI kann sich irren. Im Spiel „Rotstift“ findet dein Kind die Fehler in Bits Hausaufgaben.</p></div>
-          <div><span class="n">03</span><span class="e"><svg class="i"><use href="#i-bulb"/></svg></span><b>Verstehen, was KI ist</b><p>Wie lernt eine KI aus Beispielen? Warum rät sie manchmal? Bit erklärt es so, dass es ein Kind versteht.</p></div>
-          <div><span class="n">04</span><span class="e"><svg class="i"><use href="#i-lock"/></svg></span><b>Verantwortungsvoll nutzen</b><p>Im „Privat-Tresor“ lernt dein Kind, was man einer KI nicht verrät, und dass es selbst denkt, nicht die KI.</p></div>
-        </div>
-        <div class="kicta"><button class="b3d w" id="goki"><svg class="i"><use href="#i-shield"/></svg>Chat-Check ausprobieren</button><span>Würde dein Kind richtig reagieren?</span></div>
-      </div>
-      <div class="midcta" id="midcta">
-        <img src="/grundschulmax/max.png" alt="">
-        <div><b>Fit für die Schule, fürs Internet und für KI.</b><span>30 Lernspiele, ernsthaftes Üben und der Foto-Zauber, abgestimmt auf die Klasse deines Kindes.</span></div>
-        <button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button>
-      </div>
-    </div>
-  </section>
+
+
+
+
+
+
 
   <section>
     <div class="wrap split">
@@ -1492,22 +1536,43 @@ body[data-screen=start] .hero .wrap.hc{width:100%}
     </div>
   </section>
 
-  <section>
+
+
+
+
+  <section id="faq">
     <div class="wrap">
-      <div class="sh">
-        <div class="mono">Sicherheit</div>
-        <h2 class="h1">Gebaut für Kinder. Kontrolliert von dir.</h2>
-      </div>
-      <div class="safe">
-        <div class="sf"><div class="e" style="--c1:var(--blue1);--c2:var(--blue2)"><svg class="i"><use href="#i-shield"/></svg></div><b>Nur Lernen</b><p>Die Tutoren reden nur über Schulstoff. Andere Themen lenken sie freundlich zurück.</p></div>
-        <div class="sf"><div class="e" style="--c1:var(--pink1);--c2:var(--pink2)"><svg class="i"><use href="#i-noad"/></svg></div><b>Keine Werbung, keine Käufe</b><p>Keine Werbebanner, keine Kaufknöpfe für Kinder, kein Endlos-Feed.</p></div>
-        <div class="sf"><div class="e" style="--c1:var(--grn1);--c2:var(--grn2)"><svg class="i"><use href="#i-family"/></svg></div><b>Elternkonto</b><p>Du legst das Konto an, siehst, woran dein Kind arbeitet, und entscheidest über die Foto-Funktion.</p></div>
-        <div class="sf"><div class="e" style="--c1:var(--pur1);--c2:var(--pur2)"><svg class="i"><use href="#i-lock"/></svg></div><b>Datenschutz</b><p>Fürs Kind reicht ein Spitzname. Server in der EU, keine Werbe-Tracker, Löschen jederzeit.</p></div>
+      <div class="sh"><div class="mono">Fragen</div><h2 class="h1">Gut zu wissen.</h2></div>
+      <div class="faq">
+        <details><summary>Ab welchem Alter ist Grundschulmax geeignet?</summary><p>Für Kinder von etwa 6 bis 10 Jahren, also Klasse 1 bis 4. Jedes Spiel hat vier Stufen, eine pro Klasse. Weil die Tutoren vorlesen, klappt es auch, wenn dein Kind noch nicht sicher lesen kann.</p></details>
+        <details><summary>Welche Fächer gibt es?</summary><p>Mathe, Deutsch (auch Schreiben lernen, mit Druck- und Schreibschrift), Englisch, Französisch, Sachunterricht sowie Internet und KI. Jedes Fach hat seinen eigenen Tutor: Mila (Mathe), Max (Deutsch), Emma (Englisch), Claude (Französisch), Frieda (Sachunterricht) und Bit (Internet und KI). Englisch beginnt je nach Bundesland in Klasse 1 oder 3. Französisch ist für Kinder gedacht, die es in der Schule haben, zum Beispiel im Saarland oder am Oberrhein.</p></details>
+        <details><summary>Wie funktioniert der Foto-Zauber?</summary><p>Du schaltest die Funktion im Elternkonto frei. Dann kann dein Kind ein Arbeitsblatt fotografieren. Max liest die Aufgaben, erklärt den Lösungsweg, ohne die Lösung vorzusagen, und macht daraus ein Spiel oder einen Probetest. Das Foto wird danach nicht gespeichert.</p></details>
+        <details><summary>Sind das echte Spiele oder nur Aufgaben mit Sternchen?</summary><p>Echte Spiele: Ballons platzen lassen, Frösche über den Zahlenstrahl springen lassen, Silben-Züge beladen, mit dem Zauberstift schreiben, im französischen Café servieren. Der Lernstoff steckt im Spiel selbst. Für jedes Fach gibt es zusätzlich ruhiges Üben mit Erklärungen und einen Probetest vor der Klassenarbeit.</p></details>
+        <details><summary>Warum gibt es ein Fach Internet und KI?</summary><p>Weil Kinder heute früh online sind: Klassenchat, Spiele, Videos, KI. Bit übt kindgerecht die wichtigsten Regeln: nichts Privates verraten, bei Fremden die Eltern holen, Kettenbriefe ignorieren, Fotos nur mit Erlaubnis teilen. Und er erklärt, was eine KI ist, wo sie sich irrt und wie man sie verantwortungsvoll nutzt.</p></details>
+        <details><summary>Auf welchen Geräten läuft das?</summary><p>Im Browser auf Tablet (z. B. iPad), Laptop, Computer und Handy – ohne App-Download. Am besten auf einem Tablet: große Knöpfe, mit dem Finger tippen und schreiben.</p></details>
+        <details><summary>Warum brauche ich für den Test eine Zahlungsmethode?</summary><p>Damit das Abo nach dem Test nahtlos weiterläuft und dein Kind seine Sterne und Fortschritte behält. Du zahlst in den 7 Tagen nichts, wir erinnern dich 2 Tage vor Ablauf, und du kannst mit einem Klick kündigen.</p></details>
+        <details><summary>Kann ich jederzeit kündigen?</summary><p>Ja, über „Verträge hier kündigen“ unten auf jeder Seite. Im Test kostenlos, beim Monatsabo zum Monatsende. Das Schuljahr-Abo läuft 12 Monate und ist danach jederzeit mit einem Monat Frist kündbar.</p></details>
+        <details><summary>Ist die KI sicher für Kinder?</summary><p>Die Tutoren sind auf Schulstoff beschränkt und reagieren auf andere Themen freundlich, aber ohne darauf einzugehen. Es gibt keinen Kontakt zu anderen Nutzern. Als Elternteil siehst du im Konto, woran dein Kind gearbeitet hat.</p></details>
+        <details><summary>Ersetzt Grundschulmax die Schule oder Nachhilfe?</summary><p>Grundschulmax ergänzt den Unterricht: Es übt genau das, was in der Schule gerade dran ist, so oft dein Kind möchte. Bei großen Lernschwierigkeiten ersetzt es keine Lehrkraft oder Förderung.</p></details>
       </div>
     </div>
   </section>
 
-  <section id="preise">
+  <section>
+    <div class="wrap">
+      <div class="final">
+        <img src="/grundschulmax/max.png" alt="">
+        <h2 class="h1">Heute spielen. Sonntag den ersten Bericht lesen.</h2>
+        <p>7 Tage kostenlos · alle Fächer · bis zu 3 Kinder</p>
+        <button class="btn lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="view" data-s="preise">
+  <div class="wrap"><div class="sbar"><button class="back" data-back><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg>Zurück</button></div></div>
+  <section id="preise-s">
     <div class="wrap">
       <div class="sh">
         <div class="mono">Preise</div>
@@ -1538,33 +1603,31 @@ body[data-screen=start] .hero .wrap.hc{width:100%}
       </div>
     </div>
   </section>
+</div>
 
-  <section id="faq">
+<div class="view" data-s="sicherheit">
+  <div class="wrap"><div class="sbar"><button class="back" data-back><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg>Zurück</button></div></div>
+  <section class="safepage">
     <div class="wrap">
-      <div class="sh"><div class="mono">Fragen</div><h2 class="h1">Gut zu wissen.</h2></div>
-      <div class="faq">
-        <details><summary>Ab welchem Alter ist Grundschulmax geeignet?</summary><p>Für Kinder von etwa 6 bis 10 Jahren, also Klasse 1 bis 4. Jedes Spiel hat vier Stufen, eine pro Klasse. Weil die Tutoren vorlesen, klappt es auch, wenn dein Kind noch nicht sicher lesen kann.</p></details>
-        <details><summary>Welche Fächer gibt es?</summary><p>Mathe, Deutsch (auch Schreiben lernen, mit Druck- und Schreibschrift), Englisch, Französisch, Sachunterricht sowie Internet und KI. Jedes Fach hat seinen eigenen Tutor: Mila (Mathe), Max (Deutsch), Emma (Englisch), Claude (Französisch), Frieda (Sachunterricht) und Bit (Internet und KI). Englisch beginnt je nach Bundesland in Klasse 1 oder 3. Französisch ist für Kinder gedacht, die es in der Schule haben, zum Beispiel im Saarland oder am Oberrhein.</p></details>
-        <details><summary>Wie funktioniert der Foto-Zauber?</summary><p>Du schaltest die Funktion im Elternkonto frei. Dann kann dein Kind ein Arbeitsblatt fotografieren. Max liest die Aufgaben, erklärt den Lösungsweg, ohne die Lösung vorzusagen, und macht daraus ein Spiel oder einen Probetest. Das Foto wird danach nicht gespeichert.</p></details>
-        <details><summary>Sind das echte Spiele oder nur Aufgaben mit Sternchen?</summary><p>Echte Spiele: Ballons platzen lassen, Frösche über den Zahlenstrahl springen lassen, Silben-Züge beladen, mit dem Zauberstift schreiben, im französischen Café servieren. Der Lernstoff steckt im Spiel selbst. Für jedes Fach gibt es zusätzlich ruhiges Üben mit Erklärungen und einen Probetest vor der Klassenarbeit.</p></details>
-        <details><summary>Warum gibt es ein Fach Internet und KI?</summary><p>Weil Kinder heute früh online sind: Klassenchat, Spiele, Videos, KI. Bit übt kindgerecht die wichtigsten Regeln: nichts Privates verraten, bei Fremden die Eltern holen, Kettenbriefe ignorieren, Fotos nur mit Erlaubnis teilen. Und er erklärt, was eine KI ist, wo sie sich irrt und wie man sie verantwortungsvoll nutzt.</p></details>
-        <details><summary>Auf welchen Geräten läuft das?</summary><p>Im Browser auf Tablet (z. B. iPad), Laptop, Computer und Handy – ohne App-Download. Am besten auf einem Tablet: große Knöpfe, mit dem Finger tippen und schreiben.</p></details>
-        <details><summary>Warum brauche ich für den Test eine Zahlungsmethode?</summary><p>Damit das Abo nach dem Test nahtlos weiterläuft und dein Kind seine Sterne und Fortschritte behält. Du zahlst in den 7 Tagen nichts, wir erinnern dich 2 Tage vor Ablauf, und du kannst mit einem Klick kündigen.</p></details>
-        <details><summary>Kann ich jederzeit kündigen?</summary><p>Ja, über „Verträge hier kündigen“ unten auf jeder Seite. Im Test kostenlos, beim Monatsabo zum Monatsende. Das Schuljahr-Abo läuft 12 Monate und ist danach jederzeit mit einem Monat Frist kündbar.</p></details>
-        <details><summary>Ist die KI sicher für Kinder?</summary><p>Die Tutoren sind auf Schulstoff beschränkt und reagieren auf andere Themen freundlich, aber ohne darauf einzugehen. Es gibt keinen Kontakt zu anderen Nutzern. Als Elternteil siehst du im Konto, woran dein Kind gearbeitet hat.</p></details>
-        <details><summary>Ersetzt Grundschulmax die Schule oder Nachhilfe?</summary><p>Grundschulmax ergänzt den Unterricht: Es übt genau das, was in der Schule gerade dran ist, so oft dein Kind möchte. Bei großen Lernschwierigkeiten ersetzt es keine Lehrkraft oder Förderung.</p></details>
+      <div class="shero">
+        <div class="shield-big"><svg class="i"><use href="#i-shield"/></svg></div>
+        <div class="mono">Sicherheit für dein Kind</div>
+        <h2 class="h1">Dein Kind lernt. Du behältst den Überblick.</h2>
+        <p>Kinder verdienen das sicherste Lernumfeld, das es gibt. Deshalb ist Grundschulmax von Anfang an für Kinder gebaut, nicht nachträglich angepasst.</p>
       </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="final">
-        <img src="/grundschulmax/max.png" alt="">
-        <h2 class="h1">Heute spielen. Sonntag den ersten Bericht lesen.</h2>
-        <p>7 Tage kostenlos · alle Fächer · bis zu 3 Kinder</p>
-        <button class="btn lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button>
+      <div class="sgrid" data-in>
+        <div class="sitem" style="--c1:#5aa2f7;--c2:#1a5fc4"><span class="si"><svg class="i"><use href="#i-shield"/></svg></span><b>Tutoren reden nur über Schulstoff</b><p>Ein Schutzfilter prüft jede Frage und jede Antwort. Andere Themen lenken die Tutoren freundlich zurück.</p></div>
+        <div class="sitem" style="--c1:#f47ba0;--c2:#c8336f"><span class="si"><svg class="i"><use href="#i-noad"/></svg></span><b>Keine Werbung, keine Käufe</b><p>Kein Werbebanner, kein Kaufknopf für Kinder, kein Endlos-Feed. Nichts, was Kinder ablenkt oder etwas kostet.</p></div>
+        <div class="sitem" style="--c1:#4cc38a;--c2:#1f8a4c"><span class="si"><svg class="i"><use href="#i-family"/></svg></span><b>Kein Kontakt zu Fremden</b><p>Es gibt keinen Chat mit anderen Nutzern, keine Profile, keine Freundeslisten. Dein Kind spricht nur mit seinen Tutoren.</p></div>
+        <div class="sitem" style="--c1:#9b7cf0;--c2:#5b3fc4"><span class="si"><svg class="i"><use href="#i-lock"/></svg></span><b>So wenig Daten wie möglich</b><p>Fürs Kind reicht ein Spitzname. Keine E-Mail, kein Nachname, kein Foto des Kindes. Server in der EU, keine Werbe-Tracker.</p></div>
+        <div class="sitem" style="--c1:#f39b52;--c2:#d9601c"><span class="si"><svg class="i"><use href="#i-cam"/></svg></span><b>Foto-Funktion nur mit deiner Freigabe</b><p>Die Hausaufgaben-Hilfe ist anfangs aus. Du schaltest sie im Elternkonto frei. Fotos werden nach dem Auswerten nicht gespeichert.</p></div>
+        <div class="sitem" style="--c1:#3fc1c9;--c2:#0e7f8e"><span class="si"><svg class="i"><use href="#i-bell"/></svg></span><b>Du siehst, woran dein Kind arbeitet</b><p>Im Elternkonto und jeden Sonntag im Wochenbericht: geübte Themen, Fortschritt, wo es hakt.</p></div>
       </div>
+      <div class="sband">
+        <div><b>Das Elternkonto gehört dir</b><p>Nur Erwachsene können ein Konto anlegen und ein Abo abschließen. Kinder können nichts kaufen und keine Einstellungen ändern. Löschen geht jederzeit mit einem Klick.</p></div>
+        <div class="sbadges"><span><svg class="i"><use href="#i-check"/></svg>Server in der EU</span><span><svg class="i"><use href="#i-check"/></svg>Datenschutz nach DSGVO</span><span><svg class="i"><use href="#i-check"/></svg>Keine Werbung</span><span><svg class="i"><use href="#i-check"/></svg>Jederzeit löschbar</span></div>
+      </div>
+      <div class="cband" data-cta><div><b>Sicher lernen mit Max und seinem Team</b><span>Konto für dein Kind einrichten, 7 Tage kostenlos testen.</span></div><button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button></div>
     </div>
   </section>
 </div>
@@ -2691,6 +2754,14 @@ const SUBJ = [
     { n: 'Wie lernt eine KI?', d: 'Bit lernt aus Beispielen', pv: 'robo' }, { n: 'Echt oder erfunden?', d: 'KI-Bilder erkennen', pv: 'echt' }],
     ern: ['Regeln im Internet: was man teilt und was nicht', 'Fremde im Netz, Passwörter, Kettenbriefe', 'Was ist KI und wie lernt sie?', 'KI verantwortungsvoll nutzen und prüfen'] },
 ];
+const PAT = { mathe: ['+', '7', '=', '3', '×', '10'], deutsch: ['A', 'b', 'C', 'ä', 'M', 'z'], englisch: ['Hi!', 'ABC', 'cat', 'sun', 'Yes', 'red'], franz: ['é', 'Oui', 'à', 'ç', 'Non', 'è'], sach: ['leaf'], ki: ['circuit'] };
+function patURL(k) {
+  let inner = '';
+  if (k === 'sach') inner = '<g fill="none" stroke="#fff" stroke-width="3" opacity=".22"><path d="M20 70C18 40 40 20 72 18c2 34-20 54-52 52zM20 70l30-30"/><path d="M130 140c-2-26 18-44 46-46 2 30-18 48-46 46zM130 140l26-26"/><circle cx="150" cy="40" r="8"/><circle cx="40" cy="150" r="5"/></g>';
+  else if (k === 'ki') inner = '<g fill="none" stroke="#fff" stroke-width="3" opacity=".22"><path d="M10 40h50v40h60V30h60M30 160v-40h70v40h70M150 10v50"/></g><g fill="#fff" opacity=".28"><circle cx="60" cy="40" r="6"/><circle cx="120" cy="80" r="6"/><circle cx="100" cy="120" r="6"/><circle cx="150" cy="60" r="6"/></g>';
+  else PAT[k].forEach((t, i) => { inner += `<text x="${[20, 120, 70, 160, 30, 110][i]}" y="${[40, 30, 100, 120, 170, 175][i]}" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="${t.length > 2 ? 26 : 38}" fill="#fff" opacity=".2" transform="rotate(${[-12, 10, -6, 14, 8, -10][i]} ${[20, 120, 70, 160, 30, 110][i]} ${[40, 30, 100, 120, 170, 175][i]})">${t}</text>`; });
+  return `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>${inner.replace(/"/g, "'")}</svg>`)}")`;
+}
 const GICON = { chat: I('chat'), ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock') };
 
 /* ---------- Üben: ruhige Aufgaben mit Erklärung, je Klasse ---------- */
@@ -2770,7 +2841,7 @@ $('#pick').innerHTML = `<div class="pkbg"><i class="bl b1"></i><i class="bl b2">
   <div class="pk"><div class="arc" id="arc">${['mila', 'emma', 'claude', 'frieda', 'bit'].map((t) => { const S = SUBJ.find((x) => x.tutor.id === t); return `<span class="arci" style="--c1:${S.c1};--c2:${S.c2}"><span class="arcf">${tutorHTML(t)}</span><b>${S.tutor.n}</b><small>${S.n}</small></span>`; }).join('')}
   <div class="pkm">${tutorHTML('max')}<span class="pkl0"><b>Max</b><small>Deutsch</small></span></div></div>
   <h3>In welche Klasse geht dein Kind?</h3><p>Die Spiele passen sich an: Klasse 1 leicht, Klasse 4 richtig knifflig.</p>
-  <div class="pkg">${GRADES.map((g, i) => `<button class="gcard" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><strong>${g[0]}</strong><small>${g[1]}</small><span class="lvl">${[0, 1, 2, 3].map((k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('')}</span><em>${g[2]}</em></button>`).join('')}</div></div>`;
+  <div class="pkg" data-in>${GRADES.map((g, i) => `<button class="gcard" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><strong>${g[0]}</strong><small>${g[1]}</small><span class="lvl">${[0, 1, 2, 3].map((k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('')}</span><em>${g[2]}</em></button>`).join('')}</div></div>`;
 function layoutArc() {
   const arc = $('#arc'); if (!arc || !arc.offsetWidth) return;
   const W = arc.offsetWidth, items = $$('.arci', arc), n = items.length, iw = items[0].offsetWidth;
@@ -2787,8 +2858,10 @@ $$('#modes button').forEach((b) => (b.onclick = () => { st.m = b.dataset.m; moun
 $('#again').onclick = () => mount();
 function drawPath() {
   const S = SUBJ[st.s];
-  $('#path').innerHTML = S.games.map((g, i) => `<button class="node${g.play ? '' : ' lk'}${i === st.g && st.m === 'game' ? ' on' : ''}" data-i="${i}"><span class="nb">${g.play ? GICON[g.ic] : I('lock')}</span><span class="nl">${g.n}</span>${g.play ? '' : '<span class="na">Im Abo</span>'}</button>`).join('<i class="pj"></i>');
-  $$('#path .node').forEach((b) => (b.onclick = () => { st.g = +b.dataset.i; st.m = 'game'; mount(); }));
+  $('#zhead').innerHTML = `<div class="zt"><span class="zk">${S.n}</span><span class="zm">mit ${S.tutor.n} · ${st.grade >= 0 ? GRADES[st.grade][0] : ''}</span></div><div class="ztut">${tutorHTML(S.tutor.id)}</div>`;
+  $('#path').innerHTML = S.games.map((g, i) => `<button class="gk${g.play ? '' : ' lk'}${i === st.g && st.m === 'game' ? ' on' : ''}" data-i="${i}"><span class="gki">${g.play ? GICON[g.ic] : I('lock')}</span><b>${g.n}</b><small>${g.play ? g.d : 'Im Abo'}</small></button>`).join('');
+  restart($('#path'), 'in');
+  $$('#path .gk').forEach((b) => (b.onclick = () => { st.g = +b.dataset.i; st.m = 'game'; mount(); }));
 }
 function preview(g) {
   gs.className = 'gs g-pv';
@@ -2801,7 +2874,7 @@ function preview(g) {
 function mount() {
   token++; if (cleanup) cleanup(); cleanup = null; stopVoice();
   const S = SUBJ[st.s], g = S.games[st.g];
-  demo.style.setProperty('--c1', S.c1); demo.style.setProperty('--c2', S.c2);
+  demo.style.setProperty('--c1', S.c1); demo.style.setProperty('--c2', S.c2); demo.style.setProperty('--pat', patURL(S.k)); demo.dataset.k = S.k;
   $$('#tabs .tab').forEach((t, i) => { t.classList.toggle('on', i === st.s); t.setAttribute('aria-selected', i === st.s); });
   $$('#modes button').forEach((b) => b.classList.toggle('on', b.dataset.m === st.m));
   if ($('#dmax').dataset.t !== S.tutor.id) { $('#dmax').innerHTML = tutorHTML(S.tutor.id); $('#dmax').dataset.t = S.tutor.id; }
@@ -2820,13 +2893,14 @@ mount();
 sayEl.textContent = VL.get(P.grade).t;
 
 /* Fächer-Karten */
-$('#subj').innerHTML = SUBJ.map((s, i) => `<div class="sub" style="--c1:${s.c1};--c2:${s.c2}">
-  <div class="tag"><span class="tav">${tutorHTML(s.tutor.id)}</span><span>${s.n}<small>mit ${s.tutor.n}</small></span></div>${s.note ? `<div class="note">${s.note}</div>` : ''}
-  <div class="two"><div><h4>${I('pad')}5 Spiele</h4><ul>${s.games.map((x) => `<li>${x.n}</li>`).join('')}</ul></div><div><h4>${I('book')}Ernsthaft lernen</h4><ul>${s.ern.map((x) => `<li>${x}</li>`).join('')}</ul></div></div>
-  <button class="play" data-go="${i}"><b>${I('play')}</b>${s.games[0].n} spielen</button></div>`).join('');
+$('#subj').innerHTML = SUBJ.map((s, i) => `<div class="sc" data-k="${s.k}" style="--c1:${s.c1};--c2:${s.c2}">
+  <div class="sct"><div class="scn"><span class="scb">${s.n}</span><span class="scm">mit ${s.tutor.n}</span></div><div class="sctut">${tutorHTML(s.tutor.id)}</div></div>
+  <div class="scg">${s.games.map((g, k) => g.play ? `<button class="gbtn" data-go="${i}" data-gi="${k}"><span class="gbi">${GICON[g.ic]}</span><span><b>${g.n}</b><small>${g.d}</small></span>${I('play')}</button>` : '').join('')}</div>
+  <div class="scmore">${I('lock')}Im Abo auch: ${s.games.filter((g) => !g.play).map((g) => g.n).join(' · ')}</div></div>`).join('');
 function goTo(i, g = 0) { st.s = i; st.g = g; st.m = 'game'; if (st.grade < 0) { st.next = i; go('klasse'); return; } go('spiel'); mount(); }
-$$('[data-go]').forEach((b) => (b.onclick = () => goTo(+b.dataset.go)));
-$('#goki').onclick = () => goTo(5);
+$$('#subj .sc').forEach((c) => c.style.setProperty('--pat', patURL(c.dataset.k)));
+$$('[data-go]').forEach((b) => (b.onclick = () => goTo(+b.dataset.go, +(b.dataset.gi || 0))));
+if ($('#goki')) $('#goki').onclick = () => goTo(5);
 /* Team im Hero und Abschnitt */
 $$('[data-team]').forEach((el) => (el.innerHTML = SUBJ.map((s, i) => `<button class="tm" data-go="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="tmc"><span class="tma">${tutorHTML(s.tutor.id)}</span></span><b>${s.tutor.n}</b><small>${s.n}</small></button>`).join('')));
 $$('.tm').forEach((b) => (b.onclick = () => goTo(+b.dataset.go)));
@@ -2919,8 +2993,10 @@ $('#fsnapi').onclick = () => $('#fsnap').click();
 $$('[data-tut]').forEach((el) => (el.innerHTML = tutorHTML(el.dataset.tut)));
 
 /* ---------- Ablauf: Start -> Klasse -> Fächer -> Spiel (mit Zurück) ---------- */
+let lastMain = 'start';
 function show(scr, sub) {
-  if (!['start', 'klasse', 'faecher', 'spiel'].includes(scr)) scr = 'start';
+  if (!['start', 'klasse', 'faecher', 'spiel', 'preise', 'sicherheit'].includes(scr)) scr = 'start';
+  if (!['preise', 'sicherheit'].includes(scr)) lastMain = scr;
   if (scr === 'spiel' && st.grade < 0) scr = 'klasse';
   const prev = document.body.dataset.screen;
   document.body.dataset.screen = scr;
@@ -2931,13 +3007,23 @@ function show(scr, sub) {
   else window.scrollTo(0, 0);
   if (scr === 'klasse') { voice(P.grade); requestAnimationFrame(layoutArc); }
   upd();
+  $$('.view.on [data-in]').forEach((el) => restart(el, 'in'));
 }
 function go(path) { const h = '#' + path; if (location.hash === h) show(...path.split('/')); else location.hash = h; }
 addEventListener('hashchange', () => show(...location.hash.slice(1).split('/')));
 $$('[data-to]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); go(a.dataset.to); }));
-$$('[data-back]').forEach((b) => (b.onclick = () => { const cur = document.body.dataset.screen; go(cur === 'spiel' ? 'faecher' : cur === 'faecher' && st.grade >= 0 ? 'klasse' : ''); }));
+$$('[data-back]').forEach((b) => (b.onclick = () => { const cur = document.body.dataset.screen; go(['preise', 'sicherheit'].includes(cur) ? (lastMain === 'start' ? '' : lastMain) : cur === 'spiel' ? 'faecher' : cur === 'faecher' && st.grade >= 0 ? 'klasse' : ''); }));
 drawGrade();
 show(...location.hash.slice(1).split('/'));
+
+document.addEventListener('pointerdown', (e) => {
+  const el = e.target.closest('button, a.b3d, .gcard, .tm, .gbtn, .gk, .tab, .it, .hcta, .back');
+  if (!el || el.disabled) return;
+  const r = el.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2.2;
+  const w = document.createElement('span'); w.className = 'rip'; w.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left - d / 2}px;top:${e.clientY - r.top - d / 2}px`;
+  if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+  el.classList.add('ripc'); el.appendChild(w); setTimeout(() => w.remove(), 650);
+}, { passive: true });
 </script>
 </body>
 </html>
