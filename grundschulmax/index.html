@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Grundschulmax – Lernspiele für Klasse 1 bis 4 mit Max und seinem Team</title>
+<title>Grundschulmax – Fit für die Schule, fürs Internet und für KI</title>
 <meta name="description" content="Grundschulmax: echte Lernspiele für Mathe, Deutsch, Englisch, Französisch und Sachunterricht, Klasse 1 bis 4. Foto von der Hausaufgabe machen, Max erklärt sie und macht ein Spiel daraus. 7 Tage kostenlos testen.">
 <link rel="icon" type="image/png" href="/grundschulmax/max-96.png">
 <meta property="og:title" content="Grundschulmax – Lernspiele für Klasse 1 bis 4">
@@ -1043,6 +1043,80 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
 .tz.ok .tzi .tzb{position:relative}
 .tz.ok .tzi .tzb img{width:100%!important;height:100%!important;box-shadow:none;border-radius:0;object-fit:contain;object-position:center;background:none}
 .tz.ok .tzi .tzb svg{position:absolute;inset:0;right:auto;top:0;left:0;font-size:inherit;background:none;padding:0;width:100%;height:100%;border-radius:0}
+/* Café v2 */
+.gface{width:104px;height:130px}
+.gsvg{width:100%;height:100%;overflow:visible}
+.gsvg .ghead{transform-origin:60px 90px;animation:breathe 3s ease-in-out infinite}
+@keyframes breathe{50%{transform:translateY(-2px) rotate(-1.5deg)}}
+.gsvg .geye{transform-origin:60px 60px;animation:gblink 4s infinite}
+@keyframes gblink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.gsvg .gm{display:none}
+.gface[data-m=s] .gm-s,.gface[data-m=h] .gm-h,.gface[data-m=n] .gm-n{display:inline}
+.guest.come .gface{animation:walk .32s ease-in-out 3}
+@keyframes walk{50%{transform:translateY(-8px) rotate(3deg)}}
+.guest.come{animation:come .95s cubic-bezier(.2,.8,.3,1)}
+.gface.wave .garm{animation:wave2 .4s ease-in-out 3;transform-origin:24px 128px}
+@keyframes wave2{50%{transform:rotate(22deg)}}
+.gface.happy{animation:hop .45s ease-in-out 3}
+@keyframes hop{50%{transform:translateY(-16px) scale(1.04)}}
+.gface.no{animation:nono .5s ease-in-out}
+@keyframes nono{20%,60%{transform:rotate(-7deg)}40%,80%{transform:rotate(7deg)}}
+.order{transform-origin:0 50%}
+.order:not(.pop){opacity:0;transform:scale(.6)}
+.order.pop{animation:bubble .4s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes bubble{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.it small{font-size:10.5px;font-weight:700;color:var(--mute);line-height:1}
+.fly2{position:fixed;z-index:95;pointer-events:none}
+.fly2 svg{width:100%;height:100%}
+.till{position:absolute;right:14px;top:34px;display:flex;align-items:center;gap:6px;background:#fff;border-radius:14px;padding:6px 12px;font-weight:900;font-size:20px;color:#8a5a00;box-shadow:0 5px 0 #e9d6bd;z-index:3}
+.till svg{font-size:26px}
+.till.bump{animation:pop .35s var(--e)}
+.guest{right:120px}
+@media (max-width:600px){.gface{width:72px;height:92px}.guest{right:8px;top:62px}.till{top:30px;right:8px;padding:4px 9px;font-size:16px}.tray{top:164px}.it small{display:none}}
+/* Knöpfe: glänzend wie auf der Website */
+.b3d{--g1:#2a7fe8;--g2:#1a5fc4;--g3:#7fb2f0;--bd:#123f86;background:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,0) 52%),linear-gradient(110deg,var(--g2) 0%,var(--g1) 55%,var(--g3) 100%);box-shadow:0 5px 0 var(--bd),inset 0 1px 0 rgba(255,255,255,.55),0 12px 22px -10px color-mix(in srgb,var(--g2) 70%,transparent);overflow:hidden;isolation:isolate}
+.b3d::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.5) 48%,transparent 66%);transform:translateX(-120%);animation:shine 3.8s ease-in-out 1.2s infinite}
+.b3d:active,.b3d.tap{box-shadow:0 1px 0 var(--bd),inset 0 1px 0 rgba(255,255,255,.55)}
+.b3d.c{--g2:var(--c2,#1a5fc4);--g1:color-mix(in srgb,var(--c1,#5aa2f7) 70%,var(--c2,#1a5fc4));--g3:color-mix(in srgb,var(--c1,#5aa2f7) 70%,#fff);--bd:color-mix(in srgb,var(--c2,#1a5fc4) 65%,#000)}
+.b3d.g{--g2:#1f9a55;--g1:#33b86c;--g3:#7fe0a5;--bd:#16703e}
+.b3d.o{--g2:#e0661c;--g1:#f08a3c;--g3:#ffc27a;--bd:#a84a10}
+.b3d.w{background:linear-gradient(180deg,#fff,#f6f2ea);color:var(--ink);box-shadow:0 5px 0 #d8d0c2,inset 0 0 0 2px #e6dfd2,0 12px 22px -14px rgba(0,0,0,.35)}
+.b3d.w::before{background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.9) 48%,transparent 66%);opacity:.6}
+.b3d.w:active{box-shadow:0 1px 0 #d8d0c2,inset 0 0 0 2px #e6dfd2}
+.qo .q0{--g2:#2e74c8;--g1:#4a8ee8;--g3:#9cc8ff;--bd:#1f5aa3}.qo .q1{--g2:#d9601c;--g1:#f08a3c;--g3:#ffc27a;--bd:#a84a10}.qo .q2{--g2:#0e8f99;--g1:#2fb6bf;--g3:#8be6ec;--bd:#0b6d75}
+.qo .b3d.ok{--g2:#1f9a55;--g1:#33b86c;--g3:#7fe0a5;--bd:#16703e}
+.pkg .b3d,.qo .b3d::before{animation-delay:2s}
+.pkg .b3d.w::before{display:none}
+.tab.on{background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 52%),linear-gradient(110deg,var(--c2),color-mix(in srgb,var(--c1) 70%,var(--c2)) 55%,color-mix(in srgb,var(--c1) 70%,#fff));box-shadow:0 4px 0 color-mix(in srgb,var(--c2) 65%,#000),inset 0 1px 0 rgba(255,255,255,.5),0 12px 22px -12px var(--c2)}
+.nb{background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 55%),linear-gradient(135deg,var(--c1),var(--c2))}
+.node.lk .nb{background:#e6dfd2}
+.it,.tt{-webkit-tap-highlight-color:transparent}
+/* Internet und KI: Chat-Check */
+.g-chat{background:radial-gradient(circle at 50% 0%,#fff1e4,#f6efe4 70%);display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px}
+.phone2{width:min(440px,100%);flex:1;min-height:0;background:#fff;border-radius:26px;box-shadow:0 0 0 6px #22262e,0 20px 36px -18px rgba(0,0,0,.5);overflow:hidden;display:flex;flex-direction:column}
+.ph2top{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#f4f1ec;border-bottom:1px solid var(--line);font-size:14px}
+.ph2top .dot{width:8px;height:8px;border-radius:50%;background:#3fb36d}
+.shield{margin-left:auto;display:flex;align-items:center;gap:4px;color:#1f9a55;font-weight:900}
+.shield svg{font-size:18px}.shield.bump{animation:pop .4s var(--e)}
+.msgs{flex:1;padding:12px 14px;display:flex;flex-direction:column;gap:10px;overflow:auto}
+.chd{display:flex;align-items:center;gap:8px;font-size:14px}
+.chd em{font-style:normal;font-size:11px;font-weight:800;color:#d0342c;background:#ffe9e7;border-radius:999px;padding:2px 8px}
+.cav{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#fff;background:linear-gradient(135deg,#5aa2f7,#1a5fc4)}
+.cav.u{background:linear-gradient(135deg,#9aa0ab,#5d6470)}
+.typing{align-self:flex-start;display:flex;gap:4px;background:#efece6;border-radius:16px;padding:10px 12px}
+.typing i{width:7px;height:7px;border-radius:50%;background:#9a9384;animation:typ 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes typ{50%{transform:translateY(-4px);opacity:.5}}
+.cmsg{align-self:flex-start;max-width:88%;background:#efece6;border-radius:18px 18px 18px 6px;padding:10px 14px;font-size:clamp(15px,2vw,18px);font-weight:650;line-height:1.35;animation:bubble .35s cubic-bezier(.3,1.5,.5,1)}
+.cres{align-self:flex-end;display:flex;align-items:center;gap:6px;font-weight:850;font-size:14px;border-radius:999px;padding:6px 12px;animation:bubble .35s cubic-bezier(.3,1.5,.5,1)}
+.cres svg{font-size:17px}.cres.ok{background:#d7f5df;color:#1e6b3b}.cres.no{background:#ffe7d4;color:#9a4210}
+.copts{width:min(560px,100%);display:grid;gap:8px}
+.copt{height:auto;min-height:52px;white-space:normal;padding:8px 14px;line-height:1.2;font-size:15.5px}
+@media (max-width:600px){.copt{font-size:14px;min-height:48px}}
+.copt.cok{--g2:#1f9a55;--g1:#33b86c;--g3:#7fe0a5;--bd:#16703e;background:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,0) 52%),linear-gradient(110deg,var(--g2),var(--g1) 55%,var(--g3));color:#fff;box-shadow:0 5px 0 var(--bd)}
+.copt.cno{background:#ffe7d4;color:#9a4210;box-shadow:0 5px 0 #ffc69c}
+.copt:disabled{opacity:1;filter:none}
+@media (max-width:600px){.order{padding-right:60px}}
 </style>
 </head>
 <body>
@@ -1084,6 +1158,7 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
     <symbol id="i-body" viewBox="0 0 24 24"><circle cx="12" cy="4.6" r="2.8" fill="currentColor"/><path d="M5 9h14M12 8.5v6.5M12 15l-3.5 6.5M12 15l3.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
     <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3.4l1.8-2.6h5.6L16.6 8H20a1.5 1.5 0 011.5 1.5v9A1.5 1.5 0 0120 20H4a1.5 1.5 0 01-1.5-1.5v-9A1.5 1.5 0 014 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13.6" r="3.6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
     <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2.5c1 3.6 6 6 6 11.2A6 6 0 0112 19.8a6 6 0 01-6-6.1c0-2.6 1.4-4.2 2.8-5.4.2 1.7 1 2.9 2.2 3.4C10.6 8.4 11 5.2 12 2.5z" fill="currentColor"/><path d="M12 13c1 1.4 2.4 2.2 2.4 3.8a2.4 2.4 0 01-4.8 0c0-1.3.9-2 1.4-2.7.3.8.6 1.1 1 1.1z" fill="#ffe08a"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#f7c948" stroke="#a87404" stroke-width="2"/><path d="M12 7.5v9M9.5 9.5h4a1.8 1.8 0 010 3.6h-3a1.8 1.8 0 000 3.6h4" fill="none" stroke="#a87404" stroke-width="1.8" stroke-linecap="round"/></symbol>
   </defs>
 </svg>
 
@@ -1111,8 +1186,8 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
         <div class="float f4"><span class="ic" style="background:linear-gradient(135deg,#f7c948,#f08a3c)"><svg class="i"><use href="#i-cam"/></svg></span>Foto → Spiel</div>
       </div>
       <span class="pill"><i><svg class="i"><use href="#i-check"/></svg></i> Von den Machern von BWL Max</span>
-      <h1 class="h1">Echte Lernspiele.<br><span class="grad">Für jedes Fach der Grundschule.</span></h1>
-      <p class="lead">Für jedes Fach ein eigener KI-Tutor, Klasse 1 bis 4. Dein Kind lässt Ballons platzen, belädt Silben-Züge und serviert im französischen Café – und übt dabei genau den Stoff aus der Schule.</p>
+      <h1 class="h1">Fit für die Schule.<br><span class="grad">Und fit für Internet und KI.</span></h1>
+      <p class="lead">Echte Lernspiele für jedes Fach der Grundschule, Klasse 1 bis 4, mit einem eigenen KI-Tutor pro Fach. Dein Kind lässt Ballons platzen, belädt Silben-Züge und serviert im französischen Café – und lernt ganz nebenbei die Regeln im Internet und den klugen Umgang mit KI.</p>
       <a class="fotohint" href="#foto"><span class="ci"><svg class="i"><use href="#i-cam"/></svg></span><span><b>Foto von der Hausaufgabe machen:</b> Max erklärt sie Schritt für Schritt und macht daraus ein Spiel.</span></a>
       <div class="teamrow">
         <div class="tiles" data-team></div>
@@ -1217,30 +1292,30 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
       <div class="ki">
         <div class="kitop">
           <div>
-            <div class="mono">Neues Fach: Künstliche Intelligenz · mit Bit</div>
-            <h2 class="h1">Unsere Kinder wachsen mit KI auf. Bei Bit lernen sie, wie sie funktioniert.</h2>
-            <p class="l">KI wird für unsere Kinder so normal wie für uns das Internet. Deshalb ist Künstliche Intelligenz bei uns ein eigenes Fach. Der kleine Roboter Bit erklärt spielerisch, was eine KI ist, wie sie aus Beispielen lernt, wo die Risiken liegen und wie man verantwortungsvoll mit ihr umgeht. Kein Programmierkurs, kein Druck. Am Ende gibt es den KI-Führerschein.</p>
+            <div class="mono">Neues Fach: Internet und KI · mit Bit</div>
+            <h2 class="h1">Unsere Kinder wachsen mit Internet und KI auf. Bei Bit lernen sie die Regeln.</h2>
+            <p class="l">Chats, Spiele, Videos, KI: Unsere Kinder sind früher online, als uns lieb ist. Deshalb ist „Internet und KI“ bei uns ein eigenes Fach. Der kleine Roboter Bit übt spielerisch, was man im Netz teilt und was nicht, was man bei Fremden tut, was eine KI ist und wie man sie verantwortungsvoll nutzt. Kein Programmierkurs, kein Druck. Am Ende gibt es den Internet- und KI-Führerschein.</p>
           </div>
           <div class="lic" aria-hidden="true">
-            <div class="lt">KI-Führerschein · Stufe 1</div>
+            <div class="lt">Internet- und KI-Führerschein</div>
             <div class="ln">Lena, 2. Klasse</div>
             <div class="lb">
               <div class="ph" data-tut="bit"></div>
-              <div><small>Geprüft von Bit</small><b>Verstehen · Prüfen · Denken · Privat</b><div class="lst"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></div></div>
+              <div><small>Geprüft von Bit</small><b>Privat · Sicher · Prüfen · Verstehen</b><div class="lst"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></div></div>
             </div>
           </div>
         </div>
         <div class="kig">
-          <div><span class="n">01</span><span class="e"><svg class="i"><use href="#i-bulb"/></svg></span><b>Verstehen, was KI ist</b><p>Wie lernt eine KI aus Beispielen? Warum rät sie manchmal? Bit erklärt es so, dass es ein Kind versteht.</p></div>
+          <div><span class="n">01</span><span class="e"><svg class="i"><use href="#i-chat"/></svg></span><b>Sicher chatten</b><p>Im Spiel „Chat-Check“ schreiben Fremde. Dein Kind übt, was es tut: nichts verraten, Eltern zeigen, blockieren.</p></div>
           <div><span class="n">02</span><span class="e"><svg class="i"><use href="#i-search"/></svg></span><b>Nachprüfen</b><p>Auch eine KI kann sich irren. Im Spiel „Rotstift“ findet dein Kind die Fehler in Bits Hausaufgaben.</p></div>
-          <div><span class="n">03</span><span class="e"><svg class="i"><use href="#i-bulb"/></svg></span><b>Risiken kennen</b><p>Erfundene Bilder, falsche Fakten, zu viel Bildschirm: Dein Kind lernt, worauf man achten muss.</p></div>
+          <div><span class="n">03</span><span class="e"><svg class="i"><use href="#i-bulb"/></svg></span><b>Verstehen, was KI ist</b><p>Wie lernt eine KI aus Beispielen? Warum rät sie manchmal? Bit erklärt es so, dass es ein Kind versteht.</p></div>
           <div><span class="n">04</span><span class="e"><svg class="i"><use href="#i-lock"/></svg></span><b>Verantwortungsvoll nutzen</b><p>Im „Privat-Tresor“ lernt dein Kind, was man einer KI nicht verrät, und dass es selbst denkt, nicht die KI.</p></div>
         </div>
-        <div class="kicta"><button class="b3d w" id="goki"><svg class="i"><use href="#i-search"/></svg>Fach KI ausprobieren</button><span>Findet dein Kind die Fehler von Bit?</span></div>
+        <div class="kicta"><button class="b3d w" id="goki"><svg class="i"><use href="#i-shield"/></svg>Chat-Check ausprobieren</button><span>Würde dein Kind richtig reagieren?</span></div>
       </div>
       <div class="midcta" id="midcta">
         <img src="/grundschulmax/max.png" alt="">
-        <div><b>Das alles, jeden Tag, für jedes Fach.</b><span>30 Lernspiele, ernsthaftes Üben und der Foto-Zauber, abgestimmt auf die Klasse deines Kindes.</span></div>
+        <div><b>Fit für die Schule, fürs Internet und für KI.</b><span>30 Lernspiele, ernsthaftes Üben und der Foto-Zauber, abgestimmt auf die Klasse deines Kindes.</span></div>
         <button class="b3d lg" data-start>7 Tage kostenlos testen <svg class="i"><use href="#i-arrow"/></svg></button>
       </div>
     </div>
@@ -1318,7 +1393,7 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
           <h3>Monatlich</h3>
           <div class="price"><b>9,90 €</b><span>/ Monat</span></div>
           <div class="per">monatlich kündbar</div>
-          <ul><li><svg class="i"><use href="#i-check"/></svg>Alle Fächer und 30 Lernspiele</li><li><svg class="i"><use href="#i-check"/></svg>Foto-Zauber für Hausaufgaben</li><li><svg class="i"><use href="#i-check"/></svg>Fach Künstliche Intelligenz inklusive</li><li><svg class="i"><use href="#i-check"/></svg>Wochenbericht, bis zu 3 Kinder</li></ul>
+          <ul><li><svg class="i"><use href="#i-check"/></svg>Alle Fächer und 30 Lernspiele</li><li><svg class="i"><use href="#i-check"/></svg>Foto-Zauber für Hausaufgaben</li><li><svg class="i"><use href="#i-check"/></svg>Fach Internet und KI inklusive</li><li><svg class="i"><use href="#i-check"/></svg>Wochenbericht, bis zu 3 Kinder</li></ul>
           <button class="b3d w wide" data-start data-plan="m">7 Tage kostenlos testen</button>
         </div>
         <div class="plan best">
@@ -1343,10 +1418,10 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
       <div class="sh"><div class="mono">Fragen</div><h2 class="h1">Gut zu wissen.</h2></div>
       <div class="faq">
         <details><summary>Ab welchem Alter ist Grundschulmax geeignet?</summary><p>Für Kinder von etwa 6 bis 10 Jahren, also Klasse 1 bis 4. Jedes Spiel hat vier Stufen, eine pro Klasse. Weil die Tutoren vorlesen, klappt es auch, wenn dein Kind noch nicht sicher lesen kann.</p></details>
-        <details><summary>Welche Fächer gibt es?</summary><p>Mathe, Deutsch (auch Schreiben lernen, mit Druck- und Schreibschrift), Englisch, Französisch, Sachunterricht und Künstliche Intelligenz. Jedes Fach hat seinen eigenen Tutor: Mila (Mathe), Max (Deutsch), Emma (Englisch), Claude (Französisch), Frieda (Sachunterricht) und Bit (KI). Englisch beginnt je nach Bundesland in Klasse 1 oder 3. Französisch ist für Kinder gedacht, die es in der Schule haben, zum Beispiel im Saarland oder am Oberrhein.</p></details>
+        <details><summary>Welche Fächer gibt es?</summary><p>Mathe, Deutsch (auch Schreiben lernen, mit Druck- und Schreibschrift), Englisch, Französisch, Sachunterricht sowie Internet und KI. Jedes Fach hat seinen eigenen Tutor: Mila (Mathe), Max (Deutsch), Emma (Englisch), Claude (Französisch), Frieda (Sachunterricht) und Bit (Internet und KI). Englisch beginnt je nach Bundesland in Klasse 1 oder 3. Französisch ist für Kinder gedacht, die es in der Schule haben, zum Beispiel im Saarland oder am Oberrhein.</p></details>
         <details><summary>Wie funktioniert der Foto-Zauber?</summary><p>Du schaltest die Funktion im Elternkonto frei. Dann kann dein Kind ein Arbeitsblatt fotografieren. Max liest die Aufgaben, erklärt den Lösungsweg, ohne die Lösung vorzusagen, und macht daraus ein Spiel oder einen Probetest. Das Foto wird danach nicht gespeichert.</p></details>
         <details><summary>Sind das echte Spiele oder nur Aufgaben mit Sternchen?</summary><p>Echte Spiele: Ballons platzen lassen, Frösche über den Zahlenstrahl springen lassen, Silben-Züge beladen, mit dem Zauberstift schreiben, im französischen Café servieren. Der Lernstoff steckt im Spiel selbst. Für jedes Fach gibt es zusätzlich ruhiges Üben mit Erklärungen und einen Probetest vor der Klassenarbeit.</p></details>
-        <details><summary>Warum gibt es ein Fach Künstliche Intelligenz?</summary><p>Weil KI im Alltag unserer Kinder schon da ist. Bit erklärt kindgerecht, was eine KI ist, wie sie lernt, wo sie sich irrt und wie man sie verantwortungsvoll nutzt: gut fragen, Antworten prüfen, selbst denken und keine privaten Daten verraten.</p></details>
+        <details><summary>Warum gibt es ein Fach Internet und KI?</summary><p>Weil Kinder heute früh online sind: Klassenchat, Spiele, Videos, KI. Bit übt kindgerecht die wichtigsten Regeln: nichts Privates verraten, bei Fremden die Eltern holen, Kettenbriefe ignorieren, Fotos nur mit Erlaubnis teilen. Und er erklärt, was eine KI ist, wo sie sich irrt und wie man sie verantwortungsvoll nutzt.</p></details>
         <details><summary>Auf welchen Geräten läuft das?</summary><p>Im Browser auf Tablet (z. B. iPad), Laptop, Computer und Handy – ohne App-Download. Am besten auf einem Tablet: große Knöpfe, mit dem Finger tippen und schreiben.</p></details>
         <details><summary>Warum brauche ich für den Test eine Zahlungsmethode?</summary><p>Damit das Abo nach dem Test nahtlos weiterläuft und dein Kind seine Sterne und Fortschritte behält. Du zahlst in den 7 Tagen nichts, wir erinnern dich 2 Tage vor Ablauf, und du kannst mit einem Klick kündigen.</p></details>
         <details><summary>Kann ich jederzeit kündigen?</summary><p>Ja, über „Verträge hier kündigen“ unten auf jeder Seite. Im Test kostenlos, beim Monatsabo zum Monatsende. Das Schuljahr-Abo läuft 12 Monate und ist danach jederzeit mit einem Monat Frist kündbar.</p></details>
@@ -1629,7 +1704,7 @@ function finish(title, text) {
   voice([P.done1, P.done2, P.done3][stars - 1]);
   dmax.className = 'dmax happy';
   sayEl.textContent = VL.get([P.done1, P.done2, P.done3][stars - 1]).t;
-  const S = SUBJ[st.s], games = S.games.filter((g) => g.play), nextG = games.findIndex((g) => g === S.games[st.g]) === 0 ? S.games.indexOf(games[1]) : -1;
+  const S = SUBJ[st.s], games = S.games.filter((g) => g.play), pi = games.indexOf(S.games[st.g]), nextG = pi >= 0 && pi < games.length - 1 ? S.games.indexOf(games[pi + 1]) : -1;
   const o = document.createElement('div'); o.className = 'fin';
   o.innerHTML = `<div class="fini"><div class="bs">${[0, 1, 2].map((i) => `<svg class="i${i < stars ? ' on' : ''}" style="animation-delay:${.15 + i * .18}s"><use href="#i-star"/></svg>`).join('')}</div>
     <h3>${title}</h3><p>${text}</p>
@@ -2058,7 +2133,7 @@ const KLECKS = [
   { intro: vk('Farbklecks-Fangen! Ich sage eine Farbe auf Französisch, du tippst den richtigen Klecks.'), items: ['rouge', 'bleu', 'vert', 'jaune', 'violet'].map((f) => ({ fr: f, de: FRF[f][0], c: FRF[f][1] })), show: 5, n: 5 },
   { intro: vk('Mehr Farben! Hör gut zu: Welcher Klecks ist gemeint?'), items: ['rouge', 'bleu', 'vert', 'jaune', 'orange', 'rose', 'noir', 'blanc'].map((f) => ({ fr: f, de: FRF[f][0], c: FRF[f][1] })), show: 6, n: 6 },
   { intro: vk('Zahlen auf Französisch! Tipp die richtige Zahl.'), items: [[7, 'sept'], [11, 'onze'], [12, 'douze'], [13, 'treize'], [15, 'quinze'], [16, 'seize'], [18, 'dix-huit'], [20, 'vingt']].map(([n, fr]) => ({ fr, de: String(n), c: pick(['#cfe4ff', '#ffd8e4', '#d9f5e3', '#fff1c2', '#e7ddff']), lab: n })), show: 6, n: 6 },
-  { intro: vk('Tiere und Dinge auf Französisch! Was ist gemeint?'), items: [['le chat', 'die Katze', 'cat'], ['le poisson', 'der Fisch', 'fish'], ['la pomme', 'der Apfel', 'apple'], ['le soleil', 'die Sonne', 'sun'], ['la grenouille', 'der Frosch', 'frosch'], ['le renard', 'der Fuchs', 'fuchs'], ['le hibou', 'die Eule', 'eule'], ['le cochon', 'das Schwein', 'schwein']].map(([fr, de, a]) => ({ fr, de, c: '#ffffff', art: a })), show: 6, n: 6 },
+  { intro: vk('Tiere und Dinge auf Französisch! Was ist gemeint?'), items: [['le chat', 'die Katze', 'cat'], ['le poisson', 'der Fisch', 'fish'], ['la banane', 'die Banane', 'banane'], ['le soleil', 'die Sonne', 'sun'], ['la grenouille', 'der Frosch', 'frosch'], ['le renard', 'der Fuchs', 'fuchs'], ['le hibou', 'die Eule', 'eule'], ['le cochon', 'das Schwein', 'schwein']].map(([fr, de, a]) => ({ fr, de, c: '#ffffff', art: a })), show: 6, n: 6 },
 ];
 KLECKS.forEach((L) => L.items.forEach((x) => { x.ask = vk(`Touche ${x.fr} !`, 'fr'); x.k = vk(x.fr, 'fr'); }));
 const vkTresBien = vk('Très bien !', 'fr');
@@ -2121,54 +2196,85 @@ function gFarben(T) {
 }
 
 /* Le petit café: Bestellungen auf Französisch servieren */
-const CAFE_IT = { croissant: ['un croissant', 'croissants', 'Croissant'], pomme: ['une pomme', 'pommes', 'Apfel'], cafe: ['un café', 'cafés', 'Kaffee'], baguette: ['une baguette', 'baguettes', 'Baguette'], glace: ['une glace', 'glaces', 'Eis'] };
+const CAFE_IT = { croissant: ['un croissant', 'Croissant'], banane: ['une banane', 'Banane'], cafe: ['un café', 'Kaffee'], baguette: ['une baguette', 'Baguette'], glace: ['une glace', 'Eis'] };
 const CAFE = [
-  { intro: vk('Willkommen im Café! Hör, was die Gäste bestellen, und leg es aufs Tablett.'), O: [['Un croissant, s’il vous plaît !', { croissant: 1 }, 'Ein Croissant, bitte!'], ['Une pomme, s’il vous plaît !', { pomme: 1 }, 'Einen Apfel, bitte!'], ['Un café, s’il vous plaît !', { cafe: 1 }, 'Einen Kaffee, bitte!']] },
-  { intro: vk('Jetzt mit Zahlen! Wie viele möchte der Gast?'), O: [['Deux pommes, s’il vous plaît !', { pomme: 2 }, 'Zwei Äpfel, bitte!'], ['Trois croissants, s’il vous plaît !', { croissant: 3 }, 'Drei Croissants, bitte!'], ['Deux cafés, s’il vous plaît !', { cafe: 2 }, 'Zwei Kaffee, bitte!']] },
-  { intro: vk('Zwei Sachen auf einmal! Hör genau zu.'), O: [['Un café et deux croissants, s’il vous plaît !', { cafe: 1, croissant: 2 }, 'Einen Kaffee und zwei Croissants, bitte!'], ['Une glace et une pomme, s’il vous plaît !', { glace: 1, pomme: 1 }, 'Ein Eis und einen Apfel, bitte!'], ['Deux baguettes et un café, s’il vous plaît !', { baguette: 2, cafe: 1 }, 'Zwei Baguettes und einen Kaffee, bitte!']] },
-  { intro: vk('Große Bestellungen! Jetzt sprechen die Gäste ganze Sätze.'), O: [['Je voudrais trois pommes, un café et deux baguettes, s’il vous plaît.', { pomme: 3, cafe: 1, baguette: 2 }, 'Ich hätte gern drei Äpfel, einen Kaffee und zwei Baguettes.'], ['Je voudrais deux glaces, un croissant et quatre pommes, s’il vous plaît.', { glace: 2, croissant: 1, pomme: 4 }, 'Ich hätte gern zwei Eis, ein Croissant und vier Äpfel.'], ['Je voudrais cinq croissants et deux cafés, s’il vous plaît.', { croissant: 5, cafe: 2 }, 'Ich hätte gern fünf Croissants und zwei Kaffee.']] },
+  { intro: vk('Willkommen im Café! Hör, was die Gäste bestellen, und leg es aufs Tablett.'), O: [['Un croissant, s’il vous plaît !', { croissant: 1 }, 'Ein Croissant, bitte!'], ['Une banane, s’il vous plaît !', { banane: 1 }, 'Eine Banane, bitte!'], ['Un café, s’il vous plaît !', { cafe: 1 }, 'Einen Kaffee, bitte!']] },
+  { intro: vk('Jetzt mit Zahlen! Wie viele möchte der Gast?'), O: [['Deux bananes, s’il vous plaît !', { banane: 2 }, 'Zwei Bananen, bitte!'], ['Trois croissants, s’il vous plaît !', { croissant: 3 }, 'Drei Croissants, bitte!'], ['Deux cafés, s’il vous plaît !', { cafe: 2 }, 'Zwei Kaffee, bitte!']] },
+  { intro: vk('Zwei Sachen auf einmal! Hör genau zu.'), O: [['Un café et deux croissants, s’il vous plaît !', { cafe: 1, croissant: 2 }, 'Einen Kaffee und zwei Croissants, bitte!'], ['Une glace et une banane, s’il vous plaît !', { glace: 1, banane: 1 }, 'Ein Eis und eine Banane, bitte!'], ['Deux baguettes et un café, s’il vous plaît !', { baguette: 2, cafe: 1 }, 'Zwei Baguettes und einen Kaffee, bitte!']] },
+  { intro: vk('Große Bestellungen! Jetzt sprechen die Gäste ganze Sätze.'), O: [['Je voudrais trois bananes, un café et deux baguettes, s’il vous plaît.', { banane: 3, cafe: 1, baguette: 2 }, 'Ich hätte gern drei Bananen, einen Kaffee und zwei Baguettes.'], ['Je voudrais deux glaces, un croissant et quatre bananes, s’il vous plaît.', { glace: 2, croissant: 1, banane: 4 }, 'Ich hätte gern zwei Eis, ein Croissant und vier Bananen.'], ['Je voudrais cinq croissants et deux cafés, s’il vous plaît.', { croissant: 5, cafe: 2 }, 'Ich hätte gern fünf Croissants und zwei Kaffee.']] },
 ];
 CAFE.forEach((L) => L.O.forEach((o) => (o.k = vk(o[0], 'fr'))));
-const vkMerci = vk('Merci beaucoup !', 'fr'), vkCafeNo = vk('Hmm, das stimmt noch nicht. Hör dir die Bestellung nochmal an.');
-const GUESTS = [FACE('#ffe0c7', '#3a2414', '#e8473c'), FACE('#f6d2b0', '#d9a35f', '#3fc1c9'), FACE('#d9a37a', '#1c1c1c', '#f7c948'), FACE('#ffe9d6', '#a5531a', '#9b7cf0')];
+const vkMerci = vk('Merci beaucoup !', 'fr'), vkCafeNo = vk('Hmm, das stimmt noch nicht. Hör dir die Bestellung nochmal an.'), vkNon = vk('Oh là là, non !', 'fr');
+/* Gäste: gezeichnete Figuren mit Blinzeln und Gesichtsausdrücken */
+const GUEST = (skin, hair, shirt, hs) => `<svg viewBox="0 0 120 150" class="gsvg">
+  <g class="gbody"><path d="M18 150c0-30 18-50 42-50s42 20 42 50z" fill="${shirt}"/><path d="M46 104l14 14 14-14" fill="none" stroke="rgba(0,0,0,.15)" stroke-width="4" stroke-linecap="round"/>
+  <path class="garm" d="M24 128c-8 0-14-8-12-18" fill="none" stroke="${shirt}" stroke-width="14" stroke-linecap="round"/><circle class="garm" cx="12" cy="108" r="7" fill="${skin}"/></g>
+  <g class="ghead"><circle cx="60" cy="58" r="36" fill="${skin}"/>
+  ${hs === 1 ? `<path d="M22 56c-2-26 16-40 38-40s40 14 38 40c-6-14-20-22-38-22S28 42 22 56z" fill="${hair}"/>` : hs === 2 ? `<path d="M22 60c-4-30 14-46 38-46s42 16 38 46c-4-10-8-16-12-18 0 0-10 8-26 8S38 40 34 42c-6 4-10 10-12 18z" fill="${hair}"/><path d="M22 58c-6 20-2 36 6 44M98 58c6 20 2 36-6 44" fill="none" stroke="${hair}" stroke-width="10" stroke-linecap="round"/>` : `<circle cx="60" cy="22" r="13" fill="${hair}"/><path d="M24 54c0-22 16-32 36-32s36 10 36 32c-8-10-20-14-36-14s-28 4-36 14z" fill="${hair}"/>`}
+  <g class="geye"><ellipse cx="47" cy="60" rx="4.2" ry="5.6" fill="#222"/><ellipse cx="73" cy="60" rx="4.2" ry="5.6" fill="#222"/><circle cx="48.5" cy="58" r="1.4" fill="#fff"/><circle cx="74.5" cy="58" r="1.4" fill="#fff"/></g>
+  <circle cx="38" cy="72" r="5" fill="#f47ba0" opacity=".35"/><circle cx="82" cy="72" r="5" fill="#f47ba0" opacity=".35"/>
+  <path class="gm gm-s" d="M51 76c5 5 13 5 18 0" fill="none" stroke="#3a1f1f" stroke-width="3.2" stroke-linecap="round"/>
+  <path class="gm gm-h" d="M49 74c2 10 20 10 22 0z" fill="#3a1f1f"/>
+  <path class="gm gm-n" d="M51 80c5-4 13-4 18 0" fill="none" stroke="#3a1f1f" stroke-width="3.2" stroke-linecap="round"/></g></svg>`;
+const GUESTS = [GUEST('#ffe0c7', '#3a2414', '#e8473c', 1), GUEST('#f6d2b0', '#d9a35f', '#3fc1c9', 2), GUEST('#c98e64', '#1c1c1c', '#f7c948', 3), GUEST('#ffe9d6', '#a5531a', '#9b7cf0', 2)];
 function gCafe(T) {
   gs.className = 'gs g-cafe';
-  const L = CAFE[G()], O = shuf(L.O); let r = 0, lock = true, tray = {};
-  gs.innerHTML = `<div class="awn"></div><div class="guest" id="gu"><div class="gface" id="gf"></div><div class="order" id="od"></div></div>
+  const L = CAFE[G()], O = shuf(L.O); let r = 0, lock = true, tray = {}, cash = 0;
+  gs.innerHTML = `<div class="awn"></div><div class="till" id="till">${I('coin')}<b id="cash">0</b></div>
+    <div class="guest" id="gu"><div class="gface" id="gf"></div><div class="order" id="od"></div></div>
     <div class="tray" id="tr"><span class="tl">Tablett</span><div class="ti" id="ti"></div></div>
-    <div class="shelf">${Object.keys(CAFE_IT).map((k) => `<button class="it" data-k="${k}">${ART[k]}<span>${CAFE_IT[k][0].split(' ')[1]}</span></button>`).join('')}</div>
+    <div class="shelf">${Object.keys(CAFE_IT).map((k) => `<button class="it" data-k="${k}">${ART[k]}<span>${CAFE_IT[k][0].split(' ')[1]}</span><small>${CAFE_IT[k][1]}</small></button>`).join('')}</div>
     <button class="b3d g serve" id="sv">${I('check')}Servieren</button>`;
+  const gf = $('#gf');
+  function mood(m) { gf.dataset.m = m; }
   function drawTray() {
     const ti = $('#ti'); ti.innerHTML = Object.entries(tray).flatMap(([k, n]) => Array(n).fill(k)).map((k) => `<button class="tt" data-k="${k}">${ART[k]}</button>`).join('');
     $$('.tt', ti).forEach((b) => (b.onclick = () => { if (lock) return; tray[b.dataset.k]--; if (!tray[b.dataset.k]) delete tray[b.dataset.k]; sfx.flip(); drawTray(); }));
   }
   function guest() {
     const o = O[r]; tray = {}; drawTray();
-    $('#gf').innerHTML = GUESTS[r % GUESTS.length];
-    $('#od').innerHTML = `<b>${o[0]}</b>${G() < 2 ? `<small>${o[2]}</small>` : ''}<button class="hear" id="oh" aria-label="Anhören">${I('snd')}</button>`;
+    gf.innerHTML = GUESTS[r % GUESTS.length]; mood('s');
+    const od = $('#od'); od.innerHTML = `<b>${o[0]}</b>${G() < 2 ? `<small>${o[2]}</small>` : ''}<button class="hear" id="oh" aria-label="Anhören">${I('snd')}</button>`; od.classList.remove('pop');
     $('#oh').onclick = () => voice(o.k, true);
     const gu = $('#gu'); gu.classList.remove('leave'); restart(gu, 'come');
-    setTimeout(() => { if (!alive(T)) return; say(o[0], '', o.k); lock = false; }, 500);
+    setTimeout(() => { if (!alive(T)) return; restart(od, 'pop'); gf.classList.add('wave'); say(o[0], '', o.k); lock = false; }, 950);
+    setTimeout(() => gf.classList.remove('wave'), 2200);
   }
   $$('.it', gs).forEach((b) => (b.onclick = () => {
     if (lock) return; const k = b.dataset.k; if ((tray[k] || 0) >= 6) return;
     tray[k] = (tray[k] || 0) + 1; sfx.pop(); restart(b, 'tap'); drawTray();
-    const last = $('#ti').lastElementChild; if (last) last.animate([{ transform: 'translateY(-40px) scale(.6)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 300, easing: 'cubic-bezier(.3,1.5,.5,1)' });
+    const last = $('#ti').lastElementChild; if (!last) return;
+    const a = $('svg', b).getBoundingClientRect(), z = last.getBoundingClientRect();
+    const gh = document.createElement('div'); gh.className = 'fly2'; gh.innerHTML = ART[k]; gh.style.cssText = `left:${a.left}px;top:${a.top}px;width:${a.width}px;height:${a.height}px`; document.body.appendChild(gh);
+    last.style.opacity = 0;
+    gh.animate([{ transform: 'none' }, { transform: `translate(${(z.left - a.left) / 2}px,${(z.top - a.top) / 2 - 70}px) rotate(-14deg) scale(1.1)`, offset: .5 }, { transform: `translate(${z.left - a.left}px,${z.top - a.top}px) scale(${z.width / a.width})` }], { duration: 480, easing: 'cubic-bezier(.4,0,.2,1)' })
+      .onfinish = () => { gh.remove(); last.style.opacity = 1; last.animate([{ transform: 'scale(1.3)' }, { transform: 'none' }], { duration: 250, easing: 'cubic-bezier(.3,1.6,.5,1)' }); };
   }));
   $('#sv').onclick = () => {
     if (lock) return;
     const want = O[r][1], ok = Object.keys({ ...want, ...tray }).every((k) => (want[k] || 0) === (tray[k] || 0));
-    if (!Object.keys(tray).length) { fb(false, 'Das Tablett ist leer!', 'Tipp oben auf die Sachen, die der Gast möchte.'); return; }
+    if (!Object.keys(tray).length) { fb(false, 'Das Tablett ist leer!', 'Tipp unten auf die Sachen, die der Gast möchte.'); return; }
     if (ok) {
-      lock = true; sfx.coin(); setTimeout(sfx.ok, 150); right(); voice(vkMerci);
-      const gr = gs.getBoundingClientRect(), tr = $('#tr').getBoundingClientRect(); burst(tr.left - gr.left + tr.width / 2, tr.top - gr.top + 20, ['#f7c948', '#f2b705'], 16);
-      $('#gf').classList.add('happy'); dmax.className = 'dmax happy'; sayEl.textContent = 'Merci beaucoup !';
-      fb(true, 'Merci beaucoup !', O[r][2]);
-      setTimeout(() => { if (!alive(T)) return; $('#gu').classList.add('leave'); }, 1100);
-      setTimeout(() => { if (!alive(T)) return; $('#gf').classList.remove('happy'); r++; if (r < O.length) guest(); else finish('Alle Gäste sind glücklich!', ['Erste Wörter: un croissant, une pomme, un café.', 'Zahlen und Mehrzahl auf Französisch.', 'Zwei Wünsche auf einmal verstehen.', 'Ganze französische Sätze verstehen: Je voudrais …'][G()]); }, 1700);
+      lock = true; right(); voice(vkMerci);
+      const gr = gs.getBoundingClientRect(), tr = $('#tr'), trR = tr.getBoundingClientRect(), gfR = gf.getBoundingClientRect();
+      tr.animate([{ transform: 'translateX(-50%)' }, { transform: `translateX(calc(-50% + ${gfR.left - trR.left - trR.width / 2 + 60}px)) translateY(${gfR.top - trR.top + 30}px) scale(.4)`, opacity: 0 }], { duration: 520, easing: 'cubic-bezier(.5,0,.6,1)' })
+        .onfinish = () => { if (!alive(T)) return; tray = {}; drawTray(); tr.animate([{ opacity: 0, transform: 'translateX(-50%) scale(.8)' }, { opacity: 1, transform: 'translateX(-50%)' }], { duration: 300 }); };
+      setTimeout(() => {
+        if (!alive(T)) return; mood('h'); gf.classList.add('happy'); sfx.ok();
+        burst(gfR.left - gr.left + gfR.width / 2, gfR.top - gr.top + 20, ['#f47ba0', '#ff8fb1', '#f7c948'], 16);
+        const tl = $('#till').getBoundingClientRect();
+        for (let k = 0; k < 3; k++) { const c = document.createElement('div'); c.className = 'fly2 coin'; c.innerHTML = ART.muenze; c.style.cssText = `left:${gfR.left + gfR.width / 2 - 16}px;top:${gfR.top + 40}px;width:32px;height:32px`; document.body.appendChild(c);
+          c.animate([{ transform: 'none' }, { transform: `translate(${(tl.left - gfR.left - gfR.width / 2) / 2}px,-60px) rotate(180deg)`, offset: .5 }, { transform: `translate(${tl.left - gfR.left - gfR.width / 2 + 16}px,${tl.top - gfR.top - 40}px) rotate(360deg) scale(.6)` }], { duration: 650, delay: k * 110, easing: 'ease-in-out' }).onfinish = () => { c.remove(); sfx.coin(); cash++; $('#cash').textContent = cash; restart($('#till'), 'bump'); }; }
+        dmax.className = 'dmax happy'; sayEl.textContent = 'Merci beaucoup !';
+        fb(true, 'Merci beaucoup !', O[r][2]);
+      }, 520);
+      setTimeout(() => { if (!alive(T)) return; gf.classList.remove('happy'); $('#gu').classList.add('leave'); }, 1900);
+      setTimeout(() => { if (!alive(T)) return; r++; if (r < O.length) guest(); else finish('Alle Gäste sind glücklich!', ['Erste Wörter: un croissant, une banane, un café.', 'Zahlen und Mehrzahl auf Französisch.', 'Zwei Wünsche auf einmal verstehen.', 'Ganze französische Sätze verstehen: Je voudrais …'][G()]); }, 2500);
     } else {
-      wrong(); sfx.no(); restart($('#tr'), 'shk'); say('Hmm, das stimmt noch nicht. Hör dir die Bestellung nochmal an.', 'think', vkCafeNo);
-      fb(false, 'Noch nicht ganz.', `Auf Deutsch: „${O[r][2]}“`, { ms: 2600 });
+      wrong(); sfx.no(); restart($('#tr'), 'shk'); mood('n'); restart(gf, 'no'); voice(vkNon);
+      say('Hmm, das stimmt noch nicht. Hör dir die Bestellung nochmal an.', 'think', null);
+      fb(false, 'Oh là là, non !', `Der Gast möchte: „${O[r][2]}“`, { ms: 2600 });
+      setTimeout(() => { if (alive(T)) mood('s'); }, 1600);
     }
   };
   progress(O.length); sayK(L.intro);
@@ -2286,7 +2392,7 @@ function gBody(T) {
   return () => {};
 }
 
-/* ===================== KÜNSTLICHE INTELLIGENZ ===================== */
+/* ===================== INTERNET UND KI ===================== */
 WHO = 'bit';
 const ROT = [
   [['2 + 2 = 4'], ['5 + 3 = 9', '9', '8'], ['Die Sonne ist gelb.'], ['Ein Hund hat 3 Beine.', '3', '4']],
@@ -2362,6 +2468,51 @@ function gTresor(T) {
   return () => {};
 }
 
+/* Chat-Check: Regeln im Internet spielerisch üben */
+const CHAT = [
+  [{ f: 'Unbekannt', av: '?', m: 'Hallo! Willst du mein Freund sein? Schick mir ein Foto von dir!', o: [['Foto schicken', 0], ['Nicht antworten und Mama oder Papa zeigen', 1]], e: 'Fremden schickst du keine Fotos. Zeig so eine Nachricht immer deinen Eltern.' },
+   { f: 'Oma', av: 'O', ok: 1, m: 'Hallo mein Schatz! Kommst du am Sonntag zum Kuchenessen?', o: [['Antworten: Ja, gerne!', 1], ['Mama zeigen, das ist gefährlich', 0]], e: 'Oma kennst du. Mit Menschen, die du kennst, darfst du ganz normal schreiben.' },
+   { f: 'Unbekannt', av: '?', m: 'Du hast ein Handy gewonnen! Klick schnell auf diesen Link!', o: [['Schnell klicken', 0], ['Nicht klicken', 1]], e: 'Solche Gewinne sind fast immer ein Trick. Nicht klicken und Erwachsenen Bescheid sagen.' }],
+  [{ f: 'Spieler123', av: '?', m: 'Cooles Spiel! Wie heißt eigentlich deine Schule?', o: [['Den Namen der Schule verraten', 0], ['Nichts Privates verraten', 1]], e: 'Schule, Adresse und Telefonnummer sind privat. Die verrätst du Fremden nie.' },
+   { f: 'Lena aus deiner Klasse', av: 'L', ok: 1, m: 'Hey, was haben wir in Mathe auf?', o: [['Antworten: Seite 24!', 1], ['Blockieren', 0]], e: 'Lena kennst du aus der Klasse. Ihr dürft euch ganz normal helfen.' },
+   { f: 'Unbekannt', av: '?', m: 'Erzähl niemandem von unserem Chat. Das ist unser Geheimnis, okay?', o: [['Okay, ich sag nichts', 0], ['Sofort Mama oder Papa zeigen', 1]], e: 'Gute Geheimnisse machen Spaß. Wenn ein Fremder ein Geheimnis will, zeig es sofort deinen Eltern.' }],
+  [{ f: 'Spieler im Spiel', av: '?', m: 'Ich schenk dir 1000 Edelsteine! Sag mir nur dein Passwort.', o: [['Passwort verraten', 0], ['Nein, mein Passwort bleibt geheim', 1]], e: 'Dein Passwort gehört nur dir und deinen Eltern. Echte Freunde fragen nie danach.' },
+   { f: 'Klassenchat', av: 'K', m: 'Jemand schreibt: „Tim ist doof, lacht alle über ihn!“', o: [['Mitlachen', 0], ['Nicht mitmachen und einem Erwachsenen sagen', 1]], e: 'Im Internet gelten dieselben Regeln wie auf dem Schulhof: Niemand wird fertiggemacht.' },
+   { f: 'Kettenbrief', av: '!', m: 'Schick diese Nachricht an 10 Leute, sonst passiert heute Nacht etwas Schlimmes!', o: [['Schnell weiterschicken', 0], ['Nicht weiterschicken, das ist nur Angstmache', 1]], e: 'Kettenbriefe wollen nur Angst machen. Es passiert nichts. Einfach löschen.' }],
+  [{ f: 'Unbekannt', av: '?', m: 'Ich bin auch 10! Lass uns treffen. Wo wohnst du?', o: [['Adresse schicken', 0], ['Nicht antworten und sofort den Eltern zeigen', 1]], e: 'Im Internet kann sich jeder als Kind ausgeben. Treffen nie allein und nur mit deinen Eltern.' },
+   { f: 'Video im Netz', av: '!', m: 'Unglaublich: Ein Hai schwimmt durch den Supermarkt! (mit Foto)', o: [['Sofort allen weiterschicken', 0], ['Erst prüfen, das Bild kann von einer KI erfunden sein', 1]], e: 'KI kann echt aussehende Bilder erfinden. Erst prüfen, dann teilen.' },
+   { f: 'Deine Freundin', av: 'F', m: 'Ich stelle das lustige Foto von dir in die Klassengruppe, okay?', o: [['Klar, mach einfach', 0], ['Nein, frag mich, welche Fotos ich zeigen will', 1]], e: 'Fotos von anderen teilt man nur mit Erlaubnis. Das gilt für dich und für alle anderen.' }],
+];
+CHAT.forEach((L) => L.forEach((c) => { c.k = vk(c.e); }));
+const vkChatI = vk('Chat-Check! Neue Nachrichten. Was machst du? Ich zeige dir die Regeln im Internet.');
+function gChat(T) {
+  gs.className = 'gs g-chat';
+  const L = CHAT[G()]; let i = 0;
+  gs.innerHTML = `<div class="phone2"><div class="ph2top"><span class="dot"></span><b>Nachrichten</b><span class="shield" id="shd">${I('shield')}<b id="shn">0</b></span></div><div class="msgs" id="msgs"></div></div><div class="copts" id="co"></div>`;
+  const msgs = $('#msgs'), co = $('#co'); let safe = 0;
+  async function next() {
+    const c = L[i]; co.innerHTML = '';
+    msgs.innerHTML = `<div class="chd"><span class="cav${c.av === '?' ? ' u' : ''}">${c.av}</span><b>${c.f}</b>${c.av === '?' ? '<em>unbekannt</em>' : ''}</div><div class="typing"><i></i><i></i><i></i></div>`;
+    await wait(900); if (!alive(T)) return;
+    $('.typing', msgs).remove(); sfx.flip();
+    msgs.insertAdjacentHTML('beforeend', `<div class="cmsg">${c.m}</div>`);
+    co.innerHTML = shuf(c.o).map(([t, v]) => `<button class="b3d w copt" data-v="${v}">${t}</button>`).join('');
+    $$('.copt', co).forEach((b) => (b.onclick = () => pickIt(b, c)));
+  }
+  function pickIt(b, c) {
+    $$('.copt', co).forEach((x) => (x.disabled = true));
+    const v = +b.dataset.v;
+    b.classList.add(v ? 'cok' : 'cno');
+    if (v) { right(); sfx.ok(); safe++; $('#shn').textContent = safe; restart($('#shd'), 'bump'); msgs.insertAdjacentHTML('beforeend', `<div class="cres ok">${I('shield')}Sicher entschieden!</div>`); }
+    else { wrong(); sfx.no(); restart(b, 'shk'); msgs.insertAdjacentHTML('beforeend', `<div class="cres no">${I('bulb')}Achtung!</div>`); }
+    say(c.e, v ? 'happy' : 'think', c.k);
+    fb(!!v, v ? 'Sicher entschieden!' : 'Lieber nicht!', c.e, { btn: i < L.length - 1 ? 'Nächste Nachricht' : 'Auswertung', on: () => { i++; if (i < L.length) next(); else finish(`${safe} von ${L.length} sicher entschieden!`, 'Regeln im Internet: nichts Privates verraten, bei Fremden die Eltern holen, erst prüfen, dann teilen.'); } });
+  }
+  progress(L.length); sayK(vkChatI);
+  startOverlay('Chat öffnen', `${L.length} Nachrichten · sicher entscheiden`, next);
+  return () => {};
+}
+
 /* ---------- Vorschau-Spiele (im Abo): kleine Animationen ---------- */
 const PV = {
   rennen: '<div class="pv pv-race"><i></i><i></i><span>6 · 7</span></div>',
@@ -2404,12 +2555,12 @@ const SUBJ = [
     { n: 'Sortier-Profi', d: 'Tiere, Müll, Strom', play: gSort, ic: 'sort' }, { n: 'Röntgen-Blick', d: 'Körper und Organe', play: gBody, ic: 'body' },
     { n: 'Jahreszeiten-Rad', d: 'Wetter und Natur', pv: 'jahr' }, { n: 'Ampel-Profi', d: 'Sicher im Verkehr', pv: 'ampel' }, { n: 'Wetter-Labor', d: 'Regen, Wind, Wolken', pv: 'wetter' }],
     ern: ['Tiere und Pflanzen', 'Körper, Sinne, Gesundheit', 'Wetter, Wasser, Strom', 'Kinderfragen kindgerecht erklärt'] },
-  { k: 'ki', n: 'Künstliche Intelligenz', c1: '#f39b52', c2: '#d9601c', ic: 'KI', tutor: { id: 'bit', n: 'Bit' }, games: [
-    { n: 'Rotstift', d: 'Fehler der KI finden', play: gRot, ic: 'pen' }, { n: 'Privat-Tresor', d: 'Was bleibt geheim?', play: gTresor, ic: 'lock' },
-    { n: 'Wie lernt eine KI?', d: 'Bit lernt aus Beispielen', pv: 'robo' }, { n: 'Echt oder erfunden?', d: 'Erfundene Bilder erkennen', pv: 'echt' }, { n: 'Frage-Werkstatt', d: 'Gute Fragen stellen', pv: 'frage' }],
-    ern: ['Was ist KI und wie funktioniert sie?', 'Wie eine KI aus Beispielen lernt', 'Risiken: Fehler, erfundene Bilder, Daten', 'KI verantwortungsvoll nutzen'] },
+  { k: 'ki', n: 'Internet und KI', c1: '#f39b52', c2: '#d9601c', ic: I('shield'), tutor: { id: 'bit', n: 'Bit' }, games: [
+    { n: 'Chat-Check', d: 'Sicher im Internet', play: gChat, ic: 'chat' }, { n: 'Privat-Tresor', d: 'Was bleibt geheim?', play: gTresor, ic: 'lock' }, { n: 'Rotstift', d: 'Fehler der KI finden', play: gRot, ic: 'pen' },
+    { n: 'Wie lernt eine KI?', d: 'Bit lernt aus Beispielen', pv: 'robo' }, { n: 'Echt oder erfunden?', d: 'KI-Bilder erkennen', pv: 'echt' }],
+    ern: ['Regeln im Internet: was man teilt und was nicht', 'Fremde im Netz, Passwörter, Kettenbriefe', 'Was ist KI und wie lernt sie?', 'KI verantwortungsvoll nutzen und prüfen'] },
 ];
-const GICON = { ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock') };
+const GICON = { chat: I('chat'), ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock') };
 
 /* ---------- Üben: ruhige Aufgaben mit Erklärung, je Klasse ---------- */
 const ZF = (a, b) => { const c = (n0, n1) => `<div class="zf">${[...Array(10)].map((_, k) => `<i class="${k < n0 ? 'o' : k < n0 + n1 ? 'b' : ''}"></i>`).join('')}</div>`; return c(a, Math.min(b, 10 - a)) + (a + b > 10 ? c(0, a + b - 10) : ''); };
@@ -2436,7 +2587,7 @@ const QZ = {
   franz: [
     [Q('Was heißt „Bonjour“?', ['Tschüss', 'Guten Tag', 'Danke'], 1, 'Bonjour heißt Guten Tag.'), Q('Was heißt „merci“?', ['Danke', 'Bitte', 'Hallo'], 0, 'Merci heißt Danke.'), Q('Was heißt „rouge“?', ['blau', 'rot', 'grün'], 1, 'Rouge heißt rot.')],
     [Q('un, deux, …', ['quatre', 'trois', 'cinq'], 1, 'Un, deux, trois: eins, zwei, drei.'), Q('Was heißt „le chat“?', ['der Hund', 'die Katze', 'der Fisch'], 1, 'Le chat ist die Katze.'), Q('Wie sagst du „Tschüss“?', ['Au revoir', 'Bonjour', 'Merci'], 0, 'Au revoir heißt Auf Wiedersehen.')],
-    [Q('„Je m’appelle Lea.“ heißt …', ['Ich bin Lea.', 'Ich heiße Lea.', 'Ich mag Lea.'], 1, 'Je m’appelle heißt ich heiße.'), Q('Welche Zahl ist „douze“?', ['2', '12', '20'], 1, 'Douze ist zwölf.'), Q('le oder la? ___ pomme', ['le', 'la', 'les'], 1, 'Es heißt la pomme.')],
+    [Q('„Je m’appelle Lea.“ heißt …', ['Ich bin Lea.', 'Ich heiße Lea.', 'Ich mag Lea.'], 1, 'Je m’appelle heißt ich heiße.'), Q('Welche Zahl ist „douze“?', ['2', '12', '20'], 1, 'Douze ist zwölf.'), Q('le oder la? ___ banane', ['le', 'la', 'les'], 1, 'Es heißt la banane.')],
     [Q('Was heißt „Je voudrais un croissant“?', ['Ich esse ein Croissant.', 'Ich hätte gern ein Croissant.', 'Ich backe ein Croissant.'], 1, 'Je voudrais heißt ich hätte gern.'), Q('Mehrzahl von „le chat“?', ['les chats', 'la chats', 'les chat'], 0, 'Mehrzahl: les chats.'), Q('„J’ai dix ans.“ heißt …', ['Ich habe zehn Freunde.', 'Ich bin zehn Jahre alt.', 'Es ist zehn Uhr.'], 1, 'J’ai dix ans: Ich bin zehn Jahre alt.')],
   ],
   sach: [
@@ -2446,7 +2597,7 @@ const QZ = {
     [Q('Was leitet Strom?', ['Gummi', 'Metall', 'Holz'], 1, 'Metall leitet Strom.'), Q('Bei wie viel Grad gefriert Wasser?', ['0 Grad', '10 Grad', '100 Grad'], 0, 'Wasser gefriert bei 0 Grad Celsius.'), Q('Wo geht die Sonne auf?', ['Im Westen', 'Im Osten', 'Im Norden'], 1, 'Im Osten geht die Sonne auf, im Westen unter.')],
   ],
   ki: [
-    [Q('Ist Bit ein Mensch?', ['Ja', 'Nein, eine KI', 'Ein Tier'], 1, 'Bit ist eine KI, ein Computerprogramm. Es hat keine Gefühle wie du.'), Q('Bit sagt etwas, das komisch klingt. Was machst du?', ['Einfach glauben', 'Nachfragen', 'Weglaufen'], 1, 'Nachfragen und prüfen ist schlau.'), Q('Was verrätst du einer KI nicht?', ['Deine Adresse', 'Deine Lieblingsfarbe', 'Dein Lieblingstier'], 0, 'Deine Adresse bleibt privat.')],
+    [Q('Ein Fremder will dein Foto. Was tust du?', ['Schicken', 'Mama oder Papa zeigen', 'Antworten: Später'], 1, 'Fremden schickst du keine Fotos. Hol deine Eltern.'), Q('Ist Bit ein Mensch?', ['Ja', 'Nein, eine KI', 'Ein Tier'], 1, 'Bit ist eine KI, ein Computerprogramm. Es hat keine Gefühle wie du.'), Q('Bit sagt etwas, das komisch klingt. Was machst du?', ['Einfach glauben', 'Nachfragen', 'Weglaufen'], 1, 'Nachfragen und prüfen ist schlau.'), Q('Was verrätst du einer KI nicht?', ['Deine Adresse', 'Deine Lieblingsfarbe', 'Dein Lieblingstier'], 0, 'Deine Adresse bleibt privat.')],
     [Q('Welche Frage hilft dir mehr?', ['„Lösung bitte!“', '„Wie rechne ich 8 + 5?“', '„Mach du das.“'], 1, 'Wer nach dem Weg fragt, lernt selbst etwas.'), Q('Kann eine KI Fehler machen?', ['Nie', 'Ja, manchmal', 'Nur nachts'], 1, 'Auch eine KI kann sich irren.'), Q('Was ist ein Passwort?', ['Ein Geheimnis', 'Ein Spiel', 'Ein Name für alle'], 0, 'Passwörter sind geheim.')],
     [Q('Wie lernt eine KI?', ['Aus ganz vielen Beispielen', 'Sie weiß alles von Geburt an', 'Sie liest Gedanken'], 0, 'Eine KI lernt aus sehr vielen Beispielen, zum Beispiel Tausenden Katzenbildern.'), Q('Wie prüfst du eine Antwort?', ['Im Buch nachschauen', 'Gar nicht', 'Lauter fragen'], 0, 'Im Buch, im Heft oder bei Erwachsenen nachschauen.'), Q('Ein Bild sieht echt aus. Ist es echt?', ['Immer', 'Nicht unbedingt', 'Nie'], 1, 'Bilder können auch von einer KI erfunden sein.')],
     [Q('Warum kann eine KI sich irren?', ['Sie rät, was am wahrscheinlichsten passt', 'Sie ist müde', 'Sie will dich ärgern'], 0, 'Eine KI rechnet aus, was am wahrscheinlichsten passt. Das stimmt meistens, aber nicht immer.'), Q('Was macht eine gute Frage an eine KI aus?', ['Sie ist genau', 'Sie ist sehr kurz', 'Sie ist laut'], 0, 'Je genauer die Frage, desto besser die Antwort.'), Q('Wer ist für deine Hausaufgabe verantwortlich?', ['Die KI', 'Du selbst', 'Niemand'], 1, 'Du selbst. Die KI ist ein Helfer.')],
