@@ -9318,3 +9318,7 @@ html[data-theme="dark"] .bms .zt-tl li::before { color: #241a03; }
 html[data-theme="dark"] .bms .qcard .opt { background: #1b1830 !important; }
 html[data-theme="dark"] .bms .btn.sm:not(.primary) { background: #1a2333; color: #8fb8f5; }
 html[data-theme="dark"] .bms .zt-body .katex-display, html[data-theme="dark"] .bms .zt-body pre { background: #211c10; border-color: #4a3b12; }
+/* /start: Herunterladen-Knopf grau statt schwarz */
+html:root .bms .bms-dl { background: #eceae6 !important; color: #2b2b30 !important; border: 1px solid #dcd8d1 !important; box-shadow: none !important; }
+html:root .bms .bms-dl:hover { background: #e2dfd9 !important; }
+html[data-theme="dark"] .bms .bms-dl { background: #24252b !important; color: #e8e8ec !important; border-color: #33353d !important; }
