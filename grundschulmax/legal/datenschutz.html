@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Datenschutz – Grundschulmax</title><meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="/grundschulmax/max-96.png"><style>
+@font-face{font-family:G;src:url(/grundschulmax/geist.woff2) format('woff2');font-weight:100 900;font-display:swap}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:G,system-ui,sans-serif;color:#141414;background:#f3eee4 radial-gradient(rgba(0,0,0,.2) 1.3px,transparent 1.7px) 0 0/22px 22px fixed;-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:#1a5fc4}
+.top{max-width:860px;margin:0 auto;padding:18px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:20px;letter-spacing:-.03em;text-decoration:none;color:#141414}
+.brand img{width:40px;height:40px;border-radius:50%;background:#fff;box-shadow:0 0 0 2.5px #1a5fc4;object-fit:cover;object-position:50% 20%}
+.brand b{color:#1a5fc4}
+.back{background:#fff;border:1.5px solid rgba(26,95,196,.35);border-radius:999px;padding:8px 16px;font-weight:700;text-decoration:none;font-size:15px}
+main{max-width:860px;margin:6px auto 28px;background:#fff;border-radius:28px;box-shadow:0 24px 60px -36px rgba(0,0,0,.35);padding:clamp(22px,4vw,48px) clamp(18px,4.4vw,52px)}
+.k{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6b6457;font-weight:600}
+h1{font-size:clamp(32px,5vw,46px);letter-spacing:-.04em;line-height:1.05;margin:8px 0 6px}
+.stand{color:#6b6457;font-size:14px;margin-bottom:22px}
+h2{font-size:21px;letter-spacing:-.02em;margin:30px 0 8px;line-height:1.25}
+h3{font-size:17px;margin:18px 0 6px}
+p,li{font-size:16px;color:#2e2b26}
+p+p{margin-top:10px}
+ul{margin:8px 0 8px 22px;display:grid;gap:6px}
+.box{background:#f6f3ec;border-radius:18px;padding:16px 18px;margin:16px 0}
+.box.blue{background:#eef4ff}
+.tldr{display:grid;gap:10px;margin:18px 0 6px}
+.tldr div{display:flex;gap:12px;background:#f6f3ec;border-radius:16px;padding:12px 14px}
+.tldr b{flex:none;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#5aa2f7,#1a5fc4);color:#fff;display:grid;place-items:center;font-size:14px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid rgba(0,0,0,.08);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#6b6457}
+.tw{overflow-x:auto}
+footer{max-width:860px;margin:0 auto 40px;background:#fff;border-radius:22px;padding:16px 22px;display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14px;box-shadow:0 18px 44px -34px rgba(0,0,0,.4)}
+footer span{color:#6b6457;margin-right:auto}
+footer a{text-decoration:none;font-weight:600}
+form{display:grid;gap:14px;margin:10px 0}
+label{display:grid;gap:6px;font-weight:650;font-size:14.5px}
+label small{font-weight:400;color:#6b6457}
+input,select,textarea{font:inherit;font-size:16px;height:50px;border-radius:14px;border:1.5px solid #ddd6c8;padding:0 14px;background:#fff}
+textarea{height:96px;padding:12px 14px;resize:vertical}
+.rad{display:flex;gap:10px;flex-wrap:wrap}
+.rad label{display:flex;align-items:center;gap:8px;font-weight:550;border:1.5px solid #ddd6c8;border-radius:999px;padding:9px 14px;cursor:pointer}
+.rad input{height:auto;accent-color:#1a5fc4}
+.fixed{background:#f6f3ec;border-radius:14px;padding:12px 14px}
+.btn{height:54px;border:0;border-radius:16px;font:inherit;font-weight:800;font-size:17px;color:#fff;background:#1a5fc4;box-shadow:0 5px 0 #123f86;cursor:pointer;padding:0 26px;justify-self:start}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #123f86}
+.btn[disabled]{opacity:.5}
+.err{color:#c8332b;font-size:14px;min-height:1em}
+.hide{display:none!important}
+.done{display:none}.done.on{display:block}
+pre{white-space:pre-wrap;font:inherit;font-size:15px;background:#f6f3ec;border-radius:14px;padding:14px}
+@media print{body{background:#fff}.top,footer,form,.btn{display:none}main{box-shadow:none}}
+</style></head><body>
+<header class="top"><a class="brand" href="/"><img src="/grundschulmax/max-96.png" alt=""><span>Grundschul<b>max</b></span></a><a class="back" href="/">Zur Startseite</a></header>
+<main><div class="k">Datenschutzerklärung</div><h1>Datenschutz</h1><p class="stand">Stand: 31. Oktober 2026</p>
+
+<p>Bei Kindern gilt für uns: so wenig Daten wie möglich. Hier steht genau, welche Daten bei Grundschulmax anfallen, wohin sie gehen und wie lange sie bleiben.</p>
+<div class="tldr">
+<div><b>1</b><span><strong>Das Konto gehört den Eltern.</strong> Ein Konto legt nur ein Elternteil an. Fürs Kind speichern wir nur einen Vornamen oder Spitznamen, die Klasse und den Lernstand – keine E-Mail-Adresse, keinen Nachnamen, kein Foto des Kindes.</span></div>
+<div><b>2</b><span><strong>Keine Werbung, kein Tracking.</strong> Im Lernbereich gibt es keine Werbung, keine Analyse-Cookies und keine Werbe-Tracker.</span></div>
+<div><b>3</b><span><strong>Wir speichern nicht, was dein Kind die Tutoren fragt.</strong> Fragen und Fotos werden nur für die Antwort verarbeitet. Bei uns bleibt nur der Lernstand: welche Themen geübt wurden und wie gut es klappt.</span></div>
+<div><b>4</b><span><strong>Die Foto-Funktion schaltest du frei.</strong> Sie ist anfangs aus. Erst wenn du sie im Elternkonto einschaltest, kann dein Kind Arbeitsblätter fotografieren.</span></div>
+</div>
+<h2>1. Verantwortlicher</h2><p>Grundschulmax · Ben Deschler, Maria-Viktoria-Straße 11, 76530 Baden-Baden, Deutschland<br>E-Mail: <a href="mailto:kontakt@grundschulmax.de">kontakt@grundschulmax.de</a></p><p>Ein Datenschutzbeauftragter ist nicht bestellt, weil die gesetzlichen Voraussetzungen dafür nicht vorliegen. Bei Fragen zum Datenschutz schreib uns einfach an die Adresse oben.</p>
+<h2>2. Aufruf der Website</h2><p>Die Website wird bei <strong>Vercel Inc.</strong> (440 N Barranca Ave #4133, Covina, CA 91723, USA) gehostet. Beim Aufruf verarbeitet Vercel technisch notwendige Daten: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser und Betriebssystem sowie die zuvor besuchte Seite. Das ist nötig, um die Seite auszuliefern und vor Missbrauch zu schützen. Vercel speichert diese Protokolle nur kurzzeitig.</p>
+<p>Schriften, Bilder und Tonaufnahmen liegen auf unserem eigenen Webspace. Wir binden keine Google Fonts, keine Social-Media-Plugins und keine fremden Videos ein. Die Website setzt keine Cookies.</p>
+<p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren, funktionierenden Website).</p>
+<h2>3. Die Spiele auf der Startseite</h2><p>Die Probespiele auf der Startseite laufen vollständig in deinem Browser. Was du dort eingibst oder zeichnest, wird nicht an uns übertragen und nicht gespeichert. Die Stimmen der Tutoren sind fertige Tonaufnahmen von unserem Webspace. Wählst du im Bereich „Foto-Zauber“ das Beispiel-Arbeitsblatt, ist das ebenfalls nur eine Vorführung im Browser, es wird kein Foto aufgenommen oder hochgeladen.</p>
+<h2>4. Elternkonto</h2><p>Für Grundschulmax legt ein Elternteil oder eine andere erziehungsberechtigte Person ein Konto an. Wir speichern dafür: E-Mail-Adresse, Passwort (nur als nicht umkehrbarer Hash, nie im Klartext), Zeitpunkt der Registrierung, den gewählten Tarif und dessen Laufzeit sowie eine Anmeldesitzung für dein Gerät. Zum Bestätigen deiner E-Mail-Adresse und zum Zurücksetzen des Passworts schicken wir dir einen Code, der 15 Minuten gilt.</p>
+<p>Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertrag mit dir).</p>
+<h2>5. Kinderprofile</h2><p>Im Elternkonto kannst du bis zu drei Kinderprofile anlegen. Pro Kind speichern wir:</p>
+<ul><li>einen Vornamen oder Spitznamen (damit Max das Kind begrüßen kann; ein Spitzname reicht),</li><li>die Klassenstufe und, wenn du willst, das Bundesland (damit die Aufgaben zum Lehrplan passen),</li><li>den Lernstand: geübte Themen und Spiele, Ergebnisse, Sterne und Lernzeit.</li></ul>
+<p>Wir speichern keine E-Mail-Adresse, keinen Nachnamen, kein Geburtsdatum und kein Bild des Kindes. Dein Kind kann sich nicht selbst registrieren und kann keine Käufe auslösen. Es gibt keinen Kontakt zu anderen Nutzern.</p>
+<p>Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (die Lernbegleitung für dein Kind ist der Inhalt deines Vertrags mit uns). Du kannst jedes Kinderprofil jederzeit im Elternkonto löschen; dann löschen wir auch den Lernstand.</p>
+<h2>6. Lernen mit Max und seinem Team (KI)</h2><p>Wenn dein Kind einen Tutor etwas fragt oder sich etwas erklären lässt, schickt das Gerät die dafür nötigen Daten an unseren Server. Von dort gehen sie an das KI-Modell <strong>Claude</strong> von <strong>Anthropic PBC</strong> (548 Market Street, PMB 90375, San Francisco, CA 94104, USA). Übertragen werden nur: die Frage, die Klassenstufe, das aktuelle Thema und die letzten Nachrichten des Gesprächs – nicht der Name des Kindes.</p>
+<p>Wir speichern diese Inhalte nicht: Unser Server verarbeitet die Anfrage, gibt die Antwort zurück und behält weder Frage noch Antwort. Anthropic nutzt Daten aus der Schnittstelle nicht zum Training seiner Modelle und löscht sie nach eigenen Angaben grundsätzlich spätestens nach 30 Tagen, außer bei Hinweisen auf Missbrauch.</p>
+<p><strong>Schutzfilter für Kinder:</strong> Fragen, Antworten und Fotos werden automatisch geprüft, damit es um Schulstoff geht und keine ungeeigneten Inhalte entstehen – zuerst anhand fester Regeln auf unserem Server, zusätzlich durch die KI selbst. Andere Themen lenkt der Tutor freundlich zurück. Dabei wird nichts gespeichert und kein Profil gebildet.</p>
+<p>Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO; für den Schutzfilter zusätzlich Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem kindgerechten, sicheren Angebot).</p>
+<h2>7. Foto-Zauber: Arbeitsblätter fotografieren</h2><p>Die Foto-Funktion ist anfangs ausgeschaltet. Erst wenn du sie im Elternkonto einschaltest, kann dein Kind ein Foto von einem Arbeitsblatt oder einer Hausaufgabe machen. Das Foto geht über unseren Server an die KI (Punkt 6), damit sie die Aufgaben liest, erklärt und daraus Übungen und Spiele erstellt. Wir speichern das Foto nicht; bei uns bleiben nur die daraus erstellten Aufgaben im Lernstand des Kindes, bis du sie löschst.</p>
+<p>Bitte fotografiert nur Arbeitsblätter und Hefte, keine Personen und keine Dokumente mit Namen, Adressen oder anderen persönlichen Angaben. Die Kamera wird nur geöffnet, wenn ihr auf „Foto machen“ tippt und es im Gerät erlaubt.</p>
+<p>Rechtsgrundlage: deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), die du mit dem Einschalten erteilst und jederzeit durch Ausschalten widerrufen kannst.</p>
+<h2>8. Stimmen</h2><p>Die Stimmen von Max und seinem Team erzeugen wir mit <strong>ElevenLabs Inc.</strong> (169 Madison Ave #2484, New York, NY 10016, USA). Feste Sätze wie Lob, Anleitungen und Vokabeln sind fertige Tonaufnahmen, dafür werden keine Daten über dich oder dein Kind übertragen. Liest ein Tutor eine neu erstellte Antwort vor, geht nur der Antworttext über unseren Server an ElevenLabs und kommt als Audio zurück – ohne Namen und ohne Bezug zu einem Konto.</p>
+<p>Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.</p>
+<h2>9. Unser Server</h2><p>Konto, Kinderprofile und Lernstand liegen auf unserem eigenen Server (Automatisierung mit n8n) bei <strong>OVH SAS</strong>, Rechenzentrum in Frankreich (EU). Protokolle mit Inhalten einzelner Anfragen werden dort nicht gespeichert. Gegen Missbrauch zählen wir Anfragen pro Konto und Tag; diese Zähler werden jede Nacht zurückgesetzt.</p>
+<h2>10. Wochenbericht und E-Mails</h2><p>Jeden Sonntag schicken wir dir einen kurzen Bericht über den Lernstand deiner Kinder. Außerdem bekommst du Mails, die zum Vertrag gehören: Bestätigungscodes, die Erinnerung vor dem Ende des Testzeitraums, Rechnungen und Bestätigungen von Kündigung oder Widerruf. Den Wochenbericht kannst du jederzeit im Elternkonto oder über den Link in jeder Mail abbestellen.</p>
+<p>Wir versenden über <strong>Resend</strong> (Resend, Inc., San Francisco, USA; Versand über Server in Irland) und ersatzweise über <strong>Postmark</strong> (ActiveCampaign, LLC, 1 N Dearborn St, Chicago, IL 60602, USA). Der jeweilige Dienst verarbeitet deine E-Mail-Adresse und den Inhalt der Mail.</p>
+<p>Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.</p>
+<h2>11. Bezahlung</h2><p>Die Zahlung läuft über <strong>Stripe</strong> (Stripe Payments Europe, Ltd., 1 Grand Canal Street Lower, Grand Canal Dock, Dublin, Irland). Deine Zahlungsdaten gibst du direkt bei Stripe ein, auch bei Apple Pay und Google Pay – wir sehen und speichern sie nicht. Wir übermitteln Stripe deine E-Mail-Adresse und erhalten den Stand deines Abos (Test, aktiv, gekündigt) und das Ende des laufenden Zeitraums. Stripe kann Daten auch in die USA übermitteln (Stripe, Inc.); dafür gelten das EU-US Data Privacy Framework bzw. Standardvertragsklauseln.</p>
+<p>Rechtsgrundlage ist die Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO); Rechnungs- und Zahlungsbelege bewahren wir wegen gesetzlicher Pflichten auf (Art. 6 Abs. 1 lit. c DSGVO).</p>
+<h2>12. Kündigung und Widerruf online</h2><p>Nutzt du „Verträge hier kündigen“ oder „Vertrag widerrufen“, verarbeiten wir deinen Namen, deine E-Mail-Adresse und die Angaben aus dem Formular, um die Erklärung umzusetzen und dir eine Bestätigung zu schicken. Rechtsgrundlage: Art. 6 Abs. 1 lit. b und c DSGVO.</p>
+<h2>13. Übermittlung in die USA</h2><p>Vercel, Anthropic, ElevenLabs, Resend und Postmark sitzen in den USA, Stripe verarbeitet Daten teils ebenfalls dort. Die Übermittlung stützt sich auf den Angemessenheitsbeschluss der EU-Kommission zum EU-US Data Privacy Framework, soweit der Anbieter dort zertifiziert ist, und zusätzlich auf die EU-Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO), die Bestandteil der Auftragsverarbeitungsverträge mit diesen Anbietern sind.</p>
+<h2>Dienstleister im Überblick</h2><div class="tw"><table><tr><th>Dienst</th><th>Wofür</th><th>Sitz</th></tr>
+<tr><td>Vercel</td><td>Auslieferung der Website</td><td>USA</td></tr>
+<tr><td>OVH</td><td>Unser Server: Konto, Kinderprofile, Lernstand</td><td>Frankreich (EU)</td></tr>
+<tr><td>Anthropic (Claude)</td><td>KI-Erklärungen, Fotos lesen</td><td>USA</td></tr>
+<tr><td>ElevenLabs</td><td>Stimmen der Tutoren</td><td>USA</td></tr>
+<tr><td>Resend / Postmark</td><td>E-Mails</td><td>USA (Versand bei Resend über Irland)</td></tr>
+<tr><td>Stripe</td><td>Bezahlung</td><td>Irland</td></tr></table></div>
+<h2>Speicherdauer im Überblick</h2><div class="tw"><table><tr><th>Was</th><th>Wie lange</th></tr>
+<tr><td>Fragen an die Tutoren und Fotos</td><td>Bei uns nicht gespeichert; bei Anthropic in der Regel höchstens 30 Tage</td></tr>
+<tr><td>Kinderprofil und Lernstand</td><td>Bis du das Profil oder das Konto löschst</td></tr>
+<tr><td>Elternkonto (E-Mail, Passwort-Hash, Tarif)</td><td>Bis du das Konto löschst</td></tr>
+<tr><td>Bestätigungscode</td><td>15 Minuten</td></tr>
+<tr><td>Anfragezähler gegen Missbrauch</td><td>Bis Mitternacht</td></tr>
+<tr><td>Rechnungs- und Zahlungsbelege</td><td>Gesetzliche Aufbewahrungsfrist (bis zu 10 Jahre)</td></tr></table></div>
+<h2>14. Deine Rechte</h2><p>Du hast das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21). Eine Einwilligung kannst du jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3). Für dein Kind übst du diese Rechte als erziehungsberechtigte Person aus. Eine Mail an <a href="mailto:kontakt@grundschulmax.de">kontakt@grundschulmax.de</a> genügt.</p>
+<p>Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel bei der für uns zuständigen: Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
+<h2>15. Sonstiges</h2><p>Eine automatisierte Entscheidungsfindung im Sinne von Art. 22 DSGVO findet nicht statt. Welche Aufgaben die Tutoren als Nächstes vorschlagen, passt sich dem Lernstand an; das hat keine rechtliche oder ähnlich erhebliche Wirkung. Es gibt keine Pflicht, Daten bereitzustellen; ohne die jeweils nötigen Daten funktionieren nur die betreffenden Funktionen nicht.</p>
+<p>Wenn sich Grundschulmax ändert, passen wir diese Erklärung an. Es gilt immer die hier veröffentlichte Fassung.</p>
+</main><footer><span>© 2026 Grundschulmax</span><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><a href="/agb">AGB</a><a href="/widerruf">Widerrufsbelehrung</a><a href="/kuendigen">Verträge hier kündigen</a><a href="/widerrufen">Vertrag widerrufen</a></footer></body></html>

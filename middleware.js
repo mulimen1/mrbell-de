@@ -144,6 +144,16 @@ async function bmEreignis(req, ctx, bwlmax) {
 export default async function middleware(req, ctx) {
   let url;
   try { url = new URL(req.url); } catch (e) { return weiter(); }
+  // ---------- Grundschulmax (grundschulmax.de) — eigene Seite unter /grundschulmax, keine Messung ----------
+  if (/^(www\.)?grundschulmax\.de$/i.test(url.hostname)) {
+    const pfad = url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+    let ziel = '';
+    if (pfad === '/') ziel = '/grundschulmax/index.html';
+    else if (/^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(pfad)) ziel = '/grundschulmax/legal' + pfad + '.html';
+    else if (pfad === '/robots.txt' || pfad === '/sitemap.xml') ziel = '/grundschulmax' + pfad;
+    if (ziel) return new Response(null, { headers: { 'x-middleware-rewrite': new URL(ziel, url).toString() } });
+    return weiter();
+  }
   // ---------- BWL Max (bwlmax.de und mrbell.de/tutor) — eigene Messung, getrennt von Mr. Bell ----------
   const bwlmax = /^(www\.)?bwlmax\.de$/i.test(url.hostname);
   if (url.pathname === '/bm') return bmEreignis(req, ctx, bwlmax);
