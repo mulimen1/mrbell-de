@@ -1198,6 +1198,49 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
   .tm{width:auto}.tm .tmc{width:96px;height:96px;border-radius:26px}.tm .tma{border-radius:0 0 22px 22px}
   .tm b{font-size:14.5px;margin-top:6px}.tm small{font-size:11.5px}
 }
+/* Bildschirme */
+.view{display:none}
+.view.on{display:block;animation:scrin .4s var(--e)}
+@keyframes scrin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sbar{display:flex;align-items:center;gap:12px;padding:16px 0 4px;flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px var(--line),0 4px 0 #e6dfd2;font-weight:800;font-size:15px}
+.back:active{transform:translateY(3px);box-shadow:0 0 0 1px var(--line)}
+.step{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.gchip{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;background:#fff;font-weight:800;font-size:14px;box-shadow:0 0 0 1.5px #c6d9f2;color:#1a5fc4}
+.gchip svg{font-size:17px}
+body[data-screen=start] footer{padding-top:10px}
+.view[data-s=klasse] .pick{position:relative;inset:auto;border-radius:34px;margin:12px 0 40px;box-shadow:0 30px 70px -46px rgba(40,30,10,.5),0 0 0 1px var(--line)}
+.view[data-s=spiel] #demo{padding-top:14px}
+.view[data-s=faecher] #faecher{padding-top:20px}
+.cband{display:flex;align-items:center;gap:18px;justify-content:space-between;margin:10px auto 0;max-width:960px;padding:20px 24px;border-radius:28px;color:#fff;background:radial-gradient(80% 140% at 100% 0%,rgba(255,255,255,.2),transparent 55%),linear-gradient(135deg,#1a5fc4,#5b3fc4);box-shadow:0 30px 60px -36px rgba(60,40,180,.8)}
+.cband b{display:block;font-size:21px;letter-spacing:-.02em}.cband span{opacity:.88;font-size:15px}
+.cband .b3d{--g2:#fff;--g1:#fff;--g3:#eef4ff;--bd:#c9d6ef;color:#1a5fc4;flex:none}
+.view[data-s=spiel] .cband{margin:22px auto 50px}
+@media (max-width:700px){.cband{flex-direction:column;text-align:center}.cband .b3d{width:100%}.sbar .step{display:none}}
+/* Start: ein Bildschirm */
+body[data-screen=start] .hero{min-height:calc(100vh - 170px);display:flex;align-items:center}
+body[data-screen=start] .hero .wrap.hc{width:100%}
+.hero .lead{max-width:620px;font-size:17px}
+/* Klassenwahl: Halbkreis */
+.pkf,.pksay{display:none!important}
+.arc{position:relative;width:min(760px,100%);height:330px;margin:0 auto}
+.arci{position:absolute;width:104px;display:flex;flex-direction:column;align-items:center;gap:2px;animation:fl 5s ease-in-out infinite}
+.arcf{display:block;width:84px;height:84px;border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 50%),linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 0 0 3px #fff,0 16px 26px -14px var(--c2);overflow:hidden;position:relative}
+.arcf .tut{position:absolute;left:5%;width:90%;top:2%}
+.arci b,.pkl0 b{font-size:14.5px;font-weight:850;margin-top:6px}
+.arci small,.pkl0 small{font-size:11.5px;font-weight:700;color:var(--c2);white-space:nowrap}
+.pkm{position:absolute;left:50%;bottom:0;width:160px;height:auto;margin:0 0 0 -80px;display:flex;flex-direction:column;align-items:center}
+.pkm .tut{width:150px}
+.pkl0{display:flex;flex-direction:column;align-items:center;--c2:#c8336f}
+@media (max-width:700px){.arc{height:250px}.arci{width:76px}.arcf{width:58px;height:58px;border-radius:18px}.arci b{font-size:12.5px;margin-top:4px}.arci small{font-size:10px}.pkm{width:120px;margin-left:-60px}.pkm .tut{width:112px}}
+@media (max-width:700px){
+  .arc{height:240px}.arci{width:66px}.arcf{width:52px;height:52px;border-radius:16px}.arci small{display:none}.arci b{font-size:12px}
+  .pkm{width:104px;margin-left:-52px}.pkm .tut{width:98px}
+  .nav .b3d.sm{height:38px;font-size:12.5px;padding:0 11px;border-radius:12px}
+  .brand{font-size:17px}.brand .face{width:32px;height:32px}
+}
+@media (max-width:600px){.hero .ctas{flex-direction:column;width:100%}.hero .ctas .b3d{width:100%;flex:none}}
+.fin .fcta{margin-top:12px;font-size:14px}
 </style>
 </head>
 <body>
@@ -1245,54 +1288,48 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
 
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="#top"><span class="face"><img src="/grundschulmax/max.png" alt=""></span><span>Grundschul<b>max</b></span></a>
+    <a class="brand" href="#" data-to=""><span class="face"><img src="/grundschulmax/max.png" alt=""></span><span>Grundschul<b>max</b></span></a>
     <div class="navr">
-      <a class="lk" href="#foto">Foto-Zauber</a>
-      <a class="lk" href="#faecher">Fächer</a>
-      <a class="lk" href="#preise">Preise</a>
-      <a class="btn sm" href="#demo">Ausprobieren</a>
+      <a class="lk" href="#faecher" data-to="faecher/foto">Foto-Zauber</a>
+      <a class="lk" href="#faecher" data-to="faecher">Fächer</a>
+      <a class="lk" href="#faecher" data-to="faecher/preise">Preise</a>
+      <button class="b3d sm" data-start>Für mein Kind einrichten</button>
     </div>
   </div>
 </header>
 
 <main id="top">
+<div class="view" data-s="start">
   <section class="hero">
     <div class="wrap hc">
-      <div class="stage" aria-hidden="true">
-        <div class="blob"></div>
-        <img class="mx" src="/grundschulmax/max.png" alt="">
-        <div class="float f1"><span class="ic" style="background:linear-gradient(135deg,#5aa2f7,#1a5fc4)"><svg class="i"><use href="#i-pm"/></svg></span>7 + 3 = 10</div>
-        <div class="float f2"><span class="ic t" style="background:linear-gradient(135deg,#9b7cf0,#5b3fc4)">FR</span>Bonjour !</div>
-        <div class="float f3"><span class="ic t" style="background:linear-gradient(135deg,#f47ba0,#c8336f)">Aa</span>Ba – na – ne</div>
-        <div class="float f4"><span class="ic" style="background:linear-gradient(135deg,#f7c948,#f08a3c)"><svg class="i"><use href="#i-cam"/></svg></span>Foto → Spiel</div>
-      </div>
       <span class="pill"><i><svg class="i"><use href="#i-check"/></svg></i> Von den Machern von BWL Max</span>
       <h1 class="h1">Fit für die Schule.<br><span class="grad">Und fit für Internet und KI.</span></h1>
-      <p class="lead">Echte Lernspiele für jedes Fach der Grundschule, Klasse 1 bis 4, mit einem eigenen KI-Tutor pro Fach. Dein Kind lässt Ballons platzen, belädt Silben-Züge und serviert im französischen Café – und lernt ganz nebenbei die Regeln im Internet und den klugen Umgang mit KI.</p>
-      <a class="fotohint" href="#foto"><span class="ci"><svg class="i"><use href="#i-cam"/></svg></span><span><b>Foto von der Hausaufgabe machen:</b> Max erklärt sie Schritt für Schritt und macht daraus ein Spiel.</span></a>
       <div class="teamrow">
-        <div class="tiles" data-team></div>
         <div class="tcap"><b>Das Tutorenteam von Grundschulmax</b><span>Für jedes Fach ein eigener Tutor, mit eigener Stimme</span></div>
-        <div class="tnames" id="tnames"></div>
+        <div class="tiles" data-team></div>
       </div>
       <div class="ctas">
-        <a class="b3d lg" href="#demo"><svg class="i"><use href="#i-play"/></svg>Ausprobieren</a>
-        <a class="b3d w lg" href="#faecher">Alle Fächer ansehen</a>
+        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Ausprobieren</a>
+        <a class="b3d w lg" href="#faecher" data-to="faecher">Alle Fächer ansehen</a>
       </div>
       <div class="small"><span><svg class="i"><use href="#i-check"/></svg>Direkt hier im Browser</span><span><svg class="i"><use href="#i-check"/></svg>Ohne Anmeldung</span><span><svg class="i"><use href="#i-check"/></svg>Mit Ton noch besser</span></div>
+      <p class="lead">Echte Lernspiele für jedes Fach der Grundschule, Klasse 1 bis 4. Dazu der Foto-Zauber: Hausaufgabe fotografieren, Max erklärt sie und macht ein Spiel daraus.</p>
     </div>
   </section>
+</div>
 
+<div class="view" data-s="klasse">
+  <div class="wrap"><div class="sbar"><button class="back" data-back><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg>Zurück</button><span class="step">Schritt 1 von 3 · Klasse wählen</span></div>
+  <div class="pick" id="pick"></div></div>
+</div>
+
+
+<div class="view" data-s="spiel">
+  <div class="wrap"><div class="sbar"><button class="back" data-back><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg>Zurück zu den Fächern</button><span class="step">Schritt 3 von 3 · Spielen</span><span class="gchip" id="gchip2"></span></div></div>
   <section id="demo">
     <div class="wrap">
-      <div class="sh">
-        <div class="mono">Ausprobieren · 6 Fächer · 6 Tutoren · 30 Spiele</div>
-        <h2 class="h1">Spiele eine Runde mit Max und seinem Team.</h2>
-        <p>Wähl die Klasse deines Kindes, dann ein Fach. In jedem Fach erklärt dein eigener Tutor, und jedes Spiel hat vier Stufen: Klasse 1 leicht, Klasse 4 richtig knifflig.</p>
-      </div>
-      <div class="demo" id="game">
-        <div class="pick" id="pick"></div>
-        <div class="gbar"><span class="lab">Klasse</span><div class="gsel" id="gsel"></div><span class="glev" id="glev"></span></div>
+      
+      <div class="demo picked" id="game">
         <div class="tabs" id="tabs" role="tablist"></div>
         <div class="path" id="path"></div>
         <div class="dbar">
@@ -1319,6 +1356,23 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
       </div>
     </div>
   </section>
+  <div class="cband" data-cta><div><b>Gefällt deinem Kind?</b><span>Alle 30 Spiele, alle Fächer und der Foto-Zauber. 7 Tage kostenlos.</span></div><button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button></div>
+</div>
+
+<div class="view" data-s="faecher">
+  <div class="wrap"><div class="sbar"><button class="back" data-back><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg>Zurück</button><span class="step">Schritt 2 von 3 · Fach wählen</span><span class="gchip" id="gchip"></span></div></div>
+  <section id="faecher">
+    <div class="wrap">
+      <div class="sh">
+        <div class="mono">Fächer · Klasse 1 bis 4</div>
+        <h2 class="h1">Welches Fach willst du ausprobieren?</h2>
+        <p>Jedes Fach hat seinen eigenen Tutor, 5 Spiele und ernsthaftes Üben. Tipp auf „spielen“ und leg los.</p>
+      </div>
+      <div class="subj" id="subj"></div>
+    </div>
+  </section>
+  <div class="wrap"><div class="cband" data-cta><div><b>Bereit für Max und sein Team?</b><span>Konto für dein Kind einrichten, 7 Tage kostenlos testen.</span></div><button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button></div></div>
+
 
   <section id="foto">
     <div class="wrap">
@@ -1357,16 +1411,7 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
     </div>
   </section>
 
-  <section id="faecher">
-    <div class="wrap">
-      <div class="sh">
-        <div class="mono">Fächer · Klasse 1 bis 4</div>
-        <h2 class="h1">Jedes Fach. 5 Spiele und ernsthaftes Lernen.</h2>
-        <p>Orientiert an dem, was in der Grundschule wirklich drankommt. Alle Fächer sind im Abo enthalten, für bis zu 3 Kinder.</p>
-      </div>
-      <div class="subj" id="subj"></div>
-    </div>
-  </section>
+
 
   <section id="ki">
     <div class="wrap">
@@ -1397,7 +1442,7 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
       <div class="midcta" id="midcta">
         <img src="/grundschulmax/max.png" alt="">
         <div><b>Fit für die Schule, fürs Internet und für KI.</b><span>30 Lernspiele, ernsthaftes Üben und der Foto-Zauber, abgestimmt auf die Klasse deines Kindes.</span></div>
-        <button class="b3d lg" data-start>7 Tage kostenlos testen <svg class="i"><use href="#i-arrow"/></svg></button>
+        <button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button>
       </div>
     </div>
   </section>
@@ -1518,10 +1563,11 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
         <img src="/grundschulmax/max.png" alt="">
         <h2 class="h1">Heute spielen. Sonntag den ersten Bericht lesen.</h2>
         <p>7 Tage kostenlos · alle Fächer · bis zu 3 Kinder</p>
-        <button class="btn lg" data-start>Jetzt kostenlos testen <svg class="i"><use href="#i-arrow"/></svg></button>
+        <button class="btn lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button>
       </div>
     </div>
   </section>
+</div>
 </main>
 
 <footer>
@@ -1531,7 +1577,7 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
   </div>
 </footer>
 
-<div class="mcta" id="mcta"><button class="btn" data-start>7 Tage kostenlos testen <svg class="i"><use href="#i-arrow"/></svg></button></div>
+<div class="mcta" id="mcta"><button class="btn" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button></div>
 
 <div class="ov" id="ov" role="dialog" aria-modal="true">
   <div class="modal">
@@ -1712,7 +1758,7 @@ const P = {
   done3: vk('Drei Sterne! Das war richtig stark.'),
   done2: vk('Zwei Sterne! Das war schon richtig gut.'),
   done1: vk('Geschafft! Mit etwas Übung wird es noch besser.'),
-  grade: vk('Hallo, ich bin Max! In welche Klasse gehst du?'),
+  grade: vk('Hallo, ich bin Max! In welche Klasse geht dein Kind?'),
   pick: vk('Super! Such dir ein Spiel aus.'),
   locked: vk('Dieses Spiel gibt es im Abo.'),
   hello: vk('Los geht’s!'),
@@ -1791,7 +1837,9 @@ function finish(title, text) {
     <h3>${title}</h3><p>${text}</p>
     <div class="stats"><div><small>Genauigkeit</small><b>${acc} %</b></div><div><small>Beste Serie</small><b>${st.best}</b></div><div><small>Zeit</small><b>${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}</b></div></div>
     <div class="row"><button class="b3d w" data-a="again">${I('again')}Nochmal</button>${nextG >= 0 ? `<button class="b3d c" data-a="nextg">Nächstes Spiel ${I('arrow')}</button>` : `<button class="b3d c" data-a="next">${SUBJ[(st.s + 1) % SUBJ.length].n} spielen ${I('arrow')}</button>`}</div></div>`;
+  o.querySelector('.fini').insertAdjacentHTML('beforeend', `<div class="row fcta"><button class="b3d sm" data-a="cta">Für mein Kind einrichten ${I('arrow')}</button></div>`);
   gs.appendChild(o);
+  $('[data-a=cta]', o).onclick = () => openM();
   $('[data-a=again]', o).onclick = () => mount();
   const n = $('[data-a=nextg]', o); if (n) n.onclick = () => { st.g = nextG; mount(); };
   const m = $('[data-a=next]', o); if (m) m.onclick = () => { st.s = (st.s + 1) % SUBJ.length; st.g = 0; st.m = 'game'; mount(); };
@@ -2718,13 +2766,21 @@ function gQuiz(T) {
 /* ---------- Spielwelt: Klasse, Fächer, Lernpfad ---------- */
 const GRADES = [['1. Klasse', 'ca. 6–7 Jahre', 'leicht'], ['2. Klasse', 'ca. 7–8 Jahre', 'leicht bis mittel'], ['3. Klasse', 'ca. 8–9 Jahre', 'mittel bis schwer'], ['4. Klasse', 'ca. 9–10 Jahre', 'knifflig']];
 const GCOL = [['#4cc38a', '#1f8a4c'], ['#5aa2f7', '#1a5fc4'], ['#f39b52', '#d9601c'], ['#9b7cf0', '#5b3fc4']];
-$('#pick').innerHTML = `<div class="pkbg">${['mila', 'emma', 'claude', 'frieda', 'bit'].map((t, i) => `<span class="pkf f${i}">${tutorHTML(t)}</span>`).join('')}<i class="bl b1"></i><i class="bl b2"></i><i class="bl b3"></i></div>
-  <div class="pk"><div class="pkm">${tutorHTML('max')}<span class="pksay">Hallo! In welche Klasse gehst du?</span></div><h3>Für welche Klasse?</h3><p>Die Spiele passen sich an: Klasse 1 leicht, Klasse 4 richtig knifflig.</p>
+$('#pick').innerHTML = `<div class="pkbg"><i class="bl b1"></i><i class="bl b2"></i><i class="bl b3"></i></div>
+  <div class="pk"><div class="arc" id="arc">${['mila', 'emma', 'claude', 'frieda', 'bit'].map((t) => { const S = SUBJ.find((x) => x.tutor.id === t); return `<span class="arci" style="--c1:${S.c1};--c2:${S.c2}"><span class="arcf">${tutorHTML(t)}</span><b>${S.tutor.n}</b><small>${S.n}</small></span>`; }).join('')}
+  <div class="pkm">${tutorHTML('max')}<span class="pkl0"><b>Max</b><small>Deutsch</small></span></div></div>
+  <h3>In welche Klasse geht dein Kind?</h3><p>Die Spiele passen sich an: Klasse 1 leicht, Klasse 4 richtig knifflig.</p>
   <div class="pkg">${GRADES.map((g, i) => `<button class="gcard" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><strong>${g[0]}</strong><small>${g[1]}</small><span class="lvl">${[0, 1, 2, 3].map((k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('')}</span><em>${g[2]}</em></button>`).join('')}</div></div>`;
-$$('#pick [data-g]').forEach((b) => (b.onclick = () => { st.grade = +b.dataset.g; demo.classList.add('picked'); drawGrade(); voice(P.pick); mount(); }));
-$('#gsel').innerHTML = GRADES.map((g, i) => `<button data-g="${i}">${i + 1}.<span> Klasse</span></button>`).join('');
-$$('#gsel button').forEach((b) => (b.onclick = () => { st.grade = +b.dataset.g; drawGrade(); mount(); }));
-function drawGrade() { $$('#gsel button').forEach((b, i) => b.classList.toggle('on', i === st.grade)); $('#glev').textContent = GRADES[st.grade][2]; }
+function layoutArc() {
+  const arc = $('#arc'); if (!arc || !arc.offsetWidth) return;
+  const W = arc.offsetWidth, items = $$('.arci', arc), n = items.length, iw = items[0].offsetWidth;
+  const R = Math.min(W / 2 - iw / 2 - 2, W < 500 ? 160 : 270), cy = arc.offsetHeight - (W < 500 ? 56 : 96);
+  items.forEach((el, k) => { const a = Math.PI * (1 - (k + .5) / n) ; el.style.left = W / 2 + R * Math.cos(a) - iw / 2 + 'px'; el.style.top = cy - R * Math.sin(a) * (W < 500 ? .95 : .72) - (W < 500 ? 34 : 40) + 'px'; el.style.animationDelay = -k * .7 + 's'; });
+}
+addEventListener('resize', layoutArc);
+st.grade = -1;
+$$('#pick [data-g]').forEach((b) => (b.onclick = () => { st.grade = +b.dataset.g; drawGrade(); voice(P.pick); if (st.next != null) { const n = st.next; st.next = null; goTo(n); } else go('faecher'); }));
+function drawGrade() { const t = st.grade < 0 ? '' : `${I('cap')}${GRADES[st.grade][0]} · ${GRADES[st.grade][2]}`; ['#gchip', '#gchip2'].forEach((q) => { $(q).innerHTML = t; $(q).style.display = t ? '' : 'none'; }); }
 $('#tabs').innerHTML = SUBJ.map((s, i) => `<button class="tab" role="tab" data-i="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="ti">${s.ic}</span>${s.n}</button>`).join('');
 $$('#tabs .tab').forEach((t) => (t.onclick = () => { st.s = +t.dataset.i; st.g = 0; st.m = 'game'; mount(); t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); }));
 $$('#modes button').forEach((b) => (b.onclick = () => { st.m = b.dataset.m; mount(); }));
@@ -2752,7 +2808,7 @@ function mount() {
   $('#tutn').textContent = S.tutor.n;
   $('#gname').innerHTML = st.m === 'game' ? `${g.n} <small>${g.d}</small>` : `${S.n} üben <small>mit Erklärung</small>`;
   drawPath(); gstars(0); gs.innerHTML = ''; $('.fb', gs) && $('.fb', gs).remove();
-  if (!demo.classList.contains('picked')) return;
+  if (st.grade < 0) return;
   cleanup = st.m === 'quiz' ? gQuiz(token) : g.play ? g.play(token) : preview(g);
 }
 $('#snd').onclick = () => {
@@ -2768,13 +2824,13 @@ $('#subj').innerHTML = SUBJ.map((s, i) => `<div class="sub" style="--c1:${s.c1};
   <div class="tag"><span class="tav">${tutorHTML(s.tutor.id)}</span><span>${s.n}<small>mit ${s.tutor.n}</small></span></div>${s.note ? `<div class="note">${s.note}</div>` : ''}
   <div class="two"><div><h4>${I('pad')}5 Spiele</h4><ul>${s.games.map((x) => `<li>${x.n}</li>`).join('')}</ul></div><div><h4>${I('book')}Ernsthaft lernen</h4><ul>${s.ern.map((x) => `<li>${x}</li>`).join('')}</ul></div></div>
   <button class="play" data-go="${i}"><b>${I('play')}</b>${s.games[0].n} spielen</button></div>`).join('');
-function goTo(i, g = 0) { st.s = i; st.g = g; st.m = 'game'; mount(); $('#demo').scrollIntoView({ behavior: 'smooth' }); }
+function goTo(i, g = 0) { st.s = i; st.g = g; st.m = 'game'; if (st.grade < 0) { st.next = i; go('klasse'); return; } go('spiel'); mount(); }
 $$('[data-go]').forEach((b) => (b.onclick = () => goTo(+b.dataset.go)));
 $('#goki').onclick = () => goTo(5);
 /* Team im Hero und Abschnitt */
 $$('[data-team]').forEach((el) => (el.innerHTML = SUBJ.map((s, i) => `<button class="tm" data-go="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="tmc"><span class="tma">${tutorHTML(s.tutor.id)}</span></span><b>${s.tutor.n}</b><small>${s.n}</small></button>`).join('')));
 $$('.tm').forEach((b) => (b.onclick = () => goTo(+b.dataset.go)));
-$('#tnames').innerHTML = SUBJ.map((s) => `<span style="--c1:${s.c1};--c2:${s.c2}"><i></i>${s.tutor.n} · ${s.n}</span>`).join('');
+if ($('#tnames')) $('#tnames').innerHTML = SUBJ.map((s) => `<span style="--c1:${s.c1};--c2:${s.c2}"><i></i>${s.tutor.n} · ${s.n}</span>`).join('');
 
 /* ---------- Foto-Zauber ---------- */
 WHO = 'max';
@@ -2801,8 +2857,8 @@ $('#fsnap').onclick = async () => {
 function fotoGame() {
   CUSTOM_BALLON = { intro: vkFotoG, sp: 1, viz: null, R: FOTO.map(([t, n]) => ({ t: `${t} = ?`, n, d: [11, 12, 14, 15, 16, 10] })) };
   st.s = 0; st.g = 0; st.m = 'game';
-  if (!demo.classList.contains('picked')) { st.grade = 1; demo.classList.add('picked'); drawGrade(); }
-  $('#demo').scrollIntoView({ behavior: 'smooth' }); mount();
+  if (st.grade < 0) { st.grade = 1; drawGrade(); }
+  go('spiel'); mount();
 }
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -2853,15 +2909,35 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeM(); 
 $$('[data-start]').forEach((b) => (b.onclick = () => openM(b.dataset.plan)));
 
 /* Mobil: Knopf unten erst nach dem Wert, nie über dem Spiel */
-const mcta = $('#mcta'), valueAt = $('#midcta');
-let seen = false, gameIn = false;
-const upd = () => mcta.classList.toggle('on', seen && !gameIn);
-addEventListener('scroll', () => { const v = valueAt.getBoundingClientRect().top < innerHeight; if (v !== seen) { seen = v; upd(); } }, { passive: true });
+const mcta = $('#mcta');
+let gameIn = false;
+const upd = () => mcta.classList.toggle('on', ['faecher', 'spiel'].includes(document.body.dataset.screen) && !gameIn);
 new IntersectionObserver(([e]) => { gameIn = e.isIntersecting; upd(); }, { threshold: 0.05 }).observe(demo);
 window.VOICE_LINES = () => [...VL.entries()].map(([k, v]) => ({ k, ...v }));
 $('#fsnapi').onclick = () => $('#fsnap').click();
 
 $$('[data-tut]').forEach((el) => (el.innerHTML = tutorHTML(el.dataset.tut)));
+
+/* ---------- Ablauf: Start -> Klasse -> Fächer -> Spiel (mit Zurück) ---------- */
+function show(scr, sub) {
+  if (!['start', 'klasse', 'faecher', 'spiel'].includes(scr)) scr = 'start';
+  if (scr === 'spiel' && st.grade < 0) scr = 'klasse';
+  const prev = document.body.dataset.screen;
+  document.body.dataset.screen = scr;
+  $$('.view').forEach((el) => el.classList.toggle('on', el.dataset.s === scr));
+  if (scr !== 'spiel') { token++; if (cleanup) cleanup(); cleanup = null; stopVoice(); }
+  if (scr === 'spiel' && prev !== 'spiel') mount();
+  if (sub) { const t = document.getElementById(sub); if (t) setTimeout(() => t.scrollIntoView({ behavior: 'smooth' }), 60); }
+  else window.scrollTo(0, 0);
+  if (scr === 'klasse') { voice(P.grade); requestAnimationFrame(layoutArc); }
+  upd();
+}
+function go(path) { const h = '#' + path; if (location.hash === h) show(...path.split('/')); else location.hash = h; }
+addEventListener('hashchange', () => show(...location.hash.slice(1).split('/')));
+$$('[data-to]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); go(a.dataset.to); }));
+$$('[data-back]').forEach((b) => (b.onclick = () => { const cur = document.body.dataset.screen; go(cur === 'spiel' ? 'faecher' : cur === 'faecher' && st.grade >= 0 ? 'klasse' : ''); }));
+drawGrade();
+show(...location.hash.slice(1).split('/'));
 </script>
 </body>
 </html>
