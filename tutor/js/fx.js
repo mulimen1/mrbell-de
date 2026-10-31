@@ -2,7 +2,7 @@
 // Antworten, Wackeln bei falschen, kleiner Erfolgsmoment beim Ablegen einer Datei. Dezent, kurz, nie im Weg.
 const H = document.documentElement;
 const on = () => !!H.dataset.nv && !matchMedia('(prefers-reduced-motion: reduce)').matches;
-const TAP = '.btn, .ai-talk, .tn, .tc-btn, .rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card, .chip, .rm-tdb, .rm-mat, .rm-tdrop, .vt-btn, .vt-more, .m-mc-o, .opts > button, .side-new, .iconbtn';
+const TAP = '.btn, .ai-talk, .tn, .tc-btn, .rm-tc, .rm-tlt, .rm-tile, .ln-tile, .tr-card, .chip, .rm-tdb, .rm-mat, .rm-tdrop, .vt-btn, .vt-more, .m-mc-o, .opts > button, .side-new, .iconbtn, .bms .go-btn, .bms-doc, .bms-fmt, .bms-tab, .bms-dl, .bms-wdoc, .bms-back, .bms .starbtn';   // .bms-…: Demo bwlmax.de/start – gleiche Klick-Welle wie in der App
 const buzz = p => { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} };
 
 function layer() {
@@ -36,7 +36,7 @@ addEventListener('pointerdown', e => {
   if (!on() || e.button > 0) return;
   const t = e.target.closest && e.target.closest(TAP);
   if (!t || t.disabled) return;
-  ripple(e.clientX, e.clientY, t.matches('.btn.primary, .ai-talk, .tn-tutor, .tc-btn, .side-new'));
+  ripple(e.clientX, e.clientY, t.matches('.btn.primary, .ai-talk, .tn-tutor, .tc-btn, .side-new, .bms .go-btn, .bms-doc, .bms-fmt, .bms-tab'));
 }, { passive: true, capture: true });
 
 // Richtig/falsch in Quiz und Mini-Check: auf die Klassen hören, die die Auswertung setzt

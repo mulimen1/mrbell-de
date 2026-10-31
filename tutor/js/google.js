@@ -21,6 +21,20 @@ function loadGis() {
 }
 
 let handler = null, inited = false;
+// Google-Knopf sichtbar machen, sobald sein iframe geladen ist (spätestens nach 2,5 s; ohne iframe – Ersatzknopf – nach kurzer Pause)
+function gReveal(el) {
+  const show = () => { if (el._gT) clearTimeout(el._gT); el._gT = 0; requestAnimationFrame(() => el.classList.remove('g-wait')); };
+  el._gT = setTimeout(show, 2500);
+  const t0 = Date.now();
+  const look = () => {
+    if (!el.isConnected) return;
+    const f = el.querySelector('iframe');
+    if (f) { let done = false; const go = () => { if (!done) { done = true; setTimeout(show, 60); } }; f.addEventListener('load', go, { once: true }); setTimeout(() => { try { if (f.contentDocument === null && f.getBoundingClientRect().height > 20) go(); } catch (e) {} }, 900); return; }
+    if (Date.now() - t0 > 700 && el.firstElementChild) return show();
+    setTimeout(look, 50);
+  };
+  look();
+}
 // Ein Google-Knopf in `el`. onDone(r) bekommt die Server-Antwort (Konto + Sitzung sind dann schon gesetzt).
 export async function googleButton(el, onDone, tries = 0) {
   if (!el) return;
@@ -43,9 +57,13 @@ export async function googleButton(el, onDone, tries = 0) {
       inited = true;
     }
     const sc = parseFloat(getComputedStyle(el).getPropertyValue('--gscale')) || 1;   // größer dargestellt (z. B. Verlassen-Fenster): schmaler zeichnen, per CSS hochskalieren
-    const w = Math.max(200, Math.min(400, Math.round((el.getBoundingClientRect().width || 320) / sc)));
+    // Breite aus dem Layout (clientWidth), nicht aus getBoundingClientRect: das Fenster skaliert beim Öffnen noch (Pop-Animation) – sonst wird der Knopf zu schmal
+    const w = Math.max(200, Math.min(400, Math.round((el.clientWidth || el.parentElement?.clientWidth || 320) / sc)));
+    // Platz bleibt reserviert (CSS: feste Höhe + Platzhalter), der Knopf blendet erst ein, wenn Googles Rahmen geladen ist – kein Springen/Flackern
+    el.classList.add('g-wait');
     el.replaceChildren();
     g.accounts.id.renderButton(el, { type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', shape: 'pill', logo_alignment: 'center', width: w, locale: document.documentElement.lang === 'en' ? 'en' : 'de' });
+    gReveal(el);
   } catch (e) {
     // Google-Skript nicht geladen (Netz, Blocker): bis zu zweimal neu versuchen, erst dann ausblenden
     if (tries < 2 && el.isConnected) { setTimeout(() => googleButton(el, onDone, tries + 1), 1200 * (tries + 1)); return; }

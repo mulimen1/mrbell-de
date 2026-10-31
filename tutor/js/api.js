@@ -50,11 +50,18 @@ const EV = { analyse: ['Upload eingeordnet'], ocr: ['Foto abgeschrieben'], topic
   lesson: ['Erstellt', 'Lektion'], podcast: ['Erstellt', 'Podcast'], summary: ['Erstellt', 'Lernzettel & Mindmap'], live: ['Sprechen gestartet'], verify: ['Angemeldet'] };
 // images: [{mime, data}] gehen nur im zweiten Schritt mit (Upload-Analyse, Foto-Abschrift)
 // Jede Antwort von Max mit Erklärungen/Rechnungen läuft durch das Rechen-Gate (rechengate.js) – ohne Ausnahme.
-const DEMO_STOP = new Set(['chat', 'topic', 'quiz', 'exam', 'cards', 'summary', 'lesson', 'path', 'podcast', 'podtts', 'tts', 'stt', 'grade', 'mitschrift', 'ocr', 'transcribe', 'live', 'analyse', 'creator']);
+// 'chat' (Max fragen) ist in der Demo erlaubt – nach denselben Gast-Regeln wie auf der Startseite (Server-Kontingent); alles andere bleibt gesperrt
+const DEMO_STOP = new Set(['topic', 'quiz', 'exam', 'cards', 'summary', 'lesson', 'path', 'podcast', 'podtts', 'tts', 'stt', 'grade', 'mitschrift', 'ocr', 'transcribe', 'live', 'analyse', 'creator']);
 export async function ask(action, payload = {}, opt = {}) {
   // Demo (bwlmax.de/start): ohne Konto keine KI-Aufrufe – die Demo zeigt nur fertige Inhalte und kostet nichts
   if (DEMO_STOP.has(action) && !account && document.documentElement.classList.contains('bm-demo')) throw Object.assign(new Error(L('Das baut dir Max mit deinem kostenlosen Konto – aus deinem eigenen Skript.', 'Max builds this with your free account – from your own material.')), { code: 'need_account' });
   const orig = payload;
+  // Demo (bwlmax.de/start): Max weiß still, wo die Person ist (vorangestellt, damit die Modellwahl nach der letzten Nachricht nicht kippt; nicht im Verlauf)
+  if (action === 'chat' && !account && Array.isArray(payload.messages) && payload.messages.length && document.documentElement.classList.contains('bm-demo') && !(payload.opts && payload.opts.rechenkorrektur)) {
+    const D = window.BM_DEMO || {};
+    const t = `INTERNE INFO (nicht wörtlich erwähnen): Die Person ist auf bwlmax.de/start in der Demo, ohne Konto, kam über Werbung (Quelle: ${D.src || 'direkt'}).` + (D.titel ? ` Offen ist das Demo-Skript „${D.titel}“ (${D.fach || ''}).` : ' Sie hat noch kein Demo-Skript gewählt.') + ' Sie kann dort Lernzettel, Karteikarten, Quiz und Podcast zu diesem Demo-Skript ansehen. Eigene Skripte hochladen und neue Inhalte erstellen geht erst mit kostenlosem Konto (Knopf „Mit meinem Skript loslegen“). Bleib Max (Ton wie immer), beantworte die Frage fachlich, und wenn es passt, lade kurz und unaufdringlich zum kostenlosen Konto ein.';
+    payload = { ...payload, messages: [{ role: 'user', content: t }, { role: 'assistant', content: 'Verstanden.' }, ...payload.messages] };
+  }
   // Chat: geprüften Rechts-/Zahlenstand zum Thema der Frage still mitgeben (nur in der Anfrage, nicht im Verlauf)
   if (action === 'chat' && Array.isArray(payload.messages) && payload.messages.length && !(payload.opts && payload.opts.rechenkorrektur)) {
     try {

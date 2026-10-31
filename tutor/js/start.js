@@ -27,7 +27,7 @@ const F = {
 const shy = t => String(t).replace('Deckungsbeitragsrechnung', 'Deckungs­beitrags­rechnung').replace('Kapitalwertmethode', 'Kapital­wert­methode');
 const ORDER = ['zettel', 'karten', 'quiz', 'podcast'];
 // Skript-Farben wie die Bereichsfarben der App (gelb = Lernzettel/Notizen, blau = Tafel, orange = Fächer/Bibliothek)
-const FACH = { db: { c: ['#f7c948', '#d18e06'], ink: 'dark' }, kw: { c: ['#5aa2f7', '#1a5fc4'] }, swot: { c: ['#f39b52', '#d9601c'], ink: 'dark' } };
+const FACH = { db: { c: ['#f7c948', '#d18e06'], ink: 'dark', ic: 'calc' }, kw: { c: ['#5aa2f7', '#1a5fc4'], ic: 'chart' }, swot: { c: ['#f39b52', '#d9601c'], ink: 'dark', ic: 'apps' } };
 const fach = k => FACH[k] || FACH.db;
 
 let root = null, data = null, cur = null, fmt = null, made = new Set(), viewClean = null, offAcc = null, busy = 0, offPop = null;
@@ -43,6 +43,10 @@ export async function mountStart() {
   document.body.prepend(root);
   offAcc = onAccount(a => { if (a && root) finish(); });
   hello();
+  // Max unten rechts wie auf der Startseite (Antwort-Bibliothek zuerst, sonst Gast-Regeln) + Rechner/Lexikon
+  import('./assistant.js').then(m => m.mountAssistant && m.mountAssistant()).catch(e => console.warn(e));
+  import('./dock.js').then(m => m.mountDock()).catch(e => console.warn(e));
+  window.BM_DEMO = { src: SRC_NAME };
   track('Demo geöffnet', SRC_NAME);
   try { data = await (await fetch('/tutor/data/demo/start.json?v=1')).json(); } catch (e) { data = null; }
   pickScript();
@@ -53,6 +57,7 @@ export function unmountStart() {
   H.classList.remove('bm-start', 'bm-demo');
   cleanupView();
   if (S.doc && S.doc.demo) S.doc = null;
+  try { delete window.BM_DEMO; } catch (e) {}
   if (offAcc) { try { offAcc(); } catch (e) {} offAcc = null; }
   root && root.remove(); root = null; cur = null; fmt = null; made = new Set(); ws = null;
 }
@@ -81,15 +86,13 @@ function leave() {
 let bubbleEl = null, heroFace = null;
 function hello() {
   const mini = h('span', { class: 'mini bms-mini' });
-  const exit = h('button', { class: 'bms-exit', type: 'button', title: 'Demo beenden und zur Startseite', onclick: leave }, h('span', { 'data-icn': '1', html: ico('x') }), h('span', { class: 'bms-exl' }, 'Demo verlassen'));
   const top = h('header', { class: 'bms-top' },
     h('div', { class: 'bms-tl' },
-      h('a', { class: 'brand bms-brand', href: '/', 'aria-label': 'BWL Max', onclick: e => { e.preventDefault(); leave(); } }, mini, h('span', { class: 'bn' }, 'BWL Max')),
+      h('a', { class: 'brand bms-brand', href: '/', 'aria-label': 'BWL Max – zur Startseite', title: 'Zur Startseite', onclick: e => { e.preventDefault(); leave(); } }, mini, h('span', { class: 'bn' }, 'BWL Max')),
       h('span', { class: 'bms-demo-pill' }, h('i'), 'Demo · ohne Konto')),
     h('div', { class: 'bms-tc' },
       h('button', { class: 'go-btn bms-topmade', type: 'button', onclick: () => cta('Oben: Mit meinem Skript') }, 'Mit meinem Skript loslegen')),
     h('div', { class: 'bms-tr' },
-      exit,
       h('button', { class: 'navlogin bms-login', type: 'button', onclick: () => cta('Oben: Anmelden', true) }, 'Anmelden'),
       h('button', { class: 'go-btn bms-topgo', type: 'button', onclick: () => cta('Oben: Kostenlos starten') }, 'Kostenlos starten')));
   face(mini);
@@ -132,7 +135,7 @@ function pickScript() {
     return h('button', { class: 'bms-doc' + (fc.ink === 'dark' ? ' ink-d' : '') + (cur && cur.key === s.key ? ' on' : ''), type: 'button', style: { ...tint(fc.c), '--k': k }, onclick: () => choose(s) },
       h('span', { class: 'bms-dtop' }, h('span', { class: 'bms-fach' }, s.fach), h('span', { class: 'bms-pdf' }, 'PDF')),
       h('b', { class: 'bms-dt' }, shy(s.titel)),
-      h('span', { class: 'bms-lines', 'aria-hidden': 'true' }, h('i'), h('i'), h('i')),
+      h('span', { class: 'bms-dic', 'data-icn': '1', 'aria-hidden': 'true', html: ico(fc.ic) }),
       h('small', { class: 'bms-din' }, 'Drin: ' + s.untertitel),
       h('span', { class: 'bms-dfoot' }, h('span', { class: 'bms-fol' }, h('span', { 'data-icn': '1', html: ico('file') }), `${s.folien} Folien`), h('span', { class: 'bms-pick' }, 'Auswählen', h('span', { 'data-icn': '1', html: ico('right') }))));
   });
@@ -144,6 +147,7 @@ function pickScript() {
 
 function choose(s) {
   cur = s; made = new Set(); fmt = null;
+  window.BM_DEMO = { src: SRC_NAME, titel: s.titel, fach: s.fach };
   root.classList.remove('bms-made');
   S.doc = migrate(JSON.parse(JSON.stringify(s.doc)));   // frische Kopie: Fortschritt in der Demo bleibt nur im Speicher
   S.doc.mistakes = [];
@@ -194,14 +198,15 @@ function work(k) {
   const st = stage();
   const tabs = h('div', { class: 'bms-tabs', role: 'tablist' });
   const body = h('div', { class: 'bms-view' });
-  const dl = h('button', { class: 'btn bms-dl', type: 'button', title: 'Herunterladen', 'aria-label': 'Herunterladen', onclick: () => download() }, h('span', { html: ico('download') }), h('span', {}, 'Herunterladen'));
+  const dl = h('button', { class: 'bms-dl', type: 'button', title: 'Herunterladen', 'aria-label': 'Herunterladen', onclick: () => download() }, h('span', { html: ico('download') }), h('span', {}, 'Herunterladen'));
   const fc = fach(cur.key);
-  ws = { tabs, body, dl };
+  const sub = h('small', {}, 'Skript wechseln');
+  ws = { tabs, body, dl, sub };
   st.replaceChildren(h('section', { class: 'bms-work' },
-    h('div', { class: 'bms-wbar' },
+    h('div', { class: 'bms-whead' },
       h('button', { class: 'bms-wdoc', type: 'button', title: 'Anderes Skript wählen', onclick: () => { pickScript(); window.scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' }); } },
-        h('span', { class: 'bms-ci', 'data-icn': '1', style: tint(fc.c), html: ico('file') }), h('span', { class: 'bms-wt' }, h('b', {}, cur.titel), h('small', {}, cur.fach + ' · Skript wechseln'))),
-      tabs, dl),
+        h('span', { class: 'bms-ci', 'data-icn': '1', style: tint(fc.c), html: ico(fc.ic) }), h('b', {}, cur.titel), sub)),
+    h('div', { class: 'bms-wbar' }, tabs, dl),
     body,
     band()));
   drawTabs();
@@ -209,8 +214,9 @@ function work(k) {
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 function drawTabs() {
-  ws.tabs.replaceChildren(...ORDER.map(k => { const f = F[k]; return h('button', { class: 'bms-tab' + (k === fmt ? ' on' : '') + (made.has(k) ? ' made' : '') + (f.ink === 'dark' ? ' ink-d' : ''), type: 'button', role: 'tab', 'data-k': k, 'aria-selected': k === fmt ? 'true' : 'false', style: tint(f.c), onclick: () => open(k) },
-    h('span', { class: 'bms-ti', 'data-icn': '1', html: ico(f.ic) }), h('span', { class: 'bms-tl2' }, f.t), made.has(k) ? null : h('span', { class: 'bms-plus', 'aria-label': 'erstellen' }, '+')); }));
+  if (!ws.tabs.children.length) ws.tabs.replaceChildren(...ORDER.map(k => { const f = F[k]; return h('button', { class: 'bms-tab' + (f.ink === 'dark' ? ' ink-d' : ''), type: 'button', role: 'tab', 'data-k': k, style: tint(f.c), onclick: () => { if (k !== fmt) open(k); } },
+    h('span', { class: 'bms-ti', 'data-icn': '1', html: ico(f.ic) }), h('span', { class: 'bms-tl2' }, f.t)); }));
+  [...ws.tabs.children].forEach(b => { const k = b.dataset.k, on = k === fmt; b.classList.toggle('on', on); b.classList.toggle('made', made.has(k)); b.setAttribute('aria-selected', on ? 'true' : 'false'); if (!on) b.classList.remove('fill'); });
   const on = ws.tabs.querySelector('.on'); if (on && ws.tabs.scrollWidth > ws.tabs.clientWidth) { const T = ws.tabs.getBoundingClientRect(), O = on.getBoundingClientRect(); ws.tabs.scrollTo({ left: ws.tabs.scrollLeft + O.left - T.left - (T.width - O.width) / 2, behavior: RM ? 'auto' : 'smooth' }); }
 }
 function cleanupView() { try { viewClean && viewClean(); } catch (e) {} viewClean = null; }
@@ -220,10 +226,11 @@ async function open(k, arg) {
   const my = ++busy;
   cleanupView();
   fmt = k; drawTabs();
+  ws.sub.textContent = 'Skript wechseln'; ws.sub.classList.remove('busy');
   const f = F[k], fresh = !made.has(k);
   const inner = h('div', { class: 'bms-vin' });
-  const ctx = { doc: S.doc, arg: arg !== undefined ? arg : k === 'quiz' ? 'q-' + S.doc.quizzes[0].id : null, go: (t, x) => (F[t] ? open(t, x || null) : cta('Weiter: ' + t)), ask: () => cta('Max fragen') };
-  if (fresh) { inner.classList.add('bms-pre'); track('Demo erstellt', `${cur.key} · ${k}`); say(f.h, 0, 'think'); }
+  const ctx = { doc: S.doc, arg: arg !== undefined ? arg : k === 'quiz' ? 'q-' + S.doc.quizzes[0].id : null, go: (t, x) => (F[t] ? open(t, x || null) : cta('Weiter: ' + t)), ask: t => askMax(t) };
+  if (fresh) { inner.classList.add('bms-pre'); track('Demo erstellt', `${cur.key} · ${k}`); ws.sub.textContent = f.h; ws.sub.classList.add('busy'); }
   ws.body.replaceChildren(inner);
   if (fresh) { ws.body.style.minHeight = Math.max(560, innerHeight - 120) + 'px'; ws.tabs.querySelector('.on')?.classList.add('fill'); }
   try {
@@ -242,8 +249,8 @@ async function open(k, arg) {
     made.add(k); drawTabs();
     ws.body.style.minHeight = '';
     root.classList.add('bms-made');
+    ws.sub.textContent = 'Skript wechseln'; ws.sub.classList.remove('busy');
   } else inner.classList.add('bms-in');
-  if (my === busy) say(f.ok, 0, 'happy');
 }
 
 // Lernzettel in der Demo: Kernaussagen als nummerierte Liste, Formeln dezent hervorgehoben (nur Anzeige, Text bleibt gleich)
@@ -307,6 +314,13 @@ async function typeIn(el, ms) {
   el.classList.remove('bms-typing'); el.style.minHeight = '';
 }
 
+// „Max fragen“ aus den Ansichten (Begriff antippen, Quizfrage erklären …): direkt an Max unten rechts
+async function askMax(t) {
+  track('Demo Max gefragt', fmt || '');
+  try { const m = await import('./assistant.js'); const a = m.mountAssistant && m.mountAssistant(); if (a && t) return a.ask(String(t)); if (a) return a.open(); } catch (e) { console.warn(e); }
+  cta('Max fragen');
+}
+
 // ---------- Herunterladen (ohne Konto, ohne KI) ----------
 async function download() {
   const E = await import('./export.js');
@@ -336,6 +350,12 @@ async function cta(where, login = false) {
   track('Demo Konto-Knopf', where);
   const { openAuth, openLogin } = await import('./account.js');
   const why = `Demo ${SRC_NAME}`.slice(0, 30);
+  // Im Anmeldefenster: deutlich „Zurück zur Demo“ (schließt nur das Fenster)
+  let n = 0; const t = setInterval(() => {
+    const m = document.querySelector('.modal.login');
+    if (m && !m.querySelector('.bms-back')) m.prepend(h('button', { class: 'bms-back', type: 'button', onclick: () => { const x = m.querySelector('.lclose, .mx'); if (x) x.click(); else document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); } }, h('span', { 'data-icn': '1', html: ico('left') }), 'Zurück zur Demo'));
+    if (m || ++n > 60) clearInterval(t);
+  }, 40);
   const ok = login ? await openLogin({ why }) : await openAuth({
     registerTitle: 'Jetzt mit deinem Skript – kostenlos',
     registerSub: 'Kostenloses Konto in 30 Sekunden. Danach lädst du dein Skript hoch und ich bau dir alles aus deinem Stoff.',
