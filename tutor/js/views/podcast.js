@@ -135,7 +135,7 @@ function player(wrap, ctx, p) {
   const track = h('i');
   const status = h('div', { class: 'eyebrow pstat', style: { marginTop: '10px', textTransform: 'none', letterSpacing: 0 } });
   const tbar = h('div', { class: 'ptrack', onclick: e => { const r = tbar.getBoundingClientRect(); seek(Math.floor((e.clientX - r.left) / r.width * p.lines.length)); } }, track);
-  const lines = p.lines.map((l, k) => h('div', { class: 'line', onclick: () => seek(k) }, h('span', { class: 'who' }, SPK(l.s)), h('span', {}, fixT(l.t))));
+  const lines = p.lines.map((l, k) => h('div', { class: 'line', 'data-s': SPK(l.s), onclick: () => seek(k) }, h('span', { class: 'who' }, SPK(l.s)), h('span', {}, fixT(l.t))));
   const script = h('div', { class: 'script' }, lines);
   const w = wave();
   const rates = [0.9, 1, 1.25, 1.5].map(r => { const c = h('button', { class: 'chip' + (r === rate ? ' on' : '') }, L(r.toString().replace('.', ','), r.toString()) + '×'); c.addEventListener('click', () => { rate = r; audio.playbackRate = r; rates.forEach(x => x.classList.toggle('on', x === c)); if (playing && !real()) seek(idx); }); return c; });
