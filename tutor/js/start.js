@@ -196,28 +196,24 @@ let ws = null;
 function work(k) {
   root.classList.add('bms-working');
   const st = stage();
-  const tabs = h('div', { class: 'bms-tabs', role: 'tablist' });
+  // Kein Wechsel-Band mehr: wer ein Format gewählt hat, ist in diesem Bereich (nur das Skript lässt sich wechseln)
+  const area = h('span', { class: 'bms-area' });
   const body = h('div', { class: 'bms-view' });
-  const dl = h('button', { class: 'bms-dl', type: 'button', title: 'Herunterladen', 'aria-label': 'Herunterladen', onclick: () => download() }, h('span', { html: ico('download') }), h('span', {}, 'Herunterladen'));
+  const more = h('div', { class: 'bms-morew' });
+  extra = 0;
   const fc = fach(cur.key);
   const sub = h('small', {}, 'Skript wechseln');
-  ws = { tabs, body, dl, sub };
+  ws = { body, sub, area, more };
   st.replaceChildren(h('section', { class: 'bms-work' },
     h('div', { class: 'bms-whead' },
       h('button', { class: 'bms-wdoc', type: 'button', title: 'Anderes Skript wählen', onclick: () => { pickScript(); window.scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' }); } },
-        h('span', { class: 'bms-ci', 'data-icn': '1', style: tint(fc.c), html: ico(fc.ic) }), h('b', {}, cur.titel), sub)),
-    h('div', { class: 'bms-wbar' }, tabs, dl),
+        h('span', { class: 'bms-ci', 'data-icn': '1', style: tint(fc.c), html: ico(fc.ic) }), h('b', {}, cur.titel), sub),
+      area),
     body,
+    more,
     band()));
-  drawTabs();
   open(k);
   window.scrollTo({ top: 0, behavior: 'auto' });
-}
-function drawTabs() {
-  if (!ws.tabs.children.length) ws.tabs.replaceChildren(...ORDER.map(k => { const f = F[k]; return h('button', { class: 'bms-tab' + (f.ink === 'dark' ? ' ink-d' : ''), type: 'button', role: 'tab', 'data-k': k, style: tint(f.c), onclick: () => { if (k !== fmt) open(k); } },
-    h('span', { class: 'bms-ti', 'data-icn': '1', html: ico(f.ic) }), h('span', { class: 'bms-tl2' }, f.t)); }));
-  [...ws.tabs.children].forEach(b => { const k = b.dataset.k, on = k === fmt; b.classList.toggle('on', on); b.classList.toggle('made', made.has(k)); b.setAttribute('aria-selected', on ? 'true' : 'false'); if (!on) b.classList.remove('fill'); });
-  const on = ws.tabs.querySelector('.on'); if (on && ws.tabs.scrollWidth > ws.tabs.clientWidth) { const T = ws.tabs.getBoundingClientRect(), O = on.getBoundingClientRect(); ws.tabs.scrollTo({ left: ws.tabs.scrollLeft + O.left - T.left - (T.width - O.width) / 2, behavior: RM ? 'auto' : 'smooth' }); }
 }
 function cleanupView() { try { viewClean && viewClean(); } catch (e) {} viewClean = null; }
 
@@ -225,11 +221,12 @@ async function open(k, arg) {
   if (!ws) return;
   const my = ++busy;
   cleanupView();
-  fmt = k; drawTabs();
+  fmt = k;
+  { const f0 = F[k]; ws.area.className = 'bms-area' + (f0.ink === 'dark' ? ' ink-d' : ''); for (const [n, v] of Object.entries(tint(f0.c))) ws.area.style.setProperty(n, v); ws.area.replaceChildren(h('span', { class: 'bms-ai', 'data-icn': '1', html: ico(f0.ic) }), h('b', {}, f0.t)); }
   ws.sub.textContent = 'Skript wechseln'; ws.sub.classList.remove('busy');
   const f = F[k], fresh = !made.has(k);
   const inner = h('div', { class: 'bms-vin' });
-  const ctx = { doc: S.doc, arg: arg !== undefined ? arg : k === 'quiz' ? 'q-' + S.doc.quizzes[0].id : null, go: (t, x) => (F[t] ? open(t, x || null) : cta('Weiter: ' + t)), ask: t => askMax(t) };
+  const ctx = { doc: S.doc, arg: arg !== undefined ? arg : k === 'quiz' ? 'q-' + S.doc.quizzes[0].id : null, go: (t, x) => (t === fmt ? open(t, x || null) : cta('Weiter: ' + t)), ask: t => askMax(t) };
   if (fresh) { inner.classList.add('bms-pre'); track('Demo erstellt', `${cur.key} · ${k}`); ws.sub.textContent = f.h; ws.sub.classList.add('busy'); }
   // Vorab: kurz sichtbar „Max erstellt …“ (eigene Bühne in Bereichsfarbe), dann baut sich das Ergebnis auf
   if (fresh && !RM) {
@@ -241,7 +238,7 @@ async function open(k, arg) {
     if (my !== busy) return;
   }
   ws.body.replaceChildren(inner);
-  if (fresh) { ws.body.style.minHeight = Math.max(560, innerHeight - 120) + 'px'; ws.tabs.querySelector('.on')?.classList.add('fill'); }
+  if (fresh) { ws.body.style.minHeight = Math.max(560, innerHeight - 120) + 'px'; }
   try {
     const mod = await f.view();
     if (my !== busy) return;
@@ -255,11 +252,36 @@ async function open(k, arg) {
   if (fresh) {
     await build(k, inner, my);
     if (my !== busy) return;
-    made.add(k); drawTabs();
+    made.add(k);
     ws.body.style.minHeight = '';
     root.classList.add('bms-made');
     ws.sub.textContent = 'Skript wechseln'; ws.sub.classList.remove('busy');
+    if (!extra) offerMore();
   } else inner.classList.add('bms-in');
+}
+
+// Nach dem ersten Ergebnis: genau EIN weiteres Format anbieten (Podcast immer zuerst). Danach nichts mehr – dann zählt nur noch der Knopf.
+let extra = 0;
+function offerMore() {
+  extra = 1;
+  const rest = ['podcast', ...ORDER.filter(x => x !== 'podcast')].filter(x => x !== fmt);
+  const tiles = rest.map((k, i) => { const f = F[k]; return h('button', { class: 'bms-fmt' + (f.ink === 'dark' ? ' ink-d' : '') + (i === 0 ? ' bms-top1' : ''), type: 'button', 'data-k': k, style: { ...tint(f.c), '--k': i }, onclick: e => takeMore(e.currentTarget, k) },
+    i === 0 ? h('span', { class: 'bms-tip' }, 'Empfohlen') : null,
+    h('span', { class: 'bms-fi', 'data-icn': '1', html: ico(f.ic) }), h('span', { class: 'bms-ft' }, h('b', {}, f.t), h('small', {}, f.s)), h('span', { class: 'bms-fgo', 'data-icn': '1', html: ico('right') })); });
+  ws.more.replaceChildren(h('section', { class: 'bms-more' },
+    h('div', { class: 'bms-eye' }, 'Eins geht noch'),
+    h('h3', {}, 'Soll ich dir noch was draus bauen?'),
+    h('div', { class: 'bms-fmts bms-fmts3' }, tiles)));
+}
+async function takeMore(el, k) {
+  if (extra === 2) return;
+  extra = 2;
+  el.classList.add('go');
+  track('Demo zweites Format', `${cur.key} · ${k}`);
+  await sleep(RM ? 0 : 260);
+  ws.more.replaceChildren();
+  window.scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' });
+  open(k);
 }
 
 // Lernzettel in der Demo: Kernaussagen als nummerierte Liste, Formeln dezent hervorgehoben (nur Anzeige, Text bleibt gleich)

@@ -9000,7 +9000,7 @@ html.bm-start[data-theme="dark"], html.bm-start[data-theme="dark"] body { backgr
 .bms .go-btn.bms-topmade:hover { box-shadow: 0 14px 34px -8px rgba(90, 60, 220, .65), 0 0 0 8px rgba(124, 92, 255, .14); }
 @keyframes bmsgo { from { opacity: 0; transform: translateY(-8px) scale(.94); } }
 .bms:not(.bms-made) .bms-tc { display: none; }
-.bms.bms-made :is(.bms-login, .bms-topgo, .bms-demo-pill) { display: none; }
+.bms.bms-made :is(.bms-topgo, .bms-demo-pill) { display: none; }
 .bms-login:focus-visible, .bms-doc:focus-visible, .bms-fmt:focus-visible, .bms-tab:focus-visible, .bms-wdoc:focus-visible, .bms-dl:focus-visible { outline: 3px solid #b597ff; outline-offset: 2px; }
 .bms-main { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 4px 28px 110px; }
 
@@ -9309,8 +9309,6 @@ html[data-theme="dark"] .bms .zt-tl li::before { color: #241a03; }
 .bms .qactions .btn.primary { background: linear-gradient(135deg, #9b7cf0, #5b3fd0) !important; color: #fff !important; border: 0 !important; box-shadow: 0 12px 24px -12px rgba(91,63,208,.7) !important; opacity: 1 !important; }
 .bms .qactions .btn.primary:disabled { opacity: .55 !important; }
 .bms .qactions .btn:not(.primary) { background: #f1ecff !important; color: #4b2bb3 !important; border: 0 !important; }
-.bms .zt-card h2, .bms .zt-body h2, .bms .zt-body h3 { position: relative; padding-left: 16px; }
-.bms .zt-body h2::before, .bms .zt-body h3::before { content: ""; position: absolute; left: 0; top: .2em; bottom: .2em; width: 5px; border-radius: 4px; background: linear-gradient(180deg, #f7c948, #d18e06); }
 .bms .zt-body .katex-display, .bms .zt-body .formel, .bms .zt-body pre { background: #fffaf0; border: 1px solid #f5e2b0; border-left: 4px solid #e9b228; border-radius: 12px; padding: 10px 14px; }
 .bms .zt-meta .zt-chip { background: #fff7e2 !important; color: #8a5a00 !important; border: 1px solid #f5e2b0 !important; }
 .bms .btn.sm:not(.primary) { background: #eef4fe; color: #1a5fc4; border-color: transparent; }
@@ -9360,3 +9358,33 @@ html[data-theme="dark"] .bms .script { background: #26151d !important; border-co
 @keyframes bmsmkbar { to { width: 100%; } }
 @media (max-width: 760px) { html:root .bms .bms-wbar { margin-inline: 0; gap: 10px !important; } html:root .bms .bms-tab { min-height: 60px; font-size: 16px; } }
 @media (prefers-reduced-motion: reduce) { .bms-mk-c, .bms-mk-i, .bms-mk-bar i { animation: none !important; } .bms-mk-bar i { width: 100%; } }
+/* /start: keine Füll-Animation beim Tab-Wechsel; Anmelden bleibt oben rechts sichtbar */
+html:root .bms .bms-tab.fill::before { animation: none !important; }
+html:root .bms.bms-made .bms-login { display: inline-flex !important; }
+@media (max-width: 760px) { html:root .bms.bms-made .bms-login { display: none !important; } }
+/* /start: kein Wechsel-Band mehr – der gewählte Bereich steht als farbige Marke oben */
+.bms-whead { flex-wrap: wrap; }
+.bms-area { order: -1; display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 5px; border-radius: 999px; color: #fff; font: 750 17px var(--sans); letter-spacing: -.02em; background: linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,0) 45%), linear-gradient(135deg, var(--c1), var(--c2)); box-shadow: 0 12px 24px -14px var(--c2), inset 0 1px 0 rgba(255,255,255,.35); }
+.bms-area.ink-d { color: #241a03; }
+.bms-ai { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 999px; background: rgba(255,255,255,.26); }
+.bms-area.ink-d .bms-ai { background: rgba(255,255,255,.42); }
+.bms-ai .ico { width: 18px; height: 18px; }
+/* /start: Abschluss-Band farbig statt fast schwarz (App-Violett → Blau), Knopf hell darauf */
+html:root .bms .bms-band { background: radial-gradient(80% 140% at 100% 0%, rgba(255,255,255,.22), transparent 55%), radial-gradient(70% 120% at 0% 100%, rgba(63,193,201,.35), transparent 60%), linear-gradient(135deg, #5b3fc4 0%, #7c5cff 52%, #3f8cf0 100%); box-shadow: 0 40px 80px -46px rgba(91,63,196,.85); }
+html:root .bms .bms-band .bms-eye, html:root .bms .bms-band h2 span { color: #ffe08a; }
+html:root .bms .bms-band p { color: rgba(255,255,255,.9); }
+html:root .bms .bms-br small { color: rgba(255,255,255,.88); }
+html:root .bms .bms-br small .ico { color: #b9f5d0; }
+html:root .bms .go-btn.bms-hero-btn { background: #fff; color: #4a2fb0 !important; box-shadow: 0 14px 30px -12px rgba(30,10,90,.55), 0 0 0 6px rgba(255,255,255,.18); }
+html:root .bms .go-btn.bms-hero-btn:hover { background: #fff; box-shadow: 0 18px 36px -12px rgba(30,10,90,.6), 0 0 0 8px rgba(255,255,255,.24); }
+/* /start: „Eins geht noch“ – genau ein weiteres Format, Podcast zuerst */
+.bms-more { margin-top: 34px; }
+.bms-more h3 { margin: 6px 0 16px; font: 850 28px/1.1 var(--sans); letter-spacing: -.035em; color: var(--bmsInk); }
+.bms-more .bms-eye { color: #7c5cff; }
+html:root .bms .bms-fmts3 { grid-template-columns: 1.3fr 1fr 1fr; }
+.bms-tip { position: absolute; top: 14px; right: 14px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.92); color: #c8336f; font: 800 11px var(--sans); letter-spacing: .02em; text-transform: uppercase; box-shadow: 0 6px 14px -8px rgba(0,0,0,.4); }
+@media (max-width: 760px) {
+  html:root .bms .bms-fmts3 { grid-template-columns: 1fr 1fr; }
+  html:root .bms .bms-fmts3 .bms-top1 { grid-column: 1 / -1; min-height: 130px; }
+  .bms-more h3 { font-size: 23px; }
+}
