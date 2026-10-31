@@ -1030,6 +1030,19 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
 .hero .stage{max-width:230px}
 .hero .teamrow .tcap{order:-1}
 @media (max-width:600px){.hero .teamrow{order:3;margin-top:6px}.hero .ctas{order:4;margin-top:16px}.hero .stage{max-width:190px}}
+.tut.drawn .eye{animation:blinkd 5s infinite;transform-box:view-box}
+@keyframes blinkd{0%,93%,100%{transform:scaleY(1)}95.5%{transform:scaleY(.08)}}
+.tut.drawn.talk .sm{display:none}
+.tut.drawn .brow{transition:transform .3s}
+.dmax.think .tut.drawn .brow{transform:translateY(-3px)}
+.hav .tut{width:100%}
+.tzb{width:84px;height:84px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px #3fb36d;overflow:hidden;display:block}
+.tzb .tut{width:100%}
+.lic .ph .tut{width:100%}
+@media (max-width:600px){.tzb{width:64px;height:64px}}
+.tz.ok .tzi .tzb{position:relative}
+.tz.ok .tzi .tzb img{width:100%!important;height:100%!important;box-shadow:none;border-radius:0;object-fit:contain;object-position:center;background:none}
+.tz.ok .tzi .tzb svg{position:absolute;inset:0;right:auto;top:0;left:0;font-size:inherit;background:none;padding:0;width:100%;height:100%;border-radius:0}
 </style>
 </head>
 <body>
@@ -1212,7 +1225,7 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
             <div class="lt">KI-Führerschein · Stufe 1</div>
             <div class="ln">Lena, 2. Klasse</div>
             <div class="lb">
-              <div class="ph"><img src="/grundschulmax/tut-bit.png" alt="" style="width:110%;margin-top:4%"></div>
+              <div class="ph" data-tut="bit"></div>
               <div><small>Geprüft von Bit</small><b>Verstehen · Prüfen · Denken · Privat</b><div class="lst"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></div></div>
             </div>
           </div>
@@ -1491,7 +1504,15 @@ function voice(k, force) {
 const demoVisible = () => true;
 /* Tutoren: Bild + Augen/Mund zum Animieren (Blinzeln, Sprechen) */
 const TUTOR = {"max": {"n": "Max", "eyes": [[135.2, 183.6, 28.9, 46.1], [238.3, 183.6, 28.9, 46.1]], "mouth": [167.2, 252.3, 67.2, 18.8]}, "mila": {"n": "Mila", "eyes": [[155.7, 230.9, 21.7, 35.7], [230.9, 230.9, 21.4, 35.7]], "mouth": [174.2, 275.9, 58.4, 18.2]}, "emma": {"n": "Emma", "eyes": [[151.8, 198.7, 21.1, 33.5], [227.4, 198.7, 21.4, 32.9]], "mouth": [175.1, 245.9, 50.4, 14.7]}, "claude": {"n": "Claude", "eyes": [[149.9, 190.7, 23.3, 37.3], [228.4, 190.4, 23.3, 37.6]], "mouth": [178.6, 253.3, 42.1, 13.1]}, "frieda": {"n": "Frieda", "eyes": [[146.4, 191.1, 22.3, 35.1], [226.8, 191.1, 22.3, 35.1]], "mouth": [171.9, 238.6, 52.6, 15.6]}, "bit": {"n": "Bit", "eyes": [[148.6, 192.7, 23.3, 37.3], [228.7, 192.7, 23.3, 37.3]], "mouth": [172.6, 244.0, 55.2, 15.9]}};
+TUTOR.bit = { n: 'Bit', draw: true };
+function bitFace() {
+  const eye = (cx) => `<g class="eye" style="transform-origin:${cx}px 224px"><rect x="${cx - 10.5}" y="210" width="21" height="27" rx="10.5" fill="#0f2f4d"/><circle cx="${cx + 4}" cy="217" r="2.6" fill="#5fe0f2"/></g>`;
+  return `<g class="brow"><path d="M146 199 Q157 194.5 169 197" fill="none" stroke="#2bb6d3" stroke-width="4.2" stroke-linecap="round"/><path d="M231 197 Q243 194.5 254 199" fill="none" stroke="#2bb6d3" stroke-width="4.2" stroke-linecap="round"/></g>${eye(158)}${eye(242)}
+    <path class="sm" d="M183 254 Q200 266 218 253" fill="none" stroke="#0f2f4d" stroke-width="4.4" stroke-linecap="round"/>
+    <g class="mo"><g class="om" style="transform-origin:200px 254px"><path d="M187 252 Q200 249 213 252 Q211 266 200 267 Q189 266 187 252Z" fill="#0f2f4d"/><path d="M193 262 Q200 259 207 262 Q204 266 200 266 Q196 266 193 262Z" fill="#2bb6d3"/></g></g>`;
+}
 function tutorHTML(id) {
+  if (TUTOR[id].draw) return `<span class="tut drawn" data-t="${id}"><img src="/grundschulmax/tut-${id}.png" alt="${TUTOR[id].n}"><svg viewBox="0 0 400 400">${bitFace()}</svg></span>`;
   const t = TUTOR[id], lid = t.eyes.map(([x, y, w, h]) => `<ellipse cx="${x + w / 2}" cy="${y + h / 2}" rx="${w / 2 + 4}" ry="${h / 2 + 4}" fill="#fff"/><path d="M${x - 2} ${y + h * .55} q${w / 2 + 2} ${h * .28} ${w + 4} 0" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>`).join('');
   const [mx, my, mw, mh] = t.mouth, cx = mx + mw / 2, cy = my + mh / 2;
   const mo = `<ellipse cx="${cx}" cy="${cy}" rx="${mw / 2 + 5}" ry="${mh / 2 + 4}" fill="#fff"/><g class="om" style="transform-origin:${cx}px ${cy - mh * .2}px"><path d="M${cx - mw * .36} ${cy - mh * .25} Q${cx} ${cy - mh * .45} ${cx + mw * .36} ${cy - mh * .25} Q${cx + mw * .3} ${cy + mh * 1.5} ${cx} ${cy + mh * 1.55} Q${cx - mw * .3} ${cy + mh * 1.5} ${cx - mw * .36} ${cy - mh * .25}z" fill="#2a1414"/><ellipse cx="${cx}" cy="${cy + mh * 1.05}" rx="${mw * .18}" ry="${mh * .38}" fill="#f47ba0"/></g>`;
@@ -2278,7 +2299,7 @@ const vkRotNo = vk('Das stimmt doch! Lies nochmal genau.'), vkRotMiss = vk('Ein 
 function gRot(T) {
   gs.className = 'gs g-rot';
   const Lines = ROT[G()], nErr = Lines.filter((l) => l[1]).length; let found = 0, done = false;
-  gs.innerHTML = `<div class="heft"><div class="hh"><span class="hav"><img src="/grundschulmax/tut-bit.png" alt=""></span><b>Hausaufgaben von Bit</b><span class="pen">${I('pen')}Rotstift</span></div><div class="lines" id="ln"></div></div><button class="b3d o fertig" id="rf">${I('check')}Ich bin fertig</button>`;
+  gs.innerHTML = `<div class="heft"><div class="hh"><span class="hav">${tutorHTML('bit')}</span><b>Hausaufgaben von Bit</b><span class="pen">${I('pen')}Rotstift</span></div><div class="lines" id="ln"></div></div><button class="b3d o fertig" id="rf">${I('check')}Ich bin fertig</button>`;
   const ln = $('#ln');
   Lines.forEach((l, i) => {
     const row = document.createElement('button'); row.className = 'hl'; row.style.animationDelay = i * .35 + 's';
@@ -2322,7 +2343,7 @@ function gTresor(T) {
   gs.className = 'gs g-tres';
   const C = shuf(TRESOR[G()]); let i = 0, lock = true;
   gs.innerHTML = `<div class="tcard" id="tc"></div>
-    <div class="tgo"><button class="tz ok" data-v="0"><span class="tzi"><img src="/grundschulmax/tut-bit.png" alt="">${I('chat')}</span><b>Darf Bit wissen</b></button><button class="tz safe" data-v="1"><span class="tzi" id="sf">${SAFE(false)}</span><b>Bleibt im Tresor</b></button></div>`;
+    <div class="tgo"><button class="tz ok" data-v="0"><span class="tzi"><span class="tzb">${tutorHTML('bit')}</span>${I('chat')}</span><b>Darf Bit wissen</b></button><button class="tz safe" data-v="1"><span class="tzi" id="sf">${SAFE(false)}</span><b>Bleibt im Tresor</b></button></div>`;
   function show() { const tc = $('#tc'); tc.innerHTML = `<small>Würdest du das einer KI erzählen?</small><b>${C[i][0]}</b>`; tc.style.transform = ''; tc.style.opacity = 1; restart(tc, 'in'); lock = false; }
   $$('.tz', gs).forEach((b) => (b.onclick = () => {
     if (lock) return; const v = +b.dataset.v, c = C[i];
@@ -2602,6 +2623,8 @@ addEventListener('scroll', () => { const v = valueAt.getBoundingClientRect().top
 new IntersectionObserver(([e]) => { gameIn = e.isIntersecting; upd(); }, { threshold: 0.05 }).observe(demo);
 window.VOICE_LINES = () => [...VL.entries()].map(([k, v]) => ({ k, ...v }));
 $('#fsnapi').onclick = () => $('#fsnap').click();
+
+$$('[data-tut]').forEach((el) => (el.innerHTML = tutorHTML(el.dataset.tut)));
 </script>
 </body>
 </html>
