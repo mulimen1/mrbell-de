@@ -60,8 +60,8 @@
     // Handy: schmale Leiste unten (über der Navigationsleiste), ein, zwei Zeilen Text + zwei gleich große Knöpfe
     + '@media(max-width:600px),(pointer:coarse) and (max-height:500px){.bmc{left:12px;right:12px;bottom:calc(8px + env(safe-area-inset-bottom,0px));width:auto;max-width:560px;margin:0 auto;padding:18px 16px 16px;border-radius:22px;font-size:14px;line-height:1.45}'
     + 'html.m-boardpage .bmc{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}.bmc p{margin:0 0 14px;color:var(--ink2,#d4d4d8)}.bmc .r{gap:6px}.bmc button{height:44px;font-size:14px;white-space:nowrap;padding:0 8px}}'
-    // Laptop: schmale Leiste unten rechts (über der Tafel, nie über dem Eingabefeld) – eine Zeile Text, zwei kleine Knöpfe
-    + '@media(min-width:601px) and (pointer:fine){html.bm-adland .bmc,html.bm-adland .bmc.bmc-dk{left:auto;right:84px;bottom:16px!important;width:auto;max-width:min(640px,calc(100vw - 120px));display:flex;align-items:center;gap:14px;padding:8px 8px 8px 18px;border-radius:999px;font-size:13px;line-height:1.35}'
+    // Laptop: schmale Leiste unten links (rechts sitzt Max) (über der Tafel, nie über dem Eingabefeld) – eine Zeile Text, zwei kleine Knöpfe
+    + '@media(min-width:601px) and (pointer:fine){html.bm-adland .bmc,html.bm-adland .bmc.bmc-dk{left:20px;right:auto;bottom:16px!important;width:auto;max-width:min(640px,calc(100vw - 120px));display:flex;align-items:center;gap:14px;padding:8px 8px 8px 18px;border-radius:999px;font-size:13px;line-height:1.35}'
     + 'html.bm-adland .bmc h3,html.bm-adland .bmc .l,html.bm-adland .bmc.bmc-dk h3,html.bm-adland .bmc.bmc-dk .l{display:none}html.bm-adland .bmc .s,html.bm-adland .bmc.bmc-dk .s{display:inline}html.bm-adland .bmc p,html.bm-adland .bmc.bmc-dk p{margin:0;font-size:13px;flex:1;min-width:0}'
     + 'html.bm-adland .bmc .r{display:flex;gap:6px;flex:none}html.bm-adland .bmc button,html.bm-adland .bmc.bmc-dk button{height:34px;padding:0 14px;font-size:13px;white-space:nowrap}}'
     + '@media (prefers-reduced-motion:reduce){.bmc,.bmc.out{animation:none}}';
