@@ -9222,3 +9222,7 @@ html[data-theme="dark"] .bms .zt-tl li::before { background: rgba(247,201,72,.16
 @media (max-width: 370px) { .bms .go-btn.bms-topmade { font-size: 14.5px; padding: 0 12px; } .bms .go-btn.bms-topmade::after { display: none; } }
 @media (prefers-reduced-motion: reduce) { .bms-doc, .bms-fmt, .bms-s2, .bms-work, .bms-vin.bms-in > *, .bms-u-on, .bms-tab.fill::before, .bms-topmade { animation: none !important; } }
 /* ================= Ende bwlmax.de/start ================= */
+/* /start: keine Deko-Ringe, Format-Leiste scrollt normal mit (Ben, 31.10.) */
+.bms-doc::after, .bms-fmt::after { display: none !important; }
+.bms-plus { display: none !important; }
+.bms-wbar { position: relative !important; top: auto !important; }
