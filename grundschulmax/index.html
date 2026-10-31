@@ -1507,7 +1507,7 @@ const TUTOR = {"max": {"n": "Max", "eyes": [[135.2, 183.6, 28.9, 46.1], [238.3, 
 TUTOR.bit = { n: 'Bit', draw: true };
 function bitFace() {
   const eye = (cx) => `<g class="eye" style="transform-origin:${cx}px 224px"><rect x="${cx - 10.5}" y="210" width="21" height="27" rx="10.5" fill="#0f2f4d"/><circle cx="${cx + 4}" cy="217" r="2.6" fill="#5fe0f2"/></g>`;
-  return `<g class="brow"><path d="M146 199 Q157 194.5 169 197" fill="none" stroke="#2bb6d3" stroke-width="4.2" stroke-linecap="round"/><path d="M231 197 Q243 194.5 254 199" fill="none" stroke="#2bb6d3" stroke-width="4.2" stroke-linecap="round"/></g>${eye(158)}${eye(242)}
+  return `${eye(158)}${eye(242)}
     <path class="sm" d="M183 254 Q200 266 218 253" fill="none" stroke="#0f2f4d" stroke-width="4.4" stroke-linecap="round"/>
     <g class="mo"><g class="om" style="transform-origin:200px 254px"><path d="M187 252 Q200 249 213 252 Q211 266 200 267 Q189 266 187 252Z" fill="#0f2f4d"/><path d="M193 262 Q200 259 207 262 Q204 266 200 266 Q196 266 193 262Z" fill="#2bb6d3"/></g></g>`;
 }
