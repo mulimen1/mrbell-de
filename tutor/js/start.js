@@ -156,7 +156,7 @@ function choose(s) {
 // per Promise.resolve – hier steht pro Zeile ein „Thenable“, das die Datei erst beim Abspielen lädt (und als Base64 liefert).
 function demoAudio(doc, key) {
   const p = doc.podcasts && doc.podcasts[0]; if (!p) return;
-  p.real = true; p.voice = 'max'; p.demoFile = `/tutor/audio/demo/${key}/folge.mp3?v=1`;
+  p.real = true; p.voice = 'max'; p.demoFile = `/tutor/audio/demo/${key}/BWL-Max-Podcast-${{ db: 'Deckungsbeitragsrechnung', kw: 'Kapitalwertmethode', swot: 'SWOT-Analyse' }[key] || key}.mp3`;
   const cache = [];
   p.audio = p.lines.map((_, k) => ({ then(ok, bad) {
     cache[k] ||= fetch(`/tutor/audio/demo/${key}/${String(k).padStart(2, '0')}.mp3?v=1`).then(r => { if (!r.ok) throw new Error('Audio fehlt'); return r.arrayBuffer(); })
