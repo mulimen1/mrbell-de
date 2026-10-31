@@ -177,7 +177,7 @@ function run(wrap, ctx, quiz) {
   }
   const step = () => {
     if (i >= qs.length) return finish();
-    if (isGuest() && !quiz.mistakes && i >= GUEST_QUIZ) { count.textContent = `${i} / ${qs.length}`; return lockedRest(stage, { left: qs.length - i, what: L('Fragen', 'questions'), onUnlock: step }); }
+    if (isGuest() && !quiz.mistakes && !ctx.doc.demo && i >= GUEST_QUIZ) { count.textContent = `${i} / ${qs.length}`; return lockedRest(stage, { left: qs.length - i, what: L('Fragen', 'questions'), onUnlock: step }); }
     prog.style.width = (100 * i / qs.length) + '%';
     count.textContent = `${i + 1} / ${qs.length}`;
     backQ.disabled = i === 0;

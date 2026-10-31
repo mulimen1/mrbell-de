@@ -50,7 +50,10 @@ const EV = { analyse: ['Upload eingeordnet'], ocr: ['Foto abgeschrieben'], topic
   lesson: ['Erstellt', 'Lektion'], podcast: ['Erstellt', 'Podcast'], summary: ['Erstellt', 'Lernzettel & Mindmap'], live: ['Sprechen gestartet'], verify: ['Angemeldet'] };
 // images: [{mime, data}] gehen nur im zweiten Schritt mit (Upload-Analyse, Foto-Abschrift)
 // Jede Antwort von Max mit Erklärungen/Rechnungen läuft durch das Rechen-Gate (rechengate.js) – ohne Ausnahme.
+const DEMO_STOP = new Set(['chat', 'topic', 'quiz', 'exam', 'cards', 'summary', 'lesson', 'path', 'podcast', 'podtts', 'tts', 'stt', 'grade', 'mitschrift', 'ocr', 'transcribe', 'live', 'analyse', 'creator']);
 export async function ask(action, payload = {}, opt = {}) {
+  // Demo (bwlmax.de/start): ohne Konto keine KI-Aufrufe – die Demo zeigt nur fertige Inhalte und kostet nichts
+  if (DEMO_STOP.has(action) && !account && document.documentElement.classList.contains('bm-demo')) throw Object.assign(new Error(L('Das baut dir Max mit deinem kostenlosen Konto – aus deinem eigenen Skript.', 'Max builds this with your free account – from your own material.')), { code: 'need_account' });
   const orig = payload;
   // Chat: geprüften Rechts-/Zahlenstand zum Thema der Frage still mitgeben (nur in der Anfrage, nicht im Verlauf)
   if (action === 'chat' && Array.isArray(payload.messages) && payload.messages.length && !(payload.opts && payload.opts.rechenkorrektur)) {

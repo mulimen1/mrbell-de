@@ -24,12 +24,24 @@
     {
       "source": "/start",
       "destination": "/",
-      "permanent": true
+      "permanent": true,
+      "missing": [
+        {
+          "type": "host",
+          "value": "(www\\.)?bwlmax\\.de"
+        }
+      ]
     },
     {
       "source": "/start.html",
       "destination": "/",
-      "permanent": true
+      "permanent": true,
+      "missing": [
+        {
+          "type": "host",
+          "value": "(www\\.)?bwlmax\\.de"
+        }
+      ]
     },
     {
       "source": "/ueber-uns",
@@ -172,6 +184,16 @@
         }
       ],
       "destination": "/tutor/img/bm-fav.ico"
+    },
+    {
+      "source": "/start",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?bwlmax\\.de"
+        }
+      ],
+      "destination": "/tutor/index.html"
     },
     {
       "source": "/",

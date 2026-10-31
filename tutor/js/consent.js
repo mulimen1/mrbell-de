@@ -130,7 +130,8 @@
     SRC = sessionStorage.getItem('bm.src') || '';
     if (!SRC) {
       var pth = location.pathname, qs = location.search;
-      SRC = GADS || (/[?&]thema=/.test(qs) && !/[?&]utm_source=seo/.test(qs) && !/^\/(tutor\/)?(lernen|ueber)(\/|$)/.test(pth)) ? 'Ads'
+      SRC = /^\/start\/?$/.test(pth) ? (/[?&]utm_source=youtube(&|$)/i.test(qs) ? 'YouTube' : /[?&]utm_source=reddit(&|$)/i.test(qs) ? 'Reddit' : 'Demo')   // Demo-Landingpage bwlmax.de/start
+        : GADS || (/[?&]thema=/.test(qs) && !/[?&]utm_source=seo/.test(qs) && !/^\/(tutor\/)?(lernen|ueber)(\/|$)/.test(pth)) ? 'Ads'
         : /^\/(tutor\/)?(lernen|ueber)(\/|$)/.test(pth) || /[?&]utm_source=seo/.test(qs) ? 'SEO' : 'Start';
       sessionStorage.setItem('bm.src', SRC);
     }
@@ -149,7 +150,8 @@
   var STEP = { 'Tafel 30 s offen': 'Tafel 30 s', 'Tafel zu Ende gelesen': 'Tafel zu Ende', 'Mini-Check angeklickt': 'Mini-Check-Knopf', 'Mini-Check geprüft': 'Mini-Check geprüft',
     'Mini-Check Auflösung geklickt': 'Auflösung geklickt', 'Mini-Check Klausuraufgaben': 'Klausuraufgaben-Knopf', 'Mini-Check BWL Max erkunden': 'BWL Max erkunden', 'Klausurpfad geklickt': 'Klausurpfad',
     'Anmeldefenster gesehen': 'Anmeldefenster', 'Verlassen-Hinweis': 'Verlassen-Fenster', 'Lernseite Verlassen-Hinweis': 'Verlassen-Fenster', 'Anmeldung begonnen': 'Anmeldung begonnen', 'Konto erstellt': 'Konto erstellt',
-    'Max gefragt': 'Max gefragt', 'Skript hochgeladen': 'Skript hochgeladen', 'Bereich geöffnet': 'Bereich geöffnet', 'Führung gestartet': 'Führung gestartet', 'Google-Knopf fehlt': 'Google-Knopf fehlt' };
+    'Max gefragt': 'Max gefragt', 'Skript hochgeladen': 'Skript hochgeladen', 'Bereich geöffnet': 'Bereich geöffnet', 'Führung gestartet': 'Führung gestartet', 'Google-Knopf fehlt': 'Google-Knopf fehlt',
+    'Demo Skript gewählt': 'Demo Skript gewählt', 'Demo erstellt': 'Demo erstellt', 'Demo heruntergeladen': 'Demo heruntergeladen', 'Demo Konto-Knopf': 'Demo Konto-Knopf' };
   function srcStep(ereignis, detail) {
     var n = STEP[ereignis]; if (!n) return;
     if (ereignis === 'Anmeldung begonnen' || ereignis === 'Konto erstellt') { srcEv(n, true); if (/google/i.test(detail || '')) srcEv(n + ' (Google)'); else if (/mail/i.test(detail || '')) srcEv(n + ' (E-Mail)'); return; }

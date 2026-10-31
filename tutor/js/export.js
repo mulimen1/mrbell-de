@@ -219,7 +219,7 @@ export async function podcastMp3(p, doc) {
 export const optsDeck = (decks, doc) => [PDF(() => cardsPdf(decks, doc), L('Fragen und Antworten zum Ausdrucken', 'Questions and answers to print')), { label: 'Anki', sub: L('Zum Import in Anki (inkl. Formeln)', 'To import into Anki (formulas included)'), ic: 'cards', fn: () => ankiFile(decks, doc) }];
 export const optsQuiz = (q, doc) => [PDF(() => quizPdf(q, doc), L('Fragen, danach die Lösungen', 'Questions, then the answers'))];
 export const optsSummary = doc => [PDF(() => summaryPdf(doc))];
-export const optsPodcast = (p, doc) => [{ label: 'MP3', sub: L('Zum Anhören – auch offline', 'To listen to – offline too'), ic: 'pod', fn: () => podcastMp3(p, doc) }, { label: L('Text', 'Text'), sub: L('Das Skript der Folge', 'The episode’s script'), ic: 'note', fn: () => podcastText(p) }];
+export const optsPodcast = (p, doc) => doc && doc.demo ? [{ label: L('Text', 'Text'), sub: L('Das Skript der Folge', 'The episode’s script'), ic: 'note', fn: () => podcastText(p) }] : [{ label: 'MP3', sub: L('Zum Anhören – auch offline', 'To listen to – offline too'), ic: 'pod', fn: () => podcastMp3(p, doc) }, { label: L('Text', 'Text'), sub: L('Das Skript der Folge', 'The episode’s script'), ic: 'note', fn: () => podcastText(p) }];
 export const optsBoards = (boards, title) => [PDF(() => boardsPdf(boards, title))];
 // Alles zu einem Skript
 export function optsDoc(doc) {

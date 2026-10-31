@@ -242,6 +242,16 @@ async function route() {
   if (lm) { history.replaceState(null, '', location.pathname + '#/app'); hash = '#/app'; verifyLink(lm[1], lm[2]); }
   // Direkt zur Anmeldung (z. B. von bwlmax.de/zahlen) – danach geht’s dorthin zurück
   if (hash === '#/anmelden') { history.replaceState(null, '', location.pathname + '#/'); hash = '#/'; if (getAccount()) { const z = sessionStorage.getItem('tutor.after'); if (z) { sessionStorage.removeItem('tutor.after'); location.href = z; return; } } else setTimeout(() => openLogin(), 350); }
+  // bwlmax.de/start (YouTube-Anzeige): Sofort-Demo statt Startseite – für Gäste, solange man nicht in die App wechselt (start.js)
+  if (/^\/start\/?$/.test(location.pathname) && !getAccount() && /^#?\/?$/.test(hash)) {
+    routed = true;
+    $('#landing').classList.add('hidden'); $('#app').classList.add('hidden');
+    const m = await import('./start.js'); await m.mountStart();
+    requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.remove('preload')));
+    return;
+  }
+  if (document.getElementById('bmstart')) { const m = await import('./start.js'); m.unmountStart(); }
+  document.documentElement.classList.remove('bm-start', 'bm-demo');
   // Angemeldet: keine Startseite, direkt in den eigenen Bereich
   // Eingeloggt über eine Google-Anzeige (?thema=…): nicht zur leeren Startseite, sondern unten in den Themen-Einstieg (Tafel zum Thema)
   const adT = (() => { try { const T = landingTopic(); return T && sessionStorage.getItem('tutor.themaDone') !== T.slug ? T : null; } catch (e) { return null; } })();

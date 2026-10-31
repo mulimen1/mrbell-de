@@ -6,6 +6,7 @@ export const lang = (() => {
   const v = ls.get('tutor.lang', null);
   if (v === 'de' || v === 'en') return v;
   // Suchmaschinen (Googlebot crawlt mit Englisch) bekommen immer die deutsche Seite – sonst landet der englische Titel bei Google
+  if (/^\/start\/?$/.test(location.pathname)) return 'de';   // Demo-Landingpage (YouTube-Anzeige): Inhalte sind deutsch
   if (/bot|crawl|spider|slurp|google-inspectiontool|lighthouse/i.test(navigator.userAgent || '')) return 'de';
   return /^de\b|^de-/i.test(navigator.language || 'de') ? 'de' : 'en';
 })();

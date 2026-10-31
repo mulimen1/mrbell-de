@@ -13,12 +13,12 @@ export const docWrites = new Set();
 const wrote = (o = {}) => docWrites.forEach(f => { try { f(o); } catch (e) {} });
 let saveT = null;
 export function save(doc = S.doc) {
-  if (!doc) return;
+  if (!doc || doc.demo) return;   // Demo-Skripte (bwlmax.de/start) nur im Speicher – nie in IndexedDB/Konto
   doc.used = Date.now();
   clearTimeout(saveT);
   saveT = setTimeout(() => docs.put(doc).then(() => wrote()).catch(e => console.warn('Speichern fehlgeschlagen', e)), 250);
 }
-export async function saveNow(doc = S.doc) { if (doc) { clearTimeout(saveT); doc.used = Date.now(); await docs.put(doc); wrote(); } }
+export async function saveNow(doc = S.doc) { if (doc && !doc.demo) { clearTimeout(saveT); doc.used = Date.now(); await docs.put(doc); wrote(); } }
 
 export async function refreshList() { S.list = await docs.all(); emit(); return S.list; }
 export async function openDoc(id) {
