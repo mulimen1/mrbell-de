@@ -1170,6 +1170,34 @@ footer nav a{margin:0;text-decoration:none;font-weight:600}
 .pkf.f4{right:3%;top:24%;left:auto;width:80px}.pkf.f0{right:3%;left:auto;top:56%}
 @media (max-width:700px){.pkf{width:58px}.pkf.f0,.pkf.f2,.pkf.f3{display:none}.pkf.f1{left:3%;top:3%;display:block}.pkf.f4{right:3%;top:3%;display:block;width:54px}}
 .pkbg .bl{z-index:0}.pkf{z-index:1}
+/* Hero v4: mehr Luft, große Tutor-Karten, Team ohne Scrollen sichtbar */
+.hero{padding:18px 0 46px}
+.hero .stage{max-width:170px;margin-bottom:10px}
+.hero .stage .float{font-size:13px;padding:7px 11px}.hero .stage .float .ic{width:26px;height:26px;font-size:14px}
+.hero .stage .f1{left:-82%;top:4%}.hero .stage .f2{right:-82%;top:18%}.hero .stage .f3{left:-90%;bottom:12%}.hero .stage .f4{right:-84%;bottom:2%}
+.hero h1{font-size:clamp(36px,4.8vw,60px);margin:16px 0 26px}
+.hero .teamrow{margin-top:0;gap:14px}
+.tcap b{font-size:19px}
+.tiles{padding-left:0;gap:14px;flex-wrap:wrap;justify-content:center}
+.tm{width:118px;height:auto;margin:0;background:none;box-shadow:none;display:flex;flex-direction:column;align-items:center;gap:6px;border-radius:0}
+.tm .tmc{position:relative;display:block;width:118px;height:118px;border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0) 50%),linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 0 0 4px #fff,0 6px 0 4px color-mix(in srgb,var(--c2) 55%,#fff),0 22px 34px -18px var(--c2);transition:transform .2s var(--e)}
+.tm .tma{position:absolute;left:5%;right:5%;bottom:0;top:-10%;overflow:hidden;border-radius:0 0 26px 26px}
+.tm .tma .tut{width:100%;margin-top:8%}
+.tm b,.tm small{position:static;transform:none;opacity:1;display:block;background:none;color:var(--ink);padding:0;white-space:nowrap}
+.tm b{font-size:16px;font-weight:850;margin-top:8px}
+.tm small{font-size:12.5px;font-weight:700;color:var(--c2)}
+.tm:hover{transform:none}
+.tm:hover .tmc{transform:translateY(-6px) rotate(-2deg)}
+.tnames{display:none}
+.hero .ctas{margin-top:28px}
+@media (max-width:600px){
+  .hero .stage{max-width:150px}
+  .hero .stage .f1{left:-62%;top:0}.hero .stage .f2{right:-66%;top:14%}.hero .stage .f3{left:-70%;bottom:8%}.hero .stage .f4{right:-64%;bottom:-2%}
+  .hero h1{margin:12px 0 20px}
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 10px;width:100%;max-width:360px}
+  .tm{width:auto}.tm .tmc{width:96px;height:96px;border-radius:26px}.tm .tma{border-radius:0 0 22px 22px}
+  .tm b{font-size:14.5px;margin-top:6px}.tm small{font-size:11.5px}
+}
 </style>
 </head>
 <body>
@@ -2744,7 +2772,7 @@ function goTo(i, g = 0) { st.s = i; st.g = g; st.m = 'game'; mount(); $('#demo')
 $$('[data-go]').forEach((b) => (b.onclick = () => goTo(+b.dataset.go)));
 $('#goki').onclick = () => goTo(5);
 /* Team im Hero und Abschnitt */
-$$('[data-team]').forEach((el) => (el.innerHTML = SUBJ.map((s, i) => `<button class="tm" data-go="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="tma">${tutorHTML(s.tutor.id)}</span><b>${s.tutor.n}</b><small>${s.n}</small></button>`).join('')));
+$$('[data-team]').forEach((el) => (el.innerHTML = SUBJ.map((s, i) => `<button class="tm" data-go="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="tmc"><span class="tma">${tutorHTML(s.tutor.id)}</span></span><b>${s.tutor.n}</b><small>${s.n}</small></button>`).join('')));
 $$('.tm').forEach((b) => (b.onclick = () => goTo(+b.dataset.go)));
 $('#tnames').innerHTML = SUBJ.map((s) => `<span style="--c1:${s.c1};--c2:${s.c2}"><i></i>${s.tutor.n} · ${s.n}</span>`).join('');
 
