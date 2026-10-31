@@ -91,7 +91,7 @@ function hello() {
       h('a', { class: 'brand bms-brand', href: '/', 'aria-label': 'BWL Max – zur Startseite', title: 'Zur Startseite', onclick: e => { e.preventDefault(); leave(); } }, mini, h('span', { class: 'bn' }, 'BWL Max')),
       h('span', { class: 'bms-demo-pill' }, h('i'), 'Demo · ohne Konto')),
     h('div', { class: 'bms-tc' },
-      h('button', { class: 'go-btn bms-topmade', type: 'button', onclick: () => cta('Oben: Mit meinem Skript') }, 'Mit meinem Skript loslegen')),
+      h('button', { class: 'go-btn bms-topmade', type: 'button', onclick: () => cta('Oben: Mit deinem Skript') }, h('span', { class: 'bms-tmf' }, h('img', { src: '/tutor/img/max-fav-96.png', alt: '', width: 96, height: 96 })), h('span', {}, 'Mit deinem Skript loslegen'))),
     h('div', { class: 'bms-tr' },
       h('button', { class: 'navlogin bms-login', type: 'button', onclick: () => cta('Oben: Anmelden', true) }, 'Anmelden'),
       h('button', { class: 'go-btn bms-topgo', type: 'button', onclick: () => cta('Oben: Kostenlos starten') }, 'Kostenlos starten')));

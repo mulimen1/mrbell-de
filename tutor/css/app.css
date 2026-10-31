@@ -9388,3 +9388,17 @@ html:root .bms .bms-fmts3 { grid-template-columns: 1.3fr 1fr 1fr; }
   html:root .bms .bms-fmts3 .bms-top1 { grid-column: 1 / -1; min-height: 130px; }
   .bms-more h3 { font-size: 23px; }
 }
+/* /start: Haupt-Knopf oben – Tutor-Blau, größer, mit Max-Kopf und Glanz (hebt sich von allem ab) */
+html:root .bms .go-btn.bms-topmade { position: relative; overflow: hidden; isolation: isolate; height: 66px; min-width: 0; padding: 0 34px 0 9px; gap: 14px; font-size: 21px; font-weight: 850; letter-spacing: -.02em; background: linear-gradient(110deg, #1a5fc4 0%, #1f6fe0 38%, #2a7fe8 72%, #7fb2f0 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -3px 0 rgba(10,40,110,.25), 0 16px 34px -10px rgba(26,95,196,.75), 0 0 0 5px rgba(42,127,232,.16); }
+html:root .bms .go-btn.bms-topmade::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.45) 48%, transparent 66%); transform: translateX(-120%); animation: bmsshine 3.6s ease-in-out 1.2s infinite; }
+@keyframes bmsshine { 0%, 62% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+html:root .bms .go-btn.bms-topmade:hover { filter: saturate(1.1) brightness(1.05); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -3px 0 rgba(10,40,110,.25), 0 22px 42px -12px rgba(26,95,196,.85), 0 0 0 8px rgba(42,127,232,.2); }
+html:root .bms .go-btn.bms-topmade:active { transform: translateY(1px) scale(.98); }
+.bms-tmf { width: 48px; height: 48px; flex: none; border-radius: 50%; background: #fff; display: grid; place-items: center; overflow: hidden; box-shadow: 0 0 0 3px rgba(255,255,255,.35), 0 6px 14px -6px rgba(10,40,110,.6); }
+.bms-tmf img { width: 86%; height: 86%; object-fit: contain; display: block; margin-top: 8%; }
+@media (max-width: 760px) {
+  html:root .bms .go-btn.bms-topmade { height: 50px; padding: 0 16px 0 5px; gap: 8px; font-size: 15.5px; }
+  .bms-tmf { width: 40px; height: 40px; }
+}
+@media (max-width: 370px) { .bms-tmf { display: none; } html:root .bms .go-btn.bms-topmade { padding: 0 14px; } }
+@media (prefers-reduced-motion: reduce) { html:root .bms .go-btn.bms-topmade::before { animation: none; } }
