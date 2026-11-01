@@ -3501,15 +3501,20 @@ const vk = (t, lang = 'de') => { const k = lang + ':' + t; if (!VL.has(k)) VL.se
 const CLIPS = window.CLIPS || {};  // Schlüssel -> Audio-URL (wird beim Export eingebettet)
 let voiceOn = (() => { try { return localStorage.getItem('gsm-mute') !== '1'; } catch (e) { return true; } })(), AC = null, curAudio = null;
 function setVoice(on) { voiceOn = on; try { localStorage.setItem('gsm-mute', on ? '0' : '1'); } catch (e) {} if (!on) stopVoice(); document.querySelectorAll('[data-mute]').forEach((b) => { b.classList.toggle('off', !on); b.innerHTML = I(on ? 'snd' : 'mute'); b.setAttribute('aria-label', on ? 'Ton ausschalten' : 'Ton einschalten'); }); }
-function stopVoice() { try { if (curAudio) { curAudio.pause(); curAudio = null; } if (typeof hwSrc !== 'undefined' && hwSrc) { hwSrc.stop(); hwSrc = null; } speechSynthesis.cancel(); } catch (e) {} }
+function stopVoice() { try { if (curAudio) { curAudio.onended = null; curAudio.onerror = null; curAudio.pause(); curAudio = null; } if (typeof hwSrc !== 'undefined' && hwSrc) { hwSrc.stop(); hwSrc = null; } speechSynthesis.cancel(); } catch (e) {} }
 /* Nur echte Stimmen (ElevenLabs-Clips). Ohne Clip bleibt es still, keine Roboterstimme. */
+let AUD = null;
 function voice(k, force, who) {
   if ((!voiceOn && !force) || !k) return false;
   stopVoice();
   who = who || ((typeof SUBJ !== 'undefined' && SUBJ[st.s]) ? SUBJ[st.s].tutor.id : 'max');
   const url = CLIPS[who + '|' + k] || CLIPS['max|' + k];
   if (!url) { talk(true, 1400); return false; }
-  talk(true); curAudio = new Audio(url); curAudio.onended = () => talk(false); curAudio.play().catch(() => talk(false));
+  /* Ein einziges Audio-Element: Safari erlaubt danach auch Folge-Sätze ohne neuen Klick */
+  AUD = AUD || new Audio(); AUD.preload = 'auto'; AUD.src = url; curAudio = AUD;
+  const me = AUD.src, skip = (e) => { if (AUD.src !== me || (e && e.name === 'AbortError')) return; const f = AUD.onended; AUD.onended = null; talk(false); if (f) setTimeout(f, 700); };
+  talk(true); AUD.onended = () => talk(false); AUD.onerror = skip;
+  const pr = AUD.play(); if (pr && pr.catch) pr.catch(skip);
   return true;
 }
 const demoVisible = () => true;
