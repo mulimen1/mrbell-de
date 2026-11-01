@@ -2926,6 +2926,38 @@ body.dark .lesbub::before{background:inherit!important}
 .app .aside .tab.on::after,.app .aside .anv.on::after{display:none!important}
 .app .aside .tab.on .ti,.app .aside .anv.on .ti{background:#fff!important;color:var(--c2)!important;box-shadow:0 2px 0 rgba(0,0,0,.15)!important}
 .app .aside .tab.on .ti svg,.app .aside .anv.on .ti svg{color:var(--c2)!important}
+
+/* Seitenleiste: Übersicht und Hausaufgaben größer */
+.app .aside .anv.anhome,.app .aside .anv.hw{height:68px!important;font-size:18.5px!important;border-radius:18px!important}
+.app .aside .anv.anhome .ti,.app .aside .anv.hw .ti{width:46px!important;height:46px!important;font-size:24px!important}
+/* Klassen-Hinweis in der App weg (steht im Profil) */
+.app .agrade,#gchip2{display:none!important}
+/* Hausaufgaben-Karte in der Übersicht so groß wie ein Fach */
+.ahwb.big{position:relative;display:flex!important;align-items:stretch;gap:0;min-height:190px;padding:22px 24px!important;border-radius:28px!important;overflow:hidden;color:#fff!important;background:var(--pat2,none),linear-gradient(130deg,#9a7cff,#5a3fd0 55%,#3f2aa8)!important;box-shadow:0 8px 0 #2f1f86,0 26px 40px -24px rgba(40,20,120,.7)!important;text-align:left}
+.ahwb.big:hover{transform:translateY(-4px)}
+.ahwb.big .ahwt{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;gap:6px;padding-right:120px}
+.ahwb.big .ahwt small{font-weight:900;font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.ahwb.big .ahwt b{font-size:clamp(24px,2.6vw,34px);line-height:1.1;letter-spacing:-.02em;color:#fff!important}
+.ahwb.big .ahwt span{font-weight:700;font-size:15.5px;line-height:1.35;opacity:.95;color:#fff!important}
+.ahwb.big .ahwt em{display:inline-flex;align-items:center;gap:8px;width:fit-content;margin-top:8px;padding:10px 16px;border-radius:99px;background:#fff;color:#4a33b8;font-style:normal;font-weight:900;font-size:15px;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.ahwb.big .ahwm{position:absolute;right:-8px;bottom:-18px;width:150px}
+.ahwb.big .ahwm .tut{width:150px}
+.ahwb.big .ahwm i{position:absolute;left:-6px;top:6px;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:28px;color:#4a33b8;background:#fff;box-shadow:0 5px 0 rgba(0,0,0,.18);transform:rotate(-10deg)}
+@media (max-width:560px){.ahwb.big{min-height:170px;padding:18px!important}.ahwb.big .ahwt{padding-right:96px}.ahwb.big .ahwm{width:118px}.ahwb.big .ahwm .tut{width:118px}.ahwb.big .ahwt b{font-size:22px}.ahwb.big .ahwt span{font-size:14px}}
+.app .aside .anv.hw{font-size:16px!important;gap:10px!important;padding-left:10px!important;padding-right:8px!important;letter-spacing:-.01em}
+.app .aside .anv.hw .ti{width:42px!important;height:42px!important}
+.app .aside .anv .ti{flex:none!important}
+
+/* Abo & Zugang */
+.abocode,.pacode{display:grid;gap:2px;justify-items:center;margin:10px 0 14px;padding:12px;border-radius:16px;background:#eef6ff;text-align:center}
+.abocode small,.pacode small{font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#1a5fc4}
+.abocode b,.pacode b{font-size:28px;letter-spacing:.12em;color:#123f86}
+.abocode span{font-size:13.5px;color:#5f594d;font-weight:650}
+.pasm{font-size:13px!important}
+.pacin{display:flex;gap:8px;margin:8px 0}.pacin input{flex:1;min-width:0;height:48px;border-radius:14px;border:2px solid #e5ded1;padding:0 12px;font-weight:850;font-size:18px;letter-spacing:.1em;text-transform:uppercase}
+.pays{pointer-events:none}.pays .pym{font-size:13px}
+.pyerr{color:#c0392b;font-weight:750;font-size:14px;min-height:1em;margin-top:8px;text-align:center}
+.pwcin{margin:10px auto 0;max-width:340px}.pwhave{display:block;margin:10px auto 0}
 </style>
 </head>
 <body>
@@ -3212,7 +3244,7 @@ body.dark .lesbub::before{background:inherit!important}
       </div>
       <div class="timeline">
         <div><span class="d">HEUTE</span><b>Alles freigeschaltet</b><small>Dein Kind spielt sofort los. Du zahlst heute nichts.</small></div>
-        <div><span class="d">TAG 5</span><b>Wir erinnern dich</b><small>Per E-Mail, bevor der Test endet. Kein böses Erwachen.</small></div>
+        <div><span class="d">TAG 1 BIS 7</span><b>In Ruhe testen</b><small>Kündigen geht jederzeit mit einem Klick im Elternbereich.</small></div>
         <div><span class="d">TAG 7</span><b>Abo startet</b><small>Nur wenn du nicht vorher kündigst. Ein Klick genügt.</small></div>
       </div>
     </div>
@@ -6936,7 +6968,9 @@ function lpInit() { Object.entries(LP).forEach(([k, grades]) => { const S = SUBJ
 
 /* Pfad zeichnen: eigene Karte je Fach, nur die erste Lektion ist frei */
 const NODE_X = [0, 70, 110, 70, 0, -70, -110, -70], FREE_N = 1;
-const PAID = (() => { try { return localStorage.getItem('gsm-dev-paid') === '1'; } catch (e) { return false; } })();
+const ABO_URL = 'https://mrbell.app.n8n.cloud/webhook/gsm-abo-4h8t';
+const ABO = (() => { try { return JSON.parse(localStorage.getItem('gsm-abo') || 'null'); } catch (e) { return null; } })();
+const PAID = (() => { try { return localStorage.getItem('gsm-dev-paid') === '1'; } catch (e) { return false; } })() || !!(ABO && ABO.paid);
 const canPlay = (n) => PAID || n < FREE_N;
 function nodeHTML(S, li, j, cur, justN, sx) {
   const id = li * PER + j, game = j === PER - 1, pg = S.games.filter((x) => x.play), gi = game ? S.games.indexOf(S.games[li % S.games.length]) : -1, G0 = game ? S.games[gi] : null;
@@ -7514,12 +7548,17 @@ function paywall(t) {
       <b>${t || 'Weiter geht’s mit dem ganzen Team!'}</b><span>7 Tage kostenlos testen. Danach jederzeit kündbar.</span></div>
     <ul class="pwl"><li>${I('star')}Lernpfade fürs ganze Schuljahr in 6 Fächern, Klasse 1 bis 4</li><li>${I('pad')}Jede Lektion ein Lernspiel, dazu über 30 Extra-Spiele</li><li>${I('cam')}Hausaufgaben-Tutor: bis zu 10 Fotos, Max erklärt Schritt für Schritt</li><li>${I('target')}Testvorbereitung: Probetests für jede Klassenarbeit</li><li>${I('bulb')}Fach Internet und KI: sicher im Netz</li><li>${I('family')}Elternbereich mit Code, Zeitlimit und echter Lernzeit</li></ul>
     <div class="pwp"><button class="pwo on" data-plan="y"><em>Beliebt · spare 33 %</em><b>Schuljahr</b><strong>79 €</strong><small>für 12 Monate · nur 6,58 € im Monat</small></button><button class="pwo" data-plan="m"><b>Monatlich</b><strong>9,90 €</strong><small>pro Monat · monatlich kündbar</small></button></div>
-    <button class="b3d lg wide" id="pwgo">${I('play')}7 Tage kostenlos testen</button><p class="pwf">Heute 0,00 €. Wir erinnern dich 2 Tage vor Ende des Tests.</p></div>`;
+    <button class="b3d lg wide" id="pwgo">${I('play')}7 Tage kostenlos testen</button><p class="pwf">Heute 0,00 €. Im Test jederzeit kostenlos kündbar.</p><button class="lnk pwhave" id="pwhave">Schon ein Abo? Zugangscode eingeben</button></div>`;
   let plan = 'y';
   $$('.pwo', pw).forEach((b) => (b.onclick = () => { plan = b.dataset.plan; $$('.pwo', pw).forEach((x) => x.classList.toggle('on', x === b)); }));
   const close = () => pw.classList.remove('on');
   $('.pwx', pw).onclick = close; pw.onclick = (e) => { if (e.target === pw) close(); };
   $('#pwgo', pw).onclick = () => { close(); openM(plan); };
+  $('#pwhave', pw).onclick = (e) => { e.currentTarget.outerHTML = `<div class="pacin pwcin"><input id="pwcode" placeholder="ABCD-1234" maxlength="9" autocomplete="off"><button class="b3d c" id="pwcgo">Freischalten</button></div>`; $('#pwcode').focus();
+    $('#pwcgo').onclick = async (ev) => { const c = $('#pwcode').value.trim().toUpperCase().replace(/^([A-Z0-9]{4})([A-Z0-9]{4})$/, '$1-$2'); const b = ev.currentTarget; b.disabled = true;
+      try { const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'status', code: c }) }).then((x) => x.json());
+        if (r.ok && r.paid) { localStorage.setItem('gsm-abo', JSON.stringify({ code: c, paid: true, status: r.status, plan: r.plan, trialEnd: r.trialEnd, checked: Date.now() })); lpToast('Freigeschaltet!'); setTimeout(() => location.reload(), 700); return; }
+        lpToast(r.ok ? 'Dieses Abo ist nicht mehr aktiv.' : (r.grund || 'Der Code stimmt nicht.')); } catch (x) { lpToast('Das hat nicht geklappt.'); } b.disabled = false; }; };
   pw.classList.add('on'); restart($('.pwc', pw), 'pin');
 }
 
@@ -7564,7 +7603,7 @@ function toggleDark() { const on = !document.body.classList.contains('dark'); do
 const HW_URL = 'https://mrbell.app.n8n.cloud/webhook/gsm-hausaufgabe-9q2w', HW_FREE = 3;
 const lsx = { get: (k, d) => { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
 const isAdmin = () => !!lsx.get('gsm-admin', '');
-const hwLeft = () => isAdmin() ? Infinity : Math.max(0, HW_FREE - (+lsx.get('gsm-hw-n', 0)));
+const hwLeft = () => (isAdmin() || PAID) ? Infinity : Math.max(0, HW_FREE - (+lsx.get('gsm-hw-n', 0)));
 let HWR = null; // letztes Ergebnis
 
 function shrink(file) {
@@ -7609,7 +7648,7 @@ function drawHW(sel = '#ahw', web, SJ) {
     <div class="hwtabs"><button data-t="e" style="--c1:#ffb547;--c2:#e2620f">${I('bulb')}<span>Max erklärt</span></button><button data-t="s" style="--c1:#4f8ff0;--c2:#1a4fb4">${I('pad')}<span>Spiel daraus</span></button><button data-t="p" style="--c1:#8a6cf0;--c2:#4a33b8">${I('cap')}<span>Probetest</span></button><button data-t="l" style="--c1:#4cc38a;--c2:#1f8a4c">${I('book')}<span>Bibliothek</span></button></div>
     <div class="hwr"></div>`;
   const d = $('.hwd', h), f = $('.hwf', h), c = $('.hwc', h), r = $('.hwr', h), pe = $('.hwpend', h), tabs = $$('.hwtabs button', h);
-  const free = () => { const n = hwLeft(); $('.hwfree', h).innerHTML = n === Infinity ? `${I('check')}Unbegrenzt freigeschaltet` : n > 0 ? `<span class="hwst">${Array.from({ length: HW_FREE }, (_, i) => `<i class="${i < n ? 'on' : ''}">${I('star')}</i>`).join('')}</span><span class="hwft"><b>Noch ${n} ${n === 1 ? 'Hausaufgabe' : 'Hausaufgaben'} gratis</b><small>zum Ausprobieren</small></span>` : `${I('lock')}Alle Probe-Hausaufgaben verbraucht`; $('.hwfree', h).classList.toggle('no', n === 0); };
+  const free = () => { const n = hwLeft(); $('.hwfree', h).innerHTML = n === Infinity ? `${I('check')}${isAdmin() ? 'Unbegrenzt freigeschaltet' : 'Im Abo enthalten'}` : n > 0 ? `<span class="hwst">${Array.from({ length: HW_FREE }, (_, i) => `<i class="${i < n ? 'on' : ''}">${I('star')}</i>`).join('')}</span><span class="hwft"><b>Noch ${n} ${n === 1 ? 'Hausaufgabe' : 'Hausaufgaben'} gratis</b><small>zum Ausprobieren</small></span>` : `${I('lock')}Alle Probe-Hausaufgaben verbraucht`; $('.hwfree', h).classList.toggle('no', n === 0); };
   free(); h._free = free;
   $('.hwcam', h).onclick = (e) => { e.stopPropagation(); c.click(); };
   $('.hwup', h).onclick = (e) => { e.stopPropagation(); f.click(); };
@@ -7758,6 +7797,7 @@ function drawParents() {
   h.innerHTML = `<div class="pah"><span class="pgi">${I('family')}</span><div><small>Elternbereich</small><b>Einstellungen für ${esc(P0.name || 'dein Kind')}</b></div><button class="lnk palock" id="palock">${I('lock')}Sperren</button></div>
     ${actHTML(P0)}
     <div class="pagrid">
+      <div class="pac pabo"><b>${I('star')}Abo & Zugang</b>${ABO && ABO.code ? `<p>${ABO.paid ? (ABO.status === 'trialing' && ABO.trialEnd ? `Kostenloser Test bis ${new Date(ABO.trialEnd * 1000).toLocaleDateString('de-DE', { day: 'numeric', month: 'long' })}.` : 'Dein Abo ist aktiv.') : 'Dein Abo ist nicht mehr aktiv.'}</p><div class="pacode"><small>Zugangscode</small><b>${esc(ABO.code)}</b></div><p class="pasm">Mit diesem Code schaltest du weitere Geräte frei.</p><button class="b3d w" id="paportal">Abo verwalten oder kündigen</button>` : `<p>Schon ein Abo? Gib deinen Zugangscode ein, um dieses Gerät freizuschalten.</p><div class="pacin"><input id="pacode" placeholder="ABCD-1234" maxlength="9" autocomplete="off"><button class="b3d c" id="pacgo">Freischalten</button></div><button class="lnk" id="patry">Noch kein Abo? 7 Tage kostenlos testen</button>`}</div>
       <div class="pac"><b>${I('bell')}Tägliche Lernzeit</b><p>Nach dieser Zeit macht Max freundlich Schluss für heute.</p><div class="paopt" data-k="limit">${[[0, 'Kein Limit'], [15, '15 Min.'], [30, '30 Min.'], [45, '45 Min.'], [60, '60 Min.']].map(([v, t]) => `<button data-v="${v}" class="${P0.limit === v ? 'on' : ''}">${t}</button>`).join('')}</div><small>Heute gelernt: ${mins} Min.</small></div>
       <div class="pac"><b>${I('cam')}Hausaufgaben-Hilfe</b><p>Darf dein Kind Fotos von Hausaufgaben schicken? Fotos werden nicht gespeichert.</p><div class="paopt" data-k="hw"><button data-v="1" class="${P0.hw ? 'on' : ''}">Erlaubt</button><button data-v="0" class="${!P0.hw ? 'on' : ''}">Aus</button></div></div>
       <div class="pac"><b>${I('snd')}Vorlesen</b><p>Die Tutoren lesen alles vor. Ideal für Kinder, die noch nicht so sicher lesen.</p><div class="paopt" data-k="snd"><button data-v="1" class="${voiceOn ? 'on' : ''}">An</button><button data-v="0" class="${!voiceOn ? 'on' : ''}">Aus</button></div></div>
@@ -7772,6 +7812,10 @@ function drawParents() {
   $$('.actsw button', h).forEach((b) => (b.onclick = () => { $$('.actsw button', h).forEach((x) => x.classList.toggle('on', x === b)); $$('.actg', h).forEach((g) => (g.hidden = g.dataset.r !== b.dataset.r)); sfx.tap(); }));
   $('#pareset').onclick = () => { if (confirmReset()) { LPS = {}; lpSave(); drawLPCards(); drawAside(); lpToast('Fortschritt zurückgesetzt.'); drawParents(); } };
   $('#papin').onclick = () => { lsx.set('gsm-pin', ''); drawParents(); };
+  const aboReq = (b) => fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }).then((x) => x.json());
+  if ($('#paportal')) $('#paportal').onclick = async (e) => { const b = e.currentTarget; b.disabled = true; b.textContent = 'Einen Moment …'; try { const r = await aboReq({ mode: 'portal', code: ABO.code }); if (r.ok && r.url) { location.href = r.url; return; } lpToast(r.grund || 'Das hat nicht geklappt.'); } catch (x) { lpToast('Das hat nicht geklappt.'); } b.disabled = false; b.textContent = 'Abo verwalten oder kündigen'; };
+  if ($('#pacgo')) $('#pacgo').onclick = async (e) => { const c = $('#pacode').value.trim().toUpperCase().replace(/^([A-Z0-9]{4})([A-Z0-9]{4})$/, '$1-$2'); const b = e.currentTarget; b.disabled = true; try { const r = await aboReq({ mode: 'status', code: c }); if (r.ok && r.paid) { lsx.set('gsm-abo', JSON.stringify({ code: c, paid: true, status: r.status, plan: r.plan, trialEnd: r.trialEnd, checked: Date.now() })); lpToast('Freigeschaltet!'); setTimeout(() => location.reload(), 700); return; } lpToast(r.ok ? 'Dieses Abo ist nicht mehr aktiv.' : (r.grund || 'Der Code stimmt nicht.')); } catch (x) { lpToast('Das hat nicht geklappt.'); } b.disabled = false; };
+  if ($('#patry')) $('#patry').onclick = () => paywall();
   $('#palock').onclick = () => { parOpen = false; drawParents(); };
 }
 function actHTML(P0) {
@@ -8033,7 +8077,7 @@ const scHTML = () => SUBJ.map((s, i) => `<div class="sc" data-k="${s.k}" style="
 $('#subj').innerHTML = scHTML();
 $('#ahome').innerHTML = `<div class="ahh"><div class="ahm">${tutorHTML('max')}</div><div><small>Hallo, ich bin Max!</small><b>Herzlich willkommen bei Grundschulmax!</b><span>Schau dich ganz entspannt um. Jedes Fach hat einen eigenen Lernpfad, und bei Hausaufgaben helfe ich dir.</span></div></div>
   <div class="kst" id="kst"></div>
-  <button class="ahwb" data-nav="hw"><span class="ahwi">${I('cam')}</span><span><b>Hausaufgabe klemmt? Arbeit steht an?</b><small>Foto machen: Max erklärt, macht ein Spiel daraus und einen Probetest. 3 Fotos kostenlos.</small></span>${I('arrow')}</button>
+  <button class="ahwb big" data-nav="hw"><span class="ahwt"><small>Hausaufgaben & Tests</small><b>Hausaufgabe klemmt? Arbeit steht an?</b><span>Foto machen, Max erklärt Schritt für Schritt und macht einen Probetest daraus.</span><em>${I('cam')}Foto machen</em></span><span class="ahwm">${tutorHTML('max')}<i>${I('cam')}</i></span></button>
   <div class="subj asubj" id="asubj">${scHTML()}</div>`;
 function goTo(i, g = 0, w = 'path', play) { st.s = i; st.g = g; st.w = w; st.nav = 'subj'; if (st.grade < 0) { st.next = [i, g, w, play]; go('klasse'); return; } go('spiel'); mount(); if (play) openGame(g); }
 $$('.sc').forEach((c) => c.style.setProperty('--pat', patURL(c.dataset.k)));
@@ -8094,18 +8138,24 @@ function step(n) {
     const y = su.plan === 'y', end = new Date(Date.now() + 7 * 864e5).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
     mb.innerHTML = `<h3>Zahlung</h3><p class="s">Heute 0,00 €. Die erste Zahlung kommt erst nach dem kostenlosen Test.</p>
       ${planCard()}
-      <div class="paym">${[['apple', 'Apple Pay'], ['google', 'Google Pay'], ['paypal', 'PayPal'], ['card', 'Kreditkarte'], ['sepa', 'Lastschrift'], ['klarna', 'Klarna']].map(([k, t], i) => `<button type="button" class="pym ${k}${i === 0 ? ' on' : ''}" data-m="${k}"><i></i>${t}</button>`).join('')}</div>
+      <div class="paym pays">${['Apple Pay', 'Google Pay', 'PayPal', 'Kreditkarte', 'Lastschrift'].map((t) => `<span class="pym"><i></i>${t}</span>`).join('')}</div>
       <div class="paybox"><div class="row"><span>Kostenloser Test</span><span>bis ${end}</span></div><div class="row"><span>Heute fällig</span><span>0,00 €</span></div><div class="row"><span>Danach</span><span>${y ? '79 € für 12 Monate' : '9,90 € pro Monat'}</span></div>
-      <p class="pbn">${y ? 'Nach 12 Monaten läuft das Abo weiter und ist dann jederzeit mit einem Monat Frist kündbar.' : 'Monatlich kündbar.'} Im Test jederzeit kostenlos kündbar, wir erinnern dich 2 Tage vor Ende. Endpreise, keine Umsatzsteuer (§ 19 UStG).</p></div>
-      <p class="fine">Es gelten unsere <a href="/agb" target="_blank">AGB</a>. Hinweise zum <a href="/widerruf" target="_blank">Widerrufsrecht</a> und zum <a href="/datenschutz" target="_blank">Datenschutz</a>.</p>
-      <button class="b3d c wide" id="n2">Zahlungspflichtig abonnieren</button>
-      <div class="devnote">Vorschau: Die Zahlung ist noch nicht verbunden. Hier öffnet später Stripe mit allen gewählten Zahlarten.</div>`;
+      <p class="pbn">Im Test jederzeit kostenlos kündbar, mit einem Klick im Elternbereich. Endpreise, keine Umsatzsteuer (§ 19 UStG).</p></div>
+      <p class="fine">Es gelten unsere <a href="/agb" target="_blank">AGB</a>. Hinweise zum <a href="/widerruf" target="_blank">Widerrufsrecht</a> und zum <a href="/datenschutz" target="_blank">Datenschutz</a>. Die Zahlung läuft sicher über Stripe.</p>
+      <button class="b3d c wide" id="n2">${I('lock')}Weiter zur sicheren Zahlung</button><p class="pyerr" id="pyerr"></p>`;
     $('.plsw', mb).onclick = () => { su.plan = su.plan === 'y' ? 'm' : 'y'; step(2); };
-    $$('.pym', mb).forEach((b) => (b.onclick = () => $$('.pym', mb).forEach((x) => x.classList.toggle('on', x === b))));
-    $('#n2').onclick = () => step(3);
+    $('#n2').onclick = async () => {
+      const b = $('#n2'); b.disabled = true; b.innerHTML = 'Einen Moment …'; $('#pyerr').textContent = '';
+      try { localStorage.setItem('gsm-pend', JSON.stringify({ plan: su.plan, grade: su.grade, email: su.email })); } catch (e) {}
+      try {
+        const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'checkout', plan: su.plan, email: su.email, grade: su.grade }) }).then((x) => x.json());
+        if (r.ok && r.url) { location.href = r.url; return; }
+        throw new Error(r.grund || '');
+      } catch (e) { b.disabled = false; b.innerHTML = `${I('lock')}Weiter zur sicheren Zahlung`; $('#pyerr').textContent = e.message || 'Das hat nicht geklappt. Bitte gleich nochmal versuchen.'; }
+    };
   }
   if (n === 3) {
-    mb.innerHTML = `<div class="okhd">${I('check')}<b>Konto ist eingerichtet!</b></div><h3>Wer lernt mit Max?</h3><p class="s">Damit Max dein Kind begrüßen kann und die passenden Aufgaben wählt. Ein Spitzname reicht.</p>
+    mb.innerHTML = `<div class="okhd">${I('check')}<b>Abo ist aktiv! 7 Tage kostenlos.</b></div>${ABO && ABO.code ? `<div class="abocode"><small>Dein Zugangscode</small><b>${esc(ABO.code)}</b><span>Damit schaltest du Grundschulmax auf weiteren Geräten frei (Profil & Eltern → Abo). Am besten gleich aufschreiben oder ein Foto machen.</span></div>` : ''}<h3>Wer lernt mit Max?</h3><p class="s">Damit Max dein Kind begrüßen kann und die passenden Aufgaben wählt. Ein Spitzname reicht.</p>
       <label class="fld"><span>Vorname oder Spitzname deines Kindes</span><input id="cn" autocomplete="off" placeholder="z. B. Lena" value="${esc(su.child)}"></label>
       <div class="fld"><span>Klasse</span><div class="grades">${[1, 2, 3, 4].map((g) => `<button type="button" data-g="${g}" class="${g === su.grade ? 'on' : ''}">${g}.</button>`).join('')}</div></div>
       <button class="b3d c wide" id="n3">Los geht’s ${I('arrow')}</button>`;
@@ -8113,7 +8163,28 @@ function step(n) {
     $('#n3').onclick = () => { su.child = $('#cn').value.trim(); if (!su.child) return $('#cn').focus(); try { localStorage.setItem('gsm-name', su.child); } catch (e) {} st.grade = su.grade - 1; drawGrade(); welcome(); };
   }
 }
-function welcome() { mb.innerHTML = `<div style="text-align:center;padding:10px 0"><img src="/grundschulmax/max.png" alt="" style="width:100px;margin:0 auto 10px;display:block"><h3>Willkommen, ${esc(su.child)}!</h3><p class="s">In der echten Version landet ihr jetzt direkt in der Lernwelt.</p><button class="b3d c wide" id="cl">Fertig</button></div>`; $('#cl').onclick = () => { closeM(); if (typeof drawSideProf === 'function') drawSideProf(); }; confetti(60); }
+function welcome() { mb.innerHTML = `<div style="text-align:center;padding:10px 0"><img src="/grundschulmax/max.png" alt="" style="width:100px;margin:0 auto 10px;display:block"><h3>Willkommen, ${esc(su.child)}!</h3><p class="s">Alles ist freigeschaltet: alle Lernpfade, alle Spiele und die Hausaufgaben-Hilfe.</p><button class="b3d c wide" id="cl">Los geht’s</button></div>`; $('#cl').onclick = () => { closeM(); location.href = '/#spiel'; location.reload(); }; confetti(60); }
+/* Rückkehr von Stripe: Abo prüfen und freischalten */
+(async () => {
+  const q = new URLSearchParams(location.search), sid = q.get('abo'); if (!sid) return;
+  history.replaceState(null, '', location.pathname + location.hash);
+  if (sid === 'abbruch') { setTimeout(() => lpToast('Zahlung abgebrochen. Du kannst es jederzeit nochmal versuchen.'), 600); return; }
+  let pend = {}; try { pend = JSON.parse(localStorage.getItem('gsm-pend') || '{}'); } catch (e) {}
+  ov.classList.add('on'); document.body.style.overflow = 'hidden'; $$('.steps i').forEach((e) => e.classList.add('on'));
+  mb.innerHTML = `<div style="text-align:center;padding:30px 0"><h3>Abo wird geprüft …</h3><p class="s">Einen kleinen Moment.</p></div>`;
+  let r = null; for (let i = 0; i < 4 && !(r && r.ok); i++) { try { r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'verify', sid }) }).then((x) => x.json()); } catch (e) {} if (!(r && r.ok)) await wait(1500); }
+  if (!(r && r.ok && r.code)) { mb.innerHTML = `<div style="text-align:center;padding:20px 0"><h3>Das hat nicht geklappt</h3><p class="s">Wir konnten das Abo gerade nicht bestätigen. Wenn du bezahlt hast, schreib uns bitte über die Kontaktdaten im Impressum.</p><button class="b3d c wide" id="cl">Schließen</button></div>`; $('#cl').onclick = closeM; return; }
+  const ab = { code: r.code, paid: !!r.paid, status: r.status, plan: r.plan, email: r.email, trialEnd: r.trialEnd, checked: Date.now() };
+  try { localStorage.setItem('gsm-abo', JSON.stringify(ab)); localStorage.removeItem('gsm-pend'); } catch (e) {}
+  Object.assign(su, { plan: pend.plan || su.plan, grade: +(r.klasse || pend.grade || su.grade), email: r.email || pend.email || '' });
+  stepDone(ab);
+})();
+function stepDone(ab) { step(3); const c = $('.abocode b', mb); if (!c && ab.code) $('.okhd', mb).insertAdjacentHTML('afterend', `<div class="abocode"><small>Dein Zugangscode</small><b>${esc(ab.code)}</b><span>Damit schaltest du Grundschulmax auf weiteren Geräten frei (Profil & Eltern → Abo). Am besten gleich aufschreiben oder ein Foto machen.</span></div>`); }
+/* Abo regelmäßig prüfen (gekündigt, Zahlung offen …) */
+(async () => {
+  if (!ABO || !ABO.code || Date.now() - (ABO.checked || 0) < 6 * 36e5) return;
+  try { const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'status', code: ABO.code }) }).then((x) => x.json()); if (!r || (!r.ok && !r.grund)) return; const paid = !!(r.ok && r.paid); const ab = { ...ABO, paid, status: r.status || 'none', checked: Date.now() }; localStorage.setItem('gsm-abo', JSON.stringify(ab)); if (paid !== !!ABO.paid) location.reload(); } catch (e) {}
+})();
 function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 function openM(plan) { su.plan = plan || 'y'; su.grade = Math.max(0, st.grade) + 1; ov.classList.add('on'); document.body.style.overflow = 'hidden'; step(1); }
 function closeM() { ov.classList.remove('on'); document.body.style.overflow = ''; }
