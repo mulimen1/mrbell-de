@@ -2922,6 +2922,10 @@ body.dark .lesbub::before{background:inherit!important}
 .qsafe.prize .sfin i{animation:coinHop .6s ease-in-out infinite alternate}
 .qsafe.prize .sfin i:nth-of-type(2){animation-delay:.15s}.qsafe.prize .sfin i:nth-of-type(3){animation-delay:.3s}
 @keyframes coinHop{to{transform:translateY(-10px)}}
+/* aktiver Knopf: Icon-Feld wird weiß statt Punkt */
+.app .aside .tab.on::after,.app .aside .anv.on::after{display:none!important}
+.app .aside .tab.on .ti,.app .aside .anv.on .ti{background:#fff!important;color:var(--c2)!important;box-shadow:0 2px 0 rgba(0,0,0,.15)!important}
+.app .aside .tab.on .ti svg,.app .aside .anv.on .ti svg{color:var(--c2)!important}
 </style>
 </head>
 <body>
