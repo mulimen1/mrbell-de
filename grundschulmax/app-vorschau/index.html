@@ -8236,7 +8236,7 @@ function subjHost(si = st.s) {
     chapter: (ch) => `<small>${S.n} · Level ${L0 + ch + 1}</small><b>${esc(L[L0 + ch] ? L[L0 + ch].t : '')}</b>`,
     list: () => { const q = lpProg(S.k, g), out = []; for (let li = L0; li < L0 + nL; li++) for (let j = 0; j < PER; j++) { const n = li * PER + j, game = j === PER - 1, G0 = game ? S.games[li % S.games.length] : null;
       out.push({ k: S.k, n, li, jj: j, j: j + 1, game, ic: FICON[S.k][(li * 2 + j) % 5], col: [S.c1, tintC(S.c1, .18), S.c2, tintC(S.c1, -.12)][j % 4], t: game ? G0.n : L[li].t, d: L[li].d, top: `Level ${li + 1} · ${game ? 'Spielplatz' : 'Lektion ' + (j + 1)}`, state: !canPlay(n) ? 'pay' : n < q.n ? 'done' : n === q.n ? 'cur' : 'next' }); } return out; },
-    stats: PFHOST.stats, off: () => [], toggle: () => true, name: PFHOST.name, face: pfFace, tutor: PFHOST.tutor, tutors: false, labels: true,
+    stats: PFHOST.stats, off: () => [], toggle: () => true, name: PFHOST.name, face: pfFace, tutor: PFHOST.tutor, tutors: false, labels: false,
     head: () => ({ title: S.n, c1: S.c1, c2: S.c2, c3: tintC(S.c2, -.3), imgs: [tutImg(S.tutor.id)], click: () => tutorIntro(st.s) }),
     play: (i, s) => { if (s.game) openGame(S.games.indexOf(S.games[s.li % S.games.length]), () => lpComplete(s.n, 5)); else startLesson(s.li, s.jj, s.n); },
     pay: () => paywall(),
