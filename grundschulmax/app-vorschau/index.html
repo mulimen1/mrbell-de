@@ -3659,6 +3659,18 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 .g-tres2 .tz.safe .tzi img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 8px rgba(0,0,0,.25))}
 .g-tres2 .tzi.spin img{animation:pop .45s var(--e)}
 @media (max-width:600px){.g-tres2 .tgo{bottom:150px;height:min(180px,34%);gap:8px}.g-tres2 .tz.safe .tzi{width:110px;height:86px}.tico{width:64px;height:64px}.g-tres2 .tz{font-size:14px}}
+/* ---------- Rotstift: Klassenzimmer ---------- */
+.g-rot2{background:#bfe3f7!important;padding-bottom:160px!important}
+.g-rot2 .gsky{background-position:50% 40%}
+.g-rot2 .heft{position:relative;z-index:2;flex:0 1 auto;border-radius:20px;box-shadow:0 0 0 8px #fff,0 0 0 12px #3b8de0,0 22px 40px -14px rgba(20,60,110,.5)}
+.rpen{position:absolute;right:max(14px,calc(50% - 400px));top:10px;width:150px;z-index:5;pointer-events:none;filter:drop-shadow(0 10px 8px rgba(0,0,0,.25));animation:fpin 3s ease-in-out infinite}
+.rstamp{position:absolute;width:76px;z-index:6;pointer-events:none;filter:drop-shadow(0 8px 6px rgba(0,0,0,.3));animation:rst 1.1s ease-out forwards}
+.rstamp.big{width:160px;animation:rstb .6s cubic-bezier(.3,1.6,.5,1) forwards}
+@keyframes rst{0%{transform:translateY(-40px) scale(1.5);opacity:0}25%{transform:none;opacity:1}35%{transform:scale(1.08,.9)}80%{opacity:1}100%{opacity:0}}
+@keyframes rstb{0%{transform:translateY(-80px) scale(1.6);opacity:0}100%{transform:none;opacity:1}}
+.g-rot2 .fertig{bottom:auto;top:auto;position:relative;left:auto;transform:none;margin-top:16px;z-index:3}
+@media (max-width:600px){.g-rot2{padding-bottom:140px!important}.rpen{width:84px;top:auto;bottom:150px;right:10px}}
+@media (min-width:601px){.rpen{right:max(10px,calc(50% - 480px));top:140px;width:130px}}
 </style>
 </head>
 <body>
@@ -7606,32 +7618,34 @@ const ROT = [
 const vkRotI = vk('Ich bin Bit, eine KI. Ich habe Hausaufgaben gemacht, aber Achtung: Ich habe Fehler eingebaut! Findest du sie mit dem Rotstift?');
 const vkRotNo = vk('Das stimmt doch! Lies nochmal genau.'), vkRotMiss = vk('Ein paar Fehler hast du übersehen. Schau mal, hier!'), vkRotAll = vk('Alle Fehler gefunden! Auch eine KI kann sich irren. Gut, dass du nachgeprüft hast.');
 function gRot(T) {
-  gs.className = 'gs g-rot';
+  gs.className = 'gs g-rot g-rot2';
   const Lines = ROT[G()], nErr = Lines.filter((l) => l[1]).length; let found = 0, done = false;
-  gs.innerHTML = `<div class="heft"><div class="hh"><span class="hav">${tutorHTML('bit')}</span><b>Hausaufgaben von Bit</b><span class="pen">${I('pen')}Rotstift</span></div><div class="lines" id="ln"></div></div><button class="b3d o fertig" id="rf">${I('check')}Ich bin fertig</button>`;
+  gs.innerHTML = `<div class="gsky" style="--bg:url(/grundschulmax/sp/rot/bg.webp)"><i class="csun"></i></div><img class="rpen" id="rpen" src="/grundschulmax/sp/rot/stift.webp" alt=""><div class="heft"><div class="hh"><span class="hav">${tutorHTML('bit')}</span><b>Hausaufgaben von Bit</b><span class="pen">${I('pen')}Rotstift</span></div><div class="lines" id="ln"></div></div><button class="b3d o fertig" id="rf">${I('check')}Ich bin fertig</button>`;
   const ln = $('#ln');
   Lines.forEach((l, i) => {
     const row = document.createElement('button'); row.className = 'hl'; row.style.animationDelay = i * .35 + 's';
     row.innerHTML = l[1] ? l[0].replace(l[1], `<span class="err">${l[1]}</span>`) : l[0];
     row.onclick = () => tap(row, l); ln.appendChild(row);
   });
+  const penTo = (el) => { const pn = $('#rpen'), a = pn.getBoundingClientRect(), z = el.getBoundingClientRect(); pn.animate([{ transform: 'none' }, { transform: `translate(${z.left + z.width / 2 - a.left - 12}px,${z.top + z.height - a.top - a.height + 8}px) rotate(-8deg)`, offset: .35 }, { transform: `translate(${z.left + z.width / 2 - a.left + 10}px,${z.top + z.height - a.top - a.height + 2}px) rotate(4deg)`, offset: .6 }, { transform: 'none' }], { duration: 1100, easing: 'ease-in-out' }); };
+  const stamp = (el, k, big) => { const r = el.getBoundingClientRect(), g = gs.getBoundingClientRect(), im = document.createElement('img'); im.src = `/grundschulmax/sp/rot/${k}.webp`; im.className = 'rstamp' + (big ? ' big' : ''); im.style.left = (big ? r.left + r.width / 2 - g.left - 80 : r.right - g.left - 70) + 'px'; im.style.top = (big ? r.top + r.height / 2 - g.top - 110 : r.top - g.top - 46) + 'px'; gs.appendChild(im); if (!big) setTimeout(() => im.remove(), 1100); };
   const circle = (el, col) => { const r = el.getBoundingClientRect(), pr = ln.getBoundingClientRect(); const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('class', 'circ ' + col); s.setAttribute('viewBox', '0 0 100 40'); s.setAttribute('preserveAspectRatio', 'none'); s.style.cssText = `left:${r.left - pr.left - 10}px;top:${r.top - pr.top - 6}px;width:${r.width + 20}px;height:${r.height + 12}px`; s.innerHTML = '<path d="M50 3C20 3 3 10 3 20s20 17 47 17 47-7 47-17S80 2 46 4" pathLength="1"/>'; ln.appendChild(s); };
   function tap(row, l) {
     if (done || row.classList.contains('hit')) return;
     if (l[1]) {
       row.classList.add('hit'); sfx.ok(); found++; right();
-      const e = $('.err', row); circle(e, 'red'); e.insertAdjacentHTML('afterend', `<span class="fix">${l[2]}</span>`);
+      const e = $('.err', row); penTo(e); circle(e, 'red'); e.insertAdjacentHTML('afterend', `<span class="fix">${l[2]}</span>`);
       sayK(found === nErr ? vkRotAll : okLine(), 'happy'); fb(true, 'Fehler gefunden!', `Richtig ist: ${l[0].replace(l[1], l[2])}`, { ms: 2200 });
       if (found === nErr) end();
     } else {
-      wrong(); sfx.no(); restart(row, 'shk'); sayK(vkRotNo, 'think'); fb(false, 'Das stimmt doch!', `„${l[0]}“ ist richtig.`, { ms: 1800 });
+      wrong(); sfx.no(); restart(row, 'shk'); stamp(row, 'nein'); sayK(vkRotNo, 'think'); fb(false, 'Das stimmt doch!', `„${l[0]}“ ist richtig.`, { ms: 1800 });
     }
   }
   function end() {
     done = true; $('#rf').disabled = true;
     let miss = 0;
     $$('.hl', ln).forEach((row, i) => { const l = Lines[i]; if (l[1] && !row.classList.contains('hit')) { miss++; st.errs++; const e = $('.err', row); circle(e, 'org'); e.insertAdjacentHTML('afterend', `<span class="fix org">${l[2]}</span>`); } });
-    if (miss) { sayK(vkRotMiss, 'think'); }
+    if (miss) { sayK(vkRotMiss, 'think'); } else stamp($('.heft', gs), 'ok', true);
     setTimeout(() => { if (!alive(T)) return; finish(miss ? `${found} von ${nErr} Fehlern gefunden` : 'Alle Fehler gefunden!', 'Eine KI rechnet mit Wahrscheinlichkeiten und kann sich irren. Wer nachprüft, lässt sich nichts vormachen.'); }, miss ? 2600 : 1600);
   }
   $('#rf').onclick = () => { if (!done) end(); };
