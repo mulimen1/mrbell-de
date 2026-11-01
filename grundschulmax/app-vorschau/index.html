@@ -6943,7 +6943,7 @@ function gZug(T) {
   sayK(ZUGI[G()]);
   startOverlay('Silben-Zug starten', sent ? '3 Sätze · Wörter in die richtige Reihenfolge' : '3 Wörter · Silben der Reihe nach', () => { arrive(); });
   const ro = new ResizeObserver(fit); ro.observe(gs);
-  return () => ro.disconnect();
+  return () => { ro.disconnect(); roR.disconnect(); };
 }
 
 /* Zauberstift: Schreiben lernen (Grundschrift / Schreibschrift) */
@@ -6962,10 +6962,10 @@ function gStift(T) {
     <div class="stbar"><button class="b3d w sm" id="sShow">${I('play')}Zeig's mir</button><button class="b3d w sm" id="sClr">${I('again')}Löschen</button><button class="b3d c sm" id="sOk">${I('check')}Fertig</button></div>`;
   const cT = $('#cT'), cK = $('#cK'), xT = cT.getContext('2d'), xK = cK.getContext('2d');
   /* Papier genau auf das Blatt im Hintergrund legen */
-  function fitPaper() { const sk = $('.gsky', gs), pa = $('.paper', gs); if (!sk) return; const R0 = gs.getBoundingClientRect(), R = sk.getBoundingClientRect(), sc = Math.max(R.width / 1672, R.height / 941), ox = R.left - R0.left + (R.width - 1672 * sc) / 2, oy = R.top - R0.top + (R.height - 941 * sc) / 2;
+  function fitPaper() { const sk = $('.gsky', gs), pa = $('.paper', gs); if (!sk || !pa) return; const R0 = gs.getBoundingClientRect(), R = sk.getBoundingClientRect(), sc = Math.max(R.width / 1672, R.height / 941), ox = R.left - R0.left + (R.width - 1672 * sc) / 2, oy = R.top - R0.top + (R.height - 941 * sc) / 2;
     if (852 * sc > R0.width * .96) { Object.assign(pa.style, { left: '10px', right: '10px', width: 'auto', top: '8%', height: '52%', bottom: 'auto' }); pa.classList.add('flat'); return; }
     pa.classList.remove('flat'); Object.assign(pa.style, { left: ox + 410 * sc + 'px', top: oy + 165 * sc + 'px', width: 852 * sc + 'px', height: 590 * sc + 'px', right: 'auto', bottom: 'auto' }); }
-  fitPaper(); new ResizeObserver(fitPaper).observe(gs);
+  fitPaper(); const roP = new ResizeObserver(fitPaper); roP.observe(gs);
   let W, H, dpr, fs, lw, bandMask, coreMask, base;
   const fam = () => (L.font === 'SAS' ? '"SAS"' : '"Grund"');
   function size() {
@@ -7049,7 +7049,7 @@ function gStift(T) {
   document.fonts.load(`40px ${fam()}`).then(() => { if (alive(T)) go(); });
   const ro = new ResizeObserver(() => size()); ro.observe(cT.parentElement);
   progress(L.items.length); sayK(L.intro);
-  return () => ro.disconnect();
+  return () => { ro.disconnect(); roP.disconnect(); };
 }
 
 /* ===================== ENGLISCH ===================== */
@@ -7955,7 +7955,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = 'e5e47dd2';
+const PFV = '67a8fd38';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
