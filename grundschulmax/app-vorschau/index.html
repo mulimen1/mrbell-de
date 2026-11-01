@@ -3258,6 +3258,43 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
   .app.acl .acol{opacity:0;pointer-events:none;transform:translateX(-260px)}
   .aside .abrand{padding-right:4px!important}
 }
+/* ---------- Fachwelten: Pfad füllt den ganzen Bereich ---------- */
+.app.world .amain{overflow:hidden!important}
+.app.world[data-v=subj] .amain .demo{max-width:none!important;padding:0!important;height:100%}
+.app.world[data-v=subj] .zhead,.app.world[data-v=subj] #lpsum{display:none!important}
+.app.world[data-v=subj] .wpane[data-w=path]{position:absolute;inset:0;padding:0!important;animation:none!important}
+.app.world[data-v=subj] #lpath{position:absolute;inset:0;padding:0!important;margin:0!important;max-width:none!important;background:none!important;box-shadow:none!important;border-radius:0!important;overflow:hidden!important}
+.app.world[data-v=subj] #lpath::before,.app.world[data-v=subj] #lpath::after{display:none!important}
+.app.world[data-v=subj] .wtabs{position:absolute!important;left:50%;bottom:14px;transform:translateX(-50%);z-index:6;margin:0!important;display:flex;gap:6px;padding:6px!important;border-radius:999px!important;background:rgba(255,255,255,.94)!important;box-shadow:0 6px 0 rgba(20,40,90,.16),0 20px 40px -16px rgba(0,0,0,.4)!important;width:auto!important}
+.app.world[data-v=subj] .wtabs button{height:46px;border-radius:999px!important;padding:0 18px!important;white-space:nowrap}
+@media (min-width:821px){.app.world .amain{padding-left:0!important}.app.world:not(.acl) .gw{--gl:268px}}
+@media (max-width:820px){
+  .app.world .aside{position:absolute!important;left:8px;right:8px;top:8px;z-index:40;border:0!important;border-radius:22px;box-shadow:0 6px 0 rgba(20,40,90,.12),0 20px 40px -20px rgba(0,0,0,.45)}
+  .app.world .amain{position:absolute;inset:0!important;margin:0!important;padding:0!important}
+  .app.world .gw{--gt:76px}
+  .app.world[data-v=subj] .gw .gw-card{bottom:110px}
+}
+.app.world[data-v=subj] .wtabs button{color:#2b2440!important;background:none!important;box-shadow:none!important;font-weight:900}
+.app.world[data-v=subj] .wtabs button svg{color:var(--c2)}
+.app.world[data-v=subj] .wtabs button.on{color:#fff!important;background:linear-gradient(180deg,var(--c1),var(--c2))!important;box-shadow:0 4px 0 color-mix(in srgb,var(--c2) 70%,#000)!important}
+.app.world[data-v=subj] .wtabs button.on svg{color:#fff}
+.app.world .afab{bottom:84px!important}
+/* Leiste: Knöpfe schrumpfen nie, Liste scrollt bei wenig Höhe */
+.app .aside .anav{min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+.app .aside .anav::-webkit-scrollbar{display:none}
+.app .aside .anv,.app .aside .tab{flex:none!important}
+/* Tutoren in der Leiste: lebendig im weißen Kreis */
+.aside .tab .ti.tt{background:#fff!important;border-radius:50%!important;width:42px!important;height:42px!important;box-shadow:0 0 0 3px rgba(255,255,255,.45),0 3px 8px -2px rgba(0,0,0,.3)!important;overflow:hidden}
+.aside .tab .ti.tt .tut{width:50px!important;height:50px;left:-4px;top:1px;animation:ttbob 3.2s ease-in-out infinite}
+.aside .tab:nth-child(2) .ti.tt .tut{animation-delay:-.6s}.aside .tab:nth-child(3) .ti.tt .tut{animation-delay:-1.3s}.aside .tab:nth-child(4) .ti.tt .tut{animation-delay:-2s}.aside .tab:nth-child(5) .ti.tt .tut{animation-delay:-2.6s}.aside .tab:nth-child(6) .ti.tt .tut{animation-delay:-.3s}
+@keyframes ttbob{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-2px) rotate(-4deg)}60%{transform:translateY(1px) rotate(3deg)}}
+.aside .tab:hover .ti.tt .tut{animation:ttwig .5s ease-in-out}
+@keyframes ttwig{25%{transform:rotate(-10deg) scale(1.06)}75%{transform:rotate(8deg) scale(1.06)}}
+/* Glanz bei den Tier-Bildern weicher, ohne harten Bogen */
+.avt .gl{background:radial-gradient(42% 26% at 34% 14%,rgba(255,255,255,.42),rgba(255,255,255,0) 100%)!important;box-shadow:inset 0 -5px 10px rgba(0,0,0,.06)!important}
+.app .aside .tab,.app .aside .anv{margin:0 0 9px!important}
+.app .aside .anv.anhome .ti,.app .aside .anv.hw .ti{width:42px!important;height:42px!important}
+@media (max-height:900px) and (min-width:821px){.app .aside .tab,.app .aside .anv,.app .aside .anv.anhome,.app .aside .anv.hw{height:54px!important;margin-bottom:7px!important}.aside .abrand{padding-bottom:12px!important}}
 </style>
 </head>
 <body>
@@ -7659,7 +7696,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = '77fc09f1';
+const PFV = '819f866c';
 let PF = null, pfLoading = null;
 function pfFace() {
   const a = PROF().av; if (AVX[a]) return { src: avSrc(a, 'n'), blink: avSrc(a, 'b'), happy: avSrc(a, 'h'), sad: avSrc(a, 's'), fit: { x: 18, y: 20, s: 220 } };
@@ -7686,10 +7723,47 @@ function pfLoad() {
   if (window.GSMPfad) return Promise.resolve();
   return pfLoading || (pfLoading = new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = '/grundschulmax/pfad.js?v=' + PFV; sc.onload = res; sc.onerror = rej; document.head.appendChild(sc); }));
 }
+let PFCUR = null, PFEL = null;
+async function pfShow(container, host, keep) {
+  if (!PF) {
+    PFEL = document.createElement('div'); PFEL.className = 'gwhost'; container.prepend(PFEL);
+    try { await pfLoad(); PF = await window.GSMPfad.start(PFEL, host); PFCUR = host; return true; } catch (e) { PFEL.innerHTML = `<div class="lpsoon">${I('book')}<b>Der Pfad konnte nicht geladen werden. Bitte die Seite neu laden.</b></div>`; PF = null; PFEL = null; return false; }
+  }
+  if (PFEL.parentElement !== container) container.prepend(PFEL);
+  if (PFCUR !== host || (host.theme && host.theme().key !== PFCUR.key)) { PFCUR = host; host.key = host.theme ? host.theme().key : 'mix'; await PF.switchTo(host); }
+  else { PF.refresh(keep); PF.resize(); }
+  return true;
+}
 async function drawMix() {
-  const host = $('#gwhost'); if (!host) return;
-  if (PF) { PF.refresh(); PF.resize(); return; }
-  try { await pfLoad(); PF = await window.GSMPfad.start(host, PFHOST); let seen = '1'; try { seen = localStorage.getItem('gsm-help-seen'); } catch (e) {} if (!seen) setTimeout(() => openHelp(true), 900); } catch (e) { host.innerHTML = `<div class="lpsoon">${I('book')}<b>Der Pfad konnte nicht geladen werden. Bitte die Seite neu laden.</b></div>`; }
+  const c = $('#ahome'); if (!c) return; PFHOST.key = 'mix';
+  const first = !PF; await pfShow(c, PFHOST);
+  if (first) { let seen = '1'; try { seen = localStorage.getItem('gsm-help-seen'); } catch (e) {} if (!seen) setTimeout(() => openHelp(true), 900); }
+}
+/* ---------- Fachwelten: jedes Fach hat seinen eigenen Pfad im gleichen Stil ---------- */
+const FWELT = { mathe: ['zahl', 'geo'], deutsch: ['buch', 'wald'], englisch: ['london', 'park'], franz: ['paris', 'lavendel'], sach: ['dschungel', 'fluss'], ki: ['neon', 'chip'] };
+function subjHost() {
+  const S = SUBJ[st.s], g = Math.max(0, st.grade), L = lpLevels(S.k, g), p = lpProg(S.k, g);
+  const L0 = Math.max(0, Math.min(Math.floor(p.n / PER) - 1, L.length - 6)), nL = Math.max(1, Math.min(6, L.length - L0));
+  return {
+    theme: () => ({ key: 'S' + S.k + g + '-' + L0, ch: [...Array(nL)].map((_, i) => FWELT[S.k][(L0 + i) % 2]), per: PER, seed: 7 + st.s * 13 + g }),
+    chapter: (ch) => `<small>${S.n} · Level ${L0 + ch + 1}</small><b>${esc(L[L0 + ch] ? L[L0 + ch].t : '')}</b>`,
+    list: () => { const q = lpProg(S.k, g), out = []; for (let li = L0; li < L0 + nL; li++) for (let j = 0; j < PER; j++) { const n = li * PER + j, game = j === PER - 1, G0 = game ? S.games[li % S.games.length] : null;
+      out.push({ k: S.k, n, li, jj: j, j: j + 1, game, t: game ? G0.n : L[li].t, d: L[li].d, top: `Level ${li + 1} · ${game ? 'Spielplatz' : 'Lektion ' + (j + 1)}`, state: !canPlay(n) ? 'pay' : n < q.n ? 'done' : n === q.n ? 'cur' : 'next' }); } return out; },
+    stats: PFHOST.stats, off: () => [], toggle: () => true, name: PFHOST.name, face: pfFace, tutor: PFHOST.tutor, tutors: false,
+    play: (i, s) => { if (s.game) openGame(S.games.indexOf(S.games[s.li % S.games.length]), () => lpComplete(s.n, 5)); else startLesson(s.li, s.jj, s.n); },
+    pay: () => paywall(),
+  };
+}
+let SH = null;
+async function drawLP(justN) {
+  const box = $('#lpath'); if (!box || st.nav !== 'subj') return;
+  const S = SUBJ[st.s], L = lpLevels(S.k, Math.max(0, st.grade));
+  if (!L.length) { box.innerHTML = `<div class="lpsoon">${I('book')}<b>Der Lernpfad für ${S.n} kommt gleich.</b></div>`; return; }
+  const h = subjHost(), key = h.theme().key;
+  if (!SH || SH.key !== key) { SH = h; SH.key = key; }
+  const prev = PF && PFCUR === SH ? PF.cur() : null;
+  if (!(await pfShow(box, SH, justN != null))) return;
+  if (justN != null && prev != null) { PF.refresh(true); const c = SH.list().findIndex((q) => q.state === 'cur'); if (c > prev) PF.hopTo(c); }
 }
 /* Abschluss einer Station aus dem Abenteuer-Pfad (statt lpComplete) */
 function mixComplete(xp) {
@@ -7698,7 +7772,7 @@ function mixComplete(xp) {
   LPS._d = LPS._d || []; const td = dayKey(new Date()); if (!LPS._d.includes(td)) LPS._d = [...LPS._d.slice(-60), td];
   if (R.r === (m.d[key] || 0)) m.d[key] = R.r + 1;
   lpSave(); if (typeof drawAside === 'function') drawAside();
-  if (PF) { const before = R.n; PF.refresh(true); const nl = pfList(), c = nl.findIndex((q) => q.state === 'cur'); if (c > before) PF.hopTo(c); }
+  if (PF && PFCUR === PFHOST) { const before = R.n; PF.refresh(true); const nl = pfList(), c = nl.findIndex((q) => q.state === 'cur'); if (c > before) PF.hopTo(c); }
 }
 
 /* ---------- Lektionen als Spiele: jede Lektion eine eigene Welt, jede Aufgabe ein Spiel ---------- */
@@ -8675,7 +8749,7 @@ try { const P0 = JSON.parse(localStorage.getItem('gsm-pos') || 'null'); if (P0 &
 document.body.appendChild($('#stage'));
 function mount() {
   const S = SUBJ[st.s], app = $('#app');
-  app.dataset.v = st.nav; try { localStorage.setItem('gsm-pos', JSON.stringify({ nav: st.nav, s: st.s, w: st.w })); } catch (e) {} app.dataset.w = st.w;
+  app.dataset.v = st.nav; app.classList.toggle('world', st.nav === 'home' || (st.nav === 'subj' && st.w === 'path')); try { localStorage.setItem('gsm-pos', JSON.stringify({ nav: st.nav, s: st.s, w: st.w })); } catch (e) {} app.dataset.w = st.w;
   $$('.anv').forEach((b) => b.classList.toggle('on', b.dataset.nav === st.nav));
   if (st.nav === 'hw') drawHW();
   if (st.nav === 'profile') drawProfile();
@@ -8708,8 +8782,7 @@ const scHTML = () => SUBJ.map((s, i) => `<div class="sc" data-k="${s.k}" style="
   <div class="scg">${s.games.map((g, k) => g.play ? `<button class="gbtn" data-go="${i}" data-gi="${k}"><span class="gbi">${GICON[g.ic]}</span><span><b>${g.n}</b><small>${g.d}</small></span>${I('play')}</button>` : '').join('')}</div>
   <div class="scmore">${I('lock')}Im Abo auch: ${s.games.filter((g) => !g.play).map((g) => g.n).join(' · ')}</div></div>`).join('');
 $('#subj').innerHTML = scHTML();
-$('#ahome').innerHTML = `<div class="gwhost" id="gwhost"></div>
-  <div class="gwdock" id="gwdock"><button data-d="subs">${I('book')}<span>Meine Fächer</span></button><button data-d="hw">${I('cam')}<span>Hausaufgaben</span></button><button data-d="profile">${I('family')}<span>Profil</span></button><button data-d="help" class="gwq" aria-label="Hilfe">?</button></div>
+$('#ahome').innerHTML = `  <div class="gwdock" id="gwdock"><button data-d="subs">${I('book')}<span>Meine Fächer</span></button><button data-d="hw">${I('cam')}<span>Hausaufgaben</span></button><button data-d="profile">${I('family')}<span>Profil</span></button><button data-d="help" class="gwq" aria-label="Hilfe">?</button></div>
   <div class="subj asubj" id="asubj" hidden></div>`;
 $$('#gwdock button').forEach((b) => (b.onclick = () => { const d = b.dataset.d; sfx.tap(); if (d === 'subs') { if (PF) PF.subjects(); } else if (d === 'help') openHelp(); else { st.nav = d; mount(); } }));
 function goTo(i, g = 0, w = 'path', play) { st.s = i; st.g = g; st.w = w; st.nav = 'subj'; if (st.grade < 0) { st.next = [i, g, w, play]; go('klasse'); return; } go('spiel'); mount(); if (play) openGame(g); }
