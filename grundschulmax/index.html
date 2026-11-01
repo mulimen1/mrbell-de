@@ -3042,6 +3042,16 @@ body.wsopen{overflow:hidden}
 .pfab.warn{border-color:#e2312b;color:#e2312b}
 body.dark .pfab{background:#1f2433;border-color:#343b4f;color:#e8e6df}
 .navr .hlogin svg{background:linear-gradient(135deg,#ffb547,#e2620f)}
+.pfout{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:64px;margin:14px 0 6px;border:0;border-radius:22px;background:#fff;color:#e2312b;font:inherit;font-weight:900;font-size:19px;box-shadow:0 6px 0 rgba(0,0,0,.15);cursor:pointer}
+.pfout svg{width:22px;height:22px}
+.pfout.warn{background:#e2312b;color:#fff}
+.pfabow{text-align:center;margin:4px 0 14px}
+.pfabo{color:rgba(255,255,255,.85)!important;font-size:14px;font-weight:700;text-decoration:underline}
+body.dark .pfout{background:#1f2433}
+.pfin{margin:14px 0}
+.pfin+.pfpar,.pfacc+.pfpar,.pfabow+.pfpar,.pfout+.pfpar{margin-top:14px}
+.pgk{background:linear-gradient(135deg,#ffb547,#e2620f)!important}
+.pfin .pgk{flex:none;width:66px;height:66px}.pfin>span:nth-child(2){flex:1}.pfin .pgk svg{width:34px;height:34px}
 </style>
 </head>
 <body>
@@ -7920,12 +7930,13 @@ function drawProfile() {
       <div class="pff"><span>Klasse</span><div class="pfg">${GRADES.map((x, i) => `<button class="${i === g ? 'on' : ''}" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><small>Klasse</small></button>`).join('')}</div></div>
       <div class="pff"><span>Aussehen</span><div class="paopt" id="pfdark"><button data-v="0" class="${document.body.classList.contains('dark') ? '' : 'on'}">${I('star')}Hell</button><button data-v="1" class="${document.body.classList.contains('dark') ? 'on' : ''}">${I('bulb')}Dunkel</button></div></div>
       <button class="b3d lg" id="pfs">${I('check')}Speichern</button></div>
-    ${K.tok ? `<div class="pfacc">${I('family')}<span>Elternkonto: <b>${esc(K.mail)}</b><small>Alles wird automatisch gespeichert.</small></span></div>` : `<button class="pfacc pfin" id="pflogin">${I('family')}<span><b>Anmelden</b><small>Mit Elternkonto ist alles auf jedem Gerät gespeichert.</small></span>${I('arrow')}</button>`}
-    ${(K.tok || (ABO && ABO.code)) ? `<div class="pfact">${ABO && ABO.code ? `<button class="pfab" id="pfabo">${I('star')}Abo verwalten oder kündigen</button>` : ''}${K.tok ? `<button class="pfab" id="pfout">${I('arrow')}Abmelden</button>` : ''}</div>` : ''}
+    ${K.tok ? `<div class="pfacc">${I('family')}<span>Elternkonto: <b>${esc(K.mail)}</b><small>Alles wird automatisch gespeichert.</small></span></div>` : `<button class="pfpar pfin" id="pflogin"><span class="pgi pgk">${I('key')}</span><span><b>Anmelden</b><small>Schon ein Abo? Dann ist alles auf jedem Gerät gespeichert.</small></span>${I('arrow')}</button>`}
+    ${K.tok ? `<button class="pfout" id="pfout">${I('arrow')}Abmelden</button>` : ''}
+    ${ABO && ABO.code ? `<div class="pfabow"><button class="lnk pfabo" id="pfabo">Abo verwalten oder kündigen</button></div>` : ''}
     <button class="pfpar" id="pfpar"><span class="pgi">${I('lock')}</span><span><b>Elternbereich</b><small>Lernzeit, Hausaufgaben-Hilfe, Abo. Mit Eltern-Passwort geschützt.</small></span>${I('arrow')}</button>`;
   if ($('#pflogin')) $('#pflogin').onclick = openLogin;
-  if ($('#pfout')) $('#pfout').onclick = (e) => { const b = e.currentTarget; if (b.dataset.sure) { kLogout(); return; } b.dataset.sure = '1'; b.classList.add('warn'); b.innerHTML = `${I('arrow')}Wirklich abmelden? Nochmal tippen`; setTimeout(() => { if (b.isConnected) { delete b.dataset.sure; b.classList.remove('warn'); b.innerHTML = `${I('arrow')}Abmelden`; } }, 4000); };
-  if ($('#pfabo')) $('#pfabo').onclick = async (e) => { const b = e.currentTarget; b.disabled = true; b.textContent = 'Einen Moment …'; try { const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'portal', code: ABO.code }) }).then((x) => x.json()); if (r.ok && r.url) { location.href = r.url; return; } lpToast(r.grund || 'Das hat nicht geklappt.'); } catch (x) { lpToast('Das hat nicht geklappt.'); } b.disabled = false; b.innerHTML = `${I('star')}Abo verwalten oder kündigen`; };
+  if ($('#pfout')) $('#pfout').onclick = (e) => { const b = e.currentTarget; if (b.dataset.sure) { kLogout(); return; } b.dataset.sure = '1'; b.classList.add("warn"); b.innerHTML = `${I('arrow')}Wirklich abmelden? Nochmal tippen`; setTimeout(() => { if (b.isConnected) { delete b.dataset.sure; b.classList.remove('warn'); b.innerHTML = `${I('arrow')}Abmelden`; } }, 4000); };
+  if ($('#pfabo')) $('#pfabo').onclick = async (e) => { const b = e.currentTarget; b.disabled = true; b.textContent = 'Einen Moment …'; try { const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'portal', code: ABO.code }) }).then((x) => x.json()); if (r.ok && r.url) { location.href = r.url; return; } lpToast(r.grund || 'Das hat nicht geklappt.'); } catch (x) { lpToast('Das hat nicht geklappt.'); } b.disabled = false; b.textContent = 'Abo verwalten oder kündigen'; };
   $$('.avb', h).forEach((b) => (b.onclick = () => {
     av = b.dataset.av; $$('.avb', h).forEach((x) => x.classList.toggle('on', x === b)); $('#pfav').innerHTML = avHTML({ av, photo }); sfx.tap(); restart($('#pfav'), 'pin');
   }));
@@ -7983,12 +7994,12 @@ function drawParents() {
   h.innerHTML = `<div class="pah"><span class="pgi">${I('family')}</span><div><small>Elternbereich</small><b>Einstellungen für ${esc(P0.name || 'dein Kind')}</b></div><button class="lnk palock" id="palock">${I('lock')}Sperren</button></div>
     ${actHTML(P0)}
     <div class="pagrid">
-      <div class="pac pabo"><b>${I('star')}Abo & Zugang</b>${ABO && ABO.code ? `<p>${ABO.paid ? (ABO.status === 'trialing' && ABO.trialEnd ? `Kostenloser Test bis ${new Date(ABO.trialEnd * 1000).toLocaleDateString('de-DE', { day: 'numeric', month: 'long' })}.` : 'Dein Abo ist aktiv.') : 'Dein Abo ist nicht mehr aktiv.'}</p><div class="pacode"><small>Zugangscode</small><b>${esc(ABO.code)}</b></div><p class="pasm">Mit diesem Code schaltest du weitere Geräte frei.</p><button class="b3d w" id="paportal">Abo verwalten oder kündigen</button>` : `<p>Schon ein Abo? Gib deinen Zugangscode ein, um dieses Gerät freizuschalten.</p><div class="pacin"><input id="pacode" placeholder="ABCD-1234" maxlength="9" autocomplete="off"><button class="b3d c" id="pacgo">Freischalten</button></div><button class="lnk" id="patry">Noch kein Abo? 7 Tage kostenlos testen</button>`}</div>
+      <div class="pac pabo"><b>${I('star')}Abo & Zugang</b>${ABO && ABO.code ? `<p>${ABO.paid ? (ABO.status === 'trialing' && ABO.trialEnd ? `Kostenloser Test bis ${new Date(ABO.trialEnd * 1000).toLocaleDateString('de-DE', { day: 'numeric', month: 'long' })}.` : 'Dein Abo ist aktiv.') : 'Dein Abo ist nicht mehr aktiv.'}</p><div class="pacode"><small>Zugangscode</small><b>${esc(ABO.code)}</b></div><p class="pasm">Mit diesem Code schaltest du weitere Geräte frei.</p>` : `<p>Schon ein Abo? Gib deinen Zugangscode ein, um dieses Gerät freizuschalten.</p><div class="pacin"><input id="pacode" placeholder="ABCD-1234" maxlength="9" autocomplete="off"><button class="b3d c" id="pacgo">Freischalten</button></div><button class="lnk" id="patry">Noch kein Abo? 7 Tage kostenlos testen</button>`}</div>
       <div class="pac"><b>${I('bell')}Tägliche Lernzeit</b><p>Nach dieser Zeit macht Max freundlich Schluss für heute.</p><div class="paopt" data-k="limit">${[[0, 'Kein Limit'], [15, '15 Min.'], [30, '30 Min.'], [45, '45 Min.'], [60, '60 Min.']].map(([v, t]) => `<button data-v="${v}" class="${P0.limit === v ? 'on' : ''}">${t}</button>`).join('')}</div><small>Heute gelernt: ${mins} Min.</small></div>
       <div class="pac"><b>${I('cam')}Hausaufgaben-Hilfe</b><p>Darf dein Kind Fotos von Hausaufgaben schicken? Fotos werden nicht gespeichert.</p><div class="paopt" data-k="hw"><button data-v="1" class="${P0.hw ? 'on' : ''}">Erlaubt</button><button data-v="0" class="${!P0.hw ? 'on' : ''}">Aus</button></div></div>
       <div class="pac"><b>${I('snd')}Vorlesen</b><p>Die Tutoren lesen alles vor. Ideal für Kinder, die noch nicht so sicher lesen.</p><div class="paopt" data-k="snd"><button data-v="1" class="${voiceOn ? 'on' : ''}">An</button><button data-v="0" class="${!voiceOn ? 'on' : ''}">Aus</button></div></div>
       <div class="pac"><b>${I('star')}Lernstand</b><p>${tot} Lektionen geschafft. Im Abo kommt jeden Sonntag der Wochenbericht per E-Mail.</p><button class="lnk" id="pareset">Fortschritt zurücksetzen</button></div>
-      <div class="pac"><b>${I('lock')}Elternkonto</b><p>Angemeldet als <b>${esc(K.mail)}</b>. Alles wird automatisch im Konto gespeichert.</p><button class="lnk" id="papin">Eltern-Passwort ändern</button> <button class="lnk" id="paout">Abmelden</button></div>
+      <div class="pac"><b>${I('lock')}Elternkonto</b><p>Angemeldet als <b>${esc(K.mail)}</b>. Alles wird automatisch im Konto gespeichert.</p><button class="lnk" id="papin">Eltern-Passwort ändern</button></div>
     </div>`;
   $$('.paopt', h).forEach((o) => $$('button', o).forEach((b) => (b.onclick = () => {
     $$('button', o).forEach((x) => x.classList.toggle('on', x === b)); sfx.tap();
