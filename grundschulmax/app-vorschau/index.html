@@ -3544,6 +3544,23 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 .bub2.gone{opacity:0;transition:opacity .2s}
 .bghost{position:fixed;z-index:9999;display:grid;place-items:center;font-family:Grund,G,system-ui,sans-serif;font-size:42px;font-weight:900;color:#fff;-webkit-text-stroke:6px #1167b8;paint-order:stroke fill;pointer-events:none}
 @media (max-width:600px){.bub2{width:74px!important;height:74px!important}.bub2 b,.bghost{font-size:31px;-webkit-text-stroke:5px #1167b8}.g-bub2 .bp{width:64px;height:64px}.g-bub2 .bhd{padding:10px 12px;gap:8px}.bfish{min-width:54px}}
+/* ---------- Farbklecks-Fangen: neue Grafik ---------- */
+.g-fr2{background:#38a8f5!important}
+.g-fr2 .gsky{background-position:50% 75%}
+.g-fr2 .ask{z-index:6;box-shadow:0 6px 0 rgba(20,60,120,.18),0 18px 30px -14px rgba(20,60,120,.5)}
+.blb2{width:130px!important;height:130px!important}
+.blb2 .spi{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 12px 10px rgba(20,70,20,.3));animation:wob 2.2s ease-in-out infinite;pointer-events:none;user-select:none}
+.blb2:nth-child(2n) .spi{animation-delay:-.8s}.blb2:nth-child(3n) .spi{animation-delay:-1.5s}
+.blb2:hover .spi{scale:1.07;transition:scale .15s}
+.blb2 .bnum{position:absolute;inset:0;display:grid;place-items:center;font-family:Grund,G,system-ui,sans-serif;font-size:44px;font-weight:900;color:#fff;-webkit-text-stroke:7px rgba(0,0,0,.35);paint-order:stroke fill;pointer-events:none}
+.blb2.bimg .bart{position:absolute;inset:13%;filter:drop-shadow(0 3px 2px rgba(0,0,0,.2));pointer-events:none}.blb2.bimg .bart svg{width:100%;height:100%}
+.blb2.spl .spi{animation:spl2 .5s ease-out forwards}.blb2.spl .bnum,.blb2.spl .bart{opacity:0;transition:opacity .2s}
+@keyframes spl2{40%{transform:scale(1.35,.8)}100%{transform:scale(1.7);opacity:0}}
+.blb2.no .spi{animation:jig .45s}
+.feim{position:absolute;right:18px;bottom:14px;width:120px;z-index:4;pointer-events:none;filter:drop-shadow(0 10px 8px rgba(20,70,20,.3))}
+.fpin{position:absolute;right:30px;bottom:96px;width:96px;z-index:7;pointer-events:none;transform-origin:20% 30%;filter:drop-shadow(0 10px 8px rgba(20,70,20,.3));animation:fpin 3s ease-in-out infinite}
+@keyframes fpin{50%{translate:0 -6px;rotate:4deg}}
+@media (max-width:600px){.blb2{width:110px!important;height:110px!important}.blb2 .bnum{font-size:34px;-webkit-text-stroke:6px rgba(0,0,0,.35)}.feim{width:84px;right:10px;bottom:10px}.fpin{width:68px;right:18px;bottom:66px}}
 </style>
 </head>
 <body>
@@ -7211,17 +7228,18 @@ const KLECKS = [
 KLECKS.forEach((L) => L.items.forEach((x) => { x.ask = vk(`Touche ${x.fr} !`, 'fr'); x.k = vk(x.fr, 'fr'); }));
 const vkTresBien = vk('Très bien !', 'fr');
 function gFarben(T) {
-  gs.className = 'gs g-fr';
+  gs.className = 'gs g-fr g-fr2';
   const L = KLECKS[G()], order = shuf(L.items).slice(0, L.n);
   let r = 0, lock = true, raf, blobs = [];
-  gs.innerHTML = `<div class="ask"><span>Touche&nbsp;…</span><b id="fw"></b><button id="fh" aria-label="Anhören">${I('snd')}</button></div><div id="bb"></div>`;
+  gs.innerHTML = `${SKY('farb', [[0, 6.5, 2, 26, 359], [1, 75.9, 6.6, 34, 368], [2, 68.1, 15.2, 40, 118], [3, 24.5, 21.9, 30, 256], [4, 48.9, 33.3, 44, 125], [5, 75.2, 35.7, 38, 128]], [], 1920)}<img class="feim" src="/grundschulmax/sp/farb/eimer.webp" alt=""><img class="fpin" id="fpin" src="/grundschulmax/sp/farb/pinsel.webp" alt=""><div class="ask"><span>Touche&nbsp;…</span><b id="fw"></b><button id="fh" aria-label="Anhören">${I('snd')}</button></div><div id="bb"></div>`;
   const bb = $('#bb');
   function mk() {
     const target = order[r], others = shuf(L.items.filter((x) => x !== target)).slice(0, L.show - 1), set = shuf([target, ...others]);
     bb.innerHTML = ''; blobs = set.map((c) => {
-      const el = document.createElement('div'); el.className = 'blb' + (c.art ? ' bimg' : '');
+      const el = document.createElement('div'); el.className = 'blb blb2' + (c.art ? ' bimg' : '');
       const inner = c.lab ? `<text x="50" y="62" text-anchor="middle" font-family="G,system-ui,sans-serif" font-weight="900" font-size="36" fill="#2a2a4a">${c.lab}</text>` : '';
-      el.innerHTML = BLOB(c.c === '#ffffff' ? '#ffffff' : c.c, inner) + (c.art ? `<div class="bart">${ART[c.art]}</div>` : '');
+      const sk = FRF[c.fr] ? c.fr : c.art ? 'blanc' : (c.sk || (c.sk = pick(['bleu', 'rose', 'vert', 'orange', 'violet', 'rouge'])));
+      el.innerHTML = `<img class="spi" src="/grundschulmax/sp/farb/${sk}.webp" alt="" draggable="false">` + (c.lab ? `<b class="bnum">${c.lab}</b>` : '') + (c.art ? `<div class="bart">${ART[c.art]}</div>` : '');
       if (c.c === '#ffffff') el.classList.add('white');
       bb.appendChild(el);
       const b = { el, c, x: 0, y: 0, ax: 0, ay: 0, ph: rnd(0, 6), sp: rnd(.5, .9) };
@@ -7231,9 +7249,9 @@ function gFarben(T) {
     place();
   }
   function place() {
-    const W = gs.clientWidth, H = gs.clientHeight, s = W < 500 ? 84 : 104, cols = W < 500 ? 2 : 3;
+    const W = gs.clientWidth, H = gs.clientHeight, mob = W < 600, s = mob ? 110 : 130, cols = mob ? 2 : 3, x0 = mob ? 6 : 200, y0 = mob ? 76 : 90, yb = mob ? 170 : 40;
     const spots = shuf([...Array(6)].map((_, i) => ({ x: (i % cols + .5) / cols, y: (Math.floor(i / cols) + .5) / Math.ceil(6 / cols) })));
-    blobs.forEach((b, i) => { b.ax = spots[i].x * (W - s - 30) + 15; b.ay = 86 + spots[i].y * (H - s - 104); b.el.classList.remove('spl', 'no'); });
+    blobs.forEach((b, i) => { b.ax = x0 + spots[i].x * (W - x0 - s - 20) - s / 2 + s / 2; b.ay = y0 + spots[i].y * Math.max(60, H - y0 - yb - s); b.el.classList.remove('spl', 'no'); });
   }
   function loop(ts) {
     if (!alive(T)) return;
@@ -7245,11 +7263,16 @@ function gFarben(T) {
     say(`Touche ${order[r].fr} !`, '', order[r].ask); lock = false;
   }
   function label(b, txt, col) { const l = document.createElement('div'); l.className = 'lbl'; l.style.left = b.x + b.el.offsetWidth / 2 + 'px'; l.style.top = b.y + 'px'; l.style.color = col; l.textContent = txt; gs.appendChild(l); setTimeout(() => l.remove(), 1100); }
+  function dab(b) {
+    const pn = $('#fpin'); if (!pn) return; const gr = gs.getBoundingClientRect(), pr = pn.getBoundingClientRect();
+    const dx = b.x + b.el.offsetWidth * .5 - (pr.left - gr.left) - pr.width * .2, dy = b.y + b.el.offsetHeight * .45 - (pr.top - gr.top);
+    pn.animate([{ transform: 'none' }, { transform: `translate(${dx}px,${dy}px) rotate(-25deg)`, offset: .45 }, { transform: `translate(${dx + 8}px,${dy + 10}px) rotate(-35deg)`, offset: .55 }, { transform: 'none' }], { duration: 900, easing: 'ease-in-out' });
+  }
   function hit(b) {
     if (lock) return;
     if (b.c === order[r]) {
-      lock = true; b.el.classList.add('spl'); sfx.pop(); setTimeout(sfx.ok, 100);
-      burst(b.x + b.el.offsetWidth / 2, b.y + b.el.offsetHeight / 2, b.c.c === '#ffffff' ? ['#9b7cf0', '#f47ba0'] : b.c.c, 18);
+      lock = true; dab(b); setTimeout(() => { b.el.classList.add('spl'); sfx.pop(); }, 260); setTimeout(sfx.ok, 360);
+      setTimeout(() => burst(b.x + b.el.offsetWidth / 2, b.y + b.el.offsetHeight / 2, b.c.c === '#ffffff' ? ['#9b7cf0', '#f47ba0'] : b.c.c, 18), 260);
       right(); voice(vkTresBien); dmax.className = 'dmax happy'; sayEl.textContent = 'Très bien !';
       fb(true, 'Très bien !', `${b.c.fr} = ${b.c.de}`);
       setTimeout(() => { if (!alive(T)) return; r++; if (r < order.length) { mk(); ask(); } else finish('Bravo !', ['Fünf Farben auf Französisch: hören und erkennen.', 'Acht Farben auf Französisch sicher erkannt.', 'Zahlen bis zwanzig auf Französisch.', 'Tiere und Dinge mit Artikel: le und la.'][G()]); }, 1200);
