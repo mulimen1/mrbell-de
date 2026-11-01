@@ -2958,6 +2958,59 @@ body.dark .lesbub::before{background:inherit!important}
 .pays{pointer-events:none}.pays .pym{font-size:13px}
 .pyerr{color:#c0392b;font-weight:750;font-size:14px;min-height:1em;margin-top:8px;text-align:center}
 .pwcin{margin:10px auto 0;max-width:340px}.pwhave{display:block;margin:10px auto 0}
+@media (max-width:820px){.app .aside .anv.anhome,.app .aside .anv.hw{height:46px!important;font-size:15px!important}.app .aside .anv .ti,.app .aside .tab .ti{width:32px!important;height:32px!important;font-size:18px!important}}
+
+/* Arbeitsblatt mit Max */
+.wscta{display:flex;gap:18px;align-items:center;padding:22px;border-radius:26px;background:#fff;box-shadow:0 8px 0 rgba(0,0,0,.14);margin-bottom:14px}
+.wsctm{flex:none;width:120px}.wsctm .tut{width:120px}
+.wscta b{display:block;font-size:clamp(20px,2.4vw,26px);line-height:1.15;margin-bottom:6px}
+.wscta p{color:#5f594d;font-weight:650;line-height:1.4;margin-bottom:12px}
+@media (max-width:560px){.wscta{flex-direction:column;text-align:center}.wsctm{width:96px}.wsctm .tut{width:96px}}
+.wsheet{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;background:linear-gradient(180deg,#8a6cf0,#4a33b8)}
+.wsheet.on{display:flex}
+body.wsopen{overflow:hidden}
+.wsbar{flex:none;display:flex;align-items:center;gap:12px;padding:12px 16px;color:#fff}
+.wsbar .pwx{position:static;flex:none}
+.wstl{flex:1;min-width:0}.wstl small{display:block;font-weight:850;font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.8}.wstl b{display:block;font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wsprog{flex:none;padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.2);font-weight:900}
+.wsscroll{position:relative;flex:1;overflow:auto;padding:8px 14px 220px;-webkit-overflow-scrolling:touch}
+.wspaper{position:relative;max-width:760px;min-height:100%;margin:0 auto;padding:30px 26px 40px;border-radius:10px;background-color:#fff;box-shadow:0 20px 50px -20px rgba(0,0,0,.5);color:#1d2a3a}
+.wspaper.kar{background-image:linear-gradient(#e6ecf5 1px,transparent 1px),linear-gradient(90deg,#e6ecf5 1px,transparent 1px);background-size:24px 24px}
+.wspaper.lin{background-image:linear-gradient(#e3e8f0 1px,transparent 1px);background-size:100% 34px}
+.wspaperh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding-bottom:12px;margin-bottom:10px;border-bottom:3px solid #1d2a3a}
+.wspaperh b{font-size:22px}.wspaperh span{font-weight:800;color:#6b7280}
+.wsph{margin:18px 0 6px;font-weight:900;font-size:15px;color:#4a33b8;text-transform:uppercase;letter-spacing:.04em}
+.wsrow{position:relative;display:flex;align-items:center;gap:12px;padding:12px 10px;margin:4px -10px;border-radius:14px;transition:background .2s,box-shadow .2s;cursor:pointer}
+.wsrow.cur{background:#fff6c8;box-shadow:inset 0 0 0 3px #f5c400}
+.wsnr{flex:none;min-width:34px;height:34px;padding:0 6px;border-radius:10px;display:grid;place-items:center;background:#1d2a3a;color:#fff;font-weight:900;font-size:14px}
+.wsq{flex:1;font-size:clamp(18px,2.4vw,22px);font-weight:750;line-height:1.7}
+.wsin{display:inline-block;width:7.5em;max-width:60%;height:42px;margin:0 4px;padding:0 10px;border:0;border-bottom:3px solid #4a33b8;border-radius:10px 10px 4px 4px;background:rgba(138,108,240,.1);font:inherit;font-weight:900;color:#4a33b8;text-align:center;vertical-align:middle;outline:none}
+.wsin:focus{background:rgba(138,108,240,.2);box-shadow:0 0 0 3px rgba(138,108,240,.35)}
+.wsin.right{color:#1f8a4c;border-color:#2fb257;background:#e3f7ea}
+.wsin.shown{color:#1a5fc4;border-color:#5aa2f7;background:#e8f1fe}
+.wsin.wrong{border-color:#f08a3c;background:#ffeede}
+.wsok{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;background:#2fb257;transform:scale(0);transition:transform .3s var(--e)}
+.wsrow.done .wsok{transform:scale(1)}.wsrow.shown .wsok{transform:scale(1);background:#5aa2f7}
+.wshand{position:absolute;left:0;top:0;width:40px;height:40px;margin:-6px 0 0 -6px;font-size:40px;color:#fff;filter:drop-shadow(0 4px 6px rgba(0,0,0,.35));pointer-events:none;transition:transform .7s cubic-bezier(.4,0,.2,1);z-index:3}
+.wshand.tap svg{animation:handTap 1.2s ease-in-out .7s 2}
+@keyframes handTap{0%,100%{transform:scale(1)}50%{transform:scale(.8) translate(2px,2px)}}
+.wsdock{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:flex-end;gap:10px;max-width:820px;margin:0 auto;padding:0 14px calc(14px + env(safe-area-inset-bottom))}
+.wsmax{flex:none;width:96px}.wsmax .tut{width:96px}
+.wsbub{position:relative;flex:1;padding:14px 16px 12px;border-radius:22px;background:#fff;box-shadow:0 10px 0 rgba(0,0,0,.12),0 24px 40px -18px rgba(0,0,0,.5)}
+.wsbub::before{content:"";position:absolute;left:-12px;bottom:28px;width:16px;height:22px;background:#fff;clip-path:polygon(100% 0,0 50%,100% 100%)}
+.wsbub p{font-weight:800;font-size:clamp(16px,2vw,19px);line-height:1.4;min-height:2.8em;margin-bottom:10px}
+.wsbtns{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.wsbtns .b3d{margin-left:auto}
+.wsbtns .lnk{display:inline-flex;align-items:center;gap:5px;font-weight:850}
+.wsrep{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#f1edff;color:#4a33b8;font-size:20px}
+#wssol.hot{color:#e2620f;animation:oslp 1.2s ease-in-out infinite}
+@media (max-width:560px){.wsmax{width:64px}.wsmax .tut{width:64px}.wspaper{padding:20px 14px 30px}.wsscroll{padding:6px 8px 240px}.wsbtns .b3d{width:100%;margin-left:0;order:9}}
+.wsscroll{padding-bottom:260px!important}
+.wspaper{min-height:0!important}
+@media (max-width:560px){.wsin{width:6em}}
+/* Kamera-Icon in der Seitenleiste: schlichtes Band ohne weiße Kachel, wenn aktiv */
+.app .aside .anv.hw.on .ti{background:rgba(255,255,255,.25)!important;color:#fff!important;box-shadow:none!important}
+.app .aside .anv.hw.on .ti svg{color:#fff!important}
 </style>
 </head>
 <body>
@@ -2987,6 +3040,7 @@ body.dark .lesbub::before{background:inherit!important}
     <symbol id="i-pm" viewBox="0 0 24 24"><path d="M7.5 3.5v8M3.5 7.5h8M13.5 17h7M15 6l5 5M20 6l-5 5M4 17h7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
     <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C4 11 9 4.5 20 4c.5 10.5-5.5 16-13.5 15.5M5 19l7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0112 0v5.5l1.5 1.5h-15zM10 21h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pointer" viewBox="0 0 24 24"><path d="M5 2.5l13.5 9-5.6 1.2 3.4 6.4-2.6 1.4-3.4-6.4L6 18.2z" fill="currentColor" stroke="#1d2a3a" stroke-width="1.6" stroke-linejoin="round"/></symbol>
     <symbol id="i-pen" viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L8.5 19.5 3.5 20.5l1-5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M13 7l4 4" stroke="currentColor" stroke-width="2.2"/></symbol>
     <symbol id="i-balloon" viewBox="0 0 24 24"><path d="M12 2.5c-4 0-6.5 3-6.5 6.6 0 4.2 3.4 7.4 6.5 8.2 3.1-.8 6.5-4 6.5-8.2 0-3.6-2.5-6.6-6.5-6.6z" fill="currentColor"/><path d="M12 17.5c-.6 1.6.8 2.6 0 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
     <symbol id="i-frog" viewBox="0 0 24 24"><ellipse cx="12" cy="15" rx="8.5" ry="6" fill="currentColor"/><circle cx="7.5" cy="8.5" r="3.4" fill="currentColor"/><circle cx="16.5" cy="8.5" r="3.4" fill="currentColor"/><circle cx="7.5" cy="8.5" r="1.4" fill="#fff"/><circle cx="16.5" cy="8.5" r="1.4" fill="#fff"/></symbol>
@@ -3447,7 +3501,7 @@ const vk = (t, lang = 'de') => { const k = lang + ':' + t; if (!VL.has(k)) VL.se
 const CLIPS = window.CLIPS || {};  // Schlüssel -> Audio-URL (wird beim Export eingebettet)
 let voiceOn = (() => { try { return localStorage.getItem('gsm-mute') !== '1'; } catch (e) { return true; } })(), AC = null, curAudio = null;
 function setVoice(on) { voiceOn = on; try { localStorage.setItem('gsm-mute', on ? '0' : '1'); } catch (e) {} if (!on) stopVoice(); document.querySelectorAll('[data-mute]').forEach((b) => { b.classList.toggle('off', !on); b.innerHTML = I(on ? 'snd' : 'mute'); b.setAttribute('aria-label', on ? 'Ton ausschalten' : 'Ton einschalten'); }); }
-function stopVoice() { try { if (curAudio) { curAudio.pause(); curAudio = null; } speechSynthesis.cancel(); } catch (e) {} }
+function stopVoice() { try { if (curAudio) { curAudio.pause(); curAudio = null; } if (typeof hwSrc !== 'undefined' && hwSrc) { hwSrc.stop(); hwSrc = null; } speechSynthesis.cancel(); } catch (e) {} }
 /* Nur echte Stimmen (ElevenLabs-Clips). Ohne Clip bleibt es still, keine Roboterstimme. */
 function voice(k, force, who) {
   if ((!voiceOn && !force) || !k) return false;
@@ -3477,7 +3531,7 @@ function tutorHTML(id) {
 }
 let talkT = null;
 function talk(on, ms) {
-  const els = document.querySelectorAll('#dmax .tut, .les.on .lestut .tut, .les.on .leet .tut, .tiv.on .tivt .tut'); if (!els.length) return;
+  const els = document.querySelectorAll('#dmax .tut, .les.on .lestut .tut, .les.on .leet .tut, .tiv.on .tivt .tut, .wsheet.on .wsmax .tut'); if (!els.length) return;
   clearTimeout(talkT); els.forEach((el) => el.classList.toggle('talk', !!on));
   if (on && ms) talkT = setTimeout(() => els.forEach((el) => el.classList.remove('talk')), ms);
 }
@@ -7061,13 +7115,14 @@ function startLesson(li, j, n, custom) {
 function closeLesson() { token++; stopVoice(); les.classList.remove('on', 'quit'); document.body.classList.remove('lesopen'); LS = null; setTimeout(() => { if (!les.classList.contains('on')) les.innerHTML = ''; }, 400); }
 function lesBar() { $('.lesbar i', les).style.width = Math.max(4, LS.done / LS.total * 100) + '%'; const s = $('.lesstk', les); s.classList.toggle('on', LS.streak >= 2); $('span', s).textContent = LS.streak; }
 function sayChain(list, who, force) {
+  if (list[0] && String(list[0]).startsWith('hw:')) { const [, id, n] = String(list[0]).split(':'); hwSay(id, +n); return true; }
   const L = list.filter((k) => k && CLIPS[(who || 'max') + '|' + k]); let i = 0;
   const next = () => { if (i >= L.length || !LS) return; const k = L[i++]; const ok = voice(k, force, who); const a = curAudio; if (ok && a) a.onended = () => { talk(false); if (curAudio === a) setTimeout(next, 300); }; };
   if (!L.length) return false; next(); return true;
 }
 function lesSay(text, key, mood = '', hint) {
   const b = $('.lesbub', les); b.textContent = text; restart(b, 'new'); if (LS) LS.say = [key, hint];
-  const has = !!(key && CLIPS[((LS && LS.who) || 'max') + '|' + key]);
+  const has = !!(key && (String(key).startsWith('hw:') || CLIPS[((LS && LS.who) || 'max') + '|' + key]));
   const rp = $('.lesrep', les); if (rp) rp.hidden = !has;
   $('.lestut', les).className = 'lestut ' + mood;
   if (has && voiceOn) sayChain([key, hint], LS && LS.who); else talk(true, Math.min(2400, 300 + text.length * 40));
@@ -7114,6 +7169,7 @@ function lesResult(ok, sol) {
   $('.lmt', m).innerHTML = ok ? ex : `Richtig ist: <b>${sol}</b>${ex ? `<i>${ex.charAt(0).toUpperCase() + ex.slice(1)}</i>` : ''}`;
   const btn = $('.lesbtn', les); btn.style.display = ''; btn.disabled = false; btn.textContent = 'Weiter'; btn.className = 'b3d lesbtn ' + (ok ? 'g' : 'o'); btn.focus({ preventScroll: true });
   lesSay(ok ? title : 'Schau mal, so geht es.', ok ? null : x.ve, ok ? 'happy' : 'think');
+  if (!ok && !x.ve && voiceOn) voice(pick(P.no), false, LS.who);
   if (ok && voiceOn) voice(pick(P.ok), false, LS.who);
   reward(ok, LS.streak);
   if (ok) { const cur = x; LS.adv = setTimeout(() => { if (LS && LS.state === 'res' && LS.cur === cur) lesNext(); }, x.e ? 3200 : 1900); }
@@ -7624,9 +7680,16 @@ async function hwSpeak(dataUrl) {
     const audio = await AC.decodeAudioData(buf.buffer);
     hwSrc = AC.createBufferSource(); hwSrc.buffer = audio; hwSrc.connect(AC.destination);
     $$('.hwx .tut').forEach((t) => t.classList.add('talk'));
-    hwSrc.onended = () => $$('.hwx .tut').forEach((t) => t.classList.remove('talk'));
+    const me = hwSrc; talk(true); hwSrc.onended = () => { $$('.hwx .tut').forEach((t) => t.classList.remove('talk')); if (hwSrc === me) talk(false); };
     hwSrc.start();
   } catch (e) {}
+}
+/* Vorlesen für Hausaufgaben-Texte (Max-Stimme, wird bei Bedarf erzeugt) */
+const HWS_URL = 'https://mrbell.app.n8n.cloud/webhook/gsm-hw-sprich-5m1x', HWT = new Map();
+async function hwSay(hwid, i) {
+  if (!voiceOn || !hwid || !(i >= 0)) return; const k = hwid + ':' + i; let a = HWT.get(k);
+  if (!a) { try { const r = await fetch(HWS_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ hwid, i }) }).then((x) => x.json()); if (r.ok && r.audio) { a = r.audio; HWT.set(k, a); } } catch (e) {} }
+  if (a) hwSpeak(a);
 }
 const numW = (a) => { const n = +a, s = new Set(); [1, -1, 10, -10, 2, -2].forEach((d) => { if (s.size < 3 && n + d >= 0 && n + d !== n) s.add(String(n + d)); }); return [...s]; };
 const asGame = (L) => L.map((x, i) => x.k === 'pad' && i % 2 === 0 ? { ...x, k: 'mc', w: numW(x.a) } : x);
@@ -7711,6 +7774,15 @@ function drawHW(sel = '#ahw', web, SJ) {
       restart(r, 'pin'); return;
     }
     if (t === 'e') {
+      const B = R.blatt || [];
+      if (B.length) {
+        r.innerHTML = `${head()}<div class="wscta"><div class="wsctm hwx">${tutorHTML('max')}</div><div><b>Wir lösen dein Blatt zusammen!</b><p>${B.length} Aufgaben. Max stellt dir zu jeder Aufgabe eine Frage, du tippst die Antwort ein. Wenn es hakt, gibt er dir Tipps.</p><button class="b3d lg" data-ws>${I('pen')}Arbeitsblatt mit Max lösen</button></div></div>
+          <div class="hwnext"><button class="b3d w" data-go="s">${I('pad')}Lieber gleich zum Spiel</button></div>`;
+        $('[data-ws]', r).onclick = () => openSheet(R);
+        $('[data-go=s]', r).onclick = () => view('s');
+        hwSpeak(R.audio);
+        restart(r, 'pin'); return;
+      }
       r.innerHTML = `${head()}<div class="hwexp"><div class="hwexm hwx">${tutorHTML('max')}${R.audio ? `<button class="hwplay" aria-label="Nochmal anhören">${I('snd')}</button>` : ''}</div>
         <div class="hwsteps2">${(R.erklaerung || []).map((x, i) => `<div class="hwst" style="animation-delay:${.15 + i * .35}s"><span>${i + 1}</span><div><b>${esc(x.titel || '')}</b><p>${esc(x.text || '')}</p></div></div>`).join('')}
         ${R.tipp ? `<div class="hwtip" style="animation-delay:${.2 + (R.erklaerung || []).length * .35}s">${I('bulb')}<div><b>Jetzt du!</b><p>${esc(R.tipp)}</p></div></div>` : ''}</div></div>
@@ -7719,7 +7791,7 @@ function drawHW(sel = '#ahw', web, SJ) {
       $('[data-go=s]', r).onclick = () => view('s');
       hwSpeak(R.audio);
     } else {
-      const test = t === 'p', items = test ? R.probetest : asGame(R.spiel);
+      const test = t === 'p', items = (test ? R.probetest : asGame(R.spiel)).map((x) => (R.hwid && x.tts >= 0 ? { ...x, vq: `hw:${R.hwid}:${x.tts}` } : x));
       r.innerHTML = `${head()}<div class="hwplaycard ${test ? 'pt' : 'sp'}"><span class="hwpci">${I(test ? 'cap' : 'pad')}</span><div><small>${test ? 'Für die Klassenarbeit' : 'Aus deinem Arbeitsblatt'}</small><b>${test ? `Probetest: ${items.length} neue Aufgaben` : `Hausaufgaben-Spiel: ${items.length} Runden`}</b><p>${test ? 'Ähnliche Aufgaben wie auf deinem Blatt, aber neu. So merkst du, ob es wirklich sitzt.' : 'Genau deine Aufgaben, als Spiel. Danach schaffst du das Blatt allein.'}</p></div>
         <button class="b3d lg" data-play>${I('play')}${test ? 'Test starten' : 'Spiel starten'}</button></div>`;
       $('[data-play]', r).onclick = () => startLesson(0, 0, 0, { items, title: test ? 'Probetest' : 'Hausaufgaben-Spiel', kind: test ? 'test' : 'game', w: test ? 2 : 0, c1: test ? '#8a6cf0' : '#4f8ff0', c2: test ? '#4a33b8' : '#1a4fb4' });
@@ -7727,6 +7799,58 @@ function drawHW(sel = '#ahw', web, SJ) {
     restart(r, 'pin');
   }
   tabs.forEach((b) => (b.onclick = () => view(b.dataset.t)));
+}
+
+/* ---------- Arbeitsblatt zum Mitmachen: Max fragt, das Kind tippt, Tipps und Lösung ---------- */
+function openSheet(R) {
+  const B = R.blatt || [], T = R.blaetter || [], math = /mathe/i.test(R.fach || '');
+  let o = $('#ws'); if (!o) { o = document.createElement('div'); o.id = 'ws'; o.className = 'wsheet'; document.body.appendChild(o); }
+  const st0 = B.map(() => ({ tries: 0, done: false, shown: false }));
+  let cur = 0;
+  const norm = (v) => String(v).toLowerCase().replace(/[„“"'.,!?;:()]/g, '').replace(/\s+/g, ' ').trim();
+  const same = (a, b) => { const x = norm(a), y = norm(b); if (x === y) return true; const nx = x.replace(/\s/g, ''), ny = y.replace(/\s/g, ''); return nx === ny && nx.length > 0; };
+  const fill = (txt, i) => { const parts = esc(txt).split(/_{2,}/); const inp = `<input class="wsin" data-i="${i}" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="${/^\d+$/.test(B[i].loesung.replace(/\s/g, '')) ? 'numeric' : 'text'}" aria-label="Antwort ${esc(B[i].nr)}">`; return parts.length > 1 ? parts[0] + inp + parts.slice(1).join(' ') : parts[0] + ' ' + inp; };
+  let rows = '', lastF = 0;
+  B.forEach((b, i) => { if (b.foto !== lastF) { lastF = b.foto; rows += `<div class="wsph">${esc(T[b.foto - 1] || (T.length > 1 ? 'Blatt ' + b.foto : R.thema || 'Arbeitsblatt'))}</div>`; } rows += `<div class="wsrow" data-i="${i}"><span class="wsnr">${esc(b.nr || String(i + 1))}</span><div class="wsq">${fill(b.aufgabe, i)}</div><span class="wsok">${I('check')}</span></div>`; });
+  o.innerHTML = `<div class="wsbar"><button class="pwx wsx" aria-label="Schließen">${I('x')}</button><div class="wstl"><small>Arbeitsblatt mit Max</small><b>${esc(R.thema || 'Deine Hausaufgabe')}</b></div><span class="wsprog"><b id="wsn">0</b> / ${B.length}</span></div>
+    <div class="wsscroll"><div class="wspaper ${math ? 'kar' : 'lin'}"><div class="wspaperh"><b>${esc(R.thema || 'Arbeitsblatt')}</b><span>${esc(R.fach || '')}</span></div>${rows}</div><div class="wshand">${I('pointer')}</div></div>
+    <div class="wsdock"><div class="wsmax">${tutorHTML('max')}</div><div class="wsbub"><p id="wsb"></p><div class="wsbtns"><button class="wsrep" aria-label="Nochmal anhören">${I('snd')}</button><button class="lnk" id="wstip">${I('bulb')}Tipp</button><button class="lnk" id="wssol">Lösung zeigen</button><button class="b3d c" id="wschk">Prüfen</button></div></div></div>`;
+  o.classList.add('on'); document.body.classList.add('wsopen');
+  const bub = $('#wsb', o); let lastSay = -1;
+  const say = (text, idx, mood) => { bub.textContent = text; restart(bub.parentElement, 'new'); lastSay = idx; if (idx >= 0) hwSay(R.hwid, idx); else talk(true, Math.min(2400, 300 + text.length * 40)); };
+  const row = (i) => $(`.wsrow[data-i="${i}"]`, o), inp = (i) => $(`.wsin[data-i="${i}"]`, o);
+  const hand = $('.wshand', o);
+  const pointTo = (i) => { const el = inp(i) || row(i); if (!el) return; const sc = $('.wsscroll', o), a = el.getBoundingClientRect(), c = sc.getBoundingClientRect(); hand.style.transform = `translate(${a.left - c.left + a.width / 2}px, ${a.top - c.top + sc.scrollTop + a.height * .7}px)`; hand.classList.remove('tap'); void hand.offsetWidth; hand.classList.add('tap'); };
+  const focusTask = (i, quiet) => {
+    cur = i; $$('.wsrow', o).forEach((r0) => r0.classList.toggle('cur', +r0.dataset.i === i)); const b = B[i];
+    row(i).scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => { pointTo(i); const x = inp(i); if (x && !st0[i].done) x.focus({ preventScroll: true }); }, 380);
+    $('#wssol', o).classList.toggle('hot', st0[i].tries >= 2); $('#wschk', o).textContent = st0[i].done ? (nextOpen() >= 0 ? 'Nächste Aufgabe' : 'Fertig') : 'Prüfen';
+    if (!quiet && !st0[i].done) say(b.frage || 'Was gehört hier hin?', b.sf);
+  };
+  const nextOpen = () => { for (let k = 1; k <= B.length; k++) { const j = (cur + k) % B.length; if (!st0[j].done) return j; } return -1; };
+  const prog = () => { $('#wsn', o).textContent = st0.filter((x) => x.done).length; };
+  const finish = () => { const self = st0.filter((x) => x.done && !x.shown).length; sfx.win(); confetti(70); say(`Geschafft! ${self} von ${B.length} Aufgaben hast du ganz allein gelöst. Super!`, -1); $('.wsbtns', o).innerHTML = `<button class="b3d w" id="wsagain">Nochmal von vorn</button><button class="b3d c" id="wsend">Weiter zum Spiel</button>`; $('#wsagain', o).onclick = () => openSheet(R); $('#wsend', o).onclick = () => { close(); const tb = $$('.hwtabs [data-t]').find((x) => x.dataset.t === 's'); if (tb) tb.click(); }; };
+  const goNext = () => { const j = nextOpen(); if (j < 0) finish(); else focusTask(j); };
+  const markDone = (i, shown) => { const s0 = st0[i]; s0.done = true; s0.shown = shown; const x = inp(i); if (x) { x.value = B[i].loesung; x.disabled = true; x.classList.add(shown ? 'shown' : 'right'); } row(i).classList.add(shown ? 'shown' : 'done'); prog(); $('#wschk', o).textContent = nextOpen() >= 0 ? 'Nächste Aufgabe' : 'Fertig'; $('#wssol', o).classList.remove('hot'); };
+  const check = () => {
+    const i = cur, s0 = st0[i], b = B[i];
+    if (s0.done) { goNext(); return; }
+    const x = inp(i), v = x ? x.value.trim() : ''; if (!v) { restart(x || row(i), 'shk'); say('Tippe deine Antwort in das Kästchen.', -1); return; }
+    if (same(v, b.loesung)) { sfx.ok(); markDone(i, false); restart(row(i), 'pop'); if (typeof loot === 'function') loot(x, 6, ['star', 'coin']); say(pick(['Richtig!', 'Super!', 'Genau!', 'Klasse!']) + ' ' + (b.erklaerung || ''), b.se); return; }
+    s0.tries++; sfx.no(); restart(x, 'shk'); x.classList.add('wrong'); setTimeout(() => x.classList.remove('wrong'), 700);
+    const tp = b.tipps[Math.min(s0.tries - 1, b.tipps.length - 1)];
+    say(`Denk nochmal nach. ${tp || b.frage}`, tp ? b.st[Math.min(s0.tries - 1, b.tipps.length - 1)] : b.sf);
+    $('#wssol', o).classList.toggle('hot', s0.tries >= 2);
+  };
+  $$('.wsrow', o).forEach((r0) => (r0.onclick = (e) => { const i = +r0.dataset.i; if (i !== cur) focusTask(i); }));
+  $$('.wsin', o).forEach((x) => x.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); check(); } }));
+  $('#wschk', o).onclick = check;
+  $('#wstip', o).onclick = () => { const b = B[cur], s0 = st0[cur]; if (s0.done) return; const k = Math.min(s0.tries, b.tipps.length - 1); s0.tries = Math.max(s0.tries, 1); say(b.tipps[k] || b.frage, b.st[k] >= 0 ? b.st[k] : b.sf); $('#wssol', o).classList.toggle('hot', s0.tries >= 2); };
+  $('#wssol', o).onclick = () => { const b = B[cur]; if (st0[cur].done) return; markDone(cur, true); say(`Die Lösung ist ${b.loesung}. ${b.erklaerung || ''}`, b.se); };
+  $('.wsrep', o).onclick = () => { if (lastSay >= 0) hwSay(R.hwid, lastSay); };
+  const close = () => { o.classList.remove('on'); document.body.classList.remove('wsopen'); stopVoice(); };
+  $('.wsx', o).onclick = close;
+  setTimeout(() => focusTask(0), 250);
 }
 
 /* ---------- Profil, Tier-Bilder, Elternbereich mit Eltern-Code ---------- */
