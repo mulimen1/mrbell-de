@@ -7263,7 +7263,7 @@ function mount() {
   drawAside(); drawAbot();
   app.style.setProperty('--patd', patURL(S.k, true));
   [demo, $('#stage'), app].forEach((el) => { el.style.setProperty('--c1', S.c1); el.style.setProperty('--c2', S.c2); el.style.setProperty('--pat', patURL(S.k)); el.dataset.k = S.k; });
-  const NC = { home: ['#ffa63d', '#d4550c', 'mathe'], hw: ['#8f6cf5', '#4527b8', 'franz'], profile: ['#4f8ff0', '#1a4fb4', 'deutsch'], parents: ['#3fc1a0', '#0e7f6a', 'sach'] }[st.nav];
+  const NC = { home: ['#ffa63d', '#d4550c', 'deutsch'], hw: ['#8f6cf5', '#4527b8', 'mathe'], profile: ['#4f8ff0', '#1a4fb4', 'deutsch'], parents: ['#3fc1a0', '#0e7f6a', 'sach'] }[st.nav];
   if (NC) { app.style.setProperty('--c1', NC[0]); app.style.setProperty('--c2', NC[1]); app.style.setProperty('--pat', patURL(NC[2])); }
   $$('#tabs .tab').forEach((t, i) => { t.classList.toggle('on', st.nav === 'subj' && i === st.s); t.setAttribute('aria-selected', i === st.s); });
   if (st.nav !== 'subj') { drawLPCards(); $('.amain').scrollTop = 0; return; }
