@@ -3349,6 +3349,30 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 @keyframes bnope{20%{transform:rotate(-12deg)}100%{transform:translateY(260px) rotate(30deg);opacity:0;filter:grayscale(1)}}
 @media (max-width:600px){.bal2{width:78px!important;height:126px!important}.bal2 b{font-size:28px}}
 .g-bal2 .eq{position:absolute!important;z-index:4;box-shadow:0 6px 0 rgba(20,60,120,.18),0 18px 30px -14px rgba(20,60,120,.5)}
+/* ---------- Frosch-Sprung: neue Grafik ---------- */
+.g-frog2{background:#4fb6f0!important}
+.g-frog2 .gsky{background-position:50% 70%}
+.g-frog2 .pads{top:60%!important;z-index:2}
+.g-frog2 .pad{animation:padbob 3.2s ease-in-out infinite;animation-delay:var(--bd)}
+@keyframes padbob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(4px) rotate(1.5deg)}}
+.padi{width:100%;max-width:110px;filter:drop-shadow(0 6px 4px rgba(0,60,110,.3));transition:transform .2s;user-select:none}
+.g-frog2 .pad:hover .padi{transform:scale(1.08)}
+.g-frog2 .pad.splash .padi{animation:padsp .5s ease-out}
+@keyframes padsp{30%{transform:translateY(7px) scale(1.08,.9)}70%{transform:translateY(-2px)}}
+.g-frog2 .pad.splash::after{content:"";position:absolute;left:50%;top:30%;width:120%;aspect-ratio:3;border:3px solid rgba(255,255,255,.8);border-radius:50%;transform:translate(-50%,-50%) scale(.4);animation:padring .7s ease-out forwards;pointer-events:none}
+@keyframes padring{to{transform:translate(-50%,-50%) scale(1.4);opacity:0}}
+.g-frog2 .pl{margin-top:-6px;position:relative;z-index:1}
+.frog2{width:96px!important;height:104px!important;z-index:6!important;filter:drop-shadow(0 10px 8px rgba(0,40,60,.3))}
+.frog2 img{width:100%;height:100%;object-fit:contain;object-position:50% 100%}
+.wshine{position:absolute;left:0;right:0;top:56%;bottom:0;pointer-events:none;background:repeating-linear-gradient(178deg,transparent 0 22px,rgba(255,255,255,.10) 22px 25px,transparent 25px 48px);background-size:100% 96px;animation:wsh 6s linear infinite;mask:linear-gradient(transparent,#000 30%,#000 70%,transparent);-webkit-mask:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+@keyframes wsh{to{background-position:0 96px}}
+.g-frog2 .ripple{border-color:rgba(255,255,255,.55);z-index:1}
+.ffly{position:absolute;width:52px;left:30%;top:30%;z-index:5;pointer-events:none;animation:fly1 9s ease-in-out infinite,buzz .12s linear infinite alternate}
+.ffly.f2{width:44px;left:62%;top:38%;animation:fly2 11s ease-in-out infinite,buzz .1s linear infinite alternate}
+@keyframes fly1{0%,100%{translate:0 0}25%{translate:120px -40px}50%{translate:40px 30px}75%{translate:-90px -10px}}
+@keyframes fly2{0%,100%{translate:0 0;scale:-1 1}30%{translate:-140px 20px;scale:-1 1}55%{translate:-60px -40px;scale:1 1}80%{translate:80px 10px;scale:1 1}}
+@keyframes buzz{to{transform:translateY(-3px) rotate(4deg)}}
+@media (max-width:600px){.frog2{width:64px!important;height:70px!important}.ffly{width:36px}}
 </style>
 </head>
 <body>
@@ -6563,8 +6587,8 @@ const BALLON = [
 let CUSTOM_BALLON = null; // aus dem Foto-Zauber
 const vkBalWrong = vk('Hmm, das passt noch nicht. Rechne nochmal nach!');
 /* Lebendiger Himmel: Wolken ziehen, Vögel flattern (aus dem Spiel-Hintergrund ausgeschnitten) */
-function SKY(k, clouds, birds) {
-  return `<div class="gsky" style="--bg:url(/grundschulmax/sp/${k}/bg.webp)">${clouds.map(([i, x, y, sp, w]) => `<img class="skc" src="/grundschulmax/sp/${k}/c${i}.webp" alt="" style="left:${x}%;top:${y}%;width:${w / 16.72}%;--d:${sp * 3}s;--o:-${Math.round(Math.random() * sp * 3)}s">`).join('')}${birds.map(([i, x, y]) => `<img class="skb" src="/grundschulmax/sp/${k}/c${i}.webp" alt="" style="left:${x}%;top:${y}%;--o:-${(Math.random() * 30).toFixed(1)}s">`).join('')}<i class="skg"></i></div>`;
+function SKY(k, clouds, birds, bw = 1672) {
+  return `<div class="gsky" style="--bg:url(/grundschulmax/sp/${k}/bg.webp)">${clouds.map(([i, x, y, sp, w]) => `<img class="skc" src="/grundschulmax/sp/${k}/c${i}.webp" alt="" style="left:${x}%;top:${y}%;width:${w / bw * 100}%;--d:${sp * 3}s;--o:-${Math.round(Math.random() * sp * 3)}s">`).join('')}${birds.map(([i, x, y]) => `<img class="skb" src="/grundschulmax/sp/${k}/${typeof i === 'string' ? i : 'c' + i}.webp" alt="" style="left:${x}%;top:${y}%;--o:-${(Math.random() * 30).toFixed(1)}s">`).join('')}<i class="skg"></i></div>`;
 }
 const BALHUE = [0, 215, 50, 110, 270, 25];
 function popBal(el) {
@@ -6651,18 +6675,22 @@ const FROSCH = [
 FROSCH.forEach((L, i) => { L.intro = vk(['Hilf dem Frosch! Hör zu und spring auf die richtige Zahl.', 'Hilf dem Frosch über den Teich! Zähl die Sprünge in Zehnern.', 'Großer Teich! Jeder Sprung ist hundert. Wo liegt die Zahl?', 'Riesen-Teich bis 1 Million! Rechne erst, dann spring.'][i]); });
 const vkFrogNo = vk('Hoppla, falsches Seerosenblatt! Zähl nochmal die Sprünge.');
 function gFrosch(T) {
-  gs.className = 'gs g-frog';
+  gs.className = 'gs g-frog g-frog2';
   const L = FROSCH[G()], R = L.T(), N = (L.max - L.min) / L.step;
   R.forEach((x) => (x.k = vk(`Spring auf ${/^[\d\u202f]+$/.test(x.q) ? 'die ' : ''}${x.q.replace(/ /g, ' ')}!`)));
-  gs.innerHTML = `<div class="ripple r1"></div><div class="ripple r2"></div><div class="fq" id="fq"></div><div class="pads" id="pads">${range(0, N).map((i) => `<div class="pad" data-i="${i}">${PAD}<span class="pl${L.lab === 'all' || L.lab.includes(L.min + i * L.step) ? '' : ' h'}">${fmt(L.min + i * L.step)}</span></div>`).join('')}</div><div class="frog" id="frog">${ART.frosch}</div>`;
+  const FS = (n) => `/grundschulmax/sp/frog/${n}.webp`;
+  gs.innerHTML = `${SKY('frog', [[0, 17, 1, 26, 300], [1, 71, 3, 30, 280], [3, 63, 9, 40, 140], [5, 34, 6, 34, 170], [7, 26, 12, 44, 130], [8, 58, 13, 38, 150]], [['d0', 7, 15], ['d2', 92, 18], ['d3', 86, 26]], 1920)}<div class="wshine"></div><div class="ripple r1"></div><div class="ripple r2"></div>
+    <img class="ffly" src="${FS('fly')}" alt=""><img class="ffly f2" src="${FS('fly')}" alt=""><div class="fq" id="fq"></div><div class="pads" id="pads">${range(0, N).map((i) => `<div class="pad" data-i="${i}" style="--bd:-${(i * .37).toFixed(2)}s"><img class="padi" src="${FS('pad')}" alt="" draggable="false"><span class="pl${L.lab === 'all' || L.lab.includes(L.min + i * L.step) ? '' : ' h'}">${fmt(L.min + i * L.step)}</span></div>`).join('')}</div><div class="frog frog2" id="frog"><img src="${FS('f0')}" alt=""></div>`;
+  const fim = $('#frog img'), pose = (n) => { fim.src = FS('f' + n); };
+  ['f1', 'f2', 'f3', 'padf'].forEach((n) => { const i = new Image(); i.src = FS(n); });
   const frog = $('#frog'), pads = $$('.pad', gs);
   let r = 0, at = 0, lock = true;
   function place(i, anim) {
     const gr = gs.getBoundingClientRect(), pr = pads[i].getBoundingClientRect(), fw = frog.offsetWidth;
-    const x = pr.left - gr.left + pr.width / 2 - fw / 2, y = pr.top - gr.top - fw * .55;
+    const fh = frog.offsetHeight, x = pr.left - gr.left + pr.width / 2 - fw / 2, y = pr.top - gr.top + pr.width * .22 - fh * .92;
     if (!anim) { frog.style.transform = `translate(${x}px,${y}px)`; frog._x = x; frog._y = y; return Promise.resolve(); }
     const x0 = frog._x, y0 = frog._y, h = 70 + Math.abs(i - at) * 6;
-    sfx.jump();
+    sfx.jump(); pose(1); setTimeout(() => pose(2), 90); setTimeout(() => pose(1), 560); setTimeout(() => pose(0), 680);
     const a = frog.animate([{ transform: `translate(${x0}px,${y0}px) scale(1,1)` }, { transform: `translate(${x0}px,${y0 + 6}px) scale(1.15,.85)`, offset: .1 }, { transform: `translate(${(x0 + x) / 2}px,${Math.min(y0, y) - h}px) scale(.9,1.12) rotate(${x > x0 ? 10 : -10}deg)`, offset: .55 }, { transform: `translate(${x}px,${y + 4}px) scale(1.15,.85)`, offset: .9 }, { transform: `translate(${x}px,${y}px) scale(1,1)` }], { duration: 650, easing: 'ease-in-out' });
     frog.style.transform = `translate(${x}px,${y}px)`; frog._x = x; frog._y = y;
     return a.finished;
@@ -6675,7 +6703,7 @@ function gFrosch(T) {
     if (!alive(T)) return;
     p.classList.add('splash'); setTimeout(() => p.classList.remove('splash'), 500);
     if (val === R[r].n) {
-      sfx.ok(); p.classList.add('done'); p.insertAdjacentHTML('beforeend', `<span class="fl">${FLOWER}</span>`);
+      sfx.ok(); p.classList.add('done'); $('.padi', p).src = FS('padf'); setTimeout(() => pose(3), 700); setTimeout(() => pose(0), 1900);
       const s3 = right(); const k = s3 ? P.streak : okLine(); sayK(k, 'happy'); fb(true, VL.get(k).t, `${R[r].q} liegt genau hier.`);
       $('.pl', p).classList.remove('h');
       r++; setTimeout(() => { if (!alive(T)) return; if (r < R.length) ask(); else finish('Der Frosch ist am Ziel!', ['Zahlen bis 10 auf dem Zahlenstrahl finden.', 'Zahlen bis 100 in Zehnerschritten finden.', 'Zahlen bis 1000 in Hunderterschritten finden.', 'Rechnen und Orientieren im Zahlenraum bis 1 Million.'][G()]); }, 1300);
