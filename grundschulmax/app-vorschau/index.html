@@ -3480,6 +3480,42 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 .gstage.open .fin h3{font-size:clamp(28px,3.6vw,38px)!important}
 .gstage.open .fin .fstats>*{background:#fff}
 @media (max-width:700px){.gstage.open .fin>div{padding:24px 16px 20px}.gstage.open .fin .bs{font-size:62px;margin-top:-64px}.gstage.open .fin .bs::before{width:240px;height:240px;margin:-120px 0 0 -120px}}
+/* ---------- Zauberstift: neue Grafik ---------- */
+.g-stift2{background:#c8763a!important}
+.g-stift2 .gsky{background-position:50% 50%}
+.g-stift2 .paper{border-radius:4px!important;background:#fbf7ef!important;box-shadow:none!important;clip-path:polygon(8% 0,92.2% 0,100% 100%,0 100%);z-index:2}
+.g-stift2 .stbar{z-index:5;bottom:16px}
+.g-stift2 .stbar .b3d{height:56px;font-size:17px;padding:0 22px;box-shadow:0 6px 0 rgba(0,0,0,.2)}
+.pen2{width:110px;height:auto;left:-120px;transform:translate(-8%,-78%);filter:drop-shadow(0 8px 6px rgba(0,0,0,.25))}
+.spk2{position:absolute;width:34px;pointer-events:none;transform:translate(-50%,-50%);animation:spk2 .9s ease-out forwards}
+@keyframes spk2{0%{scale:.3;opacity:1}60%{scale:1.1;opacity:1}100%{scale:.6;opacity:0;translate:0 -30px;rotate:60deg}}
+.bigstar{position:absolute;width:160px;z-index:30;pointer-events:none;transform:translate(-50%,-50%);animation:bigst 1.4s cubic-bezier(.2,1.4,.4,1) forwards;filter:drop-shadow(0 0 24px rgba(255,210,40,.9))}
+@keyframes bigst{0%{scale:0;rotate:-40deg}40%{scale:1.2;rotate:8deg}70%{scale:1;rotate:0deg;opacity:1}100%{scale:1.1;opacity:0;translate:0 -80px}}
+.sglint{position:absolute;width:56px;left:76%;top:16%;z-index:1;pointer-events:none;animation:sgl 3.2s ease-in-out infinite}
+.sglint.g2{width:44px;left:19%;top:20%;animation-delay:-1.6s}
+@keyframes sgl{0%,100%{opacity:0;scale:.5;rotate:0deg}40%,60%{opacity:1;scale:1;rotate:25deg}}
+@media (max-width:700px){.g-stift2 .gsky{background-position:50% 40%}.pen2{width:70px}.g-stift2 .stbar .b3d{height:48px;font-size:14px;padding:0 10px}}
+.g-stift2 .paper.flat{clip-path:none;border-radius:20px!important;box-shadow:0 0 0 6px #b8743e,0 10px 0 6px #8a5232,0 24px 30px -12px rgba(0,0,0,.4)!important}
+@media (max-width:700px){.g-stift2 .stbar{bottom:132px;left:8px;right:8px}}
+/* ---------- Memory: neue Grafik ---------- */
+.g-mem2{background:#d98a3a!important;padding:0!important}
+.g-mem2 .gsky{background-position:50% 60%}
+.g-mem2 .mgrid{position:relative;z-index:2;max-width:min(760px,92%)!important;max-height:none!important;height:auto!important;gap:16px!important;margin-top:4vh}
+.g-mem2 .mc{aspect-ratio:1/1.05!important;filter:drop-shadow(0 10px 8px rgba(80,40,10,.35));transition:transform .2s}
+.g-mem2 .mc:hover{transform:translateY(-4px) rotate(-1deg)}
+.g-mem2 .mc .fa{background:none!important;box-shadow:none!important}.g-mem2 .mc .fa::after{display:none}
+.g-mem2 .mc .fa img.mbk{width:100%!important;height:100%;object-fit:fill;opacity:1;filter:none}
+.g-mem2 .mc .ba{background:url(/grundschulmax/sp/mem/front.webp) 0 0/100% 100% no-repeat!important;box-shadow:none!important;color:#1a2f7a!important;padding:16%}
+.g-mem2 .mc .ba svg{width:62%;height:62%}
+.g-mem2 .mc.ok .ba{box-shadow:none!important;filter:drop-shadow(0 0 14px rgba(255,214,40,.95))}
+.g-mem2 .mc.ok{animation:mok .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes mok{40%{transform:translateY(-14px) scale(1.06)}}
+.msun{position:absolute;left:25%;top:-10%;width:60%;height:70%;pointer-events:none;background:radial-gradient(closest-side,rgba(255,240,190,.45),transparent);animation:msun 7s ease-in-out infinite alternate;z-index:1}
+@keyframes msun{to{transform:translate(6%,4%) scale(1.12);opacity:.7}}
+.mdust{position:absolute;inset:0;pointer-events:none;z-index:1;background-image:radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 60% 20%,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 75% 45%,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 35% 55%,rgba(255,255,255,.6),transparent),radial-gradient(1.5px 1.5px at 85% 25%,rgba(255,255,255,.7),transparent);animation:mdust 14s linear infinite}
+@keyframes mdust{to{transform:translate(-30px,-60px)}}
+@media (max-width:700px){.g-mem2 .mgrid{gap:8px!important;max-width:96%!important;margin-top:-6vh}.g-mem2 .mc .ba{padding:12%}}
+@media (min-width:701px){.g-mem2 .mgrid{max-width:min(760px,92%,calc((100dvh - 400px) * 1.25))!important;margin-top:-6vh}.g-mem2 .mgrid.n8{max-width:min(760px,92%,calc((100dvh - 330px) * 1.9))!important}}
 </style>
 </head>
 <body>
@@ -6919,11 +6955,17 @@ const STIFT = [
 ];
 const vkStiftOk = vk('Wunderschön geschrieben!'), vkStiftNo = vk('Fast! Bleib noch genauer auf der Spur.'), vkStiftShow = vk('Schau mal, so geht das.');
 function gStift(T) {
-  gs.className = 'gs g-stift';
+  gs.className = 'gs g-stift g-stift2';
   const L = STIFT[G()]; let i = 0, drawing = false, last = null, hue = 0, pts = 0;
-  gs.innerHTML = `<div class="paper"><canvas id="cT"></canvas><div class="cover" id="cov"></div><canvas id="cK"></canvas><div class="pen" id="pen">${I('pen')}</div></div>
+  const SS = (n) => `/grundschulmax/sp/stift/${n}.webp`;
+  gs.innerHTML = `${SKY('stift', [], [])}<img class="sglint" src="${SS('spark')}" alt=""><img class="sglint g2" src="${SS('star')}" alt=""><div class="paper"><canvas id="cT"></canvas><div class="cover" id="cov"></div><canvas id="cK"></canvas><img class="pen pen2" id="pen" src="${SS('pen')}" alt=""></div>
     <div class="stbar"><button class="b3d w sm" id="sShow">${I('play')}Zeig's mir</button><button class="b3d w sm" id="sClr">${I('again')}Löschen</button><button class="b3d c sm" id="sOk">${I('check')}Fertig</button></div>`;
   const cT = $('#cT'), cK = $('#cK'), xT = cT.getContext('2d'), xK = cK.getContext('2d');
+  /* Papier genau auf das Blatt im Hintergrund legen */
+  function fitPaper() { const sk = $('.gsky', gs), pa = $('.paper', gs); if (!sk) return; const R0 = gs.getBoundingClientRect(), R = sk.getBoundingClientRect(), sc = Math.max(R.width / 1672, R.height / 941), ox = R.left - R0.left + (R.width - 1672 * sc) / 2, oy = R.top - R0.top + (R.height - 941 * sc) / 2;
+    if (852 * sc > R0.width * .96) { Object.assign(pa.style, { left: '10px', right: '10px', width: 'auto', top: '8%', height: '52%', bottom: 'auto' }); pa.classList.add('flat'); return; }
+    pa.classList.remove('flat'); Object.assign(pa.style, { left: ox + 410 * sc + 'px', top: oy + 165 * sc + 'px', width: 852 * sc + 'px', height: 590 * sc + 'px', right: 'auto', bottom: 'auto' }); }
+  fitPaper(); new ResizeObserver(fitPaper).observe(gs);
   let W, H, dpr, fs, lw, bandMask, coreMask, base;
   const fam = () => (L.font === 'SAS' ? '"SAS"' : '"Grund"');
   function size() {
@@ -6977,6 +7019,7 @@ function gStift(T) {
     hue = (hue + 4) % 360; pts++;
     xK.strokeStyle = `hsl(${hue} 80% 55%)`; xK.lineWidth = lw; xK.lineCap = 'round'; xK.lineJoin = 'round';
     xK.beginPath(); xK.moveTo(a[0], a[1]); xK.lineTo(b[0], b[1]); xK.stroke();
+    if (pts % 14 === 0) { const g = document.createElement('img'); g.src = SS(pts % 28 ? 'spark' : 'star'); g.className = 'spk2'; g.style.left = b[0] + 'px'; g.style.top = b[1] + 'px'; cK.parentElement.appendChild(g); setTimeout(() => g.remove(), 900); }
     if (pts % 6 === 0) { sfx.draw(); const s = document.createElement('i'); s.className = 'spk'; s.style.left = b[0] + 'px'; s.style.top = b[1] + 'px'; s.style.background = `hsl(${hue} 90% 60%)`; cK.parentElement.appendChild(s); setTimeout(() => s.remove(), 600); }
   }
   $('#sClr').onclick = () => { xK.clearRect(0, 0, W, H); pts = 0; };
@@ -6995,6 +7038,7 @@ function gStift(T) {
     if (s.cov >= .7 && s.prec >= .6) {
       sfx.ok(); right(true); sayK(vkStiftOk, 'happy'); fb(true, 'Wunderschön!', `Du hast ${Math.round(s.cov * 100)} % der Spur getroffen.`);
       const r = cK.getBoundingClientRect(), gr = gs.getBoundingClientRect(); burst(r.left - gr.left + r.width / 2, r.top - gr.top + r.height / 2, ['#f2b705', '#9b7cf0', '#4cc38a', '#f47ba0'], 24);
+      const st2 = document.createElement('img'); st2.src = SS('star'); st2.className = 'bigstar'; st2.style.left = r.left - gr.left + r.width / 2 + 'px'; st2.style.top = r.top - gr.top + r.height / 2 + 'px'; gs.appendChild(st2); setTimeout(() => st2.remove(), 1400);
       i++; setTimeout(() => { if (!alive(T)) return; if (i < L.items.length) render(); else finish('Toll geschrieben!', `${L.what}: Max zeigt die richtige Richtung und lobt jede schöne Spur.`); }, 1300);
     } else {
       wrong(); sfx.no(); sayK(vkStiftNo, 'think');
@@ -7020,11 +7064,11 @@ const MEM = [
 MEM.forEach((L) => L.P.forEach((p) => { [p.a, p.b].forEach((c) => { if (c.t === 'w') c.key = vk(c.v, 'en'); }); }));
 const vkMemNo = vk('Die passen nicht zusammen. Merk dir, wo sie liegen!');
 function gMem(T) {
-  gs.className = 'gs g-mem';
+  gs.className = 'gs g-mem g-mem2';
   const L = MEM[G()], n = L.P.length;
   const cards = shuf(L.P.flatMap((p) => [{ p, c: p.a }, { p, c: p.b }]));
   const long = G() === 3;
-  gs.innerHTML = `<div class="mgrid n${n * 2}${long ? ' long' : ''}">${cards.map(({ c }, i) => `<div class="mc" data-i="${i}"><div class="in"><div class="fa"><span class="q">?</span></div><div class="ba t-${c.t}">${c.t === 'p' ? ART[c.v] : c.t === 'h' ? c.v : `<span>${c.v}</span>`}</div></div></div>`).join('')}</div>`;
+  gs.innerHTML = `${SKY('mem', [], [])}<i class="msun"></i><i class="mdust"></i><div class="mgrid n${n * 2}${long ? ' long' : ''}">${cards.map(({ c }, i) => `<div class="mc" data-i="${i}"><div class="in"><div class="fa"><img class="mbk" src="/grundschulmax/sp/mem/back.webp" alt="" draggable="false"></div><div class="ba t-${c.t}">${c.t === 'p' ? ART[c.v] : c.t === 'h' ? c.v : `<span>${c.v}</span>`}</div></div></div>`).join('')}</div>`;
   let open = [], found = 0, lock = false;
   $$('.mc', gs).forEach((el) => (el.onclick = () => {
     if (lock || el.classList.contains('up')) return;
