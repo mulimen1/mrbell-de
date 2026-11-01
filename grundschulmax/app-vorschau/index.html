@@ -3330,6 +3330,25 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 .plt.on small,.plt.on>span:last-child{color:rgba(255,255,255,.9)}
 .plt.on .plto{background:#2fcf63;box-shadow:0 0 0 3px #fff}
 .pltf{display:flex;align-items:center;gap:7px;justify-content:center;margin:4px 0 14px;font-size:13.5px;font-weight:800;color:#1f8a4c}.pltf svg{width:16px;height:16px}
+/* ---------- Ballon-Jagd: neue Grafik ---------- */
+.g-bal2{background:#7cc8ff!important}
+.gsky{position:absolute;inset:0;background:var(--bg) 50% 100%/cover no-repeat;overflow:hidden;pointer-events:none;z-index:0}
+.skc{position:absolute;height:auto;animation:skc var(--d) linear infinite;animation-delay:var(--o);opacity:.97;will-change:transform}
+@keyframes skc{from{left:-32%}to{left:104%}}
+.skb{position:absolute;width:4.2%;animation:skb 34s linear infinite,flap .5s ease-in-out infinite alternate;animation-delay:var(--o),0s}
+@keyframes skb{0%{transform:translate(0,0)}25%{transform:translate(18vw,-2vh)}50%{transform:translate(36vw,1vh)}75%{transform:translate(18vw,-1vh)}100%{transform:translate(0,0)}}
+@keyframes flap{to{scale:1 .55}}
+.skg{position:absolute;left:-20%;top:-30%;width:70%;height:90%;background:radial-gradient(closest-side,rgba(255,255,230,.35),transparent);animation:skg 9s ease-in-out infinite alternate}
+@keyframes skg{to{transform:translate(12%,6%) scale(1.1)}}
+.bal2{width:96px!important;height:154px!important}
+.bal2 img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 12px 10px rgba(20,60,120,.25));pointer-events:none;user-select:none}
+.bal2 b{position:absolute;left:0;right:0;top:27%;text-align:center;font-family:Grund,G,system-ui,sans-serif;font-weight:900;font-size:34px;color:#fff;-webkit-text-stroke:5px rgba(0,0,0,.28);paint-order:stroke fill;pointer-events:none;transition:opacity .1s}
+.bal2.popd2{pointer-events:none}.bal2.popd2 img{transform:scale(1.35);transition:transform .25s}
+.bal2.gone{opacity:0;transition:opacity .25s}
+.bal2.nope img{animation:bnope .9s ease-in forwards}.bal2.nope b{opacity:0}
+@keyframes bnope{20%{transform:rotate(-12deg)}100%{transform:translateY(260px) rotate(30deg);opacity:0;filter:grayscale(1)}}
+@media (max-width:600px){.bal2{width:78px!important;height:126px!important}.bal2 b{font-size:28px}}
+.g-bal2 .eq{position:absolute!important;z-index:4;box-shadow:0 6px 0 rgba(20,60,120,.18),0 18px 30px -14px rgba(20,60,120,.5)}
 </style>
 </head>
 <body>
@@ -6543,11 +6562,23 @@ const BALLON = [
 ];
 let CUSTOM_BALLON = null; // aus dem Foto-Zauber
 const vkBalWrong = vk('Hmm, das passt noch nicht. Rechne nochmal nach!');
+/* Lebendiger Himmel: Wolken ziehen, Vögel flattern (aus dem Spiel-Hintergrund ausgeschnitten) */
+function SKY(k, clouds, birds) {
+  return `<div class="gsky" style="--bg:url(/grundschulmax/sp/${k}/bg.webp)">${clouds.map(([i, x, y, sp, w]) => `<img class="skc" src="/grundschulmax/sp/${k}/c${i}.webp" alt="" style="left:${x}%;top:${y}%;width:${w / 16.72}%;--d:${sp * 3}s;--o:-${Math.round(Math.random() * sp * 3)}s">`).join('')}${birds.map(([i, x, y]) => `<img class="skb" src="/grundschulmax/sp/${k}/c${i}.webp" alt="" style="left:${x}%;top:${y}%;--o:-${(Math.random() * 30).toFixed(1)}s">`).join('')}<i class="skg"></i></div>`;
+}
+const BALHUE = [0, 215, 50, 110, 270, 25];
+function popBal(el) {
+  const im = el.querySelector('img'), b = el.querySelector('b'); if (!im) { el.classList.add('popd'); return; }
+  const c = +el.dataset.c, f = (n) => { im.src = `/grundschulmax/sp/bal/p${n}.webp`; im.style.filter = n < 3 ? `hue-rotate(${BALHUE[c]}deg)` : ''; };
+  el.classList.add('popd2'); if (b) b.style.opacity = 0;
+  f(1); setTimeout(() => f(2), 70); setTimeout(() => f(3), 150); setTimeout(() => el.classList.add('gone'), 260);
+}
+['p1', 'p2', 'p3'].forEach((n) => { const i = new Image(); i.src = `/grundschulmax/sp/bal/${n}.webp`; });
 function gBalloon(T) {
-  gs.className = 'gs g-bal';
+  gs.className = 'gs g-bal g-bal2';
   const L = CUSTOM_BALLON || BALLON[G()];
   const R = L.R.map((r) => ({ ...r })), COL = ['#5aa2f7', '#f39b52', '#9b7cf0', '#f47ba0', '#3fc1c9', '#4cc38a', '#f2b705'];
-  gs.innerHTML = `<div class="cloud c1"></div><div class="cloud c2"></div>
+  gs.innerHTML = `${SKY('bal', [[0, 4, 1, 22, 376], [1, 62, 5, 30, 449], [4, 24, 23, 40, 215], [7, 18, 30, 26, 145], [8, 56, 32, 34, 154]], [[2, 15, 18], [3, 12, 22], [5, 85, 24], [6, 88, 26]])}
     <div class="eq"><div class="eqt" id="eqt"></div>${L.viz ? `<div class="tf" id="tf">${'<i></i>'.repeat(10)}</div>` : ''}</div><div id="bl"></div>`;
   let r = 0, bl = [], since = 0, lock = false, raf, last = 0, spawnAt = 0, run = false;
   const tf = $('#tf'), layer = $('#bl');
@@ -6561,7 +6592,7 @@ function gBalloon(T) {
   function spawn() {
     const W = gs.clientWidth, H = gs.clientHeight, bw = W < 500 ? 66 : 78;
     let n; if (since >= 2 || Math.random() < .3) { n = need(); since = 0; } else { do n = pick(R[r].d); while (n === need()); since++; }
-    const el = document.createElement('div'); el.className = 'bal'; el.innerHTML = BAL(pick(COL), n);
+    const ci = Math.floor(Math.random() * 6), el = document.createElement('div'); el.className = 'bal bal2'; el.dataset.c = ci; el.innerHTML = `<img src="/grundschulmax/sp/bal/b${ci}.webp" alt="" draggable="false"><b>${fmt(n)}</b>`;
     const minX = W < 500 ? 8 : 190;
     const b = { el, n, x: rnd(minX, W - bw - 8), y: H + 10, v: rnd(46, 70) * L.sp * (W < 500 ? .9 : 1), ph: rnd(0, 6), dead: false };
     el.addEventListener('pointerdown', (e) => { e.preventDefault(); hit(b); });
@@ -6583,7 +6614,7 @@ function gBalloon(T) {
     if (lock || b.dead || !run) return;
     const gr = gs.getBoundingClientRect(), er = b.el.getBoundingClientRect(), cx = er.left - gr.left + er.width / 2, cy = er.top - gr.top + er.height * .35;
     if (b.n === need()) {
-      lock = true; b.dead = true; b.el.classList.add('popd'); sfx.pop(); setTimeout(sfx.ok, 120); burst(cx, cy, ['#f2b705', '#f47ba0', '#5aa2f7'], 18);
+      lock = true; b.dead = true; popBal(b.el); sfx.pop(); setTimeout(sfx.ok, 120); burst(cx, cy, ['#f2b705', '#f47ba0', '#5aa2f7'], 18);
       $('#eqt').innerHTML = eqHTML(b.n);
       if (tf) $$('i', tf).forEach((c, i) => { if (!c.classList.contains('f')) { c.style.animationDelay = i * .05 + 's'; c.className = 'a'; } });
       const s3 = right(); const k = s3 ? P.streak : okLine(); sayK(k, 'happy');
