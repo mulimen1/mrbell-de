@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="robots" content="noindex,nofollow">
+<title>Abenteuer-Pfad · Vorschau</title>
+<meta name="theme-color" content="#2ea9ff">
+<style>
+@font-face{font-family:G;src:url(../geist.woff2) format("woff2");font-weight:100 900;font-display:swap}@font-face{font-family:Grund;src:url(../grund.woff2) format("woff2");font-display:swap}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:#3aa0e8;font-family:G,system-ui,-apple-system,sans-serif;color:#1d1b26;overscroll-behavior:none}
+#w{position:fixed;inset:0;width:100%;height:100%;touch-action:none;display:block}
+button{font:inherit;border:0;cursor:pointer;color:inherit;background:none}
+.top{position:fixed;left:0;right:0;top:0;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:max(12px,env(safe-area-inset-top)) 14px 0;pointer-events:none}
+.top>*{pointer-events:auto}
+#chap{padding:10px 18px 12px 16px;border-radius:20px;background:linear-gradient(180deg,#fff,#f2f6ff);box-shadow:0 6px 0 rgba(20,40,90,.18),0 16px 30px -12px rgba(0,0,0,.35);opacity:0;transform:translateY(-12px)}
+#chap.in{animation:chin .7s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes chin{to{opacity:1;transform:none}}
+#chap small{display:block;font-weight:900;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:#ff6a1a}
+#chap b{display:block;font-family:Grund,G,sans-serif;font-size:24px;letter-spacing:-.02em;line-height:1.1}
+.stats{display:flex;gap:8px}
+.st{display:flex;align-items:center;gap:6px;padding:8px 12px 8px 8px;border-radius:999px;background:#fff;font-weight:900;font-size:17px;box-shadow:0 5px 0 rgba(20,40,90,.18)}
+.st i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:15px;color:#fff}
+.st.s i{background:linear-gradient(180deg,#ffd84a,#f2a900)}.st.l i{background:linear-gradient(180deg,#5bdc7c,#1f9e48)}.st.d i{background:linear-gradient(180deg,#ff9c4a,#ef5a12)}
+.st small{display:none}
+.pill{font-size:12px;padding:8px 12px}@media (max-width:520px){.st{font-size:14px;padding:6px 9px 6px 6px}.st i{width:22px;height:22px;font-size:12px}.stats{gap:5px}#chap{padding:8px 12px 9px}#chap b{font-size:19px!important}.top{padding-left:10px;padding-right:10px}}@media (min-width:760px){.st small{display:inline;font-weight:800;font-size:12.5px;color:#6b6780;margin-left:2px}}
+.bar{position:fixed;left:14px;top:calc(max(12px,env(safe-area-inset-top)) + 74px);display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.92);font-weight:850;font-size:13.5px;box-shadow:0 5px 0 rgba(20,40,90,.16)}
+#fab{position:fixed;right:14px;bottom:max(14px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;color:#fff;font-weight:900;font-size:16px;background:linear-gradient(180deg,#8a6cff,#5532c9);box-shadow:0 6px 0 #3a1f99,0 16px 30px -10px rgba(60,30,160,.6)}
+#subs{position:fixed;right:14px;bottom:calc(max(14px,env(safe-area-inset-bottom)) + 64px);width:min(330px,calc(100% - 28px));padding:14px;border-radius:24px;background:#fff;box-shadow:0 8px 0 rgba(20,40,90,.16),0 30px 50px -20px rgba(0,0,0,.4);transform:translateY(20px) scale(.96);opacity:0;pointer-events:none;transition:.25s cubic-bezier(.2,1.4,.4,1)}
+#subs.on{transform:none;opacity:1;pointer-events:auto}
+#subs b{display:block;font-size:17px;margin:0 0 2px}#subs p{font-size:13px;font-weight:700;color:#6b6780;margin:0 0 10px}
+#chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;align-items:center;gap:7px;padding:7px 12px 7px 7px;border-radius:999px;font-weight:850;font-size:14px;color:#8b8597;background:#f0edf5;text-decoration:line-through;transition:transform .12s}
+.chip i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:900;color:#fff;background:#c9c3d4}
+.chip.on{color:#fff;text-decoration:none;background:linear-gradient(180deg,var(--c),var(--d));box-shadow:0 4px 0 color-mix(in srgb,var(--d) 70%,#000)}
+.chip.on i{background:rgba(255,255,255,.25)}
+.chip:active{transform:scale(.94)}
+.shk{animation:shk .4s}
+@keyframes shk{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+#card{position:fixed;left:50%;bottom:max(80px,calc(env(safe-area-inset-bottom) + 76px));width:min(380px,calc(100% - 28px));transform:translate(-50%,30px) scale(.94);opacity:0;pointer-events:none;padding:16px 16px 14px;border-radius:26px;text-align:center;background:#fff;box-shadow:0 0 0 4px var(--c),0 9px 0 4px var(--d),0 30px 50px -16px rgba(0,0,0,.45);transition:.3s cubic-bezier(.2,1.5,.4,1)}
+#card.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+#card.shk{animation:shk2 .4s}@keyframes shk2{20%,60%{transform:translate(calc(-50% - 6px),0)}40%,80%{transform:translate(calc(-50% + 6px),0)}}
+#card small{display:block;font-weight:900;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--d)}
+#card b{display:block;font-size:26px;letter-spacing:-.02em;margin:2px 0}
+#card span{display:block;font-weight:750;color:#6b6780;margin-bottom:12px}
+.go{width:100%;height:56px;border-radius:18px;color:#fff;font-weight:900;font-size:19px;background:linear-gradient(180deg,var(--c),var(--d));box-shadow:0 6px 0 color-mix(in srgb,var(--d) 65%,#000)}
+.go:active{transform:translateY(4px);box-shadow:0 2px 0 color-mix(in srgb,var(--d) 65%,#000)}
+.go.off{filter:grayscale(.8);opacity:.6}
+#pay{position:fixed;inset:0;display:grid;place-items:center;padding:20px;background:rgba(20,16,40,.45);opacity:0;pointer-events:none;transition:.25s}
+#pay.on{opacity:1;pointer-events:auto}
+#pay>div{width:min(400px,100%);padding:24px 20px 18px;border-radius:28px;background:#fff;text-align:center;box-shadow:0 10px 0 #ffd84a,0 40px 60px -20px rgba(0,0,0,.5)}
+#pay b{display:block;font-size:24px;margin:6px 0}#pay p{font-weight:700;color:#6b6780;margin-bottom:16px}
+#card .lnk{display:block;margin:10px auto 0;font-weight:800;font-size:13px;color:#6b6780;text-decoration:underline}#paygo{--c:#3b8cff;--d:#1554c4}#payx{margin-top:10px;font-weight:800;color:#6b6780;text-decoration:underline}
+#load{position:fixed;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,#2ea9ff,#c9f1ff);transition:opacity .5s;z-index:9}
+#load.off{opacity:0;pointer-events:none}
+#load b{font-size:22px;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.15);animation:bob 1s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.hint{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);padding:10px 16px;border-radius:999px;background:rgba(0,0,0,.45);color:#fff;font-weight:800;font-size:14px;pointer-events:none;animation:hint 4s 1.2s forwards;opacity:0}
+@keyframes hint{10%,75%{opacity:1}100%{opacity:0}}
+</style>
+</head>
+<body>
+<canvas id="w"></canvas>
+<div class="top"><div id="chap"></div><div class="stats"><div class="st s"><i>★</i><span id="hs">0</span><small>Sterne</small></div><div class="st l"><i>✓</i><span id="hl">0</span><small>Lektionen</small></div><div class="st d"><i>🔥</i><span id="hd">0</span><small>Tage</small></div></div></div>
+<div class="bar"><button class="pill" id="paid"></button><button class="pill" id="reset">Neu starten</button></div>
+<button id="fab">Meine Fächer</button>
+<div id="subs"><b>Meine Fächer</b><p>Tippe ein Fach an, um es aus dem Pfad zu nehmen.</p><div id="chips"></div></div>
+<div id="card"></div>
+<div id="pay"><div><b>Hier geht das Abenteuer weiter</b><p>Alle Kapitel, alle Fächer und die Hausaufgaben-Hilfe. 7 Tage kostenlos, danach jederzeit kündbar.</p><button class="go" id="paygo">7 Tage kostenlos testen</button><button id="payx">Später</button></div></div>
+<div class="hint">Wischen zum Bewegen · Feld antippen</div>
+<div id="load"><b>Die Welt wird gebaut …</b></div>
+<script src="w.js"></script>
+</body>
+</html>
