@@ -3671,6 +3671,37 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 .g-rot2 .fertig{bottom:auto;top:auto;position:relative;left:auto;transform:none;margin-top:16px;z-index:3}
 @media (max-width:600px){.g-rot2{padding-bottom:140px!important}.rpen{width:84px;top:auto;bottom:150px;right:10px}}
 @media (min-width:601px){.rpen{right:max(10px,calc(50% - 480px));top:140px;width:130px}}
+/* ---------- Endscreen: Pokal, Sterne, Funkeln ---------- */
+.frw{position:relative;width:150px;height:130px;margin:-86px auto 0;pointer-events:none}
+.frw .fbu{position:absolute;left:50%;top:50%;width:240px;transform:translate(-50%,-50%);opacity:.9;animation:fbu 9s linear infinite,fpop .5s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes fbu{to{rotate:360deg}}
+@keyframes fpop{from{scale:0}to{scale:1}}
+.frw .fre{position:absolute;left:50%;top:50%;width:132px;transform:translate(-50%,-50%);filter:drop-shadow(0 12px 14px rgba(0,0,0,.3));animation:fpop .6s .1s cubic-bezier(.3,1.7,.5,1) both,fbob 2.4s 1s ease-in-out infinite}
+@keyframes fbob{50%{translate:0 -6px}}
+.frw .ffu{position:absolute;left:50%;top:40%;width:210px;transform:translate(-50%,-50%);animation:tw 1.8s ease-in-out infinite}
+.bs.bs2{display:flex;justify-content:center;gap:6px;margin:4px 0 6px}
+.fst{width:64px;height:auto;filter:grayscale(1) brightness(1.1);opacity:.35;animation:fstin .5s cubic-bezier(.3,1.7,.5,1) both}
+.fst.on{filter:drop-shadow(0 0 14px rgba(255,200,40,.85)) drop-shadow(0 6px 6px rgba(0,0,0,.2));opacity:1}
+.fst:nth-child(2){width:78px;margin-top:-10px}
+@keyframes fstin{from{transform:scale(0) rotate(-40deg)}to{transform:none}}
+@media (max-width:600px){.frw{width:120px;height:104px;margin-top:-70px}.frw .fbu{width:190px}.frw .fre{width:104px}.frw .ffu{width:170px}.fst{width:50px}.fst:nth-child(2){width:62px}}
+.gstage.open .fin .bs.bs2{margin:2px 0 10px;font-size:inherit}.gstage.open .fin .bs.bs2::before{display:none}
+.gstage.open .fin .frw{margin-top:-96px}
+.frw .ffu{top:30%;width:180px;opacity:.85}
+@media (max-width:700px){.gstage.open .fin .bs.bs2{margin-top:0}.gstage.open .fin .frw{margin-top:-80px}}
+.frw .fbu,.frw .fre,.frw .ffu{transform:none;translate:-50% -50%}
+.frw .fre{animation:fpop .6s .1s cubic-bezier(.3,1.7,.5,1) both,fbob2 2.4s 1s ease-in-out infinite}
+@keyframes fbob2{50%{margin-top:-6px}}
+.frw .ffu{animation:fftw 1.8s ease-in-out infinite}@keyframes fftw{50%{opacity:.25;scale:.9}}
+/* ruhiger: Strahlen dezent hinter dem Pokal, Sterne ohne Drehen */
+.frw .fbu{z-index:0;width:210px;opacity:.28;animation:fbu 24s linear infinite,fpop .5s both}
+.frw .fre{z-index:1}
+.fst{animation:fstin2 .45s ease-out both}@keyframes fstin2{from{scale:.4;opacity:0}to{scale:1}}
+.fst.on{filter:drop-shadow(0 0 6px rgba(255,200,40,.5)) drop-shadow(0 4px 4px rgba(0,0,0,.15))}
+.fst:not(.on){opacity:.3}
+@media (max-width:600px){.frw .fbu{width:170px}}
+.fbi.fbi2{background:none!important;box-shadow:none!important;width:44px;height:44px}
+.fbi.fbi2 img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 3px 3px rgba(0,0,0,.18));animation:fstin2 .35s ease-out both}
 </style>
 </head>
 <body>
@@ -4295,7 +4326,7 @@ function noLine() { return pick(P.no); }
 function fb(ok, title, text, opts = {}) {
   let f = $('.fb', gs); if (f) f.remove();
   f = document.createElement('div'); f.className = 'fb ' + (ok ? 'ok' : 'no');
-  f.innerHTML = `<span class="fbi">${I(ok ? 'check' : 'bulb')}</span><div class="fbt"><b>${title}</b>${text ? `<span>${text}</span>` : ''}</div>${opts.btn ? `<button class="b3d ${ok ? 'g' : 'o'}">${opts.btn}</button>` : ''}`;
+  f.innerHTML = `<span class="fbi fbi2"><img src="/grundschulmax/sp/fx/i-${ok ? 'ok' : 'nochmal'}.webp" alt=""></span><div class="fbt"><b>${title}</b>${text ? `<span>${text}</span>` : ''}</div>${opts.btn ? `<button class="b3d ${ok ? 'g' : 'o'}">${opts.btn}</button>` : ''}`;
   gs.appendChild(f);
   if (opts.btn) $('button', f).onclick = () => { f.remove(); opts.on && opts.on(); };
   else setTimeout(() => { if (f.isConnected) { f.classList.add('out'); setTimeout(() => f.remove(), 300); } }, opts.ms || 1600);
@@ -4335,7 +4366,8 @@ function finish(title, text) {
   const S = SUBJ[st.s], games = S.games.filter((g) => g.play), pi = games.indexOf(S.games[st.g]), nextG = pi >= 0 && pi < games.length - 1 ? S.games.indexOf(games[pi + 1]) : -1;
   const gd = typeof gameDone !== 'undefined' && gameDone; if (gd) { gameDone = null; gd(); }
   const o = document.createElement('div'); o.className = 'fin';
-  o.innerHTML = `<div class="fini"><div class="bs">${[0, 1, 2].map((i) => `<svg class="i${i < stars ? ' on' : ''}" style="animation-delay:${.15 + i * .18}s"><use href="#i-star"/></svg>`).join('')}</div>
+  const FX = (k) => `/grundschulmax/sp/fx/${k}.webp`;
+  o.innerHTML = `<div class="fini"><div class="frw"><img class="fbu" src="${FX('burst')}" alt=""><img class="fre" src="${FX(['truhe', 'medaille', 'pokal'][stars - 1])}" alt=""></div><div class="bs bs2">${[0, 1, 2].map((i) => `<img class="fst${i < stars ? ' on' : ''}" src="${FX(i < stars ? 'gold' : 'silber')}" alt="" style="animation-delay:${.35 + i * .2}s">`).join('')}</div>
     <h3>${title}</h3><p>${text}</p>
     <div class="stats"><div><small>Genauigkeit</small><b>${acc} %</b></div><div><small>Beste Serie</small><b>${st.best}</b></div><div><small>Zeit</small><b>${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}</b></div></div>
     <div class="row"><button class="b3d w" data-a="again">${I('again')}Nochmal</button>${gd ? `<button class="b3d c" data-a="path">Weiter im Lernpfad ${I('arrow')}</button>` : nextG >= 0 ? `<button class="b3d c" data-a="nextg">Nächstes Spiel ${I('arrow')}</button>` : `<button class="b3d c" data-a="next">${SUBJ[(st.s + 1) % SUBJ.length].n} spielen ${I('arrow')}</button>`}</div></div>`;
