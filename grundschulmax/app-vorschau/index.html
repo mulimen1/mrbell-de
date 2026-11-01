@@ -3233,6 +3233,31 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 @media (max-width:820px){.app[data-v=home] .afab{bottom:calc(84px + env(safe-area-inset-bottom))!important;left:10px;right:10px}}
 @media (min-width:821px){.aside .abrand{font-size:18px!important}.aside .abrand img{width:34px;height:34px}}
 @media (max-width:820px){.app[data-v=home] .amain{inset:0!important;margin:0!important;padding:0!important;height:auto!important;max-height:none!important}}
+/* Tier-Bilder mit Ausdruck und Glanz */
+.avt{position:relative;overflow:hidden}
+.avx{background:radial-gradient(circle at 35% 28%,#fff 0,#fff 30%,color-mix(in srgb,var(--av,#ccc) 38%,#fff) 100%)}
+.avx img{position:absolute;left:4%;top:7%;width:92%!important;height:92%!important;object-fit:contain;transition:none}
+.avx img.b,.avx img.h{opacity:0}
+.avx.bl img.n,.avx.hp img.n{opacity:0}.avx.bl img.b{opacity:1}.avx.hp img.h{opacity:1}
+.avx.hp{animation:avhop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes avhop{40%{transform:translateY(-6%) scale(1.04)}}
+.avt .gl{position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(60% 40% at 32% 18%,rgba(255,255,255,.75),rgba(255,255,255,0) 70%);box-shadow:inset 0 -6px 12px rgba(0,0,0,.08),inset 0 0 0 3px rgba(255,255,255,.7)}
+.avb .avt{box-shadow:0 6px 14px -6px rgba(0,0,0,.35)}
+.avb.on .avt{box-shadow:0 0 0 4px #2a7fe8,0 10px 18px -6px rgba(42,127,232,.6)}
+.avb:hover .avt{transform:translateY(-3px) scale(1.03)}.avb .avt{transition:transform .2s}
+/* Seitenleiste: Tutoren statt Fach-Symbole, alle Knöpfe gleich groß, größere Marke */
+.aside .tab .ti.tt{padding:0;overflow:hidden;background:rgba(255,255,255,.3)!important;border-radius:12px!important}
+.aside .tab .ti.tt{display:block!important;position:relative}.aside .tab .ti.tt .tut{position:absolute;width:46px!important;height:46px;left:-4px;top:2px}
+.app .aside .anv.anhome,.app .aside .anv.hw{height:58px!important;font-size:16.5px!important;gap:12px!important;padding:0 12px 0 8px!important;border-radius:16px!important}
+.app .aside .anv.anhome .ti,.app .aside .anv.hw .ti{width:38px!important;height:38px!important;border-radius:12px!important;background:rgba(255,255,255,.2)!important;color:#fff!important;font-size:20px!important}
+.app .aside .anv.anhome .ti svg,.app .aside .anv.hw .ti svg{width:20px!important;height:20px!important;color:#fff!important}
+@media (min-width:821px){
+  .aside .abrand{font-size:19.5px!important;gap:8px!important;padding:6px 0 18px!important}.aside .abrand img{width:44px!important;height:44px!important}
+  .acol{display:grid!important;position:absolute!important;left:253px!important;right:auto!important;top:32px!important;z-index:45!important;width:30px!important;height:30px!important;border-radius:50%!important;background:#fff!important;color:#6b6780!important;box-shadow:0 3px 0 rgba(20,40,90,.14),0 8px 16px -6px rgba(0,0,0,.3);transition:opacity .25s,transform .35s cubic-bezier(.3,1.2,.4,1)}
+  .acol:hover{color:#2b2440!important}.acol svg{width:15px!important;height:15px!important}
+  .app.acl .acol{opacity:0;pointer-events:none;transform:translateX(-260px)}
+  .aside .abrand{padding-right:4px!important}
+}
 </style>
 </head>
 <body>
@@ -3321,7 +3346,6 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 <div class="view" data-s="spiel">
   <div class="app" id="app">
     <aside class="aside">
-      <button class="acol" id="acol" aria-label="Leiste einklappen"><svg class="i"><use href="#i-arrow"/></svg></button>
       <button class="abrand" data-nav="web" aria-label="Zur Website"><img src="/grundschulmax/max-96.png" alt=""><span>Grundschul<b>max</b></span></button>
       <nav class="anav">
         <button class="anv anhome" data-nav="home"><span class="ti"><svg class="i"><use href="#i-map"/></svg></span>Abenteuer</button>
@@ -3331,6 +3355,7 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
       </nav>
       <div class="afoot"><div class="agrade" id="gchip2"></div><button class="aprofb" id="aprofb" data-nav="profile"></button><button class="aico alegalb" id="alegal" type="button"><svg class="i"><use href="#i-shield"/></svg><span>Rechtliches</span></button></div>
     </aside>
+    <button class="acol" id="acol" aria-label="Leiste einklappen"><svg class="i"><use href="#i-arrow"/></svg></button>
     <button class="aopen" id="aopen" aria-label="Leiste öffnen"><svg class="i"><use href="#i-arrow"/></svg>Menü</button>
     <main class="amain">
       <div class="demo picked" id="game">
@@ -7620,7 +7645,7 @@ const MIX_ORDER = ['mathe', 'deutsch', 'ki', 'englisch', 'sach', 'franz'], MIX_F
 const MIX_X = [0, 140, 210, 140, 0, -140, -210, -140];
 let MIXRUN = null;
 const mixSt = () => { LPS._mix = LPS._mix || {}; const m = LPS._mix; m.off = m.off || []; m.d = m.d || {}; return m; };
-const mixLes = (k, g) => { const out = []; lpLevels(k, g).forEach((lv, li) => (lv.L || []).forEach((_, j) => out.push({ li, j, t: lv.t }))); return out; };
+const mixLes = (k, g) => { const out = []; lpLevels(k, g).forEach((lv, li) => (lv.L || []).forEach((_, j) => out.push({ li, j, t: lv.t, d: lv.d || '' }))); return out; };
 const mixDone = () => { const m = mixSt(); return Object.values(m.d).reduce((a, b) => a + b, 0); };
 function mixStations(g) {
   const m = mixSt(), act = MIX_ORDER.filter((k) => !m.off.includes(k) && mixLes(k, g).length), A = act.length, out = [];
@@ -7634,18 +7659,17 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = 'd4495762';
+const PFV = '77fc09f1';
 let PF = null, pfLoading = null;
-const AVF = { fuchs: { src: '/grundschulmax/av/fuchs.png', eyes: [[142, 258, 50, 52], [318, 270, 52, 54]], lid: '#f27a24' } };
 function pfFace() {
-  const a = PROF().av; if (AVF[a]) return AVF[a];
+  const a = PROF().av; if (AVX[a]) return { src: avSrc(a, 'n'), blink: avSrc(a, 'b'), happy: avSrc(a, 'h'), sad: avSrc(a, 's'), fit: { x: 18, y: 20, s: 220 } };
   const A = AV[a] || AV.fuchs;
   return { src: 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512"><circle cx="50" cy="50" r="50" fill="${A[0]}" opacity=".25"/>${A[1]}</svg>`), fit: { x: 26, y: 22, s: 204 } };
 }
 function pfList() {
   const g = Math.max(0, st.grade), all = mixStations(g).slice(0, 36);
   let cur = all.findIndex((s) => !s.done); if (cur < 0) cur = all.length;
-  return all.map((s, n) => { const free = PAID || n < MIX_FREE; return { k: s.k, t: s.t, j: s.j + 1, li: s.li, jj: s.j, r: s.r, state: !free ? 'pay' : s.done ? 'done' : n === cur ? 'cur' : 'next' }; });
+  return all.map((s, n) => { const free = PAID || n < MIX_FREE; return { k: s.k, t: s.t, d: s.d, j: s.j + 1, li: s.li, jj: s.j, r: s.r, state: !free ? 'pay' : s.done ? 'done' : n === cur ? 'cur' : 'next' }; });
 }
 const PFHOST = {
   list: pfList,
@@ -7654,6 +7678,7 @@ const PFHOST = {
   toggle: (k) => { const m = mixSt(), i = m.off.indexOf(k); if (i >= 0) m.off.splice(i, 1); else { if (MIX_ORDER.length - m.off.length <= 1) { lpToast('Ein Fach muss mindestens dabei sein.'); return false; } m.off.push(k); } lpSave(); return true; },
   name: () => PROF().name,
   face: pfFace,
+  tutor: (k) => { const S = SUBJ.find((x) => x.k === k); return { src: `/grundschulmax/tut-${S.tutor.id}.png`, name: S.tutor.n }; },
   play: (n, s) => { st.s = SUBJ.findIndex((x) => x.k === s.k); MIXRUN = { k: s.k, g: Math.max(0, st.grade), r: s.r, n }; startLesson(s.li, s.jj, n); },
   pay: () => paywall(),
 };
@@ -8159,10 +8184,23 @@ const AV = {
 };
 const AVN = { fuchs: 'Fuchs', katze: 'Katze', panda: 'Panda', frosch: 'Frosch', eule: 'Eule', hase: 'Hase' };
 const PROF = () => ({ name: lsx.get('gsm-name', ''), av: (lsx.get('gsm-av', 'fuchs') === 'foto' ? 'fuchs' : lsx.get('gsm-av', 'fuchs')), photo: lsx.get('gsm-photo', ''), limit: +lsx.get('gsm-limit', 0), hw: lsx.get('gsm-hwon', '1') === '1', pin: lsx.get('gsm-pin', '') });
+/* Neue Tier-Bilder mit Gesichtsausdrücken: n = normal, b = blinzeln, h = glücklich, s = traurig */
+const AVX = { fuchs: 1, katze: 1, panda: 1 };
+const avSrc = (a, k) => `/grundschulmax/av/${a}-${k}.webp`;
 function avHTML(P0 = PROF()) {
   const A = AV[P0.av] || AV.fuchs;
-  return `<span class="avt" style="--av:${A[0]}"><svg viewBox="0 0 100 100">${A[1]}</svg></span>`;
+  if (AVX[P0.av]) return `<span class="avt avx" style="--av:${A[0]}"><img class="n" src="${avSrc(P0.av, 'n')}" alt=""><img class="b" src="${avSrc(P0.av, 'b')}" alt="" loading="lazy"><img class="h" src="${avSrc(P0.av, 'h')}" alt="" loading="lazy"><i class="gl"></i></span>`;
+  return `<span class="avt" style="--av:${A[0]}"><svg viewBox="0 0 100 100">${A[1]}</svg><i class="gl"></i></span>`;
 }
+/* Leben in den Profilbildern: ab und zu blinzeln, manchmal kurz lächeln */
+setInterval(() => {
+  document.querySelectorAll('.avx').forEach((el) => {
+    if (!el.offsetParent || el.dataset.busy) return;
+    const r = Math.random(); if (r > .32) return;
+    const cls = r < .24 ? 'bl' : 'hp', ms = cls === 'bl' ? 150 : 1300;
+    el.dataset.busy = '1'; setTimeout(() => { el.classList.add(cls); setTimeout(() => { el.classList.remove(cls); delete el.dataset.busy; }, ms); }, Math.random() * 1400);
+  });
+}, 1600);
 function profName() { return PROF().name || 'Profil'; }
 function drawProfile() {
   const h = $('#aprof'); if (!h) return;
@@ -8200,7 +8238,7 @@ function drawProfile() {
   }));
   $$('.pfg button', h).forEach((b) => (b.onclick = () => { gsel = +b.dataset.g; $$('.pfg button', h).forEach((x) => x.classList.toggle('on', x === b)); sfx.tap(); }));
   $$('#pfdark button', h).forEach((b) => (b.onclick = () => { const want = b.dataset.v === '1'; if (want !== document.body.classList.contains('dark')) toggleDark(); $$('#pfdark button', h).forEach((x) => x.classList.toggle('on', x === b)); }));
-  $('#pfs').onclick = () => { lsx.set('gsm-name', $('#pfn').value.trim()); lsx.set('gsm-av', av); lsx.set('gsm-photo', ''); st.grade = gsel; drawGrade(); drawLPCards(); sfx.ok(); drawSideProf(); lpToast('Gespeichert!'); drawProfile(); };
+  $('#pfs').onclick = () => { lsx.set('gsm-name', $('#pfn').value.trim()); lsx.set('gsm-av', av); if (typeof PF !== 'undefined' && PF) PF.face(pfFace()).then(() => PF.hero()); lsx.set('gsm-photo', ''); st.grade = gsel; drawGrade(); drawLPCards(); sfx.ok(); drawSideProf(); lpToast('Gespeichert!'); drawProfile(); };
   $('#pfpar').onclick = () => { st.nav = 'parents'; mount(); };
 }
 let parOpen = false;
@@ -8602,7 +8640,7 @@ addEventListener('resize', layoutArc);
 st.grade = (() => { try { const g = localStorage.getItem('gsm-grade'); return g === null ? -1 : +g; } catch (e) { return -1; } })();
 $$('#pick [data-g]').forEach((b) => (b.onclick = () => { st.grade = +b.dataset.g; drawGrade(); voice(P.pick); drawLPCards(); if (st.next != null) { const n = st.next; st.next = null; goTo(...n); } else { st.nav = 'home'; go('spiel'); mount(); } }));
 function drawGrade() { try { if (st.grade >= 0) localStorage.setItem('gsm-grade', st.grade); } catch (e) {} const t = st.grade < 0 ? '' : `${I('cap')}${GRADES[st.grade][0]} · ${GRADES[st.grade][2]}`; ['#gchip', '#gchip2'].forEach((q) => { $(q).innerHTML = t; $(q).style.display = t ? '' : 'none'; }); }
-$('#tabs').innerHTML = SUBJ.map((s, i) => `<button class="tab" role="tab" data-i="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="ti">${s.ic}</span>${s.n}</button>`).join('');
+$('#tabs').innerHTML = SUBJ.map((s, i) => `<button class="tab" role="tab" data-i="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="ti tt">${tutorHTML(s.tutor.id)}</span>${s.n}</button>`).join('');
 $$('#tabs .tab').forEach((t) => (t.onclick = () => { st.s = +t.dataset.i; st.g = 0; st.nav = 'subj'; st.w = 'path'; mount(); $('.amain').scrollTop = 0; t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); }));
 st.w = 'path';
 $$('#wtabs button').forEach((b) => (b.onclick = () => { st.w = b.dataset.w; mount(); }));
