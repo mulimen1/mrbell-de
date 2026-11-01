@@ -2406,6 +2406,99 @@ body.dark .qmf{background:#2a3042;color:#fff}
 }
 .amain .demo{max-width:1000px!important}
 .asubj .sc .scb{font-size:clamp(24px,2.3vw,32px)!important;overflow-wrap:normal}
+/* ===================== v11: volle Fachfarben, tiefe Knöpfe, ganzer Pfad ===================== */
+/* Ganzer Hintergrund in der Fachfarbe */
+.app{--bg1:color-mix(in srgb,var(--c1) 80%,var(--c2));--bg2:var(--c2)}
+.app[data-nav=home]{--c1:#4f8ff0;--c2:#1a4fb4}
+.app[data-nav=hw]{--c1:#8a6cf0;--c2:#4a33b8}
+.amain{background:var(--patd) 0 0/260px 260px,linear-gradient(170deg,var(--bg1),var(--bg2))!important;background-attachment:local,fixed!important;transition:background .4s}
+.amain{background:var(--pat) 0 0/260px 260px,linear-gradient(170deg,var(--bg1),var(--bg2))!important}
+body.dark .amain{background:var(--pat) 0 0/260px 260px,linear-gradient(170deg,color-mix(in srgb,var(--c2) 60%,#0b0e1a),color-mix(in srgb,var(--c2) 35%,#0b0e1a))!important}
+.app::before{display:none}
+/* Pfad liegt direkt auf dem Hintergrund */
+.lpath{background:none!important;box-shadow:none!important;animation:none!important;padding:10px 0 60px!important;overflow:visible!important}
+.lpath::before,.lpath::after{display:none}
+.rd0{stroke:rgba(255,255,255,.28)!important;opacity:1!important}
+.rd1{stroke:rgba(255,255,255,.85)!important}
+.lvb{background:#fff!important;color:var(--ink)!important;box-shadow:0 8px 0 rgba(0,0,0,.16),0 24px 40px -24px rgba(0,0,0,.5)!important}
+.lvb .lvt small{color:var(--c2)}.lvb .lvt span{color:#5f594d;opacity:1}
+.lvb .lvr circle{stroke:color-mix(in srgb,var(--c1) 22%,#fff)}.lvb .lvr circle.f{stroke:var(--c2)}.lvb .lvr span{color:var(--c2)}
+.nd{--n1:#fff;--n2:#eef1f6;color:var(--c2)!important;box-shadow:0 8px 0 rgba(0,0,0,.2),0 18px 26px -14px rgba(0,0,0,.45)!important}
+.nd .ndi b{text-shadow:none!important}
+.nd.done{--n1:#ffd64a;--n2:#f2a900;color:#fff!important}
+.nd.pay,.nd.lock{--n1:rgba(255,255,255,.4);--n2:rgba(255,255,255,.28);color:#fff!important;box-shadow:0 8px 0 rgba(0,0,0,.12)!important}
+.nd.cur::after{box-shadow:0 0 0 4px rgba(255,255,255,.45),0 0 30px rgba(255,255,255,.5)!important}
+.wtabs{background:rgba(0,0,0,.14)!important;box-shadow:none!important}
+.wtabs button{color:rgba(255,255,255,.85)!important}
+.wtabs button.on{color:var(--c2)!important;background:#fff!important}
+.zhead{box-shadow:0 8px 0 rgba(0,0,0,.18),0 0 0 3px rgba(255,255,255,.25)!important}
+.lpsum{box-shadow:0 6px 0 rgba(0,0,0,.14)!important}
+/* Gesperrter Teil: ganzer Weg sichtbar, unscharf */
+.lpblur{max-height:none!important;-webkit-mask:none!important;mask:none!important;filter:blur(4px)!important;opacity:.85}
+.lppay{align-items:stretch!important;padding-top:60px!important}
+.lppc{position:sticky!important;top:120px;align-self:flex-start;margin-bottom:40px}
+/* Übersicht und Hausaufgaben auf Farbe */
+.ahh b,.ahh span,.ahh small,.hwh b,.hwh span:not(.hwk){color:#fff!important}
+.ahh small{opacity:.9}
+.ahwb{background:#fff!important;color:#2a2a2a!important;box-shadow:0 7px 0 rgba(0,0,0,.18)!important}
+.ahwb .ahwi{background:linear-gradient(135deg,#8a6cf0,#4a33b8)!important;color:#fff}.ahwb small{color:#5f594d}.ahwb>svg{color:#4a33b8}
+.kt{transition:transform .2s var(--e),box-shadow .2s}
+.kt:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 11px 0 var(--a3),0 26px 34px -18px var(--a2)}
+.kt:hover .kti{animation:bump .5s var(--e)}
+.afab{box-shadow:0 0 0 3px #fff,0 6px 0 3px #123f86,0 24px 40px -14px rgba(0,0,0,.5)!important}
+
+/* Spiele größer, mit Nutzen */
+.path{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))!important;gap:20px!important;max-width:none!important}
+.gk{box-shadow:0 8px 0 rgba(0,0,0,.18),0 24px 40px -24px rgba(0,0,0,.5)!important;transition:transform .2s var(--e)}
+.gk:hover{transform:translateY(-5px)!important}
+.gkv{height:180px!important}
+.gkv .cvi{font-size:78px}
+.gkt{padding:16px 18px 4px!important}
+.gkt b{font-size:22px!important}
+.gkben{display:flex;gap:8px;align-items:flex-start;margin-top:10px;padding:10px 12px;border-radius:14px;background:color-mix(in srgb,var(--c1) 12%,#fff);color:color-mix(in srgb,var(--c2) 80%,#000);font-style:normal;font-weight:750;font-size:14.5px;line-height:1.35}
+.gkben svg{flex:none;width:20px;height:20px;padding:3px;border-radius:50%;background:var(--c2);color:#fff;margin-top:1px}
+body.dark .gkben{background:color-mix(in srgb,var(--c1) 18%,#1e2230);color:#e8ecf6}
+
+/* Seitenleiste: Logo bleibt oben, nur die Liste scrollt */
+.aside{overflow:hidden!important;padding-bottom:12px!important}
+.abrand{flex:none}
+.anav{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:4px 6px 10px;margin:0 -6px;scrollbar-width:none}
+.anav::-webkit-scrollbar{display:none}
+.afoot{flex:none;display:flex;flex-direction:column;gap:8px;padding-top:10px;border-top:2px solid #f1ece2}
+.agrade{margin:0!important}
+.arow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.aico{display:flex;align-items:center;justify-content:center;gap:6px;height:40px;border-radius:12px;font-weight:800;font-size:13.5px;color:#6e6556;background:#f6f2ea}
+.aico:hover{background:#ece6db}
+body.dark .afoot{border-color:#252a3a}body.dark .aico{background:#232838;color:#cfd5e4}
+/* Tiefe Farben wie bei BWL Max */
+.aside .tab,.anv{height:58px!important;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 55%),linear-gradient(110deg,var(--c2),color-mix(in srgb,var(--c1) 75%,var(--c2)))!important;color:#fff!important;box-shadow:0 4px 0 color-mix(in srgb,var(--c2) 60%,#000)!important;margin-bottom:6px!important;border-radius:16px!important}
+.aside .tab .ti,.anv .ti{background:rgba(255,255,255,.2)!important;color:#fff!important;box-shadow:none!important}
+.aside .tab:hover,.anv:hover{transform:translateY(-2px)!important;filter:brightness(1.07)}
+.aside .tab.on,.anv.on{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--c2),0 4px 0 6px color-mix(in srgb,var(--c2) 60%,#000)!important;margin:6px 6px 12px!important;width:calc(100% - 12px)!important}
+.anv.anhome{--c1:#ffb547;--c2:#e2620f;height:66px!important;font-size:19px!important}
+.anv.anhome .ti{font-size:26px!important}
+.anv.hw{--c1:#8a6cf0;--c2:#4a33b8}
+.anv em{background:rgba(255,255,255,.25)!important;color:#fff!important}
+body.dark .aside .tab:not(.on),body.dark .anv:not(.on){color:#fff!important}
+
+/* Lektionsende in voller Fachfarbe */
+.lesend{background:var(--pat) 0 0/240px 240px,radial-gradient(70% 60% at 50% 30%,color-mix(in srgb,var(--c1) 85%,#fff),var(--c1) 45%,var(--c2))!important}
+.lee h3,.lee p,.lew{color:#fff!important}
+.lee .lew{background:rgba(0,0,0,.18)!important}
+.lee .bs svg{font-size:50px}.lee .bs svg:not(.on){color:rgba(255,255,255,.35)}
+.lee .lego{color:#fff!important;opacity:.9}
+.lefree{background:#fff!important}
+.leet .tut.talk{animation:none}
+
+@media (max-width:820px){
+  .aside{overflow:visible!important}
+  .anav{overflow-x:auto;overflow-y:hidden;margin:0;padding:4px}
+  .afoot{display:none}
+  .aside .tab,.anv{height:46px!important;margin:0!important;box-shadow:0 3px 0 color-mix(in srgb,var(--c2) 60%,#000)!important}
+  .aside .tab.on,.anv.on{margin:4px!important;width:auto!important}
+  .path{grid-template-columns:1fr!important}
+  .lppc{top:80px}
+}
 </style>
 </head>
 <body>
@@ -2499,10 +2592,7 @@ body.dark .qmf{background:#2a3042;color:#fff}
         <small class="anh">Fächer</small>
         <div class="tabs" id="tabs" role="tablist"></div>
       </nav>
-      <div class="agrade" id="gchip2"></div>
-      <div class="alegal"><a href="#preise" data-to="preise">Preise</a><a href="#sicherheit" data-to="sicherheit">Sicherheit</a><a href="#datenschutz" data-to="datenschutz">Datenschutz</a></div>
-      <button class="aweb adark" id="adark" type="button"><svg class="i"><use href="#i-star"/></svg><span>Dunkel</span></button>
-      <button class="aweb" data-nav="web"><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg>Zur Website</button>
+      <div class="afoot"><div class="agrade" id="gchip2"></div><div class="arow"><button class="aico adark" id="adark" type="button" aria-label="Dunkelmodus"><svg class="i"><use href="#i-star"/></svg><span>Dunkel</span></button><button class="aico" data-nav="web" aria-label="Zur Website"><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg><span>Website</span></button></div></div>
     </aside>
     <main class="amain">
       <div class="demo picked" id="game">
@@ -2905,7 +2995,7 @@ function tutorHTML(id) {
 }
 let talkT = null;
 function talk(on, ms) {
-  const els = document.querySelectorAll('#dmax .tut, .les.on .lestut .tut, .tiv.on .tivt .tut'); if (!els.length) return;
+  const els = document.querySelectorAll('#dmax .tut, .les.on .lestut .tut, .les.on .leet .tut, .tiv.on .tivt .tut'); if (!els.length) return;
   clearTimeout(talkT); els.forEach((el) => el.classList.toggle('talk', !!on));
   if (on && ms) talkT = setTimeout(() => els.forEach((el) => el.classList.remove('talk')), ms);
 }
@@ -6037,7 +6127,7 @@ function gChat(T) {
 }
 
 /* ---------- Lernpfad wie bei Duolingo: Level -> 4 Lektionen -> Spiel ---------- */
-const LPKEY = 'gsm-lp1', LV_FREE = 2, PER = 5; // 2 Level frei in der Vorschau, je Level 4 Lektionen + 1 Spiel
+const LPKEY = 'gsm-lp2', LV_FREE = 2, PER = 5; // 2 Level frei in der Vorschau, je Level 4 Lektionen + 1 Spiel
 let LPS = {}; try { LPS = JSON.parse(localStorage.getItem(LPKEY) || '{}') || {}; } catch (e) { LPS = {}; }
 const lpSave = () => { try { localStorage.setItem(LPKEY, JSON.stringify(LPS)); } catch (e) {} };
 const lpProg = (k, g) => (LPS[k + g] = LPS[k + g] || { n: 0, xp: 0 });
@@ -6089,7 +6179,7 @@ function drawLP(justN) {
   $$('.nd', host).forEach((b) => (b.onclick = () => nodeClick(+b.dataset.n, b)));
   $$('.lpclear,.lpblur', host).forEach(drawRoad);
   const st0 = lpStat(S.k, g);
-  $('#lpsum') && ($('#lpsum').innerHTML = `<div class="lps1"><small>Lernstand ${S.n}</small><b>Level ${st0.lv + 1}: ${st0.title}</b></div><div class="lpbar"><i style="width:${Math.max(4, Math.round(Math.min(st0.n, L.length * PER) / (L.length * PER) * 100))}%"></i></div><div class="lpxp">${I('star')}<b>${st0.xp}</b><span>Punkte</span></div>`);
+  $('#lpsum') && ($('#lpsum').innerHTML = `<div class="lps1"><small>Lernstand ${S.n}</small><b>Level ${st0.lv + 1}: ${st0.title}</b></div><div class="lpbar"><i style="width:${Math.max(4, Math.round(Math.min(st0.n, L.length * PER) / (L.length * PER) * 100))}%"></i></div><div class="lpxp">${I('star')}<b>${st0.xp}</b><span>Sterne</span></div>`);
 }
 function drawRoad(box) {
   const nodes = $$('.nd', box); if (!nodes.length) return;
@@ -6103,7 +6193,7 @@ function nodeClick(n, b) {
   const S = SUBJ[st.s], p = lpProg(S.k, st.grade), li = Math.floor(n / PER), j = n % PER;
   if (!canPlay(n)) { restart(b, 'shk'); paywall(); return; }
   if (n > p.n) { restart(b, 'shk'); lpToast('Schaff erst die Station davor.'); return; }
-  if (j === PER - 1) { openGame(S.games.indexOf(S.games[Math.min(li, S.games.length - 1)]), () => lpComplete(n, 30)); return; }
+  if (j === PER - 1) { openGame(S.games.indexOf(S.games[Math.min(li, S.games.length - 1)]), () => lpComplete(n, 5)); return; }
   startLesson(li, j, n);
 }
 function lpToast(t, cta) {
@@ -6193,17 +6283,17 @@ function lesResult(ok, sol) {
   if (ok) { const cur = x; LS.adv = setTimeout(() => { if (LS && LS.state === 'res' && LS.cur === cur) lesNext(); }, x.e ? 3200 : 1900); }
 }
 function lesEnd() {
-  const S = SUBJ[st.s], secs = Math.round((Date.now() - LS.t0) / 1000), acc = Math.round(LS.first / LS.total * 100), xp = 10 + LS.first * 2 + (acc === 100 ? 5 : 0);
-  const stars = acc >= 85 ? 3 : acc >= 60 ? 2 : 1, n = LS.n, last = LS.j === PER - 2;
+  const S = SUBJ[st.s], secs = Math.round((Date.now() - LS.t0) / 1000), acc = Math.round(LS.first / LS.total * 100), xp = Math.max(1, Math.round(acc / 20));
+  const stars = xp, n = LS.n, last = LS.j === PER - 2;
   sfx.win(); confetti(70); les.dataset.state = 'end';
   const e = document.createElement('div'); e.className = 'lesend';
-  e.innerHTML = `<div class="lee"><div class="leet">${tutorHTML(S.tutor.id)}</div><div class="bs">${[0, 1, 2].map((i) => `<svg class="i${i < stars ? ' on' : ''}" style="animation-delay:${.2 + i * .18}s"><use href="#i-star"/></svg>`).join('')}</div>
+  e.innerHTML = `<div class="lee"><div class="leet">${tutorHTML(S.tutor.id)}</div><div class="bs">${[0, 1, 2, 3, 4].map((i) => `<svg class="i${i < stars ? ' on' : ''}" style="animation-delay:${.2 + i * .15}s"><use href="#i-star"/></svg>`).join('')}</div>
     <small class="lew">${LS.world.n} geschafft</small><h3>${acc === 100 ? 'Perfekt gespielt!' : 'Lektion geschafft!'}</h3><p>${last ? `Jetzt wartet das Spiel am Ende von Level ${LS.li + 1}.` : `Lektion ${LS.j + 1} von 4 in Level ${LS.li + 1}.`}</p>
-    <div class="lestats"><div class="lsx"><small>Punkte</small><b>+${xp + LS.pts}</b></div><div class="lsa"><small>Genauigkeit</small><b>${acc} %</b></div><div class="lst"><small>Zeit</small><b>${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}</b></div></div>
+    <div class="lestats"><div class="lsx"><small>Sterne</small><b>+${xp}</b></div><div class="lsa"><small>Genauigkeit</small><b>${acc} %</b></div><div class="lst"><small>Zeit</small><b>${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}</b></div></div>
     ${!PAID && n + 1 >= FREE_N ? `<div class="lefree"><b>Das war die Probe-Lektion!</b><span>Im Abo geht es weiter: alle Level, alle Spiele und die Hausaufgaben-Hilfe.</span></div><button class="b3d lg" data-a="pay">${I('play')}7 Tage kostenlos testen</button><button class="lnk lego" data-a="go">Zurück zur Karte</button>` : `<button class="b3d c lg" data-a="go">Weiter ${I('arrow')}</button>`}</div>`;
   $('.lesin', les).appendChild(e);
-  $('.lestut', les).className = 'lestut happy'; voice([P.done1, P.done2, P.done3][stars - 1]);
-  const tot = xp + LS.pts; $('[data-a=go]', e).onclick = () => { closeLesson(); lpComplete(n, tot); };
+  $('.lestut', les).className = 'lestut happy'; voice(stars >= 5 ? P.done3 : stars >= 3 ? P.done2 : P.done1);
+  const tot = xp; $('[data-a=go]', e).onclick = () => { closeLesson(); lpComplete(n, tot); };
   const pb = $('[data-a=pay]', e); if (pb) pb.onclick = () => { closeLesson(); lpComplete(n, tot); paywall(); };
 }
 document.addEventListener('keydown', (e) => {
@@ -6553,7 +6643,7 @@ function reward(ok, streak) {
   if (!ok) return;
   const pts = 10 + (streak >= 3 ? 5 : 0);
   const p = document.createElement('div'); p.className = 'praise' + (streak >= 3 ? ' big' : '');
-  p.innerHTML = `<b>${streak >= 3 ? `${streak}er-Serie!` : pick(PRAISE)}</b><span>+${pts}</span>`;
+  p.innerHTML = `<b>${streak >= 3 ? `${streak}er-Serie!` : pick(PRAISE)}</b>`;
   host.appendChild(p); setTimeout(() => p.remove(), 1500);
   if (streak >= 3) sfx.streak(); else sfx.ok();
   const ex = $('.lesex', les), tgt = $('.lespts', les); if (!ex || !tgt) return;
@@ -6562,7 +6652,7 @@ function reward(ok, streak) {
     const s = document.createElement('i'); s.className = 'flyp'; s.innerHTML = I('star'); document.body.appendChild(s);
     const x0 = a.left + a.width / 2 + rnd(-60, 60), y0 = a.top + a.height / 2 + rnd(-40, 40);
     s.style.left = x0 + 'px'; s.style.top = y0 + 'px';
-    s.animate([{ transform: 'translate(-50%,-50%) scale(.3)', opacity: 0 }, { transform: `translate(calc(-50% + ${rnd(-40, 40)}px),calc(-50% - 60px)) scale(1.3)`, opacity: 1, offset: .3 }, { transform: `translate(calc(-50% + ${b.left + b.width / 2 - x0}px),calc(-50% + ${b.top + b.height / 2 - y0}px)) scale(.5)`, opacity: 1 }], { duration: 900, delay: 120 + i * 70, easing: 'cubic-bezier(.5,0,.3,1)', fill: 'forwards' }).onfinish = () => { s.remove(); if (i === 4) { LS && (LS.pts += pts); const n = $('.lespts b', les); if (n && LS) { n.textContent = LS.pts; restart($('.lespts', les), 'bump'); } } };
+    s.animate([{ transform: 'translate(-50%,-50%) scale(.3)', opacity: 0 }, { transform: `translate(calc(-50% + ${rnd(-40, 40)}px),calc(-50% - 60px)) scale(1.3)`, opacity: 1, offset: .3 }, { transform: `translate(calc(-50% + ${b.left + b.width / 2 - x0}px),calc(-50% + ${b.top + b.height / 2 - y0}px)) scale(.5)`, opacity: 1 }], { duration: 900, delay: 120 + i * 70, easing: 'cubic-bezier(.5,0,.3,1)', fill: 'forwards' }).onfinish = () => { s.remove(); if (i === 4 && LS) { const v = Math.round((LS.first + (LS.cur && !LS.missed && !LS.cur._re ? 0 : 0)) / LS.total * 5), n = $('.lespts b', les); if (n && +n.textContent !== v) { n.textContent = v; restart($('.lespts', les), 'bump'); } } };
   }
 }
 
@@ -6680,28 +6770,28 @@ const PV = {
 };
 const SUBJ = [
   { k: 'mathe', n: 'Mathe', c1: '#5aa2f7', c2: '#1a5fc4', ic: I('pm'), tutor: { id: 'mila', n: 'Mila' }, games: [
-    { n: 'Ballon-Jagd', d: 'Plus, Minus, Einmaleins', play: gBalloon, ic: 'ballon' }, { n: 'Frosch-Sprung', d: 'Zahlenstrahl bis 1 Million', play: gFrosch, ic: 'frog' },
-    { n: 'Einmaleins-Rennen', d: 'Rechnen um die Wette', pv: 'rennen' }, { n: 'Uhr-Detektiv', d: 'Uhrzeiten lesen', pv: 'uhr' }, { n: 'Kaufladen', d: 'Rechnen mit Geld', pv: 'laden' }],
+    { n: 'Ballon-Jagd', b: 'Rechnet schneller im Kopf und lernt Zehner-Freunde und Einmaleins sicher.', d: 'Plus, Minus, Einmaleins', play: gBalloon, ic: 'ballon' }, { n: 'Frosch-Sprung', b: 'Bekommt ein Gefühl für Zahlen: Wo liegt eine Zahl, was ist größer, was kleiner?', d: 'Zahlenstrahl bis 1 Million', play: gFrosch, ic: 'frog' },
+    { n: 'Einmaleins-Rennen', b: 'Das Einmaleins sitzt blitzschnell, ohne langweiliges Auswendiglernen.', d: 'Rechnen um die Wette', pv: 'rennen' }, { n: 'Uhr-Detektiv', b: 'Kann die Uhr lesen und versteht Viertel, halb und Minuten.', d: 'Uhrzeiten lesen', pv: 'uhr' }, { n: 'Kaufladen', b: 'Rechnet mit Euro und Cent wie im echten Laden und lernt Wechselgeld.', d: 'Rechnen mit Geld', pv: 'laden' }],
     ern: ['Plus und Minus bis 20, 100, 1000', 'Einmaleins und Teilen', 'Sachaufgaben Schritt für Schritt', 'Probetest vor der Klassenarbeit'] },
   { k: 'deutsch', n: 'Deutsch', c1: '#f47ba0', c2: '#c8336f', ic: 'Aa', tutor: { id: 'max', n: 'Max' }, games: [
-    { n: 'Silben-Zug', d: 'Lesen lernen, Sätze bauen', play: gZug, ic: 'zug' }, { n: 'Zauberstift', d: 'Schreiben lernen, auch Schreibschrift', play: gStift, ic: 'pen' },
-    { n: 'Reim-Ping-Pong', d: 'Reime finden', pv: 'reim' }, { n: 'Wortarten-Sortierer', d: 'Nomen, Verben, Adjektive', pv: 'wortart' }, { n: 'Diktat mit Max', d: 'Hören und richtig schreiben', pv: 'diktat' }],
+    { n: 'Silben-Zug', b: 'Liest flüssiger, weil es Wörter in Silben zerlegt und Sätze richtig baut.', d: 'Lesen lernen, Sätze bauen', play: gZug, ic: 'zug' }, { n: 'Zauberstift', b: 'Schreibt schöner und sicherer, in Druckschrift und Schreibschrift.', d: 'Schreiben lernen, auch Schreibschrift', play: gStift, ic: 'pen' },
+    { n: 'Reim-Ping-Pong', b: 'Hört Laute genauer, das ist die Grundlage fürs Lesen und Schreiben.', d: 'Reime finden', pv: 'reim' }, { n: 'Wortarten-Sortierer', b: 'Erkennt Nomen, Verben und Adjektive und schreibt dadurch richtiger.', d: 'Nomen, Verben, Adjektive', pv: 'wortart' }, { n: 'Diktat mit Max', b: 'Schreibt Wörter fehlerfrei, die es vorher nur gehört hat.', d: 'Hören und richtig schreiben', pv: 'diktat' }],
     ern: ['Lesen mit Vorlese-Hilfe', 'Schreiben: Druck- und Schreibschrift', 'Rechtschreibung: ie, ck, tz, ß', 'Nomen, Verben, Adjektive'] },
   { k: 'englisch', n: 'Englisch', c1: '#3fc1c9', c2: '#0e7f8e', ic: 'EN', tutor: { id: 'emma', n: 'Emma' }, note: 'Je nach Bundesland ab Klasse 1 oder 3.', games: [
-    { n: 'Memory', d: 'Wörter, Farben, Sätze', play: gMem, ic: 'cards' }, { n: 'Buchstaben-Blasen', d: 'Wörter buchstabieren', play: gBlasen, ic: 'bubble' },
-    { n: 'Simon says', d: 'Hören und bewegen', pv: 'simon' }, { n: 'Shopping-Spiel', d: 'Einkaufen auf Englisch', pv: 'shop' }, { n: 'Story-Time', d: 'Kleine Geschichten hören', pv: 'story' }],
+    { n: 'Memory', b: 'Merkt sich englische Wörter spielend, mit Bild und Bedeutung.', d: 'Wörter, Farben, Sätze', play: gMem, ic: 'cards' }, { n: 'Buchstaben-Blasen', b: 'Buchstabiert englische Wörter richtig und lernt die Schreibweise.', d: 'Wörter buchstabieren', play: gBlasen, ic: 'bubble' },
+    { n: 'Simon says', b: 'Versteht gesprochenes Englisch und reagiert sofort darauf.', d: 'Hören und bewegen', pv: 'simon' }, { n: 'Shopping-Spiel', b: 'Traut sich, im Alltag Englisch zu sprechen, zum Beispiel beim Einkaufen.', d: 'Einkaufen auf Englisch', pv: 'shop' }, { n: 'Story-Time', b: 'Hört kleine Geschichten und versteht immer mehr ganze Sätze.', d: 'Kleine Geschichten hören', pv: 'story' }],
     ern: ['Wörter nach Themen: Farben, Tiere, Familie', 'Hören und nachsprechen', 'Erste Sätze: „My name is …“'] },
   { k: 'franz', n: 'Französisch', c1: '#9b7cf0', c2: '#5b3fc4', ic: 'FR', tutor: { id: 'claude', n: 'Claude' }, note: 'Für Kinder mit Französisch in der Schule, z. B. Saarland und Oberrhein.', games: [
-    { n: 'Farbklecks-Fangen', d: 'Farben, Zahlen, Tiere', play: gFarben, ic: 'blob' }, { n: 'Le petit café', d: 'Bestellungen verstehen', play: gCafe, ic: 'cup' },
-    { n: 'Zahlen-Hüpfen', d: 'un, deux, trois', pv: 'hupf' }, { n: 'Bonjour-Memory', d: 'Begrüßen und vorstellen', pv: 'bonjour' }, { n: 'Où est le chat ?', d: 'Wo ist die Katze?', pv: 'ou' }],
+    { n: 'Farbklecks-Fangen', b: 'Lernt Farben, Zahlen und Tiere auf Französisch mit Bildern.', d: 'Farben, Zahlen, Tiere', play: gFarben, ic: 'blob' }, { n: 'Le petit café', b: 'Versteht Bestellungen auf Französisch und lernt die ersten Sätze.', d: 'Bestellungen verstehen', play: gCafe, ic: 'cup' },
+    { n: 'Zahlen-Hüpfen', b: 'Zählt auf Französisch sicher und hört die Zahlen richtig.', d: 'un, deux, trois', pv: 'hupf' }, { n: 'Bonjour-Memory', b: 'Kann sich auf Französisch begrüßen und vorstellen.', d: 'Begrüßen und vorstellen', pv: 'bonjour' }, { n: 'Où est le chat ?', b: 'Lernt, wo etwas ist: auf, unter, neben, auf Französisch.', d: 'Wo ist die Katze?', pv: 'ou' }],
     ern: ['Begrüßen und sich vorstellen', 'Farben, Zahlen, Tiere', 'Aussprache üben'] },
   { k: 'sach', n: 'Sachunterricht', c1: '#4cc38a', c2: '#1f8a4c', ic: I('leaf'), tutor: { id: 'frieda', n: 'Frieda' }, games: [
-    { n: 'Sortier-Profi', d: 'Tiere, Müll, Strom', play: gSort, ic: 'sort' }, { n: 'Röntgen-Blick', d: 'Körper und Organe', play: gBody, ic: 'body' },
-    { n: 'Jahreszeiten-Rad', d: 'Wetter und Natur', pv: 'jahr' }, { n: 'Ampel-Profi', d: 'Sicher im Verkehr', pv: 'ampel' }, { n: 'Wetter-Labor', d: 'Regen, Wind, Wolken', pv: 'wetter' }],
+    { n: 'Sortier-Profi', b: 'Ordnet Tiere, Müll und Strom richtig zu und versteht Zusammenhänge.', d: 'Tiere, Müll, Strom', play: gSort, ic: 'sort' }, { n: 'Röntgen-Blick', b: 'Kennt die Organe und weiß, was sie im menschlichen Körper tun.', d: 'Körper und Organe', play: gBody, ic: 'body' },
+    { n: 'Jahreszeiten-Rad', b: 'Versteht Jahreszeiten, Wetter und was in der Natur passiert.', d: 'Wetter und Natur', pv: 'jahr' }, { n: 'Ampel-Profi', b: 'Bewegt sich sicherer im Straßenverkehr, auf dem Schulweg und mit dem Rad.', d: 'Sicher im Verkehr', pv: 'ampel' }, { n: 'Wetter-Labor', b: 'Versteht, wie Regen, Wind und Wolken entstehen.', d: 'Regen, Wind, Wolken', pv: 'wetter' }],
     ern: ['Tiere und Pflanzen', 'Körper, Sinne, Gesundheit', 'Wetter, Wasser, Strom', 'Kinderfragen kindgerecht erklärt'] },
   { k: 'ki', n: 'Internet und KI', c1: '#f39b52', c2: '#d9601c', ic: I('shield'), tutor: { id: 'bit', n: 'Bit' }, games: [
-    { n: 'Chat-Check', d: 'Sicher im Internet', play: gChat, ic: 'chat' }, { n: 'Privat-Tresor', d: 'Was bleibt geheim?', play: gTresor, ic: 'lock' }, { n: 'Rotstift', d: 'Fehler der KI finden', play: gRot, ic: 'pen' },
-    { n: 'Wie lernt eine KI?', d: 'Bit lernt aus Beispielen', pv: 'robo' }, { n: 'Echt oder erfunden?', d: 'KI-Bilder erkennen', pv: 'echt' }],
+    { n: 'Chat-Check', b: 'Erkennt, wann ein Chat unsicher ist, und weiß, was dann zu tun ist.', d: 'Sicher im Internet', play: gChat, ic: 'chat' }, { n: 'Privat-Tresor', b: 'Weiß, welche Daten privat bleiben, wie Adresse, Fotos und Passwörter.', d: 'Was bleibt geheim?', play: gTresor, ic: 'lock' }, { n: 'Rotstift', b: 'Lernt, dass eine KI Fehler macht, und prüft Antworten selbst nach.', d: 'Fehler der KI finden', play: gRot, ic: 'pen' },
+    { n: 'Wie lernt eine KI?', b: 'Versteht, wie eine KI aus Beispielen lernt, ganz ohne Technik-Kram.', d: 'Bit lernt aus Beispielen', pv: 'robo' }, { n: 'Echt oder erfunden?', b: 'Erkennt, dass Bilder und Texte auch von einer KI erfunden sein können.', d: 'KI-Bilder erkennen', pv: 'echt' }],
     ern: ['Regeln im Internet: was man teilt und was nicht', 'Fremde im Netz, Passwörter, Kettenbriefe', 'Was ist KI und wie lernt sie?', 'KI verantwortungsvoll nutzen und prüfen'] },
 ];
 const PAT = { mathe: ['+', '7', '=', '3', '×', '10'], deutsch: ['A', 'b', 'C', 'ä', 'M', 'z'], englisch: ['Hi!', 'ABC', 'cat', 'sun', 'Yes', 'red'], franz: ['é', 'Oui', 'à', 'ç', 'Non', 'è'], sach: ['leaf'], ki: ['circuit'] };
@@ -6810,8 +6900,8 @@ $$('#wtabs button').forEach((b) => (b.onclick = () => { st.w = b.dataset.w; moun
 $('#again').onclick = () => runStage();
 function drawPath() {
   const S = SUBJ[st.s], s0 = lpStat(S.k, Math.max(0, st.grade));
-  $('#zhead').innerHTML = `<div class="zt"><span class="zk">${S.n}</span><span class="zm">mit ${S.tutor.n} · ${st.grade >= 0 ? GRADES[st.grade][0] : ''}</span><span class="zlv">${I('star')}Level ${s0.lv + 1} · ${s0.xp} Punkte</span></div><div class="ztut">${tutorHTML(S.tutor.id)}</div>`;
-  $('#path').innerHTML = S.games.map((g, i) => `<button class="gk${PAID ? '' : ' lk'}" data-i="${i}"><span class="gkv">${coverHTML(g)}${PAID ? '' : `<i class="gklk">${I('lock')}</i>`}</span><span class="gkt"><b>${g.n}</b><small>${g.d}</small></span><span class="gkb">${PAID ? `${I('play')}Spielen` : `${I('lock')}Im Abo`}</span></button>`).join('');
+  $('#zhead').innerHTML = `<div class="zt"><span class="zk">${S.n}</span><span class="zm">mit ${S.tutor.n} · ${st.grade >= 0 ? GRADES[st.grade][0] : ''}</span><span class="zlv">${I('star')}Level ${s0.lv + 1} · ${s0.xp} Sterne</span></div><div class="ztut">${tutorHTML(S.tutor.id)}</div>`;
+  $('#path').innerHTML = S.games.map((g, i) => `<button class="gk${PAID ? '' : ' lk'}" data-i="${i}"><span class="gkv">${coverHTML(g)}${PAID ? '' : `<i class="gklk">${I('lock')}</i>`}</span><span class="gkt"><b>${g.n}</b><small>${g.d}</small><em class="gkben">${I('check')}<span>${g.b || ''}</span></em></span><span class="gkb">${PAID ? `${I('play')}Spielen` : `${I('lock')}Im Abo`}</span></button>`).join('');
   restart($('#path'), 'in');
   $$('#path .gk').forEach((b) => (b.onclick = () => openGame(+b.dataset.i)));
   $('#qstart').innerHTML = `<div class="qsc"><span class="qsi">${I('book')}</span><div><b>${S.n} in Ruhe üben</b><span>Aufgaben passend zur ${GRADES[Math.max(0, st.grade)][0]}. Nach jeder Aufgabe erklärt ${S.tutor.n} den Lösungsweg.</span></div><button class="b3d c lg" id="qgo">${I('play')}Üben starten</button></div>`;
