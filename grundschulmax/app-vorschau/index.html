@@ -3461,6 +3461,10 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
   .frog2{width:58px!important;height:64px!important}
 }
 @media (max-width:820px){.app[data-v=hw] .afab,.app[data-v=parents] .afab{display:none!important}}
+/* Tutor in den Spielen bleibt gerade stehen */
+.gstage.open .dmax .tut,.gstage.open .dmax.happy .tut,.gstage.open .dmax.think .tut,.gstage.open .dmax img{transform:none!important;rotate:none!important}
+.gstage.open .dmax.happy .tut{animation:tuthop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes tuthop{40%{translate:0 -8px}}
 </style>
 </head>
 <body>
@@ -4055,11 +4059,16 @@ const demo = $('#game'), gs = $('#gs'), sayEl = $('#say'), dmax = $('#dmax');
 const st = { grade: 0, s: 0, g: 0, m: 'game', total: 0, done: 0, steps: 0, errs: 0, streak: 0, best: 0, t0: 0 };
 let cleanup = null, token = 0;
 const alive = (t) => t === token;
+let lastSayKey = null;
 function say(text, mood = '', key = null) {
+  lastSayKey = key;
   sayEl.textContent = text; restart(sayEl, 'new');
   dmax.className = 'dmax ' + mood;
-  if (key && voiceOn) voice(key); else talk(true, Math.min(2600, 300 + text.length * 45));
+  if (key && voiceOn && !quietPraise(key)) voice(key); else talk(true, Math.min(2600, 300 + text.length * 45));
 }
+/* Lob nicht jedes Mal vorlesen: nur etwa jedes dritte Mal, sonst steht es nur da */
+let praiseN = 0;
+function quietPraise(key) { if (!(P.ok.includes(key) || key === P.streak)) return false; praiseN++; return praiseN % 3 !== 1; }
 function sayK(key, mood = '') { const v = VL.get(key); say(v ? v.t : key, mood, key); }
 function gstars(n) { $$('#gst svg').forEach((s, i) => s.classList.toggle('on', i < n)); }
 function progress(steps) { st.steps = steps; st.done = 0; st.errs = 0; st.streak = 0; st.best = 0; st.t0 = Date.now(); drawProg(); }
@@ -4136,7 +4145,13 @@ function startOverlay(label, hint, go) {
   const o = document.createElement('div'); o.className = 'startov';
   o.innerHTML = `<div><button class="b3d c lg">${I('play')}${label}</button><p>${hint}</p></div>`;
   gs.appendChild(o);
-  $('button', o).onclick = () => { o.remove(); voice(P.hello); go(); };
+  /* Beim Start erst die Erklärung vorlesen, dann geht es los */
+  const intro = lastSayKey;
+  $('button', o).onclick = () => {
+    o.remove(); let done = false; const start = () => { if (done) return; done = true; go(); };
+    if (intro && voice(intro)) { AUD.onended = () => { talk(false); setTimeout(start, 350); }; setTimeout(start, 15000); }
+    else { voice(P.hello); start(); }
+  };
 }
 const G = () => st.grade; // 0..3
 
@@ -7648,7 +7663,7 @@ function lesResult(ok, sol) {
   const btn = $('.lesbtn', les); btn.style.display = ''; btn.disabled = false; btn.textContent = 'Weiter'; btn.className = 'b3d lesbtn ' + (ok ? 'g' : 'o'); btn.focus({ preventScroll: true });
   lesSay(ok ? title : 'Schau mal, so geht es.', ok ? null : x.ve, ok ? 'happy' : 'think');
   if (!ok && !x.ve && voiceOn) voice(pick(P.no), false, LS.who);
-  if (ok && voiceOn) voice(pick(P.ok), false, LS.who);
+  if (ok && voiceOn && !quietPraise(P.ok[0])) voice(pick(P.ok), false, LS.who);
   reward(ok, LS.streak);
   if (ok) { const cur = x; LS.adv = setTimeout(() => { if (LS && LS.state === 'res' && LS.cur === cur) lesNext(); }, x.e ? 3200 : 1900); }
 }
