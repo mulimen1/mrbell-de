@@ -3295,6 +3295,24 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 .app .aside .tab,.app .aside .anv{margin:0 0 9px!important}
 .app .aside .anv.anhome .ti,.app .aside .anv.hw .ti{width:42px!important;height:42px!important}
 @media (max-height:900px) and (min-width:821px){.app .aside .tab,.app .aside .anv,.app .aside .anv.anhome,.app .aside .anv.hw{height:54px!important;margin-bottom:7px!important}.aside .abrand{padding-bottom:12px!important}}
+/* Aktiver Bereich in der Leiste: weißer Rahmen */
+.app .aside .tab.on,.app .aside .anv.on{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--c2,#1a5fc4),0 8px 16px -6px rgba(0,0,0,.35)!important;transform:scale(1.015)}
+.app .aside .anv.anhome.on{--c2:#e2561a}.app .aside .anv.hw.on{--c2:#5532c9}
+.app .aside .anav{padding:6px 7px 4px!important;margin:0 -7px!important}
+/* Max in der Leiste etwas kleiner (Bild ist enger geschnitten) */
+.aside .tab .ti.tt .tut[data-t=max]{width:40px!important;height:40px!important;left:1px!important;top:5px!important}
+/* Einklappen oben rechts in der Ecke der Karte */
+@media (min-width:821px){
+  .acol{left:236px!important;top:20px!important;width:26px!important;height:26px!important;background:#f3eee6!important;box-shadow:none!important;color:#8b8273!important}
+  .acol:hover{background:#e9e2d6!important;color:#2b2440!important}
+  .aside .abrand{font-size:18px!important;padding-right:30px!important}.aside .abrand img{width:42px!important;height:42px!important}
+}
+/* Willkommen im Abenteuer */
+.advt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 12px}
+.advt button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 10px;border-radius:18px;color:#fff;background:linear-gradient(180deg,var(--c1),var(--c2));box-shadow:0 4px 0 color-mix(in srgb,var(--c2) 70%,#000);transition:transform .15s}
+.advt button:hover{transform:translateY(-3px)}
+.advt span{width:58px;height:58px;border-radius:50%;background:#fff;overflow:hidden;display:block}.advt span .tut{width:64px;margin:4px 0 0 -3px}
+.advt b{font-size:15px}.advt i{font-style:normal;font-size:11.5px;font-weight:800;opacity:.9}
 </style>
 </head>
 <body>
@@ -3852,7 +3870,7 @@ function play(n, vol = .8, rate = 1) {
 const sfx = {
   ok() { play('ok', .7); },
   no() { play('no', .6); },
-  pop() { play('pop', .7); },
+  pop() { tone(380, .09, 'sine', .12, 760); setTimeout(() => tone(900, .05, 'sine', .05), 40); },
   star() { play('star', .5); },
   win() { play('win', .8); },
   streak() { play('streak', .7); },
@@ -7696,7 +7714,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = '819f866c';
+const PFV = 'a4a218b4';
 let PF = null, pfLoading = null;
 function pfFace() {
   const a = PROF().av; if (AVX[a]) return { src: avSrc(a, 'n'), blink: avSrc(a, 'b'), happy: avSrc(a, 'h'), sad: avSrc(a, 's'), fit: { x: 18, y: 20, s: 220 } };
@@ -7718,7 +7736,17 @@ const PFHOST = {
   tutor: (k) => { const S = SUBJ.find((x) => x.k === k); return { src: `/grundschulmax/tut-${S.tutor.id}.png`, name: S.tutor.n }; },
   play: (n, s) => { st.s = SUBJ.findIndex((x) => x.k === s.k); MIXRUN = { k: s.k, g: Math.max(0, st.grade), r: s.r, n }; startLesson(s.li, s.jj, n); },
   pay: () => paywall(),
+  head: () => ({ title: 'Abenteuer', c1: '#ffa63d', c2: '#e2561a', c3: '#a8400e', imgs: SUBJ.map((S) => `/grundschulmax/tut-${S.tutor.id}.png`), click: () => advIntro() }),
 };
+function advIntro() {
+  let o = $('#advi'); if (!o) { o = document.createElement('div'); o.id = 'advi'; o.className = 'help'; document.body.appendChild(o); }
+  o.innerHTML = `<div class="hpc advc"><button class="hpx" aria-label="Schließen">${I('x')}</button><small>Willkommen im Abenteuer</small><div class="advt">${SUBJ.map((S, i) => `<button data-i="${i}" style="--c1:${S.c1};--c2:${S.c2}"><span>${tutorHTML(S.tutor.id)}</span><b>${S.tutor.n}</b><i>${S.n}</i></button>`).join('')}</div>
+    <b>Wir sind alle dabei!</b><p>Auf deinem Abenteuer wechseln wir uns ab: jedes Feld ist ein anderes Fach. Schaff eine Lektion und du hüpfst weiter. Tippe auf einen von uns, dann stellen wir uns vor.</p><button class="b3d c wide" data-a="go">Los geht’s!</button></div>`;
+  const close = () => o.classList.remove('on');
+  $('.hpx', o).onclick = close; $('[data-a=go]', o).onclick = close;
+  $$('.advt button', o).forEach((b) => (b.onclick = () => { close(); tutorIntro(+b.dataset.i); }));
+  requestAnimationFrame(() => o.classList.add('on'));
+}
 function pfLoad() {
   if (window.GSMPfad) return Promise.resolve();
   return pfLoading || (pfLoading = new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = '/grundschulmax/pfad.js?v=' + PFV; sc.onload = res; sc.onerror = rej; document.head.appendChild(sc); }));
@@ -7740,6 +7768,8 @@ async function drawMix() {
   if (first) { let seen = '1'; try { seen = localStorage.getItem('gsm-help-seen'); } catch (e) {} if (!seen) setTimeout(() => openHelp(true), 900); }
 }
 /* ---------- Fachwelten: jedes Fach hat seinen eigenen Pfad im gleichen Stil ---------- */
+const FICON = { mathe: ['+−', '×', '123', '=', '½'], deutsch: ['Aa', 'book', 'abc', 'chat', 'Ää'], englisch: ['EN', 'Hi', 'globe', 'ABC', 'chat'], franz: ['FR', 'Ça', 'globe', 'é', 'chat'], sach: ['leaf', 'sun', 'paw', 'drop', 'globe'], ki: ['shield', 'wifi', 'chat', 'lock', 'globe'] };
+const tintC = (hex, k) => { const n = parseInt(hex.slice(1), 16); let r = n >> 16, g = (n >> 8) & 255, b = n & 255; const f = (v) => Math.round(k > 0 ? v + (255 - v) * k : v * (1 + k)); return '#' + [f(r), f(g), f(b)].map((v) => v.toString(16).padStart(2, '0')).join(''); };
 const FWELT = { mathe: ['zahl', 'geo'], deutsch: ['buch', 'wald'], englisch: ['london', 'park'], franz: ['paris', 'lavendel'], sach: ['dschungel', 'fluss'], ki: ['neon', 'chip'] };
 function subjHost() {
   const S = SUBJ[st.s], g = Math.max(0, st.grade), L = lpLevels(S.k, g), p = lpProg(S.k, g);
@@ -7748,8 +7778,9 @@ function subjHost() {
     theme: () => ({ key: 'S' + S.k + g + '-' + L0, ch: [...Array(nL)].map((_, i) => FWELT[S.k][(L0 + i) % 2]), per: PER, seed: 7 + st.s * 13 + g }),
     chapter: (ch) => `<small>${S.n} · Level ${L0 + ch + 1}</small><b>${esc(L[L0 + ch] ? L[L0 + ch].t : '')}</b>`,
     list: () => { const q = lpProg(S.k, g), out = []; for (let li = L0; li < L0 + nL; li++) for (let j = 0; j < PER; j++) { const n = li * PER + j, game = j === PER - 1, G0 = game ? S.games[li % S.games.length] : null;
-      out.push({ k: S.k, n, li, jj: j, j: j + 1, game, t: game ? G0.n : L[li].t, d: L[li].d, top: `Level ${li + 1} · ${game ? 'Spielplatz' : 'Lektion ' + (j + 1)}`, state: !canPlay(n) ? 'pay' : n < q.n ? 'done' : n === q.n ? 'cur' : 'next' }); } return out; },
-    stats: PFHOST.stats, off: () => [], toggle: () => true, name: PFHOST.name, face: pfFace, tutor: PFHOST.tutor, tutors: false,
+      out.push({ k: S.k, n, li, jj: j, j: j + 1, game, ic: FICON[S.k][(li * 2 + j) % 5], col: [S.c1, tintC(S.c1, .18), S.c2, tintC(S.c1, -.12)][j % 4], t: game ? G0.n : L[li].t, d: L[li].d, top: `Level ${li + 1} · ${game ? 'Spielplatz' : 'Lektion ' + (j + 1)}`, state: !canPlay(n) ? 'pay' : n < q.n ? 'done' : n === q.n ? 'cur' : 'next' }); } return out; },
+    stats: PFHOST.stats, off: () => [], toggle: () => true, name: PFHOST.name, face: pfFace, tutor: PFHOST.tutor, tutors: false, labels: true,
+    head: () => ({ title: S.n, c1: S.c1, c2: S.c2, c3: tintC(S.c2, -.3), imgs: [`/grundschulmax/tut-${S.tutor.id}.png`], click: () => tutorIntro(st.s) }),
     play: (i, s) => { if (s.game) openGame(S.games.indexOf(S.games[s.li % S.games.length]), () => lpComplete(s.n, 5)); else startLesson(s.li, s.jj, s.n); },
     pay: () => paywall(),
   };
