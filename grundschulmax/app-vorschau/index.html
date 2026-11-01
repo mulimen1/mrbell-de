@@ -7731,7 +7731,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = 'f2d83f72';
+const PFV = 'e5e47dd2';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -7790,12 +7790,12 @@ async function drawMix() {
 /* ---------- Fachwelten: jedes Fach hat seinen eigenen Pfad im gleichen Stil ---------- */
 const FICON = { mathe: ['+−', '×', '123', '=', '½'], deutsch: ['Aa', 'book', 'abc', 'chat', 'Ää'], englisch: ['EN', 'Hi', 'globe', 'ABC', 'chat'], franz: ['FR', 'Ça', 'globe', 'é', 'chat'], sach: ['leaf', 'sun', 'paw', 'drop', 'globe'], ki: ['shield', 'wifi', 'chat', 'lock', 'globe'] };
 const tintC = (hex, k) => { const n = parseInt(hex.slice(1), 16); let r = n >> 16, g = (n >> 8) & 255, b = n & 255; const f = (v) => Math.round(k > 0 ? v + (255 - v) * k : v * (1 + k)); return '#' + [f(r), f(g), f(b)].map((v) => v.toString(16).padStart(2, '0')).join(''); };
-const FWELT = { mathe: ['zahl', 'geo'], deutsch: ['buch', 'wald'], englisch: ['london', 'park'], franz: ['paris', 'lavendel'], sach: ['dschungel', 'fluss'], ki: ['neon', 'chip'] };
+const FWELT = { mathe: ['zahl', 'geo', 'muster'], deutsch: ['buch', 'wald', 'maerchen'], englisch: ['london', 'park', 'kueste'], franz: ['paris', 'lavendel', 'riviera'], sach: ['dschungel', 'fluss', 'hof'], ki: ['neon', 'chip', 'robo'] };
 function subjHost(si = st.s) {
   const S = SUBJ[si], g = Math.max(0, st.grade), L = lpLevels(S.k, g), p = lpProg(S.k, g);
   const L0 = Math.max(0, Math.min(Math.floor(p.n / PER) - 1, L.length - 6)), nL = Math.max(1, Math.min(6, L.length - L0));
   return {
-    theme: () => ({ key: 'S' + S.k + g + '-' + L0, ch: [...Array(nL)].map((_, i) => FWELT[S.k][(L0 + i) % 2]), per: PER, seed: 7 + si * 13 + g }),
+    theme: () => ({ key: 'S' + S.k + g + '-' + L0, ch: [...Array(nL)].map((_, i) => FWELT[S.k][(L0 + i) % 3]), per: PER, seed: 7 + si * 13 + g }),
     chapter: (ch) => `<small>${S.n} · Level ${L0 + ch + 1}</small><b>${esc(L[L0 + ch] ? L[L0 + ch].t : '')}</b>`,
     list: () => { const q = lpProg(S.k, g), out = []; for (let li = L0; li < L0 + nL; li++) for (let j = 0; j < PER; j++) { const n = li * PER + j, game = j === PER - 1, G0 = game ? S.games[li % S.games.length] : null;
       out.push({ k: S.k, n, li, jj: j, j: j + 1, game, ic: FICON[S.k][(li * 2 + j) % 5], col: [S.c1, tintC(S.c1, .18), S.c2, tintC(S.c1, -.12)][j % 4], t: game ? G0.n : L[li].t, d: L[li].d, top: `Level ${li + 1} · ${game ? 'Spielplatz' : 'Lektion ' + (j + 1)}`, state: !canPlay(n) ? 'pay' : n < q.n ? 'done' : n === q.n ? 'cur' : 'next' }); } return out; },
