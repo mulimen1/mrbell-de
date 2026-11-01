@@ -3011,6 +3011,31 @@ body.wsopen{overflow:hidden}
 /* Kamera-Icon in der Seitenleiste: schlichtes Band ohne weiße Kachel, wenn aktiv */
 .app .aside .anv.hw.on .ti{background:rgba(255,255,255,.25)!important;color:#fff!important;box-shadow:none!important}
 .app .aside .anv.hw.on .ti svg{color:#fff!important}
+
+/* Konto */
+.kcode{display:block;width:100%;height:64px;margin:6px 0 12px;border-radius:16px;border:2px solid #e5ded1;text-align:center;font-size:32px;font-weight:900;letter-spacing:.4em;font-variant-numeric:tabular-nums}
+.kcode:focus{outline:none;border-color:#5aa2f7;box-shadow:0 0 0 4px rgba(90,162,247,.2)}
+.krow{display:flex;justify-content:space-between;gap:10px;margin-top:6px}
+.pgin{display:block;width:100%;max-width:340px;height:52px;margin:4px auto;padding:0 14px;border-radius:14px;border:2px solid #e5ded1;font:inherit;font-weight:750;font-size:17px}
+.pgin:focus{outline:none;border-color:#0e7f6a}
+.pgpw .b3d{max-width:340px;margin-top:6px}
+.pgk{width:100%;max-width:420px;text-align:left}.pgk h3{font-size:20px;margin-top:6px}
+.pac .pgin{margin:6px 0}
+.hlogin{display:inline-flex;align-items:center;gap:6px}
+.pfacc{display:flex;align-items:center;gap:12px;width:100%;margin-top:14px;padding:14px 16px;border-radius:20px;background:#fff;box-shadow:0 6px 0 rgba(0,0,0,.12);text-align:left;font-weight:700}.pfacc>svg:first-child{flex:none;width:40px;height:40px;padding:8px;border-radius:12px;background:#e8f1fe;color:#1a5fc4}.pfacc span{flex:1;min-width:0}.pfacc small{display:block;color:#7a7364;font-weight:650}.pfacc b{overflow-wrap:anywhere}
+.pgk .s{margin-bottom:12px}
+
+.spay{min-height:120px;margin:4px -6px 6px;border-radius:16px;overflow:hidden}
+.spload{display:flex;align-items:center;justify-content:center;gap:10px;height:120px;color:#7a7364;font-weight:750}
+.spload i{width:22px;height:22px;border-radius:50%;border:3px solid #e5ded1;border-top-color:#5aa2f7;animation:spinr .8s linear infinite}
+.sfine{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center}
+.modal{max-height:calc(100dvh - 24px);overflow-y:auto}
+.s1list{list-style:none;margin:12px 0 14px;padding:0;display:grid;gap:8px}
+.s1list li{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.s1list li svg{width:20px;height:20px;padding:3px;border-radius:50%;background:#2fb257;color:#fff;flex:none}
+.kgoo{display:flex;justify-content:center;min-height:44px;margin:14px 0 6px}
+.kor{display:flex;align-items:center;gap:10px;margin:10px 0 12px;color:#8a8577;font-size:13px;font-weight:700}
+.kor::before,.kor::after{content:"";flex:1;height:1px;background:#e5ded1}
 </style>
 </head>
 <body>
@@ -3064,6 +3089,7 @@ body.wsopen{overflow:hidden}
     <div class="navr">
       <a class="lk ts" href="#sicherheit" data-to="sicherheit"><svg class="i"><use href="#i-shield"/></svg>Sicherheit</a>
       <a class="lk td" href="#datenschutz" data-to="datenschutz"><svg class="i"><use href="#i-lock"/></svg>Datenschutz</a>
+      <button class="lk hlogin" id="hlogin" type="button"><svg class="i"><use href="#i-family"/></svg>Anmelden</button>
     </div>
   </div>
 </header>
@@ -7446,7 +7472,9 @@ const SK = {};
 SK.fish = {
   scene: '<i class="wv w1"></i><i class="wv w2"></i><i class="sea"></i><div class="weed w1"></div><div class="weed w2"></div><div class="hook"><i></i></div>',
   item: (t, i, n) => `<button class="fsh" data-v="${i}" style="--fx:${i % 2 ? 50 : 5}%;--c:${COLS[i % 6]};--y:${22 + i * (62 / Math.max(1, n - 1))}%;--d:${rnd(7, 9.5).toFixed(1)}s;--dl:-${rnd(0, 7).toFixed(1)}s;--dir:${i % 2 ? 'reverse' : 'normal'}"><svg viewBox="0 0 160 80"><path d="M128 40 L158 14 L152 40 L158 66Z" fill="var(--c)" stroke="#1d2a3a" stroke-width="4" stroke-linejoin="round"/><ellipse cx="72" cy="40" rx="64" ry="34" fill="var(--c)" stroke="#1d2a3a" stroke-width="4"/><path d="M60 8 Q80 -4 96 9" fill="var(--c)" stroke="#1d2a3a" stroke-width="4"/><circle cx="30" cy="34" r="9" fill="#fff" stroke="#1d2a3a" stroke-width="3"/><circle cx="28" cy="34" r="4.5" fill="#1d2a3a"/><ellipse cx="60" cy="20" rx="20" ry="6" fill="#fff" opacity=".35"/></svg><span>${t}</span></button>`,
-  win(el, sc) { const r = el.getBoundingClientRect(), s = sc.getBoundingClientRect(), hk = $('.hook', sc); hk.style.left = r.left - s.left + r.width / 2 + 'px'; hk.classList.add('down'); setTimeout(() => { sfx.coin(); starsUp(el, 8); el.classList.add('caught'); }, 380); },
+  win(el, sc) { const r = el.getBoundingClientRect(), s = sc.getBoundingClientRect(), hk = $('.hook', sc), fy = r.top - s.top + r.height / 2, up = Math.max(0, fy - r.height / 2 - 34);
+    hk.style.left = r.left - s.left + r.width * 0.22 + 'px'; hk.style.height = fy - 8 + 'px'; hk.classList.add('down');
+    setTimeout(() => { sfx.coin(); el.classList.add('caught'); el.style.cssText += `;opacity:1;z-index:5;transition:transform .85s cubic-bezier(.3,.7,.3,1);transform:translate(0,-50%) translateY(-${up}px) rotate(-14deg)`; hk.style.transition = 'height .85s cubic-bezier(.3,.7,.3,1)'; hk.style.height = Math.max(10, fy - 8 - up) + 'px'; setTimeout(() => starsUp(el, 8), 600); }, 400); },
   fail(el) { el.classList.add('flee'); },
 };
 /* Maulwurf */
@@ -7752,10 +7780,11 @@ function drawHW(sel = '#ahw', web, SJ) {
     const steps = $$('.hwsteps li', r); let si = 0; const tick = setInterval(() => { if (si < steps.length - 1) { steps[si].classList.add('done'); steps[++si].classList.add('on'); } }, 5000);
     const talkI = setInterval(() => $$('.hwx .tut', r).forEach((t) => { t.classList.add('talk'); setTimeout(() => t.classList.remove('talk'), 900); }), 2400);
     let res;
-    try { res = await (await fetch(HW_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ images: imgs, klasse: Math.max(0, st.grade) + 1, admin: lsx.get('gsm-admin', '') }) })).json(); }
+    try { res = await (await fetch(HW_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ images: imgs, klasse: Math.max(0, st.grade) + 1, admin: lsx.get('gsm-admin', ''), abo: (ABO && ABO.code) || '' }) })).json(); }
     catch (e) { res = { ok: false, grund: 'Keine Verbindung. Probier es gleich nochmal.' }; }
     clearInterval(tick); clearInterval(talkI);
-    if (res.limit) { r.innerHTML = ''; paywall('Max hilft bei Hausaufgaben und Tests'); return; }
+    if (res.limit && (res.limit === 'frei' || !PAID)) { r.innerHTML = ''; paywall('Max hilft bei Hausaufgaben und Tests'); return; }
+    if (res.limit) { r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML('max')}</span><div><b>Für heute geschafft!</b><p>${esc(res.grund || 'Morgen geht es weiter.')}</p></div></div>`; return; }
     if (!res.ok) { r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML('max')}</span><div><b>Hmm, das hat nicht geklappt.</b><p>${esc(res.grund || 'Probier ein schärferes Foto.')}</p></div></div>`; hwSpeak(res.audio); sfx.no(); return; }
     if (!isAdmin()) lsx.set('gsm-hw-n', +lsx.get('gsm-hw-n', 0) + 1); act('hw');
     $$('.hwd').forEach((x) => x.parentElement._free && x.parentElement._free());
@@ -7884,7 +7913,9 @@ function drawProfile() {
       <div class="pff"><span>Klasse</span><div class="pfg">${GRADES.map((x, i) => `<button class="${i === g ? 'on' : ''}" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><small>Klasse</small></button>`).join('')}</div></div>
       <div class="pff"><span>Aussehen</span><div class="paopt" id="pfdark"><button data-v="0" class="${document.body.classList.contains('dark') ? '' : 'on'}">${I('star')}Hell</button><button data-v="1" class="${document.body.classList.contains('dark') ? 'on' : ''}">${I('bulb')}Dunkel</button></div></div>
       <button class="b3d lg" id="pfs">${I('check')}Speichern</button></div>
-    <button class="pfpar" id="pfpar"><span class="pgi">${I('lock')}</span><span><b>Elternbereich</b><small>Lernzeit, Hausaufgaben-Hilfe, Vorlesen. Mit Eltern-Code geschützt.</small></span>${I('arrow')}</button>`;
+    ${K.tok ? `<div class="pfacc">${I('family')}<span>Elternkonto: <b>${esc(K.mail)}</b><small>Alles wird automatisch gespeichert.</small></span></div>` : `<button class="pfacc pfin" id="pflogin">${I('family')}<span><b>Anmelden</b><small>Mit Elternkonto ist alles auf jedem Gerät gespeichert.</small></span>${I('arrow')}</button>`}
+    <button class="pfpar" id="pfpar"><span class="pgi">${I('lock')}</span><span><b>Elternbereich</b><small>Lernzeit, Hausaufgaben-Hilfe, Abo. Mit Eltern-Passwort geschützt.</small></span>${I('arrow')}</button>`;
+  if ($('#pflogin')) $('#pflogin').onclick = openLogin;
   $$('.avb', h).forEach((b) => (b.onclick = () => {
     av = b.dataset.av; $$('.avb', h).forEach((x) => x.classList.toggle('on', x === b)); $('#pfav').innerHTML = avHTML({ av, photo }); sfx.tap(); restart($('#pfav'), 'pin');
   }));
@@ -7910,16 +7941,32 @@ function pinPad(title, sub, onDone, extra = '', o = {}) {
 function drawParents() {
   const h = $('#apar'); if (!h) return;
   const P0 = PROF();
-  if (!P0.pin) {
-    let first = '';
-    const ask1 = () => pinPad('Neuen Eltern-Code erstellen', 'Denk dir 4 Zahlen aus, die nur du kennst. Damit schützt du den Elternbereich vor Kinderhänden.', (v) => { first = v; ask2(); }, '', { make: true, step: 'Schritt 1 von 2 · Code ausdenken', btn: 'Weiter' });
-    const ask2 = () => { const pp = pinPad('Code bestätigen', 'Tippe denselben Code noch einmal ein.', (v) => { if (v !== first) { lpToast('Die Codes sind nicht gleich. Bitte nochmal von vorne.'); setTimeout(ask1, 700); return false; } lsx.set('gsm-pin', v); sfx.ok(); saved(v); }, '<button class="lnk pgback" id="pgb">Zurück</button>', { make: true, step: 'Schritt 2 von 2 · Code bestätigen', btn: 'Code speichern' }); $('#pgb').onclick = ask1; };
-    const saved = (v) => { $('#apar').innerHTML = `<div class="pgate pgsaved"><span class="pgi ok">${I('check')}</span><b>Eltern-Code gespeichert</b><p>Dein Code: <strong class="pgcode">${v.split('').join(' ')}</strong><br>Merk ihn dir gut. Ab jetzt fragt Grundschulmax danach, bevor jemand den Elternbereich öffnet.</p><button class="b3d c wide" id="pgin">Zum Elternbereich</button><small class="pgfm">Code vergessen? Mit deinem Elternkonto setzt du ihn per E-Mail zurück.</small></div>`; $('#pgin').onclick = () => { parOpen = true; drawParents(); }; };
-    ask1(); return;
+  if (!K.tok) {
+    h.innerHTML = `<div class="pgate"><span class="pgi">${I('family')}</span><b>Elternbereich</b><p>Lernzeit-Limit, Hausaufgaben-Hilfe und was dein Kind wirklich gelernt hat. Dafür brauchst du ein Elternkonto, damit alles auf jedem Gerät gespeichert ist.</p><div class="pgk" id="pgk"></div></div>`;
+    kLoginUI($('#pgk', h), { title: 'Anmelden oder Konto erstellen', sub: 'Mit deiner E-Mail-Adresse. Wir schicken dir einen Code.', onDone: (p) => { if (!(p.data && p.data['gsm-name']) || !p.hasPpw) { const ov0 = $('#ov'); ov0.classList.add('on'); stepKid(); return; } location.reload(); } });
+    return;
+  }
+  if (!K.ppw) {
+    h.innerHTML = `<div class="pgate pgpw"><span class="pgstep">Einmalig einrichten</span><span class="pgi">${I('lock')}</span><b>Eltern-Passwort festlegen</b><p>Damit schützt du den Elternbereich vor Kinderhänden. Vergessen? Dann setzt du es per E-Mail zurück.</p>
+      <input id="pw1" class="pgin" type="password" autocomplete="new-password" placeholder="Neues Passwort (mind. 4 Zeichen)"><input id="pw2" class="pgin" type="password" autocomplete="new-password" placeholder="Passwort wiederholen">
+      <button class="b3d c wide" id="pwok">Passwort speichern</button><p class="pyerr" id="pwerr"></p></div>`;
+    $('#pwok').onclick = async () => { const a = $('#pw1').value, b = $('#pw2').value, e = $('#pwerr'); if (a.length < 4) { e.textContent = 'Mindestens 4 Zeichen.'; return; } if (a !== b) { e.textContent = 'Die Passwörter sind nicht gleich.'; return; } const r = await K.req('ppwset', { token: K.tok, pw: a }); if (!r.ok) { e.textContent = r.grund || 'Das hat nicht geklappt.'; return; } localStorage.setItem('gsm-ppwset', '1'); sfx.ok(); parOpen = true; lpToast('Eltern-Passwort gespeichert.'); drawParents(); };
+    return;
   }
   if (!parOpen) {
-    pinPad('Elternbereich', 'Bitte gib deinen 4-stelligen Eltern-Code ein.', (v) => { if (v !== P0.pin) return false; parOpen = true; sfx.ok(); drawParents(); }, `<button class="lnk pgforgot" id="pgf">Code vergessen?</button><small class="pgfm" id="pgfm"></small>`);
-    $('#pgf').onclick = () => { $('#pgfm').textContent = 'Kein Problem: Über dein Elternkonto bekommst du eine E-Mail und legst einen neuen Code fest.'; };
+    h.innerHTML = `<div class="pgate pgpw"><span class="pgi">${I('lock')}</span><b>Elternbereich</b><p>Bitte gib dein Eltern-Passwort ein.</p>
+      <input id="pw1" class="pgin" type="password" autocomplete="current-password" placeholder="Eltern-Passwort"><button class="b3d c wide" id="pwok">Öffnen</button><p class="pyerr" id="pwerr"></p>
+      <button class="lnk pgforgot" id="pgf">Passwort vergessen?</button></div>`;
+    const go = async () => { const b = $('#pwok'); b.disabled = true; const r = await K.req('ppwcheck', { token: K.tok, pw: $('#pw1').value }); b.disabled = false; if (r.ok) { parOpen = true; sfx.ok(); drawParents(); return; } if (r.auth === false) { kLost(); drawParents(); return; } sfx.no(); restart($('.pgate', h), 'shk'); $('#pwerr').textContent = 'Das Passwort stimmt nicht.'; $('#pw1').select(); };
+    $('#pwok').onclick = go; $('#pw1').onkeydown = (e) => { if (e.key === 'Enter') go(); }; setTimeout(() => $('#pw1') && $('#pw1').focus(), 50);
+    $('#pgf').onclick = async () => {
+      const r = await K.req('ppwreset', { email: K.mail }); if (!r.ok) { lpToast(r.grund || 'Das hat nicht geklappt.'); return; }
+      h.innerHTML = `<div class="pgate pgpw"><span class="pgi">${I('lock')}</span><b>Neues Eltern-Passwort</b><p>Wir haben dir einen Code an <b>${esc(K.mail)}</b> geschickt.</p>
+        <input id="rc" class="pgin kcode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="Code aus der E-Mail"><input id="pw1" class="pgin" type="password" autocomplete="new-password" placeholder="Neues Passwort (mind. 4 Zeichen)">
+        <button class="b3d c wide" id="pwok">Neues Passwort speichern</button><p class="pyerr" id="pwerr"></p><button class="lnk" id="pwback">Zurück</button></div>`;
+      $('#pwback').onclick = drawParents;
+      $('#pwok').onclick = async () => { const r2 = await K.req('ppwreset', { email: K.mail, code: $('#rc').value, pw: $('#pw1').value }); if (!r2.ok) { $('#pwerr').textContent = r2.grund || 'Das hat nicht geklappt.'; return; } sfx.ok(); parOpen = true; lpToast('Neues Passwort gespeichert.'); drawParents(); };
+    };
     return;
   }
   const g = Math.max(0, st.grade), tot = SUBJ.reduce((s, S) => s + lpStat(S.k, g).n, 0), mins = Math.round((+lsx.get('gsm-used-' + todayKey(), 0)) / 60);
@@ -7931,7 +7978,7 @@ function drawParents() {
       <div class="pac"><b>${I('cam')}Hausaufgaben-Hilfe</b><p>Darf dein Kind Fotos von Hausaufgaben schicken? Fotos werden nicht gespeichert.</p><div class="paopt" data-k="hw"><button data-v="1" class="${P0.hw ? 'on' : ''}">Erlaubt</button><button data-v="0" class="${!P0.hw ? 'on' : ''}">Aus</button></div></div>
       <div class="pac"><b>${I('snd')}Vorlesen</b><p>Die Tutoren lesen alles vor. Ideal für Kinder, die noch nicht so sicher lesen.</p><div class="paopt" data-k="snd"><button data-v="1" class="${voiceOn ? 'on' : ''}">An</button><button data-v="0" class="${!voiceOn ? 'on' : ''}">Aus</button></div></div>
       <div class="pac"><b>${I('star')}Lernstand</b><p>${tot} Lektionen geschafft. Im Abo kommt jeden Sonntag der Wochenbericht per E-Mail.</p><button class="lnk" id="pareset">Fortschritt zurücksetzen</button></div>
-      <div class="pac"><b>${I('lock')}Eltern-Code</b><p>Den 4-stelligen Code kannst du hier ändern.</p><button class="lnk" id="papin">Code ändern</button></div>
+      <div class="pac"><b>${I('lock')}Elternkonto</b><p>Angemeldet als <b>${esc(K.mail)}</b>. Alles wird automatisch im Konto gespeichert.</p><button class="lnk" id="papin">Eltern-Passwort ändern</button> <button class="lnk" id="paout">Abmelden</button></div>
     </div>`;
   $$('.paopt', h).forEach((o) => $$('button', o).forEach((b) => (b.onclick = () => {
     $$('button', o).forEach((x) => x.classList.toggle('on', x === b)); sfx.tap();
@@ -7940,7 +7987,9 @@ function drawParents() {
   })));
   $$('.actsw button', h).forEach((b) => (b.onclick = () => { $$('.actsw button', h).forEach((x) => x.classList.toggle('on', x === b)); $$('.actg', h).forEach((g) => (g.hidden = g.dataset.r !== b.dataset.r)); sfx.tap(); }));
   $('#pareset').onclick = () => { if (confirmReset()) { LPS = {}; lpSave(); drawLPCards(); drawAside(); lpToast('Fortschritt zurückgesetzt.'); drawParents(); } };
-  $('#papin').onclick = () => { lsx.set('gsm-pin', ''); drawParents(); };
+  $('#papin').onclick = (e) => { const c = e.currentTarget.closest('.pac'); c.innerHTML = `<b>${I('lock')}Eltern-Passwort ändern</b><input id="pwo" class="pgin" type="password" autocomplete="current-password" placeholder="Altes Passwort"><input id="pwn" class="pgin" type="password" autocomplete="new-password" placeholder="Neues Passwort (mind. 4 Zeichen)"><button class="b3d c" id="pwcs">Speichern</button><p class="pyerr" id="pwce"></p>`;
+    $('#pwcs').onclick = async () => { const r = await K.req('ppwset', { token: K.tok, old: $('#pwo').value, pw: $('#pwn').value }); if (!r.ok) { $('#pwce').textContent = r.grund || 'Das hat nicht geklappt.'; return; } lpToast('Neues Passwort gespeichert.'); drawParents(); }; };
+  if ($('#paout')) $('#paout').onclick = kLogout;
   const aboReq = (b) => fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }).then((x) => x.json());
   if ($('#paportal')) $('#paportal').onclick = async (e) => { const b = e.currentTarget; b.disabled = true; b.textContent = 'Einen Moment …'; try { const r = await aboReq({ mode: 'portal', code: ABO.code }); if (r.ok && r.url) { location.href = r.url; return; } lpToast(r.grund || 'Das hat nicht geklappt.'); } catch (x) { lpToast('Das hat nicht geklappt.'); } b.disabled = false; b.textContent = 'Abo verwalten oder kündigen'; };
   if ($('#pacgo')) $('#pacgo').onclick = async (e) => { const c = $('#pacode').value.trim().toUpperCase().replace(/^([A-Z0-9]{4})([A-Z0-9]{4})$/, '$1-$2'); const b = e.currentTarget; b.disabled = true; try { const r = await aboReq({ mode: 'status', code: c }); if (r.ok && r.paid) { lsx.set('gsm-abo', JSON.stringify({ code: c, paid: true, status: r.status, plan: r.plan, trialEnd: r.trialEnd, checked: Date.now() })); lpToast('Freigeschaltet!'); setTimeout(() => location.reload(), 700); return; } lpToast(r.ok ? 'Dieses Abo ist nicht mehr aktiv.' : (r.grund || 'Der Code stimmt nicht.')); } catch (x) { lpToast('Das hat nicht geklappt.'); } b.disabled = false; };
@@ -7990,6 +8039,143 @@ function pauseScreen() {
   $('#pzp').onclick = () => { st.nav = 'parents'; parOpen = false; o.classList.remove('on'); mount(); };
 }
 function drawSideProf() { const b = $('#aprofb'); if (!b) return; const P0 = PROF(); b.innerHTML = `<span class="apfa">${avHTML(P0)}</span><span><b>${esc(P0.name || 'Profil')}</b><small>Profil &amp; Eltern</small></span>${isAdmin() ? '<em>Admin</em>' : ''}`; }
+
+/* ---------- Elternkonto: Login per E-Mail-Code, alles auf dem Server ---------- */
+const K_URL = 'https://mrbell.app.n8n.cloud/webhook/gsm-konto-6w3c';
+const KSKIP = ['gsm-token', 'gsm-pend', 'gsm-dev-paid', 'gsm-abo', 'gsm-photo', 'gsm-mute', 'gsm-sync-at', 'gsm-kmail', 'gsm-ppwset', 'gsm-admin'];
+const K = {
+  get tok() { try { return localStorage.getItem('gsm-token') || ''; } catch (e) { return ''; } },
+  get mail() { try { return localStorage.getItem('gsm-kmail') || ''; } catch (e) { return ''; } },
+  get ppw() { try { return localStorage.getItem('gsm-ppwset') === '1'; } catch (e) { return false; } },
+  req: (mode, b = {}) => fetch(K_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode, ...b }) }).then((x) => x.json()).catch(() => ({ ok: false, grund: 'Keine Verbindung. Bitte gleich nochmal versuchen.' })),
+};
+/* Alle Lerndaten aus dem Browser einsammeln (ohne Geräte-Einstellungen) */
+function kCollect() {
+  const d = {}, cut = Date.now() - 60 * 864e5;
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i); if (!k || !k.startsWith('gsm-') || KSKIP.includes(k)) continue;
+    const m = k.match(/^gsm-(?:act|used)-(\d+)-(\d+)-(\d+)$/); if (m && new Date(+m[1], +m[2] - 1, +m[3]).getTime() < cut) continue;
+    d[k] = localStorage.getItem(k);
+  }
+  let s = JSON.stringify(d); if (s.length > 350000 && d['gsm-hwlib']) { try { d['gsm-hwlib'] = JSON.stringify(JSON.parse(d['gsm-hwlib']).slice(0, 5).map((x) => ({ ...x, th: '', ths: [] }))); } catch (e) { delete d['gsm-hwlib']; } }
+  d._at = Date.now(); return d;
+}
+function kApply(p) {
+  if (!p) return;
+  try {
+    localStorage.setItem('gsm-kmail', p.email || '');
+    localStorage.setItem('gsm-ppwset', p.hasPpw ? '1' : '0');
+    if (p.abo && p.abo.code) { let a = null; try { a = JSON.parse(localStorage.getItem('gsm-abo') || 'null'); } catch (e) {} if (!a || a.code !== p.abo.code) localStorage.setItem('gsm-abo', JSON.stringify({ code: p.abo.code, paid: true, plan: p.abo.plan, checked: 0 })); }
+    if (p.data) { for (const [k, v] of Object.entries(p.data)) if (k.startsWith('gsm-') && !KSKIP.includes(k) && typeof v === 'string') localStorage.setItem(k, v); localStorage.setItem('gsm-sync-at', String(p.data._at || Date.now())); }
+  } catch (e) {}
+}
+let kTimer = 0, kBusy = false;
+/* Google-Anmeldung (One-Click). Client-ID ist öffentlich. */
+const GSI_CLIENT = '';
+const kOk = (r, onDone, neu) => { try { localStorage.setItem('gsm-token', r.token); } catch (e) {} kApply(r.profil); if (!r.profil.data) kPush(); sfx.ok(); onDone && onDone(r.profil, neu); };
+const loadGsi = () => new Promise((ok, no) => { if (window.google && google.accounts && google.accounts.id) return ok(); const sc = document.createElement('script'); sc.src = 'https://accounts.google.com/gsi/client'; sc.async = true; sc.onload = () => ok(); sc.onerror = no; document.head.appendChild(sc); });
+async function kGoogle(slot, onDone, errEl) {
+  if (!GSI_CLIENT || !slot) return;
+  try { await loadGsi(); } catch (e) { slot.remove(); return; }
+  if (!slot.isConnected) return;
+  google.accounts.id.initialize({ client_id: GSI_CLIENT, use_fedcm_for_prompt: true, callback: async (resp) => {
+    slot.style.opacity = '.5'; const r = await K.req('google', { cred: resp.credential }); slot.style.opacity = '';
+    if (r.ok && r.token) { kOk(r, onDone, r.neu); return; }
+    if (errEl) errEl.textContent = r.grund || 'Die Google-Anmeldung hat nicht geklappt.';
+  } });
+  google.accounts.id.renderButton(slot, { theme: 'outline', size: 'large', shape: 'pill', text: 'continue_with', locale: 'de', width: Math.min(360, slot.clientWidth || 320) });
+}
+async function kPush() {
+  if (!K.tok || kBusy) return; kBusy = true;
+  const data = kCollect(); const r = await K.req('save', { token: K.tok, data });
+  if (r.ok) { try { localStorage.setItem('gsm-sync-at', String(data._at)); } catch (e) {} } else if (r.auth === false) kLost();
+  kBusy = false;
+}
+const kSoon = () => { if (!K.tok) return; clearTimeout(kTimer); kTimer = setTimeout(kPush, 2500); };
+/* Jede Änderung an Lerndaten landet automatisch im Konto */
+(() => { try { const o = Storage.prototype.setItem; Storage.prototype.setItem = function (k, v) { o.call(this, k, v); if (this === localStorage && typeof k === 'string' && k.startsWith('gsm-') && !KSKIP.includes(k)) kSoon(); }; } catch (e) {} })();
+addEventListener('pagehide', () => { if (K.tok) { try { navigator.sendBeacon && navigator.sendBeacon(K_URL, new Blob([JSON.stringify({ mode: 'save', token: K.tok, data: kCollect() })], { type: 'text/plain' })); } catch (e) {} } });
+function kLost() { try { localStorage.removeItem('gsm-token'); } catch (e) {} }
+/* Beim Start: neuere Daten vom Server holen (anderes Gerät) */
+(async () => {
+  if (!K.tok) return;
+  const r = await K.req('me', { token: K.tok }); if (!r.ok) { if (r.auth === false) kLost(); return; }
+  const p = r.profil, local = +(localStorage.getItem('gsm-sync-at') || 0), remote = p.data ? +(p.data._at || 0) : 0;
+  const hadAbo = (() => { try { return !!JSON.parse(localStorage.getItem('gsm-abo') || 'null'); } catch (e) { return false; } })();
+  if (remote > local + 1000 || (p.abo && !hadAbo)) { kApply(p); location.reload(); return; }
+  try { localStorage.setItem('gsm-ppwset', p.hasPpw ? '1' : '0'); localStorage.setItem('gsm-kmail', p.email || ''); } catch (e) {}
+  if (!p.data || remote < local) kPush();
+})();
+
+/* Login-Formular: E-Mail -> Code -> eingeloggt. host = Element, onDone(profil, neu) */
+function kLoginUI(host, { title = 'Anmelden', sub = GSI_CLIENT ? 'Mit deinem Google-Konto oder der E-Mail-Adresse aus deinem Abo.' : 'Mit der E-Mail-Adresse aus deinem Abo. Wir schicken dir einen Code, kein Passwort nötig.', btn = 'Code per E-Mail senden', extra = '', onDone, check } = {}) {
+  let email = K.mail || '';
+  const one = () => {
+    host.innerHTML = `<h3>${title}</h3><p class="s">${sub}</p>${extra}
+      ${GSI_CLIENT ? `<div class="kgoo" id="kgoo"></div><div class="kor"><span>oder per E-Mail-Code</span></div>` : ''}
+      <label class="fld"><span>Deine E-Mail-Adresse</span><input id="kem" type="email" autocomplete="email" inputmode="email" placeholder="name@beispiel.de" value="${esc(email)}"></label>
+      ${check ? `<label class="chk"><input type="checkbox" id="kadult"> <span>${check}</span></label>` : ''}
+      <button class="b3d c wide" id="ksend">${btn} ${I('arrow')}</button><p class="pyerr" id="kerr"></p>`;
+    const go = async () => {
+      email = $('#kem', host).value.trim(); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { $('#kerr', host).textContent = 'Bitte eine gültige E-Mail-Adresse eingeben.'; $('#kem', host).focus(); return; }
+      if (check && !$('#kadult', host).checked) { restart($('.chk', host), 'shk'); return; }
+      const b = $('#ksend', host); b.disabled = true; b.innerHTML = 'Einen Moment …';
+      const r = await K.req('send', { email }); if (r.ok) { two(r.neu); return; }
+      b.disabled = false; b.innerHTML = `${btn} ${I('arrow')}`; $('#kerr', host).textContent = r.grund || 'Das hat nicht geklappt.';
+    };
+    $('#ksend', host).onclick = go; $('#kem', host).onkeydown = (e) => { if (e.key === 'Enter') go(); };
+    if (GSI_CLIENT) kGoogle($('#kgoo', host), onDone, $('#kerr', host)); else setTimeout(() => $('#kem', host) && $('#kem', host).focus(), 80);
+  };
+  const two = (neu) => {
+    host.innerHTML = `<h3>Code eingeben</h3><p class="s">Wir haben dir einen 6-stelligen Code an <b>${esc(email)}</b> geschickt. Schau auch im Spam-Ordner nach.</p>
+      <input id="kcode" class="kcode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="······">
+      <button class="b3d c wide" id="kok">Bestätigen ${I('arrow')}</button><p class="pyerr" id="kerr"></p>
+      <div class="krow"><button class="lnk" id="kagain">Code nochmal senden</button><button class="lnk" id="kback">Andere E-Mail</button></div>`;
+    const c = $('#kcode', host); c.focus();
+    const go = async () => {
+      const code = c.value.replace(/\D/g, ''); if (code.length !== 6) { restart(c, 'shk'); return; }
+      const b = $('#kok', host); b.disabled = true; b.innerHTML = 'Prüfe …';
+      const r = await K.req('login', { email, code });
+      if (r.ok && r.token) { kOk(r, onDone, neu); return; }
+      b.disabled = false; b.innerHTML = `Bestätigen ${I('arrow')}`; $('#kerr', host).textContent = r.grund || 'Das hat nicht geklappt.'; restart(c, 'shk'); c.select();
+    };
+    c.oninput = () => { c.value = c.value.replace(/\D/g, '').slice(0, 6); if (c.value.length === 6) go(); };
+    $('#kok', host).onclick = go;
+    $('#kagain', host).onclick = async () => { const r = await K.req('send', { email }); lpToast(r.ok ? 'Neuer Code ist unterwegs.' : (r.grund || 'Das hat nicht geklappt.')); };
+    $('#kback', host).onclick = one;
+  };
+  one();
+}
+/* Eigenes Anmelde-Fenster (für bestehende Konten) */
+function openLogin() {
+  const ov0 = $('#ov'), mb0 = $('#mbody'); ov0.classList.add('on'); document.body.style.overflow = 'hidden'; $$('.steps i').forEach((e) => e.classList.remove('on'));
+  kLoginUI(mb0, { onDone: (p) => { if (!(p.data && p.data['gsm-name'])) { stepKid(); return; } mb0.innerHTML = `<div style="text-align:center;padding:16px 0"><h3>Willkommen zurück!</h3><p class="s">Alles ist geladen.</p></div>`; setTimeout(() => { location.href = '/#spiel'; location.reload(); }, 700); } });
+}
+/* Nach dem Login: Spitzname, Klasse und Eltern-Passwort */
+function stepKid(after) {
+  const mb0 = $('#mbody'); let g = Math.max(0, st.grade) + 1;
+  mb0.innerHTML = `<h3>Wer lernt mit Max?</h3><p class="s">Ein Spitzname reicht. Danach legst du dein Eltern-Passwort fest.</p>
+    <label class="fld"><span>Vorname oder Spitzname deines Kindes</span><input id="cn" autocomplete="off" maxlength="20" placeholder="z. B. Lena" value="${esc(lsx.get('gsm-name', ''))}"></label>
+    <div class="fld"><span>Klasse</span><div class="grades">${[1, 2, 3, 4].map((x) => `<button type="button" data-g="${x}" class="${x === g ? 'on' : ''}">${x}.</button>`).join('')}</div></div>
+    <label class="fld"><span>Eltern-Passwort (schützt den Elternbereich)</span><input id="ppw1" type="password" autocomplete="new-password" placeholder="mindestens 4 Zeichen"></label>
+    <label class="fld"><span>Passwort wiederholen</span><input id="ppw2" type="password" autocomplete="new-password"></label>
+    <button class="b3d c wide" id="kidgo">Los geht’s ${I('arrow')}</button><p class="pyerr" id="kerr"></p>`;
+  $$('[data-g]', mb0).forEach((b) => (b.onclick = () => { g = +b.dataset.g; $$('[data-g]', mb0).forEach((x) => x.classList.toggle('on', x === b)); }));
+  if (K.ppw) { $('#ppw1', mb0).closest('.fld').remove(); $('#ppw2', mb0).closest('.fld').remove(); }
+  $('#kidgo', mb0).onclick = async () => {
+    const n = $('#cn', mb0).value.trim(), e = $('#kerr', mb0); if (!n) { $('#cn', mb0).focus(); return; }
+    if (!K.ppw) { const a = $('#ppw1', mb0).value, b = $('#ppw2', mb0).value; if (a.length < 4) { e.textContent = 'Das Passwort braucht mindestens 4 Zeichen.'; return; } if (a !== b) { e.textContent = 'Die Passwörter sind nicht gleich.'; return; }
+      const r = await K.req('ppwset', { token: K.tok, pw: a }); if (!r.ok) { e.textContent = r.grund || 'Das hat nicht geklappt.'; return; } localStorage.setItem('gsm-ppwset', '1'); }
+    localStorage.setItem('gsm-name', n); st.grade = g - 1; drawGrade(); await kPush();
+    if (after) { after(n); return; }
+    mb0.innerHTML = `<div style="text-align:center;padding:10px 0"><img src="/grundschulmax/max.png" alt="" style="width:100px;margin:0 auto 10px;display:block"><h3>Willkommen, ${esc(n)}!</h3><p class="s">Alles ist eingerichtet.</p><button class="b3d c wide" id="cl">Los geht’s</button></div>`;
+    $('#cl', mb0).onclick = () => { location.href = '/#spiel'; location.reload(); }; confetti(60);
+  };
+}
+function kLogout() { const t = K.tok; if (t) K.req('logout', { token: t }); try { Object.keys(localStorage).filter((k) => k.startsWith('gsm-') && k !== 'gsm-mute').forEach((k) => localStorage.removeItem(k)); } catch (e) {} location.href = '/'; }
+
+/* Kopfzeile: Anmelden bzw. Mein Konto */
+(() => { const b = document.getElementById('hlogin'); if (!b) return; if (K.tok) { b.innerHTML = `${I('family')}Mein Konto`; b.onclick = () => { location.hash = '#spiel'; }; } else b.onclick = openLogin; })();
 
 /* ---------- Vorschau-Spiele (im Abo): kleine Animationen ---------- */
 const PV = {
@@ -8255,42 +8441,51 @@ const planCard = () => { const P0 = PLANS[su.plan]; return `<div class="plsel ${
 function step(n) {
   $$('.steps i').forEach((e, i) => e.classList.toggle('on', i < n));
   if (n === 1) {
-    mb.innerHTML = `<h3>Dein Elternkonto</h3><p class="s">Das Konto gehört dir. Hier kommt jeden Sonntag der Wochenbericht an.</p>
-      ${planCard()}
-      <label class="fld"><span>Deine E-Mail-Adresse</span><input id="em" type="email" autocomplete="email" placeholder="name@beispiel.de" value="${esc(su.email)}"></label>
-      <label class="chk"><input type="checkbox" id="adult"> <span>Ich bin volljährig und erziehungsberechtigt für das Kind.</span></label>
-      <button class="b3d c wide" id="n1">Weiter zur Zahlung ${I('arrow')}</button>`;
-    $('.plsw', mb).onclick = () => { su.email = $('#em').value.trim(); su.plan = su.plan === 'y' ? 'm' : 'y'; step(1); };
-    $('#n1').onclick = () => { su.email = $('#em').value.trim(); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(su.email)) return $('#em').focus(); if (!$('#adult').checked) { restart($('.chk', mb), 'shk'); return; } step(2); };
+    if (K.tok) { su.email = K.mail; step(2); return; }
+    mb.innerHTML = `<h3>7 Tage kostenlos testen</h3><p class="s">Heute zahlst du nichts. Vor Ende des Tests jederzeit mit einem Klick kündbar.</p>${planCard()}
+      <ul class="s1list"><li>${I('check')}Alle Fächer, alle Lernspiele</li><li>${I('check')}Das Fach Internet & KI</li><li>${I('check')}Hausaufgaben-Hilfe und Probetests</li></ul>
+      <label class="chk"><input type="checkbox" id="kadult"> <span>Ich bin volljährig und erziehungsberechtigt für das Kind.</span></label>
+      <button class="b3d c wide" id="s1go">Weiter zur Zahlung ${I('arrow')}</button>
+      <p class="fine" style="text-align:center;margin-top:10px">Schon ein Abo? <button class="lnk" id="s1in">Anmelden</button></p>`;
+    $('#s1go', mb).onclick = () => { if (!$('#kadult', mb).checked) { restart($('.chk', mb), 'shk'); return; } step(2); };
+    $('#s1in', mb).onclick = () => { closeM(); openLogin(); };
+    const sw = $('.plsw', mb); if (sw) sw.onclick = () => { su.plan = su.plan === 'y' ? 'm' : 'y'; step(1); };
   }
   if (n === 2) {
     const y = su.plan === 'y', end = new Date(Date.now() + 7 * 864e5).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
-    mb.innerHTML = `<h3>Zahlung</h3><p class="s">Heute 0,00 €. Die erste Zahlung kommt erst nach dem kostenlosen Test.</p>
+    mb.innerHTML = `<h3>Zahlungsart wählen</h3><p class="s">Heute 0,00 €. Die erste Zahlung kommt erst nach dem kostenlosen Test am ${end}. Vorher jederzeit kostenlos kündbar.</p>
       ${planCard()}
-      <div class="paym pays">${['Apple Pay', 'Google Pay', 'PayPal', 'Kreditkarte', 'Lastschrift'].map((t) => `<span class="pym"><i></i>${t}</span>`).join('')}</div>
-      <div class="paybox"><div class="row"><span>Kostenloser Test</span><span>bis ${end}</span></div><div class="row"><span>Heute fällig</span><span>0,00 €</span></div><div class="row"><span>Danach</span><span>${y ? '79 € für 12 Monate' : '9,90 € pro Monat'}</span></div>
-      <p class="pbn">Im Test jederzeit kostenlos kündbar, mit einem Klick im Elternbereich. Endpreise, keine Umsatzsteuer (§ 19 UStG).</p></div>
-      <p class="fine">Es gelten unsere <a href="/agb" target="_blank">AGB</a>. Hinweise zum <a href="/widerruf" target="_blank">Widerrufsrecht</a> und zum <a href="/datenschutz" target="_blank">Datenschutz</a>. Die Zahlung läuft sicher über Stripe.</p>
-      <button class="b3d c wide" id="n2">${I('lock')}Weiter zur sicheren Zahlung</button><p class="pyerr" id="pyerr"></p>`;
+      <div class="paybox"><div class="row"><span>Heute fällig</span><span>0,00 €</span></div><div class="row"><span>Ab ${end}</span><span>${y ? '79 € für 12 Monate' : '9,90 € pro Monat'}</span></div><p class="pbn">Endpreise, keine Umsatzsteuer (§ 19 UStG). Es gelten unsere <a href="/agb" target="_blank">AGB</a> und das <a href="/widerruf" target="_blank">Widerrufsrecht</a>.</p></div>
+      <div id="spay" class="spay"><div class="spload"><i></i><span>Sichere Zahlung wird geladen …</span></div></div><p class="pyerr" id="pyerr"></p>
+      <p class="fine sfine">${I('lock')}Sicher verschlüsselt über Stripe. Deine Zahlungsdaten sehen wir nie.</p>`;
     $('.plsw', mb).onclick = () => { su.plan = su.plan === 'y' ? 'm' : 'y'; step(2); };
-    $('#n2').onclick = async () => {
-      const b = $('#n2'); b.disabled = true; b.innerHTML = 'Einen Moment …'; $('#pyerr').textContent = '';
-      try { localStorage.setItem('gsm-pend', JSON.stringify({ plan: su.plan, grade: su.grade, email: su.email })); } catch (e) {}
-      try {
-        const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'checkout', plan: su.plan, email: su.email, grade: su.grade }) }).then((x) => x.json());
-        if (r.ok && r.url) { location.href = r.url; return; }
-        throw new Error(r.grund || '');
-      } catch (e) { b.disabled = false; b.innerHTML = `${I('lock')}Weiter zur sicheren Zahlung`; $('#pyerr').textContent = e.message || 'Das hat nicht geklappt. Bitte gleich nochmal versuchen.'; }
-    };
+    try { localStorage.setItem('gsm-pend', JSON.stringify({ plan: su.plan, grade: su.grade, email: su.email || K.mail })); } catch (e) {}
+    payMount();
   }
   if (n === 3) {
-    mb.innerHTML = `<div class="okhd">${I('check')}<b>Abo ist aktiv! 7 Tage kostenlos.</b></div>${ABO && ABO.code ? `<div class="abocode"><small>Dein Zugangscode</small><b>${esc(ABO.code)}</b><span>Damit schaltest du Grundschulmax auf weiteren Geräten frei (Profil & Eltern → Abo). Am besten gleich aufschreiben oder ein Foto machen.</span></div>` : ''}<h3>Wer lernt mit Max?</h3><p class="s">Damit Max dein Kind begrüßen kann und die passenden Aufgaben wählt. Ein Spitzname reicht.</p>
-      <label class="fld"><span>Vorname oder Spitzname deines Kindes</span><input id="cn" autocomplete="off" placeholder="z. B. Lena" value="${esc(su.child)}"></label>
-      <div class="fld"><span>Klasse</span><div class="grades">${[1, 2, 3, 4].map((g) => `<button type="button" data-g="${g}" class="${g === su.grade ? 'on' : ''}">${g}.</button>`).join('')}</div></div>
-      <button class="b3d c wide" id="n3">Los geht’s ${I('arrow')}</button>`;
-    $$('[data-g]', mb).forEach((b) => (b.onclick = () => { su.grade = +b.dataset.g; $$('[data-g]', mb).forEach((x) => x.classList.toggle('on', x === b)); }));
-    $('#n3').onclick = () => { su.child = $('#cn').value.trim(); if (!su.child) return $('#cn').focus(); try { localStorage.setItem('gsm-name', su.child); } catch (e) {} st.grade = su.grade - 1; drawGrade(); welcome(); };
+    stepKid((name) => { su.child = name; welcome(); });
+    $('h3', mb).insertAdjacentHTML('beforebegin', `<div class="okhd">${I('check')}<b>Abo ist aktiv! 7 Tage kostenlos.</b></div>`);
   }
+}
+/* Eingebettete Stripe-Zahlung: Apple Pay, Google Pay, Karte, PayPal, Lastschrift direkt im Fenster */
+const STRIPE_PK = '';
+let payObj = null, payTok = 0;
+const loadStripe = () => new Promise((ok, no) => { if (window.Stripe) return ok(window.Stripe); const sc = document.createElement('script'); sc.src = 'https://js.stripe.com/dahlia/stripe.js'; sc.onload = () => (window.Stripe ? ok(window.Stripe) : no()); sc.onerror = no; document.head.appendChild(sc); });
+async function payMount() {
+  const my = ++payTok, host = $('#spay'), err = $('#pyerr');
+  try { if (payObj) { payObj.destroy(); payObj = null; } } catch (e) {}
+  const body = { mode: 'checkout', plan: su.plan, email: su.email || K.mail, grade: su.grade, embedded: !!STRIPE_PK };
+  let r = null; try { r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then((x) => x.json()); } catch (e) {}
+  if (my !== payTok || !host || !host.isConnected) return;
+  if (!r || !r.ok) { host.innerHTML = ''; err.textContent = (r && r.grund) || 'Die Zahlung ist gerade nicht erreichbar. Bitte gleich nochmal versuchen.'; return; }
+  if (r.url) { host.innerHTML = `<button class="b3d c wide" id="n2">${I('lock')}Weiter zur sicheren Zahlung</button>`; $('#n2').onclick = () => { location.href = r.url; }; return; }
+  try {
+    const S = (await loadStripe())(STRIPE_PK, { locale: 'de' });
+    const make = S.createEmbeddedCheckoutPage ? S.createEmbeddedCheckoutPage.bind(S) : S.initEmbeddedCheckout.bind(S);
+    const co = await make({ fetchClientSecret: async () => r.cs });
+    if (my !== payTok || !host.isConnected) { co.destroy(); return; }
+    host.innerHTML = ''; co.mount(host); payObj = co;
+  } catch (e) { host.innerHTML = ''; err.textContent = 'Die Zahlung konnte nicht geladen werden. Bitte Seite neu laden.'; }
 }
 function welcome() { mb.innerHTML = `<div style="text-align:center;padding:10px 0"><img src="/grundschulmax/max.png" alt="" style="width:100px;margin:0 auto 10px;display:block"><h3>Willkommen, ${esc(su.child)}!</h3><p class="s">Alles ist freigeschaltet: alle Lernpfade, alle Spiele und die Hausaufgaben-Hilfe.</p><button class="b3d c wide" id="cl">Los geht’s</button></div>`; $('#cl').onclick = () => { closeM(); location.href = '/#spiel'; location.reload(); }; confetti(60); }
 /* Rückkehr von Stripe: Abo prüfen und freischalten */
@@ -8305,10 +8500,12 @@ function welcome() { mb.innerHTML = `<div style="text-align:center;padding:10px 
   if (!(r && r.ok && r.code)) { mb.innerHTML = `<div style="text-align:center;padding:20px 0"><h3>Das hat nicht geklappt</h3><p class="s">Wir konnten das Abo gerade nicht bestätigen. Wenn du bezahlt hast, schreib uns bitte über die Kontaktdaten im Impressum.</p><button class="b3d c wide" id="cl">Schließen</button></div>`; $('#cl').onclick = closeM; return; }
   const ab = { code: r.code, paid: !!r.paid, status: r.status, plan: r.plan, email: r.email, trialEnd: r.trialEnd, checked: Date.now() };
   try { localStorage.setItem('gsm-abo', JSON.stringify(ab)); localStorage.removeItem('gsm-pend'); } catch (e) {}
+  if (K.tok) await K.req('setabo', { token: K.tok, code: ab.code, plan: ab.plan });
+  else { let k = null; for (let i = 0; i < 3 && !(k && k.ok); i++) { k = await K.req('stripe', { sid }); if (!(k && k.ok)) await wait(1200); } if (k && k.ok && k.token) { try { localStorage.setItem('gsm-token', k.token); } catch (e) {} kApply(k.profil); if (!k.profil.data) kPush(); } }
   Object.assign(su, { plan: pend.plan || su.plan, grade: +(r.klasse || pend.grade || su.grade), email: r.email || pend.email || '' });
   stepDone(ab);
 })();
-function stepDone(ab) { step(3); const c = $('.abocode b', mb); if (!c && ab.code) $('.okhd', mb).insertAdjacentHTML('afterend', `<div class="abocode"><small>Dein Zugangscode</small><b>${esc(ab.code)}</b><span>Damit schaltest du Grundschulmax auf weiteren Geräten frei (Profil & Eltern → Abo). Am besten gleich aufschreiben oder ein Foto machen.</span></div>`); }
+function stepDone(ab) { step(3); }
 /* Abo regelmäßig prüfen (gekündigt, Zahlung offen …) */
 (async () => {
   if (!ABO || !ABO.code || Date.now() - (ABO.checked || 0) < 6 * 36e5) return;
@@ -8316,7 +8513,7 @@ function stepDone(ab) { step(3); const c = $('.abocode b', mb); if (!c && ab.cod
 })();
 function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 function openM(plan) { su.plan = plan || 'y'; su.grade = Math.max(0, st.grade) + 1; ov.classList.add('on'); document.body.style.overflow = 'hidden'; step(1); }
-function closeM() { ov.classList.remove('on'); document.body.style.overflow = ''; }
+function closeM() { try { if (payObj) { payObj.destroy(); payObj = null; } } catch (e) {} ov.classList.remove('on'); document.body.style.overflow = ''; }
 $('#mx').onclick = closeM; ov.onclick = (e) => { if (e.target === ov) closeM(); };
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeM(); });
 $$('[data-start]').forEach((b) => (b.onclick = () => openM(b.dataset.plan)));
