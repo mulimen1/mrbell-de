@@ -3036,6 +3036,12 @@ body.wsopen{overflow:hidden}
 .kgoo{display:flex;justify-content:center;min-height:44px;margin:14px 0 6px}
 .kor{display:flex;align-items:center;gap:10px;margin:10px 0 12px;color:#8a8577;font-size:13px;font-weight:700}
 .kor::before,.kor::after{content:"";flex:1;height:1px;background:#e5ded1}
+.pfact{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.pfab{flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 16px;border-radius:16px;border:2px solid #e5ded1;background:#fff;font:inherit;font-weight:800;font-size:15px;color:#3c3a33;cursor:pointer}
+.pfab svg{width:18px;height:18px}
+.pfab.warn{border-color:#e2312b;color:#e2312b}
+body.dark .pfab{background:#1f2433;border-color:#343b4f;color:#e8e6df}
+.navr .hlogin svg{background:linear-gradient(135deg,#ffb547,#e2620f)}
 </style>
 </head>
 <body>
@@ -3057,6 +3063,7 @@ body.wsopen{overflow:hidden}
     <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2.5 9.5L12 5l9.5 4.5L12 14z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6.5 11.5V16c3 2.4 8 2.4 11 0v-4.5M21.5 9.5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.8l7.5 2.8v5.8c0 4.7-3.2 8.4-7.5 10-4.3-1.6-7.5-5.3-7.5-10V5.6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.6 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-noad" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 6l12 12" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 12h9M18 12v3.5M21 12v2.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-family" viewBox="0 0 24 24"><circle cx="8" cy="7" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="9" r="2.1" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 20v-3.5A4.5 4.5 0 018 12a4.5 4.5 0 014.5 4.5V20M13 20v-2.6a3.5 3.5 0 017 0V20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10.5V8a4 4 0 018 0v2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="15.5" r="1.5" fill="currentColor"/></symbol>
     <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 17.5h6M10 21h4M12 3a6 6 0 00-3.6 10.8c.6.5 1 1.2 1 2V17h5.2v-1.2c0-.8.4-1.5 1-2A6 6 0 0012 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -3089,7 +3096,7 @@ body.wsopen{overflow:hidden}
     <div class="navr">
       <a class="lk ts" href="#sicherheit" data-to="sicherheit"><svg class="i"><use href="#i-shield"/></svg>Sicherheit</a>
       <a class="lk td" href="#datenschutz" data-to="datenschutz"><svg class="i"><use href="#i-lock"/></svg>Datenschutz</a>
-      <button class="lk hlogin" id="hlogin" type="button"><svg class="i"><use href="#i-family"/></svg>Anmelden</button>
+      <button class="lk hlogin" id="hlogin" type="button"><svg class="i"><use href="#i-key"/></svg>Anmelden</button>
     </div>
   </div>
 </header>
@@ -7914,8 +7921,11 @@ function drawProfile() {
       <div class="pff"><span>Aussehen</span><div class="paopt" id="pfdark"><button data-v="0" class="${document.body.classList.contains('dark') ? '' : 'on'}">${I('star')}Hell</button><button data-v="1" class="${document.body.classList.contains('dark') ? 'on' : ''}">${I('bulb')}Dunkel</button></div></div>
       <button class="b3d lg" id="pfs">${I('check')}Speichern</button></div>
     ${K.tok ? `<div class="pfacc">${I('family')}<span>Elternkonto: <b>${esc(K.mail)}</b><small>Alles wird automatisch gespeichert.</small></span></div>` : `<button class="pfacc pfin" id="pflogin">${I('family')}<span><b>Anmelden</b><small>Mit Elternkonto ist alles auf jedem Gerät gespeichert.</small></span>${I('arrow')}</button>`}
+    ${(K.tok || (ABO && ABO.code)) ? `<div class="pfact">${ABO && ABO.code ? `<button class="pfab" id="pfabo">${I('star')}Abo verwalten oder kündigen</button>` : ''}${K.tok ? `<button class="pfab" id="pfout">${I('arrow')}Abmelden</button>` : ''}</div>` : ''}
     <button class="pfpar" id="pfpar"><span class="pgi">${I('lock')}</span><span><b>Elternbereich</b><small>Lernzeit, Hausaufgaben-Hilfe, Abo. Mit Eltern-Passwort geschützt.</small></span>${I('arrow')}</button>`;
   if ($('#pflogin')) $('#pflogin').onclick = openLogin;
+  if ($('#pfout')) $('#pfout').onclick = (e) => { const b = e.currentTarget; if (b.dataset.sure) { kLogout(); return; } b.dataset.sure = '1'; b.classList.add('warn'); b.innerHTML = `${I('arrow')}Wirklich abmelden? Nochmal tippen`; setTimeout(() => { if (b.isConnected) { delete b.dataset.sure; b.classList.remove('warn'); b.innerHTML = `${I('arrow')}Abmelden`; } }, 4000); };
+  if ($('#pfabo')) $('#pfabo').onclick = async (e) => { const b = e.currentTarget; b.disabled = true; b.textContent = 'Einen Moment …'; try { const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'portal', code: ABO.code }) }).then((x) => x.json()); if (r.ok && r.url) { location.href = r.url; return; } lpToast(r.grund || 'Das hat nicht geklappt.'); } catch (x) { lpToast('Das hat nicht geklappt.'); } b.disabled = false; b.innerHTML = `${I('star')}Abo verwalten oder kündigen`; };
   $$('.avb', h).forEach((b) => (b.onclick = () => {
     av = b.dataset.av; $$('.avb', h).forEach((x) => x.classList.toggle('on', x === b)); $('#pfav').innerHTML = avHTML({ av, photo }); sfx.tap(); restart($('#pfav'), 'pin');
   }));
