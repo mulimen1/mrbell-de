@@ -2701,6 +2701,27 @@ body.dark .lgl a{background:#232838;color:#eef1f8}
 .actn{font-size:13px;color:var(--mute);font-weight:650}
 @media (max-width:820px){.actg{grid-template-columns:repeat(2,1fr)}}
 .actg[hidden]{display:none!important}
+
+/* Rückmeldung unten: kompakt, Lösung in der Zeile */
+.lesmsg .lmt b{display:inline;font-size:inherit;letter-spacing:0;font-weight:850}
+.lesmsg .lmt i{display:block;font-style:normal;font-weight:600;margin-top:4px;opacity:.92}
+.lesmsg>div{min-width:0;overflow-wrap:anywhere}
+
+/* Reihenfolge: klar mit Plätzen 1, 2, 3 */
+.ordw{max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.ordh{margin:0;text-align:center;font-weight:850;font-size:clamp(16px,2vw,19px);color:#fff;background:rgba(0,0,0,.22);padding:10px 16px;border-radius:16px}
+.oslots{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:10px}
+.osl{position:relative;min-height:96px;border-radius:20px;border:3px dashed rgba(255,255,255,.85);background:rgba(255,255,255,.22);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;padding:10px 8px;color:#fff;transition:background .2s,border-color .2s,transform .2s}
+.osl em{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:18px;background:rgba(255,255,255,.35)}
+.osl small{font-weight:850;font-size:12px;letter-spacing:.05em;text-transform:uppercase;opacity:.95}
+.osl span{font-weight:850;font-size:clamp(14px,1.8vw,17px);line-height:1.2;text-align:center;color:var(--ink)}
+.osl.next{border-color:#fff;background:rgba(255,255,255,.4);animation:oslp 1.2s ease-in-out infinite}
+@keyframes oslp{50%{transform:scale(1.04)}}
+.osl.full{border-style:solid;border-color:#fff;background:#fff;color:#1a5fc4;box-shadow:0 5px 0 rgba(0,0,0,.15)}
+.osl.full em{background:linear-gradient(135deg,#5aa2f7,#1a5fc4);color:#fff}
+.osl.right{border-color:#58cc6f;box-shadow:0 0 0 3px #58cc6f}.osl.wrong{border-color:#f6a467;box-shadow:0 0 0 3px #f6a467}
+.ordw .oc.on{opacity:.45;transform:scale(.97)}
+@media (max-width:560px){.oslots{grid-auto-flow:row;grid-auto-columns:auto}.osl{min-height:0;flex-direction:row;justify-content:flex-start;text-align:left;padding:8px 12px}.osl span{text-align:left}}
 </style>
 </head>
 <body>
@@ -2974,7 +2995,7 @@ body.dark .lgl a{background:#232838;color:#eef1f8}
           <h3>Monatlich</h3>
           <div class="price"><b>9,90 €</b><span>/ Monat</span></div>
           <div class="per">monatlich kündbar</div>
-          <ul><li><svg class="i"><use href="#i-check"/></svg>Alle Fächer und 30 Lernspiele</li><li><svg class="i"><use href="#i-check"/></svg>Foto-Zauber für Hausaufgaben</li><li><svg class="i"><use href="#i-check"/></svg>Fach Internet und KI inklusive</li><li><svg class="i"><use href="#i-check"/></svg>Wochenbericht, bis zu 3 Kinder</li></ul>
+          <ul><li><svg class="i"><use href="#i-check"/></svg>Lernpfade fürs ganze Schuljahr, 6 Fächer</li><li><svg class="i"><use href="#i-check"/></svg>Jede Lektion ein Lernspiel, über 30 Extra-Spiele</li><li><svg class="i"><use href="#i-check"/></svg>Hausaufgaben-Tutor mit bis zu 10 Fotos</li><li><svg class="i"><use href="#i-check"/></svg>Testvorbereitung mit Probetests</li><li><svg class="i"><use href="#i-check"/></svg>Bibliothek mit allen Erklärungen</li><li><svg class="i"><use href="#i-check"/></svg>Echte Tutor-Stimmen zum Vorlesen</li><li><svg class="i"><use href="#i-check"/></svg>Fach Internet und KI inklusive</li><li><svg class="i"><use href="#i-check"/></svg>Elternbereich mit Zeitlimit und Lernzeit</li><li><svg class="i"><use href="#i-check"/></svg>Wochenbericht, bis zu 3 Kinder</li></ul>
           <button class="b3d w wide" data-start data-plan="m">7 Tage kostenlos testen</button>
         </div>
         <div class="plan best">
@@ -3253,6 +3274,7 @@ const P = {
   done3: vk('Drei Sterne! Das war richtig stark.'),
   done2: vk('Zwei Sterne! Das war schon richtig gut.'),
   done1: vk('Geschafft! Mit etwas Übung wird es noch besser.'),
+  st: ['Ein Stern! Geschafft. Mit etwas Übung wird es noch besser.', 'Zwei Sterne! Du bist auf einem guten Weg.', 'Drei Sterne! Das war schon richtig gut.', 'Vier Sterne! Das war richtig stark.', 'Fünf Sterne! Alles perfekt gelöst!'].map((t) => vk(t)),
   grade: vk('Hallo, ich bin Max! In welche Klasse geht dein Kind?'),
   pick: vk('Herzlich willkommen bei Grundschulmax! Schau dich ganz entspannt um.'),
   locked: vk('Dieses Spiel gibt es im Abo.'),
@@ -3439,6 +3461,20 @@ LP.mathe = [
     { t: 'Rechnen bis 20', d: 'Plus und Minus über die 10' },
     { t: 'Formen entdecken', d: 'Kreis, Dreieck, Quadrat und Rechteck' },
     { t: 'Erstes Geld', d: 'Münzen und Scheine kennenlernen' },
+    { t: 'Zahlzerlegung', d: 'Zahlen in zwei Teile zerlegen' },
+    { t: 'Verliebte Zahlen', d: 'Zahlenpaare, die zusammen 10 ergeben' },
+    { t: 'Tauschaufgaben', d: '3 + 4 ist dasselbe wie 4 + 3' },
+    { t: 'Umkehraufgaben', d: 'Plus und Minus gehören zusammen' },
+    { t: 'Verdoppeln und Halbieren', d: 'Doppelt so viel und halb so viel' },
+    { t: 'Nachbaraufgaben', d: 'Mit leichten Aufgaben schwere lösen' },
+    { t: 'Zahlenreihen', d: 'Muster in Zahlenfolgen entdecken' },
+    { t: 'Rechengeschichten', d: 'Kleine Sachaufgaben aus dem Alltag' },
+    { t: 'Rechts, links, oben, unten', d: 'Lagen im Raum beschreiben' },
+    { t: 'Muster legen', d: 'Formen und Farben fortsetzen' },
+    { t: 'Längen vergleichen', d: 'Länger, kürzer oder gleich lang' },
+    { t: 'Zeit im Alltag', d: 'Tag, Woche und Uhr entdecken' },
+    { t: 'Fit für die Klassenarbeit', d: 'Plus und Minus bis 20 üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 1 wiederholen' },
   ],
 
   /* Klasse 2 */ [
@@ -3530,6 +3566,20 @@ LP.mathe = [
     { t: 'Die Uhr', d: 'Volle und halbe Stunden lesen' },
     { t: 'Geld bis 100 Euro', d: 'Bezahlen und Rückgeld' },
     { t: 'Längen messen', d: 'Zentimeter und Meter' },
+    { t: 'Zahlenstrahl bis 100', d: 'Zahlen finden und Nachbarn nennen' },
+    { t: 'Über den Zehner rechnen', d: 'Aufgaben wie 38 + 5 und 42 − 7' },
+    { t: 'Ergänzen bis 100', d: 'Wie viel fehlt noch bis 100?' },
+    { t: 'Malreihen 3, 4 und 6', d: 'Neue Einmaleins-Reihen lernen' },
+    { t: 'Malreihen 7, 8 und 9', d: 'Die schwierigen Reihen meistern' },
+    { t: 'Geteilt rechnen', d: 'Gerecht verteilen und aufteilen' },
+    { t: 'Mal und geteilt', d: 'Malaufgaben und ihre Umkehrung' },
+    { t: 'Rechenwege vergleichen', d: 'Schlau rechnen mit Rechentricks' },
+    { t: 'Viertelstunden', d: 'Viertel nach und Viertel vor' },
+    { t: 'Spiegeln und Symmetrie', d: 'Spiegelbilder legen und zeichnen' },
+    { t: 'Körper entdecken', d: 'Würfel, Quader, Kugel und Zylinder' },
+    { t: 'Strichlisten und Tabellen', d: 'Zählen, notieren und darstellen' },
+    { t: 'Fit für die Klassenarbeit', d: 'Plus, Minus und Einmaleins üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 2 wiederholen' },
   ],
 
   /* Klasse 3 */ [
@@ -3621,6 +3671,20 @@ LP.mathe = [
     { t: 'Schriftlich subtrahieren', d: 'Zahlen untereinander minus rechnen' },
     { t: 'Gewichte', d: 'Gramm und Kilogramm' },
     { t: 'Zeit und Zeitspannen', d: 'Minuten, Stunden und Kalender' },
+    { t: 'Zahlenstrahl bis 1000', d: 'Zahlen einordnen und runden' },
+    { t: 'Kopfrechnen bis 1000', d: 'Plus und Minus mit Hundertern' },
+    { t: 'Überschlagen', d: 'Ergebnisse vorher grob schätzen' },
+    { t: 'Malnehmen mit Zehnerzahlen', d: 'Aufgaben wie 4 · 30 und 6 · 70' },
+    { t: 'Halbschriftlich malnehmen', d: 'Große Malaufgaben zerlegen' },
+    { t: 'Teilen mit Rest', d: 'Teilen, wenn etwas übrig bleibt' },
+    { t: 'Geld mit Komma', d: 'Euro und Cent richtig schreiben' },
+    { t: 'Längen: mm, cm, m und km', d: 'Längen messen und umwandeln' },
+    { t: 'Rechteck und Quadrat', d: 'Ecken, Seiten und rechte Winkel' },
+    { t: 'Würfelgebäude', d: 'Bauen, zählen und Baupläne lesen' },
+    { t: 'Sachaufgaben lösen', d: 'Fragen, rechnen, Antwort schreiben' },
+    { t: 'Sicher, möglich, unmöglich', d: 'Erste Wahrscheinlichkeiten' },
+    { t: 'Fit für die Klassenarbeit', d: 'Schriftlich rechnen sicher üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 3 wiederholen' },
   ],
 
   /* Klasse 4 */ [
@@ -3712,6 +3776,20 @@ LP.mathe = [
     { t: 'Größen umrechnen', d: 'Längen, Gewichte, Zeit und Geld' },
     { t: 'Sachaufgaben', d: 'Lesen, planen, rechnen, antworten' },
     { t: 'Brüche entdecken', d: 'Halbe, Viertel und Drittel' },
+    { t: 'Runden und Überschlagen', d: 'Große Zahlen geschickt schätzen' },
+    { t: 'Große Zahlen im Kopf', d: 'Plus und Minus mit Tausendern' },
+    { t: 'Schriftlich mit Kommazahlen', d: 'Geld und Längen untereinander rechnen' },
+    { t: 'Rechenregeln', d: 'Klammern und Punkt vor Strich' },
+    { t: 'Gleichungen und Platzhalter', d: 'Die fehlende Zahl finden' },
+    { t: 'Umfang und Fläche', d: 'Ränder und Flächen mit Kästchen messen' },
+    { t: 'Maßstab', d: 'Pläne und Karten richtig lesen' },
+    { t: 'Achsensymmetrie', d: 'Spiegelachsen finden und zeichnen' },
+    { t: 'Würfelnetze', d: 'Würfel und Quader auffalten' },
+    { t: 'Liter und Milliliter', d: 'Hohlmaße messen und umrechnen' },
+    { t: 'Diagramme lesen', d: 'Daten in Säulen und Tabellen' },
+    { t: 'Kombinieren', d: 'Alle Möglichkeiten geschickt finden' },
+    { t: 'Fit für die Klassenarbeit', d: 'Schriftlich rechnen und Größen üben' },
+    { t: 'Großer Jahres-Check', d: 'Fit für die weiterführende Schule' },
   ],
 ];
 
@@ -3805,6 +3883,20 @@ LP.deutsch = [
     { t: 'Reimwörter', d: 'Wörter finden, die sich reimen' },
     { t: 'Groß am Satzanfang', d: 'Jeder Satz beginnt mit einem großen Buchstaben' },
     { t: 'Kleine Sätze lesen', d: 'Kurze Sätze lesen und verstehen' },
+    { t: 'Selbstlaute und Mitlaute', d: 'a, e, i, o, u und die anderen' },
+    { t: 'Lange und kurze Laute', d: 'Genau hinhören: Ofen oder offen' },
+    { t: 'Buchstaben schreiben', d: 'Groß- und Kleinbuchstaben üben' },
+    { t: 'Lautgetreu schreiben', d: 'Schreiben, wie man spricht' },
+    { t: 'au, ei und eu', d: 'Zwei Buchstaben, ein Laut' },
+    { t: 'sch, ch und st', d: 'Besondere Buchstabengruppen' },
+    { t: 'Namenwörter groß schreiben', d: 'Menschen, Tiere und Dinge groß schreiben' },
+    { t: 'Lesen und verstehen', d: 'Wörter und Bilder zuordnen' },
+    { t: 'Fragen und Antworten', d: 'Sätze mit Fragezeichen lesen' },
+    { t: 'Kleine Texte lesen', d: 'Kurze Geschichten verstehen' },
+    { t: 'Bildergeschichten', d: 'Bilder ordnen und erzählen' },
+    { t: 'Von A bis Z', d: 'Alle Buchstaben der Reihe nach' },
+    { t: 'Fit für die Klassenarbeit', d: 'Lesen und Schreiben üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 1 wiederholen' },
   ],
   /* Klasse 2 */ [
     { t: 'Nomen und Artikel', d: 'Namenwörter mit der, die, das', L: [
@@ -3895,6 +3987,20 @@ LP.deutsch = [
     { t: 'Das ABC', d: 'Wörter nach dem Alphabet ordnen' },
     { t: 'Satzzeichen', d: 'Punkt, Fragezeichen und Ausrufezeichen' },
     { t: 'Richtig schreiben', d: 'Erste Regeln der Rechtschreibung' },
+    { t: 'Adjektive – Wiewörter', d: 'Wörter, die beschreiben, wie etwas ist' },
+    { t: 'Gegenteile', d: 'groß und klein, laut und leise' },
+    { t: 'Verben verändern sich', d: 'ich gehe, du gehst, er geht' },
+    { t: 'Doppelte Mitlaute', d: 'Nach kurzem Laut: Ball, Sonne, Mutter' },
+    { t: 'Wörter mit ie', d: 'Langes i schreibt man meistens ie' },
+    { t: 'Auslaute verlängern', d: 'Hund oder Hunt? Verlängern hilft' },
+    { t: 'Wörter mit ä und äu', d: 'Ableiten von a und au' },
+    { t: 'Satzarten', d: 'Aussagesatz, Fragesatz, Ausrufesatz' },
+    { t: 'Im Wörterbuch suchen', d: 'Wörter schnell nachschlagen' },
+    { t: 'Wortfelder', d: 'Viele Wörter für sagen und gehen' },
+    { t: 'Texte verstehen', d: 'Fragen zu einem Text beantworten' },
+    { t: 'Geschichten schreiben', d: 'Anfang, Mitte und Schluss' },
+    { t: 'Fit für die Klassenarbeit', d: 'Wortarten und Rechtschreibung üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 2 wiederholen' },
   ],
   /* Klasse 3 */ [
     { t: 'Wortarten', d: 'Nomen, Verben und Adjektive erkennen', L: [
@@ -3985,6 +4091,20 @@ LP.deutsch = [
     { t: 'Wortfamilien', d: 'Wörter mit dem gleichen Wortstamm' },
     { t: 'Zusammengesetzte Nomen', d: 'Aus zwei Nomen wird ein neues Wort' },
     { t: 'Satzglieder', d: 'Sätze umstellen und Satzteile finden' },
+    { t: 'Pronomen – Fürwörter', d: 'ich, du, er, sie, es, wir, ihr' },
+    { t: 'Starke und schwache Verben', d: 'ging oder gehte? Formen der Vergangenheit' },
+    { t: 'Das Dehnungs-h', d: 'Uhr, fahren, kühl – das stumme h' },
+    { t: 'Wörter mit ß', d: 'Nach langem Laut: Straße, Fuß' },
+    { t: 'Nomen an der Endung erkennen', d: 'Endungen -ung, -heit und -keit' },
+    { t: 'Treffende Verben', d: 'Statt sagen: rufen, flüstern, fragen' },
+    { t: 'Adjektive mit -ig und -lich', d: 'Wörter mit diesen Endungen richtig schreiben' },
+    { t: 'Lesen mit Ausdruck', d: 'Texte betont und flüssig vorlesen' },
+    { t: 'Sachtexte lesen', d: 'Wichtige Infos finden und notieren' },
+    { t: 'Gedichte', d: 'Reime, Strophen und Verse' },
+    { t: 'Einen Brief schreiben', d: 'Anrede, Text und Gruß' },
+    { t: 'Erzählungen planen', d: 'Spannende Geschichten schreiben' },
+    { t: 'Fit für die Klassenarbeit', d: 'Rechtschreibung und Grammatik üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 3 wiederholen' },
   ],
   /* Klasse 4 */ [
     { t: 'Subjekt und Prädikat', d: 'Wer tut etwas? Was tut er?', L: [
@@ -4075,6 +4195,20 @@ LP.deutsch = [
     { t: 'Perfekt und Futur', d: 'Über Vergangenes und die Zukunft sprechen' },
     { t: 'Wörtliche Rede', d: 'Redezeichen richtig setzen' },
     { t: 'das, dass und Komma', d: 'das von dass unterscheiden, Kommas setzen' },
+    { t: 'Objekte finden', d: 'Wem oder was? Wen oder was?' },
+    { t: 'Orts- und Zeitangaben', d: 'Wo? Wann? Sätze genauer machen' },
+    { t: 'Alle Zeitformen', d: 'Von Präsens bis Futur sicher anwenden' },
+    { t: 'Haupt- und Nebensatz', d: 'Sätze mit weil, wenn und dass verbinden' },
+    { t: 'Kommas bei Aufzählungen', d: 'Äpfel, Birnen und Pflaumen' },
+    { t: 'Fremdwörter', d: 'Wörter aus anderen Sprachen' },
+    { t: 'Groß oder klein?', d: 'Aus Verben werden Nomen: das Laufen' },
+    { t: 'Wörter mit s, ss und ß', d: 'Die drei s-Laute sicher schreiben' },
+    { t: 'Texte überarbeiten', d: 'Fehler finden und Sätze verbessern' },
+    { t: 'Berichte schreiben', d: 'Sachlich: Wer, was, wann und wo?' },
+    { t: 'Beschreibungen', d: 'Personen und Wege genau beschreiben' },
+    { t: 'Bücher vorstellen', d: 'Ein Lieblingsbuch präsentieren' },
+    { t: 'Fit für die Klassenarbeit', d: 'Grammatik und Rechtschreibung üben' },
+    { t: 'Großer Jahres-Check', d: 'Fit für die weiterführende Schule' },
   ],
 ];
 
@@ -4168,6 +4302,20 @@ LP.englisch = [
     { t: 'Meine Familie', d: 'mum, dad, sister und brother' },
     { t: 'Obst und Gemüse', d: 'apple, banana und viele mehr' },
     { t: 'Spielsachen', d: 'ball, doll, car – was spielst du gern?' },
+    { t: 'Mein Name', d: '„My name is …“ – sich vorstellen' },
+    { t: 'Wie geht’s?', d: '„How are you?“ – „I’m fine.“' },
+    { t: 'Bitte und danke', d: 'please, thank you und sorry' },
+    { t: 'Gefühle', d: 'happy, sad, angry – wie fühlst du dich?' },
+    { t: 'Formen', d: 'circle, square und triangle' },
+    { t: 'Im Klassenzimmer', d: 'chair, table, door und window' },
+    { t: 'Lieblingsessen', d: 'pizza, cake, ice cream – was isst du gern?' },
+    { t: 'Sport und Bewegung', d: 'run, jump, swim – mach mit!' },
+    { t: 'Geburtstag', d: '„Happy birthday!“ und Geschenke' },
+    { t: 'Weihnachten', d: 'Christmas tree, star und presents' },
+    { t: 'Lieder und Reime', d: 'Englisch singen und mitsprechen' },
+    { t: 'Simon says', d: 'Kommandos: stand up, sit down' },
+    { t: 'Wörter-Wiederholung', d: 'Farben, Zahlen und Tiere üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 1 wiederholen' },
   ],
   /* Klasse 2 */ [
     { t: 'Zahlen bis 20', d: 'eleven bis twenty – weiter zählen', L: [
@@ -4258,6 +4406,20 @@ LP.englisch = [
     { t: 'Tiere im Zoo', d: 'lion, monkey, elephant und mehr' },
     { t: 'Das Wetter', d: 'sunny, rainy, windy – wie ist das Wetter?' },
     { t: 'Feste im Jahr', d: 'Halloween, Christmas und Easter' },
+    { t: 'Farben und Kleidung', d: '„a red jumper“ – Kleidung beschreiben' },
+    { t: 'Auf dem Bauernhof', d: 'cow, pig, horse und sheep' },
+    { t: 'Das bin ich', d: '„I’m eight.“ – Name und Alter sagen' },
+    { t: 'Meine Freunde', d: '„This is my friend …“' },
+    { t: 'Einkaufen', d: '„Can I have …, please?“' },
+    { t: 'Möbel', d: 'bed, chair, table und sofa' },
+    { t: 'Fahrzeuge', d: 'bus, car, bike und train' },
+    { t: 'Ich mag …', d: '„I like …“ und „I don’t like …“' },
+    { t: 'Wo ist der Ball?', d: 'in, on, under – wo liegt was?' },
+    { t: 'Groß und klein', d: 'big, small, long und short' },
+    { t: 'Tagesgrüße', d: 'good morning, good night' },
+    { t: 'Geschichten hören', d: 'Kurze Geschichten verstehen' },
+    { t: 'Fit für die Klassenarbeit', d: 'Wörter aus Klasse 2 üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 2 wiederholen' },
   ],
   /* Klasse 3 */ [
     { t: 'Die Wochentage', d: 'Monday bis Sunday – die Woche auf Englisch', L: [
@@ -4348,6 +4510,20 @@ LP.englisch = [
     { t: 'Die Monate', d: 'January bis December und Geburtstage' },
     { t: 'Meine Hobbys', d: '„I like …“ – was machst du gern?' },
     { t: 'Die Uhrzeit', d: '„What time is it?“ – volle und halbe Stunden' },
+    { t: 'Zahlen bis 100', d: 'twenty, thirty … one hundred' },
+    { t: 'Das Alphabet', d: 'Von A bis Z auf Englisch buchstabieren' },
+    { t: 'Mein Stundenplan', d: 'maths, art, PE – die Schulfächer' },
+    { t: 'Tiere beschreiben', d: '„It’s got four legs.“' },
+    { t: 'Meine Haustiere', d: 'hamster, rabbit und guinea pig' },
+    { t: 'Frühstück', d: 'breakfast: cereal, toast und juice' },
+    { t: 'Sportarten', d: 'football, swimming und riding' },
+    { t: 'Im Supermarkt', d: '„How much is it?“ – Preise' },
+    { t: 'Fragen mit „Do you …?“', d: '„Do you like …?“ – „Yes, I do.“' },
+    { t: 'Aussehen beschreiben', d: '„I’ve got blue eyes.“' },
+    { t: 'Ein Tag am Meer', d: 'beach, sea, sand und shell' },
+    { t: 'Kurze Texte lesen', d: 'Englische Sätze lesen und verstehen' },
+    { t: 'Fit für die Klassenarbeit', d: 'Wörter und Sätze aus Klasse 3' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 3 wiederholen' },
   ],
   /* Klasse 4 */ [
     { t: 'Hobbys und Können', d: '„I can …“, „Can you …?“ und „she plays“', L: [
@@ -4438,6 +4614,20 @@ LP.englisch = [
     { t: 'In der Stadt', d: 'Wege finden: left, right, straight on' },
     { t: 'Mein Tag', d: '„I get up at seven“ – der Tagesablauf' },
     { t: 'Jahreszeiten', d: 'spring, summer, autumn, winter' },
+    { t: 'Berufe', d: 'teacher, doctor, farmer und mehr' },
+    { t: 'Kleidung kaufen', d: '„Can I try it on?“ – Größen und Preise' },
+    { t: 'Verkehrsmittel', d: '„I go to school by bus.“' },
+    { t: 'Das Wetter heute', d: '„It’s cold and cloudy today.“' },
+    { t: 'Ferien und Reisen', d: '„In summer I go to …“' },
+    { t: 'Großbritannien', d: 'London, Big Ben und rote Busse' },
+    { t: 'Tiere der Welt', d: 'Wo Tiere leben: jungle, desert, sea' },
+    { t: 'Gestern', d: '„Yesterday I played …“' },
+    { t: 'Beim Arzt', d: '„I’ve got a headache.“' },
+    { t: 'Gesund leben', d: 'healthy food, sleep und Bewegung' },
+    { t: 'Ein Brief an Freunde', d: '„Dear Tom, …“ – Briefe schreiben' },
+    { t: 'Über mich erzählen', d: 'Kleiner Vortrag: „All about me“' },
+    { t: 'Fit für die Klassenarbeit', d: 'Wörter und Sätze aus Klasse 4' },
+    { t: 'Großer Jahres-Check', d: 'Fit für Englisch in Klasse 5' },
   ],
 ];
 
@@ -4531,6 +4721,20 @@ LP.franz = [
     { t: 'Obst und Essen', d: 'Banane, fraise und Croissant' },
     { t: 'Im Kinderzimmer', d: 'Ball, Puppe und Teddy' },
     { t: 'Feste feiern', d: 'Geburtstag und Weihnachten in Frankreich' },
+    { t: 'Comment ça va?', d: '„Ça va bien.“ – Wie geht’s dir?' },
+    { t: 'S’il te plaît', d: 'Bitte, danke und Entschuldigung' },
+    { t: 'Gefühle', d: 'content, triste und fatigué' },
+    { t: 'Formen', d: 'le cercle, le carré, le triangle' },
+    { t: 'Auf dem Spielplatz', d: 'le toboggan und la balançoire' },
+    { t: 'Sport und Bewegung', d: 'sauter, courir und danser' },
+    { t: 'Jacques a dit', d: 'Kommandos: lève-toi, assieds-toi' },
+    { t: 'Lieder und Reime', d: 'Französisch singen und mitsprechen' },
+    { t: 'Getränke', d: 'l’eau, le lait und le jus' },
+    { t: 'Tag und Nacht', d: 'bonjour, bonsoir und bonne nuit' },
+    { t: 'Kleine Wörter', d: 'oui, non, et – kleine Helfer' },
+    { t: 'Ostern in Frankreich', d: 'Glocken statt Osterhase: Pâques' },
+    { t: 'Wörter-Wiederholung', d: 'Farben, Zahlen und Essen üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 1 wiederholen' },
   ],
   /* Klasse 2 */ [
     { t: 'Tiere', d: 'Le chat, le chien und viele mehr', L: [
@@ -4621,6 +4825,20 @@ LP.franz = [
     { t: 'Mein Körper', d: 'Kopf, Hand und Fuß auf Französisch' },
     { t: 'Das Wetter', d: 'Sonne, Regen und Schnee' },
     { t: 'Joyeux anniversaire!', d: 'Geburtstag feiern auf Französisch' },
+    { t: 'Auf dem Bauernhof', d: 'la vache, le cochon, le cheval' },
+    { t: 'Gemüse', d: 'la carotte, la tomate, la salade' },
+    { t: 'Freundschaft', d: 'mon ami, mon amie – wer ist das?' },
+    { t: 'Das Haus', d: 'la maison, la porte, la fenêtre' },
+    { t: 'Fahrzeuge', d: 'le vélo, la voiture und le bus' },
+    { t: 'Wo ist es?', d: 'sur, sous, dans – wo liegt was?' },
+    { t: 'Groß und klein', d: 'grand, petit und gros' },
+    { t: 'In der Natur', d: 'l’arbre, la fleur und l’oiseau' },
+    { t: 'Die Jahreszeiten', d: 'le printemps, l’été, l’automne, l’hiver' },
+    { t: 'Ich habe …', d: '„J’ai un chien.“ – was ich habe' },
+    { t: 'Zahlenspiele', d: 'Würfeln und zählen bis 20' },
+    { t: 'Geschichten hören', d: 'Kurze Geschichten verstehen' },
+    { t: 'Fit für die Klassenarbeit', d: 'Wörter aus Klasse 2 üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 2 wiederholen' },
   ],
   /* Klasse 3 */ [
     { t: 'Je m’appelle …', d: 'Sich vorstellen und sein Alter sagen', L: [
@@ -4711,6 +4929,20 @@ LP.franz = [
     { t: 'Meine Kleidung', d: 'Pullover, Hose und Mütze' },
     { t: 'Le, la, les', d: 'Die französischen Begleiter' },
     { t: 'Fragen stellen', d: 'Mit qui, où und comment fragen' },
+    { t: 'Die Monate', d: 'Von janvier bis décembre' },
+    { t: 'Mon anniversaire', d: 'Sagen, wann man Geburtstag hat' },
+    { t: 'Zahlen bis 60', d: 'trente, quarante, cinquante' },
+    { t: 'Un, une, des', d: 'Die unbestimmten Begleiter' },
+    { t: 'Die Uhrzeit', d: '„Il est trois heures.“' },
+    { t: 'Hunger und Durst', d: '„J’ai faim.“ und „J’ai soif.“' },
+    { t: 'Mein Zimmer', d: 'le lit, la table und la chaise' },
+    { t: 'Tiere beschreiben', d: '„Le chat est noir.“' },
+    { t: 'Être und avoir', d: 'je suis, j’ai – wichtige Verben' },
+    { t: 'In der Stadt', d: 'la boulangerie, l’école, le parc' },
+    { t: 'Frankreich entdecken', d: 'Paris, Eiffelturm und Baguette' },
+    { t: 'Kurze Texte lesen', d: 'Französische Sätze verstehen' },
+    { t: 'Fit für die Klassenarbeit', d: 'Wörter und Sätze aus Klasse 3' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 3 wiederholen' },
   ],
   /* Klasse 4 */ [
     { t: 'Im Café', d: 'Bestellen und bezahlen wie in Paris', L: [
@@ -4801,6 +5033,20 @@ LP.franz = [
     { t: 'Auf dem Markt', d: 'Einkaufen, Preise und Mengen' },
     { t: 'Hobbys und Sport', d: 'Sagen, was man gern macht' },
     { t: 'Ein Tag in Paris', d: 'Alles Gelernte auf großer Reise' },
+    { t: 'Zahlen bis 100', d: 'soixante, quatre-vingts, cent' },
+    { t: 'Mein Zuhause', d: 'la cuisine, la chambre, le jardin' },
+    { t: 'Den Weg finden', d: 'à gauche, à droite, tout droit' },
+    { t: 'Verkehrsmittel', d: 'en bus, à vélo und à pied' },
+    { t: 'Berufe', d: 'le boulanger, la maîtresse und mehr' },
+    { t: 'Beim Arzt', d: '„J’ai mal à la tête.“' },
+    { t: 'Die Ferien', d: '„En été, je vais à la mer.“' },
+    { t: 'Mein Lieblingstier', d: 'Ein Tier vorstellen und beschreiben' },
+    { t: 'Verben auf -er', d: 'parler, jouer und manger' },
+    { t: 'Ne … pas', d: 'Sätze richtig verneinen' },
+    { t: 'Ein Brief an Freunde', d: '„Cher Paul, …“ – Briefe schreiben' },
+    { t: 'Über mich erzählen', d: 'Kleiner Vortrag: „Je me présente“' },
+    { t: 'Fit für die Klassenarbeit', d: 'Wörter und Sätze aus Klasse 4' },
+    { t: 'Großer Jahres-Check', d: 'Fit für Französisch in Klasse 5' },
   ],
 ];
 
@@ -4894,6 +5140,20 @@ LP.sach = [
     { t: 'Haustiere', d: 'Was Hund, Katze und Hase brauchen' },
     { t: 'Verkehr und Ampel', d: 'Sicher über die Straße' },
     { t: 'Gesund essen', d: 'Obst, Gemüse und Wasser' },
+    { t: 'Unsere Schule', d: 'Räume und Menschen in der Schule' },
+    { t: 'Mein Schulweg', d: 'Gefahren erkennen, sicher ankommen' },
+    { t: 'Meine Familie', d: 'Wer gehört alles zu mir?' },
+    { t: 'Gefühle', d: 'Fröhlich, traurig, wütend – alles normal' },
+    { t: 'Freundschaft', d: 'Streit lösen und sich vertragen' },
+    { t: 'Tag und Woche', d: 'Morgens, mittags, abends und Wochentage' },
+    { t: 'Bäume im Herbst', d: 'Blätter, Früchte und Samen' },
+    { t: 'Tiere im Winter', d: 'Wie Tiere die kalte Zeit verbringen' },
+    { t: 'Sauber und gesund', d: 'Hände waschen, niesen, Zähne putzen' },
+    { t: 'Notruf 112', d: 'Ruhig bleiben und Hilfe holen' },
+    { t: 'Frühblüher', d: 'Schneeglöckchen, Tulpe und Krokus' },
+    { t: 'Vögel bei uns', d: 'Amsel, Meise und Spatz' },
+    { t: 'Schwimmen und sinken', d: 'Was geht unter, was schwimmt?' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 1 wiederholen' },
   ],
   /* Klasse 2 */ [
     { t: 'Tiere im Wald', d: 'Fuchs, Reh, Eule und ihre Verstecke', L: [
@@ -4984,6 +5244,20 @@ LP.sach = [
     { t: 'Wasser', d: 'Wasser ist kostbar' },
     { t: 'Müll trennen', d: 'Was gehört in welche Tonne?' },
     { t: 'Gesunde Zähne', d: 'Putzen, Zahnwechsel und Zahnarzt' },
+    { t: 'Vom Korn zum Brot', d: 'Säen, ernten, mahlen und backen' },
+    { t: 'Der Kalender', d: 'Tage, Monate und das ganze Jahr' },
+    { t: 'Mein Wohnort', d: 'Straße, Ort und Umgebung' },
+    { t: 'Berufe', d: 'Wer arbeitet wo und wie?' },
+    { t: 'Winterschlaf und Winterruhe', d: 'Wie Tiere die kalte Zeit überstehen' },
+    { t: 'Früher und heute', d: 'Wie Kinder früher lebten' },
+    { t: 'Vom Ei zum Küken', d: 'Wie aus einem Ei ein Huhn wird' },
+    { t: 'Schmetterlinge', d: 'Vom Ei über die Raupe zum Falter' },
+    { t: 'Eis, Wasser und Dampf', d: 'Wasser friert, schmilzt und verdampft' },
+    { t: 'Licht und Schatten', d: 'Wie Schatten entstehen' },
+    { t: 'Verkehrszeichen', d: 'Wichtige Schilder für Fußgänger' },
+    { t: 'Erste Hilfe für Kinder', d: 'Pflaster, kühlen und Hilfe holen' },
+    { t: 'Kinderrechte', d: 'Rechte, die alle Kinder haben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 2 wiederholen' },
   ],
   /* Klasse 3 */ [
     { t: 'Tierklassen', d: 'Säugetiere, Vögel, Fische, Reptilien, Amphibien', L: [
@@ -5074,6 +5348,20 @@ LP.sach = [
     { t: 'Feuer und Luft', d: 'Was Feuer zum Brennen braucht' },
     { t: 'Himmelsrichtungen', d: 'Norden, Süden, Osten, Westen und Kompass' },
     { t: 'Sicher Rad fahren', d: 'Das verkehrssichere Fahrrad' },
+    { t: 'Leben am Teich', d: 'Frosch, Libelle und Seerose' },
+    { t: 'Die Wiese', d: 'Blumen, Gräser und Insekten' },
+    { t: 'Der Wald im Jahreslauf', d: 'Wie sich der Wald verändert' },
+    { t: 'Bienen und Insekten', d: 'Warum wir Insekten brauchen' },
+    { t: 'Gesunde Ernährung', d: 'Die Ernährungspyramide' },
+    { t: 'Unser Skelett', d: 'Knochen, Muskeln und Gelenke' },
+    { t: 'Karten lesen', d: 'Plan, Legende und Maßstab' },
+    { t: 'Mein Ort früher', d: 'Wie sich unser Ort verändert hat' },
+    { t: 'Luft hat Kraft', d: 'Versuche mit Luft und Wind' },
+    { t: 'Die Feuerwehr', d: 'Wie die Feuerwehr uns hilft' },
+    { t: 'Wetter beobachten', d: 'Temperatur, Regen und Wind messen' },
+    { t: 'Zusammenleben', d: 'Regeln, Streit und Klassenrat' },
+    { t: 'Fit für die Klassenarbeit', d: 'Tiere, Pflanzen und Körper üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 3 wiederholen' },
   ],
   /* Klasse 4 */ [
     { t: 'Strom und Stromkreis', d: 'Batterie, Kabel, Lampe und Schalter', L: [
@@ -5164,6 +5452,20 @@ LP.sach = [
     { t: 'Deutschland', d: 'Bundesländer, Hauptstädte und Flüsse' },
     { t: 'Sonne, Erde und Mond', d: 'Tag, Nacht, Jahr und Mondphasen' },
     { t: 'Der Wasserkreislauf', d: 'Verdunsten, Wolken, Regen' },
+    { t: 'Mein Bundesland', d: 'Landschaften, Städte und Wappen' },
+    { t: 'Europa', d: 'Länder, Hauptstädte und die EU' },
+    { t: 'Ich werde größer', d: 'Wie sich der Körper beim Wachsen verändert' },
+    { t: 'Auge und Ohr', d: 'Wie wir sehen und hören' },
+    { t: 'Schall', d: 'Wie Töne entstehen und sich ausbreiten' },
+    { t: 'Einfache Maschinen', d: 'Hebel, Rolle und Zahnrad' },
+    { t: 'Brücken bauen', d: 'Was macht eine Brücke stabil?' },
+    { t: 'Von der Steinzeit bis heute', d: 'Eine Reise durch die Geschichte' },
+    { t: 'Ritter und Burgen', d: 'Leben im Mittelalter' },
+    { t: 'Demokratie', d: 'Wählen, abstimmen, mitbestimmen' },
+    { t: 'Kinder in aller Welt', d: 'Wie Kinder anderswo leben' },
+    { t: 'Gesund und fit', d: 'Schlaf, Bewegung und gutes Essen' },
+    { t: 'Fit für die Klassenarbeit', d: 'Natur, Technik und Erdkunde üben' },
+    { t: 'Großer Jahres-Check', d: 'Fit für die weiterführende Schule' },
   ],
 ];
 
@@ -5257,6 +5559,20 @@ LP.ki = [
     { t: 'Werbung entdecken', d: 'Was will die Werbung von mir?' },
     { t: 'Echt oder ausgedacht?', d: 'Bilder genau ansehen' },
     { t: 'Bits Internet-Profis', d: 'Alles Gelernte zusammen' },
+    { t: 'Geräte kennenlernen', d: 'Tablet und Computer gut behandeln' },
+    { t: 'Tippen, Wischen, Klicken', d: 'Geräte richtig bedienen' },
+    { t: 'Gemeinsam im Internet', d: 'Mit Erwachsenen Neues entdecken' },
+    { t: 'Kinderseiten', d: 'Gute Seiten für Kinder finden' },
+    { t: 'Hilfe holen ist klug', d: 'Bei komischen Dingen Erwachsene fragen' },
+    { t: 'Fotos von mir', d: 'Erst fragen, dann ein Foto teilen' },
+    { t: 'Geräte, die zuhören', d: 'Wenn ein Lautsprecher antwortet' },
+    { t: 'Roboter im Alltag', d: 'Staubsauger, Rasenmäher und mehr' },
+    { t: 'Muster erkennen', d: 'Wie Computer Bilder sortieren' },
+    { t: 'Computer brauchen Befehle', d: 'Schritt für Schritt anleiten' },
+    { t: 'Freundlich am Bildschirm', d: 'Auch im Internet lieb zueinander sein' },
+    { t: 'Spielzeit und Pausen', d: 'Nach dem Spielen die Augen ausruhen' },
+    { t: 'Malen am Computer', d: 'Mit Farben und Formen gestalten' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 1 wiederholen' },
   ],
 
   /* Klasse 2 */ [
@@ -5348,6 +5664,20 @@ LP.ki = [
     { t: 'Werbung erkennen', d: 'Was will mir die Werbung verkaufen?' },
     { t: 'Meine Bildschirmzeit', d: 'Pausen planen und einhalten' },
     { t: 'Echt oder erfunden?', d: 'Bilder und Videos prüfen' },
+    { t: 'Kindersuchmaschinen', d: 'Sicher suchen auf Kinderseiten' },
+    { t: 'Richtig suchen', d: 'Gute Suchwörter finden' },
+    { t: 'Passwörter bauen', d: 'Starke Passwörter erfinden' },
+    { t: 'Was KI kann', d: 'Übersetzen, malen, Fragen beantworten' },
+    { t: 'Auch KI irrt sich', d: 'Antworten gemeinsam prüfen' },
+    { t: 'Fotos teilen', d: 'Erst fragen, dann zeigen' },
+    { t: 'Seltsame Nachrichten', d: 'Einfach einem Erwachsenen zeigen' },
+    { t: 'Spiele und Käufe', d: 'Im Spiel nichts ohne Erlaubnis kaufen' },
+    { t: 'Videos auswählen', d: 'Gute Kindervideos finden' },
+    { t: 'Gefühle am Bildschirm', d: 'Was tun, wenn mich etwas ärgert' },
+    { t: 'Programmieren spielen', d: 'Befehle für einen kleinen Roboter' },
+    { t: 'Unsere Netzregeln', d: 'Gemeinsame Regeln für das Internet' },
+    { t: 'Fit im Netz', d: 'Sicher und klug – alles üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 2 wiederholen' },
   ],
 
   /* Klasse 3 */ [
@@ -5439,6 +5769,20 @@ LP.ki = [
     { t: 'Clever am Bildschirm', d: 'Zeit einteilen, Pausen machen' },
     { t: 'Foto oder KI-Bild?', d: 'KI-Bilder und Fotos unterscheiden' },
     { t: 'Fair und sicher online', d: 'Alles Gelernte im Einsatz' },
+    { t: 'So funktioniert das Netz', d: 'Wie Daten um die Welt reisen' },
+    { t: 'Suchmaschinen verstehen', d: 'Warum manche Treffer oben stehen' },
+    { t: 'Kinderlexika im Netz', d: 'Wissen nachschlagen und vergleichen' },
+    { t: 'Mit KI üben', d: 'KI als Lernhelfer klug nutzen' },
+    { t: 'Wem gehört das Bild?', d: 'Bilder und Musik gehören jemandem' },
+    { t: 'Mein Foto gehört mir', d: 'Wer darf mein Foto zeigen?' },
+    { t: 'Streit im Chat lösen', d: 'Fair bleiben und Pausen machen' },
+    { t: 'Nein sagen im Netz', d: 'Grenzen setzen und Hilfe holen' },
+    { t: 'Kamera und Mikrofon', d: 'Wann ein Spiel sie nutzen darf' },
+    { t: 'Algorithmen', d: 'Anleitungen, nach denen Computer arbeiten' },
+    { t: 'Roboter programmieren', d: 'Schleifen und Befehle ausprobieren' },
+    { t: 'Geräte, die mitdenken', d: 'Uhr, Lautsprecher und Haushaltshelfer' },
+    { t: 'Fit im Netz', d: 'Sicher, fair und klug – alles üben' },
+    { t: 'Großer Jahres-Check', d: 'Alles aus Klasse 3 wiederholen' },
   ],
 
   /* Klasse 4 */ [
@@ -5530,6 +5874,20 @@ LP.ki = [
     { t: 'Bild-Detektive', d: 'Echte und erfundene Bilder erkennen' },
     { t: 'Fair und klug online', d: 'Gruppenchats, Kommentare, Respekt' },
     { t: 'Bits Abschlussprüfung', d: 'Internet und KI im Überblick' },
+    { t: 'Wie Sprach-KI antwortet', d: 'Warum KI Wörter Stück für Stück rät' },
+    { t: 'KI im Alltag', d: 'Navi, Übersetzer und Vorschläge' },
+    { t: 'KI und Gerechtigkeit', d: 'Warum KI nicht immer fair ist' },
+    { t: 'Mensch oder Maschine?', d: 'Wer hat diesen Text geschrieben?' },
+    { t: 'Meinung oder Tatsache?', d: 'Infos richtig einordnen' },
+    { t: 'Falsche Nachrichten', d: 'Gerüchte erkennen und nicht teilen' },
+    { t: 'Meine Daten schützen', d: 'Einstellungen und Privatsphäre' },
+    { t: 'Das erste Handy', d: 'Regeln für das eigene Gerät' },
+    { t: 'Altersangaben bei Spielen', d: 'Welche Spiele passen zu mir?' },
+    { t: 'Ehrlich mit KI', d: 'KI hilft – die Hausaufgabe machst du' },
+    { t: 'Selbst gestalten', d: 'Eigene Bilder und Texte erstellen' },
+    { t: 'Programmieren mit Blöcken', d: 'Kleine Spiele selbst bauen' },
+    { t: 'Fit im Netz', d: 'Sicher, fair und klug – alles üben' },
+    { t: 'Großer Jahres-Check', d: 'Bereit für die weiterführende Schule' },
   ],
 ];
 
@@ -6481,7 +6839,8 @@ function lesResult(ok, sol) {
   const m = $('.lesmsg', les), title = ok ? (LS.streak >= 3 && LS.streak % 3 === 0 ? `${LS.streak} richtig in Folge!` : pick(OKT)) : 'Nicht ganz.';
   $('.lmi', m).innerHTML = I(ok ? 'check' : 'x');
   $('b', m).textContent = title;
-  $('.lmt', m).innerHTML = ok ? (x.e || '') : `Richtig ist: <b>${sol}</b>${x.e ? `<br>${x.e}` : ''}`;
+  const ex = ok ? (x.e || '') : String(x.e || '').replace(/^(Richtig|Genau|Stimmt|Ja|Nein|Falsch)[.!,]\s*/, '');
+  $('.lmt', m).innerHTML = ok ? ex : `Richtig ist: <b>${sol}</b>${ex ? `<i>${ex.charAt(0).toUpperCase() + ex.slice(1)}</i>` : ''}`;
   const btn = $('.lesbtn', les); btn.style.display = ''; btn.disabled = false; btn.textContent = 'Weiter'; btn.className = 'b3d lesbtn ' + (ok ? 'g' : 'o'); btn.focus({ preventScroll: true });
   lesSay(ok ? title : 'Schau mal, so geht es.', ok ? null : x.ve, ok ? 'happy' : 'think');
   if (ok && voiceOn) voice(pick(P.ok), false, LS.who);
@@ -6500,7 +6859,7 @@ function lesEnd() {
     <div class="lestats"><div class="lsx"><small>Sterne</small><b>+${xp}</b></div><div class="lsa"><small>Genauigkeit</small><b>${acc} %</b></div><div class="lst"><small>Zeit</small><b>${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}</b></div></div>
     ${!PAID && n + 1 >= FREE_N ? `<div class="lefree"><b>Das war die Probe-Lektion!</b><span>Im Abo geht es weiter: alle Level, alle Spiele und die Hausaufgaben-Hilfe.</span></div><button class="b3d lg" data-a="pay">${I('play')}7 Tage kostenlos testen</button><button class="lnk lego" data-a="go">Zurück zur Karte</button>` : `<button class="b3d c lg" data-a="go">Weiter ${I('arrow')}</button>`}</div>`;
   $('.lesin', les).appendChild(e);
-  $('.lestut', les).className = 'lestut happy'; voice(stars >= 5 ? P.done3 : stars >= 3 ? P.done2 : P.done1, false, LS.who);
+  $('.lestut', les).className = 'lestut happy'; voice(P.st[Math.min(5, Math.max(1, stars)) - 1], false, LS.who);
   const tot = xp; $('[data-a=go]', e).onclick = () => { closeLesson(); lpComplete(n, tot); };
   const pb = $('[data-a=pay]', e); if (pb) pb.onclick = () => { closeLesson(); lpComplete(n, tot); paywall(); };
 }
@@ -6607,12 +6966,20 @@ EX.build = (x, h, ctx) => {
 };
 EX.spell = (x, h, ctx) => tileGame(x, h, ctx, [...x.a], 'let', x.a);
 EX.order = (x, h, ctx) => {
-  const o = shuf(x.a.map((t, i) => ({ t, i })));
-  h.innerHTML = `<div class="ord">${o.map((b, k) => `<button class="oc" data-k="${k}"><em></em><span>${b.t}</span></button>`).join('')}</div>`;
+  const o = shuf(x.a.map((t, i) => ({ t, i }))), N = o.length;
+  const lab = (p) => (p === 0 ? 'Zuerst' : p === N - 1 ? 'Zum Schluss' : 'Dann');
+  h.innerHTML = `<div class="ordw"><p class="ordh">Tippe die Karten der Reihe nach an. Was kommt zuerst?</p>
+    <div class="oslots">${o.map((_, p) => `<button class="osl" data-p="${p}"><em>${p + 1}</em><small>${lab(p)}</small><span></span></button>`).join('')}</div>
+    <div class="ord">${o.map((b, k) => `<button class="oc" data-k="${k}"><em></em><span>${b.t}</span></button>`).join('')}</div></div>`;
   const seq = [];
-  const paint = () => $$('.oc', h).forEach((b) => { const p = seq.indexOf(+b.dataset.k); b.classList.toggle('on', p >= 0); $('em', b).textContent = p >= 0 ? p + 1 : ''; });
-  $$('.oc', h).forEach((b) => (b.onclick = () => { if (h.classList.contains('locked')) return; const k = +b.dataset.k, p = seq.indexOf(k); if (p >= 0) seq.splice(p); else seq.push(k); paint(); sfx.flip(); restart(b, 'pop'); ctx.ready(seq.length === o.length); }));
-  return { check: () => { lock(h); const ok = seq.every((k, p) => o[k].i === p); $$('.oc', h).forEach((b) => b.classList.add(ok ? 'right' : 'wrong')); return { ok, sol: x.a.join(' → ') }; } };
+  const paint = () => {
+    $$('.oc', h).forEach((b) => { const p = seq.indexOf(+b.dataset.k); b.classList.toggle('on', p >= 0); $('em', b).textContent = p >= 0 ? p + 1 : ''; });
+    $$('.osl', h).forEach((s, p) => { const k = seq[p]; s.classList.toggle('full', k !== undefined); s.classList.toggle('next', p === seq.length); $('span', s).textContent = k !== undefined ? o[k].t : ''; });
+  };
+  $$('.oc', h).forEach((b) => (b.onclick = () => { if (h.classList.contains('locked')) return; const k = +b.dataset.k, p = seq.indexOf(k); if (p >= 0) seq.splice(p); else seq.push(k); paint(); sfx.flip(); restart(b, 'pop'); const sl = $$('.osl', h)[seq.indexOf(k)]; if (sl) restart(sl, 'pop'); ctx.ready(seq.length === N); }));
+  $$('.osl', h).forEach((s) => (s.onclick = () => { if (h.classList.contains('locked')) return; const p = +s.dataset.p; if (p < seq.length) { seq.splice(p); paint(); sfx.flip(); ctx.ready(false); } }));
+  paint();
+  return { check: () => { lock(h); const ok = seq.every((k, p) => o[k].i === p); $$('.osl', h).forEach((s, p) => s.classList.add(o[seq[p]].i === p ? 'right' : 'wrong')); $$('.oc', h).forEach((b) => b.classList.add(ok ? 'right' : 'wrong')); return { ok, sol: x.a.join(' → ') }; } };
 };
 EX.pad = (x, h, ctx) => {
   h.innerHTML = `<div class="padq">${x.q}</div><div class="padd"><span id="pv"></span><i></i></div><div class="keys">${[1, 2, 3, 4, 5, 6, 7, 8, 9, 'del', 0, 'ok'].map((k) => `<button class="key${k === 'del' ? ' del' : k === 'ok' ? ' okk' : ''}" data-k="${k}">${k === 'del' ? I('arrow') : k === 'ok' ? I('check') : k}</button>`).join('')}</div>`;
@@ -6683,7 +7050,7 @@ function customEnd() {
     <div class="lestats"><div class="lsx"><small>Sterne</small><b>+${stars}</b></div><div class="lsa"><small>Genauigkeit</small><b>${acc} %</b></div><div class="lst"><small>Zeit</small><b>${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}</b></div></div>
     <button class="b3d c lg" data-a="back">${I('arrow')}Zurück zu den Hausaufgaben</button><button class="lnk lego" data-a="again">Nochmal spielen</button></div>`;
   $('.lesin', les).appendChild(e);
-  $('.lestut', les).className = 'lestut happy'; voice(stars >= 5 ? P.done3 : stars >= 3 ? P.done2 : P.done1, false, 'max');
+  $('.lestut', les).className = 'lestut happy'; voice(P.st[Math.min(5, Math.max(1, stars)) - 1], false, 'max');
   $('[data-a=back]', e).onclick = () => closeLesson();
   $('[data-a=again]', e).onclick = () => { closeLesson(); setTimeout(() => startLesson(0, 0, 0, C), 420); };
 }
@@ -6769,7 +7136,7 @@ SK.chest = {
 };
 /* Torschuss */
 SK.goal = {
-  scene: '<i class="pitch"></i><i class="crowd"></i><div class="ball"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="27" fill="#fff" stroke="#1d1d1d" stroke-width="3.5"/><path d="M30 17 l11 8 -4 13 h-14 l-4 -13z" fill="#1d1d1d"/><path d="M30 3v14M41 25l14-6M37 38l9 13M23 38l-9 13M19 25L5 19" stroke="#1d1d1d" stroke-width="3"/></svg></div>',
+  scene: '<i class="pitch"></i><i class="crowd"></i><div class="ball"><svg viewBox="0 0 60 60"><defs><clipPath id="bcl"><circle cx="30" cy="30" r="27"/></clipPath><radialGradient id="bsh" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#f1f1f1"/><stop offset="1" stop-color="#c9c9c9"/></radialGradient></defs><circle cx="30" cy="30" r="27" fill="url(#bsh)"/><g clip-path="url(#bcl)"><path d="M30.0 22.0L30.0 11.5 M37.6 6.0L50.5 15.3 M37.6 27.5L47.6 24.3 M55.2 29.8L50.3 45.0 M34.7 36.5L40.9 45.0 M38.0 53.9L22.0 53.9 M25.3 36.5L19.1 45.0 M9.7 45.0L4.8 29.8 M22.4 27.5L12.4 24.3 M9.5 15.3L22.4 6.0" stroke="#2a2a2a" stroke-width="1.4" fill="none"/><path d="M30.0 22.0 L37.6 27.5 L34.7 36.5 L25.3 36.5 L22.4 27.5Z M30.0 11.5 L22.4 6.0 L25.3 -3.0 L34.7 -3.0 L37.6 6.0Z M47.6 24.3 L50.5 15.3 L59.9 15.3 L62.8 24.3 L55.2 29.8Z M40.9 45.0 L50.3 45.0 L53.2 53.9 L45.6 59.4 L38.0 53.9Z M19.1 45.0 L22.0 53.9 L14.4 59.4 L6.8 53.9 L9.7 45.0Z M12.4 24.3 L4.8 29.8 L-2.8 24.3 L0.1 15.3 L9.5 15.3Z" fill="#1d1d1d"/></g><circle cx="30" cy="30" r="27" fill="none" stroke="#1d1d1d" stroke-width="3"/></svg></div>',
   item: (t, i, n) => `<button class="gl" data-v="${i}"><span class="glb">${t}</span><span class="gln"><i></i></span></button>`,
   win(el, sc) { shoot(el, sc, true); },
   fail(el, sc) { shoot(el, sc, false); },
@@ -6894,7 +7261,7 @@ function paywall(t) {
   pw.innerHTML = `<div class="pwc" role="dialog" aria-label="Grundschulmax freischalten"><button class="pwx" aria-label="Schließen">${I('x')}</button>
     <div class="pwt"><div class="pwteam">${['mila', 'max', 'emma', 'claude', 'frieda', 'bit'].map((id, i) => `<span style="--i:${i}">${tutorHTML(id)}</span>`).join('')}</div>
       <b>${t || 'Weiter geht’s mit dem ganzen Team!'}</b><span>7 Tage kostenlos testen. Danach jederzeit kündbar.</span></div>
-    <ul class="pwl"><li>${I('star')}Alle Lernpfade in 6 Fächern, Klasse 1 bis 4</li><li>${I('pad')}Über 30 Spiele und jede Lektion als Spiel</li><li>${I('cam')}Hausaufgaben-Hilfe: Foto machen, Max erklärt</li><li>${I('family')}Wochenbericht für dich als Elternteil</li></ul>
+    <ul class="pwl"><li>${I('star')}Lernpfade fürs ganze Schuljahr in 6 Fächern, Klasse 1 bis 4</li><li>${I('pad')}Jede Lektion ein Lernspiel, dazu über 30 Extra-Spiele</li><li>${I('cam')}Hausaufgaben-Tutor: bis zu 10 Fotos, Max erklärt Schritt für Schritt</li><li>${I('target')}Testvorbereitung: Probetests für jede Klassenarbeit</li><li>${I('book')}Bibliothek: alle Erklärungen gespeichert</li><li>${I('voice')}Echte Tutor-Stimmen, alles wird vorgelesen</li><li>${I('bulb')}Fach Internet und KI: sicher im Netz</li><li>${I('family')}Elternbereich mit Code, Zeitlimit und echter Lernzeit</li><li>${I('chat')}Wochenbericht und eigenes Profil mit Tierbild</li></ul>
     <div class="pwp"><button class="pwo on" data-plan="y"><em>Beliebt · spare 33 %</em><b>Schuljahr</b><strong>79 €</strong><small>für 12 Monate · nur 6,58 € im Monat</small></button><button class="pwo" data-plan="m"><b>Monatlich</b><strong>9,90 €</strong><small>pro Monat · monatlich kündbar</small></button></div>
     <button class="b3d lg wide" id="pwgo">${I('play')}7 Tage kostenlos testen</button><p class="pwf">Heute 0,00 €. Wir erinnern dich 2 Tage vor Ende des Tests.</p></div>`;
   let plan = 'y';
