@@ -4888,6 +4888,117 @@ html,body{overscroll-behavior-x:none}
 #app[data-v=subj]:is([data-w=games],[data-w=test]) .zhead .ztut{width:84px!important;margin:-14px 0 -24px!important}
 #app[data-v=subj]:is([data-w=games],[data-w=test]) .zhead :is(.zm,small,span){text-shadow:0 1px 2px rgba(0,0,0,.3)}
 .pfout.pfhome{color:#2a2440}
+/* ---------- Gemeinsam: neue Sprach-Spiele ---------- */
+.g-xs .gsky{background-position:50% 50%}
+.xq{position:absolute;left:50%;top:max(10px,3%);translate:-50% 0;z-index:4;display:flex;flex-direction:column;align-items:center;gap:2px;background:#fff;border:4px solid #1d2a3a;border-radius:20px;padding:8px 22px 8px 58px;box-shadow:0 5px 0 #1d2a3a;text-align:center;max-width:min(92%,640px);min-height:58px;justify-content:center}
+.xq b{font-size:clamp(19px,2.5vw,28px);color:#1d2a3a;line-height:1.15}.xq small{font-size:13.5px;font-weight:700;color:#5b5577}
+.xq.pop{animation:rqpop .45s cubic-bezier(.2,1.5,.4,1)}
+.xhear{position:absolute;left:8px;top:50%;translate:0 -50%;width:42px;height:42px;border:0;border-radius:14px;background:#eef4ff;display:grid;place-items:center;font-size:26px;cursor:pointer;box-shadow:0 3px 0 #c9d8f5}
+.xhear:active{transform:translateY(2px)}
+.xopts{position:absolute;left:50%;bottom:max(104px,14%);translate:-50% 0;z-index:3;display:flex;justify-content:center;gap:clamp(8px,1.6vw,18px);width:min(96%,820px);flex-wrap:wrap}
+.xo{position:relative;flex:0 1 clamp(108px,15vw,170px);aspect-ratio:1;border:0;border-radius:24px;background:rgba(255,255,255,.92);box-shadow:0 6px 0 rgba(0,0,0,.18),0 12px 24px -8px rgba(0,0,0,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:8px;cursor:pointer;animation:uin .45s var(--dl) cubic-bezier(.2,1.4,.4,1) both}
+.xo img{width:82%;height:72%;object-fit:contain;filter:drop-shadow(0 6px 5px rgba(0,0,0,.2));transition:transform .2s}
+.xo:hover img{transform:scale(1.07) rotate(-3deg)}
+.xo span{font-weight:900;font-size:clamp(13px,1.5vw,17px);color:#1d2a3a;line-height:1.1}
+.xo.txt{aspect-ratio:auto;min-height:70px;flex-basis:auto;padding:12px 22px}.xo.txt span{font-size:clamp(17px,2vw,22px)}
+.xo.ok{background:#dff7e7;box-shadow:0 0 0 4px #4cc38a,0 6px 0 #2f9e66;animation:cpop .5s cubic-bezier(.2,1.5,.4,1)}
+.xo.no{background:#ffe5e5;box-shadow:0 0 0 4px #f47b7b,0 6px 0 #c84c4c;animation:ushk .45s}
+.xo.hint{box-shadow:0 0 0 4px #4cc38a,0 6px 0 #2f9e66}.xo.dim{opacity:.45;transition:opacity .3s}
+@media (max-width:560px){.xopts{bottom:110px;gap:8px}.xo{flex-basis:30%}.xq{padding:6px 12px 6px 52px;width:92%}.xhear{width:38px;height:38px}}
+@media (max-width:560px) and (max-height:740px){.xo{flex-basis:27%}.xopts{bottom:100px}}
+/* Simon says */
+.g-simon .gsky{background-position:50% 40%}
+.smdog{position:absolute;left:50%;top:22%;translate:-50% 0;height:min(34%,260px);z-index:2;filter:drop-shadow(0 14px 10px rgba(0,60,0,.3));animation:pgidle 1.6s ease-in-out infinite;transform-origin:50% 100%}
+.smdog.go-jump{animation:smjump .8s cubic-bezier(.3,0,.4,1)}@keyframes smjump{40%{transform:translateY(-30%) scale(1.05)}}
+.smdog.go-sit{animation:smsit .6s}@keyframes smsit{40%{transform:scale(1.1,.85)}}
+.smdog.go-wave{animation:ulp .5s 2}.smdog.go-clap{animation:cpop .3s 3}
+.smdog.go-dance{animation:smdance .9s ease-in-out}@keyframes smdance{25%{transform:rotate(-12deg) translateX(-12px)}50%{transform:rotate(10deg) translateX(12px)}75%{transform:rotate(-8deg)}}
+.smdog.go-spin{animation:smspin .8s ease-in-out}@keyframes smspin{to{transform:rotateY(360deg)}}
+.smdog.shake{animation:ushk .5s}
+.smnotes{position:absolute;right:20%;top:20%;width:min(12%,110px);z-index:1;animation:hqf 3s ease-in-out infinite;opacity:.9}
+.smconf{width:min(50%,380px);animation:gconfpop 1s ease-out forwards}
+@media (max-width:560px){.smdog{top:20%;height:26%}.smnotes{right:4%;top:22%;width:20%}}
+/* Shopping */
+.g-eshop .gsky{background-position:50% 50%}
+.esbear{position:absolute;left:3%;bottom:max(110px,16%);height:min(36%,260px);z-index:2;filter:drop-shadow(0 12px 10px rgba(80,30,0,.3));animation:pgidle 1.8s ease-in-out infinite;transform-origin:50% 100%}
+.esbear.yay{animation:pgyay .6s cubic-bezier(.2,1.5,.4,1)}.esbear.shake{animation:ushk .45s}
+.esbag{position:absolute;right:4%;bottom:max(120px,18%);height:min(26%,190px);z-index:2;filter:drop-shadow(0 10px 8px rgba(0,0,0,.25))}
+.esbag.gulp{animation:cpop .45s cubic-bezier(.2,1.5,.4,1)}
+.esfly{position:fixed;z-index:60;pointer-events:none}
+.g-eshop .xopts{bottom:max(150px,24%);width:min(70%,640px)}
+@media (max-width:560px){.esbear{left:-2%;top:16%;bottom:auto;height:18%}.esbag{right:2%;top:17%;bottom:auto;height:13%}.g-eshop .xopts{width:96%;bottom:110px}}
+/* Story-Time */
+.stpage{position:absolute;left:50%;top:32%;translate:-50% 0;width:min(66%,780px);z-index:2;text-align:center;padding:10px 20px}
+.stpage p{margin:0;font-weight:900;font-size:clamp(22px,3.2vw,40px);color:#3a2410;line-height:1.3}
+.stnum{display:inline-block;margin-bottom:8px;font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#a0522d;background:#fff3dc;padding:3px 12px;border-radius:99px}
+.stpage.flip{animation:stflip .55s cubic-bezier(.2,1,.3,1)}@keyframes stflip{from{transform:rotateY(70deg) scale(.9);opacity:0}}
+.g-story .xq{top:auto;bottom:calc(max(104px,14%) + clamp(120px,16vw,180px));padding-top:4px;padding-bottom:4px;min-height:0;border-width:3px}
+.g-story .xopts{bottom:max(104px,14%)}
+@media (max-width:560px){.stpage{top:23%;width:86%}.g-story .xq{bottom:calc(110px + 34vw)}}
+/* Zahlen-Hüpfen */
+.g-hupf .gsky{background-position:50% 50%}
+.hppads{position:absolute;left:50%;top:45%;translate:-50% 0;z-index:2;display:flex;gap:clamp(6px,1.6vw,20px);width:min(94%,900px);justify-content:center}
+.hppad{position:relative;flex:0 1 clamp(80px,13vw,150px);aspect-ratio:1.7;border:0;background:none;padding:0;cursor:pointer;animation:uin .45s var(--dl) cubic-bezier(.2,1.4,.4,1) both,hpbob 3s calc(var(--dl) * 4) ease-in-out infinite}
+@keyframes hpbob{50%{translate:0 4px}}
+.hppad img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 4px rgba(0,40,80,.3))}
+.hppad span{position:absolute;left:50%;top:44%;translate:-50% -50%;font-weight:900;font-size:clamp(22px,3vw,36px);color:#1d4a12}
+.hppad.land{animation:cpop .45s}.hppad.hint{filter:drop-shadow(0 0 10px #f7c948) drop-shadow(0 0 4px #fff)}
+.hpfrog{position:absolute;left:50%;top:auto;bottom:max(104px,14%);translate:-50% -100%;height:min(22%,170px);z-index:3;filter:drop-shadow(0 10px 8px rgba(0,40,80,.3));transition:left .5s cubic-bezier(.4,0,.5,1),top .5s cubic-bezier(.4,0,.5,1);pointer-events:none}
+.hpfrog:not([style*=left]){translate:-50% 0}
+.hpfrog[style*=left]{bottom:auto;translate:-50% -88%}
+.hpfrog.hop{animation:hphop .5s cubic-bezier(.3,0,.4,1)}@keyframes hphop{45%{transform:translateY(-40%) scale(1.08)}}
+.hpfrog.sink{transition:transform .5s,opacity .5s;transform:translateY(30%) scale(.7);opacity:.4}
+.hpsplash{width:110px;animation:gconfpop .9s ease-out forwards}
+.hpfly{position:absolute;right:10%;top:20%;width:min(10%,90px);z-index:1;animation:hpflyk 6s ease-in-out infinite}
+@keyframes hpflyk{0%,100%{transform:translate(0,0) rotate(-6deg)}25%{transform:translate(-60px,20px) rotate(4deg)}50%{transform:translate(-120px,-10px) rotate(-4deg)}75%{transform:translate(-50px,-30px) rotate(6deg)}}
+@media (max-width:560px){.hppads{flex-wrap:wrap;top:38%;gap:6px 10px}.hppad{flex-basis:28%}.hpfrog{height:15%}}
+/* Bonjour-Memory */
+.bjgrid{position:absolute;left:50%;top:50%;translate:-50% -44%;z-index:3;display:grid;gap:clamp(8px,1.4vw,16px);grid-template-columns:repeat(4,1fr);width:min(70%,720px)}
+.bjgrid.n10{grid-template-columns:repeat(5,1fr)}.bjgrid.n12{grid-template-columns:repeat(4,1fr)}
+.bjcard{position:relative;aspect-ratio:.82;border:0;background:none;padding:0;cursor:pointer;perspective:700px}
+.bjin{position:absolute;inset:0;transition:transform .45s cubic-bezier(.4,1.3,.5,1);transform-style:preserve-3d}
+.bjcard.up .bjin,.bjcard.done .bjin{transform:rotateY(180deg)}
+.bjb,.bjf{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.bjb{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 5px rgba(0,0,0,.25))}
+.bjf{transform:rotateY(180deg);display:grid;place-items:center}
+.bjf img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 5px rgba(0,0,0,.25))}
+.bjf b{position:relative;padding:0 12%;text-align:center;font-size:clamp(13px,1.6vw,19px);color:#1d2a3a;line-height:1.1}
+.bjf.fr b{color:#1a4fb4}
+.bjcard.done .bjf img{filter:drop-shadow(0 0 10px #f7c948)}.bjcard.done{animation:cpop .45s}
+.bjcard:hover:not(.up) .bjin{transform:translateY(-4px) rotate(-2deg)}
+.bjkid{position:absolute;bottom:max(104px,13%);height:min(30%,230px);z-index:2;filter:drop-shadow(0 12px 10px rgba(80,30,0,.3));animation:pgidle 1.8s ease-in-out infinite;transform-origin:50% 100%}
+.bjkid.g{left:2%}.bjkid.b{right:2%;animation-delay:-.9s}.bjkid.yay{animation:pgyay .6s cubic-bezier(.2,1.5,.4,1)}
+.bjcat{position:absolute;right:16%;bottom:max(104px,13%);height:min(14%,110px);z-index:2;animation:pgidle 2.2s ease-in-out infinite}
+.bjspark{width:110px;animation:gconfpop .9s ease-out forwards}
+@media (max-width:560px){.bjgrid{width:94%;top:47%;grid-template-columns:repeat(3,1fr)!important}.bjkid{display:none}.bjcat{right:2%;top:13%;bottom:auto;height:9%}.bjgrid.n12 .bjcard,.bjgrid.n10 .bjcard{aspect-ratio:.95}}
+@media (min-width:561px) and (max-height:820px){.bjgrid{width:min(58%,600px)}}
+/* Diktat mit Max */
+.g-dikt .gsky{background-position:50% 35%}
+.dkboard{position:absolute;left:50%;top:14%;translate:-50% 0;width:min(64%,760px);min-height:28%;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;text-align:center}
+.dkboard small{font-size:15px;font-weight:700;opacity:.92}
+.dkboard.pop{animation:rqpop .45s}
+.dkword{display:flex;gap:4px;font-family:'Comic Sans MS','Chalkboard SE',ui-rounded,sans-serif;font-size:clamp(38px,6vw,72px);font-weight:900;letter-spacing:.02em;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.dkgap{font-style:normal;min-width:.7em;border-bottom:5px dashed #ffe066;color:#ffe066;animation:oslp 1.2s ease-in-out infinite}
+.dkgap.fill{border-color:transparent;color:#9bf09b;animation:cpop .4s}.dkgap.fix{border-color:transparent;color:#ffb0b0}
+.xhear.dk{position:relative;left:auto;top:auto;translate:none;width:56px;height:56px;font-size:32px}
+.dkstamp{position:absolute;right:4%;bottom:-6%;width:clamp(70px,9vw,110px);animation:dkst .5s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes dkst{from{transform:translateY(-60px) scale(1.6) rotate(-20deg);opacity:0}}
+.dkmega{position:absolute;left:3%;top:46%;width:min(12%,110px);z-index:2;filter:drop-shadow(0 8px 6px rgba(0,0,0,.25));transform-origin:30% 60%}
+.dkmega.talk{animation:dktalk .25s 4}@keyframes dktalk{50%{transform:scale(1.1) rotate(-6deg)}}
+.dkpencil{position:absolute;right:4%;top:44%;width:min(10%,90px);z-index:2;animation:hsp 2.4s ease-in-out infinite}
+.dkl{min-width:96px}.dkl span{font-size:clamp(30px,4vw,44px)!important;font-family:'Comic Sans MS','Chalkboard SE',ui-rounded,sans-serif}
+.dkplane{position:absolute;left:-10%;top:30%;width:120px;z-index:6;animation:dkpl 1.2s ease-in forwards}
+@keyframes dkpl{to{transform:translate(130vw,-30vh) rotate(-12deg)}}
+@media (max-width:560px){.dkboard{width:84%;top:12%;min-height:24%}.dkmega{top:40%;width:18%}.dkpencil{display:none}.dkword{font-size:clamp(30px,10vw,52px)}}
+.stpage{top:19%!important}.stpage p{font-size:clamp(19px,2.5vw,32px)!important}
+@media (max-width:560px){.stpage{top:21%!important}.stpage p{font-size:19px!important}}
+.bjgrid{width:min(82%,880px);top:46%}
+.bjgrid.n8{grid-template-columns:repeat(4,1fr)}.bjgrid.n10{grid-template-columns:repeat(5,1fr)}.bjgrid.n12{grid-template-columns:repeat(6,1fr)}
+.bjgrid .bjcard{max-height:calc((100dvh - 330px) / 2)}
+.bjgrid.n8{width:min(60%,620px)}
+@media (max-width:560px){.bjgrid{grid-template-columns:repeat(4,1fr)!important;width:96%;top:45%;gap:6px}.bjgrid .bjcard{aspect-ratio:.8;max-height:none}.bjf b{font-size:12.5px;padding:0 6%}}
+@media (max-width:560px) and (max-height:740px){.bjgrid{top:43%;width:86%}}
+@media (max-width:560px){.hppad{flex-basis:30%}.hppad span{font-size:28px}}
 </style>
 </head>
 <body>
@@ -9177,6 +9288,168 @@ function gBelt(T) {
   return () => {};
 }
 
+/* ---------- Gemeinsame Helfer für die neuen Sprach-Spiele ---------- */
+function ttsSay(text, lang) { try { if (!voiceOn || !window.speechSynthesis) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = .85; const v = speechSynthesis.getVoices().find((x) => x.lang && x.lang.toLowerCase().startsWith(lang.slice(0, 2))); if (v) u.voice = v; speechSynthesis.speak(u); } catch (e) {} }
+const xImg = (d, f) => `/grundschulmax/sp/${d}/${f}.webp`;
+function xWord(t, el, no) { const d = document.createElement('b'); d.className = 'gword' + (no ? ' no' : ''); const a = el.getBoundingClientRect(), g = gs.getBoundingClientRect(); d.style.left = a.left - g.left + a.width / 2 + 'px'; d.style.top = a.top - g.top + 'px'; d.textContent = t; gs.appendChild(d); setTimeout(() => d.remove(), 1100); }
+function xBurst(el, cols) { const a = el.getBoundingClientRect(), g = gs.getBoundingClientRect(); burst(a.left - g.left + a.width / 2, a.top - g.top + a.height / 2, cols || ['#f7c948', '#fff', '#5aa2f7'], 16); }
+/* Runde mit Bild-Antworten: q = {html, say, lang, o:[{k,img,label}], a} */
+function xRound(T, opt) {
+  let r = 0, lock = true, cur;
+  const next = () => {
+    if (r >= opt.N) return finish(opt.done, opt.doneT[G()]);
+    cur = opt.make(r); $('#xq').innerHTML = cur.html; restart($('#xq'), 'pop');
+    $('#xo').innerHTML = cur.o.map((o, i) => `<button class="xo${o.img ? '' : ' txt'}" data-k="${o.k}" style="--dl:${.25 + i * .09}s">${o.img ? `<img src="${o.img}" alt="">` : ''}${o.label ? `<span>${o.label}</span>` : ''}</button>`).join('');
+    $$('.xo', gs).forEach((b) => (b.onclick = () => pick(b)));
+    const hb = $('#xq .xhear'); if (hb) hb.onclick = () => ttsSay(cur.say, cur.lang);
+    if (cur.say) ttsSay(cur.say, cur.lang); if (opt.onShow) opt.onShow(cur, r);
+    setTimeout(() => { lock = false; }, 450);
+  };
+  const pick = (b) => {
+    if (lock) return; lock = true; const ok = b.dataset.k === String(cur.a);
+    if (ok) { right(); sfx.coin(); b.classList.add('ok'); xBurst(b); xWord(opt.okWord ? opt.okWord(cur) : ['Super!', 'Richtig!', 'Klasse!', 'Yes!'][r % 4], b); }
+    else { wrong(); sfx.no(); b.classList.add('no'); const c = $(`.xo[data-k="${cur.a}"]`, gs); if (c) c.classList.add('hint'); }
+    $$('.xo', gs).forEach((x) => x !== b && !x.classList.contains('hint') && x.classList.add('dim'));
+    if (opt.onPick) opt.onPick(ok, cur, b);
+    say(ok ? (cur.okT || 'Richtig!') : (cur.noT || 'Schau nochmal genau hin.'), ok ? 'happy' : 'think');
+    r++; setTimeout(() => { if (alive(T)) next(); }, ok ? (opt.okMs || 1300) : 2300);
+  };
+  return next;
+}
+const hearBtn = () => `<button class="xhear" type="button" aria-label="Anhören">${I('snd')}</button>`;
+
+/* ---------- Simon says ---------- */
+function gSimon(T) {
+  gs.className = 'gs g-xs g-simon';
+  const D = 'simon', A = [['jump', 'jump', 'springen'], ['sit', 'sit down', 'hinsetzen'], ['wave', 'wave', 'winken'], ['dance', 'dance', 'tanzen'], ['clap', 'clap your hands', 'klatschen'], ['spin', 'turn around', 'drehen']], N = 8, trick = G() >= 1;
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><img class="smdog" id="smd" src="${xImg(D, 'wave')}" alt=""><img class="smnotes" src="${xImg(D, 'notes')}" alt=""><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
+  const next = xRound(T, { N, done: 'Simon ist begeistert!', doneT: ['Erste Befehle auf Englisch verstehen.', 'Befehle verstehen und genau hinhören.', 'Englisch hören und sofort reagieren.', 'Blitzschnell verstehen, auch mit Trick.'],
+    make: () => { const o = shuf(A).slice(0, 3), t = o[ri(0, 2)], fake = trick && Math.random() < .25, cmd = (fake ? '' : 'Simon says: ') + t[1] + '!';
+      const opts = o.map((x) => ({ k: x[0], img: xImg(D, x[0]), label: x[2] })); if (trick) opts.push({ k: 'none', label: 'Nichts tun!' });
+      return { html: `${hearBtn()}<b>${cmd}</b><small>${fake ? 'Hör genau hin …' : 'Was soll der Hund machen?'}</small>`, say: cmd, lang: 'en-GB', o: opts, a: fake ? 'none' : t[0], okT: fake ? 'Richtig! Simon hat es nicht gesagt.' : `Genau: ${t[1]} heißt ${t[2]}.`, noT: fake ? 'Achtung: Simon hat das nicht gesagt, also nichts tun!' : `${t[1]} heißt ${t[2]}.` }; },
+    onPick: (ok, cur) => { const d = $('#smd'); if (ok && cur.a !== 'none') { d.src = xImg(D, cur.a); restart(d, 'go-' + cur.a); const c = document.createElement('img'); c.src = xImg(D, 'conf'); c.className = 'gfx smconf'; c.style.left = '50%'; c.style.top = '40%'; gs.appendChild(c); setTimeout(() => c.remove(), 1000); } else { d.src = xImg(D, ok ? 'clap' : 'sit'); restart(d, ok ? 'go-clap' : 'shake'); } },
+    onShow: () => { const d = $('#smd'); d.src = xImg(D, 'wave'); d.className = 'smdog'; } });
+  progress(N); say('Hör auf Simon! Was soll der Hund machen?', '');
+  startOverlay('Los geht\'s', `${N} Befehle · Englisch hören`, next);
+  return () => { try { speechSynthesis.cancel(); } catch (e) {} };
+}
+
+/* ---------- Shopping-Spiel ---------- */
+function gEShop(T) {
+  gs.className = 'gs g-xs g-eshop';
+  const D = 'eshop', IT = [['apple', 'an apple', 'a', 'apples'], ['banana', 'a banana', 'a', 'bananas'], ['orange', 'an orange', 'an', 'oranges'], ['ice', 'an ice cream', 'an', 'ice creams'], ['teddy', 'a teddy bear', 'a', 'teddy bears']], N = 6, NUM = ['one', 'two', 'three', 'four', 'five'];
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><img class="esbear" id="esb" src="${xImg(D, 'bear')}" alt=""><img class="esbag" id="esg" src="${xImg(D, 'bag')}" alt=""><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
+  const next = xRound(T, { N, done: 'Einkauf geschafft!', doneT: ['Erste englische Wörter für Obst und Spielzeug.', 'Bestellen auf Englisch verstehen.', 'Mengen und Wünsche auf Englisch.', 'Ganze Einkaufssätze auf Englisch.'],
+    make: () => { const o = shuf(IT).slice(0, G() === 0 ? 3 : 4), t = o[ri(0, o.length - 1)];
+      if (G() >= 2 && Math.random() < .5) { const n = ri(2, 4), s = `Can I have ${NUM[n - 1]} ${t[3]}, please?`; return { html: `${hearBtn()}<b>${s}</b><small>Wie viele möchte der Kunde?</small>`, say: s, lang: 'en-GB', o: shuf([n, n === 2 ? 3 : n - 1, n === 4 ? 3 : n + 1].filter((v, i, a) => a.indexOf(v) === i)).map((v) => ({ k: String(v), img: xImg(D, t[0]), label: `${v} × ${NUM[v - 1]}` })), a: String(n), okT: `${NUM[n - 1]} heißt ${n}.`, noT: `${NUM[n - 1]} heißt ${n}.` }; }
+      const s = G() === 0 ? `${t[1][0].toUpperCase()}${t[1].slice(1)}, please!` : `Can I have ${t[1]}, please?`;
+      return { html: `${hearBtn()}<b>${s}</b><small>Was möchte der Kunde?</small>`, say: s, lang: 'en-GB', o: o.map((x) => ({ k: x[0], img: xImg(D, x[0]) })), a: t[0], okT: 'Here you are!', noT: `Er wollte ${t[1]}.` }; },
+    onPick: (ok, cur, b) => { if (!ok) { restart($('#esb'), 'shake'); return; } restart($('#esb'), 'yay'); const g = $('#esg').getBoundingClientRect(), a = b.getBoundingClientRect(), im = $('img', b); if (!im) return; const f = im.cloneNode(); f.className = 'esfly'; f.style.cssText = `left:${a.left}px;top:${a.top}px;width:${a.width}px`; document.body.appendChild(f);
+      f.animate([{ transform: 'none' }, { transform: `translate(${(g.left - a.left) / 2}px,${(g.top - a.top) / 2 - 80}px) scale(.8) rotate(-20deg)`, offset: .5 }, { transform: `translate(${g.left - a.left + g.width / 2 - a.width / 2}px,${g.top - a.top}px) scale(.3)`, opacity: .3 }], { duration: 650, easing: 'cubic-bezier(.4,0,.5,1)', fill: 'forwards' }).onfinish = () => { f.remove(); restart($('#esg'), 'gulp'); sfx.chest(); }; } });
+  progress(N); say('Der Bär hat einen Laden. Hör zu, was der Kunde möchte!', '');
+  startOverlay('Laden öffnen', `${N} Kunden · Einkaufen auf Englisch`, next);
+  return () => { try { speechSynthesis.cancel(); } catch (e) {} };
+}
+
+/* ---------- Story-Time ---------- */
+function gStory(T) {
+  gs.className = 'gs g-xs g-story';
+  const D = 'story', AN = [['fox', 'fox', 'Fuchs'], ['owl', 'owl', 'Eule'], ['bunny', 'bunny', 'Hase']], PL = [['castle', 'in the castle', 'im Schloss'], ['tree', 'in the tree', 'im Baum'], ['moon', 'on the moon', 'auf dem Mond'], ['star', 'on a star', 'auf einem Stern']], N = 6;
+  const FEEL = ['happy', 'sleepy', 'hungry', 'brave'];
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><div class="stpage" id="stp"></div><div class="xq st" id="xq"></div><div class="xopts" id="xo"></div>`;
+  const next = xRound(T, { N, done: 'Die Geschichte ist zu Ende!', doneT: ['Englische Tiere erkennen.', 'Kleine englische Sätze verstehen.', 'Wer ist wo? Sätze genau verstehen.', 'Geschichten auf Englisch folgen.'], okMs: 1600,
+    make: (r) => { const a = AN[ri(0, 2)], p = PL[ri(0, 3)], f = FEEL[ri(0, 3)], askPlace = G() >= 1 && r % 2 === 1;
+      const s = G() === 0 ? `Look! A ${a[1]}!` : `The ${a[1]} is ${f}. The ${a[1]} is ${p[1]}.`;
+      $('#stp').innerHTML = `<span class="stnum">Seite ${r + 1}</span><p>${s}</p>`; restart($('#stp'), 'flip');
+      if (askPlace) { const o = shuf(PL).slice(0, 3); if (!o.includes(p)) o[0] = p; return { html: `${hearBtn()}<b>Where is the ${a[1]}?</b><small>Wo ist das Tier?</small>`, say: s + ' Where is the ' + a[1] + '?', lang: 'en-GB', o: shuf(o).map((x) => ({ k: x[0], img: xImg(D, x[0]) })), a: p[0], okT: `Genau: ${p[1]} heißt ${p[2]}.`, noT: `${p[1]} heißt ${p[2]}.` }; }
+      return { html: `${hearBtn()}<b>Who is it?</b><small>Welches Tier ist in der Geschichte?</small>`, say: s, lang: 'en-GB', o: shuf(AN).map((x) => ({ k: x[0], img: xImg(D, x[0]) })), a: a[0], okT: `Ja: ${a[1]} heißt ${a[2]}.`, noT: `${a[1]} heißt ${a[2]}.` }; } });
+  progress(N); say('Hör dir die Geschichte an und finde das richtige Bild!', '');
+  startOverlay('Buch öffnen', `${N} Seiten · Englische Geschichte`, next);
+  return () => { try { speechSynthesis.cancel(); } catch (e) {} };
+}
+
+/* ---------- Zahlen-Hüpfen (Französisch) ---------- */
+const FRN = ['zéro', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze', 'seize', 'dix-sept', 'dix-huit', 'dix-neuf', 'vingt'];
+function gHupf(T) {
+  gs.className = 'gs g-xs g-hupf';
+  const D = 'hupf', MAX = [5, 10, 15, 20][G()], N = 8;
+  let r = 0, lock = true, cur, pos = -1, nums;
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><img class="hpfly" src="${xImg(D, 'fly')}" alt=""><div class="xq" id="xq"></div><div class="hppads" id="hpp"></div><img class="hpfrog" id="hpf" src="${xImg(D, 'frog')}" alt="">`;
+  const frogTo = (el, ok) => { const f = $('#hpf'), a = el.getBoundingClientRect(), g = gs.getBoundingClientRect(); f.src = xImg(D, 'jump'); f.style.left = a.left - g.left + a.width / 2 + 'px'; f.style.top = a.top - g.top + a.height * .1 + 'px'; restart(f, 'hop');
+    setTimeout(() => { if (!alive(T)) return; if (ok) { f.src = xImg(D, 'frog'); el.classList.add('land'); } else { const s = document.createElement('img'); s.src = xImg(D, 'splash'); s.className = 'gfx hpsplash'; s.style.left = f.style.left; s.style.top = a.top - g.top + a.height * .6 + 'px'; gs.appendChild(s); setTimeout(() => s.remove(), 900); f.classList.add('sink'); sfx.splash(); } }, 480); };
+  function next() {
+    if (r >= N) return finish('Super gehüpft!', ['Zahlen bis 5 auf Französisch.', 'Zahlen bis 10 auf Französisch.', 'Zahlen bis 15 auf Französisch.', 'Zahlen bis 20 auf Französisch.'][G()]);
+    const t = ri(1, MAX), set = new Set([t]); while (set.size < 5) set.add(ri(1, MAX)); nums = shuf([...set]); cur = t;
+    $('#xq').innerHTML = `${hearBtn()}<b>${FRN[t]}</b><small>Hüpfe auf die richtige Zahl!</small>`; restart($('#xq'), 'pop'); $('#xq .xhear').onclick = () => ttsSay(FRN[t], 'fr-FR');
+    $('#hpp').innerHTML = nums.map((v, i) => `<button class="hppad" data-v="${v}" style="--dl:${i * .07}s"><img src="${xImg(D, 'pad')}" alt=""><span>${v}</span></button>`).join('');
+    $$('.hppad', gs).forEach((b) => (b.onclick = () => tap(b))); const f = $('#hpf'); f.className = 'hpfrog'; f.src = xImg(D, 'frog'); f.style.left = ''; f.style.top = '';
+    ttsSay(FRN[t], 'fr-FR'); say(`Wo ist ${FRN[t]}?`, ''); setTimeout(() => { lock = false; }, 450);
+  }
+  function tap(b) {
+    if (lock) return; lock = true; const ok = +b.dataset.v === cur; frogTo(b, ok); sfx.jump();
+    if (ok) { right(); setTimeout(() => { sfx.coin(); xBurst(b, ['#7dd957', '#fff', '#f7c948']); xWord('Super!', b); }, 480); say(`Richtig: ${FRN[cur]} ist ${cur}.`, 'happy'); }
+    else { wrong(); const c = $(`.hppad[data-v="${cur}"]`, gs); setTimeout(() => c && c.classList.add('hint'), 500); say(`Platsch! ${FRN[cur]} ist ${cur}.`, 'think'); }
+    r++; setTimeout(() => { if (alive(T)) next(); }, ok ? 1300 : 2300);
+  }
+  progress(N); say('Hör die Zahl auf Französisch und hüpf auf das richtige Seerosenblatt!', '');
+  startOverlay('Hüpfen!', `${N} Sprünge · Zahlen auf Französisch`, next);
+  return () => { try { speechSynthesis.cancel(); } catch (e) {} };
+}
+
+/* ---------- Bonjour-Memory (Französisch) ---------- */
+function gBonj(T) {
+  gs.className = 'gs g-xs g-bonj';
+  const D = 'bonj', ALL = [['Bonjour', 'Hallo'], ['Merci', 'Danke'], ['Au revoir', 'Tschüss'], ['Oui', 'Ja'], ['Non', 'Nein'], ["S'il te plaît", 'Bitte'], ['Ça va ?', "Wie geht's?"], ["Je m'appelle …", 'Ich heiße …']];
+  const P = shuf(ALL).slice(0, [4, 5, 6, 6][G()]), cards = shuf(P.flatMap((p, i) => [{ i, t: p[0], fr: 1 }, { i, t: p[1], fr: 0 }]));
+  let open = [], found = 0, lock = false, tries = 0;
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><img class="bjkid g" id="bjg" src="${xImg(D, 'girl')}" alt=""><img class="bjkid b" id="bjb" src="${xImg(D, 'boy')}" alt=""><img class="bjcat" src="${xImg(D, 'cat')}" alt="">
+    <div class="xq bj" id="xq"><b>Finde die Paare!</b><small>Französisch und Deutsch gehören zusammen.</small></div><div class="bjgrid n${cards.length}" id="bjc">${cards.map((c, k) => `<button class="bjcard" data-k="${k}"><span class="bjin"><img class="bjb" src="${xImg(D, 'back')}" alt=""><span class="bjf${c.fr ? ' fr' : ''}"><img src="${xImg(D, 'front')}" alt=""><b>${c.t}</b></span></span></button>`).join('')}</div>`;
+  const go = () => $$('.bjcard', gs).forEach((b) => (b.onclick = () => {
+    if (lock || b.classList.contains('up') || b.classList.contains('done')) return; const c = cards[+b.dataset.k]; b.classList.add('up'); sfx.flip(); if (c.fr) ttsSay(c.t, 'fr-FR'); open.push(b);
+    if (open.length < 2) return; lock = true; tries++; const [x, y] = open, cx = cards[+x.dataset.k], cy = cards[+y.dataset.k];
+    if (cx.i === cy.i && cx.fr !== cy.fr) { setTimeout(() => { if (!alive(T)) return; [x, y].forEach((e) => { e.classList.add('done'); xBurst(e); }); right(); sfx.coin(); found++; restart($('#bj' + (found % 2 ? 'g' : 'b')), 'yay'); const sp = document.createElement('img'); sp.src = xImg(D, 'spark'); sp.className = 'gfx bjspark'; const a = y.getBoundingClientRect(), g = gs.getBoundingClientRect(); sp.style.left = a.left - g.left + a.width / 2 + 'px'; sp.style.top = a.top - g.top + 'px'; gs.appendChild(sp); setTimeout(() => sp.remove(), 900);
+      say(`${P[cx.i][0]} heißt ${P[cx.i][1]}.`, 'happy'); open = []; lock = false; if (found === P.length) setTimeout(() => { if (alive(T)) finish('Très bien!', ['Erste französische Wörter.', 'Begrüßen und bedanken auf Französisch.', 'Die wichtigsten ersten Sätze.', 'Sich vorstellen auf Französisch.'][G()]); }, 900); }, 500); }
+    else { setTimeout(() => { if (!alive(T)) return; wrong(); [x, y].forEach((e) => e.classList.remove('up')); open = []; lock = false; }, 1100); }
+  }));
+  progress(P.length); say('Dreh zwei Karten um. Finde das französische Wort und das deutsche dazu!', '');
+  startOverlay('Karten mischen', `${P.length} Paare · Begrüßen auf Französisch`, go);
+  return () => { try { speechSynthesis.cancel(); } catch (e) {} };
+}
+
+/* ---------- Diktat mit Max ---------- */
+const DIKT = [
+  [['Hund', 1], ['Ball', 1], ['Maus', 2], ['Sonne', 1], ['Baum', 2], ['Haus', 1], ['Mama', 3], ['Oma', 0], ['Nase', 1], ['Rose', 3]],
+  [['Schule', 3], ['Blume', 2], ['Katze', 2], ['Tasche', 4], ['Fisch', 2], ['Apfel', 2], ['Wolke', 1], ['Regen', 1], ['Kinder', 4], ['Brief', 3]],
+  [['Fahrrad', 3], ['Straße', 4], ['Schnee', 5], ['Zähne', 1], ['Mädchen', 2], ['Sprung', 1], ['Fenster', 3], ['Pferd', 1], ['Uhr', 1], ['Träume', 2]],
+  [['Geburtstag', 4], ['Fußball', 2], ['Schmetterling', 7], ['Bäckerei', 1], ['Zahnbürste', 3], ['Sommerferien', 3], ['Wasserfall', 2], ['Schlüssel', 4], ['Känguru', 1], ['Verkehr', 3]],
+];
+function gDikt(T) {
+  gs.className = 'gs g-xs g-dikt';
+  const D = 'dikt', N = 7, L = shuf(DIKT[G()]).slice(0, N), AB = 'aeiouäöübdgkptmnrlsfhwzc';
+  const DUP = { ß: 'ss', ä: 'e', ü: 'i', ö: 'o' };
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><img class="dkmega" id="dkm" src="${xImg(D, 'mega')}" alt=""><img class="dkpencil" src="${xImg(D, 'pencil')}" alt=""><div class="dkboard" id="dkb"></div><div class="xopts" id="xo"></div>`;
+  let r = 0, lock = true, cur;
+  function next() {
+    if (r >= N) { const pl = document.createElement('img'); pl.src = xImg(D, 'plane'); pl.className = 'dkplane'; gs.appendChild(pl); return setTimeout(() => { if (alive(T)) finish('Diktat geschafft!', ['Kurze Wörter genau hören.', 'Wörter richtig schreiben.', 'Schwierige Laute erkennen.', 'Lange Wörter sicher schreiben.'][G()]); }, 900); }
+    const [w, i] = L[r], ch = w[i], low = ch.toLowerCase(), opts = new Set([ch]);
+    if (DUP[low]) opts.add(DUP[low]); while (opts.size < 3) { let c = AB[ri(0, AB.length - 1)]; if (ch === ch.toUpperCase() && ch !== ch.toLowerCase()) c = c.toUpperCase(); if (c !== ch) opts.add(c); }
+    cur = { w, i, ch };
+    $('#dkb').innerHTML = `<button class="xhear dk" type="button" aria-label="Anhören">${I('snd')}</button><div class="dkword">${[...w].map((c, k) => k === i ? '<i class="dkgap">?</i>' : `<span>${c}</span>`).join('')}</div><small>Hör genau hin: Welcher Buchstabe fehlt?</small>`; restart($('#dkb'), 'pop');
+    $('#dkb .xhear').onclick = () => { ttsSay(w, 'de-DE'); restart($('#dkm'), 'talk'); };
+    $('#xo').innerHTML = shuf([...opts]).map((c, k) => `<button class="xo txt dkl" data-k="${c}" style="--dl:${.2 + k * .08}s"><span>${c}</span></button>`).join('');
+    $$('.xo', gs).forEach((b) => (b.onclick = () => tap(b))); ttsSay(w, 'de-DE'); restart($('#dkm'), 'talk'); say(voiceOn ? 'Hör gut zu! Tipp auf den Lautsprecher zum Wiederholen.' : `Schreibe: ${w}`, ''); setTimeout(() => { lock = false; }, 450);
+  }
+  function tap(b) {
+    if (lock) return; lock = true; const ok = b.dataset.k === cur.ch, g = $('.dkgap', gs);
+    if (ok) { right(); sfx.coin(); b.classList.add('ok'); g.textContent = cur.ch; g.classList.add('fill'); const s = document.createElement('img'); s.src = xImg(D, 'stamp'); s.className = 'dkstamp'; $('#dkb').appendChild(s); xBurst($('#dkb'), ['#f7c948', '#fff', '#4cc38a']); say(`Richtig: ${cur.w}!`, 'happy'); }
+    else { wrong(); sfx.no(); b.classList.add('no'); g.textContent = cur.ch; g.classList.add('fix'); const c = $(`.xo[data-k="${cur.ch}"]`, gs); if (c) c.classList.add('hint'); say(`Man schreibt ${cur.w} mit ${cur.ch}.`, 'think'); }
+    r++; setTimeout(() => { if (alive(T)) next(); }, ok ? 1400 : 2400);
+  }
+  progress(N); say('Max liest dir ein Wort vor. Finde den fehlenden Buchstaben!', '');
+  startOverlay('Diktat starten', `${N} Wörter · Hören und schreiben`, next);
+  return () => { try { speechSynthesis.cancel(); } catch (e) {} };
+}
+
 /* ---------- Lernpfad wie bei Duolingo: Level -> 4 Lektionen -> Spiel ---------- */
 const LPKEY = 'gsm-lp2', LV_FREE = 2, PER = 5; // 2 Level frei in der Vorschau, je Level 4 Lektionen + 1 Spiel
 let LPS = {}; try { LPS = JSON.parse(localStorage.getItem(LPKEY) || '{}') || {}; } catch (e) { LPS = {}; }
@@ -10685,15 +10958,15 @@ const SUBJ = [
     ern: ['Plus und Minus bis 20, 100, 1000', 'Einmaleins und Teilen', 'Sachaufgaben Schritt für Schritt', 'Probetest vor der Klassenarbeit'] },
   { k: 'deutsch', n: 'Deutsch', c1: '#f47ba0', c2: '#c8336f', ic: 'Aa', tutor: { id: 'max', n: 'Max' }, games: [
     { n: 'Silben-Zug', b: 'Lesen wird leichter, wenn Wörter in Silben zerfallen. Dein Kind baut Wörter und Sätze und liest dadurch flüssiger und mit mehr Mut.', d: 'Lesen lernen, Sätze bauen', play: gZug, ic: 'zug' }, { n: 'Zauberstift', b: 'Schöne Schrift braucht Übung und Geduld. Hier zeigt Max jeden Strich, und dein Kind schreibt sicherer, in Druck- und Schreibschrift.', d: 'Schreiben lernen, auch Schreibschrift', play: gStift, ic: 'pen' },
-    { n: 'Reim-Ping-Pong', b: 'Wer genau hinhört, liest und schreibt besser. Reime schulen das Gehör für Laute, ganz spielerisch.', d: 'Reime finden', pv: 'reim', play: gPong, ic: 'pong' }, { n: 'Wortarten-Sortierer', b: 'Nomen, Verben, Adjektive: Was in der Schule trocken klingt, wird hier zum Sortierspaß. Das hilft später bei der Rechtschreibung.', d: 'Nomen, Verben, Adjektive', pv: 'wortart', play: gBelt, ic: 'belt' }, { n: 'Diktat mit Max', b: 'Hören und richtig schreiben, ganz ohne Rotstift-Angst. Max hilft geduldig, bis die Wörter sitzen.', d: 'Hören und richtig schreiben', pv: 'diktat' }],
+    { n: 'Reim-Ping-Pong', b: 'Wer genau hinhört, liest und schreibt besser. Reime schulen das Gehör für Laute, ganz spielerisch.', d: 'Reime finden', pv: 'reim', play: gPong, ic: 'pong' }, { n: 'Wortarten-Sortierer', b: 'Nomen, Verben, Adjektive: Was in der Schule trocken klingt, wird hier zum Sortierspaß. Das hilft später bei der Rechtschreibung.', d: 'Nomen, Verben, Adjektive', pv: 'wortart', play: gBelt, ic: 'belt' }, { n: 'Diktat mit Max', b: 'Hören und richtig schreiben, ganz ohne Rotstift-Angst. Max hilft geduldig, bis die Wörter sitzen.', d: 'Hören und richtig schreiben', pv: 'diktat', play: gDikt, ic: 'dikt' }],
     ern: ['Lesen mit Vorlese-Hilfe', 'Schreiben: Druck- und Schreibschrift', 'Rechtschreibung: ie, ck, tz, ß', 'Nomen, Verben, Adjektive'] },
   { k: 'englisch', n: 'Englisch', c1: '#3fc1c9', c2: '#0e7f8e', ic: 'EN', tutor: { id: 'emma', n: 'Emma' }, note: 'Je nach Bundesland ab Klasse 1 oder 3.', games: [
     { n: 'Memory', b: 'Englische Wörter bleiben hängen, wenn man sie mit Bildern verbindet. Dein Kind spielt Memory und lernt dabei ganz nebenbei.', d: 'Wörter, Farben, Sätze', play: gMem, ic: 'cards' }, { n: 'Buchstaben-Blasen', b: 'Englisch schreibt man oft anders, als man es spricht. Hier lernt dein Kind die richtige Schreibweise mit Freude.', d: 'Wörter buchstabieren', play: gBlasen, ic: 'bubble' },
-    { n: 'Simon says', b: 'Englisch hören und sofort verstehen: Das baut Sicherheit auf und nimmt die Scheu vor der fremden Sprache.', d: 'Hören und bewegen', pv: 'simon' }, { n: 'Shopping-Spiel', b: 'Wie bestellt man etwas auf Englisch? Dein Kind übt echte Alltagssätze und traut sich mehr.', d: 'Einkaufen auf Englisch', pv: 'shop' }, { n: 'Story-Time', b: 'Kleine Geschichten zum Zuhören. Dein Kind versteht immer mehr ganze Sätze und bekommt ein Gefühl für die Sprache.', d: 'Kleine Geschichten hören', pv: 'story' }],
+    { n: 'Simon says', b: 'Englisch hören und sofort verstehen: Das baut Sicherheit auf und nimmt die Scheu vor der fremden Sprache.', d: 'Hören und bewegen', pv: 'simon', play: gSimon, ic: 'simon' }, { n: 'Shopping-Spiel', b: 'Wie bestellt man etwas auf Englisch? Dein Kind übt echte Alltagssätze und traut sich mehr.', d: 'Einkaufen auf Englisch', pv: 'shop', play: gEShop, ic: 'eshop' }, { n: 'Story-Time', b: 'Kleine Geschichten zum Zuhören. Dein Kind versteht immer mehr ganze Sätze und bekommt ein Gefühl für die Sprache.', d: 'Kleine Geschichten hören', pv: 'story', play: gStory, ic: 'story' }],
     ern: ['Wörter nach Themen: Farben, Tiere, Familie', 'Hören und nachsprechen', 'Erste Sätze: „My name is …“'] },
   { k: 'franz', n: 'Französisch', c1: '#9b7cf0', c2: '#5b3fc4', ic: 'FR', tutor: { id: 'claude', n: 'Claude' }, note: 'Für Kinder mit Französisch in der Schule, z. B. Saarland und Oberrhein.', games: [
     { n: 'Farbklecks-Fangen', b: 'Die ersten französischen Wörter mit Farben, Zahlen und Tieren. Bunt, schnell und ohne Vokabelheft.', d: 'Farben, Zahlen, Tiere', play: gFarben, ic: 'blob' }, { n: 'Le petit café', b: 'Im kleinen Café von Claude versteht dein Kind die ersten Bestellungen auf Französisch und hat Spaß dabei.', d: 'Bestellungen verstehen', play: gCafe, ic: 'cup' },
-    { n: 'Zahlen-Hüpfen', b: 'Zählen auf Französisch klingt erst ungewohnt. Mit Hüpfen und Hören sitzen die Zahlen schnell.', d: 'un, deux, trois', pv: 'hupf' }, { n: 'Bonjour-Memory', b: 'Sich vorstellen und begrüßen auf Französisch. Die wichtigsten ersten Sätze, die Kinder stolz machen.', d: 'Begrüßen und vorstellen', pv: 'bonjour' }, { n: 'Où est le chat ?', b: 'Auf, unter, neben: Dein Kind sucht die Katze und lernt dabei, wie man auf Französisch sagt, wo etwas ist.', d: 'Wo ist die Katze?', pv: 'ou' }],
+    { n: 'Zahlen-Hüpfen', b: 'Zählen auf Französisch klingt erst ungewohnt. Mit Hüpfen und Hören sitzen die Zahlen schnell.', d: 'un, deux, trois', pv: 'hupf', play: gHupf, ic: 'hupf' }, { n: 'Bonjour-Memory', b: 'Sich vorstellen und begrüßen auf Französisch. Die wichtigsten ersten Sätze, die Kinder stolz machen.', d: 'Begrüßen und vorstellen', pv: 'bonjour', play: gBonj, ic: 'bonj' }, { n: 'Où est le chat ?', b: 'Auf, unter, neben: Dein Kind sucht die Katze und lernt dabei, wie man auf Französisch sagt, wo etwas ist.', d: 'Wo ist die Katze?', pv: 'ou' }],
     ern: ['Begrüßen und sich vorstellen', 'Farben, Zahlen, Tiere', 'Aussprache üben'] },
   { k: 'sach', n: 'Sachunterricht', c1: '#4cc38a', c2: '#1f8a4c', ic: I('leaf'), tutor: { id: 'frieda', n: 'Frieda' }, games: [
     { n: 'Sortier-Profi', b: 'Welches Tier lebt wo, welcher Müll kommt wohin? Dein Kind erkennt Zusammenhänge in der Welt um sich herum.', d: 'Tiere, Müll, Strom', play: gSort, ic: 'sort' }, { n: 'Röntgen-Blick', b: 'Was passiert in unserem Körper? Dein Kind entdeckt die Organe und versteht, was Herz, Lunge und Magen tun.', d: 'Körper und Organe', play: gBody, ic: 'body' },
@@ -10713,7 +10986,7 @@ function patURL(k, dark) {
   if (dark) inner = inner.replace(/#fff/g, '#1d2a4a').replace(/opacity="\.(\d+)"/g, (m, d) => `opacity="${(+('.' + d) * .45).toFixed(3)}"`);
   return `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>${inner.replace(/"/g, "'")}</svg>`)}")`;
 }
-const GICON = { chat: I('chat'), ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock'), race: '<img class="gicim" src="/grundschulmax/sp/race2/car0.webp" alt="">', uhr: '<img class="gicim" src="/grundschulmax/sp/clock2/owl.webp" alt="">', shop: '<img class="gicim" src="/grundschulmax/sp/shop/register.webp" alt="">', pong: '<img class="gicim" src="/grundschulmax/sp/pong/pad-r.webp" alt="">', belt: '<img class="gicim" src="/grundschulmax/sp/ui/chest.webp" alt="">' };
+const GICON = { chat: I('chat'), ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock'), race: '<img class="gicim" src="/grundschulmax/sp/race2/car0.webp" alt="">', uhr: '<img class="gicim" src="/grundschulmax/sp/clock2/owl.webp" alt="">', shop: '<img class="gicim" src="/grundschulmax/sp/shop/register.webp" alt="">', pong: '<img class="gicim" src="/grundschulmax/sp/pong/pad-r.webp" alt="">', belt: '<img class="gicim" src="/grundschulmax/sp/ui/chest.webp" alt="">', simon: '<img class="gicim" src="/grundschulmax/sp/simon/wave.webp" alt="">', eshop: '<img class="gicim" src="/grundschulmax/sp/eshop/bag.webp" alt="">', story: '<img class="gicim" src="/grundschulmax/sp/story/owl.webp" alt="">', hupf: '<img class="gicim" src="/grundschulmax/sp/hupf/frog.webp" alt="">', bonj: '<img class="gicim" src="/grundschulmax/sp/bonj/girl.webp" alt="">', dikt: '<img class="gicim" src="/grundschulmax/sp/dikt/pencil.webp" alt="">' };
 
 /* ---------- Üben: ruhige Aufgaben mit Erklärung, je Klasse ---------- */
 const ZF = (a, b) => { const c = (n0, n1) => `<div class="zf">${[...Array(10)].map((_, k) => `<i class="${k < n0 ? 'o' : k < n0 + n1 ? 'b' : ''}"></i>`).join('')}</div>`; return c(a, Math.min(b, 10 - a)) + (a + b > 10 ? c(0, a + b - 10) : ''); };
