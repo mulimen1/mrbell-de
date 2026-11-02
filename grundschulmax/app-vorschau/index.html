@@ -4355,6 +4355,75 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
   .deskL .dst3{left:calc(var(--uL)*1294)!important;top:calc(var(--uL)*618)!important}
   .deskL .dcat{left:calc(var(--uL)*1150)!important;top:calc(var(--uL)*1034)!important;width:calc(var(--uL)*210)!important;height:calc(var(--uL)*160)!important;background:url(/grundschulmax/sp/desk/full-l.webp) calc(var(--uL)*-1150) calc(var(--uL)*-1034)/calc(var(--uL)*1536) auto no-repeat!important}
 }
+
+/* ===== Neue Klötzchen-Skins: Angeln, Maulwurf, Torschuss, Raketen-Flug ===== */
+.qscn:is(.s-fish,.s-mole,.s-goal,.s-planet){background:#3a8fd8!important}
+.qscn .gbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;pointer-events:none}
+.qscn:is(.s-fish,.s-mole,.s-goal,.s-planet)>:is(.wv,.sea,.weed,.hill,.sunb,.pitch,.crowd,.stars){display:none!important}
+.gfx{position:absolute;translate:-50% -50%;pointer-events:none;z-index:6}
+.gamb{position:absolute;pointer-events:none;z-index:-1}
+@keyframes gpop{0%{transform:scale(.2);opacity:0}25%{transform:scale(1.15);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.gsplash{width:150px;animation:gpop .9s ease-out forwards}.gpuff{width:70px;animation:gpop .9s ease-out forwards}
+.gburst{width:150px;animation:gpop .8s ease-out forwards}.gdirt{width:130px;animation:gpop .9s ease-out forwards}
+.gconf{width:240px;animation:gpop 1.3s ease-out forwards}
+/* Angeln */
+.s-fish .gbub{width:42px;left:var(--x);bottom:-60px;opacity:.85;animation:gbubup 7s linear var(--dl) infinite}
+@keyframes gbubup{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:.85}100%{transform:translateY(-120%) translateY(-300px) scale(1);opacity:0}}
+.s-fish .gbob{position:absolute;top:4%;left:50%;width:34px;margin-left:-17px;z-index:3;animation:gbob 2.4s ease-in-out infinite}
+@keyframes gbob{50%{transform:translateY(5px) rotate(6deg)}}
+.s-fish .hook{background:#3b3b3b!important;width:2px!important}
+.s-fish .hook img{position:absolute;bottom:-38px;left:-13px;width:28px}
+.s-fish .fsh.nf{padding:0!important;min-width:0!important;width:clamp(150px,24%,220px)!important;max-width:none!important;aspect-ratio:360/302;display:block}
+.s-fish .fsh.nf svg{display:none}
+.s-fish .fsh.nf .fim{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 8px 8px rgba(0,30,60,.25))}
+.s-fish .fsh.nf.fl .fim{transform:scaleX(-1)}
+.s-fish .fsh.nf span{position:absolute!important;left:43.5%;top:54.5%;translate:-50% -50%;max-width:72%;background:#fff!important;box-shadow:none!important;color:#1d2a3a;font-size:clamp(14px,1.6vw,19px)!important;padding:3px 8px!important;line-height:1.1;text-align:center;white-space:normal}
+.s-fish .fsh.nf.fl span{left:56.5%}
+@media (max-width:560px){.s-fish .fsh.nf{width:46%!important}.s-fish .fsh.nf span{font-size:13px!important}}
+/* Maulwurf */
+.qscn.s-mole{padding-bottom:5%!important}
+.s-mole .mh.nm{min-height:190px!important;width:min(24%,200px)!important;min-width:120px;overflow:visible!important}
+.s-mole .mh.nm .hole{display:none}
+.s-mole .mh.nm .mhole{position:absolute;left:-4%;width:108%;bottom:-6px;z-index:0;pointer-events:none}
+.s-mole .mh.nm .ml{z-index:1;width:92%!important;bottom:22px!important;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent 96%);mask-image:linear-gradient(180deg,#000 82%,transparent 96%)}
+.s-mole .mh.nm .ml svg{display:none}
+.s-mole .mh.nm .mim{display:block;width:100%;filter:drop-shadow(0 6px 6px rgba(40,20,0,.25))}
+.s-mole .mh.nm .ml span{position:absolute!important;left:50%;top:79%;translate:-50% -50%;width:74%;margin:0!important;background:none!important;border:0!important;box-shadow:none!important;color:#3b2412;font-size:clamp(13px,1.6vw,19px)!important;padding:0!important;line-height:1.1}
+.s-mole .mh.nm .ml.nosign span{display:none}
+.s-mole .ghammer{position:absolute;width:90px;z-index:7;opacity:0;pointer-events:none;transform-origin:20% 90%}
+.s-mole .ghammer.hit{animation:ghit .55s ease-out forwards}
+@keyframes ghit{0%{opacity:1;transform:rotate(-50deg)}45%{opacity:1;transform:rotate(15deg)}100%{opacity:0;transform:rotate(10deg)}}
+@media (max-width:560px){.s-mole .mh.nm{min-width:44%!important;min-height:150px!important}}
+/* Torschuss */
+.s-goal .gl.ng{width:min(27%,230px)!important;min-width:140px}
+.s-goal .gl.ng .gln{height:auto!important;border:0!important;background:none!important;display:block;position:relative}
+.s-goal .gl.ng .gln>i{display:none}
+.s-goal .gl.ng .gim{display:block;width:100%;filter:drop-shadow(0 8px 8px rgba(0,40,0,.25))}
+.s-goal .gl.ng .glb{position:absolute!important;left:50%;top:13%;translate:-50% -50%;width:76%;background:none!important;box-shadow:none!important;color:#1d2a3a!important;padding:0!important;font-size:clamp(13px,1.5vw,18px)!important;line-height:1.1;text-align:center}
+.s-goal .ball{width:58px!important;height:58px!important}
+.s-goal .ball img{width:100%;height:100%;filter:drop-shadow(0 8px 4px rgba(0,0,0,.25))}
+.s-goal .ball svg{display:none}
+.s-goal .gkeep{position:absolute;left:24%;bottom:4%;width:84px;translate:-50% 0;z-index:3;transition:left .35s cubic-bezier(.3,.7,.3,1);animation:gkeep 2.2s ease-in-out infinite}
+.s-goal .gkeep.dive{animation:none;width:120px}
+@keyframes gkeep{50%{transform:translateX(-14px)}}
+@media (max-width:560px){.s-goal .gl.ng{min-width:44%}.s-goal .gkeep{width:64px}}
+/* Raketen-Flug */
+.s-planet .gtw{width:26px;left:var(--x);top:calc(8% + var(--i) * 13%);animation:gtw 3.2s ease-in-out var(--dl) infinite}
+@keyframes gtw{0%,100%{opacity:.2;transform:scale(.5) rotate(0)}50%{opacity:1;transform:scale(1) rotate(25deg)}}
+.s-planet .gastro{position:absolute;right:4%;top:40%;width:80px;z-index:-1;animation:gastro 7s ease-in-out infinite}
+@keyframes gastro{50%{transform:translate(-14px,-18px) rotate(-10deg)}}
+.s-planet .qpl.np .pb,.s-planet .qpl.np .ring{display:none}
+.s-planet .qpl.np{width:clamp(130px,17vw,170px)!important;aspect-ratio:360/297!important}
+.s-planet .qpl.np .pim{position:absolute;inset:0;width:100%;height:100%;filter:hue-rotate(var(--hue)) drop-shadow(0 0 18px rgba(140,180,255,.35))}
+.s-planet .qpl.np span{position:absolute!important;left:57%;top:50%;translate:-50% -50%;max-width:66%;background:none!important;box-shadow:none!important;color:#14123d;font-size:clamp(13px,1.5vw,18px)!important;padding:0!important;line-height:1.1}
+.s-planet .rkt{width:62px!important;margin-left:-31px!important}
+.s-planet .rkt svg{display:none}
+.s-planet .rkt .rim{display:block;width:62px;position:relative;z-index:1}
+.s-planet .rkt .flame{display:block;width:30px;margin:-10px auto 0;transform:rotate(180deg);transform-origin:50% 50%;animation:gflm .18s ease-in-out infinite alternate!important}
+@keyframes gflm{to{transform:rotate(180deg) scaleY(1.25)}}
+.s-planet .rkt.parked .flame{opacity:0}
+@media (max-width:560px){.s-planet .qpl.np{width:112px!important}.s-planet .gastro{width:56px}}
+@media (prefers-reduced-motion:reduce){.gamb,.gbob,.gkeep,.gastro{animation:none!important}}
 </style>
 </head>
 <body>
@@ -8852,7 +8921,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = '3abba646';
+const PFV = '6c0e258d';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -9157,6 +9226,32 @@ function reward(ok, streak) {
     s.animate([{ transform: 'translate(-50%,-50%) scale(.3)', opacity: 0 }, { transform: `translate(calc(-50% + ${rnd(-40, 40)}px),calc(-50% - 60px)) scale(1.3)`, opacity: 1, offset: .3 }, { transform: `translate(calc(-50% + ${b.left + b.width / 2 - x0}px),calc(-50% + ${b.top + b.height / 2 - y0}px)) scale(.5)`, opacity: 1 }], { duration: 900, delay: 120 + i * 70, easing: 'cubic-bezier(.5,0,.3,1)', fill: 'forwards' }).onfinish = () => { s.remove(); if (i === 4 && LS) { const v = Math.round((LS.first + (LS.cur && !LS.missed && !LS.cur._re ? 0 : 0)) / LS.total * 5), n = $('.lespts b', les); if (n && +n.textContent !== v) { n.textContent = v; restart($('.lespts', les), 'bump'); } } };
   }
 }
+
+/* ---------- Neue Klötzchen-Skins: Angeln, Maulwurf, Torschuss, Raketen-Flug ---------- */
+(() => {
+  const P = (g, f) => `/grundschulmax/sp/${g}2/${f}.webp`;
+  const fxAt = (sc, el, src, cls, ms = 900) => { if (!el || !sc) return; const r = el.getBoundingClientRect(), s = sc.getBoundingClientRect(), im = document.createElement('img'); im.src = src; im.className = 'gfx ' + cls; im.style.left = r.left - s.left + r.width / 2 + 'px'; im.style.top = r.top - s.top + r.height / 2 + 'px'; sc.appendChild(im); setTimeout(() => im.remove(), ms); };
+  const amb = (src, n, cls) => [...Array(n)].map((_, i) => `<img class="gamb ${cls}" src="${src}" alt="" style="--i:${i};--x:${(12 + i * 83 / n + rnd(-5, 5)).toFixed(0)}%;--dl:-${rnd(0, 8).toFixed(1)}s">`).join('');
+  // Angeln
+  SK.fish.scene = `<img class="gbg" src="${P('fish', 'bg')}" alt="">${amb(P('fish', 'bubbles'), 4, 'gbub')}<img class="gbob" src="${P('fish', 'bobber')}" alt=""><div class="hook"><img src="${P('fish', 'hook')}" alt=""></div>`;
+  SK.fish.item = (t, i, n) => `<button class="fsh nf${i % 2 ? ' fl' : ''}" data-v="${i}" style="--fx:${i % 2 ? 50 : 5}%;--y:${24 + i * (60 / Math.max(1, n - 1))}%;--dl:-${rnd(0, 3).toFixed(1)}s"><img class="fim" src="${P('fish', 'f' + (i % 4))}" alt=""><span>${t}</span></button>`;
+  const fw = SK.fish.win; SK.fish.win = (el, sc) => { fw(el, sc); setTimeout(() => fxAt(sc, el, P('fish', 'splash'), 'gsplash'), 380); };
+  const ff = SK.fish.fail; SK.fish.fail = (el, sc) => { ff(el, sc); fxAt(sc, el, P('fish', 'bubbles'), 'gpuff'); };
+  // Maulwurf
+  SK.mole.scene = `<img class="gbg" src="${P('mole', 'bg2')}" alt=""><img class="ghammer" src="${P('mole', 'hammer')}" alt="">`;
+  SK.mole.item = (t, i, n) => `<div class="mh nm" style="--dl:${(i * .55).toFixed(2)}s"><img class="mhole" src="${P('mole', 'hole')}" alt=""><button class="ml" data-v="${i}"><img class="mim" src="${P('mole', 'sign')}" alt=""><span>${t}</span></button></div>`;
+  const mw = SK.mole.win; SK.mole.win = (el, sc) => { const im = $('.mim', el); if (im) im.src = P('mole', 'happy'); el.classList.add('nosign'); const hm = $('.ghammer', sc); if (hm) { const r = el.getBoundingClientRect(), s = sc.getBoundingClientRect(); hm.style.left = r.left - s.left + r.width * .6 + 'px'; hm.style.top = r.top - s.top - 10 + 'px'; restart(hm, 'hit'); } fxAt(sc, el, P('mole', 'burst'), 'gburst'); mw(el, sc); };
+  const mf = SK.mole.fail; SK.mole.fail = (el, sc) => { const im = $('.mim', el); if (im) im.src = P('mole', 'dizzy'); el.classList.add('nosign'); fxAt(sc, el, P('mole', 'dirt'), 'gdirt'); mf(el, sc); };
+  // Torschuss
+  SK.goal.scene = `<img class="gbg" src="${P('goal', 'bg')}" alt=""><img class="gkeep" src="${P('goal', 'keep')}" alt=""><div class="ball"><img src="${P('goal', 'ball')}" alt=""></div>`;
+  SK.goal.item = (t, i, n) => `<button class="gl ng" data-v="${i}"><span class="gln"><img class="gim" src="${P('goal', 'goal')}" alt=""><span class="glb">${t}</span></span></button>`;
+  const gw = SK.goal.win; SK.goal.win = (el, sc) => { gw(el, sc); setTimeout(() => { const im = $('.gim', el); if (im) im.src = P('goal', 'goaltor'); fxAt(sc, el, P('goal', 'confetti'), 'gconf', 1300); }, 600); };
+  const gf = SK.goal.fail; SK.goal.fail = (el, sc) => { const k = $('.gkeep', sc); if (k) { const r = el.getBoundingClientRect(), s = sc.getBoundingClientRect(); k.src = P('goal', 'keepdive'); k.style.left = r.left - s.left + r.width / 2 + 'px'; k.classList.add('dive'); } gf(el, sc); };
+  // Raketen-Flug
+  SK.planet.scene = `<img class="gbg" src="${P('planet', 'bg')}" alt="">${amb(P('planet', 'star'), 5, 'gtw')}<img class="gastro" src="${P('planet', 'astro')}" alt=""><div class="rkt"><img class="rim" src="${P('planet', 'rocket')}" alt=""><img class="flame" src="${P('planet', 'flame')}" alt=""></div>`;
+  SK.planet.item = (t, i, n) => `<button class="qpl np" data-v="${i}" style="--px:${(100 / (n + 1)) * (i + 1)}%;--py:${i % 2 ? 34 : 14}%;--dl:-${i * .9}s;--hue:${[0, 150, 260, 80, 200, 320][i % 6]}deg"><img class="pim" src="${P('planet', 'ring')}" alt=""><span>${t}</span></button>`;
+  const pw = SK.planet.win; SK.planet.win = (el, sc) => { pw(el, sc); setTimeout(() => fxAt(sc, el, P('planet', 'star'), 'gburst'), 880); };
+})();
 
 /* ---------- Abo-Grenze, Spiel-Covers, Hausaufgaben-Bereich, Dunkelmodus ---------- */
 const PVIC = { rennen: 'pm', uhr: 'bell', laden: 'coin', reim: 'bubble', wortart: 'sort', diktat: 'pen', simon: 'voice', shop: 'coin', story: 'book', hupf: 'frog', bonjour: 'chat', ou: 'search', jahr: 'leaf', ampel: 'target', wetter: 'drop', robo: 'bulb', frage: 'chat', echt: 'search' };
