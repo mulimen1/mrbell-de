@@ -4125,6 +4125,17 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
   body.did1 .app[data-v=subj] .afab{bottom:calc(10px + env(safe-area-inset-bottom))!important}
   body.paid .app .afab{display:none!important}
 }
+/* kein Doppeltipp-Zoom */
+html,body,button,a{touch-action:manipulation}
+/* Kopfzeile Handy farbiger, Tutor-Gesichter sauber im Kreis */
+@media (max-width:820px){
+  .app .aside .anv:not(.on),.app .aside .tab:not(.on){background:color-mix(in srgb,var(--c1) 22%,#fff)!important;color:var(--c2)!important;box-shadow:0 2px 0 color-mix(in srgb,var(--c2) 35%,#fff)!important}
+  .app .aside .anv:not(.on) .ti svg{color:var(--c2)!important}
+  .app .aside .tab .ti{background:#fff!important}
+  .app .aside .tab .ti .tut{left:0!important;top:4%!important;width:100%!important;height:100%!important}
+  .app .aside .tab .ti .tut img,.app .aside .tab .ti .tut svg{width:100%!important;height:auto!important;object-fit:contain}
+}
+@media (max-width:820px){.app .aside .tab .ti.tt .tut[data-t=max]{width:86%!important;height:auto!important;left:7%!important;top:10%!important}}
 </style>
 </head>
 <body>
@@ -8613,7 +8624,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = '1a0e4a17';
+const PFV = '4d2b49ac';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -9976,6 +9987,9 @@ function openHelp(first) {
   }, true);
   addEventListener('hashchange', () => { if (!/klasse/.test(location.hash)) document.body.classList.remove('inpad'); });
 })();
+
+/* Profilbilder vorladen, damit alles gleichzeitig erscheint */
+setTimeout(() => { try { Object.keys(AV).forEach((k) => { if (AVX[k]) ['n', 'b', 'h'].forEach((v) => { const im = new Image(); im.src = avSrc(k, v); }); }); } catch (e) {} }, 300);
 </script>
 </body>
 </html>
