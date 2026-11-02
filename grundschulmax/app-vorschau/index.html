@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="de">
-<head><meta name="robots" content="noindex,nofollow"><script>try{localStorage.setItem("gsm-dev-paid","1")}catch(e){}</script>
+<head><meta name="robots" content="noindex,nofollow"><script>try{if(/demo/.test(location.search))localStorage.removeItem("gsm-dev-paid");else localStorage.setItem("gsm-dev-paid","1")}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Grundschulmax – Fit für die Schule, fürs Internet und für KI</title>
@@ -4064,6 +4064,32 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
   body.inpad #pick .pktm .tm b{font-size:17px;margin-top:9px}
   body.inpad #pick .pktm .tm small{font-size:12.5px;margin-top:-1px}
 }
+/* Kopfzeile Handy: saubere Reiter */
+.vx{display:none}
+@media (max-width:820px){
+  .app .aside .anv,.app .aside .tab,.app .aside .anv.anhome,.app .aside .anv.hw{opacity:1!important;background:#fff!important;color:#2b2838!important;box-shadow:0 0 0 1.5px #ece6da,0 2px 0 #e2dacb!important;filter:none!important;padding:0 12px 0 3px!important}
+  .app .aside .anv.on,.app .aside .tab.on{background:linear-gradient(180deg,var(--c1),var(--c2))!important;color:#fff!important;box-shadow:0 3px 0 color-mix(in srgb,var(--c2) 60%,#000)!important}
+  .app .aside .anv .ti,.app .aside .tab .ti{position:relative;overflow:hidden!important;border-radius:50%!important;background:linear-gradient(180deg,var(--c1),var(--c2))!important;color:#fff!important;box-shadow:none!important}
+  .app .aside .anv.on .ti,.app .aside .tab.on .ti{background:rgba(255,255,255,.25)!important;color:#fff!important}
+  .app .aside .anv.on .ti svg,.app .aside .tab.on .ti svg{color:#fff!important}
+  .app .aside .tab .ti .tut{position:absolute!important;left:6%;top:8%;width:88%!important;height:auto!important;margin:0!important;transform:none!important}
+  /* Schließen-Knopf auf Profil und Eltern */
+  .vx{display:grid;place-items:center;position:fixed;right:12px;top:calc(68px + env(safe-area-inset-top));z-index:61;width:42px;height:42px;border-radius:14px;background:#fff;color:#2b2838;box-shadow:0 3px 0 #e2dacb,0 6px 14px rgba(0,0,0,.15)}
+  .vx svg{width:18px;height:18px}
+  /* Fach-Ansicht: Leiste unten breit und flach */
+  .app[data-v=subj] .wtabs{position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;width:auto!important;max-width:none!important;margin:0!important;transform:none!important;z-index:58;display:grid!important;grid-template-columns:repeat(var(--wn,3),1fr);gap:6px;padding:8px 10px calc(8px + env(safe-area-inset-bottom))!important;border-radius:20px 20px 0 0!important;background:rgba(255,255,255,.94)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 -4px 18px rgba(0,0,0,.12)!important}
+  .app[data-v=subj] .wtabs button{width:100%!important;height:50px!important;padding:0 4px!important;justify-content:center;flex-direction:column;gap:2px!important;font-size:12.5px!important;border-radius:14px!important;color:#7a7264!important;background:none!important;box-shadow:none!important;white-space:nowrap}
+  .app[data-v=subj] .wtabs button svg{font-size:20px!important}
+  .app[data-v=subj] .wtabs button.on{background:linear-gradient(180deg,var(--c1),var(--c2))!important;color:#fff!important;box-shadow:0 3px 0 color-mix(in srgb,var(--c2) 60%,#000)!important}
+  .app[data-v=subj] .amain{padding-bottom:calc(80px + env(safe-area-inset-bottom))!important}
+  body.did1 .app[data-v=subj] .afab{bottom:calc(84px + env(safe-area-inset-bottom))!important}
+}
+/* Tutorial: Hintergrund verschwommen, dezent überspringen */
+.help{backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.hpskip{display:block;margin:10px auto 0;padding:6px 10px;background:none;border:0;color:#9a93a8;font-weight:700;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+/* Spotlight: alles verschwommen, nur die erste Lektion frei */
+.spot{pointer-events:none;background:rgba(14,10,36,.45)!important;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);-webkit-mask-image:radial-gradient(circle at var(--sx,50%) var(--sy,50%),transparent 0,transparent 70px,#000 96px);mask-image:radial-gradient(circle at var(--sx,50%) var(--sy,50%),transparent 0,transparent 70px,#000 96px);transition:opacity .6s!important}
+.spot.on{pointer-events:auto}
 </style>
 </head>
 <body>
@@ -8530,8 +8556,10 @@ function customEnd() {
   $('[data-a=again]', e).onclick = () => { closeLesson(); setTimeout(() => startLesson(0, 0, 0, C), 420); };
 }
 
+function markTried() { try { localStorage.setItem('gsm-tried', '1'); } catch (e) {} document.body.classList.add('did1'); const sp = document.getElementById('spot'); if (sp) sp.classList.remove('on'); }
+try { if (localStorage.getItem('gsm-tried')) document.body.classList.add('did1'); } catch (e) {}
 /* ---------- Abenteuer-Pfad: alle Fächer gemischt, jede Station ein anderes Fach ---------- */
-const MIX_ORDER = ['mathe', 'deutsch', 'ki', 'englisch', 'sach', 'franz'], MIX_FREE = 4, MIX_AHEAD = 14;
+const MIX_ORDER = ['englisch', 'ki', 'mathe', 'deutsch', 'sach', 'franz'], MIX_FREE = 3, MIX_AHEAD = 14;
 const MIX_X = [0, 140, 210, 140, 0, -140, -210, -140];
 let MIXRUN = null;
 const mixSt = () => { LPS._mix = LPS._mix || {}; const m = LPS._mix; m.off = m.off || []; m.d = m.d || {}; return m; };
@@ -8549,7 +8577,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = 'b48b0dcd';
+const PFV = 'e0e542c0';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -8571,7 +8599,7 @@ const PFHOST = {
   name: () => PROF().name,
   face: pfFace,
   tutor: (k) => { const S = SUBJ.find((x) => x.k === k); return { src: tutImg(S.tutor.id), name: S.tutor.n }; },
-  play: (n, s) => { st.s = SUBJ.findIndex((x) => x.k === s.k); MIXRUN = { k: s.k, g: Math.max(0, st.grade), r: s.r, n }; startLesson(s.li, s.jj, n); },
+  play: (n, s) => { markTried(); st.s = SUBJ.findIndex((x) => x.k === s.k); MIXRUN = { k: s.k, g: Math.max(0, st.grade), r: s.r, n }; startLesson(s.li, s.jj, n); },
   pay: () => paywall(),
   head: () => ({ title: 'Abenteuer', c1: '#ffa63d', c2: '#e2561a', c3: '#a8400e', imgs: SUBJ.map((S) => tutImg(S.tutor.id)), click: () => advIntro() }),
 };
@@ -8624,7 +8652,7 @@ function subjHost(si = st.s) {
       out.push({ k: S.k, n, li, jj: j, j: j + 1, game, ic: FICON[S.k][(li * 2 + j) % 5], col: [S.c1, tintC(S.c1, .18), S.c2, tintC(S.c1, -.12)][j % 4], t: game ? G0.n : L[li].t, d: L[li].d, top: `Level ${li + 1} · ${game ? 'Spielplatz' : 'Lektion ' + (j + 1)}`, state: !canPlay(n) ? 'pay' : n < q.n ? 'done' : n === q.n ? 'cur' : 'next' }); } return out; },
     stats: PFHOST.stats, off: () => [], toggle: () => true, name: PFHOST.name, face: pfFace, tutor: PFHOST.tutor, tutors: false, labels: false,
     head: () => ({ title: S.n, c1: S.c1, c2: S.c2, c3: tintC(S.c2, -.3), imgs: [tutImg(S.tutor.id)], click: () => tutorIntro(st.s) }),
-    play: (i, s) => { if (s.game) { const GP = S.games.filter((x) => x.play); openGame(S.games.indexOf(GP[s.li % GP.length]), () => lpComplete(s.n, 5)); } else startLesson(s.li, s.jj, s.n); },
+    play: (i, s) => { markTried(); if (s.game) { const GP = S.games.filter((x) => x.play); openGame(S.games.indexOf(GP[s.li % GP.length]), () => lpComplete(s.n, 5)); } else startLesson(s.li, s.jj, s.n); },
     pay: () => paywall(),
   };
 }
@@ -9627,6 +9655,7 @@ function mount() {
   $$('.anv').forEach((b) => b.classList.toggle('on', b.dataset.nav === st.nav));
   if (st.nav === 'hw') drawHW();
   if (st.nav === 'profile') drawProfile();
+  $$('.vx').forEach((x) => x.remove()); if (st.nav === 'profile' || st.nav === 'parents') { const host = st.nav === 'profile' ? $('#aprof') : $('#apar'); if (host) { const x = document.createElement('button'); x.className = 'vx'; x.type = 'button'; x.setAttribute('aria-label', 'Schließen'); x.innerHTML = I('x'); x.onclick = () => { sfx.tap(); st.nav = st.nav === 'parents' ? 'profile' : 'home'; mount(); }; host.prepend(x); } }
   if (st.nav === 'parents') { if (st.prevNav !== 'parents') parOpen = false; drawParents(); }
   st.prevNav = st.nav; drawSideProf();
   drawAside(); drawAbot();
@@ -9835,7 +9864,7 @@ document.addEventListener('pointerdown', (e) => {
 $('#alegal').onclick = () => legalMenu();
 $$('[data-nav]').forEach((b) => (b.onclick = () => { const n = b.dataset.nav; if (n === 'web') { go(''); return; } st.nav = n; mount(); }));
 function drawAside() {
-  const g = Math.max(0, st.grade), tot = SUBJ.reduce((a, S) => { const s0 = lpStat(S.k, g); return [a[0] + s0.xp, a[1] + s0.n]; }, [0, 0]), el = $('#kst'); tot[1] += mixDone(); document.body.classList.toggle('did1', tot[1] > 0); if (!el) return;
+  const g = Math.max(0, st.grade), tot = SUBJ.reduce((a, S) => { const s0 = lpStat(S.k, g); return [a[0] + s0.xp, a[1] + s0.n]; }, [0, 0]), el = $('#kst'); tot[1] += mixDone(); let tr = false; try { tr = !!localStorage.getItem('gsm-tried'); } catch (e) {} document.body.classList.toggle('did1', tot[1] > 0 || tr); if (!el) return;
   const sig = tot.join('|') + lpStreak(); if (el.dataset.sig === sig) return; el.dataset.sig = sig;
   el.innerHTML = `<div class="kt y"><span class="kti">${I('star')}</span><div><b data-n="${tot[0]}">0</b><small>Sterne gesammelt</small></div></div><div class="kt g"><span class="kti">${I('check')}</span><div><b data-n="${tot[1]}">0</b><small>Lektionen geschafft</small></div></div><div class="kt o"><span class="kti">${I('flame')}</span><div><b data-n="${lpStreak()}">0</b><small>Tage am Stück</small></div></div>`;
   $$('[data-n]', el).forEach((x) => { const n = +x.dataset.n, t0 = performance.now(); const f = (t) => { const k = Math.min(1, (t - t0) / 700); x.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); });
@@ -9865,15 +9894,15 @@ function openHelp(first) {
   let i = 0;
   const draw = () => {
     const h = HELP[i];
-    o.innerHTML = `<div class="hpc" role="dialog" aria-label="Hilfe"><button class="hpx" aria-label="Schließen">${I('x')}</button>
+    o.innerHTML = `<div class="hpc" role="dialog" aria-label="Hilfe">${first ? '' : `<button class="hpx" aria-label="Schließen">${I('x')}</button>`}
       <small>${first ? 'Willkommen bei Grundschulmax' : 'So funktioniert’s'} · ${i + 1} von ${HELP.length}</small>
       <div class="hpi hs ${h.s}">${h.h()}</div>
       <b>${h.t}</b><p>${h.p}</p>
       <div class="hpdots">${HELP.map((_, k) => `<button class="${k === i ? 'on' : ''}" data-k="${k}" aria-label="Bild ${k + 1}"></button>`).join('')}</div>
-      <div class="hprow">${i > 0 ? `<button class="b3d w" data-a="back">Zurück</button>` : ''}<button class="b3d c" data-a="next">${i < HELP.length - 1 ? `Weiter ${I('arrow')}` : 'Los geht’s!'}</button></div></div>`;
-    $('.hpx', o).onclick = close;
+      <div class="hprow">${i > 0 ? `<button class="b3d w" data-a="back">Zurück</button>` : ''}<button class="b3d c" data-a="next">${i < HELP.length - 1 ? `Weiter ${I('arrow')}` : 'Los geht’s!'}</button></div>${first ? `<button class="hpskip" data-a="skip">Überspringen</button>` : ''}</div>`;
+    if ($('.hpx', o)) $('.hpx', o).onclick = close; if ($('.hpskip', o)) $('.hpskip', o).onclick = close;
     $$('.hpdots button', o).forEach((b) => (b.onclick = () => { i = +b.dataset.k; draw(); }));
-    $$('[data-a]', o).forEach((b) => (b.onclick = () => { if (b.dataset.a === 'back') i--; else if (i < HELP.length - 1) i++; else return close(); sfx.tap(); draw(); }));
+    $$('[data-a]', o).forEach((b) => (b.onclick = () => { if (b.dataset.a === 'skip') return close(); if (b.dataset.a === 'back') i--; else if (i < HELP.length - 1) i++; else return close(); sfx.tap(); draw(); }));
     let sx = 0; const im = $('.hpi', o); im.onpointerdown = (e) => { sx = e.clientX; }; im.onpointerup = (e) => { const d = e.clientX - sx; if (d < -40 && i < HELP.length - 1) { i++; draw(); } else if (d > 40 && i > 0) { i--; draw(); } };
   };
   const close = () => { o.classList.remove('on'); try { localStorage.setItem('gsm-help-seen', '1'); } catch (e) {} dispatchEvent(new Event('gsm-help-closed')); };
@@ -9886,12 +9915,12 @@ function openHelp(first) {
   const mob = () => innerWidth <= 820;
   /* Erster Besuch: alles abgedunkelt, nur „Klick hier!“ frei */
   addEventListener('gsm-help-closed', () => {
-    if (!mob() || document.body.classList.contains('did1') || st.nav !== 'home' || typeof PF === 'undefined' || !PF || !PF.cur) return;
+    if (document.body.classList.contains('did1') || st.nav !== 'home' || typeof PF === 'undefined' || !PF || !PF.cur || !PF.tapCur) return;
     let sp = $('#spot'); if (!sp) { sp = document.createElement('div'); sp.id = 'spot'; sp.className = 'spot'; document.body.appendChild(sp); }
-    sp.classList.add('on'); let on = true;
-    const off = () => { on = false; sp.classList.remove('on'); removeEventListener('pointerdown', off, true); };
-    addEventListener('pointerdown', off, true);
-    const f = () => { if (!on) return; try { const q = PF.screen(PF.cur()); sp.style.setProperty('--sx', q.x + 'px'); sp.style.setProperty('--sy', q.y + 'px'); } catch (e) {} requestAnimationFrame(f); }; f();
+    let on = true; const q0 = () => PF.screen(PF.cur());
+    const f = () => { if (!on) return; try { const q = q0(); sp.style.setProperty('--sx', q.x + 'px'); sp.style.setProperty('--sy', q.y + 'px'); } catch (e) {} requestAnimationFrame(f); }; f();
+    setTimeout(() => sp.classList.add('on'), 900);
+    sp.onpointerdown = (e) => { e.preventDefault(); e.stopPropagation(); const q = q0(); if (Math.hypot(e.clientX - q.x, e.clientY - q.y) < 80) { on = false; sp.classList.remove('on'); sfx.tap(); PF.tapCur(); } };
   });
   /* Startseite Handy: „Ausprobieren“ fliegt ins iPad */
   const cta = $('.hero .ctas .b3d:not(.w)');
