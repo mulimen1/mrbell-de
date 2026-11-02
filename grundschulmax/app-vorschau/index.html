@@ -3941,6 +3941,47 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
   body[data-screen=start] .hero .ctas{top:calc(var(--u)*1345)!important}
   body[data-screen=start] .hero .ctas .b3d{height:calc(var(--u)*130)!important;font-size:calc(var(--u)*50)!important}
 }
+/* Handy-Start: ein langes Bild (Schreibtisch + unter dem Tisch), 1024×3012 */
+@media (max-width:820px){
+  body[data-screen=start]{background:#b84f0e url(/grundschulmax/sp/desk/bg-m.webp) 50% 0/100% auto no-repeat!important}
+  body[data-screen=start] .hero{background:none!important;min-height:calc(var(--u)*2740)!important}
+  body[data-screen=start] .desk{height:calc(var(--u)*3012)}
+  body[data-screen=start] .hero .wrap.hc{padding-top:calc(var(--u)*1990)!important}
+  /* iPad-Inhalt: Bildschirm x78–946, y642–1330 */
+  body[data-screen=start] .hero h1{left:calc(var(--u)*92)!important;width:calc(var(--u)*840)!important;top:calc(var(--u)*668)!important;font-size:calc(var(--u)*58)!important}
+  body[data-screen=start] .hero .teamrow{left:calc(var(--u)*100)!important;width:calc(var(--u)*824)!important;top:calc(var(--u)*818)!important}
+  body[data-screen=start] .hero .tiles{gap:calc(var(--u)*6) calc(var(--u)*10)!important}
+  body[data-screen=start] .hero .tm .tmc{width:calc(var(--u)*156)!important;height:calc(var(--u)*156)!important;border-radius:calc(var(--u)*40)!important;box-shadow:0 0 0 calc(var(--u)*7) #fff,0 calc(var(--u)*12) calc(var(--u)*20) rgba(0,0,0,.18)!important}
+  body[data-screen=start] .hero .tm .tma{border-radius:0 0 calc(var(--u)*34) calc(var(--u)*34)!important}
+  body[data-screen=start] .hero .tm b{font-size:calc(var(--u)*38)!important;margin-top:calc(var(--u)*14)!important}
+  body[data-screen=start] .hero .tm small{font-size:calc(var(--u)*28)!important}
+  /* Ausprobieren unter der Tischkante */
+  body[data-screen=start] .hero .ctas{left:calc(var(--u)*250)!important;right:calc(var(--u)*250)!important;top:calc(var(--u)*1760)!important}
+  body[data-screen=start] .hero .ctas .b3d{height:calc(var(--u)*150)!important;font-size:calc(var(--u)*56)!important;border-radius:calc(var(--u)*75)!important}
+  body[data-screen=start] .hero .small{max-width:calc(var(--u)*560);margin:0 auto;font-size:calc(var(--u)*34)!important;gap:calc(var(--u)*14) calc(var(--u)*24)!important}
+  body[data-screen=start] .hero p.lead{max-width:calc(var(--u)*880);margin:calc(var(--u)*240) auto 0!important;font-size:calc(var(--u)*40)!important;line-height:1.45}
+  body[data-screen=start] footer{background:none!important;border:0!important;color:rgba(255,255,255,.85)!important;padding-bottom:calc(var(--u)*60 + env(safe-area-inset-bottom))!important}
+  body[data-screen=start] footer a,body[data-screen=start] footer span{color:rgba(255,255,255,.85)!important}
+  body[data-screen=start] .mcta{display:none!important}
+  /* Roboter, Kakao, Lampe an neuer Stelle */
+  .deye{top:calc(var(--u)*1373)!important;width:calc(var(--u)*11)!important;height:calc(var(--u)*15)!important}
+  .deye.e1{left:calc(var(--u)*851)!important}.deye.e2{left:calc(var(--u)*876)!important}
+  .dst1{left:calc(var(--u)*962)!important;top:calc(var(--u)*1270)!important}
+  .dst2{left:calc(var(--u)*992)!important;top:calc(var(--u)*1285)!important}
+  .dst3{left:calc(var(--u)*976)!important;top:calc(var(--u)*1305)!important}
+  .dnum{top:calc(var(--u)*1340)!important}
+  .dspot{top:calc(var(--u)*1100)!important;height:calc(var(--u)*300)!important}
+  /* Katze atmet: Ausschnitt des Bildes leicht gestaucht */
+  .dcat{position:absolute;display:block;left:calc(var(--u)*822);top:calc(var(--u)*2030);width:calc(var(--u)*202);height:calc(var(--u)*230);background:url(/grundschulmax/sp/desk/bg-m.webp) calc(var(--u)*-822) calc(var(--u)*-2030)/calc(var(--u)*1024) auto no-repeat;transform-origin:50% 85%;animation:dcat 4.2s ease-in-out infinite;-webkit-mask-image:radial-gradient(closest-side,#000 70%,transparent);mask-image:radial-gradient(closest-side,#000 70%,transparent)}
+  @keyframes dcat{0%,100%{transform:scale(1,1)}50%{transform:scale(1.012,1.035)}}
+}
+@media (prefers-reduced-motion:reduce){.dcat{animation:none!important}}
+@media (max-width:820px){
+  body[data-screen=start] .hero .small{flex-direction:column!important;align-items:center!important;max-width:none!important;font-size:calc(var(--u)*32)!important;gap:calc(var(--u)*12)!important}
+  body[data-screen=start] .hero .small span{white-space:nowrap}
+  body[data-screen=start] .hero p.lead{margin-top:calc(var(--u)*170)!important}
+}
+@media (max-width:820px){html:has(body[data-screen=start]){background:#b84f0e}body[data-screen=start]{min-height:100vh}}
 </style>
 </head>
 <body>
@@ -4019,7 +4060,7 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
         <i class="dlamp"></i><i class="deye e1"></i><i class="deye e2"></i>
         <i class="dbase"></i><img class="dcube" src="/grundschulmax/sp/desk/cube.webp" alt=""><img class="dpx p1" src="/grundschulmax/sp/desk/cube3.webp" alt=""><img class="dpx p2" src="/grundschulmax/sp/desk/cube3.webp" alt="">
         <img class="dst1" src="/grundschulmax/sp/desk/steam1.webp" alt=""><img class="dst2" src="/grundschulmax/sp/desk/steam2.webp" alt=""><img class="dst3" src="/grundschulmax/sp/desk/puff.webp" alt="">
-        <img class="dplane" src="/grundschulmax/sp/desk/plane.webp" alt="">
+        <span class="dcat"></span><img class="dplane" src="/grundschulmax/sp/desk/plane.webp" alt="">
       </div>
       <span class="pill"><i><svg class="i"><use href="#i-check"/></svg></i> Von den Machern von BWL Max</span>
       <h1 class="h1">Fit für die Schule.<br><span class="grad">Und fit für Internet und KI.</span></h1>
