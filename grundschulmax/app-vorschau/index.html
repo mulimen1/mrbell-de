@@ -9209,6 +9209,7 @@ function customEnd() {
 }
 
 /* Spiele im Vollbild: der Hintergrund des Spiels füllt den ganzen Bildschirm, weicher Übergang zwischen Spielen */
+const ROOMS = { mathe: 'mathe', deutsch: 'deutsch', englisch: 'englisch' };
 function lesFS(host) {
   const box = $('.lesin', les); if (!box) return;
   let fs = $('.lesfs', les); if (!fs) { fs = document.createElement('div'); fs.className = 'lesfs'; fs.innerHTML = '<i></i><i></i>'; box.insertBefore(fs, $('.lesmain', les)); }
@@ -9216,7 +9217,9 @@ function lesFS(host) {
     const hr = host.getBoundingClientRect();
     let sc = $('.qscn', host) || [...host.querySelectorAll(':scope > *, :scope > * > *')].find((e) => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return r.width > hr.width * .7 && r.height > 160 && /gradient|url/.test(cs.backgroundImage); });
     let bg = '';
-    if (sc) { const im = $('.gbg', sc); if (im) bg = `url("${im.src}") 50% 50%/cover no-repeat`; else { const cs = getComputedStyle(sc); bg = cs.backgroundImage !== 'none' ? `${cs.backgroundImage.replace(/\)\s*,/g, '),')} 50% 50%/cover no-repeat, ${cs.backgroundColor}` : cs.backgroundColor; } sc.classList.add('fsx'); }
+    const room = ROOMS[les.dataset.k], game = sc && $('.gbg', sc);
+    if (room && !game) { bg = `url("/grundschulmax/sp/room/${room}.webp") 50% 30%/cover no-repeat`; if (sc) sc.classList.add('fsx'); les.classList.add('inroom'); } else les.classList.remove('inroom');
+    if (sc && !bg) { const im = $('.gbg', sc); if (im) bg = `url("${im.src}") 50% 50%/cover no-repeat`; else { const cs = getComputedStyle(sc); bg = cs.backgroundImage !== 'none' ? `${cs.backgroundImage.replace(/\)\s*,/g, '),')} 50% 50%/cover no-repeat, ${cs.backgroundColor}` : cs.backgroundColor; } sc.classList.add('fsx'); }
     const [a, b] = fs.children, cur = fs.dataset.on === '1' ? b : a, nxt = cur === a ? b : a;
     if (!bg) { if (fs.classList.contains('on')) return; const W0 = { meer: 'fish/bg', wiese: 'mole/bg2', all: 'planet/bg', stadion: 'goal/bg', insel: 'chest/bg', kirmes: 'goal/bg' }[les.dataset.world] || 'mole/bg2'; const [g, f] = W0.split('/'); bg = `url("/grundschulmax/sp/${g}2/${f}.webp") 50% 50%/cover no-repeat`; }
     nxt.style.background = bg; nxt.classList.add('on'); cur.classList.remove('on'); fs.dataset.on = nxt === b ? '1' : '0'; fs.classList.add('on');
