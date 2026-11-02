@@ -4052,6 +4052,18 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
   body.inpad .pkteam{display:block;text-align:center;font-weight:850;font-size:19px;color:#1d1b26;margin:22px 0 6px}
 }
 @media (max-width:820px){.app:not([data-v=home]) .amain{padding-top:calc(64px + env(safe-area-inset-top))!important}.app .aside .anv,.app .aside .tab{opacity:.85}}
+.flyov{visibility:hidden}.flyov.vis{visibility:visible}.flybg{will-change:transform}
+.pktm{display:none!important}
+@media (max-width:820px){
+  body.inpad .view[data-s=klasse]{box-shadow:none!important}
+  body.inpad #pick .arc,body.inpad #pick .pkm{display:none!important}
+  body.inpad .pkteam{font-size:26px!important;line-height:1.15;letter-spacing:-.02em;margin:26px 12px 18px!important}
+  body.inpad #pick .pktm{display:grid!important;grid-template-columns:repeat(3,1fr);gap:16px 6px;width:100%;max-width:360px;margin:0 auto 6px;padding:0}
+  body.inpad #pick .pktm .tm{width:auto;display:flex;flex-direction:column;align-items:center;gap:0}
+  body.inpad #pick .pktm .tm .tmc{width:84px;height:84px;border-radius:24px}
+  body.inpad #pick .pktm .tm b{font-size:17px;margin-top:9px}
+  body.inpad #pick .pktm .tm small{font-size:12.5px;margin-top:-1px}
+}
 </style>
 </head>
 <body>
@@ -9562,7 +9574,7 @@ function gQuiz(T) {
 const GRADES = [['1. Klasse', 'ca. 6–7 Jahre', 'leicht'], ['2. Klasse', 'ca. 7–8 Jahre', 'leicht bis mittel'], ['3. Klasse', 'ca. 8–9 Jahre', 'mittel bis schwer'], ['4. Klasse', 'ca. 9–10 Jahre', 'knifflig']];
 const GCOL = [['#4cc38a', '#1f8a4c'], ['#5aa2f7', '#1a5fc4'], ['#f39b52', '#d9601c'], ['#9b7cf0', '#5b3fc4']];
 $('#pick').innerHTML = `<div class="pkbg"><i class="bl b1"></i><i class="bl b2"></i><i class="bl b3"></i></div>
-  <div class="pk"><div class="pkteam">Wir sind das Tutorenteam von Grundschulmax:</div><div class="arc" id="arc">${['mila', 'emma', 'claude', 'frieda', 'bit'].map((t) => { const S = SUBJ.find((x) => x.tutor.id === t); return `<span class="arci" style="--c1:${S.c1};--c2:${S.c2}"><span class="arcf">${tutorHTML(t)}</span><b>${S.tutor.n}</b><small>${S.n}</small></span>`; }).join('')}
+  <div class="pk"><div class="pkteam">Wir sind das Tutorenteam von Grundschulmax:</div><div class="tiles pktm" data-team></div><div class="arc" id="arc">${['mila', 'emma', 'claude', 'frieda', 'bit'].map((t) => { const S = SUBJ.find((x) => x.tutor.id === t); return `<span class="arci" style="--c1:${S.c1};--c2:${S.c2}"><span class="arcf">${tutorHTML(t)}</span><b>${S.tutor.n}</b><small>${S.n}</small></span>`; }).join('')}
   <div class="pkm">${tutorHTML('max')}<span class="pkl0"><b>Max</b><small>Deutsch</small></span></div></div>
   <h3>In welche Klasse geht Ihr Kind?</h3><p>Die Spiele passen sich an: Klasse 1 leicht, Klasse 4 richtig knifflig.</p>
   <div class="pkg" data-in>${GRADES.map((g, i) => `<button class="gcard" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><strong>${g[0]}</strong><small>${g[1]}</small><span class="lvl">${[0, 1, 2, 3].map((k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('')}</span><em>${g[2]}</em></button>`).join('')}</div></div>`;
@@ -9883,17 +9895,18 @@ function openHelp(first) {
   });
   /* Startseite Handy: „Ausprobieren“ fliegt ins iPad */
   const cta = $('.hero .ctas .b3d:not(.w)');
+  let fl = null;
+  const prep = () => { if (fl || !mob()) return; fl = document.createElement('div'); fl.className = 'flyov'; fl.innerHTML = '<div class="flybg"></div><div class="flyscr"></div>'; document.body.appendChild(fl); };
+  if (mob()) setTimeout(prep, 600);
   if (cta) cta.addEventListener('click', (e) => {
     if (!mob() || document.body.dataset.screen !== 'start' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    e.preventDefault(); e.stopImmediatePropagation();
+    e.preventDefault(); e.stopImmediatePropagation(); prep();
     const u = innerWidth / 1024, top = -scrollY, cx = 512 * u, cy = top + 986 * u, k = Math.max(innerHeight / (688 * u), innerWidth / (868 * u)) * 1.08;
-    const fl = document.createElement('div'); fl.className = 'flyov';
-    fl.innerHTML = `<div class="flybg" style="background-position:0 ${top}px;transform-origin:${cx}px ${cy}px"></div><div class="flyscr"></div>`;
-    document.body.appendChild(fl); try { sfx(380, .08); } catch (er) {}
-    requestAnimationFrame(() => requestAnimationFrame(() => { fl.classList.add('go'); $('.flybg', fl).style.transform = `scale(${k})`; }));
+    const bg = fl.firstChild; bg.style.backgroundPosition = `0 ${top}px`; bg.style.transformOrigin = `${cx}px ${cy}px`;
+    fl.classList.add('vis'); requestAnimationFrame(() => { fl.classList.add('go'); bg.style.transform = `scale(${k})`; });
     setTimeout(() => { scrollTo(0, 0); go('klasse'); document.body.classList.add('inpad'); }, 900);
-    setTimeout(() => { fl.classList.add('out'); }, 950);
-    setTimeout(() => fl.remove(), 1500);
+    setTimeout(() => fl.classList.add('out'), 950);
+    setTimeout(() => { fl.className = 'flyov'; bg.style.transform = ''; }, 1500);
   }, true);
   addEventListener('hashchange', () => { if (!/klasse/.test(location.hash)) document.body.classList.remove('inpad'); });
 })();
