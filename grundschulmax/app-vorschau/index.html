@@ -4424,6 +4424,22 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
 .s-planet .rkt.parked .flame{opacity:0}
 @media (max-width:560px){.s-planet .qpl.np{width:112px!important}.s-planet .gastro{width:56px}}
 @media (prefers-reduced-motion:reduce){.gamb,.gbob,.gkeep,.gastro{animation:none!important}}
+/* ===== Spiele im Vollbild ===== */
+.lesfs{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .45s}
+.lesfs.on{opacity:1}
+.lesfs i{position:absolute;inset:0;opacity:0;transform:scale(1.04);transition:opacity .55s ease,transform 1.2s ease}
+.lesfs i.on{opacity:1;transform:none}
+.lesfs::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,0) 22%,rgba(0,0,0,0) 80%,rgba(0,0,0,.14))}
+.les:has(.lesfs.on) .wbg{opacity:0;transition:opacity .45s}
+.lesex .fsx{background:none!important;box-shadow:none!important;border:0!important;border-radius:0!important;overflow:visible!important}
+.lesex .fsx>.gbg{display:none!important}
+.lesex .fsx::before,.lesex .fsx::after{display:none!important}
+.les:has(.lesfs.on) .lestop{background:rgba(255,255,255,.88)!important;border-radius:0 0 18px 18px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.les:has(.lesfs.on) .leskind,.les:has(.lesfs.on) .ghint{background:rgba(255,255,255,.92)!important;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.les:has(.lesfs.on) .lesex.exin{animation:fsin .45s cubic-bezier(.2,1.2,.4,1)}
+@keyframes fsin{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.lesfs i{transition:opacity .2s;transform:none}}
+.les:has(.lesfs.on) .leskind{width:fit-content;padding:4px 12px 4px 4px;border-radius:99px}
 </style>
 </head>
 <body>
@@ -8661,6 +8677,7 @@ function lesNext() {
   };
   LS.missed = false;
   LS.api = EX[k](x, host, ctx);
+  lesFS(host);
   if (GHINT[k]) host.insertAdjacentHTML('afterbegin', `<p class="ghint"><span>${I(GHI[k] || 'check')}</span>${GHINT[k]}</p>`);
   btn.style.display = LS.api.auto ? 'none' : ''; btn.textContent = LS.api.btn || 'Prüfen';
 }
@@ -8897,6 +8914,21 @@ function customEnd() {
   $('.lestut', les).className = 'lestut happy'; voice(P.st[Math.min(5, Math.max(1, stars)) - 1], false, 'max');
   $('[data-a=back]', e).onclick = () => closeLesson();
   $('[data-a=again]', e).onclick = () => { closeLesson(); setTimeout(() => startLesson(0, 0, 0, C), 420); };
+}
+
+/* Spiele im Vollbild: der Hintergrund des Spiels füllt den ganzen Bildschirm, weicher Übergang zwischen Spielen */
+function lesFS(host) {
+  const box = $('.lesin', les); if (!box) return;
+  let fs = $('.lesfs', les); if (!fs) { fs = document.createElement('div'); fs.className = 'lesfs'; fs.innerHTML = '<i></i><i></i>'; box.insertBefore(fs, $('.lesmain', les)); }
+  requestAnimationFrame(() => {
+    const hr = host.getBoundingClientRect();
+    let sc = $('.qscn', host) || [...host.querySelectorAll(':scope > *, :scope > * > *')].find((e) => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return r.width > hr.width * .7 && r.height > 160 && /gradient|url/.test(cs.backgroundImage); });
+    let bg = '';
+    if (sc) { const im = $('.gbg', sc); if (im) bg = `url("${im.src}") 50% 50%/cover no-repeat`; else { const cs = getComputedStyle(sc); bg = cs.backgroundImage !== 'none' ? `${cs.backgroundImage.replace(/\)\s*,/g, '),')} 50% 50%/cover no-repeat, ${cs.backgroundColor}` : cs.backgroundColor; } sc.classList.add('fsx'); }
+    const [a, b] = fs.children, cur = fs.dataset.on === '1' ? b : a, nxt = cur === a ? b : a;
+    if (!bg) { fs.classList.remove('on'); return; }
+    nxt.style.background = bg; nxt.classList.add('on'); cur.classList.remove('on'); fs.dataset.on = nxt === b ? '1' : '0'; fs.classList.add('on');
+  });
 }
 
 function markTried() { try { localStorage.setItem('gsm-tried', '1'); } catch (e) {} document.body.classList.add('did1'); const sp = document.getElementById('spot'); if (sp) sp.classList.remove('on'); }
