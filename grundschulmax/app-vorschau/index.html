@@ -4272,8 +4272,6 @@ body[data-screen=sicherheit]::before,body[data-screen=datenschutz]::before,body[
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .nav{background:rgba(255,255,255,.12)!important;backdrop-filter:blur(10px)!important;border:0!important}
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .nav3 .brand>span:last-child{color:#fff}
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .nav3 .brand>span:last-child b{color:#ffe14d}
-body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .view.on>section,body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .view.on>.wrap{color:#fff}
-body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .view.on :is(h1,h2,.h1,.h2,p,.lead,.kick,small):not(.card *):not([class*=card] *):not(.sc *){color:#fff!important;text-shadow:0 2px 6px rgba(60,20,0,.4)}
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) footer,body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) footer :is(a,span){background:none!important;border:0!important;color:rgba(255,255,255,.85)!important}
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .back{color:#1d1b26!important;text-shadow:none!important}
 /* Klassenwahl: Weg zurück zur Startseite */
@@ -4287,6 +4285,9 @@ body[data-screen=klasse] .pkteam{margin-top:64px!important}
 /* Wolken und Vogel nur im Himmel: hinter Big Ben und hinter dem Fensterrahmen */
 @media (max-width:820px){.desk .dlon{-webkit-mask:url(/grundschulmax/sp/desk/skym.png) 0 0/100% 100% no-repeat;mask:url(/grundschulmax/sp/desk/skym.png) 0 0/100% 100% no-repeat}}
 @media (min-width:821px){.deskL .llon{height:calc(var(--uL)*330)!important;-webkit-mask:url(/grundschulmax/sp/desk/skyl.png) 0 0/100% 100% no-repeat;mask:url(/grundschulmax/sp/desk/skyl.png) 0 0/100% 100% no-repeat}}
+/* Unterseiten: nur Überschriften-Bereiche weiß, Karten behalten dunkle Schrift */
+body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) :is(.shero,.view.on>.wrap>.sh,.view.on>section>.wrap>.sh) :is(h1,h2,.h1,p,.mono,small,span:not(.si *)){color:#fff!important;text-shadow:0 2px 6px rgba(60,20,0,.45)}
+body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) :is(.sitem,.sband,.plan,.sc,.faq,.hwb,.final,.cband,.bwlcard,.kpi) :is(*){text-shadow:none!important}
 </style>
 </head>
 <body>
