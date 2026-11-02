@@ -7288,8 +7288,8 @@ function gMem(T) {
   const cards = shuf(L.P.flatMap((p) => [{ p, c: p.a }, { p, c: p.b }]));
   const long = G() === 3;
   gs.innerHTML = `${SKY('mem', [], [])}<i class="msun"></i><i class="mdust"></i><div class="mgrid n${n * 2}${long ? ' long' : ''}">${cards.map(({ c }, i) => `<div class="mc" data-i="${i}"><div class="in"><div class="fa"><img class="mbk" src="/grundschulmax/sp/mem/back.webp" alt="" draggable="false"></div><div class="ba t-${c.t}">${c.t === 'p' ? ART[c.v] : c.t === 'h' ? c.v : `<span>${c.v}</span>`}</div></div></div>`).join('')}</div>`;
-  const fit = () => $$('.mc .ba span', gs).forEach((sp) => { const box = sp.parentElement; let f = parseFloat(getComputedStyle(box).width) * .22; sp.style.whiteSpace = /\s/.test(sp.textContent.trim()) ? 'normal' : 'nowrap'; sp.style.fontSize = f + 'px'; let k = 0; const nw = sp.style.whiteSpace === 'nowrap'; sp.style.width = nw ? 'max-content' : ''; sp.style.justifySelf = 'center'; while (((nw ? sp.offsetWidth : sp.scrollWidth) > box.clientWidth * .64 || sp.offsetHeight > box.clientHeight * .6) && k++ < 40) { f *= .92; sp.style.fontSize = f + 'px'; } });
-  requestAnimationFrame(fit); const roM = new ResizeObserver(fit); roM.observe(gs);
+  const fit = () => $$('.mc .ba > span:not(.sw)', gs).forEach((sp) => { const box = sp.parentElement; if (box.clientWidth < 30 || box.clientHeight < 30) return; let f = parseFloat(getComputedStyle(box).width) * .22; sp.style.whiteSpace = /\s/.test(sp.textContent.trim()) ? 'normal' : 'nowrap'; sp.style.fontSize = f + 'px'; let k = 0; const nw = sp.style.whiteSpace === 'nowrap'; sp.style.width = nw ? 'max-content' : '86%'; sp.style.justifySelf = 'center'; while (((nw ? sp.offsetWidth > box.clientWidth * .64 : sp.scrollWidth > sp.clientWidth + 1) || sp.offsetHeight > box.clientHeight * (nw ? .6 : .8)) && k++ < 40) { f *= .92; sp.style.fontSize = f + 'px'; } });
+  requestAnimationFrame(fit); setTimeout(fit, 400); setTimeout(fit, 1500); const roM = new ResizeObserver(fit); roM.observe(gs); $$('.mc', gs).forEach((m) => roM.observe(m));
   let open = [], found = 0, lock = false;
   $$('.mc', gs).forEach((el) => (el.onclick = () => {
     if (lock || el.classList.contains('up')) return;
@@ -8242,10 +8242,13 @@ function pfLoad() {
   return pfLoading || (pfLoading = new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = '/grundschulmax/pfad/pfad-' + PFV + '.js'; sc.onload = res; sc.onerror = () => { pfLoading = null; const s2 = document.createElement('script'); s2.src = '/grundschulmax/pfad.js?v=' + PFV + '&r=' + Date.now(); s2.onload = res; s2.onerror = rej; document.head.appendChild(s2); }; document.head.appendChild(sc); }));
 }
 let PFCUR = null, PFEL = null;
-async function pfShow(container, host, keep) {
+/* Nur ein Aufruf gleichzeitig: sonst startet die 3D-Welt doppelt und stürzt ab */
+let PFQ = Promise.resolve();
+function pfShow(container, host, keep) { const r = PFQ.then(() => pfShow0(container, host, keep)); PFQ = r.catch(() => {}); return r; }
+async function pfShow0(container, host, keep) {
   if (!PF) {
     PFEL = document.createElement('div'); PFEL.className = 'gwhost'; container.prepend(PFEL);
-    try { await pfLoad(); try { PF = await window.GSMPfad.start(PFEL, host); } catch (e1) { console.error('Pfad Start 1', e1); await new Promise((r) => setTimeout(r, 900)); PFEL.innerHTML = ''; PF = await window.GSMPfad.start(PFEL, host); } PFCUR = host; try { sessionStorage.removeItem('gsm-pfre'); } catch (e3) {} return true; } catch (e) { console.error('Pfad Start', e); try { if (!sessionStorage.getItem('gsm-pfre')) { sessionStorage.setItem('gsm-pfre', '1'); location.reload(); return false; } } catch (e2) {} PFEL.innerHTML = `<div class="lpsoon">${I('book')}<b>Der Pfad konnte nicht geladen werden. Bitte die Seite neu laden.</b></div>`; PF = null; PFEL = null; return false; }
+    try { await pfLoad(); try { PF = await window.GSMPfad.start(PFEL, host); } catch (e1) { console.error('Pfad Start 1', e1); await new Promise((r) => setTimeout(r, 900)); throw e1; } PFCUR = host; try { sessionStorage.removeItem('gsm-pfre'); } catch (e3) {} return true; } catch (e) { console.error('Pfad Start', e); try { if (!sessionStorage.getItem('gsm-pfre')) { sessionStorage.setItem('gsm-pfre', '1'); location.reload(); return false; } } catch (e2) {} PFEL.innerHTML = `<div class="lpsoon">${I('book')}<b>Der Pfad konnte nicht geladen werden. Bitte die Seite neu laden.</b></div>`; PF = null; PFEL = null; return false; }
   }
   if (PFEL.parentElement !== container) container.prepend(PFEL);
   if (PFCUR !== host || (host.theme && host.theme().key !== PFCUR.key)) { PFCUR = host; host.key = host.theme ? host.theme().key : 'mix'; await PF.switchTo(host); }
