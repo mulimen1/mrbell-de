@@ -4796,6 +4796,97 @@ button:hover>.pi-lock,a:hover .pi-lock{animation:pilock .5s}
 @media (max-width:560px) and (max-height:740px){.uwrap{width:min(62vw,31vh)!important;top:31%!important}.ubtn{min-height:42px!important;padding-top:6px!important;padding-bottom:6px!important}.uopts{bottom:104px!important;gap:6px!important}}
 @media (max-width:560px) and (max-height:740px){.rq{font-size:24px}.shc{top:22%!important}}
 @media (max-width:560px) and (max-height:740px){.uowl{left:auto!important;right:-16%!important;bottom:auto!important;top:-8%!important;width:30%!important}}
+html,body{overscroll-behavior-x:none}
+/* Kein Muster-Blitzer, bevor der Lernpfad da ist */
+#app.world .amain{background:#5ea53c!important}
+.hpi.hs .hsmap{width:72%!important;border-radius:22px;box-shadow:0 0 0 5px #fff,0 16px 30px rgba(20,60,110,.3)}
+.hpi.hs .hstr{left:6%;bottom:8%;width:17%;animation:hss 3.4s ease-in-out -1s infinite}
+.hpi.hs .hq.hr{width:40%;border-radius:16px;box-shadow:0 0 0 4px #fff,0 10px 18px rgba(20,60,110,.28)}
+.hpi.hs .hr.q1{left:7%;top:8%}.hpi.hs .hr.q2{left:53%;top:11%}.hpi.hs .hr.q3{left:9%;top:54%}.hpi.hs .hr.q4{left:55%;top:57%}
+/* ---------- Reim-Ping-Pong ---------- */
+.g-pong2 .gsky{background-position:50% 60%}
+.pgfrog,.pghase{position:absolute;z-index:2;width:min(19%,190px);bottom:14%;filter:drop-shadow(0 12px 10px rgba(60,30,0,.3));transform-origin:50% 100%;animation:pgidle 1.6s ease-in-out infinite}
+.pgfrog{left:4%}.pghase{right:4%;top:16%;bottom:auto;animation-delay:-.8s}
+@keyframes pgidle{50%{transform:translateY(-4px) scale(1.02,.98)}}
+.pgfrog.yay,.pghase.yay{animation:pgyay .6s cubic-bezier(.2,1.5,.4,1)}@keyframes pgyay{40%{transform:translateY(-18%) rotate(-6deg)}}
+.pghase.dizzy{animation:pgdz .7s}@keyframes pgdz{25%{transform:rotate(-10deg)}50%{transform:rotate(8deg)}75%{transform:rotate(-5deg)}}
+.pgpad{position:absolute;z-index:3;width:min(9%,90px);pointer-events:none;transform-origin:70% 90%}
+.pgpad.pr{left:calc(4% + min(15%,150px));bottom:26%;rotate:-25deg}.pgpad.pb{right:calc(4% + min(15%,150px));top:24%;rotate:25deg;scale:-1 1}
+.pgpad.hit{animation:pghit .3s ease-out}@keyframes pghit{50%{transform:rotate(-35deg) scale(1.1)}}
+.pgsc{position:absolute;left:50%;top:max(10px,3%);translate:-50% 0;z-index:3;display:flex;gap:8px;align-items:center;background:#0d2f7a;color:#fff;border:4px solid #4f9cf7;border-radius:16px;padding:4px 16px;font-size:26px;font-weight:900;box-shadow:0 5px 0 #08205a}
+.pgsc.pop{animation:rqpop .4s}
+.pgserve{position:absolute;right:calc(6% + min(19%,190px));top:18%;z-index:3;width:clamp(110px,15vw,170px);aspect-ratio:1}
+.pgserve img,.pgb img{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 8px 8px rgba(0,0,0,.25))}
+.pgserve span,.pgb span{position:absolute;inset:14%;display:grid;place-items:center;text-align:center;font-weight:900;color:#13306e;font-size:clamp(15px,1.9vw,24px);line-height:1.05;word-break:keep-all}
+.pgserve.pgsrv{animation:pgsv .6s cubic-bezier(.2,1.3,.4,1)}@keyframes pgsv{from{transform:translate(60%,-40%) scale(.3);opacity:0}}
+.pgopts{position:absolute;left:calc(8% + min(19%,190px));right:6%;bottom:max(110px,16%);z-index:3;display:flex;justify-content:center;gap:clamp(8px,2vw,24px)}
+.pgb{position:relative;width:clamp(96px,12vw,150px);aspect-ratio:1;border:0;background:none;padding:0;cursor:pointer;animation:pgin .45s var(--dl) cubic-bezier(.2,1.4,.4,1) both,pgbob 2.4s calc(var(--dl) + .5s) ease-in-out infinite}
+.pgb:hover img{transform:scale(1.06)}
+@keyframes pgin{from{transform:translateY(60px) scale(.4);opacity:0}}@keyframes pgbob{50%{translate:0 -6px}}
+.pgb.away{transition:opacity .3s;opacity:.25}
+.pgb.net{animation:pgnet .7s ease-in forwards}@keyframes pgnet{40%{transform:translate(40px,-60px)}100%{transform:translate(90px,40px) scale(.7);opacity:.3}}
+.pgb.hint{opacity:1!important;outline:4px solid #4cc38a;outline-offset:2px;border-radius:50%}
+.pgtrail{position:absolute;z-index:4;width:130px;pointer-events:none;transform-origin:20% 50%}
+.pgburst{width:120px;animation:gconfpop .8s ease-out forwards}
+@keyframes gconfpop{from{transform:scale(.2);opacity:1}70%{opacity:1}to{transform:scale(1.4);opacity:0}}
+@media (max-width:560px){.pgfrog{width:30%;left:0;bottom:22%}.pghase{width:26%;right:0;top:15%}.pgpad{display:none}.pgserve{right:28%;top:17%;width:112px}.pgopts{left:4%;right:4%;bottom:min(48%,calc(100% - 520px));bottom:118px}.pgopts{flex-wrap:wrap}.pgb{width:31%}.pgfrog{bottom:auto;top:44%}}
+/* ---------- Wortarten-Sortierer ---------- */
+.g-belt2 .gsky{background-position:50% 55%}
+.btrack{position:absolute;left:0;right:0;top:44%;height:12%;z-index:2;pointer-events:none}
+.bword{position:absolute;left:50%;top:0;translate:0 -30%;transform:translateX(-50%);background:#fff;border:4px solid #1d2a3a;border-radius:16px;padding:10px 26px;font-size:clamp(24px,3.4vw,40px);font-weight:900;color:#1d2a3a;box-shadow:0 7px 0 #1d2a3a,0 14px 20px rgba(0,0,0,.25);white-space:nowrap}
+.bword.ride{animation:bride .9s cubic-bezier(.2,.9,.3,1) both}@keyframes bride{from{left:-20%}to{left:50%}}
+.bword.shake{animation:ushk .45s}
+.g-belt2 .gsky.run{animation:brun .9s linear}@keyframes brun{50%{filter:brightness(1.05)}}
+.bbins{position:absolute;left:50%;bottom:max(110px,15%);translate:-50% 0;z-index:3;display:grid;gap:clamp(8px,2vw,20px);width:min(92%,760px)}
+.bbins.n2{grid-template-columns:1fr 1fr}.bbins.n3{grid-template-columns:1fr 1fr 1fr}
+.bbin{position:relative;min-height:clamp(96px,16vh,150px);border:0;border-radius:22px 22px 26px 26px;color:#fff;background:linear-gradient(180deg,var(--c1),var(--c2));box-shadow:0 8px 0 rgba(0,0,0,.25),inset 0 -12px 0 rgba(0,0,0,.12),inset 0 4px 0 rgba(255,255,255,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.bbin b{font-size:clamp(19px,2.4vw,26px)}.bbin small{font-size:13px;font-weight:700;opacity:.92}
+.bbin .bcnt{position:absolute;right:10px;top:-12px;font-style:normal;min-width:30px;height:30px;border-radius:15px;background:#fff;color:#1d2a3a;font-weight:900;display:grid;place-items:center;box-shadow:0 3px 0 rgba(0,0,0,.2);text-shadow:none}
+.bbin.gulp{animation:cpop .45s cubic-bezier(.2,1.5,.4,1)}.bbin.nope{animation:ushk .45s}.bbin.hint{animation:bhint .9s 2}
+@keyframes bhint{50%{box-shadow:0 0 0 6px #fff,0 0 24px 8px #f7c948}}
+@media (max-width:560px){.btrack{top:38%}.bbins{bottom:112px}.bbin small{display:none}.bbin{min-height:84px}}
+@media (min-width:561px){.pgfrog{bottom:24%}.pgpad.pr{bottom:36%}}
+.bbins{bottom:max(104px,12%)}
+/* Spiele und Testvorbereitung: Klassenraum des Fachs als Hintergrund */
+#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=mathe] .amain{background:#b8642c url(/grundschulmax/sp/room/mathe.webp) 50% 0/max(100%,calc(100dvh * 1.5)) auto no-repeat!important}
+#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=deutsch] .amain{background:#b8642c url(/grundschulmax/sp/room/deutsch.webp) 50% 0/max(100%,calc(100dvh * 1.5)) auto no-repeat!important}
+#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=englisch] .amain{background:#b8642c url(/grundschulmax/sp/room/englisch.webp) 50% 0/max(100%,calc(100dvh * 1.5)) auto no-repeat!important}
+#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=franz] .amain{background:#b8642c url(/grundschulmax/sp/room/franz.webp) 50% 0/max(100%,calc(100dvh * 1.5)) auto no-repeat!important}
+#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=sach] .amain{background:#b8642c url(/grundschulmax/sp/room/sach.webp) 50% 0/max(100%,calc(100dvh * 1.5)) auto no-repeat!important}
+#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=ki] .amain{background:#b8642c url(/grundschulmax/sp/room/ki.webp) 50% 0/max(100%,calc(100dvh * 1.5)) auto no-repeat!important}
+@media (max-aspect-ratio:4/5){#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=mathe] .amain{background-image:url(/grundschulmax/sp/room/mathe-m.webp)!important;background-size:max(100%,calc(100dvh * .667)) auto!important}#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=deutsch] .amain{background-image:url(/grundschulmax/sp/room/deutsch-m.webp)!important;background-size:max(100%,calc(100dvh * .667)) auto!important}#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=englisch] .amain{background-image:url(/grundschulmax/sp/room/englisch-m.webp)!important;background-size:max(100%,calc(100dvh * .667)) auto!important}#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=franz] .amain{background-image:url(/grundschulmax/sp/room/franz-m.webp)!important;background-size:max(100%,calc(100dvh * .667)) auto!important}#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=sach] .amain{background-image:url(/grundschulmax/sp/room/sach-m.webp)!important;background-size:max(100%,calc(100dvh * .667)) auto!important}#app[data-v=subj]:is([data-w=games],[data-w=test])[data-k=ki] .amain{background-image:url(/grundschulmax/sp/room/ki-m.webp)!important;background-size:max(100%,calc(100dvh * .667)) auto!important}}
+#app[data-v=subj]:is([data-w=games],[data-w=test]) .amain::before,#app[data-v=subj]:is([data-w=games],[data-w=test]) .amain::after{display:none!important}
+/* Lesbarkeit: nie helle Schrift auf hellem Bild */
+#app[data-v=subj]:is([data-w=games],[data-w=test]) .wtabs{background:rgba(255,255,255,.95)!important;box-shadow:0 8px 24px -8px rgba(20,30,60,.35)!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#app[data-v=subj]:is([data-w=games],[data-w=test]) .wtabs button:not(.on){color:#2a2440!important}
+#app[data-v=subj]:is([data-w=games],[data-w=test]) .wtabs button:not(.on) svg{color:#5b5577}
+.app[data-v=subj] .wtabs button:not(.on){color:#2a2440!important}
+.hwh.sj{background:linear-gradient(135deg,rgba(26,40,90,.86),rgba(40,30,90,.82))!important;border-radius:26px;padding:16px 20px!important;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 12px 30px -10px rgba(10,20,50,.5)}
+.hwh.sj :is(b,p,span:not(.hwk)){color:#fff!important}
+#app[data-v=hw] .hwh{background:linear-gradient(135deg,rgba(26,60,130,.82),rgba(40,40,110,.78));border-radius:26px;padding:14px 20px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.les .lesbtn:disabled{background:rgba(255,255,255,.92)!important;color:#8a8fa0!important;box-shadow:0 4px 0 rgba(0,0,0,.12)!important;opacity:1!important}
+.ordh{background:rgba(20,30,60,.62)!important;color:#fff!important}
+.osl:not(.full){background:rgba(20,30,60,.42)!important;color:#fff}
+#app .amain{position:relative}
+.hwcat{position:absolute;z-index:0;pointer-events:none;transform-origin:50% 92%;animation:hwbr 3.6s ease-in-out infinite}
+#app:not([data-v=hw]) .hwcat{display:none!important}
+#app[data-v=hw] .amain>*:not(.hwcat){position:relative;z-index:1}
+@keyframes hwbr{0%,100%{transform:scale(1,1)}45%{transform:scale(1.012,1.035)}}
+@media (prefers-reduced-motion:reduce){.hwcat{animation:none}}
+#app[data-v=hw] .amain{background-attachment:local!important}
+/* Testvorbereitung: Text auf einer Karte in Fachfarbe, Upload-Feld kompakt */
+.atest .hwh.sj{background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 88%,transparent),color-mix(in srgb,var(--c2) 90%,transparent))!important;box-shadow:0 10px 26px -10px color-mix(in srgb,var(--c2) 70%,#000),inset 0 0 0 2px rgba(255,255,255,.25)!important}
+.atest .hwh.sj :is(b,p,span:not(.hwk)){text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.atest .hwh.sj .hwk{background:rgba(255,255,255,.22)!important}
+.atest .hwd{padding:18px 18px 16px!important;gap:6px!important;max-width:620px;margin:0 auto}
+.atest .hwd .hwdi{width:60px!important;height:60px!important;border-radius:20px!important;font-size:28px!important;margin-bottom:2px!important;box-shadow:0 5px 0 #b55a0e!important}
+.atest .hwd>b{font-size:18px!important}.atest .hwd>span:not(.hwbtns):not(.hwdi):not(.hwfree){font-size:13px!important}
+.atest .hwd .hwbtns .b3d{height:48px!important;font-size:16px!important}
+/* Fach-Kopf in Spiele/Test: schlanker und ruhiger */
+#app[data-v=subj]:is([data-w=games],[data-w=test]) .amain .zhead{min-height:0!important;padding:12px 20px!important;background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 90%,transparent),color-mix(in srgb,var(--c2) 92%,transparent))!important;box-shadow:0 8px 22px -10px color-mix(in srgb,var(--c2) 70%,#000),inset 0 0 0 2px rgba(255,255,255,.25)!important}
+#app[data-v=subj]:is([data-w=games],[data-w=test]) .zhead .zk{font-size:clamp(26px,3vw,34px)!important}
+#app[data-v=subj]:is([data-w=games],[data-w=test]) .zhead .ztut{width:84px!important;margin:-14px 0 -24px!important}
+#app[data-v=subj]:is([data-w=games],[data-w=test]) .zhead :is(.zm,small,span){text-shadow:0 1px 2px rgba(0,0,0,.3)}
 </style>
 </head>
 <body>
@@ -9017,6 +9108,74 @@ function gShop(T) {
   return () => {};
 }
 
+/* ---------- Reim-Ping-Pong: der Hase spielt ein Wort, du schlägst den Reim zurück ---------- */
+const REIM = [
+  [['Haus', 'Maus'], ['Hund', 'Mund'], ['Tisch', 'Fisch'], ['Nase', 'Hase'], ['Kopf', 'Topf'], ['Hut', 'gut'], ['Bein', 'Stein'], ['Hand', 'Sand'], ['Ball', 'Stall'], ['Baum', 'Traum'], ['Boot', 'rot'], ['Ring', 'Ding']],
+  [['Hose', 'Rose'], ['Sonne', 'Tonne'], ['Kanne', 'Tanne'], ['Katze', 'Tatze'], ['Wand', 'Land'], ['Zwerg', 'Berg'], ['Bär', 'schwer'], ['Fuß', 'Gruß'], ['Biene', 'Schiene'], ['Kind', 'Wind'], ['Fliege', 'Wiege'], ['Brief', 'tief']],
+  [['Flasche', 'Tasche'], ['Mütze', 'Pfütze'], ['Schnecke', 'Decke'], ['Glocke', 'Socke'], ['Wiese', 'Riese'], ['Bauch', 'Strauch'], ['Kuchen', 'suchen'], ['Leiter', 'weiter'], ['Nadel', 'Tadel'], ['Kerze', 'Scherze'], ['Wolke', 'Molke'], ['Feder', 'Leder']],
+  [['Gespenst', 'kennst'], ['Laterne', 'Sterne'], ['Schokolade', 'Limonade'], ['Rakete', 'Trompete'], ['Gitarre', 'Karre'], ['Pinguin', 'Termin'], ['Krokodil', 'Spiel'], ['Banane', 'Fahne'], ['Kartoffel', 'Pantoffel'], ['Salat', 'Spinat'], ['Giraffe', 'Affe'], ['Melone', 'Zitrone']],
+];
+function gPong(T) {
+  gs.className = 'gs g-pong2';
+  const P = (f) => `/grundschulmax/sp/pong/${f}.webp`, N = 8, L = shuf(REIM[G()]).slice(0, N);
+  let r = 0, lock = true, cur, hits = 0;
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${P('bg')})"></div>
+    <img class="pgfrog" id="pf" src="${P('frog')}" alt=""><img class="pgpad pr" id="ppr" src="${P('pad-r')}" alt="">
+    <img class="pghase" id="ph" src="${P('hase')}" alt=""><img class="pgpad pb" id="ppb" src="${P('pad-b')}" alt="">
+    <div class="pgsc"><b id="psf">0</b><span>:</span><b id="psh">0</b></div>
+    <div class="pgserve" id="psv"><img src="${P('ball')}" alt=""><span id="psw"></span></div>
+    <div class="pgopts" id="po"></div>`;
+  const all = REIM[G()].flat();
+  function next() {
+    if (r >= N) return finish(hits >= N - 1 ? 'Ping-Pong-Profi!' : 'Super gespielt!', ['Einfache Reime hören.', 'Reimwörter finden.', 'Schwierige Reime erkennen.', 'Lange Wörter reimen.'][G()]);
+    const [a, b] = L[r]; const w = shuf(all.filter((x) => x !== a && x !== b && !L.some(([p, q]) => (p === a && q === x)))).slice(0, 2);
+    cur = { a, b, o: shuf([b, ...w]) };
+    $('#psw').textContent = a; const sv = $('#psv'); restart(sv, 'pgsrv'); restart($('#ppb'), 'hit'); sfx.kick();
+    $('#po').innerHTML = cur.o.map((v, i) => `<button class="pgb" data-v="${v}" style="--dl:${.55 + i * .1}s"><img src="${P('ball')}" alt=""><span>${v}</span></button>`).join('');
+    $$('.pgb', gs).forEach((x) => (x.onclick = () => hit(x))); say(`Was reimt sich auf ${a}?`, ''); setTimeout(() => { lock = false; }, 700);
+  }
+  function hit(bt) {
+    if (lock) return; lock = true; const ok = bt.dataset.v === cur.b, g0 = gs.getBoundingClientRect(), a = bt.getBoundingClientRect(), t = $('#ph').getBoundingClientRect();
+    restart($('#ppr'), 'hit'); sfx.kick();
+    const dx = t.left + t.width * .3 - a.left, dy = t.top + t.height * .25 - a.top, tr = document.createElement('img'); tr.src = P('balltr'); tr.className = 'pgtrail'; tr.style.left = a.left - g0.left + 'px'; tr.style.top = a.top - g0.top + 'px'; tr.style.rotate = (Math.atan2(dy, dx) * 180 / Math.PI + 180) + 'deg';
+    if (ok) { gs.appendChild(tr); tr.animate([{ transform: 'translate(0,0) scale(.6)', opacity: 1 }, { transform: `translate(${dx}px,${dy}px) scale(.5)`, opacity: 0 }], { duration: 520, easing: 'cubic-bezier(.3,0,.5,1)', fill: 'forwards' }).onfinish = () => tr.remove();
+      bt.animate([{ transform: 'translate(0,0)' }, { transform: `translate(${dx * .5}px,${dy * .5 - 70}px) scale(.85)`, offset: .5 }, { transform: `translate(${dx}px,${dy}px) scale(.6)` }], { duration: 520, easing: 'cubic-bezier(.3,0,.5,1)', fill: 'forwards' });
+      setTimeout(() => { if (!alive(T)) return; right(); hits++; $('#psf').textContent = hits; restart($('.pgsc', gs), 'pop'); const bu = document.createElement('img'); bu.src = P('burst'); bu.className = 'gfx pgburst'; bu.style.left = t.left - g0.left + t.width * .35 + 'px'; bu.style.top = t.top - g0.top + t.height * .3 + 'px'; gs.appendChild(bu); setTimeout(() => bu.remove(), 800); restart($('#ph'), 'dizzy'); restart($('#pf'), 'yay'); sfx.coin(); say(`${cur.a} und ${cur.b}. Treffer!`, 'happy'); }, 500);
+    } else { wrong(); bt.classList.add('net'); sfx.no(); $('#psh').textContent = (+$('#psh').textContent) + 1; restart($('#ph'), 'yay'); const c = [...$$('.pgb', gs)].find((x) => x.dataset.v === cur.b); if (c) c.classList.add('hint'); say(`Ins Netz! ${cur.a} reimt sich auf ${cur.b}.`, 'think'); }
+    $$('.pgb', gs).forEach((x) => x !== bt && x.classList.add('away'));
+    r++; setTimeout(() => { if (alive(T)) next(); }, ok ? 1500 : 2400);
+  }
+  progress(N); say('Der Hase spielt dir ein Wort zu. Schlag das Reimwort zurück!', '');
+  startOverlay('Anpfiff', `${N} Ballwechsel · Reime finden`, next);
+  return () => {};
+}
+
+/* ---------- Wortarten-Sortierer: Wörter fahren aufs Fließband, ab in die richtige Kiste ---------- */
+const WART = { Nomen: ['Hund', 'Haus', 'Ball', 'Baum', 'Schule', 'Apfel', 'Katze', 'Buch', 'Sonne', 'Auto', 'Blume', 'Tisch'], Verb: ['laufen', 'springen', 'lesen', 'malen', 'singen', 'spielen', 'schwimmen', 'essen', 'schlafen', 'lachen', 'rennen', 'tanzen'], Adjektiv: ['groß', 'klein', 'schnell', 'rot', 'lustig', 'warm', 'müde', 'leise', 'schön', 'nass', 'kalt', 'laut'] };
+function gBelt(T) {
+  gs.className = 'gs g-belt2';
+  const P = (f) => `/grundschulmax/sp/belt/${f}.webp`, N = 9, K = G() === 0 ? ['Nomen', 'Verb'] : ['Nomen', 'Verb', 'Adjektiv'], C = { Nomen: ['#5aa2f7', '#1a5fc4'], Verb: ['#ff9b52', '#d4600f'], Adjektiv: ['#4cc38a', '#1f8a55'] };
+  const Q = shuf(K.flatMap((k) => shuf(WART[k]).slice(0, 4).map((w) => [w, k]))).slice(0, N);
+  let r = 0, lock = true, cur, el;
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${P('bg')})"></div><div class="btrack" id="bt"></div><div class="bbins n${K.length}">${K.map((k) => `<button class="bbin" data-k="${k}" style="--c1:${C[k][0]};--c2:${C[k][1]}"><b>${k}</b><small>${{ Nomen: 'Hund, Haus …', Verb: 'laufen, malen …', Adjektiv: 'groß, rot …' }[k]}</small><i class="bcnt">0</i></button>`).join('')}</div>`;
+  const cnt = {};
+  function next() {
+    if (r >= N) return finish('Fließband geschafft!', ['Nomen und Verben unterscheiden.', 'Nomen, Verben und Adjektive sortieren.', 'Wortarten sicher erkennen.', 'Wortarten blitzschnell sortieren.'][G()]);
+    cur = Q[r]; $('#bt').innerHTML = `<div class="bword" id="bw">${G() > 0 && cur[1] === 'Nomen' ? cur[0] : cur[0]}</div>`; el = $('#bw'); restart(el, 'ride'); sfx.chug(); restart($('.gsky', gs), 'run');
+    say(r ? 'Und das nächste Wort?' : 'In welche Kiste gehört das Wort?', ''); setTimeout(() => { lock = false; }, 900);
+  }
+  $$('.bbin', gs).forEach((b) => (b.onclick = () => {
+    if (lock || !cur) return; lock = true; const ok = b.dataset.k === cur[1], a = el.getBoundingClientRect(), z = b.getBoundingClientRect();
+    if (ok) { right(); sfx.coin(); el.classList.remove('ride'); el.animate([{ transform: 'translate(-50%,0)' }, { transform: `translate(calc(-50% + ${z.left + z.width / 2 - a.left - a.width / 2}px),${z.top - a.top - 20}px) scale(.5) rotate(-20deg)`, opacity: .2 }], { duration: 480, easing: 'cubic-bezier(.5,0,.6,1)', fill: 'forwards' });
+      setTimeout(() => { if (!alive(T)) return; cnt[cur[1]] = (cnt[cur[1]] || 0) + 1; $('.bcnt', b).textContent = cnt[cur[1]]; restart(b, 'gulp'); const g0 = gs.getBoundingClientRect(); burst(z.left - g0.left + z.width / 2, z.top - g0.top + 10, [C[cur[1]][0], '#fff', '#f7c948'], 14); }, 460); say(`Richtig: ${cur[0]} ist ${cur[1] === 'Adjektiv' ? 'ein Adjektiv' : cur[1] === 'Verb' ? 'ein Verb' : 'ein Nomen'}.`, 'happy'); }
+    else { wrong(); sfx.no(); restart(b, 'nope'); restart(el, 'shake'); const c = $(`.bbin[data-k="${cur[1]}"]`, gs); if (c) restart(c, 'hint'); say(`${cur[0]} ist ${cur[1] === 'Adjektiv' ? 'ein Adjektiv' : cur[1] === 'Verb' ? 'ein Verb' : 'ein Nomen'}.${cur[1] === 'Nomen' ? ' Nomen schreibt man groß.' : ''}`, 'think'); }
+    r++; setTimeout(() => { if (alive(T)) next(); }, ok ? 1100 : 2200);
+  }));
+  progress(N); say('Die Wörter kommen aufs Fließband. Tippe auf die richtige Kiste!', '');
+  startOverlay('Band starten', `${N} Wörter · Wortarten sortieren`, next);
+  return () => {};
+}
+
 /* ---------- Lernpfad wie bei Duolingo: Level -> 4 Lektionen -> Spiel ---------- */
 const LPKEY = 'gsm-lp2', LV_FREE = 2, PER = 5; // 2 Level frei in der Vorschau, je Level 4 Lektionen + 1 Spiel
 let LPS = {}; try { LPS = JSON.parse(localStorage.getItem(LPKEY) || '{}') || {}; } catch (e) { LPS = {}; }
@@ -9493,7 +9652,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = '68c07f61';
+const PFV = '88eed792';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -9535,6 +9694,9 @@ function pfLoad() {
 let PFCUR = null, PFEL = null;
 /* Nur ein Aufruf gleichzeitig: sonst startet die 3D-Welt doppelt und stürzt ab */
 let PFQ = Promise.resolve();
+/* Alle Welten früh im Hintergrund bauen (egal wo man startet), damit der Wechsel sofort da ist */
+let PFPRE = false;
+function pfPre() { if (PFPRE) return; PFPRE = true; let i = 0; const pre = () => { if (i >= SUBJ.length || !PF) return; try { PF.prebuild(subjHost(i).theme()); } catch (e) {} i++; setTimeout(pre, 250); }; setTimeout(pre, 700); }
 function pfShow(container, host, keep) { const r = PFQ.then(() => pfShow0(container, host, keep)); PFQ = r.catch(() => {}); return r; }
 async function pfShow0(container, host, keep) {
   if (!PF) {
@@ -9549,7 +9711,7 @@ async function pfShow0(container, host, keep) {
 async function drawMix() {
   const c = $('#ahome'); if (!c) return; PFHOST.key = 'mix';
   const first = !PF; await pfShow(c, PFHOST);
-  if (first) { let i = 0; const pre = () => { if (i >= SUBJ.length || !PF) return; try { PF.prebuild(subjHost(i++).theme()); } catch (e) {} setTimeout(pre, 400); }; setTimeout(pre, 2500);
+  if (first) { pfPre();
     // Tutorial erst, wenn das Kind wirklich im Spiel ist (Pfad sichtbar und geladen), nie auf der Startseite
     const tryHelp = () => { let seen = '1'; try { seen = localStorage.getItem('gsm-help-seen'); } catch (e) {} if (seen) return; const on = document.body.dataset.screen === 'spiel' && document.querySelector('.gw-load.off') && !document.querySelector('#help.on'); if (on) openHelp(true); else setTimeout(tryHelp, 800); };
     setTimeout(tryHelp, 900); }
@@ -9580,7 +9742,7 @@ async function drawLP(justN) {
   const h = subjHost(), key = h.theme().key;
   if (!SH || SH.key !== key) { SH = h; SH.key = key; }
   const prev = PF && PFCUR === SH ? PF.cur() : null;
-  if (!(await pfShow(box, SH, justN != null))) return;
+  if (!(await pfShow(box, SH, justN != null))) return; pfPre();
   if (justN != null && prev != null) { PF.refresh(true); const c = SH.list().findIndex((q) => q.state === 'cur'); if (c > prev) PF.hopTo(c); }
 }
 /* Abschluss einer Station aus dem Abenteuer-Pfad (statt lpComplete) */
@@ -9592,6 +9754,14 @@ function mixComplete(xp) {
   lpSave(); if (typeof drawAside === 'function') drawAside();
   if (PF && PFCUR === PFHOST) { const before = R.n; PF.refresh(true); const nl = pfList(), c = nl.findIndex((q) => q.state === 'cur'); if (c > before) PF.hopTo(c); }
 }
+
+/* Bilder früh laden, damit beim Wechseln nichts nachlädt */
+setTimeout(() => {
+  const port = innerHeight > innerWidth * 1.15, R = '/grundschulmax/sp/room/', L = [];
+  ['mathe', 'deutsch', 'englisch', 'franz', 'sach', 'ki', 'hw'].forEach((k) => L.push(R + k + (port ? '-m' : '') + '.webp'));
+  ['star', 'flame', 'x', 'snd', 'check', 'lock', 'coin', 'trophy', 'gem', 'heart', 'gift', 'bolt', 'chest', 'unlock'].forEach((k) => L.push('/grundschulmax/sp/ui/' + k + '.webp'));
+  let i = 0; const nx = () => { if (i >= L.length) return; const im = new Image(); im.onload = im.onerror = () => setTimeout(nx, 60); im.src = L[i++]; }; nx(); nx();
+}, 1200);
 
 /* ---------- Lektionen als Spiele: jede Lektion eine eigene Welt, jede Aufgabe ein Spiel ---------- */
 const WORLDS = [
@@ -10513,7 +10683,7 @@ const SUBJ = [
     ern: ['Plus und Minus bis 20, 100, 1000', 'Einmaleins und Teilen', 'Sachaufgaben Schritt für Schritt', 'Probetest vor der Klassenarbeit'] },
   { k: 'deutsch', n: 'Deutsch', c1: '#f47ba0', c2: '#c8336f', ic: 'Aa', tutor: { id: 'max', n: 'Max' }, games: [
     { n: 'Silben-Zug', b: 'Lesen wird leichter, wenn Wörter in Silben zerfallen. Dein Kind baut Wörter und Sätze und liest dadurch flüssiger und mit mehr Mut.', d: 'Lesen lernen, Sätze bauen', play: gZug, ic: 'zug' }, { n: 'Zauberstift', b: 'Schöne Schrift braucht Übung und Geduld. Hier zeigt Max jeden Strich, und dein Kind schreibt sicherer, in Druck- und Schreibschrift.', d: 'Schreiben lernen, auch Schreibschrift', play: gStift, ic: 'pen' },
-    { n: 'Reim-Ping-Pong', b: 'Wer genau hinhört, liest und schreibt besser. Reime schulen das Gehör für Laute, ganz spielerisch.', d: 'Reime finden', pv: 'reim' }, { n: 'Wortarten-Sortierer', b: 'Nomen, Verben, Adjektive: Was in der Schule trocken klingt, wird hier zum Sortierspaß. Das hilft später bei der Rechtschreibung.', d: 'Nomen, Verben, Adjektive', pv: 'wortart' }, { n: 'Diktat mit Max', b: 'Hören und richtig schreiben, ganz ohne Rotstift-Angst. Max hilft geduldig, bis die Wörter sitzen.', d: 'Hören und richtig schreiben', pv: 'diktat' }],
+    { n: 'Reim-Ping-Pong', b: 'Wer genau hinhört, liest und schreibt besser. Reime schulen das Gehör für Laute, ganz spielerisch.', d: 'Reime finden', pv: 'reim', play: gPong, ic: 'pong' }, { n: 'Wortarten-Sortierer', b: 'Nomen, Verben, Adjektive: Was in der Schule trocken klingt, wird hier zum Sortierspaß. Das hilft später bei der Rechtschreibung.', d: 'Nomen, Verben, Adjektive', pv: 'wortart', play: gBelt, ic: 'belt' }, { n: 'Diktat mit Max', b: 'Hören und richtig schreiben, ganz ohne Rotstift-Angst. Max hilft geduldig, bis die Wörter sitzen.', d: 'Hören und richtig schreiben', pv: 'diktat' }],
     ern: ['Lesen mit Vorlese-Hilfe', 'Schreiben: Druck- und Schreibschrift', 'Rechtschreibung: ie, ck, tz, ß', 'Nomen, Verben, Adjektive'] },
   { k: 'englisch', n: 'Englisch', c1: '#3fc1c9', c2: '#0e7f8e', ic: 'EN', tutor: { id: 'emma', n: 'Emma' }, note: 'Je nach Bundesland ab Klasse 1 oder 3.', games: [
     { n: 'Memory', b: 'Englische Wörter bleiben hängen, wenn man sie mit Bildern verbindet. Dein Kind spielt Memory und lernt dabei ganz nebenbei.', d: 'Wörter, Farben, Sätze', play: gMem, ic: 'cards' }, { n: 'Buchstaben-Blasen', b: 'Englisch schreibt man oft anders, als man es spricht. Hier lernt dein Kind die richtige Schreibweise mit Freude.', d: 'Wörter buchstabieren', play: gBlasen, ic: 'bubble' },
@@ -10541,7 +10711,7 @@ function patURL(k, dark) {
   if (dark) inner = inner.replace(/#fff/g, '#1d2a4a').replace(/opacity="\.(\d+)"/g, (m, d) => `opacity="${(+('.' + d) * .45).toFixed(3)}"`);
   return `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>${inner.replace(/"/g, "'")}</svg>`)}")`;
 }
-const GICON = { chat: I('chat'), ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock'), race: '<img class="gicim" src="/grundschulmax/sp/race2/car0.webp" alt="">', uhr: '<img class="gicim" src="/grundschulmax/sp/clock2/owl.webp" alt="">', shop: '<img class="gicim" src="/grundschulmax/sp/shop/register.webp" alt="">' };
+const GICON = { chat: I('chat'), ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock'), race: '<img class="gicim" src="/grundschulmax/sp/race2/car0.webp" alt="">', uhr: '<img class="gicim" src="/grundschulmax/sp/clock2/owl.webp" alt="">', shop: '<img class="gicim" src="/grundschulmax/sp/shop/register.webp" alt="">', pong: '<img class="gicim" src="/grundschulmax/sp/pong/pad-r.webp" alt="">', belt: '<img class="gicim" src="/grundschulmax/sp/ui/chest.webp" alt="">' };
 
 /* ---------- Üben: ruhige Aufgaben mit Erklärung, je Klasse ---------- */
 const ZF = (a, b) => { const c = (n0, n1) => `<div class="zf">${[...Array(10)].map((_, k) => `<i class="${k < n0 ? 'o' : k < n0 + n1 ? 'b' : ''}"></i>`).join('')}</div>`; return c(a, Math.min(b, 10 - a)) + (a + b > 10 ? c(0, a + b - 10) : ''); };
@@ -10666,9 +10836,9 @@ try { const P0 = JSON.parse(localStorage.getItem('gsm-pos') || 'null'); if (P0 &
 document.body.appendChild($('#stage'));
 function mount() {
   const S = SUBJ[st.s], app = $('#app');
-  app.dataset.v = st.nav; app.classList.toggle('world', st.nav === 'home' || (st.nav === 'subj' && st.w === 'path')); try { localStorage.setItem('gsm-pos', JSON.stringify({ nav: st.nav, s: st.s, w: st.w })); } catch (e) {} app.dataset.w = st.w;
+  app.dataset.v = st.nav; app.classList.toggle('world', st.nav === 'home' || (st.nav === 'subj' && st.w === 'path')); try { localStorage.setItem('gsm-pos', JSON.stringify({ nav: st.nav, s: st.s, w: st.w })); } catch (e) {} app.dataset.w = st.w; app.dataset.k = S.k;
   $$('.anv').forEach((b) => b.classList.toggle('on', b.dataset.nav === st.nav));
-  if (st.nav === 'hw') drawHW();
+  if (st.nav === 'hw') { drawHW(); hwCat(); }
   if (st.nav === 'profile') drawProfile();
   $$('.vx').forEach((x) => x.remove()); if (st.nav === 'profile' || st.nav === 'parents') { const host = st.nav === 'profile' ? $('#aprof') : $('#apar'); if (host) { const x = document.createElement('button'); x.className = 'vx'; x.type = 'button'; x.setAttribute('aria-label', 'Schließen'); x.innerHTML = I('x'); x.onclick = () => { sfx.tap(); st.nav = st.nav === 'parents' ? 'profile' : 'home'; mount(); }; host.prepend(x); } }
   if (st.nav === 'parents') { if (st.prevNav !== 'parents') parOpen = false; drawParents(); }
@@ -10860,11 +11030,19 @@ function show(scr, sub) {
   upd();
   $$('.view.on [data-in]').forEach((el) => restart(el, 'in'));
 }
-function go(path) { const h = '#' + path; if (location.hash === h) show(...path.split('/')); else location.hash = h; }
-addEventListener('hashchange', () => show(...location.hash.slice(1).split('/')));
+let navIntent = 0;
+function go(path) { navIntent = Date.now(); const h = '#' + path; if (location.hash === h) show(...path.split('/')); else location.hash = h; }
+/* Aus der App nie ungewollt rauswerfen (z. B. Wisch-Geste am Trackpad = Browser-Zurück) */
+addEventListener('hashchange', () => {
+  const to = location.hash.slice(1).split('/')[0] || 'start', from = document.body.dataset.screen;
+  if (from === 'spiel' && to !== 'spiel' && !['preise', 'sicherheit', 'datenschutz', 'ueber'].includes(to) && Date.now() - navIntent > 800) { history.replaceState(null, '', '#spiel'); return; }
+  show(...location.hash.slice(1).split('/'));
+});
+document.addEventListener('click', (e) => { if (e.target.closest('a[href^="#"], a[href="/"], [data-to], [data-back], [data-nav]')) navIntent = Date.now(); }, true);
 $$('[data-to]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); go(a.dataset.to); }));
 $$('[data-back]').forEach((b) => (b.onclick = () => { const cur = document.body.dataset.screen; go(['preise', 'sicherheit', 'datenschutz', 'ueber'].includes(cur) ? (lastMain === 'start' ? '' : lastMain) : cur === 'spiel' ? 'faecher' : cur === 'faecher' && st.grade >= 0 ? 'klasse' : ''); }));
 drawGrade();
+try { if ((!location.hash || location.hash === '#') && st.grade >= 0 && localStorage.getItem('gsm-token')) { st.nav = 'home'; history.replaceState(null, '', '#spiel'); } } catch (e) {}
 show(...location.hash.slice(1).split('/'));
 
 document.addEventListener('pointerdown', (e) => {
@@ -10900,8 +11078,8 @@ $('#aopen').onclick = () => aclSet(false);
 /* ---------- Hilfe: kurze Bilder-Tour ---------- */
 const HS = '/grundschulmax/sp/', HI = (f, c, st = '') => `<img class="${c}" src="${HS}${f}.webp" alt="" style="${st}">`;
 const HELP = [
-  { s: 'hs-pfad', h: () => HI('start/i-mathe', 'hsi') + `<img class="hsfox" src="/grundschulmax/av/fuchs-h.webp" alt="">` + HI('fx/gold', 'hsst'), t: 'Dein Abenteuer', p: 'Jedes Feld ist eine kleine Lektion, immer ein anderes Fach. Tippe auf das leuchtende Feld, dann hüpfst du nach jeder Lektion weiter.' },
-  { s: 'hs-faecher', h: () => HI('start/i-mathe', 'hq q1') + HI('start/i-sach', 'hq q2') + HI('start/i-sprachen', 'hq q3') + HI('start/i-ki', 'hq q4'), t: 'Fächer wählen', p: 'Mit „Meine Fächer“ nimmst du Fächer aus dem Pfad oder holst sie zurück. Links öffnest du jedes Fach einzeln.' },
+  { s: 'hs-pfad', h: () => HI('help/pfad', 'hsi hsmap') + HI('ui/star', 'hsst') + HI('ui/trophy', 'hstr'), t: 'Dein Abenteuer', p: 'Jedes Feld ist eine kleine Lektion, immer ein anderes Fach. Tippe auf das leuchtende Feld, dann hüpfst du nach jeder Lektion weiter.' },
+  { s: 'hs-faecher', h: () => HI('help/r-mathe', 'hq hr q1') + HI('help/r-deutsch', 'hq hr q2') + HI('help/r-englisch', 'hq hr q3') + HI('help/r-sach', 'hq hr q4'), t: 'Fächer wählen', p: 'Mit „Meine Fächer“ nimmst du Fächer aus dem Pfad oder holst sie zurück. Links öffnest du jedes Fach einzeln.' },
   { s: 'hs-hw', h: () => `<img class="hsmax" src="/grundschulmax/tut-max.png" alt="">` + HI('rot/stift', 'hspen') + HI('rot/ok', 'hsok'), t: 'Hausaufgaben', p: 'Foto vom Arbeitsblatt machen. Max erklärt Schritt für Schritt, ohne die Lösung zu verraten. Du findest das immer links unter „Hausaufgaben“.' },
   { s: 'hs-profil', h: () => ['fuchs', 'hase', 'panda', 'eule'].map((a, k) => `<img class="hsav v${k}" src="/grundschulmax/av/${a}-h.webp" alt="">`).join(''), t: 'Profil und Eltern', p: 'Im Profil wählst du dein Tier und deinen Namen. Der Elternbereich ist mit einem Passwort gesichert.' },
 ];
@@ -10962,6 +11140,18 @@ setTimeout(() => { try { Object.keys(AV).forEach((k) => { if (AVX[k]) ['n', 'b',
 
 /* Laptop-Startseite: Einheit = Bildpixel (1536 breit) */
 (() => { const f = () => { const cw = document.documentElement.clientWidth, u = cw / 1536; document.body.style.setProperty('--uL', u + 'px'); document.body.style.setProperty('--x0', '0px'); }; f(); addEventListener('resize', f); })();
+
+/* Hausaufgaben-Zimmer: die Katze atmet */
+function hwCat() {
+  const m = $('#app .amain'); if (!m) return; let c = $('.hwcat', m);
+  if (!c) { c = document.createElement('img'); c.className = 'hwcat'; c.alt = ''; m.prepend(c); }
+  const place = () => { if ($('#app').dataset.v !== 'hw') { c.style.display = 'none'; return; } c.style.display = '';
+    const port = matchMedia('(max-aspect-ratio:4/5)').matches, W0 = m.clientWidth, vh = innerHeight, w = Math.max(W0, vh * (port ? .667 : 1.5)), h = w * (port ? 1.5 : 1 / 1.5), x0 = (W0 - w) / 2;
+    const B = port ? [75.63, 65.43, 98.59, 76.48] : [81.37, 59.75, 97.97, 76.63];
+    c.src = '/grundschulmax/sp/room/' + (port ? 'hw-m' : 'hw') + '-cat.webp';
+    c.style.cssText = `left:${x0 + B[0] / 100 * w}px;top:${B[1] / 100 * h}px;width:${(B[2] - B[0]) / 100 * w}px;height:${(B[3] - B[1]) / 100 * h}px`; };
+  place(); if (!hwCat.on) { hwCat.on = 1; addEventListener('resize', place); }
+}
 </script>
 </body>
 </html>
