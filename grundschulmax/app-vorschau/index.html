@@ -3993,6 +3993,18 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
   body[data-screen=start] .hero .ctas .b3d{height:calc(var(--u)*128)!important}
   body[data-screen=start] .hero .wrap.hc{padding-top:calc(var(--u)*1760)!important}
 }
+/* Handy-Start: oben nur Marke groß + Einloggen */
+@media (max-width:820px){
+  body[data-screen=start] .hcta{display:none!important}
+  body[data-screen=start] .nav .wrap.nav3{display:flex!important;justify-content:space-between;align-items:center}
+  body[data-screen=start] .nav3 .brand>span:last-child{display:inline!important;font-size:calc(var(--u)*64);color:#fff;text-shadow:0 calc(var(--u)*4) 0 rgba(120,50,0,.45),0 0 calc(var(--u)*14) rgba(0,0,0,.2);letter-spacing:-.02em}
+  body[data-screen=start] .nav3 .brand>span:last-child b{color:#ffe14d}
+  body[data-screen=start] .nav3 .brand{gap:calc(var(--u)*14)}
+  body[data-screen=start] .nav3 .navr{display:flex!important;justify-self:auto}
+  body[data-screen=start] .navr .ts,body[data-screen=start] .navr .td{display:none!important}
+  body[data-screen=start] .navr .hlogin{display:inline-flex!important;height:calc(var(--u)*92)!important;padding:0 calc(var(--u)*30)!important;font-size:calc(var(--u)*36)!important;border-radius:calc(var(--u)*30)!important}
+  body[data-screen=start] .navr .hlogin svg{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -4047,7 +4059,7 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
     <div class="navr">
       <a class="lk ts" href="#sicherheit" data-to="sicherheit"><svg class="i"><use href="#i-shield"/></svg>Sicherheit</a>
       <a class="lk td" href="#datenschutz" data-to="datenschutz"><svg class="i"><use href="#i-lock"/></svg>Datenschutz</a>
-      <button class="lk hlogin" id="hlogin" type="button"><svg class="i"><use href="#i-key"/></svg>Anmelden</button>
+      <button class="lk hlogin" id="hlogin" type="button"><svg class="i"><use href="#i-key"/></svg>Einloggen</button>
     </div>
   </div>
 </header>
