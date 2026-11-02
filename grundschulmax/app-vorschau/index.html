@@ -4294,6 +4294,12 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
   body[data-screen=start] .hero{overflow:hidden!important}
   body[data-screen=start] .hero .wrap.hc{box-shadow:none!important}
 }
+/* Laptop: oben echtes breites Zimmer statt Unschärfe */
+@media (min-width:821px){
+  body[data-screen=start] .hero::before{inset:auto!important;filter:none!important;transform:none!important;left:calc(var(--x0,0px) - var(--uL)*991)!important;top:0!important;width:calc(var(--uL)*3518);height:calc(var(--uL)*1024);background:url(/grundschulmax/sp/desk/top-wide2.webp) 0 0/100% 100% no-repeat!important}
+}
+@media (min-width:821px){body[data-screen=start] .hero .wrap.hc{background:none!important}}
+@media (min-width:821px){body[data-screen=start] .hero::after{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 calc(var(--uL)*60));mask-image:linear-gradient(180deg,transparent 0,#000 calc(var(--uL)*60))}}
 </style>
 </head>
 <body>
@@ -8791,7 +8797,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = 'df0285fe';
+const PFV = 'dbad2cab';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
