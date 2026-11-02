@@ -4649,6 +4649,20 @@ body[data-screen=klasse]{overflow:visible!important;overflow-x:hidden!important}
 .cdeco{position:absolute;z-index:-1;pointer-events:none;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25))}
 .cmap{left:3%;bottom:4%;width:min(15%,120px);rotate:-12deg}.cshov{right:3%;bottom:5%;width:min(12%,96px);rotate:18deg}
 @media (max-width:560px){.s-chest .cst.nc{min-width:44%!important}.s-chest .cst.nc .cl0{font-size:calc(16px * var(--fs,1))!important}.cdeco{display:none}}
+/* Lektion: Spielname lesbar, Reihenfolge-Karten im Raster, Ton-Knopf mittig mit Kreuz */
+.les:has(.lesfs.on) .leskind{color:#1d2a3a!important;opacity:1!important}
+.ordw .ord{display:grid!important;grid-template-columns:1fr 1fr;gap:10px;max-width:none}
+.ordw .oc{min-height:56px}
+.les .lmute{display:grid!important;place-items:center;padding:0!important;font-size:20px;position:relative;line-height:0}
+.les .lmute svg{display:block;margin:0}
+.les .lmute.off{background:#f1eef6;color:#8d86a3;box-shadow:0 3px 0 #dcd6ea}
+[data-mute]{position:relative}
+[data-mute].off::before,[data-mute].off::after{content:"";position:absolute;left:50%;top:50%;width:62%;height:3.5px;border-radius:3px;background:#ef4458;box-shadow:0 0 0 1.5px #fff;translate:-50% -50%;rotate:45deg;pointer-events:none}
+[data-mute].off::after{rotate:-45deg}
+.les .lesstk:not(.on){opacity:1!important;color:#b9ae9c!important}
+.les.inroom .osl:not(.full){background:rgba(20,30,60,.38);color:#fff}
+.oslots{grid-auto-columns:minmax(0,1fr)!important}.osl{min-width:0}
+@media (max-width:560px){.osl small{font-size:10px;letter-spacing:.02em}.osl{padding:8px 4px!important}}
 </style>
 </head>
 <body>
@@ -5168,7 +5182,7 @@ let WHO = 'all';                   // wer spricht die folgenden Sätze (Tutor de
 const vk = (t, lang = 'de') => { const k = lang + ':' + t; if (!VL.has(k)) VL.set(k, { t, lang, who: new Set() }); VL.get(k).who.add(WHO); return k; };
 const CLIPS = window.CLIPS || {};  // Schlüssel -> Audio-URL (wird beim Export eingebettet)
 let voiceOn = (() => { try { return localStorage.getItem('gsm-mute') !== '1'; } catch (e) { return true; } })(), AC = null, curAudio = null;
-function setVoice(on) { voiceOn = on; try { localStorage.setItem('gsm-mute', on ? '0' : '1'); } catch (e) {} if (!on) stopVoice(); document.querySelectorAll('[data-mute]').forEach((b) => { b.classList.toggle('off', !on); b.innerHTML = I(on ? 'snd' : 'mute'); b.setAttribute('aria-label', on ? 'Ton ausschalten' : 'Ton einschalten'); }); }
+function setVoice(on) { voiceOn = on; try { localStorage.setItem('gsm-mute', on ? '0' : '1'); } catch (e) {} if (!on) stopVoice(); document.querySelectorAll('[data-mute]').forEach((b) => { b.classList.toggle('off', !on); b.innerHTML = I('snd'); b.setAttribute('aria-label', on ? 'Ton ausschalten' : 'Ton einschalten'); }); }
 function stopVoice() { try { if (curAudio) { curAudio.onended = null; curAudio.onerror = null; curAudio.pause(); curAudio = null; } if (typeof hwSrc !== 'undefined' && hwSrc) { hwSrc.stop(); hwSrc = null; } speechSynthesis.cancel(); } catch (e) {} }
 /* Nur echte Stimmen (ElevenLabs-Clips). Ohne Clip bleibt es still, keine Roboterstimme. */
 let AUD = null;
@@ -8955,7 +8969,17 @@ const GHK = {}; Object.entries({ ...GHINT, order: 'Tippe die Karten der Reihe na
 const GHI = { pop: 'balloon', planet: 'star', frog: 'frog', mole: 'target', fish: 'drop', goal: 'target', chest: 'coin', thumb: 'check', flip: 'cards', pairs: 'cards', train: 'train', bubbles: 'bubble', sort: 'sort', safe: 'lock', mc: 'bulb' };
 function lesNext() {
   if (!LS.q.length) return lesEnd();
+  /* Immer abwechselnd: Spiel, Quizfrage, Spiel, Quizfrage ... */
+  const QK = ['tf', 'pad', 'pairs', 'build', 'spell', 'order', 'sort'], canGame = (q) => !QK.includes(q.k) && Array.isArray(q.w) && Math.max(...[q.a, ...q.w].map((t) => String(t).length)) <= Math.max(...Object.values(SKINMAX));
+  const wantGame = LS.nextGame !== false;
+  let qi = LS.q.findIndex((q) => (wantGame ? canGame(q) : QK.includes(q.k) && q.k !== 'tf' && q.k !== 'pad'));
+  if (qi < 0 && !wantGame) qi = LS.q.findIndex((q) => QK.includes(q.k));
+  if (qi < 0 && !wantGame) { qi = LS.q.findIndex((q) => canGame(q)); if (qi >= 0) LS.q[qi]._quiz = 1; }
+  if (qi < 0 && wantGame) { const pi = LS.q.findIndex((q) => q.k === 'pad' && /^\d+$/.test(String(q.a).replace(/\D/g, '')) && String(q.a).replace(/\D/g, '').length <= 7); if (pi >= 0) { const t = LS.q[pi], n = +String(t.a).replace(/\D/g, ''), w = new Set(); for (const d of shuf([1, -1, 10, -10, 2, 100, -100])) { const v = n + d; if (v >= 0 && v !== n && w.size < 3) w.add(v); } LS.q[pi] = { ...t, k: 'mc', a: String(n), w: [...w].map(String), _pad: 1 }; qi = pi; } }
+  if (qi < 0 && wantGame) { qi = LS.q.findIndex((q) => q.k === 'tf'); if (qi >= 0) { const t = LS.q[qi]; LS.q[qi] = { ...t, k: 'mc', q: t.q + ' Stimmt das?', a: 'Stimmt', w: ['Stimmt nicht'], _tf: 1 }; } }
+  if (qi > 0) LS.q.unshift(LS.q.splice(qi, 1)[0]);
   const x = LS.cur = LS.q.shift(), T = LS.T, k = skinFor(x);
+  LS.nextGame = !(k in SKINMAX);
   LS.used[k] = (LS.used[k] || 0) + 1; LS.lastSkin = k; clearTimeout(LS.adv);
   LS.state = 'idle'; les.dataset.state = 'idle';
   $('.leskind', les).innerHTML = `<span class="lkb">${I(SKINIC[k] || 'star')}</span>${SKINNAME[k] || 'Spiel'}${x._re ? '<em>Nochmal</em>' : ''}`; restart($('.leskind', les), 'new');
@@ -9209,7 +9233,7 @@ function customEnd() {
 }
 
 /* Spiele im Vollbild: der Hintergrund des Spiels füllt den ganzen Bildschirm, weicher Übergang zwischen Spielen */
-const ROOMS = { mathe: 'mathe', deutsch: 'deutsch', englisch: 'englisch' };
+const ROOMS = { mathe: 'mathe', deutsch: 'deutsch', englisch: 'englisch', sach: 'sach', ki: 'ki', franz: 'franz' }, ROOMM = { mathe: 1 };
 function lesFS(host) {
   const box = $('.lesin', les); if (!box) return;
   let fs = $('.lesfs', les); if (!fs) { fs = document.createElement('div'); fs.className = 'lesfs'; fs.innerHTML = '<i></i><i></i>'; box.insertBefore(fs, $('.lesmain', les)); }
@@ -9218,7 +9242,7 @@ function lesFS(host) {
     let sc = $('.qscn', host) || [...host.querySelectorAll(':scope > *, :scope > * > *')].find((e) => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return r.width > hr.width * .7 && r.height > 160 && /gradient|url/.test(cs.backgroundImage); });
     let bg = '';
     const room = ROOMS[les.dataset.k], game = sc && $('.gbg', sc);
-    if (room && !game) { bg = `url("/grundschulmax/sp/room/${room}.webp") 50% 30%/cover no-repeat`; if (sc) sc.classList.add('fsx'); les.classList.add('inroom'); } else les.classList.remove('inroom');
+    if (room && !game) { const port = innerHeight > innerWidth * 1.15 && ROOMM[room]; bg = `url("/grundschulmax/sp/room/${room}${port ? '-m' : ''}.webp") 50% ${port ? '20%' : '30%'}/cover no-repeat`; if (sc) sc.classList.add('fsx'); les.classList.add('inroom'); } else les.classList.remove('inroom');
     if (sc && !bg) { const im = $('.gbg', sc); if (im) bg = `url("${im.src}") 50% 50%/cover no-repeat`; else { const cs = getComputedStyle(sc); bg = cs.backgroundImage !== 'none' ? `${cs.backgroundImage.replace(/\)\s*,/g, '),')} 50% 50%/cover no-repeat, ${cs.backgroundColor}` : cs.backgroundColor; } sc.classList.add('fsx'); }
     const [a, b] = fs.children, cur = fs.dataset.on === '1' ? b : a, nxt = cur === a ? b : a;
     if (!bg) { if (fs.classList.contains('on')) return; const W0 = { meer: 'fish/bg', wiese: 'mole/bg2', all: 'planet/bg', stadion: 'goal/bg', insel: 'chest/bg', kirmes: 'goal/bg' }[les.dataset.world] || 'mole/bg2'; const [g, f] = W0.split('/'); bg = `url("/grundschulmax/sp/${g}2/${f}.webp") 50% 50%/cover no-repeat`; }
@@ -9402,6 +9426,7 @@ const SKINNAME = { pop: 'Ballon-Jagd', planet: 'Raketen-Flug', frog: 'Frosch-Hü
 const SKINIC = { pop: 'balloon', planet: 'star', frog: 'frog', mole: 'target', fish: 'drop', goal: 'target', chest: 'coin', thumb: 'check', flip: 'cards', pairs: 'cards', train: 'train', bubbles: 'bubble', sort: 'sort', order: 'sort', safe: 'lock', mc: 'bulb' };
 function skinFor(x) {
   const k = x.k, W = LS.world, used = LS.used;
+  if (x._quiz) return 'mc';
   if (k === 'tf') return 'thumb';
   if (k === 'pad') return 'safe';
   if (k === 'pairs') return x.p.length <= 6 && x.p.every((p) => p[0].length <= 22 && p[1].length <= 22) && (x.last || used.flip === undefined) ? 'flip' : 'pairs';
