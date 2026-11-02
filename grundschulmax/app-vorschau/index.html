@@ -4284,6 +4284,9 @@ body[data-screen=klasse] .view[data-s=klasse] .sbar .kback{display:inline-flex!i
 body[data-screen=klasse] .view[data-s=klasse] .sbar .kback::before{content:"←";font-weight:900}
 body[data-screen=klasse] .view[data-s=klasse]{position:relative}
 body[data-screen=klasse] .pkteam{margin-top:64px!important}
+/* Wolken und Vogel nur im Himmel: hinter Big Ben und hinter dem Fensterrahmen */
+@media (max-width:820px){.desk .dlon{-webkit-mask:url(/grundschulmax/sp/desk/skym.png) 0 0/100% 100% no-repeat;mask:url(/grundschulmax/sp/desk/skym.png) 0 0/100% 100% no-repeat}}
+@media (min-width:821px){.deskL .llon{height:calc(var(--uL)*330)!important;-webkit-mask:url(/grundschulmax/sp/desk/skyl.png) 0 0/100% 100% no-repeat;mask:url(/grundschulmax/sp/desk/skyl.png) 0 0/100% 100% no-repeat}}
 </style>
 </head>
 <body>
