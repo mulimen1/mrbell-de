@@ -4108,6 +4108,23 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
   body[data-screen=start] .hero p.lead{top:calc(var(--u)*2300)!important;font-size:calc(var(--u)*36)!important}
   body[data-screen=start] .hero p.lead .lbig{font-size:calc(var(--u)*52)!important}
 }
+@media (max-width:820px){
+  body[data-screen=start] .hero .pill{display:inline-flex!important;position:absolute!important;z-index:3;left:50%;transform:translateX(-50%);top:calc(var(--u)*1690);margin:0!important;white-space:nowrap;font-size:calc(var(--u)*30)!important;padding:calc(var(--u)*12) calc(var(--u)*26) calc(var(--u)*12) calc(var(--u)*12)!important;gap:calc(var(--u)*12);background:#fff!important;color:#1d1b26!important;border-radius:99px;box-shadow:0 calc(var(--u)*5) 0 rgba(120,50,0,.35)!important}
+  body[data-screen=start] .hero .pill i{width:calc(var(--u)*44);height:calc(var(--u)*44)}
+  body[data-screen=start] .hero .wrap.hc{padding-top:calc(var(--u)*1800)!important}
+}
+/* Handy Fach-Ansicht: Lernpfad Vollbild, Menü unten, Einrichten ganz unten */
+@media (max-width:820px){
+  .app[data-v=subj] .amain{position:fixed!important;inset:0!important;padding:0!important;margin:0!important;background:none!important;overflow:hidden!important}
+  .app[data-v=subj] .amain .demo,.app[data-v=subj] #game{position:absolute!important;inset:0!important;padding:0!important;margin:0!important;background:none!important}
+  .app[data-v=subj] .zhead,.app[data-v=subj] .lpsum{display:none!important}
+  .app[data-v=subj].world .wpane[data-w=path]{position:absolute!important;inset:0!important;padding:0!important;margin:0!important}
+  .app[data-v=subj].world #lpath{position:absolute!important;inset:0!important;height:auto!important;min-height:0!important;margin:0!important;border-radius:0!important}
+  .app[data-v=subj]{--pat:none!important;background:none!important}
+  body.did1:not(.paid) .app[data-v=subj] .wtabs{bottom:calc(76px + env(safe-area-inset-bottom))!important;border-radius:20px!important;left:10px!important;right:10px!important}
+  body.did1 .app[data-v=subj] .afab{bottom:calc(10px + env(safe-area-inset-bottom))!important}
+  body.paid .app .afab{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -4199,7 +4216,7 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
         <a class="b3d w lg" href="#faecher" data-to="faecher">Alle Fächer ansehen</a>
       </div>
       <div class="small"><span class="hwl"><svg class="i"><use href="#i-cam"/></svg>Max hilft bei den Hausaufgaben</span><span><svg class="i"><use href="#i-check"/></svg>Lernpfad wie bei einer Sprach-App</span><span><svg class="i"><use href="#i-check"/></svg>Direkt hier im Browser</span><span><svg class="i"><use href="#i-check"/></svg>Ohne Anmeldung</span></div>
-      <p class="lead"><b class="lbig">Machen Sie Ihr Kind fit für die Grundschule. Und fit für Internet und KI.</b>Ein eigener Lernpfad mit Level und Lernspielen in jedem Fach, Klasse 1 bis 4. Ihr Kind lernt, weil es spielen will. Und wenn die Hausaufgabe klemmt: Foto machen, Max erklärt den Weg, ohne die Lösung zu verraten.</p>
+      <p class="lead"><b class="lbig">Machen Sie Ihr Kind spielerisch fit für die Grundschule. Und für Internet und KI.</b>Lernen, das sich wie Spielen anfühlt: Lernspiele und ein eigener Lernpfad mit Level in jedem Fach, Klasse 1 bis 4. Ihr Kind lernt, weil es Spaß macht. Und wenn die Hausaufgabe klemmt: Foto machen, Max erklärt den Weg, ohne die Lösung zu verraten.</p>
     </div>
   </section>
 </div>
@@ -8576,6 +8593,7 @@ function customEnd() {
 
 function markTried() { try { localStorage.setItem('gsm-tried', '1'); } catch (e) {} document.body.classList.add('did1'); const sp = document.getElementById('spot'); if (sp) sp.classList.remove('on'); }
 try { if (localStorage.getItem('gsm-tried')) document.body.classList.add('did1'); } catch (e) {}
+setTimeout(() => { try { if (PAID) document.body.classList.add('paid'); } catch (e) {} }, 0);
 /* ---------- Abenteuer-Pfad: alle Fächer gemischt, jede Station ein anderes Fach ---------- */
 const MIX_ORDER = ['englisch', 'ki', 'mathe', 'deutsch', 'sach', 'franz'], MIX_FREE = 3, MIX_AHEAD = 14;
 const MIX_X = [0, 140, 210, 140, 0, -140, -210, -140];
@@ -8595,7 +8613,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = 'e0e542c0';
+const PFV = '1a0e4a17';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -9682,6 +9700,7 @@ function mount() {
   const NC = { home: ['#ffa63d', '#d4550c', 'deutsch'], hw: ['#4f9cf7', '#1a5fc4', 'mathe'], profile: ['#4f8ff0', '#1a4fb4', 'deutsch'], parents: ['#3fc1a0', '#0e7f6a', 'sach'] }[st.nav];
   if (NC) { app.style.setProperty('--c1', NC[0]); app.style.setProperty('--c2', NC[1]); app.style.setProperty('--pat', patURL(NC[2])); }
   $$('#tabs .tab').forEach((t, i) => { t.classList.toggle('on', st.nav === 'subj' && i === st.s); t.setAttribute('aria-selected', i === st.s); });
+  if (innerWidth <= 820) requestAnimationFrame(() => { const on = $('.aside .tab.on, .aside .anv.on'), nv = $('.aside .anav'); if (on && nv) nv.scrollTo({ left: Math.max(0, on.offsetLeft - (nv.clientWidth - on.offsetWidth) / 2), behavior: 'smooth' }); });
   if (st.nav === 'home') drawMix(); else if (PF) PF.hideCard();
   if (st.nav !== 'subj') { drawLPCards(); $('.amain').scrollTop = 0; return; }
   $$('#wtabs button').forEach((b) => b.classList.toggle('on', b.dataset.w === st.w));
