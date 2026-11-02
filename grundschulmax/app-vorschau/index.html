@@ -3734,6 +3734,83 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
   .app.world .afab,.app[data-v=home] .afab{bottom:14px!important;right:14px!important;left:auto!important}
   .app .afab{bottom:14px!important;right:14px!important;left:auto!important}
 }
+
+/* ===== Startseite: schwebende Fach-Inseln ===== */
+body[data-screen=start] .hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#bfe5ff 0%,#d9f0ff 42%,#eef3ee 78%,var(--bg) 100%)}
+.hero .wrap.hc{position:static}
+.hero .wrap.hc>*:not(.isles){position:relative;z-index:2}
+.hero .h1 .grad{position:relative}
+.isles{position:absolute;inset:0;pointer-events:none}
+.isles .isky{position:absolute;inset:0;z-index:0;overflow:hidden}
+.isky .skc{position:absolute;display:block;height:64px;border-radius:99px;background:#fff;opacity:.85;filter:blur(2px);animation:skc 110s linear infinite}
+.isky .skc::before,.isky .skc::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.isky .skc::before{width:46%;height:150%;left:16%;bottom:30%}
+.isky .skc::after{width:34%;height:120%;left:50%;bottom:34%}
+.isky .sk1{width:190px;top:9%;animation-delay:-20s}
+.isky .sk2{width:130px;top:30%;animation-duration:140s;animation-delay:-90s;opacity:.7}
+.isky .sk3{width:230px;top:58%;animation-duration:170s;animation-delay:-60s;opacity:.6}
+.isky .sk4{width:150px;top:78%;animation-duration:125s;animation-delay:-5s;opacity:.55}
+@keyframes skc{from{transform:translateX(-260px)}to{transform:translateX(calc(100vw + 260px))}}
+.isl{--iw:clamp(190px,17.5vw,262px);position:absolute;z-index:3;width:var(--iw);padding:0;border:0;background:none;cursor:pointer;pointer-events:auto;display:flex;flex-direction:column;align-items:center;-webkit-tap-highlight-color:transparent}
+.il-m{left:2.2vw;top:26px}
+.il-s{left:1.6vw;bottom:10px}
+@media (min-width:1181px){body[data-screen=start] .hero .small{max-width:640px;justify-content:center;row-gap:6px}}
+.il-l{right:2vw;top:30px}
+.il-k{right:1.6vw;bottom:4px}
+.isb{position:relative;display:block;width:100%;aspect-ratio:1;animation:ifl 7s ease-in-out infinite;transition:transform .35s cubic-bezier(.3,1.6,.5,1),filter .3s}
+.isb>img:first-child{display:block;width:100%;height:100%;filter:drop-shadow(0 18px 22px rgba(30,70,120,.22))}
+.il-s .isb{animation-delay:-2.2s}.il-l .isb{animation-delay:-4.1s}.il-k .isb{animation-delay:-5.6s}
+@keyframes ifl{0%,100%{translate:0 0}50%{translate:0 -12px}}
+.isl:hover .isb{transform:scale(1.05);filter:saturate(1.12)}
+.isl:active .isb{transform:scale(.97)}
+.ish{display:none}
+.ilb{display:inline-flex;align-items:center;gap:6px;margin-top:-4%;padding:5px 13px 5px 6px;border-radius:99px;background:#fff;color:var(--c);font:800 14px/1 inherit;box-shadow:0 4px 0 color-mix(in srgb,var(--c) 30%,#fff),0 8px 18px rgba(30,60,110,.12);transition:transform .25s}
+.ilb img{width:26px;height:26px;border-radius:50%;object-fit:cover;background:color-mix(in srgb,var(--c) 18%,#fff);border:2px solid #fff}
+.ilb img+img{margin-left:-14px}
+.isl:hover .ilb{transform:translateY(-2px)}
+/* Mathe: Zahlen schweben */
+.num{position:absolute;width:10%;animation:nfl 5s ease-in-out infinite;filter:drop-shadow(0 6px 6px rgba(0,0,0,.15))}
+.u1{left:1%;top:4%}.u2{left:47%;top:-7%;animation-delay:-1.6s}.u3{right:1%;top:2%;animation-delay:-3.2s}
+@keyframes nfl{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-14px) rotate(8deg)}}
+/* Sprachen: Flaggen wehen an den Masten */
+.fl{position:absolute;width:12.5%;transform-origin:0 30%;animation:fwv 2.6s ease-in-out infinite;filter:drop-shadow(0 3px 3px rgba(0,0,0,.18))}
+.flu{left:32.1%;top:16.3%}.flf{left:64%;top:11.3%;animation-delay:-.9s}.fld{left:96.2%;top:23.4%;animation-delay:-1.7s}
+@keyframes fwv{0%,100%{transform:skewY(0) scaleX(1)}35%{transform:skewY(-6deg) scaleX(.9)}70%{transform:skewY(3deg) scaleX(.96)}}
+/* KI: Lampe flackert, Funkturm sendet */
+.glw{position:absolute;left:27.4%;top:39.4%;width:11%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(160,240,255,.95) 0,rgba(90,210,255,.45) 40%,rgba(90,210,255,0) 70%);mix-blend-mode:screen;animation:lmp 4s steps(1) infinite}
+@keyframes lmp{0%,100%{opacity:1}8%{opacity:.25}11%{opacity:1}14%{opacity:.4}17%{opacity:1}60%{opacity:.95}62%{opacity:.3}64%{opacity:1}}
+.rw{position:absolute;left:63%;top:6%;width:9%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;border:3px solid rgba(70,200,255,.85);opacity:0;animation:rwv 2.7s ease-out infinite}
+.rw.r2{animation-delay:.9s}.rw.r3{animation-delay:1.8s}
+@keyframes rwv{0%{transform:scale(.4);opacity:.95}100%{transform:scale(2.6);opacity:0}}
+/* Sachunterricht: Schmetterlinge */
+.bf{position:absolute;width:10%;pointer-events:none}
+.bf img{display:block;width:100%;animation:flp .22s ease-in-out infinite alternate}
+@keyframes flp{to{transform:scaleX(.35)}}
+.bf.a{left:8%;top:10%;animation:bfa 11s ease-in-out infinite}
+.bf.b{left:70%;top:6%;animation:bfb 13s ease-in-out infinite}
+.bf.c{left:44%;top:46%;width:8%;animation:bfc 9s ease-in-out infinite}
+@keyframes bfa{0%,100%{transform:translate(0,0) rotate(-10deg)}25%{transform:translate(90%,-60%) rotate(12deg)}50%{transform:translate(200%,20%) rotate(-6deg)}75%{transform:translate(70%,80%) rotate(10deg)}}
+@keyframes bfb{0%,100%{transform:translate(0,0) rotate(8deg)}30%{transform:translate(-120%,70%) rotate(-12deg)}60%{transform:translate(40%,140%) rotate(6deg)}80%{transform:translate(90%,30%) rotate(-8deg)}}
+@keyframes bfc{0%,100%{transform:translate(0,0)}33%{transform:translate(-90%,-80%)}66%{transform:translate(110%,-40%)}}
+/* Tablet und Handy: Inseln als Reihe über der Überschrift */
+@media (max-width:1180px){
+  .isles{position:relative;inset:auto;order:-1;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;width:min(100%,620px);margin:0 auto 4px;padding-top:6px}
+  .isles .isky{display:none}
+  .hero .wrap.hc>.pill{margin-top:8px}
+  .isl{position:relative;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:100%}
+  .ilb{font-size:11.5px;padding:4px 8px;margin-top:-6%;box-shadow:0 3px 0 color-mix(in srgb,var(--c) 30%,#fff)}
+  .ilb img{display:none}
+  .il-l .ilb::after{content:""}
+  @keyframes ifl{0%,100%{translate:0 0}50%{translate:0 -6px}}
+}
+@media (max-width:600px){
+  .isles{gap:0;margin-bottom:0;width:calc(100% + 16px);margin-left:-8px}
+  .ilb{font-size:10px;padding:3px 7px}
+  .il-k .ilb{font-size:0}.il-k .ilb::before{content:"KI";font-size:10px}
+  .il-s .ilb{font-size:9px;padding:3px 5px}
+  .num{display:none}
+}
+@media (prefers-reduced-motion:reduce){.isb,.num,.fl,.glw,.rw,.bf,.bf img,.isky .skc{animation:none!important}.rw{display:none}}
 </style>
 </head>
 <body>
@@ -3797,6 +3874,13 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 <div class="view" data-s="start">
   <section class="hero">
     <div class="wrap hc">
+      <div class="isles">
+        <div class="isky"><span class="skc sk1"></span><span class="skc sk2"></span><span class="skc sk3"></span><span class="skc sk4"></span></div>
+        <button class="isl il-m" type="button" data-i="0" aria-label="Mathe-Welt"><span class="isb"><img src="/grundschulmax/sp/start/i-mathe.webp" alt="" width="600" height="600" fetchpriority="high"><img class="num u1" src="/grundschulmax/sp/start/n1.webp" alt=""><img class="num u2" src="/grundschulmax/sp/start/n2.webp" alt=""><img class="num u3" src="/grundschulmax/sp/start/n3.webp" alt=""></span><span class="ish"></span><b class="ilb" style="--c:#2f6fe0"><img src="/grundschulmax/tut-mila.png" alt="">Mathe</b></button>
+        <button class="isl il-s" type="button" data-i="4" aria-label="Sachunterricht-Welt"><span class="isb"><img src="/grundschulmax/sp/start/i-sach.webp" alt="" width="600" height="600"><span class="bf a"><img src="/grundschulmax/sp/start/b0.webp" alt=""></span><span class="bf b"><img src="/grundschulmax/sp/start/b1.webp" alt=""></span><span class="bf c"><img src="/grundschulmax/sp/start/b3.webp" alt=""></span></span><span class="ish"></span><b class="ilb" style="--c:#2a9a55"><img src="/grundschulmax/tut-frieda.png" alt="">Sachunterricht</b></button>
+        <button class="isl il-l" type="button" data-to="faecher" aria-label="Sprachen-Welt"><span class="isb"><img src="/grundschulmax/sp/start/i-sprachen.webp" alt="" width="600" height="600"><img class="fl flu" src="/grundschulmax/sp/start/f-uk.webp" alt=""><img class="fl flf" src="/grundschulmax/sp/start/f-fr.webp" alt=""><img class="fl fld" src="/grundschulmax/sp/start/f-de.webp" alt=""></span><span class="ish"></span><b class="ilb" style="--c:#d43f7a"><img src="/grundschulmax/tut-max.png" alt=""><img src="/grundschulmax/tut-emma.png" alt=""><img src="/grundschulmax/tut-claude.png" alt="">Sprachen</b></button>
+        <button class="isl il-k" type="button" data-i="5" aria-label="Internet-und-KI-Welt"><span class="isb"><img src="/grundschulmax/sp/start/i-ki.webp" alt="" width="600" height="600"><i class="glw"></i><i class="rw"></i><i class="rw r2"></i><i class="rw r3"></i></span><span class="ish"></span><b class="ilb" style="--c:#e8701f"><img src="/grundschulmax/tut-bit.png" alt="">Internet und KI</b></button>
+      </div>
       <span class="pill"><i><svg class="i"><use href="#i-check"/></svg></i> Von den Machern von BWL Max</span>
       <h1 class="h1">Fit für die Schule.<br><span class="grad">Und fit für Internet und KI.</span></h1>
       <div class="teamrow">
@@ -9320,6 +9404,7 @@ if ($('#goki')) $('#goki').onclick = () => goTo(5);
 /* Team im Hero und Abschnitt */
 $$('[data-team]').forEach((el) => (el.innerHTML = SUBJ.map((s, i) => `<button class="tm" data-go="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="tmc"><span class="tma">${tutorHTML(s.tutor.id)}</span></span><b>${s.tutor.n}</b><small>${s.n}</small></button>`).join('')));
 $$('.tm').forEach((b) => (b.onclick = () => tutorIntro(+b.dataset.go)));
+$$('.isl[data-i]').forEach((b) => (b.onclick = () => tutorIntro(+b.dataset.i)));
 if ($('#tnames')) $('#tnames').innerHTML = SUBJ.map((s) => `<span style="--c1:${s.c1};--c2:${s.c2}"><i></i>${s.tutor.n} · ${s.n}</span>`).join('');
 
 /* ---------- Foto-Zauber ---------- */
