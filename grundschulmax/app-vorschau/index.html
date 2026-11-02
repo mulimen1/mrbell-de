@@ -8259,7 +8259,9 @@ async function drawMix() {
   const c = $('#ahome'); if (!c) return; PFHOST.key = 'mix';
   const first = !PF; await pfShow(c, PFHOST);
   if (first) { let i = 0; const pre = () => { if (i >= SUBJ.length || !PF) return; try { PF.prebuild(subjHost(i++).theme()); } catch (e) {} setTimeout(pre, 400); }; setTimeout(pre, 2500);
-    let seen = '1'; try { seen = localStorage.getItem('gsm-help-seen'); } catch (e) {} if (!seen) setTimeout(() => openHelp(true), 900); }
+    // Tutorial erst, wenn das Kind wirklich im Spiel ist (Pfad sichtbar und geladen), nie auf der Startseite
+    const tryHelp = () => { let seen = '1'; try { seen = localStorage.getItem('gsm-help-seen'); } catch (e) {} if (seen) return; const on = document.body.dataset.screen === 'spiel' && document.querySelector('.gw-load.off') && !document.querySelector('#help.on'); if (on) openHelp(true); else setTimeout(tryHelp, 800); };
+    setTimeout(tryHelp, 900); }
 }
 /* ---------- Fachwelten: jedes Fach hat seinen eigenen Pfad im gleichen Stil ---------- */
 const FICON = { mathe: ['+−', '×', '123', '=', '½'], deutsch: ['Aa', 'book', 'abc', 'chat', 'Ää'], englisch: ['EN', 'Hi', 'globe', 'ABC', 'chat'], franz: ['FR', 'Ça', 'globe', 'é', 'chat'], sach: ['leaf', 'sun', 'paw', 'drop', 'globe'], ki: ['shield', 'wifi', 'chat', 'lock', 'globe'] };
