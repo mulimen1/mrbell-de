@@ -8805,7 +8805,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = '9b9eec37';
+const PFV = '20b8816a';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -8869,7 +8869,7 @@ async function drawMix() {
 /* ---------- Fachwelten: jedes Fach hat seinen eigenen Pfad im gleichen Stil ---------- */
 const FICON = { mathe: ['+−', '×', '123', '=', '½'], deutsch: ['Aa', 'book', 'abc', 'chat', 'Ää'], englisch: ['EN', 'Hi', 'globe', 'ABC', 'chat'], franz: ['FR', 'Ça', 'globe', 'é', 'chat'], sach: ['leaf', 'sun', 'paw', 'drop', 'globe'], ki: ['shield', 'wifi', 'chat', 'lock', 'globe'] };
 const tintC = (hex, k) => { const n = parseInt(hex.slice(1), 16); let r = n >> 16, g = (n >> 8) & 255, b = n & 255; const f = (v) => Math.round(k > 0 ? v + (255 - v) * k : v * (1 + k)); return '#' + [f(r), f(g), f(b)].map((v) => v.toString(16).padStart(2, '0')).join(''); };
-const FWELT = { mathe: ['zahl', 'geo', 'muster'], deutsch: ['buch', 'wald', 'maerchen'], englisch: ['london', 'park', 'kueste'], franz: ['paris', 'lavendel', 'riviera'], sach: ['dschungel', 'fluss', 'hof'], ki: ['neon', 'chip', 'robo'] };
+const FWELT = { mathe: ['zahl', 'geo', 'muster'], deutsch: ['wald', 'maerchen', 'buch'], englisch: ['london', 'park', 'kueste'], franz: ['paris', 'lavendel', 'riviera'], sach: ['dschungel', 'fluss', 'hof'], ki: ['neon', 'chip', 'robo'] };
 function subjHost(si = st.s) {
   const S = SUBJ[si], g = Math.max(0, st.grade), L = lpLevels(S.k, g), p = lpProg(S.k, g);
   const L0 = Math.max(0, Math.min(Math.floor(p.n / PER) - 1, L.length - 6)), nL = Math.max(1, Math.min(6, L.length - L0));
