@@ -3811,6 +3811,30 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
   .num{display:none}
 }
 @media (prefers-reduced-motion:reduce){.isb,.num,.fl,.glw,.rw,.bf,.bf img,.isky .skc{animation:none!important}.rw{display:none}}
+/* Tutorial: gemalte Szenen statt Screenshots */
+.hpi.hs{position:relative;background:radial-gradient(120% 90% at 50% 0%,#e6f6ff 0,#b9e3ff 55%,#9fd3fb 100%)}
+.hpi.hs img{position:absolute;height:auto;object-fit:contain}
+.hpi.hs::before{content:"";position:absolute;inset:auto -10% -30% -10%;height:55%;background:radial-gradient(50% 60% at 50% 40%,rgba(255,255,255,.65),rgba(255,255,255,0))}
+.hpi.hs .hsi{left:50%;top:50%;width:62%;translate:-50% -50%;animation:hsf 4.5s ease-in-out infinite;filter:drop-shadow(0 14px 14px rgba(30,70,120,.25))}
+.hpi.hs .hsfox{left:44%;top:22%;width:20%;border-radius:50%;background:#fff;box-shadow:0 0 0 4px #fff,0 0 0 9px #ffc21a,0 10px 18px rgba(0,0,0,.25);animation:hsh 1.6s cubic-bezier(.3,0,.4,1) infinite}
+.hpi.hs .hsst{right:9%;top:9%;width:15%;animation:hss 3s ease-in-out infinite}
+@keyframes hsf{0%,100%{translate:-50% -50%}50%{translate:-50% -54%}}
+@keyframes hsh{0%,100%{transform:translateY(0)}40%{transform:translateY(-22%)}55%{transform:translateY(-22%)}}
+@keyframes hss{0%,100%{transform:rotate(-10deg) scale(1)}50%{transform:rotate(10deg) scale(1.12)}}
+.hpi.hs .hq{width:36%;animation:hqf 5s ease-in-out infinite;filter:drop-shadow(0 8px 8px rgba(30,70,120,.22))}
+.hpi.hs .q1{left:10%;top:2%}.hpi.hs .q2{left:54%;top:5%;animation-delay:-1.2s}.hpi.hs .q3{left:12%;top:49%;animation-delay:-2.4s}.hpi.hs .q4{left:54%;top:51%;animation-delay:-3.6s}
+@keyframes hqf{0%,100%{transform:translateY(0)}50%{transform:translateY(-6%)}}
+.hs-hw{background:#c9e8ff url(/grundschulmax/sp/rot/bg.webp) 50% 40%/cover!important}
+.hpi.hs .hsmax{left:8%;bottom:6%;width:40%;animation:hqf 4s ease-in-out infinite;filter:drop-shadow(0 10px 12px rgba(0,0,0,.25))}
+.hpi.hs .hspen{right:14%;top:12%;width:30%;transform-origin:10% 90%;animation:hsp 2.2s ease-in-out infinite}
+.hpi.hs .hsok{right:8%;bottom:8%;width:30%;animation:hso 2.2s ease-in-out infinite}
+@keyframes hsp{0%,100%{transform:rotate(-8deg) translate(0,0)}50%{transform:rotate(6deg) translate(-12%,8%)}}
+@keyframes hso{0%,40%{transform:scale(1.5);opacity:0}55%{transform:scale(.92);opacity:1}65%,100%{transform:scale(1);opacity:1}}
+.hs-profil{background:#2a3352 url(/grundschulmax/sp/tres/bg.webp) 50% 50%/cover!important}
+.hpi.hs .hssafe{left:50%;top:6%;width:42%;translate:-50% 0;filter:drop-shadow(0 12px 14px rgba(0,0,0,.35))}
+.hpi.hs .hsav{bottom:8%;width:19%;border-radius:50%;background:#fff;box-shadow:0 0 0 4px #fff,0 8px 14px rgba(0,0,0,.3);animation:hqf 3.4s ease-in-out infinite}
+.hpi.hs .v0{left:6%}.hpi.hs .v1{left:29%;animation-delay:-.8s}.hpi.hs .v2{left:52%;animation-delay:-1.6s}.hpi.hs .v3{left:75%;animation-delay:-2.4s}
+@media (prefers-reduced-motion:reduce){.hs img{animation:none!important}}
 </style>
 </head>
 <body>
@@ -9590,11 +9614,12 @@ $('#acol').onclick = () => aclSet(true);
 $('#aopen').onclick = () => aclSet(false);
 
 /* ---------- Hilfe: kurze Bilder-Tour ---------- */
+const HS = '/grundschulmax/sp/', HI = (f, c, st = '') => `<img class="${c}" src="${HS}${f}.webp" alt="" style="${st}">`;
 const HELP = [
-  { img: 'pfad', t: 'Dein Abenteuer', p: 'Jedes Feld ist eine kleine Lektion, immer ein anderes Fach. Tippe auf dein Feld (1), dann hüpfst du nach jeder Lektion weiter.' },
-  { img: 'faecher', t: 'Fächer wählen', p: 'Mit „Meine Fächer“ (1) nimmst du Fächer aus dem Pfad oder holst sie zurück. Links (2) öffnest du jedes Fach einzeln.' },
-  { img: 'hw', t: 'Hausaufgaben', p: 'Foto vom Arbeitsblatt machen (1). Max erklärt Schritt für Schritt, ohne die Lösung zu verraten. Du findest das immer links unter „Hausaufgaben“ (2).' },
-  { img: 'profil', t: 'Profil und Eltern', p: 'Oben ist der Elternbereich mit Passwort (1). Darunter wählst du dein Bild und deinen Namen (2).' },
+  { s: 'hs-pfad', h: () => HI('start/i-mathe', 'hsi') + `<img class="hsfox" src="/grundschulmax/av/fuchs-h.webp" alt="">` + HI('fx/gold', 'hsst'), t: 'Dein Abenteuer', p: 'Jedes Feld ist eine kleine Lektion, immer ein anderes Fach. Tippe auf das leuchtende Feld, dann hüpfst du nach jeder Lektion weiter.' },
+  { s: 'hs-faecher', h: () => HI('start/i-mathe', 'hq q1') + HI('start/i-sach', 'hq q2') + HI('start/i-sprachen', 'hq q3') + HI('start/i-ki', 'hq q4'), t: 'Fächer wählen', p: 'Mit „Meine Fächer“ nimmst du Fächer aus dem Pfad oder holst sie zurück. Links öffnest du jedes Fach einzeln.' },
+  { s: 'hs-hw', h: () => `<img class="hsmax" src="/grundschulmax/tut-max.png" alt="">` + HI('rot/stift', 'hspen') + HI('rot/ok', 'hsok'), t: 'Hausaufgaben', p: 'Foto vom Arbeitsblatt machen. Max erklärt Schritt für Schritt, ohne die Lösung zu verraten. Du findest das immer links unter „Hausaufgaben“.' },
+  { s: 'hs-profil', h: () => ['fuchs', 'hase', 'panda', 'eule'].map((a, k) => `<img class="hsav v${k}" src="/grundschulmax/av/${a}-h.webp" alt="">`).join(''), t: 'Profil und Eltern', p: 'Im Profil wählst du dein Tier und deinen Namen. Der Elternbereich ist mit einem Passwort gesichert.' },
 ];
 function openHelp(first) {
   let o = $('#help'); if (!o) { o = document.createElement('div'); o.id = 'help'; o.className = 'help'; document.body.appendChild(o); }
@@ -9603,7 +9628,7 @@ function openHelp(first) {
     const h = HELP[i];
     o.innerHTML = `<div class="hpc" role="dialog" aria-label="Hilfe"><button class="hpx" aria-label="Schließen">${I('x')}</button>
       <small>${first ? 'Willkommen bei Grundschulmax' : 'So funktioniert’s'} · ${i + 1} von ${HELP.length}</small>
-      <div class="hpi"><img src="/grundschulmax/hilfe/${h.img}.jpg" alt="" onerror="this.style.visibility='hidden'"></div>
+      <div class="hpi hs ${h.s}">${h.h()}</div>
       <b>${h.t}</b><p>${h.p}</p>
       <div class="hpdots">${HELP.map((_, k) => `<button class="${k === i ? 'on' : ''}" data-k="${k}" aria-label="Bild ${k + 1}"></button>`).join('')}</div>
       <div class="hprow">${i > 0 ? `<button class="b3d w" data-a="back">Zurück</button>` : ''}<button class="b3d c" data-a="next">${i < HELP.length - 1 ? `Weiter ${I('arrow')}` : 'Los geht’s!'}</button></div></div>`;
