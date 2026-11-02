@@ -3724,6 +3724,16 @@ body.dark .gwdock{background:rgba(30,34,48,.94)}body.dark .gwdock button{color:#
 .gstage.open .stop .tot{background:linear-gradient(160deg,#ffe066,#ffb000)!important;color:#5a3300!important;box-shadow:0 6px 0 #c47f00,0 0 22px rgba(255,190,0,.4)!important}
 .gstage.open .stop .tot svg{color:#fff!important;filter:drop-shadow(0 1px 2px rgba(150,80,0,.5))}
 .g-mem2 .mc .ba svg{width:74%!important;height:74%!important}
+/* Laptop: Fächer und Hilfe oben rechts unter den Werten, Kaufknopf allein unten rechts */
+@media (min-width:821px){
+  .gwdock{top:66px;bottom:auto;right:14px;padding:5px;gap:6px}
+  .gwdock button[data-d=hw],.gwdock button[data-d=profile]{display:none!important}
+  .gwdock button{height:42px;font-size:14.5px}
+  .gwdock .gwq{width:42px}
+  .gw .gw-subs{top:122px!important;bottom:auto!important;right:14px!important}
+  .app.world .afab,.app[data-v=home] .afab{bottom:14px!important;right:14px!important;left:auto!important}
+  .app .afab{bottom:14px!important;right:14px!important;left:auto!important}
+}
 </style>
 </head>
 <body>
@@ -8258,11 +8268,11 @@ function subjHost(si = st.s) {
   return {
     theme: () => ({ key: 'S' + S.k + g + '-' + L0, ch: [...Array(nL)].map((_, i) => FWELT[S.k][(L0 + i) % 3]), per: PER, seed: 7 + si * 13 + g }),
     chapter: (ch) => `<small>${S.n} · Level ${L0 + ch + 1}</small><b>${esc(L[L0 + ch] ? L[L0 + ch].t : '')}</b>`,
-    list: () => { const q = lpProg(S.k, g), out = []; for (let li = L0; li < L0 + nL; li++) for (let j = 0; j < PER; j++) { const n = li * PER + j, game = j === PER - 1, G0 = game ? S.games[li % S.games.length] : null;
+    list: () => { const q = lpProg(S.k, g), out = []; for (let li = L0; li < L0 + nL; li++) for (let j = 0; j < PER; j++) { const n = li * PER + j, game = j === PER - 1, GP = S.games.filter((x) => x.play), G0 = game ? GP[li % GP.length] : null;
       out.push({ k: S.k, n, li, jj: j, j: j + 1, game, ic: FICON[S.k][(li * 2 + j) % 5], col: [S.c1, tintC(S.c1, .18), S.c2, tintC(S.c1, -.12)][j % 4], t: game ? G0.n : L[li].t, d: L[li].d, top: `Level ${li + 1} · ${game ? 'Spielplatz' : 'Lektion ' + (j + 1)}`, state: !canPlay(n) ? 'pay' : n < q.n ? 'done' : n === q.n ? 'cur' : 'next' }); } return out; },
     stats: PFHOST.stats, off: () => [], toggle: () => true, name: PFHOST.name, face: pfFace, tutor: PFHOST.tutor, tutors: false, labels: false,
     head: () => ({ title: S.n, c1: S.c1, c2: S.c2, c3: tintC(S.c2, -.3), imgs: [tutImg(S.tutor.id)], click: () => tutorIntro(st.s) }),
-    play: (i, s) => { if (s.game) openGame(S.games.indexOf(S.games[s.li % S.games.length]), () => lpComplete(s.n, 5)); else startLesson(s.li, s.jj, s.n); },
+    play: (i, s) => { if (s.game) { const GP = S.games.filter((x) => x.play); openGame(S.games.indexOf(GP[s.li % GP.length]), () => lpComplete(s.n, 5)); } else startLesson(s.li, s.jj, s.n); },
     pay: () => paywall(),
   };
 }
@@ -8296,7 +8306,7 @@ const WORLDS = [
   { k: 'insel', n: 'Schatzinsel', skins: ['chest', 'fish', 'goal'] },
   { k: 'kirmes', n: 'Jahrmarkt', skins: ['pop', 'goal', 'planet'] },
 ];
-const SKINMAX = { pop: 8, planet: 13, frog: 13, mole: 15, fish: 18, goal: 20, chest: 34 };
+const SKINMAX = { planet: 13, mole: 15, fish: 18, goal: 20, chest: 34 }; // Ballon und Frosch gibt es nur noch als neue Spiele
 const SKINNAME = { pop: 'Ballon-Jagd', planet: 'Raketen-Flug', frog: 'Frosch-Hüpfer', mole: 'Maulwurf-Spiel', fish: 'Angeln', goal: 'Torschuss', chest: 'Schatzsuche', thumb: 'Daumen-Karte', flip: 'Memory', pairs: 'Kabel verbinden', train: 'Zug beladen', bubbles: 'Buchstaben-Blasen', sort: 'Fließband', order: 'Reihenfolge', safe: 'Tresor knacken', mc: 'Kniffel-Frage' };
 const SKINIC = { pop: 'balloon', planet: 'star', frog: 'frog', mole: 'target', fish: 'drop', goal: 'target', chest: 'coin', thumb: 'check', flip: 'cards', pairs: 'cards', train: 'train', bubbles: 'bubble', sort: 'sort', order: 'sort', safe: 'lock', mc: 'bulb' };
 function skinFor(x) {
