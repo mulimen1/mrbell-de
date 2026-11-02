@@ -4308,6 +4308,7 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
 /* Unterseiten: Bücherregal-Wand statt verschwommenem Schreibtisch */
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher])::before{background:url(/grundschulmax/sp/desk/shelf-l.webp) 50% 50%/cover no-repeat!important;filter:brightness(.62) saturate(.9)!important;inset:0!important}
 @media (max-width:820px){body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher])::before{background-image:url(/grundschulmax/sp/desk/shelf-m.webp)!important}}
+@media (min-width:821px){body[data-screen=start] .hero::before{left:calc(var(--x0,0px) - var(--uL)*998)!important;top:calc(var(--uL)*-3)!important;width:calc(var(--uL)*3532)!important;height:calc(var(--uL)*2017)!important}}
 </style>
 </head>
 <body>
