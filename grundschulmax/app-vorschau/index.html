@@ -4276,6 +4276,14 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .view.on :is(h1,h2,.h1,.h2,p,.lead,.kick,small):not(.card *):not([class*=card] *):not(.sc *){color:#fff!important;text-shadow:0 2px 6px rgba(60,20,0,.4)}
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) footer,body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) footer :is(a,span){background:none!important;border:0!important;color:rgba(255,255,255,.85)!important}
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .back{color:#1d1b26!important;text-shadow:none!important}
+/* Klassenwahl: Weg zurück zur Startseite */
+.kback{display:none}
+body[data-screen=klasse] .view[data-s=klasse] .sbar{display:flex!important;position:absolute;left:0;right:0;top:0;padding:14px 16px;background:none!important;border:0!important;box-shadow:none!important;z-index:60;pointer-events:none}
+body[data-screen=klasse] .view[data-s=klasse] .sbar>*{display:none!important}
+body[data-screen=klasse] .view[data-s=klasse] .sbar .kback{display:inline-flex!important;align-items:center;gap:6px;height:40px;padding:0 16px;border-radius:14px;background:#fff;color:#1d1b26;font-weight:850;font-size:14.5px;text-decoration:none;box-shadow:0 3px 0 #b9d7ee;pointer-events:auto;position:relative;z-index:61}
+body[data-screen=klasse] .view[data-s=klasse] .sbar .kback::before{content:"←";font-weight:900}
+body[data-screen=klasse] .view[data-s=klasse]{position:relative}
+body[data-screen=klasse] .pkteam{margin-top:64px!important}
 </style>
 </head>
 <body>
@@ -4382,7 +4390,7 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
 </div>
 
 <div class="view" data-s="klasse">
-  <div class="wrap"><div class="sbar"><button class="back" data-back><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg>Zurück</button><span class="step">Schritt 1 von 3 · Klasse wählen</span></div>
+  <div class="wrap"><div class="sbar"><button class="back" data-back><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg>Zurück</button><span class="step">Schritt 1 von 3 · Klasse wählen</span><a class="kback" href="#" data-to="">Zur Startseite</a></div>
   <div class="pick" id="pick"></div></div>
 </div>
 
@@ -10129,8 +10137,8 @@ function openHelp(first) {
     e.preventDefault(); e.stopImmediatePropagation(); prep();
     const L = !mob(), cs = getComputedStyle(document.body), u = L ? parseFloat(cs.getPropertyValue('--uL')) : innerWidth / 1024, x0 = L ? parseFloat(cs.getPropertyValue('--x0')) || 0 : 0, top = -scrollY;
     const [sx, sy, sw, sh] = L ? [766, 654, 864, 393] : [512, 986, 868, 688], k = Math.max(innerHeight / (sh * u), innerWidth / (sw * u)) * 1.08;
-    const bg = fl.firstChild; bg.style.backgroundImage = `url(/grundschulmax/sp/desk/${L ? 'bg-l' : 'bg-m'}.webp)`; bg.style.backgroundSize = `${(L ? 1536 : 1024) * u}px auto`; bg.style.backgroundPosition = `${x0}px ${top}px`; bg.style.transformOrigin = `${x0 + sx * u}px ${top + sy * u}px`;
-    fl.classList.add('vis'); requestAnimationFrame(() => { fl.classList.add('go'); bg.style.transform = `scale(${k})`; });
+    const bg = fl.firstChild; bg.style.backgroundImage = `url(/grundschulmax/sp/desk/${L ? 'bg-l' : 'bg-m'}.webp)`; bg.style.backgroundSize = `${(L ? 1536 : 1024) * u}px auto`; bg.style.backgroundPosition = `${x0}px ${top}px`; const ox = x0 + sx * u, oy = top + sy * u; bg.style.transformOrigin = `${ox}px ${oy}px`; const dx = innerWidth / 2 - ox, dy = innerHeight / 2 - oy;
+    fl.classList.add('vis'); requestAnimationFrame(() => { fl.classList.add('go'); bg.style.transform = `translate(${dx}px, ${dy}px) scale(${k})`; });
     setTimeout(() => { scrollTo(0, 0); go('klasse'); document.body.classList.add('inpad'); }, 900);
     setTimeout(() => fl.classList.add('out'), 950);
     setTimeout(() => { fl.className = 'flyov'; bg.style.transform = ''; }, 1500);
