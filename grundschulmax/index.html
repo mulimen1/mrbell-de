@@ -4887,6 +4887,7 @@ html,body{overscroll-behavior-x:none}
 #app[data-v=subj]:is([data-w=games],[data-w=test]) .zhead .zk{font-size:clamp(26px,3vw,34px)!important}
 #app[data-v=subj]:is([data-w=games],[data-w=test]) .zhead .ztut{width:84px!important;margin:-14px 0 -24px!important}
 #app[data-v=subj]:is([data-w=games],[data-w=test]) .zhead :is(.zm,small,span){text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.pfout.pfhome{color:#2a2440}
 </style>
 </head>
 <body>
@@ -5001,7 +5002,7 @@ html,body{overscroll-behavior-x:none}
 <div class="view" data-s="spiel">
   <div class="app" id="app">
     <aside class="aside">
-      <button class="abrand" data-nav="web" aria-label="Zur Website"><img src="/grundschulmax/max-96.png" alt=""><span>Grundschul<b>max</b></span></button>
+      <button class="abrand" data-nav="web" aria-label="Zum Abenteuer"><img src="/grundschulmax/max-96.png" alt=""><span>Grundschul<b>max</b></span></button>
       <nav class="anav">
         <button class="anv anhome" data-nav="home"><span class="ti"><svg class="i"><use href="#i-map"/></svg></span>Abenteuer</button>
         <button class="anv hw" data-nav="hw"><span class="ti"><svg class="i"><use href="#i-cam"/></svg></span>Hausaufgaben</button>
@@ -10371,7 +10372,7 @@ function drawProfile() {
       <span class="pfell"><span>${I('bell')}Lernzeit pro Tag festlegen</span><span>${I('cam')}Hausaufgaben-Hilfe an oder aus</span><span>${I('star')}Sehen, was gelernt wurde</span><span>${I('snd')}Vorlesen an oder aus</span></span></button>`;
   const konto = K.tok ? `<div class="pfko"><div class="pfkoh"><span class="pgi pgk">${I('key')}</span><span><small>Angemeldet</small><b>${esc(K.mail)}</b></span></div>
       <button class="pfout" id="pfout">${I('arrow')}Abmelden</button>${ABO && ABO.code ? `<button class="lnk pfabo" id="pfabo">Abo kündigen</button>` : ''}<div class="pfgate" id="pfgate" hidden></div></div>`
-    : `<div class="pfko"><button class="pfin2" id="pflogin"><span class="pgi pgk">${I('key')}</span><span><b>Einloggen</b><small>Schon ein Konto? Dann ist alles auf jedem Gerät gespeichert.</small></span>${I('arrow')}</button>${ABO && ABO.code ? `<button class="lnk pfabo" id="pfabo">Abo kündigen</button><div class="pfgate" id="pfgate" hidden></div>` : ''}</div>`;
+    : `<div class="pfko"><button class="pfin2" id="pflogin"><span class="pgi pgk">${I('key')}</span><span><b>Einloggen</b><small>Schon ein Konto? Dann ist alles auf jedem Gerät gespeichert.</small></span>${I('arrow')}</button>${ABO && ABO.code ? `<button class="lnk pfabo" id="pfabo">Abo kündigen</button><div class="pfgate" id="pfgate" hidden></div>` : ''}<button class="pfout pfhome" id="pfhome">${I('arrow')}Zur Startseite</button></div>`;
   h.innerHTML = `<div class="pfh"><div class="pfav" id="pfav">${avHTML(P0)}</div><div><small>Profil</small><b>${esc(P0.name || 'Wie heißt du?')}</b><span>${GRADES[g][0]}</span></div></div>
     <div class="pftop">${eltern}${konto}<div class="pfko"><button class="pfin2 pfhelp" id="pfhelp"><span class="pgi pgk">?</span><span><b>Hilfe</b><small>So funktioniert Grundschulmax</small></span>${I('arrow')}</button></div></div>
     <div class="pfc"><div class="pff"><span>Dein Bild</span><div class="avg">${Object.keys(AV).map((k) => `<button class="avb${k === av ? ' on' : ''}" data-av="${k}" aria-label="${AVN[k]}">${avHTML({ av: k })}<small>${AVN[k]}</small></button>`).join('')}</div></div>
@@ -10380,6 +10381,7 @@ function drawProfile() {
       <div class="pff"><span>Klasse</span><div class="pfg">${GRADES.map((x, i) => `<button class="${i === g ? 'on' : ''}" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><small>Klasse</small></button>`).join('')}</div></div>
       <button class="b3d lg" id="pfs">${I('check')}Speichern</button></div>`;
   if ($('#pflogin')) $('#pflogin').onclick = openLogin; if ($('#pfhelp')) $('#pfhelp').onclick = () => openHelp();
+  if ($('#pfhome')) $('#pfhome').onclick = () => go('');
   if ($('#pfout')) $('#pfout').onclick = (e) => { const b = e.currentTarget; if (b.dataset.sure) { kLogout(); return; } b.dataset.sure = '1'; b.classList.add("warn"); b.innerHTML = `${I('arrow')}Wirklich abmelden? Nochmal tippen`; setTimeout(() => { if (b.isConnected) { delete b.dataset.sure; b.classList.remove('warn'); b.innerHTML = `${I('arrow')}Abmelden`; } }, 4000); };
   /* Abo kündigen nur für Eltern: Eltern-Passwort (mit Konto) oder Rechenaufgabe (ohne Konto) */
   const portal = async (btn) => { btn.disabled = true; btn.textContent = 'Einen Moment …'; try { const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'portal', code: ABO.code }) }).then((x) => x.json()); if (r.ok && r.url) { location.href = r.url; return; } lpToast(r.grund || 'Das hat nicht geklappt.'); } catch (x) { lpToast('Das hat nicht geklappt.'); } btn.disabled = false; btn.textContent = 'Weiter zur Kündigung'; };
@@ -11056,7 +11058,7 @@ document.addEventListener('pointerdown', (e) => {
 
 /* App: Navigation links, rechte Spalte, untere Leiste (Handy) */
 $('#alegal').onclick = () => legalMenu();
-$$('[data-nav]').forEach((b) => (b.onclick = () => { const n = b.dataset.nav; if (n === 'web') { go(''); return; } st.nav = n; mount(); }));
+$$('[data-nav]').forEach((b) => (b.onclick = () => { const n = b.dataset.nav; if (n === 'web') { st.nav = 'home'; mount(); return; } st.nav = n; mount(); }));
 function drawAside() {
   const g = Math.max(0, st.grade), tot = SUBJ.reduce((a, S) => { const s0 = lpStat(S.k, g); return [a[0] + s0.xp, a[1] + s0.n]; }, [0, 0]), el = $('#kst'); tot[1] += mixDone(); let tr = false; try { tr = !!localStorage.getItem('gsm-tried'); } catch (e) {} document.body.classList.toggle('did1', tot[1] > 0 || tr); if (!el) return;
   const sig = tot.join('|') + lpStreak(); if (el.dataset.sig === sig) return; el.dataset.sig = sig;
