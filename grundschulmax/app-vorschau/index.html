@@ -4005,6 +4005,53 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
   body[data-screen=start] .navr .hlogin{display:inline-flex!important;height:calc(var(--u)*92)!important;padding:0 calc(var(--u)*30)!important;font-size:calc(var(--u)*36)!important;border-radius:calc(var(--u)*30)!important}
   body[data-screen=start] .navr .hlogin svg{display:none!important}
 }
+
+/* ===== Handy-App aufgeräumt: eine schmale Kopfzeile ===== */
+.amf{display:none}
+@media (max-width:820px){
+  .app .aside{position:fixed!important;left:0!important;right:0!important;top:0!important;bottom:auto!important;width:auto!important;height:calc(56px + env(safe-area-inset-top))!important;padding:env(safe-area-inset-top) 8px 0!important;margin:0!important;display:flex!important;flex-direction:row!important;align-items:center!important;gap:6px!important;background:rgba(255,255,255,.9)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:0!important;border-radius:0 0 18px 18px!important;box-shadow:0 4px 18px rgba(0,0,0,.12)!important;z-index:60!important;overflow:visible!important;transform:none!important}
+  .app .aside .abrand,.app .aside .anh,.app .aside #gchip2,.app .aside #alegal,.app .acol,.app .aopen{display:none!important}
+  .app .aside .afoot{display:contents!important}
+  .app .aside .aprofb{order:-1;flex:0 0 42px!important;width:42px!important;height:42px!important;min-width:0!important;padding:0!important;margin:0!important;border-radius:50%!important;background:none!important;box-shadow:none!important;display:block!important}
+  .app .aside .aprofb>span:not(.apfa),.app .aside .aprofb em{display:none!important}
+  .app .aside .aprofb .apfa{display:block!important;width:42px!important;height:42px!important;border-radius:50%!important;overflow:hidden;box-shadow:0 0 0 2px #fff,0 0 0 4px #ffb53a!important}
+  .app .aside .aprofb .apfa>*{width:100%!important;height:100%!important}
+  .app .aside .anav{flex:1 1 auto!important;min-width:0;display:flex!important;flex-direction:row!important;align-items:center!important;gap:6px!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none;padding:0 2px!important;margin:0!important;height:100%!important;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+  .app .aside .anav::-webkit-scrollbar{display:none}
+  .app .aside .anav .tabs{display:flex!important;flex-direction:row!important;gap:6px!important;margin:0!important;padding:0 18px 0 0!important}
+  .app .aside .anv,.app .aside .tab,.app .aside .anv.anhome,.app .aside .anv.hw{flex:0 0 auto!important;display:inline-flex!important;align-items:center!important;gap:6px!important;height:38px!important;min-height:0!important;width:auto!important;margin:0!important;padding:0 12px 0 4px!important;font-size:13.5px!important;border-radius:13px!important;white-space:nowrap;opacity:.72;box-shadow:0 3px 0 color-mix(in srgb,var(--c2,#d4550c) 55%,#000)!important}
+  .app .aside .anv .ti,.app .aside .tab .ti{width:30px!important;height:30px!important;font-size:16px!important;border-radius:10px!important}
+  .app .aside .anv.on,.app .aside .tab.on{opacity:1;filter:saturate(1.15)!important;box-shadow:0 3px 0 color-mix(in srgb,var(--c2,#d4550c) 55%,#000),0 0 0 2px #fff,0 0 0 4px var(--c2,#d4550c)!important}
+  .app .aside .anhome{--c1:#ffa63d;--c2:#d4550c}.app .aside .anv.hw{--c1:#8f6cf5;--c2:#4527b8}
+  .amf{order:9;display:grid!important;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:14px;background:linear-gradient(180deg,#8a6bff,#5b3fe0);color:#fff;box-shadow:0 3px 0 #3a23a8}
+  .amf svg{width:20px;height:20px}
+  .app[data-v=home] .amain,.app .amain{top:0!important}
+  .gwdock,.app .abot{display:none!important}
+  .app .afab{display:none!important}
+  body.did1 .app .afab{display:flex!important}
+  .gw .gw-subs{top:calc(66px + env(safe-area-inset-top))!important;bottom:auto!important;right:10px!important}
+}
+/* Spotlight beim ersten Besuch */
+.spot{position:fixed;inset:0;z-index:99;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(circle at var(--sx,50%) var(--sy,50%),transparent 0,transparent 62px,rgba(10,8,30,.62) 92px)}
+.spot.on{opacity:1}
+/* Flug ins iPad */
+.flyov{position:fixed;inset:0;z-index:200;pointer-events:none;overflow:hidden}
+.flybg{position:absolute;inset:0;background:#b84f0e url(/grundschulmax/sp/desk/bg-m.webp) 0 0/100% auto no-repeat;transition:transform .9s cubic-bezier(.55,0,.25,1)}
+.flyscr{position:absolute;inset:0;background:#cfeaff;opacity:0;transition:opacity .35s .6s}
+.flyov.go .flyscr{opacity:1}
+.flyov.out{opacity:0;transition:opacity .45s}
+/* Klassenwahl „im iPad“ */
+.pkteam{display:none}
+@media (max-width:820px){
+  body.inpad{background:#cfeaff!important}
+  body.inpad .nav{display:none!important}
+  body.inpad .view[data-s=klasse]{min-height:100vh;background:#cfeaff;box-shadow:inset 0 0 0 10px #fff,inset 0 0 0 12px #e3dccf}
+  body.inpad .view[data-s=klasse] .sbar{display:none}
+  body.inpad #pick .pkbg{display:none}
+  body.inpad #pick{background:none!important;box-shadow:none!important;border:0!important}
+  body.inpad .pkteam{display:block;text-align:center;font-weight:850;font-size:19px;color:#1d1b26;margin:22px 0 6px}
+}
+@media (max-width:820px){.app:not([data-v=home]) .amain{padding-top:calc(64px + env(safe-area-inset-top))!important}.app .aside .anv,.app .aside .tab{opacity:.85}}
 </style>
 </head>
 <body>
@@ -8490,7 +8537,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = 'f6eb3759';
+const PFV = 'b48b0dcd';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -9099,15 +9146,15 @@ function drawProfile() {
       <span class="pfell"><span>${I('bell')}Lernzeit pro Tag festlegen</span><span>${I('cam')}Hausaufgaben-Hilfe an oder aus</span><span>${I('star')}Sehen, was gelernt wurde</span><span>${I('snd')}Vorlesen an oder aus</span></span></button>`;
   const konto = K.tok ? `<div class="pfko"><div class="pfkoh"><span class="pgi pgk">${I('key')}</span><span><small>Angemeldet</small><b>${esc(K.mail)}</b></span></div>
       <button class="pfout" id="pfout">${I('arrow')}Abmelden</button>${ABO && ABO.code ? `<button class="lnk pfabo" id="pfabo">Abo kündigen</button>` : ''}<div class="pfgate" id="pfgate" hidden></div></div>`
-    : `<div class="pfko"><button class="pfin2" id="pflogin"><span class="pgi pgk">${I('key')}</span><span><b>Anmelden</b><small>Schon ein Abo? Dann ist alles auf jedem Gerät gespeichert.</small></span>${I('arrow')}</button>${ABO && ABO.code ? `<button class="lnk pfabo" id="pfabo">Abo kündigen</button><div class="pfgate" id="pfgate" hidden></div>` : ''}</div>`;
+    : `<div class="pfko"><button class="pfin2" id="pflogin"><span class="pgi pgk">${I('key')}</span><span><b>Einloggen</b><small>Schon ein Konto? Dann ist alles auf jedem Gerät gespeichert.</small></span>${I('arrow')}</button>${ABO && ABO.code ? `<button class="lnk pfabo" id="pfabo">Abo kündigen</button><div class="pfgate" id="pfgate" hidden></div>` : ''}</div>`;
   h.innerHTML = `<div class="pfh"><div class="pfav" id="pfav">${avHTML(P0)}</div><div><small>Profil</small><b>${esc(P0.name || 'Wie heißt du?')}</b><span>${GRADES[g][0]}</span></div></div>
-    <div class="pftop">${eltern}${konto}</div>
+    <div class="pftop">${eltern}${konto}<div class="pfko"><button class="pfin2 pfhelp" id="pfhelp"><span class="pgi pgk">?</span><span><b>Hilfe</b><small>So funktioniert Grundschulmax</small></span>${I('arrow')}</button></div></div>
     <div class="pfc"><div class="pff"><span>Dein Bild</span><div class="avg">${Object.keys(AV).map((k) => `<button class="avb${k === av ? ' on' : ''}" data-av="${k}" aria-label="${AVN[k]}">${avHTML({ av: k })}<small>${AVN[k]}</small></button>`).join('')}</div></div>
       <div class="pfrow2"><label class="pff"><span>Vorname oder Spitzname</span><input id="pfn" maxlength="20" placeholder="z. B. Lena" value="${esc(P0.name)}" autocomplete="off"></label>
       <div class="pff"><span>Aussehen</span><div class="paopt" id="pfdark"><button data-v="0" class="${document.body.classList.contains('dark') ? '' : 'on'}">${I('star')}Hell</button><button data-v="1" class="${document.body.classList.contains('dark') ? 'on' : ''}">${I('bulb')}Dunkel</button></div></div></div>
       <div class="pff"><span>Klasse</span><div class="pfg">${GRADES.map((x, i) => `<button class="${i === g ? 'on' : ''}" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><small>Klasse</small></button>`).join('')}</div></div>
       <button class="b3d lg" id="pfs">${I('check')}Speichern</button></div>`;
-  if ($('#pflogin')) $('#pflogin').onclick = openLogin;
+  if ($('#pflogin')) $('#pflogin').onclick = openLogin; if ($('#pfhelp')) $('#pfhelp').onclick = () => openHelp();
   if ($('#pfout')) $('#pfout').onclick = (e) => { const b = e.currentTarget; if (b.dataset.sure) { kLogout(); return; } b.dataset.sure = '1'; b.classList.add("warn"); b.innerHTML = `${I('arrow')}Wirklich abmelden? Nochmal tippen`; setTimeout(() => { if (b.isConnected) { delete b.dataset.sure; b.classList.remove('warn'); b.innerHTML = `${I('arrow')}Abmelden`; } }, 4000); };
   /* Abo kündigen nur für Eltern: Eltern-Passwort (mit Konto) oder Rechenaufgabe (ohne Konto) */
   const portal = async (btn) => { btn.disabled = true; btn.textContent = 'Einen Moment …'; try { const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'portal', code: ABO.code }) }).then((x) => x.json()); if (r.ok && r.url) { location.href = r.url; return; } lpToast(r.grund || 'Das hat nicht geklappt.'); } catch (x) { lpToast('Das hat nicht geklappt.'); } btn.disabled = false; btn.textContent = 'Weiter zur Kündigung'; };
@@ -9515,9 +9562,9 @@ function gQuiz(T) {
 const GRADES = [['1. Klasse', 'ca. 6–7 Jahre', 'leicht'], ['2. Klasse', 'ca. 7–8 Jahre', 'leicht bis mittel'], ['3. Klasse', 'ca. 8–9 Jahre', 'mittel bis schwer'], ['4. Klasse', 'ca. 9–10 Jahre', 'knifflig']];
 const GCOL = [['#4cc38a', '#1f8a4c'], ['#5aa2f7', '#1a5fc4'], ['#f39b52', '#d9601c'], ['#9b7cf0', '#5b3fc4']];
 $('#pick').innerHTML = `<div class="pkbg"><i class="bl b1"></i><i class="bl b2"></i><i class="bl b3"></i></div>
-  <div class="pk"><div class="arc" id="arc">${['mila', 'emma', 'claude', 'frieda', 'bit'].map((t) => { const S = SUBJ.find((x) => x.tutor.id === t); return `<span class="arci" style="--c1:${S.c1};--c2:${S.c2}"><span class="arcf">${tutorHTML(t)}</span><b>${S.tutor.n}</b><small>${S.n}</small></span>`; }).join('')}
+  <div class="pk"><div class="pkteam">Wir sind das Tutorenteam von Grundschulmax:</div><div class="arc" id="arc">${['mila', 'emma', 'claude', 'frieda', 'bit'].map((t) => { const S = SUBJ.find((x) => x.tutor.id === t); return `<span class="arci" style="--c1:${S.c1};--c2:${S.c2}"><span class="arcf">${tutorHTML(t)}</span><b>${S.tutor.n}</b><small>${S.n}</small></span>`; }).join('')}
   <div class="pkm">${tutorHTML('max')}<span class="pkl0"><b>Max</b><small>Deutsch</small></span></div></div>
-  <h3>In welche Klasse geht dein Kind?</h3><p>Die Spiele passen sich an: Klasse 1 leicht, Klasse 4 richtig knifflig.</p>
+  <h3>In welche Klasse geht Ihr Kind?</h3><p>Die Spiele passen sich an: Klasse 1 leicht, Klasse 4 richtig knifflig.</p>
   <div class="pkg" data-in>${GRADES.map((g, i) => `<button class="gcard" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><strong>${g[0]}</strong><small>${g[1]}</small><span class="lvl">${[0, 1, 2, 3].map((k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('')}</span><em>${g[2]}</em></button>`).join('')}</div></div>`;
 function layoutArc() {
   const arc = $('#arc'); if (!arc || !arc.offsetWidth) return;
@@ -9776,7 +9823,7 @@ document.addEventListener('pointerdown', (e) => {
 $('#alegal').onclick = () => legalMenu();
 $$('[data-nav]').forEach((b) => (b.onclick = () => { const n = b.dataset.nav; if (n === 'web') { go(''); return; } st.nav = n; mount(); }));
 function drawAside() {
-  const g = Math.max(0, st.grade), tot = SUBJ.reduce((a, S) => { const s0 = lpStat(S.k, g); return [a[0] + s0.xp, a[1] + s0.n]; }, [0, 0]), el = $('#kst'); tot[1] += mixDone(); if (!el) return;
+  const g = Math.max(0, st.grade), tot = SUBJ.reduce((a, S) => { const s0 = lpStat(S.k, g); return [a[0] + s0.xp, a[1] + s0.n]; }, [0, 0]), el = $('#kst'); tot[1] += mixDone(); document.body.classList.toggle('did1', tot[1] > 0); if (!el) return;
   const sig = tot.join('|') + lpStreak(); if (el.dataset.sig === sig) return; el.dataset.sig = sig;
   el.innerHTML = `<div class="kt y"><span class="kti">${I('star')}</span><div><b data-n="${tot[0]}">0</b><small>Sterne gesammelt</small></div></div><div class="kt g"><span class="kti">${I('check')}</span><div><b data-n="${tot[1]}">0</b><small>Lektionen geschafft</small></div></div><div class="kt o"><span class="kti">${I('flame')}</span><div><b data-n="${lpStreak()}">0</b><small>Tage am Stück</small></div></div>`;
   $$('[data-n]', el).forEach((x) => { const n = +x.dataset.n, t0 = performance.now(); const f = (t) => { const k = Math.min(1, (t - t0) / 700); x.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); });
@@ -9817,9 +9864,39 @@ function openHelp(first) {
     $$('[data-a]', o).forEach((b) => (b.onclick = () => { if (b.dataset.a === 'back') i--; else if (i < HELP.length - 1) i++; else return close(); sfx.tap(); draw(); }));
     let sx = 0; const im = $('.hpi', o); im.onpointerdown = (e) => { sx = e.clientX; }; im.onpointerup = (e) => { const d = e.clientX - sx; if (d < -40 && i < HELP.length - 1) { i++; draw(); } else if (d > 40 && i > 0) { i--; draw(); } };
   };
-  const close = () => { o.classList.remove('on'); try { localStorage.setItem('gsm-help-seen', '1'); } catch (e) {} };
+  const close = () => { o.classList.remove('on'); try { localStorage.setItem('gsm-help-seen', '1'); } catch (e) {} dispatchEvent(new Event('gsm-help-closed')); };
   draw(); requestAnimationFrame(() => o.classList.add('on'));
 }
+
+/* ---------- Handy: Fächer-Knopf oben, Spotlight, Flug ins iPad ---------- */
+(() => {
+  const as = $('.aside'); if (as && !$('#amf')) { const b = document.createElement('button'); b.id = 'amf'; b.className = 'amf'; b.type = 'button'; b.setAttribute('aria-label', 'Meine Fächer'); b.innerHTML = `${I('book')}`; b.onclick = () => { sfx.tap(); if (st.nav !== 'home') { st.nav = 'home'; mount(); } if (typeof PF !== 'undefined' && PF) PF.subjects(); }; as.appendChild(b); }
+  const mob = () => innerWidth <= 820;
+  /* Erster Besuch: alles abgedunkelt, nur „Klick hier!“ frei */
+  addEventListener('gsm-help-closed', () => {
+    if (!mob() || document.body.classList.contains('did1') || st.nav !== 'home' || typeof PF === 'undefined' || !PF || !PF.cur) return;
+    let sp = $('#spot'); if (!sp) { sp = document.createElement('div'); sp.id = 'spot'; sp.className = 'spot'; document.body.appendChild(sp); }
+    sp.classList.add('on'); let on = true;
+    const off = () => { on = false; sp.classList.remove('on'); removeEventListener('pointerdown', off, true); };
+    addEventListener('pointerdown', off, true);
+    const f = () => { if (!on) return; try { const q = PF.screen(PF.cur()); sp.style.setProperty('--sx', q.x + 'px'); sp.style.setProperty('--sy', q.y + 'px'); } catch (e) {} requestAnimationFrame(f); }; f();
+  });
+  /* Startseite Handy: „Ausprobieren“ fliegt ins iPad */
+  const cta = $('.hero .ctas .b3d:not(.w)');
+  if (cta) cta.addEventListener('click', (e) => {
+    if (!mob() || document.body.dataset.screen !== 'start' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    const u = innerWidth / 1024, top = -scrollY, cx = 512 * u, cy = top + 986 * u, k = Math.max(innerHeight / (688 * u), innerWidth / (868 * u)) * 1.08;
+    const fl = document.createElement('div'); fl.className = 'flyov';
+    fl.innerHTML = `<div class="flybg" style="background-position:0 ${top}px;transform-origin:${cx}px ${cy}px"></div><div class="flyscr"></div>`;
+    document.body.appendChild(fl); try { sfx(380, .08); } catch (er) {}
+    requestAnimationFrame(() => requestAnimationFrame(() => { fl.classList.add('go'); $('.flybg', fl).style.transform = `scale(${k})`; }));
+    setTimeout(() => { scrollTo(0, 0); go('klasse'); document.body.classList.add('inpad'); }, 900);
+    setTimeout(() => { fl.classList.add('out'); }, 950);
+    setTimeout(() => fl.remove(), 1500);
+  }, true);
+  addEventListener('hashchange', () => { if (!/klasse/.test(location.hash)) document.body.classList.remove('inpad'); });
+})();
 </script>
 </body>
 </html>
