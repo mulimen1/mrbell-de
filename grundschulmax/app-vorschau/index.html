@@ -8239,13 +8239,13 @@ function advIntro() {
 }
 function pfLoad() {
   if (window.GSMPfad) return Promise.resolve();
-  return pfLoading || (pfLoading = new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = '/grundschulmax/pfad.js?v=' + PFV; sc.onload = res; sc.onerror = rej; document.head.appendChild(sc); }));
+  return pfLoading || (pfLoading = new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = '/grundschulmax/pfad/pfad-' + PFV + '.js'; sc.onload = res; sc.onerror = () => { pfLoading = null; const s2 = document.createElement('script'); s2.src = '/grundschulmax/pfad.js?v=' + PFV + '&r=' + Date.now(); s2.onload = res; s2.onerror = rej; document.head.appendChild(s2); }; document.head.appendChild(sc); }));
 }
 let PFCUR = null, PFEL = null;
 async function pfShow(container, host, keep) {
   if (!PF) {
     PFEL = document.createElement('div'); PFEL.className = 'gwhost'; container.prepend(PFEL);
-    try { await pfLoad(); try { PF = await window.GSMPfad.start(PFEL, host); } catch (e1) { console.error('Pfad Start 1', e1); await new Promise((r) => setTimeout(r, 900)); PFEL.innerHTML = ''; PF = await window.GSMPfad.start(PFEL, host); } PFCUR = host; return true; } catch (e) { console.error('Pfad Start', e); PFEL.innerHTML = `<div class="lpsoon">${I('book')}<b>Der Pfad konnte nicht geladen werden. Bitte die Seite neu laden.</b></div>`; PF = null; PFEL = null; return false; }
+    try { await pfLoad(); try { PF = await window.GSMPfad.start(PFEL, host); } catch (e1) { console.error('Pfad Start 1', e1); await new Promise((r) => setTimeout(r, 900)); PFEL.innerHTML = ''; PF = await window.GSMPfad.start(PFEL, host); } PFCUR = host; try { sessionStorage.removeItem('gsm-pfre'); } catch (e3) {} return true; } catch (e) { console.error('Pfad Start', e); try { if (!sessionStorage.getItem('gsm-pfre')) { sessionStorage.setItem('gsm-pfre', '1'); location.reload(); return false; } } catch (e2) {} PFEL.innerHTML = `<div class="lpsoon">${I('book')}<b>Der Pfad konnte nicht geladen werden. Bitte die Seite neu laden.</b></div>`; PF = null; PFEL = null; return false; }
   }
   if (PFEL.parentElement !== container) container.prepend(PFEL);
   if (PFCUR !== host || (host.theme && host.theme().key !== PFCUR.key)) { PFCUR = host; host.key = host.theme ? host.theme().key : 'mix'; await PF.switchTo(host); }
