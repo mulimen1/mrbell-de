@@ -4288,6 +4288,11 @@ body[data-screen=klasse] .pkteam{margin-top:64px!important}
 /* Unterseiten: nur Überschriften-Bereiche weiß, Karten behalten dunkle Schrift */
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) :is(.shero,.view.on>.wrap>.sh,.view.on>section>.wrap>.sh) :is(h1,h2,.h1,p,.mono,small,span:not(.si *)){color:#fff!important;text-shadow:0 2px 6px rgba(60,20,0,.45)}
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) :is(.sitem,.sband,.plan,.sc,.faq,.hwb,.final,.cband,.bwlcard,.kpi) :is(*){text-shadow:none!important}
+/* Laptop: unten breites Bild unter dem Tisch statt Unschärfe */
+@media (min-width:821px){
+  body[data-screen=start] .hero::after{content:"";position:absolute;z-index:0;left:calc(var(--x0,0px) - var(--uL)*191);top:calc(var(--uL)*984);width:calc(var(--uL)*1923);height:calc(var(--uL)*1024);background:url(/grundschulmax/sp/desk/bot-wide.webp) 0 0/100% 100% no-repeat}
+  body[data-screen=start] .hero .wrap.hc{box-shadow:none!important}
+}
 </style>
 </head>
 <body>
