@@ -4441,6 +4441,46 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
 @media (prefers-reduced-motion:reduce){.lesfs i{transition:opacity .2s;transform:none}}
 .les:has(.lesfs.on) .leskind{width:fit-content;padding:4px 12px 4px 4px;border-radius:99px}
 body[data-screen=klasse]{overflow:visible!important;overflow-x:hidden!important}
+/* ===== Animationen überarbeitet ===== */
+.gword{position:absolute;translate:-50% -50%;z-index:8;pointer-events:none;font-weight:900;font-size:clamp(26px,4vw,44px);color:#fff;-webkit-text-stroke:3px #1d2a3a;paint-order:stroke fill;animation:gword 1.1s cubic-bezier(.2,1.4,.4,1) forwards;white-space:nowrap}
+.gword.no{color:#ffd0d0}
+@keyframes gword{0%{transform:scale(.3);opacity:0}20%{transform:scale(1.15);opacity:1}70%{transform:scale(1) translateY(-8px);opacity:1}100%{transform:scale(1) translateY(-24px);opacity:0}}
+.gtrail{width:90px;opacity:.8}.gsmoke{width:34px;opacity:.7;animation:gsm .7s ease-out forwards}
+@keyframes gsm{from{transform:scale(.5);opacity:.75}to{transform:scale(1.6) translateY(16px);opacity:0}}
+.s-goal .ball::before,.s-goal .ball::after{display:none!important}
+/* Text passt immer ins Feld */
+:is(.s-fish .fsh.nf,.s-goal .gl.ng,.s-planet .qpl.np,.s-mole .ml) span{hyphens:none!important;-webkit-hyphens:none!important;overflow-wrap:normal!important;white-space:nowrap!important}
+.s-fish .fsh.nf span{font-size:calc(clamp(14px,1.6vw,19px) * var(--fs,1))!important}
+.s-goal .gl.ng .glb{font-size:calc(clamp(14px,1.6vw,19px) * var(--fs,1))!important;top:14%!important;width:auto;max-width:86%}
+.s-planet .qpl.np span{font-size:calc(clamp(13px,1.5vw,18px) * var(--fs,1))!important}
+.s-mole .mh.nm .ml span{font-size:calc(clamp(13px,1.6vw,19px) * var(--fs,1))!important;width:auto;max-width:82%}
+@media (max-width:560px){.s-fish .fsh.nf span,.s-goal .gl.ng .glb,.s-planet .qpl.np span,.s-mole .mh.nm .ml span{font-size:calc(13px * var(--fs,1))!important}}
+/* Maulwurf: rein und raus */
+.s-mole .mh.nm{min-height:200px!important}
+.s-mole .mh.nm .mclip{position:absolute;left:0;right:0;bottom:30%;height:190px;overflow:hidden;z-index:1}
+.s-mole .mh.nm .ml{position:absolute!important;left:4%!important;bottom:0!important;width:92%!important;-webkit-mask-image:none!important;mask-image:none!important}
+.s-mole .mh.nm .ml.mup{animation:mpop 4.4s ease-in-out var(--dl) infinite!important}
+@keyframes mpop{0%,8%{transform:translateY(105%)}18%,60%{transform:translateY(0)}68%,100%{transform:translateY(105%)}}
+.s-mole.qfin .mh.nm .ml{animation:none!important;transform:translateY(0);transition:transform .3s}
+.s-mole .mh.nm .ml.hit{transform:translateY(8%) scaleY(.82)!important;transition:transform .1s}
+.s-mole .mh.nm .ml.yay2{animation:myay .6s cubic-bezier(.2,1.4,.4,1)!important}
+@keyframes myay{0%{transform:translateY(8%) scaleY(.8)}100%{transform:none}}
+.s-mole .mh.nm .ml.dz2{animation:moleNo .8s ease-in-out!important}
+.s-mole .ghammer{width:120px!important;translate:-30% -80%;transform-origin:15% 90%}
+@keyframes ghit{0%{opacity:0;transform:rotate(-70deg)}15%{opacity:1;transform:rotate(-70deg)}55%{opacity:1;transform:rotate(18deg)}75%{opacity:1;transform:rotate(8deg)}100%{opacity:0;transform:rotate(8deg)}}
+@media (max-width:560px){.s-mole .mh.nm{min-height:160px!important}.s-mole .mh.nm .mclip{height:150px}.s-mole .ghammer{width:90px!important}}
+/* Ende: Spielwelt verschwommen hinter der Wertung */
+.les[data-state=end] .lesfs{filter:blur(14px) brightness(.8) saturate(1.1);transform:scale(1.06);transition:filter .6s,transform .6s}
+.les:has(.lesfs.on) .lesend{background:rgba(20,16,40,.25)!important}
+.les:has(.lesfs.on) .lesend :is(h2,h3,b,p,small,.lesendt){text-shadow:0 2px 8px rgba(0,0,0,.35)}
+/* Quizfragen auf der Spielwelt: Karten weiß und gut lesbar */
+.les:has(.lesfs.on) .lesex:not(:has(.fsx)) > :not(.ghint){position:relative}
+.les:has(.lesfs.on) .lesex :is(.thumb,.tfc,.mcq,.sortb,.fbox){box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.s-fish .fsh.nf span{background:none!important;padding:0!important;left:44%!important}
+.s-fish .fsh.nf.fl span{left:56%!important}
+.s-fish .fsh.nf span{white-space:normal!important;width:42%;max-width:42%!important;text-align:center;line-height:1.05}
+.s-fish .fsh.nf.fl span{left:56%!important}
+.s-planet .gastro{right:auto!important;left:3%!important;top:auto!important;bottom:6%!important;z-index:2!important}@media (max-width:560px){.s-planet .gastro{width:50px!important;bottom:3%!important}}
 </style>
 </head>
 <body>
@@ -8678,7 +8718,7 @@ function lesNext() {
   };
   LS.missed = false;
   LS.api = EX[k](x, host, ctx);
-  lesFS(host);
+  lesFS(host); requestAnimationFrame(() => fitLabels(host)); setTimeout(() => fitLabels(host), 400);
   if (GHINT[k]) host.insertAdjacentHTML('afterbegin', `<p class="ghint"><span>${I(GHI[k] || 'check')}</span>${GHINT[k]}</p>`);
   btn.style.display = LS.api.auto ? 'none' : ''; btn.textContent = LS.api.btn || 'Prüfen';
 }
@@ -8927,8 +8967,19 @@ function lesFS(host) {
     let bg = '';
     if (sc) { const im = $('.gbg', sc); if (im) bg = `url("${im.src}") 50% 50%/cover no-repeat`; else { const cs = getComputedStyle(sc); bg = cs.backgroundImage !== 'none' ? `${cs.backgroundImage.replace(/\)\s*,/g, '),')} 50% 50%/cover no-repeat, ${cs.backgroundColor}` : cs.backgroundColor; } sc.classList.add('fsx'); }
     const [a, b] = fs.children, cur = fs.dataset.on === '1' ? b : a, nxt = cur === a ? b : a;
-    if (!bg) { fs.classList.remove('on'); return; }
+    if (!bg) { if (fs.classList.contains('on')) return; const W0 = { meer: 'fish/bg', wiese: 'mole/bg2', all: 'planet/bg', stadion: 'goal/bg', insel: 'fish/bg', kirmes: 'goal/bg' }[les.dataset.world] || 'mole/bg2'; const [g, f] = W0.split('/'); bg = `url("/grundschulmax/sp/${g}2/${f}.webp") 50% 50%/cover no-repeat`; }
     nxt.style.background = bg; nxt.classList.add('on'); cur.classList.remove('on'); fs.dataset.on = nxt === b ? '1' : '0'; fs.classList.add('on');
+  });
+}
+
+/* Antwort-Texte in den Spiel-Schildern verkleinern, bis sie hineinpassen */
+function fitLabels(host) {
+  host.querySelectorAll('.s-fish .fsh.nf span, .s-goal .gl.ng .glb, .s-planet .qpl.np span, .s-mole .ml span').forEach((sp) => {
+    const par = sp.closest('.fsh, .gl, .qpl, .ml'); if (!par) return;
+    const max = par.getBoundingClientRect().width * (par.classList.contains('fsh') ? .4 : par.classList.contains('qpl') ? .62 : .72);
+    let f = parseFloat(getComputedStyle(sp).fontSize), n = 0;
+    const fish = par.classList.contains('fsh'), mh = par.getBoundingClientRect().height * .34;
+    while ((fish ? (sp.scrollWidth > sp.clientWidth + 1 || sp.getBoundingClientRect().height > mh) : sp.getBoundingClientRect().width > max) && f > 9 && n++ < 30) { f -= 1; sp.style.setProperty('font-size', f + 'px', 'important'); }
   });
 }
 
@@ -9284,6 +9335,59 @@ function reward(ok, streak) {
   SK.planet.scene = `<img class="gbg" src="${P('planet', 'bg')}" alt="">${amb(P('planet', 'star'), 5, 'gtw')}<img class="gastro" src="${P('planet', 'astro')}" alt=""><div class="rkt"><img class="rim" src="${P('planet', 'rocket')}" alt=""><img class="flame" src="${P('planet', 'flame')}" alt=""></div>`;
   SK.planet.item = (t, i, n) => `<button class="qpl np" data-v="${i}" style="--px:${(100 / (n + 1)) * (i + 1)}%;--py:${i % 2 ? 34 : 14}%;--dl:-${i * .9}s;--hue:${[0, 150, 260, 80, 200, 320][i % 6]}deg"><img class="pim" src="${P('planet', 'ring')}" alt=""><span>${t}</span></button>`;
   const pw = SK.planet.win; SK.planet.win = (el, sc) => { pw(el, sc); setTimeout(() => fxAt(sc, el, P('planet', 'star'), 'gburst'), 880); };
+})();
+
+/* ---------- Überarbeitete Animationen (Angeln, Maulwurf, Torschuss, Rakete) ---------- */
+(() => {
+  const P = (g, f) => `/grundschulmax/sp/${g}2/${f}.webp`;
+  const box = (el, sc) => { const r = el.getBoundingClientRect(), s = sc.getBoundingClientRect(); return { x: r.left - s.left + r.width / 2, y: r.top - s.top + r.height / 2, w: r.width, h: r.height }; };
+  const fx = (sc, x, y, src, cls, ms = 900) => { const im = document.createElement('img'); im.src = src; im.className = 'gfx ' + cls; im.style.left = x + 'px'; im.style.top = y + 'px'; sc.appendChild(im); setTimeout(() => im.remove(), ms); return im; };
+  const word = (sc, x, y, t, cls = '') => { const d = document.createElement('b'); d.className = 'gword ' + cls; d.textContent = t; d.style.left = x + 'px'; d.style.top = y + 'px'; sc.appendChild(d); setTimeout(() => d.remove(), 1100); };
+  const fsz = (t) => { const n = String(t).length; return n > 14 ? .68 : n > 10 ? .8 : n > 7 ? .9 : 1; };
+  /* Angeln */
+  SK.fish.item = (t, i, n) => `<button class="fsh nf${i % 2 ? ' fl' : ''}" data-v="${i}" style="--fs:${fsz(t)};--fx:${i % 2 ? 50 : 5}%;--y:${24 + i * (60 / Math.max(1, n - 1))}%;--dl:-${rnd(0, 3).toFixed(1)}s"><img class="fim" src="${P('fish', 'f' + (i % 4))}" alt=""><span>${t}</span></button>`;
+  SK.fish.win = (el, sc) => {
+    const b = box(el, sc), hk = $('.hook', sc); el.style.animation = 'none';
+    hk.style.transition = 'height .45s cubic-bezier(.3,.8,.4,1)'; hk.style.left = b.x + 'px'; hk.style.height = Math.max(20, b.y - b.h * .15) + 'px';
+    setTimeout(() => { el.animate([{ rotate: '0deg' }, { rotate: '-12deg' }, { rotate: '12deg' }, { rotate: '-8deg' }, { rotate: '0deg' }], { duration: 380 }); sfx.coin(); }, 450);
+    setTimeout(() => { fx(sc, b.x, b.y, P('fish', 'splash'), 'gsplash'); const up = b.y + b.h; hk.style.transition = 'height .7s cubic-bezier(.5,0,.7,.4)'; hk.style.height = '0px';
+      el.animate([{ transform: el.style.transform || getComputedStyle(el).transform }, { transform: `translate(0,-50%) translateY(-${up}px) rotate(-25deg)` }], { duration: 700, easing: 'cubic-bezier(.5,0,.7,.4)', fill: 'forwards' }); starsUp(el, 10); }, 850);
+  };
+  SK.fish.fail = (el, sc) => { const b = box(el, sc); fx(sc, b.x, b.y, P('fish', 'bubbles'), 'gpuff'); el.style.animation = 'none'; const dir = el.classList.contains('fl') ? 1 : -1; el.animate([{ transform: 'translate(0,-50%)' }, { transform: `translate(${dir * 14}px,-50%) rotate(${dir * 10}deg)`, offset: .3 }, { transform: `translate(${dir * 120}px,-50%)`, opacity: .35 }], { duration: 700, easing: 'ease-in', fill: 'forwards' }); };
+  SK.fish.ms = 1500;
+  /* Maulwurf: kommen raus und gehen wieder rein */
+  SK.mole.item = (t, i, n) => `<div class="mh nm"><img class="mhole" src="${P('mole', 'hole')}" alt=""><div class="mclip"><button class="ml mup" data-v="${i}" style="--fs:${fsz(t)};--dl:-${(i * 1.45 + rnd(0, .5)).toFixed(2)}s"><img class="mim" src="${P('mole', 'sign')}" alt=""><span>${t}</span></button></div></div>`;
+  const bonk = (el, sc, ok) => { const b = box(el, sc), hm = $('.ghammer', sc); el.classList.add('nosign', 'hit');
+    if (hm) { hm.style.left = b.x + 'px'; hm.style.top = b.y - b.h * .55 + 'px'; restart(hm, 'hit'); }
+    setTimeout(() => { $('.mim', el).src = P('mole', ok ? 'happy' : 'dizzy'); fx(sc, b.x, b.y - b.h * .3, P('mole', ok ? 'burst' : 'dirt'), ok ? 'gburst' : 'gdirt'); word(sc, b.x, b.y - b.h * .7, ok ? 'BONK!' : 'Daneben!', ok ? '' : 'no'); el.classList.remove('hit'); el.classList.add(ok ? 'yay2' : 'dz2'); if (ok) { sfx.coin(); starsUp(el, 8); } }, 260); };
+  SK.mole.win = (el, sc) => bonk(el, sc, true);
+  SK.mole.fail = (el, sc) => bonk(el, sc, false);
+  SK.mole.ms = 1300;
+  /* Torschuss */
+  SK.goal.item = (t, i, n) => `<button class="gl ng" data-v="${i}" style="--fs:${fsz(t)}"><span class="gln"><img class="gim" src="${P('goal', 'goal')}" alt=""><span class="glb">${t}</span></span></button>`;
+  const kick = (el, sc, ok) => { const bl = $('.ball', sc), a = box(bl, sc), g = box($('.gim', el), sc), kp = $('.gkeep', sc); bl.style.animation = 'none'; sfx.kick();
+    const dx = g.x - a.x, dy = g.y + g.h * .12 - a.y;
+    if (!ok && kp) { const k = box(kp, sc); kp.src = P('goal', 'keepdive'); kp.classList.add('dive'); kp.animate([{ transform: 'translate(0,0)' }, { transform: `translate(${g.x - k.x}px,${g.y + g.h * .1 - k.y}px)` }], { duration: 420, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'forwards' }); }
+    const path = ok ? [{ transform: 'translate(0,0) scale(1) rotate(0)' }, { transform: `translate(${dx * .5}px,${dy * .5 - 90}px) scale(.8) rotate(360deg)`, offset: .5 }, { transform: `translate(${dx}px,${dy}px) scale(.55) rotate(720deg)` }]
+      : [{ transform: 'translate(0,0) scale(1)' }, { transform: `translate(${dx * .85}px,${dy * .85}px) scale(.62) rotate(400deg)`, offset: .55 }, { transform: `translate(${dx * .35 + 160}px,${dy * .2}px) scale(.8) rotate(700deg)`, opacity: .9 }];
+    const tr = fx(sc, a.x, a.y, P('goal', 'balltrail'), 'gtrail', 700); tr.animate([{ transform: 'translate(0,0) scale(.6)', opacity: .8 }, { transform: `translate(${dx * .6}px,${dy * .6}px) scale(.5)`, opacity: 0 }], { duration: 600, fill: 'forwards' });
+    bl.animate(path, { duration: 700, easing: 'cubic-bezier(.3,.1,.4,1)', fill: 'forwards' });
+    setTimeout(() => { if (ok) { $('.gim', el).src = P('goal', 'goaltor'); el.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.08)' }, { transform: 'scale(1)' }], { duration: 400 }); fx(sc, g.x, g.y, P('goal', 'confetti'), 'gconf', 1300); word(sc, g.x, g.y - g.h * .7, 'TOR!'); starsUp(el, 10); sfx.coin(); } else { word(sc, g.x, g.y - g.h * .7, 'Gehalten!', 'no'); el.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(6px)' }, { transform: 'translateX(0)' }], { duration: 300 }); } }, 650); };
+  SK.goal.win = (el, sc) => kick(el, sc, true);
+  SK.goal.fail = (el, sc) => kick(el, sc, false);
+  SK.goal.ms = 1500;
+  /* Rakete */
+  SK.planet.item = (t, i, n) => `<button class="qpl np" data-v="${i}" style="--fs:${fsz(t)};--px:${(100 / (n + 1)) * (i + 1)}%;--py:${i % 2 ? 34 : 14}%;--dl:-${i * .9}s;--hue:${[0, 150, 260, 80, 200, 320][i % 6]}deg"><img class="pim" src="${P('planet', 'ring')}" alt=""><span>${t}</span></button>`;
+  const launch = (el, sc, ok) => { const r = $('.rkt', sc), a = box(r, sc), p = box(el, sc); r.style.animation = 'none'; r.classList.add('go'); sfx.whoosh();
+    const dx = p.x - a.x, dy = (ok ? p.y - p.h * .55 : p.y) - a.y, ang = Math.atan2(dx, -dy) * 180 / Math.PI;
+    r.animate([{ transform: 'translate(0,0)' }, { transform: 'translate(-3px,1px)' }, { transform: 'translate(3px,-1px)' }, { transform: 'translate(0,0)' }], { duration: 260 });
+    const puff = setInterval(() => { const q = box(r, sc); const s = fx(sc, q.x, q.y + q.h * .45, '/grundschulmax/sp/desk/puff.webp', 'gsmoke', 700); }, 70); setTimeout(() => clearInterval(puff), 1050);
+    setTimeout(() => r.animate(ok ? [{ transform: 'translate(0,0) rotate(0) scale(1)' }, { transform: `translate(${dx * .3}px,${dy * .45}px) rotate(${ang * .6}deg) scale(.95)`, offset: .45 }, { transform: `translate(${dx}px,${dy}px) rotate(0deg) scale(.75)` }]
+      : [{ transform: 'translate(0,0) rotate(0)' }, { transform: `translate(${dx * .9}px,${dy * .9}px) rotate(${ang}deg) scale(.85)`, offset: .6 }, { transform: `translate(${dx * .6}px,${dy * .5}px) rotate(${ang + 260}deg) scale(.8)` }], { duration: 850, easing: 'cubic-bezier(.45,0,.3,1)', fill: 'forwards' }), 260);
+    setTimeout(() => { if (ok) { el.classList.add('landed'); r.classList.add('parked'); fx(sc, p.x, p.y, P('planet', 'star'), 'gburst'); word(sc, p.x, p.y - p.h * .8, 'Gelandet!'); starsUp(el, 10); sfx.coin(); } else { el.classList.add('miss'); word(sc, p.x, p.y - p.h * .8, 'Ups!', 'no'); } }, 1100); };
+  SK.planet.win = (el, sc) => launch(el, sc, true);
+  SK.planet.fail = (el, sc) => launch(el, sc, false);
+  SK.planet.ms = 1600;
 })();
 
 /* ---------- Abo-Grenze, Spiel-Covers, Hausaufgaben-Bereich, Dunkelmodus ---------- */
