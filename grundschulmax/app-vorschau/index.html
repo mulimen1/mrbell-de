@@ -4243,6 +4243,39 @@ html,body,button,a{touch-action:manipulation}
   .desk .dsh{position:absolute;display:block;border-radius:50%;background:radial-gradient(closest-side,rgba(70,18,0,.62),rgba(70,18,0,.3) 55%,rgba(70,18,0,0));mix-blend-mode:multiply;z-index:0}
   .desk .dhaze{position:absolute;display:block;left:0;top:calc(var(--u)*1380);width:calc(var(--u)*230);height:calc(var(--u)*170);background:radial-gradient(closest-side,rgba(150,50,0,.35),rgba(150,50,0,0));mix-blend-mode:multiply}
 }
+/* Laptop-Start: Szene passt in die Bildschirmhöhe, Seiten weich verschwommen */
+@media (min-width:821px){
+  body[data-screen=start]{background:#83290a!important}
+  body[data-screen=start] .hero{min-height:calc(var(--uL)*2008)!important}
+  body[data-screen=start] .hero::before{content:"";position:absolute;inset:-40px;z-index:0;background:url(/grundschulmax/sp/desk/bg-l.webp) 50% 0/cover no-repeat;filter:blur(22px) brightness(.8);transform:scale(1.05)}
+  body[data-screen=start] .hero .wrap.hc{position:absolute!important;z-index:1;left:var(--x0,0px);top:0;width:calc(var(--uL)*1536);height:calc(var(--uL)*2008);background:url(/grundschulmax/sp/desk/bg-l.webp) 0 0/100% auto no-repeat;box-shadow:0 0 60px rgba(60,20,0,.45)}
+  body[data-screen=start] .nav .wrap.nav3{padding:0 calc(var(--x0,0px) + var(--uL)*40)!important}
+}
+/* Klassenwahl: immer „im iPad“ (Handy und Laptop) */
+body[data-screen=klasse]{background:#cfeaff!important}
+body[data-screen=klasse] .nav{display:none!important}
+body[data-screen=klasse] .view[data-s=klasse]{min-height:100vh;background:#cfeaff;box-shadow:none!important}
+body[data-screen=klasse] .view[data-s=klasse] .sbar{display:none!important}
+body[data-screen=klasse] #pick .pkbg,body[data-screen=klasse] #pick .arc,body[data-screen=klasse] #pick .pkm{display:none!important}
+body[data-screen=klasse] #pick{background:none!important;box-shadow:none!important;border:0!important}
+body[data-screen=klasse] .pkteam{display:block;text-align:center;font-weight:900;font-size:clamp(24px,3vw,38px);line-height:1.15;letter-spacing:-.02em;color:#1d1b26;margin:28px 12px 22px}
+body[data-screen=klasse] #pick .pktm{display:grid!important;grid-template-columns:repeat(6,1fr);gap:16px 10px;width:100%;max-width:860px;margin:0 auto 10px;padding:0}
+body[data-screen=klasse] #pick .pktm .tm{width:auto;display:flex;flex-direction:column;align-items:center;gap:0}
+body[data-screen=klasse] #pick .pktm .tm .tmc{width:110px;height:110px;border-radius:30px}
+body[data-screen=klasse] #pick .pktm .tm b{font-size:20px;margin-top:10px}
+body[data-screen=klasse] #pick .pktm .tm small{font-size:14px;margin-top:-1px}
+@media (max-width:820px){body[data-screen=klasse] #pick .pktm{grid-template-columns:repeat(3,1fr);max-width:360px}body[data-screen=klasse] #pick .pktm .tm .tmc{width:84px;height:84px;border-radius:24px}body[data-screen=klasse] #pick .pktm .tm b{font-size:17px;margin-top:9px}body[data-screen=klasse] #pick .pktm .tm small{font-size:12.5px}}
+/* Unterseiten: Schreibtisch-Welt im Hintergrund statt BWL-Look */
+body[data-screen=sicherheit],body[data-screen=datenschutz],body[data-screen=ueber],body[data-screen=preise],body[data-screen=faecher]{background:#83290a!important}
+body[data-screen=sicherheit]::before,body[data-screen=datenschutz]::before,body[data-screen=ueber]::before,body[data-screen=preise]::before,body[data-screen=faecher]::before{content:"";position:fixed;inset:-40px;z-index:-1;background:url(/grundschulmax/sp/desk/bg-l.webp) 50% 100%/cover no-repeat;filter:blur(10px) brightness(.72)}
+@media (max-width:820px){body[data-screen=sicherheit]::before,body[data-screen=datenschutz]::before,body[data-screen=ueber]::before,body[data-screen=preise]::before,body[data-screen=faecher]::before{background-image:url(/grundschulmax/sp/desk/bg-m.webp);background-position:50% 100%}}
+body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .nav{background:rgba(255,255,255,.12)!important;backdrop-filter:blur(10px)!important;border:0!important}
+body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .nav3 .brand>span:last-child{color:#fff}
+body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .nav3 .brand>span:last-child b{color:#ffe14d}
+body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .view.on>section,body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .view.on>.wrap{color:#fff}
+body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .view.on :is(h1,h2,.h1,.h2,p,.lead,.kick,small):not(.card *):not([class*=card] *):not(.sc *){color:#fff!important;text-shadow:0 2px 6px rgba(60,20,0,.4)}
+body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) footer,body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) footer :is(a,span){background:none!important;border:0!important;color:rgba(255,255,255,.85)!important}
+body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) .back{color:#1d1b26!important;text-shadow:none!important}
 </style>
 </head>
 <body>
@@ -4330,7 +4363,7 @@ html,body,button,a{touch-action:manipulation}
         <i class="dlamp"></i><i class="deye e1"></i><i class="deye e2"></i>
         <i class="dbase"></i><img class="dcube" src="/grundschulmax/sp/desk/cube.webp" alt=""><img class="dpx p1" src="/grundschulmax/sp/desk/cube3.webp" alt=""><img class="dpx p2" src="/grundschulmax/sp/desk/cube3.webp" alt="">
         <img class="dst1" src="/grundschulmax/sp/desk/steam1.webp" alt=""><img class="dst2" src="/grundschulmax/sp/desk/steam2.webp" alt=""><img class="dst3" src="/grundschulmax/sp/desk/puff.webp" alt="">
-        <i class="dsh" style="left:calc(var(--u)*10);top:calc(var(--u)*1500);width:calc(var(--u)*120);height:calc(var(--u)*40)"></i><i class="dsh" style="left:calc(var(--u)*88);top:calc(var(--u)*1488);width:calc(var(--u)*110);height:calc(var(--u)*36)"></i><i class="dsh" style="left:calc(var(--u)*8);top:calc(var(--u)*1430);width:calc(var(--u)*200);height:calc(var(--u)*30)"></i><i class="dsh" style="left:calc(var(--u)*818);top:calc(var(--u)*1490);width:calc(var(--u)*110);height:calc(var(--u)*30)"></i><i class="dsh" style="left:calc(var(--u)*925);top:calc(var(--u)*1484);width:calc(var(--u)*110);height:calc(var(--u)*34)"></i><i class="dhaze"></i><span class="dcat"></span><img class="dplane" src="/grundschulmax/sp/desk/plane.webp" alt="">
+        <span class="dcat"></span><img class="dplane" src="/grundschulmax/sp/desk/plane.webp" alt="">
       </div>
       <span class="pill"><i><svg class="i"><use href="#i-check"/></svg></i> Von den Machern von BWL Max</span>
       <h1 class="h1">Fit für die Grundschule.<br><span class="grad">Und fit für Internet und KI.</span></h1>
@@ -10089,13 +10122,14 @@ function openHelp(first) {
   /* Startseite Handy: „Ausprobieren“ fliegt ins iPad */
   const cta = $('.hero .ctas .b3d:not(.w)');
   let fl = null;
-  const prep = () => { if (fl || !mob()) return; fl = document.createElement('div'); fl.className = 'flyov'; fl.innerHTML = '<div class="flybg"></div><div class="flyscr"></div>'; document.body.appendChild(fl); };
-  if (mob()) setTimeout(prep, 600);
+  const prep = () => { if (fl) return; fl = document.createElement('div'); fl.className = 'flyov'; fl.innerHTML = '<div class="flybg"></div><div class="flyscr"></div>'; document.body.appendChild(fl); };
+  setTimeout(prep, 600);
   if (cta) cta.addEventListener('click', (e) => {
-    if (!mob() || document.body.dataset.screen !== 'start' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (document.body.dataset.screen !== 'start' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     e.preventDefault(); e.stopImmediatePropagation(); prep();
-    const u = innerWidth / 1024, top = -scrollY, cx = 512 * u, cy = top + 986 * u, k = Math.max(innerHeight / (688 * u), innerWidth / (868 * u)) * 1.08;
-    const bg = fl.firstChild; bg.style.backgroundPosition = `0 ${top}px`; bg.style.transformOrigin = `${cx}px ${cy}px`;
+    const L = !mob(), cs = getComputedStyle(document.body), u = L ? parseFloat(cs.getPropertyValue('--uL')) : innerWidth / 1024, x0 = L ? parseFloat(cs.getPropertyValue('--x0')) || 0 : 0, top = -scrollY;
+    const [sx, sy, sw, sh] = L ? [766, 654, 864, 393] : [512, 986, 868, 688], k = Math.max(innerHeight / (sh * u), innerWidth / (sw * u)) * 1.08;
+    const bg = fl.firstChild; bg.style.backgroundImage = `url(/grundschulmax/sp/desk/${L ? 'bg-l' : 'bg-m'}.webp)`; bg.style.backgroundSize = `${(L ? 1536 : 1024) * u}px auto`; bg.style.backgroundPosition = `${x0}px ${top}px`; bg.style.transformOrigin = `${x0 + sx * u}px ${top + sy * u}px`;
     fl.classList.add('vis'); requestAnimationFrame(() => { fl.classList.add('go'); bg.style.transform = `scale(${k})`; });
     setTimeout(() => { scrollTo(0, 0); go('klasse'); document.body.classList.add('inpad'); }, 900);
     setTimeout(() => fl.classList.add('out'), 950);
@@ -10108,7 +10142,7 @@ function openHelp(first) {
 setTimeout(() => { try { Object.keys(AV).forEach((k) => { if (AVX[k]) ['n', 'b', 'h'].forEach((v) => { const im = new Image(); im.src = avSrc(k, v); }); }); } catch (e) {} }, 300);
 
 /* Laptop-Startseite: Einheit = Bildpixel (1536 breit) */
-(() => { const f = () => document.body.style.setProperty('--uL', (document.documentElement.clientWidth / 1536) + 'px'); f(); addEventListener('resize', f); })();
+(() => { const f = () => { const cw = document.documentElement.clientWidth, u = Math.min(cw / 1536, innerHeight / 1050); document.body.style.setProperty('--uL', u + 'px'); document.body.style.setProperty('--x0', Math.max(0, (cw - 1536 * u) / 2) + 'px'); }; f(); addEventListener('resize', f); })();
 </script>
 </body>
 </html>
