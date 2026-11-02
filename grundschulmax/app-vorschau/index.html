@@ -4290,7 +4290,8 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
 body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher]) :is(.sitem,.sband,.plan,.sc,.faq,.hwb,.final,.cband,.bwlcard,.kpi) :is(*){text-shadow:none!important}
 /* Laptop: unten breites Bild unter dem Tisch statt Unschärfe */
 @media (min-width:821px){
-  body[data-screen=start] .hero::after{content:"";position:absolute;z-index:0;left:calc(var(--x0,0px) - var(--uL)*191);top:calc(var(--uL)*984);width:calc(var(--uL)*1923);height:calc(var(--uL)*1024);background:url(/grundschulmax/sp/desk/bot-wide.webp) 0 0/100% 100% no-repeat}
+  body[data-screen=start] .hero::after{content:"";position:absolute;z-index:0;left:calc(var(--x0,0px) - var(--uL)*991);top:calc(var(--uL)*984);width:calc(var(--uL)*3523);height:calc(var(--uL)*1024);background:url(/grundschulmax/sp/desk/bot-wide2.webp) 0 0/100% 100% no-repeat}
+  body[data-screen=start] .hero{overflow:hidden!important}
   body[data-screen=start] .hero .wrap.hc{box-shadow:none!important}
 }
 </style>
