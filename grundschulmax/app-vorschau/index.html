@@ -4697,7 +4697,7 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
         <div class="sitem" style="--c1:#4cc38a;--c2:#1f8a4c"><span class="si"><svg class="i"><use href="#i-family"/></svg></span><b>Du entscheidest</b><p>Nur Erwachsene können ein Konto anlegen. Du siehst jederzeit, was gespeichert ist, und kannst Auskunft verlangen.</p></div>
         <div class="sitem" style="--c1:#3fc1c9;--c2:#0e7f8e"><span class="si"><svg class="i"><use href="#i-again"/></svg></span><b>Löschen mit einem Klick</b><p>Konto und Lernfortschritt kannst du jederzeit vollständig löschen lassen.</p></div>
       </div>
-      <div class="sband"><div><b>Alle Details zum Nachlesen</b><p>Welche Daten wir wofür verarbeiten, wie lange und welche Rechte du hast, steht in unserer Datenschutzerklärung.</p></div><div class="sbadges"><a class="b3d w" href="/datenschutz" target="_blank">Datenschutzerklärung lesen <svg class="i"><use href="#i-arrow"/></svg></a></div></div>
+      <div class="sband"><div><b>Alle Details zum Nachlesen</b><p>Welche Daten wir wofür verarbeiten, wie lange und welche Rechte du hast, steht in unserer Datenschutzerklärung.</p></div><div class="sbadges"><a class="b3d w" href="/grundschulmax/app-vorschau/recht/datenschutz.html" target="_blank">Datenschutzerklärung lesen <svg class="i"><use href="#i-arrow"/></svg></a></div></div>
     </div>
   </section>
 </div>
@@ -4706,7 +4706,7 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
 <footer>
   <div class="wrap">
     <span>© 2026 Grundschulmax · grundschulmax.de</span>
-    <nav><a href="#ueber" data-to="ueber">Über uns</a><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><a href="/agb">AGB</a><a href="/widerruf">Widerrufsbelehrung</a><a href="/kuendigen">Verträge hier kündigen</a><a href="/widerrufen">Vertrag widerrufen</a></nav>
+    <nav><a href="#ueber" data-to="ueber">Über uns</a><a href="/grundschulmax/app-vorschau/recht/impressum.html">Impressum</a><a href="/grundschulmax/app-vorschau/recht/datenschutz.html">Datenschutz</a><a href="/grundschulmax/app-vorschau/recht/agb.html">AGB</a><a href="/grundschulmax/app-vorschau/recht/widerruf.html">Widerrufsbelehrung</a><a href="/grundschulmax/app-vorschau/recht/kuendigen.html">Verträge hier kündigen</a><a href="/grundschulmax/app-vorschau/recht/widerrufen.html">Vertrag widerrufen</a></nav>
   </div>
 </footer>
 
@@ -8805,7 +8805,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = '0125f739';
+const PFV = '9b9eec37';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -9979,7 +9979,7 @@ function step(n) {
     const y = su.plan === 'y', end = new Date(Date.now() + 7 * 864e5).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
     mb.innerHTML = `<h3>Zahlungsart wählen</h3><p class="s">Heute 0,00 €. Die erste Zahlung kommt erst nach dem kostenlosen Test am ${end}. Vorher jederzeit kostenlos kündbar.</p>
       ${planCard()}
-      <div class="paybox"><div class="row"><span>Heute fällig</span><span>0,00 €</span></div><div class="row"><span>Ab ${end}</span><span>${y ? '79 € für 12 Monate' : '9,90 € pro Monat'}</span></div><p class="pbn">Endpreise, keine Umsatzsteuer (§ 19 UStG). Es gelten unsere <a href="/agb" target="_blank">AGB</a> und das <a href="/widerruf" target="_blank">Widerrufsrecht</a>.</p></div>
+      <div class="paybox"><div class="row"><span>Heute fällig</span><span>0,00 €</span></div><div class="row"><span>Ab ${end}</span><span>${y ? '79 € für 12 Monate' : '9,90 € pro Monat'}</span></div><p class="pbn">Endpreise, keine Umsatzsteuer (§ 19 UStG). Es gelten unsere <a href="/grundschulmax/app-vorschau/recht/agb.html" target="_blank">AGB</a> und das <a href="/grundschulmax/app-vorschau/recht/widerruf.html" target="_blank">Widerrufsrecht</a>.</p></div>
       <div id="spay" class="spay"><div class="spload"><i></i><span>Sichere Zahlung wird geladen …</span></div></div><p class="pyerr" id="pyerr"></p>
       <p class="fine sfine">${I('lock')}Sicher verschlüsselt über Stripe. Deine Zahlungsdaten sehen wir nie.</p>`;
     $$('.plt', mb).forEach((b) => (b.onclick = () => { if (su.plan !== b.dataset.p) { su.plan = b.dataset.p; sfx.tap(); step(2); } }));
