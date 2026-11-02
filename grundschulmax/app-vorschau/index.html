@@ -4663,6 +4663,139 @@ body[data-screen=klasse]{overflow:visible!important;overflow-x:hidden!important}
 .les.inroom .osl:not(.full){background:rgba(20,30,60,.38);color:#fff}
 .oslots{grid-auto-columns:minmax(0,1fr)!important}.osl{min-width:0}
 @media (max-width:560px){.osl small{font-size:10px;letter-spacing:.02em}.osl{padding:8px 4px!important}}
+/* Tresor: passt auf jeden Bildschirm, nichts unter dem Knopf */
+.sfq{font-size:clamp(20px,min(3.2vw,4.2vh),36px)!important;line-height:1.2}
+.qsafe .key{height:clamp(36px,5.4vh,52px)!important;font-size:clamp(19px,2.6vh,24px)!important}
+.qsafe .keys{gap:clamp(6px,1vh,10px)!important}
+.qsafe .padd{height:clamp(46px,7vh,70px)!important;margin-bottom:clamp(8px,1.4vh,16px)!important;font-size:clamp(28px,4.4vh,40px)!important}
+.qsafe{padding:clamp(10px,1.6vh,16px)!important}.qsafe .sfd{padding:clamp(10px,1.6vh,16px)!important}
+@media (min-width:700px) and (min-aspect-ratio:1/1){.sfw{flex-direction:row!important;justify-content:center;align-items:center!important;gap:34px!important}.sfq{max-width:44%}.qsafe{width:min(340px,40%)!important;flex:none}}
+/* ---------- Gemalte Icons ---------- */
+svg.pi{overflow:visible}
+svg.pi image{filter:drop-shadow(0 1.5px 1px rgba(0,0,0,.22))}
+.les .lx{background:linear-gradient(180deg,#fff,#ffe9ec)!important;box-shadow:0 4px 0 #f0b9c1,inset 0 0 0 2px #ffd0d6!important}
+.les .lx svg.pi{font-size:24px}
+.les .lx:active svg.pi{transform:scale(.85)}
+.les .lesstk svg.pi{font-size:28px!important}
+.les .lesstk:not(.on) svg.pi{filter:grayscale(1) brightness(1.15);opacity:.55}
+.les .lesstk.on svg.pi{filter:drop-shadow(0 0 6px rgba(255,120,30,.75))!important;animation:piflk .35s ease-in-out infinite alternate!important;transform-origin:50% 90%}
+@keyframes piflk{from{transform:scale(1,1) rotate(-3deg)}to{transform:scale(1.06,.94) rotate(3deg)}}
+.les .lespts svg.pi{font-size:26px!important;animation:pistar 4s ease-in-out infinite}
+@keyframes pistar{0%,86%,100%{transform:none}90%{transform:rotate(-14deg) scale(1.12)}95%{transform:rotate(10deg) scale(1.08)}}
+.les .lespts.bump svg.pi{animation:pibump .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pibump{40%{transform:scale(1.45) rotate(20deg)}}
+.les .lmute svg.pi{font-size:26px}
+[data-mute].off svg.pi{filter:grayscale(1);opacity:.45}
+[data-mute].off::before{display:none}
+[data-mute].off::after{width:72%;height:72%;background:url(/grundschulmax/sp/ui/x.webp) center/contain no-repeat;box-shadow:none;border-radius:0;rotate:0deg}
+.pi-coin{animation:picoin 3.2s ease-in-out infinite}
+@keyframes picoin{0%,80%,100%{transform:none}88%{transform:scaleX(.15)}94%{transform:scaleX(1)}}
+.pi-cup,.pi-trophy{animation:picup 3s ease-in-out infinite}
+@keyframes picup{0%,100%{transform:none}50%{transform:translateY(-2px) rotate(-4deg)}}
+.fb .pi-check,.tfb .pi-check,.lesbtn .pi-check{animation:picheck .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes picheck{from{transform:scale(.3) rotate(-25deg)}}
+.pi-lock{transform-origin:50% 30%}
+button:hover>.pi-lock,a:hover .pi-lock{animation:pilock .5s}
+@keyframes pilock{30%{transform:rotate(-12deg)}70%{transform:rotate(10deg)}}
+@media (prefers-reduced-motion:reduce){svg.pi{animation:none!important}}
+[data-mute].off svg.pi{filter:grayscale(1);opacity:.6}
+[data-mute].off::after{left:auto;top:auto;right:-4px;bottom:-4px;translate:none;width:22px;height:22px;border-radius:50%;background:#fff url(/grundschulmax/sp/ui/x.webp) center/15px no-repeat;box-shadow:0 2px 4px rgba(0,0,0,.25)}
+/* Niedrige Laptop-Bildschirme: alles passt ohne Scrollen */
+@media (min-width:700px) and (max-height:820px){
+  .les .lestop{margin-top:6px!important}
+  .les .leskind{margin:2px 0 4px!important;font-size:13px!important}
+  .les .leskind .lkb{width:28px;height:28px}
+  .les .lestut{margin-bottom:8px!important}
+  .les .lestf,.les .lestf .tut{width:78px!important}
+  .les .lesbub{padding-top:10px!important;padding-bottom:10px!important}
+  .les .ghint{margin-bottom:8px!important;padding-top:6px!important;padding-bottom:6px!important}
+  .les .lesmain{padding-bottom:96px!important}
+  .qscn{min-height:0!important;height:max(230px,calc(100dvh - 370px))!important}
+  .qscn.s-goal{padding-bottom:110px!important}
+  .tfc{min-height:0!important;padding:22px!important}
+}
+@media (min-width:700px) and (max-height:700px){
+  .les .leskind{display:none!important}
+  .les .lestf,.les .lestf .tut{width:64px!important}
+  .qscn{height:max(220px,calc(100dvh - 320px))!important}
+}
+/* Hausaufgaben: eigenes Zimmer als Hintergrund */
+#app[data-v=hw] .amain{background:#b8642c url(/grundschulmax/sp/room/hw.webp) 50% 0/max(100%,calc(100dvh * 1.5)) auto no-repeat!important}
+@media (max-aspect-ratio:4/5){#app[data-v=hw] .amain{background-image:url(/grundschulmax/sp/room/hw-m.webp)!important;background-size:max(100%,calc(100dvh * .667)) auto!important}}
+#app[data-v=hw] .amain::before,#app[data-v=hw] .amain::after{display:none!important}
+#app[data-v=hw] :is(.hwh h1,.hwh h2,.hwh b,.hwh p,.hwh span:not(.hwk)){text-shadow:0 2px 0 rgba(20,40,90,.45),0 4px 14px rgba(10,30,80,.45)}
+#app[data-v=hw] .hwd{background:rgba(255,255,255,.93)!important;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 14px 40px -12px rgba(30,40,90,.45)}
+/* ---------- Kaufladen ---------- */
+.g-shop2 .gsky{background-position:50% 40%}
+.shq{position:absolute;left:50%;top:max(10px,4%);translate:-50% 0;z-index:3;display:flex;flex-direction:column;align-items:center;gap:2px;background:#fff;border:4px solid #8a4a16;border-radius:20px;padding:8px 22px;box-shadow:0 5px 0 #8a4a16;text-align:center;max-width:92%}
+.shq b{font-size:clamp(18px,2.4vw,26px);color:#3a2410}.shq span{font-size:14px;font-weight:700;color:#8a6a4a}
+.shq.pop{animation:rqpop .45s cubic-bezier(.2,1.5,.4,1)}
+.shc{position:absolute;left:50%;top:22%;translate:-50% 0;width:min(86%,760px);height:34%;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;z-index:2}
+.shits{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:clamp(10px,3vw,34px);height:100%;position:relative}
+.shit{position:relative;height:78%;aspect-ratio:1;animation:shin .5s var(--dl) cubic-bezier(.2,1.4,.4,1) both}
+.shit img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 8px rgba(80,30,0,.3));animation:shbob 3s var(--dl) ease-in-out infinite}
+@keyframes shin{from{transform:translateY(-60px) scale(.5);opacity:0}}
+@keyframes shbob{50%{transform:translateY(-4px) rotate(-2deg)}}
+.shtag{position:absolute;right:-8%;top:-6%;background:#fff7d6;border:3px solid #e0a020;color:#5a3a00;font-weight:900;font-size:clamp(14px,1.8vw,20px);padding:3px 10px;border-radius:12px;rotate:8deg;box-shadow:0 3px 0 #c88a10;white-space:nowrap}
+.shit.bought{transition:.6s cubic-bezier(.5,0,.6,1);transform:translateY(40%) scale(.3);opacity:0}
+.shbask{position:absolute;left:-6%;bottom:-8%;height:46%;opacity:.95;pointer-events:none}
+.shreg{position:relative;flex:none;width:clamp(110px,19%,170px)}
+.shreg img{width:100%;filter:drop-shadow(0 10px 8px rgba(80,30,0,.35))}
+.shreg b{position:absolute;left:50%;top:15.5%;translate:-50% -50%;width:44%;text-align:center;font-size:clamp(11px,1.4vw,16px);font-weight:900;color:#0e3a6a;white-space:nowrap}
+.shreg.ka{animation:shka .5s cubic-bezier(.2,1.5,.4,1)}@keyframes shka{30%{transform:translateY(-10px) rotate(-4deg)}60%{transform:rotate(3deg)}}
+.shreg.nope{animation:ushk .45s}
+.shpaid{position:absolute;left:50%;top:59%;translate:-50% 0;z-index:3;display:flex;flex-wrap:wrap;justify-content:center;gap:4px;width:min(90%,640px);min-height:58px}
+.shm{position:relative;border:0;background:none;padding:0;cursor:pointer;width:clamp(56px,7vw,76px);aspect-ratio:1}
+.shm.note{width:clamp(80px,10vw,110px);aspect-ratio:1.7}
+.shm img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 5px 4px rgba(60,30,0,.3))}
+.shm span{position:relative;display:grid;place-items:center;height:100%;font-weight:900;font-size:clamp(14px,1.7vw,19px);color:#5a3a00;line-height:1}
+.shm span small{font-size:.65em;margin-left:1px}
+.shm.coin2 span{color:#3e4650}.shm.note span{color:#1f5a1a}
+.shm.pd{width:clamp(44px,5vw,58px)}.shm.pd.note{width:clamp(66px,7.5vw,86px)}.shm.pd.big{width:clamp(90px,11vw,130px)}
+.shm.tap{animation:rqpop .3s}.shm.drop{animation:shdrop .35s cubic-bezier(.2,1.5,.4,1)}
+@keyframes shdrop{from{transform:translateY(-50px) scale(1.3);opacity:0}}
+.shbot{position:absolute;left:50%;bottom:max(96px,13%);translate:-50% 0;z-index:3;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;width:min(96%,820px)}
+.shtray{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;background:rgba(90,45,10,.35);padding:8px 12px;border-radius:22px;backdrop-filter:blur(4px)}
+.shpay{min-width:150px}
+.shopt{min-width:120px;font-size:20px!important}
+.shopt.ok,.shpay.ok{background:#4cc38a!important;color:#fff!important}.shopt.no,.shpay.no{background:#f47b7b!important;color:#fff!important;animation:ushk .4s}
+.shopt.hint{outline:4px solid #4cc38a;outline-offset:3px}
+@media (max-width:560px){.shc{top:19%;height:28%;width:94%}.shpaid{top:50%}.shbot{bottom:110px}.shtray{gap:2px;padding:6px}.shm{width:52px}.shm.note{width:76px}.shreg{width:96px}}
+.shm{display:block}
+.shm span{position:absolute!important;inset:0;display:grid!important;place-items:center;height:auto!important}
+.shm.coin span,.shm.coin2 span{padding-top:2%}
+.shtray{overflow:visible}
+@media (min-width:561px){.shc{top:19%!important;height:30%!important}.shpaid{top:51%!important}.shbot{bottom:max(120px,21%)!important}}
+.shm.note span{font-size:clamp(17px,2vw,24px)!important}
+.shpaid,.shtray{align-items:center}.shm{height:auto!important;align-self:center;flex:none}
+.shits{min-width:0}
+@media (max-width:560px){.shit{height:auto;width:min(26vw,110px)}.shits{gap:14px;justify-content:flex-start;padding-left:8%}.shreg{width:84px!important}.shbask{left:-2%;height:34%}}
+/* Kleine Handys (z. B. iPhone SE): alles ohne Überlappung */
+@media (max-width:560px) and (max-height:740px){
+  .les .leskind{display:none!important}
+  .les .lestut{margin-bottom:6px!important}
+  .les .lestf,.les .lestf .tut{width:58px!important}
+  .les .lesbub{font-size:15px!important;padding:8px 12px!important}
+  .les .ghint{margin-bottom:6px!important;padding:5px 12px 5px 6px!important;font-size:12.5px!important}
+  .les .lesmain{padding-bottom:84px!important}
+  .les .lesbtn{min-height:50px!important;padding-top:10px!important;padding-bottom:10px!important}
+  .qscn{min-height:0!important;height:max(240px,calc(100dvh - 290px))!important}
+  .qscn.s-goal{padding-bottom:90px!important}
+  .s-chest .cst.nc{min-width:38%!important;width:38%!important}
+  .qsafe .key{height:34px!important}.qsafe .padd{height:42px!important}.sfq{font-size:17px!important;padding:8px 12px!important}
+  .srtc{min-height:70px!important}.bin{min-height:70px!important}.srti{padding:8px 16px!important}
+  .tile,.chip{min-height:40px!important;padding:6px 10px!important}
+  .opt{min-height:46px!important}
+}
+@media (max-width:560px) and (max-height:740px){
+  .track .slotb{height:42px!important;min-height:0!important}
+  .track .qloco{width:62px!important;height:52px!important}
+  .track{padding-top:8px!important;padding-bottom:8px!important}
+  .bank.wrd .tile{min-height:38px!important;font-size:16px!important}
+}
+@media (max-width:560px) and (max-height:740px){.uwrap{width:min(62vw,31vh)!important;top:31%!important}.ubtn{min-height:42px!important;padding-top:6px!important;padding-bottom:6px!important}.uopts{bottom:104px!important;gap:6px!important}}
+@media (max-width:560px) and (max-height:740px){.rq{font-size:24px}.shc{top:22%!important}}
+@media (max-width:560px) and (max-height:740px){.uowl{left:auto!important;right:-16%!important;bottom:auto!important;top:-8%!important;width:30%!important}}
 </style>
 </head>
 <body>
@@ -5167,7 +5300,9 @@ ART.pomme = ART.apple;
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const I = (id) => `<svg class="i"><use href="#i-${id}"/></svg>`;
+/* Gemalte 3D-Icons statt flacher Symbole (im SVG-Rahmen, damit alle Größen und Animationen gleich bleiben) */
+const PIC = { check: 'check', lock: 'lock', star: 'star', snd: 'snd', x: 'x', flame: 'flame', coin: 'coin', cup: 'trophy', trophy: 'trophy', gem: 'gem', heart: 'heart', gift: 'gift', bolt: 'bolt', chest: 'chest', unlock: 'unlock' };
+const I = (id) => PIC[id] ? `<svg class="i pi pi-${id}" viewBox="0 0 24 24"><image href="/grundschulmax/sp/ui/${PIC[id]}.webp" x="-3" y="-3" width="30" height="30"/></svg>` : `<svg class="i"><use href="#i-${id}"/></svg>`;
 const rnd = (a, b) => a + Math.random() * (b - a);
 const ri = (a, b) => Math.floor(rnd(a, b + 1));
 const shuf = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = ri(0, i); [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -5294,7 +5429,7 @@ function say(text, mood = '', key = null) {
 let praiseN = 0;
 function quietPraise(key) { if (!(P.ok.includes(key) || key === P.streak)) return false; praiseN++; return praiseN % 3 !== 1; }
 function sayK(key, mood = '') { const v = VL.get(key); say(v ? v.t : key, mood, key); }
-function gstars(n) { $$('#gst svg').forEach((s, i) => s.classList.toggle('on', i < n)); }
+function gstars(n) { $$('#gst .i').forEach((s, i) => s.classList.toggle('on', i < n)); }
 function progress(steps) { st.steps = steps; st.done = 0; st.errs = 0; st.streak = 0; st.best = 0; st.t0 = Date.now(); drawProg(); }
 function drawProg() {
   const p = st.steps ? st.done / st.steps : 0;
@@ -8836,6 +8971,52 @@ function gUhr(T) {
   return () => {};
 }
 
+/* ---------- Kaufladen: bezahlen mit echtem Geld ---------- */
+function gShop(T) {
+  gs.className = 'gs g-shop2';
+  const P = (f) => `/grundschulmax/sp/shop/${f}.webp`, N = 6, g = G();
+  const IT = [['apple', 'Apfel'], ['milk', 'Milch'], ['bread', 'Brot']];
+  const MON = [[[1, 'coin'], [2, 'coin']], [[1, 'coin'], [2, 'coin'], [5, 'note'], [10, 'note']], [[.1, 'coin2'], [.2, 'coin2'], [.5, 'coin2'], [1, 'coin'], [2, 'coin'], [5, 'note']], [[.5, 'coin2'], [1, 'coin'], [2, 'coin'], [5, 'note'], [10, 'note']]][g];
+  const eur = (v) => (v < 1 ? `${Math.round(v * 100)} ct` : Number.isInteger(v) ? `${v} €` : `${v.toFixed(2).replace('.', ',')} €`);
+  const lab = (v) => (v < 1 ? `${Math.round(v * 100)}<small>ct</small>` : `${v}<small>€</small>`);
+  const mk = () => { const its = shuf(IT).slice(0, g === 0 ? 1 : 2);
+    const pr = its.map(() => g === 0 ? ri(1, 6) : g === 1 ? ri(1, 9) : g === 2 ? ri(2, 18) / 2 + (Math.random() < .5 ? .2 : 0) : ri(2, 12) / 2);
+    const sum = Math.round(pr.reduce((a, b) => a + b, 0) * 100) / 100;
+    if (g === 3) { const pay = sum <= 5 ? 5 : sum <= 10 ? 10 : 20, ch = Math.round((pay - sum) * 100) / 100, w = new Set(); while (w.size < 2) { const d = Math.round((ch + [-1, 1, -.5, .5, 2][ri(0, 4)]) * 100) / 100; if (d > 0 && d !== ch) w.add(d); } return { its, pr, sum, pay, ch, o: shuf([ch, ...w]) }; }
+    return { its, pr, sum }; };
+  let r = 0, lock = true, cur, paid = [];
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${P('bg')})"></div>
+    <div class="shq" id="shq"></div>
+    <div class="shc"><div class="shits" id="shi"></div><div class="shreg"><img src="${P('register')}" alt=""><b id="shd">0 €</b></div></div>
+    <div class="shpaid" id="shp"></div>
+    <div class="shbot" id="shb"></div>`;
+  const tot = () => Math.round(paid.reduce((a, b) => a + b, 0) * 100) / 100;
+  const money = (v, kind, cls = '') => `<button class="shm ${kind} ${cls}" data-v="${v}"><img src="${P(kind)}" alt=""><span>${lab(v)}</span></button>`;
+  function drawPaid() { $('#shp').innerHTML = paid.map((v, i) => money(v, MON.find((m) => m[0] === v)[1], 'pd').replace('class="shm', `data-i="${i}" class="shm`)).join(''); $('#shd').textContent = eur(tot()) === '0 ct' ? '0 €' : eur(tot());
+    $$('#shp .shm', gs).forEach((b) => (b.onclick = () => { if (lock) return; paid.splice(+b.dataset.i, 1); sfx.flip(); drawPaid(); })); }
+  function next() {
+    if (r >= N) return finish('Laden geschafft!', ['Mit 1 € und 2 € bezahlen.', 'Zwei Preise zusammenrechnen und bezahlen.', 'Bezahlen mit Euro und Cent.', 'Wechselgeld im Kopf ausrechnen.'][g]);
+    cur = mk(); paid = [];
+    $('#shi').innerHTML = cur.its.map(([k], i) => `<div class="shit" style="--dl:${i * .15}s"><img src="${P(k)}" alt=""><span class="shtag">${eur(cur.pr[i])}</span></div>`).join('') + `<img class="shbask" src="${P('basket')}" alt="">`;
+    if (g === 3) { $('#shq').innerHTML = `<b>Du bezahlst mit ${eur(cur.pay)}.</b><span>Wie viel Wechselgeld bekommst du?</span>`; $('#shp').innerHTML = money(cur.pay, cur.pay >= 5 ? 'note' : 'coin', 'pd big'); $('#shd').textContent = eur(cur.pay);
+      $('#shb').innerHTML = cur.o.map((v) => `<button class="b3d shopt" data-v="${v}">${eur(v)}</button>`).join(''); $$('.shopt', gs).forEach((b) => (b.onclick = () => answer(+b.dataset.v === cur.ch, b))); }
+    else { $('#shq').innerHTML = `<b>${cur.its.length > 1 ? 'Was kostet alles zusammen?' : `Was kostet ${cur.its[0][1] === 'Milch' ? 'die' : cur.its[0][1] === 'Apfel' ? 'der' : 'das'} ${cur.its[0][1]}?`}</b><span>Lege das Geld in die Kasse.</span>`; drawPaid();
+      $('#shb').innerHTML = `<div class="shtray">${MON.map(([v, k]) => money(v, k)).join('')}</div><button class="b3d g shpay" id="shpay">${I('check')}Bezahlen</button>`;
+      $$('#shb .shtray .shm', gs).forEach((b) => (b.onclick = () => { if (lock || paid.length >= 12) return; paid.push(+b.dataset.v); sfx.coin(); restart(b, 'tap'); drawPaid(); const l = $('#shp').lastElementChild; if (l) restart(l, 'drop'); }));
+      $('#shpay').onclick = () => { if (lock) return; if (!paid.length) { fb(false, 'Die Kasse ist leer!', 'Tippe unten auf Münzen oder Scheine.'); return; } answer(tot() === cur.sum, $('#shpay')); }; }
+    restart($('#shq'), 'pop'); say(r ? 'Der nächste Einkauf!' : 'Willkommen im Laden! Bezahle genau passend.', ''); setTimeout(() => { lock = false; }, 500);
+  }
+  function answer(ok, b) {
+    lock = true;
+    if (ok) { right(); sfx.chest(); restart($('.shreg', gs), 'ka'); const reg = $('.shreg', gs).getBoundingClientRect(), gr = gs.getBoundingClientRect(); burst(reg.left - gr.left + reg.width / 2, reg.top - gr.top + 20, ['#f7c948', '#4cc38a', '#fff'], 16); $$('.shit', gs).forEach((e) => e.classList.add('bought')); say(g === 3 ? `Richtig: ${eur(cur.ch)} zurück!` : `Genau ${eur(cur.sum)}. Danke!`, 'happy'); if (b) b.classList.add('ok'); }
+    else { wrong(); sfx.no(); restart($('.shreg', gs), 'nope'); if (b) b.classList.add('no'); const t = tot(); say(g === 3 ? `${eur(cur.pay)} minus ${eur(cur.sum)} sind ${eur(cur.ch)}.` : t > cur.sum ? `Das ist zu viel. Es kostet ${eur(cur.sum)}.` : `Das ist zu wenig. Es kostet ${eur(cur.sum)}.`, 'think'); if (g === 3) { const c = [...$$('.shopt', gs)].find((x) => +x.dataset.v === cur.ch); if (c) c.classList.add('hint'); } }
+    r++; setTimeout(() => { if (alive(T)) next(); }, ok ? 1500 : 2600);
+  }
+  progress(N); say('Willkommen im Kaufladen! Bezahle genau passend.', '');
+  startOverlay('Laden öffnen', `${N} Einkäufe · Rechnen mit Geld`, next);
+  return () => {};
+}
+
 /* ---------- Lernpfad wie bei Duolingo: Level -> 4 Lektionen -> Spiel ---------- */
 const LPKEY = 'gsm-lp2', LV_FREE = 2, PER = 5; // 2 Level frei in der Vorschau, je Level 4 Lektionen + 1 Spiel
 let LPS = {}; try { LPS = JSON.parse(localStorage.getItem(LPKEY) || '{}') || {}; } catch (e) { LPS = {}; }
@@ -9233,7 +9414,7 @@ function customEnd() {
 }
 
 /* Spiele im Vollbild: der Hintergrund des Spiels füllt den ganzen Bildschirm, weicher Übergang zwischen Spielen */
-const ROOMS = { mathe: 'mathe', deutsch: 'deutsch', englisch: 'englisch', sach: 'sach', ki: 'ki', franz: 'franz' }, ROOMM = { mathe: 1 };
+const ROOMS = { mathe: 'mathe', deutsch: 'deutsch', englisch: 'englisch', sach: 'sach', ki: 'ki', franz: 'franz' }, ROOMM = { mathe: 1, englisch: 1, deutsch: 1, franz: 1, sach: 1, ki: 1 };
 function lesFS(host) {
   const box = $('.lesin', les); if (!box) return;
   let fs = $('.lesfs', les); if (!fs) { fs = document.createElement('div'); fs.className = 'lesfs'; fs.innerHTML = '<i></i><i></i>'; box.insertBefore(fs, $('.lesmain', les)); }
@@ -10328,7 +10509,7 @@ const PV = {
 const SUBJ = [
   { k: 'mathe', n: 'Mathe', c1: '#5aa2f7', c2: '#1a5fc4', ic: I('pm'), tutor: { id: 'mila', n: 'Mila' }, games: [
     { n: 'Ballon-Jagd', b: 'Dein Kind rechnet hier ganz nebenbei im Kopf. Mit jedem Ballon werden Plus, Minus und das Einmaleins ein Stück selbstverständlicher.', d: 'Plus, Minus, Einmaleins', play: gBalloon, ic: 'ballon' }, { n: 'Frosch-Sprung', b: 'Zahlen bekommen einen Platz: Dein Kind sieht, wo eine Zahl liegt und was größer oder kleiner ist. Das macht jede Rechnung leichter.', d: 'Zahlenstrahl bis 1 Million', play: gFrosch, ic: 'frog' },
-    { n: 'Einmaleins-Rennen', b: 'Das Einmaleins wird zum Spiel statt zur Pflicht. Ohne Druck, aber mit viel Übung, bis es blitzschnell sitzt.', d: 'Rechnen um die Wette', pv: 'rennen', play: gRace, ic: 'race' }, { n: 'Uhr-Detektiv', b: 'Wie spät ist es? Dein Kind lernt die Uhr zu lesen, Schritt für Schritt bis zu Viertel und Minuten, und wird im Alltag selbstständiger.', d: 'Uhrzeiten lesen', pv: 'uhr', play: gUhr, ic: 'uhr' }, { n: 'Kaufladen', b: 'Rechnen mit echtem Geld macht Sinn: Dein Kind bezahlt, gibt Wechselgeld und merkt, wofür Mathe gut ist.', d: 'Rechnen mit Geld', pv: 'laden' }],
+    { n: 'Einmaleins-Rennen', b: 'Das Einmaleins wird zum Spiel statt zur Pflicht. Ohne Druck, aber mit viel Übung, bis es blitzschnell sitzt.', d: 'Rechnen um die Wette', pv: 'rennen', play: gRace, ic: 'race' }, { n: 'Uhr-Detektiv', b: 'Wie spät ist es? Dein Kind lernt die Uhr zu lesen, Schritt für Schritt bis zu Viertel und Minuten, und wird im Alltag selbstständiger.', d: 'Uhrzeiten lesen', pv: 'uhr', play: gUhr, ic: 'uhr' }, { n: 'Kaufladen', b: 'Rechnen mit echtem Geld macht Sinn: Dein Kind bezahlt, gibt Wechselgeld und merkt, wofür Mathe gut ist.', d: 'Rechnen mit Geld', pv: 'laden', play: gShop, ic: 'shop' }],
     ern: ['Plus und Minus bis 20, 100, 1000', 'Einmaleins und Teilen', 'Sachaufgaben Schritt für Schritt', 'Probetest vor der Klassenarbeit'] },
   { k: 'deutsch', n: 'Deutsch', c1: '#f47ba0', c2: '#c8336f', ic: 'Aa', tutor: { id: 'max', n: 'Max' }, games: [
     { n: 'Silben-Zug', b: 'Lesen wird leichter, wenn Wörter in Silben zerfallen. Dein Kind baut Wörter und Sätze und liest dadurch flüssiger und mit mehr Mut.', d: 'Lesen lernen, Sätze bauen', play: gZug, ic: 'zug' }, { n: 'Zauberstift', b: 'Schöne Schrift braucht Übung und Geduld. Hier zeigt Max jeden Strich, und dein Kind schreibt sicherer, in Druck- und Schreibschrift.', d: 'Schreiben lernen, auch Schreibschrift', play: gStift, ic: 'pen' },
@@ -10360,7 +10541,7 @@ function patURL(k, dark) {
   if (dark) inner = inner.replace(/#fff/g, '#1d2a4a').replace(/opacity="\.(\d+)"/g, (m, d) => `opacity="${(+('.' + d) * .45).toFixed(3)}"`);
   return `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>${inner.replace(/"/g, "'")}</svg>`)}")`;
 }
-const GICON = { chat: I('chat'), ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock'), race: '<img class="gicim" src="/grundschulmax/sp/race2/car0.webp" alt="">', uhr: '<img class="gicim" src="/grundschulmax/sp/clock2/owl.webp" alt="">' };
+const GICON = { chat: I('chat'), ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock'), race: '<img class="gicim" src="/grundschulmax/sp/race2/car0.webp" alt="">', uhr: '<img class="gicim" src="/grundschulmax/sp/clock2/owl.webp" alt="">', shop: '<img class="gicim" src="/grundschulmax/sp/shop/register.webp" alt="">' };
 
 /* ---------- Üben: ruhige Aufgaben mit Erklärung, je Klasse ---------- */
 const ZF = (a, b) => { const c = (n0, n1) => `<div class="zf">${[...Array(10)].map((_, k) => `<i class="${k < n0 ? 'o' : k < n0 + n1 ? 'b' : ''}"></i>`).join('')}</div>`; return c(a, Math.min(b, 10 - a)) + (a + b > 10 ? c(0, a + b - 10) : ''); };
