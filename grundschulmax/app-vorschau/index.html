@@ -4534,6 +4534,34 @@ body[data-screen=klasse]{overflow:visible!important;overflow-x:hidden!important}
 .les[data-state=ok] .lesfoot,.les .lesfoot.ok{background:linear-gradient(180deg,#d9fbe5,#b9f2cd)!important}
 .les .lesbtn{background:linear-gradient(180deg,#5fe08a,#2fb35f)!important;box-shadow:0 6px 0 #1f8a45,inset 0 2px 0 rgba(255,255,255,.4)!important;color:#fff!important;font-size:19px!important}
 .les .lesbtn[disabled]{background:#e6e1d8!important;box-shadow:0 5px 0 #d2cbbf!important;color:#a39a88!important}
+
+/* ===== Dopamin ===== */
+.combo{position:fixed;left:50%;top:22%;z-index:30;display:flex;align-items:center;gap:10px;padding:10px 22px 10px 10px;border-radius:99px;translate:-50% 0;background:linear-gradient(180deg,#ffb020,#ff6a1a);box-shadow:0 6px 0 #c2410c,0 14px 30px rgba(255,100,20,.35);color:#fff;pointer-events:none;animation:combo 1.6s cubic-bezier(.2,1.5,.4,1) forwards}
+.combo span{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#fff;color:#ff6a1a;font-weight:900;font-size:22px}
+.combo b{font-size:22px;font-weight:900;letter-spacing:-.01em;text-shadow:0 2px 0 rgba(150,40,0,.35)}
+.combo.c2{background:linear-gradient(180deg,#ff8a3d,#ff3b4f);box-shadow:0 6px 0 #b4142e,0 14px 30px rgba(255,60,80,.4)}
+.combo.c3,.combo.c4,.combo.c5{background:linear-gradient(180deg,#b06bff,#6a2cf0);box-shadow:0 6px 0 #4a17b8,0 14px 30px rgba(120,60,255,.45)}
+@keyframes combo{0%{transform:scale(.3) rotate(-8deg);opacity:0}18%{transform:scale(1.15) rotate(3deg);opacity:1}30%{transform:scale(1) rotate(0)}80%{transform:scale(1) translateY(0);opacity:1}100%{transform:scale(.9) translateY(-30px);opacity:0}}
+.les .lesex.shake{animation:lshake .45s ease-in-out}
+@keyframes lshake{20%{transform:translateX(-10px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+.les .lesfoot.okpop .lmi{animation:okpop .5s cubic-bezier(.2,1.8,.4,1)}
+@keyframes okpop{0%{transform:scale(.3) rotate(-30deg)}60%{transform:scale(1.3) rotate(8deg)}100%{transform:none}}
+.tapsp{position:fixed;width:7px;height:7px;border-radius:50%;z-index:9999;pointer-events:none;translate:-50% -50%;animation:tapsp .55s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes tapsp{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+/* alle 3D-Knöpfe: federnd */
+.b3d{transition:transform .12s cubic-bezier(.3,1.6,.5,1),box-shadow .12s,filter .15s}
+@media (hover:hover){.b3d:not([disabled]):hover{transform:translateY(-2px) scale(1.02);filter:saturate(1.15) brightness(1.04)}}
+.b3d:not([disabled]):active{transform:translateY(4px) scale(.98)!important}
+/* Ende: Sterne poppen nacheinander, Tutor hüpft */
+.lesend .bs svg.on{animation:starpop .55s cubic-bezier(.2,1.8,.4,1) both!important}
+@keyframes starpop{0%{transform:scale(0) rotate(-120deg);opacity:0}70%{transform:scale(1.35) rotate(10deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+.lesend .leet{animation:leehop 1.2s cubic-bezier(.3,1.6,.5,1) .2s both}
+@keyframes leehop{0%{transform:translateY(40px) scale(.6);opacity:0}50%{transform:translateY(-14px) scale(1.06);opacity:1}100%{transform:none}}
+.lesend .lestats>div{animation:statin .5s cubic-bezier(.2,1.5,.4,1) both}
+.lesend .lestats>div:nth-child(1){animation-delay:.55s}.lesend .lestats>div:nth-child(2){animation-delay:.7s}.lesend .lestats>div:nth-child(3){animation-delay:.85s}
+@keyframes statin{from{transform:translateY(30px) scale(.8);opacity:0}to{transform:none;opacity:1}}
+.lesend [data-a=go]{animation:statin .5s cubic-bezier(.2,1.5,.4,1) 1.1s both,qglow 1.8s ease-in-out 1.6s infinite}
+@media (prefers-reduced-motion:reduce){.combo,.tapsp,.lesend *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -9035,6 +9063,35 @@ function fitLabels(host) {
     while ((fish ? (sp.scrollWidth > sp.clientWidth + 1 || sp.getBoundingClientRect().height > mh) : sp.getBoundingClientRect().width > max) && f > 9 && n++ < 30) { f -= 1; sp.style.setProperty('font-size', f + 'px', 'important'); }
   });
 }
+
+/* ---------- Dopamin: Serien-Banner, steigende Töne, Wackeln bei Fehlern, Zähl-Animation am Ende ---------- */
+(() => {
+  const res0 = lesResult;
+  lesResult = function (ok, sol) {
+    res0(ok, sol);
+    if (!LS) return;
+    if (ok) {
+      const k = LS.streak; try { [0, 1, 2].slice(0, Math.min(3, 1 + Math.floor(k / 2))).forEach((i) => setTimeout(() => tone(523 * Math.pow(1.06, Math.min(k, 12) * 2 + i * 4), .09, 'triangle', .06), 120 + i * 85)); } catch (e) {}
+      if (false) { const b = document.createElement('div'); b.className = 'combo c' + Math.min(5, Math.floor(k / 2)); b.innerHTML = `<span>${k}</span><b>${k >= 10 ? 'Unaufhaltbar!' : k >= 6 ? 'Super-Serie!' : k >= 4 ? 'Heiße Serie!' : 'Serie!'}</b>`; les.appendChild(b); setTimeout(() => b.remove(), 1600); }
+      const f = $('.lesfoot', les); if (f) restart(f, 'okpop');
+    } else {
+      const sc = $('.lesex', les); if (sc) restart(sc, 'shake');
+    }
+  };
+  const end0 = lesEnd;
+  lesEnd = function () {
+    end0.apply(this, arguments);
+    const e = $('.lesend', les); if (!e) return;
+    $$('.bs svg.on', e).forEach((s, i) => setTimeout(() => { try { tone(660 + i * 120, .12, 'triangle', .07); } catch (er) {} }, 350 + i * 150));
+    $$('.lestats b', e).forEach((b) => { const m = b.textContent.match(/^(\D*)(\d+)(.*)$/); if (!m || b.closest('.lst')) return; const n = +m[2], t0 = performance.now(); const f = (t) => { const k = Math.min(1, (t - t0) / 900); b.textContent = m[1] + Math.round(n * (1 - Math.pow(1 - k, 3))) + m[3]; if (k < 1) requestAnimationFrame(f); }; b.textContent = m[1] + '0' + m[3]; setTimeout(() => requestAnimationFrame(f), 700); });
+  };
+})();
+/* Jeder 3D-Knopf: kleiner Funkenregen beim Tippen */
+document.addEventListener('pointerdown', (e) => {
+  const b = e.target.closest('.b3d, .lqgo, .lesbtn, .gcard, .tm'); if (!b || b.disabled) return;
+  const r = b.getBoundingClientRect();
+  for (let i = 0; i < 7; i++) { const d = document.createElement('i'); d.className = 'tapsp'; d.style.left = e.clientX + 'px'; d.style.top = e.clientY + 'px'; d.style.setProperty('--dx', (Math.cos(i / 7 * 6.283) * (30 + Math.random() * 25)) + 'px'); d.style.setProperty('--dy', (Math.sin(i / 7 * 6.283) * (30 + Math.random() * 25)) + 'px'); d.style.background = ['#ffd23a', '#fff', '#5fe08a', '#ff7ab0', '#6ab8ff'][i % 5]; document.body.appendChild(d); setTimeout(() => d.remove(), 600); }
+}, { passive: true });
 
 function markTried() { try { localStorage.setItem('gsm-tried', '1'); } catch (e) {} document.body.classList.add('did1'); const sp = document.getElementById('spot'); if (sp) sp.classList.remove('on'); }
 try { if (localStorage.getItem('gsm-tried')) document.body.classList.add('did1'); } catch (e) {}
