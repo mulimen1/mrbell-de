@@ -4091,6 +4091,23 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
 .spot{pointer-events:none;background:rgba(14,10,36,.45)!important;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);-webkit-mask-image:radial-gradient(circle at var(--sx,50%) var(--sy,50%),transparent 0,transparent 70px,#000 96px);mask-image:radial-gradient(circle at var(--sx,50%) var(--sy,50%),transparent 0,transparent 70px,#000 96px);transition:opacity .6s!important}
 .spot.on{pointer-events:auto}
 @media (max-width:820px){.app .aside .anv.hw:not(.on) .ti{background:linear-gradient(180deg,#8f6cf5,#4527b8)!important}.app .aside .anv.anhome:not(.on) .ti{background:linear-gradient(180deg,#ffa63d,#d4550c)!important}.app .aside .anv:not(.on) .ti svg{color:#fff!important}}
+/* Handy: Einrichten-Knopf sauber unten, Kopfzeilen-Symbole, Text unter dem Tisch */
+@media (max-width:820px){
+  body.did1 .app .afab,body.did1 .app[data-v=home] .afab{bottom:calc(12px + env(safe-area-inset-bottom))!important;left:12px!important;right:12px!important;top:auto!important;transform:none!important}
+  body.did1 .app[data-v=subj] .afab{bottom:calc(84px + env(safe-area-inset-bottom))!important}
+  .app .aside .anv.hw{--c1:#4f9cf7!important;--c2:#1a5fc4!important}
+  .app .aside .anv:not(.on) .ti,.app .aside .anv.hw:not(.on) .ti,.app .aside .anv.anhome:not(.on) .ti{background:none!important}
+  .app .aside .anv:not(.on) .ti svg{color:#2b2838!important}
+  .app .aside .anv .ti svg{display:block!important;width:18px!important;height:18px!important}
+  body[data-screen=start] .hero p.lead{position:absolute!important;left:calc(var(--u)*60)!important;right:calc(var(--u)*60)!important;top:calc(var(--u)*2330)!important;margin:0!important;max-width:none!important;font-size:calc(var(--u)*38)!important;font-weight:700;line-height:1.4;text-align:center;color:#fff;text-shadow:0 2px 4px rgba(80,30,0,.45)}
+  body[data-screen=start] .hero p.lead .lbig{display:block;font-size:calc(var(--u)*56);font-weight:900;line-height:1.12;letter-spacing:-.02em;margin-bottom:calc(var(--u)*22);color:#fff}
+}
+@media (min-width:821px){.lead .lbig{display:none}}
+@media (max-width:820px){
+  body[data-screen=start] .hero{min-height:calc(var(--u)*2830)!important}
+  body[data-screen=start] .hero p.lead{top:calc(var(--u)*2300)!important;font-size:calc(var(--u)*36)!important}
+  body[data-screen=start] .hero p.lead .lbig{font-size:calc(var(--u)*52)!important}
+}
 </style>
 </head>
 <body>
@@ -4182,7 +4199,7 @@ body[data-screen=start] .hero{position:relative;overflow:hidden;background:linea
         <a class="b3d w lg" href="#faecher" data-to="faecher">Alle Fächer ansehen</a>
       </div>
       <div class="small"><span class="hwl"><svg class="i"><use href="#i-cam"/></svg>Max hilft bei den Hausaufgaben</span><span><svg class="i"><use href="#i-check"/></svg>Lernpfad wie bei einer Sprach-App</span><span><svg class="i"><use href="#i-check"/></svg>Direkt hier im Browser</span><span><svg class="i"><use href="#i-check"/></svg>Ohne Anmeldung</span></div>
-      <p class="lead">Ein Lernpfad mit Level und Lernspielen für jedes Fach, Klasse 1 bis 4. Und wenn die Hausaufgabe klemmt: fotografieren, Max erklärt sie und macht ein Spiel daraus.</p>
+      <p class="lead"><b class="lbig">Machen Sie Ihr Kind fit für die Grundschule. Und fit für Internet und KI.</b>Ein eigener Lernpfad mit Level und Lernspielen in jedem Fach, Klasse 1 bis 4. Ihr Kind lernt, weil es spielen will. Und wenn die Hausaufgabe klemmt: Foto machen, Max erklärt den Weg, ohne die Lösung zu verraten.</p>
     </div>
   </section>
 </div>
@@ -9615,7 +9632,7 @@ function layoutArc() {
 }
 addEventListener('resize', layoutArc);
 st.grade = (() => { try { const g = localStorage.getItem('gsm-grade'); return g === null ? -1 : +g; } catch (e) { return -1; } })();
-$$('#pick [data-g]').forEach((b) => (b.onclick = () => { st.grade = +b.dataset.g; drawGrade(); voice(P.pick); drawLPCards(); if (st.next != null) { const n = st.next; st.next = null; goTo(...n); } else { st.nav = 'home'; go('spiel'); mount(); } }));
+$$('#pick [data-g]').forEach((b) => (b.onclick = () => { st.grade = +b.dataset.g; drawGrade(); drawLPCards(); if (st.next != null) { const n = st.next; st.next = null; goTo(...n); } else { st.nav = 'home'; go('spiel'); mount(); } }));
 function drawGrade() { try { if (st.grade >= 0) localStorage.setItem('gsm-grade', st.grade); } catch (e) {} const t = st.grade < 0 ? '' : `${I('cap')}${GRADES[st.grade][0]} · ${GRADES[st.grade][2]}`; ['#gchip', '#gchip2'].forEach((q) => { $(q).innerHTML = t; $(q).style.display = t ? '' : 'none'; }); }
 $('#tabs').innerHTML = SUBJ.map((s, i) => `<button class="tab" role="tab" data-i="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="ti tt">${tutorHTML(s.tutor.id)}</span>${s.n}</button>`).join('');
 $$('#tabs .tab').forEach((t) => (t.onclick = () => { st.s = +t.dataset.i; st.g = 0; st.nav = 'subj'; st.w = 'path'; mount(); $('.amain').scrollTop = 0; t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); }));
@@ -9662,7 +9679,7 @@ function mount() {
   drawAside(); drawAbot();
   app.style.setProperty('--patd', patURL(S.k, true));
   [demo, $('#stage'), app].forEach((el) => { el.style.setProperty('--c1', S.c1); el.style.setProperty('--c2', S.c2); el.style.setProperty('--pat', patURL(S.k)); el.dataset.k = S.k; });
-  const NC = { home: ['#ffa63d', '#d4550c', 'deutsch'], hw: ['#8f6cf5', '#4527b8', 'mathe'], profile: ['#4f8ff0', '#1a4fb4', 'deutsch'], parents: ['#3fc1a0', '#0e7f6a', 'sach'] }[st.nav];
+  const NC = { home: ['#ffa63d', '#d4550c', 'deutsch'], hw: ['#4f9cf7', '#1a5fc4', 'mathe'], profile: ['#4f8ff0', '#1a4fb4', 'deutsch'], parents: ['#3fc1a0', '#0e7f6a', 'sach'] }[st.nav];
   if (NC) { app.style.setProperty('--c1', NC[0]); app.style.setProperty('--c2', NC[1]); app.style.setProperty('--pat', patURL(NC[2])); }
   $$('#tabs .tab').forEach((t, i) => { t.classList.toggle('on', st.nav === 'subj' && i === st.s); t.setAttribute('aria-selected', i === st.s); });
   if (st.nav === 'home') drawMix(); else if (PF) PF.hideCard();
@@ -9841,7 +9858,7 @@ function show(scr, sub) {
   if (scr === 'faecher') { drawLPCards(); const f = $('.foto'); if (f && f.parentElement !== $('#foto .wrap')) $('#foto .wrap').appendChild(f); }
   if (sub) { const t = document.getElementById(sub); if (t) setTimeout(() => t.scrollIntoView({ behavior: 'smooth' }), 60); }
   else window.scrollTo(0, 0);
-  if (scr === 'klasse') { voice(P.grade); requestAnimationFrame(layoutArc); }
+  if (scr === 'klasse') { requestAnimationFrame(layoutArc); }
   upd();
   $$('.view.on [data-in]').forEach((el) => restart(el, 'in'));
 }
