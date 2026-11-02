@@ -4305,6 +4305,9 @@ body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[
   body[data-screen=start] .hero::before{left:calc(var(--x0,0px) - var(--uL)*991)!important;top:0!important;width:calc(var(--uL)*3518)!important;height:calc(var(--uL)*2008)!important;background:url(/grundschulmax/sp/desk/full-wide.webp) 0 0/100% 100% no-repeat!important}
   body[data-screen=start] .hero::after{display:none!important}
 }
+/* Unterseiten: Bücherregal-Wand statt verschwommenem Schreibtisch */
+body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher])::before{background:url(/grundschulmax/sp/desk/shelf-l.webp) 50% 50%/cover no-repeat!important;filter:brightness(.62) saturate(.9)!important;inset:0!important}
+@media (max-width:820px){body:is([data-screen=sicherheit],[data-screen=datenschutz],[data-screen=ueber],[data-screen=preise],[data-screen=faecher])::before{background-image:url(/grundschulmax/sp/desk/shelf-m.webp)!important}}
 </style>
 </head>
 <body>
@@ -8802,7 +8805,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = 'dbad2cab';
+const PFV = '0125f739';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
