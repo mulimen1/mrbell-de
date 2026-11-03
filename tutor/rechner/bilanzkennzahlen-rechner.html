@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=1"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Bilanzkennzahlen-Rechner: Eigenkapitalquote, Anlagendeckung, Liquiditätsgrade | BWL Max</title>
 <meta name="description" content="Bilanzkennzahlen berechnen: Eigenkapitalquote, Anlagendeckungsgrade, Liquidität 1.–3. Grades und Rentabilität – mit Faustregeln, kostenlos.">
 <meta name="robots" content="index,follow">
@@ -15,11 +17,10 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Bilanzkennzahlen-Rechner", "url": "https://www.bwlmax.de/rechner/bilanzkennzahlen-rechner", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "description": "Bilanzkennzahlen berechnen: Eigenkapitalquote, Anlagendeckungsgrade, Liquidität 1.–3. Grades und Rentabilität – mit Faustregeln, kostenlos.", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "citation": [{"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Bilanzanalyse", "url": "https://wirtschaftslexikon.gabler.de/definition/bilanzanalyse-30674"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Bilanzaufbereitung", "url": "https://wirtschaftslexikon.gabler.de/definition/bilanzaufbereitung-27379"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Eigenkapitalquote", "url": "https://wirtschaftslexikon.gabler.de/definition/eigenkapitalquote-34451/version-166969"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Eigenkapital", "url": "https://wirtschaftslexikon.gabler.de/definition/eigenkapital-34982"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Fremdkapital", "url": "https://wirtschaftslexikon.gabler.de/definition/fremdkapital-34534"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Liquiditätsgrad", "url": "https://wirtschaftslexikon.gabler.de/definition/liquiditaetsgrad-41314"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Liquidität", "url": "https://wirtschaftslexikon.gabler.de/definition/liquiditaet-39685"}]}</script>
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="light">
 <link rel="stylesheet" href="/tutor/vendor/katex@0.16.47/katex.min.css">
 <style>
 :root{--bg:#fff;--fg:#1b1d20;--muted:#585f69;--line:#d9dde2;--soft:#f3f5f7;--accent:#1d5a4a;--accent-soft:#e3efea;--warn:#8a4b00;--warn-soft:#fdf3e4;--ok:#1d6b3a;--bad:#a1281e;--zebra:#f8f9fa}
-@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e7e9ec;--muted:#a5abb4;--line:#30353c;--soft:#1b1f23;--accent:#83cdb3;--accent-soft:#1a2e28;--warn:#f0b25e;--warn-soft:#2b2216;--ok:#7fd49c;--bad:#ff9a8f;--zebra:#171a1d}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
@@ -103,9 +104,14 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
  footer{margin-top:1em}
 }
 </style>
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
 </head>
 <body>
 <div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
 <header>
 <h1>Bilanzkennzahlen-Rechner</h1>
 <p class="lead">Aus den Posten einer Strukturbilanz (und optional der GuV) berechnet der Rechner Eigenkapitalquote, Fremdkapitalquote, Verschuldungsgrad, Anlagen- und Umlaufintensität, Anlagendeckungsgrad I, II und III, Liquidität 1., 2. und 3. Grades, Working Capital sowie Eigenkapital-, Gesamtkapital- und Umsatzrentabilität, Kapitalumschlag und ROI. Jeweils mit Formel, eingesetztem Rechenweg und gängiger Faustregel.</p>
