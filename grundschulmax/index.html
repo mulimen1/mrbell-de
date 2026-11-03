@@ -6369,6 +6369,12 @@ const GT = (() => {
   const t0 = Date.now(); let left = false;
   const bucket = (s) => s < 10 ? 'unter 10 s' : s < 30 ? '10–30 s' : s < 60 ? '30–60 s' : s < 180 ? '1–3 min' : s < 600 ? '3–10 min' : 'über 10 min';
   addEventListener('pagehide', () => { if (left) return; left = true; t('Seite verlassen', (scr() || 'start') + ' · ' + bucket((Date.now() - t0) / 1000)); });
+  // Scrolltiefe auf der Startseite (25/50/75/100 %), je Stufe einmal pro Seitenaufruf
+  const sdone = {};
+  addEventListener('scroll', () => { if (document.body.dataset.screen !== 'start') return; const h = document.documentElement.scrollHeight - innerHeight; if (h < 50) return; const p = scrollY / h * 100;
+    [25, 50, 75, 100].forEach((q) => { if (p >= q - 2 && !sdone[q]) { sdone[q] = 1; t('Startseite gescrollt', q + ' %'); } }); }, { passive: true });
+  // Sichtbarkeit: Tab gewechselt / zurückgekommen (zeigt, ob Eltern nebenbei weg sind)
+  let hid0 = 0; document.addEventListener('visibilitychange', () => { if (document.hidden) hid0 = Date.now(); else if (hid0 && Date.now() - hid0 > 15000) t('Zurückgekommen', bucket((Date.now() - hid0) / 1000) + ' weg'); });
   setTimeout(banner, 1200); addEventListener('hashchange', () => setTimeout(banner, 600));
   return { t, ok, allow, banner, open: () => { put(''); try { localStorage.removeItem(KEY); } catch (e) {} const b = document.getElementById('gcb'); if (b) b.remove(); const s = document.body.dataset.screen; document.body.dataset.screen = 'start'; banner(); document.body.dataset.screen = s; } };
 })();
