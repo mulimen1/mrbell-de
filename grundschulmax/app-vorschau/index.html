@@ -10660,7 +10660,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = '43c1e770';
+const PFV = '09265587';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -10709,14 +10709,14 @@ async function pfShow0(container, host, keep) {
     PFEL = document.createElement('div'); PFEL.className = 'gwhost'; container.prepend(PFEL);
     try { await pfLoad(); try { PF = await window.GSMPfad.start(PFEL, host); } catch (e1) { console.error('Pfad Start 1', e1); await new Promise((r) => setTimeout(r, 900)); throw e1; } PFCUR = host; try { sessionStorage.removeItem('gsm-pfre'); } catch (e3) {} return true; } catch (e) { console.error('Pfad Start', e); try { if (!sessionStorage.getItem('gsm-pfre')) { sessionStorage.setItem('gsm-pfre', '1'); location.reload(); return false; } } catch (e2) {} PFEL.innerHTML = `<div class="lpsoon">${I('book')}<b>Der Pfad konnte nicht geladen werden. Bitte die Seite neu laden.</b></div>`; PF = null; PFEL = null; return false; }
   }
-  if (PFEL.parentElement !== container) container.prepend(PFEL);
+  if (PFEL.parentElement !== container) { container.prepend(PFEL); if (PF.render) PF.render(); }
   if (PFCUR !== host || (host.theme && host.theme().key !== PFCUR.key)) { PFCUR = host; host.key = host.theme ? host.theme().key : 'mix'; await PF.switchTo(host); }
-  else { PF.refresh(keep); PF.resize(); }
+  else { PF.refresh(keep); PF.resize(); if (PF.render) PF.render(); }
   return true;
 }
 async function drawMix() {
   const c = $('#ahome'); if (!c) return; PFHOST.key = 'mix';
-  if (PFEL && PFEL.parentElement !== c) c.prepend(PFEL);
+  if (PFEL && PFEL.parentElement !== c) { c.prepend(PFEL); if (PF && PF.render && PFCUR === PFHOST) PF.render(); }
   const first = !PF; await pfShow(c, PFHOST);
   if (first) { pfPre();
     // Tutorial erst, wenn das Kind wirklich im Spiel ist (Pfad sichtbar und geladen), nie auf der Startseite
@@ -10749,7 +10749,7 @@ async function drawLP(justN) {
   const h = subjHost(), key = h.theme().key;
   if (!SH || SH.key !== key) { SH = h; SH.key = key; }
   const prev = PF && PFCUR === SH ? PF.cur() : null;
-  if (PFEL && PFEL.parentElement !== box) box.prepend(PFEL);
+  if (PFEL && PFEL.parentElement !== box) { box.prepend(PFEL); if (PF && PF.render && PFCUR === SH) PF.render(); }
   if (!(await pfShow(box, SH, justN != null))) return; pfPre();
   if (justN != null && prev != null) { PF.refresh(true); const c = SH.list().findIndex((q) => q.state === 'cur'); if (c > prev) PF.hopTo(c); }
 }
