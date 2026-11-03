@@ -10401,7 +10401,7 @@ function sayChain(list, who, force) {
   if (!L.length) return false; next(); return true;
 }
 /* Vorlesen ohne Aufnahme: Stimme des Geräts */
-function ttsDe(text, force) { if ((!voiceOn && !force) || !text) return; ttsSay(String(text).replace(/_+/g, ' … '), 'de-DE'); }
+function ttsDe(text, force) { if ((!voiceOn && !force) || !text) return; if (/\d\s*[+\-−–×·*:=<>]|[+\-−–×·*:=<>]\s*\d|[☐□_]{1,}/.test(String(text))) { talk(true, 1200); return; } ttsSay(String(text).replace(/_+/g, ' … '), 'de-DE'); }
 function lesSay(text, key, mood = '', hint) {
   const b = $('.lesbub', les); b.textContent = text; restart(b, 'new'); if (LS) LS.say = [key, hint];
   const has = !!(key && (String(key).startsWith('hw:') || CLIPS[((LS && LS.who) || 'max') + '|' + key]));
