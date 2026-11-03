@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f3eee4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GSM Zahlen">
+<title>Zahlen · Grundschulmax</title>
+<link rel="icon" type="image/png" href="/grundschulmax/max-96.png">
+<link rel="apple-touch-icon" href="/grundschulmax/max-96.png">
+<style>
+@font-face{font-family:G;src:url(/grundschulmax/geist.woff2) format('woff2');font-weight:100 900;font-display:swap}
+:root{--bg:#f3eee4;--card:#fff;--line:#ebe4d7;--line2:#ddd3c2;--ink:#15151a;--ink2:#3d3a35;--mute:#7a746a;--dim:#cfc6b6;--acc:#1a5fc4;--vio:#6c4fe0;--ok:#16a05c;--bad:#e5484d;--warn:#e08a12;--r:20px;--gap:14px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 G,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body{min-height:100dvh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+button{font:inherit;color:inherit}
+.num,td.n,.v{font-variant-numeric:tabular-nums}
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 84%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1380px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand img{width:38px;height:38px;border-radius:12px;background:#fff;object-fit:cover}
+.brand b{font-size:17px;letter-spacing:-.02em;display:block}
+.brand small{color:var(--mute);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.sp{flex:1}
+.seg{display:inline-flex;padding:3px;border-radius:999px;border:1px solid var(--line2);background:var(--card)}
+.seg button{height:30px;padding:0 12px;border:0;border-radius:999px;background:none;color:var(--mute);font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
+.seg button.on{background:var(--ink);color:#fff}
+.ib{height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line2);background:var(--card);font-weight:600;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.ib i{width:9px;height:9px;border-radius:50%;background:var(--dim)}
+.ib.on i{background:var(--ok)}
+.stand{color:var(--mute);font-size:12px;white-space:nowrap}
+.wrap{max-width:1380px;margin:0 auto;padding:16px 20px 80px}
+.grid{display:grid;gap:var(--gap);margin-top:var(--gap)}
+.k6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g21{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;min-width:0;overflow:hidden}
+.card h2{margin:0;font-size:15px;font-weight:700;letter-spacing:-.01em}
+.hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
+.hd small{color:var(--mute);font-size:11.5px;font-weight:600}
+.kpi .l{color:var(--mute);font-size:12.5px;font-weight:600}
+.kpi .v{font-size:32px;font-weight:700;letter-spacing:-.035em;line-height:1.1;margin-top:2px}
+.kpi .d{font-size:12px;color:var(--mute);font-weight:600;min-height:18px}
+.fun{display:grid;gap:8px}
+.fr{display:grid;grid-template-columns:minmax(120px,210px) minmax(0,1fr) 64px 62px 64px;gap:10px;align-items:center;font-size:13.5px}
+.fr .lb{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fr .bar{height:26px;border-radius:9px;background:#f4efe6;position:relative;overflow:hidden}
+.fr .bar i{position:absolute;inset:0 auto 0 0;border-radius:9px;background:linear-gradient(90deg,var(--acc),var(--vio));min-width:3px}
+.fr .bar span{position:absolute;left:10px;top:50%;translate:0 -50%;font-weight:700;font-size:12.5px;color:#fff;mix-blend-mode:normal;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.fr .pc{text-align:right;font-weight:700}
+.fr .dr{text-align:right;font-weight:700;color:var(--bad)}
+.fr .dr.z{color:var(--dim)}
+.fr .u{text-align:right;color:var(--mute);font-size:12px}
+.fh{font-size:11px;color:var(--mute);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.fh .bar{background:none;height:auto}
+.note{color:var(--mute);font-size:12.5px;margin-top:12px;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;color:var(--mute);font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding:0 6px 8px;white-space:nowrap}
+th.n,td.n{text-align:right}
+td{padding:7px 6px;border-top:1px solid var(--line);vertical-align:top}
+td.n{font-weight:650;white-space:nowrap}
+td .s{color:var(--mute);font-weight:500;font-size:12px}
+.bad{color:var(--bad)}.ok{color:var(--ok)}
+.bars{display:grid;gap:6px}
+.br{display:grid;grid-template-columns:minmax(0,1fr) 46px;gap:10px;align-items:center;font-size:13px}
+.br .t{position:relative;padding:5px 9px;border-radius:8px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.br .t i{position:absolute;inset:0 auto 0 0;background:#ece5ff;border-radius:8px;z-index:0}
+.br .t span{position:relative;z-index:1}
+.br .c{text-align:right;font-weight:700}
+.empty{color:var(--mute);font-size:13px;padding:8px 0}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.tri div{background:#f7f3ec;border-radius:14px;padding:10px 12px}
+.tri b{display:block;font-size:24px;letter-spacing:-.03em}
+.tri small{color:var(--mute);font-weight:600;font-size:12px}
+.chart svg{width:100%;height:190px;display:block}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute);font-weight:600;margin-top:8px}
+.leg span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--c);margin-right:6px;vertical-align:-1px}
+.feed{max-height:520px;overflow:auto}
+.fe{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:13px}
+.fe:first-child{border-top:0}
+.fe time{color:var(--mute);font-weight:600;font-size:12px}
+.fe b{font-weight:650}
+.fe .m{color:var(--mute);font-size:12px}
+.gate{max-width:460px;margin:12vh auto 0;text-align:center}
+.gate img{width:84px;height:84px;border-radius:24px;background:#fff}
+.gate h1{font-size:24px;letter-spacing:-.02em;margin:14px 0 6px}
+.gate p{color:var(--ink2);margin:0 0 18px}
+.gate a{display:inline-flex;height:46px;align-items:center;padding:0 20px;border-radius:14px;background:var(--acc);color:#fff;font-weight:700;text-decoration:none}
+.skel{height:120px;border-radius:var(--r);background:linear-gradient(90deg,#ece6db,#f6f2ea,#ece6db);background-size:200% 100%;animation:sk 1.2s infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.err{background:#fff1f0;border:1px solid #f6c6c3;color:#9b1c1c;border-radius:14px;padding:10px 14px;font-size:13.5px;margin-top:var(--gap)}
+@media (max-width:1100px){.k6{grid-template-columns:repeat(3,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.g21{grid-template-columns:1fr}}
+@media (max-width:720px){.top-in{padding:10px 16px}.wrap{padding:12px 16px 60px}.k6,.g2,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.g2>.wide,.g3>.wide{grid-column:1/-1}.kpi .v{font-size:26px}
+ .fr{grid-template-columns:minmax(0,1fr) 54px 54px;row-gap:4px}.fr .bar{grid-column:1/-1;order:5}.fr .u{display:none}.fr.fh{display:none}
+ .stand{order:9;width:100%}}
+@media (max-width:520px){.g2,.g3{grid-template-columns:1fr}.tri b{font-size:20px}.seg button{padding:0 9px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="top-in">
+  <div class="brand"><img src="/grundschulmax/max-96.png" alt=""><div><b>Zahlen</b><small>Grundschulmax · nur für Ben</small></div></div>
+  <div class="sp"></div>
+  <div class="seg" id="seg"><button data-z="heute">Heute</button><button data-z="7">7 Tage</button><button data-z="30">30 Tage</button><button data-z="alle">Gesamt</button></div>
+  <button class="ib" id="intern" title="Besuche von diesem Gerät nicht mitzählen"><i></i><span>Gerät nicht zählen</span></button>
+  <button class="ib" id="reload" aria-label="Neu laden">↻</button>
+  <span class="stand" id="stand"></span>
+</div></div>
+<main class="wrap" id="main"><div class="grid k6">
+<div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div></div></main>
+<script>
+(function () {
+  var API = 'https://mrbell.app.n8n.cloud/webhook/gsm-zahlen-764dba';
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var fmt = function (n) { return (+n || 0).toLocaleString('de-DE'); };
+  var pct = function (a, b) { return b ? Math.round(a / b * 1000) / 10 : 0; };
+  var pc = function (a, b) { return b ? String(pct(a, b)).replace('.', ',') + ' %' : '–'; };
+  var ls = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  var Z = ls.get('gsmz.z') || '7', timer = 0, busy = false;
+  // Interne Besuche ausschließen (Cookie wird von der Middleware geprüft)
+  var isIntern = function () { return /(?:^|;\s*)gsm_intern=1/.test(document.cookie); };
+  var setIntern = function (on) { document.cookie = 'gsm_intern=' + (on ? '1; Max-Age=315360000' : '; Max-Age=0') + '; Path=/; SameSite=Lax; Secure'; drawIntern(); };
+  var drawIntern = function () { var b = $('#intern'); b.classList.toggle('on', isIntern()); b.querySelector('span').textContent = isIntern() ? 'Gerät wird nicht gezählt' : 'Gerät wird gezählt'; };
+  $('#intern').onclick = function () { setIntern(!isIntern()); };
+  drawIntern();
+  [].forEach.call(document.querySelectorAll('#seg button'), function (b) { b.classList.toggle('on', b.dataset.z === Z); b.onclick = function () { Z = b.dataset.z; ls.set('gsmz.z', Z); [].forEach.call(document.querySelectorAll('#seg button'), function (x) { x.classList.toggle('on', x === b); }); load(); }; });
+  $('#reload').onclick = function () { load(); };
+
+  function gate(title, text) {
+    $('#main').innerHTML = '<div class="gate"><img src="/grundschulmax/max-96.png" alt=""><h1>' + esc(title) + '</h1><p>' + esc(text) + '</p><a href="/">Zu Grundschulmax</a></div>';
+    $('#stand').textContent = '';
+  }
+  function load() {
+    var tok = ls.get('gsm-token');
+    if (!tok) { gate('Bitte anmelden', 'Melde dich auf grundschulmax.de mit deinem Konto an und öffne dann diese Seite noch einmal.'); return; }
+    if (busy) return; busy = true; $('#reload').textContent = '…';
+    fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ token: tok, zeit: Z }) })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || !d.ok) { gate(d && d.grund === 'Dieses Konto hat keinen Zugriff.' ? 'Kein Zugriff' : 'Bitte neu anmelden', (d && d.grund) || 'Die Anmeldung ist abgelaufen.'); return; }
+        if (!isIntern() && ls.get('gsmz.auto') !== '1') { setIntern(true); ls.set('gsmz.auto', '1'); }
+        draw(d);
+      })
+      .catch(function () { var m = $('#main'); if (!m.querySelector('.err')) m.insertAdjacentHTML('afterbegin', '<div class="err">Die Zahlen konnten gerade nicht geladen werden. Ich versuche es gleich wieder.</div>'); })
+      .then(function () { busy = false; $('#reload').textContent = '↻'; });
+  }
+  function card(title, sub, body, cls) { return '<section class="card ' + (cls || '') + '"><div class="hd"><h2>' + esc(title) + '</h2>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</div>' + body + '</section>'; }
+  function bars(list, max) {
+    if (!list || !list.length) return '<div class="empty">Noch keine Daten.</div>';
+    var m = Math.max.apply(null, list.map(function (x) { return x[1]; })) || 1;
+    return '<div class="bars">' + list.slice(0, max || 12).map(function (x) { return '<div class="br"><div class="t"><i style="width:' + Math.max(2, x[1] / m * 100) + '%"></i><span>' + esc(x[0]) + '</span></div><div class="c">' + fmt(x[1]) + '</div></div>'; }).join('') + '</div>';
+  }
+  function sfa(list, label) {
+    if (!list || !list.length) return '<div class="empty">Noch keine Daten.</div>';
+    return '<table><tr><th>' + label + '</th><th class="n">Gestartet</th><th class="n">Fertig</th><th class="n">Abgebr.</th></tr>' + list.slice(0, 30).map(function (x) { var o = x[1]; return '<tr><td>' + esc(x[0]) + '</td><td class="n">' + fmt(o.s) + '</td><td class="n ok">' + fmt(o.f) + ' <span class="s">' + pc(o.f, o.s) + '</span></td><td class="n bad">' + fmt(o.a) + ' <span class="s">' + pc(o.a, o.s) + '</span></td></tr>'; }).join('') + '</table>';
+  }
+  function tri(o) { return '<div class="tri"><div><small>Gestartet</small><b>' + fmt(o.s) + '</b></div><div><small>Fertig</small><b class="ok">' + fmt(o.f) + '</b><small>' + pc(o.f, o.s) + '</small></div><div><small>Abgebrochen</small><b class="bad">' + fmt(o.a) + '</b><small>' + pc(o.a, o.s) + '</small></div></div>'; }
+  function chart(tage) {
+    if (!tage || !tage.length) return '<div class="empty">Noch keine Daten.</div>';
+    var W = 760, H = 190, P = 26, n = tage.length, m = 1;
+    tage.forEach(function (t) { m = Math.max(m, t[1].b, t[1].a, t[1].l); });
+    var bw = (W - P * 2) / n, s = '';
+    tage.forEach(function (t, i) {
+      var x = P + i * bw, o = t[1], h = function (v) { return v / m * (H - 40); };
+      s += '<rect x="' + (x + bw * .1) + '" y="' + (H - 22 - h(o.b)) + '" width="' + bw * .26 + '" height="' + h(o.b) + '" rx="2" fill="#1a5fc4"><title>' + t[0] + ': ' + o.b + ' Besuche</title></rect>';
+      s += '<rect x="' + (x + bw * .38) + '" y="' + (H - 22 - h(o.a)) + '" width="' + bw * .26 + '" height="' + h(o.a) + '" rx="2" fill="#6c4fe0"><title>' + t[0] + ': ' + o.a + ' Ausprobieren</title></rect>';
+      s += '<rect x="' + (x + bw * .66) + '" y="' + (H - 22 - h(o.l)) + '" width="' + bw * .26 + '" height="' + h(o.l) + '" rx="2" fill="#16a05c"><title>' + t[0] + ': ' + o.l + ' erste Lektionen</title></rect>';
+      if (o.z) s += '<text x="' + (x + bw / 2) + '" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="#e08a12">' + o.z + ' Abo</text>';
+      if (n <= 14 || i % Math.ceil(n / 10) === 0) s += '<text x="' + (x + bw / 2) + '" y="' + (H - 6) + '" text-anchor="middle" font-size="10.5" fill="#7a746a">' + t[0].slice(8) + '.' + t[0].slice(5, 7) + '.</text>';
+    });
+    return '<div class="chart"><svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">' + s + '</svg></div><div class="leg"><span style="--c:#1a5fc4">Besuche</span><span style="--c:#6c4fe0">Ausprobieren</span><span style="--c:#16a05c">Erste Lektion</span><span style="--c:#e08a12">Abos</span></div>';
+  }
+  function zeitHM(t) { var d = new Date(t), now = new Date(), hm = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }); return d.toDateString() === now.toDateString() ? hm : d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Berlin' }) + '<br>' + hm; }
+  function draw(d) {
+    var F = d.funnel || [], f0 = (F[0] && F[0].n) || 0, get = function (e) { var x = F.find(function (y) { return y.e === e; }); return x ? x.n : 0; };
+    var ew = d.einwilligung || { ja: 0, nein: 0 }, ewt = ew.ja + ew.nein;
+    var k = function (l, v, sub) { return '<section class="card kpi"><div class="l">' + esc(l) + '</div><div class="v">' + v + '</div><div class="d">' + (sub || '') + '</div></section>'; };
+    var h = '<div class="grid k6">' +
+      k('Besuche', fmt(f0), 'Aufrufe der Startseite') +
+      k('Ausprobieren', fmt(get('Ausprobieren geklickt')), pc(get('Ausprobieren geklickt'), f0) + ' der Besuche') +
+      k('Erste Lektion fertig', fmt(get('Erste Lektion fertig')), pc(get('Erste Lektion fertig'), get('Erste Lektion gestartet')) + ' der Gestarteten') +
+      k('Abos', fmt(get('Abo abgeschlossen')), pc(get('Abo abgeschlossen'), f0) + ' der Besuche') +
+      k('Neue Konten', fmt(get('Konto erstellt')), '') +
+      k('Cookie erlaubt', ewt ? pc(ew.ja, ewt) : '–', fmt(ew.ja) + ' ja · ' + fmt(ew.nein) + ' nein') + '</div>';
+    // Trichter
+    var fr = '<div class="fun"><div class="fr fh"><div>Schritt</div><div class="bar"></div><div class="pc">vom Start</div><div class="dr">Absprung</div><div class="u">Personen*</div></div>';
+    F.forEach(function (x, i) {
+      var prev = i ? F[i - 1].n : 0, drop = i && prev ? Math.max(0, Math.round((1 - x.n / prev) * 100)) : 0;
+      fr += '<div class="fr"><div class="lb" title="' + esc(x.e) + '">' + esc(x.e) + '</div><div class="bar"><i style="width:' + (f0 ? Math.max(.6, Math.min(100, x.n / f0 * 100)) : 0) + '%"></i><span>' + fmt(x.n) + '</span></div><div class="pc">' + (i ? pc(x.n, f0) : '100 %') + '</div><div class="dr' + (i && drop ? '' : ' z') + '">' + (i ? (prev ? '−' + drop + ' %' : '–') : '') + '</div><div class="u">' + fmt(x.u) + '</div></div>';
+    });
+    fr += '</div><p class="note">Jeder Schritt zählt höchstens einmal pro Seitenaufruf. „Absprung“ ist der Anteil, der vom Schritt davor nicht weiterkommt. *Personen: nur Besucher mit erlaubtem Cookie, deshalb kleiner.</p>';
+    h += '<div class="grid g21">' + card('Vom Besuch zum Abo', 'wo sie abspringen', fr) + card('Verlauf', (d.tage || []).length + ' Tage', chart(d.tage)) + '</div>';
+    // Quellen
+    var q = d.quellen || [], qt = q.length ? '<table><tr><th>Quelle</th><th class="n">Besucher</th><th class="n">1. Lektion</th><th class="n">Fertig</th><th class="n">Probe zu Ende</th><th class="n">Abo</th></tr>' + q.map(function (x) { var o = x[1]; return '<tr><td>' + esc(x[0]) + '</td><td class="n">' + fmt(o.s) + '</td><td class="n">' + fmt(o.lek) + ' <span class="s">' + pc(o.lek, o.s) + '</span></td><td class="n">' + fmt(o.fertig) + ' <span class="s">' + pc(o.fertig, o.s) + '</span></td><td class="n">' + fmt(o.probe) + '</td><td class="n ok">' + fmt(o.abo) + ' <span class="s">' + pc(o.abo, o.s) + '</span></td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch keine Besucher mit erlaubtem Cookie.</div>';
+    h += '<div class="grid g2">' + card('Woher sie kommen', 'nur mit Einwilligung', qt + '<p class="note">' + fmt(d.sitzungen) + ' Besucher mit Cookie · mittlere Verweildauer ' + dauer(d.dauerMedian) + '</p>', 'wide') + card('Orte', 'nur mit Einwilligung', bars(d.orte, 10)) + '</div>';
+    // Erste Lektion / erstes Spiel
+    h += '<div class="grid g3">' +
+      card('Erste Lektion', 'Probe', tri(d.ersteLektion || { s: 0, f: 0, a: 0 }) + '<div class="hd" style="margin:4px 0 8px"><h2 style="font-size:13px">Wo abgebrochen</h2></div>' + bars(d.ersteAbbruch, 8)) +
+      card('Erstes Spiel', 'im Abo', tri(d.ersteSpiel || { s: 0, f: 0, a: 0 }) + '<div class="hd" style="margin:4px 0 8px"><h2 style="font-size:13px">Wo abgebrochen</h2></div>' + bars(d.ersteSpielAbbruch, 8)) +
+      card('Tutorial', 'erster Besuch', bars(d.tutorial, 6) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Klasse</h2></div>' + bars(d.klassen, 4)) + '</div>';
+    h += '<div class="grid g2">' + card('Spiele', '', sfa(d.spiele, 'Spiel')) + card('Lektionen', 'nach Fach', sfa(d.lektionen, 'Fach')) + '</div>';
+    h += '<div class="grid g3">' + card('Abo-Schritte', '', bars(d.abo, 12)) + card('Konto', '', bars(d.konto, 6) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Hausaufgaben-Hilfe</h2></div>' + bars(d.hausaufgaben, 6)) + card('Fächer und Bereiche', '', bars(d.faecher, 6) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Bereiche</h2></div>' + bars(d.bereiche, 8)) + '</div>';
+    h += '<div class="grid g3">' + card('Klicks', 'Top 25', bars(d.klicks, 25)) + card('Wo sie die Seite verlassen', '', bars(d.verlassen, 14) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Rechtstexte geöffnet</h2></div>' + bars(d.recht, 6)) + card('Geräte', '', bars(d.geraete, 4) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Alle Ereignisse</h2></div>' + bars(d.events, 40)) + '</div>';
+    var fd = (d.feed || []).map(function (x) { return '<div class="fe"><time>' + zeitHM(x.t) + '</time><div><b>' + esc(x.e) + '</b>' + (x.d ? ' · ' + esc(x.d) : '') + '<div class="m">' + esc([x.g, x.o, x.q, x.s ? '#' + x.s : ''].filter(Boolean).join(' · ')) + '</div></div></div>'; }).join('');
+    h += '<div class="grid">' + card('Gerade passiert', 'letzte 60', '<div class="feed">' + (fd || '<div class="empty">Noch nichts passiert.</div>') + '</div>') + '</div>';
+    $('#main').innerHTML = h;
+    $('#stand').textContent = 'Stand ' + new Date(d.stand).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + ' · ' + fmt(d.gesamt) + ' Ereignisse';
+  }
+  function dauer(s) { s = Math.round(+s || 0); return s < 60 ? s + ' s' : Math.floor(s / 60) + ' min ' + (s % 60) + ' s'; }
+  load();
+  clearInterval(timer); timer = setInterval(function () { if (!document.hidden) load(); }, 60000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
+})();
+</script>
+</body>
+</html>

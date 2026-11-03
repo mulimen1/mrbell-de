@@ -13,7 +13,7 @@
 // Die IP-Adresse wird nie weitergegeben oder gespeichert.
 
 export const config = {
-  matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
+  matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/gs', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
     '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt']
 };
 
@@ -97,6 +97,55 @@ function melden(daten, req, ctx) {
   return p;
 }
 
+// ---------- Grundschulmax: eigene Messung (n8n-Tabelle gsm_ev) ----------
+// Ohne Einwilligung: nur das Ereignis und der Gerätetyp, keine Kennung, kein Ort, keine Herkunft.
+// Mit Einwilligung (Cookie gsm_analyse = Zufallskennung): zusätzlich Kennung, ungefährer Ort und Herkunft (Anzeige, Link).
+const GS_ZIEL = 'https://mrbell.app.n8n.cloud/webhook/gsm-mess-84d470';
+const GS_EV = ['Seite geöffnet', 'Rechtstext geöffnet', 'Analyse erlaubt', 'Analyse abgelehnt', 'Ausprobieren geklickt', 'Einloggen geklickt', 'Klasse gewählt',
+  'Tutorial', 'Lektion gestartet', 'Lektion fertig', 'Lektion abgebrochen', 'Erste Lektion gestartet', 'Erste Lektion fertig', 'Erste Lektion abgebrochen',
+  'Spiel gestartet', 'Spiel fertig', 'Spiel abgebrochen', 'Erstes Spiel gestartet', 'Erstes Spiel fertig', 'Erstes Spiel abgebrochen',
+  'Probe zu Ende', 'Abo-Fenster geöffnet', 'Abo-Fenster geschlossen', 'Tarif gewählt', 'Zur Zahlung geklickt', 'Abo abgeschlossen',
+  'Anmeldefenster geöffnet', 'Code angefordert', 'Angemeldet', 'Konto erstellt', 'Fach geöffnet', 'Bereich geöffnet', 'Hausaufgabe hochgeladen', 'Hausaufgabe Ergebnis',
+  'Profil gespeichert', 'Hilfe geöffnet', 'Klick', 'Seite verlassen', 'Lernpfad Level', 'Klasse gewechselt'];
+function gsKennung(req) { const m = /(?:^|;\s*)gsm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
+function gsIntern(req) { return /(?:^|;\s*)gsm_intern=1(?:;|$)/.test(req.headers.get('cookie') || '') || /^amsterdam$/i.test(dek(req.headers.get('x-vercel-ip-city')).trim()); }
+function gsQuelle(url, ref) {
+  const p = url.searchParams, utm = kurz(p.get('utm_source') || '', 20).toLowerCase();
+  if (p.get('fbclid') || /^(facebook|fb|instagram|ig|meta)$/.test(utm)) return 'Facebook/Instagram Ads';
+  if (p.get('gclid') || p.get('gbraid') || p.get('wbraid')) return 'Google Ads';
+  if (utm) return 'Kampagne: ' + utm;
+  if (p.get('ref')) return 'Link: ' + kurz(p.get('ref'), 24);
+  const h = herkunft(ref || '', url); return h === 'mrbell.de' || /grundschulmax/.test(h) ? '' : h;
+}
+function gsMelden(d, req, ctx) {
+  if (gsIntern(req)) return null;
+  const id = gsKennung(req);
+  d.sitzung = id;
+  if (id) { d.stadt = kurz(dek(req.headers.get('x-vercel-ip-city')), 40); d.region = kurz(req.headers.get('x-vercel-ip-country-region'), 10); d.land = kurz(req.headers.get('x-vercel-ip-country'), 4); }
+  else { d.quelle = ''; d.stadt = ''; d.region = ''; d.land = ''; }
+  const p = fetch(GS_ZIEL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-gsm': 'mw1' }, body: JSON.stringify(d) }).catch(function () {});
+  if (ctx && typeof ctx.waitUntil === 'function') { ctx.waitUntil(p); return null; }
+  return p;
+}
+function gsSeite(req, ctx, url, recht) {
+  const ua = req.headers.get('user-agent') || '';
+  if (req.method !== 'GET' || BOT.test(ua) || !/text\/html/.test(req.headers.get('accept') || '')) return;
+  if (/prefetch|prerender/i.test((req.headers.get('sec-purpose') || '') + (req.headers.get('purpose') || ''))) return;
+  gsMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht || '', seite: url.pathname.slice(0, 40), quelle: gsQuelle(url, req.headers.get('referer')), geraet: geraet(ua) }, req, ctx);
+}
+async function gsEreignis(req, ctx) {
+  if (req.method !== 'POST') return new Response(null, { status: 405 });
+  const ua = req.headers.get('user-agent') || '';
+  if (BOT.test(ua)) return new Response(null, { status: 204 });
+  let d; try { d = JSON.parse((await req.text()).slice(0, 2000)); } catch (e) { return new Response(null, { status: 400 }); }
+  const e = kurz(d && d.e, 40); if (GS_EV.indexOf(e) < 0) return new Response(null, { status: 204 });
+  // Freitext absichern: keine E-Mail-Adressen, keine langen Zahlen
+  const det = kurz(d.d, 60).replace(/\S+@\S+/g, '…').replace(/\d{5,}/g, '…');
+  const offen = gsMelden({ ereignis: e, detail: det, seite: kurz(d.s, 40), quelle: kurz(d.q, 40), geraet: geraet(ua) }, req, ctx);
+  if (offen) await Promise.race([offen, new Promise(function (r) { setTimeout(r, 1500); })]);
+  return new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store' } });
+}
+
 // ---------- BWL Max: Seitenaufruf ohne Kennung, Ereignisse nur mit Einwilligung (Cookie bm_analyse) ----------
 const BM_ZIEL = 'https://hub.mrbell.de/n8n/webhook/bm-ping';
 const BM_EREIGNISSE = ['Google-Knopf fehlt', 'Mini-Check BWL Max erkunden', 'Mini-Check Auflösung geklickt', 'Mini-Check Klausuraufgaben', 'Anmeldefenster gesehen', 'Anmeldung begonnen', 'Analyse erlaubt', 'Gescrollt', 'Länger als 30 Sekunden', 'Max geöffnet', 'Max gefragt', 'Sprechen gestartet', 'Skript hochgeladen',
@@ -147,9 +196,11 @@ export default async function middleware(req, ctx) {
   // ---------- Grundschulmax (grundschulmax.de) — eigene Seite unter /grundschulmax, keine Messung ----------
   if (/^(www\.)?grundschulmax\.de$/i.test(url.hostname)) {
     const pfad = url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+    if (url.pathname === '/gs') return gsEreignis(req, ctx);
     let ziel = '';
-    if (pfad === '/') ziel = '/grundschulmax/index.html';
-    else if (/^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(pfad)) ziel = '/grundschulmax/legal' + pfad + '.html';
+    if (pfad === '/') { ziel = '/grundschulmax/index.html'; gsSeite(req, ctx, url, ''); }
+    else if (pfad === '/zahlen') ziel = '/grundschulmax/zahlen.html';
+    else if (/^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(pfad)) { ziel = '/grundschulmax/legal' + pfad + '.html'; gsSeite(req, ctx, url, { impressum: 'Impressum', datenschutz: 'Datenschutz', agb: 'AGB', widerruf: 'Widerruf', kuendigen: 'Kündigen', widerrufen: 'Widerrufen' }[pfad.slice(1)]); }
     else if (pfad === '/robots.txt' || pfad === '/sitemap.xml') ziel = '/grundschulmax' + pfad;
     if (ziel) return new Response(null, { headers: { 'x-middleware-rewrite': new URL(ziel, url).toString() } });
     return weiter();

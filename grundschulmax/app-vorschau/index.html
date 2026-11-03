@@ -5478,6 +5478,24 @@ body.ispaid .afab,body.ispaid .fcta{display:none!important}
 .les.on{background:#9fd8ff}
 .avjobs{grid-template-columns:repeat(auto-fill,minmax(82px,1fr))!important}.avj small{white-space:normal!important;text-align:center;line-height:1.05;hyphens:manual;font-size:11.5px!important}
 .s-fish .fbuck{bottom:auto!important;top:calc(min(34%,250px) * .66)!important;right:calc(2% + min(15%,110px))!important;height:min(13%,92px)!important}@media (max-width:560px){.s-fish .fbuck{top:calc(24% * .62)!important;right:calc(1% + 18%)!important;height:9%!important}}
+/* Angeln: Kind deutlich größer als die Fische, Eimer daneben */
+.s-fish .fang{height:min(46%,340px)!important}
+.s-fish .fbuck{top:calc(min(46%,340px) * .7)!important;right:calc(1% + min(46%,340px) * .5)!important;height:min(13%,92px)!important}
+@media (max-width:560px){.s-fish .fang{height:32%!important}.s-fish .fbuck{top:calc(32% * .7)!important;right:calc(1% + 22%)!important;height:9%!important}}
+.s-fish .fang{height:var(--kh,min(46%,340px))!important}
+.s-fish .fbuck{top:calc(var(--kh,min(46%,340px)) * .7)!important;right:calc(1% + var(--kh,min(46%,340px)) * .48)!important;height:calc(var(--kh,min(46%,340px)) * .3)!important}
+/* Einwilligung Reichweitenmessung */
+.gcb{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));translate:-50% 0;width:min(460px,calc(100vw - 32px));z-index:9000;background:#fff;color:var(--ink,#1d2340);border-radius:20px;padding:16px 18px 14px;box-shadow:0 18px 50px rgba(20,30,70,.28),0 0 0 2px #ece6da;font-size:14px;line-height:1.45;animation:gcbIn .35s cubic-bezier(.2,.9,.3,1.2) both}
+.gcb b{display:block;font-size:16px;margin-bottom:4px}
+.gcb p{margin:0 0 12px;color:#4a5170}
+.gcb p a{color:inherit;text-decoration:underline}
+.gcbr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gcbr .b3d{width:100%;justify-content:center}
+.gcb.out{opacity:0;translate:-50% 20px;transition:.3s}
+@keyframes gcbIn{from{opacity:0;translate:-50% 24px}to{opacity:1;translate:-50% 0}}
+@media (max-width:820px){body.gcb-on[data-screen=start] .gcb{bottom:calc(92px + env(safe-area-inset-bottom))}}
+@media (max-width:380px){.gcb{padding:14px 14px 12px;font-size:13px}.gcb b{font-size:15px}}
+@media (min-width:821px){.gcb{left:20px;translate:none;width:360px;bottom:20px;padding:14px 16px 12px;font-size:13px}.gcb b{font-size:15px}.gcb p{margin-bottom:10px}.gcb.out{translate:0 20px}@keyframes gcbIn2{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}.gcb{animation-name:gcbIn2}}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -5877,7 +5895,7 @@ body.ispaid .afab,body.ispaid .fcta{display:none!important}
 <footer>
   <div class="wrap">
     <span>© 2026 Grundschulmax · grundschulmax.de</span>
-    <nav><a href="#ueber" data-to="ueber">Über uns</a><a href="/grundschulmax/app-vorschau/recht/impressum.html">Impressum</a><a href="/grundschulmax/app-vorschau/recht/datenschutz.html">Datenschutz</a><a href="/grundschulmax/app-vorschau/recht/agb.html">AGB</a><a href="/grundschulmax/app-vorschau/recht/widerruf.html">Widerrufsbelehrung</a><a href="/grundschulmax/app-vorschau/recht/kuendigen.html">Verträge hier kündigen</a><a href="/grundschulmax/app-vorschau/recht/widerrufen.html">Vertrag widerrufen</a></nav>
+    <nav><a href="#ueber" data-to="ueber">Über uns</a><a href="/grundschulmax/app-vorschau/recht/impressum.html">Impressum</a><a href="/grundschulmax/app-vorschau/recht/datenschutz.html">Datenschutz</a><a href="/grundschulmax/app-vorschau/recht/agb.html">AGB</a><a href="/grundschulmax/app-vorschau/recht/widerruf.html">Widerrufsbelehrung</a><a href="/grundschulmax/app-vorschau/recht/kuendigen.html">Verträge hier kündigen</a><a href="/grundschulmax/app-vorschau/recht/widerrufen.html">Vertrag widerrufen</a><a href="#" data-cookie onclick="GT.open();return false">Cookie-Einstellungen</a></nav>
   </div>
 </footer>
 
@@ -6167,6 +6185,7 @@ function confetti(n) {
 }
 /* Abschluss wie bei Lern-Apps: Sterne + Statistik */
 function finish(title, text) {
+  try { if (st._gOpen && !st._gfin && SUBJ[st.s] && SUBJ[st.s].games[st.g]) { GT.t(st._g1 ? 'Erstes Spiel fertig' : 'Spiel fertig', SUBJ[st.s].games[st.g].n); st._gfin = 1; st._g1 = false; try { localStorage.setItem('gsm-did1g', '1'); } catch (e) {} } } catch (e) {}
   const tries = st.steps + st.errs, acc = tries ? Math.round(st.steps / tries * 100) : 100;
   const stars = acc >= 85 ? 3 : acc >= 60 ? 2 : 1;
   const secs = Math.round((Date.now() - st.t0) / 1000);
@@ -6203,6 +6222,77 @@ function startOverlay(label, hint, go) {
   };
 }
 const G = () => st.grade; // 0..3
+
+/* ---------- Messung (Zahlen für Ben) ----------
+   Ohne Einwilligung: nur das Ereignis selbst (z. B. „Lektion gestartet“), ohne Kennung, ohne Ort, ohne Herkunft.
+   Mit Einwilligung der Eltern (Cookie gsm_analyse = Zufallskennung): zusätzlich Kennung, ungefährer Ort und Herkunft.
+   Nie gemessen: Namen, E-Mail-Adressen, Antworten der Kinder, Fotos. */
+const GT = (() => {
+  const KEY = 'gsm.consent', sec = location.protocol === 'https:' ? '; Secure' : '';
+  const get = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+  const put = (v) => { try { localStorage.setItem(KEY, v); } catch (e) {} };
+  const hasCookie = () => /(?:^|;\s*)gsm_analyse=a[0-9a-f]{12}/.test(document.cookie);
+  const ok = () => get() === 'ja' && hasCookie();
+  const live = /(^|\.)grundschulmax\.de$/.test(location.hostname) && !/app-vorschau/.test(location.pathname);
+  // Einstieg merken (nur in diesem Tab, gesendet wird die Herkunft erst nach Einwilligung)
+  let SRC = '';
+  try {
+    SRC = sessionStorage.getItem('gsm.src') || '';
+    if (!SRC) {
+      const q = location.search, r = document.referrer; let s = '';
+      const utm = (q.match(/[?&]utm_source=([^&]+)/) || [])[1];
+      if (/[?&]fbclid=/.test(q) || /^(facebook|fb|instagram|ig|meta)$/i.test(utm || '')) s = 'Facebook/Instagram Ads';
+      else if (/[?&](gclid|gbraid|wbraid)=/.test(q)) s = 'Google Ads';
+      else if (utm) s = 'Kampagne: ' + decodeURIComponent(utm).slice(0, 20);
+      else if (r) { try { const h = new URL(r).hostname.replace(/^www\./, ''); if (!/grundschulmax\.de$/.test(h)) s = /facebook|fb\.com|fb\.me/.test(h) ? 'Facebook' : /instagram/.test(h) ? 'Instagram' : /google\./.test(h) ? 'Google' : h.slice(0, 30); } catch (e) {} }
+      SRC = s || 'Direkt'; sessionStorage.setItem('gsm.src', SRC);
+    }
+  } catch (e) {}
+  const scr = () => { const s = document.body.dataset.screen || ''; if (document.body.classList.contains('lesopen')) return s + ' · ' + (document.querySelector('.les.on') ? 'Lektion' : 'Spiel'); return s; };
+  let n = 0, lastClick = 0;
+  // Trichter-Schritte nur einmal pro Seitenaufruf zählen, damit die Abbruchquoten stimmen
+  const ONCE = { 'Ausprobieren geklickt': 1, 'Klasse gewählt': 1, 'Abo-Fenster geöffnet': 1, 'Tarif gewählt': 1, 'Zur Zahlung geklickt': 1, 'Einloggen geklickt': 1 }, seen = {};
+  function t(ereignis, detail) {
+    if (ONCE[ereignis]) { if (seen[ereignis]) { if (ereignis !== 'Klasse gewählt') return; ereignis = 'Klasse gewechselt'; } seen[ereignis] = 1; }
+    if (!live || ++n > 400) return;
+    const body = JSON.stringify({ e: String(ereignis).slice(0, 40), d: String(detail == null ? '' : detail).slice(0, 60), s: scr().slice(0, 40), q: ok() ? SRC : '' });
+    try { fetch('/gs', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body, keepalive: true, credentials: 'same-origin' }).catch(() => {}); } catch (e) {}
+  }
+  function allow(v) {
+    put(v ? 'ja' : 'nein');
+    if (v) { const r = new Uint8Array(6); crypto.getRandomValues(r); let id = 'a'; for (const b of r) id += ('0' + b.toString(16)).slice(-2); document.cookie = 'gsm_analyse=' + id + '; Max-Age=31536000; Path=/; SameSite=Lax' + sec; }
+    else document.cookie = 'gsm_analyse=; Max-Age=0; Path=/; SameSite=Lax' + sec;
+    t(v ? 'Analyse erlaubt' : 'Analyse abgelehnt', v ? SRC : '');
+    const b = document.getElementById('gcb'); if (b) { b.classList.add('out'); setTimeout(() => b.remove(), 300); } document.body.classList.remove('gcb-on');
+  }
+  // Einwilligungs-Fenster für Eltern: nur auf Start- und Klassenseite, bis entschieden wurde
+  function banner() {
+    if (get() || document.getElementById('gcb') || !/^(start|klasse)$/.test(document.body.dataset.screen || '')) return;
+    const d = document.createElement('div'); d.id = 'gcb'; d.className = 'gcb'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', 'Datenschutz-Einstellung');
+    d.innerHTML = '<b>Dürfen wir anonym mitzählen?</b><p>Wir möchten verstehen, wie Besucher zu uns finden und wo es hakt, damit Grundschulmax besser wird. Dafür setzen wir mit Ihrer Erlaubnis ein Cookie. Keine Werbung, keine Weitergabe. <a href="/grundschulmax/app-vorschau/recht/datenschutz.html" target="_blank" rel="noopener">Mehr erfahren</a></p><div class="gcbr"><button type="button" class="b3d w sm gcbn">Ablehnen</button><button type="button" class="b3d sm gcby">Erlauben</button></div>';
+    document.body.appendChild(d); document.body.classList.add('gcb-on');
+    d.querySelector('.gcby').onclick = () => allow(true); d.querySelector('.gcbn').onclick = () => allow(false);
+  }
+  // Klicks: nur Bedienelemente der Oberfläche, nie Antworten oder Inhalte der Kinder
+  const SKIP = '.lesex, .qscn, #gs .xopts, #gs [data-v], #gs [data-k], .hwr, input, textarea, select, #gcb';
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest && e.target.closest('button, a, [role=button]'); if (!el || el.closest(SKIP)) return;
+    const now = Date.now(); if (now - lastClick < 350) return; lastClick = now;
+    if (el.closest('#pick')) return;
+    let lb = (el.getAttribute('aria-label') || el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40);
+    try { const nm = PROF && PROF().name; if (nm && nm.length > 1) lb = lb.split(nm).join('Name'); } catch (er) {}
+    if (!lb) return;
+    if (el.closest('.hero .ctas') || /ausprobieren/i.test(lb)) t('Ausprobieren geklickt', lb);
+    else if (/^einloggen$/i.test(lb)) t('Einloggen geklickt', scr());
+    t('Klick', lb);
+  }, true);
+  // Verlassen: wo und nach wie vielen Sekunden
+  const t0 = Date.now(); let left = false;
+  const bucket = (s) => s < 10 ? 'unter 10 s' : s < 30 ? '10–30 s' : s < 60 ? '30–60 s' : s < 180 ? '1–3 min' : s < 600 ? '3–10 min' : 'über 10 min';
+  addEventListener('pagehide', () => { if (left) return; left = true; t('Seite verlassen', (scr() || 'start') + ' · ' + bucket((Date.now() - t0) / 1000)); });
+  setTimeout(banner, 1200); addEventListener('hashchange', () => setTimeout(banner, 600));
+  return { t, ok, allow, banner, open: () => { put(''); try { localStorage.removeItem(KEY); } catch (e) {} const b = document.getElementById('gcb'); if (b) b.remove(); const s = document.body.dataset.screen; document.body.dataset.screen = 'start'; banner(); document.body.dataset.screen = s; } };
+})();
 
 LP.mathe = [
   /* Klasse 1 */ [
@@ -10219,9 +10309,11 @@ function startLesson(li, j, n, custom) {
   $('.lesbtn', les).onclick = lesBtn;
   $('.lmute', les).onclick = () => setVoice(!voiceOn); setVoice(voiceOn);
   const bub = $('.lesbub', les); if (bub && !$('.lesrep', les)) { bub.insertAdjacentHTML('afterend', `<button class="lesrep" aria-label="Nochmal anhören" hidden>${I('snd')}<span>Nochmal</span></button>`); $('.lesrep', les).onclick = () => { if (!LS) return; restart($('.lesrep', les), 'xplay'); const ok = LS.say && sayChain(LS.say, LS.who, true); if (!ok) ttsDe(LS.sayT || $('.lesbub', les).textContent, true); else setTimeout(() => { if (!curAudio || curAudio.paused) ttsDe(LS.sayT || $('.lesbub', les).textContent, true); }, 900); }; }
+  LS.first1 = !custom && !LSget1(); GT.t(LS.first1 ? 'Erste Lektion gestartet' : 'Lektion gestartet', (custom ? (custom.title || 'Eigene') : S.n) + (custom ? '' : ' · L' + (li + 1) + '-' + (j + 1)) + (MIXRUN ? ' · Abenteuer' : ''));
   lesNext();
 }
-function closeLesson() { if (les.dataset.state !== 'end') MIXRUN = null; token++; stopVoice(); les.classList.remove('on', 'quit'); document.body.classList.remove('lesopen'); LS = null; setTimeout(() => { if (!les.classList.contains('on')) les.innerHTML = ''; }, 400); }
+const LSget1 = () => { try { const v = !!localStorage.getItem('gsm-l1s'); localStorage.setItem('gsm-l1s', '1'); return v; } catch (e) { return true; } };
+function closeLesson() { if (LS && les.dataset.state !== 'end') GT.t(LS.first1 ? 'Erste Lektion abgebrochen' : 'Lektion abgebrochen', (LS.custom ? 'Eigene' : LS.S.n) + ' · bei Aufgabe ' + Math.min(LS.total, LS.done + 1) + '/' + LS.total); if (les.dataset.state !== 'end') MIXRUN = null; token++; stopVoice(); les.classList.remove('on', 'quit'); document.body.classList.remove('lesopen'); LS = null; setTimeout(() => { if (!les.classList.contains('on')) les.innerHTML = ''; }, 400); }
 function lesBar() { const bi = $('.lesbar i', les), w0 = parseFloat(bi.style.width) || 0, w1 = Math.max(4, LS.done / LS.total * 100); bi.style.width = w1 + '%'; if (w1 > w0 + .5) setTimeout(() => { const r = bi.getBoundingClientRect(); if (!r.width) return; const s = document.createElement('i'); s.className = 'barspk'; s.style.left = r.right + 'px'; s.style.top = r.top + r.height / 2 + 'px'; document.body.appendChild(s); setTimeout(() => s.remove(), 750); }, 450); const s = $('.lesstk', les); s.classList.toggle('on', LS.streak >= 2); $('span', s).textContent = LS.streak; }
 function sayChain(list, who, force) {
   if (list[0] && String(list[0]).startsWith('hw:')) { const [, id, n] = String(list[0]).split(':'); hwSay(id, +n); return true; }
@@ -10316,6 +10408,8 @@ function lesEnd() {
   const S = LS.S, secs = Math.round((Date.now() - LS.t0) / 1000), acc = Math.round(LS.first / LS.total * 100), xp = Math.max(1, Math.round(acc / 20));
   const stars = xp, n = LS.n, last = LS.j === PER - 2;
   les.dataset.state = 'end'; try { tone(523, .12, 'triangle', .08); } catch (er) {}
+  GT.t(LS.first1 ? 'Erste Lektion fertig' : 'Lektion fertig', S.n + ' · ' + stars + ' Sterne · ' + acc + ' %'); try { localStorage.setItem('gsm-did1', '1'); } catch (er) {}
+  if (!PAID && n + 1 >= (MIXRUN ? MIX_FREE : FREE_N)) GT.t('Probe zu Ende', S.n);
   const e = document.createElement('div'); e.className = 'lesend';
   e.innerHTML = `<div class="lee"><div class="leet">${tutorHTML(S.tutor.id)}</div><div class="bs">${[0, 1, 2, 3, 4].map((i) => `<svg class="i${i < stars ? ' on' : ''}" style="animation-delay:${.2 + i * .15}s"><use href="#i-star"/></svg>`).join('')}</div>
     <small class="lew">${LS.world.n} geschafft</small><h3>${acc === 100 ? 'Perfekt gespielt!' : 'Lektion geschafft!'}</h3><p>${last ? `Jetzt wartet das Spiel am Ende von Level ${LS.li + 1}.` : `Lektion ${LS.j + 1} von 4 in Level ${LS.li + 1}.`}</p>
@@ -11227,16 +11321,17 @@ SK.goal.after = (sc) => {
   /* Fische immer komplett sichtbar: zwischen Frage-Bild und Hilfe-Leiste verteilen, notfalls kleiner machen */
   const fitFish = (sc) => { const F = $$('.fsh', sc); if (!F.length || !sc.isConnected) return; const S = sc.getBoundingClientRect(); if (!S.height) return;
     const hb = document.querySelector('.les.on #lhelp'), hbT = hb && hb.offsetParent ? hb.getBoundingClientRect().top : innerHeight;
-    const bot = Math.min(S.bottom, hbT - 6, innerHeight - 4) - S.top, top = S.height * .2, avail = bot - top, n = F.length, W = S.width * .92;
+    const bot = Math.min(S.bottom, hbT - 6, innerHeight - 4) - S.top, top = S.height * .2, avail = bot - top, n = F.length, AW = S.width * .74, W = AW * .96;
     F.forEach((f) => f.style.removeProperty('width')); const h0 = F[0].getBoundingClientRect().width * 302 / 360; if (avail < 40) return;
-    let best = { c: 1, h: Math.min(h0, avail / (1 + .5 * (n - 1)), W * .55 * 302 / 360) };
+    let best = { c: 1, h: Math.min(h0, avail / (1 + .5 * (n - 1)), W * .5 * 302 / 360) };
     for (let c = 2; c <= n; c++) { const r = Math.ceil(n / c), h = Math.min(h0 * 1.15, avail / r * .96, W / c * .94 * 302 / 360); if (h > best.h * 1.04) best = { c, h }; }
     const { c, h } = best, w = h * 360 / 302;
+    sc.style.setProperty('--kh', Math.round(Math.max(Math.min(S.height * .62, h * 1.7), Math.min(S.height * .4, 150))) + 'px');
     F.forEach((f, i) => { f.style.setProperty('width', w + 'px', 'important'); const f0 = +(f.dataset.fs || (f.dataset.fs = f.style.getPropertyValue('--fs') || 1)); f.style.setProperty('--fs', (f0 * Math.max(.75, Math.min(1.15, w / 190))).toFixed(2)); });
     if (c === 1) { const step = n > 1 ? Math.min(h * 1.05, (avail - h) / (n - 1)) : 0, y0 = top + h / 2 + Math.max(0, (avail - h - step * (n - 1)) / 2);
-      F.forEach((f, i) => { f.style.setProperty('--y', y0 + i * step + 'px'); f.style.setProperty('--fx', (i % 2 ? S.width * .5 : S.width * .05) + 'px'); }); return; }
+      F.forEach((f, i) => { f.style.setProperty('--y', y0 + i * step + 'px'); f.style.setProperty('--fx', (i % 2 ? Math.min(AW - w, AW * .45) : AW * .03) + 'px'); }); return; }
     const r = Math.ceil(n / c), rh = avail / r;
-    F.forEach((f, i) => { const row = Math.floor(i / c), inRow = Math.min(c, n - row * c), col = i % c, cw = S.width / inRow;
+    F.forEach((f, i) => { const row = Math.floor(i / c), inRow = Math.min(c, n - row * c), col = i % c, cw = AW / inRow;
       f.style.setProperty('--y', top + rh * (row + .5) + 'px'); f.style.setProperty('--fx', Math.max(4, cw * (col + .5) - w / 2) + 'px'); }); };
   SK.fish.after = (sc) => {
     fitFish(sc); setTimeout(() => fitFish(sc), 350); if (!sc._rz) { sc._rz = () => fitFish(sc); addEventListener('resize', sc._rz); }
@@ -11285,7 +11380,7 @@ function coverHTML(g) {
 }
 
 /* Abo-Fenster mit Preisen */
-function paywall(t) {
+function paywall(t) { GT.t('Abo-Fenster geöffnet', t || 'Allgemein');
   let pw = $('#pw'); if (!pw) { pw = document.createElement('div'); pw.id = 'pw'; pw.className = 'pw'; document.body.appendChild(pw); }
   const S = SUBJ[Math.max(0, st.s)];
   pw.innerHTML = `<div class="pwc" role="dialog" aria-label="Grundschulmax freischalten"><button class="pwx" aria-label="Schließen">${I('x')}</button>
@@ -11299,7 +11394,7 @@ function paywall(t) {
   $$('.pwo', pw).forEach((b) => (b.onclick = () => { plan = b.dataset.plan; $$('.pwo', pw).forEach((x) => x.classList.toggle('on', x === b)); }));
   const close = () => pw.classList.remove('on');
   $('.pwx', pw).onclick = close; pw.onclick = (e) => { if (e.target === pw) close(); };
-  $('#pwgo', pw).onclick = () => { close(); openM(plan); };
+  $('#pwgo', pw).onclick = () => { GT.t('Tarif gewählt', plan === 'm' ? 'Monatlich' : 'Schuljahr'); close(); openM(plan); };
   $('#pwhave', pw).onclick = (e) => { e.currentTarget.outerHTML = `<div class="pacin pwcin"><input id="pwcode" placeholder="ABCD-1234" maxlength="9" autocomplete="off"><button class="b3d c" id="pwcgo">Freischalten</button></div>`; $('#pwcode').focus();
     $('#pwcgo').onclick = async (ev) => { const c = $('#pwcode').value.trim().toUpperCase().replace(/^([A-Z0-9]{4})([A-Z0-9]{4})$/, '$1-$2'); const b = ev.currentTarget; b.disabled = true;
       try { const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'status', code: c }) }).then((x) => x.json());
@@ -11431,7 +11526,7 @@ function drawHW(sel = '#ahw', web, SJ) {
   }
   async function send() {
     if (hwLeft() <= 0) { paywall('Max hilft bei Hausaufgaben und Tests'); return; }
-    const imgs = pend.slice(); pend = []; pe.innerHTML = ''; const TU = SJ ? SJ.tutor : { id: 'max', n: 'Max' };
+    const imgs = pend.slice(); pend = []; pe.innerHTML = ''; GT.t('Hausaufgabe hochgeladen', (SJ ? 'Test ' + SJ.n : 'Hausaufgabe') + ' · ' + imgs.length + (imgs.length === 1 ? ' Foto' : ' Fotos')); const TU = SJ ? SJ.tutor : { id: 'max', n: 'Max' };
     tabs.forEach((b) => b.classList.remove('on'));
     r.innerHTML = `<div class="hwscanw"><div class="hwstack">${imgs.slice(0, 4).map((u, i) => `<div class="hwi" style="--r:${(i - 1.5) * 4}deg;--i:${i}"><img src="${u}" alt=""><i class="hwscan loop"></i></div>`).join('')}</div>
       <div class="hwwait"><span class="hwwm hwx">${tutorHTML(TU.id)}</span><b>${TU.n} liest ${imgs.length > 1 ? `deine ${imgs.length} Seiten` : 'dein Blatt'} …</b><ol class="hwsteps"><li class="on">Aufgaben erkennen</li><li>Lösungsweg überlegen</li><li>Spiel und Probetest bauen</li></ol></div></div>`;
@@ -11446,8 +11541,8 @@ function drawHW(sel = '#ahw', web, SJ) {
     clearInterval(tick); clearInterval(talkI);
     if (res.limit && (res.limit === 'frei' || !PAID)) { r.innerHTML = ''; paywall('Max hilft bei Hausaufgaben und Tests'); return; }
     if (res.limit) { r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML(TU.id)}</span><div><b>Für heute geschafft!</b><p>${esc(res.grund || 'Morgen geht es weiter.')}</p></div></div>`; return; }
-    if (!res.ok) { pend = imgs.concat(pend).slice(0, 10); drawPend(); r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML(TU.id)}</span><div><b>Hmm, das hat nicht geklappt.</b><p>${esc(res.grund || 'Probier ein schärferes Foto.')}</p><button class="b3d sm hwretry">${I('again')}Nochmal versuchen</button></div></div>`; const rb = $('.hwretry', r); if (rb) rb.onclick = send; hwSpeak(res.audio); sfx.no(); return; }
-    if (!isAdmin()) lsx.set('gsm-hw-n', +lsx.get('gsm-hw-n', 0) + 1); act('hw');
+    if (!res.ok) { GT.t('Hausaufgabe Ergebnis', res.retry ? 'keine Verbindung' : 'nicht lesbar'); pend = imgs.concat(pend).slice(0, 10); drawPend(); r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML(TU.id)}</span><div><b>Hmm, das hat nicht geklappt.</b><p>${esc(res.grund || 'Probier ein schärferes Foto.')}</p><button class="b3d sm hwretry">${I('again')}Nochmal versuchen</button></div></div>`; const rb = $('.hwretry', r); if (rb) rb.onclick = send; hwSpeak(res.audio); sfx.no(); return; }
+    GT.t('Hausaufgabe Ergebnis', 'ok'); if (!isAdmin()) lsx.set('gsm-hw-n', +lsx.get('gsm-hw-n', 0) + 1); act('hw');
     $$('.hwd').forEach((x) => x.parentElement._free && x.parentElement._free());
     R = res; Rimg = imgs[0]; Rths = await Promise.all(imgs.map((x) => thumb(x))); sfx.ok(); starsUp(r, 12);
     const L = libGet(); L.unshift({ id: Date.now(), k: SJ ? SJ.k : '', t: new Date().toLocaleDateString('de-DE', { day: 'numeric', month: 'short' }), n: imgs.length, th: Rths[0], ths: Rths.slice(0, 4), R: { ...res, audio: '' } }); libPut(L.slice(0, 30));
@@ -11779,7 +11874,7 @@ async function kGoogle(slot, onDone, errEl) {
   if (!slot.isConnected) return;
   google.accounts.id.initialize({ client_id: GSI_CLIENT, use_fedcm_for_prompt: true, callback: async (resp) => {
     slot.style.opacity = '.5'; const r = await K.req('google', { cred: resp.credential }); slot.style.opacity = '';
-    if (r.ok && r.token) { kOk(r, onDone, r.neu); return; }
+    if (r.ok && r.token) { GT.t(r.neu ? 'Konto erstellt' : 'Angemeldet', 'Google'); kOk(r, onDone, r.neu); return; }
     if (errEl) errEl.textContent = r.grund || 'Die Google-Anmeldung hat nicht geklappt.';
   } });
   google.accounts.id.renderButton(slot, { theme: 'outline', size: 'large', shape: 'pill', text: 'continue_with', locale: 'de', width: Math.min(360, slot.clientWidth || 320) });
@@ -11819,7 +11914,7 @@ function kLoginUI(host, { title = 'Anmelden', sub = GSI_CLIENT ? 'Mit deinem Goo
       email = $('#kem', host).value.trim(); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { $('#kerr', host).textContent = 'Bitte eine gültige E-Mail-Adresse eingeben.'; $('#kem', host).focus(); return; }
       if (check && !$('#kadult', host).checked) { restart($('.chk', host), 'shk'); return; }
       const b = $('#ksend', host); b.disabled = true; b.innerHTML = 'Einen Moment …';
-      const r = await K.req('send', { email }); if (r.ok) { two(r.neu); return; }
+      const r = await K.req('send', { email }); if (r.ok) { GT.t('Code angefordert', r.neu ? 'neu' : 'bestehend'); two(r.neu); return; }
       b.disabled = false; b.innerHTML = `${btn} ${I('arrow')}`; $('#kerr', host).textContent = r.grund || 'Das hat nicht geklappt.';
     };
     $('#ksend', host).onclick = go; $('#kem', host).onkeydown = (e) => { if (e.key === 'Enter') go(); };
@@ -11835,7 +11930,7 @@ function kLoginUI(host, { title = 'Anmelden', sub = GSI_CLIENT ? 'Mit deinem Goo
       const code = c.value.replace(/\D/g, ''); if (code.length !== 6) { restart(c, 'shk'); return; }
       const b = $('#kok', host); b.disabled = true; b.innerHTML = 'Prüfe …';
       const r = await K.req('login', { email, code });
-      if (r.ok && r.token) { kOk(r, onDone, neu); return; }
+      if (r.ok && r.token) { GT.t(neu ? 'Konto erstellt' : 'Angemeldet', ''); kOk(r, onDone, neu); return; }
       b.disabled = false; b.innerHTML = `Bestätigen ${I('arrow')}`; $('#kerr', host).textContent = r.grund || 'Das hat nicht geklappt.'; restart(c, 'shk'); c.select();
     };
     c.oninput = () => { c.value = c.value.replace(/\D/g, '').slice(0, 6); if (c.value.length === 6) go(); };
@@ -12020,12 +12115,12 @@ function layoutArc() {
 }
 addEventListener('resize', layoutArc);
 st.grade = (() => { try { const g = localStorage.getItem('gsm-grade'); return g === null ? -1 : +g; } catch (e) { return -1; } })();
-$$('#pick [data-g]').forEach((b) => (b.onclick = () => { st.grade = +b.dataset.g; drawGrade(); drawLPCards(); if (st.next != null) { const n = st.next; st.next = null; goTo(...n); } else { st.nav = 'home'; go('spiel'); mount(); } }));
+$$('#pick [data-g]').forEach((b) => (b.onclick = () => { GT.t('Klasse gewählt', 'Klasse ' + (+b.dataset.g + 1)); st.grade = +b.dataset.g; drawGrade(); drawLPCards(); if (st.next != null) { const n = st.next; st.next = null; goTo(...n); } else { st.nav = 'home'; go('spiel'); mount(); } }));
 function drawGrade() { try { if (st.grade >= 0) localStorage.setItem('gsm-grade', st.grade); } catch (e) {} const t = st.grade < 0 ? '' : `${I('cap')}${GRADES[st.grade][0]} · ${GRADES[st.grade][2]}`; ['#gchip', '#gchip2'].forEach((q) => { $(q).innerHTML = t; $(q).style.display = t ? '' : 'none'; }); }
 $('#tabs').innerHTML = SUBJ.map((s, i) => `<button class="tab" role="tab" data-i="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="ti tt">${tutorHTML(s.tutor.id)}</span>${s.n}</button>`).join('');
-$$('#tabs .tab').forEach((t) => (t.onclick = () => { $$('#tabs .tab').forEach((x) => x.classList.toggle('on', x === t)); document.body.classList.add('switching'); requestAnimationFrame(() => setTimeout(() => { st.s = +t.dataset.i; st.g = 0; st.nav = 'subj'; st.w = 'path'; mount(); $('.amain').scrollTop = 0; t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); setTimeout(() => document.body.classList.remove('switching'), 300); }, 0)); }));
+$$('#tabs .tab').forEach((t) => (t.onclick = () => { GT.t('Fach geöffnet', (SUBJ[+t.dataset.i] || {}).n || ''); $$('#tabs .tab').forEach((x) => x.classList.toggle('on', x === t)); document.body.classList.add('switching'); requestAnimationFrame(() => setTimeout(() => { st.s = +t.dataset.i; st.g = 0; st.nav = 'subj'; st.w = 'path'; mount(); $('.amain').scrollTop = 0; t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); setTimeout(() => document.body.classList.remove('switching'), 300); }, 0)); }));
 st.w = 'path';
-$$('#wtabs button').forEach((b) => (b.onclick = () => { st.w = b.dataset.w; mount(); }));
+$$('#wtabs button').forEach((b) => (b.onclick = () => { GT.t('Bereich geöffnet', ((SUBJ[st.s] || {}).n || '') + ' · ' + ({ path: 'Lernpfad', games: 'Spiele', test: 'Testvorbereitung' }[b.dataset.w] || b.dataset.w)); st.w = b.dataset.w; mount(); }));
 $('#again').onclick = () => runStage();
 function drawPath() {
   const S = SUBJ[st.s], s0 = lpStat(S.k, Math.max(0, st.grade));
@@ -12037,9 +12132,9 @@ function drawPath() {
   $('#qgo').onclick = () => { st.m = 'quiz'; openStage(); };
 }
 let gameDone = null;
-function openGame(i, done) { if (!PAID) { paywall(`${SUBJ[st.s].games[i].n} gibt es im Abo`); return; } st.g = i; st.m = 'game'; gameDone = done || null; openStage(); }
+function openGame(i, done) { if (!PAID) { paywall(`${SUBJ[st.s].games[i].n} gibt es im Abo`); return; } st.g = i; st.m = 'game'; st._gfin = 0; st._gOpen = 1; st._g1 = (() => { try { const f = !localStorage.getItem('gsm-g1s'); localStorage.setItem('gsm-g1s', '1'); return f; } catch (e) { return false; } })(); GT.t(st._g1 ? 'Erstes Spiel gestartet' : 'Spiel gestartet', SUBJ[st.s].games[i].n); gameDone = done || null; openStage(); }
 function openStage() { const sg = $('#stage'); sg.classList.add('open'); document.body.classList.add('lesopen'); restart(sg, 'enter'); runStage(); }
-function closeStage() { token++; if (cleanup) cleanup(); cleanup = null; stopVoice(); gameDone = null; CUSTOM_BALLON = null; $('#stage').classList.remove('open'); document.body.classList.remove('lesopen'); drawLP(); }
+function closeStage() { try { if (st._gOpen && !st._gfin && SUBJ[st.s] && SUBJ[st.s].games[st.g]) GT.t(st._g1 ? 'Erstes Spiel abgebrochen' : 'Spiel abgebrochen', SUBJ[st.s].games[st.g].n + ' · bei ' + (st.done || 0) + '/' + (st.steps || 0)); } catch (e) {} st._gOpen = 0; token++; if (cleanup) cleanup(); cleanup = null; stopVoice(); gameDone = null; CUSTOM_BALLON = null; $('#stage').classList.remove('open'); document.body.classList.remove('lesopen'); drawLP(); }
 $('#sx').onclick = closeStage;
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('#stage').classList.contains('open')) closeStage(); });
 function runStage() {
@@ -12149,7 +12244,7 @@ function step(n) {
       <label class="chk"><input type="checkbox" id="kadult"> <span>Ich bin volljährig und erziehungsberechtigt für das Kind.</span></label>
       <button class="b3d c wide" id="s1go">Weiter zur Zahlung ${I('arrow')}</button>
       <p class="fine" style="text-align:center;margin-top:10px">Schon ein Abo? <button class="lnk" id="s1in">Anmelden</button></p>`;
-    $('#s1go', mb).onclick = () => { if (!$('#kadult', mb).checked) { restart($('.chk', mb), 'shk'); return; } step(2); };
+    $('#s1go', mb).onclick = () => { if (!$('#kadult', mb).checked) { restart($('.chk', mb), 'shk'); return; } GT.t('Zur Zahlung geklickt', su.plan === 'm' ? 'Monatlich' : 'Schuljahr'); step(2); };
     $('#s1in', mb).onclick = () => { closeM(); openLogin(); };
     $$('.plt', mb).forEach((b) => (b.onclick = () => { if (su.plan !== b.dataset.p) { su.plan = b.dataset.p; sfx.tap(); step(1); } }));
   }
@@ -12203,9 +12298,9 @@ function welcome() { mb.innerHTML = `<div style="text-align:center;padding:10px 
   const ab = { code: r.code, paid: !!r.paid, status: r.status, plan: r.plan, email: r.email, trialEnd: r.trialEnd, checked: Date.now() };
   try { localStorage.setItem('gsm-abo', JSON.stringify(ab)); localStorage.removeItem('gsm-pend'); } catch (e) {}
   if (K.tok) await K.req('setabo', { token: K.tok, code: ab.code, plan: ab.plan });
-  else { let k = null; for (let i = 0; i < 3 && !(k && k.ok); i++) { k = await K.req('stripe', { sid }); if (!(k && k.ok)) await wait(1200); } if (k && k.ok && k.token) { try { localStorage.setItem('gsm-token', k.token); } catch (e) {} kApply(k.profil); if (!k.profil.data) kPush(); } }
+  else { let k = null; for (let i = 0; i < 3 && !(k && k.ok); i++) { k = await K.req('stripe', { sid }); if (!(k && k.ok)) await wait(1200); } if (k && k.ok && k.token) { GT.t('Konto erstellt', 'mit Abo'); try { localStorage.setItem('gsm-token', k.token); } catch (e) {} kApply(k.profil); if (!k.profil.data) kPush(); } }
   Object.assign(su, { plan: pend.plan || su.plan, grade: +(r.klasse || pend.grade || su.grade), email: r.email || pend.email || '' });
-  stepDone(ab);
+  GT.t('Abo abgeschlossen', ab.plan === 'm' ? 'Monatlich' : 'Schuljahr'); stepDone(ab);
 })();
 function stepDone(ab) { step(3); }
 /* Abo regelmäßig prüfen (gekündigt, Zahlung offen …) */
@@ -12214,8 +12309,8 @@ function stepDone(ab) { step(3); }
   try { const r = await fetch(ABO_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'status', code: ABO.code }) }).then((x) => x.json()); if (!r || (!r.ok && !r.grund)) return; const paid = !!(r.ok && r.paid); const ab = { ...ABO, paid, status: r.status || 'none', checked: Date.now() }; localStorage.setItem('gsm-abo', JSON.stringify(ab)); if (paid !== !!ABO.paid) location.reload(); } catch (e) {}
 })();
 function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
-function openM(plan) { su.plan = plan || 'y'; su.grade = Math.max(0, st.grade) + 1; ov.classList.add('on'); document.body.style.overflow = 'hidden'; step(1); }
-function closeM() { try { if (payObj) { payObj.destroy(); payObj = null; } } catch (e) {} ov.classList.remove('on'); document.body.style.overflow = ''; }
+function openM(plan) { GT.t('Abo-Fenster geöffnet', 'Anmeldung · ' + (plan || 'y')); su.plan = plan || 'y'; su.grade = Math.max(0, st.grade) + 1; ov.classList.add('on'); document.body.style.overflow = 'hidden'; step(1); }
+function closeM() { if (ov.classList.contains('on')) GT.t('Abo-Fenster geschlossen', 'Anmeldung'); try { if (payObj) { payObj.destroy(); payObj = null; } } catch (e) {} ov.classList.remove('on'); document.body.style.overflow = ''; }
 $('#mx').onclick = closeM; ov.onclick = (e) => { if (e.target === ov) closeM(); };
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeM(); });
 $$('[data-start]').forEach((b) => (b.onclick = () => openM(b.dataset.plan)));
@@ -12311,7 +12406,7 @@ const HELP = [
 ];
 function openHelp(first) {
   let o = $('#help'); if (!o) { o = document.createElement('div'); o.id = 'help'; o.className = 'help'; document.body.appendChild(o); }
-  let i = 0;
+  let i = 0; GT.t('Tutorial', first ? 'gestartet' : 'Hilfe geöffnet');
   const draw = () => {
     const h = HELP[i];
     o.innerHTML = `<div class="hpc" role="dialog" aria-label="Hilfe">${first ? '' : `<button class="hpx" aria-label="Schließen">${I('x')}</button>`}
@@ -12322,7 +12417,7 @@ function openHelp(first) {
       <div class="hprow">${i > 0 ? `<button class="b3d w" data-a="back">Zurück</button>` : ''}<button class="b3d c" data-a="next">${i < HELP.length - 1 ? `Weiter ${I('arrow')}` : 'Los geht’s!'}</button></div>${first ? `<button class="hpskip" data-a="skip">Überspringen</button>` : ''}</div>`;
     if ($('.hpx', o)) $('.hpx', o).onclick = close; if ($('.hpskip', o)) $('.hpskip', o).onclick = close;
     $$('.hpdots button', o).forEach((b) => (b.onclick = () => { i = +b.dataset.k; draw(); }));
-    $$('[data-a]', o).forEach((b) => (b.onclick = () => { if (b.dataset.a === 'skip') return close(); if (b.dataset.a === 'back') i--; else if (i < HELP.length - 1) i++; else return close(); sfx.tap(); draw(); }));
+    $$('[data-a]', o).forEach((b) => (b.onclick = () => { if (b.dataset.a === 'skip') { if (first) GT.t('Tutorial', 'übersprungen bei ' + (i + 1)); return close(); } if (b.dataset.a === 'back') i--; else if (i < HELP.length - 1) i++; else { if (first) GT.t('Tutorial', 'fertig'); return close(); } sfx.tap(); draw(); }));
     let sx = 0; const im = $('.hpi', o); im.onpointerdown = (e) => { sx = e.clientX; }; im.onpointerup = (e) => { const d = e.clientX - sx; if (d < -40 && i < HELP.length - 1) { i++; draw(); } else if (d > 40 && i > 0) { i--; draw(); } };
   };
   const close = () => { o.classList.remove('on'); try { localStorage.setItem('gsm-help-seen', '1'); } catch (e) {} dispatchEvent(new Event('gsm-help-closed')); };

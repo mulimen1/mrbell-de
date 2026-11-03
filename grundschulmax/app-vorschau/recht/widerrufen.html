@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="de"><head>
-<meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vertrag widerrufen – Grundschulmax</title><meta name="robots" content="noindex, follow">
 <link rel="icon" type="image/png" href="/grundschulmax/max-96.png"><style>
 @font-face{font-family:G;src:url(/grundschulmax/geist.woff2) format('woff2');font-weight:100 900;font-display:swap}
@@ -71,7 +70,7 @@ footer{display:none!important}
 <header class="top"><a class="back" href="/" onclick="if(history.length>1&&document.referrer&&new URL(document.referrer).host===location.host){history.back();return false}">&#8592; Zurück</a><a class="brand" href="/"><img src="/grundschulmax/max-96.png" alt=""><span>Grundschul<b>max</b></span></a></header>
 <main><div class="k">Widerruf</div><h1>Vertrag widerrufen</h1><p class="stand">Stand: 31. Oktober 2026</p>
 
-<p>Hier widerrufst du deinen Vertrag mit Grundschulmax innerhalb der Widerrufsfrist von 14 Tagen. Die Einzelheiten stehen in der <a href="/widerruf">Widerrufsbelehrung</a>.</p>
+<p>Hier widerrufst du deinen Vertrag mit Grundschulmax innerhalb der Widerrufsfrist von 14 Tagen. Die Einzelheiten stehen in der <a href="/grundschulmax/app-vorschau/recht/widerruf.html">Widerrufsbelehrung</a>.</p>
 <form data-v="widerruf" novalidate>
 <div class="fixed"><strong>Vertrag:</strong> Grundschulmax-Abo</div>
 <label>Dein Name<input name="name" autocomplete="name"></label>
@@ -80,7 +79,7 @@ footer{display:none!important}
 <button class="btn" type="submit">Widerruf bestätigen</button>
 </form>
 <div class="done" data-done><h2>Dein Widerruf ist eingegangen</h2><p>Speicher dir diese Bestätigung oder druck sie aus. Eine Kopie mit Datum und Uhrzeit des Eingangs schicken wir dir per E-Mail.</p><pre data-beleg></pre><button class="btn" data-print style="margin-top:14px">Bestätigung speichern / drucken</button></div>
-</main><footer><span>© 2026 Grundschulmax</span><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><a href="/agb">AGB</a><a href="/widerruf">Widerrufsbelehrung</a><a href="/kuendigen">Verträge hier kündigen</a><a href="/widerrufen">Vertrag widerrufen</a></footer><script>
+</main><footer><span>© 2026 Grundschulmax</span><a href="/grundschulmax/app-vorschau/recht/impressum.html">Impressum</a><a href="/grundschulmax/app-vorschau/recht/datenschutz.html">Datenschutz</a><a href="/grundschulmax/app-vorschau/recht/agb.html">AGB</a><a href="/grundschulmax/app-vorschau/recht/widerruf.html">Widerrufsbelehrung</a><a href="/grundschulmax/app-vorschau/recht/kuendigen.html">Verträge hier kündigen</a><a href="/grundschulmax/app-vorschau/recht/widerrufen.html">Vertrag widerrufen</a></footer><script>
 (function(){var f=document.querySelector('form[data-v]');if(!f)return;var A='/grundschulmax/api/vertrag',act=f.dataset.v,q=function(s){return document.querySelector(s)};
 var sync=function(){var g=q('[data-grund]'),d=q('[data-datum]');if(g)g.classList.toggle('hide',!(f.art&&f.art.value==='ausserordentlich'));if(d)d.classList.toggle('hide',!(f.wann&&f.wann.value==='datum'))};f.addEventListener('change',sync);sync();
 q('[data-print]').onclick=function(){print()};
