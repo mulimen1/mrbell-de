@@ -9,3 +9,4 @@
 ## BWL Max: Rechner- und Werkzeugseiten sind eigenständig
 - tutor/rechner/*.html und tutor/tools/*.html sind PURE Werkzeug-Seiten (Vorlage: tutor/tools/kombinatorik-rechner.html): kein App-JS, kein consent.js/Cookie-Banner, keine Navigation, kein Max, keine Anmeldung, keine Links in die App. Sie werden an Hochschulen für Verlinkungen verschickt.
 - Nicht durch Build-Skripte (z. B. seo/build.py) überschreiben und nicht wieder an die App anbinden.
+- Gemeinsames Design dieser Seiten: tutor/tools/bm-werkzeug.css (nur @media screen, Druck bleibt seitenintern) und tutor/tools/bm-werkzeug.js (Hell/Dunkel-Umschalter, Standard immer hell, localStorage „bm-werkzeug-theme“), Logo tutor/img/max-face-logo.png. Bei Änderungen das ?v= in allen 15 Seiten hochzählen.
