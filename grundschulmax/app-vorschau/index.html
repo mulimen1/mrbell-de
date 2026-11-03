@@ -5437,6 +5437,14 @@ html,body{overscroll-behavior-x:none}
 
 body.ispaid .afab,body.ispaid .fcta{display:none!important}
 @media (max-width:560px) and (max-height:740px){.uwrap{width:min(56vw,27vh)!important;top:29%!important}.uopts{gap:6px!important}.ubtn{min-height:40px!important}}
+/* Jahreszeiten-Rad: roter Zeiger bleibt immer oben stehen (dreht nicht mit dem Rad) */
+.jwheel::before{left:0!important;top:-9%!important;right:0;bottom:9%;translate:none!important;border:0!important;transform:rotate(calc(-1 * var(--r)));transform-origin:50% 59%;transition:transform 1s cubic-bezier(.4,1.4,.5,1);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 20'%3E%3Cpath d='M1 1h22L12 19z' fill='%23ef4458' stroke='%23fff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 50% 0/13% auto no-repeat}
+.bhs{width:max(44px,calc(var(--r) * 2%))!important}
+
+/* kurze Laptop-Bildschirme: Bildrahmen kleiner, damit Antworten nichts verdecken */
+@media (min-width:561px) and (max-height:760px){.eframe{width:min(31vh,290px)!important;top:15%!important}.wscreen{width:min(25vh,250px)!important;top:17%!important}.g-wet .xo.txt{min-height:44px!important}}
+/* Rückmeldung mit Knopf am Handy: Text volle Breite, Knopf darunter */
+@media (max-width:560px){.gstage.open .fb:has(.b3d){flex-wrap:wrap;top:auto!important;bottom:8px!important}.gstage.open .fb:has(.b3d) .fbt{flex:1 1 calc(100% - 70px);min-width:0}.gstage.open .fb:has(.b3d) .b3d{flex:1 1 100%}}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -5954,6 +5962,12 @@ const restart = (el, c) => { el.classList.remove(c); reflow(el); el.classList.ad
 
 /* ---------- Stimme: alle Sätze sind feste Texte -> ElevenLabs-Clips (Max) ---------- */
 const LP = {};                     // Lernpfad-Inhalte je Fach (lp-*.js)
+/* Weitere Lernpfad-Level (ab Level 3) kommen als eigene Datei und werden im Hintergrund nachgeladen */
+const LPX = { add: (k, g, li, L) => { const lv = LP[k] && LP[k][g] && LP[k][g][li]; if (lv && Array.isArray(L) && L.length) lv.L = L; }, url: '/grundschulmax/lpx/lpx-LPX_HASH.js', st: 0, p: null };
+function lpxLoad() { if (LPX.p) return LPX.p; if (LPX.url.indexOf('LPX_' + 'HASH') >= 0) { LPX.st = 2; return Promise.resolve(); }
+  LPX.p = new Promise((res) => { const sc = document.createElement('script'); sc.src = LPX.url; sc.async = true;
+    sc.onload = () => { LPX.st = 2; try { if (typeof lpInit === 'function') lpInit(); if (typeof drawLP === 'function' && typeof st !== 'undefined' && st.nav === 'subj') drawLP(); } catch (e) {} res(); };
+    sc.onerror = () => { LPX.st = 2; res(); }; document.head.appendChild(sc); }); return LPX.p; }
 const VL = new Map();              // Schlüssel -> {t, lang, who:Set}
 let WHO = 'all';                   // wer spricht die folgenden Sätze (Tutor des Fachs)
 const vk = (t, lang = 'de') => { const k = lang + ':' + t; if (!VL.has(k)) VL.set(k, { t, lang, who: new Set() }); VL.get(k).who.add(WHO); return k; };
@@ -8068,7 +8082,7 @@ LP.sach = [
         { k: 'sort', q: 'Reptil oder Amphibie?', b: ['Reptilien', 'Amphibien'], it: [['Eidechse', 0], ['Frosch', 1], ['Krokodil', 0], ['Molch', 1], ['Blindschleiche', 0], ['Kröte', 1]] },
       ],
       [
-        { k: 'mc', q: 'Woran erkennst du ein Säugetier?', a: 'Es hat Fell.', w: ['Es hat Federn.', 'Es hat Kiemen.'], e: 'Säugetiere haben Fell oder Haare und trinken als Baby Milch.' },
+        { k: 'mc', q: 'Woran erkennst du ein Säugetier?', a: 'Es trinkt als Baby Milch.', w: ['Es hat Federn.', 'Es hat Kiemen.'], e: 'Säugetier-Babys trinken Milch bei ihrer Mutter, auch beim Wal und beim Delfin.' },
         { k: 'pairs', q: 'Zu welcher Tierklasse gehört das Tier?', p: [['Pinguin', 'Vogel'], ['Fledermaus', 'Säugetier'], ['Seepferdchen', 'Fisch'], ['Salamander', 'Amphibie']] },
         { k: 'gap', q: 'Vögel legen Eier mit einer harten ___.', a: 'Schale', w: ['Haut', 'Feder'], e: 'Die harte Schale schützt das Küken im Ei.' },
         { k: 'tf', q: 'Ein Delfin ist ein Fisch.', a: false, e: 'Der Delfin atmet mit Lungen. Er ist ein Säugetier.' },
@@ -8443,7 +8457,7 @@ LP.ki = [
         { k: 'order', q: 'Bit soll lernen, Bananen zu erkennen. Bring es in die Reihenfolge.', a: ['Bananenbilder sammeln', 'Bit lernen lassen', 'Bit testen'] },
         { k: 'mc', q: 'Was kann eine KI nicht?', a: 'Wirklich traurig sein', w: ['Texte schreiben', 'Bilder erkennen'], e: 'Eine KI kann viel, aber sie hat keine echten Gefühle.' },
         { k: 'build', q: 'Bau den Satz: Ich prüfe, was die KI sagt.', a: ['Ich', 'prüfe,', 'was', 'die', 'KI', 'sagt.'] },
-        { k: 'sort', q: 'Wer ist wer? Mensch oder KI?', b: ['Mensch', 'KI'], it: [['Wird erwachsen', 0], ['Braucht Strom', 1], ['Hat ein Herz', 0], ['Liest sehr schnell', 1], ['Geht zur Schule', 0]] },
+        { k: 'sort', q: 'Wer ist wer? Mensch oder KI?', b: ['Mensch', 'KI'], it: [['Wird erwachsen', 0], ['Braucht Strom', 1], ['Hat ein Herz', 0], ['Muss aufgeladen werden', 1], ['Geht zur Schule', 0]] },
       ],
     ] },
     { t: 'Nett im Gruppenchat', d: 'Freundlich schreiben, Kettenbriefe' },
@@ -9366,7 +9380,7 @@ const BODYQ = [
   { x: false, intro: vk('Körper-Entdecker! Tipp auf das richtige Körperteil.'), Q: [['Tipp auf das Knie!', 'knie'], ['Tipp auf die Nase!', 'nase'], ['Tipp auf den Ellenbogen!', 'ellenbogen'], ['Tipp auf den Bauch!', 'bauch'], ['Tipp auf das Ohr!', 'ohr'], ['Tipp auf den Fuß!', 'fuss']] },
   { x: false, intro: vk('Unsere fünf Sinne! Womit machst du das?'), Q: [['Womit hörst du?', 'ohr', 'Mit den Ohren hörst du.'], ['Womit riechst du?', 'nase', 'Mit der Nase riechst du.'], ['Womit schmeckst du?', 'mund', 'Mit der Zunge im Mund schmeckst du.'], ['Womit siehst du?', 'auge', 'Mit den Augen siehst du.'], ['Womit fühlst du, ob etwas warm ist?', 'hand', 'Mit der Haut fühlst du, zum Beispiel an der Hand.']] },
   { x: true, intro: vk('Röntgen-Blick! Jetzt siehst du in den Körper hinein. Wo liegen die Organe?'), Q: [['Wo ist das Herz?', 'herz', 'Das Herz liegt in der Brust, etwas links.'], ['Wo ist die Lunge?', 'lunge', 'Die Lunge hat zwei Flügel, rechts und links in der Brust.'], ['Wo ist der Magen?', 'magen', 'Der Magen liegt im Bauch, unter den Rippen.'], ['Wo ist das Gehirn?', 'gehirn', 'Das Gehirn ist im Kopf, gut geschützt vom Schädel.'], ['Wo ist der Oberschenkelknochen?', 'oberschenkel', 'Er ist der längste Knochen in deinem Körper.'], ['Wo ist der Darm?', 'darm', 'Der Darm ist ein langer Schlauch im Bauch. Er holt die guten Stoffe aus dem Essen.']] },
-  { x: true, intro: vk('Profi-Röntgen! Welches Organ macht was?'), Q: [['Welches Organ pumpt das Blut durch den Körper?', 'herz', 'Das Herz schlägt ungefähr hunderttausend Mal am Tag.'], ['Wo wird das Essen verdaut?', 'magen', 'Im Magen wird das Essen zu Brei verarbeitet.'], ['Womit atmest du Sauerstoff ein?', 'lunge', 'Die Lunge holt Sauerstoff aus der Luft.'], ['Was steuert deinen ganzen Körper?', 'gehirn', 'Das Gehirn schickt Befehle über die Nerven.'], ['Was ist der längste Knochen in deinem Körper?', 'oberschenkel', 'Der Oberschenkelknochen trägt dein Gewicht.'], ['Wo geht das Essen nach dem Magen weiter?', 'darm', 'Im Darm wird das Essen weiter verdaut. Er ist mehrere Meter lang!']] },
+  { x: true, intro: vk('Profi-Röntgen! Welches Organ macht was?'), Q: [['Welches Organ pumpt das Blut durch den Körper?', 'herz', 'Das Herz schlägt ungefähr hunderttausend Mal am Tag.'], ['Wo wird das Essen zu Brei verarbeitet?', 'magen', 'Im Magen wird das Essen zu Brei verarbeitet.'], ['Womit atmest du Sauerstoff ein?', 'lunge', 'Die Lunge holt Sauerstoff aus der Luft.'], ['Was steuert deinen ganzen Körper?', 'gehirn', 'Das Gehirn schickt Befehle über die Nerven.'], ['Was ist der längste Knochen in deinem Körper?', 'oberschenkel', 'Der Oberschenkelknochen trägt dein Gewicht.'], ['Wo geht das Essen nach dem Magen weiter?', 'darm', 'Im Darm wird das Essen weiter verdaut. Er ist mehrere Meter lang!']] },
 ];
 BODYQ.forEach((L) => L.Q.forEach((q) => { q.k = vk(q[0]); if (q[2]) q.e = vk(q[2]); }));
 function gBody(T) {
@@ -9380,7 +9394,7 @@ function gBody(T) {
   gs.innerHTML = `<div class="gsky" style="--bg:url(/grundschulmax/sp/body/bg.webp)"><i class="xglow"></i></div><div class="bq2" id="bq"></div>
     <div class="bwrap3"><img class="bkid" src="${B(L.x ? 'xray' : 'kid')}" alt="" draggable="false">${orgs}${spots}${L.x ? '<div class="scan3"></div>' : ''}</div><img class="bloupe" id="blp" src="${B('loupe')}" alt="">`;
   const wrap = $('.bwrap3', gs);
-  $$('[data-p]', wrap).forEach((h) => h.addEventListener('click', (e) => { e.stopPropagation(); tap(h); }));
+  $$('[data-p]', wrap).forEach((h) => h.addEventListener('click', (e) => { e.stopPropagation(); const want = Q[r] && Q[r][1], hit = document.elementsFromPoint(e.clientX, e.clientY).find((x) => x.dataset && x.dataset.p === want && wrap.contains(x)); tap(hit || h); }));
   function ask() { const q = Q[r]; $('#bq').textContent = q[0]; restart($('#bq'), 'nw'); say(q[0], '', q.k); lock = false; }
   function mark(h, ok) { const all = $$(`[data-p="${h.dataset.p}"]`, wrap); all.forEach((x) => restart(x, ok ? 'mok' : 'mno'));
     const l = $('#blp'), a = h.getBoundingClientRect(), g = gs.getBoundingClientRect(); l.style.left = a.left - g.left + a.width / 2 + 'px'; l.style.top = a.top - g.top + a.height / 2 + 'px'; restart(l, 'go'); }
@@ -9410,7 +9424,7 @@ const ROT = [
   [['7 · 8 = 54', '54', '56'], ['Berlin ist die Hauptstadt von Deutschland.'], ['Wale sind Fische.', 'Fische', 'Säugetiere'], ['Eine Maus, zwei Mäuse.'], ['Er laufte schnell nach Hause.', 'laufte', 'lief'], ['100 cm sind 1 Meter.']],
   [['Wasser kocht bei 50 Grad.', '50', '100'], ['345 + 255 = 600'], ['Die Erde dreht sich um die Sonne.'], ['Ein Jahr hat 360 Tage.', '360', '365'], ['1 kg sind 100 g.', '100 g', '1000 g'], ['Das Herz pumpt Blut durch den Körper.']],
 ];
-const vkRotI = vk('Ich bin Bit, eine KI. Ich habe Hausaufgaben gemacht, aber Achtung: Ich habe Fehler eingebaut! Findest du sie mit dem Rotstift?');
+const vkRotI = vk('Ich bin Bit, eine KI. Ich habe Hausaufgaben gemacht. Aber Achtung: Eine KI macht manchmal Fehler! Findest du sie mit dem Rotstift?');
 const vkRotNo = vk('Das stimmt doch! Lies nochmal genau.'), vkRotMiss = vk('Ein paar Fehler hast du übersehen. Schau mal, hier!'), vkRotAll = vk('Alle Fehler gefunden! Auch eine KI kann sich irren. Gut, dass du nachgeprüft hast.');
 function gRot(T) {
   gs.className = 'gs g-rot g-rot2';
@@ -9473,7 +9487,7 @@ function gTresor(T) {
       say(WHY[v], 'happy', v ? vkTr1 : vkTr0); fb(true, VL.get(okLine()).t, WHY[v], { ms: 2000 });
       setTimeout(() => { if (!alive(T)) return; i++; if (i < C.length) show(); else finish('Dein Tresor ist sicher!', 'Name, Adresse, Fotos und Passwörter bleiben privat, auch bei einer KI. So nutzt man KI verantwortungsvoll.'); }, 2300);
     } else {
-      wrong(); sfx.no(); restart($('#tc'), 'shk'); sayK(vkTrNo, 'think'); fb(false, 'Überleg nochmal!', c[1] ? 'Könnte jemand damit herausfinden, wer oder wo du bist?' : 'Ist das wirklich ein Geheimnis?', { ms: 2000 });
+      wrong(); sfx.no(); restart($('#tc'), 'shk'); sayK(vkTrNo, 'think'); fb(false, 'Überleg nochmal!', c[1] ? 'Könnte jemand damit herausfinden, wer oder wo du bist?' : 'Ist das wirklich privat? Damit kann niemand herausfinden, wer du bist.', { ms: 2000 });
     }
   }));
   progress(C.length); sayK(vkTrI);
@@ -9484,7 +9498,7 @@ function gTresor(T) {
 /* Chat-Check: Regeln im Internet spielerisch üben */
 const CHAT = [
   [{ f: 'Unbekannt', av: '?', m: 'Hallo! Willst du mein Freund sein? Schick mir ein Foto von dir!', o: [['Foto schicken', 0], ['Nicht antworten und Mama oder Papa zeigen', 1]], e: 'Fremden schickst du keine Fotos. Zeig so eine Nachricht immer deinen Eltern.' },
-   { f: 'Oma', av: 'O', ok: 1, m: 'Hallo mein Schatz! Kommst du am Sonntag zum Kuchenessen?', o: [['Antworten: Ja, gerne!', 1], ['Mama zeigen, das ist gefährlich', 0]], e: 'Oma kennst du. Mit Menschen, die du kennst, darfst du ganz normal schreiben.' },
+   { f: 'Oma', av: 'O', ok: 1, m: 'Hallo mein Schatz! Kommst du am Sonntag zum Kuchenessen?', o: [['Antworten: Ja, gerne!', 1], ['Nicht antworten, das ist gefährlich', 0]], e: 'Oma kennst du. Mit Menschen, die du kennst, darfst du ganz normal schreiben.' },
    { f: 'Unbekannt', av: '?', m: 'Du hast ein Handy gewonnen! Klick schnell auf diesen Link!', o: [['Schnell klicken', 0], ['Nicht klicken', 1]], e: 'Solche Gewinne sind fast immer ein Trick. Nicht klicken und Erwachsenen Bescheid sagen.' }],
   [{ f: 'Spieler123', av: '?', m: 'Cooles Spiel! Wie heißt eigentlich deine Schule?', o: [['Den Namen der Schule verraten', 0], ['Nichts Privates verraten', 1]], e: 'Schule, Adresse und Telefonnummer sind privat. Die verrätst du Fremden nie.' },
    { f: 'Lena aus deiner Klasse', av: 'L', ok: 1, m: 'Hey, was haben wir in Mathe auf?', o: [['Antworten: Seite 24!', 1], ['Blockieren', 0]], e: 'Lena kennst du aus der Klasse. Ihr dürft euch ganz normal helfen.' },
@@ -9742,7 +9756,9 @@ function xRound(T, opt) {
     cur = opt.make(r); $('#xq').innerHTML = cur.html; restart($('#xq'), 'pop');
     $('#xo').innerHTML = cur.o.map((o, i) => `<button class="xo${o.html ? ' scn' : o.img ? '' : ' txt'}${!o.img && !o.html && o.label && o.label.length > 16 ? ' lng' : ''}" data-k="${o.k}" style="--dl:${.25 + i * .09}s">${o.html || (o.img ? `<img src="${o.img}" alt="">` : '')}${o.label ? `<span>${o.label}</span>` : ''}</button>`).join('');
     $$('.xo', gs).forEach((b) => (b.onclick = () => pick(b)));
-    const hb = $('#xq .xhear'); if (hb) hb.onclick = () => ttsSay(cur.say, cur.lang);
+    requestAnimationFrame(() => $$('.etx', gs).forEach((el) => { el.style.fontSize = ''; let f = parseFloat(getComputedStyle(el).fontSize), k = 0; while (el.scrollHeight > el.clientHeight + 2 && f > 10 && k++ < 30) { f *= .92; el.style.fontSize = f + 'px'; } }));
+    if (!$('#xq .xhear')) { const qt = $('#xq b'); if (qt) { $('#xq').insertAdjacentHTML('afterbegin', hearBtn()); const t0 = qt.textContent; $('#xq .xhear').onclick = () => ttsDe(t0, true); } }
+    const hb = $('#xq .xhear'); if (hb && cur.say) hb.onclick = () => ttsSay(cur.say, cur.lang);
     if (cur.say) ttsSay(cur.say, cur.lang); if (opt.onShow) opt.onShow(cur, r);
     setTimeout(() => { lock = false; }, 450);
   };
@@ -9753,7 +9769,8 @@ function xRound(T, opt) {
     $$('.xo', gs).forEach((x) => x !== b && !x.classList.contains('hint') && x.classList.add('dim'));
     if (opt.onPick) opt.onPick(ok, cur, b);
     say(ok ? (cur.okT || 'Richtig!') : (cur.noT || 'Schau nochmal genau hin.'), ok ? 'happy' : 'think');
-    r++; setTimeout(() => { if (alive(T)) next(); }, ok ? (opt.okMs || 1300) : 2300);
+    r++; if (ok) setTimeout(() => { if (alive(T)) next(); }, opt.okMs || 1300);
+    else setTimeout(() => { if (alive(T)) fb(false, 'Nicht schlimm!', cur.noT || '', { btn: 'Weiter', on: () => { if (alive(T)) next(); } }); }, 500);
   };
   return next;
 }
@@ -9924,7 +9941,7 @@ function gJahr(T) {
     [0, 'show'], [0, 'Wann blühen viele Bäume und Blumen?', 'spring'], [0, 'Wann fallen die bunten Blätter von den Bäumen?', 'autumn'], [0, 'Wann kann man einen Schneemann bauen?', 'winter'], [0, 'Wann ist es draußen am wärmsten?', 'summer'],
     [1, 'Wann ernten wir Äpfel und Kürbisse?', 'autumn'], [1, 'Wann sind die großen Sommerferien?', 'summer'], [1, 'Welche Jahreszeit kommt nach dem Sommer?', 'autumn'], [1, 'Welche Jahreszeit kommt nach dem Winter?', 'spring'], [1, 'Welche Jahreszeit kommt nach dem Herbst?', 'winter'],
     [2, 'Wann sind die Tage am kürzesten?', 'winter'], [2, 'Wann kommen die Zugvögel zurück?', 'spring'], [2, 'In welcher Jahreszeit liegt der Juli?', 'summer'], [2, 'In welcher Jahreszeit liegt der Januar?', 'winter'], [2, 'In welcher Jahreszeit liegt der April?', 'spring'], [2, 'In welcher Jahreszeit liegt der Oktober?', 'autumn'],
-    [3, 'In welcher Jahreszeit liegt der November?', 'autumn'], [3, 'In welcher Jahreszeit liegt der Mai?', 'spring'], [3, 'In welcher Jahreszeit liegt der August?', 'summer'], [3, 'In welcher Jahreszeit liegt der Februar?', 'winter'], [3, 'Wann ziehen viele Tiere einen Winterschlaf vor?', 'autumn'],
+    [3, 'In welcher Jahreszeit liegt der November?', 'autumn'], [3, 'In welcher Jahreszeit liegt der Mai?', 'spring'], [3, 'In welcher Jahreszeit liegt der August?', 'summer'], [3, 'In welcher Jahreszeit liegt der Februar?', 'winter'], [3, 'Wann bereiten sich viele Tiere auf den Winterschlaf vor?', 'autumn'],
   ].filter((q) => q[0] <= g && q[0] >= g - 1);
   const POOL = shuf(Q); let rot = 0;
   gs.innerHTML = `<div class="gsky" style="--bg:url(${roomBg('sach')})"></div><div class="jwheel" id="jw"><img class="jwb" src="${xImg(D, 'wheel')}" alt="">${SE.map((s, i) => `<img class="jwt t${i}" data-k="${s[0]}" src="${xImg(D, s[0])}" alt="">`).join('')}</div><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
@@ -10021,7 +10038,7 @@ function gKiLern(T) {
 function gEcht(T) {
   gs.className = 'gs g-xs g-echt';
   const D = 'echt', g = G(), N = 8;
-  const S0 = [[1, 'Bienen machen Honig.', 'Das stimmt! Bienen machen aus Blütensaft Honig.'], [1, 'Pinguine leben dort, wo es kalt ist.', 'Stimmt, zum Beispiel am Südpol.'], [0, 'Ein Foto zeigt einen Hund, so groß wie ein Haus.', 'So große Hunde gibt es nicht. Das Bild ist erfunden.', 1], [0, 'Ein Video zeigt eine Katze, die Auto fährt.', 'Katzen können nicht Auto fahren. Das ist erfunden.', 1], [1, 'Nach dem Regen sieht man manchmal einen Regenbogen.', 'Das stimmt!'], [0, 'Im Internet steht: Kühe können fliegen.', 'Nicht alles im Internet stimmt!'], [1, 'Im Herbst werden viele Blätter bunt.', 'Das stimmt!'], [0, 'Ein Bild zeigt einen Elefanten, der auf einem dünnen Ast sitzt.', 'Das geht nicht. Das Bild ist erfunden.', 1]];
+  const S0 = [[1, 'Bienen machen Honig.', 'Das stimmt! Bienen machen aus Blütensaft Honig.'], [1, 'Pinguine leben dort, wo es kalt ist.', 'Stimmt, viele Pinguine leben am kalten Meer rund um die Antarktis.'], [0, 'Ein Foto zeigt einen Hund, so groß wie ein Haus.', 'So große Hunde gibt es nicht. Das Bild ist erfunden.', 1], [0, 'Ein Video zeigt eine Katze, die Auto fährt.', 'Katzen können nicht Auto fahren. Das ist erfunden.', 1], [1, 'Nach dem Regen sieht man manchmal einen Regenbogen.', 'Das stimmt!'], [0, 'Im Internet steht: Kühe können fliegen.', 'Nicht alles im Internet stimmt!'], [1, 'Im Herbst werden viele Blätter bunt.', 'Das stimmt!'], [0, 'Ein Bild zeigt einen Elefanten, der auf einem dünnen Ast sitzt.', 'Das geht nicht. Das Bild ist erfunden.', 1]];
   const S1 = [[0, 'Auf einem Foto hat ein Mensch sechs Finger an einer Hand.', 'Zu viele Finger sind ein typischer Fehler von KI-Bildern.', 1], [0, 'Eine Nachricht sagt: Morgen ist für immer schulfrei! Schick das sofort an alle!', 'Wenn man etwas sofort an alle schicken soll, ist es oft erfunden.'], [0, 'Auf einem Schild im Bild stehen nur seltsame, verdrehte Buchstaben.', 'Komische Schrift ist ein Hinweis auf ein KI-Bild.', 1], [1, 'Die Erde dreht sich um die Sonne.', 'Das stimmt!'], [1, 'Wale sind Säugetiere.', 'Stimmt! Wale atmen Luft und trinken als Baby Milch.'], [0, 'Ein Video zeigt einen Fisch, der Fahrrad fährt.', 'Das ist erfunden.', 1], [1, 'Wasser kocht bei 100 Grad.', 'Das stimmt!'], [0, 'Ein Bild zeigt einen Hund, dessen Pfoten mit dem Boden verschmelzen.', 'Verschwommene, verschmolzene Stellen verraten oft KI-Bilder.', 1]];
   const L = shuf(g <= 1 ? S0 : g === 2 ? shuf(S0).slice(0, 3).concat(S1.slice(0, 6)) : S1).slice(0, N);
   gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><div class="eframe" id="efr"><img class="efb" src="${xImg(D, 'frame')}" alt=""><div class="etx" id="etx"></div><img class="ecam" id="ecm" src="${xImg(D, 'cam')}" alt=""></div><img class="ecat" id="ect" src="${xImg(D, 'cat')}" alt=""><img class="eloupe" id="elp" src="${xImg(D, 'loupe')}" alt=""><img class="eques" src="${xImg(D, 'ques')}" alt=""><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
@@ -10148,6 +10165,7 @@ function lpComplete(n, xp) {
 const les = document.createElement('div'); les.className = 'les'; les.setAttribute('role', 'dialog'); document.body.appendChild(les);
 let LS = null;
 function startLesson(li, j, n, custom) {
+  if (!custom && LPX.st !== 2 && PAID) { const L0 = lpLevels(SUBJ[st.s].k, st.grade)[li]; if (L0 && !(L0.L && L0.L[j])) { const s0 = st.s, g0 = st.grade; lpToast('Einen Moment …'); lpxLoad().then(() => { if (st.s === s0 && st.grade === g0) startLesson(li, j, n); }); return; } }
   const S = custom ? { ...SUBJ[1], c1: custom.c1 || '#8a6cf0', c2: custom.c2 || '#4a33b8' } : SUBJ[st.s], src = custom ? custom.items : lpSrc(S.k, st.grade, li, j), ex = src.map((x, i) => ({ ...x, last: i === src.length - 1 }));
   token++; if (cleanup) cleanup(); cleanup = null; stopVoice();
   const world = custom ? WORLDS[custom.w % WORLDS.length] : WORLDS[(li * 4 + j + st.s) % WORLDS.length];
@@ -12148,6 +12166,7 @@ if ($('#fsnapi')) $('#fsnapi').onclick = () => $('#fsnap').click();
 drawHW('#webhw', true);
 $$('.afab[data-pay]').forEach((b) => (b.onclick = () => paywall()));
 if (typeof PAID !== 'undefined' && PAID) document.body.classList.add('ispaid');
+if (typeof PAID !== 'undefined' && PAID) setTimeout(() => { const go = () => lpxLoad(); if (window.requestIdleCallback) requestIdleCallback(go, { timeout: 4000 }); else go(); }, 2500);
 
 $$('[data-tut]').forEach((el) => (el.innerHTML = tutorHTML(el.dataset.tut)));
 
