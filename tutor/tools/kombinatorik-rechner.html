@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kombinatorik-Rechner: Permutation, Variation, Kombination – mit und ohne Wiederholung</title>
+<meta name="description" content="Kombinatorik-Rechner mit Rechenweg: Variation und Kombination mit und ohne Wiederholung, Permutation, Binomialkoeffizient – exakt auch bei sehr großen Zahlen, mit Entscheidungshilfe und Klausurbeispielen.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/kombinatorik-rechner">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="/tutor/vendor/katex@0.16.47/katex.min.css">
+<style>
+:root{--bg:#fff;--fg:#1b1d20;--muted:#585f69;--line:#d9dde2;--soft:#f3f5f7;--accent:#1d5a4a;--accent-soft:#e3efea;--warn:#8a4b00;--warn-soft:#fdf3e4;--ok:#1d6b3a;--bad:#a1281e;--zebra:#f8f9fa}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e7e9ec;--muted:#a5abb4;--line:#30353c;--soft:#1b1f23;--accent:#83cdb3;--accent-soft:#1a2e28;--warn:#f0b25e;--warn-soft:#2b2216;--ok:#7fd49c;--bad:#ff9a8f;--zebra:#171a1d}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.75rem;line-height:1.25;margin:.2em 0 .5em}
+h2{font-size:1.3rem;margin:2.2em 0 .6em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .5em}
+p{margin:.5em 0 .9em}
+ul,ol{padding-left:1.3em}
+li{margin:.2em 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lead{color:var(--muted);max-width:70ch}
+nav.toc{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:1.2em 0}
+nav.toc ol{margin:.3em 0 0;padding-left:1.3em;columns:2;column-gap:2em}
+nav.toc li{margin:.15em 0;break-inside:avoid}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;margin:1em 0;font-size:.95rem}
+.calcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--bg);min-width:0}
+.card h3{margin-top:0}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:.4em 0}
+.row label{display:flex;flex-direction:column;font-size:.85rem;color:var(--muted);flex:1 1 80px;min-width:0}
+input,select{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;width:100%;min-width:0}
+input[aria-invalid=true]{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+fieldset.opt{border:1px solid var(--line);border-radius:8px;padding:6px 12px 8px;margin:.5em 0;min-width:0}
+fieldset.opt legend{font-size:.85rem;color:var(--muted);padding:0 4px}
+fieldset.opt label{display:inline-flex;align-items:center;gap:6px;margin-right:18px;cursor:pointer}
+fieldset.opt input{width:auto;margin:0}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 12px}
+.main{max-width:none}
+.out{margin-top:.6em;background:var(--soft);border-radius:8px;padding:10px 12px;font-variant-numeric:tabular-nums;min-height:2.4em;overflow-wrap:anywhere}
+.out .err{color:var(--bad)}
+.out .name{font-weight:600;color:var(--accent);margin-bottom:.2em}
+.out .lbl{font-size:.8rem;color:var(--muted);margin-top:.5em}
+.steps{display:flex;flex-wrap:wrap;align-items:center;column-gap:.35em;row-gap:.3em;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.steps>span{display:inline-block;max-width:100%}
+.big{display:flex;justify-content:space-between;align-items:baseline;gap:4px 12px;flex-wrap:wrap;margin-top:.6em;padding-top:.5em;border-top:1px solid var(--line)}
+.big b{font-size:1.25rem;font-weight:700}
+.big b.long{font-size:1rem;font-weight:600;word-break:break-all}
+.out details{margin-top:.4em}
+.out details summary{cursor:pointer;color:var(--accent);font-size:.9rem}
+.digits{font-size:.85rem;word-break:break-all;max-height:14em;overflow-y:auto;margin-top:.3em}
+.small{font-size:.85rem;color:var(--muted)}
+.out .small{margin:.5em 0 0}
+button{font:inherit;border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:6px;padding:5px 11px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.d{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;column-gap:.35em;row-gap:.3em;overflow-x:auto;overflow-y:hidden;margin:.5em 0;padding:2px 0}
+.d>span{display:inline-block;max-width:100%}
+.d .katex,.steps .katex{white-space:nowrap}
+.tw{overflow-x:auto;margin:.8em 0 1.4em;-webkit-overflow-scrolling:touch}
+table.dec{border-collapse:collapse;width:100%;font-size:.92rem}
+table.dec th,table.dec td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+table.dec thead th{background:var(--soft)}
+table.dec tbody th{background:var(--soft);font-weight:600}
+table.dec td b{display:block;color:var(--accent)}
+table.dec .f{display:block;margin:.35em 0 .25em}
+table.dec .ex{display:block;font-size:.85rem;color:var(--muted)}
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:16px}
+.ex-grid .card p{margin:.3em 0 .6em}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:0 .55em;vertical-align:1px}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+@media (max-width:600px){nav.toc ol{columns:1}h1{font-size:1.45rem}table.dec{font-size:.85rem}table.dec th,table.dec td{padding:6px 6px}}
+@media print{
+ @page{size:A4;margin:12mm 11mm}
+ :root{--bg:#fff;--fg:#000;--muted:#333;--line:#999;--soft:#eee;--zebra:#f6f6f6;--accent:#000}
+ body{font-size:10pt}
+ .wrap{max-width:none;padding:0}
+ .noprint,nav.toc{display:none!important}
+ header .lead{display:none}
+ h1{font-size:15pt;margin:0 0 .3em}
+ h2{margin:1.2em 0 .4em}
+ .card,table.dec tr{break-inside:avoid}
+ .note{border:1px solid #999;background:none}
+ a{color:#000;text-decoration:none}
+ footer{margin-top:1em}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Kombinatorik-Rechner</h1>
+<p class="lead">Variation und Kombination mit und ohne Wiederholung, Permutationen (auch mit gleichen Elementen) und Binomialkoeffizient – jeweils mit Formel, eingesetztem Rechenweg und Einordnung ins Urnenmodell. Gerechnet wird exakt mit ganzen Zahlen beliebiger Länge, also ohne Rundungsfehler auch bei 1000!. Gedacht für Statistik, Wahrscheinlichkeitsrechnung und Wirtschaftsmathematik im Studium.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#rechner">Rechner „k aus n“</a></li>
+<li><a href="#permutation">Permutationen</a></li>
+<li><a href="#binom">Binomialkoeffizient</a></li>
+<li><a href="#entscheidung">Welche Formel? Entscheidungshilfe</a></li>
+<li><a href="#beispiele">Klausurbeispiele mit Lösung</a></li>
+<li><a href="#hinweise">Hinweise zur Notation</a></li>
+</ol>
+</nav>
+
+<section id="rechner" class="noprint" aria-labelledby="h-rechner">
+<h2 id="h-rechner">Rechner „k aus n“</h2>
+<p class="small">Aus n verschiedenen Elementen werden k ausgewählt. Ganze Zahlen von 0 bis 1.000; das Ergebnis wird beim Tippen aktualisiert.</p>
+<form class="card main" id="c-main" onsubmit="return false">
+<div class="row">
+<label>n (Anzahl Elemente)<input id="m-n" inputmode="numeric" autocomplete="off" value="49"></label>
+<label>k (Anzahl Auswahl)<input id="m-k" inputmode="numeric" autocomplete="off" value="6"></label>
+</div>
+<div class="opts">
+<fieldset class="opt">
+<legend>Reihenfolge wichtig?</legend>
+<label><input type="radio" name="m-ord" value="ja"> ja</label>
+<label><input type="radio" name="m-ord" value="nein" checked> nein</label>
+</fieldset>
+<fieldset class="opt">
+<legend>Zurücklegen / Wiederholung erlaubt?</legend>
+<label><input type="radio" name="m-rep" value="ja"> ja</label>
+<label><input type="radio" name="m-rep" value="nein" checked> nein</label>
+</fieldset>
+</div>
+<div class="out" id="m-out" aria-live="polite"></div>
+</form>
+</section>
+
+<section id="permutation" class="noprint" aria-labelledby="h-perm">
+<h2 id="h-perm">Permutationen</h2>
+<div class="calcs">
+<form class="card" id="c-perm" onsubmit="return false">
+<h3>Anordnungen von n Elementen</h3>
+<div class="row">
+<label>Wort (optional, füllt die Felder)<input id="p-w" autocomplete="off" spellcheck="false" placeholder="z. B. MISSISSIPPI"></label>
+</div>
+<div class="row">
+<label>n (Elemente gesamt)<input id="p-n" inputmode="numeric" autocomplete="off" value="11"></label>
+<label>Gruppen gleicher Elemente<input id="p-g" autocomplete="off" value="4, 4, 2"></label>
+</div>
+<p class="small" id="p-info">Gruppengrößen mit Komma trennen. Leer lassen, wenn alle Elemente verschieden sind.</p>
+<div class="out" id="p-out" aria-live="polite"></div>
+</form>
+<div class="card">
+<h3>Wann welche Formel?</h3>
+<p>Werden <strong>alle</strong> n Elemente angeordnet und sind alle verschieden, gibt es</p>
+<div class="d">n! = n\cdot(n-1)\cdot\ldots\cdot 2\cdot 1</div>
+<p>Möglichkeiten. Kommen Elemente mehrfach vor (Gruppen der Größen n<sub>1</sub>, …, n<sub>r</sub>), fallen Vertauschungen innerhalb einer Gruppe nicht auf und werden herausgeteilt:</p>
+<div class="d">\frac{n!}{n_1!\cdot n_2!\cdot\ldots\cdot n_r!}</div>
+<p class="small">Beispiel: Die Buchstaben von MISSISSIPPI (11 Buchstaben, I und S je 4-mal, P 2-mal) lassen sich auf 34.650 Arten anordnen. Per Definition ist 0! = 1.</p>
+</div>
+</div>
+</section>
+
+<section id="binom" class="noprint" aria-labelledby="h-binom">
+<h2 id="h-binom">Binomialkoeffizient</h2>
+<div class="calcs">
+<form class="card" id="c-binom" onsubmit="return false">
+<h3>„n über k“</h3>
+<div class="row">
+<label>n<input id="b-n" inputmode="numeric" autocomplete="off" value="10"></label>
+<label>k<input id="b-k" inputmode="numeric" autocomplete="off" value="3"></label>
+</div>
+<div class="out" id="b-out" aria-live="polite"></div>
+</form>
+<div class="card">
+<h3>Rechenregeln</h3>
+<div class="d">\binom{n}{k}=\frac{n!}{k!\,(n-k)!}=\frac{n\cdot(n-1)\cdot\ldots\cdot(n-k+1)}{k!}</div>
+<ul>
+<li>Symmetrie: <span class="m">\binom{n}{k}=\binom{n}{n-k}</span>, etwa <span class="m">\binom{49}{43}=\binom{49}{6}</span>. Mit dem kleineren k rechnet es sich schneller.</li>
+<li>Randwerte: <span class="m">\binom{n}{0}=\binom{n}{n}=1</span>, <span class="m">\binom{n}{1}=n</span>; für k &gt; n ist der Wert 0.</li>
+<li>Pascalsches Dreieck: <span class="m">\binom{n}{k}=\binom{n-1}{k-1}+\binom{n-1}{k}</span>.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="entscheidung" aria-labelledby="h-ent">
+<h2 id="h-ent">Welche Formel? Entscheidungshilfe</h2>
+<p>Zwei Fragen genügen: <strong>Zählt die Reihenfolge?</strong> (Ergibt eine andere Reihenfolge ein anderes Ergebnis, etwa Platz 1 und Platz 2?) und <strong>Darf ein Element mehrfach vorkommen?</strong> (Wird zurückgelegt, darf eine Ziffer oder Sorte doppelt gewählt werden?)</p>
+<div class="tw"><table class="dec">
+<thead><tr><th scope="col">Reihenfolge</th><th scope="col">ohne Wiederholung</th><th scope="col">mit Wiederholung</th></tr></thead>
+<tbody>
+<tr><th scope="row">wichtig</th>
+<td><b>Variation ohne Wiederholung</b><span class="f m">\dfrac{n!}{(n-k)!}</span><span class="ex">Siegerpodest, Ämter verteilen; für k = n: Permutation n!</span></td>
+<td><b>Variation mit Wiederholung</b><span class="f m">n^k</span><span class="ex">PIN, Passwort, mehrmals würfeln</span></td></tr>
+<tr><th scope="row">egal</th>
+<td><b>Kombination ohne Wiederholung</b><span class="f m">\dbinom{n}{k}=\dfrac{n!}{k!\,(n-k)!}</span><span class="ex">Lotto, Ausschuss, Stichprobe</span></td>
+<td><b>Kombination mit Wiederholung</b><span class="f m">\dbinom{n+k-1}{k}</span><span class="ex">Eiskugeln im Becher, Bestellmengen</span></td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Urnenmodell:</strong> „mit Zurücklegen“ entspricht „mit Wiederholung“, „ohne Zurücklegen“ entspricht „ohne Wiederholung“. „Reihenfolge egal“ heißt: Es wird mit einem Griff gezogen.</li>
+<li><strong>Kontrolle:</strong> Kombination ohne Wiederholung = Variation ohne Wiederholung geteilt durch k!, weil jede Auswahl in k! Reihenfolgen gezogen werden kann. Bei Lotto: 10.068.347.520 / 720 = 13.983.816.</li>
+<li><strong>Typischer Fehler:</strong> Bei Kombination mit Wiederholung einfach <span class="m">n^k / k!</span> rechnen. Das stimmt nicht, weil Auswahlen mit doppelten Elementen weniger als k! Reihenfolgen haben.</li>
+</ul>
+</section>
+
+<section id="beispiele" aria-labelledby="h-bsp">
+<h2 id="h-bsp">Klausurbeispiele mit Lösung</h2>
+<div class="ex-grid">
+<div class="card">
+<h3>Lotto 6 aus 49</h3>
+<p>Wie viele verschiedene Tippreihen gibt es beim Lotto 6 aus 49 (ohne Superzahl)?</p>
+<p><span class="tag">Reihenfolge egal</span> <span class="tag">ohne Wiederholung</span></p>
+<div class="d">\binom{49}{6}=\frac{49\cdot48\cdot47\cdot46\cdot45\cdot44}{6\cdot5\cdot4\cdot3\cdot2\cdot1}=13{.}983{.}816</div>
+<p class="small">Die Chance auf sechs Richtige mit einem Tipp ist damit 1 : 13.983.816.</p>
+<p class="noprint"><button type="button" data-n="49" data-k="6" data-ord="nein" data-rep="nein">Im Rechner nachrechnen</button></p>
+</div>
+<div class="card">
+<h3>Vierstellige PIN</h3>
+<p>Wie viele vierstellige PINs aus den Ziffern 0 bis 9 gibt es, wenn Ziffern mehrfach vorkommen dürfen?</p>
+<p><span class="tag">Reihenfolge wichtig</span> <span class="tag">mit Wiederholung</span></p>
+<div class="d">10^4=10\cdot10\cdot10\cdot10=10{.}000</div>
+<p class="small">Ohne doppelte Ziffern wären es nur <span class="m">\frac{10!}{6!}=10\cdot9\cdot8\cdot7=5{.}040</span>.</p>
+<p class="noprint"><button type="button" data-n="10" data-k="4" data-ord="ja" data-rep="ja">Im Rechner nachrechnen</button></p>
+</div>
+<div class="card">
+<h3>Sitzordnung</h3>
+<p>Auf wie viele Arten können sich 8 Personen auf 8 nummerierte Stühle setzen?</p>
+<p><span class="tag">Reihenfolge wichtig</span> <span class="tag">ohne Wiederholung</span></p>
+<div class="d">8!=8\cdot7\cdot6\cdot5\cdot4\cdot3\cdot2\cdot1=40{.}320</div>
+<p class="small">Das ist eine Permutation: Variation ohne Wiederholung mit k = n, denn <span class="m">\frac{8!}{(8-8)!}=\frac{8!}{0!}=8!</span>.</p>
+<p class="noprint"><button type="button" data-n="8" data-k="8" data-ord="ja" data-rep="nein">Im Rechner nachrechnen</button></p>
+</div>
+<div class="card">
+<h3>Eiskugeln im Becher</h3>
+<p>Eine Eisdiele hat 10 Sorten. Wie viele verschiedene Becher mit 3 Kugeln gibt es, wenn Sorten mehrfach gewählt werden dürfen?</p>
+<p><span class="tag">Reihenfolge egal</span> <span class="tag">mit Wiederholung</span></p>
+<div class="d">\binom{10+3-1}{3}=\binom{12}{3}=\frac{12\cdot11\cdot10}{3\cdot2\cdot1}=220</div>
+<p class="small">In der Waffel, wo die Reihenfolge der Kugeln zählt, wären es <span class="m">10^3=1{.}000</span>.</p>
+<p class="noprint"><button type="button" data-n="10" data-k="3" data-ord="nein" data-rep="ja">Im Rechner nachrechnen</button></p>
+</div>
+</div>
+</section>
+
+<section id="hinweise" aria-labelledby="h-hinweise">
+<h2 id="h-hinweise">Hinweise zur Notation</h2>
+<ul>
+<li>Für den Binomialkoeffizienten sind <span class="m">\binom{n}{k}</span>, C(n, k), „n über k“ und auf dem Taschenrechner die Taste <strong>nCr</strong> gebräuchlich. Die Variation ohne Wiederholung <span class="m">\frac{n!}{(n-k)!}</span> liefert die Taste <strong>nPr</strong>.</li>
+<li>Manche Lehrbücher sagen „geordnete Stichprobe“ statt Variation und „ungeordnete Stichprobe“ statt Kombination. Die Formeln sind dieselben.</li>
+<li>Sonderfälle: Für k = 0 gibt es genau eine Möglichkeit (die leere Auswahl), auch bei n = 0. Mit Wiederholung und n = 0, k ≥ 1 gibt es keine Möglichkeit.</li>
+<li>Der Rechner arbeitet mit exakten ganzen Zahlen (JavaScript BigInt). Sehr lange Ergebnisse werden zusätzlich in Zehnerpotenz-Schreibweise angezeigt, alle Stellen lassen sich aufklappen.</li>
+</ul>
+</section>
+
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+
+<script src="/tutor/vendor/katex@0.16.47/katex.min.js"></script>
+<script>
+// MATH-START
+var KB = (function () {
+  'use strict';
+  function big(x) { return typeof x === 'bigint' ? x : BigInt(x); }
+  // fallende Faktorielle n·(n−1)·…·(n−k+1); leeres Produkt = 1
+  function fall(n, k) {
+    n = big(n); k = big(k);
+    if (k < 0n) return 0n;
+    if (k > n) return 0n;
+    var r = 1n;
+    for (var i = 0n; i < k; i++) r *= n - i;
+    return r;
+  }
+  function fact(n) { return fall(n, n); }
+  function binom(n, k) {
+    n = big(n); k = big(k);
+    if (k < 0n || n < 0n || k > n) return 0n;
+    if (k > n - k) k = n - k;
+    var r = 1n;
+    for (var i = 0n; i < k; i++) r = r * (n - i) / (i + 1n); // jeder Zwischenschritt ist ganzzahlig
+    return r;
+  }
+  function varOhne(n, k) { return fall(n, k); }
+  function varMit(n, k) { return big(n) ** big(k); } // 0^0 = 1
+  function kombOhne(n, k) { return binom(n, k); }
+  function kombMit(n, k) {
+    n = big(n); k = big(k);
+    if (k === 0n) return 1n;
+    if (n === 0n) return 0n;
+    return binom(n + k - 1n, k);
+  }
+  // n! / (n1!·n2!·…), Gruppen mit Summe <= n; restliche Elemente sind einzeln
+  function permGruppen(n, gruppen) {
+    var d = 1n;
+    for (var i = 0; i < gruppen.length; i++) d *= fact(gruppen[i]);
+    return fact(n) / d;
+  }
+  function fmt(b) { // deutsche Tausenderpunkte
+    var s = big(b).toString(), neg = s.charAt(0) === '-';
+    if (neg) s = s.slice(1);
+    return (neg ? '−' : '') + s.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+  function sci(b, sig) { // gerundete Zehnerpotenz-Darstellung: {mant: '1,398', exp: 7}
+    var s = big(b).toString();
+    sig = sig || 4;
+    var e = s.length - 1;
+    if (s.length <= sig) return { mant: s.charAt(0) + (s.length > 1 ? ',' + s.slice(1) : ''), exp: e };
+    var m = BigInt(s.slice(0, sig));
+    if (s.charAt(sig) >= '5') m += 1n;
+    var ms = m.toString();
+    if (ms.length > sig) { ms = ms.slice(0, sig); e += 1; }
+    return { mant: ms.charAt(0) + ',' + ms.slice(1), exp: e };
+  }
+  return { fall: fall, fact: fact, binom: binom, varOhne: varOhne, varMit: varMit, kombOhne: kombOhne,
+    kombMit: kombMit, permGruppen: permGruppen, fmt: fmt, sci: sci };
+})();
+// MATH-END
+
+(function () {
+  'use strict';
+  var MAX = 1000;
+  function $(id) { return document.getElementById(id); }
+  function err(msg) { return '<span class="err">' + msg + '</span>'; }
+
+  // ganze Zahl 0..max aus Texteingabe; Tausenderpunkte erlaubt
+  function parseInt0(raw, name, max) {
+    var s = String(raw).trim().replace(/\s/g, '');
+    if (s === '') return { err: 'Bitte ' + name + ' eingeben.' };
+    if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');
+    if (!/^\d+$/.test(s)) {
+      if (/^[-−–]/.test(s)) return { err: name + ' darf nicht negativ sein.' };
+      if (/^\d*[.,]\d+$/.test(s)) return { err: name + ' muss eine ganze Zahl sein (ohne Nachkommastellen).' };
+      return { err: name + ': bitte eine ganze Zahl ab 0 eingeben.' };
+    }
+    var v = Number(s);
+    if (v > max) return { err: name + ' darf höchstens ' + KB.fmt(max) + ' sein.' };
+    return { v: v };
+  }
+  function mark(el, bad) { el.setAttribute('aria-invalid', bad ? 'true' : 'false'); }
+
+  // --- Formelsatz -------------------------------------------------------
+  function tn(x) { return KB.fmt(x).replace(/\./g, '{.}'); } // Zahl für TeX
+  function prodDesc(from, count) { // from·(from−1)·…, count Faktoren
+    if (count <= 0) return '1';
+    var f = [];
+    if (count <= 7) { for (var i = 0; i < count; i++) f.push(tn(from - i)); }
+    else f = [tn(from), tn(from - 1), tn(from - 2), '\\cdots', tn(from - count + 1)];
+    return f.join('\\cdot ');
+  }
+  function resTex(r) {
+    var s = r.toString();
+    if (s.length <= 24) return tn(r);
+    var sc = KB.sci(r, 4);
+    return '\\approx ' + sc.mant.replace(',', '{,}') + '\\cdot 10^{' + sc.exp + '}';
+  }
+  function pushRes(parts, r) {
+    var t = resTex(r), last = parts[parts.length - 1];
+    var eq = t.indexOf('\\approx') === 0 ? t : '=' + t;
+    if (last !== eq && last !== '=' + t) parts.push(eq);
+  }
+  function katexInto(el, src) {
+    if (window.katex) {
+      try { katex.render('\\displaystyle ' + src, el, { throwOnError: true, strict: 'ignore' }); return; }
+      catch (e) { if (window.console) console.error(e.message); }
+    }
+    el.textContent = src;
+  }
+  function stepsHtml(id) { return '<div class="steps" id="' + id + '"></div>'; }
+  function fillSteps(id, parts) {
+    var box = typeof id === 'string' ? $(id) : id;
+    if (!box) return;
+    box.textContent = '';
+    parts.forEach(function (p) { var s = document.createElement('span'); katexInto(s, p); box.appendChild(s); });
+  }
+  function resultHtml(r, label) {
+    var s = r.toString(), h = '<div class="big"><span>' + label + '</span>';
+    if (s.length <= 40) h += '<b>' + KB.fmt(r) + '</b></div>';
+    else {
+      var sc = KB.sci(r, 6);
+      h += '<b class="long">≈ ' + sc.mant + ' · 10<sup>' + sc.exp + '</sup></b></div>';
+      h += '<div class="small">Exakter Wert mit ' + KB.fmt(s.length) + ' Stellen' + (s.length <= 300 ? ':' : '') + '</div>';
+      if (s.length <= 300) h += '<div class="digits">' + KB.fmt(r) + '</div>';
+      else h += '<details><summary>Alle ' + KB.fmt(s.length) + ' Stellen anzeigen</summary><div class="digits">' + KB.fmt(r) + '</div></details>';
+    }
+    return h;
+  }
+
+  // Rechenweg Binomialkoeffizient ab \binom{n}{k}
+  function binomWeg(n, k, parts) {
+    if (k > n) { parts.push('=0'); return; }
+    parts.push('=\\dfrac{' + tn(n) + '!}{' + tn(k) + '!\\cdot ' + tn(n - k) + '!}');
+    var kk = Math.min(k, n - k);
+    if (kk !== k) parts.push('=\\dbinom{' + tn(n) + '}{' + tn(kk) + '}');
+    if (kk >= 2) parts.push('=\\dfrac{' + prodDesc(n, kk) + '}{' + prodDesc(kk, kk) + '}');
+  }
+
+  // --- Hauptrechner ----------------------------------------------------
+  var NAMES = {
+    vo: 'Variation ohne Wiederholung', vm: 'Variation mit Wiederholung',
+    ko: 'Kombination ohne Wiederholung', km: 'Kombination mit Wiederholung'
+  };
+  function radio(name) { var r = document.querySelector('input[name="' + name + '"]:checked'); return r ? r.value : 'nein'; }
+  function calcMain() {
+    var pn = parseInt0($('m-n').value, 'n', MAX), pk = parseInt0($('m-k').value, 'k', MAX);
+    mark($('m-n'), !!pn.err); mark($('m-k'), !!pk.err);
+    var ord = radio('m-ord') === 'ja', rep = radio('m-rep') === 'ja';
+    var typ = ord ? (rep ? 'vm' : 'vo') : (rep ? 'km' : 'ko');
+    if (pn.err || pk.err) { $('m-out').innerHTML = err([pn.err, pk.err].filter(Boolean).join(' ')); return; }
+    var n = pn.v, k = pk.v;
+    if (!rep && k > n) {
+      mark($('m-k'), true);
+      $('m-out').innerHTML = '<div class="name">' + NAMES[typ] + '</div>' +
+        err('Ohne Wiederholung kann man höchstens n Elemente auswählen: k darf nicht größer als n sein (hier k = ' + KB.fmt(k) + ', n = ' + KB.fmt(n) + '). ' +
+          'Soll mehrfach gezogen werden dürfen, „Zurücklegen / Wiederholung erlaubt“ auf ja stellen.');
+      return;
+    }
+    var formel, weg = [], r, urne, extra = '';
+    var nk = 'k = ' + KB.fmt(k) + (k === 1 ? ' Kugel' : ' Kugeln'), nn = 'n = ' + KB.fmt(n);
+    if (typ === 'vo') {
+      r = KB.varOhne(n, k);
+      formel = ['V=\\dfrac{n!}{(n-k)!}'];
+      weg = ['V=\\dfrac{' + tn(n) + '!}{(' + tn(n) + '-' + tn(k) + ')!}', '=\\dfrac{' + tn(n) + '!}{' + tn(n - k) + '!}'];
+      if (k >= 2) weg.push('=' + prodDesc(n, k));
+      urne = 'Urnenmodell: Aus einer Urne mit ' + nn + ' unterscheidbaren Kugeln werden ' + nk + ' nacheinander <strong>ohne Zurücklegen</strong> gezogen, die <strong>Reihenfolge zählt</strong>. Für die erste Kugel gibt es n Möglichkeiten, für die zweite n − 1 und so weiter. Typisch: Siegerpodest, Ämter verteilen, Rangfolgen.';
+      if (k === n && n > 0) extra = 'Sonderfall k = n: Alle Elemente werden angeordnet, das ist eine Permutation mit n! Möglichkeiten.';
+    } else if (typ === 'vm') {
+      r = KB.varMit(n, k);
+      formel = ['V=n^k'];
+      weg = ['V=' + tn(n) + '^{' + tn(k) + '}'];
+      if (k >= 2 && k <= 6) weg.push('=' + Array(k).fill(tn(n)).join('\\cdot '));
+      urne = 'Urnenmodell: Aus einer Urne mit ' + nn + ' Kugeln wird ' + (k === 1 ? 'eine Kugel' : KB.fmt(k) + '-mal') + ' <strong>mit Zurücklegen</strong> gezogen, die <strong>Reihenfolge zählt</strong>. Jede Ziehung hat wieder n Möglichkeiten. Typisch: PIN, Passwort, mehrmals würfeln.';
+      if (n === 0 && k >= 1) extra = 'Sonderfall n = 0: Aus einer leeren Urne lässt sich nichts ziehen, es gibt 0 Möglichkeiten.';
+    } else if (typ === 'ko') {
+      r = KB.kombOhne(n, k);
+      formel = ['C=\\dbinom{n}{k}=\\dfrac{n!}{k!\\,(n-k)!}'];
+      weg = ['C=\\dbinom{' + tn(n) + '}{' + tn(k) + '}'];
+      binomWeg(n, k, weg);
+      urne = 'Urnenmodell: Aus einer Urne mit ' + nn + ' unterscheidbaren Kugeln werden ' + nk + ' <strong>ohne Zurücklegen</strong> gezogen, die <strong>Reihenfolge ist egal</strong> (Ziehen mit einem Griff). Jede Auswahl käme bei der Variation k!-mal vor und wird hier nur einmal gezählt. Typisch: Lotto, Ausschuss bilden, Stichprobe.';
+    } else {
+      r = KB.kombMit(n, k);
+      formel = ['C=\\dbinom{n+k-1}{k}'];
+      if (n === 0) weg = null;
+      else {
+        weg = ['C=\\dbinom{' + tn(n) + '+' + tn(k) + '-1}{' + tn(k) + '}', '=\\dbinom{' + tn(n + k - 1) + '}{' + tn(k) + '}'];
+        binomWeg(n + k - 1, k, weg);
+      }
+      urne = 'Urnenmodell: Aus einer Urne mit ' + nn + ' Kugeln wird ' + (k === 1 ? 'eine Kugel' : KB.fmt(k) + '-mal') + ' <strong>mit Zurücklegen</strong> gezogen, die <strong>Reihenfolge ist egal</strong>. Gezählt wird nur, wie oft jede Kugel vorkommt. Typisch: Eiskugeln im Becher, Bestellmengen, Augenzahlen mehrerer gleicher Würfel.';
+      if (n === 0 && k >= 1) extra = 'Sonderfall n = 0: Aus einer leeren Urne lässt sich nichts ziehen, es gibt 0 Möglichkeiten.';
+    }
+    if (k === 0) extra = 'Sonderfall k = 0: Es wird nichts ausgewählt. Dafür gibt es genau eine Möglichkeit (die leere Auswahl), deshalb ist das Ergebnis 1' + (n === 0 ? ', auch für n = 0.' : '.');
+    if (weg) pushRes(weg, r);
+    $('m-out').innerHTML = '<div class="name">' + NAMES[typ] + '</div>' +
+      '<div class="lbl">Formel</div>' + stepsHtml('m-f') +
+      (weg ? '<div class="lbl">Rechenweg</div>' + stepsHtml('m-w') : '') +
+      resultHtml(r, 'Anzahl Möglichkeiten') +
+      (extra ? '<p class="small"><strong>' + extra + '</strong></p>' : '') +
+      '<p class="small">' + urne + '</p>';
+    fillSteps('m-f', formel);
+    if (weg) fillSteps('m-w', weg);
+  }
+
+  // --- Permutationen ---------------------------------------------------
+  function calcPerm() {
+    var pn = parseInt0($('p-n').value, 'n', MAX);
+    mark($('p-n'), !!pn.err); mark($('p-g'), false);
+    if (pn.err) { $('p-out').innerHTML = err(pn.err); return; }
+    var n = pn.v, raw = $('p-g').value.trim(), gruppen = [], sum = 0;
+    if (raw !== '') {
+      var teile = raw.split(/[\s,;·*]+/).filter(Boolean);
+      for (var i = 0; i < teile.length; i++) {
+        var pg = parseInt0(teile[i], 'Eine Gruppengröße', MAX);
+        if (pg.err && !/höchstens/.test(pg.err) || (!pg.err && pg.v < 1)) pg = { err: 'Gruppengrößen müssen ganze Zahlen ab 1 sein, mit Komma getrennt (z. B. 4, 4, 2).' };
+        if (pg.err) { mark($('p-g'), true); $('p-out').innerHTML = err(pg.err); return; }
+        sum += pg.v;
+        if (pg.v > 1) gruppen.push(pg.v);
+      }
+    }
+    if (sum > n) {
+      mark($('p-g'), true);
+      $('p-out').innerHTML = err('Die Gruppen umfassen zusammen ' + KB.fmt(sum) + ' Elemente, das ist mehr als n = ' + KB.fmt(n) + '.');
+      return;
+    }
+    var r = KB.permGruppen(n, gruppen), formel, weg, h = '';
+    if (!gruppen.length) {
+      formel = ['P=n!'];
+      weg = [tn(n) + '!'];
+      if (n >= 2) weg.push('=' + prodDesc(n, n));
+      pushRes(weg, r);
+      h = '<div class="name">Permutation ohne Wiederholung</div>';
+      if (n === 0) h += '<p class="small"><strong>Per Definition ist 0! = 1: Es gibt genau eine (leere) Anordnung.</strong></p>';
+    } else {
+      formel = ['P=\\dfrac{n!}{n_1!\\cdot n_2!\\cdot\\ldots\\cdot n_r!}'];
+      var gs = gruppen.length <= 8 ? gruppen : gruppen.slice(0, 3).concat(['…']).concat(gruppen.slice(-1));
+      var den = gs.map(function (g) { return g === '…' ? '\\cdots' : tn(g) + '!'; }).join('\\cdot ');
+      weg = ['P=\\dfrac{' + tn(n) + '!}{' + den + '}'];
+      var nf = KB.fact(n), d = KB.fact(n) / r;
+      if (nf.toString().length <= 24 && gruppen.length <= 8) {
+        weg.push('=\\dfrac{' + tn(nf) + '}{' + gruppen.map(function (g) { return tn(KB.fact(g)); }).join('\\cdot ') + '}');
+        if (gruppen.length > 1) weg.push('=\\dfrac{' + tn(nf) + '}{' + tn(d) + '}');
+      }
+      pushRes(weg, r);
+      h = '<div class="name">Permutation mit Wiederholung (gleiche Elemente)</div>';
+      var rest = n - gruppen.reduce(function (a, b) { return a + b; }, 0);
+      if (rest > 0) h += '<p class="small">' + (rest === 1 ? 'Ein weiteres Element kommt' : 'Die übrigen ' + KB.fmt(rest) + ' Elemente kommen') + ' je einmal vor (1! = 1 ändert nichts).</p>';
+    }
+    $('p-out').innerHTML = h + '<div class="lbl">Formel</div>' + stepsHtml('p-f') + '<div class="lbl">Rechenweg</div>' + stepsHtml('p-wg') + resultHtml(r, 'Anordnungen');
+    fillSteps('p-f', formel);
+    fillSteps('p-wg', weg);
+  }
+  function fromWord() {
+    var w = $('p-w').value.toUpperCase().replace(/\s/g, '');
+    if (w === '') { $('p-info').textContent = 'Gruppengrößen mit Komma trennen. Leer lassen, wenn alle Elemente verschieden sind.'; return; }
+    var chars = Array.from(w);
+    if (chars.length > MAX) { $('p-info').textContent = 'Das Wort ist zu lang (höchstens ' + KB.fmt(MAX) + ' Zeichen).'; return; }
+    var cnt = {}, order = [];
+    chars.forEach(function (c) { if (!cnt[c]) { cnt[c] = 0; order.push(c); } cnt[c]++; });
+    $('p-n').value = chars.length;
+    $('p-g').value = order.filter(function (c) { return cnt[c] > 1; }).map(function (c) { return cnt[c]; }).join(', ');
+    $('p-info').textContent = 'Aus dem Wort: n = ' + chars.length + '; ' + order.map(function (c) { return c + ' ' + cnt[c] + '×'; }).join(', ') + '.';
+    calcPerm();
+  }
+
+  // --- Binomialkoeffizient ---------------------------------------------
+  function calcBinom() {
+    var pn = parseInt0($('b-n').value, 'n', MAX), pk = parseInt0($('b-k').value, 'k', MAX);
+    mark($('b-n'), !!pn.err); mark($('b-k'), !!pk.err);
+    if (pn.err || pk.err) { $('b-out').innerHTML = err([pn.err, pk.err].filter(Boolean).join(' ')); return; }
+    var n = pn.v, k = pk.v, r = KB.binom(n, k), weg = ['\\dbinom{' + tn(n) + '}{' + tn(k) + '}'];
+    binomWeg(n, k, weg);
+    pushRes(weg, r);
+    var note = k > n ? 'Für k &gt; n ist der Binomialkoeffizient 0: Man kann nicht mehr Elemente auswählen, als vorhanden sind.'
+      : 'Anzahl der Möglichkeiten, ' + KB.fmt(k) + ' von ' + KB.fmt(n) + ' Elementen ohne Reihenfolge und ohne Wiederholung auszuwählen. Taschenrechner: ' + KB.fmt(n) + ' nCr ' + KB.fmt(k) + '.';
+    $('b-out').innerHTML = '<div class="lbl">Rechenweg</div>' + stepsHtml('b-wg') + resultHtml(r, 'Wert') + '<p class="small">' + note + '</p>';
+    fillSteps('b-wg', weg);
+  }
+
+  // --- statische Formeln -----------------------------------------------
+  // abgesetzte Formel an "=" der obersten Klammerebene teilen, damit sie auf schmalen Bildschirmen umbricht
+  function splitEq(src) {
+    var parts = [], depth = 0, cur = '';
+    for (var i = 0; i < src.length; i++) {
+      var c = src.charAt(i);
+      if (c === '{') depth++;
+      if (c === '}') depth--;
+      if (c === '=' && depth === 0 && cur.trim() !== '') { parts.push(cur.trim()); cur = '='; continue; }
+      cur += c;
+    }
+    parts.push(cur.trim());
+    return parts;
+  }
+  if (window.katex) {
+    var els = document.querySelectorAll('.m,.d');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i], src = el.textContent;
+      if (el.classList.contains('d')) fillSteps(el, splitEq(src));
+      else {
+        try { katex.render(src, el, { throwOnError: true, strict: 'ignore' }); }
+        catch (e) { el.textContent = src; if (window.console) console.error(e.message); }
+      }
+    }
+  }
+
+  function bind(ids, fn) { ids.forEach(function (id) { $(id).addEventListener('input', fn); }); fn(); }
+  bind(['m-n', 'm-k'], calcMain);
+  document.querySelectorAll('input[name="m-ord"],input[name="m-rep"]').forEach(function (r) { r.addEventListener('change', calcMain); });
+  bind(['p-n', 'p-g'], calcPerm);
+  $('p-w').addEventListener('input', fromWord);
+  bind(['b-n', 'b-k'], calcBinom);
+
+  document.querySelectorAll('button[data-n]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $('m-n').value = b.getAttribute('data-n');
+      $('m-k').value = b.getAttribute('data-k');
+      document.querySelector('input[name="m-ord"][value="' + b.getAttribute('data-ord') + '"]').checked = true;
+      document.querySelector('input[name="m-rep"][value="' + b.getAttribute('data-rep') + '"]').checked = true;
+      calcMain();
+      $('rechner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
