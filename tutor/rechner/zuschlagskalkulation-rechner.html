@@ -1,56 +1,470 @@
 <!doctype html>
-<html lang="de" data-theme="light">
+<html lang="de">
 <head>
 <meta charset="utf-8">
-<script>/* Rechner-Seite: App mit geöffnetem Rechner */(function(){try{var h=location.hash||"";if(!/^#\/./.test(h))history.replaceState(null,"",location.pathname+location.search+"#/app/rechner/zuschlag")}catch(e){}window.BM_RS={title:"Zuschlagskalkulation-Rechner: Herstellkosten, Selbstkosten, Listenpreis | BWL Max"}})();</script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>/* bwlmax.de/start (YouTube-Demo): Startseite nicht aufblitzen lassen, Demo-Inhalte vorladen – start.js übernimmt */(function(){try{if(!/^\/start\/?$/.test(location.pathname)||/^#\/./.test(location.hash||''))return;document.documentElement.classList.add('bm-start');try{sessionStorage.setItem('tutor.hintShown','1')}catch(e){}var l=document.createElement('link');l.rel='preload';l.as='fetch';l.href='/tutor/data/demo/start.json?v=1';l.crossOrigin='anonymous';document.head.appendChild(l)}catch(e){}})();</script>
-<script>/* Themen-Einstieg (?thema=…): Startseite gar nicht erst zeigen – direkt die Themenseite */(function(){try{var m=location.search.match(/[?&](thema|q)=([^&#]+)/i);if(!m||/^#\/./.test(location.hash||''))return;var s=decodeURIComponent(m[2]).toLowerCase();if(m[1].toLowerCase()==='thema'&&sessionStorage.getItem('tutor.themaDone')===s)return;var d=document.documentElement;d.classList.add('m-eboot');setTimeout(function(){d.classList.remove('m-eboot')},9000);}catch(e){}})();</script>
-<style>html.m-eboot .seo-art,html.m-eboot #landing{display:none!important}html.m-eboot #landing,html.m-eboot #app,html.m-eboot .asst>:not(.ai-board),html.m-eboot .bmc,html.m-eboot .mtip2{visibility:hidden!important}html.m-eboot body{background:#fff}html.m-eboot body::after{content:"";position:fixed;left:50%;top:42%;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:3px solid #e6e6e8;border-top-color:#1f5138;animation:mebspin .8s linear infinite;z-index:2}@keyframes mebspin{to{transform:rotate(360deg)}}</style>
-<link rel="preload" as="image" href="/tutor/img/max-hair.webp?v=2" type="image/webp">
-<link rel="preload" as="image" href="/tutor/img/max-collar.webp?v=5" type="image/webp">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zuschlagskalkulation-Rechner: Herstellkosten, Selbstkosten, Listenpreis | BWL Max</title>
 <meta name="description" content="Zuschlagskalkulation online: Materialkosten, Fertigungskosten, Herstellkosten, Selbstkosten bis zum Listenverkaufspreis – im Klausurschema, kostenlos.">
+<meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.bwlmax.de/rechner/zuschlagskalkulation-rechner">
-<meta name="theme-color" content="#ffffff">
-<link rel="icon" href="/tutor/img/bm-fav.ico?v=20" sizes="48x48">
-<link rel="icon" type="image/png" sizes="48x48" href="/tutor/img/bm-fav-48.png?v=20">
-<link rel="icon" type="image/png" sizes="96x96" href="/tutor/img/bm-fav-96.png?v=20">
-<link rel="icon" type="image/png" sizes="192x192" href="/tutor/img/bm-fav-192.png?v=20">
-<link rel="apple-touch-icon" href="/tutor/img/bm-fav-180.png?v=20">
+<meta name="color-scheme" content="light dark">
 <meta property="og:title" content="Zuschlagskalkulation-Rechner: Herstellkosten, Selbstkosten, Listenpreis | BWL Max">
-<meta property="og:url" content="https://www.bwlmax.de/rechner/zuschlagskalkulation-rechner">
-<meta property="og:site_name" content="BWL Max">
-<meta name="application-name" content="BWL Max">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Zuschlagskalkulation-Rechner", "url": "https://www.bwlmax.de/rechner/zuschlagskalkulation-rechner", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "description": "Zuschlagskalkulation online: Materialkosten, Fertigungskosten, Herstellkosten, Selbstkosten bis zum Listenverkaufspreis – im Klausurschema, kostenlos.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "publisher": {"@type": "Organization", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "citation": [{"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Zuschlagskalkulation", "url": "https://wirtschaftslexikon.gabler.de/definition/zuschlagskalkulation-47491"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Herstellkosten", "url": "https://wirtschaftslexikon.gabler.de/definition/herstellkosten-33066"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Materialgemeinkosten", "url": "https://wirtschaftslexikon.gabler.de/definition/materialgemeinkosten-40493"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Fertigungsgemeinkosten", "url": "https://wirtschaftslexikon.gabler.de/definition/fertigungsgemeinkosten-36134"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Vertriebsgemeinkosten", "url": "https://wirtschaftslexikon.gabler.de/definition/vertriebsgemeinkosten-48781"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Sondereinzelkosten", "url": "https://wirtschaftslexikon.gabler.de/definition/sondereinzelkosten-42473"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Sondereinzelkosten der Fertigung", "url": "https://wirtschaftslexikon.gabler.de/definition/sondereinzelkosten-der-fertigung-42887"}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BWL Max", "item": "https://www.bwlmax.de/"}, {"@type": "ListItem", "position": 2, "name": "Rechner", "item": "https://www.bwlmax.de/rechner"}, {"@type": "ListItem", "position": 3, "name": "Zuschlagskalkulation-Rechner", "item": "https://www.bwlmax.de/rechner/zuschlagskalkulation-rechner"}]}]}</script>
 <meta property="og:description" content="Zuschlagskalkulation online: Materialkosten, Fertigungskosten, Herstellkosten, Selbstkosten bis zum Listenverkaufspreis – im Klausurschema, kostenlos.">
-<meta property="og:image" content="https://www.bwlmax.de/tutor/img/og-max.png?v=20">
+<meta property="og:url" content="https://www.bwlmax.de/rechner/zuschlagskalkulation-rechner">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tutor/jsb/app-RYMP5SKJ.css">
-<link rel="stylesheet" href="/tutor/jsb/m-shell-HGQEQZGL.css">
-<link rel="stylesheet" href="/tutor/jsb/m-board-I6F4YNLX.css">
-<link rel="stylesheet" href="/tutor/jsb/m-pages-QKJQ7M6A.css">
-<link rel="stylesheet" href="/tutor/css/seo-art.css?v=38">
-<link rel="stylesheet" href="/tutor/jsb/trainer-BFUW4BMC.css">
-<style>html.preload{background:#000}html.preload[data-theme=light]{background:#fff}html.preload body{opacity:0}html body{transition:opacity .25s ease}</style>
-<script>document.documentElement.classList.add('preload');setTimeout(function(){document.documentElement.classList.remove('preload')},2500);</script>
-<script>document.documentElement.dataset.theme='light';try{var t=sessionStorage.getItem('tutor.theme');if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}var c='navy';try{var v=localStorage.getItem('tutor.accent');if(v!=null&&v!=='gelb')c=v}catch(e){}if(c&&c!=='std'&&/^[a-z]{3,12}$/.test(c))document.documentElement.dataset.accent=c;try{if(localStorage.getItem('bm.skin')!=='alt')document.documentElement.dataset.nv='1'}catch(e){document.documentElement.dataset.nv='1'}try{var a=JSON.parse(localStorage.getItem('tutor.account')||'null');if(a&&/^bendeschler0@gmail\.com$/i.test(a.email||''))document.documentElement.dataset.ben='1'}catch(e){}</script>
+<meta property="og:site_name" content="BWL Max">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Zuschlagskalkulation-Rechner", "url": "https://www.bwlmax.de/rechner/zuschlagskalkulation-rechner", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "description": "Zuschlagskalkulation online: Materialkosten, Fertigungskosten, Herstellkosten, Selbstkosten bis zum Listenverkaufspreis – im Klausurschema, kostenlos.", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "citation": [{"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Zuschlagskalkulation", "url": "https://wirtschaftslexikon.gabler.de/definition/zuschlagskalkulation-47491"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Herstellkosten", "url": "https://wirtschaftslexikon.gabler.de/definition/herstellkosten-33066"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Materialgemeinkosten", "url": "https://wirtschaftslexikon.gabler.de/definition/materialgemeinkosten-40493"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Fertigungsgemeinkosten", "url": "https://wirtschaftslexikon.gabler.de/definition/fertigungsgemeinkosten-36134"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Vertriebsgemeinkosten", "url": "https://wirtschaftslexikon.gabler.de/definition/vertriebsgemeinkosten-48781"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Sondereinzelkosten", "url": "https://wirtschaftslexikon.gabler.de/definition/sondereinzelkosten-42473"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Sondereinzelkosten der Fertigung", "url": "https://wirtschaftslexikon.gabler.de/definition/sondereinzelkosten-der-fertigung-42887"}]}</script>
+<link rel="stylesheet" href="/tutor/vendor/katex@0.16.47/katex.min.css">
+<style>
+:root{--bg:#fff;--fg:#1b1d20;--muted:#585f69;--line:#d9dde2;--soft:#f3f5f7;--accent:#1d5a4a;--accent-soft:#e3efea;--warn:#8a4b00;--warn-soft:#fdf3e4;--ok:#1d6b3a;--bad:#a1281e;--zebra:#f8f9fa}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e7e9ec;--muted:#a5abb4;--line:#30353c;--soft:#1b1f23;--accent:#83cdb3;--accent-soft:#1a2e28;--warn:#f0b25e;--warn-soft:#2b2216;--ok:#7fd49c;--bad:#ff9a8f;--zebra:#171a1d}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.75rem;line-height:1.25;margin:.2em 0 .5em}
+h2{font-size:1.3rem;margin:2.2em 0 .6em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .5em}
+p{margin:.5em 0 .9em}
+ul,ol{padding-left:1.3em}
+li{margin:.2em 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lead{color:var(--muted);max-width:70ch}
+nav.toc{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:1.2em 0}
+nav.toc ol{margin:.3em 0 0;padding-left:1.3em;columns:2;column-gap:2em}
+nav.toc li{margin:.15em 0;break-inside:avoid}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;margin:1em 0;font-size:.95rem}
+.calcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--bg);min-width:0}
+.card h3{margin-top:0}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:.4em 0}
+.row label{display:flex;flex-direction:column;font-size:.85rem;color:var(--muted);flex:1 1 80px;min-width:0}
+input,select{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;width:100%;min-width:0}
+input[aria-invalid=true]{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+fieldset.opt{border:1px solid var(--line);border-radius:8px;padding:6px 12px 8px;margin:.5em 0;min-width:0}
+fieldset.opt legend{font-size:.85rem;color:var(--muted);padding:0 4px}
+fieldset.opt label{display:inline-flex;align-items:center;gap:6px;margin-right:18px;cursor:pointer}
+fieldset.opt input{width:auto;margin:0}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 12px}
+.main{max-width:none}
+.out{margin-top:.6em;background:var(--soft);border-radius:8px;padding:10px 12px;font-variant-numeric:tabular-nums;min-height:2.4em;overflow-wrap:anywhere}
+.out .err{color:var(--bad)}
+.out .name{font-weight:600;color:var(--accent);margin-bottom:.2em}
+.out .lbl{font-size:.8rem;color:var(--muted);margin-top:.5em}
+.steps{display:flex;flex-wrap:wrap;align-items:center;column-gap:.35em;row-gap:.3em;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.steps>span{display:inline-block;max-width:100%}
+.big{display:flex;justify-content:space-between;align-items:baseline;gap:4px 12px;flex-wrap:wrap;margin-top:.6em;padding-top:.5em;border-top:1px solid var(--line)}
+.big b{font-size:1.25rem;font-weight:700}
+.big b.long{font-size:1rem;font-weight:600;word-break:break-all}
+.out details{margin-top:.4em}
+.out details summary{cursor:pointer;color:var(--accent);font-size:.9rem}
+.digits{font-size:.85rem;word-break:break-all;max-height:14em;overflow-y:auto;margin-top:.3em}
+.small{font-size:.85rem;color:var(--muted)}
+.out .small{margin:.5em 0 0}
+button{font:inherit;border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:6px;padding:5px 11px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.d{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;column-gap:.35em;row-gap:.3em;overflow-x:auto;overflow-y:hidden;margin:.5em 0;padding:2px 0}
+.d>span{display:inline-block;max-width:100%}
+.d .katex,.steps .katex{white-space:nowrap}
+.tw{overflow-x:auto;margin:.8em 0 1.4em;-webkit-overflow-scrolling:touch}
+table.dec{border-collapse:collapse;width:100%;font-size:.92rem}
+table.dec th,table.dec td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+table.dec thead th{background:var(--soft)}
+table.dec tbody th{background:var(--soft);font-weight:600}
+table.dec td b{display:block;color:var(--accent)}
+table.dec .f{display:block;margin:.35em 0 .25em}
+table.dec .ex{display:block;font-size:.85rem;color:var(--muted)}
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:16px}
+.ex-grid .card p{margin:.3em 0 .6em}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:0 .55em;vertical-align:1px}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+@media (max-width:600px){nav.toc ol{columns:1}h1{font-size:1.45rem}table.dec{font-size:.85rem}table.dec th,table.dec td{padding:6px 6px}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px;margin:.4em 0}
+.grid label{display:flex;flex-direction:column;font-size:.85rem;color:var(--muted);min-width:0}
+.card h3.gh{font-size:.95rem;margin:.9em 0 .2em;color:var(--fg)}
+.card h3.gh:first-child{margin-top:0}
+.out p.err{margin:.4em 0}
+.out .sub{margin:.15em 0 .2em}
+.out .tw{margin:.6em 0 .3em}
+.out table.dec{background:var(--bg)}
+table.dec td.n,table.dec th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.dec tr.sum th,table.dec tr.sum td{font-weight:700}
+table.dec tr.sw td,table.dec tr.sw th{border-top:2px solid var(--accent)}
+table.res{max-width:520px}
+.chk{display:flex;align-items:center;gap:8px;font-size:.9rem;margin:.5em 0;cursor:pointer}
+.chk input{width:auto;margin:0}
+.hide{display:none!important}
+table.plan td{white-space:nowrap}
+table.dec.plan th,table.dec.plan th.n{white-space:normal;vertical-align:bottom;-webkit-hyphens:auto;hyphens:auto}
+table.dec.plan th:first-child{white-space:nowrap}
+@media (max-width:600px){.card.main{padding:12px 10px}.out{padding:10px 8px}.out table.dec{font-size:.78rem}.out table.dec th,.out table.dec td{padding:4px 3px}}
+@media print{
+ @page{size:A4;margin:12mm 11mm}
+ :root{--bg:#fff;--fg:#000;--muted:#333;--line:#999;--soft:#eee;--zebra:#f6f6f6;--accent:#000}
+ body{font-size:10pt}
+ .wrap{max-width:none;padding:0}
+ .noprint,nav.toc{display:none!important}
+ header .lead{display:none}
+ h1{font-size:15pt;margin:0 0 .3em}
+ h2{margin:1.2em 0 .4em}
+ .card,table.dec tr{break-inside:avoid}
+ .note{border:1px solid #999;background:none}
+ a{color:#000;text-decoration:none}
+ footer{margin-top:1em}
+}
+</style>
 </head>
 <body>
+<div class="wrap">
+<header>
+<h1>Zuschlagskalkulation-Rechner: vom Material bis zum Listenpreis</h1>
+<p class="lead">Der Rechner rechnet das Kalkulationsschema der differenzierenden Zuschlagskalkulation vollständig durch: Materialkosten, Fertigungskosten, Herstellkosten und Selbstkosten, auf Wunsch mit Gewinnzuschlag, Kundenskonto, Vertreterprovision und Kundenrabatt bis zum Listenverkaufspreis. Sondereinzelkosten der Fertigung und des Vertriebs sind möglich, der Rechenweg wird mit eingesetzten Zahlen gezeigt. Gedacht für Kosten- und Leistungsrechnung im Studium und in der Ausbildung.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+</header>
 
-<!-- ================= LANDING ================= -->
-<div id="landing" class="hidden"></div>
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#rechner">Rechner</a></li>
+<li><a href="#schema">Kalkulationsschema</a></li>
+<li><a href="#beispiele">Beispiele mit Lösung</a></li>
+<li><a href="#grundlagen">Begriffe und Grundlagen</a></li>
+<li><a href="#faq">Häufige Fragen</a></li>
+</ol>
+</nav>
 
-  <!-- ================= APP ================= -->
-<div id="app" class="hidden"></div>
+<section id="rechner" class="noprint" aria-labelledby="h-rechner">
+<h2 id="h-rechner">Rechner</h2>
+<p class="small">Beträge in Euro, Zuschläge in Prozent. Komma oder Punkt als Dezimaltrennzeichen. Leere Felder zählen als 0. Das Ergebnis wird beim Tippen aktualisiert.</p>
+<form class="card main" id="c-zk" onsubmit="return false">
+<h3 class="gh">Material</h3>
+<div class="grid">
+<label><span>Materialeinzelkosten MEK (€)</span><input id="zk-mek" inputmode="decimal" autocomplete="off" value="100"></label>
+<label><span>MGK-Zuschlag (%)</span><input id="zk-mgk" inputmode="decimal" autocomplete="off" value="20"></label>
+</div>
+<h3 class="gh">Fertigung</h3>
+<div class="grid">
+<label><span>Fertigungslöhne FL (€)</span><input id="zk-fl" inputmode="decimal" autocomplete="off" value="80"></label>
+<label><span>FGK-Zuschlag (%)</span><input id="zk-fgk" inputmode="decimal" autocomplete="off" value="150"></label>
+<label><span>Sondereinzelkosten der Fertigung (€, optional)</span><input id="zk-sekf" inputmode="decimal" autocomplete="off" value=""></label>
+</div>
+<h3 class="gh">Verwaltung und Vertrieb</h3>
+<div class="grid">
+<label><span>VwGK-Zuschlag (%)</span><input id="zk-vwgk" inputmode="decimal" autocomplete="off" value="10"></label>
+<label><span>VtGK-Zuschlag (%)</span><input id="zk-vtgk" inputmode="decimal" autocomplete="off" value="5"></label>
+<label><span>Sondereinzelkosten des Vertriebs (€, optional)</span><input id="zk-sekv" inputmode="decimal" autocomplete="off" value=""></label>
+</div>
+<h3 class="gh">Verkaufspreis (optional)</h3>
+<div class="grid">
+<label><span>Gewinnzuschlag (%)</span><input id="zk-gewinn" inputmode="decimal" autocomplete="off" value="10"></label>
+<label><span>Kundenskonto (%)</span><input id="zk-skonto" inputmode="decimal" autocomplete="off" value="2"></label>
+<label><span>Vertreterprovision (%)</span><input id="zk-prov" inputmode="decimal" autocomplete="off" value=""></label>
+<label><span>Kundenrabatt (%)</span><input id="zk-rabatt" inputmode="decimal" autocomplete="off" value="10"></label>
+</div>
+<div class="out" id="zk-out" aria-live="polite"></div>
+</form>
+</section>
 
-<noscript><p style="padding:40px;text-align:center">Bitte aktiviere JavaScript, um BWL Max zu nutzen.</p></noscript>
-<script>(function(){if(/(^|\.)bwlmax\.de$/.test(location.hostname))document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});})();</script>
-<script src="/tutor/js/consent.js?v=27"></script>
-<!--jsb--><link rel="modulepreload" href="/tutor/jsb/c-2C2TTIQH.js"><link rel="modulepreload" href="/tutor/jsb/c-OVX7NP3R.js"><link rel="modulepreload" href="/tutor/jsb/c-6WBDRWZE.js"><link rel="modulepreload" href="/tutor/jsb/c-ZQ37HMO5.js"><link rel="modulepreload" href="/tutor/jsb/c-DSOK5TTJ.js"><link rel="modulepreload" href="/tutor/jsb/c-CYVSFYYJ.js"><link rel="modulepreload" href="/tutor/jsb/c-LSOEINMT.js"><link rel="modulepreload" href="/tutor/jsb/c-LEXHD3JY.js"><link rel="modulepreload" href="/tutor/jsb/c-UEPRKOCD.js"><link rel="modulepreload" href="/tutor/jsb/c-W6RFOY5Q.js"><link rel="modulepreload" href="/tutor/jsb/c-NFX6TAXH.js"><link rel="modulepreload" href="/tutor/jsb/c-P32TUP2I.js"><link rel="modulepreload" href="/tutor/jsb/c-RPDRBMNP.js"><link rel="modulepreload" href="/tutor/jsb/c-KLUKKACI.js"><link rel="modulepreload" href="/tutor/jsb/c-52BRSFB2.js"><link rel="modulepreload" href="/tutor/jsb/c-X7WE34EP.js"><link rel="modulepreload" href="/tutor/jsb/c-ULMPOXNU.js"><link rel="modulepreload" href="/tutor/jsb/c-UG3ZIXHS.js"><link rel="modulepreload" href="/tutor/jsb/c-PGPPBS4R.js"><link rel="modulepreload" href="/tutor/jsb/c-FDGOEWAF.js"><link rel="modulepreload" href="/tutor/jsb/c-LRJWSC56.js"><link rel="modulepreload" href="/tutor/jsb/c-MZZW4YF2.js"><link rel="modulepreload" href="/tutor/jsb/c-HRXBZO66.js"><link rel="modulepreload" href="/tutor/jsb/c-H5ZHLGKR.js"><link rel="modulepreload" href="/tutor/jsb/c-UT6EKMZO.js"><link rel="modulepreload" href="/tutor/jsb/c-NDEXS7CY.js"><link rel="modulepreload" href="/tutor/jsb/c-2RRJ4ZYG.js"><link rel="modulepreload" href="/tutor/jsb/c-XLWJWL3T.js"><link rel="modulepreload" href="/tutor/jsb/c-UWHMDSVS.js"><link rel="modulepreload" href="/tutor/jsb/c-J3FAECVJ.js"><link rel="modulepreload" href="/tutor/jsb/c-5WHP4HDV.js"><link rel="modulepreload" href="/tutor/jsb/c-5DFPBDFC.js"><link rel="modulepreload" href="/tutor/jsb/c-KGGPI3XA.js"><link rel="modulepreload" href="/tutor/jsb/c-VRR3EQJV.js"><link rel="modulepreload" href="/tutor/jsb/c-K4LZ4NHB.js"><link rel="modulepreload" href="/tutor/jsb/c-5W55UXSB.js"><link rel="modulepreload" href="/tutor/jsb/c-HPNKIKAI.js"><link rel="modulepreload" href="/tutor/jsb/c-7NEUG36I.js"><link rel="modulepreload" href="/tutor/jsb/c-BMAK3GSY.js"><link rel="modulepreload" href="/tutor/jsb/c-6TB7PQXP.js"><link rel="modulepreload" href="/tutor/jsb/c-YXEGSOWY.js"><link rel="modulepreload" href="/tutor/jsb/c-UEFMRCCN.js"><link rel="modulepreload" href="/tutor/jsb/c-2ZYZ7ZRF.js"><link rel="modulepreload" href="/tutor/jsb/c-6LOS4T3P.js"><link rel="modulepreload" href="/tutor/jsb/c-QEISDQCZ.js"><link rel="modulepreload" href="/tutor/jsb/c-SSCWVJV6.js"><link rel="modulepreload" href="/tutor/jsb/c-PH3TFO2U.js"><link rel="modulepreload" href="/tutor/jsb/c-FRCTEIMO.js"><link rel="modulepreload" href="/tutor/jsb/c-BACIG7JQ.js"><link rel="modulepreload" href="/tutor/jsb/c-23S6CPHL.js"><link rel="modulepreload" href="/tutor/jsb/c-4V5XZVGQ.js"><link rel="modulepreload" href="/tutor/jsb/c-6Q3DAHYV.js"><link rel="modulepreload" href="/tutor/jsb/c-WGUD3K7P.js"><link rel="modulepreload" href="/tutor/jsb/c-F4ETRBDL.js"><link rel="modulepreload" href="/tutor/jsb/c-P2RKGPSP.js"><link rel="modulepreload" href="/tutor/jsb/c-IEL3S6BZ.js"><link rel="modulepreload" href="/tutor/jsb/c-MNY5MLMG.js"><link rel="modulepreload" href="/tutor/jsb/c-QXXRVPLD.js"><link rel="modulepreload" href="/tutor/jsb/c-UWX3ONCN.js"><link rel="modulepreload" href="/tutor/jsb/c-62ZVRRM6.js"><link rel="modulepreload" href="/tutor/jsb/c-YXEEXAMV.js"><!--/jsb--><script type="module" src="/tutor/jsb/main-YHWZ2ULS.js"></script>
-<script type="module">import { mathify } from '/tutor/js/math.js'; document.querySelectorAll('#landing .calc, #landing .mini-quiz, #landing .flip').forEach(el => mathify(el));</script>
-<section id="seo-art" class="seo-art" aria-label="Zuschlagskalkulation-Rechner"><main class="ln"><div class="lg-eyebrow">Rechner · kostenlos · ohne Werbung</div><h1>Zuschlagskalkulation-Rechner: vom Material bis zum Listenpreis</h1><p class="ln-meta">Exakt gerechnet mit dem Rechen-Algorithmus von BWL Max · Stand Oktober 2026</p><div class="ln-kurz"><b>Was der Rechner kann</b><p>Du gibst Einzelkosten und Zuschlagssätze ein. Der Rechner rechnet das Kalkulationsschema durch: Material- und Fertigungskosten, Herstellkosten, Selbstkosten und – optional mit Gewinn, Skonto und Rabatt – den Listenverkaufspreis.</p></div><p><a class="btn primary" href="/#/app/rechner/zuschlag">Rechner öffnen</a></p><section><h2 id="grundlagen">Das steckt dahinter</h2><p>Die Grundlagen, belegt mit festen Quellen aus unserer Faktendatenbank:</p><ul><li>Die Zuschlagskalkulation ist ein verbreitetes Verfahren der Kostenträgerrechnung und gehört zur Vollkostenrechnung, weil alle Gemeinkosten über Zuschläge verrechnet werden. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/zuschlagskalkulation-47491" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Zuschlagskalkulation</a></small></li><li>Die Herstellkosten bestehen in der Kostenrechnung in der Regel aus Materialeinzelkosten, Materialgemeinkosten, Fertigungseinzelkosten und Fertigungsgemeinkosten. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/herstellkosten-33066" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Herstellkosten</a></small></li><li>Materialgemeinkosten sind die in den Materialstellen anfallenden Kosten für Beschaffung, Prüfung und Lagerung des Materials (z. B. Personal in Einkauf und Lager, Abschreibungen und Versicherung des Lagers); sie werden auf das verbrauchte Material umgelegt. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/materialgemeinkosten-40493" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Materialgemeinkosten</a></small></li><li>Fertigungsgemeinkosten sind im Fertigungsbereich entstandene, dem Kostenträger nur mittelbar zurechenbare Kosten wie Hilfslöhne, Hilfsmaterial, Energie sowie kalkulatorische Abschreibungen und Zinsen. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/fertigungsgemeinkosten-36134" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Fertigungsgemeinkosten</a></small></li><li>Vertriebsgemeinkosten (z. B. Gehälter im Vertrieb, allgemeines Verpackungsmaterial, Porti, nicht produktspezifische Werbung) werden auf Vertriebskostenstellen gesammelt und in der Vollkostenrechnung prozentual zu den Herstellkosten verrechnet. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/vertriebsgemeinkosten-48781" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Vertriebsgemeinkosten</a></small></li><li>Sondereinzelkosten sind über Einzelmaterial und Fertigungslöhne hinaus auftragsweise erfassbare Einzelkosten; sie laufen nicht durch die Kostenstellenrechnung, sondern werden den Kostenträgern direkt angelastet. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/sondereinzelkosten-42473" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Sondereinzelkosten</a></small></li><li>Zu den Sondereinzelkosten der Fertigung zählen z. B. auftragsweise erfassbare Werkzeugkosten, Patent- und Lizenzkosten, Kosten für Modelle und Schablonen sowie für Sonderanfertigungen. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/sondereinzelkosten-der-fertigung-42887" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Sondereinzelkosten der Fertigung</a></small></li></ul></section><section><h2 id="lernen">Zum Lernen</h2><ul><li><a href="/lernen/zuschlagskalkulation">Zuschlagskalkulation einfach erklärt</a></li><li><a href="/lernen/betriebsabrechnungsbogen">Betriebsabrechnungsbogen (BAB) einfach erklärt</a></li><li><a href="/lernen/einzelkosten-gemeinkosten">Einzelkosten und Gemeinkosten einfach erklärt</a></li><li><a href="/lernen/kostentraegerrechnung">Kostenträgerrechnung einfach erklärt</a></li></ul></section><section><h2 id="verlinken">Rechner verlinken</h2><p>Du willst den Rechner in deinem Skript, Blog oder auf der Seite deiner Fachschaft empfehlen? Kopier einfach diesen Link:</p><pre class="ln-code">&lt;a href=&quot;https://www.bwlmax.de/rechner/zuschlagskalkulation-rechner&quot;&gt;Zuschlagskalkulation-Rechner von BWL Max&lt;/a&gt;</pre></section></main></section>
+<section id="schema" aria-labelledby="h-schema">
+<h2 id="h-schema">Kalkulationsschema</h2>
+<div class="tw"><table class="dec">
+<thead><tr><th scope="col">Position</th><th scope="col">Berechnung</th></tr></thead>
+<tbody>
+<tr><td>Materialeinzelkosten (MEK)</td><td>Eingabe</td></tr>
+<tr><td>+ Materialgemeinkosten (MGK)</td><td>MGK-Satz · MEK</td></tr>
+<tr><td><b>= Materialkosten (MK)</b></td><td></td></tr>
+<tr><td>Fertigungslöhne (FL, Fertigungseinzelkosten)</td><td>Eingabe</td></tr>
+<tr><td>+ Fertigungsgemeinkosten (FGK)</td><td>FGK-Satz · FL</td></tr>
+<tr><td>+ Sondereinzelkosten der Fertigung</td><td>Eingabe</td></tr>
+<tr><td><b>= Fertigungskosten (FK)</b></td><td></td></tr>
+<tr><td><b>= Herstellkosten (HK)</b></td><td>MK + FK</td></tr>
+<tr><td>+ Verwaltungsgemeinkosten (VwGK)</td><td>VwGK-Satz · HK</td></tr>
+<tr><td>+ Vertriebsgemeinkosten (VtGK)</td><td>VtGK-Satz · HK</td></tr>
+<tr><td>+ Sondereinzelkosten des Vertriebs</td><td>Eingabe</td></tr>
+<tr><td><b>= Selbstkosten (SK)</b></td><td></td></tr>
+<tr><td>+ Gewinn</td><td>Gewinnzuschlag · SK</td></tr>
+<tr><td><b>= Barverkaufspreis (BVP)</b></td><td></td></tr>
+<tr><td>+ Kundenskonto, + Vertreterprovision</td><td>im Hundert: <span class="m">ZVP=\dfrac{BVP}{1-(\text{Skonto}+\text{Provision})/100}</span></td></tr>
+<tr><td><b>= Zielverkaufspreis (ZVP)</b></td><td></td></tr>
+<tr><td>+ Kundenrabatt</td><td>im Hundert: <span class="m">LVP=\dfrac{ZVP}{1-\text{Rabatt}/100}</span></td></tr>
+<tr><td><b>= Listenverkaufspreis (LVP, netto)</b></td><td></td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Vom Hundert und im Hundert:</strong> Gemeinkosten und Gewinn werden vom Hundert auf die jeweilige Basis aufgeschlagen. Skonto, Provision und Rabatt werden dagegen vom Kunden vom höheren Preis abgezogen. Deshalb rechnet man im Hundert: Der Barverkaufspreis entspricht 100 % minus Skonto und Provision des Zielverkaufspreises.</li>
+<li><strong>Typischer Fehler:</strong> Skonto oder Rabatt einfach auf den niedrigeren Preis aufschlagen. Dann reicht der Abzug des Kunden nicht mehr bis zum geplanten Barverkaufspreis.</li>
+</ul>
+</section>
+
+<section id="beispiele" aria-labelledby="h-bsp">
+<h2 id="h-bsp">Beispiele mit Lösung</h2>
+<div class="ex-grid">
+<div class="card">
+<h3>Grundschema bis zum Listenpreis</h3>
+<p>MEK 100 €, MGK 20 %, Fertigungslöhne 80 €, FGK 150 %, VwGK 10 %, VtGK 5 %, Gewinn 10 %, Skonto 2 %, Rabatt 10 %.</p>
+<div class="d">HK=120+200=320,\quad SK=320\cdot 1{,}15=368</div>
+<p class="small">BVP = 368 · 1,10 = 404,80 €. ZVP = 404,80 / 0,98 ≈ 413,06 €. LVP = 413,06 / 0,90 ≈ 458,96 €.</p>
+<p class="noprint"><button type="button" data-zk='{"mek":"100","mgk":"20","fl":"80","fgk":"150","vwgk":"10","vtgk":"5","gewinn":"10","skonto":"2","rabatt":"10"}'>Im Rechner nachrechnen</button></p>
+</div>
+<div class="card">
+<h3>Mit Sondereinzelkosten und Provision</h3>
+<p>MEK 250 €, MGK 12 %, Fertigungslöhne 180 €, FGK 210 %, SEK der Fertigung 40 €, VwGK 8 %, VtGK 6 %, SEK des Vertriebs 25 €, Gewinn 15 %, Skonto 3 %, Provision 5 %, Rabatt 20 %.</p>
+<div class="d">HK=280+(180+378+40)=878</div>
+<p class="small">SK = 878 + 70,24 + 52,68 + 25 = 1.025,92 €. BVP = 1.179,81 €, ZVP = 1.179,81 / 0,92 ≈ 1.282,40 €, LVP = 1.282,40 / 0,80 = 1.603,00 €.</p>
+<p class="noprint"><button type="button" data-zk='{"mek":"250","mgk":"12","fl":"180","fgk":"210","sekf":"40","vwgk":"8","vtgk":"6","sekv":"25","gewinn":"15","skonto":"3","prov":"5","rabatt":"20"}'>Im Rechner nachrechnen</button></p>
+</div>
+</div>
+</section>
+
+<section id="grundlagen" aria-labelledby="h-grundlagen">
+<h2 id="h-grundlagen">Begriffe und Grundlagen</h2>
+<ul>
+<li>Die Zuschlagskalkulation ist ein verbreitetes Verfahren der Kostenträgerrechnung und gehört zur Vollkostenrechnung, weil alle Gemeinkosten über Zuschläge verrechnet werden. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/zuschlagskalkulation-47491" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Zuschlagskalkulation</a></small></li>
+<li>Die Herstellkosten bestehen in der Kostenrechnung in der Regel aus Materialeinzelkosten, Materialgemeinkosten, Fertigungseinzelkosten und Fertigungsgemeinkosten. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/herstellkosten-33066" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Herstellkosten</a></small></li>
+<li>Materialgemeinkosten sind die in den Materialstellen anfallenden Kosten für Beschaffung, Prüfung und Lagerung des Materials (z. B. Personal in Einkauf und Lager, Abschreibungen und Versicherung des Lagers); sie werden auf das verbrauchte Material umgelegt. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/materialgemeinkosten-40493" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Materialgemeinkosten</a></small></li>
+<li>Fertigungsgemeinkosten sind im Fertigungsbereich entstandene, dem Kostenträger nur mittelbar zurechenbare Kosten wie Hilfslöhne, Hilfsmaterial, Energie sowie kalkulatorische Abschreibungen und Zinsen. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/fertigungsgemeinkosten-36134" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Fertigungsgemeinkosten</a></small></li>
+<li>Vertriebsgemeinkosten (z. B. Gehälter im Vertrieb, allgemeines Verpackungsmaterial, Porti, nicht produktspezifische Werbung) werden auf Vertriebskostenstellen gesammelt und in der Vollkostenrechnung prozentual zu den Herstellkosten verrechnet. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/vertriebsgemeinkosten-48781" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Vertriebsgemeinkosten</a></small></li>
+<li>Sondereinzelkosten sind über Einzelmaterial und Fertigungslöhne hinaus auftragsweise erfassbare Einzelkosten; sie laufen nicht durch die Kostenstellenrechnung, sondern werden den Kostenträgern direkt angelastet. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/sondereinzelkosten-42473" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Sondereinzelkosten</a></small></li>
+<li>Zu den Sondereinzelkosten der Fertigung zählen z. B. auftragsweise erfassbare Werkzeugkosten, Patent- und Lizenzkosten, Kosten für Modelle und Schablonen sowie für Sonderanfertigungen. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/sondereinzelkosten-der-fertigung-42887" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Sondereinzelkosten der Fertigung</a></small></li>
+</ul>
+</section>
+
+<section id="faq" aria-labelledby="h-faq">
+<h2 id="h-faq">Häufige Fragen</h2>
+<h3>Worauf beziehen sich die Verwaltungs- und Vertriebsgemeinkosten?</h3>
+<p>Im üblichen Schema auf die Herstellkosten. So rechnet auch dieser Rechner. Manche Aufgaben verwenden die Herstellkosten des Umsatzes als Basis; bei einer Stückkalkulation ohne Bestandsveränderungen ist das derselbe Wert.</p>
+<h3>Warum werden Skonto und Rabatt nicht einfach aufgeschlagen?</h3>
+<p>Weil der Kunde sie vom höheren Preis abzieht. Damit nach dem Abzug genau der Barverkaufspreis bzw. Zielverkaufspreis übrig bleibt, wird durch (1 − Satz) geteilt, also im Hundert gerechnet.</p>
+<h3>Wo stehen die Sondereinzelkosten?</h3>
+<p>Sondereinzelkosten der Fertigung gehören zu den Fertigungskosten und damit zu den Herstellkosten. Sondereinzelkosten des Vertriebs (z. B. Spezialverpackung, Fracht) kommen nach den Gemeinkostenzuschlägen in die Selbstkosten. Auf beide werden keine Gemeinkostenzuschläge gerechnet.</p>
+<h3>Ist der Listenverkaufspreis netto oder brutto?</h3>
+<p>Netto, also ohne Umsatzsteuer. Für den Bruttopreis kommt die Umsatzsteuer auf den Listenverkaufspreis hinzu.</p>
+<h3>Was sind Fertigungslöhne?</h3>
+<p>Die Fertigungseinzelkosten: Löhne, die einem Produkt direkt zugerechnet werden können. Hilfslöhne zählen dagegen zu den Fertigungsgemeinkosten.</p>
+</section>
+
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+
+<script src="/tutor/vendor/katex@0.16.47/katex.min.js"></script>
+<script>
+// MATH-START
+var BM = (function () {
+  'use strict';
+  // Zahl aus Texteingabe: deutsche (1.234,56) und englische (1,234.56) Schreibweise, € und % werden ignoriert.
+  // „1.500“ gilt als Tausenderpunkt (= 1500), „2.5“ als Dezimalpunkt.
+  function parseZahl(raw) {
+    var s = String(raw == null ? '' : raw).replace(/[\s  €%]/g, '').replace(/^[−–]/, '-');
+    if (s === '') return { leer: true };
+    var neg = false;
+    if (s.charAt(0) === '-' || s.charAt(0) === '+') { neg = s.charAt(0) === '-'; s = s.slice(1); }
+    if (!/^[\d.,]+$/.test(s) || !/\d/.test(s)) return { err: true };
+    var c = s.lastIndexOf(','), d = s.lastIndexOf('.'), t;
+    if (c >= 0 && d >= 0) {
+      if (c > d) { if (!/^\d{1,3}(\.\d{3})+,\d*$/.test(s)) return { err: true }; t = s.replace(/\./g, '').replace(',', '.'); }
+      else { if (!/^\d{1,3}(,\d{3})+\.\d*$/.test(s)) return { err: true }; t = s.replace(/,/g, ''); }
+    } else if (c >= 0) {
+      if (!/^\d*,\d*$/.test(s)) return { err: true };
+      t = s.replace(',', '.');
+    } else if (d >= 0) {
+      if (/^\d{1,3}(\.\d{3})+$/.test(s)) t = s.replace(/\./g, '');
+      else if (/^\d*\.\d*$/.test(s)) t = s;
+      else return { err: true };
+    } else t = s;
+    if (t === '.') return { err: true };
+    var v = Number(t);
+    if (!isFinite(v)) return { err: true };
+    if (Math.abs(v) >= 1e13) return { err: true, gross: true };
+    return { v: neg ? -v : (v === 0 ? 0 : v) };
+  }
+  // kaufmännisch runden auf dem Dezimalwert (1,005 → 1,01)
+  function R(x, d) {
+    if (d == null) d = 2;
+    if (typeof x !== 'number' || !isFinite(x)) return x;
+    var p = Math.abs(x).toPrecision(15).split('e'), m = p[0], e = +(p[1] || 0);
+    var r = Number(Math.round(Number(m + 'e' + (e + d))) + 'e-' + d);
+    return x < 0 ? -r : r;
+  }
+  var NF = {};
+  function fmt(x, dmin, dmax) {
+    if (x == null || !isFinite(x)) return '–';
+    if (dmax == null) dmax = dmin;
+    var k = dmin + '_' + dmax;
+    if (!NF[k]) NF[k] = new Intl.NumberFormat('de-DE', { minimumFractionDigits: dmin, maximumFractionDigits: dmax });
+    var r = R(x, dmax);
+    if (r === 0) r = 0; // kein „−0“
+    return NF[k].format(r).replace('-', '−');
+  }
+  function eur(x) { return fmt(x, 2, 2) + ' €'; }
+  function pct(x, d) { return fmt(x, d == null ? 2 : d, d == null ? 2 : d) + ' %'; }
+  // Zahl für KaTeX: {.} und {,} verhindern Abstände; negative Werte als Operand in Klammern
+  function tn(x, dmin, dmax, klammer) {
+    if (dmin == null) dmin = 0;
+    if (dmax == null) dmax = 4;
+    if (dmin === 0 && dmax === 2 && !istGanz(R(x, 2))) dmin = 2; // Geldbeträge: 8.437,50 statt 8.437,5
+    var s = fmt(x, dmin, dmax).replace(/\./g, '{.}').replace(/,/g, '{,}');
+    if (s.charAt(0) === '−') { s = '-' + s.slice(1); if (klammer) s = '(' + s + ')'; }
+    return s;
+  }
+  // „= Wert“ oder „≈ Wert“, je nachdem ob gerundet wurde
+  function teq(x, dmin, dmax) {
+    if (dmax == null) dmax = dmin;
+    var gerundet = Math.abs(R(x, dmax) - x) > 1e-9 * Math.max(1, Math.abs(x));
+    return (gerundet ? '\\approx ' : '=') + tn(x, dmin, dmax);
+  }
+  function Fehler(feld, msg) { this.feld = feld; this.message = msg; }
+  function need(ok, feld, msg) { if (!ok) throw new Fehler(feld, msg); }
+  function istGanz(x) { return Math.abs(x - Math.round(x)) < 1e-9; }
+  return { parseZahl: parseZahl, R: R, fmt: fmt, eur: eur, pct: pct, tn: tn, teq: teq, Fehler: Fehler, need: need, istGanz: istGanz };
+})();
+// Zuschlagskalkulation (differenzierende Zuschlagskalkulation, Vorwärtsrechnung)
+// a = { mek, mgk, fl, fgk, sekf, vwgk, vtgk, sekv, gewinn, skonto, prov, rabatt } – Beträge in €, Sätze in %; fehlende Werte = 0
+function zuschlag(a) {
+  var need = BM.need;
+  function g(k) { return a[k] === undefined ? 0 : a[k]; }
+  need(a.mek !== undefined, 'mek', 'Bitte die Materialeinzelkosten eingeben.');
+  var NAMEN = { mek: 'Materialeinzelkosten', mgk: 'MGK-Zuschlag', fl: 'Fertigungslöhne', fgk: 'FGK-Zuschlag', sekf: 'Sondereinzelkosten der Fertigung', vwgk: 'VwGK-Zuschlag', vtgk: 'VtGK-Zuschlag', sekv: 'Sondereinzelkosten des Vertriebs', skonto: 'Kundenskonto', prov: 'Vertreterprovision', rabatt: 'Kundenrabatt' };
+  Object.keys(NAMEN).forEach(function (k) { need(g(k) >= 0, k, '„' + NAMEN[k] + '“ darf nicht negativ sein.'); });
+  need(g('skonto') + g('prov') < 100, 'skonto', 'Kundenskonto und Vertreterprovision müssen zusammen unter 100 % liegen.');
+  need(g('rabatt') < 100, 'rabatt', 'Der Kundenrabatt muss unter 100 % liegen.');
+  need(g('gewinn') > -100, 'gewinn', 'Der Gewinnzuschlag muss über −100 % liegen.');
+  var o = {};
+  o.MEK = g('mek'); o.MGK = o.MEK * g('mgk') / 100; o.MK = o.MEK + o.MGK;
+  o.FL = g('fl'); o.FGK = o.FL * g('fgk') / 100; o.SEKF = g('sekf'); o.FK = o.FL + o.FGK + o.SEKF;
+  o.HK = o.MK + o.FK;
+  o.VWGK = o.HK * g('vwgk') / 100; o.VTGK = o.HK * g('vtgk') / 100; o.SEKV = g('sekv');
+  o.SK = o.HK + o.VWGK + o.VTGK + o.SEKV;
+  o.GEW = o.SK * g('gewinn') / 100; o.BVP = o.SK + o.GEW;
+  var ab = (g('skonto') + g('prov')) / 100;
+  o.ZVP = o.BVP / (1 - ab); o.SKO = o.ZVP * g('skonto') / 100; o.PROV = o.ZVP * g('prov') / 100;
+  o.LVP = o.ZVP / (1 - g('rabatt') / 100); o.RAB = o.LVP - o.ZVP;
+  o.schema = [
+    ['Materialeinzelkosten', o.MEK, ''], ['+ Materialgemeinkosten', o.MGK, g('mgk')], ['= Materialkosten', o.MK, ''],
+    ['Fertigungslöhne', o.FL, ''], ['+ Fertigungsgemeinkosten', o.FGK, g('fgk')], ['+ Sondereinzelkosten der Fertigung', o.SEKF, ''], ['= Fertigungskosten', o.FK, ''],
+    ['= Herstellkosten', o.HK, ''], ['+ Verwaltungsgemeinkosten', o.VWGK, g('vwgk')], ['+ Vertriebsgemeinkosten', o.VTGK, g('vtgk')], ['+ Sondereinzelkosten des Vertriebs', o.SEKV, ''], ['= Selbstkosten', o.SK, ''],
+    ['+ Gewinn', o.GEW, g('gewinn')], ['= Barverkaufspreis', o.BVP, ''], ['+ Kundenskonto (i. H.)', o.SKO, g('skonto')], ['+ Vertreterprovision (i. H.)', o.PROV, g('prov')], ['= Zielverkaufspreis', o.ZVP, ''],
+    ['+ Kundenrabatt (i. H.)', o.RAB, g('rabatt')], ['= Listenverkaufspreis (netto)', o.LVP, '']
+  ].filter(function (x) { return x[1] !== 0 || /^=/.test(x[0]) || x[0] === 'Materialeinzelkosten'; });
+  return o;
+}
+// MATH-END
+
+var UI = (function () {
+  'use strict';
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function katexInto(el, src, display) {
+    if (window.katex) {
+      try { katex.render((display === false ? '' : '\\displaystyle ') + src, el, { throwOnError: true, strict: 'ignore' }); return; }
+      catch (e) { if (window.console) console.error(e.message); }
+    }
+    el.textContent = src;
+  }
+  // abgesetzte Formel an "=" / "\approx" der obersten Klammerebene teilen, damit sie auf schmalen Bildschirmen umbricht
+  function splitEq(src) {
+    var parts = [], depth = 0, cur = '';
+    for (var i = 0; i < src.length; i++) {
+      var c = src.charAt(i);
+      if (c === '{') depth++;
+      if (c === '}') depth--;
+      if (depth === 0 && cur.trim() !== '') {
+        if (c === '=') { parts.push(cur.trim()); cur = '='; continue; }
+        if (src.substr(i, 7) === '\\approx') { parts.push(cur.trim()); cur = '\\approx'; i += 6; continue; }
+      }
+      cur += c;
+    }
+    parts.push(cur.trim());
+    return parts;
+  }
+  function fillSteps(box, parts) {
+    box.textContent = '';
+    parts.forEach(function (p) { var s = document.createElement('span'); katexInto(s, p); box.appendChild(s); });
+  }
+  // Ausgabe-Baukasten: HTML sammeln, Formeln danach setzen
+  function Out() { this.h = ''; this.tex = []; }
+  Out.prototype.add = function (html) { this.h += html; return this; };
+  Out.prototype.steps = function (src) { this.tex.push(src); return this.add('<div class="steps" data-t="' + (this.tex.length - 1) + '"></div>'); };
+  Out.prototype.render = function (el) {
+    el.innerHTML = this.h;
+    var tex = this.tex;
+    el.querySelectorAll('.steps[data-t]').forEach(function (b) { fillSteps(b, splitEq(tex[+b.getAttribute('data-t')])); });
+  };
+  function big(label, value, sub, id) {
+    return '<div class="big"' + (id ? ' id="' + id + '"' : '') + '><span>' + label + '</span><b>' + value + '</b></div>' + (sub ? '<div class="small sub">' + sub + '</div>' : '');
+  }
+  function err(msg) { return '<p class="err">' + msg + '</p>'; }
+  function mark(el, bad) { el.setAttribute('aria-invalid', bad ? 'true' : 'false'); }
+  // statische Formeln setzen
+  function renderStatic() {
+    if (!window.katex) return;
+    var els = document.querySelectorAll('.m,.d');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i], src = el.textContent;
+      if (el.classList.contains('d')) fillSteps(el, splitEq(src));
+      else katexInto(el, src, false);
+    }
+  }
+  // Feld lesen: {v} | {leer} | {err:Meldung}
+  function lies(id, name, optional) {
+    var el = $(id), r = BM.parseZahl(el.value);
+    if (r.leer) return optional ? { leer: true } : { err: 'Bitte „' + name + '“ eingeben.' };
+    if (r.err) return { err: r.gross ? '„' + name + '“ ist zu groß.' : '„' + name + '“ ist keine gültige Zahl. Erlaubt sind z. B. 50000, 50.000 oder 1234,56.' };
+    return { v: r.v };
+  }
+  return { $: $, esc: esc, Out: Out, big: big, err: err, mark: mark, renderStatic: renderStatic, lies: lies, splitEq: splitEq, fillSteps: fillSteps };
+})();
+(function () {
+  'use strict';
+  var $ = UI.$, eur = BM.eur, tn = BM.tn, teq = BM.teq;
+  var F = [['mek', 'Materialeinzelkosten'], ['mgk', 'MGK-Zuschlag', 1], ['fl', 'Fertigungslöhne', 1], ['fgk', 'FGK-Zuschlag', 1], ['sekf', 'Sondereinzelkosten der Fertigung', 1],
+    ['vwgk', 'VwGK-Zuschlag', 1], ['vtgk', 'VtGK-Zuschlag', 1], ['sekv', 'Sondereinzelkosten des Vertriebs', 1], ['gewinn', 'Gewinnzuschlag', 1], ['skonto', 'Kundenskonto', 1], ['prov', 'Vertreterprovision', 1], ['rabatt', 'Kundenrabatt', 1]];
+  function pz(x) { return tn(x) + '\\,\\%'; }
+  function dz(x) { return tn(x / 100, 0, 6); }
+  function calc() {
+    var a = {}, errs = [];
+    F.forEach(function (f) {
+      var r = UI.lies('zk-' + f[0], f[1], f[2]);
+      UI.mark($('zk-' + f[0]), !!r.err);
+      if (r.err) errs.push(r.err); else if (!r.leer) a[f[0]] = r.v;
+    });
+    var out = $('zk-out');
+    if (errs.length) { out.innerHTML = UI.err(errs.join(' ')); return; }
+    var r;
+    try { r = zuschlag(a); }
+    catch (e) { if (e instanceof BM.Fehler) { UI.mark($('zk-' + e.feld), true); out.innerHTML = UI.err(e.message); return; } throw e; }
+    function g(k) { return a[k] || 0; }
+    var o = new UI.Out(), x = function (v) { return tn(v, 0, 2); };
+    o.add('<div class="lbl">Rechenweg</div>');
+    o.steps('MK=MEK+MEK\\cdot\\text{MGK-Satz}=' + x(r.MEK) + '+' + x(r.MEK) + '\\cdot ' + pz(g('mgk')) + teq(r.MK, 0, 2));
+    if (r.FL || r.SEKF) o.steps('FK=FL+FL\\cdot\\text{FGK-Satz}' + (r.SEKF ? '+SEK_F' : '') + '=' + x(r.FL) + '+' + x(r.FL) + '\\cdot ' + pz(g('fgk')) + (r.SEKF ? '+' + x(r.SEKF) : '') + teq(r.FK, 0, 2));
+    o.steps('HK=MK+FK=' + x(r.MK) + '+' + x(r.FK) + teq(r.HK, 0, 2));
+    o.steps('SK=HK+HK\\cdot(\\text{VwGK}+\\text{VtGK})' + (r.SEKV ? '+SEK_V' : '') + '=' + x(r.HK) + '+' + x(r.HK) + '\\cdot(' + pz(g('vwgk')) + '+' + pz(g('vtgk')) + ')' + (r.SEKV ? '+' + x(r.SEKV) : '') + teq(r.SK, 0, 2));
+    if (a.gewinn !== undefined) o.steps('BVP=SK+SK\\cdot\\text{Gewinnzuschlag}=' + x(r.SK) + '+' + x(r.SK) + '\\cdot ' + (g('gewinn') < 0 ? '(' + pz(g('gewinn')) + ')' : pz(g('gewinn'))) + teq(r.BVP, 0, 2));
+    if (g('skonto') || g('prov')) o.steps('ZVP=\\dfrac{BVP}{1-\\frac{\\text{Skonto}+\\text{Provision}}{100}}=\\dfrac{' + x(r.BVP) + '}{1-' + dz(g('skonto') + g('prov')) + '}' + teq(r.ZVP, 0, 2));
+    if (g('rabatt')) o.steps('LVP=\\dfrac{ZVP}{1-\\frac{\\text{Rabatt}}{100}}=\\dfrac{' + tn(r.ZVP, 0, 4) + '}{1-' + dz(g('rabatt')) + '}' + teq(r.LVP, 0, 2));
+    o.add(UI.big('Herstellkosten', eur(r.HK), null, 'zk-r-hk') + UI.big('Selbstkosten', eur(r.SK), null, 'zk-r-sk') + UI.big('Barverkaufspreis', eur(r.BVP), null, 'zk-r-bvp') +
+      UI.big('Zielverkaufspreis', eur(r.ZVP), null, 'zk-r-zvp') + UI.big('Listenverkaufspreis (netto)', eur(r.LVP), null, 'zk-r-lvp'));
+    var rows = r.schema.map(function (s) {
+      var sum = /^=/.test(s[0]);
+      return '<tr' + (sum ? ' class="sum"' : '') + '><th scope="row">' + s[0] + '</th><td class="n">' + (s[2] !== '' ? BM.fmt(s[2], 0, 4) + ' %' : '') + '</td><td class="n">' + eur(s[1]) + '</td></tr>';
+    }).join('');
+    o.add('<div class="lbl">Kalkulationsschema</div><div class="tw"><table class="dec res" id="zk-schema"><thead><tr><th scope="col">Position</th><th scope="col" class="n">Satz</th><th scope="col" class="n">Betrag</th></tr></thead><tbody>' + rows + '</tbody></table></div>');
+    o.add('<p class="small">Verwaltungs- und Vertriebsgemeinkosten auf Basis der Herstellkosten. Skonto und Provision im Hundert vom Zielverkaufspreis, Rabatt im Hundert vom Listenverkaufspreis.</p>');
+    o.render(out);
+  }
+  F.forEach(function (f) { $('zk-' + f[0]).addEventListener('input', calc); });
+  document.querySelectorAll('button[data-zk]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var v = JSON.parse(b.getAttribute('data-zk'));
+      F.forEach(function (f) { $('zk-' + f[0]).value = v[f[0]] || ''; });
+      calc();
+      $('rechner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  UI.renderStatic();
+  calc();
+})();
+</script>
 </body>
 </html>
