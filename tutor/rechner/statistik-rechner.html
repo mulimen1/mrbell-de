@@ -1,56 +1,649 @@
 <!doctype html>
-<html lang="de" data-theme="light">
+<html lang="de">
 <head>
 <meta charset="utf-8">
-<script>/* Rechner-Seite: App mit geöffnetem Rechner */(function(){try{var h=location.hash||"";if(!/^#\/./.test(h))history.replaceState(null,"",location.pathname+location.search+"#/app/rechner/statistik")}catch(e){}window.BM_RS={title:"Statistik-Rechner: Mittelwert, Varianz, Standardabweichung, Korrelation | BWL Max"}})();</script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>/* bwlmax.de/start (YouTube-Demo): Startseite nicht aufblitzen lassen, Demo-Inhalte vorladen – start.js übernimmt */(function(){try{if(!/^\/start\/?$/.test(location.pathname)||/^#\/./.test(location.hash||''))return;document.documentElement.classList.add('bm-start');try{sessionStorage.setItem('tutor.hintShown','1')}catch(e){}var l=document.createElement('link');l.rel='preload';l.as='fetch';l.href='/tutor/data/demo/start.json?v=1';l.crossOrigin='anonymous';document.head.appendChild(l)}catch(e){}})();</script>
-<script>/* Themen-Einstieg (?thema=…): Startseite gar nicht erst zeigen – direkt die Themenseite */(function(){try{var m=location.search.match(/[?&](thema|q)=([^&#]+)/i);if(!m||/^#\/./.test(location.hash||''))return;var s=decodeURIComponent(m[2]).toLowerCase();if(m[1].toLowerCase()==='thema'&&sessionStorage.getItem('tutor.themaDone')===s)return;var d=document.documentElement;d.classList.add('m-eboot');setTimeout(function(){d.classList.remove('m-eboot')},9000);}catch(e){}})();</script>
-<style>html.m-eboot .seo-art,html.m-eboot #landing{display:none!important}html.m-eboot #landing,html.m-eboot #app,html.m-eboot .asst>:not(.ai-board),html.m-eboot .bmc,html.m-eboot .mtip2{visibility:hidden!important}html.m-eboot body{background:#fff}html.m-eboot body::after{content:"";position:fixed;left:50%;top:42%;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:3px solid #e6e6e8;border-top-color:#1f5138;animation:mebspin .8s linear infinite;z-index:2}@keyframes mebspin{to{transform:rotate(360deg)}}</style>
-<link rel="preload" as="image" href="/tutor/img/max-hair.webp?v=2" type="image/webp">
-<link rel="preload" as="image" href="/tutor/img/max-collar.webp?v=5" type="image/webp">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Statistik-Rechner: Mittelwert, Varianz, Standardabweichung, Korrelation | BWL Max</title>
 <meta name="description" content="Mittelwert, Median, Varianz, Standardabweichung und Korrelation berechnen – mit Rechenweg für die Statistik-Klausur – kostenlos.">
+<meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.bwlmax.de/rechner/statistik-rechner">
-<meta name="theme-color" content="#ffffff">
-<link rel="icon" href="/tutor/img/bm-fav.ico?v=20" sizes="48x48">
-<link rel="icon" type="image/png" sizes="48x48" href="/tutor/img/bm-fav-48.png?v=20">
-<link rel="icon" type="image/png" sizes="96x96" href="/tutor/img/bm-fav-96.png?v=20">
-<link rel="icon" type="image/png" sizes="192x192" href="/tutor/img/bm-fav-192.png?v=20">
-<link rel="apple-touch-icon" href="/tutor/img/bm-fav-180.png?v=20">
 <meta property="og:title" content="Statistik-Rechner: Mittelwert, Varianz, Standardabweichung, Korrelation | BWL Max">
+<meta property="og:description" content="Mittelwert, Median, Varianz, Standardabweichung und Korrelation berechnen – mit Rechenweg für die Statistik-Klausur – kostenlos.">
 <meta property="og:url" content="https://www.bwlmax.de/rechner/statistik-rechner">
 <meta property="og:site_name" content="BWL Max">
-<meta name="application-name" content="BWL Max">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Statistik-Rechner", "url": "https://www.bwlmax.de/rechner/statistik-rechner", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "description": "Mittelwert, Median, Varianz, Standardabweichung und Korrelation berechnen – mit Rechenweg für die Statistik-Klausur – kostenlos.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "publisher": {"@type": "Organization", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "citation": [{"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Varianz", "url": "https://wirtschaftslexikon.gabler.de/definition/varianz-49184"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Streuung", "url": "https://wirtschaftslexikon.gabler.de/definition/streuung-43301"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Spannweite", "url": "https://wirtschaftslexikon.gabler.de/definition/spannweite-43726"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: durchschnittliche absolute Abweichung", "url": "https://wirtschaftslexikon.gabler.de/definition/durchschnittliche-absolute-abweichung-34083"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Moment", "url": "https://wirtschaftslexikon.gabler.de/definition/moment-37525"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Erwartungswert", "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Zufallsvariable", "url": "https://wirtschaftslexikon.gabler.de/definition/zufallsvariable-51013"}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BWL Max", "item": "https://www.bwlmax.de/"}, {"@type": "ListItem", "position": 2, "name": "Rechner", "item": "https://www.bwlmax.de/rechner"}, {"@type": "ListItem", "position": 3, "name": "Statistik-Rechner", "item": "https://www.bwlmax.de/rechner/statistik-rechner"}]}]}</script>
-<meta property="og:description" content="Mittelwert, Median, Varianz, Standardabweichung und Korrelation berechnen – mit Rechenweg für die Statistik-Klausur – kostenlos.">
 <meta property="og:image" content="https://www.bwlmax.de/tutor/img/og-max.png?v=20">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tutor/jsb/app-RYMP5SKJ.css">
-<link rel="stylesheet" href="/tutor/jsb/m-shell-HGQEQZGL.css">
-<link rel="stylesheet" href="/tutor/jsb/m-board-I6F4YNLX.css">
-<link rel="stylesheet" href="/tutor/jsb/m-pages-QKJQ7M6A.css">
-<link rel="stylesheet" href="/tutor/css/seo-art.css?v=38">
-<link rel="stylesheet" href="/tutor/jsb/trainer-BFUW4BMC.css">
-<style>html.preload{background:#000}html.preload[data-theme=light]{background:#fff}html.preload body{opacity:0}html body{transition:opacity .25s ease}</style>
-<script>document.documentElement.classList.add('preload');setTimeout(function(){document.documentElement.classList.remove('preload')},2500);</script>
-<script>document.documentElement.dataset.theme='light';try{var t=sessionStorage.getItem('tutor.theme');if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}var c='navy';try{var v=localStorage.getItem('tutor.accent');if(v!=null&&v!=='gelb')c=v}catch(e){}if(c&&c!=='std'&&/^[a-z]{3,12}$/.test(c))document.documentElement.dataset.accent=c;try{if(localStorage.getItem('bm.skin')!=='alt')document.documentElement.dataset.nv='1'}catch(e){document.documentElement.dataset.nv='1'}try{var a=JSON.parse(localStorage.getItem('tutor.account')||'null');if(a&&/^bendeschler0@gmail\.com$/i.test(a.email||''))document.documentElement.dataset.ben='1'}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Statistik-Rechner", "url": "https://www.bwlmax.de/rechner/statistik-rechner", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "description": "Mittelwert, Median, Varianz, Standardabweichung und Korrelation berechnen – mit Rechenweg für die Statistik-Klausur – kostenlos.", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "citation": [{"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Varianz", "url": "https://wirtschaftslexikon.gabler.de/definition/varianz-49184"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Streuung", "url": "https://wirtschaftslexikon.gabler.de/definition/streuung-43301"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Spannweite", "url": "https://wirtschaftslexikon.gabler.de/definition/spannweite-43726"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: durchschnittliche absolute Abweichung", "url": "https://wirtschaftslexikon.gabler.de/definition/durchschnittliche-absolute-abweichung-34083"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Moment", "url": "https://wirtschaftslexikon.gabler.de/definition/moment-37525"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Erwartungswert", "url": "https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Zufallsvariable", "url": "https://wirtschaftslexikon.gabler.de/definition/zufallsvariable-51013"}]}</script>
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="/tutor/vendor/katex@0.16.47/katex.min.css">
+<style>
+:root{--bg:#fff;--fg:#1b1d20;--muted:#585f69;--line:#d9dde2;--soft:#f3f5f7;--accent:#1d5a4a;--accent-soft:#e3efea;--warn:#8a4b00;--warn-soft:#fdf3e4;--ok:#1d6b3a;--bad:#a1281e;--zebra:#f8f9fa}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e7e9ec;--muted:#a5abb4;--line:#30353c;--soft:#1b1f23;--accent:#83cdb3;--accent-soft:#1a2e28;--warn:#f0b25e;--warn-soft:#2b2216;--ok:#7fd49c;--bad:#ff9a8f;--zebra:#171a1d}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.75rem;line-height:1.25;margin:.2em 0 .5em}
+h2{font-size:1.3rem;margin:2.2em 0 .6em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .5em}
+p{margin:.5em 0 .9em}
+ul,ol{padding-left:1.3em}
+li{margin:.2em 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lead{color:var(--muted);max-width:70ch}
+nav.toc{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:1.2em 0}
+nav.toc ol{margin:.3em 0 0;padding-left:1.3em;columns:2;column-gap:2em}
+nav.toc li{margin:.15em 0;break-inside:avoid}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;margin:1em 0;font-size:.95rem}
+.calcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--bg);min-width:0}
+.card h3{margin-top:0}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:.4em 0}
+.row label{display:flex;flex-direction:column;font-size:.85rem;color:var(--muted);flex:1 1 80px;min-width:0}
+.row label.wide{flex:1 1 100%}
+input,select,textarea{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:2.6em}
+input[aria-invalid=true],textarea[aria-invalid=true]{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+.main{max-width:none}
+.out{margin-top:.6em;background:var(--soft);border-radius:8px;padding:10px 12px;font-variant-numeric:tabular-nums;min-height:2.4em;overflow-wrap:anywhere}
+.out .err{color:var(--bad)}
+.out .hint{color:var(--warn)}
+.out .name{font-weight:600;color:var(--accent);margin-bottom:.2em}
+.out .lbl{font-size:.8rem;color:var(--muted);margin-top:.5em}
+.steps{display:flex;flex-wrap:wrap;align-items:center;column-gap:.35em;row-gap:.3em;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.steps>span{display:inline-block;max-width:100%}
+.steps>i.br{flex-basis:100%;height:0}
+.big{display:flex;justify-content:space-between;align-items:baseline;gap:4px 12px;flex-wrap:wrap;margin-top:.6em;padding-top:.5em;border-top:1px solid var(--line)}
+.big b{font-size:1.25rem;font-weight:700}
+.small{font-size:.85rem;color:var(--muted)}
+.out .small{margin:.5em 0 0}
+button{font:inherit;border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:6px;padding:5px 11px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.d{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;column-gap:.35em;row-gap:.3em;overflow-x:auto;overflow-y:hidden;margin:.5em 0;padding:2px 0}
+.d>span{display:inline-block;max-width:100%}
+.d .katex,.steps .katex{white-space:nowrap}
+.tw{overflow-x:auto;margin:.8em 0 1.4em;-webkit-overflow-scrolling:touch}
+table.dec{border-collapse:collapse;width:100%;font-size:.92rem}
+table.dec th,table.dec td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+table.dec thead th{background:var(--soft)}
+table.dec tbody th{background:var(--soft);font-weight:600}
+table.kz{border-collapse:collapse;width:100%;font-size:.92rem;font-variant-numeric:tabular-nums}
+table.kz th,table.kz td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+table.kz thead th{background:var(--soft)}
+table.kz tbody tr:nth-child(even){background:var(--zebra)}
+table.kz td.n{text-align:right;white-space:nowrap}
+table.kz td.n small{white-space:normal}
+.rg-m{display:none}
+table.kz td small{display:block;color:var(--muted);font-size:.8rem}
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:16px}
+.ex-grid .card p{margin:.3em 0 .6em}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+@media (max-width:600px){table.kz .rg{display:none}table.kz .rg-m{display:block;font-weight:400}nav.toc ol{columns:1}h1{font-size:1.45rem}table.dec,table.kz{font-size:.85rem}table.dec th,table.dec td,table.kz th,table.kz td{padding:6px 6px}}
+@media print{
+ @page{size:A4;margin:12mm 11mm}
+ :root{--bg:#fff;--fg:#000;--muted:#333;--line:#999;--soft:#eee;--zebra:#f6f6f6;--accent:#000}
+ body{font-size:10pt}
+ .wrap{max-width:none;padding:0}
+ .noprint,nav.toc{display:none!important}
+ header .lead{display:none}
+ h1{font-size:15pt;margin:0 0 .3em}
+ h2{margin:1.2em 0 .4em}
+ .card,table.dec tr,table.kz tr{break-inside:avoid}
+ .note{border:1px solid #999;background:none}
+ a{color:#000;text-decoration:none}
+ footer{margin-top:1em}
+}
+</style>
 </head>
 <body>
+<div class="wrap">
+<header>
+<h1>Statistik-Rechner</h1>
+<p class="lead">Lage- und Streuungsmaße einer Datenreihe – arithmetisches Mittel, Median, Modus, Quartile, Spannweite, Varianz und Standardabweichung (Stichprobe und Grundgesamtheit), Variationskoeffizient – und mit einer zweiten Reihe Kovarianz, Korrelationskoeffizient nach Bravais-Pearson, Rangkorrelation nach Spearman und lineare Regression. Jeweils mit Formel und eingesetztem Rechenweg, gedacht für Statistik I im Wirtschaftsstudium.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+</header>
 
-<!-- ================= LANDING ================= -->
-<div id="landing" class="hidden"></div>
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#rechner">Rechner</a></li>
+<li><a href="#rechenweg">Rechenweg</a></li>
+<li><a href="#stichprobe">Stichprobe oder Grundgesamtheit?</a></li>
+<li><a href="#quartile">Quartile: welche Methode?</a></li>
+<li><a href="#beispiele">Klausurbeispiele mit Lösung</a></li>
+<li><a href="#grundlagen">Begriffe und Quellen</a></li>
+</ol>
+</nav>
 
-  <!-- ================= APP ================= -->
-<div id="app" class="hidden"></div>
+<section id="rechner" class="noprint" aria-labelledby="h-rechner">
+<h2 id="h-rechner">Rechner</h2>
+<p class="small">Werte mit Semikolon, Leerzeichen oder Zeilenumbruch trennen (auch direkt aus Excel einfügen). Dezimalzeichen Komma oder Punkt, z. B. <code>2,5; 3,75; 4</code> oder <code>2.5 3.75 4</code>. Das Ergebnis wird beim Tippen aktualisiert.</p>
+<form class="card main" id="c-stat" onsubmit="return false">
+<div class="row">
+<label class="wide">Werte x<textarea id="s-x" rows="2" autocomplete="off" spellcheck="false">2; 4; 4; 4; 5; 5; 7; 9</textarea></label>
+</div>
+<div class="row">
+<label class="wide">Häufigkeiten zu x (optional, für eine Häufigkeitstabelle)<textarea id="s-h" rows="1" autocomplete="off" spellcheck="false" placeholder="z. B. 5; 8; 12; 4; 1"></textarea></label>
+</div>
+<div class="row">
+<label class="wide">Werte y (optional, für Kovarianz, Korrelation und Regression)<textarea id="s-y" rows="2" autocomplete="off" spellcheck="false" placeholder="gleich viele Werte wie x, paarweise in derselben Reihenfolge"></textarea></label>
+</div>
+<div class="row">
+<label>Quartils-Methode<select id="s-q">
+<option value="lehrbuch" selected>Lehrbuch: n·p ganzzahlig → Mittelwert, sonst aufrunden</option>
+<option value="inklusiv">Interpolation (n − 1)·p + 1, wie Excel QUARTILE.INKL</option>
+<option value="exklusiv">Interpolation (n + 1)·p, wie Excel QUARTILE.EXKL</option>
+</select></label>
+</div>
+<div class="out" id="s-out" aria-live="polite"></div>
+</form>
+<div id="s-res"></div>
+</section>
 
-<noscript><p style="padding:40px;text-align:center">Bitte aktiviere JavaScript, um BWL Max zu nutzen.</p></noscript>
-<script>(function(){if(/(^|\.)bwlmax\.de$/.test(location.hostname))document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});})();</script>
-<script src="/tutor/js/consent.js?v=27"></script>
-<!--jsb--><link rel="modulepreload" href="/tutor/jsb/c-2C2TTIQH.js"><link rel="modulepreload" href="/tutor/jsb/c-OVX7NP3R.js"><link rel="modulepreload" href="/tutor/jsb/c-6WBDRWZE.js"><link rel="modulepreload" href="/tutor/jsb/c-ZQ37HMO5.js"><link rel="modulepreload" href="/tutor/jsb/c-DSOK5TTJ.js"><link rel="modulepreload" href="/tutor/jsb/c-CYVSFYYJ.js"><link rel="modulepreload" href="/tutor/jsb/c-LSOEINMT.js"><link rel="modulepreload" href="/tutor/jsb/c-LEXHD3JY.js"><link rel="modulepreload" href="/tutor/jsb/c-UEPRKOCD.js"><link rel="modulepreload" href="/tutor/jsb/c-W6RFOY5Q.js"><link rel="modulepreload" href="/tutor/jsb/c-NFX6TAXH.js"><link rel="modulepreload" href="/tutor/jsb/c-P32TUP2I.js"><link rel="modulepreload" href="/tutor/jsb/c-RPDRBMNP.js"><link rel="modulepreload" href="/tutor/jsb/c-KLUKKACI.js"><link rel="modulepreload" href="/tutor/jsb/c-52BRSFB2.js"><link rel="modulepreload" href="/tutor/jsb/c-X7WE34EP.js"><link rel="modulepreload" href="/tutor/jsb/c-ULMPOXNU.js"><link rel="modulepreload" href="/tutor/jsb/c-UG3ZIXHS.js"><link rel="modulepreload" href="/tutor/jsb/c-PGPPBS4R.js"><link rel="modulepreload" href="/tutor/jsb/c-FDGOEWAF.js"><link rel="modulepreload" href="/tutor/jsb/c-LRJWSC56.js"><link rel="modulepreload" href="/tutor/jsb/c-MZZW4YF2.js"><link rel="modulepreload" href="/tutor/jsb/c-HRXBZO66.js"><link rel="modulepreload" href="/tutor/jsb/c-H5ZHLGKR.js"><link rel="modulepreload" href="/tutor/jsb/c-UT6EKMZO.js"><link rel="modulepreload" href="/tutor/jsb/c-NDEXS7CY.js"><link rel="modulepreload" href="/tutor/jsb/c-2RRJ4ZYG.js"><link rel="modulepreload" href="/tutor/jsb/c-XLWJWL3T.js"><link rel="modulepreload" href="/tutor/jsb/c-UWHMDSVS.js"><link rel="modulepreload" href="/tutor/jsb/c-J3FAECVJ.js"><link rel="modulepreload" href="/tutor/jsb/c-5WHP4HDV.js"><link rel="modulepreload" href="/tutor/jsb/c-5DFPBDFC.js"><link rel="modulepreload" href="/tutor/jsb/c-KGGPI3XA.js"><link rel="modulepreload" href="/tutor/jsb/c-VRR3EQJV.js"><link rel="modulepreload" href="/tutor/jsb/c-K4LZ4NHB.js"><link rel="modulepreload" href="/tutor/jsb/c-5W55UXSB.js"><link rel="modulepreload" href="/tutor/jsb/c-HPNKIKAI.js"><link rel="modulepreload" href="/tutor/jsb/c-7NEUG36I.js"><link rel="modulepreload" href="/tutor/jsb/c-BMAK3GSY.js"><link rel="modulepreload" href="/tutor/jsb/c-6TB7PQXP.js"><link rel="modulepreload" href="/tutor/jsb/c-YXEGSOWY.js"><link rel="modulepreload" href="/tutor/jsb/c-UEFMRCCN.js"><link rel="modulepreload" href="/tutor/jsb/c-2ZYZ7ZRF.js"><link rel="modulepreload" href="/tutor/jsb/c-6LOS4T3P.js"><link rel="modulepreload" href="/tutor/jsb/c-QEISDQCZ.js"><link rel="modulepreload" href="/tutor/jsb/c-SSCWVJV6.js"><link rel="modulepreload" href="/tutor/jsb/c-PH3TFO2U.js"><link rel="modulepreload" href="/tutor/jsb/c-FRCTEIMO.js"><link rel="modulepreload" href="/tutor/jsb/c-BACIG7JQ.js"><link rel="modulepreload" href="/tutor/jsb/c-23S6CPHL.js"><link rel="modulepreload" href="/tutor/jsb/c-4V5XZVGQ.js"><link rel="modulepreload" href="/tutor/jsb/c-6Q3DAHYV.js"><link rel="modulepreload" href="/tutor/jsb/c-WGUD3K7P.js"><link rel="modulepreload" href="/tutor/jsb/c-F4ETRBDL.js"><link rel="modulepreload" href="/tutor/jsb/c-P2RKGPSP.js"><link rel="modulepreload" href="/tutor/jsb/c-IEL3S6BZ.js"><link rel="modulepreload" href="/tutor/jsb/c-MNY5MLMG.js"><link rel="modulepreload" href="/tutor/jsb/c-QXXRVPLD.js"><link rel="modulepreload" href="/tutor/jsb/c-UWX3ONCN.js"><link rel="modulepreload" href="/tutor/jsb/c-62ZVRRM6.js"><link rel="modulepreload" href="/tutor/jsb/c-YXEEXAMV.js"><!--/jsb--><script type="module" src="/tutor/jsb/main-YHWZ2ULS.js"></script>
-<script type="module">import { mathify } from '/tutor/js/math.js'; document.querySelectorAll('#landing .calc, #landing .mini-quiz, #landing .flip').forEach(el => mathify(el));</script>
-<section id="seo-art" class="seo-art" aria-label="Statistik-Rechner"><main class="ln"><div class="lg-eyebrow">Rechner · kostenlos · ohne Werbung</div><h1>Statistik-Rechner: Mittelwert, Varianz, Standardabweichung</h1><p class="ln-meta">Exakt gerechnet mit dem Rechen-Algorithmus von BWL Max · Stand Oktober 2026</p><div class="ln-kurz"><b>Was der Rechner kann</b><p>Du gibst eine Zahlenreihe (oder zwei für die Korrelation) ein. Der Rechner zeigt Mittelwert, Median, Varianz und Standardabweichung (Stichprobe und Grundgesamtheit) und den Korrelationskoeffizienten mit Rechenweg.</p></div><p><a class="btn primary" href="/#/app/rechner/statistik">Rechner öffnen</a></p><section><h2 id="grundlagen">Das steckt dahinter</h2><p>Die Grundlagen, belegt mit festen Quellen aus unserer Faktendatenbank:</p><ul><li>Die Varianz ist die gebräuchlichste Maßzahl zur Charakterisierung der Streuung einer theoretischen oder empirischen Verteilung; sie ist ein nicht relativiertes Streuungsmaß. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/varianz-49184" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Varianz</a></small></li><li>Streuung (Dispersion, Variabilität) bezeichnet, wie weit die Beobachtungswerte eines Merkmals bzw. die Ausprägungen einer Zufallsvariablen voneinander entfernt liegen; gemessen wird sie mit Streuungsmaßen. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/streuung-43301" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Streuung</a></small></li><li>Die Spannweite ist die Differenz aus größter und kleinster Ausprägung eines quantitativen Merkmals; sie ist ein einfaches Streuungsmaß, reagiert aber stark auf Ausreißer. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/spannweite-43726" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Spannweite</a></small></li><li>Die durchschnittliche absolute Abweichung ist der Durchschnitt der Beträge der Abweichungen vom Median (teils auch vom arithmetischen Mittel), \(d = \frac{1}{n}\sum_{i=1}^{n} |x_i - m|\); sie ist für einen Datensatz stets kleiner oder gleich der empirischen Standardabweichung. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/durchschnittliche-absolute-abweichung-34083" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: durchschnittliche absolute Abweichung</a></small></li><li>Die Varianz ist das zentrale Moment zweiter Ordnung, \(E(X - E(X))^2\); das zentrale Moment erster Ordnung ist stets 0, das dritte kennzeichnet die Schiefe. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/moment-37525" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Moment</a></small></li><li>Der Erwartungswert ist ein Grundbegriff der Wahrscheinlichkeitsrechnung und ein Lagemaß der Wahrscheinlichkeitsverteilung. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Erwartungswert</a></small></li><li>Eine Zufallsvariable nimmt ihre Werte (Realisationen) mit bestimmten Wahrscheinlichkeiten an; sie entsteht z. B., indem jedem Ergebnis eines Zufallsvorgangs eine reelle Zahl zugeordnet wird. Diskrete Zufallsvariablen haben höchstens abzählbar viele Werte (Wahrscheinlichkeitsfunktion), stetige überabzählbar viele (Dichtefunktion). <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/zufallsvariable-51013" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Zufallsvariable</a></small></li></ul></section><section><h2 id="lernen">Zum Lernen</h2><ul><li><a href="/lernen/varianz-standardabweichung">Varianz und Standardabweichung einfach erklärt</a></li><li><a href="/lernen/erwartungswert">Erwartungswert einfach erklärt</a></li><li><a href="/lernen/korrelation">Korrelation einfach erklärt</a></li><li><a href="/lernen/regression">Lineare Regression einfach erklärt</a></li><li><a href="/lernen/normalverteilung">Normalverteilung einfach erklärt</a></li></ul></section><section><h2 id="verlinken">Rechner verlinken</h2><p>Du willst den Rechner in deinem Skript, Blog oder auf der Seite deiner Fachschaft empfehlen? Kopier einfach diesen Link:</p><pre class="ln-code">&lt;a href=&quot;https://www.bwlmax.de/rechner/statistik-rechner&quot;&gt;Statistik-Rechner von BWL Max&lt;/a&gt;</pre></section></main></section>
+<section id="rechenweg" class="noprint" aria-labelledby="h-weg">
+<h2 id="h-weg">Rechenweg</h2>
+<p class="small">Formel und eingesetzte Werte zur aktuellen Eingabe. Zwischenergebnisse sind auf vier Nachkommastellen gerundet angezeigt, gerechnet wird ungerundet.</p>
+<div class="calcs" id="s-weg"></div>
+</section>
+
+<section id="stichprobe" aria-labelledby="h-stp">
+<h2 id="h-stp">Stichprobe oder Grundgesamtheit?</h2>
+<p>Die Summe der quadrierten Abweichungen vom Mittelwert wird entweder durch n oder durch n − 1 geteilt:</p>
+<div class="tw"><table class="dec">
+<thead><tr><th scope="col"></th><th scope="col">Grundgesamtheit (deskriptiv)</th><th scope="col">Stichprobe (induktiv)</th></tr></thead>
+<tbody>
+<tr><th scope="row">Varianz</th><td><span class="m">\sigma^2=\dfrac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})^2</span></td><td><span class="m">s^2=\dfrac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2</span></td></tr>
+<tr><th scope="row">Kovarianz</th><td><span class="m">\dfrac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})</span></td><td><span class="m">\dfrac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})</span></td></tr>
+<tr><th scope="row">Taschenrechner / Excel</th><td>σ<sub>n</sub>, VAR.P, STABW.N, KOVARIANZ.P</td><td>s<sub>n−1</sub>, VAR.S, STABW.S, KOVARIANZ.S</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li>Beschreibt man vollständig erhobene Daten (z. B. alle Noten eines Kurses), wird in der deskriptiven Statistik meist durch n geteilt. Will man aus einer Stichprobe auf die Grundgesamtheit schließen, teilt man durch n − 1 (erwartungstreue Schätzung).</li>
+<li>Die Bezeichnungen sind nicht einheitlich: Manche Lehrbücher schreiben s² oder <span class="m">\tilde{s}^2</span> für die Version mit n. Im Zweifel die Formel im Skript prüfen.</li>
+<li>Der Korrelationskoeffizient r und die Regressionsgerade hängen nicht davon ab, ob man n oder n − 1 verwendet, weil sich der Faktor herauskürzt.</li>
+<li>Der Variationskoeffizient <span class="m">v=\dfrac{s}{|\bar{x}|}</span> ist nur bei positiven Merkmalswerten sinnvoll interpretierbar. Der Rechner zeigt ihn mit beiden Standardabweichungen.</li>
+</ul>
+</section>
+
+<section id="quartile" aria-labelledby="h-quart">
+<h2 id="h-quart">Quartile: welche Methode?</h2>
+<p>Für Quartile gibt es mehrere gebräuchliche Definitionen, die bei kleinen Datenreihen verschiedene Werte liefern. Gerechnet wird immer mit der aufsteigend geordneten Reihe <span class="m">x_{(1)}\le x_{(2)}\le\ldots\le x_{(n)}</span>.</p>
+<ul>
+<li><strong>Lehrbuch (Standard im Rechner):</strong> Ist n·p ganzzahlig, ist das p-Quantil der Mittelwert <span class="m">\tfrac12\,(x_{(np)}+x_{(np+1)})</span>, sonst <span class="m">x_{(\lceil np\rceil)}</span> (nächste ganze Stelle aufrunden). Für p = 0,5 ergibt das genau den Median. So steht es in den meisten deutschsprachigen Statistik-Lehrbüchern für Wirtschaftswissenschaften.</li>
+<li><strong>Interpolation (n − 1)·p + 1:</strong> Position h = (n − 1)·p + 1, zwischen den Nachbarwerten wird linear interpoliert. Das rechnen Excel (QUARTILE.INKL bzw. QUARTILE), LibreOffice und viele Statistikprogramme standardmäßig.</li>
+<li><strong>Interpolation (n + 1)·p:</strong> Position h = (n + 1)·p, linear interpoliert, wie Excel QUARTILE.EXKL. Für sehr kleine Reihen ist das Quartil dann nicht definiert.</li>
+</ul>
+<p>Der Interquartilsabstand <span class="m">IQR=Q_3-Q_1</span> umfasst die mittleren 50 % der Werte und ist, anders als die Spannweite, unempfindlich gegen Ausreißer.</p>
+</section>
+
+<section id="beispiele" aria-labelledby="h-bsp">
+<h2 id="h-bsp">Klausurbeispiele mit Lösung</h2>
+<div class="ex-grid">
+<div class="card">
+<h3>Varianz einer Datenreihe</h3>
+<p>Gegeben sind die Werte 2, 4, 4, 4, 5, 5, 7, 9. Berechne Mittelwert, Varianz und Standardabweichung.</p>
+<div class="d">\bar{x}=\frac{40}{8}=5</div>
+<div class="d">\sum(x_i-\bar{x})^2=9+1+1+1+0+0+4+16=32</div>
+<p class="small">Grundgesamtheit: σ² = 32 / 8 = 4, σ = 2. Stichprobe: s² = 32 / 7 ≈ 4,5714, s ≈ 2,1381.</p>
+<p class="noprint"><button type="button" data-x="2; 4; 4; 4; 5; 5; 7; 9" data-h="" data-y="">Im Rechner nachrechnen</button></p>
+</div>
+<div class="card">
+<h3>Häufigkeitstabelle</h3>
+<p>In einer Befragung von 30 Haushalten haben 5 kein Kind, 8 ein Kind, 12 zwei, 4 drei und 1 vier Kinder. Wie viele Kinder hat ein Haushalt im Mittel?</p>
+<div class="d">\bar{x}=\frac{0\cdot5+1\cdot8+2\cdot12+3\cdot4+4\cdot1}{30}=\frac{48}{30}=1{,}6</div>
+<p class="small">Median und Modus sind 2: Der 15. und 16. Wert der geordneten Reihe sind beide 2, und 2 kommt mit 12-mal am häufigsten vor.</p>
+<p class="noprint"><button type="button" data-x="0; 1; 2; 3; 4" data-h="5; 8; 12; 4; 1" data-y="">Im Rechner nachrechnen</button></p>
+</div>
+<div class="card">
+<h3>Korrelation und Regression</h3>
+<p>Werbeausgaben x (in Tsd. €) und Umsatz y (in Tsd. €) in fünf Monaten: x = 1, 2, 3, 4, 5 und y = 3, 5, 4, 7, 9.</p>
+<div class="d">r=\frac{14}{\sqrt{10\cdot 23{,}2}}\approx 0{,}9191</div>
+<div class="d">b=\frac{14}{10}=1{,}4\qquad a=5{,}6-1{,}4\cdot3=1{,}4</div>
+<p class="small">Starker positiver linearer Zusammenhang; Regressionsgerade ŷ = 1,4 + 1,4·x, Bestimmtheitsmaß R² ≈ 0,8448.</p>
+<p class="noprint"><button type="button" data-x="1; 2; 3; 4; 5" data-h="" data-y="3; 5; 4; 7; 9">Im Rechner nachrechnen</button></p>
+</div>
+</div>
+</section>
+
+<section id="grundlagen" aria-labelledby="h-grund">
+<h2 id="h-grund">Begriffe und Quellen</h2>
+<ul>
+<li>Die Varianz ist die gebräuchlichste Maßzahl zur Charakterisierung der Streuung einer theoretischen oder empirischen Verteilung; sie ist ein nicht relativiertes Streuungsmaß. <span class="small">(<a href="https://wirtschaftslexikon.gabler.de/definition/varianz-49184" rel="noopener">Gabler Wirtschaftslexikon: Varianz</a>)</span></li>
+<li>Streuung (Dispersion, Variabilität) bezeichnet, wie weit die Beobachtungswerte eines Merkmals bzw. die Ausprägungen einer Zufallsvariablen voneinander entfernt liegen; gemessen wird sie mit Streuungsmaßen. <span class="small">(<a href="https://wirtschaftslexikon.gabler.de/definition/streuung-43301" rel="noopener">Gabler Wirtschaftslexikon: Streuung</a>)</span></li>
+<li>Die Spannweite ist die Differenz aus größter und kleinster Ausprägung eines quantitativen Merkmals; sie ist ein einfaches Streuungsmaß, reagiert aber stark auf Ausreißer. <span class="small">(<a href="https://wirtschaftslexikon.gabler.de/definition/spannweite-43726" rel="noopener">Gabler Wirtschaftslexikon: Spannweite</a>)</span></li>
+<li>Die durchschnittliche absolute Abweichung ist der Durchschnitt der Beträge der Abweichungen vom Median (teils auch vom arithmetischen Mittel), <span class="m">d=\frac{1}{n}\sum_{i=1}^{n}|x_i-m|</span>; sie ist für einen Datensatz stets kleiner oder gleich der empirischen Standardabweichung. <span class="small">(<a href="https://wirtschaftslexikon.gabler.de/definition/durchschnittliche-absolute-abweichung-34083" rel="noopener">Gabler Wirtschaftslexikon: durchschnittliche absolute Abweichung</a>)</span></li>
+<li>Die Varianz ist das zentrale Moment zweiter Ordnung, <span class="m">E(X-E(X))^2</span>; das zentrale Moment erster Ordnung ist stets 0, das dritte kennzeichnet die Schiefe. <span class="small">(<a href="https://wirtschaftslexikon.gabler.de/definition/moment-37525" rel="noopener">Gabler Wirtschaftslexikon: Moment</a>)</span></li>
+<li>Der Erwartungswert ist ein Grundbegriff der Wahrscheinlichkeitsrechnung und ein Lagemaß der Wahrscheinlichkeitsverteilung. <span class="small">(<a href="https://wirtschaftslexikon.gabler.de/definition/erwartungswert-36155" rel="noopener">Gabler Wirtschaftslexikon: Erwartungswert</a>)</span></li>
+<li>Eine Zufallsvariable nimmt ihre Werte (Realisationen) mit bestimmten Wahrscheinlichkeiten an; sie entsteht z. B., indem jedem Ergebnis eines Zufallsvorgangs eine reelle Zahl zugeordnet wird. Diskrete Zufallsvariablen haben höchstens abzählbar viele Werte (Wahrscheinlichkeitsfunktion), stetige überabzählbar viele (Dichtefunktion). <span class="small">(<a href="https://wirtschaftslexikon.gabler.de/definition/zufallsvariable-51013" rel="noopener">Gabler Wirtschaftslexikon: Zufallsvariable</a>)</span></li>
+<li>Der Korrelationskoeffizient nach Bravais-Pearson misst die Stärke des <em>linearen</em> Zusammenhangs zweier metrischer Merkmale und liegt zwischen −1 und +1. Der Rangkorrelationskoeffizient nach Spearman wendet dieselbe Formel auf die Ränge an und erfasst so jeden monotonen Zusammenhang; bei gleichen Werten (Bindungen) erhalten diese den Durchschnittsrang.</li>
+<li>Geometrisches und harmonisches Mittel zeigt der Rechner nur, wenn alle Werte positiv sind. Das geometrische Mittel braucht man etwa für durchschnittliche Wachstumsfaktoren, das harmonische für Durchschnittspreise oder -geschwindigkeiten.</li>
+</ul>
+</section>
+
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+
+<script src="/tutor/vendor/katex@0.16.47/katex.min.js"></script>
+<script>
+// MATH-START
+var ST = (function () {
+  'use strict';
+  var TH = /^[+-]?[1-9]\d{0,2}(\.\d{3})+$/;   // 1.250 oder 1.250.000: deutsche Tausenderpunkte
+  // Zahl aus deutscher oder englischer Schreibweise. style 'de': ein Punkt vor genau drei Ziffern ist ein Tausenderpunkt.
+  function parseNum(raw, style) {
+    var s = String(raw).trim().replace(/[\s\u00a0\u202f']/g, '').replace(/[−–]/g, '-').replace(/€|%/g, '');
+    if (!/^[+-]?(\d|[.,]\d)[\d.,]*([eE][+-]?\d+)?$/.test(s)) return NaN;
+    var c = s.indexOf(',') >= 0, p = s.indexOf('.') >= 0;
+    if (c && p) {
+      if (s.lastIndexOf(',') > s.lastIndexOf('.')) {
+        if (!/^[+-]?\d{1,3}(\.\d{3})+,\d+$/.test(s)) return NaN;
+        s = s.replace(/\./g, '').replace(',', '.');
+      } else {
+        if (!/^[+-]?\d{1,3}(,\d{3})+\.\d+$/.test(s)) return NaN;
+        s = s.replace(/,/g, '');
+      }
+    } else if (c) {
+      if (s.split(',').length > 2) return NaN;
+      s = s.replace(',', '.');
+    } else if (p) {
+      if (s.split('.').length > 2) { if (!TH.test(s)) return NaN; s = s.replace(/\./g, ''); }
+      else if (style !== 'en' && TH.test(s)) s = s.replace('.', '');
+    }
+    var v = Number(s);
+    return isFinite(v) ? v : NaN;
+  }
+  // Liste aus Text: Trenner sind Semikolon, Leerraum, Zeilenumbruch und „Komma + Leerzeichen“
+  function parseList(raw) {
+    var s = String(raw == null ? '' : raw).replace(/,(?=\s|$)/g, ' ');
+    var t = s.split(/[;\s\u00a0]+/).filter(Boolean);
+    if (!t.length) return { v: [] };
+    var style = 'de';
+    if (!t.some(function (x) { return x.indexOf(',') >= 0; }) && t.some(function (x) { return x.indexOf('.') >= 0 && !TH.test(x.replace(/[−–]/g, '-')); })) style = 'en';
+    var v = [], amb = null;
+    for (var i = 0; i < t.length; i++) {
+      var x = parseNum(t[i], style);
+      if (isNaN(x)) {
+        var tip = /\d,\d+,\d/.test(t[i]) ? ' Mehrere Werte bitte mit Semikolon oder Leerzeichen trennen, das Komma ist das Dezimalzeichen.' : ' Erlaubt sind Zahlen wie 4, −2, 4,5, 4.5 oder 1.250,75.';
+        return { err: 'Wert Nr. ' + (i + 1) + ' („' + t[i] + '“) ist keine gültige Zahl.' + tip, pos: i };
+      }
+      if (style === 'de' && !amb && /^[-+−–]?[1-9]\d{0,2}\.\d{3}$/.test(t[i])) amb = t[i];
+      v.push(x);
+    }
+    return { v: v, style: style, amb: amb };
+  }
+  function sortNum(a) { return a.slice().sort(function (p, q) { return p - q; }); }
+  function medianSorted(a) { var n = a.length; return n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2; }
+  // p-Quantil der geordneten Reihe a; Methoden siehe Erklärtext
+  function quantile(a, p, method) {
+    var n = a.length, h, j;
+    if (method === 'inklusiv' || method === 'exklusiv') {
+      h = method === 'inklusiv' ? (n - 1) * p + 1 : (n + 1) * p;
+      if (h < 1 - 1e-12 || h > n + 1e-12) return { v: null, h: h };
+      j = Math.floor(h + 1e-12);
+      var f = h - j; if (Math.abs(f) < 1e-12) f = 0;
+      return { v: j >= n ? a[n - 1] : a[j - 1] + f * (a[j] - a[j - 1]), h: h, j: j, f: f };
+    }
+    h = n * p;
+    var hr = Math.round(h);
+    if (Math.abs(h - hr) < 1e-9 && hr >= 1 && hr < n) return { v: (a[hr - 1] + a[hr]) / 2, h: h, j: hr, ganz: true };
+    j = Math.min(n, Math.max(1, Math.ceil(h - 1e-9)));
+    return { v: a[j - 1], h: h, j: j, ganz: false };
+  }
+  // Kennzahlen einer Reihe x, optional mit Häufigkeiten w
+  function describe(x, w, method) {
+    var m = x.length, n = 0, sum = 0, i, c;
+    for (i = 0; i < m; i++) { n += w ? w[i] : 1; sum += (w ? w[i] : 1) * x[i]; }
+    var mean = sum / n, ss = 0, sad = 0, slog = 0, sinv = 0;
+    var flat = [];
+    for (i = 0; i < m; i++) {
+      var wi = w ? w[i] : 1;
+      ss += wi * (x[i] - mean) * (x[i] - mean);
+      sad += wi * Math.abs(x[i] - mean);
+      for (c = 0; c < wi; c++) flat.push(x[i]);
+    }
+    flat = sortNum(flat);
+    var allPos = flat.every(function (v) { return v > 0; });
+    if (allPos) for (i = 0; i < m; i++) { slog += (w ? w[i] : 1) * Math.log(x[i]); sinv += (w ? w[i] : 1) / x[i]; }
+    var med = medianSorted(flat), smed = 0;
+    flat.forEach(function (v) { smed += Math.abs(v - med); });
+    var cnt = new Map(), best = 0;
+    flat.forEach(function (v) { var k = cnt.get(v) || 0; cnt.set(v, k + 1); if (k + 1 > best) best = k + 1; });
+    var modes = [];
+    if (best > 1) cnt.forEach(function (k, v) { if (k === best) modes.push(v); });
+    modes = sortNum(modes);
+    var varS = n > 1 ? ss / (n - 1) : null, varP = ss / n;
+    var sdS = varS == null ? null : Math.sqrt(varS), sdP = Math.sqrt(varP);
+    var q1 = quantile(flat, 0.25, method), q3 = quantile(flat, 0.75, method);
+    return {
+      n: n, m: m, sum: sum, mean: mean, ss: ss, median: med, modes: modes, modeCount: best,
+      min: flat[0], max: flat[flat.length - 1], range: flat[flat.length - 1] - flat[0],
+      varS: varS, varP: varP, sdS: sdS, sdP: sdP,
+      vkS: sdS != null && mean !== 0 ? sdS / Math.abs(mean) : null, vkP: mean !== 0 ? sdP / Math.abs(mean) : null,
+      madMean: sad / n, madMedian: smed / n,
+      geo: allPos ? Math.exp(slog / n) : null, harm: allPos ? n / sinv : null,
+      q1: q1.v, q3: q3.v, iqr: q1.v != null && q3.v != null ? q3.v - q1.v : null, q1info: q1, q3info: q3, sorted: flat
+    };
+  }
+  function ranks(a) {
+    var idx = a.map(function (v, i) { return i; }).sort(function (p, q) { return a[p] - a[q]; });
+    var r = new Array(a.length), i = 0;
+    while (i < idx.length) {
+      var j = i;
+      while (j + 1 < idx.length && a[idx[j + 1]] === a[idx[i]]) j++;
+      var avg = (i + j) / 2 + 1;
+      for (var k = i; k <= j; k++) r[idx[k]] = avg;
+      i = j + 1;
+    }
+    return r;
+  }
+  function pearsonParts(x, y) {
+    var n = x.length, mx = 0, my = 0, i;
+    for (i = 0; i < n; i++) { mx += x[i]; my += y[i]; }
+    mx /= n; my /= n;
+    var sxy = 0, sxx = 0, syy = 0;
+    for (i = 0; i < n; i++) { sxy += (x[i] - mx) * (y[i] - my); sxx += (x[i] - mx) * (x[i] - mx); syy += (y[i] - my) * (y[i] - my); }
+    return { n: n, mx: mx, my: my, sxy: sxy, sxx: sxx, syy: syy, r: sxx > 0 && syy > 0 ? sxy / Math.sqrt(sxx * syy) : null };
+  }
+  // Zusammenhang zweier Reihen gleicher Länge
+  function bivar(x, y) {
+    var P = pearsonParts(x, y), n = P.n;
+    var b = P.sxx > 0 ? P.sxy / P.sxx : null;
+    var rx = ranks(x), ry = ranks(y), R = pearsonParts(rx, ry), d2 = 0;
+    for (var i = 0; i < n; i++) d2 += (rx[i] - ry[i]) * (rx[i] - ry[i]);
+    var ties = new Set(x).size < n || new Set(y).size < n;
+    var r = P.r == null ? null : Math.max(-1, Math.min(1, P.r));
+    return {
+      n: n, mx: P.mx, my: P.my, sxy: P.sxy, sxx: P.sxx, syy: P.syy,
+      covS: n > 1 ? P.sxy / (n - 1) : null, covP: P.sxy / n, r: r, r2: r == null ? null : r * r,
+      b: b, a: b == null ? null : P.my - b * P.mx,
+      rs: R.r == null ? null : Math.max(-1, Math.min(1, R.r)), d2: d2, ties: ties, rx: rx, ry: ry
+    };
+  }
+  return { parseNum: parseNum, parseList: parseList, quantile: quantile, describe: describe, bivar: bivar, ranks: ranks, medianSorted: medianSorted };
+})();
+// MATH-END
+
+(function () {
+  'use strict';
+  var MAXV = 10000, MAXN = 100000;
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function err(msg) { return '<span class="err">' + msg + '</span>'; }
+  function mark(el, bad) { el.setAttribute('aria-invalid', bad ? 'true' : 'false'); }
+
+  // --- Zahlformat ------------------------------------------------------
+  var NF = {};
+  function de(x, d) {
+    if (x == null || !isFinite(x)) return '–';
+    if (d == null) d = 4;
+    var a = Math.abs(x);
+    if (a !== 0 && a < Math.pow(10, -d) / 2) return new Intl.NumberFormat('de-DE', { maximumSignificantDigits: 4 }).format(x);
+    var f = NF[d] || (NF[d] = new Intl.NumberFormat('de-DE', { maximumFractionDigits: d }));
+    var s = f.format(x);
+    return /^-0(,0*)?$/.test(s) ? '0' : s;
+  }
+  function rounded(x, d) { return Math.abs(Number(x.toFixed(d)) - x) > 1e-12 * Math.max(1, Math.abs(x)); }
+  function tn(x, d) { return de(x, d).replace(/\./g, '{.}').replace(/,/g, '{,}'); }
+  function tp(x, d) { return x < 0 ? '(' + tn(x, d) + ')' : tn(x, d); }       // negativ in Klammern
+  function eq(x, d) { return (rounded(x, d == null ? 4 : d) ? '\\approx ' : '=') + tn(x, d); }
+
+  // --- Formelsatz (wie Kombinatorik-Rechner) ----------------------------
+  function katexInto(el, src) {
+    if (window.katex) {
+      try { katex.render('\\displaystyle ' + src, el, { throwOnError: true, strict: 'ignore' }); return; }
+      catch (e) { if (window.console) console.error(e.message); }
+    }
+    el.textContent = src;
+  }
+  function fillSteps(box, parts) {
+    box.textContent = '';
+    parts.forEach(function (p, i) {
+      if (p === '\\;') p = '';
+      if (i && (p === '' || !/^(=|\\approx|\+)/.test(p))) { var br = document.createElement('i'); br.className = 'br'; box.appendChild(br); }
+      if (p === '') return;
+      var s = document.createElement('span'); katexInto(s, p); box.appendChild(s);
+    });
+  }
+  // Karte mit Formel, Rechenweg und Ergebnis; f, w: Listen von TeX-Teilen
+  function card(title, f, w, res, note) {
+    var el = document.createElement('div');
+    el.className = 'card out';
+    var h = '<div class="name">' + title + '</div><div class="lbl">Formel</div><div class="steps" data-k="f"></div>';
+    if (w && w.length) h += '<div class="lbl">Rechenweg</div><div class="steps" data-k="w"></div>';
+    (res || []).forEach(function (r) { h += '<div class="big"><span>' + r[0] + '</span><b>' + r[1] + '</b></div>'; });
+    if (note) h += '<p class="small">' + note + '</p>';
+    el.innerHTML = h;
+    fillSteps(el.querySelector('[data-k="f"]'), f);
+    if (w && w.length) fillSteps(el.querySelector('[data-k="w"]'), w);
+    return el;
+  }
+
+  function sumTerms(x, w, maxTerms) {
+    if (x.length > maxTerms) return null;
+    return x.map(function (v, i) { return w ? tp(v) + '\\cdot ' + tn(w[i]) : tp(v); });
+  }
+  // lange Summen in Stücke teilen, damit sie auf schmalen Bildschirmen umbrechen
+  function chunks(head, terms, k) {
+    var out = [];
+    for (var i = 0; i < terms.length; i += k) out.push((i ? '+' : head) + terms.slice(i, i + k).join('+'));
+    return out;
+  }
+
+  // --- Eingaben lesen --------------------------------------------------
+  function readList(id, name) {
+    var r = ST.parseList($(id).value);
+    if (r.err) return { err: name + ': ' + esc(r.err) };
+    if (r.v.length > MAXV) return { err: name + ': höchstens ' + de(MAXV) + ' Werte.' };
+    return r;
+  }
+
+  function calc() {
+    var ex = $('s-x'), eh = $('s-h'), ey = $('s-y'), out = $('s-out'), res = $('s-res'), weg = $('s-weg');
+    var method = $('s-q').value;
+    mark(ex, false); mark(eh, false); mark(ey, false);
+    res.innerHTML = ''; weg.innerHTML = '';
+    var px = readList('s-x', 'Werte x'), ph = readList('s-h', 'Häufigkeiten'), py = readList('s-y', 'Werte y');
+    var fail = function (el, msg) { mark(el, true); out.innerHTML = err(msg); weg.innerHTML = '<p class="small">Sobald die Eingabe gültig ist, erscheint hier der Rechenweg.</p>'; };
+    if (px.err) return fail(ex, px.err);
+    if (ph.err) return fail(eh, ph.err);
+    if (py.err) return fail(ey, py.err);
+    var x = px.v, w = ph.v.length ? ph.v : null, y = py.v.length ? py.v : null;
+    if (!x.length) return fail(ex, 'Bitte mindestens einen Wert x eingeben.');
+    if (w) {
+      if (w.length !== x.length) return fail(eh, 'Es gibt ' + x.length + ' Werte x, aber ' + w.length + ' Häufigkeiten. Zu jedem Wert gehört genau eine Häufigkeit.');
+      for (var i = 0; i < w.length; i++) if (!(Number.isInteger(w[i]) && w[i] >= 0)) return fail(eh, 'Häufigkeiten müssen ganze Zahlen ab 0 sein (Nr. ' + (i + 1) + ': ' + de(w[i]) + ').');
+      var tot = w.reduce(function (a, b) { return a + b; }, 0);
+      if (tot === 0) return fail(eh, 'Die Summe der Häufigkeiten muss größer als 0 sein.');
+      if (tot > MAXN) return fail(eh, 'Die Summe der Häufigkeiten darf höchstens ' + de(MAXN) + ' sein.');
+      if (y) return fail(ey, 'Für Kovarianz und Korrelation bitte die Wertepaare einzeln eingeben und das Feld „Häufigkeiten“ leeren.');
+    }
+    if (y && y.length !== x.length) return fail(ey, 'Reihe x hat ' + x.length + ' Werte, Reihe y hat ' + y.length + '. Für Kovarianz und Korrelation braucht jede Beobachtung ein Wertepaar (x<sub>i</sub>, y<sub>i</sub>).');
+    if (y && x.length < 2) return fail(ey, 'Für Kovarianz und Korrelation braucht man mindestens zwei Wertepaare.');
+
+    var D = ST.describe(x, w, method), Dy = y ? ST.describe(y, null, method) : null, B = y ? ST.bivar(x, y) : null;
+
+    // Kurzinfo
+    var info = '<div class="name">' + (w ? 'Häufigkeitstabelle: ' + D.m + ' Ausprägungen, n = ' + de(D.n) : 'n = ' + de(D.n) + (D.n === 1 ? ' Wert' : ' Werte')) + (y ? ' · ' + de(B.n) + ' Wertepaare' : '') + '</div>';
+    var shown = D.sorted.length <= 60 ? D.sorted : D.sorted.slice(0, 60);
+    info += '<p class="small">Geordnete Reihe: ' + shown.map(function (v) { return de(v, 6); }).join('; ') + (D.sorted.length > 60 ? '; … (' + de(D.sorted.length - 60) + ' weitere)' : '') + '</p>';
+    var amb = px.amb || py.amb;
+    if (amb) info += '<p class="small hint">„' + esc(amb) + '“ wurde als ' + String(ST.parseNum(amb, 'de')).replace('.', ',') + ' gelesen (Punkt als Tausendertrennzeichen). Für Dezimalzahlen bitte das Komma verwenden, z. B. ' + esc(amb.replace('.', ',')) + '.</p>';
+    if (D.n === 1) info += '<p class="small hint">Mit nur einem Wert ist die Stichprobenvarianz (Division durch n − 1 = 0) nicht definiert.</p>';
+    out.innerHTML = info;
+
+    // Kennzahlen-Tabelle
+    var modeTxt = function (d) { return d.modes.length ? d.modes.map(function (v) { return de(v); }).join('; ') + ' <small>(' + d.modeCount + '-mal' + (d.modes.length > 1 ? ', mehrgipflig' : '') + ')</small>' : '– <small>kein Wert mehrfach</small>'; };
+    var pc = function (v) { return v == null ? '–' : de(v) + ' <small>= ' + de(v * 100, 2) + ' %</small>'; };
+    var rows = [
+      ['Anzahl n', function (d) { return de(d.n); }],
+      ['Summe Σx<sub>i</sub>', function (d) { return de(d.sum); }],
+      ['Minimum', function (d) { return de(d.min); }],
+      ['Maximum', function (d) { return de(d.max); }],
+      ['Arithmetisches Mittel x̄', function (d) { return de(d.mean); }],
+      ['Median x̃', function (d) { return de(d.median); }],
+      ['Modus', modeTxt],
+      ['Unteres Quartil Q<sub>1</sub>', function (d) { return d.q1 == null ? '– <small>zu wenige Werte</small>' : de(d.q1); }],
+      ['Oberes Quartil Q<sub>3</sub>', function (d) { return d.q3 == null ? '– <small>zu wenige Werte</small>' : de(d.q3); }],
+      ['Interquartilsabstand Q<sub>3</sub> − Q<sub>1</sub>', function (d) { return de(d.iqr); }],
+      ['Spannweite x<sub>max</sub> − x<sub>min</sub>', function (d) { return de(d.range); }],
+      ['Varianz Stichprobe s² <small>Division durch n − 1</small>', function (d) { return d.varS == null ? '– <small>n = 1</small>' : de(d.varS); }],
+      ['Standardabweichung Stichprobe s <small>Division durch n − 1</small>', function (d) { return d.sdS == null ? '– <small>n = 1</small>' : de(d.sdS); }],
+      ['Varianz Grundgesamtheit σ² <small>Division durch n</small>', function (d) { return de(d.varP); }],
+      ['Standardabweichung Grundgesamtheit σ <small>Division durch n</small>', function (d) { return de(d.sdP); }],
+      ['Variationskoeffizient s / |x̄| <small>Stichprobe</small>', function (d) { return d.mean === 0 ? '– <small>x̄ = 0</small>' : pc(d.vkS); }],
+      ['Variationskoeffizient σ / |x̄| <small>Grundgesamtheit</small>', function (d) { return d.mean === 0 ? '– <small>x̄ = 0</small>' : pc(d.vkP); }],
+      ['Mittlere absolute Abweichung vom Mittelwert', function (d) { return de(d.madMean); }],
+      ['Mittlere absolute Abweichung vom Median', function (d) { return de(d.madMedian); }],
+      ['Geometrisches Mittel', function (d) { return d.geo == null ? '– <small>nur für positive Werte</small>' : de(d.geo); }],
+      ['Harmonisches Mittel', function (d) { return d.harm == null ? '– <small>nur für positive Werte</small>' : de(d.harm); }]
+    ];
+    var mName = { lehrbuch: 'Lehrbuch-Methode', inklusiv: 'Interpolation (n − 1)·p + 1', exklusiv: 'Interpolation (n + 1)·p' }[method];
+    var t = '<h3>Lage- und Streuungsmaße</h3><div class="tw"><table class="kz" id="s-tab"><thead><tr><th scope="col">Kennzahl</th><th scope="col">x</th>' + (Dy ? '<th scope="col">y</th>' : '') + '</tr></thead><tbody>';
+    rows.forEach(function (r, k) { t += '<tr data-row="' + k + '"><th scope="row">' + r[0] + '</th><td class="n">' + r[1](D) + '</td>' + (Dy ? '<td class="n">' + r[1](Dy) + '</td>' : '') + '</tr>'; });
+    t += '</tbody></table></div><p class="small">Quartile nach ' + mName + '. Kennzahlen mit n − 1 sind die Schätzwerte für eine Stichprobe, mit n die der Grundgesamtheit.</p>';
+    if (B) {
+      t += '<h3>Zusammenhang von x und y</h3><div class="tw"><table class="kz" id="s-tab2"><thead><tr><th scope="col">Kennzahl</th><th scope="col">Wert</th></tr></thead><tbody>';
+      var r2 = [
+        ['Kovarianz Stichprobe s<sub>xy</sub> <small>Division durch n − 1</small>', de(B.covS)],
+        ['Kovarianz Grundgesamtheit <small>Division durch n</small>', de(B.covP)],
+        ['Korrelationskoeffizient r <small>nach Bravais-Pearson</small>', B.r == null ? '– <small>eine Reihe ist konstant</small>' : de(B.r)],
+        ['Bestimmtheitsmaß R² = r²', B.r2 == null ? '–' : de(B.r2)],
+        ['Regressionsgerade ŷ = a + b·x', B.b == null ? '– <small>alle x gleich</small>' : 'a = ' + de(B.a) + '; b = ' + de(B.b)],
+        ['Rangkorrelation r<sub>s</sub> <small>nach Spearman' + (B.ties ? ', mit Durchschnittsrängen' : '') + '</small>', B.rs == null ? '–' : de(B.rs)]
+      ];
+      r2.forEach(function (r, k) { t += '<tr data-row="b' + k + '"><th scope="row">' + r[0] + '</th><td class="n">' + r[1] + '</td></tr>'; });
+      t += '</tbody></table></div>';
+      if (B.r == null) t += '<p class="small hint">' + (B.sxx === 0 ? 'Alle x-Werte sind gleich: Korrelation und Regression sind nicht definiert.' : 'Alle y-Werte sind gleich: Die Korrelation ist nicht definiert, die Regressionsgerade ist waagerecht.') + '</p>';
+    }
+    res.innerHTML = t;
+
+    // --- Rechenweg-Karten ---
+    var n = D.n;
+    var terms = sumTerms(x, w, 12);
+    var wMean = terms ? chunks(w ? '\\sum x_j h_j=' : '\\sum x_i=', terms, w ? 3 : 4).concat([eq(D.sum), '\\;']) : [];
+    wMean.push('\\bar{x}=\\dfrac{' + tn(D.sum) + '}{' + tn(n) + '}', eq(D.mean));
+    weg.appendChild(card('Arithmetisches Mittel', [w ? '\\bar{x}=\\dfrac{1}{n}\\sum_{j} x_j\\,h_j' : '\\bar{x}=\\dfrac{1}{n}\\sum_{i=1}^{n}x_i'], wMean, [['x̄', de(D.mean)]]));
+
+    // Median
+    var fM, wM;
+    if (n % 2) { fM = ['\\tilde{x}=x_{\\left(\\frac{n+1}{2}\\right)}']; wM = ['\\tilde{x}=x_{(' + tn((n + 1) / 2) + ')}', '=' + tn(D.median)]; }
+    else { fM = ['\\tilde{x}=\\dfrac{x_{(n/2)}+x_{(n/2+1)}}{2}']; wM = ['\\tilde{x}=\\dfrac{x_{(' + tn(n / 2) + ')}+x_{(' + tn(n / 2 + 1) + ')}}{2}', '=\\dfrac{' + tn(D.sorted[n / 2 - 1]) + '+' + tp(D.sorted[n / 2]) + '}{2}', eq(D.median)]; }
+    weg.appendChild(card('Median', fM, wM, [['x̃', de(D.median)]], 'n = ' + de(n) + ' ist ' + (n % 2 ? 'ungerade: Der Median ist der mittlere Wert der geordneten Reihe.' : 'gerade: Der Median ist der Mittelwert der beiden mittleren Werte.')));
+
+    // Varianz und Standardabweichung
+    var exact = !rounded(D.mean, 4) && D.m <= 8;
+    var wSQ = [w ? 'SQ=\\sum_j h_j\\,(x_j-\\bar{x})^2' : 'SQ=\\sum(x_i-\\bar{x})^2'];
+    if (exact) {
+      wSQ = wSQ.concat(chunks('=', x.map(function (v, i) { return (w ? tn(w[i]) + '\\cdot ' : '') + '(' + tn(v) + '-' + tp(D.mean) + ')^2'; }), 2));
+    }
+    wSQ.push(eq(D.ss));
+    var fV = ['s^2=\\dfrac{SQ}{n-1}', '\\sigma^2=\\dfrac{SQ}{n}'];
+    var wV = [];
+    if (D.varS != null) wV.push('s^2=\\dfrac{' + tn(D.ss) + '}{' + tn(n - 1) + '}' + eq(D.varS), 's=\\sqrt{' + tn(D.varS) + '}' + eq(D.sdS));
+    wV.push('\\sigma^2=\\dfrac{' + tn(D.ss) + '}{' + tn(n) + '}' + eq(D.varP), '\\sigma=\\sqrt{' + tn(D.varP) + '}' + eq(D.sdP));
+    var cV = card('Varianz und Standardabweichung', [w ? 'SQ=\\sum_{j}h_j\\,(x_j-\\bar{x})^2' : 'SQ=\\sum_{i=1}^{n}(x_i-\\bar{x})^2'].concat(fV), wSQ.concat(['\\;']).concat(wV),
+      [['s² (n − 1)', D.varS == null ? '–' : de(D.varS)], ['s (n − 1)', D.sdS == null ? '–' : de(D.sdS)], ['σ² (n)', de(D.varP)], ['σ (n)', de(D.sdP)]],
+      'SQ ist die Summe der quadrierten Abweichungen vom Mittelwert' + (exact ? '.' : ' (bei vielen Werten oder krummem Mittelwert nur als Summe angezeigt).'));
+    weg.appendChild(cV);
+
+    // Variationskoeffizient
+    if (D.mean !== 0) {
+      var wVK = [];
+      if (D.sdS != null) wVK.push('v_s=\\dfrac{' + tn(D.sdS) + '}{' + tn(Math.abs(D.mean)) + '}' + eq(D.vkS));
+      wVK.push('v_\\sigma=\\dfrac{' + tn(D.sdP) + '}{' + tn(Math.abs(D.mean)) + '}' + eq(D.vkP));
+      weg.appendChild(card('Variationskoeffizient', ['v=\\dfrac{s}{|\\bar{x}|}'], wVK,
+        [['mit s', D.vkS == null ? '–' : de(D.vkS * 100, 2) + ' %'], ['mit σ', de(D.vkP * 100, 2) + ' %']], 'Relatives Streuungsmaß ohne Einheit; zum Vergleich von Reihen mit unterschiedlichem Niveau.' + (D.min <= 0 ? ' Achtung: Die Reihe enthält Werte ≤ 0, dann ist v nur eingeschränkt interpretierbar.' : '')));
+    }
+
+    // Quartile
+    var qWeg = function (lab, p, qi) {
+      if (qi.v == null) return [lab + ':\\ h=' + tn(qi.h) + '\\ \\text{liegt außerhalb von } 1 \\ldots n'];
+      if (method === 'lehrbuch') {
+        if (qi.ganz) return ['n\\cdot p=' + tn(n) + '\\cdot ' + tn(p, 2) + '=' + tn(qi.h), lab + '=\\dfrac{x_{(' + tn(qi.j) + ')}+x_{(' + tn(qi.j + 1) + ')}}{2}', '=\\dfrac{' + tn(D.sorted[qi.j - 1]) + '+' + tp(D.sorted[qi.j]) + '}{2}', eq(qi.v)];
+        return ['n\\cdot p=' + tn(n) + '\\cdot ' + tn(p, 2) + '=' + tn(qi.h), lab + '=x_{(' + tn(qi.j) + ')}', '=' + tn(qi.v)];
+      }
+      var hs = (method === 'inklusiv' ? 'h=(' + tn(n) + '-1)\\cdot ' + tn(p, 2) + '+1' : 'h=(' + tn(n) + '+1)\\cdot ' + tn(p, 2)) + '=' + tn(qi.h);
+      if (!qi.f || qi.j >= n) return [hs, lab + '=x_{(' + tn(qi.j) + ')}', '=' + tn(qi.v)];
+      return [hs, lab + '=x_{(' + tn(qi.j) + ')}+' + tn(qi.f) + '\\cdot(x_{(' + tn(qi.j + 1) + ')}-x_{(' + tn(qi.j) + ')})', '=' + tp(D.sorted[qi.j - 1]) + '+' + tn(qi.f) + '\\cdot(' + tn(D.sorted[qi.j]) + '-' + tp(D.sorted[qi.j - 1]) + ')', eq(qi.v)];
+    };
+    var fQ = { lehrbuch: ['Q_p=\\begin{cases}\\tfrac12\\,(x_{(np)}+x_{(np+1)}) & np\\ \\text{ganz}\\\\ x_{(\\lceil np\\rceil)} & \\text{sonst}\\end{cases}'],
+      inklusiv: ['h=(n-1)\\,p+1', 'Q_p=x_{(\\lfloor h\\rfloor)}+(h-\\lfloor h\\rfloor)\\,(x_{(\\lfloor h\\rfloor+1)}-x_{(\\lfloor h\\rfloor)})'],
+      exklusiv: ['h=(n+1)\\,p', 'Q_p=x_{(\\lfloor h\\rfloor)}+(h-\\lfloor h\\rfloor)\\,(x_{(\\lfloor h\\rfloor+1)}-x_{(\\lfloor h\\rfloor)})'] }[method];
+    var wQ = qWeg('Q_1', 0.25, D.q1info).concat(['\\;']).concat(qWeg('Q_3', 0.75, D.q3info));
+    if (D.iqr != null) wQ.push('\\;', 'IQR=' + tp(D.q3) + '-' + tp(D.q1) + eq(D.iqr));
+    weg.appendChild(card('Quartile (' + mName + ')', fQ, wQ, [['Q₁', de(D.q1)], ['Q₃', de(D.q3)], ['IQR', de(D.iqr)]], 'x<sub>(i)</sub> ist der i-te Wert der aufsteigend geordneten Reihe.'));
+
+    // Spannweite
+    weg.appendChild(card('Spannweite', ['R=x_{\\max}-x_{\\min}'], ['R=' + tn(D.max) + '-' + tp(D.min) + eq(D.range)], [['R', de(D.range)]]));
+
+    if (B) {
+      var nb = B.n;
+      var fewP = nb <= 6 && !rounded(B.mx, 4) && !rounded(B.my, 4);
+      var wSP = ['SP=\\sum(x_i-\\bar{x})(y_i-\\bar{y})'];
+      if (fewP) wSP = wSP.concat(chunks('=', x.map(function (v, i) { return '(' + tn(v) + '-' + tp(B.mx) + ')(' + tn(y[i]) + '-' + tp(B.my) + ')'; }), 1));
+      wSP.push(eq(B.sxy));
+      var wCov = wSP.concat(['\\;', 's_{xy}=\\dfrac{' + tn(B.sxy) + '}{' + tn(nb - 1) + '}' + eq(B.covS), '\\dfrac{SP}{n}=\\dfrac{' + tn(B.sxy) + '}{' + tn(nb) + '}' + eq(B.covP)]);
+      weg.appendChild(card('Kovarianz', ['s_{xy}=\\dfrac{1}{n-1}\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})'], ['\\bar{x}' + eq(B.mx) + ',\\quad \\bar{y}' + eq(B.my)].concat(wCov),
+        [['s_xy (n − 1)', de(B.covS)], ['Kovarianz (n)', de(B.covP)]]));
+      var interp = B.r == null ? '' : (Math.abs(B.r) < 0.3 ? 'schwacher' : Math.abs(B.r) < 0.7 ? 'mittlerer' : 'starker') + (B.r > 0 ? ' positiver' : B.r < 0 ? ' negativer' : '') + ' linearer Zusammenhang (Faustregel: |r| unter 0,3 schwach, ab 0,7 stark; Grenzen variieren je Lehrbuch).';
+      weg.appendChild(card('Korrelationskoeffizient nach Bravais-Pearson', ['r=\\dfrac{\\sum(x_i-\\bar{x})(y_i-\\bar{y})}{\\sqrt{\\sum(x_i-\\bar{x})^2\\cdot\\sum(y_i-\\bar{y})^2}}'],
+        B.r == null ? ['SQ_x=' + tn(B.sxx) + ',\\quad SQ_y=' + tn(B.syy)] : ['r=\\dfrac{' + tn(B.sxy) + '}{\\sqrt{' + tn(B.sxx) + '\\cdot ' + tn(B.syy) + '}}', eq(B.r)],
+        [['r', de(B.r)], ['R² = r²', de(B.r2)]], B.r == null ? 'Nicht definiert, weil eine Reihe keine Streuung hat (SQ = 0).' : 'Ergebnis: ' + interp));
+      if (B.b != null) {
+        weg.appendChild(card('Lineare Regression (Kleinste Quadrate)', ['\\hat{y}=a+b\\cdot x', 'b=\\dfrac{\\sum(x_i-\\bar{x})(y_i-\\bar{y})}{\\sum(x_i-\\bar{x})^2}', 'a=\\bar{y}-b\\cdot\\bar{x}'],
+          ['b=\\dfrac{' + tn(B.sxy) + '}{' + tn(B.sxx) + '}' + eq(B.b), 'a=' + tn(B.my) + '-' + tp(B.b) + '\\cdot ' + tp(B.mx) + eq(B.a), '\\;', '\\hat{y}=' + tn(B.a) + (B.b < 0 ? '-' + tn(-B.b) : '+' + tn(B.b)) + '\\cdot x'],
+          [['a', de(B.a)], ['b', de(B.b)], ['R²', de(B.r2)]], 'b ist die Änderung von ŷ, wenn x um eine Einheit steigt. R² gibt den Anteil der Varianz von y an, den die Gerade erklärt.'));
+      }
+      if (B.rs != null) {
+        var wS = B.ties ? ['\\text{Ränge x: }' + B.rx.slice(0, 12).map(function (v) { return tn(v, 1); }).join(';\\ ') + (nb > 12 ? '\\ldots' : ''), '\\text{Ränge y: }' + B.ry.slice(0, 12).map(function (v) { return tn(v, 1); }).join(';\\ ') + (nb > 12 ? '\\ldots' : ''), 'r_s' + eq(B.rs)]
+          : ['\\sum d_i^2=' + tn(B.d2), 'r_s=1-\\dfrac{6\\cdot ' + tn(B.d2) + '}{' + tn(nb) + '\\cdot(' + tn(nb) + '^2-1)}', eq(B.rs)];
+        weg.appendChild(card('Rangkorrelation nach Spearman', B.ties ? ['r_s=r\\bigl(\\operatorname{Rg}(x),\\operatorname{Rg}(y)\\bigr)'] : ['r_s=1-\\dfrac{6\\sum d_i^2}{n\\,(n^2-1)}', 'd_i=\\operatorname{Rg}(x_i)-\\operatorname{Rg}(y_i)'], wS, [['r_s', de(B.rs)]],
+          B.ties ? 'Es gibt gleiche Werte (Bindungen). Sie erhalten den Durchschnittsrang, und r<sub>s</sub> wird als Pearson-Korrelation der Ränge berechnet; die Kurzformel mit d² gilt dann nicht exakt.' : 'Ohne Bindungen ist die Kurzformel exakt gleich der Pearson-Korrelation der Ränge.'));
+      }
+    }
+  }
+
+  // --- statische Formeln -----------------------------------------------
+  function splitEq(src) {
+    var parts = [], depth = 0, cur = '';
+    for (var i = 0; i < src.length; i++) {
+      var c = src.charAt(i);
+      if (c === '{') depth++;
+      if (c === '}') depth--;
+      if (c === '=' && depth === 0 && cur.trim() !== '') { parts.push(cur.trim()); cur = '='; continue; }
+      cur += c;
+    }
+    parts.push(cur.trim());
+    return parts;
+  }
+  if (window.katex) {
+    var els = document.querySelectorAll('.m,.d');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i], src = el.textContent;
+      if (el.classList.contains('d')) fillSteps(el, splitEq(src));
+      else {
+        try { katex.render(src, el, { throwOnError: true, strict: 'ignore' }); }
+        catch (e) { el.textContent = src; if (window.console) console.error(e.message); }
+      }
+    }
+  }
+
+  ['s-x', 's-h', 's-y'].forEach(function (id) { $(id).addEventListener('input', calc); });
+  $('s-q').addEventListener('change', calc);
+  calc();
+
+  document.querySelectorAll('button[data-x]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $('s-x').value = b.getAttribute('data-x');
+      $('s-h').value = b.getAttribute('data-h');
+      $('s-y').value = b.getAttribute('data-y');
+      calc();
+      $('rechner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
 </body>
 </html>
