@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=1"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Annuitäten-Rechner mit Tilgungsplan: Rate, Zins und Tilgung | BWL Max</title>
 <meta name="description" content="Annuität berechnen: Rate, Kapitalwiedergewinnungsfaktor und vollständiger Tilgungsplan mit Zins und Tilgung je Jahr – exakt gerechnet, kostenlos.">
 <meta name="robots" content="index,follow">
@@ -13,11 +15,10 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BWL Max">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Annuitäten-Rechner", "url": "https://www.bwlmax.de/rechner/annuitaeten-rechner", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "description": "Annuität berechnen: Rate, Kapitalwiedergewinnungsfaktor und vollständiger Tilgungsplan mit Zins und Tilgung je Jahr – exakt gerechnet, kostenlos.", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "BWL Max"}, "citation": [{"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Annuitätenmethode", "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetenmethode-29301"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Annuität", "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaet-27107"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Investitionsrechnung", "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Wiedergewinnungsfaktor", "url": "https://wirtschaftslexikon.gabler.de/definition/wiedergewinnungsfaktor-49017"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Kapitalwert", "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalwert-39806"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Tilgungsplan", "url": "https://wirtschaftslexikon.gabler.de/definition/tilgungsplan-47815"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Annuitätendarlehen", "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796"}]}</script>
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="light">
 <link rel="stylesheet" href="/tutor/vendor/katex@0.16.47/katex.min.css">
 <style>
 :root{--bg:#fff;--fg:#1b1d20;--muted:#585f69;--line:#d9dde2;--soft:#f3f5f7;--accent:#1d5a4a;--accent-soft:#e3efea;--warn:#8a4b00;--warn-soft:#fdf3e4;--ok:#1d6b3a;--bad:#a1281e;--zebra:#f8f9fa}
-@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e7e9ec;--muted:#a5abb4;--line:#30353c;--soft:#1b1f23;--accent:#83cdb3;--accent-soft:#1a2e28;--warn:#f0b25e;--warn-soft:#2b2216;--ok:#7fd49c;--bad:#ff9a8f;--zebra:#171a1d}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
@@ -113,9 +114,14 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
  footer{margin-top:1em}
 }
 </style>
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
 </head>
 <body>
 <div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
 <header>
 <h1>Annuitäten-Rechner mit Tilgungsplan</h1>
 <p class="lead">Kreditbetrag, Zinssatz und Laufzeit eingeben: Der Rechner zeigt den Annuitätenfaktor (Kapitalwiedergewinnungsfaktor), die gleichbleibende jährliche Rate mit eingesetzter Formel und den vollständigen Tilgungsplan mit Restschuld, Zins und Tilgung je Jahr samt Summen. Gedacht für Finanzierung, Investitionsrechnung (Annuitätenmethode) und Finanzmathematik im Studium.</p>
