@@ -3,13 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=1"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="color-scheme" content="light">
 <title>Simplex-Rechner mit Rechenweg – Tableaus, Zwei-Phasen-Methode, Schattenpreise</title>
 <meta name="description" content="Simplex-Rechner für lineare Optimierung: jedes Simplex-Tableau Schritt für Schritt, Zwei-Phasen-Methode bei ≥ und =, exakte Brüche, Schattenpreise und grafische Lösung bei zwei Variablen.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.bwlmax.de/tools/simplex-rechner">
 <style>
 :root{--bg:#ffffff;--fg:#1b1d21;--muted:#5a606c;--line:#d6d9df;--soft:#f3f4f6;--accent:#1d5bb8;--accent-soft:#e7eefa;--piv:#fff4c7;--pivel:#f0c443;--ok:#17703f;--bad:#b3261e;--warn:#7a4f00;--warn-soft:#fff6e0;--region:rgba(29,91,184,.17);--iso:#b3261e;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#15171b;--fg:#e8eaee;--muted:#a5abb7;--line:#363a44;--soft:#1e2127;--accent:#86b4ff;--accent-soft:#1d2a40;--piv:#3a3315;--pivel:#8c6f10;--ok:#63d394;--bad:#ff8f86;--warn:#f2c46a;--warn-soft:#2e2615;--region:rgba(134,180,255,.22);--iso:#ff8f86;color-scheme:dark}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
@@ -95,9 +97,14 @@ footer a{color:var(--muted)}
   @page{size:A4;margin:15mm}
 }
 </style>
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
 </head>
 <body>
 <main>
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
 <h1>Simplex-Rechner mit Rechenweg</h1>
 <p class="lead">Dieser Rechner löst lineare Optimierungsprobleme mit dem Simplex-Verfahren und zeigt jedes Tableau mit Pivotspalte, Quotiententest und kurzer Erklärung – auch die Zwei-Phasen-Methode bei ≥- und =-Nebenbedingungen. Gerechnet wird exakt mit Brüchen. Gedacht für Operations Research und Wirtschaftsmathematik im Studium.</p>
 
