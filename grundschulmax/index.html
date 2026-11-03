@@ -5499,6 +5499,9 @@ body.ispaid .afab,body.ispaid .fcta{display:none!important}
 body:not([data-screen=start]):not([data-screen=klasse]) .gcb,body.lesopen .gcb{display:none}
 @media (min-width:821px){body[data-screen=start] .hero .ctas{top:calc(var(--uL)*752)!important}}
 @media (min-width:821px) and (min-aspect-ratio:1536/850){body[data-screen=start] .hero .ctas{position:fixed!important;top:auto!important;bottom:calc(18px + env(safe-area-inset-bottom))!important}}
+.cov.img{background:#bfe3ff}.cov.img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block;transition:transform .35s cubic-bezier(.2,.8,.3,1)}
+.gk:hover .cov.img img{transform:scale(1.05)}
+.gk.lk .cov.img{filter:saturate(.85)}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -11377,7 +11380,9 @@ setTimeout(() => { const urls = new Set(); Object.values(SK).forEach((k) => Stri
 
 /* ---------- Abo-Grenze, Spiel-Covers, Hausaufgaben-Bereich, Dunkelmodus ---------- */
 const PVIC = { rennen: 'pm', uhr: 'bell', laden: 'coin', reim: 'bubble', wortart: 'sort', diktat: 'pen', simon: 'voice', shop: 'coin', story: 'book', hupf: 'frog', bonjour: 'chat', ou: 'search', jahr: 'leaf', ampel: 'target', wetter: 'drop', robo: 'bulb', frage: 'chat', echt: 'search' };
+const GCOV = { 'Wetter-Labor': 'wetter', 'Ampel-Profi': 'ampel', 'Jahreszeiten-Rad': 'jahreszeiten', 'Röntgen-Blick': 'roentgen', 'Sortier-Profi': 'sortier', 'Buchstaben-Blasen': 'blasen', 'Shopping-Spiel': 'shopping', 'Simon says': 'simon', 'Memory': 'memory', 'Wortarten-Sortierer': 'wortarten', 'Zauberstift': 'zauberstift', 'Silben-Zug': 'silbenzug', 'Kaufladen': 'kaufladen', 'Uhr-Detektiv': 'uhr', 'Einmaleins-Rennen': 'rennen', 'Frosch-Sprung': 'frosch', 'Ballon-Jagd': 'ballon' };
 function coverHTML(g) {
+  if (GCOV[g.n]) return `<span class="cov img"><img src="/grundschulmax/gc/${GCOV[g.n]}.webp?v=1" alt="" loading="lazy" decoding="async"></span>`;
   const ic = g.ic ? GICON[g.ic] : I(PVIC[g.pv] || 'star');
   return `<span class="cov"><i class="cv1"></i><i class="cv2"></i><i class="cv3"></i><span class="cvi">${ic}</span></span>`;
 }
