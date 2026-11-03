@@ -5502,6 +5502,16 @@ body:not([data-screen=start]):not([data-screen=klasse]) .gcb,body.lesopen .gcb{d
 .cov.img{background:#bfe3ff}.cov.img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block;transition:transform .35s cubic-bezier(.2,.8,.3,1)}
 .gk:hover .cov.img img{transform:scale(1.05)}
 .gk.lk .cov.img{filter:saturate(.85)}
+/* Fortschrittsbalken: ohne Fließ-Animation, Füllung beginnt direkt am linken Rand der Rille */
+html body :is(.lesbar,.lpb) i{animation:none!important;left:-7px!important;background-position:0 50%!important}
+html body :is(.lesbar,.lpb)::after{animation:none!important}
+html body :is(.lesbar,.lpb){padding-right:2px!important}
+/* Raketen-Flug: Wort sauber mittig auf dem Planeten-Schild, gleiche Neigung wie das Schild */
+html body .s-planet .qpl.np span{left:48.5%!important;top:52.5%!important;translate:-50% -50%!important;rotate:7deg;width:70%!important;max-width:none!important;height:22%!important;display:flex!important;align-items:center;justify-content:center;text-align:center;white-space:nowrap;overflow:hidden;background:linear-gradient(180deg,#fff,#f1f3f8)!important;border-radius:9px!important;box-shadow:inset 0 -2px 0 rgba(20,30,70,.12)!important;color:#14123d;font-weight:900;font-size:calc(clamp(17px,1.75vw,24px) * var(--pfs,1))!important;padding:0 6px!important;line-height:1!important;text-shadow:none!important}
+@media (max-width:560px){html body .s-planet .qpl.np span{font-size:calc(16px * var(--pfs,1))!important}}
+html body .s-planet .qpl.np{width:clamp(160px,21vw,240px)!important}
+@media (max-width:560px){html body .s-planet .qpl.np{width:min(46vw,190px)!important}}
+@media (max-width:560px){html body .s-planet .qpl.np{left:var(--mx)!important;top:var(--my)}}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -6090,7 +6100,7 @@ function play(n, vol = .8, rate = 1) {
     a.volume = vol; a.playbackRate = rate; a.currentTime = 0; a.play().catch(() => {});
   } catch (e) {}
 }
-['ok', 'no', 'pop', 'coin', 'star', 'win', 'streak', 'soft', 'jump', 'splash', 'chest', 'kick', 'whoosh', 'tap'].forEach((n) => { try { const a = new Audio(); a.preload = 'auto'; a.src = SFXU + n + '.mp3'; (SFXP[n] = []).push(a); } catch (e) {} });
+['ok', 'no', 'pop', 'coin', 'star', 'win', 'streak', 'soft', 'jump', 'splash', 'kick', 'whoosh', 'tap'].forEach((n) => { try { const a = new Audio(); a.preload = 'auto'; a.src = SFXU + n + '.mp3'; (SFXP[n] = []).push(a); } catch (e) {} });
 const sfx = {
   ok() { play('ok', .7); },
   no() { play('no', .6); },
@@ -6103,7 +6113,7 @@ const sfx = {
   jump() { play('jump', .6); },
   lock() { play('tap', .6); },
   coin() { play('coin', .55); },
-  chest() { play('chest', .75); },
+  chest() { play('star', .6); setTimeout(() => play('coin', .4), 140); },
   kick() { play('kick', .7); },
   splash() { play('splash', .6); },
   whoosh() { play('whoosh', .6); },
@@ -10645,7 +10655,7 @@ function fitLabels(host) {
     const max = par.getBoundingClientRect().width * (par.classList.contains('fsh') ? .4 : par.classList.contains('qpl') ? .62 : .72);
     let f = parseFloat(getComputedStyle(sp).fontSize), n = 0;
     const fish = par.classList.contains('fsh'), mh = par.getBoundingClientRect().height * .34;
-    while ((fish ? (sp.scrollWidth > sp.clientWidth + 1 || sp.getBoundingClientRect().height > mh) : sp.getBoundingClientRect().width > max) && f > 9 && n++ < 30) { f -= 1; sp.style.setProperty('font-size', f + 'px', 'important'); }
+    const pl = par.classList.contains('qpl'); while ((fish || pl ? (sp.scrollWidth > sp.clientWidth + 1 || sp.getBoundingClientRect().height > mh) : sp.getBoundingClientRect().width > max) && f > 9 && n++ < 30) { f -= 1; sp.style.setProperty('font-size', f + 'px', 'important'); }
   });
 }
 
@@ -10773,7 +10783,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = 'a3def3ea';
+const PFV = 'f6b6f310';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -11241,7 +11251,7 @@ function reward(ok, streak) {
   SK.goal.fail = (el, sc) => kick(el, sc, false);
   SK.goal.ms = 1500;
   /* Rakete */
-  SK.planet.item = (t, i, n) => `<button class="qpl np" data-v="${i}" style="--fs:${fsz(t)};--px:${(100 / (n + 1)) * (i + 1)}%;--py:${i % 2 ? 34 : 14}%;--dl:-${i * .9}s;--hue:${[0, 150, 260, 80, 200, 320][i % 6]}deg"><img class="pim" src="${P('planet', 'ring')}" alt=""><span>${t}</span></button>`;
+  SK.planet.item = (t, i, n) => `<button class="qpl np" data-v="${i}" style="--fs:${fsz(t)};--pfs:${fsz(t)};--px:${n < 2 ? 50 : 12 + i * 76 / (n - 1)}%;--py:${i % 2 ? 40 : 4}%;--mx:${n === 3 && i === 2 ? 50 : i % 2 ? 74 : 26}%;--my:${3 + Math.floor(i / 2) * 38}%;--dl:-${i * .9}s;--hue:${[0, 150, 260, 80, 200, 320][i % 6]}deg"><img class="pim" src="${P('planet', 'ring')}" alt=""><span>${t}</span></button>`;
   const launch = (el, sc, ok) => { const r = $('.rkt', sc), a = box(r, sc), p = box(el, sc); r.style.animation = 'none'; r.classList.add('go'); sfx.whoosh();
     const dx = p.x - a.x, dy = (ok ? p.y - p.h * .55 : p.y) - a.y, ang = Math.atan2(dx, -dy) * 180 / Math.PI;
     r.animate([{ transform: 'translate(0,0)' }, { transform: 'translate(-3px,1px)' }, { transform: 'translate(3px,-1px)' }, { transform: 'translate(0,0)' }], { duration: 260 });
@@ -11265,7 +11275,7 @@ function reward(ok, streak) {
   const coins = (sc, b, n) => { for (let k = 0; k < n; k++) { const im = document.createElement('img'); im.src = P(k % 3 ? 'coin' : 'gems'); im.className = 'gfx ccoin'; im.style.left = b.x + 'px'; im.style.top = b.y - b.h * .1 + 'px'; sc.appendChild(im);
     const a = -Math.PI / 2 + rnd(-1.1, 1.1), d = rnd(70, 150); im.animate([{ transform: 'translate(0,0) scale(.3) rotate(0)', opacity: 0 }, { transform: `translate(${Math.cos(a) * d * .6}px,${Math.sin(a) * d}px) scale(1) rotate(${rnd(-200, 200)}deg)`, opacity: 1, offset: .45 }, { transform: `translate(${Math.cos(a) * d}px,${Math.sin(a) * d * .3 + 60}px) scale(.8) rotate(${rnd(-360, 360)}deg)`, opacity: 0 }], { duration: rnd(900, 1200), delay: k * 35, easing: 'cubic-bezier(.2,.7,.4,1)', fill: 'forwards' }).onfinish = () => im.remove(); } };
   const open_ = (el, sc, ok) => { const b = box(el, sc), im = $('.cim', el); el.style.animation = 'none'; el.classList.add('shk');
-    setTimeout(() => { el.classList.remove('shk'); im.src = P(ok ? 'gold' : 'empty'); el.classList.add(ok ? 'rich2' : 'empty2'); sfx.chest();
+    setTimeout(() => { el.classList.remove('shk'); im.src = P(ok ? 'gold' : 'empty'); el.classList.add(ok ? 'rich2' : 'empty2'); if (ok) sfx.chest();
       if (ok) { coins(sc, b, 14); word(sc, b.x, b.y - b.h * .75, 'Schatz!'); setTimeout(() => sfx.coin(), 250); starsUp(el, 10); }
       else { const pa = document.createElement('img'); pa.src = P('parrot'); pa.className = 'gfx cpar'; pa.style.left = b.x + b.w * .3 + 'px'; pa.style.top = b.y - b.h * .35 + 'px'; sc.appendChild(pa); setTimeout(() => pa.remove(), 1500); word(sc, b.x, b.y - b.h * .75, 'Leer!', 'no'); } }, 380); };
   SK.chest.win = (el, sc) => open_(el, sc, true);
@@ -12386,7 +12396,7 @@ $$('[data-nav]').forEach((b) => (b.onclick = () => { const n = b.dataset.nav; if
 function drawAside() {
   const g = Math.max(0, st.grade), tot = SUBJ.reduce((a, S) => { const s0 = lpStat(S.k, g); return [a[0] + s0.xp, a[1] + s0.n]; }, [0, 0]), el = $('#kst'); tot[1] += mixDone(); let tr = false; try { tr = !!localStorage.getItem('gsm-tried'); } catch (e) {} document.body.classList.toggle('did1', tot[1] > 0 || tr); if (!el) return;
   const sig = tot.join('|') + lpStreak(); if (el.dataset.sig === sig) return; el.dataset.sig = sig;
-  el.innerHTML = `<div class="kt y"><span class="kti">${I('star')}</span><div><b data-n="${tot[0]}">0</b><small>Sterne gesammelt</small></div></div><div class="kt g"><span class="kti">${I('check')}</span><div><b data-n="${tot[1]}">0</b><small>Lektionen geschafft</small></div></div><div class="kt o"><span class="kti">${I('flame')}</span><div><b data-n="${lpStreak()}">0</b><small>Tage am Stück</small></div></div>`;
+  el.innerHTML = `<div class="kt y"><span class="kti">${I('star')}</span><div><b data-n="${tot[0]}">0</b><small>${tot[0] === 1 ? 'Stern' : 'Sterne'} gesammelt</small></div></div><div class="kt g"><span class="kti">${I('check')}</span><div><b data-n="${tot[1]}">0</b><small>${tot[1] === 1 ? 'Lektion' : 'Lektionen'} geschafft</small></div></div><div class="kt o"><span class="kti">${I('flame')}</span><div><b data-n="${lpStreak()}">0</b><small>${lpStreak() === 1 ? 'Tag' : 'Tage'} am Stück</small></div></div>`;
   $$('[data-n]', el).forEach((x) => { const n = +x.dataset.n, t0 = performance.now(); const f = (t) => { const k = Math.min(1, (t - t0) / 700); x.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); });
 }
 function drawAbot() {
