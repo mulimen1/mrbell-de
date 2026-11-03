@@ -5575,7 +5575,121 @@ html body .gk.sec .gkb{background:linear-gradient(180deg,#ffe27a,#f5b000)!import
 .aacb.astart{color:#3d3a35;background:#f3eee5;box-shadow:0 4px 0 #ddd3c2}
 .aacb{min-height:38px;font-size:13.5px}
 @media (max-width:820px){.aacc{display:none!important}}
-/* Hausaufgaben-Bereich (Arbeitsblatt, Hilfe, Probetest) */
+@media (max-width:820px){html body.did1:not(.paid):not(.ispaid) .app[data-v=subj] .wtabs{bottom:calc(96px + env(safe-area-inset-bottom))!important}}
+@media (max-width:820px){.hwcat{display:none!important}}
+/* ===== Hausaufgaben: stabile Karten, Bibliothek mit Spielen und Probetests, Arbeitsblatt mit Prüfen und Hilfe je Aufgabe ===== */
+
+/* Ergebnisbereich: hoch genug, damit beim Wechsel der vier Knöpfe nichts springt */
+.hwr:not(:empty){min-height:calc(100vh - 160px)}
+.hwr>*{max-width:100%;box-sizing:border-box}
+
+/* Spiel- und Probetest-Karte (eigener Klassenname, vorher kollidierte .pt mit den Glitzer-Partikeln) */
+.hwpc{position:relative;display:flex;align-items:center;gap:18px;flex-wrap:wrap;width:100%;box-sizing:border-box;padding:22px;border-radius:28px;color:#fff;background:linear-gradient(135deg,#4f8ff0,#1a4fb4);box-shadow:0 8px 0 rgba(0,0,0,.2)}
+.hwpc-t{background:linear-gradient(135deg,#8f6cf5,#4527b8)}
+.hwpc .hwpci{flex:none}
+.hwpct{flex:1 1 260px;min-width:0}
+.hwpct small{display:block;font-weight:900;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
+.hwpct b{display:block;font-size:22px;line-height:1.2;margin:2px 0 4px}
+.hwpct p{font-weight:650;line-height:1.4;opacity:.95;margin:0}
+.hwpcr{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.2);font-weight:850;font-size:14px}
+.hwpc .b3d{flex:none;--g1:#fff;--g2:#fff;--g3:#fff;--bd:rgba(0,0,0,.2);color:#1a4fb4}
+.hwpc-t .b3d{color:#4527b8}
+.hwpc .b3d:disabled{opacity:.6}
+@media (max-width:620px){.hwpc{flex-direction:column;align-items:stretch;text-align:center;padding:20px 16px;gap:14px}.hwpc .hwpci{margin:0 auto}.hwpct{flex:none}.hwpc .b3d{width:100%}}
+
+/* Hausaufgaben am Handy und Tablet: kein Weichzeichner über dem festen Hintergrund, das hat beim Scrollen geruckelt */
+@media (hover:none),(max-width:820px){
+ #app[data-v=hw] .hwd,#app[data-v=hw] .hwh,#atest .hwd,#atest .hwh{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+ #app[data-v=hw] .hwh{background:linear-gradient(135deg,rgba(26,60,130,.95),rgba(40,40,110,.93))!important}
+ #app[data-v=hw] .hwd{background:rgba(255,255,255,.98)!important}}
+
+/* Bibliothek: jede Hausaufgabe mit Arbeitsblatt, Spiel und Probetest zum direkt Starten */
+.hwlib{display:grid;gap:12px}
+.hwli{display:flex;align-items:flex-start;gap:14px;padding:12px;border-radius:22px;background:#fff;text-align:left;cursor:pointer;box-shadow:0 6px 0 rgba(0,0,0,.14);animation:exIn .4s var(--e) both}
+.hwli:hover{transform:none}
+.hwli.cur{box-shadow:0 0 0 3px #4cc38a,0 6px 0 rgba(0,0,0,.14)}
+.hwli>img{width:64px;height:84px;border-radius:12px;object-fit:cover;flex:none;background:#eee;border:1px solid #e3e6ee;box-sizing:border-box}
+.hwlit{flex:1;min-width:0}
+.hwlit small{display:block;font-weight:850;font-size:12.5px;color:var(--mute)}
+.hwlit b{display:block;font-size:18px;line-height:1.2;margin:2px 0 10px;overflow-wrap:anywhere}
+.hwlia{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.hwlia button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:58px;padding:8px 4px;border-radius:14px;font-weight:900;font-size:14px;line-height:1.1;text-align:center;background:#f1edff;color:#4527b8;box-shadow:0 3px 0 rgba(69,39,184,.25);transition:transform .1s}
+.hwlia button:active{transform:translateY(2px)}
+.hwlia button[data-a=e]{background:#fff2df;color:#a4490b;box-shadow:0 3px 0 rgba(164,73,11,.25)}
+.hwlia button[data-a=s]{background:#e6f0ff;color:#1a4fb4;box-shadow:0 3px 0 rgba(26,79,180,.25)}
+.hwlia button svg{font-size:20px}
+.hwlia button span{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.hwlia button em{display:flex;align-items:center;gap:3px;margin:0;font-style:normal;font-size:12px;font-weight:850;color:#1f8a4c}
+.hwlia button em svg{font-size:13px;margin:0}
+.hwlia button:disabled{opacity:.45;cursor:default}
+@media (max-width:420px){.hwli{gap:10px;padding:10px}.hwli>img{width:46px;height:60px}.hwlia{gap:6px}.hwlia button{font-size:12.5px;min-height:56px}}
+
+/* ---------- Arbeitsblatt mit Max ---------- */
+.wsrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:12px;row-gap:8px;cursor:default}
+.wsrow.done .wsnr{background:#2fb257}.wsrow.shown .wsnr{background:#3f86ea}
+.wsrow.pop{animation:wsPop .45s var(--e)}
+.wsq{min-width:0;overflow-wrap:anywhere}
+.wsin.wsnum{width:4.6em}
+.wsin:disabled{opacity:1;-webkit-text-fill-color:currentColor}
+.wsact{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+.wsb{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:48px;padding:0 16px;border-radius:14px;font-weight:900;font-size:16px;line-height:1.1;white-space:nowrap;cursor:pointer;transition:transform .1s,box-shadow .1s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.wsb svg{font-size:20px;flex:none}
+.wsb img{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:50% 18%;background:#ffe7a6;flex:none}
+.wsb:active{transform:translateY(3px)}
+.wsbc{color:#fff;background:linear-gradient(180deg,#5fd07c,#2fb257);box-shadow:0 4px 0 #1f8a4c}
+.wsbc:active{box-shadow:0 1px 0 #1f8a4c}
+.wsbh{color:#4a33b8;background:#fff;box-shadow:inset 0 0 0 2px #cdbfff,0 4px 0 #cdbfff}
+.wsbh:active{box-shadow:inset 0 0 0 2px #cdbfff,0 1px 0 #cdbfff}
+.wsbh.on{background:#f1edff}
+.wsbh.hot{animation:wsHot 1.1s ease-in-out 3}
+.wsb2{color:#573b00;background:linear-gradient(180deg,#ffd75e,#f5b400);box-shadow:0 4px 0 #c48a00}
+.wsb3{color:#fff;background:linear-gradient(180deg,#7db7ff,#3f86ea);box-shadow:0 4px 0 #1a5fc4}
+.wsdone{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:0 14px;border-radius:14px;font-weight:850;font-size:15px;white-space:nowrap;color:#17663a;background:#e3f7ea}
+.wsdone svg{font-size:18px}
+.wsrow.shown .wsdone{color:#164e9e;background:#e8f1fe}
+.wsfb{grid-column:1/-1;display:none;margin:0}
+.wsfb.ok,.wsfb.no,.wsfb.sol{display:flex;gap:8px;align-items:flex-start;padding:10px 14px;border-radius:14px;font-weight:750;font-size:16px;line-height:1.4}
+.wsfb svg{flex:none;font-size:20px;margin-top:1px}
+.wsfb b{font-weight:900}
+.wsfb.ok{background:#e3f7ea;color:#17663a}.wsfb.no{background:#fff0e0;color:#94450a}.wsfb.sol{background:#e8f1fe;color:#164e9e}
+.wsfb.new,.wshelp.new,.wshs.new{animation:wsIn .32s var(--e)}
+.wshelp{grid-column:1/-1}
+.wshelp[hidden],.wshand[hidden],.wsrep[hidden]{display:none!important}
+.wshc{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:18px;background:#fffbea;box-shadow:inset 0 0 0 2px #ffe08a}
+.wshm{flex:none;width:56px}.wshm .tut{width:56px}
+.wsht{flex:1;min-width:0;display:grid;gap:10px}
+.wshs small{display:flex;align-items:center;gap:5px;font-weight:900;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:#a86f00}
+.wshs p{margin:2px 0 0;font-weight:750;font-size:17px;line-height:1.45;color:#3b2f12}
+.wshs.s2{padding-top:10px;border-top:2px dashed #ffd666}
+.wsex{margin-top:8px;padding:10px 12px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 2px #e3dafc}
+.wsex small{display:block;font-weight:900;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#4a33b8}
+.wsex p{margin:2px 0 0;font-weight:800;font-size:17px;line-height:1.45;color:#2b2160}
+.wshb{display:flex;flex-wrap:wrap;gap:8px}
+@media (max-width:600px){
+ .wsrow{grid-template-columns:auto minmax(0,1fr)}
+ .wsact{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}
+ .wsact .wsdone{grid-column:1/-1}
+ .wsb{padding:0 10px;font-size:15.5px;min-height:50px}
+ .wshc{padding:12px;gap:10px}.wshm{width:44px}.wshm .tut{width:44px}
+ .wshb .wsb{width:100%}
+ .wsfb.ok,.wsfb.no,.wsfb.sol{font-size:15.5px}}
+@media (max-width:360px){.wsb img{width:26px;height:26px}.wsb{font-size:14.5px;gap:5px}}
+
+/* Max unten: nur Sprechblase und Nochmal-anhören, keine doppelten Knöpfe */
+.wsbub{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.wsbub p{flex:1 1 200px;min-height:0!important;margin:0!important}
+.wsbub .wsbtns{flex:none}
+.wsbub .wsbtns:has(.b3d){flex:1 1 100%}
+.wsbub.new{animation:wsIn .3s var(--e)}
+.wsheet.kb .wsdock{display:none}
+.wsheet{overscroll-behavior:contain}
+.wsscroll{overscroll-behavior:contain}
+.wspaper{overflow:visible}
+
+@keyframes wsIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@keyframes wsPop{0%{transform:scale(1)}40%{transform:scale(1.015)}100%{transform:scale(1)}}
+@keyframes wsHot{0%,100%{box-shadow:inset 0 0 0 2px #cdbfff,0 4px 0 #cdbfff}50%{box-shadow:inset 0 0 0 3px #8a6cf0,0 4px 0 #8a6cf0,0 0 0 6px rgba(138,108,240,.25)}}
+@media (prefers-reduced-motion:reduce){.wsbh.hot,.wsrow.pop,.wsfb.new,.wshelp.new,.wshs.new{animation:none}}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -11543,12 +11657,21 @@ function shrink(file) {
     fr.onerror = () => ok(''); fr.readAsDataURL(file);
   });
 }
+/* Vorlesen nur ohne Zahlen: Zahlen und Rechenzeichen klingen vorgelesen wie eine fremde Sprache. Solche Texte zeigt Max nur an. */
+const HWNUM = /[0-9+×÷=<>·☐□○%½¼¾²³]/;
+const hwTalkable = (t) => !!t && !HWNUM.test(String(t));
+const HWTX = new Map(); // "hwid:Nummer" -> Text der Aufnahme, damit vor dem Abspielen geprüft werden kann
+function hwReg(R) {
+  if (!R || !R.hwid) return; const put = (i, t) => { if (i >= 0 && t) HWTX.set(R.hwid + ':' + i, String(t)); };
+  (R.blatt || []).forEach((b) => { put(b.sf, b.frage); (b.hinweise || b.tipps || []).forEach((t, k) => put((b.st || [])[k], t)); put(b.se, b.erklaerung); });
+  [...(R.spiel || []), ...(R.probetest || [])].forEach((x) => put(x.tts, x.q));
+}
 /* Max spricht einen frischen Clip (Web Audio, damit nichts gespeichert werden muss) */
 let hwSrc = null;
-async function hwSpeak(dataUrl) {
+async function hwSpeak(dataUrl, text) {
   try {
     if (hwSrc) { hwSrc.stop(); hwSrc = null; }
-    if (!voiceOn || !dataUrl) return;
+    if (!voiceOn || !dataUrl || !hwTalkable(text)) return;
     AC = AC || new (window.AudioContext || window.webkitAudioContext)();
     const b64 = dataUrl.split(',')[1], bin = atob(b64), buf = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
     const audio = await AC.decodeAudioData(buf.buffer);
@@ -11558,24 +11681,281 @@ async function hwSpeak(dataUrl) {
     hwSrc.start();
   } catch (e) {}
 }
-/* Vorlesen für Hausaufgaben-Texte (Max-Stimme, wird bei Bedarf erzeugt) */
+/* Vorlesen für Hausaufgaben-Texte (Max-Stimme, wird bei Bedarf erzeugt). Texte mit Zahlen bleiben stumm. */
 const HWS_URL = 'https://mrbell.app.n8n.cloud/webhook/gsm-hw-sprich-5m1x', HWT = new Map();
 async function hwSay(hwid, i) {
-  if (!voiceOn || !hwid || !(i >= 0)) return; const k = hwid + ':' + i; let a = HWT.get(k);
+  if (!voiceOn || !hwid || !(i >= 0)) return false; const k = hwid + ':' + i, txt = HWTX.get(k); if (!hwTalkable(txt)) return false;
+  let a = HWT.get(k);
   if (!a) { try { const r = await fetch(HWS_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ hwid, i }) }).then((x) => x.json()); if (r.ok && r.audio) { a = r.audio; HWT.set(k, a); } } catch (e) {} }
-  if (a) hwSpeak(a);
+  if (a) hwSpeak(a, txt); return true;
 }
-const numW = (a) => { const n = +a, s = new Set(); [1, -1, 10, -10, 2, -2].forEach((d) => { if (s.size < 3 && n + d >= 0 && n + d !== n) s.add(String(n + d)); }); return [...s]; };
-const asGame = (L) => L.map((x, i) => x.k === 'pad' && i % 2 === 0 ? { ...x, k: 'mc', w: numW(x.a) } : x);
+/* Feste Max-Sätze ohne Zahlen (echte Aufnahmen) */
+const HWOK = ['Richtig!', 'Super gemacht!', 'Klasse!', 'Genau so!', 'Prima!', 'Stark!', 'Spitze!'], HWNO = ['Fast! Probier es nochmal.', 'Hmm, schau nochmal genau hin.', 'Knapp daneben. Du schaffst das!', 'Nicht ganz. Versuch es nochmal.'];
+const HWTIP = vk('Schau mal, ich habe dir einen Tipp aufgeschrieben.'), HWTIP0 = vk('Schau mal, so geht das.');
+const maxLine = (t) => voice(String(t).startsWith('de:') ? t : 'de:' + t, false, 'max');
+const maxTip = () => { if (!voiceOn) return; if (!(CLIPS['max|' + HWTIP] && maxLine(HWTIP))) maxLine(HWTIP0); };
+/* Im Hausaufgaben-Spiel und Probetest: Gerätestimme liest keine Zahlen oder Rechnungen vor */
+if (typeof ttsDe === 'function') { const tts0 = ttsDe; ttsDe = function (text, force) { if (LS && LS.custom && LS.custom.hw && !hwTalkable(text)) { talk(true, 1200); return; } return tts0(text, force); }; }
+/* Ergebnis von Spiel und Probetest merken (lesson.js ruft customEnd am Ende auf) */
+if (typeof customEnd === 'function') { const ce0 = customEnd; customEnd = function () { const C = LS && LS.custom, info = C && C.hw ? { r: LS.first, n: LS.total, at: Date.now() } : null; ce0(); if (info && C.onEnd) { try { C.onEnd(info); } catch (e) {} } }; }
+/* HWHINT-START: Hinweise pro Aufgabe, falls die KI keine mitliefert. Regelbasiert, Rechenbeispiele werden ausgerechnet (Node-Test: alle Rechnungen geprüft) */
+const HWH = (() => {
+  const BX = '☐', W = ['null', 'einmal', 'zweimal', 'dreimal', 'viermal', 'fünfmal', 'sechsmal', 'siebenmal', 'achtmal', 'neunmal', 'zehnmal'];
+  const ten = (n) => Math.floor(n / 10) * 10, PLN = ['Einer', 'Zehner', 'Hunderter', 'Tausender', 'Zehntausender', 'Hunderttausender'];
+  const calc = (a, op, b) => op === '+' ? a + b : op === '-' ? a - b : op === '·' ? a * b : b && a % b === 0 ? a / b : NaN;
+  const times = (n) => W[n] || n + '-mal';
+  /* Text vereinheitlichen: Lücke = §, Rechenzeichen einheitlich */
+  const normT = (t) => (' ' + String(t || '') + ' ').replace(/_{2,}|…|\.{3}|□|☐|\?/g, ' § ').replace(/(\d)\.(\d{3})(?!\d)/g, '$1$2').replace(/[−–—]/g, '-').replace(/[×✕*]/g, '·').replace(/÷/g, ':')
+    .replace(/(\d|§)\s*[xX]\s*(?=\d|§)/g, '$1 · ').replace(/(\d|§)\s*\/\s*(?=\d|§)/g, '$1 : ').replace(/\s+/g, ' ');
+  const num = (s) => (s === '§' ? null : +s);
+  /* eine Rechnung finden: a op b = c oder c = a op b, genau eine Lücke */
+  function parseEq(t) {
+    const s = normT(t), N = '(\\d+|§)', re = [new RegExp(`${N} ?([+\\-·:]) ?${N} ?= ?${N}`), new RegExp(`${N} ?= ?${N} ?([+\\-·:]) ?${N}`)];
+    for (let f = 0; f < 2; f++) {
+      const m = s.match(re[f]); if (!m) continue;
+      const pre = s.slice(0, m.index).trim(), post = s.slice(m.index + m[0].length).trim();
+      if ((/[\d§+\-·=]$/.test(pre) || / [:·+\-]$/.test(pre)) || /^[\d§+\-·:=]/.test(post)) return null;
+      const [a, op, b, c] = f === 0 ? [m[1], m[2], m[3], m[4]] : [m[2], m[3], m[4], m[1]];
+      if ([a, b, c].filter((x) => x === '§').length !== 1) return null;
+      return { a: num(a), op, b: num(b), c: num(c), u: a === '§' ? 'a' : b === '§' ? 'b' : 'c', rev: f === 1 };
+    }
+    return null;
+  }
+  const solveEq = (E) => E.u === 'c' ? calc(E.a, E.op, E.b) : E.u === 'a' ? (E.op === '+' ? E.c - E.b : E.op === '-' ? E.c + E.b : E.op === '·' ? (E.b && E.c % E.b === 0 ? E.c / E.b : NaN) : E.c * E.b)
+    : (E.op === '+' ? E.c - E.a : E.op === '-' ? E.a - E.c : E.op === '·' ? (E.a && E.c % E.a === 0 ? E.c / E.a : NaN) : (E.c && E.a % E.c === 0 ? E.a / E.c : NaN));
+  const show = (E) => { const a = E.u === 'a' ? BX : E.a, b = E.u === 'b' ? BX : E.b, c = E.u === 'c' ? BX : E.c; return E.rev ? `${c} = ${a} ${E.op} ${b}` : `${a} ${E.op} ${b} = ${c}`; };
+  /* Sprungstellen von k bis z: nächste Zehnerzahl, Hunderter, Zehner vor dem Ziel */
+  function hops(k, z) {
+    const P = [k], add = (v) => { if (v > P[P.length - 1] && v < z) P.push(v); };
+    if (k % 10) add(ten(k) + 10);
+    if (z >= 100) { const h = Math.ceil(P[P.length - 1] / 100) * 100; if (h < Math.floor(z / 100) * 100) add(h); add(Math.floor(z / 100) * 100); }
+    add(ten(z)); P.push(z); return P;
+  }
+  const hopTxt = (P) => P.length === 2 ? `Zähle von ${P[0]} bis ${P[1]} weiter. Wie viele Schritte sind das?` : `Rechne von ${P[0]} bis ${P[1]}${P.slice(2).map((v) => `, dann bis ${v}`).join('')}. Zähle alle Sprünge zusammen.`;
+  const hopSolved = (P) => { const d = P.slice(1).map((v, i) => v - P[i]); return P.slice(1).map((v, i) => `Von ${P[i]} bis ${v} sind es ${d[i]}.`).join(' ') + (d.length > 1 ? ` Zusammen ${d.join(' + ')} = ${P[P.length - 1] - P[0]}.` : ''); };
+  const pickEx = (L, used) => L.find((e) => !e.every((v, i) => v === used[i])) || L[0];
+  const parts = (n) => { const s = String(n), P = []; for (let i = 0; i < s.length; i++) { const v = +s[i] * 10 ** (s.length - 1 - i); if (v) P.push(v); } return P; };
+  /* Plus: a + b = ☐ */
+  function addH(a, b) {
+    const o = a % 10, d = 10 - o, big = a >= 100 || b >= 100;
+    if (!a || !b) return { h1: 'Mit null ändert sich nichts.', h2: `Plus null heißt: Es kommt nichts dazu. Die ${a || b} bleibt die ${a || b}.`, ex: '6 + 0 = 6. Es kommt nichts dazu.' };
+    if (b >= 10 && parts(b).length > 1) {
+      const P = parts(b), st = []; let cur = a; P.slice(0, -1).forEach((p) => { st.push(`${cur} + ${p} = ${cur + p}`); cur += p; });
+      const [x, y] = pickEx(big ? [[120, 35], [230, 45]] : [[23, 14], [42, 35]], [a, b]), Q = parts(y);
+      return { h1: big ? 'Rechne Schritt für Schritt. Erst die Hunderter, dann die Zehner, dann die Einer.' : 'Rechne erst die Zehner dazu. Dann die Einer.', h2: `Zerlege die ${b} in ${P.join(' und ')}. Erst ${st.join(', dann ')}. Jetzt noch die ${P[P.length - 1]} dazu.`, ex: `${x} + ${y}: Erst ${x} + ${Q[0]} = ${x + Q[0]}, dann ${x + Q[0]} + ${Q[1]} = ${x + y}.` };
+    }
+    if (b >= 10) {
+      const u = 10 ** (String(b).length - 1), nm = PLN[String(b).length - 1], [x, y] = pickEx(u === 10 ? [[34, 20], [52, 30]] : u === 100 ? [[230, 300], [410, 200]] : [[2300, 3000], [4100, 2000]], [a, b]);
+      return { h1: `Hier kommen nur ${nm} dazu. Die anderen Stellen bleiben gleich.`, h2: `${a} hat ${Math.floor(a / u)} ${nm}. Dazu kommen ${b / u} ${nm}. Die anderen Stellen bleiben gleich.`, ex: `${x} + ${y}: ${Math.floor(x / u)} ${nm} und ${y / u} ${nm} sind ${Math.floor(x / u) + y / u} ${nm}. Also ${x} + ${y} = ${x + y}.` };
+    }
+    if (o && b > d) {
+      const [x, y] = pickEx(a < 10 ? [[8, 5], [7, 6]] : [[18, 5], [27, 6]], [a, b]), dx = 10 - x % 10;
+      return { h1: 'Rechne erst bis zur nächsten Zehnerzahl. Dann rechnest du den Rest dazu.', h2: `Zerlege die ${b}: Erst ${a} + ${d} = ${a + d}. Dann musst du noch ${b - d} dazurechnen.`, ex: `${x} + ${y}: Erst ${x} + ${dx} = ${x + dx}, dann ${x + dx} + ${y - dx} = ${x + y}.` };
+    }
+    if (a >= 10 && o) {
+      const [x, y] = pickEx([[42, 5], [31, 6]], [a, b]);
+      return { h1: 'Schau nur auf die Einer. Die Zehner bleiben gleich.', h2: `Rechne nur mit den Einern: ${o} + ${b}. Die ${ten(a)} bleibt gleich.`, ex: `${x} + ${y}: Die Einer ${x % 10} + ${y} = ${x % 10 + y}. Also ${x} + ${y} = ${x + y}.` };
+    }
+    if (a >= 10) {
+      const [x, y] = pickEx([[40, 7], [60, 3]], [a, b]);
+      return { h1: 'Zehner und Einer setzt du einfach zusammen.', h2: `${a} sind ${a / 10} Zehner. Dazu kommen ${b} Einer.`, ex: `${x} + ${y}: ${x / 10} Zehner und ${y} Einer. Also ${x} + ${y} = ${x + y}.` };
+    }
+    const [x, y] = pickEx([[3, 4], [5, 2]], [a, b]), cnt = Array.from({ length: y }, (_, i) => x + i + 1).join(', ');
+    const s = a >= b ? `Fang bei ${a} an und zähle ${b} weiter.` : `Tausch die Zahlen: ${b} + ${a}. Fang bei ${b} an und zähle ${a} weiter.`;
+    return { h1: 'Fang bei der größeren Zahl an und zähle weiter.', h2: s + ' Deine Finger helfen dir.', ex: `${x} + ${y}: Fang bei ${x} an und zähle ${y} weiter: ${cnt}. Also ${x} + ${y} = ${x + y}.` };
+  }
+  /* Minus: a - b = ☐ */
+  function subH(a, b) {
+    const o = a % 10, big = a >= 100 || b >= 100;
+    if (!b) return { h1: 'Minus null heißt: Es geht nichts weg.', h2: `Von der ${a} nimmst du nichts weg. Sie bleibt gleich.`, ex: '6 - 0 = 6. Es geht nichts weg.' };
+    if (a === b) return { h1: 'Du nimmst alles weg. Was bleibt dann übrig?', h2: `Du hast ${a} und nimmst alle ${b} weg.`, ex: '5 - 5 = 0. Wenn du alles wegnimmst, bleibt nichts.' };
+    if (b >= 10 && parts(b).length > 1) {
+      const P = parts(b), st = []; let cur = a; P.slice(0, -1).forEach((p) => { st.push(`${cur} - ${p} = ${cur - p}`); cur -= p; });
+      const [x, y] = pickEx(big ? [[275, 42], [368, 25]] : [[47, 12], [58, 23]], [a, b]), Q = parts(y);
+      return { h1: big ? 'Zieh Schritt für Schritt ab. Erst die Hunderter, dann die Zehner, dann die Einer.' : 'Zieh erst die Zehner ab. Dann die Einer.', h2: `Zerlege die ${b} in ${P.join(' und ')}. Erst ${st.join(', dann ')}. Jetzt noch die ${P[P.length - 1]} abziehen.`, ex: `${x} - ${y}: Erst ${x} - ${Q[0]} = ${x - Q[0]}, dann ${x - Q[0]} - ${Q[1]} = ${x - y}.` };
+    }
+    if (b >= 10) {
+      const u = 10 ** (String(b).length - 1), nm = PLN[String(b).length - 1], [x, y] = pickEx(u === 10 ? [[57, 20], [84, 30]] : u === 100 ? [[750, 300], [680, 200]] : [[5300, 2000], [7400, 3000]], [a, b]);
+      return { h1: `Hier gehen nur ${nm} weg. Die anderen Stellen bleiben gleich.`, h2: `${a} hat ${Math.floor(a / u)} ${nm}. Davon gehen ${b / u} ${nm} weg. Die anderen Stellen bleiben gleich.`, ex: `${x} - ${y}: ${Math.floor(x / u)} ${nm} weniger ${y / u} ${nm} sind ${Math.floor(x / u) - y / u} ${nm}. Also ${x} - ${y} = ${x - y}.` };
+    }
+    if (a >= 10 && !o) {
+      const [x, y] = pickEx([[30, 4], [50, 6]], [a, b]);
+      return { h1: 'Denk an die Zehnerzahl davor. Von dort ist es leicht.', h2: `Von ${a} gehst du zurück zur ${a - 10}. Rechne 10 - ${b} = ${10 - b}. Das kommt zur ${a - 10} dazu.`, ex: `${x} - ${y}: 10 - ${y} = ${10 - y}. Also ${x} - ${y} = ${x - 10} + ${10 - y} = ${x - y}.` };
+    }
+    if (a >= 10 && b > o) {
+      const [x, y] = pickEx([[13, 5], [32, 6]], [a, b]), ox = x % 10;
+      return { h1: 'Zieh erst bis zur Zehnerzahl ab. Dann ziehst du den Rest ab.', h2: `Zerlege die ${b}: Erst ${a} - ${o} = ${a - o}. Dann musst du noch ${b - o} abziehen.`, ex: `${x} - ${y}: Erst ${x} - ${ox} = ${x - ox}, dann ${x - ox} - ${y - ox} = ${x - y}.` };
+    }
+    if (a >= 10) {
+      const [x, y] = pickEx([[47, 3], [58, 6]], [a, b]);
+      return { h1: 'Schau nur auf die Einer. Die Zehner bleiben gleich.', h2: `Rechne nur mit den Einern: ${o} - ${b}. Die ${ten(a)} bleibt gleich.`, ex: `${x} - ${y}: Die Einer ${x % 10} - ${y} = ${x % 10 - y}. Also ${x} - ${y} = ${x - y}.` };
+    }
+    const [x, y] = pickEx([[7, 3], [9, 4]], [a, b]), cnt = Array.from({ length: y }, (_, i) => x - i - 1).join(', ');
+    return { h1: 'Fang bei der ersten Zahl an und zähle rückwärts.', h2: `Fang bei ${a} an und zähle ${b} Schritte zurück. Deine Finger helfen dir.`, ex: `${x} - ${y}: Fang bei ${x} an und zähle ${y} zurück: ${cnt}. Also ${x} - ${y} = ${x - y}.` };
+  }
+  /* Mal: a · b = ☐ */
+  function mulH(a, b) {
+    const L = Math.max(a, b), S = Math.min(a, b);
+    if (S === 0) return { h1: 'Wenn du eine Zahl null-mal nimmst, hast du gar nichts.', h2: 'Null mal eine Zahl ist immer null. Und eine Zahl mal null auch.', ex: '5 · 0: Fünf Teller ohne Kekse. Das sind 0 Kekse.' };
+    if (S === 1) return { h1: 'Wenn du eine Zahl einmal nimmst, bleibt sie gleich.', h2: `Einmal die ${L} ist einfach die ${L}.`, ex: L === 7 ? '1 · 4 = 4. Einmal die 4 ist 4.' : '1 · 7 = 7. Einmal die 7 ist 7.' };
+    if (L > 10) {
+      const T = ten(L), E = L % 10, [x, y] = pickEx([[12, 3], [14, 2]], [L, S]);
+      return { h1: E ? 'Zerlege die große Zahl in Zehner und Einer. Dann rechnest du zwei leichte Aufgaben.' : 'Rechne erst ohne die Null. Dann hängst du die Null wieder an.', h2: E ? `Zerlege die ${L} in ${T} und ${E}. ${T} · ${S} = ${T * S}. Rechne noch ${E} · ${S} = ${E * S} dazu.` : `Rechne erst ${L / 10} · ${S} = ${L / 10 * S}. Dann häng eine 0 an.`, ex: `${x} · ${y}: 10 · ${y} = ${10 * y} und ${x - 10} · ${y} = ${(x - 10) * y}. Zusammen ${10 * y} + ${(x - 10) * y} = ${x * y}.` };
+    }
+    const ex1 = (() => { const [x, y] = pickEx([[3, 4], [4, 3]], [a, b]); return `${x} · ${y}: Nimm die ${y} ${times(x)}: ${Array(x).fill(y).join(' + ')} = ${x * y}.`; })();
+    if (a === 10 || b === 10) return { h1: 'Mal zehn ist leicht. Die Zahl bekommt hinten eine Null.', h2: `Nimm die ${a === 10 ? b : a} und häng eine 0 an.`, ex: a === 3 || b === 3 ? '10 · 4 = 40. Aus 4 wird 40.' : '10 · 3 = 30. Aus 3 wird 30.' };
+    const n = a >= 6 ? a : b >= 6 ? b : 0, m = n === a ? b : a;
+    if (n === 9) return { h1: 'Neunmal ist einmal weniger als zehnmal.', h2: `Rechne erst 10 · ${m} = ${10 * m}. Dann nimm einmal die ${m} weg.`, ex: m === 3 ? '9 · 4: 10 · 4 = 40. Dann 40 - 4 = 36.' : '9 · 3: 10 · 3 = 30. Dann 30 - 3 = 27.' };
+    if (n) { const [x, y] = pickEx([[6, 4], [7, 3]], [n, m]), A = n === a; return { h1: 'Zerlege in zwei leichte Malaufgaben. Fünfmal kannst du schon gut.', h2: A ? `${a} · ${b} ist 5 · ${b} und ${a - 5} · ${b}. 5 · ${b} = ${5 * b}. Rechne noch ${a - 5} · ${b} = ${(a - 5) * b} dazu.` : `${a} · ${b} ist ${a} · 5 und ${a} · ${b - 5}. ${a} · 5 = ${a * 5}. Rechne noch ${a} · ${b - 5} = ${a * (b - 5)} dazu.`, ex: `${x} · ${y}: 5 · ${y} = ${5 * y} und ${x - 5} · ${y} = ${(x - 5) * y}. Zusammen ${5 * y} + ${(x - 5) * y} = ${x * y}.` }; }
+    return { h1: 'Mal heißt: Du nimmst eine Zahl mehrmals.', h2: `Nimm die ${b} ${times(a)}: ${Array(a).fill(b).join(' + ')}.`, ex: ex1 };
+  }
+  const stepsTo = (k, z) => { const n = z / k, L = [k, 2 * k, 3 * k].filter((v) => v < z); return n <= 1 ? `${k}` : L.join(', ') + ', …'; };
+  function eqHint(E, ans) {
+    const { a, b, c, op, u } = E;
+    if (u === 'c') {
+      if (op === '+') return addH(a, b);
+      if (op === '-') return subH(a, b);
+      if (op === '·') return mulH(a, b);
+      const [x, y] = pickEx([[12, 3], [10, 2]], [a, b]);
+      return { h1: 'Geteilt heißt: Wie oft passt die eine Zahl in die andere?', h2: `Denk an die Malaufgabe: ${BX} · ${b} = ${a}. Zähle in ${b}er-Schritten bis ${a}: ${stepsTo(b, a)}`, ex: `${x} : ${y}: Zähle in ${y}er-Schritten bis ${x}: ${Array.from({ length: x / y }, (_, i) => (i + 1) * y).join(', ')}. Das sind ${x / y} Schritte. Also ${x} : ${y} = ${x / y}.` };
+    }
+    if (op === '+') {
+      const k = u === 'b' ? a : b, P = hops(k, c), [x, z] = pickEx(c <= 20 ? [[7, 12], [8, 13]] : [[16, 22], [35, 42], [28, 61]], [k, c]);
+      return { h1: 'Überlege, wie viel noch fehlt. Mach kleine Sprünge bis zum Ergebnis.', h2: (u === 'a' ? `Tausch die Zahlen: ${k} + ${BX} = ${c}. ` : '') + hopTxt(P), ex: `${x} + ${BX} = ${z}: ${hopSolved(hops(x, z))} Also ${BX} = ${z - x}.` };
+    }
+    if (op === '-') {
+      if (u === 'b') { const P = hops(c, a), [x, z] = pickEx(a <= 20 ? [[15, 9], [12, 7]] : [[52, 38], [43, 36], [64, 27]], [a, c]); return { h1: 'Überlege: Wie viel musst du wegnehmen, damit das Ergebnis übrig bleibt?', h2: `Rechne andersherum: Wie viel fehlt von ${c} bis ${a}? ` + hopTxt(P), ex: `${x} - ${BX} = ${z}: ${hopSolved(hops(z, x))} Also ${BX} = ${x - z}, denn ${x} - ${x - z} = ${z}.` }; }
+      const [y, z] = pickEx([[3, 5], [4, 6]], [b, c]);
+      return { h1: 'Rechne umgekehrt mit Plus.', h2: `Rechne ${c} + ${b}. Das ist die Zahl, die in das Kästchen gehört.`, ex: `${BX} - ${y} = ${z}: Rechne ${z} + ${y} = ${z + y}. Also ${BX} = ${z + y}, denn ${z + y} - ${y} = ${z}.` };
+    }
+    if (op === '·') {
+      const k = u === 'b' ? a : b, [x, z] = pickEx([[4, 12], [3, 15]], [k, c]);
+      return { h1: 'Überlege: Wie oft passt die Zahl in das Ergebnis?', h2: `Zähle in ${k}er-Schritten bis ${c}: ${stepsTo(k, c)} Wie viele Schritte sind das?`, ex: `${x} · ${BX} = ${z}: Zähle in ${x}er-Schritten: ${Array.from({ length: z / x }, (_, i) => (i + 1) * x).join(', ')}. Das sind ${z / x} Schritte. Also ${BX} = ${z / x}.` };
+    }
+    if (u === 'b') { const [x, z] = pickEx([[15, 5], [12, 4]], [a, c]); return { h1: 'Überlege: Durch welche Zahl musst du teilen?', h2: `Denk an die Malaufgabe: ${c} · ${BX} = ${a}. Zähle in ${c}er-Schritten bis ${a}: ${stepsTo(c, a)}`, ex: `${x} : ${BX} = ${z}: Denk an ${z} · ${BX} = ${x}. ${z} · ${x / z} = ${x}. Also ${BX} = ${x / z}.` }; }
+    const [y, z] = pickEx([[2, 4], [3, 5]], [b, c]);
+    return { h1: 'Rechne umgekehrt mit Mal.', h2: `Rechne ${c} · ${b}. Das ist die Zahl, die in das Kästchen gehört.`, ex: `${BX} : ${y} = ${z}: Rechne ${z} · ${y} = ${z * y}. Also ${BX} = ${z * y}, denn ${z * y} : ${y} = ${z}.` };
+  }
+  /* Vergleichen: 34 ☐ 43 mit <, >, = */
+  const evalSide = (s) => { const m = s.trim().match(/^(\d+)(?: ?([+\-·:]) ?(\d+))?$/); return m ? (m[2] ? calc(+m[1], m[2], +m[3]) : +m[1]) : NaN; };
+  function cmpHint(t, sol) {
+    const s = normT(t).trim(), m = s.match(/^(.*?)\s?§\s?(.*)$/); if (!m || !/^[<>=]$/.test(sol)) return null;
+    const L = evalSide(m[1]), R = evalSide(m[2]); if (isNaN(L) || isNaN(R) || (L < R ? '<' : L > R ? '>' : '=') !== sol) return null;
+    const h1 = 'Welche Seite ist größer? Die Spitze zeigt immer zur kleineren Zahl. Sind beide gleich, kommt ein Gleich-Zeichen hin.', ex = '23 < 32, denn 2 Zehner sind weniger als 3 Zehner.';
+    if (/[+\-·:]/.test(m[1] + m[2])) return { h1, h2: /[+\-·:]/.test(m[1]) ? `Rechne erst die linke Seite aus: ${m[1].trim()} = ${L}. Dann rechnest du die rechte Seite aus und vergleichst.` : `Rechne erst die rechte Seite aus: ${m[2].trim()} = ${R}. Dann vergleichst du.`, ex };
+    const a = String(L), b = String(R);
+    if (a.length !== b.length) return { h1, h2: 'Zähle die Stellen. Die Zahl mit mehr Stellen ist größer.', ex };
+    const i = [...a].findIndex((ch, k) => ch !== b[k]), PL = ['Einer', 'Zehner', 'Hunderter', 'Tausender'][a.length - 1 - Math.max(0, i)] || 'Stellen';
+    return { h1, h2: i <= 0 ? `Vergleiche zuerst die ${PL}: ${a[0]} und ${b[0]}.` : `Vorne sind die Ziffern gleich. Vergleiche jetzt die ${PL}: ${a[i]} und ${b[i]}.`, ex };
+  }
+  /* Zahlenfolge: 2, 4, 6, ☐ */
+  function seqHint(t, sol) {
+    const s = normT(t).trim().replace(/[.!]$/, ''); if (!/^(\d+|§)( ?[,;] ?(\d+|§)){2,}$/.test(s)) return null;
+    const v = s.split(/ ?[,;] ?/).map(num), i = v.indexOf(null); if (v.filter((x) => x === null).length !== 1) return null;
+    let d = null; for (let k = 1; k < v.length; k++) if (v[k] !== null && v[k - 1] !== null) { const dd = v[k] - v[k - 1]; if (d === null) d = dd; else if (dd !== d) return null; }
+    if (d === null || !d) return null; const p = i > 0 ? v[i - 1] + d : v[1] - d; if (String(p) !== String(sol).trim()) return null;
+    return { h1: 'Schau genau: Wie ändern sich die Zahlen von einer zur nächsten?', h2: d > 0 ? `Von einer Zahl zur nächsten kommen immer ${d} dazu.` : `Von einer Zahl zur nächsten gehen immer ${-d} weg.`, ex: Math.abs(d) === 5 ? '20, 18, 16, 14: Immer 2 weg.' : '5, 10, 15, 20: Immer 5 dazu.' };
+  }
+  /* Deutsch: Mehrzahl / Einzahl */
+  const UM = { 'ä': 'a', 'ö': 'o', 'ü': 'u' }, deU = (w) => w.replace(/äu/g, 'au').replace(/[äöü]/g, (c) => UM[c]);
+  const plPat = (sg, pl) => { const s = sg.toLowerCase(), p = pl.toLowerCase(), b = deU(p); if (!b.startsWith(s)) return null; const end = p.slice(s.length); let v = ''; if (p.slice(0, s.length) !== s) { const k = [...s].findIndex((ch, j) => ch !== p[j]); v = s.slice(k, k + 2) === 'au' ? 'au' : s[k]; } return { v, end }; };
+  const PLX = [['der Hund', 'die Hunde'], ['der Tag', 'die Tage'], ['die Blume', 'die Blumen'], ['die Katze', 'die Katzen'], ['das Bett', 'die Betten'], ['die Frau', 'die Frauen'], ['das Kind', 'die Kinder'], ['das Bild', 'die Bilder'], ['das Auto', 'die Autos'], ['das Baby', 'die Babys'], ['der Lehrer', 'die Lehrer'], ['das Fenster', 'die Fenster'],
+    ['der Ball', 'die Bälle'], ['die Hand', 'die Hände'], ['der Hut', 'die Hüte'], ['der Stock', 'die Stöcke'], ['die Maus', 'die Mäuse'], ['der Baum', 'die Bäume'], ['das Glas', 'die Gläser'], ['das Dach', 'die Dächer'], ['das Haus', 'die Häuser'], ['das Buch', 'die Bücher'], ['der Vogel', 'die Vögel'], ['der Apfel', 'die Äpfel'], ['die Mutter', 'die Mütter']];
+  const vName = (v) => v === 'au' ? 'au wird äu' : `${v} wird ${{ a: 'ä', o: 'ö', u: 'ü' }[v]}`;
+  function plHint(t, sol) {
+    const s = String(t).replace(/_{2,}|…|☐|□|\?/g, ' § ').replace(/\s+/g, ' ').trim();
+    const m = s.match(/^(der|die|das|ein|eine)\s+([A-ZÄÖÜ][a-zäöüß]+)\s*[-–—:,→>]+\s*(?:die|viele|zwei|drei|der|das|ein|eine)?\s*§\s*\.?$/); if (!m) return null;
+    const w = m[2], a = String(sol).trim().replace(/^(die|der|das|ein|eine)\s+/i, '');
+    let P = plPat(w, a), one = false; if (!P) { P = plPat(a, w); one = true; } if (!P || (!P.end && !P.v && !one && a !== w)) return null;
+    const X = PLX.map(([x, y]) => ({ x, y, P: plPat(x.split(' ')[1], y.split(' ')[1]) })).filter((e) => ![e.x, e.y].some((z) => [w, a].some((q) => z.split(' ')[1].toLowerCase() === q.toLowerCase())));
+    const E = X.find((e) => e.P.v === P.v && e.P.end === P.end) || X.find((e) => !!e.P.v === !!P.v && e.P.end === P.end) || X.find((e) => e.P.end === P.end) || X[0];
+    if (one) return { h1: 'Stell dir vor, es ist nur eins davon. Wie heißt es dann?', h2: (P.end ? `Lass die Endung „${P.end}“ weg.` : 'Das Ende bleibt gleich.') + (P.v ? ` Und aus ${{ a: 'ä', o: 'ö', u: 'ü', au: 'äu' }[P.v]} wird wieder ${P.v}.` : ''), ex: `${E.y} → ${E.x}` };
+    return { h1: 'Stell dir vor, es sind ganz viele davon. Sag laut: viele …', h2: P.v ? `Ein Buchstabe ändert sich: Aus ${vName(P.v)}.${P.end ? ' Hör genau, was am Ende noch dazukommt.' : ' Am Ende kommt nichts dazu.'}` : P.end ? 'Das Wort bleibt vorne gleich. Hör genau, was am Ende dazukommt: -e, -n, -en, -er oder -s?' : 'Hier bleibt das Wort ganz gleich. Nur der Artikel wird zu „die“.', ex: `${E.x} → ${E.y}` };
+  }
+  /* Deutsch: Artikel der, die, das */
+  function artHint(t, sol) {
+    const a = String(sol).trim().toLowerCase(); if (!/^(der|die|das)$/.test(a)) return null;
+    const m = String(t).replace(/_{2,}|…|☐|□/g, ' § ').match(/§\s+([A-ZÄÖÜ][a-zäöüß]+)/); if (!m) return null;
+    return { h1: 'Ist es der, die oder das? Sag das Wort laut mit jedem Artikel.', h2: `Probier alle drei: der ${m[1]}, die ${m[1]}, das ${m[1]}. Was klingt richtig?`, ex: m[1] === 'Ball' ? 'die Blume, das Buch, der Hund' : 'der Ball, die Blume, das Buch' };
+  }
+  /* Deutsch: fehlende Buchstaben im Wort (Fa__rrad, Bi__ne) */
+  function letHint(t, sol) {
+    const s = String(t).replace(/_{2,}|…|☐|□/g, '§'), a = String(sol).trim(); if (!/[A-Za-zÄÖÜäöüß]§|§[a-zäöüß]/.test(s) || !/^[A-Za-zÄÖÜäöüß]{1,3}$/.test(a)) return null;
+    const l = a.toLowerCase(), word = (s.match(/[A-Za-zÄÖÜäöüß]*§[a-zäöüß]*/) || [''])[0], end = /§$/.test(word);
+    const R = l === 'ie' ? ['Hörst du ein langes i? Das schreibt man meistens ie.', 'die Biene, der Brief'] : l === 'ck' ? ['Nach einem kurzen Laut schreibt man oft ck statt k.', 'die Decke, der Zucker'] : l === 'tz' ? ['Nach einem kurzen Laut schreibt man oft tz statt z.', 'die Katze, der Platz']
+      : l === 'ß' ? ['Nach einem langen Laut schreibt man oft ß.', 'die Straße, der Fuß'] : l === 'ss' ? ['Nach einem kurzen Laut schreibt man oft ss.', 'das Wasser, der Fluss'] : l.length === 2 && l[0] === l[1] ? ['Ist der Laut davor kurz? Dann kommen oft zwei gleiche Buchstaben.', 'die Sonne, der Teller']
+      : /^(ä|äu)$/.test(l) ? ['Gibt es ein verwandtes Wort mit a oder au? Dann schreibt man ä oder äu.', 'der Baum, die Bäume']
+      : l === 'h' ? ['Hier fehlt ein Buchstabe, den man kaum hört. Er macht den Laut davor lang.', 'die Kuh, das Jahr'] : end && /^[dtbpgk]$/.test(l) ? ['Verlängere das Wort. Dann hörst du den Buchstaben am Ende.', 'der Hund, die Hunde'] : null;
+    const n = [...a].length, cnt = n === 1 ? 'Es fehlt ein Buchstabe.' : `Es fehlen ${n === 2 ? 'zwei' : 'drei'} Buchstaben.`;
+    return { h1: 'Sprich das Wort ganz langsam. Hör genau hin.', h2: R ? `${cnt} ${R[0]}` : `${cnt} Sprich das Wort in Silben und hör auf jeden Laut.`, ex: R ? R[1] : '' };
+  }
+  /* Lückentext: ein Wort fehlt im Satz */
+  function gapHint(t, sol) {
+    const s = String(t).replace(/_{2,}|…|☐|□/g, ' § ').replace(/\s+/g, ' ').trim(), a = String(sol).trim(); if (!/§/.test(s) || /\d/.test(a) || !a) return null;
+    const ws = a.split(/\s+/), noun = /^[A-ZÄÖÜ]/.test(a) && !/^§/.test(s) && !/[.!?:]\s*§/.test(s), L = [...a.replace(/\s/g, '')].length;
+    return { h1: 'Lies den ganzen Satz. Welches Wort passt in die Lücke?', h2: ws.length > 1 ? `Es fehlen ${ws.length} Wörter. Das erste beginnt mit „${ws[0][0]}“.` : `Das Wort beginnt mit „${a[0]}“ und hat ${L} Buchstaben.${noun ? ' Es ist ein Nomen. Das schreibt man groß.' : ''}`, ex: '' };
+  }
+  /* Rest: Sachaufgaben und alles andere */
+  function genHint(t, sol) {
+    const a = String(sol).trim(), n = a.replace(/\s/g, ''), s = String(t);
+    if (/^\d+$/.test(n)) {
+      const v = +n, lo = v < 100 ? ten(v) : Math.floor(v / 100) * 100, hi = lo + (v < 100 ? 10 : 100);
+      const op = /jede[rsmn]?\b|verteil|gleich viele|teilen/i.test(s) ? ' Hier wird verteilt. Rechne mit Geteilt.' : /übrig|weg\b|weniger|verschenkt|gegessen|gibt .*ab\b|verliert/i.test(s) ? ' Hier geht etwas weg. Rechne mit Minus.' : /zusammen|insgesamt|dazu|mehr als|bekommt/i.test(s) ? ' Hier kommt etwas dazu. Rechne mit Plus.' : '';
+      return { h1: 'Lies die Aufgabe langsam. Was ist gefragt?' + op, h2: v < 10 ? 'Die Lösung ist eine Zahl mit einer Stelle.' : `Die Lösung liegt zwischen ${lo} und ${hi}.`, ex: '', kind: 'gen' };
+    }
+    const ws = a.split(/\s+/);
+    return { h1: 'Lies die Aufgabe nochmal ganz langsam. Was ist gefragt?', h2: ws.length > 1 ? `Die Antwort hat ${ws.length} Wörter. Das erste beginnt mit „${ws[0][0]}“.` : `Die Antwort beginnt mit „${a[0] || '?'}“ und hat ${[...a].length} Zeichen.`, ex: '', kind: 'gen' };
+  }
+  function hint(t, sol) {
+    sol = String(sol == null ? '' : sol).trim();
+    const E = parseEq(t), sn = sol.replace(/\s/g, '');
+    if (E && /^\d+$/.test(sn) && solveEq(E) === +sn && [E.a, E.b, E.c].every((v) => v === null || v <= 100000)) { const H = eqHint(E, +sn); if (H) return { ...H, kind: 'eq', op: E.op, eq: show(E) }; }
+    for (const f of [cmpHint, seqHint, plHint, artHint, letHint, gapHint]) { const H = f(t, sol); if (H) return { ...H, kind: f.name }; }
+    return genHint(t, sol);
+  }
+  /* Rückmeldung bei falscher Antwort: ermutigend, ohne die Lösung zu verraten */
+  function nudge(t, sol, v) {
+    const a = String(sol).trim(), x = String(v).trim(), n = a.replace(/\s/g, ''), m = x.replace(/\s/g, '');
+    if (/^\d+$/.test(n) && /^\d+$/.test(m)) { const d = Math.abs(+m - +n); if (d === 1 || d === 2) return 'Ganz knapp! Zähl nochmal genau nach.'; if (d % 10 === 0 && d < 100) return 'Fast! Schau nochmal auf die Zehner.'; if (d % 100 === 0) return 'Fast! Schau nochmal auf die Hunderter.'; return 'Rechne nochmal in Ruhe nach.'; }
+    if (/^\d/.test(n) && !/\d/.test(m)) return 'Hier gehört eine Zahl hin.';
+    const lo = (s) => s.toLowerCase();
+    if (deU(lo(a)) === deU(lo(x)) && lo(a) !== lo(x)) return 'Fast! Denk an die Pünktchen: ä, ö oder ü.';
+    if (lo(x).startsWith(lo(a).slice(0, Math.max(2, a.length - 2))) && lo(x) !== lo(a)) return 'Fast! Hör genau auf das Ende vom Wort.';
+    return 'Lies die Aufgabe nochmal genau.';
+  }
+  const solve = (t) => { const E = parseEq(t), v = E ? solveEq(E) : NaN; return Number.isInteger(v) && v >= 0 ? String(v) : ''; };
+  return { hint, nudge, solve, parseEq, solveEq, normT };
+})();
+/* HWHINT-END */
 
-const LIBK = 'gsm-hwlib';
+const numW = (a) => { const n = +a, s = new Set(); [1, -1, 10, -10, 2, -2].forEach((d) => { if (s.size < 3 && n + d >= 0 && n + d !== n) s.add(String(n + d)); }); return [...s]; };
+const asGame = (L) => (L || []).map((x, i) => x.k === 'pad' && i % 2 === 0 ? { ...x, k: 'mc', w: numW(x.a) } : x);
+/* Aufgaben für Spiel und Probetest vorbereiten: Satzzeichen, Stimme nur ohne Zahlen, echte Tipps für Rechenaufgaben */
+function hwItems(R, test) {
+  hwReg(R);
+  return (test ? R.probetest || [] : asGame(R.spiel)).map((x0) => {
+    const x = { ...x0 }; delete x.vq;
+    if (x.k === 'tf' && x.q && !/[.!?]\s*$/.test(x.q)) x.q = String(x.q).trim() + '.';
+    if (R.hwid && x.tts >= 0 && hwTalkable(x.q)) x.vq = `hw:${R.hwid}:${x.tts}`;
+    else if (!hwTalkable(x.q)) { const c = x.k === 'gap' ? 'de:Was passt in die Lücke?' : x.k === 'tf' ? 'de:Stimmt das?' : ''; if (c && CLIPS['max|' + c]) x.vq = c; }
+    if (!x.h && (x.k === 'pad' || x.k === 'gap' || x.k === 'mc')) { const H = HWH.hint(x.q, x.a); if (H.kind !== 'gen') x.h = H.h2; }
+    return x;
+  });
+}
+
+const LIBK = 'gsm-hwlib', PRGK = 'gsm-hwprog';
 const libGet = () => { try { return JSON.parse(lsx.get(LIBK, '[]')) || []; } catch (e) { return []; } };
 const libPut = (L) => { for (let n = L.length; n >= 0; n--) { try { localStorage.setItem(LIBK, JSON.stringify(L.slice(0, n))); return; } catch (e) {} } };
+/* Fortschritt je Hausaufgabe: ws = Arbeitsblatt (0 offen, 1 allein gelöst, 2 Lösung angeschaut), sp = Spiel, pt = Probetest */
+const prgAll = () => { try { return JSON.parse(lsx.get(PRGK, '{}')) || {}; } catch (e) { return {}; } };
+const prgGet = (id) => (id && prgAll()[id]) || {};
+function prgSet(id, patch) { if (!id) return; const A = prgAll(), ids = new Set(libGet().map((x) => String(x.id))); A[id] = { ...(A[id] || {}), ...patch }; Object.keys(A).forEach((k) => { if (!ids.has(k)) delete A[k]; }); lsx.set(PRGK, JSON.stringify(A)); }
+const libTh = (x) => x.th || (x.ths || [])[0] || '';
 function thumb(dataUrl) { return new Promise((ok) => { const im = new Image(); im.onload = () => { const c = document.createElement('canvas'), k = 220 / Math.max(im.width, im.height); c.width = im.width * k; c.height = im.height * k; c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); ok(c.toDataURL('image/jpeg', .7)); }; im.onerror = () => ok(''); im.src = dataUrl; }); }
 
 function drawHW(sel = '#ahw', web, SJ) {
   const h = $(sel); if (!h || h.dataset.ok) return; h.dataset.ok = 1;
-  let pend = [], R = null, Rimg = '', Rths = [];
+  let pend = [], R = null, Rimg = '', Rths = [], curId = '', curT = '';
   h.innerHTML = `${web ? '' : SJ ? `<div class="hwh sj"><div class="hwhm">${tutorHTML(SJ.tutor.id)}</div><div><span class="hwk">${I('cap')}Testvorbereitung ${SJ.n}</span><b>Bald eine Arbeit in ${SJ.n}?</b><span>Fotografiere Arbeitsblätter, Hefteinträge oder Seiten aus dem Buch. Daraus wird ein Probetest, ein Übungsspiel und eine Erklärung.</span></div></div>` : `<div class="hwh"><div class="hwhm">${tutorHTML('max')}</div><div><span class="hwk">${I('cam')}Hausaufgaben &amp; Tests</span><b>Hausaufgabe klemmt? Arbeit steht an?</b><span>Fotos vom Arbeitsblatt machen. Max erklärt den Weg, macht ein Spiel daraus und baut einen Probetest für die Klassenarbeit.</span></div></div>`}
     <div class="hwd"><input type="file" accept="image/*" multiple class="hwf" hidden><input type="file" accept="image/*" capture="environment" class="hwc" hidden>
       <span class="hwdi">${I('cam')}</span><b>Fotos machen oder hierher ziehen</b><span>Bis zu 10 Seiten auf einmal. Am Handy und Tablet öffnet sich direkt die Kamera.</span>
@@ -11584,7 +11964,7 @@ function drawHW(sel = '#ahw', web, SJ) {
     <div class="hwpend"></div>
     <div class="hwtabs"><button data-t="e" style="--c1:#ffb547;--c2:#e2620f">${I('bulb')}<span>${SJ ? SJ.tutor.n : 'Max'} erklärt</span></button><button data-t="s" style="--c1:#4f8ff0;--c2:#1a4fb4">${I('pad')}<span>Spiel daraus</span></button><button data-t="p" style="--c1:#8a6cf0;--c2:#4a33b8">${I('cap')}<span>Probetest</span></button><button data-t="l" style="--c1:#4cc38a;--c2:#1f8a4c">${I('book')}<span>Bibliothek</span></button></div>
     <div class="hwr"></div>`;
-  const d = $('.hwd', h), f = $('.hwf', h), c = $('.hwc', h), r = $('.hwr', h), pe = $('.hwpend', h), tabs = $$('.hwtabs button', h);
+  const d = $('.hwd', h), f = $('.hwf', h), c = $('.hwc', h), r = $('.hwr', h), pe = $('.hwpend', h), tabs = $$('.hwtabs button', h), tabBox = $('.hwtabs', h);
   const free = () => { const n = hwLeft(); $('.hwfree', h).innerHTML = n === Infinity ? `${I('check')}${isAdmin() ? 'Unbegrenzt freigeschaltet' : 'Im Abo enthalten'}` : n > 0 ? `<span class="hwst">${Array.from({ length: HW_FREE }, (_, i) => `<i class="${i < n ? 'on' : ''}">${I('star')}</i>`).join('')}</span><span class="hwft"><b>Noch ${n} ${n === 1 ? 'Hausaufgabe' : 'Hausaufgaben'} gratis</b><small>zum Ausprobieren</small></span>` : `${I('lock')}Alle Probe-Hausaufgaben verbraucht`; $('.hwfree', h).classList.toggle('no', n === 0); };
   free(); h._free = free;
   $('.hwcam', h).onclick = (e) => { e.stopPropagation(); c.click(); };
@@ -11594,6 +11974,8 @@ function drawHW(sel = '#ahw', web, SJ) {
   ['dragenter', 'dragover'].forEach((ev) => d.addEventListener(ev, (e) => { e.preventDefault(); d.classList.add('over'); }));
   ['dragleave', 'drop'].forEach((ev) => d.addEventListener(ev, (e) => { e.preventDefault(); d.classList.remove('over'); }));
   d.addEventListener('drop', (e) => { const fs = [...(e.dataTransfer.files || [])].filter((x) => x.type.startsWith('image/')); if (fs.length) add(fs); });
+  const myLib = () => libGet().filter((x) => x && x.R && (!SJ || x.k === SJ.k || x.R.fach === SJ.n));
+  const useEntry = (x) => { R = x.R; Rimg = libTh(x); Rths = x.ths && x.ths.length ? x.ths : [libTh(x)]; curId = String(x.id); hwReg(R); };
 
   async function add(files) {
     if (!PROF().hw) { lpToast('Die Hausaufgaben-Hilfe ist im Elternbereich ausgeschaltet.'); return; }
@@ -11615,11 +11997,11 @@ function drawHW(sel = '#ahw', web, SJ) {
   }
   async function send() {
     if (hwLeft() <= 0) { paywall('Max hilft bei Hausaufgaben und Tests'); return; }
-    const imgs = pend.slice(); pend = []; pe.innerHTML = ''; GT.t('Hausaufgabe hochgeladen', (SJ ? 'Test ' + SJ.n : 'Hausaufgabe') + ' · ' + imgs.length + (imgs.length === 1 ? ' Foto' : ' Fotos')); const TU = SJ ? SJ.tutor : { id: 'max', n: 'Max' };
-    tabs.forEach((b) => b.classList.remove('on'));
+    const imgs = pend.slice(); pend = []; GT.t('Hausaufgabe hochgeladen', (SJ ? 'Test ' + SJ.n : 'Hausaufgabe') + ' · ' + imgs.length + (imgs.length === 1 ? ' Foto' : ' Fotos')); const TU = SJ ? SJ.tutor : { id: 'max', n: 'Max' };
+    tabs.forEach((b) => b.classList.remove('on')); curT = '';
     r.innerHTML = `<div class="hwscanw"><div class="hwstack">${imgs.slice(0, 4).map((u, i) => `<div class="hwi" style="--r:${(i - 1.5) * 4}deg;--i:${i}"><img src="${u}" alt=""><i class="hwscan loop"></i></div>`).join('')}</div>
       <div class="hwwait"><span class="hwwm hwx">${tutorHTML(TU.id)}</span><b>${TU.n} liest ${imgs.length > 1 ? `deine ${imgs.length} Seiten` : 'dein Blatt'} …</b><ol class="hwsteps"><li class="on">Aufgaben erkennen</li><li>Lösungsweg überlegen</li><li>Spiel und Probetest bauen</li></ol></div></div>`;
-    r.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    pe.innerHTML = ''; requestAnimationFrame(() => r.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     const steps = $$('.hwsteps li', r); let si = 0; const tick = setInterval(() => { if (si < steps.length - 1) { steps[si].classList.add('done'); steps[++si].classList.add('on'); } }, 5000);
     const talkI = setInterval(() => $$('.hwx .tut', r).forEach((t) => { t.classList.add('talk'); setTimeout(() => t.classList.remove('talk'), 900); }), 2400);
     let res;
@@ -11628,108 +12010,198 @@ function drawHW(sel = '#ahw', web, SJ) {
     catch (e) { res = { ok: false, retry: true, grund: e && e.name === 'AbortError' ? 'Das hat zu lange gedauert. Probier es gleich nochmal.' : 'Keine Verbindung. Probier es gleich nochmal.' }; }
     clearTimeout(to);
     clearInterval(tick); clearInterval(talkI);
+    if (!res || typeof res !== 'object') res = { ok: false, grund: 'Probier ein schärferes Foto.' };
     if (res.limit && (res.limit === 'frei' || !PAID)) { r.innerHTML = ''; paywall('Max hilft bei Hausaufgaben und Tests'); return; }
     if (res.limit) { r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML(TU.id)}</span><div><b>Für heute geschafft!</b><p>${esc(res.grund || 'Morgen geht es weiter.')}</p></div></div>`; return; }
-    if (!res.ok) { GT.t('Hausaufgabe Ergebnis', res.retry ? 'keine Verbindung' : 'nicht lesbar'); pend = imgs.concat(pend).slice(0, 10); drawPend(); r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML(TU.id)}</span><div><b>Hmm, das hat nicht geklappt.</b><p>${esc(res.grund || 'Probier ein schärferes Foto.')}</p><button class="b3d sm hwretry">${I('again')}Nochmal versuchen</button></div></div>`; const rb = $('.hwretry', r); if (rb) rb.onclick = send; hwSpeak(res.audio); sfx.no(); return; }
+    if (!res.ok) { GT.t('Hausaufgabe Ergebnis', res.retry ? 'keine Verbindung' : 'nicht lesbar'); pend = imgs.concat(pend).slice(0, 10); drawPend(); r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML(TU.id)}</span><div><b>Hmm, das hat nicht geklappt.</b><p>${esc(res.grund || 'Probier ein schärferes Foto.')}</p><button class="b3d sm hwretry">${I('again')}Nochmal versuchen</button></div></div>`; const rb = $('.hwretry', r); if (rb) rb.onclick = send; hwSpeak(res.audio, res.sprechtext || res.grund); sfx.no(); return; }
     GT.t('Hausaufgabe Ergebnis', 'ok'); if (!isAdmin()) lsx.set('gsm-hw-n', +lsx.get('gsm-hw-n', 0) + 1); act('hw');
     $$('.hwd').forEach((x) => x.parentElement._free && x.parentElement._free());
-    R = res; Rimg = imgs[0]; Rths = await Promise.all(imgs.map((x) => thumb(x))); sfx.ok(); starsUp(r, 12);
-    const L = libGet(); L.unshift({ id: Date.now(), k: SJ ? SJ.k : '', t: new Date().toLocaleDateString('de-DE', { day: 'numeric', month: 'short' }), n: imgs.length, th: Rths[0], ths: Rths.slice(0, 4), R: { ...res, audio: '' } }); libPut(L.slice(0, 30));
+    res.spiel = res.spiel || []; res.probetest = res.probetest || [];
+    R = res; Rimg = imgs[0]; Rths = await Promise.all(imgs.map((x) => thumb(x))); sfx.ok(); starsUp(r, 12); hwReg(R);
+    const id = String(Date.now()), L = libGet(); L.unshift({ id, k: SJ ? SJ.k : '', t: new Date().toLocaleDateString('de-DE', { day: 'numeric', month: 'short' }), n: imgs.length, th: '', ths: Rths.slice(0, 4), R: { ...res, audio: '' } }); libPut(L.slice(0, 30)); curId = id;
     view('e');
   }
   function head() {
     const ths = Rths.length ? Rths : [Rimg], B = R.blaetter || [];
-    return `<div class="hwhd"><small>${esc(R.fach)}${ths.length > 1 ? ` · ${ths.length} Fotos gelesen` : ''}</small><b>${esc(R.thema || 'Deine Aufgaben')}</b></div>
+    return `<div class="hwhd"><small>${esc(R.fach || '')}${ths.length > 1 ? ` · ${ths.length} Fotos gelesen` : ''}</small><b>${esc(R.thema || 'Deine Aufgaben')}</b></div>
       <div class="hwsheets">${ths.map((src, i) => `<div class="hwsh"><div class="hwi sm"><img src="${src}" alt=""><span class="hwok">${I('check')}Gelesen</span></div><b>${esc(B[i] || (ths.length > 1 ? 'Foto ' + (i + 1) : R.thema || 'Deine Aufgabe'))}</b></div>`).join('')}</div>`;
   }
-  function view(t) {
+  /* Spiel oder Probetest starten; das Ergebnis wird bei dieser Hausaufgabe gespeichert */
+  function play(test) {
+    const id = curId, items = hwItems(R, test);
+    if (!items.length) { lpToast(test ? 'Für diesen Probetest fehlen leider Aufgaben.' : 'Für dieses Spiel fehlen leider Aufgaben.'); sfx.no(); return; }
+    startLesson(0, 0, 0, { items, title: test ? 'Probetest' : 'Hausaufgaben-Spiel', kind: test ? 'test' : 'game', w: test ? 2 : 0, c1: test ? '#8a6cf0' : '#4f8ff0', c2: test ? '#4a33b8' : '#1a4fb4', hw: true,
+      onEnd: (res) => { const P0 = prgGet(id), k = test ? 'pt' : 'sp', old = P0[k] || {}; prgSet(id, { [k]: { r: res.r, n: res.n, at: res.at, best: Math.max(old.best || 0, res.r), plays: (old.plays || 0) + 1 } }); GT.t(test ? 'Probetest fertig' : 'Hausaufgaben-Spiel fertig', res.r + '/' + res.n); if (curT) view(curT, true); } });
+  }
+  const resTxt = (x) => x ? `${x.r} von ${x.n} richtig` : '';
+  const wsTxt = (P0, n) => { const w = P0.ws || [], k = w.filter((v) => v > 0).length; return n && k ? (k >= n ? 'fertig' : `${k} von ${n}`) : ''; };
+  /* Ansicht wechseln, ohne dass die Seite springt: die Leiste mit den vier Knöpfen bleibt, wo sie ist */
+  function render(html) {
+    const y0 = tabBox.getBoundingClientRect().top; r.innerHTML = html; const y1 = tabBox.getBoundingClientRect().top;
+    if (Math.abs(y1 - y0) > 1) { const sc = h.closest('.amain'); if (sc && sc.scrollHeight > sc.clientHeight) sc.scrollTop += y1 - y0; else window.scrollBy(0, y1 - y0); }
+  }
+  function view(t, quiet) {
     if (t !== 'l' && !R) { lpToast(SJ ? 'Lade zuerst ein Foto von deinem Arbeitsblatt hoch.' : 'Lade zuerst ein Foto deiner Hausaufgabe hoch.'); sfx.no(); restart(d, 'shk'); d.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-    tabs.forEach((b) => b.classList.toggle('on', b.dataset.t === t)); sfx.tap();
+    tabs.forEach((b) => b.classList.toggle('on', b.dataset.t === t)); if (!quiet) sfx.tap(); curT = t;
     if (t === 'l') {
-      const L = libGet().filter((x) => !SJ || x.k === SJ.k || (x.R && x.R.fach === SJ.n));
-      r.innerHTML = L.length ? `<div class="hwlib">${L.map((x, i) => `<button class="hwli" data-i="${i}" style="animation-delay:${i * .04}s"><img src="${x.th}" alt=""><span><small>${esc(x.R.fach)} · ${x.t}${x.n > 1 ? ` · ${x.n} Seiten` : ''}</small><b>${esc(x.R.thema || 'Hausaufgabe')}</b><em>${I('bulb')}Erklärung ${I('pad')}Spiel ${I('cap')}Probetest</em></span>${I('arrow')}</button>`).join('')}</div>`
-        : `<div class="hwempty"><span>${I('book')}</span><b>Deine Bibliothek ist noch leer</b><p>Jede Hausaufgabe, bei der Max hilft, landet hier. So kannst du vor der Arbeit alles nochmal üben.</p></div>`;
-      $$('.hwli', r).forEach((b) => (b.onclick = () => { const x = L[+b.dataset.i]; R = x.R; Rimg = x.th; Rths = x.ths || [x.th]; view('e'); }));
-      restart(r, 'pin'); return;
+      const L = myLib(), PA = prgAll();
+      render(L.length ? `<div class="hwlib">${L.map((x, i) => { const P0 = PA[x.id] || {}, nb = (x.R.blatt || []).length, w = wsTxt(P0, nb);
+        return `<div class="hwli${String(x.id) === curId ? ' cur' : ''}" data-i="${i}" style="animation-delay:${quiet ? 0 : i * .04}s"><img src="${libTh(x)}" alt=""><div class="hwlit"><small>${esc(x.R.fach || '')} · ${esc(x.t || '')}${x.n > 1 ? ` · ${x.n} Seiten` : ''}</small><b>${esc(x.R.thema || 'Hausaufgabe')}</b>
+          <div class="hwlia"><button type="button" data-a="e">${I(nb ? 'pen' : 'bulb')}<span>${nb ? 'Arbeitsblatt' : 'Erklärung'}</span>${w ? `<em>${w === 'fertig' ? I('check') + 'fertig' : w}</em>` : ''}</button>
+          <button type="button" data-a="s"${x.R.spiel && x.R.spiel.length ? '' : ' disabled'}>${I('pad')}<span>Spiel</span>${P0.sp ? `<em>${I('check')}gespielt</em>` : ''}</button>
+          <button type="button" data-a="p"${x.R.probetest && x.R.probetest.length ? '' : ' disabled'}>${I('cap')}<span>Probetest</span>${P0.pt ? `<em>${P0.pt.r} von ${P0.pt.n}</em>` : ''}</button></div></div></div>`; }).join('')}</div>`
+        : `<div class="hwempty"><span>${I('book')}</span><b>Deine Bibliothek ist noch leer</b><p>Jede Hausaufgabe, bei der Max hilft, landet hier. Auch deine Spiele und Probetests. So kannst du vor der Arbeit alles nochmal üben.</p></div>`);
+      $$('.hwli', r).forEach((el) => { const x = L[+el.dataset.i];
+        $$('[data-a]', el).forEach((b) => (b.onclick = (e) => { e.stopPropagation(); useEntry(x); const a = b.dataset.a; if (a === 'e') view('e'); else { sfx.tap(); view(a, true); play(a === 'p'); } }));
+        el.onclick = () => { useEntry(x); view('e'); }; });
+      if (!quiet) restart(r, 'pin'); return;
     }
+    const P0 = prgGet(curId);
     if (t === 'e') {
       const B = R.blatt || [];
       if (B.length) {
-        r.innerHTML = `${head()}<div class="wscta"><div class="wsctm hwx">${tutorHTML('max')}</div><div><b>Wir lösen dein Blatt zusammen!</b><p>${B.length} Aufgaben. Max stellt dir zu jeder Aufgabe eine Frage, du tippst die Antwort ein. Wenn es hakt, gibt er dir Tipps.</p><button class="b3d lg" data-ws>${I('pen')}Arbeitsblatt mit Max lösen</button></div></div>
-          <div class="hwnext"><button class="b3d w" data-go="s">${I('pad')}Lieber gleich zum Spiel</button></div>`;
-        $('[data-ws]', r).onclick = () => openSheet(R);
+        const w = P0.ws || [], k = w.filter((v) => v > 0).length, all = k >= B.length;
+        render(`${head()}<div class="wscta"><div class="wsctm hwx">${tutorHTML('max')}</div><div><b>${all ? 'Dein Blatt ist fertig!' : k ? 'Mach weiter mit deinem Blatt!' : 'Wir lösen dein Blatt zusammen!'}</b><p>${all ? 'Super! Du kannst es nochmal üben oder gleich spielen.' : k ? `Schon ${k} von ${B.length} Aufgaben geschafft. Die anderen schaffst du auch.` : `${B.length} Aufgaben. Du tippst die Antwort ein und drückst auf Prüfen. Wenn es hakt, hilft dir Max.`}</p><button class="b3d lg" data-ws>${I('pen')}${all ? 'Blatt nochmal ansehen' : k ? 'Weiter lösen' : 'Arbeitsblatt mit Max lösen'}</button></div></div>
+          <div class="hwnext"><button class="b3d w" data-go="s">${I('pad')}Lieber gleich zum Spiel</button></div>`);
+        $('[data-ws]', r).onclick = () => openSheet(R, { id: curId, onDone: () => view('s'), onClose: () => { if (curT === 'e') view('e', true); } });
         $('[data-go=s]', r).onclick = () => view('s');
-        hwSpeak(R.audio);
-        restart(r, 'pin'); return;
+        if (!quiet) { hwSpeak(R.audio, R.sprechtext); restart(r, 'pin'); } return;
       }
-      r.innerHTML = `${head()}<div class="hwexp"><div class="hwexm hwx">${tutorHTML('max')}${R.audio ? `<button class="hwplay" aria-label="Nochmal anhören">${I('snd')}</button>` : ''}</div>
+      render(`${head()}<div class="hwexp"><div class="hwexm hwx">${tutorHTML('max')}${R.audio && hwTalkable(R.sprechtext) ? `<button class="hwplay" aria-label="Nochmal anhören">${I('snd')}</button>` : ''}</div>
         <div class="hwsteps2">${(R.erklaerung || []).map((x, i) => `<div class="hwst" style="animation-delay:${.15 + i * .35}s"><span>${i + 1}</span><div><b>${esc(x.titel || '')}</b><p>${esc(x.text || '')}</p></div></div>`).join('')}
         ${R.tipp ? `<div class="hwtip" style="animation-delay:${.2 + (R.erklaerung || []).length * .35}s">${I('bulb')}<div><b>Jetzt du!</b><p>${esc(R.tipp)}</p></div></div>` : ''}</div></div>
-        <div class="hwnext"><button class="b3d lg" data-go="s">${I('pad')}Weiter zum Spiel</button></div>`;
-      const pl = $('.hwplay', r); if (pl) pl.onclick = () => hwSpeak(R.audio);
+        <div class="hwnext"><button class="b3d lg" data-go="s">${I('pad')}Weiter zum Spiel</button></div>`);
+      const pl = $('.hwplay', r); if (pl) pl.onclick = () => hwSpeak(R.audio, R.sprechtext);
       $('[data-go=s]', r).onclick = () => view('s');
-      hwSpeak(R.audio);
+      if (!quiet) hwSpeak(R.audio, R.sprechtext);
     } else {
-      const test = t === 'p', items = (test ? R.probetest : asGame(R.spiel)).map((x) => (R.hwid && x.tts >= 0 ? { ...x, vq: `hw:${R.hwid}:${x.tts}` } : x));
-      r.innerHTML = `${head()}<div class="hwplaycard ${test ? 'pt' : 'sp'}"><span class="hwpci">${I(test ? 'cap' : 'pad')}</span><div><small>${test ? 'Für die Klassenarbeit' : 'Aus deinem Arbeitsblatt'}</small><b>${test ? `Probetest: ${items.length} neue Aufgaben` : `Hausaufgaben-Spiel: ${items.length} Runden`}</b><p>${test ? 'Ähnliche Aufgaben wie auf deinem Blatt, aber neu. So merkst du, ob es wirklich sitzt.' : 'Genau deine Aufgaben, als Spiel. Danach schaffst du das Blatt allein.'}</p></div>
-        <button class="b3d lg" data-play>${I('play')}${test ? 'Test starten' : 'Spiel starten'}</button></div>`;
-      $('[data-play]', r).onclick = () => startLesson(0, 0, 0, { items, title: test ? 'Probetest' : 'Hausaufgaben-Spiel', kind: test ? 'test' : 'game', w: test ? 2 : 0, c1: test ? '#8a6cf0' : '#4f8ff0', c2: test ? '#4a33b8' : '#1a4fb4' });
+      const test = t === 'p', n = (test ? R.probetest || [] : R.spiel || []).length, last = test ? P0.pt : P0.sp;
+      render(`${head()}<div class="hwpc ${test ? 'hwpc-t' : 'hwpc-s'}"><span class="hwpci">${I(test ? 'cap' : 'pad')}</span><div class="hwpct"><small>${test ? 'Für die Klassenarbeit' : 'Aus deinem Arbeitsblatt'}</small><b>${test ? `Probetest: ${n} neue Aufgaben` : `Hausaufgaben-Spiel: ${n} Runden`}</b><p>${test ? 'Neue Aufgaben wie auf deinem Blatt. So siehst du, ob du es schon kannst.' : 'Deine Aufgaben als Spiel. Danach schaffst du das Blatt allein.'}</p>${last ? `<span class="hwpcr">${I('star')}Letztes Mal: ${resTxt(last)}${last.best > last.r ? ` · Bestes: ${last.best}` : ''}</span>` : ''}</div>
+        <button class="b3d lg" data-play${n ? '' : ' disabled'}>${I('play')}${test ? (last ? 'Test nochmal machen' : 'Test starten') : (last ? 'Nochmal spielen' : 'Spiel starten')}</button></div>`);
+      $('[data-play]', r).onclick = () => play(test);
     }
-    restart(r, 'pin');
+    if (!quiet) restart(r, 'pin');
   }
   tabs.forEach((b) => (b.onclick = () => view(b.dataset.t)));
+  /* Nach dem Neuladen: letzte Hausaufgabe ist wieder da, die Bibliothek zeigt alles Gespeicherte */
+  const L0 = myLib(); if (L0.length) { useEntry(L0[0]); if (!web) view('l', true); }
 }
 
-/* ---------- Arbeitsblatt zum Mitmachen: Max fragt, das Kind tippt, Tipps und Lösung ---------- */
-function openSheet(R) {
-  const B = R.blatt || [], T = R.blaetter || [], math = /mathe/i.test(R.fach || '');
-  let o = $('#ws'); if (!o) { o = document.createElement('div'); o.id = 'ws'; o.className = 'wsheet'; document.body.appendChild(o); }
-  const st0 = B.map(() => ({ tries: 0, done: false, shown: false }));
-  let cur = 0;
+/* ---------- Arbeitsblatt zum Mitmachen: jede Aufgabe hat Prüfen und Hilfe von Max (Hinweis 1, Hinweis 2, dann Lösung) ---------- */
+function openSheet(R, O = {}) {
+  const B = R.blatt || [], T = R.blaetter || [], math = /mathe/i.test(R.fach || ''), id = O.id;
+  let o = $('#ws'); if (!o) { o = document.createElement('div'); o.id = 'ws'; o.className = 'wsheet'; o.setAttribute('role', 'dialog'); o.setAttribute('aria-label', 'Arbeitsblatt mit Max'); document.body.appendChild(o); }
+  hwReg(R);
+  const saved = prgGet(id).ws || [], touch = matchMedia('(hover:none) and (pointer:coarse)').matches;
+  const S = B.map((b, i) => ({ tries: 0, done: saved[i] > 0, shown: saved[i] === 2, lvl: 0, H: null }));
+  let cur = -1, ended = false;
   const norm = (v) => String(v).toLowerCase().replace(/[„“"'.,!?;:()]/g, '').replace(/\s+/g, ' ').trim();
   const same = (a, b) => { const x = norm(a), y = norm(b); if (x === y) return true; const nx = x.replace(/\s/g, ''), ny = y.replace(/\s/g, ''); return nx === ny && nx.length > 0; };
-  const fill = (txt, i) => { const parts = esc(txt).split(/_{2,}/); const inp = `<input class="wsin" data-i="${i}" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="${/^\d+$/.test(B[i].loesung.replace(/\s/g, '')) ? 'numeric' : 'text'}" aria-label="Antwort ${esc(B[i].nr)}">`; return parts.length > 1 ? parts[0] + inp + parts.slice(1).join(' ') : parts[0] + ' ' + inp; };
+  const isNum = (i) => /^\d+$/.test(String(B[i].loesung).replace(/\s/g, ''));
+  const fill = (txt, i) => { const s0 = S[i], parts = esc(txt || '').split(/_{2,}|…|☐|□/), v = s0.done ? ` value="${esc(B[i].loesung)}" disabled` : '';
+    const inp = `<input class="wsin${isNum(i) ? ' wsnum' : ''}${s0.done ? (s0.shown ? ' shown' : ' right') : ''}" data-i="${i}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" inputmode="${isNum(i) ? 'numeric' : 'text'}" aria-label="Antwort für Aufgabe ${esc(B[i].nr || String(i + 1))}"${v}>`;
+    return parts.length > 1 ? parts[0] + inp + parts.slice(1).join(' ') : parts[0] + ' ' + inp; };
+  const act = (i) => S[i].done ? `<span class="wsdone">${I(S[i].shown ? 'book' : 'check')}${S[i].shown ? 'Lösung angeschaut' : 'Richtig gelöst'}</span>`
+    : `<button type="button" class="wsb wsbc" data-a="chk">${I('check')}<span>Prüfen</span></button><button type="button" class="wsb wsbh" data-a="help" aria-expanded="false" aria-controls="wsh${i}"><img src="/grundschulmax/tut-max.png" alt=""><span>Hilfe von Max</span></button>`;
   let rows = '', lastF = 0;
-  B.forEach((b, i) => { if (b.foto !== lastF) { lastF = b.foto; rows += `<div class="wsph">${esc(T[b.foto - 1] || (T.length > 1 ? 'Blatt ' + b.foto : R.thema || 'Arbeitsblatt'))}</div>`; } rows += `<div class="wsrow" data-i="${i}"><span class="wsnr">${esc(b.nr || String(i + 1))}</span><div class="wsq">${fill(b.aufgabe, i)}</div><span class="wsok">${I('check')}</span></div>`; });
+  B.forEach((b, i) => { if (b.foto !== lastF) { lastF = b.foto; rows += `<div class="wsph">${esc(T[b.foto - 1] || (T.length > 1 ? 'Blatt ' + b.foto : R.thema || 'Arbeitsblatt'))}</div>`; }
+    rows += `<div class="wsrow${S[i].done ? (S[i].shown ? ' shown' : ' done') : ''}" data-i="${i}"><span class="wsnr">${esc(b.nr || String(i + 1))}</span><div class="wsq">${fill(b.aufgabe, i)}</div><div class="wsact">${act(i)}</div><p class="wsfb" aria-live="polite"></p><div class="wshelp" id="wsh${i}" hidden></div></div>`; });
   o.innerHTML = `<div class="wsbar"><button class="pwx wsx" aria-label="Schließen">${I('x')}</button><div class="wstl"><small>Arbeitsblatt mit Max</small><b>${esc(R.thema || 'Deine Hausaufgabe')}</b></div><span class="wsprog"><b id="wsn">0</b> / ${B.length}</span></div>
-    <div class="wsscroll"><div class="wspaper ${math ? 'kar' : 'lin'}"><div class="wspaperh"><b>${esc(R.thema || 'Arbeitsblatt')}</b><span>${esc(R.fach || '')}</span></div>${rows}</div><div class="wshand">${I('pointer')}</div></div>
-    <div class="wsdock"><div class="wsmax">${tutorHTML('max')}</div><div class="wsbub"><p id="wsb"></p><div class="wsbtns"><button class="wsrep" aria-label="Nochmal anhören">${I('snd')}</button><button class="lnk" id="wstip">${I('bulb')}Tipp</button><button class="lnk" id="wssol">Lösung zeigen</button><button class="b3d c" id="wschk">Prüfen</button></div></div></div>`;
-  o.classList.add('on'); document.body.classList.add('wsopen');
-  const bub = $('#wsb', o); let lastSay = -1;
-  const say = (text, idx, mood) => { bub.textContent = text; restart(bub.parentElement, 'new'); lastSay = idx; if (idx >= 0) hwSay(R.hwid, idx); else talk(true, Math.min(2400, 300 + text.length * 40)); };
-  const row = (i) => $(`.wsrow[data-i="${i}"]`, o), inp = (i) => $(`.wsin[data-i="${i}"]`, o);
-  const hand = $('.wshand', o);
-  const pointTo = (i) => { const el = inp(i) || row(i); if (!el) return; const sc = $('.wsscroll', o), a = el.getBoundingClientRect(), c = sc.getBoundingClientRect(); hand.style.transform = `translate(${a.left - c.left + a.width / 2}px, ${a.top - c.top + sc.scrollTop + a.height * .7}px)`; hand.classList.remove('tap'); void hand.offsetWidth; hand.classList.add('tap'); };
-  const focusTask = (i, quiet) => {
-    cur = i; $$('.wsrow', o).forEach((r0) => r0.classList.toggle('cur', +r0.dataset.i === i)); const b = B[i];
-    row(i).scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => { pointTo(i); const x = inp(i); if (x && !st0[i].done) x.focus({ preventScroll: true }); }, 380);
-    $('#wssol', o).classList.toggle('hot', st0[i].tries >= 2); $('#wschk', o).textContent = st0[i].done ? (nextOpen() >= 0 ? 'Nächste Aufgabe' : 'Fertig') : 'Prüfen';
-    if (!quiet && !st0[i].done) say(b.frage || 'Was gehört hier hin?', b.sf);
+    <div class="wsscroll"><div class="wspaper ${math ? 'kar' : 'lin'}"><div class="wspaperh"><b>${esc(R.thema || 'Arbeitsblatt')}</b><span>${esc(R.fach || '')}</span></div>${rows}<div class="wshand" hidden>${I('pointer')}</div></div></div>
+    <div class="wsdock"><div class="wsmax">${tutorHTML('max')}</div><div class="wsbub"><p id="wsb"></p><div class="wsbtns"><button class="wsrep" aria-label="Nochmal anhören" hidden>${I('snd')}</button></div></div></div>`;
+  o.classList.add('on'); o.classList.remove('kb'); document.body.classList.add('wsopen');
+  const sc = $('.wsscroll', o), dock = $('.wsdock', o), bub = $('#wsb', o), rep = $('.wsrep', o), hand = $('.wshand', o);
+  const row = (i) => $(`.wsrow[data-i="${i}"]`, o), inp = (i) => $(`.wsin[data-i="${i}"]`, o), fbEl = (i) => $('.wsfb', row(i)), helpEl = (i) => $('.wshelp', row(i));
+  const pad = () => { sc.style.paddingBottom = (o.classList.contains('kb') ? 24 : dock.offsetHeight + 28) + 'px'; };
+  /* Max unten: Text immer schriftlich. Gesprochen wird nur, was keine Zahlen hat */
+  let lastIdx = -1;
+  const say = (text, idx, line) => {
+    bub.textContent = text; restart(bub.parentElement, 'new'); pad();
+    const canHw = idx >= 0 && hwTalkable(text) && HWTX.get(R.hwid + ':' + idx) !== undefined; lastIdx = canHw ? idx : -1; rep.hidden = !canHw;
+    if (canHw) hwSay(R.hwid, idx); else if (line) maxLine(line); else talk(true, Math.min(2400, 300 + String(text).length * 40));
   };
-  const nextOpen = () => { for (let k = 1; k <= B.length; k++) { const j = (cur + k) % B.length; if (!st0[j].done) return j; } return -1; };
-  const prog = () => { $('#wsn', o).textContent = st0.filter((x) => x.done).length; };
-  const finish = () => { const self = st0.filter((x) => x.done && !x.shown).length; sfx.win(); confetti(70); say(`Geschafft! ${self} von ${B.length} Aufgaben hast du ganz allein gelöst. Super!`, -1); $('.wsbtns', o).innerHTML = `<button class="b3d w" id="wsagain">Nochmal von vorn</button><button class="b3d c" id="wsend">Weiter zum Spiel</button>`; $('#wsagain', o).onclick = () => openSheet(R); $('#wsend', o).onclick = () => { close(); const tb = $$('.hwtabs [data-t]').find((x) => x.dataset.t === 's'); if (tb) tb.click(); }; };
-  const goNext = () => { const j = nextOpen(); if (j < 0) finish(); else focusTask(j); };
-  const markDone = (i, shown) => { const s0 = st0[i]; s0.done = true; s0.shown = shown; const x = inp(i); if (x) { x.value = B[i].loesung; x.disabled = true; x.classList.add(shown ? 'shown' : 'right'); } row(i).classList.add(shown ? 'shown' : 'done'); prog(); $('#wschk', o).textContent = nextOpen() >= 0 ? 'Nächste Aufgabe' : 'Fertig'; $('#wssol', o).classList.remove('hot'); };
-  const check = () => {
-    const i = cur, s0 = st0[i], b = B[i];
-    if (s0.done) { goNext(); return; }
-    const x = inp(i), v = x ? x.value.trim() : ''; if (!v) { restart(x || row(i), 'shk'); say('Tippe deine Antwort in das Kästchen.', -1); return; }
-    if (same(v, b.loesung)) { sfx.ok(); markDone(i, false); restart(row(i), 'pop'); if (typeof loot === 'function') loot(x, 6, ['star', 'coin']); say(pick(['Richtig!', 'Super!', 'Genau!', 'Klasse!']) + ' ' + (b.erklaerung || ''), b.se); return; }
-    s0.tries++; sfx.no(); restart(x, 'shk'); x.classList.add('wrong'); setTimeout(() => x.classList.remove('wrong'), 700);
-    const tp = b.tipps[Math.min(s0.tries - 1, b.tipps.length - 1)];
-    say(`Denk nochmal nach. ${tp || b.frage}`, tp ? b.st[Math.min(s0.tries - 1, b.tipps.length - 1)] : b.sf);
-    $('#wssol', o).classList.toggle('hot', s0.tries >= 2);
+  rep.onclick = () => { if (lastIdx >= 0) hwSay(R.hwid, lastIdx); };
+  const prog = () => { $('#wsn', o).textContent = S.filter((x) => x.done).length; };
+  const save = () => { if (id) prgSet(id, { ws: S.map((x) => x.done ? (x.shown ? 2 : 1) : 0) }); };
+  const left = () => S.filter((x) => !x.done).length;
+  const nextOpen = (from) => { for (let k = 1; k <= B.length; k++) { const j = (from + k) % B.length; if (!S[j].done) return j; } return -1; };
+  /* Sichtbar halten: Aufgabe nicht hinter Tastatur oder Max verstecken (sanft scrollen, nichts springt) */
+  const ensure = (el) => { if (!el) return; const a = el.getBoundingClientRect(), c0 = sc.getBoundingClientRect(), cover = o.classList.contains('kb') ? 0 : dock.getBoundingClientRect().height, top = c0.top + 8, bot = c0.bottom - cover - 10;
+    if (a.top < top || a.height > bot - top) sc.scrollBy({ top: a.top - top, behavior: 'smooth' }); else if (a.bottom > bot) sc.scrollBy({ top: a.bottom - bot, behavior: 'smooth' }); };
+  const setCur = (i, talkNow) => { if (i === cur) return; cur = i; $$('.wsrow', o).forEach((r0) => r0.classList.toggle('cur', +r0.dataset.i === i)); if (talkNow && i >= 0 && !S[i].done) { const b = B[i]; say(b.frage || (isNum(i) ? 'Rechne die Aufgabe. Dann tippe auf Prüfen.' : 'Was gehört hier hin? Dann tippe auf Prüfen.'), b.frage ? b.sf : -1); } };
+  const fb = (i, cls, text) => { const e = fbEl(i); e.className = 'wsfb ' + cls; e.innerHTML = text; restart(e, 'new'); };
+  /* Hinweise: von der KI, sonst regelbasiert erzeugt */
+  const hintOf = (i) => { const s0 = S[i]; if (s0.H) return s0.H; const b = B[i], ai = ((Array.isArray(b.hinweise) && b.hinweise.length ? b.hinweise : b.tipps) || []).filter(Boolean), st0 = b.st || [], G = HWH.hint(b.aufgabe, b.loesung);
+    return (s0.H = { h1: ai[0] || G.h1, h2: ai[1] || G.h2, ex: b.beispiel || G.ex || '', s1: ai[0] ? st0[0] : -1, s2: ai[1] ? st0[1] : -1 }); };
+  const drawHelp = (i) => { const H = hintOf(i), s0 = S[i], hl = helpEl(i);
+    hl.innerHTML = `<div class="wshc"><span class="wshm hwx">${tutorHTML('max')}</span><div class="wsht"><div class="wshs"><small>${I('bulb')}Hinweis 1</small><p>${esc(H.h1)}</p></div>
+      ${s0.lvl >= 2 ? `<div class="wshs s2"><small>${I('bulb')}Hinweis 2</small><p>${esc(H.h2)}</p>${H.ex ? `<div class="wsex"><small>Beispiel</small><p>${esc(H.ex)}</p></div>` : ''}</div>` : ''}
+      ${s0.done ? '' : `<div class="wshb">${s0.lvl < 2 ? `<button type="button" class="wsb wsb2" data-a="h2">${I('bulb')}<span>Hinweis 2</span></button>` : `<button type="button" class="wsb wsb3" data-a="sol">${I('book')}<span>Lösung zeigen</span></button>`}</div>`}</div></div>`; };
+  const speakHint = (i, k) => { const H = hintOf(i), t = k === 1 ? H.h1 : H.h2, ix = k === 1 ? H.s1 : H.s2; $$('.wshm .tut', row(i)).forEach((x) => { x.classList.add('talk'); setTimeout(() => x.classList.remove('talk'), 1600); });
+    if (ix >= 0 && hwTalkable(t) && HWTX.get(R.hwid + ':' + ix) !== undefined) { bub.textContent = 'Lies mal, was ich dir unter die Aufgabe geschrieben habe.'; restart(bub.parentElement, 'new'); pad(); lastIdx = ix; rep.hidden = false; hwSay(R.hwid, ix); }
+    else { bub.textContent = 'Schau mal, ich habe dir einen Tipp aufgeschrieben. Er steht unter der Aufgabe.'; restart(bub.parentElement, 'new'); pad(); lastIdx = -1; rep.hidden = true; maxTip(); } };
+  const toggleHelp = (i, force) => { const hl = helpEl(i), btn = $('[data-a=help]', row(i)), open = force != null ? force : hl.hidden; hideHand();
+    if (!open) { hl.hidden = true; if (btn) { btn.setAttribute('aria-expanded', 'false'); btn.classList.remove('on'); } return; }
+    const first = !S[i].lvl; S[i].lvl = Math.max(1, S[i].lvl); drawHelp(i); hl.hidden = false; if (btn) { btn.setAttribute('aria-expanded', 'true'); btn.classList.add('on', 'seen'); btn.classList.remove('hot'); }
+    restart(hl, 'new'); setCur(i); const fe = fbEl(i); if (fe.classList.contains('no')) { fe.className = 'wsfb'; fe.innerHTML = ''; } if (first) { sfx.tap(); speakHint(i, 1); } setTimeout(() => ensure(row(i)), 60); };
+  const markDone = (i, shown, val) => { const s0 = S[i]; s0.done = true; s0.shown = shown; const x = inp(i); if (x) { x.value = val || B[i].loesung; x.disabled = true; x.classList.remove('wrong'); x.classList.add(shown ? 'shown' : 'right'); }
+    const rw = row(i); rw.classList.add(shown ? 'shown' : 'done'); $('.wsact', rw).innerHTML = act(i); if (!helpEl(i).hidden) drawHelp(i); prog(); save(); };
+  const finish = () => { if (ended) return; ended = true; const self = S.filter((x) => x.done && !x.shown).length; sfx.win(); confetti(70);
+    say(`Geschafft! ${self} von ${B.length} Aufgaben hast du ganz allein gelöst. Super!`, -1, 'Super gemacht!');
+    $('.wsbtns', o).innerHTML = `<button class="b3d w" id="wsagain">${I('again')}Nochmal von vorn</button><button class="b3d c" id="wsend">${I('pad')}Weiter zum Spiel</button>`; pad();
+    $('#wsagain', o).onclick = () => { if (id) prgSet(id, { ws: [] }); openSheet(R, O); }; $('#wsend', o).onclick = () => { close(); if (O.onDone) O.onDone(); }; };
+  const goOn = (i) => { const j = nextOpen(i); if (j < 0) { setTimeout(finish, 700); return; } setCur(j); if (!touch) setTimeout(() => { const x = inp(j); if (x) { x.focus({ preventScroll: true }); ensure(row(j)); } }, 650); };
+  const check = (i) => {
+    const s0 = S[i], b = B[i]; if (s0.done) return; hideHand(); setCur(i);
+    const x = inp(i), v = x ? x.value.trim() : '';
+    if (!v) { restart(x || row(i), 'shk'); fb(i, 'no', `${I('pen')}<span>Tippe zuerst deine Antwort in das Kästchen.</span>`); sfx.no(); if (x && !touch) x.focus({ preventScroll: true }); return; }
+    const alt = HWH.solve(b.aufgabe);
+    if (same(v, b.loesung) || (alt && same(v, alt))) {
+      sfx.ok(); markDone(i, false, v); restart(row(i), 'pop'); if (typeof loot === 'function') loot(x, 6, ['star', 'coin']);
+      const ok = pick(HWOK); fb(i, 'ok', `${I('check')}<span><b>${ok}</b> ${esc(b.erklaerung || '')}</span>`);
+      const n = left(); say(n ? `${ok} Noch ${n} ${n === 1 ? 'Aufgabe' : 'Aufgaben'}.` : `${ok} Das war die letzte Aufgabe.`, hwTalkable(b.erklaerung) ? b.se : -1, ok);
+      goOn(i); return;
+    }
+    s0.tries++; sfx.no(); restart(x, 'shk'); x.classList.add('wrong'); setTimeout(() => x.classList.remove('wrong'), 900);
+    const tip = s0.tries >= 2 && s0.lvl < 1 ? ' Tippe auf „Hilfe von Max“.' : s0.tries >= 2 && s0.lvl < 2 ? ' Schau dir Hinweis 2 an.' : '';
+    fb(i, 'no', `${I('x')}<span>${esc(HWH.nudge(b.aufgabe, b.loesung, v) + tip)}</span>`);
+    const no = pick(HWNO); say(no, -1, no);
+    const hb = $('[data-a=help]', row(i)); if (hb && s0.tries >= 2 && s0.lvl < 1) { hb.classList.add('hot'); restart(hb, 'pulse2'); }
   };
-  $$('.wsrow', o).forEach((r0) => (r0.onclick = (e) => { const i = +r0.dataset.i; if (i !== cur) focusTask(i); }));
-  $$('.wsin', o).forEach((x) => x.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); check(); } }));
-  $('#wschk', o).onclick = check;
-  $('#wstip', o).onclick = () => { const b = B[cur], s0 = st0[cur]; if (s0.done) return; const k = Math.min(s0.tries, b.tipps.length - 1); s0.tries = Math.max(s0.tries, 1); say(b.tipps[k] || b.frage, b.st[k] >= 0 ? b.st[k] : b.sf); $('#wssol', o).classList.toggle('hot', s0.tries >= 2); };
-  $('#wssol', o).onclick = () => { const b = B[cur]; if (st0[cur].done) return; markDone(cur, true); say(`Die Lösung ist ${b.loesung}. ${b.erklaerung || ''}`, b.se); };
-  $('.wsrep', o).onclick = () => { if (lastSay >= 0) hwSay(R.hwid, lastSay); };
-  const close = () => { o.classList.remove('on'); document.body.classList.remove('wsopen'); stopVoice(); };
+  const showSol = (i) => { const b = B[i]; if (S[i].done) return; markDone(i, true); sfx.flip();
+    fb(i, 'sol', `${I('book')}<span><b>Die Lösung ist ${esc(b.loesung)}.</b> ${esc(b.erklaerung || '')}</span>`);
+    say('Schau dir die Lösung genau an. Dann klappt es beim nächsten Mal allein.', hwTalkable(b.erklaerung) ? b.se : -1, 'Schau mal, so geht das.'); goOn(i); };
+  /* Ein Klick-Handler für alles im Blatt */
+  sc.onclick = (e) => { const bt = e.target.closest('[data-a]'), rw = e.target.closest('.wsrow'); if (!rw) return; const i = +rw.dataset.i;
+    if (!bt) { const x = inp(i); if (x && !S[i].done && e.target !== x) x.focus({ preventScroll: true }); setCur(i, true); hideHand(); return; }
+    const a = bt.dataset.a;
+    if (a === 'chk') check(i);
+    else if (a === 'help') toggleHelp(i);
+    else if (a === 'h2') { S[i].lvl = 2; drawHelp(i); restart($('.wshs.s2', helpEl(i)), 'new'); sfx.tap(); speakHint(i, 2); setTimeout(() => ensure(helpEl(i)), 60); }
+    else if (a === 'sol') showSol(i); };
+  $$('.wsin', o).forEach((x) => { const i = +x.dataset.i;
+    x.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); check(i); } });
+    x.addEventListener('input', () => { x.classList.remove('wrong'); const e = fbEl(i); if (e.classList.contains('no')) { e.className = 'wsfb'; e.innerHTML = ''; } });
+    x.addEventListener('focus', () => { hideHand(); setCur(i, true); if (touch) { o.classList.add('kb'); pad(); setTimeout(() => ensure(row(i)), 350); } });
+    x.addEventListener('blur', () => { if (touch) setTimeout(() => { const a = document.activeElement; if (!(a && a.classList && a.classList.contains('wsin') && o.contains(a))) { o.classList.remove('kb'); pad(); } }, 120); }); });
+  /* Bildschirmtastatur am Handy: Blatt passt sich an die sichtbare Höhe an */
+  const vv = window.visualViewport;
+  const fit = () => { if (!o.classList.contains('on') || !vv) return; o.style.top = vv.offsetTop + 'px'; o.style.height = vv.height + 'px'; };
+  if (vv && !o._vv) { o._vv = 1; vv.addEventListener('resize', () => o._fit && o._fit()); vv.addEventListener('scroll', () => o._fit && o._fit()); }
+  o._fit = fit; fit();
+  /* Zeige-Hand: zeigt am Anfang auf das erste Kästchen */
+  function hideHand() { hand.hidden = true; }
+  const first = nextOpen(-1);
+  const close = () => { o.classList.remove('on', 'kb'); o.style.top = ''; o.style.height = ''; document.body.classList.remove('wsopen'); stopVoice(); document.removeEventListener('keydown', esc0); if (O.onClose) O.onClose(); };
+  const esc0 = (e) => { if (e.key === 'Escape' && o.classList.contains('on') && !$('.les.on')) close(); };
+  document.addEventListener('keydown', esc0);
   $('.wsx', o).onclick = close;
-  setTimeout(() => focusTask(0), 250);
+  prog(); pad();
+  if (first < 0) { finish(); return; }
+  const k0 = S.filter((x) => x.done).length;
+  say(k0 ? `Schön, dass du weitermachst! Noch ${left()} ${left() === 1 ? 'Aufgabe' : 'Aufgaben'}.` : 'Tippe deine Antwort in das Kästchen. Dann drück auf Prüfen. Wenn du nicht weiterweißt, hilft dir Max.', -1, k0 ? '' : 'Los geht’s!');
+  setTimeout(() => { setCur(first); const el = inp(first) || row(first); if (!el || !o.classList.contains('on')) return; ensure(row(first));
+    setTimeout(() => { const a = el.getBoundingClientRect(), p0 = $('.wspaper', o).getBoundingClientRect(); hand.style.transform = `translate(${a.left - p0.left + a.width / 2}px, ${a.top - p0.top + a.height * .7}px)`; hand.hidden = false; hand.classList.remove('tap'); void hand.offsetWidth; hand.classList.add('tap'); setTimeout(hideHand, 4200); if (!touch) el.focus({ preventScroll: true }); }, 380); }, 250);
 }
 
 /* ---------- Profil, Tier-Bilder, Elternbereich mit Eltern-Code ---------- */
