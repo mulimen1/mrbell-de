@@ -5044,7 +5044,238 @@ html,body{overscroll-behavior-x:none}
 #avg .avb{background:none!important;border:0!important;box-shadow:none!important;outline:none;padding:0}
 #avg .avb.on .avt{box-shadow:0 0 0 4px #2a7fe8,0 10px 18px -6px rgba(42,127,232,.6)!important}
 .avjobs{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));overflow:visible}.avj{width:auto}
+/* ---------- Szenen in Antwortknöpfen ---------- */
+.xo.scn{aspect-ratio:1;padding:6px}
+.ocs{position:relative;display:block;width:100%;height:100%}
+.ocs img{position:absolute;object-fit:contain;filter:drop-shadow(0 5px 4px rgba(0,0,0,.22))}
+.ocs .ocb{left:14%;bottom:4%;width:72%}
+.ocs.p-dans .occ{left:24%;bottom:38%;width:52%;z-index:0}.ocs.p-dans .ocb{z-index:1}
+.ocs.p-sur .ocb{width:60%;left:20%}.ocs.p-sur .occ{left:30%;bottom:44%;width:40%}
+.ocs.p-cote .ocb{left:2%;width:54%}.ocs.p-cote .occ{right:2%;bottom:4%;width:40%}
+.ocs.p-panier .ocb{left:8%;width:84%;bottom:6%}.ocs.p-panier .occ{left:18%;bottom:20%;width:64%}
+.ocs.p-devant .ocb{left:20%;width:62%;bottom:26%}.ocs.p-devant .occ{left:28%;bottom:0;width:44%;z-index:2}
+.ocs.p-derriere .ocb{left:16%;width:66%;bottom:2%;z-index:2}.ocs.p-derriere .occ{left:36%;bottom:40%;width:46%;z-index:1}
+.ocstage{position:absolute;left:50%;top:22%;translate:-50% 0;width:min(32vh,30vw,260px);aspect-ratio:1;z-index:2;display:none;background:rgba(255,255,255,.75);border-radius:28px;box-shadow:0 10px 30px -10px rgba(0,0,0,.35)}
+.ocstage.on{display:block;animation:rqpop .45s}
+.g-ochat .xo.txt{flex-basis:100%;max-width:520px}
+.ocjump{position:absolute;right:4%;bottom:max(142px,19%);width:min(16%,150px);z-index:2;opacity:.95}
+.ocjump.hop{animation:ochop .7s cubic-bezier(.3,0,.4,1)}@keyframes ochop{45%{transform:translate(-30%,-55%) rotate(-10deg)}}
+.ocyarn{position:absolute;left:4%;bottom:max(142px,19%);width:min(9%,80px);z-index:2;animation:ocroll 9s ease-in-out infinite}
+@keyframes ocroll{0%,100%{transform:translateX(0) rotate(0)}50%{transform:translateX(60px) rotate(240deg)}}
+.ocpaws{position:absolute;left:30%;top:20%;width:min(9%,80px);z-index:1;opacity:.5;rotate:-20deg}
+@media (max-width:560px){.ocjump{display:none}.ocstage{top:18%;width:42vw}.ocpaws{display:none}}
+/* ---------- Jahreszeiten-Rad ---------- */
+.jwheel{position:absolute;left:50%;top:20%;translate:-50% 0;width:min(30vh,30vw,280px);aspect-ratio:1;z-index:2;--r:0deg;transition:transform 1s cubic-bezier(.4,1.4,.5,1);transform:rotate(var(--r))}
+.jwb{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 10px 14px rgba(60,30,0,.35))}
+.jwt{position:absolute;width:34%;transition:transform 1s cubic-bezier(.4,1.4,.5,1),filter .4s;filter:drop-shadow(0 4px 4px rgba(0,0,0,.25))}
+.jwt.t0{left:33%;top:6%;transform:rotate(calc(-1 * var(--r)))}.jwt.t1{right:6%;top:33%;transform:rotate(calc(-1 * var(--r)))}.jwt.t2{left:33%;bottom:6%;transform:rotate(calc(-1 * var(--r)))}.jwt.t3{left:6%;top:33%;transform:rotate(calc(-1 * var(--r)))}
+.jwheel.ask .jwt:not(.top){filter:grayscale(.7) brightness(.85) drop-shadow(0 4px 4px rgba(0,0,0,.2))}
+.jwheel.ask .jwt.top{filter:drop-shadow(0 0 14px #fff) drop-shadow(0 0 6px #ffd84a)}
+.jwheel.win{animation:jwin .6s cubic-bezier(.2,1.5,.4,1)}@keyframes jwin{40%{scale:1.08}}
+.jwheel::before{content:"";position:absolute;left:50%;top:-6%;translate:-50% 0;border:12px solid transparent;border-top:18px solid #ef4458;z-index:3;filter:drop-shadow(0 2px 2px rgba(0,0,0,.3))}
+.jfall{width:46px;animation:jfall 2.4s ease-in forwards;z-index:6}
+@keyframes jfall{0%{transform:translate(0,0) rotate(0);opacity:0}10%{opacity:1}100%{transform:translate(var(--dx),110vh) rotate(260deg);opacity:.8}}
+.g-jahr .xo{flex-basis:clamp(96px,13vw,150px)}
+@media (max-width:560px){.jwheel{top:19%;width:50vw}}
+@media (min-width:561px) and (max-height:820px){.jwheel{width:min(26vh,240px)}}
+/* ---------- Ampel-Profi ---------- */
+.g-amp .gsky{background-position:50% 70%}
+.ampsig{position:absolute;right:16%;top:22%;height:min(30%,240px);z-index:2;filter:drop-shadow(0 12px 12px rgba(0,0,0,.35))}
+.ampsig.pop{animation:rqpop .45s cubic-bezier(.2,1.5,.4,1)}
+.ampkid{position:absolute;left:14%;top:28%;height:min(28%,220px);z-index:2;filter:drop-shadow(0 10px 8px rgba(0,0,0,.3));animation:pgidle 1.6s ease-in-out infinite}
+.ampkid.walk{animation:ampwalk 1.8s ease-in-out}@keyframes ampwalk{0%{transform:translateX(0)}20%{transform:translateX(5vw) translateY(-3px)}40%{transform:translateX(12vw)}60%{transform:translateX(20vw) translateY(-3px)}80%{transform:translateX(26vw)}100%{transform:translateX(0)}}
+.ampkid.shake{animation:ushk .45s}
+.ampcar{position:absolute;left:105%;top:36%;height:min(18%,150px);z-index:1;filter:drop-shadow(0 8px 8px rgba(0,0,0,.3))}
+.ampcar.drive{animation:ampdrive 1.7s cubic-bezier(.4,0,.6,1)}@keyframes ampdrive{0%{left:105%}100%{left:-30%}}
+.ampcar.drive.halt{animation:amphalt 1.7s cubic-bezier(.2,.8,.3,1) forwards}@keyframes amphalt{0%{left:105%}60%{left:58%}100%{left:56%}}
+.ampcar.honk{animation:amphonk 1.2s ease-out}@keyframes amphonk{0%{left:105%}40%{left:40%}55%{left:41%;transform:rotate(-3deg)}70%{left:40%;transform:rotate(3deg)}100%{left:-30%}}
+.xopts.amp .xo.txt{flex:1 1 100%;max-width:640px;min-height:54px}
+@media (min-width:900px){.xopts.amp{width:min(60%,760px)}}
+@media (max-width:560px){.ampsig{right:6%;top:19%;height:20%}.ampkid{left:4%;top:20%;height:20%}.ampcar{top:27%;height:11%}.xopts.amp .xo.txt span{font-size:15px}.xopts.amp .xo.txt{min-height:46px;padding:8px 12px}}
+/* ---------- Wetter-Labor ---------- */
+.wscreen{position:absolute;left:50%;top:20%;translate:-50% 0;width:min(40vh,38vw,340px);aspect-ratio:1.25;z-index:2;border-radius:26px;background:linear-gradient(180deg,#1d3d6e,#12284a);border:6px solid #e9f0fb;box-shadow:0 14px 30px -10px rgba(0,20,60,.55),inset 0 0 30px rgba(80,170,255,.35);display:grid;place-items:center;overflow:hidden}
+.wscreen .wlab{position:absolute;top:6px;left:50%;translate:-50% 0;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#7fd0ff}
+.wscreen img{width:62%;filter:drop-shadow(0 8px 10px rgba(0,0,0,.4))}
+.wscreen img.pop{animation:rqpop .5s cubic-bezier(.2,1.5,.4,1)}
+.wscreen[data-w=sun] img{animation:wsun 8s linear infinite}@keyframes wsun{to{rotate:360deg}}
+.wscreen[data-w=wind] img{animation:wwind 1.6s ease-in-out infinite}@keyframes wwind{50%{transform:translateX(14px) scaleX(1.06)}}
+.wscreen[data-w=storm]{animation:wflash 3s steps(1) infinite}@keyframes wflash{0%,88%,100%{background:linear-gradient(180deg,#1d3d6e,#12284a)}90%,94%{background:#cfe6ff}}
+.wscreen[data-w=rainbow] img{animation:hqf 3s ease-in-out infinite}
+.wscreen .wfx{position:absolute;inset:0;pointer-events:none}
+.wscreen[data-w=rain] .wfx,.wscreen[data-w=storm] .wfx{background:repeating-linear-gradient(100deg,transparent 0 22px,rgba(140,200,255,.55) 22px 24px);background-size:120px 120px;animation:wrain .5s linear infinite;mask:linear-gradient(transparent 45%,#000 60%)}
+@keyframes wrain{to{background-position:-20px 120px}}
+.wscreen[data-w=snow] .wfx{background:radial-gradient(circle,#fff 0 2.5px,transparent 3px) 0 0/34px 34px,radial-gradient(circle,#fff 0 1.8px,transparent 2.2px) 17px 17px/34px 34px;animation:wsnow 3s linear infinite;mask:linear-gradient(transparent 40%,#000 60%)}
+@keyframes wsnow{to{background-position:10px 68px,30px 85px}}
+.wscreen.win{box-shadow:0 0 0 6px #4cc38a,0 14px 30px -10px rgba(0,20,60,.55)}.wscreen.nope{animation:ushk .45s}
+.wscreen:not([data-w]),.wscreen[data-w=""]{opacity:.85}
+.wtherm{position:absolute;left:8%;top:30%;height:min(26%,200px);z-index:2;animation:hqf 4s ease-in-out infinite}
+.wbeak{position:absolute;right:8%;top:34%;height:min(18%,140px);z-index:2;animation:hqf 4s ease-in-out -2s infinite}
+.g-wet .xo.txt{flex:1 1 100%;max-width:620px;min-height:54px}
+@media (max-width:560px){.wscreen{top:18%;width:56vw}.wtherm,.wbeak{display:none}.g-wet .xo.txt{min-height:46px;padding:8px 12px}.g-wet .xo.txt span{font-size:15px}}
+@media (min-width:561px) and (max-height:820px){.wscreen{width:min(32vh,300px)}}
+/* ---------- Wie lernt eine KI? ---------- */
+.g-kil .gsky{background-position:50% 40%}
+.kbot{position:absolute;left:8%;top:22%;height:min(42%,340px);z-index:2;filter:drop-shadow(0 14px 12px rgba(0,30,60,.35));animation:pgidle 2s ease-in-out infinite;transform-origin:50% 100%}
+.kbot.yay{animation:pgyay .6s cubic-bezier(.2,1.5,.4,1)}.kbot.shake{animation:ushk .5s}
+.kcard{position:absolute;left:50%;top:19%;translate:-50% 0;width:min(26vh,24vw,220px);aspect-ratio:1;z-index:3}
+.kcard img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 12px 14px rgba(0,30,60,.35))}
+.kcard.pop{animation:rqpop .45s cubic-bezier(.2,1.5,.4,1)}
+.kguess{position:absolute;left:50%;top:-14px;translate:-50% -100%;white-space:nowrap;background:#1d2a3a;color:#7ff3ff;font-weight:900;font-size:clamp(15px,1.8vw,20px);padding:8px 16px;border-radius:16px;box-shadow:0 0 18px rgba(80,240,255,.45)}
+.kguess::after{content:"";position:absolute;left:50%;bottom:-8px;translate:-50% 0;border:8px solid transparent;border-bottom:0;border-top-color:#1d2a3a}
+.kcube{position:absolute;right:10%;top:24%;width:min(14%,130px);aspect-ratio:1;z-index:2}
+.kcube img{width:100%;filter:drop-shadow(0 0 18px rgba(60,160,255,.6));animation:hqf 3s ease-in-out infinite}
+.kcube b{position:absolute;left:50%;bottom:-6px;translate:-50% 100%;background:#fff;color:#1a4fb4;font-weight:900;border-radius:99px;padding:2px 12px;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.kcube.gulp{animation:cpop .45s cubic-bezier(.2,1.5,.4,1)}
+.kgear{position:absolute;right:24%;top:46%;width:min(8%,70px);z-index:1;opacity:.95}
+.kgear.spin{animation:kspin 1s cubic-bezier(.3,.9,.4,1)}@keyframes kspin{to{rotate:360deg}}
+.kbulb{position:absolute;left:24%;top:16%;width:min(7%,64px);z-index:2;filter:grayscale(.6) brightness(.9)}
+.kbulb.glow{animation:kglow 1.2s ease-out}@keyframes kglow{0%{filter:none drop-shadow(0 0 0 #ffd84a)}30%{filter:none drop-shadow(0 0 26px #ffd84a);scale:1.2}100%{filter:grayscale(.6) brightness(.9)}}
+.g-kil .xo.txt{min-width:140px}
+@media (max-width:560px){.kbot{left:2%;top:30%;height:24%}.kcard{top:20%;width:40vw}.kcube{right:3%;top:30%;width:18%}.kgear,.kbulb{display:none}.g-kil .xo.txt{flex:1 1 100%}}
+/* ---------- Echt oder erfunden? ---------- */
+.g-echt .gsky{background-position:50% 30%}
+.eframe{position:absolute;left:50%;top:18%;translate:-50% 0;width:min(46vh,40vw,380px);aspect-ratio:1.08;z-index:2;display:grid;place-items:center}
+.eframe.pop{animation:rqpop .45s cubic-bezier(.2,1.5,.4,1)}
+.efb{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 14px 16px rgba(80,40,0,.35))}
+.etx{position:relative;width:66%;height:62%;display:grid;place-items:center;text-align:center;background:#fffaf0;border-radius:8px;padding:10px;font-weight:900;font-size:clamp(14px,1.7vw,20px);line-height:1.25;color:#2a2440}
+.ecam{position:absolute;right:4%;top:2%;width:22%;rotate:12deg;filter:drop-shadow(0 6px 6px rgba(0,0,0,.3))}
+.estamp{position:absolute;left:50%;top:52%;width:44%;translate:-50% -50%;z-index:3;animation:dkst .45s cubic-bezier(.2,1.5,.4,1) both;rotate:-12deg}
+.ecat{position:absolute;left:5%;bottom:max(142px,19%);height:min(32%,250px);z-index:2;filter:drop-shadow(0 12px 10px rgba(60,30,0,.3));animation:pgidle 1.9s ease-in-out infinite;transform-origin:50% 100%}
+.ecat.yay{animation:pgyay .6s cubic-bezier(.2,1.5,.4,1)}.ecat.shake{animation:ushk .5s}
+.eloupe{position:absolute;right:16%;top:24%;width:min(9%,84px);z-index:3;animation:ulp 3s ease-in-out infinite}
+.eloupe.scan{animation:escan .9s ease-in-out}@keyframes escan{50%{transform:translate(-26vw,6vh) scale(1.25) rotate(-12deg)}}
+.eques{position:absolute;right:6%;bottom:max(150px,21%);width:min(7%,64px);z-index:2;animation:hqf 2.4s ease-in-out infinite}
+.eglitch{width:min(28vw,260px);animation:gconfpop .9s ease-out forwards;z-index:5}
+.g-echt .xo{flex-basis:clamp(120px,15vw,170px)}
+@media (max-width:560px){.eframe{top:17%;width:70vw}.ecat{display:none}.eloupe{right:2%;top:16%;width:16%}.eques{display:none}.etx{font-size:14px}}
+@media (min-width:561px) and (max-height:820px){.eframe{width:min(38vh,340px)}}
+/* Ping-Pong mit Kindern, Rakete mit neuem Planeten */
+.pgpad{display:none!important}
+.pgfrog,.pghase{width:min(17%,170px)}
+.s-planet .qpl.np span{left:47%!important;top:46%!important;max-width:60%!important}
+/* ---------- Umgebungs-Animationen ---------- */
+.ambl{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.qscn .ambl{z-index:-1}
+.ambl>*{position:absolute;pointer-events:none}
+.am-cloud{top:var(--y);width:var(--w);left:-20%;opacity:.95;animation:amcl var(--d) linear var(--dl) infinite;filter:drop-shadow(0 6px 8px rgba(40,90,160,.18))}
+@keyframes amcl{from{left:-20%}to{left:110%}}
+.am-bird{top:var(--y);left:-12%;width:clamp(34px,4.4vw,64px);aspect-ratio:1;animation:ambird var(--d) linear var(--dl) infinite}
+.am-bird img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.am-bird img+img{animation:amflap .32s steps(1) infinite}
+@keyframes amflap{50%{opacity:0}}
+@keyframes ambird{0%{left:-12%;transform:translateY(0)}10%{transform:translateY(-12px)}20%{transform:translateY(6px)}30%{transform:translateY(-8px)}40%{left:110%;transform:translateY(0)}100%{left:110%}}
+.am-gull{width:clamp(44px,5.4vw,80px)}.am-gull img+img{display:none}.am-gull img{animation:amglide 2.4s ease-in-out infinite}
+@keyframes amglide{50%{transform:translateY(-8px) rotate(-6deg)}}
+.am-bfly{left:var(--x);top:var(--y);width:clamp(30px,3.4vw,50px);animation:amflut var(--d) ease-in-out infinite}
+.am-bfly img{width:100%;animation:amwing .2s ease-in-out infinite alternate}
+@keyframes amwing{to{transform:scaleX(.55)}}
+@keyframes amflut{0%,100%{transform:translate(0,0) rotate(-8deg)}25%{transform:translate(70px,-40px) rotate(10deg)}50%{transform:translate(130px,10px) rotate(-4deg)}75%{transform:translate(40px,30px) rotate(8deg)}}
+.am-dfly img{animation:amwing .08s linear infinite alternate}
+.am-shoot{width:clamp(60px,9vw,120px);left:-15%;top:-10%;opacity:0;animation:amshoot var(--d) ease-in var(--dl) infinite;rotate:-25deg}
+@keyframes amshoot{0%{transform:translate(0,0);opacity:0}4%{opacity:1}16%{transform:translate(60vw,30vh);opacity:0}100%{opacity:0}}
+.am-palm{top:-4%;width:clamp(120px,22vw,280px);transform-origin:10% 10%;animation:ampalm 4.5s ease-in-out infinite}
+.am-palm.l{left:-4%;rotate:150deg}.am-palm.r{right:-4%;rotate:30deg;scale:-1 1;animation-delay:-2s}
+@keyframes ampalm{50%{transform:rotate(5deg)}}
+.am-bub{left:var(--x);bottom:-8%;width:var(--w);opacity:.75;animation:ambub var(--d) linear var(--dl) infinite}
+@keyframes ambub{to{transform:translate(20px,-110vh)}}
+.am-spot{left:var(--x);top:12%;width:clamp(120px,18vw,240px);translate:-50% 0;opacity:.35;mix-blend-mode:screen;animation:amspot 4s ease-in-out var(--dl) infinite}
+@keyframes amspot{50%{opacity:.6}}
+.am-spark{left:var(--x);top:var(--y);width:clamp(18px,2.4vw,34px);opacity:0;animation:amspark var(--d) ease-in-out var(--dl) infinite}
+@keyframes amspark{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.am-rip{left:var(--x);top:var(--y);width:clamp(60px,9vw,120px);translate:-50% -50%;opacity:0;animation:amrip var(--d) ease-out var(--dl) infinite}
+@keyframes amrip{0%{transform:scale(.3);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+@media (max-width:560px){.am-spot{width:28vw}.am-palm{width:34vw}}
+@media (prefers-reduced-motion:reduce){.ambl{display:none}}
+.xo.txt.lng{flex:1 1 100%!important;max-width:660px;min-height:52px;aspect-ratio:auto!important}
+@media (max-width:560px){.xo.txt.lng{min-height:44px;padding:7px 12px}.xo.txt.lng span{font-size:15px!important}.xo.txt:not(.lng){flex:1 1 28%!important;aspect-ratio:auto!important}}
+.jwb{rotate:45deg}
+.jwt{width:30%}.jwt.t0{left:35%;top:3%}.jwt.t1{right:3%;top:35%}.jwt.t2{left:35%;bottom:3%}.jwt.t3{left:3%;top:35%}
+.eframe{width:min(40vh,36vw,340px)}
+@media (min-width:561px) and (max-height:820px){.eframe{width:min(34vh,300px)}}
+/* Max' Sprechblase im Spiel: höchstens 2 Zeilen, Antworten liegen immer darüber */
+.gstage.open .say{display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.25!important;font-size:17px!important;max-width:min(520px,60vw);align-self:flex-end}
+@media (max-width:560px){.gstage.open .say{font-size:14.5px!important;max-width:none}}
+.gstage.open :is(.xopts,.bbins,.pgopts,.shbot,.uopts){bottom:max(172px,23%)!important}
+.gstage.open .g-story .xq{bottom:calc(max(172px,23%) + clamp(120px,16vw,180px))!important}
+.gstage.open :is(.esbear,.bjkid,.bjcat,.ecat,.ocjump,.ocyarn){bottom:max(172px,23%)!important}
+@media (max-width:560px){.gstage.open :is(.xopts,.bbins,.pgopts,.shbot,.uopts){bottom:128px!important}.gstage.open .g-story .xq{bottom:calc(128px + 34vw)!important}}
+/* ---------- Hilfe-Knöpfe in der Lektion ---------- */
+.les .lesfoot{background:none!important}
+.les[data-state=ok] .lesfoot,.les .lesfoot.ok,.les[data-state=no] .lesfoot{background:none!important;border:0!important}
+.lhelp{display:flex;gap:8px;align-items:center;flex:none}
+.lhelp:empty{display:none}
+.lhb{display:flex;align-items:center;gap:6px;height:52px;padding:0 14px 0 8px;border:0;border-radius:18px;background:#fff;color:#2a2440;font:inherit;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 4px 0 #d9d2ea,0 0 0 2px #ece6f8 inset;transition:transform .12s}
+.lhb img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 2px 2px rgba(0,0,0,.18))}
+.lhb:hover{transform:translateY(-2px)}.lhb:active{transform:translateY(2px);box-shadow:0 2px 0 #d9d2ea}
+.lhb:disabled{opacity:.45;pointer-events:none}
+.lhb[data-h=tip]{background:#fff8dc;box-shadow:0 4px 0 #f1d98a,0 0 0 2px #fbe9a8 inset}
+.lhb[data-h=sol]{background:#eef6ff;box-shadow:0 4px 0 #bcd6f5,0 0 0 2px #d7e8fb inset}
+.lhb.ns.on{background:#2a2440;color:#fff}.lhb.ns.on img{filter:grayscale(1) brightness(1.6)}
+.lhb.why{background:#f3ecff;box-shadow:0 4px 0 #d3c2f5,0 0 0 2px #e4d8fb inset;color:#4a2ca8}
+.lhb.pop{animation:rqpop .3s}
+.les[data-state=idle] .lesfw{justify-content:center;gap:12px}
+.gone{opacity:.18!important;filter:grayscale(1)!important;transform:scale(.9)!important;transition:all .35s!important}
+.lsword{display:flex;flex-direction:column;align-items:center;gap:2px;background:#fff;border-radius:22px;padding:10px 30px;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.lsword small{font-weight:800;color:#7a7390;font-size:13px}.lsword b{font-size:clamp(28px,4vw,42px);color:#1d2a3a}
+.lmt.pulse{animation:lmtp .8s}@keyframes lmtp{30%{background:#fff3b0;border-radius:8px}}
+@media (max-width:560px){.lhb{height:44px;padding:0 10px 0 6px;font-size:13px}.lhb img{width:28px;height:28px}.lhelp{justify-content:center;flex-wrap:wrap}.les[data-state=idle] .lesfw{flex-direction:row!important;flex-wrap:wrap;justify-content:center}}
+.les[data-state=idle] .lesfoot:has(.lesbtn[style*="display: none"]):has(.lhb){display:block!important}
+/* Big-Ben-Zeiger */
+.bbc{position:absolute;translate:-50% -50%;z-index:0;pointer-events:none;border-radius:50%}
+.bbc.inmain{position:absolute;z-index:0}
+#app .amain>.bbc~*{position:relative;z-index:1}
+.bbc span{position:absolute;left:50%;bottom:50%;transform-origin:50% 100%;border-radius:99px;background:#1d1a16;box-shadow:0 0 1px rgba(0,0,0,.4)}
+.bbc .bbh{width:9%;height:28%;margin-left:-4.5%;rotate:var(--h,0deg)}
+.bbc .bbm{width:6%;height:40%;margin-left:-3%;rotate:var(--m,0deg);transition:rotate .6s cubic-bezier(.4,1.6,.5,1)}
+.bbc .bbs{width:2.6%;height:42%;margin-left:-1.3%;background:#c0392b;rotate:var(--s,0deg);transition:rotate .25s cubic-bezier(.3,1.8,.5,1)}
+.bbc b{position:absolute;left:50%;top:50%;width:12%;height:12%;translate:-50% -50%;border-radius:50%;background:#c8a24a;box-shadow:0 0 0 1px #1d1a16}
+.lesfs .bbc{z-index:2}
+/* ---------- Endbildschirm neu ---------- */
+.les[data-state=end] :is(.lesmain,.lesfoot){opacity:0!important;pointer-events:none;transition:opacity .3s}
+.les[data-state=end] .lesfs{filter:blur(16px) brightness(.62) saturate(1.2)!important}
+.lesend{background:radial-gradient(60% 50% at 50% 38%,rgba(255,220,120,.28),rgba(10,8,30,.55))!important;overflow:hidden}
+.es-rays{position:absolute;left:50%;top:36%;width:170vmax;height:170vmax;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,rgba(255,230,150,.16) 0 8deg,transparent 8deg 20deg);animation:esray 22s linear infinite;pointer-events:none;mask:radial-gradient(circle,#000 0,transparent 55%)}
+@keyframes esray{to{rotate:360deg}}
+.es-burst{position:absolute;left:50%;top:30%;width:min(70vw,560px);translate:-50% -50%;opacity:.5;animation:esray 30s linear infinite reverse;pointer-events:none}
+.lee{position:relative;z-index:1;max-width:640px!important;padding:0 14px}
+.lee .leet{width:130px!important}.lee .leet .tut{width:130px!important}
+.es-stars{display:flex;justify-content:center;align-items:flex-end;gap:clamp(4px,1.4vw,14px);margin:8px 0 14px}
+.es-st{position:relative;width:clamp(56px,10vw,104px);aspect-ratio:1}
+.es-st:nth-child(1),.es-st:nth-child(5){width:clamp(48px,8.4vw,86px)}.es-st:nth-child(3){width:clamp(66px,12vw,124px);translate:0 -10%}
+.es-st img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.es-off{opacity:.5;filter:grayscale(.3) brightness(.9)}
+.es-on{filter:drop-shadow(0 0 16px rgba(255,200,40,.9)) drop-shadow(0 6px 6px rgba(120,70,0,.4))}
+.es-st.in .es-on{animation:esglow 2.6s ease-in-out 1s infinite}
+@keyframes esglow{50%{filter:drop-shadow(0 0 28px rgba(255,220,80,1)) drop-shadow(0 6px 6px rgba(120,70,0,.4))}}
+.es-sp{position:fixed;z-index:80;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:3px;background:#ffd84a;box-shadow:0 0 10px #ffd84a;rotate:45deg;pointer-events:none}
+.lee h3{font-size:clamp(34px,5.4vw,56px)!important;text-shadow:0 4px 0 rgba(0,0,0,.25),0 0 30px rgba(255,210,80,.5)!important}
+.lee .lew{font-size:14px!important;padding:6px 16px!important}
+.lesend .lestats{gap:clamp(10px,2vw,18px)!important;margin:8px auto 24px!important;max-width:620px}
+.lesend .lestats>div{position:relative;overflow:hidden;border:0!important;border-radius:26px!important;padding:12px 8px 14px;background:linear-gradient(180deg,color-mix(in srgb,var(--k) 75%,#fff),var(--k) 55%,color-mix(in srgb,var(--k) 70%,#000))!important;box-shadow:0 8px 0 color-mix(in srgb,var(--k) 55%,#000),0 18px 30px -10px rgba(0,0,0,.5),inset 0 2px 0 rgba(255,255,255,.6)!important;display:flex;flex-direction:column;align-items:center;gap:4px}
+.lesend .lestats .lsx{--k:#f5b400}.lesend .lestats .lsa{--k:#22b45a}.lesend .lestats .lst{--k:#3d8ff0}
+.lesend .lestats .es-ic{width:clamp(40px,6vw,58px);height:clamp(40px,6vw,58px);object-fit:contain;filter:drop-shadow(0 4px 4px rgba(0,0,0,.3))}
+.lesend .lestats small{order:2;padding:0!important;font-size:clamp(12px,1.4vw,15px)!important;letter-spacing:.06em;color:#fff!important;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.lesend .lestats b{order:3;padding:0!important;background:none!important;color:#fff!important;font-size:clamp(30px,4.6vw,46px)!important;line-height:1;text-shadow:0 3px 0 rgba(0,0,0,.3)!important}
+.es-gl{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.55) 45%,transparent 60%);translate:-120% 0;animation:esshine 3.2s ease-in-out 1.8s infinite}
+@keyframes esshine{0%{translate:-120% 0}35%,100%{translate:120% 0}}
+.lesend [data-a=go],.lesend [data-a=pay]{font-size:22px!important;height:64px!important;padding:0 40px!important}
+@media (max-width:560px){.lee .leet,.lee .leet .tut{width:96px!important}.lesend .lestats>div{padding:10px 4px 12px;border-radius:20px!important}}
+/* Tutoren-Köpfe in der Leiste: ganz sichtbar, Haare/Antenne dürfen oben rausschauen */
+.app .aside .tab .ti.tt{overflow:visible!important}
+.app .aside .tab .ti.tt .tut{position:absolute!important;left:3%!important;top:-10%!important;width:94%!important;height:auto!important;margin:0!important;clip-path:inset(-40% -10% 0 -10% round 0 0 50% 50%)}
+.app .aside .tab .ti.tt .tut img,.app .aside .tab .ti.tt .tut svg{width:100%!important;height:auto!important}
+.app .aside .tab .ti.tt .tut[data-t=max]{left:6%!important;top:-4%!important;width:88%!important;height:auto!important}
+/* Profilbilder: ganzes Kind sichtbar statt Nahaufnahme */
+.avx img{left:12%!important;top:12%!important;width:76%!important;height:76%!important}
+.avj small{white-space:normal!important;text-align:center;line-height:1.05;font-size:11.5px!important}
+.s-goal .gkeep{z-index:4!important;animation:gkbob .9s ease-in-out infinite!important;filter:drop-shadow(0 8px 6px rgba(0,40,0,.35))}
+@keyframes gkbob{50%{transform:translateY(-4px) scaleY(.98)}}
+/* Planeten: keine eckigen Leuchtkästen */
+.s-planet .qpl.np .pim{filter:hue-rotate(var(--hue)) drop-shadow(0 8px 10px rgba(0,0,30,.45))!important}
+@media (max-width:560px){.pgopts{gap:6px!important}.pgb{width:29%!important}}
+@media (min-width:561px){.gstage.open .bjgrid{top:44%}.gstage.open .bjgrid .bjcard{max-height:calc((100dvh - 400px) / 2)}.gstage.open .bjgrid{width:auto;grid-auto-columns:auto}.gstage.open .bjgrid .bjcard{width:calc((100dvh - 400px) / 2 * .82)}}
 </style>
+<script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -9265,7 +9496,7 @@ function gShop(T) {
   return () => {};
 }
 
-/* ---------- Reim-Ping-Pong: der Hase spielt ein Wort, du schlägst den Reim zurück ---------- */
+/* ---------- Reim-Ping-Pong: Mia spielt ein Wort, du schlägst den Reim zurück ---------- */
 const REIM = [
   [['Haus', 'Maus'], ['Hund', 'Mund'], ['Tisch', 'Fisch'], ['Nase', 'Hase'], ['Kopf', 'Topf'], ['Hut', 'gut'], ['Bein', 'Stein'], ['Hand', 'Sand'], ['Ball', 'Stall'], ['Baum', 'Traum'], ['Boot', 'rot'], ['Ring', 'Ding']],
   [['Hose', 'Rose'], ['Sonne', 'Tonne'], ['Kanne', 'Tanne'], ['Katze', 'Tatze'], ['Wand', 'Land'], ['Zwerg', 'Berg'], ['Bär', 'schwer'], ['Fuß', 'Gruß'], ['Biene', 'Schiene'], ['Kind', 'Wind'], ['Fliege', 'Wiege'], ['Brief', 'tief']],
@@ -9302,7 +9533,7 @@ function gPong(T) {
     $$('.pgb', gs).forEach((x) => x !== bt && x.classList.add('away'));
     r++; setTimeout(() => { if (alive(T)) next(); }, ok ? 1500 : 2400);
   }
-  progress(N); say('Der Hase spielt dir ein Wort zu. Schlag das Reimwort zurück!', '');
+  progress(N); say('Mia spielt dir ein Wort zu. Schlag das Reimwort zurück!', '');
   startOverlay('Anpfiff', `${N} Ballwechsel · Reime finden`, next);
   return () => {};
 }
@@ -9344,7 +9575,7 @@ function xRound(T, opt) {
   const next = () => {
     if (r >= opt.N) return finish(opt.done, opt.doneT[G()]);
     cur = opt.make(r); $('#xq').innerHTML = cur.html; restart($('#xq'), 'pop');
-    $('#xo').innerHTML = cur.o.map((o, i) => `<button class="xo${o.img ? '' : ' txt'}" data-k="${o.k}" style="--dl:${.25 + i * .09}s">${o.img ? `<img src="${o.img}" alt="">` : ''}${o.label ? `<span>${o.label}</span>` : ''}</button>`).join('');
+    $('#xo').innerHTML = cur.o.map((o, i) => `<button class="xo${o.html ? ' scn' : o.img ? '' : ' txt'}${!o.img && !o.html && o.label && o.label.length > 16 ? ' lng' : ''}" data-k="${o.k}" style="--dl:${.25 + i * .09}s">${o.html || (o.img ? `<img src="${o.img}" alt="">` : '')}${o.label ? `<span>${o.label}</span>` : ''}</button>`).join('');
     $$('.xo', gs).forEach((b) => (b.onclick = () => pick(b)));
     const hb = $('#xq .xhear'); if (hb) hb.onclick = () => ttsSay(cur.say, cur.lang);
     if (cur.say) ttsSay(cur.say, cur.lang); if (opt.onShow) opt.onShow(cur, r);
@@ -9495,6 +9726,148 @@ function gDikt(T) {
   return () => { try { speechSynthesis.cancel(); } catch (e) {} };
 }
 
+
+/* ---------- Hilfen für die neuen Sachunterricht-/KI-/Französisch-Spiele ---------- */
+const roomBg = (k) => `/grundschulmax/sp/room/${k}${innerHeight > innerWidth * 1.15 ? '-m' : ''}.webp`;
+const tOpts = (list) => shuf(list.map((t, i) => ({ k: String(i), label: t })));
+function xFly(src, el, cls, ms = 1000) { const a = el.getBoundingClientRect(), g = gs.getBoundingClientRect(), im = document.createElement('img'); im.src = src; im.className = 'gfx ' + cls; im.style.left = a.left - g.left + a.width / 2 + 'px'; im.style.top = a.top - g.top + a.height / 2 + 'px'; gs.appendChild(im); setTimeout(() => im.remove(), ms); return im; }
+
+/* ---------- Où est le chat ? ---------- */
+function gOuChat(T) {
+  gs.className = 'gs g-xs g-ochat';
+  const D = 'katze', g = G(), N = 7;
+  const POS = [['dans', 'dans la boîte', 'in der Kiste', 'box', 'peek'], ['sur', 'sur la boîte', 'auf der Kiste', 'box', 'sit'], ['cote', 'à côté de la boîte', 'neben der Kiste', 'box', 'sit'], ['panier', 'dans le panier', 'im Korb', 'basket', 'sleep'], ['devant', 'devant la boîte', 'vor der Kiste', 'box', 'sit'], ['derriere', 'derrière la boîte', 'hinter der Kiste', 'box', 'peek']].slice(0, [3, 4, 6, 6][g]);
+  const scene = (p) => `<span class="ocs p-${p[0]}"><img class="ocb" src="${xImg(D, p[3])}" alt=""><img class="occ" src="${xImg(D, p[4])}" alt=""></span>`;
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg('bonj', 'bg')})"></div><img class="ocyarn" src="${xImg(D, 'yarn')}" alt=""><img class="ocpaws" src="${xImg(D, 'paws')}" alt=""><img class="ocjump" id="ocj" src="${xImg(D, 'jump')}" alt=""><div class="ocstage" id="ocs"></div><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
+  const next = xRound(T, { N, done: 'Très bien, tu as trouvé le chat !', doneT: ['Erste Ortswörter: dans, sur, à côté.', 'Wo ist die Katze? Ortswörter auf Französisch.', 'Ortswörter hören und lesen.', 'Ganze Sätze mit Ortswörtern verstehen.'], okMs: 1500,
+    make: (r) => { const t = POS[ri(0, POS.length - 1)], o = shuf(POS.filter((x) => x !== t)).slice(0, 2).concat([t]), fr = `Le chat est ${t[1]}.`, txt = g >= 2 && r % 2 === 1;
+      $('#ocs').innerHTML = txt ? scene(t) : ''; $('#ocs').classList.toggle('on', txt);
+      if (txt) return { html: `<b>Où est le chat ?</b><small>Welcher Satz passt zum Bild?</small>`, o: shuf(o).map((x) => ({ k: x[0], label: `Le chat est ${x[1]}.` })), a: t[0], say: 'Où est le chat ?', lang: 'fr-FR', okT: `Genau: ${t[1]} heißt ${t[2]}.`, noT: `Richtig ist: Le chat est ${t[1]}. Das heißt: ${t[2]}.` };
+      return { html: `${hearBtn()}<b>${fr}</b><small>Tippe auf das richtige Bild!</small>`, say: fr, lang: 'fr-FR', o: shuf(o).map((x) => ({ k: x[0], html: scene(x) })), a: t[0], okT: `Super! ${t[1]} heißt ${t[2]}.`, noT: `${t[1]} heißt ${t[2]}.` }; },
+    onPick: (ok, cur, b) => { if (!ok) return; const j = $('#ocj'); restart(j, 'hop'); sfx.jump(); const c = $('.occ', b) || $('#ocs .occ'); if (c) c.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-22%) rotate(-6deg)' }, { transform: 'none' }], { duration: 520, easing: 'cubic-bezier(.3,1.4,.5,1)' }); } });
+  progress(N); say('Où est le chat ? Hör genau hin und finde die Katze!', '');
+  startOverlay('Katze suchen', `${N} Runden · Wo ist die Katze?`, next);
+  return () => { try { speechSynthesis.cancel(); } catch (e) {} };
+}
+
+/* ---------- Jahreszeiten-Rad ---------- */
+function gJahr(T) {
+  gs.className = 'gs g-xs g-jahr';
+  const D = 'jahr', g = G(), N = 8, SE = [['spring', 'Frühling'], ['summer', 'Sommer'], ['autumn', 'Herbst'], ['winter', 'Winter']], ix = (k) => SE.findIndex((s) => s[0] === k);
+  const Q = [
+    [0, 'show'], [0, 'Wann blühen viele Bäume und Blumen?', 'spring'], [0, 'Wann fallen die bunten Blätter von den Bäumen?', 'autumn'], [0, 'Wann kann man einen Schneemann bauen?', 'winter'], [0, 'Wann ist es draußen am wärmsten?', 'summer'],
+    [1, 'Wann ernten wir Äpfel und Kürbisse?', 'autumn'], [1, 'Wann sind die großen Sommerferien?', 'summer'], [1, 'Welche Jahreszeit kommt nach dem Sommer?', 'autumn'], [1, 'Welche Jahreszeit kommt nach dem Winter?', 'spring'], [1, 'Welche Jahreszeit kommt nach dem Herbst?', 'winter'],
+    [2, 'Wann sind die Tage am kürzesten?', 'winter'], [2, 'Wann kommen die Zugvögel zurück?', 'spring'], [2, 'In welcher Jahreszeit liegt der Juli?', 'summer'], [2, 'In welcher Jahreszeit liegt der Januar?', 'winter'], [2, 'In welcher Jahreszeit liegt der April?', 'spring'], [2, 'In welcher Jahreszeit liegt der Oktober?', 'autumn'],
+    [3, 'In welcher Jahreszeit liegt der November?', 'autumn'], [3, 'In welcher Jahreszeit liegt der Mai?', 'spring'], [3, 'In welcher Jahreszeit liegt der August?', 'summer'], [3, 'In welcher Jahreszeit liegt der Februar?', 'winter'], [3, 'Wann ziehen viele Tiere einen Winterschlaf vor?', 'autumn'],
+  ].filter((q) => q[0] <= g && q[0] >= g - 1);
+  const POOL = shuf(Q); let rot = 0;
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${roomBg('sach')})"></div><div class="jwheel" id="jw"><img class="jwb" src="${xImg(D, 'wheel')}" alt="">${SE.map((s, i) => `<img class="jwt t${i}" data-k="${s[0]}" src="${xImg(D, s[0])}" alt="">`).join('')}</div><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
+  const turn = (k) => { const w = $('#jw'), want = -ix(k) * 90; rot += ((want - rot) % 360 + 540) % 360 - 180; w.style.setProperty('--r', rot + 'deg'); $$('.jwt', w).forEach((t) => t.classList.toggle('top', t.dataset.k === k)); };
+  const fall = (k) => { const im = { autumn: xImg(D, 'leaf'), winter: xImg(D, 'flake'), spring: xImg('amb', 'bfly'), summer: xImg(D, 'sun') }[k]; for (let i = 0; i < 7; i++) { const e = document.createElement('img'); e.src = im; e.className = 'gfx jfall'; e.style.left = 10 + Math.random() * 80 + '%'; e.style.top = '-8%'; e.style.setProperty('--dx', (Math.random() * 120 - 60) + 'px'); e.style.animationDelay = i * .12 + 's'; gs.appendChild(e); setTimeout(() => e.remove(), 2600); } };
+  const next = xRound(T, { N, done: 'Das Jahr ist rund!', doneT: ['Die vier Jahreszeiten erkennen.', 'Was in welcher Jahreszeit passiert.', 'Monate und Jahreszeiten zuordnen.', 'Das Jahr sicher kennen.'], okMs: 1600,
+    make: (r) => { const q = POOL[r % POOL.length];
+      if (q[1] === 'show') { const t = SE[ri(0, 3)]; turn(t[0]); $('#jw').classList.add('ask'); return { html: `<b>Welche Jahreszeit zeigt das Rad oben?</b><small>Schau dir den Baum ganz oben an.</small>`, o: shuf(SE).map((s) => ({ k: s[0], label: s[1] })), a: t[0], okT: `Richtig, das ist der ${t[1]}!`, noT: `Das ist der ${t[1]}.`, _k: t[0] }; }
+      $('#jw').classList.remove('ask'); return { html: `<b>${q[1]}</b><small>Tippe auf die richtige Jahreszeit.</small>`, o: shuf(SE).map((s) => ({ k: s[0], img: xImg(D, s[0]), label: s[1] })), a: q[2], okT: `Genau: im ${SE[ix(q[2])][1]}!`, noT: `Richtig ist: ${SE[ix(q[2])][1]}.`, _k: q[2] }; },
+    onPick: (ok, cur) => { turn(cur._k); if (ok) { fall(cur._k); restart($('#jw'), 'win'); } } });
+  progress(N); say('Dreh das Jahreszeiten-Rad! Welche Jahreszeit passt?', '');
+  startOverlay('Rad drehen', `${N} Fragen · Die Jahreszeiten`, next);
+  return () => {};
+}
+
+/* ---------- Ampel-Profi ---------- */
+function gAmpel(T) {
+  gs.className = 'gs g-xs g-amp';
+  const D = 'amp', g = G(), N = 7;
+  const Q = [
+    [0, 'pred', 'Die Fußgängerampel ist rot. Was machst du?', ['Stehen bleiben und warten', 'Schnell rüberlaufen', 'Einfach losgehen'], 'Rot heißt: stehen bleiben!', 'car'],
+    [0, 'pgreen', 'Die Fußgängerampel ist grün. Was machst du?', ['Nach links, rechts, links schauen und dann gehen', 'Weiter stehen bleiben', 'Rennen, ohne zu schauen'], 'Grün heißt gehen, aber vorher schauen!', 'walk'],
+    [0, 'tlred', 'Die Autoampel ist rot. Was müssen die Autos tun?', ['Anhalten', 'Schneller fahren', 'Hupen'], 'Bei Rot halten die Autos an.', 'stop'],
+    [0, 'tlgreen', 'Die Autoampel ist grün. Darfst du jetzt über die Straße?', ['Nein, ich warte auf meine grüne Fußgängerampel', 'Ja, sofort', 'Ja, wenn ich renne'], 'Für dich gilt die Fußgängerampel!', 'car'],
+    [1, 'zebra', 'Du willst am Zebrastreifen über die Straße. Was machst du?', ['Am Rand warten, schauen und erst gehen, wenn die Autos halten', 'Einfach loslaufen', 'Hinter einem Auto hervorlaufen'], 'Am Zebrastreifen erst schauen, ob die Autos halten.', 'walk'],
+    [1, 'stop', 'Was bedeutet dieses Schild?', ['Autos müssen hier anhalten', 'Hier ist ein Spielplatz', 'Hier darf man parken'], 'Das ist ein Stoppschild.', 'stop'],
+    [1, 'car', 'Wo gehst du am sichersten über die Straße?', ['An der Ampel oder am Zebrastreifen', 'Zwischen parkenden Autos', 'In einer Kurve'], 'Ampel und Zebrastreifen sind am sichersten.', 'walk'],
+    [2, 'bike', 'Was gehört an ein verkehrssicheres Fahrrad?', ['Licht, Klingel und gute Bremsen', 'Ein Radio', 'Bunte Aufkleber'], 'Licht, Klingel und Bremsen sind Pflicht.', 'bike'],
+    [2, 'bike', 'Was trägst du beim Fahrradfahren immer?', ['Einen Helm', 'Eine Mütze', 'Kopfhörer'], 'Der Helm schützt deinen Kopf.', 'bike'],
+    [2, 'car', 'Im Dunkeln: Wie sehen dich Autofahrer besser?', ['Mit heller Kleidung und Reflektoren', 'Mit dunkler Kleidung', 'Mit einer Sonnenbrille'], 'Helle Farben und Reflektoren leuchten im Licht.', 'car'],
+    [3, 'bike', 'Bis zu welchem Alter müssen Kinder mit dem Fahrrad auf dem Gehweg fahren?', ['Bis sie 8 Jahre alt sind', 'Bis sie 12 Jahre alt sind', 'Bis sie 3 Jahre alt sind'], 'Bis 8 Jahre fahren Kinder auf dem Gehweg.', 'bike'],
+    [3, 'bike', 'Du fährst mit dem Rad und willst links abbiegen. Was machst du?', ['Den linken Arm ausstrecken und nach hinten schauen', 'Einfach abbiegen', 'Klingeln und schnell fahren'], 'Handzeichen geben und Schulterblick!', 'bike'],
+  ].filter((q) => q[0] <= g && q[0] >= g - 2);
+  const POOL = shuf(Q), LI = { pred: 'pred', pgreen: 'pgreen', tlred: 'tlred', tlgreen: 'tlgreen', stop: 'stop', bike: 'bike', car: 'pred', zebra: 'pgreen' };
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><img class="ampcar" id="apc" src="${xImg(D, 'car')}" alt=""><img class="ampkid" id="apk" src="${xImg(D, 'kid')}" alt=""><img class="ampsig" id="aps" alt=""><div class="xq" id="xq"></div><div class="xopts amp" id="xo"></div>`;
+  const next = xRound(T, { N, done: 'Du bist ein Ampel-Profi!', doneT: ['Rot und Grün an der Ampel.', 'Sicher über die Straße.', 'Sicher mit dem Fahrrad.', 'Verkehrsregeln wie ein Profi.'], okMs: 1900,
+    onShow: (cur) => { const s = $('#aps'); s.src = xImg(D, LI[cur._l]); restart(s, 'pop'); const k = $('#apk'); k.className = 'ampkid'; const c = $('#apc'); c.className = 'ampcar'; },
+    make: (r) => { const q = POOL[r % POOL.length]; return { html: `<b>${q[2]}</b>`, o: tOpts(q[3]), a: '0', okT: q[4], noT: q[4], _l: q[1], _fx: q[5] }; },
+    onPick: (ok, cur) => { const k = $('#apk'), c = $('#apc'); if (ok) { if (cur._fx === 'walk') restart(k, 'walk'); else restart(c, 'drive'); if (cur._fx === 'stop') c.classList.add('halt'); } else { restart(c, 'honk'); restart(k, 'shake'); } } });
+  progress(N); say('Sicher durch den Verkehr! Was ist richtig?', '');
+  startOverlay('Los geht\'s', `${N} Fragen · Sicher im Verkehr`, next);
+  return () => {};
+}
+
+/* ---------- Wetter-Labor ---------- */
+function gWetter(T) {
+  gs.className = 'gs g-xs g-wet';
+  const D = 'wet', g = G(), N = 7, NM = { sun: 'Sonne', rain: 'Regen', storm: 'Gewitter', snow: 'Schnee', rainbow: 'Regenbogen', wind: 'Wind' };
+  const Q = [
+    [0, 'show'], [0, 'show'], [0, 'pick', 'rain', 'Wo regnet es?'], [0, 'pick', 'snow', 'Wo schneit es?'], [0, 'pick', 'sun', 'Wo scheint die Sonne?'],
+    [1, 'storm', 'Was hörst du bei einem Gewitter?', ['Donner', 'Vogelgezwitscher', 'Glockenläuten']], [1, 'rain', 'Was ziehst du bei Regen an?', ['Regenjacke und Gummistiefel', 'Badehose', 'Sandalen']], [1, 'rainbow', 'Wann kannst du einen Regenbogen sehen?', ['Wenn die Sonne scheint und es gleichzeitig regnet', 'Nur in der Nacht', 'Wenn es schneit']],
+    [2, 'pickt', 'therm', 'Womit misst man, wie warm es ist?'], [2, 'pickt', 'beaker', 'Womit kann man messen, wie viel es geregnet hat?'], [2, 'snow', 'Bei wie viel Grad gefriert Wasser zu Eis?', ['0 Grad', '10 Grad', '100 Grad']], [2, 'storm', 'Du bist draußen und es gewittert. Was ist richtig?', ['Schnell in ein Haus oder Auto gehen', 'Unter einen großen Baum stellen', 'Auf einen Hügel klettern']],
+    [3, 'rain', 'Woraus bestehen Wolken?', ['Aus winzigen Wassertröpfchen', 'Aus Watte', 'Aus Rauch']], [3, 'sun', 'Was passiert mit einer Pfütze, wenn die Sonne lange scheint?', ['Das Wasser verdunstet', 'Sie wird immer größer', 'Sie wird zu Eis']], [3, 'wind', 'Wie entsteht Wind?', ['Warme und kalte Luft bewegen sich', 'Die Bäume wedeln mit den Ästen', 'Die Wolken pusten']], [3, 'rain', 'Wie heißt der Weg des Wassers: verdunsten, Wolken, Regen?', ['Wasserkreislauf', 'Wetterkreisel', 'Regenrad']],
+  ].filter((q) => q[0] <= g && q[0] >= g - 1);
+  const POOL = shuf(Q), SY = ['sun', 'rain', 'storm', 'snow', 'rainbow', 'wind'];
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${roomBg('sach')})"></div><div class="wscreen" id="wsc"><span class="wlab">Wetter-Labor</span><img id="wsy" alt=""><i class="wfx"></i></div><img class="wtherm" src="${xImg(D, 'therm')}" alt=""><img class="wbeak" src="${xImg(D, 'beaker')}" alt=""><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
+  const show = (k) => { const s = $('#wsc'); s.dataset.w = k || ''; const im = $('#wsy'); im.src = k ? xImg(D, k) : xImg('echt', 'ques'); im.style.display = ''; restart(im, 'pop'); };
+  const next = xRound(T, { N, done: 'Labor-Forschung geschafft!', doneT: ['Wetter erkennen und benennen.', 'Was zu welchem Wetter passt.', 'Temperatur, Regen und Gewitter.', 'Wie das Wetter entsteht.'], okMs: 1500,
+    make: (r) => { const q = POOL[r % POOL.length];
+      if (q[1] === 'show') { const t = SY[ri(0, 5)], o = shuf(SY.filter((x) => x !== t)).slice(0, 2).concat([t]); show(t); return { html: `<b>Welches Wetter siehst du?</b>`, o: shuf(o).map((x) => ({ k: x, label: NM[x] })), a: t, okT: `Genau: ${NM[t]}!`, noT: `Das ist ${NM[t]}.` }; }
+      if (q[1] === 'pick') { const o = shuf(SY.filter((x) => x !== q[2])).slice(0, 2).concat([q[2]]); show(''); return { html: `<b>${q[3]}</b>`, o: shuf(o).map((x) => ({ k: x, img: xImg(D, x) })), a: q[2], okT: 'Richtig!', noT: `Das hier ist ${NM[q[2]]}.` }; }
+      if (q[1] === 'pickt') { show(''); return { html: `<b>${q[3]}</b>`, o: shuf(['therm', 'beaker', 'rainbow']).map((x) => ({ k: x, img: xImg(D, x), label: { therm: 'Thermometer', beaker: 'Regenmesser', rainbow: 'Regenbogen' }[x] })), a: q[2], okT: q[2] === 'therm' ? 'Das Thermometer zeigt die Temperatur.' : 'Im Regenmesser sammelt sich das Regenwasser.', noT: q[2] === 'therm' ? 'Mit dem Thermometer.' : 'Mit dem Regenmesser.' }; }
+      show(q[1]); return { html: `<b>${q[2]}</b>`, o: tOpts(q[3]), a: '0', okT: 'Super geforscht!', noT: `Richtig ist: ${q[3][0]}.` }; },
+    onPick: (ok) => { if (ok) restart($('#wsc'), 'win'); else restart($('#wsc'), 'nope'); } });
+  progress(N); say('Willkommen im Wetter-Labor! Was weißt du übers Wetter?', '');
+  startOverlay('Labor öffnen', `${N} Fragen · Wetter erforschen`, next);
+  return () => {};
+}
+
+/* ---------- Wie lernt eine KI? ---------- */
+function gKiLern(T) {
+  gs.className = 'gs g-xs g-kil';
+  const D = 'kil', g = G();
+  const SCH = [['t', 't', 't', 't', 'x', 'x', 'x'], ['t', 't', 't', 't', 'x', 'x', 'x'], ['t', 't', 't', 'x', 'x', 'q', 'q'], ['t', 't', 't', 'x', 'x', 'q', 'q']][g], N = SCH.length;
+  const QZ = shuf([['Wie lernt eine KI?', ['Mit ganz vielen Beispielen', 'Sie weiß alles von Anfang an', 'Durch Zaubersprüche']], ['Kann eine KI Fehler machen?', ['Ja, deshalb prüft man besser nach', 'Nein, niemals', 'Nur am Wochenende']], ['Wer zeigt einer KI, was richtig ist?', ['Menschen, die ihr Beispiele geben', 'Niemand, sie weiß es einfach', 'Die Tiere selbst']]].concat(g >= 3 ? [['Eine KI hat nur Bilder von Hunden gesehen. Was passiert bei einer Katze?', ['Sie hält die Katze vielleicht für einen Hund', 'Sie erkennt die Katze sofort', 'Sie geht kaputt']]] : []));
+  let learned = 0, qi = 0;
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><img class="kgear" id="kgr" src="${xImg(D, 'gear')}" alt=""><div class="kcube" id="kcb"><img src="${xImg(D, 'cube')}" alt=""><b id="kcn">0</b></div><img class="kbulb" id="kbl" src="${xImg(D, 'bulb')}" alt=""><img class="kbot" id="kbt" src="${xImg(D, 'rthink')}" alt=""><div class="kcard" id="kcd"></div><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
+  const card = (k, guess) => { $('#kcd').innerHTML = k ? `<img src="${xImg(D, k === 'cat' ? 'catc' : 'dogc')}" alt="">${guess ? `<span class="kguess">${guess}</span>` : ''}` : ''; if (k) restart($('#kcd'), 'pop'); };
+  const next = xRound(T, { N, done: 'Bit hat viel gelernt!', doneT: ['Eine KI lernt aus Beispielen.', 'Mit Beispielen lernt eine KI.', 'Lernen, testen, verbessern.', 'So lernen echte KIs.'], okMs: 1500,
+    onShow: () => { $('#kbt').src = xImg(D, 'rthink'); },
+    make: (r) => { const t = SCH[r];
+      if (t === 't') { const k = Math.random() < .5 ? 'cat' : 'dog'; card(k); return { html: `<b>Bring Bit bei: Was ist auf dem Bild?</b><small>Bit lernt aus deinen Beispielen.</small>`, o: [{ k: 'cat', label: 'Katze' }, { k: 'dog', label: 'Hund' }], a: k, okT: `Bit merkt sich: Das ist ${k === 'cat' ? 'eine Katze' : 'ein Hund'}!`, noT: 'Ups! Mit falschen Beispielen lernt eine KI Falsches.', _t: 't' }; }
+      if (t === 'x') { const k = Math.random() < .5 ? 'cat' : 'dog', right0 = Math.random() < .5 + learned * .08, gu = right0 ? k : k === 'cat' ? 'dog' : 'cat'; card(k, `Ich glaube: ${gu === 'cat' ? 'Katze' : 'Hund'}!`); return { html: `<b>Test! Hat Bit richtig geraten?</b><small>Schau dir das Bild genau an.</small>`, o: [{ k: 'y', label: 'Stimmt' }, { k: 'n', label: 'Stimmt nicht' }], a: right0 ? 'y' : 'n', okT: right0 ? 'Bit hat richtig gelernt!' : 'Gut aufgepasst! Auch eine KI macht Fehler. Darum prüfen wir nach.', noT: right0 ? 'Doch, Bit lag richtig.' : 'Bit hat sich geirrt! Eine KI kann Fehler machen.', _t: 'x' }; }
+      card(''); const q = QZ[qi++ % QZ.length]; return { html: `<b>${q[0]}</b>`, o: tOpts(q[1]), a: '0', okT: 'Genau!', noT: `Richtig ist: ${q[1][0]}.`, _t: 'q' }; },
+    onPick: (ok, cur) => { const b = $('#kbt'); b.src = xImg(D, ok ? 'rhappy' : 'rques'); restart(b, ok ? 'yay' : 'shake');
+      if (ok && cur._t === 't') { learned++; $('#kcn').textContent = learned; const c = $('#kcd img'); if (c) { const a = c.getBoundingClientRect(), z = $('#kcb').getBoundingClientRect(); c.animate([{ transform: 'none' }, { transform: `translate(${z.left - a.left + z.width / 2 - a.width / 2}px,${z.top - a.top + z.height / 2 - a.height / 2}px) scale(.2)`, opacity: .2 }], { duration: 650, easing: 'cubic-bezier(.5,0,.6,1)', fill: 'forwards' }); } setTimeout(() => { restart($('#kcb'), 'gulp'); restart($('#kgr'), 'spin'); restart($('#kbl'), 'glow'); }, 620); }
+      if (ok && cur._t !== 't') restart($('#kbl'), 'glow'); } });
+  progress(N); say('Hilf Bit beim Lernen! Zeig ihm Beispiele und teste ihn dann.', '');
+  startOverlay('Training starten', `${N} Runden · So lernt eine KI`, next);
+  return () => {};
+}
+
+/* ---------- Echt oder erfunden? ---------- */
+function gEcht(T) {
+  gs.className = 'gs g-xs g-echt';
+  const D = 'echt', g = G(), N = 8;
+  const S0 = [[1, 'Bienen machen Honig.', 'Das stimmt! Bienen machen aus Blütensaft Honig.'], [1, 'Pinguine leben dort, wo es kalt ist.', 'Stimmt, zum Beispiel am Südpol.'], [0, 'Ein Foto zeigt einen Hund, so groß wie ein Haus.', 'So große Hunde gibt es nicht. Das Bild ist erfunden.', 1], [0, 'Ein Video zeigt eine Katze, die Auto fährt.', 'Katzen können nicht Auto fahren. Das ist erfunden.', 1], [1, 'Nach dem Regen sieht man manchmal einen Regenbogen.', 'Das stimmt!'], [0, 'Im Internet steht: Kühe können fliegen.', 'Nicht alles im Internet stimmt!'], [1, 'Im Herbst werden viele Blätter bunt.', 'Das stimmt!'], [0, 'Ein Bild zeigt einen Elefanten, der auf einem dünnen Ast sitzt.', 'Das geht nicht. Das Bild ist erfunden.', 1]];
+  const S1 = [[0, 'Auf einem Foto hat ein Mensch sechs Finger an einer Hand.', 'Zu viele Finger sind ein typischer Fehler von KI-Bildern.', 1], [0, 'Eine Nachricht sagt: Morgen ist für immer schulfrei! Schick das sofort an alle!', 'Wenn man etwas sofort an alle schicken soll, ist es oft erfunden.'], [0, 'Auf einem Schild im Bild stehen nur seltsame, verdrehte Buchstaben.', 'Komische Schrift ist ein Hinweis auf ein KI-Bild.', 1], [1, 'Die Erde dreht sich um die Sonne.', 'Das stimmt!'], [1, 'Wale sind Säugetiere.', 'Stimmt! Wale atmen Luft und trinken als Baby Milch.'], [0, 'Ein Video zeigt einen Fisch, der Fahrrad fährt.', 'Das ist erfunden.', 1], [1, 'Wasser kocht bei 100 Grad.', 'Das stimmt!'], [0, 'Ein Bild zeigt einen Hund, dessen Pfoten mit dem Boden verschmelzen.', 'Verschwommene, verschmolzene Stellen verraten oft KI-Bilder.', 1]];
+  const L = shuf(g <= 1 ? S0 : g === 2 ? shuf(S0).slice(0, 3).concat(S1.slice(0, 6)) : S1).slice(0, N);
+  gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><div class="eframe" id="efr"><img class="efb" src="${xImg(D, 'frame')}" alt=""><div class="etx" id="etx"></div><img class="ecam" id="ecm" src="${xImg(D, 'cam')}" alt=""></div><img class="ecat" id="ect" src="${xImg(D, 'cat')}" alt=""><img class="eloupe" id="elp" src="${xImg(D, 'loupe')}" alt=""><img class="eques" src="${xImg(D, 'ques')}" alt=""><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
+  const next = xRound(T, { N, done: 'Super Detektiv-Arbeit!', doneT: ['Was echt ist und was erfunden.', 'Nicht alles im Internet stimmt.', 'KI-Bilder und Falschmeldungen erkennen.', 'Wie ein Profi nachprüfen.'], okMs: 1800,
+    make: (r) => { const s = L[r]; $('#etx').textContent = s[1]; $('#ecm').style.display = s[3] ? '' : 'none'; restart($('#efr'), 'pop'); $$('.estamp', gs).forEach((e) => e.remove());
+      return { html: `<b>Echt oder erfunden?</b><small>Lies genau und denk nach.</small>`, o: [{ k: '1', img: xImg(D, 'ok'), label: 'Echt' }, { k: '0', img: xImg(D, 'no'), label: 'Erfunden' }], a: String(s[0]), okT: s[2], noT: s[2] }; },
+    onPick: (ok, cur) => { const f = $('#efr'), st = document.createElement('img'); st.src = xImg(D, cur.a === '1' ? 'ok' : 'no'); st.className = 'estamp'; f.appendChild(st); restart($('#elp'), 'scan'); restart($('#ect'), ok ? 'yay' : 'shake'); if (cur.a === '0') xFly(xImg(D, 'glitch'), f, 'eglitch', 900); } });
+  progress(N); say('Werde Detektiv! Ist das echt oder erfunden?', '');
+  startOverlay('Fall starten', `${N} Fälle · Echt oder erfunden?`, next);
+  return () => {};
+}
+
 /* ---------- Lernpfad wie bei Duolingo: Level -> 4 Lektionen -> Spiel ---------- */
 const LPKEY = 'gsm-lp2', LV_FREE = 2, PER = 5; // 2 Level frei in der Vorschau, je Level 4 Lektionen + 1 Spiel
 let LPS = {}; try { LPS = JSON.parse(localStorage.getItem(LPKEY) || '{}') || {}; } catch (e) { LPS = {}; }
@@ -9512,8 +9885,19 @@ const KIND = {
 const OKT = ['Richtig!', 'Super gemacht!', 'Klasse!', 'Genau so!', 'Spitze!', 'Prima!'];
 /* Sätze für die Stimmen registrieren (je Tutor) */
 const bubText = (x, last) => x.k === 'gap' ? 'Was passt in die Lücke?' : x.k === 'tf' ? 'Stimmt das?' : x.k === 'pad' ? 'Tipp die richtige Zahl ein.' : x.k === 'pairs' && last ? (x.q || 'Finde die Paare.') : x.q;
-const readText = (x, last) => x.k === 'tf' ? 'Stimmt das? ' + x.q : x.k === 'gap' ? 'Was passt in die Lücke? ' + x.q.replace(/_+/g, ' … ') : x.k === 'pad' ? 'Tipp die richtige Zahl ein. ' + x.q : bubText(x, last);
-function lpInit() { Object.entries(LP).forEach(([k, grades]) => { const S = SUBJ.find((s) => s.k === k); WHO = S ? S.tutor.id : 'all'; grades.forEach((lv, gi) => lv.forEach((L) => (L.L || []).forEach((les) => les.forEach((x, i) => { x.vq = vk(readText(x, i === les.length - 1)); if (x.e) x.ve = vk(x.e); if (x.k === 'listen') x.vs = vk(x.s, x.lang || 'de'); })))); });
+const readText = (x, last) => x.k === 'tf' ? 'Stimmt das? ' + x.q : x.k === 'gap' ? 'Was passt in die Lücke?' : x.k === 'pad' ? 'Tipp die richtige Zahl ein. ' + x.q : bubText(x, last);
+/* Zahlwörter (für Hör-Aufgaben ohne Ton) */
+function zahlwort(n) {
+  const E = ['null', 'eins', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf', 'dreizehn', 'vierzehn', 'fünfzehn', 'sechzehn', 'siebzehn', 'achtzehn', 'neunzehn'], Z = ['', '', 'zwanzig', 'dreißig', 'vierzig', 'fünfzig', 'sechzig', 'siebzig', 'achtzig', 'neunzig'];
+  const u100 = (v) => v < 20 ? E[v] : (v % 10 ? (v % 10 === 1 ? 'ein' : E[v % 10]) + 'und' : '') + Z[Math.floor(v / 10)];
+  const u1000 = (v) => (v >= 100 ? (Math.floor(v / 100) === 1 ? 'ein' : E[Math.floor(v / 100)]) + 'hundert' : '') + (v % 100 ? u100(v % 100) : '');
+  if (n === 0) return 'null'; const t = Math.floor(n / 1000), r = n % 1000;
+  return (t ? (t === 1 ? 'ein' : u1000(t)) + 'tausend' : '') + (r ? u1000(r) : '');
+}
+function lpInit() { Object.entries(LP).forEach(([k, grades]) => { const S = SUBJ.find((s) => s.k === k); WHO = S ? S.tutor.id : 'all'; grades.forEach((lv, gi) => lv.forEach((L) => (L.L || []).forEach((les) => les.forEach((x, i) => {
+  const tz = x.k === 'pop' && String(x.q).match(/^Tippe die Zahl ([\d ]+)!$/); if (tz) { const n = +tz[1].replace(/\D/g, ''); x.k = 'listen'; x.s = zahlwort(n); x.lang = 'de'; x.q = 'Hör genau hin: Welche Zahl sagt ' + (S ? S.tutor.n || 'Max' : 'Max') + '?'; }
+  if (typeof x.q === 'string') x.q = x.q.replace(/^Welcher Ballon (ist|heißt|passt)/, 'Welches Wort $1');
+  x.vq = vk(readText(x, i === les.length - 1)); if (x.e) x.ve = vk(x.e); if (x.k === 'listen') x.vs = vk(x.s, x.lang || 'de'); })))); });
   WHO = 'all'; }
 
 /* Pfad zeichnen: eigene Karte je Fach, nur die erste Lektion ist frei */
@@ -9596,7 +9980,7 @@ function startLesson(li, j, n, custom) {
   les.innerHTML = `<div class="lesin">
     <div class="lestop"><button class="lx" aria-label="Lektion schließen">${I('x')}</button><div class="lesw"><small>${custom ? custom.title : world.n}</small><div class="lesbar"><i></i></div></div><div class="lesstk" title="Serie">${I('flame')}<span>0</span></div><div class="lespts">${I('star')}<b>0</b></div><button class="lmute" data-mute aria-label="Ton">${I('snd')}</button></div><div class="wbg"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="lesmain"><div class="leskind"></div><div class="lestut"><span class="lestf">${tutorHTML(S.tutor.id)}</span><div class="lesbub"></div></div><div class="lesex"></div></div>
-    <div class="lesfoot"><div class="lesfw"><div class="lesmsg"><span class="lmf">${tutorHTML(S.tutor.id)}</span><span class="lmi"></span><div><b></b><span class="lmt"></span></div></div><button class="b3d lesbtn" disabled>Prüfen</button></div></div>
+    <div class="lesfoot"><div class="lesfw"><div class="lesmsg"><span class="lmf">${tutorHTML(S.tutor.id)}</span><span class="lmi"></span><div><b></b><span class="lmt"></span></div></div><div class="lhelp" id="lhelp"></div><button class="b3d lesbtn" disabled>Prüfen</button></div></div>
     <div class="lesquit"><div><span class="lqf">${tutorHTML(S.tutor.id)}</span><b>Nicht aufgeben, du bist so nah dran!</b><span class="lqs">Wenn du jetzt aufhörst, zählt diese Lektion noch nicht und deine Sterne gehen verloren.</span><button class="b3d lqgo" data-q="stay">Weiterspielen</button><button class="lqend" data-q="quit">Trotzdem aufhören</button></div></div>
   </div>`;
   les.classList.add('on'); document.body.classList.add('lesopen'); restart(les, 'enter');
@@ -9605,7 +9989,7 @@ function startLesson(li, j, n, custom) {
   $('[data-q=quit]', les).onclick = closeLesson;
   $('.lesbtn', les).onclick = lesBtn;
   $('.lmute', les).onclick = () => setVoice(!voiceOn); setVoice(voiceOn);
-  const bub = $('.lesbub', les); if (bub && !$('.lesrep', les)) { bub.insertAdjacentHTML('afterend', `<button class="lesrep" aria-label="Nochmal anhören" hidden>${I('snd')}<span>Nochmal</span></button>`); $('.lesrep', les).onclick = () => { if (LS && LS.say) sayChain(LS.say, LS.who, true); }; }
+  const bub = $('.lesbub', les); if (bub && !$('.lesrep', les)) { bub.insertAdjacentHTML('afterend', `<button class="lesrep" aria-label="Nochmal anhören" hidden>${I('snd')}<span>Nochmal</span></button>`); $('.lesrep', les).onclick = () => { if (!LS) return; restart($('.lesrep', les), 'xplay'); const ok = LS.say && sayChain(LS.say, LS.who, true); if (!ok) ttsDe(LS.sayT || $('.lesbub', les).textContent, true); else setTimeout(() => { if (!curAudio || curAudio.paused) ttsDe(LS.sayT || $('.lesbub', les).textContent, true); }, 900); }; }
   lesNext();
 }
 function closeLesson() { if (les.dataset.state !== 'end') MIXRUN = null; token++; stopVoice(); les.classList.remove('on', 'quit'); document.body.classList.remove('lesopen'); LS = null; setTimeout(() => { if (!les.classList.contains('on')) les.innerHTML = ''; }, 400); }
@@ -9616,12 +10000,14 @@ function sayChain(list, who, force) {
   const next = () => { if (i >= L.length || !LS) return; const k = L[i++]; const ok = voice(k, force, who); const a = curAudio; if (ok && a) a.onended = () => { talk(false); if (curAudio === a) setTimeout(next, 300); }; };
   if (!L.length) return false; next(); return true;
 }
+/* Vorlesen ohne Aufnahme: Stimme des Geräts */
+function ttsDe(text, force) { try { if ((!voiceOn && !force) || !window.speechSynthesis || !text) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(text).replace(/_+/g, ' … ')); u.lang = 'de-DE'; u.rate = .92; const v = speechSynthesis.getVoices().find((x) => /^de/i.test(x.lang)); if (v) u.voice = v; speechSynthesis.speak(u); } catch (e) {} }
 function lesSay(text, key, mood = '', hint) {
   const b = $('.lesbub', les); b.textContent = text; restart(b, 'new'); if (LS) LS.say = [key, hint];
   const has = !!(key && (String(key).startsWith('hw:') || CLIPS[((LS && LS.who) || 'max') + '|' + key]));
-  const rp = $('.lesrep', les); if (rp) rp.hidden = !has;
+  const rp = $('.lesrep', les); if (rp) rp.hidden = false; if (LS) LS.sayT = text;
   $('.lestut', les).className = 'lestut ' + mood;
-  if (has && voiceOn) sayChain([key, hint], LS && LS.who); else talk(true, Math.min(2400, 300 + text.length * 40));
+  if (has && voiceOn) sayChain([key, hint], LS && LS.who); else { talk(true, Math.min(2400, 300 + text.length * 40)); if (voiceOn && key !== false) ttsDe(text); }
 }
 const GHINT = { pop: 'Tippe auf den Ballon mit der richtigen Antwort.', planet: 'Tippe auf den richtigen Planeten. Die Rakete fliegt hin.', frog: 'Tippe auf das richtige Blatt. Der Frosch springt.', mole: 'Tippe auf den Maulwurf mit der richtigen Antwort.', fish: 'Tippe auf den Fisch mit der richtigen Antwort.', goal: 'Tippe auf das richtige Tor. Dann fliegt der Ball.', chest: 'Tippe auf die Kiste mit der richtigen Antwort.', thumb: 'Stimmt das? Tippe auf Stimmt oder Stimmt nicht.', flip: 'Decke zwei Karten auf, die zusammengehören.', pairs: 'Tippe links ein Wort und dann rechts das passende.', train: 'Tippe die Wörter der Reihe nach an. Dann fährt der Zug.', bubbles: 'Tippe die Buchstaben der Reihe nach an.', sort: 'Tippe auf die Kiste, in die das Wort gehört.', safe: 'Tippe die Zahl ein. Dann geht der Tresor auf.', mc: 'Tippe auf die richtige Antwort.' };
 const GHK = {}; Object.entries({ ...GHINT, order: 'Tippe die Karten der Reihe nach an. Was kommt zuerst?' }).forEach(([k, t]) => { ['max', 'mila', 'emma', 'claude', 'frieda', 'bit'].forEach((w) => { WHO = w; GHK[k] = vk(t); }); }); WHO = 'all';
@@ -9631,11 +10017,18 @@ function lesNext() {
   /* Immer abwechselnd: Spiel, Quizfrage, Spiel, Quizfrage ... */
   const QK = ['tf', 'pad', 'pairs', 'build', 'spell', 'order', 'sort'], canGame = (q) => !QK.includes(q.k) && Array.isArray(q.w) && Math.max(...[q.a, ...q.w].map((t) => String(t).length)) <= Math.max(...Object.values(SKINMAX));
   const wantGame = LS.nextGame !== false;
-  let qi = LS.q.findIndex((q) => (wantGame ? canGame(q) : QK.includes(q.k) && q.k !== 'tf' && q.k !== 'pad'));
+  const QSK = { tf: 'thumb', pad: 'safe', pairs: 'flip', build: 'train', spell: 'bubbles', order: 'order', sort: 'sort' }, qFresh = (q) => QK.includes(q.k) && !LS.used[QSK[q.k]] && !(q.k === 'pairs' && LS.used.pairs);
+  let qi = wantGame ? LS.q.findIndex((q) => canGame(q)) : LS.q.findIndex((q) => qFresh(q) && q.k !== 'tf' && q.k !== 'pad');
+  if (qi < 0 && !wantGame) qi = LS.q.findIndex((q) => qFresh(q));
+  if (qi < 0 && !wantGame) { /* Quiz-Art schon dran gewesen: als Kniffel-Frage stellen statt zu wiederholen */
+    const ti = LS.q.findIndex((q) => q.k === 'tf'), pi = LS.q.findIndex((q) => q.k === 'pad' && /^\d+$/.test(String(q.a).replace(/\D/g, '')));
+    if (!LS.used.mc && ti >= 0) { const t = LS.q[ti]; LS.q[ti] = { ...t, k: 'mc', q: t.q + ' Stimmt das?', a: t.a ? 'Stimmt' : 'Stimmt nicht', w: [t.a ? 'Stimmt nicht' : 'Stimmt'], _tf: 1, _quiz: 1 }; qi = ti; }
+    else if (!LS.used.mc && pi >= 0) { const t = LS.q[pi], n = +String(t.a).replace(/\D/g, ''), w = new Set(); for (const d of shuf([1, -1, 10, -10, 2])) { const v = n + d; if (v >= 0 && v !== n && w.size < 3) w.add(v); } LS.q[pi] = { ...t, k: 'mc', a: String(n), w: [...w].map(String), _quiz: 1 }; qi = pi; }
+  }
   if (qi < 0 && !wantGame) qi = LS.q.findIndex((q) => QK.includes(q.k));
   if (qi < 0 && !wantGame) { qi = LS.q.findIndex((q) => canGame(q)); if (qi >= 0) LS.q[qi]._quiz = 1; }
   if (qi < 0 && wantGame) { const pi = LS.q.findIndex((q) => q.k === 'pad' && /^\d+$/.test(String(q.a).replace(/\D/g, '')) && String(q.a).replace(/\D/g, '').length <= 7); if (pi >= 0) { const t = LS.q[pi], n = +String(t.a).replace(/\D/g, ''), w = new Set(); for (const d of shuf([1, -1, 10, -10, 2, 100, -100])) { const v = n + d; if (v >= 0 && v !== n && w.size < 3) w.add(v); } LS.q[pi] = { ...t, k: 'mc', a: String(n), w: [...w].map(String), _pad: 1 }; qi = pi; } }
-  if (qi < 0 && wantGame) { qi = LS.q.findIndex((q) => q.k === 'tf'); if (qi >= 0) { const t = LS.q[qi]; LS.q[qi] = { ...t, k: 'mc', q: t.q + ' Stimmt das?', a: 'Stimmt', w: ['Stimmt nicht'], _tf: 1 }; } }
+  if (qi < 0 && wantGame) { qi = LS.q.findIndex((q) => q.k === 'tf'); if (qi >= 0) { const t = LS.q[qi]; LS.q[qi] = { ...t, k: 'mc', q: t.q + ' Stimmt das?', a: t.a ? 'Stimmt' : 'Stimmt nicht', w: [t.a ? 'Stimmt nicht' : 'Stimmt'], _tf: 1 }; } }
   if (qi > 0) LS.q.unshift(LS.q.splice(qi, 1)[0]);
   const x = LS.cur = LS.q.shift(), T = LS.T, k = skinFor(x);
   LS.nextGame = !(k in SKINMAX);
@@ -9655,6 +10048,7 @@ function lesNext() {
   lesFS(host); requestAnimationFrame(() => fitLabels(host)); setTimeout(() => fitLabels(host), 400);
   if (GHINT[k]) host.insertAdjacentHTML('afterbegin', `<p class="ghint"><span>${I(GHI[k] || 'check')}</span>${GHINT[k]}</p>`);
   btn.style.display = LS.api.auto ? 'none' : ''; btn.textContent = LS.api.btn || 'Prüfen';
+  helpBar(x, host);
 }
 function lesBtn() {
   if (!LS) return;
@@ -9675,25 +10069,25 @@ function lesResult(ok, sol) {
   const ex = ok ? (x.e || '') : String(x.e || '').replace(/^(Richtig|Genau|Stimmt|Ja|Nein|Falsch)[.!,]\s*/, '');
   $('.lmt', m).innerHTML = ok ? ex : `Richtig ist: <b>${sol}</b>${ex ? `<i>${ex.charAt(0).toUpperCase() + ex.slice(1)}</i>` : ''}`;
   const btn = $('.lesbtn', les); btn.style.display = ''; btn.disabled = false; btn.textContent = 'Weiter'; btn.className = 'b3d lesbtn ' + (ok ? 'g' : 'o'); btn.focus({ preventScroll: true });
-  lesSay(ok ? title : 'Schau mal, so geht es.', ok ? null : x.ve, ok ? 'happy' : 'think');
+  lesSay(ok ? title : 'Schau mal, so geht es.', ok ? false : (x.ve || false), ok ? 'happy' : 'think');
   if (!ok && !x.ve && voiceOn) voice(pick(P.no), false, LS.who);
   if (ok && voiceOn && !quietPraise(P.ok[0])) voice(pick(P.ok), false, LS.who);
-  reward(ok, LS.streak);
-  if (ok) { const cur = x; LS.adv = setTimeout(() => { if (LS && LS.state === 'res' && LS.cur === cur) lesNext(); }, x.e ? 3200 : 1900); }
+  reward(ok, LS.streak); helpBarAfter(x);
+
 }
 function lesEnd() {
   if (typeof act === 'function') act('les');
   if (LS.custom) return customEnd();
   const S = LS.S, secs = Math.round((Date.now() - LS.t0) / 1000), acc = Math.round(LS.first / LS.total * 100), xp = Math.max(1, Math.round(acc / 20));
   const stars = xp, n = LS.n, last = LS.j === PER - 2;
-  sfx.win(); confetti(70); les.dataset.state = 'end';
+  les.dataset.state = 'end'; try { tone(523, .12, 'triangle', .08); } catch (er) {}
   const e = document.createElement('div'); e.className = 'lesend';
   e.innerHTML = `<div class="lee"><div class="leet">${tutorHTML(S.tutor.id)}</div><div class="bs">${[0, 1, 2, 3, 4].map((i) => `<svg class="i${i < stars ? ' on' : ''}" style="animation-delay:${.2 + i * .15}s"><use href="#i-star"/></svg>`).join('')}</div>
     <small class="lew">${LS.world.n} geschafft</small><h3>${acc === 100 ? 'Perfekt gespielt!' : 'Lektion geschafft!'}</h3><p>${last ? `Jetzt wartet das Spiel am Ende von Level ${LS.li + 1}.` : `Lektion ${LS.j + 1} von 4 in Level ${LS.li + 1}.`}</p>
     <div class="lestats"><div class="lsx"><small>Sterne</small><b>+${xp}</b></div><div class="lsa"><small>Genauigkeit</small><b>${acc} %</b></div><div class="lst"><small>Zeit</small><b>${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}</b></div></div>
     ${!PAID && n + 1 >= (MIXRUN ? MIX_FREE : FREE_N) ? `<div class="lefree"><b>Das war die Probe-Lektion!</b><span>Im Abo geht es weiter: alle Level, alle Spiele und die Hausaufgaben-Hilfe.</span></div><button class="b3d lg" data-a="pay">${I('play')}7 Tage kostenlos testen</button><button class="lnk lego" data-a="go">Zurück zur Karte</button>` : `<button class="b3d c lg" data-a="go">Weiter ${I('arrow')}</button>`}</div>`;
   $('.lesin', les).appendChild(e);
-  $('.lestut', les).className = 'lestut happy'; voice(P.st[Math.min(5, Math.max(1, stars)) - 1], false, LS.who);
+  $('.lestut', les).className = 'lestut happy';
   const tot = xp, fin = () => (MIXRUN ? mixComplete(tot) : lpComplete(n, tot)); $('[data-a=go]', e).onclick = () => { closeLesson(); fin(); };
   const pb = $('[data-a=pay]', e); if (pb) pb.onclick = () => { closeLesson(); fin(); paywall(); };
 }
@@ -9722,7 +10116,7 @@ EX.listen = (x, h, ctx) => {
   h.innerHTML = `<div class="lsn"><button class="lspk" aria-label="Anhören">${I('snd')}</button><button class="lspk slow" aria-label="Langsam anhören">${I('snd')}<small>langsam</small></button></div><div class="opts n${o.length}${o.every((t) => String(t).length <= 5) ? ' short' : ''}">${o.map((t, i) => `<button class="opt" data-v="${i}"><kbd>${i + 1}</kbd><span>${t}</span></button>`).join('')}</div>`;
   const say = (slow) => { stopVoice(); const b = $$('.lspk', h)[slow ? 1 : 0]; if (!b || !b.isConnected) return; restart(b, 'xplay'); const url = CLIPS[SUBJ[st.s].tutor.id + '|' + x.vs]; if (url && !slow) { curAudio = new Audio(url); curAudio.play().catch(() => {}); return; } try { const u = new SpeechSynthesisUtterance(x.s); u.lang = { de: 'de-DE', en: 'en-GB', fr: 'fr-FR' }[x.lang || 'de']; u.rate = slow ? .55 : .85; speechSynthesis.speak(u); } catch (e) {} };
   $$('.lspk', h).forEach((b, i) => (b.onclick = () => say(i === 1)));
-  setTimeout(() => { if (alive(ctx.T)) say(false); }, 500);
+  setTimeout(() => { if (alive(ctx.T) && !NOSND) say(false); }, 500);
   const c = choiceList(h, o, 'opt', ctx);
   return { check: () => { c.mark(x.a); return { ok: o[c.get()] === x.a, sol: x.a }; }, key: (e) => { const b = $$('.opt', h)[+e.key - 1]; if (b) b.click(); } };
 };
@@ -9905,7 +10299,7 @@ function lesFS(host) {
     if (sc && !bg) { const im = $('.gbg', sc); if (im) bg = `url("${im.src}") 50% 50%/cover no-repeat`; else { const cs = getComputedStyle(sc); bg = cs.backgroundImage !== 'none' ? `${cs.backgroundImage.replace(/\)\s*,/g, '),')} 50% 50%/cover no-repeat, ${cs.backgroundColor}` : cs.backgroundColor; } sc.classList.add('fsx'); }
     const [a, b] = fs.children, cur = fs.dataset.on === '1' ? b : a, nxt = cur === a ? b : a;
     if (!bg) { if (fs.classList.contains('on')) return; const W0 = { meer: 'fish/bg', wiese: 'mole/bg2', all: 'planet/bg', stadion: 'goal/bg', insel: 'chest/bg', kirmes: 'goal/bg' }[les.dataset.world] || 'mole/bg2'; const [g, f] = W0.split('/'); bg = `url("/grundschulmax/sp/${g}2/${f}.webp") 50% 50%/cover no-repeat`; }
-    nxt.style.background = bg; nxt.classList.add('on'); cur.classList.remove('on'); fs.dataset.on = nxt === b ? '1' : '0'; fs.classList.add('on');
+    nxt.style.background = bg; nxt.classList.add('on'); cur.classList.remove('on'); fs.dataset.on = nxt === b ? '1' : '0'; fs.classList.add('on'); if (typeof bbSync === 'function') bbSync();
   });
 }
 
@@ -9936,10 +10330,8 @@ function fitLabels(host) {
   };
   const end0 = lesEnd;
   lesEnd = function () {
-    end0.apply(this, arguments);
-    const e = $('.lesend', les); if (!e) return;
-    $$('.bs svg.on', e).forEach((s, i) => setTimeout(() => { try { tone(660 + i * 120, .12, 'triangle', .07); } catch (er) {} }, 350 + i * 150));
-    $$('.lestats b', e).forEach((b) => { const m = b.textContent.match(/^(\D*)(\d+)(.*)$/); if (!m || b.closest('.lst')) return; const n = +m[2], t0 = performance.now(); const f = (t) => { const k = Math.min(1, (t - t0) / 900); b.textContent = m[1] + Math.round(n * (1 - Math.pow(1 - k, 3))) + m[3]; if (k < 1) requestAnimationFrame(f); }; b.textContent = m[1] + '0' + m[3]; setTimeout(() => requestAnimationFrame(f), 700); });
+    stopVoice(); end0.apply(this, arguments);
+    const e = $('.lesend', les); if (!e) return; endShow(e);
   };
 })();
 /* Jeder 3D-Knopf: kleiner Funkenregen beim Tippen */
@@ -9948,6 +10340,75 @@ document.addEventListener('pointerdown', (e) => {
   const r = b.getBoundingClientRect();
   for (let i = 0; i < 7; i++) { const d = document.createElement('i'); d.className = 'tapsp'; d.style.left = e.clientX + 'px'; d.style.top = e.clientY + 'px'; d.style.setProperty('--dx', (Math.cos(i / 7 * 6.283) * (30 + Math.random() * 25)) + 'px'); d.style.setProperty('--dy', (Math.sin(i / 7 * 6.283) * (30 + Math.random() * 25)) + 'px'); d.style.background = ['#ffd23a', '#fff', '#5fe08a', '#ff7ab0', '#6ab8ff'][i % 5]; document.body.appendChild(d); setTimeout(() => d.remove(), 600); }
 }, { passive: true });
+
+/* ---------- Hilfe-Knöpfe: Tipp, Lösung, Ohne Ton, Erklär mir das ---------- */
+const HUI = (k) => `/grundschulmax/sp/${k}.webp`;
+let NOSND = (() => { try { return localStorage.getItem('gsm-nosnd') === '1'; } catch (e) { return false; } })();
+const hbtn = (a, img, t, cls = '') => `<button class="lhb ${cls}" data-h="${a}" type="button"><img src="${HUI(img)}" alt=""><span>${t}</span></button>`;
+function solText(x) {
+  if (x.k === 'tf') return x.a ? 'Stimmt' : 'Stimmt nicht';
+  if (x.k === 'order') return x.a.join(' → ');
+  if (x.k === 'pairs') return x.p.map((p) => `${p[0]} = ${p[1]}`).join(', ');
+  if (x.k === 'sort') return x.it.map((i) => `${i[0]} → ${x.b[i[1]]}`).join(', ');
+  if (Array.isArray(x.a)) return x.a.join(x.k === 'spell' ? '' : ' ');
+  return String(x.a);
+}
+function noSoundView(x, host) {
+  const box = $('.lsq, .lsn', host); if (!box || box.dataset.ns) return; box.dataset.ns = '1';
+  box.innerHTML = `<div class="lsword"><small>Lies:</small><b>${x.s}</b></div>`;
+}
+function helpBar(x, host) {
+  const hb = $('#lhelp', les); if (!hb) return; const hear = x.k === 'listen';
+  hb.innerHTML = hbtn('tip', 'kil/bulb', 'Tipp') + (hear ? hbtn('nosnd', 'ui/snd', NOSND ? 'Ton an' : 'Ohne Ton', 'ns' + (NOSND ? ' on' : '')) : '') + hbtn('sol', 'echt/loupe', 'Lösung');
+  if (hear && NOSND) setTimeout(() => { if (LS && LS.cur === x) { stopVoice(); noSoundView(x, host); } }, 60);
+  let tips = 0;
+  $$('.lhb', hb).forEach((b) => (b.onclick = () => {
+    if (!LS || LS.state !== 'idle' || LS.cur !== x) return; sfx.tap(); restart(b, 'pop');
+    const a = b.dataset.h;
+    if (a === 'nosnd') { NOSND = !NOSND; try { localStorage.setItem('gsm-nosnd', NOSND ? '1' : '0'); } catch (e) {} b.classList.toggle('on', NOSND); $('span', b).textContent = NOSND ? 'Ton an' : 'Ohne Ton'; if (NOSND) { stopVoice(); noSoundView(x, host); } else { const box = $('.lsq, .lsn', host); if (box && box.dataset.ns) { lesNextSame(); } } return; }
+    if (a === 'tip') {
+      tips++; LS.missed = true;
+      const opts = [...host.querySelectorAll('[data-v], .opt, .tfb')].filter((e) => e.offsetParent && !e.classList.contains('gone'));
+      const wrong = opts.filter((e) => e.textContent.trim() !== String(x.a).trim() && !(x.k === 'tf'));
+      if (wrong.length > 1 && tips <= 2) { const w = wrong[Math.floor(Math.random() * wrong.length)]; w.classList.add('gone'); w.style.pointerEvents = 'none'; lesSay(tips === 1 ? 'Eine Antwort ist schon mal falsch. Die habe ich weggenommen.' : 'Noch eine weg. Jetzt schaffst du es!', null, 'think'); }
+      else { const t = x.h || (x.e ? String(x.e).split(/(?<=[.!?])\s/)[0].replace(new RegExp(String(solText(x)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), '…') : 'Lies die Aufgabe noch einmal ganz langsam.'); lesSay('Tipp: ' + t, null, 'think'); }
+      if (tips >= 2) b.disabled = true; return;
+    }
+    if (a === 'sol') { LS.missed = true; const c = [...host.querySelectorAll('[data-v], .opt, .tfb')].find((e) => e.textContent.trim() === solText(x)); if (c) c.classList.add('hint'); lesResult(false, solText(x)); }
+  }));
+}
+function lesNextSame() { if (!LS || !LS.cur) return; LS.q.unshift(LS.cur); const k = LS.lastSkin; LS.used[k] = Math.max(0, (LS.used[k] || 1) - 1); LS.nextGame = !(k in SKINMAX) ? false : true; lesNext(); }
+function helpBarAfter(x) {
+  const hb = $('#lhelp', les); if (!hb) return;
+  hb.innerHTML = x.e ? hbtn('why', 'echt/ques', 'Erklär mir das', 'why') : '';
+  const b = $('.lhb', hb); if (!b) return;
+  b.onclick = () => { sfx.tap(); restart(b, 'pop'); const m = $('.lmt', les); if (m) restart(m, 'pulse'); const ok = x.ve && voiceOn && sayChain([x.ve], LS && LS.who, true); if (!ok) ttsDe(String(x.e), true); };
+}
+
+/* ---------- Endbildschirm: große 3D-Sterne, glänzende Karten, alles im Takt mit dem Ton ---------- */
+function endShow(e) {
+  const U = (k) => `/grundschulmax/sp/${k}.webp`, bs = $('.bs', e), n = bs ? $$('svg.on', bs).length : 0;
+  if (bs) bs.outerHTML = `<div class="es-stars">${[0, 1, 2, 3, 4].map((i) => `<span class="es-st${i < n ? ' on' : ''}"><img class="es-off" src="${U('ui/starnone')}" alt=""><img class="es-on" src="${U('ui/star')}" alt=""></span>`).join('')}</div>`;
+  const ls = $('.lestats', e);
+  if (ls) { const ic = { lsx: 'ui/star', lsa: 'ui/check', lst: 'clock2/alarm' };
+    $$('.lestats>div', e).forEach((d) => { const k = d.className.split(' ')[0]; d.insertAdjacentHTML('afterbegin', `<img class="es-ic" src="${U(ic[k] || 'ui/star')}" alt=""><i class="es-gl"></i>`); }); }
+  e.insertAdjacentHTML('afterbegin', `<div class="es-rays"></div>`);
+  const g = window.gsap, stars = $$('.es-st', e), on = stars.filter((s) => s.classList.contains('on')), cards = $$('.lestats>div', e), go = $('[data-a=go], [data-a=pay]', e);
+  const tick = (i) => { try { tone(660 + i * 140, .14, 'triangle', .09); setTimeout(() => tone(990 + i * 160, .08, 'sine', .05), 60); } catch (er) {} };
+  const count = (b, d) => { const m = b.textContent.match(/^(\D*)(\d+)(.*)$/); if (!m || b.closest('.lst')) return; const n0 = +m[2], o = { v: 0 }; b.textContent = m[1] + '0' + m[3]; if (g) g.to(o, { v: n0, duration: d, ease: 'power2.out', onUpdate: () => { b.textContent = m[1] + Math.round(o.v) + m[3]; } }); };
+  if (!g) { on.forEach((s, i) => setTimeout(() => { s.classList.add('in'); tick(i); }, 400 + i * 260)); return; }
+  const tl = g.timeline({ delay: .25 });
+  tl.from($('.lee', e), { scale: .85, opacity: 0, duration: .45, ease: 'back.out(1.8)' });
+  stars.forEach((s) => g.set($('.es-on', s), { scale: 0, rotation: -120, opacity: 0 }));
+  on.forEach((s, i) => {
+    const im = $('.es-on', s);
+    tl.to(im, { keyframes: [{ scale: 1.55, rotation: 15, opacity: 1, duration: .22, ease: 'power2.out' }, { scale: 1, rotation: 0, duration: .35, ease: 'elastic.out(1,.45)' }], onStart: () => { tick(i); s.classList.add('in'); const r = s.getBoundingClientRect(); for (let k = 0; k < 10; k++) { const p = document.createElement('i'); p.className = 'es-sp'; p.style.left = r.left + r.width / 2 + 'px'; p.style.top = r.top + r.height / 2 + 'px'; document.body.appendChild(p); g.to(p, { x: Math.cos(k / 10 * 6.28) * (50 + Math.random() * 40), y: Math.sin(k / 10 * 6.28) * (50 + Math.random() * 40), scale: 0, duration: .7, ease: 'power2.out', onComplete: () => p.remove() }); } } }, i ? '-=.25' : '+=.05');
+  });
+  if (on.length === 5) tl.add(() => { try { sfx.win(); } catch (er) {} confetti(90); }, '-=.1');
+  tl.from(cards, { y: 40, scale: .6, opacity: 0, duration: .5, stagger: .14, ease: 'back.out(2)', onStart: () => cards.forEach((c, i) => setTimeout(() => { $$('b', c).forEach((b) => count(b, .9)); try { tone(520 + i * 90, .1, 'sine', .06); } catch (er) {} }, i * 140)) }, '+=.1');
+  if (go) tl.from(go, { scale: 0, opacity: 0, duration: .45, ease: 'back.out(2.2)' }, '+=.05');
+  tl.add(() => { try { voice(P.st[Math.min(5, Math.max(1, on.length)) - 1], false, LS && LS.who); } catch (er) {} });
+}
 
 function markTried() { try { localStorage.setItem('gsm-tried', '1'); } catch (e) {} document.body.classList.add('did1'); const sp = document.getElementById('spot'); if (sp) sp.classList.remove('on'); }
 try { if (localStorage.getItem('gsm-tried')) document.body.classList.add('did1'); } catch (e) {}
@@ -9971,11 +10432,11 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = '88eed792';
+const PFV = '43c1e770';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
-  const a = PROF().av; return { src: avSrc(a, 'n'), blink: avSrc(a, 'b'), happy: avSrc(a, 'h'), sad: avSrc(a, 'n'), fit: { x: -22, y: -38, s: 300 } };
+  const a = PROF().av; return { src: avSrc(a, 'n'), blink: avSrc(a, 'b'), happy: avSrc(a, 'h'), sad: avSrc(a, 'n'), fit: { x: 30, y: 28, s: 196 } };
 }
 function pfList() {
   const g = Math.max(0, st.grade), all = mixStations(g).slice(0, 36);
@@ -10027,6 +10488,7 @@ async function pfShow0(container, host, keep) {
 }
 async function drawMix() {
   const c = $('#ahome'); if (!c) return; PFHOST.key = 'mix';
+  if (PFEL && PFEL.parentElement !== c) c.prepend(PFEL);
   const first = !PF; await pfShow(c, PFHOST);
   if (first) { pfPre();
     // Tutorial erst, wenn das Kind wirklich im Spiel ist (Pfad sichtbar und geladen), nie auf der Startseite
@@ -10059,6 +10521,7 @@ async function drawLP(justN) {
   const h = subjHost(), key = h.theme().key;
   if (!SH || SH.key !== key) { SH = h; SH.key = key; }
   const prev = PF && PFCUR === SH ? PF.cur() : null;
+  if (PFEL && PFEL.parentElement !== box) box.prepend(PFEL);
   if (!(await pfShow(box, SH, justN != null))) return; pfPre();
   if (justN != null && prev != null) { PF.refresh(true); const c = SH.list().findIndex((q) => q.state === 'cur'); if (c > prev) PF.hopTo(c); }
 }
@@ -10082,7 +10545,7 @@ setTimeout(() => {
 
 /* Figuren blinzeln: kurz das Bild mit geschlossenen Augen zeigen */
 (() => {
-  const B = new Set(['bonj/boy','bonj/cat','bonj/girl','clock2/owl','eshop/bear','eshop/teddy','goal2/keep','hupf/frog','hupf/jump','mole2/sign','planet2/astro','pong/frog','pong/hase','simon/jump','simon/sit','simon/wave','story/bunny','story/fox','story/owl']), pre = {};
+  const B = new Set(['bonj/boy','bonj/cat','clock2/owl','eshop/bear','eshop/teddy','goal2/keep','hupf/frog','hupf/jump','katze/jump','katze/peek','mole2/sign','planet2/astro','pong/frog','pong/hase','pong/pad','simon/sit','story/bunny','story/fox','story/owl']), pre = {};
   const key = (im) => { try { const p = new URL(im.currentSrc || im.src, location.href).pathname; const m = p.match(/\/grundschulmax\/sp\/(.+)\.webp$/); return m && B.has(m[1]) ? m[1] : null; } catch (e) { return null; } };
   setInterval(() => {
     if (document.hidden) return; const now = Date.now();
@@ -10117,6 +10580,31 @@ document.addEventListener('pointerdown', (e) => { const x = e.target.closest && 
 setTimeout(() => { if (typeof AV === 'undefined') return; const ks = Object.keys(AV), L = ks.map((k) => avSrc(k, 'n')).concat(ks.flatMap((k) => [avSrc(k, 'b'), avSrc(k, 'h')]));
   let i = 0; const nx = () => { if (i >= L.length) return; const im = new Image(); im.decoding = 'async'; im.onload = im.onerror = () => setTimeout(nx, 30); im.src = L[i++]; }; nx(); nx(); nx(); }, 2500);
 
+/* ---------- Big Ben im Englisch-Zimmer: echte Zeiger, laufen mit der Uhrzeit ---------- */
+const BBP = { l: [2560, 1707, .7447, .1491, .0111], p: [1707, 2560, .8082, .1509, .0204] };
+function bbMake() { const d = document.createElement('div'); d.className = 'bbc'; d.innerHTML = '<span class="bbh"></span><span class="bbm"></span><span class="bbs"></span><b></b>'; return d; }
+function bbPlace(d, cw, ch, mode, port, px, py) {
+  const [iw, ih, fx, fy, fr] = BBP[port ? 'p' : 'l']; let w, h, x, y;
+  if (mode === 'cover') { const s = Math.max(cw / iw, ch / ih); w = iw * s; h = ih * s; x = (cw - w) * px; y = (ch - h) * py; }
+  else { w = Math.max(cw, innerHeight * (port ? .667 : 1.5)); h = w * ih / iw; x = (cw - w) / 2; y = 0; }
+  const r = fr * w; d.style.cssText = `left:${x + fx * w}px;top:${y + fy * h}px;width:${r * 2}px;height:${r * 2}px`;
+}
+function bbTick() { const t = new Date(), m = t.getMinutes() + t.getSeconds() / 60, h = (t.getHours() % 12) + m / 60; document.querySelectorAll('.bbc').forEach((d) => { d.style.setProperty('--h', h * 30 + 'deg'); d.style.setProperty('--m', m * 6 + 'deg'); d.style.setProperty('--s', t.getSeconds() * 6 + 'deg'); }); }
+setInterval(bbTick, 1000);
+function bbSync() {
+  const port = innerHeight > innerWidth * 1.15;
+  /* Lektion: Hintergrund-Ebene */
+  const fs = document.querySelector('.les.on .lesfs');
+  if (fs) { let d = fs.querySelector('.bbc'); const on = document.querySelector('.les.on') && document.querySelector('.les.on').dataset.k === 'englisch' && document.querySelector('.les.on').classList.contains('inroom');
+    if (on) { if (!d) { d = bbMake(); fs.appendChild(d); } bbPlace(d, innerWidth, innerHeight, 'cover', port, .5, port ? .2 : .3); d.hidden = false; } else if (d) d.hidden = true; }
+  /* Spiele / Testvorbereitung im Englisch-Fach */
+  const app = document.getElementById('app'), m = document.querySelector('#app .amain');
+  if (app && m) { let d = m.querySelector(':scope > .bbc'); const on = app.dataset.v === 'subj' && (app.dataset.w === 'games' || app.dataset.w === 'test') && app.dataset.k === 'englisch';
+    if (on) { if (!d) { d = bbMake(); d.classList.add('inmain'); m.prepend(d); } bbPlace(d, m.clientWidth, m.clientHeight, 'top', matchMedia('(max-aspect-ratio:4/5)').matches); d.hidden = false; } else if (d) d.hidden = true; }
+  bbTick();
+}
+setInterval(bbSync, 700); addEventListener('resize', bbSync);
+
 /* ---------- Lektionen als Spiele: jede Lektion eine eigene Welt, jede Aufgabe ein Spiel ---------- */
 const WORLDS = [
   { k: 'meer', n: 'Unterwasser-Welt', skins: ['fish', 'chest', 'frog'] },
@@ -10141,6 +10629,7 @@ function skinFor(x) {
   if (k === 'sort') return 'sort';
   const o = [x.a, ...x.w], len = Math.max(...o.map((t) => String(t).length));
   let c = Object.keys(SKINMAX).filter((s) => SKINMAX[s] >= len && !(k === 'listen' && s === 'pop'));
+  if (!x._re) { const fresh = c.filter((s) => !used[s]); c = fresh; } // kein Spiel doppelt pro Lektion
   if (!c.length) return 'mc';
   c.sort((a, b) => (used[a] || 0) - (used[b] || 0) || (W.skins.indexOf(b) >= 0) - (W.skins.indexOf(a) >= 0) || Math.random() - .5);
   const best = c.filter((s) => s !== LS.lastSkin);
@@ -10157,7 +10646,7 @@ function preHTML(x) {
 function listenHook(x, h, ctx) {
   const say = (slow) => { stopVoice(); const b = $$('.lspk', h)[slow ? 1 : 0]; if (!b || !b.isConnected) return; restart(b, 'xplay'); const url = CLIPS[SUBJ[st.s].tutor.id + '|' + x.vs]; if (url && !slow) { curAudio = new Audio(url); curAudio.play().catch(() => {}); return; } try { const u = new SpeechSynthesisUtterance(x.s); u.lang = { de: 'de-DE', en: 'en-GB', fr: 'fr-FR' }[x.lang || 'de']; u.rate = slow ? .55 : .85; speechSynthesis.speak(u); } catch (e) {} };
   $$('.lspk', h).forEach((b, i) => (b.onclick = () => say(i === 1)));
-  setTimeout(() => { if (alive(ctx.T)) say(false); }, 450);
+  setTimeout(() => { if (alive(ctx.T) && !(typeof NOSND !== 'undefined' && NOSND)) say(false); }, 450);
 }
 /* Belohnung: Münzen, Edelsteine und Sterne fliegen heraus */
 function loot(el, n = 12, kinds = ['coin', 'coin', 'gem', 'gemp', 'star']) {
@@ -10254,6 +10743,7 @@ function choiceGame(skin) {
     const o = shuf([x.a, ...x.w]), ai = o.indexOf(x.a), S = SK[skin];
     h.innerHTML = `${preHTML(x)}<div class="qscn s-${skin}">${S.scene}${o.map((t, i) => S.item(t, i, o.length)).join('')}</div>`;
     const sc = $('.qscn', h); let done = false;
+    if (S.after) requestAnimationFrame(() => S.after(sc));
     if (x.k === 'listen') listenHook(x, h, ctx);
     $$('[data-v]', sc).forEach((el) => (el.onclick = () => {
       if (done) return; done = true; const ok = +el.dataset.v === ai; sc.classList.add('qfin'); el.classList.add('picked');
@@ -10364,7 +10854,7 @@ function reward(ok, streak) {
     hk.style.transition = 'height .45s cubic-bezier(.3,.8,.4,1)'; hk.style.left = b.x + 'px'; hk.style.height = Math.max(20, b.y - b.h * .15) + 'px';
     setTimeout(() => { el.animate([{ rotate: '0deg' }, { rotate: '-12deg' }, { rotate: '12deg' }, { rotate: '-8deg' }, { rotate: '0deg' }], { duration: 380 }); sfx.coin(); }, 450);
     setTimeout(() => { fx(sc, b.x, b.y, P('fish', 'splash'), 'gsplash'); const up = b.y + b.h; hk.style.transition = 'height .7s cubic-bezier(.5,0,.7,.4)'; hk.style.height = '0px';
-      el.animate([{ transform: el.style.transform || getComputedStyle(el).transform }, { transform: `translate(0,-50%) translateY(-${up}px) rotate(-25deg)` }], { duration: 700, easing: 'cubic-bezier(.5,0,.7,.4)', fill: 'forwards' }); starsUp(el, 10); }, 850);
+      el.animate([{ transform: el.style.transform || getComputedStyle(el).transform }, { transform: `translate(0,-50%) translateY(-${up}px) rotate(-25deg)`, opacity: 0 }], { duration: 700, easing: 'cubic-bezier(.5,0,.7,.4)', fill: 'forwards' }); starsUp(el, 10); }, 850);
   };
   SK.fish.fail = (el, sc) => { const b = box(el, sc); fx(sc, b.x, b.y, P('fish', 'bubbles'), 'gpuff'); el.style.animation = 'none'; const dir = el.classList.contains('fl') ? 1 : -1; el.animate([{ transform: 'translate(0,-50%)' }, { transform: `translate(${dir * 14}px,-50%) rotate(${dir * 10}deg)`, offset: .3 }, { transform: `translate(${dir * 120}px,-50%)`, opacity: .35 }], { duration: 700, easing: 'ease-in', fill: 'forwards' }); };
   SK.fish.ms = 1500;
@@ -10378,7 +10868,7 @@ function reward(ok, streak) {
   SK.mole.ms = 1300;
   /* Torschuss */
   SK.goal.item = (t, i, n) => `<button class="gl ng" data-v="${i}" style="--fs:${fsz(t)}"><span class="gln"><img class="gim" src="${P('goal', 'goal')}" alt=""><span class="glb">${t}</span></span></button>`;
-  const kick = (el, sc, ok) => { const bl = $('.ball', sc), a = box(bl, sc), g = box($('.gim', el), sc), kp = $('.gkeep', sc); bl.style.animation = 'none'; sfx.kick();
+  const kick = (el, sc, ok) => { const bl = $('.ball', sc), a = box(bl, sc), g = box($('.gim', el), sc), kps = $$('.gkeep', sc), kp = kps.sort((p, q) => Math.abs(box(p, sc).y - g.y) - Math.abs(box(q, sc).y - g.y))[0]; clearInterval(sc._kp); if (kp) kp.style.transition = 'none'; if (ok && kp && Math.abs(box(kp, sc).x - g.x) < g.w * .5) { const d = Math.random() < .5 ? -1 : 1; kp.src = P('goal', 'keepdive'); kp.style.scale = d < 0 ? '-1 1' : '1 1'; kp.animate([{ transform: 'none' }, { transform: `translate(${d * g.w * .55}px,${g.h * .12}px) rotate(${d * 25}deg)` }], { duration: 380, delay: 160, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'forwards' }); } bl.style.animation = 'none'; sfx.kick();
     const dx = g.x - a.x, dy = g.y + g.h * .12 - a.y;
     if (!ok && kp) { const k = box(kp, sc); kp.src = P('goal', 'keepdive'); kp.classList.add('dive'); kp.animate([{ transform: 'translate(0,0)' }, { transform: `translate(${g.x - k.x}px,${g.y + g.h * .1 - k.y}px)` }], { duration: 420, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'forwards' }); }
     const path = ok ? [{ transform: 'translate(0,0) scale(1) rotate(0)' }, { transform: `translate(${dx * .5}px,${dy * .5 - 90}px) scale(.8) rotate(360deg)`, offset: .5 }, { transform: `translate(${dx}px,${dy}px) scale(.55) rotate(720deg)` }]
@@ -10421,6 +10911,50 @@ function reward(ok, streak) {
   SK.chest.fail = (el, sc) => open_(el, sc, false);
   SK.chest.ms = 1500;
 })();
+
+/* ---------- Lebendige Umgebung: Wolken, Vögel, Schmetterlinge, Sternschnuppen ---------- */
+const AMBI = (k) => `/grundschulmax/sp/amb/${k}.webp`;
+function ambHTML(list) {
+  const r = (a, b) => (a + Math.random() * (b - a)).toFixed(1);
+  return `<div class="ambl">${list.map((k) => {
+    if (k === 'clouds') return `<img class="am-cloud" src="${AMBI('cloud')}" style="--y:${r(1, 8)}%;--w:${r(9, 14)}%;--d:${r(60, 80)}s;--dl:-${r(0, 60)}s" alt=""><img class="am-cloud" src="${AMBI('cloud2')}" style="--y:${r(6, 14)}%;--w:${r(7, 11)}%;--d:${r(75, 95)}s;--dl:-${r(0, 70)}s" alt="">`;
+    if (k === 'bird') return `<span class="am-bird" style="--y:${r(6, 16)}%;--d:${r(16, 22)}s;--dl:-${r(0, 12)}s"><img src="${AMBI('bird')}" alt=""><img src="${AMBI('bird2')}" alt=""></span>`;
+    if (k === 'gull') return `<span class="am-bird am-gull" style="--y:${r(5, 14)}%;--d:${r(20, 26)}s;--dl:-${r(0, 14)}s"><img src="${AMBI('gull')}" alt=""><img src="${AMBI('gull')}" alt=""></span>`;
+    if (k === 'bfly') return `<span class="am-bfly" style="--x:${r(8, 80)}%;--y:${r(30, 60)}%;--d:${r(11, 15)}s"><img src="${AMBI('bfly')}" alt=""></span>`;
+    if (k === 'dfly') return `<span class="am-bfly am-dfly" style="--x:${r(55, 85)}%;--y:${r(20, 40)}%;--d:${r(9, 12)}s"><img src="${AMBI('dfly')}" alt=""></span>`;
+    if (k === 'shoot') return `<img class="am-shoot" src="${AMBI('shoot')}" style="--d:${r(7, 10)}s;--dl:-${r(0, 6)}s" alt="">`;
+    if (k === 'palm') return `<img class="am-palm l" src="${AMBI('palm')}" alt=""><img class="am-palm r" src="${AMBI('palm')}" alt="">`;
+    if (k === 'bubble') return [0, 1, 2].map((i) => `<img class="am-bub" src="${AMBI('bubble')}" style="--x:${r(10, 90)}%;--w:${r(2.5, 5)}%;--d:${r(7, 11)}s;--dl:-${r(0, 9)}s" alt="">`).join('');
+    if (k === 'spots') return [24, 50, 76].map((x, i) => `<img class="am-spot" src="${AMBI('spot')}" style="--x:${x}%;--dl:-${i * 1.3}s" alt="">`).join('');
+    if (k === 'spark') return [0, 1, 2, 3].map(() => `<img class="am-spark" src="${AMBI('spark')}" style="--x:${r(8, 92)}%;--y:${r(15, 70)}%;--d:${r(2.6, 4)}s;--dl:-${r(0, 3)}s" alt="">`).join('');
+    if (k === 'ripple') return [0, 1].map(() => `<img class="am-rip" src="${AMBI('ripple')}" style="--x:${r(15, 85)}%;--y:${r(40, 70)}%;--d:${r(3.5, 5)}s;--dl:-${r(0, 4)}s" alt="">`).join('');
+    return '';
+  }).join('')}</div>`;
+}
+const AMBGS = { 'g-simon': ['clouds', 'bird', 'bfly'], 'g-hupf': ['clouds', 'bird', 'ripple'], 'g-bonj': ['clouds', 'bird'], 'g-ochat': ['clouds', 'bird'], 'g-eshop': ['clouds', 'bird'], 'g-amp': ['clouds', 'bird', 'bird'], 'g-race2': ['clouds', 'bird'], 'g-story': ['spark'], 'g-echt': ['spots'], 'g-dikt': ['spark'], 'g-jahr': ['bfly'], 'g-chest2': ['palm', 'gull'] };
+(() => { const so = startOverlay; startOverlay = function (...a) {
+  try { const k = Object.keys(AMBGS).find((c) => gs.classList.contains(c)); if (k && !$('.ambl', gs)) { const sky = $('.gsky', gs); (sky || gs.firstChild) && (sky ? sky.insertAdjacentHTML('afterend', ambHTML(AMBGS[k])) : gs.insertAdjacentHTML('afterbegin', ambHTML(AMBGS[k]))); } } catch (e) {}
+  return so.apply(this, a); }; })();
+SK.fish.scene += ambHTML(['gull', 'clouds']);
+SK.mole.scene += ambHTML(['clouds', 'bird', 'bfly']);
+SK.goal.scene += ambHTML(['clouds', 'bird']);
+SK.planet.scene += ambHTML(['shoot', 'shoot']);
+SK.chest.scene += ambHTML(['palm', 'gull', 'clouds']);
+
+/* Torwart steht vor den Toren und läuft hin und her; zwei Reihen Tore = zwei Torhüter */
+SK.goal.after = (sc) => {
+  const k0 = $('.gkeep', sc); if (!k0) return;
+  const rowsOf = () => { const rows = []; $$('.gl.ng', sc).forEach((g) => { const t = g.offsetTop, row = rows.find((w) => Math.abs(w.y - t) < 20); if (row) row.g.push(g); else rows.push({ y: t, g: [g] }); }); return rows; };
+  const place = (k, row, idx, anim) => { const g = row.g[idx], im = $('.gim', g) || g, sr = sc.getBoundingClientRect(), gr = g.getBoundingClientRect(), r = im.getBoundingClientRect(), sx = gr.width / (g.offsetWidth || gr.width) || 1;
+    const w = Math.max(48, im.offsetWidth * .4), kh = w * ((k.naturalHeight / k.naturalWidth) || 1);
+    k.style.transition = anim ? 'left .55s cubic-bezier(.4,1.3,.5,1), top .55s' : 'none'; k.style.width = w + 'px';
+    k.style.left = g.offsetLeft + im.offsetLeft + im.offsetWidth / 2 + 'px'; k.style.top = g.offsetTop + im.offsetTop + im.offsetHeight * .96 - kh + 'px'; k.style.bottom = 'auto'; k.style.translate = '-50% 0'; k.dataset.i = idx; };
+  const sync = (anim) => { if (!sc.isConnected) return clearInterval(sc._kp); const rows = rowsOf(); let ks = $$('.gkeep', sc);
+    while (ks.length < rows.length) { const c = k0.cloneNode(); sc.appendChild(c); ks = $$('.gkeep', sc); }
+    ks.forEach((k, i) => { if (i >= rows.length) { k.style.display = 'none'; return; } k.style.display = ''; const row = rows[i]; let n = Math.floor(Math.random() * row.g.length); if (anim && row.g.length > 1 && String(n) === k.dataset.i) n = (n + 1) % row.g.length; place(k, row, n, anim); }); };
+  setTimeout(() => sync(false), 80); setTimeout(() => sync(false), 700);
+  sc._kp = setInterval(() => sync(true), 1600);
+};
 
 /* ---------- Abo-Grenze, Spiel-Covers, Hausaufgaben-Bereich, Dunkelmodus ---------- */
 const PVIC = { rennen: 'pm', uhr: 'bell', laden: 'coin', reim: 'bubble', wortart: 'sort', diktat: 'pen', simon: 'voice', shop: 'coin', story: 'book', hupf: 'frog', bonjour: 'chat', ou: 'search', jahr: 'leaf', ampel: 'target', wetter: 'drop', robo: 'bulb', frage: 'chat', echt: 'search' };
@@ -10692,13 +11226,13 @@ function openSheet(R) {
 /* Profilbilder: Kinder mit Traumberufen, erst Beruf wählen, dann das Kind */
 const JOBS = [
   ['astro', 'Astronaut', '#8fd0ff', ['astro-s', 'astro-w', 'astro-a']],
-  ['fuss', 'Fußball', '#8be06a', ['fuss-wb', 'fuss-lb', 'fuss-wg', 'fuss-sg']],
-  ['poli', 'Polizei', '#8fa6ff', ['poli-l', 'poli-w']],
-  ['feuer', 'Feuerwehr', '#ff9f7a', ['feuer-s', 'feuer-l']],
+  ['fuss', 'Fußballer', '#8be06a', ['fuss-wb', 'fuss-lb', 'fuss-wg', 'fuss-sg']],
+  ['poli', 'Polizist', '#8fa6ff', ['poli-l', 'poli-w']],
+  ['feuer', 'Feuerwehrmann', '#ff9f7a', ['feuer-s', 'feuer-l']],
   ['arzt', 'Arzt', '#7fe0d4', ['arzt-a', 'arzt-s']],
-  ['forsch', 'Forschung', '#c3a6ff', ['forsch-w', 'forsch-l']],
-  ['koch', 'Kochen', '#ffd98a', ['koch-w', 'koch-wg']],
-  ['kunst', 'Kunst', '#ffadc9', ['kunst-w', 'kunst-s']],
+  ['forsch', 'Forscher', '#c3a6ff', ['forsch-w', 'forsch-l']],
+  ['koch', 'Koch', '#ffd98a', ['koch-w', 'koch-wg']],
+  ['kunst', 'Künstler', '#ffadc9', ['kunst-w', 'kunst-s']],
   ['pilot', 'Pilot', '#9cc8ff', ['pilot-w']],
 ];
 const AV = {}; JOBS.forEach(([j, n, c, l]) => l.forEach((k) => { AV[k] = [c, j]; }));
@@ -11052,15 +11586,15 @@ const SUBJ = [
     ern: ['Wörter nach Themen: Farben, Tiere, Familie', 'Hören und nachsprechen', 'Erste Sätze: „My name is …“'] },
   { k: 'franz', n: 'Französisch', c1: '#9b7cf0', c2: '#5b3fc4', ic: 'FR', tutor: { id: 'claude', n: 'Claude' }, note: 'Für Kinder mit Französisch in der Schule, z. B. Saarland und Oberrhein.', games: [
     { n: 'Farbklecks-Fangen', b: 'Die ersten französischen Wörter mit Farben, Zahlen und Tieren. Bunt, schnell und ohne Vokabelheft.', d: 'Farben, Zahlen, Tiere', play: gFarben, ic: 'blob' }, { n: 'Le petit café', b: 'Im kleinen Café von Claude versteht dein Kind die ersten Bestellungen auf Französisch und hat Spaß dabei.', d: 'Bestellungen verstehen', play: gCafe, ic: 'cup' },
-    { n: 'Zahlen-Hüpfen', b: 'Zählen auf Französisch klingt erst ungewohnt. Mit Hüpfen und Hören sitzen die Zahlen schnell.', d: 'un, deux, trois', pv: 'hupf', play: gHupf, ic: 'hupf' }, { n: 'Bonjour-Memory', b: 'Sich vorstellen und begrüßen auf Französisch. Die wichtigsten ersten Sätze, die Kinder stolz machen.', d: 'Begrüßen und vorstellen', pv: 'bonjour', play: gBonj, ic: 'bonj' }, { n: 'Où est le chat ?', b: 'Auf, unter, neben: Dein Kind sucht die Katze und lernt dabei, wie man auf Französisch sagt, wo etwas ist.', d: 'Wo ist die Katze?', pv: 'ou' }],
+    { n: 'Zahlen-Hüpfen', b: 'Zählen auf Französisch klingt erst ungewohnt. Mit Hüpfen und Hören sitzen die Zahlen schnell.', d: 'un, deux, trois', pv: 'hupf', play: gHupf, ic: 'hupf' }, { n: 'Bonjour-Memory', b: 'Sich vorstellen und begrüßen auf Französisch. Die wichtigsten ersten Sätze, die Kinder stolz machen.', d: 'Begrüßen und vorstellen', pv: 'bonjour', play: gBonj, ic: 'bonj' }, { n: 'Où est le chat ?', b: 'Auf, unter, neben: Dein Kind sucht die Katze und lernt dabei, wie man auf Französisch sagt, wo etwas ist.', d: 'Wo ist die Katze?', pv: 'ou', play: gOuChat, ic: 'ochat' }],
     ern: ['Begrüßen und sich vorstellen', 'Farben, Zahlen, Tiere', 'Aussprache üben'] },
   { k: 'sach', n: 'Sachunterricht', c1: '#4cc38a', c2: '#1f8a4c', ic: I('leaf'), tutor: { id: 'frieda', n: 'Frieda' }, games: [
     { n: 'Sortier-Profi', b: 'Welches Tier lebt wo, welcher Müll kommt wohin? Dein Kind erkennt Zusammenhänge in der Welt um sich herum.', d: 'Tiere, Müll, Strom', play: gSort, ic: 'sort' }, { n: 'Röntgen-Blick', b: 'Was passiert in unserem Körper? Dein Kind entdeckt die Organe und versteht, was Herz, Lunge und Magen tun.', d: 'Körper und Organe', play: gBody, ic: 'body' },
-    { n: 'Jahreszeiten-Rad', b: 'Warum fallen Blätter, wann blühen Blumen? Dein Kind versteht den Lauf des Jahres und schaut draußen genauer hin.', d: 'Wetter und Natur', pv: 'jahr' }, { n: 'Ampel-Profi', b: 'Sicher auf dem Schulweg: Dein Kind übt Regeln im Straßenverkehr, damit es draußen gut aufpasst.', d: 'Sicher im Verkehr', pv: 'ampel' }, { n: 'Wetter-Labor', b: 'Woher kommt der Regen? Kleine Versuche machen das Wetter verständlich und wecken die Lust am Forschen.', d: 'Regen, Wind, Wolken', pv: 'wetter' }],
+    { n: 'Jahreszeiten-Rad', b: 'Warum fallen Blätter, wann blühen Blumen? Dein Kind versteht den Lauf des Jahres und schaut draußen genauer hin.', d: 'Wetter und Natur', pv: 'jahr', play: gJahr, ic: 'jahr' }, { n: 'Ampel-Profi', b: 'Sicher auf dem Schulweg: Dein Kind übt Regeln im Straßenverkehr, damit es draußen gut aufpasst.', d: 'Sicher im Verkehr', pv: 'ampel', play: gAmpel, ic: 'ampel' }, { n: 'Wetter-Labor', b: 'Woher kommt der Regen? Kleine Versuche machen das Wetter verständlich und wecken die Lust am Forschen.', d: 'Regen, Wind, Wolken', pv: 'wetter', play: gWetter, ic: 'wetter' }],
     ern: ['Tiere und Pflanzen', 'Körper, Sinne, Gesundheit', 'Wetter, Wasser, Strom', 'Kinderfragen kindgerecht erklärt'] },
   { k: 'ki', n: 'Internet und KI', c1: '#f39b52', c2: '#d9601c', ic: I('shield'), tutor: { id: 'bit', n: 'Bit' }, games: [
     { n: 'Chat-Check', b: 'Nicht jede Nachricht ist harmlos. Dein Kind lernt, unsichere Chats zu erkennen und sich sofort Hilfe zu holen.', d: 'Sicher im Internet', play: gChat, ic: 'chat' }, { n: 'Privat-Tresor', b: 'Adresse, Fotos, Passwörter bleiben geheim. Dein Kind lernt, was privat ist, und schützt sich selbst.', d: 'Was bleibt geheim?', play: gTresor, ic: 'lock' }, { n: 'Rotstift', b: 'Auch eine KI macht Fehler. Dein Kind findet sie mit Bit und lernt, Antworten selbst zu prüfen statt alles zu glauben.', d: 'Fehler der KI finden', play: gRot, ic: 'pen' },
-    { n: 'Wie lernt eine KI?', b: 'Wie lernt eigentlich ein Computer? Bit erklärt es kindgerecht, damit dein Kind die Technik von morgen versteht.', d: 'Bit lernt aus Beispielen', pv: 'robo' }, { n: 'Echt oder erfunden?', b: 'Bilder und Texte können erfunden sein. Dein Kind lernt, genau hinzuschauen und nachzufragen.', d: 'KI-Bilder erkennen', pv: 'echt' }],
+    { n: 'Wie lernt eine KI?', b: 'Wie lernt eigentlich ein Computer? Bit erklärt es kindgerecht, damit dein Kind die Technik von morgen versteht.', d: 'Bit lernt aus Beispielen', pv: 'robo', play: gKiLern, ic: 'kil' }, { n: 'Echt oder erfunden?', b: 'Bilder und Texte können erfunden sein. Dein Kind lernt, genau hinzuschauen und nachzufragen.', d: 'KI-Bilder erkennen', pv: 'echt', play: gEcht, ic: 'echt' }],
     ern: ['Regeln im Internet: was man teilt und was nicht', 'Fremde im Netz, Passwörter, Kettenbriefe', 'Was ist KI und wie lernt sie?', 'KI verantwortungsvoll nutzen und prüfen'] },
 ];
 const PAT = { mathe: ['+', '7', '=', '3', '×', '10'], deutsch: ['A', 'b', 'C', 'ä', 'M', 'z'], englisch: ['Hi!', 'ABC', 'cat', 'sun', 'Yes', 'red'], franz: ['é', 'Oui', 'à', 'ç', 'Non', 'è'], sach: ['leaf'], ki: ['circuit'] };
@@ -11072,7 +11606,7 @@ function patURL(k, dark) {
   if (dark) inner = inner.replace(/#fff/g, '#1d2a4a').replace(/opacity="\.(\d+)"/g, (m, d) => `opacity="${(+('.' + d) * .45).toFixed(3)}"`);
   return `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>${inner.replace(/"/g, "'")}</svg>`)}")`;
 }
-const GICON = { chat: I('chat'), ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock'), race: '<img class="gicim" src="/grundschulmax/sp/race2/car0.webp" alt="">', uhr: '<img class="gicim" src="/grundschulmax/sp/clock2/owl.webp" alt="">', shop: '<img class="gicim" src="/grundschulmax/sp/shop/register.webp" alt="">', pong: '<img class="gicim" src="/grundschulmax/sp/pong/pad-r.webp" alt="">', belt: '<img class="gicim" src="/grundschulmax/sp/ui/chest.webp" alt="">', simon: '<img class="gicim" src="/grundschulmax/sp/simon/wave.webp" alt="">', eshop: '<img class="gicim" src="/grundschulmax/sp/eshop/bag.webp" alt="">', story: '<img class="gicim" src="/grundschulmax/sp/story/owl.webp" alt="">', hupf: '<img class="gicim" src="/grundschulmax/sp/hupf/frog.webp" alt="">', bonj: '<img class="gicim" src="/grundschulmax/sp/bonj/girl.webp" alt="">', dikt: '<img class="gicim" src="/grundschulmax/sp/dikt/pencil.webp" alt="">' };
+const GICON = { chat: I('chat'), ballon: I('balloon'), frog: I('frog'), zug: I('train'), pen: I('pen'), cards: I('cards'), bubble: I('bubble'), blob: I('drop'), cup: I('cup'), sort: I('sort'), body: I('body'), lock: I('lock'), race: '<img class="gicim" src="/grundschulmax/sp/race2/car0.webp" alt="">', uhr: '<img class="gicim" src="/grundschulmax/sp/clock2/owl.webp" alt="">', shop: '<img class="gicim" src="/grundschulmax/sp/shop/register.webp" alt="">', pong: '<img class="gicim" src="/grundschulmax/sp/pong/pad-r.webp" alt="">', belt: '<img class="gicim" src="/grundschulmax/sp/ui/chest.webp" alt="">', simon: '<img class="gicim" src="/grundschulmax/sp/simon/wave.webp" alt="">', eshop: '<img class="gicim" src="/grundschulmax/sp/eshop/bag.webp" alt="">', story: '<img class="gicim" src="/grundschulmax/sp/story/owl.webp" alt="">', hupf: '<img class="gicim" src="/grundschulmax/sp/hupf/frog.webp" alt="">', bonj: '<img class="gicim" src="/grundschulmax/sp/bonj/girl.webp" alt="">', dikt: '<img class="gicim" src="/grundschulmax/sp/dikt/pencil.webp" alt="">', ochat: '<img class="gicim" src="/grundschulmax/sp/katze/sit.webp" alt="">', jahr: '<img class="gicim" src="/grundschulmax/sp/jahr/autumn.webp" alt="">', ampel: '<img class="gicim" src="/grundschulmax/sp/amp/pgreen.webp" alt="">', wetter: '<img class="gicim" src="/grundschulmax/sp/wet/sun.webp" alt="">', kil: '<img class="gicim" src="/grundschulmax/sp/kil/rhappy.webp" alt="">', echt: '<img class="gicim" src="/grundschulmax/sp/echt/loupe.webp" alt="">' };
 
 /* ---------- Üben: ruhige Aufgaben mit Erklärung, je Klasse ---------- */
 const ZF = (a, b) => { const c = (n0, n1) => `<div class="zf">${[...Array(10)].map((_, k) => `<i class="${k < n0 ? 'o' : k < n0 + n1 ? 'b' : ''}"></i>`).join('')}</div>`; return c(a, Math.min(b, 10 - a)) + (a + b > 10 ? c(0, a + b - 10) : ''); };
