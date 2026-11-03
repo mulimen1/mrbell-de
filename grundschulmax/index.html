@@ -5512,6 +5512,9 @@ html body .s-planet .qpl.np span{left:48.5%!important;top:52.5%!important;transl
 html body .s-planet .qpl.np{width:clamp(160px,21vw,240px)!important}
 @media (max-width:560px){html body .s-planet .qpl.np{width:min(46vw,190px)!important}}
 @media (max-width:560px){html body .s-planet .qpl.np{left:var(--mx)!important;top:var(--my)}}
+/* Torwart erst zeigen, wenn er an seinem Platz steht */
+html body .s-goal .gkeep:not(.placed){opacity:0!important}
+html body .s-goal .gkeep{transition:opacity .25s,left .55s cubic-bezier(.4,1.3,.5,1),top .55s}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -11239,7 +11242,7 @@ function reward(ok, streak) {
   SK.mole.ms = 1300;
   /* Torschuss */
   SK.goal.item = (t, i, n) => `<button class="gl ng" data-v="${i}" style="--fs:${fsz(t)}"><span class="gln"><img class="gim" src="${P('goal', 'goal')}" alt=""><span class="glb">${t}</span></span></button>`;
-  const kick = (el, sc, ok) => { const bl = $('.ball', sc), a = box(bl, sc), g = box($('.gim', el), sc), kps = $$('.gkeep', sc), kp = kps.sort((p, q) => Math.abs(box(p, sc).y - g.y) - Math.abs(box(q, sc).y - g.y))[0]; clearInterval(sc._kp); sc._kicked = true; kps.forEach((k) => { const cs = getComputedStyle(k); k.style.transition = 'none'; k.style.left = cs.left; k.style.top = cs.top; }); if (kp) kp.style.transition = 'none'; if (ok && kp && Math.abs(box(kp, sc).x - g.x) < g.w * .5) { const d = Math.random() < .5 ? -1 : 1; kp.src = kp.dataset.g ? '/grundschulmax/sp/keep2/gdive.webp' : P('goal', 'keepdive'); kp.style.scale = d < 0 ? '-1 1' : '1 1'; kp.animate([{ transform: 'none' }, { transform: `translate(${d * g.w * .55}px,${g.h * .12}px) rotate(${d * 25}deg)` }], { duration: 380, delay: 160, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'forwards' }); } bl.style.animation = 'none'; sfx.kick();
+  const kick = (el, sc, ok) => { const bl = $('.ball', sc), a = box(bl, sc), g = box($('.gim', el), sc), kps = $$('.gkeep', sc), kp = kps.sort((p, q) => Math.abs(box(p, sc).y - g.y) - Math.abs(box(q, sc).y - g.y))[0]; clearInterval(sc._kp); sc._kicked = true; kps.forEach((k) => { const cs = getComputedStyle(k); k.style.transition = 'none'; k.style.left = cs.left; k.style.top = cs.top; }); if (kp) kp.style.transition = 'none'; if (ok && kp && Math.abs(box(kp, sc).x - g.x) < g.w * .5) { const d = Math.random() < .5 ? -1 : 1; kp.src = kp.dataset.g ? '/grundschulmax/sp/keep2/gdive.webp' : P('goal', 'keepdive'); kp.style.scale = d < 0 ? '-1 1' : '1 1'; kp.style.zIndex = '2'; bl.style.zIndex = '6'; kp.animate([{ transform: 'none' }, { transform: `translate(${d * g.w * .95}px,${g.h * .18}px) rotate(${d * 35}deg)` }], { duration: 320, delay: 0, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'forwards' }); } bl.style.animation = 'none'; sfx.kick();
     const dx = g.x - a.x, dy = g.y + g.h * .12 - a.y;
     if (!ok && kp) { const k = box(kp, sc); kp.src = kp.dataset.g ? '/grundschulmax/sp/keep2/gdive.webp' : P('goal', 'keepdive'); kp.classList.add('dive'); kp.animate([{ transform: 'translate(0,0)' }, { transform: `translate(${g.x - k.x}px,${g.y + g.h * .1 - k.y}px)` }], { duration: 420, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'forwards' }); }
     const path = ok ? [{ transform: 'translate(0,0) scale(1) rotate(0)' }, { transform: `translate(${dx * .5}px,${dy * .5 - 90}px) scale(.8) rotate(360deg)`, offset: .5 }, { transform: `translate(${dx}px,${dy}px) scale(.55) rotate(720deg)` }]
@@ -11314,9 +11317,9 @@ SK.goal.after = (sc) => {
   const place = (k, row, idx, anim) => { const g = row.g[idx], im = $('.gim', g) || g, sr = sc.getBoundingClientRect(), gr = g.getBoundingClientRect(), r = im.getBoundingClientRect(), sx = gr.width / (g.offsetWidth || gr.width) || 1;
     const w = Math.max(48, im.offsetWidth * .4), kh = w * ((k.naturalHeight / k.naturalWidth) || 1);
     k.style.transition = anim ? 'left .55s cubic-bezier(.4,1.3,.5,1), top .55s' : 'none'; k.style.width = w + 'px';
-    k.style.left = g.offsetLeft + im.offsetLeft + im.offsetWidth / 2 + 'px'; k.style.top = g.offsetTop + im.offsetTop + im.offsetHeight * .96 - kh + 'px'; k.style.bottom = 'auto'; k.style.translate = '-50% 0'; k.dataset.i = idx; };
+    k.style.left = g.offsetLeft + im.offsetLeft + im.offsetWidth / 2 + 'px'; k.style.top = g.offsetTop + im.offsetTop + im.offsetHeight * .96 - kh + 'px'; k.style.bottom = 'auto'; k.style.translate = '-50% 0'; k.dataset.i = idx; if (!k.classList.contains('placed') && k.complete && k.naturalWidth) requestAnimationFrame(() => k.classList.add('placed')); };
   const sync = (anim) => { if (!sc.isConnected || sc._kicked) return clearInterval(sc._kp); const rows = rowsOf(); let ks = $$('.gkeep', sc);
-    while (ks.length < rows.length) { const c = k0.cloneNode(); c.src = '/grundschulmax/sp/keep2/gready.webp'; c.dataset.g = '1'; sc.appendChild(c); ks = $$('.gkeep', sc); }
+    while (ks.length < rows.length) { const c = k0.cloneNode(); c.classList.remove('placed'); c.addEventListener('load', () => sync(false), { once: true }); c.src = '/grundschulmax/sp/keep2/gready.webp'; c.dataset.g = '1'; sc.appendChild(c); ks = $$('.gkeep', sc); }
     ks.forEach((k, i) => { if (i >= rows.length) { k.style.display = 'none'; return; } k.style.display = ''; const row = rows[i]; let n = Math.floor(Math.random() * row.g.length); if (anim && row.g.length > 1 && String(n) === k.dataset.i) n = (n + 1) % row.g.length; place(k, row, n, anim); }); };
   setTimeout(() => sync(false), 80); setTimeout(() => sync(false), 700); $$('.gkeep', sc).forEach((k) => { if (!k.complete) k.addEventListener('load', () => sync(false), { once: true }); });
   sc._kp = setInterval(() => sync(true), 1600);
