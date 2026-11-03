@@ -5585,6 +5585,9 @@ html body .gk.sec .gkb{background:linear-gradient(180deg,#ffe27a,#f5b000)!import
  html body .k-train .bank .tile{min-height:44px!important;font-size:17px!important;padding:6px 12px!important}
  html body .k-train .track :is(.loco,.trn,img){max-height:56px}
 }
+/* Fortschrittsbalken: Füllung beginnt genau am linken Rand der Rille und wächst mit jeder richtigen Aufgabe sichtbar */
+html body .lesbar{padding-left:0!important;padding-right:0!important}
+html body .lesbar i{left:0!important;margin-left:-5.5px!important;min-width:18px!important;max-width:calc(100% + 11px)!important;transition:width .6s cubic-bezier(.3,1.4,.5,1)!important}
 /* ===== Hausaufgaben: stabile Karten, Bibliothek mit Spielen und Probetests, Arbeitsblatt mit Prüfen und Hilfe je Aufgabe ===== */
 
 /* Ergebnisbereich: hoch genug, damit beim Wechsel der vier Knöpfe nichts springt */
@@ -10591,7 +10594,7 @@ function startLesson(li, j, n, custom) {
 }
 const LSget1 = () => { try { const v = !!localStorage.getItem('gsm-l1s'); localStorage.setItem('gsm-l1s', '1'); return v; } catch (e) { return true; } };
 function closeLesson() { if (LS && les.dataset.state !== 'end') GT.t(LS.first1 ? 'Erste Lektion abgebrochen' : 'Lektion abgebrochen', (LS.custom ? 'Eigene' : LS.S.n) + ' · bei Aufgabe ' + Math.min(LS.total, LS.done + 1) + '/' + LS.total); if (les.dataset.state !== 'end') MIXRUN = null; token++; stopVoice(); les.classList.remove('on', 'quit'); document.body.classList.remove('lesopen'); LS = null; setTimeout(() => { if (!les.classList.contains('on')) les.innerHTML = ''; }, 400); }
-function lesBar() { const bi = $('.lesbar i', les), w0 = parseFloat(bi.style.width) || 0, w1 = Math.max(4, LS.done / LS.total * 100); bi.style.width = w1 + '%'; if (w1 > w0 + .5) setTimeout(() => { const r = bi.getBoundingClientRect(); if (!r.width) return; const s = document.createElement('i'); s.className = 'barspk'; s.style.left = r.right + 'px'; s.style.top = r.top + r.height / 2 + 'px'; document.body.appendChild(s); setTimeout(() => s.remove(), 750); }, 450); const s = $('.lesstk', les); s.classList.toggle('on', LS.streak >= 2); $('span', s).textContent = LS.streak; }
+function lesBar() { const bi = $('.lesbar i', les), w0 = +bi.dataset.p || 0, w1 = Math.max(0, Math.min(100, LS.done / LS.total * 100)); bi.dataset.p = w1; bi.style.width = `calc(18px + (100% + 11px - 18px) * ${(w1 / 100).toFixed(4)})`; if (w1 > w0 + .5) setTimeout(() => { const r = bi.getBoundingClientRect(); if (!r.width) return; const s = document.createElement('i'); s.className = 'barspk'; s.style.left = r.right + 'px'; s.style.top = r.top + r.height / 2 + 'px'; document.body.appendChild(s); setTimeout(() => s.remove(), 750); }, 450); const s = $('.lesstk', les); s.classList.toggle('on', LS.streak >= 2); $('span', s).textContent = LS.streak; }
 function sayChain(list, who, force) {
   if (list[0] && String(list[0]).startsWith('hw:')) { const [, id, n] = String(list[0]).split(':'); hwSay(id, +n); return true; }
   const L = list.filter((k) => k && CLIPS[(who || 'max') + '|' + k]); let i = 0;
