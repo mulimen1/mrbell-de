@@ -6275,7 +6275,7 @@ const GT = (() => {
     d.querySelector('.gcby').onclick = () => allow(true); d.querySelector('.gcbn').onclick = () => allow(false);
   }
   // Klicks: nur Bedienelemente der Oberfläche, nie Antworten oder Inhalte der Kinder
-  const SKIP = '.lesex, .qscn, #gs .xopts, #gs [data-v], #gs [data-k], .hwr, input, textarea, select, #gcb';
+  const SKIP = '.lesex, .lesmain, .qscn, #gs, .hwr, input, textarea, select, #gcb';
   document.addEventListener('click', (e) => {
     const el = e.target.closest && e.target.closest('button, a, [role=button]'); if (!el || el.closest(SKIP)) return;
     const now = Date.now(); if (now - lastClick < 350) return; lastClick = now;
