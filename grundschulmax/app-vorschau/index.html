@@ -4867,7 +4867,6 @@ html,body{overscroll-behavior-x:none}
 .les .lesbtn:disabled{background:rgba(255,255,255,.92)!important;color:#8a8fa0!important;box-shadow:0 4px 0 rgba(0,0,0,.12)!important;opacity:1!important}
 .ordh{background:rgba(20,30,60,.62)!important;color:#fff!important}
 .osl:not(.full){background:rgba(20,30,60,.42)!important;color:#fff}
-#app .amain{position:relative}
 .hwcat{position:absolute;z-index:0;pointer-events:none;transform-origin:50% 92%;animation:hwbr 3.6s ease-in-out infinite}
 #app:not([data-v=hw]) .hwcat{display:none!important}
 #app[data-v=hw] .amain>*:not(.hwcat){position:relative;z-index:1}
@@ -5007,6 +5006,44 @@ html,body{overscroll-behavior-x:none}
 @media (max-width:560px){.xopts,.bbins,.pgopts,.shbot{bottom:122px!important}.g-story .xq{bottom:calc(122px + 34vw)!important}.uopts{bottom:122px!important}}
 @media (max-width:560px) and (max-height:740px){.xopts,.bbins,.pgopts,.shbot,.uopts{bottom:112px!important}.xo{flex-basis:25%!important}}
 .bjcat{right:7%!important;z-index:4!important}
+/* ---------- Tutorial neu ---------- */
+.hpi.hs .hsme{left:43%;top:30%;width:15%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#bfe3ff);box-shadow:0 0 0 4px #fff,0 0 0 8px #ffc21a,0 10px 18px rgba(0,0,0,.3);animation:hsh 1.6s cubic-bezier(.3,0,.4,1) infinite;z-index:2}
+.hpi.hs .hstr{z-index:2}
+.hs-spiel{background:#c97a3a url(/grundschulmax/sp/room/mathe.webp) 50% 30%/cover!important}
+.hpi.hs .hsq{position:absolute;left:50%;top:20%;translate:-50% 0;font-weight:900;font-size:clamp(22px,5vw,36px);color:#fff;font-family:'Comic Sans MS','Chalkboard SE',ui-rounded,sans-serif;text-shadow:0 2px 0 rgba(0,0,0,.3)}
+.hpi.hs .hsg{width:22%;bottom:12%;filter:drop-shadow(0 8px 8px rgba(0,0,0,.3));animation:hqf 2.6s ease-in-out infinite}
+.hpi.hs .g1{left:8%}.hpi.hs .g2{left:39%;width:18%;animation-delay:-.9s}.hpi.hs .g3{left:68%;width:18%;animation-delay:-1.7s}
+.hpi.hs .hsok2{left:50%;top:44%;width:16%;translate:-50% 0;animation:hso 2.6s ease-in-out infinite}
+.hs-stars{background:radial-gradient(90% 80% at 50% 30%,#fff3c4 0,#ffc65a 55%,#ff9b3d 100%)!important}
+.hpi.hs .hss1{left:10%;top:16%;width:30%;animation:hss 3s ease-in-out infinite;filter:drop-shadow(0 10px 12px rgba(160,80,0,.35))}
+.hpi.hs .hsfl{left:40%;top:8%;width:28%;transform-origin:50% 90%;animation:piflk .4s ease-in-out infinite alternate;filter:drop-shadow(0 0 16px rgba(255,120,30,.7))}
+.hpi.hs .hsch{right:6%;bottom:6%;width:34%;animation:hqf 3.2s ease-in-out infinite;filter:drop-shadow(0 10px 12px rgba(120,50,0,.35))}
+.hpi.hs .hsc1{left:14%;bottom:10%;width:17%;animation:picoin 2.4s ease-in-out infinite}.hpi.hs .hsc2{left:36%;bottom:16%;width:15%;animation:hss 2.8s ease-in-out -1s infinite}
+.hs-hw{background:#b8642c url(/grundschulmax/sp/room/hw.webp) 50% 40%/cover!important}
+.hpi.hs .hsbook{right:6%;bottom:10%;width:34%;animation:hqf 4.2s ease-in-out -1s infinite;filter:drop-shadow(0 10px 10px rgba(0,0,0,.3))}
+.hpi.hs .hspen{right:10%;top:10%;width:24%}.hpi.hs .hsok{right:34%;top:38%;width:20%;bottom:auto}
+.hs-profil{background:radial-gradient(100% 90% at 50% 20%,#e9f5ff 0,#b6dcff 60%,#8fc4f5 100%)!important}
+.hpi.hs .hsav{bottom:auto;top:22%;width:22%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#d8ecff);box-shadow:0 0 0 4px #fff,0 10px 18px rgba(20,60,120,.3)}
+.hpi.hs .v0{left:3%}.hpi.hs .v1{left:27%;top:34%}.hpi.hs .v2{left:51%}.hpi.hs .v3{left:75%;top:34%}
+/* ---------- Profil: Beruf wählen, dann Kind ---------- */
+.avjobs{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;margin:4px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.avjobs::-webkit-scrollbar{display:none}
+.avj{flex:none;display:flex;flex-direction:column;align-items:center;gap:3px;width:76px;padding:6px 4px 6px;border:0;border-radius:18px;background:#f6f2ea;cursor:pointer;transition:transform .15s,background .15s}
+.avj img{width:54px;height:54px;border-radius:50%;object-fit:contain;background:radial-gradient(circle at 35% 30%,#fff,color-mix(in srgb,var(--av) 50%,#fff))}
+.avj small{font-weight:850;font-size:12px;color:#3a3450;white-space:nowrap}
+.avj.on{background:color-mix(in srgb,var(--av) 45%,#fff);box-shadow:0 0 0 3px color-mix(in srgb,var(--av) 80%,#1d2a3a)}
+.avj:hover{transform:translateY(-2px)}
+#avg{display:flex!important;flex-wrap:wrap;gap:12px}
+#avg .avb{width:clamp(78px,20%,104px);animation:uin .4s cubic-bezier(.2,1.4,.4,1) both}
+/* Profilbilder leben: leichtes Wippen und Umschauen */
+.avx img{transform-origin:50% 90%;animation:avidle 5.5s ease-in-out infinite}
+@keyframes avidle{0%,100%{transform:none}20%{transform:translateY(-1.5%) rotate(-2deg)}45%{transform:translateY(0) rotate(0)}65%{transform:translateY(-1%) rotate(2.5deg)}85%{transform:none}}
+.avb:nth-child(2n) .avx img{animation-delay:-2s}.avb:nth-child(3n) .avx img{animation-delay:-3.5s}
+.pfav .avx{cursor:pointer}
+@media (prefers-reduced-motion:reduce){.avx img{animation:none}}
+#avg .avb{background:none!important;border:0!important;box-shadow:none!important;outline:none;padding:0}
+#avg .avb.on .avt{box-shadow:0 0 0 4px #2a7fe8,0 10px 18px -6px rgba(42,127,232,.6)!important}
+.avjobs{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));overflow:visible}.avj{width:auto}
 </style>
 </head>
 <body>
@@ -9938,9 +9975,7 @@ const PFV = '88eed792';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
-  const a = PROF().av; if (AVX[a]) return { src: avSrc(a, 'n'), blink: avSrc(a, 'b'), happy: avSrc(a, 'h'), sad: avSrc(a, 's'), fit: { x: 18, y: 20, s: 220 } };
-  const A = AV[a] || AV.fuchs;
-  return { src: 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512"><circle cx="50" cy="50" r="50" fill="${A[0]}" opacity=".25"/>${A[1]}</svg>`), fit: { x: 26, y: 22, s: 204 } };
+  const a = PROF().av; return { src: avSrc(a, 'n'), blink: avSrc(a, 'b'), happy: avSrc(a, 'h'), sad: avSrc(a, 'n'), fit: { x: -22, y: -38, s: 300 } };
 }
 function pfList() {
   const g = Math.max(0, st.grade), all = mixStations(g).slice(0, 36);
@@ -10074,6 +10109,13 @@ setTimeout(() => {
   right = function (...a) { const v = r0.apply(this, a); emo(true); return v; };
   wrong = function (...a) { const v = w0.apply(this, a); emo(false); return v; };
 })();
+
+/* Profilbild antippen: das Kind freut sich */
+document.addEventListener('pointerdown', (e) => { const x = e.target.closest && e.target.closest('.avx'); if (!x || x.classList.contains('hp')) return; x.classList.add('hp'); setTimeout(() => x.classList.remove('hp'), 1100); }, { passive: true });
+
+/* Profilbilder früh laden: erst alle Gesichter, dann Blinzeln/Lachen, damit das Wechseln der Berufe nie ruckelt */
+setTimeout(() => { if (typeof AV === 'undefined') return; const ks = Object.keys(AV), L = ks.map((k) => avSrc(k, 'n')).concat(ks.flatMap((k) => [avSrc(k, 'b'), avSrc(k, 'h')]));
+  let i = 0; const nx = () => { if (i >= L.length) return; const im = new Image(); im.decoding = 'async'; im.onload = im.onerror = () => setTimeout(nx, 30); im.src = L[i++]; }; nx(); nx(); nx(); }, 2500);
 
 /* ---------- Lektionen als Spiele: jede Lektion eine eigene Welt, jede Aufgabe ein Spiel ---------- */
 const WORLDS = [
@@ -10647,23 +10689,26 @@ function openSheet(R) {
 }
 
 /* ---------- Profil, Tier-Bilder, Elternbereich mit Eltern-Code ---------- */
-const AV = {
-  fuchs: ['#ff9a4d', '<path d="M18 30 L30 8 L42 26Z M82 30 L70 8 L58 26Z" fill="#e8742a"/><path d="M24 27 L30 14 L37 25Z M76 27 L70 14 L63 25Z" fill="#ffd2b0"/><ellipse cx="50" cy="56" rx="34" ry="30" fill="#ff9a4d"/><path d="M50 86 C30 86 22 70 26 58 C34 66 42 68 50 68 C58 68 66 66 74 58 C78 70 70 86 50 86Z" fill="#fff"/><circle cx="38" cy="52" r="5" fill="#2b1a10"/><circle cx="62" cy="52" r="5" fill="#2b1a10"/><circle cx="39.5" cy="50.5" r="1.6" fill="#fff"/><circle cx="63.5" cy="50.5" r="1.6" fill="#fff"/><ellipse cx="50" cy="66" rx="5" ry="3.6" fill="#2b1a10"/>'],
-  katze: ['#b9a7e8', '<path d="M20 34 L24 8 L44 24Z M80 34 L76 8 L56 24Z" fill="#8d77d4"/><path d="M26 28 L27 16 L37 24Z M74 28 L73 16 L63 24Z" fill="#f7b6cf"/><ellipse cx="50" cy="56" rx="34" ry="30" fill="#b9a7e8"/><circle cx="38" cy="52" r="5.5" fill="#2b2140"/><circle cx="62" cy="52" r="5.5" fill="#2b2140"/><circle cx="39.6" cy="50.4" r="1.8" fill="#fff"/><circle cx="63.6" cy="50.4" r="1.8" fill="#fff"/><path d="M47 62 L53 62 L50 66Z" fill="#f47ba0"/><path d="M50 66 Q46 71 42 68 M50 66 Q54 71 58 68" stroke="#2b2140" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M20 60 L34 62 M20 68 L34 66 M80 60 L66 62 M80 68 L66 66" stroke="#6d5aa8" stroke-width="2" stroke-linecap="round"/>'],
-  panda: ['#f2f2f2', '<circle cx="24" cy="24" r="11" fill="#2b2b2b"/><circle cx="76" cy="24" r="11" fill="#2b2b2b"/><ellipse cx="50" cy="55" rx="35" ry="31" fill="#fff" stroke="#e2e2e2" stroke-width="2"/><ellipse cx="37" cy="52" rx="9" ry="11" transform="rotate(-20 37 52)" fill="#2b2b2b"/><ellipse cx="63" cy="52" rx="9" ry="11" transform="rotate(20 63 52)" fill="#2b2b2b"/><circle cx="38" cy="51" r="3.4" fill="#fff"/><circle cx="62" cy="51" r="3.4" fill="#fff"/><ellipse cx="50" cy="65" rx="5" ry="3.6" fill="#2b2b2b"/><path d="M45 71 Q50 75 55 71" stroke="#2b2b2b" stroke-width="2.2" fill="none" stroke-linecap="round"/>'],
-  frosch: ['#6fd17f', '<circle cx="32" cy="28" r="13" fill="#4cc38a"/><circle cx="68" cy="28" r="13" fill="#4cc38a"/><circle cx="32" cy="28" r="7" fill="#fff"/><circle cx="68" cy="28" r="7" fill="#fff"/><circle cx="33" cy="29" r="4" fill="#14532d"/><circle cx="69" cy="29" r="4" fill="#14532d"/><ellipse cx="50" cy="60" rx="36" ry="27" fill="#4cc38a"/><path d="M30 64 Q50 80 70 64" stroke="#14532d" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="28" cy="62" rx="5" ry="3" fill="#f47ba0" opacity=".6"/><ellipse cx="72" cy="62" rx="5" ry="3" fill="#f47ba0" opacity=".6"/>'],
-  eule: ['#c8955a', '<path d="M22 26 L30 12 L38 24Z M78 26 L70 12 L62 24Z" fill="#9b6a35"/><ellipse cx="50" cy="56" rx="34" ry="32" fill="#c8955a"/><ellipse cx="50" cy="66" rx="20" ry="18" fill="#f1d9b5"/><circle cx="37" cy="46" r="11" fill="#fff"/><circle cx="63" cy="46" r="11" fill="#fff"/><circle cx="37" cy="46" r="6" fill="#3a2410"/><circle cx="63" cy="46" r="6" fill="#3a2410"/><circle cx="39" cy="44" r="2" fill="#fff"/><circle cx="65" cy="44" r="2" fill="#fff"/><path d="M45 56 L55 56 L50 64Z" fill="#f39b52"/>'],
-  hase: ['#f5c6d8', '<ellipse cx="36" cy="20" rx="8" ry="20" fill="#f5c6d8"/><ellipse cx="64" cy="20" rx="8" ry="20" fill="#f5c6d8"/><ellipse cx="36" cy="22" rx="4" ry="14" fill="#f78fb3"/><ellipse cx="64" cy="22" rx="4" ry="14" fill="#f78fb3"/><ellipse cx="50" cy="60" rx="32" ry="28" fill="#fbe3ec"/><circle cx="39" cy="56" r="5" fill="#3a2430"/><circle cx="61" cy="56" r="5" fill="#3a2430"/><circle cx="40.5" cy="54.5" r="1.6" fill="#fff"/><circle cx="62.5" cy="54.5" r="1.6" fill="#fff"/><ellipse cx="50" cy="66" rx="4" ry="3" fill="#f47ba0"/><path d="M50 69 Q46 74 43 71 M50 69 Q54 74 57 71" stroke="#3a2430" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="32" cy="66" rx="5" ry="3" fill="#f47ba0" opacity=".5"/><ellipse cx="68" cy="66" rx="5" ry="3" fill="#f47ba0" opacity=".5"/>'],
-};
-const AVN = { fuchs: 'Fuchs', katze: 'Katze', panda: 'Panda', frosch: 'Frosch', eule: 'Eule', hase: 'Hase' };
-const PROF = () => ({ name: lsx.get('gsm-name', ''), av: (lsx.get('gsm-av', 'fuchs') === 'foto' ? 'fuchs' : lsx.get('gsm-av', 'fuchs')), photo: lsx.get('gsm-photo', ''), limit: +lsx.get('gsm-limit', 0), hw: lsx.get('gsm-hwon', '1') === '1', pin: lsx.get('gsm-pin', '') });
-/* Neue Tier-Bilder mit Gesichtsausdrücken: n = normal, b = blinzeln, h = glücklich, s = traurig */
-const AVX = { fuchs: 1, katze: 1, panda: 1, frosch: 1, eule: 1, hase: 1 };
-const avSrc = (a, k) => `/grundschulmax/av/${a}-${k}.webp`;
+/* Profilbilder: Kinder mit Traumberufen, erst Beruf wählen, dann das Kind */
+const JOBS = [
+  ['astro', 'Astronaut', '#8fd0ff', ['astro-s', 'astro-w', 'astro-a']],
+  ['fuss', 'Fußball', '#8be06a', ['fuss-wb', 'fuss-lb', 'fuss-wg', 'fuss-sg']],
+  ['poli', 'Polizei', '#8fa6ff', ['poli-l', 'poli-w']],
+  ['feuer', 'Feuerwehr', '#ff9f7a', ['feuer-s', 'feuer-l']],
+  ['arzt', 'Arzt', '#7fe0d4', ['arzt-a', 'arzt-s']],
+  ['forsch', 'Forschung', '#c3a6ff', ['forsch-w', 'forsch-l']],
+  ['koch', 'Kochen', '#ffd98a', ['koch-w', 'koch-wg']],
+  ['kunst', 'Kunst', '#ffadc9', ['kunst-w', 'kunst-s']],
+  ['pilot', 'Pilot', '#9cc8ff', ['pilot-w']],
+];
+const AV = {}; JOBS.forEach(([j, n, c, l]) => l.forEach((k) => { AV[k] = [c, j]; }));
+const AV0 = 'astro-s', AVX = AV;
+const avJob = (k) => JOBS.find((j) => j[0] === (AV[k] || AV[AV0])[1]);
+const PROF = () => { const a = lsx.get('gsm-av', AV0); return { name: lsx.get('gsm-name', ''), av: AV[a] ? a : AV0, photo: lsx.get('gsm-photo', ''), limit: +lsx.get('gsm-limit', 0), hw: lsx.get('gsm-hwon', '1') === '1', pin: lsx.get('gsm-pin', '') }; };
+const avSrc = (a, k) => `/grundschulmax/av2/${AV[a] ? a : AV0}-${k === 's' ? 'n' : k}.webp`;
 function avHTML(P0 = PROF()) {
-  const A = AV[P0.av] || AV.fuchs;
-  if (AVX[P0.av]) return `<span class="avt avx" style="--av:${A[0]}"><img class="n" src="${avSrc(P0.av, 'n')}" alt=""><img class="b" src="${avSrc(P0.av, 'b')}" alt="" loading="lazy"><img class="h" src="${avSrc(P0.av, 'h')}" alt="" loading="lazy"><i class="gl"></i></span>`;
-  return `<span class="avt" style="--av:${A[0]}"><svg viewBox="0 0 100 100">${A[1]}</svg><i class="gl"></i></span>`;
+  const k = AV[P0.av] ? P0.av : AV0, A = AV[k];
+  return `<span class="avt avx" style="--av:${A[0]}"><img class="n" src="${avSrc(k, 'n')}" alt=""><img class="b" src="${avSrc(k, 'b')}" alt="" decoding="async"><img class="h" src="${avSrc(k, 'h')}" alt="" decoding="async"><i class="gl"></i></span>`;
 }
 /* Leben in den Profilbildern: ab und zu blinzeln, manchmal kurz lächeln */
 setInterval(() => {
@@ -10686,7 +10731,7 @@ function drawProfile() {
     : `<div class="pfko"><button class="pfin2" id="pflogin"><span class="pgi pgk">${I('key')}</span><span><b>Einloggen</b><small>Schon ein Konto? Dann ist alles auf jedem Gerät gespeichert.</small></span>${I('arrow')}</button>${ABO && ABO.code ? `<button class="lnk pfabo" id="pfabo">Abo kündigen</button><div class="pfgate" id="pfgate" hidden></div>` : ''}<button class="pfout pfhome" id="pfhome">${I('arrow')}Zur Startseite</button></div>`;
   h.innerHTML = `<div class="pfh"><div class="pfav" id="pfav">${avHTML(P0)}</div><div><small>Profil</small><b>${esc(P0.name || 'Wie heißt du?')}</b><span>${GRADES[g][0]}</span></div></div>
     <div class="pftop">${eltern}${konto}<div class="pfko"><button class="pfin2 pfhelp" id="pfhelp"><span class="pgi pgk">?</span><span><b>Hilfe</b><small>So funktioniert Grundschulmax</small></span>${I('arrow')}</button></div></div>
-    <div class="pfc"><div class="pff"><span>Dein Bild</span><div class="avg">${Object.keys(AV).map((k) => `<button class="avb${k === av ? ' on' : ''}" data-av="${k}" aria-label="${AVN[k]}">${avHTML({ av: k })}<small>${AVN[k]}</small></button>`).join('')}</div></div>
+    <div class="pfc"><div class="pff"><span>Was willst du werden?</span><div class="avjobs" id="avjobs">${JOBS.map((j) => `<button class="avj${j === avJob(av) ? ' on' : ''}" data-j="${j[0]}" style="--av:${j[2]}"><img src="/grundschulmax/av2/${j[3][0]}-n.webp" alt="" decoding="async"><small>${j[1]}</small></button>`).join('')}</div><span>Und wie siehst du aus?</span><div class="avg" id="avg"></div></div>
       <div class="pfrow2"><label class="pff"><span>Vorname oder Spitzname</span><input id="pfn" maxlength="20" placeholder="z. B. Lena" value="${esc(P0.name)}" autocomplete="off"></label>
       <div class="pff"><span>Aussehen</span><div class="paopt" id="pfdark"><button data-v="0" class="${document.body.classList.contains('dark') ? '' : 'on'}">${I('star')}Hell</button><button data-v="1" class="${document.body.classList.contains('dark') ? 'on' : ''}">${I('bulb')}Dunkel</button></div></div></div>
       <div class="pff"><span>Klasse</span><div class="pfg">${GRADES.map((x, i) => `<button class="${i === g ? 'on' : ''}" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><small>Klasse</small></button>`).join('')}</div></div>
@@ -10707,9 +10752,12 @@ function drawProfile() {
       if (r.ok) portal(btn); else { $('#pfge').textContent = r.auth === false ? 'Bitte neu anmelden.' : 'Das Passwort stimmt nicht.'; restart(gt, 'shk'); } };
     $('#pfgi').onkeydown = (e) => { if (e.key === 'Enter') $('#pfgo').click(); };
   };
-  $$('.avb', h).forEach((b) => (b.onclick = () => {
-    av = b.dataset.av; $$('.avb', h).forEach((x) => x.classList.toggle('on', x === b)); $('#pfav').innerHTML = avHTML({ av, photo }); sfx.tap(); restart($('#pfav'), 'pin');
-  }));
+  const drawAvs = (job) => { $('#avg', h).innerHTML = job[3].map((k) => `<button class="avb${k === av ? ' on' : ''}" data-av="${k}" aria-label="${job[1]}">${avHTML({ av: k })}</button>`).join('');
+    $$('.avb', h).forEach((b, i) => { b.style.animationDelay = i * .06 + 's'; b.onclick = () => {
+      av = b.dataset.av; $$('.avb', h).forEach((x) => x.classList.toggle('on', x === b)); $('#pfav').innerHTML = avHTML({ av, photo }); sfx.tap(); restart($('#pfav'), 'pin'); const x = $('#pfav .avx'); if (x) { x.classList.add('hp'); setTimeout(() => x.classList.remove('hp'), 1100); }
+    }; }); };
+  drawAvs(avJob(av));
+  $$('.avj', h).forEach((b) => (b.onclick = () => { const j = JOBS.find((x) => x[0] === b.dataset.j); $$('.avj', h).forEach((x) => x.classList.toggle('on', x === b)); sfx.flip(); drawAvs(j); }));
   $$('.pfg button', h).forEach((b) => (b.onclick = () => { gsel = +b.dataset.g; $$('.pfg button', h).forEach((x) => x.classList.toggle('on', x === b)); sfx.tap(); }));
   $$('#pfdark button', h).forEach((b) => (b.onclick = () => { const want = b.dataset.v === '1'; if (want !== document.body.classList.contains('dark')) toggleDark(); $$('#pfdark button', h).forEach((x) => x.classList.toggle('on', x === b)); }));
   $('#pfs').onclick = () => { lsx.set('gsm-name', $('#pfn').value.trim()); lsx.set('gsm-av', av); if (typeof PF !== 'undefined' && PF) PF.face(pfFace()).then(() => PF.hero()); lsx.set('gsm-photo', ''); st.grade = gsel; drawGrade(); drawLPCards(); sfx.ok(); drawSideProf(); lpToast('Gespeichert!'); drawProfile(); };
@@ -11390,11 +11438,14 @@ $('#aopen').onclick = () => aclSet(false);
 
 /* ---------- Hilfe: kurze Bilder-Tour ---------- */
 const HS = '/grundschulmax/sp/', HI = (f, c, st = '') => `<img class="${c}" src="${HS}${f}.webp" alt="" style="${st}">`;
+const HAV = () => { const a = typeof PROF === 'function' ? PROF().av : 'astro-s'; return `/grundschulmax/av2/${a}-h.webp`; };
 const HELP = [
-  { s: 'hs-pfad', h: () => HI('help/pfad', 'hsi hsmap') + HI('ui/star', 'hsst') + HI('ui/trophy', 'hstr'), t: 'Dein Abenteuer', p: 'Jedes Feld ist eine kleine Lektion, immer ein anderes Fach. Tippe auf das leuchtende Feld, dann hüpfst du nach jeder Lektion weiter.' },
-  { s: 'hs-faecher', h: () => HI('help/r-mathe', 'hq hr q1') + HI('help/r-deutsch', 'hq hr q2') + HI('help/r-englisch', 'hq hr q3') + HI('help/r-sach', 'hq hr q4'), t: 'Fächer wählen', p: 'Mit „Meine Fächer“ nimmst du Fächer aus dem Pfad oder holst sie zurück. Links öffnest du jedes Fach einzeln.' },
-  { s: 'hs-hw', h: () => `<img class="hsmax" src="/grundschulmax/tut-max.png" alt="">` + HI('rot/stift', 'hspen') + HI('rot/ok', 'hsok'), t: 'Hausaufgaben', p: 'Foto vom Arbeitsblatt machen. Max erklärt Schritt für Schritt, ohne die Lösung zu verraten. Du findest das immer links unter „Hausaufgaben“.' },
-  { s: 'hs-profil', h: () => ['fuchs', 'hase', 'panda', 'eule'].map((a, k) => `<img class="hsav v${k}" src="/grundschulmax/av/${a}-h.webp" alt="">`).join(''), t: 'Profil und Eltern', p: 'Im Profil wählst du dein Tier und deinen Namen. Der Elternbereich ist mit einem Passwort gesichert.' },
+  { s: 'hs-pfad', h: () => HI('help/pfad', 'hsi hsmap') + `<img class="hsme" src="${HAV()}" alt="">` + HI('ui/star', 'hsst') + HI('ui/trophy', 'hstr'), t: 'Dein Abenteuer', p: 'Jedes Feld ist eine kleine Lektion. Tippe auf das leuchtende Feld. Nach jeder Lektion hüpfst du ein Feld weiter.' },
+  { s: 'hs-spiel', h: () => HI('race2/car0', 'hsg g1') + HI('planet2/rocket', 'hsg g2') + HI('goal2/ball', 'hsg g3') + HI('ui/check', 'hsok2') + `<span class="hsq">7 + 5 = ?</span>`, t: 'Spielen und lernen', p: 'In jeder Lektion wechseln sich Spiele und Fragen ab. Tippe auf die richtige Antwort. Max liest dir alles vor.' },
+  { s: 'hs-stars', h: () => HI('ui/star', 'hss1') + HI('ui/flame', 'hsfl') + HI('ui/chest', 'hsch') + HI('ui/coin', 'hsc1') + HI('ui/gem', 'hsc2'), t: 'Sterne und Flamme', p: 'Für richtige Antworten bekommst du Sterne. Mehrere richtig hintereinander? Dann brennt deine Flamme!' },
+  { s: 'hs-faecher', h: () => HI('help/r-mathe', 'hq hr q1') + HI('help/r-deutsch', 'hq hr q2') + HI('help/r-englisch', 'hq hr q3') + HI('help/r-sach', 'hq hr q4'), t: 'Deine Fächer', p: 'Jedes Fach hat sein eigenes Klassenzimmer mit Lernpfad, Spielen und Testvorbereitung. Mit „Meine Fächer“ wählst du, was im Abenteuer vorkommt.' },
+  { s: 'hs-hw', h: () => `<img class="hsmax" src="/grundschulmax/tut-max.png" alt="">` + HI('dikt/book', 'hsbook') + HI('dikt/pencil', 'hspen') + HI('dikt/stamp', 'hsok'), t: 'Hausaufgaben', p: 'Mach ein Foto vom Arbeitsblatt. Max erklärt dir Schritt für Schritt, wie es geht, ohne dir die Lösung zu verraten.' },
+  { s: 'hs-profil', h: () => ['astro-w', 'feuer-s', 'kunst-s', 'fuss-wb'].map((a, k) => `<img class="hsav v${k}" src="/grundschulmax/av2/${a}-n.webp" alt="">`).join(''), t: 'Wer willst du sein?', p: 'Im Profil suchst du dir aus, was du später mal werden willst, und gibst dir einen Namen. Der Elternbereich hat ein Passwort.' },
 ];
 function openHelp(first) {
   let o = $('#help'); if (!o) { o = document.createElement('div'); o.id = 'help'; o.className = 'help'; document.body.appendChild(o); }
