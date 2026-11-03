@@ -5556,6 +5556,25 @@ html body .gk.sec .gklock b{font-size:15px;padding-right:12px}
 html body .gk.sec .gkt b{letter-spacing:.01em}
 html body .gk.sec .gkt small{color:#7a6a45;font-weight:800}
 html body .gk.sec .gkb{background:linear-gradient(180deg,#ffe27a,#f5b000)!important;color:#3a2600!important;box-shadow:0 4px 0 #c98a12!important}
+/* Tutoren stellen sich nacheinander vor */
+.tivk{display:inline-block;font-style:normal;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px;margin-bottom:6px}
+.tivteam{display:flex;justify-content:center;gap:8px;margin:4px 0 14px}
+.tivteam button{width:46px;height:46px;border-radius:50%;padding:0;border:0;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35);overflow:hidden;cursor:pointer;opacity:.55;transition:transform .2s,opacity .2s,box-shadow .2s}
+.tivteam button img{width:100%;height:100%;object-fit:cover;object-position:50% 15%;display:block}
+.tivteam button.on{opacity:1;transform:scale(1.18);box-shadow:0 0 0 3px #fff,0 0 0 6px var(--c1),0 6px 14px rgba(0,0,0,.25)}
+.tivteam button:hover{opacity:.9}
+.tivc.seq .tivs{min-height:4.6em}
+@media (max-width:420px){.tivteam{gap:5px}.tivteam button{width:38px;height:38px}}
+/* Seitenleiste: Einloggen und Startseite als zwei eigene, klare Knöpfe */
+.aacc{display:grid;grid-template-columns:1fr;gap:8px;margin:0 0 8px}
+.aacc.two{grid-template-columns:1fr 1fr}
+.aacb{display:flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 10px;border-radius:14px;border:0;font:inherit;font-weight:900;font-size:14px;cursor:pointer;transition:transform .15s}
+.aacb svg.i{width:17px;height:17px;flex:none}
+.aacb:active{transform:translateY(2px)}
+.aacb.alogin{color:#fff;background:linear-gradient(180deg,#5aa2f7,#1a5fc4);box-shadow:0 4px 0 #134a99}
+.aacb.astart{color:#3d3a35;background:#f3eee5;box-shadow:0 4px 0 #ddd3c2}
+.aacb{min-height:38px;font-size:13.5px}
+@media (max-width:820px){.aacc{display:none!important}}
 /* Hausaufgaben-Bereich (Arbeitsblatt, Hilfe, Probetest) */
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
@@ -5579,7 +5598,7 @@ html body .gk.sec .gkb{background:linear-gradient(180deg,#ffe27a,#f5b000)!import
     <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2.5 9.5L12 5l9.5 4.5L12 14z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6.5 11.5V16c3 2.4 8 2.4 11 0v-4.5M21.5 9.5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.8l7.5 2.8v5.8c0 4.7-3.2 8.4-7.5 10-4.3-1.6-7.5-5.3-7.5-10V5.6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.6 12l2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-noad" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 6l12 12" stroke="currentColor" stroke-width="2"/></symbol>
-    <symbol id="i-map" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3a3 3 0 0 1 3 3c0 2.2-3 5.5-3 5.5S2 8.2 2 6a3 3 0 0 1 3-3Zm0 4.2A1.2 1.2 0 1 0 5 4.8a1.2 1.2 0 0 0 0 2.4ZM19 12.5a3 3 0 0 1 3 3c0 2.2-3 5.5-3 5.5s-3-3.3-3-5.5a3 3 0 0 1 3-3Zm0 4.2a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 3.2" d="M6.5 13.5c1.5 2.5 4 2 6 0s4.5-3.5 6.5-1.5"/></symbol><symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 12h9M18 12v3.5M21 12v2.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3a3 3 0 0 1 3 3c0 2.2-3 5.5-3 5.5S2 8.2 2 6a3 3 0 0 1 3-3Zm0 4.2A1.2 1.2 0 1 0 5 4.8a1.2 1.2 0 0 0 0 2.4ZM19 12.5a3 3 0 0 1 3 3c0 2.2-3 5.5-3 5.5s-3-3.3-3-5.5a3 3 0 0 1 3-3Zm0 4.2a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 3.2" d="M6.5 13.5c1.5 2.5 4 2 6 0s4.5-3.5 6.5-1.5"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="M3.5 11 12 4l8.5 7M6 9.5V20h4.5v-5.5h3V20H18V9.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 12h9M18 12v3.5M21 12v2.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-family" viewBox="0 0 24 24"><circle cx="8" cy="7" r="2.6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="9" r="2.1" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 20v-3.5A4.5 4.5 0 018 12a4.5 4.5 0 014.5 4.5V20M13 20v-2.6a3.5 3.5 0 017 0V20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10.5V8a4 4 0 018 0v2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="15.5" r="1.5" fill="currentColor"/></symbol>
     <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 17.5h6M10 21h4M12 3a6 6 0 00-3.6 10.8c.6.5 1 1.2 1 2V17h5.2v-1.2c0-.8.4-1.5 1-2A6 6 0 0012 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -5679,7 +5698,7 @@ html body .gk.sec .gkb{background:linear-gradient(180deg,#ffe27a,#f5b000)!import
         <small class="anh">Fächer</small>
         <div class="tabs" id="tabs" role="tablist"></div>
       </nav>
-      <div class="afoot"><div class="agrade" id="gchip2"></div><button class="aprofb" id="aprofb" data-nav="profile"></button><button class="aico alegalb" id="alegal" type="button"><svg class="i"><use href="#i-shield"/></svg><span>Rechtliches</span></button></div>
+      <div class="afoot"><div class="agrade" id="gchip2"></div><div class="aacc"><button class="aacb alogin" id="alogin" type="button"><svg class="i"><use href="#i-key"/></svg><span>Einloggen</span></button><button class="aacb astart" id="astart" type="button"><svg class="i"><use href="#i-home"/></svg><span>Startseite</span></button></div><button class="aprofb" id="aprofb" data-nav="profile"></button><button class="aico alegalb" id="alegal" type="button"><svg class="i"><use href="#i-shield"/></svg><span>Rechtliches</span></button></div>
     </aside>
     <button class="acol" id="acol" aria-label="Leiste einklappen"><svg class="i"><use href="#i-arrow"/></svg></button>
     <button class="aopen" id="aopen" aria-label="Leiste öffnen"><svg class="i"><use href="#i-arrow"/></svg>Menü</button>
@@ -10852,13 +10871,9 @@ const PFHOST = {
   head: () => ({ title: 'Abenteuer', c1: '#ffa63d', c2: '#e2561a', c3: '#a8400e', imgs: SUBJ.map((S) => tutImg(S.tutor.id)), click: () => advIntro() }),
 };
 function advIntro() {
-  let o = $('#advi'); if (!o) { o = document.createElement('div'); o.id = 'advi'; o.className = 'help'; document.body.appendChild(o); }
-  o.innerHTML = `<div class="hpc advc"><button class="hpx" aria-label="Schließen">${I('x')}</button><small>Willkommen im Abenteuer</small><div class="advt">${SUBJ.map((S, i) => `<button data-i="${i}" style="--c1:${S.c1};--c2:${S.c2}"><span>${tutorHTML(S.tutor.id)}</span><b>${S.tutor.n}</b><i>${S.n}</i></button>`).join('')}</div>
-    <b>Wir sind alle dabei!</b><p>Auf deinem Abenteuer wechseln wir uns ab: jedes Feld ist ein anderes Fach. Schaff eine Lektion und du hüpfst weiter. Tippe auf einen von uns, dann stellen wir uns vor.</p><button class="b3d c wide" data-a="go">Los geht’s!</button></div>`;
-  const close = () => o.classList.remove('on');
-  $('.hpx', o).onclick = close; $('[data-a=go]', o).onclick = close;
-  $$('.advt button', o).forEach((b) => (b.onclick = () => { close(); tutorIntro(+b.dataset.i); }));
-  requestAnimationFrame(() => o.classList.add('on'));
+  /* Alle Tutoren stellen sich nacheinander vor, jeder mit Stimme */
+  const seq = SUBJ.map((S, i) => i);
+  tutorIntro(seq[0], seq);
 }
 function pfLoad() {
   if (window.GSMPfad) return Promise.resolve();
@@ -11476,25 +11491,31 @@ const INTRO = {
   bit: [['de', 'Piep! Hallo, ich bin Bit.'], ['de', 'Ich bin ein Roboter. Ich zeige dir, wie du sicher im Internet bist und was KI eigentlich ist.']],
 };
 Object.entries(INTRO).forEach(([id, L]) => { WHO = id; L.forEach((x) => (x[2] = vk(x[1], x[0]))); }); WHO = 'all';
-function tutorIntro(i) {
-  const S = SUBJ[i], L = INTRO[S.tutor.id];
+function tutorIntro(i, seq) {
+  const S = SUBJ[i], L = INTRO[S.tutor.id], pos = seq ? seq.indexOf(i) : -1, last = !seq || pos >= seq.length - 1, nx = seq && !last ? SUBJ[seq[pos + 1]] : null;
   let o = $('#tiv'); if (!o) { o = document.createElement('div'); o.id = 'tiv'; o.className = 'tiv'; document.body.appendChild(o); }
+  stopVoice(); const tok = (o._tok || 0) + 1; o._tok = tok; const live = () => o._tok === tok && o.classList.contains('on');
   o.style.setProperty('--c1', S.c1); o.style.setProperty('--c2', S.c2); o.style.setProperty('--pat', patURL(S.k));
-  o.innerHTML = `<div class="tivc"><button class="pwx" aria-label="Schließen">${I('x')}</button><div class="tivt">${tutorHTML(S.tutor.id)}</div>
-    <div class="tivb"><small>${S.n}</small><p class="tivs"></p></div><button class="b3d lg wide" data-go>${I('play')}Mit ${S.tutor.n} loslegen</button></div>`;
+  const team = seq ? `<div class="tivteam">${seq.map((j) => `<button class="${j === i ? 'on' : ''}" data-j="${j}" style="--c1:${SUBJ[j].c1}" aria-label="${SUBJ[j].tutor.n}"><img src="${tutImg(SUBJ[j].tutor.id)}" alt=""></button>`).join('')}</div>` : '';
+  const go = seq ? (last ? `${I('play')}Los geht’s!` : `Weiter zu ${nx.tutor.n}${I('arrow')}`) : `${I('play')}Mit ${S.tutor.n} loslegen`;
+  o.innerHTML = `<div class="tivc${seq ? ' seq' : ''}"><button class="pwx" aria-label="Schließen">${I('x')}</button><div class="tivt">${tutorHTML(S.tutor.id)}</div>
+    <div class="tivb">${seq ? '<em class="tivk">Willkommen im Abenteuer</em>' : ''}<small>${S.tutor.n} · ${S.n}</small><p class="tivs"></p></div>${team}<button class="b3d lg wide" data-go>${go}</button></div>`;
   o.classList.add('on'); restart($('.tivc', o), 'pin');
-  const close = () => { o.classList.remove('on'); stopVoice(); };
+  const close = () => { o.classList.remove('on'); o._tok++; stopVoice(); };
   $('.pwx', o).onclick = close; o.onclick = (e) => { if (e.target === o) close(); };
-  $('[data-go]', o).onclick = () => { close(); goTo(i); };
+  $('[data-go]', o).onclick = () => { if (seq && !last) tutorIntro(seq[pos + 1], seq); else { close(); if (!seq) goTo(i); } };
+  $$('.tivteam button', o).forEach((b) => (b.onclick = () => { const j = +b.dataset.j; if (j !== i) tutorIntro(j, seq); }));
   const p = $('.tivs', o); let k = 0;
   const next = () => {
-    if (!o.classList.contains('on') || k >= L.length) return;
+    if (!live()) return;
+    if (k >= L.length) { if (seq && !last) setTimeout(() => { if (live()) tutorIntro(seq[pos + 1], seq); }, 1500); return; }
     const [lang, t, key] = L[k++]; const sp = document.createElement('span'); sp.className = 'tvl ' + lang; p.appendChild(sp);
-    let n = 0; const typ = setInterval(() => { sp.textContent = t.slice(0, ++n); if (n >= t.length) clearInterval(typ); }, 28);
-    const ok = voice(key, true, S.tutor.id);
-    if (ok && curAudio) curAudio.onended = () => { talk(false); setTimeout(next, 250); }; else setTimeout(next, t.length * 28 + 700);
+    const ok = voice(key, true, S.tutor.id), au = ok && curAudio; let typed = false, heard = !au;
+    const step = () => { if (typed && heard) setTimeout(next, au ? 250 : 900); };
+    let n = 0; const typ = setInterval(() => { if (!live()) return clearInterval(typ); sp.textContent = t.slice(0, ++n); if (n >= t.length) { clearInterval(typ); typed = true; step(); } }, 28);
+    if (au) curAudio.onended = () => { talk(false); heard = true; step(); };
   };
-  next();
+  setTimeout(next, 250);
 }
 
 /* Dunkelmodus */
@@ -12031,6 +12052,10 @@ function stepKid(after) {
 function kLogout() { const t = K.tok; if (t) K.req('logout', { token: t }); try { Object.keys(localStorage).filter((k) => k.startsWith('gsm-') && k !== 'gsm-mute').forEach((k) => localStorage.removeItem(k)); } catch (e) {} location.href = '/'; }
 
 /* Kopfzeile: Anmelden bzw. Mein Konto */
+(() => { const a = document.getElementById('alogin'), h = document.getElementById('astart');
+  if (a) { if (K.tok) a.remove(); else a.onclick = openLogin; }
+  if (h) h.onclick = () => { if (typeof go === 'function') go(''); else location.hash = ''; };
+  if (a && !K.tok && h) h.parentElement.classList.add('two'); })();
 (() => { const b = document.getElementById('hlogin'); if (!b) return; if (K.tok) { b.innerHTML = `${I('family')}Mein Konto`; b.onclick = () => { location.hash = '#spiel'; }; } else b.onclick = openLogin; })();
 
 /* ---------- Vorschau-Spiele (im Abo): kleine Animationen ---------- */
