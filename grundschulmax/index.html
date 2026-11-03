@@ -5747,6 +5747,25 @@ html body .gk.sec .gkb{background:linear-gradient(180deg,#ffe27a,#f5b000)!import
 @media (max-width:560px){.hwdtop{flex-direction:column;text-align:center}.hwdm{width:80px}.hwdm .tut{width:80px}.hwhero{min-height:68px!important}}
 @media (prefers-reduced-motion:reduce){.hwhero,.hwprog i{animation:none}}
 .hwdth .hwi.sm .hwok{font-size:11px!important;padding:3px 8px!important;left:50%!important;right:auto!important;translate:-50% 0;white-space:nowrap}.hwdth .hwi.sm .hwok svg.i{width:12px;height:12px}
+
+/* Auswahl unter den Fotos: Hilfe, Spiel oder Test */
+.hwgoal{margin:14px 0 12px}
+.hwgoal>small{display:block;text-align:center;font-size:13px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-shadow:0 2px 0 rgba(20,40,90,.45),0 4px 12px rgba(10,30,80,.4);margin-bottom:10px}
+.hwgoal>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.hwgoal button{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:112px;padding:14px 8px 12px;border:0;border-radius:22px;background:#fff;color:#2a2f45;font:inherit;cursor:pointer;box-shadow:0 5px 0 #ddd3c2,0 12px 22px -14px rgba(0,0,0,.35);transition:transform .15s,box-shadow .2s}
+.hwgoal button i{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:#f1ecff;color:#6a4be0}
+.hwgoal button i svg.i{width:24px;height:24px}
+.hwgoal button b{font-size:16px;line-height:1.15}
+.hwgoal button span{font-size:12.5px;font-weight:700;color:#8b8273;line-height:1.2}
+.hwgoal button.on{box-shadow:0 0 0 3px #6a4be0,0 5px 0 #4a33b8,0 14px 26px -12px rgba(74,51,184,.55);transform:translateY(-2px)}
+.hwgoal button.on i{background:linear-gradient(180deg,#8f6cf5,#5b3fc4);color:#fff}
+.hwgoal button.on::after{content:"";position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;background:#2fb257 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+@media (max-width:560px){.hwgoal>div{gap:7px}.hwgoal button{min-height:104px;padding:12px 4px 10px;border-radius:18px}.hwgoal button b{font-size:14px}.hwgoal button span{font-size:11.5px}.hwgoal button i{width:40px;height:40px}}
+/* Text statt Gerätestimme, wenn es keine Aufnahme gibt */
+.saytxt{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));translate:-50% -140%;z-index:9500;display:flex;align-items:center;gap:10px;max-width:min(560px,calc(100vw - 32px));padding:10px 18px 10px 10px;border-radius:999px;background:#fff;color:#1d2340;font-weight:800;font-size:17px;box-shadow:0 10px 30px rgba(20,30,70,.28),0 0 0 2px #e8e2d6;transition:translate .35s cubic-bezier(.2,1.2,.4,1),opacity .3s;opacity:0;pointer-events:none}
+.saytxt.on{translate:-50% 0;opacity:1}
+.saytxt i{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#5aa2f7,#1a5fc4);color:#fff}
+.saytxt i svg.i{width:18px;height:18px}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -10123,8 +10142,11 @@ function gBelt(T) {
 function bestVoice(lang) { try { const L = speechSynthesis.getVoices().filter((x) => x.lang && x.lang.toLowerCase().replace('_', '-').startsWith(lang.slice(0, 2).toLowerCase())); if (!L.length) return null;
   const sc = (v) => (/natural|neural|premium|enhanced|erweitert|siri/i.test(v.name) ? 40 : 0) + (/google/i.test(v.name) ? 25 : 0) + (v.lang.toLowerCase().replace('_', '-') === lang.toLowerCase() ? 10 : 0) + (/anna|petra|helena|katja|serena|daniel|kate|amelie|thomas|audrey/i.test(v.name) ? 8 : 0) - (/compact|espeak/i.test(v.name) ? 30 : 0);
   return L.sort((a, b) => sc(b) - sc(a))[0]; } catch (e) { return null; } }
-try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); } catch (e) {}
-function ttsSay(text, lang) { try { if (!voiceOn || !window.speechSynthesis) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = .9; u.pitch = 1.05; const v = bestVoice(lang); if (v) u.voice = v; speechSynthesis.speak(u); } catch (e) {} }
+
+/* Nur echte Aufnahmen der Tutoren abspielen. Gibt es keine, wird nichts mit der Gerätestimme gesprochen, sondern der Text gezeigt. */
+function clipFor(text, lang, who) { const l = String(lang || 'de').slice(0, 2), t = String(text || '').trim(), W = [who, (typeof LS !== 'undefined' && LS && LS.who), SUBJ[st.s] && SUBJ[st.s].tutor.id, 'max', 'mila', 'emma', 'claude', 'frieda', 'bit'].filter(Boolean); for (const w of W) { const u = CLIPS[w + '|' + l + ':' + t]; if (u) return u; } return ''; }
+function sayText(text) { const t = String(text || '').trim(); if (!t) return; let b = document.getElementById('saytxt'); if (!b) { b = document.createElement('div'); b.id = 'saytxt'; b.className = 'saytxt'; document.body.appendChild(b); } b.innerHTML = `<i>${I('snd')}</i><span>${esc(t)}</span>`; b.classList.remove('on'); void b.offsetWidth; b.classList.add('on'); clearTimeout(b._t); b._t = setTimeout(() => b.classList.remove('on'), Math.min(6000, 2200 + t.length * 60)); }
+function ttsSay(text, lang, quiet, rate) { try { if (!voiceOn || !text) return false; const u = clipFor(text, lang); if (u) { stopVoice(); curAudio = new Audio(u); if (rate) curAudio.playbackRate = rate; curAudio.play().catch(() => {}); return true; } if (!quiet) sayText(text); return false; } catch (e) { return false; } }
 const xImg = (d, f) => `/grundschulmax/sp/${d}/${f}.webp`;
 function xWord(t, el, no) { const d = document.createElement('b'); d.className = 'gword' + (no ? ' no' : ''); const a = el.getBoundingClientRect(), g = gs.getBoundingClientRect(); d.style.left = a.left - g.left + a.width / 2 + 'px'; d.style.top = a.top - g.top + 'px'; d.textContent = t; gs.appendChild(d); setTimeout(() => d.remove(), 1100); }
 function xBurst(el, cols) { const a = el.getBoundingClientRect(), g = gs.getBoundingClientRect(); burst(a.left - g.left + a.width / 2, a.top - g.top + a.height / 2, cols || ['#f7c948', '#fff', '#5aa2f7'], 16); }
@@ -10578,7 +10600,7 @@ function sayChain(list, who, force) {
   if (!L.length) return false; next(); return true;
 }
 /* Vorlesen ohne Aufnahme: Stimme des Geräts */
-function ttsDe(text, force) { if ((!voiceOn && !force) || !text) return; if (/\d\s*[+\-−–×·*:=<>]|[+\-−–×·*:=<>]\s*\d|[☐□_]{1,}/.test(String(text))) { talk(true, 1200); return; } ttsSay(String(text).replace(/_+/g, ' … '), 'de-DE'); }
+function ttsDe(text, force) { if ((!voiceOn && !force) || !text) return; ttsSay(String(text), 'de-DE', true); }
 function lesSay(text, key, mood = '', hint) {
   const b = $('.lesbub', les); b.textContent = text; restart(b, 'new'); if (LS) LS.say = [key, hint];
   const has = !!(key && (String(key).startsWith('hw:') || CLIPS[((LS && LS.who) || 'max') + '|' + key]));
@@ -10699,7 +10721,7 @@ EX.mc = (x, h, ctx) => {
 EX.listen = (x, h, ctx) => {
   const o = shuf([x.a, ...x.w]);
   h.innerHTML = `<div class="lsn"><button class="lspk" aria-label="Anhören">${I('snd')}</button><button class="lspk slow" aria-label="Langsam anhören">${I('snd')}<small>langsam</small></button></div><div class="opts n${o.length}${o.every((t) => String(t).length <= 5) ? ' short' : ''}">${o.map((t, i) => `<button class="opt" data-v="${i}"><kbd>${i + 1}</kbd><span>${t}</span></button>`).join('')}</div>`;
-  const say = (slow) => { stopVoice(); const b = $$('.lspk', h)[slow ? 1 : 0]; if (!b || !b.isConnected) return; restart(b, 'xplay'); const url = CLIPS[SUBJ[st.s].tutor.id + '|' + x.vs]; if (url && !slow) { curAudio = new Audio(url); curAudio.play().catch(() => {}); return; } try { const u = new SpeechSynthesisUtterance(x.s); u.lang = { de: 'de-DE', en: 'en-GB', fr: 'fr-FR' }[x.lang || 'de']; u.rate = slow ? .55 : .85; const bv = bestVoice(u.lang); if (bv) u.voice = bv; speechSynthesis.speak(u); } catch (e) {} };
+  const say = (slow) => { stopVoice(); const b = $$('.lspk', h)[slow ? 1 : 0]; if (!b || !b.isConnected) return; restart(b, 'xplay'); const url = CLIPS[SUBJ[st.s].tutor.id + '|' + x.vs]; if (url) { curAudio = new Audio(url); if (slow) curAudio.playbackRate = .72; curAudio.play().catch(() => {}); return; } if (typeof noSoundView === 'function') noSoundView(x, h); };
   $$('.lspk', h).forEach((b, i) => (b.onclick = () => say(i === 1)));
   setTimeout(() => { if (alive(ctx.T) && !NOSND) say(false); }, 500);
   const c = choiceList(h, o, 'opt', ctx);
@@ -11231,7 +11253,7 @@ function preHTML(x) {
   return '';
 }
 function listenHook(x, h, ctx) {
-  const say = (slow) => { stopVoice(); const b = $$('.lspk', h)[slow ? 1 : 0]; if (!b || !b.isConnected) return; restart(b, 'xplay'); const url = CLIPS[SUBJ[st.s].tutor.id + '|' + x.vs]; if (url && !slow) { curAudio = new Audio(url); curAudio.play().catch(() => {}); return; } try { const u = new SpeechSynthesisUtterance(x.s); u.lang = { de: 'de-DE', en: 'en-GB', fr: 'fr-FR' }[x.lang || 'de']; u.rate = slow ? .55 : .85; const bv = bestVoice(u.lang); if (bv) u.voice = bv; speechSynthesis.speak(u); } catch (e) {} };
+  const say = (slow) => { stopVoice(); const b = $$('.lspk', h)[slow ? 1 : 0]; if (!b || !b.isConnected) return; restart(b, 'xplay'); const url = CLIPS[SUBJ[st.s].tutor.id + '|' + x.vs]; if (url) { curAudio = new Audio(url); if (slow) curAudio.playbackRate = .72; curAudio.play().catch(() => {}); return; } if (typeof noSoundView === 'function') noSoundView(x, h); };
   $$('.lspk', h).forEach((b, i) => (b.onclick = () => say(i === 1)));
   setTimeout(() => { if (alive(ctx.T) && !(typeof NOSND !== 'undefined' && NOSND)) say(false); }, 450);
 }
@@ -12022,7 +12044,7 @@ function drawHW(sel = '#ahw', web, SJ) {
     <div class="hwtabs"><button data-t="e" style="--c1:#ffb547;--c2:#e2620f">${I('bulb')}<span>${SJ ? SJ.tutor.n : 'Max'} erklärt</span></button><button data-t="s" style="--c1:#4f8ff0;--c2:#1a4fb4">${I('pad')}<span>Spiel daraus</span></button><button data-t="p" style="--c1:#8a6cf0;--c2:#4a33b8">${I('cap')}<span>Probetest</span></button><button data-t="l" style="--c1:#4cc38a;--c2:#1f8a4c">${I('book')}<span>Bibliothek</span></button></div>
     <div class="hwbackw"><button type="button" class="hwback">${I('arrow')}<span>Zurück zur Übersicht</span></button></div>
     <div class="hwr"></div>`;
-  const TU0 = SJ ? SJ.tutor : { id: 'max', n: 'Max' };
+  const TU0 = SJ ? SJ.tutor : { id: 'max', n: 'Max' }; let goal = SJ ? 'test' : 'hilfe';
   const d = $('.hwd', h), f = $('.hwf', h), c = $('.hwc', h), r = $('.hwr', h), pe = $('.hwpend', h), tabs = $$('.hwtabs button', h), tabBox = $('.hwtabs', h);
   const free = () => { const n = hwLeft(); $('.hwfree', h).innerHTML = n === Infinity ? `${I('check')}${isAdmin() ? 'Unbegrenzt freigeschaltet' : 'Im Abo enthalten'}` : n > 0 ? `<span class="hwst">${Array.from({ length: HW_FREE }, (_, i) => `<i class="${i < n ? 'on' : ''}">${I('star')}</i>`).join('')}</span><span class="hwft"><b>Noch ${n} ${n === 1 ? 'Hausaufgabe' : 'Hausaufgaben'} gratis</b><small>zum Ausprobieren</small></span>` : `${I('lock')}Alle Probe-Hausaufgaben verbraucht`; $('.hwfree', h).classList.toggle('no', n === 0); };
   free(); h._free = free;
@@ -12046,17 +12068,20 @@ function drawHW(sel = '#ahw', web, SJ) {
     pend = pend.concat(imgs); sfx.flip(); drawPend();
     const g = $('.hwgo', pe); if (g) { g.classList.add('pulse2'); setTimeout(() => g.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120); }
   }
+  function goalLab() { return { hilfe: `${TU0.n}, hilf mir!`, spiel: 'Spiel erstellen', test: 'Test erstellen' }[goal]; }
   function drawPend() {
     if (!pend.length) { pe.innerHTML = ''; return; }
     pe.innerHTML = `<div class="hwpl">${pend.map((u, i) => `<div class="hwpt" style="animation-delay:${i * .05}s"><img src="${u}" alt=""><button data-x="${i}" aria-label="Entfernen">${I('x')}</button><span>${i + 1}</span></div>`).join('')}${pend.length < 10 ? `<button class="hwpadd" aria-label="Weitere Fotos">${I('cam')}<small>Seite dazu</small></button>` : ''}</div>
-      <button class="b3d lg hwgo">${I('play')}${SJ ? SJ.tutor.n : 'Max'}, hilf mir! <small>${pend.length} ${pend.length === 1 ? 'Foto' : 'Fotos'}</small></button>`;
+      <div class="hwgoal" role="radiogroup" aria-label="Was soll ${TU0.n} machen?"><small>Was soll ${TU0.n} machen?</small><div>${[['hilfe', 'bulb', 'Hilfe beim Blatt', 'Schritt für Schritt'], ['spiel', 'pad', 'Spiel erstellen', 'Üben mit Spaß'], ['test', 'cap', 'Test erstellen', 'Fit für die Arbeit']].map(([g, ic, t, d]) => `<button type="button" role="radio" aria-checked="${g === goal}" class="${g === goal ? 'on' : ''}" data-g="${g}"><i>${I(ic)}</i><b>${t}</b><span>${d}</span></button>`).join('')}</div></div>
+      <button class="b3d lg hwgo">${I('play')}<span class="hwgol">${goalLab()}</span> <small>${pend.length} ${pend.length === 1 ? 'Foto' : 'Fotos'}</small></button>`;
+    $$('.hwgoal [data-g]', pe).forEach((b) => (b.onclick = () => { goal = b.dataset.g; sfx.tap(); $$('.hwgoal [data-g]', pe).forEach((x) => { x.classList.toggle('on', x === b); x.setAttribute('aria-checked', x === b); }); $('.hwgol', pe).textContent = goalLab(); restart($('.hwgo', pe), 'pop'); }));
     $$('[data-x]', pe).forEach((b) => (b.onclick = () => { pend.splice(+b.dataset.x, 1); drawPend(); }));
     const ad = $('.hwpadd', pe); if (ad) ad.onclick = () => f.click();
     $('.hwgo', pe).onclick = send;
   }
   async function send() {
     if (hwLeft() <= 0) { paywall('Max hilft bei Hausaufgaben und Tests'); return; }
-    const imgs = pend.slice(); pend = []; GT.t('Hausaufgabe hochgeladen', (SJ ? 'Test ' + SJ.n : 'Hausaufgabe') + ' · ' + imgs.length + (imgs.length === 1 ? ' Foto' : ' Fotos')); const TU = SJ ? SJ.tutor : { id: 'max', n: 'Max' };
+    const imgs = pend.slice(); pend = []; GT.t('Hausaufgabe hochgeladen', (SJ ? 'Test ' + SJ.n : 'Hausaufgabe') + ' · ' + goal + ' · ' + imgs.length + (imgs.length === 1 ? ' Foto' : ' Fotos')); const TU = SJ ? SJ.tutor : { id: 'max', n: 'Max' };
     tabs.forEach((b) => b.classList.remove('on')); curT = ''; focus(true); const run = (h._run = (h._run || 0) + 1);
     r.innerHTML = `<div class="hwscanw big"><div class="hwstack">${imgs.slice(0, 4).map((u, i) => `<div class="hwi" style="--r:${(i - 1.5) * 4}deg;--i:${i}"><img src="${u}" alt=""><i class="hwscan loop"></i></div>`).join('')}</div>
       <div class="hwwait"><span class="hwwm hwx">${tutorHTML(TU.id)}</span><small class="hwwk">${TU.n} schaut sich alles an</small><b>${TU.n} liest ${imgs.length > 1 ? `deine ${imgs.length} Seiten` : 'dein Blatt'} …</b><div class="hwprog"><i></i></div><ol class="hwsteps"><li class="on">Aufgaben erkennen</li><li>Lösungsweg überlegen</li><li>Tipps für jede Aufgabe schreiben</li><li>Spiel und Probetest bauen</li></ol><p class="hwwn">Das dauert meist unter einer Minute.</p></div></div>`;
@@ -12065,7 +12090,7 @@ function drawHW(sel = '#ahw', web, SJ) {
     const talkI = setInterval(() => $$('.hwx .tut', r).forEach((t) => { t.classList.add('talk'); setTimeout(() => t.classList.remove('talk'), 900); }), 2400);
     let res;
     const ac = typeof AbortController !== 'undefined' ? new AbortController() : null, to = setTimeout(() => ac && ac.abort(), 120000);
-    try { res = await (await fetch(HW_URL, { method: 'POST', signal: ac ? ac.signal : undefined, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ images: imgs, klasse: Math.max(0, st.grade) + 1, fach: SJ ? SJ.n : '', modus: SJ ? 'test' : 'hw', admin: lsx.get('gsm-admin', ''), abo: (ABO && ABO.code) || '' }) })).json(); }
+    try { res = await (await fetch(HW_URL, { method: 'POST', signal: ac ? ac.signal : undefined, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ images: imgs, klasse: Math.max(0, st.grade) + 1, fach: SJ ? SJ.n : '', modus: SJ ? 'test' : 'hw', ziel: goal, admin: lsx.get('gsm-admin', ''), abo: (ABO && ABO.code) || '' }) })).json(); }
     catch (e) { res = { ok: false, retry: true, grund: e && e.name === 'AbortError' ? 'Das hat zu lange gedauert. Probier es gleich nochmal.' : 'Keine Verbindung. Probier es gleich nochmal.' }; }
     clearTimeout(to);
     clearInterval(tick); clearInterval(talkI);
@@ -12095,16 +12120,17 @@ function drawHW(sel = '#ahw', web, SJ) {
     const B = R.blatt || [], P0 = prgGet(curId), w = P0.ws || [], k = w.filter((v) => v > 0).length, all = B.length && k >= B.length, ths = Rths.length ? Rths : [Rimg];
     const nA = B.length || (R.probetest || []).length || (R.erklaerung || []).length;
     focus(true); curT = '';
-    const mode = SJ ? 'test' : !B.length ? 'exp' : all ? 'game' : 'sheet';
-    const lab = { test: 'Probetest starten', exp: `${TU0.n} erklärt es dir`, game: 'Jetzt das Spiel spielen', sheet: k ? 'Hilfe öffnen und weiterlösen' : 'Hilfe öffnen' }[mode];
-    const sub = { test: `${(R.probetest || []).length} neue Aufgaben wie in der Arbeit.`, exp: 'Schritt für Schritt, ganz in Ruhe.', game: 'Dein Blatt ist fertig. Jetzt wird gespielt!', sheet: k ? `Schon ${k} von ${B.length} geschafft.` : `Du löst dein Blatt selbst. ${TU0.n} hilft dir bei jeder Aufgabe.` }[mode];
+    const hasT = (R.probetest || []).length, hasS = (R.spiel || []).length;
+    const mode = (goal === 'test' || SJ) && hasT ? 'test' : goal === 'spiel' && hasS ? 'spiel' : !B.length ? 'exp' : all ? 'game' : 'sheet';
+    const lab = { spiel: 'Spiel starten', test: 'Probetest starten', exp: `${TU0.n} erklärt es dir`, game: 'Jetzt das Spiel spielen', sheet: k ? 'Hilfe öffnen und weiterlösen' : 'Hilfe öffnen' }[mode];
+    const sub = { spiel: `${hasS} Runden aus deinem Blatt. Danach schaffst du es allein.`, test: `${hasT} neue Aufgaben wie in der Arbeit.`, exp: 'Schritt für Schritt, ganz in Ruhe.', game: 'Dein Blatt ist fertig. Jetzt wird gespielt!', sheet: k ? `Schon ${k} von ${B.length} geschafft.` : `Du löst dein Blatt selbst. ${TU0.n} hilft dir bei jeder Aufgabe.` }[mode];
     r.innerHTML = `<div class="hwdone"><div class="hwdtop"><div class="hwdm hwx">${tutorHTML(TU0.id)}</div><div><small class="hwdk">${I('check')}${TU0.n} ist fertig</small><b class="hwdt">${esc(R.thema || 'Deine Aufgaben')}</b>${R.fach ? `<span class="hwdf">${esc(R.fach)}</span>` : ''}</div></div>
       <div class="hwdth">${ths.slice(0, 4).map((src, i) => `<div class="hwi sm" style="--r:${(i - (Math.min(ths.length, 4) - 1) / 2) * 5}deg"><img src="${src}" alt=""><span class="hwok">${I('check')}Gelesen</span></div>`).join('')}</div>
       <ul class="hwdl"><li>${I('check')}<span><b>${nA || 'Alle'}</b> ${nA === 1 ? 'Aufgabe' : 'Aufgaben'} erkannt</span></li><li>${I('check')}<span>Tipps für jede Aufgabe</span></li><li>${I('check')}<span>Spiel und Probetest gebaut</span></li></ul>
-      <button type="button" class="b3d lg hwhero">${I(mode === 'test' ? 'cap' : mode === 'game' ? 'pad' : 'bulb')}<span>${lab}</span></button><p class="hwdn">${sub}</p>
-      ${mode === 'game' ? '<button type="button" class="lnk hwdalt" data-alt="ws">Blatt nochmal ansehen</button>' : ''}</div>`;
+      <button type="button" class="b3d lg hwhero">${I(mode === 'test' ? 'cap' : mode === 'game' || mode === 'spiel' ? 'pad' : 'bulb')}<span>${lab}</span></button><p class="hwdn">${sub}</p>
+      ${mode === 'game' ? '<button type="button" class="lnk hwdalt" data-alt="ws">Blatt nochmal ansehen</button>' : (mode === 'test' || mode === 'spiel') && B.length && !SJ ? `<button type="button" class="lnk hwdalt" data-alt="ws">Lieber erst das Blatt mit ${TU0.n} lösen</button>` : ''}</div>`;
     $('.hwhero', r).onclick = () => { sfx.tap(); GT.t('Hilfe geöffnet', mode);
-      if (mode === 'test') play(true); else if (mode === 'game') play(false);
+      if (mode === 'test') play(true); else if (mode === 'game' || mode === 'spiel') play(false);
       else if (mode === 'exp') { focus(false); view('e'); }
       else openSheet(R, { id: curId, onDone: () => done(), onClose: () => done() }); };
     const alt = $('[data-alt]', r); if (alt) alt.onclick = () => openSheet(R, { id: curId, onDone: () => done(), onClose: () => done() });
