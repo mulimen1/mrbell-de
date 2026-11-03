@@ -5421,6 +5421,22 @@ html,body{overscroll-behavior-x:none}
 @media (max-width:820px){body[data-screen=start] .hero h1{font-size:calc(var(--u)*52)!important;white-space:nowrap}}
 /* Le petit café: kleine Handys (wenig Höhe) – Tablett, Servieren und Regal übereinander ohne Überlappung */
 @media (max-width:600px) and (max-height:760px){.g-cafe2 .guest{top:34px}.g-cafe2 .gface{width:84px}.g-cafe2 .order b{font-size:14px}.g-cafe2 .tray{top:166px!important;min-height:56px}.g-cafe2 .serve{top:232px!important;height:46px}.g-cafe2 .shelf{bottom:112px!important}.g-cafe2 .it img{height:32px}}
+/* Où est le chat: "derrière" klar anders als "dans" – Katze sitzt sichtbar hinter der Kiste */
+.ocs.p-derriere .ocb{left:4%!important;width:62%!important;bottom:2%!important;z-index:2}.ocs.p-derriere .occ{left:auto!important;right:4%!important;bottom:22%!important;width:50%!important;z-index:1;filter:brightness(.88) drop-shadow(0 5px 4px rgba(0,0,0,.22))}
+/* Fließband-Lektion: Kisten richten sich nach der Bildschirmhöhe, nie unter der Hilfe-Leiste */
+.bins .bin{width:min(100%,calc(20dvh * 1.3125))!important;justify-self:center}
+.k-sort .srt{min-height:0!important}
+.k-sort .srtc{min-height:min(150px,18dvh)!important}
+@media (max-height:780px){.k-sort .srt{gap:6px!important;padding:8px!important}.k-sort .srtc .srti{margin-bottom:min(58px,7dvh)!important}.bins .bin{width:min(100%,calc(17dvh * 1.3125))!important}}
+@media (min-width:900px) and (max-height:820px){.sfw2{flex-wrap:nowrap!important}.sfw2 .sfq{max-width:320px;flex:0 1 320px}}
+.hwerr .hwretry{margin-top:10px}
+/* X-Knopf immer erreichbar (auch über Start- und Endbildschirm), Torwart nimmt keine Tipps weg */
+.gstage.open .stop{position:relative;z-index:60}
+.s-goal .gkeep{pointer-events:none!important}
+.s-mole .mh{pointer-events:none}.s-mole .mh .ml,.s-mole .mh [data-v],.s-mole [data-v]{pointer-events:auto}
+
+body.ispaid .afab,body.ispaid .fcta{display:none!important}
+@media (max-width:560px) and (max-height:740px){.uwrap{width:min(56vw,27vh)!important;top:29%!important}.uopts{gap:6px!important}.ubtn{min-height:40px!important}}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -6119,9 +6135,9 @@ function finish(title, text) {
     <h3>${title}</h3><p>${text}</p>
     <div class="stats"><div><small>Genauigkeit</small><b>${acc} %</b></div><div><small>Beste Serie</small><b>${st.best}</b></div><div><small>Zeit</small><b>${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}</b></div></div>
     <div class="row"><button class="b3d w" data-a="again">${I('again')}Nochmal</button>${gd ? `<button class="b3d c" data-a="path">Weiter im Lernpfad ${I('arrow')}</button>` : nextG >= 0 ? `<button class="b3d c" data-a="nextg">Nächstes Spiel ${I('arrow')}</button>` : `<button class="b3d c" data-a="next">${SUBJ[(st.s + 1) % SUBJ.length].n} spielen ${I('arrow')}</button>`}</div></div>`;
-  o.querySelector('.fini').insertAdjacentHTML('beforeend', `<div class="row fcta"><button class="b3d sm" data-a="cta">Für mein Kind einrichten ${I('arrow')}</button></div>`);
+  if (!(typeof PAID !== 'undefined' && PAID)) o.querySelector('.fini').insertAdjacentHTML('beforeend', `<div class="row fcta"><button class="b3d sm" data-a="cta">Für mein Kind einrichten ${I('arrow')}</button></div>`);
   gs.appendChild(o);
-  $('[data-a=cta]', o).onclick = () => openM();
+  const ctaB = $('[data-a=cta]', o); if (ctaB) ctaB.onclick = () => openM();
   $('[data-a=again]', o).onclick = () => runStage();
   const pa = $('[data-a=path]', o); if (pa) pa.onclick = () => closeStage();
   const n = $('[data-a=nextg]', o); if (n) n.onclick = () => { st.g = nextG; runStage(); };
@@ -6609,7 +6625,7 @@ LP.deutsch = [
     ] },
     { t: 'Silben klatschen', d: 'Wörter in Silben teilen und zusammensetzen', L: [
       [
-        { k: 'mc', q: 'Wie viele Silben hat „Ba-na-ne“?', a: '3', w: ['2', '4'], e: 'Klatsch mit: Ba – na – ne. Das sind drei Silben.', art: 'banane' },
+        { k: 'mc', q: 'Wie viele Silben hat „Banane“?', a: '3', w: ['2', '4'], e: 'Klatsch mit: Ba – na – ne. Das sind drei Silben.', art: 'banane' },
         { k: 'build', q: 'Baue das Wort aus Silben: Tomate', a: ['To', 'ma', 'te'] },
         { k: 'tf', q: '„Hund“ hat eine Silbe.', a: true, e: 'Bei „Hund“ klatschst du nur einmal.' },
         { k: 'listen', s: 'Rakete', lang: 'de', q: 'Hör zu: Wie viele Silben hat das Wort?', a: '3', w: ['2', '1'] },
@@ -6947,7 +6963,7 @@ LP.deutsch = [
         { k: 'order', q: 'Ordne von klein nach groß.', a: ['Maus', 'Katze', 'Pferd', 'Elefant'] },
         { k: 'tf', q: 'Man sagt „schöner als“ und nicht „schöner wie“.', a: true, e: 'Richtig. Nach der 1. Steigerung steht immer „als“.' },
         { k: 'build', q: 'Baue den Satz.', a: ['Ein', 'Tiger', 'ist', 'stärker', 'als', 'eine', 'Katze', '.'] },
-        { k: 'spell', q: 'Lege die Grundform von „am liebsten“.', a: 'gern' },
+        { k: 'spell', q: 'Lege die Grundform von „am besten“.', a: 'gut' },
         { k: 'sort', q: 'Sortiere nach der Stufe.', b: ['Grundform', '1. Steigerung', '2. Steigerung'], it: [['leise', 0], ['leiser', 1], ['am leisesten', 2], ['dunkel', 0], ['dunkler', 1], ['am dunkelsten', 2]] },
       ],
       [
@@ -7519,14 +7535,14 @@ LP.franz = [
         { k: 'pairs', q: 'Finde die Paare.', p: [['le chat', 'die Katze'], ['le chien', 'der Hund'], ['le poisson', 'der Fisch']] },
       ],
       [
-        { k: 'listen', s: 'le lapin', lang: 'fr', q: 'Hör zu: Welches Tier ist das?', a: 'Hase', w: ['Hund', 'Ente'] },
+        { k: 'listen', s: 'le lapin', lang: 'fr', q: 'Hör zu: Welches Tier ist das?', a: 'Kaninchen', w: ['Hund', 'Ente'] },
         { k: 'mc', q: 'Wie heißt dieses Tier auf Französisch?', a: 'le cochon', w: ['le canard', 'le lapin'], e: 'Das Schwein heißt „le cochon“.', art: 'schwein' },
-        { k: 'spell', q: 'Lege das Wort „lapin“ (Hase).', a: 'lapin' },
+        { k: 'spell', q: 'Lege das Wort „lapin“ (Kaninchen).', a: 'lapin' },
         { k: 'mc', q: 'Was ist das?', a: 'le canard', w: ['le cochon', 'le chat'], e: 'Die Ente heißt „le canard“.', art: 'ente' },
         { k: 'tf', q: '„La poule“ heißt „das Huhn“.', a: true, e: 'Genau: Das Huhn ist „la poule“.' },
         { k: 'listen', s: 'la poule', lang: 'fr', q: 'Hör zu: Welches Wort war das?', a: 'la poule', w: ['le lapin', 'le canard'] },
         { k: 'gap', q: 'Le cochon est ___.', a: 'rose', w: ['bleu', 'vert'], e: 'Das Schwein ist rosa: „Le cochon est rose.“' },
-        { k: 'pop', q: 'Welches Wort heißt „Hase“?', a: 'lapin', w: ['chat', 'cochon', 'canard'] },
+        { k: 'pop', q: 'Welches Wort heißt „Kaninchen“?', a: 'lapin', w: ['chat', 'cochon', 'canard'] },
       ],
       [
         { k: 'mc', q: 'Was heißt „la souris“?', a: 'die Maus', w: ['die Kuh', 'der Vogel'], e: '„La souris“ ist die Maus.' },
@@ -7540,13 +7556,13 @@ LP.franz = [
       ],
       [
         { k: 'mc', q: 'Welches Tier siehst du? Sag es auf Französisch.', a: 'la poule', w: ['la vache', 'la souris'], e: 'Das Huhn heißt „la poule“.', art: 'huhn' },
-        { k: 'listen', s: 'l’oiseau', lang: 'fr', q: 'Hör zu: Welches Tier ist das?', a: 'Vogel', w: ['Fisch', 'Hase'] },
+        { k: 'listen', s: 'l’oiseau', lang: 'fr', q: 'Hör zu: Welches Tier ist das?', a: 'Vogel', w: ['Fisch', 'Kaninchen'] },
         { k: 'spell', q: 'Lege das Wort für „Hund“ (ohne „le“).', a: 'chien' },
         { k: 'tf', q: '„Le poisson“ heißt „die Maus“.', a: false, e: '„Le poisson“ ist der Fisch. Die Maus heißt „la souris“.' },
         { k: 'gap', q: '___ chat est noir.', a: 'Le', w: ['La', 'Les'], e: 'Es heißt „le chat“ – also „Le chat est noir.“' },
         { k: 'pop', q: 'Welches Tier sagt „muh“?', a: 'vache', w: ['chat', 'chien', 'poisson'] },
         { k: 'listen', s: 'la souris', lang: 'fr', q: 'Hör zu: Was bedeutet das?', a: 'die Maus', w: ['der Hund', 'das Pferd'] },
-        { k: 'pairs', q: 'Meister-Runde: Finde alle Paare.', p: [['le cochon', 'das Schwein'], ['le canard', 'die Ente'], ['la vache', 'die Kuh'], ['l’oiseau', 'der Vogel'], ['le lapin', 'der Hase']] },
+        { k: 'pairs', q: 'Meister-Runde: Finde alle Paare.', p: [['le cochon', 'das Schwein'], ['le canard', 'die Ente'], ['la vache', 'die Kuh'], ['l’oiseau', 'der Vogel'], ['le lapin', 'das Kaninchen']] },
       ],
     ] },
     { t: 'Meine Familie', d: 'Maman, papa, frère und sœur', L: [
@@ -8666,12 +8682,12 @@ WHO = 'mila';
 const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 const range = (a, b, s = 1) => { const r = []; for (let x = a; x <= b; x += s) r.push(x); return r; };
 const BALLON = [
-  { intro: vk('Mach die 10 voll! Lass den Ballon mit der passenden Zahl platzen.'), viz: 'ten', sp: 1, R: shuf([7, 4, 8, 3, 6, 9, 5]).slice(0, 5).map((a) => ({ t: `${a} + ? = 10`, a, n: 10 - a, d: range(1, 9) })) },
-  { intro: vk('Mach die 100 voll! Welcher Ballon passt?'), viz: 'hun', sp: 1, R: shuf([60, 30, 80, 20, 70, 40]).slice(0, 5).map((a) => ({ t: `${a} + ? = 100`, a, n: 100 - a, d: range(10, 90, 10) })) },
-  { intro: vk('Einmaleins! Welche Zahl fehlt?'), sp: .85, R: shuf([[6, 42], [4, 32], [7, 21], [9, 54], [8, 64], [3, 27], [6, 36]]).slice(0, 5).map(([b, c]) => ({ t: `? · ${b} = ${c}`, n: c / b, d: range(2, 10), hint: `Zähl die ${b}er-Reihe: ${range(1, c / b).map((k) => k * b).join(', ')}` })) },
+  { intro: vk('Mach die 10 voll! Lass den Ballon mit der passenden Zahl platzen.'), viz: 'ten', sp: 1, R: shuf([7, 4, 8, 3, 6, 9, 5]).map((a) => ({ t: `${a} + ? = 10`, a, n: 10 - a, d: range(1, 9) })) },
+  { intro: vk('Mach die 100 voll! Welcher Ballon passt?'), viz: 'hun', sp: 1, R: shuf([60, 30, 80, 20, 70, 40]).map((a) => ({ t: `${a} + ? = 100`, a, n: 100 - a, d: range(10, 90, 10) })) },
+  { intro: vk('Einmaleins! Welche Zahl fehlt?'), sp: .85, R: shuf([[6, 42], [4, 32], [7, 21], [9, 54], [8, 64], [3, 27], [6, 36]]).map(([b, c]) => ({ t: `? · ${b} = ${c}`, n: c / b, d: range(2, 10), hint: `Zähl die ${b}er-Reihe: ${range(1, c / b).map((k) => k * b).join(', ')}` })) },
   { intro: vk('Große Zahlen! Finde die fehlende Zahl.'), sp: .75, R: shuf([
     { t: '650 + ? = 1000', n: 350, d: [250, 450, 300, 400, 550] }, { t: '1000 − ? = 425', n: 575, d: [475, 525, 625, 585, 675] },
-    { t: '? · 25 = 100', n: 4, d: [3, 5, 6, 25, 75] }, { t: '480 : ? = 60', n: 8, d: [6, 7, 9, 12, 80] }, { t: '? + 375 = 1000', n: 625, d: [525, 725, 635, 615, 675] }, { t: '7 · ? = 560', n: 80, d: [8, 70, 90, 60, 800] }]).slice(0, 5) },
+    { t: '? · 25 = 100', n: 4, d: [3, 5, 6, 25, 75] }, { t: '480 : ? = 60', n: 8, d: [6, 7, 9, 12, 80] }, { t: '? + 375 = 1000', n: 625, d: [525, 725, 635, 615, 675] }, { t: '7 · ? = 560', n: 80, d: [8, 70, 90, 60, 800] }]) },
 ];
 let CUSTOM_BALLON = null; // aus dem Foto-Zauber
 const vkBalWrong = vk('Hmm, das passt noch nicht. Rechne nochmal nach!');
@@ -8690,7 +8706,7 @@ function popBal(el) {
 function gBalloon(T) {
   gs.className = 'gs g-bal g-bal2';
   const L = CUSTOM_BALLON || BALLON[G()];
-  const R = L.R.map((r) => ({ ...r })), COL = ['#5aa2f7', '#f39b52', '#9b7cf0', '#f47ba0', '#3fc1c9', '#4cc38a', '#f2b705'];
+  const R = (CUSTOM_BALLON ? L.R : shuf(L.R).slice(0, 5)).map((r) => ({ ...r })), COL = ['#5aa2f7', '#f39b52', '#9b7cf0', '#f47ba0', '#3fc1c9', '#4cc38a', '#f2b705'];
   gs.innerHTML = `${SKY('bal', [[0, 4, 1, 22, 376], [1, 62, 5, 30, 449], [4, 24, 23, 40, 215], [7, 18, 30, 26, 145], [8, 56, 32, 34, 154]], [[2, 15, 18], [3, 12, 22], [5, 85, 24], [6, 88, 26]])}
     <div class="eq"><div class="eqt" id="eqt"></div>${L.viz ? `<div class="tf" id="tf">${'<i></i>'.repeat(10)}</div>` : ''}</div><div id="bl"></div>`;
   let r = 0, bl = [], since = 0, lock = false, raf, last = 0, spawnAt = 0, run = false;
@@ -8740,7 +8756,7 @@ function gBalloon(T) {
     } else {
       wrong(); b.dead = true; b.el.classList.add('nope'); sfx.no();
       const txt = R[r].t.replace('?', fmt(b.n));
-      let tip = R[r].hint || (L.viz ? 'Zähl die leeren Kästchen.' : 'Rechne nochmal nach.');
+      let tip = R[r].hint || (L.viz === 'hun' ? 'Jedes Kästchen ist 10 wert. Zähl die leeren Kästchen in Zehnern.' : L.viz ? 'Zähl die leeren Kästchen.' : 'Rechne nochmal nach.');
       say(`${txt.replace(/=.*/, '')} passt nicht. ${tip}`, 'think', vkBalWrong);
       fb(false, 'Fast!', tip, { ms: 2200 });
       if (tf) restart(tf, 'blink');
@@ -8869,7 +8885,7 @@ function gZug(T) {
       } else { dmax.className = 'dmax happy'; sayEl.textContent = 'Genau! Und weiter?'; }
     } else {
       wrong(); restart(b, 'shk'); sfx.no();
-      if (sent) { say('Lies den Satz nochmal. Welches Wort passt als Nächstes?', 'think', vkZugSNo); fb(false, 'Fast!', idx === 0 ? 'Ein Satz beginnt mit einem großen Wort.' : `Bis jetzt: „${W.w.slice(0, idx).join(' ')} …“`, { ms: 2200 }); }
+      if (sent) { say('Lies den Satz nochmal. Welches Wort passt als Nächstes?', 'think', vkZugSNo); fb(false, 'Fast!', idx === 0 ? 'Welches Wort steht ganz am Anfang? Lies den Satz leise mit.' : `Bis jetzt: „${W.w.slice(0, idx).join(' ')} …“`, { ms: 2200 }); }
       else { say(`Hör genau hin: ${W.w.join(' – ')}.`, 'think', W.slow); fb(false, 'Fast!', `Sprich langsam: ${W.w.join(' – ')}`, { ms: 2200 }); }
     }
   }
@@ -9644,8 +9660,8 @@ function gShop(T) {
 const REIM = [
   [['Haus', 'Maus'], ['Hund', 'Mund'], ['Tisch', 'Fisch'], ['Nase', 'Hase'], ['Kopf', 'Topf'], ['Hut', 'gut'], ['Bein', 'Stein'], ['Hand', 'Sand'], ['Ball', 'Stall'], ['Baum', 'Traum'], ['Boot', 'rot'], ['Ring', 'Ding']],
   [['Hose', 'Rose'], ['Sonne', 'Tonne'], ['Kanne', 'Tanne'], ['Katze', 'Tatze'], ['Wand', 'Land'], ['Zwerg', 'Berg'], ['Bär', 'schwer'], ['Fuß', 'Gruß'], ['Biene', 'Schiene'], ['Kind', 'Wind'], ['Fliege', 'Wiege'], ['Brief', 'tief']],
-  [['Flasche', 'Tasche'], ['Mütze', 'Pfütze'], ['Schnecke', 'Decke'], ['Glocke', 'Socke'], ['Wiese', 'Riese'], ['Bauch', 'Strauch'], ['Kuchen', 'suchen'], ['Leiter', 'weiter'], ['Nadel', 'Tadel'], ['Kerze', 'Scherze'], ['Wolke', 'Molke'], ['Feder', 'Leder']],
-  [['Gespenst', 'kennst'], ['Laterne', 'Sterne'], ['Schokolade', 'Limonade'], ['Rakete', 'Trompete'], ['Gitarre', 'Karre'], ['Pinguin', 'Termin'], ['Krokodil', 'Spiel'], ['Banane', 'Fahne'], ['Kartoffel', 'Pantoffel'], ['Salat', 'Spinat'], ['Giraffe', 'Affe'], ['Melone', 'Zitrone']],
+  [['Flasche', 'Tasche'], ['Mütze', 'Pfütze'], ['Schnecke', 'Decke'], ['Glocke', 'Socke'], ['Wiese', 'Riese'], ['Bauch', 'Strauch'], ['Kuchen', 'suchen'], ['Leiter', 'weiter'], ['Tasse', 'Kasse'], ['Kerze', 'Scherze'], ['Schere', 'Beere'], ['Feder', 'Leder']],
+  [['Gespenst', 'kennst'], ['Laterne', 'Sterne'], ['Schokolade', 'Limonade'], ['Rakete', 'Trompete'], ['Gitarre', 'Karre'], ['Pinguin', 'Berlin'], ['Krokodil', 'Spiel'], ['Banane', 'Fahne'], ['Kartoffel', 'Pantoffel'], ['Salat', 'Spinat'], ['Giraffe', 'Affe'], ['Melone', 'Zitrone']],
 ];
 function gPong(T) {
   gs.className = 'gs g-pong2';
@@ -9751,7 +9767,7 @@ function gSimon(T) {
   const next = xRound(T, { N, done: 'Simon ist begeistert!', doneT: ['Erste Befehle auf Englisch verstehen.', 'Befehle verstehen und genau hinhören.', 'Englisch hören und sofort reagieren.', 'Blitzschnell verstehen, auch mit Trick.'],
     make: () => { const o = shuf(A).slice(0, 3), t = o[ri(0, 2)], fake = trick && Math.random() < .25, cmd = (fake ? '' : 'Simon says: ') + t[1] + '!';
       const opts = o.map((x) => ({ k: x[0], img: xImg(D, x[0]), label: x[2] })); if (trick) opts.push({ k: 'none', label: 'Nichts tun!' });
-      return { html: `${hearBtn()}<b>${cmd}</b><small>${fake ? 'Hör genau hin …' : 'Was soll der Hund machen?'}</small>`, say: cmd, lang: 'en-GB', o: opts, a: fake ? 'none' : t[0], okT: fake ? 'Richtig! Simon hat es nicht gesagt.' : `Genau: ${t[1]} heißt ${t[2]}.`, noT: fake ? 'Achtung: Simon hat das nicht gesagt, also nichts tun!' : `${t[1]} heißt ${t[2]}.` }; },
+      return { html: `${hearBtn()}<b>${cmd}</b><small>Was soll der Hund machen? Nur wenn Simon es sagt!</small>`, say: cmd, lang: 'en-GB', o: opts, a: fake ? 'none' : t[0], okT: fake ? 'Richtig! Simon hat es nicht gesagt.' : `Genau: ${t[1]} heißt ${t[2]}.`, noT: fake ? 'Achtung: Simon hat das nicht gesagt, also nichts tun!' : `${t[1]} heißt ${t[2]}.` }; },
     onPick: (ok, cur) => { const d = $('#smd'); if (ok && cur.a !== 'none') { d.src = xImg(D, cur.a); restart(d, 'go-' + cur.a); const c = document.createElement('img'); c.src = xImg(D, 'conf'); c.className = 'gfx smconf'; c.style.left = '50%'; c.style.top = '40%'; gs.appendChild(c); setTimeout(() => c.remove(), 1000); } else { d.src = xImg(D, ok ? 'clap' : 'sit'); restart(d, ok ? 'go-clap' : 'shake'); } },
     onShow: () => { const d = $('#smd'); d.src = xImg(D, 'wave'); d.className = 'smdog'; } });
   progress(N); say('Hör auf Simon! Was soll der Hund machen?', '');
@@ -9766,9 +9782,9 @@ function gEShop(T) {
   gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><img class="esbear" id="esb" src="${xImg(D, 'bear')}" alt=""><img class="esbag" id="esg" src="${xImg(D, 'bag')}" alt=""><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
   const next = xRound(T, { N, done: 'Einkauf geschafft!', doneT: ['Erste englische Wörter für Obst und Spielzeug.', 'Bestellen auf Englisch verstehen.', 'Mengen und Wünsche auf Englisch.', 'Ganze Einkaufssätze auf Englisch.'],
     make: () => { const o = shuf(IT).slice(0, G() === 0 ? 3 : 4), t = o[ri(0, o.length - 1)];
-      if (G() >= 2 && Math.random() < .5) { const n = ri(2, 4), s = `Can I have ${NUM[n - 1]} ${t[3]}, please?`; return { html: `${hearBtn()}<b>${s}</b><small>Wie viele möchte der Kunde?</small>`, say: s, lang: 'en-GB', o: shuf([n, n === 2 ? 3 : n - 1, n === 4 ? 3 : n + 1].filter((v, i, a) => a.indexOf(v) === i)).map((v) => ({ k: String(v), img: xImg(D, t[0]), label: `${v} × ${NUM[v - 1]}` })), a: String(n), okT: `${NUM[n - 1]} heißt ${n}.`, noT: `${NUM[n - 1]} heißt ${n}.` }; }
+      if (G() >= 2 && Math.random() < .5) { const n = ri(2, 4), s = `Can I have ${NUM[n - 1]} ${t[3]}, please?`; return { html: `${hearBtn()}<b>${s}</b><small>Wie viele möchte der Kunde?</small>`, say: s, lang: 'en-GB', o: shuf([n - 1, n, n + 1]).map((v) => ({ k: String(v), img: xImg(D, t[0]), label: String(v) })), a: String(n), okT: `${NUM[n - 1]} heißt ${n}.`, noT: `${NUM[n - 1]} heißt ${n}.` }; }
       const s = G() === 0 ? `${t[1][0].toUpperCase()}${t[1].slice(1)}, please!` : `Can I have ${t[1]}, please?`;
-      return { html: `${hearBtn()}<b>${s}</b><small>Was möchte der Kunde?</small>`, say: s, lang: 'en-GB', o: o.map((x) => ({ k: x[0], img: xImg(D, x[0]) })), a: t[0], okT: 'Here you are!', noT: `Er wollte ${t[1]}.` }; },
+      return { html: `${hearBtn()}<b>${s}</b><small>Was möchte der Kunde?</small>`, say: s, lang: 'en-GB', o: o.map((x) => ({ k: x[0], img: xImg(D, x[0]) })), a: t[0], okT: 'Here you are!', noT: `„${t[1]}“ heißt ${{ apple: 'ein Apfel', banana: 'eine Banane', orange: 'eine Orange', ice: 'ein Eis', teddy: 'ein Teddybär' }[t[0]]}.` }; },
     onPick: (ok, cur, b) => { if (!ok) { restart($('#esb'), 'shake'); return; } restart($('#esb'), 'yay'); const g = $('#esg').getBoundingClientRect(), a = b.getBoundingClientRect(), im = $('img', b); if (!im) return; const f = im.cloneNode(); f.className = 'esfly'; f.style.cssText = `left:${a.left}px;top:${a.top}px;width:${a.width}px`; document.body.appendChild(f);
       f.animate([{ transform: 'none' }, { transform: `translate(${(g.left - a.left) / 2}px,${(g.top - a.top) / 2 - 80}px) scale(.8) rotate(-20deg)`, offset: .5 }, { transform: `translate(${g.left - a.left + g.width / 2 - a.width / 2}px,${g.top - a.top}px) scale(.3)`, opacity: .3 }], { duration: 650, easing: 'cubic-bezier(.4,0,.5,1)', fill: 'forwards' }).onfinish = () => { f.remove(); restart($('#esg'), 'gulp'); sfx.chest(); }; } });
   progress(N); say('Der Bär hat einen Laden. Hör zu, was der Kunde möchte!', '');
@@ -9781,10 +9797,11 @@ function gStory(T) {
   gs.className = 'gs g-xs g-story';
   const D = 'story', AN = [['fox', 'fox', 'Fuchs'], ['owl', 'owl', 'Eule'], ['bunny', 'bunny', 'Hase']], PL = [['castle', 'in the castle', 'im Schloss'], ['tree', 'in the tree', 'im Baum'], ['moon', 'on the moon', 'auf dem Mond'], ['star', 'on a star', 'auf einem Stern']], N = 6;
   const FEEL = ['happy', 'sleepy', 'hungry', 'brave'];
+  const ORD = shuf([0, 1, 2, 0, 1, 2]);
   gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg(D, 'bg')})"></div><div class="stpage" id="stp"></div><div class="xq st" id="xq"></div><div class="xopts" id="xo"></div>`;
   const next = xRound(T, { N, done: 'Die Geschichte ist zu Ende!', doneT: ['Englische Tiere erkennen.', 'Kleine englische Sätze verstehen.', 'Wer ist wo? Sätze genau verstehen.', 'Geschichten auf Englisch folgen.'], okMs: 1600,
-    make: (r) => { const a = AN[ri(0, 2)], p = PL[ri(0, 3)], f = FEEL[ri(0, 3)], askPlace = G() >= 1 && r % 2 === 1;
-      const s = G() === 0 ? `Look! A ${a[1]}!` : `The ${a[1]} is ${f}. The ${a[1]} is ${p[1]}.`;
+    make: (r) => { const a = AN[ORD[r % ORD.length]], p = PL[ri(0, 3)], f = FEEL[ri(0, 3)], askPlace = G() >= 1 && r % 2 === 1;
+      const art = /^[aeiou]/.test(a[1]) ? 'an' : 'a', s = G() === 0 ? [`Look! ${art[0].toUpperCase() + art.slice(1)} ${a[1]}!`, `I can see ${art} ${a[1]}.`, `Hello, little ${a[1]}!`][r % 3] : `The ${a[1]} is ${f}. The ${a[1]} is ${p[1]}.`;
       $('#stp').innerHTML = `<span class="stnum">Seite ${r + 1}</span><p>${s}</p>`; restart($('#stp'), 'flip');
       if (askPlace) { const o = shuf(PL).slice(0, 3); if (!o.includes(p)) o[0] = p; return { html: `${hearBtn()}<b>Where is the ${a[1]}?</b><small>Wo ist das Tier?</small>`, say: s + ' Where is the ' + a[1] + '?', lang: 'en-GB', o: shuf(o).map((x) => ({ k: x[0], img: xImg(D, x[0]) })), a: p[0], okT: `Genau: ${p[1]} heißt ${p[2]}.`, noT: `${p[1]} heißt ${p[2]}.` }; }
       return { html: `${hearBtn()}<b>Who is it?</b><small>Welches Tier ist in der Geschichte?</small>`, say: s, lang: 'en-GB', o: shuf(AN).map((x) => ({ k: x[0], img: xImg(D, x[0]) })), a: a[0], okT: `Ja: ${a[1]} heißt ${a[2]}.`, noT: `${a[1]} heißt ${a[2]}.` }; } });
@@ -9885,7 +9902,7 @@ function xFly(src, el, cls, ms = 1000) { const a = el.getBoundingClientRect(), g
 function gOuChat(T) {
   gs.className = 'gs g-xs g-ochat';
   const D = 'katze', g = G(), N = 7;
-  const POS = [['dans', 'dans la boîte', 'in der Kiste', 'box', 'peek'], ['sur', 'sur la boîte', 'auf der Kiste', 'box', 'sit'], ['cote', 'à côté de la boîte', 'neben der Kiste', 'box', 'sit'], ['panier', 'dans le panier', 'im Korb', 'basket', 'sleep'], ['devant', 'devant la boîte', 'vor der Kiste', 'box', 'sit'], ['derriere', 'derrière la boîte', 'hinter der Kiste', 'box', 'peek']].slice(0, [3, 4, 6, 6][g]);
+  const POS = [['dans', 'dans la boîte', 'in der Kiste', 'box', 'peek'], ['sur', 'sur la boîte', 'auf der Kiste', 'box', 'sit'], ['cote', 'à côté de la boîte', 'neben der Kiste', 'box', 'sit'], ['panier', 'dans le panier', 'im Korb', 'basket', 'sleep'], ['devant', 'devant la boîte', 'vor der Kiste', 'box', 'sit'], ['derriere', 'derrière la boîte', 'hinter der Kiste', 'box', 'sit']].slice(0, [3, 4, 6, 6][g]);
   const scene = (p) => `<span class="ocs p-${p[0]}"><img class="ocb" src="${xImg(D, p[3])}" alt=""><img class="occ" src="${xImg(D, p[4])}" alt=""></span>`;
   gs.innerHTML = `<div class="gsky" style="--bg:url(${xImg('bonj', 'bg')})"></div><img class="ocyarn" src="${xImg(D, 'yarn')}" alt=""><img class="ocpaws" src="${xImg(D, 'paws')}" alt=""><img class="ocjump" id="ocj" src="${xImg(D, 'jump')}" alt=""><div class="ocstage" id="ocs"></div><div class="xq" id="xq"></div><div class="xopts" id="xo"></div>`;
   const next = xRound(T, { N, done: 'Très bien, tu as trouvé le chat !', doneT: ['Erste Ortswörter: dans, sur, à côté.', 'Wo ist die Katze? Ortswörter auf Französisch.', 'Ortswörter hören und lesen.', 'Ganze Sätze mit Ortswörtern verstehen.'], okMs: 1500,
@@ -10023,6 +10040,17 @@ let LPS = {}; try { LPS = JSON.parse(localStorage.getItem(LPKEY) || '{}') || {};
 const lpSave = () => { try { localStorage.setItem(LPKEY, JSON.stringify(LPS)); } catch (e) {} };
 const lpProg = (k, g) => (LPS[k + g] = LPS[k + g] || { n: 0, xp: 0 });
 const lpLevels = (k, g) => (LP[k] && LP[k][g]) || [];
+/* Lektion holen. Für Level ohne eigene Aufgaben: gemischte Wiederholung aus allen bisherigen Aufgaben (nie abstürzen) */
+function lpSrc(k, g, li, j) {
+  const L = lpLevels(k, g), own = L[li] && L[li].L && L[li].L[j]; if (own && own.length) return own;
+  const pool = []; L.forEach((lv, a) => (lv.L || []).forEach((les, b) => les.forEach((x) => { pool.push(x); if (a * 4 + b >= 4) pool.push(x); })));
+  if (!pool.length) return [];
+  let sd = 0; for (const c of k + g + ':' + li + ':' + j) sd = (sd * 31 + c.charCodeAt(0)) >>> 0;
+  const rnd = () => ((sd = (sd * 1664525 + 1013904223) >>> 0) / 4294967296);
+  const out = [], seen = new Set(); let guard = 0;
+  while (out.length < 8 && guard++ < 500) { const x = pool[Math.floor(rnd() * pool.length)], id = JSON.stringify(x.q || x.p || x.it || x.a); if (seen.has(id)) continue; seen.add(id); out.push(x); }
+  return out;
+}
 function lpStat(k, g) {
   const L = lpLevels(k, g), p = lpProg(k, g), lv = Math.min(Math.floor(p.n / PER), Math.max(0, L.length - 1));
   return { n: p.n, xp: p.xp, lv, inLv: p.n - lv * PER, total: L.length * PER, title: L[lv] ? L[lv].t : '' };
@@ -10120,7 +10148,7 @@ function lpComplete(n, xp) {
 const les = document.createElement('div'); les.className = 'les'; les.setAttribute('role', 'dialog'); document.body.appendChild(les);
 let LS = null;
 function startLesson(li, j, n, custom) {
-  const S = custom ? { ...SUBJ[1], c1: custom.c1 || '#8a6cf0', c2: custom.c2 || '#4a33b8' } : SUBJ[st.s], src = custom ? custom.items : lpLevels(S.k, st.grade)[li].L[j], ex = src.map((x, i) => ({ ...x, last: i === src.length - 1 }));
+  const S = custom ? { ...SUBJ[1], c1: custom.c1 || '#8a6cf0', c2: custom.c2 || '#4a33b8' } : SUBJ[st.s], src = custom ? custom.items : lpSrc(S.k, st.grade, li, j), ex = src.map((x, i) => ({ ...x, last: i === src.length - 1 }));
   token++; if (cleanup) cleanup(); cleanup = null; stopVoice();
   const world = custom ? WORLDS[custom.w % WORLDS.length] : WORLDS[(li * 4 + j + st.s) % WORLDS.length];
   LS = { T: token, n, li, j, q: ex, total: ex.length, done: 0, first: 0, errs: 0, streak: 0, best: 0, t0: Date.now(), cur: null, api: null, state: 'idle', world, used: {}, lastSkin: '', pts: 0, custom, S, who: S.tutor.id };
@@ -10158,7 +10186,7 @@ function lesSay(text, key, mood = '', hint) {
   $('.lestut', les).className = 'lestut ' + mood;
   if (has && voiceOn) sayChain([key, hint], LS && LS.who); else talk(true, Math.min(2400, 300 + text.length * 40));
 }
-const GHINT = { pop: 'Tippe auf den Ballon mit der richtigen Antwort.', planet: 'Tippe auf den richtigen Planeten. Die Rakete fliegt hin.', frog: 'Tippe auf das richtige Blatt. Der Frosch springt.', mole: 'Tippe auf den Maulwurf mit der richtigen Antwort.', fish: 'Tippe auf den Fisch mit der richtigen Antwort.', goal: 'Tippe auf das richtige Tor. Dann fliegt der Ball.', chest: 'Tippe auf die Kiste mit der richtigen Antwort.', thumb: 'Stimmt das? Tippe auf Stimmt oder Stimmt nicht.', flip: 'Decke zwei Karten auf, die zusammengehören.', pairs: 'Tippe links ein Wort und dann rechts das passende.', train: 'Tippe die Wörter der Reihe nach an. Dann fährt der Zug.', bubbles: 'Tippe die Buchstaben der Reihe nach an.', sort: 'Tippe auf die Kiste, in die das Wort gehört.', safe: 'Tippe die Zahl ein. Dann geht der Tresor auf.', mc: 'Tippe auf die richtige Antwort.' };
+const GHINT = { pop: 'Tippe auf den Ballon mit der richtigen Antwort.', planet: 'Tippe auf den richtigen Planeten. Die Rakete fliegt hin.', frog: 'Tippe auf das richtige Blatt. Der Frosch springt.', mole: 'Tippe auf den Maulwurf mit der richtigen Antwort.', fish: 'Tippe auf den Fisch mit der richtigen Antwort.', goal: 'Tippe auf das richtige Tor. Dann fliegt der Ball.', chest: 'Tippe auf die Kiste mit der richtigen Antwort.', thumb: 'Stimmt das? Tippe auf Stimmt oder Stimmt nicht.', flip: 'Decke zwei Karten auf, die zusammengehören.', pairs: 'Tippe links ein Wort und dann rechts das passende.', train: 'Tippe die Wörter der Reihe nach an. Dann fährt der Zug.', bubbles: 'Tippe die Buchstaben der Reihe nach an.', sort: 'Tippe auf die richtige Kiste.', safe: 'Tippe die Zahl ein. Dann geht der Tresor auf.', mc: 'Tippe auf die richtige Antwort.' };
 const GHK = {}; Object.entries({ ...GHINT, order: 'Tippe die Karten der Reihe nach an. Was kommt zuerst?' }).forEach(([k, t]) => { ['max', 'mila', 'emma', 'claude', 'frieda', 'bit'].forEach((w) => { WHO = w; GHK[k] = vk(t); }); }); WHO = 'all';
 const GHI = { pop: 'balloon', planet: 'star', frog: 'frog', mole: 'target', fish: 'drop', goal: 'target', chest: 'coin', thumb: 'check', flip: 'cards', pairs: 'cards', train: 'train', bubbles: 'bubble', sort: 'sort', safe: 'lock', mc: 'bulb' };
 function lesNext() {
@@ -10184,7 +10212,7 @@ function lesNext() {
   LS.used[k] = (LS.used[k] || 0) + 1; LS.lastSkin = k; clearTimeout(LS.adv);
   LS.state = 'idle'; les.dataset.state = 'idle';
   $('.leskind', les).innerHTML = `<span class="lkb">${I(SKINIC[k] || 'star')}</span>${SKINNAME[k] || 'Spiel'}${x._re ? '<em>Nochmal</em>' : ''}`; restart($('.leskind', les), 'new');
-  lesSay(bubText(x, x.last), x.vq, '', st.grade <= 1 && !x._re ? GHK[k] : null);
+  LS.qText = bubText(x, x.last); lesSay(LS.qText, x.vq, '', st.grade <= 1 && !x._re ? GHK[k] : null);
   const host = $('.lesex', les); host.innerHTML = ''; host.className = 'lesex k-' + k; restart(host, 'exin');
   const btn = $('.lesbtn', les); btn.textContent = 'Prüfen'; btn.disabled = true; btn.className = 'b3d lesbtn';
   const ctx = {
@@ -10193,7 +10221,7 @@ function lesNext() {
     auto: (ok, sol) => { if (alive(T) && LS) lesResult(ok, sol); },
   };
   LS.missed = false;
-  LS.api = EX[k](x, host, ctx);
+  LS.api = (k === 'mc' && x.k === 'listen' ? EX.listen : EX[k])(x, host, ctx);
   lesFS(host); requestAnimationFrame(() => fitLabels(host)); setTimeout(() => fitLabels(host), 400);
   if (GHINT[k]) host.insertAdjacentHTML('afterbegin', `<p class="ghint"><span>${I(GHI[k] || 'check')}</span>${GHINT[k]}</p>`);
   btn.style.display = LS.api.auto ? 'none' : ''; btn.textContent = LS.api.btn || 'Prüfen';
@@ -10208,7 +10236,7 @@ function lesResult(ok, sol) {
   if (typeof act === 'function') { act('ans'); if (ok) act('ok'); }
   const x = LS.cur; LS.state = 'res'; les.dataset.state = ok ? 'ok' : 'no';
   if (ok && !LS.missed && !x._re) LS.first++;
-  if (ok) { LS.done++; LS.streak++; LS.best = Math.max(LS.best, LS.streak); }
+  if (ok) { LS.done++; LS.streak++; LS.best = Math.max(LS.best, LS.streak); if (LS.missed && !x._re && ['sort', 'pairs', 'order', 'build', 'spell'].includes(x.k)) { LS.q.push({ ...x, _re: true }); LS.total++; } }
   else { LS.errs++; LS.streak = 0; sfx.no(); if (!x._re) LS.q.push({ ...x, _re: true }); else LS.done++; }
   lesBar();
   if (ok && LS.streak >= 2) restart($('.lesstk', les), 'bump');
@@ -10218,7 +10246,7 @@ function lesResult(ok, sol) {
   const ex = ok ? (x.e || '') : String(x.e || '').replace(/^(Richtig|Genau|Stimmt|Ja|Nein|Falsch)[.!,]\s*/, '');
   $('.lmt', m).innerHTML = ok ? ex : `Richtig ist: <b>${sol}</b>${ex ? `<i>${ex.charAt(0).toUpperCase() + ex.slice(1)}</i>` : ''}`;
   const btn = $('.lesbtn', les); btn.style.display = ''; btn.disabled = false; btn.textContent = 'Weiter'; btn.className = 'b3d lesbtn ' + (ok ? 'g' : 'o'); btn.focus({ preventScroll: true });
-  lesSay($('.lesbub', les).textContent, ok ? false : (x.ve || false), ok ? 'happy' : 'think');
+  clearTimeout(LS.tipT); lesSay(LS.qText || $('.lesbub', les).textContent, ok ? false : (x.ve || false), ok ? 'happy' : 'think');
   if (!ok && !x.ve && voiceOn) voice(pick(P.no), false, LS.who);
   if (ok && voiceOn && !quietPraise(P.ok[0])) voice(pick(P.ok), false, LS.who);
   reward(ok, LS.streak); helpBarAfter(x);
@@ -10518,9 +10546,11 @@ function helpBar(x, host) {
     if (a === 'tip') {
       tips++; LS.missed = true;
       const opts = [...host.querySelectorAll('[data-v], .opt, .tfb')].filter((e) => e.offsetParent && !e.classList.contains('gone'));
-      const wrong = opts.filter((e) => e.textContent.trim() !== String(x.a).trim() && !(x.k === 'tf'));
+      const otx = (e) => { const c = e.cloneNode(true); c.querySelectorAll('kbd, svg').forEach((k) => k.remove()); return c.textContent.replace(/\s+/g, ' ').trim(); }, sol = String(solText(x)).replace(/\s+/g, ' ').trim();
+      const wrong = opts.filter((e) => otx(e) !== sol && !(x.k === 'tf'));
       if (wrong.length > 1 && tips <= 2) { const w = wrong[Math.floor(Math.random() * wrong.length)]; w.classList.add('gone'); w.style.pointerEvents = 'none'; lesSay(tips === 1 ? 'Eine Antwort ist schon mal falsch. Die habe ich weggenommen.' : 'Noch eine weg. Jetzt schaffst du es!', null, 'think'); }
-      else { const t = x.h || (x.e ? String(x.e).split(/(?<=[.!?])\s/)[0].replace(new RegExp(String(solText(x)).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), '…') : 'Lies die Aufgabe noch einmal ganz langsam.'); lesSay('Tipp: ' + t, null, 'think'); }
+      else { const t = x.h || (x.k === 'tf' ? 'Lies die Aussage noch einmal Wort für Wort. Stimmt wirklich alles daran?' : x.e && !/^(genau|richtig|stimmt|falsch|nein|ja)\b/i.test(String(x.e).trim()) && !String(x.e).split(/(?<=[.!?])\s/)[0].toLowerCase().includes(String(solText(x)).toLowerCase()) ? String(x.e).split(/(?<=[.!?])\s/)[0] : 'Lies die Aufgabe noch einmal ganz langsam.'); lesSay('Tipp: ' + t, null, 'think'); }
+      clearTimeout(LS.tipT); const cur0 = LS.cur; LS.tipT = setTimeout(() => { if (LS && LS.cur === cur0 && LS.state === 'idle' && LS.qText) { const bb = $('.lesbub', les); if (bb) { bb.textContent = LS.qText; restart(bb, 'pop'); } } }, 5000);
       if (tips >= 2) b.disabled = true; return;
     }
     if (a === 'sol') { LS.missed = true; const c = [...host.querySelectorAll('[data-v], .opt, .tfb')].find((e) => e.textContent.trim() === solText(x)); if (c) c.classList.add('hint'); lesResult(false, solText(x)); }
@@ -10887,12 +10917,18 @@ SK.pop = {
   fail(el) { el.classList.add('nope'); },
   ms: 700,
 };
+/* Antwort-Ziele nie unter der Hilfe-Leiste: notfalls alle Ziele gleichmäßig verkleinern */
+function fitItems(sc) { if (!sc || !sc.isConnected) return; const its = [...sc.children].filter((c) => c.matches('[data-v]') || c.querySelector('[data-v]')); if (!its.length) return;
+  its.forEach((c) => (c.style.zoom = '')); const hb = document.querySelector('.les.on #lhelp'), lim = Math.min(hb && hb.offsetParent ? hb.getBoundingClientRect().top - 8 : innerHeight, innerHeight - 4, sc.getBoundingClientRect().bottom + 2);
+  for (let k = 0; k < 3; k++) { const R = its.map((c) => c.getBoundingClientRect()).filter((r) => r.height), bot = Math.max(...R.map((r) => r.bottom)), top = Math.min(...R.map((r) => r.top)); if (!R.length || bot <= lim) return;
+    const z = (+its[0].style.zoom || 1) * Math.max(.5, Math.min(.97, (lim - top) / (bot - top))); its.forEach((c) => (c.style.zoom = z.toFixed(3))); } }
 function choiceGame(skin) {
   return (x, h, ctx) => {
     const o = shuf([x.a, ...x.w]), ai = o.indexOf(x.a), S = SK[skin];
     h.innerHTML = `${preHTML(x)}<div class="qscn s-${skin}">${S.scene}${o.map((t, i) => S.item(t, i, o.length)).join('')}</div>`;
     const sc = $('.qscn', h); let done = false;
     if (S.after) requestAnimationFrame(() => S.after(sc));
+    if (skin === 'mole' || skin === 'chest') { const fit = () => fitItems(sc); requestAnimationFrame(fit); setTimeout(fit, 400); }
     if (x.k === 'listen') listenHook(x, h, ctx);
     $$('[data-v]', sc).forEach((el) => (el.onclick = () => {
       if (done) return; done = true; const ok = +el.dataset.v === ai; sc.classList.add('qfin'); el.classList.add('picked');
@@ -11123,7 +11159,22 @@ SK.goal.after = (sc) => {
   const draw = (sc) => { const h = sc._hk, t = tipOf(sc), k = $('.fhk', sc), sv = $('.fline', sc); if (!h || !k || !sv) return;
     k.style.left = h.x + 'px'; k.style.top = h.y + 'px'; const W = sc.clientWidth, H = sc.clientHeight; sv.setAttribute('viewBox', `0 0 ${W} ${H}`);
     const sag = Math.max(10, Math.abs(h.x - t.x) * .12); $('path', sv).setAttribute('d', `M${t.x} ${t.y} Q${(t.x + h.x) / 2} ${Math.max(t.y, h.y) + sag} ${h.x} ${h.y}`); };
+  /* Fische immer komplett sichtbar: zwischen Frage-Bild und Hilfe-Leiste verteilen, notfalls kleiner machen */
+  const fitFish = (sc) => { const F = $$('.fsh', sc); if (!F.length || !sc.isConnected) return; const S = sc.getBoundingClientRect(); if (!S.height) return;
+    const hb = document.querySelector('.les.on #lhelp'), hbT = hb && hb.offsetParent ? hb.getBoundingClientRect().top : innerHeight;
+    const bot = Math.min(S.bottom, hbT - 6, innerHeight - 4) - S.top, top = S.height * .2, avail = bot - top, n = F.length, W = S.width * .92;
+    F.forEach((f) => f.style.removeProperty('width')); const h0 = F[0].getBoundingClientRect().width * 302 / 360; if (avail < 40) return;
+    let best = { c: 1, h: Math.min(h0, avail / (1 + .5 * (n - 1)), W * .55 * 302 / 360) };
+    for (let c = 2; c <= n; c++) { const r = Math.ceil(n / c), h = Math.min(h0 * 1.15, avail / r * .96, W / c * .94 * 302 / 360); if (h > best.h * 1.04) best = { c, h }; }
+    const { c, h } = best, w = h * 360 / 302;
+    F.forEach((f, i) => { f.style.setProperty('width', w + 'px', 'important'); const f0 = +(f.dataset.fs || (f.dataset.fs = f.style.getPropertyValue('--fs') || 1)); f.style.setProperty('--fs', (f0 * Math.max(.75, Math.min(1.15, w / 190))).toFixed(2)); });
+    if (c === 1) { const step = n > 1 ? Math.min(h * 1.05, (avail - h) / (n - 1)) : 0, y0 = top + h / 2 + Math.max(0, (avail - h - step * (n - 1)) / 2);
+      F.forEach((f, i) => { f.style.setProperty('--y', y0 + i * step + 'px'); f.style.setProperty('--fx', (i % 2 ? S.width * .5 : S.width * .05) + 'px'); }); return; }
+    const r = Math.ceil(n / c), rh = avail / r;
+    F.forEach((f, i) => { const row = Math.floor(i / c), inRow = Math.min(c, n - row * c), col = i % c, cw = S.width / inRow;
+      f.style.setProperty('--y', top + rh * (row + .5) + 'px'); f.style.setProperty('--fx', Math.max(4, cw * (col + .5) - w / 2) + 'px'); }); };
   SK.fish.after = (sc) => {
+    fitFish(sc); setTimeout(() => fitFish(sc), 350); if (!sc._rz) { sc._rz = () => fitFish(sc); addEventListener('resize', sc._rz); }
     sc._hk = { x: sc.clientWidth * .5, y: sc.clientHeight * .12 }; sc._idle = true; const t0 = performance.now();
     const loop = (t) => { if (!sc.isConnected) return; if (sc._idle) { sc._hk.x = sc.clientWidth * .5 + Math.sin((t - t0) / 900) * 10; sc._hk.y = sc.clientHeight * .12 + Math.sin((t - t0) / 600) * 4; } draw(sc); requestAnimationFrame(loop); };
     requestAnimationFrame(loop);
@@ -11267,7 +11318,7 @@ function drawHW(sel = '#ahw', web, SJ) {
       <span class="hwbtns"><button type="button" class="b3d o lg hwcam">${I('cam')}Foto machen</button><button type="button" class="b3d w lg hwup">${I('book')}Bilder hochladen</button></span>
       <span class="hwfree"></span></div>
     <div class="hwpend"></div>
-    <div class="hwtabs"><button data-t="e" style="--c1:#ffb547;--c2:#e2620f">${I('bulb')}<span>Max erklärt</span></button><button data-t="s" style="--c1:#4f8ff0;--c2:#1a4fb4">${I('pad')}<span>Spiel daraus</span></button><button data-t="p" style="--c1:#8a6cf0;--c2:#4a33b8">${I('cap')}<span>Probetest</span></button><button data-t="l" style="--c1:#4cc38a;--c2:#1f8a4c">${I('book')}<span>Bibliothek</span></button></div>
+    <div class="hwtabs"><button data-t="e" style="--c1:#ffb547;--c2:#e2620f">${I('bulb')}<span>${SJ ? SJ.tutor.n : 'Max'} erklärt</span></button><button data-t="s" style="--c1:#4f8ff0;--c2:#1a4fb4">${I('pad')}<span>Spiel daraus</span></button><button data-t="p" style="--c1:#8a6cf0;--c2:#4a33b8">${I('cap')}<span>Probetest</span></button><button data-t="l" style="--c1:#4cc38a;--c2:#1f8a4c">${I('book')}<span>Bibliothek</span></button></div>
     <div class="hwr"></div>`;
   const d = $('.hwd', h), f = $('.hwf', h), c = $('.hwc', h), r = $('.hwr', h), pe = $('.hwpend', h), tabs = $$('.hwtabs button', h);
   const free = () => { const n = hwLeft(); $('.hwfree', h).innerHTML = n === Infinity ? `${I('check')}${isAdmin() ? 'Unbegrenzt freigeschaltet' : 'Im Abo enthalten'}` : n > 0 ? `<span class="hwst">${Array.from({ length: HW_FREE }, (_, i) => `<i class="${i < n ? 'on' : ''}">${I('star')}</i>`).join('')}</span><span class="hwft"><b>Noch ${n} ${n === 1 ? 'Hausaufgabe' : 'Hausaufgaben'} gratis</b><small>zum Ausprobieren</small></span>` : `${I('lock')}Alle Probe-Hausaufgaben verbraucht`; $('.hwfree', h).classList.toggle('no', n === 0); };
@@ -11291,27 +11342,29 @@ function drawHW(sel = '#ahw', web, SJ) {
   function drawPend() {
     if (!pend.length) { pe.innerHTML = ''; return; }
     pe.innerHTML = `<div class="hwpl">${pend.map((u, i) => `<div class="hwpt" style="animation-delay:${i * .05}s"><img src="${u}" alt=""><button data-x="${i}" aria-label="Entfernen">${I('x')}</button><span>${i + 1}</span></div>`).join('')}${pend.length < 10 ? `<button class="hwpadd" aria-label="Weitere Fotos">${I('cam')}<small>Seite dazu</small></button>` : ''}</div>
-      <button class="b3d lg hwgo">${I('play')}Max, hilf mir! <small>${pend.length} ${pend.length === 1 ? 'Foto' : 'Fotos'}</small></button>`;
+      <button class="b3d lg hwgo">${I('play')}${SJ ? SJ.tutor.n : 'Max'}, hilf mir! <small>${pend.length} ${pend.length === 1 ? 'Foto' : 'Fotos'}</small></button>`;
     $$('[data-x]', pe).forEach((b) => (b.onclick = () => { pend.splice(+b.dataset.x, 1); drawPend(); }));
     const ad = $('.hwpadd', pe); if (ad) ad.onclick = () => f.click();
     $('.hwgo', pe).onclick = send;
   }
   async function send() {
     if (hwLeft() <= 0) { paywall('Max hilft bei Hausaufgaben und Tests'); return; }
-    const imgs = pend.slice(); pend = []; pe.innerHTML = '';
+    const imgs = pend.slice(); pend = []; pe.innerHTML = ''; const TU = SJ ? SJ.tutor : { id: 'max', n: 'Max' };
     tabs.forEach((b) => b.classList.remove('on'));
     r.innerHTML = `<div class="hwscanw"><div class="hwstack">${imgs.slice(0, 4).map((u, i) => `<div class="hwi" style="--r:${(i - 1.5) * 4}deg;--i:${i}"><img src="${u}" alt=""><i class="hwscan loop"></i></div>`).join('')}</div>
-      <div class="hwwait"><span class="hwwm hwx">${tutorHTML('max')}</span><b>Max liest ${imgs.length > 1 ? `deine ${imgs.length} Seiten` : 'dein Blatt'} …</b><ol class="hwsteps"><li class="on">Aufgaben erkennen</li><li>Lösungsweg überlegen</li><li>Spiel und Probetest bauen</li></ol></div></div>`;
+      <div class="hwwait"><span class="hwwm hwx">${tutorHTML(TU.id)}</span><b>${TU.n} liest ${imgs.length > 1 ? `deine ${imgs.length} Seiten` : 'dein Blatt'} …</b><ol class="hwsteps"><li class="on">Aufgaben erkennen</li><li>Lösungsweg überlegen</li><li>Spiel und Probetest bauen</li></ol></div></div>`;
     r.scrollIntoView({ behavior: 'smooth', block: 'start' });
     const steps = $$('.hwsteps li', r); let si = 0; const tick = setInterval(() => { if (si < steps.length - 1) { steps[si].classList.add('done'); steps[++si].classList.add('on'); } }, 5000);
     const talkI = setInterval(() => $$('.hwx .tut', r).forEach((t) => { t.classList.add('talk'); setTimeout(() => t.classList.remove('talk'), 900); }), 2400);
     let res;
-    try { res = await (await fetch(HW_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ images: imgs, klasse: Math.max(0, st.grade) + 1, admin: lsx.get('gsm-admin', ''), abo: (ABO && ABO.code) || '' }) })).json(); }
-    catch (e) { res = { ok: false, grund: 'Keine Verbindung. Probier es gleich nochmal.' }; }
+    const ac = typeof AbortController !== 'undefined' ? new AbortController() : null, to = setTimeout(() => ac && ac.abort(), 120000);
+    try { res = await (await fetch(HW_URL, { method: 'POST', signal: ac ? ac.signal : undefined, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ images: imgs, klasse: Math.max(0, st.grade) + 1, fach: SJ ? SJ.n : '', modus: SJ ? 'test' : 'hw', admin: lsx.get('gsm-admin', ''), abo: (ABO && ABO.code) || '' }) })).json(); }
+    catch (e) { res = { ok: false, retry: true, grund: e && e.name === 'AbortError' ? 'Das hat zu lange gedauert. Probier es gleich nochmal.' : 'Keine Verbindung. Probier es gleich nochmal.' }; }
+    clearTimeout(to);
     clearInterval(tick); clearInterval(talkI);
     if (res.limit && (res.limit === 'frei' || !PAID)) { r.innerHTML = ''; paywall('Max hilft bei Hausaufgaben und Tests'); return; }
-    if (res.limit) { r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML('max')}</span><div><b>Für heute geschafft!</b><p>${esc(res.grund || 'Morgen geht es weiter.')}</p></div></div>`; return; }
-    if (!res.ok) { r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML('max')}</span><div><b>Hmm, das hat nicht geklappt.</b><p>${esc(res.grund || 'Probier ein schärferes Foto.')}</p></div></div>`; hwSpeak(res.audio); sfx.no(); return; }
+    if (res.limit) { r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML(TU.id)}</span><div><b>Für heute geschafft!</b><p>${esc(res.grund || 'Morgen geht es weiter.')}</p></div></div>`; return; }
+    if (!res.ok) { pend = imgs.concat(pend).slice(0, 10); drawPend(); r.innerHTML = `<div class="hwerr"><span class="hwx">${tutorHTML(TU.id)}</span><div><b>Hmm, das hat nicht geklappt.</b><p>${esc(res.grund || 'Probier ein schärferes Foto.')}</p><button class="b3d sm hwretry">${I('again')}Nochmal versuchen</button></div></div>`; const rb = $('.hwretry', r); if (rb) rb.onclick = send; hwSpeak(res.audio); sfx.no(); return; }
     if (!isAdmin()) lsx.set('gsm-hw-n', +lsx.get('gsm-hw-n', 0) + 1); act('hw');
     $$('.hwd').forEach((x) => x.parentElement._free && x.parentElement._free());
     R = res; Rimg = imgs[0]; Rths = await Promise.all(imgs.map((x) => thumb(x))); sfx.ok(); starsUp(r, 12);
@@ -11324,7 +11377,7 @@ function drawHW(sel = '#ahw', web, SJ) {
       <div class="hwsheets">${ths.map((src, i) => `<div class="hwsh"><div class="hwi sm"><img src="${src}" alt=""><span class="hwok">${I('check')}Gelesen</span></div><b>${esc(B[i] || (ths.length > 1 ? 'Foto ' + (i + 1) : R.thema || 'Deine Aufgabe'))}</b></div>`).join('')}</div>`;
   }
   function view(t) {
-    if (t !== 'l' && !R) { lpToast('Lade zuerst ein Foto deiner Hausaufgabe hoch.'); sfx.no(); restart(d, 'shk'); d.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    if (t !== 'l' && !R) { lpToast(SJ ? 'Lade zuerst ein Foto von deinem Arbeitsblatt hoch.' : 'Lade zuerst ein Foto deiner Hausaufgabe hoch.'); sfx.no(); restart(d, 'shk'); d.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     tabs.forEach((b) => b.classList.toggle('on', b.dataset.t === t)); sfx.tap();
     if (t === 'l') {
       const L = libGet().filter((x) => !SJ || x.k === SJ.k || (x.R && x.R.fach === SJ.n));
@@ -11777,7 +11830,7 @@ const SUBJ = [
     ern: ['Wörter nach Themen: Farben, Tiere, Familie', 'Hören und nachsprechen', 'Erste Sätze: „My name is …“'] },
   { k: 'franz', n: 'Französisch', c1: '#9b7cf0', c2: '#5b3fc4', ic: 'FR', tutor: { id: 'claude', n: 'Claude' }, note: 'Für Kinder mit Französisch in der Schule, z. B. Saarland und Oberrhein.', games: [
     { n: 'Farbklecks-Fangen', b: 'Die ersten französischen Wörter mit Farben, Zahlen und Tieren. Bunt, schnell und ohne Vokabelheft.', d: 'Farben, Zahlen, Tiere', play: gFarben, ic: 'blob' }, { n: 'Le petit café', b: 'Im kleinen Café von Claude versteht dein Kind die ersten Bestellungen auf Französisch und hat Spaß dabei.', d: 'Bestellungen verstehen', play: gCafe, ic: 'cup' },
-    { n: 'Zahlen-Hüpfen', b: 'Zählen auf Französisch klingt erst ungewohnt. Mit Hüpfen und Hören sitzen die Zahlen schnell.', d: 'un, deux, trois', pv: 'hupf', play: gHupf, ic: 'hupf' }, { n: 'Bonjour-Memory', b: 'Sich vorstellen und begrüßen auf Französisch. Die wichtigsten ersten Sätze, die Kinder stolz machen.', d: 'Begrüßen und vorstellen', pv: 'bonjour', play: gBonj, ic: 'bonj' }, { n: 'Où est le chat ?', b: 'Auf, unter, neben: Dein Kind sucht die Katze und lernt dabei, wie man auf Französisch sagt, wo etwas ist.', d: 'Wo ist die Katze?', pv: 'ou', play: gOuChat, ic: 'ochat' }],
+    { n: 'Zahlen-Hüpfen', b: 'Zählen auf Französisch klingt erst ungewohnt. Mit Hüpfen und Hören sitzen die Zahlen schnell.', d: 'un, deux, trois', pv: 'hupf', play: gHupf, ic: 'hupf' }, { n: 'Bonjour-Memory', b: 'Sich vorstellen und begrüßen auf Französisch. Die wichtigsten ersten Sätze, die Kinder stolz machen.', d: 'Begrüßen und vorstellen', pv: 'bonjour', play: gBonj, ic: 'bonj' }, { n: 'Où est le chat ?', b: 'In, auf, neben, hinter: Dein Kind sucht die Katze und lernt dabei, wie man auf Französisch sagt, wo etwas ist.', d: 'Wo ist die Katze?', pv: 'ou', play: gOuChat, ic: 'ochat' }],
     ern: ['Begrüßen und sich vorstellen', 'Farben, Zahlen, Tiere', 'Aussprache üben'] },
   { k: 'sach', n: 'Sachunterricht', c1: '#4cc38a', c2: '#1f8a4c', ic: I('leaf'), tutor: { id: 'frieda', n: 'Frieda' }, games: [
     { n: 'Sortier-Profi', b: 'Welches Tier lebt wo, welcher Müll kommt wohin? Dein Kind erkennt Zusammenhänge in der Welt um sich herum.', d: 'Tiere, Müll, Strom', play: gSort, ic: 'sort' }, { n: 'Röntgen-Blick', b: 'Was passiert in unserem Körper? Dein Kind entdeckt die Organe und versteht, was Herz, Lunge und Magen tun.', d: 'Körper und Organe', play: gBody, ic: 'body' },
@@ -12094,6 +12147,7 @@ window.VOICE_LINES = () => [...VL.entries()].map(([k, v]) => ({ k, ...v }));
 if ($('#fsnapi')) $('#fsnapi').onclick = () => $('#fsnap').click();
 drawHW('#webhw', true);
 $$('.afab[data-pay]').forEach((b) => (b.onclick = () => paywall()));
+if (typeof PAID !== 'undefined' && PAID) document.body.classList.add('ispaid');
 
 $$('[data-tut]').forEach((el) => (el.innerHTML = tutorHTML(el.dataset.tut)));
 
