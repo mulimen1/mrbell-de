@@ -5471,6 +5471,13 @@ body.ispaid .afab,body.ispaid .fcta{display:none!important}
 @media (max-width:560px) and (max-height:900px){#pick .pkteam{display:none!important}}
 @media (max-width:560px) and (max-height:900px){#pick .pktm{display:none!important}}
 @media (max-width:560px) and (max-height:900px){body[data-screen=klasse] #pick .pktm{display:none!important}}
+
+/* Lektion und Spiel öffnen sofort in voller Größe (kein Hereinwachsen) */
+.les.enter .lesin,.gstage.enter .stin{animation:none!important}
+.les.on{animation:lesfade .18s ease-out}@keyframes lesfade{from{opacity:.6}}
+.les.on{background:#9fd8ff}
+.avjobs{grid-template-columns:repeat(auto-fill,minmax(82px,1fr))!important}.avj small{white-space:normal!important;text-align:center;line-height:1.05;hyphens:manual;font-size:11.5px!important}
+.s-fish .fbuck{bottom:auto!important;top:calc(min(34%,250px) * .66)!important;right:calc(2% + min(15%,110px))!important;height:min(13%,92px)!important}@media (max-width:560px){.s-fish .fbuck{top:calc(24% * .62)!important;right:calc(1% + 18%)!important;height:9%!important}}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -10229,7 +10236,13 @@ function lesSay(text, key, mood = '', hint) {
   const has = !!(key && (String(key).startsWith('hw:') || CLIPS[((LS && LS.who) || 'max') + '|' + key]));
   const rp = $('.lesrep', les); if (rp) rp.hidden = false; if (LS) LS.sayT = text;
   $('.lestut', les).className = 'lestut ' + mood;
-  if (has && voiceOn) sayChain([key, hint], LS && LS.who); else talk(true, Math.min(2400, 300 + text.length * 40));
+  if (has && voiceOn) { sayChain([key, hint], LS && LS.who); return; }
+  /* Kein Clip für den ganzen Text: Satz für Satz aus vorhandenen Tutor-Aufnahmen zusammensetzen */
+  const who = (LS && LS.who) || 'max', parts = String(text || '').split(/(?<=[.!?])\s+/).map((t) => t.trim()).filter(Boolean);
+  const ks = parts.map((t) => ['de:' + t, 'fr:' + t, 'en:' + t].find((k) => CLIPS[who + '|' + k]) || null);
+  if (voiceOn && parts.length && ks.every(Boolean)) { if (LS) LS.say = [...ks, hint]; sayChain([...ks, hint], who); return; }
+  /* noch keine Aufnahme: beste Stimme des Geräts liest vor, damit nie Stille ist */
+  talk(true, Math.min(2400, 300 + text.length * 40)); if (voiceOn && !NOSND && text && key !== false) ttsDe(text);
 }
 const GHINT = { pop: 'Tippe auf den Ballon mit der richtigen Antwort.', planet: 'Tippe auf den richtigen Planeten. Die Rakete fliegt hin.', frog: 'Tippe auf das richtige Blatt. Der Frosch springt.', mole: 'Tippe auf den Maulwurf mit der richtigen Antwort.', fish: 'Tippe auf den Fisch mit der richtigen Antwort.', goal: 'Tippe auf das richtige Tor. Dann fliegt der Ball.', chest: 'Tippe auf die Kiste mit der richtigen Antwort.', thumb: 'Stimmt das? Tippe auf Stimmt oder Stimmt nicht.', flip: 'Decke zwei Karten auf, die zusammengehören.', pairs: 'Tippe links ein Wort und dann rechts das passende.', train: 'Tippe die Wörter der Reihe nach an. Dann fährt der Zug.', bubbles: 'Tippe die Buchstaben der Reihe nach an.', sort: 'Tippe auf die richtige Kiste.', safe: 'Tippe die Zahl ein. Dann geht der Tresor auf.', mc: 'Tippe auf die richtige Antwort.' };
 const GHK = {}; Object.entries({ ...GHINT, order: 'Tippe die Karten der Reihe nach an. Was kommt zuerst?' }).forEach(([k, t]) => { ['max', 'mila', 'emma', 'claude', 'frieda', 'bit'].forEach((w) => { WHO = w; GHK[k] = vk(t); }); }); WHO = 'all';
@@ -10660,7 +10673,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = '09265587';
+const PFV = 'a3def3ea';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -11116,7 +11129,7 @@ function reward(ok, streak) {
   SK.mole.ms = 1300;
   /* Torschuss */
   SK.goal.item = (t, i, n) => `<button class="gl ng" data-v="${i}" style="--fs:${fsz(t)}"><span class="gln"><img class="gim" src="${P('goal', 'goal')}" alt=""><span class="glb">${t}</span></span></button>`;
-  const kick = (el, sc, ok) => { const bl = $('.ball', sc), a = box(bl, sc), g = box($('.gim', el), sc), kps = $$('.gkeep', sc), kp = kps.sort((p, q) => Math.abs(box(p, sc).y - g.y) - Math.abs(box(q, sc).y - g.y))[0]; clearInterval(sc._kp); if (kp) kp.style.transition = 'none'; if (ok && kp && Math.abs(box(kp, sc).x - g.x) < g.w * .5) { const d = Math.random() < .5 ? -1 : 1; kp.src = kp.dataset.g ? '/grundschulmax/sp/keep2/gdive.webp' : P('goal', 'keepdive'); kp.style.scale = d < 0 ? '-1 1' : '1 1'; kp.animate([{ transform: 'none' }, { transform: `translate(${d * g.w * .55}px,${g.h * .12}px) rotate(${d * 25}deg)` }], { duration: 380, delay: 160, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'forwards' }); } bl.style.animation = 'none'; sfx.kick();
+  const kick = (el, sc, ok) => { const bl = $('.ball', sc), a = box(bl, sc), g = box($('.gim', el), sc), kps = $$('.gkeep', sc), kp = kps.sort((p, q) => Math.abs(box(p, sc).y - g.y) - Math.abs(box(q, sc).y - g.y))[0]; clearInterval(sc._kp); sc._kicked = true; kps.forEach((k) => { const cs = getComputedStyle(k); k.style.transition = 'none'; k.style.left = cs.left; k.style.top = cs.top; }); if (kp) kp.style.transition = 'none'; if (ok && kp && Math.abs(box(kp, sc).x - g.x) < g.w * .5) { const d = Math.random() < .5 ? -1 : 1; kp.src = kp.dataset.g ? '/grundschulmax/sp/keep2/gdive.webp' : P('goal', 'keepdive'); kp.style.scale = d < 0 ? '-1 1' : '1 1'; kp.animate([{ transform: 'none' }, { transform: `translate(${d * g.w * .55}px,${g.h * .12}px) rotate(${d * 25}deg)` }], { duration: 380, delay: 160, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'forwards' }); } bl.style.animation = 'none'; sfx.kick();
     const dx = g.x - a.x, dy = g.y + g.h * .12 - a.y;
     if (!ok && kp) { const k = box(kp, sc); kp.src = kp.dataset.g ? '/grundschulmax/sp/keep2/gdive.webp' : P('goal', 'keepdive'); kp.classList.add('dive'); kp.animate([{ transform: 'translate(0,0)' }, { transform: `translate(${g.x - k.x}px,${g.y + g.h * .1 - k.y}px)` }], { duration: 420, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'forwards' }); }
     const path = ok ? [{ transform: 'translate(0,0) scale(1) rotate(0)' }, { transform: `translate(${dx * .5}px,${dy * .5 - 90}px) scale(.8) rotate(360deg)`, offset: .5 }, { transform: `translate(${dx}px,${dy}px) scale(.55) rotate(720deg)` }]
@@ -11192,10 +11205,10 @@ SK.goal.after = (sc) => {
     const w = Math.max(48, im.offsetWidth * .4), kh = w * ((k.naturalHeight / k.naturalWidth) || 1);
     k.style.transition = anim ? 'left .55s cubic-bezier(.4,1.3,.5,1), top .55s' : 'none'; k.style.width = w + 'px';
     k.style.left = g.offsetLeft + im.offsetLeft + im.offsetWidth / 2 + 'px'; k.style.top = g.offsetTop + im.offsetTop + im.offsetHeight * .96 - kh + 'px'; k.style.bottom = 'auto'; k.style.translate = '-50% 0'; k.dataset.i = idx; };
-  const sync = (anim) => { if (!sc.isConnected) return clearInterval(sc._kp); const rows = rowsOf(); let ks = $$('.gkeep', sc);
+  const sync = (anim) => { if (!sc.isConnected || sc._kicked) return clearInterval(sc._kp); const rows = rowsOf(); let ks = $$('.gkeep', sc);
     while (ks.length < rows.length) { const c = k0.cloneNode(); c.src = '/grundschulmax/sp/keep2/gready.webp'; c.dataset.g = '1'; sc.appendChild(c); ks = $$('.gkeep', sc); }
     ks.forEach((k, i) => { if (i >= rows.length) { k.style.display = 'none'; return; } k.style.display = ''; const row = rows[i]; let n = Math.floor(Math.random() * row.g.length); if (anim && row.g.length > 1 && String(n) === k.dataset.i) n = (n + 1) % row.g.length; place(k, row, n, anim); }); };
-  setTimeout(() => sync(false), 80); setTimeout(() => sync(false), 700);
+  setTimeout(() => sync(false), 80); setTimeout(() => sync(false), 700); $$('.gkeep', sc).forEach((k) => { if (!k.complete) k.addEventListener('load', () => sync(false), { once: true }); });
   sc._kp = setInterval(() => sync(true), 1600);
 };
 
@@ -11232,22 +11245,37 @@ SK.goal.after = (sc) => {
     requestAnimationFrame(loop);
   };
   SK.fish.win = (el, sc) => {
-    const g = window.gsap, a = $('.fang', sc), b = box(el, sc), hk = sc._hk; if (!hk) return; sc._idle = false; el.style.animation = 'none';
+    const g = window.gsap, a = $('.fang', sc), hk = sc._hk; if (!hk) return; sc._idle = false;
+    /* Fisch an Ort und Stelle einfrieren (ohne Sprung), dann alles per GSAP */
+    const b = box(el, sc), fl = el.classList.contains('fl') ? -1 : 1, cs = getComputedStyle(el), M = cs.transform && cs.transform !== 'none' ? new DOMMatrix(cs.transform) : new DOMMatrix().translate(0, -el.offsetHeight / 2), T0 = { x: M.m41, y: M.m42 };
+    el.style.animation = 'none'; el.style.transform = 'none'; el.style.translate = `${T0.x}px ${T0.y}px`;
     const tw = (o, v, d, e) => new Promise((res) => { if (g) g.to(o, { ...v, duration: d, ease: e || 'power2.inOut', onComplete: res }); else { Object.assign(o, v); setTimeout(res, d * 1000); } });
     (async () => {
-      await tw(hk, { x: b.x, y: b.y - b.h * .15 }, .45, 'power2.out');
-      el.animate([{ rotate: '0deg' }, { rotate: '-14deg' }, { rotate: '12deg' }, { rotate: '-6deg' }, { rotate: '0deg' }], { duration: 360 }); sfx.coin();
-      a.src = F('pull'); a.dataset.p = 'pull'; restart(a, 'tug');
-      fx(sc, b.x, b.y, P2('fish', 'splash'), 'gsplash');
-      const c0 = { x: b.x, y: b.y }, t = tipOf(sc), bk = $('.fbuck', sc).getBoundingClientRect(), sr = sc.getBoundingClientRect(), dst = { x: bk.left - sr.left + bk.width / 2, y: bk.top - sr.top + bk.height * .3 };
-      const pr = { x: hk.x, y: hk.y }, follow = () => { hk.x = pr.x; hk.y = pr.y; el.style.translate = `${pr.x - c0.x}px ${pr.y - c0.y + b.h * .15}px`; };
-      if (g) { await new Promise((res) => g.to(pr, { x: t.x - 20, y: t.y + 40, duration: .55, ease: 'power2.in', onUpdate: follow, onComplete: res })); el.style.transition = 'opacity .35s, scale .35s'; await new Promise((res) => g.to(pr, { x: dst.x, y: dst.y, duration: .35, ease: 'power1.in', onUpdate: follow, onComplete: res })); }
-      el.style.opacity = 0; el.style.scale = '.4'; restart($('.fbuck', sc), 'gulp'); starsUp($('.fbuck', sc), 10); sfx.chest && sfx.chest();
-      a.src = F('kid'); a.dataset.p = 'kid'; await tw(hk, { x: sc.clientWidth * .5, y: sc.clientHeight * .12 }, .4); sc._idle = true;
+      await tw(hk, { x: b.x, y: b.y - b.h * .2 }, .4, 'power3.out');
+      a.src = F('pull'); a.dataset.p = 'pull'; restart(a, 'tug'); sfx.coin();
+      fx(sc, b.x, b.y, P2('fish', 'splash'), 'gsplash', 800);
+      const t = tipOf(sc), bk = $('.fbuck', sc).getBoundingClientRect(), sr = sc.getBoundingClientRect(), dst = { x: bk.left - sr.left + bk.width / 2, y: bk.top - sr.top + bk.height * .25 };
+      const pr = { x: hk.x, y: hk.y, r: 0, s: 1 }, c0 = { x: b.x, y: b.y - b.h * .2 };
+      const follow = () => { hk.x = pr.x; hk.y = pr.y; el.style.translate = `${T0.x + pr.x - c0.x}px ${T0.y + pr.y - c0.y}px`; el.style.rotate = pr.r + 'deg'; el.style.scale = String(pr.s); };
+      if (g) {
+        const wig = g.to(pr, { r: '+=14', duration: .09, yoyo: true, repeat: 9, ease: 'sine.inOut', onUpdate: follow });
+        /* hochziehen: Fisch zappelt, Nase zur Rute */
+        await new Promise((res) => g.to(pr, { x: (pr.x + t.x) / 2, y: (pr.y + t.y) / 2, s: .9, duration: .45, ease: 'power2.out', onUpdate: follow, onComplete: res }));
+        await new Promise((res) => g.to(pr, { x: t.x - 10, y: t.y + 36, r: fl * -35, s: .8, duration: .35, ease: 'power1.in', onUpdate: follow, onComplete: res }));
+        wig.kill();
+        /* Bogen in den Eimer */
+        await new Promise((res) => g.to(pr, { keyframes: [{ x: (t.x + dst.x) / 2, y: Math.min(t.y + 36, dst.y) - 24, r: fl * -60, s: .65, duration: .25, ease: 'power1.out' }, { x: dst.x, y: dst.y, r: fl * -90, s: .45, duration: .28, ease: 'power2.in' }], onUpdate: follow, onComplete: res }));
+      }
+      g ? g.to(el, { opacity: 0, duration: .15 }) : (el.style.opacity = 0);
+      restart($('.fbuck', sc), 'gulp'); fx(sc, dst.x, dst.y, P2('fish', 'splash'), 'gsplash', 700); starsUp($('.fbuck', sc), 10); sfx.chest && sfx.chest();
+      a.src = F('kid'); a.dataset.p = 'kid'; await tw(hk, { x: sc.clientWidth * .5, y: sc.clientHeight * .12 }, .45, 'power2.out'); sc._idle = true;
     })();
   };
   SK.fish.ms = 2100;
 })();
+
+/* Spiel-Hintergründe vorladen, damit Lektionen und Spiele sofort im vollen Bild starten */
+setTimeout(() => { const urls = new Set(); Object.values(SK).forEach((k) => String(k.scene || '').replace(/src="([^"]+)"/g, (_, u) => urls.add(u))); const L = [...urls]; let i = 0; const nx = () => { if (i >= L.length) return; const im = new Image(); im.decoding = 'async'; im.onload = im.onerror = () => setTimeout(nx, 40); im.src = L[i++]; }; nx(); nx(); }, 3500);
 
 /* ---------- Abo-Grenze, Spiel-Covers, Hausaufgaben-Bereich, Dunkelmodus ---------- */
 const PVIC = { rennen: 'pm', uhr: 'bell', laden: 'coin', reim: 'bubble', wortart: 'sort', diktat: 'pen', simon: 'voice', shop: 'coin', story: 'book', hupf: 'frog', bonjour: 'chat', ou: 'search', jahr: 'leaf', ampel: 'target', wetter: 'drop', robo: 'bulb', frage: 'chat', echt: 'search' };
@@ -11526,7 +11554,7 @@ const JOBS = [
   ['astro', 'Astronaut', '#8fd0ff', ['astro-s', 'astro-w', 'astro-a']],
   ['fuss', 'Fußballer', '#8be06a', ['fuss-wb', 'fuss-lb', 'fuss-wg', 'fuss-sg']],
   ['poli', 'Polizist', '#8fa6ff', ['poli-l', 'poli-w']],
-  ['feuer', 'Feuerwehrmann', '#ff9f7a', ['feuer-s', 'feuer-l']],
+  ['feuer', 'Feuerwehr\u00ADmann', '#ff9f7a', ['feuer-s', 'feuer-l']],
   ['arzt', 'Arzt', '#7fe0d4', ['arzt-a', 'arzt-s']],
   ['forsch', 'Forscher', '#c3a6ff', ['forsch-w', 'forsch-l']],
   ['koch', 'Koch', '#ffd98a', ['koch-w', 'koch-wg']],
