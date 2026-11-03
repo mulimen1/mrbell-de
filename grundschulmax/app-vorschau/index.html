@@ -5577,6 +5577,16 @@ html body .gk.sec .gkb{background:linear-gradient(180deg,#ffe27a,#f5b000)!import
 @media (max-width:820px){.aacc{display:none!important}}
 @media (max-width:820px){html body.did1:not(.paid):not(.ispaid) .app[data-v=subj] .wtabs{bottom:calc(96px + env(safe-area-inset-bottom))!important}}
 @media (max-width:820px){.hwcat{display:none!important}}
+/* Zug beladen am Handy: kompakte Wagen, damit alle Wörter über der Hilfe-Leiste bleiben */
+@media (max-width:560px){
+ html body .k-train .track{min-height:0!important;margin-bottom:10px!important;padding:8px 8px 18px!important}
+ html body .k-train .ans{display:flex!important;flex-wrap:wrap!important;gap:6px!important;min-height:0!important;align-content:flex-end}
+ html body .k-train .ans .ph{min-width:40px!important;width:auto!important;height:42px!important;margin:0 0 10px!important;font-size:15px}
+ html body .k-train .ans .tile{height:42px!important;min-height:42px!important;font-size:16px!important;padding:0 10px!important;margin-bottom:10px}
+ html body .k-train .bank{gap:6px!important}
+ html body .k-train .bank .tile{min-height:44px!important;font-size:17px!important;padding:6px 12px!important}
+ html body .k-train .track :is(.loco,.trn,img){max-height:56px}
+}
 /* ===== Hausaufgaben: stabile Karten, Bibliothek mit Spielen und Probetests, Arbeitsblatt mit Prüfen und Hilfe je Aufgabe ===== */
 
 /* Ergebnisbereich: hoch genug, damit beim Wechsel der vier Knöpfe nichts springt */
