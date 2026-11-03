@@ -1,56 +1,554 @@
 <!doctype html>
-<html lang="de" data-theme="light">
+<html lang="de">
 <head>
 <meta charset="utf-8">
-<script>/* Rechner-Seite: App mit geöffnetem Rechner */(function(){try{var h=location.hash||"";if(!/^#\/./.test(h))history.replaceState(null,"",location.pathname+location.search+"#/app/rechner/abschreibung")}catch(e){}window.BM_RS={title:"Abschreibungsrechner: linear, degressiv mit Wechsel, leistungsabhängig | BWL Max"}})();</script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>/* bwlmax.de/start (YouTube-Demo): Startseite nicht aufblitzen lassen, Demo-Inhalte vorladen – start.js übernimmt */(function(){try{if(!/^\/start\/?$/.test(location.pathname)||/^#\/./.test(location.hash||''))return;document.documentElement.classList.add('bm-start');try{sessionStorage.setItem('tutor.hintShown','1')}catch(e){}var l=document.createElement('link');l.rel='preload';l.as='fetch';l.href='/tutor/data/demo/start.json?v=1';l.crossOrigin='anonymous';document.head.appendChild(l)}catch(e){}})();</script>
-<script>/* Themen-Einstieg (?thema=…): Startseite gar nicht erst zeigen – direkt die Themenseite */(function(){try{var m=location.search.match(/[?&](thema|q)=([^&#]+)/i);if(!m||/^#\/./.test(location.hash||''))return;var s=decodeURIComponent(m[2]).toLowerCase();if(m[1].toLowerCase()==='thema'&&sessionStorage.getItem('tutor.themaDone')===s)return;var d=document.documentElement;d.classList.add('m-eboot');setTimeout(function(){d.classList.remove('m-eboot')},9000);}catch(e){}})();</script>
-<style>html.m-eboot .seo-art,html.m-eboot #landing{display:none!important}html.m-eboot #landing,html.m-eboot #app,html.m-eboot .asst>:not(.ai-board),html.m-eboot .bmc,html.m-eboot .mtip2{visibility:hidden!important}html.m-eboot body{background:#fff}html.m-eboot body::after{content:"";position:fixed;left:50%;top:42%;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:3px solid #e6e6e8;border-top-color:#1f5138;animation:mebspin .8s linear infinite;z-index:2}@keyframes mebspin{to{transform:rotate(360deg)}}</style>
-<link rel="preload" as="image" href="/tutor/img/max-hair.webp?v=2" type="image/webp">
-<link rel="preload" as="image" href="/tutor/img/max-collar.webp?v=5" type="image/webp">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Abschreibungsrechner: linear, degressiv mit Wechsel, leistungsabhängig | BWL Max</title>
 <meta name="description" content="Abschreibung berechnen mit Abschreibungsplan: linear, geometrisch-degressiv mit Wechsel zur linearen AfA, digital und leistungsabhängig – Stand 2026.">
+<meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.bwlmax.de/rechner/abschreibungsrechner">
-<meta name="theme-color" content="#ffffff">
-<link rel="icon" href="/tutor/img/bm-fav.ico?v=20" sizes="48x48">
-<link rel="icon" type="image/png" sizes="48x48" href="/tutor/img/bm-fav-48.png?v=20">
-<link rel="icon" type="image/png" sizes="96x96" href="/tutor/img/bm-fav-96.png?v=20">
-<link rel="icon" type="image/png" sizes="192x192" href="/tutor/img/bm-fav-192.png?v=20">
-<link rel="apple-touch-icon" href="/tutor/img/bm-fav-180.png?v=20">
+<meta name="color-scheme" content="light dark">
 <meta property="og:title" content="Abschreibungsrechner: linear, degressiv mit Wechsel, leistungsabhängig | BWL Max">
-<meta property="og:url" content="https://www.bwlmax.de/rechner/abschreibungsrechner">
-<meta property="og:site_name" content="BWL Max">
-<meta name="application-name" content="BWL Max">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Abschreibungsrechner", "url": "https://www.bwlmax.de/rechner/abschreibungsrechner", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "description": "Abschreibung berechnen mit Abschreibungsplan: linear, geometrisch-degressiv mit Wechsel zur linearen AfA, digital und leistungsabhängig – Stand 2026.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "publisher": {"@type": "Organization", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "citation": [{"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Buchwert", "url": "https://wirtschaftslexikon.gabler.de/definition/buchwert-29596"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Abschreibung", "url": "https://wirtschaftslexikon.gabler.de/definition/abschreibung-31208"}, {"@type": "CreativeWork", "name": "EStG § 7 Abs. 1", "url": "https://www.gesetze-im-internet.de/estg/__7.html"}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BWL Max", "item": "https://www.bwlmax.de/"}, {"@type": "ListItem", "position": 2, "name": "Rechner", "item": "https://www.bwlmax.de/rechner"}, {"@type": "ListItem", "position": 3, "name": "Abschreibungsrechner", "item": "https://www.bwlmax.de/rechner/abschreibungsrechner"}]}]}</script>
 <meta property="og:description" content="Abschreibung berechnen mit Abschreibungsplan: linear, geometrisch-degressiv mit Wechsel zur linearen AfA, digital und leistungsabhängig – Stand 2026.">
-<meta property="og:image" content="https://www.bwlmax.de/tutor/img/og-max.png?v=20">
+<meta property="og:url" content="https://www.bwlmax.de/rechner/abschreibungsrechner">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tutor/jsb/app-RYMP5SKJ.css">
-<link rel="stylesheet" href="/tutor/jsb/m-shell-HGQEQZGL.css">
-<link rel="stylesheet" href="/tutor/jsb/m-board-I6F4YNLX.css">
-<link rel="stylesheet" href="/tutor/jsb/m-pages-QKJQ7M6A.css">
-<link rel="stylesheet" href="/tutor/css/seo-art.css?v=38">
-<link rel="stylesheet" href="/tutor/jsb/trainer-BFUW4BMC.css">
-<style>html.preload{background:#000}html.preload[data-theme=light]{background:#fff}html.preload body{opacity:0}html body{transition:opacity .25s ease}</style>
-<script>document.documentElement.classList.add('preload');setTimeout(function(){document.documentElement.classList.remove('preload')},2500);</script>
-<script>document.documentElement.dataset.theme='light';try{var t=sessionStorage.getItem('tutor.theme');if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}var c='navy';try{var v=localStorage.getItem('tutor.accent');if(v!=null&&v!=='gelb')c=v}catch(e){}if(c&&c!=='std'&&/^[a-z]{3,12}$/.test(c))document.documentElement.dataset.accent=c;try{if(localStorage.getItem('bm.skin')!=='alt')document.documentElement.dataset.nv='1'}catch(e){document.documentElement.dataset.nv='1'}try{var a=JSON.parse(localStorage.getItem('tutor.account')||'null');if(a&&/^bendeschler0@gmail\.com$/i.test(a.email||''))document.documentElement.dataset.ben='1'}catch(e){}</script>
+<meta property="og:site_name" content="BWL Max">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Abschreibungsrechner", "url": "https://www.bwlmax.de/rechner/abschreibungsrechner", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "description": "Abschreibung berechnen mit Abschreibungsplan: linear, geometrisch-degressiv mit Wechsel zur linearen AfA, digital und leistungsabhängig – Stand 2026.", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "citation": [{"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Buchwert", "url": "https://wirtschaftslexikon.gabler.de/definition/buchwert-29596"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Abschreibung", "url": "https://wirtschaftslexikon.gabler.de/definition/abschreibung-31208"}, {"@type": "CreativeWork", "name": "EStG § 7 Abs. 1", "url": "https://www.gesetze-im-internet.de/estg/__7.html"}]}</script>
+<link rel="stylesheet" href="/tutor/vendor/katex@0.16.47/katex.min.css">
+<style>
+:root{--bg:#fff;--fg:#1b1d20;--muted:#585f69;--line:#d9dde2;--soft:#f3f5f7;--accent:#1d5a4a;--accent-soft:#e3efea;--warn:#8a4b00;--warn-soft:#fdf3e4;--ok:#1d6b3a;--bad:#a1281e;--zebra:#f8f9fa}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e7e9ec;--muted:#a5abb4;--line:#30353c;--soft:#1b1f23;--accent:#83cdb3;--accent-soft:#1a2e28;--warn:#f0b25e;--warn-soft:#2b2216;--ok:#7fd49c;--bad:#ff9a8f;--zebra:#171a1d}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.75rem;line-height:1.25;margin:.2em 0 .5em}
+h2{font-size:1.3rem;margin:2.2em 0 .6em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .5em}
+p{margin:.5em 0 .9em}
+ul,ol{padding-left:1.3em}
+li{margin:.2em 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lead{color:var(--muted);max-width:70ch}
+nav.toc{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:1.2em 0}
+nav.toc ol{margin:.3em 0 0;padding-left:1.3em;columns:2;column-gap:2em}
+nav.toc li{margin:.15em 0;break-inside:avoid}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;margin:1em 0;font-size:.95rem}
+.calcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--bg);min-width:0}
+.card h3{margin-top:0}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:.4em 0}
+.row label{display:flex;flex-direction:column;font-size:.85rem;color:var(--muted);flex:1 1 80px;min-width:0}
+input,select{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;width:100%;min-width:0}
+input[aria-invalid=true]{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+fieldset.opt{border:1px solid var(--line);border-radius:8px;padding:6px 12px 8px;margin:.5em 0;min-width:0}
+fieldset.opt legend{font-size:.85rem;color:var(--muted);padding:0 4px}
+fieldset.opt label{display:inline-flex;align-items:center;gap:6px;margin-right:18px;cursor:pointer}
+fieldset.opt input{width:auto;margin:0}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 12px}
+.main{max-width:none}
+.out{margin-top:.6em;background:var(--soft);border-radius:8px;padding:10px 12px;font-variant-numeric:tabular-nums;min-height:2.4em;overflow-wrap:anywhere}
+.out .err{color:var(--bad)}
+.out .name{font-weight:600;color:var(--accent);margin-bottom:.2em}
+.out .lbl{font-size:.8rem;color:var(--muted);margin-top:.5em}
+.steps{display:flex;flex-wrap:wrap;align-items:center;column-gap:.35em;row-gap:.3em;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.steps>span{display:inline-block;max-width:100%}
+.big{display:flex;justify-content:space-between;align-items:baseline;gap:4px 12px;flex-wrap:wrap;margin-top:.6em;padding-top:.5em;border-top:1px solid var(--line)}
+.big b{font-size:1.25rem;font-weight:700}
+.big b.long{font-size:1rem;font-weight:600;word-break:break-all}
+.out details{margin-top:.4em}
+.out details summary{cursor:pointer;color:var(--accent);font-size:.9rem}
+.digits{font-size:.85rem;word-break:break-all;max-height:14em;overflow-y:auto;margin-top:.3em}
+.small{font-size:.85rem;color:var(--muted)}
+.out .small{margin:.5em 0 0}
+button{font:inherit;border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:6px;padding:5px 11px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.d{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;column-gap:.35em;row-gap:.3em;overflow-x:auto;overflow-y:hidden;margin:.5em 0;padding:2px 0}
+.d>span{display:inline-block;max-width:100%}
+.d .katex,.steps .katex{white-space:nowrap}
+.tw{overflow-x:auto;margin:.8em 0 1.4em;-webkit-overflow-scrolling:touch}
+table.dec{border-collapse:collapse;width:100%;font-size:.92rem}
+table.dec th,table.dec td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+table.dec thead th{background:var(--soft)}
+table.dec tbody th{background:var(--soft);font-weight:600}
+table.dec td b{display:block;color:var(--accent)}
+table.dec .f{display:block;margin:.35em 0 .25em}
+table.dec .ex{display:block;font-size:.85rem;color:var(--muted)}
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:16px}
+.ex-grid .card p{margin:.3em 0 .6em}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:0 .55em;vertical-align:1px}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+@media (max-width:600px){nav.toc ol{columns:1}h1{font-size:1.45rem}table.dec{font-size:.85rem}table.dec th,table.dec td{padding:6px 6px}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px;margin:.4em 0}
+.grid label{display:flex;flex-direction:column;font-size:.85rem;color:var(--muted);min-width:0}
+.card h3.gh{font-size:.95rem;margin:.9em 0 .2em;color:var(--fg)}
+.card h3.gh:first-child{margin-top:0}
+.out p.err{margin:.4em 0}
+.out .sub{margin:.15em 0 .2em}
+.out .tw{margin:.6em 0 .3em}
+.out table.dec{background:var(--bg)}
+table.dec td.n,table.dec th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.dec tr.sum th,table.dec tr.sum td{font-weight:700}
+table.dec tr.sw td,table.dec tr.sw th{border-top:2px solid var(--accent)}
+table.res{max-width:520px}
+.chk{display:flex;align-items:center;gap:8px;font-size:.9rem;margin:.5em 0;cursor:pointer}
+.chk input{width:auto;margin:0}
+.hide{display:none!important}
+table.plan td{white-space:nowrap}
+table.dec.plan th,table.dec.plan th.n{white-space:normal;vertical-align:bottom;-webkit-hyphens:auto;hyphens:auto}
+table.dec.plan th:first-child{white-space:nowrap}
+@media (max-width:600px){.card.main{padding:12px 10px}.out{padding:10px 8px}.out table.dec{font-size:.78rem}.out table.dec th,.out table.dec td{padding:4px 3px}}
+@media print{
+ @page{size:A4;margin:12mm 11mm}
+ :root{--bg:#fff;--fg:#000;--muted:#333;--line:#999;--soft:#eee;--zebra:#f6f6f6;--accent:#000}
+ body{font-size:10pt}
+ .wrap{max-width:none;padding:0}
+ .noprint,nav.toc{display:none!important}
+ header .lead{display:none}
+ h1{font-size:15pt;margin:0 0 .3em}
+ h2{margin:1.2em 0 .4em}
+ .card,table.dec tr{break-inside:avoid}
+ .note{border:1px solid #999;background:none}
+ a{color:#000;text-decoration:none}
+ footer{margin-top:1em}
+}
+</style>
 </head>
 <body>
+<div class="wrap">
+<header>
+<h1>Abschreibungsrechner: linear, degressiv, leistungsabhängig</h1>
+<p class="lead">Der Rechner erstellt den vollständigen Abschreibungsplan mit Buchwert am Jahresanfang, Abschreibungsbetrag und Buchwert am Jahresende – linear, geometrisch-degressiv mit optimalem Wechsel zur linearen Abschreibung, arithmetisch-degressiv (digital) oder leistungsabhängig. Restwert und zeitanteilige Abschreibung im ersten Jahr sind möglich, der Rechenweg wird mit eingesetzten Zahlen gezeigt. Gedacht für Buchführung, Jahresabschluss und Kostenrechnung im Studium.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+</header>
 
-<!-- ================= LANDING ================= -->
-<div id="landing" class="hidden"></div>
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#rechner">Rechner</a></li>
+<li><a href="#methoden">Methoden und Formeln</a></li>
+<li><a href="#wechsel">Optimaler Wechsel von degressiv zu linear</a></li>
+<li><a href="#beispiele">Beispiele mit Lösung</a></li>
+<li><a href="#steuer">Hinweis zum Steuerrecht</a></li>
+<li><a href="#faq">Häufige Fragen</a></li>
+</ol>
+</nav>
 
-  <!-- ================= APP ================= -->
-<div id="app" class="hidden"></div>
+<section id="rechner" class="noprint" aria-labelledby="h-rechner">
+<h2 id="h-rechner">Rechner</h2>
+<p class="small">Beträge in Euro. Komma oder Punkt als Dezimaltrennzeichen, Tausenderpunkte sind erlaubt (60.000 = sechzigtausend). Das Ergebnis wird beim Tippen aktualisiert.</p>
+<form class="card main" id="c-afa" onsubmit="return false">
+<div class="grid">
+<label><span>Methode</span><select id="afa-met">
+<option value="linear">linear</option>
+<option value="geo" selected>geometrisch-degressiv</option>
+<option value="digital">arithmetisch-degressiv (digital)</option>
+<option value="leistung">leistungsabhängig</option>
+</select></label>
+<label><span>Anschaffungskosten AK (€)</span><input id="afa-ak" inputmode="decimal" autocomplete="off" value="60.000"></label>
+<label><span>Restwert RW (€, optional)</span><input id="afa-rw" inputmode="decimal" autocomplete="off" value="" placeholder="0"></label>
+<label id="w-nd"><span>Nutzungsdauer ND (Jahre)</span><input id="afa-nd" inputmode="numeric" autocomplete="off" value="6"></label>
+<label id="w-m1"><span>Nutzungsmonate im 1. Jahr (optional)</span><input id="afa-m1" inputmode="numeric" autocomplete="off" value="" placeholder="12"></label>
+<label id="w-satz"><span>Degressiver Satz s (%)</span><input id="afa-satz" inputmode="decimal" autocomplete="off" value="25"></label>
+<label id="w-lg" class="hide"><span>Gesamtleistung (z. B. km, Stück, Stunden)</span><input id="afa-lg" inputmode="decimal" autocomplete="off" value="100.000"></label>
+<label id="w-lj" class="hide"><span>Leistung je Jahr (mit Semikolon trennen)</span><input id="afa-lj" autocomplete="off" value="20.000; 35.000; 25.000; 20.000"></label>
+</div>
+<label class="chk" id="w-wechsel"><input type="checkbox" id="afa-wechsel" checked> Zum optimalen Zeitpunkt auf lineare Abschreibung wechseln</label>
+<div class="out" id="afa-out" aria-live="polite"></div>
+</form>
+</section>
 
-<noscript><p style="padding:40px;text-align:center">Bitte aktiviere JavaScript, um BWL Max zu nutzen.</p></noscript>
-<script>(function(){if(/(^|\.)bwlmax\.de$/.test(location.hostname))document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});})();</script>
-<script src="/tutor/js/consent.js?v=27"></script>
-<!--jsb--><link rel="modulepreload" href="/tutor/jsb/c-2C2TTIQH.js"><link rel="modulepreload" href="/tutor/jsb/c-OVX7NP3R.js"><link rel="modulepreload" href="/tutor/jsb/c-6WBDRWZE.js"><link rel="modulepreload" href="/tutor/jsb/c-ZQ37HMO5.js"><link rel="modulepreload" href="/tutor/jsb/c-DSOK5TTJ.js"><link rel="modulepreload" href="/tutor/jsb/c-CYVSFYYJ.js"><link rel="modulepreload" href="/tutor/jsb/c-LSOEINMT.js"><link rel="modulepreload" href="/tutor/jsb/c-LEXHD3JY.js"><link rel="modulepreload" href="/tutor/jsb/c-UEPRKOCD.js"><link rel="modulepreload" href="/tutor/jsb/c-W6RFOY5Q.js"><link rel="modulepreload" href="/tutor/jsb/c-NFX6TAXH.js"><link rel="modulepreload" href="/tutor/jsb/c-P32TUP2I.js"><link rel="modulepreload" href="/tutor/jsb/c-RPDRBMNP.js"><link rel="modulepreload" href="/tutor/jsb/c-KLUKKACI.js"><link rel="modulepreload" href="/tutor/jsb/c-52BRSFB2.js"><link rel="modulepreload" href="/tutor/jsb/c-X7WE34EP.js"><link rel="modulepreload" href="/tutor/jsb/c-ULMPOXNU.js"><link rel="modulepreload" href="/tutor/jsb/c-UG3ZIXHS.js"><link rel="modulepreload" href="/tutor/jsb/c-PGPPBS4R.js"><link rel="modulepreload" href="/tutor/jsb/c-FDGOEWAF.js"><link rel="modulepreload" href="/tutor/jsb/c-LRJWSC56.js"><link rel="modulepreload" href="/tutor/jsb/c-MZZW4YF2.js"><link rel="modulepreload" href="/tutor/jsb/c-HRXBZO66.js"><link rel="modulepreload" href="/tutor/jsb/c-H5ZHLGKR.js"><link rel="modulepreload" href="/tutor/jsb/c-UT6EKMZO.js"><link rel="modulepreload" href="/tutor/jsb/c-NDEXS7CY.js"><link rel="modulepreload" href="/tutor/jsb/c-2RRJ4ZYG.js"><link rel="modulepreload" href="/tutor/jsb/c-XLWJWL3T.js"><link rel="modulepreload" href="/tutor/jsb/c-UWHMDSVS.js"><link rel="modulepreload" href="/tutor/jsb/c-J3FAECVJ.js"><link rel="modulepreload" href="/tutor/jsb/c-5WHP4HDV.js"><link rel="modulepreload" href="/tutor/jsb/c-5DFPBDFC.js"><link rel="modulepreload" href="/tutor/jsb/c-KGGPI3XA.js"><link rel="modulepreload" href="/tutor/jsb/c-VRR3EQJV.js"><link rel="modulepreload" href="/tutor/jsb/c-K4LZ4NHB.js"><link rel="modulepreload" href="/tutor/jsb/c-5W55UXSB.js"><link rel="modulepreload" href="/tutor/jsb/c-HPNKIKAI.js"><link rel="modulepreload" href="/tutor/jsb/c-7NEUG36I.js"><link rel="modulepreload" href="/tutor/jsb/c-BMAK3GSY.js"><link rel="modulepreload" href="/tutor/jsb/c-6TB7PQXP.js"><link rel="modulepreload" href="/tutor/jsb/c-YXEGSOWY.js"><link rel="modulepreload" href="/tutor/jsb/c-UEFMRCCN.js"><link rel="modulepreload" href="/tutor/jsb/c-2ZYZ7ZRF.js"><link rel="modulepreload" href="/tutor/jsb/c-6LOS4T3P.js"><link rel="modulepreload" href="/tutor/jsb/c-QEISDQCZ.js"><link rel="modulepreload" href="/tutor/jsb/c-SSCWVJV6.js"><link rel="modulepreload" href="/tutor/jsb/c-PH3TFO2U.js"><link rel="modulepreload" href="/tutor/jsb/c-FRCTEIMO.js"><link rel="modulepreload" href="/tutor/jsb/c-BACIG7JQ.js"><link rel="modulepreload" href="/tutor/jsb/c-23S6CPHL.js"><link rel="modulepreload" href="/tutor/jsb/c-4V5XZVGQ.js"><link rel="modulepreload" href="/tutor/jsb/c-6Q3DAHYV.js"><link rel="modulepreload" href="/tutor/jsb/c-WGUD3K7P.js"><link rel="modulepreload" href="/tutor/jsb/c-F4ETRBDL.js"><link rel="modulepreload" href="/tutor/jsb/c-P2RKGPSP.js"><link rel="modulepreload" href="/tutor/jsb/c-IEL3S6BZ.js"><link rel="modulepreload" href="/tutor/jsb/c-MNY5MLMG.js"><link rel="modulepreload" href="/tutor/jsb/c-QXXRVPLD.js"><link rel="modulepreload" href="/tutor/jsb/c-UWX3ONCN.js"><link rel="modulepreload" href="/tutor/jsb/c-62ZVRRM6.js"><link rel="modulepreload" href="/tutor/jsb/c-YXEEXAMV.js"><!--/jsb--><script type="module" src="/tutor/jsb/main-YHWZ2ULS.js"></script>
-<script type="module">import { mathify } from '/tutor/js/math.js'; document.querySelectorAll('#landing .calc, #landing .mini-quiz, #landing .flip').forEach(el => mathify(el));</script>
-<section id="seo-art" class="seo-art" aria-label="Abschreibungsrechner"><main class="ln"><div class="lg-eyebrow">Rechner · kostenlos · ohne Werbung</div><h1>Abschreibungsrechner: linear, degressiv, leistungsabhängig</h1><p class="ln-meta">Exakt gerechnet mit dem Rechen-Algorithmus von BWL Max · Stand Oktober 2026</p><div class="ln-kurz"><b>Was der Rechner kann</b><p>Du gibst Anschaffungskosten, Nutzungsdauer und Methode ein. Der Rechner erstellt den Abschreibungsplan mit Betrag und Restbuchwert je Jahr – linear, geometrisch-degressiv mit optimalem Wechsel zur linearen Methode, digital oder leistungsabhängig.</p></div><p><a class="btn primary" href="/#/app/rechner/abschreibung">Rechner öffnen</a></p><section><h2 id="grundlagen">Das steckt dahinter</h2><p>Die Grundlagen, belegt mit festen Quellen aus unserer Faktendatenbank:</p><ul><li>Der Buchwert ist der Bilanzwert eines Vermögensgegenstands: Anschaffungs- oder Herstellungskosten korrigiert um Abschreibungen und Zuschreibungen. Wird ein Gegenstand zu einem vom Buchwert abweichenden Preis verkauft, entsteht ein Gewinn oder Verlust. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/buchwert-29596" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Buchwert</a></small></li><li>Degressive Abschreibung verteilt die Anschaffungs- oder Herstellungskosten in fallenden Jahresbeträgen; bei der arithmetisch-degressiven Variante sinken die Beträge um einen konstanten Differenzbetrag, bei der geometrisch-degressiven (Buchwertabschreibung) bleibt der Prozentsatz vom Restbuchwert konstant. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/abschreibung-31208" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Abschreibung</a></small></li><li>Die digitale Abschreibung ist eine arithmetisch-degressive Abschreibung, bei der der Differenzbetrag zwischen zwei Jahresraten gleich der Rate des letzten Jahres ist; Grundlage ist die Summe der Jahresziffern. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/abschreibung-31208" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Abschreibung</a></small></li><li>Lineare AfA: Die Anschaffungs- oder Herstellungskosten werden gleichmäßig auf die Nutzungsdauer verteilt. \(AfA = \frac{AK}{ND}\) (AK = Anschaffungs-/Herstellungskosten, ND = Nutzungsdauer in Jahren; bei handelsrechtlichem Restwert RW: \(AfA = \frac{AK - RW}{ND}\)). <small>– <a href="https://www.gesetze-im-internet.de/estg/__7.html" target="_blank" rel="noopener">EStG § 7 Abs. 1</a></small></li><li>Geometrisch-degressive AfA: Der feste Satz wird vom jeweiligen Restbuchwert berechnet. \(AfA_t = s \cdot RBW_{t-1}\), \(RBW_t = RBW_{t-1} - AfA_t\); dabei ist der Satz \(s = \min(3 \cdot \frac{1}{ND}; 30\,\%)\). <small>– <a href="https://www.gesetze-im-internet.de/estg/__7.html" target="_blank" rel="noopener">EStG § 7 Abs. 2</a></small></li><li>Optimaler Wechselzeitpunkt: Man wechselt, sobald die lineare Abschreibung des Restwerts über die Restnutzungsdauer höher ist als der degressive Betrag, also wenn \(RND \le \frac{1}{s}\) (bei 30 % ab 3 verbleibenden Jahren). <small>– Lehrbuchstandard (nachgerechnet)</small></li><li>Digitale Abschreibung: \(S = \frac{n(n+1)}{2}\), \(AfA_t = \frac{n - t + 1}{S} \cdot (AHK - RE)\); Beispiel mit n = 6, AHK minus Resterlös 210.000: \(S = 21\), \(AfA_1 = \frac{6}{21} \cdot 210.000 = 60.000\). <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/abschreibung-31208" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Abschreibung</a></small></li></ul></section><section><h2 id="lernen">Zum Lernen</h2><ul><li><a href="/lernen/abschreibung">Abschreibung einfach erklärt</a></li><li><a href="/lernen/degressive-abschreibung">Degressive Abschreibung einfach erklärt</a></li><li><a href="/lernen/geringwertige-wirtschaftsgueter">Geringwertige Wirtschaftsgüter (GWG) einfach erklärt</a></li><li><a href="/lernen/anschaffungskosten">Anschaffungskosten berechnen</a></li></ul></section><section><h2 id="verlinken">Rechner verlinken</h2><p>Du willst den Rechner in deinem Skript, Blog oder auf der Seite deiner Fachschaft empfehlen? Kopier einfach diesen Link:</p><pre class="ln-code">&lt;a href=&quot;https://www.bwlmax.de/rechner/abschreibungsrechner&quot;&gt;Abschreibungsrechner von BWL Max&lt;/a&gt;</pre></section></main></section>
+<section id="methoden" aria-labelledby="h-methoden">
+<h2 id="h-methoden">Methoden und Formeln</h2>
+<p>Abkürzungen: AK = Anschaffungs- oder Herstellungskosten, RW = Restwert am Ende der Nutzung, ND oder N = Nutzungsdauer in Jahren, RBW = Restbuchwert, RND = Restnutzungsdauer, s = degressiver Abschreibungssatz.</p>
+<div class="tw"><table class="dec">
+<thead><tr><th scope="col">Methode</th><th scope="col">Formel</th><th scope="col">Verlauf</th></tr></thead>
+<tbody>
+<tr><th scope="row">linear</th><td><span class="m">AfA=\dfrac{AK-RW}{ND}</span></td><td>gleich hohe Beträge in jedem Jahr</td></tr>
+<tr><th scope="row">geometrisch-degressiv</th><td><span class="m">AfA_t=s\cdot RBW_{t-1}</span></td><td>fester Prozentsatz vom Restbuchwert, fallende Beträge</td></tr>
+<tr><th scope="row">arithmetisch-degressiv (digital)</th><td><span class="m">D=\dfrac{AK-RW}{N(N+1)/2}</span>, <span class="m">AfA_t=D\cdot(N-t+1)</span></td><td>Beträge sinken jedes Jahr um denselben Betrag D</td></tr>
+<tr><th scope="row">leistungsabhängig</th><td><span class="m">AfA_t=\dfrac{AK-RW}{\text{Gesamtleistung}}\cdot L_t</span></td><td>richtet sich nach der tatsächlichen Leistung <span class="m">L_t</span> im Jahr</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li>Der Buchwert ist der Bilanzwert eines Vermögensgegenstands: Anschaffungs- oder Herstellungskosten korrigiert um Abschreibungen und Zuschreibungen. Wird ein Gegenstand zu einem vom Buchwert abweichenden Preis verkauft, entsteht ein Gewinn oder Verlust. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/buchwert-29596" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Buchwert</a></small></li>
+<li>Degressive Abschreibung verteilt die Anschaffungs- oder Herstellungskosten in fallenden Jahresbeträgen; bei der arithmetisch-degressiven Variante sinken die Beträge um einen konstanten Differenzbetrag, bei der geometrisch-degressiven (Buchwertabschreibung) bleibt der Prozentsatz vom Restbuchwert konstant. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/abschreibung-31208" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Abschreibung</a></small></li>
+<li>Die digitale Abschreibung ist eine arithmetisch-degressive Abschreibung, bei der der Differenzbetrag zwischen zwei Jahresraten gleich der Rate des letzten Jahres ist; Grundlage ist die Summe der Jahresziffern. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/abschreibung-31208" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Abschreibung</a></small></li>
+<li>Bei der geometrisch-degressiven Abschreibung erreicht der Buchwert rechnerisch nie null. Deshalb wechselt man zur linearen Abschreibung oder schreibt den Restbuchwert im letzten Jahr vollständig ab.</li>
+<li>Wird ein Anlagegut im Laufe des Jahres angeschafft, wird im ersten Jahr nur zeitanteilig abgeschrieben (pro rata temporis, monatsgenau). Der Plan reicht dann bis ins Jahr ND + 1.</li>
+</ul>
+</section>
+
+<section id="wechsel" aria-labelledby="h-wechsel">
+<h2 id="h-wechsel">Optimaler Wechsel von degressiv zu linear</h2>
+<p>Man wechselt, sobald die lineare Verteilung des Restbuchwerts auf die Restnutzungsdauer mindestens so hoch ist wie der degressive Betrag:</p>
+<div class="d">\dfrac{RBW-RW}{RND}\ge s\cdot RBW</div>
+<p>Ohne Restwert vereinfacht sich das zu <span class="m">RND\le\dfrac{1}{s}</span>. Bei 25 % wird also gewechselt, wenn noch 4 Jahre Restnutzungsdauer verbleiben, bei 30 % (<span class="m">1/0{,}3\approx 3{,}33</span>) bei noch 3 Jahren. Der Rechner prüft die Bedingung in jedem Jahr und markiert das Wechseljahr im Plan.</p>
+</section>
+
+<section id="beispiele" aria-labelledby="h-bsp">
+<h2 id="h-bsp">Beispiele mit Lösung</h2>
+<div class="ex-grid">
+<div class="card">
+<h3>Degressiv mit Wechsel</h3>
+<p>Maschine für 60.000 €, Nutzungsdauer 6 Jahre, degressiver Satz 25 %.</p>
+<div class="d">AfA_1=60{.}000\cdot 25\,\%=15{.}000</div>
+<p class="small">Jahr 2: 25 % von 45.000 € = 11.250 €. Im Jahr 3 sind noch 33.750 € auf 4 Jahre zu verteilen: linear 8.437,50 € = degressiv 8.437,50 €, also Wechsel. Danach 8.437,50 € pro Jahr bis 0 €.</p>
+<p class="noprint"><button type="button" data-afa='{"met":"geo","ak":"60.000","nd":"6","satz":"25"}'>Im Rechner nachrechnen</button></p>
+</div>
+<div class="card">
+<h3>Linear mit Anschaffung im Jahr</h3>
+<p>Fahrzeug für 36.000 €, Nutzungsdauer 6 Jahre, angeschafft im April (9 Nutzungsmonate im 1. Jahr).</p>
+<div class="d">AfA=\dfrac{36{.}000}{6}=6{.}000,\quad AfA_1=6{.}000\cdot\dfrac{9}{12}=4{.}500</div>
+<p class="small">Jahre 2 bis 6 je 6.000 €, im Jahr 7 die restlichen 1.500 €.</p>
+<p class="noprint"><button type="button" data-afa='{"met":"linear","ak":"36.000","nd":"6","m1":"9"}'>Im Rechner nachrechnen</button></p>
+</div>
+<div class="card">
+<h3>Digitale Abschreibung</h3>
+<p>Anschaffungskosten minus Resterlös 210.000 €, Nutzungsdauer 6 Jahre.</p>
+<div class="d">S=\dfrac{6\cdot 7}{2}=21,\quad AfA_1=\dfrac{6}{21}\cdot 210{.}000=60{.}000</div>
+<p class="small">Degressionsbetrag D = 210.000 / 21 = 10.000 €. Die Beträge sinken: 60.000, 50.000, 40.000, 30.000, 20.000, 10.000 €.</p>
+<p class="noprint"><button type="button" data-afa='{"met":"digital","ak":"210.000","nd":"6"}'>Im Rechner nachrechnen</button></p>
+</div>
+<div class="card">
+<h3>Leistungsabhängig</h3>
+<p>Lkw für 60.000 €, erwartete Gesamtleistung 100.000 km. Gefahren werden 20.000, 35.000, 25.000 und 20.000 km.</p>
+<div class="d">a=\dfrac{60{.}000}{100{.}000}=0{,}60,\quad AfA_1=0{,}60\cdot 20{.}000=12{.}000</div>
+<p class="small">Danach 21.000 €, 15.000 € und 12.000 €. Nach 100.000 km ist der Lkw voll abgeschrieben.</p>
+<p class="noprint"><button type="button" data-afa='{"met":"leistung","ak":"60.000","lg":"100.000","lj":"20.000; 35.000; 25.000; 20.000"}'>Im Rechner nachrechnen</button></p>
+</div>
+</div>
+</section>
+
+<section id="steuer" aria-labelledby="h-steuer">
+<h2 id="h-steuer">Hinweis zum Steuerrecht</h2>
+<p>Der Rechner rechnet betriebswirtschaftlich: Satz, Restwert und Methode sind frei wählbar. Für die Steuerbilanz gelten engere Regeln nach § 7 EStG. Die geometrisch-degressive Abschreibung ist dort nur für bewegliche Wirtschaftsgüter des Anlagevermögens zulässig, die in bestimmten Zeiträumen angeschafft oder hergestellt wurden; Satz und Höchstsatz hängen vom Anschaffungszeitpunkt ab. Ein Wechsel von der degressiven zur linearen Abschreibung ist erlaubt, umgekehrt nicht. Die digitale Abschreibung ist steuerlich nicht zulässig. Maßgeblich ist der aktuelle Gesetzestext, etwa unter <a href="https://www.gesetze-im-internet.de/estg/__7.html" target="_blank" rel="noopener">§ 7 EStG</a>.</p>
+</section>
+
+<section id="faq" aria-labelledby="h-faq">
+<h2 id="h-faq">Häufige Fragen</h2>
+<h3>Was bedeutet „Nutzungsmonate im 1. Jahr“?</h3>
+<p>Die Zahl der Monate, in denen das Anlagegut im Anschaffungsjahr genutzt wird, einschließlich des Anschaffungsmonats. Bei Kauf im April sind das 9 Monate (April bis Dezember). Leer lassen bedeutet volles erstes Jahr.</p>
+<h3>Was passiert ohne Wechsel zur linearen Abschreibung?</h3>
+<p>Dann bleibt am Ende der Nutzungsdauer ein Restbuchwert übrig. Der Rechner schreibt ihn im letzten Nutzungsjahr vollständig ab (bis auf einen eingegebenen Restwert) und kennzeichnet diese Zeile.</p>
+<h3>Was ist der Restwert?</h3>
+<p>Der Betrag, den das Anlagegut am Ende der Nutzung voraussichtlich noch wert ist, etwa ein erwarteter Verkaufs- oder Schrotterlös. Bis zu diesem Wert wird abgeschrieben. Ohne Eingabe rechnet der Rechner mit 0 €.</p>
+<h3>Warum ist die Summe der Abschreibungen manchmal einen Cent anders als erwartet?</h3>
+<p>Der Rechner rechnet intern mit voller Genauigkeit und rundet erst bei der Anzeige auf Cent. Die gerundeten Einzelbeträge können sich deshalb um einen Cent von der gerundeten Summe unterscheiden.</p>
+<h3>Wann ist die leistungsabhängige Abschreibung sinnvoll?</h3>
+<p>Wenn der Wertverlust vor allem von der Nutzung abhängt, etwa bei Fahrzeugen (Kilometer) oder Maschinen (Betriebsstunden, Stückzahl). Die Nutzungsdauer in Jahren spielt dann keine Rolle, es zählt die Gesamtleistung.</p>
+</section>
+
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+
+<script src="/tutor/vendor/katex@0.16.47/katex.min.js"></script>
+<script>
+// MATH-START
+var BM = (function () {
+  'use strict';
+  // Zahl aus Texteingabe: deutsche (1.234,56) und englische (1,234.56) Schreibweise, € und % werden ignoriert.
+  // „1.500“ gilt als Tausenderpunkt (= 1500), „2.5“ als Dezimalpunkt.
+  function parseZahl(raw) {
+    var s = String(raw == null ? '' : raw).replace(/[\s  €%]/g, '').replace(/^[−–]/, '-');
+    if (s === '') return { leer: true };
+    var neg = false;
+    if (s.charAt(0) === '-' || s.charAt(0) === '+') { neg = s.charAt(0) === '-'; s = s.slice(1); }
+    if (!/^[\d.,]+$/.test(s) || !/\d/.test(s)) return { err: true };
+    var c = s.lastIndexOf(','), d = s.lastIndexOf('.'), t;
+    if (c >= 0 && d >= 0) {
+      if (c > d) { if (!/^\d{1,3}(\.\d{3})+,\d*$/.test(s)) return { err: true }; t = s.replace(/\./g, '').replace(',', '.'); }
+      else { if (!/^\d{1,3}(,\d{3})+\.\d*$/.test(s)) return { err: true }; t = s.replace(/,/g, ''); }
+    } else if (c >= 0) {
+      if (!/^\d*,\d*$/.test(s)) return { err: true };
+      t = s.replace(',', '.');
+    } else if (d >= 0) {
+      if (/^\d{1,3}(\.\d{3})+$/.test(s)) t = s.replace(/\./g, '');
+      else if (/^\d*\.\d*$/.test(s)) t = s;
+      else return { err: true };
+    } else t = s;
+    if (t === '.') return { err: true };
+    var v = Number(t);
+    if (!isFinite(v)) return { err: true };
+    if (Math.abs(v) >= 1e13) return { err: true, gross: true };
+    return { v: neg ? -v : (v === 0 ? 0 : v) };
+  }
+  // kaufmännisch runden auf dem Dezimalwert (1,005 → 1,01)
+  function R(x, d) {
+    if (d == null) d = 2;
+    if (typeof x !== 'number' || !isFinite(x)) return x;
+    var p = Math.abs(x).toPrecision(15).split('e'), m = p[0], e = +(p[1] || 0);
+    var r = Number(Math.round(Number(m + 'e' + (e + d))) + 'e-' + d);
+    return x < 0 ? -r : r;
+  }
+  var NF = {};
+  function fmt(x, dmin, dmax) {
+    if (x == null || !isFinite(x)) return '–';
+    if (dmax == null) dmax = dmin;
+    var k = dmin + '_' + dmax;
+    if (!NF[k]) NF[k] = new Intl.NumberFormat('de-DE', { minimumFractionDigits: dmin, maximumFractionDigits: dmax });
+    var r = R(x, dmax);
+    if (r === 0) r = 0; // kein „−0“
+    return NF[k].format(r).replace('-', '−');
+  }
+  function eur(x) { return fmt(x, 2, 2) + ' €'; }
+  function pct(x, d) { return fmt(x, d == null ? 2 : d, d == null ? 2 : d) + ' %'; }
+  // Zahl für KaTeX: {.} und {,} verhindern Abstände; negative Werte als Operand in Klammern
+  function tn(x, dmin, dmax, klammer) {
+    if (dmin == null) dmin = 0;
+    if (dmax == null) dmax = 4;
+    if (dmin === 0 && dmax === 2 && !istGanz(R(x, 2))) dmin = 2; // Geldbeträge: 8.437,50 statt 8.437,5
+    var s = fmt(x, dmin, dmax).replace(/\./g, '{.}').replace(/,/g, '{,}');
+    if (s.charAt(0) === '−') { s = '-' + s.slice(1); if (klammer) s = '(' + s + ')'; }
+    return s;
+  }
+  // „= Wert“ oder „≈ Wert“, je nachdem ob gerundet wurde
+  function teq(x, dmin, dmax) {
+    if (dmax == null) dmax = dmin;
+    var gerundet = Math.abs(R(x, dmax) - x) > 1e-9 * Math.max(1, Math.abs(x));
+    return (gerundet ? '\\approx ' : '=') + tn(x, dmin, dmax);
+  }
+  function Fehler(feld, msg) { this.feld = feld; this.message = msg; }
+  function need(ok, feld, msg) { if (!ok) throw new Fehler(feld, msg); }
+  function istGanz(x) { return Math.abs(x - Math.round(x)) < 1e-9; }
+  return { parseZahl: parseZahl, R: R, fmt: fmt, eur: eur, pct: pct, tn: tn, teq: teq, Fehler: Fehler, need: need, istGanz: istGanz };
+})();
+// Abschreibungsplan (betriebswirtschaftlich)
+// a = { methode: 'linear'|'geo'|'digital'|'leistung', ak, nd, rw (optional, Standard 0), m1 (Nutzungsmonate im 1. Jahr, optional, Standard 12),
+//       satz (Prozent, nur geo), wechsel (bool, nur geo, Standard true), lg (Gesamtleistung), lj (Array Jahresleistungen) }
+function abschreibung(a) {
+  var need = BM.need, met = a.methode, AK = a.ak, RW = a.rw === undefined ? 0 : a.rw, rows = [], bw = AK, t, x;
+  need(AK > 0, 'ak', 'Die Anschaffungskosten müssen größer als 0 sein.');
+  need(RW >= 0, 'rw', 'Der Restwert darf nicht negativ sein.');
+  need(RW <= AK, 'rw', 'Der Restwert darf nicht größer sein als die Anschaffungskosten.');
+  var B = AK - RW; // Abschreibungsbetrag gesamt
+  function zeile(z) { rows.push(z); }
+  if (met === 'leistung') {
+    var G = a.lg, L = a.lj;
+    need(G > 0, 'lg', 'Die Gesamtleistung muss größer als 0 sein.');
+    need(L && L.length > 0, 'lj', 'Bitte die Leistung je Jahr eingeben, mit Semikolon getrennt (z. B. 20.000; 35.000; 25.000).');
+    need(L.length <= 60, 'lj', 'Höchstens 60 Jahresleistungen.');
+    need(L.every(function (l) { return l >= 0; }), 'lj', 'Die Jahresleistungen dürfen nicht negativ sein.');
+    var sum = L.reduce(function (s, l) { return s + l; }, 0);
+    need(sum <= G * (1 + 1e-12), 'lj', 'Die Jahresleistungen sind zusammen größer als die Gesamtleistung.');
+    var satz = B / G;
+    L.forEach(function (l, i) { x = Math.min(l * satz, bw - RW); zeile({ jahr: i + 1, leistung: l, bwA: bw, afa: x, bwE: bw - x }); bw -= x; });
+    return { methode: met, plan: rows, satzEinheit: satz, summeLeistung: sum, rest: bw };
+  }
+  var N = a.nd;
+  need(N !== undefined, 'nd', 'Bitte die Nutzungsdauer eingeben.');
+  need(BM.istGanz(N) && N >= 1 && N <= 60, 'nd', 'Die Nutzungsdauer muss eine ganze Zahl von 1 bis 60 Jahren sein.');
+  N = Math.round(N);
+  var m1 = a.m1 === undefined ? 12 : a.m1;
+  need(BM.istGanz(m1) && m1 >= 1 && m1 <= 12, 'm1', 'Die Nutzungsmonate im 1. Jahr müssen eine ganze Zahl von 1 bis 12 sein.');
+  m1 = Math.round(m1);
+  if (met === 'linear') {
+    var afa = B / N, last = m1 < 12 ? N + 1 : N;
+    for (t = 1; t <= last; t++) {
+      x = t === last ? bw - RW : t === 1 ? afa * m1 / 12 : afa;
+      zeile({ jahr: t, bwA: bw, afa: x, bwE: t === last ? RW : bw - x }); bw = t === last ? RW : bw - x;
+    }
+    return { methode: met, plan: rows, afaJahr: afa, afaErstes: afa * m1 / 12, m1: m1, N: N, rest: bw };
+  }
+  if (met === 'geo') {
+    need(a.satz !== undefined, 'satz', 'Bitte den degressiven Abschreibungssatz eingeben.');
+    need(a.satz > 0 && a.satz <= 100, 'satz', 'Der degressive Satz muss größer als 0 % und höchstens 100 % sein.');
+    var p = a.satz / 100, wechsel = a.wechsel !== false, gew = false, restM = 12 * N, w = null;
+    for (t = 1; restM > 0; t++) {
+      var mon = t === 1 ? m1 : Math.min(12, restM);
+      var degRoh = bw * p * mon / 12, deg = Math.min(degRoh, bw - RW), lin = (bw - RW) * mon / restM;
+      // optimaler Wechsel: sobald die lineare Abschreibung des Restbuchwerts über die Restnutzungsdauer mindestens so hoch ist wie der degressive Betrag
+      if (!gew && wechsel && bw - RW > 1e-12 * AK && lin >= degRoh * (1 - 1e-12)) { gew = true; w = { jahr: t, bw: bw, lin: lin, deg: degRoh, restM: restM, mon: mon }; }
+      var letzte = restM - mon <= 0;
+      x = letzte ? bw - RW : (gew ? lin : deg);
+      zeile({ jahr: t, bwA: bw, afa: x, bwE: letzte ? RW : bw - x, art: gew ? 'linear' : (letzte && !wechsel ? 'Restbuchwert' : 'degressiv') });
+      bw = letzte ? RW : bw - x; restM -= mon;
+    }
+    return { methode: met, plan: rows, satz: a.satz, wechsel: wechsel, w: w, m1: m1, N: N, rest: bw };
+  }
+  if (met === 'digital') {
+    var S = N * (N + 1) / 2, D = B / S, f = m1 / 12;
+    var nj = function (k) { return k >= 1 && k <= N ? D * (N - k + 1) : 0; };
+    for (t = 1; t <= (m1 < 12 ? N + 1 : N); t++) {
+      x = m1 < 12 ? nj(t) * f + nj(t - 1) * (1 - f) : nj(t);
+      var ende = Math.abs(bw - x - RW) < 1e-7 * Math.max(1, AK) ? RW : bw - x;
+      zeile({ jahr: t, bwA: bw, afa: x, bwE: ende }); bw = ende;
+    }
+    return { methode: met, plan: rows, S: S, D: D, m1: m1, N: N, rest: bw };
+  }
+  throw new BM.Fehler('methode', 'Unbekannte Methode.');
+}
+// MATH-END
+
+var UI = (function () {
+  'use strict';
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function katexInto(el, src, display) {
+    if (window.katex) {
+      try { katex.render((display === false ? '' : '\\displaystyle ') + src, el, { throwOnError: true, strict: 'ignore' }); return; }
+      catch (e) { if (window.console) console.error(e.message); }
+    }
+    el.textContent = src;
+  }
+  // abgesetzte Formel an "=" / "\approx" der obersten Klammerebene teilen, damit sie auf schmalen Bildschirmen umbricht
+  function splitEq(src) {
+    var parts = [], depth = 0, cur = '';
+    for (var i = 0; i < src.length; i++) {
+      var c = src.charAt(i);
+      if (c === '{') depth++;
+      if (c === '}') depth--;
+      if (depth === 0 && cur.trim() !== '') {
+        if (c === '=') { parts.push(cur.trim()); cur = '='; continue; }
+        if (src.substr(i, 7) === '\\approx') { parts.push(cur.trim()); cur = '\\approx'; i += 6; continue; }
+      }
+      cur += c;
+    }
+    parts.push(cur.trim());
+    return parts;
+  }
+  function fillSteps(box, parts) {
+    box.textContent = '';
+    parts.forEach(function (p) { var s = document.createElement('span'); katexInto(s, p); box.appendChild(s); });
+  }
+  // Ausgabe-Baukasten: HTML sammeln, Formeln danach setzen
+  function Out() { this.h = ''; this.tex = []; }
+  Out.prototype.add = function (html) { this.h += html; return this; };
+  Out.prototype.steps = function (src) { this.tex.push(src); return this.add('<div class="steps" data-t="' + (this.tex.length - 1) + '"></div>'); };
+  Out.prototype.render = function (el) {
+    el.innerHTML = this.h;
+    var tex = this.tex;
+    el.querySelectorAll('.steps[data-t]').forEach(function (b) { fillSteps(b, splitEq(tex[+b.getAttribute('data-t')])); });
+  };
+  function big(label, value, sub, id) {
+    return '<div class="big"' + (id ? ' id="' + id + '"' : '') + '><span>' + label + '</span><b>' + value + '</b></div>' + (sub ? '<div class="small sub">' + sub + '</div>' : '');
+  }
+  function err(msg) { return '<p class="err">' + msg + '</p>'; }
+  function mark(el, bad) { el.setAttribute('aria-invalid', bad ? 'true' : 'false'); }
+  // statische Formeln setzen
+  function renderStatic() {
+    if (!window.katex) return;
+    var els = document.querySelectorAll('.m,.d');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i], src = el.textContent;
+      if (el.classList.contains('d')) fillSteps(el, splitEq(src));
+      else katexInto(el, src, false);
+    }
+  }
+  // Feld lesen: {v} | {leer} | {err:Meldung}
+  function lies(id, name, optional) {
+    var el = $(id), r = BM.parseZahl(el.value);
+    if (r.leer) return optional ? { leer: true } : { err: 'Bitte „' + name + '“ eingeben.' };
+    if (r.err) return { err: r.gross ? '„' + name + '“ ist zu groß.' : '„' + name + '“ ist keine gültige Zahl. Erlaubt sind z. B. 50000, 50.000 oder 1234,56.' };
+    return { v: r.v };
+  }
+  return { $: $, esc: esc, Out: Out, big: big, err: err, mark: mark, renderStatic: renderStatic, lies: lies, splitEq: splitEq, fillSteps: fillSteps };
+})();
+(function () {
+  'use strict';
+  var $ = UI.$, fmt = BM.fmt, eur = BM.eur, tn = BM.tn, teq = BM.teq;
+  var NAMEN = { linear: 'Lineare Abschreibung', geo: 'Geometrisch-degressive Abschreibung', digital: 'Arithmetisch-degressive (digitale) Abschreibung', leistung: 'Leistungsabhängige Abschreibung' };
+  // welche Felder je Methode sichtbar sind
+  var SICHTBAR = { linear: ['nd', 'm1'], geo: ['nd', 'm1', 'satz', 'wechsel'], digital: ['nd', 'm1'], leistung: ['lg', 'lj'] };
+  var ALLE = ['nd', 'm1', 'satz', 'wechsel', 'lg', 'lj'];
+  function zeigen() {
+    var met = $('afa-met').value;
+    ALLE.forEach(function (k) { $('w-' + k).classList.toggle('hide', SICHTBAR[met].indexOf(k) < 0); });
+  }
+  function liste(raw) {
+    var teile = String(raw).split(/[;\n]+|\s+/).filter(Boolean), v = [];
+    for (var i = 0; i < teile.length; i++) {
+      var r = BM.parseZahl(teile[i]);
+      if (r.err || r.leer) return { err: 'Jahresleistung Nr. ' + (i + 1) + ' („' + UI.esc(teile[i]) + '“) ist keine gültige Zahl. Werte mit Semikolon trennen, z. B. 20.000; 35.000; 25.000.' };
+      v.push(r.v);
+    }
+    return { v: v };
+  }
+  function calc() {
+    zeigen();
+    var met = $('afa-met').value, vis = SICHTBAR[met], a = { methode: met }, errs = [];
+    var F = [['ak', 'Anschaffungskosten'], ['rw', 'Restwert', 1], ['nd', 'Nutzungsdauer'], ['m1', 'Nutzungsmonate im 1. Jahr', 1], ['satz', 'Degressiver Satz'], ['lg', 'Gesamtleistung']];
+    F.forEach(function (f) {
+      var el = $('afa-' + f[0]);
+      if (f[0] !== 'ak' && f[0] !== 'rw' && vis.indexOf(f[0]) < 0) { UI.mark(el, false); return; }
+      var r = UI.lies('afa-' + f[0], f[1], f[2]);
+      UI.mark(el, !!r.err);
+      if (r.err) errs.push(r.err); else if (!r.leer) a[f[0]] = r.v;
+    });
+    if (met === 'geo') a.wechsel = $('afa-wechsel').checked;
+    if (met === 'leistung') {
+      var raw = $('afa-lj').value.trim();
+      if (!raw) { errs.push('Bitte die Leistung je Jahr eingeben.'); UI.mark($('afa-lj'), true); }
+      else { var l = liste(raw); UI.mark($('afa-lj'), !!l.err); if (l.err) errs.push(l.err); else a.lj = l.v; }
+    } else UI.mark($('afa-lj'), false);
+    var out = $('afa-out');
+    if (errs.length) { out.innerHTML = UI.err(errs.join(' ')); return; }
+    var r;
+    try { r = abschreibung(a); }
+    catch (e) { if (e instanceof BM.Fehler) { var el = $('afa-' + e.feld); if (el) UI.mark(el, true); out.innerHTML = UI.err(e.message); return; } throw e; }
+    var o = new UI.Out(), AK = tn(a.ak), RW = tn(a.rw || 0), rw0 = !a.rw;
+    var basis = rw0 ? AK : '(' + AK + '-' + RW + ')';
+    o.add('<div class="name">' + NAMEN[met] + '</div>');
+    if (met === 'linear') {
+      o.add('<div class="lbl">Rechenweg</div>').steps('AfA=\\dfrac{AK-RW}{ND}=\\dfrac{' + AK + '-' + RW + '}{' + r.N + '}' + teq(r.afaJahr, 0, 2));
+      if (r.m1 < 12) o.steps('AfA_1=AfA\\cdot\\dfrac{' + r.m1 + '}{12}=' + tn(r.afaJahr, 0, 4) + '\\cdot\\dfrac{' + r.m1 + '}{12}' + teq(r.afaErstes, 0, 2));
+      o.add(UI.big('Jährliche Abschreibung', eur(r.afaJahr), r.m1 < 12 ? 'Im 1. Jahr zeitanteilig ' + r.m1 + '/12: ' + eur(r.afaErstes) + '. Der Plan reicht deshalb bis ins Jahr ' + (r.N + 1) + '.' : null, 'afa-r-big'));
+    } else if (met === 'geo') {
+      var y1 = r.plan[0];
+      o.add('<div class="lbl">Rechenweg</div>').steps('AfA_1=AK\\cdot s' + (r.m1 < 12 ? '\\cdot\\dfrac{' + r.m1 + '}{12}' : '') + '=' + AK + '\\cdot ' + tn(r.satz) + '\\,\\%' + (r.m1 < 12 ? '\\cdot\\dfrac{' + r.m1 + '}{12}' : '') + teq(y1.afa, 0, 2));
+      o.steps('AfA_t=s\\cdot RBW_{t-1}');
+      if (r.w) {
+        var rnd = r.w.restM / 12, anteil = r.w.mon < 12 && r.w.mon !== r.w.restM;
+        o.add('<div class="lbl">Wechsel zur linearen Abschreibung im Jahr ' + r.w.jahr + '</div>');
+        o.steps('\\text{linear: }\\dfrac{RBW-RW}{RND}' + (anteil ? '\\cdot\\dfrac{' + r.w.mon + '}{12}' : '') + '=\\dfrac{' + tn(r.w.bw, 0, 2) + (rw0 ? '' : '-' + RW) + '}{' + tn(rnd, 0, 4) + '}' + (anteil ? '\\cdot\\dfrac{' + r.w.mon + '}{12}' : '') + teq(r.w.lin, 0, 2));
+        o.steps('\\text{degressiv: }s\\cdot RBW' + (r.w.mon < 12 ? '\\cdot\\dfrac{' + r.w.mon + '}{12}' : '') + '=' + tn(r.satz) + '\\,\\%\\cdot ' + tn(r.w.bw, 0, 2) + (r.w.mon < 12 ? '\\cdot\\dfrac{' + r.w.mon + '}{12}' : '') + teq(r.w.deg, 0, 2));
+        o.add('<p class="small">Ab Jahr ' + r.w.jahr + ' ist die lineare Verteilung des Restbuchwerts auf die Restnutzungsdauer (' + fmt(rnd, 0, 2) + ' Jahre) mindestens so hoch wie der degressive Betrag. Ab hier wird linear weiter abgeschrieben, bis ' + (rw0 ? '0 €' : 'zum Restwert') + ' erreicht ' + (rw0 ? 'sind' : 'ist') + '.</p>');
+        o.add(UI.big('Wechsel zur linearen Abschreibung', 'im Jahr ' + r.w.jahr, null, 'afa-r-big'));
+      } else if (!r.wechsel) {
+        var lz = r.plan[r.plan.length - 1];
+        o.add(UI.big('Restbuchwert im letzten Jahr abgeschrieben', eur(lz.afa), 'Ohne Wechsel bleibt bei geometrisch-degressiver Abschreibung immer ein Restbuchwert. Er wird hier im letzten Nutzungsjahr vollständig abgeschrieben.', 'afa-r-big'));
+      }
+    } else if (met === 'digital') {
+      o.add('<div class="lbl">Rechenweg</div>').steps('S=\\dfrac{N\\cdot(N+1)}{2}=\\dfrac{' + r.N + '\\cdot ' + (r.N + 1) + '}{2}=' + tn(r.S));
+      o.steps('D=\\dfrac{AK-RW}{S}=\\dfrac{' + AK + '-' + RW + '}{' + tn(r.S) + '}' + teq(r.D, 0, 2));
+      o.steps('AfA_t=D\\cdot(N-t+1)');
+      if (r.m1 < 12) o.steps('AfA_1=D\\cdot N\\cdot\\dfrac{' + r.m1 + '}{12}=' + tn(r.D, 0, 4) + '\\cdot ' + r.N + '\\cdot\\dfrac{' + r.m1 + '}{12}' + teq(r.D * r.N * r.m1 / 12, 0, 2));
+      else o.steps('AfA_1=D\\cdot N=' + tn(r.D, 0, 4) + '\\cdot ' + r.N + teq(r.D * r.N, 0, 2));
+      o.add(UI.big('Degressionsbetrag D', eur(r.D), 'Die Abschreibung sinkt jedes Jahr um diesen Betrag' + (r.m1 < 12 ? '; bei Anschaffung im Laufe des Jahres verteilt sich jeder Nutzungsjahresbetrag zeitanteilig auf zwei Kalenderjahre.' : '.'), 'afa-r-big'));
+    } else {
+      var l1 = r.plan[0];
+      o.add('<div class="lbl">Rechenweg</div>').steps('a=\\dfrac{AK-RW}{\\text{Gesamtleistung}}=\\dfrac{' + AK + '-' + RW + '}{' + tn(a.lg) + '}' + teq(r.satzEinheit, 0, 6));
+      o.steps('AfA_1=a\\cdot L_1=' + tn(r.satzEinheit, 0, 6) + '\\cdot ' + tn(l1.leistung) + teq(l1.afa, 0, 2));
+      o.add(UI.big('Abschreibung je Leistungseinheit', fmt(r.satzEinheit, 2, 6) + ' €', null, 'afa-r-big'));
+      if (r.summeLeistung < a.lg * (1 - 1e-12)) o.add('<p class="small"><strong>Die eingegebenen Jahresleistungen (' + fmt(r.summeLeistung, 0, 2) + ') schöpfen die Gesamtleistung (' + fmt(a.lg, 0, 2) + ') noch nicht aus. Es bleibt ein Restbuchwert von ' + eur(r.rest) + '.</strong></p>');
+    }
+    var summe = r.plan.reduce(function (s, z) { return s + z.afa; }, 0);
+    o.add(UI.big('Summe der Abschreibungen', eur(summe), null, 'afa-r-sum') + UI.big('Buchwert am Ende', eur(r.rest), null, 'afa-r-end'));
+    var hasL = met === 'leistung', hasArt = met === 'geo';
+    var th = '<tr><th scope="col">Jahr</th>' + (hasL ? '<th scope="col" class="n">Leistung</th>' : '') + '<th scope="col" class="n">Buchwert Anfang (€)</th><th scope="col" class="n">Abschrei&shy;bung (€)</th><th scope="col" class="n">Buchwert Ende (€)</th>' + (hasArt ? '<th scope="col">Methode</th>' : '') + '</tr>';
+    var tb = r.plan.map(function (z) {
+      return '<tr' + (r.w && z.jahr === r.w.jahr ? ' class="sw"' : '') + '><td>' + z.jahr + '</td>' + (hasL ? '<td class="n">' + fmt(z.leistung, 0, 2) + '</td>' : '') +
+        '<td class="n">' + fmt(z.bwA, 2) + '</td><td class="n">' + fmt(z.afa, 2) + '</td><td class="n">' + fmt(z.bwE, 2) + '</td>' + (hasArt ? '<td>' + z.art + '</td>' : '') + '</tr>';
+    }).join('');
+    o.add('<div class="lbl">Abschreibungsplan</div><div class="tw"><table class="dec plan" id="afa-plan"><thead>' + th + '</thead><tbody>' + tb + '</tbody></table></div>');
+    o.render(out);
+  }
+  ['afa-ak', 'afa-rw', 'afa-nd', 'afa-m1', 'afa-satz', 'afa-lg', 'afa-lj'].forEach(function (id) { $(id).addEventListener('input', calc); });
+  $('afa-met').addEventListener('change', calc);
+  $('afa-wechsel').addEventListener('change', calc);
+  document.querySelectorAll('button[data-afa]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var v = JSON.parse(b.getAttribute('data-afa'));
+      ['ak', 'rw', 'nd', 'm1', 'satz', 'lg', 'lj'].forEach(function (k) { $('afa-' + k).value = v[k] || ''; });
+      $('afa-met').value = v.met; $('afa-wechsel').checked = v.wechsel !== false;
+      calc();
+      $('rechner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  UI.renderStatic();
+  calc();
+})();
+</script>
 </body>
 </html>
