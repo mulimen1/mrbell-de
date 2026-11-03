@@ -1,56 +1,409 @@
 <!doctype html>
-<html lang="de" data-theme="light">
+<html lang="de">
 <head>
 <meta charset="utf-8">
-<script>/* Rechner-Seite: App mit geöffnetem Rechner */(function(){try{var h=location.hash||"";if(!/^#\/./.test(h))history.replaceState(null,"",location.pathname+location.search+"#/app/rechner/annuitaet")}catch(e){}window.BM_RS={title:"Annuitäten-Rechner mit Tilgungsplan: Rate, Zins und Tilgung | BWL Max"}})();</script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>/* bwlmax.de/start (YouTube-Demo): Startseite nicht aufblitzen lassen, Demo-Inhalte vorladen – start.js übernimmt */(function(){try{if(!/^\/start\/?$/.test(location.pathname)||/^#\/./.test(location.hash||''))return;document.documentElement.classList.add('bm-start');try{sessionStorage.setItem('tutor.hintShown','1')}catch(e){}var l=document.createElement('link');l.rel='preload';l.as='fetch';l.href='/tutor/data/demo/start.json?v=1';l.crossOrigin='anonymous';document.head.appendChild(l)}catch(e){}})();</script>
-<script>/* Themen-Einstieg (?thema=…): Startseite gar nicht erst zeigen – direkt die Themenseite */(function(){try{var m=location.search.match(/[?&](thema|q)=([^&#]+)/i);if(!m||/^#\/./.test(location.hash||''))return;var s=decodeURIComponent(m[2]).toLowerCase();if(m[1].toLowerCase()==='thema'&&sessionStorage.getItem('tutor.themaDone')===s)return;var d=document.documentElement;d.classList.add('m-eboot');setTimeout(function(){d.classList.remove('m-eboot')},9000);}catch(e){}})();</script>
-<style>html.m-eboot .seo-art,html.m-eboot #landing{display:none!important}html.m-eboot #landing,html.m-eboot #app,html.m-eboot .asst>:not(.ai-board),html.m-eboot .bmc,html.m-eboot .mtip2{visibility:hidden!important}html.m-eboot body{background:#fff}html.m-eboot body::after{content:"";position:fixed;left:50%;top:42%;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:3px solid #e6e6e8;border-top-color:#1f5138;animation:mebspin .8s linear infinite;z-index:2}@keyframes mebspin{to{transform:rotate(360deg)}}</style>
-<link rel="preload" as="image" href="/tutor/img/max-hair.webp?v=2" type="image/webp">
-<link rel="preload" as="image" href="/tutor/img/max-collar.webp?v=5" type="image/webp">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Annuitäten-Rechner mit Tilgungsplan: Rate, Zins und Tilgung | BWL Max</title>
 <meta name="description" content="Annuität berechnen: Rate, Kapitalwiedergewinnungsfaktor und vollständiger Tilgungsplan mit Zins und Tilgung je Jahr – exakt gerechnet, kostenlos.">
+<meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.bwlmax.de/rechner/annuitaeten-rechner">
-<meta name="theme-color" content="#ffffff">
-<link rel="icon" href="/tutor/img/bm-fav.ico?v=20" sizes="48x48">
-<link rel="icon" type="image/png" sizes="48x48" href="/tutor/img/bm-fav-48.png?v=20">
-<link rel="icon" type="image/png" sizes="96x96" href="/tutor/img/bm-fav-96.png?v=20">
-<link rel="icon" type="image/png" sizes="192x192" href="/tutor/img/bm-fav-192.png?v=20">
-<link rel="apple-touch-icon" href="/tutor/img/bm-fav-180.png?v=20">
 <meta property="og:title" content="Annuitäten-Rechner mit Tilgungsplan: Rate, Zins und Tilgung | BWL Max">
-<meta property="og:url" content="https://www.bwlmax.de/rechner/annuitaeten-rechner">
-<meta property="og:site_name" content="BWL Max">
-<meta name="application-name" content="BWL Max">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Annuitäten-Rechner", "url": "https://www.bwlmax.de/rechner/annuitaeten-rechner", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "description": "Annuität berechnen: Rate, Kapitalwiedergewinnungsfaktor und vollständiger Tilgungsplan mit Zins und Tilgung je Jahr – exakt gerechnet, kostenlos.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "publisher": {"@type": "Organization", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "citation": [{"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Annuitätenmethode", "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetenmethode-29301"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Annuität", "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaet-27107"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Investitionsrechnung", "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Wiedergewinnungsfaktor", "url": "https://wirtschaftslexikon.gabler.de/definition/wiedergewinnungsfaktor-49017"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Kapitalwert", "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalwert-39806"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Tilgungsplan", "url": "https://wirtschaftslexikon.gabler.de/definition/tilgungsplan-47815"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Annuitätendarlehen", "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796"}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BWL Max", "item": "https://www.bwlmax.de/"}, {"@type": "ListItem", "position": 2, "name": "Rechner", "item": "https://www.bwlmax.de/rechner"}, {"@type": "ListItem", "position": 3, "name": "Annuitäten-Rechner", "item": "https://www.bwlmax.de/rechner/annuitaeten-rechner"}]}]}</script>
 <meta property="og:description" content="Annuität berechnen: Rate, Kapitalwiedergewinnungsfaktor und vollständiger Tilgungsplan mit Zins und Tilgung je Jahr – exakt gerechnet, kostenlos.">
-<meta property="og:image" content="https://www.bwlmax.de/tutor/img/og-max.png?v=20">
+<meta property="og:url" content="https://www.bwlmax.de/rechner/annuitaeten-rechner">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tutor/jsb/app-RYMP5SKJ.css">
-<link rel="stylesheet" href="/tutor/jsb/m-shell-HGQEQZGL.css">
-<link rel="stylesheet" href="/tutor/jsb/m-board-I6F4YNLX.css">
-<link rel="stylesheet" href="/tutor/jsb/m-pages-QKJQ7M6A.css">
-<link rel="stylesheet" href="/tutor/css/seo-art.css?v=38">
-<link rel="stylesheet" href="/tutor/jsb/trainer-BFUW4BMC.css">
-<style>html.preload{background:#000}html.preload[data-theme=light]{background:#fff}html.preload body{opacity:0}html body{transition:opacity .25s ease}</style>
-<script>document.documentElement.classList.add('preload');setTimeout(function(){document.documentElement.classList.remove('preload')},2500);</script>
-<script>document.documentElement.dataset.theme='light';try{var t=sessionStorage.getItem('tutor.theme');if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}var c='navy';try{var v=localStorage.getItem('tutor.accent');if(v!=null&&v!=='gelb')c=v}catch(e){}if(c&&c!=='std'&&/^[a-z]{3,12}$/.test(c))document.documentElement.dataset.accent=c;try{if(localStorage.getItem('bm.skin')!=='alt')document.documentElement.dataset.nv='1'}catch(e){document.documentElement.dataset.nv='1'}try{var a=JSON.parse(localStorage.getItem('tutor.account')||'null');if(a&&/^bendeschler0@gmail\.com$/i.test(a.email||''))document.documentElement.dataset.ben='1'}catch(e){}</script>
+<meta property="og:site_name" content="BWL Max">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Annuitäten-Rechner", "url": "https://www.bwlmax.de/rechner/annuitaeten-rechner", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "description": "Annuität berechnen: Rate, Kapitalwiedergewinnungsfaktor und vollständiger Tilgungsplan mit Zins und Tilgung je Jahr – exakt gerechnet, kostenlos.", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "BWL Max"}, "citation": [{"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Annuitätenmethode", "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetenmethode-29301"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Annuität", "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaet-27107"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Investitionsrechnung", "url": "https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Wiedergewinnungsfaktor", "url": "https://wirtschaftslexikon.gabler.de/definition/wiedergewinnungsfaktor-49017"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Kapitalwert", "url": "https://wirtschaftslexikon.gabler.de/definition/kapitalwert-39806"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Tilgungsplan", "url": "https://wirtschaftslexikon.gabler.de/definition/tilgungsplan-47815"}, {"@type": "CreativeWork", "name": "Gabler Wirtschaftslexikon: Annuitätendarlehen", "url": "https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796"}]}</script>
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="/tutor/vendor/katex@0.16.47/katex.min.css">
+<style>
+:root{--bg:#fff;--fg:#1b1d20;--muted:#585f69;--line:#d9dde2;--soft:#f3f5f7;--accent:#1d5a4a;--accent-soft:#e3efea;--warn:#8a4b00;--warn-soft:#fdf3e4;--ok:#1d6b3a;--bad:#a1281e;--zebra:#f8f9fa}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e7e9ec;--muted:#a5abb4;--line:#30353c;--soft:#1b1f23;--accent:#83cdb3;--accent-soft:#1a2e28;--warn:#f0b25e;--warn-soft:#2b2216;--ok:#7fd49c;--bad:#ff9a8f;--zebra:#171a1d}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.75rem;line-height:1.25;margin:.2em 0 .5em}
+h2{font-size:1.3rem;margin:2.2em 0 .6em;padding-top:.4em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .5em}
+p{margin:.5em 0 .9em}
+ul,ol{padding-left:1.3em}
+li{margin:.2em 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lead{color:var(--muted);max-width:70ch}
+nav.toc{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:1.2em 0}
+nav.toc ol{margin:.3em 0 0;padding-left:1.3em;columns:2;column-gap:2em}
+nav.toc li{margin:.15em 0;break-inside:avoid}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;margin:1em 0;font-size:.95rem}
+.calcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--bg);min-width:0}
+.card h3{margin-top:0}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:.4em 0}
+.row label{display:flex;flex-direction:column;font-size:.85rem;color:var(--muted);flex:1 1 80px;min-width:0}
+.row label{justify-content:flex-end}
+.row label.wide{flex-basis:100%}
+.row label.half{flex:1 1 140px}
+.row label.mid{flex:1 1 200px}
+input,select{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;width:100%;min-width:0}
+input[aria-invalid=true]{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+fieldset.opt{border:1px solid var(--line);border-radius:8px;padding:6px 12px 8px;margin:.5em 0;min-width:0}
+fieldset.opt legend{font-size:.85rem;color:var(--muted);padding:0 4px}
+fieldset.opt label{display:inline-flex;align-items:center;gap:6px;margin-right:18px;cursor:pointer}
+fieldset.opt input{width:auto;margin:0}
+fieldset.opt .row{margin:.2em 0 .1em}
+fieldset.opt .row label{display:flex;flex-direction:column;align-items:stretch;gap:0;margin-right:0;cursor:auto}
+fieldset.opt .row input{width:100%}
+.steps.defs{column-gap:1.6em}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 12px}
+.main{max-width:none}
+.out{margin-top:.6em;background:var(--soft);border-radius:8px;padding:10px 12px;font-variant-numeric:tabular-nums;min-height:2.4em;overflow-wrap:anywhere}
+.out .err{color:var(--bad)}
+.out .name{font-weight:600;color:var(--accent);margin-bottom:.2em}
+.out .lbl{font-size:.8rem;color:var(--muted);margin-top:.5em}
+.steps{display:flex;flex-wrap:wrap;align-items:center;column-gap:.35em;row-gap:.3em;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.steps>span{display:inline-block;max-width:100%}
+.big{display:flex;justify-content:space-between;align-items:baseline;gap:4px 12px;flex-wrap:wrap;margin-top:.6em;padding-top:.5em;border-top:1px solid var(--line)}
+.big b{font-size:1.25rem;font-weight:700}
+.big b.long{font-size:1rem;font-weight:600;word-break:break-all}
+.out details{margin-top:.4em}
+.out details summary{cursor:pointer;color:var(--accent);font-size:.9rem}
+.digits{font-size:.85rem;word-break:break-all;max-height:14em;overflow-y:auto;margin-top:.3em}
+.small{font-size:.85rem;color:var(--muted)}
+.out .small{margin:.5em 0 0}
+.out .ok{color:var(--ok)}
+.out .bad{color:var(--bad)}
+button{font:inherit;border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:6px;padding:5px 11px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+.d{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;column-gap:.35em;row-gap:.3em;overflow-x:auto;overflow-y:hidden;margin:.5em 0;padding:2px 0}
+.d>span{display:inline-block;max-width:100%}
+.d .katex,.steps .katex{white-space:nowrap}
+.tw{overflow-x:auto;margin:.8em 0 1.4em;-webkit-overflow-scrolling:touch}
+.out .tw{margin:.6em 0 .3em}
+table.dec{border-collapse:collapse;width:100%;font-size:.92rem}
+table.dec th,table.dec td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+table.dec thead th{background:var(--soft)}
+table.dec tbody th{background:var(--soft);font-weight:600}
+table.dec td b{display:block;color:var(--accent)}
+table.dec .f{display:block;margin:.35em 0 .25em}
+table.dec .ex{display:block;font-size:.85rem;color:var(--muted)}
+table.num{border-collapse:collapse;width:100%;font-size:.92rem;font-variant-numeric:tabular-nums;background:var(--bg)}
+table.num th,table.num td{border:1px solid var(--line);padding:6px 9px;text-align:right;white-space:nowrap}
+table.num thead th{background:var(--soft);font-weight:600;white-space:normal;vertical-align:bottom}
+table.num th:first-child,table.num td:first-child{text-align:left}
+table.num tbody tr:nth-child(even) td{background:var(--zebra)}
+table.num tfoot td{font-weight:600;background:var(--soft)}
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:16px}
+.ex-grid .card p{margin:.3em 0 .6em}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:0 .55em;vertical-align:1px}
+.src{font-size:.85rem;color:var(--muted)}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+@media (max-width:600px){nav.toc ol{columns:1}h1{font-size:1.45rem}table.dec{font-size:.85rem}table.dec th,table.dec td{padding:6px 6px}table.num{font-size:.85rem}table.num th,table.num td{padding:5px 6px}}
+@media print{
+ @page{size:A4;margin:12mm 11mm}
+ :root{--bg:#fff;--fg:#000;--muted:#333;--line:#999;--soft:#eee;--zebra:#f6f6f6;--accent:#000}
+ body{font-size:10pt}
+ .wrap{max-width:none;padding:0}
+ .noprint,nav.toc{display:none!important}
+ header .lead{display:none}
+ h1{font-size:15pt;margin:0 0 .3em}
+ h2{margin:1.2em 0 .4em}
+ .card,table.dec tr,table.num tr{break-inside:avoid}
+ .note{border:1px solid #999;background:none}
+ a{color:#000;text-decoration:none}
+ footer{margin-top:1em}
+}
+</style>
 </head>
 <body>
+<div class="wrap">
+<header>
+<h1>Annuitäten-Rechner mit Tilgungsplan</h1>
+<p class="lead">Kreditbetrag, Zinssatz und Laufzeit eingeben: Der Rechner zeigt den Annuitätenfaktor (Kapitalwiedergewinnungsfaktor), die gleichbleibende jährliche Rate mit eingesetzter Formel und den vollständigen Tilgungsplan mit Restschuld, Zins und Tilgung je Jahr samt Summen. Gedacht für Finanzierung, Investitionsrechnung (Annuitätenmethode) und Finanzmathematik im Studium.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+</header>
 
-<!-- ================= LANDING ================= -->
-<div id="landing" class="hidden"></div>
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#rechner">Rechner</a></li>
+<li><a href="#formeln">Formeln</a></li>
+<li><a href="#beispiele">Klausurbeispiele mit Lösung</a></li>
+<li><a href="#grundlagen">Grundlagen</a></li>
+<li><a href="#faq">Häufige Fragen</a></li>
+<li><a href="#hinweise">Hinweise</a></li>
+</ol>
+</nav>
 
-  <!-- ================= APP ================= -->
-<div id="app" class="hidden"></div>
+<section id="rechner" aria-labelledby="h-rechner">
+<h2 id="h-rechner">Rechner</h2>
+<p class="small">Betrag in Euro, Zinssatz in Prozent pro Jahr, Laufzeit in ganzen Jahren (1 bis 100). Komma und Punkt als Dezimalzeichen sind erlaubt, Tausenderpunkte auch. Das Ergebnis wird beim Tippen aktualisiert.</p>
+<form class="card main" id="c-an" onsubmit="return false">
+<div class="row">
+<label class="mid">Kreditbetrag bzw. Barwert K₀ (€)<input id="a-k" inputmode="decimal" autocomplete="off" value="50.000"></label>
+<label>Zinssatz i (% p. a.)<input id="a-zins" inputmode="decimal" autocomplete="off" value="5"></label>
+<label>Laufzeit n (Jahre)<input id="a-n" inputmode="numeric" autocomplete="off" value="5"></label>
+</div>
+<div class="out" id="a-out" aria-live="polite"></div>
+</form>
+</section>
 
-<noscript><p style="padding:40px;text-align:center">Bitte aktiviere JavaScript, um BWL Max zu nutzen.</p></noscript>
-<script>(function(){if(/(^|\.)bwlmax\.de$/.test(location.hostname))document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});})();</script>
-<script src="/tutor/js/consent.js?v=27"></script>
-<!--jsb--><link rel="modulepreload" href="/tutor/jsb/c-2C2TTIQH.js"><link rel="modulepreload" href="/tutor/jsb/c-OVX7NP3R.js"><link rel="modulepreload" href="/tutor/jsb/c-6WBDRWZE.js"><link rel="modulepreload" href="/tutor/jsb/c-ZQ37HMO5.js"><link rel="modulepreload" href="/tutor/jsb/c-DSOK5TTJ.js"><link rel="modulepreload" href="/tutor/jsb/c-CYVSFYYJ.js"><link rel="modulepreload" href="/tutor/jsb/c-LSOEINMT.js"><link rel="modulepreload" href="/tutor/jsb/c-LEXHD3JY.js"><link rel="modulepreload" href="/tutor/jsb/c-UEPRKOCD.js"><link rel="modulepreload" href="/tutor/jsb/c-W6RFOY5Q.js"><link rel="modulepreload" href="/tutor/jsb/c-NFX6TAXH.js"><link rel="modulepreload" href="/tutor/jsb/c-P32TUP2I.js"><link rel="modulepreload" href="/tutor/jsb/c-RPDRBMNP.js"><link rel="modulepreload" href="/tutor/jsb/c-KLUKKACI.js"><link rel="modulepreload" href="/tutor/jsb/c-52BRSFB2.js"><link rel="modulepreload" href="/tutor/jsb/c-X7WE34EP.js"><link rel="modulepreload" href="/tutor/jsb/c-ULMPOXNU.js"><link rel="modulepreload" href="/tutor/jsb/c-UG3ZIXHS.js"><link rel="modulepreload" href="/tutor/jsb/c-PGPPBS4R.js"><link rel="modulepreload" href="/tutor/jsb/c-FDGOEWAF.js"><link rel="modulepreload" href="/tutor/jsb/c-LRJWSC56.js"><link rel="modulepreload" href="/tutor/jsb/c-MZZW4YF2.js"><link rel="modulepreload" href="/tutor/jsb/c-HRXBZO66.js"><link rel="modulepreload" href="/tutor/jsb/c-H5ZHLGKR.js"><link rel="modulepreload" href="/tutor/jsb/c-UT6EKMZO.js"><link rel="modulepreload" href="/tutor/jsb/c-NDEXS7CY.js"><link rel="modulepreload" href="/tutor/jsb/c-2RRJ4ZYG.js"><link rel="modulepreload" href="/tutor/jsb/c-XLWJWL3T.js"><link rel="modulepreload" href="/tutor/jsb/c-UWHMDSVS.js"><link rel="modulepreload" href="/tutor/jsb/c-J3FAECVJ.js"><link rel="modulepreload" href="/tutor/jsb/c-5WHP4HDV.js"><link rel="modulepreload" href="/tutor/jsb/c-5DFPBDFC.js"><link rel="modulepreload" href="/tutor/jsb/c-KGGPI3XA.js"><link rel="modulepreload" href="/tutor/jsb/c-VRR3EQJV.js"><link rel="modulepreload" href="/tutor/jsb/c-K4LZ4NHB.js"><link rel="modulepreload" href="/tutor/jsb/c-5W55UXSB.js"><link rel="modulepreload" href="/tutor/jsb/c-HPNKIKAI.js"><link rel="modulepreload" href="/tutor/jsb/c-7NEUG36I.js"><link rel="modulepreload" href="/tutor/jsb/c-BMAK3GSY.js"><link rel="modulepreload" href="/tutor/jsb/c-6TB7PQXP.js"><link rel="modulepreload" href="/tutor/jsb/c-YXEGSOWY.js"><link rel="modulepreload" href="/tutor/jsb/c-UEFMRCCN.js"><link rel="modulepreload" href="/tutor/jsb/c-2ZYZ7ZRF.js"><link rel="modulepreload" href="/tutor/jsb/c-6LOS4T3P.js"><link rel="modulepreload" href="/tutor/jsb/c-QEISDQCZ.js"><link rel="modulepreload" href="/tutor/jsb/c-SSCWVJV6.js"><link rel="modulepreload" href="/tutor/jsb/c-PH3TFO2U.js"><link rel="modulepreload" href="/tutor/jsb/c-FRCTEIMO.js"><link rel="modulepreload" href="/tutor/jsb/c-BACIG7JQ.js"><link rel="modulepreload" href="/tutor/jsb/c-23S6CPHL.js"><link rel="modulepreload" href="/tutor/jsb/c-4V5XZVGQ.js"><link rel="modulepreload" href="/tutor/jsb/c-6Q3DAHYV.js"><link rel="modulepreload" href="/tutor/jsb/c-WGUD3K7P.js"><link rel="modulepreload" href="/tutor/jsb/c-F4ETRBDL.js"><link rel="modulepreload" href="/tutor/jsb/c-P2RKGPSP.js"><link rel="modulepreload" href="/tutor/jsb/c-IEL3S6BZ.js"><link rel="modulepreload" href="/tutor/jsb/c-MNY5MLMG.js"><link rel="modulepreload" href="/tutor/jsb/c-QXXRVPLD.js"><link rel="modulepreload" href="/tutor/jsb/c-UWX3ONCN.js"><link rel="modulepreload" href="/tutor/jsb/c-62ZVRRM6.js"><link rel="modulepreload" href="/tutor/jsb/c-YXEEXAMV.js"><!--/jsb--><script type="module" src="/tutor/jsb/main-YHWZ2ULS.js"></script>
-<script type="module">import { mathify } from '/tutor/js/math.js'; document.querySelectorAll('#landing .calc, #landing .mini-quiz, #landing .flip').forEach(el => mathify(el));</script>
-<section id="seo-art" class="seo-art" aria-label="Annuitäten-Rechner"><main class="ln"><div class="lg-eyebrow">Rechner · kostenlos · ohne Werbung</div><h1>Annuitäten-Rechner mit Tilgungsplan</h1><p class="ln-meta">Exakt gerechnet mit dem Rechen-Algorithmus von BWL Max · Stand Oktober 2026</p><div class="ln-kurz"><b>Was der Rechner kann</b><p>Du gibst Darlehensbetrag, Zinssatz und Laufzeit ein. Der Rechner zeigt die gleichbleibende Rate (Annuität), den Kapitalwiedergewinnungsfaktor und den Tilgungsplan mit Zins, Tilgung und Restschuld je Jahr.</p></div><p><a class="btn primary" href="/#/app/rechner/annuitaet">Rechner öffnen</a></p><section><h2 id="grundlagen">Das steckt dahinter</h2><p>Die Grundlagen, belegt mit festen Quellen aus unserer Faktendatenbank:</p><ul><li>Die Annuitätenmethode vergleicht Investitionsprojekte anhand ihrer Annuität, einer gleichbleibenden Zahlung in regelmäßigen Abständen; sie entsteht, indem der Kapitalwert mit dem Annuitäten- bzw. Wiedergewinnungsfaktor multipliziert wird. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/annuitaetenmethode-29301" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Annuitätenmethode</a></small></li><li>Bei einem Annuitätendarlehen ist die Gesamtzahlung konstant; sie besteht aus Zins- und Tilgungsanteil, wobei der Zinsanteil anfangs hoch ist und der Tilgungsanteil später steigt. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/annuitaet-27107" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Annuität</a></small></li><li>Die Annuitätenmethode ermittelt das in Währungseinheiten ausgedrückte jährliche Einkommen, das der Investor durch das Projekt zusätzlich erzielt. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Investitionsrechnung</a></small></li><li>Der Wiedergewinnungsfaktor (Annuitäten- bzw. Kapitaldienstfaktor) formt eine Zahlungsgröße in eine Reihe gleich hoher Zahlungen in gleichen Abständen um; seine Höhe hängt von Zinssatz i und Laufzeit n ab. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/wiedergewinnungsfaktor-49017" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Wiedergewinnungsfaktor</a></small></li><li>Der Kapitalwert ist der Barwert sämtlicher durch ein Investitionsprojekt ausgelösten Aus- und Einzahlungen. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/kapitalwert-39806" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Kapitalwert</a></small></li><li>Ein Tilgungsplan ist die zahlenmäßige Darstellung des Rückzahlungsvorgangs einer Schuld (z. B. Darlehen oder Anleihe), die in Teilbeträgen, den Tilgungsraten, zurückgezahlt wird. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/tilgungsplan-47815" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Tilgungsplan</a></small></li><li>Die Annuität ist die vereinbarte jährliche, gleichbleibende Rate für eine Kapitalschuld und setzt sich aus Zins- und Tilgungsanteil zusammen: Annuität = Zinsen + Tilgung. <small>– <a href="https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Annuitätendarlehen</a></small></li></ul></section><section><h2 id="lernen">Zum Lernen</h2><ul><li><a href="/lernen/tilgungsplan">Tilgungsplan einfach erklärt: Annuitäten- und Ratendarlehen</a></li><li><a href="/lernen/annuitaetenmethode">Annuitätenmethode einfach erklärt</a></li><li><a href="/lernen/rentenbarwertfaktor">Rentenbarwertfaktor einfach erklärt</a></li><li><a href="/lernen/zinsrechnung">Zinsrechnung einfach erklärt</a></li></ul></section><section><h2 id="verlinken">Rechner verlinken</h2><p>Du willst den Rechner in deinem Skript, Blog oder auf der Seite deiner Fachschaft empfehlen? Kopier einfach diesen Link:</p><pre class="ln-code">&lt;a href=&quot;https://www.bwlmax.de/rechner/annuitaeten-rechner&quot;&gt;Annuitäten-Rechner von BWL Max&lt;/a&gt;</pre></section></main></section>
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">Formeln</h2>
+<div class="calcs">
+<div class="card">
+<h3>Annuität</h3>
+<p>Die Annuität A ist die gleichbleibende jährliche Zahlung, die einen Betrag K₀ in n Jahren samt Zinsen zurückzahlt (nachschüssig, Zahlung am Jahresende):</p>
+<div class="d">A=K_0\cdot\frac{q^n\cdot i}{q^n-1},\quad q=1+i</div>
+<p>Der Bruch heißt Annuitätenfaktor, Kapitalwiedergewinnungsfaktor (KWF) oder Wiedergewinnungsfaktor. Er ist der Kehrwert des Rentenbarwertfaktors:</p>
+<div class="d">\text{KWF}=\frac{q^n\cdot i}{q^n-1}=\frac{1}{\text{RBF}}</div>
+<p class="small">Bei 0 % Zins ist KWF = 1/n, die Rate also einfach K₀/n.</p>
+</div>
+<div class="card">
+<h3>Tilgungsplan</h3>
+<p>Jedes Jahr gilt mit der Restschuld K<sub>t−1</sub> zu Jahresbeginn:</p>
+<div class="d">Z_t=K_{t-1}\cdot i</div>
+<div class="d">T_t=A-Z_t</div>
+<div class="d">K_t=K_{t-1}-T_t</div>
+<p>Die Zinsen sinken, weil die Restschuld sinkt; die Tilgung steigt jedes Jahr um den Faktor q. Nach n Jahren ist die Restschuld null.</p>
+<div class="d">T_1=A-K_0\cdot i,\quad T_t=T_1\cdot q^{t-1}</div>
+</div>
+</div>
+</section>
+
+<section id="beispiele" aria-labelledby="h-bsp">
+<h2 id="h-bsp">Klausurbeispiele mit Lösung</h2>
+<div class="ex-grid">
+<div class="card">
+<h3>Darlehen über 50.000 €</h3>
+<p>Ein Unternehmen nimmt ein Annuitätendarlehen über 50.000 € zu 5 % für 5 Jahre auf. Wie hoch ist die jährliche Annuität und wie viel Zinsen fallen insgesamt an?</p>
+<div class="d">\text{KWF}=\frac{1{,}05^{5}\cdot 0{,}05}{1{,}05^{5}-1}=\frac{1{,}276282\cdot 0{,}05}{0{,}276282}=0{,}230975</div>
+<div class="d">A=50{.}000\cdot 0{,}230975\approx 11{.}548{,}74</div>
+<p class="small">Im ersten Jahr sind 2.500,00 € Zinsen und 9.048,74 € Tilgung enthalten. Insgesamt werden 5 · 11.548,74 € = 57.743,70 € gezahlt, davon 7.743,70 € Zinsen.</p>
+<p class="noprint"><button type="button" data-ex="1">Im Rechner nachrechnen</button></p>
+</div>
+<div class="card">
+<h3>Annuitätenmethode: Kapitalwert verrenten</h3>
+<p>Eine Investition hat bei 8 % Kalkulationszins und 4 Jahren Nutzungsdauer einen Kapitalwert von 7.913,67 €. Wie hoch ist der jährliche Überschuss (Annuität)?</p>
+<div class="d">\text{KWF}=\frac{1{,}08^{4}\cdot 0{,}08}{1{,}08^{4}-1}=0{,}301921</div>
+<div class="d">A=7{.}913{,}67\cdot 0{,}301921\approx 2{.}389{,}30</div>
+<p class="small">Die Investition bringt also jedes Jahr 2.389,30 € mehr als die Anlage zum Kalkulationszins. Eine positive Annuität heißt: vorteilhaft.</p>
+<p class="noprint"><button type="button" data-ex="2">Im Rechner nachrechnen</button></p>
+</div>
+</div>
+</section>
+
+<section id="grundlagen" aria-labelledby="h-grundlagen">
+<h2 id="h-grundlagen">Grundlagen</h2>
+<ul>
+<li>Die Annuität ist die vereinbarte jährliche, gleichbleibende Rate für eine Kapitalschuld und setzt sich aus Zins- und Tilgungsanteil zusammen: Annuität = Zinsen + Tilgung. <span class="src">Quelle: <a href="https://wirtschaftslexikon.gabler.de/definition/annuitaetendarlehen-52796" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Annuitätendarlehen</a></span></li>
+<li>Bei einem Annuitätendarlehen ist die Gesamtzahlung konstant; sie besteht aus Zins- und Tilgungsanteil, wobei der Zinsanteil anfangs hoch ist und der Tilgungsanteil später steigt. <span class="src">Quelle: <a href="https://wirtschaftslexikon.gabler.de/definition/annuitaet-27107" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Annuität</a></span></li>
+<li>Der Wiedergewinnungsfaktor (Annuitäten- bzw. Kapitaldienstfaktor) formt eine Zahlungsgröße in eine Reihe gleich hoher Zahlungen in gleichen Abständen um; seine Höhe hängt von Zinssatz i und Laufzeit n ab. <span class="src">Quelle: <a href="https://wirtschaftslexikon.gabler.de/definition/wiedergewinnungsfaktor-49017" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Wiedergewinnungsfaktor</a></span></li>
+<li>Ein Tilgungsplan ist die zahlenmäßige Darstellung des Rückzahlungsvorgangs einer Schuld (z. B. Darlehen oder Anleihe), die in Teilbeträgen, den Tilgungsraten, zurückgezahlt wird. <span class="src">Quelle: <a href="https://wirtschaftslexikon.gabler.de/definition/tilgungsplan-47815" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Tilgungsplan</a></span></li>
+<li>Die Annuitätenmethode vergleicht Investitionsprojekte anhand ihrer Annuität, einer gleichbleibenden Zahlung in regelmäßigen Abständen; sie entsteht, indem der Kapitalwert mit dem Annuitäten- bzw. Wiedergewinnungsfaktor multipliziert wird. <span class="src">Quelle: <a href="https://wirtschaftslexikon.gabler.de/definition/annuitaetenmethode-29301" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Annuitätenmethode</a></span></li>
+<li>Die Annuitätenmethode ermittelt das in Währungseinheiten ausgedrückte jährliche Einkommen, das der Investor durch das Projekt zusätzlich erzielt. <span class="src">Quelle: <a href="https://wirtschaftslexikon.gabler.de/definition/investitionsrechnung-41465" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Investitionsrechnung</a></span></li>
+<li>Der Kapitalwert ist der Barwert sämtlicher durch ein Investitionsprojekt ausgelösten Aus- und Einzahlungen. <span class="src">Quelle: <a href="https://wirtschaftslexikon.gabler.de/definition/kapitalwert-39806" target="_blank" rel="noopener">Gabler Wirtschaftslexikon: Kapitalwert</a></span></li>
+</ul>
+</section>
+
+<section id="faq" aria-labelledby="h-faq">
+<h2 id="h-faq">Häufige Fragen</h2>
+<h3>Was ist der Unterschied zwischen Annuitäten- und Ratendarlehen?</h3>
+<p>Beim Annuitätendarlehen ist die Gesamtzahlung (Zins plus Tilgung) jedes Jahr gleich, die Tilgung steigt. Beim Ratendarlehen ist die Tilgung jedes Jahr gleich (K₀/n), die Gesamtzahlung sinkt, weil die Zinsen sinken.</p>
+<h3>Warum stimmt die Summe der gerundeten Zeilen manchmal nicht auf den Cent?</h3>
+<p>Der Rechner rechnet intern ungerundet und rundet erst für die Anzeige. Addiert man die gerundeten Werte einer Spalte, kann deshalb ein Cent Differenz entstehen. In der Praxis gleicht die Bank das mit einer leicht angepassten Schlussrate aus.</p>
+<h3>Wie nutze ich den Rechner für die Annuitätenmethode?</h3>
+<p>Trage als K₀ den Kapitalwert der Investition ein, dazu Kalkulationszins und Nutzungsdauer. Die angezeigte Annuität ist dann der durchschnittliche jährliche Überschuss der Investition. Den Tilgungsplan brauchst du dafür nicht.</p>
+<h3>Wie rechne ich mit monatlichen Raten?</h3>
+<p>Der Rechner arbeitet mit Jahreszahlungen. Für eine Näherung mit Monatsraten trägst du den Monatszins (Jahreszins / 12) als Zinssatz und die Anzahl der Monate als Laufzeit ein; die Zeilen sind dann Monate statt Jahre. Für mehr als 100 Monate reicht das Laufzeitfeld nicht.</p>
+</section>
+
+<section id="hinweise" aria-labelledby="h-hinweise">
+<h2 id="h-hinweise">Hinweise</h2>
+<ul>
+<li>Gerechnet wird nachschüssig: Zinsen und Tilgung werden am Ende jedes Jahres gezahlt, die erste Rate ein Jahr nach Auszahlung.</li>
+<li>Der Annuitätenfaktor wird auf sechs Nachkommastellen angezeigt, die Annuität aber mit dem ungerundeten Faktor berechnet. Rechnest du von Hand mit dem gerundeten Faktor, kann das Ergebnis um einen Cent abweichen.</li>
+<li>Zinssätze zwischen −99,99 % und 1.000 % sind möglich, die Laufzeit muss eine ganze Zahl von 1 bis 100 sein.</li>
+</ul>
+</section>
+
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+
+<script src="/tutor/vendor/katex@0.16.47/katex.min.js"></script>
+<script>
+// MATH-START
+var ANR = (function () {
+  'use strict';
+  // kaufmännisch runden auf dem Dezimalwert (1,005 → 1,01), nicht auf der Binärdarstellung
+  function R(x, d) {
+    if (d === undefined) d = 4;
+    if (typeof x !== 'number' || !isFinite(x) || Math.abs(x) >= 1e15) return x;
+    var p = Math.abs(x).toPrecision(15).split('e'), m = p[0], e = +(p[1] || 0);
+    var r = Number(Math.round(Number(m + 'e' + (e + d))) + 'e-' + d);
+    return x < 0 ? -r : r;
+  }
+  // Zahl aus deutscher oder englischer Schreibweise; {v} oder {err} oder {leer}
+  function zahl(raw, name, opt) {
+    opt = opt || {};
+    var roh = String(raw == null ? '' : raw).trim();
+    var s = roh.replace(/[\s  ']/g, '').replace(/[€%]/g, '').replace(/^[−–]/, '-');
+    if (s === '') return opt.optional ? { leer: true } : { err: 'Bitte ' + name + ' eingeben.' };
+    var neg = false;
+    if (s.charAt(0) === '-' || s.charAt(0) === '+') { neg = s.charAt(0) === '-'; s = s.slice(1); }
+    var t = null;
+    if (!opt.pct && /^\d{1,3}(\.\d{3})+(,\d+)?$/.test(s)) t = s.replace(/\./g, '').replace(',', '.');   // 100.000 / 1.250,50
+    else if (/^\d+,\d+$|^\d+$|^,\d+$/.test(s)) t = s.replace(',', '.');                                     // 1250,5
+    else if (/^\d+\.\d+$|^\.\d+$/.test(s)) t = s;                                                          // 1250.5
+    else if (/^\d{1,3}(,\d{3})+\.\d+$/.test(s)) t = s.replace(/,/g, '');                                   // 1,250.50
+    else if (opt.pct && /^\d{1,3}(\.\d{3})+,\d+$/.test(s)) t = s.replace(/\./g, '').replace(',', '.');
+    if (t === null) return { err: name + ': „' + roh + '“ ist keine gültige Zahl (Beispiele: 1.250,50 oder 1250.5).' };
+    var v = Number(t);
+    if (!isFinite(v)) return { err: name + ': „' + roh + '“ ist keine gültige Zahl.' };
+    return { v: neg ? -v : v };
+  }
+  function need(ok, msg) { if (!ok) throw new Error(msg); }
+  var qn1 = function (i, n) { return Math.expm1(n * Math.log1p(i)); };   // (1 + i)^n − 1, auch für sehr kleine Zinsen genau
+
+  function annuitaet(K, iPct, n) {
+    var i = iPct / 100;
+    need(K >= 0, 'Der Kreditbetrag darf nicht negativ sein.');
+    need(i > -1 && i <= 10, 'Der Zinssatz muss zwischen −99,99 % und 1.000 % liegen.');
+    need(Math.abs(n - Math.round(n)) < 1e-9, 'Die Laufzeit muss eine ganze Zahl von Jahren sein.');
+    n = Math.round(n);
+    need(n >= 1 && n <= 100, 'Die Laufzeit muss zwischen 1 und 100 Jahren liegen.');
+    var g = qn1(i, n), qn = g + 1, kwf = i === 0 ? 1 / n : i * qn / g, A = K * kwf;
+    var plan = [], rs = K, sz = 0, st = 0;
+    for (var t = 1; t <= n; t++) {
+      var z = rs * i, tg = A - z, ende = rs - tg;
+      if (t === n || Math.abs(ende) < 0.005) { if (Math.abs(ende) < Math.max(0.005, Math.abs(K) * 1e-9)) ende = 0; }
+      plan.push({ jahr: t, restschuld_anfang: rs, zinsen: z, tilgung: tg, annuitaet: A, restschuld_ende: ende });
+      sz += z; st += tg; rs = rs - tg;
+    }
+    return { i: i, n: n, q: 1 + i, qn: qn, kwf: kwf, rbf: 1 / kwf, annuitaet: A, plan: plan,
+      summe_zinsen: n * A - K, summe_tilgung: K, summe_annuitaet: n * A, summe_zinsen_zeilen: sz, summe_tilgung_zeilen: st };
+  }
+  function nfmt(x, d) {
+    var r = R(x, d);
+    if (Math.abs(r) < 0.5 * Math.pow(10, -d)) r = 0;
+    return new Intl.NumberFormat('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d }).format(r).replace('-', '−');
+  }
+  function nvar(x, max) {
+    var r = R(x, max || 8);
+    if (r === 0) r = 0;
+    return new Intl.NumberFormat('de-DE', { maximumFractionDigits: max || 8 }).format(r).replace('-', '−');
+  }
+  return { R: R, zahl: zahl, annuitaet: annuitaet, nfmt: nfmt, nvar: nvar };
+})();
+// MATH-END
+
+(function () {
+  'use strict';
+  var M = ANR;
+  function $(id) { return document.getElementById(id); }
+  function err(msg) { return '<span class="err">' + msg + '</span>'; }
+  function mark(el, bad) { el.setAttribute('aria-invalid', bad ? 'true' : 'false'); }
+  var eur = function (x) { return M.nfmt(x, 2) + ' €'; };
+  var pc = function (x, d) { return M.nfmt(x, d === undefined ? 2 : d) + ' %'; };
+  function tx(s) { return s.replace(/−/g, '-').replace(/\./g, '{.}').replace(/,/g, '{,}'); }
+  function tn(x, d) { return tx(M.nfmt(x, d === undefined ? 2 : d)); }
+  function tv(x, max) { return tx(M.nvar(x, max)); }
+  function tm(x) { return tn(x, Number.isInteger(M.R(x, 2)) ? 0 : 2); }
+  function tp(s) { return s.charAt(0) === '-' ? '(' + s + ')' : s; }
+
+  function katexInto(el, src) {
+    if (window.katex) {
+      try { katex.render('\\displaystyle ' + src, el, { throwOnError: true, strict: 'ignore' }); return; }
+      catch (e) { if (window.console) console.error(e.message); }
+    }
+    el.textContent = src;
+  }
+  function stepsHtml(id, cls) { return '<div class="steps' + (cls ? ' ' + cls : '') + '" id="' + id + '"></div>'; }
+  function fillSteps(id, parts) {
+    var box = typeof id === 'string' ? $(id) : id;
+    if (!box) return;
+    box.textContent = '';
+    parts.forEach(function (p) { var s = document.createElement('span'); katexInto(s, p); box.appendChild(s); });
+  }
+  function big(label, val) { return '<div class="big"><span>' + label + '</span><b>' + val + '</b></div>'; }
+
+  function calc() {
+    ['k', 'zins', 'n'].forEach(function (k) { mark($('a-' + k), false); });
+    var pk = M.zahl($('a-k').value, 'den Kreditbetrag'), pz = M.zahl($('a-zins').value, 'den Zinssatz', { pct: true }), pn = M.zahl($('a-n').value, 'die Laufzeit'), e = [];
+    [['k', pk], ['zins', pz], ['n', pn]].forEach(function (x) { if (x[1].err) { mark($('a-' + x[0]), true); e.push(x[1].err); } });
+    if (e.length) { $('a-out').innerHTML = err(e.map(function (s) { return s.charAt(0).toUpperCase() + s.slice(1); }).join('<br>')); return; }
+    var r;
+    try { r = M.annuitaet(pk.v, pz.v, pn.v); }
+    catch (ex) {
+      mark($(/Laufzeit/.test(ex.message) ? 'a-n' : /Zinssatz/.test(ex.message) ? 'a-zins' : 'a-k'), true);
+      $('a-out').innerHTML = err(ex.message); return;
+    }
+    var K = pk.v, ip = pz.v, n = r.n, i = r.i, qs = tv(r.q, 8), is = tv(i, 10);
+    var formel = ['A=K_0\\cdot\\text{KWF}', '\\text{KWF}=\\dfrac{q^n\\cdot i}{q^n-1}', 'q=1+i=' + qs];
+    var weg;
+    if (i === 0) weg = ['\\text{KWF}=\\dfrac{1}{n}=\\dfrac{1}{' + n + '}', '=' + tn(r.kwf, 6)];
+    else weg = ['\\text{KWF}=\\dfrac{' + qs + '^{' + n + '}\\cdot ' + tp(is) + '}{' + qs + '^{' + n + '}-1}', '=\\dfrac{' + tn(r.qn, 6) + '\\cdot ' + tp(is) + '}{' + tn(r.qn - 1, 6) + '}', (M.R(r.kwf, 6) === r.kwf ? '=' : '\\approx ') + tn(r.kwf, 6)];
+    var weg2 = ['A=' + tm(K) + '\\cdot ' + tn(r.kwf, 6), '\\approx ' + tn(r.annuitaet)];
+    var tb = '<div class="tw"><table class="num"><thead><tr><th scope="col">Jahr</th><th scope="col">Restschuld Anfang</th><th scope="col">Zinsen</th><th scope="col">Tilgung</th><th scope="col">Annuität</th><th scope="col">Restschuld Ende</th></tr></thead><tbody>';
+    r.plan.forEach(function (p) {
+      tb += '<tr><td>' + p.jahr + '</td><td>' + eur(p.restschuld_anfang) + '</td><td>' + eur(p.zinsen) + '</td><td>' + eur(p.tilgung) + '</td><td>' + eur(p.annuitaet) + '</td><td>' + eur(p.restschuld_ende) + '</td></tr>';
+    });
+    tb += '</tbody><tfoot><tr><td>Summe</td><td></td><td>' + eur(r.summe_zinsen) + '</td><td>' + eur(r.summe_tilgung) + '</td><td>' + eur(r.summe_annuitaet) + '</td><td></td></tr></tfoot></table></div>';
+    var p1 = r.plan[0];
+    var h = '<div class="name">Annuitätendarlehen: ' + eur(K) + ', ' + pc(ip).replace(',00 %', ' %') + ', ' + n + (n === 1 ? ' Jahr' : ' Jahre') + '</div>' +
+      '<div class="lbl">Formel</div>' + stepsHtml('a-f', 'defs') +
+      '<div class="lbl">Rechenweg</div>' + stepsHtml('a-w1') + stepsHtml('a-w2') +
+      big('Annuitätenfaktor (KWF)', M.nfmt(r.kwf, 6)) +
+      big('Annuität pro Jahr', eur(r.annuitaet)) +
+      big('Zinsen insgesamt', eur(r.summe_zinsen)) +
+      big('Gesamtzahlung (n · A)', eur(r.summe_annuitaet)) +
+      '<p class="small">Im ersten Jahr: ' + eur(p1.zinsen) + ' Zinsen (' + tmTxt(K) + ' · ' + M.nvar(i, 10) + ') und ' + eur(p1.tilgung) + ' Tilgung (Annuität minus Zinsen). Rentenbarwertfaktor 1 / KWF = ' + M.nfmt(r.rbf, 6) + '.</p>' +
+      '<div class="lbl">Tilgungsplan</div>' + tb +
+      '<p class="small">Gerechnet wird ungerundet, angezeigt auf Cent. Die Summe der gerundeten Zeilen kann deshalb um einen Cent von der Summenzeile abweichen.</p>';
+    $('a-out').innerHTML = h;
+    fillSteps('a-f', formel);
+    fillSteps('a-w1', weg);
+    fillSteps('a-w2', weg2);
+  }
+  function tmTxt(x) { return M.nfmt(x, Number.isInteger(M.R(x, 2)) ? 0 : 2) + ' €'; }
+
+  function splitEq(src) {
+    var parts = [], depth = 0, cur = '';
+    for (var i = 0; i < src.length; i++) {
+      var c = src.charAt(i);
+      if (c === '{') depth++;
+      if (c === '}') depth--;
+      if (depth === 0 && src.substr(i, 7) === '\\approx' && cur.trim().length > 12) { parts.push(cur.trim()); cur = ''; }
+      if (c === '=' && depth === 0 && cur.trim() !== '') { parts.push(cur.trim()); cur = c; continue; }
+      cur += c;
+    }
+    parts.push(cur.trim());
+    return parts;
+  }
+  if (window.katex) {
+    var els = document.querySelectorAll('.m,.d');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i], src = el.textContent;
+      if (el.classList.contains('d')) fillSteps(el, splitEq(src));
+      else {
+        try { katex.render(src, el, { throwOnError: true, strict: 'ignore' }); }
+        catch (e) { el.textContent = src; if (window.console) console.error(e.message); }
+      }
+    }
+  }
+
+  ['k', 'zins', 'n'].forEach(function (k) { $('a-' + k).addEventListener('input', calc); });
+  calc();
+
+  var EX = { 1: { k: '50.000', zins: '5', n: '5' }, 2: { k: '7.913,67', zins: '8', n: '4' } };
+  document.querySelectorAll('button[data-ex]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var ex = EX[b.getAttribute('data-ex')];
+      Object.keys(ex).forEach(function (k) { $('a-' + k).value = ex[k]; });
+      calc();
+      $('rechner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
 </body>
 </html>
