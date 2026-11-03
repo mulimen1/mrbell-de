@@ -1,18 +1,15 @@
 <!doctype html>
-<html lang="de" data-theme="light">
+<html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>try{if(localStorage.getItem('bm.skin')!=='alt')document.documentElement.dataset.nv='1'}catch(e){document.documentElement.dataset.nv='1'}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=1"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Statistik lernen für Wiwis: Verteilungen, Tests, Regression</title>
 <meta name="description" content="Statistik-Klausur? Varianz, Normal- und Binomialverteilung, Regression, Konfidenzintervall und Hypothesentest Schritt für Schritt, mit Rechenweg und Test.">
+<meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.bwlmax.de/lernen/statistik-lernen">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="theme-color" content="#ffffff">
-<link rel="icon" href="/tutor/img/favicon.ico?v=8" sizes="48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="/tutor/img/max-fav-96.png?v=20">
-<link rel="icon" type="image/png" sizes="192x192" href="/tutor/img/max-fav-192.png?v=20">
-<link rel="apple-touch-icon" href="/tutor/img/max-fav-180.png?v=20">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="BWL Max">
 <meta property="og:locale" content="de_DE">
@@ -21,25 +18,459 @@
 <meta property="og:url" content="https://www.bwlmax.de/lernen/statistik-lernen">
 <meta property="og:image" content="https://www.bwlmax.de/tutor/img/og-max.png?v=20">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/tutor/css/legal.css?v=3">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "CollectionPage", "@id": "https://www.bwlmax.de/lernen/statistik-lernen#seite", "name": "Statistik lernen: Wahrscheinlichkeit, Verteilungen und Tests für Wiwis", "description": "Statistik-Klausur? Varianz, Normal- und Binomialverteilung, Regression, Konfidenzintervall und Hypothesentest Schritt für Schritt, mit Rechenweg und Test.", "url": "https://www.bwlmax.de/lernen/statistik-lernen", "inLanguage": "de-DE", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "mainEntity": {"@type": "ItemList", "itemListOrder": "https://schema.org/ItemListOrderAscending", "numberOfItems": 10, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Zinsrechnung", "url": "https://www.bwlmax.de/lernen/statistik-lernen#zinsrechnung"}, {"@type": "ListItem", "position": 2, "name": "Lagrange-Methode (Optimierung unter Nebenbedingungen)", "url": "https://www.bwlmax.de/lernen/statistik-lernen#lagrange"}, {"@type": "ListItem", "position": 3, "name": "Varianz und Standardabweichung", "url": "https://www.bwlmax.de/lernen/statistik-lernen#varianz-standardabweichung"}, {"@type": "ListItem", "position": 4, "name": "Korrelation", "url": "https://www.bwlmax.de/lernen/statistik-lernen#korrelation"}, {"@type": "ListItem", "position": 5, "name": "Lineare Regression", "url": "https://www.bwlmax.de/lernen/statistik-lernen#regression"}, {"@type": "ListItem", "position": 6, "name": "Erwartungswert", "url": "https://www.bwlmax.de/lernen/statistik-lernen#erwartungswert"}, {"@type": "ListItem", "position": 7, "name": "Binomialverteilung", "url": "https://www.bwlmax.de/lernen/statistik-lernen#binomialverteilung"}, {"@type": "ListItem", "position": 8, "name": "Normalverteilung", "url": "https://www.bwlmax.de/lernen/statistik-lernen#normalverteilung"}, {"@type": "ListItem", "position": 9, "name": "Konfidenzintervall", "url": "https://www.bwlmax.de/lernen/statistik-lernen#konfidenzintervall"}, {"@type": "ListItem", "position": 10, "name": "Hypothesentest", "url": "https://www.bwlmax.de/lernen/statistik-lernen#hypothesentest"}]}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wie lerne ich Statistik am schnellsten?", "acceptedAnswer": {"@type": "Answer", "text": "Rechne zu jedem Thema mehrere Aufgaben selbst und schreib dir auf, welche Formel bei welcher Fragestellung passt. In Statistik scheitern die meisten nicht an der Rechnung, sondern daran, das richtige Verfahren zu erkennen."}}, {"@type": "Question", "name": "Brauche ich für Statistik viel Mathe?", "acceptedAnswer": {"@type": "Answer", "text": "Weniger als befürchtet. Grundrechenarten, Summenzeichen, Wurzeln und der Umgang mit Tabellen reichen für den Großteil. Ableitungen brauchst du vor allem für Lagrange und die Regression."}}]}]}</script>
+<meta name="color-scheme" content="light">
 <link rel="stylesheet" href="/tutor/vendor/katex@0.16.47/katex.min.css">
-<link rel="stylesheet" href="/tutor/css/lernen.css?v=38">
-<link rel="stylesheet" href="/tutor/css/lernen-max.css?v=38">
-<script>try{var t=sessionStorage.getItem('tutor.theme');if(t==='dark')document.documentElement.dataset.theme='dark'}catch(e){}var c='navy';try{var v=localStorage.getItem('tutor.accent');if(v!=null)c=v}catch(e){}if(c&&c!=='std'&&/^[a-z]{3,12}$/.test(c))document.documentElement.dataset.accent=c;</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "CollectionPage", "@id": "https://www.bwlmax.de/lernen/statistik-lernen#seite", "name": "Statistik lernen: Wahrscheinlichkeit, Verteilungen und Tests für Wiwis", "description": "Statistik-Klausur? Varianz, Normal- und Binomialverteilung, Regression, Konfidenzintervall und Hypothesentest Schritt für Schritt, mit Rechenweg und Test.", "url": "https://www.bwlmax.de/lernen/statistik-lernen", "inLanguage": "de-DE", "isPartOf": {"@type": "WebSite", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "publisher": {"@type": "Organization", "name": "BWL Max", "url": "https://www.bwlmax.de/"}, "mainEntity": {"@type": "ItemList", "itemListOrder": "https://schema.org/ItemListOrderAscending", "numberOfItems": 10, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Zinsrechnung", "url": "https://www.bwlmax.de/lernen/zinsrechnung"}, {"@type": "ListItem", "position": 2, "name": "Lagrange-Methode (Optimierung unter Nebenbedingungen)", "url": "https://www.bwlmax.de/lernen/lagrange"}, {"@type": "ListItem", "position": 3, "name": "Varianz und Standardabweichung", "url": "https://www.bwlmax.de/lernen/varianz-standardabweichung"}, {"@type": "ListItem", "position": 4, "name": "Korrelation", "url": "https://www.bwlmax.de/lernen/korrelation"}, {"@type": "ListItem", "position": 5, "name": "Lineare Regression", "url": "https://www.bwlmax.de/lernen/regression"}, {"@type": "ListItem", "position": 6, "name": "Erwartungswert", "url": "https://www.bwlmax.de/lernen/erwartungswert"}, {"@type": "ListItem", "position": 7, "name": "Binomialverteilung", "url": "https://www.bwlmax.de/lernen/binomialverteilung"}, {"@type": "ListItem", "position": 8, "name": "Normalverteilung", "url": "https://www.bwlmax.de/lernen/normalverteilung"}, {"@type": "ListItem", "position": 9, "name": "Konfidenzintervall", "url": "https://www.bwlmax.de/lernen/konfidenzintervall"}, {"@type": "ListItem", "position": 10, "name": "Hypothesentest", "url": "https://www.bwlmax.de/lernen/hypothesentest"}]}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BWL Max", "item": "https://www.bwlmax.de/"}, {"@type": "ListItem", "position": 2, "name": "Lernen", "item": "https://www.bwlmax.de/lernen"}, {"@type": "ListItem", "position": 3, "name": "Statistik und Wirtschaftsmathematik", "item": "https://www.bwlmax.de/lernen/statistik-lernen"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wie lerne ich Statistik am schnellsten?", "acceptedAnswer": {"@type": "Answer", "text": "Rechne zu jedem Thema mehrere Aufgaben selbst und schreib dir auf, welche Formel bei welcher Fragestellung passt. In Statistik scheitern die meisten nicht an der Rechnung, sondern daran, das richtige Verfahren zu erkennen."}}, {"@type": "Question", "name": "Brauche ich für Statistik viel Mathe?", "acceptedAnswer": {"@type": "Answer", "text": "Weniger als befürchtet. Grundrechenarten, Summenzeichen, Wurzeln und der Umgang mit Tabellen reichen für den Großteil. Ableitungen brauchst du vor allem für Lagrange und die Regression."}}]}]}</script>
+<style>
+:root{--bg:#fff;--fg:#1b1d20;--muted:#585f69;--line:#d9dde2;--soft:#f3f5f7;--accent:#1d5a4a;--accent-soft:#e3efea;--card:#fff}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:16px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:1.75rem;line-height:1.25;margin:.2em 0 .5em}
+h2{font-size:1.3rem;margin:2.2em 0 .5em}
+h3{font-size:1.15rem;line-height:1.3;margin:0}
+p{margin:.5em 0 .9em}
+ul,ol{padding-left:1.3em}
+li{margin:.2em 0}
+a{color:var(--accent)}
+.lead{color:var(--muted);max-width:72ch}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 .3em}
+nav.toc{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:1.2em 0}
+nav.toc ol{margin:.3em 0 0;padding-left:2em;list-style:decimal-leading-zero;columns:2;column-gap:2.4em}
+nav.toc li{margin:.1em 0 .5em;break-inside:avoid}
+nav.toc .sub{display:block;font-size:.84rem;line-height:1.5}
+.sec-intro{color:var(--muted);margin:-.2em 0 1em}
+
+/* Themen-Kacheln (Sprungmarken) */
+.cat{--ca:var(--c0a,#5aa2f7);--cb:var(--c0b,#1a5fc4)}
+.cat[data-c="1"]{--ca:var(--c1a,#f39b52);--cb:var(--c1b,#d9601c)}
+.cat[data-c="2"]{--ca:var(--c2a,#9b7cf0);--cb:var(--c2b,#5b3fc4)}
+.cat[data-c="3"]{--ca:var(--c3a,#f47ba0);--cb:var(--c3b,#c8336f)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:12px;margin:0 0 22px}
+.tiles a{position:relative;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto 1fr auto;column-gap:12px;row-gap:2px;align-items:start;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--fg);text-decoration:none;min-width:0;transition:transform .15s,border-color .15s,box-shadow .15s}
+.tiles a:hover{color:var(--fg);transform:translateY(-2px);border-color:color-mix(in srgb,var(--cb) 45%,var(--line))}
+.tiles .tt{font-weight:700;letter-spacing:-.01em;line-height:1.3;align-self:center}
+.tiles .td{grid-column:2;font-size:.9rem;line-height:1.5;color:var(--muted)}
+.tiles .go{grid-column:2;font-size:.82rem;font-weight:600;color:var(--cb);margin-top:4px}
+.tn{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;font-weight:750;font-size:.9rem;font-variant-numeric:tabular-nums;color:#fff;background:linear-gradient(135deg,var(--ca),var(--cb));box-shadow:0 6px 14px -8px var(--cb);flex:none}
+.tiles .tn{grid-row:span 3}
+
+/* Themenabschnitte */
+.topic{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:20px 22px 16px;margin:0 0 18px;min-width:0}
+.topic::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--ca),var(--cb))}
+.topic:target{border-color:color-mix(in srgb,var(--cb) 55%,var(--line));box-shadow:0 0 0 4px color-mix(in srgb,var(--ca) 22%,transparent)}
+.th{display:flex;align-items:center;gap:12px;margin:2px 0 .6em}
+.th .tn{width:34px;height:34px;border-radius:10px;font-size:1rem}
+.topic>p{max-width:76ch}
+.topic>p.links{max-width:none}
+.bsp li{margin:.4em 0}
+.katex .pz{font-family:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:.8264em;font-style:normal}
+.lbl{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--cb);margin-right:.35em}
+.d{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;column-gap:2.2em;row-gap:.5em;overflow-x:auto;overflow-y:hidden;margin:.8em 0;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--ca) 8%,var(--card));border:1px solid color-mix(in srgb,var(--ca) 22%,var(--line))}
+.dp{display:inline-block;max-width:100%}
+.d .katex{white-space:nowrap}
+.legend{font-size:.9rem;color:var(--muted);margin:-.2em 0 .9em}
+.bsp{border:1px dashed color-mix(in srgb,var(--cb) 40%,var(--line));border-radius:14px;padding:12px 16px 4px;margin:1em 0 .8em;background:var(--card)}
+.bsp>p,.bsp>ul{margin:.3em 0 .7em}
+.bsp ul{padding-left:1.2em}
+.res{font-weight:650}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.4em 0 .8em;max-width:100%;width:max-content;border:1px solid var(--line);border-radius:12px}
+.tw table.mt tbody tr:last-child>*{border-bottom:0}
+table.mt{border-collapse:collapse;font-size:.9rem;font-variant-numeric:tabular-nums}
+table.mt th,table.mt td{border-bottom:1px solid var(--line);padding:7px 16px;text-align:right;white-space:nowrap}
+table.mt th:first-child,table.mt td:first-child{text-align:left}
+table.mt thead th{font-weight:650;background:var(--soft)}
+table.mt.txt th,table.mt.txt td{text-align:left}
+.links{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:.9em 0 .2em;font-size:.88rem}
+.links .k{color:var(--muted);font-weight:550;margin-right:2px}
+.links a.tool{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid color-mix(in srgb,var(--cb) 30%,var(--line));background:color-mix(in srgb,var(--ca) 9%,var(--card));color:var(--fg);font-weight:600;text-decoration:none}
+.links a.tool::after{content:"→";color:var(--cb);font-weight:700}
+.links a.tool:hover{border-color:var(--cb)}
+.links a.up{margin-left:auto;color:var(--muted);text-decoration:none;font-weight:550}
+.links a.up:hover{color:var(--accent);text-decoration:underline}
+
+/* Klausur, FAQ, Werkzeuge */
+ul.exam{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+ul.exam li{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin:0;padding:12px 16px 12px 46px;position:relative;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+ul.exam li::before{content:"";position:absolute;left:16px;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:6px;background:linear-gradient(135deg,var(--ca),var(--cb))}
+ul.exam li::after{content:"";position:absolute;left:21.5px;top:50%;width:5px;height:9px;margin-top:-6.5px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+ul.exam li span{flex:1 1 260px}
+ul.exam a{font-size:.85rem;font-weight:600;white-space:nowrap;text-decoration:none}
+ul.exam a:hover{text-decoration:underline}
+.faq details{border:1px solid var(--line);border-radius:14px;background:var(--card);margin:0 0 10px;padding:0 16px}
+.faq summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;font-weight:650}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;font-weight:700;color:var(--cb);background:color-mix(in srgb,var(--ca) 14%,var(--card))}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin:0 0 14px;color:var(--muted)}
+ul.tools{list-style:none;padding:0;margin:.6em 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:12px}
+ul.tools li{margin:0;border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+ul.tools p{margin:.25em 0 0;color:var(--muted);font-size:.92rem}
+footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+@media (max-width:600px){
+ nav.toc ol{columns:1}
+ h1{font-size:1.45rem}
+ .topic{padding:18px 16px 12px}
+ .d{column-gap:1.4em;padding:10px 8px;font-size:.92em}
+ .bsp{padding:10px 13px 2px}
+ .links a.up{margin-left:0}
+ table.mt{font-size:.84rem}
+ table.mt th,table.mt td{padding:6px 8px;white-space:normal}
+}
+@media print{
+ @page{size:A4;margin:12mm 11mm}
+ body{font-size:10pt}
+ .wrap{max-width:none;padding:0}
+ nav.toc,.tiles,.links,.bmw-theme{display:none!important}
+ .topic,.bsp,.d,ul.exam li,.faq details{break-inside:avoid;box-shadow:none}
+ .faq details>p{display:block}
+ a{color:#000;text-decoration:none}
+}
+</style>
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<style>
+@media screen{
+ .eyebrow{color:var(--accent)}
+ nav.toc .sub{color:var(--faint)}
+ .tiles a,.topic,ul.exam li,.faq details{box-shadow:var(--shadow-sm)}
+ .tiles a:hover{box-shadow:0 1px 2px rgba(20,32,60,.05),0 16px 34px -18px rgba(20,32,60,.28)}
+ :root[data-theme="dark"] .tiles a:hover{box-shadow:0 16px 34px -18px rgba(0,0,0,.9)}
+ .topic{box-shadow:var(--shadow)}
+ .tiles .go{color:color-mix(in srgb,var(--cb) 75%,var(--fg))}
+ :root[data-theme="dark"] .tiles .go,:root[data-theme="dark"] .lbl,:root[data-theme="dark"] .faq summary::after,:root[data-theme="dark"] .links a.tool::after{color:var(--ca)}
+ table.mt thead th{background:var(--thead)}
+ header>p.small{margin-top:.2em}
+}
+</style>
 </head>
 <body>
-<header class="lm-top lm-top4"><a class="lm-brand" href="/" aria-label="BWL Max Startseite"><img src="/tutor/img/max-fav-96.png?v=20" alt="" width="30" height="30"><b>BWL Max</b></a><nav class="lm-nav" aria-label="Bereiche"><a class="lm-tn lm-tutor" href="/?utm_source=seo&utm_medium=lernen&utm_campaign=statistik-lernen-nav#/app/tutor"><img src="/tutor/img/max-fav-96.png?v=20" alt="" width="26" height="26"><span>Tutor</span></a><a class="lm-tn lm-orange" href="/?utm_source=seo&utm_medium=lernen&utm_campaign=statistik-lernen-nav#/app/bibliothek"><span class="lm-ic"><svg class="ico i-library" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h3v16H5zM10 4h3v16h-3z"/><path d="m15.2 5.2 2.9-.8 3.6 15.3-2.9.8z"/></svg></span><span>Fächer &amp; Bibliothek</span></a><a class="lm-tn lm-lila" href="/?utm_source=seo&utm_medium=lernen&utm_campaign=statistik-lernen-nav#/app/ueben"><span class="lm-ic"><svg class="ico i-brain" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 21.5v-3.4c2.7-1.4 4.6-4.2 4.6-7.4A8.1 8.1 0 0 0 12 2.6a7.6 7.6 0 0 0-7.5 6.5l-1.3 3.4c-.2.5.2 1 .7 1H5v2.7c0 1.2 1 2.2 2.2 2.2H9v3.1"/><g transform="translate(7.20 3.10) scale(0.4500)" stroke-width="2.7"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"  d="M15.145 5.208a3.5 3.5 0 0 0-5.92 1.053A3 3 0 0 0 5 9.051m10.145-3.843a4.5 4.5 0 0 1 5.492 6.065m-5.492-6.065A4.51 4.51 0 0 0 12.028 9M9.05 14a2.5 2.5 0 0 0 2.45 2c.255 0 .382 0 .5.014a2 2 0 0 1 1.435.887c.065.099.122.213.236.44L15 20m-5.95-6a2.5 2.5 0 0 1 .95-2.5M9.05 14H4.5A2.5 2.5 0 1 1 5 9.05m15.637 2.223A2.5 2.5 0 0 0 17.05 13m3.587-1.727A2.5 2.5 0 0 1 19.5 16a1.733 1.733 0 0 0-1.622 2.34L18.5 20M5 9.05c.013.749.3 1.43.764 1.95"/></g></svg></span><span>Lernen</span></a><a class="lm-tn lm-pink" href="/?utm_source=seo&utm_medium=lernen&utm_campaign=statistik-lernen-nav#/app/tools"><span class="lm-ic"><svg class="ico i-wrench" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span>Klausur-Tools</span><span class="lm-b"><svg class="xls" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-size="7.4" font-weight="800" fill="#fff" font-family="Arial,Helvetica,sans-serif">XLS</text></svg></span><span class="lm-new">NEU</span></a></nav><a class="lm-cta" href="/?konto=1&utm_source=seo&utm_medium=lernen&utm_campaign=statistik-lernen-konto#/app/tutor">Kostenlos starten</a></header>
-<main class="ln ln-hub"><nav class="ln-crumbs" aria-label="Brotkrümel"><a href="/">BWL Max</a><span aria-hidden="true">/</span><a href="/lernen">Lernen</a><span aria-hidden="true">/</span><span>Statistik und Wirtschaftsmathematik</span></nav><div class="lg-eyebrow">Statistik und Wirtschaftsmathematik · 10 Themen</div><h1>Statistik lernen: Wahrscheinlichkeit, Verteilungen und Tests für Wiwis</h1><p class="lg-lead">Statistik ist für viele BWLer das gefürchtetste Fach, dabei folgt es einer klaren Linie: Erst beschreibt man Daten mit Kennzahlen, dann modelliert man Zufall mit Verteilungen, und zum Schluss zieht man aus Stichproben Schlüsse über die Grundgesamtheit.</p><p class="lg-lead">Dazu kommen zwei Werkzeuge aus der Wirtschaftsmathematik, die in BWL und VWL immer wieder gebraucht werden: Zinsrechnung und die Optimierung mit Lagrange.</p><nav aria-label="Abschnitte"><ol class="lg-toc"><li><a href="#wirtschaftsmathematik">Wirtschaftsmathematik</a></li><li><a href="#beschreibende-statistik">Beschreibende Statistik</a></li><li><a href="#wahrscheinlichkeit-und-verteilungen">Wahrscheinlichkeit und Verteilungen</a></li><li><a href="#schliessende-statistik">Schließende Statistik</a></li><li><a href="#klausur">Was in der Klausur oft drankommt</a></li><li><a href="#faq">Häufige Fragen</a></li></ol></nav><section class="ln-cat"><h2 id="wirtschaftsmathematik">Wirtschaftsmathematik</h2><p>Werkzeuge für BWL und VWL.</p><div class="ln-rel"><a href="/lernen/zinsrechnung"><small>1.</small> Zinsrechnung<small>Die Zinsrechnung ermittelt, wie viele Zinsen ein Kapital bei einem Jahreszinssatz in einer bestimmten Zeit bringt.</small></a><a href="/lernen/lagrange"><small>2.</small> Lagrange-Methode (Optimierung unter Nebenbedingungen)<small>Die Lagrange-Methode löst Optimierungsprobleme mit Nebenbedingung, etwa maximale Produktion bei festem Budget.</small></a></div></section><section class="ln-cat"><h2 id="beschreibende-statistik">Beschreibende Statistik</h2><p>Daten mit Kennzahlen zusammenfassen.</p><div class="ln-rel"><a href="/lernen/varianz-standardabweichung"><small>3.</small> Varianz und Standardabweichung<small>Varianz und Standardabweichung messen, wie stark Werte um ihren Mittelwert streuen.</small></a><a href="/lernen/korrelation"><small>4.</small> Korrelation<small>Die Korrelation misst Stärke und Richtung des linearen Zusammenhangs zwischen zwei metrischen Merkmalen.</small></a><a href="/lernen/regression"><small>5.</small> Lineare Regression<small>Die lineare Regression beschreibt den Zusammenhang zwischen einer abhängigen Variable <span class="fx-nb"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span></span></span></span></span> und einer erklärenden Variable <span class="fx-nb"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span> durch eine Gerade <span class="fx-nb"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo>=</mo><mi>a</mi><mo>+</mo><mi>b</mi><mo>⋅</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">\hat{y} = a + b \cdot x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span>.</small></a></div></section><section class="ln-cat"><h2 id="wahrscheinlichkeit-und-verteilungen">Wahrscheinlichkeit und Verteilungen</h2><p>Zufall rechnen.</p><div class="ln-rel"><a href="/lernen/erwartungswert"><small>6.</small> Erwartungswert<small>Der Erwartungswert <span class="fx-nb"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0785em;">X</span><span class="mclose">)</span></span></span></span></span> ist der Wert, den eine Zufallsvariable im Durchschnitt annimmt, wenn sich das Zufallsexperiment sehr oft wiederholt.</small></a><a href="/lernen/binomialverteilung"><small>7.</small> Binomialverteilung<small>Die Binomialverteilung gibt an, mit welcher Wahrscheinlichkeit bei <span class="fx-nb"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> unabhängigen Versuchen mit gleicher Erfolgswahrscheinlichkeit <span class="fx-nb"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span></span> genau <span class="fx-nb"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.0315em;">k</span></span></span></span></span> Erfolge eintreten.</small></a><a href="/lernen/normalverteilung"><small>8.</small> Normalverteilung<small>Die Normalverteilung ist eine stetige, symmetrische Wahrscheinlichkeitsverteilung mit glockenförmiger Dichte.</small></a></div></section><section class="ln-cat"><h2 id="schliessende-statistik">Schließende Statistik</h2><p>Von der Stichprobe auf das Ganze schließen.</p><div class="ln-rel"><a href="/lernen/konfidenzintervall"><small>9.</small> Konfidenzintervall<small>Ein Konfidenzintervall ist ein Bereich um einen Schätzwert aus der Stichprobe …</small></a><a href="/lernen/hypothesentest"><small>10.</small> Hypothesentest<small>Ein Hypothesentest prüft anhand einer Stichprobe, ob eine Behauptung über die Grundgesamtheit (die Nullhypothese H0) verworfen werden kann.</small></a></div></section><section><h2 id="klausur">Was in der Klausur oft drankommt</h2><ul><li>Standardisieren und Wahrscheinlichkeiten aus der Normalverteilungstabelle</li><li>Binomialverteilung mit Erwartungswert und Varianz</li><li>Regressionsgerade nach der Methode der kleinsten Quadrate</li><li>Hypothesentest mit Fehler 1. und 2. Art</li></ul></section><section class="ln-faq"><h2 id="faq">Häufige Fragen</h2><details><summary>Wie lerne ich Statistik am schnellsten?</summary><p>Rechne zu jedem Thema mehrere Aufgaben selbst und schreib dir auf, welche Formel bei welcher Fragestellung passt. In Statistik scheitern die meisten nicht an der Rechnung, sondern daran, das richtige Verfahren zu erkennen.</p></details><details><summary>Brauche ich für Statistik viel Mathe?</summary><p>Weniger als befürchtet. Grundrechenarten, Summenzeichen, Wurzeln und der Umgang mit Tabellen reichen für den Großteil. Ableitungen brauchst du vor allem für Lagrange und die Regression.</p></details></section><section><a class="ln-max" href="/?thema=zinsrechnung&utm_source=seo&utm_medium=lernen&utm_campaign=statistik-lernen"><img src="/tutor/img/max-fav-192.png?v=20" alt="" width="58" height="58" loading="lazy"><span class="t"><strong>Lieber erklärt bekommen als lesen?</strong><span class="s">Max erklärt dir jedes Thema an der Tafel, kostenlos.</span></span><span class="go">Max fragen</span></a></section><section><h2>Weitere Fächer</h2><div class="ln-rel"><a href="/lernen/rechnungswesen-lernen">Rechnungswesen</a><a href="/lernen/kostenrechnung-lernen">Kostenrechnung</a><a href="/lernen/investitionsrechnung-lernen">Investitionsrechnung</a><a href="/lernen/finanzierung-lernen">Finanzierung</a><a href="/lernen/marketing-lernen">Marketing</a><a href="/lernen/management-lernen">Management und Unternehmensführung</a><a href="/lernen/vwl-lernen">VWL</a></div></section></main><footer>
-  <span>© 2026 BWL Max</span><span class="sp"></span>
-  <a href="/lernen">Alle Lernthemen</a>
-  <a href="/">BWL Max testen</a>
-  <a href="/tutor/legal/impressum.html" data-legal="impressum">Impressum</a>
-  <a href="/tutor/legal/datenschutz.html" data-legal="datenschutz">Datenschutz</a>
-  <a href="/ueber/rechen-algorithmus">Rechen-Algorithmus</a>
-</footer>
-<script>(function(){if(/(^|\.)bwlmax\.de$/.test(location.hostname))document.querySelectorAll('[data-legal]').forEach(function(a){a.href='/'+a.dataset.legal});
-document.querySelectorAll('.ln-q').forEach(function(q){q.classList.add('js');var r=+q.dataset.r;q.querySelectorAll('li').forEach(function(li,i){var b=document.createElement('button');b.type='button';while(li.firstChild)b.appendChild(li.firstChild);li.appendChild(b);b.addEventListener('click',function(){if(q.classList.contains('done'))return;q.classList.add('done');b.classList.add(i===r?'ok':'no');if(i!==r)q.querySelectorAll('li button')[r].classList.add('ok');q.querySelector('details').open=true;});});});})();</script>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="eyebrow">Statistik und Wirtschaftsmathematik · 10 Themen</p>
+<h1>Statistik lernen: Wahrscheinlichkeit, Verteilungen und Tests für Wiwis</h1>
+<p class="lead">Statistik ist für viele BWLer das gefürchtetste Fach, dabei folgt es einer klaren Linie: Erst beschreibt man Daten mit Kennzahlen, dann modelliert man Zufall mit Verteilungen, und zum Schluss zieht man aus Stichproben Schlüsse über die Grundgesamtheit.</p>
+<p class="lead">Dazu kommen zwei Werkzeuge aus der Wirtschaftsmathematik, die in BWL und VWL immer wieder gebraucht werden: Zinsrechnung und die Optimierung mit Lagrange.</p>
+<p class="small">Frei zugänglich, ohne Anmeldung. Jedes Thema mit Kernidee, Formel und kleinem Rechenbeispiel.</p>
+</header>
+
+<nav class="toc" id="inhalt" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#wirtschaftsmathematik">Wirtschaftsmathematik</a><span class="sub"><a href="#zinsrechnung">Zinsrechnung</a> · <a href="#lagrange">Lagrange</a></span></li>
+<li><a href="#beschreibende-statistik">Beschreibende Statistik</a><span class="sub"><a href="#varianz-standardabweichung">Varianz</a> · <a href="#korrelation">Korrelation</a> · <a href="#regression">Regression</a></span></li>
+<li><a href="#wahrscheinlichkeit-und-verteilungen">Wahrscheinlichkeit und Verteilungen</a><span class="sub"><a href="#erwartungswert">Erwartungswert</a> · <a href="#binomialverteilung">Binomialverteilung</a> · <a href="#normalverteilung">Normalverteilung</a></span></li>
+<li><a href="#schliessende-statistik">Schließende Statistik</a><span class="sub"><a href="#konfidenzintervall">Konfidenzintervall</a> · <a href="#hypothesentest">Hypothesentest</a></span></li>
+<li><a href="#klausur">Was in der Klausur oft drankommt</a></li>
+<li><a href="#faq">Häufige Fragen</a></li>
+<li><a href="#werkzeuge-zum-rechnen">Werkzeuge zum Weiterrechnen</a></li>
+</ol>
+</nav>
+
+<main>
+
+<!-- ============ 01 Wirtschaftsmathematik ============ -->
+<section class="cat" data-c="0" aria-labelledby="wirtschaftsmathematik">
+<h2 id="wirtschaftsmathematik">Wirtschaftsmathematik</h2>
+<p class="sec-intro">Werkzeuge für BWL und VWL.</p>
+<div class="tiles">
+<a href="#zinsrechnung"><span class="tn">1</span><span class="tt">Zinsrechnung</span><span class="td">Die Zinsrechnung ermittelt, wie viele Zinsen ein Kapital bei einem Jahreszinssatz in einer bestimmten Zeit bringt.</span><span class="go">Zum Thema ↓</span></a>
+<a href="#lagrange"><span class="tn">2</span><span class="tt">Lagrange-Methode (Optimierung unter Nebenbedingungen)</span><span class="td">Die Lagrange-Methode löst Optimierungsprobleme mit Nebenbedingung, etwa maximale Produktion bei festem Budget.</span><span class="go">Zum Thema ↓</span></a>
+</div>
+
+<article class="topic" id="zinsrechnung" aria-labelledby="t1">
+<div class="th"><span class="tn">1</span><h3 id="t1">Zinsrechnung</h3></div>
+<p><span class="lbl">Kernidee</span>Zinsen sind der Preis dafür, dass jemand Geld für eine bestimmte Zeit überlässt. Bei <b>einfacher Verzinsung</b> werden sie nur auf das Anfangskapital berechnet, der Zinssatz gilt pro Jahr (p.&nbsp;a.). Für Tageszinsen zählt man nach der deutschen (kaufmännischen) Methode 30/360: jeder Monat hat 30 Tage, das Jahr 360. Bleiben Zinsen über mehrere Jahre stehen und werden mitverzinst, rechnet man mit Zinseszins.</p>
+<div class="d">Z = \frac{K \cdot p \cdot t}{100 \cdot 360} \qquad K_t = K \cdot \left(1 + i \cdot \frac{t}{360}\right) \qquad K_n = K_0 \cdot (1+i)^n</div>
+<p class="legend"><span class="m">Z</span> Zinsen, <span class="m">K</span> Kapital, <span class="m">p</span> Zinssatz in Prozent p.&nbsp;a., <span class="m">i = p/100</span>, <span class="m">t</span> Zinstage, <span class="m">n</span> Jahre (Zinseszins).</p>
+<div class="bsp">
+<p><span class="lbl">Beispiel</span>18.000&nbsp;€ liegen als Festgeld vom 15.03. bis zum 20.08. desselben Jahres zu 2,5&nbsp;% p.&nbsp;a.</p>
+<ul>
+<li>Zinstage nach 30/360: <span class="m">t = (8-3) \cdot 30 + (20-15) = 155</span></li>
+<li>Zinsen: <span class="m">Z = \frac{18.000 \cdot 2{,}5 \cdot 155}{100 \cdot 360} = 193{,}75</span>&nbsp;€, Endkapital 18.193,75&nbsp;€</li>
+<li>Zum Vergleich mit Zinseszins: 10.000&nbsp;€ zu 3&nbsp;% über 5 Jahre ergeben <span class="m">10.000 \cdot 1{,}03^5 \approx 11.592{,}74</span>&nbsp;€</li>
+</ul>
+</div>
+<p class="links"><span class="k">Weiterrechnen:</span><a class="tool" href="/rechner/zinsrechner">Zinsrechner</a><a class="up" href="#inhalt">↑ Inhalt</a></p>
+</article>
+
+<article class="topic" id="lagrange" aria-labelledby="t2">
+<div class="th"><span class="tn">2</span><h3 id="t2">Lagrange-Methode (Optimierung unter Nebenbedingungen)</h3></div>
+<p><span class="lbl">Kernidee</span>Gesucht ist das Maximum oder Minimum einer Zielfunktion <span class="m">f(x,y)</span>, wobei eine Nebenbedingung <span class="m">g(x,y) = c</span> eingehalten werden muss, etwa ein festes Budget. Man bildet die Lagrange-Funktion, setzt alle partiellen Ableitungen gleich null und löst das Gleichungssystem. Der Multiplikator <span class="m">\lambda</span> ist ein Schattenpreis: Er gibt näherungsweise an, um wie viel sich der optimale Zielwert ändert, wenn die Nebenbedingung um eine Einheit gelockert wird. Ob wirklich ein Maximum vorliegt und ob Randlösungen besser sind, prüft man gesondert.</p>
+<div class="d">\mathcal{L}(x, y, \lambda) = f(x, y) + \lambda \cdot \bigl(c - g(x, y)\bigr) \qquad \frac{\partial \mathcal{L}}{\partial x} = 0, \;\; \frac{\partial \mathcal{L}}{\partial y} = 0, \;\; \frac{\partial \mathcal{L}}{\partial \lambda} = 0</div>
+<div class="bsp">
+<p><span class="lbl">Beispiel</span>Maximiere die Produktion <span class="m">Q = 2 \cdot K^{0{,}5} \cdot A^{0{,}5}</span> unter dem Budget <span class="m">40K + 10A = 2.000</span> (Maschinenstunde 40&nbsp;€, Arbeitsstunde 10&nbsp;€).</p>
+<ul>
+<li>Bedingungen: <span class="m">K^{-0{,}5} A^{0{,}5} = 40\lambda</span> und <span class="m">K^{0{,}5} A^{-0{,}5} = 10\lambda</span>; geteilt: <span class="m">\frac{A}{K} = 4</span>, also <span class="m">A = 4K</span></li>
+<li>In die Nebenbedingung: <span class="m">40K + 40K = 2.000 \Rightarrow K = 25,\; A = 100</span></li>
+<li>Output <span class="m">Q = 2 \cdot 5 \cdot 10 = 100</span>, Multiplikator <span class="m">\lambda = \frac{\sqrt{100/25}}{40} = 0{,}05</span>: Ein Euro mehr Budget bringt rund 0,05 Einheiten mehr Output.</li>
+</ul>
+</div>
+<p class="links"><a class="up" href="#inhalt">↑ Inhalt</a></p>
+</article>
+</section>
+
+<!-- ============ 02 Beschreibende Statistik ============ -->
+<section class="cat" data-c="1" aria-labelledby="beschreibende-statistik">
+<h2 id="beschreibende-statistik">Beschreibende Statistik</h2>
+<p class="sec-intro">Daten mit Kennzahlen zusammenfassen.</p>
+<div class="tiles">
+<a href="#varianz-standardabweichung"><span class="tn">3</span><span class="tt">Varianz und Standardabweichung</span><span class="td">Varianz und Standardabweichung messen, wie stark Werte um ihren Mittelwert streuen.</span><span class="go">Zum Thema ↓</span></a>
+<a href="#korrelation"><span class="tn">4</span><span class="tt">Korrelation</span><span class="td">Die Korrelation misst Stärke und Richtung des linearen Zusammenhangs zwischen zwei metrischen Merkmalen.</span><span class="go">Zum Thema ↓</span></a>
+<a href="#regression"><span class="tn">5</span><span class="tt">Lineare Regression</span><span class="td">Die lineare Regression beschreibt den Zusammenhang zwischen einer abhängigen Variable <span class="m">y</span> und einer erklärenden Variable <span class="m">x</span> durch eine Gerade <span class="m">\hat{y} = a + b \cdot x</span>.</span><span class="go">Zum Thema ↓</span></a>
+</div>
+
+<article class="topic" id="varianz-standardabweichung" aria-labelledby="t3">
+<div class="th"><span class="tn">3</span><h3 id="t3">Varianz und Standardabweichung</h3></div>
+<p><span class="lbl">Kernidee</span>Die Varianz ist der Durchschnitt der quadrierten Abweichungen vom Mittelwert, die Standardabweichung die Wurzel daraus und hat deshalb dieselbe Einheit wie die Daten. Beschreibst du nur die vorliegenden Daten, teilst du durch <span class="m">n</span>. Schätzt du aus einer Stichprobe die Streuung der Grundgesamtheit, teilst du durch <span class="m">n-1</span>, damit der Schätzer erwartungstreu ist. Die Bezeichnungen unterscheiden sich je nach Lehrbuch, maßgeblich ist das eigene Skript.</p>
+<div class="d">\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i \qquad s^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2 \qquad s^{*2} = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2 \qquad s = \sqrt{s^2}</div>
+<div class="bsp">
+<p><span class="lbl">Beispiel</span>Tagesumsätze eines Cafés von Montag bis Freitag in €: 1.040, 860, 1.180, 920, 1.000.</p>
+<ul>
+<li>Mittelwert <span class="m">\bar{x} = 5.000 / 5 = 1.000</span>; Abweichungen 40, −140, 180, −80, 0</li>
+<li>Quadratsumme <span class="m">1.600 + 19.600 + 32.400 + 6.400 + 0 = 60.000</span></li>
+<li>Beschreibend: <span class="m">s^2 = 60.000 / 5 = 12.000</span>&nbsp;€², <span class="m">s \approx 109{,}54</span>&nbsp;€</li>
+<li>Als Stichprobe: <span class="m">s^{*2} = 60.000 / 4 = 15.000</span>&nbsp;€², <span class="m">s^{*} \approx 122{,}47</span>&nbsp;€</li>
+</ul>
+</div>
+<p class="links"><span class="k">Weiterrechnen:</span><a class="tool" href="/rechner/statistik-rechner">Statistik-Rechner</a><a class="tool" href="/tools/formelsammlung-statistik#varianz">Formelsammlung: Varianz</a><a class="up" href="#inhalt">↑ Inhalt</a></p>
+</article>
+
+<article class="topic" id="korrelation" aria-labelledby="t4">
+<div class="th"><span class="tn">4</span><h3 id="t4">Korrelation</h3></div>
+<p><span class="lbl">Kernidee</span>Der Korrelationskoeffizient nach Bravais-Pearson <span class="m">r</span> misst Stärke und Richtung des <b>linearen</b> Zusammenhangs zweier metrischer Merkmale. Er ist einheitenlos und liegt zwischen −1 und +1 (definiert, wenn beide Merkmale streuen). Werte nahe ±1 bedeuten einen starken, Werte nahe 0 keinen linearen Zusammenhang. Korrelation beweist keine Kausalität.</p>
+<div class="d">r = \frac{s_{xy}}{s_x \cdot s_y} \qquad r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \cdot \sum (y_i - \bar{y})^2}}</div>
+<p class="legend">In der rechten Form kürzen sich <span class="m">1/n</span> bzw. <span class="m">1/(n-1)</span> heraus, du brauchst nur drei Summen.</p>
+<div class="bsp">
+<p><span class="lbl">Beispiel</span>Werbung <span class="m">x</span> und Umsatz <span class="m">y</span> von sechs Filialen (Tsd. €): <span class="m">x</span> = 2, 4, 5, 7, 8, 10 und <span class="m">y</span> = 42, 45, 52, 50, 64, 71.</p>
+<ul>
+<li>Mittelwerte <span class="m">\bar{x} = 6</span>, <span class="m">\bar{y} = 54</span></li>
+<li>Summen: <span class="m">\sum (x_i-\bar{x})(y_i-\bar{y}) = 152</span>, <span class="m">\sum (x_i-\bar{x})^2 = 42</span>, <span class="m">\sum (y_i-\bar{y})^2 = 634</span></li>
+<li><span class="m">r = \frac{152}{\sqrt{42 \cdot 634}} = \frac{152}{163{,}18} \approx 0{,}93</span>: starker positiver linearer Zusammenhang</li>
+</ul>
+</div>
+<p class="links"><span class="k">Weiterrechnen:</span><a class="tool" href="/rechner/statistik-rechner">Statistik-Rechner</a><a class="tool" href="/tools/formelsammlung-statistik#korrelation">Formelsammlung: Korrelation</a><a class="up" href="#inhalt">↑ Inhalt</a></p>
+</article>
+
+<article class="topic" id="regression" aria-labelledby="t5">
+<div class="th"><span class="tn">5</span><h3 id="t5">Lineare Regression</h3></div>
+<p><span class="lbl">Kernidee</span>Die Regressionsgerade <span class="m">\hat{y} = a + b \cdot x</span> beschreibt, wie sich <span class="m">y</span> im Mittel mit <span class="m">x</span> ändert. Nach der Methode der kleinsten Quadrate werden <span class="m">a</span> und <span class="m">b</span> so gewählt, dass die Summe der quadrierten Residuen <span class="m">e_i = y_i - \hat{y}_i</span> minimal ist. Die Gerade läuft immer durch den Schwerpunkt <span class="m">(\bar{x}, \bar{y})</span>. Das Bestimmtheitsmaß <span class="m">R^2</span> gibt den erklärten Anteil der Streuung an; bei einer erklärenden Variable gilt <span class="m">R^2 = r^2</span>.</p>
+<div class="d">b = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2} \qquad a = \bar{y} - b \cdot \bar{x} \qquad R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}</div>
+<div class="bsp">
+<p><span class="lbl">Beispiel</span>Werbung <span class="m">x</span> = 2, 4, 5, 7, 8, 10 und Umsatz <span class="m">y</span> = 40, 43, 49, 55, 55, 64 (Tsd. €) in sechs Monaten.</p>
+<ul>
+<li><span class="m">\bar{x} = 6</span>, <span class="m">\bar{y} = 51</span>, <span class="m">\sum (x_i-\bar{x})(y_i-\bar{y}) = 126</span>, <span class="m">\sum (x_i-\bar{x})^2 = 42</span></li>
+<li><span class="m">b = 126/42 = 3</span>, <span class="m">a = 51 - 3 \cdot 6 = 33</span>, also <span class="m">\hat{y} = 33 + 3x</span></li>
+<li>Residuen 1, −2, 1, 1, −2, 1: <span class="m">R^2 = 1 - \frac{12}{390} \approx 0{,}969</span></li>
+<li>Jeder zusätzliche Tausender Werbung geht im Mittel mit 3.000&nbsp;€ mehr Umsatz einher. Prognose für <span class="m">x = 12</span>: <span class="m">\hat{y} = 69</span>, wobei das außerhalb der beobachteten Werte liegt (Extrapolation, mit Vorsicht).</li>
+</ul>
+</div>
+<p class="links"><span class="k">Weiterrechnen:</span><a class="tool" href="/rechner/statistik-rechner">Statistik-Rechner</a><a class="tool" href="/tools/formelsammlung-statistik#k7">Formelsammlung: Regression</a><a class="up" href="#inhalt">↑ Inhalt</a></p>
+</article>
+</section>
+
+<!-- ============ 03 Wahrscheinlichkeit und Verteilungen ============ -->
+<section class="cat" data-c="2" aria-labelledby="wahrscheinlichkeit-und-verteilungen">
+<h2 id="wahrscheinlichkeit-und-verteilungen">Wahrscheinlichkeit und Verteilungen</h2>
+<p class="sec-intro">Zufall rechnen.</p>
+<div class="tiles">
+<a href="#erwartungswert"><span class="tn">6</span><span class="tt">Erwartungswert</span><span class="td">Der Erwartungswert <span class="m">E(X)</span> ist der Wert, den eine Zufallsvariable im Durchschnitt annimmt, wenn sich das Zufallsexperiment sehr oft wiederholt.</span><span class="go">Zum Thema ↓</span></a>
+<a href="#binomialverteilung"><span class="tn">7</span><span class="tt">Binomialverteilung</span><span class="td">Die Binomialverteilung gibt an, mit welcher Wahrscheinlichkeit bei <span class="m">n</span> unabhängigen Versuchen mit gleicher Erfolgswahrscheinlichkeit <span class="m">p</span> genau <span class="m">k</span> Erfolge eintreten.</span><span class="go">Zum Thema ↓</span></a>
+<a href="#normalverteilung"><span class="tn">8</span><span class="tt">Normalverteilung</span><span class="td">Die Normalverteilung ist eine stetige, symmetrische Wahrscheinlichkeitsverteilung mit glockenförmiger Dichte.</span><span class="go">Zum Thema ↓</span></a>
+</div>
+
+<article class="topic" id="erwartungswert" aria-labelledby="t6">
+<div class="th"><span class="tn">6</span><h3 id="t6">Erwartungswert</h3></div>
+<p><span class="lbl">Kernidee</span>Bei einer diskreten Zufallsvariable multiplizierst du jeden möglichen Wert mit seiner Wahrscheinlichkeit und addierst alles. Die Wahrscheinlichkeiten müssen sich zu 1 addieren. Bei stetigen Zufallsvariablen tritt das Integral über die Dichte an die Stelle der Summe. Der Erwartungswert sagt nichts über das Risiko; dafür brauchst du Varianz bzw. Standardabweichung.</p>
+<div class="d">E(X) = \sum_{i} x_i \cdot p_i \qquad \operatorname{Var}(X) = \sum_{i} \bigl(x_i - E(X)\bigr)^2 \cdot p_i \qquad E(X) = \int_{-\infty}^{\infty} x \cdot f(x)\,\mathrm{d}x</div>
+<div class="bsp">
+<p><span class="lbl">Beispiel</span>Ein Foodtruck wählt für Samstag zwischen zwei Standorten. Der Tagesgewinn hängt vom Wetter ab:</p>
+<div class="tw"><table class="mt">
+<thead><tr><th>Wetter</th><th><span class="m">p_i</span></th><th>Gewinn A</th><th>Gewinn B</th></tr></thead>
+<tbody>
+<tr><td>Sonne</td><td>0,5</td><td>4.000&nbsp;€</td><td>2.000&nbsp;€</td></tr>
+<tr><td>bewölkt</td><td>0,3</td><td>1.500&nbsp;€</td><td>1.600&nbsp;€</td></tr>
+<tr><td>Regen</td><td>0,2</td><td>−1.000&nbsp;€</td><td>1.200&nbsp;€</td></tr>
+</tbody></table></div>
+<ul>
+<li><span class="m">E(A) = 4.000 \cdot 0{,}5 + 1.500 \cdot 0{,}3 + (-1.000) \cdot 0{,}2 = 2.250</span>&nbsp;€</li>
+<li><span class="m">E(B) = 2.000 \cdot 0{,}5 + 1.600 \cdot 0{,}3 + 1.200 \cdot 0{,}2 = 1.720</span>&nbsp;€</li>
+<li>A bringt im Mittel mehr, streut aber stark: <span class="m">\sigma_A \approx 1.952{,}56</span>&nbsp;€ gegenüber <span class="m">\sigma_B \approx 312{,}41</span>&nbsp;€.</li>
+</ul>
+</div>
+<p class="links"><span class="k">Weiterrechnen:</span><a class="tool" href="/tools/formelsammlung-statistik#k10">Formelsammlung: Zufallsvariablen</a><a class="up" href="#inhalt">↑ Inhalt</a></p>
+</article>
+
+<article class="topic" id="binomialverteilung" aria-labelledby="t7">
+<div class="th"><span class="tn">7</span><h3 id="t7">Binomialverteilung</h3></div>
+<p><span class="lbl">Kernidee</span>Ein Versuch mit den Ausgängen Erfolg oder Misserfolg wird <span class="m">n</span>-mal unabhängig wiederholt, die Erfolgswahrscheinlichkeit <span class="m">p</span> bleibt gleich (Ziehen mit Zurücklegen). <span class="m">X</span> zählt die Erfolge, man schreibt <span class="m">X \sim B(n;\,p)</span>. Der Binomialkoeffizient zählt, auf wie viele Arten sich die <span class="m">k</span> Erfolge auf die <span class="m">n</span> Versuche verteilen lassen. Bei „mindestens eins“ ist das Gegenereignis der kürzeste Weg.</p>
+<div class="d">P(X = k) = \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k} \qquad E(X) = n \cdot p \qquad \operatorname{Var}(X) = n \cdot p \cdot (1-p) \qquad P(X \ge 1) = 1 - (1-p)^n</div>
+<div class="bsp">
+<p><span class="lbl">Beispiel</span>Eine Vertriebsmitarbeiterin ruft 12 Kunden an, jeder sagt unabhängig mit 15&nbsp;% zu: <span class="m">X \sim B(12;\,0{,}15)</span>.</p>
+<ul>
+<li>Genau 2 Abschlüsse: <span class="m">P(X = 2) = \binom{12}{2} \cdot 0{,}15^2 \cdot 0{,}85^{10} = 66 \cdot 0{,}0225 \cdot 0{,}1969 \approx 0{,}2924</span></li>
+<li>Mindestens ein Abschluss: <span class="m">P(X \ge 1) = 1 - 0{,}85^{12} \approx 1 - 0{,}1422 = 0{,}8578</span></li>
+<li><span class="m">E(X) = 12 \cdot 0{,}15 = 1{,}8</span>, <span class="m">\operatorname{Var}(X) = 12 \cdot 0{,}15 \cdot 0{,}85 = 1{,}53</span>, <span class="m">\sigma \approx 1{,}24</span></li>
+</ul>
+</div>
+<p class="links"><span class="k">Weiterrechnen:</span><a class="tool" href="/tools/verteilungstabellen#rechner">Verteilungstabellen mit Binomial-Rechner</a><a class="tool" href="/tools/kombinatorik-rechner">Kombinatorik-Rechner</a><a class="up" href="#inhalt">↑ Inhalt</a></p>
+</article>
+
+<article class="topic" id="normalverteilung" aria-labelledby="t8">
+<div class="th"><span class="tn">8</span><h3 id="t8">Normalverteilung</h3></div>
+<p><span class="lbl">Kernidee</span>Die Normalverteilung <span class="m">N(\mu;\,\sigma^2)</span> ist stetig, glockenförmig und symmetrisch um den Erwartungswert <span class="m">\mu</span>; die Standardabweichung <span class="m">\sigma</span> bestimmt die Breite. Rund 68,3&nbsp;% der Werte liegen in <span class="m">\mu \pm \sigma</span>, 95,4&nbsp;% in <span class="m">\mu \pm 2\sigma</span>, 99,7&nbsp;% in <span class="m">\mu \pm 3\sigma</span>. Wahrscheinlichkeiten bestimmst du, indem du auf die Standardnormalverteilung <span class="m">N(0;\,1)</span> standardisierst und <span class="m">\Phi(z)</span> in der Tabelle abliest.</p>
+<div class="d">z = \frac{x - \mu}{\sigma} \qquad P(X \le x) = \Phi(z) \qquad \Phi(-z) = 1 - \Phi(z) \qquad P(a \le X \le b) = \Phi(z_b) - \Phi(z_a)</div>
+<p class="legend">Dabei ist <span class="m">z_a = \frac{a-\mu}{\sigma}</span> und <span class="m">z_b = \frac{b-\mu}{\sigma}</span>. Für Quantile rechnest du zurück: <span class="m">x = \mu + z \cdot \sigma</span>.</p>
+<div class="bsp">
+<p><span class="lbl">Beispiel</span>Die Füllmenge von Kaffeepackungen ist normalverteilt mit <span class="m">\mu = 505</span>&nbsp;g und <span class="m">\sigma = 4</span>&nbsp;g.</p>
+<ul>
+<li>Unter 500&nbsp;g: <span class="m">z = \frac{500 - 505}{4} = -1{,}25</span>, also <span class="m">P(X \lt 500) = \Phi(-1{,}25) = 1 - 0{,}8944 = 0{,}1056</span>, gut 10,6&nbsp;% der Packungen</li>
+<li>Zwischen 500&nbsp;g und 510&nbsp;g: <span class="m">\Phi(1{,}25) - \Phi(-1{,}25) = 0{,}8944 - 0{,}1056 = 0{,}7888</span>, rund 78,9&nbsp;%</li>
+</ul>
+</div>
+<p class="links"><span class="k">Weiterrechnen:</span><a class="tool" href="/tools/verteilungstabellen#phi">Tabelle Φ(z)</a><a class="tool" href="/tools/formelsammlung-statistik#normal">Formelsammlung: Normalverteilung</a><a class="up" href="#inhalt">↑ Inhalt</a></p>
+</article>
+</section>
+
+<!-- ============ 04 Schließende Statistik ============ -->
+<section class="cat" data-c="3" aria-labelledby="schliessende-statistik">
+<h2 id="schliessende-statistik">Schließende Statistik</h2>
+<p class="sec-intro">Von der Stichprobe auf das Ganze schließen.</p>
+<div class="tiles">
+<a href="#konfidenzintervall"><span class="tn">9</span><span class="tt">Konfidenzintervall</span><span class="td">Ein Konfidenzintervall ist ein Bereich um einen Schätzwert aus der Stichprobe, der den unbekannten wahren Parameter mit einer vorgegebenen Sicherheit überdeckt.</span><span class="go">Zum Thema ↓</span></a>
+<a href="#hypothesentest"><span class="tn">10</span><span class="tt">Hypothesentest</span><span class="td">Ein Hypothesentest prüft anhand einer Stichprobe, ob eine Behauptung über die Grundgesamtheit (die Nullhypothese <span class="m">H_0</span>) verworfen werden kann.</span><span class="go">Zum Thema ↓</span></a>
+</div>
+
+<article class="topic" id="konfidenzintervall" aria-labelledby="t9">
+<div class="th"><span class="tn">9</span><h3 id="t9">Konfidenzintervall</h3></div>
+<p><span class="lbl">Kernidee</span>Ein Konfidenzintervall folgt dem Bauplan <i>Schätzwert ± kritischer Wert · Standardfehler</i>. Das Konfidenzniveau <span class="m">1-\alpha</span> (meist 95&nbsp;%) bezieht sich auf das Verfahren: Bei vielen Stichproben überdecken rund 95&nbsp;% der so berechneten Intervalle den wahren Wert. Ist <span class="m">\sigma</span> bekannt, nimmst du das Quantil der Normalverteilung, sonst das der t-Verteilung mit <span class="m">n-1</span> Freiheitsgraden (bei normalverteilten Daten). Je größer <span class="m">n</span>, desto schmaler das Intervall.</p>
+<div class="d">\bar{x} \pm z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \qquad \bar{x} \pm t_{n-1;\,1-\alpha/2} \cdot \frac{s}{\sqrt{n}}</div>
+<p class="legend">Kritische Werte der Normalverteilung: <span class="m">z_{0{,}95} = 1{,}645</span> (90&nbsp;%), <span class="m">z_{0{,}975} = 1{,}960</span> (95&nbsp;%), <span class="m">z_{0{,}995} = 2{,}576</span> (99&nbsp;%). <span class="m">s</span> ist die Stichprobenstandardabweichung mit <span class="m">n-1</span>.</p>
+<div class="bsp">
+<p><span class="lbl">Beispiel</span>25 zufällige Bestellungen eines Onlineshops: <span class="m">\bar{x} = 48</span>&nbsp;€, <span class="m">s = 10</span>&nbsp;€, Werte annähernd normalverteilt. Gesucht ist das 95-%-Intervall für den mittleren Warenkorb.</p>
+<ul>
+<li><span class="m">\sigma</span> unbekannt, also t-Verteilung mit 24 Freiheitsgraden: <span class="m">t_{24;\,0{,}975} = 2{,}064</span></li>
+<li>Standardfehler <span class="m">\frac{10}{\sqrt{25}} = 2</span>, Fehlermarge <span class="m">2{,}064 \cdot 2 \approx 4{,}13</span></li>
+<li class="res">Intervall: <span class="m">[\,43{,}87 \,;\, 52{,}13\,]</span>&nbsp;€</li>
+</ul>
+</div>
+<p class="links"><span class="k">Weiterrechnen:</span><a class="tool" href="/tools/verteilungstabellen#t">t-Quantile</a><a class="tool" href="/tools/formelsammlung-statistik#ki">Formelsammlung: Konfidenzintervalle</a><a class="up" href="#inhalt">↑ Inhalt</a></p>
+</article>
+
+<article class="topic" id="hypothesentest" aria-labelledby="t10">
+<div class="th"><span class="tn">10</span><h3 id="t10">Hypothesentest</h3></div>
+<p><span class="lbl">Kernidee</span>Was du nachweisen willst, gehört in die Alternativhypothese <span class="m">H_1</span>, die Gegenposition in die Nullhypothese <span class="m">H_0</span>. Aus der Stichprobe berechnest du eine Teststatistik und vergleichst sie mit dem kritischen Wert zum Signifikanzniveau <span class="m">\alpha</span>. Liegt sie im Ablehnungsbereich (gleichwertig: p-Wert <span class="m">\le \alpha</span>), wird <span class="m">H_0</span> abgelehnt. Wird <span class="m">H_0</span> nicht abgelehnt, ist sie damit nicht bewiesen.</p>
+<div class="d">z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} \qquad H_0 \text{ ablehnen, wenn } z \gt z_{1-\alpha}</div>
+<p class="legend">Gauß-Test für den Mittelwert bei bekanntem <span class="m">\sigma</span>, hier rechtsseitig. Linksseitig lehnt man ab, wenn <span class="m">z \lt -z_{1-\alpha}</span>, zweiseitig, wenn <span class="m">|z| \gt z_{1-\alpha/2}</span>.</p>
+<div class="bsp">
+<p><span class="lbl">Beispiel</span>Ein Lieferdienst verspricht im Schnitt höchstens 30 Minuten. 49 Lieferungen dauern im Mittel 32,1 Minuten, <span class="m">\sigma = 6</span> ist bekannt, <span class="m">\alpha = 5\,\%</span>.</p>
+<ul>
+<li>Hypothesen: <span class="m">H_0\colon \mu \le 30</span> gegen <span class="m">H_1\colon \mu \gt 30</span></li>
+<li>Teststatistik: <span class="m">z = \frac{32{,}1 - 30}{6/\sqrt{49}} = \frac{2{,}1 \cdot 7}{6} = 2{,}45</span></li>
+<li class="res"><span class="m">2{,}45 \gt z_{0{,}95} = 1{,}645</span>, also wird <span class="m">H_0</span> abgelehnt (p-Wert <span class="m">\approx 0{,}0071</span>).</li>
+</ul>
+</div>
+<div class="tw"><table class="mt txt">
+<thead><tr><th>Entscheidung</th><th><span class="m">H_0</span> ist wahr</th><th><span class="m">H_0</span> ist falsch</th></tr></thead>
+<tbody>
+<tr><td><span class="m">H_0</span> ablehnen</td><td>Fehler 1. Art (<span class="m">\alpha</span>)</td><td>richtig (Teststärke <span class="m">1-\beta</span>)</td></tr>
+<tr><td><span class="m">H_0</span> nicht ablehnen</td><td>richtig</td><td>Fehler 2. Art (<span class="m">\beta</span>)</td></tr>
+</tbody></table></div>
+<p class="legend">Ein kleineres <span class="m">\alpha</span> senkt den Fehler 1. Art, erhöht bei gleichem <span class="m">n</span> aber <span class="m">\beta</span>. Beide zugleich senkt vor allem ein größerer Stichprobenumfang.</p>
+<p class="links"><span class="k">Weiterrechnen:</span><a class="tool" href="/tools/verteilungstabellen#z-quantile">z-Quantile</a><a class="tool" href="/tools/formelsammlung-statistik#tests">Formelsammlung: Tests</a><a class="up" href="#inhalt">↑ Inhalt</a></p>
+</article>
+</section>
+
+<!-- ============ 05 Klausur ============ -->
+<section class="cat" data-c="0" aria-labelledby="klausur">
+<h2 id="klausur">Was in der Klausur oft drankommt</h2>
+<ul class="exam">
+<li><span>Standardisieren und Wahrscheinlichkeiten aus der Normalverteilungstabelle</span><a href="#normalverteilung">Thema 8 ↑</a></li>
+<li><span>Binomialverteilung mit Erwartungswert und Varianz</span><a href="#binomialverteilung">Thema 7 ↑</a></li>
+<li><span>Regressionsgerade nach der Methode der kleinsten Quadrate</span><a href="#regression">Thema 5 ↑</a></li>
+<li><span>Hypothesentest mit Fehler 1. und 2. Art</span><a href="#hypothesentest">Thema 10 ↑</a></li>
+</ul>
+</section>
+
+<!-- ============ 06 FAQ ============ -->
+<section class="cat faq" data-c="1" aria-labelledby="faq">
+<h2 id="faq">Häufige Fragen</h2>
+<details><summary>Wie lerne ich Statistik am schnellsten?</summary><p>Rechne zu jedem Thema mehrere Aufgaben selbst und schreib dir auf, welche Formel bei welcher Fragestellung passt. In Statistik scheitern die meisten nicht an der Rechnung, sondern daran, das richtige Verfahren zu erkennen.</p></details>
+<details><summary>Brauche ich für Statistik viel Mathe?</summary><p>Weniger als befürchtet. Grundrechenarten, Summenzeichen, Wurzeln und der Umgang mit Tabellen reichen für den Großteil. Ableitungen brauchst du vor allem für Lagrange und die Regression.</p></details>
+</section>
+
+<!-- ============ 07 Werkzeuge ============ -->
+<section aria-labelledby="werkzeuge-zum-rechnen">
+<h2 id="werkzeuge-zum-rechnen">Werkzeuge zum Weiterrechnen</h2>
+<ul class="tools">
+<li><a href="/rechner/statistik-rechner">Statistik-Rechner</a><p>Mittelwert, Median, Varianz, Standardabweichung, Korrelation und Regressionsgerade mit Rechenweg.</p></li>
+<li><a href="/tools/verteilungstabellen">Verteilungstabellen</a><p>Standardnormalverteilung und Quantile der t-, χ²- und F-Verteilung, dazu Rechner für Normal-, Binomial- und Poissonverteilung.</p></li>
+<li><a href="/tools/formelsammlung-statistik">Formelsammlung Statistik</a><p>Druckbare Formelsammlung für Statistik I und II: Lage- und Streuungsmaße, Korrelation, Regression, Verteilungen, Schätzen und Testen.</p></li>
+<li><a href="/tools/kombinatorik-rechner">Kombinatorik-Rechner</a><p>Variationen, Kombinationen, Permutationen und Binomialkoeffizienten exakt, mit Rechenweg und Entscheidungshilfe.</p></li>
+<li><a href="/rechner/zinsrechner">Zinsrechner</a><p>Auf- und abzinsen, Rentenbarwert und -endwert, ewige Rente und Effektivzins mit Formel und Rechenweg.</p></li>
+</ul>
+</section>
+
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</main>
+</div>
+
+<script src="/tutor/vendor/katex@0.16.47/katex.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  if (!window.katex) return;
+  // Abgesetzte Formel an \qquad (oberste Ebene) in Teile zerlegen, die bei wenig Platz umbrechen.
+  function splitTop(src) {
+    var parts = [], depth = 0, cur = '', i = 0;
+    while (i < src.length) {
+      var c = src.charAt(i);
+      if (c === '\\' && i + 1 < src.length && !/[a-zA-Z]/.test(src.charAt(i + 1))) { cur += src.substr(i, 2); i += 2; continue; }
+      if (c === '{') depth++;
+      if (c === '}') depth--;
+      if (depth === 0 && src.startsWith('\\qquad', i) && !/[a-zA-Z]/.test(src.charAt(i + 6) || ' ')) { parts.push(cur); cur = ''; i += 6; continue; }
+      cur += c; i++;
+    }
+    parts.push(cur);
+    return parts.map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+  var opts = { throwOnError: true, strict: 'ignore' };
+  var els = document.querySelectorAll('.m,.d');
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i], src = el.textContent;
+    try {
+      if (el.classList.contains('d')) {
+        var parts = splitTop(src);
+        el.textContent = '';
+        parts.forEach(function (p) {
+          var s = document.createElement('span');
+          s.className = 'dp';
+          katex.render('\\displaystyle ' + p, s, opts);
+          el.appendChild(s);
+        });
+      } else {
+        // Brüche in Beispielen gut lesbar setzen
+        katex.render((el.closest('.bsp li') && /\\frac|\\binom/.test(src) ? '\\displaystyle ' : '') + src, el, opts);
+        // Satzzeichen direkt nach der Formel nicht in die nächste Zeile umbrechen lassen
+        // (Satzzeichen in das letzte Formelstück ziehen, damit es nicht allein am Zeilenanfang steht)
+        var nx = el.nextSibling, mm = nx && nx.nodeType === 3 && /^[.,;:)]+/.exec(nx.data);
+        var bases = el.querySelectorAll('.katex-html > .base');
+        if (mm && bases.length) {
+          var pz = document.createElement('span');
+          pz.className = 'pz';
+          pz.textContent = mm[0];
+          bases[bases.length - 1].appendChild(pz);
+          nx.data = nx.data.slice(mm[0].length);
+        }
+      }
+    } catch (e) { el.textContent = src; el.title = 'Formel konnte nicht dargestellt werden'; if (window.console) console.error(e.message); }
+  }
+})();
+</script>
 </body>
 </html>
