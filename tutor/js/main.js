@@ -181,15 +181,28 @@ function initLanding() {
   // (nie die, die man gerade sieht) – beim nächsten Runterscrollen erscheinen sie neu.
   // In beide Richtungen: Was oben oder unten ganz aus dem Bild ist, versteckt sich wieder
   // und erscheint neu, sobald man zurückscrollt (von oben kommend fliegt es von oben rein).
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    const el = e.target;
-    if (e.isIntersecting && e.intersectionRatio >= .12) { el.classList.add('in'); settle(el); return; }
-    if (e.isIntersecting || el.matches('details[open]')) return;
-    const above = e.boundingClientRect.bottom <= 0;
-    if (!above && e.boundingClientRect.top < innerHeight * .9) return;
-    el.classList.remove('in', 'settled'); el.classList.toggle('up', above);
-  }), { threshold: [0, .12, .14] });
-  $$('.reveal, .pin.fly, h2[data-split]').forEach(el => io.observe(el));
+  // Entscheidung immer nach der echten Position (getBoundingClientRect), nicht nach dem Observer-Eintrag:
+  // Bei schnellem Scrollen (v. a. Trackpad/Safari) kommen Einträge verspätet an – sonst blieben Elemente unsichtbar.
+  const revEls = $$('.reveal, .pin.fly, h2[data-split]');
+  const sync = el => {
+    const r = el.getBoundingClientRect(), vh = innerHeight;
+    if (!r.height && !r.width) return;
+    const vis = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+    // sichtbar genug: 12 % des Elements oder (bei hohen Elementen) 15 % des Bildschirms
+    if (vis > 0 && vis >= Math.min(r.height * .12, vh * .15)) { if (!el.classList.contains('in')) { el.classList.add('in'); settle(el); } return; }
+    if (vis > 0 || el.matches('details[open]')) return;
+    const above = r.bottom <= 0;
+    if (!above && r.top < vh * .9) return;
+    if (el.classList.contains('in') || el.classList.contains('up') !== above) { el.classList.remove('in', 'settled'); el.classList.toggle('up', above); }
+  };
+  const io = new IntersectionObserver(es => es.forEach(e => sync(e.target)), { threshold: [0, .05, .12, .14, .3, .6, 1] });
+  revEls.forEach(el => io.observe(el));
+  // Sicherheitsnetz: während und nach dem Scrollen alle Elemente einmal pro Frame nachprüfen
+  let revRaf = 0, revEnd = 0;
+  const revAll = () => { revRaf = 0; revEls.forEach(sync); };
+  const revKick = () => { if (!revRaf) revRaf = requestAnimationFrame(revAll); clearTimeout(revEnd); revEnd = setTimeout(revAll, 140); };
+  addEventListener('scroll', revKick, { passive: true });
+  addEventListener('resize', revKick, { passive: true });
 
   // Fortschrittsbalken + Nav
   const bar = $('#scrollbar'), nav = $('#nav');
