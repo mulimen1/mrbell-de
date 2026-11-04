@@ -6024,6 +6024,83 @@ html body .lob .lobqb,html body .lob .lobjb{display:flex}
   .lob .lobqb span{font-size:12px}
 }
 @media (max-width:380px){.lob .lobqb span{display:none}}
+
+/* Lobby: Traumberuf/Haustier links, große Kacheln rechts */
+.lobside{position:absolute;left:max(16px,env(safe-area-inset-left));bottom:max(20px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px}
+.lobpick2{display:flex;align-items:center;gap:12px;padding:8px 18px 8px 8px;border-radius:20px;text-align:left;min-width:210px;background:linear-gradient(180deg,rgba(40,24,70,.66),rgba(22,12,40,.78));-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1.5px solid rgba(255,255,255,.16);box-shadow:0 10px 26px rgba(0,0,0,.28);transition:transform .15s}
+.lobpick2:active{transform:scale(.96)}
+.lobpick2 .lpi{width:56px;height:56px;border-radius:16px;overflow:hidden;background:radial-gradient(circle at 50% 35%,#8fd8ff,#3a7bd5);box-shadow:0 0 0 2.5px #ffd23f}
+#lobpp .lpi{background:radial-gradient(circle at 50% 35%,#ffe0a8,#e59b3c)}
+.lobpick2 .lpi img{width:100%;height:100%;display:block}
+.lobpick2 small{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffe07a}
+.lobpick2 b{display:block;font-size:18px;font-weight:900}
+.lobtiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.lobt{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px 9px;border-radius:18px;background:linear-gradient(180deg,#6fb8ff,#3a7bd5);box-shadow:0 5px 0 #2456a3,0 10px 22px rgba(0,0,0,.3),inset 0 1.5px 0 rgba(255,255,255,.45);transition:transform .12s,box-shadow .12s}
+.lobt:nth-child(2){background:linear-gradient(180deg,#b98cff,#7a4fd9);box-shadow:0 5px 0 #5531a8,0 10px 22px rgba(0,0,0,.3),inset 0 1.5px 0 rgba(255,255,255,.45)}
+.lobt:nth-child(3){background:linear-gradient(180deg,#5ee08f,#22b45e);box-shadow:0 5px 0 #138341,0 10px 22px rgba(0,0,0,.3),inset 0 1.5px 0 rgba(255,255,255,.45)}
+.lobt:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.3)}
+.lobt .i{font-size:28px;color:#fff}
+.lobt b{font-size:13px;font-weight:900;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.2)}
+.lobgo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.lobgo small{position:relative;z-index:1;font-family:G,sans-serif;font-size:11.5px;letter-spacing:.04em;text-transform:none;font-weight:800;opacity:.75}
+.lob .lobplay{width:340px}
+/* Menü */
+.lml{display:flex;flex-direction:column;gap:8px;margin:12px 0 4px;text-align:left}
+.lbmi{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:#f3efff;color:#2a1a4a!important}
+.lbmi>i{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(180deg,#7fdcff,#4a8cf0);color:#fff;font-size:22px}
+.lbmi span{flex:1}.lbmi b{display:block;font-size:15px}.lbmi small{font-size:12px;color:#6b5aa6}
+.lbmi>.i:last-child{color:#8a7bbd}
+@media (max-width:820px){
+  .lobside{flex-direction:row;left:12px;right:12px;bottom:calc(max(12px,env(safe-area-inset-bottom)) + 160px);justify-content:center;gap:8px}
+  .lobpick2{min-width:0;flex:1;max-width:190px;padding:6px 10px 6px 6px;gap:8px;border-radius:16px}
+  .lobpick2 .lpi{width:42px;height:42px;border-radius:12px}
+  .lobpick2 b{font-size:14px}.lobpick2 small{font-size:9.5px}
+  .lob .lobplay{flex-direction:column;width:auto}
+  .lobt{padding:8px 2px 7px}.lobt .i{font-size:22px}.lobt b{font-size:11.5px}
+  .lobgo{height:64px}
+}
+/* Bereiche aus der Lobby: eigener Kopf mit Zurück zur Lobby */
+.alobbar{display:none}
+body[data-area] .alobbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:30;padding:12px 16px;margin:-4px -4px 12px;background:var(--bg,#fff);border-bottom:1.5px solid rgba(0,0,0,.06)}
+.alob{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:14px;font:inherit;font-weight:800;font-size:15px;color:#fff;background:linear-gradient(180deg,#ffb84d,#f08a12);border:0;box-shadow:0 4px 0 #b9600a;cursor:pointer}
+.alob:active{transform:translateY(3px);box-shadow:0 1px 0 #b9600a}
+.alobt{font-size:22px;font-weight:900}
+.alobf{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.alobf:empty{display:none}
+.alobf button{padding:8px 14px;border-radius:12px;font:inherit;font-weight:800;font-size:14px;border:2px solid transparent;background:color-mix(in srgb,var(--c1) 16%,#fff);color:var(--c2);cursor:pointer}
+.alobf button.on{background:linear-gradient(180deg,var(--c1),var(--c2));color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.18)}
+body.dark[data-area] .alobbar{background:#141824;border-color:rgba(255,255,255,.08)}
+/* In den Bereichen nur Fach-Auswahl und Zurück; Leiste der App aus */
+body[data-area="hw"] #app .aside,body[data-area="games"] #app .aside,body[data-area="test"] #app .aside,body[data-area="prof"] #app .aside,
+body[data-area="hw"] #acol,body[data-area="games"] #acol,body[data-area="test"] #acol,body[data-area="prof"] #acol,
+body[data-area="hw"] #aopen,body[data-area="games"] #aopen,body[data-area="test"] #aopen,body[data-area="prof"] #aopen,
+body[data-area="hw"] #abot,body[data-area="games"] #abot,body[data-area="test"] #abot,body[data-area="prof"] #abot{display:none!important}
+body[data-area="hw"] #app,body[data-area="games"] #app,body[data-area="test"] #app,body[data-area="prof"] #app{grid-template-columns:1fr!important;padding-left:0!important}
+body[data-area="hw"] #app .amain,body[data-area="games"] #app .amain,body[data-area="test"] #app .amain,body[data-area="prof"] #app .amain{padding-left:0!important}
+body[data-area="games"] #wtabs,body[data-area="test"] #wtabs{display:none!important}
+/* Was in die Lobby umgezogen ist, aus der App-Leiste */
+#app .anv.hw,#app .aacc{display:none!important}
+#app #wtabs [data-w="games"],#app #wtabs [data-w="test"]{display:none!important}
+.avl img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.lnin{width:100%;box-sizing:border-box;margin:6px 0 14px;padding:14px 16px;border-radius:16px;border:2.5px solid #d9cff5;font:inherit;font-size:20px;font-weight:800;text-align:center;color:#2a1a4a;background:#fff;outline:none}
+.lnin:focus{border-color:#ffb321}
+.lpkk{padding:12px 4px}
+body.lobon #ov{z-index:1200!important}
+body[data-area="play"] .alobbar{display:none!important}
+.lobmenu .lobcard{max-height:88vh;overflow:auto}
+/* Bereiche auf dem Handy: kein Platz für die versteckte App-Kopfleiste, Fächer als wischbare Reihe */
+@media (max-width:820px){
+  body[data-area="hw"] #app .amain,body[data-area="games"] #app .amain,body[data-area="test"] #app .amain,body[data-area="prof"] #app .amain{padding-top:env(safe-area-inset-top)!important}
+  body[data-area] .alobbar{gap:8px 10px;padding:10px 12px;margin:0 0 10px}
+  body[data-area] .alob{padding:9px 13px;font-size:14px}
+  body[data-area] .alobf{flex-wrap:nowrap;overflow-x:auto;margin:0 -12px;padding:2px 12px 4px;width:calc(100% + 24px);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  body[data-area] .alobf::-webkit-scrollbar{display:none}
+  body[data-area] .alobf button{flex:none;padding:7px 12px;font-size:13.5px}
+}
+@media (max-width:820px){
+  body[data-area="games"] .app[data-v=subj] .amain,body[data-area="test"] .app[data-v=subj] .amain{overflow-y:auto!important;overflow-x:hidden!important}
+  body[data-area="games"] .app[data-v=subj] #game,body[data-area="test"] .app[data-v=subj] #game{position:relative!important;inset:auto!important;padding:0 12px 130px!important;min-height:0!important}
+}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -6152,6 +6229,7 @@ html body .lob .lobqb,html body .lob .lobjb{display:flex}
     <button class="acol" id="acol" aria-label="Leiste einklappen"><svg class="i"><use href="#i-arrow"/></svg></button>
     <button class="aopen" id="aopen" aria-label="Leiste öffnen"><svg class="i"><use href="#i-arrow"/></svg>Menü</button>
     <main class="amain">
+      <div class="alobbar" id="alobbar"><button type="button" class="alob" id="alob"><svg class="i" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg><span>Zurück zur Lobby</span></button><b class="alobt" id="alobt"></b><div class="alobf" id="alobf" role="tablist"></div></div>
       <div class="demo picked" id="game">
                 <div class="ahome" id="ahome"></div>
         <div class="ahw" id="ahw"></div>
@@ -12599,9 +12677,10 @@ const AV = {}; JOBS.forEach(([j, n, c, l]) => l.forEach((k) => { AV[k] = [c, j];
 const AV0 = 'astro-s', AVX = AV;
 const avJob = (k) => JOBS.find((j) => j[0] === (AV[k] || AV[AV0])[1]);
 const PROF = () => { const a = lsx.get('gsm-av', AV0); return { name: lsx.get('gsm-name', ''), av: AV[a] ? a : AV0, photo: lsx.get('gsm-photo', ''), limit: +lsx.get('gsm-limit', 0), hw: lsx.get('gsm-hwon', '1') === '1', pin: lsx.get('gsm-pin', '') }; };
-const avSrc = (a, k) => `/grundschulmax/av2/${AV[a] ? a : AV0}-${k === 's' ? 'n' : k}.webp`;
+const avSrc = (a, k) => (typeof lobFaceCur === 'function' && lobFaceCur()) || `/grundschulmax/av2/${AV[a] ? a : AV0}-${k === 's' ? 'n' : k}.webp`;
 function avHTML(P0 = PROF()) {
-  const k = AV[P0.av] ? P0.av : AV0, A = AV[k];
+  const k = AV[P0.av] ? P0.av : AV0, A = AV[k], lf = typeof lobFaceCur === 'function' && lobFaceCur();
+  if (lf) return `<span class="avt avx avl"><img class="n" src="${lf}" alt=""><i class="gl"></i></span>`;
   return `<span class="avt avx" style="--av:${A[0]}"><img class="n" src="${avSrc(k, 'n')}" alt=""><img class="b" src="${avSrc(k, 'b')}" alt="" decoding="async"><img class="h" src="${avSrc(k, 'h')}" alt="" decoding="async"><i class="gl"></i></span>`;
 }
 /* Leben in den Profilbildern: ab und zu blinzeln, manchmal kurz lächeln */
@@ -12625,7 +12704,7 @@ function drawProfile() {
     : `<div class="pfko"><button class="pfin2" id="pflogin"><span class="pgi pgk">${I('key')}</span><span><b>Einloggen</b><small>Schon ein Konto? Dann ist alles auf jedem Gerät gespeichert.</small></span>${I('arrow')}</button>${ABO && ABO.code ? `<button class="lnk pfabo" id="pfabo">Abo kündigen</button><div class="pfgate" id="pfgate" hidden></div>` : ''}<button class="pfout pfhome" id="pfhome">${I('arrow')}Zur Startseite</button></div>`;
   h.innerHTML = `<div class="pfh"><div class="pfav" id="pfav">${avHTML(P0)}</div><div><small>Profil</small><b>${esc(P0.name || 'Wie heißt du?')}</b><span>${GRADES[g][0]}</span></div></div>
     <div class="pftop">${eltern}${konto}<div class="pfko"><button class="pfin2 pfhelp" id="pfhelp"><span class="pgi pgk">?</span><span><b>Hilfe</b><small>So funktioniert Grundschulmax</small></span>${I('arrow')}</button></div></div>
-    <div class="pfc"><div class="pff"><span>Was willst du werden?</span><div class="avjobs" id="avjobs">${JOBS.map((j) => `<button class="avj${j === avJob(av) ? ' on' : ''}" data-j="${j[0]}" style="--av:${j[2]}"><img src="/grundschulmax/av2/${j[3][0]}-n.webp" alt="" decoding="async"><small>${j[1]}</small></button>`).join('')}</div><span>Und wie siehst du aus?</span><div class="avg" id="avg"></div></div>
+    <div class="pfc">
       <div class="pfrow2"><label class="pff"><span>Vorname oder Spitzname</span><input id="pfn" maxlength="20" placeholder="z. B. Lena" value="${esc(P0.name)}" autocomplete="off"></label>
       <div class="pff"><span>Aussehen</span><div class="paopt" id="pfdark"><button data-v="0" class="${document.body.classList.contains('dark') ? '' : 'on'}">${I('star')}Hell</button><button data-v="1" class="${document.body.classList.contains('dark') ? 'on' : ''}">${I('bulb')}Dunkel</button></div></div></div>
       <div class="pff"><span>Klasse</span><div class="pfg">${GRADES.map((x, i) => `<button class="${i === g ? 'on' : ''}" data-g="${i}" style="--k1:${GCOL[i][0]};--k2:${GCOL[i][1]}"><b>${i + 1}</b><small>Klasse</small></button>`).join('')}</div></div>
@@ -12650,7 +12729,7 @@ function drawProfile() {
     $$('.avb', h).forEach((b, i) => { b.style.animationDelay = i * .06 + 's'; b.onclick = () => {
       av = b.dataset.av; $$('.avb', h).forEach((x) => x.classList.toggle('on', x === b)); $('#pfav').innerHTML = avHTML({ av, photo }); sfx.tap(); restart($('#pfav'), 'pin'); const x = $('#pfav .avx'); if (x) { x.classList.add('hp'); setTimeout(() => x.classList.remove('hp'), 1100); }
     }; }); };
-  drawAvs(avJob(av));
+  if ($('#avg', h)) drawAvs(avJob(av));
   $$('.avj', h).forEach((b) => (b.onclick = () => { const j = JOBS.find((x) => x[0] === b.dataset.j); $$('.avj', h).forEach((x) => x.classList.toggle('on', x === b)); sfx.flip(); drawAvs(j); }));
   $$('.pfg button', h).forEach((b) => (b.onclick = () => { gsel = +b.dataset.g; $$('.pfg button', h).forEach((x) => x.classList.toggle('on', x === b)); sfx.tap(); }));
   $$('#pfdark button', h).forEach((b) => (b.onclick = () => { const want = b.dataset.v === '1'; if (want !== document.body.classList.contains('dark')) toggleDark(); $$('#pfdark button', h).forEach((x) => x.classList.toggle('on', x === b)); }));
@@ -12920,6 +12999,7 @@ const ls = (n, v = .7) => { try { play('l-' + n, v); } catch (e) {} };
 const LKIDS = [['lena', 'Lena', 'w'], ['jonas', 'Jonas', 'm'], ['mia', 'Mia', 'w'], ['amara', 'Amara', 'w'], ['luca', 'Luca', 'm'], ['noah', 'Noah', 'm']];
 const LJOBS = [['schueler', 'Schüler', 'Schülerin', 1], ['astro', 'Astronaut', 'Astronautin', 2], ['fuss', 'Fußballer', 'Fußballerin', 4], ['polizei', 'Polizist', 'Polizistin', 6], ['feuer', 'Feuerwehrmann', 'Feuerwehrfrau', 8], ['arzt', 'Arzt', 'Ärztin', 10], ['forsch', 'Forscher', 'Forscherin', 12], ['koch', 'Koch', 'Köchin', 14], ['kunst', 'Künstler', 'Künstlerin', 16], ['pilot', 'Pilot', 'Pilotin', 18]];
 const LMODES = [['home', 'map', 'Abenteuer', 'Alle Fächer gemischt'], ['path', 'book', 'Lernpfad', 'Ein Fach Schritt für Schritt'], ['games', 'pad', 'Spiele', 'Nur Spiele'], ['hw', 'cam', 'Hausaufgaben', 'Max hilft beim Blatt'], ['test', 'cap', 'Probetest', 'Fit für die Arbeit']];
+function lobFaceCur() { const k = lobKid(); if (!k) return ''; const L = lobLevel().L, j = lsx.get('gsm-ljob', 'schueler'); return lobFace(k[0], lobUnlocked(L).includes(j) ? j : 'schueler'); }
 const lobKid = () => { const k = lsx.get('gsm-lkid', ''); return LKIDS.find((x) => x[0] === k) || null; };
 const lobJobName = (j, kid) => (kid && kid[2] === 'w' ? j[2] : j[1]);
 const lobFig = (kid, job) => `${LOBB}fig/${kid}-${job}.webp`, lobFace = (kid, job) => `${LOBB}face/${kid}-${job}.webp`;
@@ -12972,16 +13052,18 @@ function lobBuild() {
     </header>
     <section class="lobquest" id="lobquest" aria-label="Tägliche Aufgaben"></section>
     <section class="lobjobs" id="lobjobs" aria-label="Traumberufe"></section>
-    <div class="lobplay"><button type="button" class="lobmode" id="lobmode"></button><button type="button" class="lobgo" id="lobgo"><span>Spielen</span></button></div>
+    <div class="lobside" id="lobside"><button type="button" class="lobpick2" id="lobpj"><span class="lpi"><img alt=""></span><span><small>Traumberuf</small><b></b></span></button><button type="button" class="lobpick2" id="lobpp"><span class="lpi"><img alt=""></span><span><small>Haustier</small><b></b></span></button></div><div class="lobplay"><div class="lobtiles"><button type="button" class="lobt" data-a="hw">${I('cam')}<b>Hausaufgaben</b></button><button type="button" class="lobt" data-a="games">${I('pad')}<b>Spiele</b></button><button type="button" class="lobt" data-a="test">${I('cap')}<b>Probetest</b></button></div><button type="button" class="lobgo" id="lobgo"><span>Spielen</span><small>Abenteuer und Lernpfade</small></button></div>
     <div class="lobfall" id="lobfall"></div>`;
   document.body.appendChild(el);
-  $('#lobgo').onclick = () => { ls('play', .8); lobPlay(); };
-  $('#lobmode').onclick = () => { ls('tap', .6); lobModes(); };
-  $('#lobme').onclick = () => { ls('tap', .6); lobPick(); };
+  $('#lobgo').onclick = () => { ls('play', .8); lobArea('play'); };
+  $$('.lobt', el).forEach((b) => (b.onclick = () => { ls('play', .7); lobArea(b.dataset.a); }));
+  $('#lobme').onclick = () => { ls('tap', .6); lobMenu(); };
+  $('#lobpj').onclick = () => { ls('tap', .6); lsx.set('gsm-ltab', 'jobs'); lobDraw(); el.classList.remove('qopen'); el.classList.toggle('jopen'); };
+  $('#lobpp').onclick = () => { ls('tap', .6); lsx.set('gsm-ltab', 'pets'); lobDraw(); el.classList.remove('qopen'); el.classList.toggle('jopen'); };
   const musI = () => { const b = $('#lobmus'), o = typeof MUS !== 'undefined' && MUS.on(); b.innerHTML = `${I(o ? 'snd' : 'mute')}<small>Musik</small>`; b.classList.toggle('off', !o); };
   $('#lobmus').onclick = () => { if (typeof MUS !== 'undefined') MUS.toggle(); musI(); ls('tap', .6); }; musI();
   $('#lobhelp').onclick = () => { ls('tap', .6); lobTour(); };
-  $('#lobcta').onclick = () => { ls('tap', .6); GT.t('Lobby Einrichten geklickt', ''); lobClose(); if (typeof openM === 'function') openM('y'); };
+  $('#lobcta').onclick = () => { ls('tap', .6); GT.t('Lobby Einrichten geklickt', ''); if (typeof openM === 'function') openM('y'); };
   $('#lobqb').onclick = () => { ls('tap', .6); el.classList.remove('jopen'); el.classList.toggle('qopen'); };
   $('#lobjb').onclick = () => { ls('tap', .6); el.classList.remove('qopen'); el.classList.toggle('jopen'); };
   $('#lobc').addEventListener('pointerdown', () => el.classList.remove('qopen', 'jopen'));
@@ -12989,7 +13071,7 @@ function lobBuild() {
 }
 function lobDraw() {
   const el = lobBuild(), kid = lobKid() || LKIDS[0], lv = lobLevel(), un = lobUnlocked(lv.L), job = un.includes(lsx.get('gsm-ljob', 'schueler')) ? lsx.get('gsm-ljob', 'schueler') : 'schueler';
-  const nm = (typeof PROF === 'function' && PROF().name) || kid[1]; $('#lobcta').hidden = typeof PAID !== 'undefined' && PAID;
+  const nm = (typeof PROF === 'function' && PROF().name) || 'Dein Name'; $('#lobcta').hidden = typeof PAID !== 'undefined' && PAID;
   $('.lobav img', el).src = lobFace(kid[0], job); $('.lobmt b', el).textContent = nm; $('.lobmt small', el).textContent = `Level ${lv.L} · ${lobJobName(LJOBS.find((j) => j[0] === job), kid)}`;
   $('.lobxp', el).dataset.t = `${lv.cur} / ${lv.need} EP`; $('.lobxp i', el).style.width = Math.round((lv.cur / lv.need) * 100) + '%';
   const Q = lobQuests(), qd = Q.filter((x) => x.done).length;
@@ -13005,8 +13087,9 @@ function lobDraw() {
   $('#lobjobs').innerHTML = `${tabs}<div class="ljr">${LJOBS.map((j) => { const ok = un.includes(j[0]); return `<button type="button" class="lj${ok ? '' : ' lk'}${j[0] === job ? ' on' : ''}" data-j="${j[0]}" aria-label="${esc(lobJobName(j, kid))}${ok ? '' : ', ab Level ' + j[3]}"><span class="ljf"><img src="${lobFace(kid[0], j[0])}" alt="" loading="lazy"></span><b>${ok ? esc(lobJobName(j, kid)) : `${I('lock')}Level ${j[3]}`}</b></button>`; }).join('')}</div>`;
   $$('#lobjobs [data-t]').forEach((b) => (b.onclick = () => { lsx.set('gsm-ltab', b.dataset.t); ls('tap', .5); lobDraw(); }));
   $$('#lobjobs [data-j]').forEach((b) => (b.onclick = () => { const j = b.dataset.j; if (!un.includes(j)) { ls('locked'); lobToast(`Ab Level ${LJOBS.find((x) => x[0] === j)[3]} wirst du ${lobJobName(LJOBS.find((x) => x[0] === j), kid)}. Jede Lektion bringt dich näher!`); restart(b, 'shake'); return; } if (j === job) { LOBE && LOBE.jump(); return; } lobWear(j); }));
-  const M = LMODES.find((m) => m[0] === lsx.get('gsm-lmode', 'home')) || LMODES[0];
-  $('#lobmode').innerHTML = `${I(M[1])}<span><small>Modus</small><b>${M[2]}</b></span>${I('down')}`;
+  const JN = LJOBS.find((j) => j[0] === job), PN = LPETS.find((p) => p[0] === pcur);
+  $('#lobpj img').src = lobFace(kid[0], job); $('#lobpj b').textContent = lobJobName(JN, kid);
+  $('#lobpp img').src = petFace(pcur); $('#lobpp b').textContent = PN ? PN[1] : 'Hund';
   return { kid, job, lv };
 }
 function lobToast(t) { let b = $('#lobtoast'); if (!b) { b = document.createElement('div'); b.id = 'lobtoast'; b.className = 'lobtoast'; $('#lobby').appendChild(b); } b.textContent = t; b.classList.remove('on'); void b.offsetWidth; b.classList.add('on'); clearTimeout(b._t); b._t = setTimeout(() => b.classList.remove('on'), 3200); }
@@ -13061,17 +13144,42 @@ function lobReveal(j) {
   });
 }
 
+function lobMenu() {
+  const o = document.createElement('div'), logged = typeof K !== 'undefined' && K.tok; o.className = 'lobov lobmenu';
+  const it = (id, ic, t, d) => `<button type="button" class="lbmi" data-m="${id}"><i>${I(ic)}</i><span><b>${t}</b><small>${d}</small></span>${I('arrow')}</button>`;
+  o.innerHTML = `<div class="lobcard"><b class="lpt">Menü</b><div class="lml">${it('look', 'star', 'Aussehen ändern', 'Eine andere Figur wählen')}${it('prof', 'family', 'Profil und Eltern', 'Name, Klasse, Elternbereich')}${logged ? it('out', 'key', 'Konto', 'Angemeldet') : it('login', 'key', 'Einloggen', 'Schon ein Konto? Hier anmelden')}${it('help', 'bulb', 'Hilfe', 'So funktioniert die Lobby')}${it('home', 'home', 'Zur Startseite', 'grundschulmax.de')}</div><button type="button" class="lnk lpno">Schließen</button></div>`;
+  $('#lobby').appendChild(o); requestAnimationFrame(() => o.classList.add('on')); ls('open', .5);
+  const close = () => { o.classList.remove('on'); setTimeout(() => o.remove(), 300); };
+  $('.lpno', o).onclick = () => { ls('tap', .6); close(); };
+  $$('[data-m]', o).forEach((b) => (b.onclick = () => { const m = b.dataset.m; ls('tap', .6); close();
+    if (m === 'look') lobPick(); else if (m === 'help') lobTour();
+    else if (m === 'prof' || m === 'out') { lobClose(); document.body.dataset.area = 'prof'; st.nav = 'profile'; if (document.body.dataset.screen !== 'spiel') go('spiel'); mount(); drawAreaBar(); $('#alobt').textContent = 'Profil'; }
+    else if (m === 'login') { if (typeof openLogin === 'function') openLogin(); }
+    else if (m === 'home') { lobClose(); go(''); } }));
+}
+/* Eigener Name */
+function lobName() {
+  return new Promise((done) => {
+    const o = document.createElement('div'); o.className = 'lobov lobname';
+    o.innerHTML = `<div class="lobcard"><b class="lpt">Wie heißt du?</b><p>Dein Vorname oder Spitzname.</p><input class="lnin" id="lnin" maxlength="16" autocomplete="off" autocapitalize="words" placeholder="Dein Name" value="${esc(lsx.get('gsm-name', ''))}"><button type="button" class="b3d lg lngo" id="lngo" disabled>Weiter</button></div>`;
+    $('#lobby').appendChild(o); requestAnimationFrame(() => o.classList.add('on')); ls('open', .5);
+    const inp = $('#lnin', o), btn = $('#lngo', o), chk = () => (btn.disabled = inp.value.trim().length < 2);
+    inp.oninput = chk; chk(); setTimeout(() => inp.focus(), 350);
+    const ok = () => { const v = inp.value.trim().replace(/\s+/g, ' ').slice(0, 16); if (v.length < 2) return; lsx.set('gsm-name', v); GT.t('Lobby Name gesetzt', ''); ls('outfit', .6); o.classList.remove('on'); setTimeout(() => { o.remove(); done(); }, 300); };
+    btn.onclick = ok; inp.onkeydown = (e) => { if (e.key === 'Enter') ok(); };
+  });
+}
 /* Figur aussuchen */
 function lobPick(first) {
   const cur = lobKid(), o = document.createElement('div'); o.className = 'lobov lobpick';
-  o.innerHTML = `<div class="lobcard wide"><b class="lpt">${first ? 'Wer bist du?' : 'Aussehen ändern'}</b><p>${first ? 'Such dir deine Figur aus. Später schaltest du Traumberufe frei.' : 'Deine Traumberufe bleiben erhalten.'}</p><div class="lpk">${LKIDS.map((k) => `<button type="button" class="lpkk${cur && cur[0] === k[0] ? ' on' : ''}" data-k="${k[0]}"><img src="${lobFig(k[0], 'schueler')}" alt=""><span>${k[1]}</span></button>`).join('')}</div>${first ? '' : '<button type="button" class="lnk lpno">Abbrechen</button>'}</div>`;
+  o.innerHTML = `<div class="lobcard wide"><b class="lpt">${first ? 'Wer bist du?' : 'Aussehen ändern'}</b><p>${first ? 'Such dir deine Figur aus. Später schaltest du Traumberufe frei.' : 'Deine Traumberufe bleiben erhalten.'}</p><div class="lpk">${LKIDS.map((k) => `<button type="button" class="lpkk${cur && cur[0] === k[0] ? ' on' : ''}" data-k="${k[0]}"><img src="${lobFig(k[0], 'schueler')}" alt=""></button>`).join('')}</div>${first ? '' : '<button type="button" class="lnk lpno">Abbrechen</button>'}</div>`;
   $('#lobby').appendChild(o); requestAnimationFrame(() => o.classList.add('on')); ls('open', .5);
   const close = () => { o.classList.remove('on'); setTimeout(() => o.remove(), 300); };
   if (!first) $('.lpno', o).onclick = () => { ls('tap', .6); close(); };
   $$('[data-k]', o).forEach((b) => (b.onclick = async () => {
     const k = b.dataset.k; lsx.set('gsm-lkid', k); ls('outfit', .8); GT.t('Lobby Figur gewählt', k); close();
     const d = lobDraw(); await lobEngine(); if (LOBE) await LOBE.setFigure(k, d.job, !first);
-    if (first) { if (LOBE) { await LOBE.intro(); } setTimeout(lobSeq, 400); }
+    if (first) { await lobName(); lobDraw(); if (LOBE) { await LOBE.intro(); } setTimeout(lobSeq, 400); }
   }));
 }
 
@@ -13084,6 +13192,19 @@ function lobModes() {
   $('.lpno', o).onclick = () => { ls('tap', .6); close(); };
   $$('[data-m]', o).forEach((b) => (b.onclick = () => { lsx.set('gsm-lmode', b.dataset.m); ls('tap', .6); close(); lobDraw(); lobPlay(); }));
 }
+const AREAS = { play: 'Spielen', hw: 'Hausaufgaben', games: 'Spiele', test: 'Probetest' };
+function lobArea(a) {
+  GT.t('Lobby Bereich', a); lobClose(); document.body.dataset.area = a;
+  if (a === 'play') st.nav = 'home'; else if (a === 'hw') st.nav = 'hw'; else { st.nav = 'subj'; st.w = a; const mi = SUBJ.findIndex((x) => x.k === 'mathe'); if (st.s == null || st._areaFresh !== a) st.s = mi < 0 ? 0 : mi; st._areaFresh = a; }
+  if (document.body.dataset.screen !== 'spiel') go('spiel'); mount(); drawAreaBar(); const am = $('.amain'); if (am) am.scrollTop = 0;
+}
+function drawAreaBar() {
+  const a = document.body.dataset.area || '', bar = $('#alobbar'); if (!bar) return;
+  $('#alobt').textContent = AREAS[a] || '';
+  const f = $('#alobf'); f.innerHTML = a === 'games' || a === 'test' ? SUBJ.map((x, i) => `<button type="button" role="tab" class="${i === st.s ? 'on' : ''}" data-i="${i}" style="--c1:${x.c1};--c2:${x.c2}">${esc(x.n)}</button>`).join('') : '';
+  $$('button', f).forEach((b) => (b.onclick = () => { st.s = +b.dataset.i; st.nav = 'subj'; st.w = a; ls('tap', .5); mount(); drawAreaBar(); const am = $('.amain'); if (am) am.scrollTop = 0; }));
+}
+setTimeout(() => { const b = $('#alob'); if (b) b.onclick = () => { ls('tap', .6); lobOpen(); }; }, 0);
 function lobPlay() {
   const m = lsx.get('gsm-lmode', 'home'); GT.t('Lobby Spielen', m); lobClose();
   if (m === 'home' || m === 'hw') st.nav = m; else { st.nav = 'subj'; st.w = m; }
@@ -13094,8 +13215,8 @@ function lobPlay() {
 function lobTour() {
   const S = [
     ['#lobc', 'Willkommen in der Lobby', 'Wir haben Grundschulmax wie ein Spiel gebaut, damit Ihr Kind Spaß am Lernen hat. Hier steht seine eigene Figur mitten in ihrer Welt.'],
-    ['#lobgo', 'Spielen', 'Mit „Spielen“ startet Ihr Kind direkt. Darüber wählt es den Modus: Abenteuer, Lernpfad, Spiele, Hausaufgaben oder Probetest.'],
-    ['#lobjobs', 'Level und Traumberufe', 'Jede Lektion bringt Erfahrungspunkte. Mit jedem Level schaltet Ihr Kind abwechselnd neue Traumberufe mit eigener Welt und neue Haustiere frei.'],
+    ['#lobgo', 'Spielen', 'Mit „Spielen“ geht es zu Abenteuer und Lernpfaden. Hausaufgaben, Spiele und Probetest haben eigene große Knöpfe.'],
+    ['#lobside', 'Level und Traumberufe', 'Jede Lektion bringt Erfahrungspunkte. Mit jedem Level schaltet Ihr Kind abwechselnd neue Traumberufe mit eigener Welt und neue Haustiere frei.'],
     ['#lobquest', 'Tägliche Aufgaben', 'Jeden Tag gibt es drei kleine Aufgaben. Belohnungen gibt es nur fürs Lernen, nie für reine Spielzeit.'],
   ];
   const el = $('#lobby'); let i = 0;
@@ -13126,7 +13247,7 @@ function lobEngine() {
   return LOBP;
 }
 function lobOpen(o = {}) {
-  const el = lobBuild(); if (lobOn) return; lobOn = true;
+  delete document.body.dataset.area; const el = lobBuild(); if (lobOn) return; lobOn = true;
   document.body.classList.add('lobon'); el.classList.add('on'); el.setAttribute('aria-hidden', 'false'); restart(el, 'in');
   lsx.set('gsm-lseen', '1'); GT.t('Lobby geöffnet', o.first ? 'erstes Mal' : '');
   lobDraw();
@@ -13326,7 +13447,7 @@ st.grade = (() => { try { const g = localStorage.getItem('gsm-grade'); return g 
 $$('#pick [data-g]').forEach((b) => (b.onclick = () => { GT.t('Klasse gewählt', 'Klasse ' + (+b.dataset.g + 1)); st.grade = +b.dataset.g; drawGrade(); drawLPCards(); if (st.next != null) { const n = st.next; st.next = null; goTo(...n); } else { st.nav = 'home'; go('spiel'); mount(); } }));
 function drawGrade() { try { if (st.grade >= 0) localStorage.setItem('gsm-grade', st.grade); } catch (e) {} const t = st.grade < 0 ? '' : `${I('cap')}${GRADES[st.grade][0]} · ${GRADES[st.grade][2]}`; ['#gchip', '#gchip2'].forEach((q) => { $(q).innerHTML = t; $(q).style.display = t ? '' : 'none'; }); }
 $('#tabs').innerHTML = SUBJ.map((s, i) => `<button class="tab" role="tab" data-i="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="ti tt">${tutorHTML(s.tutor.id)}</span>${s.n}</button>`).join('');
-$$('#tabs .tab').forEach((t) => (t.onclick = () => { GT.t('Fach geöffnet', (SUBJ[+t.dataset.i] || {}).n || ''); $$('#tabs .tab').forEach((x) => x.classList.toggle('on', x === t)); document.body.classList.add('switching'); requestAnimationFrame(() => setTimeout(() => { st.s = +t.dataset.i; st.g = 0; st.nav = 'subj'; st.w = 'path'; mount(); $('.amain').scrollTop = 0; t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); setTimeout(() => document.body.classList.remove('switching'), 300); }, 0)); }));
+$$('#tabs .tab').forEach((t) => (t.onclick = () => { GT.t('Fach geöffnet', (SUBJ[+t.dataset.i] || {}).n || ''); $$('#tabs .tab').forEach((x) => x.classList.toggle('on', x === t)); document.body.classList.add('switching'); requestAnimationFrame(() => setTimeout(() => { st.s = +t.dataset.i; st.g = 0; st.nav = 'subj'; st.w = document.body.dataset.area === 'games' || document.body.dataset.area === 'test' ? document.body.dataset.area : 'path'; mount(); $('.amain').scrollTop = 0; t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); setTimeout(() => document.body.classList.remove('switching'), 300); }, 0)); }));
 st.w = 'path';
 $$('#wtabs button').forEach((b) => (b.onclick = () => { GT.t('Bereich geöffnet', ((SUBJ[st.s] || {}).n || '') + ' · ' + ({ path: 'Lernpfad', games: 'Spiele', test: 'Testvorbereitung' }[b.dataset.w] || b.dataset.w)); st.w = b.dataset.w; mount(); }));
 $('#again').onclick = () => runStage();
@@ -13577,7 +13698,7 @@ show(...location.hash.slice(1).split('/'));
 
 document.addEventListener('pointerdown', (e) => {
   const el = e.target.closest('button, a.b3d, .gcard, .tm, .gbtn, .gk, .tab, .it, .hcta, .back');
-  if (!el || el.disabled || el.closest('.qscn, .lesex, .lesend, .aside, .abot')) return;
+  if (!el || el.disabled || el.closest('.qscn, .lesex, .lesend, .aside, .abot, .plts, .lob')) return;
   const r = el.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2.2;
   const w = document.createElement('span'); w.className = 'rip'; w.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left - d / 2}px;top:${e.clientY - r.top - d / 2}px`;
   if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
@@ -13594,7 +13715,7 @@ function drawAside() {
   $$('[data-n]', el).forEach((x) => { const n = +x.dataset.n, t0 = performance.now(); const f = (t) => { const k = Math.min(1, (t - t0) / 700); x.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); });
 }
 function drawAbot() {
-  const items = [['lobby', 'home', 'Lobby'], ['home', 'map', 'Abenteuer'], ['path', 'book', 'Lernpfad'], ['games', 'pad', 'Spiele'], ['hw', 'cam', 'Hausaufg.'], ['profile', 'family', 'Profil']];
+  const items = [['lobby', 'home', 'Lobby'], ['home', 'map', 'Abenteuer'], ['path', 'book', 'Lernpfad']];
   $('#abot').innerHTML = items.map(([k, ic, n]) => `<button data-b="${k}" class="${(st.nav === 'subj' ? st.w : st.nav) === k ? 'on' : ''}">${I(ic)}<span>${n}</span></button>`).join('');
   $$('#abot button').forEach((b) => (b.onclick = () => { const k = b.dataset.b; if (k === 'lobby') { sfx.tap(); lobOpen(); return; } if (k === 'home' || k === 'hw' || k === 'profile') st.nav = k; else { st.nav = 'subj'; st.w = k; } mount(); $('.amain').scrollTop = 0; }));
 }
