@@ -6067,8 +6067,10 @@ body[data-area] .alobbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap
 .alobt{font-size:22px;font-weight:900}
 .alobf{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
 .alobf:empty{display:none}
-.alobf button{padding:8px 14px;border-radius:12px;font:inherit;font-weight:800;font-size:14px;border:2px solid transparent;background:color-mix(in srgb,var(--c1) 16%,#fff);color:var(--c2);cursor:pointer}
-.alobf button.on{background:linear-gradient(180deg,var(--c1),var(--c2));color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.alobf button{padding:8px 14px;border-radius:12px;font:inherit;font-weight:800;font-size:14px;border:0;background:linear-gradient(180deg,var(--c1),var(--c2));color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.18);text-shadow:0 1px 1px rgba(0,0,0,.18);cursor:pointer;outline:3px solid transparent;outline-offset:3px;transition:outline-color .2s,transform .15s}
+.alobf button:active{transform:translateY(2px)}
+.alobf button.on{outline-color:var(--c2)}
+.alobf{padding:5px 6px}
 body.dark[data-area] .alobbar{background:#141824;border-color:rgba(255,255,255,.08)}
 /* In den Bereichen nur Fach-Auswahl und Zurück; Leiste der App aus */
 body[data-area="hw"] #app .aside,body[data-area="games"] #app .aside,body[data-area="test"] #app .aside,body[data-area="prof"] #app .aside,
@@ -6093,7 +6095,7 @@ body[data-area="play"] .alobbar{display:none!important}
   body[data-area="hw"] #app .amain,body[data-area="games"] #app .amain,body[data-area="test"] #app .amain,body[data-area="prof"] #app .amain{padding-top:env(safe-area-inset-top)!important}
   body[data-area] .alobbar{gap:8px 10px;padding:10px 12px;margin:0 0 10px}
   body[data-area] .alob{padding:9px 13px;font-size:14px}
-  body[data-area] .alobf{flex-wrap:nowrap;overflow-x:auto;margin:0 -12px;padding:2px 12px 4px;width:calc(100% + 24px);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  body[data-area] .alobf{flex-wrap:nowrap;overflow-x:auto;margin:0 -12px;padding:6px 12px 8px;width:calc(100% + 24px);scrollbar-width:none;-webkit-overflow-scrolling:touch}
   body[data-area] .alobf::-webkit-scrollbar{display:none}
   body[data-area] .alobf button{flex:none;padding:7px 12px;font-size:13.5px}
 }
@@ -13202,6 +13204,7 @@ function drawAreaBar() {
   const a = document.body.dataset.area || '', bar = $('#alobbar'); if (!bar) return;
   $('#alobt').textContent = AREAS[a] || '';
   const f = $('#alobf'); f.innerHTML = a === 'games' || a === 'test' ? SUBJ.map((x, i) => `<button type="button" role="tab" class="${i === st.s ? 'on' : ''}" data-i="${i}" style="--c1:${x.c1};--c2:${x.c2}">${esc(x.n)}</button>`).join('') : '';
+  { const on = $('button.on', f); if (on && f.scrollWidth > f.clientWidth) f.scrollLeft = Math.max(0, on.offsetLeft - (f.clientWidth - on.offsetWidth) / 2); }
   $$('button', f).forEach((b) => (b.onclick = () => { st.s = +b.dataset.i; st.nav = 'subj'; st.w = a; ls('tap', .5); mount(); drawAreaBar(); const am = $('.amain'); if (am) am.scrollTop = 0; }));
 }
 setTimeout(() => { const b = $('#alob'); if (b) b.onclick = () => { ls('tap', .6); lobOpen(); }; }, 0);
@@ -13240,7 +13243,7 @@ function lobTour() {
 function lobEngine() {
   if (LOBP) return LOBP;
   const kid = lobKid() || LKIDS[0], job = lsx.get('gsm-ljob', 'schueler');
-  LOBP = Promise.all([import(LOBB + 'eng/engine-TVIQ5XWO.js'), fetch(LOBB + 'eyes.json').then((r) => r.json())])
+  LOBP = Promise.all([import(LOBB + 'eng/engine-PYAP45PZ.js'), fetch(LOBB + 'eyes.json').then((r) => r.json())])
     .then(([M, eyes]) => M.create($('#lobc'), { eyes, kid: kid[0], job, pet: lobPet(), uiRects: () => [...document.querySelectorAll('#lobby .lobtop > *, #lobby .lobtop .lobtr > *, #lobby .lobplay, #lobby.qopen .lobquest, #lobby.jopen .lobjobs')].map((e) => e.getBoundingClientRect()), onPet: () => ls('jump', .5), onWorldTap: () => ls('tap', .35), onSfx: (n) => ls(n, .55), safeBottom: (w, h) => (w <= 820 ? 120 : 30), safeTop: (w, h) => (w <= 820 ? 96 : 70), onTap: () => ls('jump', .7), onLand: () => ls('land', .5), onBit: () => ls('bit', .45) }))
     .then((e) => { LOBE = e; $('#lobby').classList.add('ready'); e.preload(lobUnlocked(lobLevel().L).map((j) => kid[0] + '-' + j)); return e; })
     .catch((e) => { $('#lobby').classList.add('ready', 'static'); $('#lobfall').innerHTML = `<img class="lfr" src="${LOBB}img/${innerWidth >= innerHeight ? 'room-l' : 'room-p'}.webp" alt=""><img class="lff" src="${lobFig(kid[0], job)}" alt="">`; try { GT.t('Lobby Fehler', String(e && e.message || e).slice(0, 80)); } catch (x) {} });
