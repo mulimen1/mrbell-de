@@ -5821,6 +5821,10 @@ html body :where(.lob) :where(button){font:inherit;color:inherit;border:0;backgr
 .lobic{height:48px;min-width:48px;padding:0 12px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:800;font-size:18px}
 .lobic .i{font-size:22px;color:#ffd23f}
 .lobqb{display:none}
+.lobmus{flex-direction:column;gap:0;padding:0 10px}
+.lobmus small{font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:.8;margin-top:-2px}
+.lobmus .i{font-size:18px!important}
+.lobmus.off .i{color:#c9b8e8!important}
 .lobqb.ping{animation:lping 1.6s infinite}
 @keyframes lping{0%,100%{box-shadow:0 0 0 0 rgba(255,210,63,.7)}60%{box-shadow:0 0 0 12px rgba(255,210,63,0)}}
 
@@ -12911,7 +12915,7 @@ function lobBuild() {
   el.innerHTML = `<div class="lobc" id="lobc"></div><div class="lobload"><i></i><span>Deine Lobby wird geladen</span></div><div class="lobvig"></div>
     <header class="lobtop">
       <button type="button" class="lobme" id="lobme" aria-label="Aussehen ändern"><span class="lobav"><img alt=""></span><span class="lobmt"><b></b><small></small></span><span class="lobxp"><i></i></span></button>
-      <div class="lobtr"><button type="button" class="lobcta" id="lobcta">${I('star')}<span class="lcl">Für Ihr Kind einrichten</span><span class="lcs">7 Tage gratis</span></button><button type="button" class="lobic lobqb" id="lobqb">${I('cup')}<span></span></button><button type="button" class="lobic" id="lobhelp" aria-label="Erklärung">?</button></div>
+      <div class="lobtr"><button type="button" class="lobcta" id="lobcta">${I('star')}<span class="lcl">Für Ihr Kind einrichten</span><span class="lcs">7 Tage gratis</span></button><button type="button" class="lobic lobqb" id="lobqb">${I('cup')}<span></span></button><button type="button" class="lobic lobmus" id="lobmus" aria-label="Musik an oder aus"></button><button type="button" class="lobic" id="lobhelp" aria-label="Erklärung">?</button></div>
     </header>
     <section class="lobquest" id="lobquest" aria-label="Tägliche Aufgaben"></section>
     <section class="lobjobs" id="lobjobs" aria-label="Traumberufe"></section>
@@ -12921,6 +12925,8 @@ function lobBuild() {
   $('#lobgo').onclick = () => { ls('play', .8); lobPlay(); };
   $('#lobmode').onclick = () => { ls('tap', .6); lobModes(); };
   $('#lobme').onclick = () => { ls('tap', .6); lobPick(); };
+  const musI = () => { const b = $('#lobmus'), o = typeof MUS !== 'undefined' && MUS.on(); b.innerHTML = `${I(o ? 'snd' : 'mute')}<small>Musik</small>`; b.classList.toggle('off', !o); };
+  $('#lobmus').onclick = () => { if (typeof MUS !== 'undefined') MUS.toggle(); musI(); ls('tap', .6); }; musI();
   $('#lobhelp').onclick = () => { ls('tap', .6); lobTour(); };
   $('#lobcta').onclick = () => { ls('tap', .6); GT.t('Lobby Einrichten geklickt', ''); lobClose(); if (typeof openM === 'function') openM('y'); };
   $('#lobqb').onclick = () => { ls('tap', .6); el.classList.toggle('qopen'); };
@@ -13060,6 +13066,45 @@ function lobClose() {
   el.classList.remove('on', 'qopen'); el.setAttribute('aria-hidden', 'true'); document.body.classList.remove('lobon');
   if (LOBE) setTimeout(() => { if (!lobOn) LOBE.pause(); }, 400);
 }
+
+/* ---------- Hintergrundmusik: je Bereich ein eigenes Stück, leise, weiche Übergänge, wird leiser wenn ein Tutor spricht ---------- */
+const MUS = (() => {
+  const U = 'https://grundschulmax.de/grundschulmax/audio/music/', VOL = { lobby: .2, path: .16, game: .13, hw: .12 };
+  const A = {}; let cur = '', want = '', armed = false, duck = 1;
+  const on = () => voiceOn && lsx.get('gsm-music', '1') !== '0' && !document.hidden;
+  const get = (k) => { if (!A[k]) { const a = new Audio(U + k + '.mp3'); a.loop = true; a.preload = 'none'; a.volume = 0; a._v = 0; A[k] = a; } return A[k]; };
+  function scene() {
+    if (document.body.classList.contains('lobon')) return 'lobby';
+    const les = document.querySelector('.les.on'), stg = document.querySelector('#stage.open');
+    if (les || stg) return 'game';
+    if (document.body.dataset.screen !== 'spiel') return '';
+    if (typeof st !== 'undefined' && st.nav === 'hw') return 'hw';
+    if (typeof st !== 'undefined' && (st.nav === 'profile' || st.nav === 'parents')) return 'path';
+    return 'path';
+  }
+  function tick() {
+    want = armed && on() ? scene() : '';
+    const talking = (typeof curAudio !== 'undefined' && curAudio && !curAudio.paused) || (typeof hwSrc !== 'undefined' && hwSrc);
+    duck += ((talking ? .3 : 1) - duck) * .35;
+    for (const k in VOL) {
+      const a = A[k], tgt = k === want ? VOL[k] * duck : 0; if (!a && !tgt) continue;
+      const x = get(k); x._v += (tgt - x._v) * .18; if (Math.abs(x._v - tgt) < .003) x._v = tgt;
+      x.volume = Math.max(0, Math.min(1, x._v));
+      if (x._v > .001 && x.paused) x.play().catch(() => {});
+      if (x._v <= .001 && !x.paused) x.pause();
+    }
+    cur = want;
+  }
+  const arm = () => { if (armed) return; armed = true; tick(); };
+  ['pointerdown', 'keydown', 'touchstart'].forEach((e) => addEventListener(e, arm, { once: true, passive: true, capture: true }));
+  setInterval(tick, 120);
+  document.addEventListener('visibilitychange', tick);
+  return {
+    on: () => lsx.get('gsm-music', '1') !== '0',
+    _s: () => ({ cur, want, armed, duck: +duck.toFixed(2), v: Object.fromEntries(Object.entries(A).map(([k, a]) => [k, [+a._v.toFixed(3), a.paused]])) }),
+    toggle() { const v = this.on() ? '0' : '1'; lsx.set('gsm-music', v); tick(); return v === '1'; },
+  };
+})();
 
 /* ---------- Vorschau-Spiele (im Abo): kleine Animationen ---------- */
 const PV = {
