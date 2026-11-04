@@ -228,6 +228,30 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
 .qp { color: var(--mute); text-align: right; font: 600 12.5px var(--mono); } .qd { color: var(--mute); font: 600 12px var(--mono); } .qd.bad { color: var(--bad); }
 .sub small { color: var(--mute); font-weight: 500; margin-left: 6px; }
 @media (max-width: 900px) { .qcmp { grid-template-columns: 1fr; } .qgrid { grid-template-columns: 1fr; } .qr { grid-template-columns: 110px minmax(0, 1fr) 40px 80px; } .qr2 { grid-template-columns: 120px minmax(0, 1fr) 40px; } }
+
+/* Google SEO */
+.gsec { margin-bottom: 8px; }
+.ghead { display: flex; align-items: baseline; gap: 12px; margin: 6px 2px 0; flex-wrap: wrap; }
+.ghead h2 { margin: 0; font-size: 26px; letter-spacing: -.03em; background: linear-gradient(90deg, #1a5fc4, #16a05c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ghead small, .gsep small { color: var(--mute); font: 500 12px var(--mono); letter-spacing: .04em; }
+.gst { white-space: normal; }
+.gsec .card .hd { flex-wrap: wrap; row-gap: 10px; } .gsec .leg { flex-wrap: wrap; gap: 6px 14px; } .gsec .card .hd .tm { margin-right: 0; }
+.gsep { display: flex; align-items: baseline; gap: 12px; margin: 34px 2px 0; padding-top: 22px; border-top: 1px solid var(--line2); }
+.gsep h2 { margin: 0; font-size: 22px; letter-spacing: -.02em; }
+.gwarn { margin: 12px 0 0; padding: 12px 16px; border-radius: 16px; background: #fff7e6; border: 1px solid #f1d9a6; color: #6b4e12; font-size: 14px; }
+.gk .kpi .v { font-size: 30px; } .gk .kpi.big .v { font-size: 38px; color: #1a5fc4; }
+.gk .kpi .d b.up { background: #16a05c; color: #fff; }
+.gtab { display: grid; font-size: 13.5px; }
+.gtr { display: grid; grid-template-columns: minmax(0, 1fr) 58px 64px 58px 46px; gap: 8px; padding: 7px 2px; border-top: 1px solid var(--line); align-items: center; }
+.gtr.gth { border-top: 0; color: var(--mute); font: 600 10.5px var(--mono); letter-spacing: .05em; text-transform: uppercase; padding-top: 0; }
+.gtr > span:not(:first-child) { text-align: right; font: 600 12.5px var(--mono); }
+.gq { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink2); }
+.gm { font: 700 9.5px var(--mono); font-style: normal; letter-spacing: .05em; text-transform: uppercase; color: #fff; background: #16a05c; padding: 2px 6px; border-radius: 999px; margin-left: 4px; vertical-align: 1px; }
+.glinks { display: grid; gap: 8px; }
+.glink { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 10px 12px; border-radius: 14px; background: var(--card2); border: 1px solid var(--line); text-decoration: none; color: var(--ink); transition: border-color .15s; }
+.glink:hover { border-color: #16a05c; }
+.glink b { font-size: 14px; } .glink small { grid-column: 1; color: var(--mute); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .glink span { grid-row: 1 / 3; grid-column: 2; align-self: center; font: 600 12px var(--mono); color: #16a05c; }
+@media (max-width: 700px) { .gtr { grid-template-columns: minmax(0, 1fr) 44px 52px 40px; } .gtr > span:nth-child(4) { display: none; } .ghead h2 { font-size: 22px; } }
 </style>
 </head>
 <body>
@@ -253,8 +277,7 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
   var API = (new URLSearchParams(location.search)).get('api') || 'https://hub.mrbell.de/api/bwlmax/zahlen';
   var app = $id('app'), segEl = $id('seg'), liveEl = $id('live'), standEl = $id('stand');
   var Z = (function () { try { return localStorage.getItem('zahlen.z') || '7'; } catch (e) { return '7'; } })();
-  var data = null, lastOk = 0, timer = 0, seenFeed = {}, firstDraw = true, showAllWege = false, trMode = 'ads';
-  try { trMode = localStorage.getItem('zl.trmode') || 'ads'; } catch (e) {}
+  var data = null, lastOk = 0, timer = 0, seenFeed = {}, firstDraw = true, showAllWege = false, trMode = 'alle';
   var DE = new Intl.NumberFormat('de-DE');
   var fmt = function (n) { return DE.format(Math.round(n || 0)); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
@@ -283,7 +306,11 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
     phone: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
     laptop: '<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
-    bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'
+    bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+    tag: '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/>',
+    rank: '<path d="M4 20V12M10 20V6M16 20v-9M22 20H2"/>',
+    pct: '<path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/>'
   };
   var ico = function (n) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (P[n] || P.spark) + '</svg>'; };
   var EV = {
@@ -446,6 +473,121 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
       '<div class="qwide"><div class="sub">Was sie klicken <small>Besucher, die den Knopf gedrückt haben</small></div>' + bar(clicks, land) + '</div></div></div></section>';
   }
 
+  // ---------- Google SEO: Search Console + eigene Messung ----------
+  var gGran = 'tag'; try { gGran = localStorage.getItem('zl.ggran') || 'tag'; } catch (e) {}
+  var GC = { klick: '#1a5fc4', marke: '#16a05c', impr: '#8b6fd6', eigen: '#15151a' };
+  function dStr(t) { return new Date(t).toLocaleDateString('sv-SE', { timeZone: 'Europe/Berlin' }); }
+  function dAdd(s, n) { var d = new Date(s + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
+  function gMap(rows, i) { var m = {}; (rows || []).forEach(function (r) { m[r[0]] = (m[r[0]] || 0) + (r[i] || 0); }); return m; }
+  function gSum(m, ab, bis) { var s = 0; for (var k in m) if (k >= ab && k <= bis) s += m[k]; return s; }
+  function gPos(tage, ab, bis) { var w = 0, s = 0; (tage || []).forEach(function (r) { if (r[0] >= ab && r[0] <= bis && r[2]) { w += r[2]; s += r[2] * r[3]; } }); return w ? Math.round(10 * s / w) / 10 : 0; }
+  function gDelta(v, a, besserKlein) {
+    if (a == null) return '<span>&nbsp;</span>';
+    if (!a && !v) return '<b>±0</b><span>vs. davor</span>';
+    if (!a) return '<b class="up">neu</b><span>vs. davor</span>';
+    var p = Math.round(100 * (v - a) / a), gut = besserKlein ? p < 0 : p > 0;
+    return '<b class="' + (p === 0 ? '' : gut ? 'up' : 'down') + '">' + (p > 0 ? '▲ ' : p < 0 ? '▼ ' : '') + Math.abs(p) + ' %</b><span>vs. davor</span>';
+  }
+  function gGruppen(gran) {
+    var heute = dStr(Date.now()), out = [];
+    if (gran === 'tag') { for (var i = 29; i >= 0; i--) { var d = dAdd(heute, -i); out.push({ ab: d, bis: d, lbl: new Date(d + 'T12:00:00').toLocaleDateString('de-DE', { day: 'numeric', month: 'numeric' }), lang: new Date(d + 'T12:00:00').toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'numeric' }) }); } }
+    else if (gran === 'woche') {
+      var wd = (new Date(heute + 'T12:00:00Z').getUTCDay() + 6) % 7, mo = dAdd(heute, -wd);
+      for (var w = 25; w >= 0; w--) { var a = dAdd(mo, -7 * w), b = dAdd(a, 6); out.push({ ab: a, bis: b, lbl: new Date(a + 'T12:00:00').toLocaleDateString('de-DE', { day: 'numeric', month: 'numeric' }), lang: 'Woche ab ' + new Date(a + 'T12:00:00').toLocaleDateString('de-DE', { day: 'numeric', month: 'numeric', year: '2-digit' }) }); }
+    } else {
+      var y = +heute.slice(0, 4), m = +heute.slice(5, 7);
+      for (var k = 15; k >= 0; k--) { var mm = m - k, yy = y; while (mm < 1) { mm += 12; yy--; } var ab = yy + '-' + String(mm).padStart(2, '0') + '-01', nx = mm === 12 ? (yy + 1) + '-01-01' : yy + '-' + String(mm + 1).padStart(2, '0') + '-01'; var d0 = new Date(ab + 'T12:00:00'); out.push({ ab: ab, bis: dAdd(nx, -1), lbl: d0.toLocaleDateString('de-DE', { month: 'short' }), lang: d0.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' }) }); }
+    }
+    return out;
+  }
+  function gChart(el, g) {
+    if (!el) return;
+    var gr = gGruppen(gGran), mK = gMap(g.tage, 1), mI = gMap(g.tage, 2), mM = gMap(g.marke, 1), mE = gMap(g.eigenB, 1);
+    var kl = gr.map(function (x) { return gSum(mK, x.ab, x.bis); }), ma = gr.map(function (x) { return Math.min(gSum(mM, x.ab, x.bis), gSum(mK, x.ab, x.bis)); }),
+      im = gr.map(function (x) { return gSum(mI, x.ab, x.bis); }), ei = gr.map(function (x) { return gSum(mE, x.ab, x.bis); });
+    var W = el.clientWidth || 800, H = Math.max(220, Math.min(320, W * .34)), pL = 38, pR = 46, pB = 26, pT = 12, n = gr.length;
+    var nice = function (v) { v = Math.max(v, 4); var st = Math.pow(10, Math.floor(Math.log10(v))), t = Math.ceil(v / st) * st; if (t / st > 5 && st >= 1) t = Math.ceil(v / (st * 2)) * st * 2; return t; };
+    var top = nice(Math.max.apply(null, kl.concat(ei))), topI = nice(Math.max.apply(null, im));
+    var cw = (W - pL - pR) / n, x = function (i) { return pL + cw * (i + .5); }, y = function (v) { return pT + (1 - v / top) * (H - pT - pB); }, yI = function (v) { return pT + (1 - v / topI) * (H - pT - pB); };
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" height="' + H + '">';
+    for (var q = 0; q <= 4; q++) { var gy = y(top * q / 4); s += '<line x1="' + pL + '" x2="' + (W - pR) + '" y1="' + gy + '" y2="' + gy + '" stroke="#ebe5da"' + (q ? ' stroke-dasharray="2 4"' : '') + '/><text x="' + (pL - 8) + '" y="' + (gy + 4) + '" text-anchor="end" fill="#7a746a" font-size="10.5" font-family="Geist Mono, monospace">' + fmt(top * q / 4) + '</text><text x="' + (W - pR + 8) + '" y="' + (gy + 4) + '" fill="' + GC.impr + '" font-size="10.5" font-family="Geist Mono, monospace">' + fmt(topI * q / 4) + '</text>'; }
+    var bw = Math.max(3, Math.min(26, cw * .62));
+    kl.forEach(function (v, i) {
+      if (!v) return; var mv = ma[i], rest = v - mv;
+      if (rest > 0) s += '<rect x="' + (x(i) - bw / 2) + '" y="' + y(v) + '" width="' + bw + '" height="' + (y(mv) - y(v)) + '" rx="' + Math.min(4, bw / 3) + '" fill="' + GC.klick + '"/>';
+      if (mv > 0) s += '<rect x="' + (x(i) - bw / 2) + '" y="' + y(mv) + '" width="' + bw + '" height="' + (y(0) - y(mv)) + '" rx="' + Math.min(4, bw / 3) + '" fill="' + GC.marke + '"/>';
+    });
+    var line = function (vals, fy) { return vals.map(function (v, i) { return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + fy(v).toFixed(1); }).join(' '); };
+    s += '<path d="' + line(im, yI) + '" fill="none" stroke="' + GC.impr + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    if (ei.some(function (v) { return v; })) s += '<path d="' + line(ei, y) + '" fill="none" stroke="' + GC.eigen + '" stroke-width="1.6" stroke-dasharray="4 4" stroke-linejoin="round"/>';
+    var every = Math.ceil(n / Math.max(4, Math.floor((W - pL - pR) / 58)));
+    gr.forEach(function (g2, i) { if (i % every && i !== n - 1) return; s += '<text x="' + x(i) + '" y="' + (H - 6) + '" text-anchor="middle" fill="#7a746a" font-size="10.5" font-family="Geist Mono, monospace">' + esc(g2.lbl) + '</text>'; });
+    s += '<rect class="hov" x="0" y="' + pT + '" width="' + cw + '" height="' + (H - pT - pB) + '" fill="#1a5fc4" opacity="0" rx="6"/></svg><div class="tip"></div>';
+    el.innerHTML = s;
+    var svg = el.querySelector('svg'), tip = el.querySelector('.tip'), hov = el.querySelector('.hov');
+    var move = function (ev) {
+      var r = svg.getBoundingClientRect(), sx = ((ev.touches ? ev.touches[0].clientX : ev.clientX) - r.left) * (W / r.width), i = Math.max(0, Math.min(n - 1, Math.floor((sx - pL) / cw)));
+      hov.setAttribute('x', pL + cw * i); hov.setAttribute('opacity', '.07');
+      tip.innerHTML = '<small>' + esc(gr[i].lang) + '</small>' + fmt(kl[i]) + ' Klicks' + (ma[i] ? ' · davon Marke ' + fmt(ma[i]) : '') + '<br>' + fmt(im[i]) + ' Impressionen' + (ei[i] ? ' · ' + fmt(ei[i]) + ' Besucher (gemessen)' : '');
+      tip.style.left = Math.max(80, Math.min(r.width - 80, x(i) * r.width / W)) + 'px'; tip.style.top = (y(Math.max(kl[i], 0)) * r.height / H) + 'px'; tip.classList.add('on');
+    };
+    var leave = function () { tip.classList.remove('on'); hov.setAttribute('opacity', '0'); };
+    svg.addEventListener('mousemove', move); svg.addEventListener('touchstart', move, { passive: true }); svg.addEventListener('touchmove', move, { passive: true }); svg.addEventListener('mouseleave', leave); svg.addEventListener('touchend', function () { setTimeout(leave, 1600); });
+  }
+  function gTab(rows, cols, leer, mark) {
+    if (!rows || !rows.length) return '<div class="empty">' + leer + '</div>';
+    return '<div class="gtab"><div class="gtr gth">' + cols.map(function (c) { return '<span>' + c + '</span>'; }).join('') + '</div>' + rows.map(function (r) {
+      var ctr = r[2] ? Math.round(1000 * r[1] / r[2]) / 10 : 0;
+      return '<div class="gtr"><span class="gq" title="' + esc(r[0]) + '">' + esc(r[0]) + (mark && mark(r[0]) ? ' <em class="gm">Marke</em>' : '') + '</span><span class="num">' + fmt(r[1]) + '</span><span class="num">' + fmt(r[2]) + '</span><span class="num">' + String(ctr).replace('.', ',') + ' %</span><span class="num">' + (r[3] ? String(r[3]).replace('.', ',') : '–') + '</span></div>';
+    }).join('') + '</div>';
+  }
+  function gEigenZ(d) { var e = ((d.seo || {}).eigen || {}).besucher || [], h = dStr(Date.now()), ab = Z === 'heute' ? h : Z === '7' ? dAdd(h, -6) : Z === '30' ? dAdd(h, -29) : '0000'; return e.reduce(function (s2, r) { return s2 + (r[0] >= ab ? r[1] : 0); }, 0); }
+  function gEigenReihe(d) { var m = gMap(((d.seo || {}).eigen || {}).besucher, 1), h = dStr(Date.now()), o = []; for (var i = 29; i >= 0; i--) o.push(m[dAdd(h, -i)] || 0); return o; }
+  function google(d) {
+    var seo = d.seo || {}, g = seo.gsc || {}, e = seo.eigen || {};
+    g.eigenB = e.besucher || [];
+    var heute = dStr(Date.now()), gestern = dAdd(heute, -1);
+    var mK = gMap(g.tage, 1), mI = gMap(g.tage, 2), mMK = gMap(g.marke, 1), mMI = gMap(g.marke, 2), mE = gMap(e.besucher, 1), mKo = gMap(e.konten, 1);
+    var r7 = [dAdd(heute, -6), heute], v7 = [dAdd(heute, -13), dAdd(heute, -7)], r30 = [dAdd(heute, -29), heute], v30 = [dAdd(heute, -59), dAdd(heute, -30)];
+    var hat = !!(g.tage && g.tage.length), altGenug = hat && g.tage[0][0] <= v30[0];
+    var k7 = gSum(mK, r7[0], r7[1]), k30 = gSum(mK, r30[0], r30[1]), i30 = gSum(mI, r30[0], r30[1]), pos30 = gPos(g.tage, r30[0], r30[1]);
+    var mi30 = gSum(mMI, r30[0], r30[1]), mk30 = gSum(mMK, r30[0], r30[1]), e30 = gSum(mE, r30[0], r30[1]), ko30 = gSum(mKo, r30[0], r30[1]);
+    var vor = function (m, r) { return hat && g.tage[0][0] <= r[0] ? gSum(m, r[0], r[1]) : null; };
+    var spk = function (m) { var o = []; for (var i = 29; i >= 0; i--) o.push(m[dAdd(heute, -i)] || 0); return o; };
+    var sparkC = function (vals, col) { var max = Math.max.apply(null, vals.concat([1])), n = vals.length, pts = vals.map(function (v, i) { return (i / (n - 1) * 100).toFixed(2) + ' ' + (31 - v / max * 27).toFixed(2); }); return '<svg class="sp" viewBox="0 0 100 34" preserveAspectRatio="none"><path d="M' + pts.join(' L') + ' L100 34 L0 34 Z" fill="' + col + '" fill-opacity=".12"/><path d="M' + pts.join(' L') + '" fill="none" stroke="' + col + '" stroke-width="1.7" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg>'; };
+    var tile = function (icn, lbl, val, dl, sp, big) { return '<div class="card kpi' + (big ? ' big' : '') + '"><div class="l">' + ico(icn) + esc(lbl) + '</div><div class="v num">' + val + '</div><div class="d">' + dl + '</div>' + (sp || '') + '</div>'; };
+    var nb = '<span>Search Console fehlt noch</span>';
+    var tiles = [
+      tile('search', 'Klicks · 7 Tage', hat ? fmt(k7) : '–', hat ? gDelta(k7, vor(mK, v7)) : nb, hat ? sparkC(spk(mK), GC.klick) : '', true),
+      tile('search', 'Klicks · 30 Tage', hat ? fmt(k30) : '–', hat ? (altGenug ? gDelta(k30, gSum(mK, v30[0], v30[1])) : '<span>gestern ' + fmt(mK[gestern] || 0) + ' · heute ' + fmt(mK[heute] || 0) + '</span>') : nb, ''),
+      tile('eye', 'Angezeigt · 30 Tage', hat ? fmt(i30) : '–', hat ? gDelta(i30, vor(mI, v30)) : nb, hat ? sparkC(spk(mI), GC.impr) : ''),
+      tile('tag', 'Markensuche · 30 Tage', hat ? fmt(mi30) : '–', hat ? '<span>' + fmt(mk30) + ' Klicks</span>' : nb, hat ? sparkC(spk(mMI), GC.marke) : ''),
+      tile('rank', 'Ø Position · 30 Tage', hat && pos30 ? String(pos30).replace('.', ',') : '–', hat && pos30 ? gDelta(pos30, gPos(g.tage, v30[0], v30[1]) || null, true) : hat ? '<span>noch keine Anzeigen</span>' : nb, ''),
+      tile('pct', 'Klickrate · 30 Tage', hat && i30 ? String(Math.round(1000 * k30 / i30) / 10).replace('.', ',') + ' %' : '–', '<span>Klicks ÷ Anzeigen</span>', ''),
+      tile('user', 'Besucher · 30 Tage', fmt(e30), '<span>' + fmt(ko30) + (ko30 === 1 ? ' neues Konto' : ' neue Konten') + '</span>', sparkC(spk(mE), GC.eigen))
+    ].join('');
+    var hinweis = '';
+    if (!g.schluessel) hinweis = '<p class="gwarn"><b>Search Console noch nicht verbunden.</b> Klicks, Suchbegriffe und Markensuche erscheinen, sobald der Lesezugang eingerichtet ist (Anleitung im Chat). Bis dahin siehst du unten die eigene Messung.</p>';
+    else if (g.fehler) hinweis = '<p class="gwarn"><b>Search Console:</b> ' + esc(g.fehler) + '</p>';
+    else if (!hat) hinweis = '<p class="gwarn">Search Console ist verbunden – die ersten Zahlen kommen beim nächsten Abruf (spätestens in 3 Stunden).</p>';
+    var istMarke = function (q) { return /bwl.?max/i.test(q); };
+    var seiten = (g.seiten || []).slice(0, 12), anfr = (g.anfragen || []).slice(0, 15), marke = (g.markeAnfragen || []).slice(0, 8);
+    var ger = (g.geraete || []).map(function (x) { return [{ DESKTOP: 'Laptop / PC', MOBILE: 'Handy', TABLET: 'Tablet' }[x[0]] || x[0], x[1]]; });
+    var links = (g.links || []).slice().sort(function (a, b) { return String(b.datum).localeCompare(String(a.datum)); });
+    var linkHtml = links.length ? '<div class="glinks">' + links.map(function (l) { return '<a class="glink" href="' + esc(l.seite || '#') + '" target="_blank" rel="noopener"><b>' + esc(l.hochschule || '') + '</b><small>' + esc(l.bereich || '') + (l.ziel ? ' → ' + esc(l.ziel) : '') + '</small><span>' + (l.datum ? new Date(l.datum + 'T12:00:00').toLocaleDateString('de-DE', { day: 'numeric', month: 'numeric', year: '2-digit' }) : '') + '</span></a>'; }).join('') + '</div>' : '<div class="empty">Noch keine Hochschul-Links.</div>';
+    var stand = g.stand ? 'Google-Daten ' + rel(g.stand).replace('gerade eben', 'aktuell') + ' · Google meldet mit 1–2 Tagen Verzögerung' : '';
+    return '<section class="gsec"><div class="ghead"><div><h2>Google</h2><small>Organisch – wie Google uns findet und wer daraus kommt</small></div><span class="sp"></span><small class="gst">' + esc(stand) + '</small></div>' + hinweis +
+      '<div class="grid g7 gk">' + tiles + '</div>' +
+      '<section class="grid"><div class="card"><div class="hd"><h2>Klicks aus Google</h2><span class="tm">' + [['tag', 'Tag'], ['woche', 'Woche'], ['monat', 'Monat']].map(function (x) { return '<button data-gg="' + x[0] + '"' + (gGran === x[0] ? ' class="on"' : '') + '>' + x[1] + '</button>'; }).join('') + '</span>' +
+      '<div class="leg"><span><i style="background:' + GC.klick + '"></i>Klicks</span><span><i style="background:' + GC.marke + '"></i>davon Markensuche</span><span><i style="background:none;border-top:2px solid ' + GC.impr + ';border-radius:0;height:0;width:12px"></i>Angezeigt (rechte Achse)</span><span><i style="background:none;border-top:2px dashed ' + GC.eigen + ';border-radius:0;height:0;width:12px"></i>Besucher gemessen</span></div></div><div class="chart" id="gchart"></div></div></section>' +
+      '<section class="grid g2"><div class="card"><div class="hd"><h2>Wonach gesucht wird</h2><small>28 Tage · Klicks · angezeigt · Klickrate · Position</small></div>' + gTab(anfr, ['Suchbegriff', 'Klicks', 'Angez.', 'Rate', 'Pos.'], hat ? 'Noch keine Suchbegriffe mit genug Anzeigen (Google zeigt seltene Begriffe aus Datenschutzgründen nicht).' : 'Erscheint mit der Search Console.', istMarke) + '</div>' +
+      '<div class="card"><div class="hd"><h2>Welche Seiten ranken</h2><small>28 Tage</small></div>' + gTab(seiten, ['Seite', 'Klicks', 'Angez.', 'Rate', 'Pos.'], hat ? 'Noch keine Seite mit Anzeigen.' : 'Erscheint mit der Search Console.') + '</div></section>' +
+      '<section class="grid g4"><div class="card"><div class="hd"><h2>Markensuche</h2><small>28 Tage</small></div>' + (marke.length ? '<div class="sub">Angezeigt je Schreibweise</div>' + bars(marke.map(function (x) { return [x[0], x[2]]; })) : '<div class="empty">' + (hat ? 'Noch niemand hat „BWL Max“ gegoogelt – oder zu selten, als dass Google es zeigt.' : 'Erscheint mit der Search Console.') + '</div>') + '</div>' +
+      '<div class="card"><div class="hd"><h2>Landen auf</h2><small>gemessen · 30 Tage</small></div>' + bars(e.landung || []) + ((e.andere || []).length ? '<div class="sub">Andere Suchmaschinen</div>' + bars(e.andere) : '') + '</div>' +
+      '<div class="card"><div class="hd"><h2>Geräte</h2><small>Klicks · 28 Tage</small></div>' + (ger.length ? bars(ger) : '<div class="empty">' + (hat ? 'Noch keine Klicks.' : 'Erscheint mit der Search Console.') + '</div>') + '</div>' +
+      '<div class="card"><div class="hd"><h2>Hochschul-Links</h2><small>' + fmt(links.length) + ' verlinken uns</small></div>' + linkHtml + '</div></section></section>';
+  }
+
   // ---------- Zeichnen ----------
   function draw() {
     var d = data, k = d.basis.kennzahlen || {}, vor = d.basis.vorher, reihe = d.basis.reihe || {}, achse = d.zeitraum.achse, keys = d.basis.achse || [];
@@ -453,7 +595,7 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
     var kontenVor = d.konten.vorher != null ? { konten: d.konten.vorher } : null;
     var K = [
       ['user', 'Besucher', k.personen || 0, 'personen', besR, true],
-      ['bolt', 'Klicks aus Google Ads', k.ads || 0, 'ads', null],
+      ['search', 'Besucher aus Google', gEigenZ(d), 'gbes', gEigenReihe(d)],
       ['userplus', 'Neue Konten', d.konten.zeitraum, 'konten', d.konten.reihe, true, kontenVor],
       ['check', 'Besucher → Konto', k.personen ? Math.round(1000 * d.konten.zeitraum / k.personen) / 10 : 0, 'quote', null],
       ['chat', 'Fragen an Max', k.fragen, 'fragen', akt],
@@ -462,13 +604,13 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
     ];
     var kpis = K.map(function (x, i) {
       var v = x[2] || 0, vv = x[6] !== undefined ? x[6] : vor;
-      return '<div class="card kpi' + (x[5] ? ' big' : '') + '" style="animation-delay:' + (i * 40) + 'ms"><div class="l">' + ico(x[0]) + esc(x[1]) + '</div><div class="v num">' + (x[3] === 'quote' ? String(v).replace('.', ',') + ' %' : fmt(v)) + '</div><div class="d">' + (x[3] === 'quote' ? '<span>werden zu Konten</span>' : x[3] === 'ads' ? '<span>' + fmt(k.adsAufrufe || 0) + ' Aufrufe inkl. Neuladen</span>' : x[3] === 'personen' ? '<span>' + fmt(k.besuche || 0) + ' Seitenaufrufe</span>' : x[3] === 'wieder' ? '<span>von ' + fmt(d.mitKennung || 0) + ' mit Cookies</span>' : delta(x[3] === 'konten' ? 'konten' : x[3], v, vv)) + '</div>' + (x[4] ? spark(x[4]) : '<svg class="sp" viewBox="0 0 100 34"><rect x="0" y="14" width="100" height="6" rx="3" fill="#151517"/><rect x="0" y="14" width="' + Math.min(100, x[3] === 'wieder' ? 100 * v / Math.max(1, d.mitKennung || 0) : v) + '" height="6" rx="3" fill="#fff"/></svg>') + '</div>';
+      return '<div class="card kpi' + (x[5] ? ' big' : '') + '" style="animation-delay:' + (i * 40) + 'ms"><div class="l">' + ico(x[0]) + esc(x[1]) + '</div><div class="v num">' + (x[3] === 'quote' ? String(v).replace('.', ',') + ' %' : fmt(v)) + '</div><div class="d">' + (x[3] === 'quote' ? '<span>werden zu Konten</span>' : x[3] === 'gbes' ? '<span>organisch · gemessen</span>' : x[3] === 'personen' ? '<span>' + fmt(k.besuche || 0) + ' Seitenaufrufe</span>' : x[3] === 'wieder' ? '<span>von ' + fmt(d.mitKennung || 0) + ' mit Cookies</span>' : delta(x[3] === 'konten' ? 'konten' : x[3], v, vv)) + '</div>' + (x[4] ? spark(x[4]) : '<svg class="sp" viewBox="0 0 100 34"><rect x="0" y="14" width="100" height="6" rx="3" fill="#151517"/><rect x="0" y="14" width="' + Math.min(100, x[3] === 'wieder' ? 100 * v / Math.max(1, d.mitKennung || 0) : v) + '" height="6" rx="3" fill="#fff"/></svg>') + '</div>';
     }).join('');
 
     var adsM = trMode === 'ads' && !!d.basis.trichterAds;
     var tr = (adsM ? d.basis.trichterAds : d.basis.trichter) || [], t0 = (tr[0] && tr[0][1]) || 0;
     var tx = (adsM ? d.basis.trExtraAds : d.basis.trExtra) || {};
-    var fnote = adsM ? '<div class="fnote"><span>Besucher aus Google Ads <b>' + fmt(tx.besucher || 0) + '</b></span><span>Tafel auf dem Handy <b>' + fmt(tx.handy || 0) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>' : '<div class="fnote">' + (tx.besucher != null ? '<span>Besucher gesamt <b>' + fmt(tx.besucher) + '</b></span><span>Tafel auf dem Handy <b>' + fmt(tx.handy || 0) + '</b></span>' : '') + '<span>Aus Google Ads <b>' + fmt(tx.ads != null ? tx.ads : (k.ads || 0)) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>';
+    var fnote = adsM ? '<div class="fnote"><span>Besucher aus Google Ads <b>' + fmt(tx.besucher || 0) + '</b></span><span>Tafel auf dem Handy <b>' + fmt(tx.handy || 0) + '</b></span><span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>' : '<div class="fnote">' + (tx.besucher != null ? '<span>Besucher gesamt <b>' + fmt(tx.besucher) + '</b></span><span>Tafel auf dem Handy <b>' + fmt(tx.handy || 0) + '</b></span>' : '') + '<span>Anmeldung verlangt <b>' + fmt(tx.anmeldepflicht || 0) + '</b></span><span>Verlassen-Angebot gezeigt <b>' + fmt(tx.verlassen || 0) + '</b></span><span>Klausurpfad geklickt <b>' + fmt(tx.klausurpfad || 0) + '</b></span></div>';
     var trK = adsM ? (tx.konten || 0) : d.konten.trichter != null ? d.konten.trichter : d.konten.zeitraum;
     var trL = tr.concat([['Konto erstellt', trK]]);
     // Wer unter 30 s wieder weg war – immer direkt unter dem Einstieg, rot, Anteil aller Besucher
@@ -544,10 +686,11 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
     app.classList.toggle('calm', !firstDraw);
     app.style.minHeight = firstDraw ? '' : app.offsetHeight + 'px';
     app.innerHTML =
+      google(d) +
+      '<div class="gsep"><h2>Auf der Seite</h2><small>' + esc(d.zeitraum.name) + '</small></div>' +
       '<section class="grid g7">' + kpis + '</section>' +
-      '<section class="grid g21"><div class="card"><div class="hd"><h2>Vom Besuch zum Konto</h2><span class="tm"><button data-tm="ads"' + (adsM ? ' class="on"' : '') + '>Nur Google Ads</button><button data-tm="alle"' + (adsM ? '' : ' class="on"') + '>Alle</button></span><small>Wo sie abspringen · ' + (tx.ab ? 'seit ' + new Date(tx.ab).toLocaleString('de-DE', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) + ' Uhr' : esc(d.zeitraum.name)) + '</small></div><div class="fun">' + trich + '</div>' + fnote + '</div>' +
+      '<section class="grid g21"><div class="card"><div class="hd"><h2>Vom Besuch zum Konto</h2><small>Wo sie abspringen · ' + (tx.ab ? 'seit ' + new Date(tx.ab).toLocaleString('de-DE', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) + ' Uhr' : esc(d.zeitraum.name)) + '</small></div><div class="fun">' + trich + '</div>' + fnote + '</div>' +
       '<div class="card"><div class="hd"><h2>Gerade passiert</h2><small>live</small></div><div class="feed" id="feed">' + feed + '</div></div></section>' +
-      quellen(d) +
       '<section class="grid"><div class="card"><div class="hd"><h2>Verlauf</h2><div class="leg"><span><i></i>Seitenaufrufe</span><span><i class="l2"></i>Besucher</span><span><i class="l3"></i>Aktiv</span></div></div><div class="chart" id="chart"></div></div></section>' +
       '<section class="grid g2"><div class="card"><div class="hd"><h2>Neue Konten</h2><small>' + esc(d.zeitraum.name) + '</small></div>' + konten + '</div>' +
       '<div class="card"><div class="hd"><h2>Nutzer-Aktivität</h2><small>' + (limN ? '<span class="limb">' + limN + ' im Limit (7 Tage)</span> · ' : '') + 'Besuche je Konto · ohne Inhalte</small></div>' + aktiv + '</div></section>' +
@@ -557,15 +700,16 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
       '<div class="card"><div class="hd"><h2>Verhalten</h2><small>von ' + fmt(mitK) + ' mit Cookies</small></div>' + verhalten + '<div class="sub">Städte</div>' + bars(d.basis.staedte) + '</div></section>' +
       '<section class="grid"><div class="card"><div class="hd"><h2>Wann sie kommen</h2><small>Seitenaufrufe je Wochentag & Stunde</small></div>' + heat + '</div></section>' +
       '<section class="grid"><div class="card"><div class="hd"><h2>Besucher-Wege</h2><small>Was jemand nacheinander gemacht hat</small></div><div id="wege">' + wege + '</div></div></section>' +
-      '<div class="foot">Gezählt wird ohne Inhalte. Besucher: gleiches Gerät + gleicher Einstieg innerhalb von 30 Min. zählt einmal (Neuladen zählt nicht doppelt). Google-Ads-Klicks genauso – Google selbst meldet mit ein paar Stunden Verzögerung. Wege, Orte und Wiederkehrer nur bei Besuchern, die Cookies erlaubt haben (' + String(k.quote || 0).replace('.', ',') + ' %). · <span id="stand2"></span></div>';
+      '<div class="foot">Gezählt wird ohne Inhalte. Besucher: gleiches Gerät + gleicher Einstieg innerhalb von 30 Min. zählt einmal (Neuladen zählt nicht doppelt). Wege, Orte und Wiederkehrer nur bei Besuchern, die Cookies erlaubt haben (' + String(k.quote || 0).replace('.', ',') + ' %). · <span id="stand2"></span></div>';
 
     verlauf($id('chart'), achse, keys, bes, besR, akt);
+    gChart($id('gchart'), (d.seo || {}).gsc || {});
     [].forEach.call(app.querySelectorAll('details.uad'), function (x, i) { if (openD[i]) x.open = true; });
     var fe = $id('feed'); if (fe && feedTop) fe.scrollTop = feedTop;
     if (!firstDraw) { keep.forEach(function (x) { x[0].scrollTop = x[1]; }); if (window.scrollY !== wy) window.scrollTo(0, wy); }
     app.style.minHeight = '';
     [].forEach.call(app.querySelectorAll('[data-q]'), function (b) { b.onclick = function () { qMode = b.dataset.q; try { localStorage.setItem('zl.qmode', qMode); } catch (e) {} draw(); }; });
-    [].forEach.call(app.querySelectorAll('[data-tm]'), function (b) { b.onclick = function () { trMode = b.dataset.tm; try { localStorage.setItem('zl.trmode', trMode); } catch (e) {} draw(); }; });
+    [].forEach.call(app.querySelectorAll('[data-gg]'), function (b) { b.onclick = function () { gGran = b.dataset.gg; try { localStorage.setItem('zl.ggran', gGran); } catch (e) {} [].forEach.call(app.querySelectorAll('[data-gg]'), function (x) { x.classList.toggle('on', x === b); }); gChart($id('gchart'), (data.seo || {}).gsc || {}); }; });
     var mb = $id('more'); if (mb) mb.onclick = function () { showAllWege = !showAllWege; draw(); };
     firstDraw = false;
     tick();
@@ -615,7 +759,7 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
   setZ(Z);
   var onScroll = function () { var t = $id('top'); if (t) t.classList.toggle('scr', scrollY > 6); };
   addEventListener('scroll', onScroll, { passive: true });
-  var rz = 0, onResize; addEventListener('resize', onResize = function () { clearTimeout(rz); rz = setTimeout(function () { if (data) { var c = $id('chart'); if (c) verlauf(c, data.zeitraum.achse, data.basis.achse || [], data.basis.reihe.besuche || [], data.besucherReihe || [], data.basis.reihe.aktiv || []); } }, 150); });
+  var rz = 0, onResize; addEventListener('resize', onResize = function () { clearTimeout(rz); rz = setTimeout(function () { if (data) { var c = $id('chart'); if (c) verlauf(c, data.zeitraum.achse, data.basis.achse || [], data.basis.reihe.besuche || [], data.besucherReihe || [], data.basis.reihe.aktiv || []); gChart($id('gchart'), (data.seo || {}).gsc || {}); } }, 150); });
   load();
   timer = setInterval(function () { if (!document.hidden) load(true); }, 20000);
   var tickT = setInterval(tick, 10000);
