@@ -13039,7 +13039,7 @@ function lobTour() {
 function lobEngine() {
   if (LOBP) return LOBP;
   const kid = lobKid() || LKIDS[0], job = lsx.get('gsm-ljob', 'schueler');
-  LOBP = Promise.all([import(LOBB + 'eng/engine-BD3WQJ5O.js'), fetch(LOBB + 'eyes.json').then((r) => r.json())])
+  LOBP = Promise.all([import(LOBB + 'eng/engine-S55DQ657.js'), fetch(LOBB + 'eyes.json').then((r) => r.json())])
     .then(([M, eyes]) => M.create($('#lobc'), { eyes, kid: kid[0], job, safeBottom: (w, h) => (w <= 820 ? 210 : 30), safeTop: (w, h) => (w <= 820 ? 96 : 70), onTap: () => { sfx.jump ? sfx.jump() : sfx.tap(); } }))
     .then((e) => { LOBE = e; $('#lobby').classList.add('ready'); e.preload(lobUnlocked(lobLevel().L).map((j) => kid[0] + '-' + j)); return e; })
     .catch((e) => { $('#lobby').classList.add('ready', 'static'); $('#lobfall').innerHTML = `<img class="lfr" src="${LOBB}img/${innerWidth >= innerHeight ? 'room-l' : 'room-p'}.webp" alt=""><img class="lff" src="${lobFig(kid[0], job)}" alt="">`; try { GT.t('Lobby Fehler', String(e && e.message || e).slice(0, 80)); } catch (x) {} });
