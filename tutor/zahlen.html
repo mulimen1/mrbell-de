@@ -252,6 +252,17 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
 .glink:hover { border-color: #16a05c; }
 .glink b { font-size: 14px; } .glink small { grid-column: 1; color: var(--mute); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .glink span { grid-row: 1 / 3; grid-column: 2; align-self: center; font: 600 12px var(--mono); color: #16a05c; }
 @media (max-width: 700px) { .gtr { grid-template-columns: minmax(0, 1fr) 44px 52px 40px; } .gtr > span:nth-child(4) { display: none; } .ghead h2 { font-size: 22px; } }
+
+/* Werkzeugseiten */
+.wzsec { margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line2); }
+.wzh { background: linear-gradient(90deg, #f08a24, #c2410c) !important; -webkit-background-clip: text !important; background-clip: text !important; }
+.g5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.wztab .gtr { grid-template-columns: minmax(0, 1fr) 58px 62px 92px 58px; }
+.wztab .gq a { color: var(--ink); text-decoration: none; font-weight: 600; } .wztab .gq a:hover { text-decoration: underline; }
+.wztab .gq small { display: block; color: var(--mute); font: 500 11.5px var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wznote { margin: 14px 0 0; color: var(--mute); font-size: 12.5px; }
+@media (max-width: 1100px) { .g5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .wztab .gtr { grid-template-columns: minmax(0, 1fr) 40px 46px 52px 0; } .wztab .gtr > span:nth-child(5) { display: none; } }
 </style>
 </head>
 <body>
@@ -576,7 +587,7 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
     var links = (g.links || []).slice().sort(function (a, b) { return String(b.datum).localeCompare(String(a.datum)); });
     var linkHtml = links.length ? '<div class="glinks">' + links.map(function (l) { return '<a class="glink" href="' + esc(l.seite || '#') + '" target="_blank" rel="noopener"><b>' + esc(l.hochschule || '') + '</b><small>' + esc(l.bereich || '') + (l.ziel ? ' → ' + esc(l.ziel) : '') + '</small><span>' + (l.datum ? new Date(l.datum + 'T12:00:00').toLocaleDateString('de-DE', { day: 'numeric', month: 'numeric', year: '2-digit' }) : '') + '</span></a>'; }).join('') + '</div>' : '<div class="empty">Noch keine Hochschul-Links.</div>';
     var stand = g.stand ? 'Google-Daten ' + rel(g.stand).replace('gerade eben', 'aktuell') + ' · Google meldet mit 1–2 Tagen Verzögerung' : '';
-    return '<section class="gsec"><div class="ghead"><div><h2>Google</h2><small>Organisch – wie Google uns findet und wer daraus kommt</small></div><span class="sp"></span><small class="gst">' + esc(stand) + '</small></div>' + hinweis +
+    return '<section class="gsec"><div class="ghead"><div><h2>Google</h2><small>Organisch – Lernseiten &amp; Startseite (ohne Werkzeugseiten) · wie Google uns findet und wer daraus kommt</small></div><span class="sp"></span><small class="gst">' + esc(stand) + '</small></div>' + hinweis +
       '<div class="grid g7 gk">' + tiles + '</div>' +
       '<section class="grid"><div class="card"><div class="hd"><h2>Klicks aus Google</h2><span class="tm">' + [['tag', 'Tag'], ['woche', 'Woche'], ['monat', 'Monat']].map(function (x) { return '<button data-gg="' + x[0] + '"' + (gGran === x[0] ? ' class="on"' : '') + '>' + x[1] + '</button>'; }).join('') + '</span>' +
       '<div class="leg"><span><i style="background:' + GC.klick + '"></i>Klicks</span><span><i style="background:' + GC.marke + '"></i>davon Markensuche</span><span><i style="background:none;border-top:2px solid ' + GC.impr + ';border-radius:0;height:0;width:12px"></i>Angezeigt (rechte Achse)</span><span><i style="background:none;border-top:2px dashed ' + GC.eigen + ';border-radius:0;height:0;width:12px"></i>Besucher gemessen</span></div></div><div class="chart" id="gchart"></div></div></section>' +
@@ -586,6 +597,40 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
       '<div class="card"><div class="hd"><h2>Landen auf</h2><small>gemessen · 30 Tage</small></div>' + bars(e.landung || []) + ((e.andere || []).length ? '<div class="sub">Andere Suchmaschinen</div>' + bars(e.andere) : '') + '</div>' +
       '<div class="card"><div class="hd"><h2>Geräte</h2><small>Klicks · 28 Tage</small></div>' + (ger.length ? bars(ger) : '<div class="empty">' + (hat ? 'Noch keine Klicks.' : 'Erscheint mit der Search Console.') + '</div>') + '</div>' +
       '<div class="card"><div class="hd"><h2>Hochschul-Links</h2><small>' + fmt(links.length) + ' verlinken uns</small></div>' + linkHtml + '</div></section></section>';
+  }
+
+  // ---------- Werkzeugseiten (Hochschul-Links): eigene Zählung, getrennt von Google SEO ----------
+  var WZN = { '/rechner': 'Rechner-Übersicht', '/lernen/statistik-lernen': 'Statistik lernen', '/tools/mathe-brueckenkurs-wiwi': 'Mathe-Brückenkurs', '/tools/simplex-rechner': 'Simplex-Rechner', '/tools/buchungssatz-trainer': 'Buchungssatz-Trainer', '/tools/formelsammlung-statistik': 'Formelsammlung Statistik', '/tools/verteilungstabellen': 'Verteilungstabellen', '/tools/kombinatorik-rechner': 'Kombinatorik-Rechner', '/rechner/kapitalwert-rechner': 'Kapitalwert-Rechner', '/rechner/annuitaeten-rechner': 'Annuitäten-Rechner', '/rechner/zinsrechner': 'Zinsrechner', '/rechner/abschreibungsrechner': 'Abschreibungsrechner', '/rechner/break-even-rechner': 'Break-even-Rechner', '/rechner/zuschlagskalkulation-rechner': 'Zuschlagskalkulation', '/rechner/bilanzkennzahlen-rechner': 'Bilanzkennzahlen-Rechner', '/rechner/statistik-rechner': 'Statistik-Rechner' };
+  function wzName(p) { if (WZN[p]) return WZN[p]; var n = p.split('/').pop().replace(/-/g, ' '); return n.charAt(0).toUpperCase() + n.slice(1); }
+  function werkzeug(d) {
+    var wz = d.werkzeug || {}, g = (d.seo || {}).gsc || {}, heute = dStr(Date.now());
+    var r7 = dAdd(heute, -6), r30 = dAdd(heute, -29);
+    var sum = function (ab, f) { var n = 0; for (var t in wz) if (t >= ab) for (var s in wz[t]) for (var r in wz[t][s]) if (!f || f(r, s)) n += wz[t][s][r]; return n; };
+    var istHS = function (r) { return r !== 'direkt' && r !== 'intern' && r !== 'andere' && !/^(google|bing|duckduckgo|ecosia|yahoo|startpage|qwant)$/.test(r); };
+    var a0 = sum(heute), a7 = sum(r7), a30 = sum(r30), hs30 = sum(r30, istHS), go30 = sum(r30, function (r) { return r === 'google'; });
+    var proS = {}; for (var t in wz) for (var s in wz[t]) { var o = proS[s] = proS[s] || { d7: 0, d30: 0, ref: {} }; for (var r in wz[t][s]) { var v = wz[t][s][r]; if (t >= r7) o.d7 += v; if (t >= r30) { o.d30 += v; o.ref[r] = (o.ref[r] || 0) + v; } } }
+    var gS = {}; (g.wzSeiten || []).forEach(function (x) { var k = x[0].replace(/^\/tutor/, ''); gS[k] = x; });
+    Object.keys(gS).forEach(function (k) { if (!proS[k]) proS[k] = { d7: 0, d30: 0, ref: {} }; });
+    var zeilen = Object.keys(proS).map(function (k) { var o = proS[k], top = Object.keys(o.ref).sort(function (a, b) { return o.ref[b] - o.ref[a]; }).slice(0, 2).map(function (r) { return r + ' ' + o.ref[r]; }).join(' · '); return [k, o.d7, o.d30, gS[k] ? gS[k][1] : 0, gS[k] ? gS[k][2] : 0, top]; })
+      .sort(function (a, b) { return b[2] - a[2] || b[3] - a[3] || b[4] - a[4]; });
+    var refs = {}; for (var t2 in wz) if (t2 >= r30) for (var s2 in wz[t2]) for (var r2 in wz[t2][s2]) refs[r2] = (refs[r2] || 0) + wz[t2][s2][r2];
+    var refL = Object.keys(refs).map(function (r) { return [{ direkt: 'Direkt / Link ohne Absender', intern: 'Von bwlmax.de', google: 'Google', bing: 'Bing', andere: 'Andere' }[r] || r, refs[r]]; }).sort(function (a, b) { return b[1] - a[1]; });
+    var gk = gSum(gMap(g.wzTage, 1), dAdd(heute, -27), heute), gi = gSum(gMap(g.wzTage, 2), dAdd(heute, -27), heute);
+    var hatZ = Object.keys(wz).length > 0;
+    var tile = function (icn, lbl, val, sub) { return '<div class="card kpi"><div class="l">' + ico(icn) + esc(lbl) + '</div><div class="v num">' + val + '</div><div class="d"><span>' + sub + '</span></div></div>'; };
+    var tab = zeilen.length ? '<div class="gtab wztab"><div class="gtr gth"><span>Seite</span><span>7 Tage</span><span>30 Tage</span><span>Google-Klicks</span><span>Angez.</span></div>' + zeilen.map(function (z) {
+      return '<div class="gtr"><span class="gq" title="' + esc(z[0]) + '"><a href="https://www.bwlmax.de' + esc(z[0]) + '" target="_blank" rel="noopener">' + esc(wzName(z[0])) + '</a>' + (z[5] ? '<small>' + esc(z[5]) + '</small>' : '') + '</span><span class="num">' + fmt(z[1]) + '</span><span class="num">' + fmt(z[2]) + '</span><span class="num">' + fmt(z[3]) + '</span><span class="num">' + fmt(z[4]) + '</span></div>';
+    }).join('') + '</div>' : '<div class="empty">Gezählt wird ab jetzt – die ersten Aufrufe erscheinen hier, sobald jemand eine Werkzeugseite öffnet.</div>';
+    return '<section class="gsec wzsec"><div class="ghead"><div><h2 class="wzh">Werkzeug-Seiten</h2><small>Rechner &amp; Tools für Hochschul-Links · getrennt gezählt, nicht Teil der Google-SEO-Zahlen</small></div></div>' +
+      '<div class="grid g5 gk">' +
+      tile('eye', 'Aufrufe heute', fmt(a0), 'einmal je Gerät und Seite') +
+      tile('eye', 'Aufrufe · 7 Tage', fmt(a7), 'alle Werkzeugseiten') +
+      tile('eye', 'Aufrufe · 30 Tage', fmt(a30), hatZ ? fmt(go30) + ' davon über Google' : 'Zählung startet jetzt') +
+      tile('globe', 'Von Hochschul-Seiten · 30 Tage', fmt(hs30), 'mit erkennbarem Absender') +
+      tile('search', 'Google-Klicks · 28 Tage', g.wzTage ? fmt(gk) : '–', g.wzTage ? fmt(gi) + '× angezeigt' : 'aus der Search Console') +
+      '</div><section class="grid g21"><div class="card"><div class="hd"><h2>Je Seite</h2><small>Aufrufe gezählt · Google aus Search Console (28 Tage)</small></div>' + tab + '</div>' +
+      '<div class="card"><div class="hd"><h2>Woher</h2><small>30 Tage</small></div>' + (refL.length ? bars(refL) : '<div class="empty">Noch nichts gezählt.</div>') +
+      '<p class="wznote">Manche Hochschulen setzen ihre Links so, dass kein Absender mitgeschickt wird (z. B. Stralsund). Diese Aufrufe landen unter „Direkt“.</p></div></section></section>';
   }
 
   // ---------- Zeichnen ----------
@@ -687,6 +732,7 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
     app.style.minHeight = firstDraw ? '' : app.offsetHeight + 'px';
     app.innerHTML =
       google(d) +
+      werkzeug(d) +
       '<div class="gsep"><h2>Auf der Seite</h2><small>' + esc(d.zeitraum.name) + '</small></div>' +
       '<section class="grid g7">' + kpis + '</section>' +
       '<section class="grid g21"><div class="card"><div class="hd"><h2>Vom Besuch zum Konto</h2><small>Wo sie abspringen · ' + (tx.ab ? 'seit ' + new Date(tx.ab).toLocaleString('de-DE', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) + ' Uhr' : esc(d.zeitraum.name)) + '</small></div><div class="fun">' + trich + '</div>' + fnote + '</div>' +

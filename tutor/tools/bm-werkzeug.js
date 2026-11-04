@@ -30,6 +30,17 @@
     /* Abschnittsfarben: Überschriften der Reihe nach Blau, Orange, Lila, Pink */
     var hs = document.querySelectorAll('h2');
     for (var i = 0; i < hs.length; i++) hs[i].setAttribute('data-bmw-c', String(i % 4));
+    zaehlen();
+  }
+  /* Anonymer Aufrufzähler: nur Seite + Herkunfts-Domain, keine Cookies, nichts auf dem Gerät gespeichert */
+  function zaehlen() {
+    try {
+      if (!/(^|\.)bwlmax\.de$/.test(location.hostname)) return;
+      var ref = ''; try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (e) {}
+      var d = JSON.stringify({ s: location.pathname, r: ref }), u = 'https://hub.mrbell.de/api/bwlmax/werkzeug';
+      if (navigator.sendBeacon && navigator.sendBeacon(u, new Blob([d], { type: 'text/plain' }))) return;
+      fetch(u, { method: 'POST', body: d, mode: 'no-cors', keepalive: true, credentials: 'omit' }).catch(function () {});
+    } catch (e) {}
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
