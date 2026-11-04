@@ -12863,6 +12863,7 @@ function kLogout() { const t = K.tok; if (t) K.req('logout', { token: t }); try 
 
 /* ---------- Lobby wie in einem Spiel: eigene Figur, Level, tägliche Aufgaben, Traumberufe ---------- */
 const LOBB = '/grundschulmax/lobby/';
+const ls = (n, v = .7) => { try { play('l-' + n, v); } catch (e) {} };
 const LKIDS = [['lena', 'Lena', 'w'], ['jonas', 'Jonas', 'm'], ['mia', 'Mia', 'w'], ['amara', 'Amara', 'w'], ['luca', 'Luca', 'm'], ['noah', 'Noah', 'm']];
 const LJOBS = [['schueler', 'Schüler', 'Schülerin', 1], ['astro', 'Astronaut', 'Astronautin', 2], ['fuss', 'Fußballer', 'Fußballerin', 4], ['polizei', 'Polizist', 'Polizistin', 6], ['feuer', 'Feuerwehrmann', 'Feuerwehrfrau', 8], ['arzt', 'Arzt', 'Ärztin', 10], ['forsch', 'Forscher', 'Forscherin', 12], ['koch', 'Koch', 'Köchin', 14], ['kunst', 'Künstler', 'Künstlerin', 16], ['pilot', 'Pilot', 'Pilotin', 18]];
 const LMODES = [['home', 'map', 'Abenteuer', 'Alle Fächer gemischt'], ['path', 'book', 'Lernpfad', 'Ein Fach Schritt für Schritt'], ['games', 'pad', 'Spiele', 'Nur Spiele'], ['hw', 'cam', 'Hausaufgaben', 'Max hilft beim Blatt'], ['test', 'cap', 'Probetest', 'Fit für die Arbeit']];
@@ -12917,12 +12918,12 @@ function lobBuild() {
     <div class="lobplay"><button type="button" class="lobmode" id="lobmode"></button><button type="button" class="lobgo" id="lobgo"><span>Spielen</span></button></div>
     <div class="lobfall" id="lobfall"></div>`;
   document.body.appendChild(el);
-  $('#lobgo').onclick = () => { sfx.whoosh ? sfx.whoosh() : sfx.tap(); lobPlay(); };
-  $('#lobmode').onclick = () => { sfx.tap(); lobModes(); };
-  $('#lobme').onclick = () => { sfx.tap(); lobPick(); };
-  $('#lobhelp').onclick = () => { sfx.tap(); lobTour(); };
-  $('#lobcta').onclick = () => { sfx.tap(); GT.t('Lobby Einrichten geklickt', ''); lobClose(); if (typeof openM === 'function') openM('y'); };
-  $('#lobqb').onclick = () => { sfx.tap(); el.classList.toggle('qopen'); };
+  $('#lobgo').onclick = () => { ls('play', .8); lobPlay(); };
+  $('#lobmode').onclick = () => { ls('tap', .6); lobModes(); };
+  $('#lobme').onclick = () => { ls('tap', .6); lobPick(); };
+  $('#lobhelp').onclick = () => { ls('tap', .6); lobTour(); };
+  $('#lobcta').onclick = () => { ls('tap', .6); GT.t('Lobby Einrichten geklickt', ''); lobClose(); if (typeof openM === 'function') openM('y'); };
+  $('#lobqb').onclick = () => { ls('tap', .6); el.classList.toggle('qopen'); };
   return el;
 }
 function lobDraw() {
@@ -12935,7 +12936,7 @@ function lobDraw() {
   $('#lobquest').innerHTML = `<h3>${I('cup')}Tägliche Aufgaben<small>Neu jeden Tag</small></h3>${Q.map((x) => `<div class="lq${x.done ? ' done' : ''}${x.got ? ' got' : ''}"><i>${I(x.got ? 'check' : x.ic)}</i><div><b>${esc(x.t)}</b><span class="lqb"><em style="width:${(x.v / x.n) * 100}%"></em></span><small>${x.v} / ${x.n}</small></div>${x.done && !x.got ? `<button type="button" class="lqget" data-q="${x.i}">+${LQXP} EP</button>` : x.got ? `<span class="lqok">${I('check')}</span>` : `<span class="lqxp">+${LQXP}</span>`}</div>`).join('')}`;
   $$('#lobquest [data-q]').forEach((b) => (b.onclick = () => lobClaim(+b.dataset.q, b)));
   $('#lobjobs').innerHTML = `<h3>Traumberufe<small>${un.length} von ${LJOBS.length}</small></h3><div class="ljr">${LJOBS.map((j) => { const ok = un.includes(j[0]); return `<button type="button" class="lj${ok ? '' : ' lk'}${j[0] === job ? ' on' : ''}" data-j="${j[0]}" aria-label="${esc(lobJobName(j, kid))}${ok ? '' : ', ab Level ' + j[3]}"><span class="ljf"><img src="${lobFace(kid[0], j[0])}" alt="" loading="lazy"></span><b>${ok ? esc(lobJobName(j, kid)) : `${I('lock')}Level ${j[3]}`}</b></button>`; }).join('')}</div>`;
-  $$('#lobjobs [data-j]').forEach((b) => (b.onclick = () => { const j = b.dataset.j; if (!un.includes(j)) { sfx.lock ? sfx.lock() : sfx.no(); lobToast(`Ab Level ${LJOBS.find((x) => x[0] === j)[3]} wirst du ${lobJobName(LJOBS.find((x) => x[0] === j), kid)}. Jede Lektion bringt dich näher!`); restart(b, 'shake'); return; } if (j === job) { LOBE && LOBE.jump(); return; } lobWear(j); }));
+  $$('#lobjobs [data-j]').forEach((b) => (b.onclick = () => { const j = b.dataset.j; if (!un.includes(j)) { ls('locked'); lobToast(`Ab Level ${LJOBS.find((x) => x[0] === j)[3]} wirst du ${lobJobName(LJOBS.find((x) => x[0] === j), kid)}. Jede Lektion bringt dich näher!`); restart(b, 'shake'); return; } if (j === job) { LOBE && LOBE.jump(); return; } lobWear(j); }));
   const M = LMODES.find((m) => m[0] === lsx.get('gsm-lmode', 'home')) || LMODES[0];
   $('#lobmode').innerHTML = `${I(M[1])}<span><small>Modus</small><b>${M[2]}</b></span>${I('down')}`;
   return { kid, job, lv };
@@ -12943,12 +12944,12 @@ function lobDraw() {
 function lobToast(t) { let b = $('#lobtoast'); if (!b) { b = document.createElement('div'); b.id = 'lobtoast'; b.className = 'lobtoast'; $('#lobby').appendChild(b); } b.textContent = t; b.classList.remove('on'); void b.offsetWidth; b.classList.add('on'); clearTimeout(b._t); b._t = setTimeout(() => b.classList.remove('on'), 3200); }
 
 async function lobWear(j) {
-  const kid = lobKid() || LKIDS[0]; lsx.set('gsm-ljob', j); sfx.star ? sfx.star() : sfx.ok(); GT.t('Lobby Beruf gewechselt', j);
+  const kid = lobKid() || LKIDS[0]; lsx.set('gsm-ljob', j); ls('outfit', .8); GT.t('Lobby Beruf gewechselt', j);
   lobDraw(); if (LOBE) await LOBE.outfit(kid[0], j);
 }
 function lobClaim(i, btn) {
   const q = lobDay(); if (q.got[i]) return; q.got[i] = 1; lsx.set('gsm-lq', JSON.stringify(q));
-  const before = lobLevel().L; lsx.set('gsm-lqxp', (+lsx.get('gsm-lqxp', 0) || 0) + LQXP); sfx.coin(); GT.t('Lobby Aufgabe abgeholt', String(i));
+  const before = lobLevel().L; lsx.set('gsm-lqxp', (+lsx.get('gsm-lqxp', 0) || 0) + LQXP); ls('claim', .8); setTimeout(() => ls('xp', .5), 650); GT.t('Lobby Aufgabe abgeholt', String(i));
   const r = btn.getBoundingClientRect(), t = $('.lobxp').getBoundingClientRect();
   for (let k = 0; k < 8; k++) { const c = document.createElement('i'); c.className = 'lobfly'; c.style.left = r.left + r.width / 2 + 'px'; c.style.top = r.top + r.height / 2 + 'px'; document.body.appendChild(c); const dx = t.left + t.width * 0.5 - (r.left + r.width / 2), dy = t.top - (r.top + r.height / 2); c.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: `translate(${dx * 0.5 + (k - 4) * 14}px,${dy * 0.5 - 60}px) scale(1.2)`, opacity: 1, offset: 0.5 }, { transform: `translate(${dx}px,${dy}px) scale(.5)`, opacity: 0.2 }], { duration: 750 + k * 40, easing: 'cubic-bezier(.5,0,.3,1)' }).onfinish = () => c.remove(); }
   setTimeout(() => { lobDraw(); restart($('.lobxp'), 'pop'); lobCheckLevel(before); }, 800);
@@ -12961,7 +12962,7 @@ async function lobCheckLevel(prevL) {
   if (lv.L <= from) { lsx.set('gsm-llv', Math.max(seen, lv.L)); return; }
   lsx.set('gsm-llv', lv.L); GT.t('Level erreicht', 'Level ' + lv.L);
   const nj = LJOBS.filter((j) => j[3] > from && j[3] <= lv.L);
-  sfx.win ? sfx.win() : sfx.ok();
+  ls('lvup', .9);
   const big = document.createElement('div'); big.className = 'loblv'; big.innerHTML = `<small>Level aufgestiegen</small><b>${lv.L}</b>`; $('#lobby').appendChild(big);
   if (LOBE) LOBE.levelUp(); setTimeout(() => confetti(90), 600);
   setTimeout(() => big.classList.add('out'), 2300); setTimeout(() => big.remove(), 2900);
@@ -12973,11 +12974,11 @@ async function lobSeq() { if (lobSeqOn || !lobOn) return; lobSeqOn = true; try {
 function lobReveal(j) {
   const kid = lobKid() || LKIDS[0], o = document.createElement('div'); o.className = 'lobov lobrev';
   o.innerHTML = `<div class="lobcard"><small class="lrk">Neuer Traumberuf freigeschaltet</small><div class="lrf"><i class="lrsh"></i><img src="${lobFig(kid[0], j[0])}" alt=""></div><b class="lrt">${esc(lobJobName(j, kid))}</b><p>Mit jedem Level schaltest du mehr Traumberufe frei.</p><button type="button" class="b3d lg lrgo">Jetzt anziehen</button><button type="button" class="lnk lrno">Später</button></div>`;
-  $('#lobby').appendChild(o); requestAnimationFrame(() => o.classList.add('on')); sfx.chest ? sfx.chest() : sfx.ok();
+  $('#lobby').appendChild(o); requestAnimationFrame(() => o.classList.add('on')); ls('unlock', .9);
   return new Promise((done) => {
     const close = () => { o.classList.remove('on'); setTimeout(() => o.remove(), 300); };
     $('.lrgo', o).onclick = async () => { close(); await lobWear(j[0]); setTimeout(done, 400); };
-    $('.lrno', o).onclick = () => { sfx.tap(); close(); done(); };
+    $('.lrno', o).onclick = () => { ls('tap', .6); close(); done(); };
   });
 }
 
@@ -12985,11 +12986,11 @@ function lobReveal(j) {
 function lobPick(first) {
   const cur = lobKid(), o = document.createElement('div'); o.className = 'lobov lobpick';
   o.innerHTML = `<div class="lobcard wide"><b class="lpt">${first ? 'Wer bist du?' : 'Aussehen ändern'}</b><p>${first ? 'Such dir deine Figur aus. Später schaltest du Traumberufe frei.' : 'Deine Traumberufe bleiben erhalten.'}</p><div class="lpk">${LKIDS.map((k) => `<button type="button" class="lpkk${cur && cur[0] === k[0] ? ' on' : ''}" data-k="${k[0]}"><img src="${lobFig(k[0], 'schueler')}" alt=""><span>${k[1]}</span></button>`).join('')}</div>${first ? '' : '<button type="button" class="lnk lpno">Abbrechen</button>'}</div>`;
-  $('#lobby').appendChild(o); requestAnimationFrame(() => o.classList.add('on'));
+  $('#lobby').appendChild(o); requestAnimationFrame(() => o.classList.add('on')); ls('open', .5);
   const close = () => { o.classList.remove('on'); setTimeout(() => o.remove(), 300); };
-  if (!first) $('.lpno', o).onclick = () => { sfx.tap(); close(); };
+  if (!first) $('.lpno', o).onclick = () => { ls('tap', .6); close(); };
   $$('[data-k]', o).forEach((b) => (b.onclick = async () => {
-    const k = b.dataset.k; lsx.set('gsm-lkid', k); sfx.ok(); GT.t('Lobby Figur gewählt', k); close();
+    const k = b.dataset.k; lsx.set('gsm-lkid', k); ls('outfit', .8); GT.t('Lobby Figur gewählt', k); close();
     const d = lobDraw(); await lobEngine(); if (LOBE) await LOBE.setFigure(k, d.job, true);
     if (first) setTimeout(lobSeq, 700);
   }));
@@ -12999,10 +13000,10 @@ function lobPick(first) {
 function lobModes() {
   const curM = lsx.get('gsm-lmode', 'home'), o = document.createElement('div'); o.className = 'lobov lobmodes';
   o.innerHTML = `<div class="lobcard wide"><b class="lpt">Was willst du spielen?</b><div class="lmg">${LMODES.map((m) => `<button type="button" class="lm${m[0] === curM ? ' on' : ''}" data-m="${m[0]}"><i>${I(m[1])}</i><b>${m[2]}</b><small>${m[3]}</small></button>`).join('')}</div><button type="button" class="lnk lpno">Schließen</button></div>`;
-  $('#lobby').appendChild(o); requestAnimationFrame(() => o.classList.add('on'));
+  $('#lobby').appendChild(o); requestAnimationFrame(() => o.classList.add('on')); ls('open', .5);
   const close = () => { o.classList.remove('on'); setTimeout(() => o.remove(), 300); };
-  $('.lpno', o).onclick = () => { sfx.tap(); close(); };
-  $$('[data-m]', o).forEach((b) => (b.onclick = () => { lsx.set('gsm-lmode', b.dataset.m); sfx.tap(); close(); lobDraw(); lobPlay(); }));
+  $('.lpno', o).onclick = () => { ls('tap', .6); close(); };
+  $$('[data-m]', o).forEach((b) => (b.onclick = () => { lsx.set('gsm-lmode', b.dataset.m); ls('tap', .6); close(); lobDraw(); lobPlay(); }));
 }
 function lobPlay() {
   const m = lsx.get('gsm-lmode', 'home'); GT.t('Lobby Spielen', m); lobClose();
@@ -13030,8 +13031,8 @@ function lobTour() {
     restart(cd, 'pop');
   };
   const end = () => { o.remove(); lsx.set('gsm-ltour', '1'); if (innerWidth <= 820) el.classList.remove('qopen'); GT.t('Lobby Tour', 'fertig bei ' + (i + 1)); };
-  $('.ltnext', o).onclick = () => { sfx.tap(); if (++i >= S.length) end(); else show(); };
-  $('.ltskip', o).onclick = () => { sfx.tap(); end(); };
+  $('.ltnext', o).onclick = () => { ls('tap', .6); if (++i >= S.length) end(); else show(); };
+  $('.ltskip', o).onclick = () => { ls('tap', .6); end(); };
   show();
 }
 
@@ -13039,8 +13040,8 @@ function lobTour() {
 function lobEngine() {
   if (LOBP) return LOBP;
   const kid = lobKid() || LKIDS[0], job = lsx.get('gsm-ljob', 'schueler');
-  LOBP = Promise.all([import(LOBB + 'eng/engine-5XG6LARP.js'), fetch(LOBB + 'eyes.json').then((r) => r.json())])
-    .then(([M, eyes]) => M.create($('#lobc'), { eyes, kid: kid[0], job, safeBottom: (w, h) => (w <= 820 ? 210 : 30), safeTop: (w, h) => (w <= 820 ? 96 : 70), onTap: () => { sfx.jump ? sfx.jump() : sfx.tap(); } }))
+  LOBP = Promise.all([import(LOBB + 'eng/engine-UUS5UKZC.js'), fetch(LOBB + 'eyes.json').then((r) => r.json())])
+    .then(([M, eyes]) => M.create($('#lobc'), { eyes, kid: kid[0], job, safeBottom: (w, h) => (w <= 820 ? 210 : 30), safeTop: (w, h) => (w <= 820 ? 96 : 70), onTap: () => ls('jump', .7), onLand: () => ls('land', .5), onBit: () => ls('bit', .45) }))
     .then((e) => { LOBE = e; $('#lobby').classList.add('ready'); e.preload(lobUnlocked(lobLevel().L).map((j) => kid[0] + '-' + j)); return e; })
     .catch((e) => { $('#lobby').classList.add('ready', 'static'); $('#lobfall').innerHTML = `<img class="lfr" src="${LOBB}img/${innerWidth >= innerHeight ? 'room-l' : 'room-p'}.webp" alt=""><img class="lff" src="${lobFig(kid[0], job)}" alt="">`; try { GT.t('Lobby Fehler', String(e && e.message || e).slice(0, 80)); } catch (x) {} });
   return LOBP;
