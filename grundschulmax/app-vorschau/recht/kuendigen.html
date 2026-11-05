@@ -68,13 +68,13 @@ footer{display:none!important}
 @media (max-width:820px){body{background:#7a3410 url(/grundschulmax/sp/desk/shelf-m.webp) 50% 0/1024px auto repeat-y!important}main{margin-left:12px!important;margin-right:12px!important}}
 </style></head><body>
 <header class="top"><a class="back" href="/" onclick="if(history.length>1&&document.referrer&&new URL(document.referrer).host===location.host){history.back();return false}">&#8592; Zurück</a><a class="brand" href="/"><img src="/grundschulmax/max-96.png" alt=""><span>Grundschul<b>max</b></span></a></header>
-<main><div class="k">Kündigung</div><h1>Verträge hier kündigen</h1><p class="stand">Stand: 31. Oktober 2026</p>
+<main><div class="k">Kündigung</div><h1>Verträge hier kündigen</h1><p class="stand">Stand: 6. November 2026</p>
 
-<p>Hier kündigst du dein Grundschulmax-Abo. Ohne Login, ohne Umwege. Kündigst du im kostenlosen Testzeitraum, zahlst du nichts.</p>
+<p>Hier kündigen Sie Ihr Grundschulmax-Abo. Ohne Anmeldung, ohne Umwege. Kündigen Sie im kostenlosen Testzeitraum, zahlen Sie nichts.</p>
 <form data-v="kuendigung" novalidate>
 <div class="fixed"><strong>Vertrag:</strong> Grundschulmax-Abo (Monatlich 9,90 € / Monat oder Schuljahr 79 € / 12 Monate)</div>
-<label>Dein Name<input name="name" autocomplete="name"></label>
-<label>E-Mail-Adresse deines Elternkontos<small>An diese Adresse schicken wir die Kündigungsbestätigung.</small><input name="email" type="email" autocomplete="email"></label>
+<label>Ihr Name<input name="name" autocomplete="name"></label>
+<label>E-Mail-Adresse Ihres Elternkontos<small>Damit wir die Kündigung Ihrem Abo zuordnen können. An diese Adresse schicken wir Ihnen zusätzlich eine Bestätigung.</small><input name="email" type="email" autocomplete="email"></label>
 <div><strong style="font-size:14.5px">Art der Kündigung</strong><div class="rad" style="margin-top:6px"><label><input type="radio" name="art" value="ordentlich" checked>Ordentliche Kündigung</label><label><input type="radio" name="art" value="ausserordentlich">Außerordentliche Kündigung</label></div></div>
 <label data-grund>Grund der außerordentlichen Kündigung<textarea name="grund"></textarea></label>
 <div><strong style="font-size:14.5px">Zeitpunkt</strong><div class="rad" style="margin-top:6px"><label><input type="radio" name="wann" value="naechst" checked>Zum nächstmöglichen Zeitpunkt</label><label><input type="radio" name="wann" value="datum">Zu einem bestimmten Datum</label></div></div>
@@ -82,17 +82,17 @@ footer{display:none!important}
 <p class="err" data-err></p>
 <button class="btn" type="submit">jetzt kündigen</button>
 </form>
-<div class="done" data-done><h2>Deine Kündigung ist eingegangen</h2><p>Speicher dir diese Bestätigung oder druck sie aus. Eine Kopie schicken wir dir per E-Mail.</p><pre data-beleg></pre><button class="btn" data-print style="margin-top:14px">Bestätigung speichern / drucken</button></div>
+<div class="done" data-done><h2>Ihre Kündigung ist eingegangen</h2><p>Hier sehen Sie Ihre Eingangsbestätigung mit Belegnummer, Datum und Uhrzeit des Eingangs. Bitte speichern oder drucken Sie diese Bestätigung. Eine Bestätigung schicken wir Ihnen zusätzlich per E-Mail, wenn Sie eine E-Mail-Adresse angegeben haben.</p><pre data-beleg></pre><button class="btn" data-print style="margin-top:14px">Bestätigung speichern / drucken</button></div>
 </main><footer><span>© 2026 Grundschulmax</span><a href="/grundschulmax/app-vorschau/recht/impressum.html">Impressum</a><a href="/grundschulmax/app-vorschau/recht/datenschutz.html">Datenschutz</a><a href="/grundschulmax/app-vorschau/recht/agb.html">AGB</a><a href="/grundschulmax/app-vorschau/recht/widerruf.html">Widerrufsbelehrung</a><a href="/grundschulmax/app-vorschau/recht/kuendigen.html">Verträge hier kündigen</a><a href="/grundschulmax/app-vorschau/recht/widerrufen.html">Vertrag widerrufen</a></footer><script>
 (function(){var f=document.querySelector('form[data-v]');if(!f)return;var A='/grundschulmax/api/vertrag',act=f.dataset.v,q=function(s){return document.querySelector(s)};
 var sync=function(){var g=q('[data-grund]'),d=q('[data-datum]');if(g)g.classList.toggle('hide',!(f.art&&f.art.value==='ausserordentlich'));if(d)d.classList.toggle('hide',!(f.wann&&f.wann.value==='datum'))};f.addEventListener('change',sync);sync();
 q('[data-print]').onclick=function(){print()};
 f.addEventListener('submit',function(e){e.preventDefault();var err=q('[data-err]'),b=f.querySelector('button[type=submit]'),n=f.name.value.trim(),m=f.email.value.trim();
-if(n.length<2){err.textContent='Bitte gib deinen Namen an.';f.name.focus();return}if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m)){err.textContent='Bitte gib die E-Mail-Adresse deines Elternkontos an.';f.email.focus();return}
-var o={name:n,email:m};if(act==='kuendigung'){o.art=f.art.value;o.grund=f.grund.value.trim();o.wann=f.wann.value;o.datum=f.datum.value;if(o.art==='ausserordentlich'&&o.grund.length<3){err.textContent='Bitte nenn kurz den Grund.';return}if(o.wann==='datum'&&!o.datum){err.textContent='Bitte wähl ein Datum.';return}}
+if(n.length<2){err.textContent='Bitte geben Sie Ihren Namen an.';f.name.focus();return}if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m)){err.textContent='Bitte geben Sie die E-Mail-Adresse Ihres Elternkontos an.';f.email.focus();return}
+var o={name:n,email:m};if(act==='kuendigung'){o.art=f.art.value;o.grund=f.grund.value.trim();o.wann=f.wann.value;o.datum=f.datum.value;if(o.art==='ausserordentlich'&&o.grund.length<3){err.textContent='Bitte nennen Sie kurz den Grund.';return}if(o.wann==='datum'&&!o.datum){err.textContent='Bitte wählen Sie ein Datum.';return}}
 err.textContent='';b.disabled=true;var t=new Date(),stamp=t.toLocaleDateString('de-DE')+', '+t.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})+' Uhr';
 fetch(A,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:act,opts:o})}).then(function(r){return r.json()}).then(function(j){b.disabled=false;if(!j||!j.ok)throw 0;show(j.beleg)}).catch(function(){b.disabled=false;
 location.href='mailto:'+'kontakt@grundschulmax.de'+'?subject='+encodeURIComponent(act==='kuendigung'?'Kündigung Grundschulmax':'Widerruf Grundschulmax')+'&body='+encodeURIComponent((act==='kuendigung'?'Hiermit kündige ich meinen Vertrag mit Grundschulmax ('+(o.art==='ausserordentlich'?'außerordentlich, Grund: '+o.grund:'ordentlich')+', '+(o.wann==='datum'?'zum '+o.datum:'zum nächstmöglichen Zeitpunkt')+').':'Hiermit widerrufe ich meinen Vertrag mit Grundschulmax.')+'\n\nName: '+n+'\nE-Mail des Elternkontos: '+m+'\nErklärt am: '+stamp);
-err.textContent='Die Online-Übermittlung hat gerade nicht geklappt. Dein E-Mail-Programm öffnet sich mit der fertigen Erklärung, schick sie einfach ab.'})});
+err.textContent='Die Online-Übermittlung hat gerade nicht geklappt. Ihr E-Mail-Programm öffnet sich mit der fertigen Erklärung, bitte senden Sie sie ab.'})});
 function show(t){q('[data-beleg]').textContent=t||'';f.classList.add('hide');var d=q('[data-done]');d.classList.add('on');d.scrollIntoView({behavior:'smooth'})}})();
 </script></body></html>
