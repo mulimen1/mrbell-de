@@ -5294,7 +5294,7 @@ html,body{overscroll-behavior-x:none}
 .sfbox{position:relative;width:clamp(190px,22vw,300px);aspect-ratio:420/393;filter:drop-shadow(0 14px 16px rgba(0,0,0,.35))}
 .sfimg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .sfwheel{position:absolute;left:38.5%;top:47.1%;width:33%;translate:-50% -50%;transition:opacity .15s}
-.sfscr{position:absolute;left:77%;top:22%;translate:-50% -50%;width:21%;height:11%;display:grid;place-items:center;font-family:ui-monospace,monospace;font-weight:900;color:#7dfca0;font-size:clamp(11px,1.3vw,17px);overflow:hidden;white-space:nowrap}
+.sfbox{container-type:inline-size}.sfscr{position:absolute;left:83.7%;top:27.6%;translate:-50% -50%;width:18.5%;height:9%;display:grid;place-items:center;font-family:ui-monospace,monospace;font-weight:900;color:#7dfca0;font-size:clamp(11px,1.3vw,17px);font-size:7.4cqw;line-height:1;letter-spacing:.04em;text-shadow:0 0 6px rgba(125,252,160,.65);overflow:hidden;white-space:nowrap}.sfbox.open .sfscr{left:85.2%;top:28.7%}
 .sfbox.wrong .sfscr{color:#ff6a6a;animation:sfblink .3s steps(2) 3}@keyframes sfblink{50%{opacity:.2}}
 .sfloot{position:absolute;left:39%;top:52%;width:34%;translate:-50% -50%;opacity:0;scale:.4;transition:opacity .3s .15s,scale .5s cubic-bezier(.2,1.6,.4,1) .15s}
 .sfbox.open .sfloot{opacity:1;scale:1}
@@ -5588,6 +5588,8 @@ html body .gk.sec .gkb{background:linear-gradient(180deg,#ffe27a,#f5b000)!import
 /* Fortschrittsbalken: Füllung beginnt genau am linken Rand der Rille und wächst mit jeder richtigen Aufgabe sichtbar */
 html body .lesbar{padding-left:0!important;padding-right:0!important}
 html body .lesbar i{left:0!important;margin-left:-5.5px!important;min-width:18px!important;max-width:calc(100% + 11px)!important;transition:width .6s cubic-bezier(.3,1.4,.5,1)!important}
+
+.s-belt .sspk{position:absolute;z-index:6;width:110px;margin:-55px 0 0 -55px;pointer-events:none;animation:barspk .8s ease-out forwards}
 /* ===== Hausaufgaben: stabile Karten, Bibliothek mit Spielen und Probetests, Arbeitsblatt mit Prüfen und Hilfe je Aufgabe ===== */
 
 /* Ergebnisbereich: hoch genug, damit beim Wechsel der vier Knöpfe nichts springt */
@@ -6775,14 +6777,14 @@ const sfx = {
   no() { play('no', .6); },
   pop() { tone(380, .09, 'sine', .12, 760); setTimeout(() => tone(900, .05, 'sine', .05), 40); },
   star() { play('star', .5); },
-  win() { play('win', .8); },
-  streak() { play('streak', .7); },
+  win() { play('win', .8); typeof MUS !== 'undefined' && MUS.duck(1800); },
+  streak() { play('streak', .7); typeof MUS !== 'undefined' && MUS.duck(1200); },
   chug() { tone(120, .3, 'sawtooth', .05, 60); },
   flip() { play('soft', .45); },
   jump() { play('jump', .6); },
   lock() { play('tap', .6); },
   coin() { play('coin', .55); },
-  chest() { play('star', .6); setTimeout(() => play('coin', .4), 140); },
+  chest() { typeof MUS !== 'undefined' && MUS.duck(1200); play('star', .6); setTimeout(() => play('coin', .4), 140); },
   kick() { play('kick', .7); },
   splash() { play('splash', .6); },
   whoosh() { play('whoosh', .6); },
@@ -10985,6 +10987,8 @@ function lpComplete(n, xp) {
 
 /* ---------- Lektion (Vollbild) ---------- */
 const les = document.createElement('div'); les.className = 'les'; les.setAttribute('role', 'dialog'); document.body.appendChild(les);
+/* Sobald das Kind antwortet (Antwort, Kiste, Tipp, Lösung …), hört das Vorlesen sofort auf. Nur die Lautsprecher-Knöpfe lesen weiter vor. */
+les.addEventListener('pointerdown', (e) => { const t = e.target.closest('button, [data-v], .srti, .opt, input, textarea, [draggable]'); if (!t || t.closest('.lspk, .lesrep, .lmute, [data-mute], .lx, .lestop')) return; if (les.dataset.state === 'end') return; stopVoice(); }, true);
 let LS = null;
 function startLesson(li, j, n, custom) {
   if (!custom && LPX.st !== 2 && PAID) { const L0 = lpLevels(SUBJ[st.s].k, st.grade)[li]; if (L0 && !(L0.L && L0.L[j])) { const s0 = st.s, g0 = st.grade; lpToast('Einen Moment …'); lpxLoad().then(() => { if (st.s === s0 && st.grade === g0) startLesson(li, j, n); }); return; } }
@@ -11255,7 +11259,7 @@ EX.sort = (x, h, ctx) => {
     if (it[1] === bi) {
       const a = sc.getBoundingClientRect(), b = bin.getBoundingClientRect(), s = $('.srti', sc);
       s.animate([{ transform: 'translate(0,0) scale(1)' }, { transform: `translate(${b.left + b.width / 2 - a.left - a.width / 2}px,${b.top + 20 - a.top - a.height / 2}px) scale(.3)`, opacity: .3 }], { duration: 380, easing: 'cubic-bezier(.5,0,.6,1)', fill: 'forwards' });
-      sfx.coin(); restart(bin, 'gulp'); $('.bct', bin).insertAdjacentHTML('beforeend', `<i>${it[0]}</i>`); i++; const lp = $('.slamp', h); if (lp) restart(lp, 'flash'); const sr = h.getBoundingClientRect(), spk = document.createElement('img'); spk.className = 'sspk'; spk.src = '/grundschulmax/sp/belt2/spark.webp'; spk.style.left = b.left + b.width / 2 - sr.left + 'px'; spk.style.top = b.top + 10 - sr.top + 'px'; h.appendChild(spk); setTimeout(() => spk.remove(), 800);
+      sfx.coin(); restart(bin, 'gulp'); $('.bct', bin).insertAdjacentHTML('beforeend', `<i>${it[0]}</i>`); i++; const lp = $('.slamp', h); if (lp) restart(lp, 'flash'); const sh = $('.srt', h) || h, sr = sh.getBoundingClientRect(), spk = document.createElement('img'); spk.className = 'sspk'; spk.src = '/grundschulmax/sp/belt2/spark.webp'; spk.style.left = b.left + b.width / 2 - sr.left + 'px'; spk.style.top = b.top + 10 - sr.top + 'px'; sh.appendChild(spk); setTimeout(() => spk.remove(), 800);
       setTimeout(() => { if (!alive(ctx.T)) return; if (i < items.length) show(); else { $$('.srti', sc).forEach((e) => e.remove()); ctx.auto(true); } }, 420);
     } else { restart(bin, 'shk'); sfx.no(); ctx.miss(); const s = $('.srti', sc); if (s) { s.style.transform = ''; restart(s, 'bad'); } }
   };
@@ -11465,7 +11469,7 @@ function mixStations(g) {
   return out;
 }
 /* Die 3D-Welt kommt als eigene Datei und wird erst geladen, wenn der Pfad zu sehen ist */
-const PFV = 'f6b6f310';
+const PFV = 'c7993507';
 let PF = null, pfLoading = null;
 const tutImg = (id) => id === 'bit' ? '/grundschulmax/tut-bitf.png' : `/grundschulmax/tut-${id}.png`;
 function pfFace() {
@@ -11499,6 +11503,13 @@ function pfLoad() {
   return pfLoading || (pfLoading = new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = '/grundschulmax/pfad/pfad-' + PFV + '.js'; sc.onload = res; sc.onerror = () => { pfLoading = null; const s2 = document.createElement('script'); s2.src = '/grundschulmax/pfad.js?v=' + PFV + '&r=' + Date.now(); s2.onload = res; s2.onerror = rej; document.head.appendChild(s2); }; document.head.appendChild(sc); }));
 }
 let PFCUR = null, PFEL = null;
+/* Spielen in der Lobby, Fach öffnen: Figur springt aufs aktuelle Feld und die Start-Karte ist schon offen */
+let AUTOCARD = 0;
+function autoCard() {
+  if (!AUTOCARD || Date.now() - AUTOCARD > 20000) return; AUTOCARD = 0;
+  let seen = null; try { seen = localStorage.getItem('gsm-help-seen'); } catch (e) {} if (!seen) return;
+  setTimeout(() => { const a = document.body.dataset.area; if (document.body.dataset.screen !== 'spiel' || document.body.classList.contains('lesopen') || $('#help.on') || (a && a !== 'play') || typeof lobOn !== 'undefined' && lobOn) return; if (PF && PF.tapCur) try { PF.tapCur(); } catch (e) {} }, 500);
+}
 /* Nur ein Aufruf gleichzeitig: sonst startet die 3D-Welt doppelt und stürzt ab */
 let PFQ = Promise.resolve();
 /* Alle Welten früh im Hintergrund bauen (egal wo man startet), damit der Wechsel sofort da ist */
@@ -11518,7 +11529,7 @@ async function pfShow0(container, host, keep) {
 async function drawMix() {
   const c = $('#ahome'); if (!c) return; PFHOST.key = 'mix';
   if (PFEL && PFEL.parentElement !== c) { c.prepend(PFEL); if (PF && PF.render && PFCUR === PFHOST) PF.render(); }
-  const first = !PF; await pfShow(c, PFHOST);
+  const first = !PF; await pfShow(c, PFHOST); autoCard();
   if (first) { pfPre();
     // Tutorial erst, wenn das Kind wirklich im Spiel ist (Pfad sichtbar und geladen), nie auf der Startseite
     const tryHelp = () => { let seen = '1'; try { seen = localStorage.getItem('gsm-help-seen'); } catch (e) {} if (seen) return; const on = document.body.dataset.screen === 'spiel' && document.querySelector('.gw-load.off') && !document.querySelector('#help.on'); if (on) openHelp(true); else setTimeout(tryHelp, 800); };
@@ -11548,10 +11559,10 @@ async function drawLP(justN) {
   const S = SUBJ[st.s], L = lpLevels(S.k, Math.max(0, st.grade));
   if (!L.length) { box.innerHTML = `<div class="lpsoon">${I('book')}<b>Der Lernpfad für ${S.n} kommt gleich.</b></div>`; return; }
   const h = subjHost(), key = h.theme().key;
-  if (!SH || SH.key !== key) { SH = h; SH.key = key; }
+  if (!SH || SH.key !== key) { SH = h; SH.key = key; if (justN == null) AUTOCARD = Date.now(); }
   const prev = PF && PFCUR === SH ? PF.cur() : null;
   if (PFEL && PFEL.parentElement !== box) { box.prepend(PFEL); if (PF && PF.render && PFCUR === SH) PF.render(); }
-  if (!(await pfShow(box, SH, justN != null))) return; pfPre();
+  if (!(await pfShow(box, SH, justN != null))) return; pfPre(); if (justN == null) autoCard();
   if (justN != null && prev != null) { PF.refresh(true); const c = SH.list().findIndex((q) => q.state === 'cur'); if (c > prev) PF.hopTo(c); }
 }
 /* Abschluss einer Station aus dem Abenteuer-Pfad (statt lpComplete) */
@@ -13134,7 +13145,7 @@ function lobBuild() {
     <div class="lobside" id="lobside"><button type="button" class="lobpick2" id="lobpj"><span class="lpi"><img alt=""></span><span><small>Traumberuf</small><b></b></span></button><button type="button" class="lobpick2" id="lobpp"><span class="lpi"><img alt=""></span><span><small>Haustier</small><b></b></span></button></div><div class="lobplay"><div class="lobtiles"><button type="button" class="lobt" data-a="hw">${I('cam')}<b>Hausaufgaben</b></button><button type="button" class="lobt" data-a="games">${I('pad')}<b>Spiele</b></button><button type="button" class="lobt" data-a="test">${I('cap')}<b>Probetest</b></button></div><button type="button" class="lobgo" id="lobgo"><span>Spielen</span><small>Abenteuer und Lernpfade</small></button></div>
     <div class="lobfall" id="lobfall"></div>`;
   document.body.appendChild(el);
-  $('#lobgo').onclick = () => { ls('play', .8); lobArea('play'); };
+  $('#lobgo').onclick = () => { ls('play', .8); AUTOCARD = Date.now(); lobArea('play'); };
   $$('.lobt', el).forEach((b) => (b.onclick = () => { ls('play', .7); lobArea(b.dataset.a); }));
   $('#lobme').onclick = () => { ls('tap', .6); lobMenu(); };
   $('#lobpj').onclick = () => { ls('tap', .6); lsx.set('gsm-ltab', 'jobs'); lobDraw(); el.classList.remove('qopen'); el.classList.toggle('jopen'); };
@@ -13320,7 +13331,7 @@ function lobTour() {
 function lobEngine() {
   if (LOBP) return LOBP;
   const kid = lobKid() || LKIDS[0], job = lsx.get('gsm-ljob', 'schueler');
-  LOBP = Promise.all([import(LOBB + 'eng/engine-QDGR5UJA.js'), fetch(LOBB + 'eyes.json').then((r) => r.json())])
+  LOBP = Promise.all([import(LOBB + 'eng/engine-H6Y5PMQ3.js'), fetch(LOBB + 'eyes.json').then((r) => r.json())])
     .then(([M, eyes]) => M.create($('#lobc'), { eyes, kid: kid[0], job, pet: lobPet(), uiRects: () => [...document.querySelectorAll('#lobby .lobtop > *, #lobby .lobtop .lobtr > *, #lobby .lobplay, #lobby.qopen .lobquest, #lobby.jopen .lobjobs')].map((e) => e.getBoundingClientRect()), onPet: () => ls('jump', .5), onWorldTap: () => ls('tap', .35), onSfx: (n) => ls(n, .55), safeBottom: (w, h) => (w <= 820 ? 120 : 30), safeTop: (w, h) => (w <= 820 ? 96 : 70), onTap: () => ls('jump', .7), onLand: () => ls('land', .5), onBit: () => ls('bit', .45) }))
     .then((e) => { LOBE = e; $('#lobby').classList.add('ready'); e.preload(lobUnlocked(lobLevel().L).map((j) => kid[0] + '-' + j)); return e; })
     .catch((e) => { $('#lobby').classList.add('ready', 'static'); $('#lobfall').innerHTML = `<img class="lfr" src="${LOBB}img/${innerWidth >= innerHeight ? 'room-l' : 'room-p'}.webp" alt=""><img class="lff" src="${lobFig(kid[0], job)}" alt="">`; try { GT.t('Lobby Fehler', String(e && e.message || e).slice(0, 80)); } catch (x) {} });
@@ -13352,7 +13363,7 @@ setTimeout(ctaTexts, 0); setInterval(ctaTexts, 4000);
 /* ---------- Hintergrundmusik: je Bereich ein eigenes Stück, leise, weiche Übergänge, wird leiser wenn ein Tutor spricht ---------- */
 const MUS = (() => {
   const U = 'https://grundschulmax.de/grundschulmax/audio/music/', VOL = { lobby: .2, path: .16, game: .13, hw: .12 }, START = .15;
-  const A = {}; let cur = '', want = '', armed = false, duck = 1;
+  const A = {}; let cur = '', want = '', armed = false, duck = 1, duckUntil = 0;
   const on = () => voiceOn && lsx.get('gsm-music', '1') !== '0' && !document.hidden;
   const get = (k) => { if (!A[k]) { const a = new Audio(U + (k === 'start' ? 'lobby' : k) + '.mp3'); a.loop = true; a.preload = 'none'; a.volume = 0; a._v = 0; A[k] = a; } return A[k]; };
   function scene() {
@@ -13371,7 +13382,7 @@ const MUS = (() => {
     const talking = (typeof curAudio !== 'undefined' && curAudio && !curAudio.paused) || (typeof hwSrc !== 'undefined' && hwSrc);
     duck += ((talking ? .3 : 1) - duck) * .35;
     for (const k of [...Object.keys(VOL), 'start']) {
-      const a = A[k], tgt = k === want ? (VOL[k] ?? START) * duck : 0; if (!a && !tgt) continue;
+      const a = A[k], tgt = k === want ? (VOL[k] ?? START) * duck * (Date.now() < duckUntil ? .25 : 1) : 0; if (!a && !tgt) continue;
       const x = get(k); x._v += (tgt - x._v) * .18; if (Math.abs(x._v - tgt) < .003) x._v = tgt;
       x.volume = Math.max(0, Math.min(1, x._v));
       if (x._v > .001 && x.paused) x.play().catch(() => {});
@@ -13388,6 +13399,8 @@ const MUS = (() => {
   return {
     on: () => lsx.get('gsm-music', '1') !== '0',
     _s: () => ({ cur, want, armed, duck: +duck.toFixed(2), v: Object.fromEntries(Object.entries(A).map(([k, a]) => [k, [+a._v.toFixed(3), a.paused]])) }),
+    /* kurz leiser, damit ein wichtiger Klang (Hüpfen auf dem Pfad, Gewonnen) durchkommt */
+    duck(ms = 900) { duckUntil = Math.max(duckUntil, Date.now() + ms); const a = A[cur]; if (a && a._v > 0) { a._v = Math.min(a._v, (VOL[cur] ?? START) * .25); a.volume = a._v; } },
     toggle() { const v = this.on() ? '0' : '1'; lsx.set('gsm-music', v); tick(); hm(); return v === '1'; },
   };
 })();
@@ -13539,7 +13552,7 @@ st.grade = (() => { try { const g = localStorage.getItem('gsm-grade'); return g 
 $$('#pick [data-g]').forEach((b) => (b.onclick = () => { GT.t('Klasse gewählt', 'Klasse ' + (+b.dataset.g + 1)); st.grade = +b.dataset.g; drawGrade(); drawLPCards(); if (st.next != null) { const n = st.next; st.next = null; goTo(...n); } else { st.nav = 'home'; go('spiel'); mount(); } }));
 function drawGrade() { try { if (st.grade >= 0) localStorage.setItem('gsm-grade', st.grade); } catch (e) {} const t = st.grade < 0 ? '' : `${I('cap')}${GRADES[st.grade][0]} · ${GRADES[st.grade][2]}`; ['#gchip', '#gchip2'].forEach((q) => { $(q).innerHTML = t; $(q).style.display = t ? '' : 'none'; }); }
 $('#tabs').innerHTML = SUBJ.map((s, i) => `<button class="tab" role="tab" data-i="${i}" style="--c1:${s.c1};--c2:${s.c2}"><span class="ti tt">${tutorHTML(s.tutor.id)}</span>${s.n}</button>`).join('');
-$$('#tabs .tab').forEach((t) => (t.onclick = () => { GT.t('Fach geöffnet', (SUBJ[+t.dataset.i] || {}).n || ''); $$('#tabs .tab').forEach((x) => x.classList.toggle('on', x === t)); document.body.classList.add('switching'); requestAnimationFrame(() => setTimeout(() => { st.s = +t.dataset.i; st.g = 0; st.nav = 'subj'; st.w = document.body.dataset.area === 'games' || document.body.dataset.area === 'test' ? document.body.dataset.area : 'path'; mount(); $('.amain').scrollTop = 0; t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); setTimeout(() => document.body.classList.remove('switching'), 300); }, 0)); }));
+$$('#tabs .tab').forEach((t) => (t.onclick = () => { AUTOCARD = Date.now(); GT.t('Fach geöffnet', (SUBJ[+t.dataset.i] || {}).n || ''); $$('#tabs .tab').forEach((x) => x.classList.toggle('on', x === t)); document.body.classList.add('switching'); requestAnimationFrame(() => setTimeout(() => { st.s = +t.dataset.i; st.g = 0; st.nav = 'subj'; st.w = document.body.dataset.area === 'games' || document.body.dataset.area === 'test' ? document.body.dataset.area : 'path'; mount(); $('.amain').scrollTop = 0; t.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); setTimeout(() => document.body.classList.remove('switching'), 300); }, 0)); }));
 st.w = 'path';
 $$('#wtabs button').forEach((b) => (b.onclick = () => { GT.t('Bereich geöffnet', ((SUBJ[st.s] || {}).n || '') + ' · ' + ({ path: 'Lernpfad', games: 'Spiele', test: 'Testvorbereitung' }[b.dataset.w] || b.dataset.w)); st.w = b.dataset.w; mount(); }));
 $('#again').onclick = () => runStage();
