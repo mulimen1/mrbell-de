@@ -593,6 +593,8 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
       var n = Z === 'alle' ? 90 : +Z, o = []; for (var i = n - 1; i >= 0; i--) o.push(m[dAdd(heute, -i)] || 0); return o;
     };
     var stK = {}, stI = {}; (g.stunden || []).forEach(function (r) { stK[r[0]] = (stK[r[0]] || 0) + r[1]; stI[r[0]] = (stI[r[0]] || 0) + r[2]; });
+    // heute: Tageswert fehlt bei Google oft noch – dann die vorläufigen Stundenwerte zusammenzählen
+    if (Z === 'heute' && !(heute in mK) && (g.stunden || []).length) { k = 0; im = 0; for (var sh in stK) { k += stK[sh]; im += stI[sh]; } }
     var sparkC = function (vals, col) { if (!vals || vals.length < 2) return ''; var max = Math.max.apply(null, vals.concat([1])), n = vals.length, pts = vals.map(function (v, i) { return (i / (n - 1) * 100).toFixed(2) + ' ' + (31 - v / max * 27).toFixed(2); }); return '<svg class="sp" viewBox="0 0 100 34" preserveAspectRatio="none"><path d="M' + pts.join(' L') + ' L100 34 L0 34 Z" fill="' + col + '" fill-opacity=".12"/><path d="M' + pts.join(' L') + '" fill="none" stroke="' + col + '" stroke-width="1.7" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg>'; };
     var tile = function (icn, lbl, val, dlh, sp, big) { return '<div class="card kpi' + (big ? ' big' : '') + '"><div class="l">' + ico(icn) + esc(lbl) + '</div><div class="v num">' + val + '</div><div class="d">' + dlh + '</div>' + (sp || '') + '</div>'; };
     var nb = '<span>Search Console fehlt noch</span>', vorl = Z === 'heute' ? ' (vorläufig)' : '';
