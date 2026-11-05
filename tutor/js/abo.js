@@ -82,22 +82,29 @@ export async function openAbo({ ticket = 'semester' } = {}) {
       const T = TICKETS[k];
       const inp = h('input', { type: 'radio', name: 'tk', value: k, checked: wahl === k ? true : null, onchange: () => { wahl = k; } });
       return h('label', { class: 'tk-opt' + (k === 'semester' ? ' best' : '') }, inp,
-        h('span', { class: 'tk-stub' }, h('span', { class: 'tk-dot' })),
+        k === 'semester' ? h('span', { class: 'tk-badge' }, L('Bestes Angebot', 'Best value')) : null,
+        h('span', { class: 'tk-dot' }),
         h('span', { class: 'tk-main' },
-          k === 'semester' ? h('span', { class: 'tk-badge' }, L('Bestes Angebot', 'Best value')) : null,
           h('b', { class: 'tk-name' }, T.name()),
-          h('small', {}, T.dauer() + ' · ' + L(`gilt bis ${fmtDay(bisVon(k))}`, `valid until ${fmtDay(bisVon(k))}`))),
+          h('small', {}, T.dauer() + ' · ' + L(`gilt bis ${fmtDay(bisVon(k))}`, `valid until ${fmtDay(bisVon(k))}`)),
+          k === 'semester' ? h('span', { class: 'tk-spar' }, L(`Du sparst ${eur(6 * TICKETS.monat.cent - T.cent)}`, `You save ${eur(6 * TICKETS.monat.cent - T.cent)}`)) : null),
+        h('span', { class: 'tk-perf', 'aria-hidden': 'true' }),
         h('span', { class: 'tk-preis' }, h('b', {}, eurKurz(T.cent)), h('small', {}, T.pro())));
     };
-    const cb = h('input', { type: 'checkbox', onchange: () => { weiter.disabled = !cb.checked; } });
-    const weiter = h('button', { class: 'btn primary lg tk-go', type: 'button', disabled: true, onclick: () => schritt2() }, L('Weiter zur Zahlung', 'Continue to payment'), h('span', { html: ico('right') }));
+    // Knopf bleibt sichtbar aktiv; ohne Häkchen wird nur das Zustimmungsfeld hervorgehoben (kein blasser Knopf)
+    const cb = h('input', { type: 'checkbox', onchange: () => { weiter.setAttribute('aria-disabled', String(!cb.checked)); okBox.classList.remove('nudge'); } });
+    const okBox = h('label', { class: 'tk-ok' }, cb, h('span', { class: 'tk-box', 'aria-hidden': 'true', html: ico('check') }), h('span', {}, L('Mein Ticket soll sofort starten. Widerrufe ich innerhalb von 14 Tagen, zahle ich nur den Anteil für die Zeit bis zum Widerruf (', 'I want my ticket to start right away. If I withdraw within 14 days, I only pay for the time until withdrawal ('), h('a', { href: legal('widerruf'), target: '_blank', rel: 'noopener' }, L('Widerrufsbelehrung', 'withdrawal notice')), ').'));
+    const weiter = h('button', { class: 'btn primary lg tk-go', type: 'button', 'aria-disabled': 'true', onclick: () => {
+      if (!cb.checked) { okBox.classList.remove('nudge'); void okBox.offsetWidth; okBox.classList.add('nudge'); cb.focus(); return; }
+      schritt2();
+    } }, L('Weiter zur Zahlung', 'Continue to payment'), h('span', { html: ico('right') }));
     box.replaceChildren(x, kopf(),
       laeuft ? h('p', { class: 'tk-note' }, L(`Dein aktuelles Ticket läuft noch bis ${fmtDay(laeuft)} – das neue schließt direkt daran an.`, `Your current ticket runs until ${fmtDay(laeuft)} – the new one starts right after.`)) : null,
       h('div', { class: 'tk-opts', role: 'radiogroup', 'aria-label': L('Ticket wählen', 'Choose a ticket') }, opt('semester'), opt('monat')),
-      h('ul', { class: 'tk-feat' }, [L('Deutlich höhere Tageslimits', 'Much higher daily limits'), L('Probeklausuren im Klausur-Stil', 'Mock exams in real exam style'), L('Längere Podcasts mit echten Stimmen', 'Longer podcasts with real voices'), L('Sync auf allen Geräten', 'Sync on all devices')].map(t => h('li', {}, h('span', { html: ico('check') }), t))),
-      h('label', { class: 'tk-ok' }, cb, h('span', {}, L('Mein Ticket soll sofort starten. Widerrufe ich innerhalb von 14 Tagen, zahle ich nur den Anteil für die Zeit bis zum Widerruf (', 'I want my ticket to start right away. If I withdraw within 14 days, I only pay for the time until withdrawal ('), h('a', { href: legal('widerruf'), target: '_blank', rel: 'noopener' }, L('Widerrufsbelehrung', 'withdrawal notice')), ').')),
+      h('ul', { class: 'tk-feat', 'aria-label': L('Mit Ticket', 'With a ticket') }, [L('Deutlich höhere Tageslimits', 'Much higher daily limits'), L('Probeklausuren im Klausur-Stil', 'Mock exams in real exam style'), L('Längere Podcasts mit echten Stimmen', 'Longer podcasts with real voices'), L('Sync auf allen Geräten', 'Sync on all devices')].map(t => h('li', {}, h('span', { html: ico('check') }), t))),
+      okBox,
       weiter,
-      h('p', { class: 'abo-small tk-small' }, L('Endpreis – keine Mehrwertsteuer (Kleinunternehmer, § 19 UStG). Es gelten unsere ', 'Final price – no VAT (small business, § 19 UStG). Our '), h('a', { href: legal('agb'), target: '_blank', rel: 'noopener' }, L('AGB', 'terms')), L('.', ' apply.')));
+      h('p', { class: 'abo-small tk-small' }, L('Endpreis – nach § 19 UStG fällt keine Mehrwertsteuer an. Es gelten unsere ', 'Final price – no VAT is charged under § 19 UStG. Our '), h('a', { href: legal('agb'), target: '_blank', rel: 'noopener' }, L('AGB', 'terms')), L('.', ' apply.')));
   }
 
   // ---------- Schritt 2: bezahlen ----------
@@ -109,7 +116,7 @@ export async function openAbo({ ticket = 'semester' } = {}) {
     const btn = h('button', { class: 'btn primary lg tk-go abo-buy', type: 'button', disabled: true }, L(`Jetzt zahlungspflichtig kaufen · ${eur(T.cent)}`, `Buy now with obligation to pay · ${eur(T.cent)}`));
     box.replaceChildren(x,
       h('button', { class: 'tk-back', type: 'button', onclick: () => { if (!busy) schritt1(); } }, h('span', { html: ico('left') }), L('Ticket ändern', 'Change ticket')),
-      h('div', { class: 'tk-sum' }, h('span', { class: 'tk-stub' }, h('span', { class: 'tk-dot' })), h('span', { class: 'tk-main' }, h('b', { class: 'tk-name' }, T.name()), h('small', {}, bis)), h('span', { class: 'tk-preis' }, h('b', {}, eur(T.cent)), h('small', {}, L('einmalig · kein Abo', 'one-off · no subscription')))),
+      h('div', { class: 'tk-sum' }, h('span', { class: 'tk-dot' }), h('span', { class: 'tk-main' }, h('b', { class: 'tk-name' }, T.name()), h('small', {}, bis)), h('span', { class: 'tk-perf', 'aria-hidden': 'true' }), h('span', { class: 'tk-preis' }, h('b', {}, eur(T.cent)), h('small', {}, L('einmalig · kein Abo', 'one-off · no subscription')))),
       pe, err, btn,
       h('p', { class: 'abo-small tk-small' }, L('Endet von selbst – es wird nichts verlängert und nichts nachträglich abgebucht.', 'Ends on its own – nothing renews and nothing is charged later.')));
     let st;
