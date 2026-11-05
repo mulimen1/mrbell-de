@@ -10919,7 +10919,8 @@ function lpInit() { Object.entries(LP).forEach(([k, grades]) => { const S = SUBJ
 const NODE_X = [0, 70, 110, 70, 0, -70, -110, -70], FREE_N = 1;
 const ABO_URL = 'https://mrbell.app.n8n.cloud/webhook/gsm-abo-4h8t';
 const ABO = (() => { try { return JSON.parse(localStorage.getItem('gsm-abo') || 'null'); } catch (e) { return null; } })();
-const PAID = (() => { try { return localStorage.getItem('gsm-dev-paid') === '1'; } catch (e) { return false; } })() || !!(ABO && ABO.paid);
+const FREI_ALLE = true; // vorübergehend: alles für alle frei
+const PAID = FREI_ALLE || (() => { try { return localStorage.getItem('gsm-dev-paid') === '1'; } catch (e) { return false; } })() || !!(ABO && ABO.paid);
 const canPlay = (n) => PAID || n < FREE_N;
 function nodeHTML(S, li, j, cur, justN, sx) {
   const id = li * PER + j, game = j === PER - 1, pg = S.games.filter((x) => x.play), gi = game ? S.games.indexOf(S.games[li % S.games.length]) : -1, G0 = game ? S.games[gi] : null;
