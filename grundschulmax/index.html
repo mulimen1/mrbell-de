@@ -5934,7 +5934,7 @@ html body :where(.lob) :where(button){font:inherit;color:inherit;border:0;backgr
 .ltb .b3d{min-width:120px}
 
 /* Lobby-Knopf in der App */
-.anv[data-nav="lobby"] .i,#abot [data-b="lobby"] .i{color:#ffb321}
+.anv[data-nav="lobby"] .i{color:#fff}#abot [data-b="lobby"] .i{color:#ffb321}
 
 /* Handy und kleine Tablets */
 @media (max-width:820px){
@@ -6046,10 +6046,11 @@ html body .lob .lobqb,html body .lob .lobjb{display:flex}
 .lob .lobplay{width:340px}
 /* Menü */
 .lml{display:flex;flex-direction:column;gap:8px;margin:12px 0 4px;text-align:left}
-.lbmi{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:#f3efff;color:#2a1a4a!important}
-.lbmi>i{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(180deg,#7fdcff,#4a8cf0);color:#fff;font-size:22px}
-.lbmi span{flex:1}.lbmi b{display:block;font-size:15px}.lbmi small{font-size:12px;color:#6b5aa6}
-.lbmi>.i:last-child{color:#8a7bbd}
+.lbmi{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 55%),linear-gradient(110deg,#1a5fc4,#3f8ef0)!important;color:#fff!important;box-shadow:0 4px 0 #0f3f8a!important;transition:transform .12s,filter .15s}
+.lbmi:hover{filter:brightness(1.07)}.lbmi:active{transform:translateY(3px);box-shadow:0 1px 0 #0f3f8a!important}
+.lbmi>i{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:rgba(255,255,255,.22);box-shadow:inset 0 0 0 2px rgba(255,255,255,.35);color:#fff;font-size:22px}
+.lbmi span{flex:1}.lbmi b{display:block;font-size:15.5px;color:#fff}.lbmi small{font-size:12px;color:rgba(255,255,255,.85)}
+.lbmi>.i:last-child{color:#fff}
 @media (max-width:820px){
   .lobside{flex-direction:row;left:12px;right:12px;bottom:calc(max(12px,env(safe-area-inset-bottom)) + 160px);justify-content:center;gap:8px}
   .lobpick2{min-width:0;flex:1;max-width:190px;padding:6px 10px 6px 6px;gap:8px;border-radius:16px}
@@ -6103,6 +6104,81 @@ body[data-area="play"] .alobbar{display:none!important}
   body[data-area="games"] .app[data-v=subj] .amain,body[data-area="test"] .app[data-v=subj] .amain{overflow-y:auto!important;overflow-x:hidden!important}
   body[data-area="games"] .app[data-v=subj] #game,body[data-area="test"] .app[data-v=subj] #game{position:relative!important;inset:auto!important;padding:0 12px 130px!important;min-height:0!important}
 }
+/* Lobby-Knopf in der Leiste: der stärkste Knopf – Gold, glänzend, weißes Haus, Lichtstreifen */
+.app .aside .anv.anlobby{--c1:#ffc93a;--c2:#f07a00;position:relative;overflow:hidden;isolation:isolate;color:#fff!important;text-shadow:0 2px 0 rgba(150,60,0,.45);letter-spacing:.2px;
+  background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.12) 46%,rgba(255,255,255,0) 50%),linear-gradient(110deg,#ffc400,#ffe45c 50%,#ffbe0b)!important;
+  box-shadow:0 5px 0 #c27400,0 0 0 3px #fff6c9,0 14px 26px -8px rgba(255,170,0,.9)!important;filter:none!important;text-shadow:0 2px 0 rgba(160,80,0,.55),0 0 8px rgba(160,80,0,.25)!important;animation:lobGlow 2.4s ease-in-out infinite}
+@media (min-width:821px){.app .aside .anv.anlobby{height:66px!important;font-size:20px!important;margin-bottom:16px!important}.app .aside .anv.anlobby .ti{width:44px!important;height:44px!important}.app .aside .anv.anlobby .ti .i{width:26px!important;height:26px!important}}
+@keyframes lobGlow{0%,100%{box-shadow:0 5px 0 #c27400,0 0 0 3px #fff6c9,0 14px 26px -8px rgba(255,170,0,.9)}50%{box-shadow:0 5px 0 #c27400,0 0 0 3px #fff6c9,0 0 22px 2px rgba(255,200,40,.75)}}
+.app .aside .anv.anlobby .ti{background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.55),rgba(255,255,255,.18) 60%)!important;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7),0 2px 6px rgba(150,60,0,.35)!important;border-radius:50%!important}
+.app .aside .anv.anlobby .ti .i{color:#fff!important;filter:drop-shadow(0 2px 0 rgba(150,60,0,.45));width:22px;height:22px}
+.app .aside .anv.anlobby::before{content:"";position:absolute;z-index:-1;top:-20%;bottom:-20%;left:-40%;width:28%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);transform:skewX(-18deg);animation:lobShine 3.6s ease-in-out infinite}
+.app .aside .anv.anlobby::after{display:none!important}
+.app .aside .anv.anlobby:hover{filter:brightness(1.06) saturate(1.08)!important}
+.app .aside .anv.anlobby:active{transform:translateY(3px)!important;animation:none;box-shadow:0 2px 0 #c27400,0 0 0 3px #fff6c9!important}
+@media (max-width:820px){.app .aside .anv.anlobby{position:sticky!important;left:0;z-index:3;flex:none}}
+@keyframes lobShine{0%,55%{left:-40%}85%,100%{left:120%}}
+#abot [data-b="lobby"] svg{color:#fff!important;background:linear-gradient(180deg,#ffd24a,#f08a00);border-radius:50%;padding:6px;width:34px!important;height:34px!important;margin-top:-14px;box-shadow:0 3px 0 #b65400,0 0 0 3px #fff,0 6px 14px -4px rgba(240,122,0,.8)}
+#abot [data-b="lobby"] span{color:#e07800!important;font-weight:900}
+@media (prefers-reduced-motion:reduce){.app .aside .anv.anlobby::before{animation:none;display:none}.app .aside .anv.anlobby{animation:none}}
+
+/* Tägliche Aufgaben: auf dem Laptop ausgeschriebener Knopf mit Pokal, Liste klappt darunter auf */
+.lqbl{display:none}
+@media (min-width:821px){
+  .lob .lobqb{gap:8px;padding:0 16px!important;width:auto!important}
+  .lob .lobqb .lqbl{display:inline;font-weight:850;font-size:14.5px}
+  .lob .lobqb .lqbn{padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.2);font-size:13px!important}
+  .lob .lobqb .i{width:22px;height:22px;color:#ffc93a}
+  .lob.qopen .lobqb{background:linear-gradient(180deg,#ffd24a,#f0a000)!important;color:#3a2000!important;border-color:#fff3b0!important}
+  .lob.qopen .lobqb .i{color:#3a2000}.lob.qopen .lobqb .lqbn{background:rgba(255,255,255,.45)}
+  .lob .lobquest{top:84px}
+}
+
+/* Lobby-Gesicht als Profilbild: nie ausblenden, nicht ziehbar */
+.avl.bl img.n,.avl.hp img.n{opacity:1!important}
+.avt img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.pfav{-webkit-tap-highlight-color:transparent;user-select:none}
+/* Fächer oben bei Spiele/Probetest: groß, saftig, füllen die ganze Leiste */
+@media (min-width:821px){
+  body[data-area] .alobbar{flex-wrap:nowrap;gap:16px;padding:12px 20px}
+  body[data-area] .alobf{flex:1;flex-wrap:nowrap;gap:10px;margin-left:8px;padding:6px 6px 8px}
+  body[data-area] .alobf button{flex:1 1 0;min-width:0;height:54px;padding:0 6px;font-size:clamp(13px,1.08vw,17px);border-radius:18px;white-space:nowrap;
+    background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,.06) 48%,rgba(255,255,255,0) 52%),linear-gradient(180deg,var(--c1),var(--c2));
+    box-shadow:0 5px 0 color-mix(in srgb,var(--c2) 62%,#000),0 10px 18px -8px color-mix(in srgb,var(--c2) 80%,transparent),inset 0 0 0 2px rgba(255,255,255,.28);text-shadow:0 2px 0 rgba(0,0,0,.2)}
+  body[data-area] .alobf button:hover{transform:translateY(-2px);filter:brightness(1.06)}
+  body[data-area] .alobf button:active{transform:translateY(3px);box-shadow:0 2px 0 color-mix(in srgb,var(--c2) 62%,#000)}
+  body[data-area] .alobf button.on{outline-width:4px;outline-offset:4px}
+}
+@media (max-width:820px){
+  body[data-area] .alobf button{height:44px;padding:0 16px;font-size:15px;border-radius:15px;
+    background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,.06) 48%,rgba(255,255,255,0) 52%),linear-gradient(180deg,var(--c1),var(--c2));
+    box-shadow:0 4px 0 color-mix(in srgb,var(--c2) 62%,#000),inset 0 0 0 2px rgba(255,255,255,.28)}
+}
+/* Bereiche auf dem Laptop: Inhalt mittig, Einrichten-Knopf oben rechts in der Leiste statt unten rechts */
+body[data-area] .ahw{margin-left:auto!important;margin-right:auto!important}
+@media (min-width:821px){
+  body[data-area]:not(.paid) .afab{position:fixed!important;top:9px!important;right:18px!important;bottom:auto!important;left:auto!important;z-index:45;padding:5px 16px 5px 5px!important;gap:9px;border-radius:18px}
+  body[data-area]:not(.paid) .afab::after{inset:-4px;border-radius:22px}
+  body[data-area]:not(.paid) .afab .afm{width:40px!important;height:40px!important}
+  body[data-area]:not(.paid) .afab .afm img{width:38px!important;margin-top:6px!important}
+  body[data-area]:not(.paid) .afab b{font-size:14.5px}
+  body[data-area]:not(.paid) .afab small{font-size:11.5px}
+  body[data-area]:not(.paid):not([data-area="prof"]) .alobbar{padding-right:262px!important}
+}
+
+/* Musik-Knopf oben auf Startseite und Klassenwahl */
+.nav .hmus{display:none}
+body[data-screen=start] .nav .hmus,body[data-screen=klasse] .nav .hmus{display:inline-flex!important;align-items:center;gap:6px}
+.nav .hmus.off{opacity:.6}
+@media (max-width:820px){body[data-screen=start] .nav .hmus,body[data-screen=klasse] .nav .hmus{padding:0 10px!important}.nav .hmus span{display:none}}
+.navr .hmus svg{background:linear-gradient(135deg,#5aa2f7,#1a5fc4)}.navr .hmus.off svg{background:linear-gradient(135deg,#b9b2a4,#8a8273)}
+@media (max-width:760px){
+  body:is([data-screen=start],[data-screen=klasse]) .nav .wrap.nav3{grid-template-columns:auto 1fr auto!important;gap:8px}
+  body:is([data-screen=start],[data-screen=klasse]) .nav3 .navr{display:flex!important}
+  body:is([data-screen=start],[data-screen=klasse]) .nav3 .navr>:not(.hmus){display:none!important}
+  body:is([data-screen=start],[data-screen=klasse]) .nav .hmus{height:46px!important;padding:0 8px!important;border-radius:14px}
+}
+@media (max-width:760px){body:is([data-screen=start],[data-screen=klasse]) .nav .hmus{width:48px!important;min-width:48px;justify-content:center;background:#fff!important}body:is([data-screen=start],[data-screen=klasse]) .nav .hmus svg{display:block!important;width:26px!important;height:26px!important}}
 </style>
 <script src="/grundschulmax/lib/gsap.min.js"></script><script src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
 </head>
@@ -6158,7 +6234,7 @@ body[data-area="play"] .alobbar{display:none!important}
     <div class="navr">
       <a class="lk ts" href="#sicherheit" data-to="sicherheit"><svg class="i"><use href="#i-shield"/></svg>Sicherheit</a>
       <a class="lk td" href="#datenschutz" data-to="datenschutz"><svg class="i"><use href="#i-lock"/></svg>Datenschutz</a>
-      <button class="lk hlogin" id="hlogin" type="button"><svg class="i"><use href="#i-key"/></svg>Einloggen</button>
+      <button class="lk hmus" id="hmus" type="button" aria-label="Musik an oder aus"><svg class="i"><use href="#i-snd"/></svg><span>Musik</span></button><button class="lk hlogin" id="hlogin" type="button"><svg class="i"><use href="#i-key"/></svg>Einloggen</button>
     </div>
   </div>
 </header>
@@ -6881,7 +6957,7 @@ const GT = (() => {
   function banner() {
     if (get() || document.getElementById('gcb') || !/^(start|klasse)$/.test(document.body.dataset.screen || '')) return;
     const d = document.createElement('div'); d.id = 'gcb'; d.className = 'gcb'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', 'Cookie-Einstellungen');
-    d.innerHTML = '<b>Wir verwenden Cookies 🍪</b><p>Mit Ihrer Zustimmung setzen wir ein Analyse-Cookie, um zu sehen, wie Besucher zu uns finden und wo es hakt. Keine Werbung, keine Weitergabe an Dritte. <a href="/datenschutz" target="_blank" rel="noopener">Datenschutz</a></p><div class="gcbr"><button type="button" class="b3d w sm gcbn">Ablehnen</button><button type="button" class="b3d sm gcby">Akzeptieren</button></div>';
+    d.innerHTML = '<b>Wir verwenden Cookies</b><p>Mit Ihrer Zustimmung setzen wir ein Analyse-Cookie, um zu sehen, wie Besucher zu uns finden und wo es hakt. Keine Werbung, keine Weitergabe an Dritte. <a href="/datenschutz" target="_blank" rel="noopener">Datenschutz</a></p><div class="gcbr"><button type="button" class="b3d w sm gcbn">Ablehnen</button><button type="button" class="b3d sm gcby">Akzeptieren</button></div>';
     document.body.appendChild(d); document.body.classList.add('gcb-on');
     d.querySelector('.gcby').onclick = () => allow(true); d.querySelector('.gcbn').onclick = () => allow(false);
   }
@@ -12682,13 +12758,13 @@ const PROF = () => { const a = lsx.get('gsm-av', AV0); return { name: lsx.get('g
 const avSrc = (a, k) => (typeof lobFaceCur === 'function' && lobFaceCur()) || `/grundschulmax/av2/${AV[a] ? a : AV0}-${k === 's' ? 'n' : k}.webp`;
 function avHTML(P0 = PROF()) {
   const k = AV[P0.av] ? P0.av : AV0, A = AV[k], lf = typeof lobFaceCur === 'function' && lobFaceCur();
-  if (lf) return `<span class="avt avx avl"><img class="n" src="${lf}" alt=""><i class="gl"></i></span>`;
+  if (lf) return `<span class="avt avx avl"><img class="n" src="${lf}" alt="" draggable="false"><i class="gl"></i></span>`;
   return `<span class="avt avx" style="--av:${A[0]}"><img class="n" src="${avSrc(k, 'n')}" alt=""><img class="b" src="${avSrc(k, 'b')}" alt="" decoding="async"><img class="h" src="${avSrc(k, 'h')}" alt="" decoding="async"><i class="gl"></i></span>`;
 }
 /* Leben in den Profilbildern: ab und zu blinzeln, manchmal kurz lächeln */
 setInterval(() => {
   document.querySelectorAll('.avx').forEach((el) => {
-    if (!el.offsetParent || el.dataset.busy) return;
+    if (!el.offsetParent || el.dataset.busy || el.classList.contains('avl')) return;
     const r = Math.random(); if (r > .32) return;
     const cls = r < .24 ? 'bl' : 'hp', ms = cls === 'bl' ? 150 : 1300;
     el.dataset.busy = '1'; setTimeout(() => { el.classList.add(cls); setTimeout(() => { el.classList.remove(cls); delete el.dataset.busy; }, ms); }, Math.random() * 1400);
@@ -13050,7 +13126,7 @@ function lobBuild() {
   el.innerHTML = `<div class="lobc" id="lobc"></div><div class="lobload"><i></i><span>Deine Lobby wird geladen</span></div><div class="lobvig"></div>
     <header class="lobtop">
       <button type="button" class="lobme" id="lobme" aria-label="Aussehen ändern"><span class="lobav"><img alt=""></span><span class="lobmt"><b></b><small></small></span><span class="lobxp"><i></i></span></button>
-      <div class="lobtr"><button type="button" class="lobcta" id="lobcta">${I('star')}<span class="lcl">Für Ihr Kind einrichten</span><span class="lcs">7 Tage gratis</span></button><button type="button" class="lobic lobjb" id="lobjb">${I('star')}<span>Sammlung</span></button><button type="button" class="lobic lobqb" id="lobqb">${I('cup')}<span></span></button><button type="button" class="lobic lobmus" id="lobmus" aria-label="Musik an oder aus"></button><button type="button" class="lobic" id="lobhelp" aria-label="Erklärung">?</button></div>
+      <div class="lobtr"><button type="button" class="lobcta" id="lobcta">${I('star')}<span class="lcl">Für Ihr Kind einrichten</span><span class="lcs">7 Tage gratis</span></button><button type="button" class="lobic lobjb" id="lobjb">${I('star')}<span>Sammlung</span></button><button type="button" class="lobic lobqb" id="lobqb" aria-label="Tägliche Aufgaben">${I('cup')}<b class="lqbl">Tägliche Aufgaben</b><span class="lqbn"></span></button><button type="button" class="lobic lobmus" id="lobmus" aria-label="Musik an oder aus"></button><button type="button" class="lobic" id="lobhelp" aria-label="Erklärung">?</button></div>
     </header>
     <section class="lobquest" id="lobquest" aria-label="Tägliche Aufgaben"></section>
     <section class="lobjobs" id="lobjobs" aria-label="Traumberufe"></section>
@@ -13073,11 +13149,11 @@ function lobBuild() {
 }
 function lobDraw() {
   const el = lobBuild(), kid = lobKid() || LKIDS[0], lv = lobLevel(), un = lobUnlocked(lv.L), job = un.includes(lsx.get('gsm-ljob', 'schueler')) ? lsx.get('gsm-ljob', 'schueler') : 'schueler';
-  const nm = (typeof PROF === 'function' && PROF().name) || 'Dein Name'; $('#lobcta').hidden = typeof PAID !== 'undefined' && PAID;
+  const nm = (typeof PROF === 'function' && PROF().name) || 'Dein Name'; $('#lobcta').hidden = typeof PAID !== 'undefined' && PAID; ctaTexts();
   $('.lobav img', el).src = lobFace(kid[0], job); $('.lobmt b', el).textContent = nm; $('.lobmt small', el).textContent = `Level ${lv.L} · ${lobJobName(LJOBS.find((j) => j[0] === job), kid)}`;
   $('.lobxp', el).dataset.t = `${lv.cur} / ${lv.need} EP`; $('.lobxp i', el).style.width = Math.round((lv.cur / lv.need) * 100) + '%';
   const Q = lobQuests(), qd = Q.filter((x) => x.done).length;
-  $('#lobqb span').textContent = `${qd}/3`; $('#lobqb').classList.toggle('ping', Q.some((x) => x.done && !x.got));
+  $('#lobqb .lqbn').textContent = `${qd}/3`; $('#lobqb').classList.toggle('ping', Q.some((x) => x.done && !x.got));
   $('#lobquest').innerHTML = `<h3>${I('cup')}Tägliche Aufgaben<small>Neu jeden Tag</small></h3>${Q.map((x) => `<div class="lq${x.done ? ' done' : ''}${x.got ? ' got' : ''}"><i>${I(x.got ? 'check' : x.ic)}</i><div><b>${esc(x.t)}</b><span class="lqb"><em style="width:${(x.v / x.n) * 100}%"></em></span><small>${x.v} / ${x.n}</small></div>${x.done && !x.got ? `<button type="button" class="lqget" data-q="${x.i}">+${LQXP} EP</button>` : x.got ? `<span class="lqok">${I('check')}</span>` : `<span class="lqxp">+${LQXP} EP</span>`}</div>`).join('')}`;
   $$('#lobquest [data-q]').forEach((b) => (b.onclick = () => lobClaim(+b.dataset.q, b)));
   const tab = lsx.get('gsm-ltab', 'jobs'), pu = lobPets(lv.L), pcur = lobPet();
@@ -13243,7 +13319,7 @@ function lobTour() {
 function lobEngine() {
   if (LOBP) return LOBP;
   const kid = lobKid() || LKIDS[0], job = lsx.get('gsm-ljob', 'schueler');
-  LOBP = Promise.all([import(LOBB + 'eng/engine-6SMYL2YD.js'), fetch(LOBB + 'eyes.json').then((r) => r.json())])
+  LOBP = Promise.all([import(LOBB + 'eng/engine-UGHIKT3W.js'), fetch(LOBB + 'eyes.json').then((r) => r.json())])
     .then(([M, eyes]) => M.create($('#lobc'), { eyes, kid: kid[0], job, pet: lobPet(), uiRects: () => [...document.querySelectorAll('#lobby .lobtop > *, #lobby .lobtop .lobtr > *, #lobby .lobplay, #lobby.qopen .lobquest, #lobby.jopen .lobjobs')].map((e) => e.getBoundingClientRect()), onPet: () => ls('jump', .5), onWorldTap: () => ls('tap', .35), onSfx: (n) => ls(n, .55), safeBottom: (w, h) => (w <= 820 ? 120 : 30), safeTop: (w, h) => (w <= 820 ? 96 : 70), onTap: () => ls('jump', .7), onLand: () => ls('land', .5), onBit: () => ls('bit', .45) }))
     .then((e) => { LOBE = e; $('#lobby').classList.add('ready'); e.preload(lobUnlocked(lobLevel().L).map((j) => kid[0] + '-' + j)); return e; })
     .catch((e) => { $('#lobby').classList.add('ready', 'static'); $('#lobfall').innerHTML = `<img class="lfr" src="${LOBB}img/${innerWidth >= innerHeight ? 'room-l' : 'room-p'}.webp" alt=""><img class="lff" src="${lobFig(kid[0], job)}" alt="">`; try { GT.t('Lobby Fehler', String(e && e.message || e).slice(0, 80)); } catch (x) {} });
@@ -13251,7 +13327,7 @@ function lobEngine() {
 }
 function lobOpen(o = {}) {
   delete document.body.dataset.area; const el = lobBuild(); if (lobOn) return; lobOn = true;
-  document.body.classList.add('lobon'); el.classList.add('on'); el.setAttribute('aria-hidden', 'false'); restart(el, 'in');
+  document.body.classList.add('lobon'); el.classList.remove('qopen', 'jopen'); el.classList.add('on'); el.setAttribute('aria-hidden', 'false'); restart(el, 'in');
   lsx.set('gsm-lseen', '1'); GT.t('Lobby geöffnet', o.first ? 'erstes Mal' : '');
   lobDraw();
   if (!lobKid()) setTimeout(() => lobPick(true), 250);
@@ -13264,17 +13340,27 @@ function lobClose() {
   if (LOBE) setTimeout(() => { if (!lobOn) LOBE.pause(); }, 400);
 }
 
+/* Einrichten-Knöpfe: „Für Ihr Kind einrichten“ nur ohne Elternkonto, mit Konto andere Worte */
+function ctaTexts() {
+  const acc = typeof K !== 'undefined' && !!K.tok;
+  const c = $('#lobcta'); if (c) { $('.lcl', c).textContent = acc ? 'Alles freischalten' : 'Für Ihr Kind einrichten'; $('.lcs', c).textContent = acc ? 'Abo wählen' : '7 Tage gratis'; }
+  $$('.afab[data-pay]').forEach((b) => { const t = $('b', b), s = $('small', b); if (t) t.textContent = acc ? 'Alles freischalten' : 'Für Ihr Kind einrichten'; if (s) s.textContent = acc ? 'Abo wählen und alles nutzen' : '7 Tage kostenlos testen'; });
+}
+setTimeout(ctaTexts, 0); setInterval(ctaTexts, 4000);
+
 /* ---------- Hintergrundmusik: je Bereich ein eigenes Stück, leise, weiche Übergänge, wird leiser wenn ein Tutor spricht ---------- */
 const MUS = (() => {
-  const U = 'https://grundschulmax.de/grundschulmax/audio/music/', VOL = { lobby: .2, path: .16, game: .13, hw: .12 };
+  const U = 'https://grundschulmax.de/grundschulmax/audio/music/', VOL = { lobby: .2, path: .16, game: .13, hw: .12 }, START = .15;
   const A = {}; let cur = '', want = '', armed = false, duck = 1;
   const on = () => voiceOn && lsx.get('gsm-music', '1') !== '0' && !document.hidden;
-  const get = (k) => { if (!A[k]) { const a = new Audio(U + k + '.mp3'); a.loop = true; a.preload = 'none'; a.volume = 0; a._v = 0; A[k] = a; } return A[k]; };
+  const get = (k) => { if (!A[k]) { const a = new Audio(U + (k === 'start' ? 'lobby' : k) + '.mp3'); a.loop = true; a.preload = 'none'; a.volume = 0; a._v = 0; A[k] = a; } return A[k]; };
   function scene() {
     if (document.body.classList.contains('lobon')) return 'lobby';
     const les = document.querySelector('.les.on'), stg = document.querySelector('#stage.open');
     if (les || stg) return 'game';
-    if (document.body.dataset.screen !== 'spiel') return '';
+    const scr = document.body.dataset.screen;
+    if (scr === 'start' || scr === 'klasse') return 'start';
+    if (scr !== 'spiel') return '';
     if (typeof st !== 'undefined' && st.nav === 'hw') return 'hw';
     if (typeof st !== 'undefined' && (st.nav === 'profile' || st.nav === 'parents')) return 'path';
     return 'path';
@@ -13283,8 +13369,8 @@ const MUS = (() => {
     want = armed && on() ? scene() : '';
     const talking = (typeof curAudio !== 'undefined' && curAudio && !curAudio.paused) || (typeof hwSrc !== 'undefined' && hwSrc);
     duck += ((talking ? .3 : 1) - duck) * .35;
-    for (const k in VOL) {
-      const a = A[k], tgt = k === want ? VOL[k] * duck : 0; if (!a && !tgt) continue;
+    for (const k of [...Object.keys(VOL), 'start']) {
+      const a = A[k], tgt = k === want ? (VOL[k] ?? START) * duck : 0; if (!a && !tgt) continue;
       const x = get(k); x._v += (tgt - x._v) * .18; if (Math.abs(x._v - tgt) < .003) x._v = tgt;
       x.volume = Math.max(0, Math.min(1, x._v));
       if (x._v > .001 && x.paused) x.play().catch(() => {});
@@ -13296,10 +13382,12 @@ const MUS = (() => {
   ['pointerdown', 'keydown', 'touchstart'].forEach((e) => addEventListener(e, arm, { once: true, passive: true, capture: true }));
   setInterval(tick, 120);
   document.addEventListener('visibilitychange', tick);
+  const hm = () => { const b = document.getElementById('hmus'); if (!b) return; const o = lsx.get('gsm-music', '1') !== '0'; b.innerHTML = `<svg class="i"><use href="#i-${o ? 'snd' : 'mute'}"/></svg><span>Musik</span>`; b.classList.toggle('off', !o); };
+  setTimeout(() => { const b = document.getElementById('hmus'); if (b) b.onclick = () => { armed = true; lsx.set('gsm-music', lsx.get('gsm-music', '1') !== '0' ? '0' : '1'); hm(); tick(); }; hm(); }, 0);
   return {
     on: () => lsx.get('gsm-music', '1') !== '0',
     _s: () => ({ cur, want, armed, duck: +duck.toFixed(2), v: Object.fromEntries(Object.entries(A).map(([k, a]) => [k, [+a._v.toFixed(3), a.paused]])) }),
-    toggle() { const v = this.on() ? '0' : '1'; lsx.set('gsm-music', v); tick(); return v === '1'; },
+    toggle() { const v = this.on() ? '0' : '1'; lsx.set('gsm-music', v); tick(); hm(); return v === '1'; },
   };
 })();
 
@@ -13500,7 +13588,7 @@ function mount() {
   const NC = { home: ['#ffa63d', '#d4550c', 'deutsch'], hw: ['#4f9cf7', '#1a5fc4', 'mathe'], profile: ['#4f8ff0', '#1a4fb4', 'deutsch'], parents: ['#3fc1a0', '#0e7f6a', 'sach'] }[st.nav];
   if (NC) { app.style.setProperty('--c1', NC[0]); app.style.setProperty('--c2', NC[1]); app.style.setProperty('--pat', patURL(NC[2])); }
   $$('#tabs .tab').forEach((t, i) => { t.classList.toggle('on', st.nav === 'subj' && i === st.s); t.setAttribute('aria-selected', i === st.s); });
-  if (innerWidth <= 820) requestAnimationFrame(() => { const on = $('.aside .tab.on, .aside .anv.on'), nv = $('.aside .anav'); if (on && nv) nv.scrollTo({ left: Math.max(0, on.offsetLeft - (nv.clientWidth - on.offsetWidth) / 2), behavior: 'smooth' }); });
+  if (innerWidth <= 820) requestAnimationFrame(() => { const on = $('.aside .tab.on, .aside .anv.on'), nv = $('.aside .anav'), lb = $('.aside .anlobby'), lw = lb && lb !== on ? lb.offsetWidth + 8 : 0; if (on && nv) nv.scrollTo({ left: Math.max(0, on.offsetLeft - lw - (nv.clientWidth - lw - on.offsetWidth) / 2), behavior: 'smooth' }); });
   if (st.nav === 'home') drawMix(); else if (PF) PF.hideCard();
   if (st.nav !== 'subj') { drawLPCards(); $('.amain').scrollTop = 0; return; }
   $$('#wtabs button').forEach((b) => b.classList.toggle('on', b.dataset.w === st.w));
