@@ -45,13 +45,13 @@ function payCard() {
       h('div', { class: 'zp-row' },
         h('span', { class: 'zp-ic', html: ico(st.bereit ? 'check' : 'lock') }),
         h('div', { class: 'zp-tx' },
-          h('b', {}, st.bereit ? L('Inner Circle ist buchbar', 'Inner Circle is live') : L('Bezahlung einrichten', 'Set up payments')),
+          h('b', {}, st.bereit ? L('Tickets sind buchbar', 'Tickets are live') : L('Bezahlung einrichten', 'Set up payments')),
           h('small', {}, st.bereit ? [st.konto || 'Stripe', st.mode === 'test' ? L('Testmodus', 'test mode') : 'live', st.preis, L(`${st.test} Tage Test mit Karte`, `${st.test}-day trial with card`)].filter(Boolean).join(' · ')
             : L('Trag einmal deine zwei Stripe-Schlüssel ein – Produkt, Preis und Benachrichtigungen lege ich dann automatisch an.', 'Enter your two Stripe keys once – I’ll create product, price and notifications automatically.'))),
         h('div', { class: 'zp-act' },
           st.sk ? h('button', { class: 'btn sm ghost', type: 'button', onclick: async e => { e.currentTarget.disabled = true; try { paint(await hubPost('setup')); toast(L('Geprüft.', 'Checked.')); } catch (x) { toast(x.message); } } }, L('Prüfen', 'Check')) : null,
           h('button', { class: 'btn sm' + (st.sk ? ' ghost' : ' primary'), type: 'button', onclick: () => keys(paint) }, st.sk ? L('Schlüssel ändern', 'Change keys') : L('Schlüssel eintragen', 'Enter keys')))),
-      st.bereit ? null : h('div', { class: 'zp-steps' }, step(st.pk && st.sk, L('Schlüssel', 'Keys')), step(st.produkt, L('Produkt 11,99 €', 'Product €11.99')), step(st.webhook, L('Benachrichtigung', 'Webhook')), step(st.pro, L('Freischaltung', 'Unlocking'))));
+      st.bereit ? null : h('div', { class: 'zp-steps' }, step(st.pk && st.sk, L('Schlüssel', 'Keys')), step(st.produkt, L('Tickets 11,99 € / 49 €', 'Tickets €11.99 / €49')), step(st.webhook, L('Benachrichtigung', 'Webhook')), step(st.pro, L('Freischaltung', 'Unlocking'))));
   };
   hubPost('status').then(paint).catch(() => { card.hidden = true; });
   card.hidden = true;
@@ -76,7 +76,7 @@ async function keys(paint) {
         pk.value = ''; sk.value = '';
         if (!j.ok) { err.textContent = j.fehler || L('Das hat nicht geklappt.', 'That didn’t work.'); if (btn) { btn.disabled = false; btn.textContent = L('Speichern & einrichten', 'Save & set up'); } if (j.pk !== undefined) paint(j); return; }
         paint(j); document.querySelector('.zp-modal')?.closest('.modal-bg')?.remove();
-        toast(j.bereit ? L('Fertig – der Inner Circle ist jetzt buchbar.', 'Done – the Inner Circle is now live.') : L('Gespeichert.', 'Saved.'), 4200);
+        toast(j.bereit ? L('Fertig – die Tickets sind jetzt buchbar.', 'Done – tickets are now live.') : L('Gespeichert.', 'Saved.'), 4200);
         import('../abo.js').then(m => m.loadPk(true)).catch(() => {});
       }).catch(x => { err.textContent = x.message; if (btn) { btn.disabled = false; btn.textContent = L('Speichern & einrichten', 'Save & set up'); } });
       return false;
@@ -188,7 +188,7 @@ function tsCard() {
 
 export async function render(root) {
   const host = h('div', { class: 'zl-host' });
-  // Zahlen zuerst und über die volle Breite; Einstellungen (Inner Circle, Bot-Schutz, Promocodes) klein darunter
+  // Zahlen zuerst und über die volle Breite; Einstellungen (Tickets, Bot-Schutz, Promocodes) klein darunter
   const wrap = h('div', { class: 'view-in zl' }, host, h('div', { class: 'zl-admin' }, payCard(), tsCard(), promoCard()), fbCard());
   root.appendChild(wrap);
   let s;

@@ -1,4 +1,4 @@
-// Konto: E-Mail + Passwort (Registrieren mit Bestätigungscode, Passwort vergessen per Code). Neues Konto = Free (Inner Circle nur mit Abo).
+// Konto: E-Mail + Passwort (Registrieren mit Bestätigungscode, Passwort vergessen per Code). Neues Konto = Free (mehr nur mit Semester-/Monatsticket).
 // Beim Server liegen E-Mail-Adresse und Passwort-Hash. Skripte bleiben auf dem Gerät.
 import { aboReady } from './abo.js';
 import { h, ico, toast, ls, modal } from './util.js';
@@ -10,7 +10,7 @@ import { token as tsToken, preload as tsPreload } from './turnstile.js';
 import { legalNote } from './legalnote.js';
 
 const fmtDate = ts => new Date(ts).toLocaleDateString(LOCALE, { day: 'numeric', month: L('numeric', 'short') });
-// Ende der Inner-Circle-Zeit ohne den Puffer, den der Server bei Abos anhängt (sonst „8 Tage“ statt 7)
+// Ende der Ticket-Zeit ohne den Puffer, den der Server bei Abos anhängt (sonst „8 Tage“ statt 7)
 export const proEnd = a => (a && a.proUntil ? a.proUntil - (a.sub ? 6 * 36e5 : 0) : 0);
 export const proDaysLeft = a => (a && a.pro) ? Math.max(1, Math.ceil((proEnd(a) - Date.now()) / 864e5)) : 0;
 
@@ -190,7 +190,7 @@ export function openLogin({ title, mode = 'login', sub: sub0, why = '', strong =
         h('p', {}, r.fresh
           ? (nf ? L('Wie soll ich dich nennen? Dann geht’s sofort weiter.', 'What should I call you? Then we carry straight on.') : L('Dein Konto steht. Weiter geht’s.', 'Your account is ready. Let’s go.'))
           : m === 'reset' ? L('Ab jetzt meldest du dich damit an. Andere Geräte haben wir sicherheitshalber abgemeldet.', 'Use it to sign in from now on. For safety we signed out your other devices.')
-          : r.account.pro ? L(`Inner Circle läuft noch bis ${fmtDate(proEnd(r.account))}.`, `Inner Circle runs until ${fmtDate(proEnd(r.account))}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
+          : r.account.pro ? L(`Dein Ticket läuft noch bis ${fmtDate(proEnd(r.account))}.`, `Your ticket runs until ${fmtDate(proEnd(r.account))}.`) : L('Du bist angemeldet.', 'You’re signed in.')),
         nf && nf.el, goal && goal.el,
         h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', onclick: finish }, L('Los geht’s', 'Let’s go'))));
       setTimeout(() => box.querySelector('.btn.primary')?.focus(), 60);
@@ -295,7 +295,7 @@ export async function openAccount() {
     h('div', { class: 'accrow' }, h('span', {}, L('Spitzname', 'Nickname')), h('b', {}, getNick(a) || '–', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); askNick(); } }, getNick(a) ? L('ändern', 'change') : L('festlegen', 'set')))),
     h('div', { class: 'accrow' }, h('span', {}, L('E-Mail', 'Email')), h('b', {}, a.email)),
     h('div', { class: 'accrow' }, h('span', {}, L('Passwort', 'Password')), h('b', {}, a.hasPw === false ? L('noch nicht festgelegt', 'not set yet') : '••••••••', ' ', h('button', { class: 'linkbtn', type: 'button', onclick: () => { document.querySelector('.modal-bg')?.remove(); openLogin({ mode: 'reset', title: a.hasPw === false ? L('Passwort festlegen', 'Set a password') : L('Passwort ändern', 'Change password') }); } }, a.hasPw === false ? L('festlegen', 'set') : L('ändern', 'change')))),
-    h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? h('span', {}, h('span', { class: 'ic-chip' }, h('span', { class: 'ic-lt' }, 'Inner Circle')), L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(proEnd(a))})`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(proEnd(a))})`)) : [L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'), ' ', h('button', { class: 'linkbtn', type: 'button', onclick: planSwitch }, L('wechseln', 'change'))])),
+    h('div', { class: 'accrow' }, h('span', {}, L('Tarif', 'Plan')), h('b', {}, a.pro ? h('span', {}, h('span', { class: 'ic-chip' }, h('span', { class: 'ic-lt tk-art' }, a.sub ? 'Abo' : 'Ticket')), L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'} (bis ${fmtDate(proEnd(a))})`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left (until ${fmtDate(proEnd(a))})`), a.sub ? null : [' ', h('button', { class: 'linkbtn', type: 'button', onclick: planSwitch }, L('verlängern', 'extend'))]) : [L('Free · 40 Einheiten pro Tag', 'Free · 40 credits per day'), ' ', h('button', { class: 'linkbtn', type: 'button', onclick: planSwitch }, L('wechseln', 'change'))])),
     aboRow(a),
     h('div', { class: 'accrow' }, h('span', {}, L('Dabei seit', 'Member since')), h('b', {}, new Date(a.since).toLocaleDateString(LOCALE))),
     texteRow(),
@@ -328,7 +328,7 @@ export function accountChip() {
     const fresh = a.pro && !ls.get('tutor.icHello', 0);
     if (a.pro) ls.set('tutor.icHello', Date.now()); else ls.set('tutor.icHello', 0);
     chip.classList.toggle('ic-new', !!fresh);
-    chip.replaceChildren(h('span', { class: 'av' }, ((getNick(a) || a.email)[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, getNick(a) || a.email), h('small', {}, a.pro ? h('span', { class: 'ic-pill' }, h('span', { class: 'ic-lt' }, 'Inner Circle')) : h('span', { class: 'plan-pill' }, 'Free'), a.pro && !a.sub ? L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : '')));
+    chip.replaceChildren(h('span', { class: 'av' }, ((getNick(a) || a.email)[0] || '?').toUpperCase()), h('span', { class: 'tx' }, h('b', {}, getNick(a) || a.email), h('small', {}, a.pro ? h('span', { class: 'ic-pill' }, h('span', { class: 'ic-lt' }, a.sub ? 'Abo' : 'Ticket')) : h('span', { class: 'plan-pill' }, 'Free'), a.pro && !a.sub ? L(` noch ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'Tag' : 'Tage'}`, ` ${proDaysLeft(a)} ${proDaysLeft(a) === 1 ? 'day' : 'days'} left`) : '')));
     wrap.replaceChildren(chip);
   });
   return wrap;
@@ -387,6 +387,6 @@ async function planSwitch() {
   const m = await import('./abo.js');
   await m.loadPk(true);
   if (m.aboReady()) return m.openAbo();
-  const { innerCircle } = await import('./ic.js');
-  innerCircle({ reason: L('Mehr Max, wann du willst.', 'More Max, whenever you want.'), later: L('Schließen', 'Close') });
+  const { ticketSheet } = await import('./ic.js');
+  ticketSheet({ reason: L('Mehr Max, wann du willst.', 'More Max, whenever you want.'), later: L('Schließen', 'Close') });
 }

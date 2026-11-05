@@ -725,7 +725,7 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
       + (kl.length ? '<div class="kl kl-acc">' + kl.map(function (x) {
           var wer = x.nick ? '<b>' + esc(x.nick) + '</b> <span class="em">' + esc(x.email || '') + '</span>' : '<b>' + esc(x.email || 'Neues Konto') + '</b>';
           var wo = [x.ort, x.geraet].filter(Boolean).join(' · ');
-          return '<div class="r"><span class="ic">' + ico('userplus') + '</span><span class="who">' + wer + (x.ic ? ' <span class="icb">Inner Circle</span>' : '') + (wo ? '<small class="wo">' + esc(wo) + '</small>' : '') + '</span><small>' + rel(x.t) + '</small></div>';
+          return '<div class="r"><span class="ic">' + ico('userplus') + '</span><span class="who">' + wer + (x.ic ? ' <span class="icb">Ticket</span>' : '') + (wo ? '<small class="wo">' + esc(wo) + '</small>' : '') + '</span><small>' + rel(x.t) + '</small></div>';
         }).join('') + '</div>' : '<div class="empty">Neue Konten tauchen hier auf, sobald sich jemand registriert.</div>');
 
     // Nutzer-Aktivität: je Konto Besuche (Zeit, Gerät, Dauer, Anzahl Fragen) – keine Inhalte

@@ -227,7 +227,7 @@ function openDocSwitch(anchor) {
 }
 
 // Kein Dauer-Zähler „KI heute x / 40“ – das wirkt billig. Knapp: leiser Hinweis am Eingabefeld.
-// Aufgebraucht: unten links eine schwarze Inner-Circle-Karte – nur dann.
+// Aufgebraucht: unten links eine warme Semesterticket-Karte – nur dann.
 function renderQuota() {
   if (!shell?.quotaEl) return;
   const q = currentQuota(), acc = getAccount();
@@ -238,7 +238,7 @@ function renderQuota() {
   if (!show) { el.replaceChildren(); return; }
   el.className = 'quota qx';
   el.replaceChildren(
-    h('div', { class: 'qx-top' }, h('b', { class: 'ic-lt' }, 'Max’s Inner Circle'), h('span', { class: 'qx-dot', 'aria-hidden': 'true' })),
+    h('div', { class: 'qx-top' }, h('b', { class: 'ic-lt' }, L('Semesterticket', 'Semester ticket')), h('span', { class: 'qx-dot', 'aria-hidden': 'true' })),
     h('div', { class: 'qx-h' }, L('Für heute aufgebraucht', 'Used up for today')),
     h('div', { class: 'qx-s' }, L('Neue Antworten ab 0:00 Uhr. Hochladen und speichern geht immer.', 'New answers from midnight. Uploading and saving always works.')),
     h('button', { class: 'qx-go', type: 'button', onclick: () => (acc ? import('./ic.js').then(m => m.innerCircle({ reason: L('Für heute sind deine Antworten aufgebraucht.', 'You’ve used up today’s answers.') })) : openAuth({ title: L('Mehr mit kostenlosem Konto', 'More with a free account'), registerTitle: L('Mehr mit kostenlosem Konto', 'More with a free account') })) },

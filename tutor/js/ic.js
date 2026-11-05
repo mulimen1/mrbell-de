@@ -1,11 +1,11 @@
-// Max’s Inner Circle: das Blatt, das kommt, wenn das Tageskontingent aufgebraucht ist.
-// Schwarze Graphit-Karte mit Chromkante, Vorteile auf einen Blick. Buchbar erst, wenn der Stripe-Schlüssel gesetzt ist –
+// Semesterticket: das Blatt, das kommt, wenn das Tageskontingent aufgebraucht ist.
+// Warme Espresso-Karte mit Abendlicht-Kante, Vorteile auf einen Blick. Buchbar erst, wenn der Stripe-Schlüssel gesetzt ist –
 // bis dahin steht am Knopf „Bald verfügbar“.
 import { h, ico } from './util.js';
 import { L } from './i18n.js';
 
 const BEN = () => [
-  ['chat', L('Deutlich höhere Tageslimits', 'Much higher daily limits'), L('Mehr Fragen, Tafeln und Erklärungen pro Tag – auch Inner Circle hat ein Limit, nur ein deutlich höheres', 'More questions, boards and explanations a day – Inner Circle has a limit too, just a much higher one')],
+  ['chat', L('Deutlich höhere Tageslimits', 'Much higher daily limits'), L('Mehr Fragen, Tafeln und Erklärungen pro Tag – auch mit Ticket gibt es ein Limit, nur ein deutlich höheres', 'More questions, boards and explanations a day – tickets have a limit too, just a much higher one')],
   ['exam', L('Probeklausuren', 'Mock exams'), L('Im Klausur-Stil, mit Zeit, Punkten und Note', 'Real exam style, with time, points and a grade')],
   ['pod', L('Längere Podcasts', 'Longer podcasts'), L('Mit echten Stimmen – für Bahn, Gym, Spaziergang', 'With real voices – for the train, gym, a walk')],
   ['refresh', L('Sync auf allen Geräten', 'Sync on all devices'), L('Handy, Laptop, Tablet – alles ist immer da', 'Phone, laptop, tablet – everything’s always there')],
@@ -28,10 +28,10 @@ export function quotaWait(name = '') {
       h('p', { class: 'icx-lead' }, L('Dein Kontingent für heute ist aufgebraucht. Hochladen und speichern geht trotzdem immer – ich kümmere mich drum, sobald du wieder Antworten hast.', 'You’ve used up today’s answers. Uploading and saving always works – I’ll get on it as soon as you have answers again.')),
       h('div', { class: 'icw-opts' },
         h('div', { class: 'icw-o' }, h('span', { class: 'icx-bi', html: ico('clock') }), h('span', {}, h('b', {}, L('Morgen ab 0:00 Uhr', 'Tomorrow from midnight')), h('small', {}, L('Ich begrüß dich direkt mit diesem Skript.', 'I’ll greet you with these slides straight away.')))),
-        h('div', { class: 'icw-o' }, h('span', { class: 'icx-bi', html: ico('spark') }), h('span', {}, h('b', { class: 'ic-lt' }, L('Sofort – im Inner Circle', 'Right now – in the Inner Circle')), h('small', {}, aboReady() ? L('Ohne Tageslimit, 7 Tage gratis.', 'No daily limit, 7 days free.') : L('Ohne Tageslimit – startet in Kürze.', 'No daily limit – opening soon.'))))),
+        h('div', { class: 'icw-o' }, h('span', { class: 'icx-bi', html: ico('spark') }), h('span', {}, h('b', { class: 'ic-lt' }, L('Sofort – mit dem Semesterticket', 'Right now – with the semester ticket')), h('small', {}, aboReady() ? L('Höhere Limits ab 11,99 € – kein Abo.', 'Higher limits from €11.99 – no subscription.') : L('Höhere Limits – startet in Kürze.', 'Higher limits – opening soon.'))))),
       h('div', { class: 'icw-row' },
         h('button', { class: 'btn lg icw-ok-b', type: 'button', onclick: () => close('ok') }, L('Alles klar', 'Got it')),
-        h('button', { class: 'btn primary lg ic-btn', type: 'button', onclick: async () => { close('ic'); setTimeout(() => innerCircle({ reason: L('Dein Skript wartet schon.', 'Your slides are waiting.'), later: L('Dann morgen', 'Tomorrow then') }), 360); } }, L('Inner Circle ansehen', 'See the Inner Circle'))));
+        h('button', { class: 'btn primary lg ic-btn', type: 'button', onclick: async () => { close('ic'); setTimeout(() => innerCircle({ reason: L('Dein Skript wartet schon.', 'Your slides are waiting.'), later: L('Dann morgen', 'Tomorrow then') }), 360); } }, L('Semesterticket ansehen', 'See the semester ticket'))));
     const bg = h('div', { class: 'modal-bg icx-bg', onclick: e => { if (e.target === bg) close(null); } }, box);
     document.body.appendChild(bg);
     document.addEventListener('keydown', onKey);
@@ -41,7 +41,7 @@ export function quotaWait(name = '') {
 }
 
 // reason: kurzer Satz, warum das Blatt kommt (z. B. Text vom Server). Liefert 'abo', 'later' oder null.
-export function innerCircle({ reason = '', later = '' } = {}) {
+export function ticketSheet({ reason = '', later = '' } = {}) {
   return new Promise(async resolve => {
     const { aboReady, openAbo } = await import('./abo.js');
     const ready = aboReady();
@@ -51,17 +51,17 @@ export function innerCircle({ reason = '', later = '' } = {}) {
     const onKey = e => { if (e.key === 'Escape') close(null); };
     const f = h('span', { class: 'icx-face' });
     const cta = h('button', { class: 'btn primary lg ic-btn icx-cta', type: 'button', disabled: ready ? null : true, onclick: () => { close('abo'); openAbo(); } },
-      ready ? L('7 Tage gratis testen', 'Try 7 days free') : L('Bald verfügbar', 'Coming soon'));
-    const box = h('div', { class: 'modal icx', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Max’s Inner Circle' },
+      ready ? L('Ticket wählen', 'Choose a ticket') : L('Bald verfügbar', 'Coming soon'));
+    const box = h('div', { class: 'modal icx', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Semesterticket', 'Semester ticket') },
       h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(null) }),
       h('div', { class: 'icx-top' }, f, h('div', { class: 'icx-why' }, reason || L('Für heute hast du alles rausgeholt.', 'You’ve used everything for today.'))),
-      h('h3', { class: 'ic-lt icx-title' }, 'Max’s Inner Circle'),
+      h('h3', { class: 'ic-lt icx-title' }, L('Semesterticket', 'Semester ticket')),
       h('span', { class: 'icx-shine', 'aria-hidden': 'true' }),
-      h('p', { class: 'icx-lead' }, L('Lern weiter, wann du willst – ohne Tageslimit.', 'Keep learning whenever you want – no daily limit.')),
+      h('p', { class: 'icx-lead' }, L('Lern weiter, wann du willst – mit deutlich höheren Limits. Kein Abo, endet von selbst.', 'Keep learning whenever you want – with much higher limits. No subscription, ends on its own.')),
       h('ul', { class: 'icx-ben' }, BEN().map(([ic, t, s], i) => h('li', { style: { '--i': String(i) } }, h('span', { class: 'icx-bi', html: ico(ic) }), h('span', {}, h('b', {}, t), h('small', {}, s))))),
-      h('div', { class: 'icx-price' }, h('b', {}, L('7 Tage gratis', '7 days free')), h('span', {}, L('danach 11,99 € im Monat', 'then €11.99 a month'))),
+      h('div', { class: 'icx-price' }, h('b', {}, L('49 € für 6 Monate', '€49 for 6 months')), h('span', {}, L('oder 11,99 € für einen Monat', 'or €11.99 for one month'))),
       cta,
-      ready ? null : h('p', { class: 'icx-soon' }, L('Der Inner Circle startet in Kürze.', 'The Inner Circle opens soon.')),
+      ready ? null : h('p', { class: 'icx-soon' }, L('Die Tickets starten in Kürze.', 'Tickets open soon.')),
       h('button', { class: 'icx-later', type: 'button', onclick: () => close('later') }, later || L('Morgen weiter – neue Antworten ab 0:00 Uhr', 'Carry on tomorrow – new answers from midnight')));
     const bg = h('div', { class: 'modal-bg icx-bg', onclick: e => { if (e.target === bg) close(null); } }, box);
     document.body.appendChild(bg);
@@ -87,7 +87,7 @@ export function cancelFlow({ trial = false, end = 0 } = {}) {
       ['refresh', L('Sync auf allen Geräten', 'Sync on all devices'), L('Fällt weg', 'Gone')],
     ];
     const f = h('span', { class: 'icx-face' });
-    const box = h('div', { class: 'modal icx icc', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Inner Circle kündigen', 'Cancel the Inner Circle') });
+    const box = h('div', { class: 'modal icx icc', role: 'dialog', 'aria-modal': 'true', 'aria-label': L('Abo kündigen', 'Cancel subscription') });
     const keep = () => { close(false); import('./util.js').then(m => m.toast(L('Schön, dass du bleibst.', 'Glad you’re staying.'), 2600)); };
     const step1 = () => box.replaceChildren(
       h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(false) }),
@@ -96,7 +96,7 @@ export function cancelFlow({ trial = false, end = 0 } = {}) {
       h('p', { class: 'icx-lead' }, trial ? L(`Nicht erst am ${day(end)} – sondern in diesem Moment. Das verlierst du:`, `Not on ${day(end)} – right now. Here’s what you lose:`) : L('Bis dahin bleibt alles, wie es ist. Danach verlierst du:', 'Until then nothing changes. After that you lose:')),
       h('ul', { class: 'icx-ben icc-lose' }, LOSE.map(([ic, t, s], i) => h('li', { style: { '--i': String(i) } }, h('span', { class: 'icx-bi', html: ico(ic) }), h('span', {}, h('b', {}, t), h('small', {}, s))))),
       trial ? h('div', { class: 'icc-tip' }, h('b', {}, L('Tipp:', 'Tip:')), ' ', L(`Nutz den Test einfach weiter und kündige erst kurz vor dem ${day(end)} – bis dahin zahlst du nichts. Den kostenlosen Test gibt es nur einmal.`, `Keep using the trial and cancel just before ${day(end)} – you pay nothing until then. The free trial is one-time only.`)) : null,
-      h('button', { class: 'btn primary lg ic-btn icx-cta', type: 'button', onclick: keep }, L('Inner Circle behalten', 'Keep the Inner Circle')),
+      h('button', { class: 'btn primary lg ic-btn icx-cta', type: 'button', onclick: keep }, L('Abo behalten', 'Keep the subscription')),
       h('button', { class: 'icx-later icc-go', type: 'button', onclick: step2 }, L('Trotzdem kündigen', 'Cancel anyway')));
     const step2 = () => {
       box.classList.add('icc-2');
@@ -104,7 +104,7 @@ export function cancelFlow({ trial = false, end = 0 } = {}) {
         h('button', { class: 'iconbtn mx', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close(false) }),
         h('div', { class: 'icx-top' }, f, h('div', { class: 'icx-why' }, L('Letzter Schritt', 'Last step'))),
         h('h3', { class: 'icc-h' }, L('Wirklich kündigen?', 'Really cancel?')),
-        h('p', { class: 'icx-lead' }, trial ? L('Alle Vorteile enden sofort, und der kostenlose Test lässt sich nicht noch einmal starten.', 'All benefits end right away, and the free trial can’t be started again.') : L(`Dein Inner Circle endet am ${day(end)}. Danach wird nichts mehr abgebucht.`, `Your Inner Circle ends on ${day(end)}. Nothing is charged after that.`)),
+        h('p', { class: 'icx-lead' }, trial ? L('Alle Vorteile enden sofort, und der kostenlose Test lässt sich nicht noch einmal starten.', 'All benefits end right away, and the free trial can’t be started again.') : L(`Dein Abo endet am ${day(end)}. Danach wird nichts mehr abgebucht.`, `Your subscription ends on ${day(end)}. Nothing is charged after that.`)),
         h('div', { class: 'icc-row' },
           h('button', { class: 'btn lg icc-yes', type: 'button', onclick: () => close(true) }, L('Ja, jetzt kündigen', 'Yes, cancel now')),
           h('button', { class: 'btn primary lg ic-btn', type: 'button', onclick: keep }, L('Doch behalten', 'Keep it'))));
@@ -119,3 +119,6 @@ export function cancelFlow({ trial = false, end = 0 } = {}) {
     setTimeout(() => box.querySelector('.icx-cta')?.focus({ preventScroll: true }), 60);
   });
 }
+
+// Alter Name – wird noch von mehreren Stellen aufgerufen
+export const innerCircle = ticketSheet;

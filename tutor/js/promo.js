@@ -1,4 +1,4 @@
-// „Komm in die Gruppe“ – Max’ Inner-Circle-Teaser unten links, angelehnt an das Porsche-Cayman-S-Meme
+// „Komm in die Gruppe“ – Max’ Semesterticket-Teaser unten links, angelehnt an das Porsche-Cayman-S-Meme
 // (die Parodie auf dubiose Trading-Gruppen-Werbung). Nur Text, kein Logo, kein Auto.
 // Kommt selten: frühestens nach 3 Min. aktiver Nutzung, höchstens alle 3 Tage, nach 3× Wegklicken nur noch alle 14 Tage.
 // Nie während Führung, Dialog, Sprechen oder Klausur. Zum Ansehen: Adresse mit ?komm aufrufen.
@@ -11,7 +11,7 @@ const KEY = 'tutor.icPromo';
 // night: nur zwischen 23 und 4 Uhr.
 const VARIANTS = [
   { id: 'porsche', h: () => L('Komm in die Gruppe. 🤝', 'Join the group. 🤝'),
-    t: () => L('Einen Porsche Cayman S gibt’s bei uns leider nicht. Dafür Max ohne Tageslimit, Probeklausuren und Podcasts – das garantiert bessere BWL-Erlebnis.', 'Sadly, there’s no Porsche Cayman S here. Instead: Max without a daily limit, mock exams and podcasts – a guaranteed better business-studies experience.'),
+    t: () => L('Einen Porsche Cayman S gibt’s bei uns leider nicht. Dafür Max mit deutlich höheren Limits, Probeklausuren und Podcasts – das garantiert bessere BWL-Erlebnis. Kein Abo.', 'Sadly, there’s no Porsche Cayman S here. Instead: Max with much higher limits, mock exams and podcasts – a guaranteed better business-studies experience. No subscription.'),
     f: () => L('*Keine WhatsApp-Gruppe. Kein Trading-Kurs. Versprochen.', '*No WhatsApp group. No trading course. Promise.') },
 ];
 function pick(s) {
@@ -88,9 +88,9 @@ function show(force) {
     const { innerCircle } = await import('./ic.js');
     innerCircle({ reason: L('Willkommen in der Gruppe. Ohne Cayman, mit Plan.', 'Welcome to the group. No Cayman, but a plan.'), later: L('Vielleicht später', 'Maybe later') });
   };
-  const card = h('aside', { class: 'kg', role: 'dialog', 'aria-label': 'Max’s Inner Circle', 'data-v': v.id },
+  const card = h('aside', { class: 'kg', role: 'dialog', 'aria-label': L('Semesterticket', 'Semester ticket'), 'data-v': v.id },
     h('button', { class: 'kg-x', type: 'button', 'aria-label': L('Schließen', 'Close'), html: ico('x'), onclick: () => close('x') }),
-    h('div', { class: 'kg-top' }, coolFace(), h('div', {}, h('b', { class: 'ic-lt' }, 'Max’s Inner Circle'), h('small', {}, v.f ? L('Anzeige*', 'Ad*') : L('Anzeige', 'Ad')))),
+    h('div', { class: 'kg-top' }, coolFace(), h('div', {}, h('b', { class: 'ic-lt' }, L('Semesterticket', 'Semester ticket')), h('small', {}, v.f ? L('Anzeige*', 'Ad*') : L('Anzeige', 'Ad')))),
     h('p', { class: 'kg-h' }, v.h()),
     v.t ? h('p', { class: 'kg-t' }, v.t()) : null,
     h('div', { class: 'kg-row' },
