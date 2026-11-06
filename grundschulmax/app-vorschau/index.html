@@ -6233,7 +6233,7 @@ body[data-area="play"] .alobbar{display:none!important}
 .app .aside .anv.anlobby::after{display:none!important}
 .app .aside .anv.anlobby:hover{filter:brightness(1.06) saturate(1.08)!important}
 .app .aside .anv.anlobby:active{transform:translateY(3px)!important;animation:none;box-shadow:0 2px 0 #c27400,0 0 0 3px #fff6c9!important}
-@media (max-width:820px){.app .aside .anv.anlobby{position:sticky!important;left:0;z-index:3;flex:none}}
+@media (max-width:820px){.app .aside .anv.anlobby{position:relative!important;left:auto;z-index:auto;flex:none}}
 @keyframes lobShine{0%,55%{left:-40%}85%,100%{left:120%}}
 #abot [data-b="lobby"] svg{color:#fff!important;background:linear-gradient(180deg,#ffd24a,#f08a00);border-radius:50%;padding:6px;width:34px!important;height:34px!important;margin-top:-14px;box-shadow:0 3px 0 #b65400,0 0 0 3px #fff,0 6px 14px -4px rgba(240,122,0,.8)}
 #abot [data-b="lobby"] span{color:#e07800!important;font-weight:900}
@@ -6353,6 +6353,21 @@ body[data-screen=klasse] .view[data-s=klasse] .sbar .kback{height:44px!important
   .gwdock button{height:44px!important}
   .gwdock .gwq{width:44px!important}
   .gw .gw-subs{top:118px!important;right:12px!important}
+}
+/* Preis-Karten: Schild „Beliebt · 33 % günstiger“ immer mittig auf der Kante, nie breiter als die Karte */
+.pwo em,.plt em{left:50%!important;right:auto!important;top:0!important;transform:translate(-50%,-50%)!important;width:max-content;max-width:calc(100% - 12px);white-space:normal!important;text-align:center;justify-content:center;line-height:1.15}
+@media (max-width:480px){.pwo,.plt{padding-top:30px!important}.pwo em,.plt em{font-size:10.5px!important;padding:4px 8px!important}}
+/* Abenteuer-Knopf: Icon ohne Kasten drumherum */
+.app .aside .anv.anhome .ti{background:none!important;box-shadow:none!important;border:0!important;outline:0!important}
+/* Bezahlfenster auf schmalen Handys: nichts ragt raus, nichts wird abgeschnitten */
+@media (max-width:400px){
+  .pwc .pwteam{padding-right:34px;box-sizing:border-box}
+  .pwo strong{font-size:23px!important;line-height:1.05;display:block}
+  .pwo strong i{display:block;font-size:12px!important;margin:2px 0 0!important;font-style:normal}
+  .pwo small{font-size:12px!important;line-height:1.35}
+  #pwgo{font-size:17px!important;white-space:nowrap;padding-left:12px!important;padding-right:12px!important;gap:8px}
+  .pwl2{grid-template-columns:1fr 1fr;gap:8px 10px}
+  .pwl2 li{font-size:12.5px;align-items:center;line-height:1.2}
 }
 </style>
 </head>
@@ -6767,6 +6782,6 @@ body[data-screen=klasse] .view[data-s=klasse] .sbar .kback{height:44px!important
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-9d580c8d.js"></script>
+<script defer src="/grundschulmax/gjs/app-fecfbaf1.js"></script>
 </body>
 </html>
