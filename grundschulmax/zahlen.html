@@ -28,6 +28,7 @@ button{font:inherit;color:inherit}
 .seg{display:inline-flex;padding:3px;border-radius:999px;border:1px solid var(--line2);background:var(--card)}
 .seg button{height:30px;padding:0 12px;border:0;border-radius:999px;background:none;color:var(--mute);font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
 .seg button.on{background:var(--ink);color:#fff}
+.qseg button.on{background:#1877f2}
 .ib{height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line2);background:var(--card);font-weight:600;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
 .ib i{width:9px;height:9px;border-radius:50%;background:var(--dim)}
 .ib.on i{background:var(--ok)}
@@ -144,7 +145,7 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
   <div class="brand"><img src="/grundschulmax/max-96.png" alt=""><div><b>Zahlen</b><small>Grundschulmax · nur für Ben</small></div></div>
   <div class="sp"></div>
   <div class="seg" id="seg"><button data-z="alle">Gesamt</button><button data-z="30">30 Tage</button><button data-z="7">7 Tage</button><button data-z="heute">Heute</button></div>
-  <button class="ib" id="intern" title="Besuche von diesem Gerät nicht mitzählen"><i></i><span>Gerät nicht zählen</span></button>
+  <div class="seg qseg" id="qseg"><button data-q="fb">Nur Facebook</button><button data-q="alle">Alle Besucher</button></div>
   <button class="ib" id="reload" aria-label="Neu laden">↻</button>
   <span class="stand" id="stand"></span>
 </div><nav class="tabs" id="tabs"></nav></div>
@@ -161,11 +162,10 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
   var ls = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
   var Z = ls.get('gsmz.z2') || 'alle', timer = 0, busy = false;
   // Interne Besuche ausschließen (Cookie wird von der Middleware geprüft)
-  var isIntern = function () { return /(?:^|;\s*)gsm_intern=1/.test(document.cookie); };
-  var setIntern = function (on) { document.cookie = 'gsm_intern=' + (on ? '1; Max-Age=315360000' : '; Max-Age=0') + '; Path=/; SameSite=Lax; Secure'; drawIntern(); };
-  var drawIntern = function () { var b = $('#intern'); b.classList.toggle('on', isIntern()); b.querySelector('span').textContent = isIntern() ? 'Gerät wird nicht gezählt' : 'Gerät wird gezählt'; };
-  $('#intern').onclick = function () { setIntern(!isIntern()); };
-  drawIntern();
+  // Wer diese Seite öffnet, ist Ben: dieses Gerät zählt nie mit
+  document.cookie = 'gsm_intern=1; Max-Age=315360000; Path=/; SameSite=Lax; Secure';
+  var Q = ls.get('gsmz.q') || 'fb';
+  [].forEach.call(document.querySelectorAll('#qseg button'), function (b) { b.classList.toggle('on', b.dataset.q === Q); b.onclick = function () { Q = b.dataset.q; ls.set('gsmz.q', Q); [].forEach.call(document.querySelectorAll('#qseg button'), function (x) { x.classList.toggle('on', x === b); }); load(); }; });
   [].forEach.call(document.querySelectorAll('#seg button'), function (b) { b.classList.toggle('on', b.dataset.z === Z); b.onclick = function () { Z = b.dataset.z; ls.set('gsmz.z2', Z); [].forEach.call(document.querySelectorAll('#seg button'), function (x) { x.classList.toggle('on', x === b); }); load(); }; });
   $('#reload').onclick = function () { load(); };
 
@@ -177,11 +177,10 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
     var tok = ls.get('gsm-token');
     if (!tok) { gate('Bitte anmelden', 'Melde dich auf grundschulmax.de mit deinem Konto an und öffne dann diese Seite noch einmal.'); return; }
     if (busy) return; busy = true; $('#reload').textContent = '…';
-    fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ token: tok, zeit: Z }) })
+    fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ token: tok, zeit: Z, quelle: Q }) })
       .then(function (r) { return r.json(); })
       .then(function (d) {
         if (!d || !d.ok) { gate(d && d.grund === 'Dieses Konto hat keinen Zugriff.' ? 'Kein Zugriff' : 'Bitte neu anmelden', (d && d.grund) || 'Die Anmeldung ist abgelaufen.'); return; }
-        if (!isIntern() && ls.get('gsmz.auto') !== '1') { setIntern(true); ls.set('gsmz.auto', '1'); }
         draw(d);
       })
       .catch(function () { var m = $('#main'); if (!m.querySelector('.err')) m.insertAdjacentHTML('afterbegin', '<div class="err">Die Zahlen konnten gerade nicht geladen werden. Ich versuche es gleich wieder.</div>'); })
@@ -249,15 +248,19 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
     var ew = d.einwilligung || { ja: 0, nein: 0 }, ewt = ew.ja + ew.nein, q = d.quellen || [];
     var fb = q.filter(function (x) { return /facebook|instagram|meta/i.test(x[0]); }).reduce(function (a, x) { return a + (x[1].s || 0); }, 0);
     var A = d.angebot || {}, L = d.lobby || {};
+    var isFb = Q === 'fb', AB = d.absprung || { neu: [], wieder: [], wo: [] }, abAll = {}, abTot = 0;
+    (AB.neu || []).concat(AB.wieder || []).forEach(function (x) { abAll[x[0]] = (abAll[x[0]] || 0) + x[1]; abTot += x[1]; });
+    var abList = (AB.neu || []).map(function (x) { return [x[0], abAll[x[0]] || 0]; }), sofort = abAll['nur Startseite'] || 0;
     var h = '<div class="grid k8">' +
-      k('Besuche', fmt(f0), 'Aufrufe der Startseite') +
-      k('Von Facebook / Instagram', fmt(fb), 'nur Besucher mit Cookie') +
+      (isFb ? k('Über die Anzeige gekommen', fmt(f0), 'Seitenaufrufe mit Anzeigen-Link') : k('Besuche', fmt(f0), 'Aufrufe der Startseite')) +
+      (isFb ? k('Sofort wieder weg', fmt(sofort), pc(sofort, abTot) + ' ohne weiterzuklicken') : k('Von Facebook / Instagram', fmt(fb), 'nur Besucher mit Cookie')) +
       k('Ausprobieren geklickt', fmt(get('Ausprobieren geklickt')), pc(get('Ausprobieren geklickt'), f0) + ' der Besuche') +
       k('In der Lobby', fmt(L.auf || 0), pc(L.auf, f0) + ' der Besuche') +
       k('Angebot angesehen', fmt(A.auf || 0), pc(A.auf, f0) + ' der Besuche') +
       k('Abos', fmt(get('Abo abgeschlossen')), pc(get('Abo abgeschlossen'), f0) + ' der Besuche') +
       k('Neue Konten', fmt(d.kontenNeu || 0), fmt(d.kontenAktiv || 0) + ' Konten aktiv im Zeitraum') +
       k('Cookie erlaubt', ewt ? pc(ew.ja, ewt) : '–', fmt(ew.ja) + ' ja · ' + fmt(ew.nein) + ' nein (sonst anonym)') + '</div>';
+    if (isFb) h += '<div class="grid g2">' + card('Wie weit die Facebook-Besucher gekommen sind', fmt(abTot) + ' Besuche', '<p class="lede" style="margin:0 0 12px">Der weiteste Schritt pro Besuch, bevor sie gegangen sind.</p>' + steps(abList, abTot)) + card('Wo sie gegangen sind', 'letzter Bildschirm', bars(AB.wo, 10) + sub('Wie lange sie geblieben sind') + bars(d.verlassen, 10)) + '</div>';
     var T2 = d.tage2 || [], cols = [['b', 'Besuche'], ['a', 'Ausprobieren'], ['k', 'Klasse'], ['lo', 'Lobby'], ['l', '1. Lektion'], ['an', 'Angebot'], ['za', 'Zur Zahlung'], ['z', 'Abo'], ['ko', 'Konto']], sum = {};
     T2.forEach(function (t) { cols.forEach(function (c) { sum[c[0]] = (sum[c[0]] || 0) + (t[1][c[0]] || 0); }); });
     var tt = T2.length ? '<div class="tw"><table><tr><th>Tag</th>' + cols.map(function (c) { return '<th class="n">' + c[1] + '</th>'; }).join('') + '</tr>' +
@@ -345,7 +348,7 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
     var V = { ueber: vUeber, weg: vWeg, verh: vVerh, klick: vKlick, konten: vKonten, live: vLive }[T] || vUeber;
     var np = d.nullpunkt ? new Date(d.nullpunkt).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) : '';
     var op = [].map.call(document.querySelectorAll('details.acc[open]'), function (e) { return e.dataset.e; }), sy = window.scrollY;
-    $('#main').innerHTML = V(d) + (np ? '<p class="lede">Gezählt ab ' + np + ' Uhr. Deine eigenen Geräte werden nicht mitgezählt.</p>' : '');
+    $('#main').innerHTML = V(d) + (np ? '<p class="lede">' + (Q === 'fb' ? 'Nur Besucher, die über die Facebook- oder Instagram-Anzeige gekommen sind. ' : 'Alle Besucher. ') + 'Gezählt ab ' + np + ' Uhr. Dein eigenes Konto zählt auf keinem Gerät mit.</p>' : '');
     [].forEach.call(document.querySelectorAll('details.acc'), function (e) { if (op.indexOf(e.dataset.e) >= 0) e.open = true; }); if (op.length) window.scrollTo(0, sy);
     $('#stand').textContent = 'Stand ' + new Date(d.stand).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + ' · ' + fmt(d.gesamt) + ' Ereignisse';
   }
