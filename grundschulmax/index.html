@@ -6646,6 +6646,15 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
  .gcb.out{translate:0 20px!important}
 }
 @media (min-width:821px){.gcb{left:50%!important;right:auto!important;translate:-50% 0!important;width:min(680px,calc(100vw - 32px))!important;bottom:16px!important;border-radius:18px;padding:10px 12px 10px 18px!important;font-size:13.5px}.gcb.out{translate:-50% 20px!important}}
+/* Ende der Übungsseiten-Lektion: alle Fächer zeigen (ganze Grundschul-App) */
+.ubteam{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin:-6px auto 20px;max-width:520px}
+.ubteam span{display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 2px 9px;border-radius:16px;background:#fff;box-shadow:0 0 0 1.5px #ebe6f5,0 8px 18px -12px rgba(60,60,160,.5);opacity:0;animation:ubtin .45s cubic-bezier(.2,.9,.3,1.3) forwards}
+.ubteam span:nth-child(2){animation-delay:.08s}.ubteam span:nth-child(3){animation-delay:.16s}.ubteam span:nth-child(4){animation-delay:.24s}.ubteam span:nth-child(5){animation-delay:.32s}.ubteam span:nth-child(6){animation-delay:.4s}
+.ubteam span.on{box-shadow:0 0 0 2.5px var(--c1),0 10px 20px -10px var(--c1)}
+.ubteam img{width:50px!important;height:50px!important;max-width:none;border-radius:14px}
+.ubteam b{font-size:11px;line-height:1.15;font-weight:850;color:#2a3150;hyphens:auto;overflow-wrap:anywhere}
+@keyframes ubtin{from{opacity:0;transform:translateY(10px) scale(.9)}to{opacity:1;transform:none}}
+@media (max-width:420px){.ubteam{grid-template-columns:repeat(3,minmax(0,1fr));max-width:300px}.ubteam b{font-size:11.5px}}
 </style>
 <script>if(/^#lektion\//.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -7232,6 +7241,6 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-046aef1e.js"></script>
+<script defer src="/grundschulmax/gjs/app-14c289f3.js"></script>
 </body>
 </html>
