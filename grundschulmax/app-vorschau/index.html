@@ -6518,6 +6518,60 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
 @media (max-width:640px){.gsx-ki{padding:28px 18px;border-radius:28px}.gsx-ki h2{font-size:28px}.gsx-ki li{font-size:14.5px}}
 .gsx .b3d{max-width:100%;box-sizing:border-box}
 @media (max-width:640px){.gsx-sec .b3d.lg,.gsx-ki .b3d,.gsx-final .b3d{width:100%;justify-content:center}}
+
+/* Startseite: Kopfzeile bleibt beim Scrollen stehen. Nur Max links, „Jetzt ausprobieren“ in der Mitte, Einloggen rechts */
+.hgo{display:none!important}
+html body[data-screen=start] .nav{position:fixed!important;left:0!important;right:0!important;top:0!important;z-index:80!important;display:block!important;background:transparent!important;box-shadow:none!important;transition:background .25s ease,box-shadow .25s ease}
+html body[data-screen=start].hscr .nav{background:linear-gradient(135deg,#ffb627,#ff7b2c)!important;box-shadow:0 4px 0 #d9601c,0 10px 24px -10px rgba(140,60,0,.5)!important}
+html body[data-screen=start] .nav .wrap.nav3{display:grid!important;grid-template-columns:1fr auto 1fr!important;align-items:center!important;height:72px!important;max-width:1280px!important;margin:0 auto!important;padding:0 20px!important;gap:12px!important}
+html body[data-screen=start] .nav .brand{justify-self:start;gap:0!important}
+html body[data-screen=start] .nav .brand .bmax{width:52px!important;height:52px!important}
+html body[data-screen=start] .nav3 .brand>span:last-child{display:none!important}
+html body[data-screen=start] .nav .hcta,html body[data-screen=start] .nav .hmus{display:none!important}
+html body[data-screen=start] .nav .hgo{display:inline-flex!important;justify-self:center;align-items:center;gap:8px;height:48px;padding:0 22px;font-size:17px;white-space:nowrap}
+html body[data-screen=start] .nav .navr{justify-self:end;display:flex!important}
+html body[data-screen=start] .navr .hlogin{display:inline-flex!important;height:44px!important;padding:0 18px!important;font-size:16px!important;border-radius:14px!important;background:#fff!important}
+@media (max-width:520px){html body[data-screen=start] .nav .wrap.nav3{height:62px!important;padding:0 12px!important;gap:8px!important}html body[data-screen=start] .nav .brand .bmax{width:44px!important;height:44px!important}html body[data-screen=start] .nav .hgo{height:42px;padding:0 14px;font-size:15px}html body[data-screen=start] .nav .hgo .i{width:14px;height:14px}html body[data-screen=start] .navr .hlogin{height:40px!important;padding:0 12px!important;font-size:14px!important}}
+/* Mit fester Kopfzeile braucht der Sticky-Knopf unten nicht mehr */
+.gsx-sticky{display:none!important}
+/* ===== Startseite ohne Hero-Bild: durchgehend beige ===== */
+html:has(body[data-screen=start]),html body[data-screen=start]{background:#fff7ec!important;background-image:none!important}
+html body[data-screen=start] .view[data-s=start]>.hero{display:none!important}
+html body[data-screen=start] .view[data-s=start]{background:#fff7ec}
+.gsx{margin-top:0!important;border-radius:0!important;box-shadow:none!important;padding-top:0!important;background:#fff7ec!important}
+html body[data-screen=start] .nav .navr .hlogin{box-shadow:0 3px 0 #f1dcbd!important}
+.gsx-hero{padding:130px 0 26px;text-align:center;background:radial-gradient(900px 380px at 50% 0,#ffe6c4 0,transparent 70%)}
+.gsx-bwl{display:inline-flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border-radius:999px;background:#fff;color:#4a3418;font-weight:750;font-size:15px;text-decoration:none;box-shadow:0 4px 0 #f1dcbd,0 10px 24px -14px rgba(160,90,20,.45)}
+.gsx-bwl b{color:#e2561a;font-weight:900}
+.gsx-bwlf{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:linear-gradient(180deg,#ffb627,#ff7b2c);overflow:hidden}
+.gsx-bwlf img{width:30px;height:30px}
+.gsx-h1{margin:22px auto 16px;max-width:980px;font-weight:900;font-size:clamp(36px,6vw,70px);line-height:1.04;letter-spacing:-.03em;color:#2a1a08}
+.gsx-h1 span{display:block;background:linear-gradient(90deg,#ff8a1f,#e2561a 55%,#c8336f);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:4px}
+.gsx-sub{max-width:720px;margin:0 auto!important;font-size:19px!important;color:#6b5434}
+.gsx-hcta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:28px}
+/* Tutoren groß */
+.gsx-tutsec{margin-top:10px!important}
+.gsx-tutsec .gsx-t{padding:22px 14px 22px}
+.gsx-tutsec .gsx-t img{max-width:150px}
+.gsx-tutsec .gsx-t b{font-size:22px}
+.gsx-tutsec .gsx-t small{font-size:14px}
+/* Zahlen */
+.gsx-stats{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.gsx-stats>div{text-align:center;padding:22px 10px;border-radius:24px;background:#fff;box-shadow:0 5px 0 #f1dcbd}
+.gsx-stats b{display:block;font-weight:900;font-size:clamp(28px,3.4vw,42px);letter-spacing:-.03em;color:#e2561a}
+.gsx-stats>div:nth-child(2) b{color:#1a5fc4}.gsx-stats>div:nth-child(3) b{color:#5b3fc4}.gsx-stats>div:nth-child(4) b{color:#1f8a4c}.gsx-stats>div:nth-child(5) b{color:#c8336f}.gsx-stats>div:nth-child(6) b{color:#0e7f8e}
+.gsx-stats span{font-weight:800;color:#6b5434}
+/* BWL Max */
+.gsx-bwlband{display:grid;grid-template-columns:auto minmax(0,1fr);gap:34px;align-items:center;margin-top:22px;padding:30px 34px;border-radius:32px;background:linear-gradient(135deg,#2a1a08,#4a2a0e);color:#fff;box-shadow:0 8px 0 #1a0f04}
+.gsx-bwlc{display:flex;align-items:center;gap:16px}
+.gsx-bwlf.big{width:84px;height:84px;border-radius:26px}.gsx-bwlf.big img{width:76px;height:76px}
+.gsx-bwlc small{display:block;color:#ffcf99;font-weight:700}.gsx-bwlc b{display:block;font-size:30px;font-weight:900;letter-spacing:-.02em}.gsx-bwlc span{display:block;color:#e8d3b8;font-weight:600;font-size:14px}
+.gsx-bwlt h2{color:#fff!important;font-size:clamp(22px,2.6vw,30px)!important;margin:0 0 8px!important}
+.gsx-bwlt p{color:#e8d3b8!important;font-size:16px!important}
+@media (max-width:1000px){.gsx-stats{grid-template-columns:repeat(3,1fr)}.gsx-bwlband{grid-template-columns:1fr;gap:18px}}
+@media (max-width:640px){.gsx-hero{padding:96px 0 16px}.gsx-sub{font-size:17px!important}.gsx-hcta .b3d{width:100%;justify-content:center}.gsx-stats{grid-template-columns:repeat(2,1fr);gap:10px}.gsx-bwlband{padding:24px 20px;border-radius:26px}.gsx-tutsec .gsx-t img{max-width:110px}}
+html body[data-screen=start] .nav #hlogin.hlogin{display:inline-flex!important;align-items:center}
+@media (max-width:420px){html body[data-screen=start] .nav .hgo{padding:0 12px!important;font-size:14px!important;height:40px!important}html body[data-screen=start] .nav .hgo .i{display:none}html body[data-screen=start] .nav #hlogin.hlogin{padding:0 10px!important;font-size:13px!important;height:38px!important}html body[data-screen=start] .nav .brand .bmax{width:40px!important;height:40px!important}}
 </style>
 </head>
 <body data-screen="start">
@@ -6571,6 +6625,7 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
   <div class="wrap nav3">
     <a class="brand" href="#" data-to=""><img class="bmax" src="/grundschulmax/max-320.webp" alt=""><span>Grundschul<b>max</b></span></a>
     <button class="hcta" data-start><span class="hctf"><img src="/grundschulmax/max-320.webp" alt=""></span><span>Für mein Kind einrichten</span></button>
+    <a class="hgo b3d" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a>
     <div class="navr">
       <a class="lk ts" href="#sicherheit" data-to="sicherheit"><svg class="i"><use href="#i-shield"/></svg>Sicherheit</a>
       <a class="lk td" href="#datenschutz" data-to="datenschutz"><svg class="i"><use href="#i-lock"/></svg>Datenschutz</a>
@@ -6616,7 +6671,7 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
         <div class="tiles" data-team data-in></div>
       </div>
       <div class="ctas">
-        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a>
+        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a>
         <a class="b3d w lg" href="#faecher" data-to="faecher">Alle Fächer ansehen</a>
       </div>
       <div class="small"><span class="hwl"><svg class="i"><use href="#i-cam"/></svg>Max hilft bei den Hausaufgaben</span><span><svg class="i"><use href="#i-check"/></svg>Lernpfad wie bei einer Sprach-App</span><span><svg class="i"><use href="#i-check"/></svg>Direkt hier im Browser</span><span><svg class="i"><use href="#i-check"/></svg>Ohne Anmeldung</span></div>
@@ -6624,6 +6679,12 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
     </div>
   </section>
   <div class="gsx" id="mehr">
+    <section class="gsx-hero"><div class="wrap">
+      <a class="gsx-bwl rv" href="#gsxbwl"><span class="gsx-bwlf"><img src="/grundschulmax/max-96.png" alt=""></span><span>Von den Machern von <b>BWL Max</b></span></a>
+      <h1 class="gsx-h1 rv" style="--d:.06s">Wir machen Ihr Kind spielend fit für die Schule.<span>Und fit für Internet und KI.</span></h1>
+      <p class="gsx-sub rv" style="--d:.12s">Mathe, Deutsch, Englisch, Französisch, Sachunterricht sowie Internet und KI: als Lernspiele mit sechs eigenen Tutoren, passend zu Klasse 1 bis 4. Gemacht für iPad und Laptop.</p>
+      <div class="gsx-hcta rv" style="--d:.18s"><a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a><a class="b3d w lg" href="#gsxtut">Tutoren kennenlernen</a></div>
+    </div></section>
     <div class="gsx-trust rv"><div class="wrap">
       <span><svg class="i"><use href="#i-noad"/></svg>Ohne Werbung</span>
       <span><svg class="i"><use href="#i-check"/></svg>Kostenlos testen, ohne Anmeldung</span>
@@ -6632,7 +6693,50 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
       <span><svg class="i"><use href="#i-family"/></svg>Elternbereich mit Zeitlimit</span>
       <span><b class="gsx-de" aria-hidden="true"><i></i><i></i><i></i></b>Aus Deutschland</span>
     </div></div>
-
+    <section class="gsx-sec gsx-alt gsx-tutsec" id="gsxtut"><div class="wrap">
+      <div class="gsx-head rv"><span class="gsx-kick">Das Tutorenteam</span><h2>Für jedes Fach ein eigener Tutor.</h2><p>Jeder mit eigener Stimme. Sie lesen alles vor, erklären geduldig und sagen nie die Lösung vor.</p></div>
+      <div class="gsx-tut">
+        <div class="gsx-t rv" style="--c:#1a5fc4;--d:0s"><img loading="lazy" src="/grundschulmax/tut-mila-256.webp" alt="Mila" width="256" height="256"><b>Mila</b><small>Mathe</small><p>Plus, Minus, Einmaleins und Sachaufgaben, bis es sitzt.</p></div>
+        <div class="gsx-t rv" style="--c:#c8336f;--d:.06s"><img loading="lazy" src="/grundschulmax/tut-max-256.webp" alt="Max" width="256" height="256"><b>Max</b><small>Deutsch</small><p>Lesen mit Silben, Schreiben und Rechtschreibung.</p></div>
+        <div class="gsx-t rv" style="--c:#0e7f8e;--d:.12s"><img loading="lazy" src="/grundschulmax/tut-emma-256.webp" alt="Emma" width="256" height="256"><b>Emma</b><small>Englisch</small><p>Erste Wörter und Sätze, mit Vorlesen zum Nachsprechen.</p></div>
+        <div class="gsx-t rv" style="--c:#5b3fc4;--d:.18s"><img loading="lazy" src="/grundschulmax/tut-claude-256.webp" alt="Claude" width="256" height="256"><b>Claude</b><small>Französisch</small><p>Für Kinder mit Französisch in der Schule.</p></div>
+        <div class="gsx-t rv" style="--c:#1f8a4c;--d:.24s"><img loading="lazy" src="/grundschulmax/tut-frieda-256.webp" alt="Frieda" width="256" height="256"><b>Frieda</b><small>Sachunterricht</small><p>Tiere, Natur, Körper, Verkehr und die Welt drumherum.</p></div>
+        <div class="gsx-t rv" style="--c:#d9601c;--d:.3s"><img loading="lazy" src="/grundschulmax/tut-bit-256.webp" alt="Bit" width="256" height="256"><b>Bit</b><small>Internet und KI</small><p>Sicher im Netz unterwegs und KI verstehen.</p></div>
+      </div>
+    </div></section>
+    <section class="gsx-sec"><div class="wrap gsx-split">
+      <div class="gsx-copy rv">
+        <span class="gsx-kick">Die Lobby</span>
+        <h2>Darum wollen Kinder jeden Tag wieder.</h2>
+        <p>Mit jeder Lektion sammelt Ihr Kind Erfahrungspunkte. Neue Level schalten Traumberufe frei, von der Astronautin bis zum Feuerwehrmann, und Haustiere, die mit in die Lobby ziehen.</p>
+        <div class="gsx-chips"><span><b>10</b>Traumberufe</span><span><b>8</b>Haustiere</span><span><b>3</b>Aufgaben jeden Tag</span></div>
+        <div class="gsx-faces" aria-hidden="true"><img loading="lazy" src="/grundschulmax/lobby/face/mia-astro.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/face/luca-feuer.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/face/amara-arzt.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/face/noah-fuss.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/pets/cat-face.webp?v=3" alt=""><img loading="lazy" src="/grundschulmax/lobby/pets/fox-face.webp?v=3" alt=""><img loading="lazy" src="/grundschulmax/lobby/pets/panda-face.webp?v=3" alt=""></div>
+        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a>
+      </div>
+      <div class="gsx-show rv" style="--d:.1s">
+        <div class="gsx-tab" id="gsxshow">
+          <img loading="lazy" class="on" src="/grundschulmax/sp/start/job-astro2.webp" alt="Lobby als Astronautin mit Katze" width="1200" height="675">
+          <img loading="lazy" src="/grundschulmax/sp/start/job-feuer2.webp" alt="Lobby als Feuerwehrmann mit Hund" width="1200" height="675">
+          <img loading="lazy" src="/grundschulmax/sp/start/job-arzt2.webp" alt="Lobby als Ärztin mit Hase" width="1200" height="675">
+          <img loading="lazy" src="/grundschulmax/sp/start/job-fuss2.webp" alt="Lobby als Fußballer mit Fuchs" width="1200" height="675">
+          <span class="gsx-lbl" id="gsxlbl">Astronautin · ab Level 2</span>
+        </div>
+      </div>
+    </div></section>
+    <section class="gsx-sec"><div class="wrap">
+      <div class="gsx-stats">
+        <div class="rv" style="--d:0s"><b>550+</b><span>Lektionen</span></div>
+        <div class="rv" style="--d:.06s"><b>4.500+</b><span>Aufgaben</span></div>
+        <div class="rv" style="--d:.12s"><b>30</b><span>Lernspiele</span></div>
+        <div class="rv" style="--d:.18s"><b>6</b><span>Fächer</span></div>
+        <div class="rv" style="--d:.24s"><b>6</b><span>Tutoren</span></div>
+        <div class="rv" style="--d:.3s"><b>1–4</b><span>Klassen</span></div>
+      </div>
+      <div class="gsx-bwlband rv" id="gsxbwl">
+        <div class="gsx-bwlc"><span class="gsx-bwlf big"><img loading="lazy" src="/grundschulmax/max-320.webp" alt=""></span><div><small>Von den Machern von</small><b>BWL Max</b><span>dem KI-Tutor für BWL-Studenten</span></div></div>
+        <div class="gsx-bwlt"><h2>Erst Studenten durch BWL gebracht. Jetzt sind die Kleinen dran.</h2><p>Mit BWL Max haben wir einen KI-Tutor gebaut, der Stoff so erklärt, dass er hängen bleibt, und jede Rechnung nachprüft. Genau dieses Wissen steckt in Grundschulmax, nur mit Spielen, Sternen und viel Geduld.</p></div>
+      </div>
+    </div></section>
     <div class="gsx-mq" aria-label="Themen in Grundschulmax">
       <div class="gsx-mqr"><div class="gsx-mqt">
         <span style="--c:#1a5fc4">Plus und Minus</span><span style="--c:#c8336f">Lesen mit Silben</span><span style="--c:#d9601c">Sicher im Netz</span><span style="--c:#0e7f8e">Erste englische Wörter</span><span style="--c:#1f8a4c">Tiere im Wald</span><span style="--c:#1a5fc4">Einmaleins</span><span style="--c:#c8336f">Rechtschreibung</span><span style="--c:#d9601c">Starke Passwörter</span><span style="--c:#5b3fc4">Bonjour!</span><span style="--c:#1f8a4c">Die Jahreszeiten</span><span style="--c:#1a5fc4">Zahlen bis 1000</span><span style="--c:#d9601c">Werbung erkennen</span>
@@ -6645,7 +6749,6 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
         <span style="--c:#d9601c">KI verstehen</span><span style="--c:#1a5fc4">Sachaufgaben</span><span style="--c:#c8336f">Nomen und Verben</span><span style="--c:#1f8a4c">Mein Körper</span><span style="--c:#d9601c">Echt oder KI-Bild?</span><span style="--c:#0e7f8e">Farben und Zahlen auf Englisch</span><span style="--c:#c8336f">Schreiben lernen</span><span style="--c:#1a5fc4">Formen entdecken</span><span style="--c:#1f8a4c">Strom und Stromkreis</span><span style="--c:#d9601c">Programmieren spielen</span><span style="--c:#5b3fc4">Französische Zahlen</span><span style="--c:#c8336f">Probetest vor der Klassenarbeit</span>
       </div></div>
     </div>
-
     <section class="gsx-sec"><div class="wrap">
       <div class="gsx-head rv"><span class="gsx-kick">So einfach geht's</span><h2>In einer Minute spielt Ihr Kind los.</h2><p>Kein Download, keine Anmeldung. Grundschulmax läuft direkt im Browser.</p></div>
       <div class="gsx-steps">
@@ -6653,40 +6756,12 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
         <div class="gsx-step rv" style="--d:.12s"><b>2</b><h3>Figur aussuchen</h3><p>Ihr Kind wählt seine Figur und gibt ihr einen Namen. Dann geht es in die eigene Lobby.</p></div>
         <div class="gsx-step rv" style="--d:.24s"><b>3</b><h3>Spielen und lernen</h3><p>Jede Lektion ist ein kleines Spiel. Die Tutoren lesen vor, erklären und loben.</p></div>
       </div>
-      <div class="gsx-cta rv"><a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a></div>
+      <div class="gsx-cta rv"><a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a></div>
     </div></section>
 
-    <section class="gsx-sec gsx-alt"><div class="wrap">
-      <div class="gsx-head rv"><span class="gsx-kick">Das Tutorenteam</span><h2>Für jedes Fach ein eigener Tutor.</h2><p>Jeder mit eigener Stimme. Sie lesen alles vor, erklären geduldig und sagen nie die Lösung vor.</p></div>
-      <div class="gsx-tut">
-        <div class="gsx-t rv" style="--c:#1a5fc4;--d:0s"><img loading="lazy" src="/grundschulmax/tut-mila-256.webp" alt="Mila" width="256" height="256"><b>Mila</b><small>Mathe</small><p>Plus, Minus, Einmaleins und Sachaufgaben, bis es sitzt.</p></div>
-        <div class="gsx-t rv" style="--c:#c8336f;--d:.06s"><img loading="lazy" src="/grundschulmax/tut-max-256.webp" alt="Max" width="256" height="256"><b>Max</b><small>Deutsch</small><p>Lesen mit Silben, Schreiben und Rechtschreibung.</p></div>
-        <div class="gsx-t rv" style="--c:#0e7f8e;--d:.12s"><img loading="lazy" src="/grundschulmax/tut-emma-256.webp" alt="Emma" width="256" height="256"><b>Emma</b><small>Englisch</small><p>Erste Wörter und Sätze, mit Vorlesen zum Nachsprechen.</p></div>
-        <div class="gsx-t rv" style="--c:#5b3fc4;--d:.18s"><img loading="lazy" src="/grundschulmax/tut-claude-256.webp" alt="Claude" width="256" height="256"><b>Claude</b><small>Französisch</small><p>Für Kinder mit Französisch in der Schule.</p></div>
-        <div class="gsx-t rv" style="--c:#1f8a4c;--d:.24s"><img loading="lazy" src="/grundschulmax/tut-frieda-256.webp" alt="Frieda" width="256" height="256"><b>Frieda</b><small>Sachunterricht</small><p>Tiere, Natur, Körper, Verkehr und die Welt drumherum.</p></div>
-        <div class="gsx-t rv" style="--c:#d9601c;--d:.3s"><img loading="lazy" src="/grundschulmax/tut-bit-256.webp" alt="Bit" width="256" height="256"><b>Bit</b><small>Internet und KI</small><p>Sicher im Netz unterwegs und KI verstehen.</p></div>
-      </div>
-    </div></section>
 
-    <section class="gsx-sec"><div class="wrap gsx-split">
-      <div class="gsx-copy rv">
-        <span class="gsx-kick">Die Lobby</span>
-        <h2>Darum wollen Kinder jeden Tag wieder.</h2>
-        <p>Mit jeder Lektion sammelt Ihr Kind Erfahrungspunkte. Neue Level schalten Traumberufe frei, von der Astronautin bis zum Feuerwehrmann, und Haustiere, die mit in die Lobby ziehen.</p>
-        <div class="gsx-chips"><span><b>10</b>Traumberufe</span><span><b>8</b>Haustiere</span><span><b>3</b>Aufgaben jeden Tag</span></div>
-        <div class="gsx-faces" aria-hidden="true"><img loading="lazy" src="/grundschulmax/lobby/face/mia-astro.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/face/luca-feuer.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/face/amara-arzt.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/face/noah-fuss.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/pets/cat-face.webp?v=3" alt=""><img loading="lazy" src="/grundschulmax/lobby/pets/fox-face.webp?v=3" alt=""><img loading="lazy" src="/grundschulmax/lobby/pets/panda-face.webp?v=3" alt=""></div>
-        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a>
-      </div>
-      <div class="gsx-show rv" style="--d:.1s">
-        <div class="gsx-tab" id="gsxshow">
-          <img loading="lazy" class="on" src="/grundschulmax/sp/start/job-astro.webp" alt="Lobby als Astronautin mit Katze" width="1200" height="675">
-          <img loading="lazy" src="/grundschulmax/sp/start/job-feuer.webp" alt="Lobby als Feuerwehrmann mit Hund" width="1200" height="675">
-          <img loading="lazy" src="/grundschulmax/sp/start/job-arzt.webp" alt="Lobby als Ärztin mit Hase" width="1200" height="675">
-          <img loading="lazy" src="/grundschulmax/sp/start/job-fuss.webp" alt="Lobby als Fußballer mit Fuchs" width="1200" height="675">
-          <span class="gsx-lbl" id="gsxlbl">Astronautin · ab Level 2</span>
-        </div>
-      </div>
-    </div></section>
+
+
 
     <section class="gsx-sec"><div class="wrap">
       <div class="gsx-ki rv">
@@ -6703,7 +6778,7 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
             <li><svg class="i"><use href="#i-search"/></svg>Echt oder KI-Bild?</li>
             <li><svg class="i"><use href="#i-bulb"/></svg>KI verstehen und prüfen</li>
           </ul>
-          <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a>
+          <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a>
         </div>
       </div>
     </div></section>
@@ -6720,14 +6795,14 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
 
     <section class="gsx-sec"><div class="wrap gsx-split gsx-dev">
       <div class="gsx-devs rv" aria-hidden="true">
-        <div class="gsx-lap"><div class="gsx-scr"><img loading="lazy" src="/grundschulmax/sp/start/job-feuer.webp" alt=""></div><i></i></div>
-        <div class="gsx-pad"><div class="gsx-scr"><img loading="lazy" src="/grundschulmax/sp/start/job-astro.webp" alt=""></div></div>
+        <div class="gsx-lap"><div class="gsx-scr"><img loading="lazy" src="/grundschulmax/sp/start/job-feuer2.webp" alt=""></div><i></i></div>
+        <div class="gsx-pad"><div class="gsx-scr"><img loading="lazy" src="/grundschulmax/sp/start/job-astro2.webp" alt=""></div></div>
       </div>
       <div class="gsx-copy rv" style="--d:.1s">
         <span class="gsx-kick">iPad und Laptop</span>
         <h2>Gemacht für iPad und Laptop.</h2>
         <p>Am schönsten auf dem iPad oder am Laptop: große Knöpfe, mit Finger oder Maus. Grundschulmax läuft direkt im Browser, ohne App-Download. Auf dem Handy geht es auch.</p>
-        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a>
+        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a>
       </div>
     </div></section>
 
@@ -6737,7 +6812,7 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
         <div class="gsx-plan rv" style="--d:0s"><h3>Monatlich</h3><div class="gsx-pr"><b>9,90 €</b><span>/ Monat</span></div><small>monatlich kündbar</small></div>
         <div class="gsx-plan best rv" style="--d:.1s"><em>Beliebteste Wahl</em><h3>Schuljahr</h3><div class="gsx-pr"><b>79 €</b><span>/ 12 Monate</span></div><small>nur 6,58 € im Monat</small></div>
       </div>
-      <div class="gsx-cta rv"><a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a><span>Alle Fächer · alle Spiele · Hausaufgaben-Hilfe</span></div>
+      <div class="gsx-cta rv"><a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a><span>Alle Fächer · alle Spiele · Hausaufgaben-Hilfe</span></div>
     </div></section>
 
     <section class="gsx-sec"><div class="wrap gsx-narrow">
@@ -6756,11 +6831,11 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
         <img loading="lazy" src="/grundschulmax/max-320.webp" alt="Max" width="160" height="160">
         <h2>Bereit? Ihr Kind kann sofort loslegen.</h2>
         <p>Kostenlos ausprobieren, ohne Anmeldung, direkt im Browser.</p>
-        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a>
+        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a>
         <small>Von den Machern von BWL Max · Aus Baden-Baden</small>
       </div>
     </div></section>
-    <div class="gsx-sticky" id="gsxsticky"><a class="b3d" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a></div>
+    <div class="gsx-sticky" id="gsxsticky"><a class="b3d" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a></div>
   </div>
 </div>
 
@@ -7070,6 +7145,6 @@ body.gcb-on .gsx-sticky{translate:-50% 140%}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-65fe51f5.js"></script>
+<script defer src="/grundschulmax/gjs/app-83dbe923.js"></script>
 </body>
 </html>
