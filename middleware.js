@@ -202,6 +202,7 @@ export default async function middleware(req, ctx) {
     else if (pfad === '/zahlen') ziel = '/grundschulmax/zahlen.html';
     else if (/^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(pfad)) { ziel = '/grundschulmax/legal' + pfad + '.html'; gsSeite(req, ctx, url, { impressum: 'Impressum', datenschutz: 'Datenschutz', agb: 'AGB', widerruf: 'Widerruf', kuendigen: 'Kündigen', widerrufen: 'Widerrufen' }[pfad.slice(1)]); }
     else if (pfad === '/robots.txt' || pfad === '/sitemap.xml') ziel = '/grundschulmax' + pfad;
+    else if (pfad === '/favicon.ico') ziel = '/grundschulmax/max-96.png';
     if (ziel) return new Response(null, { headers: { 'x-middleware-rewrite': new URL(ziel, url).toString() } });
     return weiter();
   }
