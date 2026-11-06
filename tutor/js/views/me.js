@@ -491,12 +491,12 @@ async function editFach(f) {
   const docs = S.list.filter(d => !d.sample);
   // Neue Skripte direkt hier hinzufügen (Datei wählen oder reinziehen) – werden beim Speichern gelesen und diesem Fach zugeordnet
   const pend = [];
-  const upIn = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.pptx,.docx,.txt,.md' });
+  const upIn = h('input', { type: 'file', class: 'sr', multiple: true, accept: '.pdf,.pptx,.docx,.txt,.md,.png,.jpg,.jpeg,.webp,.heic,.heif,image/*' });
   const upList = h('div', { class: 'me-upl' });
-  const drawUp = () => upList.replaceChildren(...pend.map((f, i) => h('div', { class: 'me-upi' }, h('span', { html: ico('file') }), h('b', {}, f.name), h('button', { type: 'button', class: 'me-uprm', onclick: () => { pend.splice(i, 1); drawUp(); } }, L('Entfernen', 'Remove')))));
+  const drawUp = () => upList.replaceChildren(...pend.map((f, i) => h('div', { class: 'me-upi' }, h('span', { html: ico(/^image\//.test(f.type || '') || /\.(png|jpe?g|webp|heic|heif)$/i.test(f.name || '') ? 'camera' : 'file') }), h('b', {}, f.name), h('button', { type: 'button', class: 'me-uprm', onclick: () => { pend.splice(i, 1); drawUp(); } }, L('Entfernen', 'Remove')))));
   const addUp = fs => { [...(fs || [])].forEach(f => { if (!pend.some(x => x.name === f.name && x.size === f.size)) pend.push(f); }); drawUp(); };
   upIn.addEventListener('change', () => { addUp(upIn.files); upIn.value = ''; });
-  const upZone = h('button', { type: 'button', class: 'me-upz', onclick: () => upIn.click() }, h('span', { class: 'me-upzi', html: ico('upload') }), h('span', {}, h('b', {}, L('Neue Skripte hinzufügen', 'Add new slides')), h('small', {}, L('Dateien reinziehen oder klicken – PDF, PowerPoint, Word, Text', 'Drop files or click – PDF, PowerPoint, Word, text'))), upIn);
+  const upZone = h('button', { type: 'button', class: 'me-upz', onclick: () => upIn.click() }, h('span', { class: 'me-upzi', html: ico('upload') }), h('span', {}, h('b', {}, L('Neue Skripte hinzufügen', 'Add new slides')), h('small', {}, L('Dateien reinziehen oder klicken – PDF, PowerPoint, Word, Text, Fotos & Screenshots', 'Drop files or click – PDF, PowerPoint, Word, text, photos & screenshots'))), upIn);
   { let n = 0; upZone.addEventListener('dragenter', e => { e.preventDefault(); n++; upZone.classList.add('over'); }); upZone.addEventListener('dragover', e => e.preventDefault()); upZone.addEventListener('dragleave', () => { if (--n <= 0) { n = 0; upZone.classList.remove('over'); } }); upZone.addEventListener('drop', e => { e.preventDefault(); e.stopPropagation(); n = 0; upZone.classList.remove('over'); addUp(e.dataTransfer.files); }); }
   const checks = docs.map(d => { const other = M.getMe().faecher.find(x => x.id !== f.id && (x.docs || []).includes(d.id)); const c = h('input', { type: 'checkbox', checked: (f.docs || []).includes(d.id) || null }); return [d, c, h('label', { class: 'me-chk' }, c, h('span', {}, d.name), other ? h('small', {}, L(`bei ${other.name}`, `in ${other.name}`)) : null)]; });
   const body = h('div', { class: 'me-form' },
@@ -515,10 +515,27 @@ async function editFach(f) {
   const chosen = checks.filter(x => x[1].checked).map(x => x[0].id);
   if (pend.length) {
     toast(L(`Ich lese ${pend.length} ${pend.length === 1 ? 'Datei' : 'Dateien'} …`, `Reading ${pend.length} file${pend.length === 1 ? '' : 's'} …`));
-    const [{ readFile }, St] = await Promise.all([import('../ingest.js'), import('../state.js')]);
-    for (const file of pend) {
+    const [{ readFile, isImage }, St] = await Promise.all([import('../ingest.js'), import('../state.js')]);
+    const bilder = pend.filter(isImage);
+    for (const file of pend.filter(x => !isImage(x))) {
       try { const r = await readFile(file); const d = await St.createDoc({ name: r.name, pages: r.pages, chars: r.chars }); chosen.push(d.id); }
       catch (e) { toast(L(`„${file.name}“: `, `“${file.name}”: `) + (e.message || L('konnte nicht gelesen werden.', 'could not be read.'))); }
+    }
+    // Fotos & Screenshots: alle zusammen ergeben ein Skript (jedes Bild = eine Seite), Max schreibt sie ab
+    if (bilder.length) {
+      try {
+        const { imagesToPages } = await import('../intake.js');
+        if (bilder.length > 40) toast(L('Höchstens 40 Bilder auf einmal – ich nehm die ersten 40.', 'At most 40 images at once – I’ll take the first 40.'), 3600);
+        const r = await imagesToPages(bilder, (d, n) => toast(L(`Ich lese die Bilder … ${d} von ${n}`, `Reading the images … ${d} of ${n}`), 2000));
+        const fname = name.value.trim().slice(0, 60) || L('Fach', 'Subject');
+        const dname = bilder.length === 1 ? bilder[0].name.replace(/\.[^.]+$/, '') : `${fname} – ${Math.min(40, bilder.length)} ${L('Bilder', 'images')}`;
+        const d = await St.createDoc({ name: dname.slice(0, 80), pages: r.pages, chars: r.pages.join('').length, extra: { src: 'bild', ocr: true } });
+        chosen.push(d.id);
+        if (r.partial) toast(L('Ein paar Bilder konnte ich nicht lesen – der Rest ist drin.', 'I couldn’t read a few images – the rest is in.'), 4200);
+      } catch (e) {
+        if (e && ['need_account', 'cap', 'limit'].includes(e.code)) { try { const { apiError } = await import('../ui.js'); await apiError(e); } catch (x) {} }
+        else toast(L('Bilder: ', 'Images: ') + (e.message || L('konnten nicht gelesen werden.', 'could not be read.')), 4200);
+      }
     }
   }
   // ein Skript gehört zu genau einem Fach

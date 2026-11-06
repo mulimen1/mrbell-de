@@ -483,6 +483,19 @@ export async function placeTopic(d, data, target) {
   return ans;
 }
 
+// ---------- Fotos/Screenshots direkt zu einem Skript (z. B. beim Fach anlegen): abschreiben, Seiten zurückgeben ----------
+export async function imagesToPages(files, onProg = () => {}) {
+  files = [...(files || [])].filter(isImage).slice(0, 40);
+  if (!files.length) return { pages: [] };
+  if (!getAccount()) throw Object.assign(new Error(L('Fotos und Screenshots lese ich mit kostenlosem Konto.', 'I read photos and screenshots with a free account.')), { code: 'need_account' });
+  const imgs = [];
+  for (const f of files) imgs.push(await imageToJpeg(f));
+  const o = await ocrAll({ n: imgs.length, img: async i => imgs[i] }, onProg);
+  const pages = o.pages.map(x => String(x || '').trim());
+  if (pages.join('').length < 40) throw new Error(L('Auf den Bildern konnte ich keinen Text erkennen. Probier schärfere Screenshots.', 'I couldn’t find any text on the images. Try sharper screenshots.'));
+  return { pages, partial: o.partial };
+}
+
 // ---------- Abschrift (Fotos, Scans) in Paketen zu 3 Seiten, zwei gleichzeitig ----------
 async function ocrAll(P, onProg) {
   const n = P.n, out = new Array(n).fill(''), batches = [];
