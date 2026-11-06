@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Grundschulmax – Fit für die Schule, fürs Internet und für KI</title>
-<meta name="description" content="Lernspiele für Mathe, Deutsch, Englisch, Französisch, Sachunterricht und KI, Klasse 1–4. Hausaufgabe fotografieren, Max erklärt sie. 7 Tage gratis.">
+<meta name="description" content="Lernspiele für Mathe, Deutsch, Englisch, Französisch, Sachunterricht und KI, Klasse 1–4. Hausaufgabe fotografieren, Max erklärt sie. 3 Tage gratis.">
 <link rel="icon" type="image/png" href="/grundschulmax/max-96.png">
 <link rel="preload" href="/grundschulmax/sp/desk/bg-m.webp" as="image" type="image/webp" media="(max-width:820px)" fetchpriority="high">
 <link rel="preload" href="/grundschulmax/sp/desk/full-l.webp" as="image" type="image/webp" media="(min-width:821px)" fetchpriority="high">
@@ -6655,8 +6655,42 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
 .ubteam b{font-size:11px;line-height:1.15;font-weight:850;color:#2a3150;hyphens:auto;overflow-wrap:anywhere}
 @keyframes ubtin{from{opacity:0;transform:translateY(10px) scale(.9)}to{opacity:1;transform:none}}
 @media (max-width:420px){.ubteam{grid-template-columns:repeat(3,minmax(0,1fr));max-width:300px}.ubteam b{font-size:11.5px}}
+/* Startseite: Hausaufgaben-Hilfe als Einstieg, Beispielblätter direkt antippbar */
+.gsx-hero .gsx-h1{margin-bottom:14px}
+.gsx-lead{max-width:640px;margin:0 auto 26px;font-size:clamp(17px,1.6vw,21px);line-height:1.5;color:#4a5170;font-weight:600}
+.gsx-try{max-width:760px;margin:0 auto 44px;padding:22px 22px 18px;border-radius:30px;background:#fff;box-shadow:0 0 0 2px #ece8f8,0 30px 60px -36px rgba(70,60,190,.45);display:flex;flex-direction:column;align-items:center;gap:14px}
+.gsx-tryh{display:flex;flex-direction:column;align-items:center;gap:6px}
+.gsx-tryk{display:inline-flex;padding:5px 12px;border-radius:99px;background:linear-gradient(135deg,#ffb547,#f06a1c);color:#fff;font-weight:900;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+.gsx-tryh b{font-size:17px;font-weight:800;color:#232947}
+.gsx-wss{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%}
+.gsx-ws{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 8px 12px;border-radius:20px;background:#f7f5ff;text-decoration:none;color:#232947;box-shadow:0 0 0 1.5px #e6e1f7;transition:transform .2s,box-shadow .2s}
+.gsx-ws:hover{transform:translateY(-3px);box-shadow:0 0 0 2px #8b6bff,0 16px 30px -16px rgba(91,63,216,.6)}
+.gsx-wsi{display:block;width:100%;max-width:150px;aspect-ratio:150/210;border-radius:10px;overflow:hidden;box-shadow:0 10px 20px -10px rgba(60,30,10,.55);transform:rotate(-2deg);margin-bottom:8px}
+.gsx-ws:nth-child(2) .gsx-wsi{transform:rotate(1.5deg)}.gsx-ws:nth-child(3) .gsx-wsi{transform:rotate(-1deg)}
+.gsx-wsi img{width:100%;height:100%;object-fit:cover;display:block}
+.gsx-ws small{font-size:12px;font-weight:800;color:#7b6fd0}
+.gsx-ws b{font-size:15px;font-weight:850;line-height:1.2;text-align:center}
+.gsx-ws em{margin-top:6px;font-style:normal;font-weight:900;font-size:13px;color:#fff;padding:6px 12px;border-radius:99px;background:linear-gradient(135deg,#4f8ff0,#7b4dff);box-shadow:0 3px 0 #3a2ab0}
+.gsx-own{width:100%;max-width:520px;justify-content:center;font-size:18px}
+.gsx-tryn{font-size:13.5px;font-weight:700;color:#6a7090}
+.gsx-tuth{display:flex;flex-direction:column;align-items:center;gap:6px;margin:0 auto 18px}.gsx-tuth b{font-size:clamp(20px,2.2vw,26px);font-weight:900;color:#1d2340;letter-spacing:-.02em}
+@media (max-width:640px){.gsx-lead{margin-bottom:18px;font-size:16.5px}.gsx-try{padding:16px 12px 14px;border-radius:24px;margin-bottom:34px;gap:12px}.gsx-tryh b{font-size:15.5px}.gsx-wss{gap:8px}.gsx-ws{padding:8px 4px 10px;border-radius:16px}.gsx-ws b{font-size:12.5px}.gsx-ws small{font-size:11px}.gsx-ws em{font-size:11.5px;padding:5px 9px}.gsx-own{font-size:16.5px}}
+.gsx-hero .gsx-lead{margin-left:auto!important;margin-right:auto!important;text-align:center}
+.gsx-wsi{max-width:124px}
+@media (max-width:640px){.gsx-own{font-size:15.5px;padding-left:14px!important;padding-right:14px!important;white-space:nowrap}.gsx-wsi{max-width:110px}}
+@media (max-width:640px){.gsx-try .b3d.gsx-own{font-size:15.5px!important}}
+/* Lobby: Hausaufgaben genauso groß wie Spielen */
+.lobtiles{grid-template-columns:repeat(2,1fr)!important}
+.lobt:nth-child(1){background:linear-gradient(180deg,#b98cff,#7a4fd9);box-shadow:0 5px 0 #5531a8,0 10px 22px rgba(0,0,0,.3),inset 0 1.5px 0 rgba(255,255,255,.45)}
+.lobt:nth-child(2){background:linear-gradient(180deg,#5ee08f,#22b45e);box-shadow:0 5px 0 #138341,0 10px 22px rgba(0,0,0,.3),inset 0 1.5px 0 rgba(255,255,255,.45)}
+.lobbig{display:flex;flex-direction:column;gap:10px}
+.lobhw{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;height:76px;border:0;border-radius:24px;cursor:pointer;color:#fff;font-family:G,system-ui,sans-serif;background:linear-gradient(180deg,#7fc4ff 0%,#3d8cf0 50%,#2563d6 100%);box-shadow:0 7px 0 #1a46a3,0 14px 30px rgba(0,0,0,.35),inset 0 2px 0 rgba(255,255,255,.55);transition:transform .15s,filter .15s,box-shadow .15s}
+.lobhw:hover{transform:translateY(-3px);filter:brightness(1.07)}.lobhw:active{transform:translateY(5px);box-shadow:0 2px 0 #1a46a3,0 6px 16px rgba(0,0,0,.3)}
+.lhi{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.22);box-shadow:inset 0 0 0 2px rgba(255,255,255,.4)}.lhi .i{font-size:26px;color:#fff}
+.lht{display:flex;flex-direction:column;align-items:flex-start;line-height:1.05}.lht b{font-size:24px;font-weight:900;letter-spacing:.01em;text-transform:uppercase;text-shadow:0 2px 0 rgba(10,40,120,.35)}.lht small{font-size:11.5px;font-weight:800;opacity:.9;margin-top:3px}
+@media (max-width:820px){.lobbig{flex-direction:row;gap:8px}.lobbig>*{flex:1;min-width:0}.lobhw{height:64px;border-radius:20px;gap:8px;padding:0 8px}.lhi{width:34px;height:34px;border-radius:11px}.lhi .i{font-size:20px}.lht b{font-size:15px}.lht small{font-size:9.5px}.lobbig .lobgo{font-size:22px!important}}
 </style>
-<script>if(/^#lektion\//.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
+<script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
 <body data-screen="start">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -6710,7 +6744,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
     <a class="brand" href="#" data-to=""><img class="bmax" src="/grundschulmax/max-320.webp" alt=""><span>Grundschul<b>max</b></span></a>
     <a class="htut" href="#gsxtut" aria-label="Das Tutorenteam von Grundschulmax"><img src="/grundschulmax/tut-mila-128.webp" alt="" width="40" height="40" style="--i:0"><img src="/grundschulmax/tut-max-128.webp" alt="" width="40" height="40" style="--i:1"><img src="/grundschulmax/tut-emma-128.webp" alt="" width="40" height="40" style="--i:2"><img src="/grundschulmax/tut-claude-128.webp" alt="" width="40" height="40" style="--i:3"><img src="/grundschulmax/tut-frieda-128.webp" alt="" width="40" height="40" style="--i:4"><img src="/grundschulmax/tut-bitf-128.webp" alt="" width="40" height="40" style="--i:5"><span>Tutoren<wbr>team</span></a>
     <button class="hcta" data-start><span class="hctf"><img src="/grundschulmax/max-320.webp" alt=""></span><span>Für mein Kind einrichten</span></button>
-    <a class="hgo b3d" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt ausprobieren</a>
+    <a class="hgo b3d" href="#hausaufgabe" data-to="hausaufgabe"><svg class="i"><use href="#i-cam"/></svg>Jetzt ausprobieren</a>
     <div class="navr">
       <a class="lk ts" href="#sicherheit" data-to="sicherheit"><svg class="i"><use href="#i-shield"/></svg>Sicherheit</a>
       <a class="lk td" href="#datenschutz" data-to="datenschutz"><svg class="i"><use href="#i-lock"/></svg>Datenschutz</a>
@@ -6766,8 +6800,15 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
   <div class="gsx" id="mehr">
     <section class="gsx-hero"><div class="wrap">
       <a class="gsx-bwl rv" href="#gsxbwl"><img src="/grundschulmax/sp/start/bwlmax.webp" alt="" width="28" height="28"><span>Von den Machern von <b>BWL Max</b></span></a>
-      <h1 class="gsx-h1 rv" style="--d:.05s">Wir machen Ihr Kind spielend fit für die Schule.<span>Und fit für Internet und KI.</span></h1>
-      <div class="gsx-hgo rv" style="--d:.07s"><a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a><span>Ohne Anmeldung · direkt im Browser · Klasse 1 bis 4</span></div>
+      <h1 class="gsx-h1 rv" style="--d:.05s">Hausaufgabe fotografieren.<span>Max erklärt den Weg.</span></h1>
+      <p class="gsx-lead rv" style="--d:.07s">Schritt für Schritt, ohne die Lösung vorzusagen. Danach übt Ihr Kind mit Lernspielen, bis es sitzt. Für Klasse 1 bis 4.</p>
+      <div class="gsx-try rv" id="gsxtry" style="--d:.09s">
+        <div class="gsx-tryh"><span class="gsx-tryk">Jetzt ausprobieren</span><b>Tippen Sie ein Blatt an und sehen Sie, wie Max es erklärt.</b></div>
+        <div class="gsx-wss"><a class="gsx-ws" href="#hausaufgabe/beispiel/1" data-to="hausaufgabe/beispiel/1" aria-label="Beispiel ausprobieren: Rechnen bis 100"><span class="gsx-wsi"><img src="/grundschulmax/hwdemo/blatt1-k.jpg" alt="" width="150" height="210" loading="eager"></span><small>Klasse 2</small><b>Rechnen bis 100</b><em>Ausprobieren</em></a><a class="gsx-ws" href="#hausaufgabe/beispiel/2" data-to="hausaufgabe/beispiel/2" aria-label="Beispiel ausprobieren: Mal und Geteilt"><span class="gsx-wsi"><img src="/grundschulmax/hwdemo/blatt2-k.jpg" alt="" width="150" height="210" loading="eager"></span><small>Klasse 3</small><b>Mal und Geteilt</b><em>Ausprobieren</em></a><a class="gsx-ws" href="#hausaufgabe/beispiel/3" data-to="hausaufgabe/beispiel/3" aria-label="Beispiel ausprobieren: Schriftlich rechnen"><span class="gsx-wsi"><img src="/grundschulmax/hwdemo/blatt3-k.jpg" alt="" width="150" height="210" loading="eager"></span><small>Klasse 4</small><b>Schriftlich rechnen</b><em>Ausprobieren</em></a></div>
+        <a class="b3d lg gsx-own" href="#hausaufgabe" data-to="hausaufgabe"><svg class="i"><use href="#i-cam"/></svg>Eigene Hausaufgabe fotografieren</a>
+        <span class="gsx-tryn">Kostenlos · ohne Anmeldung · direkt im Browser</span>
+      </div>
+      <div class="gsx-tuth rv"><span class="gsx-kick">Und dazu</span><b>Lernspiele in allen Fächern, mit eigenem Tutor</b></div>
       <div class="gsx-tut" id="gsxtut">
         <a class="gsx-t rv" href="#klasse" data-to="klasse" aria-label="Mit Mila ausprobieren" style="--a:#3b7bff;--b:#1a4fd6;--d:.08s"><span class="gsx-ti"><img src="/grundschulmax/tut-mila-256.webp" alt="Mila" width="256" height="256"></span><b>Mila</b><small>Mathe</small><p>Plus, Minus, Einmaleins und Sachaufgaben, bis es sitzt.</p><em class="gsx-tgo">Mit Mila üben</em></a>
         <a class="gsx-t rv" href="#klasse" data-to="klasse" aria-label="Mit Max ausprobieren" style="--a:#ff5b9a;--b:#d8326f;--d:.13s"><span class="gsx-ti"><img src="/grundschulmax/tut-max-256.webp" alt="Max" width="256" height="256"></span><b>Max</b><small>Deutsch</small><p>Lesen mit Silben, Schreiben und Rechtschreibung.</p><em class="gsx-tgo">Mit Max üben</em></a>
@@ -6898,7 +6939,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
     </div></section>
 
     <section class="gsx-sec gsx-alt" id="gsxpreise"><div class="wrap">
-      <div class="gsx-head rv"><span class="gsx-kick">Preise</span><h2>Erst ausprobieren. Dann entscheiden.</h2><p>Die erste Lektion spielt Ihr Kind ganz ohne Anmeldung. Danach 7 Tage kostenlos testen, im Test jederzeit online kündbar.</p></div>
+      <div class="gsx-head rv"><span class="gsx-kick">Preise</span><h2>Erst ausprobieren. Dann entscheiden.</h2><p>Die erste Lektion spielt Ihr Kind ganz ohne Anmeldung. Danach 3 Tage kostenlos testen, im Test jederzeit online kündbar.</p></div>
       <div class="gsx-plans">
         <div class="gsx-plan rv" style="--d:0s"><h3>Monatlich</h3><div class="gsx-pr"><b>9,90 €</b><span>/ Monat</span></div><small>monatlich kündbar</small></div>
         <div class="gsx-plan best rv" style="--d:.1s"><em>Beliebteste Wahl</em><h3>Schuljahr</h3><div class="gsx-pr"><b>79 €</b><span>/ 12 Monate</span></div><small>nur 6,58 € im Monat</small></div>
@@ -6911,7 +6952,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
       <div class="gsx-faq rv">
         <details><summary>Für welches Alter ist Grundschulmax?</summary><p>Für Kinder von etwa 6 bis 10 Jahren, also Klasse 1 bis 4. Weil die Tutoren vorlesen, klappt es auch, wenn Ihr Kind noch nicht sicher lesen kann.</p></details>
         <details><summary>Auf welchen Geräten läuft es?</summary><p>Am besten auf dem iPad oder am Laptop, direkt im Browser und ohne App-Download. Auf Tablets anderer Hersteller, Computern und Handys läuft es auch.</p></details>
-        <details><summary>Was kostet es?</summary><p>Ausprobieren ist kostenlos und ohne Anmeldung. Danach 9,90 € im Monat oder 79 € für ein ganzes Schuljahr, vorher 7 Tage kostenlos testen. Im Test können Sie jederzeit online kündigen.</p></details>
+        <details><summary>Was kostet es?</summary><p>Ausprobieren ist kostenlos und ohne Anmeldung. Danach 9,90 € im Monat oder 79 € für ein ganzes Schuljahr, vorher 3 Tage kostenlos testen. Im Test können Sie jederzeit online kündigen.</p></details>
         <details><summary>Ist die KI sicher für Kinder?</summary><p>Die Tutoren bleiben beim Schulstoff. Es gibt keinen Kontakt zu anderen Nutzern und keine Werbung. Im Elternbereich sehen Sie, woran Ihr Kind gearbeitet hat.</p></details>
         <details><summary>Ersetzt Grundschulmax die Schule?</summary><p>Nein, es ergänzt den Unterricht. Ihr Kind übt genau das, was in der Schule gerade dran ist, so oft es möchte.</p></details>
       </div>
@@ -6992,7 +7033,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
       </div>
     </div>
     <aside class="aright" id="aright"></aside>
-    <button class="afab" data-pay type="button"><span class="afm"><img src="/grundschulmax/max-320.webp" alt=""></span><span><b>Für Ihr Kind einrichten</b><small>7 Tage kostenlos testen</small></span></button>
+    <button class="afab" data-pay type="button"><span class="afm"><img src="/grundschulmax/max-320.webp" alt=""></span><span><b>Für Ihr Kind einrichten</b><small>3 Tage kostenlos testen</small></span></button>
     <nav class="abot" id="abot"></nav>
   </div>
 </div>
@@ -7031,7 +7072,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
       </div>
     </div>
   </section>
-  <div class="wrap"><div class="cband" data-cta><div><b>Bereit für Max und sein Team?</b><span>Konto für Ihr Kind einrichten, 7 Tage kostenlos testen.</span></div><button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button></div></div>
+  <div class="wrap"><div class="cband" data-cta><div><b>Bereit für Max und sein Team?</b><span>Konto für Ihr Kind einrichten, 3 Tage kostenlos testen.</span></div><button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button></div></div>
 
 
 
@@ -7097,7 +7138,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
         <details><summary>Sind das echte Spiele oder nur Aufgaben mit Sternchen?</summary><p>Echte Spiele: Ballons platzen lassen, Frösche über den Zahlenstrahl springen lassen, Silben-Züge beladen, mit dem Zauberstift schreiben, im französischen Café servieren. Der Lernstoff steckt im Spiel selbst. Für jedes Fach gibt es zusätzlich ruhiges Üben mit Erklärungen und einen Probetest vor der Klassenarbeit.</p></details>
         <details><summary>Warum gibt es ein Fach Internet und KI?</summary><p>Weil Kinder heute früh online sind: Klassenchat, Spiele, Videos, KI. Bit übt kindgerecht die wichtigsten Regeln: nichts Privates verraten, bei Fremden die Eltern holen, Kettenbriefe ignorieren, Fotos nur mit Erlaubnis teilen. Und er erklärt, was eine KI ist, wo sie sich irrt und wie man sie verantwortungsvoll nutzt.</p></details>
         <details><summary>Auf welchen Geräten läuft das?</summary><p>Im Browser auf Tablet (z. B. iPad), Laptop, Computer und Handy – ohne App-Download. Am besten auf einem Tablet: große Knöpfe, mit dem Finger tippen und schreiben.</p></details>
-        <details><summary>Warum brauche ich für den Test eine Zahlungsmethode?</summary><p>Damit das Abo nach dem Test nahtlos weiterläuft und Ihr Kind seine Sterne und Fortschritte behält. Sie zahlen in den 7 Tagen nichts, und Sie können im Test jederzeit kündigen, im Elternbereich oder über „Verträge hier kündigen“ unten auf der Seite.</p></details>
+        <details><summary>Warum brauche ich für den Test eine Zahlungsmethode?</summary><p>Damit das Abo nach dem Test nahtlos weiterläuft und Ihr Kind seine Sterne und Fortschritte behält. Sie zahlen in den 3 Tagen nichts, und Sie können im Test jederzeit kündigen, im Elternbereich oder über „Verträge hier kündigen“ unten auf der Seite.</p></details>
         <details><summary>Kann ich jederzeit kündigen?</summary><p>Ja, über „Verträge hier kündigen“ unten auf jeder Seite. Im Test kostenlos, beim Monatsabo zum Monatsende. Das Schuljahr-Abo läuft 12 Monate und ist danach jederzeit mit einem Monat Frist kündbar.</p></details>
         <details><summary>Ist die KI sicher für Kinder?</summary><p>Die Tutoren sind auf Schulstoff beschränkt und reagieren auf andere Themen freundlich, aber ohne darauf einzugehen. Es gibt keinen Kontakt zu anderen Nutzern. Als Eltern sehen Sie im Konto, woran Ihr Kind gearbeitet hat.</p></details>
         <details><summary>Ersetzt Grundschulmax die Schule oder Nachhilfe?</summary><p>Grundschulmax ergänzt den Unterricht: Es übt genau das, was in der Schule gerade dran ist, so oft Ihr Kind möchte. Bei großen Lernschwierigkeiten ersetzt es keine Lehrkraft oder Förderung.</p></details>
@@ -7110,7 +7151,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
       <div class="final">
         <img src="/grundschulmax/max-320.webp" alt="">
         <h2 class="h1">Heute spielen. Heute Abend im Elternbereich nachsehen.</h2>
-        <p>7 Tage kostenlos · alle Fächer · alle Spiele</p>
+        <p>3 Tage kostenlos · alle Fächer · alle Spiele</p>
         <button class="btn lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button>
       </div>
     </div>
@@ -7132,7 +7173,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
           <div class="price"><b>9,90 €</b><span>/ Monat</span></div>
           <div class="per">monatlich kündbar</div>
           <ul><li><svg class="i"><use href="#i-check"/></svg>Lernpfade fürs ganze Schuljahr, 6 Fächer</li><li><svg class="i"><use href="#i-check"/></svg>Jede Lektion ein Lernspiel, 30 Extra-Spiele</li><li><svg class="i"><use href="#i-check"/></svg>Hausaufgaben-Tutor: 3 Blätter am Tag, je bis zu 10 Fotos</li><li><svg class="i"><use href="#i-check"/></svg>Testvorbereitung mit Probetests</li><li><svg class="i"><use href="#i-check"/></svg>Fach Internet und KI inklusive</li><li><svg class="i"><use href="#i-check"/></svg>Elternbereich mit Zeitlimit und Lernzeit</li></ul>
-          <button class="b3d w wide" data-start data-plan="m">7 Tage kostenlos testen</button>
+          <button class="b3d w wide" data-start data-plan="m">3 Tage kostenlos testen</button>
         </div>
         <div class="plan best">
           <span class="badge">Beliebteste Wahl · spare 33 %</span>
@@ -7140,7 +7181,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
           <div class="price"><b>79 €</b><span>/ 12 Monate</span></div>
           <div class="per">nur 6,58 € im Monat</div>
           <ul><li><svg class="i"><use href="#i-check"/></svg>Alles aus Monatlich</li><li><svg class="i"><use href="#i-check"/></svg>Ein ganzes Schuljahr Ruhe</li><li><svg class="i"><use href="#i-check"/></svg>Neue Spiele automatisch inklusive</li></ul>
-          <button class="b3d wide" data-start data-plan="y">7 Tage kostenlos testen <svg class="i"><use href="#i-arrow"/></svg></button>
+          <button class="b3d wide" data-start data-plan="y">3 Tage kostenlos testen <svg class="i"><use href="#i-arrow"/></svg></button>
         </div>
       </div>
       <div class="timeline">
@@ -7174,7 +7215,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
         <div><b>Das Elternkonto gehört Ihnen</b><p>Nur Erwachsene können ein Konto anlegen und ein Abo abschließen. Kinder können nichts kaufen und keine Einstellungen ändern. Löschen geht jederzeit auf Anfrage per E-Mail.</p></div>
         <div class="sbadges"><span><svg class="i"><use href="#i-check"/></svg>Lernstand in der EU</span><span><svg class="i"><use href="#i-check"/></svg>Datenschutz nach DSGVO</span><span><svg class="i"><use href="#i-check"/></svg>Keine Werbung</span><span><svg class="i"><use href="#i-check"/></svg>Jederzeit löschbar</span></div>
       </div>
-      <div class="cband" data-cta><div><b>Sicher lernen mit Max und seinem Team</b><span>Konto für Ihr Kind einrichten, 7 Tage kostenlos testen.</span></div><button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button></div>
+      <div class="cband" data-cta><div><b>Sicher lernen mit Max und seinem Team</b><span>Konto für Ihr Kind einrichten, 3 Tage kostenlos testen.</span></div><button class="b3d lg" data-start>Für mein Kind einrichten <svg class="i"><use href="#i-arrow"/></svg></button></div>
     </div>
   </section>
 </div>
@@ -7241,6 +7282,6 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-14c289f3.js"></script>
+<script defer src="/grundschulmax/gjs/app-03993730.js"></script>
 </body>
 </html>
