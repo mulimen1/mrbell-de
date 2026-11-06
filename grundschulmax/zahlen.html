@@ -317,6 +317,10 @@ td{border-top-color:var(--line)}
     h += '<div class="grid g21">' + card('Woher sie kommen', 'nur mit Einwilligung', qt + '<p class="note">' + fmt(d.sitzungen) + ' Besucher mit Cookie · mittlere Verweildauer ' + dauer(d.dauerMedian) + '. Ohne Cookie wird anonym gezählt, dann ohne Quelle. Alle Anzeigen-Klicks stehen im Meta-Werbeanzeigenmanager.</p>') +
       card('Verlauf', (d.tage || []).length + ' Tage', chart(d.tage)) + '</div>';
     h += '<div class="grid g3">' + card('Einwilligung', '', six([['Cookie ja', ew.ja, 'ok', pc(ew.ja, ewt)], ['Cookie nein', ew.nein, 'bad', pc(ew.nein, ewt)], ['Nicht entschieden', Math.max(0, f0 - ewt), '', '']])) + card('Geräte', '', bars(d.geraete, 4)) + card('Orte', 'nur mit Einwilligung', bars(d.orte, 8)) + '</div>';
+    /* Übungsseiten (Google & Co.) */
+    var U = d.ueben || { seiten: [], wo: [] }, us = U.seiten || [];
+    var ut = Q === 'fb' ? '<div class="empty">Übungsseiten kommen meist über Google, nicht über die Anzeige. Oben auf „Alle Besucher“ stellen.</div>' : us.length ? '<table><tr><th>Seite</th><th class="n">Aufrufe</th><th class="n">Übung gestartet</th><th class="n">Runde fertig</th><th class="n">Arbeitsblatt</th><th class="n">Weiter zur App</th></tr>' + us.map(function (x) { var o = x[1]; return '<tr><td>' + esc(x[0]) + '</td><td class="n">' + fmt(o.auf) + '</td><td class="n">' + fmt(o.start) + ' <span class="s">' + pc(o.start, o.auf) + '</span></td><td class="n">' + fmt(o.fertig) + '</td><td class="n">' + fmt(o.druck) + '</td><td class="n"><b>' + fmt(o.app) + '</b> <span class="s">' + pc(o.app, o.auf) + '</span></td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch keine Aufrufe der Übungsseiten.</div>';
+    h += '<div class="grid">' + card('Übungsseiten', 'grundschulmax.de/ueben', '<div class="tw" style="max-height:none">' + ut + '</div>') + '</div>';
     return h;
   }
 
