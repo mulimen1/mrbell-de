@@ -5719,6 +5719,9 @@ body:has(#ov.on) .view.on *,body:has(#pw.on) .view.on *{animation-play-state:pau
 .lepcta .i{width:16px;height:16px}
 body.dark .lepar{background:#2a2118;box-shadow:inset 0 0 0 2px #5a3a1e}body.dark .lept b{color:#ffe9d6}body.dark .lept ul{color:#d9c3ac}
 @media (max-width:560px){.lepar{padding:10px 12px;gap:10px;margin-bottom:10px}.lept b{font-size:14px}.lept ul{font-size:13px}.lepi{width:32px;height:32px;border-radius:10px}.lepi .i{width:18px;height:18px}}
+/* Cookie-Hinweis immer unten mittig (Handy, Tablet, Laptop) */
+.gcb{left:50%!important;right:auto!important;top:auto!important;bottom:calc(16px + env(safe-area-inset-bottom))!important;translate:-50% 0!important;width:min(460px,calc(100vw - 32px))!important;animation-name:gcbIn2!important}
+.gcb.out{translate:-50% 20px!important}
 /* ===== Hausaufgaben: stabile Karten, Bibliothek mit Spielen und Probetests, Arbeitsblatt mit Prüfen und Hilfe je Aufgabe ===== */
 
 /* Ergebnisbereich: hoch genug, damit beim Wechsel der vier Knöpfe nichts springt */
