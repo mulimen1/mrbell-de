@@ -139,53 +139,56 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
  .stand{order:9;width:100%}}
 @media (max-width:520px){.g2,.g3{grid-template-columns:1fr}.tri b{font-size:20px}.seg button{padding:0 9px}}
 
-/* ===== Grundschulmax-Look ===== */
-@font-face{font-family:Grund;src:url(/grundschulmax/grund.woff2) format('woff2');font-display:swap}
-:root{--bg:#fff3e2;--card:#fff;--line:#f4e2c8;--line2:#efd3ad;--ink:#2a1a08;--ink2:#4a3418;--mute:#9a7b55;--dim:#e8d2b4;--acc:#ff7b2c;--vio:#ff4f8b;--ok:#1f9d55;--bad:#e5484d;--r:24px}
-html,body{background:#fff3e2}
-body{background:radial-gradient(1200px 500px at 85% -10%,#ffe0b8 0,transparent 60%),radial-gradient(900px 400px at -10% 10%,#ffeacc 0,transparent 55%),#fff3e2}
-.top{background:linear-gradient(135deg,#ffb627,#ff7b2c);border-bottom:0;box-shadow:0 6px 0 #e0621a,0 14px 30px -12px rgba(200,90,10,.5)}
-.brand img{width:46px;height:46px;border-radius:16px;box-shadow:0 3px 0 rgba(150,60,0,.35)}
-.brand b{font-family:Grund,G,sans-serif;font-weight:400;font-size:26px;color:#fff;letter-spacing:.01em;text-shadow:0 2px 0 rgba(150,60,0,.35)}
-.brand b em{font-style:normal;color:#3a2200;text-shadow:none}
-.brand small{color:rgba(255,255,255,.85);letter-spacing:.08em}
-.stand{color:rgba(255,255,255,.9)}
-.seg{background:rgba(255,255,255,.22);border:0;box-shadow:inset 0 0 0 2px rgba(255,255,255,.35)}
-.seg button{color:#fff;font-weight:800}
-.seg button.on{background:#fff;color:#d9601c;box-shadow:0 3px 0 rgba(150,60,0,.25)}
-.qseg button.on{background:#fff;color:#1877f2}
-.ib{background:#fff;border:0;color:#d9601c;font-weight:800;box-shadow:0 3px 0 rgba(150,60,0,.25)}
+/* ===== Look wie die Startseite: weiß, kräftige Akzente ===== */
+:root{--bg:#fff;--card:#fff;--line:#eceef7;--line2:#e3e6f5;--ink:#161a3a;--ink2:#2a3150;--mute:#5a6083;--dim:#c9cde3;--acc:#2f7bff;--vio:#8a4dff;--pink:#ff4f9a;--ok:#19b36b;--bad:#ef3e5c;--warn:#f08a1c;--r:24px}
+html,body{background:#fff}
+body{background:radial-gradient(700px 360px at 6% 0%,#e7edff 0,transparent 70%),radial-gradient(640px 340px at 96% 4%,#ffe6f2 0,transparent 70%),radial-gradient(800px 400px at 50% 100%,#e6f8f1 0,transparent 72%) fixed,#fff}
+.top{background:rgba(255,255,255,.96);-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:0;box-shadow:0 1px 0 rgba(22,26,58,.07),0 10px 28px -18px rgba(22,26,58,.35)}
+.brand{gap:12px}
+.brand img{width:44px;height:44px;border-radius:50%;background:linear-gradient(160deg,#3b7bff,#1a4fd6);box-shadow:0 6px 14px -6px rgba(47,123,255,.8)}
+.brand b{font-weight:900;font-size:22px;letter-spacing:-.03em;color:var(--ink)}
+.brand b em{font-style:normal;background:linear-gradient(90deg,#2f7bff,#8a4dff 55%,#ff4f9a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{color:var(--mute);letter-spacing:.08em;font-weight:750}
+.stand{color:var(--mute)}
+.seg{background:#f4f5fb;border:0;box-shadow:inset 0 0 0 1.5px var(--line2)}
+.seg button{color:var(--ink2);font-weight:800}
+.seg button.on{color:#fff;background:linear-gradient(115deg,#2f7bff,#5b5bff 48%,#8a4dff);box-shadow:0 6px 14px -6px rgba(80,70,255,.7)}
+.qseg button.on{background:linear-gradient(115deg,#1877f2,#3b5bff);box-shadow:0 6px 14px -6px rgba(24,119,242,.7)}
+.ib{background:#fff;border:0;color:#5b5bff;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line2),0 3px 0 var(--line2)}
 .tabs{padding-bottom:14px}
-.tabs button{height:40px;border:0;border-radius:14px;background:rgba(255,255,255,.95);color:#8a4a12;font-weight:800;box-shadow:0 4px 0 rgba(150,60,0,.28)}
-.tabs button.on{background:linear-gradient(180deg,#3a2200,#5a3510);color:#fff;box-shadow:0 4px 0 #1c1000}
-.tabs .cn{background:#ffe2c2;color:#a64b0a}.tabs button.on .cn{background:rgba(255,255,255,.2);color:#fff}
-.card{border:0;border-radius:24px;box-shadow:0 5px 0 #f1dcbd,0 18px 30px -22px rgba(160,90,20,.45)}
-.card h2{font-family:Grund,G,sans-serif;font-weight:400;font-size:19px;letter-spacing:.01em;color:#3a2200}
-.hd small{color:#b0865a}
-.kpi .l{color:#a07a4c;font-weight:700}
-.kpi .v{font-weight:850;font-size:36px;letter-spacing:-.03em}
-.k8>.kpi:nth-child(8n+1) .v{color:#1a5fc4}.k8>.kpi:nth-child(8n+2) .v{color:#e2561a}.k8>.kpi:nth-child(8n+3) .v{color:#5b3fc4}.k8>.kpi:nth-child(8n+4) .v{color:#c8336f}
-.k8>.kpi:nth-child(8n+5) .v{color:#0e7f8e}.k8>.kpi:nth-child(8n+6) .v{color:#1f8a4c}.k8>.kpi:nth-child(8n+7) .v{color:#d18e06}.k8>.kpi:nth-child(8n+8) .v{color:#6b5434}
-.fr .bar{background:#fff1de}
-.fr .bar i{background:linear-gradient(90deg,#ffb627,#ff7b2c)}
-.br .t i{background:#ffe8cc}
-.tri div,.six div{background:#fff5e6;box-shadow:inset 0 0 0 2px #fbe6c8}
-.sec{font-family:Grund,G,sans-serif;font-weight:400;font-size:16px;letter-spacing:.04em;text-transform:none;color:#c2621c}
-.acc{border:0;box-shadow:0 5px 0 #f1dcbd}
-.acc .av{font-weight:850;background:linear-gradient(180deg,#ffb627,#ff7b2c);box-shadow:0 3px 0 #c8561a}
-.acc.ben .av{background:linear-gradient(180deg,#c9b9a4,#9a876e);box-shadow:0 3px 0 #7a6a55}
-.accb{background:#fff8ee}
-.pill{background:#e6f7ec;color:#1f8a4c}.pill.m{background:#fff1de;color:#b0700a}
-th{color:#b0865a}
-.gate h1{font-family:Grund,G,sans-serif;font-weight:400;color:#3a2200}
-.gate a{background:linear-gradient(180deg,#ffb627,#ff7b2c);box-shadow:0 4px 0 #c8561a}
-.skel{background:linear-gradient(90deg,#fde6c6,#fff3e2,#fde6c6);background-size:200% 100%}
-@media (max-width:720px){.brand b{font-size:19px}.kpi .v{font-size:30px}}
+.tabs button{height:40px;border:0;border-radius:14px;background:#fff;color:var(--ink2);font-weight:800;box-shadow:inset 0 0 0 1.5px var(--line2),0 3px 0 var(--line2)}
+.tabs button.on{color:#fff;background:linear-gradient(115deg,#2f7bff,#5b5bff 48%,#8a4dff);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 4px 0 #3a2db5,0 12px 24px -10px rgba(80,70,255,.65)}
+.tabs .cn{background:#eef1ff;color:#4b4bd8}.tabs button.on .cn{background:rgba(255,255,255,.25);color:#fff}
+.card{border:0;border-radius:24px;box-shadow:inset 0 0 0 1.5px var(--line),0 18px 34px -26px rgba(60,60,160,.5)}
+.card h2{font-weight:900;font-size:18px;letter-spacing:-.02em;color:var(--ink)}
+.hd small{color:var(--mute)}
+.kpi .l{color:var(--mute);font-weight:750}
+.kpi .v{font-weight:900;font-size:36px;letter-spacing:-.035em;background:linear-gradient(160deg,color-mix(in srgb,var(--c,#2f7bff) 70%,#fff),var(--c,#2f7bff));-webkit-background-clip:text;background-clip:text;color:transparent}
+.k8>.kpi:nth-child(8n+1),.k6>.kpi:nth-child(6n+1){--c:#2f7bff}.k8>.kpi:nth-child(8n+2),.k6>.kpi:nth-child(6n+2){--c:#8a4dff}.k8>.kpi:nth-child(8n+3),.k6>.kpi:nth-child(6n+3){--c:#ff4f9a}.k8>.kpi:nth-child(8n+4),.k6>.kpi:nth-child(6n+4){--c:#19b36b}
+.k8>.kpi:nth-child(8n+5),.k6>.kpi:nth-child(6n+5){--c:#0bb3c0}.k8>.kpi:nth-child(8n+6),.k6>.kpi:nth-child(6n+6){--c:#f08a1c}.k8>.kpi:nth-child(8n+7){--c:#5b5bff}.k8>.kpi:nth-child(8n+8){--c:#e3367c}
+.fr .bar{background:#f2f4fc}
+.fr .bar i{background:linear-gradient(90deg,#2f7bff,#8a4dff 60%,#ff4f9a)}
+.br .t i{background:linear-gradient(90deg,#e6ecff,#f1e8ff)}
+.tri div,.six div{background:#f7f8ff;box-shadow:inset 0 0 0 1.5px var(--line)}
+.sec{font-weight:900;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:#6a4cff;display:flex;align-items:center;gap:8px}
+.sec::before{content:"";width:7px;height:7px;border-radius:50%;background:#6a4cff;box-shadow:0 0 0 3px #e4ddff}
+.acc{border:0;box-shadow:inset 0 0 0 1.5px var(--line),0 14px 28px -24px rgba(60,60,160,.5)}
+.acc .av{font-weight:900;background:linear-gradient(150deg,#2f7bff,#8a4dff);box-shadow:0 8px 16px -8px rgba(90,70,255,.7)}
+.acc.ben .av{background:linear-gradient(150deg,#b8bdd6,#8a90b0);box-shadow:none}
+.accb{background:#f9faff;border-top-color:var(--line)}
+.pill{background:#e6f8ef;color:#0f7a4a}.pill.m{background:#f2f3f9;color:var(--mute)}
+th{color:var(--mute)}
+td{border-top-color:var(--line)}
+.dist{background:#f2f4fc}
+.gate h1{font-weight:900;color:var(--ink)}
+.gate a{background:linear-gradient(115deg,#2f7bff,#8a4dff);box-shadow:0 4px 0 #3a2db5}
+.skel{background:linear-gradient(90deg,#eef1fb,#f8f9ff,#eef1fb);background-size:200% 100%}
+@media (max-width:720px){.brand b{font-size:19px}.brand img{width:38px;height:38px}.kpi .v{font-size:30px}}
 </style>
 </head>
 <body>
 <div class="top"><div class="top-in">
-  <div class="brand"><img src="/grundschulmax/max-96.png" alt=""><div><b>Grundschul<em>max</em> Zahlen</b><small>Nur für Ben</small></div></div>
+  <div class="brand"><img src="/grundschulmax/tut-max-128.webp" alt=""><div><b>Grundschul<em>max</em> Zahlen</b><small>Nur für Ben</small></div></div>
   <div class="sp"></div>
   <div class="seg" id="seg"><button data-z="alle">Gesamt</button><button data-z="30">30 Tage</button><button data-z="7">7 Tage</button><button data-z="heute">Heute</button></div>
   <div class="seg qseg" id="qseg"><button data-q="fb">Nur Facebook</button><button data-q="alle">Alle Besucher</button></div>
