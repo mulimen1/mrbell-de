@@ -38,6 +38,18 @@ button{font:inherit;color:inherit}
 .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .g21{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.k8{grid-template-columns:repeat(4,minmax(0,1fr))}
+.sec{margin:28px 2px 0;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mute)}
+.sub2{margin:14px 0 8px;font-size:13px;font-weight:700}
+.tw{overflow:auto;max-height:640px}
+.tw table{min-width:860px}
+.tw th{position:sticky;top:0;background:var(--card);z-index:1}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11.5px;font-weight:700;background:#eef6ee;color:var(--ok)}
+.pill.m{background:#f2efe8;color:var(--mute)}
+.six{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.six div{background:#f7f3ec;border-radius:14px;padding:10px 12px}
+.six b{display:block;font-size:22px;letter-spacing:-.03em}
+.six small{color:var(--mute);font-weight:600;font-size:12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;min-width:0;overflow:hidden}
 .card h2{margin:0;font-size:15px;font-weight:700;letter-spacing:-.01em}
 .hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
@@ -50,6 +62,7 @@ button{font:inherit;color:inherit}
 .fr .lb{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fr .bar{height:26px;border-radius:9px;background:#f4efe6;position:relative;overflow:hidden}
 .fr .bar i{position:absolute;inset:0 auto 0 0;border-radius:9px;background:linear-gradient(90deg,var(--acc),var(--vio));min-width:3px}
+.fr .bar span.o{color:var(--ink);text-shadow:none}
 .fr .bar span{position:absolute;left:10px;top:50%;translate:0 -50%;font-weight:700;font-size:12.5px;color:#fff;mix-blend-mode:normal;text-shadow:0 1px 2px rgba(0,0,0,.25)}
 .fr .pc{text-align:right;font-weight:700}
 .fr .dr{text-align:right;font-weight:700;color:var(--bad)}
@@ -93,7 +106,7 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
 .skel{height:120px;border-radius:var(--r);background:linear-gradient(90deg,#ece6db,#f6f2ea,#ece6db);background-size:200% 100%;animation:sk 1.2s infinite}
 @keyframes sk{to{background-position:-200% 0}}
 .err{background:#fff1f0;border:1px solid #f6c6c3;color:#9b1c1c;border-radius:14px;padding:10px 14px;font-size:13.5px;margin-top:var(--gap)}
-@media (max-width:1100px){.k6{grid-template-columns:repeat(3,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.g21{grid-template-columns:1fr}}
+@media (max-width:1100px){.k8{grid-template-columns:repeat(2,minmax(0,1fr))}.k6{grid-template-columns:repeat(3,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.g21{grid-template-columns:1fr}}
 @media (max-width:720px){.top-in{padding:10px 16px}.wrap{padding:12px 16px 60px}.k6,.g2,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.g2>.wide,.g3>.wide{grid-column:1/-1}.kpi .v{font-size:26px}
  .fr{grid-template-columns:minmax(0,1fr) 54px 54px;row-gap:4px}.fr .bar{grid-column:1/-1;order:5}.fr .u{display:none}.fr.fh{display:none}
  .stand{order:9;width:100%}}
@@ -118,7 +131,7 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var fmt = function (n) { return (+n || 0).toLocaleString('de-DE'); };
   var pct = function (a, b) { return b ? Math.round(a / b * 1000) / 10 : 0; };
-  var pc = function (a, b) { return b ? String(pct(a, b)).replace('.', ',') + ' %' : '–'; };
+  var pc = function (a, b) { a = +a || 0; b = +b || 0; return b ? String(pct(a, b)).replace('.', ',') + ' %' : '–'; };
   var ls = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
   var Z = ls.get('gsmz.z') || '7', timer = 0, busy = false;
   // Interne Besuche ausschließen (Cookie wird von der Middleware geprüft)
@@ -175,37 +188,98 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
     return '<div class="chart"><svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">' + s + '</svg></div><div class="leg"><span style="--c:#1a5fc4">Besuche</span><span style="--c:#6c4fe0">Ausprobieren</span><span style="--c:#16a05c">Erste Lektion</span><span style="--c:#e08a12">Abos</span></div>';
   }
   function zeitHM(t) { var d = new Date(t), now = new Date(), hm = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }); return d.toDateString() === now.toDateString() ? hm : d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Berlin' }) + '<br>' + hm; }
+  var NM = { home: 'Abenteuer', path: 'Lernpfad', games: 'Spiele', hw: 'Hausaufgaben', test: 'Probetest', play: 'Spielen',
+    lena: 'Lena', jonas: 'Jonas', mia: 'Mia', amara: 'Amara', luca: 'Luca', noah: 'Noah',
+    schueler: 'Schüler', astro: 'Astronaut', fuss: 'Fußballer', polizei: 'Polizist', feuer: 'Feuerwehr', arzt: 'Arzt', forsch: 'Forscher', koch: 'Koch', kunst: 'Künstler', pilot: 'Pilot',
+    dog: 'Hund', cat: 'Katze', fox: 'Fuchs', rabbit: 'Hase', panda: 'Panda', turtle: 'Schildkröte', owl: 'Eule', raccoon: 'Waschbär' };
+  var nm = function (v) { return NM[v] || v; };
+  var nl = function (list) { return (list || []).map(function (x) { return [nm(x[0]), x[1]]; }); };
+  function sub(t) { return '<div class="sub2">' + esc(t) + '</div>'; }
+  function sec(t) { return '<div class="sec">' + esc(t) + '</div>'; }
+  function six(list) { return '<div class="six">' + list.map(function (x) { return '<div><small>' + esc(x[0]) + '</small><b class="' + (x[2] || '') + '">' + fmt(x[1]) + '</b>' + (x[3] ? '<small>' + x[3] + '</small>' : '') + '</div>'; }).join('') + '</div>'; }
+  function datum(t) { if (!t) return '–'; var d = new Date(t); if (isNaN(d)) return esc(t); return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Berlin' }) + ' ' + d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }); }
+  function tag(s) { return s ? s.slice(8, 10) + '.' + s.slice(5, 7) + '.' : '–'; }
   function draw(d) {
-    var F = d.funnel || [], f0 = (F[0] && F[0].n) || 0, get = function (e) { var x = F.find(function (y) { return y.e === e; }); return x ? x.n : 0; };
+    var F = d.funnel || [], P = d.pfad && d.pfad.length ? d.pfad : F, f0 = (P[0] && P[0].n) || 0;
+    var get = function (e) { var x = P.find(function (y) { return y.e === e; }) || F.find(function (y) { return y.e === e; }); return x ? x.n : 0; };
+    var uOf = function (e) { var x = F.find(function (y) { return y.e === e; }); return x && x.u != null ? x.u : null; };
     var ew = d.einwilligung || { ja: 0, nein: 0 }, ewt = ew.ja + ew.nein;
-    var k = function (l, v, sub) { return '<section class="card kpi"><div class="l">' + esc(l) + '</div><div class="v">' + v + '</div><div class="d">' + (sub || '') + '</div></section>'; };
-    var h = '<div class="grid k6">' +
+    var q = d.quellen || [], fb = q.filter(function (x) { return /facebook|instagram|meta/i.test(x[0]); }).reduce(function (a, x) { return a + (x[1].s || 0); }, 0);
+    var L = d.lobby || {}, A = d.angebot || {};
+    var k = function (l, v, sb) { return '<section class="card kpi"><div class="l">' + esc(l) + '</div><div class="v">' + v + '</div><div class="d">' + (sb || '') + '</div></section>'; };
+    var h = '<div class="grid k8">' +
       k('Besuche', fmt(f0), 'Aufrufe der Startseite') +
-      k('Ausprobieren', fmt(get('Ausprobieren geklickt')), pc(get('Ausprobieren geklickt'), f0) + ' der Besuche') +
-      k('Erste Lektion fertig', fmt(get('Erste Lektion fertig')), pc(get('Erste Lektion fertig'), get('Erste Lektion gestartet')) + ' der Gestarteten') +
+      k('Von Facebook / Instagram', fmt(fb), 'nur Besucher mit Cookie') +
+      k('Ausprobieren geklickt', fmt(get('Ausprobieren geklickt')), pc(get('Ausprobieren geklickt'), f0) + ' der Besuche') +
+      k('In der Lobby', fmt(L.auf || get('Lobby geöffnet')), pc(L.auf || get('Lobby geöffnet'), f0) + ' der Besuche') +
+      k('Angebot angesehen', fmt(A.auf || 0), pc(A.auf || 0, f0) + ' der Besuche') +
       k('Abos', fmt(get('Abo abgeschlossen')), pc(get('Abo abgeschlossen'), f0) + ' der Besuche') +
-      k('Neue Konten', fmt(get('Konto erstellt')), '') +
-      k('Cookie erlaubt', ewt ? pc(ew.ja, ewt) : '–', fmt(ew.ja) + ' ja · ' + fmt(ew.nein) + ' nein') + '</div>';
-    // Trichter
-    var fr = '<div class="fun"><div class="fr fh"><div>Schritt</div><div class="bar"></div><div class="pc">vom Start</div><div class="dr">Absprung</div><div class="u">Personen*</div></div>';
-    F.forEach(function (x, i) {
-      var prev = i ? F[i - 1].n : 0, drop = i && prev ? Math.max(0, Math.round((1 - x.n / prev) * 100)) : 0;
-      fr += '<div class="fr"><div class="lb" title="' + esc(x.e) + '">' + esc(x.e) + '</div><div class="bar"><i style="width:' + (f0 ? Math.max(.6, Math.min(100, x.n / f0 * 100)) : 0) + '%"></i><span>' + fmt(x.n) + '</span></div><div class="pc">' + (i ? pc(x.n, f0) : '100 %') + '</div><div class="dr' + (i && drop ? '' : ' z') + '">' + (i ? (prev ? '−' + drop + ' %' : '–') : '') + '</div><div class="u">' + fmt(x.u) + '</div></div>';
+      k('Neue Konten', fmt(d.kontenNeu != null ? d.kontenNeu : get('Konto erstellt')), fmt((d.konten || []).length) + ' Konten insgesamt') +
+      k('Cookie erlaubt', ewt ? pc(ew.ja, ewt) : '–', fmt(ew.ja) + ' ja · ' + fmt(ew.nein) + ' nein (sonst anonym)') + '</div>';
+
+    // 1. Der Weg
+    h += sec('Der Weg: wo sie abspringen');
+    var fr = '<div class="fun"><div class="fr fh"><div>Schritt</div><div class="bar"></div><div class="pc">vom Start</div><div class="dr">Absprung</div><div class="u">mit Cookie</div></div>';
+    P.forEach(function (x, i) {
+      var prev = i ? P[i - 1].n : 0, drop = i && prev ? Math.max(0, Math.round((1 - x.n / prev) * 100)) : 0, u = uOf(x.e), w = f0 ? Math.max(.6, Math.min(100, x.n / f0 * 100)) : 0, up = i && prev && x.n >= prev;
+      fr += '<div class="fr"><div class="lb" title="' + esc(x.e) + '">' + esc(x.l || x.e) + '</div><div class="bar"><i style="width:' + w + '%"></i><span' + (w < 14 ? ' class="o" style="left:calc(' + w + '% + 8px)"' : '') + '>' + fmt(x.n) + '</span></div><div class="pc">' + (i ? pc(x.n, f0) : '100 %') + '</div><div class="dr' + (i && drop && !up ? '' : ' z') + '">' + (i ? (prev && !up ? '−' + drop + ' %' : '–') : '') + '</div><div class="u">' + (u == null ? '' : fmt(u)) + '</div></div>';
     });
-    fr += '</div><p class="note">Jeder Schritt zählt höchstens einmal pro Seitenaufruf. „Absprung“ ist der Anteil, der vom Schritt davor nicht weiterkommt. *Personen: nur Besucher mit erlaubtem Cookie, deshalb kleiner.</p>';
-    h += '<div class="grid g21">' + card('Vom Besuch zum Abo', 'wo sie abspringen', fr) + card('Verlauf', (d.tage || []).length + ' Tage', chart(d.tage)) + '</div>';
-    // Quellen
-    var q = d.quellen || [], qt = q.length ? '<table><tr><th>Quelle</th><th class="n">Besucher</th><th class="n">1. Lektion</th><th class="n">Fertig</th><th class="n">Probe zu Ende</th><th class="n">Abo</th></tr>' + q.map(function (x) { var o = x[1]; return '<tr><td>' + esc(x[0]) + '</td><td class="n">' + fmt(o.s) + '</td><td class="n">' + fmt(o.lek) + ' <span class="s">' + pc(o.lek, o.s) + '</span></td><td class="n">' + fmt(o.fertig) + ' <span class="s">' + pc(o.fertig, o.s) + '</span></td><td class="n">' + fmt(o.probe) + '</td><td class="n ok">' + fmt(o.abo) + ' <span class="s">' + pc(o.abo, o.s) + '</span></td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch keine Besucher mit erlaubtem Cookie.</div>';
-    h += '<div class="grid g2">' + card('Woher sie kommen', 'nur mit Einwilligung', qt + '<p class="note">' + fmt(d.sitzungen) + ' Besucher mit Cookie · mittlere Verweildauer ' + dauer(d.dauerMedian) + '</p>', 'wide') + card('Orte', 'nur mit Einwilligung', bars(d.orte, 10)) + '</div>';
-    // Erste Lektion / erstes Spiel
+    fr += '</div><p class="note">Jeder Schritt zählt höchstens einmal pro Seitenaufruf. „Absprung“: Anteil, der vom Schritt davor nicht weiterkommt („–“: kein fester Vorgänger, z. B. Angebot ohne Probe-Ende). Gezählt werden alle Besucher, auch anonyme ohne Cookie.</p>';
+    h += '<div class="grid g21">' + card('Vom Besuch zum Abo', P.length + ' Schritte', fr) + card('Verlauf', (d.tage || []).length + ' Tage', chart(d.tage) + sub('Woher (mit Cookie)') + bars(q.map(function (x) { return [x[0], x[1].s || 0]; }), 6) + sub('Klasse gewählt') + bars(d.klassen, 4) + sub('Geräte') + bars(d.geraete, 4)) + '</div>';
+
+    // 2. Tag für Tag
+    var T = d.tage2 || [], cols = [['b', 'Besuche'], ['a', 'Ausprobieren'], ['k', 'Klasse'], ['lo', 'Lobby'], ['l', '1. Lektion'], ['an', 'Angebot'], ['za', 'Zur Zahlung'], ['z', 'Abo'], ['ko', 'Konto']];
+    var sum = {}; T.forEach(function (t) { cols.forEach(function (c) { sum[c[0]] = (sum[c[0]] || 0) + (t[1][c[0]] || 0); }); });
+    var tt = T.length ? '<div class="tw"><table><tr><th>Tag</th>' + cols.map(function (c) { return '<th class="n">' + c[1] + '</th>'; }).join('') + '</tr>' +
+      T.map(function (t) { var d0 = new Date(t[0] + 'T12:00:00'); return '<tr><td><b>' + d0.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + '</b></td>' + cols.map(function (c) { var v = t[1][c[0]] || 0; return '<td class="n' + (c[0] === 'z' && v ? ' ok' : '') + '">' + (v ? fmt(v) : '<span class="s">0</span>') + '</td>'; }).join('') + '</tr>'; }).join('') +
+      (T.length > 1 ? '<tr><td><b>Summe</b></td>' + cols.map(function (c) { return '<td class="n"><b>' + fmt(sum[c[0]] || 0) + '</b></td>'; }).join('') + '</tr>' : '') + '</table></div>' : '<div class="empty">Noch keine Daten.</div>';
+    h += '<div class="grid">' + card('Tag für Tag', 'neuester Tag oben', tt) + '</div>';
+
+    // 3. Woher
+    h += sec('Woher sie kommen');
+    var qt = q.length ? '<table><tr><th>Quelle</th><th class="n">Besucher</th><th class="n">1. Lektion</th><th class="n">Fertig</th><th class="n">Probe zu Ende</th><th class="n">Abo</th></tr>' + q.map(function (x) { var o = x[1]; return '<tr><td>' + esc(x[0]) + '</td><td class="n">' + fmt(o.s) + '</td><td class="n">' + fmt(o.lek) + ' <span class="s">' + pc(o.lek, o.s) + '</span></td><td class="n">' + fmt(o.fertig) + ' <span class="s">' + pc(o.fertig, o.s) + '</span></td><td class="n">' + fmt(o.probe) + '</td><td class="n ok">' + fmt(o.abo) + ' <span class="s">' + pc(o.abo, o.s) + '</span></td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch keine Besucher mit erlaubtem Cookie.</div>';
+    h += '<div class="grid g2">' + card('Quellen', 'nur mit Einwilligung', qt + '<p class="note">' + fmt(d.sitzungen) + ' Besucher mit Cookie · mittlere Verweildauer ' + dauer(d.dauerMedian) + '. Ohne Cookie wird nur anonym gezählt (ohne Quelle). Alle Anzeigen-Klicks stehen im Meta-Werbeanzeigenmanager.</p>', 'wide') +
+      card('Einwilligung und Orte', '', six([['Cookie ja', ew.ja, 'ok', pc(ew.ja, ewt)], ['Cookie nein', ew.nein, 'bad', pc(ew.nein, ewt)], ['Startseite gesehen', f0, '', '']]) + sub('Orte (nur mit Einwilligung)') + bars(d.orte, 10)) + '</div>';
+
+    // 4. Startseite
+    h += sec('Startseite');
+    h += '<div class="grid g3">' + card('Klicks auf der Startseite', 'Top 25', bars(d.klicks, 25)) +
+      card('Sicherheit, Datenschutz und Co.', 'Infoseiten geöffnet', bars(d.info, 10) + sub('Rechtstexte') + bars(d.recht, 6)) +
+      card('Wo sie die Seite verlassen', '', sub('Startseite gescrollt') + bars(d.scroll, 4) + sub('Ausstieg nach Bildschirm und Zeit') + bars(d.verlassen, 14) + sub('Weg und zurückgekommen') + bars(d.weg, 6)) + '</div>';
+
+    // 5. Lobby
+    h += sec('Lobby');
     h += '<div class="grid g3">' +
-      card('Erste Lektion', 'Probe', tri(d.ersteLektion || { s: 0, f: 0, a: 0 }) + '<div class="hd" style="margin:4px 0 8px"><h2 style="font-size:13px">Wo abgebrochen</h2></div>' + bars(d.ersteAbbruch, 8)) +
-      card('Erstes Spiel', 'im Abo', tri(d.ersteSpiel || { s: 0, f: 0, a: 0 }) + '<div class="hd" style="margin:4px 0 8px"><h2 style="font-size:13px">Wo abgebrochen</h2></div>' + bars(d.ersteSpielAbbruch, 8)) +
-      card('Tutorial', 'erster Besuch', bars(d.tutorial, 6) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Klasse</h2></div>' + bars(d.klassen, 4)) + '</div>';
+      card('Lobby', 'wie lange sie bleiben', six([['Geöffnet', L.auf || 0, '', ''], ['Aufgaben abgeholt', L.aufgaben || 0, 'ok', ''], ['Einrichten geklickt', L.einrichten || 0, '', '']]) + sub('Aufenthalt pro Besuch') + bars(L.zeit, 7) + sub('Klasse gewählt') + bars(d.klassen, 4)) +
+      card('Was sie in der Lobby machen', '', sub('Spielen gedrückt') + bars(nl(L.spielen), 6) + sub('Bereich geöffnet') + bars(nl(L.bereiche), 8) + sub('Tour') + bars(L.tour, 6) + (L.fehler ? '<p class="note bad">' + fmt(L.fehler) + '× Lobby konnte nicht laden (Ersatzbild gezeigt)</p>' : '')) +
+      card('Figuren, Berufe, Tiere', '', sub('Figur gewählt') + bars(nl(L.figuren), 8) + sub('Beruf gewechselt') + bars(nl(L.berufe), 8) + sub('Haustier gewählt') + bars(nl(L.haustiere), 8) + sub('Level erreicht') + bars(L.level, 10)) + '</div>';
+
+    // 6. Angebot
+    h += sec('Angebot und Abo');
+    h += '<div class="grid g3">' +
+      card('Angebot', 'Abo-Fenster', six([['Angesehen', A.auf || 0, '', pc(A.auf, f0) + ' der Besuche'], ['Weiter zum Test', (A.gewaehlt || []).reduce(function (a, x) { return a + x[1]; }, 0), '', ''], ['Zur Zahlung', A.zahlung || 0, '', pc(A.zahlung, A.auf)], ['Zahlung abgebrochen', A.abbruch || 0, 'bad', pc(A.abbruch, A.zahlung)], ['Abo abgeschlossen', A.abo || 0, 'ok', pc(A.abo, A.auf)], ['Geschlossen', A.zu || 0, '', pc(A.zu, A.auf)]])) +
+      card('Welcher Tarif', '', sub('Angetippt') + bars(A.angetippt, 4) + sub('Weiter zum Test mit') + bars(A.gewaehlt, 4) + sub('Alle Abo-Schritte') + bars(d.abo, 12)) +
+      card('Wo das Angebot aufging', '', bars(A.wo, 10) + sub('Konto') + bars(d.konto, 6)) + '</div>';
+
+    // 7. Konten
+    h += sec('Konten');
+    var K = d.konten || [];
+    var kt = K.length ? '<div class="tw"><table><tr><th>Erstellt</th><th>E-Mail</th><th>Kind</th><th class="n">Klasse</th><th>Figur</th><th>Beruf</th><th class="n">Lektionen</th><th class="n">Minuten</th><th>Abo</th><th>Passwort</th><th>Zuletzt aktiv</th></tr>' +
+      K.map(function (x) { return '<tr><td>' + datum(x.erstellt) + '</td><td><b>' + esc(x.email) + '</b></td><td>' + esc(x.kind || '–') + '</td><td class="n">' + esc(x.klasse || '–') + '</td><td>' + esc(nm(x.figur) || '–') + '</td><td>' + esc(nm(x.beruf) || '–') + '</td><td class="n">' + fmt(x.lektionen) + '</td><td class="n">' + fmt(x.minuten) + '</td><td>' + (x.abo ? '<span class="pill">' + esc(x.abo) + '</span>' : '<span class="pill m">Probe</span>') + '</td><td>' + (x.passwort ? 'ja' : '–') + '</td><td>' + (x.letzterTag ? tag(x.letzterTag) : datum(x.aktiv)) + '</td></tr>'; }).join('') + '</table></div>' : '<div class="empty">Noch keine Konten.</div>';
+    h += '<div class="grid">' + card('Alle Konten', fmt(K.length) + ' insgesamt · ' + fmt(d.kontenNeu || 0) + ' neu im Zeitraum · ' + fmt(d.kontenAbo || 0) + ' mit Abo', kt) + '</div>';
+
+    // 8. Lernen
+    h += sec('Lernen und Spielen');
+    h += '<div class="grid g3">' +
+      card('Erste Lektion', 'Probe', tri(d.ersteLektion || { s: 0, f: 0, a: 0 }) + sub('Wo abgebrochen') + bars(d.ersteAbbruch, 8)) +
+      card('Erstes Spiel', 'im Abo', tri(d.ersteSpiel || { s: 0, f: 0, a: 0 }) + sub('Wo abgebrochen') + bars(d.ersteSpielAbbruch, 8)) +
+      card('Tutorial', 'erster Besuch', bars(d.tutorial, 6) + sub('Hausaufgaben-Hilfe') + bars(d.hausaufgaben, 6)) + '</div>';
     h += '<div class="grid g2">' + card('Spiele', '', sfa(d.spiele, 'Spiel')) + card('Lektionen', 'nach Fach', sfa(d.lektionen, 'Fach')) + '</div>';
-    h += '<div class="grid g3">' + card('Abo-Schritte', '', bars(d.abo, 12)) + card('Konto', '', bars(d.konto, 6) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Hausaufgaben-Hilfe</h2></div>' + bars(d.hausaufgaben, 6)) + card('Fächer und Bereiche', '', bars(d.faecher, 6) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Bereiche</h2></div>' + bars(d.bereiche, 8)) + '</div>';
-    h += '<div class="grid g3">' + card('Klicks', 'Top 25', bars(d.klicks, 25)) + card('Wo sie die Seite verlassen', '', '<div class="hd" style="margin:0 0 8px"><h2 style="font-size:13px">Startseite gescrollt</h2></div>' + bars(d.scroll, 4) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Ausstieg nach Bildschirm und Zeit</h2></div>' + bars(d.verlassen, 14) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Weg und zurückgekommen</h2></div>' + bars(d.weg, 6) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Rechtstexte geöffnet</h2></div>' + bars(d.recht, 6)) + card('Geräte', '', bars(d.geraete, 4) + '<div class="hd" style="margin:14px 0 8px"><h2 style="font-size:13px">Alle Ereignisse</h2></div>' + bars(d.events, 40)) + '</div>';
+    h += '<div class="grid g2">' + card('Fächer und Bereiche', '', bars(d.faecher, 6) + sub('Bereiche') + bars(d.bereiche, 8)) + card('Geräte', '', bars(d.geraete, 4) + sub('Alle Ereignisse') + bars(d.events, 40)) + '</div>';
+
+    // 9. Live
     var fd = (d.feed || []).map(function (x) { return '<div class="fe"><time>' + zeitHM(x.t) + '</time><div><b>' + esc(x.e) + '</b>' + (x.d ? ' · ' + esc(x.d) : '') + '<div class="m">' + esc([x.g, x.o, x.q, x.s ? '#' + x.s : ''].filter(Boolean).join(' · ')) + '</div></div></div>'; }).join('');
+    h += sec('Live');
     h += '<div class="grid">' + card('Gerade passiert', 'letzte 60', '<div class="feed">' + (fd || '<div class="empty">Noch nichts passiert.</div>') + '</div>') + '</div>';
     $('#main').innerHTML = h;
     $('#stand').textContent = 'Stand ' + new Date(d.stand).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + ' · ' + fmt(d.gesamt) + ' Ereignisse';
