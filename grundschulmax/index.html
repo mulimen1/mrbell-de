@@ -6224,19 +6224,19 @@ body[data-area="play"] .alobbar{display:none!important}
 }
 /* Lobby-Knopf in der Leiste: der stärkste Knopf – Gold, glänzend, weißes Haus, Lichtstreifen */
 .app .aside .anv.anlobby{--c1:#ffc93a;--c2:#f07a00;position:relative;overflow:hidden;isolation:isolate;color:#fff!important;text-shadow:0 2px 0 rgba(150,60,0,.45);letter-spacing:.2px;
-  background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.12) 46%,rgba(255,255,255,0) 50%),linear-gradient(110deg,#ffc400,#ffe45c 50%,#ffbe0b)!important;
-  box-shadow:0 5px 0 #c27400,0 0 0 3px #fff6c9,0 14px 26px -8px rgba(255,170,0,.9)!important;filter:none!important;text-shadow:0 2px 0 rgba(160,80,0,.55),0 0 8px rgba(160,80,0,.25)!important;animation:lobGlow 2.4s ease-in-out infinite}
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 55%),linear-gradient(110deg,#f0a21a,#f6b437 50%,#ec9612)!important;
+  box-shadow:0 5px 0 #b5640c,0 0 0 3px #fbe3b4,0 10px 18px -12px rgba(190,100,0,.5)!important;filter:none!important;text-shadow:0 2px 0 rgba(140,70,0,.45)!important;animation:none}
 @media (min-width:821px){.app .aside .anv.anlobby{height:66px!important;font-size:20px!important;margin-bottom:16px!important}.app .aside .anv.anlobby .ti{width:44px!important;height:44px!important}.app .aside .anv.anlobby .ti .i{width:26px!important;height:26px!important}}
 @keyframes lobGlow{0%,100%{box-shadow:0 5px 0 #c27400,0 0 0 3px #fff6c9,0 14px 26px -8px rgba(255,170,0,.9)}50%{box-shadow:0 5px 0 #c27400,0 0 0 3px #fff6c9,0 0 22px 2px rgba(255,200,40,.75)}}
-.app .aside .anv.anlobby .ti{background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.55),rgba(255,255,255,.18) 60%)!important;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7),0 2px 6px rgba(150,60,0,.35)!important;border-radius:50%!important}
+.app .aside .anv.anlobby .ti{background:rgba(255,255,255,.18)!important;box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)!important;border-radius:50%!important}
 .app .aside .anv.anlobby .ti .i{color:#fff!important;filter:drop-shadow(0 2px 0 rgba(150,60,0,.45));width:22px;height:22px}
-.app .aside .anv.anlobby::before{content:"";position:absolute;z-index:-1;top:-20%;bottom:-20%;left:-40%;width:28%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);transform:skewX(-18deg);animation:lobShine 3.6s ease-in-out infinite}
+.app .aside .anv.anlobby::before{display:none;content:"";position:absolute;z-index:-1;top:-20%;bottom:-20%;left:-40%;width:28%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);transform:skewX(-18deg);animation:lobShine 3.6s ease-in-out infinite}
 .app .aside .anv.anlobby::after{display:none!important}
 .app .aside .anv.anlobby:hover{filter:brightness(1.06) saturate(1.08)!important}
-.app .aside .anv.anlobby:active{transform:translateY(3px)!important;animation:none;box-shadow:0 2px 0 #c27400,0 0 0 3px #fff6c9!important}
+.app .aside .anv.anlobby:active{transform:translateY(3px)!important;animation:none;box-shadow:0 2px 0 #b5640c,0 0 0 3px #fbe3b4!important}
 @media (max-width:820px){.app .aside .anv.anlobby{position:relative!important;left:auto;z-index:auto;flex:none}}
 @keyframes lobShine{0%,55%{left:-40%}85%,100%{left:120%}}
-#abot [data-b="lobby"] svg{color:#fff!important;background:linear-gradient(180deg,#ffd24a,#f08a00);border-radius:50%;padding:6px;width:34px!important;height:34px!important;margin-top:-14px;box-shadow:0 3px 0 #b65400,0 0 0 3px #fff,0 6px 14px -4px rgba(240,122,0,.8)}
+#abot [data-b="lobby"] svg{color:#fff!important;background:linear-gradient(180deg,#f6b437,#ec9612);border-radius:50%;padding:6px;width:34px!important;height:34px!important;margin-top:-14px;box-shadow:0 3px 0 #b5640c,0 0 0 3px #fff,0 4px 10px -6px rgba(190,100,0,.5)}
 #abot [data-b="lobby"] span{color:#e07800!important;font-weight:900}
 @media (prefers-reduced-motion:reduce){.app .aside .anv.anlobby::before{animation:none;display:none}.app .aside .anv.anlobby{animation:none}}
 
@@ -6331,8 +6331,8 @@ body[data-screen=klasse] .view[data-s=klasse] .sbar .kback{height:44px!important
 
 /* Haustiere in der Sammlung: freigeschaltet in Farbe, gesperrt ausgegraut (nicht schwarz) */
 .lj.lp .ljf img{width:100%;height:100%;object-fit:contain;transform:scale(1.08)}
-.lj.lp.lk .ljf{background:radial-gradient(circle at 50% 35%,#8d8a96,#4d4a57)}
-.lj.lp.lk .ljf img{filter:grayscale(1) brightness(.95) opacity(.6)!important}
+.lj.lp.lk .ljf{background:radial-gradient(circle at 50% 35%,#4b3d6b,#241a3a)}
+.lj.lp.lk .ljf img{filter:brightness(0) opacity(.55)!important}
 
 /* Spam-Hinweis bei Code-Schritten */
 .kspam{display:flex;gap:12px;align-items:flex-start;text-align:left;margin:4px 0 14px;padding:13px 14px;border-radius:16px;background:#fff4d1;border:2px solid #ffc83d;color:#4a3500}
@@ -6791,6 +6791,6 @@ body.dark .pareset:not(.go){background:#3a1f1c;border-color:#7a3a30;color:#ffb3a
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-caf829a8.js"></script>
+<script defer src="/grundschulmax/gjs/app-a4431d43.js"></script>
 </body>
 </html>
