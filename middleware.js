@@ -109,7 +109,8 @@ const GS_EV = ['Seite geöffnet', 'Rechtstext geöffnet', 'Analyse erlaubt', 'An
   'Profil gespeichert', 'Hilfe geöffnet', 'Klick', 'Seite verlassen', 'Lernpfad Level', 'Klasse gewechselt', 'Startseite gescrollt', 'Zurückgekommen',
   'Lobby geöffnet', 'Lobby verlassen', 'Lobby Tour', 'Lobby Spielen', 'Lobby Name gesetzt', 'Lobby Figur gewählt', 'Lobby Haustier gewählt', 'Lobby Beruf gewechselt', 'Lobby Bereich',
   'Lobby Aufgabe abgeholt', 'Lobby Einrichten geklickt', 'Lobby Fehler', 'Level erreicht', 'Zahlung abgebrochen', 'Tarif angetippt', 'Infoseite geöffnet', 'Probetest fertig',
-  'Hausaufgaben-Spiel fertig', 'Fortschritt zurückgesetzt', 'Bildschirm', 'Abgesprungen', 'Eltern-Hinweis gezeigt', 'Eltern-Hinweis geklickt'];
+  'Hausaufgaben-Spiel fertig', 'Fortschritt zurückgesetzt', 'Bildschirm', 'Abgesprungen', 'Eltern-Hinweis gezeigt', 'Eltern-Hinweis geklickt',
+  'Übungsseite geöffnet', 'Übung gestartet', 'Übung gelöst', 'Übung zur App', 'Arbeitsblatt gedruckt'];
 function gsKennung(req) { const m = /(?:^|;\s*)gsm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
 function gsIntern(req) { return /(?:^|;\s*)gsm_intern=1(?:;|$)/.test(req.headers.get('cookie') || '') || /^amsterdam$/i.test(dek(req.headers.get('x-vercel-ip-city')).trim()); }
 function gsQuelle(url, ref) {
@@ -135,6 +136,13 @@ function gsSeite(req, ctx, url, recht) {
   if (req.method !== 'GET' || BOT.test(ua) || !/text\/html/.test(req.headers.get('accept') || '')) return;
   if (/prefetch|prerender/i.test((req.headers.get('sec-purpose') || '') + (req.headers.get('purpose') || ''))) return;
   gsMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht || '', seite: url.pathname.slice(0, 40), quelle: gsQuelle(url, req.headers.get('referer')), geraet: geraet(ua) }, req, ctx);
+}
+/* Übungsseiten (grundschulmax.de/ueben/…): Aufruf zählen, ohne Kennung, wie die Startseite */
+function gsUeben(req, ctx, url, slug) {
+  const ua = req.headers.get('user-agent') || '';
+  if (req.method !== 'GET' || BOT.test(ua) || !/text\/html/.test(req.headers.get('accept') || '')) return;
+  if (/prefetch|prerender/i.test((req.headers.get('sec-purpose') || '') + (req.headers.get('purpose') || ''))) return;
+  gsMelden({ ereignis: 'Übungsseite geöffnet', detail: slug || 'Übersicht', seite: url.pathname.slice(0, 40), quelle: gsQuelle(url, req.headers.get('referer')), geraet: geraet(ua) }, req, ctx);
 }
 async function gsEreignis(req, ctx) {
   if (req.method !== 'POST') return new Response(null, { status: 405 });
@@ -204,6 +212,8 @@ export default async function middleware(req, ctx) {
     if (pfad === '/') { ziel = '/grundschulmax/index.html'; gsSeite(req, ctx, url, ''); }
     else if (pfad === '/zahlen') ziel = '/grundschulmax/zahlen.html';
     else if (/^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(pfad)) { ziel = '/grundschulmax/legal' + pfad + '.html'; gsSeite(req, ctx, url, { impressum: 'Impressum', datenschutz: 'Datenschutz', agb: 'AGB', widerruf: 'Widerruf', kuendigen: 'Kündigen', widerrufen: 'Widerrufen' }[pfad.slice(1)]); }
+    else if (pfad === '/ueben') { ziel = '/grundschulmax/ueben/index.html'; gsUeben(req, ctx, url, ''); }
+    else if (/^\/ueben\/(einmaleins|plus-minus|uhr-lesen|silben|sicher-im-internet)$/.test(pfad)) { const sl = pfad.slice(7); ziel = '/grundschulmax/ueben/' + sl + '.html'; gsUeben(req, ctx, url, sl); }
     else if (pfad === '/robots.txt' || pfad === '/sitemap.xml') ziel = '/grundschulmax' + pfad;
     else if (pfad === '/favicon.ico') ziel = '/grundschulmax/max-96.png';
     if (ziel) return new Response(null, { headers: { 'x-middleware-rewrite': new URL(ziel, url).toString() } });
