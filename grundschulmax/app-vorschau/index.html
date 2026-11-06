@@ -6406,6 +6406,118 @@ body.dark .pareset:not(.go){background:#3a1f1c;border-color:#7a3a30;color:#ffb3a
 .lob :is(.lobme,.lobquest,.lobjobs,.lobic,.lobmode){background:linear-gradient(180deg,rgba(46,28,80,.9),rgba(24,13,44,.94))}
 @media (max-width:820px){.lob .lj:not(.on){background:linear-gradient(180deg,rgba(46,28,80,.88),rgba(24,13,44,.92))}.lob .lobjobs .ljt{background:rgba(24,13,44,.9)}}
 .gklock{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(18,22,40,.82)!important}
+
+/* ===== Startseite: Bereiche unter dem Hero ===== */
+.gsx{position:relative;z-index:2;background:linear-gradient(180deg,#fff7ec 0,#fff3e4 100%);border-radius:36px 36px 0 0;margin-top:-28px;padding-top:6px;color:#2a1a08;box-shadow:0 -10px 30px -12px rgba(120,60,10,.35)}
+.gsx .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.gsx h2{font-weight:900;font-size:clamp(28px,4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:8px 0 12px;color:#2a1a08}
+.gsx h3{font-weight:850;font-size:19px;margin:0 0 6px;color:#2a1a08}
+.gsx p{color:#6b5434;font-size:17px;line-height:1.55;margin:0}
+.gsx-kick{display:inline-block;padding:6px 12px;border-radius:999px;background:#ffe6c7;color:#c2621c;font-weight:850;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.gsx-sec{padding:72px 0}
+.gsx-alt{background:#fff;border-radius:36px;margin:0 12px;box-shadow:0 6px 0 #f3dfc2}
+.gsx-head{text-align:center;max-width:720px;margin:0 auto 34px}
+.gsx-cta{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:34px;text-align:center}
+.gsx-cta span{color:#9a7b55;font-weight:700;font-size:14px}
+/* Vertrauensleiste */
+.gsx-trust{padding:22px 0 10px}
+.gsx-trust .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px}
+.gsx-trust span{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:15px;color:#4a3418}
+.gsx-trust .i{width:22px;height:22px;color:#1f9d55}
+.gsx-de{display:inline-flex;flex-direction:column;width:22px;height:15px;border-radius:3px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.gsx-de i{flex:1}.gsx-de i:nth-child(1){background:#1d1d1d}.gsx-de i:nth-child(2){background:#dd2a2a}.gsx-de i:nth-child(3){background:#ffcc00}
+/* Laufende Themen */
+.gsx-mq{padding:18px 0 6px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.gsx-mqr{display:flex;width:max-content;animation:gsxmq 48s linear infinite;margin:8px 0}
+.gsx-mqr.rev{animation-direction:reverse;animation-duration:54s}
+.gsx-mq.off .gsx-mqr{animation-play-state:paused}
+.gsx-mqt{display:flex;gap:10px;padding-right:10px}
+.gsx-mqt span{white-space:nowrap;padding:10px 18px;border-radius:999px;background:#fff;color:var(--c);font-weight:850;font-size:15px;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--c) 22%,#fff),0 3px 0 color-mix(in srgb,var(--c) 18%,#f3dfc2)}
+@keyframes gsxmq{to{transform:translateX(-50%)}}
+/* Schritte */
+.gsx-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.gsx-step{background:#fff;border-radius:28px;padding:26px 24px;box-shadow:0 6px 0 #f1dcbd,0 18px 30px -24px rgba(160,90,20,.5)}
+.gsx-step b{display:grid;place-items:center;width:46px;height:46px;border-radius:15px;margin-bottom:14px;background:linear-gradient(180deg,#ffb627,#ff7b2c);color:#fff;font-weight:900;font-size:22px;box-shadow:0 4px 0 #c8561a}
+/* Tutoren */
+.gsx-tut{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.gsx-t{text-align:center;padding:18px 12px 20px;border-radius:26px;background:#fffaf3;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--c) 14%,#fff)}
+.gsx-t img{width:100%;max-width:120px;height:auto;aspect-ratio:1;border-radius:30px;background:var(--c);box-shadow:0 5px 0 color-mix(in srgb,var(--c) 70%,#000)}
+.gsx-t b{display:block;margin-top:12px;font-size:19px;font-weight:900}
+.gsx-t small{display:block;color:var(--c);font-weight:850;font-size:13px;margin-bottom:6px}
+.gsx-t p{font-size:14px;line-height:1.4}
+/* Zweispaltig */
+.gsx-split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center}
+.gsx-copy .b3d{margin-top:22px}
+.gsx-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.gsx-chips span{display:inline-flex;align-items:baseline;gap:6px;padding:9px 14px;border-radius:16px;background:#fff;font-weight:800;color:#6b5434;box-shadow:0 3px 0 #f1dcbd}
+.gsx-chips b{font-size:22px;color:#e2561a;font-weight:900}
+.gsx-faces{display:flex;margin-top:18px}
+.gsx-faces img{width:52px;height:52px;border-radius:50%;object-fit:cover;background:#ffe6c7;border:3px solid #fff;margin-right:-10px;box-shadow:0 3px 8px rgba(120,60,10,.18)}
+.gsx-tab{position:relative;aspect-ratio:16/9;border-radius:30px;overflow:hidden;border:6px solid #fff;box-shadow:0 8px 0 #f1dcbd,0 30px 50px -30px rgba(120,60,10,.6);background:#1a2a55}
+.gsx-tab img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}
+.gsx-tab img.on{opacity:1}
+.gsx-lbl{position:absolute;left:14px;bottom:14px;padding:8px 14px;border-radius:999px;background:rgba(20,12,40,.82);color:#fff;font-weight:800;font-size:14px}
+/* Internet und KI */
+.gsx-ki{display:grid;grid-template-columns:200px minmax(0,1fr);gap:36px;align-items:center;padding:44px;border-radius:36px;background:linear-gradient(135deg,#1d2a5c,#2c1b5e);color:#fff;box-shadow:0 8px 0 #120c33}
+.gsx-ki h2{color:#fff}.gsx-ki p{color:#d6d4f2}
+.gsx-ki .gsx-kick{background:rgba(255,170,90,.18);color:#ffb067}
+.gsx-kib img{width:100%;height:auto;border-radius:44px;background:linear-gradient(180deg,#f39b52,#d9601c);box-shadow:0 8px 0 #8a3a0c}
+.gsx-ki ul{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.gsx-ki li{display:flex;align-items:center;gap:9px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.08);font-weight:800;font-size:15px}
+.gsx-ki li .i{width:20px;height:20px;color:#ffb067;flex:none}
+.gsx-ki .b3d{margin-top:24px}
+/* Eltern */
+.gsx-par{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.gsx-p{padding:24px 20px;border-radius:26px;background:#fffaf3;box-shadow:inset 0 0 0 2px #fbe8cf}
+.gsx-p>span{display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:#ffe6c7;color:#d9601c;margin-bottom:14px}
+.gsx-p>span .i{width:26px;height:26px}
+.gsx-p p{font-size:15px}
+/* Geräte */
+.gsx-devs{position:relative;padding:10px 0 40px}
+.gsx-lap{position:relative;width:88%}
+.gsx-lap .gsx-scr{border:10px solid #2b2b31;border-bottom-width:14px;border-radius:18px 18px 6px 6px;aspect-ratio:16/10;overflow:hidden;background:#000}
+.gsx-lap i{display:block;height:14px;margin:0 -6%;border-radius:0 0 18px 18px;background:linear-gradient(180deg,#d8d8de,#a9a9b2)}
+.gsx-pad{position:absolute;right:0;bottom:0;width:42%}
+.gsx-pad .gsx-scr{border:9px solid #1f1f24;border-radius:22px;aspect-ratio:4/3;overflow:hidden;background:#000;box-shadow:0 18px 30px -16px rgba(0,0,0,.5)}
+.gsx-scr img{width:100%;height:100%;object-fit:cover;display:block}
+/* Preise */
+.gsx-plans{display:grid;grid-template-columns:repeat(2,minmax(0,300px));justify-content:center;gap:18px}
+.gsx-plan{position:relative;text-align:center;padding:26px 20px;border-radius:26px;background:#fffaf3;box-shadow:inset 0 0 0 2px #fbe8cf}
+.gsx-plan.best{background:#fff;box-shadow:inset 0 0 0 3px #ff8a2a,0 6px 0 #f1dcbd}
+.gsx-plan em{position:absolute;top:-13px;left:50%;translate:-50% 0;white-space:nowrap;padding:5px 12px;border-radius:999px;background:linear-gradient(180deg,#ffb627,#ff7b2c);color:#fff;font-style:normal;font-weight:850;font-size:12.5px}
+.gsx-pr b{font-size:36px;font-weight:900;color:#2a1a08}.gsx-pr span{color:#9a7b55;font-weight:700}
+.gsx-plan small{display:block;color:#9a7b55;font-weight:700;margin-top:4px}
+/* FAQ */
+.gsx-narrow{max-width:820px!important}
+.gsx-faq details{background:#fff;border-radius:20px;margin-bottom:10px;box-shadow:0 4px 0 #f1dcbd}
+.gsx-faq summary{cursor:pointer;list-style:none;padding:18px 22px;font-weight:850;font-size:17px;display:flex;justify-content:space-between;gap:12px}
+.gsx-faq summary::-webkit-details-marker{display:none}
+.gsx-faq summary::after{content:"+";font-size:24px;line-height:1;color:#e2561a}
+.gsx-faq details[open] summary::after{content:"–"}
+.gsx-faq details p{padding:0 22px 18px;font-size:16px}
+/* Schluss */
+.gsx-final{text-align:center;padding:48px 24px;border-radius:36px;background:linear-gradient(135deg,#ffb627,#ff7b2c);box-shadow:0 8px 0 #c8561a}
+.gsx-final img{width:120px;height:120px;border-radius:40px;background:#fff;box-shadow:0 5px 0 rgba(150,60,0,.35)}
+.gsx-final h2{color:#fff;text-shadow:0 2px 0 rgba(150,60,0,.35)}
+.gsx-final p{color:#fff3e2;font-weight:700}
+.gsx-final .b3d{margin-top:22px}
+.gsx-final small{display:block;margin-top:16px;color:#fff3e2;font-weight:700}
+.gsx-end{padding-bottom:110px}
+/* Sticky-Knopf auf dem Handy */
+.gsx-sticky{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));translate:-50% 140%;z-index:60;transition:translate .35s ease;display:none}
+.gsx-sticky.on{translate:-50% 0}
+body.gcb-on .gsx-sticky{translate:-50% 140%}
+/* Einfliegen beim Scrollen (nur Bewegung und Transparenz) */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease var(--d,0s),transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.gsx-mqr{animation:none}}
+@media (max-width:1000px){.gsx-tut{grid-template-columns:repeat(3,1fr)}.gsx-par{grid-template-columns:repeat(2,1fr)}.gsx-split{grid-template-columns:1fr;gap:30px}.gsx-dev .gsx-devs{order:2}.gsx-ki{grid-template-columns:1fr;text-align:center;padding:32px 24px}.gsx-kib{max-width:150px;margin:0 auto}.gsx-ki ul{grid-template-columns:repeat(2,minmax(0,1fr));text-align:left}}
+@media (max-width:640px){.gsx .wrap{padding:0 16px}.gsx-sec{padding:52px 0}.gsx-alt{margin:0 6px;border-radius:28px}.gsx-steps{grid-template-columns:1fr}.gsx-tut{grid-template-columns:repeat(2,1fr);gap:10px}.gsx-par{grid-template-columns:1fr}.gsx-plans{grid-template-columns:1fr}.gsx p{font-size:16px}.gsx-trust span{font-size:13.5px}.gsx-ki ul{grid-template-columns:1fr}.gsx-sticky{display:block}.gsx-sticky .b3d{white-space:nowrap;box-shadow:0 5px 0 #123f85,0 12px 26px -8px rgba(0,0,0,.45)}.gsx-head{margin-bottom:24px}}
+.gsx-kit,.gsx-copy,.gsx-show{min-width:0}
+@media (max-width:1000px){.gsx-ki{grid-template-columns:minmax(0,1fr)}.gsx-split{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.gsx-ki{padding:28px 18px;border-radius:28px}.gsx-ki h2{font-size:28px}.gsx-ki li{font-size:14.5px}}
+.gsx .b3d{max-width:100%;box-sizing:border-box}
+@media (max-width:640px){.gsx-sec .b3d.lg,.gsx-ki .b3d,.gsx-final .b3d{width:100%;justify-content:center}}
 </style>
 </head>
 <body data-screen="start">
@@ -6511,6 +6623,145 @@ body.dark .pareset:not(.go){background:#3a1f1c;border-color:#7a3a30;color:#ffb3a
       <p class="lead"><b class="lbig">Ihr Kind will spielen. Und lernt dabei wie von selbst.</b>Mathe, Deutsch, Englisch, Französisch, Sachunterricht und der sichere Umgang mit Internet und KI: alles als Lernspiele mit eigenem Lernpfad, passend zu Klasse 1 bis 4. Und wenn die Hausaufgabe klemmt: Foto machen, Max erklärt den Weg, ohne die Lösung zu verraten.<span class="trust"><a href="#sicherheit" data-to="sicherheit"><svg class="i"><use href="#i-shield"/></svg>Sicherheit</a><a href="#datenschutz" data-to="datenschutz"><svg class="i"><use href="#i-lock"/></svg>Datenschutz</a></span></p>
     </div>
   </section>
+  <div class="gsx" id="mehr">
+    <div class="gsx-trust rv"><div class="wrap">
+      <span><svg class="i"><use href="#i-noad"/></svg>Ohne Werbung</span>
+      <span><svg class="i"><use href="#i-check"/></svg>Kostenlos testen, ohne Anmeldung</span>
+      <span><svg class="i"><use href="#i-cap"/></svg>Passend zu Klasse 1 bis 4</span>
+      <span><svg class="i"><use href="#i-shield"/></svg>Kein Chat mit Fremden</span>
+      <span><svg class="i"><use href="#i-family"/></svg>Elternbereich mit Zeitlimit</span>
+      <span><b class="gsx-de" aria-hidden="true"><i></i><i></i><i></i></b>Aus Deutschland</span>
+    </div></div>
+
+    <div class="gsx-mq" aria-label="Themen in Grundschulmax">
+      <div class="gsx-mqr"><div class="gsx-mqt">
+        <span style="--c:#1a5fc4">Plus und Minus</span><span style="--c:#c8336f">Lesen mit Silben</span><span style="--c:#d9601c">Sicher im Netz</span><span style="--c:#0e7f8e">Erste englische Wörter</span><span style="--c:#1f8a4c">Tiere im Wald</span><span style="--c:#1a5fc4">Einmaleins</span><span style="--c:#c8336f">Rechtschreibung</span><span style="--c:#d9601c">Starke Passwörter</span><span style="--c:#5b3fc4">Bonjour!</span><span style="--c:#1f8a4c">Die Jahreszeiten</span><span style="--c:#1a5fc4">Zahlen bis 1000</span><span style="--c:#d9601c">Werbung erkennen</span>
+      </div><div class="gsx-mqt" aria-hidden="true">
+        <span style="--c:#1a5fc4">Plus und Minus</span><span style="--c:#c8336f">Lesen mit Silben</span><span style="--c:#d9601c">Sicher im Netz</span><span style="--c:#0e7f8e">Erste englische Wörter</span><span style="--c:#1f8a4c">Tiere im Wald</span><span style="--c:#1a5fc4">Einmaleins</span><span style="--c:#c8336f">Rechtschreibung</span><span style="--c:#d9601c">Starke Passwörter</span><span style="--c:#5b3fc4">Bonjour!</span><span style="--c:#1f8a4c">Die Jahreszeiten</span><span style="--c:#1a5fc4">Zahlen bis 1000</span><span style="--c:#d9601c">Werbung erkennen</span>
+      </div></div>
+      <div class="gsx-mqr rev"><div class="gsx-mqt">
+        <span style="--c:#d9601c">KI verstehen</span><span style="--c:#1a5fc4">Sachaufgaben</span><span style="--c:#c8336f">Nomen und Verben</span><span style="--c:#1f8a4c">Mein Körper</span><span style="--c:#d9601c">Echt oder KI-Bild?</span><span style="--c:#0e7f8e">Farben und Zahlen auf Englisch</span><span style="--c:#c8336f">Schreiben lernen</span><span style="--c:#1a5fc4">Formen entdecken</span><span style="--c:#1f8a4c">Strom und Stromkreis</span><span style="--c:#d9601c">Programmieren spielen</span><span style="--c:#5b3fc4">Französische Zahlen</span><span style="--c:#c8336f">Probetest vor der Klassenarbeit</span>
+      </div><div class="gsx-mqt" aria-hidden="true">
+        <span style="--c:#d9601c">KI verstehen</span><span style="--c:#1a5fc4">Sachaufgaben</span><span style="--c:#c8336f">Nomen und Verben</span><span style="--c:#1f8a4c">Mein Körper</span><span style="--c:#d9601c">Echt oder KI-Bild?</span><span style="--c:#0e7f8e">Farben und Zahlen auf Englisch</span><span style="--c:#c8336f">Schreiben lernen</span><span style="--c:#1a5fc4">Formen entdecken</span><span style="--c:#1f8a4c">Strom und Stromkreis</span><span style="--c:#d9601c">Programmieren spielen</span><span style="--c:#5b3fc4">Französische Zahlen</span><span style="--c:#c8336f">Probetest vor der Klassenarbeit</span>
+      </div></div>
+    </div>
+
+    <section class="gsx-sec"><div class="wrap">
+      <div class="gsx-head rv"><span class="gsx-kick">So einfach geht's</span><h2>In einer Minute spielt Ihr Kind los.</h2><p>Kein Download, keine Anmeldung. Grundschulmax läuft direkt im Browser.</p></div>
+      <div class="gsx-steps">
+        <div class="gsx-step rv" style="--d:0s"><b>1</b><h3>Klasse wählen</h3><p>Klasse 1, 2, 3 oder 4. Alle Aufgaben passen genau dazu.</p></div>
+        <div class="gsx-step rv" style="--d:.12s"><b>2</b><h3>Figur aussuchen</h3><p>Ihr Kind wählt seine Figur und gibt ihr einen Namen. Dann geht es in die eigene Lobby.</p></div>
+        <div class="gsx-step rv" style="--d:.24s"><b>3</b><h3>Spielen und lernen</h3><p>Jede Lektion ist ein kleines Spiel. Die Tutoren lesen vor, erklären und loben.</p></div>
+      </div>
+      <div class="gsx-cta rv"><a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a></div>
+    </div></section>
+
+    <section class="gsx-sec gsx-alt"><div class="wrap">
+      <div class="gsx-head rv"><span class="gsx-kick">Das Tutorenteam</span><h2>Für jedes Fach ein eigener Tutor.</h2><p>Jeder mit eigener Stimme. Sie lesen alles vor, erklären geduldig und sagen nie die Lösung vor.</p></div>
+      <div class="gsx-tut">
+        <div class="gsx-t rv" style="--c:#1a5fc4;--d:0s"><img loading="lazy" src="/grundschulmax/tut-mila-256.webp" alt="Mila" width="256" height="256"><b>Mila</b><small>Mathe</small><p>Plus, Minus, Einmaleins und Sachaufgaben, bis es sitzt.</p></div>
+        <div class="gsx-t rv" style="--c:#c8336f;--d:.06s"><img loading="lazy" src="/grundschulmax/tut-max-256.webp" alt="Max" width="256" height="256"><b>Max</b><small>Deutsch</small><p>Lesen mit Silben, Schreiben und Rechtschreibung.</p></div>
+        <div class="gsx-t rv" style="--c:#0e7f8e;--d:.12s"><img loading="lazy" src="/grundschulmax/tut-emma-256.webp" alt="Emma" width="256" height="256"><b>Emma</b><small>Englisch</small><p>Erste Wörter und Sätze, mit Vorlesen zum Nachsprechen.</p></div>
+        <div class="gsx-t rv" style="--c:#5b3fc4;--d:.18s"><img loading="lazy" src="/grundschulmax/tut-claude-256.webp" alt="Claude" width="256" height="256"><b>Claude</b><small>Französisch</small><p>Für Kinder mit Französisch in der Schule.</p></div>
+        <div class="gsx-t rv" style="--c:#1f8a4c;--d:.24s"><img loading="lazy" src="/grundschulmax/tut-frieda-256.webp" alt="Frieda" width="256" height="256"><b>Frieda</b><small>Sachunterricht</small><p>Tiere, Natur, Körper, Verkehr und die Welt drumherum.</p></div>
+        <div class="gsx-t rv" style="--c:#d9601c;--d:.3s"><img loading="lazy" src="/grundschulmax/tut-bit-256.webp" alt="Bit" width="256" height="256"><b>Bit</b><small>Internet und KI</small><p>Sicher im Netz unterwegs und KI verstehen.</p></div>
+      </div>
+    </div></section>
+
+    <section class="gsx-sec"><div class="wrap gsx-split">
+      <div class="gsx-copy rv">
+        <span class="gsx-kick">Die Lobby</span>
+        <h2>Darum wollen Kinder jeden Tag wieder.</h2>
+        <p>Mit jeder Lektion sammelt Ihr Kind Erfahrungspunkte. Neue Level schalten Traumberufe frei, von der Astronautin bis zum Feuerwehrmann, und Haustiere, die mit in die Lobby ziehen.</p>
+        <div class="gsx-chips"><span><b>10</b>Traumberufe</span><span><b>8</b>Haustiere</span><span><b>3</b>Aufgaben jeden Tag</span></div>
+        <div class="gsx-faces" aria-hidden="true"><img loading="lazy" src="/grundschulmax/lobby/face/mia-astro.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/face/luca-feuer.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/face/amara-arzt.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/face/noah-fuss.webp" alt=""><img loading="lazy" src="/grundschulmax/lobby/pets/cat-face.webp?v=3" alt=""><img loading="lazy" src="/grundschulmax/lobby/pets/fox-face.webp?v=3" alt=""><img loading="lazy" src="/grundschulmax/lobby/pets/panda-face.webp?v=3" alt=""></div>
+        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a>
+      </div>
+      <div class="gsx-show rv" style="--d:.1s">
+        <div class="gsx-tab" id="gsxshow">
+          <img loading="lazy" class="on" src="/grundschulmax/sp/start/job-astro.webp" alt="Lobby als Astronautin mit Katze" width="1200" height="675">
+          <img loading="lazy" src="/grundschulmax/sp/start/job-feuer.webp" alt="Lobby als Feuerwehrmann mit Hund" width="1200" height="675">
+          <img loading="lazy" src="/grundschulmax/sp/start/job-arzt.webp" alt="Lobby als Ärztin mit Hase" width="1200" height="675">
+          <img loading="lazy" src="/grundschulmax/sp/start/job-fuss.webp" alt="Lobby als Fußballer mit Fuchs" width="1200" height="675">
+          <span class="gsx-lbl" id="gsxlbl">Astronautin · ab Level 2</span>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="gsx-sec"><div class="wrap">
+      <div class="gsx-ki rv">
+        <div class="gsx-kib"><img loading="lazy" src="/grundschulmax/tut-bit-256.webp" alt="Bit" width="256" height="256"></div>
+        <div class="gsx-kit">
+          <span class="gsx-kick">Internet und KI</span>
+          <h2>Was in der Schule noch fehlt.</h2>
+          <p>Klassenchat, Videos, Spiele und KI: Kinder sind heute früh online. Bit übt mit Ihrem Kind kindgerecht, worauf es ankommt.</p>
+          <ul>
+            <li><svg class="i"><use href="#i-lock"/></svg>Private Daten schützen</li>
+            <li><svg class="i"><use href="#i-shield"/></svg>Fremden nichts verraten</li>
+            <li><svg class="i"><use href="#i-key"/></svg>Starke Passwörter bauen</li>
+            <li><svg class="i"><use href="#i-noad"/></svg>Werbung erkennen</li>
+            <li><svg class="i"><use href="#i-search"/></svg>Echt oder KI-Bild?</li>
+            <li><svg class="i"><use href="#i-bulb"/></svg>KI verstehen und prüfen</li>
+          </ul>
+          <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="gsx-sec gsx-alt"><div class="wrap">
+      <div class="gsx-head rv"><span class="gsx-kick">Für Sie als Eltern</span><h2>Sie behalten den Überblick.</h2><p>Grundschulmax ist für Kinder gemacht, aber mit den Augen von Eltern gebaut.</p></div>
+      <div class="gsx-par">
+        <div class="gsx-p rv" style="--d:0s"><span><svg class="i"><use href="#i-family"/></svg></span><h3>Elternbereich</h3><p>Sie sehen, wie lange Ihr Kind wirklich aktiv gelernt hat. Ehrlich gezählt, nicht nur Bildschirmzeit.</p></div>
+        <div class="gsx-p rv" style="--d:.08s"><span><svg class="i"><use href="#i-bell"/></svg></span><h3>Zeitlimit und Passwort</h3><p>Lernzeit pro Tag festlegen. Einstellungen sind mit einem Eltern-Passwort geschützt.</p></div>
+        <div class="gsx-p rv" style="--d:.16s"><span><svg class="i"><use href="#i-cam"/></svg></span><h3>Hausaufgaben-Hilfe</h3><p>Arbeitsblatt fotografieren: Max erklärt den Weg, ohne die Lösung vorzusagen.</p></div>
+        <div class="gsx-p rv" style="--d:.24s"><span><svg class="i"><use href="#i-shield"/></svg></span><h3>Sicher</h3><p>Keine Werbung, kein Chat mit Fremden. Fotos werden nicht auf unseren Servern gespeichert.</p></div>
+      </div>
+    </div></section>
+
+    <section class="gsx-sec"><div class="wrap gsx-split gsx-dev">
+      <div class="gsx-devs rv" aria-hidden="true">
+        <div class="gsx-lap"><div class="gsx-scr"><img loading="lazy" src="/grundschulmax/sp/start/job-feuer.webp" alt=""></div><i></i></div>
+        <div class="gsx-pad"><div class="gsx-scr"><img loading="lazy" src="/grundschulmax/sp/start/job-astro.webp" alt=""></div></div>
+      </div>
+      <div class="gsx-copy rv" style="--d:.1s">
+        <span class="gsx-kick">iPad und Laptop</span>
+        <h2>Gemacht für iPad und Laptop.</h2>
+        <p>Am schönsten auf dem iPad oder am Laptop: große Knöpfe, mit Finger oder Maus. Grundschulmax läuft direkt im Browser, ohne App-Download. Auf dem Handy geht es auch.</p>
+        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a>
+      </div>
+    </div></section>
+
+    <section class="gsx-sec gsx-alt" id="gsxpreise"><div class="wrap">
+      <div class="gsx-head rv"><span class="gsx-kick">Preise</span><h2>Erst ausprobieren. Dann entscheiden.</h2><p>Die erste Lektion spielt Ihr Kind ganz ohne Anmeldung. Danach 7 Tage kostenlos testen, im Test jederzeit online kündbar.</p></div>
+      <div class="gsx-plans">
+        <div class="gsx-plan rv" style="--d:0s"><h3>Monatlich</h3><div class="gsx-pr"><b>9,90 €</b><span>/ Monat</span></div><small>monatlich kündbar</small></div>
+        <div class="gsx-plan best rv" style="--d:.1s"><em>Beliebteste Wahl</em><h3>Schuljahr</h3><div class="gsx-pr"><b>79 €</b><span>/ 12 Monate</span></div><small>nur 6,58 € im Monat</small></div>
+      </div>
+      <div class="gsx-cta rv"><a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a><span>Alle Fächer · alle Spiele · Hausaufgaben-Hilfe</span></div>
+    </div></section>
+
+    <section class="gsx-sec"><div class="wrap gsx-narrow">
+      <div class="gsx-head rv"><span class="gsx-kick">Fragen</span><h2>Gut zu wissen.</h2></div>
+      <div class="gsx-faq rv">
+        <details><summary>Für welches Alter ist Grundschulmax?</summary><p>Für Kinder von etwa 6 bis 10 Jahren, also Klasse 1 bis 4. Weil die Tutoren vorlesen, klappt es auch, wenn Ihr Kind noch nicht sicher lesen kann.</p></details>
+        <details><summary>Auf welchen Geräten läuft es?</summary><p>Am besten auf dem iPad oder am Laptop, direkt im Browser und ohne App-Download. Auf Tablets anderer Hersteller, Computern und Handys läuft es auch.</p></details>
+        <details><summary>Was kostet es?</summary><p>Ausprobieren ist kostenlos und ohne Anmeldung. Danach 9,90 € im Monat oder 79 € für ein ganzes Schuljahr, vorher 7 Tage kostenlos testen. Im Test können Sie jederzeit online kündigen.</p></details>
+        <details><summary>Ist die KI sicher für Kinder?</summary><p>Die Tutoren bleiben beim Schulstoff. Es gibt keinen Kontakt zu anderen Nutzern und keine Werbung. Im Elternbereich sehen Sie, woran Ihr Kind gearbeitet hat.</p></details>
+        <details><summary>Ersetzt Grundschulmax die Schule?</summary><p>Nein, es ergänzt den Unterricht. Ihr Kind übt genau das, was in der Schule gerade dran ist, so oft es möchte.</p></details>
+      </div>
+    </div></section>
+
+    <section class="gsx-sec gsx-end"><div class="wrap">
+      <div class="gsx-final rv">
+        <img loading="lazy" src="/grundschulmax/max-320.webp" alt="Max" width="160" height="160">
+        <h2>Bereit? Ihr Kind kann sofort loslegen.</h2>
+        <p>Kostenlos ausprobieren, ohne Anmeldung, direkt im Browser.</p>
+        <a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a>
+        <small>Von den Machern von BWL Max · Aus Baden-Baden</small>
+      </div>
+    </div></section>
+    <div class="gsx-sticky" id="gsxsticky"><a class="b3d" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a></div>
+  </div>
 </div>
 
 <div class="view" data-s="klasse">
@@ -6819,6 +7070,6 @@ body.dark .pareset:not(.go){background:#3a1f1c;border-color:#7a3a30;color:#ffb3a
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-1208e40d.js"></script>
+<script defer src="/grundschulmax/gjs/app-65fe51f5.js"></script>
 </body>
 </html>
