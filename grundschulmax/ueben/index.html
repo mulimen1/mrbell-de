@@ -167,8 +167,11 @@ h1 span{background:linear-gradient(90deg,#2f7bff,#7b4dff 50%,#ff4f9a);-webkit-ba
 /* Arbeitsblatt (nur Druck) */
 #ws{display:none}
 @media print{
-body>*:not(#ws){display:none!important}
-#ws{display:block;font:15pt/1.5 G,Helvetica,Arial,sans-serif;color:#000}
+.hd,.ft,.kcta,.tr,.band,.bt{display:none!important}
+h1 span,.kst b{background:none!important;color:#161a3a!important;-webkit-text-fill-color:#161a3a}
+.krules li::before{color:#d2560f!important;background:none!important;box-shadow:inset 0 0 0 2px #d2560f}
+body.pr-ws>*:not(#ws){display:none!important}
+body.pr-ws>#ws{display:block;font:15pt/1.5 G,Helvetica,Arial,sans-serif;color:#000}
 #ws h2{font-size:18pt;margin:0 0 4pt}
 #ws .meta{font-size:10.5pt;margin-bottom:12pt}
 #ws .cols{columns:2;column-gap:28pt}
@@ -327,23 +330,23 @@ sup{font-size:.65em;color:#d2560f;font-weight:850}
   /* ---------- Aufgaben je Thema ---------- */
   var GEN = {
     mul: function () {
-      var out = [], seen = {}, r = S.r, m = S.m || 'mal';
+      var out = [], seen = {}, r = S.r, m = S.m || 'mal', tries = 0;
       while (out.length < N) {
         var a = r === 'mix' ? R(2, 10) : +r, b = R(1, 10), mm = m === 'mix' ? (Math.random() < .5 ? 'mal' : 'geteilt') : m;
         if (Math.random() < .5 && r === 'mix') { var t = a; a = b; b = t; }
-        var k = a + mm + b; if (seen[k] && Object.keys(seen).length < 18) continue; seen[k] = 1;
+        var k = a + mm + b; if (seen[k] && tries++ < 300) continue; seen[k] = 1;
         if (mm === 'mal') { var x = r !== 'mix' && Math.random() < .5; out.push({ q: (x ? b + ' · ' + a : a + ' · ' + b) + ' =', a: a * b, h: 'Tipp: ' + a + ' · ' + b + ' heißt ' + b + '-mal die ' + a + '.' }); }
         else { var p = a * b; out.push({ q: p + ' : ' + a + ' =', a: b, h: 'Tipp: Wie oft passt die ' + a + ' in die ' + p + '? ' + a + ' · ' + b + ' = ' + p }); }
       }
       return out;
     },
     addsub: function () {
-      var out = [], z = +S.z || 20, o = S.o || 'mix', seen = {};
+      var out = [], z = +S.z || 20, o = S.o || 'mix', seen = {}, tries = 0;
       while (out.length < N) {
         var op = o === 'mix' ? (Math.random() < .5 ? '+' : '−') : o, a, b;
-        if (op === '+') { a = R(z > 20 ? 5 : 1, z - (z > 20 ? 5 : 1)); b = R(1, z - a); if (z > 20 && a % 10 === 0 && b % 10 === 0 && Math.random() < .6) continue; }
+        if (op === '+') { a = R(z > 20 ? 5 : 1, z - (z > 20 ? 5 : 1)); b = R(1, z - a); if (z > 20 && a % 10 === 0 && b % 10 === 0 && Math.random() < .6 && tries++ < 300) continue; }
         else { a = R(z > 20 ? 15 : 3, z); b = R(1, a - (z > 20 ? 2 : 0)); }
-        var k = a + op + b; if (seen[k]) continue; seen[k] = 1;
+        var k = a + op + b; if (seen[k] && tries++ < 300) continue; seen[k] = 1;
         var r = op === '+' ? a + b : a - b, h;
         if (z > 10 && op === '+' && a % 10 + b % 10 > 10 && b < 10) { var bis = 10 - a % 10; h = 'Tipp: Erst bis zur nächsten Zehnerzahl: ' + a + ' + ' + bis + ' = ' + (a + bis) + ', dann noch ' + (b - bis) + '.'; }
         else if (z > 10 && op === '−' && a % 10 < b % 10 && b < 10) { var zu = a % 10; h = 'Tipp: Erst zurück bis zur Zehnerzahl: ' + a + ' − ' + zu + ' = ' + (a - zu) + ', dann noch ' + (b - zu) + ' weg.'; }
@@ -353,11 +356,11 @@ sup{font-size:.65em;color:#d2560f;font-weight:850}
       return out;
     },
     uhr: function () {
-      var out = [], lv = S.l || 'halb', seen = {};
+      var out = [], lv = S.l || 'halb', seen = {}, tries = 0;
       var MS = { voll: [0], halb: [0, 30], viertel: [0, 15, 30, 45], fuenf: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55] }[lv];
       var f = function (h, m) { return h + ':' + (m < 10 ? '0' : '') + m + ' Uhr'; };
       while (out.length < N) {
-        var h = R(1, 12), m = MS[R(0, MS.length - 1)], k = h + ':' + m; if (seen[k]) continue; seen[k] = 1;
+        var h = R(1, 12), m = MS[R(0, MS.length - 1)], k = h + ':' + m; if (seen[k] && tries++ < 300) continue; seen[k] = 1;
         var right = f(h, m), opts = [right], add = function (s) { if (opts.indexOf(s) < 0 && opts.length < 4) opts.push(s); };
         var hh = Math.round(m / 5) || 12; if (m !== 0 || h !== 12) add(f(hh, (h % 12) * 5)); /* Zeiger vertauscht */
         if (m >= 30) add(f(h % 12 + 1, m));
@@ -492,7 +495,7 @@ sup{font-size:.65em;color:#d2560f;font-weight:850}
   var pr = $('#print'); if (pr) pr.onclick = function () {
     var keep = N; N = C.type === 'mul' ? 30 : 30; var T = GEN[C.type](); N = keep;
     var ws = $('#ws'); ws.innerHTML = '<h2>' + esc(C.ws) + (C.lab ? ' · ' + esc(C.lab()) : '') + '</h2><div class="meta">Name: ______________________ &nbsp; Datum: ____________ &nbsp; · grundschulmax.de/ueben/' + C.slug + '</div><div class="cols">' + T.map(function (t) { return '<div>' + esc(t.q) + ' ______</div>'; }).join('') + '</div><div class="lsg"><h2>Lösungen</h2><div class="cols">' + T.map(function (t) { return '<div>' + esc(t.q) + ' ' + t.a + '</div>'; }).join('') + '</div></div>';
-    ev('Arbeitsblatt gedruckt', C.slug + (C.lab ? ' · ' + C.lab() : '')); setTimeout(function () { window.print(); }, 60);
+    ev('Arbeitsblatt gedruckt', C.slug + (C.lab ? ' · ' + C.lab() : '')); d.body.classList.add('pr-ws'); setTimeout(function () { window.print(); setTimeout(function () { d.body.classList.remove('pr-ws'); }, 400); }, 60);
   };
   start();
 })();
