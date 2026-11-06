@@ -262,6 +262,11 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
 .lst.ok { background: #16a05c; } .lst.weg { background: #d8342c; } .lst.warn { background: #e0a020; }
 .lsx { font-style: normal; font-weight: 600; } .lsx.ok { color: #16a05c; } .lsx.fehlt, .lsx.anders { color: #d8342c; } .lsx.fehler { color: #b07a10; }
 .lweg { color: #d8342c; }
+.lneu { font: 700 10px var(--mono); font-style: normal; text-transform: uppercase; letter-spacing: .06em; color: #fff; background: #16a05c; padding: 1px 6px; border-radius: 999px; margin-left: 6px; vertical-align: 2px; }
+.lwart { display: flex; flex-wrap: wrap; gap: 6px; }
+.lwart a { display: inline-flex; align-items: center; padding: 5px 10px; border-radius: 999px; background: var(--card2); border: 1px solid var(--line); color: var(--mute); font-size: 12px; text-decoration: none; }
+.lwart a:hover { border-color: #b8b2a7; color: var(--ink); }
+.lwart .lst { margin-right: 6px; }
 .gcs { color: var(--mute); }
 .gwarn-i { background: var(--card2) !important; border-color: var(--line) !important; color: var(--ink) !important; }
 .wztab .gq a { color: var(--ink); text-decoration: none; font-weight: 600; } .wztab .gq a:hover { text-decoration: underline; }
@@ -617,7 +622,11 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
     var seiten = (zr.seiten || []).slice(0, 12), anfr = (zr.anfragen || []).slice(0, 15), marke = (zr.markeAnfragen || []).slice(0, 8);
     var ger = (zr.geraete || []).map(function (x) { return [{ DESKTOP: 'Laptop / PC', MOBILE: 'Handy', TABLET: 'Tablet' }[x[0]] || x[0], x[1]]; });
     var land = (e.landungZ || {})[Z] || [], andere = (e.andereZ || {})[Z] || [];
-    var links = (g.links || []).slice().sort(function (a, b) { return String(b.datum).localeCompare(String(a.datum)); });
+    // Beobachtete Seiten (haben geantwortet, Tool angeboten) zählen erst, wenn der Link-Wächter unseren Link dort findet
+    var alleL = (g.links || []).slice().sort(function (a, b) { return String(b.datum).localeCompare(String(a.datum)); });
+    var istLive = function (l) { return !l.beobachten || (l.check && (l.check.status === 'ok' || l.check.status === 'anders')); };
+    var links = alleL.filter(istLive), wart = alleL.filter(function (l) { return !istLive(l); });
+    var neuL = function (l) { return l.beobachten && l.check && l.check.entdeckt && Date.now() - l.check.entdeckt < 7 * 864e5; };
     var lStat = function (c) {
       if (!c) return '<i class="lst wait" title="Wird gerade zum ersten Mal geprüft"></i>';
       var wann = rel(c.geprueft);
@@ -628,7 +637,8 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
     };
     var lText = function (c) { if (!c) return 'wird geprüft'; if (c.status === 'ok') return 'steht' + (c.nofollow ? ' · nofollow' : ''); if (c.status === 'fehlt') return 'entfernt!'; if (c.status === 'anders') return 'zeigt woandershin'; return 'Seite nicht erreichbar'; };
     var weg = links.filter(function (l) { return l.check && (l.check.status === 'fehlt' || l.check.status === 'anders'); }).length;
-    var linkHtml = links.length ? '<div class="glinks">' + links.map(function (l) { return '<a class="glink" href="' + esc(l.seite || '#') + '" target="_blank" rel="noopener"><b>' + lStat(l.check) + esc(l.hochschule || '') + '</b><small>' + esc(l.bereich || '') + (l.ziel ? ' → ' + esc(l.ziel) : '') + '</small><span>' + (l.datum ? new Date(l.datum + 'T12:00:00').toLocaleDateString('de-DE', { day: 'numeric', month: 'numeric', year: '2-digit' }) : '') + ' · <em class="lsx ' + (l.check ? l.check.status : 'wait') + '">' + lText(l.check) + '</em></span></a>'; }).join('') + '</div>' : '<div class="empty">Noch keine Hochschul-Links.</div>';
+    var linkHtml = links.length ? '<div class="glinks">' + links.map(function (l) { return '<a class="glink" href="' + esc(l.seite || '#') + '" target="_blank" rel="noopener"><b>' + lStat(l.check) + esc(l.hochschule || '') + (neuL(l) ? ' <em class="lneu">neu</em>' : '') + '</b><small>' + esc(l.bereich || '') + (l.ziel ? ' → ' + esc(l.ziel) : '') + '</small><span>' + ((l.check && l.check.entdeckt && l.beobachten) || l.datum ? new Date(l.check && l.check.entdeckt && l.beobachten ? l.check.entdeckt : l.datum + 'T12:00:00').toLocaleDateString('de-DE', { day: 'numeric', month: 'numeric', year: '2-digit' }) : '') + ' · <em class="lsx ' + (l.check ? l.check.status : 'wait') + '">' + lText(l.check) + '</em></span></a>'; }).join('') + '</div>' : '<div class="empty">Noch keine Hochschul-Links.</div>';
+    var wartHtml = wart.length ? '<div class="sub">Beobachtet · noch nicht verlinkt (' + wart.length + ')</div><div class="lwart">' + wart.map(function (l) { var c = l.check; var t = !c ? 'wird geprüft' : c.status === 'fehlt' ? 'noch kein Link · geprüft ' + rel(c.geprueft) : 'Seite nicht erreichbar · geprüft ' + rel(c.geprueft); return '<a href="' + esc(l.seite || '#') + '" target="_blank" rel="noopener" title="' + esc((l.bereich || '') + ' – ' + t) + '"><i class="lst' + (c && c.status !== 'fehlt' ? ' warn' : '') + '"></i>' + esc(l.hochschule || '') + '</a>'; }).join('') + '</div>' : '';
     var stand = g.stand ? 'Google-Daten ' + rel(g.stand).replace('gerade eben', 'aktuell') + ' · Google meldet mit Verzögerung' : '';
     var zrTxt = R.name === 'heute' ? 'heute' : R.name === 'gesamt' ? 'gesamt' : 'letzte ' + R.name;
     var chartSub = Z === 'heute' ? '<small class="gcs">heute je Stunde' + (g.stunden && g.stunden.length ? ' · Google-Werte vorläufig' : ' · Google liefert für heute noch keine Stundenwerte – zu sehen sind die gemessenen Besucher') + '</small>' : Z === 'alle' ? '<span class="tm">' + [['tag', 'Tag'], ['woche', 'Woche'], ['monat', 'Monat']].map(function (x) { return '<button data-gg="' + x[0] + '"' + (gGran === x[0] ? ' class="on"' : '') + '>' + x[1] + '</button>'; }).join('') + '</span>' : '<small class="gcs">' + esc(zrTxt) + ' · je Tag</small>';
@@ -641,7 +651,7 @@ html, body { background-color: var(--bg); background-image: radial-gradient(rgba
       '<section class="grid g4"><div class="card"><div class="hd"><h2>Markensuche</h2><small>' + esc(zrTxt) + '</small></div>' + (marke.length ? '<div class="sub">Angezeigt je Schreibweise</div>' + bars(marke.map(function (x) { return [x[0], x[2]]; })) : '<div class="empty">' + (hat ? 'Noch niemand hat „BWL Max“ gegoogelt – oder zu selten, als dass Google es zeigt.' : 'Erscheint mit der Search Console.') + '</div>') + '</div>' +
       '<div class="card"><div class="hd"><h2>Landen auf</h2><small>gemessen · ' + esc(zrTxt) + '</small></div>' + (land.length ? bars(land) : '<div class="empty">Noch niemand aus Google in diesem Zeitraum.</div>') + (andere.length ? '<div class="sub">Andere Suchmaschinen</div>' + bars(andere) : '') + '</div>' +
       '<div class="card"><div class="hd"><h2>Geräte</h2><small>Klicks · ' + esc(zrTxt) + '</small></div>' + (ger.length ? bars(ger) : '<div class="empty">' + (hat ? 'Noch keine Klicks.' : 'Erscheint mit der Search Console.') + '</div>') + '</div>' +
-      '<div class="card"><div class="hd"><h2>Hochschul-Links</h2><small>' + fmt(links.length) + ' verlinken uns' + (weg ? ' · <b class="lweg">' + weg + ' weg</b>' : '') + '</small></div>' + linkHtml + '<p class="wznote">Wird jeden Morgen automatisch geprüft. Grün = Link steht, Rot = entfernt.</p></div></section></section>';
+      '<div class="card"><div class="hd"><h2>Hochschul-Links</h2><small>' + fmt(links.length) + ' verlinken uns' + (weg ? ' · <b class="lweg">' + weg + ' weg</b>' : '') + '</small></div>' + linkHtml + wartHtml + '<p class="wznote">Wird jeden Morgen automatisch geprüft, beobachtete Seiten alle 6 Stunden. Grün = Link steht, Rot = entfernt. Taucht unser Link auf einer beobachteten Seite auf, rückt sie automatisch nach oben und zählt mit.</p></div></section></section>';
   }
 
   // ---------- Werkzeugseiten (Hochschul-Links): eigene Zählung, getrennt von Google SEO ----------
