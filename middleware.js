@@ -106,7 +106,10 @@ const GS_EV = ['Seite geöffnet', 'Rechtstext geöffnet', 'Analyse erlaubt', 'An
   'Spiel gestartet', 'Spiel fertig', 'Spiel abgebrochen', 'Erstes Spiel gestartet', 'Erstes Spiel fertig', 'Erstes Spiel abgebrochen',
   'Probe zu Ende', 'Abo-Fenster geöffnet', 'Abo-Fenster geschlossen', 'Tarif gewählt', 'Zur Zahlung geklickt', 'Abo abgeschlossen',
   'Anmeldefenster geöffnet', 'Code angefordert', 'Angemeldet', 'Konto erstellt', 'Fach geöffnet', 'Bereich geöffnet', 'Hausaufgabe hochgeladen', 'Hausaufgabe Ergebnis',
-  'Profil gespeichert', 'Hilfe geöffnet', 'Klick', 'Seite verlassen', 'Lernpfad Level', 'Klasse gewechselt', 'Startseite gescrollt', 'Zurückgekommen'];
+  'Profil gespeichert', 'Hilfe geöffnet', 'Klick', 'Seite verlassen', 'Lernpfad Level', 'Klasse gewechselt', 'Startseite gescrollt', 'Zurückgekommen',
+  'Lobby geöffnet', 'Lobby verlassen', 'Lobby Tour', 'Lobby Spielen', 'Lobby Name gesetzt', 'Lobby Figur gewählt', 'Lobby Haustier gewählt', 'Lobby Beruf gewechselt', 'Lobby Bereich',
+  'Lobby Aufgabe abgeholt', 'Lobby Einrichten geklickt', 'Lobby Fehler', 'Level erreicht', 'Zahlung abgebrochen', 'Tarif angetippt', 'Infoseite geöffnet', 'Probetest fertig',
+  'Hausaufgaben-Spiel fertig', 'Fortschritt zurückgesetzt'];
 function gsKennung(req) { const m = /(?:^|;\s*)gsm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
 function gsIntern(req) { return /(?:^|;\s*)gsm_intern=1(?:;|$)/.test(req.headers.get('cookie') || '') || /^amsterdam$/i.test(dek(req.headers.get('x-vercel-ip-city')).trim()); }
 function gsQuelle(url, ref) {
