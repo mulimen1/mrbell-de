@@ -6369,6 +6369,14 @@ body[data-screen=klasse] .view[data-s=klasse] .sbar .kback{height:44px!important
   .pwl2{grid-template-columns:1fr 1fr;gap:8px 10px}
   .pwl2 li{font-size:12.5px;align-items:center;line-height:1.2}
 }
+/* Elternbereich: Fortschritt zurücksetzen */
+.pareset{display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:10px 16px;min-height:44px;border-radius:14px;border:2px solid #f1b3a8;background:#fff5f2;color:#c2361b;font:inherit;font-weight:800;font-size:14.5px;cursor:pointer}
+.pareset svg{width:18px;height:18px}
+.pareset:active{transform:translateY(2px)}
+.pareset.go{border-color:#d9381e;background:linear-gradient(180deg,#f0573a,#d03516);color:#fff;box-shadow:0 3px 0 #9d2410}
+.pareset:disabled{opacity:.7}
+.paresb{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+body.dark .pareset:not(.go){background:#3a1f1c;border-color:#7a3a30;color:#ffb3a3}
 </style>
 </head>
 <body data-screen="start">
@@ -6782,6 +6790,6 @@ body[data-screen=klasse] .view[data-s=klasse] .sbar .kback{height:44px!important
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-fecfbaf1.js"></script>
+<script defer src="/grundschulmax/gjs/app-886fbd41.js"></script>
 </body>
 </html>
