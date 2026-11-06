@@ -6342,6 +6342,18 @@ body[data-screen=klasse] .view[data-s=klasse] .sbar .kback{height:44px!important
 .kspam .kspl{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:7px 12px;min-height:36px;border-radius:999px;background:#3a2200;color:#fff;font-weight:800;font-size:13px;text-decoration:none}
 .kspam .kspl svg{width:14px;height:14px}
 .pgate .kspam{margin:10px 0 12px}
+/* Pfad oben rechts (Laptop/iPad): Werte-Pillen und Fächer-Knöpfe sauber im Raster, Icons komplett in der Pille */
+@media (min-width:821px){
+  .gw .gw-stats{gap:8px!important}
+  .gw .gw-stats .gw-st{height:44px;box-sizing:border-box;padding:0 16px 0 7px!important;gap:8px!important;font-size:18px!important;line-height:1}
+  .gw .gw-stats .gw-st i{position:relative;flex:none;width:32px!important;height:32px!important;overflow:visible}
+  .gw .gw-stats .gw-st i img{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:contain}
+  .gw .gw-stats .gw-st small{margin-left:0!important}
+  .gwdock{top:64px!important;right:12px!important;padding:0!important;gap:8px!important;background:none!important;box-shadow:none!important}
+  .gwdock button{height:44px!important}
+  .gwdock .gwq{width:44px!important}
+  .gw .gw-subs{top:118px!important;right:12px!important}
+}
 </style>
 </head>
 <body data-screen="start">
