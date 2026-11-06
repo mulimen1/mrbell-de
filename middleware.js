@@ -125,7 +125,7 @@ function gsMelden(d, req, ctx) {
   const id = gsKennung(req);
   d.sitzung = id;
   if (id) { d.stadt = kurz(dek(req.headers.get('x-vercel-ip-city')), 40); d.region = kurz(req.headers.get('x-vercel-ip-country-region'), 10); d.land = kurz(req.headers.get('x-vercel-ip-country'), 4); }
-  else { d.quelle = ''; d.stadt = ''; d.region = ''; d.land = ''; }
+  else { d.quelle = d.quelle === 'Facebook/Instagram Ads' ? d.quelle : ''; d.stadt = ''; d.region = ''; d.land = ''; }
   const p = fetch(GS_ZIEL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-gsm': 'mw1' }, body: JSON.stringify(d) }).catch(function () {});
   if (ctx && typeof ctx.waitUntil === 'function') { ctx.waitUntil(p); return null; }
   return p;
