@@ -6630,6 +6630,22 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
 
 .gsx-kib2{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:24px}.gsx-kib2 .b3d{margin-top:0!important}.gsx-kil{color:#ffc58f;font-weight:850;font-size:16px;text-decoration:none}.gsx-kil:hover{text-decoration:underline}
 @media (max-width:1000px){.gsx-kib2{justify-content:center}}
+/* Startseite: ein klarer Knopf direkt unter der Überschrift (auf dem Handy volle Breite) */
+.gsx-hgo{display:flex;flex-direction:column;align-items:center;gap:10px;margin:-10px auto 30px}
+.gsx-hgo .b3d{font-size:19px;padding-left:34px;padding-right:34px}
+.gsx-hgo span{font-size:14px;font-weight:700;color:#5a6180}
+@media (max-width:640px){.gsx-hgo{margin:-6px auto 22px}.gsx-hgo .b3d{width:100%;justify-content:center;font-size:18px}.gsx-hgo span{font-size:13px}
+ .gsx-t .gsx-tgo{display:inline-block!important;margin-top:5px;font-size:11.5px;white-space:nowrap}}
+/* Cookie-Hinweis: schmale Leiste unten statt großem Fenster über den Tutoren (Handy und Laptop) */
+.gcbs{display:none}
+@media all{
+ .gcb{left:0!important;right:0!important;translate:none!important;width:auto!important;bottom:0!important;top:auto!important;border-radius:18px 18px 0 0;padding:10px 12px calc(10px + env(safe-area-inset-bottom))!important;display:flex;align-items:center;gap:10px;font-size:12.5px;line-height:1.35;box-shadow:0 -8px 30px rgba(20,30,70,.16),0 0 0 1px #ece6da}
+ .gcb>b,.gcb>p{display:none}
+ .gcbs{display:block;flex:1;min-width:0;color:#4a5170}.gcbs a{color:inherit;text-decoration:underline}
+ .gcbr{display:flex;gap:6px;flex:none}.gcbr .b3d{width:auto;min-height:0;height:38px;padding:0 12px;font-size:13px}
+ .gcb.out{translate:0 20px!important}
+}
+@media (min-width:821px){.gcb{left:50%!important;right:auto!important;translate:-50% 0!important;width:min(680px,calc(100vw - 32px))!important;bottom:16px!important;border-radius:18px;padding:10px 12px 10px 18px!important;font-size:13.5px}.gcb.out{translate:-50% 20px!important}}
 </style>
 <script>if(/^#lektion\//.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -6742,6 +6758,7 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
     <section class="gsx-hero"><div class="wrap">
       <a class="gsx-bwl rv" href="#gsxbwl"><img src="/grundschulmax/sp/start/bwlmax.webp" alt="" width="28" height="28"><span>Von den Machern von <b>BWL Max</b></span></a>
       <h1 class="gsx-h1 rv" style="--d:.05s">Wir machen Ihr Kind spielend fit für die Schule.<span>Und fit für Internet und KI.</span></h1>
+      <div class="gsx-hgo rv" style="--d:.07s"><a class="b3d lg" href="#klasse" data-to="klasse"><svg class="i"><use href="#i-play"/></svg>Jetzt kostenlos ausprobieren</a><span>Ohne Anmeldung · direkt im Browser · Klasse 1 bis 4</span></div>
       <div class="gsx-tut" id="gsxtut">
         <a class="gsx-t rv" href="#klasse" data-to="klasse" aria-label="Mit Mila ausprobieren" style="--a:#3b7bff;--b:#1a4fd6;--d:.08s"><span class="gsx-ti"><img src="/grundschulmax/tut-mila-256.webp" alt="Mila" width="256" height="256"></span><b>Mila</b><small>Mathe</small><p>Plus, Minus, Einmaleins und Sachaufgaben, bis es sitzt.</p><em class="gsx-tgo">Mit Mila üben</em></a>
         <a class="gsx-t rv" href="#klasse" data-to="klasse" aria-label="Mit Max ausprobieren" style="--a:#ff5b9a;--b:#d8326f;--d:.13s"><span class="gsx-ti"><img src="/grundschulmax/tut-max-256.webp" alt="Max" width="256" height="256"></span><b>Max</b><small>Deutsch</small><p>Lesen mit Silben, Schreiben und Rechtschreibung.</p><em class="gsx-tgo">Mit Max üben</em></a>
@@ -7215,6 +7232,6 @@ html body[data-screen=klasse] .view[data-s=klasse].on>.wrap{padding-top:86px!imp
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-45c0ef3f.js"></script>
+<script defer src="/grundschulmax/gjs/app-90489982.js"></script>
 </body>
 </html>

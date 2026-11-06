@@ -330,7 +330,18 @@ sup{font-size:.65em;color:#d2560f;font-weight:850}
   var mix = function (a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   /* Anonyme Zählung (ohne Cookie, ohne Kennung) wie auf der Startseite */
-  function ev(e, x) { try { fetch('/gs', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ e: e, d: String(x || '').slice(0, 60), s: 'ueben/' + C.slug }) }); } catch (er) {} }
+  /* Kam der Besuch über eine Facebook-/Instagram-Anzeige? Nur für diesen Tab gemerkt (kein Cookie, keine Kennung) und beim Sprung in die App mitgegeben */
+  var FB = false; try { FB = /[?&]fbclid=|[?&]utm_source=(facebook|fb|instagram|ig|meta)(&|$)/i.test(location.search) || sessionStorage.getItem('gsm.fb') === '1'; if (FB) sessionStorage.setItem('gsm.fb', '1'); } catch (er) {}
+  function fbq(h) { return FB && /^\/\?ref=/.test(h) && !/utm_source=/.test(h) ? h.replace(/(#|$)/, '&utm_source=fb$1') : h; }
+  function ev(e, x) { try { fetch('/gs', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ e: e, d: String(x || '').slice(0, 60), s: 'ueben/' + C.slug, q: FB ? 'Facebook/Instagram Ads' : '' }) }); } catch (er) {} }
+  d.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href^="/?ref="]'); if (a) a.setAttribute('href', fbq(a.getAttribute('href'))); }, true);
+  /* Aufruf erst zählen, wenn die Seite 1 Sekunde wirklich zu sehen war (vorgeladene Seiten aus Facebook zählen nicht) */
+  var seen1 = false, visT = 0, t0 = Date.now(), left = false;
+  var bucket = function (s) { return s < 10 ? 'unter 10 s' : s < 30 ? '10–30 s' : s < 60 ? '30–60 s' : s < 180 ? '1–3 min' : s < 600 ? '3–10 min' : 'über 10 min'; };
+  function seenChk() { if (seen1) return; if (d.hidden) { clearTimeout(visT); visT = 0; return; } if (!visT) visT = setTimeout(function () { visT = 0; if (seen1 || d.hidden) return; seen1 = true; t0 = Date.now() - 1000; ev('Übungsseite geöffnet', C.slug && C.slug !== 'hub' ? C.slug : 'Übersicht'); }, 1000); }
+  d.addEventListener('visibilitychange', seenChk); seenChk();
+  function bye() { if (left || !seen1) return; left = true; ev('Seite verlassen', 'ueben/' + (C.slug || 'Übersicht') + ' · ' + bucket((Date.now() - t0) / 1000)); }
+  addEventListener('pagehide', bye); d.addEventListener('visibilitychange', function () { if (d.hidden) bye(); });
   $$('a[data-app]').forEach(function (a) { a.addEventListener('click', function () { ev('Übung zur App', C.slug + ' · ' + a.getAttribute('data-app')); }); });
 
   var tr = $('#tr'); if (!tr) return;
@@ -415,7 +426,7 @@ sup{font-size:.65em;color:#d2560f;font-weight:850}
   var bub = $('#bub', tr), pbar = $('.pbar i', tr), flv = $('#fl', tr), scv = $('#sc', tr), world = $('.world', tr), streak = 0, stars = 0;
   var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>';
   function lesLink() { var x = C.les ? C.les() : ''; return '/?ref=ueben-' + C.slug + (x ? '#lektion/' + x.split('/').map(encodeURIComponent).join('/') : '#klasse'); }
-  function links() { var h = lesLink(); $$('a[data-app]').forEach(function (a) { a.setAttribute('href', h); }); }
+  function links() { var h = fbq(lesLink()); $$('a[data-app]').forEach(function (a) { a.setAttribute('href', h); }); }
   function say(h, cls) { bub.className = 'bub' + (cls ? ' ' + cls : ''); bub.innerHTML = h; bub.classList.remove('pop'); void bub.offsetWidth; bub.classList.add('pop'); }
   function hud() { pbar.style.width = (8 + (i / N) * 92) + '%'; flv.textContent = streak; scv.textContent = stars; }
   function bump(el) { el.parentNode.classList.remove('bmp'); void el.offsetWidth; el.parentNode.classList.add('bmp'); }
