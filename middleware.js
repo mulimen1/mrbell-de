@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/gs', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
