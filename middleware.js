@@ -137,7 +137,7 @@ function gsSeite(req, ctx, url, recht) {
   if (/prefetch|prerender/i.test((req.headers.get('sec-purpose') || '') + (req.headers.get('purpose') || ''))) return;
   gsMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht || '', seite: url.pathname.slice(0, 40), quelle: gsQuelle(url, req.headers.get('referer')), geraet: geraet(ua) }, req, ctx);
 }
-/* Übungsseiten (grundschulmax.de/ueben/…): Aufruf zählen, ohne Kennung, wie die Startseite */
+/* Übungsseiten: Aufruf zählt jetzt die Seite selbst (u.js), erst wenn sie 1 s sichtbar war. Funktion bleibt als Reserve. */
 function gsUeben(req, ctx, url, slug) {
   const ua = req.headers.get('user-agent') || '';
   if (req.method !== 'GET' || BOT.test(ua) || !/text\/html/.test(req.headers.get('accept') || '')) return;
@@ -209,14 +209,14 @@ export default async function middleware(req, ctx) {
     const pfad = url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
     if (url.pathname === '/gs') return gsEreignis(req, ctx);
     let ziel = '';
-    if (pfad === '/') { ziel = '/grundschulmax/index.html'; gsSeite(req, ctx, url, ''); }
+    if (pfad === '/') { ziel = '/grundschulmax/index.html'; /* Besuch zählt die Seite selbst, erst wenn sie 1 s sichtbar war (gt.js) */ }
     else if (pfad === '/zahlen') ziel = '/grundschulmax/zahlen.html';
     else if (/^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(pfad)) { ziel = '/grundschulmax/legal' + pfad + '.html'; gsSeite(req, ctx, url, { impressum: 'Impressum', datenschutz: 'Datenschutz', agb: 'AGB', widerruf: 'Widerruf', kuendigen: 'Kündigen', widerrufen: 'Widerrufen' }[pfad.slice(1)]); }
-    else if (pfad === '/ueben') { ziel = '/grundschulmax/ueben/index.html'; gsUeben(req, ctx, url, ''); }
-    else if (pfad === '/internet-und-ki') { ziel = '/grundschulmax/ueben/internet-und-ki.html'; gsUeben(req, ctx, url, 'internet-und-ki'); }
-    else if (pfad === '/ratgeber') { ziel = '/grundschulmax/ueben/rg-index.html'; gsUeben(req, ctx, url, 'ratgeber'); }
-    else if (/^\/ratgeber\/[a-z0-9-]{3,40}$/.test(pfad)) { const sl = pfad.slice(10); ziel = '/grundschulmax/ueben/rg-' + sl + '.html'; gsUeben(req, ctx, url, 'ratgeber-' + sl); }
-    else if (/^\/ueben\/(einmaleins|plus-minus|uhr-lesen|silben|sicher-im-internet)$/.test(pfad)) { const sl = pfad.slice(7); ziel = '/grundschulmax/ueben/' + sl + '.html'; gsUeben(req, ctx, url, sl); }
+    else if (pfad === '/ueben') { ziel = '/grundschulmax/ueben/index.html'; }
+    else if (pfad === '/internet-und-ki') { ziel = '/grundschulmax/ueben/internet-und-ki.html'; }
+    else if (pfad === '/ratgeber') { ziel = '/grundschulmax/ueben/rg-index.html'; }
+    else if (/^\/ratgeber\/[a-z0-9-]{3,40}$/.test(pfad)) { const sl = pfad.slice(10); ziel = '/grundschulmax/ueben/rg-' + sl + '.html'; }
+    else if (/^\/ueben\/(einmaleins|plus-minus|uhr-lesen|silben|sicher-im-internet)$/.test(pfad)) { const sl = pfad.slice(7); ziel = '/grundschulmax/ueben/' + sl + '.html'; }
     else if (pfad === '/robots.txt' || pfad === '/sitemap.xml') ziel = '/grundschulmax' + pfad;
     else if (pfad === '/favicon.ico') ziel = '/grundschulmax/max-96.png';
     if (ziel) return new Response(null, { headers: { 'x-middleware-rewrite': new URL(ziel, url).toString() } });
