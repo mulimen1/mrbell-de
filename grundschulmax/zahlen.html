@@ -50,6 +50,32 @@ button{font:inherit;color:inherit}
 .six div{background:#f7f3ec;border-radius:14px;padding:10px 12px}
 .six b{display:block;font-size:22px;letter-spacing:-.03em}
 .six small{color:var(--mute);font-weight:600;font-size:12px}
+.tabs{max-width:1380px;margin:0 auto;padding:0 20px 10px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;height:36px;padding:0 15px;border-radius:12px;border:1px solid var(--line2);background:var(--card);font-weight:700;font-size:13.5px;color:var(--ink2);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.tabs .cn{min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:rgba(0,0,0,.08);font-size:11.5px;display:inline-grid;place-items:center}
+.tabs button.on .cn{background:rgba(255,255,255,.25)}
+.bst .dist{min-width:70px}
+@media (max-width:560px){.bst th,.bst td{padding:7px 4px;font-size:12.5px}.bst td .s{display:none}}
+.br.w{grid-template-columns:minmax(0,1fr) 96px}.br.w .c{white-space:nowrap}
+.lede{color:var(--mute);font-size:12.5px;margin:12px 2px 0;line-height:1.5}
+.dist{display:flex;height:14px;border-radius:7px;overflow:hidden;background:#f2ede4;min-width:140px}
+.dist i{display:block;height:100%}
+.dleg{display:flex;gap:10px;flex-wrap:wrap;font-size:11.5px;color:var(--mute);font-weight:600;margin-top:10px}
+.dleg span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:3px;background:var(--c);margin-right:5px}
+.acc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-top:10px;overflow:hidden}
+.acc>summary{list-style:none;cursor:pointer;padding:14px 18px;display:grid;grid-template-columns:44px minmax(160px,1.4fr) repeat(5,minmax(70px,1fr)) 24px;gap:12px;align-items:center}
+.acc>summary::-webkit-details-marker{display:none}
+.acc .av{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:18px;color:#fff;background:linear-gradient(180deg,#5aa2f7,#1a5fc4)}
+.acc.ben .av{background:linear-gradient(180deg,#b9b2a6,#857d70)}
+.acc .who{min-width:0}.acc .who b{display:block;font-size:15px}.acc .who small{display:block;color:var(--mute);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acc .st small{display:block;color:var(--mute);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}.acc .st b{font-size:16px}
+.acc .chev{color:var(--mute);font-size:22px;transition:transform .2s}.acc[open] .chev{transform:rotate(90deg)}
+.accb{padding:0 18px 18px;border-top:1px solid var(--line);background:#fbf9f5}
+.accb .card{background:#fff}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13.5px}.kv span{color:var(--mute)}.kv b{font-weight:650}
+@media (max-width:900px){.acc>summary{grid-template-columns:40px minmax(0,1fr) auto 18px;padding:12px 14px}.acc .st{display:none}.acc .st.k{display:block;text-align:right}.accb{padding:0 12px 12px}.tabs{padding:0 16px 10px}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;min-width:0;overflow:hidden}
 .card h2{margin:0;font-size:15px;font-weight:700;letter-spacing:-.01em}
 .hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
@@ -117,11 +143,11 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
 <div class="top"><div class="top-in">
   <div class="brand"><img src="/grundschulmax/max-96.png" alt=""><div><b>Zahlen</b><small>Grundschulmax · nur für Ben</small></div></div>
   <div class="sp"></div>
-  <div class="seg" id="seg"><button data-z="heute">Heute</button><button data-z="7">7 Tage</button><button data-z="30">30 Tage</button><button data-z="alle">Gesamt</button></div>
+  <div class="seg" id="seg"><button data-z="alle">Gesamt</button><button data-z="30">30 Tage</button><button data-z="7">7 Tage</button><button data-z="heute">Heute</button></div>
   <button class="ib" id="intern" title="Besuche von diesem Gerät nicht mitzählen"><i></i><span>Gerät nicht zählen</span></button>
   <button class="ib" id="reload" aria-label="Neu laden">↻</button>
   <span class="stand" id="stand"></span>
-</div></div>
+</div><nav class="tabs" id="tabs"></nav></div>
 <main class="wrap" id="main"><div class="grid k6">
 <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div></div></main>
 <script>
@@ -133,14 +159,14 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
   var pct = function (a, b) { return b ? Math.round(a / b * 1000) / 10 : 0; };
   var pc = function (a, b) { a = +a || 0; b = +b || 0; return b ? String(pct(a, b)).replace('.', ',') + ' %' : '–'; };
   var ls = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
-  var Z = ls.get('gsmz.z') || '7', timer = 0, busy = false;
+  var Z = ls.get('gsmz.z2') || 'alle', timer = 0, busy = false;
   // Interne Besuche ausschließen (Cookie wird von der Middleware geprüft)
   var isIntern = function () { return /(?:^|;\s*)gsm_intern=1/.test(document.cookie); };
   var setIntern = function (on) { document.cookie = 'gsm_intern=' + (on ? '1; Max-Age=315360000' : '; Max-Age=0') + '; Path=/; SameSite=Lax; Secure'; drawIntern(); };
   var drawIntern = function () { var b = $('#intern'); b.classList.toggle('on', isIntern()); b.querySelector('span').textContent = isIntern() ? 'Gerät wird nicht gezählt' : 'Gerät wird gezählt'; };
   $('#intern').onclick = function () { setIntern(!isIntern()); };
   drawIntern();
-  [].forEach.call(document.querySelectorAll('#seg button'), function (b) { b.classList.toggle('on', b.dataset.z === Z); b.onclick = function () { Z = b.dataset.z; ls.set('gsmz.z', Z); [].forEach.call(document.querySelectorAll('#seg button'), function (x) { x.classList.toggle('on', x === b); }); load(); }; });
+  [].forEach.call(document.querySelectorAll('#seg button'), function (b) { b.classList.toggle('on', b.dataset.z === Z); b.onclick = function () { Z = b.dataset.z; ls.set('gsmz.z2', Z); [].forEach.call(document.querySelectorAll('#seg button'), function (x) { x.classList.toggle('on', x === b); }); load(); }; });
   $('#reload').onclick = function () { load(); };
 
   function gate(title, text) {
@@ -199,89 +225,128 @@ td .s{color:var(--mute);font-weight:500;font-size:12px}
   function six(list) { return '<div class="six">' + list.map(function (x) { return '<div><small>' + esc(x[0]) + '</small><b class="' + (x[2] || '') + '">' + fmt(x[1]) + '</b>' + (x[3] ? '<small>' + x[3] + '</small>' : '') + '</div>'; }).join('') + '</div>'; }
   function datum(t) { if (!t) return '–'; var d = new Date(t); if (isNaN(d)) return esc(t); return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Berlin' }) + ' ' + d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }); }
   function tag(s) { return s ? s.slice(8, 10) + '.' + s.slice(5, 7) + '.' : '–'; }
-  function draw(d) {
-    var F = d.funnel || [], P = d.pfad && d.pfad.length ? d.pfad : F, f0 = (P[0] && P[0].n) || 0;
-    var get = function (e) { var x = P.find(function (y) { return y.e === e; }) || F.find(function (y) { return y.e === e; }); return x ? x.n : 0; };
-    var uOf = function (e) { var x = F.find(function (y) { return y.e === e; }); return x && x.u != null ? x.u : null; };
-    var ew = d.einwilligung || { ja: 0, nein: 0 }, ewt = ew.ja + ew.nein;
-    var q = d.quellen || [], fb = q.filter(function (x) { return /facebook|instagram|meta/i.test(x[0]); }).reduce(function (a, x) { return a + (x[1].s || 0); }, 0);
-    var L = d.lobby || {}, A = d.angebot || {};
-    var k = function (l, v, sb) { return '<section class="card kpi"><div class="l">' + esc(l) + '</div><div class="v">' + v + '</div><div class="d">' + (sb || '') + '</div></section>'; };
+  var TABS = [['ueber', 'Überblick'], ['weg', 'Weg & Absprung'], ['verh', 'Verhalten'], ['klick', 'Klicks'], ['konten', 'Konten'], ['live', 'Live']];
+  var T = ls.get('gsmz.tab') || 'ueber', D = null;
+  if (!TABS.some(function (x) { return x[0] === T; })) T = 'ueber';
+  function tabs() {
+    var n = D ? (D.konten || []).filter(function (k) { return !k.ben; }).length : 0;
+    var tb = $('#tabs'); tb.innerHTML = TABS.map(function (t) { return '<button type="button" data-t="' + t[0] + '" class="' + (t[0] === T ? 'on' : '') + '">' + t[1] + (t[0] === 'konten' && D ? ' <span class="cn">' + n + '</span>' : '') + '</button>'; }).join('');
+    [].forEach.call(document.querySelectorAll('#tabs button'), function (b) { b.onclick = function () { T = b.dataset.t; ls.set('gsmz.tab', T); if (D) draw(D); window.scrollTo(0, 0); }; });
+    var on = tb.querySelector('.on'); if (on && on.scrollIntoView) on.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+  var k = function (l, v, sb) { return '<section class="card kpi"><div class="l">' + esc(l) + '</div><div class="v">' + v + '</div><div class="d">' + (sb || '') + '</div></section>'; };
+  var BKN = ['unter 10 s', '10–30 s', '30–60 s', '1–3 min', '3–10 min', 'über 10 min'], BKC = ['#e5484d', '#f59e0b', '#facc15', '#86c96b', '#16a05c', '#0e6b3d'];
+  function zeit(s) { s = Math.round(+s || 0); return s < 60 ? s + ' s' : s < 3600 ? Math.floor(s / 60) + ' min' + (s % 60 >= 10 ? ' ' + (s % 60) + ' s' : '') : Math.floor(s / 3600) + ' h ' + Math.round(s % 3600 / 60) + ' min'; }
+  function steps(list, total) {
+    if (!list || !list.some(function (x) { return x[1]; })) return '<div class="empty">Noch keine Daten. Wird ab jetzt bei jedem Besuch gemessen.</div>';
+    var m = Math.max.apply(null, list.map(function (x) { return x[1]; })) || 1;
+    return '<div class="bars">' + list.filter(function (x) { return x[1]; }).map(function (x) { return '<div class="br w"><div class="t"><i style="width:' + Math.max(2, x[1] / m * 100) + '%;background:#ffe1dc"></i><span>' + esc(x[0]) + '</span></div><div class="c">' + fmt(x[1]) + ' <span class="s" style="color:var(--mute);font-weight:500;font-size:11.5px">' + pc(x[1], total) + '</span></div></div>'; }).join('') + '</div>';
+  }
+
+  function vUeber(d) {
+    var P = d.pfad && d.pfad.length ? d.pfad : (d.funnel || []), f0 = (P[0] && P[0].n) || 0;
+    var get = function (e) { var x = P.find(function (y) { return y.e === e; }); return x ? x.n : 0; };
+    var ew = d.einwilligung || { ja: 0, nein: 0 }, ewt = ew.ja + ew.nein, q = d.quellen || [];
+    var fb = q.filter(function (x) { return /facebook|instagram|meta/i.test(x[0]); }).reduce(function (a, x) { return a + (x[1].s || 0); }, 0);
+    var A = d.angebot || {}, L = d.lobby || {};
     var h = '<div class="grid k8">' +
       k('Besuche', fmt(f0), 'Aufrufe der Startseite') +
       k('Von Facebook / Instagram', fmt(fb), 'nur Besucher mit Cookie') +
       k('Ausprobieren geklickt', fmt(get('Ausprobieren geklickt')), pc(get('Ausprobieren geklickt'), f0) + ' der Besuche') +
-      k('In der Lobby', fmt(L.auf || get('Lobby geöffnet')), pc(L.auf || get('Lobby geöffnet'), f0) + ' der Besuche') +
-      k('Angebot angesehen', fmt(A.auf || 0), pc(A.auf || 0, f0) + ' der Besuche') +
+      k('In der Lobby', fmt(L.auf || 0), pc(L.auf, f0) + ' der Besuche') +
+      k('Angebot angesehen', fmt(A.auf || 0), pc(A.auf, f0) + ' der Besuche') +
       k('Abos', fmt(get('Abo abgeschlossen')), pc(get('Abo abgeschlossen'), f0) + ' der Besuche') +
-      k('Neue Konten', fmt(d.kontenNeu != null ? d.kontenNeu : get('Konto erstellt')), fmt((d.konten || []).length) + ' Konten insgesamt') +
+      k('Neue Konten', fmt(d.kontenNeu || 0), fmt(d.kontenAktiv || 0) + ' Konten aktiv im Zeitraum') +
       k('Cookie erlaubt', ewt ? pc(ew.ja, ewt) : '–', fmt(ew.ja) + ' ja · ' + fmt(ew.nein) + ' nein (sonst anonym)') + '</div>';
+    var T2 = d.tage2 || [], cols = [['b', 'Besuche'], ['a', 'Ausprobieren'], ['k', 'Klasse'], ['lo', 'Lobby'], ['l', '1. Lektion'], ['an', 'Angebot'], ['za', 'Zur Zahlung'], ['z', 'Abo'], ['ko', 'Konto']], sum = {};
+    T2.forEach(function (t) { cols.forEach(function (c) { sum[c[0]] = (sum[c[0]] || 0) + (t[1][c[0]] || 0); }); });
+    var tt = T2.length ? '<div class="tw"><table><tr><th>Tag</th>' + cols.map(function (c) { return '<th class="n">' + c[1] + '</th>'; }).join('') + '</tr>' +
+      T2.map(function (t) { var d0 = new Date(t[0] + 'T12:00:00'); return '<tr><td><b>' + d0.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + '</b></td>' + cols.map(function (c) { var v = t[1][c[0]] || 0; return '<td class="n' + (c[0] === 'z' && v ? ' ok' : '') + '">' + (v ? fmt(v) : '<span class="s">0</span>') + '</td>'; }).join('') + '</tr>'; }).join('') +
+      (T2.length > 1 ? '<tr><td><b>Summe</b></td>' + cols.map(function (c) { return '<td class="n"><b>' + fmt(sum[c[0]] || 0) + '</b></td>'; }).join('') + '</tr>' : '') + '</table></div>' : '<div class="empty">Noch keine Daten.</div>';
+    h += '<div class="grid">' + card('Tag für Tag', 'neuester Tag oben', tt) + '</div>';
+    var qt = q.length ? '<table><tr><th>Quelle</th><th class="n">Besucher</th><th class="n">1. Lektion</th><th class="n">Fertig</th><th class="n">Probe zu Ende</th><th class="n">Abo</th></tr>' + q.map(function (x) { var o = x[1]; return '<tr><td>' + esc(x[0]) + '</td><td class="n">' + fmt(o.s) + '</td><td class="n">' + fmt(o.lek) + ' <span class="s">' + pc(o.lek, o.s) + '</span></td><td class="n">' + fmt(o.fertig) + ' <span class="s">' + pc(o.fertig, o.s) + '</span></td><td class="n">' + fmt(o.probe) + '</td><td class="n ok">' + fmt(o.abo) + ' <span class="s">' + pc(o.abo, o.s) + '</span></td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch keine Besucher mit erlaubtem Cookie.</div>';
+    h += '<div class="grid g21">' + card('Woher sie kommen', 'nur mit Einwilligung', qt + '<p class="note">' + fmt(d.sitzungen) + ' Besucher mit Cookie · mittlere Verweildauer ' + dauer(d.dauerMedian) + '. Ohne Cookie wird anonym gezählt, dann ohne Quelle. Alle Anzeigen-Klicks stehen im Meta-Werbeanzeigenmanager.</p>') +
+      card('Verlauf', (d.tage || []).length + ' Tage', chart(d.tage)) + '</div>';
+    h += '<div class="grid g3">' + card('Einwilligung', '', six([['Cookie ja', ew.ja, 'ok', pc(ew.ja, ewt)], ['Cookie nein', ew.nein, 'bad', pc(ew.nein, ewt)], ['Nicht entschieden', Math.max(0, f0 - ewt), '', '']])) + card('Geräte', '', bars(d.geraete, 4)) + card('Orte', 'nur mit Einwilligung', bars(d.orte, 8)) + '</div>';
+    return h;
+  }
 
-    // 1. Der Weg
-    h += sec('Der Weg: wo sie abspringen');
+  function vWeg(d) {
+    var P = d.pfad && d.pfad.length ? d.pfad : (d.funnel || []), f0 = (P[0] && P[0].n) || 0, F = d.funnel || [];
+    var uOf = function (e) { var x = F.find(function (y) { return y.e === e; }); return x && x.u != null ? x.u : null; };
     var fr = '<div class="fun"><div class="fr fh"><div>Schritt</div><div class="bar"></div><div class="pc">vom Start</div><div class="dr">Absprung</div><div class="u">mit Cookie</div></div>';
     P.forEach(function (x, i) {
       var prev = i ? P[i - 1].n : 0, drop = i && prev ? Math.max(0, Math.round((1 - x.n / prev) * 100)) : 0, u = uOf(x.e), w = f0 ? Math.max(.6, Math.min(100, x.n / f0 * 100)) : 0, up = i && prev && x.n >= prev;
       fr += '<div class="fr"><div class="lb" title="' + esc(x.e) + '">' + esc(x.l || x.e) + '</div><div class="bar"><i style="width:' + w + '%"></i><span' + (w < 14 ? ' class="o" style="left:calc(' + w + '% + 8px)"' : '') + '>' + fmt(x.n) + '</span></div><div class="pc">' + (i ? pc(x.n, f0) : '100 %') + '</div><div class="dr' + (i && drop && !up ? '' : ' z') + '">' + (i ? (prev && !up ? '−' + drop + ' %' : '–') : '') + '</div><div class="u">' + (u == null ? '' : fmt(u)) + '</div></div>';
     });
-    fr += '</div><p class="note">Jeder Schritt zählt höchstens einmal pro Seitenaufruf. „Absprung“: Anteil, der vom Schritt davor nicht weiterkommt („–“: kein fester Vorgänger, z. B. Angebot ohne Probe-Ende). Gezählt werden alle Besucher, auch anonyme ohne Cookie.</p>';
-    h += '<div class="grid g21">' + card('Vom Besuch zum Abo', P.length + ' Schritte', fr) + card('Verlauf', (d.tage || []).length + ' Tage', chart(d.tage) + sub('Woher (mit Cookie)') + bars(q.map(function (x) { return [x[0], x[1].s || 0]; }), 6) + sub('Klasse gewählt') + bars(d.klassen, 4) + sub('Geräte') + bars(d.geraete, 4)) + '</div>';
+    fr += '</div><p class="note">Jeder Schritt zählt höchstens einmal pro Seitenaufruf. „Absprung“: Anteil, der vom Schritt davor nicht weiterkommt („–“: kein fester Vorgänger).</p>';
+    var A = d.absprung || { neu: [], wieder: [], wo: [] }, nN = (A.neu || []).reduce(function (a, x) { return a + x[1]; }, 0), nW = (A.wieder || []).reduce(function (a, x) { return a + x[1]; }, 0);
+    var h = '<div class="grid g21">' + card('Vom Besuch zum Abo', P.length + ' Schritte', fr) +
+      card('Wo neue Besucher aufhören', fmt(nN) + ' Besuche', '<p class="lede" style="margin:0 0 12px">Der weiteste Schritt, den ein neuer Besucher erreicht hat, bevor er gegangen ist.</p>' + steps(A.neu, nN) + sub('Letzter Bildschirm vor dem Gehen') + bars(A.wo, 10)) + '</div>';
+    h += '<div class="grid g2">' + card('Wiederkehrende Besucher', fmt(nW) + ' Besuche', '<p class="lede" style="margin:0 0 12px">Wer schon einmal da war: bis wohin sie diesmal gekommen sind.</p>' + steps(A.wieder, nW)) +
+      card('Wann sie die Seite verlassen', 'Bildschirm · Zeit seit Öffnen', bars(d.verlassen, 14) + sub('Weggewesen und zurückgekommen') + bars(d.weg, 6)) + '</div>';
+    return h;
+  }
 
-    // 2. Tag für Tag
-    var T = d.tage2 || [], cols = [['b', 'Besuche'], ['a', 'Ausprobieren'], ['k', 'Klasse'], ['lo', 'Lobby'], ['l', '1. Lektion'], ['an', 'Angebot'], ['za', 'Zur Zahlung'], ['z', 'Abo'], ['ko', 'Konto']];
-    var sum = {}; T.forEach(function (t) { cols.forEach(function (c) { sum[c[0]] = (sum[c[0]] || 0) + (t[1][c[0]] || 0); }); });
-    var tt = T.length ? '<div class="tw"><table><tr><th>Tag</th>' + cols.map(function (c) { return '<th class="n">' + c[1] + '</th>'; }).join('') + '</tr>' +
-      T.map(function (t) { var d0 = new Date(t[0] + 'T12:00:00'); return '<tr><td><b>' + d0.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + '</b></td>' + cols.map(function (c) { var v = t[1][c[0]] || 0; return '<td class="n' + (c[0] === 'z' && v ? ' ok' : '') + '">' + (v ? fmt(v) : '<span class="s">0</span>') + '</td>'; }).join('') + '</tr>'; }).join('') +
-      (T.length > 1 ? '<tr><td><b>Summe</b></td>' + cols.map(function (c) { return '<td class="n"><b>' + fmt(sum[c[0]] || 0) + '</b></td>'; }).join('') + '</tr>' : '') + '</table></div>' : '<div class="empty">Noch keine Daten.</div>';
-    h += '<div class="grid">' + card('Tag für Tag', 'neuester Tag oben', tt) + '</div>';
-
-    // 3. Woher
-    h += sec('Woher sie kommen');
-    var qt = q.length ? '<table><tr><th>Quelle</th><th class="n">Besucher</th><th class="n">1. Lektion</th><th class="n">Fertig</th><th class="n">Probe zu Ende</th><th class="n">Abo</th></tr>' + q.map(function (x) { var o = x[1]; return '<tr><td>' + esc(x[0]) + '</td><td class="n">' + fmt(o.s) + '</td><td class="n">' + fmt(o.lek) + ' <span class="s">' + pc(o.lek, o.s) + '</span></td><td class="n">' + fmt(o.fertig) + ' <span class="s">' + pc(o.fertig, o.s) + '</span></td><td class="n">' + fmt(o.probe) + '</td><td class="n ok">' + fmt(o.abo) + ' <span class="s">' + pc(o.abo, o.s) + '</span></td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch keine Besucher mit erlaubtem Cookie.</div>';
-    h += '<div class="grid g2">' + card('Quellen', 'nur mit Einwilligung', qt + '<p class="note">' + fmt(d.sitzungen) + ' Besucher mit Cookie · mittlere Verweildauer ' + dauer(d.dauerMedian) + '. Ohne Cookie wird nur anonym gezählt (ohne Quelle). Alle Anzeigen-Klicks stehen im Meta-Werbeanzeigenmanager.</p>', 'wide') +
-      card('Einwilligung und Orte', '', six([['Cookie ja', ew.ja, 'ok', pc(ew.ja, ewt)], ['Cookie nein', ew.nein, 'bad', pc(ew.nein, ewt)], ['Startseite gesehen', f0, '', '']]) + sub('Orte (nur mit Einwilligung)') + bars(d.orte, 10)) + '</div>';
-
-    // 4. Startseite
-    h += sec('Startseite');
-    h += '<div class="grid g3">' + card('Klicks auf der Startseite', 'Top 25', bars(d.klicks, 25)) +
-      card('Sicherheit, Datenschutz und Co.', 'Infoseiten geöffnet', bars(d.info, 10) + sub('Rechtstexte') + bars(d.recht, 6)) +
-      card('Wo sie die Seite verlassen', '', sub('Startseite gescrollt') + bars(d.scroll, 4) + sub('Ausstieg nach Bildschirm und Zeit') + bars(d.verlassen, 14) + sub('Weg und zurückgekommen') + bars(d.weg, 6)) + '</div>';
-
-    // 5. Lobby
-    h += sec('Lobby');
+  function vVerh(d) {
+    var B = d.bildschirm || [], tot = B.reduce(function (a, x) { return a + x.n; }, 0);
+    var bt = B.length ? '<div><table class="bst"><tr><th>Bereich</th><th class="n">Aufrufe</th><th class="n">Ø Zeit</th><th>Wie lange</th></tr>' + B.map(function (x) { return '<tr><td><b>' + esc(nm(x.a)) + '</b></td><td class="n">' + fmt(x.n) + ' <span class="s">' + pc(x.n, tot) + '</span></td><td class="n">' + zeit(x.avg) + '</td><td><div class="dist">' + x.b.map(function (v, i) { return v ? '<i style="width:' + (v / x.n * 100) + '%;background:' + BKC[i] + '" title="' + BKN[i] + ': ' + v + '"></i>' : ''; }).join('') + '</div></td></tr>'; }).join('') + '</table></div><div class="dleg">' + BKN.map(function (b, i) { return '<span style="--c:' + BKC[i] + '">' + b + '</span>'; }).join('') + '</div>' : '<div class="empty">Noch keine Daten. Wird ab jetzt bei jedem Besuch gemessen.</div>';
+    var h = '<div class="grid">' + card('Was sie anschauen und wie lange', 'nur sichtbare Zeit', bt) + '</div>';
+    var L = d.lobby || {}, A = d.angebot || {}, E = d.eltern || {};
     h += '<div class="grid g3">' +
       card('Lobby', 'wie lange sie bleiben', six([['Geöffnet', L.auf || 0, '', ''], ['Aufgaben abgeholt', L.aufgaben || 0, 'ok', ''], ['Einrichten geklickt', L.einrichten || 0, '', '']]) + sub('Aufenthalt pro Besuch') + bars(L.zeit, 7) + sub('Klasse gewählt') + bars(d.klassen, 4)) +
-      card('Was sie in der Lobby machen', '', sub('Spielen gedrückt') + bars(nl(L.spielen), 6) + sub('Bereich geöffnet') + bars(nl(L.bereiche), 8) + sub('Tour') + bars(L.tour, 6) + (L.fehler ? '<p class="note bad">' + fmt(L.fehler) + '× Lobby konnte nicht laden (Ersatzbild gezeigt)</p>' : '')) +
+      card('Was sie in der Lobby machen', '', sub('Spielen gedrückt') + bars(nl(L.spielen), 6) + sub('Bereich geöffnet') + bars(nl(L.bereiche), 8) + sub('Tour') + bars(L.tour, 6) + (L.fehler ? '<p class="note bad">' + fmt(L.fehler) + '× Lobby konnte nicht laden</p>' : '')) +
       card('Figuren, Berufe, Tiere', '', sub('Figur gewählt') + bars(nl(L.figuren), 8) + sub('Beruf gewechselt') + bars(nl(L.berufe), 8) + sub('Haustier gewählt') + bars(nl(L.haustiere), 8) + sub('Level erreicht') + bars(L.level, 10)) + '</div>';
-
-    // 6. Angebot
-    h += sec('Angebot und Abo');
     h += '<div class="grid g3">' +
-      card('Angebot', 'Abo-Fenster', six([['Angesehen', A.auf || 0, '', pc(A.auf, f0) + ' der Besuche'], ['Weiter zum Test', (A.gewaehlt || []).reduce(function (a, x) { return a + x[1]; }, 0), '', ''], ['Zur Zahlung', A.zahlung || 0, '', pc(A.zahlung, A.auf)], ['Zahlung abgebrochen', A.abbruch || 0, 'bad', pc(A.abbruch, A.zahlung)], ['Abo abgeschlossen', A.abo || 0, 'ok', pc(A.abo, A.auf)], ['Geschlossen', A.zu || 0, '', pc(A.zu, A.auf)]])) +
-      card('Welcher Tarif', '', sub('Angetippt') + bars(A.angetippt, 4) + sub('Weiter zum Test mit') + bars(A.gewaehlt, 4) + sub('Alle Abo-Schritte') + bars(d.abo, 12)) +
-      card('Wo das Angebot aufging', '', bars(A.wo, 10) + sub('Konto') + bars(d.konto, 6)) + '</div>';
-
-    // 7. Konten
-    h += sec('Konten');
-    var K = d.konten || [];
-    var kt = K.length ? '<div class="tw"><table><tr><th>Erstellt</th><th>E-Mail</th><th>Kind</th><th class="n">Klasse</th><th>Figur</th><th>Beruf</th><th class="n">Lektionen</th><th class="n">Minuten</th><th>Abo</th><th>Passwort</th><th>Zuletzt aktiv</th></tr>' +
-      K.map(function (x) { return '<tr><td>' + datum(x.erstellt) + '</td><td><b>' + esc(x.email) + '</b></td><td>' + esc(x.kind || '–') + '</td><td class="n">' + esc(x.klasse || '–') + '</td><td>' + esc(nm(x.figur) || '–') + '</td><td>' + esc(nm(x.beruf) || '–') + '</td><td class="n">' + fmt(x.lektionen) + '</td><td class="n">' + fmt(x.minuten) + '</td><td>' + (x.abo ? '<span class="pill">' + esc(x.abo) + '</span>' : '<span class="pill m">Probe</span>') + '</td><td>' + (x.passwort ? 'ja' : '–') + '</td><td>' + (x.letzterTag ? tag(x.letzterTag) : datum(x.aktiv)) + '</td></tr>'; }).join('') + '</table></div>' : '<div class="empty">Noch keine Konten.</div>';
-    h += '<div class="grid">' + card('Alle Konten', fmt(K.length) + ' insgesamt · ' + fmt(d.kontenNeu || 0) + ' neu im Zeitraum · ' + fmt(d.kontenAbo || 0) + ' mit Abo', kt) + '</div>';
-
-    // 8. Lernen
-    h += sec('Lernen und Spielen');
+      card('Angebot', 'Abo-Fenster', six([['Angesehen', A.auf || 0, '', ''], ['Weiter zum Test', (A.gewaehlt || []).reduce(function (a, x) { return a + x[1]; }, 0), '', ''], ['Zur Zahlung', A.zahlung || 0, '', pc(A.zahlung, A.auf)], ['Abgebrochen', A.abbruch || 0, 'bad', pc(A.abbruch, A.zahlung)], ['Abo', A.abo || 0, 'ok', pc(A.abo, A.auf)], ['Geschlossen', A.zu || 0, '', pc(A.zu, A.auf)]]) + sub('Tarif angetippt') + bars(A.angetippt, 4) + sub('Wo es aufging') + bars(A.wo, 6)) +
+      card('Eltern-Hinweis nach KI-Lektion', 'nur ohne Konto', six([['Gezeigt', E.gezeigt || 0, '', ''], ['Geklickt', E.geklickt || 0, 'ok', pc(E.geklickt, E.gezeigt)], ['', '', '', '']].slice(0, 2)) + sub('Thema') + bars(E.themen, 6)) +
+      card('Infoseiten', 'Sicherheit, Datenschutz, Preise', bars(d.info, 10) + sub('Startseite gescrollt') + bars(d.scroll, 4)) + '</div>';
     h += '<div class="grid g3">' +
       card('Erste Lektion', 'Probe', tri(d.ersteLektion || { s: 0, f: 0, a: 0 }) + sub('Wo abgebrochen') + bars(d.ersteAbbruch, 8)) +
       card('Erstes Spiel', 'im Abo', tri(d.ersteSpiel || { s: 0, f: 0, a: 0 }) + sub('Wo abgebrochen') + bars(d.ersteSpielAbbruch, 8)) +
-      card('Tutorial', 'erster Besuch', bars(d.tutorial, 6) + sub('Hausaufgaben-Hilfe') + bars(d.hausaufgaben, 6)) + '</div>';
-    h += '<div class="grid g2">' + card('Spiele', '', sfa(d.spiele, 'Spiel')) + card('Lektionen', 'nach Fach', sfa(d.lektionen, 'Fach')) + '</div>';
-    h += '<div class="grid g2">' + card('Fächer und Bereiche', '', bars(d.faecher, 6) + sub('Bereiche') + bars(d.bereiche, 8)) + card('Geräte', '', bars(d.geraete, 4) + sub('Alle Ereignisse') + bars(d.events, 40)) + '</div>';
+      card('Hausaufgaben und Konto', '', bars(d.hausaufgaben, 6) + sub('Konto') + bars(d.konto, 6)) + '</div>';
+    h += '<div class="grid g2">' + card('Lektionen', 'nach Fach', sfa(d.lektionen, 'Fach')) + card('Spiele', '', sfa(d.spiele, 'Spiel')) + '</div>';
+    return h;
+  }
 
-    // 9. Live
-    var fd = (d.feed || []).map(function (x) { return '<div class="fe"><time>' + zeitHM(x.t) + '</time><div><b>' + esc(x.e) + '</b>' + (x.d ? ' · ' + esc(x.d) : '') + '<div class="m">' + esc([x.g, x.o, x.q, x.s ? '#' + x.s : ''].filter(Boolean).join(' · ')) + '</div></div></div>'; }).join('');
-    h += sec('Live');
-    h += '<div class="grid">' + card('Gerade passiert', 'letzte 60', '<div class="feed">' + (fd || '<div class="empty">Noch nichts passiert.</div>') + '</div>') + '</div>';
-    $('#main').innerHTML = h;
+  function vKlick(d) {
+    var K = d.klicksBereich || [], BD = d.klicksBedienung || { n: 0, top: [] };
+    if (!K.length) return '<div class="grid">' + card('Klicks', '', '<div class="empty">Noch keine Klicks im Zeitraum.</div>') + '</div>';
+    var h = '<p class="lede">Klicks nach Bereich. Reine Bedienknöpfe (Weiter, Prüfen, Schließen …) sind herausgefiltert: ' + fmt(BD.n) + ' Stück.</p><div class="grid g3">';
+    h += K.map(function (x) { return card(nm(x.a), fmt(x.n) + ' Klicks', bars(x.top, 15)); }).join('');
+    return h + '</div>';
+  }
+
+  function vKonten(d) {
+    var K = (d.konten || []).slice(), echte = K.filter(function (x) { return !x.ben; }), ben = K.filter(function (x) { return x.ben; });
+    var h = '<div class="grid k8">' + k('Konten', fmt(echte.length), 'ohne deine eigenen') + k('Neu im Zeitraum', fmt(d.kontenNeu || 0), '') + k('Mit Abo', fmt(d.kontenAbo || 0), pc(d.kontenAbo, echte.length) + ' der Konten') + k('Aktiv im Zeitraum', fmt(d.kontenAktiv || 0), '') + '</div>';
+    var one = function (x) {
+      var init = (x.kind || x.email || '?').trim().charAt(0).toUpperCase();
+      var fa = x.faecher && x.faecher.length ? bars(x.faecher, 6) : '<div class="empty">Noch keine Lektion.</div>';
+      var td = x.tage && x.tage.length ? '<table><tr><th>Tag</th><th class="n">Min.</th><th class="n">Lekt.</th><th class="n">Antw.</th><th class="n">HA</th></tr>' + x.tage.map(function (t) { return '<tr><td>' + new Date(t.d + 'T12:00:00').toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + '</td><td class="n">' + fmt(t.min) + '</td><td class="n">' + fmt(t.les) + '</td><td class="n">' + fmt(t.ans) + '</td><td class="n">' + fmt(t.hw) + '</td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch keine Lernzeit.</div>';
+      var kv = [['Kind', x.kind || '–'], ['Klasse', x.klasse || '–'], ['Figur', nm(x.figur) || '–'], ['Traumberuf', nm(x.beruf) || '–'], ['Haustier', nm(x.haustier) || '–'], ['Level', x.level + ' · ' + fmt(x.ep) + ' EP'], ['Lektionen', fmt(x.lektionen) + (x.abenteuer ? ' (davon ' + fmt(x.abenteuer) + ' im Abenteuer)' : '')], ['Spiele gespielt', fmt(x.spiele)], ['Hausaufgaben', fmt(x.hausaufgaben)], ['Antworten', fmt(x.antworten) + (x.antworten ? ' · ' + x.richtig + ' % richtig' : '')], ['Lernzeit', fmt(x.minuten) + ' min an ' + fmt(x.aktivTage) + ' Tagen'], ['Anmeldungen', fmt(x.logins) + (x.letzterLogin ? ' · zuletzt ' + datum(x.letzterLogin) : '')], ['Besuche', fmt(x.besuche) + (x.letzterBesuch ? ' · zuletzt ' + datum(x.letzterBesuch) : '')], ['Abo', x.abo ? x.abo + (x.aboSeit ? ' seit ' + datum(x.aboSeit) : '') : 'Probe'], ['Eltern-Passwort', x.passwort ? 'gesetzt' : 'nein'], ['Konto erstellt', datum(x.erstellt)], ['Zuletzt aktiv', datum(x.aktiv)]];
+      return '<details class="acc' + (x.ben ? ' ben' : '') + '" data-e="' + esc(x.email) + '"><summary><span class="av">' + esc(init) + '</span><span class="who"><b>' + esc(x.kind || 'Noch kein Name') + (x.klasse ? ' · Klasse ' + esc(x.klasse) : '') + (x.ben ? ' · dein Konto' : '') + '</b><small>' + esc(x.email) + '</small></span>' +
+        '<span class="st"><small>Abo</small><b>' + (x.abo ? '<span class="pill">' + esc(x.abo) + '</span>' : '<span class="pill m">Probe</span>') + '</b></span><span class="st"><small>Lektionen</small><b>' + fmt(x.lektionen) + '</b></span><span class="st"><small>Lernzeit</small><b>' + fmt(x.minuten) + ' min</b></span><span class="st"><small>Anmeldungen</small><b>' + fmt(x.logins) + '</b></span><span class="st k"><small>Zuletzt aktiv</small><b>' + (x.letzterTag ? tag(x.letzterTag) : datum(x.aktiv)) + '</b></span><span class="chev">›</span></summary>' +
+        '<div class="accb"><div class="grid g3">' + card('Steckbrief', '', '<div class="kv">' + kv.map(function (r) { return '<span>' + esc(r[0]) + '</span><b>' + esc(r[1]) + '</b>'; }).join('') + '</div>') + card('Fächer', 'Lektionen geschafft', fa + (x.hwThemen && x.hwThemen.length ? sub('Hausaufgaben-Themen') + '<div class="kv" style="grid-template-columns:1fr">' + x.hwThemen.map(function (t) { return '<b>' + esc(t) + '</b>'; }).join('') + '</div>' : '')) + card('Letzte Tage', 'Lernzeit pro Tag', td) + '</div></div></details>';
+    };
+    h += '<div style="margin-top:6px">' + (echte.length ? echte.map(one).join('') : '<div class="grid">' + card('Konten', '', '<div class="empty">Noch keine Konten von Eltern.</div>') + '</div>') + '</div>';
+    if (ben.length) h += '<div class="sec">Deine eigenen Konten</div>' + ben.map(one).join('');
+    h += '<p class="lede">Anmeldungen und Besuche werden seit dem 6.11.2026, 14:40 Uhr pro Konto gezählt. Ein Besuch zählt neu, wenn 30 Minuten Pause dazwischen waren.</p>';
+    return h;
+  }
+
+  function vLive(d) {
+    var fd = (d.feed || []).filter(function (x) { return x.e !== 'Bildschirm'; }).map(function (x) { return '<div class="fe"><time>' + zeitHM(x.t) + '</time><div><b>' + esc(x.e) + '</b>' + (x.d ? ' · ' + esc(x.d) : '') + '<div class="m">' + esc([x.g, x.o, x.q, x.s ? '#' + x.s : ''].filter(Boolean).join(' · ')) + '</div></div></div>'; }).join('');
+    return '<div class="grid g21">' + card('Gerade passiert', 'letzte Ereignisse', '<div class="feed">' + (fd || '<div class="empty">Noch nichts passiert.</div>') + '</div>') + card('Alle Ereignisse', 'im Zeitraum', bars(d.events, 60)) + '</div>';
+  }
+
+  function draw(d) {
+    D = d; tabs();
+    var V = { ueber: vUeber, weg: vWeg, verh: vVerh, klick: vKlick, konten: vKonten, live: vLive }[T] || vUeber;
+    var np = d.nullpunkt ? new Date(d.nullpunkt).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) : '';
+    var op = [].map.call(document.querySelectorAll('details.acc[open]'), function (e) { return e.dataset.e; }), sy = window.scrollY;
+    $('#main').innerHTML = V(d) + (np ? '<p class="lede">Gezählt ab ' + np + ' Uhr. Deine eigenen Geräte werden nicht mitgezählt.</p>' : '');
+    [].forEach.call(document.querySelectorAll('details.acc'), function (e) { if (op.indexOf(e.dataset.e) >= 0) e.open = true; }); if (op.length) window.scrollTo(0, sy);
     $('#stand').textContent = 'Stand ' + new Date(d.stand).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + ' · ' + fmt(d.gesamt) + ' Ereignisse';
   }
   function dauer(s) { s = Math.round(+s || 0); return s < 60 ? s + ' s' : Math.floor(s / 60) + ' min ' + (s % 60) + ' s'; }
