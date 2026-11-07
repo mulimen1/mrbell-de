@@ -298,7 +298,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; img-src 'self' data: blob: https://*.stripe.com https://*.googleusercontent.com; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' https://mrbell.app.n8n.cloud https://api.stripe.com https://*.stripe.com https://*.stripe.network https://accounts.google.com/gsi/; frame-src https://js.stripe.com https://*.stripe.com https://hooks.stripe.com https://accounts.google.com/gsi/; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; img-src 'self' data: blob: https://*.stripe.com https://*.googleusercontent.com; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' https://hub.mrbell.de https://mrbell.app.n8n.cloud https://api.stripe.com https://*.stripe.com https://*.stripe.network https://accounts.google.com/gsi/; frame-src https://js.stripe.com https://*.stripe.com https://hooks.stripe.com https://accounts.google.com/gsi/; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
         }
       ]
     },
