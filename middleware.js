@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/gs', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
@@ -209,7 +209,8 @@ export default async function middleware(req, ctx) {
     const pfad = url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
     if (url.pathname === '/gs') return gsEreignis(req, ctx);
     let ziel = '';
-    if (pfad === '/') { ziel = '/grundschulmax/index.html'; /* Besuch zählt die Seite selbst, erst wenn sie 1 s sichtbar war (gt.js) */ }
+    if (pfad === '/') { ziel = '/grundschulmax/ueben/internet-fuehrerschein.html'; /* Startseite = Internet-Führerschein; alte App-Links (#…, ?abo=) leitet die Seite selbst nach /app weiter */ }
+    else if (pfad === '/app') { ziel = '/grundschulmax/index.html'; /* Lern-App; Besuch zählt die Seite selbst (gt.js) */ }
     else if (pfad === '/zahlen') ziel = '/grundschulmax/zahlen.html';
     else if (/^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(pfad)) { ziel = '/grundschulmax/legal' + pfad + '.html'; gsSeite(req, ctx, url, { impressum: 'Impressum', datenschutz: 'Datenschutz', agb: 'AGB', widerruf: 'Widerruf', kuendigen: 'Kündigen', widerrufen: 'Widerrufen' }[pfad.slice(1)]); }
     else if (pfad === '/ueben') { ziel = '/grundschulmax/ueben/index.html'; }
