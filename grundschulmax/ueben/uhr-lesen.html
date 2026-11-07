@@ -319,6 +319,23 @@ sup{font-size:.65em;color:#d2560f;font-weight:850}
 }
 .ksay small{font-size:inherit;font-weight:inherit}
 @media (min-width:1001px){.kh{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr)}.khl h1 span{white-space:nowrap}}
+/* KI-Seite: Schnupperfrage direkt im Kopf */
+.kpk .kh{align-items:start}
+.khg .tr{margin:6px 0 0}
+.peek{width:100%;max-width:620px;margin-top:12px;padding:18px 16px 10px;border-radius:22px;background:rgba(255,255,255,.98);box-shadow:0 5px 0 rgba(20,30,80,.12);display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;animation:pk .45s cubic-bezier(.2,1.4,.4,1) both}
+.peek b{font-size:19px;font-weight:900;letter-spacing:-.01em;color:#1c1f2a}
+.peek span{font-size:15px;font-weight:650;line-height:1.45;color:#3a4166;max-width:440px}
+.peek .go{width:100%;max-width:420px;margin-top:8px}
+.peek .lk2{margin-top:2px}
+@keyframes pk{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+@media (max-width:760px){.kpk .khl .lead{margin-bottom:4px}.kpk .ktrust{display:none}.kpk{padding-bottom:22px}}
+#nx{width:100%;display:flex;flex-direction:column;align-items:center}
+@media (max-width:760px){.kpk{padding-top:10px}.kpk .khl h1{font-size:34px;margin:6px 0 6px}.kpk .khl .lead{font-size:16px;line-height:1.4}
+.kpk .gbar{display:none}.kpk .world{padding:10px 10px 14px;border-radius:26px}.kpk .tut{margin-top:0}.kpk .tut img{width:46px;height:46px;border-radius:14px}.kpk .bub{font-size:15px;padding:9px 13px}
+.kpk .st{margin-top:8px;min-height:0}.kpk .qc{padding:12px 10px}.kpk .ql{font-size:17.5px;line-height:1.3}
+.kpk .ch{grid-template-columns:minmax(0,1fr);gap:9px;margin-top:10px}.kpk .ch button{min-height:50px;font-size:16px;padding:9px 12px;border-radius:16px}
+.kpk .fbx{font-size:15px;padding:12px 14px;margin-top:10px}.kpk .peek b{font-size:17.5px}.kpk .peek span{font-size:14px}}
+@media (max-width:760px){.kpk .kh{gap:14px}.kpk .peek .go{font-size:17px;padding-left:14px;padding-right:14px;white-space:nowrap}}
 </style></head><body><header class="hd"><div class="w"><a class="lg" href="/" aria-label="Grundschulmax Startseite"><img src="/grundschulmax/tut-max-128.webp" alt="" width="38" height="38"><span>Grundschul<b>max</b></span></a><nav aria-label="Übungen"><a href="/ueben">Alle Übungen</a><a href="/ueben/einmaleins">Einmaleins</a><a href="/ueben/plus-minus">Plus und Minus</a><a href="/ueben/uhr-lesen" class=on>Uhr lesen</a><a href="/ueben/silben">Silben</a><a href="/ueben/sicher-im-internet">Internet</a></nav><span class="sp"></span><a class="bt sm" href="/?ref=ueben-uhr-lesen#klasse" data-app="Kopf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Ausprobieren</a></div></header>
 <main><section class="top"><div class="w"><div class="bc"><a href="/">Grundschulmax</a> › <a href="/ueben">Übungen</a> › Uhr lesen</div>
 <h1>Uhr lesen lernen <span>– Schritt für Schritt</span></h1><p class="lead">Auf der Uhr unten stehen die Zeiger. Ihr Kind wählt die richtige Uhrzeit. Nach jeder Antwort zeigt Frieda, wie man die Zeit auch sagt, zum Beispiel „halb acht“ oder „Viertel vor drei“.</p><div class="chips"><span style="--c:#34c77b">Klasse 1 bis 3</span><span style="--c:#3b7bff">Halb und Viertel</span><span style="--c:#ff4f9a">Echte Zeigeruhr</span></div>
@@ -422,7 +439,7 @@ sup{font-size:.65em;color:#d2560f;font-weight:850}
       return L.map(function (w) { var n = w.split('-').length; return { word: w.replace(/-/g, ''), syl: w.split('-'), q: w.replace(/-/g, ''), a: String(n), opts: ['1', '2', '3', '4'], n4: 1 }; });
     },
     netz: function () {
-      return mix(C.qs).slice(0, N).map(function (x) { var right = x[1][0]; return { q: x[0], a: right, opts: mix(x[1]), h: x[2], long: 1 }; });
+      return (C.peek ? [C.qs[0]].concat(mix(C.qs.slice(1))) : mix(C.qs)).slice(0, N).map(function (x) { var right = x[1][0]; return { q: x[0], a: right, opts: mix(x[1]), h: x[2], long: 1 }; });
     }
   };
   function sprich(h, m) {
@@ -518,6 +535,14 @@ sup{font-size:.65em;color:#d2560f;font-weight:850}
     var go = function () { i++; if (i < N) show(); else end(); };
     if (r && auto) { setTimeout(go, auto); return; }
     var fx = cur.long && cur.h ? '<div class="fbx ' + (r ? 'ok' : 'no') + '"><b>' + (r ? 'Richtig!' : 'Besser so: ' + esc(cur.a)) + '</b>' + esc(cur.h) + '</div>' : '';
+    /* Schnupper-Modus (KI-Seite aus der Anzeige): nach der ersten Frage direkt zeigen, dass das Grundschulmax ist, und in die App einladen */
+    if (C.peek && i === 0) {
+      $('#nx', st).innerHTML = fx + '<div class="peek"><b>Genau so lernt Ihr Kind bei Grundschulmax.</b><span>Kurze Spiele, und Bit erklärt jede Antwort. Dazu Mathe, Deutsch, Englisch und Sachunterricht.</span><a class="bt lg2 go" href="' + fbq(lesLink()) + '" data-app="Schnupperfrage">' + PLAY + 'Jetzt Grundschulmax testen</a><button type="button" class="lk2" id="nxb">Noch eine Frage</button></div>';
+      $('#nxb', st).onclick = go;
+      $('[data-app]', st).addEventListener('click', function () { ev('Übung zur App', C.slug + ' · Schnupperfrage'); });
+      var pk = $('.peek', st); setTimeout(function () { var r = pk.getBoundingClientRect(); if (r.bottom > innerHeight) scrollBy({ top: r.bottom - innerHeight + 16, behavior: 'smooth' }); }, 120);
+      return;
+    }
     $('#nx', st).innerHTML = fx + '<button type="button" class="gb" id="nxb">' + (i + 1 < N ? 'Weiter' : 'Zum Ergebnis') + '</button>';
     $('#nxb', st).onclick = go;
   }
