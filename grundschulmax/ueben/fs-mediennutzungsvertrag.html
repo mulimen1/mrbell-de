@@ -876,7 +876,11 @@ body:has(.pz) .hd .bt svg{display:none}
 .pzhkb.b1{left:4px;top:4px}.pzhkb.b2{right:4px;top:14px;left:auto}.pzhkb.b3{right:28px;bottom:4px;left:auto}
 @media (max-width:760px){.pzhk{padding:6px 4px 0}}
 .pzhkb.b2{top:4px}
-</style></head><body><script>(function(){var h=location.hash.slice(1),q=location.search;if(/[?&]abo=/.test(q)||(h&&!/^(kaufen|quellen|forschung|szenen|ablauf|support|fragen|kurs)$/.test(h))){location.replace('/app'+q+location.hash);}})();</script><header class="pzhead"><div class="w"><a class="pzlogo" href="/internet-fuehrerschein" aria-label="Grundschulmax"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Grundschulmax</span></a><nav><a href="#forschung">Forschung</a><a href="#kaufen">Preis</a><a href="mailto:kontakt@grundschulmax.de">Support</a><a href="#quellen">Quellen</a></nav><a class="pzhb" href="#kaufen" data-app="Kopf">Jetzt beantragen</a></div></header>
+/* Anmelden + Wiederkehrer */
+.pzlog{color:var(--nv,#1d2a57);font-weight:650;font-size:15px;text-decoration:none;white-space:nowrap;padding:8px 2px}.pzlog:hover{text-decoration:underline}
+@media (max-width:760px){.pzhead .w{gap:14px}.pzlog{margin-left:auto;font-size:14.5px}}
+.pzback{background:#1d2a57;color:#fff;font:600 15px/1.4 Geist,system-ui,sans-serif;text-align:center;padding:10px 16px}.pzback a{color:#ffd6a8;font-weight:700;margin-left:6px;text-decoration:none;white-space:nowrap}.pzback a:hover{text-decoration:underline}
+</style></head><body><script>(function(){var h=location.hash.slice(1),q=location.search;if(/[?&]abo=/.test(q)||(h&&!/^(kaufen|quellen|forschung|szenen|ablauf|support|fragen|kurs)$/.test(h))){location.replace('/app'+q+location.hash);}})();</script><header class="pzhead"><div class="w"><a class="pzlogo" href="/internet-fuehrerschein" aria-label="Grundschulmax"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Grundschulmax</span></a><nav><a href="#forschung">Forschung</a><a href="#kaufen">Preis</a><a href="mailto:kontakt@grundschulmax.de">Support</a><a href="#quellen">Quellen</a></nav><a class="pzlog" href="/app#anmelden">Anmelden</a><a class="pzhb" href="#kaufen" data-app="Kopf">Jetzt beantragen</a></div></header>
 <main class="pz">
 <section class="pzhero"><div class="w pzh">
 <div class="pzhl">
@@ -1271,4 +1275,9 @@ body:has(.pz) .hd .bt svg{display:none}
     var run = function () { tm.forEach(clearTimeout); tm = []; restart(); steps.forEach(function (st) { tm.push(setTimeout(function () { if (st[1] === 'loop') { if (vis) run(); return; } sc.className = 'pzscene ' + st[1]; }, st[0])); }); };
     if (rm) sc.className = 'pzscene s5'; else if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { var v = es[0].isIntersecting; if (v && !vis) { vis = true; run(); } else if (!v) { vis = false; } }, { threshold: .3 }).observe(sc); else sc.className = 'pzscene s5'; }
 })();
+/* Wer den Führerschein schon hat: direkter Weg zum Kurs */
+(function () { try { var a = JSON.parse(localStorage.getItem('gsm-abo') || 'null'); if (!a || !a.paid || !/^f[skp]$/.test(a.plan || '')) return; var h = document.querySelector('.pzhead'); if (!h) return;
+  var b = document.createElement('div'); b.className = 'pzback'; b.innerHTML = 'Willkommen zurück! <a href="/app#fuehrerschein">Weiter zum Führerschein →</a>'; h.parentNode.insertBefore(b, h);
+  var c = h.querySelector('.pzhb'); if (c) { c.textContent = 'Zum Führerschein'; c.setAttribute('href', '/app#fuehrerschein'); c.removeAttribute('data-app'); }
+  var l = h.querySelector('.pzlog'); if (l) l.remove(); } catch (e) {} })();
 </script></body></html>
