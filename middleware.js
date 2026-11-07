@@ -100,7 +100,7 @@ function melden(daten, req, ctx) {
 // ---------- Grundschulmax: eigene Messung (n8n-Tabelle gsm_ev) ----------
 // Ohne Einwilligung: nur das Ereignis und der Gerätetyp, keine Kennung, kein Ort, keine Herkunft.
 // Mit Einwilligung (Cookie gsm_analyse = Zufallskennung): zusätzlich Kennung, ungefährer Ort und Herkunft (Anzeige, Link).
-const GS_ZIEL = 'https://mrbell.app.n8n.cloud/webhook/gsm-mess-84d470';
+const GS_ZIEL = 'https://hub.mrbell.de/n8n/webhook/gsm-mess-84d470';
 const GS_EV = ['Seite geöffnet', 'Rechtstext geöffnet', 'Analyse erlaubt', 'Analyse abgelehnt', 'Ausprobieren geklickt', 'Einloggen geklickt', 'Klasse gewählt',
   'Tutorial', 'Lektion gestartet', 'Lektion fertig', 'Lektion abgebrochen', 'Erste Lektion gestartet', 'Erste Lektion fertig', 'Erste Lektion abgebrochen',
   'Spiel gestartet', 'Spiel fertig', 'Spiel abgebrochen', 'Erstes Spiel gestartet', 'Erstes Spiel fertig', 'Erstes Spiel abgebrochen',
