@@ -829,6 +829,52 @@ body:has(.pz) .hd .bt svg{display:none}
 .pzhb{background:linear-gradient(180deg,#f2793f 0%,#e5622a 55%,#cf4f19 100%)!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 8px 18px -8px rgba(229,98,42,.7)!important;position:relative;overflow:hidden}
 .pzhb::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.5) 48%,transparent 66%);transform:translateX(-120%);animation:pzshine 4.5s ease-in-out infinite 2.5s}
 .pzhb:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 14px 26px -10px rgba(229,98,42,.8)!important}
+/* Hero v6: Führerschein als Ergebnis rechts, Lernziele links, Kurs-Szene darunter */
+.pzhero .pzh{align-items:center}
+.pzlearn{margin:0 0 26px}.pzlearn>b{display:block;margin:0 0 10px;font-size:13.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--nv)}
+.pzlearn ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 18px}
+.pzlearn li{display:flex;align-items:center;gap:9px;font-size:16.5px;font-weight:600;color:var(--ink)}
+.pzlearn li svg{flex:none;width:20px;height:20px;padding:3px;border-radius:50%;background:#e3f4ec;color:#147a4d}
+.pzhk{position:relative;padding:58px 34px 64px}
+.pzhkc{animation:pzfl 7s ease-in-out infinite}
+.pzhkc .pzk{transform:rotate(-4deg)}.pzhkc .pzk:hover{transform:rotate(-1deg) translateY(-6px)}
+@keyframes pzfl{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.pzhkb{position:absolute;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:10px 15px 10px 11px;border-radius:999px;background:#fff;font-size:14.5px;font-weight:650;color:var(--ink);box-shadow:0 0 0 1px rgba(20,25,60,.06),0 16px 30px -14px rgba(20,25,60,.35);white-space:nowrap}
+.pzhkb svg{flex:none;width:20px;height:20px;padding:3px;border-radius:50%;background:#1f9d63;color:#fff}
+.pzhkb.b1{left:0;top:6px}.pzhkb.b2{right:-6px;top:46%}.pzhkb.b3{left:18px;bottom:6px}
+.pzhr .pzcap2{margin-top:6px}
+.pzcg{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:56px;align-items:center}
+.pzct h2{margin:10px 0 14px;font-size:clamp(28px,3.2vw,42px);line-height:1.08}.pzct>p{margin:0 0 22px;color:var(--mut);font-size:17.5px;line-height:1.6}
+.pzcs{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.pzcs li{display:flex;gap:14px;align-items:flex-start}.pzcs i{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--nv);color:#fff;font-style:normal;font-weight:700;font-size:15px}
+.pzcs b{display:block;font-size:17px}.pzcs span{display:block;color:var(--mut);font-size:15.5px;line-height:1.5}
+.pzcourse .pzph .sq,.pzcourse .pzph .styp{animation-play-state:running}
+.pzcourse{padding-top:40px}.pzflowsec{padding:20px 0 84px}.pzflowsec .pzhbx{margin-top:0}
+@media (max-width:980px){.pzcg{grid-template-columns:minmax(0,1fr);gap:28px}.pzhk{padding:52px 18px 60px;max-width:560px;margin:0 auto}}
+@media (max-width:760px){.pzlearn ul{grid-template-columns:minmax(0,1fr)}.pzlearn li{font-size:16px}
+.pzhk{padding:6px 4px 0}.pzhkb{position:static;margin:8px 6px 0 0;font-size:13.5px;padding:8px 13px 8px 9px}.pzhkc{margin-bottom:14px}
+.pzhkc .pzk{transform:rotate(-2deg)}.pzcourse{padding-top:24px}.pzflowsec{padding:8px 0 56px}}
+/* Karte v2: gelernte Themen mit Haken direkt auf dem Führerschein */
+.pzkx{position:absolute;left:5.84cqw;right:5.84cqw;top:20.2cqw;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:2.2cqw 4cqw}
+.pzkx li{display:flex;align-items:center;gap:1.9cqw;font-size:3.35cqw;font-weight:600;line-height:1.1;color:#eef1ff;white-space:nowrap}
+.pzkx i{flex:none;display:grid;place-items:center;width:4.3cqw;height:4.3cqw;border-radius:50%;background:linear-gradient(135deg,#f3d58a,#c9a24a);color:#1d2a57;box-shadow:0 0 0 .35cqw rgba(243,213,138,.18)}
+.pzkx i svg{width:2.9cqw;height:2.9cqw}
+.pzkt em{background:linear-gradient(135deg,#3ccf8e,#1f9d63);color:#fff}
+.pzk .pzkf{right:26cqw;grid-template-columns:1.3fr .7fr 1.3fr;gap:3.5cqw}
+.pzk .pzkh{width:15.5cqw;height:15.5cqw;bottom:4.7cqw}.pzk .pzkh>svg:first-child{width:6cqw;height:6cqw}
+.pzk .pzkr text{font-size:9.4px}
+.pzkx li{opacity:0;transform:translateX(-1.5cqw);transition:opacity .45s,transform .45s}
+.pzkx li:nth-child(2){transition-delay:.12s}.pzkx li:nth-child(3){transition-delay:.24s}.pzkx li:nth-child(4){transition-delay:.36s}.pzkx li:nth-child(5){transition-delay:.48s}.pzkx li:nth-child(6){transition-delay:.6s}
+.pzhero .pzkx li,.in .pzkx li,.pzk.on .pzkx li{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.pzkx li{opacity:1;transform:none;transition:none}}
+.pzhero .pzkx li{animation:pzkin .5s cubic-bezier(.2,.7,.2,1) both;transition:none}
+.pzhero .pzkx li:nth-child(1){animation-delay:.7s}.pzhero .pzkx li:nth-child(2){animation-delay:.85s}.pzhero .pzkx li:nth-child(3){animation-delay:1s}.pzhero .pzkx li:nth-child(4){animation-delay:1.15s}.pzhero .pzkx li:nth-child(5){animation-delay:1.3s}.pzhero .pzkx li:nth-child(6){animation-delay:1.45s}
+@keyframes pzkin{from{opacity:0;transform:translateX(-1.5cqw)}to{opacity:1;transform:none}}
+.pzk .pzkt b{font-size:4.3cqw;white-space:nowrap}.pzk .pzkt{gap:2.6cqw}
+.pzhk{padding:62px 0 66px}
+.pzhkc .pzk{transform:rotate(-3deg)}
+.pzhkb.b1{left:4px;top:4px}.pzhkb.b2{right:4px;top:14px;left:auto}.pzhkb.b3{right:28px;bottom:4px;left:auto}
+@media (max-width:760px){.pzhk{padding:6px 4px 0}}
 </style></head><body><header class="hd"><div class="w"><a class="lg" href="/" aria-label="Grundschulmax Startseite"><img src="/grundschulmax/tut-max-128.webp" alt="" width="38" height="38"><span>Grundschul<b>max</b></span></a><nav aria-label="Ratgeber"><a href="/internet-und-ki">Internet & KI</a><a href="/ratgeber">Ratgeber</a><a href="/ratgeber/roblox">Roblox</a><a href="/ratgeber/erstes-tablet-handy">Erstes Tablet</a><a href="/ratgeber/whatsapp-klassenchat">Klassenchat</a><a href="/ueben">Übungen</a></nav><span class="sp"></span><a class="bt sm" href="/internet-und-ki" data-app="Kopf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Mit Bit üben</a></div></header>
 <main><section class="top"><div class="w nw"><div class="bc"><a href="/">Grundschulmax</a> › <a href="/ratgeber">Ratgeber</a> › Fortnite</div>
 <span class="kkick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke-linecap="round"/></svg>Ratgeber für Eltern · Spiele &amp; Apps</span><h1 style="margin-top:12px">Fortnite ab wie viel Jahren? <span>Was Eltern wissen müssen</span></h1><p class="lead">„Alle in meiner Klasse spielen Fortnite!“ Diesen Satz hören viele Eltern schon in der Grundschule. Hier finden Sie, was die Freigabe bedeutet, worauf Sie achten sollten und wie Sie Ihr Kind schützen.</p>

@@ -829,22 +829,82 @@ body:has(.pz) .hd .bt svg{display:none}
 .pzhb{background:linear-gradient(180deg,#f2793f 0%,#e5622a 55%,#cf4f19 100%)!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 8px 18px -8px rgba(229,98,42,.7)!important;position:relative;overflow:hidden}
 .pzhb::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.5) 48%,transparent 66%);transform:translateX(-120%);animation:pzshine 4.5s ease-in-out infinite 2.5s}
 .pzhb:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 14px 26px -10px rgba(229,98,42,.8)!important}
-</style></head><body><script>(function(){var h=location.hash.slice(1),q=location.search;if(/[?&]abo=/.test(q)||(h&&!/^(kaufen|quellen|forschung|szenen|ablauf|support|fragen)$/.test(h))){location.replace('/app'+q+location.hash);}})();</script><header class="pzhead"><div class="w"><a class="pzlogo" href="/internet-fuehrerschein" aria-label="Grundschulmax"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Grundschulmax</span></a><nav><a href="#forschung">Forschung</a><a href="#kaufen">Preis</a><a href="mailto:kontakt@grundschulmax.de">Support</a><a href="#quellen">Quellen</a></nav><a class="pzhb" href="#kaufen" data-app="Kopf">Jetzt beantragen</a></div></header>
+/* Hero v6: Führerschein als Ergebnis rechts, Lernziele links, Kurs-Szene darunter */
+.pzhero .pzh{align-items:center}
+.pzlearn{margin:0 0 26px}.pzlearn>b{display:block;margin:0 0 10px;font-size:13.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--nv)}
+.pzlearn ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 18px}
+.pzlearn li{display:flex;align-items:center;gap:9px;font-size:16.5px;font-weight:600;color:var(--ink)}
+.pzlearn li svg{flex:none;width:20px;height:20px;padding:3px;border-radius:50%;background:#e3f4ec;color:#147a4d}
+.pzhk{position:relative;padding:58px 34px 64px}
+.pzhkc{animation:pzfl 7s ease-in-out infinite}
+.pzhkc .pzk{transform:rotate(-4deg)}.pzhkc .pzk:hover{transform:rotate(-1deg) translateY(-6px)}
+@keyframes pzfl{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.pzhkb{position:absolute;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:10px 15px 10px 11px;border-radius:999px;background:#fff;font-size:14.5px;font-weight:650;color:var(--ink);box-shadow:0 0 0 1px rgba(20,25,60,.06),0 16px 30px -14px rgba(20,25,60,.35);white-space:nowrap}
+.pzhkb svg{flex:none;width:20px;height:20px;padding:3px;border-radius:50%;background:#1f9d63;color:#fff}
+.pzhkb.b1{left:0;top:6px}.pzhkb.b2{right:-6px;top:46%}.pzhkb.b3{left:18px;bottom:6px}
+.pzhr .pzcap2{margin-top:6px}
+.pzcg{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:56px;align-items:center}
+.pzct h2{margin:10px 0 14px;font-size:clamp(28px,3.2vw,42px);line-height:1.08}.pzct>p{margin:0 0 22px;color:var(--mut);font-size:17.5px;line-height:1.6}
+.pzcs{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.pzcs li{display:flex;gap:14px;align-items:flex-start}.pzcs i{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--nv);color:#fff;font-style:normal;font-weight:700;font-size:15px}
+.pzcs b{display:block;font-size:17px}.pzcs span{display:block;color:var(--mut);font-size:15.5px;line-height:1.5}
+.pzcourse .pzph .sq,.pzcourse .pzph .styp{animation-play-state:running}
+.pzcourse{padding-top:40px}.pzflowsec{padding:20px 0 84px}.pzflowsec .pzhbx{margin-top:0}
+@media (max-width:980px){.pzcg{grid-template-columns:minmax(0,1fr);gap:28px}.pzhk{padding:52px 18px 60px;max-width:560px;margin:0 auto}}
+@media (max-width:760px){.pzlearn ul{grid-template-columns:minmax(0,1fr)}.pzlearn li{font-size:16px}
+.pzhk{padding:6px 4px 0}.pzhkb{position:static;margin:8px 6px 0 0;font-size:13.5px;padding:8px 13px 8px 9px}.pzhkc{margin-bottom:14px}
+.pzhkc .pzk{transform:rotate(-2deg)}.pzcourse{padding-top:24px}.pzflowsec{padding:8px 0 56px}}
+/* Karte v2: gelernte Themen mit Haken direkt auf dem Führerschein */
+.pzkx{position:absolute;left:5.84cqw;right:5.84cqw;top:20.2cqw;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:2.2cqw 4cqw}
+.pzkx li{display:flex;align-items:center;gap:1.9cqw;font-size:3.35cqw;font-weight:600;line-height:1.1;color:#eef1ff;white-space:nowrap}
+.pzkx i{flex:none;display:grid;place-items:center;width:4.3cqw;height:4.3cqw;border-radius:50%;background:linear-gradient(135deg,#f3d58a,#c9a24a);color:#1d2a57;box-shadow:0 0 0 .35cqw rgba(243,213,138,.18)}
+.pzkx i svg{width:2.9cqw;height:2.9cqw}
+.pzkt em{background:linear-gradient(135deg,#3ccf8e,#1f9d63);color:#fff}
+.pzk .pzkf{right:26cqw;grid-template-columns:1.3fr .7fr 1.3fr;gap:3.5cqw}
+.pzk .pzkh{width:15.5cqw;height:15.5cqw;bottom:4.7cqw}.pzk .pzkh>svg:first-child{width:6cqw;height:6cqw}
+.pzk .pzkr text{font-size:9.4px}
+.pzkx li{opacity:0;transform:translateX(-1.5cqw);transition:opacity .45s,transform .45s}
+.pzkx li:nth-child(2){transition-delay:.12s}.pzkx li:nth-child(3){transition-delay:.24s}.pzkx li:nth-child(4){transition-delay:.36s}.pzkx li:nth-child(5){transition-delay:.48s}.pzkx li:nth-child(6){transition-delay:.6s}
+.pzhero .pzkx li,.in .pzkx li,.pzk.on .pzkx li{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.pzkx li{opacity:1;transform:none;transition:none}}
+.pzhero .pzkx li{animation:pzkin .5s cubic-bezier(.2,.7,.2,1) both;transition:none}
+.pzhero .pzkx li:nth-child(1){animation-delay:.7s}.pzhero .pzkx li:nth-child(2){animation-delay:.85s}.pzhero .pzkx li:nth-child(3){animation-delay:1s}.pzhero .pzkx li:nth-child(4){animation-delay:1.15s}.pzhero .pzkx li:nth-child(5){animation-delay:1.3s}.pzhero .pzkx li:nth-child(6){animation-delay:1.45s}
+@keyframes pzkin{from{opacity:0;transform:translateX(-1.5cqw)}to{opacity:1;transform:none}}
+.pzk .pzkt b{font-size:4.3cqw;white-space:nowrap}.pzk .pzkt{gap:2.6cqw}
+.pzhk{padding:62px 0 66px}
+.pzhkc .pzk{transform:rotate(-3deg)}
+.pzhkb.b1{left:4px;top:4px}.pzhkb.b2{right:4px;top:14px;left:auto}.pzhkb.b3{right:28px;bottom:4px;left:auto}
+@media (max-width:760px){.pzhk{padding:6px 4px 0}}
+</style></head><body><script>(function(){var h=location.hash.slice(1),q=location.search;if(/[?&]abo=/.test(q)||(h&&!/^(kaufen|quellen|forschung|szenen|ablauf|support|fragen|kurs)$/.test(h))){location.replace('/app'+q+location.hash);}})();</script><header class="pzhead"><div class="w"><a class="pzlogo" href="/internet-fuehrerschein" aria-label="Grundschulmax"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Grundschulmax</span></a><nav><a href="#forschung">Forschung</a><a href="#kaufen">Preis</a><a href="mailto:kontakt@grundschulmax.de">Support</a><a href="#quellen">Quellen</a></nav><a class="pzhb" href="#kaufen" data-app="Kopf">Jetzt beantragen</a></div></header>
 <main class="pz">
 <section class="pzhero"><div class="w pzh">
 <div class="pzhl">
 <span class="pzeye rv3">KI für Kinder erklärt</span>
 <h1 class="rv3">Der KI-Führerschein für Grundschulkinder.</h1>
 <p class="pzlead rv3">Chatbots, KI-Bilder und nachgemachte Stimmen: In 5 Tagen lernt Ihr Kind an echten Szenen, was KI kann, wo sie sich irrt und wie es Fakes erkennt. Individuell zugeschnitten, mit Abschlusstest und Urkunde. Auch im Paket mit dem Internet-Führerschein.</p>
-<div class="pzhcta rv3"><a class="pzbtn" href="#kaufen" data-app="Hero">KI-Führerschein beantragen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span class="pzprice"><b>49 €</b> einmalig · kein Abo · mit KI-Führerschein im Paket 59 €</span></div>
+<div class="pzhcta rv3"><a class="pzbtn" href="#kaufen" data-app="Hero">KI-Führerschein beantragen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span class="pzprice"><b>29 €</b> einmalig · kein Abo · mit Internet-Führerschein im Paket 59 €</span></div>
 
 </div>
-<div class="pzhr rv3"><div class="pzscene" id="pzscene" aria-label="Echte Szene: Ein Fremder im Spiel-Chat"><div class="pztab"><div class="pzph pzland" style="--st:0px;--sb:0px;--sr:42%"><div class="sfs sgame" style="--bg:url(/grundschulmax/sp/sort/bg.webp)"><div class="sgbg"></div>
+<div class="pzhr rv3"><div class="pzhk"><div class="pzhkc"><div class="pzk" aria-label="Beispiel: KI-Führerschein-Karte von Lena"><div class="pzkg"></div>
+<div class="pzkt"><span class="pzkl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><div><small>Grundschulmax</small><b>KI-Führerschein</b></div><em>Bestanden</em></div>
+<ul class="pzkx"><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Was KI ist</li><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Wenn KI sich irrt</li><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>KI-Bilder erkennen</li><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Fake-Stimmen erkennen</li><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Keine Daten an KI</li><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>KI fair nutzen</li></ul>
+<div class="pzkf"><div><small>Name</small><b>Lena</b></div><div><small>Klasse</small><b>2</b></div><div><small>Bestanden am</small><b>7.11.2026</b></div></div>
+<div class="pzkh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><svg viewBox="0 0 100 100" class="pzkr"><defs><path id="pzkp2" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0"/></defs><text><textPath href="#pzkp2" textLength="236" lengthAdjust="spacing">GEPRÜFT · SICHER IM NETZ · GEPRÜFT · SICHER IM NETZ ·</textPath></text></svg></div><div class="pzks"></div></div></div>
+<span class="pzhkb b1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Mit Namen Ihres Kindes</span><span class="pzhkb b2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Nach dem Abschlusstest</span><span class="pzhkb b3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Als Karte und Urkunde</span></div>
+<div class="pzcap2"><b>Das bekommt Ihr Kind</b><span>Den eigenen KI-Führerschein, sobald es den Abschlusstest besteht. Zum Ausdrucken, Aufhängen und Vorzeigen.</span></div></div>
+</div></section>
+
+<section class="pzsec pzcourse" id="kurs"><div class="w pzcg">
+<div class="pzct rv2"><span class="pzeye">So sieht der Kurs aus</span><h2>Ihr Kind übt an echten Szenen. Nicht an Theorie.</h2><p>Ein Fremder schreibt im Spiel-Chat, in der Klassengruppe kursiert ein gemeines Foto, eine Mail droht mit Kontosperre: Ihr Kind erlebt die Situation, bevor sie echt passiert.</p>
+<ol class="pzcs"><li><i>1</i><div><b>Szene ansehen</b><span>Nachgebaut wie im echten Spiel, Chat oder Postfach, ohne echte Marken</span></div></li><li><i>2</i><div><b>Selbst entscheiden</b><span>Was machst du jetzt? Ihr Kind wählt selbst</span></div></li><li><i>3</i><div><b>Sofort verstehen</b><span>Eine kurze Erklärung, warum. Danach festigt eine Frage die Regel</span></div></li></ol></div>
+<div class="pzcv rv2"><div class="pzscene" id="pzscene" aria-label="Echte Szene: Ein Fremder im Spiel-Chat"><div class="pztab"><div class="pzph pzland" style="--st:0px;--sb:0px;--sr:42%"><div class="sfs sgame" style="--bg:url(/grundschulmax/sp/sort/bg.webp)"><div class="sgbg"></div>
       <div class="sghud"><span class="sgn">Blockwelt</span><span class="sgst"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.4C1 8.3 3 4.5 6.7 4.5c2.2 0 3.7 1.2 5.3 3 1.6-1.8 3.1-3 5.3-3C21 4.5 23 8.3 21.6 11.6 19.5 16.4 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.4C1 8.3 3 4.5 6.7 4.5c2.2 0 3.7 1.2 5.3 3 1.6-1.8 3.1-3 5.3-3C21 4.5 23 8.3 21.6 11.6 19.5 16.4 12 21 12 21z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.4C1 8.3 3 4.5 6.7 4.5c2.2 0 3.7 1.2 5.3 3 1.6-1.8 3.1-3 5.3-3C21 4.5 23 8.3 21.6 11.6 19.5 16.4 12 21 12 21z"/></svg></i><b><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#ffcf3a" stroke="#c98a00" stroke-width="2"/><path d="M12 7v10M9.5 9.5h4a1.8 1.8 0 0 1 0 3.5h-3a1.8 1.8 0 0 0 0 3.5h4" fill="none" stroke="#9a6400" stroke-width="1.6" stroke-linecap="round"/></svg>1.240</b><b><svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 12L2 9z" fill="#5ee1ff" stroke="#1593b8" stroke-width="1.6" stroke-linejoin="round"/><path d="M2 9h20M9 3l3 6 3-6M12 9v12" fill="none" stroke="#1593b8" stroke-width="1.2"/></svg>35</b></span></div>
       <div class="sgplayer"><span>Du</span></div><div class="sgother"><span>Luca_10</span></div>
       <div class="sgchat"><div class="sgtabs"><b>Alle</b><span>Freunde</span><span>Gruppe</span></div><div class="sgm"><p class="sys">Willkommen auf Server 3!</p><p class="sq" style="--d:0.50s"><b style="color:#7ce0ff">Luca_10:</b> hey ich bin auch 10 😊</p><p class="sq" style="--d:1.45s"><b style="color:#7ce0ff">Luca_10:</b> wollen wir uns mal treffen? wo wohnst du?</p><div class="styp" style="--d:1.45s"><i></i><i></i><i></i></div></div><div class="sgin">Drücke Enter zum Schreiben …</div></div></div></div></div>
-<div class="pzask"><small>Echte Szene · Was machst du?</small><span class="a1">Meine Adresse schicken</span><span class="a2">Nicht antworten und sofort den Eltern zeigen</span><span class="a3">Ein Treffen ausmachen</span><p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><b>Richtig.</b> Im Internet kann sich jeder als Kind ausgeben.</p></div></div><div class="pzcap2"><b>So sieht es in der App aus</b><span>Ihr Kind sieht die Szene, entscheidet selbst und bekommt sofort die Erklärung.</span></div></div>
-</div>
+<div class="pzask"><small>Echte Szene · Was machst du?</small><span class="a1">Meine Adresse schicken</span><span class="a2">Nicht antworten und sofort den Eltern zeigen</span><span class="a3">Ein Treffen ausmachen</span><p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><b>Richtig.</b> Im Internet kann sich jeder als Kind ausgeben.</p></div></div></div>
+</div></section>
+
+<section class="pzsec pzflowsec">
 <div class="w pzhbx rv3"><div class="pzfl">
 <div class="pzfs"><i>1</i><div><b>Beantragen</b><span>Angebot wählen und sicher bezahlen</span></div></div><span class="pzfa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 <div class="pzfs"><i>2</i><div><b>Antrag ausfüllen</b><span>Alter, Interessen und Ihre Schwerpunkte, etwa 1 Minute</span></div></div><span class="pzfa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -862,7 +922,7 @@ body:has(.pz) .hd .bt svg{display:none}
 </div></section>
 
 <section class="pzsec pzplay" id="szenen"><div class="w">
-<div class="pzhd rv2"><span class="pzeye">Echte Szenen statt Theorie</span><h2>Echte Szenen, die Ihr Kind erlebt. Im Wechsel mit kurzen Fragen.</h2><p>Wir haben nachgebaut, was Kinder online wirklich sehen: Spiel-Chats, Klassengruppen, Mails, Webseiten und Kaufangebote, ohne echte Marken. Ihr Kind entscheidet in jeder Szene selbst. Danach festigt eine kurze Frage die Regel dahinter.</p></div>
+<div class="pzhd rv2"><span class="pzeye">Noch mehr Szenen aus dem Kurs</span><h2>Von der Klassengruppe bis zur gefälschten Mail.</h2><p>Über 35 Szenen im Internet-Führerschein, nachgebaut nach dem, was Kinder online wirklich sehen. Ohne echte Marken, ohne echten Chat.</p></div>
 <div class="pzflow">
 <figure class="rv2"><span class="pztag sp">1 · Szene</span><img src="/grundschulmax/fs/sz-game.webp" alt="Szene: Fremder im Spiel-Chat" width="1000" height="626" loading="lazy"><figcaption><b>Ein Fremder im Spiel-Chat</b>„Ich bin auch 10. Wo wohnst du?“ Was macht Ihr Kind?</figcaption></figure>
 <figure class="rv2"><span class="pztag">2 · Frage</span><img src="/grundschulmax/fs/sz-quiz.webp" alt="Kurze Frage zur Regel" width="1000" height="626" loading="lazy"><figcaption><b>Die Regel dahinter</b>Im Internet kann jeder schreiben, was er will.</figcaption></figure>
@@ -914,9 +974,10 @@ body:has(.pz) .hd .bt svg{display:none}
 
 <section class="pzsec pzalt"><div class="w">
 <div class="pzhd rv2"><span class="pzeye">Der Abschluss</span><h2>Urkunde und eigener Führerschein.</h2><p>Wer den Abschlusstest mit mindestens 70 % besteht, bekommt eine Urkunde im A4-Format und eine Führerschein-Karte im Scheckkartenformat, beide mit Namen und Datum, zum Ausdrucken oder als PDF.</p></div>
-<div class="pzcert rv2"><img src="/grundschulmax/fs/urkunde.webp" alt="Urkunde Internet-Führerschein" width="1600" height="1131" loading="lazy"><div class="pzcw"><div class="pzk" aria-label="Beispiel: Internet-Führerschein-Karte"><div class="pzkg"></div>
-<div class="pzkt"><span class="pzkl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><div><small>Grundschulmax</small><b>Internet-Führerschein</b></div><em>Klasse 2</em></div><div class="pzkc"></div>
-<div class="pzkf"><div><small>Name</small><b>Lena</b></div><div><small>Bestanden am</small><b>7.11.2026</b></div><div><small>Gültig</small><b>bis Klasse 4</b></div><div><small>Karten-Nr.</small><b>GSM-2-418203</b></div></div>
+<div class="pzcert rv2"><img src="/grundschulmax/fs/urkunde.webp" alt="Urkunde Internet-Führerschein" width="1600" height="1131" loading="lazy"><div class="pzcw"><div class="pzk" aria-label="Beispiel: Internet-Führerschein-Karte von Lena"><div class="pzkg"></div>
+<div class="pzkt"><span class="pzkl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><div><small>Grundschulmax</small><b>Internet-Führerschein</b></div><em>Bestanden</em></div>
+<ul class="pzkx"><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Fremde erkennen</li><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Daten schützen</li><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Sichere Passwörter</li><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Fair im Klassenchat</li><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Abzocke durchschauen</li><li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>KI einordnen</li></ul>
+<div class="pzkf"><div><small>Name</small><b>Lena</b></div><div><small>Klasse</small><b>2</b></div><div><small>Bestanden am</small><b>7.11.2026</b></div></div>
 <div class="pzkh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><svg viewBox="0 0 100 100" class="pzkr"><defs><path id="pzkp" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0"/></defs><text><textPath href="#pzkp" textLength="236" lengthAdjust="spacing">GEPRÜFT · SICHER IM NETZ · GEPRÜFT · SICHER IM NETZ ·</textPath></text></svg></div><div class="pzks"></div></div></div></div>
 </div></section>
 
