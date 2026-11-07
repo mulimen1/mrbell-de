@@ -712,6 +712,25 @@ body:has(.pz) .hd .bt svg{display:none}
 @media (max-width:760px){.pzland{--sr:0px!important}.pzland .sgchat{width:72%;font-size:12.5px}.pzland .sghud{display:none}
 .pzphones{display:flex;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin:0 -16px;padding:6px 16px 10px;scrollbar-width:none}.pzphones::-webkit-scrollbar{display:none}
 .pzphones figure{flex:none;width:236px;scroll-snap-align:center}.pzphones figure:hover{transform:none}.pzphone{width:236px}.pzphone .sfs{font-size:13px}}
+/* Preisanker: drei Angebote */
+.pztiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch;max-width:1040px;margin:0 auto 26px}
+.pztier{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;font:inherit;color:var(--ink);padding:26px 22px 22px;border-radius:22px;background:#fff;border:2px solid var(--ln);cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .2s}
+.pztier:hover{transform:translateY(-4px);box-shadow:var(--sh)}
+.pztier.on{border-color:var(--nv);box-shadow:0 0 0 4px rgba(29,42,87,.1),var(--sh)}
+.pztier.hot{background:linear-gradient(180deg,#fff 0%,#fbf8f3 100%)}
+.pztier.hot.on{border-color:var(--ac);box-shadow:0 0 0 4px rgba(229,98,42,.14),0 30px 60px -30px rgba(229,98,42,.45)}
+.pztier em{position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;font-style:normal;font-size:12.5px;font-weight:750;letter-spacing:.04em;padding:6px 12px;border-radius:99px;color:#fff;background:linear-gradient(180deg,#f2793f,#d9541c);box-shadow:0 6px 14px -6px rgba(229,98,42,.7)}
+.pztr{position:absolute;top:22px;right:20px;width:22px;height:22px;border-radius:50%;border:2px solid #cfc6b7;display:grid;place-items:center;transition:all .2s}.pztr i{width:10px;height:10px;border-radius:50%;background:transparent;transition:background .2s}
+.pztier.on .pztr{border-color:var(--nv)}.pztier.on .pztr i{background:var(--nv)}.pztier.hot.on .pztr{border-color:var(--ac)}.pztier.hot.on .pztr i{background:var(--ac)}
+.pztier>b{font-size:19px;font-weight:700;padding-right:30px}
+.pztp{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:2px 0 4px}.pztp strong{font-size:44px;font-weight:750;letter-spacing:-.04em;line-height:1}.pztp s{color:var(--mut);font-size:18px}.pztp small{width:100%;font-size:13.5px;color:var(--mut)}.pztier.hot .pztp small{color:#0e7a4f;font-weight:650}
+.pztd{font-size:14.5px;line-height:1.45;color:var(--mut);min-height:42px}
+.pztier ul{list-style:none;margin:8px 0 0;padding:12px 0 0;border-top:1px solid var(--ln);display:grid;gap:8px;width:100%}.pztier li{display:flex;gap:8px;font-size:14.5px;line-height:1.35}.pztier li svg{flex:none;width:18px;height:18px;color:var(--gr)}
+.pzbuy2{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);max-width:1040px;margin:0 auto}
+.pzbsum{display:flex;flex-direction:column;justify-content:center;padding-left:34px;border-left:1px solid var(--ln)}.pzbsum>small{color:var(--mut);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase}.pzbsum>b{font-size:19px;margin-top:4px}
+.pzbsum .pzp{margin:10px 0 6px}.pzbsum .pzp b{font-size:56px}
+@media (max-width:980px){.pztiers{grid-template-columns:minmax(0,1fr);max-width:520px;gap:22px}.pztier .pztd{min-height:0}.pzbuy2{grid-template-columns:minmax(0,1fr)}.pzbsum{padding:24px 0 0;border-left:0;border-top:1px solid var(--ln)}}
+@media (max-width:980px){.pztiers .pztier.hot{order:-1}}
 </style></head><body><header class="hd"><div class="w"><a class="lg" href="/" aria-label="Grundschulmax Startseite"><img src="/grundschulmax/tut-max-128.webp" alt="" width="38" height="38"><span>Grundschul<b>max</b></span></a><nav aria-label="Ratgeber"><a href="/internet-und-ki">Internet & KI</a><a href="/ratgeber">Ratgeber</a><a href="/ratgeber/roblox">Roblox</a><a href="/ratgeber/erstes-tablet-handy">Erstes Tablet</a><a href="/ratgeber/whatsapp-klassenchat">Klassenchat</a><a href="/ueben">Übungen</a></nav><span class="sp"></span><a class="bt sm" href="/internet-und-ki" data-app="Kopf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Mit Bit üben</a></div></header>
 <main><section class="top"><div class="w nw"><div class="bc"><a href="/">Grundschulmax</a> › <a href="/ratgeber">Ratgeber</a> › TikTok</div>
 <span class="kkick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke-linecap="round"/></svg>Ratgeber für Eltern · Chat &amp; Social Media</span><h1 style="margin-top:12px">TikTok ab wie viel Jahren? <span>Was Eltern wissen müssen</span></h1><p class="lead">Kurze Videos, endloses Wischen, Trends aus der ganzen Welt: TikTok zieht schon Grundschulkinder an. Hier lesen Sie, was das Mindestalter bedeutet und wie Sie Ihr Kind begleiten.</p>
