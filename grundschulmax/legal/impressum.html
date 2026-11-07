@@ -62,8 +62,8 @@ main{border:1px solid #e5dfd5;box-shadow:0 30px 60px -44px rgba(20,25,60,.45)!im
 .btn{background:#16181f;box-shadow:none;border-radius:999px;font-weight:650}.btn:active{transform:none;box-shadow:none}
 .rad input{accent-color:#16181f}
 footer{border:1px solid #e5dfd5;box-shadow:none}footer a{color:#1d2a57}
-</style></head><body>
-<header class="top"><a class="back" href="/" onclick="if(history.length>1&&document.referrer&&new URL(document.referrer).host===location.host){history.back();return false}">&#8592; Zurück</a><a class="brand" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Grundschul<b>max</b></span></a></header>
+</style><script>function gsRef(){try{var r=document.referrer;return r&&new URL(r).host===location.host&&!/\/(impressum|datenschutz|agb|widerruf|widerrufen|kuendigen)$/.test(new URL(r).pathname)?r:''}catch(e){return ''}}function gsBack(){var r=gsRef();if(document.referrer&&history.length>1){try{if(new URL(document.referrer).host===location.host){history.back();return false}}catch(e){}}if(history.length<=1)window.close();setTimeout(function(){location.href=r||'/'},150);return false}document.addEventListener('DOMContentLoaded',function(){var r=gsRef(),b=document.querySelector('.brand');if(r&&b)b.href=r})</script></head><body>
+<header class="top"><a class="back" href="/" onclick="return gsBack()">&#8592; Zurück</a><a class="brand" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Grundschul<b>max</b></span></a></header>
 <main><div class="k">Angaben gemäß § 5 DDG</div><h1>Impressum</h1><p class="stand">Stand: 6. November 2026</p>
 
 <h2>Anbieter</h2><p>Grundschulmax<br>Ben Deschler<br>Maria-Viktoria-Straße 11<br>76530 Baden-Baden<br>Deutschland</p>
