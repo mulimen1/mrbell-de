@@ -357,6 +357,10 @@ sup{font-size:.65em;color:#d2560f;font-weight:850}
   var FB = false; try { FB = /[?&]fbclid=|[?&]utm_source=(facebook|fb|instagram|ig|meta)(&|$)/i.test(location.search) || sessionStorage.getItem('gsm.fb') === '1'; if (FB) sessionStorage.setItem('gsm.fb', '1'); } catch (er) {}
   function fbq(h) { return FB && /^\/\?ref=/.test(h) && !/utm_source=/.test(h) ? h.replace(/(#|$)/, '&utm_source=fb$1') : h; }
   function ev(e, x) { try { fetch('/gs', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ e: e, d: String(x || '').slice(0, 60), s: 'ueben/' + C.slug, q: FB ? 'Facebook/Instagram Ads' : '' }) }); } catch (er) {} }
+/* Ben: 5× schnell auf die große Überschrift tippen (oder ?ich=ben) = dieses Gerät zählt nie mit, auch im Facebook-Browser */
+  (function () { var n = 0, t = 0; function mark() { document.cookie = 'gsm_intern=1; Max-Age=315360000; Path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : ''); var x = document.createElement('div'); x.textContent = 'Dieses Gerät zählt ab jetzt nicht mehr mit.'; x.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1c1f2a;color:#fff;padding:12px 18px;border-radius:14px;font:600 15px system-ui,sans-serif;z-index:99999;box-shadow:0 10px 30px rgba(0,0,0,.3)'; document.body.appendChild(x); setTimeout(function () { x.remove(); }, 3000); }
+    if (/[?&]ich=ben(&|$)/.test(location.search)) mark();
+    document.addEventListener('click', function (e) { if (!(e.target.closest && e.target.closest('h1'))) return; var now = Date.now(); n = now - t < 800 ? n + 1 : 1; t = now; if (n >= 5) { n = 0; mark(); } }, true); })();
   d.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href^="/?ref="]'); if (a) a.setAttribute('href', fbq(a.getAttribute('href'))); }, true);
   /* Aufruf erst zählen, wenn die Seite 1 Sekunde wirklich zu sehen war (vorgeladene Seiten aus Facebook zählen nicht) */
   var seen1 = false, visT = 0, t0 = Date.now(), left = false;
