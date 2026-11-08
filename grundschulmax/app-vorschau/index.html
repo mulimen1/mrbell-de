@@ -7105,6 +7105,32 @@ body.tryon .afab{display:none!important}
 .fxlnk{border:0;background:none;font:inherit;font-size:15px;font-weight:600;color:var(--mut);padding:10px 14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.fxlnk:hover{color:var(--ink)}
 @media (max-width:560px){.fxe{padding:24px 20px 20px;border-radius:22px}.fxe h3{font-size:26px}}
 @media (max-width:380px){.fxest b{font-size:17px}}
+/* Führerschein-Lektionen: ruhige Leiste statt Spiel-HUD (Szenen bleiben) */
+.les.fxl .lestop{background:#fff!important;border:1px solid #e5dfd5!important;border-radius:16px!important;box-shadow:0 10px 30px -18px rgba(20,24,50,.45)!important;font-family:G,system-ui,-apple-system,"Segoe UI",sans-serif;gap:14px!important;padding:10px 14px!important}
+.les.fxl .lesstk,.les.fxl .lespts{display:none!important}
+.les.fxl .lx,.les.fxl .lmute{width:36px!important;height:36px!important;min-width:36px!important;border-radius:50%!important;background:#f3f0ea!important;border:0!important;box-shadow:none!important;display:grid!important;place-items:center!important;color:#585d6c!important}
+.les.fxl .lx svg,.les.fxl .lmute svg{display:none!important}
+.les.fxl .lx::before,.les.fxl .lmute::before{content:"";width:18px;height:18px;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+.les.fxl .lx{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E")}
+.les.fxl .lmute{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9v6h4l5 4V5L8 9z'/%3E%3Cpath d='M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12'/%3E%3C/svg%3E")}
+.les.fxl .lx:hover,.les.fxl .lmute:hover{background:#ebe7df!important;color:#16181f!important}
+.les.fxl .lesw small{color:#1d2a57!important;font-weight:700!important;font-size:13px!important;text-shadow:none!important}
+.les.fxl .lestop .lesw{padding-right:0!important}
+.les.fxl .lesbar{height:6px!important;padding:0!important;border-radius:9px!important;background:#efeae2!important;box-shadow:none!important;overflow:hidden!important}
+.les.fxl .lesbar::before,.les.fxl .lesbar::after,.les.fxl .lesbar i::before,.les.fxl .lesbar i::after{display:none!important;content:none!important}
+.les.fxl .lesbar i{min-width:0!important;margin-left:0!important;max-width:100%!important;border-radius:9px!important;background:#1d2a57!important;box-shadow:none!important;transition:width .5s ease!important}
+.les.fxl .lmf{display:none!important}
+.les.fxl .lhb{background:#fff!important;border:1.5px solid #e5dfd5!important;box-shadow:none!important;border-radius:999px!important;color:#16181f!important;font-family:G,system-ui,sans-serif!important;font-weight:650!important}
+.les.fxl .lhb img{display:none!important}
+.les.fxl .lesbtn{background:linear-gradient(180deg,#f07a3e,#e5622a 55%,#d4521c)!important;border:0!important;border-radius:999px!important;box-shadow:0 12px 24px -12px rgba(229,98,42,.75)!important;color:#fff!important;font-family:G,system-ui,sans-serif!important;font-weight:700!important;text-shadow:none!important}
+.les.fxl .lesbtn:disabled{background:#e9e5de!important;color:#9a9eaa!important;box-shadow:none!important}
+.les.fxl .sopt{box-shadow:none!important;border:1.5px solid #e5dfd5!important;border-radius:14px!important;background:#fff!important;font-family:G,system-ui,sans-serif!important;transform:none!important}
+.les.fxl .sopt:hover:not(:disabled){border-color:#1d2a57!important;background:#f7f8fc!important}
+.les.fxl .sopt.sel,.les.fxl .sopt.on{border-color:#1d2a57!important;background:#eef1fa!important}
+.les.fxl .sopt kbd{box-shadow:none!important;background:#f3f0ea!important;border:0!important;color:#585d6c!important}
+.les.fxl .simo{font-family:G,system-ui,sans-serif}.les.fxl .simtg{background:none!important;color:#e5622a!important;letter-spacing:.1em;text-transform:uppercase;font-size:11.5px!important;font-weight:800!important;padding:0!important}
+.les.fxl .lhb{width:auto!important;padding:0 18px!important}
+.les.fxl .sopt.right{border-color:#1f9d63!important;background:#e9f8f0!important;color:#0e4535!important}.les.fxl .sopt.wrong{border-color:#d9534f!important;background:#fdf0ef!important;color:#7a1f1c!important}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -7698,6 +7724,6 @@ body.tryon .afab{display:none!important}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-2373d8a6.js"></script>
+<script defer src="/grundschulmax/gjs/app-4dff85ea.js"></script>
 </body>
 </html>
