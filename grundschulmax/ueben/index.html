@@ -987,7 +987,48 @@ main.pz{overflow-x:clip}
 <h2>Grundschulmax: alle Fächer in einer App</h2>
 <p>Die Übungen hier sind ein kleiner Ausschnitt. In Grundschulmax warten über 550 Lektionen und 30 Lernspiele für Mathe, Deutsch, Englisch, Französisch, Sachunterricht und Internet & KI, passend zu Klasse 1 bis 4. Sechs Tutoren lesen alles vor und erklären geduldig. Eltern sehen im Elternbereich, wie lange ihr Kind wirklich gelernt hat.</p>
 <p><a class="bt" href="/?ref=ueben-hub#klasse" data-app="Text"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Kostenlos ausprobieren</a></p></div></section></main>
-<footer class="ft"><div class="w"><a href="/"><b>Grundschulmax</b></a><a href="/ueben">Alle Übungen</a><a href="/ueben/einmaleins">Einmaleins üben</a><a href="/ueben/plus-minus">Plus und Minus üben</a><a href="/ueben/uhr-lesen">Uhr lesen üben</a><a href="/ueben/silben">Silben üben</a><a href="/ueben/sicher-im-internet">Internet üben</a><a href="/internet-und-ki">Internet & KI mit Bit</a><a href="/ratgeber/kind-sicher-im-internet">Ratgeber: Kind sicher im Internet</a><span class="sp"></span><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div></footer><script>window.UB={slug:'hub'};</script><script>(function () {
+<footer class="ft"><div class="w"><a href="/"><b>Grundschulmax</b></a><a href="/ueben">Alle Übungen</a><a href="/ueben/einmaleins">Einmaleins üben</a><a href="/ueben/plus-minus">Plus und Minus üben</a><a href="/ueben/uhr-lesen">Uhr lesen üben</a><a href="/ueben/silben">Silben üben</a><a href="/ueben/sicher-im-internet">Internet üben</a><a href="/internet-und-ki">Internet & KI mit Bit</a><a href="/ratgeber/kind-sicher-im-internet">Ratgeber: Kind sicher im Internet</a><span class="sp"></span><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></div></footer><script>window.UB={slug:'hub'};</script><script>/* ---------- Cookie-Einwilligung (gemeinsam mit der App: gsm.consent + Cookie gsm_analyse) ----------
+   Ohne Einwilligung: nur anonyme Ereignisse über /gs, kein Cookie, keine Kennung, kein Google.
+   Mit Einwilligung: Zufallskennung (Sitzungen, ungefährer Ort) und Google-Ads-Conversion (AW, nur Kauf-Schritte). */
+(function () {
+  if (window.GSC) return;
+  var d = document, KEY = 'gsm.consent', sec = location.protocol === 'https:' ? '; Secure' : '';
+  var ADS = { id: 'AW-18519363266', checkout: '', kauf: 'jLBACP-gl7QdEMKd3P5E' };
+  var get = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+  var put = function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} };
+  var has = function () { return /(?:^|;\s*)gsm_analyse=a[0-9a-f]{12}/.test(d.cookie); };
+  var ok = function () { return get() === 'ja' && has(); };
+  var firstUrl = location.href;
+  function gtagLoad() { if (!ADS.id || !ok() || window.gtag) return; window.dataLayer = window.dataLayer || []; window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'denied', analytics_storage: 'granted' }); window.gtag('js', new Date()); window.gtag('config', ADS.id, { page_location: firstUrl });
+    var s = d.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ADS.id); d.head.appendChild(s); }
+  function conv(k, extra) { if (!ADS[k] || !ok()) return; gtagLoad(); try { var o = { send_to: ADS.id + '/' + ADS[k] }; for (var x in (extra || {})) o[x] = extra[x]; window.gtag('event', 'conversion', o); } catch (e) {} }
+  function ev(e, x) { try { if (window.UBev) window.UBev(e, x); } catch (er) {} }
+  var css = '.gsc{position:fixed;z-index:9000;left:20px;bottom:20px;width:min(420px,calc(100vw - 32px));padding:18px 18px 16px;border-radius:20px;background:#fff;color:#16181f;border:1px solid #e5dfd5;box-shadow:0 30px 70px -30px rgba(20,25,60,.55);font:14.5px/1.5 Geist,system-ui,-apple-system,"Segoe UI",sans-serif;animation:gscin .35s cubic-bezier(.2,.8,.2,1)}'
+    + '.gsc b{display:block;font-size:15.5px;margin-bottom:4px}.gsc p{margin:0 0 14px;color:#585d6c}.gsc p a{color:#16181f;text-underline-offset:3px}'
+    + '.gsc .r{display:grid;grid-template-columns:1fr 1fr;gap:8px}.gsc button{height:44px;border-radius:999px;border:1.5px solid #e5dfd5;background:#fff;color:#16181f;font:650 14.5px Geist,system-ui,sans-serif;cursor:pointer}.gsc button:hover{border-color:#cfc6b8}.gsc button.y{background:#1d2a57;border-color:#1d2a57;color:#fff}'
+    + '.gsc.out{animation:gscout .3s forwards}@keyframes gscin{from{opacity:0;transform:translateY(14px)}}@keyframes gscout{to{opacity:0;transform:translateY(12px)}}'
+    + '@media(max-width:600px){.gsc{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:auto;padding:16px 16px 14px;font-size:14px}}@media (prefers-reduced-motion:reduce){.gsc,.gsc.out{animation:none}}';
+  var box = null;
+  function close(v) {
+    if (v) { if (!has()) { var r = new Uint8Array(6); crypto.getRandomValues(r); var id = 'a'; for (var i = 0; i < 6; i++) id += ('0' + r[i].toString(16)).slice(-2); d.cookie = 'gsm_analyse=' + id + '; Max-Age=31536000; Path=/; SameSite=Lax' + sec; } put('ja'); }
+    else { put('nein'); d.cookie = 'gsm_analyse=; Max-Age=0; Path=/; SameSite=Lax' + sec; }
+    ev(v ? 'Analyse erlaubt' : 'Analyse abgelehnt', location.pathname.slice(0, 40)); if (v) gtagLoad();
+    if (box) { var b = box; box = null; b.classList.add('out'); setTimeout(function () { b.remove(); }, 320); }
+  }
+  function open() {
+    if (box) return; if (!d.getElementById('gsc-css')) { var st = d.createElement('style'); st.id = 'gsc-css'; st.textContent = css; d.head.appendChild(st); }
+    box = d.createElement('div'); box.className = 'gsc'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', 'Cookie-Einstellungen');
+    box.innerHTML = '<b>Dürfen wir Cookies setzen?</b><p>Damit sehen wir, welche Seiten und Anzeigen Eltern wirklich weiterhelfen (eigene Statistik und Google Ads). Ohne Zustimmung zählen wir nur anonym, ganz ohne Cookies. <a href="/datenschutz#cookies" target="_blank" rel="noopener">Datenschutz</a></p><div class="r"><button type="button" class="n">Ablehnen</button><button type="button" class="y">Akzeptieren</button></div>';
+    box.querySelector('.n').onclick = function () { close(false); }; box.querySelector('.y').onclick = function () { close(true); };
+    d.body.appendChild(box); ev('Cookie-Banner gezeigt', location.pathname.slice(0, 40));
+  }
+  function foot() { var n = d.querySelector('footer nav'); if (!n || n.querySelector('.gscl')) return; var a = d.createElement('a'); a.href = '#'; a.className = 'gscl'; a.textContent = 'Cookie-Einstellungen'; a.onclick = function (e) { e.preventDefault(); try { localStorage.removeItem(KEY); } catch (er) {} open(); }; n.appendChild(a); }
+  window.GSC = { ok: ok, open: open, conv: conv };
+  var go = function () { foot(); if (ok()) gtagLoad(); else if (!get()) setTimeout(open, 1200); };
+  if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', go); else go();
+})();
+(function () {
   var C = window.UB || {}, d = document;
   var $ = function (s, r) { return (r || d).querySelector(s); }, $$ = function (s, r) { return [].slice.call((r || d).querySelectorAll(s)); };
   var R = function (a, b) { return a + Math.floor(Math.random() * (b - a + 1)); };
@@ -997,8 +1038,9 @@ main.pz{overflow-x:clip}
   /* Kam der Besuch über eine Facebook-/Instagram-Anzeige? Nur für diesen Tab gemerkt (kein Cookie, keine Kennung) und beim Sprung in die App mitgegeben */
   var FB = false; try { FB = /[?&]fbclid=|[?&]utm_source=(facebook|fb|instagram|ig|meta)(&|$)/i.test(location.search) || sessionStorage.getItem('gsm.fb') === '1'; if (FB) sessionStorage.setItem('gsm.fb', '1'); } catch (er) {}
   function fbq(h) { return FB && /^\/\?ref=/.test(h) && !/utm_source=/.test(h) ? h.replace(/(#|$)/, '&utm_source=fb$1') : h; }
+  var GA = false; try { GA = /[?&](gclid|gbraid|wbraid)=/.test(location.search) || sessionStorage.getItem('gsm.gads') === '1'; if (GA) sessionStorage.setItem('gsm.gads', '1'); } catch (er) {}
   window.UBev = function (e, x) { ev(e, x); };
-  function ev(e, x) { try { fetch('/gs', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ e: e, d: String(x || '').slice(0, 60), s: 'ueben/' + C.slug, q: FB ? 'Facebook/Instagram Ads' : '' }) }); } catch (er) {} }
+  function ev(e, x) { try { fetch('/gs', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ e: e, d: String(x || '').slice(0, 60), s: 'ueben/' + C.slug, q: FB ? 'Facebook/Instagram Ads' : GA ? 'Google Ads' : '' }) }); } catch (er) {} }
 /* Ben: 5× schnell auf die große Überschrift tippen (oder ?ich=ben) = dieses Gerät zählt nie mit, auch im Facebook-Browser */
   (function () { var n = 0, t = 0; function mark() { document.cookie = 'gsm_intern=1; Max-Age=315360000; Path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : ''); var x = document.createElement('div'); x.textContent = 'Dieses Gerät zählt ab jetzt nicht mehr mit.'; x.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1c1f2a;color:#fff;padding:12px 18px;border-radius:14px;font:600 15px system-ui,sans-serif;z-index:99999;box-shadow:0 10px 30px rgba(0,0,0,.3)'; document.body.appendChild(x); setTimeout(function () { x.remove(); }, 3000); }
     if (/[?&]ich=ben(&|$)/.test(location.search)) mark();
