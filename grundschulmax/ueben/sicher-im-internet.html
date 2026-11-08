@@ -884,6 +884,24 @@ body:has(.pz) .hd .bt svg{display:none}
 .pzhbm{display:none}@media (max-width:760px){.pzhbm{display:inline}}
 @media (max-width:760px){.pzhead .w{gap:10px}.pzlogo{font-size:17px;gap:7px}.pzlogo svg{width:24px;height:24px}.pzlog{font-size:14px;padding:8px 0}.pzhead .pzhb{padding:9px 13px;font-size:14px;white-space:nowrap}}@media (max-width:370px){.pzlogo span{display:none}}
 main.pz{overflow-x:clip}
+/* Zwei Karten: Internet vorne, KI dahinter */
+.pzhk2{padding-top:74px}
+.pzhk2 .pzhk-f{position:relative;z-index:1}
+.pzhk2 .pzhk-b{position:absolute;z-index:0;left:13%;right:-5%;top:20px;animation-delay:-3.5s}
+.pzhk2 .pzhk-b .pzk{transform:rotate(5deg) scale(.93);filter:brightness(.88) saturate(.9);box-shadow:0 20px 40px -24px rgba(10,15,45,.6)}
+.pzhk2 .pzhk-b .pzk:hover{transform:rotate(5deg) scale(.93)}
+.pzhk2 .pzhk-b .pzkx li{animation-delay:1.6s!important}
+.pzhk2 .pzhkb{z-index:3}
+@media (max-width:980px){.pzhk2 .pzhk-b{left:10%;right:-2%;top:22px}}
+@media (max-width:760px){.pzhk2{padding-top:30px}.pzhk2 .pzhk-b{left:8%;right:-3%;top:0}}
+.pzhk2{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:96px 0 0}
+.pzhk2 .pzhk-f{flex:0 0 100%;margin-bottom:14px}
+.pzhk2 .pzhk-b{left:15%;right:-7%;top:6px}
+.pzhk2 .pzhk-b .pzk{transform:rotate(4deg) scale(.9)}.pzhk2 .pzhk-b .pzk:hover{transform:rotate(4deg) scale(.9)}
+.pzhk2 .pzhkb{position:static;margin:0;font-size:14px;padding:8px 13px 8px 9px}
+@media (max-width:760px){.pzhk2{padding-top:58px;gap:8px}.pzhk2 .pzhk-b{left:10%;right:-4%;top:0}.pzhk2 .pzhkb{font-size:13px}}
+.pzhero h1{font-size:clamp(36px,4vw,56px)}
+.pzhero h1{font-size:clamp(34px,3.7vw,52px)}
 </style></head><body><header class="hd"><div class="w"><a class="lg" href="/" aria-label="Grundschulmax Startseite"><img src="/grundschulmax/tut-max-128.webp" alt="" width="38" height="38"><span>Grundschul<b>max</b></span></a><nav aria-label="Übungen"><a href="/ueben">Alle Übungen</a><a href="/ueben/einmaleins">Einmaleins</a><a href="/ueben/plus-minus">Plus und Minus</a><a href="/ueben/uhr-lesen">Uhr lesen</a><a href="/ueben/silben">Silben</a><a href="/ueben/sicher-im-internet" class=on>Internet</a></nav><span class="sp"></span><a class="bt sm" href="/?ref=ueben-sicher-im-internet#klasse" data-app="Kopf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Ausprobieren</a></div></header>
 <main><section class="top"><div class="w"><div class="bc"><a href="/">Grundschulmax</a> › <a href="/ueben">Übungen</a> › Sicher im Internet</div>
 <h1>Sicher im Internet <span>– das Quiz für Kinder</span></h1><p class="lead">Zehn Situationen aus Spielen, Chats und Videos. Ihr Kind wählt, was es tun würde, und Bit erklärt nach jeder Antwort, warum. Am besten gemeinsam spielen und darüber reden.</p><div class="chips"><span style="--c:#ffa23a">Klasse 2 bis 4</span><span style="--c:#3b7bff">Passwörter und Daten</span><span style="--c:#8b6bff">KI verstehen</span></div>
