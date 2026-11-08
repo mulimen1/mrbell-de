@@ -1005,6 +1005,7 @@ main.pz{overflow-x:clip}
 }
 .pzhl h1 .pzh1s{display:block;margin-top:.42em;font-size:.44em;line-height:1.25;font-weight:600;letter-spacing:-.01em;color:var(--nv)}
 @media (max-width:760px){.pzhl h1 .pzh1s{font-size:.52em}}
+@media (max-width:760px){.pzhl .pznew{display:none}.pzhero{padding-top:14px}}
 </style></head><body><header class="hd"><div class="w"><a class="lg" href="/" aria-label="Grundschulmax Startseite"><img src="/grundschulmax/tut-max-128.webp" alt="" width="38" height="38"><span>Grundschul<b>max</b></span></a><nav aria-label="Übungen"><a href="/ueben">Alle Übungen</a><a href="/ueben/einmaleins">Einmaleins</a><a href="/ueben/plus-minus" class=on>Plus und Minus</a><a href="/ueben/uhr-lesen">Uhr lesen</a><a href="/ueben/silben">Silben</a><a href="/ueben/sicher-im-internet">Internet</a></nav><span class="sp"></span><a class="bt sm" href="/?ref=ueben-plus-minus#klasse" data-app="Kopf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Ausprobieren</a></div></header>
 <main><section class="top"><div class="w"><div class="bc"><a href="/">Grundschulmax</a> › <a href="/ueben">Übungen</a> › Plus und Minus</div>
 <h1>Plus und Minus üben <span>– bis 10, 20 oder 100</span></h1><p class="lead">Kopfrechnen für Klasse 1 und 2: Zahlenraum wählen, rechnen, eintippen. Bei einem Fehler zeigt Mila einen Rechenweg, zum Beispiel über die Zehnerzahl.</p><div class="chips"><span style="--c:#3b7bff">Klasse 1 und 2</span><span style="--c:#ff4f9a">Zehnerübergang</span><span style="--c:#19b36b">Arbeitsblatt mit Lösungen</span></div>
@@ -1052,7 +1053,7 @@ main.pz{overflow-x:clip}
     + '.gsc b{display:block;font-size:15.5px;margin-bottom:4px}.gsc p{margin:0 0 14px;color:#585d6c}.gsc p a{color:#16181f;text-underline-offset:3px}'
     + '.gsc .r{display:grid;grid-template-columns:1fr 1fr;gap:8px}.gsc button{height:44px;border-radius:999px;border:1.5px solid #e5dfd5;background:#fff;color:#16181f;font:650 14.5px Geist,system-ui,sans-serif;cursor:pointer}.gsc button:hover{border-color:#cfc6b8}.gsc button.y{background:#1d2a57;border-color:#1d2a57;color:#fff}'
     + '.gsc.out{animation:gscout .3s forwards}@keyframes gscin{from{opacity:0;transform:translateY(14px)}}@keyframes gscout{to{opacity:0;transform:translateY(12px)}}'
-    + '@media(max-width:600px){.gsc{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:auto;padding:16px 16px 14px;font-size:14px}}@media (prefers-reduced-motion:reduce){.gsc,.gsc.out{animation:none}}';
+    + '@media(max-width:600px){.gsc{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:auto;padding:12px 14px 12px;font-size:13px;line-height:1.4;border-radius:16px}.gsc b{font-size:14px;margin-bottom:2px}.gsc p{margin:0 0 10px}.gsc button{height:38px;font-size:14px}}@media (prefers-reduced-motion:reduce){.gsc,.gsc.out{animation:none}}';
   var box = null;
   function close(v) {
     if (v) { if (!has()) { var r = new Uint8Array(6); crypto.getRandomValues(r); var id = 'a'; for (var i = 0; i < 6; i++) id += ('0' + r[i].toString(16)).slice(-2); d.cookie = 'gsm_analyse=' + id + '; Max-Age=31536000; Path=/; SameSite=Lax' + sec; } put('ja'); }
@@ -1063,13 +1064,15 @@ main.pz{overflow-x:clip}
   function open() {
     if (box) return; if (!d.getElementById('gsc-css')) { var st = d.createElement('style'); st.id = 'gsc-css'; st.textContent = css; d.head.appendChild(st); }
     box = d.createElement('div'); box.className = 'gsc'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', 'Cookie-Einstellungen');
-    box.innerHTML = '<b>Dürfen wir Cookies setzen?</b><p>Damit sehen wir, welche Seiten und Anzeigen Eltern wirklich weiterhelfen (eigene Statistik und Google Ads). Ohne Zustimmung zählen wir nur anonym, ganz ohne Cookies. <a href="/datenschutz#cookies" target="_blank" rel="noopener">Datenschutz</a></p><div class="r"><button type="button" class="n">Ablehnen</button><button type="button" class="y">Akzeptieren</button></div>';
+    box.innerHTML = '<b>Cookies erlauben?</b><p>Für unsere eigene Statistik und Google Ads. Ohne Zustimmung zählen wir nur anonym, ohne Cookies. <a href="/datenschutz#cookies" target="_blank" rel="noopener">Datenschutz</a></p><div class="r"><button type="button" class="n">Ablehnen</button><button type="button" class="y">Akzeptieren</button></div>';
     box.querySelector('.n').onclick = function () { close(false); }; box.querySelector('.y').onclick = function () { close(true); };
     d.body.appendChild(box); ev('Cookie-Banner gezeigt', location.pathname.slice(0, 40));
   }
   function foot() { var n = d.querySelector('footer nav'); if (!n || n.querySelector('.gscl')) return; var a = d.createElement('a'); a.href = '#'; a.className = 'gscl'; a.textContent = 'Cookie-Einstellungen'; a.onclick = function (e) { e.preventDefault(); try { localStorage.removeItem(KEY); } catch (er) {} open(); }; n.appendChild(a); }
   window.GSC = { ok: ok, open: open, conv: conv };
-  var go = function () { foot(); if (ok()) gtagLoad(); else if (!get()) setTimeout(open, 1200); };
+  var go = function () { foot(); if (ok()) gtagLoad(); else if (!get()) later(); };
+  /* Banner nicht in den ersten Sekunden: erst nach dem ersten Scrollen oder nach 8 Sekunden (vorher wird ohnehin nichts gespeichert) */
+  function later() { var done = false, t = 0; var fire = function () { if (done) return; done = true; clearTimeout(t); removeEventListener('scroll', sc); open(); }; var sc = function () { if (scrollY > 240) fire(); }; addEventListener('scroll', sc, { passive: true }); t = setTimeout(fire, 8000); }
   if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', go); else go();
 })();
 (function () {
