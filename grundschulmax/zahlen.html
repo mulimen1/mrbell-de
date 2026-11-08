@@ -191,7 +191,7 @@ td{border-top-color:var(--line)}
   <div class="brand"><img src="/grundschulmax/tut-max-128.webp" alt=""><div><b>Grundschul<em>max</em> Zahlen</b><small>Nur für Ben</small></div></div>
   <div class="sp"></div>
   <div class="seg" id="seg"><button data-z="alle">Gesamt</button><button data-z="30">30 Tage</button><button data-z="7">7 Tage</button><button data-z="heute">Heute</button></div>
-  <div class="seg qseg" id="qseg"><button data-q="fb">Nur Facebook</button><button data-q="alle">Alle Besucher</button></div>
+  <div class="seg qseg" id="qseg"><button data-q="alle">Alle Besucher</button><button data-q="gads">Nur Google Ads</button><button data-q="fb">Nur Facebook</button></div>
   <button class="ib" id="reload" aria-label="Neu laden">↻</button>
   <span class="stand" id="stand"></span>
 </div><nav class="tabs" id="tabs"></nav></div>
@@ -210,8 +210,8 @@ td{border-top-color:var(--line)}
   // Interne Besuche ausschließen (Cookie wird von der Middleware geprüft)
   // Wer diese Seite öffnet, ist Ben: dieses Gerät zählt nie mit
   document.cookie = 'gsm_intern=1; Max-Age=315360000; Path=/; SameSite=Lax; Secure';
-  var Q = ls.get('gsmz.q') || 'fb';
-  [].forEach.call(document.querySelectorAll('#qseg button'), function (b) { b.classList.toggle('on', b.dataset.q === Q); b.onclick = function () { Q = b.dataset.q; ls.set('gsmz.q', Q); [].forEach.call(document.querySelectorAll('#qseg button'), function (x) { x.classList.toggle('on', x === b); }); load(); }; });
+  var Q = ls.get('gsmz.q2') || 'alle';
+  [].forEach.call(document.querySelectorAll('#qseg button'), function (b) { b.classList.toggle('on', b.dataset.q === Q); b.onclick = function () { Q = b.dataset.q; ls.set('gsmz.q2', Q); [].forEach.call(document.querySelectorAll('#qseg button'), function (x) { x.classList.toggle('on', x === b); }); load(); }; });
   [].forEach.call(document.querySelectorAll('#seg button'), function (b) { b.classList.toggle('on', b.dataset.z === Z); b.onclick = function () { Z = b.dataset.z; ls.set('gsmz.z2', Z); [].forEach.call(document.querySelectorAll('#seg button'), function (x) { x.classList.toggle('on', x === b); }); load(); }; });
   $('#reload').onclick = function () { load(); };
 
@@ -270,13 +270,13 @@ td{border-top-color:var(--line)}
   function six(list) { return '<div class="six">' + list.map(function (x) { return '<div><small>' + esc(x[0]) + '</small><b class="' + (x[2] || '') + '">' + fmt(x[1]) + '</b>' + (x[3] ? '<small>' + x[3] + '</small>' : '') + '</div>'; }).join('') + '</div>'; }
   function datum(t) { if (!t) return '–'; var d = new Date(t); if (isNaN(d)) return esc(t); return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Berlin' }) + ' ' + d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }); }
   function tag(s) { return s ? s.slice(8, 10) + '.' + s.slice(5, 7) + '.' : '–'; }
-  var TABS = [['ueber', 'Überblick'], ['weg', 'Weg & Absprung'], ['verh', 'Verhalten'], ['klick', 'Klicks'], ['konten', 'Konten'], ['live', 'Live']];
-  var T = ls.get('gsmz.tab') || 'ueber', D = null;
-  if (!TABS.some(function (x) { return x[0] === T; })) T = 'ueber';
+  var TABS = [['fs', 'Führerschein'], ['ueber', 'Überblick'], ['weg', 'Weg & Absprung'], ['verh', 'Verhalten'], ['klick', 'Klicks'], ['konten', 'Konten'], ['live', 'Live']];
+  var T = ls.get('gsmz.tab2') || 'fs', D = null;
+  if (!TABS.some(function (x) { return x[0] === T; })) T = 'fs';
   function tabs() {
     var n = D ? (D.konten || []).filter(function (k) { return !k.ben; }).length : 0;
     var tb = $('#tabs'); tb.innerHTML = TABS.map(function (t) { return '<button type="button" data-t="' + t[0] + '" class="' + (t[0] === T ? 'on' : '') + '">' + t[1] + (t[0] === 'konten' && D ? ' <span class="cn">' + n + '</span>' : '') + '</button>'; }).join('');
-    [].forEach.call(document.querySelectorAll('#tabs button'), function (b) { b.onclick = function () { T = b.dataset.t; ls.set('gsmz.tab', T); if (D) draw(D); window.scrollTo(0, 0); }; });
+    [].forEach.call(document.querySelectorAll('#tabs button'), function (b) { b.onclick = function () { T = b.dataset.t; ls.set('gsmz.tab2', T); if (D) draw(D); window.scrollTo(0, 0); }; });
     var on = tb.querySelector('.on'); if (on && on.scrollIntoView) on.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   }
   var k = function (l, v, sb) { return '<section class="card kpi"><div class="l">' + esc(l) + '</div><div class="v">' + v + '</div><div class="d">' + (sb || '') + '</div></section>'; };
@@ -393,12 +393,43 @@ td{border-top-color:var(--line)}
     return '<div class="grid g21">' + card('Gerade passiert', 'letzte Ereignisse', '<div class="feed">' + (fd || '<div class="empty">Noch nichts passiert.</div>') + '</div>') + card('Alle Ereignisse', 'im Zeitraum', bars(d.events, 60)) + '</div>';
   }
 
+  /* Führerschein: Landingpages grundschulmax.de, /internet-und-ki, /erstes-handy … bis zum bestandenen Führerschein */
+  function vFs(d) {
+    var F = d.fs; if (!F) return '<div class="empty">Noch keine Daten.</div>';
+    var P = F.trichter, f0 = P[0][1] || 0, g = function (l) { var x = P.find(function (y) { return y[0] === l; }); return x ? x[1] : 0; };
+    var h = '<div class="grid k6">' +
+      k(Q === 'gads' ? 'Über Google Ads gekommen' : 'Besuche Landingpage', fmt(f0), 'Aufrufe der Führerschein-Seiten') +
+      k('Sofort wieder weg', F.weg + ' %', fmt(F.kurz) + ' nach unter 10 Sekunden') +
+      k('Testlektion begonnen', fmt(g('Testlektion begonnen')), pc(g('Testlektion begonnen'), f0) + ' der Besuche') +
+      k('Zur Zahlung', fmt(g('Zur Zahlung geklickt')), pc(g('Zur Zahlung geklickt'), f0) + ' der Besuche') +
+      k('Gekauft', fmt(g('Gekauft')), pc(g('Gekauft'), f0) + ' der Besuche') +
+      k('Bestanden', fmt(g('Führerschein bestanden')), fmt(g('Kurs erstellt')) + ' Kurse erstellt') + '</div>';
+    var fr = '<div class="fun"><div class="fr fh"><div>Schritt</div><div class="bar"></div><div class="pc">vom Start</div><div class="dr">Absprung</div><div class="u"></div></div>';
+    P.forEach(function (x, i) {
+      var prev = i ? P[i - 1][1] : 0, drop = i && prev ? Math.max(0, Math.round((1 - x[1] / prev) * 100)) : 0, w = f0 ? Math.max(.6, Math.min(100, x[1] / f0 * 100)) : 0, up = i && prev && x[1] >= prev;
+      fr += '<div class="fr"><div class="lb" title="' + esc(x[0]) + '">' + esc(x[0]) + '</div><div class="bar"><i style="width:' + w + '%"></i><span' + (w < 14 ? ' class="o" style="left:calc(' + w + '% + 8px)"' : '') + '>' + fmt(x[1]) + '</span></div><div class="pc">' + (i ? pc(x[1], f0) : '100 %') + '</div><div class="dr' + (i && drop && !up ? '' : ' z') + '">' + (i ? (prev && !up ? '−' + drop + ' %' : '–') : '') + '</div><div class="u"></div></div>';
+    });
+    fr += '</div><p class="note">Ohne Cookie zählt jeder Seitenaufruf, mit Cookie zählt Neuladen innerhalb von 30 Minuten einmal. „Absprung“: Anteil, der vom Schritt davor nicht weiterkommt.</p>';
+    h += '<div class="grid g21">' + card('Vom Besuch zum Führerschein', P.length + ' Schritte', fr) + card('Wie lange sie bleiben', 'beim Verlassen der Seite', bars(F.verweil, 6) + sub('Woher') + bars(F.quellen, 6)) + '</div>';
+    var ft = F.fragen.length ? '<table><tr><th>Frage</th><th class="n">richtig</th><th class="n">falsch</th></tr>' + F.fragen.map(function (x) { return '<tr><td>' + esc(x[0]) + '</td><td class="n ok">' + fmt(x[1]) + '</td><td class="n">' + fmt(x[2]) + '</td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch niemand hat die Testlektion gespielt.</div>';
+    h += '<div class="grid g3">' + card('Testlektion', 'Antworten pro Frage', ft + (F.ergebnis.length ? sub('Ergebnis am Ende') + bars(F.ergebnis, 4) : '')) +
+      card('Welche Landingpage', '', bars(F.seiten, 8) + sub('Geräte') + bars(F.geraete, 3)) +
+      card('Was sie sich ansehen', 'Bereiche, die im Bild waren', bars(F.bereiche, 12) + sub('Wie weit gescrollt') + bars(F.scroll, 4)) + '</div>';
+    h += '<div class="grid g3">' + card('Tarife', 'Zur Zahlung geklickt', bars(F.tarife, 6) + '<p class="note">Kästchen „volljährig“ vergessen: ' + fmt(F.fehlt) + '×</p>') +
+      card('Fragen im FAQ', 'aufgeklappt', bars(F.faq, 8) + '<p class="note">„i“ bei den Stimmen geöffnet: ' + fmt(F.info) + '×</p>') + card('Orte', 'nur mit Einwilligung', bars(F.orte, 8)) + '</div>';
+    var cols = [['b', 'Besuche'], ['w', 'Sofort weg'], ['s', 'Testlektion'], ['f', 'Test fertig'], ['z', 'Zur Zahlung'], ['k', 'Gekauft']];
+    var tt = F.tage.length ? '<div class="tw"><table><tr><th>Tag</th>' + cols.map(function (c) { return '<th class="n">' + c[1] + '</th>'; }).join('') + '</tr>' + F.tage.map(function (t) { var d0 = new Date(t[0] + 'T12:00:00'); return '<tr><td><b>' + d0.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + '</b></td>' + cols.map(function (c) { var v = t[1][c[0]] || 0; return '<td class="n' + (c[0] === 'k' && v ? ' ok' : '') + '">' + (v ? fmt(v) : '<span style="color:var(--dim)">–</span>') + '</td>'; }).join('') + '</tr>'; }).join('') + '</table></div>' : '<div class="empty">Noch keine Daten.</div>';
+    var st = F.sitzungen.length ? '<div class="tw"><table><tr><th>Start</th><th>Woher · Wo</th><th>Was</th><th class="n">Dauer</th></tr>' + F.sitzungen.map(function (s) { return '<tr><td>' + zeitHM(s.t) + '</td><td>' + esc([s.q, s.ort || 'Ort unbekannt', s.g].filter(Boolean).join(' · ')) + '</td><td>' + esc(s.was.join(', ') || 'nur angeschaut') + '</td><td class="n">' + dauer((Date.parse(s.bis) - Date.parse(s.t)) / 1000) + '</td></tr>'; }).join('') + '</table></div>' : '<div class="empty">Noch keine Besucher mit Cookie.</div>';
+    h += '<div class="grid">' + card('Tag für Tag', 'neuester Tag oben', tt) + '</div><div class="grid">' + card('Besucher mit Cookie', 'was sie gemacht haben', st) + '</div>';
+    return h;
+  }
+
   function draw(d) {
     D = d; tabs();
-    var V = { ueber: vUeber, weg: vWeg, verh: vVerh, klick: vKlick, konten: vKonten, live: vLive }[T] || vUeber;
+    var V = { fs: vFs, ueber: vUeber, weg: vWeg, verh: vVerh, klick: vKlick, konten: vKonten, live: vLive }[T] || vUeber;
     var np = d.nullpunkt ? new Date(d.nullpunkt).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) : '';
     var op = [].map.call(document.querySelectorAll('details.acc[open]'), function (e) { return e.dataset.e; }), sy = window.scrollY;
-    $('#main').innerHTML = V(d) + (np ? '<p class="lede">' + (Q === 'fb' ? 'Nur Besucher, die über die Facebook- oder Instagram-Anzeige gekommen sind. ' : 'Alle Besucher. ') + 'Gezählt ab ' + np + ' Uhr. Dein eigenes Konto zählt auf keinem Gerät mit.</p>' : '');
+    $('#main').innerHTML = V(d) + (np ? '<p class="lede">' + (Q === 'fb' ? 'Nur Besucher, die über die Facebook- oder Instagram-Anzeige gekommen sind. ' : Q === 'gads' ? 'Nur Besucher, die über die Google-Anzeige gekommen sind. ' : 'Alle Besucher. ') + 'Gezählt ab ' + np + ' Uhr. Dein eigenes Konto zählt auf keinem Gerät mit.</p>' : '');
     [].forEach.call(document.querySelectorAll('details.acc'), function (e) { if (op.indexOf(e.dataset.e) >= 0) e.open = true; }); if (op.length) window.scrollTo(0, sy);
     $('#stand').textContent = 'Stand ' + new Date(d.stand).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + ' · ' + fmt(d.gesamt) + ' Ereignisse';
   }

@@ -977,6 +977,23 @@ main.pz{overflow-x:clip}
 .pzck2.shk{animation:pzshk .42s ease}@keyframes pzshk{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
 #fsmsg{color:#c0392b}
 .pzck2{transition:background .2s,box-shadow .2s;border-radius:12px}.pzck2.err{padding:8px 10px;margin-left:-10px;margin-right:-10px}
+/* Hero: zwei vollständige Karten, aufgefächert; beim Drüberfahren / Antippen fächern sie weiter auf */
+.pzhk2{padding-top:96px}
+.pzhk2 .pzhk-b{left:0;right:0;top:96px}
+.pzhk2 .pzhk-f .pzk,.pzhk2 .pzhk-b .pzk{transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .5s,box-shadow .5s}
+.pzhk2 .pzhk-f .pzk,.pzhk2 .pzhk-f .pzk:hover{transform:translate(-5%,2%) rotate(-3deg)}
+.pzhk2 .pzhk-b .pzk,.pzhk2 .pzhk-b .pzk:hover{transform:translate(11%,-24%) rotate(6deg) scale(.96);filter:brightness(.9) saturate(.95);box-shadow:0 24px 48px -24px rgba(10,15,45,.55)}
+.pzhk2:hover .pzhk-f .pzk,.pzhk2.auf .pzhk-f .pzk{transform:translate(-9%,2%) rotate(-6deg)}
+.pzhk2:hover .pzhk-b .pzk,.pzhk2.auf .pzhk-b .pzk{transform:translate(17%,-31%) rotate(9deg) scale(.96);filter:none}
+.pzhk2:hover .pzks,.pzhk2.auf .pzks{transform:translateX(100%)}
+.pzhk2 .pzhk-b .pzkx li{animation-delay:.4s!important}
+@media (max-width:980px){
+.pzhk2 .pzhk-f .pzk,.pzhk2 .pzhk-f .pzk:hover{transform:translate(-3%,2%) rotate(-3deg)}
+.pzhk2 .pzhk-b .pzk,.pzhk2 .pzhk-b .pzk:hover{transform:translate(6%,-23%) rotate(5deg) scale(.94)}
+.pzhk2:hover .pzhk-f .pzk,.pzhk2.auf .pzhk-f .pzk{transform:translate(-6%,2%) rotate(-6deg)}
+.pzhk2:hover .pzhk-b .pzk,.pzhk2.auf .pzhk-b .pzk{transform:translate(10%,-30%) rotate(8deg) scale(.94)}}
+@media (max-width:760px){.pzhk2{padding-top:80px}.pzhk2 .pzhk-b{top:80px}}
+@media (prefers-reduced-motion:reduce){.pzhk2 .pzk{transition:none!important}}
 </style></head><body><header class="hd"><div class="w"><a class="lg" href="/" aria-label="Grundschulmax Startseite"><img src="/grundschulmax/tut-max-128.webp" alt="" width="38" height="38"><span>Grundschul<b>max</b></span></a><nav aria-label="Ratgeber"><a href="/internet-und-ki">Internet & KI</a><a href="/ratgeber" class=on>Ratgeber</a><a href="/ratgeber/roblox">Roblox</a><a href="/ratgeber/erstes-tablet-handy">Erstes Tablet</a><a href="/ratgeber/whatsapp-klassenchat">Klassenchat</a><a href="/ueben">Übungen</a></nav><span class="sp"></span><a class="bt sm" href="/internet-und-ki" data-app="Kopf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Mit Bit üben</a></div></header>
 <main><section class="top"><div class="w nw"><div class="bc"><a href="/">Grundschulmax</a> › Ratgeber</div>
 <span class="kkick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke-linecap="round"/></svg>Ratgeber für Eltern</span><h1 style="margin-top:12px">Kinder sicher im Internet: <span>Antworten für Eltern</span></h1>
