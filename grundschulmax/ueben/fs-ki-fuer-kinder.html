@@ -972,6 +972,11 @@ main.pz{overflow-x:clip}
 .pzrevs{background:#fff}.pzrevs .pzrvt h2{font-size:clamp(30px,3.6vw,46px)}
 @media (max-width:760px){.pznew{font-size:12.5px;gap:8px;padding:5px 12px 5px 5px}.pznew b{font-size:11px;padding:3px 8px}}
 @media (max-width:480px){.pznx{display:none}}
+.pzck2.err{color:#c0392b}.pzck2.err span,.pzck2.err a{color:#c0392b}.pzck2.err input{outline:2px solid #d9534f;outline-offset:2px;accent-color:#d9534f}
+.pzck2.err{background:#fdf0ef;border-radius:12px;box-shadow:0 0 0 1.5px #f1b5b0}
+.pzck2.shk{animation:pzshk .42s ease}@keyframes pzshk{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+#fsmsg{color:#c0392b}
+.pzck2{transition:background .2s,box-shadow .2s;border-radius:12px}.pzck2.err{padding:8px 10px;margin-left:-10px;margin-right:-10px}
 </style></head><body><script>(function(){var h=location.hash.slice(1),q=location.search;if(/[?&]abo=/.test(q)||(h&&!/^(kaufen|quellen|forschung|szenen|ablauf|support|fragen|kurs|probe)$/.test(h))){location.replace('/app'+q+location.hash);}})();</script><header class="pzhead"><div class="w"><a class="pzlogo" href="/internet-fuehrerschein" aria-label="Grundschulmax"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Grundschulmax</span></a><nav><a href="#forschung">Forschung</a><a href="#kaufen">Preis</a><a href="mailto:kontakt@grundschulmax.de">Support</a><a href="#quellen">Quellen</a></nav><a class="pzlog" href="/app#anmelden">Anmelden</a><a class="pzhb" href="#kaufen" data-app="Kopf"><span class="pzhbj">Jetzt beantragen</span><span class="pzhbm">Beantragen</span></a></div></header>
 <main class="pz">
 <section class="pzhero"><div class="w pzh">
@@ -1347,9 +1352,10 @@ main.pz{overflow-x:clip}
     new IntersectionObserver(function (es) { hv = es[0].isIntersecting; upd(); }).observe(hero); new IntersectionObserver(function (es) { bv = es[0].isIntersecting; upd(); }).observe(buy); if (dmo) new IntersectionObserver(function (es) { dv = es[0].isIntersecting; upd(); }, { threshold: .15 }).observe(dmo); }
   if (/[?&]abbruch=1/.test(location.search)) { var m0 = q('#fsmsg'); m0.textContent = 'Die Zahlung wurde abgebrochen. Sie können es jederzeit nochmal versuchen.'; m0.hidden = false; setTimeout(function () { buy.scrollIntoView({ block: 'center' }); }, 300); }
   var bt = q('#fsgo'), busy = 0;
+  ['#fsa', '#fsw'].forEach(function (id) { var c = q(id); if (c) c.addEventListener('change', function () { if (c.checked) c.closest('label').classList.remove('err', 'shk'); if (q('#fsa').checked && q('#fsw').checked) q('#fsmsg').hidden = true; }); });
   bt.onclick = function () {
     var m = q('#fsmsg'); m.hidden = true;
-    if (!q('#fsa').checked || !q('#fsw').checked) { m.textContent = 'Bitte bestätigen Sie kurz beide Kästchen über dem Knopf.'; m.hidden = false; return; }
+    if (!q('#fsa').checked || !q('#fsw').checked) { ['#fsa', '#fsw'].forEach(function (id) { var l = q(id).closest('label'); l.classList.remove('err', 'shk'); if (!q(id).checked) { void l.offsetWidth; l.classList.add('err', 'shk'); } }); m.textContent = 'Bitte bestätigen Sie die rot markierten Kästchen.'; m.hidden = false; var f = qa('.pzck2.err')[0]; if (f && f.getBoundingClientRect().top < 80) f.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     if (busy) return; busy = 1; bt.classList.add('wait');
     ev('Zur Zahlung geklickt', (PL === 'fp' ? 'Paket' : PL === 'fk' ? 'KI-Führerschein' : 'Internet-Führerschein') + ' · Klasse ' + S.g);
     try { localStorage.setItem('gsm-pend', JSON.stringify({ plan: PL, grade: +S.g })); } catch (e) {}
