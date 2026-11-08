@@ -110,7 +110,9 @@ const GS_EV = ['Seite geöffnet', 'Rechtstext geöffnet', 'Analyse erlaubt', 'An
   'Lobby geöffnet', 'Lobby verlassen', 'Lobby Tour', 'Lobby Spielen', 'Lobby Name gesetzt', 'Lobby Figur gewählt', 'Lobby Haustier gewählt', 'Lobby Beruf gewechselt', 'Lobby Bereich',
   'Lobby Aufgabe abgeholt', 'Lobby Einrichten geklickt', 'Lobby Fehler', 'Level erreicht', 'Zahlung abgebrochen', 'Tarif angetippt', 'Infoseite geöffnet', 'Probetest fertig',
   'Hausaufgaben-Spiel fertig', 'Fortschritt zurückgesetzt', 'Bildschirm', 'Abgesprungen', 'Eltern-Hinweis gezeigt', 'Eltern-Hinweis geklickt',
-  'Übungsseite geöffnet', 'Übung gestartet', 'Übung gelöst', 'Übung zur App', 'Arbeitsblatt gedruckt'];
+  'Übungsseite geöffnet', 'Übung gestartet', 'Übung gelöst', 'Übung zur App', 'Arbeitsblatt gedruckt',
+  'Testlektion gestartet', 'Testlektion Frage', 'Testlektion fertig', 'Bereich gesehen', 'Bestätigung fehlt', 'FAQ geöffnet', 'Testphase-Info geöffnet', 'Cookie-Banner gezeigt',
+  'Antrag geöffnet', 'Antrag ausgefüllt', 'E-Mail bestätigt', 'Kurs erstellt', 'Bewertung abgegeben', 'Führerschein bestanden'];
 function gsKennung(req) { const m = /(?:^|;\s*)gsm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
 function gsIntern(req) { return /(?:^|;\s*)gsm_intern=1(?:;|$)/.test(req.headers.get('cookie') || '') || /^amsterdam$/i.test(dek(req.headers.get('x-vercel-ip-city')).trim()); }
 function gsQuelle(url, ref) {
@@ -126,7 +128,7 @@ function gsMelden(d, req, ctx) {
   const id = gsKennung(req);
   d.sitzung = id;
   if (id) { d.stadt = kurz(dek(req.headers.get('x-vercel-ip-city')), 40); d.region = kurz(req.headers.get('x-vercel-ip-country-region'), 10); d.land = kurz(req.headers.get('x-vercel-ip-country'), 4); }
-  else { d.quelle = d.quelle === 'Facebook/Instagram Ads' ? d.quelle : ''; d.stadt = ''; d.region = ''; d.land = ''; }
+  else { d.quelle = /^(Facebook\/Instagram Ads|Google Ads)$/.test(d.quelle || '') ? d.quelle : ''; d.stadt = ''; d.region = ''; d.land = ''; }
   const p = fetch(GS_ZIEL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-gsm': 'mw1' }, body: JSON.stringify(d) }).catch(function () {});
   if (ctx && typeof ctx.waitUntil === 'function') { ctx.waitUntil(p); return null; }
   return p;
