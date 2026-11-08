@@ -222,6 +222,7 @@ export default async function middleware(req, ctx) {
     else if (pfad === '/ratgeber') { ziel = '/grundschulmax/ueben/rg-index.html'; }
     else if (/^\/ratgeber\/[a-z0-9-]{3,40}$/.test(pfad)) { const sl = pfad.slice(10); ziel = '/grundschulmax/ueben/rg-' + sl + '.html'; }
     else if (pfad === '/robots.txt' || pfad === '/sitemap.xml') ziel = '/grundschulmax' + pfad;
+    else if (/^\/google[0-9a-f]{16}$/.test(pfad)) ziel = '/grundschulmax' + pfad + '.html';   /* Search-Console-Bestätigung */
     else if (pfad === '/favicon.ico') ziel = '/grundschulmax/max-96.png';
     if (ziel) return new Response(null, { headers: { 'x-middleware-rewrite': new URL(ziel, url).toString() } });
     return weiter();
