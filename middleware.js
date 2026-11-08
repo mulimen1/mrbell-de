@@ -215,13 +215,12 @@ export default async function middleware(req, ctx) {
     else if (pfad === '/app') { ziel = '/grundschulmax/index.html'; /* Lern-App; Besuch zählt die Seite selbst (gt.js) */ }
     else if (pfad === '/zahlen') ziel = '/grundschulmax/zahlen.html';
     else if (/^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(pfad)) { ziel = '/grundschulmax/legal' + pfad + '.html'; gsSeite(req, ctx, url, { impressum: 'Impressum', datenschutz: 'Datenschutz', agb: 'AGB', widerruf: 'Widerruf', kuendigen: 'Kündigen', widerrufen: 'Widerrufen' }[pfad.slice(1)]); }
-    else if (pfad === '/ueben') { ziel = '/grundschulmax/ueben/index.html'; }
+    else if (pfad === '/ueben' || /^\/ueben\//.test(pfad)) { return Response.redirect(new URL((pfad === '/ueben/sicher-im-internet' ? '/' : '/ratgeber') + url.search + (pfad === '/ueben/sicher-im-internet' ? '#probe' : ''), url.origin).toString(), 301); /* alte Übungsseiten im alten Design: abgeschaltet */ }
     else if (pfad === '/internet-und-ki') { return Response.redirect(new URL('/' + url.search, url.origin).toString(), 301); /* alte Bit-Seite: jetzt der Führerschein (Anzeigen-Parameter bleiben erhalten) */ }
     else if (pfad === '/internet-fuehrerschein') { ziel = '/grundschulmax/ueben/internet-fuehrerschein.html'; }
     else if (/^\/(erstes-handy|kind-schuetzen|klassenchat|mediennutzungsvertrag|ki-fuer-kinder)$/.test(pfad)) { ziel = '/grundschulmax/ueben/fs-' + pfad.slice(1) + '.html'; /* Landingpages für Google Ads */ }
     else if (pfad === '/ratgeber') { ziel = '/grundschulmax/ueben/rg-index.html'; }
     else if (/^\/ratgeber\/[a-z0-9-]{3,40}$/.test(pfad)) { const sl = pfad.slice(10); ziel = '/grundschulmax/ueben/rg-' + sl + '.html'; }
-    else if (/^\/ueben\/(einmaleins|plus-minus|uhr-lesen|silben|sicher-im-internet)$/.test(pfad)) { const sl = pfad.slice(7); ziel = '/grundschulmax/ueben/' + sl + '.html'; }
     else if (pfad === '/robots.txt' || pfad === '/sitemap.xml') ziel = '/grundschulmax' + pfad;
     else if (pfad === '/favicon.ico') ziel = '/grundschulmax/max-96.png';
     if (ziel) return new Response(null, { headers: { 'x-middleware-rewrite': new URL(ziel, url).toString() } });
