@@ -216,7 +216,7 @@ export default async function middleware(req, ctx) {
     else if (pfad === '/zahlen') ziel = '/grundschulmax/zahlen.html';
     else if (/^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(pfad)) { ziel = '/grundschulmax/legal' + pfad + '.html'; gsSeite(req, ctx, url, { impressum: 'Impressum', datenschutz: 'Datenschutz', agb: 'AGB', widerruf: 'Widerruf', kuendigen: 'Kündigen', widerrufen: 'Widerrufen' }[pfad.slice(1)]); }
     else if (pfad === '/ueben') { ziel = '/grundschulmax/ueben/index.html'; }
-    else if (pfad === '/internet-und-ki') { ziel = '/grundschulmax/ueben/internet-und-ki.html'; }
+    else if (pfad === '/internet-und-ki') { return Response.redirect(new URL('/' + url.search, url.origin).toString(), 301); /* alte Bit-Seite: jetzt der Führerschein (Anzeigen-Parameter bleiben erhalten) */ }
     else if (pfad === '/internet-fuehrerschein') { ziel = '/grundschulmax/ueben/internet-fuehrerschein.html'; }
     else if (/^\/(erstes-handy|kind-schuetzen|klassenchat|mediennutzungsvertrag|ki-fuer-kinder)$/.test(pfad)) { ziel = '/grundschulmax/ueben/fs-' + pfad.slice(1) + '.html'; /* Landingpages für Google Ads */ }
     else if (pfad === '/ratgeber') { ziel = '/grundschulmax/ueben/rg-index.html'; }
