@@ -7082,6 +7082,29 @@ body.tryon .afab{display:none!important}
 .fxseg[data-one=alter],.fxseg[data-one=kl]{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));max-width:520px}
 .fxseg[data-one=kl]{grid-template-columns:repeat(6,minmax(0,1fr));max-width:450px}
 .fxseg[data-one=alter] button,.fxseg[data-one=kl] button{min-width:0;padding:12px 0}
+
+.fsv.fx li>i,.fxmini li>i,.fxbl li>i{flex:none}
+.fxu.fxauf[disabled]{cursor:default}.fxu.fxauf.ul .fxui{background:#f1eee8;color:#a3a7b3}
+.lesend .fxleet{animation:none!important;margin:0 auto 18px!important;width:auto!important;line-height:0}
+.lesend .fxleet .fx-lg{width:64px!important;height:64px!important}
+@media (max-height:720px){.lesend .fxleet{margin-bottom:10px!important}.lesend .fxleet .fx-lg{width:48px!important;height:48px!important}}
+
+/* Führerschein: ruhiges Ende einer Einheit statt Sterne und Konfetti */
+.les .lesend.fxend,.les:has(.lesfs.on) .lesend.fxend{background:#f7f4ef!important}
+.les:has(.fxend) .lestop{visibility:hidden}
+.lesend.fxend{align-items:safe center!important;--bg:#f7f4ef;--ink:#16181f;--mut:#585d6c;--ln:#e5dfd5;--nv:#1d2a57;--ac:#e5622a;--ok:#1f9d63;--gd:#e3c67a;z-index:40!important;background:var(--bg)!important;font-family:G,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);padding:24px 18px!important}
+.lesend.fxend::before,.lesend.fxend::after{display:none!important}
+.fxe{width:min(460px,100%);background:#fff;border:1px solid var(--ln);border-radius:26px;padding:30px 28px 26px;text-align:center;box-shadow:0 30px 60px -40px rgba(20,24,50,.45);animation:fxin .45s both}
+.fxeh{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:14px}.fxeh .fx-lg{width:52px;height:52px}.fxeh span{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--nv)}
+.fxe h3{margin:0;font-size:30px;line-height:1.1;letter-spacing:-.02em;color:var(--ink);text-shadow:none}.fxe p{margin:10px 0 0;color:var(--mut);font-size:16px;line-height:1.5}
+.fxenew{display:flex;align-items:center;gap:12px;margin:20px 0 0;padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,#1d2a57,#2c3c7a);color:#fff;text-align:left;animation:fxin .5s .35s both}
+.fxenew i{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#f3d58a,#c9a24a);color:#1d2a57}.fxenew i svg{width:16px;height:16px}
+.fxenew small{display:block;font-size:12px;font-weight:700;color:#c9cff0;letter-spacing:.02em}.fxenew b{display:block;font-size:17px;font-weight:700}
+.fxest{display:grid;grid-template-columns:repeat(3,1fr);margin:20px 0 0;border:1px solid var(--ln);border-radius:16px;overflow:hidden}.fxest div{padding:12px 6px}.fxest div+div{border-left:1px solid var(--ln)}.fxest b{display:block;white-space:nowrap;font-size:19px;font-weight:700;color:var(--ink)}.fxest small{display:block;margin-top:2px;font-size:12.5px;color:var(--mut)}
+.fxeb{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:22px}.fxeb .fxbtn{width:100%}.fxeb .fxbtn svg{width:18px;height:18px}
+.fxlnk{border:0;background:none;font:inherit;font-size:15px;font-weight:600;color:var(--mut);padding:10px 14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.fxlnk:hover{color:var(--ink)}
+@media (max-width:560px){.fxe{padding:24px 20px 20px;border-radius:22px}.fxe h3{font-size:26px}}
+@media (max-width:380px){.fxest b{font-size:17px}}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -7675,6 +7698,6 @@ body.tryon .afab{display:none!important}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-065d4c0f.js"></script>
+<script defer src="/grundschulmax/gjs/app-2373d8a6.js"></script>
 </body>
 </html>
