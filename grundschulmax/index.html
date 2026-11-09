@@ -7250,6 +7250,31 @@ body.fsvon #ov input:focus{border-color:#1d2a57;box-shadow:0 0 0 3px rgba(29,42,
 .les.fxl .lesmsg .lmi svg{width:18px!important;height:18px!important}
 .les.fxl .lhb.why{background:#f3f0ea!important;border:0!important}
 .les.fxl[data-state=ok] .lesbtn{animation:none!important}
+/* ---- Spiele im Führerschein (alte Spielwelten, eigene Musik, ohne Figur) ---- */
+body.gsmspiel .gstage.open{z-index:420!important}
+body.gsmspiel #stage .dmw,body.gsmspiel #stage .fcta{display:none!important}
+.fxu.fxsp{padding:8px 10px;margin:2px 0}
+.fxu.fxsp .fxui{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#fff3d6,#ffe1b8)!important;overflow:hidden}
+.fxu.fxsp .fxui img{width:24px;height:24px;object-fit:contain}
+.fxu.fxsp.ud .fxui{background:#e8f6ee!important;color:#1f9d63}
+.fxu.fxsp .fxut{display:flex;align-items:baseline;gap:8px;font-weight:600;color:#c2501c}
+.fxu.fxsp .fxut small{font-size:12px;font-weight:600;color:#a3a7b3}
+.fxu.fxsp.ul{opacity:.55;cursor:default}.fxu.fxsp.ul .fxut{color:#8a8f9c}
+.fxu.fxsp.uc{background:#fff7ec}
+.fxplay{margin:34px 0 10px}
+.fxplh{margin-bottom:16px}.fxplh h2{margin:4px 0 4px;font-size:26px;letter-spacing:-.02em;color:#16181f}.fxplh p{margin:0;color:var(--mut);font-size:15px}
+.fxpls{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.fxpl{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:190px;padding:14px;border:0;border-radius:20px;background:var(--bg) center/cover;color:#fff;text-align:left;font:inherit;cursor:pointer;overflow:hidden;box-shadow:0 18px 34px -22px rgba(16,22,48,.7);transition:transform .25s cubic-bezier(.3,.8,.3,1),box-shadow .25s}
+.fxpl::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,40,0) 30%,rgba(10,14,40,.82))}
+.fxpl:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 24px 40px -22px rgba(16,22,48,.8)}
+.fxplimg{position:relative;flex:1;align-self:center;display:grid;place-items:center}
+.fxplimg img{width:78px;height:78px;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(0,0,0,.35));transition:transform .3s}
+.fxpl:hover .fxplimg img{transform:scale(1.08) rotate(-3deg)}
+.fxpl b,.fxpl small{position:relative}
+.fxpl b{font-size:15.5px;font-weight:800;letter-spacing:-.01em}
+.fxpl small{font-size:12.5px;color:#d7dcf0;font-weight:600}
+@media(max-width:1000px){.fxpls{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.fxpls{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -14px;padding:4px 14px 10px;scrollbar-width:none}.fxpls::-webkit-scrollbar{display:none}.fxpl{flex:0 0 46%;scroll-snap-align:start;min-height:170px}}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -7843,6 +7868,6 @@ body.fsvon #ov input:focus{border-color:#1d2a57;box-shadow:0 0 0 3px rgba(29,42,
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-e61aadbb.js"></script>
+<script defer src="/grundschulmax/gjs/app-e2648547.js"></script>
 </body>
 </html>
